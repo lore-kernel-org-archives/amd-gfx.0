@@ -1,17 +1,17 @@
-From: "Wang, Qingqing" <Qingqing.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: =?utf-8?B?562U5aSNOiDnrZTlpI06IFtQQVRDSF0gZHJtL2FtZGdwdTogYWRqdXN0IGd0?=
- =?utf-8?Q?t_memory_size?=
-Date: Thu, 21 Jul 2016 11:15:06 +0000
-Message-ID: <SN1PR12MB051120166EEFC6A65C7BB795EC090@SN1PR12MB0511.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: =?UTF-8?B?UmU6IOetlOWkjTog562U5aSNOiBbUEFUQ0hdIGRybS9hbWRncHU6IGFk?=
+ =?UTF-8?Q?just_gtt_memory_size?=
+Date: Thu, 21 Jul 2016 13:48:17 +0200
+Message-ID: <324ba8e3-c296-2d74-0cb5-5d212a6f2d54@vodafone.de>
 References: <1469087199-20802-1-git-send-email-Qingqing.Wang@amd.com>
  <fe341676-48d3-a847-89b4-224f2ba4620e@vodafone.de>
- <SN1PR12MB0511612A271156A2EFC7B449EC090@SN1PR12MB0511.namprd12.prod.outlook.com>,
+ <SN1PR12MB0511612A271156A2EFC7B449EC090@SN1PR12MB0511.namprd12.prod.outlook.com>
  <cb3c1f87-f14f-dd6b-df69-26c12672c51f@vodafone.de>
+ <SN1PR12MB051120166EEFC6A65C7BB795EC090@SN1PR12MB0511.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1527178855=="
+Content-Type: multipart/mixed; boundary="===============1064815438=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <cb3c1f87-f14f-dd6b-df69-26c12672c51f-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Content-Language: zh-CN
+In-Reply-To: <SN1PR12MB051120166EEFC6A65C7BB795EC090-z7L1TMIYDg7GFhS5Ttmc/AdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,277 +22,494 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Wang, Qingqing" <Qingqing.Wang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1527178855==
-Content-Language: zh-CN
+This is a multi-part message in MIME format.
+--===============1064815438==
 Content-Type: multipart/alternative;
-	boundary="_000_SN1PR12MB051120166EEFC6A65C7BB795EC090SN1PR12MB0511namp_"
+ boundary="------------FDDACC45C437047C6976F225"
 
---_000_SN1PR12MB051120166EEFC6A65C7BB795EC090SN1PR12MB0511namp_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+This is a multi-part message in MIME format.
+--------------FDDACC45C437047C6976F225
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-QWN0dWFsbHkgdGhhdCBkaXNjdXNzaW9uIHdhcyBoZWxkIGxvbmcgYWdvIGludGVybmFsbHkgYnV0
-IHdlIG5ldmVyIGdvdCBhIGNvbmNsdXNpb24gb24gdGhpcyBJSVJDLiBTbyB3ZSBzaG91bGQgcHJv
-YmFibHkgY29udGludWUgdGhlIGRpc2N1c3Npb24gb24gdGhpcyB0aHJlYWQgbm93Lg0KDQotdGhl
-cmUgaXMgYSB0aHJlYWQgZm9yIHRoaXMgdG9waWMgeWVzdGVyZGF5LCBzb21lIHBlb3BsZSBhcmUg
-bm90IGluIGFtZC1nZnggbWFpbCBsaXN0LCB3ZSdkIGJldHRlciBkaXNjdXNzIGluIHRoZSBpbnRl
-cm5hbCB0aHJlYWQuDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQrlj5Hku7bk
-uro6IENocmlzdGlhbiBLw7ZuaWcgPGRlYXRoc2ltcGxlQHZvZGFmb25lLmRlPg0K5Y+R6YCB5pe2
-6Ze0OiAyMDE25bm0N+aciDIx5pelIDE3OjQ4OjQxDQrmlLbku7bkuro6IFdhbmcsIFFpbmdxaW5n
-OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0K5Li76aKYOiBSZTog562U5aSNOiBbUEFU
-Q0hdIGRybS9hbWRncHU6IGFkanVzdCBndHQgbWVtb3J5IHNpemUNCg0KQW0gMjEuMDcuMjAxNiB1
-bSAxMToxNiBzY2hyaWViIFdhbmcsIFFpbmdxaW5nOg0KDQpUaGlzIGRvZXNuJ3Qgd29yayBvbiAz
-MmJpdCBzeXN0ZW1zIHNpbmNlIHRvdGFscmFtIGlzIGEgbG9uZyAoSUlSQykgYW5kDQpzbyB0aGlz
-IHdpbGwgY2VydGFpbmx5IG92ZXJmbG93Lg0KDQotLSBjYW4geW91IGJlIG1vcmUgc3BlY2lmaWMs
-IGhvdyBjb3VsZCB0aGUgb3ZlcmZsb3cgaGFwcGVuPw0KDQpCb3RoIHZhbHVlcyBhcmUgMzJiaXQg
-b24gYSAzMmJpdCBzeXN0ZW0sIHNvIGFzIHNvb24gYXMgeW91IGhhdmUgbW9yZSB0aGFuIDRHQiBp
-bnN0YWxsZWQgdGhpcyB3aWxsIG92ZXJmbG93Lg0KDQpZb3UgbmVlZCB0byBjYXN0IHRoZSBsb25n
-IHRvIGEgNjRiaXQgdmFsdWUgdG8gYXZvaWQgdGhhdC4NCg0KDQoNCkFkZGl0aW9uYWwgaWYgSSBy
-ZW1lbWJlciBjb3JyZWN0bHkgd2UgZGlkbid0IGVuZGVkIHRoZSBkaXNjdXNzaW9uIG9uDQp3aGF0
-IHRvIGRvIGhlcmUgd2l0aCBhIGNvbmNsdXNpb24uDQoNCi0tIG9rLCBzaW5jZSBpdCBoYXBwZW5z
-IGluIGFudGhlciBtYWlsIGxpc3QsIHdlIHNob3VsZCBzdG9wIHRhbGtpbmcgYWJvdXQgaXQgaGVy
-ZSwgeW91IGNhbiBzZW5kIG91dCB5b3VyIGlkZWFzIHRoZXJlLg0KDQpBY3R1YWxseSB0aGF0IGRp
-c2N1c3Npb24gd2FzIGhlbGQgbG9uZyBhZ28gaW50ZXJuYWxseSBidXQgd2UgbmV2ZXIgZ290IGEg
-Y29uY2x1c2lvbiBvbiB0aGlzIElJUkMuIFNvIHdlIHNob3VsZCBwcm9iYWJseSBjb250aW51ZSB0
-aGUgZGlzY3Vzc2lvbiBvbiB0aGlzIHRocmVhZCBub3cuDQoNClJlZ2FyZHMsDQpDaHJpc3RpYW4u
-DQoNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCuWPkeS7tuS6ujogYW1kLWdm
-eCA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz48bWFpbHRvOmFtZC1nZngt
-Ym91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IOS7o+ihqCBDaHJpc3RpYW4gS8O2bmlnIDxk
-ZWF0aHNpbXBsZUB2b2RhZm9uZS5kZT48bWFpbHRvOmRlYXRoc2ltcGxlQHZvZGFmb25lLmRlPg0K
-5Y+R6YCB5pe26Ze0OiAyMDE25bm0N+aciDIx5pelIDE2OjUzOjA1DQrmlLbku7bkuro6IFdhbmcs
-IFFpbmdxaW5nOyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzxtYWlsdG86YW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmc+DQrkuLvpopg6IFJlOiBbUEFUQ0hdIGRybS9hbWRncHU6IGFk
-anVzdCBndHQgbWVtb3J5IHNpemUNCg0KQW0gMjEuMDcuMjAxNiB1bSAwOTo0NiBzY2hyaWViIEtl
-biBXYW5nOg0KPiBDaGFuZ2UtSWQ6IElmMDBkNWI5N2JhOWUzMGY5YjdmNjhmZGZjMTM0YTBmOGIz
-YWQyYWRkDQo+IFNpZ25lZC1vZmYtYnk6IEtlbiBXYW5nIDxRaW5ncWluZy5XYW5nQGFtZC5jb20+
-PG1haWx0bzpRaW5ncWluZy5XYW5nQGFtZC5jb20+DQo+IC0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2dtY192N18wLmMgfCA3ICsrKysrKy0NCj4gICBkcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9nbWNfdjhfMC5jIHwgNyArKysrKystDQo+ICAgMiBmaWxlcyBjaGFuZ2VkLCAx
-MiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQ0KPg0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y3XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2dtY192N18wLmMNCj4gaW5kZXggYTNiNjA0OC4uMGIwOTVkNSAxMDA2NDQNCj4gLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y3XzAuYw0KPiArKysgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9nbWNfdjdfMC5jDQo+IEBAIC0zMzYsNiArMzM2LDExIEBAIHN0YXRp
-YyBpbnQgZ21jX3Y3XzBfbWNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCj4gICB7
-DQo+ICAgICAgICB1MzIgdG1wOw0KPiAgICAgICAgaW50IGNoYW5zaXplLCBudW1jaGFuOw0KPiAr
-ICAgICB1NjQgc3lzbWVtX3NpemU7DQo+ICsgICAgIHN0cnVjdCBzeXNpbmZvIHNpOw0KPiArDQo+
-ICsgICAgIHNpX21lbWluZm8oJnNpKTsNCj4gKyAgICAgc3lzbWVtX3NpemUgPSBzaS50b3RhbHJh
-bSAqIHNpLm1lbV91bml0Ow0KDQpUaGlzIGRvZXNuJ3Qgd29yayBvbiAzMmJpdCBzeXN0ZW1zIHNp
-bmNlIHRvdGFscmFtIGlzIGEgbG9uZyAoSUlSQykgYW5kDQpzbyB0aGlzIHdpbGwgY2VydGFpbmx5
-IG92ZXJmbG93Lg0KDQpBZGRpdGlvbmFsIGlmIEkgcmVtZW1iZXIgY29ycmVjdGx5IHdlIGRpZG4n
-dCBlbmRlZCB0aGUgZGlzY3Vzc2lvbiBvbg0Kd2hhdCB0byBkbyBoZXJlIHdpdGggYSBjb25jbHVz
-aW9uLg0KDQpSZWdhcmRzLA0KQ2hyaXN0aWFuLg0KDQo+DQo+ICAgICAgICAvKiBHZXQgVlJBTSBp
-bmZvcm1hdGlvbnMgKi8NCj4gICAgICAgIHRtcCA9IFJSRUczMihtbU1DX0FSQl9SQU1DRkcpOw0K
-PiBAQCAtMzkyLDcgKzM5Nyw3IEBAIHN0YXRpYyBpbnQgZ21jX3Y3XzBfbWNfaW5pdChzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqYWRldikNCj4gICAgICAgICAqIHNpemUgZXF1YWwgdG8gdGhlIDEwMjQg
-b3IgdnJhbSwgd2hpY2hldmVyIGlzIGxhcmdlci4NCj4gICAgICAgICAqLw0KPiAgICAgICAgaWYg
-KGFtZGdwdV9nYXJ0X3NpemUgPT0gLTEpDQo+IC0gICAgICAgICAgICAgYWRldi0+bWMuZ3R0X3Np
-emUgPSBtYXgoKDEwMjRVTEwgPDwgMjApLCBhZGV2LT5tYy5tY192cmFtX3NpemUpOw0KPiArICAg
-ICAgICAgICAgIGFkZXYtPm1jLmd0dF9zaXplID0gbWF4KCgxMDI0VUxMIDw8IDIwKSwgbWluKGFk
-ZXYtPm1jLm1jX3ZyYW1fc2l6ZSwgc3lzbWVtX3NpemUvMikpOw0KPiAgICAgICAgZWxzZQ0KPiAg
-ICAgICAgICAgICAgICBhZGV2LT5tYy5ndHRfc2l6ZSA9ICh1aW50NjRfdClhbWRncHVfZ2FydF9z
-aXplIDw8IDIwOw0KPg0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-Z21jX3Y4XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMNCj4gaW5k
-ZXggMDJiNjg3Mi4uNzkwYmY3YSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvZ21jX3Y4XzAuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNf
-djhfMC5jDQo+IEBAIC00MTMsNiArNDEzLDExIEBAIHN0YXRpYyBpbnQgZ21jX3Y4XzBfbWNfaW5p
-dChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCj4gICB7DQo+ICAgICAgICB1MzIgdG1wOw0K
-PiAgICAgICAgaW50IGNoYW5zaXplLCBudW1jaGFuOw0KPiArICAgICB1NjQgc3lzbWVtX3NpemU7
-DQo+ICsgICAgIHN0cnVjdCBzeXNpbmZvIHNpOw0KPiArDQo+ICsgICAgIHNpX21lbWluZm8oJnNp
-KTsNCj4gKyAgICAgc3lzbWVtX3NpemUgPSBzaS50b3RhbHJhbSAqIHNpLm1lbV91bml0Ow0KPg0K
-PiAgICAgICAgLyogR2V0IFZSQU0gaW5mb3JtYXRpb25zICovDQo+ICAgICAgICB0bXAgPSBSUkVH
-MzIobW1NQ19BUkJfUkFNQ0ZHKTsNCj4gQEAgLTQ2OSw3ICs0NzQsNyBAQCBzdGF0aWMgaW50IGdt
-Y192OF8wX21jX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+ICAgICAgICAgKiBz
-aXplIGVxdWFsIHRvIHRoZSAxMDI0IG9yIHZyYW0sIHdoaWNoZXZlciBpcyBsYXJnZXIuDQo+ICAg
-ICAgICAgKi8NCj4gICAgICAgIGlmIChhbWRncHVfZ2FydF9zaXplID09IC0xKQ0KPiAtICAgICAg
-ICAgICAgIGFkZXYtPm1jLmd0dF9zaXplID0gbWF4KCgxMDI0VUxMIDw8IDIwKSwgYWRldi0+bWMu
-bWNfdnJhbV9zaXplKTsNCj4gKyAgICAgICAgICAgICBhZGV2LT5tYy5ndHRfc2l6ZSA9IG1heCgo
-MTAyNFVMTCA8PCAyMCksIG1pbihhZGV2LT5tYy5tY192cmFtX3NpemUsIHN5c21lbV9zaXplLzIp
-KTsNCj4gICAgICAgIGVsc2UNCj4gICAgICAgICAgICAgICAgYWRldi0+bWMuZ3R0X3NpemUgPSAo
-dWludDY0X3QpYW1kZ3B1X2dhcnRfc2l6ZSA8PCAyMDsNCj4NCg0KDQpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KYW1kLWdmeCBtYWlsaW5nIGxpc3QNCmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPG1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZz4NCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeA0KDQo=
+Am 21.07.2016 um 13:15 schrieb Wang, Qingqing:
+>
+> Actually that discussion was held long ago internally but we never got=20
+> a conclusion on this IIRC. So we should probably continue the=20
+> discussion on this thread now.
+>
+> -there is a thread for this topic yesterday, some people are not in=20
+> amd-gfx mail list, we'd better discuss in the internal thread.
+>
+No, exactly for this reason we have the public mailing list. I for=20
+example wasn't part of the internal thread either.
 
---_000_SN1PR12MB051120166EEFC6A65C7BB795EC090SN1PR12MB0511namp_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+Christian.
 
-PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
-dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyIgc3R5bGU9
-ImRpc3BsYXk6bm9uZTsiPjwhLS0gUCB7bWFyZ2luLXRvcDowO21hcmdpbi1ib3R0b206MDt9IC0t
-Pjwvc3R5bGU+DQo8L2hlYWQ+DQo8Ym9keSBkaXI9Imx0ciI+DQo8ZGl2IGlkPSJkaXZ0YWdkZWZh
-dWx0d3JhcHBlciIgc3R5bGU9ImZvbnQtc2l6ZToxMnB0O2NvbG9yOiMwMDAwMDA7YmFja2dyb3Vu
-ZC1jb2xvcjojRkZGRkZGO2ZvbnQtZmFtaWx5OkNhbGlicmksQXJpYWwsSGVsdmV0aWNhLHNhbnMt
-c2VyaWY7Ij4NCjxkaXYgaWQ9ImRpdnRhZ2RlZmF1bHR3cmFwcGVyIiBzdHlsZT0iZm9udC1zaXpl
-OjEycHQ7Y29sb3I6IzAwMDAwMDtiYWNrZ3JvdW5kLWNvbG9yOiNGRkZGRkY7Zm9udC1mYW1pbHk6
-Q2FsaWJyaSxBcmlhbCxIZWx2ZXRpY2Esc2Fucy1zZXJpZjsiPg0KPHA+PHNwYW4gc3R5bGU9ImNv
-bG9yOiByZ2IoMzMsIDMzLCAzMyk7IGZvbnQtc2l6ZTogMTVweDsiPkFjdHVhbGx5IHRoYXQgZGlz
-Y3Vzc2lvbiB3YXMgaGVsZCBsb25nIGFnbyBpbnRlcm5hbGx5IGJ1dCB3ZSBuZXZlciBnb3QgYSBj
-b25jbHVzaW9uIG9uIHRoaXMgSUlSQy4gU28gd2Ugc2hvdWxkIHByb2JhYmx5IGNvbnRpbnVlIHRo
-ZSBkaXNjdXNzaW9uIG9uIHRoaXMgdGhyZWFkIG5vdy48L3NwYW4+PGJyPg0KPC9wPg0KPHA+PGZv
-bnQgY29sb3I9IiMyMTIxMjEiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6IDE1cHg7Ij4tdGhlcmUg
-aXMgYSB0aHJlYWQgZm9yIHRoaXMgdG9waWMgeWVzdGVyZGF5LCBzb21lIHBlb3BsZSBhcmUgbm90
-IGluIGFtZC1nZnggbWFpbCBsaXN0LCB3ZSdkIGJldHRlciZuYnNwO2Rpc2N1c3MmbmJzcDtpbiB0
-aGUmbmJzcDtpbnRlcm5hbCZuYnNwO3RocmVhZC48L3NwYW4+PC9mb250PjwvcD4NCjwvZGl2Pg0K
-PGhyIHN0eWxlPSJkaXNwbGF5OmlubGluZS1ibG9jazt3aWR0aDo5OCUiIHRhYmluZGV4PSItMSI+
-DQo8ZGl2IGlkPSJkaXZScGx5RndkTXNnIiBkaXI9Imx0ciI+PGZvbnQgZmFjZT0iQ2FsaWJyaSwg
-c2Fucy1zZXJpZiIgc3R5bGU9ImZvbnQtc2l6ZToxMXB0IiBjb2xvcj0iIzAwMDAwMCI+PGI+5Y+R
-5Lu25Lq6OjwvYj4gQ2hyaXN0aWFuIEvDtm5pZyAmbHQ7ZGVhdGhzaW1wbGVAdm9kYWZvbmUuZGUm
-Z3Q7PGJyPg0KPGI+5Y+R6YCB5pe26Ze0OjwvYj4gMjAxNuW5tDfmnIgyMeaXpSAxNzo0ODo0MTxi
-cj4NCjxiPuaUtuS7tuS6ujo8L2I+IFdhbmcsIFFpbmdxaW5nOyBhbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZzxicj4NCjxiPuS4u+mimDo8L2I+IFJlOiDnrZTlpI06IFtQQVRDSF0gZHJtL2Ft
-ZGdwdTogYWRqdXN0IGd0dCBtZW1vcnkgc2l6ZTwvZm9udD4NCjxkaXY+Jm5ic3A7PC9kaXY+DQo8
-L2Rpdj4NCjxkaXY+DQo8ZGl2IGNsYXNzPSJtb3otY2l0ZS1wcmVmaXgiPkFtIDIxLjA3LjIwMTYg
-dW0gMTE6MTYgc2NocmllYiBXYW5nLCBRaW5ncWluZzo8YnI+DQo8L2Rpdj4NCjxibG9ja3F1b3Rl
-IGNpdGU9Im1pZDpTTjFQUjEyTUIwNTExNjEyQTI3MTE1NkEyRUZDN0I0NDlFQzA5MEBTTjFQUjEy
-TUIwNTExLm5hbXByZDEyLnByb2Qub3V0bG9vay5jb20iIHR5cGU9ImNpdGUiPg0KPG1ldGEgbmFt
-ZT0iR2VuZXJhdG9yIiBjb250ZW50PSJNaWNyb3NvZnQgRXhjaGFuZ2UgU2VydmVyIj4NCjwhLS0g
-Y29udmVydGVkIGZyb20gdGV4dCAtLT4NCjxtZXRhIGNvbnRlbnQ9InRleHQvaHRtbDsgY2hhcnNl
-dD1VVEYtOCI+DQo8ZGl2IGRpcj0ibHRyIj4NCjxkaXYgaWQ9InhfZGl2dGFnZGVmYXVsdHdyYXBw
-ZXIiIHN0eWxlPSJmb250LXNpemU6MTJwdDsKICAgICAgICAgIGNvbG9yOiMwMDAwMDA7IGJhY2tn
-cm91bmQtY29sb3I6I0ZGRkZGRjsKICAgICAgICAgIGZvbnQtZmFtaWx5OkNhbGlicmksQXJpYWws
-SGVsdmV0aWNhLHNhbnMtc2VyaWYiPg0KPHA+PGZvbnQgc2l6ZT0iMiI+PHNwYW4gc3R5bGU9ImZv
-bnQtc2l6ZToxMHB0Ij5UaGlzIGRvZXNuJ3Qgd29yayBvbiAzMmJpdCBzeXN0ZW1zIHNpbmNlIHRv
-dGFscmFtIGlzIGEgbG9uZyAoSUlSQykgYW5kDQo8YnI+DQpzbyB0aGlzIHdpbGwgY2VydGFpbmx5
-IG92ZXJmbG93Ljwvc3Bhbj48L2ZvbnQ+PC9wPg0KPHA+LS0gY2FuIHlvdSBiZSBtb3JlIHNwZWNp
-ZmljLCBob3cgY291bGQgdGhlIG92ZXJmbG93IGhhcHBlbj88L3A+DQo8L2Rpdj4NCjwvZGl2Pg0K
-PC9ibG9ja3F1b3RlPg0KPGJyPg0KQm90aCB2YWx1ZXMgYXJlIDMyYml0IG9uIGEgMzJiaXQgc3lz
-dGVtLCBzbyBhcyBzb29uIGFzIHlvdSBoYXZlIG1vcmUgdGhhbiA0R0IgaW5zdGFsbGVkIHRoaXMg
-d2lsbCBvdmVyZmxvdy48YnI+DQo8YnI+DQpZb3UgbmVlZCB0byBjYXN0IHRoZSBsb25nIHRvIGEg
-NjRiaXQgdmFsdWUgdG8gYXZvaWQgdGhhdC48YnI+DQo8YnI+DQo8YmxvY2txdW90ZSBjaXRlPSJt
-aWQ6U04xUFIxMk1CMDUxMTYxMkEyNzExNTZBMkVGQzdCNDQ5RUMwOTBAU04xUFIxMk1CMDUxMS5u
-YW1wcmQxMi5wcm9kLm91dGxvb2suY29tIiB0eXBlPSJjaXRlIj4NCjxkaXYgZGlyPSJsdHIiPg0K
-PGRpdiBpZD0ieF9kaXZ0YWdkZWZhdWx0d3JhcHBlciIgc3R5bGU9ImZvbnQtc2l6ZToxMnB0Owog
-ICAgICAgICAgY29sb3I6IzAwMDAwMDsgYmFja2dyb3VuZC1jb2xvcjojRkZGRkZGOwogICAgICAg
-ICAgZm9udC1mYW1pbHk6Q2FsaWJyaSxBcmlhbCxIZWx2ZXRpY2Esc2Fucy1zZXJpZiI+DQo8cD48
-YnI+DQo8L3A+DQo8cD48Zm9udCBzaXplPSIyIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwcHQi
-PkFkZGl0aW9uYWwgaWYgSSByZW1lbWJlciBjb3JyZWN0bHkgd2UgZGlkbid0IGVuZGVkIHRoZSBk
-aXNjdXNzaW9uIG9uDQo8YnI+DQp3aGF0IHRvIGRvIGhlcmUgd2l0aCBhIGNvbmNsdXNpb24uPC9z
-cGFuPjwvZm9udD48L3A+DQo8cD4tLSBvaywgc2luY2UgaXQgaGFwcGVucyBpbiBhbnRoZXIgbWFp
-bCBsaXN0LCB3ZSBzaG91bGQgc3RvcCB0YWxraW5nIGFib3V0IGl0IGhlcmUsIHlvdSBjYW4gc2Vu
-ZCBvdXQgeW91ciBpZGVhcyB0aGVyZS48YnI+DQo8L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9ibG9j
-a3F1b3RlPg0KPGJyPg0KQWN0dWFsbHkgdGhhdCBkaXNjdXNzaW9uIHdhcyBoZWxkIGxvbmcgYWdv
-IGludGVybmFsbHkgYnV0IHdlIG5ldmVyIGdvdCBhIGNvbmNsdXNpb24gb24gdGhpcyBJSVJDLiBT
-byB3ZSBzaG91bGQgcHJvYmFibHkgY29udGludWUgdGhlIGRpc2N1c3Npb24gb24gdGhpcyB0aHJl
-YWQgbm93Ljxicj4NCjxicj4NClJlZ2FyZHMsPGJyPg0KQ2hyaXN0aWFuLjxicj4NCjxicj4NCjxi
-bG9ja3F1b3RlIGNpdGU9Im1pZDpTTjFQUjEyTUIwNTExNjEyQTI3MTE1NkEyRUZDN0I0NDlFQzA5
-MEBTTjFQUjEyTUIwNTExLm5hbXByZDEyLnByb2Qub3V0bG9vay5jb20iIHR5cGU9ImNpdGUiPg0K
-PGRpdiBkaXI9Imx0ciI+DQo8ZGl2IGlkPSJ4X2RpdnRhZ2RlZmF1bHR3cmFwcGVyIiBzdHlsZT0i
-Zm9udC1zaXplOjEycHQ7CiAgICAgICAgICBjb2xvcjojMDAwMDAwOyBiYWNrZ3JvdW5kLWNvbG9y
-OiNGRkZGRkY7CiAgICAgICAgICBmb250LWZhbWlseTpDYWxpYnJpLEFyaWFsLEhlbHZldGljYSxz
-YW5zLXNlcmlmIj4NCjxwPjwvcD4NCjwvZGl2Pg0KPGhyIHRhYmluZGV4PSItMSIgc3R5bGU9ImRp
-c3BsYXk6aW5saW5lLWJsb2NrOyB3aWR0aDo5OCUiPg0KPGRpdiBpZD0ieF9kaXZScGx5RndkTXNn
-IiBkaXI9Imx0ciI+PGZvbnQgc3R5bGU9ImZvbnQtc2l6ZToxMXB0IiBjb2xvcj0iIzAwMDAwMCIg
-ZmFjZT0iQ2FsaWJyaSwgc2Fucy1zZXJpZiI+PGI+5Y+R5Lu25Lq6OjwvYj4gYW1kLWdmeA0KPGEg
-Y2xhc3M9Im1vei10eHQtbGluay1yZmMyMzk2RSIgaHJlZj0ibWFpbHRvOmFtZC1nZngtYm91bmNl
-c0BsaXN0cy5mcmVlZGVza3RvcC5vcmciPg0KJmx0O2FtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcmZ3Q7PC9hPiDku6PooaggQ2hyaXN0aWFuIEvDtm5pZyA8YSBjbGFzcz0ibW96
-LXR4dC1saW5rLXJmYzIzOTZFIiBocmVmPSJtYWlsdG86ZGVhdGhzaW1wbGVAdm9kYWZvbmUuZGUi
-Pg0KJmx0O2RlYXRoc2ltcGxlQHZvZGFmb25lLmRlJmd0OzwvYT48YnI+DQo8Yj7lj5HpgIHml7bp
-l7Q6PC9iPiAyMDE25bm0N+aciDIx5pelIDE2OjUzOjA1PGJyPg0KPGI+5pS25Lu25Lq6OjwvYj4g
-V2FuZywgUWluZ3Fpbmc7IDxhIGNsYXNzPSJtb3otdHh0LWxpbmstYWJicmV2aWF0ZWQiIGhyZWY9
-Im1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyI+DQphbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZzwvYT48YnI+DQo8Yj7kuLvpopg6PC9iPiBSZTogW1BBVENIXSBkcm0vYW1k
-Z3B1OiBhZGp1c3QgZ3R0IG1lbW9yeSBzaXplPC9mb250Pg0KPGRpdj4mbmJzcDs8L2Rpdj4NCjwv
-ZGl2Pg0KPC9kaXY+DQo8Zm9udCBzaXplPSIyIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwcHQ7
-Ij4NCjxkaXYgY2xhc3M9IlBsYWluVGV4dCI+QW0gMjEuMDcuMjAxNiB1bSAwOTo0NiBzY2hyaWVi
-IEtlbiBXYW5nOjxicj4NCiZndDsgQ2hhbmdlLUlkOiBJZjAwZDViOTdiYTllMzBmOWI3ZjY4ZmRm
-YzEzNGEwZjhiM2FkMmFkZDxicj4NCiZndDsgU2lnbmVkLW9mZi1ieTogS2VuIFdhbmcgPGEgY2xh
-c3M9Im1vei10eHQtbGluay1yZmMyMzk2RSIgaHJlZj0ibWFpbHRvOlFpbmdxaW5nLldhbmdAYW1k
-LmNvbSI+DQombHQ7UWluZ3FpbmcuV2FuZ0BhbWQuY29tJmd0OzwvYT48YnI+DQomZ3Q7IC0tLTxi
-cj4NCiZndDsmbmJzcDsmbmJzcDsgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y3XzAu
-YyB8IDcgJiM0MzsmIzQzOyYjNDM7JiM0MzsmIzQzOyYjNDM7LTxicj4NCiZndDsmbmJzcDsmbmJz
-cDsgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y4XzAuYyB8IDcgJiM0MzsmIzQzOyYj
-NDM7JiM0MzsmIzQzOyYjNDM7LTxicj4NCiZndDsmbmJzcDsmbmJzcDsgMiBmaWxlcyBjaGFuZ2Vk
-LCAxMiBpbnNlcnRpb25zKCYjNDM7KSwgMiBkZWxldGlvbnMoLSk8YnI+DQomZ3Q7PGJyPg0KJmd0
-OyBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y3XzAuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192N18wLmM8YnI+DQomZ3Q7IGluZGV4IGEzYjYw
-NDguLjBiMDk1ZDUgMTAwNjQ0PGJyPg0KJmd0OyAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9nbWNfdjdfMC5jPGJyPg0KJmd0OyAmIzQzOyYjNDM7JiM0MzsgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9nbWNfdjdfMC5jPGJyPg0KJmd0OyBAQCAtMzM2LDYgJiM0MzszMzYsMTEg
-QEAgc3RhdGljIGludCBnbWNfdjdfMF9tY19pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-KTxicj4NCiZndDsmbmJzcDsmbmJzcDsgezxicj4NCiZndDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsmbmJzcDsgdTMyIHRtcDs8YnI+DQomZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGludCBjaGFuc2l6ZSwgbnVtY2hhbjs8YnI+DQomZ3Q7
-ICYjNDM7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHU2NCBzeXNtZW1fc2l6ZTs8YnI+DQomZ3Q7
-ICYjNDM7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHN0cnVjdCBzeXNpbmZvIHNpOzxicj4NCiZn
-dDsgJiM0Mzs8YnI+DQomZ3Q7ICYjNDM7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHNpX21lbWlu
-Zm8oJmFtcDtzaSk7PGJyPg0KJmd0OyAmIzQzOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBzeXNt
-ZW1fc2l6ZSA9IHNpLnRvdGFscmFtICogc2kubWVtX3VuaXQ7PGJyPg0KPGJyPg0KVGhpcyBkb2Vz
-bid0IHdvcmsgb24gMzJiaXQgc3lzdGVtcyBzaW5jZSB0b3RhbHJhbSBpcyBhIGxvbmcgKElJUkMp
-IGFuZCA8YnI+DQpzbyB0aGlzIHdpbGwgY2VydGFpbmx5IG92ZXJmbG93Ljxicj4NCjxicj4NCkFk
-ZGl0aW9uYWwgaWYgSSByZW1lbWJlciBjb3JyZWN0bHkgd2UgZGlkbid0IGVuZGVkIHRoZSBkaXNj
-dXNzaW9uIG9uIDxicj4NCndoYXQgdG8gZG8gaGVyZSB3aXRoIGEgY29uY2x1c2lvbi48YnI+DQo8
-YnI+DQpSZWdhcmRzLDxicj4NCkNocmlzdGlhbi48YnI+DQo8YnI+DQomZ3Q7Jm5ic3A7Jm5ic3A7
-IDxicj4NCiZndDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgLyog
-R2V0IFZSQU0gaW5mb3JtYXRpb25zICovPGJyPg0KJmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyB0bXAgPSBSUkVHMzIobW1NQ19BUkJfUkFNQ0ZHKTs8YnI+DQom
-Z3Q7IEBAIC0zOTIsNyAmIzQzOzM5Nyw3IEBAIHN0YXRpYyBpbnQgZ21jX3Y3XzBfbWNfaW5pdChz
-dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik8YnI+DQomZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7ICogc2l6ZSBlcXVhbCB0byB0aGUgMTAyNCBvciB2
-cmFtLCB3aGljaGV2ZXIgaXMgbGFyZ2VyLjxicj4NCiZndDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgKi88YnI+DQomZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGlmIChhbWRncHVfZ2FydF9zaXplID09IC0xKTxicj4N
-CiZndDsgLSZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBhZGV2LSZndDttYy5ndHRfc2l6ZSA9IG1heCgoMTAyNFVM
-TCAmbHQ7Jmx0OyAyMCksIGFkZXYtJmd0O21jLm1jX3ZyYW1fc2l6ZSk7PGJyPg0KJmd0OyAmIzQz
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyBhZGV2LSZndDttYy5ndHRfc2l6ZSA9IG1heCgoMTAyNFVMTCAmbHQ7
-Jmx0OyAyMCksIG1pbihhZGV2LSZndDttYy5tY192cmFtX3NpemUsIHN5c21lbV9zaXplLzIpKTs8
-YnI+DQomZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGVsc2U8
-YnI+DQomZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGFkZXYtJmd0O21jLmd0
-dF9zaXplID0gKHVpbnQ2NF90KWFtZGdwdV9nYXJ0X3NpemUgJmx0OyZsdDsgMjA7PGJyPg0KJmd0
-OyZuYnNwOyZuYnNwOyA8YnI+DQomZ3Q7IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9nbWNfdjhfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y4XzAu
-Yzxicj4NCiZndDsgaW5kZXggMDJiNjg3Mi4uNzkwYmY3YSAxMDA2NDQ8YnI+DQomZ3Q7IC0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmM8YnI+DQomZ3Q7ICYjNDM7JiM0
-MzsmIzQzOyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmM8YnI+DQomZ3Q7
-IEBAIC00MTMsNiAmIzQzOzQxMywxMSBAQCBzdGF0aWMgaW50IGdtY192OF8wX21jX2luaXQoc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpPGJyPg0KJmd0OyZuYnNwOyZuYnNwOyB7PGJyPg0KJmd0
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB1MzIgdG1wOzxicj4N
-CiZndDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgaW50IGNoYW5z
-aXplLCBudW1jaGFuOzxicj4NCiZndDsgJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgdTY0
-IHN5c21lbV9zaXplOzxicj4NCiZndDsgJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgc3Ry
-dWN0IHN5c2luZm8gc2k7PGJyPg0KJmd0OyAmIzQzOzxicj4NCiZndDsgJiM0MzsmbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsgc2lfbWVtaW5mbygmYW1wO3NpKTs8YnI+DQomZ3Q7ICYjNDM7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7IHN5c21lbV9zaXplID0gc2kudG90YWxyYW0gKiBzaS5tZW1fdW5p
-dDs8YnI+DQomZ3Q7Jm5ic3A7Jm5ic3A7IDxicj4NCiZndDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsmbmJzcDsgLyogR2V0IFZSQU0gaW5mb3JtYXRpb25zICovPGJyPg0KJmd0
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB0bXAgPSBSUkVHMzIo
-bW1NQ19BUkJfUkFNQ0ZHKTs8YnI+DQomZ3Q7IEBAIC00NjksNyAmIzQzOzQ3NCw3IEBAIHN0YXRp
-YyBpbnQgZ21jX3Y4XzBfbWNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik8YnI+DQom
-Z3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7ICogc2l6
-ZSBlcXVhbCB0byB0aGUgMTAyNCBvciB2cmFtLCB3aGljaGV2ZXIgaXMgbGFyZ2VyLjxicj4NCiZn
-dDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgKi88YnI+
-DQomZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGlmIChhbWRn
-cHVfZ2FydF9zaXplID09IC0xKTxicj4NCiZndDsgLSZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBhZGV2LSZndDtt
-Yy5ndHRfc2l6ZSA9IG1heCgoMTAyNFVMTCAmbHQ7Jmx0OyAyMCksIGFkZXYtJmd0O21jLm1jX3Zy
-YW1fc2l6ZSk7PGJyPg0KJmd0OyAmIzQzOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBhZGV2LSZndDttYy5ndHRf
-c2l6ZSA9IG1heCgoMTAyNFVMTCAmbHQ7Jmx0OyAyMCksIG1pbihhZGV2LSZndDttYy5tY192cmFt
-X3NpemUsIHN5c21lbV9zaXplLzIpKTs8YnI+DQomZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7IGVsc2U8YnI+DQomZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7IGFkZXYtJmd0O21jLmd0dF9zaXplID0gKHVpbnQ2NF90KWFtZGdwdV9nYXJ0X3Np
-emUgJmx0OyZsdDsgMjA7PGJyPg0KJmd0OyZuYnNwOyZuYnNwOyA8YnI+DQo8YnI+DQo8YnI+DQpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXzxicj4NCmFtZC1n
-ZnggbWFpbGluZyBsaXN0PGJyPg0KPGEgY2xhc3M9Im1vei10eHQtbGluay1hYmJyZXZpYXRlZCIg
-aHJlZj0ibWFpbHRvOmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnIj5hbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZzwvYT48YnI+DQo8YSBtb3otZG8tbm90LXNlbmQ9InRydWUiIGhyZWY9
-Imh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeCI+
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4PC9h
-Pjxicj4NCjwvZGl2Pg0KPC9zcGFuPjwvZm9udD48L2Jsb2NrcXVvdGU+DQo8cD48YnI+DQo8L3A+
-DQo8L2Rpdj4NCjwvZGl2Pg0KPC9ib2R5Pg0KPC9odG1sPg0K
+> -----------------------------------------------------------------------=
+-
+> *=E5=8F=91=E4=BB=B6=E4=BA=BA:* Christian K=C3=B6nig <deathsimple@vodafo=
+ne.de>
+> *=E5=8F=91=E9=80=81=E6=97=B6=E9=97=B4:* 2016=E5=B9=B47=E6=9C=8821=E6=97=
+=A5 17:48:41
+> *=E6=94=B6=E4=BB=B6=E4=BA=BA:* Wang, Qingqing; amd-gfx-PD4FTy7X32lNgt0PjOBp9w@public.gmane.org=
+p.org
+> *=E4=B8=BB=E9=A2=98:* Re: =E7=AD=94=E5=A4=8D: [PATCH] drm/amdgpu: adjus=
+t gtt memory size
+> Am 21.07.2016 um 11:16 schrieb Wang, Qingqing:
+>>
+>> This doesn't work on 32bit systems since totalram is a long (IIRC) and
+>> so this will certainly overflow.
+>>
+>> -- can you be more specific, how could the overflow happen?
+>>
+>
+> Both values are 32bit on a 32bit system, so as soon as you have more=20
+> than 4GB installed this will overflow.
+>
+> You need to cast the long to a 64bit value to avoid that.
+>
+>>
+>> Additional if I remember correctly we didn't ended the discussion on
+>> what to do here with a conclusion.
+>>
+>> -- ok, since it happens in anther mail list, we should stop talking=20
+>> about it here, you can send out your ideas there.
+>>
+>
+> Actually that discussion was held long ago internally but we never got=20
+> a conclusion on this IIRC. So we should probably continue the=20
+> discussion on this thread now.
+>
+> Regards,
+> Christian.
+>
+>> ----------------------------------------------------------------------=
+--
+>> *=E5=8F=91=E4=BB=B6=E4=BA=BA:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
+top.org> =E4=BB=A3=E8=A1=A8 Christian=20
+>> K=C3=B6nig <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+>> *=E5=8F=91=E9=80=81=E6=97=B6=E9=97=B4:* 2016=E5=B9=B47=E6=9C=8821=E6=97=
+=A5 16:53:05
+>> *=E6=94=B6=E4=BB=B6=E4=BA=BA:* Wang, Qingqing; amd-gfx-PD4FTy7X32nrcLQh/DF6ew@public.gmane.org=
+op.org
+>> *=E4=B8=BB=E9=A2=98:* Re: [PATCH] drm/amdgpu: adjust gtt memory size
+>> Am 21.07.2016 um 09:46 schrieb Ken Wang:
+>> > Change-Id: If00d5b97ba9e30f9b7f68fdfc134a0f8b3ad2add
+>> > Signed-off-by: Ken Wang <Qingqing.Wang-5C7GfCeVMHo@public.gmane.org>
+>> > ---
+>> >   drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c | 7 ++++++-
+>> >   drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c | 7 ++++++-
+>> >   2 files changed, 12 insertions(+), 2 deletions(-)
+>> >
+>> > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c=20
+>> b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+>> > index a3b6048..0b095d5 100644
+>> > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+>> > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+>> > @@ -336,6 +336,11 @@ static int gmc_v7_0_mc_init(struct=20
+>> amdgpu_device *adev)
+>> >   {
+>> >        u32 tmp;
+>> >        int chansize, numchan;
+>> > +     u64 sysmem_size;
+>> > +     struct sysinfo si;
+>> > +
+>> > +     si_meminfo(&si);
+>> > +     sysmem_size =3D si.totalram * si.mem_unit;
+>>
+>> This doesn't work on 32bit systems since totalram is a long (IIRC) and
+>> so this will certainly overflow.
+>>
+>> Additional if I remember correctly we didn't ended the discussion on
+>> what to do here with a conclusion.
+>>
+>> Regards,
+>> Christian.
+>>
+>> >
+>> >        /* Get VRAM informations */
+>> >        tmp =3D RREG32(mmMC_ARB_RAMCFG);
+>> > @@ -392,7 +397,7 @@ static int gmc_v7_0_mc_init(struct=20
+>> amdgpu_device *adev)
+>> >         * size equal to the 1024 or vram, whichever is larger.
+>> >         */
+>> >        if (amdgpu_gart_size =3D=3D -1)
+>> > -             adev->mc.gtt_size =3D max((1024ULL << 20),=20
+>> adev->mc.mc_vram_size);
+>> > +             adev->mc.gtt_size =3D max((1024ULL << 20),=20
+>> min(adev->mc.mc_vram_size, sysmem_size/2));
+>> >        else
+>> >                adev->mc.gtt_size =3D (uint64_t)amdgpu_gart_size << 2=
+0;
+>> >
+>> > diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c=20
+>> b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+>> > index 02b6872..790bf7a 100644
+>> > --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+>> > +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+>> > @@ -413,6 +413,11 @@ static int gmc_v8_0_mc_init(struct=20
+>> amdgpu_device *adev)
+>> >   {
+>> >        u32 tmp;
+>> >        int chansize, numchan;
+>> > +     u64 sysmem_size;
+>> > +     struct sysinfo si;
+>> > +
+>> > +     si_meminfo(&si);
+>> > +     sysmem_size =3D si.totalram * si.mem_unit;
+>> >
+>> >        /* Get VRAM informations */
+>> >        tmp =3D RREG32(mmMC_ARB_RAMCFG);
+>> > @@ -469,7 +474,7 @@ static int gmc_v8_0_mc_init(struct=20
+>> amdgpu_device *adev)
+>> >         * size equal to the 1024 or vram, whichever is larger.
+>> >         */
+>> >        if (amdgpu_gart_size =3D=3D -1)
+>> > -             adev->mc.gtt_size =3D max((1024ULL << 20),=20
+>> adev->mc.mc_vram_size);
+>> > +             adev->mc.gtt_size =3D max((1024ULL << 20),=20
+>> min(adev->mc.mc_vram_size, sysmem_size/2));
+>> >        else
+>> >                adev->mc.gtt_size =3D (uint64_t)amdgpu_gart_size << 2=
+0;
+>> >
+>>
+>>
+>> _______________________________________________
+>> amd-gfx mailing list
+>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+>
 
---_000_SN1PR12MB051120166EEFC6A65C7BB795EC090SN1PR12MB0511namp_--
 
---===============1527178855==
+--------------FDDACC45C437047C6976F225
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+  <head>
+    <meta content=3D"text/html; charset=3Dutf-8" http-equiv=3D"Content-Ty=
+pe">
+  </head>
+  <body text=3D"#000000" bgcolor=3D"#FFFFFF">
+    <div class=3D"moz-cite-prefix">Am 21.07.2016 um 13:15 schrieb Wang,
+      Qingqing:<br>
+    </div>
+    <blockquote
+cite=3D"mid:SN1PR12MB051120166EEFC6A65C7BB795EC090-z7L1TMIYDg7GFhS5Ttmc/L2jyFyIFlFv@public.gmane.org=
+.prod.outlook.com"
+      type=3D"cite">
+      <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Du=
+tf-8">
+      <style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top=
+:0;margin-bottom:0;} --></style>
+      <div id=3D"divtagdefaultwrapper"
+style=3D"font-size:12pt;color:#000000;background-color:#FFFFFF;font-famil=
+y:Calibri,Arial,Helvetica,sans-serif;">
+        <div id=3D"divtagdefaultwrapper"
+style=3D"font-size:12pt;color:#000000;background-color:#FFFFFF;font-famil=
+y:Calibri,Arial,Helvetica,sans-serif;">
+          <p><span style=3D"color: rgb(33, 33, 33); font-size: 15px;">Act=
+ually
+              that discussion was held long ago internally but we never
+              got a conclusion on this IIRC. So we should probably
+              continue the discussion on this thread now.</span><br>
+          </p>
+          <p><font color=3D"#212121"><span style=3D"font-size: 15px;">-th=
+ere
+                is a thread for this topic yesterday, some people are
+                not in amd-gfx mail list, we'd better=C2=A0discuss=C2=A0i=
+n
+                the=C2=A0internal=C2=A0thread.</span></font></p>
+        </div>
+      </div>
+    </blockquote>
+    No, exactly for this reason we have the public mailing list. I for
+    example wasn't part of the internal thread either.<br>
+    <br>
+    Christian.<br>
+    <br>
+    <blockquote
+cite=3D"mid:SN1PR12MB051120166EEFC6A65C7BB795EC090-z7L1TMIYDg7GFhS5Ttmc/L2jyFyIFlFv@public.gmane.org=
+.prod.outlook.com"
+      type=3D"cite">
+      <div id=3D"divtagdefaultwrapper"
+style=3D"font-size:12pt;color:#000000;background-color:#FFFFFF;font-famil=
+y:Calibri,Arial,Helvetica,sans-serif;">
+        <div id=3D"divtagdefaultwrapper"
+style=3D"font-size:12pt;color:#000000;background-color:#FFFFFF;font-famil=
+y:Calibri,Arial,Helvetica,sans-serif;"></div>
+        <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+        <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11=
+pt"
+            color=3D"#000000" face=3D"Calibri, sans-serif"><b>=E5=8F=91=E4=
+=BB=B6=E4=BA=BA:</b>
+            Christian K=C3=B6nig <a class=3D"moz-txt-link-rfc2396E" href=3D=
+"mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">&lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;</a><br>
+            <b>=E5=8F=91=E9=80=81=E6=97=B6=E9=97=B4:</b> 2016=E5=B9=B47=E6=
+=9C=8821=E6=97=A5 17:48:41<br>
+            <b>=E6=94=B6=E4=BB=B6=E4=BA=BA:</b> Wang, Qingqing; <a class=3D=
+"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">=
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+            <b>=E4=B8=BB=E9=A2=98:</b> Re: =E7=AD=94=E5=A4=8D: [PATCH] dr=
+m/amdgpu: adjust gtt memory
+            size</font>
+          <div>=C2=A0</div>
+        </div>
+        <div>
+          <div class=3D"moz-cite-prefix">Am 21.07.2016 um 11:16 schrieb
+            Wang, Qingqing:<br>
+          </div>
+          <blockquote
+cite=3D"mid:SN1PR12MB0511612A271156A2EFC7B449EC090-z7L1TMIYDg7GFhS5Ttmc/L2jyFyIFlFv@public.gmane.org=
+.prod.outlook.com"
+            type=3D"cite">
+            <meta name=3D"Generator" content=3D"Microsoft Exchange Server=
+">
+            <!-- converted from text -->
+            <meta content=3D"text/html; charset=3DUTF-8">
+            <div dir=3D"ltr">
+              <div id=3D"x_divtagdefaultwrapper" style=3D"font-size:12pt;
+                color:#000000; background-color:#FFFFFF;
+                font-family:Calibri,Arial,Helvetica,sans-serif">
+                <p><font size=3D"2"><span style=3D"font-size:10pt">This
+                      doesn't work on 32bit systems since totalram is a
+                      long (IIRC) and
+                      <br>
+                      so this will certainly overflow.</span></font></p>
+                <p>-- can you be more specific, how could the overflow
+                  happen?</p>
+              </div>
+            </div>
+          </blockquote>
+          <br>
+          Both values are 32bit on a 32bit system, so as soon as you
+          have more than 4GB installed this will overflow.<br>
+          <br>
+          You need to cast the long to a 64bit value to avoid that.<br>
+          <br>
+          <blockquote
+cite=3D"mid:SN1PR12MB0511612A271156A2EFC7B449EC090-z7L1TMIYDg7GFhS5Ttmc/L2jyFyIFlFv@public.gmane.org=
+.prod.outlook.com"
+            type=3D"cite">
+            <div dir=3D"ltr">
+              <div id=3D"x_divtagdefaultwrapper" style=3D"font-size:12pt;
+                color:#000000; background-color:#FFFFFF;
+                font-family:Calibri,Arial,Helvetica,sans-serif">
+                <p><br>
+                </p>
+                <p><font size=3D"2"><span style=3D"font-size:10pt">Additi=
+onal
+                      if I remember correctly we didn't ended the
+                      discussion on
+                      <br>
+                      what to do here with a conclusion.</span></font></p=
+>
+                <p>-- ok, since it happens in anther mail list, we
+                  should stop talking about it here, you can send out
+                  your ideas there.<br>
+                </p>
+              </div>
+            </div>
+          </blockquote>
+          <br>
+          Actually that discussion was held long ago internally but we
+          never got a conclusion on this IIRC. So we should probably
+          continue the discussion on this thread now.<br>
+          <br>
+          Regards,<br>
+          Christian.<br>
+          <br>
+          <blockquote
+cite=3D"mid:SN1PR12MB0511612A271156A2EFC7B449EC090-z7L1TMIYDg7GFhS5Ttmc/L2jyFyIFlFv@public.gmane.org=
+.prod.outlook.com"
+            type=3D"cite">
+            <div dir=3D"ltr">
+              <div id=3D"x_divtagdefaultwrapper" style=3D"font-size:12pt;
+                color:#000000; background-color:#FFFFFF;
+                font-family:Calibri,Arial,Helvetica,sans-serif">
+              </div>
+              <hr tabindex=3D"-1" style=3D"display:inline-block; width:98=
+%">
+              <div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font
+                  style=3D"font-size:11pt" color=3D"#000000" face=3D"Cali=
+bri,
+                  sans-serif"><b>=E5=8F=91=E4=BB=B6=E4=BA=BA:</b> amd-gfx
+                  <a moz-do-not-send=3D"true"
+                    class=3D"moz-txt-link-rfc2396E"
+                    href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"=
+>
+                    &lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a> =E4=
+=BB=A3=E8=A1=A8
+                  Christian K=C3=B6nig <a moz-do-not-send=3D"true"
+                    class=3D"moz-txt-link-rfc2396E"
+                    href=3D"mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">
+                    &lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;</a><br>
+                  <b>=E5=8F=91=E9=80=81=E6=97=B6=E9=97=B4:</b> 2016=E5=B9=
+=B47=E6=9C=8821=E6=97=A5 16:53:05<br>
+                  <b>=E6=94=B6=E4=BB=B6=E4=BA=BA:</b> Wang, Qingqing; <a =
+moz-do-not-send=3D"true"
+                    class=3D"moz-txt-link-abbreviated"
+                    href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
+                    amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                  <b>=E4=B8=BB=E9=A2=98:</b> Re: [PATCH] drm/amdgpu: adju=
+st gtt memory
+                  size</font>
+                <div>=C2=A0</div>
+              </div>
+            </div>
+            <font size=3D"2"><span style=3D"font-size:10pt;">
+                <div class=3D"PlainText">Am 21.07.2016 um 09:46 schrieb
+                  Ken Wang:<br>
+                  &gt; Change-Id:
+                  If00d5b97ba9e30f9b7f68fdfc134a0f8b3ad2add<br>
+                  &gt; Signed-off-by: Ken Wang <a
+                    moz-do-not-send=3D"true" class=3D"moz-txt-link-rfc239=
+6E"
+                    href=3D"mailto:Qingqing.Wang-5C7GfCeVMHo@public.gmane.org">
+                    &lt;Qingqing.Wang-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+                  &gt; ---<br>
+                  &gt;=C2=A0=C2=A0 drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c =
+| 7
+                  ++++++-<br>
+                  &gt;=C2=A0=C2=A0 drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c =
+| 7
+                  ++++++-<br>
+                  &gt;=C2=A0=C2=A0 2 files changed, 12 insertions(+), 2
+                  deletions(-)<br>
+                  &gt;<br>
+                  &gt; diff --git
+                  a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+                  b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c<br>
+                  &gt; index a3b6048..0b095d5 100644<br>
+                  &gt; --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c<br>
+                  &gt; +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c<br>
+                  &gt; @@ -336,6 +336,11 @@ static int
+                  gmc_v7_0_mc_init(struct amdgpu_device *adev)<br>
+                  &gt;=C2=A0=C2=A0 {<br>
+                  &gt;=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u32 tmp;=
+<br>
+                  &gt;=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int chan=
+size, numchan;<br>
+                  &gt; +=C2=A0=C2=A0=C2=A0=C2=A0 u64 sysmem_size;<br>
+                  &gt; +=C2=A0=C2=A0=C2=A0=C2=A0 struct sysinfo si;<br>
+                  &gt; +<br>
+                  &gt; +=C2=A0=C2=A0=C2=A0=C2=A0 si_meminfo(&amp;si);<br>
+                  &gt; +=C2=A0=C2=A0=C2=A0=C2=A0 sysmem_size =3D si.total=
+ram * si.mem_unit;<br>
+                  <br>
+                  This doesn't work on 32bit systems since totalram is a
+                  long (IIRC) and <br>
+                  so this will certainly overflow.<br>
+                  <br>
+                  Additional if I remember correctly we didn't ended the
+                  discussion on <br>
+                  what to do here with a conclusion.<br>
+                  <br>
+                  Regards,<br>
+                  Christian.<br>
+                  <br>
+                  &gt;=C2=A0=C2=A0 <br>
+                  &gt;=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Get V=
+RAM informations */<br>
+                  &gt;=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D =
+RREG32(mmMC_ARB_RAMCFG);<br>
+                  &gt; @@ -392,7 +397,7 @@ static int
+                  gmc_v7_0_mc_init(struct amdgpu_device *adev)<br>
+                  &gt;=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * =
+size equal to the 1024 or vram,
+                  whichever is larger.<br>
+                  &gt;=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */=
+<br>
+                  &gt;=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (amdg=
+pu_gart_size =3D=3D -1)<br>
+                  &gt; -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 adev-&gt;mc.gtt_size =3D max((1024ULL
+                  &lt;&lt; 20), adev-&gt;mc.mc_vram_size);<br>
+                  &gt; +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 adev-&gt;mc.gtt_size =3D max((1024ULL
+                  &lt;&lt; 20), min(adev-&gt;mc.mc_vram_size,
+                  sysmem_size/2));<br>
+                  &gt;=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 else<br>
+                  &gt;=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adev-&gt;mc.gtt_size =3D
+                  (uint64_t)amdgpu_gart_size &lt;&lt; 20;<br>
+                  &gt;=C2=A0=C2=A0 <br>
+                  &gt; diff --git
+                  a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+                  b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c<br>
+                  &gt; index 02b6872..790bf7a 100644<br>
+                  &gt; --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c<br>
+                  &gt; +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c<br>
+                  &gt; @@ -413,6 +413,11 @@ static int
+                  gmc_v8_0_mc_init(struct amdgpu_device *adev)<br>
+                  &gt;=C2=A0=C2=A0 {<br>
+                  &gt;=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u32 tmp;=
+<br>
+                  &gt;=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int chan=
+size, numchan;<br>
+                  &gt; +=C2=A0=C2=A0=C2=A0=C2=A0 u64 sysmem_size;<br>
+                  &gt; +=C2=A0=C2=A0=C2=A0=C2=A0 struct sysinfo si;<br>
+                  &gt; +<br>
+                  &gt; +=C2=A0=C2=A0=C2=A0=C2=A0 si_meminfo(&amp;si);<br>
+                  &gt; +=C2=A0=C2=A0=C2=A0=C2=A0 sysmem_size =3D si.total=
+ram * si.mem_unit;<br>
+                  &gt;=C2=A0=C2=A0 <br>
+                  &gt;=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Get V=
+RAM informations */<br>
+                  &gt;=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp =3D =
+RREG32(mmMC_ARB_RAMCFG);<br>
+                  &gt; @@ -469,7 +474,7 @@ static int
+                  gmc_v8_0_mc_init(struct amdgpu_device *adev)<br>
+                  &gt;=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * =
+size equal to the 1024 or vram,
+                  whichever is larger.<br>
+                  &gt;=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */=
+<br>
+                  &gt;=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (amdg=
+pu_gart_size =3D=3D -1)<br>
+                  &gt; -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 adev-&gt;mc.gtt_size =3D max((1024ULL
+                  &lt;&lt; 20), adev-&gt;mc.mc_vram_size);<br>
+                  &gt; +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 adev-&gt;mc.gtt_size =3D max((1024ULL
+                  &lt;&lt; 20), min(adev-&gt;mc.mc_vram_size,
+                  sysmem_size/2));<br>
+                  &gt;=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 else<br>
+                  &gt;=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adev-&gt;mc.gtt_size =3D
+                  (uint64_t)amdgpu_gart_size &lt;&lt; 20;<br>
+                  &gt;=C2=A0=C2=A0 <br>
+                  <br>
+                  <br>
+                  _______________________________________________<br>
+                  amd-gfx mailing list<br>
+                  <a moz-do-not-send=3D"true"
+                    class=3D"moz-txt-link-abbreviated"
+                    href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx=
+@lists.freedesktop.org</a><br>
+                  <a moz-do-not-send=3D"true"
+                    href=3D"https://lists.freedesktop.org/mailman/listinf=
+o/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+                </div>
+              </span></font></blockquote>
+          <p><br>
+          </p>
+        </div>
+      </div>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------FDDACC45C437047C6976F225--
+
+--===============1064815438==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -302,4 +519,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1527178855==--
+--===============1064815438==--
