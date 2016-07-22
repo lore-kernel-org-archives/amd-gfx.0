@@ -1,181 +1,82 @@
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+From: Sean Paul <seanpaul@chromium.org>
 Subject: Re: [PATCH] drm/ttm: partial revert "cleanup ttm_tt_(unbind|destroy)"
  v2
-Date: Fri, 22 Jul 2016 23:12:16 +1000
-Message-ID: <f1a612c0-03d6-a279-23b5-2ab36aa605f8@folklore1984.net>
+Date: Fri, 22 Jul 2016 11:08:23 -0400
+Message-ID: <CAOw6vb+tNkcZpNcAEXeaTp8fXu2Cx-GDatmaAVLZ5rKh-gT-TA@mail.gmail.com>
 References: <1469193013-11482-1-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1966349429=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1469193013-11482-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Amber.Lin-5C7GfCeVMHo@public.gmane.org, felix.kuehling-5C7GfCeVMHo@public.gmane.org
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1966349429==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="hNdeu0w7t5rtnow7FpAabLFJrHRCrdAoL"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---hNdeu0w7t5rtnow7FpAabLFJrHRCrdAoL
-Content-Type: multipart/mixed; boundary="JIdR7fsB4arvAp3IxtEkGDJ5SVKoQxGsk"
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>,
- amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Amber.Lin-5C7GfCeVMHo@public.gmane.org, felix.kuehling-5C7GfCeVMHo@public.gmane.org
-Message-ID: <f1a612c0-03d6-a279-23b5-2ab36aa605f8-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH] drm/ttm: partial revert "cleanup ttm_tt_(unbind|destroy)"
- v2
-References: <1469193013-11482-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-In-Reply-To: <1469193013-11482-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-
---JIdR7fsB4arvAp3IxtEkGDJ5SVKoQxGsk
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-
-On 07/22/2016 11:10 PM, Christian K=C3=B6nig wrote:
-> From: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
->=20
-> We still need to unbind explicitely during a move.
->=20
-> This partial reverts commit ff20caa0bcbfef9f7686f8d1868a3b990921afd6.
->=20
-> v2: remove unnecessary check and unused variable
->=20
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/ttm/ttm_bo_util.c |  1 +
->  drivers/gpu/drm/ttm/ttm_tt.c      | 19 ++++++++++++-------
->  include/drm/ttm/ttm_bo_driver.h   |  9 +++++++++
->  3 files changed, 22 insertions(+), 7 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/tt=
-m_bo_util.c
-> index 0c389a5..6c412c3 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
-> @@ -53,6 +53,7 @@ int ttm_bo_move_ttm(struct ttm_buffer_object *bo,
->  	int ret;
-> =20
->  	if (old_mem->mem_type !=3D TTM_PL_SYSTEM) {
-> +		ttm_tt_unbind(ttm);
->  		ttm_bo_free_old_node(bo);
->  		ttm_flag_masked(&old_mem->placement, TTM_PL_FLAG_SYSTEM,
->  				TTM_PL_MASK_MEM);
-> diff --git a/drivers/gpu/drm/ttm/ttm_tt.c b/drivers/gpu/drm/ttm/ttm_tt.=
-c
-> index d28d4333..526e5a7 100644
-> --- a/drivers/gpu/drm/ttm/ttm_tt.c
-> +++ b/drivers/gpu/drm/ttm/ttm_tt.c
-> @@ -166,16 +166,10 @@ EXPORT_SYMBOL(ttm_tt_set_placement_caching);
-> =20
->  void ttm_tt_destroy(struct ttm_tt *ttm)
->  {
-> -	int ret;
-> -
->  	if (ttm =3D=3D NULL)
->  		return;
-> =20
-> -	if (ttm->state =3D=3D tt_bound) {
-> -		ret =3D ttm->func->unbind(ttm);
-> -		BUG_ON(ret);
-> -		ttm->state =3D tt_unbound;
-> -	}
-> +	ttm_tt_unbind(ttm);
-> =20
->  	if (ttm->state =3D=3D tt_unbound)
->  		ttm_tt_unpopulate(ttm);
-> @@ -255,6 +249,17 @@ void ttm_dma_tt_fini(struct ttm_dma_tt *ttm_dma)
->  }
->  EXPORT_SYMBOL(ttm_dma_tt_fini);
-> =20
-> +void ttm_tt_unbind(struct ttm_tt *ttm)
-> +{
-> +	int ret;
-> +
-> +	if (ttm->state =3D=3D tt_bound) {
-> +		ret =3D ttm->func->unbind(ttm);
-> +		BUG_ON(ret);
-> +		ttm->state =3D tt_unbound;
-> +	}
-> +}
-> +
->  int ttm_tt_bind(struct ttm_tt *ttm, struct ttm_mem_reg *bo_mem)
->  {
->  	int ret =3D 0;
-> diff --git a/include/drm/ttm/ttm_bo_driver.h b/include/drm/ttm/ttm_bo_d=
-river.h
-> index 141cefb..e7d81a8 100644
-> --- a/include/drm/ttm/ttm_bo_driver.h
-> +++ b/include/drm/ttm/ttm_bo_driver.h
-> @@ -628,6 +628,15 @@ extern int ttm_tt_bind(struct ttm_tt *ttm, struct =
-ttm_mem_reg *bo_mem);
->  extern void ttm_tt_destroy(struct ttm_tt *ttm);
-> =20
->  /**
-> + * ttm_ttm_unbind:
-> + *
-> + * @ttm: The struct ttm_tt.
-> + *
-> + * Unbind a struct ttm_tt.
-> + */
-> +extern void ttm_tt_unbind(struct ttm_tt *ttm);
-> +
-> +/**
->   * ttm_tt_swapin:
->   *
->   * @ttm: The struct ttm_tt.
->=20
-
-
---JIdR7fsB4arvAp3IxtEkGDJ5SVKoQxGsk--
-
---hNdeu0w7t5rtnow7FpAabLFJrHRCrdAoL
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJXkhuwAAoJEP4bvbfZuWjbATQP/0K4K0PvtnsZfqHbxktoX8vE
-ttrAvfh9YgRI+i0b4M/DSB/hv3EOcGyyZArtooIQTr35vfjZ++yhVRtaTuc4YV8L
-CkU4x9IZtZsZjmUor17WGoOP5JCu27XMHEyUMFgUcKKJwqVw5egLol3exaJ2qlOV
-+naZ2/LzR1OmymDf2xzsB+FI+lbN5mIVbeNQakhcMXXc9ap4sV01Z+UQFEgiiML9
-DFTSdgERvKN1k0thJ5rJnl5EF/w/2WNA/bg+RTLcluQJ2jOKB9X+IyTlDWZT3gNz
-soYF6hOljZ04cOyrYwkLd7vtPE6hDoBRLVGCyrihNP+G91Coabq5uPS0HZjYgBNc
-2sM6hfFXCbWi3dUOxzYNgBGcrYY/hOJJxuPgCFnm+h++X2q4rNpguJEkTq3Xfn3m
-S6Lyt1CLRvB0836wO59KAT3fETzx0WyVQUEphvfWvrYCjn3/TBMO8kAx5Ory2cyi
-Kj8gYwF5SbbzPT0TqGVr8WKGNTEZ52SAErJEhhTkIzKQfyeeOUBX6ikU8WhSFPcs
-43oATAr+Uc31nTvQTbQq7wU/OFhXzOhIfkDQa0xhF2fLlFWI6g4STVoKdEjRIu62
-6NRrCSaz2ABaT9rQ546ORe7jf8lGgQ5dd8dKK+DnkqddI/DbCbP2vU/6iEprL9b7
-NUj1Tyse1UjFq8zaxQnW
-=gjH/
------END PGP SIGNATURE-----
-
---hNdeu0w7t5rtnow7FpAabLFJrHRCrdAoL--
-
---===============1966349429==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <1469193013-11482-1-git-send-email-deathsimple@vodafone.de>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple@vodafone.de>
+Cc: Amber.Lin@amd.com, felix.kuehling@amd.com, funfunctor@folklore1984.net, dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1966349429==--
+T24gRnJpLCBKdWwgMjIsIDIwMTYgYXQgOToxMCBBTSwgQ2hyaXN0aWFuIEvDtm5pZwo8ZGVhdGhz
+aW1wbGVAdm9kYWZvbmUuZGU+IHdyb3RlOgo+IEZyb206IENocmlzdGlhbiBLw7ZuaWcgPGNocmlz
+dGlhbi5rb2VuaWdAYW1kLmNvbT4KPgo+IFdlIHN0aWxsIG5lZWQgdG8gdW5iaW5kIGV4cGxpY2l0
+ZWx5IGR1cmluZyBhIG1vdmUuCgpTb3JyeSBmb3IgdGhlIGRyaXZlLWJ5IG5pdCwgYnV0OgoKcy9l
+eHBsaWNpdGVseS9leHBsaWNpdGx5LwoKCj4KPiBUaGlzIHBhcnRpYWwgcmV2ZXJ0cyBjb21taXQg
+ZmYyMGNhYTBiY2JmZWY5Zjc2ODZmOGQxODY4YTNiOTkwOTIxYWZkNi4KPgo+IHYyOiByZW1vdmUg
+dW5uZWNlc3NhcnkgY2hlY2sgYW5kIHVudXNlZCB2YXJpYWJsZQo+Cj4gU2lnbmVkLW9mZi1ieTog
+Q2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+IC0tLQo+ICBkcml2
+ZXJzL2dwdS9kcm0vdHRtL3R0bV9ib191dGlsLmMgfCAgMSArCj4gIGRyaXZlcnMvZ3B1L2RybS90
+dG0vdHRtX3R0LmMgICAgICB8IDE5ICsrKysrKysrKysrKy0tLS0tLS0KPiAgaW5jbHVkZS9kcm0v
+dHRtL3R0bV9ib19kcml2ZXIuaCAgIHwgIDkgKysrKysrKysrCj4gIDMgZmlsZXMgY2hhbmdlZCwg
+MjIgaW5zZXJ0aW9ucygrKSwgNyBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vdHRtL3R0bV9ib191dGlsLmMgYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9ib191
+dGlsLmMKPiBpbmRleCAwYzM4OWE1Li42YzQxMmMzIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS90dG0vdHRtX2JvX3V0aWwuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2Jv
+X3V0aWwuYwo+IEBAIC01Myw2ICs1Myw3IEBAIGludCB0dG1fYm9fbW92ZV90dG0oc3RydWN0IHR0
+bV9idWZmZXJfb2JqZWN0ICpibywKPiAgICAgICAgIGludCByZXQ7Cj4KPiAgICAgICAgIGlmIChv
+bGRfbWVtLT5tZW1fdHlwZSAhPSBUVE1fUExfU1lTVEVNKSB7Cj4gKyAgICAgICAgICAgICAgIHR0
+bV90dF91bmJpbmQodHRtKTsKPiAgICAgICAgICAgICAgICAgdHRtX2JvX2ZyZWVfb2xkX25vZGUo
+Ym8pOwo+ICAgICAgICAgICAgICAgICB0dG1fZmxhZ19tYXNrZWQoJm9sZF9tZW0tPnBsYWNlbWVu
+dCwgVFRNX1BMX0ZMQUdfU1lTVEVNLAo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+VFRNX1BMX01BU0tfTUVNKTsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1f
+dHQuYyBiL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX3R0LmMKPiBpbmRleCBkMjhkNDMzMy4uNTI2
+ZTVhNyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV90dC5jCj4gKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fdHQuYwo+IEBAIC0xNjYsMTYgKzE2NiwxMCBAQCBFWFBP
+UlRfU1lNQk9MKHR0bV90dF9zZXRfcGxhY2VtZW50X2NhY2hpbmcpOwo+Cj4gIHZvaWQgdHRtX3R0
+X2Rlc3Ryb3koc3RydWN0IHR0bV90dCAqdHRtKQo+ICB7Cj4gLSAgICAgICBpbnQgcmV0Owo+IC0K
+PiAgICAgICAgIGlmICh0dG0gPT0gTlVMTCkKPiAgICAgICAgICAgICAgICAgcmV0dXJuOwo+Cj4g
+LSAgICAgICBpZiAodHRtLT5zdGF0ZSA9PSB0dF9ib3VuZCkgewo+IC0gICAgICAgICAgICAgICBy
+ZXQgPSB0dG0tPmZ1bmMtPnVuYmluZCh0dG0pOwo+IC0gICAgICAgICAgICAgICBCVUdfT04ocmV0
+KTsKPiAtICAgICAgICAgICAgICAgdHRtLT5zdGF0ZSA9IHR0X3VuYm91bmQ7Cj4gLSAgICAgICB9
+Cj4gKyAgICAgICB0dG1fdHRfdW5iaW5kKHR0bSk7Cj4KPiAgICAgICAgIGlmICh0dG0tPnN0YXRl
+ID09IHR0X3VuYm91bmQpCj4gICAgICAgICAgICAgICAgIHR0bV90dF91bnBvcHVsYXRlKHR0bSk7
+Cj4gQEAgLTI1NSw2ICsyNDksMTcgQEAgdm9pZCB0dG1fZG1hX3R0X2Zpbmkoc3RydWN0IHR0bV9k
+bWFfdHQgKnR0bV9kbWEpCj4gIH0KPiAgRVhQT1JUX1NZTUJPTCh0dG1fZG1hX3R0X2ZpbmkpOwo+
+Cj4gK3ZvaWQgdHRtX3R0X3VuYmluZChzdHJ1Y3QgdHRtX3R0ICp0dG0pCj4gK3sKPiArICAgICAg
+IGludCByZXQ7Cj4gKwo+ICsgICAgICAgaWYgKHR0bS0+c3RhdGUgPT0gdHRfYm91bmQpIHsKPiAr
+ICAgICAgICAgICAgICAgcmV0ID0gdHRtLT5mdW5jLT51bmJpbmQodHRtKTsKPiArICAgICAgICAg
+ICAgICAgQlVHX09OKHJldCk7Cj4gKyAgICAgICAgICAgICAgIHR0bS0+c3RhdGUgPSB0dF91bmJv
+dW5kOwo+ICsgICAgICAgfQo+ICt9Cj4gKwo+ICBpbnQgdHRtX3R0X2JpbmQoc3RydWN0IHR0bV90
+dCAqdHRtLCBzdHJ1Y3QgdHRtX21lbV9yZWcgKmJvX21lbSkKPiAgewo+ICAgICAgICAgaW50IHJl
+dCA9IDA7Cj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvZHJtL3R0bS90dG1fYm9fZHJpdmVyLmggYi9p
+bmNsdWRlL2RybS90dG0vdHRtX2JvX2RyaXZlci5oCj4gaW5kZXggMTQxY2VmYi4uZTdkODFhOCAx
+MDA2NDQKPiAtLS0gYS9pbmNsdWRlL2RybS90dG0vdHRtX2JvX2RyaXZlci5oCj4gKysrIGIvaW5j
+bHVkZS9kcm0vdHRtL3R0bV9ib19kcml2ZXIuaAo+IEBAIC02MjgsNiArNjI4LDE1IEBAIGV4dGVy
+biBpbnQgdHRtX3R0X2JpbmQoc3RydWN0IHR0bV90dCAqdHRtLCBzdHJ1Y3QgdHRtX21lbV9yZWcg
+KmJvX21lbSk7Cj4gIGV4dGVybiB2b2lkIHR0bV90dF9kZXN0cm95KHN0cnVjdCB0dG1fdHQgKnR0
+bSk7Cj4KPiAgLyoqCj4gKyAqIHR0bV90dG1fdW5iaW5kOgo+ICsgKgo+ICsgKiBAdHRtOiBUaGUg
+c3RydWN0IHR0bV90dC4KPiArICoKPiArICogVW5iaW5kIGEgc3RydWN0IHR0bV90dC4KPiArICov
+Cj4gK2V4dGVybiB2b2lkIHR0bV90dF91bmJpbmQoc3RydWN0IHR0bV90dCAqdHRtKTsKPiArCj4g
+Ky8qKgo+ICAgKiB0dG1fdHRfc3dhcGluOgo+ICAgKgo+ICAgKiBAdHRtOiBUaGUgc3RydWN0IHR0
+bV90dC4KPiAtLQo+IDIuNS4wCj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwo+IGRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKPiBkcmktZGV2ZWxAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9kcmktZGV2ZWwKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJp
+LWRldmVsCg==
