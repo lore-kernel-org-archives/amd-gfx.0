@@ -1,12 +1,14 @@
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH] drm/ttm: partial revert "cleanup ttm_tt_(unbind|destroy)"
-Date: Fri, 22 Jul 2016 10:54:48 +1000
-Message-ID: <24a16555-dafa-771c-2f64-4dedf9d56e92@folklore1984.net>
-References: <1469097271-3378-1-git-send-email-deathsimple@vodafone.de>
+From: Eric Huang <jinhuieric.huang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/3] drm/amd/powerplay: fix issue can't enable vce dpm.
+Date: Thu, 21 Jul 2016 20:17:24 -0400
+Message-ID: <57916614.4030004@amd.com>
+References: <1468861197-7620-1-git-send-email-Rex.Zhu@amd.com>
+ <1468861197-7620-2-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1938808796=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1469097271-3378-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <1468861197-7620-2-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,162 +19,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1938808796==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="DgcO1USIVUwO2vf1mGHt6TJtQEUtPfRMO"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---DgcO1USIVUwO2vf1mGHt6TJtQEUtPfRMO
-Content-Type: multipart/mixed; boundary="F39wiQF7NDuiImoQuhrgM3o2lt7DkF5Tt"
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>,
- amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Message-ID: <24a16555-dafa-771c-2f64-4dedf9d56e92-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH] drm/ttm: partial revert "cleanup ttm_tt_(unbind|destroy)"
-References: <1469097271-3378-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-In-Reply-To: <1469097271-3378-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-
---F39wiQF7NDuiImoQuhrgM3o2lt7DkF5Tt
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-
-
-On 07/21/2016 08:34 PM, Christian K=C3=B6nig wrote:
-> From: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
->=20
-> We still need to unbind explicitely during a move.
->=20
-> This partial reverts commit ff20caa0bcbfef9f7686f8d1868a3b990921afd6.
->=20
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/ttm/ttm_bo_util.c |  1 +
->  drivers/gpu/drm/ttm/ttm_tt.c      | 15 ++++++++++++---
->  include/drm/ttm/ttm_bo_driver.h   |  9 +++++++++
->  3 files changed, 22 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/tt=
-m_bo_util.c
-> index 0c389a5..6c412c3 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
-> @@ -53,6 +53,7 @@ int ttm_bo_move_ttm(struct ttm_buffer_object *bo,
->  	int ret;
-> =20
->  	if (old_mem->mem_type !=3D TTM_PL_SYSTEM) {
-> +		ttm_tt_unbind(ttm);
->  		ttm_bo_free_old_node(bo);
->  		ttm_flag_masked(&old_mem->placement, TTM_PL_FLAG_SYSTEM,
->  				TTM_PL_MASK_MEM);
-> diff --git a/drivers/gpu/drm/ttm/ttm_tt.c b/drivers/gpu/drm/ttm/ttm_tt.=
-c
-> index d28d4333..fa42dc3 100644
-> --- a/drivers/gpu/drm/ttm/ttm_tt.c
-> +++ b/drivers/gpu/drm/ttm/ttm_tt.c
-> @@ -172,9 +172,7 @@ void ttm_tt_destroy(struct ttm_tt *ttm)
->  		return;
-> =20
->  	if (ttm->state =3D=3D tt_bound) {
-> -		ret =3D ttm->func->unbind(ttm);
-> -		BUG_ON(ret);
-> -		ttm->state =3D tt_unbound;
-> +		ttm_tt_unbind(ttm);
->  	}
-
-Why keep the branch here given that the branch is also within
-'ttm_tt_unbind()'?
-
-> =20
->  	if (ttm->state =3D=3D tt_unbound)
-> @@ -255,6 +253,17 @@ void ttm_dma_tt_fini(struct ttm_dma_tt *ttm_dma)
->  }
->  EXPORT_SYMBOL(ttm_dma_tt_fini);
-> =20
-> +void ttm_tt_unbind(struct ttm_tt *ttm)
-> +{
-> +	int ret;
-> +
-> +	if (ttm->state =3D=3D tt_bound) {
-> +		ret =3D ttm->func->unbind(ttm);
-
-int ret; here
-
-Kind Regards,
-Edward.
-
-> +		BUG_ON(ret);
-> +		ttm->state =3D tt_unbound;
-> +	}
-> +}
-> +
->  int ttm_tt_bind(struct ttm_tt *ttm, struct ttm_mem_reg *bo_mem)
->  {
->  	int ret =3D 0;
-> diff --git a/include/drm/ttm/ttm_bo_driver.h b/include/drm/ttm/ttm_bo_d=
-river.h
-> index 141cefb..e7d81a8 100644
-> --- a/include/drm/ttm/ttm_bo_driver.h
-> +++ b/include/drm/ttm/ttm_bo_driver.h
-> @@ -628,6 +628,15 @@ extern int ttm_tt_bind(struct ttm_tt *ttm, struct =
-ttm_mem_reg *bo_mem);
->  extern void ttm_tt_destroy(struct ttm_tt *ttm);
-> =20
->  /**
-> + * ttm_ttm_unbind:
-> + *
-> + * @ttm: The struct ttm_tt.
-> + *
-> + * Unbind a struct ttm_tt.
-> + */
-> +extern void ttm_tt_unbind(struct ttm_tt *ttm);
-> +
-> +/**
->   * ttm_tt_swapin:
->   *
->   * @ttm: The struct ttm_tt.
->=20
-
-
---F39wiQF7NDuiImoQuhrgM3o2lt7DkF5Tt--
-
---DgcO1USIVUwO2vf1mGHt6TJtQEUtPfRMO
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJXkW7YAAoJEP4bvbfZuWjbbzUP/iALYaj40f8RGxiwCDghOh4a
-lnZ2F3ni5MQIjOe9+hYR5eb3NLML1/1R1YCAiP5zzYcsAWy9X0/XJ5CJevXFzRgU
-YazxzVl7NEwAA6S/zc517bpFBJ4YXgV+UR0iryZOSoG8D98kSQJz6MbT94L3k1cP
-8IfW5jD7v0UxgXKJgrDHhFFhMHFDLTWoflw5uCTK9ShgGSJfQKHp9uAZUAsT/H6M
-yAufZxi20zCwVFX/TtzPASMhkY3wtvSFAzXsGZ/i2+khBA7oS6oaaMLgUkkMinjQ
-HeBzrWvuRPJmwYRUzX3nZEdhcIvdCVf65X/7/yYmLkwSsvBEb9UpuytquLu7WV3p
-SOzvjqJXmlzE/Z3pXMlj1J7Bhen25jsoSP/oQuuvm7RhSpET9dJmd5h0OUHc8m17
-5gCELyBYEdWoGN/5D1gdnGNvwcHWDPFClsbRsPuIF36HpbyNFJ+4BIgAfXAUa3LU
-I9+6nURG7+YT0z+IzhJtmu0QAiJ5wNnmmlyFEo0MvqrhACNFcO5xmHwY9i1sw27p
-8ZOLCig4AWZ5DDiC+bfopM0IiRIMCTT2Z5Vt8vRSvjBqUwxuNpVcNEm8OMLBRJzD
-0s3tG+saS2mu+8ZWQ+N4zeeNcxubkggcO9xSfSDVBv0VU7sjzBKmCvtQhIlT21dh
-nBMv6e2zvB4MK5QXhPlz
-=lrLy
------END PGP SIGNATURE-----
-
---DgcO1USIVUwO2vf1mGHt6TJtQEUtPfRMO--
-
---===============1938808796==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1938808796==--
+TG9va3MgZ29vZCB0byBtZS4gUmV2aWV3ZWQtYnk6IEVyaWMgSHVhbmcgPEppbmh1aUVyaWMuSHVh
+bmdAYW1kLmNvbT4KClJlZ2FyZHMsCkVyaWMKCk9uIDA3LzE4LzIwMTYgMTI6NTkgUE0sIFJleCBa
+aHUgd3JvdGU6Cj4gQ2hhbmdlLUlkOiBJNGUwOWIxYzE2ODU2NTdjNjhhMWI0YTczOTI4YmNhZjBh
+YzAyNWQ3ZAo+IFNpZ25lZC1vZmYtYnk6IFJleCBaaHUgPFJleC5aaHVAYW1kLmNvbT4KPiAtLS0K
+PiAgIC4uLi9wb3dlcnBsYXkvaHdtZ3IvcG9sYXJpczEwX2Nsb2NrcG93ZXJnYXRpbmcuYyAgIHwg
+MTQgKysrKysrKy0tCj4gICAuLi4vZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3BvbGFyaXMx
+MF9od21nci5jICB8IDM0ICsrKysrKystLS0tLS0tLS0tLS0tLS0KPiAgIC4uLi9ncHUvZHJtL2Ft
+ZC9wb3dlcnBsYXkvaHdtZ3IvcG9sYXJpczEwX2h3bWdyLmggIHwgIDIgKy0KPiAgIDMgZmlsZXMg
+Y2hhbmdlZCwgMjIgaW5zZXJ0aW9ucygrKSwgMjggZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvcG9sYXJpczEwX2Nsb2NrcG93
+ZXJnYXRpbmcuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3BvbGFyaXMx
+MF9jbG9ja3Bvd2VyZ2F0aW5nLmMKPiBpbmRleCBhZWVjMjVjLi4zZDMyNGQ4IDEwMDY0NAo+IC0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3BvbGFyaXMxMF9jbG9ja3Bv
+d2VyZ2F0aW5nLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9w
+b2xhcmlzMTBfY2xvY2twb3dlcmdhdGluZy5jCj4gQEAgLTEzMSwxMSArMTMxLDE5IEBAIGludCBw
+b2xhcmlzMTBfcGhtX3Bvd2VyZ2F0ZV92Y2Uoc3RydWN0IHBwX2h3bWdyICpod21nciwgYm9vbCBi
+Z2F0ZSkKPiAgIAo+ICAgCWRhdGEtPnZjZV9wb3dlcl9nYXRlZCA9IGJnYXRlOwo+ICAgCj4gLQlp
+ZiAoYmdhdGUpCj4gKwlpZiAoYmdhdGUpIHsKPiArCQljZ3Nfc2V0X2Nsb2NrZ2F0aW5nX3N0YXRl
+KGh3bWdyLT5kZXZpY2UsCj4gKwkJCQlBTURfSVBfQkxPQ0tfVFlQRV9WQ0UsCj4gKwkJCQlBTURf
+Q0dfU1RBVEVfR0FURSk7Cj4gKwkJcG9sYXJpczEwX3VwZGF0ZV92Y2VfZHBtKGh3bWdyLCB0cnVl
+KTsKPiAgIAkJcG9sYXJpczEwX3BobV9wb3dlcmRvd25fdmNlKGh3bWdyKTsKPiAtCWVsc2UKPiAr
+CX0gZWxzZSB7Cj4gICAJCXBvbGFyaXMxMF9waG1fcG93ZXJ1cF92Y2UoaHdtZ3IpOwo+IC0KPiAr
+CQlwb2xhcmlzMTBfdXBkYXRlX3ZjZV9kcG0oaHdtZ3IsIGZhbHNlKTsKPiArCQljZ3Nfc2V0X2Ns
+b2NrZ2F0aW5nX3N0YXRlKGh3bWdyLT5kZXZpY2UsCj4gKwkJCQlBTURfSVBfQkxPQ0tfVFlQRV9W
+Q0UsCj4gKwkJCQlBTURfQ0dfU1RBVEVfVU5HQVRFKTsKPiArCX0KPiAgIAlyZXR1cm4gMDsKPiAg
+IH0KPiAgIAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21n
+ci9wb2xhcmlzMTBfaHdtZ3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdy
+L3BvbGFyaXMxMF9od21nci5jCj4gaW5kZXggNTM3MGMwZi4uYWIzMTUxYSAxMDA2NDQKPiAtLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9wb2xhcmlzMTBfaHdtZ3IuYwo+
+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3BvbGFyaXMxMF9od21n
+ci5jCj4gQEAgLTQ0MjIsMjUgKzQ0MjIsMjAgQEAgaW50IHBvbGFyaXMxMF91cGRhdGVfdXZkX2Rw
+bShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLCBib29sIGJnYXRlKQo+ICAgCXJldHVybiBwb2xhcmlz
+MTBfZW5hYmxlX2Rpc2FibGVfdXZkX2RwbShod21nciwgIWJnYXRlKTsKPiAgIH0KPiAgIAo+IC1z
+dGF0aWMgaW50IHBvbGFyaXMxMF91cGRhdGVfdmNlX2RwbShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdy
+LCBjb25zdCB2b2lkICppbnB1dCkKPiAraW50IHBvbGFyaXMxMF91cGRhdGVfdmNlX2RwbShzdHJ1
+Y3QgcHBfaHdtZ3IgKmh3bWdyLCBib29sIGJnYXRlKQo+ICAgewo+IC0JY29uc3Qgc3RydWN0IHBo
+bV9zZXRfcG93ZXJfc3RhdGVfaW5wdXQgKnN0YXRlcyA9Cj4gLQkJCShjb25zdCBzdHJ1Y3QgcGht
+X3NldF9wb3dlcl9zdGF0ZV9pbnB1dCAqKWlucHV0Owo+ICAgCXN0cnVjdCBwb2xhcmlzMTBfaHdt
+Z3IgKmRhdGEgPSAoc3RydWN0IHBvbGFyaXMxMF9od21nciAqKShod21nci0+YmFja2VuZCk7Cj4g
+LQljb25zdCBzdHJ1Y3QgcG9sYXJpczEwX3Bvd2VyX3N0YXRlICpwb2xhcmlzMTBfbnBzID0KPiAt
+CQkJY2FzdF9jb25zdF9waHdfcG9sYXJpczEwX3Bvd2VyX3N0YXRlKHN0YXRlcy0+cG5ld19zdGF0
+ZSk7Cj4gLQljb25zdCBzdHJ1Y3QgcG9sYXJpczEwX3Bvd2VyX3N0YXRlICpwb2xhcmlzMTBfY3Bz
+ID0KPiAtCQkJY2FzdF9jb25zdF9waHdfcG9sYXJpczEwX3Bvd2VyX3N0YXRlKHN0YXRlcy0+cGN1
+cnJlbnRfc3RhdGUpOwo+IC0KPiAgIAl1aW50MzJfdCBtbV9ib290X2xldmVsX29mZnNldCwgbW1f
+Ym9vdF9sZXZlbF92YWx1ZTsKPiAgIAlzdHJ1Y3QgcGhtX3BwdF92MV9pbmZvcm1hdGlvbiAqdGFi
+bGVfaW5mbyA9Cj4gICAJCQkoc3RydWN0IHBobV9wcHRfdjFfaW5mb3JtYXRpb24gKikoaHdtZ3It
+PnBwdGFibGUpOwo+ICAgCj4gLQlpZiAocG9sYXJpczEwX25wcy0+dmNlX2Nsa3MuZXZjbGsgPiAw
+ICYmCj4gLQkocG9sYXJpczEwX2NwcyA9PSBOVUxMIHx8IHBvbGFyaXMxMF9jcHMtPnZjZV9jbGtz
+LmV2Y2xrID09IDApKSB7Cj4gLQo+IC0JCWRhdGEtPnNtY19zdGF0ZV90YWJsZS5WY2VCb290TGV2
+ZWwgPQo+ICsJaWYgKCFiZ2F0ZSkgewo+ICsJCWlmIChwaG1fY2FwX2VuYWJsZWQoaHdtZ3ItPnBs
+YXRmb3JtX2Rlc2NyaXB0b3IucGxhdGZvcm1DYXBzLAo+ICsJCQkJCQlQSE1fUGxhdGZvcm1DYXBz
+X1N0YWJsZVBTdGF0ZSkpCj4gKwkJCWRhdGEtPnNtY19zdGF0ZV90YWJsZS5WY2VCb290TGV2ZWwg
+PQo+ICAgCQkJCSh1aW50OF90KSAodGFibGVfaW5mby0+bW1fZGVwX3RhYmxlLT5jb3VudCAtIDEp
+Owo+ICsJCWVsc2UKPiArCQkJZGF0YS0+c21jX3N0YXRlX3RhYmxlLlZjZUJvb3RMZXZlbCA9IDA7
+Cj4gICAKPiAgIAkJbW1fYm9vdF9sZXZlbF9vZmZzZXQgPSBkYXRhLT5kcG1fdGFibGVfc3RhcnQg
+Kwo+ICAgCQkJCW9mZnNldG9mKFNNVTc0X0Rpc2NyZXRlX0RwbVRhYmxlLCBWY2VCb290TGV2ZWwp
+Owo+IEBAIC00NDUzLDE4ICs0NDQ4LDE0IEBAIHN0YXRpYyBpbnQgcG9sYXJpczEwX3VwZGF0ZV92
+Y2VfZHBtKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIGNvbnN0IHZvaWQgKmlucHV0KQo+ICAgCQlj
+Z3Nfd3JpdGVfaW5kX3JlZ2lzdGVyKGh3bWdyLT5kZXZpY2UsCj4gICAJCQkJQ0dTX0lORF9SRUdf
+X1NNQywgbW1fYm9vdF9sZXZlbF9vZmZzZXQsIG1tX2Jvb3RfbGV2ZWxfdmFsdWUpOwo+ICAgCj4g
+LQkJaWYgKHBobV9jYXBfZW5hYmxlZChod21nci0+cGxhdGZvcm1fZGVzY3JpcHRvci5wbGF0Zm9y
+bUNhcHMsIFBITV9QbGF0Zm9ybUNhcHNfU3RhYmxlUFN0YXRlKSkgewo+ICsJCWlmIChwaG1fY2Fw
+X2VuYWJsZWQoaHdtZ3ItPnBsYXRmb3JtX2Rlc2NyaXB0b3IucGxhdGZvcm1DYXBzLCBQSE1fUGxh
+dGZvcm1DYXBzX1N0YWJsZVBTdGF0ZSkpCj4gICAJCQlzbXVtX3NlbmRfbXNnX3RvX3NtY193aXRo
+X3BhcmFtZXRlcihod21nci0+c211bWdyLAo+ICAgCQkJCQlQUFNNQ19NU0dfVkNFRFBNX1NldEVu
+YWJsZWRNYXNrLAo+ICAgCQkJCQkodWludDMyX3QpMSA8PCBkYXRhLT5zbWNfc3RhdGVfdGFibGUu
+VmNlQm9vdExldmVsKTsKPiAtCj4gLQkJCXBvbGFyaXMxMF9lbmFibGVfZGlzYWJsZV92Y2VfZHBt
+KGh3bWdyLCB0cnVlKTsKPiAtCQl9IGVsc2UgaWYgKHBvbGFyaXMxMF9ucHMtPnZjZV9jbGtzLmV2
+Y2xrID09IDAgJiYKPiAtCQkJCXBvbGFyaXMxMF9jcHMgIT0gTlVMTCAmJgo+IC0JCQkJcG9sYXJp
+czEwX2Nwcy0+dmNlX2Nsa3MuZXZjbGsgPiAwKQo+IC0JCQlwb2xhcmlzMTBfZW5hYmxlX2Rpc2Fi
+bGVfdmNlX2RwbShod21nciwgZmFsc2UpOwo+ICAgCX0KPiAgIAo+ICsJcG9sYXJpczEwX2VuYWJs
+ZV9kaXNhYmxlX3ZjZV9kcG0oaHdtZ3IsICFiZ2F0ZSk7Cj4gKwo+ICAgCXJldHVybiAwOwo+ICAg
+fQo+ICAgCj4gQEAgLTQ2NTEsMTEgKzQ2NDIsNiBAQCBzdGF0aWMgaW50IHBvbGFyaXMxMF9zZXRf
+cG93ZXJfc3RhdGVfdGFza3Moc3RydWN0IHBwX2h3bWdyICpod21nciwgY29uc3Qgdm9pZCAqaQo+
+ICAgCQkJIkZhaWxlZCB0byBnZW5lcmF0ZSBEUE0gbGV2ZWwgZW5hYmxlZCBtYXNrISIsCj4gICAJ
+CQlyZXN1bHQgPSB0bXBfcmVzdWx0KTsKPiAgIAo+IC0JdG1wX3Jlc3VsdCA9IHBvbGFyaXMxMF91
+cGRhdGVfdmNlX2RwbShod21nciwgaW5wdXQpOwo+IC0JUFBfQVNTRVJUX1dJVEhfQ09ERSgoMCA9
+PSB0bXBfcmVzdWx0KSwKPiAtCQkJIkZhaWxlZCB0byB1cGRhdGUgVkNFIERQTSEiLAo+IC0JCQly
+ZXN1bHQgPSB0bXBfcmVzdWx0KTsKPiAtCj4gICAJdG1wX3Jlc3VsdCA9IHBvbGFyaXMxMF91cGRh
+dGVfc2Nsa190aHJlc2hvbGQoaHdtZ3IpOwo+ICAgCVBQX0FTU0VSVF9XSVRIX0NPREUoKDAgPT0g
+dG1wX3Jlc3VsdCksCj4gICAJCQkiRmFpbGVkIHRvIHVwZGF0ZSBTQ0xLIHRocmVzaG9sZCEiLAo+
+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9wb2xhcmlz
+MTBfaHdtZ3IuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3BvbGFyaXMx
+MF9od21nci5oCj4gaW5kZXggNDAyZjVjMC4uZGFiYmI1ZCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9wb2xhcmlzMTBfaHdtZ3IuaAo+ICsrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3BvbGFyaXMxMF9od21nci5oCj4gQEAg
+LTM1Myw2ICszNTMsNiBAQCBpbnQgcG9sYXJpczEwX2h3bWdyX2luaXQoc3RydWN0IHBwX2h3bWdy
+ICpod21ncik7Cj4gICBpbnQgcG9sYXJpczEwX3VwZGF0ZV91dmRfZHBtKHN0cnVjdCBwcF9od21n
+ciAqaHdtZ3IsIGJvb2wgYmdhdGUpOwo+ICAgaW50IHBvbGFyaXMxMF91cGRhdGVfc2FtdV9kcG0o
+c3RydWN0IHBwX2h3bWdyICpod21nciwgYm9vbCBiZ2F0ZSk7Cj4gICBpbnQgcG9sYXJpczEwX2Vu
+YWJsZV9kaXNhYmxlX3ZjZV9kcG0oc3RydWN0IHBwX2h3bWdyICpod21nciwgYm9vbCBlbmFibGUp
+Owo+IC0KPiAraW50IHBvbGFyaXMxMF91cGRhdGVfdmNlX2RwbShzdHJ1Y3QgcHBfaHdtZ3IgKmh3
+bWdyLCBib29sIGJnYXRlKTsKPiAgICNlbmRpZgo+ICAgCgpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2FtZC1nZngK
