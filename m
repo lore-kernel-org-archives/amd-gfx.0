@@ -1,11 +1,13 @@
-From: =?UTF-8?q?Christian=20K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: [PATCH] drm/ttm: partial revert "cleanup ttm_tt_(unbind|destroy)" v2
-Date: Fri, 22 Jul 2016 15:10:13 +0200
-Message-ID: <1469193013-11482-1-git-send-email-deathsimple@vodafone.de>
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH] drm/ttm: partial revert "cleanup ttm_tt_(unbind|destroy)"
+ v2
+Date: Fri, 22 Jul 2016 23:12:16 +1000
+Message-ID: <f1a612c0-03d6-a279-23b5-2ab36aa605f8@folklore1984.net>
+References: <1469193013-11482-1-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1966349429=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1469193013-11482-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,51 +18,164 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Amber.Lin-5C7GfCeVMHo@public.gmane.org, felix.kuehling-5C7GfCeVMHo@public.gmane.org, funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Amber.Lin-5C7GfCeVMHo@public.gmane.org, felix.kuehling-5C7GfCeVMHo@public.gmane.org
 
-RnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKV2Ugc3Rp
-bGwgbmVlZCB0byB1bmJpbmQgZXhwbGljaXRlbHkgZHVyaW5nIGEgbW92ZS4KClRoaXMgcGFydGlh
-bCByZXZlcnRzIGNvbW1pdCBmZjIwY2FhMGJjYmZlZjlmNzY4NmY4ZDE4NjhhM2I5OTA5MjFhZmQ2
-LgoKdjI6IHJlbW92ZSB1bm5lY2Vzc2FyeSBjaGVjayBhbmQgdW51c2VkIHZhcmlhYmxlCgpTaWdu
-ZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Ci0t
-LQogZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm9fdXRpbC5jIHwgIDEgKwogZHJpdmVycy9ncHUv
-ZHJtL3R0bS90dG1fdHQuYyAgICAgIHwgMTkgKysrKysrKysrKysrLS0tLS0tLQogaW5jbHVkZS9k
-cm0vdHRtL3R0bV9ib19kcml2ZXIuaCAgIHwgIDkgKysrKysrKysrCiAzIGZpbGVzIGNoYW5nZWQs
-IDIyIGluc2VydGlvbnMoKyksIDcgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL3R0bS90dG1fYm9fdXRpbC5jIGIvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm9fdXRp
-bC5jCmluZGV4IDBjMzg5YTUuLjZjNDEyYzMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS90
-dG0vdHRtX2JvX3V0aWwuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9ib191dGlsLmMK
-QEAgLTUzLDYgKzUzLDcgQEAgaW50IHR0bV9ib19tb3ZlX3R0bShzdHJ1Y3QgdHRtX2J1ZmZlcl9v
-YmplY3QgKmJvLAogCWludCByZXQ7CiAKIAlpZiAob2xkX21lbS0+bWVtX3R5cGUgIT0gVFRNX1BM
-X1NZU1RFTSkgeworCQl0dG1fdHRfdW5iaW5kKHR0bSk7CiAJCXR0bV9ib19mcmVlX29sZF9ub2Rl
-KGJvKTsKIAkJdHRtX2ZsYWdfbWFza2VkKCZvbGRfbWVtLT5wbGFjZW1lbnQsIFRUTV9QTF9GTEFH
-X1NZU1RFTSwKIAkJCQlUVE1fUExfTUFTS19NRU0pOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL3R0bS90dG1fdHQuYyBiL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX3R0LmMKaW5kZXggZDI4
-ZDQzMzMuLjUyNmU1YTcgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX3R0LmMK
-KysrIGIvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fdHQuYwpAQCAtMTY2LDE2ICsxNjYsMTAgQEAg
-RVhQT1JUX1NZTUJPTCh0dG1fdHRfc2V0X3BsYWNlbWVudF9jYWNoaW5nKTsKIAogdm9pZCB0dG1f
-dHRfZGVzdHJveShzdHJ1Y3QgdHRtX3R0ICp0dG0pCiB7Ci0JaW50IHJldDsKLQogCWlmICh0dG0g
-PT0gTlVMTCkKIAkJcmV0dXJuOwogCi0JaWYgKHR0bS0+c3RhdGUgPT0gdHRfYm91bmQpIHsKLQkJ
-cmV0ID0gdHRtLT5mdW5jLT51bmJpbmQodHRtKTsKLQkJQlVHX09OKHJldCk7Ci0JCXR0bS0+c3Rh
-dGUgPSB0dF91bmJvdW5kOwotCX0KKwl0dG1fdHRfdW5iaW5kKHR0bSk7CiAKIAlpZiAodHRtLT5z
-dGF0ZSA9PSB0dF91bmJvdW5kKQogCQl0dG1fdHRfdW5wb3B1bGF0ZSh0dG0pOwpAQCAtMjU1LDYg
-KzI0OSwxNyBAQCB2b2lkIHR0bV9kbWFfdHRfZmluaShzdHJ1Y3QgdHRtX2RtYV90dCAqdHRtX2Rt
-YSkKIH0KIEVYUE9SVF9TWU1CT0wodHRtX2RtYV90dF9maW5pKTsKIAordm9pZCB0dG1fdHRfdW5i
-aW5kKHN0cnVjdCB0dG1fdHQgKnR0bSkKK3sKKwlpbnQgcmV0OworCisJaWYgKHR0bS0+c3RhdGUg
-PT0gdHRfYm91bmQpIHsKKwkJcmV0ID0gdHRtLT5mdW5jLT51bmJpbmQodHRtKTsKKwkJQlVHX09O
-KHJldCk7CisJCXR0bS0+c3RhdGUgPSB0dF91bmJvdW5kOworCX0KK30KKwogaW50IHR0bV90dF9i
-aW5kKHN0cnVjdCB0dG1fdHQgKnR0bSwgc3RydWN0IHR0bV9tZW1fcmVnICpib19tZW0pCiB7CiAJ
-aW50IHJldCA9IDA7CmRpZmYgLS1naXQgYS9pbmNsdWRlL2RybS90dG0vdHRtX2JvX2RyaXZlci5o
-IGIvaW5jbHVkZS9kcm0vdHRtL3R0bV9ib19kcml2ZXIuaAppbmRleCAxNDFjZWZiLi5lN2Q4MWE4
-IDEwMDY0NAotLS0gYS9pbmNsdWRlL2RybS90dG0vdHRtX2JvX2RyaXZlci5oCisrKyBiL2luY2x1
-ZGUvZHJtL3R0bS90dG1fYm9fZHJpdmVyLmgKQEAgLTYyOCw2ICs2MjgsMTUgQEAgZXh0ZXJuIGlu
-dCB0dG1fdHRfYmluZChzdHJ1Y3QgdHRtX3R0ICp0dG0sIHN0cnVjdCB0dG1fbWVtX3JlZyAqYm9f
-bWVtKTsKIGV4dGVybiB2b2lkIHR0bV90dF9kZXN0cm95KHN0cnVjdCB0dG1fdHQgKnR0bSk7CiAK
-IC8qKgorICogdHRtX3R0bV91bmJpbmQ6CisgKgorICogQHR0bTogVGhlIHN0cnVjdCB0dG1fdHQu
-CisgKgorICogVW5iaW5kIGEgc3RydWN0IHR0bV90dC4KKyAqLworZXh0ZXJuIHZvaWQgdHRtX3R0
-X3VuYmluZChzdHJ1Y3QgdHRtX3R0ICp0dG0pOworCisvKioKICAqIHR0bV90dF9zd2FwaW46CiAg
-KgogICogQHR0bTogVGhlIHN0cnVjdCB0dG1fdHQuCi0tIAoyLjUuMAoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============1966349429==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="hNdeu0w7t5rtnow7FpAabLFJrHRCrdAoL"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--hNdeu0w7t5rtnow7FpAabLFJrHRCrdAoL
+Content-Type: multipart/mixed; boundary="JIdR7fsB4arvAp3IxtEkGDJ5SVKoQxGsk"
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>,
+ amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Amber.Lin-5C7GfCeVMHo@public.gmane.org, felix.kuehling-5C7GfCeVMHo@public.gmane.org
+Message-ID: <f1a612c0-03d6-a279-23b5-2ab36aa605f8-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH] drm/ttm: partial revert "cleanup ttm_tt_(unbind|destroy)"
+ v2
+References: <1469193013-11482-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <1469193013-11482-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+
+--JIdR7fsB4arvAp3IxtEkGDJ5SVKoQxGsk
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+
+On 07/22/2016 11:10 PM, Christian K=C3=B6nig wrote:
+> From: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+>=20
+> We still need to unbind explicitely during a move.
+>=20
+> This partial reverts commit ff20caa0bcbfef9f7686f8d1868a3b990921afd6.
+>=20
+> v2: remove unnecessary check and unused variable
+>=20
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/ttm/ttm_bo_util.c |  1 +
+>  drivers/gpu/drm/ttm/ttm_tt.c      | 19 ++++++++++++-------
+>  include/drm/ttm/ttm_bo_driver.h   |  9 +++++++++
+>  3 files changed, 22 insertions(+), 7 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/tt=
+m_bo_util.c
+> index 0c389a5..6c412c3 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> @@ -53,6 +53,7 @@ int ttm_bo_move_ttm(struct ttm_buffer_object *bo,
+>  	int ret;
+> =20
+>  	if (old_mem->mem_type !=3D TTM_PL_SYSTEM) {
+> +		ttm_tt_unbind(ttm);
+>  		ttm_bo_free_old_node(bo);
+>  		ttm_flag_masked(&old_mem->placement, TTM_PL_FLAG_SYSTEM,
+>  				TTM_PL_MASK_MEM);
+> diff --git a/drivers/gpu/drm/ttm/ttm_tt.c b/drivers/gpu/drm/ttm/ttm_tt.=
+c
+> index d28d4333..526e5a7 100644
+> --- a/drivers/gpu/drm/ttm/ttm_tt.c
+> +++ b/drivers/gpu/drm/ttm/ttm_tt.c
+> @@ -166,16 +166,10 @@ EXPORT_SYMBOL(ttm_tt_set_placement_caching);
+> =20
+>  void ttm_tt_destroy(struct ttm_tt *ttm)
+>  {
+> -	int ret;
+> -
+>  	if (ttm =3D=3D NULL)
+>  		return;
+> =20
+> -	if (ttm->state =3D=3D tt_bound) {
+> -		ret =3D ttm->func->unbind(ttm);
+> -		BUG_ON(ret);
+> -		ttm->state =3D tt_unbound;
+> -	}
+> +	ttm_tt_unbind(ttm);
+> =20
+>  	if (ttm->state =3D=3D tt_unbound)
+>  		ttm_tt_unpopulate(ttm);
+> @@ -255,6 +249,17 @@ void ttm_dma_tt_fini(struct ttm_dma_tt *ttm_dma)
+>  }
+>  EXPORT_SYMBOL(ttm_dma_tt_fini);
+> =20
+> +void ttm_tt_unbind(struct ttm_tt *ttm)
+> +{
+> +	int ret;
+> +
+> +	if (ttm->state =3D=3D tt_bound) {
+> +		ret =3D ttm->func->unbind(ttm);
+> +		BUG_ON(ret);
+> +		ttm->state =3D tt_unbound;
+> +	}
+> +}
+> +
+>  int ttm_tt_bind(struct ttm_tt *ttm, struct ttm_mem_reg *bo_mem)
+>  {
+>  	int ret =3D 0;
+> diff --git a/include/drm/ttm/ttm_bo_driver.h b/include/drm/ttm/ttm_bo_d=
+river.h
+> index 141cefb..e7d81a8 100644
+> --- a/include/drm/ttm/ttm_bo_driver.h
+> +++ b/include/drm/ttm/ttm_bo_driver.h
+> @@ -628,6 +628,15 @@ extern int ttm_tt_bind(struct ttm_tt *ttm, struct =
+ttm_mem_reg *bo_mem);
+>  extern void ttm_tt_destroy(struct ttm_tt *ttm);
+> =20
+>  /**
+> + * ttm_ttm_unbind:
+> + *
+> + * @ttm: The struct ttm_tt.
+> + *
+> + * Unbind a struct ttm_tt.
+> + */
+> +extern void ttm_tt_unbind(struct ttm_tt *ttm);
+> +
+> +/**
+>   * ttm_tt_swapin:
+>   *
+>   * @ttm: The struct ttm_tt.
+>=20
+
+
+--JIdR7fsB4arvAp3IxtEkGDJ5SVKoQxGsk--
+
+--hNdeu0w7t5rtnow7FpAabLFJrHRCrdAoL
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJXkhuwAAoJEP4bvbfZuWjbATQP/0K4K0PvtnsZfqHbxktoX8vE
+ttrAvfh9YgRI+i0b4M/DSB/hv3EOcGyyZArtooIQTr35vfjZ++yhVRtaTuc4YV8L
+CkU4x9IZtZsZjmUor17WGoOP5JCu27XMHEyUMFgUcKKJwqVw5egLol3exaJ2qlOV
++naZ2/LzR1OmymDf2xzsB+FI+lbN5mIVbeNQakhcMXXc9ap4sV01Z+UQFEgiiML9
+DFTSdgERvKN1k0thJ5rJnl5EF/w/2WNA/bg+RTLcluQJ2jOKB9X+IyTlDWZT3gNz
+soYF6hOljZ04cOyrYwkLd7vtPE6hDoBRLVGCyrihNP+G91Coabq5uPS0HZjYgBNc
+2sM6hfFXCbWi3dUOxzYNgBGcrYY/hOJJxuPgCFnm+h++X2q4rNpguJEkTq3Xfn3m
+S6Lyt1CLRvB0836wO59KAT3fETzx0WyVQUEphvfWvrYCjn3/TBMO8kAx5Ory2cyi
+Kj8gYwF5SbbzPT0TqGVr8WKGNTEZ52SAErJEhhTkIzKQfyeeOUBX6ikU8WhSFPcs
+43oATAr+Uc31nTvQTbQq7wU/OFhXzOhIfkDQa0xhF2fLlFWI6g4STVoKdEjRIu62
+6NRrCSaz2ABaT9rQ546ORe7jf8lGgQ5dd8dKK+DnkqddI/DbCbP2vU/6iEprL9b7
+NUj1Tyse1UjFq8zaxQnW
+=gjH/
+-----END PGP SIGNATURE-----
+
+--hNdeu0w7t5rtnow7FpAabLFJrHRCrdAoL--
+
+--===============1966349429==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1966349429==--
