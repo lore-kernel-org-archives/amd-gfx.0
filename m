@@ -1,15 +1,12 @@
-From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/4] drm/amd/amdgpu: Add GFX and UVD PG for Carrizo
-Date: Tue, 26 Jul 2016 18:49:47 +0000
-Message-ID: <DM5PR12MB1132B4CD639F3DF4015F5A60F70E0@DM5PR12MB1132.namprd12.prod.outlook.com>
-References: <20160726153832.15191-1-tom.stdenis@amd.com>
- <20160726153832.15191-3-tom.stdenis@amd.com>,
- <CADnq5_N7U8CQtLjjfxvcJghyFRAkGfGiHGM5gGB_Y51psHW8UQ@mail.gmail.com>
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH 1/6] drm/amdgpu: add new helper for in kernel allocations
+Date: Wed, 27 Jul 2016 09:54:02 +1000
+Message-ID: <d2ecae6c-fd41-24d2-9b20-76eb09ed5cae@folklore1984.net>
+References: <1469520017-8422-1-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0556568929=="
+Content-Type: multipart/mixed; boundary="===============0990331770=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_N7U8CQtLjjfxvcJghyFRAkGfGiHGM5gGB_Y51psHW8UQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <1469520017-8422-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,272 +17,169 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============0556568929==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM5PR12MB1132B4CD639F3DF4015F5A60F70E0DM5PR12MB1132namp_"
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0990331770==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="2IP6sjiCTwG0e6g5JP9oA9aQK0QKr4wG3"
 
---_000_DM5PR12MB1132B4CD639F3DF4015F5A60F70E0DM5PR12MB1132namp_
-Content-Type: text/plain; charset="iso-8859-1"
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--2IP6sjiCTwG0e6g5JP9oA9aQK0QKr4wG3
+Content-Type: multipart/mixed; boundary="IpnnhouUvJ45Jrk5e8RhN8br9bU7374Pw"
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>,
+ amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Message-ID: <d2ecae6c-fd41-24d2-9b20-76eb09ed5cae-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH 1/6] drm/amdgpu: add new helper for in kernel allocations
+References: <1469520017-8422-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <1469520017-8422-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+
+--IpnnhouUvJ45Jrk5e8RhN8br9bU7374Pw
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-I don't have rev0 hardware.  I can edit the comment but I can't test the sw=
-itch to the logic.
+This series is,
 
+Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
 
-Is there even rev0 hardware in retail?
-
-
-Tom
-
-
-________________________________
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Tuesday, July 26, 2016 14:47
-To: Tom St Denis
-Cc: amd-gfx list; StDenis, Tom
-Subject: Re: [PATCH 2/4] drm/amd/amdgpu: Add GFX and UVD PG for Carrizo
-
-On Tue, Jul 26, 2016 at 11:38 AM, Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote=
-:
-> Enables GFX PG and UVD static PG on Carrizo class
-> asics.
->
-> Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+On 07/26/2016 06:00 PM, Christian K=C3=B6nig wrote:
+> From: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+>=20
+> We often allocate, pin and map things at the same time in the kernel.
+>=20
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 > ---
->  drivers/gpu/drm/amd/amdgpu/vi.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu=
-/vi.c
-> index 9ba64989f092..289a4c4ac9e7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
-> @@ -1578,7 +1578,16 @@ static int vi_common_early_init(void *handle)
->                         AMD_CG_SUPPORT_HDP_LS |
->                         AMD_CG_SUPPORT_SDMA_MGCG |
->                         AMD_CG_SUPPORT_SDMA_LS;
-> +               /* rev0 hardware doesn't support PG */
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 63 ++++++++++++++++++++++=
+++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  4 ++
+>  2 files changed, 67 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_object.c
+> index 6f0873c..9357358 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> @@ -211,6 +211,69 @@ static void amdgpu_fill_placement_to_bo(struct amd=
+gpu_bo *bo,
+>  	bo->placement.busy_placement =3D bo->placements;
+>  }
+> =20
+> +/**
+> + * amdgpu_bo_create_kernel - create BO for kernel use
+> + *
+> + * @adev: amdgpu device object
+> + * @size: size for the new BO
+> + * @align: alignment for the new BO
+> + * @domain: where to place it
+> + * @bo_ptr: resulting BO
+> + * @gpu_addr: GPU addr of the pinned BO
+> + * @cpu_addr: optional CPU address mapping
+> + *
+> + * Allocates and pins a BO for kernel internal use.
+> + *
+> + * Returns 0 on success, negative error code otherwise.
+> + */
+> +int amdgpu_bo_create_kernel(struct amdgpu_device *adev,
+> +			    unsigned long size, int align,
+> +			    u32 domain, struct amdgpu_bo **bo_ptr,
+> +			    u64 *gpu_addr, void **cpu_addr)
+> +{
+> +	int r;
+> +
+> +	r =3D amdgpu_bo_create(adev, size, align, true, domain,
+> +			     AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED,
+> +			     NULL, NULL, bo_ptr);
+> +	if (r) {
+> +		dev_err(adev->dev, "(%d) failed to allocate kernel bo\n", r);
+> +		return r;
+> +	}
+> +
+> +	r =3D amdgpu_bo_reserve(*bo_ptr, false);
+> +	if (r) {
+> +		dev_err(adev->dev, "(%d) failed to reserve kernel bo\n", r);
+> +		goto error_free;
+> +	}
+> +
+> +	r =3D amdgpu_bo_pin(*bo_ptr, domain, gpu_addr);
+> +	if (r) {
+> +		dev_err(adev->dev, "(%d) kernel bo pin failed\n", r);
+> +		goto error_unreserve;
+> +	}
+> +
+> +	if (cpu_addr) {
+> +		r =3D amdgpu_bo_kmap(*bo_ptr, cpu_addr);
+> +		if (r) {
+> +			dev_err(adev->dev, "(%d) kernel bo map failed\n", r);
+> +			goto error_unreserve;
+> +		}
+> +	}
+> +
+> +	amdgpu_bo_unreserve(*bo_ptr);
+> +
+> +	return 0;
+> +
+> +error_unreserve:
+> +	amdgpu_bo_unreserve(*bo_ptr);
+> +
+> +error_free:
+> +	amdgpu_bo_unref(bo_ptr);
+> +
+> +	return r;
+> +}
+> +
+>  int amdgpu_bo_create_restricted(struct amdgpu_device *adev,
+>  				unsigned long size, int byte_align,
+>  				bool kernel, u32 domain, u64 flags,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_object.h
+> index bdb01d9..ae188a8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> @@ -139,6 +139,10 @@ int amdgpu_bo_create_restricted(struct amdgpu_devi=
+ce *adev,
+>  				struct ttm_placement *placement,
+>  			        struct reservation_object *resv,
+>  				struct amdgpu_bo **bo_ptr);
+> +int amdgpu_bo_create_kernel(struct amdgpu_device *adev,
+> +			    unsigned long size, int align,
+> +			    u32 domain, struct amdgpu_bo **bo_ptr,
+> +			    u64 *gpu_addr, void **cpu_addr);
+>  int amdgpu_bo_kmap(struct amdgpu_bo *bo, void **ptr);
+>  void amdgpu_bo_kunmap(struct amdgpu_bo *bo);
+>  struct amdgpu_bo *amdgpu_bo_ref(struct amdgpu_bo *bo);
+>=20
 
-It's probably worth correcting this comment.  A0 theoretically
-supports PG, but probably requires additional workarounds.  Something
-like "Don't enable PG on rev0 hw due to hw issues" or something like
-that.
 
->                 adev->pg_flags =3D 0;
-> +               if (adev->rev_id !=3D 0x00) {
-> +                       adev->pg_flags |=3D AMD_PG_SUPPORT_GFX_PG |
-> +                               AMD_PG_SUPPORT_GFX_SMG |
-> +                               AMD_PG_SUPPORT_GFX_PIPELINE;
-> +                       /* powerplay UVD PG doesn't work yet */
-> +                       if (!amdgpu_powerplay)
-> +                               adev->pg_flags |=3D AMD_PG_SUPPORT_UVD;
+--IpnnhouUvJ45Jrk5e8RhN8br9bU7374Pw--
 
-It's probably worth testing UVD PG on rev0 hw as well so see if we can
-enable this on them as well.  OTOH, there isn't likely much rev0 hw in
-the wild, so it may not matter too much.
+--2IP6sjiCTwG0e6g5JP9oA9aQK0QKr4wG3
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
 
-Alex
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
 
-> +               }
->                 adev->external_rev_id =3D adev->rev_id + 0x1;
->                 break;
->         case CHIP_STONEY:
-> --
-> 2.9.2
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-amd-gfx Info Page - lists.freedesktop.org<https://lists.freedesktop.org/mai=
-lman/listinfo/amd-gfx>
-lists.freedesktop.org
-To see the collection of prior postings to the list, visit the amd-gfx Arch=
-ives. Using amd-gfx: To post a message to all the list members, send email =
-...
+iQIcBAEBCAAGBQJXl/gfAAoJEP4bvbfZuWjb2AIP/1loIy8hIYto7tqLcWqozZVk
+LT2S8zcsX1UlOfYD0s+BeIIp8lhAA86EN+hyW7FKecO5olvvOiiyF6l3pDYJM6Do
+Qdl5bXSHX/qXcGTif0JGb27lxD9vqwj/B1vvf6WFzFqSj1s4JXg+rZSNisi63ZKD
+DvM8StDdRMB95Om5IV/4YUwWIa8QeckxZpy/JvOssn/Em2mMZRn0SbSuN7OXeHcG
+V2/Ga9VImY8/cndOexcXWplNLy/SXLTVokLAPAcI9KtwszZzpX75lTwzvWH89UCG
+NsuQM929vN5+iS1s0VrNMcbpwT7wL0+rIQfjsurT7iPIR0yFnhSMyb6UNjfslqao
+L3QJZUktNTrDDkXJigdwX8QAY3IBwRj1gGJh4YFED5ZR6vAW4Iuw6TP0yRCE6GET
+5KZldJL71dMPRleqnpBT6HOM0629d+sRHsAk4z9PHP3SuaLbApAqDxUsvW4tHOnt
+aIlH4w7FNEwNXqcPYi3temoBZzo70L+cH+Lirlw/cMelvgj6PrDReDWdi4892btQ
+mivFKYkUK+rd3NID1yj1H9+EK7WgzuBg5IVXluSbif0y+GZUSeyFEhO2qKmxbnC1
+pTnUt+LNqiUsLTc1LQv2zy+CVr7rLwiYWBXtBhZCZH8R+Ua1+SItcTDHMPxZQ0hP
+8jmK2qdogOdfZ4XPouuB
+=cll+
+-----END PGP SIGNATURE-----
 
+--2IP6sjiCTwG0e6g5JP9oA9aQK0QKr4wG3--
 
-
-
---_000_DM5PR12MB1132B4CD639F3DF4015F5A60F70E0DM5PR12MB1132namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;back=
-ground-color:#FFFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
-<p>I don't have rev0 hardware. &nbsp;I can edit the comment but I can't tes=
-t the switch to the logic.</p>
-<p><br>
-</p>
-<p>Is there even rev0 hardware in retail?</p>
-<p><br>
-</p>
-<p>Tom</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Alex Deucher &lt;al=
-exdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Sent:</b> Tuesday, July 26, 2016 14:47<br>
-<b>To:</b> Tom St Denis<br>
-<b>Cc:</b> amd-gfx list; StDenis, Tom<br>
-<b>Subject:</b> Re: [PATCH 2/4] drm/amd/amdgpu: Add GFX and UVD PG for Carr=
-izo</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">On Tue, Jul 26, 2016 at 11:38 AM, Tom St Denis &lt=
-;tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt; wrote:<br>
-&gt; Enables GFX PG and UVD static PG on Carrizo class<br>
-&gt; asics.<br>
-&gt;<br>
-&gt; Signed-off-by: Tom St Denis &lt;tom.stdenis-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/vi.c | 9 &#43;&#43;&#43;&#43;&#43;&#4=
-3;&#43;&#43;&#43;<br>
-&gt;&nbsp; 1 file changed, 9 insertions(&#43;)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amd=
-gpu/vi.c<br>
-&gt; index 9ba64989f092..289a4c4ac9e7 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/vi.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/vi.c<br>
-&gt; @@ -1578,7 &#43;1578,16 @@ static int vi_common_early_init(void *handl=
-e)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A=
-MD_CG_SUPPORT_HDP_LS |<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A=
-MD_CG_SUPPORT_SDMA_MGCG |<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A=
-MD_CG_SUPPORT_SDMA_LS;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; /* rev0 hardware doesn't support PG */<br>
-<br>
-It's probably worth correcting this comment.&nbsp; A0 theoretically<br>
-supports PG, but probably requires additional workarounds.&nbsp; Something<=
-br>
-like &quot;Don't enable PG on rev0 hw due to hw issues&quot; or something l=
-ike<br>
-that.<br>
-<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pg_flags =3D 0;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (adev-&gt;rev_id !=3D 0x00) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&g=
-t;pg_flags |=3D AMD_PG_SUPPORT_GFX_PG |<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_PG_SUPPORT_GFX_SMG |<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_PG_SUPPORT_GFX_PIPELINE;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* powe=
-rplay UVD PG doesn't work yet */<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!am=
-dgpu_powerplay)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pg_flags |=3D AMD_PG_SUPP=
-ORT_UVD;<br>
-<br>
-It's probably worth testing UVD PG on rev0 hw as well so see if we can<br>
-enable this on them as well.&nbsp; OTOH, there isn't likely much rev0 hw in=
-<br>
-the wild, so it may not matter too much.<br>
-<br>
-Alex<br>
-<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;external_rev_id =3D adev-&gt;rev_id &#43=
-; 0x1;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_STONEY:<br>
-&gt; --<br>
-&gt; 2.9.2<br>
-&gt;<br>
-&gt; _______________________________________________<br>
-&gt; amd-gfx mailing list<br>
-&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=
-=3D"LPlnk975737">
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-<div id=3D"LPBorder_GT_14695589164750.4512743390541143" style=3D"margin-bot=
-tom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
-<table id=3D"LPContainer_14695589164710.07989852876321746" cellspacing=3D"0=
-" style=3D"width: 90%; position: relative; overflow: auto; padding-top: 20p=
-x; padding-bottom: 20px; margin-top: 20px; border-top: 1px dotted rgb(200, =
-200, 200); border-bottom: 1px dotted rgb(200, 200, 200); background-color: =
-rgb(255, 255, 255);">
-<tbody>
-<tr valign=3D"top" style=3D"border-spacing: 0px;">
-<td id=3D"TextCell_14695589164730.6199863572278035" colspan=3D"2" style=3D"=
-vertical-align: top; position: relative; padding: 0px; display: table-cell;=
-">
-<div id=3D"LPRemovePreviewContainer_14695589164730.49146283525099066"></div=
->
-<div id=3D"LPTitle_14695589164730.09316000362307508" style=3D"top: 0px; col=
-or: rgb(59, 87, 119); font-weight: normal; font-size: 21px; font-family: wf=
-_segoe-ui_light, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&quot;, &q=
-uot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif; line-h=
-eight: 21px;">
-<a id=3D"LPUrlAnchor_14695589164730.8951956216594377" href=3D"https://lists=
-.freedesktop.org/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"text-=
-decoration: none;">amd-gfx Info Page - lists.freedesktop.org</a></div>
-<div id=3D"LPMetadata_14695589164740.8299894332593494" style=3D"margin: 10p=
-x 0px 16px; color: rgb(102, 102, 102); font-weight: normal; font-family: wf=
-_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial=
-, sans-serif; font-size: 14px; line-height: 14px;">
-lists.freedesktop.org</div>
-<div id=3D"LPDescription_14695589164740.743527748320729" style=3D"display: =
-block; color: rgb(102, 102, 102); font-weight: normal; font-family: wf_sego=
-e-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, san=
-s-serif; font-size: 14px; line-height: 20px; max-height: 100px; overflow: h=
-idden;">
-To see the collection of prior postings to the list, visit the amd-gfx Arch=
-ives. Using amd-gfx: To post a message to all the list members, send email =
-...</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_DM5PR12MB1132B4CD639F3DF4015F5A60F70E0DM5PR12MB1132namp_--
-
---===============0556568929==
+--===============0990331770==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -295,4 +189,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0556568929==--
+--===============0990331770==--
