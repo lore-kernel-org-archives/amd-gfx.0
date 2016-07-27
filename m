@@ -1,112 +1,65 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [pull] radeon and amdgpu drm-next-4.8
-Date: Wed, 27 Jul 2016 15:10:38 -0400
-Message-ID: <CADnq5_PL8MPbXXp_L_t03LPnC6_TbNgbm1pG6Osk0bUM4hj-4Q@mail.gmail.com>
-References: <1468607475-10763-1-git-send-email-alexander.deucher@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1468607475-10763-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: [PATCH 2/2] drm/amdgpu: fix firmware info version checks
+Date: Wed, 27 Jul 2016 16:09:31 -0400
+Message-ID: <1469650171-7218-2-git-send-email-alexander.deucher@amd.com>
+References: <1469650171-7218-1-git-send-email-alexander.deucher@amd.com>
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <1469650171-7218-1-git-send-email-alexander.deucher@amd.com>
+Sender: stable-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gRnJpLCBKdWwgMTUsIDIwMTYgYXQgMjozMSBQTSwgQWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hl
-ckBnbWFpbC5jb20+IHdyb3RlOgo+IEhpIERhdmUsCj4KPiBBIGZldyBtb3JlIHBhdGNoZXMgZm9y
-IDQuOC4gIE1vc3RseSBidWcgZml4ZXMgYW5kIHNvbWUgcHJlcCB3b3JrCj4gZm9yIGljZWxhbmQg
-cG93ZXJwbGF5IHN1cHBvcnQuICBJIGhhdmUgYSBjb3VwbGUgcG9sYXJpcyBwYXRjaGVzIGFuZAo+
-IEVkd2FyZCdzIG1pc2MgY2xlYW51cHMgdGhhdCByZXF1aXJlIGEgbWVyZ2Ugd2l0aCBMaW51cycu
-ICBJIGRvbid0IGtub3cKPiBpZiB5b3UgYXJlIHBsYW5uaW5nIGEgbWVyZ2UgYW55dGltZSBzb29u
-LgoKVGhpcyBkb2Vzbid0IHNlZW0gdG8gaGF2ZSBiZWVuIHB1bGxlZCB5ZXQuICBKdXN0IHdhbnRl
-ZCB0byBtYWtlIHN1cmUKaXQgZGlkbid0IGdldCBtaXNzZWQuICBJJ2QgbGlrZSB0byBzZW5kIG9u
-ZSBtb3JlIHB1bGwgd2l0aCB0aGUgYWJvdmUKbWVudGlvbmVkIHBhdGNoZXMgaW4gYWRkaXRpb24g
-dG8gdGhlIG9uZXMgYmVsb3cuCgpBbGV4Cgo+Cj4gVGhlIGZvbGxvd2luZyBjaGFuZ2VzIHNpbmNl
-IGNvbW1pdCBiMTgxNGExZGVmMDU2NGEyYTFkM2JlN2ZhNWJmNzI0M2ZmODk5YTI4Ogo+Cj4gICBk
-cm0vYW1kL3Bvd2VycGxheTogZG9uJ3QgYWRkIGludmFsaWQgdm9sdGFnZS4gKDIwMTYtMDctMDcg
-MTU6MDY6MjQgLTA0MDApCj4KPiBhcmUgYXZhaWxhYmxlIGluIHRoZSBnaXQgcmVwb3NpdG9yeSBh
-dDoKPgo+ICAgZ2l0Oi8vcGVvcGxlLmZyZWVkZXNrdG9wLm9yZy9+YWdkNWYvbGludXggZHJtLW5l
-eHQtNC44Cj4KPiBmb3IgeW91IHRvIGZldGNoIGNoYW5nZXMgdXAgdG8gNWVmODI5MjkyNTA0N2Fk
-MjkwMjA1YWY1ZjNhZTEzZDBhMzZkNzc0ZDoKPgo+ICAgZHJtL2FtZGdwdTogY29tbWVudCBvdXQg
-dW51c2VkIGRlZmF1bHRzX2JvbmFpcmVfcHJvIHN0YXRpYyBjb25zdCBzdHJ1Y3R1cmVzIHRvIGZp
-eCB0aGUgYnVpbGQgKDIwMTYtMDctMTUgMTQ6MjM6MDggLTA0MDApCj4KPiAtLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4gQWxl
-eCBEZXVjaGVyICg0KToKPiAgICAgICBkcm0vYW1kZ3B1L3Bvd2VycGxheTogZW5kaWFuIGZpeGVz
-IGZvciBwcGF0b21jdHJsLmMKPiAgICAgICBkcm0vYW1kZ3B1OiBzdXBwb3J0IGJhY2tsaWdodCBj
-b250cm9sIGZvciBVTklQSFkzCj4gICAgICAgZHJtL3JhZGVvbjogc3VwcG9ydCBiYWNrbGlnaHQg
-Y29udHJvbCBmb3IgVU5JUEhZMwo+ICAgICAgIGRybS9hbWRncHU6IGRpc2FibGUgR0ZYIFBHIG9u
-IENaL0JSL1NUCj4KPiBDaHJpc3RpYW4gS8O2bmlnICgxMCk6Cj4gICAgICAgZHJtL2FtZGdwdTog
-c2FuaXRpemUgZmVuY2UgbnVtYmVycwo+ICAgICAgIGRybS9hbWRncHU6IGNsZWFudXAgVkNFIGNv
-ZGluZyBzdHlsZQo+ICAgICAgIGRybS9hbWRncHU6IGFsbG93IG11bHRpcGxlIHNlc3Npb25zIGlu
-IHRoZSBzYW1lIFZDRSBJQgo+ICAgICAgIGRybS9hbWRncHU6IGNsZWFudXAgVVZEIGNvZGluZyBz
-dHlsZQo+ICAgICAgIGRybS9hbWRncHU6IGNsZWFudXAgaHcgcmVmZXJlbmNlIGhhbmRsaW5nIGlu
-IHRoZSBJQiB0ZXN0cwo+ICAgICAgIGRybS9hbWRncHU6IHJlbW92ZSB1c2VjIHRpbWVvdXQgbG9v
-cCBmcm9tIElCIHRlc3RzCj4gICAgICAgZHJtL2FtZGdwdTogY2hlY2sgZmx1c2ggZmVuY2UgY29u
-dGV4dCBpbnN0ZWFkIG9mIHNhbWUgcmluZyB2Mgo+ICAgICAgIGRybS9hbWRncHU6IGFsd2F5cyBz
-aWduYWwgYWxsIGZlbmNlcwo+ICAgICAgIGRybS9hbWRncHU6IHRyYWNlIG5lZWRfZmx1c2ggaW4g
-Z3JhYl92bSBhcyB3ZWxsCj4gICAgICAgZHJtL2FtZGdwdTogcmV0dXJuIC1FTk9TUEMgd2hlbiBy
-dW5uaW5nIG91dCBvZiBVVkQgaGFuZGxlcwo+Cj4gSHVhbmcgUnVpICg4KToKPiAgICAgICBkcm0v
-YW1kZ3B1OiByZW5hbWUgc211bWdyIHRvIHNtdW0gZm9yIGRwbQo+ICAgICAgIGRybS9hbWRncHU6
-IG5vIG5lZWQgbG9hZCBtaWNyb2NvZGUgYXQgc2RtYSBpZiBwb3dlcnBsYXkgaXMgZW5hYmxlZAo+
-ICAgICAgIGRybS9hbWRncHU6IGFkZCB1Y29kZV9zdGFydF9hZGRyZXNzIGludG8gY2dzX2Zpcm13
-YXJlX2luZm8KPiAgICAgICBkcm0vYW1kL3Bvd2VycGxheTogYWRkIFNNVSByZWdpc3RlciBtYWNy
-byBmb3IgZnV0dXJlIHVzZQo+ICAgICAgIGRybS9hbWRncHU6IGFkZCBuZXcgZGVmaW5pdGlvbnMg
-aW50byBwcHNtYy5oIGZvciBpY2VsYW5kCj4gICAgICAgZHJtL2FtZC9wb3dlcnBsYXk6IGFkZCBh
-dG9tY3RybF9nZXRfdm9sdGFnZV9ldnYgZnVuY3Rpb24gaW4gcHBhdG9tY3RybAo+ICAgICAgIGRy
-bS9hbWQvcG93ZXJwbGF5OiBmaXggdGhlIGluY29ycmVjdCByZXR1cm4gdmFsdWUKPiAgICAgICBk
-cm0vYW1kL3Bvd2VycGxheTogYWRkIHBwX3RhYmxlc19nZXRfcmVzcG9uc2VfdGltZXMgZnVuY3Rp
-b24gaW4gcHJvY2VzcyBwcHRhYmxlcwo+Cj4gTWF0dGhpYXMgQmV5ZXIgKDEpOgo+ICAgICAgIGRy
-aXZlcnM6IGdwdTogZHJtOiBhbWQ6IHBvd2VycGxheTogaHdtZ3I6IFJlbW92ZSB1bnVzZWQgdmFy
-aWFibGUKPgo+IFNsYXZhIEdyaWdvcmV2ICgyKToKPiAgICAgICBkcm0vYW1kZ3B1OiB0ZW1wb3Jh
-cnkgY29tbWVudCBvdXQgdW51c2VkIHN0YXRpYyBjb25zdCBzdHJ1Y3R1cmVzIHRvIGZpeCB0aGUg
-YnVpbGQKPiAgICAgICBkcm0vYW1kZ3B1OiBjb21tZW50IG91dCB1bnVzZWQgZGVmYXVsdHNfYm9u
-YWlyZV9wcm8gc3RhdGljIGNvbnN0IHN0cnVjdHVyZXMgdG8gICAgIGZpeCB0aGUgYnVpbGQKPgo+
-IGppbXF1ICgxKToKPiAgICAgICBkcm0vYW1kZ3B1OiBTMyByZXN1bWUgZmFpbCBvbiBQb2xhcmlz
-MTAKPgo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY2dzLmMgICAgICAgICAg
-ICB8ICAgNCArCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5jICAg
-ICAgICAgIHwgIDE3ICstCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pYi5j
-ICAgICAgICAgICAgIHwgICA2ICstCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9qb2IuYyAgICAgICAgICAgIHwgICA4ICstCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV90cmFjZS5oICAgICAgICAgIHwgIDE2ICstCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV91dmQuYyAgICAgICAgICAgIHwgIDExICstCj4gIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV92Y2UuYyAgICAgICAgICAgIHwgMTA0ICsrKystLS0KPiAgZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgICAgICAgICAgICAgfCAgMTMgKy0K
-PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYXRvbWJpb3NfZW5jb2RlcnMuYyAgICAgfCAg
-IDEgKwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaV9kcG0uYyAgICAgICAgICAgICAg
-ICB8ICAgMiArCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Npa19zZG1hLmMgICAgICAg
-ICAgICAgIHwgIDE4ICstCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92N18wLmMg
-ICAgICAgICAgICAgIHwgIDE1ICstCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92
-OF8wLmMgICAgICAgICAgICAgIHwgIDE2ICstCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2ljZWxhbmRfZHBtLmMgICAgICAgICAgIHwgICAyICstCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2ljZWxhbmRfc21jLmMgICAgICAgICAgIHwgICAyICstCj4gIC4uLi9hbWRncHUve2lj
-ZWxhbmRfc211bWdyLmggPT4gaWNlbGFuZF9zbXVtLmh9ICAgIHwgICAwCj4gIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2t2X2RwbS5jICAgICAgICAgICAgICAgIHwgICAyICsKPiAgZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvcHBzbWMuaCAgICAgICAgICAgICAgICAgfCAgIDQgKwo+ICBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3YyXzQuYyAgICAgICAgICAgICB8ICA0MyAr
-Ky0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92M18wLmMgICAgICAgICAgICAg
-fCAgMTUgKy0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNlX3YzXzAuYyAgICAgICAg
-ICAgICAgfCAxNDMgKysrKysrLS0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92aS5j
-ICAgICAgICAgICAgICAgICAgICB8ICAxNCAtCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVk
-ZS9jZ3NfY29tbW9uLmggICAgICAgICAgIHwgICA0ICsKPiAgLi4uL2dwdS9kcm0vYW1kL3Bvd2Vy
-cGxheS9od21nci9wb2xhcmlzMTBfaHdtZ3IuYyAgfCAgIDkgKy0KPiAgZHJpdmVycy9ncHUvZHJt
-L2FtZC9wb3dlcnBsYXkvaHdtZ3IvcHBhdG9tY3RybC5jICAgfCAyOTkgKysrKysrKysrKysrLS0t
-LS0tLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3BwYXRvbWN0cmwu
-aCAgIHwgICAxICsKPiAgLi4uL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9wcm9jZXNzcHB0
-YWJsZXMuYyAgfCAgMTMgKwo+ICAuLi4vZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3Byb2Nl
-c3NwcHRhYmxlcy5oICB8ICAxNyArLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9p
-bmMvc211bWdyLmggICAgICAgICB8ICAyOSArKwo+ICBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL2F0
-b21iaW9zX2VuY29kZXJzLmMgICAgICAgICB8ICAgMSArCj4gIDMwIGZpbGVzIGNoYW5nZWQsIDQ2
-OSBpbnNlcnRpb25zKCspLCAzNjAgZGVsZXRpb25zKC0pCj4gIHJlbmFtZSBkcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS97aWNlbGFuZF9zbXVtZ3IuaCA9PiBpY2VsYW5kX3NtdW0uaH0gKDEwMCUp
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
-bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+Some of the checks didn't handle frev 2 tables properly.
+amdgpu doesn't support any tables pre-frev 2, so drop
+the checks.
+
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c | 25 ++++++++-----------------
+ 1 file changed, 8 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+index 9df1bcb..9831753 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+@@ -551,28 +551,19 @@ int amdgpu_atombios_get_clock_info(struct amdgpu_device *adev)
+ 		    le16_to_cpu(firmware_info->info.usReferenceClock);
+ 		ppll->reference_div = 0;
+ 
+-		if (crev < 2)
+-			ppll->pll_out_min =
+-				le16_to_cpu(firmware_info->info.usMinPixelClockPLL_Output);
+-		else
+-			ppll->pll_out_min =
+-				le32_to_cpu(firmware_info->info_12.ulMinPixelClockPLL_Output);
++		ppll->pll_out_min =
++			le32_to_cpu(firmware_info->info_12.ulMinPixelClockPLL_Output);
+ 		ppll->pll_out_max =
+ 		    le32_to_cpu(firmware_info->info.ulMaxPixelClockPLL_Output);
+ 
+-		if (crev >= 4) {
+-			ppll->lcd_pll_out_min =
+-				le16_to_cpu(firmware_info->info_14.usLcdMinPixelClockPLL_Output) * 100;
+-			if (ppll->lcd_pll_out_min == 0)
+-				ppll->lcd_pll_out_min = ppll->pll_out_min;
+-			ppll->lcd_pll_out_max =
+-				le16_to_cpu(firmware_info->info_14.usLcdMaxPixelClockPLL_Output) * 100;
+-			if (ppll->lcd_pll_out_max == 0)
+-				ppll->lcd_pll_out_max = ppll->pll_out_max;
+-		} else {
++		ppll->lcd_pll_out_min =
++			le16_to_cpu(firmware_info->info_14.usLcdMinPixelClockPLL_Output) * 100;
++		if (ppll->lcd_pll_out_min == 0)
+ 			ppll->lcd_pll_out_min = ppll->pll_out_min;
++		ppll->lcd_pll_out_max =
++			le16_to_cpu(firmware_info->info_14.usLcdMaxPixelClockPLL_Output) * 100;
++		if (ppll->lcd_pll_out_max == 0)
+ 			ppll->lcd_pll_out_max = ppll->pll_out_max;
+-		}
+ 
+ 		if (ppll->pll_out_min == 0)
+ 			ppll->pll_out_min = 64800;
+-- 
+2.5.5
