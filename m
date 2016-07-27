@@ -1,42 +1,44 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: [PATCH 1/2] drm/radeon: fix firmware info version checks
-Date: Wed, 27 Jul 2016 16:09:30 -0400
-Message-ID: <1469650171-7218-1-git-send-email-alexander.deucher@amd.com>
-Return-path: <stable-owner@vger.kernel.org>
-Sender: stable-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 1/2] drm/amdgpu: init atpx at switcheroo register time
+Date: Wed, 27 Jul 2016 16:10:44 -0400
+Message-ID: <1469650245-7919-1-git-send-email-alexander.deucher@amd.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Peter Wu <peter-VTkQYDcBqhK7DlmcbJSQ7g@public.gmane.org>
 
-Some of the checks didn't handle frev 2 tables properly.
-
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
----
- drivers/gpu/drm/radeon/radeon_atombios.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/radeon/radeon_atombios.c b/drivers/gpu/drm/radeon/radeon_atombios.c
-index f8097a0..5df3ec7 100644
---- a/drivers/gpu/drm/radeon/radeon_atombios.c
-+++ b/drivers/gpu/drm/radeon/radeon_atombios.c
-@@ -1155,7 +1155,7 @@ bool radeon_atom_get_clock_info(struct drm_device *dev)
- 		    le16_to_cpu(firmware_info->info.usReferenceClock);
- 		p1pll->reference_div = 0;
- 
--		if (crev < 2)
-+		if ((frev < 2) && (crev < 2))
- 			p1pll->pll_out_min =
- 				le16_to_cpu(firmware_info->info.usMinPixelClockPLL_Output);
- 		else
-@@ -1164,7 +1164,7 @@ bool radeon_atom_get_clock_info(struct drm_device *dev)
- 		p1pll->pll_out_max =
- 		    le32_to_cpu(firmware_info->info.ulMaxPixelClockPLL_Output);
- 
--		if (crev >= 4) {
-+		if (((frev < 2) && (crev >= 4)) || (frev >= 2)) {
- 			p1pll->lcd_pll_out_min =
- 				le16_to_cpu(firmware_info->info_14.usLcdMinPixelClockPLL_Output) * 100;
- 			if (p1pll->lcd_pll_out_min == 0)
--- 
-2.5.5
+SWYgd2UgZG8gaXQgYXQgZW5hYmxlIHRpbWUsIGl0J3MgdG9vIGxhdGUgZm9yIHRoZSBmZWF0dXJl
+CmNoZWNrcy4KClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJA
+YW1kLmNvbT4KQ2M6IFBldGVyIFd1IDxwZXRlckBsZWtlbnN0ZXluLm5sPgotLS0KIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hdHB4X2hhbmRsZXIuYyB8IDMgKystCiAxIGZpbGUg
+Y2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2F0cHhfaGFuZGxlci5jIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2F0cHhfaGFuZGxlci5jCmluZGV4IDA0OTRmZTcuLmJj
+OGRjNzEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hdHB4
+X2hhbmRsZXIuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYXRweF9o
+YW5kbGVyLmMKQEAgLTUzOSw3ICs1MzksNyBAQCBzdGF0aWMgaW50IGFtZGdwdV9hdHB4X2dldF9j
+bGllbnRfaWQoc3RydWN0IHBjaV9kZXYgKnBkZXYpCiBzdGF0aWMgY29uc3Qgc3RydWN0IHZnYV9z
+d2l0Y2hlcm9vX2hhbmRsZXIgYW1kZ3B1X2F0cHhfaGFuZGxlciA9IHsKIAkuc3dpdGNodG8gPSBh
+bWRncHVfYXRweF9zd2l0Y2h0bywKIAkucG93ZXJfc3RhdGUgPSBhbWRncHVfYXRweF9wb3dlcl9z
+dGF0ZSwKLQkuaW5pdCA9IGFtZGdwdV9hdHB4X2luaXQsCisJLmluaXQgPSBOVUxMLAogCS5nZXRf
+Y2xpZW50X2lkID0gYW1kZ3B1X2F0cHhfZ2V0X2NsaWVudF9pZCwKIH07CiAKQEAgLTU3NCw2ICs1
+NzQsNyBAQCBzdGF0aWMgYm9vbCBhbWRncHVfYXRweF9kZXRlY3Qodm9pZCkKIAkJcHJpbnRrKEtF
+Uk5fSU5GTyAidmdhX3N3aXRjaGVyb286IGRldGVjdGVkIHN3aXRjaGluZyBtZXRob2QgJXMgaGFu
+ZGxlXG4iLAogCQkgICAgICAgYWNwaV9tZXRob2RfbmFtZSk7CiAJCWFtZGdwdV9hdHB4X3ByaXYu
+YXRweF9kZXRlY3RlZCA9IHRydWU7CisJCWFtZGdwdV9hdHB4X2luaXQoKTsKIAkJcmV0dXJuIHRy
+dWU7CiAJfQogCXJldHVybiBmYWxzZTsKLS0gCjIuNS41CgpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2FtZC1nZngK
