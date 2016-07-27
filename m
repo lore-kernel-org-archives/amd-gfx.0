@@ -1,86 +1,43 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: Disable RPM helpers while reprobing
- connectors on resume
-Date: Wed, 27 Jul 2016 16:31:46 -0400
-Message-ID: <CADnq5_PVAAoLH3RMPNKJ4tWWYLd+YOJ+NnxK98hE20=YU67Y1g@mail.gmail.com>
-References: <1468856499-19246-1-git-send-email-cpaul@redhat.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/radeon: drop confusing message about backlight control
+Date: Wed, 27 Jul 2016 16:44:59 -0400
+Message-ID: <1469652299-3117-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <1468856499-19246-1-git-send-email-cpaul@redhat.com>
-Sender: stable-owner@vger.kernel.org
-To: Lyude <cpaul@redhat.com>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>, "for 3.8" <stable@vger.kernel.org>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Chunming Zhou <David1.Zhou@amd.com>, Jammy Zhou <Jammy.Zhou@amd.com>, Monk Liu <Monk.Liu@amd.com>, Flora Cui <Flora.Cui@amd.com>, Tom St Denis <tom.stdenis@amd.com>, "open list:RADEON and AMDGPU DRM DRIVERS" <dri-devel@lists.freedesktop.org>, open list <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Hans de Goede <jwrdegoede-rxtnV0ftBwyoClj4AeEUq9i2O/JbrIOy@public.gmane.org>
 
-On Mon, Jul 18, 2016 at 11:41 AM, Lyude <cpaul@redhat.com> wrote:
-> Just about all of amdgpu's connector probing functions try to acquire
-> runtime PM refs. If we try to do this in the context of
-> amdgpu_resume_kms by calling drm_helper_hpd_irq_event(), we end up
-> deadlocking the system.
->
-> Since we're guaranteed to be holding the spinlock for RPM in
-> amdgpu_resume_kms, and we already know the GPU is in working order, we
-> need to prevent the RPM helpers from trying to run during the initial
-> connector reprobe on resume.
->
-> There's a couple of solutions I've explored for fixing this, but this
-> one by far seems to be the simplest and most reliable (plus I'm pretty
-> sure that's what disable_depth is there for anyway).
->
-> Reproduction recipe:
->   - Get any laptop dual GPUs using PRIME
->   - Make sure runtime PM is enabled for amdgpu
->   - Boot the machine
->   - If the machine managed to boot without hanging, switch out of X to
->     another VT. This should definitely cause X to hang infinitely.
->
-> Changes since v1:
->   - add appropriate #ifdef checks for CONFIG_PM. This is not very
->     useful, but it appears some kernel test suites test compiling amdgpu
->     with CONFIG_PM disabled, which results in this patch breaking the builds
->     if we don't include this #ifdef
->
-> Cc: stable@vger.kernel.org
-> Cc: Alex Deucher <alexdeucher@gmail.com>
-> Signed-off-by: Lyude <cpaul@redhat.com>
-
-Applied.  Thanks!
-
-Alex
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 6e92008..b7f5650 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -1841,7 +1841,23 @@ int amdgpu_resume_kms(struct drm_device *dev, bool resume, bool fbcon)
->         }
->
->         drm_kms_helper_poll_enable(dev);
-> +
-> +       /*
-> +        * Most of the connector probing functions try to acquire runtime pm
-> +        * refs to ensure that the GPU is powered on when connector polling is
-> +        * performed. Since we're calling this from a runtime PM callback,
-> +        * trying to acquire rpm refs will cause us to deadlock.
-> +        *
-> +        * Since we're guaranteed to be holding the rpm lock, it's safe to
-> +        * temporarily disable the rpm helpers so this doesn't deadlock us.
-> +        */
-> +#ifdef CONFIG_PM
-> +       dev->dev->power.disable_depth++;
-> +#endif
->         drm_helper_hpd_irq_event(dev);
-> +#ifdef CONFIG_PM
-> +       dev->dev->power.disable_depth--;
-> +#endif
->
->         if (fbcon) {
->                 amdgpu_fbdev_set_suspend(adev, 0);
-> --
-> 2.7.4
->
+VGhlIG1lc3NhZ2UgaXMgaGFybWxlc3MgYW5kIGNvbmZ1c2luZy4gIE9uIFBYIHN5c3RlbXMsCnRo
+ZXJlIGlzIG9uZSBBVElGIG1ldGhvZCwgYnV0IHBvdGVudGlhbGx5IG11bHRpcGxlIEdQVXMKbGVh
+ZGluZyB0byBhbiBlcnJvciBvbiB0aGUgR1BVIHdpdGggbm8gYmFja2xpZ2h0IGNvbnRyb2wuCgpC
+dWc6IGh0dHBzOi8vYnVnemlsbGEua2VybmVsLm9yZy9zaG93X2J1Zy5jZ2k/aWQ9MTE1MDExClNp
+Z25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KQ2M6
+IEhhbnMgZGUgR29lZGUgPGp3cmRlZ29lZGVAZmVkb3JhcHJvamVjdC5vcmc+Ci0tLQogZHJpdmVy
+cy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fYWNwaS5jIHwgNyAtLS0tLS0tCiAxIGZpbGUgY2hhbmdl
+ZCwgNyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3Jh
+ZGVvbl9hY3BpLmMgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9hY3BpLmMKaW5kZXgg
+NTlhY2QwZS4uMzFjOWE5MiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRl
+b25fYWNwaS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2FjcGkuYwpAQCAt
+NzQxLDEzICs3NDEsNiBAQCBpbnQgcmFkZW9uX2FjcGlfaW5pdChzdHJ1Y3QgcmFkZW9uX2Rldmlj
+ZSAqcmRldikKIAkJfQogCiAJCWF0aWYtPmVuY29kZXJfZm9yX2JsID0gdGFyZ2V0OwotCQlpZiAo
+IXRhcmdldCkgewotCQkJLyogQnJpZ2h0bmVzcyBjaGFuZ2Ugbm90aWZpY2F0aW9uIGlzIGVuYWJs
+ZWQsIGJ1dCB3ZQotCQkJICogZGlkbid0IGZpbmQgYSBiYWNrbGlnaHQgY29udHJvbGxlciwgdGhp
+cyBzaG91bGQKLQkJCSAqIG5ldmVyIGhhcHBlbi4KLQkJCSAqLwotCQkJRFJNX0VSUk9SKCJDYW5u
+b3QgZmluZCBhIGJhY2tsaWdodCBjb250cm9sbGVyXG4iKTsKLQkJfQogCX0KIAogCWlmIChhdGlm
+LT5mdW5jdGlvbnMuc2Jpb3NfcmVxdWVzdHMgJiYgIWF0aWYtPmZ1bmN0aW9ucy5zeXN0ZW1fcGFy
+YW1zKSB7Ci0tIAoyLjUuNQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Cg==
