@@ -1,13 +1,13 @@
 From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 4/4] drm/amd/powerplay: Prevent UVD powerdown before init
-Date: Thu, 28 Jul 2016 10:55:59 +0000
-Message-ID: <DM5PR12MB11324D6B708601515C03179DF7000@DM5PR12MB1132.namprd12.prod.outlook.com>
+Date: Thu, 28 Jul 2016 11:10:40 +0000
+Message-ID: <DM5PR12MB1132DA66C4E0B70497D5D121F7000@DM5PR12MB1132.namprd12.prod.outlook.com>
 References: <20160726153832.15191-1-tom.stdenis@amd.com>
  <20160726153832.15191-5-tom.stdenis@amd.com>
  <CADnq5_P5C_Rix2wkUuzABQKtcxOYyQeL7FNBA4GJLy3Fg+o4UQ@mail.gmail.com>,
  <BLUPR12MB0659D45202A93FB726C50D84FB000@BLUPR12MB0659.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0834822810=="
+Content-Type: multipart/mixed; boundary="===============0463024020=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <BLUPR12MB0659D45202A93FB726C50D84FB000-7LeqcoF/hwopKKKeNxqxVAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
@@ -24,31 +24,24 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0834822810==
+--===============0463024020==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_DM5PR12MB11324D6B708601515C03179DF7000DM5PR12MB1132namp_"
+	boundary="_000_DM5PR12MB1132DA66C4E0B70497D5D121F7000DM5PR12MB1132namp_"
 
---_000_DM5PR12MB11324D6B708601515C03179DF7000DM5PR12MB1132namp_
+--_000_DM5PR12MB1132DA66C4E0B70497D5D121F7000DM5PR12MB1132namp_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-I found that moving the PG_EN to start would cause problems.  I'm pretty su=
-re you have to write it just before calling the firmware otherwise bad thin=
-gs happen which is why I moved it there.  We could probably move it into th=
-e uvd_v6_0's powergating function which is called just before the smu call.
+Quick question, how am I meant to get access to pm.mutex from powerplay?
 
 
-I'll take care of comments 2/3.  For 4 it was a sanity check to prevent out=
--of-order operations.  It can probably be safely removed now.
-
-
-My work tree also has a half-implemented VCE PG/CG (PG works, CG doesn't) t=
-hat has some of the same issues so I'll fix them too and sort the tree out =
-a bit and re-send the whole lot sometime today.
+I need a lock I can see around the SMU calls and in the amdgpu side (for us=
+erspace locking).
 
 
 Tom
+
 
 ________________________________
 From: Zhu, Rex
@@ -345,7 +338,7 @@ amd-gfx mailing list
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_DM5PR12MB11324D6B708601515C03179DF7000DM5PR12MB1132namp_
+--_000_DM5PR12MB1132DA66C4E0B70497D5D121F7000DM5PR12MB1132namp_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -359,25 +352,16 @@ n-bottom:0;} --></style>
 <body dir=3D"ltr">
 <div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;back=
 ground-color:#FFFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
-<p>I found that moving the PG_EN to start would cause problems. &nbsp;I'm p=
-retty sure you have to write it just before calling the firmware otherwise =
-bad things happen which is why I moved it there. &nbsp;<span style=3D"font-=
-size: 12pt;">We could probably move it into
- the uvd_v6_0's powergating function which is called just before the smu ca=
-ll.</span></p>
+<p>Quick question, how am I meant to get access to pm.mutex from powerplay?=
+</p>
 <p><br>
 </p>
-<p>I'll take care of comments 2/3. &nbsp;For 4 it was a sanity check to pre=
-vent out-of-order operations. &nbsp;It can probably be safely removed now.<=
-/p>
-<p><br>
-</p>
-<p>My work tree also has a half-implemented VCE PG/CG (PG works, CG doesn't=
-)&nbsp;that has some of the same issues so I'll fix them too and sort the t=
-ree out a bit and re-send the whole lot sometime today.</p>
+<p>I need a lock I can see around the SMU calls and in the amdgpu side (for=
+ userspace locking).</p>
 <p><br>
 </p>
 <p>Tom</p>
+<br>
 <br>
 <div style=3D"color: rgb(0, 0, 0);">
 <div>
@@ -850,9 +834,9 @@ lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
 </body>
 </html>
 
---_000_DM5PR12MB11324D6B708601515C03179DF7000DM5PR12MB1132namp_--
+--_000_DM5PR12MB1132DA66C4E0B70497D5D121F7000DM5PR12MB1132namp_--
 
---===============0834822810==
+--===============0463024020==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -862,4 +846,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0834822810==--
+--===============0463024020==--
