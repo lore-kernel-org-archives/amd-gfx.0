@@ -1,18 +1,19 @@
-From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 4/4] drm/amd/powerplay: Prevent UVD powerdown before init
-Date: Thu, 28 Jul 2016 12:44:11 +0000
-Message-ID: <DM5PR12MB1132C7F6344050FD7CEDF4E8F7000@DM5PR12MB1132.namprd12.prod.outlook.com>
+Date: Thu, 28 Jul 2016 12:59:04 +0000
+Message-ID: <SN1PR12MB06724EA4DE90159CF158B068FB000@SN1PR12MB0672.namprd12.prod.outlook.com>
 References: <20160726153832.15191-1-tom.stdenis@amd.com>
  <20160726153832.15191-5-tom.stdenis@amd.com>
  <CADnq5_P5C_Rix2wkUuzABQKtcxOYyQeL7FNBA4GJLy3Fg+o4UQ@mail.gmail.com>,
  <BLUPR12MB0659D45202A93FB726C50D84FB000@BLUPR12MB0659.namprd12.prod.outlook.com>,
  <DM5PR12MB1132DA66C4E0B70497D5D121F7000@DM5PR12MB1132.namprd12.prod.outlook.com>,
  <DM5PR12MB113233C023366C58A6C3744CF7000@DM5PR12MB1132.namprd12.prod.outlook.com>,
- <SN1PR12MB0672CE5422D3FEF0448B5E14FB000@SN1PR12MB0672.namprd12.prod.outlook.com>
+ <SN1PR12MB0672CE5422D3FEF0448B5E14FB000@SN1PR12MB0672.namprd12.prod.outlook.com>,
+ <DM5PR12MB1132C7F6344050FD7CEDF4E8F7000@DM5PR12MB1132.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0423350350=="
+Content-Type: multipart/mixed; boundary="===============2147140660=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <SN1PR12MB0672CE5422D3FEF0448B5E14FB000-z7L1TMIYDg4dn98hj6UdGwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <DM5PR12MB1132C7F6344050FD7CEDF4E8F7000-2J9CzHegvk+UzrhdoDeimQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -24,17 +25,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0423350350==
+--===============2147140660==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_DM5PR12MB1132C7F6344050FD7CEDF4E8F7000DM5PR12MB1132namp_"
+	boundary="_000_SN1PR12MB06724EA4DE90159CF158B068FB000SN1PR12MB0672namp_"
 
---_000_DM5PR12MB1132C7F6344050FD7CEDF4E8F7000DM5PR12MB1132namp_
+--_000_SN1PR12MB06724EA4DE90159CF158B068FB000SN1PR12MB0672namp_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
+
+you mean
+
++    if (cz_hwmgr->uvd_power_gated =3D=3D bgate) {
+         return 0;
++    }
+
+
+I didn't pay any attention at first.
+
+
+Best Regards
+
+Rex
+
+
+________________________________
+From: StDenis, Tom
+Sent: Thursday, July 28, 2016 8:44:11 PM
+To: Zhu, Rex; Alex Deucher
+Cc: amd-gfx list
+Subject: Re: [PATCH 4/4] drm/amd/powerplay: Prevent UVD powerdown before in=
+it
+
 
 Hi Rex,
 
@@ -398,7 +423,7 @@ amd-gfx mailing list
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_DM5PR12MB1132C7F6344050FD7CEDF4E8F7000DM5PR12MB1132namp_
+--_000_SN1PR12MB06724EA4DE90159CF158B068FB000SN1PR12MB0672namp_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -410,6 +435,38 @@ Content-Transfer-Encoding: quoted-printable
 n-bottom:0;} --></style>
 </head>
 <body dir=3D"ltr">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;back=
+ground-color:#FFFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
+<p>you mean </p>
+<div>&#43;&nbsp;&nbsp; &nbsp;if (cz_hwmgr-&gt;uvd_power_gated =3D=3D bgate)=
+ {<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;return 0;<br>
+&#43;&nbsp;&nbsp; &nbsp;}</div>
+<p></p>
+<p><br>
+</p>
+<p>I didn't pay any attention at first.</p>
+<p><br>
+</p>
+<p>Best Regards</p>
+<p>Rex<br>
+</p>
+<p><br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> StDenis, Tom<br>
+<b>Sent:</b> Thursday, July 28, 2016 8:44:11 PM<br>
+<b>To:</b> Zhu, Rex; Alex Deucher<br>
+<b>Cc:</b> amd-gfx list<br>
+<b>Subject:</b> Re: [PATCH 4/4] drm/amd/powerplay: Prevent UVD powerdown be=
+fore init</font>
+<div>&nbsp;</div>
+</div>
+<div>
 <div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;back=
 ground-color:#FFFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
 <p>Hi Rex,</p>
@@ -975,12 +1032,13 @@ lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
 </div>
 </div>
 </div>
+</div>
 </body>
 </html>
 
---_000_DM5PR12MB1132C7F6344050FD7CEDF4E8F7000DM5PR12MB1132namp_--
+--_000_SN1PR12MB06724EA4DE90159CF158B068FB000SN1PR12MB0672namp_--
 
---===============0423350350==
+--===============2147140660==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -990,4 +1048,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0423350350==--
+--===============2147140660==--
