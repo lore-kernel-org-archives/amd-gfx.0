@@ -1,52 +1,32 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/amdgpu: change pptable output format from ASCII
- to binary
-Date: Fri, 29 Jul 2016 17:19:44 -0400
-Message-ID: <CADnq5_MAamEBKs08iOQ-xs58jAQQZhM5ZYtG-ZkUy3qe3iQozw@mail.gmail.com>
-References: <1469817418-31500-1-git-send-email-JinHuiEric.Huang@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1469817418-31500-1-git-send-email-JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Eric Huang <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: [PATCH] drm/amdgpu/gmc7: add missing mullins case
+Date: Fri, 29 Jul 2016 18:06:10 -0400
+Message-ID: <1469829970-15466-1-git-send-email-alexander.deucher@amd.com>
+Return-path: <stable-owner@vger.kernel.org>
+Sender: stable-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gRnJpLCBKdWwgMjksIDIwMTYgYXQgMjozNiBQTSwgRXJpYyBIdWFuZyA8SmluSHVpRXJpYy5I
-dWFuZ0BhbWQuY29tPiB3cm90ZToKPiBTaWduZWQtb2ZmLWJ5OiBFcmljIEh1YW5nIDxKaW5IdWlF
-cmljLkh1YW5nQGFtZC5jb20+CgpSZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIu
-ZGV1Y2hlckBhbWQuY29tPgoKPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3BtLmMgfCA3ICsrLS0tLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwg
-NSBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfcG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jCj4g
-aW5kZXggYzRiYjRlZi4uY2RlZDA4MiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfcG0uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9wbS5jCj4gQEAgLTMwNSw3ICszMDUsNyBAQCBzdGF0aWMgc3NpemVfdCBhbWRncHVfZ2V0
-X3BwX3RhYmxlKHN0cnVjdCBkZXZpY2UgKmRldiwKPiAgICAgICAgIHN0cnVjdCBkcm1fZGV2aWNl
-ICpkZGV2ID0gZGV2X2dldF9kcnZkYXRhKGRldik7Cj4gICAgICAgICBzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSAqYWRldiA9IGRkZXYtPmRldl9wcml2YXRlOwo+ICAgICAgICAgY2hhciAqdGFibGUgPSBO
-VUxMOwo+IC0gICAgICAgaW50IHNpemUsIGk7Cj4gKyAgICAgICBpbnQgc2l6ZTsKPgo+ICAgICAg
-ICAgaWYgKGFkZXYtPnBwX2VuYWJsZWQpCj4gICAgICAgICAgICAgICAgIHNpemUgPSBhbWRncHVf
-ZHBtX2dldF9wcF90YWJsZShhZGV2LCAmdGFibGUpOwo+IEBAIC0zMTUsMTAgKzMxNSw3IEBAIHN0
-YXRpYyBzc2l6ZV90IGFtZGdwdV9nZXRfcHBfdGFibGUoc3RydWN0IGRldmljZSAqZGV2LAo+ICAg
-ICAgICAgaWYgKHNpemUgPj0gUEFHRV9TSVpFKQo+ICAgICAgICAgICAgICAgICBzaXplID0gUEFH
-RV9TSVpFIC0gMTsKPgo+IC0gICAgICAgZm9yIChpID0gMDsgaSA8IHNpemU7IGkrKykgewo+IC0g
-ICAgICAgICAgICAgICBzcHJpbnRmKGJ1ZiArIGksICIlMDJ4IiwgdGFibGVbaV0pOwo+IC0gICAg
-ICAgfQo+IC0gICAgICAgc3ByaW50ZihidWYgKyBpLCAiXG4iKTsKPiArICAgICAgIG1lbWNweShi
-dWYsIHRhYmxlLCBzaXplKTsKPgo+ICAgICAgICAgcmV0dXJuIHNpemU7Cj4gIH0KPiAtLQo+IDEu
-OS4xCj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+
-IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
-aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
-ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Looks like this got missed when we ported the code from radeon.
+
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+---
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+index d24a82b..0b0f086 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+@@ -144,6 +144,7 @@ static int gmc_v7_0_init_microcode(struct amdgpu_device *adev)
+ 		break;
+ 	case CHIP_KAVERI:
+ 	case CHIP_KABINI:
++	case CHIP_MULLINS:
+ 		return 0;
+ 	default: BUG();
+ 	}
+-- 
+2.5.5
