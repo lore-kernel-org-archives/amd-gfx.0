@@ -1,13 +1,13 @@
 From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH 03/11] drm/amd: add recover run queue for scheduler
-Date: Sat, 30 Jul 2016 13:52:38 +1000
-Message-ID: <1844bba5-25b0-65e5-045c-5ae4c9b22baf@folklore1984.net>
+Subject: Re: [PATCH 01/11] drm/amdgpu: hw ring should be empty when gpu reset
+Date: Sat, 30 Jul 2016 13:53:01 +1000
+Message-ID: <3f22b390-32fd-2018-b8f3-1a2586534996@folklore1984.net>
 References: <1469700828-25650-1-git-send-email-David1.Zhou@amd.com>
- <1469700828-25650-4-git-send-email-David1.Zhou@amd.com>
+ <1469700828-25650-2-git-send-email-David1.Zhou@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0410146017=="
+Content-Type: multipart/mixed; boundary="===============0387918224=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1469700828-25650-4-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1469700828-25650-2-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,56 +21,99 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0410146017==
+--===============0387918224==
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="LegVbcXFq4h7poo6MrMeQr8WU3vFGd262"
+ boundary="4HsUuqwANDFAMalLCcaJIuEjH2ttebpNJ"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---LegVbcXFq4h7poo6MrMeQr8WU3vFGd262
-Content-Type: multipart/mixed; boundary="hDqNIGQD4IOliaas5c4xOISdDoNNiK0vn"
+--4HsUuqwANDFAMalLCcaJIuEjH2ttebpNJ
+Content-Type: multipart/mixed; boundary="kTnpPdVWIvAidmgNpXgtxD4Kb3fQ2H9R0"
 From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
 To: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Message-ID: <1844bba5-25b0-65e5-045c-5ae4c9b22baf-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH 03/11] drm/amd: add recover run queue for scheduler
+Message-ID: <3f22b390-32fd-2018-b8f3-1a2586534996-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH 01/11] drm/amdgpu: hw ring should be empty when gpu reset
 References: <1469700828-25650-1-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
- <1469700828-25650-4-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <1469700828-25650-4-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+ <1469700828-25650-2-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1469700828-25650-2-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
 
---hDqNIGQD4IOliaas5c4xOISdDoNNiK0vn
+--kTnpPdVWIvAidmgNpXgtxD4Kb3fQ2H9R0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
 Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
 
+
 On 07/28/2016 08:13 PM, Chunming Zhou wrote:
-> Change-Id: I7171d1e3884aabe1263d8f7be18cadf2e98216a4
+> Change-Id: I08ca5a805f590cc7aad0e9ccd91bd5925bb216e2
 > Signed-off-by: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
 > ---
->  drivers/gpu/drm/amd/scheduler/gpu_scheduler.h | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c   | 11 +++++++++++
+>  3 files changed, 13 insertions(+)
 >=20
-> diff --git a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h b/drivers/gp=
-u/drm/amd/scheduler/gpu_scheduler.h
-> index a1c0073..cd87bc7 100644
-> --- a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h
-> +++ b/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h
-> @@ -112,7 +112,8 @@ struct amd_sched_backend_ops {
->  };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu.h
+> index 43beefb..ebd5565 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1247,6 +1247,7 @@ int amdgpu_ib_ring_tests(struct amdgpu_device *ad=
+ev);
+>  int amdgpu_ring_alloc(struct amdgpu_ring *ring, unsigned ndw);
+>  void amdgpu_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count);=
+
+>  void amdgpu_ring_generic_pad_ib(struct amdgpu_ring *ring, struct amdgp=
+u_ib *ib);
+> +void amdgpu_ring_reset(struct amdgpu_ring *ring);
+>  void amdgpu_ring_commit(struct amdgpu_ring *ring);
+>  void amdgpu_ring_undo(struct amdgpu_ring *ring);
+>  int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *r=
+ing,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_device.c
+> index 7e63ef9..1968251 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -2102,6 +2102,7 @@ int amdgpu_gpu_reset(struct amdgpu_device *adev)
+>  			continue;
+>  		kthread_park(ring->sched.thread);
+>  		amd_sched_hw_job_reset(&ring->sched);
+> +		amdgpu_ring_reset(ring);
+>  	}
+>  	/* after all hw jobs are reset, hw fence is meaningless, so force_com=
+pletion */
+>  	amdgpu_fence_driver_force_completion(adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_ring.c
+> index 9989e25..75e1da6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> @@ -110,6 +110,17 @@ void amdgpu_ring_generic_pad_ib(struct amdgpu_ring=
+ *ring, struct amdgpu_ib *ib)
+>  		ib->ptr[ib->length_dw++] =3D ring->nop;
+>  }
 > =20
->  enum amd_sched_priority {
-> -	AMD_SCHED_PRIORITY_KERNEL =3D 0,
-> +	AMD_SCHED_PRIORITY_RECOVER =3D 0,
-> +	AMD_SCHED_PRIORITY_KERNEL,
->  	AMD_SCHED_PRIORITY_NORMAL,
->  	AMD_SCHED_MAX_PRIORITY
->  };
+> +void amdgpu_ring_reset(struct amdgpu_ring *ring)
+> +{
+> +       u32 rptr =3D amdgpu_ring_get_rptr(ring);
+> +
+> +       ring->wptr =3D rptr;
+> +       ring->wptr &=3D ring->ptr_mask;
+> +
+> +       mb();
+> +       amdgpu_ring_set_wptr(ring);
+> +}
+> +
+>  /**
+>   * amdgpu_ring_commit - tell the GPU to execute the new
+>   * commands on the ring buffer
 >=20
 
 
---hDqNIGQD4IOliaas5c4xOISdDoNNiK0vn--
+--kTnpPdVWIvAidmgNpXgtxD4Kb3fQ2H9R0--
 
---LegVbcXFq4h7poo6MrMeQr8WU3vFGd262
+--4HsUuqwANDFAMalLCcaJIuEjH2ttebpNJ
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
@@ -78,24 +121,24 @@ Content-Disposition: attachment; filename="signature.asc"
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJXnCSGAAoJEP4bvbfZuWjbsE0QANnMj2+svtnpZSXUQroWPbOB
-QGuyENRrQ4EvGWigR4VSuEsKQSD1pgQHCI88lme5CdG+L2DoT0hUjrEePrWClhWn
-MUHHH0kti9R2vFVC85G8xzCVlU3WZki4rSFMg0S2B8b7s73cWLtvscNOCdC2Mmnj
-Xvio5gn62e8emA66R/lHY3xcMV8HOivhpZe/unTxGPvPpnPaPo8F8r90GUtwsmCP
-yZe0xRilvu3orTR5so2F8BIZ4ZapVtojci1zObXIjDTYperIut1Y9l6yKlz3kHke
-OLtm+5Nww0E7lmvFQzQjozGlVTMRyy1Z2XlduADFEiQ6+VKaopsN7MkDDZBmMWtg
-6Ckt+ngkncbv4vvdkvFu3nWjqSq5moyrbuo75oOhPodZ5n/N+6+fIt7WN17FvVvd
-+wrFveI1ajUwx0glaIt0+ldG/4CoZkbu2u8aUPkpIBFmk7GtrUx7hqLFAUu6JlH2
-6E9NWIiD6wsAT0+A9N5b0URFX/EJpptyo0gR2Ecekq8aPThvrKMEYbmEfvS3Iz0S
-UGAJ0M8JxqX530vluK6DdjDeC26Vx6satBTyyZPQYPbnD6Nk3X4zi6X9EPhYI2xQ
-E3eo6xCrVDuaf6qNy9BgUYtBkQ1MotH22mjWh4dQVUfiT+B3r5t8EjofnROu8L0n
-QXd6TmGPE3qv1jpw5O2S
-=XwJl
+iQIcBAEBCAAGBQJXnCSdAAoJEP4bvbfZuWjbolgP/imgXP6s3Sc5rWbjiIxWudjk
+5GqkV20ijvURb/slWqDajBLypuOajYqEufbYj5Ky693fnqd5xU1jaXslPldD8hcr
+LsMLrWpdWaflMTcNfDP3nArJ7Zvu85lXWT3FNyajvjCCY3mJeM1L1jdIzj/cB0XI
+GmrmCrCGteYHNtjNvNeMIjoL/TkgEphRlDDk+L2gS47NrEJKBis9sHcx2kFmAVV3
+xfh7+L+CnRgl8pg6YFkgDW40r4KVGZaqLiA1mjX/bSZb5MHeZ6piSHbPa3bfWX2d
+W697bVmrYfq8B9vPZ5EsocC3tWx5hyjpMEzBLhDZf8A0848jsHhnt9jovtfzimtT
++l+NPfnCA0Jr4dTCgqS4B2tN7uZYKh9c0vrzNj/jzGaKEbZUBPxgICjPIxEj+wm2
+Y1mQ+NUkFISPC5xfR85kWmNhRiy681ty9fnlXZ4lT3WrHBURnsdNMJDZfZ3AZ2m7
+TlhfujgSF7corXWWrBmdR51fIM8zxznbIZSdu3wLvoy8cUKJt0A7N0RweSmhlMLM
+TKibM27llmLpuD+DMPeDenqXUQkmi2o55uz7YZ/bHnmyKR8ZSdCg2pmfGfdhKBU1
+w5fBkAWY43dOC/FWTbKMXiqytzgv2dP/3NJbCnLIhUzDzGK9fmMtpsp9LVZClLEF
+iQnwT1PW5r7sZ/Oo19Y9
+=RtGI
 -----END PGP SIGNATURE-----
 
---LegVbcXFq4h7poo6MrMeQr8WU3vFGd262--
+--4HsUuqwANDFAMalLCcaJIuEjH2ttebpNJ--
 
---===============0410146017==
+--===============0387918224==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -105,4 +148,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0410146017==--
+--===============0387918224==--
