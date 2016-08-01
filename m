@@ -1,13 +1,16 @@
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH 01/11] drm/amdgpu: hw ring should be empty when gpu reset
-Date: Sat, 30 Jul 2016 13:53:01 +1000
-Message-ID: <3f22b390-32fd-2018-b8f3-1a2586534996@folklore1984.net>
-References: <1469700828-25650-1-git-send-email-David1.Zhou@amd.com>
- <1469700828-25650-2-git-send-email-David1.Zhou@amd.com>
+From: Flora Cui <flora.cui-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v2 2/2] drm/amdgpu: expose AMDGPU_GEM_CREATE_VRAM_CLEARED
+ to user space
+Date: Mon, 1 Aug 2016 13:27:44 +0800
+Message-ID: <20160801052742.GA7328@flora>
+References: <1469427324-14908-2-git-send-email-Flora.Cui@amd.com>
+ <20160729032338.GB20065@flora>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0387918224=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1469700828-25650-2-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+Content-Disposition: inline
+In-Reply-To: <20160729032338.GB20065@flora>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,134 +21,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Christian.Koenig-5C7GfCeVMHo@public.gmane.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0387918224==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="4HsUuqwANDFAMalLCcaJIuEjH2ttebpNJ"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---4HsUuqwANDFAMalLCcaJIuEjH2ttebpNJ
-Content-Type: multipart/mixed; boundary="kTnpPdVWIvAidmgNpXgtxD4Kb3fQ2H9R0"
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Message-ID: <3f22b390-32fd-2018-b8f3-1a2586534996-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH 01/11] drm/amdgpu: hw ring should be empty when gpu reset
-References: <1469700828-25650-1-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
- <1469700828-25650-2-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <1469700828-25650-2-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
-
---kTnpPdVWIvAidmgNpXgtxD4Kb3fQ2H9R0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-
-
-On 07/28/2016 08:13 PM, Chunming Zhou wrote:
-> Change-Id: I08ca5a805f590cc7aad0e9ccd91bd5925bb216e2
-> Signed-off-by: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c   | 11 +++++++++++
->  3 files changed, 13 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu.h
-> index 43beefb..ebd5565 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1247,6 +1247,7 @@ int amdgpu_ib_ring_tests(struct amdgpu_device *ad=
-ev);
->  int amdgpu_ring_alloc(struct amdgpu_ring *ring, unsigned ndw);
->  void amdgpu_ring_insert_nop(struct amdgpu_ring *ring, uint32_t count);=
-
->  void amdgpu_ring_generic_pad_ib(struct amdgpu_ring *ring, struct amdgp=
-u_ib *ib);
-> +void amdgpu_ring_reset(struct amdgpu_ring *ring);
->  void amdgpu_ring_commit(struct amdgpu_ring *ring);
->  void amdgpu_ring_undo(struct amdgpu_ring *ring);
->  int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *r=
-ing,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_device.c
-> index 7e63ef9..1968251 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -2102,6 +2102,7 @@ int amdgpu_gpu_reset(struct amdgpu_device *adev)
->  			continue;
->  		kthread_park(ring->sched.thread);
->  		amd_sched_hw_job_reset(&ring->sched);
-> +		amdgpu_ring_reset(ring);
->  	}
->  	/* after all hw jobs are reset, hw fence is meaningless, so force_com=
-pletion */
->  	amdgpu_fence_driver_force_completion(adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_ring.c
-> index 9989e25..75e1da6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> @@ -110,6 +110,17 @@ void amdgpu_ring_generic_pad_ib(struct amdgpu_ring=
- *ring, struct amdgpu_ib *ib)
->  		ib->ptr[ib->length_dw++] =3D ring->nop;
->  }
-> =20
-> +void amdgpu_ring_reset(struct amdgpu_ring *ring)
-> +{
-> +       u32 rptr =3D amdgpu_ring_get_rptr(ring);
-> +
-> +       ring->wptr =3D rptr;
-> +       ring->wptr &=3D ring->ptr_mask;
-> +
-> +       mb();
-> +       amdgpu_ring_set_wptr(ring);
-> +}
-> +
->  /**
->   * amdgpu_ring_commit - tell the GPU to execute the new
->   * commands on the ring buffer
->=20
-
-
---kTnpPdVWIvAidmgNpXgtxD4Kb3fQ2H9R0--
-
---4HsUuqwANDFAMalLCcaJIuEjH2ttebpNJ
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJXnCSdAAoJEP4bvbfZuWjbolgP/imgXP6s3Sc5rWbjiIxWudjk
-5GqkV20ijvURb/slWqDajBLypuOajYqEufbYj5Ky693fnqd5xU1jaXslPldD8hcr
-LsMLrWpdWaflMTcNfDP3nArJ7Zvu85lXWT3FNyajvjCCY3mJeM1L1jdIzj/cB0XI
-GmrmCrCGteYHNtjNvNeMIjoL/TkgEphRlDDk+L2gS47NrEJKBis9sHcx2kFmAVV3
-xfh7+L+CnRgl8pg6YFkgDW40r4KVGZaqLiA1mjX/bSZb5MHeZ6piSHbPa3bfWX2d
-W697bVmrYfq8B9vPZ5EsocC3tWx5hyjpMEzBLhDZf8A0848jsHhnt9jovtfzimtT
-+l+NPfnCA0Jr4dTCgqS4B2tN7uZYKh9c0vrzNj/jzGaKEbZUBPxgICjPIxEj+wm2
-Y1mQ+NUkFISPC5xfR85kWmNhRiy681ty9fnlXZ4lT3WrHBURnsdNMJDZfZ3AZ2m7
-TlhfujgSF7corXWWrBmdR51fIM8zxznbIZSdu3wLvoy8cUKJt0A7N0RweSmhlMLM
-TKibM27llmLpuD+DMPeDenqXUQkmi2o55uz7YZ/bHnmyKR8ZSdCg2pmfGfdhKBU1
-w5fBkAWY43dOC/FWTbKMXiqytzgv2dP/3NJbCnLIhUzDzGK9fmMtpsp9LVZClLEF
-iQnwT1PW5r7sZ/Oo19Y9
-=RtGI
------END PGP SIGNATURE-----
-
---4HsUuqwANDFAMalLCcaJIuEjH2ttebpNJ--
-
---===============0387918224==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0387918224==--
+SSdsbCBwdXNoIGlmIG5vIG9iamVjdGlvbgpPbiBGcmksIEp1bCAyOSwgMjAxNiBhdCAxMToyMzoz
+OUFNICswODAwLCBGbG9yYSBDdWkgd3JvdGU6Cj4gcGluZy4uLgo+IAo+IE9uIE1vbiwgSnVsIDI1
+LCAyMDE2IGF0IDAyOjE1OjI0UE0gKzA4MDAsIEZsb3JhIEN1aSB3cm90ZToKPiA+IFYyOiBmaXgg
+dGhlIHJldHVybiB2YWx1ZSBmb3IgZmlsbCBmYWlsdXJlIGFuZCB2YWxpZGF0ZSBibyBiZWZvcmUK
+PiA+IGZpbGxpbmcgZGF0YQo+ID4gCj4gPiBDaGFuZ2UtSWQ6IEkyNTYxNzhhZmExOGMxYTQzM2Zl
+NjBkODY1NmQxYzVjYzVkNTVjZjJmCj4gPiBTaWduZWQtb2ZmLWJ5OiBGbG9yYSBDdWkgPEZsb3Jh
+LkN1aUBhbWQuY29tPgo+ID4gUmV2aWV3ZWQtYnk6IENodW5taW5nIFpob3UgPERhdmlkMS5aaG91
+QGFtZC5jb20+Cj4gPiAtLS0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+b2JqZWN0LmMgfCAzMyArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysKPiA+ICBpbmNsdWRl
+L3VhcGkvZHJtL2FtZGdwdV9kcm0uaCAgICAgICAgICAgICAgfCAgMiArKwo+ID4gIDIgZmlsZXMg
+Y2hhbmdlZCwgMzUgaW5zZXJ0aW9ucygrKQo+ID4gCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X29iamVjdC5jCj4gPiBpbmRleCA2ZjA4NzNjLi41OWYzYTc1IDEwMDY0NAo+
+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCj4gPiAr
+KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMKPiA+IEBAIC0y
+NzcsMTEgKzI3Nyw0NCBAQCBpbnQgYW1kZ3B1X2JvX2NyZWF0ZV9yZXN0cmljdGVkKHN0cnVjdCBh
+bWRncHVfZGV2aWNlICphZGV2LAo+ID4gIAlpZiAodW5saWtlbHkociAhPSAwKSkgewo+ID4gIAkJ
+cmV0dXJuIHI7Cj4gPiAgCX0KPiA+ICsKPiA+ICsJaWYgKGZsYWdzICYgQU1ER1BVX0dFTV9DUkVB
+VEVfVlJBTV9DTEVBUkVEICYmCj4gPiArCSAgICBiby0+dGJvLm1lbS5wbGFjZW1lbnQgJiBUVE1f
+UExfRkxBR19WUkFNKSB7Cj4gPiArCQlzdHJ1Y3QgZmVuY2UgKmZlbmNlOwo+ID4gKwo+ID4gKwkJ
+aWYgKGFkZXYtPm1tYW4uYnVmZmVyX2Z1bmNzX3JpbmcgPT0gTlVMTCB8fAo+ID4gKwkJICAgIWFk
+ZXYtPm1tYW4uYnVmZmVyX2Z1bmNzX3JpbmctPnJlYWR5KSB7Cj4gPiArCQkJciA9IC1FQlVTWTsK
+PiA+ICsJCQlnb3RvIGZhaWxfZnJlZTsKPiA+ICsJCX0KPiA+ICsKPiA+ICsJCXIgPSBhbWRncHVf
+Ym9fcmVzZXJ2ZShibywgZmFsc2UpOwo+ID4gKwkJaWYgKHVubGlrZWx5KHIgIT0gMCkpCj4gPiAr
+CQkJZ290byBmYWlsX2ZyZWU7Cj4gPiArCj4gPiArCQlhbWRncHVfdHRtX3BsYWNlbWVudF9mcm9t
+X2RvbWFpbihibywgQU1ER1BVX0dFTV9ET01BSU5fVlJBTSk7Cj4gPiArCQlyID0gdHRtX2JvX3Zh
+bGlkYXRlKCZiby0+dGJvLCAmYm8tPnBsYWNlbWVudCwgZmFsc2UsIGZhbHNlKTsKPiA+ICsJCWlm
+ICh1bmxpa2VseShyICE9IDApKQo+ID4gKwkJCWdvdG8gZmFpbF91bnJlc2VydmU7Cj4gPiArCj4g
+PiArCQlhbWRncHVfZmlsbF9idWZmZXIoYm8sIDAsIGJvLT50Ym8ucmVzdiwgJmZlbmNlKTsKPiA+
+ICsJCWFtZGdwdV9ib19mZW5jZShibywgZmVuY2UsIGZhbHNlKTsKPiA+ICsJCWFtZGdwdV9ib191
+bnJlc2VydmUoYm8pOwo+ID4gKwkJZmVuY2VfcHV0KGJvLT50Ym8ubW92aW5nKTsKPiA+ICsJCWJv
+LT50Ym8ubW92aW5nID0gZmVuY2VfZ2V0KGZlbmNlKTsKPiA+ICsJCWZlbmNlX3B1dChmZW5jZSk7
+Cj4gPiArCX0KPiA+ICAJKmJvX3B0ciA9IGJvOwo+ID4gIAo+ID4gIAl0cmFjZV9hbWRncHVfYm9f
+Y3JlYXRlKGJvKTsKPiA+ICAKPiA+ICAJcmV0dXJuIDA7Cj4gPiArCj4gPiArZmFpbF91bnJlc2Vy
+dmU6Cj4gPiArCWFtZGdwdV9ib191bnJlc2VydmUoYm8pOwo+ID4gK2ZhaWxfZnJlZToKPiA+ICsJ
+YW1kZ3B1X2JvX3VucmVmKCZibyk7Cj4gPiArCXJldHVybiByOwo+ID4gIH0KPiA+ICAKPiA+ICBp
+bnQgYW1kZ3B1X2JvX2NyZWF0ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiA+IGRpZmYg
+LS1naXQgYS9pbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaCBiL2luY2x1ZGUvdWFwaS9kcm0v
+YW1kZ3B1X2RybS5oCj4gPiBpbmRleCA5NDZmMjM4Li44ZGYzODE2IDEwMDY0NAo+ID4gLS0tIGEv
+aW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmgKPiA+ICsrKyBiL2luY2x1ZGUvdWFwaS9kcm0v
+YW1kZ3B1X2RybS5oCj4gPiBAQCAtNzUsNiArNzUsOCBAQAo+ID4gICNkZWZpbmUgQU1ER1BVX0dF
+TV9DUkVBVEVfTk9fQ1BVX0FDQ0VTUwkJKDEgPDwgMSkKPiA+ICAvKiBGbGFnIHRoYXQgVVNXQyBh
+dHRyaWJ1dGVzIHNob3VsZCBiZSB1c2VkIGZvciBHVFQgKi8KPiA+ICAjZGVmaW5lIEFNREdQVV9H
+RU1fQ1JFQVRFX0NQVV9HVFRfVVNXQwkJKDEgPDwgMikKPiA+ICsvKiBGbGFnIHRoYXQgdGhlIG1l
+bW9yeSBzaG91bGQgYmUgaW4gVlJBTSBhbmQgY2xlYXJlZCAqLwo+ID4gKyNkZWZpbmUgQU1ER1BV
+X0dFTV9DUkVBVEVfVlJBTV9DTEVBUkVECQkoMSA8PCAzKQo+ID4gIAo+ID4gIHN0cnVjdCBkcm1f
+YW1kZ3B1X2dlbV9jcmVhdGVfaW4gIHsKPiA+ICAJLyoqIHRoZSByZXF1ZXN0ZWQgbWVtb3J5IHNp
+emUgKi8KPiA+IC0tIAo+ID4gMS45LjEKPiA+IAo+ID4gX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KPiA+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gPiBhbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+ID4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eAo=
