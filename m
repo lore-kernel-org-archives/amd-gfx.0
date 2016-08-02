@@ -1,14 +1,14 @@
 From: "Wang, Ken" <Ken.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: =?gb2312?B?tPC4tDogW1BBVENIIHYyIDIvM10gZHJtL2FtZGdwdTogdXBkYXRlIGdvbGRl?=
- =?gb2312?Q?n_setting_of_polaris11?=
-Date: Tue, 2 Aug 2016 05:29:08 +0000
-Message-ID: <CY1PR12MB05089C650002D10BB8EA8FF28C050@CY1PR12MB0508.namprd12.prod.outlook.com>
+Subject: =?gb2312?B?tPC4tDogW1BBVENIIHYyIDMvM10gZHJtL2FtZGdwdTogdXBkYXRlIGdvbGRl?=
+ =?gb2312?Q?n_setting_of_polaris10?=
+Date: Tue, 2 Aug 2016 05:28:46 +0000
+Message-ID: <CY1PR12MB0508C74A69F4D4EA81B919D08C050@CY1PR12MB0508.namprd12.prod.outlook.com>
 References: <1470115414-23733-1-git-send-email-ray.huang@amd.com>,
- <1470115414-23733-3-git-send-email-ray.huang@amd.com>
+ <1470115414-23733-4-git-send-email-ray.huang@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0318734183=="
+Content-Type: multipart/mixed; boundary="===============1129359085=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1470115414-23733-3-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1470115414-23733-4-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
 Content-Language: zh-CN
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -23,46 +23,39 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 Cc: "Huan, Alvin" <Alvin.Huan-5C7GfCeVMHo@public.gmane.org>
 
---===============0318734183==
+--===============1129359085==
 Content-Language: zh-CN
 Content-Type: multipart/alternative;
-	boundary="_000_CY1PR12MB05089C650002D10BB8EA8FF28C050CY1PR12MB0508namp_"
+	boundary="_000_CY1PR12MB0508C74A69F4D4EA81B919D08C050CY1PR12MB0508namp_"
 
---_000_CY1PR12MB05089C650002D10BB8EA8FF28C050CY1PR12MB0508namp_
+--_000_CY1PR12MB0508C74A69F4D4EA81B919D08C050CY1PR12MB0508namp_
 Content-Type: text/plain; charset="gb2312"
 Content-Transfer-Encoding: base64
 
 UmV2aWV3ZWQtYnk6IEtlbiBXYW5nIDxRaW5ncWluZy5XYW5nQGFtZC5jb20+DQoNCl9fX19fX19f
 X19fX19fX19fX19fX19fX19fX19fX19fDQq3orz+yMs6IEh1YW5nIFJ1aSA8cmF5Lmh1YW5nQGFt
-ZC5jb20+DQq3osvNyrG85DogMjAxNsTqONTCMsjVIDEzOjIzOjMzDQrK1bz+yMs6IGFtZC1nZnhA
+ZC5jb20+DQq3osvNyrG85DogMjAxNsTqONTCMsjVIDEzOjIzOjM0DQrK1bz+yMs6IGFtZC1nZnhA
 bGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBEZXVjaGVyLCBBbGV4YW5kZXINCrOty806IFdhbmcsIEtl
-bjsgSHVhbiwgQWx2aW47IEh1YW5nLCBSYXkNCtb3zOI6IFtQQVRDSCB2MiAyLzNdIGRybS9hbWRn
-cHU6IHVwZGF0ZSBnb2xkZW4gc2V0dGluZyBvZiBwb2xhcmlzMTENCg0KU2lnbmVkLW9mZi1ieTog
+bjsgSHVhbiwgQWx2aW47IEh1YW5nLCBSYXkNCtb3zOI6IFtQQVRDSCB2MiAzLzNdIGRybS9hbWRn
+cHU6IHVwZGF0ZSBnb2xkZW4gc2V0dGluZyBvZiBwb2xhcmlzMTANCg0KU2lnbmVkLW9mZi1ieTog
 SHVhbmcgUnVpIDxyYXkuaHVhbmdAYW1kLmNvbT4NCi0tLQ0KIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2dmeF92OF8wLmMgfCA1ICsrKy0tDQogMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9u
-cygrKSwgMiBkZWxldGlvbnMoLSkNCg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2dmeF92OF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5j
-DQppbmRleCBmYzRkOTk4Li5lYTAyNWE1IDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvZ2Z4X3Y4XzAuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4
-X3Y4XzAuYw0KQEAgLTI2OSw3ICsyNjksOCBAQCBzdGF0aWMgY29uc3QgdTMyIHRvbmdhX21nY2df
-Y2djZ19pbml0W10gPQ0KDQogc3RhdGljIGNvbnN0IHUzMiBnb2xkZW5fc2V0dGluZ3NfcG9sYXJp
-czExX2ExMVtdID0NCiB7DQotICAgICAgIG1tQ0JfSFdfQ09OVFJPTCwgMHhmZmZkZjNjZiwgMHgw
-MDAwNjIwOCwNCisgICAgICAgbW1DQl9IV19DT05UUk9MLCAweDAwMDBmM2NmLCAweDAwMDA3MjA4
-LA0KKyAgICAgICBtbUNCX0hXX0NPTlRST0xfMiwgMHgwZjAwMDAwMCwgMHgwZjAwMDAwMCwNCiAg
-ICAgICAgIG1tQ0JfSFdfQ09OVFJPTF8zLCAweDAwMDAwMWZmLCAweDAwMDAwMDQwLA0KICAgICAg
-ICAgbW1EQl9ERUJVRzIsIDB4ZjAwZmZmZmYsIDB4MDAwMDA0MDAsDQogICAgICAgICBtbVBBX1ND
-X0VOSEFOQ0UsIDB4ZmZmZmZmZmYsIDB4MjAwMDAwMDEsDQpAQCAtMjc4LDcgKzI3OSw3IEBAIHN0
-YXRpYyBjb25zdCB1MzIgZ29sZGVuX3NldHRpbmdzX3BvbGFyaXMxMV9hMTFbXSA9DQogICAgICAg
-ICBtbVBBX1NDX1JBU1RFUl9DT05GSUdfMSwgMHgwMDAwMDAzZiwgMHgwMDAwMDAwMCwNCiAgICAg
-ICAgIG1tUkxDX0NHQ0dfQ0dMU19DVFJMLCAweDAwMDAwMDAzLCAweDAwMDEwMDNjLA0KICAgICAg
-ICAgbW1STENfQ0dDR19DR0xTX0NUUkxfM0QsIDB4ZmZmZmZmZmYsIDB4MDAwMTAwM2MsDQotICAg
-ICAgIG1tU1FfQ09ORklHLCAweDA3ZjgwMDAwLCAweDA3MTgwMDAwLA0KKyAgICAgICBtbVNRX0NP
-TkZJRywgMHgwN2Y4MDAwMCwgMHgwMTE4MDAwMCwNCiAgICAgICAgIG1tVEFfQ05UTF9BVVgsIDB4
-MDAwZjAwMGYsIDB4MDAwYjAwMDAsDQogICAgICAgICBtbVRDQ19DVFJMLCAweDAwMTAwMDAwLCAw
-eGYzMWZmZjdmLA0KICAgICAgICAgbW1UQ1BfQUREUl9DT05GSUcsIDB4MDAwMDAzZmYsIDB4MDAw
-MDAwZjMsDQotLQ0KMi43LjQNCg0K
+YW1kZ3B1L2dmeF92OF8wLmMgfCA0ICsrLS0NCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25z
+KCspLCAyIGRlbGV0aW9ucygtKQ0KDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvZ2Z4X3Y4XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMN
+CmluZGV4IGVhMDI1YTUuLjA1YzMzNmIgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9nZnhfdjhfMC5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhf
+djhfMC5jDQpAQCAtMzAxLDggKzMwMSw4IEBAIHN0YXRpYyBjb25zdCB1MzIgcG9sYXJpczExX2dv
+bGRlbl9jb21tb25fYWxsW10gPQ0KIHN0YXRpYyBjb25zdCB1MzIgZ29sZGVuX3NldHRpbmdzX3Bv
+bGFyaXMxMF9hMTFbXSA9DQogew0KICAgICAgICAgbW1BVENfTUlTQ19DRywgMHgwMDBjMGZjMCwg
+MHgwMDBjMDIwMCwNCi0gICAgICAgbW1DQl9IV19DT05UUk9MLCAweGZmZmRmM2NmLCAweDAwMDA3
+MjA4LA0KLSAgICAgICBtbUNCX0hXX0NPTlRST0xfMiwgMCwgMHgwZjAwMDAwMCwNCisgICAgICAg
+bW1DQl9IV19DT05UUk9MLCAweDAwMDFmM2NmLCAweDAwMDA3MjA4LA0KKyAgICAgICBtbUNCX0hX
+X0NPTlRST0xfMiwgMHgwZjAwMDAwMCwgMHgwZjAwMDAwMCwNCiAgICAgICAgIG1tQ0JfSFdfQ09O
+VFJPTF8zLCAweDAwMDAwMWZmLCAweDAwMDAwMDQwLA0KICAgICAgICAgbW1EQl9ERUJVRzIsIDB4
+ZjAwZmZmZmYsIDB4MDAwMDA0MDAsDQogICAgICAgICBtbVBBX1NDX0VOSEFOQ0UsIDB4ZmZmZmZm
+ZmYsIDB4MjAwMDAwMDEsDQotLQ0KMi43LjQNCg0K
 
---_000_CY1PR12MB05089C650002D10BB8EA8FF28C050CY1PR12MB0508namp_
+--_000_CY1PR12MB0508C74A69F4D4EA81B919D08C050CY1PR12MB0508namp_
 Content-Type: text/html; charset="gb2312"
 Content-Transfer-Encoding: quoted-printable
 
@@ -92,12 +85,12 @@ background-color:#FFFFFF; font-family:Calibri,Arial,Helvetica,sans-serif">
 <div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
 color=3D"#000000" style=3D"font-size:11pt"><b>=B7=A2=BC=FE=C8=CB:</b> Huang=
  Rui &lt;ray.huang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>=B7=A2=CB=CD=CA=B1=BC=E4:</b> 2016=C4=EA8=D4=C22=C8=D5 13:23:33<br>
+<b>=B7=A2=CB=CD=CA=B1=BC=E4:</b> 2016=C4=EA8=D4=C22=C8=D5 13:23:34<br>
 <b>=CA=D5=BC=FE=C8=CB:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Deucher, Alexande=
 r<br>
 <b>=B3=AD=CB=CD:</b> Wang, Ken; Huan, Alvin; Huang, Ray<br>
-<b>=D6=F7=CC=E2:</b> [PATCH v2 2/3] drm/amdgpu: update golden setting of po=
-laris11</font>
+<b>=D6=F7=CC=E2:</b> [PATCH v2 3/3] drm/amdgpu: update golden setting of po=
+laris10</font>
 <div>&nbsp;</div>
 </div>
 </div>
@@ -105,21 +98,24 @@ laris11</font>
 <div class=3D"PlainText">Signed-off-by: Huang Rui &lt;ray.huang-5C7GfCeVMHo@public.gmane.org&gt;=
 <br>
 ---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 5 &#43;&#43;&#43;--<br>
-&nbsp;1 file changed, 3 insertions(&#43;), 2 deletions(-)<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 4 &#43;&#43;--<br>
+&nbsp;1 file changed, 2 insertions(&#43;), 2 deletions(-)<br>
 <br>
 diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/am=
 dgpu/gfx_v8_0.c<br>
-index fc4d998..ea025a5 100644<br>
+index ea025a5..05c336b 100644<br>
 --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
 &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
-@@ -269,7 &#43;269,8 @@ static const u32 tonga_mgcg_cgcg_init[] =3D<br>
-&nbsp;<br>
-&nbsp;static const u32 golden_settings_polaris11_a11[] =3D<br>
+@@ -301,8 &#43;301,8 @@ static const u32 polaris11_golden_common_all[] =3D<=
+br>
+&nbsp;static const u32 golden_settings_polaris10_a11[] =3D<br>
 &nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmCB_HW_CONTROL, 0xfffdf3cf, 0x000062=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmATC_MISC_CG, 0x000c0fc0,=
+ 0x000c0200,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmCB_HW_CONTROL, 0xfffdf3cf, 0x000072=
 08,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmCB_HW_CONTROL, 0x0000f3cf, 0x00=
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmCB_HW_CONTROL_2, 0, 0x0f000000,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmCB_HW_CONTROL, 0x0001f3cf, 0x00=
 007208,<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmCB_HW_CONTROL_2, 0x0f000000, 0x=
 0f000000,<br>
@@ -129,24 +125,6 @@ index fc4d998..ea025a5 100644<br>
 x00000400,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmPA_SC_ENHANCE, 0xfffffff=
 f, 0x20000001,<br>
-@@ -278,7 &#43;279,7 @@ static const u32 golden_settings_polaris11_a11[] =
-=3D<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmPA_SC_RASTER_CONFIG_1, 0=
-x0000003f, 0x00000000,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmRLC_CGCG_CGLS_CTRL, 0x00=
-000003, 0x0001003c,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmRLC_CGCG_CGLS_CTRL_3D, 0=
-xffffffff, 0x0001003c,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmSQ_CONFIG, 0x07f80000, 0x07180000,<=
-br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmSQ_CONFIG, 0x07f80000, 0x011800=
-00,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmTA_CNTL_AUX, 0x000f000f,=
- 0x000b0000,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmTCC_CTRL, 0x00100000, 0x=
-f31fff7f,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmTCP_ADDR_CONFIG, 0x00000=
-3ff, 0x000000f3,<br>
 -- <br>
 2.7.4<br>
 <br>
@@ -155,9 +133,9 @@ f31fff7f,<br>
 </body>
 </html>
 
---_000_CY1PR12MB05089C650002D10BB8EA8FF28C050CY1PR12MB0508namp_--
+--_000_CY1PR12MB0508C74A69F4D4EA81B919D08C050CY1PR12MB0508namp_--
 
---===============0318734183==
+--===============1129359085==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -167,4 +145,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0318734183==--
+--===============1129359085==--
