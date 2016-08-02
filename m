@@ -1,7 +1,7 @@
 From: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 Subject: RE: [PATCH] Add freesync ioctl interface
-Date: Tue, 2 Aug 2016 03:23:57 +0000
-Message-ID: <BN6PR12MB1204E5655E8CB4D17867EE4BFC050@BN6PR12MB1204.namprd12.prod.outlook.com>
+Date: Tue, 2 Aug 2016 03:12:47 +0000
+Message-ID: <BN6PR12MB120484B42FE46271D494A73EFC050@BN6PR12MB1204.namprd12.prod.outlook.com>
 References: <1470104760-30612-1-git-send-email-Hawking.Zhang@amd.com>
  <11f584d2-7d40-4318-7725-672816b9cd9c@daenzer.net>
 Mime-Version: 1.0
@@ -20,8 +20,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+To: =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
 VGhlIGltcGxlbWVudGF0aW9uIGlzIGFzIFtQQVRDSF0gRW5hYmxlL2Rpc2FibGUgZnJlZXN5bmMg
 d2hlbiBlbnRlci9leGl0IGZ1bGxzY3JlZW4gZ2FtZS4gUGxlYXNlIHRha2UgYSByZXZpZXcNCg0K
