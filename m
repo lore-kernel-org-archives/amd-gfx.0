@@ -1,13 +1,11 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH] Add freesync ioctl interface
-Date: Tue, 2 Aug 2016 12:10:35 +0900
-Message-ID: <11f584d2-7d40-4318-7725-672816b9cd9c@daenzer.net>
-References: <1470104760-30612-1-git-send-email-Hawking.Zhang@amd.com>
+From: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/powerplay: change structure variable name.
+Date: Tue, 2 Aug 2016 11:12:48 +0800
+Message-ID: <1470107568-7802-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1470104760-30612-1-git-send-email-Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,13 +16,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
-ClRoaXMgY2Fubm90IGdvIHVwc3RyZWFtIHdpdGhvdXQgYW4gaW1wbGVtZW50YXRpb24gbWFraW5n
-IHVzZSBvZiBpdC4KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAg
-fCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNp
-YXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Q2hhbmdlLUlkOiBJNzY2ODYxNmNmNGZmZWY2OWE0ZGM5ZmI3Njg3YzFhZWIyYzI3N2Q1MApTaWdu
+ZWQtb2ZmLWJ5OiBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+ClJldmlld2VkLWJ5OiBBbGV4IERl
+dWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9wb3dlcnBsYXkvc211bWdyL3BvbGFyaXMxMF9zbXVtZ3IuYyB8IDQgKystLQogMSBmaWxlIGNo
+YW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvcG9sYXJpczEwX3NtdW1nci5jIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3BvbGFyaXMxMF9zbXVtZ3IuYwppbmRl
+eCA1ZGJhN2M1Li43MDRmZjRjIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
+cGxheS9zbXVtZ3IvcG9sYXJpczEwX3NtdW1nci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+cG93ZXJwbGF5L3NtdW1nci9wb2xhcmlzMTBfc211bWdyLmMKQEAgLTk3OCw3ICs5NzgsNyBAQCBz
+dGF0aWMgaW50IHBvbGFyaXMxMF9zbXVfaW5pdChzdHJ1Y3QgcHBfc211bWdyICpzbXVtZ3IpCiAJ
+cmV0dXJuIDA7CiB9CiAKLXN0YXRpYyBjb25zdCBzdHJ1Y3QgcHBfc211bWdyX2Z1bmMgZWxsc2Vt
+ZXJlX3NtdV9mdW5jcyA9IHsKK3N0YXRpYyBjb25zdCBzdHJ1Y3QgcHBfc211bWdyX2Z1bmMgcG9s
+YXJpczEwX3NtdV9mdW5jcyA9IHsKIAkuc211X2luaXQgPSBwb2xhcmlzMTBfc211X2luaXQsCiAJ
+LnNtdV9maW5pID0gcG9sYXJpczEwX3NtdV9maW5pLAogCS5zdGFydF9zbXUgPSBwb2xhcmlzMTBf
+c3RhcnRfc211LApAQCAtMTAwMSw3ICsxMDAxLDcgQEAgaW50IHBvbGFyaXMxMF9zbXVtX2luaXQo
+c3RydWN0IHBwX3NtdW1nciAqc211bWdyKQogCQlyZXR1cm4gLTE7CiAKIAlzbXVtZ3ItPmJhY2tl
+bmQgPSBwb2xhcmlzMTBfc211OwotCXNtdW1nci0+c211bWdyX2Z1bmNzID0gJmVsbHNlbWVyZV9z
+bXVfZnVuY3M7CisJc211bWdyLT5zbXVtZ3JfZnVuY3MgPSAmcG9sYXJpczEwX3NtdV9mdW5jczsK
+IAogCXJldHVybiAwOwogfQotLSAKMS45LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeAo=
