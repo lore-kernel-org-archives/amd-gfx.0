@@ -1,14 +1,16 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH v2 0/3] drm/amdgpu: update golden setting of VI
-Date: Wed, 3 Aug 2016 14:21:58 +0200
-Message-ID: <9647b795-489e-9a57-518f-7580f045bf09@vodafone.de>
-References: <1470115414-23733-1-git-send-email-ray.huang@amd.com>
- <57d13336-f5ae-99f5-5b2d-0c65b8acacd1@folklore1984.net>
- <a47a4a95-147b-5e3b-aadd-57545102ce25@folklore1984.net>
+Subject: Re: [PATCH v2 2/2] drm/amdgpu: expose AMDGPU_GEM_CREATE_VRAM_CLEARED
+ to user space
+Date: Wed, 3 Aug 2016 14:50:23 +0200
+Message-ID: <722de07d-cfae-bb7e-466a-5d1a8764b0fb@vodafone.de>
+References: <1469427324-14908-2-git-send-email-Flora.Cui@amd.com>
+ <20160729032338.GB20065@flora> <20160801052742.GA7328@flora>
+ <CADnq5_OsCBC5ziCvrSLWfGm3LZc6y3+R+esbD71RZ25_Ky0MPw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1276235217=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <a47a4a95-147b-5e3b-aadd-57545102ce25-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+In-Reply-To: <CADnq5_OsCBC5ziCvrSLWfGm3LZc6y3+R+esbD71RZ25_Ky0MPw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,203 +21,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: Ken Wang <Qingqing.Wang-5C7GfCeVMHo@public.gmane.org>, Alvin Huan <Alvin.Huan-5C7GfCeVMHo@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Flora Cui <flora.cui-5C7GfCeVMHo@public.gmane.org>
+Cc: Christian Koenig <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============1276235217==
-Content-Type: multipart/alternative;
- boundary="------------180FEC8CA25E3FD6CA10C5F5"
-
-This is a multi-part message in MIME format.
---------------180FEC8CA25E3FD6CA10C5F5
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-Well, usually they are just the recommended settings from the hardware 
-team which try to fix or improve things by changing the default values 
-for the registers.
-
-I work for AMD and sometimes it isn't clear to me either what those 
-changes are good for. E.g. I would need to dig though a whole bunch of 
-register documentation and hardware specs to figure that out.
-
-Alternatively I can try to steal some free time from the hardware guy 
-who initiated the change and try to figure out the background.
-
-Both tasks are rather time consuming and most likely not necessary at 
-all as long as you don't run into a regression.
-
-Regards,
-Christian.
-
-Am 03.08.2016 um 14:09 schrieb Edward O'Callaghan:
-> I forgot to say, if this is clear to everyone else but me you can just
-> ignore my noise here :p
->
-> On 08/03/2016 10:06 PM, Edward O'Callaghan wrote:
->> Hi,
->>
->> I think it would be helpful for at least one liner explaining actually
->> what is even getting "fixed" here? Obviously we assume, given that you
->> work for AMD, these magics are correct however it does help in case of
->> issue.
->>
->> Just for a motivating example, suppose a magic is technically correct as
->> per hw documentation but there is a bug in the ASIC itself that this
->> changed caused a regression with then we would know where/how it occurs.
->>
->> Kind Regards,
->> Edward.
->>
->> On 08/02/2016 03:23 PM, Huang Rui wrote:
->>> Hi all,
->>>
->>> This patch set are all changes of golden setting, mgcg_cgcg setting,
->>> tiling mode array and rev id of VI series of cards.
->>>
->>> Changes from V1 -> V2:
->>> - Polaris10 changes are in tonga and polaris11 patches. And fix it.
->>>
->>> Thanks,
->>> Rui
->>>
->>> Huang Rui (3):
->>>    drm/amdgpu: update golden setting of tonga
->>>    drm/amdgpu: update golden setting of polaris11
->>>    drm/amdgpu: update golden setting of polaris10
->>>
->>>   drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 10 ++++++----
->>>   1 file changed, 6 insertions(+), 4 deletions(-)
->>>
->>
->>
->> _______________________________________________
->> amd-gfx mailing list
->> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
-
---------------180FEC8CA25E3FD6CA10C5F5
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 7bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Well, usually they are just the
-      recommended settings from the hardware team which try to fix or
-      improve things by changing the default values for the registers.<br>
-      <br>
-      I work for AMD and sometimes it isn't clear to me either what
-      those changes are good for. E.g. I would need to dig though a
-      whole bunch of register documentation and hardware specs to figure
-      that out.<br>
-      <br>
-      Alternatively I can try to steal some free time from the hardware
-      guy who initiated the change and try to figure out the background.<br>
-      <br>
-      Both tasks are rather time consuming and most likely not necessary
-      at all as long as you don't run into a regression.<br>
-      <br>
-      Regards,<br>
-      Christian.<br>
-      <br>
-      Am 03.08.2016 um 14:09 schrieb Edward O'Callaghan:<br>
-    </div>
-    <blockquote
-      cite="mid:a47a4a95-147b-5e3b-aadd-57545102ce25-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org"
-      type="cite">
-      <pre wrap="">I forgot to say, if this is clear to everyone else but me you can just
-ignore my noise here :p
-
-On 08/03/2016 10:06 PM, Edward O'Callaghan wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="">Hi,
-
-I think it would be helpful for at least one liner explaining actually
-what is even getting "fixed" here? Obviously we assume, given that you
-work for AMD, these magics are correct however it does help in case of
-issue.
-
-Just for a motivating example, suppose a magic is technically correct as
-per hw documentation but there is a bug in the ASIC itself that this
-changed caused a regression with then we would know where/how it occurs.
-
-Kind Regards,
-Edward.
-
-On 08/02/2016 03:23 PM, Huang Rui wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="">Hi all,
-
-This patch set are all changes of golden setting, mgcg_cgcg setting,
-tiling mode array and rev id of VI series of cards.
-
-Changes from V1 -&gt; V2:
-- Polaris10 changes are in tonga and polaris11 patches. And fix it.
-
-Thanks,
-Rui
-
-Huang Rui (3):
-  drm/amdgpu: update golden setting of tonga
-  drm/amdgpu: update golden setting of polaris11
-  drm/amdgpu: update golden setting of polaris10
-
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
-
-</pre>
-        </blockquote>
-        <pre wrap="">
-
-
-_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-
-</pre>
-      </blockquote>
-      <pre wrap="">
-</pre>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------180FEC8CA25E3FD6CA10C5F5--
-
---===============1276235217==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1276235217==--
+QW0gMDEuMDguMjAxNiB1bSAxNTo1OSBzY2hyaWViIEFsZXggRGV1Y2hlcjoKPiBPbiBNb24sIEF1
+ZyAxLCAyMDE2IGF0IDE6MjcgQU0sIEZsb3JhIEN1aSA8ZmxvcmEuY3VpQGFtZC5jb20+IHdyb3Rl
+Ogo+PiBJJ2xsIHB1c2ggaWYgbm8gb2JqZWN0aW9uCj4KPiBSZXZpZXdlZC1ieTogQWxleCBEZXVj
+aGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgoKU29ycnkgZm9yIHRoZSBkZWxheSwgYmVl
+biBvbiB2YWNhdGlvbiBsYXN0IHdlZWsuCgpQYXRjaCBpcyBSZXZpZXdlZC1ieTogQ2hyaXN0aWFu
+IEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPiBhcyB3ZWxsLgoKUmVnYXJkcywKQ2hy
+aXN0aWFuLgoKPgo+Cj4+IE9uIEZyaSwgSnVsIDI5LCAyMDE2IGF0IDExOjIzOjM5QU0gKzA4MDAs
+IEZsb3JhIEN1aSB3cm90ZToKPj4+IHBpbmcuLi4KPj4+Cj4+PiBPbiBNb24sIEp1bCAyNSwgMjAx
+NiBhdCAwMjoxNToyNFBNICswODAwLCBGbG9yYSBDdWkgd3JvdGU6Cj4+Pj4gVjI6IGZpeCB0aGUg
+cmV0dXJuIHZhbHVlIGZvciBmaWxsIGZhaWx1cmUgYW5kIHZhbGlkYXRlIGJvIGJlZm9yZQo+Pj4+
+IGZpbGxpbmcgZGF0YQo+Pj4+Cj4+Pj4gQ2hhbmdlLUlkOiBJMjU2MTc4YWZhMThjMWE0MzNmZTYw
+ZDg2NTZkMWM1Y2M1ZDU1Y2YyZgo+Pj4+IFNpZ25lZC1vZmYtYnk6IEZsb3JhIEN1aSA8RmxvcmEu
+Q3VpQGFtZC5jb20+Cj4+Pj4gUmV2aWV3ZWQtYnk6IENodW5taW5nIFpob3UgPERhdmlkMS5aaG91
+QGFtZC5jb20+Cj4+Pj4gLS0tCj4+Pj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfb2JqZWN0LmMgfCAzMyArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysKPj4+PiAgIGlu
+Y2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oICAgICAgICAgICAgICB8ICAyICsrCj4+Pj4gICAy
+IGZpbGVzIGNoYW5nZWQsIDM1IGluc2VydGlvbnMoKykKPj4+Pgo+Pj4+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMKPj4+PiBpbmRleCA2ZjA4NzNjLi41OWYzYTc1
+IDEwMDY0NAo+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmpl
+Y3QuYwo+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3Qu
+Ywo+Pj4+IEBAIC0yNzcsMTEgKzI3Nyw0NCBAQCBpbnQgYW1kZ3B1X2JvX2NyZWF0ZV9yZXN0cmlj
+dGVkKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+Pj4+ICAgICAgaWYgKHVubGlrZWx5KHIg
+IT0gMCkpIHsKPj4+PiAgICAgICAgICAgICAgcmV0dXJuIHI7Cj4+Pj4gICAgICB9Cj4+Pj4gKwo+
+Pj4+ICsgICBpZiAoZmxhZ3MgJiBBTURHUFVfR0VNX0NSRUFURV9WUkFNX0NMRUFSRUQgJiYKPj4+
+PiArICAgICAgIGJvLT50Ym8ubWVtLnBsYWNlbWVudCAmIFRUTV9QTF9GTEFHX1ZSQU0pIHsKPj4+
+PiArICAgICAgICAgICBzdHJ1Y3QgZmVuY2UgKmZlbmNlOwo+Pj4+ICsKPj4+PiArICAgICAgICAg
+ICBpZiAoYWRldi0+bW1hbi5idWZmZXJfZnVuY3NfcmluZyA9PSBOVUxMIHx8Cj4+Pj4gKyAgICAg
+ICAgICAgICAgIWFkZXYtPm1tYW4uYnVmZmVyX2Z1bmNzX3JpbmctPnJlYWR5KSB7Cj4+Pj4gKyAg
+ICAgICAgICAgICAgICAgICByID0gLUVCVVNZOwo+Pj4+ICsgICAgICAgICAgICAgICAgICAgZ290
+byBmYWlsX2ZyZWU7Cj4+Pj4gKyAgICAgICAgICAgfQo+Pj4+ICsKPj4+PiArICAgICAgICAgICBy
+ID0gYW1kZ3B1X2JvX3Jlc2VydmUoYm8sIGZhbHNlKTsKPj4+PiArICAgICAgICAgICBpZiAodW5s
+aWtlbHkociAhPSAwKSkKPj4+PiArICAgICAgICAgICAgICAgICAgIGdvdG8gZmFpbF9mcmVlOwo+
+Pj4+ICsKPj4+PiArICAgICAgICAgICBhbWRncHVfdHRtX3BsYWNlbWVudF9mcm9tX2RvbWFpbihi
+bywgQU1ER1BVX0dFTV9ET01BSU5fVlJBTSk7Cj4+Pj4gKyAgICAgICAgICAgciA9IHR0bV9ib192
+YWxpZGF0ZSgmYm8tPnRibywgJmJvLT5wbGFjZW1lbnQsIGZhbHNlLCBmYWxzZSk7Cj4+Pj4gKyAg
+ICAgICAgICAgaWYgKHVubGlrZWx5KHIgIT0gMCkpCj4+Pj4gKyAgICAgICAgICAgICAgICAgICBn
+b3RvIGZhaWxfdW5yZXNlcnZlOwo+Pj4+ICsKPj4+PiArICAgICAgICAgICBhbWRncHVfZmlsbF9i
+dWZmZXIoYm8sIDAsIGJvLT50Ym8ucmVzdiwgJmZlbmNlKTsKPj4+PiArICAgICAgICAgICBhbWRn
+cHVfYm9fZmVuY2UoYm8sIGZlbmNlLCBmYWxzZSk7Cj4+Pj4gKyAgICAgICAgICAgYW1kZ3B1X2Jv
+X3VucmVzZXJ2ZShibyk7Cj4+Pj4gKyAgICAgICAgICAgZmVuY2VfcHV0KGJvLT50Ym8ubW92aW5n
+KTsKPj4+PiArICAgICAgICAgICBiby0+dGJvLm1vdmluZyA9IGZlbmNlX2dldChmZW5jZSk7Cj4+
+Pj4gKyAgICAgICAgICAgZmVuY2VfcHV0KGZlbmNlKTsKPj4+PiArICAgfQo+Pj4+ICAgICAgKmJv
+X3B0ciA9IGJvOwo+Pj4+Cj4+Pj4gICAgICB0cmFjZV9hbWRncHVfYm9fY3JlYXRlKGJvKTsKPj4+
+Pgo+Pj4+ICAgICAgcmV0dXJuIDA7Cj4+Pj4gKwo+Pj4+ICtmYWlsX3VucmVzZXJ2ZToKPj4+PiAr
+ICAgYW1kZ3B1X2JvX3VucmVzZXJ2ZShibyk7Cj4+Pj4gK2ZhaWxfZnJlZToKPj4+PiArICAgYW1k
+Z3B1X2JvX3VucmVmKCZibyk7Cj4+Pj4gKyAgIHJldHVybiByOwo+Pj4+ICAgfQo+Pj4+Cj4+Pj4g
+ICBpbnQgYW1kZ3B1X2JvX2NyZWF0ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4+PiBk
+aWZmIC0tZ2l0IGEvaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmggYi9pbmNsdWRlL3VhcGkv
+ZHJtL2FtZGdwdV9kcm0uaAo+Pj4+IGluZGV4IDk0NmYyMzguLjhkZjM4MTYgMTAwNjQ0Cj4+Pj4g
+LS0tIGEvaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmgKPj4+PiArKysgYi9pbmNsdWRlL3Vh
+cGkvZHJtL2FtZGdwdV9kcm0uaAo+Pj4+IEBAIC03NSw2ICs3NSw4IEBACj4+Pj4gICAjZGVmaW5l
+IEFNREdQVV9HRU1fQ1JFQVRFX05PX0NQVV9BQ0NFU1MgICAgICAgICAgICAoMSA8PCAxKQo+Pj4+
+ICAgLyogRmxhZyB0aGF0IFVTV0MgYXR0cmlidXRlcyBzaG91bGQgYmUgdXNlZCBmb3IgR1RUICov
+Cj4+Pj4gICAjZGVmaW5lIEFNREdQVV9HRU1fQ1JFQVRFX0NQVV9HVFRfVVNXQyAgICAgICAgICAg
+ICAoMSA8PCAyKQo+Pj4+ICsvKiBGbGFnIHRoYXQgdGhlIG1lbW9yeSBzaG91bGQgYmUgaW4gVlJB
+TSBhbmQgY2xlYXJlZCAqLwo+Pj4+ICsjZGVmaW5lIEFNREdQVV9HRU1fQ1JFQVRFX1ZSQU1fQ0xF
+QVJFRCAgICAgICAgICAgICAoMSA8PCAzKQo+Pj4+Cj4+Pj4gICBzdHJ1Y3QgZHJtX2FtZGdwdV9n
+ZW1fY3JlYXRlX2luICB7Cj4+Pj4gICAgICAvKiogdGhlIHJlcXVlc3RlZCBtZW1vcnkgc2l6ZSAq
+Lwo+Pj4+IC0tCj4+Pj4gMS45LjEKPj4+Pgo+Pj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCj4+Pj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4+PiBhbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+Pj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+Pj4gX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KPj4+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+PiBhbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+Pj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCj4+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+IGFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vYW1kLWdmeAoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
