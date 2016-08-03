@@ -1,13 +1,11 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: remove the check for sessions being closed
-Date: Wed, 3 Aug 2016 16:17:05 +0200
-Message-ID: <8a841c88-c45e-d710-2246-ea363e42eace@vodafone.de>
-References: <1470232699-2579-1-git-send-email-leo.liu@amd.com>
+From: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: VCE3 MGCG for Stoney/Carrizo
+Date: Wed,  3 Aug 2016 11:51:36 -0400
+Message-ID: <20160803155142.27161-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1470232699-2579-1-git-send-email-leo.liu-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,30 +16,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-QW0gMDMuMDguMjAxNiB1bSAxNTo1OCBzY2hyaWViIExlbyBMaXU6Cj4gVGhpcyB3aWxsIG1ha2Ug
-Y2xvY2sgYW5kIHBvd2VyIGdhdGVkIHdoZW4gbm8gYmxvY2sgZGVjb2RlZCwgZm9yIGV4YW1wbGUK
-PiB3aGVuIHBhdXNlZCBkdXJpbmcgdGhlIHBsYXliYWNrLgo+Cj4gU2lnbmVkLW9mZi1ieTogTGVv
-IExpdSA8bGVvLmxpdUBhbWQuY29tPgoKUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNo
-cmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KCj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfdXZkLmMgfCAxMCArKy0tLS0tLS0tCj4gICAxIGZpbGUgY2hhbmdlZCwgMiBp
-bnNlcnRpb25zKCspLCA4IGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91dmQuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV91dmQuYwo+IGluZGV4IGMyMmI2NGUuLmJmNTkzNTQgMTAwNjQ0Cj4gLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3V2ZC5jCj4gKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3V2ZC5jCj4gQEAgLTEwODksMTUgKzEwODksOSBAQCBzdGF0
-aWMgdm9pZCBhbWRncHVfdXZkX2lkbGVfd29ya19oYW5kbGVyKHN0cnVjdCB3b3JrX3N0cnVjdCAq
-d29yaykKPiAgIHsKPiAgIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9Cj4gICAJCWNvbnRh
-aW5lcl9vZih3b3JrLCBzdHJ1Y3QgYW1kZ3B1X2RldmljZSwgdXZkLmlkbGVfd29yay53b3JrKTsK
-PiAtCXVuc2lnbmVkIGksIGZlbmNlcywgaGFuZGxlcyA9IDA7Cj4gKwl1bnNpZ25lZCBmZW5jZXMg
-PSBhbWRncHVfZmVuY2VfY291bnRfZW1pdHRlZCgmYWRldi0+dXZkLnJpbmcpOwo+ICAgCj4gLQlm
-ZW5jZXMgPSBhbWRncHVfZmVuY2VfY291bnRfZW1pdHRlZCgmYWRldi0+dXZkLnJpbmcpOwo+IC0K
-PiAtCWZvciAoaSA9IDA7IGkgPCBhZGV2LT51dmQubWF4X2hhbmRsZXM7ICsraSkKPiAtCQlpZiAo
-YXRvbWljX3JlYWQoJmFkZXYtPnV2ZC5oYW5kbGVzW2ldKSkKPiAtCQkJKytoYW5kbGVzOwo+IC0K
-PiAtCWlmIChmZW5jZXMgPT0gMCAmJiBoYW5kbGVzID09IDApIHsKPiArCWlmIChmZW5jZXMgPT0g
-MCkgewo+ICAgCQlpZiAoYWRldi0+cG0uZHBtX2VuYWJsZWQpIHsKPiAgIAkJCWFtZGdwdV9kcG1f
-ZW5hYmxlX3V2ZChhZGV2LCBmYWxzZSk7Cj4gICAJCX0gZWxzZSB7CgoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+VGhlc2UgcGF0Y2hlcyBmaXggdGhlIE1HQ0cgaW5pdGlhbGl6YXRpb24gYXMgd2VsbCBlbmFibGUg
+dGhlCmZlYXR1cmUgZm9yIFN0b25leSBhbmQgQ2Fycml6by4gIFRlc3RlZCBieSBpbnNwZWN0aW9u
+IG9mIHRoZSAKY2xvY2sgc3RhdHVzIHJlZ2lzdGVycyBhbmQgd2l0aCBjb25zdWx0YXRpb24gd2l0
+aCB0aGUgSFcKdGVhbS4KCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
