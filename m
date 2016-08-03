@@ -1,12 +1,14 @@
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH 00/11] add recovery entity and run queue
-Date: Wed, 3 Aug 2016 22:16:51 +1000
-Message-ID: <88bda920-4da2-7115-a82c-c0b1f581603e@folklore1984.net>
-References: <1470124302-23615-1-git-send-email-David1.Zhou@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH v2 0/3] drm/amdgpu: update golden setting of VI
+Date: Wed, 3 Aug 2016 14:21:58 +0200
+Message-ID: <9647b795-489e-9a57-518f-7580f045bf09@vodafone.de>
+References: <1470115414-23733-1-git-send-email-ray.huang@amd.com>
+ <57d13336-f5ae-99f5-5b2d-0c65b8acacd1@folklore1984.net>
+ <a47a4a95-147b-5e3b-aadd-57545102ce25@folklore1984.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0609536118=="
+Content-Type: multipart/mixed; boundary="===============1276235217=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1470124302-23615-1-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <a47a4a95-147b-5e3b-aadd-57545102ce25-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,103 +19,196 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: Ken Wang <Qingqing.Wang-5C7GfCeVMHo@public.gmane.org>, Alvin Huan <Alvin.Huan-5C7GfCeVMHo@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0609536118==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="OtrgiHkdArF5utDFjPk6CaUCRtd91G5No"
+This is a multi-part message in MIME format.
+--===============1276235217==
+Content-Type: multipart/alternative;
+ boundary="------------180FEC8CA25E3FD6CA10C5F5"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---OtrgiHkdArF5utDFjPk6CaUCRtd91G5No
-Content-Type: multipart/mixed; boundary="GU8BTuMnxjOHGlXgLFOmcNGV7n6njuM5f"
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Message-ID: <88bda920-4da2-7115-a82c-c0b1f581603e-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH 00/11] add recovery entity and run queue
-References: <1470124302-23615-1-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <1470124302-23615-1-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+This is a multi-part message in MIME format.
+--------------180FEC8CA25E3FD6CA10C5F5
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
---GU8BTuMnxjOHGlXgLFOmcNGV7n6njuM5f
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Well, usually they are just the recommended settings from the hardware 
+team which try to fix or improve things by changing the default values 
+for the registers.
 
-Hi,
+I work for AMD and sometimes it isn't clear to me either what those 
+changes are good for. E.g. I would need to dig though a whole bunch of 
+register documentation and hardware specs to figure that out.
 
-I didn't see any of my previous review remarks on your previous
-submission addresses in this submission of this series?
+Alternatively I can try to steal some free time from the hardware guy 
+who initiated the change and try to figure out the background.
+
+Both tasks are rather time consuming and most likely not necessary at 
+all as long as you don't run into a regression.
+
+Regards,
+Christian.
+
+Am 03.08.2016 um 14:09 schrieb Edward O'Callaghan:
+> I forgot to say, if this is clear to everyone else but me you can just
+> ignore my noise here :p
+>
+> On 08/03/2016 10:06 PM, Edward O'Callaghan wrote:
+>> Hi,
+>>
+>> I think it would be helpful for at least one liner explaining actually
+>> what is even getting "fixed" here? Obviously we assume, given that you
+>> work for AMD, these magics are correct however it does help in case of
+>> issue.
+>>
+>> Just for a motivating example, suppose a magic is technically correct as
+>> per hw documentation but there is a bug in the ASIC itself that this
+>> changed caused a regression with then we would know where/how it occurs.
+>>
+>> Kind Regards,
+>> Edward.
+>>
+>> On 08/02/2016 03:23 PM, Huang Rui wrote:
+>>> Hi all,
+>>>
+>>> This patch set are all changes of golden setting, mgcg_cgcg setting,
+>>> tiling mode array and rev id of VI series of cards.
+>>>
+>>> Changes from V1 -> V2:
+>>> - Polaris10 changes are in tonga and polaris11 patches. And fix it.
+>>>
+>>> Thanks,
+>>> Rui
+>>>
+>>> Huang Rui (3):
+>>>    drm/amdgpu: update golden setting of tonga
+>>>    drm/amdgpu: update golden setting of polaris11
+>>>    drm/amdgpu: update golden setting of polaris10
+>>>
+>>>   drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 10 ++++++----
+>>>   1 file changed, 6 insertions(+), 4 deletions(-)
+>>>
+>>
+>>
+>> _______________________________________________
+>> amd-gfx mailing list
+>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+
+--------------180FEC8CA25E3FD6CA10C5F5
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Well, usually they are just the
+      recommended settings from the hardware team which try to fix or
+      improve things by changing the default values for the registers.<br>
+      <br>
+      I work for AMD and sometimes it isn't clear to me either what
+      those changes are good for. E.g. I would need to dig though a
+      whole bunch of register documentation and hardware specs to figure
+      that out.<br>
+      <br>
+      Alternatively I can try to steal some free time from the hardware
+      guy who initiated the change and try to figure out the background.<br>
+      <br>
+      Both tasks are rather time consuming and most likely not necessary
+      at all as long as you don't run into a regression.<br>
+      <br>
+      Regards,<br>
+      Christian.<br>
+      <br>
+      Am 03.08.2016 um 14:09 schrieb Edward O'Callaghan:<br>
+    </div>
+    <blockquote
+      cite="mid:a47a4a95-147b-5e3b-aadd-57545102ce25-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org"
+      type="cite">
+      <pre wrap="">I forgot to say, if this is clear to everyone else but me you can just
+ignore my noise here :p
+
+On 08/03/2016 10:06 PM, Edward O'Callaghan wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="">Hi,
+
+I think it would be helpful for at least one liner explaining actually
+what is even getting "fixed" here? Obviously we assume, given that you
+work for AMD, these magics are correct however it does help in case of
+issue.
+
+Just for a motivating example, suppose a magic is technically correct as
+per hw documentation but there is a bug in the ASIC itself that this
+changed caused a regression with then we would know where/how it occurs.
 
 Kind Regards,
 Edward.
 
-On 08/02/2016 05:51 PM, Chunming Zhou wrote:
-> every vm has itself recovery entity, which is used to reovery page tabl=
-e from their shadow.
-> They don't need to wait front vm completed.
-> And also using all pte rings can speed reovery.
->=20
-> every scheduler has its own recovery entity, which is used to save hw j=
-obs, and resubmit from it, which solves the conflicts between reset threa=
-d and scheduler thread when run job.
->=20
-> And some fixes when doing this improment.=20
->=20
-> Chunming Zhou (11):
->   drm/amdgpu: hw ring should be empty when gpu reset
->   drm/amdgpu: specify entity to amdgpu_copy_buffer
->   drm/amd: add recover run queue for scheduler
->   drm/amdgpu: fix vm init error path
->   drm/amdgpu: add vm recover entity
->   drm/amdgpu: use all pte rings to recover page table
->   drm/amd: add recover entity for every scheduler
->   drm/amd: use scheduler to recover hw jobs
->   drm/amd: hw job list should be exact
->   drm/amd: reset jobs to recover entity
->   drm/amdgpu: no need fence wait every time
->=20
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   5 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c |   3 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  35 +++++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c      |  11 +++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_test.c      |   8 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |   5 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  27 ++++--
->  drivers/gpu/drm/amd/scheduler/gpu_scheduler.c | 129 +++++++++++++-----=
---------
->  drivers/gpu/drm/amd/scheduler/gpu_scheduler.h |   4 +-
->  9 files changed, 135 insertions(+), 92 deletions(-)
->=20
+On 08/02/2016 03:23 PM, Huang Rui wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="">Hi all,
+
+This patch set are all changes of golden setting, mgcg_cgcg setting,
+tiling mode array and rev id of VI series of cards.
+
+Changes from V1 -&gt; V2:
+- Polaris10 changes are in tonga and polaris11 patches. And fix it.
+
+Thanks,
+Rui
+
+Huang Rui (3):
+  drm/amdgpu: update golden setting of tonga
+  drm/amdgpu: update golden setting of polaris11
+  drm/amdgpu: update golden setting of polaris10
+
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+</pre>
+        </blockquote>
+        <pre wrap="">
 
 
---GU8BTuMnxjOHGlXgLFOmcNGV7n6njuM5f--
+_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
 
---OtrgiHkdArF5utDFjPk6CaUCRtd91G5No
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
+</pre>
+      </blockquote>
+      <pre wrap="">
+</pre>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
+--------------180FEC8CA25E3FD6CA10C5F5--
 
-iQIcBAEBCAAGBQJXoeCzAAoJEP4bvbfZuWjb+XsQALMWBGH4ZZpFFR113ardzx69
-eLj8E32V2dUBvDqDaP657LYwmfa8lc5aqBy0vaxPBttrFedn1o81K8SBZGmizM2G
-YaLdpviYjXgeTj7k2WvN0auImiWmG0Zodc6Vt0jmNkQbqxYWlgHXHlcyf6b1AalC
-DtY8tWUri7EXyppcMQMDvZ4rOq0qG9qfE1dVjltmlH0ywYW5ew/wvF26r2Wc9O86
-MF7LxDyucRctqHVqfPCLwiKfheKRdnpXZN9WjtV5rBfLuAhAmsQ5uueq8XIGvEj4
-MC1OxcdRGIDFd+x7V2nCsUlxv7d3K/ddDohNdo2Hif6dmID9FUE4xqE2wgVvapCc
-OVOcWBHEtQA0b18m1Y5fm5kJWgeA+1+GaUgbhE+s1ZKOm0Jsq3g/TsRhmgxp31lu
-NFAbrsap8xM2Wmf1a9xgkBdmDeDdo+f2FiRh10cR4CmXzRl/4UkzQNAwG9p0IfpO
-JWo0Vqdhl7GFelDlzOsSSuJ1ie67bI7zYjCmzdzf4dnobjXApfbhDoFIRA4MTVOe
-ecto+J2LOjMghAOA7tVw/IW/8CyUFfLp6wuofE7zu4Uxa7EhAnwJcypwlEDkAFfY
-/ZOjR/9t8tiBqU6yy8yEQq6QQTUcr4p3bjyCCn/wzOaeOCTsQrUNQDYTEBGlMyGs
-5/QJZ0M0p8tA75yaLWzN
-=mpBf
------END PGP SIGNATURE-----
-
---OtrgiHkdArF5utDFjPk6CaUCRtd91G5No--
-
---===============0609536118==
+--===============1276235217==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -123,4 +218,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0609536118==--
+--===============1276235217==--
