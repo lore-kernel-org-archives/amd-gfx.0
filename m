@@ -1,13 +1,14 @@
 From: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 00/11] add recovery entity and run queue
-Date: Thu, 4 Aug 2016 10:44:51 +0800
-Message-ID: <57A2AC23.7090709@amd.com>
-References: <1470124302-23615-1-git-send-email-David1.Zhou@amd.com>
- <88bda920-4da2-7115-a82c-c0b1f581603e@folklore1984.net>
+Subject: Re: [PATCH 00/11] add recovery entity
+Date: Thu, 4 Aug 2016 11:10:15 +0800
+Message-ID: <57A2B217.2010100@amd.com>
+References: <1469700828-25650-1-git-send-email-David1.Zhou@amd.com>
+ <233bde9b-f7ff-2697-1fd9-419d08f8f359@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1934219539=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <88bda920-4da2-7115-a82c-c0b1f581603e-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+In-Reply-To: <233bde9b-f7ff-2697-1fd9-419d08f8f359-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,181 +19,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?UTF-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============1934219539==
-Content-Type: multipart/alternative;
-	boundary="------------000807090301010804040308"
-
---------------000807090301010804040308
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-On 2016年08月03日 20:16, Edward O'Callaghan wrote:
-> Hi,
->
-> I didn't see any of my previous review remarks on your previous
-> submission addresses in this submission of this series?
-Hi Edward,
-
-Sorry for that. Since these patch sets are big feature change and we 
-need to pin down the approach of the solution first. As you see, 
-Christian has argued this solution and suggested another direction.
-When we change the direction, the patches could be different totally. So 
-I didn't address patch itself flaw. But indeed many thanks for your review.
-
-Thanks,
-David Zhou
-
->
-> Kind Regards,
-> Edward.
->
-> On 08/02/2016 05:51 PM, Chunming Zhou wrote:
->> every vm has itself recovery entity, which is used to reovery page table from their shadow.
->> They don't need to wait front vm completed.
->> And also using all pte rings can speed reovery.
->>
->> every scheduler has its own recovery entity, which is used to save hw jobs, and resubmit from it, which solves the conflicts between reset thread and scheduler thread when run job.
->>
->> And some fixes when doing this improment.
->>
->> Chunming Zhou (11):
->>    drm/amdgpu: hw ring should be empty when gpu reset
->>    drm/amdgpu: specify entity to amdgpu_copy_buffer
->>    drm/amd: add recover run queue for scheduler
->>    drm/amdgpu: fix vm init error path
->>    drm/amdgpu: add vm recover entity
->>    drm/amdgpu: use all pte rings to recover page table
->>    drm/amd: add recover entity for every scheduler
->>    drm/amd: use scheduler to recover hw jobs
->>    drm/amd: hw job list should be exact
->>    drm/amd: reset jobs to recover entity
->>    drm/amdgpu: no need fence wait every time
->>
->>   drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   5 +-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c |   3 +-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  35 +++++--
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c      |  11 +++
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_test.c      |   8 +-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |   5 +-
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  27 ++++--
->>   drivers/gpu/drm/amd/scheduler/gpu_scheduler.c | 129 +++++++++++++-------------
->>   drivers/gpu/drm/amd/scheduler/gpu_scheduler.h |   4 +-
->>   9 files changed, 135 insertions(+), 92 deletions(-)
->>
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------000807090301010804040308
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <br>
-    <div class="moz-cite-prefix">On 2016年08月03日 20:16, Edward
-      O'Callaghan wrote:<br>
-    </div>
-    <blockquote
-      cite="mid:88bda920-4da2-7115-a82c-c0b1f581603e-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org"
-      type="cite">
-      <pre wrap="">Hi,
-
-I didn't see any of my previous review remarks on your previous
-submission addresses in this submission of this series?</pre>
-    </blockquote>
-    Hi Edward,<br>
-    <br>
-    Sorry for that. Since these patch sets are big feature change and we
-    need to pin down the approach of the solution first. As you see,
-    Christian has argued this solution and suggested another direction.<br>
-    When we change the direction, the patches could be different
-    totally. So I didn't address patch itself flaw. But indeed many
-    thanks for your review.<br>
-    <br>
-    Thanks,<br>
-    David Zhou<br>
-    <br>
-    <blockquote
-      cite="mid:88bda920-4da2-7115-a82c-c0b1f581603e-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org"
-      type="cite">
-      <pre wrap="">
-
-Kind Regards,
-Edward.
-
-On 08/02/2016 05:51 PM, Chunming Zhou wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="">every vm has itself recovery entity, which is used to reovery page table from their shadow.
-They don't need to wait front vm completed.
-And also using all pte rings can speed reovery.
-
-every scheduler has its own recovery entity, which is used to save hw jobs, and resubmit from it, which solves the conflicts between reset thread and scheduler thread when run job.
-
-And some fixes when doing this improment. 
-
-Chunming Zhou (11):
-  drm/amdgpu: hw ring should be empty when gpu reset
-  drm/amdgpu: specify entity to amdgpu_copy_buffer
-  drm/amd: add recover run queue for scheduler
-  drm/amdgpu: fix vm init error path
-  drm/amdgpu: add vm recover entity
-  drm/amdgpu: use all pte rings to recover page table
-  drm/amd: add recover entity for every scheduler
-  drm/amd: use scheduler to recover hw jobs
-  drm/amd: hw job list should be exact
-  drm/amd: reset jobs to recover entity
-  drm/amdgpu: no need fence wait every time
-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   5 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c |   3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  35 +++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c      |  11 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_test.c      |   8 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |   5 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  27 ++++--
- drivers/gpu/drm/amd/scheduler/gpu_scheduler.c | 129 +++++++++++++-------------
- drivers/gpu/drm/amd/scheduler/gpu_scheduler.h |   4 +-
- 9 files changed, 135 insertions(+), 92 deletions(-)
-
-</pre>
-      </blockquote>
-      <pre wrap="">
-</pre>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------000807090301010804040308--
-
---===============1934219539==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1934219539==--
+CgpPbiAyMDE25bm0MDjmnIgwM+aXpSAyMTo0MywgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBX
+ZWxsIHRoYXQgaXMgYSBjbGVhciBOQUsgdG8gdGhpcyB3aG9sZSBhcHByb2FjaC4KPgo+IFN1Ym1p
+dHRpbmcgdGhlIHJlY292ZXJ5IGpvYnMgdG8gdGhlIHNjaGVkdWxlciBpcyByZWVudHJhbnQgYmVj
+YXVzZSB0aGUgCj4gc2NoZWR1bGVyIGlzIHRoZSBvbmUgd2hvIG9yaWdpbmFsbHkgc2lnbmFsZWQg
+dXMgb2YgYSB0aW1lb3V0Lgp3ZSBoYXZlIHJlc2V0IGFsbCByZWNvdmVyeSBqb2JzLCByaWdodD8g
+Q291bGQgd2UgdGhpbmsgdGhvc2Ugam9icyBhcmUgCnNhbWUgYXMgb3RoZXJzPwo+Cj4gV2h5IG5v
+dCBzdWJtaXQgdGhlIHJlY292ZXJ5IGpvYnMgdG8gdGhlIGhhcmR3YXJlIHJpbmcgZGlyZWN0bHk/
+ClllYWgsIHRoaXMgaXMgYWxzbyB3aGF0IEkgZGlkIGF0IGJlZ2luLgpUaGUgbWFpbmx5IHJlYXNv
+bnMgYXJlOgowLiByZWNvdmVyeSBqb2JzIG5lZWQgdG8gd2FpdCBpdHNlbGYgcGFnZSB0YWJsZSBy
+ZWNvdmVyeSBjb21wbGV0ZWQgYXQgbGVhc3QuCjEuIGRpcmVjdCBzdWJtaXNzaW9uIGlzIHVzaW5n
+IHJ1bl9qb2Igd2hpY2ggaXMgdXNlZCBieSBzY2hlZHVsZXIgYXMgCndlbGwsIHdoaWNoIGNvdWxk
+IGludHJvZHVjZSBjb25mbGljdHMuCjIuIGlmIGFsbCB2bSBjbGllbnRzIHVzZSBvbmUgc2RtYSBl
+bmdpbmUsIHRoZSBzcGVlZCBvZiByZXN0b3JpbmcgaXMgCnNsb3cuIElmIHdlIGNhbiB1c2UgaXRz
+ZWxmIHB0ZSByaW5nLCB0aGVuIHdlIHdpbGwgdXNlIGFsbCBzZG1hIGVuZ2luZXMgCmZvciB0aGVt
+LgozLiBpZiBqdXN0IG9uZSBlbnRpdHkgaXMgdG8gcmVjb3ZlciBhbGwgdm0gcGFnZSB0YWJsZXMs
+IHRoZW4gdGhlaXIgCnJlY292ZXJ5IGpvYnMgd2lsbCBoYXZlIHBvdGVudGlhbCBkZXBlbmRlbmN5
+LCB0aGUgbGF0ZXIgaXMgd2FpdGluZyB0aGUgCmZyb250LiBJZiB0aGV5IGhhdmUgdGhlaXIgb3du
+IGVudGl0eSwgdGhlcmUgd2lsbCBiZSBubyBkZXBlbmRlbmN5IApiZXR3ZWVuIHRoZW0uCjQuIGlm
+IHJlY292ZXJ5IGVudGl0eSBpcyBiYXNlZCBvbiBrZXJuZWwgcnVuIHF1ZXVlLCB0aGVuIHRoZSBy
+ZWNvdmVyeSAKam9icyBjb3VsZCBiZSBleGVjdXRlZCB3aXRoIHB0IGpvYnMgYXQgdGhlIHNhbWUg
+dGltZS4KCkFib3ZlIGlzIHdoeSBJIGludHJvZHVjZSByZWNvdmVyeSBlbnRpdHkgYW5kIHJlY292
+ZXJ5IHJ1biBxdWV1ZS4KClJlZ2FyZHMsCkRhdmlkIFpob3UKPgo+IFJlZ2FyZHMsCj4gQ2hyaXN0
+aWFuLgo+Cj4gQW0gMjguMDcuMjAxNiB1bSAxMjoxMyBzY2hyaWViIENodW5taW5nIFpob3U6Cj4+
+IGV2ZXJ5IHZtIGhhcyBpdHNlbGYgcmVjb3ZlcnkgZW50aXR5LCB3aGljaCBpcyB1c2VkIHRvIHJl
+b3ZlcnkgcGFnZSAKPj4gdGFibGUgZnJvbSB0aGVpciBzaGFkb3cuCj4+IFRoZXkgZG9uJ3QgbmVl
+ZCB0byB3YWl0IGZyb250IHZtIGNvbXBsZXRlZC4KPj4gQW5kIGFsc28gdXNpbmcgYWxsIHB0ZSBy
+aW5ncyBjYW4gc3BlZWQgcmVvdmVyeS4KPj4KPj4gZXZlcnkgc2NoZWR1bGVyIGhhcyBpdHMgb3du
+IHJlY292ZXJ5IGVudGl0eSwgd2hpY2ggaXMgdXNlZCB0byBzYXZlIGh3IAo+PiBqb2JzLCBhbmQg
+cmVzdWJtaXQgZnJvbSBpdCwgd2hpY2ggc29sdmVzIHRoZSBjb25mbGljdHMgYmV0d2VlbiByZXNl
+dCAKPj4gdGhyZWFkIGFuZCBzY2hlZHVsZXIgdGhyZWFkIHdoZW4gcnVuIGpvYi4KPj4KPj4gQW5k
+IHNvbWUgZml4ZXMgd2hlbiBkb2luZyB0aGlzIGltcHJvbWVudC4KPj4KPj4gQ2h1bm1pbmcgWmhv
+dSAoMTEpOgo+PiAgICBkcm0vYW1kZ3B1OiBodyByaW5nIHNob3VsZCBiZSBlbXB0eSB3aGVuIGdw
+dSByZXNldAo+PiAgICBkcm0vYW1kZ3B1OiBzcGVjaWZ5IGVudGl0eSB0byBhbWRncHVfY29weV9i
+dWZmZXIKPj4gICAgZHJtL2FtZDogYWRkIHJlY292ZXIgcnVuIHF1ZXVlIGZvciBzY2hlZHVsZXIK
+Pj4gICAgZHJtL2FtZGdwdTogZml4IHZtIGluaXQgZXJyb3IgcGF0aAo+PiAgICBkcm0vYW1kZ3B1
+OiBhZGQgdm0gcmVjb3ZlciBlbnRpdHkKPj4gICAgZHJtL2FtZGdwdTogdXNlIGFsbCBwdGUgcmlu
+Z3MgdG8gcmVjb3ZlciBwYWdlIHRhYmxlCj4+ICAgIGRybS9hbWQ6IGFkZCByZWNvdmVyIGVudGl0
+eSBmb3IgZXZlcnkgc2NoZWR1bGVyCj4+ICAgIGRybS9hbWQ6IHVzZSBzY2hlZHVsZXIgdG8gcmVj
+b3ZlciBodyBqb2JzCj4+ICAgIGRybS9hbWQ6IGh3IGpvYiBsaXN0IHNob3VsZCBiZSBleGFjdAo+
+PiAgICBkcm0vYW1kOiByZXNldCBqb2JzIHRvIHJlY292ZXIgZW50aXR5Cj4+ICAgIGRybS9hbWRn
+cHU6IG5vIG5lZWQgZmVuY2Ugd2FpdCBldmVyeSB0aW1lCj4+Cj4+ICAgZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1LmggICAgICAgICAgIHwgICA1ICstCj4+ICAgZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2JlbmNobWFyay5jIHwgICAzICstCj4+ICAgZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jICAgIHwgIDM1ICsrKysrLS0KPj4gICBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5jICAgICAgfCAgMTEgKysrCj4+
+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Rlc3QuYyAgICAgIHwgICA4ICst
+Cj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jICAgICAgIHwgICA1
+ICstCj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgICAgICAgIHwg
+IDI2ICsrKystLQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvc2NoZWR1bGVyL2dwdV9zY2hlZHVs
+ZXIuYyB8IDEyOSAKPj4gKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0KPj4gICBkcml2ZXJzL2dw
+dS9kcm0vYW1kL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmggfCAgIDQgKy0KPj4gICA5IGZpbGVz
+IGNoYW5nZWQsIDEzNCBpbnNlcnRpb25zKCspLCA5MiBkZWxldGlvbnMoLSkKPj4KPgoKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
+IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
