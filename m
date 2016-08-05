@@ -1,14 +1,12 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH] drm/ttm: Wait for a BO to become idle before unbinding it
- from GTT
-Date: Fri, 5 Aug 2016 11:44:17 +0200
-Message-ID: <5bc16963-a7e6-fe19-5a8f-7698228f8354@vodafone.de>
-References: <1470390015-7219-1-git-send-email-michel@daenzer.net>
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH 00/19] shadow page table support V2
+Date: Fri, 5 Aug 2016 20:12:25 +1000
+Message-ID: <c7791adb-5265-8529-2858-f3784dc52f3e@folklore1984.net>
+References: <1470389926-5719-1-git-send-email-David1.Zhou@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0851527228=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1470390015-7219-1-git-send-email-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+In-Reply-To: <1470389926-5719-1-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,113 +17,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-QW0gMDUuMDguMjAxNiB1bSAxMTo0MCBzY2hyaWViIE1pY2hlbCBEw6RuemVyOgo+IEZyb206IE1p
-Y2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQuY29tPgo+Cj4gRml4ZXMgaGFuZ3MgdW5k
-ZXIgbWVtb3J5IHByZXNzdXJlLCBlLmcuIHJ1bm5pbmcgdGhlIHBpZ2xpdCB0ZXN0Cj4gdGV4M2Qt
-bWF4c2l6ZSBjb25jdXJyZW50bHkgd2l0aCBvdGhlciB0ZXN0cy4KPgo+IEZpeGVzOiAxN2QzM2Jj
-OWQ2ZWYgKCJkcm0vdHRtOiBkcm9wIHdhaXRpbmcgZm9yIGlkbGUgaW4gdHRtX2JvX2V2aWN0LiIp
-Cj4gU2lnbmVkLW9mZi1ieTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+
-CgpBaCwgeWVzIG9mIGNvdXJzZS4gR29vZCBjYXRjaCwgcGF0Y2ggaXMgUmV2aWV3ZWQtYnk6IENo
-cmlzdGlhbiBLw7ZuaWcgCjxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+LgoKUmVnYXJkcywKQ2hy
-aXN0aWFuLgoKPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0u
-YyB8ICA0ICsrLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L25vdXZlYXVfYm8uYyAgICB8
-ICA0ICsrLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX3R0bS5jICAgICB8ICA0
-ICsrLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMgICAgICAgICAgICB8ICAzICsr
-LQo+ICAgZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm9fdXRpbC5jICAgICAgIHwgMTAgKysrKysr
-KysrLQo+ICAgaW5jbHVkZS9kcm0vdHRtL3R0bV9ib19kcml2ZXIuaCAgICAgICAgIHwgIDMgKyst
-Cj4gICA2IGZpbGVzIGNoYW5nZWQsIDE5IGluc2VydGlvbnMoKyksIDkgZGVsZXRpb25zKC0pCj4K
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jCj4gaW5kZXggYjc3NDJlNi4u
-OWI2MWM4YiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-dHRtLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMKPiBA
-QCAtMzM1LDcgKzMzNSw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X21vdmVfdnJhbV9yYW0oc3RydWN0
-IHR0bV9idWZmZXJfb2JqZWN0ICpibywKPiAgIAlpZiAodW5saWtlbHkocikpIHsKPiAgIAkJZ290
-byBvdXRfY2xlYW51cDsKPiAgIAl9Cj4gLQlyID0gdHRtX2JvX21vdmVfdHRtKGJvLCB0cnVlLCBu
-b193YWl0X2dwdSwgbmV3X21lbSk7Cj4gKwlyID0gdHRtX2JvX21vdmVfdHRtKGJvLCB0cnVlLCBp
-bnRlcnJ1cHRpYmxlLCBub193YWl0X2dwdSwgbmV3X21lbSk7Cj4gICBvdXRfY2xlYW51cDoKPiAg
-IAl0dG1fYm9fbWVtX3B1dChibywgJnRtcF9tZW0pOwo+ICAgCXJldHVybiByOwo+IEBAIC0zNjgs
-NyArMzY4LDcgQEAgc3RhdGljIGludCBhbWRncHVfbW92ZV9yYW1fdnJhbShzdHJ1Y3QgdHRtX2J1
-ZmZlcl9vYmplY3QgKmJvLAo+ICAgCWlmICh1bmxpa2VseShyKSkgewo+ICAgCQlyZXR1cm4gcjsK
-PiAgIAl9Cj4gLQlyID0gdHRtX2JvX21vdmVfdHRtKGJvLCB0cnVlLCBub193YWl0X2dwdSwgJnRt
-cF9tZW0pOwo+ICsJciA9IHR0bV9ib19tb3ZlX3R0bShibywgdHJ1ZSwgaW50ZXJydXB0aWJsZSwg
-bm9fd2FpdF9ncHUsICZ0bXBfbWVtKTsKPiAgIAlpZiAodW5saWtlbHkocikpIHsKPiAgIAkJZ290
-byBvdXRfY2xlYW51cDsKPiAgIAl9Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9ub3V2
-ZWF1L25vdXZlYXVfYm8uYyBiL2RyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L25vdXZlYXVfYm8uYwo+
-IGluZGV4IDUyOGJkZWYuLjYxOTAwMzUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL25v
-dXZlYXUvbm91dmVhdV9iby5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvbm91dmVh
-dV9iby5jCj4gQEAgLTExNTEsNyArMTE1MSw3IEBAIG5vdXZlYXVfYm9fbW92ZV9mbGlwZChzdHJ1
-Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvLCBib29sIGV2aWN0LCBib29sIGludHIsCj4gICAJaWYg
-KHJldCkKPiAgIAkJZ290byBvdXQ7Cj4gICAKPiAtCXJldCA9IHR0bV9ib19tb3ZlX3R0bShibywg
-dHJ1ZSwgbm9fd2FpdF9ncHUsIG5ld19tZW0pOwo+ICsJcmV0ID0gdHRtX2JvX21vdmVfdHRtKGJv
-LCB0cnVlLCBpbnRyLCBub193YWl0X2dwdSwgbmV3X21lbSk7Cj4gICBvdXQ6Cj4gICAJdHRtX2Jv
-X21lbV9wdXQoYm8sICZ0bXBfbWVtKTsKPiAgIAlyZXR1cm4gcmV0Owo+IEBAIC0xMTc5LDcgKzEx
-NzksNyBAQCBub3V2ZWF1X2JvX21vdmVfZmxpcHMoc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpi
-bywgYm9vbCBldmljdCwgYm9vbCBpbnRyLAo+ICAgCWlmIChyZXQpCj4gICAJCXJldHVybiByZXQ7
-Cj4gICAKPiAtCXJldCA9IHR0bV9ib19tb3ZlX3R0bShibywgdHJ1ZSwgbm9fd2FpdF9ncHUsICZ0
-bXBfbWVtKTsKPiArCXJldCA9IHR0bV9ib19tb3ZlX3R0bShibywgdHJ1ZSwgaW50ciwgbm9fd2Fp
-dF9ncHUsICZ0bXBfbWVtKTsKPiAgIAlpZiAocmV0KQo+ICAgCQlnb3RvIG91dDsKPiAgIAo+IGRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl90dG0uYyBiL2RyaXZlcnMv
-Z3B1L2RybS9yYWRlb24vcmFkZW9uX3R0bS5jCj4gaW5kZXggMWNiNzI2Ni4uNTU3ZWYwYyAxMDA2
-NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl90dG0uYwo+ICsrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX3R0bS5jCj4gQEAgLTM0Niw3ICszNDYsNyBAQCBz
-dGF0aWMgaW50IHJhZGVvbl9tb3ZlX3ZyYW1fcmFtKHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAq
-Ym8sCj4gICAJaWYgKHVubGlrZWx5KHIpKSB7Cj4gICAJCWdvdG8gb3V0X2NsZWFudXA7Cj4gICAJ
-fQo+IC0JciA9IHR0bV9ib19tb3ZlX3R0bShibywgdHJ1ZSwgbm9fd2FpdF9ncHUsIG5ld19tZW0p
-Owo+ICsJciA9IHR0bV9ib19tb3ZlX3R0bShibywgdHJ1ZSwgaW50ZXJydXB0aWJsZSwgbm9fd2Fp
-dF9ncHUsIG5ld19tZW0pOwo+ICAgb3V0X2NsZWFudXA6Cj4gICAJdHRtX2JvX21lbV9wdXQoYm8s
-ICZ0bXBfbWVtKTsKPiAgIAlyZXR1cm4gcjsKPiBAQCAtMzc5LDcgKzM3OSw3IEBAIHN0YXRpYyBp
-bnQgcmFkZW9uX21vdmVfcmFtX3ZyYW0oc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpibywKPiAg
-IAlpZiAodW5saWtlbHkocikpIHsKPiAgIAkJcmV0dXJuIHI7Cj4gICAJfQo+IC0JciA9IHR0bV9i
-b19tb3ZlX3R0bShibywgdHJ1ZSwgbm9fd2FpdF9ncHUsICZ0bXBfbWVtKTsKPiArCXIgPSB0dG1f
-Ym9fbW92ZV90dG0oYm8sIHRydWUsIGludGVycnVwdGlibGUsIG5vX3dhaXRfZ3B1LCAmdG1wX21l
-bSk7Cj4gICAJaWYgKHVubGlrZWx5KHIpKSB7Cj4gICAJCWdvdG8gb3V0X2NsZWFudXA7Cj4gICAJ
-fQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jIGIvZHJpdmVycy9n
-cHUvZHJtL3R0bS90dG1fYm8uYwo+IGluZGV4IDM0NTI3NDguLmYwNzgwMzggMTAwNjQ0Cj4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm8uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS90
-dG0vdHRtX2JvLmMKPiBAQCAtMzU1LDcgKzM1NSw4IEBAIHN0YXRpYyBpbnQgdHRtX2JvX2hhbmRs
-ZV9tb3ZlX21lbShzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvLAo+ICAgCj4gICAJaWYgKCEo
-b2xkX21hbi0+ZmxhZ3MgJiBUVE1fTUVNVFlQRV9GTEFHX0ZJWEVEKSAmJgo+ICAgCSAgICAhKG5l
-d19tYW4tPmZsYWdzICYgVFRNX01FTVRZUEVfRkxBR19GSVhFRCkpCj4gLQkJcmV0ID0gdHRtX2Jv
-X21vdmVfdHRtKGJvLCBldmljdCwgbm9fd2FpdF9ncHUsIG1lbSk7Cj4gKwkJcmV0ID0gdHRtX2Jv
-X21vdmVfdHRtKGJvLCBldmljdCwgaW50ZXJydXB0aWJsZSwgbm9fd2FpdF9ncHUsCj4gKwkJCQkg
-ICAgICBtZW0pOwo+ICAgCWVsc2UgaWYgKGJkZXYtPmRyaXZlci0+bW92ZSkKPiAgIAkJcmV0ID0g
-YmRldi0+ZHJpdmVyLT5tb3ZlKGJvLCBldmljdCwgaW50ZXJydXB0aWJsZSwKPiAgIAkJCQkJIG5v
-X3dhaXRfZ3B1LCBtZW0pOwo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9i
-b191dGlsLmMgYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9ib191dGlsLmMKPiBpbmRleCAyZGY2
-MDJhLi5mMTU3YTllIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvX3V0
-aWwuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvX3V0aWwuYwo+IEBAIC00NSw3
-ICs0NSw3IEBAIHZvaWQgdHRtX2JvX2ZyZWVfb2xkX25vZGUoc3RydWN0IHR0bV9idWZmZXJfb2Jq
-ZWN0ICpibykKPiAgIH0KPiAgIAo+ICAgaW50IHR0bV9ib19tb3ZlX3R0bShzdHJ1Y3QgdHRtX2J1
-ZmZlcl9vYmplY3QgKmJvLAo+IC0JCSAgICBib29sIGV2aWN0LAo+ICsJCSAgICBib29sIGV2aWN0
-LCBib29sIGludGVycnVwdGlibGUsCj4gICAJCSAgICBib29sIG5vX3dhaXRfZ3B1LCBzdHJ1Y3Qg
-dHRtX21lbV9yZWcgKm5ld19tZW0pCj4gICB7Cj4gICAJc3RydWN0IHR0bV90dCAqdHRtID0gYm8t
-PnR0bTsKPiBAQCAtNTMsNiArNTMsMTQgQEAgaW50IHR0bV9ib19tb3ZlX3R0bShzdHJ1Y3QgdHRt
-X2J1ZmZlcl9vYmplY3QgKmJvLAo+ICAgCWludCByZXQ7Cj4gICAKPiAgIAlpZiAob2xkX21lbS0+
-bWVtX3R5cGUgIT0gVFRNX1BMX1NZU1RFTSkgewo+ICsJCXJldCA9IHR0bV9ib193YWl0KGJvLCBp
-bnRlcnJ1cHRpYmxlLCBub193YWl0X2dwdSk7Cj4gKwo+ICsJCWlmICh1bmxpa2VseShyZXQgIT0g
-MCkpIHsKPiArCQkJaWYgKHJldCAhPSAtRVJFU1RBUlRTWVMpCj4gKwkJCQlwcl9lcnIoIkZhaWxl
-ZCB0byBleHBpcmUgc3luYyBvYmplY3QgYmVmb3JlIHVuYmluZGluZyBUVE1cbiIpOwo+ICsJCQly
-ZXR1cm4gcmV0Owo+ICsJCX0KPiArCj4gICAJCXR0bV90dF91bmJpbmQodHRtKTsKPiAgIAkJdHRt
-X2JvX2ZyZWVfb2xkX25vZGUoYm8pOwo+ICAgCQl0dG1fZmxhZ19tYXNrZWQoJm9sZF9tZW0tPnBs
-YWNlbWVudCwgVFRNX1BMX0ZMQUdfU1lTVEVNLAo+IGRpZmYgLS1naXQgYS9pbmNsdWRlL2RybS90
-dG0vdHRtX2JvX2RyaXZlci5oIGIvaW5jbHVkZS9kcm0vdHRtL3R0bV9ib19kcml2ZXIuaAo+IGlu
-ZGV4IDQzNDhkNmQuLjk5YzZkMDEgMTAwNjQ0Cj4gLS0tIGEvaW5jbHVkZS9kcm0vdHRtL3R0bV9i
-b19kcml2ZXIuaAo+ICsrKyBiL2luY2x1ZGUvZHJtL3R0bS90dG1fYm9fZHJpdmVyLmgKPiBAQCAt
-OTYyLDYgKzk2Miw3IEBAIHZvaWQgdHRtX21lbV9pb19mcmVlKHN0cnVjdCB0dG1fYm9fZGV2aWNl
-ICpiZGV2LAo+ICAgICoKPiAgICAqIEBibzogQSBwb2ludGVyIHRvIGEgc3RydWN0IHR0bV9idWZm
-ZXJfb2JqZWN0Lgo+ICAgICogQGV2aWN0OiAxOiBUaGlzIGlzIGFuIGV2aWN0aW9uLiBEb24ndCB0
-cnkgdG8gcGlwZWxpbmUuCj4gKyAqIEBpbnRlcnJ1cHRpYmxlOiBTbGVlcCBpbnRlcnJ1cHRpYmxl
-IGlmIHdhaXRpbmcuCj4gICAgKiBAbm9fd2FpdF9ncHU6IFJldHVybiBpbW1lZGlhdGVseSBpZiB0
-aGUgR1BVIGlzIGJ1c3kuCj4gICAgKiBAbmV3X21lbTogc3RydWN0IHR0bV9tZW1fcmVnIGluZGlj
-YXRpbmcgd2hlcmUgdG8gbW92ZS4KPiAgICAqCj4gQEAgLTk3Niw3ICs5NzcsNyBAQCB2b2lkIHR0
-bV9tZW1faW9fZnJlZShzdHJ1Y3QgdHRtX2JvX2RldmljZSAqYmRldiwKPiAgICAqLwo+ICAgCj4g
-ICBleHRlcm4gaW50IHR0bV9ib19tb3ZlX3R0bShzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJv
-LAo+IC0JCQkgICBib29sIGV2aWN0LCBib29sIG5vX3dhaXRfZ3B1LAo+ICsJCQkgICBib29sIGV2
-aWN0LCBib29sIGludGVycnVwdGlibGUsIGJvb2wgbm9fd2FpdF9ncHUsCj4gICAJCQkgICBzdHJ1
-Y3QgdHRtX21lbV9yZWcgKm5ld19tZW0pOwo+ICAgCj4gICAvKioKCgpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0851527228==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="cxwDwJAA67Bc61MdaCc5n0ftL04VSnejg"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--cxwDwJAA67Bc61MdaCc5n0ftL04VSnejg
+Content-Type: multipart/mixed; boundary="FE2AfAs1LFAWswXAvcP2J7hJ6bjU0dV65"
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+To: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Message-ID: <c7791adb-5265-8529-2858-f3784dc52f3e-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH 00/19] shadow page table support V2
+References: <1470389926-5719-1-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1470389926-5719-1-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+
+--FE2AfAs1LFAWswXAvcP2J7hJ6bjU0dV65
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+
+
+On 08/05/2016 07:38 PM, Chunming Zhou wrote:
+> Since we cannot make sure VRAM is safe after gpu reset, page table back=
+up
+> is neccessary, shadow page table is sense way to recovery page talbe wh=
+en
+> gpu reset happens.
+
+Hmm, bit of a nitpick but the following is perhaps a little better wordin=
+g:
+
+s/Since we cannot ensure VRAM is consistent after a GPU reset, page
+table shadowing is necessary. Shadowed page tables are, in a sense, a
+method to recover the consistent state of the page tables before the
+reset occurred.
+
+
+> We need to allocate GTT bo as the shadow of VRAM bo when creating page =
+table,
+> and make them same. After gpu reset, we will need to use SDMA to copy G=
+TT bo
+s/make them same/make them the same/
+
+Hope this is helpful,
+Kind Regards,
+Edward.
+
+> content to VRAM bo, then page table will be recoveried.=20
+>=20
+> V2:
+> Shadow bo uses a shadow entity running on normal run queue, after gpu r=
+eset,
+> we need to wait for all shadow jobs finished first, then recovery page =
+table from shadow.
+>=20
+> Chunming Zhou (19):
+>   drm/amdgpu: add shadow bo support
+>   drm/amdgpu: validate shadow as well when validating bo
+>   drm/amdgpu: allocate shadow for pd/pt bo
+>   drm/amdgpu: add shadow flag
+>   drm/amdgpu: sync bo and shadow
+>   drm/amdgpu: implement vm recovery function from shadow
+>   drm/amdgpu: fix vm init error path
+>   drm/amdgpu: add shadow_entity for shadow page table updates
+>   drm/amdgpu: update pd shadow bo
+>   drm/amdgpu: update pt shadow
+>   drm/amd: add last fence in sched entity
+>   drm/amdgpu: link all vm clients
+>   drm/amdgpu: add vm_list_lock
+>   drm/amd: add block entity function
+>   drm/amdgpu: add shadow fence owner
+>   drm/amd: block entity
+>   drm/amdgpu: recover page tables after gpu reset
+>   drm/amdgpu: add need backup function
+>   drm/amdgpu: add backup condition for vm
+>=20
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  25 +++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |  82 +++++---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  88 ++++++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    | 104 +++++++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    |   5 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c      |   3 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        | 270 ++++++++++++++++++=
++-------
+>  drivers/gpu/drm/amd/scheduler/gpu_scheduler.c |  38 +++-
+>  drivers/gpu/drm/amd/scheduler/gpu_scheduler.h |   5 +
+>  include/uapi/drm/amdgpu_drm.h                 |   2 +
+>  10 files changed, 519 insertions(+), 103 deletions(-)
+>=20
+
+
+--FE2AfAs1LFAWswXAvcP2J7hJ6bjU0dV65--
+
+--cxwDwJAA67Bc61MdaCc5n0ftL04VSnejg
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJXpGaJAAoJEP4bvbfZuWjbENYP/jQv57ze14rHbn58Po3v3DKJ
+kjcmdPhil0sCjeCjY0jPYEyMlhPTnvt78PvSIa4EmHpImLsvizhTVYoWTb4jiN1n
+WbU5G2t7pVCdAEl1KFRYvjOdpzqMT0QnGgRl6w6ElUXv2QjNBE16LqpmYCOZ2Q+x
+eAiO0buMozJeLKNhmvZy0C+ZHyO6WwtNXo3T7KT0+D9Rz/gLSst+yoe/GNJMSBBx
+ekJ1POgJcFJHKk8143ld0S1ggSnhq6sx8izqWAY9reXDIVgKhkMWKsfge2y+6OF9
+PnvVnzjSrFtAGx5ugojffVBkCdw/Lp26MtPT7W6vo1+r9eDqJv+roUEdSIHbOrLb
+nj2LrgfeJfwN+exsV0wiKkmV9FJ9d64UdDqH+cyKN+VesuAyVup2YwNVlCokB8xV
+ITnFJcMR9nZHRAfy8w6okDcp3Tzgjapxoz8I8M2Yhu0NarbHtAaWHI22a/sGw0UF
+ap7TvkfAJ5LGIEA0slN1A4XeZxYawDwSVo/j54HCTPo8zQc7AxaJKhvBGqNnVtwy
+v1ixOTgFJkdD6SziU8KWWgggyEUeQ/kPSOF/9Y3N41uobzPyb6IoEpVSOb/S5j5p
+h6FT2vuBd89xtPETyjOlbhMz9rR+y86Zi1jaw5K+/dvRFBTcCzFEEPpHE0mOE7V0
+wEwlEjAiibjiJKt9075B
+=lqGC
+-----END PGP SIGNATURE-----
+
+--cxwDwJAA67Bc61MdaCc5n0ftL04VSnejg--
+
+--===============0851527228==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0851527228==--
