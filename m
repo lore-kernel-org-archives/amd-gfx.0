@@ -1,100 +1,60 @@
-From: Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Implementations of missing dce6 functions: how should patches be
- organized?
-Date: Mon, 08 Aug 2016 15:05:39 +0000
-Message-ID: <CAPEhTTGL3dCySnxoVyMOBdPtJZRieB=eBqutZVcY7=PQQvbpCg@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH 0/7] Minor DP aux transaction fixes
+Date: Mon, 8 Aug 2016 13:30:37 -0400
+Message-ID: <CADnq5_PUcNjttK8zB_G_RnbHFbdaxHZED_VzpEEk29fMu1E89g@mail.gmail.com>
+References: <1470443443-27252-1-git-send-email-cpaul@redhat.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0067312724=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Freedesktop - AMD-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Alexander Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-
---===============0067312724==
-Content-Type: multipart/alternative; boundary=94eb2c147ffe711165053990c099
-
---94eb2c147ffe711165053990c099
 Content-Type: text/plain; charset=UTF-8
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <1470443443-27252-1-git-send-email-cpaul@redhat.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Lyude <cpaul@redhat.com>
+Cc: Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, xorg-driver-ati@lists.freedesktop.org, Tom St Denis <tom.stdenis@amd.com>, Jammy Zhou <Jammy.Zhou@amd.com>, LKML <linux-kernel@vger.kernel.org>, Alex Deucher <alexander.deucher@amd.com>, Ken Wang <Qingqing.Wang@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-Since yesterday was a rainy day over here, I took some time at the
-unimplemented dce6 functions and  I'm almost done with them.
+On Fri, Aug 5, 2016 at 8:30 PM, Lyude <cpaul@redhat.com> wrote:
+> While I was investigating an unrelated bug on the radeon driver, I noticed that
+> it's become rather difficult to actually read through dmesg with drm.debug
+> turned on, on account of the huge number of messages we end up printing from
+> failed DP aux transactions that happen every time we reprobe each connector.
+>
+> Timed out transactions are relatively normal, and as well there's a lot of
+> places in radeon/amdgpu where we're printing redundant debugging information
+> dozens of times each time we attempt a DP aux transactions.
+>
+> Additionally, I've removed some of the retry loops in amdgpu/radeon. These were
+> definitely useful at one point, but since we now retry any failed aux
+> transaction unconditionally in DRM's dp helpers they don't serve much purpose
+> other then to make failing aux transactions take a lot more time then they need
+> to.
 
-I still need to:
-- mimic how MASKs and SHIFTs are used in dce_v8_0.c (purely for consistency
-and clarity)
--- rename some variables and split imbriqued MASKs and SHIFTs (almost
-completed for dce_v6_0.c usages and some other files that were using the
-same defined variables)
--- move MASKs and SHIFTs to their own file (dce_6_0_sh_mask.h)
-- complete implementation of two remainging functions:
---- dce_v6_0_afmt_update_ACR()
---- dce_v6_0_afmt_update_avi_infoframe()
+I've applied the amdgpu and radeon patches.  For the drm patches, I
+can either take them through my tree or via drm-misc.
 
-I found a few duplicated "#define" in sid.h while porting code that I'm
-cleaning at the same time.
+Alex
 
-So, in the next few days, I'll send patches for cleaning duplicated
-"#define" in sid.h, renaming, splitting and moving MASKs and SHIFTs to
-their own file first. It could be grouped as follow: a patch for removed
-duplicates, one for renaming and splitting masks and shifts, and a last one
-for moving them to their own file.
-
-However, after that, would it be better to send a single patch for all
-unimplemented functions or should I split them? Per function (or group of
-functions)?
-
-Thanks for your input.
-Alexandre Demers
-
---94eb2c147ffe711165053990c099
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>S<span style=3D"line-height:1.5">ince yesterday was a=
- rainy day over here, I took some time at the unimplemented dce6 functions =
-and</span><span class=3D"inbox-inbox-inbox-inbox-Apple-converted-space" sty=
-le=3D"line-height:1.5">=C2=A0=C2=A0</span><span style=3D"line-height:1.5">I=
-&#39;m almost done with them.</span></div><div><br></div><div>I still need =
-to:</div><div>- mimic how MASKs and SHIFTs are used in dce_v8_0.c (purely f=
-or consistency and clarity)</div><div>-- rename some variables and split im=
-briqued MASKs and SHIFTs (almost completed for dce_v6_0.c usages and some o=
-ther files that were using the same defined variables)</div><div>-- move MA=
-SKs and SHIFTs to their own file (dce_6_0_sh_mask.h)</div><div>- complete i=
-mplementation of two remainging functions:</div><div>---=C2=A0<span style=
-=3D"font-size:13.3333px;line-height:normal">dce_v6_0_afmt_update_ACR()</spa=
-n></div><div><span style=3D"font-size:13.3333px;line-height:normal">--- dce=
-_v6_0_afmt_update_avi_infoframe()</span></div><div><br></div><div>I found a=
- few duplicated &quot;#define&quot; in sid.h while porting code that I&#39;=
-m cleaning at the same time.</div><div><br></div><div>So, in the next few d=
-ays, I&#39;ll send patches for cleaning duplicated &quot;#define&quot; in s=
-id.h, renaming, splitting and moving MASKs and SHIFTs to their own file fir=
-st. It could be grouped as follow: a patch for removed duplicates, one for =
-renaming and splitting masks and shifts, and a last one for moving them to =
-their own file.<span style=3D"line-height:1.5">=C2=A0</span></div><div><br>=
-</div><div>However, after that, would it be better to send a single patch f=
-or all unimplemented functions or should I split them? Per function (or gro=
-up of functions)?</div><div><br></div><div>Thanks for your input.</div><div=
-><span style=3D"line-height:1.5">Alexandre Demers</span><br></div></div>
-
---94eb2c147ffe711165053990c099--
-
---===============0067312724==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0067312724==--
+>
+> Lyude (7):
+>   drm/dp_helper: Print first error received on failure in
+>     drm_dp_dpcd_access()
+>   drm/radeon: Don't print error on aux transaction timeouts
+>   drm/radeon: Don't retry 7 times in radeon_dp_dpcd()
+>   drm/amdgpu: Don't print error on aux transaction timeouts
+>   drm/amdgpu: Don't retry 7 times in amdgpu_atombios_dp_get_dpcd()
+>   drm: Add ratelimited versions of the DRM_DEBUG* macros
+>   drm/dp_helper: Rate limit timeout errors from drm_dp_i2c_do_msg()
+>
+>  drivers/gpu/drm/amd/amdgpu/atombios_dp.c | 22 ++++++++++------------
+>  drivers/gpu/drm/drm_dp_helper.c          | 14 ++++++++++++--
+>  drivers/gpu/drm/radeon/atombios_dp.c     | 21 ++++++++++-----------
+>  drivers/gpu/drm/radeon/radeon_dp_auxch.c |  1 -
+>  include/drm/drmP.h                       | 30 ++++++++++++++++++++++++++++++
+>  5 files changed, 62 insertions(+), 26 deletions(-)
+>
+> --
+> 2.7.4
+>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
