@@ -1,15 +1,16 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
 Subject: RE: [PATCH 09/14] drm/amd/amdgpu: Enable carrizo GFX PG
-Date: Mon, 8 Aug 2016 18:03:41 +0000
-Message-ID: <MWHPR12MB1694BEBFF3242EFDEA1133DAF71B0@MWHPR12MB1694.namprd12.prod.outlook.com>
+Date: Mon, 8 Aug 2016 18:13:27 +0000
+Message-ID: <CY1PR1201MB10032221CE5F750928224AA6921B0@CY1PR1201MB1003.namprd12.prod.outlook.com>
 References: <20160728141912.18140-1-tom.stdenis@amd.com>
  <20160728141912.18140-10-tom.stdenis@amd.com>,
  <4d311362-aad3-13c2-1385-5d4a886d1b35@amd.com>
  <DM5PR12MB1132541F79B3643F3EF5B5ADF71B0@DM5PR12MB1132.namprd12.prod.outlook.com>
+ <MWHPR12MB1694BEBFF3242EFDEA1133DAF71B0@MWHPR12MB1694.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0296209201=="
+Content-Type: multipart/mixed; boundary="===============1436053509=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM5PR12MB1132541F79B3643F3EF5B5ADF71B0-2J9CzHegvk+UzrhdoDeimQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <MWHPR12MB1694BEBFF3242EFDEA1133DAF71B0-Gy0DoCVfaSW4WA4dJ5YXGAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,16 +22,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0296209201==
+--===============1436053509==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MWHPR12MB1694BEBFF3242EFDEA1133DAF71B0MWHPR12MB1694namp_"
+	boundary="_000_CY1PR1201MB10032221CE5F750928224AA6921B0CY1PR1201MB1003_"
 
---_000_MWHPR12MB1694BEBFF3242EFDEA1133DAF71B0MWHPR12MB1694namp_
+--_000_CY1PR1201MB10032221CE5F750928224AA6921B0CY1PR1201MB1003_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+I'm not sure what the specific features are that are causing issues. FWIW, =
+the first KFDTest unit test that fails has the CPU wait for the GPU to sign=
+al 256 events using PM4ReleaseMemory packets. It uses IOMMUv2 for coherent =
+memory access from the GPU.
+
+Regards,
+  Felix
+
+From: Deucher, Alexander
+Sent: Monday, August 08, 2016 2:04 PM
+To: StDenis, Tom; Kuehling, Felix; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: RE: [PATCH 09/14] drm/amd/amdgpu: Enable carrizo GFX PG
 
 I'm not sure gfx PG works properly with some of the kfd features.  I know t=
 here were problems in the past.  We probably need to add some sort of hands=
@@ -42,7 +56,8 @@ Alex
 From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf Of S=
 tDenis, Tom
 Sent: Monday, August 08, 2016 1:59 PM
-To: Kuehling, Felix; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Kuehling, Felix; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
+edesktop.org>
 Subject: Re: [PATCH 09/14] drm/amd/amdgpu: Enable carrizo GFX PG
 
 
@@ -100,7 +115,7 @@ om>>
 >                break;
 >        case CHIP_STONEY:
 
---_000_MWHPR12MB1694BEBFF3242EFDEA1133DAF71B0MWHPR12MB1694namp_
+--_000_CY1PR1201MB10032221CE5F750928224AA6921B0CY1PR1201MB1003_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -151,15 +166,19 @@ p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
 	margin-bottom:.0001pt;
 	font-size:8.0pt;
 	font-family:"Tahoma","sans-serif";}
-span.EmailStyle18
-	{mso-style-type:personal-reply;
-	font-family:"Calibri","sans-serif";
-	color:#1F497D;}
 span.BalloonTextChar
 	{mso-style-name:"Balloon Text Char";
 	mso-style-priority:99;
 	mso-style-link:"Balloon Text";
 	font-family:"Tahoma","sans-serif";}
+span.EmailStyle20
+	{mso-style-type:personal;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+span.EmailStyle21
+	{mso-style-type:personal-reply;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
 .MsoChpDefault
 	{mso-style-type:export-only;
 	font-size:10.0pt;}
@@ -177,6 +196,39 @@ div.WordSection1
 </head>
 <body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
 <div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">I&#8217;m not sure what t=
+he specific features are that are causing issues. FWIW, the first KFDTest u=
+nit test that fails has the CPU wait for the GPU to signal 256
+ events using PM4ReleaseMemory packets. It uses IOMMUv2 for coherent memory=
+ access from the GPU.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
+/p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Regards,<o:p></o:p></span=
+></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">&nbsp; Felix<o:p></o:p></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
+/p>
+<div>
+<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
+;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span style=3D"font-s=
+ize:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> Deucher,=
+ Alexander
+<br>
+<b>Sent:</b> Monday, August 08, 2016 2:04 PM<br>
+<b>To:</b> StDenis, Tom; Kuehling, Felix; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> RE: [PATCH 09/14] drm/amd/amdgpu: Enable carrizo GFX PG<o:p=
+></o:p></span></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
 libri&quot;,&quot;sans-serif&quot;;color:#1F497D">I'm not sure gfx PG works=
  properly with some of the kfd features.&nbsp; I know there were problems i=
@@ -200,10 +252,12 @@ libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
 <p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
 ;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span style=3D"font-s=
 ize:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> amd-gfx =
-[mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org]
+[<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">mailto:amd-gfx-bo=
+unces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>]
 <b>On Behalf Of </b>StDenis, Tom<br>
 <b>Sent:</b> Monday, August 08, 2016 1:59 PM<br>
-<b>To:</b> Kuehling, Felix; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>To:</b> Kuehling, Felix; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org=
+">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
 <b>Subject:</b> Re: [PATCH 09/14] drm/amd/amdgpu: Enable carrizo GFX PG<o:p=
 ></o:p></span></p>
 </div>
@@ -321,9 +375,9 @@ bsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_PG_SUPPORT_GFX_PIPELINE;<br>
 </body>
 </html>
 
---_000_MWHPR12MB1694BEBFF3242EFDEA1133DAF71B0MWHPR12MB1694namp_--
+--_000_CY1PR1201MB10032221CE5F750928224AA6921B0CY1PR1201MB1003_--
 
---===============0296209201==
+--===============1436053509==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -333,4 +387,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0296209201==--
+--===============1436053509==--
