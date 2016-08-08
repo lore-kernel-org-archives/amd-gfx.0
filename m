@@ -1,13 +1,13 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH 00/19] shadow page table support V2
-Date: Mon, 8 Aug 2016 13:04:10 +0200
-Message-ID: <9156b55f-8440-1003-6587-dc2e97a7a4cb@vodafone.de>
-References: <1470389926-5719-1-git-send-email-David1.Zhou@amd.com>
+From: Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] Standardizing the info message for unimplemented functions
+Date: Mon, 08 Aug 2016 14:34:21 +0000
+Message-ID: <CAPEhTTHdJCjFAArZYZM+1zTw3GBw92PeUb=5m02k8L82_-o3rg@mail.gmail.com>
+References: <20160807211741.5485-1-alexandre.f.demers@gmail.com>
+ <20160808052223.GA10970@hr-amur2>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1062007328=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1470389926-5719-1-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20160808052223.GA10970@hr-amur2>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,80 +18,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Cc: Ken Wang <Ken.Wang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-QWdhaW4gcGF0Y2ggIzcgbG9va3MgbGlrZSBhbiB1bnJlbGF0ZWQgZml4IHRvIG1lLiBQbGVhc2Ug
-c3BsaXQgdGhhdCBmcm9tIAp0aGUgcGF0Y2ggc2V0LCBhZGQgbXkgcmIgYW5kIGNvbW1pdCBpdCBw
-cmVsaW1pbmFyeS4KCkFwYXJ0IGZyb20gdGhhdCBwYXRjaCAjMToKPiArCWFtZGdwdV90dG1fcGxh
-Y2VtZW50X2luaXQoYWRldiwgJnBsYWNlbWVudCwKPiArCQkJCSAgcGxhY2VtZW50cywgQU1ER1BV
-X0dFTV9ET01BSU5fR1RULAo+ICsJCQkJICBBTURHUFVfR0VNX0NSRUFURV9DUFVfR1RUX1VTV0Mp
-Owo+ICsKPiArCXJldHVybiBhbWRncHVfYm9fY3JlYXRlX3Jlc3RyaWN0ZWQoYWRldiwgc2l6ZSwg
-Ynl0ZV9hbGlnbiwgdHJ1ZSwKPiArCQkJCQkgICBBTURHUFVfR0VNX0RPTUFJTl9HVFQsCj4gKwkJ
-CQkJICAgQU1ER1BVX0dFTV9DUkVBVEVfQ1BVX0dUVF9VU1dDLAo+ICsJCQkJCSAgIE5VTEwsICZw
-bGFjZW1lbnQsCj4gKwkJCQkJICAgYm8tPnRiby5yZXN2LAo+ICsJCQkJCSAgICZiby0+c2hhZG93
-KTsKWW91IG5lZWQgdG8gc2V0IGJvLT5zaGFkb3ctPnBhcmVudCB0byB0aGUgcGFyZW50IEJPIHdo
-ZW4geW91IHVzZSB0aGUgCnJlc2VydmF0aW9uIG9iamVjdCBoZXJlLiBTZWUgdGhlIFZNIGNvZGUg
-b24gaG93IHRvIGRvIHRoaXMsIG90aGVyd2lzZSAKVFRNIGNvdWxkIGZyZWUgdGhlIHBhcmVudCBy
-ZXNlcnZhdGlvbiBvYmplY3QgZmlyc3QgYW5kIHRoZSBjcmFzaCB3aGVuIGl0IAp3YW50cyB0byBm
-cmVlIHRoZSBzaGFkb3cuCgpBZGRpdGlvbmFsIHRvIHRoYXQgZG8gd2UgcmVhbGx5IG5lZWQgdGhl
-IHBsYWNlbWVudCBoZXJlPyBUaGF0IGxvb2tzIApxdWl0ZSBvZGQuCgpQYXRjaCAjMiwgIzMgaXMg
-UmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4u
-CgpQYXRjaCAjNDoKPiArZW51bSBhbWRncHVfc2hhZG93X2ZsYWcgewo+ICsJQU1ER1BVX1NIQURP
-V19GTEFHX1NZTkNfVE9fTk9ORSA9IDAsCj4gKwlBTURHUFVfU0hBRE9XX0ZMQUdfU1lOQ19UT19Q
-QVJFTlQsCj4gKwlBTURHUFVfU0hBRE9XX0ZMQUdfU1lOQ19UT19TSEFET1csCj4gK307CkVpdGhl
-ciB1c2UgZGVmaW5lcyBoZXJlLgoKPiArCS8qIGluZGljYXRlIGlmIG5lZWQgdG8gc3luYyBiZXR3
-ZWVuIGJvIGFuZCBzaGFkb3cgKi8KPiArCXUzMiAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-c2hhZG93X2ZsYWc7Ck9yIHRoZSBuYW1lZCBlbnVtIGhlcmUuCgpJIHdvdWxkIHVzZSB0aGUgbmFt
-ZWQgZW51bSwgY3Vhc2UgaXQgZG9lc24ndCBtYWtlIHNlbnNlIHRvIGNvbWJpbmUgdGhlbSAKYXMg
-ZmxhZ3MuIEFuZCByZW5hbWluZyBpdCB0byBzb21ldGhpbmcgbGlrZSAiYmFja3VwX3NoYWRvdyIg
-d291bGQgCnByb2JhYmx5IG1ha2Ugc2Vuc2UgYXMgd2VsbC4KClBhdGNoICM1Ogo+ICsJciA9IGFt
-ZGdwdV9ib19waW4oYm8sIGJvLT5wcmVmZXJlZF9kb21haW5zLCAmYm9fYWRkcik7Cj4gKwlpZiAo
-cikgewo+ICsJCURSTV9FUlJPUigiRmFpbGVkIHRvIHBpbiBibyBvYmplY3RcbiIpOwo+ICsJCWdv
-dG8gZXJyMTsKPiArCX0KPiArCXIgPSBhbWRncHVfYm9fcGluKGJvLT5zaGFkb3csIGJvLT5zaGFk
-b3ctPnByZWZlcmVkX2RvbWFpbnMsICZzaGFkb3dfYWRkcik7Cj4gKwlpZiAocikgewo+ICsJCURS
-TV9FUlJPUigiRmFpbGVkIHRvIHBpbiBibyBzaGFkb3cgb2JqZWN0XG4iKTsKPiArCQlnb3RvIGVy
-cjI7Cj4gKwl9CkRvbid0IHVzZSBwaW4gaGVyZSwganVzdCB1c2UgYW1kZ3B1X2JvX29mZnNldCB3
-aGVuIHlvdSBuZWVkIHRoZSBvZmZzZXQuCgpJIG5lZWQgdG8gd29yayBvbiB0aGUgUzMgaXNzdWUg
-YWdhaW4gbm93LCBnb2luZyB0byBjb21lIGJhY2sgdG8gdGhpcyAKcGF0Y2ggc2V0IHdoZW4gSSBo
-YXZlIG1vcmUgdGltZS4KClJlZ2FyZHMsCkNocmlzdGlhbi4KCkFtIDA1LjA4LjIwMTYgdW0gMTE6
-Mzggc2NocmllYiBDaHVubWluZyBaaG91Ogo+IFNpbmNlIHdlIGNhbm5vdCBtYWtlIHN1cmUgVlJB
-TSBpcyBzYWZlIGFmdGVyIGdwdSByZXNldCwgcGFnZSB0YWJsZSBiYWNrdXAKPiBpcyBuZWNjZXNz
-YXJ5LCBzaGFkb3cgcGFnZSB0YWJsZSBpcyBzZW5zZSB3YXkgdG8gcmVjb3ZlcnkgcGFnZSB0YWxi
-ZSB3aGVuCj4gZ3B1IHJlc2V0IGhhcHBlbnMuCj4gV2UgbmVlZCB0byBhbGxvY2F0ZSBHVFQgYm8g
-YXMgdGhlIHNoYWRvdyBvZiBWUkFNIGJvIHdoZW4gY3JlYXRpbmcgcGFnZSB0YWJsZSwKPiBhbmQg
-bWFrZSB0aGVtIHNhbWUuIEFmdGVyIGdwdSByZXNldCwgd2Ugd2lsbCBuZWVkIHRvIHVzZSBTRE1B
-IHRvIGNvcHkgR1RUIGJvCj4gY29udGVudCB0byBWUkFNIGJvLCB0aGVuIHBhZ2UgdGFibGUgd2ls
-bCBiZSByZWNvdmVyaWVkLgo+Cj4gVjI6Cj4gU2hhZG93IGJvIHVzZXMgYSBzaGFkb3cgZW50aXR5
-IHJ1bm5pbmcgb24gbm9ybWFsIHJ1biBxdWV1ZSwgYWZ0ZXIgZ3B1IHJlc2V0LAo+IHdlIG5lZWQg
-dG8gd2FpdCBmb3IgYWxsIHNoYWRvdyBqb2JzIGZpbmlzaGVkIGZpcnN0LCB0aGVuIHJlY292ZXJ5
-IHBhZ2UgdGFibGUgZnJvbSBzaGFkb3cuCj4KPiBDaHVubWluZyBaaG91ICgxOSk6Cj4gICAgZHJt
-L2FtZGdwdTogYWRkIHNoYWRvdyBibyBzdXBwb3J0Cj4gICAgZHJtL2FtZGdwdTogdmFsaWRhdGUg
-c2hhZG93IGFzIHdlbGwgd2hlbiB2YWxpZGF0aW5nIGJvCj4gICAgZHJtL2FtZGdwdTogYWxsb2Nh
-dGUgc2hhZG93IGZvciBwZC9wdCBibwo+ICAgIGRybS9hbWRncHU6IGFkZCBzaGFkb3cgZmxhZwo+
-ICAgIGRybS9hbWRncHU6IHN5bmMgYm8gYW5kIHNoYWRvdwo+ICAgIGRybS9hbWRncHU6IGltcGxl
-bWVudCB2bSByZWNvdmVyeSBmdW5jdGlvbiBmcm9tIHNoYWRvdwo+ICAgIGRybS9hbWRncHU6IGZp
-eCB2bSBpbml0IGVycm9yIHBhdGgKPiAgICBkcm0vYW1kZ3B1OiBhZGQgc2hhZG93X2VudGl0eSBm
-b3Igc2hhZG93IHBhZ2UgdGFibGUgdXBkYXRlcwo+ICAgIGRybS9hbWRncHU6IHVwZGF0ZSBwZCBz
-aGFkb3cgYm8KPiAgICBkcm0vYW1kZ3B1OiB1cGRhdGUgcHQgc2hhZG93Cj4gICAgZHJtL2FtZDog
-YWRkIGxhc3QgZmVuY2UgaW4gc2NoZWQgZW50aXR5Cj4gICAgZHJtL2FtZGdwdTogbGluayBhbGwg
-dm0gY2xpZW50cwo+ICAgIGRybS9hbWRncHU6IGFkZCB2bV9saXN0X2xvY2sKPiAgICBkcm0vYW1k
-OiBhZGQgYmxvY2sgZW50aXR5IGZ1bmN0aW9uCj4gICAgZHJtL2FtZGdwdTogYWRkIHNoYWRvdyBm
-ZW5jZSBvd25lcgo+ICAgIGRybS9hbWQ6IGJsb2NrIGVudGl0eQo+ICAgIGRybS9hbWRncHU6IHJl
-Y292ZXIgcGFnZSB0YWJsZXMgYWZ0ZXIgZ3B1IHJlc2V0Cj4gICAgZHJtL2FtZGdwdTogYWRkIG5l
-ZWQgYmFja3VwIGZ1bmN0aW9uCj4gICAgZHJtL2FtZGdwdTogYWRkIGJhY2t1cCBjb25kaXRpb24g
-Zm9yIHZtCj4KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAgICAgICAg
-ICB8ICAyNSArKysKPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jICAg
-ICAgICB8ICA4MiArKysrKy0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2RldmljZS5jICAgIHwgIDg4ICsrKysrKysrLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X29iamVjdC5jICAgIHwgMTA0ICsrKysrKysrKy0KPiAgIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuaCAgICB8ICAgNSArCj4gICBkcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfc3luYy5jICAgICAgfCAgIDMgKwo+ICAgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgICAgICAgIHwgMjcwICsrKysrKysrKysrKysrKysr
-KystLS0tLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVy
-LmMgfCAgMzggKysrLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9zY2hlZHVsZXIvZ3B1X3NjaGVk
-dWxlci5oIHwgICA1ICsKPiAgIGluY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oICAgICAgICAg
-ICAgICAgICB8ICAgMiArCj4gICAxMCBmaWxlcyBjaGFuZ2VkLCA1MTkgaW5zZXJ0aW9ucygrKSwg
-MTAzIGRlbGV0aW9ucygtKQo+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-ZngK
+--===============1062007328==
+Content-Type: multipart/alternative; boundary=001a1146ff907f51480539905045
+
+--001a1146ff907f51480539905045
+Content-Type: text/plain; charset=UTF-8
+
+On Mon, 8 Aug 2016 at 01:22 Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org> wrote:
+
+> On Sun, Aug 07, 2016 at 05:17:41PM -0400, Alexandre Demers wrote:
+> > Signed-off-by: Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+> >
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 22 +++++++++++-----------
+> >  1 file changed, 11 insertions(+), 11 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> > index 07e0475..9e327be 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> > @@ -106,14 +106,14 @@ static const uint32_t hpd_int_control_offsets[6] =
+> {
+> >  static u32 dce_v6_0_audio_endpt_rreg(struct amdgpu_device *adev,
+> >                                    u32 block_offset, u32 reg)
+> >  {
+> > -     DRM_INFO("xxxx: dce_v6_0_audio_endpt_rreg ----no impl!!!!\n");
+> > +     DRM_INFO("xxxx: dce_v6_0_audio_endpt_rreg --- not implemented!\n");
+> >       return 0;
+>
+> We can make the code more simple like below:
+>
+> DRM_INFO("xxxx: %s --- not implemented!\n", __func__);
+>
+> Thanks,
+> Rui
+>
+
+I like your suggestion. I'll send a v2 later, I also saw that I had missed
+one or two of them.
+
+That being said, I have other work that I'll send in the next few days for
+review.
+
+Cheers,
+Alexandre Demers
+
+--001a1146ff907f51480539905045
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr">On Mon, 8 Aug =
+2016 at 01:22 Huang Rui &lt;<a href=3D"mailto:ray.huang-5C7GfCeVMHo@public.gmane.org">ray.huang@=
+amd.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"=
+margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">On Sun, Aug =
+07, 2016 at 05:17:41PM -0400, Alexandre Demers wrote:<br>
+&gt; Signed-off-by: Alexandre Demers &lt;<a href=3D"mailto:alexandre.f.deme=
+rs-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
+&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 22 +++++++++++----------=
+-<br>
+&gt;=C2=A0 1 file changed, 11 insertions(+), 11 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/a=
+md/amdgpu/dce_v6_0.c<br>
+&gt; index 07e0475..9e327be 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c<br>
+&gt; @@ -106,14 +106,14 @@ static const uint32_t hpd_int_control_offsets[6]=
+ =3D {<br>
+&gt;=C2=A0 static u32 dce_v6_0_audio_endpt_rreg(struct amdgpu_device *adev,=
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 u32 block_offset, u=
+32 reg)<br>
+&gt;=C2=A0 {<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0DRM_INFO(&quot;xxxx: dce_v6_0_audio_endpt_rreg --=
+--no impl!!!!\n&quot;);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0DRM_INFO(&quot;xxxx: dce_v6_0_audio_endpt_rreg --=
+- not implemented!\n&quot;);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
+<br>
+We can make the code more simple like below:<br>
+<br>
+DRM_INFO(&quot;xxxx: %s --- not implemented!\n&quot;, __func__);<br>
+<br>
+Thanks,<br>
+Rui<br></blockquote><div><br></div><div>I like your suggestion. I&#39;ll se=
+nd a v2 later, I also saw that I had missed one or two of them.</div><div><=
+br></div><div>That being said, I have other work that I&#39;ll send in the =
+next few days for review.=C2=A0</div><div><br></div><div>Cheers,</div><div>=
+Alexandre Demers</div></div></div>
+
+--001a1146ff907f51480539905045--
+
+--===============1062007328==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1062007328==--
