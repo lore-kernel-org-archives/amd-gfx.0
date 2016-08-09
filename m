@@ -1,11 +1,13 @@
-From: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: Change the virtual_display type from int to char*.
-Date: Tue, 9 Aug 2016 11:47:07 +0800
-Message-ID: <1470714427-1930-1-git-send-email-Emily.Deng@amd.com>
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Change the virtual_display type from int to
+ char*.
+Date: Tue, 9 Aug 2016 13:54:16 +1000
+Message-ID: <9f669359-5f58-6f91-5a3c-ef0e780a7970@folklore1984.net>
+References: <1470714427-1930-1-git-send-email-Emily.Deng@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0498847565=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1470714427-1930-1-git-send-email-Emily.Deng-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,104 +18,233 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+To: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-Rm9yIHZpcnR1YWwgZGlzcGxheSBmZWF0dXJlLCBhcyB0aGVyZSBtYXkgYmUgbXV0aXBsZSBHUFVz
-LApmb3IgdXNlciBjb3VsZCBjaG9vc2Ugd2hpY2hlIEdQVSBuZWVkIHRvIGVuYWJsZSB0aGlzIGZl
-YXR1cmUsIGNoYW5nZQp0aGUgdHlwZSBvZiB2aXJ0dWFsX2Rpc3BsYXkgZnJvbSBpbnQgdG8gY2hh
-ciouIFRoZSB2YXJpYWJsZSB3aWxsIGJlIHNldApsaWtlIHRoaXMgdmlydHVhbF9kaXNwbGF5PSJ4
-eDp4eC54O3h4Onh4Lng7Ii4KClNpZ25lZC1vZmYtYnk6IEVtaWx5IERlbmcgPEVtaWx5LkRlbmdA
-YW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCAgICAgICAg
-fCAgMyArKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8IDMx
-ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X2Rydi5jICAgIHwgIDYgKysrLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9jaWsuYyAgICAgICAgICAgfCAgMiArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmku
-YyAgICAgICAgICAgIHwgIDIgKy0KIDUgZmlsZXMgY2hhbmdlZCwgMzcgaW5zZXJ0aW9ucygrKSwg
-NyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHUuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCmluZGV4IGMzMDll
-YWYuLmI2YmVkNGUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCkBAIC05Myw3ICs5
-Myw3IEBAIGV4dGVybiB1bnNpZ25lZCBhbWRncHVfcGNpZV9sYW5lX2NhcDsKIGV4dGVybiB1bnNp
-Z25lZCBhbWRncHVfY2dfbWFzazsKIGV4dGVybiB1bnNpZ25lZCBhbWRncHVfcGdfbWFzazsKIGV4
-dGVybiBpbnQgYW1kZ3B1X3NjbGtfZGVlcF9zbGVlcF9lbjsKLWV4dGVybiBpbnQgYW1kZ3B1X3Zp
-cnR1YWxfZGlzcGxheTsKK2V4dGVybiBjaGFyICphbWRncHVfdmlydHVhbF9kaXNwbGF5OwogCiAj
-ZGVmaW5lIEFNREdQVV9XQUlUX0lETEVfVElNRU9VVF9JTl9NUwkgICAgICAgIDMwMDAKICNkZWZp
-bmUgQU1ER1BVX01BWF9VU0VDX1RJTUVPVVQJCQkxMDAwMDAJLyogMTAwIG1zICovCkBAIC0yMTQy
-LDYgKzIxNDIsNyBAQCBzdHJ1Y3QgYW1kZ3B1X2RldmljZSB7CiAJc3RydWN0IGtmZF9kZXYgICAg
-ICAgICAgKmtmZDsKIAogCXN0cnVjdCBhbWRncHVfdmlydHVhbGl6YXRpb24gdmlydHVhbGl6YXRp
-b247CisJaW50IGVuYWJsZV92aXJ0dWFsX2Rpc3BsYXk7CiB9OwogCiBib29sIGFtZGdwdV9kZXZp
-Y2VfaXNfcHgoc3RydWN0IGRybV9kZXZpY2UgKmRldik7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfZGV2aWNlLmMKaW5kZXggNjhjY2UxMi4uNjJlZmUxNCAxMDA2NDQKLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCisrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwpAQCAtNDcsNiArNDcsNyBAQAogI2Vu
-ZGlmCiAjaW5jbHVkZSAidmkuaCIKICNpbmNsdWRlICJiaWYvYmlmXzRfMV9kLmgiCisjaW5jbHVk
-ZSA8bGludXgvcGNpLmg+CiAKIHN0YXRpYyBpbnQgYW1kZ3B1X2RlYnVnZnNfcmVnc19pbml0KHN0
-cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKIHN0YXRpYyB2b2lkIGFtZGdwdV9kZWJ1Z2ZzX3Jl
-Z3NfY2xlYW51cChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7CkBAIC0xMTgyLDExICsxMTgz
-LDM5IEBAIGludCBhbWRncHVfaXBfYmxvY2tfdmVyc2lvbl9jbXAoc3RydWN0IGFtZGdwdV9kZXZp
-Y2UgKmFkZXYsCiAJcmV0dXJuIDE7CiB9CiAKK3N0YXRpYyB2b2lkIGFtZGdwdV93aGV0aGVyX2Vu
-YWJsZV92aXJ0dWFsX2Rpc3BsYXkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCit7CisJYWRl
-di0+ZW5hYmxlX3ZpcnR1YWxfZGlzcGxheSA9IDA7CisKKwlpZiAoYW1kZ3B1X3ZpcnR1YWxfZGlz
-cGxheSkgeworCQljaGFyIHBjaV9hZGRyZXNzX25hbWVbOF07CisJCWNoYXIgKnBjaWFkZHN0ciwg
-KnBjaWFkZHN0cl90bXAsICpwY2lhZGRuYW1lOworCQlzdHJ1Y3QgZHJtX2RldmljZSAqZGRldiA9
-IGFkZXYtPmRkZXY7CisKKwkJc3ByaW50ZihwY2lfYWRkcmVzc19uYW1lLCAiJTAyeDolMDJ4LiVk
-IiwgZGRldi0+cGRldi0+YnVzLT5udW1iZXIsCisJCQlQQ0lfU0xPVChkZGV2LT5wZGV2LT5kZXZm
-biksIFBDSV9GVU5DKGRkZXYtPnBkZXYtPmRldmZuKSk7CisKKwkJcGNpYWRkc3RyID0ga3N0cmR1
-cChhbWRncHVfdmlydHVhbF9kaXNwbGF5LCBHRlBfS0VSTkVMKTsKKwkJcGNpYWRkc3RyX3RtcCA9
-IHBjaWFkZHN0cjsKKwkJd2hpbGUgKChwY2lhZGRuYW1lID0gc3Ryc2VwKCZwY2lhZGRzdHJfdG1w
-LCAiOyIpKSkgeworCQkJaWYgKCFzdHJuY21wKHBjaV9hZGRyZXNzX25hbWUsIHBjaWFkZG5hbWUs
-IHNpemVvZihwY2lfYWRkcmVzc19uYW1lKSkpIHsKKwkJCQlhZGV2LT5lbmFibGVfdmlydHVhbF9k
-aXNwbGF5ID0gMTsKKwkJCQlicmVhazsKKwkJCX0KKwkJfQorCisJCURSTV9JTkZPKCJ2aXJ0dWFs
-IGRpc3BsYXkgc3RyaW5nOiVzLCAlczp2aXJ0dWFsX2Rpc3BsYXk6JWRcbiIsIGFtZGdwdV92aXJ0
-dWFsX2Rpc3BsYXksIHBjaV9hZGRyZXNzX25hbWUsIGFkZXYtPmVuYWJsZV92aXJ0dWFsX2Rpc3Bs
-YXkpOworCisJCWlmKHBjaWFkZHN0cikKKwkJCWtmcmVlKHBjaWFkZHN0cik7CisJfQorfQorCiBz
-dGF0aWMgaW50IGFtZGdwdV9lYXJseV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQog
-ewogCWludCBpLCByOwogCi0JRFJNX0lORk8oInZpcnR1YWwgZGlzcGxheSBlbmFibGVkOiVkXG4i
-LCBhbWRncHVfdmlydHVhbF9kaXNwbGF5KTsKKwlhbWRncHVfd2hldGhlcl9lbmFibGVfdmlydHVh
-bF9kaXNwbGF5KGFkZXYpOwogCiAJc3dpdGNoIChhZGV2LT5hc2ljX3R5cGUpIHsKIAljYXNlIENI
-SVBfVE9QQVo6CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-ZHJ2LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKaW5kZXggNzAw
-N2NmNy4uNDIwMjYwMiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2Rydi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwpA
-QCAtOTAsNyArOTAsNyBAQCB1bnNpZ25lZCBhbWRncHVfcGNpZV9nZW5fY2FwID0gMDsKIHVuc2ln
-bmVkIGFtZGdwdV9wY2llX2xhbmVfY2FwID0gMDsKIHVuc2lnbmVkIGFtZGdwdV9jZ19tYXNrID0g
-MHhmZmZmZmZmZjsKIHVuc2lnbmVkIGFtZGdwdV9wZ19tYXNrID0gMHhmZmZmZmZmZjsKLWludCBh
-bWRncHVfdmlydHVhbF9kaXNwbGF5ID0gMDsKK2NoYXIgKmFtZGdwdV92aXJ0dWFsX2Rpc3BsYXkg
-PSBOVUxMOwogCiBNT0RVTEVfUEFSTV9ERVNDKHZyYW1saW1pdCwgIlJlc3RyaWN0IFZSQU0gZm9y
-IHRlc3RpbmcsIGluIG1lZ2FieXRlcyIpOwogbW9kdWxlX3BhcmFtX25hbWVkKHZyYW1saW1pdCwg
-YW1kZ3B1X3ZyYW1fbGltaXQsIGludCwgMDYwMCk7CkBAIC0xOTAsOCArMTkwLDggQEAgbW9kdWxl
-X3BhcmFtX25hbWVkKGNnX21hc2ssIGFtZGdwdV9jZ19tYXNrLCB1aW50LCAwNDQ0KTsKIE1PRFVM
-RV9QQVJNX0RFU0MocGdfbWFzaywgIlBvd2VyZ2F0aW5nIGZsYWdzIG1hc2sgKDAgPSBkaXNhYmxl
-IHBvd2VyIGdhdGluZykiKTsKIG1vZHVsZV9wYXJhbV9uYW1lZChwZ19tYXNrLCBhbWRncHVfcGdf
-bWFzaywgdWludCwgMDQ0NCk7CiAKLU1PRFVMRV9QQVJNX0RFU0ModmlydHVhbF9kaXNwbGF5LCAi
-ZW5hYmxlIHZpcnR1YWwgZGlzcGxheSAoMCA9IGRpc2FibGUgdmlydHVhbCBkaXNwbGF5KSIpOwot
-bW9kdWxlX3BhcmFtX25hbWVkKHZpcnR1YWxfZGlzcGxheSwgYW1kZ3B1X3ZpcnR1YWxfZGlzcGxh
-eSwgaW50LCAwNDQ0KTsKK01PRFVMRV9QQVJNX0RFU0ModmlydHVhbF9kaXNwbGF5LCAiRW5hYmxl
-IHZpcnR1YWwgZGlzcGxheSBmZWF0dXJlICh0aGUgdmlydHVhbF9kaXNwbGF5IHdpbGwgYmUgc2V0
-IGxpa2UgeHg6eHgueDt4eDp4eC54KSIpOworbW9kdWxlX3BhcmFtX25hbWVkKHZpcnR1YWxfZGlz
-cGxheSwgYW1kZ3B1X3ZpcnR1YWxfZGlzcGxheSwgY2hhcnAsIDA0NDQpOwogCiBzdGF0aWMgY29u
-c3Qgc3RydWN0IHBjaV9kZXZpY2VfaWQgcGNpaWRsaXN0W10gPSB7CiAjaWZkZWYgQ09ORklHX0RS
-TV9BTURHUFVfQ0lLCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaWsu
-YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Npay5jCmluZGV4IDRiNDhiY2QuLmM5N2Q3
-MDAgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Npay5jCisrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Npay5jCkBAIC0yNDY0LDcgKzI0NjQsNyBAQCBzdGF0
-aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9pcF9ibG9ja192ZXJzaW9uIGthdmVyaV9pcF9ibG9ja3Nf
-dmRbXSA9CiAKIGludCBjaWtfc2V0X2lwX2Jsb2NrcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-dikKIHsKLQlpZiAoYW1kZ3B1X3ZpcnR1YWxfZGlzcGxheSkgeworCWlmIChhZGV2LT5lbmFibGVf
-dmlydHVhbF9kaXNwbGF5KSB7CiAJCWFtZGdwdV9kYWwgPSAwOwogCQlhZGV2LT5tb2RlX2luZm8u
-dnN5bmNfdGltZXJfZW5hYmxlZCA9IEFNREdQVV9JUlFfU1RBVEVfRElTQUJMRTsKIAkJc3dpdGNo
-IChhZGV2LT5hc2ljX3R5cGUpIHsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L3ZpLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92aS5jCmluZGV4IDRhZmEwNTMu
-LjFlOTczYjUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZpLmMKKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmkuYwpAQCAtMTY3Niw3ICsxNjc2LDcgQEAg
-c3RhdGljIGNvbnN0IHN0cnVjdCBhbWRncHVfaXBfYmxvY2tfdmVyc2lvbiBmaWppX2lwX2Jsb2Nr
-c19kYWxbXSA9CiAKIGludCB2aV9zZXRfaXBfYmxvY2tzKHN0cnVjdCBhbWRncHVfZGV2aWNlICph
-ZGV2KQogewotCWlmIChhbWRncHVfdmlydHVhbF9kaXNwbGF5KSB7CisJaWYgKGFkZXYtPmVuYWJs
-ZV92aXJ0dWFsX2Rpc3BsYXkpIHsKIAkJYW1kZ3B1X2RhbCA9IDA7CiAJCWFkZXYtPm1vZGVfaW5m
-by52c3luY190aW1lcl9lbmFibGVkID0gQU1ER1BVX0lSUV9TVEFURV9ESVNBQkxFOwogCQlzd2l0
-Y2ggKGFkZXYtPmFzaWNfdHlwZSkgewotLSAKMS45LjEKCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vYW1kLWdmeAo=
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0498847565==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="XTA4S2HsNalSHihhPvi447l1RiOeVnFrh"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--XTA4S2HsNalSHihhPvi447l1RiOeVnFrh
+Content-Type: multipart/mixed; boundary="TLRxKhbc9QrcinDncbr3Ui42bmd26sBMd"
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+To: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Message-ID: <9f669359-5f58-6f91-5a3c-ef0e780a7970-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Change the virtual_display type from int to
+ char*.
+References: <1470714427-1930-1-git-send-email-Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1470714427-1930-1-git-send-email-Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+
+--TLRxKhbc9QrcinDncbr3Ui42bmd26sBMd
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+
+
+On 08/09/2016 01:47 PM, Emily Deng wrote:
+> For virtual display feature, as there may be mutiple GPUs,
+> for user could choose whiche GPU need to enable this feature, change
+> the type of virtual_display from int to char*. The variable will be set=
+
+> like this virtual_display=3D"xx:xx.x;xx:xx.x;".
+>=20
+> Signed-off-by: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  3 ++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 31 ++++++++++++++++++++++=
++++++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  6 +++---
+>  drivers/gpu/drm/amd/amdgpu/cik.c           |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/vi.c            |  2 +-
+>  5 files changed, 37 insertions(+), 7 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu.h
+> index c309eaf..b6bed4e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -93,7 +93,7 @@ extern unsigned amdgpu_pcie_lane_cap;
+>  extern unsigned amdgpu_cg_mask;
+>  extern unsigned amdgpu_pg_mask;
+>  extern int amdgpu_sclk_deep_sleep_en;
+> -extern int amdgpu_virtual_display;
+> +extern char *amdgpu_virtual_display;
+> =20
+>  #define AMDGPU_WAIT_IDLE_TIMEOUT_IN_MS	        3000
+>  #define AMDGPU_MAX_USEC_TIMEOUT			100000	/* 100 ms */
+> @@ -2142,6 +2142,7 @@ struct amdgpu_device {
+>  	struct kfd_dev          *kfd;
+> =20
+>  	struct amdgpu_virtualization virtualization;
+> +	int enable_virtual_display;
+>  };
+> =20
+>  bool amdgpu_device_is_px(struct drm_device *dev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_device.c
+> index 68cce12..62efe14 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -47,6 +47,7 @@
+>  #endif
+>  #include "vi.h"
+>  #include "bif/bif_4_1_d.h"
+> +#include <linux/pci.h>
+> =20
+>  static int amdgpu_debugfs_regs_init(struct amdgpu_device *adev);
+>  static void amdgpu_debugfs_regs_cleanup(struct amdgpu_device *adev);
+> @@ -1182,11 +1183,39 @@ int amdgpu_ip_block_version_cmp(struct amdgpu_d=
+evice *adev,
+>  	return 1;
+>  }
+> =20
+> +static void amdgpu_whether_enable_virtual_display(struct amdgpu_device=
+ *adev)
+> +{
+> +	adev->enable_virtual_display =3D 0;
+> +
+> +	if (amdgpu_virtual_display) {
+> +		char pci_address_name[8];
+> +		char *pciaddstr, *pciaddstr_tmp, *pciaddname;
+> +		struct drm_device *ddev =3D adev->ddev;
+> +
+> +		sprintf(pci_address_name, "%02x:%02x.%d", ddev->pdev->bus->number,
+> +			PCI_SLOT(ddev->pdev->devfn), PCI_FUNC(ddev->pdev->devfn));
+> +
+> +		pciaddstr =3D kstrdup(amdgpu_virtual_display, GFP_KERNEL);
+> +		pciaddstr_tmp =3D pciaddstr;
+> +		while ((pciaddname =3D strsep(&pciaddstr_tmp, ";"))) {
+> +			if (!strncmp(pci_address_name, pciaddname, sizeof(pci_address_name)=
+)) {
+> +				adev->enable_virtual_display =3D 1;
+> +				break;
+> +			}
+> +		}
+> +
+> +		DRM_INFO("virtual display string:%s, %s:virtual_display:%d\n", amdgp=
+u_virtual_display, pci_address_name, adev->enable_virtual_display);
+> +
+> +		if(pciaddstr)
+> +			kfree(pciaddstr);
+kfree() should be NULL-safe so no need for the branch.
+
+Kind Regards,
+Edward.
+
+> +	}
+> +}
+> +
+>  static int amdgpu_early_init(struct amdgpu_device *adev)
+>  {
+>  	int i, r;
+> =20
+> -	DRM_INFO("virtual display enabled:%d\n", amdgpu_virtual_display);
+> +	amdgpu_whether_enable_virtual_display(adev);
+> =20
+>  	switch (adev->asic_type) {
+>  	case CHIP_TOPAZ:
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_drv.c
+> index 7007cf7..4202602 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -90,7 +90,7 @@ unsigned amdgpu_pcie_gen_cap =3D 0;
+>  unsigned amdgpu_pcie_lane_cap =3D 0;
+>  unsigned amdgpu_cg_mask =3D 0xffffffff;
+>  unsigned amdgpu_pg_mask =3D 0xffffffff;
+> -int amdgpu_virtual_display =3D 0;
+> +char *amdgpu_virtual_display =3D NULL;
+> =20
+>  MODULE_PARM_DESC(vramlimit, "Restrict VRAM for testing, in megabytes")=
+;
+>  module_param_named(vramlimit, amdgpu_vram_limit, int, 0600);
+> @@ -190,8 +190,8 @@ module_param_named(cg_mask, amdgpu_cg_mask, uint, 0=
+444);
+>  MODULE_PARM_DESC(pg_mask, "Powergating flags mask (0 =3D disable power=
+ gating)");
+>  module_param_named(pg_mask, amdgpu_pg_mask, uint, 0444);
+> =20
+> -MODULE_PARM_DESC(virtual_display, "enable virtual display (0 =3D disab=
+le virtual display)");
+> -module_param_named(virtual_display, amdgpu_virtual_display, int, 0444)=
+;
+> +MODULE_PARM_DESC(virtual_display, "Enable virtual display feature (the=
+ virtual_display will be set like xx:xx.x;xx:xx.x)");
+> +module_param_named(virtual_display, amdgpu_virtual_display, charp, 044=
+4);
+> =20
+>  static const struct pci_device_id pciidlist[] =3D {
+>  #ifdef CONFIG_DRM_AMDGPU_CIK
+> diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amd=
+gpu/cik.c
+> index 4b48bcd..c97d700 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/cik.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/cik.c
+> @@ -2464,7 +2464,7 @@ static const struct amdgpu_ip_block_version kaver=
+i_ip_blocks_vd[] =3D
+> =20
+>  int cik_set_ip_blocks(struct amdgpu_device *adev)
+>  {
+> -	if (amdgpu_virtual_display) {
+> +	if (adev->enable_virtual_display) {
+>  		amdgpu_dal =3D 0;
+>  		adev->mode_info.vsync_timer_enabled =3D AMDGPU_IRQ_STATE_DISABLE;
+>  		switch (adev->asic_type) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdg=
+pu/vi.c
+> index 4afa053..1e973b5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+> @@ -1676,7 +1676,7 @@ static const struct amdgpu_ip_block_version fiji_=
+ip_blocks_dal[] =3D
+> =20
+>  int vi_set_ip_blocks(struct amdgpu_device *adev)
+>  {
+> -	if (amdgpu_virtual_display) {
+> +	if (adev->enable_virtual_display) {
+>  		amdgpu_dal =3D 0;
+>  		adev->mode_info.vsync_timer_enabled =3D AMDGPU_IRQ_STATE_DISABLE;
+>  		switch (adev->asic_type) {
+>=20
+
+
+--TLRxKhbc9QrcinDncbr3Ui42bmd26sBMd--
+
+--XTA4S2HsNalSHihhPvi447l1RiOeVnFrh
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJXqVPoAAoJEP4bvbfZuWjbuYEQAKxroaLZNxhtkDrGzEJwTeNa
+W+hCbrz24RBO9qg0CbFA0umgXa68OMWXk84WcWWhKajHHBdgTfr/otRi2wYtXN+0
+KYZzL7kmWIqKFu3zqVs8ZUatL+kFl++Ai2oaTJQq+qyXvkD4twJPKbYnxcLYlFQI
+rL3FUsMVxmh/FPRx5c1MFsTJsW/wkm5n2L9iOIcH0tXRZw4QMtoNIMBoSTetD8M0
+4ZptFY9+BvIN++72GyZGIzIPAdbzsRC8nI5wVO9wvpQs16zAz6jgEuHnc6+DpOuu
+oYvhZKtCJiVMl2inBAuVbCIWsB3/3h1omInBjGBK6+fPt2rEBpsza4MWzkDR+UXL
+mNWx5y2pWPpXF+OjSorTT8raL00bbh02MNLd6mM/I3HIm1RMCZR1DrOCtHF3njmr
+ii+j5MOvBDL+JIzdKhEyhoKnUwiWlBKl0FspbU2BHXCVH1IE3DYzL2mc6Utb6CUt
+X2kKa/Ykb8RMczhUKLPJsSBCuCQOGmLfdkL5nk04vGpKXXbHUWHacVnNSdq48MsN
+oACBqvS5Lk6hoPU205yInXAQv/0pPZ87eyeWtpjBiGmCrAHKQGUpHuAEpYMq3BNA
+xtlRP6pdSGh8a2aVWy1xY3YOagwOS6TWUbXIXaCKgsF9f64yooMmeTvUMbjgNF0c
+kqRkE87lD8JE7Sn9NtNo
+=A9bf
+-----END PGP SIGNATURE-----
+
+--XTA4S2HsNalSHihhPvi447l1RiOeVnFrh--
+
+--===============0498847565==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0498847565==--
