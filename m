@@ -1,14 +1,14 @@
-From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 3/4] drm/amd/amdgpu: VCE v2 register cleanup
-Date: Thu, 11 Aug 2016 15:48:19 +0000
-Message-ID: <DM5PR12MB1132A35D1BAAB0027D5FE23AF71E0@DM5PR12MB1132.namprd12.prod.outlook.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 4/4] drm/amd/amdgpu: UVD v6 register cleanup
+Date: Thu, 11 Aug 2016 15:51:16 +0000
+Message-ID: <MWHPR12MB1694CFB2FD4FE1D6E193060DF71E0@MWHPR12MB1694.namprd12.prod.outlook.com>
 References: <20160811143253.24718-1-tom.stdenis@amd.com>
- <20160811143253.24718-4-tom.stdenis@amd.com>,
- <MWHPR12MB1694FE8258E0ADB4F32DC885F71E0@MWHPR12MB1694.namprd12.prod.outlook.com>
+ <20160811143253.24718-5-tom.stdenis@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1495523717=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MWHPR12MB1694FE8258E0ADB4F32DC885F71E0-Gy0DoCVfaSW4WA4dJ5YXGAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <20160811143253.24718-5-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,503 +20,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: 'Tom St Denis' <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
 
---===============1495523717==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM5PR12MB1132A35D1BAAB0027D5FE23AF71E0DM5PR12MB1132namp_"
-
---_000_DM5PR12MB1132A35D1BAAB0027D5FE23AF71E0DM5PR12MB1132namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Just trying to make it easier to read.
-
-
-WREG32_FIELD(foo, FIELD, 1);
-
-
-Is easier to read than
-
-
-WREG32_P(foo, FOO__FIELD_MASK, ~FOO__FIELD_MASK);
-
-
-(also I already pushed them after getting a RB by Christian this morning so=
- we might need to hold a different discussion).
-
-
-I agree it's not really a functional change but making things a bit more un=
-iform and easier to read helps maintenance.  And I did find a bug in the pr=
-ocess :-)
-
-
-Tom
-
-
-________________________________
-From: Deucher, Alexander
-Sent: Thursday, August 11, 2016 11:46
-To: 'Tom St Denis'; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: StDenis, Tom
-Subject: RE: [PATCH 3/4] drm/amd/amdgpu: VCE v2 register cleanup
-
-> -----Original Message-----
-> From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf
-> Of Tom St Denis
-> Sent: Thursday, August 11, 2016 10:33 AM
-> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> Cc: StDenis, Tom
-> Subject: [PATCH 3/4] drm/amd/amdgpu: VCE v2 register cleanup
->
-> Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-
-A couple pieces of this patch could be split out as separate cleanups (see =
-below).  However, I'm not sure how much value there is in switching WREG32_=
-P for WREG_FIELD other than code churn.  They basically do the same thing.
-
-Alex
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/vce_v2_0.c | 39 +++++++++++++-------------
-> ---------
->  1 file changed, 14 insertions(+), 25 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-> b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-> index 80a37a602181..21ba219e943b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
-> @@ -127,15 +127,10 @@ static int vce_v2_0_start(struct amdgpu_device
-> *adev)
->        WREG32(mmVCE_RB_BASE_HI2, upper_32_bits(ring->gpu_addr));
->        WREG32(mmVCE_RB_SIZE2, ring->ring_size / 4);
->
-> -     WREG32_P(mmVCE_VCPU_CNTL,
-> VCE_VCPU_CNTL__CLK_EN_MASK, ~VCE_VCPU_CNTL__CLK_EN_MASK);
-> -
-> -     WREG32_P(mmVCE_SOFT_RESET,
-> -              VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK,
-> -              ~VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK);
-> -
-> +     WREG32_FIELD(VCE_VCPU_CNTL, CLK_EN, 1);
-> +     WREG32_FIELD(VCE_SOFT_RESET, ECPU_SOFT_RESET, 1);
->        mdelay(100);
-> -
-> -     WREG32_P(mmVCE_SOFT_RESET, 0,
-> ~VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK);
-> +     WREG32_FIELD(VCE_SOFT_RESET, ECPU_SOFT_RESET, 0);
->
->        for (i =3D 0; i < 10; ++i) {
->                uint32_t status;
-> @@ -150,10 +145,9 @@ static int vce_v2_0_start(struct amdgpu_device
-> *adev)
->                        break;
->
->                DRM_ERROR("VCE not responding, trying to reset the
-> ECPU!!!\n");
-> -             WREG32_P(mmVCE_SOFT_RESET,
-> VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK,
-> -
->        ~VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK);
-> +             WREG32_FIELD(VCE_SOFT_RESET, ECPU_SOFT_RESET, 1);
->                mdelay(10);
-> -             WREG32_P(mmVCE_SOFT_RESET, 0,
-> ~VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK);
-> +             WREG32_FIELD(VCE_SOFT_RESET, ECPU_SOFT_RESET, 0);
->                mdelay(10);
->                r =3D -1;
->        }
-> @@ -345,13 +339,13 @@ static void vce_v2_0_set_dyn_cg(struct
-> amdgpu_device *adev, bool gated)
->                        DRM_INFO("VCE is busy, Can't set clock gateing");
->                        return;
->                }
-> -             WREG32_P(mmVCE_VCPU_CNTL, 0,
-> ~VCE_VCPU_CNTL__CLK_EN_MASK);
-> -             WREG32_P(mmVCE_SOFT_RESET,
-> VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK,
-> ~VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK);
-> +             WREG32_FIELD(VCE_VCPU_CNTL, CLK_EN, 0);
-> +             WREG32_FIELD(VCE_SOFT_RESET, ECPU_SOFT_RESET, 1);
->                mdelay(100);
->                WREG32(mmVCE_STATUS, 0);
->        } else {
-> -             WREG32_P(mmVCE_VCPU_CNTL,
-> VCE_VCPU_CNTL__CLK_EN_MASK, ~VCE_VCPU_CNTL__CLK_EN_MASK);
-> -             WREG32_P(mmVCE_SOFT_RESET,
-> VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK,
-> ~VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK);
-> +             WREG32_FIELD(VCE_VCPU_CNTL, CLK_EN, 1);
-> +             WREG32_FIELD(VCE_SOFT_RESET, ECPU_SOFT_RESET, 1);
->                mdelay(100);
->        }
->
-> @@ -458,9 +452,7 @@ static void vce_v2_0_mc_resume(struct
-> amdgpu_device *adev)
->        WREG32(mmVCE_VCPU_CACHE_SIZE2, size);
->
->        WREG32_P(mmVCE_LMI_CTRL2, 0x0, ~0x100);
-> -
-> -     WREG32_P(mmVCE_SYS_INT_EN,
-> VCE_SYS_INT_EN__VCE_SYS_INT_TRAP_INTERRUPT_EN_MASK,
-> -
-> ~VCE_SYS_INT_EN__VCE_SYS_INT_TRAP_INTERRUPT_EN_MASK);
-> +     WREG32_FIELD(VCE_SYS_INT_EN,
-> VCE_SYS_INT_TRAP_INTERRUPT_EN, 1);
->
->        vce_v2_0_init_cg(adev);
->  }
-> @@ -474,11 +466,11 @@ static bool vce_v2_0_is_idle(void *handle)
->
->  static int vce_v2_0_wait_for_idle(void *handle)
->  {
-> -     unsigned i;
->        struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
-> +     unsigned i;
->
->        for (i =3D 0; i < adev->usec_timeout; i++) {
-> -             if (!(RREG32(mmSRBM_STATUS2) &
-> SRBM_STATUS2__VCE_BUSY_MASK))
-> +             if (vce_v2_0_is_idle(handle))
->                        return 0;
-
-This could be split out as a separate patch.
-
->        }
->        return -ETIMEDOUT;
-> @@ -488,8 +480,7 @@ static int vce_v2_0_soft_reset(void *handle)
->  {
->        struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
->
-> -     WREG32_P(mmSRBM_SOFT_RESET,
-> SRBM_SOFT_RESET__SOFT_RESET_VCE_MASK,
-> -                     ~SRBM_SOFT_RESET__SOFT_RESET_VCE_MASK);
-> +     WREG32_FIELD(SRBM_SOFT_RESET, SOFT_RESET_VCE, 1);
->        mdelay(5);
->
->        return vce_v2_0_start(adev);
-> @@ -516,10 +507,8 @@ static int vce_v2_0_process_interrupt(struct
-> amdgpu_device *adev,
->        DRM_DEBUG("IH: VCE\n");
->        switch (entry->src_data) {
->        case 0:
-> -             amdgpu_fence_process(&adev->vce.ring[0]);
-> -             break;
->        case 1:
-> -             amdgpu_fence_process(&adev->vce.ring[1]);
-> +             amdgpu_fence_process(&adev->vce.ring[entry->src_data]);
->                break;
->        default:
->                DRM_ERROR("Unhandled interrupt: %d %d\n",
-
-This too.
-
-> --
-> 2.9.2
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_DM5PR12MB1132A35D1BAAB0027D5FE23AF71E0DM5PR12MB1132namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;back=
-ground-color:#FFFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
-<p>Just trying to make it easier to read. &nbsp;</p>
-<p><br>
-</p>
-<p>WREG32_FIELD(foo, FIELD, 1);</p>
-<p><br>
-</p>
-<p>Is easier to read than</p>
-<p><br>
-</p>
-<p>WREG32_P(foo, FOO__FIELD_MASK, ~FOO__FIELD_MASK);</p>
-<p><br>
-</p>
-<p>(also I already pushed them after getting a RB by Christian this morning=
- so we might need to hold a different discussion).</p>
-<p><br>
-</p>
-<p>I agree it's not really a functional change but making things a bit more=
- uniform and easier to read helps maintenance. &nbsp;And I did find a bug i=
-n the process :-)</p>
-<p><br>
-</p>
-<p>Tom</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Deucher, Alexander<=
-br>
-<b>Sent:</b> Thursday, August 11, 2016 11:46<br>
-<b>To:</b> 'Tom St Denis'; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> StDenis, Tom<br>
-<b>Subject:</b> RE: [PATCH 3/4] drm/amd/amdgpu: VCE v2 register cleanup</fo=
-nt>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">&gt; -----Original Message-----<br>
-&gt; From: amd-gfx [<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org=
-">mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>] On Behalf<br>
-&gt; Of Tom St Denis<br>
-&gt; Sent: Thursday, August 11, 2016 10:33 AM<br>
-&gt; To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; Cc: StDenis, Tom<br>
-&gt; Subject: [PATCH 3/4] drm/amd/amdgpu: VCE v2 register cleanup<br>
-&gt; <br>
-&gt; Signed-off-by: Tom St Denis &lt;tom.stdenis-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
-A couple pieces of this patch could be split out as separate cleanups (see =
-below).&nbsp; However, I'm not sure how much value there is in switching WR=
-EG32_P for WREG_FIELD other than code churn.&nbsp; They basically do the sa=
-me thing.&nbsp;
-<br>
-<br>
-Alex<br>
-<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/vce_v2_0.c | 39 &#43;&#43;&#43;&#43;&=
-#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;-------------<br>
-&gt; ---------<br>
-&gt;&nbsp; 1 file changed, 14 insertions(&#43;), 25 deletions(-)<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c<br>
-&gt; b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c<br>
-&gt; index 80a37a602181..21ba219e943b 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c<br>
-&gt; @@ -127,15 &#43;127,10 @@ static int vce_v2_0_start(struct amdgpu_devi=
-ce<br>
-&gt; *adev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmVCE_RB_BASE_HI2, up=
-per_32_bits(ring-&gt;gpu_addr));<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmVCE_RB_SIZE2, ring-=
-&gt;ring_size / 4);<br>
-&gt; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32_P(mmVCE_VCPU_CNTL,<br>
-&gt; VCE_VCPU_CNTL__CLK_EN_MASK, ~VCE_VCPU_CNTL__CLK_EN_MASK);<br>
-&gt; -<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32_P(mmVCE_SOFT_RESET,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; ~VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK);<br>
-&gt; -<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_FIELD(VCE_VCPU_CNTL, CLK_EN, 1);<=
-br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_FIELD(VCE_SOFT_RESET, ECPU_SOFT_R=
-ESET, 1);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mdelay(100);<br>
-&gt; -<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32_P(mmVCE_SOFT_RESET, 0,<br>
-&gt; ~VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_FIELD(VCE_SOFT_RESET, ECPU_SOFT_R=
-ESET, 0);<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; 10; &#4=
-3;&#43;i) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; uint32_t status;<br>
-&gt; @@ -150,10 &#43;145,9 @@ static int vce_v2_0_start(struct amdgpu_devic=
-e<br>
-&gt; *adev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<=
-br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;VCE not responding, trying to reset the=
-<br>
-&gt; ECPU!!!\n&quot;);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; WREG32_P(mmVCE_SOFT_RESET,<br>
-&gt; VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK,<br>
-&gt; -<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ~VCE_SOFT_RESET__ECPU_SOFT_R=
-ESET_MASK);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; WREG32_FIELD(VCE_SOFT_RESET, ECPU_SOFT_RESET, 1);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; mdelay(10);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; WREG32_P(mmVCE_SOFT_RESET, 0,<br>
-&gt; ~VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; WREG32_FIELD(VCE_SOFT_RESET, ECPU_SOFT_RESET, 0);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; mdelay(10);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; r =3D -1;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; @@ -345,13 &#43;339,13 @@ static void vce_v2_0_set_dyn_cg(struct<br>
-&gt; amdgpu_device *adev, bool gated)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_INF=
-O(&quot;VCE is busy, Can't set clock gateing&quot;);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;=
-<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; }<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; WREG32_P(mmVCE_VCPU_CNTL, 0,<br>
-&gt; ~VCE_VCPU_CNTL__CLK_EN_MASK);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; WREG32_P(mmVCE_SOFT_RESET,<br>
-&gt; VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK,<br>
-&gt; ~VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; WREG32_FIELD(VCE_VCPU_CNTL, CLK_EN, 0);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; WREG32_FIELD(VCE_SOFT_RESET, ECPU_SOFT_RESET, 1);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; mdelay(100);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; WREG32(mmVCE_STATUS, 0);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; WREG32_P(mmVCE_VCPU_CNTL,<br>
-&gt; VCE_VCPU_CNTL__CLK_EN_MASK, ~VCE_VCPU_CNTL__CLK_EN_MASK);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; WREG32_P(mmVCE_SOFT_RESET,<br>
-&gt; VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK,<br>
-&gt; ~VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; WREG32_FIELD(VCE_VCPU_CNTL, CLK_EN, 1);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; WREG32_FIELD(VCE_SOFT_RESET, ECPU_SOFT_RESET, 1);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; mdelay(100);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; <br>
-&gt; @@ -458,9 &#43;452,7 @@ static void vce_v2_0_mc_resume(struct<br>
-&gt; amdgpu_device *adev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmVCE_VCPU_CACHE_SIZE=
-2, size);<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_P(mmVCE_LMI_CTRL2, 0x=
-0, ~0x100);<br>
-&gt; -<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32_P(mmVCE_SYS_INT_EN,<br>
-&gt; VCE_SYS_INT_EN__VCE_SYS_INT_TRAP_INTERRUPT_EN_MASK,<br>
-&gt; -<br>
-&gt; ~VCE_SYS_INT_EN__VCE_SYS_INT_TRAP_INTERRUPT_EN_MASK);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_FIELD(VCE_SYS_INT_EN,<br>
-&gt; VCE_SYS_INT_TRAP_INTERRUPT_EN, 1);<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vce_v2_0_init_cg(adev);<br>
-&gt;&nbsp; }<br>
-&gt; @@ -474,11 &#43;466,11 @@ static bool vce_v2_0_is_idle(void *handle)<b=
-r>
-&gt; <br>
-&gt;&nbsp; static int vce_v2_0_wait_for_idle(void *handle)<br>
-&gt;&nbsp; {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; unsigned i;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
-=3D (struct amdgpu_device *)handle;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; unsigned i;<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; adev-&g=
-t;usec_timeout; i&#43;&#43;) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; if (!(RREG32(mmSRBM_STATUS2) &amp;<br>
-&gt; SRBM_STATUS2__VCE_BUSY_MASK))<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; if (vce_v2_0_is_idle(handle))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
-0;<br>
-<br>
-This could be split out as a separate patch.<br>
-<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -ETIMEDOUT;<br>
-&gt; @@ -488,8 &#43;480,7 @@ static int vce_v2_0_soft_reset(void *handle)<b=
-r>
-&gt;&nbsp; {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
-=3D (struct amdgpu_device *)handle;<br>
-&gt; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32_P(mmSRBM_SOFT_RESET,<br>
-&gt; SRBM_SOFT_RESET__SOFT_RESET_VCE_MASK,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ~SRBM_SOFT_RESET__SOFT_=
-RESET_VCE_MASK);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_FIELD(SRBM_SOFT_RESET, SOFT_RESET=
-_VCE, 1);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mdelay(5);<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return vce_v2_0_start(adev);=
-<br>
-&gt; @@ -516,10 &#43;507,8 @@ static int vce_v2_0_process_interrupt(struct<=
-br>
-&gt; amdgpu_device *adev,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG(&quot;IH: VCE\n&qu=
-ot;);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (entry-&gt;src_data) =
-{<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 0:<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; amdgpu_fence_process(&amp;adev-&gt;vce.ring[0]);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; break;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 1:<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; amdgpu_fence_process(&amp;adev-&gt;vce.ring[1]);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; amdgpu_fence_process(&amp;adev-&gt;vce.ring[entry-&gt;src_data]);<b=
-r>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; break;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;Unhandled interrupt: %d %d\n&quot;,<br>
-<br>
-This too.<br>
-<br>
-&gt; --<br>
-&gt; 2.9.2<br>
-&gt; <br>
-&gt; _______________________________________________<br>
-&gt; amd-gfx mailing list<br>
-&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
-ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_DM5PR12MB1132A35D1BAAB0027D5FE23AF71E0DM5PR12MB1132namp_--
-
---===============1495523717==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1495523717==--
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
+LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIFRvbSBT
+dCBEZW5pcw0KPiBTZW50OiBUaHVyc2RheSwgQXVndXN0IDExLCAyMDE2IDEwOjMzIEFNDQo+IFRv
+OiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBDYzogU3REZW5pcywgVG9tDQo+IFN1
+YmplY3Q6IFtQQVRDSCA0LzRdIGRybS9hbWQvYW1kZ3B1OiBVVkQgdjYgcmVnaXN0ZXIgY2xlYW51
+cA0KPiANCj4gU2lnbmVkLW9mZi1ieTogVG9tIFN0IERlbmlzIDx0b20uc3RkZW5pc0BhbWQuY29t
+Pg0KDQpTYW1lIGNvbW1lbnQgYXMgdGhlIHByZXZpb3VzIHBhdGNoLg0KDQoNCj4gLS0tDQo+ICBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjZfMC5jIHwgMjcgKysrKysrKysrKystLS0t
+LS0tLS0tLS0tLS0tDQo+ICAxIGZpbGUgY2hhbmdlZCwgMTEgaW5zZXJ0aW9ucygrKSwgMTYgZGVs
+ZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+dXZkX3Y2XzAuYw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3V2ZF92Nl8wLmMNCj4g
+aW5kZXggYzExYjk3ZjhlMzc2Li43YjdlODI4NDBjOTUgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L3V2ZF92Nl8wLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvdXZkX3Y2XzAuYw0KPiBAQCAtMzk3LDE1ICszOTcsMTMgQEAgc3RhdGljIGludCB1
+dmRfdjZfMF9zdGFydChzdHJ1Y3QgYW1kZ3B1X2RldmljZQ0KPiAqYWRldikNCj4gIAl1dmRfdjZf
+MF9tY19yZXN1bWUoYWRldik7DQo+IA0KPiAgCS8qIGRpc2FibGUgY2xvY2sgZ2F0aW5nICovDQo+
+IC0JdG1wID0gUlJFRzMyKG1tVVZEX0NHQ19DVFJMKTsNCj4gLQl0bXAgJj0gflVWRF9DR0NfQ1RS
+TF9fRFlOX0NMT0NLX01PREVfTUFTSzsNCj4gLQlXUkVHMzIobW1VVkRfQ0dDX0NUUkwsIHRtcCk7
+DQo+ICsJV1JFRzMyX0ZJRUxEKFVWRF9DR0NfQ1RSTCwgRFlOX0NMT0NLX01PREUsIDApOw0KPiAN
+Cj4gIAkvKiBkaXNhYmxlIGludGVydXB0ICovDQo+IC0JV1JFRzMyX1AobW1VVkRfTUFTVElOVF9F
+TiwgMCwNCj4gflVWRF9NQVNUSU5UX0VOX19WQ1BVX0VOX01BU0spOw0KPiArCVdSRUczMl9GSUVM
+RChVVkRfTUFTVElOVF9FTiwgVkNQVV9FTiwgMCk7DQo+IA0KPiAgCS8qIHN0YWxsIFVNQyBhbmQg
+cmVnaXN0ZXIgYnVzIGJlZm9yZSByZXNldHRpbmcgVkNQVSAqLw0KPiAtCVdSRUczMl9QKG1tVVZE
+X0xNSV9DVFJMMiwNCj4gVVZEX0xNSV9DVFJMMl9fU1RBTExfQVJCX1VNQ19NQVNLLA0KPiB+VVZE
+X0xNSV9DVFJMMl9fU1RBTExfQVJCX1VNQ19NQVNLKTsNCj4gKwlXUkVHMzJfRklFTEQoVVZEX0xN
+SV9DVFJMMiwgU1RBTExfQVJCX1VNQywgMSk7DQo+ICAJbWRlbGF5KDEpOw0KPiANCj4gIAkvKiBw
+dXQgTE1JLCBWQ1BVLCBSQkMgZXRjLi4uIGludG8gcmVzZXQgKi8NCj4gQEAgLTQyMSw3ICs0MTks
+NyBAQCBzdGF0aWMgaW50IHV2ZF92Nl8wX3N0YXJ0KHN0cnVjdCBhbWRncHVfZGV2aWNlDQo+ICph
+ZGV2KQ0KPiAgCW1kZWxheSg1KTsNCj4gDQo+ICAJLyogdGFrZSBVVkQgYmxvY2sgb3V0IG9mIHJl
+c2V0ICovDQo+IC0JV1JFRzMyX1AobW1TUkJNX1NPRlRfUkVTRVQsIDAsDQo+IH5TUkJNX1NPRlRf
+UkVTRVRfX1NPRlRfUkVTRVRfVVZEX01BU0spOw0KPiArCVdSRUczMl9GSUVMRChTUkJNX1NPRlRf
+UkVTRVQsIFNPRlRfUkVTRVRfVVZELCAwKTsNCj4gIAltZGVsYXkoNSk7DQo+IA0KPiAgCS8qIGlu
+aXRpYWxpemUgVVZEIG1lbW9yeSBjb250cm9sbGVyICovDQo+IEBAIC00NTYsNyArNDU0LDcgQEAg
+c3RhdGljIGludCB1dmRfdjZfMF9zdGFydChzdHJ1Y3QgYW1kZ3B1X2RldmljZQ0KPiAqYWRldikN
+Cj4gIAlXUkVHMzIobW1VVkRfVkNQVV9DTlRMLA0KPiBVVkRfVkNQVV9DTlRMX19DTEtfRU5fTUFT
+Syk7DQo+IA0KPiAgCS8qIGVuYWJsZSBVTUMgKi8NCj4gLQlXUkVHMzJfUChtbVVWRF9MTUlfQ1RS
+TDIsIDAsDQo+IH5VVkRfTE1JX0NUUkwyX19TVEFMTF9BUkJfVU1DX01BU0spOw0KPiArCVdSRUcz
+Ml9GSUVMRChVVkRfTE1JX0NUUkwyLCBTVEFMTF9BUkJfVU1DLCAwKTsNCj4gDQo+ICAJLyogYm9v
+dCB1cCB0aGUgVkNQVSAqLw0KPiAgCVdSRUczMihtbVVWRF9TT0ZUX1JFU0VULCAwKTsNCj4gQEAg
+LTQ3NiwxMSArNDc0LDkgQEAgc3RhdGljIGludCB1dmRfdjZfMF9zdGFydChzdHJ1Y3QgYW1kZ3B1
+X2RldmljZQ0KPiAqYWRldikNCj4gIAkJCWJyZWFrOw0KPiANCj4gIAkJRFJNX0VSUk9SKCJVVkQg
+bm90IHJlc3BvbmRpbmcsIHRyeWluZyB0byByZXNldCB0aGUNCj4gVkNQVSEhIVxuIik7DQo+IC0J
+CVdSRUczMl9QKG1tVVZEX1NPRlRfUkVTRVQsDQo+IFVWRF9TT0ZUX1JFU0VUX19WQ1BVX1NPRlRf
+UkVTRVRfTUFTSywNCj4gLQ0KPiAJflVWRF9TT0ZUX1JFU0VUX19WQ1BVX1NPRlRfUkVTRVRfTUFT
+Syk7DQo+ICsJCVdSRUczMl9GSUVMRChVVkRfU09GVF9SRVNFVCwgVkNQVV9TT0ZUX1JFU0VULCAx
+KTsNCj4gIAkJbWRlbGF5KDEwKTsNCj4gLQkJV1JFRzMyX1AobW1VVkRfU09GVF9SRVNFVCwgMCwN
+Cj4gLQkJCSB+VVZEX1NPRlRfUkVTRVRfX1ZDUFVfU09GVF9SRVNFVF9NQVNLKTsNCj4gKwkJV1JF
+RzMyX0ZJRUxEKFVWRF9TT0ZUX1JFU0VULCBWQ1BVX1NPRlRfUkVTRVQsIDApOw0KPiAgCQltZGVs
+YXkoMTApOw0KPiAgCQlyID0gLTE7DQo+ICAJfQ0KPiBAQCAtNDk3LDE1ICs0OTMsMTQgQEAgc3Rh
+dGljIGludCB1dmRfdjZfMF9zdGFydChzdHJ1Y3QgYW1kZ3B1X2RldmljZQ0KPiAqYWRldikNCj4g
+IAkvKiBjbGVhciB0aGUgYml0IDQgb2YgVVZEX1NUQVRVUyAqLw0KPiAgCVdSRUczMl9QKG1tVVZE
+X1NUQVRVUywgMCwgfigyIDw8DQo+IFVWRF9TVEFUVVNfX1ZDUFVfUkVQT1JUX19TSElGVCkpOw0K
+PiANCj4gKwkvKiBmb3JjZSBSQkMgaW50byBpZGxlIHN0YXRlICovDQo+ICAJcmJfYnVmc3ogPSBv
+cmRlcl9iYXNlXzIocmluZy0+cmluZ19zaXplKTsNCj4gLQl0bXAgPSAwOw0KPiAtCXRtcCA9IFJF
+R19TRVRfRklFTEQodG1wLCBVVkRfUkJDX1JCX0NOVEwsIFJCX0JVRlNaLA0KPiByYl9idWZzeik7
+DQo+ICsJdG1wID0gUkVHX1NFVF9GSUVMRCgwLCBVVkRfUkJDX1JCX0NOVEwsIFJCX0JVRlNaLCBy
+Yl9idWZzeik7DQo+ICAJdG1wID0gUkVHX1NFVF9GSUVMRCh0bXAsIFVWRF9SQkNfUkJfQ05UTCwg
+UkJfQkxLU1osIDEpOw0KPiAgCXRtcCA9IFJFR19TRVRfRklFTEQodG1wLCBVVkRfUkJDX1JCX0NO
+VEwsIFJCX05PX0ZFVENILCAxKTsNCj4gIAl0bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwgVVZEX1JC
+Q19SQl9DTlRMLA0KPiBSQl9XUFRSX1BPTExfRU4sIDApOw0KPiAgCXRtcCA9IFJFR19TRVRfRklF
+TEQodG1wLCBVVkRfUkJDX1JCX0NOVEwsIFJCX05PX1VQREFURSwNCj4gMSk7DQo+ICAJdG1wID0g
+UkVHX1NFVF9GSUVMRCh0bXAsIFVWRF9SQkNfUkJfQ05UTCwgUkJfUlBUUl9XUl9FTiwNCj4gMSk7
+DQo+IC0JLyogZm9yY2UgUkJDIGludG8gaWRsZSBzdGF0ZSAqLw0KPiAgCVdSRUczMihtbVVWRF9S
+QkNfUkJfQ05UTCwgdG1wKTsNCj4gDQo+ICAJLyogc2V0IHRoZSB3cml0ZSBwb2ludGVyIGRlbGF5
+ICovDQo+IEBAIC01MjYsNyArNTIxLDcgQEAgc3RhdGljIGludCB1dmRfdjZfMF9zdGFydChzdHJ1
+Y3QgYW1kZ3B1X2RldmljZQ0KPiAqYWRldikNCj4gIAlyaW5nLT53cHRyID0gUlJFRzMyKG1tVVZE
+X1JCQ19SQl9SUFRSKTsNCj4gIAlXUkVHMzIobW1VVkRfUkJDX1JCX1dQVFIsIHJpbmctPndwdHIp
+Ow0KPiANCj4gLQlXUkVHMzJfUChtbVVWRF9SQkNfUkJfQ05UTCwgMCwNCj4gflVWRF9SQkNfUkJf
+Q05UTF9fUkJfTk9fRkVUQ0hfTUFTSyk7DQo+ICsJV1JFRzMyX0ZJRUxEKFVWRF9SQkNfUkJfQ05U
+TCwgUkJfTk9fRkVUQ0gsIDApOw0KPiANCj4gIAlyZXR1cm4gMDsNCj4gIH0NCj4gQEAgLTc0Myw3
+ICs3MzgsNyBAQCBzdGF0aWMgaW50IHV2ZF92Nl8wX3dhaXRfZm9yX2lkbGUodm9pZCAqaGFuZGxl
+KQ0KPiAgCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gKHN0cnVjdCBhbWRncHVfZGV2aWNl
+ICopaGFuZGxlOw0KPiANCj4gIAlmb3IgKGkgPSAwOyBpIDwgYWRldi0+dXNlY190aW1lb3V0OyBp
+KyspIHsNCj4gLQkJaWYgKCEoUlJFRzMyKG1tU1JCTV9TVEFUVVMpICYNCj4gU1JCTV9TVEFUVVNf
+X1VWRF9CVVNZX01BU0spKQ0KPiArCQlpZiAodXZkX3Y2XzBfaXNfaWRsZShoYW5kbGUpKQ0KPiAg
+CQkJcmV0dXJuIDA7DQoNClRoaXMgY291bGQgYmUgc3BsaXQgb3V0IGFzIGEgc2VwYXJhdGUgcGF0
+Y2guDQoNCj4gIAl9DQo+ICAJcmV0dXJuIC1FVElNRURPVVQ7DQo+IC0tDQo+IDIuOS4yDQo+IA0K
+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBhbWQt
+Z2Z4IG1haWxpbmcgbGlzdA0KPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
+ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
