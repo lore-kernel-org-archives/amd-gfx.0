@@ -1,16 +1,11 @@
-From: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 06/19] drm/amdgpu: implement vm recovery function from
- shadow
-Date: Thu, 11 Aug 2016 16:42:05 +0800
-Message-ID: <57AC3A5D.4000906@amd.com>
-References: <1470389926-5719-1-git-send-email-David1.Zhou@amd.com>
- <1470389926-5719-7-git-send-email-David1.Zhou@amd.com>
- <17dc9ee4-35d0-3e20-8402-15524e667327@vodafone.de>
+From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Subject: GRBM lock in  vce_v3_0_check_soft_reset(void *handle)
+Date: Thu, 11 Aug 2016 13:42:08 +0000
+Message-ID: <DM5PR12MB1132C484EBCA91DDF9FEA44CF71E0@DM5PR12MB1132.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1201991962=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <17dc9ee4-35d0-3e20-8402-15524e667327-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,81 +16,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-CgpPbiAyMDE25bm0MDjmnIgxMeaXpSAxNjozOSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBB
-bSAwNS4wOC4yMDE2IHVtIDExOjM4IHNjaHJpZWIgQ2h1bm1pbmcgWmhvdToKPj4gQ2hhbmdlLUlk
-OiBJNDY3ODMwNDNlZWNiZTlmYzljMmNlOTIzMGJlMTA4NWFjYTM3MzFiZAo+PiBTaWduZWQtb2Zm
-LWJ5OiBDaHVubWluZyBaaG91IDxEYXZpZDEuWmhvdUBhbWQuY29tPgo+PiAtLS0KPj4gICBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCAgICB8ICA0ICsrKwo+PiAgIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIHwgNDggCj4+ICsrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysKPj4gICAyIGZpbGVzIGNoYW5nZWQsIDUyIGluc2VydGlvbnMoKykK
-Pj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oIAo+
-PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+IGluZGV4IDUzYjcwMzku
-LjljYjZmZGEgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dS5oCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+IEBAIC05
-MjEsNiArOTIxLDggQEAgc3RydWN0IGFtZGdwdV92bSB7Cj4+ICAgICAgICAgLyogY2xpZW50IGlk
-ICovCj4+ICAgICAgIHU2NCAgICAgICAgICAgICAgICAgICAgIGNsaWVudF9pZDsKPj4gKwo+PiAr
-ICAgIHN0cnVjdCBmZW5jZSAgICAgICAgICAgICpzaGFkb3dfc3luY19mZW5jZTsKPj4gICB9Owo+
-PiAgICAgc3RydWN0IGFtZGdwdV92bV9pZCB7Cj4+IEBAIC0xMDExLDYgKzEwMTMsOCBAQCBpbnQg
-YW1kZ3B1X3ZtX2JvX3VubWFwKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+PiAgICAgICAg
-ICAgICAgICAgIHVpbnQ2NF90IGFkZHIpOwo+PiAgIHZvaWQgYW1kZ3B1X3ZtX2JvX3JtdihzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4gICAgICAgICAgICAgICAgIHN0cnVjdCBhbWRncHVf
-Ym9fdmEgKmJvX3ZhKTsKPj4gK2ludCBhbWRncHVfdm1fcmVjb3Zlcl9wYWdlX3RhYmxlX2Zyb21f
-c2hhZG93KHN0cnVjdCBhbWRncHVfZGV2aWNlIAo+PiAqYWRldiwKPj4gKyAgICAgICAgICAgICAg
-ICAgICAgICAgICBzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSk7Cj4+ICAgICAvKgo+PiAgICAqIGNvbnRl
-eHQgcmVsYXRlZCBzdHJ1Y3R1cmVzCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfdm0uYyAKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfdm0uYwo+PiBpbmRleCAwMTcyNzRjLi5lNjU3NmMyIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfdm0uYwo+PiBAQCAtNzAyLDYgKzcwMiw1MiBAQCBlcnJvcl9mcmVl
-Ogo+PiAgICAgICByZXR1cm4gcjsKPj4gICB9Cj4+ICAgK2ludCBhbWRncHVfdm1fcmVjb3Zlcl9w
-YWdlX3RhYmxlX2Zyb21fc2hhZG93KHN0cnVjdCBhbWRncHVfZGV2aWNlIAo+PiAqYWRldiwKPj4g
-KyAgICAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSkKPj4gK3sKPj4g
-KyAgICBzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcgPSBhZGV2LT5tbWFuLmJ1ZmZlcl9mdW5jc19y
-aW5nOwo+PiArICAgIHN0cnVjdCBmZW5jZSAqZmVuY2U7Cj4+ICsgICAgdWludDY0X3QgcHRfaWR4
-Owo+PiArICAgIGludCByOwo+PiArCj4+ICsgICAgaWYgKCF2bS0+cGFnZV9kaXJlY3RvcnktPnNo
-YWRvdykKPj4gKyAgICAgICAgcmV0dXJuIDA7Cj4+ICsKPj4gKyAgICByID0gYW1kZ3B1X2JvX3Jl
-c2VydmUodm0tPnBhZ2VfZGlyZWN0b3J5LCBmYWxzZSk7Cj4+ICsgICAgaWYgKHIpCj4+ICsgICAg
-ICAgIHJldHVybiByOwo+Cj4gSSB0aGluayB0aGF0IHRoZSBjYWxsZXIgc2hvdWxkIHJlc2VydmUg
-dGhlIEJPcyBoZXJlLgo+Cj4gRXNwZWNpYWxseSBkdXJpbmcgQ1Mgd2Ugb25seSB3YW50IHRvIHJl
-c2VydmUgZXZlcnl0aGluZyBvbmNlLgoKVGhpcyBmdW5jdGlvbiBpcyBjYWxsZWQgaW4gZ3B1IHJl
-c2V0LCBub3QgaW4gY3MgaW9jdGwuCgo+Cj4gQlRXOiBIb3cgZG8gd2UgaGFuZGxlIHN3YXBwaW5n
-IHRoZSBQRC9QVHMgaW4gYW5kIG91dD8KPgo+IEUuZy4gd2UgZG9uJ3QgbmVlZCB0byBjb3B5IHRo
-ZW0gZnJvbSBWUkFNIHRvIEdBUlQgYW55IG1vcmUuCgpZZXMsIHdlIG9ubHkgbmVlZCB0byBjb3B5
-IGZyb20gR0FSVCB0byBWUkFNIHdoZW4gZ3B1IHJlc2V0LgoKUmVnYXJkcywKRGF2aWQgWmhvdQo+
-Cj4gUmVnYXJkcywKPiBDaHJpc3RpYW4uCj4KPj4gKyAgICB2bS0+cGFnZV9kaXJlY3RvcnktPnNo
-YWRvd19mbGFnID0gCj4+IEFNREdQVV9TSEFET1dfRkxBR19TWU5DX1RPX1BBUkVOVDsKPj4gKyAg
-ICByID0gYW1kZ3B1X2JvX3N5bmNfYmV0d2Vlbl9ib19hbmRfc2hhZG93KGFkZXYsIHJpbmcsCj4+
-ICsgICAgICAgICAgICAgICAgICAgICAgICAgdm0tPnBhZ2VfZGlyZWN0b3J5LAo+PiArICAgICAg
-ICAgICAgICAgICAgICAgICAgIE5VTEwsICZmZW5jZSk7Cj4+ICsgICAgaWYgKHIpIHsKPj4gKyAg
-ICAgICAgRFJNX0VSUk9SKCJyZWNvdmVyIHBhZ2UgdGFibGUgZmFpbGVkIVxuIik7Cj4+ICsgICAg
-ICAgIGdvdG8gZXJyOwo+PiArICAgIH0KPj4gKyAgICBmZW5jZV9wdXQodm0tPnNoYWRvd19zeW5j
-X2ZlbmNlKTsKPj4gKyAgICB2bS0+c2hhZG93X3N5bmNfZmVuY2UgPSBmZW5jZV9nZXQoZmVuY2Up
-Owo+PiArICAgIGZlbmNlX3B1dChmZW5jZSk7Cj4+ICsgICAgZm9yIChwdF9pZHggPSAwOyBwdF9p
-ZHggPD0gdm0tPm1heF9wZGVfdXNlZDsgKytwdF9pZHgpIHsKPj4gKyAgICAgICAgc3RydWN0IGFt
-ZGdwdV9ibyAqYm8gPSB2bS0+cGFnZV90YWJsZXNbcHRfaWR4XS5lbnRyeS5yb2JqOwo+PiArCj4+
-ICsgICAgICAgIGlmICghYm8pCj4+ICsgICAgICAgICAgICBjb250aW51ZTsKPj4gKyAgICAgICAg
-Ym8tPnNoYWRvd19mbGFnID0gQU1ER1BVX1NIQURPV19GTEFHX1NZTkNfVE9fUEFSRU5UOwo+PiAr
-ICAgICAgICByID0gYW1kZ3B1X2JvX3N5bmNfYmV0d2Vlbl9ib19hbmRfc2hhZG93KGFkZXYsIHJp
-bmcsIGJvLAo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICBOVUxMLCAmZmVuY2UpOwo+
-PiArICAgICAgICBpZiAocikgewo+PiArICAgICAgICAgICAgRFJNX0VSUk9SKCJyZWNvdmVyIHBh
-Z2UgdGFibGUgZmFpbGVkIVxuIik7Cj4+ICsgICAgICAgICAgICBnb3RvIGVycjsKPj4gKyAgICAg
-ICAgfQo+PiArICAgICAgICBmZW5jZV9wdXQodm0tPnNoYWRvd19zeW5jX2ZlbmNlKTsKPj4gKyAg
-ICAgICAgdm0tPnNoYWRvd19zeW5jX2ZlbmNlID0gZmVuY2VfZ2V0KGZlbmNlKTsKPj4gKyAgICAg
-ICAgZmVuY2VfcHV0KGZlbmNlKTsKPj4gKyAgICB9Cj4+ICsKPj4gK2VycjoKPj4gKyAgICBhbWRn
-cHVfYm9fdW5yZXNlcnZlKHZtLT5wYWdlX2RpcmVjdG9yeSk7Cj4+ICsgICAgcmV0dXJuIHI7Cj4+
-ICt9Cj4+ICAgLyoqCj4+ICAgICogYW1kZ3B1X3ZtX2ZyYWdfcHRlcyAtIGFkZCBmcmFnbWVudCBp
-bmZvcm1hdGlvbiB0byBQVEVzCj4+ICAgICoKPj4gQEAgLTE1NTYsNiArMTYwMiw3IEBAIGludCBh
-bWRncHVfdm1faW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgCj4+IHN0cnVjdCBhbWRn
-cHVfdm0gKnZtKQo+PiAgICAgICBpZiAocikKPj4gICAgICAgICAgIGdvdG8gZXJyb3JfZnJlZV9w
-YWdlX2RpcmVjdG9yeTsKPj4gICAgICAgdm0tPmxhc3RfZXZpY3Rpb25fY291bnRlciA9IGF0b21p
-YzY0X3JlYWQoJmFkZXYtPm51bV9ldmljdGlvbnMpOwo+PiArICAgIHZtLT5zaGFkb3dfc3luY19m
-ZW5jZSA9IE5VTEw7Cj4+ICAgICAgICAgcmV0dXJuIDA7Cj4+ICAgQEAgLTE2MDQsNiArMTY1MSw3
-IEBAIHZvaWQgYW1kZ3B1X3ZtX2Zpbmkoc3RydWN0IGFtZGdwdV9kZXZpY2UgCj4+ICphZGV2LCBz
-dHJ1Y3QgYW1kZ3B1X3ZtICp2bSkKPj4gICAgICAgICBhbWRncHVfYm9fdW5yZWYoJnZtLT5wYWdl
-X2RpcmVjdG9yeSk7Cj4+ICAgICAgIGZlbmNlX3B1dCh2bS0+cGFnZV9kaXJlY3RvcnlfZmVuY2Up
-Owo+PiArICAgIGZlbmNlX3B1dCh2bS0+c2hhZG93X3N5bmNfZmVuY2UpOwo+PiAgIH0KPj4gICAg
-IC8qKgo+Cj4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============1201991962==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM5PR12MB1132C484EBCA91DDF9FEA44CF71E0DM5PR12MB1132namp_"
+
+--_000_DM5PR12MB1132C484EBCA91DDF9FEA44CF71E0DM5PR12MB1132namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+I'm working on tidying up vce v3 and came across the function
+
+
+static int vce_v3_0_check_soft_reset(void *handle)
+
+
+Which writes to the GRBM_GFX_INDEX but doesn't take the mutex around it.  N=
+or does the parent function in amdgpu_device.c which calls all of the check=
+_soft_reset callbacks.
+
+
+Is this a bug?
+
+
+Tom
+
+--_000_DM5PR12MB1132C484EBCA91DDF9FEA44CF71E0DM5PR12MB1132namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;back=
+ground-color:#FFFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
+<p>I'm working on tidying up vce v3 and came across the function</p>
+<p><br>
+</p>
+<p></p>
+<div>static int vce_v3_0_check_soft_reset(void *handle)</div>
+<div><br>
+</div>
+<p></p>
+<p>Which writes to the GRBM_GFX_INDEX but doesn't take the mutex around it.=
+ &nbsp;Nor does the parent function in amdgpu_device.c which calls all of t=
+he check_soft_reset callbacks.</p>
+<p><br>
+</p>
+<p>Is this a bug? &nbsp;</p>
+<p><br>
+</p>
+<p>Tom</p>
+</div>
+</body>
+</html>
+
+--_000_DM5PR12MB1132C484EBCA91DDF9FEA44CF71E0DM5PR12MB1132namp_--
+
+--===============1201991962==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1201991962==--
