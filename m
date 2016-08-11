@@ -1,14 +1,13 @@
-From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: GRBM lock in  vce_v3_0_check_soft_reset(void *handle)
-Date: Thu, 11 Aug 2016 13:54:16 +0000
-Message-ID: <DM5PR12MB11323084AD5A6B09BF3FC3D5F71E0@DM5PR12MB1132.namprd12.prod.outlook.com>
-References: <DM5PR12MB1132C484EBCA91DDF9FEA44CF71E0@DM5PR12MB1132.namprd12.prod.outlook.com>,
- <MWHPR12MB1694467FAADA74EE13F70F14F71E0@MWHPR12MB1694.namprd12.prod.outlook.com>
+From: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 2/4] drm/amd/amdgpu: add mutex in check_soft for VCE v3
+Date: Thu, 11 Aug 2016 10:32:51 -0400
+Message-ID: <20160811143253.24718-3-tom.stdenis@amd.com>
+References: <20160811143253.24718-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0703095752=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MWHPR12MB1694467FAADA74EE13F70F14F71E0-Gy0DoCVfaSW4WA4dJ5YXGAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20160811143253.24718-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,175 +18,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 
---===============0703095752==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM5PR12MB11323084AD5A6B09BF3FC3D5F71E0DM5PR12MB1132namp_"
-
---_000_DM5PR12MB11323084AD5A6B09BF3FC3D5F71E0DM5PR12MB1132namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Ok I'll submit a patch in a bit.
-
-
-Tom
-
-
-________________________________
-From: Deucher, Alexander
-Sent: Thursday, August 11, 2016 09:53
-To: StDenis, Tom; amd-gfx list
-Subject: RE: GRBM lock in vce_v3_0_check_soft_reset(void *handle)
-
-
-Yes, it sounds like a bug.  It should take the mutex locally.
-
-
-
-From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf Of S=
-tDenis, Tom
-Sent: Thursday, August 11, 2016 9:42 AM
-To: amd-gfx list
-Subject: GRBM lock in vce_v3_0_check_soft_reset(void *handle)
-
-
-
-I'm working on tidying up vce v3 and came across the function
-
-
-
-static int vce_v3_0_check_soft_reset(void *handle)
-
-
-
-Which writes to the GRBM_GFX_INDEX but doesn't take the mutex around it.  N=
-or does the parent function in amdgpu_device.c which calls all of the check=
-_soft_reset callbacks.
-
-
-
-Is this a bug?
-
-
-
-Tom
-
---_000_DM5PR12MB11323084AD5A6B09BF3FC3D5F71E0DM5PR12MB1132namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;back=
-ground-color:#FFFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
-<p>Ok I'll submit a patch in a bit.</p>
-<p><br>
-</p>
-<p>Tom</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Deucher, Alexander<br=
->
-<b>Sent:</b> Thursday, August 11, 2016 09:53<br>
-<b>To:</b> StDenis, Tom; amd-gfx list<br>
-<b>Subject:</b> RE: GRBM lock in vce_v3_0_check_soft_reset(void *handle)</f=
-ont>
-<div>&nbsp;</div>
-</div>
-<div>
-<div>
-<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
-imes New Roman&quot;, serif;">
-<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,&quot;sans=
--serif&quot;; color:#1F497D">Yes, it sounds like a bug.&nbsp; It should tak=
-e the mutex locally.</span></p>
-<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
-imes New Roman&quot;, serif;">
-<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,&quot;sans=
--serif&quot;; color:#1F497D">&nbsp;</span></p>
-<div style=3D"border:none; border-left:solid blue 1.5pt; padding:0in 0in 0i=
-n 4.0pt">
-<div>
-<div style=3D"border:none; border-top:solid #B5C4DF 1.0pt; padding:3.0pt 0i=
-n 0in 0in">
-<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
-imes New Roman&quot;, serif;">
-<b><span style=3D"font-size:10.0pt; font-family:&quot;Tahoma&quot;,&quot;sa=
-ns-serif&quot;">From:</span></b><span style=3D"font-size:10.0pt; font-famil=
-y:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> amd-gfx [mailto:amd-gfx-bounc=
-es-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org]
-<b>On Behalf Of </b>StDenis, Tom<br>
-<b>Sent:</b> Thursday, August 11, 2016 9:42 AM<br>
-<b>To:</b> amd-gfx list<br>
-<b>Subject:</b> GRBM lock in vce_v3_0_check_soft_reset(void *handle)</span>=
-</p>
-</div>
-</div>
-<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
-imes New Roman&quot;, serif;">
-&nbsp;</p>
-<div id=3D"divtagdefaultwrapper">
-<p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
-;,&quot;sans-serif&quot;; color:black">I'm working on tidying up vce v3 and=
- came across the function</span></p>
-<p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
-;,&quot;sans-serif&quot;; color:black">&nbsp;</span></p>
-<div>
-<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
-imes New Roman&quot;, serif; background: white;">
-<span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; colo=
-r:black">static int vce_v3_0_check_soft_reset(void *handle)</span></p>
-</div>
-<div>
-<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
-imes New Roman&quot;, serif; background: white;">
-<span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; colo=
-r:black">&nbsp;</span></p>
-</div>
-<p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
-;,&quot;sans-serif&quot;; color:black">Which writes to the GRBM_GFX_INDEX b=
-ut doesn't take the mutex around it. &nbsp;Nor does the parent function in =
-amdgpu_device.c which calls all of the check_soft_reset callbacks.</span></=
-p>
-<p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
-;,&quot;sans-serif&quot;; color:black">&nbsp;</span></p>
-<p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
-;,&quot;sans-serif&quot;; color:black">Is this a bug? &nbsp;</span></p>
-<p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
-;,&quot;sans-serif&quot;; color:black">&nbsp;</span></p>
-<p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
-;,&quot;sans-serif&quot;; color:black">Tom</span></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_DM5PR12MB11323084AD5A6B09BF3FC3D5F71E0DM5PR12MB1132namp_--
-
---===============0703095752==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0703095752==--
+U2lnbmVkLW9mZi1ieTogVG9tIFN0IERlbmlzIDx0b20uc3RkZW5pc0BhbWQuY29tPgotLS0KIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92M18wLmMgfCAyICsrCiAxIGZpbGUgY2hhbmdl
+ZCwgMiBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvdmNlX3YzXzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92M18wLmMKaW5k
+ZXggMDczY2Y5ZWQwNjc0Li42MTViOGIxNmFkMDQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L3ZjZV92M18wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+dmNlX3YzXzAuYwpAQCAtNTY5LDYgKzU2OSw3IEBAIHN0YXRpYyBpbnQgdmNlX3YzXzBfY2hlY2tf
+c29mdF9yZXNldCh2b2lkICpoYW5kbGUpCiAJICoKIAkgKiBWQ0UgdGVhbSBzdWdnZXN0IHVzZSBi
+aXQgMy0tYml0IDYgZm9yIGJ1c3kgc3RhdHVzIGNoZWNrCiAJICovCisJbXV0ZXhfbG9jaygmYWRl
+di0+Z3JibV9pZHhfbXV0ZXgpOwogCVdSRUczMl9GSUVMRChHUkJNX0dGWF9JTkRFWCwgSU5TVEFO
+Q0VfSU5ERVgsIDApOwogCWlmIChSUkVHMzIobW1WQ0VfU1RBVFVTKSAmIEFNREdQVV9WQ0VfU1RB
+VFVTX0JVU1lfTUFTSykgewogCQlzcmJtX3NvZnRfcmVzZXQgPSBSRUdfU0VUX0ZJRUxEKHNyYm1f
+c29mdF9yZXNldCwgU1JCTV9TT0ZUX1JFU0VULCBTT0ZUX1JFU0VUX1ZDRTAsIDEpOwpAQCAtNTg4
+LDYgKzU4OSw3IEBAIHN0YXRpYyBpbnQgdmNlX3YzXzBfY2hlY2tfc29mdF9yZXNldCh2b2lkICpo
+YW5kbGUpCiAJCWFkZXYtPmlwX2Jsb2NrX3N0YXR1c1tBTURfSVBfQkxPQ0tfVFlQRV9WQ0VdLmhh
+bmcgPSBmYWxzZTsKIAkJYWRldi0+dmNlLnNyYm1fc29mdF9yZXNldCA9IDA7CiAJfQorCW11dGV4
+X3VubG9jaygmYWRldi0+Z3JibV9pZHhfbXV0ZXgpOwogCXJldHVybiAwOwogfQogCi0tIAoyLjku
+MgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
