@@ -1,14 +1,15 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: fix coding style in amdgpu_object.c
-Date: Fri, 12 Aug 2016 17:05:33 +0000
-Message-ID: <MWHPR12MB16947917F970D2575C4DDE35F71F0@MWHPR12MB1694.namprd12.prod.outlook.com>
-References: <1471021136-5942-1-git-send-email-deathsimple@vodafone.de>
+From: Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: radeon VS amdgpu: _afmt_init() behavior if kzalloc fails
+Date: Fri, 12 Aug 2016 17:39:25 +0000
+Message-ID: <CAPEhTTGtJy5ApUbGedSv2XtZ5FXxWLL8X_m02DfHFdU-Lm5jXw@mail.gmail.com>
+References: <CAPEhTTHK2uF4r4TuR4Vt4oBD9WsxyoAuwLDQ6bRSmus-BKd1eg@mail.gmail.com>
+ <DM5PR12MB1132E5443A7E25075E297A30F71F0@DM5PR12MB1132.namprd12.prod.outlook.com>
+ <CAPEhTTFw-sk4Hq_6-r2eakVMuYC07DRJc0zKa0fWm_aWF+tADQ@mail.gmail.com>
+ <DM5PR12MB11326BF415D31AE5DB0B0A5EF71F0@DM5PR12MB1132.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0294200245=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1471021136-5942-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <DM5PR12MB11326BF415D31AE5DB0B0A5EF71F0-2J9CzHegvk+UzrhdoDeimQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,128 +20,290 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?J0NocmlzdGlhbiBLw7ZuaWcn?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, Freedesktop - AMD-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Alexander Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
-LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIENocmlz
-dGlhbiBLw7ZuaWcNCj4gU2VudDogRnJpZGF5LCBBdWd1c3QgMTIsIDIwMTYgMTI6NTkgUE0NCj4g
-VG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IFN1YmplY3Q6IFtQQVRDSF0gZHJt
-L2FtZGdwdTogZml4IGNvZGluZyBzdHlsZSBpbiBhbWRncHVfb2JqZWN0LmMNCj4gDQo+IEZyb206
-IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4NCj4gDQo+IEp1c3Qg
-YSBmZXcgODAgY2hhcnMgcHJvYmxlbXMuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4g
-S8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+DQoNClJldmlld2VkLWJ5OiBBbGV4IERl
-dWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQoNCj4gLS0tDQo+ICBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMgfCA4Ng0KPiArKysrKysrKysrKysrKysr
-Ky0tLS0tLS0tLS0tLS0NCj4gIDEgZmlsZSBjaGFuZ2VkLCA0OSBpbnNlcnRpb25zKCspLCAzNyBk
-ZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfb2JqZWN0LmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-b2JqZWN0LmMNCj4gaW5kZXggMjc4MDE3ZC4uNGQwODRlZSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYw0KPiBAQCAtNDQsMTQgKzQ0LDEzIEBAIHZv
-aWQgYW1kZ3B1X3R0bV9maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsNCj4gIHN0YXRp
-YyB1NjQgYW1kZ3B1X2dldF92aXNfcGFydF9zaXplKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-LA0KPiAgCQkJCQkJc3RydWN0IHR0bV9tZW1fcmVnICptZW0pDQo+ICB7DQo+IC0JdTY0IHJldCA9
-IDA7DQo+IC0JaWYgKG1lbS0+c3RhcnQgPDwgUEFHRV9TSElGVCA8IGFkZXYtPm1jLnZpc2libGVf
-dnJhbV9zaXplKSB7DQo+IC0JCXJldCA9ICh1NjQpKChtZW0tPnN0YXJ0IDw8IFBBR0VfU0hJRlQp
-ICsgbWVtLT5zaXplKSA+DQo+IC0JCQkgICBhZGV2LT5tYy52aXNpYmxlX3ZyYW1fc2l6ZSA/DQo+
-IC0JCQkgICBhZGV2LT5tYy52aXNpYmxlX3ZyYW1fc2l6ZSAtIChtZW0tPnN0YXJ0IDw8DQo+IFBB
-R0VfU0hJRlQpIDoNCj4gLQkJCSAgIG1lbS0+c2l6ZTsNCj4gLQl9DQo+IC0JcmV0dXJuIHJldDsN
-Cj4gKwlpZiAobWVtLT5zdGFydCA8PCBQQUdFX1NISUZUID49IGFkZXYtPm1jLnZpc2libGVfdnJh
-bV9zaXplKQ0KPiArCQlyZXR1cm4gMDsNCj4gKw0KPiArCXJldHVybiAoKG1lbS0+c3RhcnQgPDwg
-UEFHRV9TSElGVCkgKyBtZW0tPnNpemUpID4NCj4gKwkJYWRldi0+bWMudmlzaWJsZV92cmFtX3Np
-emUgPw0KPiArCQlhZGV2LT5tYy52aXNpYmxlX3ZyYW1fc2l6ZSAtIChtZW0tPnN0YXJ0IDw8IFBB
-R0VfU0hJRlQpIDoNCj4gKwkJbWVtLT5zaXplOw0KPiAgfQ0KPiANCj4gIHN0YXRpYyB2b2lkIGFt
-ZGdwdV91cGRhdGVfbWVtb3J5X3VzYWdlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPiBA
-QCAtMTI1LDggKzEyNCw5IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV90dG1fcGxhY2VtZW50X2luaXQo
-c3RydWN0DQo+IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+ICAJCQlhZGV2LT5tYy52aXNpYmxlX3Zy
-YW1fc2l6ZSA8IGFkZXYtDQo+ID5tYy5yZWFsX3ZyYW1fc2l6ZSkgew0KPiAgCQkJcGxhY2VtZW50
-c1tjXS5mcGZuID0NCj4gIAkJCQlhZGV2LT5tYy52aXNpYmxlX3ZyYW1fc2l6ZSA+PiBQQUdFX1NI
-SUZUOw0KPiAtCQkJcGxhY2VtZW50c1tjKytdLmZsYWdzID0gVFRNX1BMX0ZMQUdfV0MgfA0KPiBU
-VE1fUExfRkxBR19VTkNBQ0hFRCB8DQo+IC0JCQkJVFRNX1BMX0ZMQUdfVlJBTSB8DQo+IFRUTV9Q
-TF9GTEFHX1RPUERPV047DQo+ICsJCQlwbGFjZW1lbnRzW2MrK10uZmxhZ3MgPSBUVE1fUExfRkxB
-R19XQyB8DQo+ICsJCQkJVFRNX1BMX0ZMQUdfVU5DQUNIRUQgfA0KPiBUVE1fUExfRkxBR19WUkFN
-IHwNCj4gKwkJCQlUVE1fUExfRkxBR19UT1BET1dOOw0KPiAgCQl9DQo+ICAJCXBsYWNlbWVudHNb
-Y10uZnBmbiA9IDA7DQo+ICAJCXBsYWNlbWVudHNbYysrXS5mbGFncyA9IFRUTV9QTF9GTEFHX1dD
-IHwNCj4gVFRNX1BMX0ZMQUdfVU5DQUNIRUQgfA0KPiBAQCAtMTM4LDIyICsxMzgsMjQgQEAgc3Rh
-dGljIHZvaWQgYW1kZ3B1X3R0bV9wbGFjZW1lbnRfaW5pdChzdHJ1Y3QNCj4gYW1kZ3B1X2Rldmlj
-ZSAqYWRldiwNCj4gIAlpZiAoZG9tYWluICYgQU1ER1BVX0dFTV9ET01BSU5fR1RUKSB7DQo+ICAJ
-CWlmIChmbGFncyAmIEFNREdQVV9HRU1fQ1JFQVRFX0NQVV9HVFRfVVNXQykgew0KPiAgCQkJcGxh
-Y2VtZW50c1tjXS5mcGZuID0gMDsNCj4gLQkJCXBsYWNlbWVudHNbYysrXS5mbGFncyA9IFRUTV9Q
-TF9GTEFHX1dDIHwNCj4gVFRNX1BMX0ZMQUdfVFQgfA0KPiAtCQkJCVRUTV9QTF9GTEFHX1VOQ0FD
-SEVEOw0KPiArCQkJcGxhY2VtZW50c1tjKytdLmZsYWdzID0gVFRNX1BMX0ZMQUdfV0MgfA0KPiAr
-CQkJCVRUTV9QTF9GTEFHX1RUIHwNCj4gVFRNX1BMX0ZMQUdfVU5DQUNIRUQ7DQo+ICAJCX0gZWxz
-ZSB7DQo+ICAJCQlwbGFjZW1lbnRzW2NdLmZwZm4gPSAwOw0KPiAtCQkJcGxhY2VtZW50c1tjKytd
-LmZsYWdzID0gVFRNX1BMX0ZMQUdfQ0FDSEVEIHwNCj4gVFRNX1BMX0ZMQUdfVFQ7DQo+ICsJCQlw
-bGFjZW1lbnRzW2MrK10uZmxhZ3MgPSBUVE1fUExfRkxBR19DQUNIRUQgfA0KPiArCQkJCVRUTV9Q
-TF9GTEFHX1RUOw0KPiAgCQl9DQo+ICAJfQ0KPiANCj4gIAlpZiAoZG9tYWluICYgQU1ER1BVX0dF
-TV9ET01BSU5fQ1BVKSB7DQo+ICAJCWlmIChmbGFncyAmIEFNREdQVV9HRU1fQ1JFQVRFX0NQVV9H
-VFRfVVNXQykgew0KPiAgCQkJcGxhY2VtZW50c1tjXS5mcGZuID0gMDsNCj4gLQkJCXBsYWNlbWVu
-dHNbYysrXS5mbGFncyA9IFRUTV9QTF9GTEFHX1dDIHwNCj4gVFRNX1BMX0ZMQUdfU1lTVEVNIHwN
-Cj4gLQkJCQlUVE1fUExfRkxBR19VTkNBQ0hFRDsNCj4gKwkJCXBsYWNlbWVudHNbYysrXS5mbGFn
-cyA9IFRUTV9QTF9GTEFHX1dDIHwNCj4gKwkJCQlUVE1fUExfRkxBR19TWVNURU0gfA0KPiBUVE1f
-UExfRkxBR19VTkNBQ0hFRDsNCj4gIAkJfSBlbHNlIHsNCj4gIAkJCXBsYWNlbWVudHNbY10uZnBm
-biA9IDA7DQo+IC0JCQlwbGFjZW1lbnRzW2MrK10uZmxhZ3MgPSBUVE1fUExfRkxBR19DQUNIRUQg
-fA0KPiBUVE1fUExfRkxBR19TWVNURU07DQo+ICsJCQlwbGFjZW1lbnRzW2MrK10uZmxhZ3MgPSBU
-VE1fUExfRkxBR19DQUNIRUQgfA0KPiArCQkJCVRUTV9QTF9GTEFHX1NZU1RFTTsNCj4gIAkJfQ0K
-PiAgCX0NCj4gDQo+IEBAIC01MzksNyArNTQxLDggQEAgaW50IGFtZGdwdV9ib19waW5fcmVzdHJp
-Y3RlZChzdHJ1Y3QgYW1kZ3B1X2JvDQo+ICpibywgdTMyIGRvbWFpbiwNCj4gIAkJLyogZm9yY2Ug
-dG8gcGluIGludG8gdmlzaWJsZSB2aWRlbyByYW0gKi8NCj4gIAkJaWYgKChiby0+cGxhY2VtZW50
-c1tpXS5mbGFncyAmIFRUTV9QTF9GTEFHX1ZSQU0pICYmDQo+ICAJCSAgICAhKGJvLT5mbGFncyAm
-IEFNREdQVV9HRU1fQ1JFQVRFX05PX0NQVV9BQ0NFU1MpDQo+ICYmDQo+IC0JCSAgICAoIW1heF9v
-ZmZzZXQgfHwgbWF4X29mZnNldCA+IGJvLT5hZGV2LQ0KPiA+bWMudmlzaWJsZV92cmFtX3NpemUp
-KSB7DQo+ICsJCSAgICAoIW1heF9vZmZzZXQgfHwgbWF4X29mZnNldCA+DQo+ICsJCSAgICAgYm8t
-PmFkZXYtPm1jLnZpc2libGVfdnJhbV9zaXplKSkgew0KPiAgCQkJaWYgKFdBUk5fT05fT05DRSht
-aW5fb2Zmc2V0ID4NCj4gIAkJCQkJIGJvLT5hZGV2LT5tYy52aXNpYmxlX3ZyYW1fc2l6ZSkpDQo+
-ICAJCQkJcmV0dXJuIC1FSU5WQUw7DQo+IEBAIC01NTgsMTkgKzU2MSwyMyBAQCBpbnQgYW1kZ3B1
-X2JvX3Bpbl9yZXN0cmljdGVkKHN0cnVjdCBhbWRncHVfYm8NCj4gKmJvLCB1MzIgZG9tYWluLA0K
-PiAgCX0NCj4gDQo+ICAJciA9IHR0bV9ib192YWxpZGF0ZSgmYm8tPnRibywgJmJvLT5wbGFjZW1l
-bnQsIGZhbHNlLCBmYWxzZSk7DQo+IC0JaWYgKGxpa2VseShyID09IDApKSB7DQo+IC0JCWJvLT5w
-aW5fY291bnQgPSAxOw0KPiAtCQlpZiAoZ3B1X2FkZHIgIT0gTlVMTCkNCj4gLQkJCSpncHVfYWRk
-ciA9IGFtZGdwdV9ib19ncHVfb2Zmc2V0KGJvKTsNCj4gLQkJaWYgKGRvbWFpbiA9PSBBTURHUFVf
-R0VNX0RPTUFJTl9WUkFNKSB7DQo+IC0JCQliby0+YWRldi0+dnJhbV9waW5fc2l6ZSArPSBhbWRn
-cHVfYm9fc2l6ZShibyk7DQo+IC0JCQlpZiAoYm8tPmZsYWdzICYNCj4gQU1ER1BVX0dFTV9DUkVB
-VEVfTk9fQ1BVX0FDQ0VTUykNCj4gLQkJCQliby0+YWRldi0+aW52aXNpYmxlX3Bpbl9zaXplICs9
-DQo+IGFtZGdwdV9ib19zaXplKGJvKTsNCj4gLQkJfSBlbHNlDQo+IC0JCQliby0+YWRldi0+Z2Fy
-dF9waW5fc2l6ZSArPSBhbWRncHVfYm9fc2l6ZShibyk7DQo+IC0JfSBlbHNlIHsNCj4gKwlpZiAo
-dW5saWtlbHkocikpIHsNCj4gIAkJZGV2X2Vycihiby0+YWRldi0+ZGV2LCAiJXAgcGluIGZhaWxl
-ZFxuIiwgYm8pOw0KPiArCQlnb3RvIGVycm9yOw0KPiArCX0NCj4gKw0KPiArCWJvLT5waW5fY291
-bnQgPSAxOw0KPiArCWlmIChncHVfYWRkciAhPSBOVUxMKQ0KPiArCQkqZ3B1X2FkZHIgPSBhbWRn
-cHVfYm9fZ3B1X29mZnNldChibyk7DQo+ICsJaWYgKGRvbWFpbiA9PSBBTURHUFVfR0VNX0RPTUFJ
-Tl9WUkFNKSB7DQo+ICsJCWJvLT5hZGV2LT52cmFtX3Bpbl9zaXplICs9IGFtZGdwdV9ib19zaXpl
-KGJvKTsNCj4gKwkJaWYgKGJvLT5mbGFncyAmIEFNREdQVV9HRU1fQ1JFQVRFX05PX0NQVV9BQ0NF
-U1MpDQo+ICsJCQliby0+YWRldi0+aW52aXNpYmxlX3Bpbl9zaXplICs9DQo+IGFtZGdwdV9ib19z
-aXplKGJvKTsNCj4gKwl9IGVsc2Ugew0KPiArCQliby0+YWRldi0+Z2FydF9waW5fc2l6ZSArPSBh
-bWRncHVfYm9fc2l6ZShibyk7DQo+ICAJfQ0KPiArDQo+ICtlcnJvcjoNCj4gIAlyZXR1cm4gcjsN
-Cj4gIH0NCj4gDQo+IEBAIC01OTUsMTYgKzYwMiwyMCBAQCBpbnQgYW1kZ3B1X2JvX3VucGluKHN0
-cnVjdCBhbWRncHVfYm8gKmJvKQ0KPiAgCQliby0+cGxhY2VtZW50c1tpXS5mbGFncyAmPSB+VFRN
-X1BMX0ZMQUdfTk9fRVZJQ1Q7DQo+ICAJfQ0KPiAgCXIgPSB0dG1fYm9fdmFsaWRhdGUoJmJvLT50
-Ym8sICZiby0+cGxhY2VtZW50LCBmYWxzZSwgZmFsc2UpOw0KPiAtCWlmIChsaWtlbHkociA9PSAw
-KSkgew0KPiAtCQlpZiAoYm8tPnRiby5tZW0ubWVtX3R5cGUgPT0gVFRNX1BMX1ZSQU0pIHsNCj4g
-LQkJCWJvLT5hZGV2LT52cmFtX3Bpbl9zaXplIC09IGFtZGdwdV9ib19zaXplKGJvKTsNCj4gLQkJ
-CWlmIChiby0+ZmxhZ3MgJg0KPiBBTURHUFVfR0VNX0NSRUFURV9OT19DUFVfQUNDRVNTKQ0KPiAt
-CQkJCWJvLT5hZGV2LT5pbnZpc2libGVfcGluX3NpemUgLT0NCj4gYW1kZ3B1X2JvX3NpemUoYm8p
-Ow0KPiAtCQl9IGVsc2UNCj4gLQkJCWJvLT5hZGV2LT5nYXJ0X3Bpbl9zaXplIC09IGFtZGdwdV9i
-b19zaXplKGJvKTsNCj4gLQl9IGVsc2Ugew0KPiArCWlmICh1bmxpa2VseShyKSkgew0KPiAgCQlk
-ZXZfZXJyKGJvLT5hZGV2LT5kZXYsICIlcCB2YWxpZGF0ZSBmYWlsZWQgZm9yIHVucGluXG4iLA0K
-PiBibyk7DQo+ICsJCWdvdG8gZXJyb3I7DQo+ICAJfQ0KPiArDQo+ICsJaWYgKGJvLT50Ym8ubWVt
-Lm1lbV90eXBlID09IFRUTV9QTF9WUkFNKSB7DQo+ICsJCWJvLT5hZGV2LT52cmFtX3Bpbl9zaXpl
-IC09IGFtZGdwdV9ib19zaXplKGJvKTsNCj4gKwkJaWYgKGJvLT5mbGFncyAmIEFNREdQVV9HRU1f
-Q1JFQVRFX05PX0NQVV9BQ0NFU1MpDQo+ICsJCQliby0+YWRldi0+aW52aXNpYmxlX3Bpbl9zaXpl
-IC09DQo+IGFtZGdwdV9ib19zaXplKGJvKTsNCj4gKwl9IGVsc2Ugew0KPiArCQliby0+YWRldi0+
-Z2FydF9waW5fc2l6ZSAtPSBhbWRncHVfYm9fc2l6ZShibyk7DQo+ICsJfQ0KPiArDQo+ICtlcnJv
-cjoNCj4gIAlyZXR1cm4gcjsNCj4gIH0NCj4gDQo+IEBAIC03NzUsNyArNzg2LDggQEAgaW50IGFt
-ZGdwdV9ib19mYXVsdF9yZXNlcnZlX25vdGlmeShzdHJ1Y3QNCj4gdHRtX2J1ZmZlcl9vYmplY3Qg
-KmJvKQ0KPiAgCWZvciAoaSA9IDA7IGkgPCBhYm8tPnBsYWNlbWVudC5udW1fcGxhY2VtZW50OyBp
-KyspIHsNCj4gIAkJLyogRm9yY2UgaW50byB2aXNpYmxlIFZSQU0gKi8NCj4gIAkJaWYgKChhYm8t
-PnBsYWNlbWVudHNbaV0uZmxhZ3MgJiBUVE1fUExfRkxBR19WUkFNKSAmJg0KPiAtCQkgICAgKCFh
-Ym8tPnBsYWNlbWVudHNbaV0ubHBmbiB8fCBhYm8tPnBsYWNlbWVudHNbaV0ubHBmbiA+DQo+IGxw
-Zm4pKQ0KPiArCQkgICAgKCFhYm8tPnBsYWNlbWVudHNbaV0ubHBmbiB8fA0KPiArCQkgICAgIGFi
-by0+cGxhY2VtZW50c1tpXS5scGZuID4gbHBmbikpDQo+ICAJCQlhYm8tPnBsYWNlbWVudHNbaV0u
-bHBmbiA9IGxwZm47DQo+ICAJfQ0KPiAgCXIgPSB0dG1fYm9fdmFsaWRhdGUoYm8sICZhYm8tPnBs
-YWNlbWVudCwgZmFsc2UsIGZhbHNlKTsNCj4gLS0NCj4gMi41LjANCj4gDQo+IF9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+IGFtZC1nZnggbWFpbGluZyBs
-aXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IGh0dHBzOi8vbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============0294200245==
+Content-Type: multipart/alternative; boundary=94eb2c14710aba04e30539e35df2
+
+--94eb2c14710aba04e30539e35df2
+Content-Type: text/plain; charset=UTF-8
+
+Hi again,
+
+I'm talking about modifying radeon's side to mimic amdgpu's behavior, sorry
+for the confusion.
+
+Cheers,
+Alexandre
+
+On Fri, 12 Aug 2016 at 12:17 StDenis, Tom <Tom.StDenis-5C7GfCeVMHo@public.gmane.org> wrote:
+
+> Hi Alex,
+>
+>
+> I'm unsure of what patch you have specifically.  Are you suggesting to
+> modify the radeon side to mimic the behaviour?  Or to revert the amdgpu
+> changes?  I  think reverting the amdgpu side won't go over well.  It's
+> churn and the current approach is arguably better for a number of reasons
+> namely it's better defined behaviour and generally speaking if during
+> module init a kmalloc of 100 bytes fails something bad is happening and you
+> want to abort init anyways (so failing to load just because part of DCE
+> fails is probably a good thing).
+>
+>
+> Tom
+>
+>
+>
+>
+>
+> ------------------------------
+> *From:* Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+> *Sent:* Friday, August 12, 2016 12:11
+> *To:* StDenis, Tom; Freedesktop - AMD-gfx
+> *Cc:* Alexander Deucher
+> *Subject:* Re: radeon VS amdgpu: _afmt_init() behavior if kzalloc fails
+>
+> Thanks for the quick answer Tom. I was thinking mostly as you do, but
+> before sending the patch to the list, I wanted to be sure it was worth it.
+>
+> I'll send the patch later then, unless someone says otherwise.
+>
+> Cheers,
+> Alexandre
+>
+> On Fri, 12 Aug 2016 at 11:50 StDenis, Tom <Tom.StDenis-5C7GfCeVMHo@public.gmane.org> wrote:
+>
+>> Hi,
+>>
+>>
+>> I wrote those changes back in March as part of a cleanup sweep.  The idea
+>> being was that if some had failed the state of the driver would be unknown
+>> so it was cleaner to simply abort allocating any memory and set all of the
+>> pointers to NULL.
+>>
+>>
+>> Generally speaking if you fail to kmalloc a few bytes you've got bigger
+>> problems to worry about than your audio not working ideally.
+>>
+>>
+>> Tom
+>>
+>>
+>> ------------------------------
+>> *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of
+>> Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+>> *Sent:* Friday, August 12, 2016 11:43
+>> *To:* Freedesktop - AMD-gfx
+>> *Cc:* Alexander Deucher
+>> *Subject:* radeon VS amdgpu: _afmt_init() behavior if kzalloc fails
+>>
+>> Hi,
+>>
+>> While comparing radeon's radeon_afmt_init() to dce_vX_0_afmt_init() on
+>> the amdgpu's side, I saw that on the latter:
+>> 1- when kzalloc fails to allocate mem for all afmt, an ENOMEM is returned
+>> 2- all previously allocated afmt are freed
+>>
+>> So on the amdgpu's side, it is an "all or none allocated" situation,
+>> while on the radeon's side, some afmt may be allocated and initialized.
+>>
+>> Moreover, returning an ENOMEM prevents any other function calls in
+>> dce_vX_0_sw_init() on the amdgpu's side, while it continues on the
+>> radeon's side.
+>>
+>> What is the expected behavior here? Should we rewind the memory
+>> allocation as it is done under amdgpu when we can't allocate memory for all
+>> afmt or is it OK to do as it is done on radeon? Should we stop any
+>> remaining steps in radeon_modeset_init() if it fails (thus, returning a
+>> ENOMEM from radeon_afmt_init())?
+>>
+>> The patch is already ready if needed, I could send it later from home if
+>> the amdgpu's behavior is the one that we are looking for.
+>>
+>> Cheers,
+>> Alexandre Demers
+>>
+>
+
+--94eb2c14710aba04e30539e35df2
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi again,<div><br></div><div>I&#39;m talking about modifyi=
+ng radeon&#39;s side to mimic amdgpu&#39;s behavior, sorry for the confusio=
+n.</div><div><br></div><div>Cheers,</div><div>Alexandre</div><div><br><div =
+class=3D"gmail_quote"><div dir=3D"ltr">On Fri, 12 Aug 2016 at 12:17 StDenis=
+, Tom &lt;<a href=3D"mailto:Tom.StDenis-5C7GfCeVMHo@public.gmane.org">Tom.StDenis-5C7GfCeVMHo@public.gmane.org</a>&gt=
+; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .=
+8ex;border-left:1px #ccc solid;padding-left:1ex">
+
+
+
+
+<div dir=3D"ltr">
+<div style=3D"font-size:12pt;color:#000000;background-color:#ffffff;font-fa=
+mily:Calibri,Arial,Helvetica,sans-serif">
+<p>Hi Alex,</p>
+<p><br>
+</p>
+<p>I&#39;m unsure of what patch you have specifically.=C2=A0 Are you sugges=
+ting to modify the radeon side to mimic the behaviour?=C2=A0 Or to revert t=
+he amdgpu changes?=C2=A0 I =C2=A0think reverting the amdgpu side won&#39;t =
+go over well.=C2=A0 It&#39;s churn and the current approach is arguably
+ better for a number of reasons namely it&#39;s better defined behaviour an=
+d generally speaking if during module init a kmalloc of 100 bytes fails som=
+ething bad is happening and you want to abort init anyways (so failing to l=
+oad just because part of DCE fails is
+ probably a good thing).</p>
+<p><br>
+</p>
+<p>Tom</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<br>
+<br>
+<div style=3D"color:rgb(0,0,0)">
+<hr style=3D"display:inline-block;width:98%">
+<div dir=3D"ltr"><font face=3D"Calibri, sans-serif" color=3D"#000000" style=
+=3D"font-size:11pt"><b>From:</b> Alexandre Demers &lt;<a href=3D"mailto:ale=
+xandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</=
+a>&gt;<br>
+<b>Sent:</b> Friday, August 12, 2016 12:11<br>
+<b>To:</b> StDenis, Tom; Freedesktop - AMD-gfx<br>
+<b>Cc:</b> Alexander Deucher<br>
+<b>Subject:</b> Re: radeon VS amdgpu: _afmt_init() behavior if kzalloc fail=
+s</font>
+<div>=C2=A0</div>
+</div></div></div></div><div dir=3D"ltr"><div style=3D"font-size:12pt;color=
+:#000000;background-color:#ffffff;font-family:Calibri,Arial,Helvetica,sans-=
+serif"><div style=3D"color:rgb(0,0,0)">
+<div>
+<div dir=3D"ltr">Thanks for the quick answer Tom.=C2=A0<span style=3D"line-=
+height:1.5">I was thinking mostly as you do, but before sending the patch t=
+o the list, I wanted to be sure it was worth it.</span>
+<div><br>
+<div>I&#39;ll send the patch later then, unless someone says otherwise.</di=
+v>
+<div><br>
+</div>
+<div>Cheers,</div>
+<div>Alexandre</div>
+</div>
+</div>
+<br>
+<div class=3D"gmail_quote">
+<div dir=3D"ltr">On Fri, 12 Aug 2016 at 11:50 StDenis, Tom &lt;<a href=3D"m=
+ailto:Tom.StDenis-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">Tom.StDenis-5C7GfCeVMHo@public.gmane.org</a>&gt; wr=
+ote:<br>
+</div>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+<div dir=3D"ltr">
+<div style=3D"font-size:12pt;color:#000000;background-color:#ffffff;font-fa=
+mily:Calibri,Arial,Helvetica,sans-serif">
+<p>Hi,</p>
+<p><br>
+</p>
+<p>I wrote those changes back in March as part of a cleanup sweep.=C2=A0 Th=
+e idea being was that if some had failed the state of the driver would be u=
+nknown so it was cleaner to simply abort allocating any memory and set all =
+of the pointers to NULL.</p>
+<p><br>
+</p>
+<p>Generally speaking if you fail to kmalloc a few bytes you&#39;ve got big=
+ger problems to worry about than your audio not working ideally.</p>
+<p><br>
+</p>
+<p>Tom</p>
+<br>
+<br>
+<div style=3D"color:rgb(0,0,0)">
+<hr style=3D"display:inline-block;width:98%">
+<div dir=3D"ltr"><font face=3D"Calibri, sans-serif" color=3D"#000000" style=
+=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;<a href=3D"mailto:amd-gfx-boun=
+ces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx-bounces-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
+top.org</a>&gt; on behalf of Alexandre Demers &lt;<a href=3D"mailto:alexand=
+re.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&g=
+t;<br>
+<b>Sent:</b> Friday, August 12, 2016 11:43<br>
+<b>To:</b> Freedesktop - AMD-gfx<br>
+<b>Cc:</b> Alexander Deucher<br>
+<b>Subject:</b> radeon VS amdgpu: _afmt_init() behavior if kzalloc fails</f=
+ont>
+<div>=C2=A0</div>
+</div>
+</div>
+</div>
+</div>
+<div dir=3D"ltr">
+<div style=3D"font-size:12pt;color:#000000;background-color:#ffffff;font-fa=
+mily:Calibri,Arial,Helvetica,sans-serif">
+<div style=3D"color:rgb(0,0,0)">
+<div>
+<div dir=3D"ltr">Hi,
+<div><br>
+</div>
+<div>While comparing radeon&#39;s radeon_afmt_init() to dce_vX_0_afmt_init(=
+) on the amdgpu&#39;s side, I saw that on the latter:</div>
+<div>1- when kzalloc fails to allocate mem for all afmt, an ENOMEM is retur=
+ned</div>
+<div>2- all previously allocated afmt are freed</div>
+<div><br>
+</div>
+<div>So on the amdgpu&#39;s side, it is an &quot;all or none allocated&quot=
+; situation, while on the radeon&#39;s side, some afmt may be allocated and=
+ initialized.</div>
+<div><br>
+</div>
+<div>Moreover, returning an ENOMEM prevents any other function calls in=C2=
+=A0<span style=3D"font-size:13.3333px;line-height:normal">dce_vX_0_</span><=
+span style=3D"font-size:13.3333px;line-height:normal">sw_init() on the amdg=
+pu&#39;s side, while it continues on the radeon&#39;s
+ side.</span><br>
+</div>
+<div><span style=3D"font-size:13.3333px;line-height:normal"><br>
+</span></div>
+<div><span style=3D"font-size:13.3333px;line-height:normal">What is the exp=
+ected behavior here? Should we rewind the memory allocation as it is done u=
+nder amdgpu when we can&#39;t allocate memory for all afmt or is it OK to d=
+o as it is done on radeon? Should we
+ stop any remaining steps in radeon_modeset_init() if it fails (thus, retur=
+ning a ENOMEM from radeon_afmt_init())?</span></div>
+<div><span style=3D"font-size:13.3333px;line-height:normal"><br>
+</span></div>
+<div><span style=3D"font-size:13.3333px;line-height:normal">The patch is al=
+ready ready if needed, I could send it later from home if the amdgpu&#39;s =
+behavior is the one that we are looking for.</span></div>
+<div><span style=3D"font-size:13.3333px;line-height:normal"><br>
+</span></div>
+<div><span style=3D"font-size:13.3333px;line-height:normal">Cheers,</span><=
+/div>
+<div><span style=3D"font-size:13.3333px;line-height:normal">Alexandre Demer=
+s</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</blockquote>
+</div>
+</div>
+</div></div></div></blockquote></div></div></div>
+
+--94eb2c14710aba04e30539e35df2--
+
+--===============0294200245==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0294200245==--
