@@ -1,14 +1,19 @@
-From: Jarkko Korpi <jarkko_korpi-PkbjNfxxIARBDgjK7y7TUQ@public.gmane.org>
-Subject: Re: Adjusting memory speed according to display
-Date: Fri, 12 Aug 2016 14:24:43 +0000
-Message-ID: <AM3PR08MB0277EE673A9569D49FC86CC0E91F0@AM3PR08MB0277.eurprd08.prod.outlook.com>
-References: <DB3PR08MB0281EA56C2099894FA675529E91F0@DB3PR08MB0281.eurprd08.prod.outlook.com>,
- <MWHPR12MB1694052EA89D3EC1DFD29E7EF71F0@MWHPR12MB1694.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 3/4] drm/amd/amdgpu: VCE v2 register cleanup
+Date: Fri, 12 Aug 2016 10:54:33 -0400
+Message-ID: <CADnq5_NyeotaLQUjKqBHnEH525DEqaPH+2S0a9biV+BAx98n_w@mail.gmail.com>
+References: <20160811143253.24718-1-tom.stdenis@amd.com>
+ <20160811143253.24718-4-tom.stdenis@amd.com>
+ <MWHPR12MB1694FE8258E0ADB4F32DC885F71E0@MWHPR12MB1694.namprd12.prod.outlook.com>
+ <DM5PR12MB1132A35D1BAAB0027D5FE23AF71E0@DM5PR12MB1132.namprd12.prod.outlook.com>
+ <MWHPR12MB1694A14EF7C0FAD8E46B5A97F71E0@MWHPR12MB1694.namprd12.prod.outlook.com>
+ <57AD2BC7.70709@amd.com>
+ <MWHPR12MB1694519FD1F5113FBA3EC20CF71F0@MWHPR12MB1694.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1049872011=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MWHPR12MB1694052EA89D3EC1DFD29E7EF71F0-Gy0DoCVfaSW4WA4dJ5YXGAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <MWHPR12MB1694519FD1F5113FBA3EC20CF71F0-Gy0DoCVfaSW4WA4dJ5YXGAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,228 +25,143 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, "Zhou,
+ David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1049872011==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_AM3PR08MB0277EE673A9569D49FC86CC0E91F0AM3PR08MB0277eurp_"
-
---_000_AM3PR08MB0277EE673A9569D49FC86CC0E91F0AM3PR08MB0277eurp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Can you give me correct command to manually set up clocks high or low? ARCH=
- based quides are usully really good, but not all the commands it suggests =
-dont work. I get no permission errors. Most likely I am trying the wrong di=
-rectory/gpu. I got intel skylake 6600K, which has integrated intel gpu.
-
-
-It's hard to remember the exact locations of directories so I made myself a=
- script that prints the output of current clocks.
-
-
-cat /sys/class/drm/card0/device/pp_dpm_sclk
-cat /sys/class/drm/card0/device/pp_dpm_mclk
-cat /sys/class/drm/card0/device/power_dpm_state
-
-
-These lines work just fine. So I assume the ati is card0. It's also used vi=
-a DP.
-
-
-Also lowering the voltage or speed of memory would help a bit. But either o=
-f these is manually adjustable?
-
-
-________________________________
-From: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Sent: Friday, August 12, 2016 2:08 PM
-To: 'Jarkko Korpi'; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: RE: Adjusting memory speed according to display
-
-
-You have to set up the display to send audio data over HDMI.  The audio is =
-embedded in the stream.  You have to set up the video stream to use audio. =
- You need to raise the memory clocks to provide the necessary bandwidth for=
- multiple display and dynamic mclk switching is not supported with multiple=
- displays enabled because the switches are done during the vertical blankin=
-g period.  If you have multiple displays with different timing, the blankin=
-g periods do not match so glitch free switching is not possible.
-
-
-
-If you want more control, you can use the sysfs files to either manually fo=
-rce the clocks low or high or manually  enable only specific clock levels f=
-or sclk and mclk.
-
-
-
-Alex
-
-
-
-From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf Of J=
-arkko Korpi
-Sent: Thursday, August 11, 2016 9:45 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Adjusting memory speed according to display
-
-
-
-I have rx480 which I connect into 1920x1080 pc screen via DP and audio into=
- external amplifier via HDMI. This causes rx480 to raise the memory speed t=
-o 2000 while doing really simple tasks like watching youtube. I really dont=
- need thatkind of speed for memory. And I am not aware that it's possible t=
-o change between 300mhz 2000mhz memory speeds, but gpu supports this in ste=
-ps which would be really great for memory too. I only need the audio data s=
-ubmited to the amplifier. Is it possible somehow to form a patch that it so=
-mehow recognizes my amplifier and understands that I am sending audio that =
-I dont need/want it to max the memory speed? I would be really happy for su=
-ch patch for personal use. If it's too hacky to be merged into upstream.
-
---_000_AM3PR08MB0277EE673A9569D49FC86CC0E91F0AM3PR08MB0277eurp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;back=
-ground-color:#FFFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
-<p>Can you give me correct command to manually set up clocks high or low? A=
-RCH based quides are usully really good, but not all the commands it sugges=
-ts dont work. I get no permission errors. Most likely I am trying the wrong=
- directory/gpu. I got intel skylake
- 6600K, which has integrated intel gpu. <br>
-</p>
-<p><br>
-</p>
-<p>It's hard to remember the exact locations of directories so I made mysel=
-f a script that prints the output of current clocks.<br>
-</p>
-<p><br>
-</p>
-<div>cat /sys/class/drm/card0/device/pp_dpm_sclk<br>
-cat /sys/class/drm/card0/device/pp_dpm_mclk<br>
-cat /sys/class/drm/card0/device/power_dpm_state <br>
-</div>
-<br>
-<p>These lines work just fine. So I assume the ati is card0. It's also used=
- via DP.
-<br>
-</p>
-<p><br>
-</p>
-<p>Also lowering the voltage or speed of memory would help a bit.&nbsp;But =
-either of these is manually adjustable?<br>
-</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> Deucher, Alexander =
-&lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Friday, August 12, 2016 2:08 PM<br>
-<b>To:</b> 'Jarkko Korpi'; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> RE: Adjusting memory speed according to display</font>
-<div>&nbsp;</div>
-</div>
-<div>
-<div style=3D"">
-<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
-imes New Roman&quot;,&quot;serif&quot;;">
-<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,&quot;sans=
--serif&quot;; color:#1F497D">You have to set up the display to send audio d=
-ata over HDMI.&nbsp; The audio is embedded in the stream.&nbsp; You have to=
- set up the video stream to use audio.&nbsp; You need to raise the memory
- clocks to provide the necessary bandwidth for multiple display and dynamic=
- mclk switching is not supported with multiple displays enabled because the=
- switches are done during the vertical blanking period.&nbsp; If you have m=
-ultiple displays with different timing,
- the blanking periods do not match so glitch free switching is not possible=
-.</span></p>
-<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
-imes New Roman&quot;,&quot;serif&quot;;">
-<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,&quot;sans=
--serif&quot;; color:#1F497D">&nbsp;</span></p>
-<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
-imes New Roman&quot;,&quot;serif&quot;;">
-<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,&quot;sans=
--serif&quot;; color:#1F497D">If you want more control, you can use the sysf=
-s files to either manually force the clocks low or high or manually&nbsp; e=
-nable only specific clock levels for sclk and mclk.</span></p>
-<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
-imes New Roman&quot;,&quot;serif&quot;;">
-<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,&quot;sans=
--serif&quot;; color:#1F497D">&nbsp;</span></p>
-<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
-imes New Roman&quot;,&quot;serif&quot;;">
-<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,&quot;sans=
--serif&quot;; color:#1F497D">Alex</span></p>
-<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
-imes New Roman&quot;,&quot;serif&quot;;">
-<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,&quot;sans=
--serif&quot;; color:#1F497D">&nbsp;</span></p>
-<div style=3D"border:none; border-left:solid blue 1.5pt; padding:0in 0in 0i=
-n 4.0pt">
-<div>
-<div style=3D"border:none; border-top:solid #B5C4DF 1.0pt; padding:3.0pt 0i=
-n 0in 0in">
-<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
-imes New Roman&quot;,&quot;serif&quot;;">
-<b><span style=3D"font-size:10.0pt; font-family:&quot;Tahoma&quot;,&quot;sa=
-ns-serif&quot;">From:</span></b><span style=3D"font-size:10.0pt; font-famil=
-y:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> amd-gfx [mailto:amd-gfx-bounc=
-es-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org]
-<b>On Behalf Of </b>Jarkko Korpi<br>
-<b>Sent:</b> Thursday, August 11, 2016 9:45 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Adjusting memory speed according to display</span></p>
-</div>
-</div>
-<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
-imes New Roman&quot;,&quot;serif&quot;;">
-&nbsp;</p>
-<div id=3D"divtagdefaultwrapper">
-<p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
-;,&quot;sans-serif&quot;; color:black">I have rx480 which I connect into 19=
-20x1080 pc screen via DP and audio into external amplifier via HDMI. This c=
-auses rx480 to raise the memory speed to 2000 while doing
- really simple tasks like watching youtube. I really dont need thatkind of =
-speed for memory. And I am not aware that it's possible to change between 3=
-00mhz 2000mhz memory speeds, but gpu supports this in steps which would be =
-really great for memory too. I only
- need the audio data submited to the amplifier. Is it possible somehow to f=
-orm a patch that it somehow recognizes my amplifier and understands that I =
-am sending audio that I dont need/want it to max the memory speed? I would =
-be really happy for such patch for
- personal use. If it's too hacky to be merged into upstream.</span></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_AM3PR08MB0277EE673A9569D49FC86CC0E91F0AM3PR08MB0277eurp_--
-
---===============1049872011==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1049872011==--
+T24gRnJpLCBBdWcgMTIsIDIwMTYgYXQgMTA6MDEgQU0sIERldWNoZXIsIEFsZXhhbmRlcgo8QWxl
+eGFuZGVyLkRldWNoZXJAYW1kLmNvbT4gd3JvdGU6Cj4gSW4gdGhhdCBjYXNlOgoKRm9yIHRoZSBz
+ZXJpZXM6Cgo+Cj4gUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJA
+YW1kLmNvbT4KPgo+Cj4KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1kLWdmeC1ib3VuY2VzQGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmIE9mCj4gemhvdWNtMQo+IFNlbnQ6IFRodXJz
+ZGF5LCBBdWd1c3QgMTEsIDIwMTYgOTo1MiBQTQo+IFRvOiBEZXVjaGVyLCBBbGV4YW5kZXI7IFN0
+RGVuaXMsIFRvbTsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPgo+Cj4gU3ViamVjdDog
+UmU6IFtQQVRDSCAzLzRdIGRybS9hbWQvYW1kZ3B1OiBWQ0UgdjIgcmVnaXN0ZXIgY2xlYW51cAo+
+Cj4KPgo+IEFncmVlIHdpdGggVG9tLgo+Cj4gT24gMjAxNuW5tDA45pyIMTLml6UgMDA6MDksIERl
+dWNoZXIsIEFsZXhhbmRlciB3cm90ZToKPgo+IEkgZ3Vlc3MgSSBkb24ndCByZWFsbHkgaGF2ZSBh
+IHBhcnRpY3VsYXJseSBzdHJvbmcgb3BpbmlvbiBlaXRoZXIgd2F5LiAgSWYKPiBvdGhlcnMgYXJl
+IG9rIHdpdGggaXQsIEknbSBmaW5lIHdpdGggaXQuCj4KPgo+Cj4gQWxleAo+Cj4KPgo+IEZyb206
+IFN0RGVuaXMsIFRvbQo+IFNlbnQ6IFRodXJzZGF5LCBBdWd1c3QgMTEsIDIwMTYgMTE6NDggQU0K
+PiBUbzogRGV1Y2hlciwgQWxleGFuZGVyOyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+
+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggMy80XSBkcm0vYW1kL2FtZGdwdTogVkNFIHYyIHJlZ2lzdGVy
+IGNsZWFudXAKPgo+Cj4KPiBKdXN0IHRyeWluZyB0byBtYWtlIGl0IGVhc2llciB0byByZWFkLgo+
+Cj4KPgo+IFdSRUczMl9GSUVMRChmb28sIEZJRUxELCAxKTsKPgo+Cj4KPiBJcyBlYXNpZXIgdG8g
+cmVhZCB0aGFuCj4KPgo+Cj4gV1JFRzMyX1AoZm9vLCBGT09fX0ZJRUxEX01BU0ssIH5GT09fX0ZJ
+RUxEX01BU0spOwo+Cj4KPgo+IChhbHNvIEkgYWxyZWFkeSBwdXNoZWQgdGhlbSBhZnRlciBnZXR0
+aW5nIGEgUkIgYnkgQ2hyaXN0aWFuIHRoaXMgbW9ybmluZyBzbwo+IHdlIG1pZ2h0IG5lZWQgdG8g
+aG9sZCBhIGRpZmZlcmVudCBkaXNjdXNzaW9uKS4KPgo+Cj4KPiBJIGFncmVlIGl0J3Mgbm90IHJl
+YWxseSBhIGZ1bmN0aW9uYWwgY2hhbmdlIGJ1dCBtYWtpbmcgdGhpbmdzIGEgYml0IG1vcmUKPiB1
+bmlmb3JtIGFuZCBlYXNpZXIgdG8gcmVhZCBoZWxwcyBtYWludGVuYW5jZS4gIEFuZCBJIGRpZCBm
+aW5kIGEgYnVnIGluIHRoZQo+IHByb2Nlc3MgOi0pCj4KPgo+Cj4gVG9tCj4KPgo+Cj4gX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KPgo+IEZyb206IERldWNoZXIsIEFsZXhhbmRlcgo+
+IFNlbnQ6IFRodXJzZGF5LCBBdWd1c3QgMTEsIDIwMTYgMTE6NDYKPiBUbzogJ1RvbSBTdCBEZW5p
+cyc7IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gQ2M6IFN0RGVuaXMsIFRvbQo+IFN1
+YmplY3Q6IFJFOiBbUEFUQ0ggMy80XSBkcm0vYW1kL2FtZGdwdTogVkNFIHYyIHJlZ2lzdGVyIGNs
+ZWFudXAKPgo+Cj4KPj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPj4gRnJvbTogYW1kLWdm
+eCBbbWFpbHRvOmFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmddIE9uIEJlaGFs
+Zgo+PiBPZiBUb20gU3QgRGVuaXMKPj4gU2VudDogVGh1cnNkYXksIEF1Z3VzdCAxMSwgMjAxNiAx
+MDozMyBBTQo+PiBUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4gQ2M6IFN0RGVu
+aXMsIFRvbQo+PiBTdWJqZWN0OiBbUEFUQ0ggMy80XSBkcm0vYW1kL2FtZGdwdTogVkNFIHYyIHJl
+Z2lzdGVyIGNsZWFudXAKPj4KPj4gU2lnbmVkLW9mZi1ieTogVG9tIFN0IERlbmlzIDx0b20uc3Rk
+ZW5pc0BhbWQuY29tPgo+Cj4gQSBjb3VwbGUgcGllY2VzIG9mIHRoaXMgcGF0Y2ggY291bGQgYmUg
+c3BsaXQgb3V0IGFzIHNlcGFyYXRlIGNsZWFudXBzIChzZWUKPiBiZWxvdykuICBIb3dldmVyLCBJ
+J20gbm90IHN1cmUgaG93IG11Y2ggdmFsdWUgdGhlcmUgaXMgaW4gc3dpdGNoaW5nIFdSRUczMl9Q
+Cj4gZm9yIFdSRUdfRklFTEQgb3RoZXIgdGhhbiBjb2RlIGNodXJuLiAgVGhleSBiYXNpY2FsbHkg
+ZG8gdGhlIHNhbWUgdGhpbmcuCj4KPiBBbGV4Cj4KPj4gLS0tCj4+ICBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS92Y2VfdjJfMC5jIHwgMzkgKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0KPj4g
+LS0tLS0tLS0tCj4+ICAxIGZpbGUgY2hhbmdlZCwgMTQgaW5zZXJ0aW9ucygrKSwgMjUgZGVsZXRp
+b25zKC0pCj4+Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y2Vf
+djJfMC5jCj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNlX3YyXzAuYwo+PiBpbmRl
+eCA4MGEzN2E2MDIxODEuLjIxYmEyMTllOTQzYiAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvdmNlX3YyXzAuYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS92Y2VfdjJfMC5jCj4+IEBAIC0xMjcsMTUgKzEyNywxMCBAQCBzdGF0aWMgaW50IHZjZV92
+Ml8wX3N0YXJ0KHN0cnVjdCBhbWRncHVfZGV2aWNlCj4+ICphZGV2KQo+PiAgICAgICAgV1JFRzMy
+KG1tVkNFX1JCX0JBU0VfSEkyLCB1cHBlcl8zMl9iaXRzKHJpbmctPmdwdV9hZGRyKSk7Cj4+ICAg
+ICAgICBXUkVHMzIobW1WQ0VfUkJfU0laRTIsIHJpbmctPnJpbmdfc2l6ZSAvIDQpOwo+Pgo+PiAt
+ICAgICBXUkVHMzJfUChtbVZDRV9WQ1BVX0NOVEwsCj4+IFZDRV9WQ1BVX0NOVExfX0NMS19FTl9N
+QVNLLCB+VkNFX1ZDUFVfQ05UTF9fQ0xLX0VOX01BU0spOwo+PiAtCj4+IC0gICAgIFdSRUczMl9Q
+KG1tVkNFX1NPRlRfUkVTRVQsCj4+IC0gICAgICAgICAgICAgIFZDRV9TT0ZUX1JFU0VUX19FQ1BV
+X1NPRlRfUkVTRVRfTUFTSywKPj4gLSAgICAgICAgICAgICAgflZDRV9TT0ZUX1JFU0VUX19FQ1BV
+X1NPRlRfUkVTRVRfTUFTSyk7Cj4+IC0KPj4gKyAgICAgV1JFRzMyX0ZJRUxEKFZDRV9WQ1BVX0NO
+VEwsIENMS19FTiwgMSk7Cj4+ICsgICAgIFdSRUczMl9GSUVMRChWQ0VfU09GVF9SRVNFVCwgRUNQ
+VV9TT0ZUX1JFU0VULCAxKTsKPj4gICAgICAgIG1kZWxheSgxMDApOwo+PiAtCj4+IC0gICAgIFdS
+RUczMl9QKG1tVkNFX1NPRlRfUkVTRVQsIDAsCj4+IH5WQ0VfU09GVF9SRVNFVF9fRUNQVV9TT0ZU
+X1JFU0VUX01BU0spOwo+PiArICAgICBXUkVHMzJfRklFTEQoVkNFX1NPRlRfUkVTRVQsIEVDUFVf
+U09GVF9SRVNFVCwgMCk7Cj4+Cj4+ICAgICAgICBmb3IgKGkgPSAwOyBpIDwgMTA7ICsraSkgewo+
+PiAgICAgICAgICAgICAgICB1aW50MzJfdCBzdGF0dXM7Cj4+IEBAIC0xNTAsMTAgKzE0NSw5IEBA
+IHN0YXRpYyBpbnQgdmNlX3YyXzBfc3RhcnQoc3RydWN0IGFtZGdwdV9kZXZpY2UKPj4gKmFkZXYp
+Cj4+ICAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7Cj4+Cj4+ICAgICAgICAgICAgICAgIERS
+TV9FUlJPUigiVkNFIG5vdCByZXNwb25kaW5nLCB0cnlpbmcgdG8gcmVzZXQgdGhlCj4+IEVDUFUh
+ISFcbiIpOwo+PiAtICAgICAgICAgICAgIFdSRUczMl9QKG1tVkNFX1NPRlRfUkVTRVQsCj4+IFZD
+RV9TT0ZUX1JFU0VUX19FQ1BVX1NPRlRfUkVTRVRfTUFTSywKPj4gLQo+PiAgICAgICAgflZDRV9T
+T0ZUX1JFU0VUX19FQ1BVX1NPRlRfUkVTRVRfTUFTSyk7Cj4+ICsgICAgICAgICAgICAgV1JFRzMy
+X0ZJRUxEKFZDRV9TT0ZUX1JFU0VULCBFQ1BVX1NPRlRfUkVTRVQsIDEpOwo+PiAgICAgICAgICAg
+ICAgICBtZGVsYXkoMTApOwo+PiAtICAgICAgICAgICAgIFdSRUczMl9QKG1tVkNFX1NPRlRfUkVT
+RVQsIDAsCj4+IH5WQ0VfU09GVF9SRVNFVF9fRUNQVV9TT0ZUX1JFU0VUX01BU0spOwo+PiArICAg
+ICAgICAgICAgIFdSRUczMl9GSUVMRChWQ0VfU09GVF9SRVNFVCwgRUNQVV9TT0ZUX1JFU0VULCAw
+KTsKPj4gICAgICAgICAgICAgICAgbWRlbGF5KDEwKTsKPj4gICAgICAgICAgICAgICAgciA9IC0x
+Owo+PiAgICAgICAgfQo+PiBAQCAtMzQ1LDEzICszMzksMTMgQEAgc3RhdGljIHZvaWQgdmNlX3Yy
+XzBfc2V0X2R5bl9jZyhzdHJ1Y3QKPj4gYW1kZ3B1X2RldmljZSAqYWRldiwgYm9vbCBnYXRlZCkK
+Pj4gICAgICAgICAgICAgICAgICAgICAgICBEUk1fSU5GTygiVkNFIGlzIGJ1c3ksIENhbid0IHNl
+dCBjbG9jayBnYXRlaW5nIik7Cj4+ICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuOwo+PiAg
+ICAgICAgICAgICAgICB9Cj4+IC0gICAgICAgICAgICAgV1JFRzMyX1AobW1WQ0VfVkNQVV9DTlRM
+LCAwLAo+PiB+VkNFX1ZDUFVfQ05UTF9fQ0xLX0VOX01BU0spOwo+PiAtICAgICAgICAgICAgIFdS
+RUczMl9QKG1tVkNFX1NPRlRfUkVTRVQsCj4+IFZDRV9TT0ZUX1JFU0VUX19FQ1BVX1NPRlRfUkVT
+RVRfTUFTSywKPj4gflZDRV9TT0ZUX1JFU0VUX19FQ1BVX1NPRlRfUkVTRVRfTUFTSyk7Cj4+ICsg
+ICAgICAgICAgICAgV1JFRzMyX0ZJRUxEKFZDRV9WQ1BVX0NOVEwsIENMS19FTiwgMCk7Cj4+ICsg
+ICAgICAgICAgICAgV1JFRzMyX0ZJRUxEKFZDRV9TT0ZUX1JFU0VULCBFQ1BVX1NPRlRfUkVTRVQs
+IDEpOwo+PiAgICAgICAgICAgICAgICBtZGVsYXkoMTAwKTsKPj4gICAgICAgICAgICAgICAgV1JF
+RzMyKG1tVkNFX1NUQVRVUywgMCk7Cj4+ICAgICAgICB9IGVsc2Ugewo+PiAtICAgICAgICAgICAg
+IFdSRUczMl9QKG1tVkNFX1ZDUFVfQ05UTCwKPj4gVkNFX1ZDUFVfQ05UTF9fQ0xLX0VOX01BU0ss
+IH5WQ0VfVkNQVV9DTlRMX19DTEtfRU5fTUFTSyk7Cj4+IC0gICAgICAgICAgICAgV1JFRzMyX1Ao
+bW1WQ0VfU09GVF9SRVNFVCwKPj4gVkNFX1NPRlRfUkVTRVRfX0VDUFVfU09GVF9SRVNFVF9NQVNL
+LAo+PiB+VkNFX1NPRlRfUkVTRVRfX0VDUFVfU09GVF9SRVNFVF9NQVNLKTsKPj4gKyAgICAgICAg
+ICAgICBXUkVHMzJfRklFTEQoVkNFX1ZDUFVfQ05UTCwgQ0xLX0VOLCAxKTsKPj4gKyAgICAgICAg
+ICAgICBXUkVHMzJfRklFTEQoVkNFX1NPRlRfUkVTRVQsIEVDUFVfU09GVF9SRVNFVCwgMSk7Cj4+
+ICAgICAgICAgICAgICAgIG1kZWxheSgxMDApOwo+PiAgICAgICAgfQo+Pgo+PiBAQCAtNDU4LDkg
+KzQ1Miw3IEBAIHN0YXRpYyB2b2lkIHZjZV92Ml8wX21jX3Jlc3VtZShzdHJ1Y3QKPj4gYW1kZ3B1
+X2RldmljZSAqYWRldikKPj4gICAgICAgIFdSRUczMihtbVZDRV9WQ1BVX0NBQ0hFX1NJWkUyLCBz
+aXplKTsKPj4KPj4gICAgICAgIFdSRUczMl9QKG1tVkNFX0xNSV9DVFJMMiwgMHgwLCB+MHgxMDAp
+Owo+PiAtCj4+IC0gICAgIFdSRUczMl9QKG1tVkNFX1NZU19JTlRfRU4sCj4+IFZDRV9TWVNfSU5U
+X0VOX19WQ0VfU1lTX0lOVF9UUkFQX0lOVEVSUlVQVF9FTl9NQVNLLAo+PiAtCj4+IH5WQ0VfU1lT
+X0lOVF9FTl9fVkNFX1NZU19JTlRfVFJBUF9JTlRFUlJVUFRfRU5fTUFTSyk7Cj4+ICsgICAgIFdS
+RUczMl9GSUVMRChWQ0VfU1lTX0lOVF9FTiwKPj4gVkNFX1NZU19JTlRfVFJBUF9JTlRFUlJVUFRf
+RU4sIDEpOwo+Pgo+PiAgICAgICAgdmNlX3YyXzBfaW5pdF9jZyhhZGV2KTsKPj4gIH0KPj4gQEAg
+LTQ3NCwxMSArNDY2LDExIEBAIHN0YXRpYyBib29sIHZjZV92Ml8wX2lzX2lkbGUodm9pZCAqaGFu
+ZGxlKQo+Pgo+PiAgc3RhdGljIGludCB2Y2VfdjJfMF93YWl0X2Zvcl9pZGxlKHZvaWQgKmhhbmRs
+ZSkKPj4gIHsKPj4gLSAgICAgdW5zaWduZWQgaTsKPj4gICAgICAgIHN0cnVjdCBhbWRncHVfZGV2
+aWNlICphZGV2ID0gKHN0cnVjdCBhbWRncHVfZGV2aWNlICopaGFuZGxlOwo+PiArICAgICB1bnNp
+Z25lZCBpOwo+Pgo+PiAgICAgICAgZm9yIChpID0gMDsgaSA8IGFkZXYtPnVzZWNfdGltZW91dDsg
+aSsrKSB7Cj4+IC0gICAgICAgICAgICAgaWYgKCEoUlJFRzMyKG1tU1JCTV9TVEFUVVMyKSAmCj4+
+IFNSQk1fU1RBVFVTMl9fVkNFX0JVU1lfTUFTSykpCj4+ICsgICAgICAgICAgICAgaWYgKHZjZV92
+Ml8wX2lzX2lkbGUoaGFuZGxlKSkKPj4gICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gMDsK
+Pgo+IFRoaXMgY291bGQgYmUgc3BsaXQgb3V0IGFzIGEgc2VwYXJhdGUgcGF0Y2guCj4KPj4gICAg
+ICAgIH0KPj4gICAgICAgIHJldHVybiAtRVRJTUVET1VUOwo+PiBAQCAtNDg4LDggKzQ4MCw3IEBA
+IHN0YXRpYyBpbnQgdmNlX3YyXzBfc29mdF9yZXNldCh2b2lkICpoYW5kbGUpCj4+ICB7Cj4+ICAg
+ICAgICBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
+KWhhbmRsZTsKPj4KPj4gLSAgICAgV1JFRzMyX1AobW1TUkJNX1NPRlRfUkVTRVQsCj4+IFNSQk1f
+U09GVF9SRVNFVF9fU09GVF9SRVNFVF9WQ0VfTUFTSywKPj4gLSAgICAgICAgICAgICAgICAgICAg
+IH5TUkJNX1NPRlRfUkVTRVRfX1NPRlRfUkVTRVRfVkNFX01BU0spOwo+PiArICAgICBXUkVHMzJf
+RklFTEQoU1JCTV9TT0ZUX1JFU0VULCBTT0ZUX1JFU0VUX1ZDRSwgMSk7Cj4+ICAgICAgICBtZGVs
+YXkoNSk7Cj4+Cj4+ICAgICAgICByZXR1cm4gdmNlX3YyXzBfc3RhcnQoYWRldik7Cj4+IEBAIC01
+MTYsMTAgKzUwNyw4IEBAIHN0YXRpYyBpbnQgdmNlX3YyXzBfcHJvY2Vzc19pbnRlcnJ1cHQoc3Ry
+dWN0Cj4+IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4+ICAgICAgICBEUk1fREVCVUcoIklIOiBWQ0Vc
+biIpOwo+PiAgICAgICAgc3dpdGNoIChlbnRyeS0+c3JjX2RhdGEpIHsKPj4gICAgICAgIGNhc2Ug
+MDoKPj4gLSAgICAgICAgICAgICBhbWRncHVfZmVuY2VfcHJvY2VzcygmYWRldi0+dmNlLnJpbmdb
+MF0pOwo+PiAtICAgICAgICAgICAgIGJyZWFrOwo+PiAgICAgICAgY2FzZSAxOgo+PiAtICAgICAg
+ICAgICAgIGFtZGdwdV9mZW5jZV9wcm9jZXNzKCZhZGV2LT52Y2UucmluZ1sxXSk7Cj4+ICsgICAg
+ICAgICAgICAgYW1kZ3B1X2ZlbmNlX3Byb2Nlc3MoJmFkZXYtPnZjZS5yaW5nW2VudHJ5LT5zcmNf
+ZGF0YV0pOwo+PiAgICAgICAgICAgICAgICBicmVhazsKPj4gICAgICAgIGRlZmF1bHQ6Cj4+ICAg
+ICAgICAgICAgICAgIERSTV9FUlJPUigiVW5oYW5kbGVkIGludGVycnVwdDogJWQgJWRcbiIsCj4K
+PiBUaGlzIHRvby4KPgo+PiAtLQo+PiAyLjkuMgo+Pgo+PiBfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwo+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+PiBhbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKPgo+Cj4KPgo+IF9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCj4KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+Cj4g
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPgo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+Cj4KPgo+Cj4gX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+
+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cj4KX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9hbWQtZ2Z4Cg==
