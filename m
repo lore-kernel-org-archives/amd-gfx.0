@@ -1,10 +1,14 @@
-From: Jarkko Korpi <jarkko_korpi-PkbjNfxxIARBDgjK7y7TUQ@public.gmane.org>
-Subject: Adjusting memory speed according to display
-Date: Fri, 12 Aug 2016 01:45:22 +0000
-Message-ID: <DB3PR08MB0281EA56C2099894FA675529E91F0@DB3PR08MB0281.eurprd08.prod.outlook.com>
+From: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: For virtual_display feature, define a
+ variable for vblank count of cpu vsync timer.
+Date: Fri, 12 Aug 2016 02:00:15 +0000
+Message-ID: <DM5PR12MB1659D06D606338121D353F128F1F0@DM5PR12MB1659.namprd12.prod.outlook.com>
+References: <1470887198-3465-1-git-send-email-Emily.Deng@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0413146690=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1470887198-3465-1-git-send-email-Emily.Deng-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -18,67 +22,76 @@ Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0413146690==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DB3PR08MB0281EA56C2099894FA675529E91F0DB3PR08MB0281eurp_"
-
---_000_DB3PR08MB0281EA56C2099894FA675529E91F0DB3PR08MB0281eurp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-I have rx480 which I connect into 1920x1080 pc screen via DP and audio into=
- external amplifier via HDMI. This causes rx480 to raise the memory speed t=
-o 2000 while doing really simple tasks like watching youtube. I really dont=
- need thatkind of speed for memory. And I am not aware that it's possible t=
-o change between 300mhz 2000mhz memory speeds, but gpu supports this in ste=
-ps which would be really great for memory too. I only need the audio data s=
-ubmited to the amplifier. Is it possible somehow to form a patch that it so=
-mehow recognizes my amplifier and understands that I am sending audio that =
-I dont need/want it to max the memory speed? I would be really happy for su=
-ch patch for personal use. If it's too hacky to be merged into upstream.
-
---_000_DB3PR08MB0281EA56C2099894FA675529E91F0DB3PR08MB0281eurp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;back=
-ground-color:#FFFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
-<p>I have rx480 which I connect into 1920x1080 pc screen via DP and audio i=
-nto external amplifier via HDMI. This causes rx480 to raise the memory spee=
-d to 2000 while doing really simple tasks like watching youtube. I really d=
-ont need thatkind of speed for memory.
- And I am not aware that it's possible to change between 300mhz 2000mhz mem=
-ory speeds, but gpu supports this in steps which would be really great for =
-memory too. I only need the audio data submited to the amplifier. Is it pos=
-sible somehow to form a patch that
- it somehow recognizes my amplifier and understands that I am sending audio=
- that I dont need/want it to max the memory speed? I would be really happy =
-for such patch for personal use. If it's too hacky to be merged into upstre=
-am.<br>
-</p>
-</div>
-</body>
-</html>
-
---_000_DB3PR08MB0281EA56C2099894FA675529E91F0DB3PR08MB0281eurp_--
-
---===============0413146690==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0413146690==--
+cGluZy4uLg0KQW55Ym9keSBjb3VsZCBoZWxwIHRvIHJldmlldyBpdD8NCg0KPiAtLS0tLU9yaWdp
+bmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1kLWdmeC1ib3VuY2Vz
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmIE9mDQo+IEVtaWx5IERlbmcNCj4gU2Vu
+dDogVGh1cnNkYXksIEF1Z3VzdCAxMSwgMjAxNiAxMTo0NyBBTQ0KPiBUbzogYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcNCj4gQ2M6IERlbmcsIEVtaWx5IDxFbWlseS5EZW5nQGFtZC5jb20+
+DQo+IFN1YmplY3Q6IFtQQVRDSF0gZHJtL2FtZGdwdTogRm9yIHZpcnR1YWxfZGlzcGxheSBmZWF0
+dXJlLCBkZWZpbmUgYSB2YXJpYWJsZSBmb3INCj4gdmJsYW5rIGNvdW50IG9mIGNwdSB2c3luYyB0
+aW1lci4NCj4gDQo+IFRoZSBhZGV2LT5kZGV2LT52YmxhbmtbY3J0Y10uY291bnQgY291bGRuJ3Qg
+YmUgdXNlZCBoZXJlLCBzbyBkZWZpbmUgYW5vdGhlcg0KPiB2YXJpYWJsZSB0byBjb21wdXRlIHRo
+ZSB2YmxhbmsgY291bnQuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBFbWlseSBEZW5nIDxFbWlseS5E
+ZW5nQGFtZC5jb20+DQo+IC0tLQ0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X21vZGUuaCB8ICAxICsNCj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3ZpcnR1YWwu
+YyB8IDEwICsrKystLS0tLS0NCj4gIDIgZmlsZXMgY2hhbmdlZCwgNSBpbnNlcnRpb25zKCspLCA2
+IGRlbGV0aW9ucygtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9tb2RlLmgNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+bW9kZS5oDQo+IGluZGV4IDUwYWVjY2YuLjA1NDY1M2UgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9tb2RlLmgNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X21vZGUuaA0KPiBAQCAtMzcwLDYgKzM3MCw3IEBAIHN0cnVjdCBh
+bWRncHVfbW9kZV9pbmZvIHsNCj4gIAlpbnQJCQlkaXNwX3ByaW9yaXR5Ow0KPiAgCWNvbnN0IHN0
+cnVjdCBhbWRncHVfZGlzcGxheV9mdW5jcyAqZnVuY3M7DQo+ICAJc3RydWN0IGhydGltZXIgdmJs
+YW5rX3RpbWVyOw0KPiArCXUzMgkJCXRpbWVyX3ZibGFua19jb3VudDsNCj4gIAllbnVtIGFtZGdw
+dV9pbnRlcnJ1cHRfc3RhdGUgdnN5bmNfdGltZXJfZW5hYmxlZDsgIH07DQo+IA0KPiBkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3ZpcnR1YWwuYw0KPiBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92aXJ0dWFsLmMNCj4gaW5kZXggMmNlNWY5MC4uZDYx
+NmFiOSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3ZpcnR1
+YWwuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdmlydHVhbC5jDQo+
+IEBAIC01OCw3ICs1OCw3IEBAIHN0YXRpYyB1MzIgZGNlX3ZpcnR1YWxfdmJsYW5rX2dldF9jb3Vu
+dGVyKHN0cnVjdA0KPiBhbWRncHVfZGV2aWNlICphZGV2LCBpbnQgY3J0YykNCj4gIAlpZiAoY3J0
+YyA+PSBhZGV2LT5tb2RlX2luZm8ubnVtX2NydGMpDQo+ICAJCXJldHVybiAwOw0KPiAgCWVsc2UN
+Cj4gLQkJcmV0dXJuIGFkZXYtPmRkZXYtPnZibGFua1tjcnRjXS5jb3VudDsNCj4gKwkJcmV0dXJu
+IGFkZXYtPm1vZGVfaW5mby50aW1lcl92YmxhbmtfY291bnQ7DQo+ICB9DQo+IA0KPiAgc3RhdGlj
+IHZvaWQgZGNlX3ZpcnR1YWxfcGFnZV9mbGlwKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBA
+QCAtMzUzLDcNCj4gKzM1Myw2IEBAIHN0YXRpYyBpbnQgZGNlX3ZpcnR1YWxfY3J0Y19pbml0KHN0
+cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBpbnQNCj4gaW5kZXgpICBzdGF0aWMgaW50IGRjZV92
+aXJ0dWFsX2Vhcmx5X2luaXQodm9pZCAqaGFuZGxlKSAgew0KPiAgCXN0cnVjdCBhbWRncHVfZGV2
+aWNlICphZGV2ID0gKHN0cnVjdCBhbWRncHVfZGV2aWNlICopaGFuZGxlOw0KPiAtDQo+ICAJYWRl
+di0+bW9kZV9pbmZvLnZzeW5jX3RpbWVyX2VuYWJsZWQgPQ0KPiBBTURHUFVfSVJRX1NUQVRFX0RJ
+U0FCTEU7DQo+ICAJZGNlX3ZpcnR1YWxfc2V0X2Rpc3BsYXlfZnVuY3MoYWRldik7DQo+ICAJZGNl
+X3ZpcnR1YWxfc2V0X2lycV9mdW5jcyhhZGV2KTsNCj4gQEAgLTM2MSw2ICszNjAsNyBAQCBzdGF0
+aWMgaW50IGRjZV92aXJ0dWFsX2Vhcmx5X2luaXQodm9pZCAqaGFuZGxlKQ0KPiAgCWFkZXYtPm1v
+ZGVfaW5mby5udW1fY3J0YyA9IDE7DQo+ICAJYWRldi0+bW9kZV9pbmZvLm51bV9ocGQgPSAxOw0K
+PiAgCWFkZXYtPm1vZGVfaW5mby5udW1fZGlnID0gMTsNCj4gKwlhZGV2LT5tb2RlX2luZm8udGlt
+ZXJfdmJsYW5rX2NvdW50ID0gMDsNCj4gIAlyZXR1cm4gMDsNCj4gIH0NCj4gDQo+IEBAIC02NTMs
+NyArNjUzLDcgQEAgc3RhdGljIGVudW0gaHJ0aW1lcl9yZXN0YXJ0DQo+IGRjZV92aXJ0dWFsX3Zi
+bGFua190aW1lcl9oYW5kbGUoc3RydWN0IGhydGltZXIgKnZibGENCj4gIAlzdHJ1Y3QgYW1kZ3B1
+X21vZGVfaW5mbyAqbW9kZV9pbmZvID0gY29udGFpbmVyX29mKHZibGFua190aW1lciwNCj4gc3Ry
+dWN0IGFtZGdwdV9tb2RlX2luZm8gLHZibGFua190aW1lcik7DQo+ICAJc3RydWN0IGFtZGdwdV9k
+ZXZpY2UgKmFkZXYgPSBjb250YWluZXJfb2YobW9kZV9pbmZvLCBzdHJ1Y3QNCj4gYW1kZ3B1X2Rl
+dmljZSAsbW9kZV9pbmZvKTsNCj4gIAl1bnNpZ25lZCBjcnRjID0gMDsNCj4gLQlhZGV2LT5kZGV2
+LT52YmxhbmtbMF0uY291bnQrKzsNCj4gKwlhZGV2LT5tb2RlX2luZm8udGltZXJfdmJsYW5rX2Nv
+dW50Kys7DQo+ICAJZHJtX2hhbmRsZV92YmxhbmsoYWRldi0+ZGRldiwgY3J0Yyk7DQo+ICAJZGNl
+X3ZpcnR1YWxfcGFnZWZsaXBfaXJxKGFkZXYsIE5VTEwsIE5VTEwpOw0KPiAgCWhydGltZXJfc3Rh
+cnQodmJsYW5rX3RpbWVyLCBrdGltZV9zZXQoMCwNCj4gRENFX1ZJUlRVQUxfVkJMQU5LX1BFUklP
+RCksIEhSVElNRVJfTU9ERV9SRUwpOyBAQCAtNjgwLDggKzY4MCw2DQo+IEBAIHN0YXRpYyB2b2lk
+IGRjZV92aXJ0dWFsX3NldF9jcnRjX3ZibGFua19pbnRlcnJ1cHRfc3RhdGUoc3RydWN0DQo+IGFt
+ZGdwdV9kZXZpY2UgKmFkDQo+ICAJCWhydGltZXJfY2FuY2VsKCZhZGV2LT5tb2RlX2luZm8udmJs
+YW5rX3RpbWVyKTsNCj4gIAl9DQo+IA0KPiAtCWlmICghc3RhdGUgfHwgKHN0YXRlICYmICFhZGV2
+LT5tb2RlX2luZm8udnN5bmNfdGltZXJfZW5hYmxlZCkpDQo+IC0JCWFkZXYtPmRkZXYtPnZibGFu
+a1swXS5jb3VudCA9IDA7DQo+ICAJYWRldi0+bW9kZV9pbmZvLnZzeW5jX3RpbWVyX2VuYWJsZWQg
+PSBzdGF0ZTsNCj4gIAlEUk1fREVCVUcoIltGTV1zZXQgY3J0YyAlZCB2YmxhbmsgaW50ZXJydXB0
+IHN0YXRlICVkXG4iLCBjcnRjLA0KPiBzdGF0ZSk7ICB9IEBAIC03MTgsNyArNzE2LDcgQEAgc3Rh
+dGljIGludCBkY2VfdmlydHVhbF9jcnRjX2lycShzdHJ1Y3QNCj4gYW1kZ3B1X2RldmljZSAqYWRl
+diwNCj4gIAl1bnNpZ25lZCBjcnRjID0gMDsNCj4gIAl1bnNpZ25lZCBpcnFfdHlwZSA9IEFNREdQ
+VV9DUlRDX0lSUV9WQkxBTksxOw0KPiANCj4gLQlhZGV2LT5kZGV2LT52YmxhbmtbY3J0Y10uY291
+bnQrKzsNCj4gKwlhZGV2LT5tb2RlX2luZm8udGltZXJfdmJsYW5rX2NvdW50Kys7DQo+ICAJZGNl
+X3ZpcnR1YWxfY3J0Y192YmxhbmtfaW50X2FjayhhZGV2LCBjcnRjKTsNCj4gDQo+ICAJaWYgKGFt
+ZGdwdV9pcnFfZW5hYmxlZChhZGV2LCBzb3VyY2UsIGlycV90eXBlKSkgew0KPiAtLQ0KPiAxLjku
+MQ0KPiANCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18N
+Cj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcN
+Cj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
+IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
+LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
