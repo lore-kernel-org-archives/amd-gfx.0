@@ -1,13 +1,12 @@
-From: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 16/18] drm/amdgpu: recover page tables after gpu reset
-Date: Fri, 12 Aug 2016 14:39:05 +0800
-Message-ID: <1470983947-32579-17-git-send-email-David1.Zhou@amd.com>
-References: <1470983947-32579-1-git-send-email-David1.Zhou@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: Adjusting memory speed according to display
+Date: Fri, 12 Aug 2016 09:32:55 +0200
+Message-ID: <0adc3acc-ea5e-bed1-f903-634eddda25a2@vodafone.de>
+References: <DB3PR08MB0281EA56C2099894FA675529E91F0@DB3PR08MB0281.eurprd08.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1477712540=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1470983947-32579-1-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <DB3PR08MB0281EA56C2099894FA675529E91F0-aD6Q2MAZY6U/irYQV7fBLikoKrxaZxrJvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,76 +17,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+To: Jarkko Korpi <jarkko_korpi-PkbjNfxxIARBDgjK7y7TUQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Q2hhbmdlLUlkOiBJOTYzNTk4YmE2ZWI0NGJjODYyMGQ3MGUwMjZjMDE3NWQxYTFkZTEyMApTaWdu
-ZWQtb2ZmLWJ5OiBDaHVubWluZyBaaG91IDxEYXZpZDEuWmhvdUBhbWQuY29tPgotLS0KIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8IDc3ICsrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrLQogMSBmaWxlIGNoYW5nZWQsIDc2IGluc2VydGlvbnMoKyksIDEgZGVs
-ZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-ZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKaW5k
-ZXggZTVhZTBhOC4uZmYxMWVlYiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X2RldmljZS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9kZXZpY2UuYwpAQCAtMjE2MiwxOCArMjE2Miw5MyBAQCByZXRyeToKIAkJYW1kZ3B1X2F0b21i
-aW9zX3NjcmF0Y2hfcmVnc19yZXN0b3JlKGFkZXYpOwogCX0KIAlpZiAoIXIpIHsKKwkJc3RydWN0
-IGFtZGdwdV9yaW5nICpidWZmZXJfcmluZyA9IGFkZXYtPm1tYW4uYnVmZmVyX2Z1bmNzX3Jpbmc7
-CisKIAkJYW1kZ3B1X2lycV9ncHVfcmVzZXRfcmVzdW1lX2hlbHBlcihhZGV2KTsKIAkJciA9IGFt
-ZGdwdV9pYl9yaW5nX3Rlc3RzKGFkZXYpOwogCQlpZiAocikgewogCQkJZGV2X2VycihhZGV2LT5k
-ZXYsICJpYiByaW5nIHRlc3QgZmFpbGVkICglZCkuXG4iLCByKTsKIAkJCXIgPSBhbWRncHVfc3Vz
-cGVuZChhZGV2KTsKKwkJCW5lZWRfZnVsbF9yZXNldCA9IHRydWU7CiAJCQlnb3RvIHJldHJ5Owog
-CQl9Ci0KKwkJLyoqCisJCSAqIHJlY292ZXJ5IHZtIHBhZ2UgdGFibGVzLCBzaW5jZSB3ZSBjYW5u
-b3QgZGVwZW5kIG9uIFZSQU0gaXMgbm8gcHJvYmxlbQorCQkgKiBhZnRlciBncHUgZnVsbCByZXNl
-dC4KKwkJICovCisJCWlmIChuZWVkX2Z1bGxfcmVzZXQgJiYgIShhZGV2LT5mbGFncyAmIEFNRF9J
-U19BUFUpKSB7CisJCQlzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSwgKnRtcDsKKwkJCXN0cnVjdCBhbWRn
-cHVfcmluZyAqcmluZzsKKwkJCXN0cnVjdCBmZW5jZSAqZmVuY2UgPSBOVUxMOworCQkJaW50IGk7
-CisKKwkJCURSTV9JTkZPKCJyZWNvdmVyIHBhZ2UgdGFibGUgZnJvbSBzaGFkb3dcbiIpOworCQkJ
-Zm9yIChpID0gMDsgaSA8IGFkZXYtPnZtX21hbmFnZXIudm1fcHRlX251bV9yaW5nczsgaSsrKSB7
-CisJCQkJcmluZyA9IGFkZXYtPnZtX21hbmFnZXIudm1fcHRlX3JpbmdzW2ldOworCQkJCWFtZF9z
-Y2hlZF9ycV9ibG9ja19lbnRpdHkoCisJCQkJCSZyaW5nLT5zY2hlZC5zY2hlZF9ycVtBTURfU0NI
-RURfUFJJT1JJVFlfTk9STUFMXSwgdHJ1ZSk7CisJCQkJYW1kX3NjaGVkX3JxX2Jsb2NrX2VudGl0
-eSgKKwkJCQkJJnJpbmctPnNjaGVkLnNjaGVkX3JxW0FNRF9TQ0hFRF9QUklPUklUWV9LRVJORUxd
-LCB0cnVlKTsKKwkJCX0KKwkJCXNwaW5fbG9jaygmYWRldi0+dm1fbGlzdF9sb2NrKTsKKwkJCWxp
-c3RfZm9yX2VhY2hfZW50cnlfc2FmZSh2bSwgdG1wLCAmYWRldi0+dm1fbGlzdCwgbGlzdCkgewor
-CQkJCXNwaW5fdW5sb2NrKCZhZGV2LT52bV9saXN0X2xvY2spOworCQkJCWFtZF9zY2hlZF9ibG9j
-a19lbnRpdHkoJnZtLT5zaGFkb3dfZW50aXR5LCBmYWxzZSk7CisJCQkJc3Bpbl9sb2NrKCZhZGV2
-LT52bV9saXN0X2xvY2spOworCQkJfQorCQkJc3Bpbl91bmxvY2soJmFkZXYtPnZtX2xpc3RfbG9j
-ayk7CisJCQlmb3IgKGkgPSAwOyBpIDwgYWRldi0+dm1fbWFuYWdlci52bV9wdGVfbnVtX3Jpbmdz
-OyBpKyspIHsKKwkJCQlyaW5nID0gYWRldi0+dm1fbWFuYWdlci52bV9wdGVfcmluZ3NbaV07CisJ
-CQkJa3RocmVhZF91bnBhcmsocmluZy0+c2NoZWQudGhyZWFkKTsKKwkJCX0KKwkJCXNwaW5fbG9j
-aygmYWRldi0+dm1fbGlzdF9sb2NrKTsKKwkJCWxpc3RfZm9yX2VhY2hfZW50cnlfc2FmZSh2bSwg
-dG1wLCAmYWRldi0+dm1fbGlzdCwgbGlzdCkgeworCQkJCXNwaW5fdW5sb2NrKCZhZGV2LT52bV9s
-aXN0X2xvY2spOworCQkJCS8qIHdhaXQgZm9yIGFsbCBzaGFkb3cgam9icyBmaW5pc2hlZCAqLwor
-CQkJCWlmICh2bS0+c2hhZG93X2VudGl0eS5sYXN0X2ZlbmNlKQorCQkJCQlmZW5jZV93YWl0KHZt
-LT5zaGFkb3dfZW50aXR5Lmxhc3RfZmVuY2UsIGZhbHNlKTsKKwkJCQlzcGluX2xvY2soJmFkZXYt
-PnZtX2xpc3RfbG9jayk7CisJCQl9CisJCQlzcGluX3VubG9jaygmYWRldi0+dm1fbGlzdF9sb2Nr
-KTsKKwkJCWZvciAoaSA9IDA7IGkgPCBhZGV2LT52bV9tYW5hZ2VyLnZtX3B0ZV9udW1fcmluZ3M7
-IGkrKykgeworCQkJCXJpbmcgPSBhZGV2LT52bV9tYW5hZ2VyLnZtX3B0ZV9yaW5nc1tpXTsKKwkJ
-CQlrdGhyZWFkX3BhcmsocmluZy0+c2NoZWQudGhyZWFkKTsKKwkJCQlhbWRfc2NoZWRfcnFfYmxv
-Y2tfZW50aXR5KAorCQkJCQkmcmluZy0+c2NoZWQuc2NoZWRfcnFbQU1EX1NDSEVEX1BSSU9SSVRZ
-X05PUk1BTF0sIHRydWUpOworCQkJCWFtZF9zY2hlZF9ycV9ibG9ja19lbnRpdHkoCisJCQkJCSZy
-aW5nLT5zY2hlZC5zY2hlZF9ycVtBTURfU0NIRURfUFJJT1JJVFlfS0VSTkVMXSwgdHJ1ZSk7CisJ
-CQl9CisJCQlhbWRfc2NoZWRfYmxvY2tfZW50aXR5KCZhZGV2LT5tbWFuLmVudGl0eSwgZmFsc2Up
-OworCQkJa3RocmVhZF91bnBhcmsoYnVmZmVyX3JpbmctPnNjaGVkLnRocmVhZCk7CisJCQlzcGlu
-X2xvY2soJmFkZXYtPnZtX2xpc3RfbG9jayk7CisJCQlsaXN0X2Zvcl9lYWNoX2VudHJ5X3NhZmUo
-dm0sIHRtcCwgJmFkZXYtPnZtX2xpc3QsIGxpc3QpIHsKKwkJCQlzcGluX3VubG9jaygmYWRldi0+
-dm1fbGlzdF9sb2NrKTsKKwkJCQlhbWRncHVfdm1fcmVjb3Zlcl9wYWdlX3RhYmxlX2Zyb21fc2hh
-ZG93KGFkZXYsIHZtKTsKKwkJCQlpZiAodm0tPnNoYWRvd19zeW5jX2ZlbmNlKSB7CisJCQkJCWZl
-bmNlX3B1dChmZW5jZSk7CisJCQkJCWZlbmNlID0gZmVuY2VfZ2V0KHZtLT5zaGFkb3dfc3luY19m
-ZW5jZSk7CisJCQkJfQorCQkJCXNwaW5fbG9jaygmYWRldi0+dm1fbGlzdF9sb2NrKTsKKwkJCX0K
-KwkJCXNwaW5fdW5sb2NrKCZhZGV2LT52bV9saXN0X2xvY2spOworCQkJaWYgKGZlbmNlKQorCQkJ
-CWZlbmNlX3dhaXQoZmVuY2UsIGZhbHNlKTsKKwkJCWZlbmNlX3B1dChmZW5jZSk7CisJCQlmb3Ig
-KGkgPSAwOyBpIDwgYWRldi0+dm1fbWFuYWdlci52bV9wdGVfbnVtX3JpbmdzOyBpKyspIHsKKwkJ
-CQlyaW5nID0gYWRldi0+dm1fbWFuYWdlci52bV9wdGVfcmluZ3NbaV07CisJCQkJa3RocmVhZF9w
-YXJrKHJpbmctPnNjaGVkLnRocmVhZCk7CisJCQkJYW1kX3NjaGVkX3JxX2Jsb2NrX2VudGl0eSgK
-KwkJCQkJJnJpbmctPnNjaGVkLnNjaGVkX3JxW0FNRF9TQ0hFRF9QUklPUklUWV9OT1JNQUxdLCBm
-YWxzZSk7CisJCQkJYW1kX3NjaGVkX3JxX2Jsb2NrX2VudGl0eSgKKwkJCQkJJnJpbmctPnNjaGVk
-LnNjaGVkX3JxW0FNRF9TQ0hFRF9QUklPUklUWV9LRVJORUxdLCBmYWxzZSk7CisJCQl9CisJCX0K
-IAkJZm9yIChpID0gMDsgaSA8IEFNREdQVV9NQVhfUklOR1M7ICsraSkgewogCQkJc3RydWN0IGFt
-ZGdwdV9yaW5nICpyaW5nID0gYWRldi0+cmluZ3NbaV07CiAJCQlpZiAoIXJpbmcpCiAJCQkJY29u
-dGludWU7CisKKwkJCURSTV9JTkZPKCJyaW5nOiVkIHJlY292ZXIgam9ic1xuIiwgcmluZy0+aWR4
-KTsKIAkJCWFtZF9zY2hlZF9qb2JfcmVjb3ZlcnkoJnJpbmctPnNjaGVkKTsKIAkJCWt0aHJlYWRf
-dW5wYXJrKHJpbmctPnNjaGVkLnRocmVhZCk7CiAJCX0KLS0gCjEuOS4xCgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is a multi-part message in MIME format.
+--===============1477712540==
+Content-Type: multipart/alternative;
+ boundary="------------3D92A5E052BE8234E8C4665B"
+
+This is a multi-part message in MIME format.
+--------------3D92A5E052BE8234E8C4665B
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+To output audio over HDMI you need to output a video signal as well.
+
+This creates additional pressure on the memory bandwith because the 
+hardware now needs to handle two video signals instead of one.
+
+You need to connect your screen to the output of the amplifier to avoid 
+this.
+
+Regards,
+Christian.
+
+Am 12.08.2016 um 03:45 schrieb Jarkko Korpi:
+>
+> I have rx480 which I connect into 1920x1080 pc screen via DP and audio 
+> into external amplifier via HDMI. This causes rx480 to raise the 
+> memory speed to 2000 while doing really simple tasks like watching 
+> youtube. I really dont need thatkind of speed for memory. And I am not 
+> aware that it's possible to change between 300mhz 2000mhz memory 
+> speeds, but gpu supports this in steps which would be really great for 
+> memory too. I only need the audio data submited to the amplifier. Is 
+> it possible somehow to form a patch that it somehow recognizes my 
+> amplifier and understands that I am sending audio that I dont 
+> need/want it to max the memory speed? I would be really happy for such 
+> patch for personal use. If it's too hacky to be merged into upstream.
+>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+
+--------------3D92A5E052BE8234E8C4665B
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">To output audio over HDMI you need to
+      output a video signal as well.<br>
+      <br>
+      This creates additional pressure on the memory bandwith because
+      the hardware now needs to handle two video signals instead of one.<br>
+      <br>
+      You need to connect your screen to the output of the amplifier to
+      avoid this.<br>
+      <br>
+      Regards,<br>
+      Christian.<br>
+      <br>
+      Am 12.08.2016 um 03:45 schrieb Jarkko Korpi:<br>
+    </div>
+    <blockquote
+cite="mid:DB3PR08MB0281EA56C2099894FA675529E91F0-aD6Q2MAZY6U/irYQV7fBLikoKrxaZxrJvxpqHgZTriW3zl9H0oFU5g@public.gmane.org"
+      type="cite">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
+      <div id="divtagdefaultwrapper"
+style="font-size:12pt;color:#000000;background-color:#FFFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
+        <p>I have rx480 which I connect into 1920x1080 pc screen via DP
+          and audio into external amplifier via HDMI. This causes rx480
+          to raise the memory speed to 2000 while doing really simple
+          tasks like watching youtube. I really dont need thatkind of
+          speed for memory. And I am not aware that it's possible to
+          change between 300mhz 2000mhz memory speeds, but gpu supports
+          this in steps which would be really great for memory too. I
+          only need the audio data submited to the amplifier. Is it
+          possible somehow to form a patch that it somehow recognizes my
+          amplifier and understands that I am sending audio that I dont
+          need/want it to max the memory speed? I would be really happy
+          for such patch for personal use. If it's too hacky to be
+          merged into upstream.<br>
+        </p>
+      </div>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------3D92A5E052BE8234E8C4665B--
+
+--===============1477712540==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1477712540==--
