@@ -1,13 +1,15 @@
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+From: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 15/18] drm/amd: block entity
-Date: Fri, 12 Aug 2016 19:42:29 +1000
-Message-ID: <f8dfeb55-132f-1ddf-2e2f-02776aa5d3e0@folklore1984.net>
+Date: Fri, 12 Aug 2016 17:43:51 +0800
+Message-ID: <57AD9A57.8000308@amd.com>
 References: <1470983947-32579-1-git-send-email-David1.Zhou@amd.com>
  <1470983947-32579-16-git-send-email-David1.Zhou@amd.com>
+ <f8dfeb55-132f-1ddf-2e2f-02776aa5d3e0@folklore1984.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1590202586=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1470983947-32579-16-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <f8dfeb55-132f-1ddf-2e2f-02776aa5d3e0-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,120 +20,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1590202586==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="LIDEubRJQrhq2sDKR7kVbPuhuFOSPKIPe"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---LIDEubRJQrhq2sDKR7kVbPuhuFOSPKIPe
-Content-Type: multipart/mixed; boundary="w0hbDsg61ESIMlMR1sQII1O1tgl2DT5pt"
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Message-ID: <f8dfeb55-132f-1ddf-2e2f-02776aa5d3e0-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH 15/18] drm/amd: block entity
-References: <1470983947-32579-1-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
- <1470983947-32579-16-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <1470983947-32579-16-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
-
---w0hbDsg61ESIMlMR1sQII1O1tgl2DT5pt
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-
-
-On 08/12/2016 04:39 PM, Chunming Zhou wrote:
-> Change-Id: Iba210e0d007a249a90f955f5ac9c3803cc40def2
-> Signed-off-by: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/scheduler/gpu_scheduler.c | 7 ++++++-
->  drivers/gpu/drm/amd/scheduler/gpu_scheduler.h | 1 +
->  2 files changed, 7 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.c b/drivers/gp=
-u/drm/amd/scheduler/gpu_scheduler.c
-> index f750d4a..78d34d5 100644
-> --- a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.c
-> +++ b/drivers/gpu/drm/amd/scheduler/gpu_scheduler.c
-> @@ -109,6 +109,11 @@ amd_sched_rq_select_entity(struct amd_sched_rq *rq=
-)
->  	return NULL;
->  }
-> =20
-> +void amd_sched_block_entity(struct amd_sched_entity *entity, bool bloc=
-k)
-> +{
-> +	entity->block =3D block;
-> +}
-Why is this function necessary, did I miss something?
-
-> +
->  /**
->   * block all entity of this run queue
->   *
-> @@ -122,7 +127,7 @@ int amd_sched_rq_block_entity(struct amd_sched_rq *=
-rq, bool block)
->  	spin_lock(&rq->lock);
-> =20
->  	list_for_each_entry(entity, &rq->entities, list)
-> -		entity->block =3D block;
-> +		amd_sched_block_entity(entity, block);
-> =20
->  	spin_unlock(&rq->lock);
-> =20
-> diff --git a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h b/drivers/gp=
-u/drm/amd/scheduler/gpu_scheduler.h
-> index 8ea0374..da01051 100644
-> --- a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h
-> +++ b/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h
-> @@ -159,4 +159,5 @@ int amd_sched_job_init(struct amd_sched_job *job,
->  void amd_sched_hw_job_reset(struct amd_gpu_scheduler *sched);
->  void amd_sched_job_recovery(struct amd_gpu_scheduler *sched);
->  int amd_sched_rq_block_entity(struct amd_sched_rq *rq, bool block);
-> +void amd_sched_block_entity(struct amd_sched_entity *entity, bool bloc=
-k);
->  #endif
->=20
-
-
---w0hbDsg61ESIMlMR1sQII1O1tgl2DT5pt--
-
---LIDEubRJQrhq2sDKR7kVbPuhuFOSPKIPe
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJXrZoFAAoJEP4bvbfZuWjbsHkP/Ayg7HxwQWc42SE+uxeIp/YA
-sKKN/bt5rv7fjMTVrWs/kokiNR0f8kwGGg7hhPA2rVZX9lAVps1lse7VcIqsJLGp
-1KzDKEZTSazJ2fEPyVvFExDIIAlRbtl+w+NLKftI1676IDuTCQITKTHek+7nrz+y
-qjTDZg4a2LlHjqSzkQ1c1PPbuXZiFzNNR4OHeP8QptEw7Dzvb2CgsNbO0uOzYuUL
-bVBQrG+TQr2wvClcufs25joP0i2yHc/8ha7WLm/AbB9CKQC3qNLljwUSxv7uPWsj
-x0+S49O7+WINESsSjI5F60i7XHa/kEDqnRpHMmp7ZvJuQxdhWLCtkf4xa3yR6GNj
-ktN0Q1DlVB0gsH05BUuMv368MJQQxno523ny7HHu2azr8+mgDKNHhBSoF0C9KgRo
-zQ7go+DqEt1YjSFZzXmP2jQxlcnJvh2fdRB57gdgJFwqAxCD6vtwrNNolwfY6IAP
-VVt7/YLXo9N3c3H4v15+qieehqr7LDvTdjEFYLVkpnum89PNlwVDJi1h/dMeis0D
-bHxUaH8OJw4RBM+5SGgV+/elW5QpCk0LdmBpPHV8Vnlkk3jX2DupeUe2PaEEt4yx
-TMZLDQZBIoeA4Ju1TZcai2LQdv2lXO49lUtX5E3lVAqG9Khk5TTnJwejKEUwjxog
-GJkQBA981BwfQqgYRCwJ
-=e3py
------END PGP SIGNATURE-----
-
---LIDEubRJQrhq2sDKR7kVbPuhuFOSPKIPe--
-
---===============1590202586==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1590202586==--
+CgpPbiAyMDE25bm0MDjmnIgxMuaXpSAxNzo0MiwgRWR3YXJkIE8nQ2FsbGFnaGFuIHdyb3RlOgo+
+Cj4gT24gMDgvMTIvMjAxNiAwNDozOSBQTSwgQ2h1bm1pbmcgWmhvdSB3cm90ZToKPj4gQ2hhbmdl
+LUlkOiBJYmEyMTBlMGQwMDdhMjQ5YTkwZjk1NWY1YWM5YzM4MDNjYzQwZGVmMgo+PiBTaWduZWQt
+b2ZmLWJ5OiBDaHVubWluZyBaaG91IDxEYXZpZDEuWmhvdUBhbWQuY29tPgo+PiAtLS0KPj4gICBk
+cml2ZXJzL2dwdS9kcm0vYW1kL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMgfCA3ICsrKysrKy0K
+Pj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmggfCAxICsK
+Pj4gICAyIGZpbGVzIGNoYW5nZWQsIDcgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQo+Pgo+
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxl
+ci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxlci5jCj4+IGlu
+ZGV4IGY3NTBkNGEuLjc4ZDM0ZDUgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+c2NoZWR1bGVyL2dwdV9zY2hlZHVsZXIuYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Nj
+aGVkdWxlci9ncHVfc2NoZWR1bGVyLmMKPj4gQEAgLTEwOSw2ICsxMDksMTEgQEAgYW1kX3NjaGVk
+X3JxX3NlbGVjdF9lbnRpdHkoc3RydWN0IGFtZF9zY2hlZF9ycSAqcnEpCj4+ICAgCXJldHVybiBO
+VUxMOwo+PiAgIH0KPj4gICAKPj4gK3ZvaWQgYW1kX3NjaGVkX2Jsb2NrX2VudGl0eShzdHJ1Y3Qg
+YW1kX3NjaGVkX2VudGl0eSAqZW50aXR5LCBib29sIGJsb2NrKQo+PiArewo+PiArCWVudGl0eS0+
+YmxvY2sgPSBibG9jazsKPj4gK30KPiBXaHkgaXMgdGhpcyBmdW5jdGlvbiBuZWNlc3NhcnksIGRp
+ZCBJIG1pc3Mgc29tZXRoaW5nPwpZZXMsIEFzIENocmlzdGlhbiBtZW50aW9uZWQsIHdlIHdpbGwg
+c3dpdGNoIHRvIHR3aWNlIHVwZGF0aW5nIHB0LgoKUmVnYXJkcywKRGF2aWQgWmhvdQo+Cj4+ICsK
+Pj4gICAvKioKPj4gICAgKiBibG9jayBhbGwgZW50aXR5IG9mIHRoaXMgcnVuIHF1ZXVlCj4+ICAg
+ICoKPj4gQEAgLTEyMiw3ICsxMjcsNyBAQCBpbnQgYW1kX3NjaGVkX3JxX2Jsb2NrX2VudGl0eShz
+dHJ1Y3QgYW1kX3NjaGVkX3JxICpycSwgYm9vbCBibG9jaykKPj4gICAJc3Bpbl9sb2NrKCZycS0+
+bG9jayk7Cj4+ICAgCj4+ICAgCWxpc3RfZm9yX2VhY2hfZW50cnkoZW50aXR5LCAmcnEtPmVudGl0
+aWVzLCBsaXN0KQo+PiAtCQllbnRpdHktPmJsb2NrID0gYmxvY2s7Cj4+ICsJCWFtZF9zY2hlZF9i
+bG9ja19lbnRpdHkoZW50aXR5LCBibG9jayk7Cj4+ICAgCj4+ICAgCXNwaW5fdW5sb2NrKCZycS0+
+bG9jayk7Cj4+ICAgCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3NjaGVkdWxl
+ci9ncHVfc2NoZWR1bGVyLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3NjaGVkdWxlci9ncHVfc2No
+ZWR1bGVyLmgKPj4gaW5kZXggOGVhMDM3NC4uZGEwMTA1MSAxMDA2NDQKPj4gLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxlci5oCj4+ICsrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvc2NoZWR1bGVyL2dwdV9zY2hlZHVsZXIuaAo+PiBAQCAtMTU5LDQgKzE1OSw1
+IEBAIGludCBhbWRfc2NoZWRfam9iX2luaXQoc3RydWN0IGFtZF9zY2hlZF9qb2IgKmpvYiwKPj4g
+ICB2b2lkIGFtZF9zY2hlZF9od19qb2JfcmVzZXQoc3RydWN0IGFtZF9ncHVfc2NoZWR1bGVyICpz
+Y2hlZCk7Cj4+ICAgdm9pZCBhbWRfc2NoZWRfam9iX3JlY292ZXJ5KHN0cnVjdCBhbWRfZ3B1X3Nj
+aGVkdWxlciAqc2NoZWQpOwo+PiAgIGludCBhbWRfc2NoZWRfcnFfYmxvY2tfZW50aXR5KHN0cnVj
+dCBhbWRfc2NoZWRfcnEgKnJxLCBib29sIGJsb2NrKTsKPj4gK3ZvaWQgYW1kX3NjaGVkX2Jsb2Nr
+X2VudGl0eShzdHJ1Y3QgYW1kX3NjaGVkX2VudGl0eSAqZW50aXR5LCBib29sIGJsb2NrKTsKPj4g
+ICAjZW5kaWYKPj4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
