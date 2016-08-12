@@ -1,15 +1,15 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: Adjusting memory speed according to display
-Date: Fri, 12 Aug 2016 16:34:53 +0000
-Message-ID: <MWHPR12MB1694F898CF87A32C5D448769F71F0@MWHPR12MB1694.namprd12.prod.outlook.com>
-References: <DB3PR08MB0281EA56C2099894FA675529E91F0@DB3PR08MB0281.eurprd08.prod.outlook.com>,
- <MWHPR12MB1694052EA89D3EC1DFD29E7EF71F0@MWHPR12MB1694.namprd12.prod.outlook.com>
- <AM3PR08MB0277EE673A9569D49FC86CC0E91F0@AM3PR08MB0277.eurprd08.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: radeon VS amdgpu: _afmt_init() behavior if kzalloc fails
+Date: Fri, 12 Aug 2016 18:39:50 +0200
+Message-ID: <b00f6b78-a3fe-8b94-fc0d-a8d943169fed@vodafone.de>
+References: <CAPEhTTHK2uF4r4TuR4Vt4oBD9WsxyoAuwLDQ6bRSmus-BKd1eg@mail.gmail.com>
+ <DM5PR12MB1132E5443A7E25075E297A30F71F0@DM5PR12MB1132.namprd12.prod.outlook.com>
+ <CAPEhTTFw-sk4Hq_6-r2eakVMuYC07DRJc0zKa0fWm_aWF+tADQ@mail.gmail.com>
+ <DM5PR12MB11326BF415D31AE5DB0B0A5EF71F0@DM5PR12MB1132.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0190309172=="
+Content-Type: multipart/mixed; boundary="===============1367222042=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <AM3PR08MB0277EE673A9569D49FC86CC0E91F0-tWJG53+nB0BVys3uQg+TMSkoKrxaZxrJvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <DM5PR12MB11326BF415D31AE5DB0B0A5EF71F0-2J9CzHegvk+UzrhdoDeimQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,399 +20,357 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: 'Jarkko Korpi' <jarkko_korpi-PkbjNfxxIARBDgjK7y7TUQ@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Freedesktop - AMD-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Alexander Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 
---===============0190309172==
-Content-Language: en-US
+This is a multi-part message in MIME format.
+--===============1367222042==
 Content-Type: multipart/alternative;
-	boundary="_000_MWHPR12MB1694F898CF87A32C5D448769F71F0MWHPR12MB1694namp_"
+ boundary="------------D916D1D8EDD7ACDD4F14C8A6"
 
---_000_MWHPR12MB1694F898CF87A32C5D448769F71F0MWHPR12MB1694namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+This is a multi-part message in MIME format.
+--------------D916D1D8EDD7ACDD4F14C8A6
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-You have to be root to make changes to the sysfs files.  To force the clock=
-s low or high or auto (dynamically adjust based on load) or manual (select =
-individual clock levels):
+Hi guys,
 
-echo XXX > /sys/class/drm/card0/device/power_dpm_force_performance_level
-where XXX is low or high or auto or manual
+yeah, agree totally. When we fail to allocate anything during module or 
+device initialization we should cleanup properly and abort loading the 
+module.
 
-To manually select clock levels from the available clocks use the pp_dpm_sc=
-lk and mclk files.  Read the files back to get the current setting.  First =
-select manual using the above command, then select the clock levels to enab=
-le.  E.g.,
+On the other hand the only time I actually run into such a problem was 
+while constantly loading and unloading the radeon module to find bugs.
 
-echo 4 > /sys/class/drm/card0/device/pp_dpm_sclk
+BTW: Was pretty fruitful to do this, we should try this with amdgpu at 
+some time as well.
 
-Will manually select the 4th clock level for sclk.
+Christian.
 
-Alex
-
-From: Jarkko Korpi [mailto:jarkko_korpi-PkbjNfxxIARBDgjK7y7TUQ@public.gmane.org]
-Sent: Friday, August 12, 2016 10:25 AM
-To: Deucher, Alexander
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: Adjusting memory speed according to display
-
-
-Can you give me correct command to manually set up clocks high or low? ARCH=
- based quides are usully really good, but not all the commands it suggests =
-dont work. I get no permission errors. Most likely I am trying the wrong di=
-rectory/gpu. I got intel skylake 6600K, which has integrated intel gpu.
-
-
-
-It's hard to remember the exact locations of directories so I made myself a=
- script that prints the output of current clocks.
-
-
-cat /sys/class/drm/card0/device/pp_dpm_sclk
-cat /sys/class/drm/card0/device/pp_dpm_mclk
-cat /sys/class/drm/card0/device/power_dpm_state
-
-
-These lines work just fine. So I assume the ati is card0. It's also used vi=
-a DP.
-
-
-
-Also lowering the voltage or speed of memory would help a bit. But either o=
-f these is manually adjustable?
-
-________________________________
-From: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org<mailto:Alexander.Deuche=
-r@amd.com>>
-Sent: Friday, August 12, 2016 2:08 PM
-To: 'Jarkko Korpi'; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32mptlylMvRsHA@public.gmane.org=
-desktop.org>
-Subject: RE: Adjusting memory speed according to display
-
-
-You have to set up the display to send audio data over HDMI.  The audio is =
-embedded in the stream.  You have to set up the video stream to use audio. =
- You need to raise the memory clocks to provide the necessary bandwidth for=
- multiple display and dynamic mclk switching is not supported with multiple=
- displays enabled because the switches are done during the vertical blankin=
-g period.  If you have multiple displays with different timing, the blankin=
-g periods do not match so glitch free switching is not possible.
-
-
-
-If you want more control, you can use the sysfs files to either manually fo=
-rce the clocks low or high or manually  enable only specific clock levels f=
-or sclk and mclk.
-
-
-
-Alex
-
-
-
-From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf Of J=
-arkko Korpi
-Sent: Thursday, August 11, 2016 9:45 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: Adjusting memory speed according to display
-
-
-
-I have rx480 which I connect into 1920x1080 pc screen via DP and audio into=
- external amplifier via HDMI. This causes rx480 to raise the memory speed t=
-o 2000 while doing really simple tasks like watching youtube. I really dont=
- need thatkind of speed for memory. And I am not aware that it's possible t=
-o change between 300mhz 2000mhz memory speeds, but gpu supports this in ste=
-ps which would be really great for memory too. I only need the audio data s=
-ubmited to the amplifier. Is it possible somehow to form a patch that it so=
-mehow recognizes my amplifier and understands that I am sending audio that =
-I dont need/want it to max the memory speed? I would be really happy for su=
-ch patch for personal use. If it's too hacky to be merged into upstream.
-
---_000_MWHPR12MB1694F898CF87A32C5D448769F71F0MWHPR12MB1694namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+Am 12.08.2016 um 18:17 schrieb StDenis, Tom:
 >
-<meta name=3D"Generator" content=3D"Microsoft Word 14 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:Tahoma;
-	panose-1:2 11 6 4 3 5 4 4 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-p
-	{mso-style-priority:99;
-	margin:0in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
-	{mso-style-priority:99;
-	mso-style-link:"Balloon Text Char";
-	margin:0in;
-	margin-bottom:.0001pt;
-	font-size:8.0pt;
-	font-family:"Tahoma","sans-serif";}
-span.EmailStyle18
-	{mso-style-type:personal-reply;
-	font-family:"Calibri","sans-serif";
-	color:#1F497D;}
-span.BalloonTextChar
-	{mso-style-name:"Balloon Text Char";
-	mso-style-priority:99;
-	mso-style-link:"Balloon Text";
-	font-family:"Tahoma","sans-serif";}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">You have to be root to ma=
-ke changes to the sysfs files.&nbsp; To force the clocks low or high or aut=
-o (dynamically adjust based on load) or manual (select individual
- clock levels):<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
-/p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">echo XXX &gt; /sys/class/=
-drm/card0/device/power_dpm_force_performance_level<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">where XXX is low or high =
-or auto or manual<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
-/p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">To manually select clock =
-levels from the available clocks use the pp_dpm_sclk and mclk files.&nbsp; =
-Read the files back to get the current setting.&nbsp; First select
- manual using the above command, then select the clock levels to enable.&nb=
-sp; E.g.,<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
-/p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">echo 4 &gt; /sys/class/dr=
-m/card0/device/pp_dpm_sclk<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
-/p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Will manually select the =
-4<sup>th</sup> clock level for sclk.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
-/p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Alex<o:p></o:p></span></p=
+> Hi Alex,
 >
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
-/p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
-4.0pt">
-<div>
-<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
-;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span style=3D"font-s=
-ize:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> Jarkko K=
-orpi [mailto:jarkko_korpi-PkbjNfxxIARBDgjK7y7TUQ@public.gmane.org]
-<br>
-<b>Sent:</b> Friday, August 12, 2016 10:25 AM<br>
-<b>To:</b> Deucher, Alexander<br>
-<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: Adjusting memory speed according to display<o:p></o:p><=
-/span></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div id=3D"divtagdefaultwrapper">
-<p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
-;,&quot;sans-serif&quot;;color:black">Can you give me correct command to ma=
-nually set up clocks high or low? ARCH based quides are usully really good,=
- but not all the commands it suggests dont work. I get no
- permission errors. Most likely I am trying the wrong directory/gpu. I got =
-intel skylake 6600K, which has integrated intel gpu.
-<o:p></o:p></span></p>
-<p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
-;,&quot;sans-serif&quot;;color:black"><o:p>&nbsp;</o:p></span></p>
-<p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
-;,&quot;sans-serif&quot;;color:black">It's hard to remember the exact locat=
-ions of directories so I made myself a script that prints the output of cur=
-rent clocks.<o:p></o:p></span></p>
-<p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
-;,&quot;sans-serif&quot;;color:black"><o:p>&nbsp;</o:p></span></p>
-<div>
-<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-famil=
-y:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black">cat /sys/class/dr=
-m/card0/device/pp_dpm_sclk<br>
-cat /sys/class/drm/card0/device/pp_dpm_mclk<br>
-cat /sys/class/drm/card0/device/power_dpm_state <o:p></o:p></span></p>
-</div>
-<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-famil=
-y:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black"><o:p>&nbsp;</o:p>=
-</span></p>
-<p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
-;,&quot;sans-serif&quot;;color:black">These lines work just fine. So I assu=
-me the ati is card0. It's also used via DP.
-<o:p></o:p></span></p>
-<p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
-;,&quot;sans-serif&quot;;color:black"><o:p>&nbsp;</o:p></span></p>
-<p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
-;,&quot;sans-serif&quot;;color:black">Also lowering the voltage or speed of=
- memory would help a bit.&nbsp;But either of these is manually adjustable?<=
-o:p></o:p></span></p>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt;background:white"><spa=
-n style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:bla=
-ck"><o:p>&nbsp;</o:p></span></p>
-<div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center;backgr=
-ound:white">
-<span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color=
-:black">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</span></div>
-<div id=3D"divRplyFwdMsg">
-<p class=3D"MsoNormal" style=3D"background:white"><b><span style=3D"font-si=
-ze:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:blac=
-k">From:</span></b><span style=3D"font-size:11.0pt;font-family:&quot;Calibr=
-i&quot;,&quot;sans-serif&quot;;color:black"> Deucher, Alexander &lt;<a href=
-=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org">Alexander.Deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-<b>Sent:</b> Friday, August 12, 2016 2:08 PM<br>
-<b>To:</b> 'Jarkko Korpi'; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"=
->amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-<b>Subject:</b> RE: Adjusting memory speed according to display</span><span=
- style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:blac=
-k">
-<o:p></o:p></span></p>
-<div>
-<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-famil=
-y:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black">&nbsp;<o:p></o:p>=
-</span></p>
-</div>
-</div>
-<div>
-<div>
-<p style=3D"background:white"><span style=3D"font-size:11.0pt;font-family:&=
-quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1F497D">You have to set up=
- the display to send audio data over HDMI.&nbsp; The audio is embedded in t=
-he stream.&nbsp; You have to set up the video stream to use audio.&nbsp;
- You need to raise the memory clocks to provide the necessary bandwidth for=
- multiple display and dynamic mclk switching is not supported with multiple=
- displays enabled because the switches are done during the vertical blankin=
-g period.&nbsp; If you have multiple
- displays with different timing, the blanking periods do not match so glitc=
-h free switching is not possible.</span><span style=3D"color:black"><o:p></=
-o:p></span></p>
-<p style=3D"background:white"><span style=3D"font-size:11.0pt;font-family:&=
-quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1F497D">&nbsp;</span><span=
- style=3D"color:black"><o:p></o:p></span></p>
-<p style=3D"background:white"><span style=3D"font-size:11.0pt;font-family:&=
-quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1F497D">If you want more c=
-ontrol, you can use the sysfs files to either manually force the clocks low=
- or high or manually&nbsp; enable only specific clock levels
- for sclk and mclk.</span><span style=3D"color:black"><o:p></o:p></span></p=
 >
-<p style=3D"background:white"><span style=3D"font-size:11.0pt;font-family:&=
-quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1F497D">&nbsp;</span><span=
- style=3D"color:black"><o:p></o:p></span></p>
-<p style=3D"background:white"><span style=3D"font-size:11.0pt;font-family:&=
-quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1F497D">Alex</span><span s=
-tyle=3D"color:black"><o:p></o:p></span></p>
-<p style=3D"background:white"><span style=3D"font-size:11.0pt;font-family:&=
-quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1F497D">&nbsp;</span><span=
- style=3D"color:black"><o:p></o:p></span></p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
-4.0pt">
-<div>
-<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p style=3D"background:white"><b><span style=3D"font-size:10.0pt;font-famil=
-y:&quot;Tahoma&quot;,&quot;sans-serif&quot;;color:black">From:</span></b><s=
-pan style=3D"font-size:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-ser=
-if&quot;;color:black"> amd-gfx [<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
-edesktop.org">mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>]
-<b>On Behalf Of </b>Jarkko Korpi<br>
-<b>Sent:</b> Thursday, August 11, 2016 9:45 PM<br>
-<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
-reedesktop.org</a><br>
-<b>Subject:</b> Adjusting memory speed according to display</span><span sty=
-le=3D"color:black"><o:p></o:p></span></p>
-</div>
-</div>
-<p style=3D"background:white"><span style=3D"color:black">&nbsp;<o:p></o:p>=
-</span></p>
-<div id=3D"divtagdefaultwrapper">
-<p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
-;,&quot;sans-serif&quot;;color:black">I have rx480 which I connect into 192=
-0x1080 pc screen via DP and audio into external amplifier via HDMI. This ca=
-uses rx480 to raise the memory speed to 2000 while doing
- really simple tasks like watching youtube. I really dont need thatkind of =
-speed for memory. And I am not aware that it's possible to change between 3=
-00mhz 2000mhz memory speeds, but gpu supports this in steps which would be =
-really great for memory too. I only
- need the audio data submited to the amplifier. Is it possible somehow to f=
-orm a patch that it somehow recognizes my amplifier and understands that I =
-am sending audio that I dont need/want it to max the memory speed? I would =
-be really happy for such patch for
- personal use. If it's too hacky to be merged into upstream.<o:p></o:p></sp=
-an></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
+> I'm unsure of what patch you have specifically.  Are you suggesting to 
+> modify the radeon side to mimic the behaviour?  Or to revert the 
+> amdgpu changes?  I  think reverting the amdgpu side won't go over 
+> well.  It's churn and the current approach is arguably better for a 
+> number of reasons namely it's better defined behaviour and generally 
+> speaking if during module init a kmalloc of 100 bytes fails something 
+> bad is happening and you want to abort init anyways (so failing to 
+> load just because part of DCE fails is probably a good thing).
+>
+>
+> Tom
+>
+>
+>
+>
+>
+> ------------------------------------------------------------------------
+> *From:* Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+> *Sent:* Friday, August 12, 2016 12:11
+> *To:* StDenis, Tom; Freedesktop - AMD-gfx
+> *Cc:* Alexander Deucher
+> *Subject:* Re: radeon VS amdgpu: _afmt_init() behavior if kzalloc fails
+> Thanks for the quick answer Tom. I was thinking mostly as you do, but 
+> before sending the patch to the list, I wanted to be sure it was worth 
+> it.
+>
+> I'll send the patch later then, unless someone says otherwise.
+>
+> Cheers,
+> Alexandre
+>
+> On Fri, 12 Aug 2016 at 11:50 StDenis, Tom <Tom.StDenis-5C7GfCeVMHo@public.gmane.org 
+> <mailto:Tom.StDenis-5C7GfCeVMHo@public.gmane.org>> wrote:
+>
+>     Hi,
+>
+>
+>     I wrote those changes back in March as part of a cleanup sweep. 
+>     The idea being was that if some had failed the state of the driver
+>     would be unknown so it was cleaner to simply abort allocating any
+>     memory and set all of the pointers to NULL.
+>
+>
+>     Generally speaking if you fail to kmalloc a few bytes you've got
+>     bigger problems to worry about than your audio not working ideally.
+>
+>
+>     Tom
+>
+>
+>
+>     ------------------------------------------------------------------------
+>     *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>     <mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>> on behalf of
+>     Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
+>     <mailto:alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>
+>     *Sent:* Friday, August 12, 2016 11:43
+>     *To:* Freedesktop - AMD-gfx
+>     *Cc:* Alexander Deucher
+>     *Subject:* radeon VS amdgpu: _afmt_init() behavior if kzalloc fails
+>     Hi,
+>
+>     While comparing radeon's radeon_afmt_init() to
+>     dce_vX_0_afmt_init() on the amdgpu's side, I saw that on the latter:
+>     1- when kzalloc fails to allocate mem for all afmt, an ENOMEM is
+>     returned
+>     2- all previously allocated afmt are freed
+>
+>     So on the amdgpu's side, it is an "all or none allocated"
+>     situation, while on the radeon's side, some afmt may be allocated
+>     and initialized.
+>
+>     Moreover, returning an ENOMEM prevents any other function calls in
+>     dce_vX_0_sw_init() on the amdgpu's side, while it continues on the
+>     radeon's side.
+>
+>     What is the expected behavior here? Should we rewind the memory
+>     allocation as it is done under amdgpu when we can't allocate
+>     memory for all afmt or is it OK to do as it is done on radeon?
+>     Should we stop any remaining steps in radeon_modeset_init() if it
+>     fails (thus, returning a ENOMEM from radeon_afmt_init())?
+>
+>     The patch is already ready if needed, I could send it later from
+>     home if the amdgpu's behavior is the one that we are looking for.
+>
+>     Cheers,
+>     Alexandre Demers
+>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+
+--------------D916D1D8EDD7ACDD4F14C8A6
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Hi guys,<br>
+      <br>
+      yeah, agree totally. When we fail to allocate anything during
+      module or device initialization we should cleanup properly and
+      abort loading the module.<br>
+      <br>
+      On the other hand the only time I actually run into such a problem
+      was while constantly loading and unloading the radeon module to
+      find bugs.<br>
+      <br>
+      BTW: Was pretty fruitful to do this, we should try this with
+      amdgpu at some time as well.<br>
+      <br>
+      Christian.<br>
+      <br>
+      Am 12.08.2016 um 18:17 schrieb StDenis, Tom:<br>
+    </div>
+    <blockquote
+cite="mid:DM5PR12MB11326BF415D31AE5DB0B0A5EF71F0-2J9CzHegvk+UzrhdoDeimQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org"
+      type="cite">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
+      <div id="divtagdefaultwrapper"
+style="font-size:12pt;color:#000000;background-color:#FFFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
+        <p>Hi Alex,</p>
+        <p><br>
+        </p>
+        <p>I'm unsure of what patch you have specifically.  Are you
+          suggesting to modify the radeon side to mimic the behaviour?
+           Or to revert the amdgpu changes?  I  think reverting the
+          amdgpu side won't go over well.  It's churn and the current
+          approach is arguably better for a number of reasons namely
+          it's better defined behaviour and generally speaking if during
+          module init a kmalloc of 100 bytes fails something bad is
+          happening and you want to abort init anyways (so failing to
+          load just because part of DCE fails is probably a good thing).</p>
+        <p><br>
+        </p>
+        <p>Tom</p>
+        <p><br>
+        </p>
+        <p><br>
+        </p>
+        <br>
+        <br>
+        <div style="color: rgb(0, 0, 0);">
+          <hr tabindex="-1" style="display:inline-block; width:98%">
+          <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
+              color="#000000" face="Calibri, sans-serif"><b>From:</b>
+              Alexandre Demers <a class="moz-txt-link-rfc2396E" href="mailto:alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">&lt;alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a><br>
+              <b>Sent:</b> Friday, August 12, 2016 12:11<br>
+              <b>To:</b> StDenis, Tom; Freedesktop - AMD-gfx<br>
+              <b>Cc:</b> Alexander Deucher<br>
+              <b>Subject:</b> Re: radeon VS amdgpu: _afmt_init()
+              behavior if kzalloc fails</font>
+            <div> </div>
+          </div>
+          <div>
+            <div dir="ltr">Thanks for the quick answer Tom. <span
+                style="line-height:1.5">I was thinking mostly as you do,
+                but before sending the patch to the list, I wanted to be
+                sure it was worth it.</span>
+              <div><br>
+                <div>I'll send the patch later then, unless someone says
+                  otherwise.</div>
+                <div><br>
+                </div>
+                <div>Cheers,</div>
+                <div>Alexandre</div>
+              </div>
+            </div>
+            <br>
+            <div class="gmail_quote">
+              <div dir="ltr">On Fri, 12 Aug 2016 at 11:50 StDenis, Tom
+                &lt;<a moz-do-not-send="true"
+                  href="mailto:Tom.StDenis-5C7GfCeVMHo@public.gmane.org">Tom.StDenis-5C7GfCeVMHo@public.gmane.org</a>&gt;
+                wrote:<br>
+              </div>
+              <blockquote class="gmail_quote" style="margin:0 0 0 .8ex;
+                border-left:1px #ccc solid; padding-left:1ex">
+                <div dir="ltr">
+                  <div style="font-size:12pt; color:#000000;
+                    background-color:#ffffff;
+                    font-family:Calibri,Arial,Helvetica,sans-serif">
+                    <p>Hi,</p>
+                    <p><br>
+                    </p>
+                    <p>I wrote those changes back in March as part of a
+                      cleanup sweep.  The idea being was that if some
+                      had failed the state of the driver would be
+                      unknown so it was cleaner to simply abort
+                      allocating any memory and set all of the pointers
+                      to NULL.</p>
+                    <p><br>
+                    </p>
+                    <p>Generally speaking if you fail to kmalloc a few
+                      bytes you've got bigger problems to worry about
+                      than your audio not working ideally.</p>
+                    <p><br>
+                    </p>
+                    <p>Tom</p>
+                    <br>
+                    <br>
+                    <div style="color:rgb(0,0,0)">
+                      <hr style="display:inline-block; width:98%">
+                      <div dir="ltr"><font style="font-size:11pt"
+                          color="#000000" face="Calibri, sans-serif"><b>From:</b>
+                          amd-gfx &lt;<a moz-do-not-send="true"
+                            href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
+                            target="_blank">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt;
+                          on behalf of Alexandre Demers &lt;<a
+                            moz-do-not-send="true"
+                            href="mailto:alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
+                            target="_blank">alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
+                          <b>Sent:</b> Friday, August 12, 2016 11:43<br>
+                          <b>To:</b> Freedesktop - AMD-gfx<br>
+                          <b>Cc:</b> Alexander Deucher<br>
+                          <b>Subject:</b> radeon VS amdgpu: _afmt_init()
+                          behavior if kzalloc fails</font>
+                        <div> </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div dir="ltr">
+                  <div style="font-size:12pt; color:#000000;
+                    background-color:#ffffff;
+                    font-family:Calibri,Arial,Helvetica,sans-serif">
+                    <div style="color:rgb(0,0,0)">
+                      <div>
+                        <div dir="ltr">Hi,
+                          <div><br>
+                          </div>
+                          <div>While comparing radeon's
+                            radeon_afmt_init() to dce_vX_0_afmt_init()
+                            on the amdgpu's side, I saw that on the
+                            latter:</div>
+                          <div>1- when kzalloc fails to allocate mem for
+                            all afmt, an ENOMEM is returned</div>
+                          <div>2- all previously allocated afmt are
+                            freed</div>
+                          <div><br>
+                          </div>
+                          <div>So on the amdgpu's side, it is an "all or
+                            none allocated" situation, while on the
+                            radeon's side, some afmt may be allocated
+                            and initialized.</div>
+                          <div><br>
+                          </div>
+                          <div>Moreover, returning an ENOMEM prevents
+                            any other function calls in <span
+                              style="font-size:13.3333px;
+                              line-height:normal">dce_vX_0_</span><span
+                              style="font-size:13.3333px;
+                              line-height:normal">sw_init() on the
+                              amdgpu's side, while it continues on the
+                              radeon's side.</span><br>
+                          </div>
+                          <div><span style="font-size:13.3333px;
+                              line-height:normal"><br>
+                            </span></div>
+                          <div><span style="font-size:13.3333px;
+                              line-height:normal">What is the expected
+                              behavior here? Should we rewind the memory
+                              allocation as it is done under amdgpu when
+                              we can't allocate memory for all afmt or
+                              is it OK to do as it is done on radeon?
+                              Should we stop any remaining steps in
+                              radeon_modeset_init() if it fails (thus,
+                              returning a ENOMEM from
+                              radeon_afmt_init())?</span></div>
+                          <div><span style="font-size:13.3333px;
+                              line-height:normal"><br>
+                            </span></div>
+                          <div><span style="font-size:13.3333px;
+                              line-height:normal">The patch is already
+                              ready if needed, I could send it later
+                              from home if the amdgpu's behavior is the
+                              one that we are looking for.</span></div>
+                          <div><span style="font-size:13.3333px;
+                              line-height:normal"><br>
+                            </span></div>
+                          <div><span style="font-size:13.3333px;
+                              line-height:normal">Cheers,</span></div>
+                          <div><span style="font-size:13.3333px;
+                              line-height:normal">Alexandre Demers</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
 </html>
 
---_000_MWHPR12MB1694F898CF87A32C5D448769F71F0MWHPR12MB1694namp_--
+--------------D916D1D8EDD7ACDD4F14C8A6--
 
---===============0190309172==
+--===============1367222042==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -422,4 +380,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0190309172==--
+--===============1367222042==--
