@@ -1,13 +1,13 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH 00/18] shadow page table support V3
-Date: Fri, 12 Aug 2016 10:00:51 +0200
-Message-ID: <9a1da72b-4834-c135-260a-1d16c8b36ea3@vodafone.de>
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH 15/18] drm/amd: block entity
+Date: Fri, 12 Aug 2016 19:42:29 +1000
+Message-ID: <f8dfeb55-132f-1ddf-2e2f-02776aa5d3e0@folklore1984.net>
 References: <1470983947-32579-1-git-send-email-David1.Zhou@amd.com>
+ <1470983947-32579-16-git-send-email-David1.Zhou@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1590202586=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1470983947-32579-1-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1470983947-32579-16-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,82 +20,118 @@ Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-UGF0Y2ggIzEtIzQgYXJlIFJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4u
-a29lbmlnQGFtZC5jb20+LCAKcGxlYXNlIGNvbW1pdCB0aG9zZSBzbyB0aGF0IHdlIGNhbiBjb25z
-aWRlciB0aGVtIGFzIGRvbmUuCgpQYXRjaCAjNToKPiAgIAo+ICtpbnQgYW1kZ3B1X2JvX3N5bmNf
-YmV0d2Vlbl9ib19hbmRfc2hhZG93KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+ICsJCQkJ
-CSBzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsCj4gKwkJCQkJIHN0cnVjdCBhbWRncHVfYm8gKmJv
-LAo+ICsJCQkJCSBzdHJ1Y3QgcmVzZXJ2YXRpb25fb2JqZWN0ICpyZXN2LAo+ICsJCQkJCSBzdHJ1
-Y3QgZmVuY2UgKipmZW5jZSkKTWF5YmUgcmVuYW1lIHRoaXMgdG8gYW1kZ3B1X2JvX2JhY2t1cF9z
-aGFkb3coKSwgd2hlbiB0YWxraW5nIGFib3V0IHN5bmMgCmF0IGxlYXN0IEkgYWx3YXlzIHRoaW5r
-IGFib3V0IHN5bmNocm9uaXphdGlvbiB1c2luZyBmZW5jZXMuCgo+ICsKPiArCWlmIChiby0+YmFj
-a3VwX3NoYWRvdyAmIEFNREdQVV9CT19TSEFET1dfVE9fTk9ORSkgewpUaGF0IGNvbmRpdGlvbiB3
-aWxsIG5ldmVyIGJlIHRydWUsIGNhdXNlIEFNREdQVV9CT19TSEFET1dfVE9fTk9ORSBpcyAKZGVm
-aW5lZCBhcyAwLiBZb3UgcHJvYmFibHkgd2FudGVkIHRvIHVzZSAiPT0iIGhlcmUsIGRvbid0IHlv
-dT8KCj4gKwlyID0gYW1kZ3B1X2JvX3BpbihibywgYm8tPnByZWZlcmVkX2RvbWFpbnMsICZib19h
-ZGRyKTsKPiArCWlmIChyKSB7Cj4gKwkJRFJNX0VSUk9SKCJGYWlsZWQgdG8gcGluIGJvIG9iamVj
-dFxuIik7Cj4gKwkJZ290byBlcnIxOwo+ICsJfQo+ICsJciA9IGFtZGdwdV9ib19waW4oYm8tPnNo
-YWRvdywgYm8tPnNoYWRvdy0+cHJlZmVyZWRfZG9tYWlucywgJnNoYWRvd19hZGRyKTsKPiArCWlm
-IChyKSB7Cj4gKwkJRFJNX0VSUk9SKCJGYWlsZWQgdG8gcGluIGJvIHNoYWRvdyBvYmplY3RcbiIp
-Owo+ICsJCWdvdG8gZXJyMjsKPiArCX0KQWdhaW4gZG9uJ3QgdXNlIGFtZGdwdV9ib19waW4oKSBo
-ZXJlLgoKUGF0Y2ggIzY6Cj4gKwlyID0gYW1kZ3B1X2JvX3Jlc2VydmUodm0tPnBhZ2VfZGlyZWN0
-b3J5LCBmYWxzZSk7Cj4gKwlpZiAocikKPiArCQlyZXR1cm4gcjsKWW91IG5lZWQgdG8gZG91Ymxl
-IGNoZWNrIGlmIHRoZSBCT3MgYXJlbid0IHN3YXBwZWQgb3V0LiBTZWUgCmFtZGdwdV9nZW1fdmFf
-dXBkYXRlX3ZtKCkgb24gaG93IHRvIGRvIHRoaXMuCgo+ICsJZmVuY2VfcHV0KHZtLT5zaGFkb3df
-c3luY19mZW5jZSk7Cj4gKwl2bS0+c2hhZG93X3N5bmNfZmVuY2UgPSBmZW5jZV9nZXQoZmVuY2Up
-OwpJIHdvdWxkbid0IHJlbWVtYmVyIHRoZSBiYWNrdXAgb3BlcmF0aW9uIGF0IGFsbCwganVzdCBy
-ZXR1cm4gdGhlIGZlbmNlIAp0byB0aGUgY2FsbGVyIGluc3RlYWQuCgo+ICsJCXIgPSBhbWRncHVf
-Ym9fc3luY19iZXR3ZWVuX2JvX2FuZF9zaGFkb3coYWRldiwgcmluZywgYm8sCj4gKwkJCQkJCQkg
-TlVMTCwgJmZlbmNlKTsKQXMgZGlzY3Vzc2VkIHdlIGRvbid0IHdhbnQgdG8gdXNlIHRoZSBzY2hl
-ZHVsZXIgZm9yIHRoZSByZWNvdmVyeSAKb3BlcmF0aW9uLCBzbyB3ZSBuZWVkIGEgZmxhZyB0byBz
-ZW5kIHRoZSBjb21tYW5kcyBkaXJlY3RseSB0byB0aGUgcmluZyBoZXJlLgoKUGF0Y2ggIzcgYW5k
-IGZvbGxvd2luZy4gVGhpbmtpbmcgYWJvdXQgdGhpcyBtb3JlIHRoZSB3aG9sZSBpZGVhIG9mIHVz
-aW5nIAphIHNlcGFyYXRlIGVudGl0eSBpcyBhIE5BSy4KClRoZSBiYXNpYyBwcm9ibGVtIGlzIHRo
-YXQgeW91IGNhbid0IGtub3cgd2hpY2ggdXBkYXRlcyBhcmUgY29tcGxldGVkLCAKY3Jhc2hlZCBv
-ciBpbiBmbGlnaHQgd2hlbiB0aGUgdGhlIEdQVSByZWNvdmVyeSBoaXRzIHVzLiBTbyB0aGUgc2hh
-ZG93IApuZWVkcyB0byBiZSB1cGRhdGVkIGJlZm9yZSB0aGUgcmVhbCBwYWdlIHRhYmxlIGFuZCBu
-b25lIG9mIHRoaXMgY2FuIGJlIApkb25lIG91dCBvZiBvcmRlci4KCkkgc3VnZ2VzdCB5b3UganVz
-dCBzd2l0Y2ggYmFjayB0byBkb2luZyB0aGUgdXBkYXRlcyB0d2ljZSBmb3Igbm93LgoKUmVnYXJk
-cywKQ2hyaXN0aWFuLgoKQW0gMTIuMDguMjAxNiB1bSAwODozOCBzY2hyaWViIENodW5taW5nIFpo
-b3U6Cj4gU2luY2Ugd2UgY2Fubm90IGVuc3VyZSBWUkFNIGlzIGNvbnNpc3RlbnQgYWZ0ZXIgYSBH
-UFUgcmVzZXQsIHBhZ2UKPiB0YWJsZSBzaGFkb3dpbmcgaXMgbmVjZXNzYXJ5LiBTaGFkb3dlZCBw
-YWdlIHRhYmxlcyBhcmUsIGluIGEgc2Vuc2UsIGEKPiBtZXRob2QgdG8gcmVjb3ZlciB0aGUgY29u
-c2lzdGVudCBzdGF0ZSBvZiB0aGUgcGFnZSB0YWJsZXMgYmVmb3JlIHRoZQo+IHJlc2V0IG9jY3Vy
-cmVkLgo+Cj4gV2UgbmVlZCB0byBhbGxvY2F0ZSBHVFQgYm8gYXMgdGhlIHNoYWRvdyBvZiBWUkFN
-IGJvIHdoZW4gY3JlYXRpbmcgcGFnZSB0YWJsZSwKPiBhbmQgbWFrZSB0aGVtIHRoZSBzYW1lLiBB
-ZnRlciBncHUgcmVzZXQsIHdlIHdpbGwgbmVlZCB0byB1c2UgU0RNQSB0byBjb3B5IEdUVCBibwo+
-IGNvbnRlbnQgdG8gVlJBTSBibywgdGhlbiBwYWdlIHRhYmxlIHdpbGwgYmUgcmVjb3ZlcmllZC4K
-Pgo+Cj4gVjI6Cj4gU2hhZG93IGJvIHVzZXMgYSBzaGFkb3cgZW50aXR5IHJ1bm5pbmcgb24gbm9y
-bWFsIHJ1biBxdWV1ZSwgYWZ0ZXIgZ3B1IHJlc2V0LAo+IHdlIG5lZWQgdG8gd2FpdCBmb3IgYWxs
-IHNoYWRvdyBqb2JzIGZpbmlzaGVkIGZpcnN0LCB0aGVuIHJlY292ZXJ5IHBhZ2UgdGFibGUgZnJv
-bSBzaGFkb3cuCj4KPiBWMzoKPiBBZGRyZXNzZWQgQ2hyaXN0aWFuIGNvbW1lbnRzIGZvciBzaGFk
-b3cgYm8gcGFydC4KPgo+IENodW5taW5nIFpob3UgKDE4KToKPiAgICBkcm0vYW1kZ3B1OiBhZGQg
-c2hhZG93IGJvIHN1cHBvcnQgVjIKPiAgICBkcm0vYW1kZ3B1OiB2YWxpZGF0ZSBzaGFkb3cgYXMg
-d2VsbCB3aGVuIHZhbGlkYXRpbmcgYm8KPiAgICBkcm0vYW1kZ3B1OiBhbGxvY2F0ZSBzaGFkb3cg
-Zm9yIHBkL3B0IGJvIFYyCj4gICAgZHJtL2FtZGdwdTogYWRkIHNoYWRvdyBmbGFnIFYyCj4gICAg
-ZHJtL2FtZGdwdTogc3luYyBibyBhbmQgc2hhZG93Cj4gICAgZHJtL2FtZGdwdTogaW1wbGVtZW50
-IHZtIHJlY292ZXJ5IGZ1bmN0aW9uIGZyb20gc2hhZG93Cj4gICAgZHJtL2FtZGdwdTogYWRkIHNo
-YWRvd19lbnRpdHkgZm9yIHNoYWRvdyBwYWdlIHRhYmxlIHVwZGF0ZXMKPiAgICBkcm0vYW1kZ3B1
-OiB1cGRhdGUgcGQgc2hhZG93IGJvCj4gICAgZHJtL2FtZGdwdTogdXBkYXRlIHB0IHNoYWRvdwo+
-ICAgIGRybS9hbWQ6IGFkZCBsYXN0IGZlbmNlIGluIHNjaGVkIGVudGl0eQo+ICAgIGRybS9hbWRn
-cHU6IGxpbmsgYWxsIHZtIGNsaWVudHMKPiAgICBkcm0vYW1kZ3B1OiBhZGQgdm1fbGlzdF9sb2Nr
-Cj4gICAgZHJtL2FtZDogYWRkIGJsb2NrIGVudGl0eSBmdW5jdGlvbgo+ICAgIGRybS9hbWRncHU6
-IGFkZCBzaGFkb3cgZmVuY2Ugb3duZXIKPiAgICBkcm0vYW1kOiBibG9jayBlbnRpdHkKPiAgICBk
-cm0vYW1kZ3B1OiByZWNvdmVyIHBhZ2UgdGFibGVzIGFmdGVyIGdwdSByZXNldAo+ICAgIGRybS9h
-bWRncHU6IGFkZCBuZWVkIGJhY2t1cCBmdW5jdGlvbgo+ICAgIGRybS9hbWRncHU6IGFkZCBiYWNr
-dXAgY29uZGl0aW9uIGZvciB2bQo+Cj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHUuaCAgICAgICAgICAgfCAgMjUgKysrCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfY3MuYyAgICAgICAgfCAgODIgKysrKystLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyAgICB8ICA4OCArKysrKysrLQo+ICAgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jICAgIHwgMTAwICsrKysrKysrLQo+ICAgZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5oICAgIHwgICA1ICsKPiAgIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9zeW5jLmMgICAgICB8ICAgMyArCj4gICBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyAgICAgICAgfCAyODEgKysrKysr
-KysrKysrKysrKysrKy0tLS0tLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvc2NoZWR1bGVyL2dw
-dV9zY2hlZHVsZXIuYyB8ICAzOCArKystCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL3NjaGVkdWxl
-ci9ncHVfc2NoZWR1bGVyLmggfCAgIDUgKwo+ICAgaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJt
-LmggICAgICAgICAgICAgICAgIHwgICAyICsKPiAgIDEwIGZpbGVzIGNoYW5nZWQsIDUyNCBpbnNl
-cnRpb25zKCspLCAxMDUgZGVsZXRpb25zKC0pCj4KCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vYW1kLWdmeAo=
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============1590202586==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="LIDEubRJQrhq2sDKR7kVbPuhuFOSPKIPe"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--LIDEubRJQrhq2sDKR7kVbPuhuFOSPKIPe
+Content-Type: multipart/mixed; boundary="w0hbDsg61ESIMlMR1sQII1O1tgl2DT5pt"
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+To: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Message-ID: <f8dfeb55-132f-1ddf-2e2f-02776aa5d3e0-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH 15/18] drm/amd: block entity
+References: <1470983947-32579-1-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+ <1470983947-32579-16-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1470983947-32579-16-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+
+--w0hbDsg61ESIMlMR1sQII1O1tgl2DT5pt
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+
+
+On 08/12/2016 04:39 PM, Chunming Zhou wrote:
+> Change-Id: Iba210e0d007a249a90f955f5ac9c3803cc40def2
+> Signed-off-by: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/scheduler/gpu_scheduler.c | 7 ++++++-
+>  drivers/gpu/drm/amd/scheduler/gpu_scheduler.h | 1 +
+>  2 files changed, 7 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.c b/drivers/gp=
+u/drm/amd/scheduler/gpu_scheduler.c
+> index f750d4a..78d34d5 100644
+> --- a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.c
+> +++ b/drivers/gpu/drm/amd/scheduler/gpu_scheduler.c
+> @@ -109,6 +109,11 @@ amd_sched_rq_select_entity(struct amd_sched_rq *rq=
+)
+>  	return NULL;
+>  }
+> =20
+> +void amd_sched_block_entity(struct amd_sched_entity *entity, bool bloc=
+k)
+> +{
+> +	entity->block =3D block;
+> +}
+Why is this function necessary, did I miss something?
+
+> +
+>  /**
+>   * block all entity of this run queue
+>   *
+> @@ -122,7 +127,7 @@ int amd_sched_rq_block_entity(struct amd_sched_rq *=
+rq, bool block)
+>  	spin_lock(&rq->lock);
+> =20
+>  	list_for_each_entry(entity, &rq->entities, list)
+> -		entity->block =3D block;
+> +		amd_sched_block_entity(entity, block);
+> =20
+>  	spin_unlock(&rq->lock);
+> =20
+> diff --git a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h b/drivers/gp=
+u/drm/amd/scheduler/gpu_scheduler.h
+> index 8ea0374..da01051 100644
+> --- a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h
+> +++ b/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h
+> @@ -159,4 +159,5 @@ int amd_sched_job_init(struct amd_sched_job *job,
+>  void amd_sched_hw_job_reset(struct amd_gpu_scheduler *sched);
+>  void amd_sched_job_recovery(struct amd_gpu_scheduler *sched);
+>  int amd_sched_rq_block_entity(struct amd_sched_rq *rq, bool block);
+> +void amd_sched_block_entity(struct amd_sched_entity *entity, bool bloc=
+k);
+>  #endif
+>=20
+
+
+--w0hbDsg61ESIMlMR1sQII1O1tgl2DT5pt--
+
+--LIDEubRJQrhq2sDKR7kVbPuhuFOSPKIPe
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJXrZoFAAoJEP4bvbfZuWjbsHkP/Ayg7HxwQWc42SE+uxeIp/YA
+sKKN/bt5rv7fjMTVrWs/kokiNR0f8kwGGg7hhPA2rVZX9lAVps1lse7VcIqsJLGp
+1KzDKEZTSazJ2fEPyVvFExDIIAlRbtl+w+NLKftI1676IDuTCQITKTHek+7nrz+y
+qjTDZg4a2LlHjqSzkQ1c1PPbuXZiFzNNR4OHeP8QptEw7Dzvb2CgsNbO0uOzYuUL
+bVBQrG+TQr2wvClcufs25joP0i2yHc/8ha7WLm/AbB9CKQC3qNLljwUSxv7uPWsj
+x0+S49O7+WINESsSjI5F60i7XHa/kEDqnRpHMmp7ZvJuQxdhWLCtkf4xa3yR6GNj
+ktN0Q1DlVB0gsH05BUuMv368MJQQxno523ny7HHu2azr8+mgDKNHhBSoF0C9KgRo
+zQ7go+DqEt1YjSFZzXmP2jQxlcnJvh2fdRB57gdgJFwqAxCD6vtwrNNolwfY6IAP
+VVt7/YLXo9N3c3H4v15+qieehqr7LDvTdjEFYLVkpnum89PNlwVDJi1h/dMeis0D
+bHxUaH8OJw4RBM+5SGgV+/elW5QpCk0LdmBpPHV8Vnlkk3jX2DupeUe2PaEEt4yx
+TMZLDQZBIoeA4Ju1TZcai2LQdv2lXO49lUtX5E3lVAqG9Khk5TTnJwejKEUwjxog
+GJkQBA981BwfQqgYRCwJ
+=e3py
+-----END PGP SIGNATURE-----
+
+--LIDEubRJQrhq2sDKR7kVbPuhuFOSPKIPe--
+
+--===============1590202586==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1590202586==--
