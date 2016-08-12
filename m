@@ -1,19 +1,16 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: Reverted another change to fix buffer move hangs (was Re: [PATCH]
- drm/ttm: partial revert "cleanup ttm_tt_(unbind|destroy)" v2)
-Date: Thu, 11 Aug 2016 20:31:31 +0000
-Message-ID: <MWHPR12MB16948D7420076C10DCFAEEBBF71E0@MWHPR12MB1694.namprd12.prod.outlook.com>
-References: <1469193013-11482-1-git-send-email-deathsimple@vodafone.de>
- <95d462b5-7c20-2f40-c406-48f5aece0817@daenzer.net>
- <58e8df15-98dd-facc-acb6-68f94a937374@amd.com>
- <67b3c224-29e0-0a98-6c3a-8439744149da@amd.com>
- <c76c7703-6c0d-0d2a-ba9f-c012d74c01bf@amd.com>
+From: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 3/4] drm/amd/amdgpu: VCE v2 register cleanup
+Date: Fri, 12 Aug 2016 09:52:07 +0800
+Message-ID: <57AD2BC7.70709@amd.com>
+References: <20160811143253.24718-1-tom.stdenis@amd.com>
+ <20160811143253.24718-4-tom.stdenis@amd.com>,
+ <MWHPR12MB1694FE8258E0ADB4F32DC885F71E0@MWHPR12MB1694.namprd12.prod.outlook.com>
+ <DM5PR12MB1132A35D1BAAB0027D5FE23AF71E0@DM5PR12MB1132.namprd12.prod.outlook.com>
+ <MWHPR12MB1694A14EF7C0FAD8E46B5A97F71E0@MWHPR12MB1694.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0266664437=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <c76c7703-6c0d-0d2a-ba9f-c012d74c01bf-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <MWHPR12MB1694A14EF7C0FAD8E46B5A97F71E0-Gy0DoCVfaSW4WA4dJ5YXGAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -24,66 +21,644 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
-LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIEZlbGl4
-IEt1ZWhsaW5nDQo+IFNlbnQ6IFRodXJzZGF5LCBBdWd1c3QgMTEsIDIwMTYgMzo1MiBQTQ0KPiBU
-bzogTWljaGVsIETDpG56ZXI7IENocmlzdGlhbiBLw7ZuaWcNCj4gQ2M6IGFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnDQo+IFN1YmplY3Q6IFJldmVydGVkIGFub3RoZXIgY2hhbmdlIHRvIGZp
-eCBidWZmZXIgbW92ZSBoYW5ncyAod2FzIFJlOg0KPiBbUEFUQ0hdIGRybS90dG06IHBhcnRpYWwg
-cmV2ZXJ0ICJjbGVhbnVwIHR0bV90dF8odW5iaW5kfGRlc3Ryb3kpIiB2MikNCj4gDQo+IFdlIGhh
-ZCB0byByZXZlcnQgYW5vdGhlciBjaGFuZ2Ugb24gdGhlIEtGRCBicmFuY2ggdG8gZml4IGEgYnVm
-ZmVyIG1vdmUNCj4gcHJvYmxlbTogOGI2Yjc5ZjQzODAxZjAwZGRjZGMxMGE0ZDU3MTllYmE0YjJl
-MzJhYSAoZHJtL2FtZGdwdToNCj4gZ3JvdXAgQk9zDQo+IGJ5IGxvZzIgb2YgdGhlIHNpemUgb24g
-dGhlIExSVSB2Mg0KDQpUaGF0IG1ha2VzIHNlbnNlLiAgSSB0aGluayB5b3UgbWF5IHdhbnQgYSBk
-aWZmZXJlbnQgTFJVIHNjaGVtZSBmb3IgS0ZEIG9yIGF0IGxlYXN0IHNwZWNpYWwgaGFuZGxpbmcg
-Zm9yIEtGRCBidWZmZXJzLg0KDQpBbGV4DQoNCj4gDQo+IFdlIGhhdmVuJ3QgbG9va2VkIGludG8g
-dGhpcyBjaGFuZ2UgaW4gZGV0YWlsIHlldCwgdG8gdW5kZXJzdGFuZCB0aGUNCj4gY2F1c2UuIEtl
-bnQgZm91bmQgaXQgYnkgYmlzZWN0aW5nIG9uIGFtZC1zdGFnaW5nLTQuNiBhbmQgYXBwbHlpbmcg
-S0ZEDQo+IGNoYW5nZXMgb24gdG9wLg0KPiANCj4gUmVnYXJkcywNCj4gICBGZWxpeA0KPiANCj4g
-T24gMTYtMDgtMDUgMTE6MDYgQU0sIEZlbGl4IEt1ZWhsaW5nIHdyb3RlOg0KPiA+IEZvciB0aGUg
-cmVjb3JkLCBNaWNoZWwncyBwYXRjaCAiZHJtL3R0bTogV2FpdCBmb3IgYSBCTyB0byBiZWNvbWUg
-aWRsZQ0KPiA+IGJlZm9yZSB1bmJpbmRpbmcgaXQgZnJvbSBHVFQiIGZpeGVzIG91ciBLRkQgcHJv
-YmxlbSBhcyB3ZWxsLg0KPiA+DQo+ID4gVGhhbmtzLA0KPiA+ICAgRmVsaXgNCj4gPg0KPiA+IE9u
-IDE2LTA3LTI3IDA1OjI3IFBNLCBGZWxpeCBLdWVobGluZyB3cm90ZToNCj4gPj4gV2UncmUgYWxz
-byBsb29raW5nIGludG8gYSBoYW5nIHdpdGggYSBLRkQgdW5pdCB0ZXN0IHRoYXQgYWxsb2NhdGVz
-IGxvdHMNCj4gPj4gb2YgbWVtb3J5IGFuZCBmcmFnbWVudHMgaXQgZGVsaWJlcmF0ZWx5LCB3aXRo
-b3V0IG1hcHBpbmcgaXQgYWxsIGF0IG9uY2UuDQo+ID4+IEl0J3MgYSBuZXcgcHJvYmxlbSBmb3Ig
-dXMgYXMgd2UncmUgcmViYXNpbmcgb24gYW1kLXN0YWdpbmctNC42Lg0KPiA+PiBTb21ldGhpbmcg
-d2VpcmQgc2VlbXMgdG8gYmUgaGFwcGVuaW5nIHdpdGggZXZpY3Rpb25zLCBidXQgSSBoYXZlbid0
-DQo+IGJlZW4NCj4gPj4gYWJsZSB0byBmaWd1cmUgaXQgb3V0Lg0KPiA+Pg0KPiA+PiBJIHdhcyBh
-YmxlIHRvIHNlZSB0aGF0IFNETUEgcGFnZSB0YWJsZSB1cGRhdGVzIHN0b3Agd29ya2luZyBhdCBz
-b21lDQo+ID4+IHBvaW50LCB0aG91Z2ggU0RNQSBmZW5jZXMgYXJlIHN0aWxsIHNpZ25hbGluZy4g
-SWYgSSBsZXQgdGhlIHRlc3QgcnVuDQo+ID4+IGxvbmdlciwgU0RNQSBhbmQgQ1AgaGFuZy4gSSBk
-dW1wZWQgdGhlIFNETUEgSUJzIGFuZCBkaWRuJ3Qgc2VlDQo+IGFueXRoaW5nDQo+ID4+IHN1c3Bp
-Y2lvdXMuIE15IGd1ZXNzIHdhcyB0aGF0IG1heWJlIHRoZSBTRE1BIElCcyBvciB0aGUgcmluZyBh
-cmUgZ2V0dGluZw0KPiA+PiBjb3JydXB0ZWQsIG9yIG1heWJlIHRoZSBHQVJUIHRhYmxlIGVudHJp
-ZXMgZm9yIHRoZSBJQnMgb3IgcmluZyBhcmUNCj4gPj4gY29ycnVwdGVkLiBCdXQgSSBoYXZlbid0
-IGJlZW4gYWJsZSB0byBwcm92ZSB0aGF0IG9yIHRyYWNrIGl0IGRvd24gdG8gYQ0KPiA+PiByb290
-IGNhdXNlLiBXZSdyZSBub3cgdHJ5aW5nIHRvIHJlaW1wbGVtZW50IHRoZSB0ZXN0IHVzaW5nIGxp
-YmRybS0NCj4gYW1kZ3B1DQo+ID4+IEFQSXMgc28gd2UgY2FuIGJpc2VjdCBvbiB0aGUgYW1kLXN0
-YWdpbmctNC42IGJyYW5jaCB3aXRob3V0IEtGRC4NCj4gPj4NCj4gPj4gUmVnYXJkcywNCj4gPj4g
-ICBGZWxpeA0KPiA+Pg0KPiA+PiBPbiAxNi0wNy0yNiAxMDoyNiBQTSwgTWljaGVsIETDpG56ZXIg
-d3JvdGU6DQo+ID4+PiBPbiAyMi4wNy4yMDE2IDIyOjEwLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3Rl
-Og0KPiA+Pj4+IEZyb206IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNv
-bT4NCj4gPj4+Pg0KPiA+Pj4+IFdlIHN0aWxsIG5lZWQgdG8gdW5iaW5kIGV4cGxpY2l0ZWx5IGR1
-cmluZyBhIG1vdmUuDQo+ID4+PiBUaGlzIGNoYW5nZSBmaXhlZCBhIGhhbmcgZm9yIG1lIHdoZW4g
-cnVubmluZyB0aGUgcGlnbGl0IHRlc3QNCj4gPj4+IG1heC10ZXh0dXJlLXNpemUgd2l0aCB0aGUg
-cmFkZW9uIGRyaXZlciBvbiBLYXZlcmkuDQo+ID4+Pg0KPiA+Pj4gSG93ZXZlciwgdGhlcmUncyBz
-dGlsbCBhIHNpbWlsYXIgaGFuZyBsZWZ0IHdoZW4gbGV0dGluZyB0aGUgcGlnbGl0IHRlc3QNCj4g
-Pj4+IHRleDNkLW1heHNpemUgcnVuIGNvbmN1cnJlbnRseSB3aXRoIG90aGVyIHRlc3RzIChydW5u
-aW5nIHRleDNkLW1heHNpemUNCj4gPj4+IGFsb25lIGRvZXNuJ3QgaGFuZywgYnV0IGZhaWxzIGR1
-ZSB0byBydW5uaW5nIG91dCBvZiBHUFUgbWVtb3J5OyB0aGF0J3MgYQ0KPiA+Pj4gcmVjZW50IHJh
-ZGVvbnNpIHJlZ3Jlc3Npb24pLiBUaGVyZSBhcmUNCj4gPj4+DQo+ID4+PiAgW1RUTV0gQnVmZmVy
-IGV2aWN0aW9uIGZhaWxlZA0KPiA+Pj4NCj4gPj4+IG1lc3NhZ2VzIGluIGRtZXNnIHNob3J0bHkg
-YmVmb3JlIHRoZSBoYW5nLg0KPiA+Pj4NCj4gPj4+IEkgaGF2ZW4ndCBzZWVuIHN1Y2ggaGFuZ3Mg
-d2l0aCBvbGRlciBrZXJuZWxzLiBBbnkgaWRlYXMgb2ZmaGFuZCB3aGF0DQo+IHRoZQ0KPiA+Pj4g
-cHJvYmxlbSBjb3VsZCBiZT8gSWYgbm90LCBJJ2xsIHRyeSBiaXNlY3RpbmcuDQo+ID4+Pg0KPiA+
-Pj4NCj4gDQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-DQo+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-DQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============0266664437==
+Content-Type: multipart/alternative;
+	boundary="------------060705060906080602040904"
+
+--------------060705060906080602040904
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Agree with Tom.
+
+On 2016年08月12日 00:09, Deucher, Alexander wrote:
+>
+> I guess I don't really have a particularly strong opinion either way.  
+> If others are ok with it, I'm fine with it.
+>
+> Alex
+>
+> *From:*StDenis, Tom
+> *Sent:* Thursday, August 11, 2016 11:48 AM
+> *To:* Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> *Subject:* Re: [PATCH 3/4] drm/amd/amdgpu: VCE v2 register cleanup
+>
+> Just trying to make it easier to read.
+>
+> WREG32_FIELD(foo, FIELD, 1);
+>
+> Is easier to read than
+>
+> WREG32_P(foo, FOO__FIELD_MASK, ~FOO__FIELD_MASK);
+>
+> (also I already pushed them after getting a RB by Christian this 
+> morning so we might need to hold a different discussion).
+>
+> I agree it's not really a functional change but making things a bit 
+> more uniform and easier to read helps maintenance.  And I did find a 
+> bug in the process :-)
+>
+> Tom
+>
+> ------------------------------------------------------------------------
+>
+> *From:*Deucher, Alexander
+> *Sent:* Thursday, August 11, 2016 11:46
+> *To:* 'Tom St Denis'; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org 
+> <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+> *Cc:* StDenis, Tom
+> *Subject:* RE: [PATCH 3/4] drm/amd/amdgpu: VCE v2 register cleanup
+>
+> > -----Original Message-----
+> > From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf
+> > Of Tom St Denis
+> > Sent: Thursday, August 11, 2016 10:33 AM
+> > To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+> > Cc: StDenis, Tom
+> > Subject: [PATCH 3/4] drm/amd/amdgpu: VCE v2 register cleanup
+> >
+> > Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org 
+> <mailto:tom.stdenis-5C7GfCeVMHo@public.gmane.org>>
+>
+> A couple pieces of this patch could be split out as separate cleanups 
+> (see below).  However, I'm not sure how much value there is in 
+> switching WREG32_P for WREG_FIELD other than code churn.  They 
+> basically do the same thing.
+>
+> Alex
+>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/vce_v2_0.c | 39 +++++++++++++-------------
+> > ---------
+> >  1 file changed, 14 insertions(+), 25 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
+> > b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
+> > index 80a37a602181..21ba219e943b 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
+> > @@ -127,15 +127,10 @@ static int vce_v2_0_start(struct amdgpu_device
+> > *adev)
+> >        WREG32(mmVCE_RB_BASE_HI2, upper_32_bits(ring->gpu_addr));
+> >        WREG32(mmVCE_RB_SIZE2, ring->ring_size / 4);
+> >
+> > -     WREG32_P(mmVCE_VCPU_CNTL,
+> > VCE_VCPU_CNTL__CLK_EN_MASK, ~VCE_VCPU_CNTL__CLK_EN_MASK);
+> > -
+> > -     WREG32_P(mmVCE_SOFT_RESET,
+> > - VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK,
+> > - ~VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK);
+> > -
+> > +     WREG32_FIELD(VCE_VCPU_CNTL, CLK_EN, 1);
+> > +     WREG32_FIELD(VCE_SOFT_RESET, ECPU_SOFT_RESET, 1);
+> >        mdelay(100);
+> > -
+> > -     WREG32_P(mmVCE_SOFT_RESET, 0,
+> > ~VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK);
+> > +     WREG32_FIELD(VCE_SOFT_RESET, ECPU_SOFT_RESET, 0);
+> >
+> >        for (i = 0; i < 10; ++i) {
+> >                uint32_t status;
+> > @@ -150,10 +145,9 @@ static int vce_v2_0_start(struct amdgpu_device
+> > *adev)
+> >                        break;
+> >
+> >                DRM_ERROR("VCE not responding, trying to reset the
+> > ECPU!!!\n");
+> > -             WREG32_P(mmVCE_SOFT_RESET,
+> > VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK,
+> > -
+> >        ~VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK);
+> > +             WREG32_FIELD(VCE_SOFT_RESET, ECPU_SOFT_RESET, 1);
+> >                mdelay(10);
+> > -             WREG32_P(mmVCE_SOFT_RESET, 0,
+> > ~VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK);
+> > +             WREG32_FIELD(VCE_SOFT_RESET, ECPU_SOFT_RESET, 0);
+> >                mdelay(10);
+> >                r = -1;
+> >        }
+> > @@ -345,13 +339,13 @@ static void vce_v2_0_set_dyn_cg(struct
+> > amdgpu_device *adev, bool gated)
+> >                        DRM_INFO("VCE is busy, Can't set clock gateing");
+> >                        return;
+> >                }
+> > -             WREG32_P(mmVCE_VCPU_CNTL, 0,
+> > ~VCE_VCPU_CNTL__CLK_EN_MASK);
+> > -             WREG32_P(mmVCE_SOFT_RESET,
+> > VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK,
+> > ~VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK);
+> > +             WREG32_FIELD(VCE_VCPU_CNTL, CLK_EN, 0);
+> > +             WREG32_FIELD(VCE_SOFT_RESET, ECPU_SOFT_RESET, 1);
+> >                mdelay(100);
+> >                WREG32(mmVCE_STATUS, 0);
+> >        } else {
+> > -             WREG32_P(mmVCE_VCPU_CNTL,
+> > VCE_VCPU_CNTL__CLK_EN_MASK, ~VCE_VCPU_CNTL__CLK_EN_MASK);
+> > -             WREG32_P(mmVCE_SOFT_RESET,
+> > VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK,
+> > ~VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK);
+> > +             WREG32_FIELD(VCE_VCPU_CNTL, CLK_EN, 1);
+> > +             WREG32_FIELD(VCE_SOFT_RESET, ECPU_SOFT_RESET, 1);
+> >                mdelay(100);
+> >        }
+> >
+> > @@ -458,9 +452,7 @@ static void vce_v2_0_mc_resume(struct
+> > amdgpu_device *adev)
+> >        WREG32(mmVCE_VCPU_CACHE_SIZE2, size);
+> >
+> >        WREG32_P(mmVCE_LMI_CTRL2, 0x0, ~0x100);
+> > -
+> > -     WREG32_P(mmVCE_SYS_INT_EN,
+> > VCE_SYS_INT_EN__VCE_SYS_INT_TRAP_INTERRUPT_EN_MASK,
+> > -
+> > ~VCE_SYS_INT_EN__VCE_SYS_INT_TRAP_INTERRUPT_EN_MASK);
+> > +     WREG32_FIELD(VCE_SYS_INT_EN,
+> > VCE_SYS_INT_TRAP_INTERRUPT_EN, 1);
+> >
+> >        vce_v2_0_init_cg(adev);
+> >  }
+> > @@ -474,11 +466,11 @@ static bool vce_v2_0_is_idle(void *handle)
+> >
+> >  static int vce_v2_0_wait_for_idle(void *handle)
+> >  {
+> > -     unsigned i;
+> >        struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> > +     unsigned i;
+> >
+> >        for (i = 0; i < adev->usec_timeout; i++) {
+> > -             if (!(RREG32(mmSRBM_STATUS2) &
+> > SRBM_STATUS2__VCE_BUSY_MASK))
+> > +             if (vce_v2_0_is_idle(handle))
+> >                        return 0;
+>
+> This could be split out as a separate patch.
+>
+> >        }
+> >        return -ETIMEDOUT;
+> > @@ -488,8 +480,7 @@ static int vce_v2_0_soft_reset(void *handle)
+> >  {
+> >        struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> >
+> > -     WREG32_P(mmSRBM_SOFT_RESET,
+> > SRBM_SOFT_RESET__SOFT_RESET_VCE_MASK,
+> > - ~SRBM_SOFT_RESET__SOFT_RESET_VCE_MASK);
+> > +     WREG32_FIELD(SRBM_SOFT_RESET, SOFT_RESET_VCE, 1);
+> >        mdelay(5);
+> >
+> >        return vce_v2_0_start(adev);
+> > @@ -516,10 +507,8 @@ static int vce_v2_0_process_interrupt(struct
+> > amdgpu_device *adev,
+> >        DRM_DEBUG("IH: VCE\n");
+> >        switch (entry->src_data) {
+> >        case 0:
+> > - amdgpu_fence_process(&adev->vce.ring[0]);
+> > -             break;
+> >        case 1:
+> > - amdgpu_fence_process(&adev->vce.ring[1]);
+> > + amdgpu_fence_process(&adev->vce.ring[entry->src_data]);
+> >                break;
+> >        default:
+> >                DRM_ERROR("Unhandled interrupt: %d %d\n",
+>
+> This too.
+>
+> > --
+> > 2.9.2
+> >
+> > _______________________________________________
+> > amd-gfx mailing list
+> > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--------------060705060906080602040904
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    Agree with Tom.<br>
+    <br>
+    <div class="moz-cite-prefix">On 2016年08月12日 00:09, Deucher,
+      Alexander wrote:<br>
+    </div>
+    <blockquote
+cite="mid:MWHPR12MB1694A14EF7C0FAD8E46B5A97F71E0-Gy0DoCVfaSW4WA4dJ5YXGAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org"
+      type="cite">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="Generator" content="Microsoft Word 14 (filtered
+        medium)">
+      <!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]-->
+      <style><!--
+/* Font Definitions */
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p
+	{mso-style-priority:99;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-priority:99;
+	mso-style-link:"Balloon Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:"Tahoma","sans-serif";}
+span.EmailStyle18
+	{mso-style-type:personal-reply;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+span.BalloonTextChar
+	{mso-style-name:"Balloon Text Char";
+	mso-style-priority:99;
+	mso-style-link:"Balloon Text";
+	font-family:"Tahoma","sans-serif";}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext="edit" spidmax="1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext="edit">
+<o:idmap v:ext="edit" data="1" />
+</o:shapelayout></xml><![endif]-->
+      <div class="WordSection1">
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1F497D">I
+            guess I don't really have a particularly strong opinion
+            either way.  If others are ok with it, I'm fine with it.<o:p></o:p></span></p>
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p> </o:p></span></p>
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1F497D">Alex<o:p></o:p></span></p>
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p> </o:p></span></p>
+        <div style="border:none;border-left:solid blue 1.5pt;padding:0in
+          0in 0in 4.0pt">
+          <div>
+            <div style="border:none;border-top:solid #B5C4DF
+              1.0pt;padding:3.0pt 0in 0in 0in">
+              <p class="MsoNormal"><b><span
+style="font-size:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span
+style="font-size:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;">
+                  StDenis, Tom
+                  <br>
+                  <b>Sent:</b> Thursday, August 11, 2016 11:48 AM<br>
+                  <b>To:</b> Deucher, Alexander;
+                  <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                  <b>Subject:</b> Re: [PATCH 3/4] drm/amd/amdgpu: VCE v2
+                  register cleanup<o:p></o:p></span></p>
+            </div>
+          </div>
+          <p class="MsoNormal"><o:p> </o:p></p>
+          <div>
+            <p style="background:white"><span
+style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black">Just
+                trying to make it easier to read.  <o:p></o:p></span></p>
+            <p style="background:white"><span
+style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black"><o:p> </o:p></span></p>
+            <p style="background:white"><span
+style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black">WREG32_FIELD(foo,
+                FIELD, 1);<o:p></o:p></span></p>
+            <p style="background:white"><span
+style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black"><o:p> </o:p></span></p>
+            <p style="background:white"><span
+style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black">Is
+                easier to read than<o:p></o:p></span></p>
+            <p style="background:white"><span
+style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black"><o:p> </o:p></span></p>
+            <p style="background:white"><span
+style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black">WREG32_P(foo,
+                FOO__FIELD_MASK, ~FOO__FIELD_MASK);<o:p></o:p></span></p>
+            <p style="background:white"><span
+style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black"><o:p> </o:p></span></p>
+            <p style="background:white"><span
+style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black">(also
+                I already pushed them after getting a RB by Christian
+                this morning so we might need to hold a different
+                discussion).<o:p></o:p></span></p>
+            <p style="background:white"><span
+style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black"><o:p> </o:p></span></p>
+            <p style="background:white"><span
+style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black">I
+                agree it's not really a functional change but making
+                things a bit more uniform and easier to read helps
+                maintenance.  And I did find a bug in the process :-)<o:p></o:p></span></p>
+            <p style="background:white"><span
+style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black"><o:p> </o:p></span></p>
+            <p style="background:white"><span
+style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black">Tom<o:p></o:p></span></p>
+            <p class="MsoNormal"
+              style="margin-bottom:12.0pt;background:white"><span
+style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black"><o:p> </o:p></span></p>
+            <div>
+              <div>
+                <div class="MsoNormal"
+                  style="text-align:center;background:white"
+                  align="center">
+                  <span
+style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black">
+                    <hr size="2" width="98%" align="center">
+                  </span></div>
+                <div id="x_divRplyFwdMsg">
+                  <p class="MsoNormal" style="background:white"><b><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black">From:</span></b><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black">
+                      Deucher, Alexander<br>
+                      <b>Sent:</b> Thursday, August 11, 2016 11:46<br>
+                      <b>To:</b> 'Tom St Denis'; <a
+                        moz-do-not-send="true"
+                        href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                      <b>Cc:</b> StDenis, Tom<br>
+                      <b>Subject:</b> RE: [PATCH 3/4] drm/amd/amdgpu:
+                      VCE v2 register cleanup</span><span
+style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black"><o:p></o:p></span></p>
+                  <div>
+                    <p class="MsoNormal" style="background:white"><span
+style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black"> <o:p></o:p></span></p>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p class="MsoNormal" style="background:white"><span
+style="font-size:10.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black">&gt;
+                    -----Original Message-----<br>
+                    &gt; From: amd-gfx [<a moz-do-not-send="true"
+                      href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>]
+                    On Behalf<br>
+                    &gt; Of Tom St Denis<br>
+                    &gt; Sent: Thursday, August 11, 2016 10:33 AM<br>
+                    &gt; To: <a moz-do-not-send="true"
+                      href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                    &gt; Cc: StDenis, Tom<br>
+                    &gt; Subject: [PATCH 3/4] drm/amd/amdgpu: VCE v2
+                    register cleanup<br>
+                    &gt; <br>
+                    &gt; Signed-off-by: Tom St Denis &lt;<a
+                      moz-do-not-send="true"
+                      href="mailto:tom.stdenis-5C7GfCeVMHo@public.gmane.org">tom.stdenis-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+                    <br>
+                    A couple pieces of this patch could be split out as
+                    separate cleanups (see below).  However, I'm not
+                    sure how much value there is in switching WREG32_P
+                    for WREG_FIELD other than code churn.  They
+                    basically do the same thing. 
+                    <br>
+                    <br>
+                    Alex<br>
+                    <br>
+                    &gt; ---<br>
+                    &gt;  drivers/gpu/drm/amd/amdgpu/vce_v2_0.c | 39
+                    +++++++++++++-------------<br>
+                    &gt; ---------<br>
+                    &gt;  1 file changed, 14 insertions(+), 25
+                    deletions(-)<br>
+                    &gt; <br>
+                    &gt; diff --git
+                    a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c<br>
+                    &gt; b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c<br>
+                    &gt; index 80a37a602181..21ba219e943b 100644<br>
+                    &gt; --- a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c<br>
+                    &gt; +++ b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c<br>
+                    &gt; @@ -127,15 +127,10 @@ static int
+                    vce_v2_0_start(struct amdgpu_device<br>
+                    &gt; *adev)<br>
+                    &gt;        WREG32(mmVCE_RB_BASE_HI2,
+                    upper_32_bits(ring-&gt;gpu_addr));<br>
+                    &gt;        WREG32(mmVCE_RB_SIZE2,
+                    ring-&gt;ring_size / 4);<br>
+                    &gt; <br>
+                    &gt; -     WREG32_P(mmVCE_VCPU_CNTL,<br>
+                    &gt; VCE_VCPU_CNTL__CLK_EN_MASK,
+                    ~VCE_VCPU_CNTL__CLK_EN_MASK);<br>
+                    &gt; -<br>
+                    &gt; -     WREG32_P(mmVCE_SOFT_RESET,<br>
+                    &gt; -             
+                    VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK,<br>
+                    &gt; -             
+                    ~VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK);<br>
+                    &gt; -<br>
+                    &gt; +     WREG32_FIELD(VCE_VCPU_CNTL, CLK_EN, 1);<br>
+                    &gt; +     WREG32_FIELD(VCE_SOFT_RESET,
+                    ECPU_SOFT_RESET, 1);<br>
+                    &gt;        mdelay(100);<br>
+                    &gt; -<br>
+                    &gt; -     WREG32_P(mmVCE_SOFT_RESET, 0,<br>
+                    &gt; ~VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK);<br>
+                    &gt; +     WREG32_FIELD(VCE_SOFT_RESET,
+                    ECPU_SOFT_RESET, 0);<br>
+                    &gt; <br>
+                    &gt;        for (i = 0; i &lt; 10; ++i) {<br>
+                    &gt;                uint32_t status;<br>
+                    &gt; @@ -150,10 +145,9 @@ static int
+                    vce_v2_0_start(struct amdgpu_device<br>
+                    &gt; *adev)<br>
+                    &gt;                        break;<br>
+                    &gt; <br>
+                    &gt;                DRM_ERROR("VCE not responding,
+                    trying to reset the<br>
+                    &gt; ECPU!!!\n");<br>
+                    &gt; -             WREG32_P(mmVCE_SOFT_RESET,<br>
+                    &gt; VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK,<br>
+                    &gt; -<br>
+                    &gt;        ~VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK);<br>
+                    &gt; +             WREG32_FIELD(VCE_SOFT_RESET,
+                    ECPU_SOFT_RESET, 1);<br>
+                    &gt;                mdelay(10);<br>
+                    &gt; -             WREG32_P(mmVCE_SOFT_RESET, 0,<br>
+                    &gt; ~VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK);<br>
+                    &gt; +             WREG32_FIELD(VCE_SOFT_RESET,
+                    ECPU_SOFT_RESET, 0);<br>
+                    &gt;                mdelay(10);<br>
+                    &gt;                r = -1;<br>
+                    &gt;        }<br>
+                    &gt; @@ -345,13 +339,13 @@ static void
+                    vce_v2_0_set_dyn_cg(struct<br>
+                    &gt; amdgpu_device *adev, bool gated)<br>
+                    &gt;                        DRM_INFO("VCE is busy,
+                    Can't set clock gateing");<br>
+                    &gt;                        return;<br>
+                    &gt;                }<br>
+                    &gt; -             WREG32_P(mmVCE_VCPU_CNTL, 0,<br>
+                    &gt; ~VCE_VCPU_CNTL__CLK_EN_MASK);<br>
+                    &gt; -             WREG32_P(mmVCE_SOFT_RESET,<br>
+                    &gt; VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK,<br>
+                    &gt; ~VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK);<br>
+                    &gt; +             WREG32_FIELD(VCE_VCPU_CNTL,
+                    CLK_EN, 0);<br>
+                    &gt; +             WREG32_FIELD(VCE_SOFT_RESET,
+                    ECPU_SOFT_RESET, 1);<br>
+                    &gt;                mdelay(100);<br>
+                    &gt;                WREG32(mmVCE_STATUS, 0);<br>
+                    &gt;        } else {<br>
+                    &gt; -             WREG32_P(mmVCE_VCPU_CNTL,<br>
+                    &gt; VCE_VCPU_CNTL__CLK_EN_MASK,
+                    ~VCE_VCPU_CNTL__CLK_EN_MASK);<br>
+                    &gt; -             WREG32_P(mmVCE_SOFT_RESET,<br>
+                    &gt; VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK,<br>
+                    &gt; ~VCE_SOFT_RESET__ECPU_SOFT_RESET_MASK);<br>
+                    &gt; +             WREG32_FIELD(VCE_VCPU_CNTL,
+                    CLK_EN, 1);<br>
+                    &gt; +             WREG32_FIELD(VCE_SOFT_RESET,
+                    ECPU_SOFT_RESET, 1);<br>
+                    &gt;                mdelay(100);<br>
+                    &gt;        }<br>
+                    &gt; <br>
+                    &gt; @@ -458,9 +452,7 @@ static void
+                    vce_v2_0_mc_resume(struct<br>
+                    &gt; amdgpu_device *adev)<br>
+                    &gt;        WREG32(mmVCE_VCPU_CACHE_SIZE2, size);<br>
+                    &gt; <br>
+                    &gt;        WREG32_P(mmVCE_LMI_CTRL2, 0x0, ~0x100);<br>
+                    &gt; -<br>
+                    &gt; -     WREG32_P(mmVCE_SYS_INT_EN,<br>
+                    &gt;
+                    VCE_SYS_INT_EN__VCE_SYS_INT_TRAP_INTERRUPT_EN_MASK,<br>
+                    &gt; -<br>
+                    &gt;
+                    ~VCE_SYS_INT_EN__VCE_SYS_INT_TRAP_INTERRUPT_EN_MASK);<br>
+                    &gt; +     WREG32_FIELD(VCE_SYS_INT_EN,<br>
+                    &gt; VCE_SYS_INT_TRAP_INTERRUPT_EN, 1);<br>
+                    &gt; <br>
+                    &gt;        vce_v2_0_init_cg(adev);<br>
+                    &gt;  }<br>
+                    &gt; @@ -474,11 +466,11 @@ static bool
+                    vce_v2_0_is_idle(void *handle)<br>
+                    &gt; <br>
+                    &gt;  static int vce_v2_0_wait_for_idle(void
+                    *handle)<br>
+                    &gt;  {<br>
+                    &gt; -     unsigned i;<br>
+                    &gt;        struct amdgpu_device *adev = (struct
+                    amdgpu_device *)handle;<br>
+                    &gt; +     unsigned i;<br>
+                    &gt; <br>
+                    &gt;        for (i = 0; i &lt;
+                    adev-&gt;usec_timeout; i++) {<br>
+                    &gt; -             if (!(RREG32(mmSRBM_STATUS2)
+                    &amp;<br>
+                    &gt; SRBM_STATUS2__VCE_BUSY_MASK))<br>
+                    &gt; +             if (vce_v2_0_is_idle(handle))<br>
+                    &gt;                        return 0;<br>
+                    <br>
+                    This could be split out as a separate patch.<br>
+                    <br>
+                    &gt;        }<br>
+                    &gt;        return -ETIMEDOUT;<br>
+                    &gt; @@ -488,8 +480,7 @@ static int
+                    vce_v2_0_soft_reset(void *handle)<br>
+                    &gt;  {<br>
+                    &gt;        struct amdgpu_device *adev = (struct
+                    amdgpu_device *)handle;<br>
+                    &gt; <br>
+                    &gt; -     WREG32_P(mmSRBM_SOFT_RESET,<br>
+                    &gt; SRBM_SOFT_RESET__SOFT_RESET_VCE_MASK,<br>
+                    &gt; -                    
+                    ~SRBM_SOFT_RESET__SOFT_RESET_VCE_MASK);<br>
+                    &gt; +     WREG32_FIELD(SRBM_SOFT_RESET,
+                    SOFT_RESET_VCE, 1);<br>
+                    &gt;        mdelay(5);<br>
+                    &gt; <br>
+                    &gt;        return vce_v2_0_start(adev);<br>
+                    &gt; @@ -516,10 +507,8 @@ static int
+                    vce_v2_0_process_interrupt(struct<br>
+                    &gt; amdgpu_device *adev,<br>
+                    &gt;        DRM_DEBUG("IH: VCE\n");<br>
+                    &gt;        switch (entry-&gt;src_data) {<br>
+                    &gt;        case 0:<br>
+                    &gt; -            
+                    amdgpu_fence_process(&amp;adev-&gt;vce.ring[0]);<br>
+                    &gt; -             break;<br>
+                    &gt;        case 1:<br>
+                    &gt; -            
+                    amdgpu_fence_process(&amp;adev-&gt;vce.ring[1]);<br>
+                    &gt; +            
+                    amdgpu_fence_process(&amp;adev-&gt;vce.ring[entry-&gt;src_data]);<br>
+                    &gt;                break;<br>
+                    &gt;        default:<br>
+                    &gt;                DRM_ERROR("Unhandled interrupt:
+                    %d %d\n",<br>
+                    <br>
+                    This too.<br>
+                    <br>
+                    &gt; --<br>
+                    &gt; 2.9.2<br>
+                    &gt; <br>
+                    &gt; _______________________________________________<br>
+                    &gt; amd-gfx mailing list<br>
+                    &gt; <a moz-do-not-send="true"
+                      href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                    &gt; <a moz-do-not-send="true"
+                      href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------060705060906080602040904--
+
+--===============0266664437==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0266664437==--
