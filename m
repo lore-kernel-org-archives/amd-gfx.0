@@ -1,10 +1,13 @@
-From: Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: radeon VS amdgpu: _afmt_init() behavior if kzalloc fails
-Date: Fri, 12 Aug 2016 15:43:46 +0000
-Message-ID: <CAPEhTTHK2uF4r4TuR4Vt4oBD9WsxyoAuwLDQ6bRSmus-BKd1eg@mail.gmail.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 1/6] drm/amdgpu: write PTEs directly into the IB.
+Date: Fri, 12 Aug 2016 11:46:37 -0400
+Message-ID: <CADnq5_PdK14584qsDB-TqcKR+3FJJKJ1bLOHDV22S9RfAxTw3g@mail.gmail.com>
+References: <1471009949-2050-1-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1653239347=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1471009949-2050-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -15,81 +18,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Freedesktop - AMD-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Alexander Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Cc: Harish Kasiviswanathan <Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1653239347==
-Content-Type: multipart/alternative; boundary=94eb2c0550a01eb6920539e1c00e
-
---94eb2c0550a01eb6920539e1c00e
-Content-Type: text/plain; charset=UTF-8
-
-Hi,
-
-While comparing radeon's radeon_afmt_init() to dce_vX_0_afmt_init() on the
-amdgpu's side, I saw that on the latter:
-1- when kzalloc fails to allocate mem for all afmt, an ENOMEM is returned
-2- all previously allocated afmt are freed
-
-So on the amdgpu's side, it is an "all or none allocated" situation, while
-on the radeon's side, some afmt may be allocated and initialized.
-
-Moreover, returning an ENOMEM prevents any other function calls in
-dce_vX_0_sw_init()
-on the amdgpu's side, while it continues on the radeon's side.
-
-What is the expected behavior here? Should we rewind the memory allocation
-as it is done under amdgpu when we can't allocate memory for all afmt or is
-it OK to do as it is done on radeon? Should we stop any remaining steps in
-radeon_modeset_init() if it fails (thus, returning a ENOMEM from
-radeon_afmt_init())?
-
-The patch is already ready if needed, I could send it later from home if
-the amdgpu's behavior is the one that we are looking for.
-
-Cheers,
-Alexandre Demers
-
---94eb2c0550a01eb6920539e1c00e
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi,<div><br></div><div>While comparing radeon&#39;s radeon=
-_afmt_init() to dce_vX_0_afmt_init() on the amdgpu&#39;s side, I saw that o=
-n the latter:</div><div>1- when kzalloc fails to allocate mem for all afmt,=
- an ENOMEM is returned</div><div>2- all previously allocated afmt are freed=
-</div><div><br></div><div>So on the amdgpu&#39;s side, it is an &quot;all o=
-r none allocated&quot; situation, while on the radeon&#39;s side, some afmt=
- may be allocated and initialized.</div><div><br></div><div>Moreover, retur=
-ning an ENOMEM prevents any other function calls in=C2=A0<span style=3D"fon=
-t-size:13.3333px;line-height:normal">dce_vX_0_</span><span style=3D"font-si=
-ze:13.3333px;line-height:normal">sw_init() on the amdgpu&#39;s side, while =
-it continues on the radeon&#39;s side.</span><br></div><div><span style=3D"=
-font-size:13.3333px;line-height:normal"><br></span></div><div><span style=
-=3D"font-size:13.3333px;line-height:normal">What is the expected behavior h=
-ere? Should we rewind the memory allocation as it is done under amdgpu when=
- we can&#39;t allocate memory for all afmt or is it OK to do as it is done =
-on radeon? Should we stop any remaining steps in radeon_modeset_init() if i=
-t fails (thus, returning a ENOMEM from radeon_afmt_init())?</span></div><di=
-v><span style=3D"font-size:13.3333px;line-height:normal"><br></span></div><=
-div><span style=3D"font-size:13.3333px;line-height:normal">The patch is alr=
-eady ready if needed, I could send it later from home if the amdgpu&#39;s b=
-ehavior is the one that we are looking for.</span></div><div><span style=3D=
-"font-size:13.3333px;line-height:normal"><br></span></div><div><span style=
-=3D"font-size:13.3333px;line-height:normal">Cheers,</span></div><div><span =
-style=3D"font-size:13.3333px;line-height:normal">Alexandre Demers</span></d=
-iv></div>
-
---94eb2c0550a01eb6920539e1c00e--
-
---===============1653239347==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1653239347==--
+T24gRnJpLCBBdWcgMTIsIDIwMTYgYXQgOTo1MiBBTSwgQ2hyaXN0aWFuIEvDtm5pZwo8ZGVhdGhz
+aW1wbGVAdm9kYWZvbmUuZGU+IHdyb3RlOgo+IEZyb206IENocmlzdGlhbiBLw7ZuaWcgPGNocmlz
+dGlhbi5rb2VuaWdAYW1kLmNvbT4KPgo+IFdyaXRlIHRoZSBQVEVzIGF0IHRoZSBlbmQgb2YgdGhl
+IElCIGluc3RlYWQgb2YgZGlyZWN0bHkgaW50byB0aGUgU0RNQSBjb21tYW5kcy4KPiBUaGlzIGNh
+biBzYXZlIHF1aXRlIHNvbWUgQ1BVIGN5Y2xlcyBidWlsZGluZyB0aGUgZW50cmllcy4KPgo+IFNp
+Z25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4K
+PiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgfCAyNiArKysr
+KysrKysrKysrKysrKysrKystLS0tLQo+ICAxIGZpbGUgY2hhbmdlZCwgMjEgaW5zZXJ0aW9ucygr
+KSwgNSBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfdm0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5j
+Cj4gaW5kZXggMjg0MzEzMi4uN2VmY2JlMyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfdm0uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV92bS5jCj4gQEAgLTkxMCwxNSArOTEwLDE1IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3Zt
+X2JvX3VwZGF0ZV9tYXBwaW5nKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+ICAgICAgICAg
+LyogcGFkZGluZywgZXRjLiAqLwo+ICAgICAgICAgbmR3ID0gNjQ7Cj4KPiAtICAgICAgIGlmIChw
+YXJhbXMuc3JjKSB7Cj4gKyAgICAgICBpZiAoc3JjKSB7Cj4gICAgICAgICAgICAgICAgIC8qIG9u
+bHkgY29weSBjb21tYW5kcyBuZWVkZWQgKi8KPiAgICAgICAgICAgICAgICAgbmR3ICs9IG5jbWRz
+ICogNzsKPgo+IC0gICAgICAgfSBlbHNlIGlmIChwYXJhbXMucGFnZXNfYWRkcikgewo+IC0gICAg
+ICAgICAgICAgICAvKiBoZWFkZXIgZm9yIHdyaXRlIGRhdGEgY29tbWFuZHMgKi8KPiAtICAgICAg
+ICAgICAgICAgbmR3ICs9IG5jbWRzICogNDsKPiArICAgICAgIH0gZWxzZSBpZiAocGFnZXNfYWRk
+cikgewo+ICsgICAgICAgICAgICAgICAvKiBjb3B5IGNvbW1hbmRzIG5lZWRlZCAqLwo+ICsgICAg
+ICAgICAgICAgICBuZHcgKz0gbmNtZHMgKiA3Owo+Cj4gLSAgICAgICAgICAgICAgIC8qIGJvZHkg
+b2Ygd3JpdGUgZGF0YSBjb21tYW5kICovCj4gKyAgICAgICAgICAgICAgIC8qIGFuZCBhbHNvIFBU
+RXMgKi8KPiAgICAgICAgICAgICAgICAgbmR3ICs9IG5wdGVzICogMjsKPgo+ICAgICAgICAgfSBl
+bHNlIHsKPiBAQCAtOTM1LDYgKzkzNSwyMiBAQCBzdGF0aWMgaW50IGFtZGdwdV92bV9ib191cGRh
+dGVfbWFwcGluZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPgo+ICAgICAgICAgcGFyYW1z
+LmliID0gJmpvYi0+aWJzWzBdOwo+Cj4gKyAgICAgICBpZiAoIXNyYyAmJiBwYWdlc19hZGRyKSB7
+Cj4gKyAgICAgICAgICAgICAgIHVpbnQ2NF90ICpwdGU7Cj4gKyAgICAgICAgICAgICAgIHVuc2ln
+bmVkIGk7Cj4gKwo+ICsgICAgICAgICAgICAgICAvKiBQdXQgdGhlIFBURXMgYXQgdGhlIGVuZCBv
+ZiB0aGUgSUIuICovCj4gKyAgICAgICAgICAgICAgIGkgPSBuZHcgLSBucHRlcyAqIDI7Cj4gKyAg
+ICAgICAgICAgICAgIHB0ZT0gKHVpbnQ2NF90ICopJihqb2ItPmlicy0+cHRyW2ldKTsKPiArICAg
+ICAgICAgICAgICAgcGFyYW1zLnNyYyA9IGpvYi0+aWJzLT5ncHVfYWRkciArIGkgKiA0OwoKSXMg
+dGhlIG9mZnNldCBjb3JyZWN0IGZvciBhbGwgYXNpY3M/ICBJSVJDLCBuZHcgd2FzIGtpbmQgb2Yg
+YSB3b3JzdApjYXNlIGd1ZXNzIGFzIHRoZSBwYWNrZXQgaGVhZGVyIHNpemVzIHZhcnkgYWNyb3Nz
+IGZhbWlsaWVzLgoKQWxleAoKPiArCj4gKyAgICAgICAgICAgICAgIGZvciAoaSA9IDA7IGkgPCBu
+cHRlczsgKytpKSB7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgcHRlW2ldID0gYW1kZ3B1X3Zt
+X21hcF9nYXJ0KHBhZ2VzX2FkZHIsIGFkZHIgKyBpICoKPiArICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQU1ER1BVX0dQVV9QQUdFX1NJWkUpOwo+ICsg
+ICAgICAgICAgICAgICAgICAgICAgIHB0ZVtpXSB8PSBmbGFnczsKPiArICAgICAgICAgICAgICAg
+fQo+ICsgICAgICAgfQo+ICsKPiAgICAgICAgIHIgPSBhbWRncHVfc3luY19mZW5jZShhZGV2LCAm
+am9iLT5zeW5jLCBleGNsdXNpdmUpOwo+ICAgICAgICAgaWYgKHIpCj4gICAgICAgICAgICAgICAg
+IGdvdG8gZXJyb3JfZnJlZTsKPiAtLQo+IDIuNS4wCj4KPiBfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4Cg==
