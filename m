@@ -1,19 +1,10 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 3/4] drm/amd/amdgpu: VCE v2 register cleanup
-Date: Fri, 12 Aug 2016 10:54:33 -0400
-Message-ID: <CADnq5_NyeotaLQUjKqBHnEH525DEqaPH+2S0a9biV+BAx98n_w@mail.gmail.com>
-References: <20160811143253.24718-1-tom.stdenis@amd.com>
- <20160811143253.24718-4-tom.stdenis@amd.com>
- <MWHPR12MB1694FE8258E0ADB4F32DC885F71E0@MWHPR12MB1694.namprd12.prod.outlook.com>
- <DM5PR12MB1132A35D1BAAB0027D5FE23AF71E0@DM5PR12MB1132.namprd12.prod.outlook.com>
- <MWHPR12MB1694A14EF7C0FAD8E46B5A97F71E0@MWHPR12MB1694.namprd12.prod.outlook.com>
- <57AD2BC7.70709@amd.com>
- <MWHPR12MB1694519FD1F5113FBA3EC20CF71F0@MWHPR12MB1694.namprd12.prod.outlook.com>
+From: Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: radeon VS amdgpu: _afmt_init() behavior if kzalloc fails
+Date: Fri, 12 Aug 2016 15:43:46 +0000
+Message-ID: <CAPEhTTHK2uF4r4TuR4Vt4oBD9WsxyoAuwLDQ6bRSmus-BKd1eg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1653239347=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MWHPR12MB1694519FD1F5113FBA3EC20CF71F0-Gy0DoCVfaSW4WA4dJ5YXGAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -24,144 +15,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, "Zhou,
- David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Freedesktop - AMD-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Alexander Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 
-T24gRnJpLCBBdWcgMTIsIDIwMTYgYXQgMTA6MDEgQU0sIERldWNoZXIsIEFsZXhhbmRlcgo8QWxl
-eGFuZGVyLkRldWNoZXJAYW1kLmNvbT4gd3JvdGU6Cj4gSW4gdGhhdCBjYXNlOgoKRm9yIHRoZSBz
-ZXJpZXM6Cgo+Cj4gUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJA
-YW1kLmNvbT4KPgo+Cj4KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1kLWdmeC1ib3VuY2VzQGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmIE9mCj4gemhvdWNtMQo+IFNlbnQ6IFRodXJz
-ZGF5LCBBdWd1c3QgMTEsIDIwMTYgOTo1MiBQTQo+IFRvOiBEZXVjaGVyLCBBbGV4YW5kZXI7IFN0
-RGVuaXMsIFRvbTsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPgo+Cj4gU3ViamVjdDog
-UmU6IFtQQVRDSCAzLzRdIGRybS9hbWQvYW1kZ3B1OiBWQ0UgdjIgcmVnaXN0ZXIgY2xlYW51cAo+
-Cj4KPgo+IEFncmVlIHdpdGggVG9tLgo+Cj4gT24gMjAxNuW5tDA45pyIMTLml6UgMDA6MDksIERl
-dWNoZXIsIEFsZXhhbmRlciB3cm90ZToKPgo+IEkgZ3Vlc3MgSSBkb24ndCByZWFsbHkgaGF2ZSBh
-IHBhcnRpY3VsYXJseSBzdHJvbmcgb3BpbmlvbiBlaXRoZXIgd2F5LiAgSWYKPiBvdGhlcnMgYXJl
-IG9rIHdpdGggaXQsIEknbSBmaW5lIHdpdGggaXQuCj4KPgo+Cj4gQWxleAo+Cj4KPgo+IEZyb206
-IFN0RGVuaXMsIFRvbQo+IFNlbnQ6IFRodXJzZGF5LCBBdWd1c3QgMTEsIDIwMTYgMTE6NDggQU0K
-PiBUbzogRGV1Y2hlciwgQWxleGFuZGVyOyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+
-IFN1YmplY3Q6IFJlOiBbUEFUQ0ggMy80XSBkcm0vYW1kL2FtZGdwdTogVkNFIHYyIHJlZ2lzdGVy
-IGNsZWFudXAKPgo+Cj4KPiBKdXN0IHRyeWluZyB0byBtYWtlIGl0IGVhc2llciB0byByZWFkLgo+
-Cj4KPgo+IFdSRUczMl9GSUVMRChmb28sIEZJRUxELCAxKTsKPgo+Cj4KPiBJcyBlYXNpZXIgdG8g
-cmVhZCB0aGFuCj4KPgo+Cj4gV1JFRzMyX1AoZm9vLCBGT09fX0ZJRUxEX01BU0ssIH5GT09fX0ZJ
-RUxEX01BU0spOwo+Cj4KPgo+IChhbHNvIEkgYWxyZWFkeSBwdXNoZWQgdGhlbSBhZnRlciBnZXR0
-aW5nIGEgUkIgYnkgQ2hyaXN0aWFuIHRoaXMgbW9ybmluZyBzbwo+IHdlIG1pZ2h0IG5lZWQgdG8g
-aG9sZCBhIGRpZmZlcmVudCBkaXNjdXNzaW9uKS4KPgo+Cj4KPiBJIGFncmVlIGl0J3Mgbm90IHJl
-YWxseSBhIGZ1bmN0aW9uYWwgY2hhbmdlIGJ1dCBtYWtpbmcgdGhpbmdzIGEgYml0IG1vcmUKPiB1
-bmlmb3JtIGFuZCBlYXNpZXIgdG8gcmVhZCBoZWxwcyBtYWludGVuYW5jZS4gIEFuZCBJIGRpZCBm
-aW5kIGEgYnVnIGluIHRoZQo+IHByb2Nlc3MgOi0pCj4KPgo+Cj4gVG9tCj4KPgo+Cj4gX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KPgo+IEZyb206IERldWNoZXIsIEFsZXhhbmRlcgo+
-IFNlbnQ6IFRodXJzZGF5LCBBdWd1c3QgMTEsIDIwMTYgMTE6NDYKPiBUbzogJ1RvbSBTdCBEZW5p
-cyc7IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gQ2M6IFN0RGVuaXMsIFRvbQo+IFN1
-YmplY3Q6IFJFOiBbUEFUQ0ggMy80XSBkcm0vYW1kL2FtZGdwdTogVkNFIHYyIHJlZ2lzdGVyIGNs
-ZWFudXAKPgo+Cj4KPj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPj4gRnJvbTogYW1kLWdm
-eCBbbWFpbHRvOmFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmddIE9uIEJlaGFs
-Zgo+PiBPZiBUb20gU3QgRGVuaXMKPj4gU2VudDogVGh1cnNkYXksIEF1Z3VzdCAxMSwgMjAxNiAx
-MDozMyBBTQo+PiBUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4gQ2M6IFN0RGVu
-aXMsIFRvbQo+PiBTdWJqZWN0OiBbUEFUQ0ggMy80XSBkcm0vYW1kL2FtZGdwdTogVkNFIHYyIHJl
-Z2lzdGVyIGNsZWFudXAKPj4KPj4gU2lnbmVkLW9mZi1ieTogVG9tIFN0IERlbmlzIDx0b20uc3Rk
-ZW5pc0BhbWQuY29tPgo+Cj4gQSBjb3VwbGUgcGllY2VzIG9mIHRoaXMgcGF0Y2ggY291bGQgYmUg
-c3BsaXQgb3V0IGFzIHNlcGFyYXRlIGNsZWFudXBzIChzZWUKPiBiZWxvdykuICBIb3dldmVyLCBJ
-J20gbm90IHN1cmUgaG93IG11Y2ggdmFsdWUgdGhlcmUgaXMgaW4gc3dpdGNoaW5nIFdSRUczMl9Q
-Cj4gZm9yIFdSRUdfRklFTEQgb3RoZXIgdGhhbiBjb2RlIGNodXJuLiAgVGhleSBiYXNpY2FsbHkg
-ZG8gdGhlIHNhbWUgdGhpbmcuCj4KPiBBbGV4Cj4KPj4gLS0tCj4+ICBkcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS92Y2VfdjJfMC5jIHwgMzkgKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0KPj4g
-LS0tLS0tLS0tCj4+ICAxIGZpbGUgY2hhbmdlZCwgMTQgaW5zZXJ0aW9ucygrKSwgMjUgZGVsZXRp
-b25zKC0pCj4+Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y2Vf
-djJfMC5jCj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNlX3YyXzAuYwo+PiBpbmRl
-eCA4MGEzN2E2MDIxODEuLjIxYmEyMTllOTQzYiAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvdmNlX3YyXzAuYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS92Y2VfdjJfMC5jCj4+IEBAIC0xMjcsMTUgKzEyNywxMCBAQCBzdGF0aWMgaW50IHZjZV92
-Ml8wX3N0YXJ0KHN0cnVjdCBhbWRncHVfZGV2aWNlCj4+ICphZGV2KQo+PiAgICAgICAgV1JFRzMy
-KG1tVkNFX1JCX0JBU0VfSEkyLCB1cHBlcl8zMl9iaXRzKHJpbmctPmdwdV9hZGRyKSk7Cj4+ICAg
-ICAgICBXUkVHMzIobW1WQ0VfUkJfU0laRTIsIHJpbmctPnJpbmdfc2l6ZSAvIDQpOwo+Pgo+PiAt
-ICAgICBXUkVHMzJfUChtbVZDRV9WQ1BVX0NOVEwsCj4+IFZDRV9WQ1BVX0NOVExfX0NMS19FTl9N
-QVNLLCB+VkNFX1ZDUFVfQ05UTF9fQ0xLX0VOX01BU0spOwo+PiAtCj4+IC0gICAgIFdSRUczMl9Q
-KG1tVkNFX1NPRlRfUkVTRVQsCj4+IC0gICAgICAgICAgICAgIFZDRV9TT0ZUX1JFU0VUX19FQ1BV
-X1NPRlRfUkVTRVRfTUFTSywKPj4gLSAgICAgICAgICAgICAgflZDRV9TT0ZUX1JFU0VUX19FQ1BV
-X1NPRlRfUkVTRVRfTUFTSyk7Cj4+IC0KPj4gKyAgICAgV1JFRzMyX0ZJRUxEKFZDRV9WQ1BVX0NO
-VEwsIENMS19FTiwgMSk7Cj4+ICsgICAgIFdSRUczMl9GSUVMRChWQ0VfU09GVF9SRVNFVCwgRUNQ
-VV9TT0ZUX1JFU0VULCAxKTsKPj4gICAgICAgIG1kZWxheSgxMDApOwo+PiAtCj4+IC0gICAgIFdS
-RUczMl9QKG1tVkNFX1NPRlRfUkVTRVQsIDAsCj4+IH5WQ0VfU09GVF9SRVNFVF9fRUNQVV9TT0ZU
-X1JFU0VUX01BU0spOwo+PiArICAgICBXUkVHMzJfRklFTEQoVkNFX1NPRlRfUkVTRVQsIEVDUFVf
-U09GVF9SRVNFVCwgMCk7Cj4+Cj4+ICAgICAgICBmb3IgKGkgPSAwOyBpIDwgMTA7ICsraSkgewo+
-PiAgICAgICAgICAgICAgICB1aW50MzJfdCBzdGF0dXM7Cj4+IEBAIC0xNTAsMTAgKzE0NSw5IEBA
-IHN0YXRpYyBpbnQgdmNlX3YyXzBfc3RhcnQoc3RydWN0IGFtZGdwdV9kZXZpY2UKPj4gKmFkZXYp
-Cj4+ICAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7Cj4+Cj4+ICAgICAgICAgICAgICAgIERS
-TV9FUlJPUigiVkNFIG5vdCByZXNwb25kaW5nLCB0cnlpbmcgdG8gcmVzZXQgdGhlCj4+IEVDUFUh
-ISFcbiIpOwo+PiAtICAgICAgICAgICAgIFdSRUczMl9QKG1tVkNFX1NPRlRfUkVTRVQsCj4+IFZD
-RV9TT0ZUX1JFU0VUX19FQ1BVX1NPRlRfUkVTRVRfTUFTSywKPj4gLQo+PiAgICAgICAgflZDRV9T
-T0ZUX1JFU0VUX19FQ1BVX1NPRlRfUkVTRVRfTUFTSyk7Cj4+ICsgICAgICAgICAgICAgV1JFRzMy
-X0ZJRUxEKFZDRV9TT0ZUX1JFU0VULCBFQ1BVX1NPRlRfUkVTRVQsIDEpOwo+PiAgICAgICAgICAg
-ICAgICBtZGVsYXkoMTApOwo+PiAtICAgICAgICAgICAgIFdSRUczMl9QKG1tVkNFX1NPRlRfUkVT
-RVQsIDAsCj4+IH5WQ0VfU09GVF9SRVNFVF9fRUNQVV9TT0ZUX1JFU0VUX01BU0spOwo+PiArICAg
-ICAgICAgICAgIFdSRUczMl9GSUVMRChWQ0VfU09GVF9SRVNFVCwgRUNQVV9TT0ZUX1JFU0VULCAw
-KTsKPj4gICAgICAgICAgICAgICAgbWRlbGF5KDEwKTsKPj4gICAgICAgICAgICAgICAgciA9IC0x
-Owo+PiAgICAgICAgfQo+PiBAQCAtMzQ1LDEzICszMzksMTMgQEAgc3RhdGljIHZvaWQgdmNlX3Yy
-XzBfc2V0X2R5bl9jZyhzdHJ1Y3QKPj4gYW1kZ3B1X2RldmljZSAqYWRldiwgYm9vbCBnYXRlZCkK
-Pj4gICAgICAgICAgICAgICAgICAgICAgICBEUk1fSU5GTygiVkNFIGlzIGJ1c3ksIENhbid0IHNl
-dCBjbG9jayBnYXRlaW5nIik7Cj4+ICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuOwo+PiAg
-ICAgICAgICAgICAgICB9Cj4+IC0gICAgICAgICAgICAgV1JFRzMyX1AobW1WQ0VfVkNQVV9DTlRM
-LCAwLAo+PiB+VkNFX1ZDUFVfQ05UTF9fQ0xLX0VOX01BU0spOwo+PiAtICAgICAgICAgICAgIFdS
-RUczMl9QKG1tVkNFX1NPRlRfUkVTRVQsCj4+IFZDRV9TT0ZUX1JFU0VUX19FQ1BVX1NPRlRfUkVT
-RVRfTUFTSywKPj4gflZDRV9TT0ZUX1JFU0VUX19FQ1BVX1NPRlRfUkVTRVRfTUFTSyk7Cj4+ICsg
-ICAgICAgICAgICAgV1JFRzMyX0ZJRUxEKFZDRV9WQ1BVX0NOVEwsIENMS19FTiwgMCk7Cj4+ICsg
-ICAgICAgICAgICAgV1JFRzMyX0ZJRUxEKFZDRV9TT0ZUX1JFU0VULCBFQ1BVX1NPRlRfUkVTRVQs
-IDEpOwo+PiAgICAgICAgICAgICAgICBtZGVsYXkoMTAwKTsKPj4gICAgICAgICAgICAgICAgV1JF
-RzMyKG1tVkNFX1NUQVRVUywgMCk7Cj4+ICAgICAgICB9IGVsc2Ugewo+PiAtICAgICAgICAgICAg
-IFdSRUczMl9QKG1tVkNFX1ZDUFVfQ05UTCwKPj4gVkNFX1ZDUFVfQ05UTF9fQ0xLX0VOX01BU0ss
-IH5WQ0VfVkNQVV9DTlRMX19DTEtfRU5fTUFTSyk7Cj4+IC0gICAgICAgICAgICAgV1JFRzMyX1Ao
-bW1WQ0VfU09GVF9SRVNFVCwKPj4gVkNFX1NPRlRfUkVTRVRfX0VDUFVfU09GVF9SRVNFVF9NQVNL
-LAo+PiB+VkNFX1NPRlRfUkVTRVRfX0VDUFVfU09GVF9SRVNFVF9NQVNLKTsKPj4gKyAgICAgICAg
-ICAgICBXUkVHMzJfRklFTEQoVkNFX1ZDUFVfQ05UTCwgQ0xLX0VOLCAxKTsKPj4gKyAgICAgICAg
-ICAgICBXUkVHMzJfRklFTEQoVkNFX1NPRlRfUkVTRVQsIEVDUFVfU09GVF9SRVNFVCwgMSk7Cj4+
-ICAgICAgICAgICAgICAgIG1kZWxheSgxMDApOwo+PiAgICAgICAgfQo+Pgo+PiBAQCAtNDU4LDkg
-KzQ1Miw3IEBAIHN0YXRpYyB2b2lkIHZjZV92Ml8wX21jX3Jlc3VtZShzdHJ1Y3QKPj4gYW1kZ3B1
-X2RldmljZSAqYWRldikKPj4gICAgICAgIFdSRUczMihtbVZDRV9WQ1BVX0NBQ0hFX1NJWkUyLCBz
-aXplKTsKPj4KPj4gICAgICAgIFdSRUczMl9QKG1tVkNFX0xNSV9DVFJMMiwgMHgwLCB+MHgxMDAp
-Owo+PiAtCj4+IC0gICAgIFdSRUczMl9QKG1tVkNFX1NZU19JTlRfRU4sCj4+IFZDRV9TWVNfSU5U
-X0VOX19WQ0VfU1lTX0lOVF9UUkFQX0lOVEVSUlVQVF9FTl9NQVNLLAo+PiAtCj4+IH5WQ0VfU1lT
-X0lOVF9FTl9fVkNFX1NZU19JTlRfVFJBUF9JTlRFUlJVUFRfRU5fTUFTSyk7Cj4+ICsgICAgIFdS
-RUczMl9GSUVMRChWQ0VfU1lTX0lOVF9FTiwKPj4gVkNFX1NZU19JTlRfVFJBUF9JTlRFUlJVUFRf
-RU4sIDEpOwo+Pgo+PiAgICAgICAgdmNlX3YyXzBfaW5pdF9jZyhhZGV2KTsKPj4gIH0KPj4gQEAg
-LTQ3NCwxMSArNDY2LDExIEBAIHN0YXRpYyBib29sIHZjZV92Ml8wX2lzX2lkbGUodm9pZCAqaGFu
-ZGxlKQo+Pgo+PiAgc3RhdGljIGludCB2Y2VfdjJfMF93YWl0X2Zvcl9pZGxlKHZvaWQgKmhhbmRs
-ZSkKPj4gIHsKPj4gLSAgICAgdW5zaWduZWQgaTsKPj4gICAgICAgIHN0cnVjdCBhbWRncHVfZGV2
-aWNlICphZGV2ID0gKHN0cnVjdCBhbWRncHVfZGV2aWNlICopaGFuZGxlOwo+PiArICAgICB1bnNp
-Z25lZCBpOwo+Pgo+PiAgICAgICAgZm9yIChpID0gMDsgaSA8IGFkZXYtPnVzZWNfdGltZW91dDsg
-aSsrKSB7Cj4+IC0gICAgICAgICAgICAgaWYgKCEoUlJFRzMyKG1tU1JCTV9TVEFUVVMyKSAmCj4+
-IFNSQk1fU1RBVFVTMl9fVkNFX0JVU1lfTUFTSykpCj4+ICsgICAgICAgICAgICAgaWYgKHZjZV92
-Ml8wX2lzX2lkbGUoaGFuZGxlKSkKPj4gICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gMDsK
-Pgo+IFRoaXMgY291bGQgYmUgc3BsaXQgb3V0IGFzIGEgc2VwYXJhdGUgcGF0Y2guCj4KPj4gICAg
-ICAgIH0KPj4gICAgICAgIHJldHVybiAtRVRJTUVET1VUOwo+PiBAQCAtNDg4LDggKzQ4MCw3IEBA
-IHN0YXRpYyBpbnQgdmNlX3YyXzBfc29mdF9yZXNldCh2b2lkICpoYW5kbGUpCj4+ICB7Cj4+ICAg
-ICAgICBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
-KWhhbmRsZTsKPj4KPj4gLSAgICAgV1JFRzMyX1AobW1TUkJNX1NPRlRfUkVTRVQsCj4+IFNSQk1f
-U09GVF9SRVNFVF9fU09GVF9SRVNFVF9WQ0VfTUFTSywKPj4gLSAgICAgICAgICAgICAgICAgICAg
-IH5TUkJNX1NPRlRfUkVTRVRfX1NPRlRfUkVTRVRfVkNFX01BU0spOwo+PiArICAgICBXUkVHMzJf
-RklFTEQoU1JCTV9TT0ZUX1JFU0VULCBTT0ZUX1JFU0VUX1ZDRSwgMSk7Cj4+ICAgICAgICBtZGVs
-YXkoNSk7Cj4+Cj4+ICAgICAgICByZXR1cm4gdmNlX3YyXzBfc3RhcnQoYWRldik7Cj4+IEBAIC01
-MTYsMTAgKzUwNyw4IEBAIHN0YXRpYyBpbnQgdmNlX3YyXzBfcHJvY2Vzc19pbnRlcnJ1cHQoc3Ry
-dWN0Cj4+IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4+ICAgICAgICBEUk1fREVCVUcoIklIOiBWQ0Vc
-biIpOwo+PiAgICAgICAgc3dpdGNoIChlbnRyeS0+c3JjX2RhdGEpIHsKPj4gICAgICAgIGNhc2Ug
-MDoKPj4gLSAgICAgICAgICAgICBhbWRncHVfZmVuY2VfcHJvY2VzcygmYWRldi0+dmNlLnJpbmdb
-MF0pOwo+PiAtICAgICAgICAgICAgIGJyZWFrOwo+PiAgICAgICAgY2FzZSAxOgo+PiAtICAgICAg
-ICAgICAgIGFtZGdwdV9mZW5jZV9wcm9jZXNzKCZhZGV2LT52Y2UucmluZ1sxXSk7Cj4+ICsgICAg
-ICAgICAgICAgYW1kZ3B1X2ZlbmNlX3Byb2Nlc3MoJmFkZXYtPnZjZS5yaW5nW2VudHJ5LT5zcmNf
-ZGF0YV0pOwo+PiAgICAgICAgICAgICAgICBicmVhazsKPj4gICAgICAgIGRlZmF1bHQ6Cj4+ICAg
-ICAgICAgICAgICAgIERSTV9FUlJPUigiVW5oYW5kbGVkIGludGVycnVwdDogJWQgJWRcbiIsCj4K
-PiBUaGlzIHRvby4KPgo+PiAtLQo+PiAyLjkuMgo+Pgo+PiBfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwo+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+PiBhbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKPgo+Cj4KPgo+IF9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCj4KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+Cj4g
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPgo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+Cj4KPgo+Cj4gX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+
-IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cj4KX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1653239347==
+Content-Type: multipart/alternative; boundary=94eb2c0550a01eb6920539e1c00e
+
+--94eb2c0550a01eb6920539e1c00e
+Content-Type: text/plain; charset=UTF-8
+
+Hi,
+
+While comparing radeon's radeon_afmt_init() to dce_vX_0_afmt_init() on the
+amdgpu's side, I saw that on the latter:
+1- when kzalloc fails to allocate mem for all afmt, an ENOMEM is returned
+2- all previously allocated afmt are freed
+
+So on the amdgpu's side, it is an "all or none allocated" situation, while
+on the radeon's side, some afmt may be allocated and initialized.
+
+Moreover, returning an ENOMEM prevents any other function calls in
+dce_vX_0_sw_init()
+on the amdgpu's side, while it continues on the radeon's side.
+
+What is the expected behavior here? Should we rewind the memory allocation
+as it is done under amdgpu when we can't allocate memory for all afmt or is
+it OK to do as it is done on radeon? Should we stop any remaining steps in
+radeon_modeset_init() if it fails (thus, returning a ENOMEM from
+radeon_afmt_init())?
+
+The patch is already ready if needed, I could send it later from home if
+the amdgpu's behavior is the one that we are looking for.
+
+Cheers,
+Alexandre Demers
+
+--94eb2c0550a01eb6920539e1c00e
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi,<div><br></div><div>While comparing radeon&#39;s radeon=
+_afmt_init() to dce_vX_0_afmt_init() on the amdgpu&#39;s side, I saw that o=
+n the latter:</div><div>1- when kzalloc fails to allocate mem for all afmt,=
+ an ENOMEM is returned</div><div>2- all previously allocated afmt are freed=
+</div><div><br></div><div>So on the amdgpu&#39;s side, it is an &quot;all o=
+r none allocated&quot; situation, while on the radeon&#39;s side, some afmt=
+ may be allocated and initialized.</div><div><br></div><div>Moreover, retur=
+ning an ENOMEM prevents any other function calls in=C2=A0<span style=3D"fon=
+t-size:13.3333px;line-height:normal">dce_vX_0_</span><span style=3D"font-si=
+ze:13.3333px;line-height:normal">sw_init() on the amdgpu&#39;s side, while =
+it continues on the radeon&#39;s side.</span><br></div><div><span style=3D"=
+font-size:13.3333px;line-height:normal"><br></span></div><div><span style=
+=3D"font-size:13.3333px;line-height:normal">What is the expected behavior h=
+ere? Should we rewind the memory allocation as it is done under amdgpu when=
+ we can&#39;t allocate memory for all afmt or is it OK to do as it is done =
+on radeon? Should we stop any remaining steps in radeon_modeset_init() if i=
+t fails (thus, returning a ENOMEM from radeon_afmt_init())?</span></div><di=
+v><span style=3D"font-size:13.3333px;line-height:normal"><br></span></div><=
+div><span style=3D"font-size:13.3333px;line-height:normal">The patch is alr=
+eady ready if needed, I could send it later from home if the amdgpu&#39;s b=
+ehavior is the one that we are looking for.</span></div><div><span style=3D=
+"font-size:13.3333px;line-height:normal"><br></span></div><div><span style=
+=3D"font-size:13.3333px;line-height:normal">Cheers,</span></div><div><span =
+style=3D"font-size:13.3333px;line-height:normal">Alexandre Demers</span></d=
+iv></div>
+
+--94eb2c0550a01eb6920539e1c00e--
+
+--===============1653239347==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1653239347==--
