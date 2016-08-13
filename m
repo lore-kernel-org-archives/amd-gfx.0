@@ -1,12 +1,19 @@
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH 1/6] drm/amdgpu: write PTEs directly into the IB.
-Date: Sat, 13 Aug 2016 14:12:06 +1000
-Message-ID: <a4ba18ca-ca7e-a4f6-1406-f4a419b4378e@folklore1984.net>
-References: <1471009949-2050-1-git-send-email-deathsimple@vodafone.de>
+From: "Qu, Jim" <Jim.Qu-5C7GfCeVMHo@public.gmane.org>
+Subject: =?utf-8?B?562U5aSNOiDnrZTlpI06IFtQQVRDSF0gZHJtL2FtZC9hbWRncHU6IFMzIHJl?=
+ =?utf-8?Q?sume_fail?=
+Date: Sat, 13 Aug 2016 06:56:47 +0000
+Message-ID: <BY2PR12MB0614C7B2175A68AA49B966EE99100@BY2PR12MB0614.namprd12.prod.outlook.com>
+References: <1470798241-30117-1-git-send-email-Jim.Qu@amd.com>
+ <efcd0456-211f-25cf-e173-a7a71ff8d2a6@daenzer.net>
+ <5873b905-5835-0b33-7814-43d9cb377a29@daenzer.net>
+ <BY2PR12MB06141D01D607DB4D7FE2B155991D0@BY2PR12MB0614.namprd12.prod.outlook.com>,
+ <0638514e-e893-f21d-64bf-85399b542453@daenzer.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1752372841=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1471009949-2050-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <0638514e-e893-f21d-64bf-85399b542453-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Language: zh-CN
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,139 +24,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org
+To: =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1752372841==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="6Gxoa8eHxdSMbwk8to4IXE1lvAHrJqFNi"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---6Gxoa8eHxdSMbwk8to4IXE1lvAHrJqFNi
-Content-Type: multipart/mixed; boundary="mmfETmNhwwDUmnR4EJ91jnJf173ts5r4a"
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>,
- amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org
-Message-ID: <a4ba18ca-ca7e-a4f6-1406-f4a419b4378e-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH 1/6] drm/amdgpu: write PTEs directly into the IB.
-References: <1471009949-2050-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-In-Reply-To: <1471009949-2050-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-
---mmfETmNhwwDUmnR4EJ91jnJf173ts5r4a
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-This series is,
-
-Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-
-actually quite a nice cleanup!
-
-On 08/12/2016 11:52 PM, Christian K=C3=B6nig wrote:
-> From: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
->=20
-> Write the PTEs at the end of the IB instead of directly into the SDMA c=
-ommands.
-> This can save quite some CPU cycles building the entries.
->=20
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 26 +++++++++++++++++++++-----=
-
->  1 file changed, 21 insertions(+), 5 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_vm.c
-> index 2843132..7efcbe3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -910,15 +910,15 @@ static int amdgpu_vm_bo_update_mapping(struct amd=
-gpu_device *adev,
->  	/* padding, etc. */
->  	ndw =3D 64;
-> =20
-> -	if (params.src) {
-> +	if (src) {
->  		/* only copy commands needed */
->  		ndw +=3D ncmds * 7;
-> =20
-> -	} else if (params.pages_addr) {
-> -		/* header for write data commands */
-> -		ndw +=3D ncmds * 4;
-> +	} else if (pages_addr) {
-> +		/* copy commands needed */
-> +		ndw +=3D ncmds * 7;
-> =20
-> -		/* body of write data command */
-> +		/* and also PTEs */
->  		ndw +=3D nptes * 2;
-> =20
->  	} else {
-> @@ -935,6 +935,22 @@ static int amdgpu_vm_bo_update_mapping(struct amdg=
-pu_device *adev,
-> =20
->  	params.ib =3D &job->ibs[0];
-> =20
-> +	if (!src && pages_addr) {
-> +		uint64_t *pte;
-> +		unsigned i;
-> +
-> +		/* Put the PTEs at the end of the IB. */
-> +		i =3D ndw - nptes * 2;
-> +		pte=3D (uint64_t *)&(job->ibs->ptr[i]);
-> +		params.src =3D job->ibs->gpu_addr + i * 4;
-> +
-> +		for (i =3D 0; i < nptes; ++i) {
-> +			pte[i] =3D amdgpu_vm_map_gart(pages_addr, addr + i *
-> +						    AMDGPU_GPU_PAGE_SIZE);
-> +			pte[i] |=3D flags;
-> +		}
-> +	}
-> +
->  	r =3D amdgpu_sync_fence(adev, &job->sync, exclusive);
->  	if (r)
->  		goto error_free;
->=20
-
-
---mmfETmNhwwDUmnR4EJ91jnJf173ts5r4a--
-
---6Gxoa8eHxdSMbwk8to4IXE1lvAHrJqFNi
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJXrp4WAAoJEP4bvbfZuWjbEw0P/3ojNN7icqxWxKW9fJfnz7B7
-ibRq/UQaEvVIK5pXgapV33XXBVrAsNFHsrXj6X0nrPcMscwb3NO7iLA6kpFyTOZ2
-SuUoce13CSquHsgWlymAvAt2T2y+EDtSyAfELcFo1NDzVP734CB+jJ4TSg/gvdqQ
-syl5qxsKyeEMpEbM3oVPObhiHIFXDLjkCFnVajSqNX+givVscrX3i/RmIZIGcc3r
-kWyKIOFrfrQFTWWzMJSgQnCECAxrDDz2omwPoLsCZlVG0ZyYFFsBKqczLHdu19HR
-kfrBj4T3RV/B7StqaaDzcGVrDunoS0FkocC8bGg5wP43SjzDlRu9K7daKf++tXLs
-e4PckmYu3a4/jGsJn5nykGQ++dc30RDZlvMjyCTJOhZqs+m61o2slR8jF5T2Zl/Y
-cJIdjjEkLcuPW5RrMs7tGhfmnjkRmk11rVVEko8ZZLj9HuluC84A7FKDa+d5VbFr
-Sn2iwL5rZRnlZXAM8E17bBqnZfUa7tNiBZ3ANNw23U8nWjbkTb9Wqp+0CEV9eCoV
-tuk1lLvNWNwdjLPb/CrwZZ1ECgocjeGdSFec78w+HgC4aFmmM9xajVFg9L2zVXAB
-ToQYjMar8OJchpQnrzonUkJqlh6cO1es9tjwPM6//n0tzgvOCjvuPTR26LHcy4PM
-AzSGl9G5I7C1IZP6kJpy
-=WhKt
------END PGP SIGNATURE-----
-
---6Gxoa8eHxdSMbwk8to4IXE1lvAHrJqFNi--
-
---===============1752372841==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1752372841==--
+SGkgTWljaGVsOg0KDQoxLiBhZGQgY29uc29sZV91bmxvY2soKSBpbiBmYWlsIGNhc2UNCi0tLS0t
+LWlzc3VlIGFsc28gY2FuIGJlIG9ic2VydmVkLg0KMi4gd2l0aCBjb25zb2xlX3RyeWxvY2soKQ0K
+LS0tLS0tc3dpdGNoIFZUIGlzIG5vIHByb2JsZW0uDQotLS0tLS1sb2cgaW50byBjb25zb2xlIGFu
+ZCBpbnRlcmFjdCB3aXRoIHNoZWxsIGFyZSBubyBwcm9ibGVtLg0KDQoNClRoYW5rcw0KSmltUXUN
+Cg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0K5Y+R5Lu25Lq6OiBN
+aWNoZWwgRMOkbnplciA8bWljaGVsQGRhZW56ZXIubmV0Pg0K5Y+R6YCB5pe26Ze0OiAyMDE25bm0
+OOaciDEw5pelIDE0OjU0OjQ4DQrmlLbku7bkuro6IFF1LCBKaW0NCuaKhOmAgTogYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcNCuS4u+mimDogUmU6IOetlOWkjTogW1BBVENIXSBkcm0vYW1k
+L2FtZGdwdTogUzMgcmVzdW1lIGZhaWwNCg0KT24gMTAvMDgvMTYgMDE6MzkgUE0sIFF1LCBKaW0g
+d3JvdGU6DQo+IEhJIE1pY2hlbDoNCj4NCj4gMS4gU28gZmFyLCBJIG5vdCBzdXJlIHdoaWNoIG9u
+ZSBjYXVzZXMgdGhlIGNvbnNvbGVfbG9jaygpIGZhaWwsIG1heWJlIEkNCj4gbmVlZCBlbmFibGUg
+a2VybmVsIG11dGV4IGRlYnVnIGZlYXR1cmUgdG8gdHJhY2UgaXQuDQoNCk9yLCBtYXliZSB5b3Ug
+Y2FuIGp1c3QgdHJ5IGZpeGluZyB0aGUgY2FzZXMgaW4gYW1kZ3B1X3Jlc3VtZV9rbXMgd2hlcmUN
+CmNvbnNvbGVfdW5sb2NrKCkgaXNuJ3QgY2FsbGVkLCBhbmQgc2VlIGlmIHRoYXQgZml4ZXMgdGhl
+IHByb2JsZW0/DQoNCg0KPiAyLiBQaGVub21lbmFsbHksIGl0IGNhbiBiZSByZXN0b3JlIHRvIGRl
+c2t0b3Agbm9ybWFsbHkuIERvIHlvdSBrbm93DQo+IGFueSBtZXRob2RzIHRvIGNoZWNrIGl0IHdo
+ZXRoZXIgZHJpdmVyIHdpdGhvdXQgY2FsbGluZw0KPiBhbWRncHVfZmJkZXZfc2V0X3N1c3BlbmQo
+YWRldiwgMCkgIGhhcyBzaWRlIGVmZmVjdCBvciBub3Q/DQoNCkRvZXMgVlQgc3dpdGNoaW5nIHRv
+IGNvbnNvbGUgd2l0aCBDdHJsLUFsdC1GeCB3b3JrPyBEb2VzIGxvZ2dpbmcgaW50bw0KdGhlIGNv
+bnNvbGUgYW5kIGludGVyYWN0aW5nIHdpdGggdGhlIHNoZWxsIHdvcms/DQoNCg0KLS0NCkVhcnRo
+bGluZyBNaWNoZWwgRMOkbnplciAgICAgICAgICAgICAgIHwgICAgICAgICAgICAgICBodHRwOi8v
+d3d3LmFtZC5jb20NCkxpYnJlIHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAgICAgICAgfCAgICAg
+ICAgICAgICBNZXNhIGFuZCBYIGRldmVsb3Blcg0KX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9hbWQtZ2Z4Cg==
