@@ -1,19 +1,12 @@
-From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: Reverted another change to fix buffer move hangs (was Re: [PATCH]
- drm/ttm: partial revert "cleanup ttm_tt_(unbind|destroy)" v2)
-Date: Fri, 12 Aug 2016 19:22:23 -0400
-Message-ID: <12c479b4-64d0-952c-f9d2-decd25533251@amd.com>
-References: <1469193013-11482-1-git-send-email-deathsimple@vodafone.de>
- <95d462b5-7c20-2f40-c406-48f5aece0817@daenzer.net>
- <58e8df15-98dd-facc-acb6-68f94a937374@amd.com>
- <67b3c224-29e0-0a98-6c3a-8439744149da@amd.com>
- <c76c7703-6c0d-0d2a-ba9f-c012d74c01bf@amd.com>
- <MWHPR12MB16948D7420076C10DCFAEEBBF71E0@MWHPR12MB1694.namprd12.prod.outlook.com>
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH 1/6] drm/amdgpu: write PTEs directly into the IB.
+Date: Sat, 13 Aug 2016 14:12:06 +1000
+Message-ID: <a4ba18ca-ca7e-a4f6-1406-f4a419b4378e@folklore1984.net>
+References: <1471009949-2050-1-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1752372841=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MWHPR12MB16948D7420076C10DCFAEEBBF71E0-Gy0DoCVfaSW4WA4dJ5YXGAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <1471009949-2050-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -24,48 +17,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Cc: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org
 
-W0NDIEtlbnQgRllJXQoKT24gMTYtMDgtMTEgMDQ6MzEgUE0sIERldWNoZXIsIEFsZXhhbmRlciB3
-cm90ZToKPj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPj4gRnJvbTogYW1kLWdmeCBbbWFp
-bHRvOmFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmddIE9uIEJlaGFsZgo+PiBP
-ZiBGZWxpeCBLdWVobGluZwo+PiBTZW50OiBUaHVyc2RheSwgQXVndXN0IDExLCAyMDE2IDM6NTIg
-UE0KPj4gVG86IE1pY2hlbCBEw6RuemVyOyBDaHJpc3RpYW4gS8O2bmlnCj4+IENjOiBhbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiBTdWJqZWN0OiBSZXZlcnRlZCBhbm90aGVyIGNoYW5n
-ZSB0byBmaXggYnVmZmVyIG1vdmUgaGFuZ3MgKHdhcyBSZToKPj4gW1BBVENIXSBkcm0vdHRtOiBw
-YXJ0aWFsIHJldmVydCAiY2xlYW51cCB0dG1fdHRfKHVuYmluZHxkZXN0cm95KSIgdjIpCj4+Cj4+
-IFdlIGhhZCB0byByZXZlcnQgYW5vdGhlciBjaGFuZ2Ugb24gdGhlIEtGRCBicmFuY2ggdG8gZml4
-IGEgYnVmZmVyIG1vdmUKPj4gcHJvYmxlbTogOGI2Yjc5ZjQzODAxZjAwZGRjZGMxMGE0ZDU3MTll
-YmE0YjJlMzJhYSAoZHJtL2FtZGdwdToKPj4gZ3JvdXAgQk9zCj4+IGJ5IGxvZzIgb2YgdGhlIHNp
-emUgb24gdGhlIExSVSB2Mgo+IFRoYXQgbWFrZXMgc2Vuc2UuICBJIHRoaW5rIHlvdSBtYXkgd2Fu
-dCBhIGRpZmZlcmVudCBMUlUgc2NoZW1lIGZvciBLRkQgb3IgYXQgbGVhc3Qgc3BlY2lhbCBoYW5k
-bGluZyBmb3IgS0ZEIGJ1ZmZlcnMuCgpbRktdIEJ1dCBJIHRoaW5rIHRoZSBwYXRjaCBzaG91bGRu
-J3QgY2F1c2UgaGFuZ3MsIHJlZ2FyZGxlc3MuCgpJIGV2ZW50dWFsbHkgZm91bmQgd2hhdCB0aGUg
-cHJvYmxlbSB3YXMuIFRoZSAiZ3JvdXAgQk9zIGJ5IGxvZzIgb2YgdGhlCnNpemUgb24gdGhlIExS
-VSB2MiIgcGF0Y2ggZXhwb3NlZCBhIGxhdGVudCBidWcgcmVsYXRlZCB0byB0aGUgR0FSVCBzaXpl
-LgpPbiBvdXIgS0ZEIGJyYW5jaCwgd2UgY2FsY3VsYXRlIHRoZSBHQVJUIHNpemUgZGlmZmVyZW50
-bHksIGFuZCBpdCBjYW4KZWFzaWx5IGdvIGFib3ZlIDRHQi4gSSB0aGluayBvbiBhbWQtc3RhZ2lu
-Zy00LjYgdGhlIEdBUlQgc2l6ZSBjYW4gYWxzbwpnbyBhYm92ZSA0R0Igb24gY2FyZHMgd2l0aCBs
-b3RzIG9mIFZSQU0uCgpIb3dldmVyLCB0aGUgb2Zmc2V0IHBhcmFtZXRlciBpbiBhbWRncHVfZ2Fy
-dF9iaW5kIGFuZCB1bmJpbmQgaXMgb25seQozMi1iaXQuIFdpdGggdGhlIHBhdGNoIG91ciB0ZXN0
-IGVuZGVkIHVwIHVzaW5nIEdBUlQgb2Zmc2V0cyBiZXlvbmQgNEdCCmZvciB0aGUgZmlyc3QgdGlt
-ZS4gQ2hhbmdpbmcgdGhlIG9mZnNldCBwYXJhbWV0ZXIgdG8gdWludDY0X3QgZml4ZXMgdGhlCnBy
-b2JsZW0uCgpPdXIgdGVzdCBhbHNvIGRlbW9uc3RyYXRlcyBhIHBvdGVudGlhbCBmbGF3IGluIHRo
-ZSBsb2cyIGdyb3VwaW5nIHBhdGNoOgpXaGVuIGEgYnVmZmVyIG9mIGEgcHJldmlvdXNseSB1bnVz
-ZWQgc2l6ZSBpcyBhZGRlZCB0byB0aGUgTFJVLCBpdCBnZXRzCmFkZGVkIHRvIHRoZSBmcm9udCBv
-ZiB0aGUgbGlzdCwgcmF0aGVyIHRoYW4gdGhlIHRhaWwuIFNvIGFuIGFwcGxpY2F0aW9uCnRoYXQg
-YWxsb2NhdGVzIGEgdmVyeSBsYXJnZSBidWZmZXIgYWZ0ZXIgYSBidW5jaCBvZiBzbWFsbGVyIGJ1
-ZmZlcnMsIGlzCnZlcnkgbGlrZWx5IHRvIGhhdmUgdGhhdCBidWZmZXIgZXZpY3RlZCBvdmVyIGFu
-ZCBvdmVyIGFnYWluIGJlZm9yZSBhbnkKc21hbGxlciBidWZmZXJzIGFyZSBjb25zaWRlcmVkIGZv
-ciBldmljdGlvbi4gSSBiZWxpZXZlLCB0aGlzIGNhbiByZXN1bHQKaW4gdGhyYXNoaW5nIG9mIGxh
-cmdlIGJ1ZmZlcnMuCgpTb21lIG90aGVyIG9ic2VydmF0aW9uczogV2hlbiB0aGUgbGFzdCBCTyBv
-ZiBhIGdpdmVuIHNpemUgaXMgcmVtb3ZlZApmcm9tIHRoZSBMUlUgbGlzdCwgdGhlIExSVSB0YWls
-IGZvciB0aGF0IHNpemUgaXMgbGVmdCAiZmxvYXRpbmciIGluIHRoZQptaWRkbGUgb2YgdGhlIExS
-VSBsaXN0LiBTbyB0aGUgbmV4dCBCTyBvZiB0aGF0IHNpemUgdGhhdCBpcyBhZGRlZCwgd2lsbApi
-ZSBhZGRlZCBhdCBhbiBhcmJpdHJhcnkgcG9zaXRpb24gaW4gdGhlIGxpc3QuIEl0IG1heSBldmVu
-IGVuZCB1cCBpbiB0aGUKbWlkZGxlIG9mIGEgYmxvY2sgb2YgcGFnZXMgb2YgYSBkaWZmZXJlbnQg
-c2l6ZS4gU28gYSBsb2cyIGdyb3VwaW5nIG1heQplbmQgdXAgYmVpbmcgc3BsaXQuCgpSZWdhcmRz
-LAogIEZlbGl4CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============1752372841==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="6Gxoa8eHxdSMbwk8to4IXE1lvAHrJqFNi"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--6Gxoa8eHxdSMbwk8to4IXE1lvAHrJqFNi
+Content-Type: multipart/mixed; boundary="mmfETmNhwwDUmnR4EJ91jnJf173ts5r4a"
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>,
+ amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org
+Message-ID: <a4ba18ca-ca7e-a4f6-1406-f4a419b4378e-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH 1/6] drm/amdgpu: write PTEs directly into the IB.
+References: <1471009949-2050-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <1471009949-2050-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+
+--mmfETmNhwwDUmnR4EJ91jnJf173ts5r4a
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+This series is,
+
+Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+
+actually quite a nice cleanup!
+
+On 08/12/2016 11:52 PM, Christian K=C3=B6nig wrote:
+> From: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+>=20
+> Write the PTEs at the end of the IB instead of directly into the SDMA c=
+ommands.
+> This can save quite some CPU cycles building the entries.
+>=20
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 26 +++++++++++++++++++++-----=
+
+>  1 file changed, 21 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_vm.c
+> index 2843132..7efcbe3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -910,15 +910,15 @@ static int amdgpu_vm_bo_update_mapping(struct amd=
+gpu_device *adev,
+>  	/* padding, etc. */
+>  	ndw =3D 64;
+> =20
+> -	if (params.src) {
+> +	if (src) {
+>  		/* only copy commands needed */
+>  		ndw +=3D ncmds * 7;
+> =20
+> -	} else if (params.pages_addr) {
+> -		/* header for write data commands */
+> -		ndw +=3D ncmds * 4;
+> +	} else if (pages_addr) {
+> +		/* copy commands needed */
+> +		ndw +=3D ncmds * 7;
+> =20
+> -		/* body of write data command */
+> +		/* and also PTEs */
+>  		ndw +=3D nptes * 2;
+> =20
+>  	} else {
+> @@ -935,6 +935,22 @@ static int amdgpu_vm_bo_update_mapping(struct amdg=
+pu_device *adev,
+> =20
+>  	params.ib =3D &job->ibs[0];
+> =20
+> +	if (!src && pages_addr) {
+> +		uint64_t *pte;
+> +		unsigned i;
+> +
+> +		/* Put the PTEs at the end of the IB. */
+> +		i =3D ndw - nptes * 2;
+> +		pte=3D (uint64_t *)&(job->ibs->ptr[i]);
+> +		params.src =3D job->ibs->gpu_addr + i * 4;
+> +
+> +		for (i =3D 0; i < nptes; ++i) {
+> +			pte[i] =3D amdgpu_vm_map_gart(pages_addr, addr + i *
+> +						    AMDGPU_GPU_PAGE_SIZE);
+> +			pte[i] |=3D flags;
+> +		}
+> +	}
+> +
+>  	r =3D amdgpu_sync_fence(adev, &job->sync, exclusive);
+>  	if (r)
+>  		goto error_free;
+>=20
+
+
+--mmfETmNhwwDUmnR4EJ91jnJf173ts5r4a--
+
+--6Gxoa8eHxdSMbwk8to4IXE1lvAHrJqFNi
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJXrp4WAAoJEP4bvbfZuWjbEw0P/3ojNN7icqxWxKW9fJfnz7B7
+ibRq/UQaEvVIK5pXgapV33XXBVrAsNFHsrXj6X0nrPcMscwb3NO7iLA6kpFyTOZ2
+SuUoce13CSquHsgWlymAvAt2T2y+EDtSyAfELcFo1NDzVP734CB+jJ4TSg/gvdqQ
+syl5qxsKyeEMpEbM3oVPObhiHIFXDLjkCFnVajSqNX+givVscrX3i/RmIZIGcc3r
+kWyKIOFrfrQFTWWzMJSgQnCECAxrDDz2omwPoLsCZlVG0ZyYFFsBKqczLHdu19HR
+kfrBj4T3RV/B7StqaaDzcGVrDunoS0FkocC8bGg5wP43SjzDlRu9K7daKf++tXLs
+e4PckmYu3a4/jGsJn5nykGQ++dc30RDZlvMjyCTJOhZqs+m61o2slR8jF5T2Zl/Y
+cJIdjjEkLcuPW5RrMs7tGhfmnjkRmk11rVVEko8ZZLj9HuluC84A7FKDa+d5VbFr
+Sn2iwL5rZRnlZXAM8E17bBqnZfUa7tNiBZ3ANNw23U8nWjbkTb9Wqp+0CEV9eCoV
+tuk1lLvNWNwdjLPb/CrwZZ1ECgocjeGdSFec78w+HgC4aFmmM9xajVFg9L2zVXAB
+ToQYjMar8OJchpQnrzonUkJqlh6cO1es9tjwPM6//n0tzgvOCjvuPTR26LHcy4PM
+AzSGl9G5I7C1IZP6kJpy
+=WhKt
+-----END PGP SIGNATURE-----
+
+--6Gxoa8eHxdSMbwk8to4IXE1lvAHrJqFNi--
+
+--===============1752372841==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1752372841==--
