@@ -1,68 +1,156 @@
-From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 3/5] drm/amdgpu: fix lru size grouping
-Date: Wed, 17 Aug 2016 17:00:06 -0400
-Message-ID: <cdd78daa-d6d8-b211-c4cc-1747bda7162f@amd.com>
-References: <1471436784-13252-1-git-send-email-deathsimple@vodafone.de>
- <1471436784-13252-3-git-send-email-deathsimple@vodafone.de>
+From: xorg-driver-ati <andy.paterson-XZoyATsUNX5Wk0Htik3J/w@public.gmane.org>
+Subject: =?utf-8?B?d2hhdCBhIG5pY2Ugc3VycHJpc2Uh?=
+Date: Tue, 16 Aug 2016 11:27:56 +0300
+Message-ID: <000006ab662a$24c713d5$06232e95$@ntlworld.com>
 Mime-Version: 1.0
+Content-Type: multipart/mixed; boundary="===============1036820673=="
+Return-path: <xorg-driver-ati-bounces-go0+a7rfsptAfugRpC6u6w@public.gmane.org>
+Content-Language: en
+List-Unsubscribe: <https://lists.x.org/mailman/options/xorg-driver-ati>,
+ <mailto:xorg-driver-ati-request-go0+a7rfsptAfugRpC6u6w@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.x.org/archives/xorg-driver-ati>
+List-Post: <mailto:xorg-driver-ati-go0+a7rfsptAfugRpC6u6w@public.gmane.org>
+List-Help: <mailto:xorg-driver-ati-request-go0+a7rfsptAfugRpC6u6w@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.x.org/mailman/listinfo/xorg-driver-ati>,
+ <mailto:xorg-driver-ati-request-go0+a7rfsptAfugRpC6u6w@public.gmane.org?subject=subscribe>
+Errors-To: xorg-driver-ati-bounces-go0+a7rfsptAfugRpC6u6w@public.gmane.org
+Sender: "xorg-driver-ati" <xorg-driver-ati-bounces-go0+a7rfsptAfugRpC6u6w@public.gmane.org>
+To: xorg-driver-ati <xorg-driver-ati-go0+a7rfsptAfugRpC6u6w@public.gmane.org>, amd-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, xorg-driver-ati <xorg-driver-ati-bounces-go0+a7rfsptAfugRpC6u6w@public.gmane.org>, xorg-driver-ati <xorg-driver-ati-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, submit <submit-61a8vm9lEZVf4u+23C9RwQ@public.gmane.org>
+List-Id: amd-gfx.lists.freedesktop.org
+
+--===============1036820673==
+Content-Type: multipart/related;
+        boundary="----=_NextPart_000_0028_016194B4.1E36B8E1"
+Content-Language: en
+
+------=_NextPart_000_0028_016194B4.1E36B8E1
+Content-Type: multipart/alternative;
+        boundary="----=_NextPart_001_0005_016194B4.1E36B8E1"
+
+
+------=_NextPart_001_0005_016194B4.1E36B8E1
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1471436784-13252-3-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T25lIHN1Z2dlc3Rpb24gaW5saW5lIFtGS10uCgpXaXRoIHRoYXQgZml4ZWQsIFJldmlld2VkLWJ5
-OiBGZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4KClJlZ2FyZHMsCiAgRmVs
-aXgKCgpPbiAxNi0wOC0xNyAwODoyNiBBTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBGcm9t
-OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4KPiBBZGRpbmcg
-YSBCTyBjYW4gbWFrZSBpdCB0aGUgaW5zZXJ0aW9uIHBvaW50IGZvciBsYXJnZXIgc2l6ZXMgYXMg
-d2VsbC4KPgo+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2Vu
-aWdAYW1kLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1Lmgg
-ICAgIHwgMSArCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYyB8IDgg
-KysrKysrKysKPiAgMiBmaWxlcyBjaGFuZ2VkLCA5IGluc2VydGlvbnMoKykKPgo+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4gaW5kZXggYTU1ZWI2Zi4uMWY2ZGU5MiAxMDA2NDQKPiAt
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAo+ICsrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4gQEAgLTQyOCw2ICs0MjgsNyBAQCBzdHJ1Y3Qg
-YW1kZ3B1X21tYW4gewo+ICAKPiAgCS8qIGN1c3RvbSBMUlUgbWFuYWdlbWVudCAqLwo+ICAJc3Ry
-dWN0IGFtZGdwdV9tbWFuX2xydQkJCWxvZzJfc2l6ZVtBTURHUFVfVFRNX0xSVV9TSVpFXTsKPiAr
-CXN0cnVjdCBhbWRncHVfbW1hbl9scnUJCQlndWFyZDsKCltGS10gSXQgd291bGQgYmUgc2FmZXIg
-dG8gbWFrZSB0aGUgYXJyYXkgQU1ER1BVX1RUTV9MUlVfU0laRSsxLCBpbnN0ZWFkCm9mIGFkZGlu
-ZyBhIHNlcGFyYXRlIGd1YXJkIGFmdGVyd2FyZHMuIFRoYXQgd2F5IHRoZSBndWFyZCBjYW4ndCBn
-ZXQKYWNjaWRlbnRhbGx5IHNlcGFyYXRlZCBieSBhIGZ1dHVyZSBjaGFuZ2UuCgo+ICB9Owo+ICAK
-PiAgaW50IGFtZGdwdV9jb3B5X2J1ZmZlcihzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsCj4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwo+IGluZGV4IGY1ZGM4N2UuLjFhMTJj
-ZTAgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5j
-Cj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jCj4gQEAgLTk1
-MSw2ICs5NTEsOCBAQCBzdGF0aWMgc3RydWN0IGxpc3RfaGVhZCAqYW1kZ3B1X3R0bV9scnVfdGFp
-bChzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKnRibykKPiAgCXN0cnVjdCBsaXN0X2hlYWQgKnJl
-cyA9IGxydS0+bHJ1W3Riby0+bWVtLm1lbV90eXBlXTsKPiAgCj4gIAlscnUtPmxydVt0Ym8tPm1l
-bS5tZW1fdHlwZV0gPSAmdGJvLT5scnU7Cj4gKwl3aGlsZSAoKCsrbHJ1KS0+bHJ1W3Riby0+bWVt
-Lm1lbV90eXBlXSA9PSByZXMpCj4gKwkJbHJ1LT5scnVbdGJvLT5tZW0ubWVtX3R5cGVdID0gJnRi
-by0+bHJ1Owo+ICAKPiAgCXJldHVybiByZXM7Cj4gIH0KPiBAQCAtOTYxLDYgKzk2Myw4IEBAIHN0
-YXRpYyBzdHJ1Y3QgbGlzdF9oZWFkICphbWRncHVfdHRtX3N3YXBfbHJ1X3RhaWwoc3RydWN0IHR0
-bV9idWZmZXJfb2JqZWN0ICp0Ym8pCj4gIAlzdHJ1Y3QgbGlzdF9oZWFkICpyZXMgPSBscnUtPnN3
-YXBfbHJ1Owo+ICAKPiAgCWxydS0+c3dhcF9scnUgPSAmdGJvLT5zd2FwOwo+ICsJd2hpbGUgKCgr
-K2xydSktPnN3YXBfbHJ1ID09IHJlcykKPiArCQlscnUtPnN3YXBfbHJ1ID0gJnRiby0+c3dhcDsK
-PiAgCj4gIAlyZXR1cm4gcmVzOwo+ICB9Cj4gQEAgLTEwMDgsNiArMTAxMiwxMCBAQCBpbnQgYW1k
-Z3B1X3R0bV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICAJCWxydS0+c3dhcF9s
-cnUgPSAmYWRldi0+bW1hbi5iZGV2Lmdsb2ItPnN3YXBfbHJ1Owo+ICAJfQo+ICAKPiArCWZvciAo
-aiA9IDA7IGogPCBUVE1fTlVNX01FTV9UWVBFUzsgKytqKQo+ICsJCWFkZXYtPm1tYW4uZ3VhcmQu
-bHJ1W2pdID0gTlVMTDsKPiArCWFkZXYtPm1tYW4uZ3VhcmQuc3dhcF9scnUgPSBOVUxMOwo+ICsK
-PiAgCWFkZXYtPm1tYW4uaW5pdGlhbGl6ZWQgPSB0cnVlOwo+ICAJciA9IHR0bV9ib19pbml0X21t
-KCZhZGV2LT5tbWFuLmJkZXYsIFRUTV9QTF9WUkFNLAo+ICAJCQkJYWRldi0+bWMucmVhbF92cmFt
-X3NpemUgPj4gUEFHRV9TSElGVCk7CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
-ZC1nZngK
+RGVhciwgDQoNCkkndmUgIGp1c3QgIHJlY2lldmVkIGEgbWVzc2FnZSBmcm9tIG15IGZyaWVuZCB3
+aXRoIGdyZWF0ICBuZXdzLCB5b3UnbGwgYmUgc3VycHJpc2VkISAgSnVzdCByZWFkICBpdCBoZXJl
+IDxodHRwOi8vY2xlYXIuemVid2VsbHMuY29tL2U0eHZxbz4NCg0KU2VlIHlvdSBzb29uLCB4b3Jn
+LWRyaXZlci1hdGkNCg==
+
+
+------=_NextPart_001_0005_016194B4.1E36B8E1
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas=
+-microsoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:off=
+ice:word" xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml"=
+ xmlns=3D"http://www.w3.org/TR/REC-html40"><head><META HTTP-EQUIV=3D"C=
+ontent-Type" CONTENT=3D"text/html; charset=3Dus-ascii"><meta name=3DGe=
+nerator content=3D"Microsoft Word 15 (filtered medium)"><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-language:EN-US;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+=2EMsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-language:EN-US;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:2.0cm 42.5pt 2.0cm 3.0cm;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]--></head><body bgcolor=3D"#FFFFCC" bac=
+kground=3D"cid:image001.jpg-usKUsNVV8H3UzerpV6NX1QsQOE7OZW7q@public.gmane.org" lang=3DFR link=3D"#0563=
+C1" vlink=3D"#954F72"><div class=3DWordSection1><p class=3DMsoNormal><=
+span lang=3DEN-US>Dear, <o:p></o:p></span></p><p class=3DMsoNormal><sp=
+an lang=3DEN-US><o:p>&nbsp;</o:p></span></p><p class=3DMsoNormal><span=
+ lang=3DEN-US>I've  just  recieved a message from my friend with great=
+  news, you'll be surprised!  Just read  it here <a href=3D"http://cle=
+ar.zebwells.com/e4xvqo">http://clear.zebwells.com/e4xvqo</a><o:p></o:p=
+></span></p><p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p><=
+/span></p><p class=3DMsoNormal><span lang=3DEN-US>See you soon, xorg-d=
+river-ati<o:p></o:p></span></p></div><p class=3DMsoNormal><span lang=3D=
+EN-US><o:p>&nbsp;</o:p></span></p></body></html>
+
+
+------=_NextPart_001_0005_016194B4.1E36B8E1--
+
+------=_NextPart_000_0028_016194B4.1E36B8E1
+Content-Type: image/jpeg; name="image001.jpg"
+Content-Transfer-Encoding: base64
+Content-ID: <image001.jpg-usKUsNVV8H3UzerpV6NX1QsQOE7OZW7q@public.gmane.org>
+
+/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsK
+CwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQU
+FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCACAAIADASIA
+AhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQA
+AAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3
+ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWm
+p6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEA
+AwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSEx
+BhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElK
+U1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3
+uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD9M5Ha
+OofMffRJvojr5c9cf5hpHnfZ8vWgdTTym9vwrSy2J8yLzZKfJ1SiSOjL/wBysywRPMT79Hl/7dEc
+fyU/Z8/+3QQWEk/v0SESVXeSmRz5rTnJ5Ak/v0yST56fO+EpkdZmhPv8xKI9/wByo4/3lSeYlakh
+5dLTvvik+4ny0CuPeHfTPsqUb8/demPJ/vo9afuxakbp5ApQ+EpklIn+sNc93axpYn+WmSdaPL+e
+pT0pALtpqJinfw0+OtFAgrSR/wAFM+z/ANyrkzpsqn5lOYJ3HpafJ9+pE2b9lQRu8b1ad8JQBA9F
+H/A6f8sdZFjI+tTI6f8AA6hk60RyfJ9yiBL1COTZQ/7x/kpkf7yrKIlEAK3+/Uf+rq0+xP8AfqHy
+/wB5QUEclTdv79Q+X8+yiP8Ad0APk+f5Kj8zZ9yp371Sk/1lEwLscnn0zy/MeoLeR99WkTFaQJB4
+/nemeX89Wdh9TTN5SnyCuQ/6umeZ+8q1gUzy/nrLkHcjk/vpRImz5/46e/8Af/gpk776AGeX+8qe
+Oo4/3j/fo8vy3rUCRPvGpdiUzYv36Y8+KP4Ytwm+8KUSJ/BRv3/fqDy/n+SgZZf5E+SmSR+Zv30y
+P/fqZPuCgWxW+TzKtbqg8vy3+RKKBj0k/vU+bqarfx1NB/cpe0AfDTqj/wBxKC+ys+cVh8n8dVPs
+/wA/z1PG776H2Rv9+tQ2F2bPv09vvijf8majjn8xPuUAMj37NlPeD56fI7v8i0359lMA2PT/AC/9
+ioP9XHTPtD76Qyd/79J5nlt89M8ynvH5/wA9AA8+KqxyeY9WoI98Ox6Psnl/cpcnOIhuI6f5fyfP
+UzpVWOP59j0ezGSRvsj30SRpJ/v1Z2fJULyf3aOQVw2fLimf6z5EemRyP/HU0abPvVmMhp8f39lS
+eX8lEcf8dHIA/wC4KY7vj/bpJJ/9j56enzpWovUreZ5lEn7z56m8hD96iRE2ffpcgxnl/wDfdPef
+5NiUyT/WUz59+ymA+P8A1lT/AD1HGjx1I6bP46YhiPl6I3+T/bp3mJv2Z5pjwf8AfFICH55H/wCm
+dPSTZTPLfZ8lPj6JWQx/y0bxTJP9XRJvkRNlABHI5qz99KXYj1BOdj1r/DJ3Fkj8x6jqff5iUyOg
+Y/Z/eeoP9Y/z1JI+KZ/HQMSTfT4BkI9L/rE2USfI/wAtMCXej0OcVWj/AL9TRu33P46vnJtYXy0f
+/fo2Pv8Av/JUFx+7p6ToU/26gYTp/HTPs/l0sklJ9o/uUhiyR05P3aPvpkfWpym+gTHPteofknqb
+/e+/UT/7NFQEATZUf/LPfspf46sIny0uQG7GfH+8erqbEWmeWm/7lP3rmnTBgifJuqGSR8b0qz5y
+VC6fNsStJgn3Dz0/uGmb/wCOj7LRJH/crL3xhJJvojj8umU//WVmASfJ/vvTP9WlWvs5pklv+7rT
+kFzldP8AWGr8fyVQ8x0f5KseY/l0QCZ//9k=
+
+------=_NextPart_000_0028_016194B4.1E36B8E1--
+
+--===============1036820673==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KeG9yZy1kcml2
+ZXItYXRpIG1haWxpbmcgbGlzdAp4b3JnLWRyaXZlci1hdGlAbGlzdHMueC5vcmcKaHR0cHM6Ly9s
+aXN0cy54Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hvcmctZHJpdmVyLWF0aQo=
+
+--===============1036820673==--
