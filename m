@@ -1,13 +1,24 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: underclocking support rx480
-Date: Tue, 16 Aug 2016 18:42:16 +0000
-Message-ID: <MWHPR12MB16948862368CEE3F89E4EEEDF7130@MWHPR12MB1694.namprd12.prod.outlook.com>
-References: <AM3PR08MB02772552694CAA400ECA74D3E9130@AM3PR08MB0277.eurprd08.prod.outlook.com>
+From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: Reverted another change to fix buffer move hangs (was Re: [PATCH]
+ drm/ttm: partial revert "cleanup ttm_tt_(unbind|destroy)" v2)
+Date: Tue, 16 Aug 2016 14:45:03 -0400
+Message-ID: <fa0914a6-3f3e-e123-d1b5-2f0ed71c5dfd@amd.com>
+References: <1469193013-11482-1-git-send-email-deathsimple@vodafone.de>
+ <95d462b5-7c20-2f40-c406-48f5aece0817@daenzer.net>
+ <58e8df15-98dd-facc-acb6-68f94a937374@amd.com>
+ <67b3c224-29e0-0a98-6c3a-8439744149da@amd.com>
+ <c76c7703-6c0d-0d2a-ba9f-c012d74c01bf@amd.com>
+ <MWHPR12MB16948D7420076C10DCFAEEBBF71E0@MWHPR12MB1694.namprd12.prod.outlook.com>
+ <12c479b4-64d0-952c-f9d2-decd25533251@amd.com>
+ <c016cb14-f262-7432-f4ef-cdbb638807f4@vodafone.de>
+ <d120fde0-a175-c9b5-a3ab-b6840207190e@amd.com>
+ <CADnq5_M2orK5FoDD5+xZjhStj6mRRkRNho+tLHRuvKq27nSHZQ@mail.gmail.com>
+ <abfdc55c-f95c-327f-fa9e-114f0b3884e3@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1588586263=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <AM3PR08MB02772552694CAA400ECA74D3E9130-tWJG53+nB0BVys3uQg+TMSkoKrxaZxrJvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <abfdc55c-f95c-327f-fa9e-114f0b3884e3-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,142 +29,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: 'Jarkko Korpi' <jarkko_korpi-PkbjNfxxIARBDgjK7y7TUQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "Russell,
+ Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1588586263==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MWHPR12MB16948862368CEE3F89E4EEEDF7130MWHPR12MB1694namp_"
-
---_000_MWHPR12MB16948862368CEE3F89E4EEEDF7130MWHPR12MB1694namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-You can already limit the clock levels as I described previously.
-
-Alex
-
-From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf Of J=
-arkko Korpi
-Sent: Tuesday, August 16, 2016 2:37 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: underclocking support rx480
-
-
-I haven't tried yet the overclocking feature that's limited 20% at command =
-line. But please make it possible to downlock too.
-
---_000_MWHPR12MB16948862368CEE3F89E4EEEDF7130MWHPR12MB1694namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 14 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:Tahoma;
-	panose-1:2 11 6 4 3 5 4 4 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-p
-	{mso-style-priority:99;
-	margin:0in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-span.EmailStyle18
-	{mso-style-type:personal-reply;
-	font-family:"Calibri","sans-serif";
-	color:#1F497D;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">You can already limit the=
- clock levels as I described previously.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
-/p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Alex<o:p></o:p></span></p=
->
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
-/p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
-4.0pt">
-<div>
-<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
-;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span style=3D"font-s=
-ize:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> amd-gfx =
-[mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org]
-<b>On Behalf Of </b>Jarkko Korpi<br>
-<b>Sent:</b> Tuesday, August 16, 2016 2:37 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> underclocking support rx480<o:p></o:p></span></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div id=3D"divtagdefaultwrapper">
-<p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
-;,&quot;sans-serif&quot;;color:black">I haven't tried yet the overclocking =
-feature that's limited 20% at command line. But please make it possible to =
-downlock too.
-<o:p></o:p></span></p>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_MWHPR12MB16948862368CEE3F89E4EEEDF7130MWHPR12MB1694namp_--
-
---===============1588586263==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1588586263==--
+VGhhbmsgeW91LiBTb3JyeSwgSSBhbHJlYWR5IHB1c2hlZCBpdCB3aXRoIEFsZXgncyBSLUIsIHdp
+dGhvdXQgeW91cnMuCgoKT24gMTYtMDgtMTYgMDM6NTMgQU0sIENocmlzdGlhbiBLw7ZuaWcgd3Jv
+dGU6Cj4gQW0gMTUuMDguMjAxNiB1bSAyMzowMyBzY2hyaWViIEFsZXggRGV1Y2hlcjoKPj4gT24g
+TW9uLCBBdWcgMTUsIDIwMTYgYXQgMzowNiBQTSwgRmVsaXggS3VlaGxpbmcKPj4gPGZlbGl4Lmt1
+ZWhsaW5nQGFtZC5jb20+IHdyb3RlOgo+Pj4gUGF0Y2ggYWdhaW5zdCBjdXJyZW50IGFtZC1zdGFn
+aW5nLTQuNiBpcyBhdHRhY2hlZC4KPj4gUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFu
+ZGVyLmRldWNoZXJAYW1kLmNvbT4KPgo+IFJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxj
+aHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Lgo+Cj4+Cj4+PiBSZWdhcmRzLAo+Pj4gICAgRmVsaXgK
+Pj4+Cj4+Pgo+Pj4gT24gMTYtMDgtMTMgMDU6MjUgQU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6
+Cj4+Pj4gQW0gMTMuMDguMjAxNiB1bSAwMToyMiBzY2hyaWViIEZlbGl4IEt1ZWhsaW5nOgo+Pj4+
+PiBbQ0MgS2VudCBGWUldCj4+Pj4+Cj4+Pj4+IE9uIDE2LTA4LTExIDA0OjMxIFBNLCBEZXVjaGVy
+LCBBbGV4YW5kZXIgd3JvdGU6Cj4+Pj4+Pj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPj4+
+Pj4+PiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZ10gT24KPj4+Pj4+PiBCZWhhbGYKPj4+Pj4+PiBPZiBGZWxpeCBLdWVobGluZwo+Pj4+
+Pj4+IFNlbnQ6IFRodXJzZGF5LCBBdWd1c3QgMTEsIDIwMTYgMzo1MiBQTQo+Pj4+Pj4+IFRvOiBN
+aWNoZWwgRMOkbnplcjsgQ2hyaXN0aWFuIEvDtm5pZwo+Pj4+Pj4+IENjOiBhbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwo+Pj4+Pj4+IFN1YmplY3Q6IFJldmVydGVkIGFub3RoZXIgY2hhbmdl
+IHRvIGZpeCBidWZmZXIgbW92ZSBoYW5ncyAod2FzIFJlOgo+Pj4+Pj4+IFtQQVRDSF0gZHJtL3R0
+bTogcGFydGlhbCByZXZlcnQgImNsZWFudXAKPj4+Pj4+PiB0dG1fdHRfKHVuYmluZHxkZXN0cm95
+KSIgdjIpCj4+Pj4+Pj4KPj4+Pj4+PiBXZSBoYWQgdG8gcmV2ZXJ0IGFub3RoZXIgY2hhbmdlIG9u
+IHRoZSBLRkQgYnJhbmNoIHRvIGZpeCBhCj4+Pj4+Pj4gYnVmZmVyIG1vdmUKPj4+Pj4+PiBwcm9i
+bGVtOiA4YjZiNzlmNDM4MDFmMDBkZGNkYzEwYTRkNTcxOWViYTRiMmUzMmFhIChkcm0vYW1kZ3B1
+Ogo+Pj4+Pj4+IGdyb3VwIEJPcwo+Pj4+Pj4+IGJ5IGxvZzIgb2YgdGhlIHNpemUgb24gdGhlIExS
+VSB2Mgo+Pj4+Pj4gVGhhdCBtYWtlcyBzZW5zZS4gIEkgdGhpbmsgeW91IG1heSB3YW50IGEgZGlm
+ZmVyZW50IExSVSBzY2hlbWUgZm9yCj4+Pj4+PiBLRkQgb3IgYXQgbGVhc3Qgc3BlY2lhbCBoYW5k
+bGluZyBmb3IgS0ZEIGJ1ZmZlcnMuCj4+Pj4+IFtGS10gQnV0IEkgdGhpbmsgdGhlIHBhdGNoIHNo
+b3VsZG4ndCBjYXVzZSBoYW5ncywgcmVnYXJkbGVzcy4KPj4+Pj4KPj4+Pj4gSSBldmVudHVhbGx5
+IGZvdW5kIHdoYXQgdGhlIHByb2JsZW0gd2FzLiBUaGUgImdyb3VwIEJPcyBieSBsb2cyIG9mCj4+
+Pj4+IHRoZQo+Pj4+PiBzaXplIG9uIHRoZSBMUlUgdjIiIHBhdGNoIGV4cG9zZWQgYSBsYXRlbnQg
+YnVnIHJlbGF0ZWQgdG8gdGhlIEdBUlQKPj4+Pj4gc2l6ZS4KPj4+Pj4gT24gb3VyIEtGRCBicmFu
+Y2gsIHdlIGNhbGN1bGF0ZSB0aGUgR0FSVCBzaXplIGRpZmZlcmVudGx5LCBhbmQgaXQgY2FuCj4+
+Pj4+IGVhc2lseSBnbyBhYm92ZSA0R0IuIEkgdGhpbmsgb24gYW1kLXN0YWdpbmctNC42IHRoZSBH
+QVJUIHNpemUgY2FuCj4+Pj4+IGFsc28KPj4+Pj4gZ28gYWJvdmUgNEdCIG9uIGNhcmRzIHdpdGgg
+bG90cyBvZiBWUkFNLgo+Pj4+Pgo+Pj4+PiBIb3dldmVyLCB0aGUgb2Zmc2V0IHBhcmFtZXRlciBp
+biBhbWRncHVfZ2FydF9iaW5kIGFuZCB1bmJpbmQgaXMgb25seQo+Pj4+PiAzMi1iaXQuIFdpdGgg
+dGhlIHBhdGNoIG91ciB0ZXN0IGVuZGVkIHVwIHVzaW5nIEdBUlQgb2Zmc2V0cyBiZXlvbmQKPj4+
+Pj4gNEdCCj4+Pj4+IGZvciB0aGUgZmlyc3QgdGltZS4gQ2hhbmdpbmcgdGhlIG9mZnNldCBwYXJh
+bWV0ZXIgdG8gdWludDY0X3QKPj4+Pj4gZml4ZXMgdGhlCj4+Pj4+IHByb2JsZW0uCj4+Pj4gTmlj
+ZSBjYXRjaCwgcGxlYXNlIHByb3ZpZGUgYSBwYXRjaCB0byBmaXggdGhpcy4KPj4+Pgo+Pj4+PiBP
+dXIgdGVzdCBhbHNvIGRlbW9uc3RyYXRlcyBhIHBvdGVudGlhbCBmbGF3IGluIHRoZSBsb2cyIGdy
+b3VwaW5nCj4+Pj4+IHBhdGNoOgo+Pj4+PiBXaGVuIGEgYnVmZmVyIG9mIGEgcHJldmlvdXNseSB1
+bnVzZWQgc2l6ZSBpcyBhZGRlZCB0byB0aGUgTFJVLCBpdAo+Pj4+PiBnZXRzCj4+Pj4+IGFkZGVk
+IHRvIHRoZSBmcm9udCBvZiB0aGUgbGlzdCwgcmF0aGVyIHRoYW4gdGhlIHRhaWwuIFNvIGFuCj4+
+Pj4+IGFwcGxpY2F0aW9uCj4+Pj4+IHRoYXQgYWxsb2NhdGVzIGEgdmVyeSBsYXJnZSBidWZmZXIg
+YWZ0ZXIgYSBidW5jaCBvZiBzbWFsbGVyCj4+Pj4+IGJ1ZmZlcnMsIGlzCj4+Pj4+IHZlcnkgbGlr
+ZWx5IHRvIGhhdmUgdGhhdCBidWZmZXIgZXZpY3RlZCBvdmVyIGFuZCBvdmVyIGFnYWluIGJlZm9y
+ZQo+Pj4+PiBhbnkKPj4+Pj4gc21hbGxlciBidWZmZXJzIGFyZSBjb25zaWRlcmVkIGZvciBldmlj
+dGlvbi4gSSBiZWxpZXZlLCB0aGlzIGNhbgo+Pj4+PiByZXN1bHQKPj4+Pj4gaW4gdGhyYXNoaW5n
+IG9mIGxhcmdlIGJ1ZmZlcnMuCj4+Pj4+Cj4+Pj4+IFNvbWUgb3RoZXIgb2JzZXJ2YXRpb25zOiBX
+aGVuIHRoZSBsYXN0IEJPIG9mIGEgZ2l2ZW4gc2l6ZSBpcyByZW1vdmVkCj4+Pj4+IGZyb20gdGhl
+IExSVSBsaXN0LCB0aGUgTFJVIHRhaWwgZm9yIHRoYXQgc2l6ZSBpcyBsZWZ0ICJmbG9hdGluZyIK
+Pj4+Pj4gaW4gdGhlCj4+Pj4+IG1pZGRsZSBvZiB0aGUgTFJVIGxpc3QuIFNvIHRoZSBuZXh0IEJP
+IG9mIHRoYXQgc2l6ZSB0aGF0IGlzIGFkZGVkLAo+Pj4+PiB3aWxsCj4+Pj4+IGJlIGFkZGVkIGF0
+IGFuIGFyYml0cmFyeSBwb3NpdGlvbiBpbiB0aGUgbGlzdC4gSXQgbWF5IGV2ZW4gZW5kIHVwCj4+
+Pj4+IGluIHRoZQo+Pj4+PiBtaWRkbGUgb2YgYSBibG9jayBvZiBwYWdlcyBvZiBhIGRpZmZlcmVu
+dCBzaXplLiBTbyBhIGxvZzIgZ3JvdXBpbmcKPj4+Pj4gbWF5Cj4+Pj4+IGVuZCB1cCBiZWluZyBz
+cGxpdC4KPj4+PiBZZWFoLCB0aG9zZSBhcmUgbW9yZSBvciBsZXNzIGtub3duIGlzc3Vlcy4KPj4+
+Pgo+Pj4+IEtlZXAgaW4gbWluZCB0aGF0IHdlIG9ubHkgYWRkZWQgdGhlIGdyb3VwaW5nIGJ5IGxv
+ZzIgb2YgdGhlIHNpemUgdG8KPj4+PiBoYXZlIGEganVzdGlmaWNhdGlvbiB0byBwdXNoIHRoZSBU
+VE0gY2hhbmdlcyB1cHN0cmVhbSBmb3IgdGhlIGNvbWluZwo+Pj4+IEtGRCBmZW5jZXMuCj4+Pj4K
+Pj4+PiBFLmcuIHNvIHRoYXQgd2UgYXJlIGFibGUgdG8gaGF2ZSB0aGlzIHVwc3RyZWFtIGJlZm9y
+ZSB3ZSB0cnkgdG8gcHVzaAo+Pj4+IG9uIHRoZSBmZW5jZSBjb2RlLgo+Pj4+Cj4+Pj4gSSB3aWxs
+IHRha2UgYSBsb29rIGF0IGZpeGluZyB0aG9zZSBpc3N1ZXMgd2hlbiBJIGhhdmUgdGltZSwgc2hv
+dWxkbid0Cj4+Pj4gYmUgdG8gY29tcGxpY2F0ZWQgdG8gc2V0IHRoZSBlbnRyaWVzIHRvIHplcm8g
+d2hlbiB0aGV5IGFyZW4ndCB1c2VkIG9yCj4+Pj4gYWRqdXN0IG90aGVyIGVudHJpZXMgYXMgd2Vs
+bCB3aGVuIHNvbWUgYXJlIGFkZGVkLgo+Pj4+Cj4+Pj4gUmVnYXJkcywKPj4+PiBDaHJpc3RpYW4u
+Cj4+Pj4KPj4+Pj4gUmVnYXJkcywKPj4+Pj4gICAgIEZlbGl4Cj4+Pj4+Cj4+Pj4+IF9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+Pj4+IGFtZC1nZnggbWFp
+bGluZyBsaXN0Cj4+Pj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+Pj4+IGh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+Pj4+Cj4+
+Pgo+Pj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPj4+
+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+
+Pj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Cj4+Pgo+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
+bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
