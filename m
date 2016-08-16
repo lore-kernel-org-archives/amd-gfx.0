@@ -1,11 +1,13 @@
-From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
-Subject: DCE wait for idle
-Date: Tue, 16 Aug 2016 11:53:58 +0000
-Message-ID: <DM5PR12MB11324CCFF1289BEC5B42565EF7130@DM5PR12MB1132.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: DCE wait for idle
+Date: Tue, 16 Aug 2016 09:37:47 -0400
+Message-ID: <CADnq5_OWFo6emg2RQa3NPWOGJAJcyNsy_JCNq44=Z7VAcUMQ_g@mail.gmail.com>
+References: <DM5PR12MB11324CCFF1289BEC5B42565EF7130@DM5PR12MB1132.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0509676000=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <DM5PR12MB11324CCFF1289BEC5B42565EF7130-2J9CzHegvk+UzrhdoDeimQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,87 +18,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0509676000==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM5PR12MB11324CCFF1289BEC5B42565EF7130DM5PR12MB1132namp_"
-
---_000_DM5PR12MB11324CCFF1289BEC5B42565EF7130DM5PR12MB1132namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-In these functions
-
-
-static bool dce_v11_0_is_idle(void *handle)
-{
-return true;
-}
-
-static int dce_v11_0_wait_for_idle(void *handle)
-{
-return 0;
-}
-
-
-Shouldn't they wait on the GUI bit of the GRBM_STATUS register?
-
-
-Tom
-
---_000_DM5PR12MB11324CCFF1289BEC5B42565EF7130DM5PR12MB1132namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;back=
-ground-color:#FFFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
-<p>In these functions</p>
-<p><br>
-</p>
-<p></p>
-<div>static bool dce_v11_0_is_idle(void *handle)</div>
-<div>{</div>
-<div><span class=3D"Apple-tab-span" style=3D"white-space:pre"></span>return=
- true;</div>
-<div>}</div>
-<div><br>
-</div>
-<div>static int dce_v11_0_wait_for_idle(void *handle)</div>
-<div>{</div>
-<div><span class=3D"Apple-tab-span" style=3D"white-space:pre"></span>return=
- 0;</div>
-<div>}</div>
-<div><br>
-</div>
-<p></p>
-<p>Shouldn't they wait on the GUI bit of the GRBM_STATUS register?</p>
-<p><br>
-</p>
-<p>Tom</p>
-</div>
-</body>
-</html>
-
---_000_DM5PR12MB11324CCFF1289BEC5B42565EF7130DM5PR12MB1132namp_--
-
---===============0509676000==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0509676000==--
+T24gVHVlLCBBdWcgMTYsIDIwMTYgYXQgNzo1MyBBTSwgU3REZW5pcywgVG9tIDxUb20uU3REZW5p
+c0BhbWQuY29tPiB3cm90ZToKPiBJbiB0aGVzZSBmdW5jdGlvbnMKPgo+Cj4gc3RhdGljIGJvb2wg
+ZGNlX3YxMV8wX2lzX2lkbGUodm9pZCAqaGFuZGxlKQo+IHsKPiByZXR1cm4gdHJ1ZTsKPiB9Cj4K
+PiBzdGF0aWMgaW50IGRjZV92MTFfMF93YWl0X2Zvcl9pZGxlKHZvaWQgKmhhbmRsZSkKPiB7Cj4g
+cmV0dXJuIDA7Cj4gfQo+Cj4gU2hvdWxkbid0IHRoZXkgd2FpdCBvbiB0aGUgR1VJIGJpdCBvZiB0
+aGUgR1JCTV9TVEFUVVMgcmVnaXN0ZXI/CgpUaGVyZSBpcyBubyBEQ0Ugc3RhdGUgaW4gdGhlIFNS
+Qk1fU1RBVFVTIHJlZ2lzdGVycy4gIEdSQk1fU1RBVFVTIGlzCm9ubHkgdGhlIDNkL2NvbXB1dGUg
+ZW5naW5lLiAgVGhlIEdVSSBiaXQganVzdCBtZWFucyBzb21ldGhpbmcgaW4gdGhlCjNkL2NvbXB1
+dGUgYmxvY2sgaXMgYnVzeS4gIEl0J3Mgbm90IERDRSBzdGF0dXMuICBUaGVyZSBhcmUgYSBsb3Qg
+b2YKY29tcG9uZW50cyBpbiB0aGUgRENFIGVuZ2luZSB0aGF0IGNvdWxkIGJlIGJ1c3kgKGdycGgs
+IGNydGMsCnRyYW5zbWl0dGVycywgZW5jb2RlcnMsIGxpbmUgYnVmZmVycywgZXRjLikgYW5kIGlm
+IGEgZGlzcGxheSBwYXRoIGlzCmFjdGl2ZSwgdGhleSBhcmUgbGlrZWx5IHRvIGJlLiAgVGhhdCBz
+YWlkLCB0aGUgc3RhdHVzIG9mIHRoZSBEQ0UgYmxvY2sKaXMgZ2VuZXJhbGx5IG5vdCBpbnRlcmVz
+dGluZyBmb3IgbW9zdCB0aGluZ3Mgd2UgdXNlIHRoZSBpZGxlIGNhbGxiYWNrcwpmb3IuCgpBbGV4
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
+bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
