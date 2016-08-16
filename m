@@ -1,13 +1,11 @@
-From: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: For virtual_display feature,
- the vblank_get_counter hook is always return 0 when there's no
- hardware frame counter which can be used.
-Date: Tue, 16 Aug 2016 18:15:15 +0800
-Message-ID: <1471342515-2952-1-git-send-email-Emily.Deng@amd.com>
+From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Subject: DCE wait for idle
+Date: Tue, 16 Aug 2016 11:53:58 +0000
+Message-ID: <DM5PR12MB11324CCFF1289BEC5B42565EF7130@DM5PR12MB1132.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0509676000=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,55 +16,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-U2lnbmVkLW9mZi1ieTogRW1pbHkgRGVuZyA8RW1pbHkuRGVuZ0BhbWQuY29tPgotLS0KIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92aXJ0dWFsLmMgfCAxNiArKysrLS0tLS0tLS0tLS0t
-CiAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCAxMiBkZWxldGlvbnMoLSkKCmRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdmlydHVhbC5jIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3ZpcnR1YWwuYwppbmRleCAyY2U1ZjkwLi44NWYxNGE2
-IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdmlydHVhbC5jCisr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92aXJ0dWFsLmMKQEAgLTU1LDEwICs1
-NSw3IEBAIHN0YXRpYyB2b2lkIGRjZV92aXJ0dWFsX3ZibGFua193YWl0KHN0cnVjdCBhbWRncHVf
-ZGV2aWNlICphZGV2LCBpbnQgY3J0YykKIAogc3RhdGljIHUzMiBkY2VfdmlydHVhbF92Ymxhbmtf
-Z2V0X2NvdW50ZXIoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIGludCBjcnRjKQogewotCWlm
-IChjcnRjID49IGFkZXYtPm1vZGVfaW5mby5udW1fY3J0YykKLQkJcmV0dXJuIDA7Ci0JZWxzZQot
-CQlyZXR1cm4gYWRldi0+ZGRldi0+dmJsYW5rW2NydGNdLmNvdW50OworCXJldHVybiAwOwogfQog
-CiBzdGF0aWMgdm9pZCBkY2VfdmlydHVhbF9wYWdlX2ZsaXAoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYsCkBAIC03MCwxMyArNjcsMTAgQEAgc3RhdGljIHZvaWQgZGNlX3ZpcnR1YWxfcGFnZV9m
-bGlwKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogc3RhdGljIGludCBkY2VfdmlydHVhbF9j
-cnRjX2dldF9zY2Fub3V0cG9zKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBpbnQgY3J0YywK
-IAkJCQkJdTMyICp2YmwsIHUzMiAqcG9zaXRpb24pCiB7Ci0JaWYgKChjcnRjIDwgMCkgfHwgKGNy
-dGMgPj0gYWRldi0+bW9kZV9pbmZvLm51bV9jcnRjKSkKLQkJcmV0dXJuIC1FSU5WQUw7Ci0KIAkq
-dmJsID0gMDsKIAkqcG9zaXRpb24gPSAwOwogCi0JcmV0dXJuIDA7CisJcmV0dXJuIC1FSU5WQUw7
-CiB9CiAKIHN0YXRpYyBib29sIGRjZV92aXJ0dWFsX2hwZF9zZW5zZShzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSAqYWRldiwKQEAgLTQwNSw2ICszOTksOCBAQCBzdGF0aWMgaW50IGRjZV92aXJ0dWFsX3N3
-X2luaXQodm9pZCAqaGFuZGxlKQogCWlmIChyKQogCQlyZXR1cm4gcjsKIAorCWFkZXYtPmRkZXYt
-Pm1heF92YmxhbmtfY291bnQgPSAwOworCiAJYWRldi0+ZGRldi0+bW9kZV9jb25maWcuZnVuY3Mg
-PSAmYW1kZ3B1X21vZGVfZnVuY3M7CiAKIAlhZGV2LT5kZGV2LT5tb2RlX2NvbmZpZy5tYXhfd2lk
-dGggPSAxNjM4NDsKQEAgLTY1Myw3ICs2NDksNiBAQCBzdGF0aWMgZW51bSBocnRpbWVyX3Jlc3Rh
-cnQgZGNlX3ZpcnR1YWxfdmJsYW5rX3RpbWVyX2hhbmRsZShzdHJ1Y3QgaHJ0aW1lciAqdmJsYQog
-CXN0cnVjdCBhbWRncHVfbW9kZV9pbmZvICptb2RlX2luZm8gPSBjb250YWluZXJfb2YodmJsYW5r
-X3RpbWVyLCBzdHJ1Y3QgYW1kZ3B1X21vZGVfaW5mbyAsdmJsYW5rX3RpbWVyKTsKIAlzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqYWRldiA9IGNvbnRhaW5lcl9vZihtb2RlX2luZm8sIHN0cnVjdCBhbWRn
-cHVfZGV2aWNlICxtb2RlX2luZm8pOwogCXVuc2lnbmVkIGNydGMgPSAwOwotCWFkZXYtPmRkZXYt
-PnZibGFua1swXS5jb3VudCsrOwogCWRybV9oYW5kbGVfdmJsYW5rKGFkZXYtPmRkZXYsIGNydGMp
-OwogCWRjZV92aXJ0dWFsX3BhZ2VmbGlwX2lycShhZGV2LCBOVUxMLCBOVUxMKTsKIAlocnRpbWVy
-X3N0YXJ0KHZibGFua190aW1lciwga3RpbWVfc2V0KDAsIERDRV9WSVJUVUFMX1ZCTEFOS19QRVJJ
-T0QpLCBIUlRJTUVSX01PREVfUkVMKTsKQEAgLTY4MCw4ICs2NzUsNiBAQCBzdGF0aWMgdm9pZCBk
-Y2VfdmlydHVhbF9zZXRfY3J0Y192YmxhbmtfaW50ZXJydXB0X3N0YXRlKHN0cnVjdCBhbWRncHVf
-ZGV2aWNlICphZAogCQlocnRpbWVyX2NhbmNlbCgmYWRldi0+bW9kZV9pbmZvLnZibGFua190aW1l
-cik7CiAJfQogCi0JaWYgKCFzdGF0ZSB8fCAoc3RhdGUgJiYgIWFkZXYtPm1vZGVfaW5mby52c3lu
-Y190aW1lcl9lbmFibGVkKSkKLQkJYWRldi0+ZGRldi0+dmJsYW5rWzBdLmNvdW50ID0gMDsKIAlh
-ZGV2LT5tb2RlX2luZm8udnN5bmNfdGltZXJfZW5hYmxlZCA9IHN0YXRlOwogCURSTV9ERUJVRygi
-W0ZNXXNldCBjcnRjICVkIHZibGFuayBpbnRlcnJ1cHQgc3RhdGUgJWRcbiIsIGNydGMsIHN0YXRl
-KTsKIH0KQEAgLTcxOCw3ICs3MTEsNiBAQCBzdGF0aWMgaW50IGRjZV92aXJ0dWFsX2NydGNfaXJx
-KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCXVuc2lnbmVkIGNydGMgPSAwOwogCXVuc2ln
-bmVkIGlycV90eXBlID0gQU1ER1BVX0NSVENfSVJRX1ZCTEFOSzE7CiAKLQlhZGV2LT5kZGV2LT52
-YmxhbmtbY3J0Y10uY291bnQrKzsKIAlkY2VfdmlydHVhbF9jcnRjX3ZibGFua19pbnRfYWNrKGFk
-ZXYsIGNydGMpOwogCiAJaWYgKGFtZGdwdV9pcnFfZW5hYmxlZChhZGV2LCBzb3VyY2UsIGlycV90
-eXBlKSkgewotLSAKMS45LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eAo=
+--===============0509676000==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM5PR12MB11324CCFF1289BEC5B42565EF7130DM5PR12MB1132namp_"
+
+--_000_DM5PR12MB11324CCFF1289BEC5B42565EF7130DM5PR12MB1132namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+In these functions
+
+
+static bool dce_v11_0_is_idle(void *handle)
+{
+return true;
+}
+
+static int dce_v11_0_wait_for_idle(void *handle)
+{
+return 0;
+}
+
+
+Shouldn't they wait on the GUI bit of the GRBM_STATUS register?
+
+
+Tom
+
+--_000_DM5PR12MB11324CCFF1289BEC5B42565EF7130DM5PR12MB1132namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;back=
+ground-color:#FFFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
+<p>In these functions</p>
+<p><br>
+</p>
+<p></p>
+<div>static bool dce_v11_0_is_idle(void *handle)</div>
+<div>{</div>
+<div><span class=3D"Apple-tab-span" style=3D"white-space:pre"></span>return=
+ true;</div>
+<div>}</div>
+<div><br>
+</div>
+<div>static int dce_v11_0_wait_for_idle(void *handle)</div>
+<div>{</div>
+<div><span class=3D"Apple-tab-span" style=3D"white-space:pre"></span>return=
+ 0;</div>
+<div>}</div>
+<div><br>
+</div>
+<p></p>
+<p>Shouldn't they wait on the GUI bit of the GRBM_STATUS register?</p>
+<p><br>
+</p>
+<p>Tom</p>
+</div>
+</body>
+</html>
+
+--_000_DM5PR12MB11324CCFF1289BEC5B42565EF7130DM5PR12MB1132namp_--
+
+--===============0509676000==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0509676000==--
