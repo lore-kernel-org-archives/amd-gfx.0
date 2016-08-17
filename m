@@ -1,13 +1,14 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 0/8] shadow page table support V5 ---> shadow bo support
-Date: Wed, 17 Aug 2016 16:04:28 +0200
-Message-ID: <3f0da3d7-ac25-fd73-3b84-d913535512ca@vodafone.de>
-References: <1471413919-27166-1-git-send-email-David1.Zhou@amd.com>
+Date: Wed, 17 Aug 2016 14:10:15 +0000
+Message-ID: <DM5PR12MB1132177CBD3C3B4630BDE2F9F7140@DM5PR12MB1132.namprd12.prod.outlook.com>
+References: <1471413919-27166-1-git-send-email-David1.Zhou@amd.com>,
+ <3f0da3d7-ac25-fd73-3b84-d913535512ca@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0471343023=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1471413919-27166-1-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <3f0da3d7-ac25-fd73-3b84-d913535512ca-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,95 +19,516 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?iso-8859-1?Q?Christian_K=F6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "Zhou,
+ David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-UGF0Y2ggIzE6CgpDb3VsZCBiZSB0aGF0IHdlIG5lZWQgdG8gYWRkIGFub3RoZXIgbW9kdWxlIHBh
-cmFtZXRlciB0byBjb250cm9sIHRoaXMsIApidXQgSSB0aGluayBmb3Igbm93IHRoYXQgc2hvdWxk
-IGJlIHN1ZmZpY2llbnQuCgpQYXRjaCBpcyBSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8
-Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKUGF0Y2ggIzI6Cgo+ICsJaWYgKGRpcmVjdF9zdWJt
-aXQpIHsKPiArCQlyID0gYW1kZ3B1X2liX3NjaGVkdWxlKHJpbmcsIGpvYi0+bnVtX2licywgam9i
-LT5pYnMsCj4gKwkJCQkgICAgICAgTlVMTCwgTlVMTCwgZmVuY2UpOwo+ICsJCWpvYi0+ZmVuY2Ug
-PSBmZW5jZV9nZXQoKmZlbmNlKTsKPiArCQlpZiAocikKPiArCQkJRFJNX0VSUk9SKCJFcnJvciBz
-Y2hlZHVsaW5nIElCcyAoJWQpXG4iLCByKTsKPiArCQlhbWRncHVfam9iX2ZyZWUoam9iKTsKCldo
-ZW4gdGhlcmUgaXMgYW4gZXJyb3IgeW91IHNob3VsZCByZXR1cm4gdGhlIGNvZGUgYXMgd2VsbC4K
-Cj4gKwl9IGVsc2Ugewo+ICsJCXIgPSBhbWRncHVfam9iX3N1Ym1pdChqb2IsIHJpbmcsICZhZGV2
-LT5tbWFuLmVudGl0eSwKPiArCQkJCSAgICAgIEFNREdQVV9GRU5DRV9PV05FUl9VTkRFRklORUQs
-IGZlbmNlKTsKPiArCQlpZiAocikKPiArCQkJZ290byBlcnJvcl9mcmVlOwo+ICsJfQo+ICAgCj4g
-ICAJcmV0dXJuIDA7CgpKdXN0IGNoYW5naW5nIHRoaXMgdG8gdG8gInJldHVybiByOyIgc2hvdWxk
-IGJlIHN1ZmZpY2llbnQuCgpXaXRoIHRoYXQgZml4ZWQgdGhlIHBhdGNoIGlzIFJldmlld2VkLWJ5
-OiBDaHJpc3RpYW4gS8O2bmlnIAo8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPiBhcyB3ZWxsLgoK
-UGF0Y2ggIzM6CgpZb3UgbWVudGlvbmVkIHRoYXQgdGhpcyBpc24ndCB1c2VkIGR1cmluZyBjb21t
-YW5kIHN1Ym1pc3Npb24gYnV0IHJhdGhlciAKZHVyaW5nIEdQVSByZXNldCwgY29ycmVjdD8KCklu
-IHRoaXMgY2FzZSBJIHdvdWxkIGFkdmlzZSBub3QgdG8gdXNlIGEgbWVtYmVyIGluIHRoZSBCTyBz
-dHJ1Y3R1cmUgdG8gCm5vdGUgdGhlIGJhY2t1cCBkaXJlY3Rpb24gYW5kIGluc3RlYWQgaGF2ZSBv
-bmUgZnVuY3Rpb24gZm9yIGJhY2sgYW5kIG9uZSAKZm9yIHJlc3RvcmluZyB0aGUgY29udGVudCAo
-b3Igbm90ZSB0aGF0IGFzIGEgcGFyYW1ldGVyIHRvIHRoZSBmdW5jdGlvbikuCgpPdGhlcndpc2Ug
-d2UgY291bGQgcnVuIGludG8gdHJvdWJsZSB3aGVuIHRoZSBDUyB3YW50cyB0byBiYWNrdXAgCnNv
-bWV0aGluZyB0aGUgR1BVIHJlc2V0IHdhbnRzIHRvIHJlc3RvcmUgYXQgdGhlIHNhbWUgdGltZS4K
-ClBhdGNoICM0OiBXYXMgYWxyZWFkeSByZXZpZXdlZCBieSBtZS4KClBhdGNoICM1OgoKPiArCXB0
-ID0gcGFyYW1zLT5zaGFkb3cgPyB2bS0+cGFnZV90YWJsZXNbcHRfaWR4XS5lbnRyeS5yb2JqLT5z
-aGFkb3cgOgo+ICsJCXZtLT5wYWdlX3RhYmxlc1twdF9pZHhdLmVudHJ5LnJvYmo7CllvdSBuZWVk
-IHRvIGRvdWJsZSBjaGVjayBoZXJlIGlmIHNoYWRvd3MgYXJlIGFjdHVhbGx5IGFsbG9jYXRlZCBv
-ciBub3QuIApPdGhlcndpc2Ugd2Ugd2lsbCBjcmFzaCBvbiBhbiBBUFUuCgo+ICsJLyogZG91Ymxl
-IG5kdywgc2luY2UgbmVlZCB0byB1cGRhdGUgc2hhZG93IHB0IGJvIGFzIHdlbGwgKi8KPiArCW5k
-dyAqPSAyOwo+ICsKV2UgZG9uJ3QgbmVlZCB0byBkb3VibGUgdGhlIElCIHNpemUsIGJ1dCBvbmx5
-IHRoZSBudW1iZXIgb2YgY29tbWFuZHMgaW4gCml0IChuY21kcykuCgpUaGUgZGlmZmVyZW5jZSBp
-cyB3aGVuIHdlIHdhbnQgdG8gd3JpdGUgc2NhdHRlcmVkIEdBUlQgZW50cmllcy4gSW4gdGhpcyAK
-Y2FzZSBJJ3ZlIGFkZGVkIHRoZSBQVEVzIHRvIHRoZSBlbmQgb2YgdGhlIElCLgoKUGF0Y2ggIzY6
-Cj4gKwlzcGlubG9ja190ICAgICAgICAgICAgICAgICAgICAgIHNoYWRvd19saXN0X2xvY2s7Cldl
-IG1pZ2h0IHdhbnQgdG8gdXNlIGEgbXV0ZXggaGVyZSBpbnN0ZWFkLiBVc3VhbGx5IEkgd291bGQg
-YWdyZWUgdGhhdCBhIApzcGluIGxvY2sgaXMgYmV0dGVyIGZvciBhIGxpbmtlZCBsaXN0LCBidXQg
-ZHVyaW5nIHRoZSByZXN0b3JlIHByb2Nlc3MgaW4gCmEgR1BVIHJlc2V0IHdlIHByb2JhYmx5IHdh
-bnQgdG8gc2xlZXAgaGVyZS4KCkFsdGVybmF0aXZlbHkgeW91IGNvdWxkIHNwbGljZSB0aGUgbGlz
-dCB0byBhIGxvY2FsIHZlcnNpb24gb24gdGhlIHN0YWNrLCAKZ3JhYiByZWZlcmVuY2VzIHRvIHRo
-ZSBCT3MgYW5kIHRoZW4gZHJvcCB0aGUgbG9jayBkdXJpbmcgdGhlIHJlc3RvcmUgCnByb2Nlc3Mu
-Cgo+IEBAIC01NDEsNiArNTQ2LDEzIEBAIHZvaWQgYW1kZ3B1X2JvX3VucmVmKHN0cnVjdCBhbWRn
-cHVfYm8gKipibykKPiAgIAlpZiAoKCpibykgPT0gTlVMTCkKPiAgIAkJcmV0dXJuOwo+ICAgCj4g
-KwkvKiBzaGFkb3cgbXVzdCBiZSBmcmVlZCBiZWZvcmUgYm8gaXRzZWxmICovCj4gKwlpZiAoKCEo
-KmJvKS0+c2hhZG93KSAmJiAhbGlzdF9lbXB0eSgmKCpibyktPnNoYWRvd19saXN0KSkgewo+ICsJ
-CXNwaW5fbG9jaygmKCpibyktPmFkZXYtPnNoYWRvd19saXN0X2xvY2spOwo+ICsJCWxpc3RfZGVs
-X2luaXQoJigqYm8pLT5zaGFkb3dfbGlzdCk7Cj4gKwkJc3Bpbl91bmxvY2soJigqYm8pLT5hZGV2
-LT5zaGFkb3dfbGlzdF9sb2NrKTsKPiArCj4gKwl9Cj4gICAJdGJvID0gJigoKmJvKS0+dGJvKTsK
-PiAgIAl0dG1fYm9fdW5yZWYoJnRibyk7Cj4gICAJaWYgKHRibyA9PSBOVUxMKQpUaGF0IHdvdWxk
-IHRyaWdnZXIgZXZlbiB3aGVuIHdlIHRha2UgYSB0ZW1wb3JhcnkgcmVmZXJlbmNlLiBJIHN1Z2dl
-c3QgdG8gCmFkZCBhIGFtZGdwdV9ib191bnJlZl9zaGFkb3coKSBmdW5jdGlvbiBpbnN0ZWFkLCB1
-bnJlZmVyZW5jaW5nIGJvdGggdGhlIApzaGFkb3cgYW5kIHRoZSBub3JtYWwgQk8uCgpUaGlzIGNh
-biB0aGVuIGJlIHVzZWQgaW4gdGhlIFZNIGNvZGUgdG8gY2xlYW51cCB0aGUgc2hhZG93IGNyZWF0
-ZWQuCgpHb2luZyB0byBza2lwIHBhdGNoICM3IGFuZCAjOCBmb3Igbm93IGNhdXNlIG91ciB0ZWFt
-IGNhbGwgYmVnaW5zIGluIGEgCm1vbWVudC4KClJlZ2FyZHMsCkNocmlzdGlhbi4KCkFtIDE3LjA4
-LjIwMTYgdW0gMDg6MDUgc2NocmllYiBDaHVubWluZyBaaG91Ogo+IFNpbmNlIHdlIGNhbm5vdCBl
-bnN1cmUgVlJBTSBpcyBjb25zaXN0ZW50IGFmdGVyIGEgR1BVIHJlc2V0LCBwYWdlCj4gdGFibGUg
-c2hhZG93aW5nIGlzIG5lY2Vzc2FyeS4gU2hhZG93ZWQgcGFnZSB0YWJsZXMgYXJlLCBpbiBhIHNl
-bnNlLCBhCj4gbWV0aG9kIHRvIHJlY292ZXIgdGhlIGNvbnNpc3RlbnQgc3RhdGUgb2YgdGhlIHBh
-Z2UgdGFibGVzIGJlZm9yZSB0aGUKPiByZXNldCBvY2N1cnJlZC4KPgo+IFdlIG5lZWQgdG8gYWxs
-b2NhdGUgR1RUIGJvIGFzIHRoZSBzaGFkb3cgb2YgVlJBTSBibyB3aGVuIGNyZWF0aW5nIHBhZ2Ug
-dGFibGUsCj4gYW5kIG1ha2UgdGhlbSB0aGUgc2FtZS4gQWZ0ZXIgZ3B1IHJlc2V0LCB3ZSB3aWxs
-IG5lZWQgdG8gdXNlIFNETUEgdG8gY29weSBHVFQgYm8KPiBjb250ZW50IHRvIFZSQU0gYm8sIHRo
-ZW4gcGFnZSB0YWJsZSB3aWxsIGJlIHJlY292ZXJpZWQuCj4KPgo+IFYyOgo+IFNoYWRvdyBibyB1
-c2VzIGEgc2hhZG93IGVudGl0eSBydW5uaW5nIG9uIG5vcm1hbCBydW4gcXVldWUsIGFmdGVyIGdw
-dSByZXNldCwKPiB3ZSBuZWVkIHRvIHdhaXQgZm9yIGFsbCBzaGFkb3cgam9icyBmaW5pc2hlZCBm
-aXJzdCwgdGhlbiByZWNvdmVyeSBwYWdlIHRhYmxlIGZyb20gc2hhZG93Lgo+Cj4gVjM6Cj4gQWRk
-cmVzc2VkIENocmlzdGlhbiBjb21tZW50cyBmb3Igc2hhZG93IGJvIHBhcnQuCj4KPiBWNDoKPiBT
-d2l0Y2ggYmFjayB0byB1cGRhdGUgcGFnZSB0YWJsZSB0d2ljZSAob25lIG9mIHR3byBpcyBmb3Ig
-c2hhZG93KQo+Cj4gVjU6Cj4gbWFrZSBpdCBiZSBnZXJuZWljIHNoYWRvdyBibyBzdXBwb3J0LiBB
-ZGRyZXNzIENocmlzdGlhbiBjb21tZW50cy4KPgo+IENodW5taW5nIFpob3UgKDgpOgo+ICAgIGRy
-bS9hbWRncHU6IGFkZCBuZWVkIGJhY2t1cCBmdW5jdGlvbiBWMgo+ICAgIGRybS9hbWRncHU6IGFk
-ZCBkaXJlY3Qgc3VibWlzaW9uIG9wdGlvbiBmb3IgY29weV9idWZmZXIKPiAgICBkcm0vYW1kZ3B1
-OiBzeW5jIGJvIGFuZCBzaGFkb3cgVjIKPiAgICBkcm0vYW1kZ3B1OiB1cGRhdGUgcGQgc2hhZG93
-IHdoaWxlIHVwZGF0aW5nIHBkCj4gICAgZHJtL2FtZGdwdTogdXBkYXRlIHB0IHNoYWRvdyB3aGls
-ZSB1cGRhdGluZyBwdCBWMgo+ICAgIGRybS9hbWRncHU6IGxpbmsgYWxsIHNoYWRvdyBibwo+ICAg
-IGRybS9hbWRncHU6IGltcGxlbWVudCByZWNvdmVyeSB2cmFtIGJvIGZyb20gc2hhZG93Cj4gICAg
-ZHJtL2FtZGdwdTogcmVjb3ZlciB2cmFtIGJvIGZyb20gc2hhZG93IGFmdGVyIGdwdSByZXNldAo+
-Cj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCAgICAgICAgICAgfCAgOSAr
-Ky0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9iZW5jaG1hcmsuYyB8ICAz
-ICstCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgICAgfCAz
-OSArKysrKysrKysrLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVj
-dC5jICAgIHwgOTQgKysrKysrKysrKysrKysrKysrKysrKysrKystCj4gICBkcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmggICAgfCAgOSArKysKPiAgIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90ZXN0LmMgICAgICB8ICA0ICstCj4gICBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMgICAgICAgfCAyMSArKysrLS0KPiAgIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jICAgICAgICB8IDY5ICsrKysrKysrKysr
-KysrLS0tLS0tCj4gICA4IGZpbGVzIGNoYW5nZWQsIDIxNSBpbnNlcnRpb25zKCspLCAzMyBkZWxl
-dGlvbnMoLSkKPgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============0471343023==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM5PR12MB1132177CBD3C3B4630BDE2F9F7140DM5PR12MB1132namp_"
+
+--_000_DM5PR12MB1132177CBD3C3B4630BDE2F9F7140DM5PR12MB1132namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Why not be consistent and add a DRM_ERROR on all paths that include an erro=
+r?  e.g. instead of
+
+
+if (r)
+
+   goto error_free;
+
+
+Throw a DRM_ERROR("") in there.
+
+
+Tom
+
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Christia=
+n K=F6nig <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Sent: Wednesday, August 17, 2016 10:04
+To: Zhou, David(ChunMing); amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH 0/8] shadow page table support V5 ---> shadow bo suppor=
+t
+
+Patch #1:
+
+Could be that we need to add another module parameter to control this,
+but I think for now that should be sufficient.
+
+Patch is Reviewed-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+
+Patch #2:
+
+> +     if (direct_submit) {
+> +             r =3D amdgpu_ib_schedule(ring, job->num_ibs, job->ibs,
+> +                                    NULL, NULL, fence);
+> +             job->fence =3D fence_get(*fence);
+> +             if (r)
+> +                     DRM_ERROR("Error scheduling IBs (%d)\n", r);
+> +             amdgpu_job_free(job);
+
+When there is an error you should return the code as well.
+
+> +     } else {
+> +             r =3D amdgpu_job_submit(job, ring, &adev->mman.entity,
+> +                                   AMDGPU_FENCE_OWNER_UNDEFINED, fence);
+> +             if (r)
+> +                     goto error_free;
+> +     }
+>
+>        return 0;
+
+Just changing this to to "return r;" should be sufficient.
+
+With that fixed the patch is Reviewed-by: Christian K=F6nig
+<christian.koenig-5C7GfCeVMHo@public.gmane.org> as well.
+
+Patch #3:
+
+You mentioned that this isn't used during command submission but rather
+during GPU reset, correct?
+
+In this case I would advise not to use a member in the BO structure to
+note the backup direction and instead have one function for back and one
+for restoring the content (or note that as a parameter to the function).
+
+Otherwise we could run into trouble when the CS wants to backup
+something the GPU reset wants to restore at the same time.
+
+Patch #4: Was already reviewed by me.
+
+Patch #5:
+
+> +     pt =3D params->shadow ? vm->page_tables[pt_idx].entry.robj->shadow =
+:
+> +             vm->page_tables[pt_idx].entry.robj;
+You need to double check here if shadows are actually allocated or not.
+Otherwise we will crash on an APU.
+
+> +     /* double ndw, since need to update shadow pt bo as well */
+> +     ndw *=3D 2;
+> +
+We don't need to double the IB size, but only the number of commands in
+it (ncmds).
+
+The difference is when we want to write scattered GART entries. In this
+case I've added the PTEs to the end of the IB.
+
+Patch #6:
+> +     spinlock_t                      shadow_list_lock;
+We might want to use a mutex here instead. Usually I would agree that a
+spin lock is better for a linked list, but during the restore process in
+a GPU reset we probably want to sleep here.
+
+Alternatively you could splice the list to a local version on the stack,
+grab references to the BOs and then drop the lock during the restore
+process.
+
+> @@ -541,6 +546,13 @@ void amdgpu_bo_unref(struct amdgpu_bo **bo)
+>        if ((*bo) =3D=3D NULL)
+>                return;
+>
+> +     /* shadow must be freed before bo itself */
+> +     if ((!(*bo)->shadow) && !list_empty(&(*bo)->shadow_list)) {
+> +             spin_lock(&(*bo)->adev->shadow_list_lock);
+> +             list_del_init(&(*bo)->shadow_list);
+> +             spin_unlock(&(*bo)->adev->shadow_list_lock);
+> +
+> +     }
+>        tbo =3D &((*bo)->tbo);
+>        ttm_bo_unref(&tbo);
+>        if (tbo =3D=3D NULL)
+That would trigger even when we take a temporary reference. I suggest to
+add a amdgpu_bo_unref_shadow() function instead, unreferencing both the
+shadow and the normal BO.
+
+This can then be used in the VM code to cleanup the shadow created.
+
+Going to skip patch #7 and #8 for now cause our team call begins in a
+moment.
+
+Regards,
+Christian.
+
+Am 17.08.2016 um 08:05 schrieb Chunming Zhou:
+> Since we cannot ensure VRAM is consistent after a GPU reset, page
+> table shadowing is necessary. Shadowed page tables are, in a sense, a
+> method to recover the consistent state of the page tables before the
+> reset occurred.
+>
+> We need to allocate GTT bo as the shadow of VRAM bo when creating page ta=
+ble,
+> and make them the same. After gpu reset, we will need to use SDMA to copy=
+ GTT bo
+> content to VRAM bo, then page table will be recoveried.
+>
+>
+> V2:
+> Shadow bo uses a shadow entity running on normal run queue, after gpu res=
+et,
+> we need to wait for all shadow jobs finished first, then recovery page ta=
+ble from shadow.
+>
+> V3:
+> Addressed Christian comments for shadow bo part.
+>
+> V4:
+> Switch back to update page table twice (one of two is for shadow)
+>
+> V5:
+> make it be gerneic shadow bo support. Address Christian comments.
+>
+> Chunming Zhou (8):
+>    drm/amdgpu: add need backup function V2
+>    drm/amdgpu: add direct submision option for copy_buffer
+>    drm/amdgpu: sync bo and shadow V2
+>    drm/amdgpu: update pd shadow while updating pd
+>    drm/amdgpu: update pt shadow while updating pt V2
+>    drm/amdgpu: link all shadow bo
+>    drm/amdgpu: implement recovery vram bo from shadow
+>    drm/amdgpu: recover vram bo from shadow after gpu reset
+>
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  9 ++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c |  3 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 39 ++++++++++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    | 94 ++++++++++++++++++++=
+++++++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    |  9 +++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_test.c      |  4 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 21 ++++--
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        | 69 ++++++++++++++------
+>   8 files changed, 215 insertions(+), 33 deletions(-)
+>
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+amd-gfx Info Page - lists.freedesktop.org<https://lists.freedesktop.org/mai=
+lman/listinfo/amd-gfx>
+lists.freedesktop.org
+To see the collection of prior postings to the list, visit the amd-gfx Arch=
+ives. Using amd-gfx: To post a message to all the list members, send email =
+...
+
+
+
+
+--_000_DM5PR12MB1132177CBD3C3B4630BDE2F9F7140DM5PR12MB1132namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;back=
+ground-color:#FFFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
+<p>Why not be consistent and add a DRM_ERROR on all paths that include an e=
+rror? &nbsp;e.g. instead of&nbsp;</p>
+<p><br>
+</p>
+<p>if (r)</p>
+<p>&nbsp; &nbsp;goto error_free;</p>
+<p><br>
+</p>
+<p>Throw a DRM_ERROR(&quot;&quot;) in there.</p>
+<p><br>
+</p>
+<p>Tom</p>
+<br>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Christian K=F6nig &lt;death=
+simple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;<br>
+<b>Sent:</b> Wednesday, August 17, 2016 10:04<br>
+<b>To:</b> Zhou, David(ChunMing); amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH 0/8] shadow page table support V5 ---&gt; shadow=
+ bo support</font>
+<div>&nbsp;</div>
+</div>
+</div>
+<font size=3D"2"><span style=3D"font-size:10pt;">
+<div class=3D"PlainText">Patch #1:<br>
+<br>
+Could be that we need to add another module parameter to control this, <br>
+but I think for now that should be sufficient.<br>
+<br>
+Patch is Reviewed-by: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br=
+>
+<br>
+Patch #2:<br>
+<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (direct_submit) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; r =3D amdgpu_ib_schedule(ring, job-&gt;num_ibs, job-&gt;ibs,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NULL=
+, NULL, fence);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; job-&gt;fence =3D fence_get(*fence);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; if (r)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;Err=
+or scheduling IBs (%d)\n&quot;, r);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; amdgpu_job_free(job);<br>
+<br>
+When there is an error you should return the code as well.<br>
+<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; r =3D amdgpu_job_submit(job, ring, &amp;adev-&gt;mman.entity,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_FEN=
+CE_OWNER_UNDEFINED, fence);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; if (r)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto error_free;<br=
+>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+<br>
+Just changing this to to &quot;return r;&quot; should be sufficient.<br>
+<br>
+With that fixed the patch is Reviewed-by: Christian K=F6nig <br>
+&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt; as well.<br>
+<br>
+Patch #3:<br>
+<br>
+You mentioned that this isn't used during command submission but rather <br=
+>
+during GPU reset, correct?<br>
+<br>
+In this case I would advise not to use a member in the BO structure to <br>
+note the backup direction and instead have one function for back and one <b=
+r>
+for restoring the content (or note that as a parameter to the function).<br=
+>
+<br>
+Otherwise we could run into trouble when the CS wants to backup <br>
+something the GPU reset wants to restore at the same time.<br>
+<br>
+Patch #4: Was already reviewed by me.<br>
+<br>
+Patch #5:<br>
+<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; pt =3D params-&gt;shadow ? vm-&gt;page_t=
+ables[pt_idx].entry.robj-&gt;shadow :<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; vm-&gt;page_tables[pt_idx].entry.robj;<br>
+You need to double check here if shadows are actually allocated or not. <br=
+>
+Otherwise we will crash on an APU.<br>
+<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; /* double ndw, since need to update shad=
+ow pt bo as well */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; ndw *=3D 2;<br>
+&gt; &#43;<br>
+We don't need to double the IB size, but only the number of commands in <br=
+>
+it (ncmds).<br>
+<br>
+The difference is when we want to write scattered GART entries. In this <br=
+>
+case I've added the PTEs to the end of the IB.<br>
+<br>
+Patch #6:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; spinlock_t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; shadow_list_lock;<br>
+We might want to use a mutex here instead. Usually I would agree that a <br=
+>
+spin lock is better for a linked list, but during the restore process in <b=
+r>
+a GPU reset we probably want to sleep here.<br>
+<br>
+Alternatively you could splice the list to a local version on the stack, <b=
+r>
+grab references to the BOs and then drop the lock during the restore <br>
+process.<br>
+<br>
+&gt; @@ -541,6 &#43;546,13 @@ void amdgpu_bo_unref(struct amdgpu_bo **bo)<b=
+r>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((*bo) =3D=3D NULL)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; /* shadow must be freed before bo itself=
+ */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if ((!(*bo)-&gt;shadow) &amp;&amp; !list=
+_empty(&amp;(*bo)-&gt;shadow_list)) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; spin_lock(&amp;(*bo)-&gt;adev-&gt;shadow_list_lock);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; list_del_init(&amp;(*bo)-&gt;shadow_list);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; spin_unlock(&amp;(*bo)-&gt;adev-&gt;shadow_list_lock);<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tbo =3D &amp;((*bo)-&gt;tbo)=
+;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ttm_bo_unref(&amp;tbo);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (tbo =3D=3D NULL)<br>
+That would trigger even when we take a temporary reference. I suggest to <b=
+r>
+add a amdgpu_bo_unref_shadow() function instead, unreferencing both the <br=
+>
+shadow and the normal BO.<br>
+<br>
+This can then be used in the VM code to cleanup the shadow created.<br>
+<br>
+Going to skip patch #7 and #8 for now cause our team call begins in a <br>
+moment.<br>
+<br>
+Regards,<br>
+Christian.<br>
+<br>
+Am 17.08.2016 um 08:05 schrieb Chunming Zhou:<br>
+&gt; Since we cannot ensure VRAM is consistent after a GPU reset, page<br>
+&gt; table shadowing is necessary. Shadowed page tables are, in a sense, a<=
+br>
+&gt; method to recover the consistent state of the page tables before the<b=
+r>
+&gt; reset occurred.<br>
+&gt;<br>
+&gt; We need to allocate GTT bo as the shadow of VRAM bo when creating page=
+ table,<br>
+&gt; and make them the same. After gpu reset, we will need to use SDMA to c=
+opy GTT bo<br>
+&gt; content to VRAM bo, then page table will be recoveried.<br>
+&gt;<br>
+&gt;<br>
+&gt; V2:<br>
+&gt; Shadow bo uses a shadow entity running on normal run queue, after gpu =
+reset,<br>
+&gt; we need to wait for all shadow jobs finished first, then recovery page=
+ table from shadow.<br>
+&gt;<br>
+&gt; V3:<br>
+&gt; Addressed Christian comments for shadow bo part.<br>
+&gt;<br>
+&gt; V4:<br>
+&gt; Switch back to update page table twice (one of two is for shadow)<br>
+&gt;<br>
+&gt; V5:<br>
+&gt; make it be gerneic shadow bo support. Address Christian comments.<br>
+&gt;<br>
+&gt; Chunming Zhou (8):<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amdgpu: add need backup function V2<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amdgpu: add direct submision option for copy_buf=
+fer<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amdgpu: sync bo and shadow V2<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amdgpu: update pd shadow while updating pd<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amdgpu: update pt shadow while updating pt V2<br=
+>
+&gt;&nbsp;&nbsp;&nbsp; drm/amdgpu: link all shadow bo<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amdgpu: implement recovery vram bo from shadow<b=
+r>
+&gt;&nbsp;&nbsp;&nbsp; drm/amdgpu: recover vram bo from shadow after gpu re=
+set<br>
+&gt;<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 9 &#43;&#43;-<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c |&nbsp; 3 &#=
+43;-<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c&nbsp;&nbsp;&nbs=
+p; | 39 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;-<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_object.c&nbsp;&nbsp;&nbs=
+p; | 94 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#=
+43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;-<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_object.h&nbsp;&nbsp;&nbs=
+p; |&nbsp; 9 &#43;&#43;&#43;<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_test.c&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; |&nbsp; 4 &#43;-<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; | 21 &#43;&#43;&#43;&#43;--<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; | 69 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#=
+43;&#43;&#43;&#43;&#43;------<br>
+&gt;&nbsp;&nbsp; 8 files changed, 215 insertions(&#43;), 33 deletions(-)<br=
+>
+&gt;<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
+lnk214970">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+<div id=3D"LPBorder_GT_14714429737800.4406300387876183" style=3D"margin-bot=
+tom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
+<table id=3D"LPContainer_14714429737780.3993206472027586" cellspacing=3D"0"=
+ style=3D"width: 90%; position: relative; overflow: auto; padding-top: 20px=
+; padding-bottom: 20px; margin-top: 20px; border-top: 1px dotted rgb(200, 2=
+00, 200); border-bottom: 1px dotted rgb(200, 200, 200); background-color: r=
+gb(255, 255, 255);">
+<tbody>
+<tr valign=3D"top" style=3D"border-spacing: 0px;">
+<td id=3D"TextCell_14714429737790.7705126490415855" colspan=3D"2" style=3D"=
+vertical-align: top; position: relative; padding: 0px; display: table-cell;=
+">
+<div id=3D"LPRemovePreviewContainer_14714429737790.7102716663188782"></div>
+<div id=3D"LPTitle_14714429737790.7634184458877278" style=3D"top: 0px; colo=
+r: rgb(59, 87, 119); font-weight: normal; font-size: 21px; font-family: wf_=
+segoe-ui_light, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&quot;, &qu=
+ot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif; line-he=
+ight: 21px;">
+<a id=3D"LPUrlAnchor_14714429737790.6135333253292945" href=3D"https://lists=
+.freedesktop.org/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"text-=
+decoration: none;">amd-gfx Info Page - lists.freedesktop.org</a></div>
+<div id=3D"LPMetadata_14714429737790.9058058508163938" style=3D"margin: 10p=
+x 0px 16px; color: rgb(102, 102, 102); font-weight: normal; font-family: wf=
+_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial=
+, sans-serif; font-size: 14px; line-height: 14px;">
+lists.freedesktop.org</div>
+<div id=3D"LPDescription_14714429737800.03199008072574672" style=3D"display=
+: block; color: rgb(102, 102, 102); font-weight: normal; font-family: wf_se=
+goe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, s=
+ans-serif; font-size: 14px; line-height: 20px; max-height: 100px; overflow:=
+ hidden;">
+To see the collection of prior postings to the list, visit the amd-gfx Arch=
+ives. Using amd-gfx: To post a message to all the list members, send email =
+...</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_DM5PR12MB1132177CBD3C3B4630BDE2F9F7140DM5PR12MB1132namp_--
+
+--===============0471343023==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0471343023==--
