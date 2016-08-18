@@ -1,16 +1,17 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: tidy'ing up cz_hwmgr.c
-Date: Thu, 18 Aug 2016 17:48:11 +0200
-Message-ID: <0efca328-0a24-3efe-aa6b-623a90be2b7f@vodafone.de>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: tidy'ing up cz_hwmgr.c
+Date: Thu, 18 Aug 2016 15:50:36 +0000
+Message-ID: <MWHPR12MB16947C2728D40DEC0BB41502F7150@MWHPR12MB1694.namprd12.prod.outlook.com>
 References: <DM5PR12MB1132F1D9FF8F44E09BE37EF4F7150@DM5PR12MB1132.namprd12.prod.outlook.com>
  <642600e3-dd63-7b36-a749-451a451ab153@vodafone.de>
- <DM5PR12MB11329451427722B9088E40F7F7150@DM5PR12MB1132.namprd12.prod.outlook.com>
+ <DM5PR12MB11329451427722B9088E40F7F7150@DM5PR12MB1132.namprd12.prod.outlook.com>,
  <CADnq5_Ntb79gEF=1Xa7BP=J4GgTzb+vY8ZbZijVTVPvaAJGrng@mail.gmail.com>
  <DM5PR12MB1132AF7ACC738F339571ECAFF7150@DM5PR12MB1132.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1216612852=="
+Content-Type: multipart/mixed; boundary="===============0103278905=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <DM5PR12MB1132AF7ACC738F339571ECAFF7150-2J9CzHegvk+UzrhdoDeimQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,621 +23,659 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============1216612852==
-Content-Type: multipart/alternative;
- boundary="------------2EEF5F1D8CD6E4FCE2172F96"
-
-This is a multi-part message in MIME format.
---------------2EEF5F1D8CD6E4FCE2172F96
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-> theory would be better with [0]
-It depends on the gcc version you have and well that is probably the 
-difference between theory and practice.
-
-In theory it should work, but in practice we had tons of problems with that.
-
-Best practice I think is to still calculate the end of the structure 
-manually and don't embed the array into the structure.
-
-Take a look at drivers/dma-buf/fence-array.c fence_array_create() and 
-fence_array_enable_signaling() for an example on how to use it.
-
-So please don't use this,
-Christian.
-
-Am 18.08.2016 um 17:39 schrieb StDenis, Tom:
->
-> It had to be something more complicated because this demo program
->
->
-> #include <stdio.h>
-> #include <stdlib.h>
->
-> struct one {
-> char *foo;
-> int bar[0];
-> };
->
-> struct two {
-> char *foo;
-> int bar[1];
-> };
->
-> int main(void)
-> {
-> struct one *a = calloc(1, sizeof(struct one) + 4 * sizeof(int));
-> struct two *b = calloc(1, sizeof(struct two) + 3 * sizeof(int));
-> int x;
->
-> printf("a == %p\n", a);
-> for (x = 0; x < 4; x++)
-> printf("&a.bar[%d] = %p\n", x, &a->bar[x]);
->
-> printf("b == %p\n", b);
-> for (x = 0; x < 4; x++)
-> printf("&b.bar[%d] = %p\n", x, &b->bar[x]);
->
-> return 0;
-> }
->
-> produces this output
->
->
-> tom@fx8:~$ gcc test.c -o test
-> tom@fx8:~$ ./test
-> a == 0x1fd4010
-> &a.bar[0] = 0x1fd4018
-> &a.bar[1] = 0x1fd401c
-> &a.bar[2] = 0x1fd4020
-> &a.bar[3] = 0x1fd4024
-> b == 0x1fd4030
-> &b.bar[0] = 0x1fd4038
-> &b.bar[1] = 0x1fd403c
-> &b.bar[2] = 0x1fd4040
-> &b.bar[3] = 0x1fd4044
->
-> Which is exactly what you'd expect.  I'm not strongly advocating we 
-> change the PP code just noting it's not really clear that it's correct 
-> from a first reading and in theory would be better with [0].
->
-> Tom
->
-> ------------------------------------------------------------------------
-> *From:* Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-> *Sent:* Thursday, August 18, 2016 11:33
-> *To:* StDenis, Tom
-> *Cc:* Christian König; amd-gfx list
-> *Subject:* Re: tidy'ing up cz_hwmgr.c
-> The problem we ran into was when we had a struct like this:
->
-> struct table {
->    uint16_t size;
->    struct element elements[0];
-> };
->
-> and then we would try and index the array:
->
-> for (i = 0; i < table->size; i++) {
->   element = &table->elements[i];
-> }
->
-> element ended up off in the weeds.  The only thing that seems to make 
-> some versions of gcc happy was pointer arithmetic.  E.g.,
->
-> element = (struct element *)((char *)&table->elements[0] + 
-> (sizeof(struct element) * i));
->
-> Alex
->
-> On Thu, Aug 18, 2016 at 11:21 AM, StDenis, Tom <Tom.StDenis-5C7GfCeVMHo@public.gmane.org 
-> <mailto:Tom.StDenis-5C7GfCeVMHo@public.gmane.org>> wrote:
->
->     Any modern GCC should support [0] at the tail of a struct.  This
->     came up because when I was reading the code I saw they allocated 7
->     slots (plus the size of the struct) but then fill 8 slots.  It's
->     just weird 😊
->
->
->     Using [0] in the struct and allocating for 8 entries makes more
->     sense and is clearer to read.
->
->
->     Tom
->
->
->
->     ------------------------------------------------------------------------
->     *From:* Christian König <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org
->     <mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>>
->     *Sent:* Thursday, August 18, 2016 11:17
->     *To:* StDenis, Tom; amd-gfx list
->     *Subject:* Re: tidy'ing up cz_hwmgr.c
->>     Has a [1] array at the tail which is then kzalloc'ed with N-1
->>     entries.  Shouldn't that just be a [0] with N entries allocated
->>     for clarity?
->     Actually the starting address of a dynamic array should be
->     manually calculated instead of using [1] or [0].
->
->     We had tons of problems with that because some gcc versions get
->     this wrong and the atombios code used this as well.
->
->     Alex how did we resolved such issues?
->
->     Regards,
->     Christian.
->
->     Am 18.08.2016 um 16:26 schrieb StDenis, Tom:
->>
->>     Tidying up cz_hwmgr.c I noted a couple of things but first is
->>
->>
->>     static bool cz_dpm_check_smu_features(struct pp_hwmgr *hwmgr,
->>     unsigned long check_feature);
->>
->>     Which will return "true" if the smu call fails *or* the feature
->>     is set.
->>
->>     The structure
->>
->>     struct phm_clock_voltage_dependency_table;
->>
->>     Has a [1] array at the tail which is then kzalloc'ed with N-1
->>     entries.  Shouldn't that just be a [0] with N entries allocated
->>     for clarity?
->>
->>     Tom
->>
->>
->>
->>     _______________________________________________
->>     amd-gfx mailing list
->>     amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->>     https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>     <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>
->
->     _______________________________________________ amd-gfx mailing
->     list amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->     <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->     https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->     <https://lists.freedesktop.org/mailman/listinfo/amd-gfx> 
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------2EEF5F1D8CD6E4FCE2172F96
+--===============0103278905==
+Content-Language: en-US
 Content-Type: multipart/related;
- boundary="------------51949A15BF858DBD1BF4309D"
+	boundary="_004_MWHPR12MB16947C2728D40DEC0BB41502F7150MWHPR12MB1694namp_";
+	type="multipart/alternative"
 
+--_004_MWHPR12MB16947C2728D40DEC0BB41502F7150MWHPR12MB1694namp_
+Content-Type: multipart/alternative;
+	boundary="_000_MWHPR12MB16947C2728D40DEC0BB41502F7150MWHPR12MB1694namp_"
 
---------------51949A15BF858DBD1BF4309D
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix"><br>
-      <blockquote type="cite">theory would be better with [0]</blockquote>
-      It depends on the gcc version you have and well that is probably
-      the difference between theory and practice.<br>
-      <br>
-      In theory it should work, but in practice we had tons of problems
-      with that.<br>
-      <br>
-      Best practice I think is to still calculate the end of the
-      structure manually and don't embed the array into the structure.<br>
-      <br>
-      Take a look at drivers/dma-buf/fence-array.c fence_array_create()
-      and fence_array_enable_signaling() for an example on how to use
-      it.<br>
-      <br>
-      So please don't use this,<br>
-      Christian.<br>
-      <br>
-      Am 18.08.2016 um 17:39 schrieb StDenis, Tom:<br>
-    </div>
-    <blockquote
-cite="mid:DM5PR12MB1132AF7ACC738F339571ECAFF7150-2J9CzHegvk+UzrhdoDeimQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org"
-      type="cite">
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
-      <div id="divtagdefaultwrapper"
-style="font-size:12pt;color:#000000;background-color:#FFFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
-        <p>It had to be something more complicated because this demo
-          program</p>
-        <p><br>
-        </p>
-        <div><span style="font-family: &quot;Courier New&quot;,
-            monospace;">#include &lt;stdio.h&gt;</span></div>
-        <div><span style="font-family: &quot;Courier New&quot;,
-            monospace;">#include &lt;stdlib.h&gt;</span></div>
-        <div><br>
-        </div>
-        <div><span style="font-family: &quot;Courier New&quot;,
-            monospace;">struct one {</span></div>
-        <div><span class="Apple-tab-span" style="white-space: pre; font-family: &quot;Courier New&quot;, monospace;"></span><span
-            style="font-family: &quot;Courier New&quot;, monospace;">char
-            *foo;</span></div>
-        <div><span class="Apple-tab-span" style="white-space: pre; font-family: &quot;Courier New&quot;, monospace;"></span><span
-            style="font-family: &quot;Courier New&quot;, monospace;">int
-            bar[0];</span></div>
-        <div><span style="font-family: &quot;Courier New&quot;,
-            monospace;">};</span></div>
-        <div><br>
-        </div>
-        <div><span style="font-family: &quot;Courier New&quot;,
-            monospace;">struct two {</span></div>
-        <div><span class="Apple-tab-span" style="white-space: pre; font-family: &quot;Courier New&quot;, monospace;"></span><span
-            style="font-family: &quot;Courier New&quot;, monospace;">char
-            *foo;</span></div>
-        <div><span class="Apple-tab-span" style="white-space: pre; font-family: &quot;Courier New&quot;, monospace;"></span><span
-            style="font-family: &quot;Courier New&quot;, monospace;">int
-            bar[1];</span></div>
-        <div><span style="font-family: &quot;Courier New&quot;,
-            monospace;">};</span></div>
-        <div><br>
-        </div>
-        <div><span style="font-family: &quot;Courier New&quot;,
-            monospace;">int main(void)</span></div>
-        <div><span style="font-family: &quot;Courier New&quot;,
-            monospace;">{</span></div>
-        <div><span class="Apple-tab-span" style="white-space: pre; font-family: &quot;Courier New&quot;, monospace;"></span><span
-            style="font-family: &quot;Courier New&quot;, monospace;">struct
-            one *a = calloc(1, sizeof(struct one) + 4 * sizeof(int));</span></div>
-        <div><span class="Apple-tab-span" style="white-space: pre; font-family: &quot;Courier New&quot;, monospace;"></span><span
-            style="font-family: &quot;Courier New&quot;, monospace;">struct
-            two *b = calloc(1, sizeof(struct two) + 3 * sizeof(int));</span></div>
-        <div><span class="Apple-tab-span" style="white-space: pre; font-family: &quot;Courier New&quot;, monospace;"></span><span
-            style="font-family: &quot;Courier New&quot;, monospace;">int
-            x;</span></div>
-        <div><br>
-        </div>
-        <div><span class="Apple-tab-span" style="white-space: pre; font-family: &quot;Courier New&quot;, monospace;"></span><span
-            style="font-family: &quot;Courier New&quot;, monospace;">printf("a
-            == %p\n", a);</span></div>
-        <div><span class="Apple-tab-span" style="white-space: pre; font-family: &quot;Courier New&quot;, monospace;"></span><span
-            style="font-family: &quot;Courier New&quot;, monospace;">for
-            (x = 0; x &lt; 4; x++)</span></div>
-        <div><span class="Apple-tab-span" style="white-space: pre; font-family: &quot;Courier New&quot;, monospace;"></span><span
-            style="font-family: &quot;Courier New&quot;, monospace;">printf("&amp;a.bar[%d]
-            = %p\n", x, &amp;a-&gt;bar[x]);</span></div>
-        <div><br>
-        </div>
-        <div><span class="Apple-tab-span" style="white-space: pre; font-family: &quot;Courier New&quot;, monospace;"></span><span
-            style="font-family: &quot;Courier New&quot;, monospace;">printf("b
-            == %p\n", b);</span></div>
-        <div><span class="Apple-tab-span" style="white-space: pre; font-family: &quot;Courier New&quot;, monospace;"></span><span
-            style="font-family: &quot;Courier New&quot;, monospace;">for
-            (x = 0; x &lt; 4; x++)</span></div>
-        <div><span class="Apple-tab-span" style="white-space: pre; font-family: &quot;Courier New&quot;, monospace;"></span><span
-            style="font-family: &quot;Courier New&quot;, monospace;">printf("&amp;b.bar[%d]
-            = %p\n", x, &amp;b-&gt;bar[x]);</span></div>
-        <div><br>
-        </div>
-        <div><span class="Apple-tab-span" style="white-space: pre; font-family: &quot;Courier New&quot;, monospace;"></span><span
-            style="font-family: &quot;Courier New&quot;, monospace;">return
-            0;</span></div>
-        <div><span style="font-family: &quot;Courier New&quot;,
-            monospace;">}</span></div>
-        <div><br>
-        </div>
-        <p>produces this output</p>
-        <p><br>
-        </p>
-        <div><span style="font-family: &quot;Courier New&quot;,
-            monospace;">tom@fx8:~$ gcc test.c -o test</span></div>
-        <div><span style="font-family: &quot;Courier New&quot;,
-            monospace;">tom@fx8:~$ ./test</span></div>
-        <div><span style="font-family: &quot;Courier New&quot;,
-            monospace;">a == 0x1fd4010</span></div>
-        <div><span style="font-family: &quot;Courier New&quot;,
-            monospace;">&amp;a.bar[0] = 0x1fd4018</span></div>
-        <div><span style="font-family: &quot;Courier New&quot;,
-            monospace;">&amp;a.bar[1] = 0x1fd401c</span></div>
-        <div><span style="font-family: &quot;Courier New&quot;,
-            monospace;">&amp;a.bar[2] = 0x1fd4020</span></div>
-        <div><span style="font-family: &quot;Courier New&quot;,
-            monospace;">&amp;a.bar[3] = 0x1fd4024</span></div>
-        <div><span style="font-family: &quot;Courier New&quot;,
-            monospace;">b == 0x1fd4030</span></div>
-        <div><span style="font-family: &quot;Courier New&quot;,
-            monospace;">&amp;b.bar[0] = 0x1fd4038</span></div>
-        <div><span style="font-family: &quot;Courier New&quot;,
-            monospace;">&amp;b.bar[1] = 0x1fd403c</span></div>
-        <div><span style="font-family: &quot;Courier New&quot;,
-            monospace;">&amp;b.bar[2] = 0x1fd4040</span></div>
-        <div><span style="font-family: &quot;Courier New&quot;,
-            monospace;">&amp;b.bar[3] = 0x1fd4044</span></div>
-        <div><br>
-        </div>
-        Which is exactly what you'd expect.  I'm not strongly advocating
-        we change the PP code just noting it's not really clear that
-        it's correct from a first reading and in theory would be better
-        with [0].
-        <div><br>
-        </div>
-        Tom<br>
-        <br>
-        <div style="color: rgb(0, 0, 0);">
-          <hr tabindex="-1" style="display:inline-block; width:98%">
-          <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
-              color="#000000" face="Calibri, sans-serif"><b>From:</b>
-              Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">&lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a><br>
-              <b>Sent:</b> Thursday, August 18, 2016 11:33<br>
-              <b>To:</b> StDenis, Tom<br>
-              <b>Cc:</b> Christian König; amd-gfx list<br>
-              <b>Subject:</b> Re: tidy'ing up cz_hwmgr.c</font>
-            <div> </div>
-          </div>
-          <div>
-            <div dir="ltr">
-              <div>
-                <div>
-                  <div>The problem we ran into was when we had a struct
-                    like this:<br>
-                    <br>
-                  </div>
-                  struct table {<br>
-                </div>
-                   uint16_t size;<br>
-              </div>
-                 struct element elements[0];<br>
-              <div>
-                <div>};<br>
-                  <div>
-                    <div>
-                      <div class="gmail_extra"><br>
-                      </div>
-                      <div class="gmail_extra">and then we would try and
-                        index the array:<br>
-                        <br>
-                      </div>
-                      <div class="gmail_extra">for (i = 0; i &lt;
-                        table-&gt;size; i++) {<br>
-                      </div>
-                      <div class="gmail_extra">  element =
-                        &amp;table-&gt;elements[i];<br>
-                      </div>
-                      <div class="gmail_extra">}<br>
-                        <br>
-                      </div>
-                      <div class="gmail_extra">element ended up off in
-                        the weeds.  The only thing that seems to make
-                        some versions of gcc happy was pointer
-                        arithmetic.  E.g.,<br>
-                      </div>
-                      <div class="gmail_extra"><br>
-                      </div>
-                      <div class="gmail_extra">element = (struct element
-                        *)((char *)&amp;table-&gt;elements[0] +
-                        (sizeof(struct element) * i));<br>
-                        <br>
-                      </div>
-                      <div class="gmail_extra">Alex<br>
-                      </div>
-                      <div class="gmail_extra"><br>
-                        <div class="gmail_quote">On Thu, Aug 18, 2016 at
-                          11:21 AM, StDenis, Tom <span dir="ltr">
-                            &lt;<a moz-do-not-send="true"
-                              href="mailto:Tom.StDenis-5C7GfCeVMHo@public.gmane.org"
-                              target="_blank">Tom.StDenis-5C7GfCeVMHo@public.gmane.org</a>&gt;</span>
-                          wrote:<br>
-                          <blockquote class="gmail_quote"
-                            style="margin:0 0 0 .8ex; border-left:1px
-                            #ccc solid; padding-left:1ex">
-                            <div dir="ltr">
-                              <div style="font-size:12pt; color:#000000;
-                                background-color:#ffffff;
-                                font-family:Calibri,Arial,Helvetica,sans-serif">
-                                <p>Any modern GCC should support [0] at
-                                  the tail of a struct.  This came up
-                                  because when I was reading the code I
-                                  saw they allocated 7 slots (plus the
-                                  size of the struct) but then fill 8
-                                  slots.  It's just weird
-                                  <img alt="😊" style="vertical-align:
-                                    bottom; -webkit-user-select: none;"
-                                    tabindex="0"
-                                    src="cid:part2.12A01FCD.899B127C-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org"></p>
-                                <p><br>
-                                </p>
-                                <p>Using [0] in the struct and
-                                  allocating for 8 entries makes more
-                                  sense and is clearer to read.</p>
-                                <p><br>
-                                </p>
-                                <p>Tom</p>
-                                <br>
-                                <br>
-                                <div style="color:rgb(0,0,0)">
-                                  <hr style="display:inline-block;
-                                    width:98%">
-                                  <div dir="ltr"><font
-                                      style="font-size:11pt"
-                                      color="#000000" face="Calibri,
-                                      sans-serif"><b>From:</b> Christian
-                                      König &lt;<a
-                                        moz-do-not-send="true"
-                                        href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org"
-                                        target="_blank">deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org</a>&gt;<br>
-                                      <b>Sent:</b> Thursday, August 18,
-                                      2016 11:17<br>
-                                      <b>To:</b> StDenis, Tom; amd-gfx
-                                      list<br>
-                                      <b>Subject:</b> Re: tidy'ing up
-                                      cz_hwmgr.c</font>
-                                    <div> </div>
-                                  </div>
-                                  <div>
-                                    <div class="h5">
-                                      <div>
-                                        <div>
-                                          <blockquote type="cite">
-                                            <div>Has a [1] array at the
-                                              tail which is then
-                                              kzalloc'ed with N-1
-                                              entries.  Shouldn't that
-                                              just be a [0] with N
-                                              entries allocated for
-                                              clarity?</div>
-                                          </blockquote>
-                                          Actually the starting address
-                                          of a dynamic array should be
-                                          manually calculated instead of
-                                          using [1] or [0].<br>
-                                          <br>
-                                          We had tons of problems with
-                                          that because some gcc versions
-                                          get this wrong and the
-                                          atombios code used this as
-                                          well.<br>
-                                          <br>
-                                          Alex how did we resolved such
-                                          issues?<br>
-                                          <br>
-                                          Regards,<br>
-                                          Christian.<br>
-                                          <br>
-                                          Am 18.08.2016 um 16:26 schrieb
-                                          StDenis, Tom:<br>
-                                        </div>
-                                        <blockquote type="cite">
-                                          <div style="font-size:12pt;
-                                            color:#000000;
-                                            background-color:#ffffff;
-                                            font-family:Calibri,Arial,Helvetica,sans-serif">
-                                            <p>Tidying up cz_hwmgr.c I
-                                              noted a couple of things
-                                              but first is </p>
-                                            <p><br>
-                                            </p>
-                                            <div><span
-                                                style="font-family:&quot;Courier
-                                                New&quot;,monospace">static
-                                                bool
-                                                cz_dpm_check_smu_features(<wbr>struct
-                                                pp_hwmgr *hwmgr,</span></div>
-                                            <div><span style="white-space:pre-wrap; font-family:&quot;Courier New&quot;,monospace"></span><span
-style="font-family:&quot;Courier New&quot;,monospace">unsigned long
-                                                check_feature);</span></div>
-                                            <div><br>
-                                            </div>
-                                            <div>Which will return
-                                              "true" if the smu call
-                                              fails <b>or</b> the
-                                              feature is set.  </div>
-                                            <div><br>
-                                            </div>
-                                            <div>The structure </div>
-                                            <div><br>
-                                            </div>
-                                            <div>
-                                              <div><span
-                                                  style="font-family:&quot;Courier
-                                                  New&quot;,monospace">struct
-phm_clock_voltage_dependency_<wbr>table;</span></div>
-                                            </div>
-                                            <div><br>
-                                            </div>
-                                            <div>Has a [1] array at the
-                                              tail which is then
-                                              kzalloc'ed with N-1
-                                              entries.  Shouldn't that
-                                              just be a [0] with N
-                                              entries allocated for
-                                              clarity?</div>
-                                            <div><br>
-                                            </div>
-                                            <div>Tom</div>
-                                            <div><br>
-                                            </div>
-                                          </div>
-                                          <br>
-                                          <fieldset></fieldset>
-                                          <br>
-                                          <pre>______________________________<wbr>_________________
-amd-gfx mailing list
-<a moz-do-not-send="true" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target="_blank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a moz-do-not-send="true" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" target="_blank">https://lists.freedesktop.org/<wbr>mailman/listinfo/amd-gfx</a>
-</pre>
-</blockquote>
-<p>
-
-</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-
-______________________________<wbr>_________________
-
-amd-gfx mailing list
-
-<a moz-do-not-send="true" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-
-<a moz-do-not-send="true" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel="noreferrer" target="_blank">https://lists.freedesktop.org/<wbr>mailman/listinfo/amd-gfx</a>
-
-
-
-</blockquote>
-</div>
-
-
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-
-
-<fieldset class="mimeAttachmentHeader"></fieldset>
-<pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-
-</blockquote><p>
-</p></body></html>
---------------51949A15BF858DBD1BF4309D
-Content-Type: image/png
+--_000_MWHPR12MB16947C2728D40DEC0BB41502F7150MWHPR12MB1694namp_
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Content-ID: <part2.12A01FCD.899B127C-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 
-iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAGXRFWHRTb2Z0d2FyZQBBZG9i
-ZSBJbWFnZVJlYWR5ccllPAAAAYpJREFUeNpi/P//PwO1ACM2wf9njBWAVD4QBwCxApLUAyDe
-AMQTGU3OPkDRA3QUIxaD+oFUAREOaQQa2IDTMKBB84FUAgk+WwA0MBFmGBOaixJIDKYEoD64
-65igBjkge+3CrW94TUCTr4eGMdxl8TCZxMYHDIZR1xk2HPiA1SCQOEgepA4J5CMbFgAPhM1v
-wfTFW9+xGgYTh6lD1s8IdKIAkH4PEz1w9jOYVpBiZ1CQZMMw7MHzXwwPnv0Esx2MeRESxmcY
-WYCUAbJiFAVYAMgCbJbAvPmAWjmACZqS4aHdOOs5wdgEBcWE5a8Y0HIGPAIOwETtjXkYJqIq
-xAAgeQM1ThTzkQ2biB5mC7a8xZ7kgeICvMzoYTsRJaMDY3U9chIBpaMHz34xxPsKgwMcFIsL
-gckB5KL+YllkgyYAg6oQJW9Ck8h+5NgFhd3GAx/humAGI2cGIHYEGvYBW0YHGTgf2YX4MjkQ
-F4IMwlkEIeXVfByGwsqzAwTLMywGg7wNcvED9AIR3TCAAAMAqh+p+YMVeBQAAAAASUVORK5C
-YII=
---------------51949A15BF858DBD1BF4309D--
+SUlSQywgemVybyBzaXplZCBhcnJheXMgYXJlIG5vdCB0ZWNobmljYWxseSBhbGxvd2VkIGluIEMs
+IGFsdGhvdWdoIGdjYyBhbGxvd3MgdGhlbS4gIEFzIEkgc2FpZCwgc29tZSB2ZXJzaW9ucyBvZiBn
+Y2Mgd29ya2VkLCBvdGhlcnMgZGlkbid0LiAgSSdtIG5vdCBzdXJlIHdoeS4gIEFsc28sIG15IGV4
+YW1wbGUgd2FzIHNsaWdodGx5IHdyb25nLiAgYXRvbWJpb3MuaCB1c2VzIGFycmF5cyBvZiBzaXpl
+IDEsIG5vdCAwLiAgU28gbXkgZXhhbXBsZSBzaG91bGQgbG9vayBsaWtlOg0KDQpzdHJ1Y3QgdGFi
+bGUgew0KICAgdWludDE2X3Qgc2l6ZTsNCiAgIHN0cnVjdCBlbGVtZW50IGVsZW1lbnRzWzFdOw0K
+fTsNCg0KYXRvbWJpb3MuaCB1c2VzIFsxXSBzaW5jZSBJIGRvbid0IHRoaW5rIFswXSBpcyBwb3J0
+YWJsZS4gIFRoZSBzYW1lIGluZGV4aW5nIGlzc3VlIGFwcGxpZXMgdG8gWzFdLg0KDQpBbGV4DQoN
+CkZyb206IGFtZC1nZnggW21haWx0bzphbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnXSBPbiBCZWhhbGYgT2YgU3REZW5pcywgVG9tDQpTZW50OiBUaHVyc2RheSwgQXVndXN0IDE4
+LCAyMDE2IDExOjQwIEFNDQpUbzogQWxleCBEZXVjaGVyDQpDYzogQ2hyaXN0aWFuIEvDtm5pZzsg
+YW1kLWdmeCBsaXN0DQpTdWJqZWN0OiBSZTogdGlkeSdpbmcgdXAgY3pfaHdtZ3IuYw0KDQoNCkl0
+IGhhZCB0byBiZSBzb21ldGhpbmcgbW9yZSBjb21wbGljYXRlZCBiZWNhdXNlIHRoaXMgZGVtbyBw
+cm9ncmFtDQoNCg0KI2luY2x1ZGUgPHN0ZGlvLmg+DQojaW5jbHVkZSA8c3RkbGliLmg+DQoNCnN0
+cnVjdCBvbmUgew0KY2hhciAqZm9vOw0KaW50IGJhclswXTsNCn07DQoNCnN0cnVjdCB0d28gew0K
+Y2hhciAqZm9vOw0KaW50IGJhclsxXTsNCn07DQoNCmludCBtYWluKHZvaWQpDQp7DQpzdHJ1Y3Qg
+b25lICphID0gY2FsbG9jKDEsIHNpemVvZihzdHJ1Y3Qgb25lKSArIDQgKiBzaXplb2YoaW50KSk7
+DQpzdHJ1Y3QgdHdvICpiID0gY2FsbG9jKDEsIHNpemVvZihzdHJ1Y3QgdHdvKSArIDMgKiBzaXpl
+b2YoaW50KSk7DQppbnQgeDsNCg0KcHJpbnRmKCJhID09ICVwXG4iLCBhKTsNCmZvciAoeCA9IDA7
+IHggPCA0OyB4KyspDQpwcmludGYoIiZhLmJhclslZF0gPSAlcFxuIiwgeCwgJmEtPmJhclt4XSk7
+DQoNCnByaW50ZigiYiA9PSAlcFxuIiwgYik7DQpmb3IgKHggPSAwOyB4IDwgNDsgeCsrKQ0KcHJp
+bnRmKCImYi5iYXJbJWRdID0gJXBcbiIsIHgsICZiLT5iYXJbeF0pOw0KDQpyZXR1cm4gMDsNCn0N
+Cg0KDQpwcm9kdWNlcyB0aGlzIG91dHB1dA0KDQoNCnRvbUBmeDg6fiQgZ2NjIHRlc3QuYyAtbyB0
+ZXN0DQp0b21AZng4On4kIC4vdGVzdA0KYSA9PSAweDFmZDQwMTANCiZhLmJhclswXSA9IDB4MWZk
+NDAxOA0KJmEuYmFyWzFdID0gMHgxZmQ0MDFjDQomYS5iYXJbMl0gPSAweDFmZDQwMjANCiZhLmJh
+clszXSA9IDB4MWZkNDAyNA0KYiA9PSAweDFmZDQwMzANCiZiLmJhclswXSA9IDB4MWZkNDAzOA0K
+JmIuYmFyWzFdID0gMHgxZmQ0MDNjDQomYi5iYXJbMl0gPSAweDFmZDQwNDANCiZiLmJhclszXSA9
+IDB4MWZkNDA0NA0KDQpXaGljaCBpcyBleGFjdGx5IHdoYXQgeW91J2QgZXhwZWN0LiAgSSdtIG5v
+dCBzdHJvbmdseSBhZHZvY2F0aW5nIHdlIGNoYW5nZSB0aGUgUFAgY29kZSBqdXN0IG5vdGluZyBp
+dCdzIG5vdCByZWFsbHkgY2xlYXIgdGhhdCBpdCdzIGNvcnJlY3QgZnJvbSBhIGZpcnN0IHJlYWRp
+bmcgYW5kIGluIHRoZW9yeSB3b3VsZCBiZSBiZXR0ZXIgd2l0aCBbMF0uDQoNClRvbQ0KX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18NCkZyb206IEFsZXggRGV1Y2hlciA8YWxleGRldWNo
+ZXJAZ21haWwuY29tPG1haWx0bzphbGV4ZGV1Y2hlckBnbWFpbC5jb20+Pg0KU2VudDogVGh1cnNk
+YXksIEF1Z3VzdCAxOCwgMjAxNiAxMTozMw0KVG86IFN0RGVuaXMsIFRvbQ0KQ2M6IENocmlzdGlh
+biBLw7ZuaWc7IGFtZC1nZnggbGlzdA0KU3ViamVjdDogUmU6IHRpZHknaW5nIHVwIGN6X2h3bWdy
+LmMNCg0KVGhlIHByb2JsZW0gd2UgcmFuIGludG8gd2FzIHdoZW4gd2UgaGFkIGEgc3RydWN0IGxp
+a2UgdGhpczoNCnN0cnVjdCB0YWJsZSB7DQogICB1aW50MTZfdCBzaXplOw0KICAgc3RydWN0IGVs
+ZW1lbnQgZWxlbWVudHNbMF07DQp9Ow0KDQphbmQgdGhlbiB3ZSB3b3VsZCB0cnkgYW5kIGluZGV4
+IHRoZSBhcnJheToNCmZvciAoaSA9IDA7IGkgPCB0YWJsZS0+c2l6ZTsgaSsrKSB7DQogIGVsZW1l
+bnQgPSAmdGFibGUtPmVsZW1lbnRzW2ldOw0KfQ0KZWxlbWVudCBlbmRlZCB1cCBvZmYgaW4gdGhl
+IHdlZWRzLiAgVGhlIG9ubHkgdGhpbmcgdGhhdCBzZWVtcyB0byBtYWtlIHNvbWUgdmVyc2lvbnMg
+b2YgZ2NjIGhhcHB5IHdhcyBwb2ludGVyIGFyaXRobWV0aWMuICBFLmcuLA0KDQplbGVtZW50ID0g
+KHN0cnVjdCBlbGVtZW50ICopKChjaGFyICopJnRhYmxlLT5lbGVtZW50c1swXSArIChzaXplb2Yo
+c3RydWN0IGVsZW1lbnQpICogaSkpOw0KQWxleA0KDQpPbiBUaHUsIEF1ZyAxOCwgMjAxNiBhdCAx
+MToyMSBBTSwgU3REZW5pcywgVG9tIDxUb20uU3REZW5pc0BhbWQuY29tPG1haWx0bzpUb20uU3RE
+ZW5pc0BhbWQuY29tPj4gd3JvdGU6DQoNCkFueSBtb2Rlcm4gR0NDIHNob3VsZCBzdXBwb3J0IFsw
+XSBhdCB0aGUgdGFpbCBvZiBhIHN0cnVjdC4gIFRoaXMgY2FtZSB1cCBiZWNhdXNlIHdoZW4gSSB3
+YXMgcmVhZGluZyB0aGUgY29kZSBJIHNhdyB0aGV5IGFsbG9jYXRlZCA3IHNsb3RzIChwbHVzIHRo
+ZSBzaXplIG9mIHRoZSBzdHJ1Y3QpIGJ1dCB0aGVuIGZpbGwgOCBzbG90cy4gIEl0J3MganVzdCB3
+ZWlyZCBb8J+Yil0NCg0KDQoNClVzaW5nIFswXSBpbiB0aGUgc3RydWN0IGFuZCBhbGxvY2F0aW5n
+IGZvciA4IGVudHJpZXMgbWFrZXMgbW9yZSBzZW5zZSBhbmQgaXMgY2xlYXJlciB0byByZWFkLg0K
+DQoNCg0KVG9tDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQpGcm9tOiBDaHJp
+c3RpYW4gS8O2bmlnIDxkZWF0aHNpbXBsZUB2b2RhZm9uZS5kZTxtYWlsdG86ZGVhdGhzaW1wbGVA
+dm9kYWZvbmUuZGU+Pg0KU2VudDogVGh1cnNkYXksIEF1Z3VzdCAxOCwgMjAxNiAxMToxNw0KVG86
+IFN0RGVuaXMsIFRvbTsgYW1kLWdmeCBsaXN0DQpTdWJqZWN0OiBSZTogdGlkeSdpbmcgdXAgY3pf
+aHdtZ3IuYw0KDQpIYXMgYSBbMV0gYXJyYXkgYXQgdGhlIHRhaWwgd2hpY2ggaXMgdGhlbiBremFs
+bG9jJ2VkIHdpdGggTi0xIGVudHJpZXMuICBTaG91bGRuJ3QgdGhhdCBqdXN0IGJlIGEgWzBdIHdp
+dGggTiBlbnRyaWVzIGFsbG9jYXRlZCBmb3IgY2xhcml0eT8NCkFjdHVhbGx5IHRoZSBzdGFydGlu
+ZyBhZGRyZXNzIG9mIGEgZHluYW1pYyBhcnJheSBzaG91bGQgYmUgbWFudWFsbHkgY2FsY3VsYXRl
+ZCBpbnN0ZWFkIG9mIHVzaW5nIFsxXSBvciBbMF0uDQoNCldlIGhhZCB0b25zIG9mIHByb2JsZW1z
+IHdpdGggdGhhdCBiZWNhdXNlIHNvbWUgZ2NjIHZlcnNpb25zIGdldCB0aGlzIHdyb25nIGFuZCB0
+aGUgYXRvbWJpb3MgY29kZSB1c2VkIHRoaXMgYXMgd2VsbC4NCg0KQWxleCBob3cgZGlkIHdlIHJl
+c29sdmVkIHN1Y2ggaXNzdWVzPw0KDQpSZWdhcmRzLA0KQ2hyaXN0aWFuLg0KDQpBbSAxOC4wOC4y
+MDE2IHVtIDE2OjI2IHNjaHJpZWIgU3REZW5pcywgVG9tOg0KDQpUaWR5aW5nIHVwIGN6X2h3bWdy
+LmMgSSBub3RlZCBhIGNvdXBsZSBvZiB0aGluZ3MgYnV0IGZpcnN0IGlzDQoNCg0Kc3RhdGljIGJv
+b2wgY3pfZHBtX2NoZWNrX3NtdV9mZWF0dXJlcyhzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLA0KdW5z
+aWduZWQgbG9uZyBjaGVja19mZWF0dXJlKTsNCg0KV2hpY2ggd2lsbCByZXR1cm4gInRydWUiIGlm
+IHRoZSBzbXUgY2FsbCBmYWlscyBvciB0aGUgZmVhdHVyZSBpcyBzZXQuDQoNClRoZSBzdHJ1Y3R1
+cmUNCg0Kc3RydWN0IHBobV9jbG9ja192b2x0YWdlX2RlcGVuZGVuY3lfdGFibGU7DQoNCkhhcyBh
+IFsxXSBhcnJheSBhdCB0aGUgdGFpbCB3aGljaCBpcyB0aGVuIGt6YWxsb2MnZWQgd2l0aCBOLTEg
+ZW50cmllcy4gIFNob3VsZG4ndCB0aGF0IGp1c3QgYmUgYSBbMF0gd2l0aCBOIGVudHJpZXMgYWxs
+b2NhdGVkIGZvciBjbGFyaXR5Pw0KDQpUb20NCg0KDQoNCg0KX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18NCg0KYW1kLWdmeCBtYWlsaW5nIGxpc3QNCg0KYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc8bWFpbHRvOmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnPg0KDQpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZngNCg0KDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fDQphbWQtZ2Z4IG1haWxpbmcgbGlzdA0KYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmc8bWFpbHRvOmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPg0KaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQoNCg==
 
---------------2EEF5F1D8CD6E4FCE2172F96--
+--_000_MWHPR12MB16947C2728D40DEC0BB41502F7150MWHPR12MB1694namp_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
---===============1216612852==
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
+bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
+YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
+cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
+Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
+ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTQgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPCEtLVtp
+ZiAhbXNvXT48c3R5bGU+dlw6KiB7YmVoYXZpb3I6dXJsKCNkZWZhdWx0I1ZNTCk7fQ0Kb1w6KiB7
+YmVoYXZpb3I6dXJsKCNkZWZhdWx0I1ZNTCk7fQ0Kd1w6KiB7YmVoYXZpb3I6dXJsKCNkZWZhdWx0
+I1ZNTCk7fQ0KLnNoYXBlIHtiZWhhdmlvcjp1cmwoI2RlZmF1bHQjVk1MKTt9DQo8L3N0eWxlPjwh
+W2VuZGlmXS0tPjxzdHlsZT48IS0tDQovKiBGb250IERlZmluaXRpb25zICovDQpAZm9udC1mYWNl
+DQoJe2ZvbnQtZmFtaWx5OkNhbGlicmk7DQoJcGFub3NlLTE6MiAxNSA1IDIgMiAyIDQgMyAyIDQ7
+fQ0KQGZvbnQtZmFjZQ0KCXtmb250LWZhbWlseTpUYWhvbWE7DQoJcGFub3NlLTE6MiAxMSA2IDQg
+MyA1IDQgNCAyIDQ7fQ0KQGZvbnQtZmFjZQ0KCXtmb250LWZhbWlseTpDb25zb2xhczsNCglwYW5v
+c2UtMToyIDExIDYgOSAyIDIgNCAzIDIgNDt9DQovKiBTdHlsZSBEZWZpbml0aW9ucyAqLw0KcC5N
+c29Ob3JtYWwsIGxpLk1zb05vcm1hbCwgZGl2Lk1zb05vcm1hbA0KCXttYXJnaW46MGluOw0KCW1h
+cmdpbi1ib3R0b206LjAwMDFwdDsNCglmb250LXNpemU6MTIuMHB0Ow0KCWZvbnQtZmFtaWx5OiJU
+aW1lcyBOZXcgUm9tYW4iLCJzZXJpZiI7fQ0KYTpsaW5rLCBzcGFuLk1zb0h5cGVybGluaw0KCXtt
+c28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6Ymx1ZTsNCgl0ZXh0LWRlY29yYXRpb246dW5k
+ZXJsaW5lO30NCmE6dmlzaXRlZCwgc3Bhbi5Nc29IeXBlcmxpbmtGb2xsb3dlZA0KCXttc28tc3R5
+bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6cHVycGxlOw0KCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxp
+bmU7fQ0KcA0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJbWFyZ2luOjBpbjsNCgltYXJnaW4t
+Ym90dG9tOi4wMDAxcHQ7DQoJZm9udC1zaXplOjEyLjBwdDsNCglmb250LWZhbWlseToiVGltZXMg
+TmV3IFJvbWFuIiwic2VyaWYiO30NCnByZQ0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJbXNv
+LXN0eWxlLWxpbms6IkhUTUwgUHJlZm9ybWF0dGVkIENoYXIiOw0KCW1hcmdpbjowaW47DQoJbWFy
+Z2luLWJvdHRvbTouMDAwMXB0Ow0KCWZvbnQtc2l6ZToxMC4wcHQ7DQoJZm9udC1mYW1pbHk6IkNv
+dXJpZXIgTmV3Ijt9DQpwLk1zb0FjZXRhdGUsIGxpLk1zb0FjZXRhdGUsIGRpdi5Nc29BY2V0YXRl
+DQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCgltc28tc3R5bGUtbGluazoiQmFsbG9vbiBUZXh0
+IENoYXIiOw0KCW1hcmdpbjowaW47DQoJbWFyZ2luLWJvdHRvbTouMDAwMXB0Ow0KCWZvbnQtc2l6
+ZTo4LjBwdDsNCglmb250LWZhbWlseToiVGFob21hIiwic2Fucy1zZXJpZiI7fQ0Kc3Bhbi5hcHBs
+ZS10YWItc3Bhbg0KCXttc28tc3R5bGUtbmFtZTphcHBsZS10YWItc3Bhbjt9DQpzcGFuLkhUTUxQ
+cmVmb3JtYXR0ZWRDaGFyDQoJe21zby1zdHlsZS1uYW1lOiJIVE1MIFByZWZvcm1hdHRlZCBDaGFy
+IjsNCgltc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJbXNvLXN0eWxlLWxpbms6IkhUTUwgUHJlZm9y
+bWF0dGVkIjsNCglmb250LWZhbWlseTpDb25zb2xhczt9DQpzcGFuLkVtYWlsU3R5bGUyMQ0KCXtt
+c28tc3R5bGUtdHlwZTpwZXJzb25hbC1yZXBseTsNCglmb250LWZhbWlseToiQ2FsaWJyaSIsInNh
+bnMtc2VyaWYiOw0KCWNvbG9yOiMxRjQ5N0Q7fQ0Kc3Bhbi5CYWxsb29uVGV4dENoYXINCgl7bXNv
+LXN0eWxlLW5hbWU6IkJhbGxvb24gVGV4dCBDaGFyIjsNCgltc28tc3R5bGUtcHJpb3JpdHk6OTk7
+DQoJbXNvLXN0eWxlLWxpbms6IkJhbGxvb24gVGV4dCI7DQoJZm9udC1mYW1pbHk6IlRhaG9tYSIs
+InNhbnMtc2VyaWYiO30NCi5Nc29DaHBEZWZhdWx0DQoJe21zby1zdHlsZS10eXBlOmV4cG9ydC1v
+bmx5Ow0KCWZvbnQtc2l6ZToxMC4wcHQ7fQ0KQHBhZ2UgV29yZFNlY3Rpb24xDQoJe3NpemU6OC41
+aW4gMTEuMGluOw0KCW1hcmdpbjoxLjBpbiAxLjBpbiAxLjBpbiAxLjBpbjt9DQpkaXYuV29yZFNl
+Y3Rpb24xDQoJe3BhZ2U6V29yZFNlY3Rpb24xO30NCi0tPjwvc3R5bGU+PCEtLVtpZiBndGUgbXNv
+IDldPjx4bWw+DQo8bzpzaGFwZWRlZmF1bHRzIHY6ZXh0PSJlZGl0IiBzcGlkbWF4PSIxMDI2IiAv
+Pg0KPC94bWw+PCFbZW5kaWZdLS0+PCEtLVtpZiBndGUgbXNvIDldPjx4bWw+DQo8bzpzaGFwZWxh
+eW91dCB2OmV4dD0iZWRpdCI+DQo8bzppZG1hcCB2OmV4dD0iZWRpdCIgZGF0YT0iMSIgLz4NCjwv
+bzpzaGFwZWxheW91dD48L3htbD48IVtlbmRpZl0tLT4NCjwvaGVhZD4NCjxib2R5IGxhbmc9IkVO
+LVVTIiBsaW5rPSJibHVlIiB2bGluaz0icHVycGxlIj4NCjxkaXYgY2xhc3M9IldvcmRTZWN0aW9u
+MSI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtm
+b250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29s
+b3I6IzFGNDk3RCI+SUlSQywgemVybyBzaXplZCBhcnJheXMgYXJlIG5vdCB0ZWNobmljYWxseSBh
+bGxvd2VkIGluIEMsIGFsdGhvdWdoIGdjYyBhbGxvd3MgdGhlbS4mbmJzcDsgQXMgSSBzYWlkLCBz
+b21lIHZlcnNpb25zIG9mIGdjYyB3b3JrZWQsIG90aGVycyBkaWRuJ3QuJm5ic3A7IEknbSBub3Qg
+c3VyZSB3aHkuJm5ic3A7DQogQWxzbywgbXkgZXhhbXBsZSB3YXMgc2xpZ2h0bHkgd3JvbmcuJm5i
+c3A7IGF0b21iaW9zLmggdXNlcyBhcnJheXMgb2Ygc2l6ZSAxLCBub3QgMC4mbmJzcDsgU28gbXkg
+ZXhhbXBsZSBzaG91bGQgbG9vayBsaWtlOjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNz
+PSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZx
+dW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjojMUY0OTdEIj48
+bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0i
+YmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkm
+cXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjpibGFjayI+c3RydWN0IHRhYmxlIHs8
+bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0iYmFja2dy
+b3VuZDp3aGl0ZSI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDss
+JnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjpibGFjayI+Jm5ic3A7Jm5ic3A7IHVpbnQxNl90
+IHNpemU7PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9
+ImJhY2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJp
+JnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6YmxhY2siPiZuYnNwOyZuYnNwOyBz
+dHJ1Y3QgZWxlbWVudCBlbGVtZW50c1sxXTs8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFz
+cz0iTXNvTm9ybWFsIiBzdHlsZT0iYmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4gc3R5bGU9ImZvbnQt
+ZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjpi
+bGFjayI+fTs8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3Bh
+biBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7
+LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6IzFGNDk3RCI+PG86cD4mbmJzcDs8L286cD48
+L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZTox
+MS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1
+b3Q7O2NvbG9yOiMxRjQ5N0QiPmF0b21iaW9zLmggdXNlcyBbMV0gc2luY2UgSSBkb24ndCB0aGlu
+ayBbMF0gaXMgcG9ydGFibGUuJm5ic3A7IFRoZSBzYW1lIGluZGV4aW5nIGlzc3VlIGFwcGxpZXMg
+dG8gWzFdLjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFu
+IHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDss
+JnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjojMUY0OTdEIj48bzpwPiZuYnNwOzwvbzpwPjwv
+c3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEx
+LjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVv
+dDs7Y29sb3I6IzFGNDk3RCI+QWxleDxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJN
+c29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90
+O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjojMUY0OTdEIj48bzpw
+PiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8ZGl2IHN0eWxlPSJib3JkZXI6bm9uZTtib3JkZXIt
+bGVmdDpzb2xpZCBibHVlIDEuNXB0O3BhZGRpbmc6MGluIDBpbiAwaW4gNC4wcHQiPg0KPGRpdj4N
+CjxkaXYgc3R5bGU9ImJvcmRlcjpub25lO2JvcmRlci10b3A6c29saWQgI0I1QzRERiAxLjBwdDtw
+YWRkaW5nOjMuMHB0IDBpbiAwaW4gMGluIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxiPjxzcGFu
+IHN0eWxlPSJmb250LXNpemU6MTAuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O1RhaG9tYSZxdW90Oywm
+cXVvdDtzYW5zLXNlcmlmJnF1b3Q7Ij5Gcm9tOjwvc3Bhbj48L2I+PHNwYW4gc3R5bGU9ImZvbnQt
+c2l6ZToxMC4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7VGFob21hJnF1b3Q7LCZxdW90O3NhbnMtc2Vy
+aWYmcXVvdDsiPiBhbWQtZ2Z4IFttYWlsdG86YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZ10NCjxiPk9uIEJlaGFsZiBPZiA8L2I+U3REZW5pcywgVG9tPGJyPg0KPGI+U2VudDo8
+L2I+IFRodXJzZGF5LCBBdWd1c3QgMTgsIDIwMTYgMTE6NDAgQU08YnI+DQo8Yj5Ubzo8L2I+IEFs
+ZXggRGV1Y2hlcjxicj4NCjxiPkNjOjwvYj4gQ2hyaXN0aWFuIEvDtm5pZzsgYW1kLWdmeCBsaXN0
+PGJyPg0KPGI+U3ViamVjdDo8L2I+IFJlOiB0aWR5J2luZyB1cCBjel9od21nci5jPG86cD48L286
+cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+
+Jm5ic3A7PC9vOnA+PC9wPg0KPGRpdiBpZD0iZGl2dGFnZGVmYXVsdHdyYXBwZXIiPg0KPHAgc3R5
+bGU9ImJhY2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxp
+YnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6YmxhY2siPkl0IGhhZCB0byBi
+ZSBzb21ldGhpbmcgbW9yZSBjb21wbGljYXRlZCBiZWNhdXNlIHRoaXMgZGVtbyBwcm9ncmFtPG86
+cD48L286cD48L3NwYW4+PC9wPg0KPHAgc3R5bGU9ImJhY2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0
+eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVv
+dDs7Y29sb3I6YmxhY2siPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxkaXY+DQo8cCBj
+bGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0iYmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4gc3R5bGU9ImZv
+bnQtZmFtaWx5OiZxdW90O0NvdXJpZXIgTmV3JnF1b3Q7O2NvbG9yOmJsYWNrIj4jaW5jbHVkZSAm
+bHQ7c3RkaW8uaCZndDs8L3NwYW4+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGli
+cmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjpibGFjayI+PG86cD48L286cD48
+L3NwYW4+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9ImJh
+Y2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDb3VyaWVyIE5l
+dyZxdW90Oztjb2xvcjpibGFjayI+I2luY2x1ZGUgJmx0O3N0ZGxpYi5oJmd0Ozwvc3Bhbj48c3Bh
+biBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlm
+JnF1b3Q7O2NvbG9yOmJsYWNrIj48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+
+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0iYmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4gc3R5
+bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90
+Oztjb2xvcjpibGFjayI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8ZGl2
+Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9ImJhY2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0
+eWxlPSJmb250LWZhbWlseTomcXVvdDtDb3VyaWVyIE5ldyZxdW90Oztjb2xvcjpibGFjayI+c3Ry
+dWN0IG9uZSB7PC9zcGFuPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1
+b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6YmxhY2siPjxvOnA+PC9vOnA+PC9zcGFu
+PjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJiYWNrZ3Jv
+dW5kOndoaXRlIj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q291cmllciBOZXcmcXVv
+dDs7Y29sb3I6YmxhY2siPmNoYXIgKmZvbzs8L3NwYW4+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5
+OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjpibGFjayI+
+PG86cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1h
+bCIgc3R5bGU9ImJhY2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVv
+dDtDb3VyaWVyIE5ldyZxdW90Oztjb2xvcjpibGFjayI+aW50IGJhclswXTs8L3NwYW4+PHNwYW4g
+c3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZx
+dW90Oztjb2xvcjpibGFjayI+PG86cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0K
+PHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9ImJhY2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0eWxl
+PSJmb250LWZhbWlseTomcXVvdDtDb3VyaWVyIE5ldyZxdW90Oztjb2xvcjpibGFjayI+fTs8L3Nw
+YW4+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fu
+cy1zZXJpZiZxdW90Oztjb2xvcjpibGFjayI+PG86cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+
+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9ImJhY2tncm91bmQ6d2hpdGUiPjxz
+cGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2Vy
+aWYmcXVvdDs7Y29sb3I6YmxhY2siPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2
+Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJiYWNrZ3JvdW5kOndoaXRlIj48
+c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q291cmllciBOZXcmcXVvdDs7Y29sb3I6Ymxh
+Y2siPnN0cnVjdCB0d28gezwvc3Bhbj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q2Fs
+aWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9yOmJsYWNrIj48bzpwPjwvbzpw
+Pjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0i
+YmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NvdXJpZXIg
+TmV3JnF1b3Q7O2NvbG9yOmJsYWNrIj5jaGFyICpmb287PC9zcGFuPjxzcGFuIHN0eWxlPSJmb250
+LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6
+YmxhY2siPjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJN
+c29Ob3JtYWwiIHN0eWxlPSJiYWNrZ3JvdW5kOndoaXRlIj48c3BhbiBzdHlsZT0iZm9udC1mYW1p
+bHk6JnF1b3Q7Q291cmllciBOZXcmcXVvdDs7Y29sb3I6YmxhY2siPmludCBiYXJbMV07PC9zcGFu
+PjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMt
+c2VyaWYmcXVvdDs7Y29sb3I6YmxhY2siPjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0K
+PGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJiYWNrZ3JvdW5kOndoaXRlIj48c3Bh
+biBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q291cmllciBOZXcmcXVvdDs7Y29sb3I6YmxhY2si
+Pn07PC9zcGFuPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZx
+dW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6YmxhY2siPjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4N
+CjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJiYWNrZ3JvdW5kOndo
+aXRlIj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtz
+YW5zLXNlcmlmJnF1b3Q7O2NvbG9yOmJsYWNrIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+
+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0iYmFja2dyb3VuZDp3
+aGl0ZSI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NvdXJpZXIgTmV3JnF1b3Q7O2Nv
+bG9yOmJsYWNrIj5pbnQgbWFpbih2b2lkKTwvc3Bhbj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6
+JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9yOmJsYWNrIj48
+bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
+IiBzdHlsZT0iYmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90
+O0NvdXJpZXIgTmV3JnF1b3Q7O2NvbG9yOmJsYWNrIj57PC9zcGFuPjxzcGFuIHN0eWxlPSJmb250
+LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6
+YmxhY2siPjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJN
+c29Ob3JtYWwiIHN0eWxlPSJiYWNrZ3JvdW5kOndoaXRlIj48c3BhbiBzdHlsZT0iZm9udC1mYW1p
+bHk6JnF1b3Q7Q291cmllciBOZXcmcXVvdDs7Y29sb3I6YmxhY2siPnN0cnVjdCBvbmUgKmEgPSBj
+YWxsb2MoMSwgc2l6ZW9mKHN0cnVjdCBvbmUpICYjNDM7IDQgKiBzaXplb2YoaW50KSk7PC9zcGFu
+PjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMt
+c2VyaWYmcXVvdDs7Y29sb3I6YmxhY2siPjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0K
+PGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJiYWNrZ3JvdW5kOndoaXRlIj48c3Bh
+biBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q291cmllciBOZXcmcXVvdDs7Y29sb3I6YmxhY2si
+PnN0cnVjdCB0d28gKmIgPSBjYWxsb2MoMSwgc2l6ZW9mKHN0cnVjdCB0d28pICYjNDM7IDMgKiBz
+aXplb2YoaW50KSk7PC9zcGFuPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJp
+JnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6YmxhY2siPjxvOnA+PC9vOnA+PC9z
+cGFuPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJiYWNr
+Z3JvdW5kOndoaXRlIj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q291cmllciBOZXcm
+cXVvdDs7Y29sb3I6YmxhY2siPmludCB4Ozwvc3Bhbj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6
+JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9yOmJsYWNrIj48
+bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
+IiBzdHlsZT0iYmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90
+O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjpibGFjayI+PG86cD4m
+bmJzcDs8L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1h
+bCIgc3R5bGU9ImJhY2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVv
+dDtDb3VyaWVyIE5ldyZxdW90Oztjb2xvcjpibGFjayI+cHJpbnRmKCZxdW90O2EgPT0gJXBcbiZx
+dW90OywgYSk7PC9zcGFuPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1
+b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6YmxhY2siPjxvOnA+PC9vOnA+PC9zcGFu
+PjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJiYWNrZ3Jv
+dW5kOndoaXRlIj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q291cmllciBOZXcmcXVv
+dDs7Y29sb3I6YmxhY2siPmZvciAoeCA9IDA7IHggJmx0OyA0OyB4JiM0MzsmIzQzOyk8L3NwYW4+
+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1z
+ZXJpZiZxdW90Oztjb2xvcjpibGFjayI+PG86cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8
+ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9ImJhY2tncm91bmQ6d2hpdGUiPjxzcGFu
+IHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDb3VyaWVyIE5ldyZxdW90Oztjb2xvcjpibGFjayI+
+cHJpbnRmKCZxdW90OyZhbXA7YS5iYXJbJWRdID0gJXBcbiZxdW90OywgeCwgJmFtcDthLSZndDti
+YXJbeF0pOzwvc3Bhbj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90
+OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9yOmJsYWNrIj48bzpwPjwvbzpwPjwvc3Bhbj48
+L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0iYmFja2dyb3Vu
+ZDp3aGl0ZSI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1
+b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjpibGFjayI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+
+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9ImJhY2tncm91
+bmQ6d2hpdGUiPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDb3VyaWVyIE5ldyZxdW90
+Oztjb2xvcjpibGFjayI+cHJpbnRmKCZxdW90O2IgPT0gJXBcbiZxdW90OywgYik7PC9zcGFuPjxz
+cGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2Vy
+aWYmcXVvdDs7Y29sb3I6YmxhY2siPjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGRp
+dj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJiYWNrZ3JvdW5kOndoaXRlIj48c3BhbiBz
+dHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q291cmllciBOZXcmcXVvdDs7Y29sb3I6YmxhY2siPmZv
+ciAoeCA9IDA7IHggJmx0OyA0OyB4JiM0MzsmIzQzOyk8L3NwYW4+PHNwYW4gc3R5bGU9ImZvbnQt
+ZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjpi
+bGFjayI+PG86cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1z
+b05vcm1hbCIgc3R5bGU9ImJhY2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0eWxlPSJmb250LWZhbWls
+eTomcXVvdDtDb3VyaWVyIE5ldyZxdW90Oztjb2xvcjpibGFjayI+cHJpbnRmKCZxdW90OyZhbXA7
+Yi5iYXJbJWRdID0gJXBcbiZxdW90OywgeCwgJmFtcDtiLSZndDtiYXJbeF0pOzwvc3Bhbj48c3Bh
+biBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlm
+JnF1b3Q7O2NvbG9yOmJsYWNrIj48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+
+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0iYmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4gc3R5
+bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90
+Oztjb2xvcjpibGFjayI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8ZGl2
+Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9ImJhY2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0
+eWxlPSJmb250LWZhbWlseTomcXVvdDtDb3VyaWVyIE5ldyZxdW90Oztjb2xvcjpibGFjayI+cmV0
+dXJuIDA7PC9zcGFuPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7
+LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6YmxhY2siPjxvOnA+PC9vOnA+PC9zcGFuPjwv
+cD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJiYWNrZ3JvdW5k
+OndoaXRlIj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q291cmllciBOZXcmcXVvdDs7
+Y29sb3I6YmxhY2siPn08L3NwYW4+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGli
+cmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjpibGFjayI+PG86cD48L286cD48
+L3NwYW4+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9ImJh
+Y2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1
+b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6YmxhY2siPjxvOnA+Jm5ic3A7PC9vOnA+
+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPHAgc3R5bGU9ImJhY2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0
+eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVv
+dDs7Y29sb3I6YmxhY2siPnByb2R1Y2VzIHRoaXMgb3V0cHV0PG86cD48L286cD48L3NwYW4+PC9w
+Pg0KPHAgc3R5bGU9ImJhY2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTom
+cXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6YmxhY2siPjxv
+OnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBz
+dHlsZT0iYmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0Nv
+dXJpZXIgTmV3JnF1b3Q7O2NvbG9yOmJsYWNrIj50b21AZng4On4kIGdjYyB0ZXN0LmMgLW8gdGVz
+dDwvc3Bhbj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVv
+dDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9yOmJsYWNrIj48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8
+L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0iYmFja2dyb3VuZDp3aGl0
+ZSI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NvdXJpZXIgTmV3JnF1b3Q7O2NvbG9y
+OmJsYWNrIj50b21AZng4On4kIC4vdGVzdDwvc3Bhbj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6
+JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9yOmJsYWNrIj48
+bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
+IiBzdHlsZT0iYmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90
+O0NvdXJpZXIgTmV3JnF1b3Q7O2NvbG9yOmJsYWNrIj5hID09IDB4MWZkNDAxMDwvc3Bhbj48c3Bh
+biBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlm
+JnF1b3Q7O2NvbG9yOmJsYWNrIj48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+
+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0iYmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4gc3R5
+bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NvdXJpZXIgTmV3JnF1b3Q7O2NvbG9yOmJsYWNrIj4mYW1w
+O2EuYmFyWzBdID0gMHgxZmQ0MDE4PC9zcGFuPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVv
+dDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6YmxhY2siPjxvOnA+
+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0
+eWxlPSJiYWNrZ3JvdW5kOndoaXRlIj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q291
+cmllciBOZXcmcXVvdDs7Y29sb3I6YmxhY2siPiZhbXA7YS5iYXJbMV0gPSAweDFmZDQwMWM8L3Nw
+YW4+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fu
+cy1zZXJpZiZxdW90Oztjb2xvcjpibGFjayI+PG86cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+
+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9ImJhY2tncm91bmQ6d2hpdGUiPjxz
+cGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDb3VyaWVyIE5ldyZxdW90Oztjb2xvcjpibGFj
+ayI+JmFtcDthLmJhclsyXSA9IDB4MWZkNDAyMDwvc3Bhbj48c3BhbiBzdHlsZT0iZm9udC1mYW1p
+bHk6JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9yOmJsYWNr
+Ij48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9y
+bWFsIiBzdHlsZT0iYmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZx
+dW90O0NvdXJpZXIgTmV3JnF1b3Q7O2NvbG9yOmJsYWNrIj4mYW1wO2EuYmFyWzNdID0gMHgxZmQ0
+MDI0PC9zcGFuPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZx
+dW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6YmxhY2siPjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4N
+CjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJiYWNrZ3JvdW5kOndo
+aXRlIj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q291cmllciBOZXcmcXVvdDs7Y29s
+b3I6YmxhY2siPmIgPT0gMHgxZmQ0MDMwPC9zcGFuPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTom
+cXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6YmxhY2siPjxv
+OnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
+IHN0eWxlPSJiYWNrZ3JvdW5kOndoaXRlIj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7
+Q291cmllciBOZXcmcXVvdDs7Y29sb3I6YmxhY2siPiZhbXA7Yi5iYXJbMF0gPSAweDFmZDQwMzg8
+L3NwYW4+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7
+c2Fucy1zZXJpZiZxdW90Oztjb2xvcjpibGFjayI+PG86cD48L286cD48L3NwYW4+PC9wPg0KPC9k
+aXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9ImJhY2tncm91bmQ6d2hpdGUi
+PjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDb3VyaWVyIE5ldyZxdW90Oztjb2xvcjpi
+bGFjayI+JmFtcDtiLmJhclsxXSA9IDB4MWZkNDAzYzwvc3Bhbj48c3BhbiBzdHlsZT0iZm9udC1m
+YW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9yOmJs
+YWNrIj48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNv
+Tm9ybWFsIiBzdHlsZT0iYmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5
+OiZxdW90O0NvdXJpZXIgTmV3JnF1b3Q7O2NvbG9yOmJsYWNrIj4mYW1wO2IuYmFyWzJdID0gMHgx
+ZmQ0MDQwPC9zcGFuPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7
+LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6YmxhY2siPjxvOnA+PC9vOnA+PC9zcGFuPjwv
+cD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJiYWNrZ3JvdW5k
+OndoaXRlIj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q291cmllciBOZXcmcXVvdDs7
+Y29sb3I6YmxhY2siPiZhbXA7Yi5iYXJbM10gPSAweDFmZDQwNDQ8L3NwYW4+PHNwYW4gc3R5bGU9
+ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztj
+b2xvcjpibGFjayI+PG86cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xh
+c3M9Ik1zb05vcm1hbCIgc3R5bGU9ImJhY2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0eWxlPSJmb250
+LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6
+YmxhY2siPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPHAgY2xhc3M9Ik1z
+b05vcm1hbCIgc3R5bGU9ImJhY2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0eWxlPSJmb250LWZhbWls
+eTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6YmxhY2si
+PldoaWNoIGlzIGV4YWN0bHkgd2hhdCB5b3UnZCBleHBlY3QuICZuYnNwO0knbSBub3Qgc3Ryb25n
+bHkgYWR2b2NhdGluZyB3ZSBjaGFuZ2UgdGhlIFBQIGNvZGUganVzdCBub3RpbmcgaXQncyBub3Qg
+cmVhbGx5IGNsZWFyIHRoYXQgaXQncyBjb3JyZWN0IGZyb20gYSBmaXJzdA0KIHJlYWRpbmcgYW5k
+IGluIHRoZW9yeSB3b3VsZCBiZSBiZXR0ZXIgd2l0aCBbMF0uIDxvOnA+PC9vOnA+PC9zcGFuPjwv
+cD4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0iYmFja2dyb3VuZDp3aGl0ZSI+
+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1z
+ZXJpZiZxdW90Oztjb2xvcjpibGFjayI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPC9k
+aXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibWFyZ2luLWJvdHRvbToxMi4wcHQ7YmFj
+a2dyb3VuZDp3aGl0ZSI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVv
+dDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjpibGFjayI+VG9tPG86cD48L286cD48L3Nw
+YW4+PC9wPg0KPGRpdj4NCjxkaXYgY2xhc3M9Ik1zb05vcm1hbCIgYWxpZ249ImNlbnRlciIgc3R5
+bGU9InRleHQtYWxpZ246Y2VudGVyO2JhY2tncm91bmQ6d2hpdGUiPg0KPHNwYW4gc3R5bGU9ImZv
+bnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xv
+cjpibGFjayI+DQo8aHIgc2l6ZT0iMiIgd2lkdGg9Ijk4JSIgYWxpZ249ImNlbnRlciI+DQo8L3Nw
+YW4+PC9kaXY+DQo8ZGl2IGlkPSJkaXZScGx5RndkTXNnIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
+IHN0eWxlPSJiYWNrZ3JvdW5kOndoaXRlIj48Yj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBw
+dDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7
+Y29sb3I6YmxhY2siPkZyb206PC9zcGFuPjwvYj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBw
+dDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7
+Y29sb3I6YmxhY2siPiBBbGV4IERldWNoZXIgJmx0OzxhIGhyZWY9Im1haWx0bzphbGV4ZGV1Y2hl
+ckBnbWFpbC5jb20iPmFsZXhkZXVjaGVyQGdtYWlsLmNvbTwvYT4mZ3Q7PGJyPg0KPGI+U2VudDo8
+L2I+IFRodXJzZGF5LCBBdWd1c3QgMTgsIDIwMTYgMTE6MzM8YnI+DQo8Yj5Ubzo8L2I+IFN0RGVu
+aXMsIFRvbTxicj4NCjxiPkNjOjwvYj4gQ2hyaXN0aWFuIEvDtm5pZzsgYW1kLWdmeCBsaXN0PGJy
+Pg0KPGI+U3ViamVjdDo8L2I+IFJlOiB0aWR5J2luZyB1cCBjel9od21nci5jPC9zcGFuPjxzcGFu
+IHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYm
+cXVvdDs7Y29sb3I6YmxhY2siPg0KPG86cD48L286cD48L3NwYW4+PC9wPg0KPGRpdj4NCjxwIGNs
+YXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJiYWNrZ3JvdW5kOndoaXRlIj48c3BhbiBzdHlsZT0iZm9u
+dC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9y
+OmJsYWNrIj4mbmJzcDs8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPGRp
+dj4NCjxkaXY+DQo8ZGl2Pg0KPGRpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHls
+ZT0ibWFyZ2luLWJvdHRvbToxMi4wcHQ7YmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4gc3R5bGU9ImZv
+bnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xv
+cjpibGFjayI+VGhlIHByb2JsZW0gd2UgcmFuIGludG8gd2FzIHdoZW4gd2UgaGFkIGEgc3RydWN0
+IGxpa2UgdGhpczo8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxwIGNsYXNzPSJNc29O
+b3JtYWwiIHN0eWxlPSJiYWNrZ3JvdW5kOndoaXRlIj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6
+JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9yOmJsYWNrIj5z
+dHJ1Y3QgdGFibGUgezxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPHAgY2xhc3M9Ik1z
+b05vcm1hbCIgc3R5bGU9ImJhY2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0eWxlPSJmb250LWZhbWls
+eTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6YmxhY2si
+PiZuYnNwOyZuYnNwOyB1aW50MTZfdCBzaXplOzxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2
+Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9ImJhY2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0
+eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVv
+dDs7Y29sb3I6YmxhY2siPiZuYnNwOyZuYnNwOyBzdHJ1Y3QgZWxlbWVudCBlbGVtZW50c1swXTs8
+bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8ZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
+IHN0eWxlPSJiYWNrZ3JvdW5kOndoaXRlIj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7
+Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9yOmJsYWNrIj59OzxvOnA+
+PC9vOnA+PC9zcGFuPjwvcD4NCjxkaXY+DQo8ZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3Jt
+YWwiIHN0eWxlPSJiYWNrZ3JvdW5kOndoaXRlIj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6JnF1
+b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9yOmJsYWNrIj48bzpw
+PiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9y
+bWFsIiBzdHlsZT0ibWFyZ2luLWJvdHRvbToxMi4wcHQ7YmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4g
+c3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZx
+dW90Oztjb2xvcjpibGFjayI+YW5kIHRoZW4gd2Ugd291bGQgdHJ5IGFuZCBpbmRleCB0aGUgYXJy
+YXk6PG86cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05v
+cm1hbCIgc3R5bGU9ImJhY2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTom
+cXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6YmxhY2siPmZv
+ciAoaSA9IDA7IGkgJmx0OyB0YWJsZS0mZ3Q7c2l6ZTsgaSYjNDM7JiM0MzspIHs8bzpwPjwvbzpw
+Pjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0i
+YmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkm
+cXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjpibGFjayI+Jm5ic3A7IGVsZW1lbnQg
+PSAmYW1wO3RhYmxlLSZndDtlbGVtZW50c1tpXTs8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rp
+dj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibWFyZ2luLWJvdHRvbToxMi4w
+cHQ7YmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGli
+cmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjpibGFjayI+fTxvOnA+PC9vOnA+
+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJi
+YWNrZ3JvdW5kOndoaXRlIj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZx
+dW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9yOmJsYWNrIj5lbGVtZW50IGVuZGVkIHVw
+IG9mZiBpbiB0aGUgd2VlZHMuJm5ic3A7IFRoZSBvbmx5IHRoaW5nIHRoYXQgc2VlbXMgdG8gbWFr
+ZSBzb21lIHZlcnNpb25zIG9mIGdjYyBoYXBweSB3YXMgcG9pbnRlciBhcml0aG1ldGljLiZuYnNw
+OyBFLmcuLDxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJN
+c29Ob3JtYWwiIHN0eWxlPSJiYWNrZ3JvdW5kOndoaXRlIj48c3BhbiBzdHlsZT0iZm9udC1mYW1p
+bHk6JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9yOmJsYWNr
+Ij48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0i
+TXNvTm9ybWFsIiBzdHlsZT0ibWFyZ2luLWJvdHRvbToxMi4wcHQ7YmFja2dyb3VuZDp3aGl0ZSI+
+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1z
+ZXJpZiZxdW90Oztjb2xvcjpibGFjayI+ZWxlbWVudCA9IChzdHJ1Y3QgZWxlbWVudCAqKSgoY2hh
+ciAqKSZhbXA7dGFibGUtJmd0O2VsZW1lbnRzWzBdICYjNDM7IChzaXplb2Yoc3RydWN0IGVsZW1l
+bnQpICogaSkpOzxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNz
+PSJNc29Ob3JtYWwiIHN0eWxlPSJiYWNrZ3JvdW5kOndoaXRlIj48c3BhbiBzdHlsZT0iZm9udC1m
+YW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9yOmJs
+YWNrIj5BbGV4PG86cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9
+Ik1zb05vcm1hbCIgc3R5bGU9ImJhY2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0eWxlPSJmb250LWZh
+bWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6Ymxh
+Y2siPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9y
+bWFsIiBzdHlsZT0iYmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZx
+dW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjpibGFjayI+T24g
+VGh1LCBBdWcgMTgsIDIwMTYgYXQgMTE6MjEgQU0sIFN0RGVuaXMsIFRvbSAmbHQ7PGEgaHJlZj0i
+bWFpbHRvOlRvbS5TdERlbmlzQGFtZC5jb20iIHRhcmdldD0iX2JsYW5rIj5Ub20uU3REZW5pc0Bh
+bWQuY29tPC9hPiZndDsgd3JvdGU6PG86cD48L286cD48L3NwYW4+PC9wPg0KPGRpdj4NCjxkaXY+
+DQo8cCBzdHlsZT0iYmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZx
+dW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjpibGFjayI+QW55
+IG1vZGVybiBHQ0Mgc2hvdWxkIHN1cHBvcnQgWzBdIGF0IHRoZSB0YWlsIG9mIGEgc3RydWN0LiZu
+YnNwOyBUaGlzIGNhbWUgdXAgYmVjYXVzZSB3aGVuIEkgd2FzIHJlYWRpbmcgdGhlIGNvZGUgSSBz
+YXcgdGhleSBhbGxvY2F0ZWQgNyBzbG90cyAocGx1cyB0aGUgc2l6ZSBvZiB0aGUgc3RydWN0KQ0K
+IGJ1dCB0aGVuIGZpbGwgOCBzbG90cy4mbmJzcDsgSXQncyBqdXN0IHdlaXJkIDxpbWcgYm9yZGVy
+PSIwIiB3aWR0aD0iMTkiIGhlaWdodD0iMTkiIGlkPSJfeDAwMDBfaTEwMjYiIHNyYz0iY2lkOmlt
+YWdlMDAxLnBuZ0AwMUQxRjk0Ni40NjY4REY0MCIgYWx0PSImIzEyODUyMjsiPjxvOnA+PC9vOnA+
+PC9zcGFuPjwvcD4NCjxwIHN0eWxlPSJiYWNrZ3JvdW5kOndoaXRlIj48c3BhbiBzdHlsZT0iZm9u
+dC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9y
+OmJsYWNrIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8cCBzdHlsZT0iYmFja2dyb3Vu
+ZDp3aGl0ZSI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1
+b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjpibGFjayI+VXNpbmcgWzBdIGluIHRoZSBzdHJ1Y3Qg
+YW5kIGFsbG9jYXRpbmcgZm9yIDggZW50cmllcyBtYWtlcyBtb3JlIHNlbnNlIGFuZCBpcyBjbGVh
+cmVyIHRvIHJlYWQuPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgc3R5bGU9ImJhY2tncm91bmQ6
+d2hpdGUiPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90
+O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6YmxhY2siPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwv
+cD4NCjxwIHN0eWxlPSJiYWNrZ3JvdW5kOndoaXRlIj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6
+JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9yOmJsYWNrIj5U
+b208bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibWFy
+Z2luLWJvdHRvbToxMi4wcHQ7YmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4gc3R5bGU9ImZvbnQtZmFt
+aWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjpibGFj
+ayI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPGRpdj4NCjxkaXYgY2xhc3M9Ik1zb05v
+cm1hbCIgYWxpZ249ImNlbnRlciIgc3R5bGU9InRleHQtYWxpZ246Y2VudGVyO2JhY2tncm91bmQ6
+d2hpdGUiPg0KPHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1
+b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjpibGFjayI+DQo8aHIgc2l6ZT0iMiIgd2lkdGg9Ijk4
+JSIgYWxpZ249ImNlbnRlciI+DQo8L3NwYW4+PC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05v
+cm1hbCIgc3R5bGU9ImJhY2tncm91bmQ6d2hpdGUiPjxiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6
+MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZx
+dW90Oztjb2xvcjpibGFjayI+RnJvbTo8L3NwYW4+PC9iPjxzcGFuIHN0eWxlPSJmb250LXNpemU6
+MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZx
+dW90Oztjb2xvcjpibGFjayI+IENocmlzdGlhbiBLw7ZuaWcgJmx0OzxhIGhyZWY9Im1haWx0bzpk
+ZWF0aHNpbXBsZUB2b2RhZm9uZS5kZSIgdGFyZ2V0PSJfYmxhbmsiPmRlYXRoc2ltcGxlQHZvZGFm
+b25lLmRlPC9hPiZndDs8YnI+DQo8Yj5TZW50OjwvYj4gVGh1cnNkYXksIEF1Z3VzdCAxOCwgMjAx
+NiAxMToxNzxicj4NCjxiPlRvOjwvYj4gU3REZW5pcywgVG9tOyBhbWQtZ2Z4IGxpc3Q8YnI+DQo8
+Yj5TdWJqZWN0OjwvYj4gUmU6IHRpZHknaW5nIHVwIGN6X2h3bWdyLmM8L3NwYW4+PHNwYW4gc3R5
+bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90
+Oztjb2xvcjpibGFjayI+DQo8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8ZGl2Pg0KPHAgY2xhc3M9
+Ik1zb05vcm1hbCIgc3R5bGU9ImJhY2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0eWxlPSJmb250LWZh
+bWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6Ymxh
+Y2siPiZuYnNwOzxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPC9kaXY+DQo8ZGl2Pg0K
+PGRpdj4NCjxkaXY+DQo8ZGl2Pg0KPGJsb2NrcXVvdGUgc3R5bGU9Im1hcmdpbi10b3A6NS4wcHQ7
+bWFyZ2luLWJvdHRvbTo1LjBwdCI+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9
+ImJhY2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJp
+JnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6YmxhY2siPkhhcyBhIFsxXSBhcnJh
+eSBhdCB0aGUgdGFpbCB3aGljaCBpcyB0aGVuIGt6YWxsb2MnZWQgd2l0aCBOLTEgZW50cmllcy4m
+bmJzcDsgU2hvdWxkbid0IHRoYXQganVzdCBiZSBhIFswXSB3aXRoIE4gZW50cmllcyBhbGxvY2F0
+ZWQgZm9yIGNsYXJpdHk/PG86cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8L2Jsb2NrcXVv
+dGU+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0iYmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4g
+c3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZx
+dW90Oztjb2xvcjpibGFjayI+QWN0dWFsbHkgdGhlIHN0YXJ0aW5nIGFkZHJlc3Mgb2YgYSBkeW5h
+bWljIGFycmF5IHNob3VsZCBiZSBtYW51YWxseSBjYWxjdWxhdGVkIGluc3RlYWQgb2YgdXNpbmcg
+WzFdIG9yIFswXS48YnI+DQo8YnI+DQpXZSBoYWQgdG9ucyBvZiBwcm9ibGVtcyB3aXRoIHRoYXQg
+YmVjYXVzZSBzb21lIGdjYyB2ZXJzaW9ucyBnZXQgdGhpcyB3cm9uZyBhbmQgdGhlIGF0b21iaW9z
+IGNvZGUgdXNlZCB0aGlzIGFzIHdlbGwuPGJyPg0KPGJyPg0KQWxleCBob3cgZGlkIHdlIHJlc29s
+dmVkIHN1Y2ggaXNzdWVzPzxicj4NCjxicj4NClJlZ2FyZHMsPGJyPg0KQ2hyaXN0aWFuLjxicj4N
+Cjxicj4NCkFtIDE4LjA4LjIwMTYgdW0gMTY6MjYgc2NocmllYiBTdERlbmlzLCBUb206PG86cD48
+L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8YmxvY2txdW90ZSBzdHlsZT0ibWFyZ2luLXRvcDo1
+LjBwdDttYXJnaW4tYm90dG9tOjUuMHB0Ij4NCjxkaXY+DQo8cCBzdHlsZT0iYmFja2dyb3VuZDp3
+aGl0ZSI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7
+c2Fucy1zZXJpZiZxdW90Oztjb2xvcjpibGFjayI+VGlkeWluZyB1cCBjel9od21nci5jIEkgbm90
+ZWQgYSBjb3VwbGUgb2YgdGhpbmdzIGJ1dCBmaXJzdCBpcyZuYnNwOzxvOnA+PC9vOnA+PC9zcGFu
+PjwvcD4NCjxwIHN0eWxlPSJiYWNrZ3JvdW5kOndoaXRlIj48c3BhbiBzdHlsZT0iZm9udC1mYW1p
+bHk6JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9yOmJsYWNr
+Ij48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1h
+bCIgc3R5bGU9ImJhY2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVv
+dDtDb3VyaWVyIE5ldyZxdW90Oztjb2xvcjpibGFjayI+c3RhdGljIGJvb2wgY3pfZHBtX2NoZWNr
+X3NtdV9mZWF0dXJlcyhzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLDwvc3Bhbj48c3BhbiBzdHlsZT0i
+Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2Nv
+bG9yOmJsYWNrIj48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFz
+cz0iTXNvTm9ybWFsIiBzdHlsZT0iYmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4gc3R5bGU9ImZvbnQt
+ZmFtaWx5OiZxdW90O0NvdXJpZXIgTmV3JnF1b3Q7O2NvbG9yOmJsYWNrIj51bnNpZ25lZCBsb25n
+IGNoZWNrX2ZlYXR1cmUpOzwvc3Bhbj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q2Fs
+aWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9yOmJsYWNrIj48bzpwPjwvbzpw
+Pjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0i
+YmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkm
+cXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjpibGFjayI+PG86cD4mbmJzcDs8L286
+cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9
+ImJhY2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJp
+JnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6YmxhY2siPldoaWNoIHdpbGwgcmV0
+dXJuICZxdW90O3RydWUmcXVvdDsgaWYgdGhlIHNtdSBjYWxsIGZhaWxzDQo8Yj5vcjwvYj4mbmJz
+cDt0aGUgZmVhdHVyZSBpcyBzZXQuICZuYnNwOzxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2
+Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJiYWNrZ3JvdW5kOndoaXRlIj48
+c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNl
+cmlmJnF1b3Q7O2NvbG9yOmJsYWNrIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rp
+dj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0iYmFja2dyb3VuZDp3aGl0ZSI+
+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1z
+ZXJpZiZxdW90Oztjb2xvcjpibGFjayI+VGhlIHN0cnVjdHVyZSZuYnNwOzxvOnA+PC9vOnA+PC9z
+cGFuPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJiYWNr
+Z3JvdW5kOndoaXRlIj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90
+OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9yOmJsYWNrIj48bzpwPiZuYnNwOzwvbzpwPjwv
+c3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5
+bGU9ImJhY2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDb3Vy
+aWVyIE5ldyZxdW90Oztjb2xvcjpibGFjayI+c3RydWN0IHBobV9jbG9ja192b2x0YWdlX2RlcGVu
+ZGVuY3lfdGFibGU7PC9zcGFuPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJp
+JnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6YmxhY2siPjxvOnA+PC9vOnA+PC9z
+cGFuPjwvcD4NCjwvZGl2Pg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5
+bGU9ImJhY2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtDYWxp
+YnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6YmxhY2siPjxvOnA+Jm5ic3A7
+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0
+eWxlPSJiYWNrZ3JvdW5kOndoaXRlIj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q2Fs
+aWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9yOmJsYWNrIj5IYXMgYSBbMV0g
+YXJyYXkgYXQgdGhlIHRhaWwgd2hpY2ggaXMgdGhlbiBremFsbG9jJ2VkIHdpdGggTi0xIGVudHJp
+ZXMuJm5ic3A7IFNob3VsZG4ndCB0aGF0IGp1c3QgYmUgYSBbMF0gd2l0aCBOIGVudHJpZXMgYWxs
+b2NhdGVkIGZvciBjbGFyaXR5PzxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPGRpdj4N
+CjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJiYWNrZ3JvdW5kOndoaXRlIj48c3BhbiBzdHls
+ZT0iZm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7
+O2NvbG9yOmJsYWNrIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+
+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0iYmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4gc3R5
+bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90
+Oztjb2xvcjpibGFjayI+VG9tPG86cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0K
+PHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9ImJhY2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0eWxl
+PSJmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7
+Y29sb3I6YmxhY2siPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPC9kaXY+
+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0iYmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4gc3R5
+bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90
+Oztjb2xvcjpibGFjayI+PGJyPg0KPGJyPg0KPG86cD48L286cD48L3NwYW4+PC9wPg0KPHByZSBz
+dHlsZT0iYmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4gc3R5bGU9ImNvbG9yOmJsYWNrIj5fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXzxvOnA+PC9vOnA+PC9zcGFu
+PjwvcHJlPg0KPHByZSBzdHlsZT0iYmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4gc3R5bGU9ImNvbG9y
+OmJsYWNrIj5hbWQtZ2Z4IG1haWxpbmcgbGlzdDxvOnA+PC9vOnA+PC9zcGFuPjwvcHJlPg0KPHBy
+ZSBzdHlsZT0iYmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4gc3R5bGU9ImNvbG9yOmJsYWNrIj48YSBo
+cmVmPSJtYWlsdG86YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmciIHRhcmdldD0iX2JsYW5r
+Ij5hbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzwvYT48bzpwPjwvbzpwPjwvc3Bhbj48L3By
+ZT4NCjxwcmUgc3R5bGU9ImJhY2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0eWxlPSJjb2xvcjpibGFj
+ayI+PGEgaHJlZj0iaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4IiB0YXJnZXQ9Il9ibGFuayI+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4PC9hPjxvOnA+PC9vOnA+PC9zcGFuPjwvcHJlPg0KPC9i
+bG9ja3F1b3RlPg0KPHAgc3R5bGU9ImJhY2tncm91bmQ6d2hpdGUiPjxzcGFuIHN0eWxlPSJmb250
+LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6
+YmxhY2siPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Rp
+dj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJt
+YXJnaW4tYm90dG9tOjEyLjBwdDtiYWNrZ3JvdW5kOndoaXRlIj48c3BhbiBzdHlsZT0iZm9udC1m
+YW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9yOmJs
+YWNrIj48YnI+DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+Xzxicj4NCmFtZC1nZnggbWFpbGluZyBsaXN0PGJyPg0KPGEgaHJlZj0ibWFpbHRvOmFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnIj5hbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzwvYT48
+YnI+DQo8YSBocmVmPSJodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
+bmZvL2FtZC1nZngiIHRhcmdldD0iX2JsYW5rIj5odHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng8L2E+PG86cD48L286cD48L3NwYW4+PC9wPg0KPC9k
+aXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0iYmFja2dyb3VuZDp3aGl0ZSI+PHNwYW4g
+c3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZx
+dW90Oztjb2xvcjpibGFjayI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8
+L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjwv
+ZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjwvYm9keT4NCjwvaHRtbD4NCg==
+
+--_000_MWHPR12MB16947C2728D40DEC0BB41502F7150MWHPR12MB1694namp_--
+
+--_004_MWHPR12MB16947C2728D40DEC0BB41502F7150MWHPR12MB1694namp_
+Content-Type: image/png; name="image001.png"
+Content-Description: image001.png
+Content-Disposition: inline; filename="image001.png"; size=488;
+	creation-date="Thu, 18 Aug 2016 15:47:19 GMT";
+	modification-date="Thu, 18 Aug 2016 15:47:19 GMT"
+Content-ID: <image001.png-rmPbdVpRTGN6w3nXzrXNAjRmByFHzeGd@public.gmane.org>
+Content-Transfer-Encoding: base64
+
+iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
+bWFnZVJlYWR5ccllPAAAAYpJREFUeNpi/P//PwO1ACM2wf9njBWAVD4QBwCxApLUAyDeAMQTGU3O
+PkDRA3QUIxaD+oFUAREOaQQa2IDTMKBB84FUAgk+WwA0MBFmGBOaixJIDKYEoD6465igBjkge+3C
+rW94TUCTr4eGMdxl8TCZxMYHDIZR1xk2HPiA1SCQOEgepA4J5CMbFgAPhM1vwfTFW9+xGgYTh6lD
+1s8IdKIAkH4PEz1w9jOYVpBiZ1CQZMMw7MHzXwwPnv0Esx2MeRESxmcYWYCUAbJiFAVYAMgCbJbA
+vPmAWjmACZqS4aHdOOs5wdgEBcWE5a8Y0HIGPAIOwETtjXkYJqIqxAAgeQM1ThTzkQ2biB5mC7a8
+xZ7kgeICvMzoYTsRJaMDY3U9chIBpaMHz34xxPsKgwMcFIsLgckB5KL+YllkgyYAg6oQJW9Ck8h+
+5NgFhd3GAx/humAGI2cGIHYEGvYBW0YHGTgf2YX4MjkQF4IMwlkEIeXVfByGwsqzAwTLMywGg7wN
+cvED9AIR3TCAAAMAqh+p+YMVeBQAAAAASUVORK5CYII=
+
+--_004_MWHPR12MB16947C2728D40DEC0BB41502F7150MWHPR12MB1694namp_--
+
+--===============0103278905==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -646,4 +685,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1216612852==--
+--===============0103278905==--
