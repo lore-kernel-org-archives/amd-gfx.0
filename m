@@ -1,18 +1,15 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: Random short freezes due to TTM buffer migrations
-Date: Thu, 18 Aug 2016 10:52:18 +0200
-Message-ID: <a436b98b-437d-95d4-b25d-6c2fb1a013cf@vodafone.de>
-References: <CAAxE2A4uM2UqKk8NpZ5fi9oAgPKzGiwyuZ1Kp22ok+pz1BghLA@mail.gmail.com>
- <ea56e120-48bc-2dee-0868-2e79b5c30b09@vodafone.de>
- <8e40d3b9-0df9-81b2-dad2-ae7a8e757f06@amd.com>
- <f983530a-8a92-c748-cab1-d498f54f05ab@vodafone.de>
- <d5f70a4f-0f3a-effe-d539-da3c2481c55d@amd.com>
- <78533e4b-44c5-c2f1-2e68-7c2ae5f427ac@vodafone.de>
- <CAAxE2A4P7WHQ-1_rh7Gh4X+Go-7eXWEHd=XcQCkMszwN=ea+sQ@mail.gmail.com>
+Subject: Re: [PATCH 00/10] GART table recovery
+Date: Thu, 18 Aug 2016 11:03:06 +0200
+Message-ID: <09a51be0-3f54-8250-fd63-4ca9ae11094f@vodafone.de>
+References: <1470124840-26170-1-git-send-email-David1.Zhou@amd.com>
+ <54bb3255-2dda-f6ad-3682-8e4396ec932a@vodafone.de> <57A2B810.6050209@amd.com>
+ <077bb11d-957d-c6f2-2f87-248fbc19304a@vodafone.de> <57B576BB.4030400@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0768732583=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAAxE2A4P7WHQ-1_rh7Gh4X+Go-7eXWEHd=XcQCkMszwN=ea+sQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <57B576BB.4030400-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,519 +20,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This is a multi-part message in MIME format.
---===============0768732583==
-Content-Type: multipart/alternative;
- boundary="------------11CCA4F036FECD115D947F60"
-
-This is a multi-part message in MIME format.
---------------11CCA4F036FECD115D947F60
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-In that case my patch should clearly help with that.
-
-Going to release what I have so far today, but looks like I need more 
-time actually fixing this.
-
-In the meantime you could try the "drm/amdgpu: fix lru size grouping" 
-patch as well. It fixes a bug related to this and could help as well.
-
-Regards,
-Christian.
-
-Am 18.08.2016 um 01:39 schrieb Marek Olšák:
-> Actually, I was wrong.
->
-> The buffers in that app are pretty small. The largest one has 86 MB 
-> and others have 52 MB. I must have misread that as 520 MB.
->
-> At one point, ttm_bo_validate with a 32 MB buffer moved 971 MB.
->
-> Maybe it's just a VRAM fragmentation issue (i.e. a lack of contiguous 
-> free memory).
->
-> Marek
->
-> On Wed, Aug 17, 2016 at 9:19 PM, Christian König 
-> <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org <mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>> wrote:
->
->     Sharing buffers between applications is handled by the DRM layer
->     and transparent to the driver.
->
->     E.g. the driver is not even informed if a sharing is done by
->     DMA-buf or GEM flink, it's just another reference to the BO.
->
->     So there isn't any change to that at all.
->
->     Regards,
->     Christian.
->
->
->     Am 17.08.2016 um 21:03 schrieb Felix Kuehling:
->
->         I think the scatter-gather tables only support system memory. As I
->         understand it, a buffer in VRAM has be migrated to system
->         memory before
->         it can be shared with another driver.
->
->         I'm more concerned about sharing with the same driver. There is a
->         special code path for that, where we simply add another
->         reference to the
->         same BO, instead of looking at a scatter gather table. We use
->         that for
->         OpenGL-OpenCL interop, and also planning to use it for IPC buffer
->         sharing in HSA. As long as a split VRAM buffer is still a single
->         amdgpu_bo, and becomes a single dmabuf when exporting it, I
->         think that
->         should work.
->
->         Regards,
->            Felix
->
->
->         On 16-08-17 02:58 AM, Christian König wrote:
->
->                 One question: Will it be possible to share these split
->                 BOs as dmabufs?
->
->             In theory yes, in practice I'm not sure.
->
->             DMA-bufs are designed around scatter gather tables, those
->             fortunately
->             support buffers split over the whole address space.
->
->             The problem is the importing device needs to be able to
->             handle that as
->             well.
->
->             Regards,
->             Christian.
->
->             Am 16.08.2016 um 20:33 schrieb Felix Kuehling:
->
->                 Very nice. I'm looking forward to this for KFD as well.
->
->                 One question: Will it be possible to share these split
->                 BOs as dmabufs?
->
->                 Regards,
->                     Felix
->
->
->                 On 16-08-16 11:27 AM, Christian König wrote:
->
->                     Hi Marek,
->
->                     I'm already working on this.
->
->                     My current approach is to use a custom BO manager
->                     for VRAM with TTM
->                     and so split allocations into chunks of 4MB.
->
->                     Large BOs are still swapped out as one, but it
->                     makes it much more
->                     likely to that you can allocate 1/2 of VRAM as one
->                     buffer.
->
->                     Give me till the end of the week to finish this
->                     and then we can test
->                     if that's sufficient or if we need to do more.
->
->                     Regards,
->                     Christian.
->
->                     Am 16.08.2016 um 16:33 schrieb Marek Olšák:
->
->                         Hi,
->
->                         I'm seeing random temporary freezes (up to 2
->                         seconds) under memory
->                         pressure. Before I describe the exact
->                         circumstances, I'd like to say
->                         that this is a serious issue affecting
->                         playability of certain AAA
->                         Linux games.
->
->                         In order to reproduce this, an application should:
->                         - allocate a few very large buffers (256-512
->                         MB per buffer)
->                         - allocate more memory than there is available
->                         VRAM. The issue also
->                         occurs (but at a lower frequency) if the app
->                         needs only 80% of VRAM.
->
->                         Example: ttm_bo_validate needs to migrate a
->                         512 MB buffer. The total
->                         size of moved memory for that call can be as
->                         high as 1.5 GB. This is
->                         always followed by a big temporary drop in
->                         VRAM usage.
->
->                         The game I'm testing needs 3.4 GB of VRAM.
->
->                         Setups:
->                         Tonga - 2 GB: It's nearly unplayable, because
->                         freezes occur too often.
->                         Fiji - 4 GB: There is one freeze at the
->                         beginning (which is annoying
->                         too), after that it's smooth.
->
->                         So even 4 GB is not enough.
->
->                         Workarounds:
->                         - Split buffers into smaller pieces in the
->                         kernel. It's not necessary
->                         to manage memory at page granularity (64KB).
->                         Splitting buffers into
->                         16MB-large pieces might not be optimal but it
->                         would be a significant
->                         improvement.
->                         - Or do the same in Mesa. This would prevent
->                         inter-process and
->                         inter-API buffer sharing for split buffers
->                         (DRI, OpenCL), but we would
->                         at least verify how much the situation improves.
->
->                         Other issues sharing the same cause:
->                         - Allocations requesting 1/3 or more VRAM have
->                         a high chance of
->                         failing. It's generally not possible to
->                         allocate 1/2 or more VRAM as
->                         one buffer.
->
->                         Comments welcome,
->
->                         Marek
->                         _______________________________________________
->                         amd-gfx mailing list
->                         amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->                         <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->                         https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->                         <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>
->
->                     _______________________________________________
->                     amd-gfx mailing list
->                     amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->                     <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->                     https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->                     <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>
->
->
->         _______________________________________________
->         amd-gfx mailing list
->         amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->         <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->         https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->         <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>
->
->
->
->
-
-
---------------11CCA4F036FECD115D947F60
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">In that case my patch should clearly
-      help with that.<br>
-      <br>
-      Going to release what I have so far today, but looks like I need
-      more time actually fixing this.<br>
-      <br>
-      In the meantime you could try the "drm/amdgpu: fix lru size
-      grouping" patch as well. It fixes a bug related to this and could
-      help as well.<br>
-      <br>
-      Regards,<br>
-      Christian.<br>
-      <br>
-      Am 18.08.2016 um 01:39 schrieb Marek Olšák:<br>
-    </div>
-    <blockquote
-cite="mid:CAAxE2A4P7WHQ-1_rh7Gh4X+Go-7eXWEHd=XcQCkMszwN=ea+sQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org"
-      type="cite">
-      <div dir="ltr">
-        <div>
-          <div>Actually, I was wrong.<br>
-            <br>
-          </div>
-          The buffers in that app are pretty small. The largest one has
-          86 MB and others have 52 MB. I must have misread that as 520
-          MB.<br>
-          <br>
-        </div>
-        <div>At one point, ttm_bo_validate with a 32 MB buffer moved 971
-          MB.<br>
-          <br>
-        </div>
-        <div>Maybe it's just a VRAM fragmentation issue (i.e. a lack of
-          contiguous free memory).</div>
-        <div><br>
-        </div>
-        Marek<br>
-        <div>
-          <div>
-            <div>
-              <div class="gmail_extra"><br>
-                <div class="gmail_quote">On Wed, Aug 17, 2016 at 9:19
-                  PM, Christian König <span dir="ltr">&lt;<a
-                      moz-do-not-send="true"
-                      href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org"
-                      target="_blank">deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org</a>&gt;</span>
-                  wrote:<br>
-                  <blockquote class="gmail_quote" style="margin:0px 0px
-                    0px 0.8ex;border-left:1px solid
-                    rgb(204,204,204);padding-left:1ex">Sharing buffers
-                    between applications is handled by the DRM layer and
-                    transparent to the driver.<br>
-                    <br>
-                    E.g. the driver is not even informed if a sharing is
-                    done by DMA-buf or GEM flink, it's just another
-                    reference to the BO.<br>
-                    <br>
-                    So there isn't any change to that at all.<br>
-                    <br>
-                    Regards,<br>
-                    Christian.
-                    <div class="">
-                      <div class="h5"><br>
-                        <br>
-                        Am 17.08.2016 um 21:03 schrieb Felix Kuehling:<br>
-                        <blockquote class="gmail_quote"
-                          style="margin:0px 0px 0px
-                          0.8ex;border-left:1px solid
-                          rgb(204,204,204);padding-left:1ex">
-                          I think the scatter-gather tables only support
-                          system memory. As I<br>
-                          understand it, a buffer in VRAM has be
-                          migrated to system memory before<br>
-                          it can be shared with another driver.<br>
-                          <br>
-                          I'm more concerned about sharing with the same
-                          driver. There is a<br>
-                          special code path for that, where we simply
-                          add another reference to the<br>
-                          same BO, instead of looking at a scatter
-                          gather table. We use that for<br>
-                          OpenGL-OpenCL interop, and also planning to
-                          use it for IPC buffer<br>
-                          sharing in HSA. As long as a split VRAM buffer
-                          is still a single<br>
-                          amdgpu_bo, and becomes a single dmabuf when
-                          exporting it, I think that<br>
-                          should work.<br>
-                          <br>
-                          Regards,<br>
-                             Felix<br>
-                          <br>
-                          <br>
-                          On 16-08-17 02:58 AM, Christian König wrote:<br>
-                          <blockquote class="gmail_quote"
-                            style="margin:0px 0px 0px
-                            0.8ex;border-left:1px solid
-                            rgb(204,204,204);padding-left:1ex">
-                            <blockquote class="gmail_quote"
-                              style="margin:0px 0px 0px
-                              0.8ex;border-left:1px solid
-                              rgb(204,204,204);padding-left:1ex">
-                              One question: Will it be possible to share
-                              these split BOs as dmabufs?<br>
-                            </blockquote>
-                            In theory yes, in practice I'm not sure.<br>
-                            <br>
-                            DMA-bufs are designed around scatter gather
-                            tables, those fortunately<br>
-                            support buffers split over the whole address
-                            space.<br>
-                            <br>
-                            The problem is the importing device needs to
-                            be able to handle that as<br>
-                            well.<br>
-                            <br>
-                            Regards,<br>
-                            Christian.<br>
-                            <br>
-                            Am 16.08.2016 um 20:33 schrieb Felix
-                            Kuehling:<br>
-                            <blockquote class="gmail_quote"
-                              style="margin:0px 0px 0px
-                              0.8ex;border-left:1px solid
-                              rgb(204,204,204);padding-left:1ex">
-                              Very nice. I'm looking forward to this for
-                              KFD as well.<br>
-                              <br>
-                              One question: Will it be possible to share
-                              these split BOs as dmabufs?<br>
-                              <br>
-                              Regards,<br>
-                                  Felix<br>
-                              <br>
-                              <br>
-                              On 16-08-16 11:27 AM, Christian König
-                              wrote:<br>
-                              <blockquote class="gmail_quote"
-                                style="margin:0px 0px 0px
-                                0.8ex;border-left:1px solid
-                                rgb(204,204,204);padding-left:1ex">
-                                Hi Marek,<br>
-                                <br>
-                                I'm already working on this.<br>
-                                <br>
-                                My current approach is to use a custom
-                                BO manager for VRAM with TTM<br>
-                                and so split allocations into chunks of
-                                4MB.<br>
-                                <br>
-                                Large BOs are still swapped out as one,
-                                but it makes it much more<br>
-                                likely to that you can allocate 1/2 of
-                                VRAM as one buffer.<br>
-                                <br>
-                                Give me till the end of the week to
-                                finish this and then we can test<br>
-                                if that's sufficient or if we need to do
-                                more.<br>
-                                <br>
-                                Regards,<br>
-                                Christian.<br>
-                                <br>
-                                Am 16.08.2016 um 16:33 schrieb Marek
-                                Olšák:<br>
-                                <blockquote class="gmail_quote"
-                                  style="margin:0px 0px 0px
-                                  0.8ex;border-left:1px solid
-                                  rgb(204,204,204);padding-left:1ex">
-                                  Hi,<br>
-                                  <br>
-                                  I'm seeing random temporary freezes
-                                  (up to 2 seconds) under memory<br>
-                                  pressure. Before I describe the exact
-                                  circumstances, I'd like to say<br>
-                                  that this is a serious issue affecting
-                                  playability of certain AAA<br>
-                                  Linux games.<br>
-                                  <br>
-                                  In order to reproduce this, an
-                                  application should:<br>
-                                  - allocate a few very large buffers
-                                  (256-512 MB per buffer)<br>
-                                  - allocate more memory than there is
-                                  available VRAM. The issue also<br>
-                                  occurs (but at a lower frequency) if
-                                  the app needs only 80% of VRAM.<br>
-                                  <br>
-                                  Example: ttm_bo_validate needs to
-                                  migrate a 512 MB buffer. The total<br>
-                                  size of moved memory for that call can
-                                  be as high as 1.5 GB. This is<br>
-                                  always followed by a big temporary
-                                  drop in VRAM usage.<br>
-                                  <br>
-                                  The game I'm testing needs 3.4 GB of
-                                  VRAM.<br>
-                                  <br>
-                                  Setups:<br>
-                                  Tonga - 2 GB: It's nearly unplayable,
-                                  because freezes occur too often.<br>
-                                  Fiji - 4 GB: There is one freeze at
-                                  the beginning (which is annoying<br>
-                                  too), after that it's smooth.<br>
-                                  <br>
-                                  So even 4 GB is not enough.<br>
-                                  <br>
-                                  Workarounds:<br>
-                                  - Split buffers into smaller pieces in
-                                  the kernel. It's not necessary<br>
-                                  to manage memory at page granularity
-                                  (64KB). Splitting buffers into<br>
-                                  16MB-large pieces might not be optimal
-                                  but it would be a significant<br>
-                                  improvement.<br>
-                                  - Or do the same in Mesa. This would
-                                  prevent inter-process and<br>
-                                  inter-API buffer sharing for split
-                                  buffers (DRI, OpenCL), but we would<br>
-                                  at least verify how much the situation
-                                  improves.<br>
-                                  <br>
-                                  Other issues sharing the same cause:<br>
-                                  - Allocations requesting 1/3 or more
-                                  VRAM have a high chance of<br>
-                                  failing. It's generally not possible
-                                  to allocate 1/2 or more VRAM as<br>
-                                  one buffer.<br>
-                                  <br>
-                                  Comments welcome,<br>
-                                  <br>
-                                  Marek<br>
-                                  ______________________________<wbr>_________________<br>
-                                  amd-gfx mailing list<br>
-                                  <a moz-do-not-send="true"
-                                    href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                                    target="_blank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                                  <a moz-do-not-send="true"
-                                    href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-                                    rel="noreferrer" target="_blank">https://lists.freedesktop.org/<wbr>mailman/listinfo/amd-gfx</a><br>
-                                </blockquote>
-                                ______________________________<wbr>_________________<br>
-                                amd-gfx mailing list<br>
-                                <a moz-do-not-send="true"
-                                  href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                                  target="_blank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                                <a moz-do-not-send="true"
-                                  href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-                                  rel="noreferrer" target="_blank">https://lists.freedesktop.org/<wbr>mailman/listinfo/amd-gfx</a><br>
-                              </blockquote>
-                            </blockquote>
-                            <br>
-                          </blockquote>
-                          ______________________________<wbr>_________________<br>
-                          amd-gfx mailing list<br>
-                          <a moz-do-not-send="true"
-                            href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                            target="_blank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                          <a moz-do-not-send="true"
-                            href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-                            rel="noreferrer" target="_blank">https://lists.freedesktop.org/<wbr>mailman/listinfo/amd-gfx</a><br>
-                        </blockquote>
-                        <br>
-                        <br>
-                      </div>
-                    </div>
-                  </blockquote>
-                </div>
-                <br>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </blockquote>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------11CCA4F036FECD115D947F60--
-
---===============0768732583==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0768732583==--
+QW0gMTguMDguMjAxNiB1bSAxMDo1MCBzY2hyaWViIHpob3VjbTE6Cj4KPgo+IE9uIDIwMTblubQw
+OOaciDA05pelIDE3OjU4LCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiBBbSAwNC4wOC4yMDE2
+IHVtIDA1OjM1IHNjaHJpZWIgemhvdWNtMToKPj4+Cj4+Pgo+Pj4gT24gMjAxNuW5tDA45pyIMDPm
+l6UgMjI6MDEsIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+Pj4gV2VsbCBwYXRjaCAjMTAgaXMg
+aW5jb3JyZWN0LiBUaGUgU0EgQk8gd2lsbCBiZSBzZXQgdG8gTlVMTCBieSAKPj4+PiBhbWRncHVf
+c2FfYm9fZnJlZSgpLCBzbyBpdCBjYW4ndCBiZSBmcmVlZCB0d2ljZSBhbmQgc28geW91IGNhbid0
+IAo+Pj4+IHJlZmVyZW5jZSB0aGUgZmVuY2UgdHdpY2UuCj4+PiBJIHNlZS4KPj4+IEJ1dCBhbWRn
+cHVfam9iX2ZyZWVfcmVzb3VyY2VzIHN0aWxsIHNob3VsZG4ndCBiZSBjYWxsZWQgdHdpY2UsIAo+
+Pj4gcmlnaHQ/IFRoYXQncyBhbiBvYnZpb3VzIGR1cGxpY2F0aW9uIGFsdGhvdWdoIGl0IHNlZW1z
+IG5vIGVmZmVjdCAKPj4+IG5vdy4gSXMgdGhlcmUgYW55IG90aGVyIHJlYXNvbj8KPj4KPj4gSXQn
+cyBhY3R1YWxseSBjYWxsZWQgZnJvbSBhIGNvdXBsZSBvZiBkaWZmZXJlbnQgbG9jYXRpb25zOgo+
+PiAxLiBGcm9tIHRoZSBDUyBwYXRoIGluIGFtZGdwdV9jcy5jIGFzIHNvb24gYXMgd2UgaGF2ZSBh
+IHNjaGVkdWxlciBmZW5jZS4KPj4gMi4gRnJvbSB0aGUgYW1kZ3B1X2pvYl9zdWJtaXQoKSBwYXRo
+IGFzIHNvb24gYXMgd2UgaGF2ZSBhIHNjaGVkdWxlciAKPj4gZmVuY2UuCj4+IDMuIEZyb20gYW1k
+Z3B1X2pvYl9ydW4oKSBhZnRlciBzdWJtaXR0aW5nIHRoZSBqb2IgdG8gdGhlIGhhcmR3YXJlIHJp
+bmcuCj4+IDQuIEZyb20gYW1kZ3B1X2pvYl9mcmVlKCksIHRoaXMgaXMgZm9yIGRpcmVjdCBzdWJt
+aXNzaW9ucyBvciBmb3IgCj4+IGZyZWVpbmcgdGhlIGpvYiB3aGVuIHNvbWV0aGluZyB3ZW50IHdy
+b25nLgo+Pgo+PiBUaGlua2luZyBhYm91dCBpdCB5b3UgY291bGQgYmUgcmlnaHQgYW5kIHdlIGNv
+dWxkIHByb2JhYmx5IGRyb3AgdGhlIAo+PiBvbmUgaW4gYW1kZ3B1X2pvYl9ydW4oKSwgYmVjYXVz
+ZSBhbWRncHVfam9iX3N1Ym1pdCgpIHNob3VsZCBoYXZlIAo+PiBhbHJlYWR5IHRha2VuIGNhcmUg
+b2YgdGhhdC4gQnV0IEknbSBub3QgMTAwJSBzdXJlIG9mIHRoYXQuCj4+Cj4+Pgo+Pj4+Cj4+Pj4g
+QWRkaXRpb25hbCB0byB0aGF0IHRoZSB3aG9sZSBhcHByb2FjaCBoZXJlIG9mIHJlc3RvcmluZyB0
+aGUgR0FSVCAKPj4+PiBmcm9tIHRoZSBiYWNrdXAgdXNpbmcgdGhlIFNETUEgd29uJ3Qgd29yayBl
+aXRoZXIuIEZvciB0aGUgU0RNQSB0byAKPj4+PiB3b3JrIHlvdSBuZWVkIHRoZSBHQVJUIHRvIGFj
+Y2VzcyB0aGUgcmluZyBidWZmZXIuCj4+Pj4KPj4+PiBTbyB5b3UgcnVuIGludG8gYSBjaGlja2Vu
+IGFuZCBlZ2cgcHJvYmxlbSBoZXJlLCBmb3IgdGhlIHJpbmcgYnVmZmVyIAo+Pj4+IHRvIHdvcmsg
+eW91IG5lZWQgdGhlIEdBUlQgYW5kIGZvciB0aGUgR0FSVCBiYWNrdXAgdG8gd29yayB5b3UgbmVl
+ZCAKPj4+PiB0aGUgcmluZyBidWZmZXIuCj4+PiBHb29kIGNhdGNoLCByaW5nIGJ1ZmZlciBpcyBh
+IEdUVCBidWZmZXIgYXMgd2VsbC4KPj4+Cj4+PiBUaGVuIENhbiB3ZSB1c2UgbWVtY3B5IHRvIGNv
+cHkgR1RUIHRvIFZSQU0/IEZvcnR1bmF0ZWx5LCB0aGUgR0FSVCBibyAKPj4+IGlzIG9ubHkgb25l
+IGJvLgo+Pgo+PiBZZWFoIHRoYXQgaXMgd2hhdCB3ZSBkaWQgd2l0aCByYWRlb24gYXMgd2VsbC4g
+VW5mb3J0dW5hdGVseSB0aGUgCj4+IGRvdWJsZSBob3VzZWtlZXBpbmcgY29zdHMgcXVpdGUgYSBi
+dW5jaCBvZiBtZW1vcnkuCj4+Cj4+IEFuZCBhY3R1YWxseSB3ZSBoYXZlIHRoZSBleGFjdGx5IHNh
+bWUgaW5mb3JtYXRpb24gaW4gdGhlIFRUTSBNTSBhcyAKPj4gd2VsbCwgd2Ugd291bGQganVzdCBu
+ZWVkIHRvIGJpbmQgYWxsIEJPcyBhZ2Fpbi4KPj4KPj4gR2l2ZSBtZSBhIGRheSBvciB0d28gdG8g
+ZG91YmxlIGNoZWNrIHRoYXQuIE1pZ2h0IGJlIHRoYXQgdGhlIHNvbHV0aW9uIAo+PiBpcyByYXRo
+ZXIgc2ltcGxlLgo+IEhvdyBhYm91dCB0aGlzPyBEbyB5b3UgaGF2ZSBhbnkgYmV0dGVyIGlkZWEg
+Zm9yIGl0PwoKU29ycnkgZm9yIG5vdCBhbnN3ZXJpbmcgZWFybGllciwgYnV0IHlvdSBrbm93IGh1
+bWFucyBoYXZlIG9ubHkgb25lIGhlYWQgCmFuZCB0d28gaGFuZHMgdG8gdHlwZSA6KQoKVGhlIGlu
+Zm9ybWF0aW9ucyBuZWVkZWQgdG8gcmVzdG9yZSB0aGUgR0FSVCBpcyBhbHJlYWR5IHN0b3JlZCBp
+biB0aGUgCmFtZGdwdV90dG1fdHQgc3RydWN0dXJlcy4KCldlIGp1c3QgbmVlZCB0byBsaW5rIHRo
+ZW0gdG9nZXRoZXIgaW4gYW1kZ3B1X3R0bV9iYWNrZW5kX2JpbmQoKSBhbmQgCnVubGluayB0aGVt
+IGluIGFtZGdwdV90dG1fYmFja2VuZF91bmJpbmQoKSB0byBiZSBhYmxlIHRvIHJlc3RvcmUgdGhl
+IApHQVJUIHRhYmxlIGFmdGVyIGEgcmVzZXQuCgo+IG9yIGp1c3QgY2hhbmdlIHJpbmcgYnVmZmVy
+IHRvIFZSQU0gYm8/CgpJbnRlcmVzdGluZyBpZGVhLCBidXQgY29uc2lkZXJpbmcgaG93IG11Y2gg
+b3ZlcmhlYWQgaXQgaGFzIHRvIHdyaXRlIHRvIApWUkFNIGZyb20gdGhlIENQVSBpdCBjbGVhcmx5
+IHdvdWxkbid0IGJlIHN1Y2ggYSBnb29kIGlkZWEgdG8gZG8gaW4gZ2VuZXJhbC4KClJlZ2FyZHMs
+CkNocmlzdGlhbi4KCj4KPiBSZWdhcmRzLAo+IERhdmlkIFpob3UKPj4KPj4gUmVnYXJkcywKPj4g
+Q2hyaXN0aWFuLgo+Pgo+Pj4KPj4+IFJlZ2FyZHMsCj4+PiBEYXZpZCBaaG91Cj4+Pgo+Pj4+Cj4+
+Pj4gV2Ugc2hvdWxkIGp1c3QgcmVzdG9yZSB0aGUgR0FSVCBjb250ZW50IGZyb20gdGhlIGhvdXNl
+a2VlcGluZyAKPj4+PiBzdHJ1Y3R1cmUgaW5zdGVhZC4gR29pbmcgdG8gZXZhbHVhdGUgaWYgYW5k
+IGhvdyB0aGF0IG1pZ2h0IGJlIAo+Pj4+IHBvc3NpYmxlLgo+Pj4KPj4+Pgo+Pj4+IFJlZ2FyZHMs
+Cj4+Pj4gQ2hyaXN0aWFuLgo+Pj4+Cj4+Pj4gQW0gMDIuMDguMjAxNiB1bSAxMDowMCBzY2hyaWVi
+IENodW5taW5nIFpob3U6Cj4+Pj4+IGdhcnQgdGFibGUgaXMgc3RvcmVkIGluIG9uZSBibyB3aGlj
+aCBtdXN0IGJlIHJlYWR5IGJlZm9yZSBnYXJ0IAo+Pj4+PiBpbml0LCBidXQgdGhlIHNoYWRvdyBi
+byBtdXN0IGJlIGNyZWF0ZWQgYWZ0ZXIgZ2FydCBpcyByZWFkeSwgc28gCj4+Pj4+IHRoZXkgY2Fu
+bm90IGJlIGNyZWF0ZWQgYXQgYSBzYW1lIHRpbWUuIHNoYWRvIGJvIGl0c2VsZiBhc2xvIGlzIAo+
+Pj4+PiBpbmNsdWRlZCBpbiBnYXJ0IHRhYmxlLCBTbyBzaGFkb3cgYm8gbmVlZHMgYSBzeW5jaHJv
+bml6YXRpb24gYWZ0ZXIgCj4+Pj4+IGRldmljZSBpbml0LiBBZnRlciBzeW5jLCB0aGUgY29udGVu
+dHMgb2YgYm8gYW5kIHNoYWR3byBibyB3aWxsIGJlIAo+Pj4+PiBzYW1lLCBhbmQgYmUgdXBkYXRl
+ZCBhdCBhIHNhbWUgdGltZS4gVGhlbiB3ZSB3aWxsIGJlIGFibGUgdG8gCj4+Pj4+IHJlY292ZXIg
+Z2FydCB0YWJsZSBmcm9tIHNoYWRvdyBibyB3aGVuIGdwdSBmdWxsIHJlc2V0Lgo+Pj4+Pgo+Pj4+
+PiBwYXRjaDEwIGlzIGEgZml4IGZvciBtZW1vcnkgbGVhay4KPj4+Pj4KPj4+Pj4gQ2h1bm1pbmcg
+WmhvdSAoMTApOgo+Pj4+PiAgICBkcm0vYW1kZ3B1OiBtYWtlIG5lZWRfYmFja3VwIGdlbmVyaWMK
+Pj4+Pj4gICAgZHJtL2FtZGdwdTogaW1wbGVtZW50IGdhcnQgbGF0ZV9pbml0L2ZpbmkKPj4+Pj4g
+ICAgZHJtL2FtZGdwdTogYWRkIGdhcnRfbGF0ZV9pbml0L2ZpbmkgdG8gZ21jIFY3LzgKPj4+Pj4g
+ICAgZHJtL2FtZGdwdTogYWJzdHJhY3QgYW1kZ3B1X2JvX2NyZWF0ZV9zaGFkb3cKPj4+Pj4gICAg
+ZHJtL2FtZGdwdTogc2hhZG93IGdhcnQgdGFibGUgc3VwcG9ydAo+Pj4+PiAgICBkcm0vYW1kZ3B1
+OiBtYWtlIHJlY292ZXJfYm9fZnJvbV9zaGFkb3cgYmUgZ2VuZXJpYwo+Pj4+PiAgICBkcm0vYW1k
+Z3B1OiBpbXBsZW1lbnQgZ2FydCByZWNvdmVyeQo+Pj4+PiAgICBkcm0vYW1kZ3B1OiByZWNvdmVy
+IGdhcnQgdGFibGUgZmlyc3Qgd2hlbiBmdWxsIHJlc2V0Cj4+Pj4+ICAgIGRybS9hbWRncHU6IHN5
+bmMgZ2FydCB0YWJsZSBiZWZvcmUgaW5pdGlhbGl6YXRpb24gY29tcGxldGVkCj4+Pj4+ICAgIGRy
+bS9hbWRncHU6IGZpeCBtZW1vcnkgbGVhayBvZiBzY2hlZCBmZW5jZQo+Pj4+Pgo+Pj4+PiAgIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAgICAgICB8ICAgOSArKwo+Pj4+PiAg
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8ICAgMiArCj4+Pj4+
+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dhcnQuYyAgIHwgMTM5IAo+Pj4+
+PiArKysrKysrKysrKysrKysrKysrKysrKysrKysrKwo+Pj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9qb2IuYyAgICB8ICAgMiArLQo+Pj4+PiAgIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYyB8ICA4MCArKysrKysrKysrKysrKy0tLQo+Pj4+
+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuaCB8ICAgOSArKwo+
+Pj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jICAgICB8ICA1MCAr
+Ky0tLS0tLS0tLQo+Pj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192N18wLmMg
+ICAgICB8ICAzOSArKysrKysrLQo+Pj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dt
+Y192OF8wLmMgICAgICB8ICA0MCArKysrKysrKy0KPj4+Pj4gICA5IGZpbGVzIGNoYW5nZWQsIDMw
+NCBpbnNlcnRpb25zKCspLCA2NiBkZWxldGlvbnMoLSkKPj4+Pj4KPj4+Pgo+Pj4+IF9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+Pj4gYW1kLWdmeCBtYWls
+aW5nIGxpc3QKPj4+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+Pj4+IGh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+Pj4KPj4KPgo+
+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAoKCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
+aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
