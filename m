@@ -1,14 +1,15 @@
 From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH v2 xserver 3/5] modesetting: move common page flip handle
  to pageflip.c
-Date: Fri, 19 Aug 2016 11:30:51 +0000
-Message-ID: <DM5PR12MB1132187DDE5132521F18628FF7160@DM5PR12MB1132.namprd12.prod.outlook.com>
+Date: Fri, 19 Aug 2016 11:32:56 +0000
+Message-ID: <DM5PR12MB1132F5E50C29DD5D8FF19557F7160@DM5PR12MB1132.namprd12.prod.outlook.com>
 References: <1471611050-27207-1-git-send-email-Qiang.Yu@amd.com>,
- <1471611050-27207-4-git-send-email-Qiang.Yu@amd.com>
+ <1471611050-27207-4-git-send-email-Qiang.Yu@amd.com>,
+ <DM5PR12MB1132187DDE5132521F18628FF7160@DM5PR12MB1132.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0840126382=="
+Content-Type: multipart/mixed; boundary="===============1314254667=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1471611050-27207-4-git-send-email-Qiang.Yu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <DM5PR12MB1132187DDE5132521F18628FF7160-2J9CzHegvk+UzrhdoDeimQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -23,14 +24,32 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: "Yu, Qiang" <Qiang.Yu-5C7GfCeVMHo@public.gmane.org>, "xorg-devel-go0+a7rfsptAfugRpC6u6w@public.gmane.org" <xorg-devel-go0+a7rfsptAfugRpC6u6w@public.gmane.org>
 Cc: "michel-otUistvHUpPR7s880joybQ@public.gmane.org" <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0840126382==
+--===============1314254667==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_DM5PR12MB1132187DDE5132521F18628FF7160DM5PR12MB1132namp_"
+	boundary="_000_DM5PR12MB1132F5E50C29DD5D8FF19557F7160DM5PR12MB1132namp_"
 
---_000_DM5PR12MB1132187DDE5132521F18628FF7160DM5PR12MB1132namp_
+--_000_DM5PR12MB1132F5E50C29DD5D8FF19557F7160DM5PR12MB1132namp_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
+
+Sorry, disregard.  The pointer doesn't point inside the struct.  That part =
+of the patch is fine.
+
+
+Tom
+
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of StDenis,=
+ Tom <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Sent: Friday, August 19, 2016 07:30
+To: Yu, Qiang; xorg-devel-go0+a7rfsptAfugRpC6u6w@public.gmane.org
+Cc: michel-otUistvHUpPR7s880joybQ@public.gmane.org; emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org; amd-gfx-PD4FTy7X32lNgt0PjOBp93gSJqDPrsil@public.gmane.org=
+.org
+Subject: Re: [PATCH v2 xserver 3/5] modesetting: move common page flip hand=
+le to pageflip.c
+
 
 In ms_pageflip_free() you cannot free the parent structure before freeing t=
 hings it points to.  That's undefined behaviour.
@@ -353,7 +372,7 @@ ives. Using amd-gfx: To post a message to all the list members, send email =
 
 
 
---_000_DM5PR12MB1132187DDE5132521F18628FF7160DM5PR12MB1132namp_
+--_000_DM5PR12MB1132F5E50C29DD5D8FF19557F7160DM5PR12MB1132namp_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -367,6 +386,30 @@ n-bottom:0;} --></style>
 <body dir=3D"ltr">
 <div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;back=
 ground-color:#FFFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
+<p>Sorry, disregard. &nbsp;The pointer doesn't point inside the struct. &nb=
+sp;That part of the patch is fine.</p>
+<p><br>
+</p>
+<p>Tom</p>
+<br>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
+lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of StDenis, Tom &lt;Tom.StDenis@=
+amd.com&gt;<br>
+<b>Sent:</b> Friday, August 19, 2016 07:30<br>
+<b>To:</b> Yu, Qiang; xorg-devel-go0+a7rfsptAfugRpC6u6w@public.gmane.org<br>
+<b>Cc:</b> michel-otUistvHUpPR7s880joybQ@public.gmane.org; emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org; amd-gfx-PD4FTy7X32mptlylMvRsHA@public.gmane.org=
+desktop.org<br>
+<b>Subject:</b> Re: [PATCH v2 xserver 3/5] modesetting: move common page fl=
+ip handle to pageflip.c</font>
+<div>&nbsp;</div>
+</div>
+<div>
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt; color:#000000; ba=
+ckground-color:#FFFFFF; font-family:Calibri,Arial,Helvetica,sans-serif">
 <p></p>
 <div>In ms_pageflip_free() you cannot free the parent structure before free=
 ing things it points to. &nbsp;That's undefined behaviour.&nbsp;</div>
@@ -374,7 +417,7 @@ ing things it points to. &nbsp;That's undefined behaviour.&nbsp;</div>
 </div>
 <div>Tom</div>
 <p></p>
-<div style=3D"color: rgb(0, 0, 0);">
+<div style=3D"color:rgb(0,0,0)">
 <div>
 <hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
 <div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
@@ -390,7 +433,7 @@ andle to pageflip.c</font>
 <div>&nbsp;</div>
 </div>
 </div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
+<font size=3D"2"><span style=3D"font-size:10pt">
 <div class=3D"PlainText">The common page flip handle framework can be share=
 d with DRI2<br>
 page flip.<br>
@@ -759,37 +802,34 @@ amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
 <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
 lnk437166">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
 <div id=3D"LPBorder_GT_14716061893940.8420357393682676" style=3D"margin-bot=
-tom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
+tom:20px; overflow:auto; width:100%; text-indent:0px">
 <table id=3D"LPContainer_14716061893930.7108288203263247" cellspacing=3D"0"=
- style=3D"width: 90%; position: relative; overflow: auto; padding-top: 20px=
-; padding-bottom: 20px; margin-top: 20px; border-top: 1px dotted rgb(200, 2=
-00, 200); border-bottom: 1px dotted rgb(200, 200, 200); background-color: r=
-gb(255, 255, 255);">
+ style=3D"width:90%; overflow:auto; padding-top:20px; padding-bottom:20px; =
+margin-top:20px; border-top:1px dotted rgb(200,200,200); border-bottom:1px =
+dotted rgb(200,200,200); background-color:rgb(255,255,255)">
 <tbody>
-<tr valign=3D"top" style=3D"border-spacing: 0px;">
+<tr valign=3D"top" style=3D"border-spacing:0px">
 <td id=3D"TextCell_14716061893930.9899862651724711" colspan=3D"2" style=3D"=
-vertical-align: top; position: relative; padding: 0px; display: table-cell;=
+vertical-align: top; padding: 0px; display: table-cell; position: relative;=
 ">
 <div id=3D"LPRemovePreviewContainer_14716061893930.47806653578636316"></div=
 >
-<div id=3D"LPTitle_14716061893930.16493228848820385" style=3D"top: 0px; col=
-or: rgb(59, 87, 119); font-weight: normal; font-size: 21px; font-family: wf=
-_segoe-ui_light, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&quot;, &q=
-uot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif; line-h=
-eight: 21px;">
+<div id=3D"LPTitle_14716061893930.16493228848820385" style=3D"top:0px; colo=
+r:rgb(59,87,119); font-weight:normal; font-size:21px; font-family:wf_segoe-=
+ui_light,&quot;Segoe UI Light&quot;,&quot;Segoe WP Light&quot;,&quot;Segoe =
+UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif; line-height:21px">
 <a id=3D"LPUrlAnchor_14716061893930.6212120889357053" href=3D"https://lists=
 .freedesktop.org/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"text-=
-decoration: none;">amd-gfx Info Page - lists.freedesktop.org</a></div>
-<div id=3D"LPMetadata_14716061893930.2849713450368425" style=3D"margin: 10p=
-x 0px 16px; color: rgb(102, 102, 102); font-weight: normal; font-family: wf=
-_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial=
-, sans-serif; font-size: 14px; line-height: 14px;">
+decoration:none">amd-gfx Info Page - lists.freedesktop.org</a></div>
+<div id=3D"LPMetadata_14716061893930.2849713450368425" style=3D"margin:10px=
+ 0px 16px; color:rgb(102,102,102); font-weight:normal; font-family:wf_segoe=
+-ui_normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-seri=
+f; font-size:14px; line-height:14px">
 lists.freedesktop.org</div>
 <div id=3D"LPDescription_14716061893940.8733822341303554" style=3D"display:=
- block; color: rgb(102, 102, 102); font-weight: normal; font-family: wf_seg=
-oe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sa=
-ns-serif; font-size: 14px; line-height: 20px; max-height: 100px; overflow: =
-hidden;">
+block; color:rgb(102,102,102); font-weight:normal; font-family:wf_segoe-ui_=
+normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif; f=
+ont-size:14px; line-height:20px; max-height:100px; overflow:hidden">
 To see the collection of prior postings to the list, visit the amd-gfx Arch=
 ives. Using amd-gfx: To post a message to all the list members, send email =
 ...</div>
@@ -803,12 +843,15 @@ ives. Using amd-gfx: To post a message to all the list members, send email =
 </div>
 </span></font></div>
 </div>
+</div>
+</div>
+</div>
 </body>
 </html>
 
---_000_DM5PR12MB1132187DDE5132521F18628FF7160DM5PR12MB1132namp_--
+--_000_DM5PR12MB1132F5E50C29DD5D8FF19557F7160DM5PR12MB1132namp_--
 
---===============0840126382==
+--===============1314254667==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -818,4 +861,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0840126382==--
+--===============1314254667==--
