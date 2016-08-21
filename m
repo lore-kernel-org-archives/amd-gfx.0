@@ -1,12 +1,12 @@
 From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: add AMDGPU_INFO_NUM_EVICTIONS
-Date: Sun, 21 Aug 2016 15:42:40 +1000
-Message-ID: <3b6d31ba-6711-5b2a-77dd-1bda3e0045c9@folklore1984.net>
-References: <1471542523-15729-1-git-send-email-maraeo@gmail.com>
+Subject: Re: [PATCH] drm/amd/powerplay: Tidy up cz_hwmgr.c
+Date: Sun, 21 Aug 2016 15:46:20 +1000
+Message-ID: <8a55225b-71c8-0195-8e28-3fb022213771@folklore1984.net>
+References: <20160818142951.779-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0444819056=="
+Content-Type: multipart/mixed; boundary="===============0993565005=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1471542523-15729-1-git-send-email-maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <20160818142951.779-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,139 +17,215 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0444819056==
+--===============0993565005==
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="QLNKLS8PFKELf4qLNt2eSuNtGiITPt2Is"
+ boundary="mjErq3TqRqvCOtT5UjuWHCo1oJu0pXiXq"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---QLNKLS8PFKELf4qLNt2eSuNtGiITPt2Is
-Content-Type: multipart/mixed; boundary="AsV2ICHJ3XPWP6s1UL2KA3IUm2MQv6k4a"
+--mjErq3TqRqvCOtT5UjuWHCo1oJu0pXiXq
+Content-Type: multipart/mixed; boundary="TJ9LLEqigTr4Jl4aGclvhEunvSqXrUrL2"
 From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>,
- amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Message-ID: <3b6d31ba-6711-5b2a-77dd-1bda3e0045c9-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: add AMDGPU_INFO_NUM_EVICTIONS
-References: <1471542523-15729-1-git-send-email-maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-In-Reply-To: <1471542523-15729-1-git-send-email-maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+Message-ID: <8a55225b-71c8-0195-8e28-3fb022213771-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/powerplay: Tidy up cz_hwmgr.c
+References: <20160818142951.779-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20160818142951.779-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 
---AsV2ICHJ3XPWP6s1UL2KA3IUm2MQv6k4a
+--TJ9LLEqigTr4Jl4aGclvhEunvSqXrUrL2
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
 
 
-On 08/19/2016 03:48 AM, Marek Ol=C5=A1=C3=A1k wrote:
-> From: Marek Ol=C5=A1=C3=A1k <marek.olsak-5C7GfCeVMHo@public.gmane.org>
+On 08/19/2016 12:29 AM, Tom St Denis wrote:
+> Clean up whitespace and formatting.
 >=20
-> For profiling.
->=20
-> Signed-off-by: Marek Ol=C5=A1=C3=A1k <marek.olsak-5C7GfCeVMHo@public.gmane.org>
+> Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 
 Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 3 +++
->  include/uapi/drm/amdgpu_drm.h           | 2 ++
->  3 files changed, 6 insertions(+)
+>  drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c | 53 +++++++-----------=
+--------
+>  1 file changed, 13 insertions(+), 40 deletions(-)
 >=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_drv.c
-> index 2d7072a..a75d45a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -46,20 +46,21 @@
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
+> index a1c070766d6a..0d54226754d1 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
+> @@ -178,7 +178,6 @@ static int cz_initialize_dpm_defaults(struct pp_hwm=
+gr *hwmgr)
+>  	int result;
 > =20
->  #include "amdgpu_amdkfd.h"
+>  	cz_hwmgr->gfx_ramp_step =3D 256*25/100;
+> -
+>  	cz_hwmgr->gfx_ramp_delay =3D 1; /* by default, we delay 1us */
 > =20
->  /*
->   * KMS wrapper.
->   * - 3.0.0 - initial driver
->   * - 3.1.0 - allow reading more status registers (GRBM, SRBM, SDMA, CP=
-)
->   * - 3.2.0 - GFX8: Uses EOP_TC_WB_ACTION_EN, so UMDs don't have to do =
-the same
->   *           at the end of IBs.
->   * - 3.3.0 - Add VM support for UVD on supported hardware.
-> + * - 3.4.0 - Add AMDGPU_INFO_NUM_EVICTIONS.
->   */
->  #define KMS_DRIVER_MAJOR	3
->  #define KMS_DRIVER_MINOR	3
->  #define KMS_DRIVER_PATCHLEVEL	0
+>  	for (i =3D 0; i < CZ_MAX_HARDWARE_POWERLEVELS; i++)
+> @@ -186,33 +185,19 @@ static int cz_initialize_dpm_defaults(struct pp_h=
+wmgr *hwmgr)
 > =20
->  int amdgpu_vram_limit =3D 0;
->  int amdgpu_gart_size =3D -1; /* auto */
->  int amdgpu_max_bo_reloc_rate =3D -1; /* auto */
->  int amdgpu_benchmarking =3D 0;
->  int amdgpu_testing =3D 0;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_kms.c
-> index 0fb5488..f0c01da 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -360,20 +360,23 @@ static int amdgpu_info_ioctl(struct drm_device *d=
-ev, void *data, struct drm_file
->  		ret =3D amdgpu_firmware_info(&fw_info, &info->query_fw, adev);
->  		if (ret)
->  			return ret;
+>  	cz_hwmgr->mgcg_cgtt_local0 =3D 0x00000000;
+>  	cz_hwmgr->mgcg_cgtt_local1 =3D 0x00000000;
+> -
+>  	cz_hwmgr->clock_slow_down_freq =3D 25000;
+> -
+>  	cz_hwmgr->skip_clock_slow_down =3D 1;
+> -
+>  	cz_hwmgr->enable_nb_ps_policy =3D 1; /* disable until UNB is ready, E=
+nabled */
+> -
+>  	cz_hwmgr->voltage_drop_in_dce_power_gating =3D 0; /* disable until fu=
+lly verified */
+> -
+>  	cz_hwmgr->voting_rights_clients =3D 0x00C00033;
+> -
+>  	cz_hwmgr->static_screen_threshold =3D 8;
+> -
+>  	cz_hwmgr->ddi_power_gating_disabled =3D 0;
+> -
+>  	cz_hwmgr->bapm_enabled =3D 1;
+> -
+>  	cz_hwmgr->voltage_drop_threshold =3D 0;
+> -
+>  	cz_hwmgr->gfx_power_gating_threshold =3D 500;
+> -
+>  	cz_hwmgr->vce_slow_sclk_threshold =3D 20000;
+> -
+>  	cz_hwmgr->dce_slow_sclk_threshold =3D 30000;
+> -
+>  	cz_hwmgr->disable_driver_thermal_policy =3D 1;
+> -
+>  	cz_hwmgr->disable_nb_ps3_in_battery =3D 0;
 > =20
->  		return copy_to_user(out, &fw_info,
->  				    min((size_t)size, sizeof(fw_info))) ? -EFAULT : 0;
+>  	phm_cap_unset(hwmgr->platform_descriptor.platformCaps,
+> @@ -230,9 +215,7 @@ static int cz_initialize_dpm_defaults(struct pp_hwm=
+gr *hwmgr)
+>  				  PHM_PlatformCaps_DynamicPatchPowerState);
+> =20
+>  	cz_hwmgr->thermal_auto_throttling_treshold =3D 0;
+> -
+>  	cz_hwmgr->tdr_clock =3D 0;
+> -
+>  	cz_hwmgr->disable_gfx_power_gating_in_uvd =3D 0;
+> =20
+>  	phm_cap_set(hwmgr->platform_descriptor.platformCaps,
+> @@ -447,19 +430,12 @@ static int cz_construct_boot_state(struct pp_hwmg=
+r *hwmgr)
+>  			(uint8_t)cz_hwmgr->sys_info.bootup_nb_voltage_index;
+> =20
+>  	cz_hwmgr->boot_power_level.dsDividerIndex =3D 0;
+> -
+>  	cz_hwmgr->boot_power_level.ssDividerIndex =3D 0;
+> -
+>  	cz_hwmgr->boot_power_level.allowGnbSlow =3D 1;
+> -
+>  	cz_hwmgr->boot_power_level.forceNBPstate =3D 0;
+> -
+>  	cz_hwmgr->boot_power_level.hysteresis_up =3D 0;
+> -
+>  	cz_hwmgr->boot_power_level.numSIMDToPowerDown =3D 0;
+> -
+>  	cz_hwmgr->boot_power_level.display_wm =3D 0;
+> -
+>  	cz_hwmgr->boot_power_level.vce_wm =3D 0;
+> =20
+>  	return 0;
+> @@ -746,7 +722,6 @@ static int cz_tf_update_sclk_limit(struct pp_hwmgr =
+*hwmgr,
+>  		cz_hwmgr->sclk_dpm.soft_max_clk  =3D table->entries[table->count - 1=
+].clk;
+> =20
+>  	clock =3D hwmgr->display_config.min_core_set_clock;
+> -;
+>  	if (clock =3D=3D 0)
+>  		printk(KERN_INFO "[ powerplay ] min_core_set_clock not set\n");
+> =20
+> @@ -829,7 +804,7 @@ static int cz_tf_set_watermark_threshold(struct pp_=
+hwmgr *hwmgr,
+> =20
+>  	smum_send_msg_to_smc_with_parameter(hwmgr->smumgr,
+>  					PPSMC_MSG_SetWatermarkFrequency,
+> -				      cz_hwmgr->sclk_dpm.soft_max_clk);
+> +					cz_hwmgr->sclk_dpm.soft_max_clk);
+> =20
+>  	return 0;
+>  }
+> @@ -855,9 +830,9 @@ static int cz_tf_enable_nb_dpm(struct pp_hwmgr *hwm=
+gr,
+>  		PP_DBG_LOG("enabling ALL SMU features.\n");
+>  		dpm_features |=3D NB_DPM_MASK;
+>  		ret =3D smum_send_msg_to_smc_with_parameter(
+> -							     hwmgr->smumgr,
+> -					 PPSMC_MSG_EnableAllSmuFeatures,
+> -							     dpm_features);
+> +							  hwmgr->smumgr,
+> +							  PPSMC_MSG_EnableAllSmuFeatures,
+> +							  dpm_features);
+>  		if (ret =3D=3D 0)
+>  			cz_hwmgr->is_nb_dpm_enabled =3D true;
 >  	}
->  	case AMDGPU_INFO_NUM_BYTES_MOVED:
->  		ui64 =3D atomic64_read(&adev->num_bytes_moved);
->  		return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT : 0;
-> +	case AMDGPU_INFO_NUM_EVICTIONS:
-> +		ui64 =3D atomic64_read(&adev->num_evictions);
-> +		return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT : 0;
->  	case AMDGPU_INFO_VRAM_USAGE:
->  		ui64 =3D atomic64_read(&adev->vram_usage);
->  		return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT : 0;
->  	case AMDGPU_INFO_VIS_VRAM_USAGE:
->  		ui64 =3D atomic64_read(&adev->vram_vis_usage);
->  		return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT : 0;
->  	case AMDGPU_INFO_GTT_USAGE:
->  		ui64 =3D atomic64_read(&adev->gtt_usage);
->  		return copy_to_user(out, &ui64, min(size, 8u)) ? -EFAULT : 0;
->  	case AMDGPU_INFO_GDS_CONFIG: {
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_dr=
-m.h
-> index 8df3816..72eb21a 100644
-> --- a/include/uapi/drm/amdgpu_drm.h
-> +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -474,20 +474,22 @@ struct drm_amdgpu_cs_chunk_data {
->  /* Information about GDS, etc. resource configuration */
->  #define AMDGPU_INFO_GDS_CONFIG			0x13
->  /* Query information about VRAM and GTT domains */
->  #define AMDGPU_INFO_VRAM_GTT			0x14
->  /* Query information about register in MMR address space*/
->  #define AMDGPU_INFO_READ_MMR_REG		0x15
->  /* Query information about device: rev id, family, etc. */
->  #define AMDGPU_INFO_DEV_INFO			0x16
->  /* visible vram usage */
->  #define AMDGPU_INFO_VIS_VRAM_USAGE		0x17
-> +/* number of TTM buffer evictions */
-> +#define AMDGPU_INFO_NUM_EVICTIONS		0x18
+> @@ -1399,10 +1374,12 @@ int cz_dpm_update_uvd_dpm(struct pp_hwmgr *hwmg=
+r, bool bgate)
+>  						   PPSMC_MSG_SetUvdHardMin));
 > =20
->  #define AMDGPU_INFO_MMR_SE_INDEX_SHIFT	0
->  #define AMDGPU_INFO_MMR_SE_INDEX_MASK	0xff
->  #define AMDGPU_INFO_MMR_SH_INDEX_SHIFT	8
->  #define AMDGPU_INFO_MMR_SH_INDEX_MASK	0xff
+>  			cz_enable_disable_uvd_dpm(hwmgr, true);
+> -		} else
+> +		} else {
+>  			cz_enable_disable_uvd_dpm(hwmgr, true);
+> -	} else
+> +		}
+> +	} else {
+>  		cz_enable_disable_uvd_dpm(hwmgr, false);
+> +	}
 > =20
->  struct drm_amdgpu_query_fw {
->  	/** AMDGPU_INFO_FW_* */
->  	__u32 fw_type;
->  	/**
+>  	return 0;
+>  }
+> @@ -1687,13 +1664,10 @@ static int cz_store_cc6_data(struct pp_hwmgr *h=
+wmgr, uint32_t separation_time,
+>  	struct cz_hwmgr *hw_data =3D (struct cz_hwmgr *)(hwmgr->backend);
+> =20
+>  	if (separation_time !=3D
+> -		hw_data->cc6_settings.cpu_pstate_separation_time
+> -		|| cc6_disable !=3D
+> -		hw_data->cc6_settings.cpu_cc6_disable
+> -		|| pstate_disable !=3D
+> -		hw_data->cc6_settings.cpu_pstate_disable
+> -		|| pstate_switch_disable !=3D
+> -		hw_data->cc6_settings.nb_pstate_switch_disable) {
+> +	    hw_data->cc6_settings.cpu_pstate_separation_time ||
+> +	    cc6_disable !=3D hw_data->cc6_settings.cpu_cc6_disable ||
+> +	    pstate_disable !=3D hw_data->cc6_settings.cpu_pstate_disable ||
+> +	    pstate_switch_disable !=3D hw_data->cc6_settings.nb_pstate_switch=
+_disable) {
+> =20
+>  		hw_data->cc6_settings.cc6_setting_changed =3D true;
+> =20
+> @@ -1796,8 +1770,7 @@ static int cz_get_performance_level(struct pp_hwm=
+gr *hwmgr, const struct pp_hw_p
+>  	ps =3D cast_const_PhwCzPowerState(state);
+> =20
+>  	level_index =3D index > ps->level - 1 ? ps->level - 1 : index;
+> -
+> -	level->coreClock  =3D ps->levels[level_index].engineClock;
+> +	level->coreClock =3D ps->levels[level_index].engineClock;
+> =20
+>  	if (designation =3D=3D PHM_PerformanceLevelDesignation_PowerContainme=
+nt) {
+>  		for (i =3D 1; i < ps->level; i++) {
 >=20
 
 
---AsV2ICHJ3XPWP6s1UL2KA3IUm2MQv6k4a--
+--TJ9LLEqigTr4Jl4aGclvhEunvSqXrUrL2--
 
---QLNKLS8PFKELf4qLNt2eSuNtGiITPt2Is
+--mjErq3TqRqvCOtT5UjuWHCo1oJu0pXiXq
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
@@ -157,24 +233,24 @@ Content-Disposition: attachment; filename="signature.asc"
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJXuT9QAAoJEP4bvbfZuWjbbGkP/01FbQz6ZGl27ecf6KsS8WpU
-t1SutsjfusRUbxMShfPF+QxfD4C0JGiUo6VqorQjIpagY21+GOkq0VFdx7LKCJek
-5LgRY3XPOfhP2bHjEQ3oBCW4t9eWT6rvsVyg2AIqLMVVTYxjmfdpD2rDGL6lTx2P
-zq0yf0LRB5JNxQ0XLjhKaF45s9sKnTX5CkDUj9VzMDR94Sc3kPlNBKrUtNoHF/xe
-Sly+7u4zGM1rNM9cmb4NJUMDzrb2EwHLynTO+8LaI0/QsOAQ7zGotAD8uODKdUDQ
-GK69vXnCXQl7i3P8r8hiPTMy1hC+Ypp6FLPGeonJEflqNi8LNqBO2g2W/6QMdZNQ
-n6rHywbNMVDrilzgVXw0uuNyhfQrsxwub/1WnTdceQlxGI59JjX5GTJWz+0Dm7WO
-9bIzeXhxkYtjxjj8BANbetM5WczUeXan+PeBH5WLuskSeOiWNHKYVG9f36mzJZp6
-8U2rLqzgJwDn8bsc3wfbZO5wndRgitQ7Vu0pPZx00ncvCyQaEGKTtMZnb8NSpHdB
-J6UK5/l2Hy/ImpK7HNuj5dNHhGBvYE3iypE/Iku4Mupuxo0ot4OH8I15YlMZJ7/z
-jTZFosGWQMHhxQ1hLVmu2sjI2LjLq99uQIpzZPinhwnw/AQ97KcHYldzXUmgAuDx
-tWPIGvPuJOBWftRDE7VR
-=lUSi
+iQIcBAEBCAAGBQJXuUAsAAoJEP4bvbfZuWjbpDYQAKZBSni6Sa+SpnDCXsgN7lUS
+f6Up1aksQ5Kc5IhUggvIwGwMvedefJ4XjI3wMZzPKzidPerL1M6xTHAKZd8fNX5B
+739Qt+sV9pVukRiBl0ogiM9cccfzeONPmmfGVwTFrEgQmXb7ZzCQQxxV97lPT3OR
+lhanezJ0Jss6ShIVLXIVEtisJp/n8zwOYr4vMPg7FpDTx/N+F9JwoWxaDorSLq/F
+PakxwyPWJxZoWbHBym2WLIQLglQJTlqzxbq3A4OJTljAfsPid/SM3Fs8D3O1B6du
+sedenqUWK5Gg18h/v3bFfLucz+wn4jbgmrkJkZ//g9IyF00y37/eqVt0JIn5LQCy
+DCn61TuIN6oavbJGpcy35H5eXPtSzko0wG6OqkLdd8BApNXiKLOGyXXKRcs1pSz0
+oEagOzE6Zy1IsM34NmaKRqR0wU3RuNaZXIYLgYB+VIh34/7PvYIk82fsIkr9/iwz
+WHJZ0KOSB29eLkv/F1iwVwaCFua+HVMwOTRaic2d/bM2pjp1boONGs4SclsOGGK0
+MYd7r9cWqf5d7hlQ2+QMOxVJgE+Wq9U553TaYw7bvGlPcc3mkdHrihna7ggdCHZS
+7tde6nrZ+To25cjzGj4wRfw0r0YCGMXIsjjsy8e7fJy7YylLsGaEJ+/eQRnI+YPu
+QLnjhmNMwfTAkTUebcQE
+=hkFn
 -----END PGP SIGNATURE-----
 
---QLNKLS8PFKELf4qLNt2eSuNtGiITPt2Is--
+--mjErq3TqRqvCOtT5UjuWHCo1oJu0pXiXq--
 
---===============0444819056==
+--===============0993565005==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -184,4 +260,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0444819056==--
+--===============0993565005==--
