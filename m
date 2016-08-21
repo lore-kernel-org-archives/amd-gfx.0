@@ -1,13 +1,13 @@
 From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH 2/4] amdgpu: add export/import semaphore apis
-Date: Sun, 21 Aug 2016 16:23:19 +1000
-Message-ID: <cf458d97-d40a-d363-b5c4-2ae45dde9179@folklore1984.net>
-References: <1471506959-905-1-git-send-email-David1.Zhou@amd.com>
- <1471506959-905-3-git-send-email-David1.Zhou@amd.com>
+Subject: Re: [PATCH 5/6] drm/amdgpu: use fence-array for ctx release
+Date: Sun, 21 Aug 2016 16:42:53 +1000
+Message-ID: <56580e14-9d77-f85c-20ce-a32971d9bce2@folklore1984.net>
+References: <1471506618-29849-1-git-send-email-David1.Zhou@amd.com>
+ <1471506618-29849-6-git-send-email-David1.Zhou@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0692898726=="
+Content-Type: multipart/mixed; boundary="===============0819536534=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1471506959-905-3-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1471506618-29849-6-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,236 +22,165 @@ To: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32
 Cc: David.Mao-5C7GfCeVMHo@public.gmane.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0692898726==
+--===============0819536534==
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="Ew6Qd1LJKekqQvOvV9kNQfH2bCWCU3gi8"
+ boundary="mimLwFw5c7eaNslP3sW9BrRiNo4OM82mi"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---Ew6Qd1LJKekqQvOvV9kNQfH2bCWCU3gi8
-Content-Type: multipart/mixed; boundary="Ew0cwO3oUx0wa8EOnrj0iweUhx24hChG5"
+--mimLwFw5c7eaNslP3sW9BrRiNo4OM82mi
+Content-Type: multipart/mixed; boundary="skcJAa56TxAed465VJILwVg8RHPjaPMJb"
 From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
 To: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: David.Mao-5C7GfCeVMHo@public.gmane.org
-Message-ID: <cf458d97-d40a-d363-b5c4-2ae45dde9179-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH 2/4] amdgpu: add export/import semaphore apis
-References: <1471506959-905-1-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
- <1471506959-905-3-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <1471506959-905-3-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+Message-ID: <56580e14-9d77-f85c-20ce-a32971d9bce2-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH 5/6] drm/amdgpu: use fence-array for ctx release
+References: <1471506618-29849-1-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+ <1471506618-29849-6-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1471506618-29849-6-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
 
---Ew0cwO3oUx0wa8EOnrj0iweUhx24hChG5
+--skcJAa56TxAed465VJILwVg8RHPjaPMJb
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
 
 
-On 08/18/2016 05:55 PM, Chunming Zhou wrote:
-> They are used for sharing semaphore across process.
+On 08/18/2016 05:50 PM, Chunming Zhou wrote:
+> benifits:
+> 1. don't block userspace release at all.
+> 2. make sure userspace can look up dependency if fence isn't signaled.
+> If they cannot find ctx, that means the dependecy is signaled.
 >=20
-> Change-Id: I262adf10913d365bb93368b492e69140af522c64
+> Change-Id: I9184a7bb4f5bb6858c2dd49cfb113eeee159cf71
 > Signed-off-by: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
 > ---
->  amdgpu/amdgpu.h          | 40 ++++++++++++++++++++++++++++++
->  amdgpu/amdgpu_cs.c       | 63 ++++++++++++++++++++++++++++++++++++++++=
-++++++--
->  amdgpu/amdgpu_internal.h |  2 ++
->  3 files changed, 103 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  3 ++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 51 +++++++++++++++++++++++++=
++++++++-
+>  2 files changed, 53 insertions(+), 1 deletion(-)
 >=20
-> diff --git a/amdgpu/amdgpu.h b/amdgpu/amdgpu.h
-> index 693d841..e716855 100644
-> --- a/amdgpu/amdgpu.h
-> +++ b/amdgpu/amdgpu.h
-> @@ -1379,6 +1379,19 @@ int amdgpu_svm_commit(amdgpu_va_handle va_range_=
-handle,
->  int amdgpu_svm_uncommit(amdgpu_va_handle va_range_handle);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu.h
+> index 6d770c2..b6320e8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -35,6 +35,7 @@
+>  #include <linux/interval_tree.h>
+>  #include <linux/hashtable.h>
+>  #include <linux/fence.h>
+> +#include <linux/fence-array.h>
 > =20
->  /**
-> + *  create shared semaphore
-> + *
-> + * \param amdgpu_device_handle
-> + * \param   sem	   - \c [out] semaphore handle
-> + *
-> + * \return   0 on success\n
-> + *          <0 - Negative POSIX Error code
-> + *
-> +*/
-> +int amdgpu_cs_create_semaphore_object(amdgpu_device_handle device_hand=
-le,
-> +				      amdgpu_semaphore_handle *sem);
-> +
-> +/**
->   *  create semaphore
->   *
->   * \param   sem	   - \c [out] semaphore handle
-> @@ -1439,6 +1452,33 @@ int amdgpu_cs_wait_semaphore(amdgpu_context_hand=
-le ctx,
->  int amdgpu_cs_destroy_semaphore(amdgpu_semaphore_handle sem);
+>  #include <ttm/ttm_bo_api.h>
+>  #include <ttm/ttm_bo_driver.h>
+> @@ -1025,6 +1026,8 @@ struct amdgpu_ctx_ring {
 > =20
->  /**
-> + *  export semaphore
-> + *
-> + * \param   sem	    - \c [in] semaphore handle
-> + * \param   shared_handle    - \c [out] handle across process
-> + *
-> + * \return   0 on success\n
-> + *          <0 - Negative POSIX Error code
-> + *
-> +*/
-> +int amdgpu_cs_export_semaphore(amdgpu_semaphore_handle sem,
-> +			       uint32_t *shared_handle);
-> +/**
-> + *  import semaphore
-> + *
-> + * \param   sem	    - \c [out] semaphore handle
-> + * \param   dev	    - \c [in] device handle
-> + * \param   shared_handle    - \c [in] handle across process
-> + *
-> + * \return   0 on success\n
-> + *          <0 - Negative POSIX Error code
-> + *
-> +*/
-> +int amdgpu_cs_import_semaphore(amdgpu_semaphore_handle *sem,
-> +			       amdgpu_device_handle dev,
-> +			       uint32_t shared_handle);
-> +
-> +/**
->   *  Get the ASIC marketing name
->   *
->   * \param   dev         - \c [in] Device handle. See #amdgpu_device_in=
-itialize()
-> diff --git a/amdgpu/amdgpu_cs.c b/amdgpu/amdgpu_cs.c
-> index c76a675..a3ff34e 100644
-> --- a/amdgpu/amdgpu_cs.c
-> +++ b/amdgpu/amdgpu_cs.c
-> @@ -518,6 +518,34 @@ int amdgpu_cs_wait_fences(struct amdgpu_cs_fence *=
-fences,
+>  struct amdgpu_ctx {
+>  	struct kref		refcount;
+> +	struct fence_cb         cb;
+> +	struct work_struct      release_work;
+>  	struct amdgpu_device    *adev;
+>  	unsigned		reset_counter;
+>  	spinlock_t		ring_lock;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_ctx.c
+> index 01d5612..23afe92 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+> @@ -27,6 +27,7 @@
+> =20
+>  static DEFINE_MUTEX(amdgpu_ctx_lock);
+>  extern struct idr amdgpu_ctx_idr;
+> +static void amdgpu_ctx_release_work(struct work_struct *work);
+> =20
+>  static int amdgpu_ctx_init(struct amdgpu_device *adev, struct amdgpu_c=
+tx *ctx)
+>  {
+> @@ -37,6 +38,7 @@ static int amdgpu_ctx_init(struct amdgpu_device *adev=
+, struct amdgpu_ctx *ctx)
+>  	ctx->adev =3D adev;
+>  	kref_init(&ctx->refcount);
+>  	spin_lock_init(&ctx->ring_lock);
+> +	INIT_WORK(&ctx->release_work, amdgpu_ctx_release_work);
+>  	ctx->fences =3D kcalloc(amdgpu_sched_jobs * AMDGPU_MAX_RINGS,
+>  			      sizeof(struct fence*), GFP_KERNEL);
+>  	if (!ctx->fences)
+> @@ -120,13 +122,60 @@ static int amdgpu_ctx_alloc(struct amdgpu_device =
+*adev,
 >  	return r;
 >  }
 > =20
-> +int amdgpu_cs_create_semaphore_object(amdgpu_device_handle device_hand=
-le,
-> +				      amdgpu_semaphore_handle *sem)
+> +static void amdgpu_ctx_release_work(struct work_struct *work)
 > +{
-> +	struct amdgpu_bo_alloc_request req =3D {0};
-> +	amdgpu_bo_handle buf_handle;
-> +	int r;
-> +
-> +	if (NULL =3D=3D sem)
-
-Since sem is ** then should we not check that *both* sem && *sem are
-non-NULL too? Further you can use the canonical form of (!sem)
-
-> +		return -EINVAL;
-> +
-> +	req.alloc_size =3D sizeof(struct amdgpu_semaphore);
-> +	req.preferred_heap =3D AMDGPU_GEM_DOMAIN_GTT;
-> +
-> +	r =3D amdgpu_bo_alloc(device_handle, &req, &buf_handle);
-> +	if (r)
-> +		return r;
-> +	r =3D amdgpu_bo_cpu_map(buf_handle, sem);
-> +	if (r) {
-> +		amdgpu_bo_free(buf_handle);
-> +		return r;
-> +	}
-> +	(*sem)->buf_handle =3D buf_handle;
-> +	atomic_set(&(*sem)->refcount, 1);
-
-Hi Chunming,
-
-When/where was 'amdgpu_semaphore_handle' introduced? I am not sure I
-like pointers being hidden behind typedef's as opaque types this can
-lead to really really bad things.. I only noticed sem was a ** because
-of the weird looking deference then address operator application, then
-deference again here, &(*sem)->..
-
-Cheers,
-Edward.
-
-> +	(*sem)->version =3D 2;
-> +
-> +	return 0;
+> +	struct amdgpu_ctx *ctx =3D container_of(work, struct amdgpu_ctx,
+> +					      release_work);
+> +	amdgpu_ctx_fini(ctx);
 > +}
 > +
->  int amdgpu_cs_create_semaphore(amdgpu_semaphore_handle *sem)
+> +static void amdgpu_ctx_release_cb(struct fence *f, struct fence_cb *cb=
+)
+> +{
+> +	struct amdgpu_ctx *ctx =3D container_of(cb, struct amdgpu_ctx,
+> +					      cb);
+> +	schedule_work(&ctx->release_work);
+> +	fence_put(f);
+> +}
+> +
+>  static void amdgpu_ctx_do_release(struct kref *ref)
 >  {
->  	struct amdgpu_semaphore *gpu_semaphore;
-> @@ -529,6 +557,7 @@ int amdgpu_cs_create_semaphore(amdgpu_semaphore_han=
-dle *sem)
->  	if (NULL =3D=3D gpu_semaphore)
->  		return -ENOMEM;
+>  	struct amdgpu_ctx *ctx;
+> +	struct fence **fences;
+> +	struct fence_array *array;
+> +	int i, j, k =3D 0, r;
 > =20
-> +	gpu_semaphore->version =3D 1;
->  	atomic_set(&gpu_semaphore->refcount, 1);
->  	*sem =3D gpu_semaphore;
+>  	ctx =3D container_of(ref, struct amdgpu_ctx, refcount);
 > =20
-> @@ -608,8 +637,15 @@ static int amdgpu_cs_unreference_sem(amdgpu_semaph=
-ore_handle sem)
->  	if (NULL =3D=3D sem)
->  		return -EINVAL;
-> =20
-> -	if (update_references(&sem->refcount, NULL))
-> -		free(sem);
-> +	if (update_references(&sem->refcount, NULL)) {
-> +		if (sem->version =3D=3D 1)
-> +			free(sem);
-> +		else if (sem->version =3D=3D 2) {
-> +			amdgpu_bo_handle buf_handle =3D sem->buf_handle;
-> +			amdgpu_bo_cpu_unmap(buf_handle);
-> +			amdgpu_bo_free(buf_handle);
+> -	amdgpu_ctx_fini(ctx);
+> +	fences =3D kmalloc_array(sizeof(void *), AMDGPU_MAX_RINGS *
+> +			       amdgpu_sched_jobs,
+> +			       GFP_KERNEL);
+> +	if (!fences)
+> +		return;
+> +	for (i =3D 0; i < AMDGPU_MAX_RINGS; ++i) {
+> +		for (j =3D 0; j < amdgpu_sched_jobs; ++j) {
+> +			if (ctx->rings[i].fences[j])
+> +				fences[k++] =3D fence_get(ctx->rings[i].fences[j]);
 > +		}
 > +	}
->  	return 0;
+> +	if (k =3D=3D 0) {
+> +		amdgpu_ctx_release_cb(NULL, &ctx->cb);
+> +		kfree(fences);
+> +		return;
+> +	}
+> +
+> +	array =3D fence_array_create(k, fences, fence_context_alloc(1),
+> +				   1, false);
+> +	if (!array) {
+> +		for (j =3D 0; j < k; ++j)
+> +			fence_put(fences[j]);
+> +		kfree(fences);
+> +		return;
+> +	}
+> +	r =3D fence_add_callback(&array->base, &ctx->cb, amdgpu_ctx_release_c=
+b);
+> +	if (r =3D=3D -ENOENT)
+> +		amdgpu_ctx_release_cb(&array->base, &ctx->cb);
+> +	else if (r)
+
+Could be wrong but should this be (r < 0) ?
+
+Kind Regards,
+Edward.
+
+> +		DRM_ERROR("fence add callback failed (%d)\n",  r);
 >  }
 > =20
-> @@ -618,4 +654,27 @@ int amdgpu_cs_destroy_semaphore(amdgpu_semaphore_h=
-andle sem)
->  	return amdgpu_cs_unreference_sem(sem);
->  }
-> =20
-> +int amdgpu_cs_export_semaphore(amdgpu_semaphore_handle sem,
-> +			       uint32_t *shared_handle)
-> +{
-> +	return amdgpu_bo_export(sem->buf_handle,
-> +				amdgpu_bo_handle_type_dma_buf_fd,
-> +				shared_handle);
-> +
-> +}
-> +
-> +int amdgpu_cs_import_semaphore(amdgpu_semaphore_handle *sem,
-> +			       amdgpu_device_handle dev, uint32_t shared_handle)
-> +{
-> +	struct amdgpu_bo_import_result output;
-> +	int r;
-> +
-> +	r =3D amdgpu_bo_import(dev,
-> +			     amdgpu_bo_handle_type_dma_buf_fd,
-> +			     shared_handle,
-> +			     &output);
-> +	if (r)
-> +		return r;
-> =20
-> +	return amdgpu_bo_cpu_map(output.buf_handle, sem);
-> +}
-> diff --git a/amdgpu/amdgpu_internal.h b/amdgpu/amdgpu_internal.h
-> index ccc85d7..7c422da 100644
-> --- a/amdgpu/amdgpu_internal.h
-> +++ b/amdgpu/amdgpu_internal.h
-> @@ -134,6 +134,8 @@ struct amdgpu_semaphore {
->  	atomic_t refcount;
->  	struct list_head list;
->  	struct drm_amdgpu_fence signal_fence;
-> +	amdgpu_bo_handle buf_handle;
-> +	uint32_t version;
->  };
-> =20
->  /**
+>  static int amdgpu_ctx_free(uint32_t id)
 >=20
 
 
---Ew0cwO3oUx0wa8EOnrj0iweUhx24hChG5--
+--skcJAa56TxAed465VJILwVg8RHPjaPMJb--
 
---Ew6Qd1LJKekqQvOvV9kNQfH2bCWCU3gi8
+--mimLwFw5c7eaNslP3sW9BrRiNo4OM82mi
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
@@ -259,24 +188,24 @@ Content-Disposition: attachment; filename="signature.asc"
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJXuUjXAAoJEP4bvbfZuWjbRLsQAMoWoqzHec+xgQddsd4eVE5P
-TNUjuIKwjTpUUYkHuS7qYZ6JZHRtAgqObUGQeK/Y6yiHWH27iUOrRXYmXBMJnA+w
-sV1bv5Km3Y3UQvFiSBNUp2cGQJD1JVg4I1Hxp+oZJbT3GOpY8O1Cuz3NKAh0tq9G
-bTPEs0P2IUWqR1ACeq4c5DZG+0flceEyS74KgpAREI1NHQM1Cc2efjkzW5N+lFG8
-vw2g3THR0ULdriLRlWtmoIdS1yK0MWCiLDNNF6/FhA342WTrCYx8szGrvA7unlKy
-CRFLlHoRDhc875Uw9XigoRIhEInBSmBlKJu+SNPh9GIqFJnlAHqS5gGENqSOi5wb
-eQg8gK+5Y+wUvrFLJQsmZ38XthT1H8qx+MA4VnOG+dTnZpaoWNyvANxJ1j0bKHHd
-ef6XPs2Y9R8GTk2wAo8uv58BFchhqI9AzerykaaliHcRk1i9hqVJh4E7DXgif1Rb
-+D9I1cW+BLsdmVRXXgyv6DETfzjyYpDRvZvdl0qsvktWP4lLC6S1UVwB06HSXeAu
-EdDmC3S/Rr2jRUxeYZItfz4wB0lU3udjIxVHaR1S5bQdGWRA6VpwELxjQ86h9lFE
-nRWAdh4ZgZ5tOPgyaKhZJM0WpdsdLxcZa9keHvkx0RMP7jESHv5nbJdYFt55MLhs
-ZQici5pfSZRcELppXq4G
-=+ZjY
+iQIcBAEBCAAGBQJXuU1tAAoJEP4bvbfZuWjb8xwQAJMWceMYOZnNzYaIGr484fwK
+msXryHOHB7+6DFiDoHH2ZQmNiW4HMesbw1hbAlhyEpo9dsj+fUiQe+m1Wpy+QSy/
+74cRTrEC1VpQTkBRq632WrghTKcltSPqRAWsVclnOJelJQecnQn+uZ3/P2cWQ9Zk
+het4pO1rJ/g+TbLPUIQnpSizG/LgSEw/Gp0fYztNw1GiDQNYGqtkP2HhZPlT0+h2
+etuLa+AszSr7E582vhj5qtt9BKMv9S+q5WriQb6BDb39vXTuEd8znmA9AA8dLNHD
+dZvoTdIW06jFeTzwREY/Lj+Uv3tdqGBaGUVWG+PUq8eOQokTp6/kL9SFVzjKfHGZ
+0BUcXpFGjzQ0k35aUSqEuJR1uzyUNLp43E2qFx1uJTdL/ibaK0fzB8SWgGXsI3W/
+IN2mTSClNSXYZ8g5V5yDQGnxfTooHMK1xEXt+ZNYPrnNBR3QSh3ZRJAfGsKvSWCo
+QBApY4mHvIjQYb1H1RC+JC8MeoxOVgn1TydButuotM6dnqsQxbGrLRjXRgViPtfu
+Ju5NU7IrLYXP3k6Ad4vBELwlTg+ydb2eX+RtHkKK4h3Q8JyKLZz1tleQNu6M5l2J
+n36lSCiWDQODOKzzE1XQByaJIbO4yiF91BLJNCFSaXviw+aZRYtapF39RklcsJUN
+MWLjlX91AxZLY4V0QpH6
+=QN3n
 -----END PGP SIGNATURE-----
 
---Ew6Qd1LJKekqQvOvV9kNQfH2bCWCU3gi8--
+--mimLwFw5c7eaNslP3sW9BrRiNo4OM82mi--
 
---===============0692898726==
+--===============0819536534==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -286,4 +215,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0692898726==--
+--===============0819536534==--
