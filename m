@@ -1,13 +1,14 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/powerplay: Tidy up cz_hwmgr.c
-Date: Mon, 22 Aug 2016 10:55:51 -0400
-Message-ID: <CADnq5_NSZybuJq5Ymt2N=Cx9_+_=r79iKW5XhHAmyQOY5jos0Q@mail.gmail.com>
-References: <20160818142951.779-1-tom.stdenis@amd.com>
+From: Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH drm/amdgpu] Fix indentation in
+ dce_v8_0_audio_write_sad_regs()
+Date: Mon, 22 Aug 2016 15:01:27 +0000
+Message-ID: <CAPEhTTG_9SaV1bXnaqE=O6K-Y+WvQQbYF+Tcs=4aMJ4zwQqpyQ@mail.gmail.com>
+References: <20160822003826.16418-1-alexandre.f.demers@gmail.com>
+ <MWHPR12MB169478C874EB12F1821F3BD0F7E80@MWHPR12MB1694.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1151005679=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20160818142951.779-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <MWHPR12MB169478C874EB12F1821F3BD0F7E80-Gy0DoCVfaSW4WA4dJ5YXGAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,128 +19,207 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gVGh1LCBBdWcgMTgsIDIwMTYgYXQgMTA6MjkgQU0sIFRvbSBTdCBEZW5pcyA8dHN0ZGVuaXM4
-MkBnbWFpbC5jb20+IHdyb3RlOgo+IENsZWFuIHVwIHdoaXRlc3BhY2UgYW5kIGZvcm1hdHRpbmcu
-Cj4KPiBTaWduZWQtb2ZmLWJ5OiBUb20gU3QgRGVuaXMgPHRvbS5zdGRlbmlzQGFtZC5jb20+CgpS
-ZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgoKPiAt
-LS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvY3pfaHdtZ3IuYyB8IDUz
-ICsrKysrKystLS0tLS0tLS0tLS0tLS0tLS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAxMyBpbnNlcnRp
-b25zKCspLCA0MCBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9od21nci9jel9od21nci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
-cnBsYXkvaHdtZ3IvY3pfaHdtZ3IuYwo+IGluZGV4IGExYzA3MDc2NmQ2YS4uMGQ1NDIyNjc1NGQx
-IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2N6X2h3
-bWdyLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9jel9od21n
-ci5jCj4gQEAgLTE3OCw3ICsxNzgsNiBAQCBzdGF0aWMgaW50IGN6X2luaXRpYWxpemVfZHBtX2Rl
-ZmF1bHRzKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCj4gICAgICAgICBpbnQgcmVzdWx0Owo+Cj4g
-ICAgICAgICBjel9od21nci0+Z2Z4X3JhbXBfc3RlcCA9IDI1NioyNS8xMDA7Cj4gLQo+ICAgICAg
-ICAgY3pfaHdtZ3ItPmdmeF9yYW1wX2RlbGF5ID0gMTsgLyogYnkgZGVmYXVsdCwgd2UgZGVsYXkg
-MXVzICovCj4KPiAgICAgICAgIGZvciAoaSA9IDA7IGkgPCBDWl9NQVhfSEFSRFdBUkVfUE9XRVJM
-RVZFTFM7IGkrKykKPiBAQCAtMTg2LDMzICsxODUsMTkgQEAgc3RhdGljIGludCBjel9pbml0aWFs
-aXplX2RwbV9kZWZhdWx0cyhzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQo+Cj4gICAgICAgICBjel9o
-d21nci0+bWdjZ19jZ3R0X2xvY2FsMCA9IDB4MDAwMDAwMDA7Cj4gICAgICAgICBjel9od21nci0+
-bWdjZ19jZ3R0X2xvY2FsMSA9IDB4MDAwMDAwMDA7Cj4gLQo+ICAgICAgICAgY3pfaHdtZ3ItPmNs
-b2NrX3Nsb3dfZG93bl9mcmVxID0gMjUwMDA7Cj4gLQo+ICAgICAgICAgY3pfaHdtZ3ItPnNraXBf
-Y2xvY2tfc2xvd19kb3duID0gMTsKPiAtCj4gICAgICAgICBjel9od21nci0+ZW5hYmxlX25iX3Bz
-X3BvbGljeSA9IDE7IC8qIGRpc2FibGUgdW50aWwgVU5CIGlzIHJlYWR5LCBFbmFibGVkICovCj4g
-LQo+ICAgICAgICAgY3pfaHdtZ3ItPnZvbHRhZ2VfZHJvcF9pbl9kY2VfcG93ZXJfZ2F0aW5nID0g
-MDsgLyogZGlzYWJsZSB1bnRpbCBmdWxseSB2ZXJpZmllZCAqLwo+IC0KPiAgICAgICAgIGN6X2h3
-bWdyLT52b3RpbmdfcmlnaHRzX2NsaWVudHMgPSAweDAwQzAwMDMzOwo+IC0KPiAgICAgICAgIGN6
-X2h3bWdyLT5zdGF0aWNfc2NyZWVuX3RocmVzaG9sZCA9IDg7Cj4gLQo+ICAgICAgICAgY3pfaHdt
-Z3ItPmRkaV9wb3dlcl9nYXRpbmdfZGlzYWJsZWQgPSAwOwo+IC0KPiAgICAgICAgIGN6X2h3bWdy
-LT5iYXBtX2VuYWJsZWQgPSAxOwo+IC0KPiAgICAgICAgIGN6X2h3bWdyLT52b2x0YWdlX2Ryb3Bf
-dGhyZXNob2xkID0gMDsKPiAtCj4gICAgICAgICBjel9od21nci0+Z2Z4X3Bvd2VyX2dhdGluZ190
-aHJlc2hvbGQgPSA1MDA7Cj4gLQo+ICAgICAgICAgY3pfaHdtZ3ItPnZjZV9zbG93X3NjbGtfdGhy
-ZXNob2xkID0gMjAwMDA7Cj4gLQo+ICAgICAgICAgY3pfaHdtZ3ItPmRjZV9zbG93X3NjbGtfdGhy
-ZXNob2xkID0gMzAwMDA7Cj4gLQo+ICAgICAgICAgY3pfaHdtZ3ItPmRpc2FibGVfZHJpdmVyX3Ro
-ZXJtYWxfcG9saWN5ID0gMTsKPiAtCj4gICAgICAgICBjel9od21nci0+ZGlzYWJsZV9uYl9wczNf
-aW5fYmF0dGVyeSA9IDA7Cj4KPiAgICAgICAgIHBobV9jYXBfdW5zZXQoaHdtZ3ItPnBsYXRmb3Jt
-X2Rlc2NyaXB0b3IucGxhdGZvcm1DYXBzLAo+IEBAIC0yMzAsOSArMjE1LDcgQEAgc3RhdGljIGlu
-dCBjel9pbml0aWFsaXplX2RwbV9kZWZhdWx0cyhzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQo+ICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQSE1fUGxhdGZvcm1DYXBzX0R5bmFtaWNQ
-YXRjaFBvd2VyU3RhdGUpOwo+Cj4gICAgICAgICBjel9od21nci0+dGhlcm1hbF9hdXRvX3Rocm90
-dGxpbmdfdHJlc2hvbGQgPSAwOwo+IC0KPiAgICAgICAgIGN6X2h3bWdyLT50ZHJfY2xvY2sgPSAw
-Owo+IC0KPiAgICAgICAgIGN6X2h3bWdyLT5kaXNhYmxlX2dmeF9wb3dlcl9nYXRpbmdfaW5fdXZk
-ID0gMDsKPgo+ICAgICAgICAgcGhtX2NhcF9zZXQoaHdtZ3ItPnBsYXRmb3JtX2Rlc2NyaXB0b3Iu
-cGxhdGZvcm1DYXBzLAo+IEBAIC00NDcsMTkgKzQzMCwxMiBAQCBzdGF0aWMgaW50IGN6X2NvbnN0
-cnVjdF9ib290X3N0YXRlKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCj4gICAgICAgICAgICAgICAg
-ICAgICAgICAgKHVpbnQ4X3QpY3pfaHdtZ3ItPnN5c19pbmZvLmJvb3R1cF9uYl92b2x0YWdlX2lu
-ZGV4Owo+Cj4gICAgICAgICBjel9od21nci0+Ym9vdF9wb3dlcl9sZXZlbC5kc0RpdmlkZXJJbmRl
-eCA9IDA7Cj4gLQo+ICAgICAgICAgY3pfaHdtZ3ItPmJvb3RfcG93ZXJfbGV2ZWwuc3NEaXZpZGVy
-SW5kZXggPSAwOwo+IC0KPiAgICAgICAgIGN6X2h3bWdyLT5ib290X3Bvd2VyX2xldmVsLmFsbG93
-R25iU2xvdyA9IDE7Cj4gLQo+ICAgICAgICAgY3pfaHdtZ3ItPmJvb3RfcG93ZXJfbGV2ZWwuZm9y
-Y2VOQlBzdGF0ZSA9IDA7Cj4gLQo+ICAgICAgICAgY3pfaHdtZ3ItPmJvb3RfcG93ZXJfbGV2ZWwu
-aHlzdGVyZXNpc191cCA9IDA7Cj4gLQo+ICAgICAgICAgY3pfaHdtZ3ItPmJvb3RfcG93ZXJfbGV2
-ZWwubnVtU0lNRFRvUG93ZXJEb3duID0gMDsKPiAtCj4gICAgICAgICBjel9od21nci0+Ym9vdF9w
-b3dlcl9sZXZlbC5kaXNwbGF5X3dtID0gMDsKPiAtCj4gICAgICAgICBjel9od21nci0+Ym9vdF9w
-b3dlcl9sZXZlbC52Y2Vfd20gPSAwOwo+Cj4gICAgICAgICByZXR1cm4gMDsKPiBAQCAtNzQ2LDcg
-KzcyMiw2IEBAIHN0YXRpYyBpbnQgY3pfdGZfdXBkYXRlX3NjbGtfbGltaXQoc3RydWN0IHBwX2h3
-bWdyICpod21nciwKPiAgICAgICAgICAgICAgICAgY3pfaHdtZ3ItPnNjbGtfZHBtLnNvZnRfbWF4
-X2NsayAgPSB0YWJsZS0+ZW50cmllc1t0YWJsZS0+Y291bnQgLSAxXS5jbGs7Cj4KPiAgICAgICAg
-IGNsb2NrID0gaHdtZ3ItPmRpc3BsYXlfY29uZmlnLm1pbl9jb3JlX3NldF9jbG9jazsKPiAtOwo+
-ICAgICAgICAgaWYgKGNsb2NrID09IDApCj4gICAgICAgICAgICAgICAgIHByaW50ayhLRVJOX0lO
-Rk8gIlsgcG93ZXJwbGF5IF0gbWluX2NvcmVfc2V0X2Nsb2NrIG5vdCBzZXRcbiIpOwo+Cj4gQEAg
-LTgyOSw3ICs4MDQsNyBAQCBzdGF0aWMgaW50IGN6X3RmX3NldF93YXRlcm1hcmtfdGhyZXNob2xk
-KHN0cnVjdCBwcF9od21nciAqaHdtZ3IsCj4KPiAgICAgICAgIHNtdW1fc2VuZF9tc2dfdG9fc21j
-X3dpdGhfcGFyYW1ldGVyKGh3bWdyLT5zbXVtZ3IsCj4gICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIFBQU01DX01TR19TZXRXYXRlcm1hcmtGcmVxdWVuY3ksCj4gLSAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjel9od21nci0+c2Nsa19kcG0uc29mdF9t
-YXhfY2xrKTsKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY3pfaHdt
-Z3ItPnNjbGtfZHBtLnNvZnRfbWF4X2Nsayk7Cj4KPiAgICAgICAgIHJldHVybiAwOwo+ICB9Cj4g
-QEAgLTg1NSw5ICs4MzAsOSBAQCBzdGF0aWMgaW50IGN6X3RmX2VuYWJsZV9uYl9kcG0oc3RydWN0
-IHBwX2h3bWdyICpod21nciwKPiAgICAgICAgICAgICAgICAgUFBfREJHX0xPRygiZW5hYmxpbmcg
-QUxMIFNNVSBmZWF0dXJlcy5cbiIpOwo+ICAgICAgICAgICAgICAgICBkcG1fZmVhdHVyZXMgfD0g
-TkJfRFBNX01BU0s7Cj4gICAgICAgICAgICAgICAgIHJldCA9IHNtdW1fc2VuZF9tc2dfdG9fc21j
-X3dpdGhfcGFyYW1ldGVyKAo+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBod21nci0+c211bWdyLAo+IC0gICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgUFBTTUNfTVNHX0VuYWJsZUFsbFNtdUZlYXR1cmVzLAo+
-IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBkcG1fZmVhdHVyZXMpOwo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBod21nci0+c211bWdyLAo+ICsgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQUFNNQ19NU0dfRW5hYmxl
-QWxsU211RmVhdHVyZXMsCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIGRwbV9mZWF0dXJlcyk7Cj4gICAgICAgICAgICAgICAgIGlmIChy
-ZXQgPT0gMCkKPiAgICAgICAgICAgICAgICAgICAgICAgICBjel9od21nci0+aXNfbmJfZHBtX2Vu
-YWJsZWQgPSB0cnVlOwo+ICAgICAgICAgfQo+IEBAIC0xMzk5LDEwICsxMzc0LDEyIEBAIGludCBj
-el9kcG1fdXBkYXRlX3V2ZF9kcG0oc3RydWN0IHBwX2h3bWdyICpod21nciwgYm9vbCBiZ2F0ZSkK
-PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQUFNN
-Q19NU0dfU2V0VXZkSGFyZE1pbikpOwo+Cj4gICAgICAgICAgICAgICAgICAgICAgICAgY3pfZW5h
-YmxlX2Rpc2FibGVfdXZkX2RwbShod21nciwgdHJ1ZSk7Cj4gLSAgICAgICAgICAgICAgIH0gZWxz
-ZQo+ICsgICAgICAgICAgICAgICB9IGVsc2Ugewo+ICAgICAgICAgICAgICAgICAgICAgICAgIGN6
-X2VuYWJsZV9kaXNhYmxlX3V2ZF9kcG0oaHdtZ3IsIHRydWUpOwo+IC0gICAgICAgfSBlbHNlCj4g
-KyAgICAgICAgICAgICAgIH0KPiArICAgICAgIH0gZWxzZSB7Cj4gICAgICAgICAgICAgICAgIGN6
-X2VuYWJsZV9kaXNhYmxlX3V2ZF9kcG0oaHdtZ3IsIGZhbHNlKTsKPiArICAgICAgIH0KPgo+ICAg
-ICAgICAgcmV0dXJuIDA7Cj4gIH0KPiBAQCAtMTY4NywxMyArMTY2NCwxMCBAQCBzdGF0aWMgaW50
-IGN6X3N0b3JlX2NjNl9kYXRhKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIHVpbnQzMl90IHNlcGFy
-YXRpb25fdGltZSwKPiAgICAgICAgIHN0cnVjdCBjel9od21nciAqaHdfZGF0YSA9IChzdHJ1Y3Qg
-Y3pfaHdtZ3IgKikoaHdtZ3ItPmJhY2tlbmQpOwo+Cj4gICAgICAgICBpZiAoc2VwYXJhdGlvbl90
-aW1lICE9Cj4gLSAgICAgICAgICAgICAgIGh3X2RhdGEtPmNjNl9zZXR0aW5ncy5jcHVfcHN0YXRl
-X3NlcGFyYXRpb25fdGltZQo+IC0gICAgICAgICAgICAgICB8fCBjYzZfZGlzYWJsZSAhPQo+IC0g
-ICAgICAgICAgICAgICBod19kYXRhLT5jYzZfc2V0dGluZ3MuY3B1X2NjNl9kaXNhYmxlCj4gLSAg
-ICAgICAgICAgICAgIHx8IHBzdGF0ZV9kaXNhYmxlICE9Cj4gLSAgICAgICAgICAgICAgIGh3X2Rh
-dGEtPmNjNl9zZXR0aW5ncy5jcHVfcHN0YXRlX2Rpc2FibGUKPiAtICAgICAgICAgICAgICAgfHwg
-cHN0YXRlX3N3aXRjaF9kaXNhYmxlICE9Cj4gLSAgICAgICAgICAgICAgIGh3X2RhdGEtPmNjNl9z
-ZXR0aW5ncy5uYl9wc3RhdGVfc3dpdGNoX2Rpc2FibGUpIHsKPiArICAgICAgICAgICBod19kYXRh
-LT5jYzZfc2V0dGluZ3MuY3B1X3BzdGF0ZV9zZXBhcmF0aW9uX3RpbWUgfHwKPiArICAgICAgICAg
-ICBjYzZfZGlzYWJsZSAhPSBod19kYXRhLT5jYzZfc2V0dGluZ3MuY3B1X2NjNl9kaXNhYmxlIHx8
-Cj4gKyAgICAgICAgICAgcHN0YXRlX2Rpc2FibGUgIT0gaHdfZGF0YS0+Y2M2X3NldHRpbmdzLmNw
-dV9wc3RhdGVfZGlzYWJsZSB8fAo+ICsgICAgICAgICAgIHBzdGF0ZV9zd2l0Y2hfZGlzYWJsZSAh
-PSBod19kYXRhLT5jYzZfc2V0dGluZ3MubmJfcHN0YXRlX3N3aXRjaF9kaXNhYmxlKSB7Cj4KPiAg
-ICAgICAgICAgICAgICAgaHdfZGF0YS0+Y2M2X3NldHRpbmdzLmNjNl9zZXR0aW5nX2NoYW5nZWQg
-PSB0cnVlOwo+Cj4gQEAgLTE3OTYsOCArMTc3MCw3IEBAIHN0YXRpYyBpbnQgY3pfZ2V0X3BlcmZv
-cm1hbmNlX2xldmVsKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIGNvbnN0IHN0cnVjdCBwcF9od19w
-Cj4gICAgICAgICBwcyA9IGNhc3RfY29uc3RfUGh3Q3pQb3dlclN0YXRlKHN0YXRlKTsKPgo+ICAg
-ICAgICAgbGV2ZWxfaW5kZXggPSBpbmRleCA+IHBzLT5sZXZlbCAtIDEgPyBwcy0+bGV2ZWwgLSAx
-IDogaW5kZXg7Cj4gLQo+IC0gICAgICAgbGV2ZWwtPmNvcmVDbG9jayAgPSBwcy0+bGV2ZWxzW2xl
-dmVsX2luZGV4XS5lbmdpbmVDbG9jazsKPiArICAgICAgIGxldmVsLT5jb3JlQ2xvY2sgPSBwcy0+
-bGV2ZWxzW2xldmVsX2luZGV4XS5lbmdpbmVDbG9jazsKPgo+ICAgICAgICAgaWYgKGRlc2lnbmF0
-aW9uID09IFBITV9QZXJmb3JtYW5jZUxldmVsRGVzaWduYXRpb25fUG93ZXJDb250YWlubWVudCkg
-ewo+ICAgICAgICAgICAgICAgICBmb3IgKGkgPSAxOyBpIDwgcHMtPmxldmVsOyBpKyspIHsKPiAt
-LQo+IDIuOS4yCj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-ZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1151005679==
+Content-Type: multipart/alternative; boundary=94eb2c07ec3c3092db053aaa53e3
+
+--94eb2c07ec3c3092db053aaa53e3
+Content-Type: text/plain; charset=UTF-8
+
+Will do, thanks!
+
+I'll make the change for the others already baking for DCE6. I still have a
+thing or two to clean up, but  it's almost there.
+
+On Mon, 22 Aug 2016 at 09:19 Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+wrote:
+
+> > -----Original Message-----
+> > From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf
+> > Of Alexandre Demers
+> > Sent: Sunday, August 21, 2016 8:38 PM
+> > To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> > Subject: [PATCH drm/amdgpu] Fix indentation in
+> > dce_v8_0_audio_write_sad_regs()
+>
+> For these and future patches, please include drm/amdgpu: in the patch
+> title.
+>
+> Alex
+>
+> >
+> > Fixed indentation for readability.
+> >
+> > Signed-off-by: Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c | 14 +++++++-------
+> >  1 file changed, 7 insertions(+), 7 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> > b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> > index 3ff1258..c7e5d5f 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> > @@ -1501,13 +1501,13 @@ static void
+> > dce_v8_0_audio_write_sad_regs(struct drm_encoder *encoder)
+> >
+> >                       if (sad->format == eld_reg_to_type[i][1]) {
+> >                               if (sad->channels > max_channels) {
+> > -                             value = (sad->channels <<
+> > -
+> > AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__MAX_CHANNEL
+> > S__SHIFT) |
+> > -                             (sad->byte2 <<
+> > -
+> > AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__DESCRIPTOR_BY
+> > TE_2__SHIFT) |
+> > -                             (sad->freq <<
+> > -
+> > AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__SUPPORTED_FR
+> > EQUENCIES__SHIFT);
+> > -                             max_channels = sad->channels;
+> > +                                     value = (sad->channels <<
+> > +
+> > AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__MAX_CHANNEL
+> > S__SHIFT) |
+> > +                                             (sad->byte2 <<
+> > +
+> > AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__DESCRIPTOR_BY
+> > TE_2__SHIFT) |
+> > +                                             (sad->freq <<
+> > +
+> > AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__SUPPORTED_FR
+> > EQUENCIES__SHIFT);
+> > +                                     max_channels = sad->channels;
+> >                               }
+> >
+> >                               if (sad->format ==
+> > HDMI_AUDIO_CODING_TYPE_PCM)
+> > --
+> > 2.9.3
+> >
+> > _______________________________________________
+> > amd-gfx mailing list
+> > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+
+--94eb2c07ec3c3092db053aaa53e3
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Will do, thanks!<div><br></div><div>I&#39;ll make the chan=
+ge for the others already baking for DCE6. I still have a thing or two to c=
+lean up, but =C2=A0it&#39;s almost there.</div></div><br><div class=3D"gmai=
+l_quote"><div dir=3D"ltr">On Mon, 22 Aug 2016 at 09:19 Deucher, Alexander &=
+lt;<a href=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org">Alexander.Deucher-5C7GfCeVMHo@public.gmane.org</=
+a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 =
+0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">&gt; -----Original Me=
+ssage-----<br>
+&gt; From: amd-gfx [mailto:<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
+top.org" target=3D"_blank">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>] On Be=
+half<br>
+&gt; Of Alexandre Demers<br>
+&gt; Sent: Sunday, August 21, 2016 8:38 PM<br>
+&gt; To: <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank"=
+>amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+&gt; Subject: [PATCH drm/amdgpu] Fix indentation in<br>
+&gt; dce_v8_0_audio_write_sad_regs()<br>
+<br>
+For these and future patches, please include drm/amdgpu: in the patch title=
+.<br>
+<br>
+Alex<br>
+<br>
+&gt;<br>
+&gt; Fixed indentation for readability.<br>
+&gt;<br>
+&gt; Signed-off-by: Alexandre Demers &lt;<a href=3D"mailto:alexandre.f.deme=
+rs-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/dce_v8_0.c | 14 +++++++-------<br>
+&gt;=C2=A0 1 file changed, 7 insertions(+), 7 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c<br>
+&gt; b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c<br>
+&gt; index 3ff1258..c7e5d5f 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c<br>
+&gt; @@ -1501,13 +1501,13 @@ static void<br>
+&gt; dce_v8_0_audio_write_sad_regs(struct drm_encoder *encoder)<br>
+&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0if (sad-&gt;format =3D=3D eld_reg_to_type[i][1]) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (sad-&gt;channels &gt; max_chan=
+nels) {<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0value =3D (sad-&gt;channels &lt;&lt;<br>
+&gt; -<br>
+&gt; AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__MAX_CHANNEL<br>
+&gt; S__SHIFT) |<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(sad-&gt;byte2 &lt;&lt;<br>
+&gt; -<br>
+&gt; AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__DESCRIPTOR_BY<br>
+&gt; TE_2__SHIFT) |<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(sad-&gt;freq &lt;&lt;<br>
+&gt; -<br>
+&gt; AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__SUPPORTED_FR<br>
+&gt; EQUENCIES__SHIFT);<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0max_channels =3D sad-&gt;channels;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0value =3D (s=
+ad-&gt;channels &lt;&lt;<br>
+&gt; +<br>
+&gt; AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__MAX_CHANNEL<br>
+&gt; S__SHIFT) |<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0(sad-&gt;byte2 &lt;&lt;<br>
+&gt; +<br>
+&gt; AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__DESCRIPTOR_BY<br>
+&gt; TE_2__SHIFT) |<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0(sad-&gt;freq &lt;&lt;<br>
+&gt; +<br>
+&gt; AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__SUPPORTED_FR<br>
+&gt; EQUENCIES__SHIFT);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0max_channels=
+ =3D sad-&gt;channels;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (sad-&gt;format =3D=3D<br>
+&gt; HDMI_AUDIO_CODING_TYPE_PCM)<br>
+&gt; --<br>
+&gt; 2.9.3<br>
+&gt;<br>
+&gt; _______________________________________________<br>
+&gt; amd-gfx mailing list<br>
+&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd=
+-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=
+=3D"noreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/lis=
+tinfo/amd-gfx</a><br>
+</blockquote></div>
+
+--94eb2c07ec3c3092db053aaa53e3--
+
+--===============1151005679==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1151005679==--
