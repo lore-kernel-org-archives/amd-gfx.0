@@ -1,14 +1,16 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH drm/amdgpu] Fix indentation in
- dce_v8_0_audio_write_sad_regs()
-Date: Mon, 22 Aug 2016 09:52:40 +0200
-Message-ID: <c834bb0d-39b7-cf4b-ac76-819b69934f5d@vodafone.de>
-References: <20160822003826.16418-1-alexandre.f.demers@gmail.com>
- <c67885c8-c2dc-3628-75b2-800384a43a96@folklore1984.net>
+From: "Yu, Qiang" <Qiang.Yu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v3 xserver 4/4] modesetting: add DRI2 page flip support
+Date: Mon, 22 Aug 2016 06:54:32 +0000
+Message-ID: <MWHPR12MB1215D3E3592386AE7C691DE58FE80@MWHPR12MB1215.namprd12.prod.outlook.com>
+References: <1471838038-16382-1-git-send-email-Qiang.Yu@amd.com>
+ <1471838038-16382-5-git-send-email-Qiang.Yu@amd.com>,
+ <CADscph0CQsVXmYTLetbXyzrJHoapPfF=3r1K3ZSGBPYoooas5A@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0016715311=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <c67885c8-c2dc-3628-75b2-800384a43a96-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+In-Reply-To: <CADscph0CQsVXmYTLetbXyzrJHoapPfF=3r1K3ZSGBPYoooas5A-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,161 +21,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>, Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Daniel Martin <consume.noise-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?iso-8859-1?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, xorg-devel <xorg-devel-go0+a7rfsptAfugRpC6u6w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============0016715311==
-Content-Type: multipart/alternative;
- boundary="------------352E8959C921FAE3F5F07BED"
-
-This is a multi-part message in MIME format.
---------------352E8959C921FAE3F5F07BED
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Am 22.08.2016 um 02:41 schrieb Edward O'Callaghan:
-> On 08/22/2016 10:38 AM, Alexandre Demers wrote:
->> Fixed indentation for readability.
->>
->> Signed-off-by: Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-> Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-
-Reviewed-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-
->
->> ---
->>   drivers/gpu/drm/amd/amdgpu/dce_v8_0.c | 14 +++++++-------
->>   1 file changed, 7 insertions(+), 7 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
->> index 3ff1258..c7e5d5f 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
->> @@ -1501,13 +1501,13 @@ static void dce_v8_0_audio_write_sad_regs(struct drm_encoder *encoder)
->>   
->>   			if (sad->format == eld_reg_to_type[i][1]) {
->>   				if (sad->channels > max_channels) {
->> -				value = (sad->channels <<
->> -				 AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__MAX_CHANNELS__SHIFT) |
->> -				(sad->byte2 <<
->> -				 AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__DESCRIPTOR_BYTE_2__SHIFT) |
->> -				(sad->freq <<
->> -				 AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__SUPPORTED_FREQUENCIES__SHIFT);
->> -				max_channels = sad->channels;
->> +					value = (sad->channels <<
->> +						 AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__MAX_CHANNELS__SHIFT) |
->> +					        (sad->byte2 <<
->> +						 AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__DESCRIPTOR_BYTE_2__SHIFT) |
->> +					        (sad->freq <<
->> +						 AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__SUPPORTED_FREQUENCIES__SHIFT);
->> +					max_channels = sad->channels;
->>   				}
->>   
->>   				if (sad->format == HDMI_AUDIO_CODING_TYPE_PCM)
->>
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
-
---------------352E8959C921FAE3F5F07BED
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Am 22.08.2016 um 02:41 schrieb Edward
-      O'Callaghan:<br>
-    </div>
-    <blockquote
-      cite="mid:c67885c8-c2dc-3628-75b2-800384a43a96-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org"
-      type="cite">
-      <pre wrap="">
-On 08/22/2016 10:38 AM, Alexandre Demers wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="">Fixed indentation for readability.
-
-Signed-off-by: Alexandre Demers <a class="moz-txt-link-rfc2396E" href="mailto:alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">&lt;alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a>
-</pre>
-      </blockquote>
-      <pre wrap="">Reviewed-by: Edward O'Callaghan <a class="moz-txt-link-rfc2396E" href="mailto:funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org">&lt;funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org&gt;</a></pre>
-    </blockquote>
-    <br>
-    Reviewed-by: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-    <br>
-    <blockquote
-      cite="mid:c67885c8-c2dc-3628-75b2-800384a43a96-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org"
-      type="cite">
-      <pre wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="">---
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-index 3ff1258..c7e5d5f 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-@@ -1501,13 +1501,13 @@ static void dce_v8_0_audio_write_sad_regs(struct drm_encoder *encoder)
- 
- 			if (sad-&gt;format == eld_reg_to_type[i][1]) {
- 				if (sad-&gt;channels &gt; max_channels) {
--				value = (sad-&gt;channels &lt;&lt;
--				 AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__MAX_CHANNELS__SHIFT) |
--				(sad-&gt;byte2 &lt;&lt;
--				 AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__DESCRIPTOR_BYTE_2__SHIFT) |
--				(sad-&gt;freq &lt;&lt;
--				 AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__SUPPORTED_FREQUENCIES__SHIFT);
--				max_channels = sad-&gt;channels;
-+					value = (sad-&gt;channels &lt;&lt;
-+						 AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__MAX_CHANNELS__SHIFT) |
-+					        (sad-&gt;byte2 &lt;&lt;
-+						 AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__DESCRIPTOR_BYTE_2__SHIFT) |
-+					        (sad-&gt;freq &lt;&lt;
-+						 AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__SUPPORTED_FREQUENCIES__SHIFT);
-+					max_channels = sad-&gt;channels;
- 				}
- 
- 				if (sad-&gt;format == HDMI_AUDIO_CODING_TYPE_PCM)
-
-</pre>
-      </blockquote>
-      <pre wrap="">
-</pre>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------352E8959C921FAE3F5F07BED--
-
---===============0016715311==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0016715311==--
+CkhpIERhbmllbCwKCk5pY2UgY2F0Y2guIEknbGwgZml4IGl0LgoKUmVnYXJkcywKUWlhbmcKCgpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkZyb206IERhbmllbCBNYXJ0
+aW4gPGNvbnN1bWUubm9pc2VAZ21haWwuY29tPgpTZW50OiBNb25kYXksIEF1Z3VzdCAyMiwgMjAx
+NiAyOjMwOjA0IFBNClRvOiBZdSwgUWlhbmcKQ2M6IHhvcmctZGV2ZWw7IE1pY2hlbCBEw6RuemVy
+OyBlbWlsLmwudmVsaWtvdkBnbWFpbC5jb207IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+ClN1YmplY3Q6IFJlOiBbUEFUQ0ggdjMgeHNlcnZlciA0LzRdIG1vZGVzZXR0aW5nOiBhZGQgRFJJ
+MiBwYWdlIGZsaXAgc3VwcG9ydAoKSGksCgpPbiAyMiBBdWd1c3QgMjAxNiBhdCAwNTo1MywgUWlh
+bmcgWXUgPFFpYW5nLll1QGFtZC5jb20+IHdyb3RlOgo+IFNpZ25lZC1vZmYtYnk6IFFpYW5nIFl1
+IDxRaWFuZy5ZdUBhbWQuY29tPgo+IC0tLQo+ICBody94ZnJlZTg2L2RyaXZlcnMvbW9kZXNldHRp
+bmcvZHJpMi5jICAgICAgICAgICAgfCAyMzcgKysrKysrKysrKysrKysrKysrKysrKy0KPiAgaHcv
+eGZyZWU4Ni9kcml2ZXJzL21vZGVzZXR0aW5nL2RyaXZlci5oICAgICAgICAgIHwgICA1ICstCj4g
+IGh3L3hmcmVlODYvZHJpdmVycy9tb2Rlc2V0dGluZy9kcm1tb2RlX2Rpc3BsYXkuaCB8ICAgMyAr
+Cj4gIGh3L3hmcmVlODYvZHJpdmVycy9tb2Rlc2V0dGluZy9wYWdlZmxpcC5jICAgICAgICB8ICAg
+NyArLQo+ICBody94ZnJlZTg2L2RyaXZlcnMvbW9kZXNldHRpbmcvcHJlc2VudC5jICAgICAgICAg
+fCAgMjAgKy0KPiAgNSBmaWxlcyBjaGFuZ2VkLCAyNTcgaW5zZXJ0aW9ucygrKSwgMTUgZGVsZXRp
+b25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvaHcveGZyZWU4Ni9kcml2ZXJzL21vZGVzZXR0aW5nL2Ry
+aTIuYyBiL2h3L3hmcmVlODYvZHJpdmVycy9tb2Rlc2V0dGluZy9kcmkyLmMKPiBpbmRleCA4M2Ni
+M2UwLi4xMjVjNDEzIDEwMDY0NAo+IC0tLSBhL2h3L3hmcmVlODYvZHJpdmVycy9tb2Rlc2V0dGlu
+Zy9kcmkyLmMKPiArKysgYi9ody94ZnJlZTg2L2RyaXZlcnMvbW9kZXNldHRpbmcvZHJpMi5jCi4u
+Lgo+ICtzdGF0aWMgdm9pZAo+ICttc19kcmkyX2V4Y2hhbmdlX2J1ZmZlcnMoRHJhd2FibGVQdHIg
+ZHJhdywgRFJJMkJ1ZmZlclB0ciBmcm9udCwKPiArICAgICAgICAgICAgICAgICAgICAgICAgIERS
+STJCdWZmZXJQdHIgYmFjaykKPiArewo+ICsgICAgbXNfZHJpMl9idWZmZXJfcHJpdmF0ZV9wdHIg
+ZnJvbnRfcHJpdiA9IGZyb250LT5kcml2ZXJQcml2YXRlOwo+ICsgICAgbXNfZHJpMl9idWZmZXJf
+cHJpdmF0ZV9wdHIgYmFja19wcml2ID0gYmFjay0+ZHJpdmVyUHJpdmF0ZTsKPiArICAgIFNjcmVl
+blB0ciBzY3JlZW4gPSBkcmF3LT5wU2NyZWVuOwo+ICsgICAgU2NybkluZm9QdHIgc2NybiA9IHhm
+ODZTY3JlZW5Ub1Njcm4oc2NyZWVuKTsKPiArICAgIG1vZGVzZXR0aW5nUHRyIG1zID0gbW9kZXNl
+dHRpbmdQVFIoc2Nybik7Cj4gKyAgICBtc1BpeG1hcFByaXZQdHIgZnJvbnRfcGl4ID0gbXNHZXRQ
+aXhtYXBQcml2KCZtcy0+ZHJtbW9kZSwgZnJvbnRfcHJpdi0+cGl4bWFwKTsKPiArICAgIG1zUGl4
+bWFwUHJpdlB0ciBiYWNrX3BpeCA9IG1zR2V0UGl4bWFwUHJpdigmbXMtPmRybW1vZGUsIGJhY2tf
+cHJpdi0+cGl4bWFwKTsKPiArICAgIG1zUGl4bWFwUHJpdlJlYyB0bXBfcGl4Owo+ICsgICAgUmVn
+aW9uUmVjIHJlZ2lvbjsKPiArICAgIGludCB0bXA7Cj4gKwo+ICsgICAgLyogU3dhcCBCTyBuYW1l
+cyBzbyBEUkkgd29ya3MgKi8KPiArICAgIHRtcCA9IGZyb250LT5uYW1lOwo+ICsgICAgZnJvbnQt
+Pm5hbWUgPSBiYWNrLT5uYW1lOwo+ICsgICAgYmFjay0+bmFtZSA9IHRtcDsKPiArCj4gKyAgICAv
+KiBTd2FwIHBpeG1hcCBwcml2YXRlcyAqLwo+ICsgICAgdG1wX3BpeCA9ICpmcm9udF9waXg7Cj4g
+KyAgICAqZnJvbnRfcGl4ID0gKmJhY2tfcGl4Owo+ICsgICAgKmJhY2tfcGl4ID0gdG1wX3BpeDsK
+PiArCj4gKyAgICBnbGFtb3JfZWdsX2V4Y2hhbmdlX2J1ZmZlcnMoZnJvbnRfcHJpdi0+cGl4bWFw
+LCBiYWNrX3ByaXYtPnBpeG1hcCk7Cj4gKwo+ICsgICAgLyogUG9zdCBkYW1hZ2Ugb24gdGhlIGZy
+b250IGJ1ZmZlciBzbyB0aGF0IGxpc3RlbmVycywgc3VjaAo+ICsgICAgICogYXMgRGlzcGxheUxp
+bmsga25vdyB0YWtlIGEgY29weSBhbmQgc2hvdmUgaXQgb3ZlciB0aGUgVVNCLgo+ICsgICAgICov
+Cj4gKyAgICByZWdpb24uZXh0ZW50cy54MSA9IHJlZ2lvbi5leHRlbnRzLnkxID0gMDsKPiArICAg
+IHJlZ2lvbi5leHRlbnRzLngyID0gZnJvbnRfcHJpdi0+cGl4bWFwLT5kcmF3YWJsZS53aWR0aDsK
+PiArICAgIHJlZ2lvbi5leHRlbnRzLnkyID0gZnJvbnRfcHJpdi0+cGl4bWFwLT5kcmF3YWJsZS53
+aWR0aDsKCnRoaXMgbG9va3MgbGlrZSBhIGNvcHknbidwYXN0ZSBtaXN0YWtlLgoKPiArICAgIHJl
+Z2lvbi5kYXRhID0gTlVMTDsKPiArICAgIERhbWFnZVJlZ2lvbkFwcGVuZCgmZnJvbnRfcHJpdi0+
+cGl4bWFwLT5kcmF3YWJsZSwgJnJlZ2lvbik7Cj4gKyAgICBEYW1hZ2VSZWdpb25Qcm9jZXNzUGVu
+ZGluZygmZnJvbnRfcHJpdi0+cGl4bWFwLT5kcmF3YWJsZSk7Cj4gK30KPiArCj4gIHN0YXRpYyB2
+b2lkCj4gIG1zX2RyaTJfZnJhbWVfZXZlbnRfaGFuZGxlcih1aW50NjRfdCBtc2MsCj4gICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICB1aW50NjRfdCB1c2VjLAoKQ2hlZXJzLAogICAgRGFuaWVs
+IE1hcnRpbgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
+bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
