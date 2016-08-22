@@ -1,12 +1,13 @@
-From: Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH drm/amdgpu] Use correct mask in dce_v8_0_afmt_setmode() and
- fix comment typos.
-Date: Sun, 21 Aug 2016 20:38:41 -0400
-Message-ID: <20160822003841.16476-1-alexandre.f.demers@gmail.com>
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH drm/amdgpu] Fix indentation in
+ dce_v8_0_audio_write_sad_regs()
+Date: Mon, 22 Aug 2016 10:41:32 +1000
+Message-ID: <c67885c8-c2dc-3628-75b2-800384a43a96@folklore1984.net>
+References: <20160822003826.16418-1-alexandre.f.demers@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0806881378=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20160822003826.16418-1-alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,48 +18,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-V2Ugd2VyZSB1c2luZyB0aGUgc2FtZSBtYXNrIHR3aWNlLiBMb29raW5nIGF0IHJhZGVvbiwgaXQg
-c2VlbXMKd2Ugc2hvdWxkIGJlIHVzaW5nIEhETUlfQVZJX0lORk9fQ09OVCBpbnN0ZWFkIGFzIHRo
-ZSBzZWNvbmQgbWFzay4KCkJlaW5nIHRoZXJlLCBmaXggdHlwb3MgaW4gY29tbWVudHMgYW5kIGlt
-cHJvdmVkIHJlYWRhYmlsaXR5LgoKSSBoYXZlbid0IGxvb2tlZCBhdCBvdGhlciBEQ0VzLCB0aGUg
-bWFzayBtYXkgYWxzbyBiZSB3cm9uZyBmb3IgdGhlbS4KClNpZ25lZC1vZmYtYnk6IEFsZXhhbmRy
-ZSBEZW1lcnMgPGFsZXhhbmRyZS5mLmRlbWVyc0BnbWFpbC5jb20+Ci0tLQogZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvZGNlX3Y4XzAuYyB8IDcgKysrKy0tLQogMSBmaWxlIGNoYW5nZWQsIDQg
-aW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9kY2VfdjhfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNl
-X3Y4XzAuYwppbmRleCBjN2U1ZDVmLi5lNDI0ZWNjIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9kY2VfdjhfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2RjZV92OF8wLmMKQEAgLTE2OTMsNiArMTY5Myw3IEBAIHN0YXRpYyB2b2lkIGRjZV92OF8wX2Fm
-bXRfc2V0bW9kZShzdHJ1Y3QgZHJtX2VuY29kZXIgKmVuY29kZXIsCiAJLyogU2lsZW50LCByNjAw
-X2hkbWlfZW5hYmxlIHdpbGwgcmFpc2UgV0FSTiBmb3IgdXMgKi8KIAlpZiAoIWRpZy0+YWZtdC0+
-ZW5hYmxlZCkKIAkJcmV0dXJuOworCiAJb2Zmc2V0ID0gZGlnLT5hZm10LT5vZmZzZXQ7CiAKIAkv
-KiBoZG1pIGRlZXAgY29sb3IgbW9kZSBnZW5lcmFsIGNvbnRyb2wgcGFja2V0cyBzZXR1cCwgaWYg
-YnBjID4gOCAqLwpAQCAtMTgxNyw3ICsxODE4LDcgQEAgc3RhdGljIHZvaWQgZGNlX3Y4XzBfYWZt
-dF9zZXRtb2RlKHN0cnVjdCBkcm1fZW5jb2RlciAqZW5jb2RlciwKIAogCVdSRUczMl9PUihtbUhE
-TUlfSU5GT0ZSQU1FX0NPTlRST0wwICsgb2Zmc2V0LAogCQkgIEhETUlfSU5GT0ZSQU1FX0NPTlRS
-T0wwX19IRE1JX0FWSV9JTkZPX1NFTkRfTUFTSyB8IC8qIGVuYWJsZSBBVkkgaW5mbyBmcmFtZXMg
-Ki8KLQkJICBIRE1JX0lORk9GUkFNRV9DT05UUk9MMF9fSERNSV9BVklfSU5GT19TRU5EX01BU0sp
-OyAvKiByZXF1aXJlZCBmb3IgYXVkaW8gaW5mbyB2YWx1ZXMgdG8gYmUgdXBkYXRlZCAqLworCQkg
-IEhETUlfSU5GT0ZSQU1FX0NPTlRST0wwX19IRE1JX0FWSV9JTkZPX0NPTlRfTUFTSyk7IC8qIHJl
-cXVpcmVkIGZvciBhdWRpbyBpbmZvIHZhbHVlcyB0byBiZSB1cGRhdGVkICovCiAKIAlXUkVHMzJf
-UChtbUhETUlfSU5GT0ZSQU1FX0NPTlRST0wxICsgb2Zmc2V0LAogCQkgKDIgPDwgSERNSV9JTkZP
-RlJBTUVfQ09OVFJPTDFfX0hETUlfQVZJX0lORk9fTElORV9fU0hJRlQpLCAvKiBhbnl0aGluZyBv
-dGhlciB0aGFuIDAgKi8KQEAgLTE4MjYsMTMgKzE4MjcsMTMgQEAgc3RhdGljIHZvaWQgZGNlX3Y4
-XzBfYWZtdF9zZXRtb2RlKHN0cnVjdCBkcm1fZW5jb2RlciAqZW5jb2RlciwKIAlXUkVHMzJfT1Io
-bW1BRk1UX0FVRElPX1BBQ0tFVF9DT05UUk9MICsgb2Zmc2V0LAogCQkgIEFGTVRfQVVESU9fUEFD
-S0VUX0NPTlRST0xfX0FGTVRfQVVESU9fU0FNUExFX1NFTkRfTUFTSyk7IC8qIHNlbmQgYXVkaW8g
-cGFja2V0cyAqLwogCi0JLyogaXQncyB1bmtub3duIHdoYXQgdGhlc2UgYml0cyBkbyBleGNhdGx5
-LCBidXQgaXQncyBpbmRlZWQgcXVpdGUgdXNlZnVsIGZvciBkZWJ1Z2dpbmcgKi8KKwkvKiBpdCdz
-IHVua25vd24gd2hhdCB0aGVzZSBiaXRzIGRvIGV4YWN0bHksIGJ1dCBpdCdzIGluZGVlZCBxdWl0
-ZSB1c2VmdWwgZm9yIGRlYnVnZ2luZyAqLwogCVdSRUczMihtbUFGTVRfUkFNUF9DT05UUk9MMCAr
-IG9mZnNldCwgMHgwMEZGRkZGRik7CiAJV1JFRzMyKG1tQUZNVF9SQU1QX0NPTlRST0wxICsgb2Zm
-c2V0LCAweDAwN0ZGRkZGKTsKIAlXUkVHMzIobW1BRk1UX1JBTVBfQ09OVFJPTDIgKyBvZmZzZXQs
-IDB4MDAwMDAwMDEpOwogCVdSRUczMihtbUFGTVRfUkFNUF9DT05UUk9MMyArIG9mZnNldCwgMHgw
-MDAwMDAwMSk7CiAKLQkvKiBlbmFibGUgYXVkaW8gYWZ0ZXIgdG8gc2V0dGluZyB1cCBodyAqLwor
-CS8qIGVuYWJsZSBhdWRpbyBhZnRlciBzZXR0aW5nIHVwIGh3ICovCiAJZGNlX3Y4XzBfYXVkaW9f
-ZW5hYmxlKGFkZXYsIGRpZy0+YWZtdC0+cGluLCB0cnVlKTsKIH0KIAotLSAKMi45LjMKCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
-ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0806881378==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="m0gDxGIPrKCDLGHt9jUHQOVqJBXQFtsec"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--m0gDxGIPrKCDLGHt9jUHQOVqJBXQFtsec
+Content-Type: multipart/mixed; boundary="WEIlDc5NJKJv1HXfx3NvjT2cNfbOpTmdU"
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+To: Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>,
+ amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Message-ID: <c67885c8-c2dc-3628-75b2-800384a43a96-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH drm/amdgpu] Fix indentation in
+ dce_v8_0_audio_write_sad_regs()
+References: <20160822003826.16418-1-alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <20160822003826.16418-1-alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+
+--WEIlDc5NJKJv1HXfx3NvjT2cNfbOpTmdU
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+
+On 08/22/2016 10:38 AM, Alexandre Demers wrote:
+> Fixed indentation for readability.
+>=20
+> Signed-off-by: Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c | 14 +++++++-------
+>  1 file changed, 7 insertions(+), 7 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/am=
+d/amdgpu/dce_v8_0.c
+> index 3ff1258..c7e5d5f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> @@ -1501,13 +1501,13 @@ static void dce_v8_0_audio_write_sad_regs(struc=
+t drm_encoder *encoder)
+> =20
+>  			if (sad->format =3D=3D eld_reg_to_type[i][1]) {
+>  				if (sad->channels > max_channels) {
+> -				value =3D (sad->channels <<
+> -				 AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__MAX_CHANNELS__SHIF=
+T) |
+> -				(sad->byte2 <<
+> -				 AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__DESCRIPTOR_BYTE_2_=
+_SHIFT) |
+> -				(sad->freq <<
+> -				 AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__SUPPORTED_FREQUENC=
+IES__SHIFT);
+> -				max_channels =3D sad->channels;
+> +					value =3D (sad->channels <<
+> +						 AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__MAX_CHANNELS__SH=
+IFT) |
+> +					        (sad->byte2 <<
+> +						 AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__DESCRIPTOR_BYTE_=
+2__SHIFT) |
+> +					        (sad->freq <<
+> +						 AZALIA_F0_CODEC_PIN_CONTROL_AUDIO_DESCRIPTOR0__SUPPORTED_FREQUE=
+NCIES__SHIFT);
+> +					max_channels =3D sad->channels;
+>  				}
+> =20
+>  				if (sad->format =3D=3D HDMI_AUDIO_CODING_TYPE_PCM)
+>=20
+
+
+--WEIlDc5NJKJv1HXfx3NvjT2cNfbOpTmdU--
+
+--m0gDxGIPrKCDLGHt9jUHQOVqJBXQFtsec
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJXuko8AAoJEP4bvbfZuWjbeloQALAE7CZ0GobJu/UkOrk/XD+1
+XERDeQZI1XrRFIpZYBV1iOjq3jjELrvh1mali18zMD0kw6WWuZHlmRQe1om5wq9y
+3nMIBCS3ioYs4e5AXuScKZwtC9gY7RoMeVvtfQiaOJL1zBgWQwa8+jR7W1hDchLV
+YBsC2U4qBtghPn3lR1rxIc02VjPqMIdGlklLqaTnTq/uN9eBXuzqBKzkBPmavp7c
+hp8e3/R614j1tZRR5Gekq3E/TaH2pcluA5CJFZlN1Tuw0pZvGmX9iyCEX29B95XF
+pcTsW/lXslF0668slHD3Yubv+1M2sWj+ks4/pevTDTrIflzxZxDWnuCDxiMBIsKW
+ZkiqfDdrlH+mfOpyg30XvAAFYzFF/ZyQxwQwxm19TDdqfpdgmDCNzjG3CAvcHil9
+KIp53k1YZm86WW92Y23sekye05Clw5W8XwyCygcJT3sJNh1ksbQREwgAvlA1Yvz+
+n/2d09Fotm+U77w5Yd+4uxzJLaor7uHQqVM4Nf7nI4j9zOvcddrbfbjLcWdTMy7M
+FOoM7KJpALqamt18WHMoWuximr0+en1nPHNBLHaKLy56k9OBjkX8ugKkq95ZG/Zo
+KvufrpMuBHYxz8BCzFPzj/+d8vkRjbknGd7tEpK0F0herqMKew51lTPeHQfIzyuM
+GPGYgTrcxYnTZVMLomAQ
+=q8hk
+-----END PGP SIGNATURE-----
+
+--m0gDxGIPrKCDLGHt9jUHQOVqJBXQFtsec--
+
+--===============0806881378==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0806881378==--
