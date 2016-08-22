@@ -1,510 +1,70 @@
-From: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/4] amdgpu: add export/import semaphore apis
-Date: Mon, 22 Aug 2016 10:42:17 +0800
-Message-ID: <57BA6689.2010700@amd.com>
-References: <1471506959-905-1-git-send-email-David1.Zhou@amd.com>
- <1471506959-905-3-git-send-email-David1.Zhou@amd.com>
- <cf458d97-d40a-d363-b5c4-2ae45dde9179@folklore1984.net>
+From: Daniel Martin <consume.noise-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH v3 xserver 4/4] modesetting: add DRI2 page flip support
+Date: Mon, 22 Aug 2016 08:30:04 +0200
+Message-ID: <CADscph0CQsVXmYTLetbXyzrJHoapPfF=3r1K3ZSGBPYoooas5A@mail.gmail.com>
+References: <1471838038-16382-1-git-send-email-Qiang.Yu@amd.com>
+ <1471838038-16382-5-git-send-email-Qiang.Yu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1564368497=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <cf458d97-d40a-d363-b5c4-2ae45dde9179-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: David.Mao-5C7GfCeVMHo@public.gmane.org
-
---===============1564368497==
-Content-Type: multipart/alternative;
-	boundary="------------050801070309090100050705"
-
---------------050801070309090100050705
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-
-On 2016年08月21日 14:23, Edward O'Callaghan wrote:
->
-> On 08/18/2016 05:55 PM, Chunming Zhou wrote:
->> They are used for sharing semaphore across process.
->>
->> Change-Id: I262adf10913d365bb93368b492e69140af522c64
->> Signed-off-by: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
->> ---
->>   amdgpu/amdgpu.h          | 40 ++++++++++++++++++++++++++++++
->>   amdgpu/amdgpu_cs.c       | 63 ++++++++++++++++++++++++++++++++++++++++++++++--
->>   amdgpu/amdgpu_internal.h |  2 ++
->>   3 files changed, 103 insertions(+), 2 deletions(-)
->>
->> diff --git a/amdgpu/amdgpu.h b/amdgpu/amdgpu.h
->> index 693d841..e716855 100644
->> --- a/amdgpu/amdgpu.h
->> +++ b/amdgpu/amdgpu.h
->> @@ -1379,6 +1379,19 @@ int amdgpu_svm_commit(amdgpu_va_handle va_range_handle,
->>   int amdgpu_svm_uncommit(amdgpu_va_handle va_range_handle);
->>   
->>   /**
->> + *  create shared semaphore
->> + *
->> + * \param amdgpu_device_handle
->> + * \param   sem	   - \c [out] semaphore handle
->> + *
->> + * \return   0 on success\n
->> + *          <0 - Negative POSIX Error code
->> + *
->> +*/
->> +int amdgpu_cs_create_semaphore_object(amdgpu_device_handle device_handle,
->> +				      amdgpu_semaphore_handle *sem);
->> +
->> +/**
->>    *  create semaphore
->>    *
->>    * \param   sem	   - \c [out] semaphore handle
->> @@ -1439,6 +1452,33 @@ int amdgpu_cs_wait_semaphore(amdgpu_context_handle ctx,
->>   int amdgpu_cs_destroy_semaphore(amdgpu_semaphore_handle sem);
->>   
->>   /**
->> + *  export semaphore
->> + *
->> + * \param   sem	    - \c [in] semaphore handle
->> + * \param   shared_handle    - \c [out] handle across process
->> + *
->> + * \return   0 on success\n
->> + *          <0 - Negative POSIX Error code
->> + *
->> +*/
->> +int amdgpu_cs_export_semaphore(amdgpu_semaphore_handle sem,
->> +			       uint32_t *shared_handle);
->> +/**
->> + *  import semaphore
->> + *
->> + * \param   sem	    - \c [out] semaphore handle
->> + * \param   dev	    - \c [in] device handle
->> + * \param   shared_handle    - \c [in] handle across process
->> + *
->> + * \return   0 on success\n
->> + *          <0 - Negative POSIX Error code
->> + *
->> +*/
->> +int amdgpu_cs_import_semaphore(amdgpu_semaphore_handle *sem,
->> +			       amdgpu_device_handle dev,
->> +			       uint32_t shared_handle);
->> +
->> +/**
->>    *  Get the ASIC marketing name
->>    *
->>    * \param   dev         - \c [in] Device handle. See #amdgpu_device_initialize()
->> diff --git a/amdgpu/amdgpu_cs.c b/amdgpu/amdgpu_cs.c
->> index c76a675..a3ff34e 100644
->> --- a/amdgpu/amdgpu_cs.c
->> +++ b/amdgpu/amdgpu_cs.c
->> @@ -518,6 +518,34 @@ int amdgpu_cs_wait_fences(struct amdgpu_cs_fence *fences,
->>   	return r;
->>   }
->>   
->> +int amdgpu_cs_create_semaphore_object(amdgpu_device_handle device_handle,
->> +				      amdgpu_semaphore_handle *sem)
->> +{
->> +	struct amdgpu_bo_alloc_request req = {0};
->> +	amdgpu_bo_handle buf_handle;
->> +	int r;
->> +
->> +	if (NULL == sem)
-> Since sem is ** then should we not check that *both* sem && *sem are
-> non-NULL too? Further you can use the canonical form of (!sem)
->
->> +		return -EINVAL;
->> +
->> +	req.alloc_size = sizeof(struct amdgpu_semaphore);
->> +	req.preferred_heap = AMDGPU_GEM_DOMAIN_GTT;
->> +
->> +	r = amdgpu_bo_alloc(device_handle, &req, &buf_handle);
->> +	if (r)
->> +		return r;
->> +	r = amdgpu_bo_cpu_map(buf_handle, sem);
->> +	if (r) {
->> +		amdgpu_bo_free(buf_handle);
->> +		return r;
->> +	}
->> +	(*sem)->buf_handle = buf_handle;
->> +	atomic_set(&(*sem)->refcount, 1);
-> Hi Chunming,
->
-> When/where was 'amdgpu_semaphore_handle' introduced? I am not sure I
-> like pointers being hidden behind typedef's as opaque types this can
-> lead to really really bad things.. I only noticed sem was a ** because
-> of the weird looking deference then address operator application, then
-> deference again here, &(*sem)->..
-Hi Edward,
-semaphore was introduced last year, which is the wrapper of existing 
-dependency.
-Yeah, this whole sharing semaphore approach has been NAKed by Christian.
-So we can skip this series now, we are going to use sync_file instead.
-
-Thanks,
-David Zhou
-
->
-> Cheers,
-> Edward.
->
->> +	(*sem)->version = 2;
->> +
->> +	return 0;
->> +}
->> +
->>   int amdgpu_cs_create_semaphore(amdgpu_semaphore_handle *sem)
->>   {
->>   	struct amdgpu_semaphore *gpu_semaphore;
->> @@ -529,6 +557,7 @@ int amdgpu_cs_create_semaphore(amdgpu_semaphore_handle *sem)
->>   	if (NULL == gpu_semaphore)
->>   		return -ENOMEM;
->>   
->> +	gpu_semaphore->version = 1;
->>   	atomic_set(&gpu_semaphore->refcount, 1);
->>   	*sem = gpu_semaphore;
->>   
->> @@ -608,8 +637,15 @@ static int amdgpu_cs_unreference_sem(amdgpu_semaphore_handle sem)
->>   	if (NULL == sem)
->>   		return -EINVAL;
->>   
->> -	if (update_references(&sem->refcount, NULL))
->> -		free(sem);
->> +	if (update_references(&sem->refcount, NULL)) {
->> +		if (sem->version == 1)
->> +			free(sem);
->> +		else if (sem->version == 2) {
->> +			amdgpu_bo_handle buf_handle = sem->buf_handle;
->> +			amdgpu_bo_cpu_unmap(buf_handle);
->> +			amdgpu_bo_free(buf_handle);
->> +		}
->> +	}
->>   	return 0;
->>   }
->>   
->> @@ -618,4 +654,27 @@ int amdgpu_cs_destroy_semaphore(amdgpu_semaphore_handle sem)
->>   	return amdgpu_cs_unreference_sem(sem);
->>   }
->>   
->> +int amdgpu_cs_export_semaphore(amdgpu_semaphore_handle sem,
->> +			       uint32_t *shared_handle)
->> +{
->> +	return amdgpu_bo_export(sem->buf_handle,
->> +				amdgpu_bo_handle_type_dma_buf_fd,
->> +				shared_handle);
->> +
->> +}
->> +
->> +int amdgpu_cs_import_semaphore(amdgpu_semaphore_handle *sem,
->> +			       amdgpu_device_handle dev, uint32_t shared_handle)
->> +{
->> +	struct amdgpu_bo_import_result output;
->> +	int r;
->> +
->> +	r = amdgpu_bo_import(dev,
->> +			     amdgpu_bo_handle_type_dma_buf_fd,
->> +			     shared_handle,
->> +			     &output);
->> +	if (r)
->> +		return r;
->>   
->> +	return amdgpu_bo_cpu_map(output.buf_handle, sem);
->> +}
->> diff --git a/amdgpu/amdgpu_internal.h b/amdgpu/amdgpu_internal.h
->> index ccc85d7..7c422da 100644
->> --- a/amdgpu/amdgpu_internal.h
->> +++ b/amdgpu/amdgpu_internal.h
->> @@ -134,6 +134,8 @@ struct amdgpu_semaphore {
->>   	atomic_t refcount;
->>   	struct list_head list;
->>   	struct drm_amdgpu_fence signal_fence;
->> +	amdgpu_bo_handle buf_handle;
->> +	uint32_t version;
->>   };
->>   
->>   /**
->>
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------050801070309090100050705
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <br>
-    <br>
-    <div class="moz-cite-prefix">On 2016年08月21日 14:23, Edward
-      O'Callaghan wrote:<br>
-    </div>
-    <blockquote
-      cite="mid:cf458d97-d40a-d363-b5c4-2ae45dde9179-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org"
-      type="cite">
-      <pre wrap="">
-
-On 08/18/2016 05:55 PM, Chunming Zhou wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="">They are used for sharing semaphore across process.
-
-Change-Id: I262adf10913d365bb93368b492e69140af522c64
-Signed-off-by: Chunming Zhou <a class="moz-txt-link-rfc2396E" href="mailto:David1.Zhou-5C7GfCeVMHo@public.gmane.org">&lt;David1.Zhou-5C7GfCeVMHo@public.gmane.org&gt;</a>
----
- amdgpu/amdgpu.h          | 40 ++++++++++++++++++++++++++++++
- amdgpu/amdgpu_cs.c       | 63 ++++++++++++++++++++++++++++++++++++++++++++++--
- amdgpu/amdgpu_internal.h |  2 ++
- 3 files changed, 103 insertions(+), 2 deletions(-)
-
-diff --git a/amdgpu/amdgpu.h b/amdgpu/amdgpu.h
-index 693d841..e716855 100644
---- a/amdgpu/amdgpu.h
-+++ b/amdgpu/amdgpu.h
-@@ -1379,6 +1379,19 @@ int amdgpu_svm_commit(amdgpu_va_handle va_range_handle,
- int amdgpu_svm_uncommit(amdgpu_va_handle va_range_handle);
- 
- /**
-+ *  create shared semaphore
-+ *
-+ * \param amdgpu_device_handle
-+ * \param   sem	   - \c [out] semaphore handle
-+ *
-+ * \return   0 on success\n
-+ *          &lt;0 - Negative POSIX Error code
-+ *
-+*/
-+int amdgpu_cs_create_semaphore_object(amdgpu_device_handle device_handle,
-+				      amdgpu_semaphore_handle *sem);
-+
-+/**
-  *  create semaphore
-  *
-  * \param   sem	   - \c [out] semaphore handle
-@@ -1439,6 +1452,33 @@ int amdgpu_cs_wait_semaphore(amdgpu_context_handle ctx,
- int amdgpu_cs_destroy_semaphore(amdgpu_semaphore_handle sem);
- 
- /**
-+ *  export semaphore
-+ *
-+ * \param   sem	    - \c [in] semaphore handle
-+ * \param   shared_handle    - \c [out] handle across process
-+ *
-+ * \return   0 on success\n
-+ *          &lt;0 - Negative POSIX Error code
-+ *
-+*/
-+int amdgpu_cs_export_semaphore(amdgpu_semaphore_handle sem,
-+			       uint32_t *shared_handle);
-+/**
-+ *  import semaphore
-+ *
-+ * \param   sem	    - \c [out] semaphore handle
-+ * \param   dev	    - \c [in] device handle
-+ * \param   shared_handle    - \c [in] handle across process
-+ *
-+ * \return   0 on success\n
-+ *          &lt;0 - Negative POSIX Error code
-+ *
-+*/
-+int amdgpu_cs_import_semaphore(amdgpu_semaphore_handle *sem,
-+			       amdgpu_device_handle dev,
-+			       uint32_t shared_handle);
-+
-+/**
-  *  Get the ASIC marketing name
-  *
-  * \param   dev         - \c [in] Device handle. See #amdgpu_device_initialize()
-diff --git a/amdgpu/amdgpu_cs.c b/amdgpu/amdgpu_cs.c
-index c76a675..a3ff34e 100644
---- a/amdgpu/amdgpu_cs.c
-+++ b/amdgpu/amdgpu_cs.c
-@@ -518,6 +518,34 @@ int amdgpu_cs_wait_fences(struct amdgpu_cs_fence *fences,
- 	return r;
- }
- 
-+int amdgpu_cs_create_semaphore_object(amdgpu_device_handle device_handle,
-+				      amdgpu_semaphore_handle *sem)
-+{
-+	struct amdgpu_bo_alloc_request req = {0};
-+	amdgpu_bo_handle buf_handle;
-+	int r;
-+
-+	if (NULL == sem)
-</pre>
-      </blockquote>
-      <pre wrap="">
-Since sem is ** then should we not check that *both* sem &amp;&amp; *sem are
-non-NULL too? Further you can use the canonical form of (!sem)
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="">+		return -EINVAL;
-+
-+	req.alloc_size = sizeof(struct amdgpu_semaphore);
-+	req.preferred_heap = AMDGPU_GEM_DOMAIN_GTT;
-+
-+	r = amdgpu_bo_alloc(device_handle, &amp;req, &amp;buf_handle);
-+	if (r)
-+		return r;
-+	r = amdgpu_bo_cpu_map(buf_handle, sem);
-+	if (r) {
-+		amdgpu_bo_free(buf_handle);
-+		return r;
-+	}
-+	(*sem)-&gt;buf_handle = buf_handle;
-+	atomic_set(&amp;(*sem)-&gt;refcount, 1);
-</pre>
-      </blockquote>
-      <pre wrap="">
-Hi Chunming,
-
-When/where was 'amdgpu_semaphore_handle' introduced? I am not sure I
-like pointers being hidden behind typedef's as opaque types this can
-lead to really really bad things.. I only noticed sem was a ** because
-of the weird looking deference then address operator application, then
-deference again here, &amp;(*sem)-&gt;..</pre>
-    </blockquote>
-    Hi Edward,<br>
-    semaphore was introduced last year, which is the wrapper of existing
-    dependency.<br>
-    Yeah, this whole sharing semaphore approach has been NAKed by
-    Christian.<br>
-    So we can skip this series now, we are going to use sync_file
-    instead.<br>
-    <br>
-    Thanks,<br>
-    David Zhou<br>
-    <br>
-    <blockquote
-      cite="mid:cf458d97-d40a-d363-b5c4-2ae45dde9179-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org"
-      type="cite">
-      <pre wrap="">
-
-Cheers,
-Edward.
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="">+	(*sem)-&gt;version = 2;
-+
-+	return 0;
-+}
-+
- int amdgpu_cs_create_semaphore(amdgpu_semaphore_handle *sem)
- {
- 	struct amdgpu_semaphore *gpu_semaphore;
-@@ -529,6 +557,7 @@ int amdgpu_cs_create_semaphore(amdgpu_semaphore_handle *sem)
- 	if (NULL == gpu_semaphore)
- 		return -ENOMEM;
- 
-+	gpu_semaphore-&gt;version = 1;
- 	atomic_set(&amp;gpu_semaphore-&gt;refcount, 1);
- 	*sem = gpu_semaphore;
- 
-@@ -608,8 +637,15 @@ static int amdgpu_cs_unreference_sem(amdgpu_semaphore_handle sem)
- 	if (NULL == sem)
- 		return -EINVAL;
- 
--	if (update_references(&amp;sem-&gt;refcount, NULL))
--		free(sem);
-+	if (update_references(&amp;sem-&gt;refcount, NULL)) {
-+		if (sem-&gt;version == 1)
-+			free(sem);
-+		else if (sem-&gt;version == 2) {
-+			amdgpu_bo_handle buf_handle = sem-&gt;buf_handle;
-+			amdgpu_bo_cpu_unmap(buf_handle);
-+			amdgpu_bo_free(buf_handle);
-+		}
-+	}
- 	return 0;
- }
- 
-@@ -618,4 +654,27 @@ int amdgpu_cs_destroy_semaphore(amdgpu_semaphore_handle sem)
- 	return amdgpu_cs_unreference_sem(sem);
- }
- 
-+int amdgpu_cs_export_semaphore(amdgpu_semaphore_handle sem,
-+			       uint32_t *shared_handle)
-+{
-+	return amdgpu_bo_export(sem-&gt;buf_handle,
-+				amdgpu_bo_handle_type_dma_buf_fd,
-+				shared_handle);
-+
-+}
-+
-+int amdgpu_cs_import_semaphore(amdgpu_semaphore_handle *sem,
-+			       amdgpu_device_handle dev, uint32_t shared_handle)
-+{
-+	struct amdgpu_bo_import_result output;
-+	int r;
-+
-+	r = amdgpu_bo_import(dev,
-+			     amdgpu_bo_handle_type_dma_buf_fd,
-+			     shared_handle,
-+			     &amp;output);
-+	if (r)
-+		return r;
- 
-+	return amdgpu_bo_cpu_map(output.buf_handle, sem);
-+}
-diff --git a/amdgpu/amdgpu_internal.h b/amdgpu/amdgpu_internal.h
-index ccc85d7..7c422da 100644
---- a/amdgpu/amdgpu_internal.h
-+++ b/amdgpu/amdgpu_internal.h
-@@ -134,6 +134,8 @@ struct amdgpu_semaphore {
- 	atomic_t refcount;
- 	struct list_head list;
- 	struct drm_amdgpu_fence signal_fence;
-+	amdgpu_bo_handle buf_handle;
-+	uint32_t version;
- };
- 
- /**
-
-</pre>
-      </blockquote>
-      <pre wrap="">
-</pre>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------050801070309090100050705--
-
---===============1564368497==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <xorg-devel-bounces-go0+a7rfsptAfugRpC6u6w@public.gmane.org>
+In-Reply-To: <1471838038-16382-5-git-send-email-Qiang.Yu-5C7GfCeVMHo@public.gmane.org>
+List-Unsubscribe: <https://lists.x.org/mailman/options/xorg-devel>,
+ <mailto:xorg-devel-request-go0+a7rfsptAfugRpC6u6w@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.x.org/archives/xorg-devel>
+List-Post: <mailto:xorg-devel-go0+a7rfsptAfugRpC6u6w@public.gmane.org>
+List-Help: <mailto:xorg-devel-request-go0+a7rfsptAfugRpC6u6w@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.x.org/mailman/listinfo/xorg-devel>,
+ <mailto:xorg-devel-request-go0+a7rfsptAfugRpC6u6w@public.gmane.org?subject=subscribe>
+Errors-To: xorg-devel-bounces-go0+a7rfsptAfugRpC6u6w@public.gmane.org
+Sender: "xorg-devel" <xorg-devel-bounces-go0+a7rfsptAfugRpC6u6w@public.gmane.org>
+To: Qiang Yu <Qiang.Yu-5C7GfCeVMHo@public.gmane.org>
+Cc: emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, xorg-devel <xorg-devel-go0+a7rfsptAfugRpC6u6w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1564368497==--
+SGksCgpPbiAyMiBBdWd1c3QgMjAxNiBhdCAwNTo1MywgUWlhbmcgWXUgPFFpYW5nLll1QGFtZC5j
+b20+IHdyb3RlOgo+IFNpZ25lZC1vZmYtYnk6IFFpYW5nIFl1IDxRaWFuZy5ZdUBhbWQuY29tPgo+
+IC0tLQo+ICBody94ZnJlZTg2L2RyaXZlcnMvbW9kZXNldHRpbmcvZHJpMi5jICAgICAgICAgICAg
+fCAyMzcgKysrKysrKysrKysrKysrKysrKysrKy0KPiAgaHcveGZyZWU4Ni9kcml2ZXJzL21vZGVz
+ZXR0aW5nL2RyaXZlci5oICAgICAgICAgIHwgICA1ICstCj4gIGh3L3hmcmVlODYvZHJpdmVycy9t
+b2Rlc2V0dGluZy9kcm1tb2RlX2Rpc3BsYXkuaCB8ICAgMyArCj4gIGh3L3hmcmVlODYvZHJpdmVy
+cy9tb2Rlc2V0dGluZy9wYWdlZmxpcC5jICAgICAgICB8ICAgNyArLQo+ICBody94ZnJlZTg2L2Ry
+aXZlcnMvbW9kZXNldHRpbmcvcHJlc2VudC5jICAgICAgICAgfCAgMjAgKy0KPiAgNSBmaWxlcyBj
+aGFuZ2VkLCAyNTcgaW5zZXJ0aW9ucygrKSwgMTUgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0
+IGEvaHcveGZyZWU4Ni9kcml2ZXJzL21vZGVzZXR0aW5nL2RyaTIuYyBiL2h3L3hmcmVlODYvZHJp
+dmVycy9tb2Rlc2V0dGluZy9kcmkyLmMKPiBpbmRleCA4M2NiM2UwLi4xMjVjNDEzIDEwMDY0NAo+
+IC0tLSBhL2h3L3hmcmVlODYvZHJpdmVycy9tb2Rlc2V0dGluZy9kcmkyLmMKPiArKysgYi9ody94
+ZnJlZTg2L2RyaXZlcnMvbW9kZXNldHRpbmcvZHJpMi5jCi4uLgo+ICtzdGF0aWMgdm9pZAo+ICtt
+c19kcmkyX2V4Y2hhbmdlX2J1ZmZlcnMoRHJhd2FibGVQdHIgZHJhdywgRFJJMkJ1ZmZlclB0ciBm
+cm9udCwKPiArICAgICAgICAgICAgICAgICAgICAgICAgIERSSTJCdWZmZXJQdHIgYmFjaykKPiAr
+ewo+ICsgICAgbXNfZHJpMl9idWZmZXJfcHJpdmF0ZV9wdHIgZnJvbnRfcHJpdiA9IGZyb250LT5k
+cml2ZXJQcml2YXRlOwo+ICsgICAgbXNfZHJpMl9idWZmZXJfcHJpdmF0ZV9wdHIgYmFja19wcml2
+ID0gYmFjay0+ZHJpdmVyUHJpdmF0ZTsKPiArICAgIFNjcmVlblB0ciBzY3JlZW4gPSBkcmF3LT5w
+U2NyZWVuOwo+ICsgICAgU2NybkluZm9QdHIgc2NybiA9IHhmODZTY3JlZW5Ub1Njcm4oc2NyZWVu
+KTsKPiArICAgIG1vZGVzZXR0aW5nUHRyIG1zID0gbW9kZXNldHRpbmdQVFIoc2Nybik7Cj4gKyAg
+ICBtc1BpeG1hcFByaXZQdHIgZnJvbnRfcGl4ID0gbXNHZXRQaXhtYXBQcml2KCZtcy0+ZHJtbW9k
+ZSwgZnJvbnRfcHJpdi0+cGl4bWFwKTsKPiArICAgIG1zUGl4bWFwUHJpdlB0ciBiYWNrX3BpeCA9
+IG1zR2V0UGl4bWFwUHJpdigmbXMtPmRybW1vZGUsIGJhY2tfcHJpdi0+cGl4bWFwKTsKPiArICAg
+IG1zUGl4bWFwUHJpdlJlYyB0bXBfcGl4Owo+ICsgICAgUmVnaW9uUmVjIHJlZ2lvbjsKPiArICAg
+IGludCB0bXA7Cj4gKwo+ICsgICAgLyogU3dhcCBCTyBuYW1lcyBzbyBEUkkgd29ya3MgKi8KPiAr
+ICAgIHRtcCA9IGZyb250LT5uYW1lOwo+ICsgICAgZnJvbnQtPm5hbWUgPSBiYWNrLT5uYW1lOwo+
+ICsgICAgYmFjay0+bmFtZSA9IHRtcDsKPiArCj4gKyAgICAvKiBTd2FwIHBpeG1hcCBwcml2YXRl
+cyAqLwo+ICsgICAgdG1wX3BpeCA9ICpmcm9udF9waXg7Cj4gKyAgICAqZnJvbnRfcGl4ID0gKmJh
+Y2tfcGl4Owo+ICsgICAgKmJhY2tfcGl4ID0gdG1wX3BpeDsKPiArCj4gKyAgICBnbGFtb3JfZWds
+X2V4Y2hhbmdlX2J1ZmZlcnMoZnJvbnRfcHJpdi0+cGl4bWFwLCBiYWNrX3ByaXYtPnBpeG1hcCk7
+Cj4gKwo+ICsgICAgLyogUG9zdCBkYW1hZ2Ugb24gdGhlIGZyb250IGJ1ZmZlciBzbyB0aGF0IGxp
+c3RlbmVycywgc3VjaAo+ICsgICAgICogYXMgRGlzcGxheUxpbmsga25vdyB0YWtlIGEgY29weSBh
+bmQgc2hvdmUgaXQgb3ZlciB0aGUgVVNCLgo+ICsgICAgICovCj4gKyAgICByZWdpb24uZXh0ZW50
+cy54MSA9IHJlZ2lvbi5leHRlbnRzLnkxID0gMDsKPiArICAgIHJlZ2lvbi5leHRlbnRzLngyID0g
+ZnJvbnRfcHJpdi0+cGl4bWFwLT5kcmF3YWJsZS53aWR0aDsKPiArICAgIHJlZ2lvbi5leHRlbnRz
+LnkyID0gZnJvbnRfcHJpdi0+cGl4bWFwLT5kcmF3YWJsZS53aWR0aDsKCnRoaXMgbG9va3MgbGlr
+ZSBhIGNvcHknbidwYXN0ZSBtaXN0YWtlLgoKPiArICAgIHJlZ2lvbi5kYXRhID0gTlVMTDsKPiAr
+ICAgIERhbWFnZVJlZ2lvbkFwcGVuZCgmZnJvbnRfcHJpdi0+cGl4bWFwLT5kcmF3YWJsZSwgJnJl
+Z2lvbik7Cj4gKyAgICBEYW1hZ2VSZWdpb25Qcm9jZXNzUGVuZGluZygmZnJvbnRfcHJpdi0+cGl4
+bWFwLT5kcmF3YWJsZSk7Cj4gK30KPiArCj4gIHN0YXRpYyB2b2lkCj4gIG1zX2RyaTJfZnJhbWVf
+ZXZlbnRfaGFuZGxlcih1aW50NjRfdCBtc2MsCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICB1aW50NjRfdCB1c2VjLAoKQ2hlZXJzLAogICAgRGFuaWVsIE1hcnRpbgpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwp4b3JnLWRldmVsQGxpc3RzLngub3Jn
+OiBYLk9yZyBkZXZlbG9wbWVudApBcmNoaXZlczogaHR0cDovL2xpc3RzLngub3JnL2FyY2hpdmVz
+L3hvcmctZGV2ZWwKSW5mbzogaHR0cHM6Ly9saXN0cy54Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hv
+cmctZGV2ZWw=
