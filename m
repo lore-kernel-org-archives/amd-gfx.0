@@ -1,181 +1,510 @@
-From: Qiang Yu <Qiang.Yu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH v3 xserver 3/4] modesetting: move common page flip handle to
- pageflip.c
-Date: Mon, 22 Aug 2016 11:53:57 +0800
-Message-ID: <1471838038-16382-4-git-send-email-Qiang.Yu@amd.com>
-References: <1471838038-16382-1-git-send-email-Qiang.Yu@amd.com>
+From: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/4] amdgpu: add export/import semaphore apis
+Date: Mon, 22 Aug 2016 10:42:17 +0800
+Message-ID: <57BA6689.2010700@amd.com>
+References: <1471506959-905-1-git-send-email-David1.Zhou@amd.com>
+ <1471506959-905-3-git-send-email-David1.Zhou@amd.com>
+ <cf458d97-d40a-d363-b5c4-2ae45dde9179@folklore1984.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <xorg-devel-bounces-go0+a7rfsptAfugRpC6u6w@public.gmane.org>
-In-Reply-To: <1471838038-16382-1-git-send-email-Qiang.Yu-5C7GfCeVMHo@public.gmane.org>
-List-Unsubscribe: <https://lists.x.org/mailman/options/xorg-devel>,
- <mailto:xorg-devel-request-go0+a7rfsptAfugRpC6u6w@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.x.org/archives/xorg-devel>
-List-Post: <mailto:xorg-devel-go0+a7rfsptAfugRpC6u6w@public.gmane.org>
-List-Help: <mailto:xorg-devel-request-go0+a7rfsptAfugRpC6u6w@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.x.org/mailman/listinfo/xorg-devel>,
- <mailto:xorg-devel-request-go0+a7rfsptAfugRpC6u6w@public.gmane.org?subject=subscribe>
-Errors-To: xorg-devel-bounces-go0+a7rfsptAfugRpC6u6w@public.gmane.org
-Sender: "xorg-devel" <xorg-devel-bounces-go0+a7rfsptAfugRpC6u6w@public.gmane.org>
-To: xorg-devel-go0+a7rfsptAfugRpC6u6w@public.gmane.org
-Cc: Qiang Yu <Qiang.Yu-5C7GfCeVMHo@public.gmane.org>, michel-otUistvHUpPR7s880joybQ@public.gmane.org, emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1564368497=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <cf458d97-d40a-d363-b5c4-2ae45dde9179-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: David.Mao-5C7GfCeVMHo@public.gmane.org
 
-VGhlIGNvbW1vbiBwYWdlIGZsaXAgaGFuZGxlIGZyYW1ld29yayBjYW4gYmUgc2hhcmVkIHdpdGgg
-RFJJMgpwYWdlIGZsaXAuCgpTaWduZWQtb2ZmLWJ5OiBRaWFuZyBZdSA8UWlhbmcuWXVAYW1kLmNv
-bT4KLS0tCiBody94ZnJlZTg2L2RyaXZlcnMvbW9kZXNldHRpbmcvZHJpdmVyLmggICB8ICAyOCAt
-LS0tLS0tLQogaHcveGZyZWU4Ni9kcml2ZXJzL21vZGVzZXR0aW5nL3BhZ2VmbGlwLmMgfCAxMDIg
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tCiBody94ZnJlZTg2L2RyaXZlcnMvbW9kZXNl
-dHRpbmcvcHJlc2VudC5jICB8ICA2MyArKystLS0tLS0tLS0tLS0tLS0KIDMgZmlsZXMgY2hhbmdl
-ZCwgMTA0IGluc2VydGlvbnMoKyksIDg5IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2h3L3hm
-cmVlODYvZHJpdmVycy9tb2Rlc2V0dGluZy9kcml2ZXIuaCBiL2h3L3hmcmVlODYvZHJpdmVycy9t
-b2Rlc2V0dGluZy9kcml2ZXIuaAppbmRleCBjMGQ4MGE4Li4zOGYwZWMwIDEwMDY0NAotLS0gYS9o
-dy94ZnJlZTg2L2RyaXZlcnMvbW9kZXNldHRpbmcvZHJpdmVyLmgKKysrIGIvaHcveGZyZWU4Ni9k
-cml2ZXJzL21vZGVzZXR0aW5nL2RyaXZlci5oCkBAIC0xNTYsMzQgKzE1Niw2IEBAIEJvb2wgbXNf
-cHJlc2VudF9zY3JlZW5faW5pdChTY3JlZW5QdHIgc2NyZWVuKTsKIAogI2lmZGVmIEdMQU1PUgog
-Ci0vKgotICogRXZlbnQgZGF0YSBmb3IgYW4gaW4gcHJvZ3Jlc3MgZmxpcC4KLSAqIFRoaXMgY29u
-dGFpbnMgYSBwb2ludGVyIHRvIHRoZSB2YmxhbmsgZXZlbnQsCi0gKiBhbmQgaW5mb3JtYXRpb24g
-YWJvdXQgdGhlIGZsaXAgaW4gcHJvZ3Jlc3MuCi0gKiBhIHJlZmVyZW5jZSB0byB0aGlzIGlzIHN0
-b3JlZCBpbiB0aGUgcGVyLWNydGMKLSAqIGZsaXBzLgotICovCi1zdHJ1Y3QgbXNfZmxpcGRhdGEg
-ewotICAgIFNjcmVlblB0ciBzY3JlZW47Ci0gICAgdm9pZCAqZXZlbnQ7Ci0gICAgLyogbnVtYmVy
-IG9mIENSVEMgZXZlbnRzIHJlZmVyZW5jaW5nIHRoaXMgKi8KLSAgICBpbnQgZmxpcF9jb3VudDsK
-LSAgICB1aW50NjRfdCBmZV9tc2M7Ci0gICAgdWludDY0X3QgZmVfdXNlYzsKLSAgICB1aW50MzJf
-dCBvbGRfZmJfaWQ7Ci19OwotCi0vKgotICogUGVyIGNydGMgcGFnZWZsaXBwaW5nIGluZm9tYXRp
-b24sCi0gKiBUaGVzZSBhcmUgc3VibWl0dGVkIHRvIHRoZSBxdWV1aW5nIGNvZGUKLSAqIG9uZSBv
-ZiB0aGVtIHBlciBjcnRjIHBlciBmbGlwLgotICovCi1zdHJ1Y3QgbXNfY3J0Y19wYWdlZmxpcCB7
-Ci0gICAgQm9vbCBvbl9yZWZlcmVuY2VfY3J0YzsKLSAgICAvKiByZWZlcmVuY2UgdG8gdGhlIG1z
-X2ZsaXBkYXRhICovCi0gICAgc3RydWN0IG1zX2ZsaXBkYXRhICpmbGlwZGF0YTsKLX07Ci0KIHR5
-cGVkZWYgdm9pZCAoKm1zX3BhZ2VmbGlwX2hhbmRsZXJfcHJvYykodWludDY0X3QgZnJhbWUsCiAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHVpbnQ2NF90IHVzZWMsCiAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZvaWQgKmRhdGEpOwpkaWZm
-IC0tZ2l0IGEvaHcveGZyZWU4Ni9kcml2ZXJzL21vZGVzZXR0aW5nL3BhZ2VmbGlwLmMgYi9ody94
-ZnJlZTg2L2RyaXZlcnMvbW9kZXNldHRpbmcvcGFnZWZsaXAuYwppbmRleCA0NTQ5NzkyLi41ZjM1
-OTk5IDEwMDY0NAotLS0gYS9ody94ZnJlZTg2L2RyaXZlcnMvbW9kZXNldHRpbmcvcGFnZWZsaXAu
-YworKysgYi9ody94ZnJlZTg2L2RyaXZlcnMvbW9kZXNldHRpbmcvcGFnZWZsaXAuYwpAQCAtMzIs
-NiArMzIsOTcgQEAKICNpZmRlZiBHTEFNT1IKIAogLyoKKyAqIEV2ZW50IGRhdGEgZm9yIGFuIGlu
-IHByb2dyZXNzIGZsaXAuCisgKiBUaGlzIGNvbnRhaW5zIGEgcG9pbnRlciB0byB0aGUgdmJsYW5r
-IGV2ZW50LAorICogYW5kIGluZm9ybWF0aW9uIGFib3V0IHRoZSBmbGlwIGluIHByb2dyZXNzLgor
-ICogYSByZWZlcmVuY2UgdG8gdGhpcyBpcyBzdG9yZWQgaW4gdGhlIHBlci1jcnRjCisgKiBmbGlw
-cy4KKyAqLworc3RydWN0IG1zX2ZsaXBkYXRhIHsKKyAgICBTY3JlZW5QdHIgc2NyZWVuOworICAg
-IHZvaWQgKmV2ZW50OworICAgIG1zX3BhZ2VmbGlwX2hhbmRsZXJfcHJvYyBldmVudF9oYW5kbGVy
-OworICAgIG1zX3BhZ2VmbGlwX2Fib3J0X3Byb2MgYWJvcnRfaGFuZGxlcjsKKyAgICAvKiBudW1i
-ZXIgb2YgQ1JUQyBldmVudHMgcmVmZXJlbmNpbmcgdGhpcyAqLworICAgIGludCBmbGlwX2NvdW50
-OworICAgIHVpbnQ2NF90IGZlX21zYzsKKyAgICB1aW50NjRfdCBmZV91c2VjOworICAgIHVpbnQz
-Ml90IG9sZF9mYl9pZDsKK307CisKKy8qCisgKiBQZXIgY3J0YyBwYWdlZmxpcHBpbmcgaW5mb21h
-dGlvbiwKKyAqIFRoZXNlIGFyZSBzdWJtaXR0ZWQgdG8gdGhlIHF1ZXVpbmcgY29kZQorICogb25l
-IG9mIHRoZW0gcGVyIGNydGMgcGVyIGZsaXAuCisgKi8KK3N0cnVjdCBtc19jcnRjX3BhZ2VmbGlw
-IHsKKyAgICBCb29sIG9uX3JlZmVyZW5jZV9jcnRjOworICAgIC8qIHJlZmVyZW5jZSB0byB0aGUg
-bXNfZmxpcGRhdGEgKi8KKyAgICBzdHJ1Y3QgbXNfZmxpcGRhdGEgKmZsaXBkYXRhOworfTsKKwor
-LyoqCisgKiBGcmVlIGFuIG1zX2NydGNfcGFnZWZsaXAuCisgKgorICogRHJvcHMgdGhlIHJlZmVy
-ZW5jZSBjb3VudCBvbiB0aGUgZmxpcGRhdGEuCisgKi8KK3N0YXRpYyB2b2lkCittc19wYWdlZmxp
-cF9mcmVlKHN0cnVjdCBtc19jcnRjX3BhZ2VmbGlwICpmbGlwKQoreworICAgIHN0cnVjdCBtc19m
-bGlwZGF0YSAqZmxpcGRhdGEgPSBmbGlwLT5mbGlwZGF0YTsKKworICAgIGZyZWUoZmxpcCk7Cisg
-ICAgaWYgKC0tZmxpcGRhdGEtPmZsaXBfY291bnQgPiAwKQorICAgICAgICByZXR1cm47CisgICAg
-ZnJlZShmbGlwZGF0YSk7Cit9CisKKy8qKgorICogQ2FsbGJhY2sgZm9yIHRoZSBEUk0gZXZlbnQg
-cXVldWUgd2hlbiBhIHNpbmdsZSBmbGlwIGhhcyBjb21wbGV0ZWQKKyAqCisgKiBPbmNlIHRoZSBm
-bGlwIGhhcyBiZWVuIGNvbXBsZXRlZCBvbiBhbGwgcGlwZXMsIG5vdGlmeSB0aGUKKyAqIGV4dGVu
-c2lvbiBjb2RlIHRlbGxpbmcgaXQgd2hlbiB0aGF0IGhhcHBlbmVkCisgKi8KK3N0YXRpYyB2b2lk
-Cittc19wYWdlZmxpcF9oYW5kbGVyKHVpbnQ2NF90IG1zYywgdWludDY0X3QgdXN0LCB2b2lkICpk
-YXRhKQoreworICAgIHN0cnVjdCBtc19jcnRjX3BhZ2VmbGlwICpmbGlwID0gZGF0YTsKKyAgICBz
-dHJ1Y3QgbXNfZmxpcGRhdGEgKmZsaXBkYXRhID0gZmxpcC0+ZmxpcGRhdGE7CisgICAgU2NyZWVu
-UHRyIHNjcmVlbiA9IGZsaXBkYXRhLT5zY3JlZW47CisgICAgU2NybkluZm9QdHIgc2NybiA9IHhm
-ODZTY3JlZW5Ub1Njcm4oc2NyZWVuKTsKKyAgICBtb2Rlc2V0dGluZ1B0ciBtcyA9IG1vZGVzZXR0
-aW5nUFRSKHNjcm4pOworCisgICAgaWYgKGZsaXAtPm9uX3JlZmVyZW5jZV9jcnRjKSB7CisgICAg
-ICAgIGZsaXBkYXRhLT5mZV9tc2MgPSBtc2M7CisgICAgICAgIGZsaXBkYXRhLT5mZV91c2VjID0g
-dXN0OworICAgIH0KKworICAgIGlmIChmbGlwZGF0YS0+ZmxpcF9jb3VudCA9PSAxKSB7CisgICAg
-ICAgIGZsaXBkYXRhLT5ldmVudF9oYW5kbGVyKGZsaXBkYXRhLT5mZV9tc2MsCisgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIGZsaXBkYXRhLT5mZV91c2VjLAorICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBmbGlwZGF0YS0+ZXZlbnQpOworCisgICAgICAgIGRybU1vZGVSbUZC
-KG1zLT5mZCwgZmxpcGRhdGEtPm9sZF9mYl9pZCk7CisgICAgfQorICAgIG1zX3BhZ2VmbGlwX2Zy
-ZWUoZmxpcCk7Cit9CisKKy8qCisgKiBDYWxsYmFjayBmb3IgdGhlIERSTSBxdWV1ZSBhYm9ydCBj
-b2RlLiAgQSBmbGlwIGhhcyBiZWVuIGFib3J0ZWQuCisgKi8KK3N0YXRpYyB2b2lkCittc19wYWdl
-ZmxpcF9hYm9ydCh2b2lkICpkYXRhKQoreworICAgIHN0cnVjdCBtc19jcnRjX3BhZ2VmbGlwICpm
-bGlwID0gZGF0YTsKKyAgICBzdHJ1Y3QgbXNfZmxpcGRhdGEgKmZsaXBkYXRhID0gZmxpcC0+Zmxp
-cGRhdGE7CisKKyAgICBpZiAoZmxpcGRhdGEtPmZsaXBfY291bnQgPT0gMSkKKyAgICAgICAgZmxp
-cGRhdGEtPmFib3J0X2hhbmRsZXIoZmxpcGRhdGEtPmV2ZW50KTsKKworICAgIG1zX3BhZ2VmbGlw
-X2ZyZWUoZmxpcCk7Cit9CisKKy8qCiAgKiBGbHVzaCB0aGUgRFJNIGV2ZW50IHF1ZXVlIHdoZW4g
-ZnVsbDsgbWFrZXMgc3BhY2UgZm9yIG5ldyBldmVudHMuCiAgKgogICogUmV0dXJucyBhIG5lZ2F0
-aXZlIHZhbHVlIG9uIGVycm9yLCAwIGlmIHRoZXJlIHdhcyBub3RoaW5nIHRvIHByb2Nlc3MsCkBA
-IC02OCw5ICsxNTksNyBAQCBtc19mbHVzaF9kcm1fZXZlbnRzKFNjcmVlblB0ciBzY3JlZW4pCiBz
-dGF0aWMgQm9vbAogcXVldWVfZmxpcF9vbl9jcnRjKFNjcmVlblB0ciBzY3JlZW4sIHhmODZDcnRj
-UHRyIGNydGMsCiAgICAgICAgICAgICAgICAgICAgc3RydWN0IG1zX2ZsaXBkYXRhICpmbGlwZGF0
-YSwKLSAgICAgICAgICAgICAgICAgICBpbnQgcmVmX2NydGNfdmJsYW5rX3BpcGUsIHVpbnQzMl90
-IGZsYWdzLAotICAgICAgICAgICAgICAgICAgIG1zX3BhZ2VmbGlwX2hhbmRsZXJfcHJvYyBwYWdl
-ZmxpcF9oYW5kbGVyLAotICAgICAgICAgICAgICAgICAgIG1zX3BhZ2VmbGlwX2Fib3J0X3Byb2Mg
-cGFnZWZsaXBfYWJvcnQpCisgICAgICAgICAgICAgICAgICAgaW50IHJlZl9jcnRjX3ZibGFua19w
-aXBlLCB1aW50MzJfdCBmbGFncykKIHsKICAgICBTY3JuSW5mb1B0ciBzY3JuID0geGY4NlNjcmVl
-blRvU2NybihzY3JlZW4pOwogICAgIG1vZGVzZXR0aW5nUHRyIG1zID0gbW9kZXNldHRpbmdQVFIo
-c2Nybik7CkBAIC05Miw3ICsxODEsNyBAQCBxdWV1ZV9mbGlwX29uX2NydGMoU2NyZWVuUHRyIHNj
-cmVlbiwgeGY4NkNydGNQdHIgY3J0YywKICAgICBmbGlwLT5vbl9yZWZlcmVuY2VfY3J0YyA9IChk
-cm1tb2RlX2NydGMtPnZibGFua19waXBlID09IHJlZl9jcnRjX3ZibGFua19waXBlKTsKICAgICBm
-bGlwLT5mbGlwZGF0YSA9IGZsaXBkYXRhOwogCi0gICAgc2VxID0gbXNfZHJtX3F1ZXVlX2FsbG9j
-KGNydGMsIGZsaXAsIHBhZ2VmbGlwX2hhbmRsZXIsIHBhZ2VmbGlwX2Fib3J0KTsKKyAgICBzZXEg
-PSBtc19kcm1fcXVldWVfYWxsb2MoY3J0YywgZmxpcCwgbXNfcGFnZWZsaXBfaGFuZGxlciwgbXNf
-cGFnZWZsaXBfYWJvcnQpOwogICAgIGlmICghc2VxKSB7CiAgICAgICAgIGZyZWUoZmxpcCk7CiAg
-ICAgICAgIHJldHVybiBGQUxTRTsKQEAgLTE2NCw2ICsyNTMsOCBAQCBtc19kb19wYWdlZmxpcChT
-Y3JlZW5QdHIgc2NyZWVuLAogCiAgICAgZmxpcGRhdGEtPmV2ZW50ID0gZXZlbnQ7CiAgICAgZmxp
-cGRhdGEtPnNjcmVlbiA9IHNjcmVlbjsKKyAgICBmbGlwZGF0YS0+ZXZlbnRfaGFuZGxlciA9IHBh
-Z2VmbGlwX2hhbmRsZXI7CisgICAgZmxpcGRhdGEtPmFib3J0X2hhbmRsZXIgPSBwYWdlZmxpcF9h
-Ym9ydDsKIAogICAgIC8qCiAgICAgICogVGFrZSBhIGxvY2FsIHJlZmVyZW5jZSBvbiBmbGlwZGF0
-YS4KQEAgLTIwNiw4ICsyOTcsNyBAQCBtc19kb19wYWdlZmxpcChTY3JlZW5QdHIgc2NyZWVuLAog
-CiAgICAgICAgIGlmICghcXVldWVfZmxpcF9vbl9jcnRjKHNjcmVlbiwgY3J0YywgZmxpcGRhdGEs
-CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJlZl9jcnRjX3ZibGFua19waXBlLAot
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmbGFncywgcGFnZWZsaXBfaGFuZGxlciwK
-LSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFnZWZsaXBfYWJvcnQpKSB7CisgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZsYWdzKSkgewogICAgICAgICAgICAgZ290byBl
-cnJvcl91bmRvOwogICAgICAgICB9CiAgICAgfQpkaWZmIC0tZ2l0IGEvaHcveGZyZWU4Ni9kcml2
-ZXJzL21vZGVzZXR0aW5nL3ByZXNlbnQuYyBiL2h3L3hmcmVlODYvZHJpdmVycy9tb2Rlc2V0dGlu
-Zy9wcmVzZW50LmMKaW5kZXggMThjODJjZC4uZGVlZTFmMSAxMDA2NDQKLS0tIGEvaHcveGZyZWU4
-Ni9kcml2ZXJzL21vZGVzZXR0aW5nL3ByZXNlbnQuYworKysgYi9ody94ZnJlZTg2L2RyaXZlcnMv
-bW9kZXNldHRpbmcvcHJlc2VudC5jCkBAIC0xOTIsNzcgKzE5MiwzMCBAQCBtc19wcmVzZW50X2Zs
-dXNoKFdpbmRvd1B0ciB3aW5kb3cpCiAjaWZkZWYgR0xBTU9SCiAKIC8qKgotICogRnJlZSBhbiBt
-c19jcnRjX3BhZ2VmbGlwLgotICoKLSAqIERyb3BzIHRoZSByZWZlcmVuY2UgY291bnQgb24gdGhl
-IGZsaXBkYXRhLgotICovCi1zdGF0aWMgdm9pZAotbXNfcHJlc2VudF9mbGlwX2ZyZWUoc3RydWN0
-IG1zX2NydGNfcGFnZWZsaXAgKmZsaXApCi17Ci0gICAgc3RydWN0IG1zX2ZsaXBkYXRhICpmbGlw
-ZGF0YSA9IGZsaXAtPmZsaXBkYXRhOwotCi0gICAgZnJlZShmbGlwKTsKLSAgICBpZiAoLS1mbGlw
-ZGF0YS0+ZmxpcF9jb3VudCA+IDApCi0gICAgICAgIHJldHVybjsKLSAgICBmcmVlKGZsaXBkYXRh
-KTsKLX0KLQotLyoqCi0gKiBDYWxsYmFjayBmb3IgdGhlIERSTSBldmVudCBxdWV1ZSB3aGVuIGEg
-c2luZ2xlIGZsaXAgaGFzIGNvbXBsZXRlZAotICoKLSAqIE9uY2UgdGhlIGZsaXAgaGFzIGJlZW4g
-Y29tcGxldGVkIG9uIGFsbCBwaXBlcywgbm90aWZ5IHRoZQorICogQ2FsbGJhY2sgZm9yIHRoZSBm
-bGlwIGhhcyBiZWVuIGNvbXBsZXRlZCBvbiBhbGwgcGlwZXMsIG5vdGlmeSB0aGUKICAqIGV4dGVu
-c2lvbiBjb2RlIHRlbGxpbmcgaXQgd2hlbiB0aGF0IGhhcHBlbmVkCiAgKi8KIHN0YXRpYyB2b2lk
-CiBtc19wcmVzZW50X2ZsaXBfaGFuZGxlcih1aW50NjRfdCBtc2MsIHVpbnQ2NF90IHVzdCwgdm9p
-ZCAqZGF0YSkKIHsKLSAgICBzdHJ1Y3QgbXNfY3J0Y19wYWdlZmxpcCAqZmxpcCA9IGRhdGE7Ci0g
-ICAgU2NyZWVuUHRyIHNjcmVlbiA9IGZsaXAtPmZsaXBkYXRhLT5zY3JlZW47Ci0gICAgU2Nybklu
-Zm9QdHIgc2NybiA9IHhmODZTY3JlZW5Ub1Njcm4oc2NyZWVuKTsKLSAgICBtb2Rlc2V0dGluZ1B0
-ciBtcyA9IG1vZGVzZXR0aW5nUFRSKHNjcm4pOwotICAgIHN0cnVjdCBtc19mbGlwZGF0YSAqZmxp
-cGRhdGEgPSBmbGlwLT5mbGlwZGF0YTsKKyAgICBzdHJ1Y3QgbXNfcHJlc2VudF92YmxhbmtfZXZl
-bnQgKmV2ZW50ID0gZGF0YTsKIAotICAgIERlYnVnUHJlc2VudCgoIlx0XHRtczpmaCAlbGxkIGMg
-JWQgbXNjICVsbHUgdXN0ICVsbHVcbiIsCi0gICAgICAgICAgICAgICAgICAobG9uZyBsb25nKSBm
-bGlwZGF0YS0+ZXZlbnQtPmV2ZW50X2lkLAotICAgICAgICAgICAgICAgICAgZmxpcGRhdGEtPmZs
-aXBfY291bnQsCisgICAgRGVidWdQcmVzZW50KCgiXHRcdG1zOmZjICVsbGQgbXNjICVsbHUgdXN0
-ICVsbHVcbiIsCisgICAgICAgICAgICAgICAgICAobG9uZyBsb25nKSBldmVudC0+ZXZlbnRfaWQs
-CiAgICAgICAgICAgICAgICAgICAobG9uZyBsb25nKSBtc2MsIChsb25nIGxvbmcpIHVzdCkpOwog
-Ci0gICAgaWYgKGZsaXAtPm9uX3JlZmVyZW5jZV9jcnRjKSB7Ci0gICAgICAgIGZsaXBkYXRhLT5m
-ZV9tc2MgPSBtc2M7Ci0gICAgICAgIGZsaXBkYXRhLT5mZV91c2VjID0gdXN0OwotICAgIH0KLQot
-ICAgIGlmIChmbGlwZGF0YS0+ZmxpcF9jb3VudCA9PSAxKSB7Ci0gICAgICAgIERlYnVnUHJlc2Vu
-dCgoIlx0XHRtczpmYyAlbGxkIGMgJWQgbXNjICVsbHUgdXN0ICVsbHVcbiIsCi0gICAgICAgICAg
-ICAgICAgICAgICAgKGxvbmcgbG9uZykgZmxpcGRhdGEtPmV2ZW50LT5ldmVudF9pZCwKLSAgICAg
-ICAgICAgICAgICAgICAgICBmbGlwZGF0YS0+ZmxpcF9jb3VudCwKLSAgICAgICAgICAgICAgICAg
-ICAgICAobG9uZyBsb25nKSBmbGlwZGF0YS0+ZmVfbXNjLCAobG9uZyBsb25nKSBmbGlwZGF0YS0+
-ZmVfdXNlYykpOwotCi0KLSAgICAgICAgbXNfcHJlc2VudF92YmxhbmtfaGFuZGxlcihmbGlwZGF0
-YS0+ZmVfbXNjLAotICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZsaXBkYXRhLT5m
-ZV91c2VjLAotICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZsaXBkYXRhLT5ldmVu
-dCk7Ci0KLSAgICAgICAgZHJtTW9kZVJtRkIobXMtPmZkLCBmbGlwZGF0YS0+b2xkX2ZiX2lkKTsK
-LSAgICB9Ci0gICAgbXNfcHJlc2VudF9mbGlwX2ZyZWUoZmxpcCk7CisgICAgbXNfcHJlc2VudF92
-YmxhbmtfaGFuZGxlcihtc2MsIHVzdCwgZXZlbnQpOwogfQogCiAvKgotICogQ2FsbGJhY2sgZm9y
-IHRoZSBEUk0gcXVldWUgYWJvcnQgY29kZS4gIEEgZmxpcCBoYXMgYmVlbiBhYm9ydGVkLgorICog
-Q2FsbGJhY2sgZm9yIHRoZSBmbGlwIGhhcyBiZWVuIGFib3J0ZWQuCiAgKi8KIHN0YXRpYyB2b2lk
-CiBtc19wcmVzZW50X2ZsaXBfYWJvcnQodm9pZCAqZGF0YSkKIHsKLSAgICBzdHJ1Y3QgbXNfY3J0
-Y19wYWdlZmxpcCAqZmxpcCA9IGRhdGE7Ci0gICAgc3RydWN0IG1zX2ZsaXBkYXRhICpmbGlwZGF0
-YSA9IGZsaXAtPmZsaXBkYXRhOwotCi0gICAgRGVidWdQcmVzZW50KCgiXHRcdG1zOmZhICVsbGQg
-YyAlZFxuIiwgKGxvbmcgbG9uZykgZmxpcGRhdGEtPmV2ZW50LT5ldmVudF9pZCwgZmxpcGRhdGEt
-PmZsaXBfY291bnQpKTsKLQotICAgIGlmIChmbGlwZGF0YS0+ZmxpcF9jb3VudCA9PSAxKQotICAg
-ICAgICBmcmVlKGZsaXBkYXRhLT5ldmVudCk7CisgICAgc3RydWN0IG1zX3ByZXNlbnRfdmJsYW5r
-X2V2ZW50ICpldmVudCA9IGRhdGE7CiAKLSAgICBtc19wcmVzZW50X2ZsaXBfZnJlZShmbGlwKTsK
-KyAgICBmcmVlKGV2ZW50KTsKIH0KIAogLyoKLS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwp4b3JnLWRldmVsQGxpc3RzLngub3JnOiBYLk9y
-ZyBkZXZlbG9wbWVudApBcmNoaXZlczogaHR0cDovL2xpc3RzLngub3JnL2FyY2hpdmVzL3hvcmct
-ZGV2ZWwKSW5mbzogaHR0cHM6Ly9saXN0cy54Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hvcmctZGV2
-ZWw=
+--===============1564368497==
+Content-Type: multipart/alternative;
+	boundary="------------050801070309090100050705"
+
+--------------050801070309090100050705
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+
+
+
+On 2016年08月21日 14:23, Edward O'Callaghan wrote:
+>
+> On 08/18/2016 05:55 PM, Chunming Zhou wrote:
+>> They are used for sharing semaphore across process.
+>>
+>> Change-Id: I262adf10913d365bb93368b492e69140af522c64
+>> Signed-off-by: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+>> ---
+>>   amdgpu/amdgpu.h          | 40 ++++++++++++++++++++++++++++++
+>>   amdgpu/amdgpu_cs.c       | 63 ++++++++++++++++++++++++++++++++++++++++++++++--
+>>   amdgpu/amdgpu_internal.h |  2 ++
+>>   3 files changed, 103 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/amdgpu/amdgpu.h b/amdgpu/amdgpu.h
+>> index 693d841..e716855 100644
+>> --- a/amdgpu/amdgpu.h
+>> +++ b/amdgpu/amdgpu.h
+>> @@ -1379,6 +1379,19 @@ int amdgpu_svm_commit(amdgpu_va_handle va_range_handle,
+>>   int amdgpu_svm_uncommit(amdgpu_va_handle va_range_handle);
+>>   
+>>   /**
+>> + *  create shared semaphore
+>> + *
+>> + * \param amdgpu_device_handle
+>> + * \param   sem	   - \c [out] semaphore handle
+>> + *
+>> + * \return   0 on success\n
+>> + *          <0 - Negative POSIX Error code
+>> + *
+>> +*/
+>> +int amdgpu_cs_create_semaphore_object(amdgpu_device_handle device_handle,
+>> +				      amdgpu_semaphore_handle *sem);
+>> +
+>> +/**
+>>    *  create semaphore
+>>    *
+>>    * \param   sem	   - \c [out] semaphore handle
+>> @@ -1439,6 +1452,33 @@ int amdgpu_cs_wait_semaphore(amdgpu_context_handle ctx,
+>>   int amdgpu_cs_destroy_semaphore(amdgpu_semaphore_handle sem);
+>>   
+>>   /**
+>> + *  export semaphore
+>> + *
+>> + * \param   sem	    - \c [in] semaphore handle
+>> + * \param   shared_handle    - \c [out] handle across process
+>> + *
+>> + * \return   0 on success\n
+>> + *          <0 - Negative POSIX Error code
+>> + *
+>> +*/
+>> +int amdgpu_cs_export_semaphore(amdgpu_semaphore_handle sem,
+>> +			       uint32_t *shared_handle);
+>> +/**
+>> + *  import semaphore
+>> + *
+>> + * \param   sem	    - \c [out] semaphore handle
+>> + * \param   dev	    - \c [in] device handle
+>> + * \param   shared_handle    - \c [in] handle across process
+>> + *
+>> + * \return   0 on success\n
+>> + *          <0 - Negative POSIX Error code
+>> + *
+>> +*/
+>> +int amdgpu_cs_import_semaphore(amdgpu_semaphore_handle *sem,
+>> +			       amdgpu_device_handle dev,
+>> +			       uint32_t shared_handle);
+>> +
+>> +/**
+>>    *  Get the ASIC marketing name
+>>    *
+>>    * \param   dev         - \c [in] Device handle. See #amdgpu_device_initialize()
+>> diff --git a/amdgpu/amdgpu_cs.c b/amdgpu/amdgpu_cs.c
+>> index c76a675..a3ff34e 100644
+>> --- a/amdgpu/amdgpu_cs.c
+>> +++ b/amdgpu/amdgpu_cs.c
+>> @@ -518,6 +518,34 @@ int amdgpu_cs_wait_fences(struct amdgpu_cs_fence *fences,
+>>   	return r;
+>>   }
+>>   
+>> +int amdgpu_cs_create_semaphore_object(amdgpu_device_handle device_handle,
+>> +				      amdgpu_semaphore_handle *sem)
+>> +{
+>> +	struct amdgpu_bo_alloc_request req = {0};
+>> +	amdgpu_bo_handle buf_handle;
+>> +	int r;
+>> +
+>> +	if (NULL == sem)
+> Since sem is ** then should we not check that *both* sem && *sem are
+> non-NULL too? Further you can use the canonical form of (!sem)
+>
+>> +		return -EINVAL;
+>> +
+>> +	req.alloc_size = sizeof(struct amdgpu_semaphore);
+>> +	req.preferred_heap = AMDGPU_GEM_DOMAIN_GTT;
+>> +
+>> +	r = amdgpu_bo_alloc(device_handle, &req, &buf_handle);
+>> +	if (r)
+>> +		return r;
+>> +	r = amdgpu_bo_cpu_map(buf_handle, sem);
+>> +	if (r) {
+>> +		amdgpu_bo_free(buf_handle);
+>> +		return r;
+>> +	}
+>> +	(*sem)->buf_handle = buf_handle;
+>> +	atomic_set(&(*sem)->refcount, 1);
+> Hi Chunming,
+>
+> When/where was 'amdgpu_semaphore_handle' introduced? I am not sure I
+> like pointers being hidden behind typedef's as opaque types this can
+> lead to really really bad things.. I only noticed sem was a ** because
+> of the weird looking deference then address operator application, then
+> deference again here, &(*sem)->..
+Hi Edward,
+semaphore was introduced last year, which is the wrapper of existing 
+dependency.
+Yeah, this whole sharing semaphore approach has been NAKed by Christian.
+So we can skip this series now, we are going to use sync_file instead.
+
+Thanks,
+David Zhou
+
+>
+> Cheers,
+> Edward.
+>
+>> +	(*sem)->version = 2;
+>> +
+>> +	return 0;
+>> +}
+>> +
+>>   int amdgpu_cs_create_semaphore(amdgpu_semaphore_handle *sem)
+>>   {
+>>   	struct amdgpu_semaphore *gpu_semaphore;
+>> @@ -529,6 +557,7 @@ int amdgpu_cs_create_semaphore(amdgpu_semaphore_handle *sem)
+>>   	if (NULL == gpu_semaphore)
+>>   		return -ENOMEM;
+>>   
+>> +	gpu_semaphore->version = 1;
+>>   	atomic_set(&gpu_semaphore->refcount, 1);
+>>   	*sem = gpu_semaphore;
+>>   
+>> @@ -608,8 +637,15 @@ static int amdgpu_cs_unreference_sem(amdgpu_semaphore_handle sem)
+>>   	if (NULL == sem)
+>>   		return -EINVAL;
+>>   
+>> -	if (update_references(&sem->refcount, NULL))
+>> -		free(sem);
+>> +	if (update_references(&sem->refcount, NULL)) {
+>> +		if (sem->version == 1)
+>> +			free(sem);
+>> +		else if (sem->version == 2) {
+>> +			amdgpu_bo_handle buf_handle = sem->buf_handle;
+>> +			amdgpu_bo_cpu_unmap(buf_handle);
+>> +			amdgpu_bo_free(buf_handle);
+>> +		}
+>> +	}
+>>   	return 0;
+>>   }
+>>   
+>> @@ -618,4 +654,27 @@ int amdgpu_cs_destroy_semaphore(amdgpu_semaphore_handle sem)
+>>   	return amdgpu_cs_unreference_sem(sem);
+>>   }
+>>   
+>> +int amdgpu_cs_export_semaphore(amdgpu_semaphore_handle sem,
+>> +			       uint32_t *shared_handle)
+>> +{
+>> +	return amdgpu_bo_export(sem->buf_handle,
+>> +				amdgpu_bo_handle_type_dma_buf_fd,
+>> +				shared_handle);
+>> +
+>> +}
+>> +
+>> +int amdgpu_cs_import_semaphore(amdgpu_semaphore_handle *sem,
+>> +			       amdgpu_device_handle dev, uint32_t shared_handle)
+>> +{
+>> +	struct amdgpu_bo_import_result output;
+>> +	int r;
+>> +
+>> +	r = amdgpu_bo_import(dev,
+>> +			     amdgpu_bo_handle_type_dma_buf_fd,
+>> +			     shared_handle,
+>> +			     &output);
+>> +	if (r)
+>> +		return r;
+>>   
+>> +	return amdgpu_bo_cpu_map(output.buf_handle, sem);
+>> +}
+>> diff --git a/amdgpu/amdgpu_internal.h b/amdgpu/amdgpu_internal.h
+>> index ccc85d7..7c422da 100644
+>> --- a/amdgpu/amdgpu_internal.h
+>> +++ b/amdgpu/amdgpu_internal.h
+>> @@ -134,6 +134,8 @@ struct amdgpu_semaphore {
+>>   	atomic_t refcount;
+>>   	struct list_head list;
+>>   	struct drm_amdgpu_fence signal_fence;
+>> +	amdgpu_bo_handle buf_handle;
+>> +	uint32_t version;
+>>   };
+>>   
+>>   /**
+>>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--------------050801070309090100050705
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <br>
+    <br>
+    <div class="moz-cite-prefix">On 2016年08月21日 14:23, Edward
+      O'Callaghan wrote:<br>
+    </div>
+    <blockquote
+      cite="mid:cf458d97-d40a-d363-b5c4-2ae45dde9179-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org"
+      type="cite">
+      <pre wrap="">
+
+On 08/18/2016 05:55 PM, Chunming Zhou wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="">They are used for sharing semaphore across process.
+
+Change-Id: I262adf10913d365bb93368b492e69140af522c64
+Signed-off-by: Chunming Zhou <a class="moz-txt-link-rfc2396E" href="mailto:David1.Zhou-5C7GfCeVMHo@public.gmane.org">&lt;David1.Zhou-5C7GfCeVMHo@public.gmane.org&gt;</a>
+---
+ amdgpu/amdgpu.h          | 40 ++++++++++++++++++++++++++++++
+ amdgpu/amdgpu_cs.c       | 63 ++++++++++++++++++++++++++++++++++++++++++++++--
+ amdgpu/amdgpu_internal.h |  2 ++
+ 3 files changed, 103 insertions(+), 2 deletions(-)
+
+diff --git a/amdgpu/amdgpu.h b/amdgpu/amdgpu.h
+index 693d841..e716855 100644
+--- a/amdgpu/amdgpu.h
++++ b/amdgpu/amdgpu.h
+@@ -1379,6 +1379,19 @@ int amdgpu_svm_commit(amdgpu_va_handle va_range_handle,
+ int amdgpu_svm_uncommit(amdgpu_va_handle va_range_handle);
+ 
+ /**
++ *  create shared semaphore
++ *
++ * \param amdgpu_device_handle
++ * \param   sem	   - \c [out] semaphore handle
++ *
++ * \return   0 on success\n
++ *          &lt;0 - Negative POSIX Error code
++ *
++*/
++int amdgpu_cs_create_semaphore_object(amdgpu_device_handle device_handle,
++				      amdgpu_semaphore_handle *sem);
++
++/**
+  *  create semaphore
+  *
+  * \param   sem	   - \c [out] semaphore handle
+@@ -1439,6 +1452,33 @@ int amdgpu_cs_wait_semaphore(amdgpu_context_handle ctx,
+ int amdgpu_cs_destroy_semaphore(amdgpu_semaphore_handle sem);
+ 
+ /**
++ *  export semaphore
++ *
++ * \param   sem	    - \c [in] semaphore handle
++ * \param   shared_handle    - \c [out] handle across process
++ *
++ * \return   0 on success\n
++ *          &lt;0 - Negative POSIX Error code
++ *
++*/
++int amdgpu_cs_export_semaphore(amdgpu_semaphore_handle sem,
++			       uint32_t *shared_handle);
++/**
++ *  import semaphore
++ *
++ * \param   sem	    - \c [out] semaphore handle
++ * \param   dev	    - \c [in] device handle
++ * \param   shared_handle    - \c [in] handle across process
++ *
++ * \return   0 on success\n
++ *          &lt;0 - Negative POSIX Error code
++ *
++*/
++int amdgpu_cs_import_semaphore(amdgpu_semaphore_handle *sem,
++			       amdgpu_device_handle dev,
++			       uint32_t shared_handle);
++
++/**
+  *  Get the ASIC marketing name
+  *
+  * \param   dev         - \c [in] Device handle. See #amdgpu_device_initialize()
+diff --git a/amdgpu/amdgpu_cs.c b/amdgpu/amdgpu_cs.c
+index c76a675..a3ff34e 100644
+--- a/amdgpu/amdgpu_cs.c
++++ b/amdgpu/amdgpu_cs.c
+@@ -518,6 +518,34 @@ int amdgpu_cs_wait_fences(struct amdgpu_cs_fence *fences,
+ 	return r;
+ }
+ 
++int amdgpu_cs_create_semaphore_object(amdgpu_device_handle device_handle,
++				      amdgpu_semaphore_handle *sem)
++{
++	struct amdgpu_bo_alloc_request req = {0};
++	amdgpu_bo_handle buf_handle;
++	int r;
++
++	if (NULL == sem)
+</pre>
+      </blockquote>
+      <pre wrap="">
+Since sem is ** then should we not check that *both* sem &amp;&amp; *sem are
+non-NULL too? Further you can use the canonical form of (!sem)
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="">+		return -EINVAL;
++
++	req.alloc_size = sizeof(struct amdgpu_semaphore);
++	req.preferred_heap = AMDGPU_GEM_DOMAIN_GTT;
++
++	r = amdgpu_bo_alloc(device_handle, &amp;req, &amp;buf_handle);
++	if (r)
++		return r;
++	r = amdgpu_bo_cpu_map(buf_handle, sem);
++	if (r) {
++		amdgpu_bo_free(buf_handle);
++		return r;
++	}
++	(*sem)-&gt;buf_handle = buf_handle;
++	atomic_set(&amp;(*sem)-&gt;refcount, 1);
+</pre>
+      </blockquote>
+      <pre wrap="">
+Hi Chunming,
+
+When/where was 'amdgpu_semaphore_handle' introduced? I am not sure I
+like pointers being hidden behind typedef's as opaque types this can
+lead to really really bad things.. I only noticed sem was a ** because
+of the weird looking deference then address operator application, then
+deference again here, &amp;(*sem)-&gt;..</pre>
+    </blockquote>
+    Hi Edward,<br>
+    semaphore was introduced last year, which is the wrapper of existing
+    dependency.<br>
+    Yeah, this whole sharing semaphore approach has been NAKed by
+    Christian.<br>
+    So we can skip this series now, we are going to use sync_file
+    instead.<br>
+    <br>
+    Thanks,<br>
+    David Zhou<br>
+    <br>
+    <blockquote
+      cite="mid:cf458d97-d40a-d363-b5c4-2ae45dde9179-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org"
+      type="cite">
+      <pre wrap="">
+
+Cheers,
+Edward.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="">+	(*sem)-&gt;version = 2;
++
++	return 0;
++}
++
+ int amdgpu_cs_create_semaphore(amdgpu_semaphore_handle *sem)
+ {
+ 	struct amdgpu_semaphore *gpu_semaphore;
+@@ -529,6 +557,7 @@ int amdgpu_cs_create_semaphore(amdgpu_semaphore_handle *sem)
+ 	if (NULL == gpu_semaphore)
+ 		return -ENOMEM;
+ 
++	gpu_semaphore-&gt;version = 1;
+ 	atomic_set(&amp;gpu_semaphore-&gt;refcount, 1);
+ 	*sem = gpu_semaphore;
+ 
+@@ -608,8 +637,15 @@ static int amdgpu_cs_unreference_sem(amdgpu_semaphore_handle sem)
+ 	if (NULL == sem)
+ 		return -EINVAL;
+ 
+-	if (update_references(&amp;sem-&gt;refcount, NULL))
+-		free(sem);
++	if (update_references(&amp;sem-&gt;refcount, NULL)) {
++		if (sem-&gt;version == 1)
++			free(sem);
++		else if (sem-&gt;version == 2) {
++			amdgpu_bo_handle buf_handle = sem-&gt;buf_handle;
++			amdgpu_bo_cpu_unmap(buf_handle);
++			amdgpu_bo_free(buf_handle);
++		}
++	}
+ 	return 0;
+ }
+ 
+@@ -618,4 +654,27 @@ int amdgpu_cs_destroy_semaphore(amdgpu_semaphore_handle sem)
+ 	return amdgpu_cs_unreference_sem(sem);
+ }
+ 
++int amdgpu_cs_export_semaphore(amdgpu_semaphore_handle sem,
++			       uint32_t *shared_handle)
++{
++	return amdgpu_bo_export(sem-&gt;buf_handle,
++				amdgpu_bo_handle_type_dma_buf_fd,
++				shared_handle);
++
++}
++
++int amdgpu_cs_import_semaphore(amdgpu_semaphore_handle *sem,
++			       amdgpu_device_handle dev, uint32_t shared_handle)
++{
++	struct amdgpu_bo_import_result output;
++	int r;
++
++	r = amdgpu_bo_import(dev,
++			     amdgpu_bo_handle_type_dma_buf_fd,
++			     shared_handle,
++			     &amp;output);
++	if (r)
++		return r;
+ 
++	return amdgpu_bo_cpu_map(output.buf_handle, sem);
++}
+diff --git a/amdgpu/amdgpu_internal.h b/amdgpu/amdgpu_internal.h
+index ccc85d7..7c422da 100644
+--- a/amdgpu/amdgpu_internal.h
++++ b/amdgpu/amdgpu_internal.h
+@@ -134,6 +134,8 @@ struct amdgpu_semaphore {
+ 	atomic_t refcount;
+ 	struct list_head list;
+ 	struct drm_amdgpu_fence signal_fence;
++	amdgpu_bo_handle buf_handle;
++	uint32_t version;
+ };
+ 
+ /**
+
+</pre>
+      </blockquote>
+      <pre wrap="">
+</pre>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------050801070309090100050705--
+
+--===============1564368497==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1564368497==--
