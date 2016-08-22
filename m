@@ -1,13 +1,13 @@
 From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH v2 xserver 0/5] modesetting: add DRI2 page flip support
-Date: Mon, 22 Aug 2016 11:03:50 +0900
-Message-ID: <3d52c599-1b16-00bd-3cc3-5ce33d03a4d6@daenzer.net>
-References: <1471611050-27207-1-git-send-email-Qiang.Yu@amd.com>
+Subject: Re: [PATCH xf86-video-amdgpu] Fix cursor size for SI
+Date: Mon, 22 Aug 2016 11:06:09 +0900
+Message-ID: <abce2aea-6e54-1673-88af-5a674332bc32@daenzer.net>
+References: <1471603432-5378-1-git-send-email-maraeo@gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1471611050-27207-1-git-send-email-Qiang.Yu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1471603432-5378-1-git-send-email-maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,26 +18,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Qiang Yu <Qiang.Yu-5C7GfCeVMHo@public.gmane.org>
-Cc: emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, xorg-devel-go0+a7rfsptAfugRpC6u6w@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gMTkvMDgvMTYgMDk6NTAgUE0sIFFpYW5nIFl1IHdyb3RlOgo+IEhpIGd1eXMsCj4gCj4gVGhp
-cyBwYXRjaCBzZXQgaXMgZm9yIGFkZGluZyBEUkkyIHBhZ2UgZmxpcCBzdXBwb3J0IHRvIG1vZGVz
-ZXR0aW5nCj4gZHJpdmVyLiBJIG1haW5seSB0YWtlIHJlZmVyZW5jZSBvZiBhbWRncHUgRERYIGFu
-ZCByZXVzZSBwcmVzZW50Cj4gcGFnZSBmbGlwIGNvZGUgaW4gdGhlIG1vZGVzZXR0aW5nIGRyaXZl
-ci4KPiAKPiBWMjoKPiAxLiBmaXggRFJJMiBwYWdlIGZsaXAgc3VjY2VzcyBoYW5kbGVyIGV2ZW50
-IG1lbW9yeSBsZWFrCj4gMi4gYWRqdXN0IHBhdGNoIHNlcXVlbmNlIHRvIG1ha2UgRFJJMiB1c2Ug
-dGhlIGNvbW1vbgo+ICAgIHBhZ2UgZmxpcCBjb2RlIGluIHBhZ2VmbGlwLmMgZnJvbSB0aGUgYmVn
-aW5uaW5nCj4gMy4gc29tZSBmaXggb24gZGVidWcgb3V0cHV0IGFuZCBjb21tZW50cwo+IAo+IFJl
-Z2FyZHMsCj4gUWlhbmcKPiAKPiBRaWFuZyBZdSAoNSk6Cj4gICBtb2Rlc2V0dGluZzogbWFrZSBt
-c19kb19wYWdlZmxpcCBnZW5lcmljIGZvciBzaGFyZSB3aXRoIERSSTIKPiAgIG1vZGVzZXR0aW5n
-OiBtb3ZlIG1zX2RvX3BhZ2VmbGlwIHRvIHBhZ2VmbGlwLmMKPiAgIG1vZGVzZXR0aW5nOiBtb3Zl
-IGNvbW1vbiBwYWdlIGZsaXAgaGFuZGxlIHRvIHBhZ2VmbGlwLmMKPiAgIG1vZGVzZXR0aW5nOiBh
-ZGQgRFJJMiBwYWdlIGZsaXAgc3VwcG9ydAo+ICAgbW9kZXNldHRpbmc6IGV4Y2x1ZGUgRFJJMiBh
-bmQgcHJlbnNlbnQgcGFnZSBmbGlwCgpQbGVhc2Ugc3F1YXNoIHBhdGNoIDUgaW50byBwYXRjaCA0
-LgoKCi0tIApFYXJ0aGxpbmcgTWljaGVsIETDpG56ZXIgICAgICAgICAgICAgICB8ICAgICAgICAg
-ICAgICAgaHR0cDovL3d3dy5hbWQuY29tCkxpYnJlIHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAg
-ICAgICAgfCAgICAgICAgICAgICBNZXNhIGFuZCBYIGRldmVsb3BlcgpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+T24gMTkvMDgvMTYgMDc6NDMgUE0sIE1hcmVrIE9sxaHDoWsgd3JvdGU6Cj4gRnJvbTogTWFyZWsg
+T2zFocOhayA8bWFyZWsub2xzYWtAYW1kLmNvbT4KPiAKPiBUaGlzIGRvZXNuJ3QgZml4IHRoZSBt
+aXNzaW5nIGN1cnNvciwgd2hpY2ggc2VlbXMgdG8gYmUgYSBrZXJuZWwgaXNzdWUsCj4gYmVjYXVz
+ZSBpdCdzIG1pc3Npbmcgd2l0aCBtb2Rlc2V0dGluZyBhcyB3ZWxsLgoKV2l0aCB0aGlzIHNlbnRl
+bmNlIHJlbW92ZWQgZnJvbSB0aGUgY29tbWl0IGxvZywKClJldmlld2VkLWJ5OiBNaWNoZWwgRMOk
+bnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6Ru
+emVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpMaWJy
+ZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQg
+WCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
