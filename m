@@ -1,70 +1,233 @@
-From: Daniel Martin <consume.noise-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH v3 xserver 4/4] modesetting: add DRI2 page flip support
-Date: Mon, 22 Aug 2016 08:30:04 +0200
-Message-ID: <CADscph0CQsVXmYTLetbXyzrJHoapPfF=3r1K3ZSGBPYoooas5A@mail.gmail.com>
-References: <1471838038-16382-1-git-send-email-Qiang.Yu@amd.com>
- <1471838038-16382-5-git-send-email-Qiang.Yu@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH drm/amdgpu] Use correct mask in dce_v8_0_afmt_setmode()
+ and fix comment typos.
+Date: Mon, 22 Aug 2016 09:55:05 +0200
+Message-ID: <cb4275dd-dd82-e640-b187-60783c6fed2e@vodafone.de>
+References: <20160822003841.16476-1-alexandre.f.demers@gmail.com>
+ <73e7bbfa-45a7-1f1e-ae19-52a6461f4a9f@folklore1984.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <xorg-devel-bounces-go0+a7rfsptAfugRpC6u6w@public.gmane.org>
-In-Reply-To: <1471838038-16382-5-git-send-email-Qiang.Yu-5C7GfCeVMHo@public.gmane.org>
-List-Unsubscribe: <https://lists.x.org/mailman/options/xorg-devel>,
- <mailto:xorg-devel-request-go0+a7rfsptAfugRpC6u6w@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.x.org/archives/xorg-devel>
-List-Post: <mailto:xorg-devel-go0+a7rfsptAfugRpC6u6w@public.gmane.org>
-List-Help: <mailto:xorg-devel-request-go0+a7rfsptAfugRpC6u6w@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.x.org/mailman/listinfo/xorg-devel>,
- <mailto:xorg-devel-request-go0+a7rfsptAfugRpC6u6w@public.gmane.org?subject=subscribe>
-Errors-To: xorg-devel-bounces-go0+a7rfsptAfugRpC6u6w@public.gmane.org
-Sender: "xorg-devel" <xorg-devel-bounces-go0+a7rfsptAfugRpC6u6w@public.gmane.org>
-To: Qiang Yu <Qiang.Yu-5C7GfCeVMHo@public.gmane.org>
-Cc: emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, xorg-devel <xorg-devel-go0+a7rfsptAfugRpC6u6w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1929608911=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <73e7bbfa-45a7-1f1e-ae19-52a6461f4a9f-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>, Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-SGksCgpPbiAyMiBBdWd1c3QgMjAxNiBhdCAwNTo1MywgUWlhbmcgWXUgPFFpYW5nLll1QGFtZC5j
-b20+IHdyb3RlOgo+IFNpZ25lZC1vZmYtYnk6IFFpYW5nIFl1IDxRaWFuZy5ZdUBhbWQuY29tPgo+
-IC0tLQo+ICBody94ZnJlZTg2L2RyaXZlcnMvbW9kZXNldHRpbmcvZHJpMi5jICAgICAgICAgICAg
-fCAyMzcgKysrKysrKysrKysrKysrKysrKysrKy0KPiAgaHcveGZyZWU4Ni9kcml2ZXJzL21vZGVz
-ZXR0aW5nL2RyaXZlci5oICAgICAgICAgIHwgICA1ICstCj4gIGh3L3hmcmVlODYvZHJpdmVycy9t
-b2Rlc2V0dGluZy9kcm1tb2RlX2Rpc3BsYXkuaCB8ICAgMyArCj4gIGh3L3hmcmVlODYvZHJpdmVy
-cy9tb2Rlc2V0dGluZy9wYWdlZmxpcC5jICAgICAgICB8ICAgNyArLQo+ICBody94ZnJlZTg2L2Ry
-aXZlcnMvbW9kZXNldHRpbmcvcHJlc2VudC5jICAgICAgICAgfCAgMjAgKy0KPiAgNSBmaWxlcyBj
-aGFuZ2VkLCAyNTcgaW5zZXJ0aW9ucygrKSwgMTUgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0
-IGEvaHcveGZyZWU4Ni9kcml2ZXJzL21vZGVzZXR0aW5nL2RyaTIuYyBiL2h3L3hmcmVlODYvZHJp
-dmVycy9tb2Rlc2V0dGluZy9kcmkyLmMKPiBpbmRleCA4M2NiM2UwLi4xMjVjNDEzIDEwMDY0NAo+
-IC0tLSBhL2h3L3hmcmVlODYvZHJpdmVycy9tb2Rlc2V0dGluZy9kcmkyLmMKPiArKysgYi9ody94
-ZnJlZTg2L2RyaXZlcnMvbW9kZXNldHRpbmcvZHJpMi5jCi4uLgo+ICtzdGF0aWMgdm9pZAo+ICtt
-c19kcmkyX2V4Y2hhbmdlX2J1ZmZlcnMoRHJhd2FibGVQdHIgZHJhdywgRFJJMkJ1ZmZlclB0ciBm
-cm9udCwKPiArICAgICAgICAgICAgICAgICAgICAgICAgIERSSTJCdWZmZXJQdHIgYmFjaykKPiAr
-ewo+ICsgICAgbXNfZHJpMl9idWZmZXJfcHJpdmF0ZV9wdHIgZnJvbnRfcHJpdiA9IGZyb250LT5k
-cml2ZXJQcml2YXRlOwo+ICsgICAgbXNfZHJpMl9idWZmZXJfcHJpdmF0ZV9wdHIgYmFja19wcml2
-ID0gYmFjay0+ZHJpdmVyUHJpdmF0ZTsKPiArICAgIFNjcmVlblB0ciBzY3JlZW4gPSBkcmF3LT5w
-U2NyZWVuOwo+ICsgICAgU2NybkluZm9QdHIgc2NybiA9IHhmODZTY3JlZW5Ub1Njcm4oc2NyZWVu
-KTsKPiArICAgIG1vZGVzZXR0aW5nUHRyIG1zID0gbW9kZXNldHRpbmdQVFIoc2Nybik7Cj4gKyAg
-ICBtc1BpeG1hcFByaXZQdHIgZnJvbnRfcGl4ID0gbXNHZXRQaXhtYXBQcml2KCZtcy0+ZHJtbW9k
-ZSwgZnJvbnRfcHJpdi0+cGl4bWFwKTsKPiArICAgIG1zUGl4bWFwUHJpdlB0ciBiYWNrX3BpeCA9
-IG1zR2V0UGl4bWFwUHJpdigmbXMtPmRybW1vZGUsIGJhY2tfcHJpdi0+cGl4bWFwKTsKPiArICAg
-IG1zUGl4bWFwUHJpdlJlYyB0bXBfcGl4Owo+ICsgICAgUmVnaW9uUmVjIHJlZ2lvbjsKPiArICAg
-IGludCB0bXA7Cj4gKwo+ICsgICAgLyogU3dhcCBCTyBuYW1lcyBzbyBEUkkgd29ya3MgKi8KPiAr
-ICAgIHRtcCA9IGZyb250LT5uYW1lOwo+ICsgICAgZnJvbnQtPm5hbWUgPSBiYWNrLT5uYW1lOwo+
-ICsgICAgYmFjay0+bmFtZSA9IHRtcDsKPiArCj4gKyAgICAvKiBTd2FwIHBpeG1hcCBwcml2YXRl
-cyAqLwo+ICsgICAgdG1wX3BpeCA9ICpmcm9udF9waXg7Cj4gKyAgICAqZnJvbnRfcGl4ID0gKmJh
-Y2tfcGl4Owo+ICsgICAgKmJhY2tfcGl4ID0gdG1wX3BpeDsKPiArCj4gKyAgICBnbGFtb3JfZWds
-X2V4Y2hhbmdlX2J1ZmZlcnMoZnJvbnRfcHJpdi0+cGl4bWFwLCBiYWNrX3ByaXYtPnBpeG1hcCk7
-Cj4gKwo+ICsgICAgLyogUG9zdCBkYW1hZ2Ugb24gdGhlIGZyb250IGJ1ZmZlciBzbyB0aGF0IGxp
-c3RlbmVycywgc3VjaAo+ICsgICAgICogYXMgRGlzcGxheUxpbmsga25vdyB0YWtlIGEgY29weSBh
-bmQgc2hvdmUgaXQgb3ZlciB0aGUgVVNCLgo+ICsgICAgICovCj4gKyAgICByZWdpb24uZXh0ZW50
-cy54MSA9IHJlZ2lvbi5leHRlbnRzLnkxID0gMDsKPiArICAgIHJlZ2lvbi5leHRlbnRzLngyID0g
-ZnJvbnRfcHJpdi0+cGl4bWFwLT5kcmF3YWJsZS53aWR0aDsKPiArICAgIHJlZ2lvbi5leHRlbnRz
-LnkyID0gZnJvbnRfcHJpdi0+cGl4bWFwLT5kcmF3YWJsZS53aWR0aDsKCnRoaXMgbG9va3MgbGlr
-ZSBhIGNvcHknbidwYXN0ZSBtaXN0YWtlLgoKPiArICAgIHJlZ2lvbi5kYXRhID0gTlVMTDsKPiAr
-ICAgIERhbWFnZVJlZ2lvbkFwcGVuZCgmZnJvbnRfcHJpdi0+cGl4bWFwLT5kcmF3YWJsZSwgJnJl
-Z2lvbik7Cj4gKyAgICBEYW1hZ2VSZWdpb25Qcm9jZXNzUGVuZGluZygmZnJvbnRfcHJpdi0+cGl4
-bWFwLT5kcmF3YWJsZSk7Cj4gK30KPiArCj4gIHN0YXRpYyB2b2lkCj4gIG1zX2RyaTJfZnJhbWVf
-ZXZlbnRfaGFuZGxlcih1aW50NjRfdCBtc2MsCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICB1aW50NjRfdCB1c2VjLAoKQ2hlZXJzLAogICAgRGFuaWVsIE1hcnRpbgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwp4b3JnLWRldmVsQGxpc3RzLngub3Jn
-OiBYLk9yZyBkZXZlbG9wbWVudApBcmNoaXZlczogaHR0cDovL2xpc3RzLngub3JnL2FyY2hpdmVz
-L3hvcmctZGV2ZWwKSW5mbzogaHR0cHM6Ly9saXN0cy54Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hv
-cmctZGV2ZWw=
+This is a multi-part message in MIME format.
+--===============1929608911==
+Content-Type: multipart/alternative;
+ boundary="------------F0B6F89662D5DD643EC44787"
+
+This is a multi-part message in MIME format.
+--------------F0B6F89662D5DD643EC44787
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Am 22.08.2016 um 02:41 schrieb Edward O'Callaghan:
+>
+> On 08/22/2016 10:38 AM, Alexandre Demers wrote:
+>> We were using the same mask twice. Looking at radeon, it seems
+>> we should be using HDMI_AVI_INFO_CONT instead as the second mask.
+>>
+>> Being there, fix typos in comments and improved readability.
+>>
+>> I haven't looked at other DCEs, the mask may also be wrong for them.
+>>
+>> Signed-off-by: Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+> Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/dce_v8_0.c | 7 ++++---
+>>   1 file changed, 4 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+>> index c7e5d5f..e424ecc 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+>> @@ -1693,6 +1693,7 @@ static void dce_v8_0_afmt_setmode(struct drm_encoder *encoder,
+>>   	/* Silent, r600_hdmi_enable will raise WARN for us */
+>>   	if (!dig->afmt->enabled)
+>>   		return;
+>> +
+>>   	offset = dig->afmt->offset;
+>>   
+>>   	/* hdmi deep color mode general control packets setup, if bpc > 8 */
+>> @@ -1817,7 +1818,7 @@ static void dce_v8_0_afmt_setmode(struct drm_encoder *encoder,
+>>   
+>>   	WREG32_OR(mmHDMI_INFOFRAME_CONTROL0 + offset,
+>>   		  HDMI_INFOFRAME_CONTROL0__HDMI_AVI_INFO_SEND_MASK | /* enable AVI info frames */
+>> -		  HDMI_INFOFRAME_CONTROL0__HDMI_AVI_INFO_SEND_MASK); /* required for audio info values to be updated */
+>> +		  HDMI_INFOFRAME_CONTROL0__HDMI_AVI_INFO_CONT_MASK); /* required for audio info values to be updated */
+>>   
+>>   	WREG32_P(mmHDMI_INFOFRAME_CONTROL1 + offset,
+>>   		 (2 << HDMI_INFOFRAME_CONTROL1__HDMI_AVI_INFO_LINE__SHIFT), /* anything other than 0 */
+>> @@ -1826,13 +1827,13 @@ static void dce_v8_0_afmt_setmode(struct drm_encoder *encoder,
+>>   	WREG32_OR(mmAFMT_AUDIO_PACKET_CONTROL + offset,
+>>   		  AFMT_AUDIO_PACKET_CONTROL__AFMT_AUDIO_SAMPLE_SEND_MASK); /* send audio packets */
+>>   
+>> -	/* it's unknown what these bits do excatly, but it's indeed quite useful for debugging */
+>> +	/* it's unknown what these bits do exactly, but it's indeed quite useful for debugging */
+
+You can actually completely drop this comment now. I added it when I 
+originally reverse engineered the hardware to figure out how HDMI audio 
+works.
+
+With that fixed the patch is Reviewed-by: Christian König 
+<christian.koenig-5C7GfCeVMHo@public.gmane.org>.
+
+Regards,
+Christian.
+
+>>   	WREG32(mmAFMT_RAMP_CONTROL0 + offset, 0x00FFFFFF);
+>>   	WREG32(mmAFMT_RAMP_CONTROL1 + offset, 0x007FFFFF);
+>>   	WREG32(mmAFMT_RAMP_CONTROL2 + offset, 0x00000001);
+>>   	WREG32(mmAFMT_RAMP_CONTROL3 + offset, 0x00000001);
+>>   
+>> -	/* enable audio after to setting up hw */
+>> +	/* enable audio after setting up hw */
+>>   	dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
+>>   }
+>>   
+>>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+
+--------------F0B6F89662D5DD643EC44787
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Am 22.08.2016 um 02:41 schrieb Edward
+      O'Callaghan:<br>
+    </div>
+    <blockquote
+      cite="mid:73e7bbfa-45a7-1f1e-ae19-52a6461f4a9f-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org"
+      type="cite">
+      <pre wrap="">
+
+On 08/22/2016 10:38 AM, Alexandre Demers wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="">We were using the same mask twice. Looking at radeon, it seems
+we should be using HDMI_AVI_INFO_CONT instead as the second mask.
+
+Being there, fix typos in comments and improved readability.
+
+I haven't looked at other DCEs, the mask may also be wrong for them.
+
+Signed-off-by: Alexandre Demers <a class="moz-txt-link-rfc2396E" href="mailto:alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">&lt;alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a>
+</pre>
+      </blockquote>
+      <pre wrap="">Reviewed-by: Edward O'Callaghan <a class="moz-txt-link-rfc2396E" href="mailto:funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org">&lt;funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org&gt;</a>
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="">---
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+index c7e5d5f..e424ecc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+@@ -1693,6 +1693,7 @@ static void dce_v8_0_afmt_setmode(struct drm_encoder *encoder,
+ 	/* Silent, r600_hdmi_enable will raise WARN for us */
+ 	if (!dig-&gt;afmt-&gt;enabled)
+ 		return;
++
+ 	offset = dig-&gt;afmt-&gt;offset;
+ 
+ 	/* hdmi deep color mode general control packets setup, if bpc &gt; 8 */
+@@ -1817,7 +1818,7 @@ static void dce_v8_0_afmt_setmode(struct drm_encoder *encoder,
+ 
+ 	WREG32_OR(mmHDMI_INFOFRAME_CONTROL0 + offset,
+ 		  HDMI_INFOFRAME_CONTROL0__HDMI_AVI_INFO_SEND_MASK | /* enable AVI info frames */
+-		  HDMI_INFOFRAME_CONTROL0__HDMI_AVI_INFO_SEND_MASK); /* required for audio info values to be updated */
++		  HDMI_INFOFRAME_CONTROL0__HDMI_AVI_INFO_CONT_MASK); /* required for audio info values to be updated */
+ 
+ 	WREG32_P(mmHDMI_INFOFRAME_CONTROL1 + offset,
+ 		 (2 &lt;&lt; HDMI_INFOFRAME_CONTROL1__HDMI_AVI_INFO_LINE__SHIFT), /* anything other than 0 */
+@@ -1826,13 +1827,13 @@ static void dce_v8_0_afmt_setmode(struct drm_encoder *encoder,
+ 	WREG32_OR(mmAFMT_AUDIO_PACKET_CONTROL + offset,
+ 		  AFMT_AUDIO_PACKET_CONTROL__AFMT_AUDIO_SAMPLE_SEND_MASK); /* send audio packets */
+ 
+-	/* it's unknown what these bits do excatly, but it's indeed quite useful for debugging */
++	/* it's unknown what these bits do exactly, but it's indeed quite useful for debugging */</pre>
+      </blockquote>
+    </blockquote>
+    <br>
+    You can actually completely drop this comment now. I added it when I
+    originally reverse engineered the hardware to figure out how HDMI
+    audio works.<br>
+    <br>
+    With that fixed the patch is Reviewed-by: Christian König
+    <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>.<br>
+    <br>
+    Regards,<br>
+    Christian. <br>
+    <br>
+    <blockquote
+      cite="mid:73e7bbfa-45a7-1f1e-ae19-52a6461f4a9f-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org"
+      type="cite">
+      <blockquote type="cite">
+        <pre wrap="">
+ 	WREG32(mmAFMT_RAMP_CONTROL0 + offset, 0x00FFFFFF);
+ 	WREG32(mmAFMT_RAMP_CONTROL1 + offset, 0x007FFFFF);
+ 	WREG32(mmAFMT_RAMP_CONTROL2 + offset, 0x00000001);
+ 	WREG32(mmAFMT_RAMP_CONTROL3 + offset, 0x00000001);
+ 
+-	/* enable audio after to setting up hw */
++	/* enable audio after setting up hw */
+ 	dce_v8_0_audio_enable(adev, dig-&gt;afmt-&gt;pin, true);
+ }
+ 
+
+</pre>
+      </blockquote>
+      <pre wrap="">
+</pre>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------F0B6F89662D5DD643EC44787--
+
+--===============1929608911==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1929608911==--
