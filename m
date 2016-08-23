@@ -1,12 +1,13 @@
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: wire up a pci shutdown callback
-Date: Tue, 23 Aug 2016 11:27:28 +1000
-Message-ID: <7f908eb2-7519-2e0e-99bd-ef8ea4b30a60@folklore1984.net>
-References: <1471890641-4759-1-git-send-email-alexander.deucher@amd.com>
+From: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu: reset the asic when hibernating
+Date: Tue, 23 Aug 2016 09:52:42 +0800
+Message-ID: <57BBAC6A.6010803@amd.com>
+References: <1471881925-27757-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1162573726=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1471890641-4759-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1471881925-27757-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,115 +21,82 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1162573726==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="Rtqdd7FxS8HXab2kh33rq4PslLfsCJII6"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---Rtqdd7FxS8HXab2kh33rq4PslLfsCJII6
-Content-Type: multipart/mixed; boundary="3lNp2iF6MwVqgabewwfrhkRH5fT89GrLJ"
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Message-ID: <7f908eb2-7519-2e0e-99bd-ef8ea4b30a60-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: wire up a pci shutdown callback
-References: <1471890641-4759-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <1471890641-4759-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
---3lNp2iF6MwVqgabewwfrhkRH5fT89GrLJ
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-This series is,
-
-Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-
-On 08/23/2016 04:30 AM, Alex Deucher wrote:
-> Normally on shutdown or reboot we don't care about necessarily
-> making sure the hw is in a good state because the system is about
-> to be powered down or reset.  However, after a shutdown or reboot
-> in a VM, it's best to tear down the hw properly otherwise there
-> can be problems with the next VM use.
->=20
-> Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_drv.c
-> index 5c7a77b..0da4336 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -392,6 +392,19 @@ amdgpu_pci_remove(struct pci_dev *pdev)
->  	drm_put_dev(dev);
->  }
-> =20
-> +static void
-> +amdgpu_pci_shutdown(struct pci_dev *pdev)
-> +{
-> +	struct drm_device *dev =3D pci_get_drvdata(pdev);
-> +	struct amdgpu_device *adev =3D dev->dev_private;
-> +
-> +	/* if we are running in a VM, make sure the device
-> +	 * torn down properly on reboot/shutdown
-> +	 */
-> +	if (adev->virtualization.is_virtual)
-> +		amdgpu_pci_remove(pdev);
-> +}
-> +
->  static int amdgpu_pmops_suspend(struct device *dev)
->  {
->  	struct pci_dev *pdev =3D to_pci_dev(dev);
-> @@ -605,6 +618,7 @@ static struct pci_driver amdgpu_kms_pci_driver =3D =
-{
->  	.id_table =3D pciidlist,
->  	.probe =3D amdgpu_pci_probe,
->  	.remove =3D amdgpu_pci_remove,
-> +	.shutdown =3D amdgpu_pci_shutdown,
->  	.driver.pm =3D &amdgpu_pm_ops,
->  };
-> =20
->=20
-
-
---3lNp2iF6MwVqgabewwfrhkRH5fT89GrLJ--
-
---Rtqdd7FxS8HXab2kh33rq4PslLfsCJII6
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJXu6aAAAoJEP4bvbfZuWjbOjgQAMkgyPPoS2tiE7TwCfDEI6O1
-burEJPUZC1Wg9YPyPrysTUGcvfJl4fVinQZMHuzsXgVc/9IO8v/IEoR78PkRPuFZ
-ZBCzIh+DsWt+uTkQ3JxH28AJecgMJjHzq72+6E1qs7ZQp1eydNPGpsCls+ROasab
-/eOLHDohjJWeCmPSIZ0ajUlinbR6dp9BaH5zwA4+pGsTNPAhOqZIGP38e3GKOi7a
-FGo9vjEzlsImnXQKzvvMv9T1TfZ1mRyjSc0AewKHs5HIJviIDHYLCQsVCDeqpO32
-3c0RdNdS1d1KyJnWEf2+JVAvstj7noYIM2+MM88AFI4D3Bj5u3INtdJvU1rS3OrD
-OS5vgtRzTF3qDtfJJgoI4LjsvR8eCmfvO96wczVwqHNxDEokG15glDrGfyxRo6Rl
-pQzdtoTRpBfbyIkynWbJyOJPqJgYrbMcSh6Z67RaYy7IcLe+HtGcaub4lKcybVAs
-9goe8XoFSXF38cssKnR5V2Qkm8z1Q0OY8GabJNIsV4PYUkux9aIWz9Y/QS1Hj4R4
-SXE8e0jshK0DT+FpwHTJPcHhUcjgAd+HCchHfL3i22ej8tSfVicDPOu5N3vTakqZ
-pc0d7t65kyQUY1f6nS5JeX7lYOm6rKNdFuF2NtAgUkcqoE+7/VG9szhV2F6eq1YX
-IdJTD4Nu+X40mEe3i35B
-=Gp0O
------END PGP SIGNATURE-----
-
---Rtqdd7FxS8HXab2kh33rq4PslLfsCJII6--
-
---===============1162573726==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1162573726==--
+VGhpcyBzZXJpZXMgaXMgUmV2aWV3ZWQtYnk6IENodW5taW5nIFpob3UgPGRhdmlkMS56aG91QGFt
+ZC5jb20+CgoKCk9uIDIwMTblubQwOOaciDIz5pelIDAwOjA1LCBBbGV4IERldWNoZXIgd3JvdGU6
+Cj4gU29tZSBibG9ja3MgcmVxdWlyZSBhIHJlc2V0IHRvIHByb3Blcmx5IHJlc3VtZSBpZiB0aGVy
+ZQo+IGlzIG5vIHBvd2VyIGRvd24gb2YgdGhlIGFzaWMgbGlrZSBkdXJpbmcgdmFyaW91cwo+IGhp
+YmVybmF0aW9uIHN0ZXBzLgo+Cj4gUG9ydCBvZjoKPiAyNzRhZDY1YzlkMDJiZGNiZWU5YmFlMDQ1
+NTE3ODY0YzM1MjFkNTMwCj4gKGRybS9yYWRlb246IGhhcmQgcmVzZXQgcjYwMCBhbmQgbmV3ZXIg
+R1BVIHdoZW4gaGliZXJuYXRpbmcuKQo+IGZyb20gcmFkZW9uLgo+Cj4gU2lnbmVkLW9mZi1ieTog
+QWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+IC0tLQo+ICAgZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggICAgICAgIHwgIDMgKystCj4gICBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCAxMCArKysrKysrLS0tCj4gICBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgICAgfCAgNiArKystLS0KPiAg
+IDMgZmlsZXMgY2hhbmdlZCwgMTIgaW5zZXJ0aW9ucygrKSwgNyBkZWxldGlvbnMoLSkKPgo+IGRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4gaW5kZXggNmZhODI2OC4uZDBkMDU4OCAxMDA2
+NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAo+ICsrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4gQEAgLTI0MzYsNyArMjQzNiw4IEBA
+IHZvaWQgYW1kZ3B1X2RyaXZlcl9wb3N0Y2xvc2Vfa21zKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYs
+Cj4gICAJCQkJIHN0cnVjdCBkcm1fZmlsZSAqZmlsZV9wcml2KTsKPiAgIHZvaWQgYW1kZ3B1X2Ry
+aXZlcl9wcmVjbG9zZV9rbXMoc3RydWN0IGRybV9kZXZpY2UgKmRldiwKPiAgIAkJCQlzdHJ1Y3Qg
+ZHJtX2ZpbGUgKmZpbGVfcHJpdik7Cj4gLWludCBhbWRncHVfc3VzcGVuZF9rbXMoc3RydWN0IGRy
+bV9kZXZpY2UgKmRldiwgYm9vbCBzdXNwZW5kLCBib29sIGZiY29uKTsKPiAraW50IGFtZGdwdV9z
+dXNwZW5kX2ttcyhzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCBib29sIHN1c3BlbmQsIGJvb2wgZmJj
+b24sCj4gKwkJICAgICAgIGJvb2wgZnJlZXplKTsKPiAgIGludCBhbWRncHVfcmVzdW1lX2ttcyhz
+dHJ1Y3QgZHJtX2RldmljZSAqZGV2LCBib29sIHJlc3VtZSwgYm9vbCBmYmNvbik7Cj4gICB1MzIg
+YW1kZ3B1X2dldF92YmxhbmtfY291bnRlcl9rbXMoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdW5z
+aWduZWQgaW50IHBpcGUpOwo+ICAgaW50IGFtZGdwdV9lbmFibGVfdmJsYW5rX2ttcyhzdHJ1Y3Qg
+ZHJtX2RldmljZSAqZGV2LCB1bnNpZ25lZCBpbnQgcGlwZSk7Cj4gZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+IGluZGV4IDIxZjRiNzQuLjU3NDdlMzcgMTAwNjQ0
+Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4gKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4gQEAgLTEwMzcs
+NyArMTAzNyw3IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9zd2l0Y2hlcm9vX3NldF9zdGF0ZShzdHJ1
+Y3QgcGNpX2RldiAqcGRldiwgZW51bSB2Z2Ffc3dpdGNoZXJvCj4gICAJCXByaW50ayhLRVJOX0lO
+Rk8gImFtZGdwdTogc3dpdGNoZWQgb2ZmXG4iKTsKPiAgIAkJZHJtX2ttc19oZWxwZXJfcG9sbF9k
+aXNhYmxlKGRldik7Cj4gICAJCWRldi0+c3dpdGNoX3Bvd2VyX3N0YXRlID0gRFJNX1NXSVRDSF9Q
+T1dFUl9DSEFOR0lORzsKPiAtCQlhbWRncHVfc3VzcGVuZF9rbXMoZGV2LCB0cnVlLCB0cnVlKTsK
+PiArCQlhbWRncHVfc3VzcGVuZF9rbXMoZGV2LCB0cnVlLCB0cnVlLCBmYWxzZSk7Cj4gICAJCWRl
+di0+c3dpdGNoX3Bvd2VyX3N0YXRlID0gRFJNX1NXSVRDSF9QT1dFUl9PRkY7Cj4gICAJfQo+ICAg
+fQo+IEBAIC0xNzgwLDcgKzE3ODAsOCBAQCB2b2lkIGFtZGdwdV9kZXZpY2VfZmluaShzdHJ1Y3Qg
+YW1kZ3B1X2RldmljZSAqYWRldikKPiAgICAqIFJldHVybnMgMCBmb3Igc3VjY2VzcyBvciBhbiBl
+cnJvciBvbiBmYWlsdXJlLgo+ICAgICogQ2FsbGVkIGF0IGRyaXZlciBzdXNwZW5kLgo+ICAgICov
+Cj4gLWludCBhbWRncHVfc3VzcGVuZF9rbXMoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgYm9vbCBz
+dXNwZW5kLCBib29sIGZiY29uKQo+ICtpbnQgYW1kZ3B1X3N1c3BlbmRfa21zKHN0cnVjdCBkcm1f
+ZGV2aWNlICpkZXYsIGJvb2wgc3VzcGVuZCwgYm9vbCBmYmNvbiwKPiArCQkgICAgICAgYm9vbCBm
+cmVlemUpCj4gICB7Cj4gICAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXY7Cj4gICAJc3RydWN0
+IGRybV9jcnRjICpjcnRjOwo+IEBAIC0xODQ0LDcgKzE4NDUsMTAgQEAgaW50IGFtZGdwdV9zdXNw
+ZW5kX2ttcyhzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCBib29sIHN1c3BlbmQsIGJvb2wgZmJjb24p
+Cj4gICAJYW1kZ3B1X2JvX2V2aWN0X3ZyYW0oYWRldik7Cj4gICAKPiAgIAlwY2lfc2F2ZV9zdGF0
+ZShkZXYtPnBkZXYpOwo+IC0JaWYgKHN1c3BlbmQpIHsKPiArCWlmIChmcmVlemUpIHsKPiArCQkv
+KiByZXNldCB0aGUgYXNpYyBkdXJpbmcgZnJlZXplICovCj4gKwkJciA9IGFtZGdwdV9hc2ljX3Jl
+c2V0KGFkZXYpOwo+ICsJfSBlbHNlIGlmIChzdXNwZW5kKSB7Cj4gICAJCS8qIFNodXQgZG93biB0
+aGUgZGV2aWNlICovCj4gICAJCXBjaV9kaXNhYmxlX2RldmljZShkZXYtPnBkZXYpOwo+ICAgCQlw
+Y2lfc2V0X3Bvd2VyX3N0YXRlKGRldi0+cGRldiwgUENJX0QzaG90KTsKPiBkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCj4gaW5kZXggNThiMWRiOC4uZWI0YzliMCAxMDA2NDQK
+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKPiArKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKPiBAQCAtMzk1LDcgKzM5NSw3
+IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3Btb3BzX3N1c3BlbmQoc3RydWN0IGRldmljZSAqZGV2KQo+
+ICAgewo+ICAgCXN0cnVjdCBwY2lfZGV2ICpwZGV2ID0gdG9fcGNpX2RldihkZXYpOwo+ICAgCXN0
+cnVjdCBkcm1fZGV2aWNlICpkcm1fZGV2ID0gcGNpX2dldF9kcnZkYXRhKHBkZXYpOwo+IC0JcmV0
+dXJuIGFtZGdwdV9zdXNwZW5kX2ttcyhkcm1fZGV2LCB0cnVlLCB0cnVlKTsKPiArCXJldHVybiBh
+bWRncHVfc3VzcGVuZF9rbXMoZHJtX2RldiwgdHJ1ZSwgdHJ1ZSwgZmFsc2UpOwo+ICAgfQo+ICAg
+Cj4gICBzdGF0aWMgaW50IGFtZGdwdV9wbW9wc19yZXN1bWUoc3RydWN0IGRldmljZSAqZGV2KQo+
+IEBAIC00MDksNyArNDA5LDcgQEAgc3RhdGljIGludCBhbWRncHVfcG1vcHNfZnJlZXplKHN0cnVj
+dCBkZXZpY2UgKmRldikKPiAgIHsKPiAgIAlzdHJ1Y3QgcGNpX2RldiAqcGRldiA9IHRvX3BjaV9k
+ZXYoZGV2KTsKPiAgIAlzdHJ1Y3QgZHJtX2RldmljZSAqZHJtX2RldiA9IHBjaV9nZXRfZHJ2ZGF0
+YShwZGV2KTsKPiAtCXJldHVybiBhbWRncHVfc3VzcGVuZF9rbXMoZHJtX2RldiwgZmFsc2UsIHRy
+dWUpOwo+ICsJcmV0dXJuIGFtZGdwdV9zdXNwZW5kX2ttcyhkcm1fZGV2LCBmYWxzZSwgdHJ1ZSwg
+dHJ1ZSk7Cj4gICB9Cj4gICAKPiAgIHN0YXRpYyBpbnQgYW1kZ3B1X3Btb3BzX3RoYXcoc3RydWN0
+IGRldmljZSAqZGV2KQo+IEBAIC00MzQsNyArNDM0LDcgQEAgc3RhdGljIGludCBhbWRncHVfcG1v
+cHNfcnVudGltZV9zdXNwZW5kKHN0cnVjdCBkZXZpY2UgKmRldikKPiAgIAlkcm1fa21zX2hlbHBl
+cl9wb2xsX2Rpc2FibGUoZHJtX2Rldik7Cj4gICAJdmdhX3N3aXRjaGVyb29fc2V0X2R5bmFtaWNf
+c3dpdGNoKHBkZXYsIFZHQV9TV0lUQ0hFUk9PX09GRik7Cj4gICAKPiAtCXJldCA9IGFtZGdwdV9z
+dXNwZW5kX2ttcyhkcm1fZGV2LCBmYWxzZSwgZmFsc2UpOwo+ICsJcmV0ID0gYW1kZ3B1X3N1c3Bl
+bmRfa21zKGRybV9kZXYsIGZhbHNlLCBmYWxzZSwgZmFsc2UpOwo+ICAgCXBjaV9zYXZlX3N0YXRl
+KHBkZXYpOwo+ICAgCXBjaV9kaXNhYmxlX2RldmljZShwZGV2KTsKPiAgIAlwY2lfaWdub3JlX2hv
+dHBsdWcocGRldik7CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
+dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
