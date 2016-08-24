@@ -1,41 +1,47 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: [PATCH] drm/amdgpu: skip TV/CV in display parsing
-Date: Wed, 24 Aug 2016 13:06:42 -0400
-Message-ID: <1472058402-24153-1-git-send-email-alexander.deucher@amd.com>
-Return-path: <stable-owner@vger.kernel.org>
-Sender: stable-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: avoid a possible array overflow
+Date: Wed, 24 Aug 2016 19:42:18 +0200
+Message-ID: <2a0d39f0-8541-55cb-3cca-490e7666e52f@vodafone.de>
+References: <1472056495-6041-1-git-send-email-alexander.deucher@amd.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1472056495-6041-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
 
-No asics supported by amdgpu support analog TV.
-
-Workaround for bug:
-https://bugs.freedesktop.org/show_bug.cgi?id=97460
-
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-index 1514223..fe872b8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-@@ -321,6 +321,13 @@ bool amdgpu_atombios_get_connector_info_from_object_table(struct amdgpu_device *
- 			    (le16_to_cpu(path->usConnObjectId) &
- 			     OBJECT_TYPE_MASK) >> OBJECT_TYPE_SHIFT;
- 
-+			/* Skip TV/CV support */
-+			if ((le16_to_cpu(path->usDeviceTag) ==
-+			     ATOM_DEVICE_TV1_SUPPORT) ||
-+			    (le16_to_cpu(path->usDeviceTag) ==
-+			     ATOM_DEVICE_CV_SUPPORT))
-+				continue;
-+
- 			if (con_obj_id >= ARRAY_SIZE(object_connector_convert)) {
- 				DRM_ERROR("invalid con_obj_id %d for device tag 0x%04x\n",
- 					  con_obj_id, le16_to_cpu(path->usDeviceTag));
--- 
-2.5.5
+QW0gMjQuMDguMjAxNiB1bSAxODozNCBzY2hyaWViIEFsZXggRGV1Y2hlcjoKPiBXaGVuIGxvb2tp
+bmcgdXAgdGhlIGNvbm5lY3RvciB0eXBlIG1ha2Ugc3VyZSB0aGUgaW5kZXgKPiBpcyB2YWxpZC4g
+IEF2b2lkcyBhIGxhdGVyIGNyYXNoIGlmIHdlIHJlYWQgcGFzdCB0aGUgZW5kCj4gb2YgdGhlIGFy
+cmF5Lgo+Cj4gU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBh
+bWQuY29tPgoKUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdA
+YW1kLmNvbT4uCgo+IENjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnCj4gLS0tCj4gICBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYXRvbWJpb3MuYyB8IDYgKysrKysrCj4gICAxIGZp
+bGUgY2hhbmdlZCwgNiBpbnNlcnRpb25zKCspCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2F0b21iaW9zLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfYXRvbWJpb3MuYwo+IGluZGV4IDk4MzE3NTMuLjE1MTQyMjMgMTAwNjQ0Cj4g
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2F0b21iaW9zLmMKPiArKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYXRvbWJpb3MuYwo+IEBAIC0zMjEs
+NiArMzIxLDEyIEBAIGJvb2wgYW1kZ3B1X2F0b21iaW9zX2dldF9jb25uZWN0b3JfaW5mb19mcm9t
+X29iamVjdF90YWJsZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqCj4gICAJCQkgICAgKGxlMTZfdG9f
+Y3B1KHBhdGgtPnVzQ29ubk9iamVjdElkKSAmCj4gICAJCQkgICAgIE9CSkVDVF9UWVBFX01BU0sp
+ID4+IE9CSkVDVF9UWVBFX1NISUZUOwo+ICAgCj4gKwkJCWlmIChjb25fb2JqX2lkID49IEFSUkFZ
+X1NJWkUob2JqZWN0X2Nvbm5lY3Rvcl9jb252ZXJ0KSkgewo+ICsJCQkJRFJNX0VSUk9SKCJpbnZh
+bGlkIGNvbl9vYmpfaWQgJWQgZm9yIGRldmljZSB0YWcgMHglMDR4XG4iLAo+ICsJCQkJCSAgY29u
+X29ial9pZCwgbGUxNl90b19jcHUocGF0aC0+dXNEZXZpY2VUYWcpKTsKPiArCQkJCWNvbnRpbnVl
+Owo+ICsJCQl9Cj4gKwo+ICAgCQkJY29ubmVjdG9yX3R5cGUgPQo+ICAgCQkJCW9iamVjdF9jb25u
+ZWN0b3JfY29udmVydFtjb25fb2JqX2lkXTsKPiAgIAkJCWNvbm5lY3Rvcl9vYmplY3RfaWQgPSBj
+b25fb2JqX2lkOwoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
