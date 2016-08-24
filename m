@@ -1,43 +1,41 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: avoid a possible array overflow
-Date: Wed, 24 Aug 2016 12:34:55 -0400
-Message-ID: <1472056495-6041-1-git-send-email-alexander.deucher@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: [PATCH] drm/amdgpu: skip TV/CV in display parsing
+Date: Wed, 24 Aug 2016 13:06:42 -0400
+Message-ID: <1472058402-24153-1-git-send-email-alexander.deucher@amd.com>
+Return-path: <stable-owner@vger.kernel.org>
+Sender: stable-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-V2hlbiBsb29raW5nIHVwIHRoZSBjb25uZWN0b3IgdHlwZSBtYWtlIHN1cmUgdGhlIGluZGV4Cmlz
-IHZhbGlkLiAgQXZvaWRzIGEgbGF0ZXIgY3Jhc2ggaWYgd2UgcmVhZCBwYXN0IHRoZSBlbmQKb2Yg
-dGhlIGFycmF5LgoKU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hl
-ckBhbWQuY29tPgpDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZwotLS0KIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9hdG9tYmlvcy5jIHwgNiArKysrKysKIDEgZmlsZSBjaGFuZ2Vk
-LCA2IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfYXRvbWJpb3MuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9h
-dG9tYmlvcy5jCmluZGV4IDk4MzE3NTMuLjE1MTQyMjMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hdG9tYmlvcy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9hdG9tYmlvcy5jCkBAIC0zMjEsNiArMzIxLDEyIEBAIGJvb2wgYW1k
-Z3B1X2F0b21iaW9zX2dldF9jb25uZWN0b3JfaW5mb19mcm9tX29iamVjdF90YWJsZShzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqCiAJCQkgICAgKGxlMTZfdG9fY3B1KHBhdGgtPnVzQ29ubk9iamVjdElk
-KSAmCiAJCQkgICAgIE9CSkVDVF9UWVBFX01BU0spID4+IE9CSkVDVF9UWVBFX1NISUZUOwogCisJ
-CQlpZiAoY29uX29ial9pZCA+PSBBUlJBWV9TSVpFKG9iamVjdF9jb25uZWN0b3JfY29udmVydCkp
-IHsKKwkJCQlEUk1fRVJST1IoImludmFsaWQgY29uX29ial9pZCAlZCBmb3IgZGV2aWNlIHRhZyAw
-eCUwNHhcbiIsCisJCQkJCSAgY29uX29ial9pZCwgbGUxNl90b19jcHUocGF0aC0+dXNEZXZpY2VU
-YWcpKTsKKwkJCQljb250aW51ZTsKKwkJCX0KKwogCQkJY29ubmVjdG9yX3R5cGUgPQogCQkJCW9i
-amVjdF9jb25uZWN0b3JfY29udmVydFtjb25fb2JqX2lkXTsKIAkJCWNvbm5lY3Rvcl9vYmplY3Rf
-aWQgPSBjb25fb2JqX2lkOwotLSAKMi41LjUKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYW1kLWdmeAo=
+No asics supported by amdgpu support analog TV.
+
+Workaround for bug:
+https://bugs.freedesktop.org/show_bug.cgi?id=97460
+
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+index 1514223..fe872b8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+@@ -321,6 +321,13 @@ bool amdgpu_atombios_get_connector_info_from_object_table(struct amdgpu_device *
+ 			    (le16_to_cpu(path->usConnObjectId) &
+ 			     OBJECT_TYPE_MASK) >> OBJECT_TYPE_SHIFT;
+ 
++			/* Skip TV/CV support */
++			if ((le16_to_cpu(path->usDeviceTag) ==
++			     ATOM_DEVICE_TV1_SUPPORT) ||
++			    (le16_to_cpu(path->usDeviceTag) ==
++			     ATOM_DEVICE_CV_SUPPORT))
++				continue;
++
+ 			if (con_obj_id >= ARRAY_SIZE(object_connector_convert)) {
+ 				DRM_ERROR("invalid con_obj_id %d for device tag 0x%04x\n",
+ 					  con_obj_id, le16_to_cpu(path->usDeviceTag));
+-- 
+2.5.5
