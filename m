@@ -1,11 +1,13 @@
 From: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
 Subject: [PATCH] drm/amdgpu:fix DMAframe for GFX8
-Date: Wed, 24 Aug 2016 11:42:20 +0800
-Message-ID: <1472010140-8571-1-git-send-email-Monk.Liu@amd.com>
+Date: Wed, 24 Aug 2016 11:59:37 +0800
+Message-ID: <1472011177-8800-1-git-send-email-Monk.Liu@amd.com>
+References: <y>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <y>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
