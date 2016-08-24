@@ -1,11 +1,9 @@
 From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu:fix DMAframe for GFX8
-Date: Wed, 24 Aug 2016 04:03:48 +0000
-Message-ID: <MWHPR12MB118288AA173129E624DE278584EA0@MWHPR12MB1182.namprd12.prod.outlook.com>
-References: <y> <1472011177-8800-1-git-send-email-Monk.Liu@amd.com>
+Subject: cannot send email to amd-gfx
+Date: Wed, 24 Aug 2016 04:11:46 +0000
+Message-ID: <MWHPR12MB11824A068B0C274E950B218484EA0@MWHPR12MB1182.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1349852764=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
@@ -18,121 +16,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Li,
+ Bingley" <Bingley.Li-5C7GfCeVMHo@public.gmane.org>
 
-CjEsZHJvcCBpbnNlcnRpbmcgZG91YmxlIFNXSVRDSF9CVUZGRVJTIHNjaGVtZSwgd2hpY2ggaW1w
-YWN0cyBwZXJmb3JtYW5jZSwgYmVjYXVzZSBkb3VibGUgU1dJVENIX0JVRkZFUiBhY3RhdWxseSBk
-b2Vzbid0IHN3aXRjaCBidWZmZXIsIHNvIHRoZSBDRSdzIHBpbmctcG9uZyBidWZmZXIgaXMgbm90
-IHVzZWQgYXQgYWxsLiBOb3cgb25seSBpbnNlcnQgb25lIFNXSVRDSF9CVUZGRVJTIGF0IHRoZSBi
-b3R0b20gb2YgZWFjaCBHRlggZG1hZnJhbWUuIEFuZCBvbmx5IGluc2VydGluZyBvbmUgU1dJVENI
-X0JVRkZFUiBpcyBhIG11c3QgZm9yIFZpcnR1YWxpemF0aW9uIFdvcmxkIFN3aXRjaCEKCjIsd2l0
-aG91dCBkb3VibGUgU1dJVENIX0JVRkZSRVMsIENFIHdpbGwgZ28gdmVyeSBhaGVhZCBvZiBERSB3
-aGljaCB3aWxsIHRyaWdnZXIgVk0gZmF1bHQgKENFIElCIHJ1biBiZWZvcmUgREUgZmluaXNoZWQg
-Vk0gZmx1c2gpLCBzbyB3ZSBuZWVkIGEgd2F5IHRvIHByZXZlbnQgdGhhdCBoYXBwZW4uCmFjY29y
-ZGluZyB0byBHRlg4LjAgc3BlYywgQ0Ugd2lsbCBnbyBhaGVhZCBvZiBERSBhdCBtb3N0IGJ5IDEy
-OGR3LCBzbyB3ZSBjYW4gaW5zZXJ0IDEyOCBOT1AgYmVmb3JlIENFIGliLCBzbyB0aGF0IENFIHdv
-bid0IHJ1biBjb25zdCBJQiBiZWZvcmUgREUgZmluaXNoZWQgVk0gZmx1c2guCgozLGZvciB2aXJ0
-dWFsaXphdGlvbiwgQ1AgcmVxdWlyZXMgdGhhdCBlYWNoIERNQWZyYW1lIG5lZWQgdHdvIGNvbnN0
-IElCIGFuZCBvbmUgSUIsIHNvIHdlIGNhbm5vdCByZW1vdmUgcHJlYW1ibGUgQ0UgSUIgZXZlbiBu
-byBjb250ZXh0IHN3aXRjaCB0YWtlIHBsYWNlLgoKNCxlYWNoIERNQWZyYW1lIHdvbid0IG9jY3Vw
-eSBtb3JlIHRoYW4gMjU2ZHcsIHNvIGFsbG9jYXRlIDI1NmR3IGlzIGVub3VnaAoKVE9ETzoKdXNl
-IERNQWZyYW1lIGVudHJ5IGRlc2lnbiB0byBpbXBsZW1lbnQgaWJfc2NoZWR1bGUoKSwgbWFrZSBz
-dXJlIGVhY2ggRE1BZnJhbWUgaXMgYWxpZ25lZCBhbmQgZml4ZWQgYXQgdGhlaXIgb2Zmc2V0LCB3
-aGljaCBpcyBuZWVkZWQgZm9yIHByZWVtcHRpb24gYW5kIGVhc3kgZm9yIHJpbmcgYnVmZmVyIGRl
-YnVnICYgZHVtcC4KCkNoYW5nZS1JZDogSTFiOThkNjM1MmI3ZWFkOTFiNjYxMDk0OTIxYmZkNDNj
-ZmVhYWUxOTAKU2lnbmVkLW9mZi1ieTogTW9uayBMaXUgPE1vbmsuTGl1QGFtZC5jb20+Ci0tLQog
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggICAgfCAgMiArKwogZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2liLmMgfCAxNSArKysrKysrKysrLS0tLS0gIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMgIHwgMjcgKysrKysrKysrKysrLS0tLS0t
-LS0tLS0tLS0tCiAzIGZpbGVzIGNoYW5nZWQsIDI0IGluc2VydGlvbnMoKyksIDIwIGRlbGV0aW9u
-cygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKaW5kZXggMzE2YmQyYS4uMTFiYjA1
-ZiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKQEAgLTMzNyw2ICszMzcsNyBAQCBz
-dHJ1Y3QgYW1kZ3B1X3JpbmdfZnVuY3MgewogCXZvaWQgKCplbmRfdXNlKShzdHJ1Y3QgYW1kZ3B1
-X3JpbmcgKnJpbmcpOwogCXZvaWQgKCplbWl0X3dyZWcpIChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJp
-bmcsIHVpbnQzMl90IG9mZnNldCwgdWludDMyX3QgdmFsKTsKIAl2b2lkICgqZW1pdF9ycmVnKSAo
-c3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCB1aW50MzJfdCBvZmZzZXQpOworCXZvaWQgKCplbWl0
-X3NiKSAoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCBpbnQgY250KTsKIH07CiAKIC8qCkBAIC0y
-MzcwLDYgKzIzNzEsNyBAQCBhbWRncHVfZ2V0X3NkbWFfaW5zdGFuY2Uoc3RydWN0IGFtZGdwdV9y
-aW5nICpyaW5nKSAgI2RlZmluZSBhbWRncHVfcmluZ19lbWl0X2hkcF9pbnZhbGlkYXRlKHIpIChy
-KS0+ZnVuY3MtPmVtaXRfaGRwX2ludmFsaWRhdGUoKHIpKQogI2RlZmluZSBhbWRncHVfcmluZ19l
-bWl0X3dyZWcociwgaSwgdikgKHIpLT5mdW5jcy0+ZW1pdF93cmVnKChyKSwgKGkpLCAodikpICAj
-ZGVmaW5lIGFtZGdwdV9yaW5nX2VtaXRfcnJlZyhyLCBpKSAociktPmZ1bmNzLT5lbWl0X3JyZWco
-KHIpLCAoaSkpCisjZGVmaW5lIGFtZGdwdV9yaW5nX2VtaXRfc2IociwgYykgKHIpLT5mdW5jcy0+
-ZW1pdF9zYigociksIChjKSkKICNkZWZpbmUgYW1kZ3B1X3JpbmdfcGFkX2liKHIsIGliKSAoKHIp
-LT5mdW5jcy0+cGFkX2liKChyKSwgKGliKSkpICAjZGVmaW5lIGFtZGdwdV9yaW5nX2luaXRfY29u
-ZF9leGVjKHIpIChyKS0+ZnVuY3MtPmluaXRfY29uZF9leGVjKChyKSkgICNkZWZpbmUgYW1kZ3B1
-X3JpbmdfcGF0Y2hfY29uZF9leGVjKHIsbykgKHIpLT5mdW5jcy0+cGF0Y2hfY29uZF9leGVjKChy
-KSwobykpCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaWIu
-YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pYi5jCmluZGV4IGEzMWQ3ZWYu
-LmQ5OWFmMDcgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9p
-Yi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pYi5jCkBAIC0xNTEs
-NyArMTUxLDcgQEAgaW50IGFtZGdwdV9pYl9zY2hlZHVsZShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJp
-bmcsIHVuc2lnbmVkIG51bV9pYnMsCiAJCXJldHVybiAtRUlOVkFMOwogCX0KIAotCXIgPSBhbWRn
-cHVfcmluZ19hbGxvYyhyaW5nLCAyNTYgKiBudW1faWJzKTsKKwlyID0gYW1kZ3B1X3JpbmdfYWxs
-b2MocmluZywgMjU2KTsKIAlpZiAocikgewogCQlkZXZfZXJyKGFkZXYtPmRldiwgInNjaGVkdWxp
-bmcgSUIgZmFpbGVkICglZCkuXG4iLCByKTsKIAkJcmV0dXJuIHI7CkBAIC0xNzQsMTUgKzE3NCwx
-NiBAQCBpbnQgYW1kZ3B1X2liX3NjaGVkdWxlKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgdW5z
-aWduZWQgbnVtX2licywKIAkvKiBhbHdheXMgc2V0IGNvbmRfZXhlY19wb2xsaW5nIHRvIENPTlRJ
-TlVFICovCiAJKnJpbmctPmNvbmRfZXhlX2NwdV9hZGRyID0gMTsKIAorCisJLyogZW1pdCAxMjgg
-ZHcgbm9wIGJlZm9yZSBJQmMgKi8KKwlpZiAocmluZy0+dHlwZSA9PSBBTURHUFVfUklOR19UWVBF
-X0dGWCkKKwkJYW1kZ3B1X3JpbmdfaW5zZXJ0X25vcChyaW5nLCAxMjgpOworCiAJc2tpcF9wcmVh
-bWJsZSA9IHJpbmctPmN1cnJlbnRfY3R4ID09IGN0eDsKIAluZWVkX2N0eF9zd2l0Y2ggPSByaW5n
-LT5jdXJyZW50X2N0eCAhPSBjdHg7CiAJZm9yIChpID0gMDsgaSA8IG51bV9pYnM7ICsraSkgewog
-CQlpYiA9ICZpYnNbaV07CiAKLQkJLyogZHJvcCBwcmVhbWJsZSBJQnMgaWYgd2UgZG9uJ3QgaGF2
-ZSBhIGNvbnRleHQgc3dpdGNoICovCi0JCWlmICgoaWItPmZsYWdzICYgQU1ER1BVX0lCX0ZMQUdf
-UFJFQU1CTEUpICYmIHNraXBfcHJlYW1ibGUpCi0JCQljb250aW51ZTsKLQogCQlhbWRncHVfcmlu
-Z19lbWl0X2liKHJpbmcsIGliLCBqb2IgPyBqb2ItPnZtX2lkIDogMCwKIAkJCQkgICAgbmVlZF9j
-dHhfc3dpdGNoKTsKIAkJbmVlZF9jdHhfc3dpdGNoID0gZmFsc2U7CkBAIC0yMTAsNiArMjExLDEw
-IEBAIGludCBhbWRncHVfaWJfc2NoZWR1bGUoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCB1bnNp
-Z25lZCBudW1faWJzLAogCQlhbWRncHVfcmluZ19wYXRjaF9jb25kX2V4ZWMocmluZywgcGF0Y2hf
-b2Zmc2V0KTsKIAogCXJpbmctPmN1cnJlbnRfY3R4ID0gY3R4OworCisJLyogSW5zZXJ0IG9uZSBT
-QiBhdCB0aGUgYm90dG9tIG9mIGVhY2ggRE1BIGZyYW1lICovCisJaWYgKHJpbmctPmZ1bmNzLT5l
-bWl0X3NiKQorCQlhbWRncHVfcmluZ19lbWl0X3NiKHJpbmcsIDEpOwogCWFtZGdwdV9yaW5nX2Nv
-bW1pdChyaW5nKTsKIAlyZXR1cm4gMDsKIH0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2dmeF92OF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhf
-MC5jCmluZGV4IGRmYTIyODguLjM3ZGM2NGIgMTAwNzU1Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2dmeF92OF8wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4
-X3Y4XzAuYwpAQCAtNTkzNiwxMiArNTkzNiw2IEBAIHN0YXRpYyB2b2lkIGdmeF92OF8wX3Jpbmdf
-ZW1pdF9pYl9nZngoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCAgewogCXUzMiBoZWFkZXIsIGNv
-bnRyb2wgPSAwOwogCi0JLyogaW5zZXJ0IFNXSVRDSF9CVUZGRVIgcGFja2V0IGJlZm9yZSBmaXJz
-dCBJQiBpbiB0aGUgcmluZyBmcmFtZSAqLwotCWlmIChjdHhfc3dpdGNoKSB7Ci0JCWFtZGdwdV9y
-aW5nX3dyaXRlKHJpbmcsIFBBQ0tFVDMoUEFDS0VUM19TV0lUQ0hfQlVGRkVSLCAwKSk7Ci0JCWFt
-ZGdwdV9yaW5nX3dyaXRlKHJpbmcsIDApOwotCX0KLQogCWlmIChpYi0+ZmxhZ3MgJiBBTURHUFVf
-SUJfRkxBR19DRSkKIAkJaGVhZGVyID0gUEFDS0VUMyhQQUNLRVQzX0lORElSRUNUX0JVRkZFUl9D
-T05TVCwgMik7CiAJZWxzZQpAQCAtNjAxMywxMSArNjAwNyw5IEBAIHN0YXRpYyB2b2lkIGdmeF92
-OF8wX3JpbmdfZW1pdF9waXBlbGluZV9zeW5jKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZykKIAlh
-bWRncHVfcmluZ193cml0ZShyaW5nLCA0KTsgLyogcG9sbCBpbnRlcnZhbCAqLwogCiAJaWYgKHVz
-ZXBmcCkgewotCQkvKiBzeW5jZSBDRSB3aXRoIE1FIHRvIHByZXZlbnQgQ0UgZmV0Y2ggQ0VJQiBi
-ZWZvcmUgY29udGV4dCBzd2l0Y2ggZG9uZSAqLwotCQlhbWRncHVfcmluZ193cml0ZShyaW5nLCBQ
-QUNLRVQzKFBBQ0tFVDNfU1dJVENIX0JVRkZFUiwgMCkpOwotCQlhbWRncHVfcmluZ193cml0ZShy
-aW5nLCAwKTsKLQkJYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgUEFDS0VUMyhQQUNLRVQzX1NXSVRD
-SF9CVUZGRVIsIDApKTsKLQkJYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgMCk7CisJCS8qIHN5bmMg
-UEZQIHRvIE1FLCBvdGhlcndpc2Ugd2UgbWlnaHQgZ2V0IGludmFsaWQgUEZQIHJlYWRzICovCisJ
-CWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIFBBQ0tFVDMoUEFDS0VUM19QRlBfU1lOQ19NRSwgMCkp
-OworCQlhbWRncHVfcmluZ193cml0ZShyaW5nLCAweDApOwogCX0KIH0KIApAQCAtNjA2NSwxMCAr
-NjA1Nyw2IEBAIHN0YXRpYyB2b2lkIGdmeF92OF8wX3JpbmdfZW1pdF92bV9mbHVzaChzdHJ1Y3Qg
-YW1kZ3B1X3JpbmcgKnJpbmcsCiAJCS8qIHN5bmMgUEZQIHRvIE1FLCBvdGhlcndpc2Ugd2UgbWln
-aHQgZ2V0IGludmFsaWQgUEZQIHJlYWRzICovCiAJCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIFBB
-Q0tFVDMoUEFDS0VUM19QRlBfU1lOQ19NRSwgMCkpOwogCQlhbWRncHVfcmluZ193cml0ZShyaW5n
-LCAweDApOwotCQlhbWRncHVfcmluZ193cml0ZShyaW5nLCBQQUNLRVQzKFBBQ0tFVDNfU1dJVENI
-X0JVRkZFUiwgMCkpOwotCQlhbWRncHVfcmluZ193cml0ZShyaW5nLCAwKTsKLQkJYW1kZ3B1X3Jp
-bmdfd3JpdGUocmluZywgUEFDS0VUMyhQQUNLRVQzX1NXSVRDSF9CVUZGRVIsIDApKTsKLQkJYW1k
-Z3B1X3Jpbmdfd3JpdGUocmluZywgMCk7CiAJfQogfQogCkBAIC02MTcwLDYgKzYxNTgsMTQgQEAg
-c3RhdGljIHZvaWQgZ2Z4X3Y4XzBfcmluZ19lbWl0X3dyZWdfa2lxKHN0cnVjdCBhbWRncHVfcmlu
-ZyAqcmluZywgdTMyIGlkeCwgdTMyIHYKIAlhbWRncHVfcmluZ193cml0ZShyaW5nLCB2YWwpOwog
-fQogCitzdGF0aWMgdm9pZCBnZnhfdjhfcmluZ19lbWl0X3NiKHN0cnVjdCBhbWRncHVfcmluZyAq
-cmluZywgaW50IGNudCkgeworCXdoaWxlIChjbnQtLSkgeworCQlhbWRncHVfcmluZ193cml0ZShy
-aW5nLCBQQUNLRVQzKFBBQ0tFVDNfU1dJVENIX0JVRkZFUiwgMCkpOworCQlhbWRncHVfcmluZ193
-cml0ZShyaW5nLCAwKTsKKwl9Cit9CisKIHN0YXRpYyB2b2lkIGdmeF92OF8wX3NldF9nZnhfZW9w
-X2ludGVycnVwdF9zdGF0ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAkJCQkJCSBlbnVt
-IGFtZGdwdV9pbnRlcnJ1cHRfc3RhdGUgc3RhdGUpICB7IEBAIC02NDc3LDYgKzY0NzMsNyBAQCBz
-dGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9yaW5nX2Z1bmNzIGdmeF92OF8wX3JpbmdfZnVuY3Nf
-Z2Z4ID0gewogCS50ZXN0X2liID0gZ2Z4X3Y4XzBfcmluZ190ZXN0X2liLAogCS5pbnNlcnRfbm9w
-ID0gYW1kZ3B1X3JpbmdfaW5zZXJ0X25vcCwKIAkucGFkX2liID0gYW1kZ3B1X3JpbmdfZ2VuZXJp
-Y19wYWRfaWIsCisJLmVtaXRfc2IgPSBnZnhfdjhfcmluZ19lbWl0X3NiLAogfTsKIAogc3RhdGlj
-IGNvbnN0IHN0cnVjdCBhbWRncHVfcmluZ19mdW5jcyBnZnhfdjhfMF9yaW5nX2Z1bmNzX2NvbXB1
-dGUgPSB7Ci0tCjEuOS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============1349852764==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MWHPR12MB11824A068B0C274E950B218484EA0MWHPR12MB1182namp_"
+
+--_000_MWHPR12MB11824A068B0C274E950B218484EA0MWHPR12MB1182namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Alex
+
+I tried use git send-email to send patch to amd-gfx, but seems it failed,
+So I use git send-email to send patch to myself, it's okay.
+
+And I forward the patch mail to amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gf=
+x@lists.freedesktop.org> with outlook, and it also failed
+
+Is that my account doesn't have authority to send email to this loop ?
+I can receive emails from it
+
+Thanks !
+BR Monk
+
+--_000_MWHPR12MB11824A068B0C274E950B218484EA0MWHPR12MB1182namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hi Alex<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I tried use git send-email to send patch to amd-gfx,=
+ but seems it failed,<o:p></o:p></p>
+<p class=3D"MsoNormal">So I use git send-email to send patch to myself, it&=
+#8217;s okay.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">And I forward the patch mail to <a href=3D"mailto:am=
+d-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a> with outlook, and it also failed <o:p></o=
+:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Is that my account doesn&#8217;t have authority to s=
+end email to this loop ?<o:p></o:p></p>
+<p class=3D"MsoNormal">I can receive emails from it<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks !<o:p></o:p></p>
+<p class=3D"MsoNormal">BR Monk<o:p></o:p></p>
+</div>
+</body>
+</html>
+
+--_000_MWHPR12MB11824A068B0C274E950B218484EA0MWHPR12MB1182namp_--
+
+--===============1349852764==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1349852764==--
