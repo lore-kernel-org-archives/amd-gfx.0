@@ -1,15 +1,10 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH xf86-video-ati 1/2] Also call drmmode_clear_pending_flip
- from radeon_scanout_flip_abort
-Date: Thu, 25 Aug 2016 13:42:02 +0000
-Message-ID: <MWHPR12MB169426B020AF7A5AE120A8C9F7ED0@MWHPR12MB1694.namprd12.prod.outlook.com>
-References: <20160825095813.18762-1-michel@daenzer.net>
+From: Dennis Schridde <dennis.schridde-axtXthT+lymYbFdUjOg7S7NAH6kLmebB@public.gmane.org>
+Subject: Bind amdgpu to SR-IOV virtual function
+Date: Thu, 25 Aug 2016 17:00:41 +0200
+Message-ID: <2568946.uSqerHif76@c07060>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1564394169=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20160825095813.18762-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,54 +15,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?J01pY2hlbCBEw6RuemVyJw==?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
-LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIE1pY2hl
-bCBEw6RuemVyDQo+IFNlbnQ6IFRodXJzZGF5LCBBdWd1c3QgMjUsIDIwMTYgNTo1OCBBTQ0KPiBU
-bzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gU3ViamVjdDogW1BBVENIIHhmODYt
-dmlkZW8tYXRpIDEvMl0gQWxzbyBjYWxsIGRybW1vZGVfY2xlYXJfcGVuZGluZ19mbGlwDQo+IGZy
-b20gcmFkZW9uX3NjYW5vdXRfZmxpcF9hYm9ydA0KPiANCj4gRnJvbTogTWljaGVsIETDpG56ZXIg
-PG1pY2hlbC5kYWVuemVyQGFtZC5jb20+DQo+IA0KPiBOb3QgZG9pbmcgc28gY291bGQgYnJlYWsg
-RFBNUyB3aXRoIFRlYXJGcmVlLg0KPiANCj4gUmVwb3J0ZWQtYW5kLVRlc3RlZC1ieTogZnVya2Fu
-IG9uIElSQw0KPiBGaXhlczogOTA5MDMwOWUwNTdkICgiV2FpdCBmb3IgcGVuZGluZyBmbGlwcyB0
-byBjb21wbGV0ZSBiZWZvcmUgdHVybmluZw0KPiBvZmYgYW4gb3V0cHV0IG9yIENSVEMiKQ0KPiAN
-Cj4gU2lnbmVkLW9mZi1ieTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+
-DQoNCkZvciB0aGUgc2VyaWVzOg0KUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVy
-LmRldWNoZXJAYW1kLmNvbT4NCg0KPiAtLS0NCj4gIHNyYy9kcm1tb2RlX2Rpc3BsYXkuYyB8IDIg
-Ky0NCj4gIHNyYy9kcm1tb2RlX2Rpc3BsYXkuaCB8IDEgKw0KPiAgc3JjL3JhZGVvbl9rbXMuYyAg
-ICAgIHwgMiArLQ0KPiAgMyBmaWxlcyBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDIgZGVsZXRp
-b25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvc3JjL2RybW1vZGVfZGlzcGxheS5jIGIvc3JjL2Ry
-bW1vZGVfZGlzcGxheS5jDQo+IGluZGV4IDE0ZDg2YzcuLjk2YTNjM2IgMTAwNjQ0DQo+IC0tLSBh
-L3NyYy9kcm1tb2RlX2Rpc3BsYXkuYw0KPiArKysgYi9zcmMvZHJtbW9kZV9kaXNwbGF5LmMNCj4g
-QEAgLTIxNzQsNyArMjE3NCw3IEBAIHN0YXRpYyBjb25zdCB4Zjg2Q3J0Y0NvbmZpZ0Z1bmNzUmVj
-DQo+IGRybW1vZGVfeGY4NmNydGNfY29uZmlnX2Z1bmNzID0gew0KPiAgCWRybW1vZGVfeGY4NmNy
-dGNfcmVzaXplDQo+ICB9Ow0KPiANCj4gLXN0YXRpYyB2b2lkDQo+ICt2b2lkDQo+ICBkcm1tb2Rl
-X2NsZWFyX3BlbmRpbmdfZmxpcCh4Zjg2Q3J0Y1B0ciBjcnRjKQ0KPiAgew0KPiAgCWRybW1vZGVf
-Y3J0Y19wcml2YXRlX3B0ciBkcm1tb2RlX2NydGMgPSBjcnRjLT5kcml2ZXJfcHJpdmF0ZTsNCj4g
-ZGlmZiAtLWdpdCBhL3NyYy9kcm1tb2RlX2Rpc3BsYXkuaCBiL3NyYy9kcm1tb2RlX2Rpc3BsYXku
-aA0KPiBpbmRleCAyNGUzZWZiLi41M2M3OTI2IDEwMDY0NA0KPiAtLS0gYS9zcmMvZHJtbW9kZV9k
-aXNwbGF5LmgNCj4gKysrIGIvc3JjL2RybW1vZGVfZGlzcGxheS5oDQo+IEBAIC0xNTQsNiArMTU0
-LDcgQEAgZXh0ZXJuIGludCBkcm1tb2RlX2dldF9jcnRjX2lkKHhmODZDcnRjUHRyIGNydGMpOw0K
-PiAgZXh0ZXJuIGludCBkcm1tb2RlX2dldF9oZWlnaHRfYWxpZ24oU2NybkluZm9QdHIgc2Nybiwg
-dWludDMyX3QgdGlsaW5nKTsNCj4gIGV4dGVybiBpbnQgZHJtbW9kZV9nZXRfcGl0Y2hfYWxpZ24o
-U2NybkluZm9QdHIgc2NybiwgaW50IGJwZSwgdWludDMyX3QNCj4gdGlsaW5nKTsNCj4gIGV4dGVy
-biBpbnQgZHJtbW9kZV9nZXRfYmFzZV9hbGlnbihTY3JuSW5mb1B0ciBzY3JuLCBpbnQgYnBlLCB1
-aW50MzJfdA0KPiB0aWxpbmcpOw0KPiArZXh0ZXJuIHZvaWQgZHJtbW9kZV9jbGVhcl9wZW5kaW5n
-X2ZsaXAoeGY4NkNydGNQdHIgY3J0Yyk7DQo+IA0KPiAgQm9vbCByYWRlb25fZG9fcGFnZWZsaXAo
-U2NybkluZm9QdHIgc2NybiwgQ2xpZW50UHRyIGNsaWVudCwNCj4gIAkJCXVpbnQzMl90IG5ld19m
-cm9udF9oYW5kbGUsIHVpbnQ2NF90IGlkLCB2b2lkICpkYXRhLA0KPiBkaWZmIC0tZ2l0IGEvc3Jj
-L3JhZGVvbl9rbXMuYyBiL3NyYy9yYWRlb25fa21zLmMNCj4gaW5kZXggZTM1M2Q2Ni4uYzEwZmI0
-MiAxMDA2NDQNCj4gLS0tIGEvc3JjL3JhZGVvbl9rbXMuYw0KPiArKysgYi9zcmMvcmFkZW9uX2tt
-cy5jDQo+IEBAIC03ODYsNyArNzg2LDcgQEAgcmFkZW9uX3NjYW5vdXRfZmxpcF9hYm9ydCh4Zjg2
-Q3J0Y1B0ciBjcnRjLCB2b2lkDQo+ICpldmVudF9kYXRhKQ0KPiAgICAgIGRybW1vZGVfY3J0Y19w
-cml2YXRlX3B0ciBkcm1tb2RlX2NydGMgPSBldmVudF9kYXRhOw0KPiANCj4gICAgICBkcm1tb2Rl
-X2NydGMtPnNjYW5vdXRfdXBkYXRlX3BlbmRpbmcgPSBGQUxTRTsNCj4gLSAgICBkcm1tb2RlX2Ny
-dGMtPmZsaXBfcGVuZGluZyA9IEZBTFNFOw0KPiArICAgIGRybW1vZGVfY2xlYXJfcGVuZGluZ19m
-bGlwKGNydGMpOw0KPiAgfQ0KPiANCj4gIHN0YXRpYyB2b2lkDQo+IC0tDQo+IDIuOS4zDQo+IA0K
-PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBhbWQt
-Z2Z4IG1haWxpbmcgbGlzdA0KPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
-ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============1564394169==
+Content-Type: multipart/signed; boundary="nextPart4646944.67BIpW57PF"; micalg="pgp-sha256"; protocol="application/pgp-signature"
+
+--nextPart4646944.67BIpW57PF
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"
+
+Hello!
+
+I investigating the virtualisation abilities of current AMD FirePro hardwar=
+e;=20
+specifically how to securely pass a share of a GPU to one application (a Rk=
+t/
+Docker container). I already read vfio.txt and pci-iov-howto.txt, but they =
+do=20
+not answer my questions. I was unable to find documentation on the process=
+=20
+online, either.
+
+1. How do I create VFs from a AMD FirePro PF? I saw an example using VMWare=
+=20
+ESXi tools, where it is possible to specify RAM size and time-share, but I=
+=20
+have not seen how that translates to modifying /sys/bus/pci/..., which is t=
+he=20
+method recommended for SR-IOV devices in pci-iov-howto.txt.
+
+2. After having created VFs, is it possible to bind these to the host's amd=
+gpu=20
+driver, so that I get multiple /dev/dri/card* device nodes?
+
+3. Will passing these /dev/dri/card* device nodes into a Rkt/Docker contain=
+er=20
+be enough for the AMD Radeon Pro OpenGL runtime to be able to use that card?
+
+Best regards,
+Dennis Schridde
+=2D-=20
+Heidelberg University Computing Centre
+Service division: Future IT - Research & Education
+
+Tel. +49 6221 54-4519, Fax +49 6221 54-5581
+dennis.schridde-axtXthT+lymYbFdUjOg7S7NAH6kLmebB@public.gmane.org
+
+http://www.urz.uni-heidelberg.de/
+
+Ruprecht-Karls-Universit=E4t Heidelberg
+Universit=E4tsrechenzentrum
+Im Neuenheimer Feld 293, 69120 Heidelberg, Germany
+--nextPart4646944.67BIpW57PF
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQG0BAABCAAGBQJXvwgZAAoJENS5dBsVnRQdNLgMvih+Y+t3Z7ilAvDF6y7bJkIR
+tMRWmsDgVh/T+nnSy+YMlqVBnaWAxMiYcniP/uOkHOX7RzYfI0MkC/bZAFH4rxZJ
+WmOVig8nGiNhvZs2ntzFrLffHJKHRcLzDfLMjlA4B7+Z9xK03VeCs1aJjVUclvMo
+pknyRpVndl/THtWFx7ntfAr1s7UWn0RPImSjsbJgjvdTU3Z/WTRyZF5iYtBaT7yc
+X2PwJSy8QevXROipPGbOVzWOXhQsNPRKb12mCRj9q0Ltp5HoEDG6gd67esVMaJqW
+mYlmvOb5dw5rMDTi3iEHkykc9Kk8SSIhSvu6cC5bKvn2DtpY4pjC8zTLPEKljrLn
+OMHVAh5mkrLl0J4XZ6L6ltGlF364JAIks7vNMaN0aT041ShmRZi7rBwSxcbUUmA1
+PXIKUvGmPes6yON83xsPeh4QPbCDol1da/WAWhj05C0RslN5rv3sRCnNmKF0cCVu
+k3StSkX8dsAUKdtqYhjbOVxJfzZPVOGVzSw98kQ4aUBTA8D0Ev8+YxtF4zayoP86
+WvP1Gn7CNw==
+=hIPl
+-----END PGP SIGNATURE-----
+
+--nextPart4646944.67BIpW57PF--
+
+
+--===============1564394169==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1564394169==--
