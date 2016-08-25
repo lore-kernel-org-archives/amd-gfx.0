@@ -1,10 +1,13 @@
-From: Dennis Schridde <dennis.schridde-axtXthT+lymYbFdUjOg7S7NAH6kLmebB@public.gmane.org>
-Subject: Bind amdgpu to SR-IOV virtual function
-Date: Thu, 25 Aug 2016 17:00:41 +0200
-Message-ID: <2568946.uSqerHif76@c07060>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: Bind amdgpu to SR-IOV virtual function
+Date: Thu, 25 Aug 2016 11:44:08 -0400
+Message-ID: <CADnq5_PFpcM78ZtcfmDMdXboriz7MeLq7Ob+ZFWSOyVcNvoevQ@mail.gmail.com>
+References: <2568946.uSqerHif76@c07060>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1564394169=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <2568946.uSqerHif76@c07060>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -15,89 +18,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Dennis Schridde <dennis.schridde-axtXthT+lymYbFdUjOg7S7NAH6kLmebB@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1564394169==
-Content-Type: multipart/signed; boundary="nextPart4646944.67BIpW57PF"; micalg="pgp-sha256"; protocol="application/pgp-signature"
-
---nextPart4646944.67BIpW57PF
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
-
-Hello!
-
-I investigating the virtualisation abilities of current AMD FirePro hardwar=
-e;=20
-specifically how to securely pass a share of a GPU to one application (a Rk=
-t/
-Docker container). I already read vfio.txt and pci-iov-howto.txt, but they =
-do=20
-not answer my questions. I was unable to find documentation on the process=
-=20
-online, either.
-
-1. How do I create VFs from a AMD FirePro PF? I saw an example using VMWare=
-=20
-ESXi tools, where it is possible to specify RAM size and time-share, but I=
-=20
-have not seen how that translates to modifying /sys/bus/pci/..., which is t=
-he=20
-method recommended for SR-IOV devices in pci-iov-howto.txt.
-
-2. After having created VFs, is it possible to bind these to the host's amd=
-gpu=20
-driver, so that I get multiple /dev/dri/card* device nodes?
-
-3. Will passing these /dev/dri/card* device nodes into a Rkt/Docker contain=
-er=20
-be enough for the AMD Radeon Pro OpenGL runtime to be able to use that card?
-
-Best regards,
-Dennis Schridde
-=2D-=20
-Heidelberg University Computing Centre
-Service division: Future IT - Research & Education
-
-Tel. +49 6221 54-4519, Fax +49 6221 54-5581
-dennis.schridde-axtXthT+lymYbFdUjOg7S7NAH6kLmebB@public.gmane.org
-
-http://www.urz.uni-heidelberg.de/
-
-Ruprecht-Karls-Universit=E4t Heidelberg
-Universit=E4tsrechenzentrum
-Im Neuenheimer Feld 293, 69120 Heidelberg, Germany
---nextPart4646944.67BIpW57PF
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQG0BAABCAAGBQJXvwgZAAoJENS5dBsVnRQdNLgMvih+Y+t3Z7ilAvDF6y7bJkIR
-tMRWmsDgVh/T+nnSy+YMlqVBnaWAxMiYcniP/uOkHOX7RzYfI0MkC/bZAFH4rxZJ
-WmOVig8nGiNhvZs2ntzFrLffHJKHRcLzDfLMjlA4B7+Z9xK03VeCs1aJjVUclvMo
-pknyRpVndl/THtWFx7ntfAr1s7UWn0RPImSjsbJgjvdTU3Z/WTRyZF5iYtBaT7yc
-X2PwJSy8QevXROipPGbOVzWOXhQsNPRKb12mCRj9q0Ltp5HoEDG6gd67esVMaJqW
-mYlmvOb5dw5rMDTi3iEHkykc9Kk8SSIhSvu6cC5bKvn2DtpY4pjC8zTLPEKljrLn
-OMHVAh5mkrLl0J4XZ6L6ltGlF364JAIks7vNMaN0aT041ShmRZi7rBwSxcbUUmA1
-PXIKUvGmPes6yON83xsPeh4QPbCDol1da/WAWhj05C0RslN5rv3sRCnNmKF0cCVu
-k3StSkX8dsAUKdtqYhjbOVxJfzZPVOGVzSw98kQ4aUBTA8D0Ev8+YxtF4zayoP86
-WvP1Gn7CNw==
-=hIPl
------END PGP SIGNATURE-----
-
---nextPart4646944.67BIpW57PF--
-
-
---===============1564394169==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1564394169==--
+T24gVGh1LCBBdWcgMjUsIDIwMTYgYXQgMTE6MDAgQU0sIERlbm5pcyBTY2hyaWRkZQo8ZGVubmlz
+LnNjaHJpZGRlQHVuaS1oZWlkZWxiZXJnLmRlPiB3cm90ZToKPiBIZWxsbyEKPgo+IEkgaW52ZXN0
+aWdhdGluZyB0aGUgdmlydHVhbGlzYXRpb24gYWJpbGl0aWVzIG9mIGN1cnJlbnQgQU1EIEZpcmVQ
+cm8gaGFyZHdhcmU7Cj4gc3BlY2lmaWNhbGx5IGhvdyB0byBzZWN1cmVseSBwYXNzIGEgc2hhcmUg
+b2YgYSBHUFUgdG8gb25lIGFwcGxpY2F0aW9uIChhIFJrdC8KPiBEb2NrZXIgY29udGFpbmVyKS4g
+SSBhbHJlYWR5IHJlYWQgdmZpby50eHQgYW5kIHBjaS1pb3YtaG93dG8udHh0LCBidXQgdGhleSBk
+bwo+IG5vdCBhbnN3ZXIgbXkgcXVlc3Rpb25zLiBJIHdhcyB1bmFibGUgdG8gZmluZCBkb2N1bWVu
+dGF0aW9uIG9uIHRoZSBwcm9jZXNzCj4gb25saW5lLCBlaXRoZXIuCj4KPiAxLiBIb3cgZG8gSSBj
+cmVhdGUgVkZzIGZyb20gYSBBTUQgRmlyZVBybyBQRj8gSSBzYXcgYW4gZXhhbXBsZSB1c2luZyBW
+TVdhcmUKPiBFU1hpIHRvb2xzLCB3aGVyZSBpdCBpcyBwb3NzaWJsZSB0byBzcGVjaWZ5IFJBTSBz
+aXplIGFuZCB0aW1lLXNoYXJlLCBidXQgSQo+IGhhdmUgbm90IHNlZW4gaG93IHRoYXQgdHJhbnNs
+YXRlcyB0byBtb2RpZnlpbmcgL3N5cy9idXMvcGNpLy4uLiwgd2hpY2ggaXMgdGhlCj4gbWV0aG9k
+IHJlY29tbWVuZGVkIGZvciBTUi1JT1YgZGV2aWNlcyBpbiBwY2ktaW92LWhvd3RvLnR4dC4KPgo+
+IDIuIEFmdGVyIGhhdmluZyBjcmVhdGVkIFZGcywgaXMgaXQgcG9zc2libGUgdG8gYmluZCB0aGVz
+ZSB0byB0aGUgaG9zdCdzIGFtZGdwdQo+IGRyaXZlciwgc28gdGhhdCBJIGdldCBtdWx0aXBsZSAv
+ZGV2L2RyaS9jYXJkKiBkZXZpY2Ugbm9kZXM/Cj4KPiAzLiBXaWxsIHBhc3NpbmcgdGhlc2UgL2Rl
+di9kcmkvY2FyZCogZGV2aWNlIG5vZGVzIGludG8gYSBSa3QvRG9ja2VyIGNvbnRhaW5lcgo+IGJl
+IGVub3VnaCBmb3IgdGhlIEFNRCBSYWRlb24gUHJvIE9wZW5HTCBydW50aW1lIHRvIGJlIGFibGUg
+dG8gdXNlIHRoYXQgY2FyZD8KClNSLUlPViBzdXBwb3J0IGlzIG5vdCB5ZXQgdXBzdHJlYW0gZm9y
+IExpbnV4LgoKQWxleAoKCj4KPiBCZXN0IHJlZ2FyZHMsCj4gRGVubmlzIFNjaHJpZGRlCj4gLS0K
+PiBIZWlkZWxiZXJnIFVuaXZlcnNpdHkgQ29tcHV0aW5nIENlbnRyZQo+IFNlcnZpY2UgZGl2aXNp
+b246IEZ1dHVyZSBJVCAtIFJlc2VhcmNoICYgRWR1Y2F0aW9uCj4KPiBUZWwuICs0OSA2MjIxIDU0
+LTQ1MTksIEZheCArNDkgNjIyMSA1NC01NTgxCj4gZGVubmlzLnNjaHJpZGRlQHVuaS1oZWlkZWxi
+ZXJnLmRlCj4KPiBodHRwOi8vd3d3LnVyei51bmktaGVpZGVsYmVyZy5kZS8KPgo+IFJ1cHJlY2h0
+LUthcmxzLVVuaXZlcnNpdMOkdCBIZWlkZWxiZXJnCj4gVW5pdmVyc2l0w6R0c3JlY2hlbnplbnRy
+dW0KPiBJbSBOZXVlbmhlaW1lciBGZWxkIDI5MywgNjkxMjAgSGVpZGVsYmVyZywgR2VybWFueQo+
+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+Cl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
+aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
