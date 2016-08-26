@@ -1,11 +1,11 @@
-From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: [PATCH xf86-video-ati] Fix build against xserver < 1.13
-Date: Fri, 26 Aug 2016 18:30:27 +0900
-Message-ID: <20160826093027.10246-1-michel@daenzer.net>
+From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Subject: Errant return in Carrizo SMU code
+Date: Fri, 26 Aug 2016 13:07:28 +0000
+Message-ID: <DM5PR12MB113206AD5B953EDDB8A1A215F7EC0@DM5PR12MB1132.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1865316521=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,34 +16,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-RnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+CgpwU2NyZWVuLT5p
-c0dQVSB3YXMgb25seSBpbnRyb2R1Y2VkIGluIDEuMTMuCgpCdWd6aWxsYTogaHR0cHM6Ly9idWdz
-LmZyZWVkZXNrdG9wLm9yZy9zaG93X2J1Zy5jZ2k/aWQ9OTc0OTAKU2lnbmVkLW9mZi1ieTogTWlj
-aGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+Ci0tLQogc3JjL2RybW1vZGVfZGlz
-cGxheS5jIHwgNSArKysrLQogc3JjL3JhZGVvbl9rbXMuYyAgICAgIHwgNSArKysrLQogMiBmaWxl
-cyBjaGFuZ2VkLCA4IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEv
-c3JjL2RybW1vZGVfZGlzcGxheS5jIGIvc3JjL2RybW1vZGVfZGlzcGxheS5jCmluZGV4IGU0NzQw
-NDYuLjJhZmVlYjAgMTAwNjQ0Ci0tLSBhL3NyYy9kcm1tb2RlX2Rpc3BsYXkuYworKysgYi9zcmMv
-ZHJtbW9kZV9kaXNwbGF5LmMKQEAgLTc5OSw3ICs3OTksMTAgQEAgZHJtbW9kZV9zZXRfbW9kZV9t
-YWpvcih4Zjg2Q3J0Y1B0ciBjcnRjLCBEaXNwbGF5TW9kZVB0ciBtb2RlLAogCiAJCQlkcm1tb2Rl
-X2NydGNfc2Nhbm91dF9kZXN0cm95KGRybW1vZGUsICZkcm1tb2RlX2NydGMtPnNjYW5vdXRbMF0p
-OwogCQkJZHJtbW9kZV9jcnRjX3NjYW5vdXRfZGVzdHJveShkcm1tb2RlLCAmZHJtbW9kZV9jcnRj
-LT5zY2Fub3V0WzFdKTsKLQkJfSBlbHNlIGlmICghcFNjcmVlbi0+aXNHUFUgJiYKKwkJfSBlbHNl
-IGlmICgKKyNpZmRlZiBSQURFT05fUElYTUFQX1NIQVJJTkcKKwkJCSFwU2NyZWVuLT5pc0dQVSAm
-JgorI2VuZGlmCiAJCQkgICAoaW5mby0+dGVhcl9mcmVlIHx8CiAjaWYgWEY4Nl9DUlRDX1ZFUlNJ
-T04gPj0gNAogCQkJICAgIGNydGMtPmRyaXZlcklzUGVyZm9ybWluZ1RyYW5zZm9ybSB8fApkaWZm
-IC0tZ2l0IGEvc3JjL3JhZGVvbl9rbXMuYyBiL3NyYy9yYWRlb25fa21zLmMKaW5kZXggYzEwZmI0
-Mi4uNTFmMzIwYyAxMDA2NDQKLS0tIGEvc3JjL3JhZGVvbl9rbXMuYworKysgYi9zcmMvcmFkZW9u
-X2ttcy5jCkBAIC04NDIsNyArODQyLDEwIEBAIHN0YXRpYyB2b2lkIFJBREVPTkJsb2NrSGFuZGxl
-cl9LTVMoQkxPQ0tIQU5ETEVSX0FSR1NfREVDTCkKICAgICAoKnBTY3JlZW4tPkJsb2NrSGFuZGxl
-cikgKEJMT0NLSEFORExFUl9BUkdTKTsKICAgICBwU2NyZWVuLT5CbG9ja0hhbmRsZXIgPSBSQURF
-T05CbG9ja0hhbmRsZXJfS01TOwogCi0gICAgaWYgKCFwU2NyZWVuLT5pc0dQVSkgeworI2lmZGVm
-IFJBREVPTl9QSVhNQVBfU0hBUklORworICAgIGlmICghcFNjcmVlbi0+aXNHUFUpCisjZW5kaWYK
-KyAgICB7CiAJZm9yIChjID0gMDsgYyA8IHhmODZfY29uZmlnLT5udW1fY3J0YzsgYysrKSB7CiAJ
-ICAgIGlmIChpbmZvLT50ZWFyX2ZyZWUpCiAJCXJhZGVvbl9zY2Fub3V0X2ZsaXAocFNjcmVlbiwg
-aW5mbywgeGY4Nl9jb25maWctPmNydGNbY10pOwotLSAKMi45LjMKCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============1865316521==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM5PR12MB113206AD5B953EDDB8A1A215F7EC0DM5PR12MB1132namp_"
+
+--_000_DM5PR12MB113206AD5B953EDDB8A1A215F7EC0DM5PR12MB1132namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+In the function
+
+
+static int cz_check_fw_load_finish(struct pp_smumgr *smumgr,
+  uint32_t firmware);
+
+On line 198 of powerplay/smumgr/cz_smumgr.c there is an unconditional retur=
+n in the middle of the function.  Is that an error or is the code after it =
+truly dead code?
+
+Tom
+
+--_000_DM5PR12MB113206AD5B953EDDB8A1A215F7EC0DM5PR12MB1132namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;back=
+ground-color:#FFFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
+<p>In the function</p>
+<p><br>
+</p>
+<p></p>
+<div>static int cz_check_fw_load_finish(struct pp_smumgr *smumgr,</div>
+<div><span class=3D"Apple-tab-span" style=3D"white-space:pre"></span>&nbsp;=
+ uint32_t firmware);</div>
+<div><br>
+</div>
+<div>On line 198 of powerplay/smumgr/cz_smumgr.c there is an unconditional =
+return in the middle of the function. &nbsp;Is that an error or is the code=
+ after it truly dead code?</div>
+<div><br>
+</div>
+<div>Tom</div>
+<p></p>
+</div>
+</body>
+</html>
+
+--_000_DM5PR12MB113206AD5B953EDDB8A1A215F7EC0DM5PR12MB1132namp_--
+
+--===============1865316521==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1865316521==--
