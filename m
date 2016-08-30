@@ -1,15 +1,13 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH 1/5] drm/amdgpu: add AMDGPU_GEM_CREATE_VRAM_LINEAR flag v2
-Date: Tue, 30 Aug 2016 09:57:56 +0900
-Message-ID: <8221ebac-36e1-7a5b-2d02-92db63c4cc24@daenzer.net>
-References: <1472462424-3052-1-git-send-email-deathsimple@vodafone.de>
- <1472462424-3052-2-git-send-email-deathsimple@vodafone.de>
- <MWHPR12MB1694759D47B2D6579C5D8F5BF7E10@MWHPR12MB1694.namprd12.prod.outlook.com>
+From: jimqu <Jim.Qu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/3] drm/amd/amdgpu: VCE ring test fail during S4 on CI
+Date: Tue, 30 Aug 2016 09:21:49 +0800
+Message-ID: <1472520111-17899-2-git-send-email-Jim.Qu@amd.com>
+References: <1472520111-17899-1-git-send-email-Jim.Qu@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MWHPR12MB1694759D47B2D6579C5D8F5BF7E10-Gy0DoCVfaSW4WA4dJ5YXGAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <1472520111-17899-1-git-send-email-Jim.Qu-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,19 +18,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?'Christian_K=c3=b6nig'?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: jimqu <Jim.Qu-5C7GfCeVMHo@public.gmane.org>
 
-T24gMjkvMDgvMTYgMTA6NDcgUE0sIERldWNoZXIsIEFsZXhhbmRlciB3cm90ZToKPj4gRnJvbTog
-YW1kLWdmeCBbbWFpbHRvOmFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmddIE9u
-IEJlaGFsZgo+PiBPZiBDaHJpc3RpYW4gS8O2bmlnCj4+IFNlbnQ6IE1vbmRheSwgQXVndXN0IDI5
-LCAyMDE2IDU6MjAgQU0KPiAKPiBJIHN0aWxsIHRoaW5rIHRoaXMgc2hvdWxkIGJlIHJlbmFtZWQg
-QU1ER1BVX0dFTV9DUkVBVEVfVlJBTV9DT05USUdVT1VTCj4gb3IgdGhlIGFudGktZmxhZyBBTURH
-UFVfR0VNX0NSRUFURV9WUkFNX1NDQVRURVJfR0FUSEVSIHRvIGF2b2lkCj4gY29uZnVzaW9uIHdp
-dGggbGluZWFyIGluIHRoZSB0aWxpbmcgc2Vuc2UuCgpTZWNvbmRlZC4KCgotLSAKRWFydGhsaW5n
-IE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cu
-YW1kLmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAg
-ICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4Cg==
+U2V0IHVwIHRoZSBWQ0UgY2xvY2sgbm8gbWF0dGVyIGRwbSBpcyBlbmFibGVkIG9yIG5vdC4KCkNo
+YW5nZS1JZDogSTY4ZTMxNWY4YjYyYzZlM2E4NjM2YmM1ZTE0MDM2ZWNjMTFkOTgwYjQKU2lnbmVk
+LW9mZi1ieTogSmltUXUgPEppbS5RdUBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV92Y2UuYyB8IDcgKysrKysrLQogMSBmaWxlIGNoYW5nZWQsIDYgaW5zZXJ0
+aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV92Y2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92
+Y2UuYwppbmRleCA5YjcxZDZjLi41MDk5M2RmIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfdmNlLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X3ZjZS5jCkBAIC04MTIsMTEgKzgxMiwxMyBAQCBpbnQgYW1kZ3B1X3ZjZV9yaW5nX3Rl
+c3RfcmluZyhzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpCiAJdW5zaWduZWQgaTsKIAlpbnQgcjsK
+IAorCWFtZGdwdV9hc2ljX3NldF92Y2VfY2xvY2tzKGFkZXYsIDUzMzAwLCA0MDAwMCk7CisKIAly
+ID0gYW1kZ3B1X3JpbmdfYWxsb2MocmluZywgMTYpOwogCWlmIChyKSB7CiAJCURSTV9FUlJPUigi
+YW1kZ3B1OiB2Y2UgZmFpbGVkIHRvIGxvY2sgcmluZyAlZCAoJWQpLlxuIiwKIAkJCSAgcmluZy0+
+aWR4LCByKTsKLQkJcmV0dXJuIHI7CisJCWdvdG8gZG9uZTsKIAl9CiAJYW1kZ3B1X3Jpbmdfd3Jp
+dGUocmluZywgVkNFX0NNRF9FTkQpOwogCWFtZGdwdV9yaW5nX2NvbW1pdChyaW5nKTsKQEAgLTgz
+Niw2ICs4MzgsOSBAQCBpbnQgYW1kZ3B1X3ZjZV9yaW5nX3Rlc3RfcmluZyhzdHJ1Y3QgYW1kZ3B1
+X3JpbmcgKnJpbmcpCiAJCXIgPSAtRVRJTUVET1VUOwogCX0KIAorZG9uZToKKwlhbWRncHVfYXNp
+Y19zZXRfdmNlX2Nsb2NrcyhhZGV2LCAwLCAwKTsKKwogCXJldHVybiByOwogfQogCi0tIAoxLjku
+MQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
