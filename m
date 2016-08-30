@@ -1,14 +1,13 @@
-From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 13/14] drm/amdgpu: fix incorrect reading method at
- si_get_current_pcie_speed
-Date: Tue, 30 Aug 2016 19:50:10 +0800
-Message-ID: <1472557811-8015-14-git-send-email-ray.huang@amd.com>
-References: <1472557811-8015-1-git-send-email-ray.huang@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: record error code when ring test failed
+Date: Tue, 30 Aug 2016 14:24:26 +0200
+Message-ID: <b0c4f60c-0083-33b2-b737-b7efe50412a8@vodafone.de>
+References: <1472551169-29801-1-git-send-email-David1.Zhou@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1472557811-8015-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1472551169-29801-1-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,22 +18,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: Ken Wang <Qingqing.Wang-5C7GfCeVMHo@public.gmane.org>, Hui Yu <Hui.Yu-5C7GfCeVMHo@public.gmane.org>, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, Alvin Huan <Alvin.Huan-5C7GfCeVMHo@public.gmane.org>
+To: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-Q2hhbmdlLUlkOiBJNzM3OWQwNzNjMGU4MTIzNDQ0ZGVlZDlhOTE1NjRkZTE3YjNmYjcyMgpTaWdu
-ZWQtb2ZmLWJ5OiBIdWFuZyBSdWkgPHJheS5odWFuZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L3NpX2RwbS5jIHwgMiArLQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0
-aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvc2lfZHBtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zaV9kcG0uYwppbmRl
-eCBjZTU2M2NiLi45YjdkNGJmIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9zaV9kcG0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zaV9kcG0uYwpAQCAt
-NjI0Miw3ICs2MjQyLDcgQEAgc3RhdGljIHUxNiBzaV9nZXRfY3VycmVudF9wY2llX3NwZWVkKHN0
-cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogewogCXUzMiBzcGVlZF9jbnRsOwogCi0Jc3BlZWRf
-Y250bCA9IFJSRUczMl9QQ0lFKFBDSUVfTENfU1BFRURfQ05UTCkgJiBMQ19DVVJSRU5UX0RBVEFf
-UkFURV9NQVNLOworCXNwZWVkX2NudGwgPSBSUkVHMzJfUENJRV9QT1JUKFBDSUVfTENfU1BFRURf
-Q05UTCkgJiBMQ19DVVJSRU5UX0RBVEFfUkFURV9NQVNLOwogCXNwZWVkX2NudGwgPj49IExDX0NV
-UlJFTlRfREFUQV9SQVRFX1NISUZUOwogCiAJcmV0dXJuICh1MTYpc3BlZWRfY250bDsKLS0gCjIu
-Ny40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
-Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+QW0gMzAuMDguMjAxNiB1bSAxMTo1OSBzY2hyaWViIENodW5taW5nIFpob3U6Cj4gQ2hhbmdlLUlk
+OiBJM2E1OWY2MDJhNGQ1ZWM0MmM4YzE4NGRhYTE0ZWI4MTk0YjBkYWI5ZQo+IFNpZ25lZC1vZmYt
+Ynk6IENodW5taW5nIFpob3UgPERhdmlkMS5aaG91QGFtZC5jb20+CgpSZXZpZXdlZC1ieTogQ2hy
+aXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPi4KCj4gLS0tCj4gICBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaWIuYyB8IDUgKysrLS0KPiAgIDEgZmlsZSBj
+aGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2liLmMgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfaWIuYwo+IGluZGV4IGY1ODEwZjcuLjhjMTc4ODggMTAwNjQ0Cj4g
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2liLmMKPiArKysgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaWIuYwo+IEBAIC0yODAsNyArMjgwLDcgQEAg
+dm9pZCBhbWRncHVfaWJfcG9vbF9maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICAg
+aW50IGFtZGdwdV9pYl9yaW5nX3Rlc3RzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICAg
+ewo+ICAgCXVuc2lnbmVkIGk7Cj4gLQlpbnQgcjsKPiArCWludCByLCByZXQgPSAwOwo+ICAgCj4g
+ICAJZm9yIChpID0gMDsgaSA8IEFNREdQVV9NQVhfUklOR1M7ICsraSkgewo+ICAgCQlzdHJ1Y3Qg
+YW1kZ3B1X3JpbmcgKnJpbmcgPSBhZGV2LT5yaW5nc1tpXTsKPiBAQCAtMzAxLDEwICszMDEsMTEg
+QEAgaW50IGFtZGdwdV9pYl9yaW5nX3Rlc3RzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+
+ICAgCQkJfSBlbHNlIHsKPiAgIAkJCQkvKiBzdGlsbCBub3QgZ29vZCwgYnV0IHdlIGNhbiBsaXZl
+IHdpdGggaXQgKi8KPiAgIAkJCQlEUk1fRVJST1IoImFtZGdwdTogZmFpbGVkIHRlc3RpbmcgSUIg
+b24gcmluZyAlZCAoJWQpLlxuIiwgaSwgcik7Cj4gKwkJCQlyZXQgPSByOwo+ICAgCQkJfQo+ICAg
+CQl9Cj4gICAJfQo+IC0JcmV0dXJuIDA7Cj4gKwlyZXR1cm4gcmV0Owo+ICAgfQo+ICAgCj4gICAv
+KgoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
+ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
