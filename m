@@ -1,14 +1,11 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: gart table recovery V2
-Date: Tue, 30 Aug 2016 11:52:55 +0200
-Message-ID: <5483ae68-2890-ee79-f7cd-2744fff4f59c@vodafone.de>
-References: <gart table recovery>
- <1472549549-18987-1-git-send-email-David1.Zhou@amd.com>
+From: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: record error code when ring test failed
+Date: Tue, 30 Aug 2016 17:59:29 +0800
+Message-ID: <1472551169-29801-1-git-send-email-David1.Zhou@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1472549549-18987-1-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,16 +16,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
 
-UmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4g
-Zm9yIHRoZSB3aG9sZSAKc2VyaWVzLgoKUmVnYXJkcywKQ2hyaXN0aWFuLgoKQW0gMzAuMDguMjAx
-NiB1bSAxMTozMiBzY2hyaWViIENodW5taW5nIFpob3U6Cj4gc2F2ZSBndHQgaW5mbyBieSBsaXN0
-LCByZS1iaW5kIGd0dCBhZnRlciBncHUgcmVzZXQuCj4gVjI6Cj4gc3BpbmxvY2sgaW5zdGVhZCBv
-ZiBtdXRleC4KPiByZW5hbWUgZnVuY3Rpb24gbmFtZS4KPiByZWNvdmVyIGdhcnQgdGFibGUgYWhl
-YWQgb2YgcmluZyB0ZXN0Lgo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4CgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Q2hhbmdlLUlkOiBJM2E1OWY2MDJhNGQ1ZWM0MmM4YzE4NGRhYTE0ZWI4MTk0YjBkYWI5ZQpTaWdu
+ZWQtb2ZmLWJ5OiBDaHVubWluZyBaaG91IDxEYXZpZDEuWmhvdUBhbWQuY29tPgotLS0KIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pYi5jIHwgNSArKystLQogMSBmaWxlIGNoYW5n
+ZWQsIDMgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaWIuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9pYi5jCmluZGV4IGY1ODEwZjcuLjhjMTc4ODggMTAwNjQ0Ci0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pYi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9pYi5jCkBAIC0yODAsNyArMjgwLDcgQEAgdm9pZCBhbWRncHVfaWJf
+cG9vbF9maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogaW50IGFtZGdwdV9pYl9yaW5n
+X3Rlc3RzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogewogCXVuc2lnbmVkIGk7Ci0JaW50
+IHI7CisJaW50IHIsIHJldCA9IDA7CiAKIAlmb3IgKGkgPSAwOyBpIDwgQU1ER1BVX01BWF9SSU5H
+UzsgKytpKSB7CiAJCXN0cnVjdCBhbWRncHVfcmluZyAqcmluZyA9IGFkZXYtPnJpbmdzW2ldOwpA
+QCAtMzAxLDEwICszMDEsMTEgQEAgaW50IGFtZGdwdV9pYl9yaW5nX3Rlc3RzKHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2KQogCQkJfSBlbHNlIHsKIAkJCQkvKiBzdGlsbCBub3QgZ29vZCwgYnV0
+IHdlIGNhbiBsaXZlIHdpdGggaXQgKi8KIAkJCQlEUk1fRVJST1IoImFtZGdwdTogZmFpbGVkIHRl
+c3RpbmcgSUIgb24gcmluZyAlZCAoJWQpLlxuIiwgaSwgcik7CisJCQkJcmV0ID0gcjsKIAkJCX0K
+IAkJfQogCX0KLQlyZXR1cm4gMDsKKwlyZXR1cm4gcmV0OwogfQogCiAvKgotLSAKMS45LjEKCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
+bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
