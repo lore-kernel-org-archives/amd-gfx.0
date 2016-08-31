@@ -1,16 +1,10 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH xf86-video-ati 2/2] Add support for
- ScreenPtr::SyncSharedPixmap
-Date: Wed, 31 Aug 2016 15:07:24 +0000
-Message-ID: <MWHPR12MB1694D0DD2A5348C4B97DDA21F7E30@MWHPR12MB1694.namprd12.prod.outlook.com>
-References: <20160831085543.5286-1-michel@daenzer.net>
- <20160831085543.5286-2-michel@daenzer.net>
+From: Luya Tshimbalanga <luya-rxtnV0ftBwyoClj4AeEUq9i2O/JbrIOy@public.gmane.org>
+Subject: GPU lockup with amdgpu driver
+Date: Wed, 31 Aug 2016 10:51:18 -0700
+Message-ID: <654eebe2-fa52-ee1e-8144-1b3664c96f40@fedoraproject.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0818750841=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20160831085543.5286-2-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,68 +15,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
-LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIE1pY2hl
-bCBEw6RuemVyDQo+IFNlbnQ6IFdlZG5lc2RheSwgQXVndXN0IDMxLCAyMDE2IDQ6NTYgQU0NCj4g
-VG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IFN1YmplY3Q6IFtQQVRDSCB4Zjg2
-LXZpZGVvLWF0aSAyLzJdIEFkZCBzdXBwb3J0IGZvcg0KPiBTY3JlZW5QdHI6OlN5bmNTaGFyZWRQ
-aXhtYXANCj4gDQo+IEZyb206IE1pY2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQuY29t
-Pg0KPiANCj4gVGhpcyBhbGxvd3MgZGVmZXJyaW5nIHNoYXJlZCBwaXhtYXAgdXBkYXRlcyBiZXR3
-ZWVuIGRpZmZlcmVudCBkcml2ZXJzLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogTWljaGVsIETDpG56
-ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+DQoNCkZvciB0aGUgc2VyaWVzOg0KUmV2aWV3ZWQt
-Ynk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4NCg0KPiAtLS0NCj4g
-DQo+IFRoaXMgY2hhbmdlIHJlcXVpcmVzIGEgY29ycmVzcG9uZGluZyB4c2VydmVyIGNoYW5nZSBh
-ZGRpbmcgdGhlDQo+IFN5bmNTaGFyZWRQaXhtYXAgZmllbGQuIEknbGwgb25seSBwdXNoIGl0IG9u
-Y2UgdGhlIHhzZXJ2ZXIgY2hhbmdlIGhhcw0KPiBsYW5kZWQuDQo+IA0KPiAgc3JjL3JhZGVvbl9r
-bXMuYyB8IDQzDQo+ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0N
-Cj4gIDEgZmlsZSBjaGFuZ2VkLCA0MiBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pDQo+IA0K
-PiBkaWZmIC0tZ2l0IGEvc3JjL3JhZGVvbl9rbXMuYyBiL3NyYy9yYWRlb25fa21zLmMNCj4gaW5k
-ZXggMGM4OTk2ZC4uZjQzYzMwZiAxMDA2NDQNCj4gLS0tIGEvc3JjL3JhZGVvbl9rbXMuYw0KPiAr
-KysgYi9zcmMvcmFkZW9uX2ttcy5jDQo+IEBAIC00ODUsNiArNDg1LDM1IEBADQo+IHJhZGVvbl9z
-eW5jX3NoYXJlZF9waXhtYXAoUGl4bWFwRGlydHlVcGRhdGVQdHIgZGlydHkpDQo+ICAgICAgfQ0K
-PiAgfQ0KPiANCj4gKw0KPiArI2lmIEhBU19TWU5DX1NIQVJFRF9QSVhNQVANCj4gKw0KPiArc3Rh
-dGljIEJvb2wNCj4gK21hc3Rlcl9oYXNfc3luY19zaGFyZWRfcGl4bWFwKFNjcm5JbmZvUHRyIHNj
-cm4sIFBpeG1hcERpcnR5VXBkYXRlUHRyDQo+IGRpcnR5KQ0KPiArew0KPiArICAgIFNjcmVlblB0
-ciBtYXN0ZXJfc2NyZWVuID0gZGlydHktPnNyYy0+bWFzdGVyX3BpeG1hcC0NCj4gPmRyYXdhYmxl
-LnBTY3JlZW47DQo+ICsNCj4gKyAgICByZXR1cm4gbWFzdGVyX3NjcmVlbi0+U3luY1NoYXJlZFBp
-eG1hcCAhPSBOVUxMOw0KPiArfQ0KPiArDQo+ICtzdGF0aWMgQm9vbA0KPiArc2xhdmVfaGFzX3N5
-bmNfc2hhcmVkX3BpeG1hcChTY3JuSW5mb1B0ciBzY3JuLCBQaXhtYXBEaXJ0eVVwZGF0ZVB0cg0K
-PiBkaXJ0eSkNCj4gK3sNCj4gKyAgICBTY3JlZW5QdHIgc2xhdmVfc2NyZWVuID0gZGlydHktPnNs
-YXZlX2RzdC0+ZHJhd2FibGUucFNjcmVlbjsNCj4gKw0KPiArICAgIHJldHVybiBzbGF2ZV9zY3Jl
-ZW4tPlN5bmNTaGFyZWRQaXhtYXAgIT0gTlVMTDsNCj4gK30NCj4gKw0KPiArc3RhdGljIHZvaWQN
-Cj4gK2NhbGxfc3luY19zaGFyZWRfcGl4bWFwKFBpeG1hcERpcnR5VXBkYXRlUHRyIGRpcnR5KQ0K
-PiArew0KPiArICAgIFNjcmVlblB0ciBtYXN0ZXJfc2NyZWVuID0gZGlydHktPnNyYy0+bWFzdGVy
-X3BpeG1hcC0NCj4gPmRyYXdhYmxlLnBTY3JlZW47DQo+ICsNCj4gKyAgICBtYXN0ZXJfc2NyZWVu
-LT5TeW5jU2hhcmVkUGl4bWFwKGRpcnR5KTsNCj4gK30NCj4gKw0KPiArI2Vsc2UgLyogIUhBU19T
-WU5DX1NIQVJFRF9QSVhNQVAgKi8NCj4gKw0KPiAgc3RhdGljIEJvb2wNCj4gIG1hc3Rlcl9oYXNf
-c3luY19zaGFyZWRfcGl4bWFwKFNjcm5JbmZvUHRyIHNjcm4sIFBpeG1hcERpcnR5VXBkYXRlUHRy
-DQo+IGRpcnR5KQ0KPiAgew0KPiBAQCAtNTAxLDYgKzUzMCwxNSBAQCBzbGF2ZV9oYXNfc3luY19z
-aGFyZWRfcGl4bWFwKFNjcm5JbmZvUHRyIHNjcm4sDQo+IFBpeG1hcERpcnR5VXBkYXRlUHRyIGRp
-cnR5KQ0KPiAgICAgIHJldHVybiBzbGF2ZV9zY3JuLT5kcml2ZXJOYW1lID09IHNjcm4tPmRyaXZl
-ck5hbWU7DQo+ICB9DQo+IA0KPiArc3RhdGljIHZvaWQNCj4gK2NhbGxfc3luY19zaGFyZWRfcGl4
-bWFwKFBpeG1hcERpcnR5VXBkYXRlUHRyIGRpcnR5KQ0KPiArew0KPiArICAgIHJhZGVvbl9zeW5j
-X3NoYXJlZF9waXhtYXAoZGlydHkpOw0KPiArfQ0KPiArDQo+ICsjZW5kaWYgLyogSEFTX1NZTkNf
-U0hBUkVEX1BJWE1BUFMgKi8NCj4gKw0KPiArDQo+ICB2b2lkDQo+ICByYWRlb25fcHJpbWVfc2Nh
-bm91dF91cGRhdGVfaGFuZGxlcih4Zjg2Q3J0Y1B0ciBjcnRjLCB1aW50MzJfdCBmcmFtZSwNCj4g
-dWludDY0X3QgdXNlYywNCj4gIAkJCQkgICAgdm9pZCAqZXZlbnRfZGF0YSkNCj4gQEAgLTUxOCw3
-ICs1NTYsNyBAQCByYWRlb25fcHJpbWVfc2Nhbm91dF91cGRhdGVfaGFuZGxlcih4Zjg2Q3J0Y1B0
-cg0KPiBjcnRjLCB1aW50MzJfdCBmcmFtZSwgdWludDY0X3QgdQ0KPiAgCSAgICBjb250aW51ZTsN
-Cj4gDQo+ICAJaWYgKG1hc3Rlcl9oYXNfc3luY19zaGFyZWRfcGl4bWFwKHNjcm4sIGRpcnR5KSkN
-Cj4gLQkgICAgcmFkZW9uX3N5bmNfc2hhcmVkX3BpeG1hcChkaXJ0eSk7DQo+ICsJICAgIGNhbGxf
-c3luY19zaGFyZWRfcGl4bWFwKGRpcnR5KTsNCj4gDQo+ICAJcmVnaW9uID0gZGlydHlfcmVnaW9u
-KGRpcnR5KTsNCj4gIAlyZWRpc3BsYXlfZGlydHkoZGlydHksIHJlZ2lvbik7DQo+IEBAIC0yMTI4
-LDYgKzIxNjYsOSBAQCBCb29sDQo+IFJBREVPTlNjcmVlbkluaXRfS01TKFNDUkVFTl9JTklUX0FS
-R1NfREVDTCkNCj4gICNpZmRlZiBSQURFT05fUElYTUFQX1NIQVJJTkcNCj4gICAgICBwU2NyZWVu
-LT5TdGFydFBpeG1hcFRyYWNraW5nID0gUGl4bWFwU3RhcnREaXJ0eVRyYWNraW5nOw0KPiAgICAg
-IHBTY3JlZW4tPlN0b3BQaXhtYXBUcmFja2luZyA9IFBpeG1hcFN0b3BEaXJ0eVRyYWNraW5nOw0K
-PiArI2lmIEhBU19TWU5DX1NIQVJFRF9QSVhNQVANCj4gKyAgICBwU2NyZWVuLT5TeW5jU2hhcmVk
-UGl4bWFwID0gcmFkZW9uX3N5bmNfc2hhcmVkX3BpeG1hcDsNCj4gKyNlbmRpZg0KPiAgI2VuZGlm
-DQo+IA0KPiAgICAgaWYgKCF4Zjg2Q3J0Y1NjcmVlbkluaXQgKHBTY3JlZW4pKQ0KPiAtLQ0KPiAy
-LjkuMw0KPiANCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18NCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcNCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
-Z2Z4DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
-Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0818750841==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="IDqf5EULmqI2FH4IxKeol2AimEaFJLBi8"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--IDqf5EULmqI2FH4IxKeol2AimEaFJLBi8
+Content-Type: multipart/mixed; boundary="vQ2XaevGc1t0Pb77ChCwkKQSBotb4r8UO";
+ protected-headers="v1"
+From: Luya Tshimbalanga <luya-rxtnV0ftBwyoClj4AeEUq9i2O/JbrIOy@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Message-ID: <654eebe2-fa52-ee1e-8144-1b3664c96f40-rxtnV0ftBwyoClj4AeEUq9i2O/JbrIOy@public.gmane.org>
+Subject: GPU lockup with amdgpu driver
+
+--vQ2XaevGc1t0Pb77ChCwkKQSBotb4r8UO
+Content-Type: multipart/alternative;
+ boundary="------------EB947BC3BAA6D31907C8CDA6"
+
+This is a multi-part message in MIME format.
+--------------EB947BC3BAA6D31907C8CDA6
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Upon recommendation from Phoronix comment, here is the bug report.[1]
+
+Updating linux-firmware snapshot from 20160609 (gita4bbc811) to 20160816
+(git7c3dfc0b) caused a GPU lockup on enabled amdgpu driver  for CIK (Sea
+Island) card  affecting kernel 4.8+ and the staging kernel branches. An
+example below during the boot process:
+
+radeon 0000:00:01.0: GPU lockup (current fence id 0x0000000000000003 last=
+ fence id 0x0000000000000004 on ring 0)
+Aug 29 16:51:37 kernel: radeon 0000:00:01.0: ring 0 stalled for more than=
+ 10581msec
+
+Reverting the linux-firmware snapshot to 20160609 fixed the issue. Will
+it possible to fix? What will be the step to provide the traceback ?
+
+Test is done with ASUS X550ZE powered by AMD A10 7400P featuring Radeon
+R7 M265DX
+
+Ref:
+----
+[1]
+https://www.phoronix.com/forums/forum/linux-graphics-x-org-drivers/open-s=
+ource-amd-linux/889794-amd-staging-4-6-for-fedora-24-amdgpu/page6?_=3D147=
+2604363785
+
+
+--=20
+Luya Tshimbalanga
+Graphic & Web Designer
+E: luya-rxtnV0ftBwyoClj4AeEUq9i2O/JbrIOy@public.gmane.org
+W: http://www.coolest-storm.net
+
+
+--------------EB947BC3BAA6D31907C8CDA6
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+  <head>
+
+    <meta http-equiv=3D"content-type" content=3D"text/html; charset=3Dutf=
+-8">
+  </head>
+  <body bgcolor=3D"#FFFFFF" text=3D"#000000">
+    Upon recommendation from Phoronix comment, here is the bug
+    report.[1]<br>
+    <br>
+    Updating linux-firmware snapshot from 20160609 (gita4bbc811) to
+    20160816 (git7c3dfc0b) caused a GPU lockup on enabled amdgpu driver=C2=
+=A0
+    for CIK (Sea Island) card=C2=A0 affecting kernel 4.8+ and the staging=
+
+    kernel branches. An example below during the boot process:<br>
+    <br>
+    <pre class=3D"bbcode_code" style=3D"height:60px;">radeon 0000:00:01.0=
+: GPU lockup (current fence id 0x0000000000000003 last fence id 0x0000000=
+000000004 on ring 0)
+Aug 29 16:51:37 kernel: radeon 0000:00:01.0: ring 0 stalled for more than=
+ 10581msec</pre>
+    Reverting the linux-firmware snapshot to 20160609 fixed the issue.
+    Will it possible to fix? What will be the step to provide the
+    traceback ?<br>
+    <br>
+    Test is done with ASUS X550ZE powered by AMD A10 7400P featuring
+    Radeon R7 M265DX<br>
+    <br>
+    Ref:<br>
+    ----<br>
+    [1]
+<a class=3D"moz-txt-link-freetext" href=3D"https://www.phoronix.com/forum=
+s/forum/linux-graphics-x-org-drivers/open-source-amd-linux/889794-amd-sta=
+ging-4-6-for-fedora-24-amdgpu/page6?_=3D1472604363785">https://www.phoron=
+ix.com/forums/forum/linux-graphics-x-org-drivers/open-source-amd-linux/88=
+9794-amd-staging-4-6-for-fedora-24-amdgpu/page6?_=3D1472604363785</a><br>=
+
+    <pre class=3D"moz-signature" cols=3D"72">
+
+--=20
+Luya Tshimbalanga
+Graphic &amp; Web Designer
+E: <a class=3D"moz-txt-link-abbreviated" href=3D"mailto:luya@fedoraprojec=
+t.org">luya-rxtnV0ftBwyoClj4AeEUq9i2O/JbrIOy@public.gmane.org</a>
+W: <a class=3D"moz-txt-link-freetext" href=3D"http://www.coolest-storm.ne=
+t">http://www.coolest-storm.net</a>
+</pre>
+  </body>
+</html>
+
+--------------EB947BC3BAA6D31907C8CDA6--
+
+--vQ2XaevGc1t0Pb77ChCwkKQSBotb4r8UO--
+
+--IDqf5EULmqI2FH4IxKeol2AimEaFJLBi8
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQEcBAEBCAAGBQJXxxkXAAoJEF5SgXTYomCaQdoH/1IcOvNqzPy2ZSzri6LTiwWk
+R8F8iovIJrgjq0KGg0gVRW8QRLwMdQfGzcrhIfjtQrNK1CTZVNXhH8DA7PJQapNp
+6UzeG5FvtbNaondm9nYaLzX8Dea9sbu6/uj/SF7NES2z81lwde2eb3mWP+MnWShr
+0SoS47HVAfgD1PXCGJ0LTqVNyrXUK2eictCpttt89nexb0lG6IjHXobdwZYG++JW
+BwTOHenhSRWda+N1I6FLlP7gp/Cdw32+8+qOBtwx6m4jbVqxeAPJoWcz7gKHtWXT
+uWsCtws2IwLvsY2MQwlMV5FDKKJVk//+7B0kQaqL9dAQethpLnGzXRj5MavWmi8=
+=oHkf
+-----END PGP SIGNATURE-----
+
+--IDqf5EULmqI2FH4IxKeol2AimEaFJLBi8--
+
+--===============0818750841==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0818750841==--
