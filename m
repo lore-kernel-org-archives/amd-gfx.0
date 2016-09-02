@@ -1,15 +1,13 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amdgpu: prevent command submission failures under
- memory pressure
-Date: Fri, 2 Sep 2016 09:38:17 +0200
-Message-ID: <201fce63-7708-ef92-5ec0-9dae006f2367@vodafone.de>
-References: <1472739370-6579-1-git-send-email-deathsimple@vodafone.de>
- <1472739370-6579-2-git-send-email-deathsimple@vodafone.de>
- <MWHPR12MB16940502B576609723CEDD53F7E20@MWHPR12MB1694.namprd12.prod.outlook.com>
+From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: [PATCH xf86-video-ati 2/4] Move up radeon_scanout_extents_intersect
+Date: Fri,  2 Sep 2016 19:03:29 +0900
+Message-ID: <20160902100331.7545-2-michel@daenzer.net>
+References: <20160902100331.7545-1-michel@daenzer.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1983323135=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MWHPR12MB16940502B576609723CEDD53F7E20-Gy0DoCVfaSW4WA4dJ5YXGAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <20160902100331.7545-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,88 +18,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Olsak, Marek" <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This is a multi-part message in MIME format.
---===============1983323135==
-Content-Type: multipart/alternative;
- boundary="------------E65FD6C71082B18D511F22D5"
-
-This is a multi-part message in MIME format.
---------------E65FD6C71082B18D511F22D5
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-Am 01.09.2016 um 16:33 schrieb Deucher, Alexander:
->> >return r; > + > + return -ENOMEM; > +} 
-> Unreachable code. Other than that looks good.
-
-Ups, indeed just a merge error.
-
-> With that fixed: Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Thanks for the review, I've just pushed the resulting patches to 
-amd-staging-4.6.
-
-Marek you might want to try and raise the limits now how much VRAM can 
-be used by a single command submission. If I remember correctly that was 
-rather conservatively.
-
-Regards,
-Christian.
-
---------------E65FD6C71082B18D511F22D5
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 7bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body bgcolor="#FFFFFF" text="#000000">
-    <div class="moz-cite-prefix">Am 01.09.2016 um 16:33 schrieb Deucher,
-      Alexander:<br>
-    </div>
-    <blockquote
-cite="mid:MWHPR12MB16940502B576609723CEDD53F7E20-Gy0DoCVfaSW4WA4dJ5YXGAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org"
-      type="cite">
-      <blockquote type="cite" style="color: #000000;"><span
-          class="moz-txt-citetags">&gt; </span> return r;
-        <span class="moz-txt-citetags">&gt; </span>+
-        <span class="moz-txt-citetags">&gt; </span>+ return -ENOMEM;
-        <span class="moz-txt-citetags">&gt; </span>+}
-      </blockquote>
-      Unreachable code. Other than that looks good.</blockquote>
-    <br>
-    Ups, indeed just a merge error.<br>
-    <br>
-    <blockquote
-cite="mid:MWHPR12MB16940502B576609723CEDD53F7E20-Gy0DoCVfaSW4WA4dJ5YXGAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org"
-      type="cite"> With that fixed:
-      Reviewed-by: Alex Deucher <a moz-do-not-send="true"
-        class="moz-txt-link-rfc2396E"
-        href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">&lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;</a></blockquote>
-    Thanks for the review, I've just pushed the resulting patches to
-    amd-staging-4.6.<br>
-    <br>
-    Marek you might want to try and raise the limits now how much VRAM
-    can be used by a single command submission. If I remember correctly
-    that was rather conservatively.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-  </body>
-</html>
-
---------------E65FD6C71082B18D511F22D5--
-
---===============1983323135==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1983323135==--
+RnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+CgpXaWxsIGJlIG5l
+ZWRlZCBoaWdoZXIgdXAgYnkgdGhlIGZvbGxvd2luZyBjaGFuZ2VzLiBObyBmdW5jdGlvbmFsIGNo
+YW5nZS4KClNpZ25lZC1vZmYtYnk6IE1pY2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQu
+Y29tPgotLS0KIHNyYy9yYWRlb25fa21zLmMgfCA0MiArKysrKysrKysrKysrKysrKysrKystLS0t
+LS0tLS0tLS0tLS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCAyMSBpbnNlcnRpb25zKCspLCAyMSBk
+ZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9zcmMvcmFkZW9uX2ttcy5jIGIvc3JjL3JhZGVvbl9r
+bXMuYwppbmRleCA3MTczYjc3Li41NjhjNDllIDEwMDY0NAotLS0gYS9zcmMvcmFkZW9uX2ttcy5j
+CisrKyBiL3NyYy9yYWRlb25fa21zLmMKQEAgLTM4MSw2ICszODEsMjcgQEAgc3RhdGljIEJvb2wg
+UkFERU9OQ3JlYXRlU2NyZWVuUmVzb3VyY2VzX0tNUyhTY3JlZW5QdHIgcFNjcmVlbikKICAgICBy
+ZXR1cm4gVFJVRTsKIH0KIAorc3RhdGljIEJvb2wKK3JhZGVvbl9zY2Fub3V0X2V4dGVudHNfaW50
+ZXJzZWN0KHhmODZDcnRjUHRyIHhmODZfY3J0YywgQm94UHRyIGV4dGVudHMsIGludCB3LAorCQkJ
+CSBpbnQgaCkKK3sKKyAgICBleHRlbnRzLT54MSA9IG1heChleHRlbnRzLT54MSAtIHhmODZfY3J0
+Yy0+eCwgMCk7CisgICAgZXh0ZW50cy0+eTEgPSBtYXgoZXh0ZW50cy0+eTEgLSB4Zjg2X2NydGMt
+PnksIDApOworCisgICAgc3dpdGNoICh4Zjg2X2NydGMtPnJvdGF0aW9uICYgMHhmKSB7CisgICAg
+Y2FzZSBSUl9Sb3RhdGVfOTA6CisgICAgY2FzZSBSUl9Sb3RhdGVfMjcwOgorCWV4dGVudHMtPngy
+ID0gbWluKGV4dGVudHMtPngyIC0geGY4Nl9jcnRjLT54LCBoKTsKKwlleHRlbnRzLT55MiA9IG1p
+bihleHRlbnRzLT55MiAtIHhmODZfY3J0Yy0+eSwgdyk7CisJYnJlYWs7CisgICAgZGVmYXVsdDoK
+KwlleHRlbnRzLT54MiA9IG1pbihleHRlbnRzLT54MiAtIHhmODZfY3J0Yy0+eCwgdyk7CisJZXh0
+ZW50cy0+eTIgPSBtaW4oZXh0ZW50cy0+eTIgLSB4Zjg2X2NydGMtPnksIGgpOworICAgIH0KKwor
+ICAgIHJldHVybiAoZXh0ZW50cy0+eDEgPCBleHRlbnRzLT54MiAmJiBleHRlbnRzLT55MSA8IGV4
+dGVudHMtPnkyKTsKK30KKwogI2lmZGVmIFJBREVPTl9QSVhNQVBfU0hBUklORwogCiBzdGF0aWMg
+UmVnaW9uUHRyCkBAIC02MzYsMjcgKzY1Nyw2IEBAIHJhZGVvbl9kaXJ0eV91cGRhdGUoU2Nybklu
+Zm9QdHIgc2NybikKICNlbmRpZgogCiBzdGF0aWMgQm9vbAotcmFkZW9uX3NjYW5vdXRfZXh0ZW50
+c19pbnRlcnNlY3QoeGY4NkNydGNQdHIgeGY4Nl9jcnRjLCBCb3hQdHIgZXh0ZW50cywgaW50IHcs
+Ci0JCQkJIGludCBoKQotewotICAgIGV4dGVudHMtPngxID0gbWF4KGV4dGVudHMtPngxIC0geGY4
+Nl9jcnRjLT54LCAwKTsKLSAgICBleHRlbnRzLT55MSA9IG1heChleHRlbnRzLT55MSAtIHhmODZf
+Y3J0Yy0+eSwgMCk7Ci0KLSAgICBzd2l0Y2ggKHhmODZfY3J0Yy0+cm90YXRpb24gJiAweGYpIHsK
+LSAgICBjYXNlIFJSX1JvdGF0ZV85MDoKLSAgICBjYXNlIFJSX1JvdGF0ZV8yNzA6Ci0JZXh0ZW50
+cy0+eDIgPSBtaW4oZXh0ZW50cy0+eDIgLSB4Zjg2X2NydGMtPngsIGgpOwotCWV4dGVudHMtPnky
+ID0gbWluKGV4dGVudHMtPnkyIC0geGY4Nl9jcnRjLT55LCB3KTsKLQlicmVhazsKLSAgICBkZWZh
+dWx0OgotCWV4dGVudHMtPngyID0gbWluKGV4dGVudHMtPngyIC0geGY4Nl9jcnRjLT54LCB3KTsK
+LQlleHRlbnRzLT55MiA9IG1pbihleHRlbnRzLT55MiAtIHhmODZfY3J0Yy0+eSwgaCk7Ci0gICAg
+fQotCi0gICAgcmV0dXJuIChleHRlbnRzLT54MSA8IGV4dGVudHMtPngyICYmIGV4dGVudHMtPnkx
+IDwgZXh0ZW50cy0+eTIpOwotfQotCi1zdGF0aWMgQm9vbAogcmFkZW9uX3NjYW5vdXRfZG9fdXBk
+YXRlKHhmODZDcnRjUHRyIHhmODZfY3J0YywgaW50IHNjYW5vdXRfaWQpCiB7CiAgICAgZHJtbW9k
+ZV9jcnRjX3ByaXZhdGVfcHRyIGRybW1vZGVfY3J0YyA9IHhmODZfY3J0Yy0+ZHJpdmVyX3ByaXZh
+dGU7Ci0tIAoyLjkuMwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
