@@ -1,15 +1,12 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH 01/10] drm/amdgpu: handle runtime pm in drm pre/post close
-Date: Fri, 2 Sep 2016 10:50:07 +0900
-Message-ID: <6bde1aba-2a93-b74b-a010-dd6d89da78e1@daenzer.net>
-References: <1472681336-30106-1-git-send-email-alexander.deucher@amd.com>
- <6648435f-d52e-e4d3-55f4-df1837b3b8a8@daenzer.net>
- <CADnq5_N3e=xLhziKFKJog9vodd-=0sG4o2xW+kqU9ck+jFtMYA@mail.gmail.com>
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu/gfx6: drop some dead code
+Date: Fri, 2 Sep 2016 13:17:26 +1000
+Message-ID: <cff37221-8b5f-e2d2-f0f2-ef76d1a14fea@folklore1984.net>
+References: <1472753496-8114-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1785050999=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_N3e=xLhziKFKJog9vodd-=0sG4o2xW+kqU9ck+jFtMYA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <1472753496-8114-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,36 +17,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-T24gMDIvMDkvMTYgMDU6MzggQU0sIEFsZXggRGV1Y2hlciB3cm90ZToKPiBPbiBXZWQsIEF1ZyAz
-MSwgMjAxNiBhdCA5OjAzIFBNLCBNaWNoZWwgRMOkbnplciA8bWljaGVsQGRhZW56ZXIubmV0PiB3
-cm90ZToKPj4gT24gMDEvMDkvMTYgMDc6MDggQU0sIEFsZXggRGV1Y2hlciB3cm90ZToKPj4+IENs
-b3NlIHdhcyBub3QgaGFuZGxlZCBjb3JyZWN0bHkuCj4+Pgo+Pj4gU2lnbmVkLW9mZi1ieTogQWxl
-eCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+Pj4gLS0tCj4+PiAgZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jIHwgNCArKysrCj4+PiAgMSBmaWxlIGNo
-YW5nZWQsIDQgaW5zZXJ0aW9ucygrKQo+Pj4KPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfa21zLmMKPj4+IGluZGV4IGYxYjllMGYuLjQ1Zjk4YjQgMTAwNjQ0Cj4+PiAtLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMKPj4+ICsrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYwo+Pj4gQEAgLTYwMCw2ICs2MDAsOSBAQCB2
-b2lkIGFtZGdwdV9kcml2ZXJfcG9zdGNsb3NlX2ttcyhzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LAo+
-Pj4KPj4+ICAgICAgIGtmcmVlKGZwcml2KTsKPj4+ICAgICAgIGZpbGVfcHJpdi0+ZHJpdmVyX3By
-aXYgPSBOVUxMOwo+Pj4gKwo+Pj4gKyAgICAgcG1fcnVudGltZV9tYXJrX2xhc3RfYnVzeShkZXYt
-PmRldik7Cj4+PiArICAgICBwbV9ydW50aW1lX3B1dF9hdXRvc3VzcGVuZChkZXYtPmRldik7Cj4+
-PiAgfQo+Pj4KPj4+ICAvKioKPj4+IEBAIC02MTQsNiArNjE3LDcgQEAgdm9pZCBhbWRncHVfZHJp
-dmVyX3Bvc3RjbG9zZV9rbXMoc3RydWN0IGRybV9kZXZpY2UgKmRldiwKPj4+ICB2b2lkIGFtZGdw
-dV9kcml2ZXJfcHJlY2xvc2Vfa21zKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsCj4+PiAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbGVfcHJpdikKPj4+ICB7
-Cj4+PiArICAgICBwbV9ydW50aW1lX2dldF9zeW5jKGRldi0+ZGV2KTsKPj4+ICB9Cj4+Cj4+IFdo
-YXQgaWYgcG1fcnVudGltZV9nZXRfc3luYyByZXR1cm5zIGFuIGVycm9yPwo+Pgo+PiBTYW1lIGZv
-ciBwYXRjaCA2Lgo+IAo+IEkgZ3Vlc3Mgd2UgY291bGQgcmVwb3J0IGl0LgoKQmFzZWQgb24gdGhl
-IGRpc2N1c3Npb24gb2YgcGF0Y2ggMywgaXQgZG9lc24ndCBzZWVtIG5lY2Vzc2FyeS4gU28gdGhp
-cwpwYXRjaCBhbmQgcGF0Y2ggNiBhcmUKClJldmlld2VkLWJ5OiBNaWNoZWwgRMOkbnplciA8bWlj
-aGVsLmRhZW56ZXJAYW1kLmNvbT4KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAg
-ICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpMaWJyZSBzb2Z0d2Fy
-ZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9w
-ZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============1785050999==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="PskcNT7f7ej42FhNH1kLl91oUXgFBnb64"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--PskcNT7f7ej42FhNH1kLl91oUXgFBnb64
+Content-Type: multipart/mixed; boundary="aqXjsggwwvTSjTF2tJsagkG8GofKEBQoa";
+ protected-headers="v1"
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Message-ID: <cff37221-8b5f-e2d2-f0f2-ef76d1a14fea-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu/gfx6: drop some dead code
+References: <1472753496-8114-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1472753496-8114-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+--aqXjsggwwvTSjTF2tJsagkG8GofKEBQoa
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+
+On 09/02/2016 04:11 AM, Alex Deucher wrote:
+> The mqd is only used on CI and newer.
+>=20
+> Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c | 23 -----------------------
+>  1 file changed, 23 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/am=
+d/amdgpu/gfx_v6_0.c
+> index 17a560c..040bc7f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+> @@ -1725,28 +1725,6 @@ static void gfx_v6_0_ring_set_wptr_compute(struc=
+t amdgpu_ring *ring)
+> =20
+>  }
+> =20
+> -
+> -static void gfx_v6_0_cp_compute_fini(struct amdgpu_device *adev)
+> -{
+> -	int i, r;
+> -
+> -	for (i =3D 0; i < adev->gfx.num_compute_rings; i++) {
+> -		struct amdgpu_ring *ring =3D &adev->gfx.compute_ring[i];
+> -
+> -		if (ring->mqd_obj) {
+> -			r =3D amdgpu_bo_reserve(ring->mqd_obj, false);
+> -			if (unlikely(r !=3D 0))
+> -				dev_warn(adev->dev, "(%d) reserve MQD bo failed\n", r);
+> -
+> -			amdgpu_bo_unpin(ring->mqd_obj);
+> -			amdgpu_bo_unreserve(ring->mqd_obj);
+> -
+> -			amdgpu_bo_unref(&ring->mqd_obj);
+> -			ring->mqd_obj =3D NULL;
+> -		}
+> -	}
+> -}
+> -
+>  static int gfx_v6_0_cp_compute_resume(struct amdgpu_device *adev)
+>  {
+>  	struct amdgpu_ring *ring;
+> @@ -2865,7 +2843,6 @@ static int gfx_v6_0_sw_fini(void *handle)
+>  	for (i =3D 0; i < adev->gfx.num_compute_rings; i++)
+>  		amdgpu_ring_fini(&adev->gfx.compute_ring[i]);
+> =20
+> -	gfx_v6_0_cp_compute_fini(adev);
+>  	gfx_v6_0_rlc_fini(adev);
+> =20
+>  	return 0;
+>=20
+
+
+--aqXjsggwwvTSjTF2tJsagkG8GofKEBQoa--
+
+--PskcNT7f7ej42FhNH1kLl91oUXgFBnb64
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJXyO9KAAoJEP4bvbfZuWjbkowP/jcTawzJWm+9EWxSmGiHu6Rv
+NIagsZ5eqh/GIvSme2ZHAyG/X/6KqGO3VQNWUF+RXKYF/HNOXCc/zForm6TYmJzI
+O0hSf6/islBcelvJ2OitMC+5XITL4QwGH74t0KE8i96u6mL7JP093HWqXcSrrW/C
+c6JAPaOYeEkApJptBQoKfzigvpZ8sW9tFFWOIjz1i6l59tOU6ixjCFydxadPC6ml
+kktHA3EhuSchUDnQawX8QdKaVVa65ZjRkJtVgYIWUmq011zQryGCzY/hBqTdpeSW
+VbJnV6kz0yb7OxlA38VHQUTnEgmXnO+zPo+YbqEMaRApWkUMnCsnDQ/VrB8RCceL
+NvVIBmYa/otsbeS+4TvFTC7DRBq/IxUTq2/Ww4T1+CAocurHs+n1rPe9+MURby6A
+XbgUwnP9OyLI9eqY3M04F29LtKFezuDum//szLdiByBPWuJ6p5GYelmY2TD4DOPs
+mTilgJ9tWKmTAJtXX5NQUOf+Q3x9NX8ky53sj9bjSdueVZteR2ACiUmXv9n1IFsq
+CcQu0qSuuYohmDVNmaGZWCksViifpcgIfOqo1VYUZiyL+a661PrZvGVOUTJwHM4f
+JvD0FowZEuGJSixnjaXFStvnZ5PqTfybIn+eiO/CDRjh352Wn4mo83NSu2sWP1Z/
+ZHDHdyox8oYP4Cp+xoUB
+=lbVw
+-----END PGP SIGNATURE-----
+
+--PskcNT7f7ej42FhNH1kLl91oUXgFBnb64--
+
+--===============1785050999==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1785050999==--
