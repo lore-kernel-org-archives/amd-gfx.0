@@ -1,13 +1,17 @@
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH 3/3] drm/amd/amdgpu: Various tidy ups for gfx6
-Date: Fri, 2 Sep 2016 13:22:32 +1000
-Message-ID: <717365b4-0cdd-95a4-9e8c-4b04660844c6@folklore1984.net>
-References: <20160901174447.13037-1-tom.stdenis@amd.com>
- <20160901174447.13037-4-tom.stdenis@amd.com>
+From: "Qu, Jim" <Jim.Qu-5C7GfCeVMHo@public.gmane.org>
+Subject: =?gb2312?B?tPC4tDogW1BBVENIXSBkcm0vYW1kL2FtZGdwdTogUzQgaXNzdWUgZm9yIGFt?=
+ =?gb2312?Q?dgpu?=
+Date: Fri, 2 Sep 2016 07:12:21 +0000
+Message-ID: <BY2PR12MB061442AA7520C92AD431F5C699E50@BY2PR12MB0614.namprd12.prod.outlook.com>
+References: <1472710922-7977-1-git-send-email-Jim.Qu@amd.com>,
+ <CADnq5_NP2Sy7MfwVLkbxMBPxzzX5fhM7PCEt2wuYAVq27y3EQw@mail.gmail.com>,
+ <BY2PR12MB0614D04D489140A6486995D599E50@BY2PR12MB0614.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0448590221=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20160901174447.13037-4-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <BY2PR12MB0614D04D489140A6486995D599E50-K//h7OWB4q5SmL+xRiD5tgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: zh-CN
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,245 +22,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0448590221==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="gABrUkoCiXwIS5VL8RtsDgfuxxc04rxHH"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---gABrUkoCiXwIS5VL8RtsDgfuxxc04rxHH
-Content-Type: multipart/mixed; boundary="JB1MuHO72tT0qTNdXHexC7tlBFipx10Nn";
- protected-headers="v1"
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Message-ID: <717365b4-0cdd-95a4-9e8c-4b04660844c6-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH 3/3] drm/amd/amdgpu: Various tidy ups for gfx6
-References: <20160901174447.13037-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
- <20160901174447.13037-4-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <20160901174447.13037-4-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-
---JB1MuHO72tT0qTNdXHexC7tlBFipx10Nn
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-
-
-On 09/02/2016 03:44 AM, Tom St Denis wrote:
-> Various whitespace and logical simplifications for gfx6.
->=20
-> Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c | 40 +++++----------------------=
---------
->  1 file changed, 5 insertions(+), 35 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/am=
-d/amdgpu/gfx_v6_0.c
-> index 5f508c96496f..63ca77937714 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-> @@ -1211,11 +1211,8 @@ static void gfx_v6_0_gpu_init(struct amdgpu_devi=
-ce *adev)
->  				 SC_EARLYZ_TILE_FIFO_SIZE(adev->gfx.config.sc_earlyz_tile_fifo_siz=
-e)));
-> =20
->  	WREG32(VGT_NUM_INSTANCES, 1);
-> -
->  	WREG32(CP_PERFMON_CNTL, 0);
-> -
->  	WREG32(SQ_CONFIG, 0);
-> -
->  	WREG32(PA_SC_FORCE_EOV_MAX_CNTS, (FORCE_EOV_MAX_CLK_CNT(4095) |
->  					  FORCE_EOV_MAX_REZ_CNT(255)));
-> =20
-> @@ -1240,7 +1237,6 @@ static void gfx_v6_0_gpu_init(struct amdgpu_devic=
-e *adev)
->  	WREG32(PA_CL_ENHANCE, CLIP_VTX_REORDER_ENA | NUM_CLIP_SEQ(3));
-> =20
->  	udelay(50);
-> -
->  }
-> =20
-> =20
-> @@ -1661,21 +1657,14 @@ static int gfx_v6_0_cp_gfx_resume(struct amdgpu=
-_device *adev)
-> =20
->  static u32 gfx_v6_0_ring_get_rptr_gfx(struct amdgpu_ring *ring)
->  {
-> -	u32 rptr;
-> -
-> -	rptr =3D ring->adev->wb.wb[ring->rptr_offs];
-> -
-> -	return rptr;
-> +	return ring->adev->wb.wb[ring->rptr_offs];
->  }
-> =20
->  static u32 gfx_v6_0_ring_get_wptr_gfx(struct amdgpu_ring *ring)
->  {
->  	struct amdgpu_device *adev =3D ring->adev;
-
-Also adev seems to be unused here?
-
-> -	u32 wptr;
-> =20
-> -	wptr =3D RREG32(CP_RB0_WPTR);
-> -
-> -	return wptr;
-> +	return RREG32(CP_RB0_WPTR);
->  }
-> =20
->  static void gfx_v6_0_ring_set_wptr_gfx(struct amdgpu_ring *ring)
-> @@ -1688,9 +1677,7 @@ static void gfx_v6_0_ring_set_wptr_gfx(struct amd=
-gpu_ring *ring)
-> =20
->  static u32 gfx_v6_0_ring_get_rptr_compute(struct amdgpu_ring *ring)
->  {
-> -	u32 rptr =3D ring->adev->wb.wb[ring->rptr_offs];
-> -
-> -	return rptr;
-> +	return ring->adev->wb.wb[ring->rptr_offs];
->  }
-> =20
->  static u32 gfx_v6_0_ring_get_wptr_compute(struct amdgpu_ring *ring)
-> @@ -1770,14 +1757,12 @@ static int gfx_v6_0_cp_compute_resume(struct am=
-dgpu_device *adev)
->  	ring->wptr =3D 0;
->  	WREG32(CP_RB1_WPTR, ring->wptr);
-> =20
-> -
->  	rptr_addr =3D adev->wb.gpu_addr + (ring->rptr_offs * 4);
->  	WREG32(CP_RB1_RPTR_ADDR, lower_32_bits(rptr_addr));
->  	WREG32(CP_RB1_RPTR_ADDR_HI, upper_32_bits(rptr_addr) & 0xFF);
-> =20
->  	mdelay(1);
->  	WREG32(CP_RB1_CNTL, tmp);
-> -
->  	WREG32(CP_RB1_BASE, ring->gpu_addr >> 8);
-> =20
->  	ring =3D &adev->gfx.compute_ring[1];
-> @@ -1797,7 +1782,6 @@ static int gfx_v6_0_cp_compute_resume(struct amdg=
-pu_device *adev)
-> =20
->  	mdelay(1);
->  	WREG32(CP_RB2_CNTL, tmp);
-> -
->  	WREG32(CP_RB2_BASE, ring->gpu_addr >> 8);
-> =20
->  	adev->gfx.compute_ring[0].ready =3D true;
-> @@ -1825,12 +1809,7 @@ static void gfx_v6_0_cp_enable(struct amdgpu_dev=
-ice *adev, bool enable)
-> =20
->  static int gfx_v6_0_cp_load_microcode(struct amdgpu_device *adev)
->  {
-> -	int r;
-> -
-> -	r =3D gfx_v6_0_cp_gfx_load_microcode(adev);
-> -
-> -	return r;
-> -
-> +	return gfx_v6_0_cp_gfx_load_microcode(adev);
->  }
-> =20
->  static void gfx_v6_0_enable_gui_idle_interrupt(struct amdgpu_device *a=
-dev,
-> @@ -2172,7 +2151,6 @@ static void gfx_v6_0_rlc_stop(struct amdgpu_devic=
-e *adev)
->  	WREG32(RLC_CNTL, 0);
-> =20
->  	gfx_v6_0_enable_gui_idle_interrupt(adev, false);
-> -
->  	gfx_v6_0_wait_for_rlc_serdes(adev);
->  }
-> =20
-> @@ -2223,11 +2201,8 @@ static int gfx_v6_0_rlc_resume(struct amdgpu_dev=
-ice *adev)
->  		return -EINVAL;
-> =20
->  	gfx_v6_0_rlc_stop(adev);
-> -
->  	gfx_v6_0_rlc_reset(adev);
-> -
->  	gfx_v6_0_init_pg(adev);
-> -
->  	gfx_v6_0_init_cg(adev);
-> =20
->  	WREG32(RLC_RL_BASE, 0);
-> @@ -2254,7 +2229,6 @@ static int gfx_v6_0_rlc_resume(struct amdgpu_devi=
-ce *adev)
->  	WREG32(RLC_UCODE_ADDR, 0);
-> =20
->  	gfx_v6_0_enable_lbpw(adev, gfx_v6_0_lbpw_supported(adev));
-> -
->  	gfx_v6_0_rlc_start(adev);
-> =20
->  	return 0;
-> @@ -2278,7 +2252,6 @@ static void gfx_v6_0_enable_cgcg(struct amdgpu_de=
-vice *adev, bool enable)
->  		WREG32(RLC_SERDES_WR_CTRL, 0x00b000ff);
-> =20
->  		gfx_v6_0_wait_for_rlc_serdes(adev);
-> -
->  		gfx_v6_0_update_rlc(adev, tmp);
-> =20
->  		WREG32(RLC_SERDES_WR_CTRL, 0x007000ff);
-> @@ -2931,13 +2904,10 @@ static bool gfx_v6_0_is_idle(void *handle)
->  static int gfx_v6_0_wait_for_idle(void *handle)
->  {
->  	unsigned i;
-> -	u32 tmp;
->  	struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
-> =20
->  	for (i =3D 0; i < adev->usec_timeout; i++) {
-> -		tmp =3D RREG32(GRBM_STATUS) & GRBM_STATUS__GUI_ACTIVE_MASK;
-> -
-> -		if (!tmp)
-> +		if (gfx_v6_0_is_idle(handle))
->  			return 0;
->  		udelay(1);
->  	}
->=20
-
-
---JB1MuHO72tT0qTNdXHexC7tlBFipx10Nn--
-
---gABrUkoCiXwIS5VL8RtsDgfuxxc04rxHH
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJXyPB4AAoJEP4bvbfZuWjbybEQANg3qox9/a6szuh6yqOSQvlb
-gi9GLXovg+X/PfTHTn0ccBrjSmIX/HwEFVH42r06JsKw/jr/x9BgQx5JtaIAt62M
-1KmhNj9MXewdwJ5jBptnJUJpImJILVP4vsRIlNTbli0JNnHeOwUzQ2fyBFJb527t
-qDAnDesY/XhmdYZV9uABFxiLcFZiGMEBjBjKKLtR/tX6Yny/+bIh3EG3JlfTvhES
-ucl7uWrOEleziMzDjG6KY6Cxe3p7JXCiu6tD179Z1hb+ZEvysgzqJXyxomdRTaKx
-NZvOLD/8tWvvJYsuYibt4S55fJMLZO1ESUDMeL3vmu4uYJI0v5fLTsaum0k+sUn8
-ncwhVTzpOQnVbrK1N5ZTj8aPhccwT9QM4XRiv1tVuj5qUuB2xLYqc3UKo0sbhBs4
-vDAhVXTS7EyxkUFGXs0VwabLkER5dPvUeaDxDAw3Nj61HApaRx/YRfS/Gs8gLOOI
-KCuMp3htlt1NIQOS5b90+hPws4L3xnnV5fBiy6CqSp8gF2yz+Mp5BFHTYutnXYbT
-ImUG/UbJTe9UjE/QRS7BKakNHRCdKqA7OOgjiPfRjM8SpAxLA8HCg7sDjJPQvoQD
-qPrfk5dgNS2cl0KYC+l+W0JTaqdGh7qrRPzAluwIa6Eod+VvsDIiTQdEwC32+0ma
-jCMYcmCcEPsvWtWmWj1G
-=Wt6h
------END PGP SIGNATURE-----
-
---gABrUkoCiXwIS5VL8RtsDgfuxxc04rxHH--
-
---===============0448590221==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0448590221==--
+SGkgQWxleDoNCg0KVGhlIGF0b21iaW9zIGlzc3VlIHNlZW1zIHRvIGJlIGNhdXNlZCBieSBteSB0
+ZXN0IGRyaXZlci4gYW5kIEkgcmVpbnN0YWxsIGEgY2xlYXIgZHJpdmVyIHdpdGhvdXQgYXRvbWJp
+b3NfZmluaS9pbml0LiBpdCBpcyBPSyBmb3IgUzQuIFNvIHBsZWFzZSBpZ25vcmUgdGhlIGF0b21i
+aW9zX2ZpbmkvaW5pdCBmdW5jdGlvbnMgaW4gdGhlIHBhdGNoLCBJIHdpbGwgZGVsZXRlIHRoZW0g
+aWYgZ2V0IFJCLg0KDQpUaGFua3MNCkppbVF1DQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18NCuWPkeS7tuS6ujogUXUsIEppbQ0K5Y+R6YCB5pe26Ze0OiAyMDE25bm0
+OeaciDLml6UgOTowNzoyNg0K5pS25Lu25Lq6OiBBbGV4IERldWNoZXINCuaKhOmAgTogYW1kLWdm
+eCBsaXN0DQrkuLvpopg6IOetlOWkjTogW1BBVENIXSBkcm0vYW1kL2FtZGdwdTogUzQgaXNzdWUg
+Zm9yIGFtZGdwdQ0KDQpIaSBBbGV4Og0KDQpXZWlyZCwgbGFzdCBkYXksIEkgdXNlZCB0aGUgZmlq
+aSB0byBjaGVjayB0aGUgUzQgaXNzdWUsIHRoZXJlIGFyZSBzb21lIGF0b20gZXJyb3JzLCBidXQg
+aXQgZGlkIG5vdCBvYnNlcnZlZCBpZiBhZGQgYXRvbWJpb3NfZmluaS9pbml0Lg0KdG9kYXksIEkg
+Y2hhbmdlIGFub3RoZXIgZmlqaSBhbmQgIGFsc28gY2hlY2sgdGhlIGlzc3VlIHdpdGggdGhlIHBh
+dGNoIHdoaWNoIGNvbW1lbnQgb3V0IHRoZSBhdG9tYmlvc19maW5pL2luaXQuIGJ1dCBjb3VsZCBu
+b3Qgc2VlIHRoZSBhdG9tYmlvcyBlcnJvci4NCkkgd2lsbCBjb25maXJtIGl0IGFuZCB1cGRhdGUg
+dGhlIHBhdGNoLg0KDQpFcnJvciBsaWtlOg0KDQpbICAgODEuMTY3MjYzXSBbZHJtOmF0b21fb3Bf
+anVtcCBbYW1kZ3B1XV0gKkVSUk9SKiBhdG9tYmlvcyBzdHVjayBpbiBsb29wIGZvciBtb3JlIHRo
+YW4gNXNlY3MgYWJvcnRpbmcNClsgICA4MS4xNjcyNzZdIFtkcm06YW1kZ3B1X2F0b21fZXhlY3V0
+ZV90YWJsZV9sb2NrZWQgW2FtZGdwdV1dICpFUlJPUiogYXRvbWJpb3Mgc3R1Y2sgZXhlY3V0aW5n
+IEQyMDggKGxlbiAyMzksIFdTIDQsIFBTIDApIEAgMHhEMkFCDQpbICAgODEuMTY3Mjg4XSBbZHJt
+OmFtZGdwdV9hdG9tX2V4ZWN1dGVfdGFibGVfbG9ja2VkIFthbWRncHVdXSAqRVJST1IqIGF0b21i
+aW9zIHN0dWNrIGV4ZWN1dGluZyBCNTg2IChsZW4gOTYsIFdTIDAsIFBTIDQpIEAgMHhCNUMyDQpb
+ICAgODEuMTY3Mjk5XSBbZHJtOmFtZGdwdV9hdG9tX2V4ZWN1dGVfdGFibGVfbG9ja2VkIFthbWRn
+cHVdXSAqRVJST1IqIGF0b21iaW9zIHN0dWNrIGV4ZWN1dGluZyBCMTA0IChsZW4gMTgzLCBXUyAw
+LCBQUyA4KSBAIDB4QjFBQw0KDQpUaGFua3MNCkppbVF1DQoNCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18NCuWPkeS7tuS6ujogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2Vz
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4g5Luj6KGoIEFsZXggRGV1Y2hlciA8YWxleGRldWNoZXJA
+Z21haWwuY29tPg0K5Y+R6YCB5pe26Ze0OiAyMDE25bm0OeaciDHml6UgMjE6NDI6NDYNCuaUtuS7
+tuS6ujogUXUsIEppbQ0K5oqE6YCBOiBhbWQtZ2Z4IGxpc3QNCuS4u+mimDogUmU6IFtQQVRDSF0g
+ZHJtL2FtZC9hbWRncHU6IFM0IGlzc3VlIGZvciBhbWRncHUNCg0KT24gVGh1LCBTZXAgMSwgMjAx
+NiBhdCAyOjIyIEFNLCBqaW1xdSA8SmltLlF1QGFtZC5jb20+IHdyb3RlOg0KPiByZXNldCB0aGUg
+YXNpYyBpZiBhZGFwdGVyIGlzIG5vdCBwb3dlcmRvd24gd2hlbiBkb2luZyBmcmVlemUoKQ0KPiB0
+aGF3KCkgYW5kIHJlc3RvcmUoKSwgaW4gb3JkZXIgdG8gZ2V0IGEgdmFsaWQgc3RhdGUgb2YgYWRh
+cHRlci4NCj4NCj4gQ2hhbmdlLUlkOiBJZDJlNDU4N2MwNmI1NTZlYjY1MWFiOTI3N2ZmYzkwM2Y3
+ODBkZWE1Ng0KPiBTaWduZWQtb2ZmLWJ5OiBKaW1RdSA8SmltLlF1QGFtZC5jb20+DQo+IC0tLQ0K
+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIHwgMjMgKysrKysr
+KysrKysrKysrKystLS0tLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
+cnYuYyAgICB8ICA0ICsrLS0NCj4gIDIgZmlsZXMgY2hhbmdlZCwgMTkgaW5zZXJ0aW9ucygrKSwg
+OCBkZWxldGlvbnMoLSkNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9kZXZpY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
+ZXZpY2UuYw0KPiBpbmRleCA1MmNlYzE2Li41ZmM3NmJiZiAxMDA2NDQNCj4gLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYw0KPiBAQCAtMTkzNiw4ICsxOTM2LDE0IEBA
+IGludCBhbWRncHVfZGV2aWNlX3N1c3BlbmQoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgYm9vbCBz
+dXNwZW5kLCBib29sIGZiY29uKQ0KPiAgICAgICAgICAgICAgICAgLyogU2h1dCBkb3duIHRoZSBk
+ZXZpY2UgKi8NCj4gICAgICAgICAgICAgICAgIHBjaV9kaXNhYmxlX2RldmljZShkZXYtPnBkZXYp
+Ow0KPiAgICAgICAgICAgICAgICAgcGNpX3NldF9wb3dlcl9zdGF0ZShkZXYtPnBkZXYsIFBDSV9E
+M2hvdCk7DQo+ICsgICAgICAgfSBlbHNlIHsNCj4gKyAgICAgICAgICAgICAgIHIgPSBhbWRncHVf
+YXNpY19yZXNldChhZGV2KTsNCj4gKyAgICAgICAgICAgICAgIGlmIChyKQ0KPiArICAgICAgICAg
+ICAgICAgICAgICAgICBEUk1fRVJST1IoImFtZGdwdSBhc2ljIHJlc2V0IGZhaWxlZFxuIik7DQo+
+ICAgICAgICAgfQ0KPg0KPiArICAgICAgIGFtZGdwdV9hdG9tYmlvc19maW5pKGFkZXYpOw0KPiAr
+DQoNCldoeSBkbyB5b3UgbmVlZCBhdG9tYmlvc19maW5pKCkgaGVyZT8gIEFsbCBpdCBkb2VzIGl0
+IGZyZWUgdGhlIGRyaXZlcg0KYWxsb2NhdGlvbnMuDQoNCj4gICAgICAgICBpZiAoZmJjb24pIHsN
+Cj4gICAgICAgICAgICAgICAgIGNvbnNvbGVfbG9jaygpOw0KPiAgICAgICAgICAgICAgICAgYW1k
+Z3B1X2ZiZGV2X3NldF9zdXNwZW5kKGFkZXYsIDEpOw0KPiBAQCAtMTk2NSwyMSArMTk3MSwyMyBA
+QCBpbnQgYW1kZ3B1X2RldmljZV9yZXN1bWUoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgYm9vbCBy
+ZXN1bWUsIGJvb2wgZmJjb24pDQo+ICAgICAgICAgaWYgKGRldi0+c3dpdGNoX3Bvd2VyX3N0YXRl
+ID09IERSTV9TV0lUQ0hfUE9XRVJfT0ZGKQ0KPiAgICAgICAgICAgICAgICAgcmV0dXJuIDA7DQo+
+DQo+IC0gICAgICAgaWYgKGZiY29uKSB7DQo+ICsgICAgICAgaWYgKGZiY29uKQ0KPiAgICAgICAg
+ICAgICAgICAgY29uc29sZV9sb2NrKCk7DQo+IC0gICAgICAgfQ0KPiArDQo+ICsgICAgICAgYW1k
+Z3B1X2F0b21iaW9zX2luaXQoYWRldik7DQo+ICsNCg0KU2FtZSBxdWVzdGlvbiBoZXJlLiAgVGhp
+cyBkb2Vzbid0IGFjdHVhbGx5IGNoYW5nZSBhbnkgaHcgc3RhdGUuDQoNCj4gICAgICAgICBpZiAo
+cmVzdW1lKSB7DQo+ICAgICAgICAgICAgICAgICBwY2lfc2V0X3Bvd2VyX3N0YXRlKGRldi0+cGRl
+diwgUENJX0QwKTsNCj4gICAgICAgICAgICAgICAgIHBjaV9yZXN0b3JlX3N0YXRlKGRldi0+cGRl
+dik7DQo+IC0gICAgICAgICAgICAgICBpZiAocGNpX2VuYWJsZV9kZXZpY2UoZGV2LT5wZGV2KSkg
+ew0KPiArICAgICAgICAgICAgICAgaWYgKHIgPSBwY2lfZW5hYmxlX2RldmljZShkZXYtPnBkZXYp
+KSB7DQo+ICAgICAgICAgICAgICAgICAgICAgICAgIGlmIChmYmNvbikNCj4gICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBjb25zb2xlX3VubG9jaygpOw0KPiAtICAgICAgICAgICAgICAg
+ICAgICAgICByZXR1cm4gLTE7DQo+ICsgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiByOw0K
+PiAgICAgICAgICAgICAgICAgfQ0KPiAgICAgICAgIH0NCj4NCj4gICAgICAgICAvKiBwb3N0IGNh
+cmQgKi8NCj4gLSAgICAgICBpZiAoIWFtZGdwdV9jYXJkX3Bvc3RlZChhZGV2KSkNCj4gKyAgICAg
+ICBpZiAoIWFtZGdwdV9jYXJkX3Bvc3RlZChhZGV2KSB8fCAhcmVzdW1lKQ0KPiAgICAgICAgICAg
+ICAgICAgYW1kZ3B1X2F0b21fYXNpY19pbml0KGFkZXYtPm1vZGVfaW5mby5hdG9tX2NvbnRleHQp
+Ow0KPg0KPiAgICAgICAgIHIgPSBhbWRncHVfcmVzdW1lKGFkZXYpOw0KPiBAQCAtMTk5OCw4ICsy
+MDA2LDExIEBAIGludCBhbWRncHVfZGV2aWNlX3Jlc3VtZShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2
+LCBib29sIHJlc3VtZSwgYm9vbCBmYmNvbikNCj4gICAgICAgICB9DQo+DQo+ICAgICAgICAgciA9
+IGFtZGdwdV9sYXRlX2luaXQoYWRldik7DQo+IC0gICAgICAgaWYgKHIpDQo+ICsgICAgICAgaWYg
+KHIpIHsNCj4gKyAgICAgICAgICAgICAgIGlmIChmYmNvbikNCj4gKyAgICAgICAgICAgICAgICAg
+ICAgICAgY29uc29sZV91bmxvY2soKTsNCj4gICAgICAgICAgICAgICAgIHJldHVybiByOw0KPiAr
+ICAgICAgIH0NCj4NCj4gICAgICAgICAvKiBwaW4gY3Vyc29ycyAqLw0KPiAgICAgICAgIGxpc3Rf
+Zm9yX2VhY2hfZW50cnkoY3J0YywgJmRldi0+bW9kZV9jb25maWcuY3J0Y19saXN0LCBoZWFkKSB7
+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMNCj4gaW5kZXggMDY4MTZj
+Zi4uMDI5NDFkYjMgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9kcnYuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2
+LmMNCj4gQEAgLTYwMSw4ICs2MDEsOCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGRldl9wbV9vcHMg
+YW1kZ3B1X3BtX29wcyA9IHsNCj4gICAgICAgICAucmVzdW1lID0gYW1kZ3B1X3Btb3BzX3Jlc3Vt
+ZSwNCj4gICAgICAgICAuZnJlZXplID0gYW1kZ3B1X3Btb3BzX2ZyZWV6ZSwNCj4gICAgICAgICAu
+dGhhdyA9IGFtZGdwdV9wbW9wc190aGF3LA0KPiAtICAgICAgIC5wb3dlcm9mZiA9IGFtZGdwdV9w
+bW9wc19mcmVlemUsDQo+IC0gICAgICAgLnJlc3RvcmUgPSBhbWRncHVfcG1vcHNfcmVzdW1lLA0K
+PiArICAgICAgIC5wb3dlcm9mZiA9IGFtZGdwdV9wbW9wc19zdXNwZW5kLA0KPiArICAgICAgIC5y
+ZXN0b3JlID0gYW1kZ3B1X3Btb3BzX3RoYXcsDQo+ICAgICAgICAgLnJ1bnRpbWVfc3VzcGVuZCA9
+IGFtZGdwdV9wbW9wc19ydW50aW1lX3N1c3BlbmQsDQo+ICAgICAgICAgLnJ1bnRpbWVfcmVzdW1l
+ID0gYW1kZ3B1X3Btb3BzX3J1bnRpbWVfcmVzdW1lLA0KPiAgICAgICAgIC5ydW50aW1lX2lkbGUg
+PSBhbWRncHVfcG1vcHNfcnVudGltZV9pZGxlLA0KPiAtLQ0KPiAxLjkuMQ0KPg0KPiBfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBhbWQtZ2Z4IG1haWxp
+bmcgbGlzdA0KPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBodHRwczovL2xpc3Rz
+LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQphbWQtZ2Z4IG1haWxpbmcgbGlzdA0K
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9hbWQtZ2Z4Cg==
