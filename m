@@ -1,13 +1,11 @@
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/radeon: handle runtime pm in fbcon (v2)
-Date: Sat, 3 Sep 2016 15:07:52 +1000
-Message-ID: <19ade2e9-3fd5-a614-6ec8-a07147444ab1@folklore1984.net>
-References: <1472829513-4539-1-git-send-email-alexander.deucher@amd.com>
- <1472829513-4539-2-git-send-email-alexander.deucher@amd.com>
+From: jimqu <Jim.Qu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH v2] drm/amd/amdgpu: S4 issue for amdgpu
+Date: Sat, 3 Sep 2016 14:56:51 +0800
+Message-ID: <1472885811-5210-1-git-send-email-Jim.Qu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2103268018=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1472829513-4539-2-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,145 +16,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: jimqu <Jim.Qu-5C7GfCeVMHo@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============2103268018==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="KC2vGV5o9s3PuDA5F0DTr1ixTT1QQ3pSF"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---KC2vGV5o9s3PuDA5F0DTr1ixTT1QQ3pSF
-Content-Type: multipart/mixed; boundary="D7AnlD9qlILAWf3cLTVvNhwfbQk41XWdD";
- protected-headers="v1"
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Message-ID: <19ade2e9-3fd5-a614-6ec8-a07147444ab1-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/radeon: handle runtime pm in fbcon (v2)
-References: <1472829513-4539-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
- <1472829513-4539-2-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <1472829513-4539-2-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
---D7AnlD9qlILAWf3cLTVvNhwfbQk41XWdD
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-
-
-On 09/03/2016 01:18 AM, Alex Deucher wrote:
-> Ported from nouveau.
->=20
-> v2: re-enable runtime autosuspend in the error case
->=20
-> Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/radeon/radeon_fb.c | 28 ++++++++++++++++++++++++++++
->  1 file changed, 28 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/radeon/radeon_fb.c b/drivers/gpu/drm/radeo=
-n/radeon_fb.c
-> index 0e3143a..6b2537d 100644
-> --- a/drivers/gpu/drm/radeon/radeon_fb.c
-> +++ b/drivers/gpu/drm/radeon/radeon_fb.c
-> @@ -26,6 +26,7 @@
->  #include <linux/module.h>
->  #include <linux/slab.h>
->  #include <linux/fb.h>
-> +#include <linux/pm_runtime.h>
-> =20
->  #include <drm/drmP.h>
->  #include <drm/drm_crtc.h>
-> @@ -47,8 +48,35 @@ struct radeon_fbdev {
->  	struct radeon_device *rdev;
->  };
-> =20
-> +static int
-> +radeonfb_open(struct fb_info *info, int user)
-> +{
-> +	struct radeon_fbdev *rfbdev =3D info->par;
-> +	struct radeon_device *rdev =3D rfbdev->rdev;
-> +	int ret =3D pm_runtime_get_sync(rdev->ddev->dev);
-> +	if (ret < 0 && ret !=3D -EACCES) {
-> +		pm_runtime_mark_last_busy(rdev->ddev->dev);
-> +		pm_runtime_put_autosuspend(rdev->ddev->dev);
-> +		return ret;
-> +	}
-> +	return 0;
-
-Hi Alex,
-
-Minor question - in the case of (ret =3D=3D -EACCES) is that still regard=
-ed
-as successful in the context of radeonfb_open()'s call?
-
-If it indeed is then,
-
-Acked-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-
-Thanks for your time,
-Edward.
-
-> +}
-> +
-> +static int
-> +radeonfb_release(struct fb_info *info, int user)
-> +{
-> +	struct radeon_fbdev *rfbdev =3D info->par;
-> +	struct radeon_device *rdev =3D rfbdev->rdev;
-> +
-> +	pm_runtime_mark_last_busy(rdev->ddev->dev);
-> +	pm_runtime_put_autosuspend(rdev->ddev->dev);
-> +	return 0;
-> +}
-> +
->  static struct fb_ops radeonfb_ops =3D {
->  	.owner =3D THIS_MODULE,
-> +	.fb_open =3D radeonfb_open,
-> +	.fb_release =3D radeonfb_release,
->  	.fb_check_var =3D drm_fb_helper_check_var,
->  	.fb_set_par =3D drm_fb_helper_set_par,
->  	.fb_fillrect =3D drm_fb_helper_cfb_fillrect,
->=20
-
-
---D7AnlD9qlILAWf3cLTVvNhwfbQk41XWdD--
-
---KC2vGV5o9s3PuDA5F0DTr1ixTT1QQ3pSF
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJXylqoAAoJEP4bvbfZuWjbvUYP/0aNfjiiqK4ccWRzpQbdmiZv
-xD7XDnmrcxYbWYIzdVAySP3QiLOi9kBDaIyS9+JD1dVlg/jQnmg84WJ6KA4slGKu
-wFMKa/Jl34lOrcwaBZxouf4HEyhNd/2+s85DLwsI3JTsAFMnmHR17PctDKkpOS5k
-dpuO65vqev4gk9c89gCH56n8H5s7RXGRM8PNrKmRe2UYQDDMnrrn7yYE5/8xfRMx
-ZwKI/1eI8YqZPIrAH8zLQwYk5QlJI+TV4ZZdIikijG+VGCM99SyaZGMRgFuPOkZk
-co2E9/r2LmBfugkx4+Fg3gbRt+d8YT+gLhjBZaUkL9h6s2aTTjUmHoL/B3O5HKKH
-G1itQYAkFnrCmKGqBH7jHg9iB8pBZuLe4aWN4831XznTi0TCogK/YbFsTVbJKfJr
-z1meAyPX+ykdccU9DF9sY7H2SdRauyUfUWc2riiaUufLF/dhR/nx8+/6e+1iaWDW
-gKiTy0su787gwwwjDqUVxIp/ecJwEhi3C8TFbQTApP8xql5GEtPp8mKrYxmUtNud
-+mDD+waS3S2BEpjN/QA6zx/bnnh1s7/JZeISh61ebMKNPmo5mnDsBRIKuiGUis/K
-if76nIM7ntc4WxzsXLQhv2hi2qw/8ce11R8NnMbVduUZj97iAbUCBSUDh9j5qpw2
-6O4P9GH5YE7VFwiGiH03
-=XDqq
------END PGP SIGNATURE-----
-
---KC2vGV5o9s3PuDA5F0DTr1ixTT1QQ3pSF--
-
---===============2103268018==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============2103268018==--
+cmVzZXQgdGhlIGFzaWMgaWYgYWRhcHRlciBpcyBub3QgcG93ZXJkb3duIHdoZW4gZG9pbmcgZnJl
+ZXplKCkKdGhhdygpIGFuZCByZXN0b3JlKCksIGluIG9yZGVyIHRvIGdldCBhIHZhbGlkIHN0YXRl
+IG9mIGFkYXB0ZXIuCgpDaGFuZ2UtSWQ6IEliYjAzYWIzYzJjZTZlZjNjODNhZmZiZTc2NzMwOGRj
+MjI0NzRmNTYzClNpZ25lZC1vZmYtYnk6IEppbVF1IDxKaW0uUXVAYW1kLmNvbT4KLS0tCiBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCAxOSArKysrKysrKysrKysr
+LS0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgICAgfCAxOCAr
+KysrKysrKysrKysrKysrLS0KIDIgZmlsZXMgY2hhbmdlZCwgMjkgaW5zZXJ0aW9ucygrKSwgOCBk
+ZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMK
+aW5kZXggNjUxMDUxNC4uZjE3ZmM2ZCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2RldmljZS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9kZXZpY2UuYwpAQCAtMTkzNyw2ICsxOTM3LDEwIEBAIGludCBhbWRncHVfZGV2aWNlX3N1
+c3BlbmQoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgYm9vbCBzdXNwZW5kLCBib29sIGZiY29uKQog
+CQkvKiBTaHV0IGRvd24gdGhlIGRldmljZSAqLwogCQlwY2lfZGlzYWJsZV9kZXZpY2UoZGV2LT5w
+ZGV2KTsKIAkJcGNpX3NldF9wb3dlcl9zdGF0ZShkZXYtPnBkZXYsIFBDSV9EM2hvdCk7CisJfSBl
+bHNlIHsKKwkJciA9IGFtZGdwdV9hc2ljX3Jlc2V0KGFkZXYpOworCQlpZiAocikKKwkJCURSTV9F
+UlJPUigiYW1kZ3B1IGFzaWMgcmVzZXQgZmFpbGVkXG4iKTsKIAl9CiAKIAlpZiAoZmJjb24pIHsK
+QEAgLTE5NjcsMjIgKzE5NzEsMjUgQEAgaW50IGFtZGdwdV9kZXZpY2VfcmVzdW1lKHN0cnVjdCBk
+cm1fZGV2aWNlICpkZXYsIGJvb2wgcmVzdW1lLCBib29sIGZiY29uKQogCSAgICBkZXYtPnN3aXRj
+aF9wb3dlcl9zdGF0ZSA9PSBEUk1fU1dJVENIX1BPV0VSX0RZTkFNSUNfT0ZGKQogCQlyZXR1cm4g
+MDsKIAotCWlmIChmYmNvbikgeworCWlmIChmYmNvbikKIAkJY29uc29sZV9sb2NrKCk7Ci0JfQor
+CiAJaWYgKHJlc3VtZSkgewogCQlwY2lfc2V0X3Bvd2VyX3N0YXRlKGRldi0+cGRldiwgUENJX0Qw
+KTsKIAkJcGNpX3Jlc3RvcmVfc3RhdGUoZGV2LT5wZGV2KTsKLQkJaWYgKHBjaV9lbmFibGVfZGV2
+aWNlKGRldi0+cGRldikpIHsKKwkJaWYgKHIgPSBwY2lfZW5hYmxlX2RldmljZShkZXYtPnBkZXYp
+KSB7CiAJCQlpZiAoZmJjb24pCiAJCQkJY29uc29sZV91bmxvY2soKTsKLQkJCXJldHVybiAtMTsK
+KwkJCXJldHVybiByOwogCQl9CiAJfQogCiAJLyogcG9zdCBjYXJkICovCi0JaWYgKCFhbWRncHVf
+Y2FyZF9wb3N0ZWQoYWRldikpCi0JCWFtZGdwdV9hdG9tX2FzaWNfaW5pdChhZGV2LT5tb2RlX2lu
+Zm8uYXRvbV9jb250ZXh0KTsKKwlpZiAoIWFtZGdwdV9jYXJkX3Bvc3RlZChhZGV2KSB8fCAhcmVz
+dW1lKSB7CisJCXIgPSBhbWRncHVfYXRvbV9hc2ljX2luaXQoYWRldi0+bW9kZV9pbmZvLmF0b21f
+Y29udGV4dCk7CisJCWlmIChyKQorCQkJRFJNX0VSUk9SKCJhbWRncHUgYXNpYyBpbml0IGZhaWxl
+ZFxuIik7CisJfQogCiAJciA9IGFtZGdwdV9yZXN1bWUoYWRldik7CiAJaWYgKHIpCmRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKaW5kZXggMjFiOGNkNi4uYzAwZjRhOCAxMDA2
+NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCisrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwpAQCAtNTIwLDYgKzUyMCwyMCBA
+QCBzdGF0aWMgaW50IGFtZGdwdV9wbW9wc190aGF3KHN0cnVjdCBkZXZpY2UgKmRldikKIAlyZXR1
+cm4gYW1kZ3B1X2RldmljZV9yZXN1bWUoZHJtX2RldiwgZmFsc2UsIHRydWUpOwogfQogCitzdGF0
+aWMgaW50IGFtZGdwdV9wbW9wc19wb3dlcm9mZihzdHJ1Y3QgZGV2aWNlICpkZXYpCit7CisJc3Ry
+dWN0IHBjaV9kZXYgKnBkZXYgPSB0b19wY2lfZGV2KGRldik7CisJc3RydWN0IGRybV9kZXZpY2Ug
+KmRybV9kZXYgPSBwY2lfZ2V0X2RydmRhdGEocGRldik7CisJcmV0dXJuIGFtZGdwdV9kZXZpY2Vf
+c3VzcGVuZChkcm1fZGV2LCB0cnVlLCB0cnVlKTsKK30KKworc3RhdGljIGludCBhbWRncHVfcG1v
+cHNfcmVzdG9yZShzdHJ1Y3QgZGV2aWNlICpkZXYpCit7CisJc3RydWN0IHBjaV9kZXYgKnBkZXYg
+PSB0b19wY2lfZGV2KGRldik7CisJc3RydWN0IGRybV9kZXZpY2UgKmRybV9kZXYgPSBwY2lfZ2V0
+X2RydmRhdGEocGRldik7CisJcmV0dXJuIGFtZGdwdV9kZXZpY2VfcmVzdW1lKGRybV9kZXYsIGZh
+bHNlLCB0cnVlKTsKK30KKwogc3RhdGljIGludCBhbWRncHVfcG1vcHNfcnVudGltZV9zdXNwZW5k
+KHN0cnVjdCBkZXZpY2UgKmRldikKIHsKIAlzdHJ1Y3QgcGNpX2RldiAqcGRldiA9IHRvX3BjaV9k
+ZXYoZGV2KTsKQEAgLTYyMiw4ICs2MzYsOCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGRldl9wbV9v
+cHMgYW1kZ3B1X3BtX29wcyA9IHsKIAkucmVzdW1lID0gYW1kZ3B1X3Btb3BzX3Jlc3VtZSwKIAku
+ZnJlZXplID0gYW1kZ3B1X3Btb3BzX2ZyZWV6ZSwKIAkudGhhdyA9IGFtZGdwdV9wbW9wc190aGF3
+LAotCS5wb3dlcm9mZiA9IGFtZGdwdV9wbW9wc19mcmVlemUsCi0JLnJlc3RvcmUgPSBhbWRncHVf
+cG1vcHNfcmVzdW1lLAorCS5wb3dlcm9mZiA9IGFtZGdwdV9wbW9wc19wb3dlcm9mZiwKKwkucmVz
+dG9yZSA9IGFtZGdwdV9wbW9wc19yZXN0b3JlLAogCS5ydW50aW1lX3N1c3BlbmQgPSBhbWRncHVf
+cG1vcHNfcnVudGltZV9zdXNwZW5kLAogCS5ydW50aW1lX3Jlc3VtZSA9IGFtZGdwdV9wbW9wc19y
+dW50aW1lX3Jlc3VtZSwKIAkucnVudGltZV9pZGxlID0gYW1kZ3B1X3Btb3BzX3J1bnRpbWVfaWRs
+ZSwKLS0gCjEuOS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
+dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
