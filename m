@@ -1,11 +1,14 @@
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Trivial powerplay fixup for drm-next-4.9
-Date: Sun,  4 Sep 2016 12:36:18 +1000
-Message-ID: <1472956579-26643-1-git-send-email-funfunctor@folklore1984.net>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH] amd/powerplay: use kmemdup instead of kmalloc + memcpy
+Date: Sun, 4 Sep 2016 14:32:19 +0200
+Message-ID: <1dbcdee3-cac6-7a35-8439-eafaa812dd55@vodafone.de>
+References: <1472956579-26643-1-git-send-email-funfunctor@folklore1984.net>
+ <1472956579-26643-2-git-send-email-funfunctor@folklore1984.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1472956579-26643-2-git-send-email-funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,11 +19,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-QXBwbGllcyBvbiB0b3Agb2YgZHJtLW5leHQtNC45LiBQbGVhc2UgcmV2aWV3LgpLaW5kIFJlZ2Fy
-ZHMsCgpFZHdhcmQgTydDYWxsYWdoYW4gKDEpOgoKICBbUEFUQ0hdIGFtZC9wb3dlcnBsYXk6IHVz
-ZSBrbWVtZHVwIGluc3RlYWQgb2Yga21hbGxvYyArIG1lbWNweQpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2FtZC1nZngK
+QW0gMDQuMDkuMjAxNiB1bSAwNDozNiBzY2hyaWViIEVkd2FyZCBPJ0NhbGxhZ2hhbjoKPiBTYXZl
+IGEgZmV3IGNsb2NrcyBieSByZXBsYWNpbmcgY2FsbHMgdG8ga21hbGxvYyBmb2xsb3dlZCBieSBt
+ZW1jcHkKPiB3aXRoIGEgc2luZ2xlIGNhbGwgdG8ga21lbWR1cC4KPgo+IFNpZ25lZC1vZmYtYnk6
+IEVkd2FyZCBPJ0NhbGxhZ2hhbiA8ZnVuZnVuY3RvckBmb2xrbG9yZTE5ODQubmV0PgoKUmV2aWV3
+ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4uCgo+IC0t
+LQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kX3Bvd2VycGxheS5jIHwgOSAr
+KystLS0tLS0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDYgZGVsZXRpb25z
+KC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kX3Bv
+d2VycGxheS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kX3Bvd2VycGxheS5j
+Cj4gaW5kZXggMmRlMzRhNS4uNWZmMTEyNCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL3Bvd2VycGxheS9hbWRfcG93ZXJwbGF5LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L3Bvd2VycGxheS9hbWRfcG93ZXJwbGF5LmMKPiBAQCAtNzY1LDE1ICs3NjUsMTIgQEAgc3RhdGlj
+IGludCBwcF9kcG1fc2V0X3BwX3RhYmxlKHZvaWQgKmhhbmRsZSwgY29uc3QgY2hhciAqYnVmLCBz
+aXplX3Qgc2l6ZSkKPiAgIAlQUF9DSEVDS19IVyhod21ncik7Cj4gICAKPiAgIAlpZiAoIWh3bWdy
+LT5oYXJkY29kZV9wcF90YWJsZSkgewo+IC0JCWh3bWdyLT5oYXJkY29kZV9wcF90YWJsZSA9Cj4g
+LQkJCQlremFsbG9jKGh3bWdyLT5zb2Z0X3BwX3RhYmxlX3NpemUsIEdGUF9LRVJORUwpOwo+ICsJ
+CWh3bWdyLT5oYXJkY29kZV9wcF90YWJsZSA9IGttZW1kdXAoaHdtZ3ItPnNvZnRfcHBfdGFibGUs
+Cj4gKwkJCQkJCSAgIGh3bWdyLT5zb2Z0X3BwX3RhYmxlX3NpemUsCj4gKwkJCQkJCSAgIEdGUF9L
+RVJORUwpOwo+ICAgCj4gICAJCWlmICghaHdtZ3ItPmhhcmRjb2RlX3BwX3RhYmxlKQo+ICAgCQkJ
+cmV0dXJuIC1FTk9NRU07Cj4gLQo+IC0JCS8qIHRvIGF2b2lkIHBvd2VycGxheSBjcmFzaCB3aGVu
+IGhhcmRjb2RlIHBwdGFibGUgaXMgZW1wdHkgKi8KPiAtCQltZW1jcHkoaHdtZ3ItPmhhcmRjb2Rl
+X3BwX3RhYmxlLCBod21nci0+c29mdF9wcF90YWJsZSwKPiAtCQkJCWh3bWdyLT5zb2Z0X3BwX3Rh
+YmxlX3NpemUpOwo+ICAgCX0KPiAgIAo+ICAgCW1lbWNweShod21nci0+aGFyZGNvZGVfcHBfdGFi
+bGUsIGJ1Ziwgc2l6ZSk7CgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Cg==
