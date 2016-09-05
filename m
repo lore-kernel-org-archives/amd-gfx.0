@@ -1,8 +1,8 @@
 From: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 Subject: [PATCH 2/2] drm/amd/powerplay: fix issue power containment not
  enabled on Tonga.
-Date: Mon, 5 Sep 2016 18:53:56 +0800
-Message-ID: <1473072836-20344-1-git-send-email-Rex.Zhu@amd.com>
+Date: Mon, 5 Sep 2016 19:03:03 +0800
+Message-ID: <1473073383-20446-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
