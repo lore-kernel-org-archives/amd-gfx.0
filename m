@@ -1,15 +1,14 @@
-From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 7/7] drm/amd/amdgpu: Comment out currently unused SI DPM
- struct
-Date: Wed, 7 Sep 2016 14:49:51 +0000
-Message-ID: <CY4PR12MB1768FBB1CC469E0C27182B9FF7F80@CY4PR12MB1768.namprd12.prod.outlook.com>
-References: <20160906161844.21370-1-tom.stdenis@amd.com>
- <20160906161844.21370-8-tom.stdenis@amd.com>,
- <MWHPR12MB16946A5F5069CA4CAE4ABA7BF7F80@MWHPR12MB1694.namprd12.prod.outlook.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu/si: Call amdgpu_ttm_set_active_vram_size from
+ si_dma_start/stop
+Date: Wed, 7 Sep 2016 15:02:38 +0000
+Message-ID: <MWHPR12MB16944E095B98FB7831660499F7F80@MWHPR12MB1694.namprd12.prod.outlook.com>
+References: <20160907025232.5963-1-michel@daenzer.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0911552730=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MWHPR12MB16946A5F5069CA4CAE4ABA7BF7F80-Gy0DoCVfaSW4WA4dJ5YXGAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <20160907025232.5963-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,204 +20,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?utf-8?B?J01pY2hlbCBEw6RuemVyJw==?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0911552730==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB1768FBB1CC469E0C27182B9FF7F80CY4PR12MB1768namp_"
-
---_000_CY4PR12MB1768FBB1CC469E0C27182B9FF7F80CY4PR12MB1768namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Alex,
-
-
-Would love to but unfortunately I don't have a tahiti_le (or any SI) part t=
-o test it on.
-
-
-Cheers,
-
-Tom
-
-
-________________________________
-From: Deucher, Alexander
-Sent: Wednesday, September 7, 2016 10:45
-To: 'Tom St Denis'; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: StDenis, Tom
-Subject: RE: [PATCH 7/7] drm/amd/amdgpu: Comment out currently unused SI DP=
-M struct
-
-> -----Original Message-----
-> From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf
-> Of Tom St Denis
-> Sent: Tuesday, September 06, 2016 12:19 PM
-> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> Cc: StDenis, Tom
-> Subject: [PATCH 7/7] drm/amd/amdgpu: Comment out currently unused SI
-> DPM struct
->
-> The tahiti_le structure is not currently used.  Comment it out
-> to avoid warnings.
->
-> Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-
-Might be worth assigning this on the Tahiti LE boards to see if it helps wi=
-th the Tahiti LE bug.
-
-Alex
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/si_dpm.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/si_dpm.c
-> b/drivers/gpu/drm/amd/amdgpu/si_dpm.c
-> index 7b9debefd64a..92a041755e8e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/si_dpm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/si_dpm.c
-> @@ -340,6 +340,7 @@ static const struct si_dte_data dte_data_tahiti =3D
->        false
->  };
->
-> +#if 0
->  static const struct si_dte_data dte_data_tahiti_le =3D
->  {
->        { 0x1E8480, 0x7A1200, 0x2160EC0, 0x3938700, 0 },
-> @@ -357,6 +358,7 @@ static const struct si_dte_data dte_data_tahiti_le =
-=3D
->        85,
->        true
->  };
-> +#endif
->
->  static const struct si_dte_data dte_data_tahiti_pro =3D
->  {
-> --
-> 2.9.3
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_CY4PR12MB1768FBB1CC469E0C27182B9FF7F80CY4PR12MB1768namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;back=
-ground-color:#FFFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
-<p>Hi Alex,</p>
-<p><br>
-</p>
-<p>Would love to but unfortunately I don't have a tahiti_le (or any SI) par=
-t to test it on.</p>
-<p><br>
-</p>
-<p>Cheers,</p>
-<p>Tom</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Deucher, Alexander<=
-br>
-<b>Sent:</b> Wednesday, September 7, 2016 10:45<br>
-<b>To:</b> 'Tom St Denis'; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> StDenis, Tom<br>
-<b>Subject:</b> RE: [PATCH 7/7] drm/amd/amdgpu: Comment out currently unuse=
-d SI DPM struct</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">&gt; -----Original Message-----<br>
-&gt; From: amd-gfx [<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org=
-">mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>] On Behalf<br>
-&gt; Of Tom St Denis<br>
-&gt; Sent: Tuesday, September 06, 2016 12:19 PM<br>
-&gt; To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; Cc: StDenis, Tom<br>
-&gt; Subject: [PATCH 7/7] drm/amd/amdgpu: Comment out currently unused SI<b=
-r>
-&gt; DPM struct<br>
-&gt; <br>
-&gt; The tahiti_le structure is not currently used.&nbsp; Comment it out<br=
->
-&gt; to avoid warnings.<br>
-&gt; <br>
-&gt; Signed-off-by: Tom St Denis &lt;tom.stdenis-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
-Might be worth assigning this on the Tahiti LE boards to see if it helps wi=
-th the Tahiti LE bug.<br>
-<br>
-Alex<br>
-<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/si_dpm.c | 2 &#43;&#43;<br>
-&gt;&nbsp; 1 file changed, 2 insertions(&#43;)<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/si_dpm.c<br>
-&gt; b/drivers/gpu/drm/amd/amdgpu/si_dpm.c<br>
-&gt; index 7b9debefd64a..92a041755e8e 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/si_dpm.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/si_dpm.c<br>
-&gt; @@ -340,6 &#43;340,7 @@ static const struct si_dte_data dte_data_tahit=
-i =3D<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; false<br>
-&gt;&nbsp; };<br>
-&gt; <br>
-&gt; &#43;#if 0<br>
-&gt;&nbsp; static const struct si_dte_data dte_data_tahiti_le =3D<br>
-&gt;&nbsp; {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; { 0x1E8480, 0x7A1200, 0x2160=
-EC0, 0x3938700, 0 },<br>
-&gt; @@ -357,6 &#43;358,7 @@ static const struct si_dte_data dte_data_tahit=
-i_le =3D<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 85,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; true<br>
-&gt;&nbsp; };<br>
-&gt; &#43;#endif<br>
-&gt; <br>
-&gt;&nbsp; static const struct si_dte_data dte_data_tahiti_pro =3D<br>
-&gt;&nbsp; {<br>
-&gt; --<br>
-&gt; 2.9.3<br>
-&gt; <br>
-&gt; _______________________________________________<br>
-&gt; amd-gfx mailing list<br>
-&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
-ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB1768FBB1CC469E0C27182B9FF7F80CY4PR12MB1768namp_--
-
---===============0911552730==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0911552730==--
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
+LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIE1pY2hl
+bCBEw6RuemVyDQo+IFNlbnQ6IFR1ZXNkYXksIFNlcHRlbWJlciAwNiwgMjAxNiAxMDo1MyBQTQ0K
+PiBUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gU3ViamVjdDogW1BBVENIXSBk
+cm0vYW1kZ3B1L3NpOiBDYWxsIGFtZGdwdV90dG1fc2V0X2FjdGl2ZV92cmFtX3NpemUNCj4gZnJv
+bSBzaV9kbWFfc3RhcnQvc3RvcA0KPiANCj4gRnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5k
+YWVuemVyQGFtZC5jb20+DQo+IA0KPiBXaXRob3V0IHRoaXMsIHdlIHdlcmUgb25seSBldmVyIHVz
+aW5nIHRoZSBmaXJzdCAyNTZNQiBvZiBWUkFNLg0KPiANCj4gQnVnemlsbGE6IGh0dHBzOi8vYnVn
+cy5mcmVlZGVza3RvcC5vcmcvc2hvd19idWcuY2dpP2lkPTk3NTkzDQo+IFRlc3RlZC1ieTogS29u
+c3RhbnRpbiBBLiBMZXBpa2hvdiA8bGFrb3N0aXNAYWx0bGludXgub3JnPg0KPiBUZXN0ZWQtYnk6
+IEFyZWsgUnXFm25pYWsgPGFyZWsucnVzaUBnbWFpbC5jb20+DQo+IFNpZ25lZC1vZmYtYnk6IE1p
+Y2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQuY29tPg0KDQpSZXZpZXdlZC1ieTogQWxl
+eCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0KDQo+IC0tLQ0KPiAgZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvc2lfZG1hLmMgfCA1ICsrKysrDQo+ICAxIGZpbGUgY2hhbmdl
+ZCwgNSBpbnNlcnRpb25zKCspDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvc2lfZG1hLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zaV9kbWEu
+Yw0KPiBpbmRleCAzNzdmNGFlLi5iMGY0MWNjIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9zaV9kbWEuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9zaV9kbWEuYw0KPiBAQCAtMTM3LDYgKzEzNyw4IEBAIHN0YXRpYyB2b2lkIHNpX2RtYV9zdG9w
+KHN0cnVjdCBhbWRncHVfZGV2aWNlDQo+ICphZGV2KQ0KPiAgCQlyYl9jbnRsICY9IH5ETUFfUkJf
+RU5BQkxFOw0KPiAgCQlXUkVHMzIoRE1BX1JCX0NOVEwgKyBzZG1hX29mZnNldHNbaV0sIHJiX2Nu
+dGwpOw0KPiANCj4gKwkJaWYgKGFkZXYtPm1tYW4uYnVmZmVyX2Z1bmNzX3JpbmcgPT0gcmluZykN
+Cj4gKwkJCWFtZGdwdV90dG1fc2V0X2FjdGl2ZV92cmFtX3NpemUoYWRldiwgYWRldi0NCj4gPm1j
+LnZpc2libGVfdnJhbV9zaXplKTsNCj4gIAkJcmluZy0+cmVhZHkgPSBmYWxzZTsNCj4gIAl9DQo+
+ICB9DQo+IEBAIC0xOTgsNiArMjAwLDkgQEAgc3RhdGljIGludCBzaV9kbWFfc3RhcnQoc3RydWN0
+IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+ICAJCQlyaW5nLT5yZWFkeSA9IGZhbHNlOw0KPiAgCQkJ
+cmV0dXJuIHI7DQo+ICAJCX0NCj4gKw0KPiArCQlpZiAoYWRldi0+bW1hbi5idWZmZXJfZnVuY3Nf
+cmluZyA9PSByaW5nKQ0KPiArCQkJYW1kZ3B1X3R0bV9zZXRfYWN0aXZlX3ZyYW1fc2l6ZShhZGV2
+LCBhZGV2LQ0KPiA+bWMucmVhbF92cmFtX3NpemUpOw0KPiAgCX0NCj4gDQo+ICAJcmV0dXJuIDA7
+DQo+IC0tDQo+IDIuOS4zDQo+IA0KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXw0KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPiBhbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZw0KPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
