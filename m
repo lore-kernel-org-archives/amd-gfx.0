@@ -1,96 +1,71 @@
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: Various tidy'ups with SI DMA/DPM/SMC/IH code
-Date: Wed, 7 Sep 2016 12:19:45 +1000
-Message-ID: <60d3aadc-8804-1e33-df98-45f92ad12d98@folklore1984.net>
-References: <20160906161844.21370-1-tom.stdenis@amd.com>
+From: Huang Rui <ray.huang@amd.com>
+Subject: Re: [PATCH] drm: modify drm_global_item_ref to avoid two times of
+ writing ref->object
+Date: Wed, 7 Sep 2016 10:40:21 +0800
+Message-ID: <20160907024021.GA9211@hr-amur2>
+References: <1473058800-2964-1-git-send-email-ray.huang@amd.com>
+ <CAOw6vbKxmKmdJrMytkbTvkK7XFQmOgVuswOF-FV8QtwtuHLdTw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0865778798=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20160906161844.21370-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0865778798==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="vFdi4JGxh007BTKIjHB2P1WRlLiN4oAof"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---vFdi4JGxh007BTKIjHB2P1WRlLiN4oAof
-Content-Type: multipart/mixed; boundary="PLPTi0Wsss8EnSMV9quoqv22wRQpSqeXU";
- protected-headers="v1"
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Message-ID: <60d3aadc-8804-1e33-df98-45f92ad12d98-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: Various tidy'ups with SI DMA/DPM/SMC/IH code
-References: <20160906161844.21370-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <20160906161844.21370-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-
---PLPTi0Wsss8EnSMV9quoqv22wRQpSqeXU
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-Patches 1-6 are,
-Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Patch 7 is,
-Acked-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-
-On 09/07/2016 02:18 AM, Tom St Denis wrote:
-> Various cleanups including simplifications, LOC reductions
-> and whitespace corrections.
->=20
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->=20
-
-
---PLPTi0Wsss8EnSMV9quoqv22wRQpSqeXU--
-
---vFdi4JGxh007BTKIjHB2P1WRlLiN4oAof
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJXz3lBAAoJEP4bvbfZuWjbeWoP/AlYgpq8i6eadtN7pobp0ba1
-mEEtiwHqcX4IyZlcdAi3SVAlyikpoR6yBHk4XVkvU3Hgr8Z5BcUT/oMfyZt4tz2Q
-3x7DNyb6C0UPoaBEL++Ap8eOeQzapWuE6OJeGKt1aclMYjVuuxkmmK23RXLCJVLS
-jGedR9BhahinBlrP5gelU4xJT5KKEKK4dUZekaNSl0olNTfzVvLGt9nNBWvxwEXb
-wnr/Bm7B6a3YEwYolpmRka10kaqDGCfETcC/Dmdcqxi5RKWq24iRZRix7Y/9nb8Q
-Iydm5Zp1Ajs7Xi6R2PgQqyqxF7nXPwjEOEtO9v5bm51WrTTGCCTCRewv1bkBEysH
-VNkFOanw6pSsjRYzBNAvjZlsSHWFncxlVagA+Vjp9CH6s7dgBcFMDm64IsmrBHps
-8Ejfm+1MaIzhrXMjzBTDnJC6tJQz7np5O5ObhU6A9KJw+uzNtAySC0FAahD8LvVC
-3v6mqRc9NnjYHfjUuJLe2eYO7A5sc3fWRI5PT3jofw3tnkudSisW9jvhYNlcIQ51
-pwrZcslZnSSw/jZJIWmNj1witT0TFRxfpggsfnUiZepuo372ObvPk9/v/2snujLq
-Wu1mG97+jWelxaiZYJXSgr1AsRSeH25HdgQjVJEseNR7jRK4r83/XhNFeUeJA5/U
-1V5VC4bMzMas16eCrleT
-=O6h0
------END PGP SIGNATURE-----
-
---vFdi4JGxh007BTKIjHB2P1WRlLiN4oAof--
-
---===============0865778798==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
 Content-Disposition: inline
+In-Reply-To: <CAOw6vbKxmKmdJrMytkbTvkK7XFQmOgVuswOF-FV8QtwtuHLdTw@mail.gmail.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Sean Paul <seanpaul@chromium.org>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, dri-devel <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Wang, Ken" <Ken.Wang@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0865778798==--
+T24gVHVlLCBTZXAgMDYsIDIwMTYgYXQgMTA6MzM6MThQTSArMDgwMCwgU2VhbiBQYXVsIHdyb3Rl
+Ogo+IE9uIE1vbiwgU2VwIDUsIDIwMTYgYXQgMzowMCBBTSwgSHVhbmcgUnVpIDxyYXkuaHVhbmdA
+YW1kLmNvbT4gd3JvdGU6Cj4gPiBJbiBwcmV2aW91cyBkcm1fZ2xvYmFsX2l0ZW1fcmVmLCB0aGVy
+ZSBhcmUgdHdvIHRpbWVzIG9mIHdyaXRpbmcKPiA+IHJlZi0+b2JqZWN0IGlmIGl0ZW0tPnJlZmNv
+dW50IGlzIDAuIFNvIHRoaXMgcGF0Y2ggZG9lcyBhIG1pbm9yIHVwZGF0ZQo+ID4gdG8gcHV0IGFs
+bG9jIGFuZCBpbml0IHJlZiBmaXJzdGx5LCBhbmQgdGhlbiB0byBtb2RpZnkgdGhlIGl0ZW0gb2Yg
+Z2xvYgo+ID4gYXJyYXkuIFVzZSAiZWxzZSIgdG8gYXZvaWQgdHdvIHRpbWVzIG9mIHdyaXRpbmcg
+cmVmLT5vYmplY3QuIEl0IGNhbgo+ID4gbWFrZSB0aGUgY29kZSBsb2dpYyBtb3JlIGNsZWFybHku
+Cj4gPgo+ID4gU2lnbmVkLW9mZi1ieTogSHVhbmcgUnVpIDxyYXkuaHVhbmdAYW1kLmNvbT4KPiA+
+IC0tLQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9kcm1fZ2xvYmFsLmMgfCAxNCArKysrKysrLS0tLS0t
+LQo+ID4gIDEgZmlsZSBjaGFuZ2VkLCA3IGluc2VydGlvbnMoKyksIDcgZGVsZXRpb25zKC0pCj4g
+Pgo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fZ2xvYmFsLmMgYi9kcml2ZXJz
+L2dwdS9kcm0vZHJtX2dsb2JhbC5jCj4gPiBpbmRleCAzZDJlOTFjLi4zYWJlNzM4IDEwMDY0NAo+
+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2RybV9nbG9iYWwuYwo+ID4gKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2RybV9nbG9iYWwuYwo+ID4gQEAgLTcwLDI1ICs3MCwyNSBAQCBpbnQgZHJtX2dsb2Jh
+bF9pdGVtX3JlZihzdHJ1Y3QgZHJtX2dsb2JhbF9yZWZlcmVuY2UgKnJlZikKPiA+Cj4gPiAgICAg
+ICAgIG11dGV4X2xvY2soJml0ZW0tPm11dGV4KTsKPiA+ICAgICAgICAgaWYgKGl0ZW0tPnJlZmNv
+dW50ID09IDApIHsKPiA+IC0gICAgICAgICAgICAgICBpdGVtLT5vYmplY3QgPSBremFsbG9jKHJl
+Zi0+c2l6ZSwgR0ZQX0tFUk5FTCk7Cj4gPiAtICAgICAgICAgICAgICAgaWYgKHVubGlrZWx5KGl0
+ZW0tPm9iamVjdCA9PSBOVUxMKSkgewo+ID4gKyAgICAgICAgICAgICAgIHJlZi0+b2JqZWN0ID0g
+a3phbGxvYyhyZWYtPnNpemUsIEdGUF9LRVJORUwpOwo+ID4gKyAgICAgICAgICAgICAgIGlmICh1
+bmxpa2VseShyZWYtPm9iamVjdCA9PSBOVUxMKSkgewo+ID4gICAgICAgICAgICAgICAgICAgICAg
+ICAgcmV0ID0gLUVOT01FTTsKPiA+ICAgICAgICAgICAgICAgICAgICAgICAgIGdvdG8gb3V0X2Vy
+cjsKPiA+ICAgICAgICAgICAgICAgICB9Cj4gPiAtCj4gPiAtICAgICAgICAgICAgICAgcmVmLT5v
+YmplY3QgPSBpdGVtLT5vYmplY3Q7Cj4gPiAgICAgICAgICAgICAgICAgcmV0ID0gcmVmLT5pbml0
+KHJlZik7Cj4gPiAgICAgICAgICAgICAgICAgaWYgKHVubGlrZWx5KHJldCAhPSAwKSkKPiA+ICAg
+ICAgICAgICAgICAgICAgICAgICAgIGdvdG8gb3V0X2VycjsKPiA+Cj4gPiAtICAgICAgIH0KPiA+
+ICsgICAgICAgICAgICAgICBpdGVtLT5vYmplY3QgPSByZWYtPm9iamVjdDsKPiA+ICsgICAgICAg
+fSBlbHNlCj4gPiArICAgICAgICAgICAgICAgcmVmLT5vYmplY3QgPSBpdGVtLT5vYmplY3Q7Cj4g
+PiArCj4gCj4gWW91IHNob3VsZCBhZGQgdGhlIGJyYWNlcyB0byBhbGwgYmxvY2tzIGlmIHRoZXkn
+cmUgcHJlc2VudCBpbiBhbnkgYmxvY2suCj4gCj4gPiAgICAgICAgICsraXRlbS0+cmVmY291bnQ7
+Cj4gPiAtICAgICAgIHJlZi0+b2JqZWN0ID0gaXRlbS0+b2JqZWN0Owo+ID4gICAgICAgICBtdXRl
+eF91bmxvY2soJml0ZW0tPm11dGV4KTsKPiA+ICAgICAgICAgcmV0dXJuIDA7Cj4gPiAgb3V0X2Vy
+cjoKPiA+ICAgICAgICAgbXV0ZXhfdW5sb2NrKCZpdGVtLT5tdXRleCk7Cj4gPiAtICAgICAgIGl0
+ZW0tPm9iamVjdCA9IE5VTEw7Cj4gPiArICAgICAgIHJlZi0+b2JqZWN0ID0gTlVMTDsKPiAKPiBJ
+dCBzZWVtcyBsaWtlIHlvdSdyZSBsZWFraW5nIG1lbW9yeSBoZXJlLiBEbyB5b3UgbmVlZCBhCj4g
+a2ZyZWUocmVmLT5vYmplY3QpIGJlZm9yZSB0aGlzPwoKWWVwLCByaWdodC4gVGhlIG9yaWdpbmFs
+IGNvZGUgc2VlbXMgdG8gbWlzc2VkIGEga2ZyZWUgZXhjZXB0aW9uYWwgaGFuZGxlLgoKPiAKPiBJ
+IHRoaW5rIHBlcmhhcHMgeW91IGNhbiBzaW1wbGlmeSAob3IgbWF5YmUgc3RyZWFtbGluZSBpcyBh
+IGJldHRlcgo+IHdvcmQpIHRoaW5ncyBiZXR0ZXIgYnkgdW5pZnlpbmcgdGhlIHVubG9jayBhbmQg
+cmV0dXJuLiBTb21ldGhpbmcgbGlrZToKPiAKClRoYW5rcywgd2lsbCB1cGRhdGUgaXQgaW4gVjIu
+CgpSdWkKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJp
+LWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
