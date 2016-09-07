@@ -1,14 +1,13 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 2/2] drm/amdgpu: bind GTT on demand
-Date: Wed, 7 Sep 2016 14:32:03 +0000
-Message-ID: <MWHPR12MB16944B1659A1190F791C4F05F7F80@MWHPR12MB1694.namprd12.prod.outlook.com>
-References: <1473154866-2448-1-git-send-email-deathsimple@vodafone.de>
- <1473154866-2448-2-git-send-email-deathsimple@vodafone.de>
+From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/amdgpu: Remove double lock from gfx v6
+Date: Wed, 7 Sep 2016 14:25:52 +0000
+Message-ID: <CY4PR12MB1768F120EDCAA8B6FA762AFBF7F80@CY4PR12MB1768.namprd12.prod.outlook.com>
+References: <20160907120739.17385-1-tom.stdenis@amd.com>,
+ <0b05a9be-a9de-bcf9-5b39-772dbbec5424@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1022016863=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1473154866-2448-2-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <0b05a9be-a9de-bcf9-5b39-772dbbec5424-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,164 +19,237 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?J0NocmlzdGlhbiBLw7ZuaWcn?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?iso-8859-1?Q?Christian_K=F6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
-LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIENocmlz
-dGlhbiBLw7ZuaWcNCj4gU2VudDogVHVlc2RheSwgU2VwdGVtYmVyIDA2LCAyMDE2IDU6NDEgQU0N
-Cj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IFN1YmplY3Q6IFtQQVRDSCAy
-LzJdIGRybS9hbWRncHU6IGJpbmQgR1RUIG9uIGRlbWFuZA0KPiANCj4gRnJvbTogQ2hyaXN0aWFu
-IEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPg0KPiANCj4gV2UgZG9uJ3QgcmVhbGx5
-IG5lZWQgdGhlIEdUVCB0YWJsZSBhbnkgbW9yZSBtb3N0IG9mIHRoZSB0aW1lLiBTbyBiaW5kIGl0
-DQo+IG9ubHkgb24gZGVtYW5kLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5p
-ZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPg0KDQpGb3IgdGhlIHNlcmllczoNClJldmlld2Vk
-LWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQoNCj4gLS0tDQo+
-ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCAgICAgICAgfCAgMSArDQo+ICBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYyAgICAgfCAzNA0KPiArKysrKysr
-KysrKysrKysrKysrKysrKysrKysrLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9vYmplY3QuYyB8ICA3ICsrKysrKw0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3R0bS5jICAgIHwgMzMNCj4gKysrKysrKysrKysrKysrKysrKysrKysrKystLS0NCj4g
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uaCAgICB8ICAzICsrKw0KPiAg
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3V2ZC5jICAgIHwgIDQgKysrKw0KPiAg
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZjZS5jICAgIHwgIDYgKysrKystDQo+
-ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyAgICAgfCAgMyArKy0NCj4g
-IDggZmlsZXMgY2hhbmdlZCwgODQgaW5zZXJ0aW9ucygrKSwgNyBkZWxldGlvbnMoLSkNCj4gDQo+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaA0KPiBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oDQo+IGluZGV4IDlkMzlmYTguLjI4ZDRh
-NjcgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oDQo+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oDQo+IEBAIC0yNTIxLDYg
-KzI1MjEsNyBAQCBzdGF0aWMgaW5saW5lIHZvaWQgYW1kZ3B1X2FjcGlfZmluaShzdHJ1Y3QNCj4g
-YW1kZ3B1X2RldmljZSAqYWRldikgeyB9DQo+ICBzdHJ1Y3QgYW1kZ3B1X2JvX3ZhX21hcHBpbmcg
-Kg0KPiAgYW1kZ3B1X2NzX2ZpbmRfbWFwcGluZyhzdHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcGFy
-c2VyLA0KPiAgCQkgICAgICAgdWludDY0X3QgYWRkciwgc3RydWN0IGFtZGdwdV9ibyAqKmJvKTsN
-Cj4gK2ludCBhbWRncHVfY3Nfc3lzdm1fYWNjZXNzX3JlcXVpcmVkKHN0cnVjdCBhbWRncHVfY3Nf
-cGFyc2VyICpwYXJzZXIpOw0KPiANCj4gICNpZiBkZWZpbmVkKENPTkZJR19EUk1fQU1EX0RBTCkN
-Cj4gIGludCBhbWRncHVfZG1fZGlzcGxheV9yZXN1bWUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
-ZXYgKTsNCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9j
-cy5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMNCj4gaW5kZXgg
-MjBhMTk2Mi4uZTA2OTk3OCAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X2NzLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2NzLmMNCj4gQEAgLTY0MCw4ICs2NDAsMTIgQEAgc3RhdGljIGludCBhbWRncHVfY3NfcGFyc2Vy
-X2JvcyhzdHJ1Y3QNCj4gYW1kZ3B1X2NzX3BhcnNlciAqcCwNCj4gIAkJfQ0KPiAgCX0NCj4gDQo+
-IC0JaWYgKHAtPnVmX2VudHJ5LnJvYmopDQo+IC0JCXAtPmpvYi0+dWZfYWRkciArPSBhbWRncHVf
-Ym9fZ3B1X29mZnNldChwLQ0KPiA+dWZfZW50cnkucm9iaik7DQo+ICsJaWYgKCFyICYmIHAtPnVm
-X2VudHJ5LnJvYmopIHsNCj4gKwkJc3RydWN0IGFtZGdwdV9ibyAqdWYgPSBwLT51Zl9lbnRyeS5y
-b2JqOw0KPiArDQo+ICsJCXIgPSBhbWRncHVfdHRtX2JpbmQodWYtPnRiby50dG0sICZ1Zi0+dGJv
-Lm1lbSk7DQo+ICsJCXAtPmpvYi0+dWZfYWRkciArPSBhbWRncHVfYm9fZ3B1X29mZnNldCh1Zik7
-DQo+ICsJfQ0KPiANCj4gIGVycm9yX3ZhbGlkYXRlOg0KPiAgCWlmIChyKSB7DQo+IEBAIC0xMTU2
-LDMgKzExNjAsMjkgQEAgYW1kZ3B1X2NzX2ZpbmRfbWFwcGluZyhzdHJ1Y3QNCj4gYW1kZ3B1X2Nz
-X3BhcnNlciAqcGFyc2VyLA0KPiANCj4gIAlyZXR1cm4gTlVMTDsNCj4gIH0NCj4gKw0KPiArLyoq
-DQo+ICsgKiBhbWRncHVfY3Nfc3lzdm1fYWNjZXNzX3JlcXVpcmVkIC0gbWFrZSBCT3MgYWNjZXNz
-aWJsZSBieSB0aGUNCj4gc3lzdGVtIFZNDQo+ICsgKg0KPiArICogQHBhcnNlcjogY29tbWFuZCBz
-dWJtaXNzaW9uIHBhcnNlciBjb250ZXh0DQo+ICsgKg0KPiArICogSGVscGVyIGZvciBVVkQvVkNF
-IFZNIGVtdWxhdGlvbiwgbWFrZSBzdXJlIEJPcyBhcmUgYWNjZXNzaWJsZSBieSB0aGUNCj4gc3lz
-dGVtIFZNLg0KPiArICovDQo+ICtpbnQgYW1kZ3B1X2NzX3N5c3ZtX2FjY2Vzc19yZXF1aXJlZChz
-dHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcGFyc2VyKQ0KPiArew0KPiArCXVuc2lnbmVkIGk7DQo+
-ICsJaW50IHI7DQo+ICsNCj4gKwlpZiAoIXBhcnNlci0+Ym9fbGlzdCkNCj4gKwkJcmV0dXJuIDA7
-DQo+ICsNCj4gKwlmb3IgKGkgPSAwOyBpIDwgcGFyc2VyLT5ib19saXN0LT5udW1fZW50cmllczsg
-aSsrKSB7DQo+ICsJCXN0cnVjdCBhbWRncHVfYm8gKmJvID0gcGFyc2VyLT5ib19saXN0LT5hcnJh
-eVtpXS5yb2JqOw0KPiArDQo+ICsJCXIgPSBhbWRncHVfdHRtX2JpbmQoYm8tPnRiby50dG0sICZi
-by0+dGJvLm1lbSk7DQo+ICsJCWlmICh1bmxpa2VseShyKSkNCj4gKwkJCXJldHVybiByOw0KPiAr
-CX0NCj4gKw0KPiArCXJldHVybiAwOw0KPiArfQ0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X29iamVjdC5jDQo+IGluZGV4IGIxNzczNGUuLmRjNzNmMTEgMTAwNjQ0DQo+
-IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYw0KPiArKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMNCj4gQEAgLTY0Niw2
-ICs2NDYsMTEgQEAgaW50IGFtZGdwdV9ib19waW5fcmVzdHJpY3RlZChzdHJ1Y3QgYW1kZ3B1X2Jv
-DQo+ICpibywgdTMyIGRvbWFpbiwNCj4gIAkJZGV2X2Vycihiby0+YWRldi0+ZGV2LCAiJXAgcGlu
-IGZhaWxlZFxuIiwgYm8pOw0KPiAgCQlnb3RvIGVycm9yOw0KPiAgCX0NCj4gKwlyID0gYW1kZ3B1
-X3R0bV9iaW5kKGJvLT50Ym8udHRtLCAmYm8tPnRiby5tZW0pOw0KPiArCWlmICh1bmxpa2VseShy
-KSkgew0KPiArCQlkZXZfZXJyKGJvLT5hZGV2LT5kZXYsICIlcCBiaW5kIGZhaWxlZFxuIiwgYm8p
-Ow0KPiArCQlnb3RvIGVycm9yOw0KPiArCX0NCj4gDQo+ICAJYm8tPnBpbl9jb3VudCA9IDE7DQo+
-ICAJaWYgKGdwdV9hZGRyICE9IE5VTEwpDQo+IEBAIC05MTgsNiArOTIzLDggQEAgdm9pZCBhbWRn
-cHVfYm9fZmVuY2Uoc3RydWN0IGFtZGdwdV9ibyAqYm8sDQo+IHN0cnVjdCBmZW5jZSAqZmVuY2Us
-DQo+ICB1NjQgYW1kZ3B1X2JvX2dwdV9vZmZzZXQoc3RydWN0IGFtZGdwdV9ibyAqYm8pDQo+ICB7
-DQo+ICAJV0FSTl9PTl9PTkNFKGJvLT50Ym8ubWVtLm1lbV90eXBlID09IFRUTV9QTF9TWVNURU0p
-Ow0KPiArCVdBUk5fT05fT05DRShiby0+dGJvLm1lbS5tZW1fdHlwZSA9PSBUVE1fUExfVFQgJiYN
-Cj4gKwkJICAgICAhYW1kZ3B1X3R0bV9pc19ib3VuZChiby0+dGJvLnR0bSkpOw0KPiAgCVdBUk5f
-T05fT05DRSghd3dfbXV0ZXhfaXNfbG9ja2VkKCZiby0+dGJvLnJlc3YtPmxvY2spICYmDQo+ICAJ
-CSAgICAgIWJvLT5waW5fY291bnQpOw0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV90dG0uYw0KPiBpbmRleCA0MzM3YjNhLi5jMjk0YWE5IDEwMDY0NA0KPiAtLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMNCj4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jDQo+IEBAIC0yNTYsOCArMjU2LDEyIEBAIHN0
-YXRpYyBpbnQgYW1kZ3B1X21vdmVfYmxpdChzdHJ1Y3QNCj4gdHRtX2J1ZmZlcl9vYmplY3QgKmJv
-LA0KPiAgCW5ld19zdGFydCA9ICh1NjQpbmV3X21lbS0+c3RhcnQgPDwgUEFHRV9TSElGVDsNCj4g
-DQo+ICAJc3dpdGNoIChvbGRfbWVtLT5tZW1fdHlwZSkgew0KPiAtCWNhc2UgVFRNX1BMX1ZSQU06
-DQo+ICAJY2FzZSBUVE1fUExfVFQ6DQo+ICsJCXIgPSBhbWRncHVfdHRtX2JpbmQoYm8tPnR0bSwg
-b2xkX21lbSk7DQo+ICsJCWlmIChyKQ0KPiArCQkJcmV0dXJuIHI7DQo+ICsNCj4gKwljYXNlIFRU
-TV9QTF9WUkFNOg0KPiAgCQlvbGRfc3RhcnQgKz0gYm8tPmJkZXYtPm1hbltvbGRfbWVtLQ0KPiA+
-bWVtX3R5cGVdLmdwdV9vZmZzZXQ7DQo+ICAJCWJyZWFrOw0KPiAgCWRlZmF1bHQ6DQo+IEBAIC0y
-NjUsOCArMjY5LDEyIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X21vdmVfYmxpdChzdHJ1Y3QNCj4gdHRt
-X2J1ZmZlcl9vYmplY3QgKmJvLA0KPiAgCQlyZXR1cm4gLUVJTlZBTDsNCj4gIAl9DQo+ICAJc3dp
-dGNoIChuZXdfbWVtLT5tZW1fdHlwZSkgew0KPiAtCWNhc2UgVFRNX1BMX1ZSQU06DQo+ICAJY2Fz
-ZSBUVE1fUExfVFQ6DQo+ICsJCXIgPSBhbWRncHVfdHRtX2JpbmQoYm8tPnR0bSwgbmV3X21lbSk7
-DQo+ICsJCWlmIChyKQ0KPiArCQkJcmV0dXJuIHI7DQo+ICsNCj4gKwljYXNlIFRUTV9QTF9WUkFN
-Og0KPiAgCQluZXdfc3RhcnQgKz0gYm8tPmJkZXYtPm1hbltuZXdfbWVtLQ0KPiA+bWVtX3R5cGVd
-LmdwdV9vZmZzZXQ7DQo+ICAJCWJyZWFrOw0KPiAgCWRlZmF1bHQ6DQo+IEBAIC02MzksNyArNjQ3
-LDYgQEAgc3RhdGljIGludCBhbWRncHVfdHRtX2JhY2tlbmRfYmluZChzdHJ1Y3QgdHRtX3R0DQo+
-ICp0dG0sDQo+ICAJCQkJICAgc3RydWN0IHR0bV9tZW1fcmVnICpib19tZW0pDQo+ICB7DQo+ICAJ
-c3RydWN0IGFtZGdwdV90dG1fdHQgKmd0dCA9ICh2b2lkKil0dG07DQo+IC0JdWludDMyX3QgZmxh
-Z3MgPSBhbWRncHVfdHRtX3R0X3B0ZV9mbGFncyhndHQtPmFkZXYsIHR0bSwNCj4gYm9fbWVtKTsN
-Cj4gIAlpbnQgcjsNCj4gDQo+ICAJaWYgKGd0dC0+dXNlcnB0cikgew0KPiBAQCAtNjYwLDYgKzY2
-NywyNiBAQCBzdGF0aWMgaW50IGFtZGdwdV90dG1fYmFja2VuZF9iaW5kKHN0cnVjdCB0dG1fdHQN
-Cj4gKnR0bSwNCj4gIAkgICAgYm9fbWVtLT5tZW1fdHlwZSA9PSBBTURHUFVfUExfT0EpDQo+ICAJ
-CXJldHVybiAtRUlOVkFMOw0KPiANCj4gKwlyZXR1cm4gMDsNCj4gK30NCj4gKw0KPiArYm9vbCBh
-bWRncHVfdHRtX2lzX2JvdW5kKHN0cnVjdCB0dG1fdHQgKnR0bSkNCj4gK3sNCj4gKwlzdHJ1Y3Qg
-YW1kZ3B1X3R0bV90dCAqZ3R0ID0gKHZvaWQgKil0dG07DQo+ICsNCj4gKwlyZXR1cm4gZ3R0ICYm
-ICFsaXN0X2VtcHR5KCZndHQtPmxpc3QpOw0KPiArfQ0KPiArDQo+ICtpbnQgYW1kZ3B1X3R0bV9i
-aW5kKHN0cnVjdCB0dG1fdHQgKnR0bSwgc3RydWN0IHR0bV9tZW1fcmVnICpib19tZW0pDQo+ICt7
-DQo+ICsJc3RydWN0IGFtZGdwdV90dG1fdHQgKmd0dCA9ICh2b2lkICopdHRtOw0KPiArCXVpbnQz
-Ml90IGZsYWdzOw0KPiArCWludCByOw0KPiArDQo+ICsJaWYgKCF0dG0gfHwgYW1kZ3B1X3R0bV9p
-c19ib3VuZCh0dG0pKQ0KPiArCQlyZXR1cm4gMDsNCj4gKw0KPiArCWZsYWdzID0gYW1kZ3B1X3R0
-bV90dF9wdGVfZmxhZ3MoZ3R0LT5hZGV2LCB0dG0sIGJvX21lbSk7DQo+ICAJciA9IGFtZGdwdV9n
-YXJ0X2JpbmQoZ3R0LT5hZGV2LCBndHQtPm9mZnNldCwgdHRtLT5udW1fcGFnZXMsDQo+ICAJCXR0
-bS0+cGFnZXMsIGd0dC0+dHRtLmRtYV9hZGRyZXNzLCBmbGFncyk7DQo+IA0KPiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5oDQo+IGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5oDQo+IGluZGV4IDcyZjZiZmMuLjIxNGJhZTkg
-MTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uaA0K
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmgNCj4gQEAgLTc3
-LDQgKzc3LDcgQEAgaW50IGFtZGdwdV9maWxsX2J1ZmZlcihzdHJ1Y3QgYW1kZ3B1X2JvICpibywN
-Cj4gIAkJCXN0cnVjdCBmZW5jZSAqKmZlbmNlKTsNCj4gDQo+ICBpbnQgYW1kZ3B1X21tYXAoc3Ry
-dWN0IGZpbGUgKmZpbHAsIHN0cnVjdCB2bV9hcmVhX3N0cnVjdCAqdm1hKTsNCj4gK2Jvb2wgYW1k
-Z3B1X3R0bV9pc19ib3VuZChzdHJ1Y3QgdHRtX3R0ICp0dG0pOw0KPiAraW50IGFtZGdwdV90dG1f
-YmluZChzdHJ1Y3QgdHRtX3R0ICp0dG0sIHN0cnVjdCB0dG1fbWVtX3JlZyAqYm9fbWVtKTsNCj4g
-Kw0KPiAgI2VuZGlmDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfdXZkLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdXZkLmMN
-Cj4gaW5kZXggNTg4OGU4YS4uZmFiN2JiMSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3V2ZC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV91dmQuYw0KPiBAQCAtODkxLDYgKzg5MSwxMCBAQCBpbnQgYW1kZ3B1X3V2ZF9y
-aW5nX3BhcnNlX2NzKHN0cnVjdA0KPiBhbWRncHVfY3NfcGFyc2VyICpwYXJzZXIsIHVpbnQzMl90
-IGliX2lkeCkNCj4gIAkJcmV0dXJuIC1FSU5WQUw7DQo+ICAJfQ0KPiANCj4gKwlyID0gYW1kZ3B1
-X2NzX3N5c3ZtX2FjY2Vzc19yZXF1aXJlZChwYXJzZXIpOw0KPiArCWlmIChyKQ0KPiArCQlyZXR1
-cm4gcjsNCj4gKw0KPiAgCWN0eC5wYXJzZXIgPSBwYXJzZXI7DQo+ICAJY3R4LmJ1Zl9zaXplcyA9
-IGJ1Zl9zaXplczsNCj4gIAljdHguaWJfaWR4ID0gaWJfaWR4Ow0KPiBkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZjZS5jDQo+IGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3ZjZS5jDQo+IGluZGV4IDliNzFkNmMuLmIwYzY3MDIgMTAwNjQ0
-DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y2UuYw0KPiArKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmNlLmMNCj4gQEAgLTYzNCw3ICs2
-MzQsMTEgQEAgaW50IGFtZGdwdV92Y2VfcmluZ19wYXJzZV9jcyhzdHJ1Y3QNCj4gYW1kZ3B1X2Nz
-X3BhcnNlciAqcCwgdWludDMyX3QgaWJfaWR4KQ0KPiAgCXVpbnQzMl90IGFsbG9jYXRlZCA9IDA7
-DQo+ICAJdWludDMyX3QgdG1wLCBoYW5kbGUgPSAwOw0KPiAgCXVpbnQzMl90ICpzaXplID0gJnRt
-cDsNCj4gLQlpbnQgaSwgciA9IDAsIGlkeCA9IDA7DQo+ICsJaW50IGksIHIsIGlkeCA9IDA7DQo+
-ICsNCj4gKwlyID0gYW1kZ3B1X2NzX3N5c3ZtX2FjY2Vzc19yZXF1aXJlZChwKTsNCj4gKwlpZiAo
-cikNCj4gKwkJcmV0dXJuIHI7DQo+IA0KPiAgCXdoaWxlIChpZHggPCBpYi0+bGVuZ3RoX2R3KSB7
-DQo+ICAJCXVpbnQzMl90IGxlbiA9IGFtZGdwdV9nZXRfaWJfdmFsdWUocCwgaWJfaWR4LCBpZHgp
-Ow0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMN
-Cj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0KPiBpbmRleCA3NjYw
-ZjgyLi5hNTQ5YWJkIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfdm0uYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0u
-Yw0KPiBAQCAtMTE2Miw3ICsxMTYyLDggQEAgaW50IGFtZGdwdV92bV9ib191cGRhdGUoc3RydWN0
-IGFtZGdwdV9kZXZpY2UNCj4gKmFkZXYsDQo+ICAJfQ0KPiANCj4gIAlmbGFncyA9IGFtZGdwdV90
-dG1fdHRfcHRlX2ZsYWdzKGFkZXYsIGJvX3ZhLT5iby0+dGJvLnR0bSwgbWVtKTsNCj4gLQlndHRf
-ZmxhZ3MgPSAoYWRldiA9PSBib192YS0+Ym8tPmFkZXYpID8gZmxhZ3MgOiAwOw0KPiArCWd0dF9m
-bGFncyA9IChhbWRncHVfdHRtX2lzX2JvdW5kKGJvX3ZhLT5iby0+dGJvLnR0bSkgJiYNCj4gKwkJ
-YWRldiA9PSBib192YS0+Ym8tPmFkZXYpID8gZmxhZ3MgOiAwOw0KPiANCj4gIAlzcGluX2xvY2so
-JnZtLT5zdGF0dXNfbG9jayk7DQo+ICAJaWYgKCFsaXN0X2VtcHR5KCZib192YS0+dm1fc3RhdHVz
-KSkNCj4gLS0NCj4gMi41LjANCj4gDQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fDQo+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnDQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-Cg==
+--===============1022016863==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB1768F120EDCAA8B6FA762AFBF7F80CY4PR12MB1768namp_"
+
+--_000_CY4PR12MB1768F120EDCAA8B6FA762AFBF7F80CY4PR12MB1768namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Thanks, I'll push this today after I get a RB/ACK/NAK on the last two clean=
+ups
+
+
+https://lists.freedesktop.org/archives/amd-gfx/2016-September/002039.html
+
+
+(note: I changed one of the dev_warn to dev_err to match the original messa=
+ge type)
+
+
+and
+
+
+https://lists.freedesktop.org/archives/amd-gfx/2016-September/002042.html
+
+
+Tom
+
+
+________________________________
+From: Christian K=F6nig <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Sent: Wednesday, September 7, 2016 08:33
+To: Tom St Denis; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: StDenis, Tom
+Subject: Re: [PATCH] drm/amd/amdgpu: Remove double lock from gfx v6
+
+Am 07.09.2016 um 14:07 schrieb Tom St Denis:
+> The function gfx_v6_0_get_cu_info() was taking the
+> grbm_idx_mutex which was then taken by a dependent
+> function gfx_v6_0_get_cu_active_bitmap().
+>
+> This patch removes the select from the parent function
+> to avoid the double lock.
+>
+> Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+
+Reviewed-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+
+> ---
+>   drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c | 4 ----
+>   1 file changed, 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v6_0.c
+> index a6b76170b9c5..a1484b8f7eb2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+> @@ -3193,13 +3193,11 @@ static void gfx_v6_0_get_cu_info(struct amdgpu_de=
+vice *adev)
+>
+>        memset(cu_info, 0, sizeof(*cu_info));
+>
+> -     mutex_lock(&adev->grbm_idx_mutex);
+>        for (i =3D 0; i < adev->gfx.config.max_shader_engines; i++) {
+>                for (j =3D 0; j < adev->gfx.config.max_sh_per_se; j++) {
+>                        mask =3D 1;
+>                        ao_bitmap =3D 0;
+>                        counter =3D 0;
+> -                     gfx_v6_0_select_se_sh(adev, i, j, 0xffffffff);
+>                        bitmap =3D gfx_v6_0_get_cu_active_bitmap(adev, i, =
+j);
+>                        cu_info->bitmap[i][j] =3D bitmap;
+>
+> @@ -3215,8 +3213,6 @@ static void gfx_v6_0_get_cu_info(struct amdgpu_devi=
+ce *adev)
+>                        ao_cu_mask |=3D (ao_bitmap << (i * 16 + j * 8));
+>                }
+>        }
+> -     gfx_v6_0_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);
+> -     mutex_unlock(&adev->grbm_idx_mutex);
+>
+>        cu_info->number =3D active_cu_number;
+>        cu_info->ao_cu_mask =3D ao_cu_mask;
+
+
+
+--_000_CY4PR12MB1768F120EDCAA8B6FA762AFBF7F80CY4PR12MB1768namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;back=
+ground-color:#FFFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
+<p>Thanks, I'll push this today after I get a RB/ACK/NAK on the last two cl=
+eanups</p>
+<p><br>
+</p>
+<p><a href=3D"https://lists.freedesktop.org/archives/amd-gfx/2016-September=
+/002039.html" class=3D"OWAAutoLink" id=3D"LPlnk756299">https://lists.freede=
+sktop.org/archives/amd-gfx/2016-September/002039.html</a><br>
+</p>
+<p><br>
+</p>
+<p>(note: I changed one of the dev_warn to dev_err to match the original me=
+ssage type)</p>
+<p><br>
+</p>
+<p>and</p>
+<p><br>
+</p>
+<p><a href=3D"https://lists.freedesktop.org/archives/amd-gfx/2016-September=
+/002042.html" class=3D"OWAAutoLink" id=3D"LPlnk212711">https://lists.freede=
+sktop.org/archives/amd-gfx/2016-September/002042.html</a><br>
+</p>
+<p><br>
+</p>
+<p>Tom</p>
+<br>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Christian K=F6nig &=
+lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;<br>
+<b>Sent:</b> Wednesday, September 7, 2016 08:33<br>
+<b>To:</b> Tom St Denis; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> StDenis, Tom<br>
+<b>Subject:</b> Re: [PATCH] drm/amd/amdgpu: Remove double lock from gfx v6<=
+/font>
+<div>&nbsp;</div>
+</div>
+</div>
+<font size=3D"2"><span style=3D"font-size:10pt;">
+<div class=3D"PlainText">Am 07.09.2016 um 14:07 schrieb Tom St Denis:<br>
+&gt; The function gfx_v6_0_get_cu_info() was taking the<br>
+&gt; grbm_idx_mutex which was then taken by a dependent<br>
+&gt; function gfx_v6_0_get_cu_active_bitmap().<br>
+&gt;<br>
+&gt; This patch removes the select from the parent function<br>
+&gt; to avoid the double lock.<br>
+&gt;<br>
+&gt; Signed-off-by: Tom St Denis &lt;tom.stdenis-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+Reviewed-by: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c | 4 ----<br>
+&gt;&nbsp;&nbsp; 1 file changed, 4 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gfx_v6_0.c<br>
+&gt; index a6b76170b9c5..a1484b8f7eb2 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c<br>
+&gt; @@ -3193,13 &#43;3193,11 @@ static void gfx_v6_0_get_cu_info(struct am=
+dgpu_device *adev)<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memset(cu_info, 0, sizeof(*c=
+u_info));<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;adev-&gt;grbm_idx_mutex);<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; adev-&g=
+t;gfx.config.max_shader_engines; i&#43;&#43;) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; for (j =3D 0; j &lt; adev-&gt;gfx.config.max_sh_per_se;=
+ j&#43;&#43;) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mask =
+=3D 1;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ao_bitm=
+ap =3D 0;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; counter=
+ =3D 0;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx_v6_0_select_se_sh(a=
+dev, i, j, 0xffffffff);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bitmap =
+=3D gfx_v6_0_get_cu_active_bitmap(adev, i, j);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cu_info=
+-&gt;bitmap[i][j] =3D bitmap;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; @@ -3215,8 &#43;3213,6 @@ static void gfx_v6_0_get_cu_info(struct amdg=
+pu_device *adev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ao_cu_m=
+ask |=3D (ao_bitmap &lt;&lt; (i * 16 &#43; j * 8));<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; gfx_v6_0_select_se_sh(adev, 0xffffffff, 0xff=
+ffffff, 0xffffffff);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;adev-&gt;grbm_idx_mutex);<=
+br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cu_info-&gt;number =3D activ=
+e_cu_number;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cu_info-&gt;ao_cu_mask =3D a=
+o_cu_mask;<br>
+<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_CY4PR12MB1768F120EDCAA8B6FA762AFBF7F80CY4PR12MB1768namp_--
+
+--===============1022016863==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1022016863==--
