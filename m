@@ -1,125 +1,156 @@
-From: "Qu, Jim" <Jim.Qu-5C7GfCeVMHo@public.gmane.org>
-Subject: =?gb2312?B?tPC4tDogW1BBVENIIHYyXSBkcm0vYW1kL2FtZGdwdTogUzQgaXNzdWUgZm9y?=
- =?gb2312?Q?_amdgpu?=
-Date: Thu, 8 Sep 2016 08:51:19 +0000
-Message-ID: <BY2PR12MB061459E8F4979DB09440D42B99FB0@BY2PR12MB0614.namprd12.prod.outlook.com>
-References: <1472885811-5210-1-git-send-email-Jim.Qu@amd.com>,
- <MWHPR12MB1694BD707781FE81E77E88C9F7F80@MWHPR12MB1694.namprd12.prod.outlook.com>
+From: Pekka Paalanen <ppaalanen@gmail.com>
+Subject: Re: [PATCH 6/6] drm: Add
+ DRM_MODE_PAGE_FLIP_TARGET_ABSOLUTE/RELATIVE flags v2
+Date: Thu, 8 Sep 2016 12:36:31 +0300
+Message-ID: <20160908123631.721dcab0@eldfell>
+References: <1470281981-18172-7-git-send-email-michel@daenzer.net>
+ <1470641019-3067-1-git-send-email-michel@daenzer.net>
+ <8974b919-6f9c-5912-0d26-f1a526829f83@gmail.com>
+ <8e3f5a2b-0de8-7b0a-b64b-ec298955fe75@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MWHPR12MB1694BD707781FE81E77E88C9F7F80-Gy0DoCVfaSW4WA4dJ5YXGAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: zh-CN
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: multipart/mixed; boundary="===============1474525916=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <8e3f5a2b-0de8-7b0a-b64b-ec298955fe75@daenzer.net>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Michel =?UTF-8?B?RMOkbnplcg==?= <michel@daenzer.net>
+Cc: daniel.stone@collabora.com, Daniel Vetter <daniel.vetter@ffwll.ch>, dri-devel@lists.freedesktop.org, "wayland-devel@lists.freedesktop.org" <wayland-devel@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgQWxleDoNCg0KQWNjb3JkaW5nIHRvIG15IHVuZGVyc3RhbmRpbmcsIGluIG91ciBkcml2ZXIs
-IGFtZGdwdV9kZXZpY2Vfc3VzcGVuZC9yZXN1bWUuIHRoZSBwYXJlbWV0ZXIgJ3N1c3BlbmQnIG9y
-ICdyZXN1bWUnIG1lYW4gdGhlIGFwZHB0ZXIgaXMgc2V0IHRvIEQzLCBhbmQgd2UgbmVlZCBwb3dl
-ciBvbiBpdCBhdCByZXN1bWUuIEluIFM0ICwgdGhlIGZ1bmN0aW9uIGZyZWV6ZSgpICwgdGhyYXco
-KSAsIHBvd2Vyb2ZmKCkgYW5kIHJlc3RvcmUoKSBpcyBzcGVjaWFsIGZvciBoaWJlcm5hdGlvbiwg
-IFMzIHByb2Nlc3MgY291bGQgbm90IGNhbGwgdGhlc2UgZnVuY3Rpb25zLiAgc28gZmFyLCBhY2Nv
-cmRpbmcgdG8gIG15IGV4cGVyaW1lbnQsIHdlIG11c3QgcmVzZXQgYXNpYyBpZiBhZGFwdGVyIGlz
-IG5vdCBwb3dlciBkb3duIGluIFM0LCBvdGhlcndpc2UsIGl0IHdpbGwgYmUgR0ZYKGNvbXB1dGUp
-ICwgU0RNQSByaW5nIHRlc3QgZmFpbHVyZSBvbiBWSShub3Qgc3VyZSBpdCB3aWxsIGJlIG9uIFNJ
-KSwgaXQgc2VlbXMgdGhhdCBhaXNjIHJlc2V0IGlzIG5vdCBtdXN0IG9uIENJLg0KDQpJIGRvIG5v
-dCByZXZpZXcgb3VyIHJ1bnRpbWUgUE0gY29kZSwgYnV0LCBiYXNlZCBvbiBjdXJyZW50bHkgY29k
-ZSAsICBJIGNhbiBiZSBzdXJlIHRoYXQgYXNpYyBtdXN0IGJlIHJlc2V0IGlmIGl0IGlzIHN1c3Bl
-bmRlZCB3aXRob3V0IHBvd2VyZG93bi4NCg0KQlRXLCBkcml2ZXIgZHBtIGRvZXMgbm90IHdvcmsg
-d2hlbiByZXN1bWUgYmFjayBhZnRlciBoaWJlcm5hdGlvbiBvbiBDSS4NCg0KVGhhbmtzDQpKaW1R
-dQ0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQrlj5Hku7bkuro6
-IERldWNoZXIsIEFsZXhhbmRlcg0K5Y+R6YCB5pe26Ze0OiAyMDE25bm0OeaciDfml6UgMTk6MTU6
-MjINCuaUtuS7tuS6ujogUXUsIEppbTsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCuaK
-hOmAgTogUXUsIEppbQ0K5Li76aKYOiBSRTogW1BBVENIIHYyXSBkcm0vYW1kL2FtZGdwdTogUzQg
-aXNzdWUgZm9yIGFtZGdwdQ0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206
-IGFtZC1nZnggW21haWx0bzphbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnXSBP
-biBCZWhhbGYNCj4gT2YgamltcXUNCj4gU2VudDogU2F0dXJkYXksIFNlcHRlbWJlciAwMywgMjAx
-NiAyOjU3IEFNDQo+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBDYzogUXUs
-IEppbQ0KPiBTdWJqZWN0OiBbUEFUQ0ggdjJdIGRybS9hbWQvYW1kZ3B1OiBTNCBpc3N1ZSBmb3Ig
-YW1kZ3B1DQo+DQo+IHJlc2V0IHRoZSBhc2ljIGlmIGFkYXB0ZXIgaXMgbm90IHBvd2VyZG93biB3
-aGVuIGRvaW5nIGZyZWV6ZSgpDQo+IHRoYXcoKSBhbmQgcmVzdG9yZSgpLCBpbiBvcmRlciB0byBn
-ZXQgYSB2YWxpZCBzdGF0ZSBvZiBhZGFwdGVyLg0KPg0KPiBDaGFuZ2UtSWQ6IEliYjAzYWIzYzJj
-ZTZlZjNjODNhZmZiZTc2NzMwOGRjMjI0NzRmNTYzDQo+IFNpZ25lZC1vZmYtYnk6IEppbVF1IDxK
-aW0uUXVAYW1kLmNvbT4NCj4gLS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfZGV2aWNlLmMgfCAxOSArKysrKysrKysrKysrLS0tLS0NCj4gLQ0KPiAgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jICAgIHwgMTggKysrKysrKysrKysrKysrKy0tDQo+
-ICAyIGZpbGVzIGNoYW5nZWQsIDI5IGluc2VydGlvbnMoKyksIDggZGVsZXRpb25zKC0pDQo+DQo+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMN
-Cj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4gaW5kZXgg
-NjUxMDUxNC4uZjE3ZmM2ZCAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X2RldmljZS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9kZXZpY2UuYw0KPiBAQCAtMTkzNyw2ICsxOTM3LDEwIEBAIGludCBhbWRncHVfZGV2aWNl
-X3N1c3BlbmQoc3RydWN0IGRybV9kZXZpY2UNCj4gKmRldiwgYm9vbCBzdXNwZW5kLCBib29sIGZi
-Y29uKQ0KPiAgICAgICAgICAgICAgIC8qIFNodXQgZG93biB0aGUgZGV2aWNlICovDQo+ICAgICAg
-ICAgICAgICAgcGNpX2Rpc2FibGVfZGV2aWNlKGRldi0+cGRldik7DQo+ICAgICAgICAgICAgICAg
-cGNpX3NldF9wb3dlcl9zdGF0ZShkZXYtPnBkZXYsIFBDSV9EM2hvdCk7DQo+ICsgICAgIH0gZWxz
-ZSB7DQo+ICsgICAgICAgICAgICAgciA9IGFtZGdwdV9hc2ljX3Jlc2V0KGFkZXYpOw0KPiArICAg
-ICAgICAgICAgIGlmIChyKQ0KPiArICAgICAgICAgICAgICAgICAgICAgRFJNX0VSUk9SKCJhbWRn
-cHUgYXNpYyByZXNldCBmYWlsZWRcbiIpOw0KDQpEbyB3ZSB3YW50IHRvIGd1YXJkIHRoaXMgd2l0
-aCBhIHNlcGFyYXRlIHBhcmFtZXRlcj8gICBBcmUgdGhlcmUgdXNlIGNhc2VzIHdoZXJlIHdlIG1h
-eSBub3Qgd2FudCBEMyBvciBHUFUgcmVzZXQ/ICBSdW50aW1lIHBtIGZvciBQWCBjb21lcyB0byBt
-aW5kLiAgVGhhdCBzYWlkLCBpdCBwcm9iYWJseSB3b24ndCBodXJ0IGluIHRoYXQgY2FzZSBlaXRo
-ZXIuDQoNCkFsZXgNCg0KPiAgICAgICB9DQo+DQo+ICAgICAgIGlmIChmYmNvbikgew0KPiBAQCAt
-MTk2NywyMiArMTk3MSwyNSBAQCBpbnQgYW1kZ3B1X2RldmljZV9yZXN1bWUoc3RydWN0IGRybV9k
-ZXZpY2UNCj4gKmRldiwgYm9vbCByZXN1bWUsIGJvb2wgZmJjb24pDQo+ICAgICAgICAgICBkZXYt
-PnN3aXRjaF9wb3dlcl9zdGF0ZSA9PQ0KPiBEUk1fU1dJVENIX1BPV0VSX0RZTkFNSUNfT0ZGKQ0K
-PiAgICAgICAgICAgICAgIHJldHVybiAwOw0KPg0KPiAtICAgICBpZiAoZmJjb24pIHsNCj4gKyAg
-ICAgaWYgKGZiY29uKQ0KPiAgICAgICAgICAgICAgIGNvbnNvbGVfbG9jaygpOw0KPiAtICAgICB9
-DQo+ICsNCj4gICAgICAgaWYgKHJlc3VtZSkgew0KPiAgICAgICAgICAgICAgIHBjaV9zZXRfcG93
-ZXJfc3RhdGUoZGV2LT5wZGV2LCBQQ0lfRDApOw0KPiAgICAgICAgICAgICAgIHBjaV9yZXN0b3Jl
-X3N0YXRlKGRldi0+cGRldik7DQo+IC0gICAgICAgICAgICAgaWYgKHBjaV9lbmFibGVfZGV2aWNl
-KGRldi0+cGRldikpIHsNCj4gKyAgICAgICAgICAgICBpZiAociA9IHBjaV9lbmFibGVfZGV2aWNl
-KGRldi0+cGRldikpIHsNCj4gICAgICAgICAgICAgICAgICAgICAgIGlmIChmYmNvbikNCj4gICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgY29uc29sZV91bmxvY2soKTsNCj4gLSAgICAgICAg
-ICAgICAgICAgICAgIHJldHVybiAtMTsNCj4gKyAgICAgICAgICAgICAgICAgICAgIHJldHVybiBy
-Ow0KPiAgICAgICAgICAgICAgIH0NCj4gICAgICAgfQ0KPg0KPiAgICAgICAvKiBwb3N0IGNhcmQg
-Ki8NCj4gLSAgICAgaWYgKCFhbWRncHVfY2FyZF9wb3N0ZWQoYWRldikpDQo+IC0gICAgICAgICAg
-ICAgYW1kZ3B1X2F0b21fYXNpY19pbml0KGFkZXYtPm1vZGVfaW5mby5hdG9tX2NvbnRleHQpOw0K
-PiArICAgICBpZiAoIWFtZGdwdV9jYXJkX3Bvc3RlZChhZGV2KSB8fCAhcmVzdW1lKSB7DQo+ICsg
-ICAgICAgICAgICAgciA9IGFtZGdwdV9hdG9tX2FzaWNfaW5pdChhZGV2LQ0KPiA+bW9kZV9pbmZv
-LmF0b21fY29udGV4dCk7DQo+ICsgICAgICAgICAgICAgaWYgKHIpDQo+ICsgICAgICAgICAgICAg
-ICAgICAgICBEUk1fRVJST1IoImFtZGdwdSBhc2ljIGluaXQgZmFpbGVkXG4iKTsNCj4gKyAgICAg
-fQ0KPg0KPiAgICAgICByID0gYW1kZ3B1X3Jlc3VtZShhZGV2KTsNCj4gICAgICAgaWYgKHIpDQo+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMNCj4g
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMNCj4gaW5kZXggMjFiOGNk
-Ni4uYzAwZjRhOCAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2Rydi5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYu
-Yw0KPiBAQCAtNTIwLDYgKzUyMCwyMCBAQCBzdGF0aWMgaW50IGFtZGdwdV9wbW9wc190aGF3KHN0
-cnVjdCBkZXZpY2UgKmRldikNCj4gICAgICAgcmV0dXJuIGFtZGdwdV9kZXZpY2VfcmVzdW1lKGRy
-bV9kZXYsIGZhbHNlLCB0cnVlKTsNCj4gIH0NCj4NCj4gK3N0YXRpYyBpbnQgYW1kZ3B1X3Btb3Bz
-X3Bvd2Vyb2ZmKHN0cnVjdCBkZXZpY2UgKmRldikNCj4gK3sNCj4gKyAgICAgc3RydWN0IHBjaV9k
-ZXYgKnBkZXYgPSB0b19wY2lfZGV2KGRldik7DQo+ICsgICAgIHN0cnVjdCBkcm1fZGV2aWNlICpk
-cm1fZGV2ID0gcGNpX2dldF9kcnZkYXRhKHBkZXYpOw0KPiArICAgICByZXR1cm4gYW1kZ3B1X2Rl
-dmljZV9zdXNwZW5kKGRybV9kZXYsIHRydWUsIHRydWUpOw0KPiArfQ0KPiArDQo+ICtzdGF0aWMg
-aW50IGFtZGdwdV9wbW9wc19yZXN0b3JlKHN0cnVjdCBkZXZpY2UgKmRldikNCj4gK3sNCj4gKyAg
-ICAgc3RydWN0IHBjaV9kZXYgKnBkZXYgPSB0b19wY2lfZGV2KGRldik7DQo+ICsgICAgIHN0cnVj
-dCBkcm1fZGV2aWNlICpkcm1fZGV2ID0gcGNpX2dldF9kcnZkYXRhKHBkZXYpOw0KPiArICAgICBy
-ZXR1cm4gYW1kZ3B1X2RldmljZV9yZXN1bWUoZHJtX2RldiwgZmFsc2UsIHRydWUpOw0KPiArfQ0K
-PiArDQo+ICBzdGF0aWMgaW50IGFtZGdwdV9wbW9wc19ydW50aW1lX3N1c3BlbmQoc3RydWN0IGRl
-dmljZSAqZGV2KQ0KPiAgew0KPiAgICAgICBzdHJ1Y3QgcGNpX2RldiAqcGRldiA9IHRvX3BjaV9k
-ZXYoZGV2KTsNCj4gQEAgLTYyMiw4ICs2MzYsOCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGRldl9w
-bV9vcHMgYW1kZ3B1X3BtX29wcyA9IHsNCj4gICAgICAgLnJlc3VtZSA9IGFtZGdwdV9wbW9wc19y
-ZXN1bWUsDQo+ICAgICAgIC5mcmVlemUgPSBhbWRncHVfcG1vcHNfZnJlZXplLA0KPiAgICAgICAu
-dGhhdyA9IGFtZGdwdV9wbW9wc190aGF3LA0KPiAtICAgICAucG93ZXJvZmYgPSBhbWRncHVfcG1v
-cHNfZnJlZXplLA0KPiAtICAgICAucmVzdG9yZSA9IGFtZGdwdV9wbW9wc19yZXN1bWUsDQo+ICsg
-ICAgIC5wb3dlcm9mZiA9IGFtZGdwdV9wbW9wc19wb3dlcm9mZiwNCj4gKyAgICAgLnJlc3RvcmUg
-PSBhbWRncHVfcG1vcHNfcmVzdG9yZSwNCj4gICAgICAgLnJ1bnRpbWVfc3VzcGVuZCA9IGFtZGdw
-dV9wbW9wc19ydW50aW1lX3N1c3BlbmQsDQo+ICAgICAgIC5ydW50aW1lX3Jlc3VtZSA9IGFtZGdw
-dV9wbW9wc19ydW50aW1lX3Jlc3VtZSwNCj4gICAgICAgLnJ1bnRpbWVfaWRsZSA9IGFtZGdwdV9w
-bW9wc19ydW50aW1lX2lkbGUsDQo+IC0tDQo+IDEuOS4xDQo+DQo+IF9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+
-IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1474525916==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/g401TpbhX2Cvp2.lMOcPjyG"; protocol="application/pgp-signature"
+
+--Sig_/g401TpbhX2Cvp2.lMOcPjyG
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, 16 Aug 2016 10:46:13 +0900
+Michel D=C3=A4nzer <michel@daenzer.net> wrote:
+
+> On 16/08/16 10:32 AM, Mario Kleiner wrote:
+> > Cc'ing Daniel Stone and Pekka Paalanen, because this relates to wayland.
+> >=20
+> > Wrt. having a new pageflip parameter struct, i wonder if it wouldn't
+> > make sense to then already prepare some space in it for specifying an
+> > absolute target time, e.g., in u64 microseconds? Or make this part of
+> > the atomic pageflip framework? =20
+>=20
+> I feel like this is too much hassle for the DRM_IOCTL_MODE_PAGE_FLIP
+> ioctl, probably makes sense to only deal with this in the atomic API.
+>=20
+>=20
+> > In Wayland we now have the presentation_feedback extension (maybe it got
+> > a new name?), which is great to get feedback when and how presentation
+> > was completed, essentially the equivalent of X11's GLX_INTEL_swap_events
+> > + some useful extra info / the feedback half of OML_sync_control.
+> >=20
+> > That was supposed to be complemented by a presentation_queue extension
+> > which would provide the other half of OML_sync_control, the part where
+> > an app can tell the compositor when and how to present surface updates.
+> > I remember that a year ago inclusion of that extension was blocked on
+> > some other more urgent important blocker bugs? Did this make progress?
+
+Hi,
+
+sorry, I'm pretty poor at following dri-devel@.
+
+Yeah, the Wayland extension for queueing frames to be presented at
+specific times has not been going anywhere for a long time. IIRC the
+blockers have since been resolved, now it would need dusting off and
+seeing how it interacts with those protocol additions. I wasn't too
+happy with the design at the time, either, because of the question of
+which state to queue and which not.
+
+Nowadays presentation_feedback lives in
+https://cgit.freedesktop.org/wayland/wayland-protocols/tree/stable/presenta=
+tion-time
+and has been declared stable.
+
+> > For timing sensitive applications such an extension is even more
+> > important in a wayland world than under X11. On X11 most desktops allow
+> > unredirecting fullscreen windows, so an app can drive the flip timing
+> > rather direct. At least on Weston as i remember it from my last tests a
+> > year ago, that wasn't possible, and an app that doesn't want to present
+> > at each video refresh, but at specific target times had to guess what
+> > the specific compositors scheduling strategy might be and then "play
+> > games" wrt. to timing surface commit's to trick the compositor into sort
+> > of doing the right thing - very fragile.
+> >=20
+> > Anyway, the idea of presentation_queue was to specify the requested time
+> > of presentation as actual time, not as a target vblank count. This
+> > because applications that care about precise presentation timing, like
+> > my kind of neuroscience/medical visual stimulation software, or also
+> > video players, or e.g., at least the VDPAU video presentation api
+> > "think" in absolute time, not in refresh cycles. Also a target vblank
+> > count for presentation is less meaningful than a target time for things
+> > like variable framerate displays/adaptive sync, or displays which don't
+> > have a classic refresh cycle at all. It might also be useful if one
+> > thinks about something like VR compositors, where precise timing control
+> > could help for some of the tricks ("time warping" iirc?) they use to
+> > hide/cope with latency from head tracking -> display.
+> >=20
+> > It would be nice if the kernel could help compositors which would
+> > implement presentation_queue or similar to be robust/precise in face of
+> > future stuff like Freesync, or of added delays due to Optimus/Prime
+> > hybrid-graphics setups. If we wanted to synchronize presentation of
+> > multiple displays in a Freesync type display setup, absolute target
+> > times could also be helpful. =20
+>=20
+> I agree with all of this though.
+
+I'm very happy to hear the idea has support!
+
+
+Thanks,
+pq
+
+
+> I'd like to add that the X11 Present extension specification already
+> includes support for specifying a target time instead of a target
+> refresh cycle. This isn't implemented yet though, but it should be
+> relatively straightforward to implement using the kind of kernel API you
+> describe.
+
+--Sig_/g401TpbhX2Cvp2.lMOcPjyG
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIVAwUBV9ExJiNf5bQRqqqnAQhvtA/+KXdqQoQs9l2CjL4gbfmoCkw0T5t9jJ2k
+mDar9ysnVseLUHimOb6/R4wtO9bSesnSTWlNWOjSNUz0bA9En3aCRvfztr+eQLPS
+XSumyQqwPThg9XQlDLSJlvLqz3od9yFpMUd8uHDBOKBAKpja/Ue2F8t6g7lDtBD9
+Vh2yY1/9WkdMfwzLvyLbQ9ndYpAvoR3UTMV2dmPa9v+d8zO9X6Zt0C0JcYF7cnaI
+JHvCPG0Xjs7CO+RIz0HUKzAEWnSa8AXKWNxqUqC5bcPZAqPCbFLyXMb/rqyPmZ5U
+kDwi867Siqxk+ConGOruuO6XukR42mPqo9LAA7i0XUpPLC9GiJLX90vE2/dWwWOg
+AWZQbV/tIlENBX9As6l3kTRUGIw0h1pFvoQMap9sKSZV77K8T5uzWeeAG9/xJ26r
+9Ajts+bb7g11d0hiHsC+FYUhnwYJpK3U9twSGWPlkrOXTkbgwmhuyhW+UzakRFKx
+r9Z81/NtvuQX5eXx7zc1TLg23+KJbiyBsCbTE1A8M4ECglpNa//FOgTjX1erhvru
+XzmcBFTWewbwYAT0sgItbtfWRGliYzp9hhZYiqVwgP7DmgBG8jhDMthZlnP6tER0
+hLfUNLR0y7DygQJ1VM9RfHs/yVp4HBeWSDdqU8wSM2rGGJZqazZ5PIyPQduPTlxn
+kTZkzGPoP4o=
+=W97q
+-----END PGP SIGNATURE-----
+
+--Sig_/g401TpbhX2Cvp2.lMOcPjyG--
+
+--===============1474525916==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--===============1474525916==--
