@@ -1,156 +1,101 @@
-From: Pekka Paalanen <ppaalanen@gmail.com>
-Subject: Re: [PATCH 6/6] drm: Add
- DRM_MODE_PAGE_FLIP_TARGET_ABSOLUTE/RELATIVE flags v2
-Date: Thu, 8 Sep 2016 12:36:31 +0300
-Message-ID: <20160908123631.721dcab0@eldfell>
-References: <1470281981-18172-7-git-send-email-michel@daenzer.net>
- <1470641019-3067-1-git-send-email-michel@daenzer.net>
- <8974b919-6f9c-5912-0d26-f1a526829f83@gmail.com>
- <8e3f5a2b-0de8-7b0a-b64b-ec298955fe75@daenzer.net>
+From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: [PATCH xf86-video-amdgpu 06/12] Handle RandR 1.4 slave dirty updates
+ via amdgpu_drm_queue
+Date: Thu,  8 Sep 2016 19:02:39 +0900
+Message-ID: <20160908100242.19964-6-michel@daenzer.net>
+References: <20160908100242.19964-1-michel@daenzer.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1474525916=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <8e3f5a2b-0de8-7b0a-b64b-ec298955fe75@daenzer.net>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Michel =?UTF-8?B?RMOkbnplcg==?= <michel@daenzer.net>
-Cc: daniel.stone@collabora.com, Daniel Vetter <daniel.vetter@ffwll.ch>, dri-devel@lists.freedesktop.org, "wayland-devel@lists.freedesktop.org" <wayland-devel@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
-
---===============1474525916==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/g401TpbhX2Cvp2.lMOcPjyG"; protocol="application/pgp-signature"
-
---Sig_/g401TpbhX2Cvp2.lMOcPjyG
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, 16 Aug 2016 10:46:13 +0900
-Michel D=C3=A4nzer <michel@daenzer.net> wrote:
-
-> On 16/08/16 10:32 AM, Mario Kleiner wrote:
-> > Cc'ing Daniel Stone and Pekka Paalanen, because this relates to wayland.
-> >=20
-> > Wrt. having a new pageflip parameter struct, i wonder if it wouldn't
-> > make sense to then already prepare some space in it for specifying an
-> > absolute target time, e.g., in u64 microseconds? Or make this part of
-> > the atomic pageflip framework? =20
->=20
-> I feel like this is too much hassle for the DRM_IOCTL_MODE_PAGE_FLIP
-> ioctl, probably makes sense to only deal with this in the atomic API.
->=20
->=20
-> > In Wayland we now have the presentation_feedback extension (maybe it got
-> > a new name?), which is great to get feedback when and how presentation
-> > was completed, essentially the equivalent of X11's GLX_INTEL_swap_events
-> > + some useful extra info / the feedback half of OML_sync_control.
-> >=20
-> > That was supposed to be complemented by a presentation_queue extension
-> > which would provide the other half of OML_sync_control, the part where
-> > an app can tell the compositor when and how to present surface updates.
-> > I remember that a year ago inclusion of that extension was blocked on
-> > some other more urgent important blocker bugs? Did this make progress?
-
-Hi,
-
-sorry, I'm pretty poor at following dri-devel@.
-
-Yeah, the Wayland extension for queueing frames to be presented at
-specific times has not been going anywhere for a long time. IIRC the
-blockers have since been resolved, now it would need dusting off and
-seeing how it interacts with those protocol additions. I wasn't too
-happy with the design at the time, either, because of the question of
-which state to queue and which not.
-
-Nowadays presentation_feedback lives in
-https://cgit.freedesktop.org/wayland/wayland-protocols/tree/stable/presenta=
-tion-time
-and has been declared stable.
-
-> > For timing sensitive applications such an extension is even more
-> > important in a wayland world than under X11. On X11 most desktops allow
-> > unredirecting fullscreen windows, so an app can drive the flip timing
-> > rather direct. At least on Weston as i remember it from my last tests a
-> > year ago, that wasn't possible, and an app that doesn't want to present
-> > at each video refresh, but at specific target times had to guess what
-> > the specific compositors scheduling strategy might be and then "play
-> > games" wrt. to timing surface commit's to trick the compositor into sort
-> > of doing the right thing - very fragile.
-> >=20
-> > Anyway, the idea of presentation_queue was to specify the requested time
-> > of presentation as actual time, not as a target vblank count. This
-> > because applications that care about precise presentation timing, like
-> > my kind of neuroscience/medical visual stimulation software, or also
-> > video players, or e.g., at least the VDPAU video presentation api
-> > "think" in absolute time, not in refresh cycles. Also a target vblank
-> > count for presentation is less meaningful than a target time for things
-> > like variable framerate displays/adaptive sync, or displays which don't
-> > have a classic refresh cycle at all. It might also be useful if one
-> > thinks about something like VR compositors, where precise timing control
-> > could help for some of the tricks ("time warping" iirc?) they use to
-> > hide/cope with latency from head tracking -> display.
-> >=20
-> > It would be nice if the kernel could help compositors which would
-> > implement presentation_queue or similar to be robust/precise in face of
-> > future stuff like Freesync, or of added delays due to Optimus/Prime
-> > hybrid-graphics setups. If we wanted to synchronize presentation of
-> > multiple displays in a Freesync type display setup, absolute target
-> > times could also be helpful. =20
->=20
-> I agree with all of this though.
-
-I'm very happy to hear the idea has support!
-
-
-Thanks,
-pq
-
-
-> I'd like to add that the X11 Present extension specification already
-> includes support for specifying a target time instead of a target
-> refresh cycle. This isn't implemented yet though, but it should be
-> relatively straightforward to implement using the kind of kernel API you
-> describe.
-
---Sig_/g401TpbhX2Cvp2.lMOcPjyG
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIVAwUBV9ExJiNf5bQRqqqnAQhvtA/+KXdqQoQs9l2CjL4gbfmoCkw0T5t9jJ2k
-mDar9ysnVseLUHimOb6/R4wtO9bSesnSTWlNWOjSNUz0bA9En3aCRvfztr+eQLPS
-XSumyQqwPThg9XQlDLSJlvLqz3od9yFpMUd8uHDBOKBAKpja/Ue2F8t6g7lDtBD9
-Vh2yY1/9WkdMfwzLvyLbQ9ndYpAvoR3UTMV2dmPa9v+d8zO9X6Zt0C0JcYF7cnaI
-JHvCPG0Xjs7CO+RIz0HUKzAEWnSa8AXKWNxqUqC5bcPZAqPCbFLyXMb/rqyPmZ5U
-kDwi867Siqxk+ConGOruuO6XukR42mPqo9LAA7i0XUpPLC9GiJLX90vE2/dWwWOg
-AWZQbV/tIlENBX9As6l3kTRUGIw0h1pFvoQMap9sKSZV77K8T5uzWeeAG9/xJ26r
-9Ajts+bb7g11d0hiHsC+FYUhnwYJpK3U9twSGWPlkrOXTkbgwmhuyhW+UzakRFKx
-r9Z81/NtvuQX5eXx7zc1TLg23+KJbiyBsCbTE1A8M4ECglpNa//FOgTjX1erhvru
-XzmcBFTWewbwYAT0sgItbtfWRGliYzp9hhZYiqVwgP7DmgBG8jhDMthZlnP6tER0
-hLfUNLR0y7DygQJ1VM9RfHs/yVp4HBeWSDdqU8wSM2rGGJZqazZ5PIyPQduPTlxn
-kTZkzGPoP4o=
-=W97q
------END PGP SIGNATURE-----
-
---Sig_/g401TpbhX2Cvp2.lMOcPjyG--
-
---===============1474525916==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20160908100242.19964-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
-
---===============1474525916==--
+RnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+CgpUaGlzIHJlZHVj
+ZXMgUENJZSBiYW5kd2lkdGggdXNhZ2UgYW5kIHRlYXJpbmcuCgooUG9ydGVkIGZyb20gcmFkZW9u
+IGNvbW1pdCBhZDBhMDY1NmRkMGU3NDY4M2U2ZDc3ODlkZWNiYTgyN2FhMjljMjIxKQoKU2lnbmVk
+LW9mZi1ieTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+Ci0tLQogc3Jj
+L2FtZGdwdV9rbXMuYyB8IDk2ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKysrKysrKysrKy0tCiAxIGZpbGUgY2hhbmdlZCwgOTMgaW5zZXJ0aW9ucygrKSwgMyBk
+ZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9zcmMvYW1kZ3B1X2ttcy5jIGIvc3JjL2FtZGdwdV9r
+bXMuYwppbmRleCA5NjcwYzNmLi5hYWFlZTFhIDEwMDY0NAotLS0gYS9zcmMvYW1kZ3B1X2ttcy5j
+CisrKyBiL3NyYy9hbWRncHVfa21zLmMKQEAgLTMwNCw4ICszMDQsMTAgQEAgc3RhdGljIEJvb2wg
+QU1ER1BVQ3JlYXRlU2NyZWVuUmVzb3VyY2VzX0tNUyhTY3JlZW5QdHIgcFNjcmVlbikKIH0KIAog
+I2lmZGVmIEFNREdQVV9QSVhNQVBfU0hBUklORwotc3RhdGljIHZvaWQgcmVkaXNwbGF5X2RpcnR5
+KFNjcmVlblB0ciBzY3JlZW4sIFBpeG1hcERpcnR5VXBkYXRlUHRyIGRpcnR5KQorc3RhdGljIHZv
+aWQKK3JlZGlzcGxheV9kaXJ0eShQaXhtYXBEaXJ0eVVwZGF0ZVB0ciBkaXJ0eSkKIHsKKwlTY3Ju
+SW5mb1B0ciBzY3JuID0geGY4NlNjcmVlblRvU2NybihkaXJ0eS0+c3JjLT5kcmF3YWJsZS5wU2Ny
+ZWVuKTsKIAlSZWdpb25SZWMgcGl4cmVnaW9uOwogCiAJUGl4bWFwUmVnaW9uSW5pdCgmcGl4cmVn
+aW9uLCBkaXJ0eS0+c2xhdmVfZHN0KTsKQEAgLTMxNiw4ICszMTgsOTQgQEAgc3RhdGljIHZvaWQg
+cmVkaXNwbGF5X2RpcnR5KFNjcmVlblB0ciBzY3JlZW4sIFBpeG1hcERpcnR5VXBkYXRlUHRyIGRp
+cnR5KQogCVBpeG1hcFN5bmNEaXJ0eUhlbHBlcihkaXJ0eSwgJnBpeHJlZ2lvbik7CiAjZW5kaWYK
+IAorCWFtZGdwdV9nbGFtb3JfZmx1c2goc2Nybik7CiAJRGFtYWdlUmVnaW9uUHJvY2Vzc1BlbmRp
+bmcoJmRpcnR5LT5zbGF2ZV9kc3QtPmRyYXdhYmxlKTsKIAlSZWdpb25VbmluaXQoJnBpeHJlZ2lv
+bik7CisKKwlEYW1hZ2VFbXB0eShkaXJ0eS0+ZGFtYWdlKTsKK30KKworc3RhdGljIHZvaWQKK2Ft
+ZGdwdV9wcmltZV9zY2Fub3V0X3VwZGF0ZV9hYm9ydCh4Zjg2Q3J0Y1B0ciBjcnRjLCB2b2lkICpl
+dmVudF9kYXRhKQoreworCWRybW1vZGVfY3J0Y19wcml2YXRlX3B0ciBkcm1tb2RlX2NydGMgPSBj
+cnRjLT5kcml2ZXJfcHJpdmF0ZTsKKworCWRybW1vZGVfY3J0Yy0+c2Nhbm91dF91cGRhdGVfcGVu
+ZGluZyA9IEZBTFNFOworfQorCit2b2lkCithbWRncHVfcHJpbWVfc2Nhbm91dF91cGRhdGVfaGFu
+ZGxlcih4Zjg2Q3J0Y1B0ciBjcnRjLCB1aW50MzJfdCBmcmFtZSwgdWludDY0X3QgdXNlYywKKwkJ
+CQkgICAgdm9pZCAqZXZlbnRfZGF0YSkKK3sKKwlTY3JuSW5mb1B0ciBzY3JuID0gY3J0Yy0+c2Ny
+bjsKKwlTY3JlZW5QdHIgc2NyZWVuID0gc2Nybi0+cFNjcmVlbjsKKwlkcm1tb2RlX2NydGNfcHJp
+dmF0ZV9wdHIgZHJtbW9kZV9jcnRjID0gY3J0Yy0+ZHJpdmVyX3ByaXZhdGU7CisJUGl4bWFwUHRy
+IHNjYW5vdXRwaXggPSBjcnRjLT5yYW5kcl9jcnRjLT5zY2Fub3V0X3BpeG1hcDsKKwlQaXhtYXBE
+aXJ0eVVwZGF0ZVB0ciBkaXJ0eTsKKworCXhvcmdfbGlzdF9mb3JfZWFjaF9lbnRyeShkaXJ0eSwg
+JnNjcmVlbi0+cGl4bWFwX2RpcnR5X2xpc3QsIGVudCkgeworCQlpZiAoZGlydHktPnNyYyA9PSBz
+Y2Fub3V0cGl4ICYmCisJCSAgICBkaXJ0eS0+c2xhdmVfZHN0ID09IGRybW1vZGVfY3J0Yy0+c2Nh
+bm91dFswXS5waXhtYXApIHsKKwkJCXJlZGlzcGxheV9kaXJ0eShkaXJ0eSk7CisJCQlicmVhazsK
+KwkJfQorCX0KKworCWRybW1vZGVfY3J0Yy0+c2Nhbm91dF91cGRhdGVfcGVuZGluZyA9IEZBTFNF
+OworfQorCitzdGF0aWMgdm9pZAorYW1kZ3B1X3ByaW1lX3NjYW5vdXRfdXBkYXRlKFBpeG1hcERp
+cnR5VXBkYXRlUHRyIGRpcnR5KQoreworCVNjcmVlblB0ciBzY3JlZW4gPSBkaXJ0eS0+c2xhdmVf
+ZHN0LT5kcmF3YWJsZS5wU2NyZWVuOworCVNjcm5JbmZvUHRyIHNjcm4gPSB4Zjg2U2NyZWVuVG9T
+Y3JuKHNjcmVlbik7CisJQU1ER1BVRW50UHRyIHBBTURHUFVFbnQgPSBBTURHUFVFbnRQcml2KHNj
+cm4pOworCXhmODZDcnRjQ29uZmlnUHRyIHhmODZfY29uZmlnID0gWEY4Nl9DUlRDX0NPTkZJR19Q
+VFIoc2Nybik7CisJeGY4NkNydGNQdHIgeGY4Nl9jcnRjID0gTlVMTDsKKwlkcm1tb2RlX2NydGNf
+cHJpdmF0ZV9wdHIgZHJtbW9kZV9jcnRjID0gTlVMTDsKKwl1aW50cHRyX3QgZHJtX3F1ZXVlX3Nl
+cTsKKwlkcm1WQmxhbmsgdmJsOworCWludCBjOworCisJLyogRmluZCB0aGUgQ1JUQyB3aGljaCBp
+cyBzY2FubmluZyBvdXQgZnJvbSB0aGlzIHNsYXZlIHBpeG1hcCAqLworCWZvciAoYyA9IDA7IGMg
+PCB4Zjg2X2NvbmZpZy0+bnVtX2NydGM7IGMrKykgeworCQl4Zjg2X2NydGMgPSB4Zjg2X2NvbmZp
+Zy0+Y3J0Y1tjXTsKKwkJZHJtbW9kZV9jcnRjID0geGY4Nl9jcnRjLT5kcml2ZXJfcHJpdmF0ZTsK
+KwkJaWYgKGRybW1vZGVfY3J0Yy0+c2Nhbm91dFswXS5waXhtYXAgPT0gZGlydHktPnNsYXZlX2Rz
+dCkKKwkJCWJyZWFrOworCX0KKworCWlmIChjID09IHhmODZfY29uZmlnLT5udW1fY3J0YyB8fAor
+CSAgICAheGY4Nl9jcnRjLT5lbmFibGVkIHx8CisJICAgIGRybW1vZGVfY3J0Yy0+c2Nhbm91dF91
+cGRhdGVfcGVuZGluZyB8fAorCSAgICAhZHJtbW9kZV9jcnRjLT5zY2Fub3V0WzBdLnBpeG1hcCB8
+fAorCSAgICBkcm1tb2RlX2NydGMtPnBlbmRpbmdfZHBtc19tb2RlICE9IERQTVNNb2RlT24pCisJ
+CXJldHVybjsKKworCWRybV9xdWV1ZV9zZXEgPSBhbWRncHVfZHJtX3F1ZXVlX2FsbG9jKHhmODZf
+Y3J0YywKKwkJCQkJICAgICAgIEFNREdQVV9EUk1fUVVFVUVfQ0xJRU5UX0RFRkFVTFQsCisJCQkJ
+CSAgICAgICBBTURHUFVfRFJNX1FVRVVFX0lEX0RFRkFVTFQsIE5VTEwsCisJCQkJCSAgICAgICBh
+bWRncHVfcHJpbWVfc2Nhbm91dF91cGRhdGVfaGFuZGxlciwKKwkJCQkJICAgICAgIGFtZGdwdV9w
+cmltZV9zY2Fub3V0X3VwZGF0ZV9hYm9ydCk7CisJaWYgKGRybV9xdWV1ZV9zZXEgPT0gQU1ER1BV
+X0RSTV9RVUVVRV9FUlJPUikgeworCQl4Zjg2RHJ2TXNnKHNjcm4tPnNjcm5JbmRleCwgWF9XQVJO
+SU5HLAorCQkJICAgImFtZGdwdV9kcm1fcXVldWVfYWxsb2MgZmFpbGVkIGZvciBQUklNRSB1cGRh
+dGVcbiIpOworCQlyZXR1cm47CisJfQorCisJdmJsLnJlcXVlc3QudHlwZSA9IERSTV9WQkxBTktf
+UkVMQVRJVkUgfCBEUk1fVkJMQU5LX0VWRU5UOworCXZibC5yZXF1ZXN0LnR5cGUgfD0gYW1kZ3B1
+X3BvcHVsYXRlX3ZibF9yZXF1ZXN0X3R5cGUoeGY4Nl9jcnRjKTsKKwl2YmwucmVxdWVzdC5zZXF1
+ZW5jZSA9IDE7CisJdmJsLnJlcXVlc3Quc2lnbmFsID0gZHJtX3F1ZXVlX3NlcTsKKwlpZiAoZHJt
+V2FpdFZCbGFuayhwQU1ER1BVRW50LT5mZCwgJnZibCkpIHsKKwkJeGY4NkRydk1zZyhzY3JuLT5z
+Y3JuSW5kZXgsIFhfV0FSTklORywKKwkJCSAgICJkcm1XYWl0VkJsYW5rIGZhaWxlZCBmb3IgUFJJ
+TUUgdXBkYXRlOiAlc1xuIiwKKwkJCSAgIHN0cmVycm9yKGVycm5vKSk7CisJCWFtZGdwdV9kcm1f
+YWJvcnRfZW50cnkoZHJtX3F1ZXVlX3NlcSk7CisJCXJldHVybjsKKwl9CisKKwlkcm1tb2RlX2Ny
+dGMtPnNjYW5vdXRfdXBkYXRlX3BlbmRpbmcgPSBUUlVFOwogfQogCiBzdGF0aWMgdm9pZCBhbWRn
+cHVfZGlydHlfdXBkYXRlKFNjcmVlblB0ciBzY3JlZW4pCkBAIC0zMzEsOCArNDE5LDEwIEBAIHN0
+YXRpYyB2b2lkIGFtZGdwdV9kaXJ0eV91cGRhdGUoU2NyZWVuUHRyIHNjcmVlbikKIAl4b3JnX2xp
+c3RfZm9yX2VhY2hfZW50cnkoZW50LCAmc2NyZWVuLT5waXhtYXBfZGlydHlfbGlzdCwgZW50KSB7
+CiAJCXJlZ2lvbiA9IERhbWFnZVJlZ2lvbihlbnQtPmRhbWFnZSk7CiAJCWlmIChSZWdpb25Ob3RF
+bXB0eShyZWdpb24pKSB7Ci0JCQlyZWRpc3BsYXlfZGlydHkoc2NyZWVuLCBlbnQpOwotCQkJRGFt
+YWdlRW1wdHkoZW50LT5kYW1hZ2UpOworCQkJaWYgKHNjcmVlbi0+aXNHUFUpCisJCQkJYW1kZ3B1
+X3ByaW1lX3NjYW5vdXRfdXBkYXRlKGVudCk7CisJCQllbHNlCisJCQkJcmVkaXNwbGF5X2RpcnR5
+KGVudCk7CiAJCX0KIAl9CiB9Ci0tIAoyLjkuMwoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9hbWQtZ2Z4Cg==
