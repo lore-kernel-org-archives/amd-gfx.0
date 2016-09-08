@@ -1,17 +1,12 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH 7/7] drm/amd/amdgpu: Comment out currently unused SI DPM
- struct
-Date: Thu, 8 Sep 2016 10:51:37 +0900
-Message-ID: <96e494f6-81c0-8f40-c9b8-aa2f3dceacf1@daenzer.net>
-References: <20160906161844.21370-1-tom.stdenis@amd.com>
- <20160906161844.21370-8-tom.stdenis@amd.com>
- <MWHPR12MB16946A5F5069CA4CAE4ABA7BF7F80@MWHPR12MB1694.namprd12.prod.outlook.com>
- <CY4PR12MB1768FBB1CC469E0C27182B9FF7F80@CY4PR12MB1768.namprd12.prod.outlook.com>
+From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH v3] drm: modify drm_global_item_ref to avoid two times of
+ writing ref->object
+Date: Wed, 7 Sep 2016 22:07:57 -0400
+Message-ID: <1473300477-2864-1-git-send-email-ray.huang@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CY4PR12MB1768FBB1CC469E0C27182B9FF7F80-rpdhrqHFk06yjjPBNVDk/QdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,16 +17,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Dave Airlie <airlied-cv59FeDIM0c@public.gmane.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Daniel Vetter <daniel.vetter-/w4YWyX8dFk@public.gmane.org>, Sean Paul <seanpaul-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>
+Cc: Ken Wang <Qingqing.Wang-5C7GfCeVMHo@public.gmane.org>, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gMDcvMDkvMTYgMTE6NDkgUE0sIFN0RGVuaXMsIFRvbSB3cm90ZToKPiAKPiBXb3VsZCBsb3Zl
-IHRvIGJ1dCB1bmZvcnR1bmF0ZWx5IEkgZG9uJ3QgaGF2ZSBhIHRhaGl0aV9sZSAob3IgYW55IFNJ
-KQo+IHBhcnQgdG8gdGVzdCBpdCBvbi4KClRoZXJlIGFyZSBwb3RlbnRpYWwgdGVzdGVycyBvbgpo
-dHRwczovL2J1Z3MuZnJlZWRlc2t0b3Aub3JnL3Nob3dfYnVnLmNnaT9pZD02MDg3OSAuCgoKLS0g
-CkVhcnRobGluZyBNaWNoZWwgRMOkbnplciAgICAgICAgICAgICAgIHwgICAgICAgICAgICAgICBo
-dHRwOi8vd3d3LmFtZC5jb20KTGlicmUgc29mdHdhcmUgZW50aHVzaWFzdCAgICAgICAgICAgICB8
-ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2ZWxvcGVyCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vYW1kLWdmeAo=
+SW4gcHJldmlvdXMgZHJtX2dsb2JhbF9pdGVtX3JlZiwgdGhlcmUgYXJlIHR3byB0aW1lcyBvZiB3
+cml0aW5nCnJlZi0+b2JqZWN0IGlmIGl0ZW0tPnJlZmNvdW50IGlzIDAuIFNvIHRoaXMgcGF0Y2gg
+ZG9lcyBhIG1pbm9yIHVwZGF0ZQp0byBwdXQgYWxsb2MgYW5kIGluaXQgcmVmIGZpcnN0bHksIGFu
+ZCB0aGVuIHRvIG1vZGlmeSB0aGUgaXRlbSBvZiBnbG9iCmFycmF5LiBVc2UgImVsc2UiIHRvIGF2
+b2lkIHR3byB0aW1lcyBvZiB3cml0aW5nIHJlZi0+b2JqZWN0LiBJdCBjYW4KbWFrZSB0aGUgY29k
+ZSBsb2dpYyBtb3JlIGNsZWFybHkuCgpTaWduZWQtb2ZmLWJ5OiBIdWFuZyBSdWkgPHJheS5odWFu
+Z0BhbWQuY29tPgotLS0KCkNoYW5nZXMgZnJvbSBWMiAtPiBWMzoKLSBVc2UgZHVwbGljYXRlIG11
+dGV4IHJlbGVhc2UgdG8gYXZvaWQgImdvdG8iIGluIG5vbi1lcnJvciBwYXRjaC4KLSBSZW5hbWUg
+ZXJyb3IgbGFiZWwKCi0tLQogZHJpdmVycy9ncHUvZHJtL2RybV9nbG9iYWwuYyB8IDI0ICsrKysr
+KysrKysrKysrLS0tLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDE0IGluc2VydGlvbnMoKyksIDEw
+IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fZ2xvYmFsLmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vZHJtX2dsb2JhbC5jCmluZGV4IDNkMmU5MWMuLmI0MDQyODcgMTAw
+NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fZ2xvYmFsLmMKKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2RybV9nbG9iYWwuYwpAQCAtNjUsMzAgKzY1LDM0IEBAIHZvaWQgZHJtX2dsb2JhbF9yZWxl
+YXNlKHZvaWQpCiAKIGludCBkcm1fZ2xvYmFsX2l0ZW1fcmVmKHN0cnVjdCBkcm1fZ2xvYmFsX3Jl
+ZmVyZW5jZSAqcmVmKQogewotCWludCByZXQ7CisJaW50IHJldCA9IDA7CiAJc3RydWN0IGRybV9n
+bG9iYWxfaXRlbSAqaXRlbSA9ICZnbG9iW3JlZi0+Z2xvYmFsX3R5cGVdOwogCiAJbXV0ZXhfbG9j
+aygmaXRlbS0+bXV0ZXgpOwogCWlmIChpdGVtLT5yZWZjb3VudCA9PSAwKSB7Ci0JCWl0ZW0tPm9i
+amVjdCA9IGt6YWxsb2MocmVmLT5zaXplLCBHRlBfS0VSTkVMKTsKLQkJaWYgKHVubGlrZWx5KGl0
+ZW0tPm9iamVjdCA9PSBOVUxMKSkgeworCQlyZWYtPm9iamVjdCA9IGt6YWxsb2MocmVmLT5zaXpl
+LCBHRlBfS0VSTkVMKTsKKwkJaWYgKHVubGlrZWx5KHJlZi0+b2JqZWN0ID09IE5VTEwpKSB7CiAJ
+CQlyZXQgPSAtRU5PTUVNOwotCQkJZ290byBvdXRfZXJyOworCQkJZ290byBlcnJvcl91bmxvY2s7
+CiAJCX0KLQotCQlyZWYtPm9iamVjdCA9IGl0ZW0tPm9iamVjdDsKIAkJcmV0ID0gcmVmLT5pbml0
+KHJlZik7CiAJCWlmICh1bmxpa2VseShyZXQgIT0gMCkpCi0JCQlnb3RvIG91dF9lcnI7CisJCQln
+b3RvIGVycm9yX2ZyZWU7CiAKKwkJaXRlbS0+b2JqZWN0ID0gcmVmLT5vYmplY3Q7CisJfSBlbHNl
+IHsKKwkJcmVmLT5vYmplY3QgPSBpdGVtLT5vYmplY3Q7CiAJfQorCiAJKytpdGVtLT5yZWZjb3Vu
+dDsKLQlyZWYtPm9iamVjdCA9IGl0ZW0tPm9iamVjdDsKIAltdXRleF91bmxvY2soJml0ZW0tPm11
+dGV4KTsKIAlyZXR1cm4gMDsKLW91dF9lcnI6CisKK2Vycm9yX2ZyZWU6CisJa2ZyZWUocmVmLT5v
+YmplY3QpOworCXJlZi0+b2JqZWN0ID0gTlVMTDsKK2Vycm9yX3VubG9jazoKIAltdXRleF91bmxv
+Y2soJml0ZW0tPm11dGV4KTsKLQlpdGVtLT5vYmplY3QgPSBOVUxMOwogCXJldHVybiByZXQ7CiB9
+CiBFWFBPUlRfU1lNQk9MKGRybV9nbG9iYWxfaXRlbV9yZWYpOwotLSAKMS45LjEKCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
+aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
