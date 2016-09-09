@@ -1,13 +1,16 @@
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: use error label to handle exceptional case
-Date: Fri, 9 Sep 2016 20:30:42 +1000
-Message-ID: <737d5f41-2a32-29e2-daa0-c71819428a8e@folklore1984.net>
-References: <1473414607-19904-1-git-send-email-ray.huang@amd.com>
- <c125876f-8a96-bb6f-21ed-0f2a98876054@amd.com>
+From: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 1/2] drm/ttm: remove unused placement flags
+Date: Fri, 9 Sep 2016 10:35:30 +0000
+Message-ID: <BN6PR12MB120407ACA888A0E57CA16D7AFCFA0@BN6PR12MB1204.namprd12.prod.outlook.com>
+References: <1473342102-324-1-git-send-email-deathsimple@vodafone.de>
+ <57D2598C.1070903@amd.com> <20160909070116.GA20574@flora>
+ <79675437-85ae-2fbf-93e1-b49321e6a41e@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1110047035=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <c125876f-8a96-bb6f-21ed-0f2a98876054-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <79675437-85ae-2fbf-93e1-b49321e6a41e-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,156 +21,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Cui, Flora" <Flora.Cui-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+Cc: "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhang,
+ Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1110047035==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="LAScqQisBgRRhr8f713lJ1BtDC1wf7lVK"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---LAScqQisBgRRhr8f713lJ1BtDC1wf7lVK
-Content-Type: multipart/mixed; boundary="abOPWQnXTmotgaMSRXPEJ38uT7RqsAwKw";
- protected-headers="v1"
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>,
- Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org,
- Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Message-ID: <737d5f41-2a32-29e2-daa0-c71819428a8e-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: use error label to handle exceptional case
-References: <1473414607-19904-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
- <c125876f-8a96-bb6f-21ed-0f2a98876054-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <c125876f-8a96-bb6f-21ed-0f2a98876054-5C7GfCeVMHo@public.gmane.org>
-
---abOPWQnXTmotgaMSRXPEJ38uT7RqsAwKw
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-
-
-On 09/09/2016 07:58 PM, Christian K=C3=B6nig wrote:
-> Am 09.09.2016 um 11:50 schrieb Huang Rui:
->> Use error label to decrease global item unref and make codes more
->> readable.
->>
->> Signed-off-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
->=20
-> Nice cleanup, please keep going with that. Probably more than once case=
-
-> where we have things like this.
-
-Definitely !
-
->=20
-> Patch is Reviewed-by: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>.
-
-Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-
->=20
-> Regards,
-> Christian.
->=20
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 22 +++++++++++++---------
->>   1 file changed, 13 insertions(+), 9 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> index 819c62d..2872afc 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> @@ -89,10 +89,10 @@ int amdgpu_ttm_global_init(struct amdgpu_device
->> *adev)
->>       global_ref->init =3D &amdgpu_ttm_mem_global_init;
->>       global_ref->release =3D &amdgpu_ttm_mem_global_release;
->>       r =3D drm_global_item_ref(global_ref);
->> -    if (r !=3D 0) {
->> +    if (r) {
->>           DRM_ERROR("Failed setting up TTM memory accounting "
->>                 "subsystem.\n");
->> -        return r;
->> +        goto error_mem;
->>       }
->>         adev->mman.bo_global_ref.mem_glob =3D
->> @@ -103,26 +103,30 @@ int amdgpu_ttm_global_init(struct amdgpu_device
->> *adev)
->>       global_ref->init =3D &ttm_bo_global_init;
->>       global_ref->release =3D &ttm_bo_global_release;
->>       r =3D drm_global_item_ref(global_ref);
->> -    if (r !=3D 0) {
->> +    if (r) {
->>           DRM_ERROR("Failed setting up TTM BO subsystem.\n");
->> -        drm_global_item_unref(&adev->mman.mem_global_ref);
->> -        return r;
->> +        goto error_bo;
->>       }
->>         ring =3D adev->mman.buffer_funcs_ring;
->>       rq =3D &ring->sched.sched_rq[AMD_SCHED_PRIORITY_KERNEL];
->>       r =3D amd_sched_entity_init(&ring->sched, &adev->mman.entity,
->>                     rq, amdgpu_sched_jobs);
->> -    if (r !=3D 0) {
->> +    if (r) {
->>           DRM_ERROR("Failed setting up TTM BO move run queue.\n");
->> -        drm_global_item_unref(&adev->mman.mem_global_ref);
->> -        drm_global_item_unref(&adev->mman.bo_global_ref.ref);
->> -        return r;
->> +        goto error_entity;
->>       }
->>         adev->mman.mem_global_referenced =3D true;
->>         return 0;
->> +
->> +error_entity:
->> +    drm_global_item_unref(&adev->mman.bo_global_ref.ref);
->> +error_bo:
->> +    drm_global_item_unref(&adev->mman.mem_global_ref);
->> +error_mem:
->> +    return r;
->>   }
->>     static void amdgpu_ttm_global_fini(struct amdgpu_device *adev)
->=20
->=20
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---abOPWQnXTmotgaMSRXPEJ38uT7RqsAwKw--
-
---LAScqQisBgRRhr8f713lJ1BtDC1wf7lVK
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJX0o9SAAoJEP4bvbfZuWjbeI0QAJv1RoOiyE0/oaT2iZ4cYMC4
-4B746dsqIa9NjIl2jsND6syI7Vsx0tpjoQv9xB8x9+s3aUcHBH5u3RISHgMeyDdK
-fScM1M2+MGwp6BARa2ir8QvbD2nEdRioO/7BJibSlWirw1z3iGXBL0ZJe+qaZh5i
-vL5k/y1Z6ELwM+z0VqBPA5XBUvc8L6KpFrlS5/MWBoILNjNBwf5G9+aQCIYRJrFr
-RJz1X/epm4+WnzVcgU7UhVEK9B6DhsfkufjdOURakgqm7BfvSGXtut90eD5Icg/G
-t3dyYwhaj0NlZBWB9HKrouBF8M3v6ufuGw3611sMIMQgLKKVvk2C279FDdbuutPh
-sFpGrlTPMyLKw2VWDwZswv1gPdUPtp25T3zxacnw8TCmzoEKWm6kAv6MdZNmBY1P
-qsjNfuEYVRcnmpFi2Jsej420DykjTaUIA9xVY91ms1CBK2IT/b8EcK4EWC2Mfja+
-lzfIvbz/6eq7VkqHfleH0O7ZVH60f1zTxHZt24n0UVxxh8BvB27kLpUL9WBSHwu+
-nnJgPmLbgv2QLBAf+NXsNL4QLSSY9aIkSZwlGhsEpHw1SCJzE2UAFscqvZIDh/V2
-AgiHcHurEXO9k/jVB8Mshl5uelfJUbob3bX5XorksNv0zkE+b5ESyXDyLjFCaY/g
-oBS/48d3e7N7Ul6Y4nk1
-=59RV
------END PGP SIGNATURE-----
-
---LAScqQisBgRRhr8f713lJ1BtDC1wf7lVK--
-
---===============1110047035==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1110047035==--
+SGkgQ2hyaXMsDQoNClJlbW92aW5nIHRoZSBmbGFnIHdpbGwgbWFrZSB0dG1fbWVtX3R5cGVfZnJv
+bV9wbGFjZSBza2lwIGNvdW50aW5nIHRoZSBjb3JyZXNwb25kaW5nIHBsYWNlbWVudCBhbmQgdGh1
+cyBoYXZlIGltcGFjdCBvbiBtZW0gcmVnaW9uIGNyZWF0ZSBhbmQgYm8gbW92ZW1lbnQuIFRoZXJl
+IGlzIG5vIGd1YXJhbnRlZSB0aGF0IGFtZGdwdSB3b3VsZCBuZXZlciBpbnRyb2R1Y2UgbmV3IG1l
+bW9yeSBkb21haW4gaW4gZnV0dXJlLiBJbiBzdWNoIGNhc2UsIEknZCBsaWtlIHRvIHZvdGUgZm9y
+IGtlZXBpbmcgdGhlc2UgZmxhZ3MgaW5zdGVhZCBvZiBhZGRpbmcgdGhlbSBiYWNrIHdoZW4gYW1k
+Z3B1IG5lZWQgdG8gYWRkIG5ldyBtZW1vcnkgZG9tYWluLg0KDQpBcyB5b3UgbWVudGlvbmVkIHRo
+YXQgaXQganVzdCBhIHR3byBsaW5lci4gQW5kIHRoZXJlIGlzIGFjdHVhbGx5IG5vIGZ1bmN0aW9u
+YWxpdHkgYnJlYWsgd2l0aCB0aGVzZSBmbGFncy4gVGhlbiBob3cgYWJvdXQga2VlcCB0aGVzZSBm
+bGFncz8NCg0KUmVnYXJkcywNCkhhd2tpbmcNCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0N
+CkZyb206IGFtZC1nZnggW21haWx0bzphbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnXSBPbiBCZWhhbGYgT2YgQ2hyaXN0aWFuIEs/bmlnDQpTZW50OiBGcmlkYXksIFNlcHRlbWJl
+ciAwOSwgMjAxNiAxNzowNw0KVG86IEN1aSwgRmxvcmEgPEZsb3JhLkN1aUBhbWQuY29tPjsgWmhv
+dSwgRGF2aWQoQ2h1bk1pbmcpIDxEYXZpZDEuWmhvdUBhbWQuY29tPg0KQ2M6IGFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnOyBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpTdWJq
+ZWN0OiBSZTogW1BBVENIIDEvMl0gZHJtL3R0bTogcmVtb3ZlIHVudXNlZCBwbGFjZW1lbnQgZmxh
+Z3MNCg0KSW4gdGhpcyBjYXNlIHBsZWFzZSBqdXN0IGFkZCB0aGVtIGJhY2sgaW4geW91ciB0cmVl
+LiBUaGF0IHNob3VsZCBiZSBhIHR3byBsaW5lci4NCg0KRm9yIHVwc3RyZWFtIGl0IGNlcnRhaW5s
+eSBkb2Vzbid0IG1ha2Ugc2Vuc2UgdG8ga2VlcCB0aGVtLg0KDQpSZWdhcmRzLA0KQ2hyaXN0aWFu
+Lg0KDQpBbSAwOS4wOS4yMDE2IHVtIDA5OjAxIHNjaHJpZWIgRmxvcmEgQ3VpOg0KPiB5ZXMuIHBs
+ZWFzZSBkb24ndCBkbyB0aGlzLCBJIG5lZWQgdGhlbS4NCj4NCj4gT24gRnJpLCBTZXAgMDksIDIw
+MTYgYXQgMDI6NDE6MTZQTSArMDgwMCwgemhvdWNtMSB3cm90ZToNCj4+DQo+PiBPbiAyMDE25bm0
+MDnmnIgwOOaXpSAyMTo0MSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToNCj4+PiBGcm9tOiBDaHJp
+c3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+DQo+Pj4NCj4+PiBFaXRoZXIg
+bmV2ZXIgdXNlZCBvciBub3QgdXNlZCBpbiBxdWl0ZSBhIHdoaWxlLg0KPj4gTm8sIEkgcmVtZW1i
+ZXIgRmxvcmEncyBEaXJlY3QgR01BIGlzIHVzaW5nIHRoZW0gbGlrZSBHRFMgdXNlIFBSSVYwLTIu
+IA0KPj4gQW5kIHlvdSBjYW5ub3QgbWFrZSBzdXJlIHRoZXJlIGlzbid0IG5vIG9uZSB1c2luZyB0
+aGVtIGluIG90aGVyIA0KPj4gY2xvc2VkIHByb2plY3RzLCByaWdodD8NCj4+IElmIHlvdSByZW1v
+dmVkIG5vdywgdGhhdCBvYnZpb3VzbHkgd2lsbCBicmVhayBoZXIgaW1wbGVtZW50YXRpb24gYW5k
+IA0KPj4gYnJpbmdzIGhlciBtYW55IHRyb3VibGVzLg0KPj4NCj4+DQo+PiBSZWdhcmRzLA0KPj4g
+RGF2aWQgWmhvdQ0KPj4+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlh
+bi5rb2VuaWdAYW1kLmNvbT4NCj4+PiAtLS0NCj4+PiAgIGRyaXZlcnMvZ3B1L2RybS90dG0vdHRt
+X2JvLmMgICAgfCAgMiArLQ0KPj4+ICAgaW5jbHVkZS9kcm0vdHRtL3R0bV9wbGFjZW1lbnQuaCB8
+IDE5IC0tLS0tLS0tLS0tLS0tLS0tLS0NCj4+PiAgIDIgZmlsZXMgY2hhbmdlZCwgMSBpbnNlcnRp
+b24oKyksIDIwIGRlbGV0aW9ucygtKQ0KPj4+DQo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS90dG0vdHRtX2JvLmMgDQo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jIGlu
+ZGV4IGJjMzdmMDIuLjRkMmU4ZjIgMTAwNjQ0DQo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3R0
+bS90dG1fYm8uYw0KPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMNCj4+PiBA
+QCAtNTksNyArNTksNyBAQCBzdGF0aWMgaW5saW5lIGludCB0dG1fbWVtX3R5cGVfZnJvbV9wbGFj
+ZShjb25zdCBzdHJ1Y3QgdHRtX3BsYWNlICpwbGFjZSwNCj4+PiAgIHsNCj4+PiAgIAlpbnQgaTsN
+Cj4+PiAtCWZvciAoaSA9IDA7IGkgPD0gVFRNX1BMX1BSSVY1OyBpKyspDQo+Pj4gKwlmb3IgKGkg
+PSAwOyBpIDw9IFRUTV9QTF9QUklWMjsgaSsrKQ0KPj4+ICAgCQlpZiAocGxhY2UtPmZsYWdzICYg
+KDEgPDwgaSkpIHsNCj4+PiAgIAkJCSptZW1fdHlwZSA9IGk7DQo+Pj4gICAJCQlyZXR1cm4gMDsN
+Cj4+PiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0vdHRtL3R0bV9wbGFjZW1lbnQuaCANCj4+PiBi
+L2luY2x1ZGUvZHJtL3R0bS90dG1fcGxhY2VtZW50LmggaW5kZXggOGVkNDRmOS4uMjAyMTlkOSAx
+MDA2NDQNCj4+PiAtLS0gYS9pbmNsdWRlL2RybS90dG0vdHRtX3BsYWNlbWVudC5oDQo+Pj4gKysr
+IGIvaW5jbHVkZS9kcm0vdHRtL3R0bV9wbGFjZW1lbnQuaA0KPj4+IEBAIC00MCwxMCArNDAsNiBA
+QA0KPj4+ICAgI2RlZmluZSBUVE1fUExfUFJJVjAgICAgICAgICAgICAzDQo+Pj4gICAjZGVmaW5l
+IFRUTV9QTF9QUklWMSAgICAgICAgICAgIDQNCj4+PiAgICNkZWZpbmUgVFRNX1BMX1BSSVYyICAg
+ICAgICAgICAgNQ0KPj4+IC0jZGVmaW5lIFRUTV9QTF9QUklWMyAgICAgICAgICAgIDYNCj4+PiAt
+I2RlZmluZSBUVE1fUExfUFJJVjQgICAgICAgICAgICA3DQo+Pj4gLSNkZWZpbmUgVFRNX1BMX1BS
+SVY1ICAgICAgICAgICAgOA0KPj4+IC0jZGVmaW5lIFRUTV9QTF9TV0FQUEVEICAgICAgICAgIDE1
+DQo+Pj4gICAjZGVmaW5lIFRUTV9QTF9GTEFHX1NZU1RFTSAgICAgICgxIDw8IFRUTV9QTF9TWVNU
+RU0pDQo+Pj4gICAjZGVmaW5lIFRUTV9QTF9GTEFHX1RUICAgICAgICAgICgxIDw8IFRUTV9QTF9U
+VCkNCj4+PiBAQCAtNTEsMTAgKzQ3LDYgQEANCj4+PiAgICNkZWZpbmUgVFRNX1BMX0ZMQUdfUFJJ
+VjAgICAgICAgKDEgPDwgVFRNX1BMX1BSSVYwKQ0KPj4+ICAgI2RlZmluZSBUVE1fUExfRkxBR19Q
+UklWMSAgICAgICAoMSA8PCBUVE1fUExfUFJJVjEpDQo+Pj4gICAjZGVmaW5lIFRUTV9QTF9GTEFH
+X1BSSVYyICAgICAgICgxIDw8IFRUTV9QTF9QUklWMikNCj4+PiAtI2RlZmluZSBUVE1fUExfRkxB
+R19QUklWMyAgICAgICAoMSA8PCBUVE1fUExfUFJJVjMpDQo+Pj4gLSNkZWZpbmUgVFRNX1BMX0ZM
+QUdfUFJJVjQgICAgICAgKDEgPDwgVFRNX1BMX1BSSVY0KQ0KPj4+IC0jZGVmaW5lIFRUTV9QTF9G
+TEFHX1BSSVY1ICAgICAgICgxIDw8IFRUTV9QTF9QUklWNSkNCj4+PiAtI2RlZmluZSBUVE1fUExf
+RkxBR19TV0FQUEVEICAgICAoMSA8PCBUVE1fUExfU1dBUFBFRCkNCj4+PiAgICNkZWZpbmUgVFRN
+X1BMX01BU0tfTUVNICAgICAgICAgMHgwMDAwRkZGRg0KPj4+ICAgLyoNCj4+PiBAQCAtNzIsNyAr
+NjQsNiBAQA0KPj4+ICAgI2RlZmluZSBUVE1fUExfRkxBR19DQUNIRUQgICAgICAoMSA8PCAxNikN
+Cj4+PiAgICNkZWZpbmUgVFRNX1BMX0ZMQUdfVU5DQUNIRUQgICAgKDEgPDwgMTcpDQo+Pj4gICAj
+ZGVmaW5lIFRUTV9QTF9GTEFHX1dDICAgICAgICAgICgxIDw8IDE4KQ0KPj4+IC0jZGVmaW5lIFRU
+TV9QTF9GTEFHX1NIQVJFRCAgICAgICgxIDw8IDIwKQ0KPj4+ICAgI2RlZmluZSBUVE1fUExfRkxB
+R19OT19FVklDVCAgICAoMSA8PCAyMSkNCj4+PiAgICNkZWZpbmUgVFRNX1BMX0ZMQUdfVE9QRE9X
+TiAgICAgKDEgPDwgMjIpDQo+Pj4gQEAgLTgyLDE0ICs3Myw0IEBADQo+Pj4gICAjZGVmaW5lIFRU
+TV9QTF9NQVNLX01FTVRZUEUgICAgIChUVE1fUExfTUFTS19NRU0gfCBUVE1fUExfTUFTS19DQUNI
+SU5HKQ0KPj4+IC0vKg0KPj4+IC0gKiBBY2Nlc3MgZmxhZ3MgdG8gYmUgdXNlZCBmb3IgQ1BVLSBh
+bmQgR1BVLSBtYXBwaW5ncy4NCj4+PiAtICogVGhlIGlkZWEgaXMgdGhhdCB0aGUgVFRNIHN5bmNo
+cm9uaXphdGlvbiBtZWNoYW5pc20gd2lsbA0KPj4+IC0gKiBhbGxvdyBjb25jdXJyZW50IFJFQUQg
+YWNjZXNzIGFuZCBleGNsdXNpdmUgd3JpdGUgYWNjZXNzLg0KPj4+IC0gKiBDdXJyZW50bHkgR1BV
+LSBhbmQgQ1BVIGFjY2Vzc2VzIGFyZSBleGNsdXNpdmUuDQo+Pj4gLSAqLw0KPj4+IC0NCj4+PiAt
+I2RlZmluZSBUVE1fQUNDRVNTX1JFQUQgICAgICAgICAoMSA8PCAwKQ0KPj4+IC0jZGVmaW5lIFRU
+TV9BQ0NFU1NfV1JJVEUgICAgICAgICgxIDw8IDEpDQo+Pj4gLQ0KPj4+ICAgI2VuZGlmDQo+PiBf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPj4gYW1kLWdm
+eCBtYWlsaW5nIGxpc3QNCj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+PiBodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCg0KDQpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QNCmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpodHRwczovL2xpc3Rz
+LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
