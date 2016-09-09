@@ -1,14 +1,16 @@
-From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 3/3] drm/amdgpu: add a custom GTT memory manager
-Date: Fri, 9 Sep 2016 17:32:04 -0400
-Message-ID: <6f608db4-5092-1fc3-1348-6d1f1ab41439@amd.com>
-References: <1473432140-1919-1-git-send-email-deathsimple@vodafone.de>
- <1473432140-1919-3-git-send-email-deathsimple@vodafone.de>
+From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 0/9] misc patches related to powerplay
+Date: Fri, 9 Sep 2016 22:45:59 +0000
+Message-ID: <CY4PR12MB1687D690F513C9C6F6FC9552FBFA0@CY4PR12MB1687.namprd12.prod.outlook.com>
+References: <1473428259-580-1-git-send-email-Rex.Zhu@amd.com>
+ <ead74fd5-6d6f-ba4e-d0a1-fea21e7296dd@vodafone.de>
+ <CY4PR12MB16872A6C90804AF1D368A194FBFA0@CY4PR12MB1687.namprd12.prod.outlook.com>,
+ <bf78afe1-9829-2316-2922-7e04d9babb75@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0701636676=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1473432140-1919-3-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <bf78afe1-9829-2316-2922-7e04d9babb75-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,250 +21,418 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?iso-8859-1?Q?Christian_K=F6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-U29tZSBjb21tZW50cyBpbmxpbmUuCgpXb3VsZCBpdCBtYWtlIHNlbnNlIHRvIGZyZWUgdGhlIEdU
-VCBhZGRyZXNzIHNwYWNlIGluIGFtZGdwdV90dG1fdW5iaW5kPwpCYXNpY2FsbHkgdGhlIGNvdW50
-ZXJwYXJ0IG9mIGFtZGdwdV9ndHRfbWdyX2FsbG9jLCBjYWxsIGl0CmFtZGdwdV9ndHRfbWdyX2Zy
-ZWUsIHRoYXQgZnJlZXMgdGhlIGFkZHJlc3Mgc3BhY2UgYnV0IGtlZXBzIHRoZSBub2RlCmFsbG9j
-YXRlZCBhbmQgc2V0cyBpdHMgbm9kZS0+c3RhcnQgYWRkcmVzcyBiYWNrIHRvIEFNREdQVV9CT19J
-TlZBTElEX09GRlNFVD8KCkN1cnJlbnRseSBhbnkgbWlncmF0aW9uIG9mIFZSQU0gdG8gR1RUIHdv
-dWxkIGFsbG9jYXRlIEdUVCBhZGRyZXNzIHNwYWNlCmFuZCBuZXZlciBmcmVlIHRoYXQgc3BhY2Ug
-dW50aWwgdGhlIEJPIGlzIGRlc3Ryb3llZC4gQnV0IHlvdSBjb3VsZCBmcmVlCnRoZSBHVFQgYWRk
-cmVzcyBzcGFjZSBhZnRlciB0aGUgbWlncmF0aW9uIGlzIGRvbmUgc28gaXQgY2FuIGJlIHJldXNl
-ZApmb3Igb3RoZXIgYnVmZmVycy4KClJlZ2FyZHMsCiAgRmVsaXgKCgpPbiAxNi0wOS0wOSAxMDo0
-MiBBTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBGcm9tOiBDaHJpc3RpYW4gS8O2bmlnIDxj
-aHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4KPiBPbmx5IGFsbG9jYXRlIGFkZHJlc3Mgc3BhY2Ug
-d2hlbiB3ZSByZWFsbHkgbmVlZCBpdC4KPgo+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7Zu
-aWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvTWFrZWZpbGUgICAgICAgICB8ICAgMyArLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfY3MuYyAgICAgIHwgICA0ICstCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9ndHRfbWdyLmMgfCAyMzggKysrKysrKysrKysrKysrKysrKysrKysrKysr
-Kwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMgIHwgICAyICst
-Cj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYyAgICAgfCAgMjAgKyst
-Cj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uaCAgICAgfCAgIDkgKy0K
-PiAgNiBmaWxlcyBjaGFuZ2VkLCAyNjUgaW5zZXJ0aW9ucygrKSwgMTEgZGVsZXRpb25zKC0pCj4g
-IGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ3R0
-X21nci5jCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvTWFrZWZp
-bGUgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9NYWtlZmlsZQo+IGluZGV4IGY3ZDg0YWMu
-LmYyYjk3Y2IgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvTWFrZWZp
-bGUKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9NYWtlZmlsZQo+IEBAIC0yOSw3
-ICsyOSw4IEBAIGFtZGdwdS15ICs9IGFtZGdwdV9kZXZpY2UubyBhbWRncHVfa21zLm8gXAo+ICAJ
-YW1kZ3B1X3BtLm8gYXRvbWJpb3NfZHAubyBhbWRncHVfYWZtdC5vIGFtZGdwdV90cmFjZV9wb2lu
-dHMubyBcCj4gIAlhdG9tYmlvc19lbmNvZGVycy5vIGFtZGdwdV9zYS5vIGF0b21iaW9zX2kyYy5v
-IFwKPiAgCWFtZGdwdV9wcmltZS5vIGFtZGdwdV92bS5vIGFtZGdwdV9pYi5vIGFtZGdwdV9wbGwu
-byBcCj4gLQlhbWRncHVfdWNvZGUubyBhbWRncHVfYm9fbGlzdC5vIGFtZGdwdV9jdHgubyBhbWRn
-cHVfc3luYy5vCj4gKwlhbWRncHVfdWNvZGUubyBhbWRncHVfYm9fbGlzdC5vIGFtZGdwdV9jdHgu
-byBhbWRncHVfc3luYy5vIFwKPiArCWFtZGdwdV9ndHRfbWdyLm8KPiAgCj4gICMgYWRkIGFzaWMg
-c3BlY2lmaWMgYmxvY2sKPiAgYW1kZ3B1LSQoQ09ORklHX0RSTV9BTURHUFVfQ0lLKSs9IGNpay5v
-IGNpa19paC5vIGt2X3NtYy5vIGt2X2RwbS5vIFwKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfY3MuYwo+IGluZGV4IGNhODFmMTUuLmQ5YzAwNmYgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfY3MuYwo+IEBAIC02NDksNyArNjQ5LDcgQEAgc3RhdGljIGludCBh
-bWRncHVfY3NfcGFyc2VyX2JvcyhzdHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcCwKPiAgCWlmICgh
-ciAmJiBwLT51Zl9lbnRyeS5yb2JqKSB7Cj4gIAkJc3RydWN0IGFtZGdwdV9ibyAqdWYgPSBwLT51
-Zl9lbnRyeS5yb2JqOwo+ICAKPiAtCQlyID0gYW1kZ3B1X3R0bV9iaW5kKHVmLT50Ym8udHRtLCAm
-dWYtPnRiby5tZW0pOwo+ICsJCXIgPSBhbWRncHVfdHRtX2JpbmQoJnVmLT50Ym8sICZ1Zi0+dGJv
-Lm1lbSk7Cj4gIAkJcC0+am9iLT51Zl9hZGRyICs9IGFtZGdwdV9ib19ncHVfb2Zmc2V0KHVmKTsK
-PiAgCX0KPiAgCj4gQEAgLTExOTMsNyArMTE5Myw3IEBAIGludCBhbWRncHVfY3Nfc3lzdm1fYWNj
-ZXNzX3JlcXVpcmVkKHN0cnVjdCBhbWRncHVfY3NfcGFyc2VyICpwYXJzZXIpCj4gIAlmb3IgKGkg
-PSAwOyBpIDwgcGFyc2VyLT5ib19saXN0LT5udW1fZW50cmllczsgaSsrKSB7Cj4gIAkJc3RydWN0
-IGFtZGdwdV9ibyAqYm8gPSBwYXJzZXItPmJvX2xpc3QtPmFycmF5W2ldLnJvYmo7Cj4gIAo+IC0J
-CXIgPSBhbWRncHVfdHRtX2JpbmQoYm8tPnRiby50dG0sICZiby0+dGJvLm1lbSk7Cj4gKwkJciA9
-IGFtZGdwdV90dG1fYmluZCgmYm8tPnRibywgJmJvLT50Ym8ubWVtKTsKPiAgCQlpZiAodW5saWtl
-bHkocikpCj4gIAkJCXJldHVybiByOwo+ICAJfQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfZ3R0X21nci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X2d0dF9tZ3IuYwo+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4gaW5kZXggMDAwMDAw
-MC4uNTk4ZmMwOQo+IC0tLSAvZGV2L251bGwKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfZ3R0X21nci5jCj4gQEAgLTAsMCArMSwyMzggQEAKPiArLyoKPiArICogQ29w
-eXJpZ2h0IDIwMTUgQWR2YW5jZWQgTWljcm8gRGV2aWNlcywgSW5jLgo+ICsgKgo+ICsgKiBQZXJt
-aXNzaW9uIGlzIGhlcmVieSBncmFudGVkLCBmcmVlIG9mIGNoYXJnZSwgdG8gYW55IHBlcnNvbiBv
-YnRhaW5pbmcgYQo+ICsgKiBjb3B5IG9mIHRoaXMgc29mdHdhcmUgYW5kIGFzc29jaWF0ZWQgZG9j
-dW1lbnRhdGlvbiBmaWxlcyAodGhlICJTb2Z0d2FyZSIpLAo+ICsgKiB0byBkZWFsIGluIHRoZSBT
-b2Z0d2FyZSB3aXRob3V0IHJlc3RyaWN0aW9uLCBpbmNsdWRpbmcgd2l0aG91dCBsaW1pdGF0aW9u
-Cj4gKyAqIHRoZSByaWdodHMgdG8gdXNlLCBjb3B5LCBtb2RpZnksIG1lcmdlLCBwdWJsaXNoLCBk
-aXN0cmlidXRlLCBzdWJsaWNlbnNlLAo+ICsgKiBhbmQvb3Igc2VsbCBjb3BpZXMgb2YgdGhlIFNv
-ZnR3YXJlLCBhbmQgdG8gcGVybWl0IHBlcnNvbnMgdG8gd2hvbSB0aGUKPiArICogU29mdHdhcmUg
-aXMgZnVybmlzaGVkIHRvIGRvIHNvLCBzdWJqZWN0IHRvIHRoZSBmb2xsb3dpbmcgY29uZGl0aW9u
-czoKPiArICoKPiArICogVGhlIGFib3ZlIGNvcHlyaWdodCBub3RpY2UgYW5kIHRoaXMgcGVybWlz
-c2lvbiBub3RpY2Ugc2hhbGwgYmUgaW5jbHVkZWQgaW4KPiArICogYWxsIGNvcGllcyBvciBzdWJz
-dGFudGlhbCBwb3J0aW9ucyBvZiB0aGUgU29mdHdhcmUuCj4gKyAqCj4gKyAqIFRIRSBTT0ZUV0FS
-RSBJUyBQUk9WSURFRCAiQVMgSVMiLCBXSVRIT1VUIFdBUlJBTlRZIE9GIEFOWSBLSU5ELCBFWFBS
-RVNTIE9SCj4gKyAqIElNUExJRUQsIElOQ0xVRElORyBCVVQgTk9UIExJTUlURUQgVE8gVEhFIFdB
-UlJBTlRJRVMgT0YgTUVSQ0hBTlRBQklMSVRZLAo+ICsgKiBGSVRORVNTIEZPUiBBIFBBUlRJQ1VM
-QVIgUFVSUE9TRSBBTkQgTk9OSU5GUklOR0VNRU5ULiAgSU4gTk8gRVZFTlQgU0hBTEwKPiArICog
-VEhFIENPUFlSSUdIVCBIT0xERVIoUykgT1IgQVVUSE9SKFMpIEJFIExJQUJMRSBGT1IgQU5ZIENM
-QUlNLCBEQU1BR0VTIE9SCj4gKyAqIE9USEVSIExJQUJJTElUWSwgV0hFVEhFUiBJTiBBTiBBQ1RJ
-T04gT0YgQ09OVFJBQ1QsIFRPUlQgT1IgT1RIRVJXSVNFLAo+ICsgKiBBUklTSU5HIEZST00sIE9V
-VCBPRiBPUiBJTiBDT05ORUNUSU9OIFdJVEggVEhFIFNPRlRXQVJFIE9SIFRIRSBVU0UgT1IKPiAr
-ICogT1RIRVIgREVBTElOR1MgSU4gVEhFIFNPRlRXQVJFLgo+ICsgKgo+ICsgKiBBdXRob3JzOiBD
-aHJpc3RpYW4gS8O2bmlnCj4gKyAqLwo+ICsKPiArI2luY2x1ZGUgPGRybS9kcm1QLmg+Cj4gKyNp
-bmNsdWRlICJhbWRncHUuaCIKPiArCj4gK3N0cnVjdCBhbWRncHVfZ3R0X21nciB7Cj4gKwlzdHJ1
-Y3QgZHJtX21tIG1tOwo+ICsJc3BpbmxvY2tfdCBsb2NrOwo+ICsJdWludDY0X3QgYXZhaWxhYmxl
-Owo+ICt9Owo+ICsKPiArLyoqCj4gKyAqIGFtZGdwdV9ndHRfbWdyX2luaXQgLSBpbml0IEdUVCBt
-YW5hZ2VyIGFuZCBEUk0gTU0KPiArICoKPiArICogQG1hbjogVFRNIG1lbW9yeSB0eXBlIG1hbmFn
-ZXIKPiArICogQHBfc2l6ZTogbWF4aW11bSBzaXplIG9mIEdUVAo+ICsgKgo+ICsgKiBBbGxvY2F0
-ZSBhbmQgaW5pdGlhbGl6ZSB0aGUgR1RUIG1hbmFnZXIuCj4gKyAqLwo+ICtzdGF0aWMgaW50IGFt
-ZGdwdV9ndHRfbWdyX2luaXQoc3RydWN0IHR0bV9tZW1fdHlwZV9tYW5hZ2VyICptYW4sCj4gKwkJ
-CSAgICAgICB1bnNpZ25lZCBsb25nIHBfc2l6ZSkKPiArewo+ICsJc3RydWN0IGFtZGdwdV9ndHRf
-bWdyICptZ3I7Cj4gKwo+ICsJbWdyID0ga3phbGxvYyhzaXplb2YoKm1nciksIEdGUF9LRVJORUwp
-Owo+ICsJaWYgKCFtZ3IpCj4gKwkJcmV0dXJuIC1FTk9NRU07Cj4gKwo+ICsJZHJtX21tX2luaXQo
-Jm1nci0+bW0sIDAsIHBfc2l6ZSk7Cj4gKwlzcGluX2xvY2tfaW5pdCgmbWdyLT5sb2NrKTsKPiAr
-CW1nci0+YXZhaWxhYmxlID0gcF9zaXplOwo+ICsJbWFuLT5wcml2ID0gbWdyOwo+ICsJcmV0dXJu
-IDA7Cj4gK30KPiArCj4gKy8qKgo+ICsgKiBhbWRncHVfZ3R0X21ncl9maW5pIC0gZnJlZSBhbmQg
-ZGVzdHJveSBHVFQgbWFuYWdlcgo+ICsgKgo+ICsgKiBAbWFuOiBUVE0gbWVtb3J5IHR5cGUgbWFu
-YWdlcgo+ICsgKgo+ICsgKiBEZXN0cm95IGFuZCBmcmVlIHRoZSBHVFQgbWFuYWdlciwgcmV0dXJu
-cyAtRUJVU1kgaWYgcmFuZ2VzIGFyZSBzdGlsbAo+ICsgKiBhbGxvY2F0ZWQgaW5zaWRlIGl0Lgo+
-ICsgKi8KPiArc3RhdGljIGludCBhbWRncHVfZ3R0X21ncl9maW5pKHN0cnVjdCB0dG1fbWVtX3R5
-cGVfbWFuYWdlciAqbWFuKQo+ICt7Cj4gKwlzdHJ1Y3QgYW1kZ3B1X2d0dF9tZ3IgKm1nciA9IG1h
-bi0+cHJpdjsKPiArCj4gKwlzcGluX2xvY2soJm1nci0+bG9jayk7Cj4gKwlpZiAoIWRybV9tbV9j
-bGVhbigmbWdyLT5tbSkpIHsKPiArCQlzcGluX3VubG9jaygmbWdyLT5sb2NrKTsKPiArCQlyZXR1
-cm4gLUVCVVNZOwo+ICsJfQo+ICsKPiArCWRybV9tbV90YWtlZG93bigmbWdyLT5tbSk7Cj4gKwlz
-cGluX3VubG9jaygmbWdyLT5sb2NrKTsKPiArCWtmcmVlKG1ncik7Cj4gKwltYW4tPnByaXYgPSBO
-VUxMOwo+ICsJcmV0dXJuIDA7Cj4gK30KPiArCj4gKy8qKgo+ICsgKiBhbWRncHVfZ3R0X21ncl9h
-bGxvYyAtIGFsbG9jYXRlIG5ldyByYW5nZXMKPiArICoKPiArICogQG1hbjogVFRNIG1lbW9yeSB0
-eXBlIG1hbmFnZXIKPiArICogQHRibzogVFRNIEJPIHdlIG5lZWQgdGhpcyByYW5nZSBmb3IKPiAr
-ICogQHBsYWNlOiBwbGFjZW1lbnQgZmxhZ3MgYW5kIHJlc3RyaWN0aW9ucwo+ICsgKiBAbWVtOiB0
-aGUgcmVzdWx0aW5nIG1lbSBvYmplY3QKPiArICoKPiArICogRHVtbXksIGFsbG9jYXRlIHRoZSBu
-b2RlIGJ1dCBubyBzcGFjZSBmb3IgaXQgeWV0LgoKW0ZLXSBUaGlzIGNvbW1lbnQgZG9lc24ndCBz
-ZWVtIHRvIGFwcGx5IHRvIHRoaXMgZnVuY3Rpb24uCgo+ICsgKi8KPiAraW50IGFtZGdwdV9ndHRf
-bWdyX2FsbG9jKHN0cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFuLAo+ICsJCQkgc3RydWN0
-IHR0bV9idWZmZXJfb2JqZWN0ICp0Ym8sCj4gKwkJCSBjb25zdCBzdHJ1Y3QgdHRtX3BsYWNlICpw
-bGFjZSwKPiArCQkJIHN0cnVjdCB0dG1fbWVtX3JlZyAqbWVtKQo+ICt7Cj4gKwlzdHJ1Y3QgYW1k
-Z3B1X2d0dF9tZ3IgKm1nciA9IG1hbi0+cHJpdjsKPiArCXN0cnVjdCBkcm1fbW1fbm9kZSAqbm9k
-ZSA9IG1lbS0+bW1fbm9kZTsKPiArCWVudW0gZHJtX21tX3NlYXJjaF9mbGFncyBzZmxhZ3MgPSBE
-Uk1fTU1fU0VBUkNIX0JFU1Q7Cj4gKwllbnVtIGRybV9tbV9hbGxvY2F0b3JfZmxhZ3MgYWZsYWdz
-ID0gRFJNX01NX0NSRUFURV9ERUZBVUxUOwo+ICsJdW5zaWduZWQgbG9uZyBmcGZuLCBscGZuOwo+
-ICsJaW50IHI7Cj4gKwo+ICsJaWYgKG5vZGUtPnN0YXJ0ICE9IEFNREdQVV9CT19JTlZBTElEX09G
-RlNFVCkKPiArCQlyZXR1cm4gMDsKPiArCj4gKwlpZiAocGxhY2UpCj4gKwkJZnBmbiA9IHBsYWNl
-LT5mcGZuOwo+ICsJZWxzZQo+ICsJCWZwZm4gPSAwOwo+ICsKPiArCWlmIChwbGFjZSAmJiBwbGFj
-ZS0+bHBmbikKPiArCQlscGZuID0gcGxhY2UtPmxwZm47Cj4gKwllbHNlCj4gKwkJbHBmbiA9IG1h
-bi0+c2l6ZTsKPiArCj4gKwlpZiAocGxhY2UgJiYgcGxhY2UtPmZsYWdzICYgVFRNX1BMX0ZMQUdf
-VE9QRE9XTikgewo+ICsJCXNmbGFncyA9IERSTV9NTV9TRUFSQ0hfQkVMT1c7Cj4gKwkJYWZsYWdz
-ID0gRFJNX01NX0NSRUFURV9UT1A7Cj4gKwl9Cj4gKwo+ICsJc3Bpbl9sb2NrKCZtZ3ItPmxvY2sp
-Owo+ICsJciA9IGRybV9tbV9pbnNlcnRfbm9kZV9pbl9yYW5nZV9nZW5lcmljKCZtZ3ItPm1tLCBu
-b2RlLCBtZW0tPm51bV9wYWdlcywKPiArCQkJCQkJbWVtLT5wYWdlX2FsaWdubWVudCwgMCwKPiAr
-CQkJCQkJZnBmbiwgbHBmbiwgc2ZsYWdzLCBhZmxhZ3MpOwo+ICsJc3Bpbl91bmxvY2soJm1nci0+
-bG9jayk7Cj4gKwo+ICsJaWYgKCFyKSB7Cj4gKwkJbWVtLT5zdGFydCA9IG5vZGUtPnN0YXJ0Owo+
-ICsJCXRiby0+b2Zmc2V0ID0gKHRiby0+bWVtLnN0YXJ0IDw8IFBBR0VfU0hJRlQpICsKPiArCQkg
-ICAgdGJvLT5iZGV2LT5tYW5bdGJvLT5tZW0ubWVtX3R5cGVdLmdwdV9vZmZzZXQ7Cj4gKwl9Cj4g
-Kwo+ICsJcmV0dXJuIHI7Cj4gK30KPiArCj4gKy8qKgo+ICsgKiBhbWRncHVfZ3R0X21ncl9uZXcg
-LSBhbGxvY2F0ZSBhIG5ldyBub2RlCj4gKyAqCj4gKyAqIEBtYW46IFRUTSBtZW1vcnkgdHlwZSBt
-YW5hZ2VyCj4gKyAqIEB0Ym86IFRUTSBCTyB3ZSBuZWVkIHRoaXMgcmFuZ2UgZm9yCj4gKyAqIEBw
-bGFjZTogcGxhY2VtZW50IGZsYWdzIGFuZCByZXN0cmljdGlvbnMKPiArICogQG1lbTogdGhlIHJl
-c3VsdGluZyBtZW0gb2JqZWN0Cj4gKyAqCj4gKyAqIER1bW15LCBhbGxvY2F0ZSB0aGUgbm9kZSBi
-dXQgbm8gc3BhY2UgZm9yIGl0IHlldC4KPiArICovCj4gK3N0YXRpYyBpbnQgYW1kZ3B1X2d0dF9t
-Z3JfbmV3KHN0cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFuLAo+ICsJCQkgICAgICBzdHJ1
-Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKnRibywKPiArCQkJICAgICAgY29uc3Qgc3RydWN0IHR0bV9w
-bGFjZSAqcGxhY2UsCj4gKwkJCSAgICAgIHN0cnVjdCB0dG1fbWVtX3JlZyAqbWVtKQo+ICt7Cj4g
-KwlzdHJ1Y3QgYW1kZ3B1X2d0dF9tZ3IgKm1nciA9IG1hbi0+cHJpdjsKPiArCXN0cnVjdCBkcm1f
-bW1fbm9kZSAqbm9kZTsKPiArCWludCByOwo+ICsKPiArCW5vZGUgPSBremFsbG9jKHNpemVvZigq
-bm9kZSksIEdGUF9LRVJORUwpOwo+ICsJaWYgKCFub2RlKQo+ICsJCXJldHVybiAtRU5PTUVNOwo+
-ICsKPiArCXNwaW5fbG9jaygmbWdyLT5sb2NrKTsKPiArCWlmIChtZ3ItPmF2YWlsYWJsZSA8IG1l
-bS0+bnVtX3BhZ2VzKSB7Cj4gKwkJc3Bpbl91bmxvY2soJm1nci0+bG9jayk7Cj4gKwkJcmV0dXJu
-IDA7CltGS10gSSB0aGluayB5b3UncmUgbGVha2luZyAibm9kZSIgaGVyZS4KCj4gKwl9Cj4gKwlt
-Z3ItPmF2YWlsYWJsZSAtPSBtZW0tPm51bV9wYWdlczsKPiArCXNwaW5fdW5sb2NrKCZtZ3ItPmxv
-Y2spOwo+ICsKPiArCW5vZGUtPnN0YXJ0ID0gQU1ER1BVX0JPX0lOVkFMSURfT0ZGU0VUOwo+ICsJ
-bWVtLT5tbV9ub2RlID0gbm9kZTsKPiArCj4gKwlpZiAocGxhY2UtPmZwZm4gfHwgcGxhY2UtPmxw
-Zm4gfHwgcGxhY2UtPmZsYWdzICYgVFRNX1BMX0ZMQUdfVE9QRE9XTikgewo+ICsJCXIgPSBhbWRn
-cHVfZ3R0X21ncl9hbGxvYyhtYW4sIHRibywgcGxhY2UsIG1lbSk7Cj4gKwkJaWYgKHVubGlrZWx5
-KHIpKSB7Cj4gKwkJCWtmcmVlKG5vZGUpOwo+ICsJCQltZW0tPm1tX25vZGUgPSBOVUxMOwo+ICsJ
-CX0KPiArCX0gZWxzZSB7Cj4gKwkJbWVtLT5zdGFydCA9IG5vZGUtPnN0YXJ0OzsKW0ZLXSBkb3Vi
-bGUgc2VtaWNvbG9uPwoKPiArCX0KPiArCj4gKwlyZXR1cm4gMDsKPiArfQo+ICsKPiArLyoqCj4g
-KyAqIGFtZGdwdV9ndHRfbWdyX2RlbCAtIGZyZWUgcmFuZ2VzCj4gKyAqCj4gKyAqIEBtYW46IFRU
-TSBtZW1vcnkgdHlwZSBtYW5hZ2VyCj4gKyAqIEB0Ym86IFRUTSBCTyB3ZSBuZWVkIHRoaXMgcmFu
-Z2UgZm9yCj4gKyAqIEBwbGFjZTogcGxhY2VtZW50IGZsYWdzIGFuZCByZXN0cmljdGlvbnMKPiAr
-ICogQG1lbTogVFRNIG1lbW9yeSBvYmplY3QKPiArICoKPiArICogRnJlZSB0aGUgYWxsb2NhdGVk
-IEdUVCBhZ2Fpbi4KPiArICovCj4gK3N0YXRpYyB2b2lkIGFtZGdwdV9ndHRfbWdyX2RlbChzdHJ1
-Y3QgdHRtX21lbV90eXBlX21hbmFnZXIgKm1hbiwKPiArCQkJICAgICAgIHN0cnVjdCB0dG1fbWVt
-X3JlZyAqbWVtKQo+ICt7Cj4gKwlzdHJ1Y3QgYW1kZ3B1X2d0dF9tZ3IgKm1nciA9IG1hbi0+cHJp
-djsKPiArCXN0cnVjdCBkcm1fbW1fbm9kZSAqbm9kZSA9IG1lbS0+bW1fbm9kZTsKPiArCj4gKwlp
-ZiAoIW5vZGUpCj4gKwkJcmV0dXJuOwo+ICsKPiArCXNwaW5fbG9jaygmbWdyLT5sb2NrKTsKPiAr
-CWlmIChub2RlLT5zdGFydCAhPSBBTURHUFVfQk9fSU5WQUxJRF9PRkZTRVQpCj4gKwkJZHJtX21t
-X3JlbW92ZV9ub2RlKG5vZGUpOwo+ICsJbWdyLT5hdmFpbGFibGUgKz0gbWVtLT5udW1fcGFnZXM7
-Cj4gKwlzcGluX3VubG9jaygmbWdyLT5sb2NrKTsKPiArCj4gKwlrZnJlZShub2RlKTsKPiArCW1l
-bS0+bW1fbm9kZSA9IE5VTEw7Cj4gK30KPiArCj4gKy8qKgo+ICsgKiBhbWRncHVfZ3R0X21ncl9k
-ZWJ1ZyAtIGR1bXAgVlJBTSB0YWJsZQo+ICsgKgo+ICsgKiBAbWFuOiBUVE0gbWVtb3J5IHR5cGUg
-bWFuYWdlcgo+ICsgKiBAcHJlZml4OiB0ZXh0IHByZWZpeAo+ICsgKgo+ICsgKiBEdW1wIHRoZSB0
-YWJsZSBjb250ZW50IHVzaW5nIHByaW50ay4KPiArICovCj4gK3N0YXRpYyB2b2lkIGFtZGdwdV9n
-dHRfbWdyX2RlYnVnKHN0cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFuLAo+ICsJCQkJICBj
-b25zdCBjaGFyICpwcmVmaXgpCj4gK3sKPiArCXN0cnVjdCBhbWRncHVfZ3R0X21nciAqbWdyID0g
-bWFuLT5wcml2Owo+ICsKPiArCXNwaW5fbG9jaygmbWdyLT5sb2NrKTsKPiArCWRybV9tbV9kZWJ1
-Z190YWJsZSgmbWdyLT5tbSwgcHJlZml4KTsKPiArCXNwaW5fdW5sb2NrKCZtZ3ItPmxvY2spOwo+
-ICt9Cj4gKwo+ICtjb25zdCBzdHJ1Y3QgdHRtX21lbV90eXBlX21hbmFnZXJfZnVuYyBhbWRncHVf
-Z3R0X21ncl9mdW5jID0gewo+ICsJYW1kZ3B1X2d0dF9tZ3JfaW5pdCwKPiArCWFtZGdwdV9ndHRf
-bWdyX2ZpbmksCj4gKwlhbWRncHVfZ3R0X21ncl9uZXcsCj4gKwlhbWRncHVfZ3R0X21ncl9kZWws
-Cj4gKwlhbWRncHVfZ3R0X21ncl9kZWJ1Zwo+ICt9Owo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfb2JqZWN0LmMKPiBpbmRleCAxNTFhNzA2Li42OTE3MDdiIDEwMDY0NAo+IC0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYwo+ICsrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYwo+IEBAIC02NzUsNyArNjc1
-LDcgQEAgaW50IGFtZGdwdV9ib19waW5fcmVzdHJpY3RlZChzdHJ1Y3QgYW1kZ3B1X2JvICpibywg
-dTMyIGRvbWFpbiwKPiAgCQlkZXZfZXJyKGJvLT5hZGV2LT5kZXYsICIlcCBwaW4gZmFpbGVkXG4i
-LCBibyk7Cj4gIAkJZ290byBlcnJvcjsKPiAgCX0KPiAtCXIgPSBhbWRncHVfdHRtX2JpbmQoYm8t
-PnRiby50dG0sICZiby0+dGJvLm1lbSk7Cj4gKwlyID0gYW1kZ3B1X3R0bV9iaW5kKCZiby0+dGJv
-LCAmYm8tPnRiby5tZW0pOwo+ICAJaWYgKHVubGlrZWx5KHIpKSB7Cj4gIAkJZGV2X2Vycihiby0+
-YWRldi0+ZGV2LCAiJXAgYmluZCBmYWlsZWRcbiIsIGJvKTsKPiAgCQlnb3RvIGVycm9yOwo+IGRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMKPiBpbmRleCBiMTBmZTEyLi4zMDBj
-OWZiIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0u
-Ywo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwo+IEBAIC0x
-NTYsNyArMTU2LDcgQEAgc3RhdGljIGludCBhbWRncHVfaW5pdF9tZW1fdHlwZShzdHJ1Y3QgdHRt
-X2JvX2RldmljZSAqYmRldiwgdWludDMyX3QgdHlwZSwKPiAgCQltYW4tPmRlZmF1bHRfY2FjaGlu
-ZyA9IFRUTV9QTF9GTEFHX0NBQ0hFRDsKPiAgCQlicmVhazsKPiAgCWNhc2UgVFRNX1BMX1RUOgo+
-IC0JCW1hbi0+ZnVuYyA9ICZ0dG1fYm9fbWFuYWdlcl9mdW5jOwo+ICsJCW1hbi0+ZnVuYyA9ICZh
-bWRncHVfZ3R0X21ncl9mdW5jOwo+ICAJCW1hbi0+Z3B1X29mZnNldCA9IGFkZXYtPm1jLmd0dF9z
-dGFydDsKPiAgCQltYW4tPmF2YWlsYWJsZV9jYWNoaW5nID0gVFRNX1BMX01BU0tfQ0FDSElORzsK
-PiAgCQltYW4tPmRlZmF1bHRfY2FjaGluZyA9IFRUTV9QTF9GTEFHX0NBQ0hFRDsKPiBAQCAtMjU3
-LDcgKzI1Nyw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X21vdmVfYmxpdChzdHJ1Y3QgdHRtX2J1ZmZl
-cl9vYmplY3QgKmJvLAo+ICAKPiAgCXN3aXRjaCAob2xkX21lbS0+bWVtX3R5cGUpIHsKPiAgCWNh
-c2UgVFRNX1BMX1RUOgo+IC0JCXIgPSBhbWRncHVfdHRtX2JpbmQoYm8tPnR0bSwgb2xkX21lbSk7
-Cj4gKwkJciA9IGFtZGdwdV90dG1fYmluZChibywgb2xkX21lbSk7Cj4gIAkJaWYgKHIpCj4gIAkJ
-CXJldHVybiByOwo+ICAKPiBAQCAtMjcwLDcgKzI3MCw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X21v
-dmVfYmxpdChzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvLAo+ICAJfQo+ICAJc3dpdGNoIChu
-ZXdfbWVtLT5tZW1fdHlwZSkgewo+ICAJY2FzZSBUVE1fUExfVFQ6Cj4gLQkJciA9IGFtZGdwdV90
-dG1fYmluZChiby0+dHRtLCBuZXdfbWVtKTsKPiArCQlyID0gYW1kZ3B1X3R0bV9iaW5kKGJvLCBu
-ZXdfbWVtKTsKPiAgCQlpZiAocikKPiAgCQkJcmV0dXJuIHI7Cj4gIAo+IEBAIC02NTYsNyArNjU2
-LDYgQEAgc3RhdGljIGludCBhbWRncHVfdHRtX2JhY2tlbmRfYmluZChzdHJ1Y3QgdHRtX3R0ICp0
-dG0sCj4gIAkJCXJldHVybiByOwo+ICAJCX0KPiAgCX0KPiAtCWd0dC0+b2Zmc2V0ID0gKHU2NCli
-b19tZW0tPnN0YXJ0IDw8IFBBR0VfU0hJRlQ7Cj4gIAlpZiAoIXR0bS0+bnVtX3BhZ2VzKSB7Cj4g
-IAkJV0FSTigxLCAibm90aGluZyB0byBiaW5kICVsdSBwYWdlcyBmb3IgbXJlZyAlcCBiYWNrICVw
-IVxuIiwKPiAgCQkgICAgIHR0bS0+bnVtX3BhZ2VzLCBib19tZW0sIHR0bSk7Cj4gQEAgLTY3Nywx
-NiArNjc2LDI1IEBAIGJvb2wgYW1kZ3B1X3R0bV9pc19ib3VuZChzdHJ1Y3QgdHRtX3R0ICp0dG0p
-Cj4gIAlyZXR1cm4gZ3R0ICYmICFsaXN0X2VtcHR5KCZndHQtPmxpc3QpOwo+ICB9Cj4gIAo+IC1p
-bnQgYW1kZ3B1X3R0bV9iaW5kKHN0cnVjdCB0dG1fdHQgKnR0bSwgc3RydWN0IHR0bV9tZW1fcmVn
-ICpib19tZW0pCj4gK2ludCBhbWRncHVfdHRtX2JpbmQoc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0
-ICpibywgc3RydWN0IHR0bV9tZW1fcmVnICpib19tZW0pCj4gIHsKPiAtCXN0cnVjdCBhbWRncHVf
-dHRtX3R0ICpndHQgPSAodm9pZCAqKXR0bTsKPiArCXN0cnVjdCB0dG1fdHQgKnR0bSA9IGJvLT50
-dG07Cj4gKwlzdHJ1Y3QgYW1kZ3B1X3R0bV90dCAqZ3R0ID0gKHZvaWQgKiliby0+dHRtOwo+ICAJ
-dWludDMyX3QgZmxhZ3M7Cj4gIAlpbnQgcjsKPiAgCj4gIAlpZiAoIXR0bSB8fCBhbWRncHVfdHRt
-X2lzX2JvdW5kKHR0bSkpCj4gIAkJcmV0dXJuIDA7Cj4gIAo+ICsJciA9IGFtZGdwdV9ndHRfbWdy
-X2FsbG9jKCZiby0+YmRldi0+bWFuW1RUTV9QTF9UVF0sIGJvLAo+ICsJCQkJIE5VTEwsIGJvX21l
-bSk7Cj4gKwlpZiAocikgewo+ICsJCURSTV9FUlJPUigiRmFpbGVkIHRvIGFsbG9jYXRlIEdUVCBh
-ZGRyZXNzIHNwYWNlICglZClcbiIsIHIpOwo+ICsJCXJldHVybiByOwo+ICsJfQo+ICsKPiAgCWZs
-YWdzID0gYW1kZ3B1X3R0bV90dF9wdGVfZmxhZ3MoZ3R0LT5hZGV2LCB0dG0sIGJvX21lbSk7Cj4g
-KwlndHQtPm9mZnNldCA9ICh1NjQpYm9fbWVtLT5zdGFydCA8PCBQQUdFX1NISUZUOwo+ICAJciA9
-IGFtZGdwdV9nYXJ0X2JpbmQoZ3R0LT5hZGV2LCBndHQtPm9mZnNldCwgdHRtLT5udW1fcGFnZXMs
-Cj4gIAkJdHRtLT5wYWdlcywgZ3R0LT50dG0uZG1hX2FkZHJlc3MsIGZsYWdzKTsKPiAgCj4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uaCBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uaAo+IGluZGV4IDIxNGJhZTkuLmY3MWY2
-NzEgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5o
-Cj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5oCj4gQEAgLTY1
-LDYgKzY1LDEzIEBAIHN0cnVjdCBhbWRncHVfbW1hbiB7Cj4gIAlzdHJ1Y3QgYW1kZ3B1X21tYW5f
-bHJ1CQkJZ3VhcmQ7Cj4gIH07Cj4gIAo+ICtleHRlcm4gY29uc3Qgc3RydWN0IHR0bV9tZW1fdHlw
-ZV9tYW5hZ2VyX2Z1bmMgYW1kZ3B1X2d0dF9tZ3JfZnVuYzsKPiArCj4gK2ludCBhbWRncHVfZ3R0
-X21ncl9hbGxvYyhzdHJ1Y3QgdHRtX21lbV90eXBlX21hbmFnZXIgKm1hbiwKPiArCQkJIHN0cnVj
-dCB0dG1fYnVmZmVyX29iamVjdCAqdGJvLAo+ICsJCQkgY29uc3Qgc3RydWN0IHR0bV9wbGFjZSAq
-cGxhY2UsCj4gKwkJCSBzdHJ1Y3QgdHRtX21lbV9yZWcgKm1lbSk7Cj4gKwo+ICBpbnQgYW1kZ3B1
-X2NvcHlfYnVmZmVyKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywKPiAgCQkgICAgICAgdWludDY0
-X3Qgc3JjX29mZnNldCwKPiAgCQkgICAgICAgdWludDY0X3QgZHN0X29mZnNldCwKPiBAQCAtNzgs
-NiArODUsNiBAQCBpbnQgYW1kZ3B1X2ZpbGxfYnVmZmVyKHN0cnVjdCBhbWRncHVfYm8gKmJvLAo+
-ICAKPiAgaW50IGFtZGdwdV9tbWFwKHN0cnVjdCBmaWxlICpmaWxwLCBzdHJ1Y3Qgdm1fYXJlYV9z
-dHJ1Y3QgKnZtYSk7Cj4gIGJvb2wgYW1kZ3B1X3R0bV9pc19ib3VuZChzdHJ1Y3QgdHRtX3R0ICp0
-dG0pOwo+IC1pbnQgYW1kZ3B1X3R0bV9iaW5kKHN0cnVjdCB0dG1fdHQgKnR0bSwgc3RydWN0IHR0
-bV9tZW1fcmVnICpib19tZW0pOwo+ICtpbnQgYW1kZ3B1X3R0bV9iaW5kKHN0cnVjdCB0dG1fYnVm
-ZmVyX29iamVjdCAqYm8sIHN0cnVjdCB0dG1fbWVtX3JlZyAqYm9fbWVtKTsKPiAgCj4gICNlbmRp
-ZgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============0701636676==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB1687D690F513C9C6F6FC9552FBFA0CY4PR12MB1687namp_"
+
+--_000_CY4PR12MB1687D690F513C9C6F6FC9552FBFA0CY4PR12MB1687namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Christian,
+
+
+you are right,  I missed mult-gpu case. i will refine related patches.
+
+
+Thanks.
+
+
+Best Regards
+
+Rex
+
+________________________________
+From: Christian K=F6nig <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Sent: Saturday, September 10, 2016 1:51:30 AM
+To: Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH 0/9] misc patches related to powerplay
+
+Hi Rex,
+
+exactly as I feared, please don't do this.
+
+I for example have a system with multiple PEG slots to be able to test diff=
+erent hardware generations at the same time.
+
+This is rather common setup for testing and will break horrible and quite u=
+npredictable when the code suddenly overrides a global function table which=
+ is used by multiple hardware generations.
+
+Either create one function table for each variant or make the function tabl=
+e a member of the hwmgr structure so that you can overwrite it in each inst=
+ance without affecting others.
+
+Regards,
+Christian.
+
+Am 09.09.2016 um 18:29 schrieb Zhu, Rex:
+
+
+Hi Christian,
+
+
+
+I used smu7_hwmgr for  all the asics of smu version 7 , CI and Vi. Please s=
+ee  powerplay code refactoring patches.
+
+
+But some functions in the table were different between those asics. so we n=
+eeded to overload those functions for some asics.
+
+
+for example:
+
+from tonga. we used pptable version 1, but ci and iceland, no pptable,
+
+so needed to overload related functions:
+
+
+         hwmgr->hwmgr_func =3D &smu7_hwmgr_funcs;
+         hwmgr->pptable_func =3D &pptable_v1_0_funcs;
+         pp_smu7_thermal_initialize(hwmgr);
++       if (hwmgr->pp_table_version =3D=3D PP_TABLE_V0) {
++               hwmgr->hwmgr_func->get_pp_table_entry =3D &smu7_get_pp_tabl=
+e_entry_v0;
++               hwmgr->hwmgr_func->get_num_of_pp_table_entries =3D smu7_get=
+_number_of_powerplay_table_entries_v0;
++               hwmgr->pptable_func =3D &pptable_funcs;
++       }
+
+
+Best Regards
+
+Rex
+
+
+
+________________________________
+From: Christian K=F6nig <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org><mailto:deathsimple@vodafo=
+ne.de>
+Sent: Friday, September 9, 2016 10:23:26 PM
+To: Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9w@public.gmane.org=
+p.org>
+Subject: Re: [PATCH 0/9] misc patches related to powerplay
+
+Patch #1-#7 and #9 are Acked-by: Christian K=F6nig <christian.koenig-urvtwAKJhsc@public.gmane.org=
+m><mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org>.
+
+Patch #8: That looks fishy, usually we don't want to override static
+functions tables.
+
+So what is the specific use case here?
+
+Regards,
+Christian.
+
+Am 09.09.2016 um 15:37 schrieb Rex Zhu:
+> Rex Zhu (9):
+>    drm/amd/powerplay: mark symbols static where possible on tonga.
+>    drm/amd/powerplay: add feature flags in hwmgr to enable/disable
+>      special features.
+>    drm/amd/powerplay: add module parameter for mask pp feature
+>    drm/amd/powerplay: initialize platform caps in hwmgr_init.
+>    drm/amd/powerplay: add common functiones for visiting pp table.
+>    drm/amd/powerplay: wrap get evv voltage of fiji and polaris
+>    drm/amd/powerplay: move smu related variable definitions to smumgr.
+>    drm/amd/powerplay: delete const flag of hwmgr_funcs for overload.
+>    drm/amd/powerplay: delete dupicated function and definition.
+>
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h                |   1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |   4 +
+>   drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c     |   2 +-
+>   drivers/gpu/drm/amd/powerplay/hwmgr/fiji_hwmgr.c   |   2 +-
+>   .../gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c  |  34 ----
+>   drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c        | 186 ++++++++++++++=
+++++---
+>   .../gpu/drm/amd/powerplay/hwmgr/iceland_hwmgr.c    |  10 +-
+>   .../gpu/drm/amd/powerplay/hwmgr/polaris10_hwmgr.c  |   7 +-
+>   .../gpu/drm/amd/powerplay/hwmgr/polaris10_hwmgr.h  |   5 +-
+>   .../drm/amd/powerplay/hwmgr/polaris10_powertune.h  |  13 --
+>   drivers/gpu/drm/amd/powerplay/hwmgr/tonga_hwmgr.c  |  21 +--
+>   .../gpu/drm/amd/powerplay/inc/hardwaremanager.h    |   1 -
+>   drivers/gpu/drm/amd/powerplay/inc/hwmgr.h          |  32 +++-
+>   .../drm/amd/powerplay/smumgr/polaris10_smumgr.c    |   1 -
+>   .../drm/amd/powerplay/smumgr/polaris10_smumgr.h    |  20 +++
+>   drivers/gpu/drm/amd/powerplay/smumgr/smumgr.c      |   1 +
+>   16 files changed, 229 insertions(+), 111 deletions(-)
+>
+
+
+
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+
+--_000_CY4PR12MB1687D690F513C9C6F6FC9552FBFA0CY4PR12MB1687namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+</head>
+<body bgcolor=3D"#FFFFFF" text=3D"#000000">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;back=
+ground-color:#FFFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
+<p>Hi Christian,</p>
+<p><br>
+</p>
+<p>you are right,&nbsp; I missed mult-gpu case. i will refine related patch=
+es.</p>
+<p><br>
+</p>
+<p>Thanks.&nbsp;<br>
+</p>
+<p><br>
+</p>
+<p>Best Regards</p>
+<p>Rex<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Christian K=F6nig &lt=
+;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;<br>
+<b>Sent:</b> Saturday, September 10, 2016 1:51:30 AM<br>
+<b>To:</b> Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH 0/9] misc patches related to powerplay</font>
+<div>&nbsp;</div>
+</div>
+<div>
+<div class=3D"moz-cite-prefix">Hi Rex,<br>
+<br>
+exactly as I feared, please don't do this.<br>
+<br>
+I for example have a system with multiple PEG slots to be able to test diff=
+erent hardware generations at the same time.<br>
+<br>
+This is rather common setup for testing and will break horrible and quite u=
+npredictable when the code suddenly overrides a global function table which=
+ is used by multiple hardware generations.<br>
+<br>
+Either create one function table for each variant or make the function tabl=
+e a member of the hwmgr structure so that you can overwrite it in each inst=
+ance without affecting others.<br>
+<br>
+Regards,<br>
+Christian.<br>
+<br>
+Am 09.09.2016 um 18:29 schrieb Zhu, Rex:<br>
+</div>
+<blockquote cite=3D"mid:CY4PR12MB16872A6C90804AF1D368A194FBFA0@CY4PR12MB168=
+7.namprd12.prod.outlook.com" type=3D"cite">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+<div id=3D"divtagdefaultwrapper" style=3D"font-family: Calibri, Arial,
+        Helvetica, sans-serif; background-color: rgb(255, 255, 255);">
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;"><br>
+</p>
+<meta content=3D"text/html; charset=3DUTF-8">
+<div dir=3D"ltr">
+<div id=3D"x_divtagdefaultwrapper" style=3D"font-family: Calibri,
+            Arial, Helvetica, sans-serif; background-color: rgb(255,
+            255, 255);">
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;">Hi Christian,</p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;"><br>
+</p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;"><br>
+</p>
+<p><span style=3D"font-size: 12pt;">I used&nbsp;smu7_hwmgr for &nbsp;all th=
+e asics of smu&nbsp;version 7 ,&nbsp;CI and Vi. Please see &nbsp;</span><sp=
+an style=3D"font-size: 12pt;">powerplay code refactoring patches</span><fon=
+t color=3D"#333333"><span style=3D"font-size: 21px;">.</span></font></p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;"><br>
+</p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;">But some functions in th=
+e table were different between those asics. so we needed to overload those =
+functions for some asics.</p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;"><br>
+</p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;">for example:</p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;">from tonga. we used ppta=
+ble version 1, but ci and iceland, no pptable,&nbsp;</p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;">so needed to overload re=
+lated functions:</p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;"><br>
+</p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;"><span style=3D"color: rg=
+b(33, 33, 33); font-size: 13.3333px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;hwm=
+gr-&gt;hwmgr_func =3D &amp;smu7_hwmgr_funcs;</span><br style=3D"color: rgb(=
+33, 33, 33); font-size: 13.3333px;">
+<span style=3D"color: rgb(33, 33, 33); font-size:
+                13.3333px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; hwmgr-&gt;pptable_func =3D &amp;pptable_v1_0_funcs;</span><br style=3D"co=
+lor: rgb(33,
+                33, 33); font-size: 13.3333px;">
+<span style=3D"color: rgb(33, 33, 33); font-size:
+                13.3333px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; pp_smu7_thermal_initialize(hwmgr);</span><br style=3D"color: rgb(33, 33, =
+33); font-size: 13.3333px;">
+<span style=3D"color: rgb(33, 33, 33); font-size:
+                13.3333px;">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (h=
+wmgr-&gt;pp_table_version =3D=3D PP_TABLE_V0) {</span><br style=3D"color: r=
+gb(33, 33, 33);
+                font-size: 13.3333px;">
+<span style=3D"color: rgb(33, 33, 33); font-size:
+                13.3333px;">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;hwmgr_func-&gt;get_pp_=
+table_entry =3D &amp;smu7_get_pp_table_entry_v0;</span><br style=3D"color:
+                rgb(33, 33, 33); font-size: 13.3333px;">
+<span style=3D"color: rgb(33, 33, 33); font-size:
+                13.3333px;">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;hwmgr_func-&gt;get_num=
+_of_pp_table_entries =3D smu7_get_number_of_powerplay_table_entries_v0;</sp=
+an><br style=3D"color: rgb(33, 33, 33); font-size: 13.3333px;">
+<span style=3D"color: rgb(33, 33, 33); font-size:
+                13.3333px;">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;pptable_func =3D &amp;=
+pptable_funcs;</span><br style=3D"color: rgb(33, 33,
+                33); font-size: 13.3333px;">
+<span style=3D"color: rgb(33, 33, 33); font-size:
+                13.3333px;">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</sp=
+an><br>
+</p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;"><span style=3D"color: rg=
+b(33, 33, 33); font-size: 13.3333px;"><br>
+</span></p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;">Best Regards </p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;">Rex</p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;"><br>
+</p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;"><br>
+</p>
+</div>
+<hr tabindex=3D"-1" style=3D"color: rgb(0, 0, 0); font-size: 12pt;
+            display: inline-block; width: 98%;">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr" style=3D"color: rgb(0, 0,
+            0); font-size: 12pt;">
+<font style=3D"font-size:11pt" color=3D"#000000" face=3D"Calibri,
+              sans-serif"><b>From:</b> Christian K=F6nig
+<a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">=
+&lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;</a><br>
+<b>Sent:</b> Friday, September 9, 2016 10:23:26 PM<br>
+<b>To:</b> Zhu, Rex; <a class=3D"moz-txt-link-abbreviated" href=3D"mailto:a=
+md-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+<b>Subject:</b> Re: [PATCH 0/9] misc patches related to powerplay</font>
+<div>&nbsp;</div>
+</div>
+</div>
+<font style=3D"color: rgb(0, 0, 0); font-size: 12pt;" size=3D"2"><span styl=
+e=3D"font-size:10pt;">
+<div class=3D"PlainText">Patch #1-#7 and #9 are Acked-by: Christian K=F6nig=
+ <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org=
+">
+&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>.<br>
+<br>
+Patch #8: That looks fishy, usually we don't want to override static <br>
+functions tables.<br>
+<br>
+So what is the specific use case here?<br>
+<br>
+Regards,<br>
+Christian.<br>
+<br>
+Am 09.09.2016 um 15:37 schrieb Rex Zhu:<br>
+&gt; Rex Zhu (9):<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amd/powerplay: mark symbols static where possibl=
+e on tonga.<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amd/powerplay: add feature flags in hwmgr to ena=
+ble/disable<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; special features.<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amd/powerplay: add module parameter for mask pp =
+feature<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amd/powerplay: initialize platform caps in hwmgr=
+_init.<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amd/powerplay: add common functiones for visitin=
+g pp table.<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amd/powerplay: wrap get evv voltage of fiji and =
+polaris<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amd/powerplay: move smu related variable definit=
+ions to smumgr.<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amd/powerplay: delete const flag of hwmgr_funcs =
+for overload.<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amd/powerplay: delete dupicated function and def=
+inition.<br>
+&gt;<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;=
+&nbsp; 1 &#43;<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 4 &#43;<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c&nbsp;&nbsp;=
+&nbsp;&nbsp; |&nbsp;&nbsp; 2 &#43;-<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/fiji_hwmgr.c&nbsp;&nbs=
+p; |&nbsp;&nbsp; 2 &#43;-<br>
+&gt;&nbsp;&nbsp; .../gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c&nbsp; |&=
+nbsp; 34 ----<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; | 186 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
+#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;---<br>
+&gt;&nbsp;&nbsp; .../gpu/drm/amd/powerplay/hwmgr/iceland_hwmgr.c&nbsp;&nbsp=
+;&nbsp; |&nbsp; 10 &#43;-<br>
+&gt;&nbsp;&nbsp; .../gpu/drm/amd/powerplay/hwmgr/polaris10_hwmgr.c&nbsp; |&=
+nbsp;&nbsp; 7 &#43;-<br>
+&gt;&nbsp;&nbsp; .../gpu/drm/amd/powerplay/hwmgr/polaris10_hwmgr.h&nbsp; |&=
+nbsp;&nbsp; 5 &#43;-<br>
+&gt;&nbsp;&nbsp; .../drm/amd/powerplay/hwmgr/polaris10_powertune.h&nbsp; |&=
+nbsp; 13 --<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/tonga_hwmgr.c&nbsp; |&=
+nbsp; 21 &#43;--<br>
+&gt;&nbsp;&nbsp; .../gpu/drm/amd/powerplay/inc/hardwaremanager.h&nbsp;&nbsp=
+;&nbsp; |&nbsp;&nbsp; 1 -<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/powerplay/inc/hwmgr.h&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 32 &#43;&#43;&#43;-<br>
+&gt;&nbsp;&nbsp; .../drm/amd/powerplay/smumgr/polaris10_smumgr.c&nbsp;&nbsp=
+;&nbsp; |&nbsp;&nbsp; 1 -<br>
+&gt;&nbsp;&nbsp; .../drm/amd/powerplay/smumgr/polaris10_smumgr.h&nbsp;&nbsp=
+;&nbsp; |&nbsp; 20 &#43;&#43;&#43;<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/powerplay/smumgr/smumgr.c&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 1 &#43;<br>
+&gt;&nbsp;&nbsp; 16 files changed, 229 insertions(&#43;), 111 deletions(-)<=
+br>
+&gt;<br>
+<br>
+</div>
+</span></font></div>
+<br>
+<fieldset class=3D"mimeAttachmentHeader"></fieldset> <br>
+<pre wrap=3D"">_______________________________________________
+amd-gfx mailing list
+<a class=3D"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
+top.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class=3D"moz-txt-link-freetext" href=3D"https://lists.freedesktop.org/ma=
+ilman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-=
+gfx</a>
+</pre>
+</blockquote>
+<p><br>
+</p>
+</div>
+</body>
+</html>
+
+--_000_CY4PR12MB1687D690F513C9C6F6FC9552FBFA0CY4PR12MB1687namp_--
+
+--===============0701636676==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0701636676==--
