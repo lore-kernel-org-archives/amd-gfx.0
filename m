@@ -1,74 +1,307 @@
-From: Emil Velikov <emil.l.velikov@gmail.com>
-Subject: Re: [PATCH 1/2] drm/ttm: remove unused placement flags
-Date: Fri, 9 Sep 2016 16:11:54 +0100
-Message-ID: <CACvgo53xyTjS-WzJCyeNDn-y-=YTtia3HuVS=sF-cQSwWuOeRw@mail.gmail.com>
-References: <1473342102-324-1-git-send-email-deathsimple@vodafone.de>
- <57D2598C.1070903@amd.com> <20160909070116.GA20574@flora>
- <79675437-85ae-2fbf-93e1-b49321e6a41e@vodafone.de>
- <BN6PR12MB120407ACA888A0E57CA16D7AFCFA0@BN6PR12MB1204.namprd12.prod.outlook.com>
- <79da37c4-8259-5301-8a42-ef2f28769728@vodafone.de>
- <CACvgo53AAEsxAoQvAe=ffMnQiZiE=MPWne2Abg=rAt4bRkK8NQ@mail.gmail.com>
- <cf57189a-e3e9-a913-0a5f-0fa799eb9c23@vodafone.de>
+From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 0/9] misc patches related to powerplay
+Date: Fri, 9 Sep 2016 16:29:55 +0000
+Message-ID: <CY4PR12MB16872A6C90804AF1D368A194FBFA0@CY4PR12MB1687.namprd12.prod.outlook.com>
+References: <1473428259-580-1-git-send-email-Rex.Zhu@amd.com>,
+ <ead74fd5-6d6f-ba4e-d0a1-fea21e7296dd@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <cf57189a-e3e9-a913-0a5f-0fa799eb9c23@vodafone.de>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple@vodafone.de>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Cui,
- Flora" <Flora.Cui@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0860934649=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <ead74fd5-6d6f-ba4e-d0a1-fea21e7296dd-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?iso-8859-1?Q?Christian_K=F6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gOSBTZXB0ZW1iZXIgMjAxNiBhdCAxNTozMCwgQ2hyaXN0aWFuIEvDtm5pZyA8ZGVhdGhzaW1w
-bGVAdm9kYWZvbmUuZGU+IHdyb3RlOgo+IEFtIDA5LjA5LjIwMTYgdW0gMTU6NTQgc2NocmllYiBF
-bWlsIFZlbGlrb3Y6Cj4+Cj4+IE9uIDkgU2VwdGVtYmVyIDIwMTYgYXQgMTI6MjQsIENocmlzdGlh
-biBLw7ZuaWcgPGRlYXRoc2ltcGxlQHZvZGFmb25lLmRlPgo+PiB3cm90ZToKPj4+Cj4+PiBIaSBI
-YXdraW5nLAo+Pj4KPj4+PiBSZW1vdmluZyB0aGUgZmxhZyB3aWxsIG1ha2UgdHRtX21lbV90eXBl
-X2Zyb21fcGxhY2Ugc2tpcCBjb3VudGluZyB0aGUKPj4+PiBjb3JyZXNwb25kaW5nIHBsYWNlbWVu
-dCBhbmQgdGh1cyBoYXZlIGltcGFjdCBvbiBtZW0gcmVnaW9uIGNyZWF0ZSBhbmQgYm8KPj4+PiBt
-b3ZlbWVudC4KPj4+Cj4+PiBBbmQgdGhhdCBpcyBleGFjdGx5IHRoZSByZWFzb24gd2h5IEkgd2Fu
-dCB0byByZW1vdmUgdGhlIHVudXNlZCBmbGFncy4KPj4+Cj4+Pj4gVGhlcmUgaXMgbm8gZ3VhcmFu
-dGVlIHRoYXQgYW1kZ3B1IHdvdWxkIG5ldmVyIGludHJvZHVjZSBuZXcgbWVtb3J5Cj4+Pj4gZG9t
-YWluCj4+Pj4gaW4gZnV0dXJlLgo+Pj4KPj4+IElycmVsZXZhbnQsIGlmIGFueSBkcml2ZXIgd2Fu
-dHMgdG8gdXNlIGFkZGl0aW9uYWwgZG9tYWlucyBpdCBzaG91bGQgYWRkCj4+PiB0aGVtCj4+PiB3
-aGVuIHRoZXkgYXJlIHVzZWQuCj4+Pgo+Pj4gQlRXOiBXaHkgd291bGQgd2Ugd2FudCB0byBhZGQg
-YW5vdGhlciBUVE0gZG9tYWluPyBJIHJlYWxseSBkb24ndCBzZWUgYW55Cj4+PiBuZWVkIGZvciB0
-aGF0Lgo+Pj4KPj4+PiBUaGVuIGhvdyBhYm91dCBrZWVwIHRoZXNlIGZsYWdzPwo+Pj4KPj4+IEFj
-dHVhbGx5IHdlIHVzZWQgdG8gaGF2ZSBhdXRvbWF0ZWQgc2Nhbm5lcnMgd2hpY2ggY29tcGxhaW4g
-YWJvdXQgdW51c2VkCj4+PiBjb2RlLiBJJ20gd29uZGVyaW5nIHdoeSB0aGV5IGRvbid0IGRldGVj
-dGVkIHRoYXQgZWFybGllci4KPj4+Cj4+PiBBbnl3YXkgYW55IGNvZGUgd2hpY2ggaXNuJ3QgdXNl
-ZCBpbiBhIHdoaWxlIHNob3VsZCBiZSByZW1vdmVkLgo+Pj4KPj4gRndpdyBJIHNlY29uZCBDaHJp
-c3RpYW4gaGVyZS4gSWYgdGhleSBhcmUgdW51c2VkIGluIG9wZW4tc291cmNlCj4+IGRyaXZlcnMg
-dGhlcmUncyBubyByZWFzb24gdG8ga2VlcCB0aGVtLgo+PiBJZi9hcyB0aGF0IGNoYW5nZXMgdGhl
-IChuZXdseSBpbnRyb2R1Y2VkKSB1c2VyIGNhbiBhZGQgYmFjayB0aGUgcmVsZXZhbnQKPj4gY29k
-ZS4KPgo+Cj4gQ3JhcCB0byBsYXRlIDooIEkgd2FzIGFib3V0IHRvIHNlbmQgYSBWMiBvZiB0aGUg
-cGF0Y2ggdG8ga2VlcCB0aGUgUFJJVgo+IGZsYWdzLgo+Ck9vcHMsIHNvcnJ5IDotKQoKPj4gSWYg
-Y2xvc2VkLXNvdXJjZSBkcml2ZXIocykgdXNlIHRoZW0sIHRoZW4gdGhleSBjYW4ga2VlcCBpdCBh
-cyBwYXJ0IG9mCj4+IHRoZWlyIGJsb2IuIFVwc3RyZWFtIGtlcm5lbCBkb2VzIG5vdCBjYXRlciBm
-b3IgY2xvc2VkLXNvdXJjZSBkcml2ZXJzLAo+PiBwZXJpb2QuCj4+IEkgcmVhbGlzZSB0aGF0J3Mg
-bm90IHRoZSBhbnN3ZXIgc29tZSBhcmUgaG9waW5nIGZvciwgc28gaWYgeW91IHdhbnQgdG8KPj4g
-cXVlc3Rpb24gaXQgdGFrZSBpdCB1cCB3aXRoIExpbnVzIGFuZCBjby4KPgo+Cj4gSXQncyBub3Qg
-YW4gaXNzdWUgYmV0d2VlbiBjbG9zZWQgdnMuIG9wZW4sIGJ1dCByYXRoZXIgYWRkaXRpb25hbCB3
-b3JrIG9mCj4gcmViYXNpbmcgdGhlIG9wZW4gY29kZSB3aGVuIHdlIHN0YXJ0IHRvIHVzZSBhZGRp
-dGlvbmFsIGRvbWFpbnMuCj4KVGhpcyBzaG91bGQgc2VydmUgYXMgYSBncmVhdGVyIGluaXRpYXRp
-dmUgdG8gZGV2ZWxvcCBhbmQgdXBzdHJlYW0KdGhpbmdzIGluIGEgZ3JhZHVhbCBtYW5uZXIsIG5v
-ID8KV2UgYWxsIGdldCBjYXJyaWVkIGF3YXkgc29tZXRpbWVzIGNyZWF0aW5nIGEgbWFzc2l2ZSBi
-cmFuY2ggd2hpY2gganVzdApjYW5ub3QgZ28gaW4gYXQgb25jZS4KCj4gQnV0IG9uIHRoZSBvdGhl
-ciBoYW5kIEkgc3RpbGwgaGF2ZW4ndCBzZWVuIGEgZ29vZCByZWFzb24gZm9yIHVzaW5nIHRob3Nl
-LiBBcwo+IGZhciBhcyBJIGtub3cgd2UgaGF2ZSBjb3ZlcmVkIGFsbCByZXNvdXJjZSBpbiB0aGUg
-Y3VycmVudCBhbmQgbmV4dCBoYXJkd2FyZQo+IGdlbmVyYXRpb24gd2l0aCB0aGUgZXhpc3Rpbmcg
-ZmxhZ3MuCj4KVGhpcyBpbiBpdHNlbGYgaXMgYSBwcmV0dHkgZ29vZCBwb2ludCBhcyB3ZWxsLCBj
-b25zaWRlcmluZyB5b3Uga25vdwp0aGUgaGFyZHdhcmUgZmFpcmx5IHdlbGwgYW5kIHlvdSd2ZSB3
-b3JrZWQgaW4gdGhlIGtlcm5lbCBmb3IgcXVpdGUgYQp3aGlsZSBub3cuCgpSZWdhcmRzLApFbWls
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZl
-bCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
+--===============0860934649==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB16872A6C90804AF1D368A194FBFA0CY4PR12MB1687namp_"
+
+--_000_CY4PR12MB16872A6C90804AF1D368A194FBFA0CY4PR12MB1687namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+
+Hi Christian,
+
+
+
+I used smu7_hwmgr for  all the asics of smu version 7 , CI and Vi. Please s=
+ee  powerplay code refactoring patches.
+
+
+But some functions in the table were different between those asics. so we n=
+eeded to overload those functions for some asics.
+
+
+for example:
+
+from tonga. we used pptable version 1, but ci and iceland, no pptable,
+
+so needed to overload related functions:
+
+
+         hwmgr->hwmgr_func =3D &smu7_hwmgr_funcs;
+         hwmgr->pptable_func =3D &pptable_v1_0_funcs;
+         pp_smu7_thermal_initialize(hwmgr);
++       if (hwmgr->pp_table_version =3D=3D PP_TABLE_V0) {
++               hwmgr->hwmgr_func->get_pp_table_entry =3D &smu7_get_pp_tabl=
+e_entry_v0;
++               hwmgr->hwmgr_func->get_num_of_pp_table_entries =3D smu7_get=
+_number_of_powerplay_table_entries_v0;
++               hwmgr->pptable_func =3D &pptable_funcs;
++       }
+
+
+Best Regards
+
+Rex
+
+
+
+________________________________
+From: Christian K=F6nig <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Sent: Friday, September 9, 2016 10:23:26 PM
+To: Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH 0/9] misc patches related to powerplay
+
+Patch #1-#7 and #9 are Acked-by: Christian K=F6nig <christian.koenig-urvtwAKJhsc@public.gmane.org=
+m>.
+
+Patch #8: That looks fishy, usually we don't want to override static
+functions tables.
+
+So what is the specific use case here?
+
+Regards,
+Christian.
+
+Am 09.09.2016 um 15:37 schrieb Rex Zhu:
+> Rex Zhu (9):
+>    drm/amd/powerplay: mark symbols static where possible on tonga.
+>    drm/amd/powerplay: add feature flags in hwmgr to enable/disable
+>      special features.
+>    drm/amd/powerplay: add module parameter for mask pp feature
+>    drm/amd/powerplay: initialize platform caps in hwmgr_init.
+>    drm/amd/powerplay: add common functiones for visiting pp table.
+>    drm/amd/powerplay: wrap get evv voltage of fiji and polaris
+>    drm/amd/powerplay: move smu related variable definitions to smumgr.
+>    drm/amd/powerplay: delete const flag of hwmgr_funcs for overload.
+>    drm/amd/powerplay: delete dupicated function and definition.
+>
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h                |   1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |   4 +
+>   drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c     |   2 +-
+>   drivers/gpu/drm/amd/powerplay/hwmgr/fiji_hwmgr.c   |   2 +-
+>   .../gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c  |  34 ----
+>   drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c        | 186 ++++++++++++++=
+++++---
+>   .../gpu/drm/amd/powerplay/hwmgr/iceland_hwmgr.c    |  10 +-
+>   .../gpu/drm/amd/powerplay/hwmgr/polaris10_hwmgr.c  |   7 +-
+>   .../gpu/drm/amd/powerplay/hwmgr/polaris10_hwmgr.h  |   5 +-
+>   .../drm/amd/powerplay/hwmgr/polaris10_powertune.h  |  13 --
+>   drivers/gpu/drm/amd/powerplay/hwmgr/tonga_hwmgr.c  |  21 +--
+>   .../gpu/drm/amd/powerplay/inc/hardwaremanager.h    |   1 -
+>   drivers/gpu/drm/amd/powerplay/inc/hwmgr.h          |  32 +++-
+>   .../drm/amd/powerplay/smumgr/polaris10_smumgr.c    |   1 -
+>   .../drm/amd/powerplay/smumgr/polaris10_smumgr.h    |  20 +++
+>   drivers/gpu/drm/amd/powerplay/smumgr/smumgr.c      |   1 +
+>   16 files changed, 229 insertions(+), 111 deletions(-)
+>
+
+
+--_000_CY4PR12MB16872A6C90804AF1D368A194FBFA0CY4PR12MB1687namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-family: Calibri, Arial, Helv=
+etica, sans-serif; background-color: rgb(255, 255, 255);">
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;"><br>
+</p>
+<meta content=3D"text/html; charset=3DUTF-8">
+<div dir=3D"ltr">
+<div id=3D"x_divtagdefaultwrapper" style=3D"font-family: Calibri, Arial, He=
+lvetica, sans-serif; background-color: rgb(255, 255, 255);">
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;">Hi Christian,</p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;"><br>
+</p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;"><br>
+</p>
+<p><span style=3D"font-size: 12pt;">I used&nbsp;smu7_hwmgr for &nbsp;all th=
+e asics of smu&nbsp;version 7 ,&nbsp;CI and Vi. Please see &nbsp;</span><sp=
+an style=3D"font-size: 12pt;">powerplay code refactoring patches</span><fon=
+t color=3D"#333333"><span style=3D"font-size: 21px;">.</span></font></p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;"><br>
+</p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;">But some functions in th=
+e table were different between those asics. so we needed to overload those =
+functions for some asics.</p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;"><br>
+</p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;">for example:</p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;">from tonga. we used ppta=
+ble version 1, but ci and iceland, no pptable,&nbsp;</p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;">so needed to overload re=
+lated functions:</p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;"><br>
+</p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;"><span style=3D"color: rg=
+b(33, 33, 33); font-size: 13.3333px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;hwm=
+gr-&gt;hwmgr_func =3D &amp;smu7_hwmgr_funcs;</span><br style=3D"color: rgb(=
+33, 33, 33); font-size: 13.3333px;">
+<span style=3D"color: rgb(33, 33, 33); font-size: 13.3333px;">&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;pptable_func =3D &amp;pptable=
+_v1_0_funcs;</span><br style=3D"color: rgb(33, 33, 33); font-size: 13.3333p=
+x;">
+<span style=3D"color: rgb(33, 33, 33); font-size: 13.3333px;">&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pp_smu7_thermal_initialize(hwmgr);</spa=
+n><br style=3D"color: rgb(33, 33, 33); font-size: 13.3333px;">
+<span style=3D"color: rgb(33, 33, 33); font-size: 13.3333px;">&#43;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;pp_table_version =3D=3D PP_TABLE=
+_V0) {</span><br style=3D"color: rgb(33, 33, 33); font-size: 13.3333px;">
+<span style=3D"color: rgb(33, 33, 33); font-size: 13.3333px;">&#43;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; hwmgr-&gt;hwmgr_func-&gt;get_pp_table_entry =3D &amp;smu7_get_pp_table_en=
+try_v0;</span><br style=3D"color: rgb(33, 33, 33); font-size: 13.3333px;">
+<span style=3D"color: rgb(33, 33, 33); font-size: 13.3333px;">&#43;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; hwmgr-&gt;hwmgr_func-&gt;get_num_of_pp_table_entries =3D smu7_get_number_=
+of_powerplay_table_entries_v0;</span><br style=3D"color: rgb(33, 33, 33); f=
+ont-size: 13.3333px;">
+<span style=3D"color: rgb(33, 33, 33); font-size: 13.3333px;">&#43;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; hwmgr-&gt;pptable_func =3D &amp;pptable_funcs;</span><br style=3D"color: =
+rgb(33, 33, 33); font-size: 13.3333px;">
+<span style=3D"color: rgb(33, 33, 33); font-size: 13.3333px;">&#43;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span><br>
+</p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;"><span style=3D"color: rg=
+b(33, 33, 33); font-size: 13.3333px;"><br>
+</span></p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;">Best Regards </p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;">Rex</p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;"><br>
+</p>
+<p style=3D"color: rgb(0, 0, 0); font-size: 12pt;"><br>
+</p>
+</div>
+<hr tabindex=3D"-1" style=3D"color: rgb(0, 0, 0); font-size: 12pt; display:=
+ inline-block; width: 98%;">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr" style=3D"color: rgb(0, 0, 0); font-=
+size: 12pt;">
+<font face=3D"Calibri, sans-serif" color=3D"#000000" style=3D"font-size:11p=
+t"><b>From:</b> Christian K=F6nig &lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;<br>
+<b>Sent:</b> Friday, September 9, 2016 10:23:26 PM<br>
+<b>To:</b> Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH 0/9] misc patches related to powerplay</font>
+<div>&nbsp;</div>
+</div>
+</div>
+<font size=3D"2" style=3D"color: rgb(0, 0, 0); font-size: 12pt;"><span styl=
+e=3D"font-size:10pt;">
+<div class=3D"PlainText">Patch #1-#7 and #9 are Acked-by: Christian K=F6nig=
+ &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;.<br>
+<br>
+Patch #8: That looks fishy, usually we don't want to override static <br>
+functions tables.<br>
+<br>
+So what is the specific use case here?<br>
+<br>
+Regards,<br>
+Christian.<br>
+<br>
+Am 09.09.2016 um 15:37 schrieb Rex Zhu:<br>
+&gt; Rex Zhu (9):<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amd/powerplay: mark symbols static where possibl=
+e on tonga.<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amd/powerplay: add feature flags in hwmgr to ena=
+ble/disable<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; special features.<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amd/powerplay: add module parameter for mask pp =
+feature<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amd/powerplay: initialize platform caps in hwmgr=
+_init.<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amd/powerplay: add common functiones for visitin=
+g pp table.<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amd/powerplay: wrap get evv voltage of fiji and =
+polaris<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amd/powerplay: move smu related variable definit=
+ions to smumgr.<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amd/powerplay: delete const flag of hwmgr_funcs =
+for overload.<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amd/powerplay: delete dupicated function and def=
+inition.<br>
+&gt;<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;=
+&nbsp; 1 &#43;<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 4 &#43;<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c&nbsp;&nbsp;=
+&nbsp;&nbsp; |&nbsp;&nbsp; 2 &#43;-<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/fiji_hwmgr.c&nbsp;&nbs=
+p; |&nbsp;&nbsp; 2 &#43;-<br>
+&gt;&nbsp;&nbsp; .../gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c&nbsp; |&=
+nbsp; 34 ----<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; | 186 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
+#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;---<br>
+&gt;&nbsp;&nbsp; .../gpu/drm/amd/powerplay/hwmgr/iceland_hwmgr.c&nbsp;&nbsp=
+;&nbsp; |&nbsp; 10 &#43;-<br>
+&gt;&nbsp;&nbsp; .../gpu/drm/amd/powerplay/hwmgr/polaris10_hwmgr.c&nbsp; |&=
+nbsp;&nbsp; 7 &#43;-<br>
+&gt;&nbsp;&nbsp; .../gpu/drm/amd/powerplay/hwmgr/polaris10_hwmgr.h&nbsp; |&=
+nbsp;&nbsp; 5 &#43;-<br>
+&gt;&nbsp;&nbsp; .../drm/amd/powerplay/hwmgr/polaris10_powertune.h&nbsp; |&=
+nbsp; 13 --<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/tonga_hwmgr.c&nbsp; |&=
+nbsp; 21 &#43;--<br>
+&gt;&nbsp;&nbsp; .../gpu/drm/amd/powerplay/inc/hardwaremanager.h&nbsp;&nbsp=
+;&nbsp; |&nbsp;&nbsp; 1 -<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/powerplay/inc/hwmgr.h&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 32 &#43;&#43;&#43;-<br>
+&gt;&nbsp;&nbsp; .../drm/amd/powerplay/smumgr/polaris10_smumgr.c&nbsp;&nbsp=
+;&nbsp; |&nbsp;&nbsp; 1 -<br>
+&gt;&nbsp;&nbsp; .../drm/amd/powerplay/smumgr/polaris10_smumgr.h&nbsp;&nbsp=
+;&nbsp; |&nbsp; 20 &#43;&#43;&#43;<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/powerplay/smumgr/smumgr.c&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 1 &#43;<br>
+&gt;&nbsp;&nbsp; 16 files changed, 229 insertions(&#43;), 111 deletions(-)<=
+br>
+&gt;<br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_CY4PR12MB16872A6C90804AF1D368A194FBFA0CY4PR12MB1687namp_--
+
+--===============0860934649==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0860934649==--
