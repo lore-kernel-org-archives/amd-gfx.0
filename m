@@ -1,13 +1,13 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: move some release handles into fail labels
-Date: Mon, 12 Sep 2016 11:07:55 +0200
-Message-ID: <74e8550f-2e87-65a3-94cf-ad922b89f967@amd.com>
-References: <1473646581-25186-1-git-send-email-ray.huang@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH 0/3] rename file name.
+Date: Mon, 12 Sep 2016 12:43:13 +0200
+Message-ID: <256e828c-d1de-cef4-ca9a-57f5e931d208@vodafone.de>
+References: <1473668574-20741-1-git-send-email-Rex.Zhu@amd.com>
+ <72421e99-8be2-9db4-7aa4-b5d3a7639a49@folklore1984.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0026240481=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1473646581-25186-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <72421e99-8be2-9db4-7aa4-b5d3a7639a49-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,46 +18,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex
- Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+To: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>, Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-QW0gMTIuMDkuMjAxNiB1bSAwNDoxNiBzY2hyaWViIEh1YW5nIFJ1aToKPiBDbGVhbiB1cCB0aGUg
-Y29kZXMgdG8gbW92ZSB0aGUgcmVsZWFzZSBoYW5kbGVzIGludG8gZmFpbCBsYWJlbHMuCj4KPiBT
-aWduZWQtb2ZmLWJ5OiBIdWFuZyBSdWkgPHJheS5odWFuZ0BhbWQuY29tPgoKUmV2aWV3ZWQtYnk6
-IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4uCgo+IC0tLQo+ICAg
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Vjb2RlLmMgfCAyMSArKysrKysrKysr
-LS0tLS0tLS0tLS0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxMCBpbnNlcnRpb25zKCspLCAxMSBkZWxl
-dGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfdWNvZGUuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91Y29kZS5jCj4g
-aW5kZXggNWNjOTVmMS4uNGE1YzIxMSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfdWNvZGUuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV91Y29kZS5jCj4gQEAgLTI0NywzNSArMjQ3LDI4IEBAIGludCBhbWRncHVfdWNvZGVf
-aW5pdF9ibyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAgIAljb25zdCBzdHJ1Y3QgY29t
-bW9uX2Zpcm13YXJlX2hlYWRlciAqaGVhZGVyID0gTlVMTDsKPiAgIAo+ICAgCWVyciA9IGFtZGdw
-dV9ib19jcmVhdGUoYWRldiwgYWRldi0+ZmlybXdhcmUuZndfc2l6ZSwgUEFHRV9TSVpFLCB0cnVl
-LAo+IC0JCQlBTURHUFVfR0VNX0RPTUFJTl9HVFQsIDAsIE5VTEwsIE5VTEwsIGJvKTsKPiArCQkJ
-ICAgICAgIEFNREdQVV9HRU1fRE9NQUlOX0dUVCwgMCwgTlVMTCwgTlVMTCwgYm8pOwo+ICAgCWlm
-IChlcnIpIHsKPiAgIAkJZGV2X2VycihhZGV2LT5kZXYsICIoJWQpIEZpcm13YXJlIGJ1ZmZlciBh
-bGxvY2F0ZSBmYWlsZWRcbiIsIGVycik7Cj4gLQkJZXJyID0gLUVOT01FTTsKPiAgIAkJZ290byBm
-YWlsZWQ7Cj4gICAJfQo+ICAgCj4gICAJZXJyID0gYW1kZ3B1X2JvX3Jlc2VydmUoKmJvLCBmYWxz
-ZSk7Cj4gICAJaWYgKGVycikgewo+IC0JCWFtZGdwdV9ib191bnJlZihibyk7Cj4gICAJCWRldl9l
-cnIoYWRldi0+ZGV2LCAiKCVkKSBGaXJtd2FyZSBidWZmZXIgcmVzZXJ2ZSBmYWlsZWRcbiIsIGVy
-cik7Cj4gLQkJZ290byBmYWlsZWQ7Cj4gKwkJZ290byBmYWlsZWRfcmVzZXJ2ZTsKPiAgIAl9Cj4g
-ICAKPiAgIAllcnIgPSBhbWRncHVfYm9fcGluKCpibywgQU1ER1BVX0dFTV9ET01BSU5fR1RULCAm
-ZndfbWNfYWRkcik7Cj4gICAJaWYgKGVycikgewo+IC0JCWFtZGdwdV9ib191bnJlc2VydmUoKmJv
-KTsKPiAtCQlhbWRncHVfYm9fdW5yZWYoYm8pOwo+ICAgCQlkZXZfZXJyKGFkZXYtPmRldiwgIigl
-ZCkgRmlybXdhcmUgYnVmZmVyIHBpbiBmYWlsZWRcbiIsIGVycik7Cj4gLQkJZ290byBmYWlsZWQ7
-Cj4gKwkJZ290byBmYWlsZWRfcGluOwo+ICAgCX0KPiAgIAo+ICAgCWVyciA9IGFtZGdwdV9ib19r
-bWFwKCpibywgJmZ3X2J1Zl9wdHIpOwo+ICAgCWlmIChlcnIpIHsKPiAgIAkJZGV2X2VycihhZGV2
-LT5kZXYsICIoJWQpIEZpcm13YXJlIGJ1ZmZlciBrbWFwIGZhaWxlZFxuIiwgZXJyKTsKPiAtCQlh
-bWRncHVfYm9fdW5waW4oKmJvKTsKPiAtCQlhbWRncHVfYm9fdW5yZXNlcnZlKCpibyk7Cj4gLQkJ
-YW1kZ3B1X2JvX3VucmVmKGJvKTsKPiAtCQlnb3RvIGZhaWxlZDsKPiArCQlnb3RvIGZhaWxlZF9r
-bWFwOwo+ICAgCX0KPiAgIAo+ICAgCWFtZGdwdV9ib191bnJlc2VydmUoKmJvKTsKPiBAQCAtMjkx
-LDYgKzI4NCwxMiBAQCBpbnQgYW1kZ3B1X3Vjb2RlX2luaXRfYm8oc3RydWN0IGFtZGdwdV9kZXZp
-Y2UgKmFkZXYpCj4gICAJCX0KPiAgIAl9Cj4gICAKPiArZmFpbGVkX2ttYXA6Cj4gKwlhbWRncHVf
-Ym9fdW5waW4oKmJvKTsKPiArZmFpbGVkX3BpbjoKPiArCWFtZGdwdV9ib191bnJlc2VydmUoKmJv
-KTsKPiArZmFpbGVkX3Jlc2VydmU6Cj4gKwlhbWRncHVfYm9fdW5yZWYoYm8pOwo+ICAgZmFpbGVk
-Ogo+ICAgCWlmIChlcnIpCj4gICAJCWFkZXYtPmZpcm13YXJlLnNtdV9sb2FkID0gZmFsc2U7CgoK
+This is a multi-part message in MIME format.
+--===============0026240481==
+Content-Type: multipart/alternative;
+ boundary="------------8CA5F835F95E69B6FB3972E4"
+
+This is a multi-part message in MIME format.
+--------------8CA5F835F95E69B6FB3972E4
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Am 12.09.2016 um 10:36 schrieb Edward O'Callaghan:
+> This series is,
+> Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+
+Acked-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org> for the series.
+
+>
+> On 09/12/2016 06:22 PM, Rex Zhu wrote:
+>> As tonga/fiji/polaris10/11 use ppt table version 1.
+>> so rename tonga_processtable to process_pptables_v1_0
+>>
+>>
+>> Rex Zhu (3):
+>>    drm/amd/powerplay: rename tonga_processpptable* to
+>>      processpptable_v1_0*.
+>>    drm/amd/powerplay: add pp_table_version in hwmgr.
+>>    drm/amd/powerplay: add pptable point check before use it
+>>
+>>   drivers/gpu/drm/amd/powerplay/hwmgr/Makefile       |    2 +-
+>>   drivers/gpu/drm/amd/powerplay/hwmgr/fiji_hwmgr.c   |   10 +-
+>>   drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c        |    4 +-
+>>   .../gpu/drm/amd/powerplay/hwmgr/polaris10_hwmgr.c  |   10 +-
+>>   drivers/gpu/drm/amd/powerplay/hwmgr/pptable_v1_0.h |  436 +++++++
+>>   .../amd/powerplay/hwmgr/process_pptables_v1_0.c    | 1326 ++++++++++++++++++++
+>>   .../amd/powerplay/hwmgr/process_pptables_v1_0.h    |   35 +
+>>   drivers/gpu/drm/amd/powerplay/hwmgr/tonga_hwmgr.c  |   10 +-
+>>   .../gpu/drm/amd/powerplay/hwmgr/tonga_pptable.h    |  436 -------
+>>   .../amd/powerplay/hwmgr/tonga_processpptables.c    | 1326 --------------------
+>>   .../amd/powerplay/hwmgr/tonga_processpptables.h    |   35 -
+>>   drivers/gpu/drm/amd/powerplay/inc/hwmgr.h          |    8 +
+>>   12 files changed, 1824 insertions(+), 1814 deletions(-)
+>>   create mode 100644 drivers/gpu/drm/amd/powerplay/hwmgr/pptable_v1_0.h
+>>   create mode 100644 drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c
+>>   create mode 100644 drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.h
+>>   delete mode 100644 drivers/gpu/drm/amd/powerplay/hwmgr/tonga_pptable.h
+>>   delete mode 100644 drivers/gpu/drm/amd/powerplay/hwmgr/tonga_processpptables.c
+>>   delete mode 100644 drivers/gpu/drm/amd/powerplay/hwmgr/tonga_processpptables.h
+>>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+
+--------------8CA5F835F95E69B6FB3972E4
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <div class="moz-cite-prefix">Am 12.09.2016 um 10:36 schrieb Edward
+      O'Callaghan:<br>
+    </div>
+    <blockquote
+      cite="mid:72421e99-8be2-9db4-7aa4-b5d3a7639a49-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org"
+      type="cite">
+      <pre wrap="">This series is,
+Reviewed-by: Edward O'Callaghan <a class="moz-txt-link-rfc2396E" href="mailto:funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org">&lt;funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org&gt;</a></pre>
+    </blockquote>
+    <br>
+    Acked-by: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a> for the
+    series.<br>
+    <br>
+    <blockquote
+      cite="mid:72421e99-8be2-9db4-7aa4-b5d3a7639a49-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org"
+      type="cite">
+      <pre wrap="">
+
+On 09/12/2016 06:22 PM, Rex Zhu wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="">As tonga/fiji/polaris10/11 use ppt table version 1.
+so rename tonga_processtable to process_pptables_v1_0 
+
+
+Rex Zhu (3):
+  drm/amd/powerplay: rename tonga_processpptable* to
+    processpptable_v1_0*.
+  drm/amd/powerplay: add pp_table_version in hwmgr.
+  drm/amd/powerplay: add pptable point check before use it
+
+ drivers/gpu/drm/amd/powerplay/hwmgr/Makefile       |    2 +-
+ drivers/gpu/drm/amd/powerplay/hwmgr/fiji_hwmgr.c   |   10 +-
+ drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c        |    4 +-
+ .../gpu/drm/amd/powerplay/hwmgr/polaris10_hwmgr.c  |   10 +-
+ drivers/gpu/drm/amd/powerplay/hwmgr/pptable_v1_0.h |  436 +++++++
+ .../amd/powerplay/hwmgr/process_pptables_v1_0.c    | 1326 ++++++++++++++++++++
+ .../amd/powerplay/hwmgr/process_pptables_v1_0.h    |   35 +
+ drivers/gpu/drm/amd/powerplay/hwmgr/tonga_hwmgr.c  |   10 +-
+ .../gpu/drm/amd/powerplay/hwmgr/tonga_pptable.h    |  436 -------
+ .../amd/powerplay/hwmgr/tonga_processpptables.c    | 1326 --------------------
+ .../amd/powerplay/hwmgr/tonga_processpptables.h    |   35 -
+ drivers/gpu/drm/amd/powerplay/inc/hwmgr.h          |    8 +
+ 12 files changed, 1824 insertions(+), 1814 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/powerplay/hwmgr/pptable_v1_0.h
+ create mode 100644 drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c
+ create mode 100644 drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.h
+ delete mode 100644 drivers/gpu/drm/amd/powerplay/hwmgr/tonga_pptable.h
+ delete mode 100644 drivers/gpu/drm/amd/powerplay/hwmgr/tonga_processpptables.c
+ delete mode 100644 drivers/gpu/drm/amd/powerplay/hwmgr/tonga_processpptables.h
+
+</pre>
+      </blockquote>
+      <pre wrap="">
+</pre>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------8CA5F835F95E69B6FB3972E4--
+
+--===============0026240481==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0026240481==--
