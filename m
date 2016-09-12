@@ -1,49 +1,40 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: [PATCH] drm/amdgpu: improve GTT BO alloc speed in OGL
-Date: Mon, 12 Sep 2016 12:44:41 -0400
-Message-ID: <1473698681-28637-1-git-send-email-alexander.deucher@amd.com>
+From: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: Avoid use-after-free
+Date: Mon, 12 Sep 2016 14:18:38 -0400
+Message-ID: <20160912181838.26814-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, "monk.liu" <Monk.Liu@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 
-RnJvbTogIm1vbmsubGl1IiA8bW9uay5saXVAYW1kLmNvbT4KCm9yaWdpbmFsIHdlIHVzZSB0dG1f
-ZG1hIHBhdGggdG8gYWxsb2NhdGUgR1RUIGJvLCB3aGljaCBpcyB0b28gbXVjaApzbG93ZXIgdGhh
-biB0aGUgcGF0aCBvZiB0dG1fcG9vbCwgaW4gbW9zdCBjYXNlcy4KClRoZSBzd2lvdGxiIGNoZWNr
-cyBkb24ndCBzZWVtIHRvIHdvcmsgYW5kIHdlIGFsd2F5cyBlbmQgdXAgaW4gdGhlCnNsb3cgcGF0
-aCBldmVuIHdoZW4gYW4gSU9NTVUgaXMgYXZhaWxhYmxlLgoKU2lnbmVkLW9mZi1ieTogbW9uay5s
-aXUgPE1vbmsuTGl1QGFtZC5jb20+ClJldmlld2VkLWJ5OiBKYW1teSBaaG91IDxqYW1teS56aG91
-QGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJA
-YW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMgfCAx
-MyAtLS0tLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMTMgZGVsZXRpb25zKC0pCgpkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jCmluZGV4IDNiZWIxMGIuLmUyZmNkMzkgMTAw
-NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYworKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMKQEAgLTc4MywxMiArNzgzLDYg
-QEAgc3RhdGljIGludCBhbWRncHVfdHRtX3R0X3BvcHVsYXRlKHN0cnVjdCB0dG1fdHQgKnR0bSkK
-IAogCWFkZXYgPSBhbWRncHVfZ2V0X2FkZXYodHRtLT5iZGV2KTsKIAotI2lmZGVmIENPTkZJR19T
-V0lPVExCCi0JaWYgKHN3aW90bGJfbnJfdGJsKCkpIHsKLQkJcmV0dXJuIHR0bV9kbWFfcG9wdWxh
-dGUoJmd0dC0+dHRtLCBhZGV2LT5kZXYpOwotCX0KLSNlbmRpZgotCiAJciA9IHR0bV9wb29sX3Bv
-cHVsYXRlKHR0bSk7CiAJaWYgKHIpIHsKIAkJcmV0dXJuIHI7CkBAIC04MjksMTMgKzgyMyw2IEBA
-IHN0YXRpYyB2b2lkIGFtZGdwdV90dG1fdHRfdW5wb3B1bGF0ZShzdHJ1Y3QgdHRtX3R0ICp0dG0p
-CiAKIAlhZGV2ID0gYW1kZ3B1X2dldF9hZGV2KHR0bS0+YmRldik7CiAKLSNpZmRlZiBDT05GSUdf
-U1dJT1RMQgotCWlmIChzd2lvdGxiX25yX3RibCgpKSB7Ci0JCXR0bV9kbWFfdW5wb3B1bGF0ZSgm
-Z3R0LT50dG0sIGFkZXYtPmRldik7Ci0JCXJldHVybjsKLQl9Ci0jZW5kaWYKLQogCWZvciAoaSA9
-IDA7IGkgPCB0dG0tPm51bV9wYWdlczsgaSsrKSB7CiAJCWlmIChndHQtPnR0bS5kbWFfYWRkcmVz
-c1tpXSkgewogCQkJcGNpX3VubWFwX3BhZ2UoYWRldi0+cGRldiwgZ3R0LT50dG0uZG1hX2FkZHJl
-c3NbaV0sCi0tIAoyLjUuNQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJp
-LWRldmVsCg==
+U3dpdGNoIHRvIF9TQUZFIHZhcmlhbnQgb2YgbGlzdCBtYWNybyB0byBhdm9pZCB1c2UtYWZ0ZXIt
+ZnJlZSBidWcuCgpTaWduZWQtb2ZmLWJ5OiBUb20gU3QgRGVuaXMgPHRvbS5zdGRlbmlzQGFtZC5j
+b20+Ci0tLQogYW1kZ3B1L2FtZGdwdV9jcy5jIHwgNCArKy0tCiAxIGZpbGUgY2hhbmdlZCwgMiBp
+bnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2FtZGdwdS9hbWRncHVf
+Y3MuYyBiL2FtZGdwdS9hbWRncHVfY3MuYwppbmRleCBmYjViM2E4YzRiYzQuLmNkOTJhMDk1NzI5
+MyAxMDA2NDQKLS0tIGEvYW1kZ3B1L2FtZGdwdV9jcy5jCisrKyBiL2FtZGdwdS9hbWRncHVfY3Mu
+YwpAQCAtMTI0LDggKzEyNCw4IEBAIGludCBhbWRncHVfY3NfY3R4X2ZyZWUoYW1kZ3B1X2NvbnRl
+eHRfaGFuZGxlIGNvbnRleHQpCiAJZm9yIChpID0gMDsgaSA8IEFNREdQVV9IV19JUF9OVU07IGkr
+KykgewogCQlmb3IgKGogPSAwOyBqIDwgQU1ER1BVX0hXX0lQX0lOU1RBTkNFX01BWF9DT1VOVDsg
+aisrKSB7CiAJCQlmb3IgKGsgPSAwOyBrIDwgQU1ER1BVX0NTX01BWF9SSU5HUzsgaysrKSB7Ci0J
+CQkJYW1kZ3B1X3NlbWFwaG9yZV9oYW5kbGUgc2VtOwotCQkJCUxJU1RfRk9SX0VBQ0hfRU5UUlko
+c2VtLCAmY29udGV4dC0+c2VtX2xpc3RbaV1bal1ba10sIGxpc3QpIHsKKwkJCQlhbWRncHVfc2Vt
+YXBob3JlX2hhbmRsZSBzZW0sIHRtcDsKKwkJCQlMSVNUX0ZPUl9FQUNIX0VOVFJZX1NBRkUoc2Vt
+LCB0bXAsICZjb250ZXh0LT5zZW1fbGlzdFtpXVtqXVtrXSwgbGlzdCkgewogCQkJCQlsaXN0X2Rl
+bCgmc2VtLT5saXN0KTsKIAkJCQkJYW1kZ3B1X2NzX3Jlc2V0X3NlbShzZW0pOwogCQkJCQlhbWRn
+cHVfY3NfdW5yZWZlcmVuY2Vfc2VtKHNlbSk7Ci0tIAoyLjEwLjAKCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
