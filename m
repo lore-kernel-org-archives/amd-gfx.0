@@ -1,97 +1,151 @@
-From: Chris Wilson <chris@chris-wilson.co.uk>
-Subject: Re: [PATCH] drm/i915: Before pageflip, also wait for shared dmabuf
- fences.
-Date: Tue, 13 Sep 2016 10:39:45 +0100
-Message-ID: <20160913093945.GA25204@nuc-i3427.alporthouse.com>
-References: <1473293683-6247-1-git-send-email-mario.kleiner.de@gmail.com>
- <20160908063038.GB28919@nuc-i3427.alporthouse.com>
- <9e28ae2e-ed2f-ef0e-8690-1f78f5aed18b@gmail.com>
- <20160908162346.GA5479@nuc-i3427.alporthouse.com>
- <abccc8ac-10c6-ab22-c59d-f43ee48ba78d@daenzer.net>
- <bdd0653d-e4d6-fbbe-89f1-b1104682bf02@vodafone.de>
+From: Sanford Rockowitz <rockowitz-9+fK6rGKj7RBDgjK7y7TUQ@public.gmane.org>
+Subject: need guidance re amdgpu i2c
+Date: Tue, 13 Sep 2016 06:47:01 -0400
+Message-ID: <57D7D925.4050306@minsoft.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-Content-Disposition: inline
-In-Reply-To: <bdd0653d-e4d6-fbbe-89f1-b1104682bf02@vodafone.de>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <deathsimple@vodafone.de>
-Cc: Michel =?iso-8859-1?Q?D=E4nzer?= <michel@daenzer.net>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0147355687=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gVHVlLCBTZXAgMTMsIDIwMTYgYXQgMTA6NDQ6MTFBTSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5p
-ZyB3cm90ZToKPiBBbSAwOS4wOS4yMDE2IHVtIDAzOjE1IHNjaHJpZWIgTWljaGVsIETDpG56ZXI6
-Cj4gPk9uIDA5LzA5LzE2IDAxOjIzIEFNLCBDaHJpcyBXaWxzb24gd3JvdGU6Cj4gPj5PbiBUaHUs
-IFNlcCAwOCwgMjAxNiBhdCAwNToyMTo0MlBNICswMjAwLCBNYXJpbyBLbGVpbmVyIHdyb3RlOgo+
-ID4+Pk9uIDA5LzA4LzIwMTYgMDg6MzAgQU0sIENocmlzIFdpbHNvbiB3cm90ZToKPiA+Pj4+T24g
-VGh1LCBTZXAgMDgsIDIwMTYgYXQgMDI6MTQ6NDNBTSArMDIwMCwgTWFyaW8gS2xlaW5lciB3cm90
-ZToKPiA+Pj4+PmFtZGdwdS1rbXMgdXNlcyBzaGFyZWQgZmVuY2VzIGZvciBpdHMgcHJpbWUgZXhw
-b3J0ZWQgZG1hYnVmcywKPiA+Pj4+Pmluc3RlYWQgb2YgYW4gZXhjbHVzaXZlIGZlbmNlLiBUaGVy
-ZWZvcmUgd2UgbmVlZCB0byB3YWl0IGZvcgo+ID4+Pj4+YWxsIGZlbmNlcyBvZiB0aGUgZG1hYnVm
-IHJlc2VydmF0aW9uIG9iamVjdCB0byBwcmV2ZW50Cj4gPj4+Pj51bnN5bmNocm9uaXplZCByZW5k
-ZXJpbmcgYW5kIGZsaXBwaW5nLgo+ID4+Pj5Oby4gRml4IHRoZSByb290IGNhdXNlIGFzIHRoaXMg
-YWZmZWN0cyBub3QganVzdCBmbGlwcyBidXQgY29waWVzIC0KPiA+Pj4+dGhpcyBpbXBsaWVzIHRo
-YXQgZXZlcnlib2R5IHVzaW5nIHRoZSByZXN2IG9iamVjdCBtdXN0IHdhaXQgZm9yIGFsbAo+ID4+
-Pj5mZW5jZXMuIFRoZSByZXN2IG9iamVjdCBpcyBub3QganVzdCB1c2VkIGZvciBwcmltZSwgYnV0
-IGFsbCBmZW5jaW5nLCBzbwo+ID4+Pj50aGlzIGJyZWFrcyB0aGUgYWJpbGl0eSB0byBzY2hlZHVs
-ZSBwYXJhbGxlbCBvcGVyYXRpb25zIGFjcm9zcyBlbmdpbmUuCj4gPj4+Pi1DaHJpcwo+ID4+Pj4K
-PiA+Pj5Pay4gSSB0aGluayBpIG5vdyB1bmRlcnN0YW5kIHRoZSBkaWZmZXJlbmNlLCBidXQgbGV0
-J3MgY2hlY2s6IFRoZQo+ID4+PmV4Y2x1c2l2ZSBmZW5jZSBpcyBlc3NlbnRpYWxseSBhY3Rpbmcg
-YSBiaXQgbGlrZSBhIHdyaXRlLWxvY2ssIGFuZAo+ID4+PnRoZSBzaGFyZWQgZmVuY2VzIGFzIHJl
-YWRlcnMtbG9ja3M/IFNvIHlvdSBjYW4gaGF2ZSBtdWx0aXBsZSByZWFkZXJzCj4gPj4+YnV0IG9u
-bHkgb25lIHdyaXRlciBhdCBhIHRpbWU/Cj4gPj5UaGF0J3MgaG93IHdlIChpOTE1LmtvIGFuZCBJ
-IGhvcGUgdGhlIHJlc3Qgb2YgdGhlIHdvcmxkKSBhcmUgdXNpbmcgdGhlbS4KPiA+PkluIHRoZSBt
-b2RlbCB3aGVyZSBoZXJlIGlzIGp1c3Qgb25lIHJlc2VydmF0aW9uIG9iamVjdCBvbiB0aGUgR0VN
-Cj4gPj5vYmplY3QsIHRoYXQgcmVzZXJ2YXRpb24gb2JqZWN0IGlzIHRoZW4gc2hhcmVkIGJldHdl
-ZW4gaW50ZXJuYWwgZHJpdmVyCj4gPj5zY2hlZHVsaW5nIGFuZCBleHRlcm5hbC4gV2UgYXJlIHJl
-bGlhbnQgb24gYmVpbmcgYWJsZSB0byB1c2UgYnVmZmVycyBvbgo+ID4+bXVsdGlwbGUgZW5naW5l
-cyB0aHJvdWdoIHRoZSB2aXJ0dWUgb2YgdGhlIHNoYXJlZCBmZW5jZXMsIGFuZCB0byBzZXJpYWxp
-c2UKPiA+PmFmdGVyIHdyaXRlcyBieSB3YWl0aW5nIG9uIHRoZSBleGNsdXNpdmUgZmVuY2UuIChT
-byB3ZSBjYW4gaGF2ZSBjb25jdXJyZW50Cj4gPj5yZWFkcyBvbiB0aGUgZGlzcGxheSBlbmdpbmUs
-IHJlbmRlciBlbmdpbmVzIGFuZCBvbiB0aGUgQ1BVIC0gb3IKPiA+PmFsdGVybmF0aXZlbHkgYW4g
-ZXhjbHVzaXZlIHdyaXRlci4pCj4gPj4KPiA+PkluIHRoZSBuZWFyIGZ1dHVyZSwgaTkxNSBmbGlw
-cyB3aWxsIHdhaXQgb24gdGhlIGNvbW1vbiByZXNlcnZhdGlvbiBvYmplY3QKPiA+Pm5vdCBvbmx5
-IGZvciBkbWEtYnVmcywgYnV0IGFsc28gaXRzIG93biBHRU0gb2JqZWN0cy4KPiA+Pj5JZS46Cj4g
-Pj4+Cj4gPj4+V3JpdGVyIG11c3Qgd2FpdCBmb3IgYWxsIGZlbmNlcyBiZWZvcmUgc3RhcnRpbmcg
-d3JpdGUgYWNjZXNzIHRvIGEKPiA+Pj5idWZmZXIsIHRoZW4gYXR0YWNoIHRoZSBleGNsdXNpdmUg
-ZmVuY2UgYW5kIHNpZ25hbCBpdCBvbiBlbmQgb2YKPiA+Pj53cml0ZSBhY2Nlc3MuIEUuZy4sIHdy
-aXRlIHRvIHJlbmRlcmJ1ZmZlciwgd3JpdGUgdG8gdGV4dHVyZSBldGMuCj4gPj5ZZXMuCj4gPj4+
-UmVhZGVycyBtdXN0IHdhaXQgZm9yIGV4Y2x1c2l2ZSBmZW5jZSwgdGhlbiBhdHRhY2ggYSBzaGFy
-ZWQgZmVuY2UKPiA+Pj5wZXIgcmVhZGVyIGFuZCBzaWduYWwgaXQgb24gZW5kIG9mIHJlYWQgYWNj
-ZXNzPyBFLmcuLCByZWFkIGZyb20KPiA+Pj50ZXh0dXJlLCBmYiwgc2Nhbm91dD8KPiA+Plllcy4K
-PiA+Pj5JcyB0aGF0IGNvcnJlY3Q/IEluIHRoYXQgY2FzZSB3ZSdkIGhhdmUgYSBtaXNzaW5nIGV4
-Y2x1c2l2ZSBmZW5jZSBpbgo+ID4+PmFtZGdwdSBmb3IgdGhlIGxpbmVhciB0YXJnZXQgZG1hYnVm
-PyBQcm9iYWJseSBiZXlvbmQgbXkgbGV2ZWwgb2YKPiA+Pj5rbm93bGVkZ2UgdG8gZml4IHRoaXM/
-Cj4gPj5pOTE1LmtvIHJlcXVpcmVzIHRoZSBjbGllbnQgdG8gbWFyayB3aGljaCBidWZmZXJzIGFy
-ZSB3cml0dGVuIHRvLgo+ID4+Cj4gPj5JbiB0dG0sIHRoZXJlIGFyZSB0dG1fdmFsaWRhdGVfYnVm
-ZmVyIG9iamVjdHMgd2hpY2ggbWFyayB3aGV0aGVyIHRoZXkKPiA+PnNob3VsZCBiZSB1c2luZyBz
-aGFyZWQgb3IgZXhjbHVzaXZlIGZlbmNlcy4gQWZhaWN0LCBpbiBhbWRncHUgdGhleSBhcmUKPiA+
-PmFsbCBzZXQgdG8gc2hhcmVkLCB0aGUgcmVsZXZhbnQgdXNlciBpbnRlcmZhY2Ugc2VlbXMgdG8g
-YmUKPiA+PmFtZGdwdV9ib19saXN0X3NldCgpLgo+ID5UaGlzIGFsbCBtYWtlcyBzZW5zZSB0byBt
-ZS4KPiA+Cj4gPkNocmlzdGlhbiwgd2h5IGlzIGFtZGdwdSBzZXR0aW5nIG9ubHkgc2hhcmVkIGZl
-bmNlcz8gQ2FuIHdlIGZpeCB0aGF0Pwo+IAo+IE5vLCBhbWRncHUgcmVsaWVzIG9uIHRoZSBmYWN0
-IHRoYXQgd2UgZXZlbiBhbGxvdyBjb25jdXJyZW50IHdyaXRlCj4gYWNjZXNzZXMgYnkgdXNlcnNw
-YWNlLgo+IAo+IEUuZy4gb25lIHBhcnQgb2YgdGhlIGJ1ZmZlciBjYW4gYmUgcmVuZGVyZWQgYnkg
-b25lIGVuZ2luZSB3aGlsZQo+IGFub3RoZXIgcGFydCBjb3VsZCBiZSByZW5kZXJlZCBieSBhbm90
-aGVyIGVuZ2luZS4KPiAKPiBKdXN0IGltYWdpbmUgWCB3aGljaCBpcyBjb21wb3NpbmcgYSBidWZm
-ZXIgd2l0aCBib3RoIHRoZSAzRCBlbmdpbmUKPiBhcyB3ZWxsIGFzIHRoZSBETUEgZW5naW5lLgo+
-IAo+IEFsbCBlbmdpbmVzIG5lZWQgdG8gcnVuIGluIHBhcmFsbGVsIGFuZCB5b3UgbmVlZCB0byB3
-YWl0IGZvciBhbGwgb2YKPiB0aGVtIHRvIGZpbmlzaCBiZWZvcmUgc2Nhbm91dC4KPiAKPiBFdmVy
-eWJvZHkgd2hpY2ggbmVlZHMgZXhjbHVzaXZlIGFjY2VzcyB0byB0aGUgcmVzZXJ2YXRpb24gb2Jq
-ZWN0Cj4gKGxpa2Ugc2Nhbm91dHMgZG8pIG5lZWRzIHRvIHdhaXQgZm9yIGFsbCBmZW5jZXMsIG5v
-dCBqdXN0IHRoZQo+IGV4Y2x1c2l2ZSBvbmUuCj4gCj4gVGhlIEludGVsIGRyaXZlciBjbGVhcmx5
-IG5lZWRzIHRvIGJlIGZpeGVkIGhlcmUuCgpJZiB5b3UgYXJlIG5vdCB1c2luZyBpbXBsaWNpdCBm
-ZW5jaW5nLCB5b3UgaGF2ZSB0byBwYXNzIGV4cGxpY2l0IGZlbmNlcwppbnN0ZWFkLgotQ2hyaXMK
-Ci0tIApDaHJpcyBXaWxzb24sIEludGVsIE9wZW4gU291cmNlIFRlY2hub2xvZ3kgQ2VudHJlCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBt
-YWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
+This is a multi-part message in MIME format.
+--===============0147355687==
+Content-Type: multipart/alternative;
+ boundary="------------000404070007020700050700"
+
+This is a multi-part message in MIME format.
+--------------000404070007020700050700
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+First, apologies in advance if this is not the most appropriate list for
+my questions.  Redirection appreciated.
+
+I am the author of ddctool <www.ddctool.com>, a utility to manipulate
+monitor settings using DDC/CI over I2C.
+
+My understanding is that amdgpu provides /dev/i2c-* devices in the usual
+way, so that ddctool should just work without changes.  But of course
+this needs to be tested.
+
+In this regard I have a number of questions and a request.
+
+Does the i2c interface depend in some way on whether one is running the
+AMDGPU-PRO driver?
+
+The most current AMD card that I own in a R9 280, which is a first
+generation GCN device.   Phoronix suggests that first generation GCN
+support is in the works.  Will this be soon?   If not, would the current
+development code for amdgpu be sufficient for me to test the i2c
+support?   If so, what would I have to do to build and install it?
+
+Or should I just plunk down a few dollars for a relatively inexpensive
+R7 260, which I understand is supported by the current amdgpu?
+
+Alternatively, if someone running the amdgpu driver would be willing to
+install and test ddctool on their system I'd be most appreciative.  The
+git repository is here: https://github.com/rockowitz/ddctool, and
+there's extensive documentation on the website, www.ddctool.com.
+
+A couple of command line options of note:
+
+  "--stats" reports extensive performance statistics, including counts
+of i2c retries required
+  "--ddc"  reports DDC protocol data errors
+
+If ddctool installs but does not seem to be working, command "ddctool
+environment" may provide some clues.
+
+Finally, the "ddctool interrogate" command fully exercises ddctool and
+probes the i2c environment.  Depending on permissions, running it as
+root may provide additional detail.  If you can capture the output and
+send it to me that would be most helpful.=20
+
+Thanks in advance,
+Sanford Rockowitz
+
+
+--------------000404070007020700050700
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    First, apologies in advance if this is not the most appropriate list
+    for my questions.  Redirection appreciated.<br>
+    <br>
+    I am the author of <a href="www.ddctool.com">ddctool</a>, a utility
+    to manipulate monitor settings using DDC/CI over I2C. <br>
+    <br>
+    My understanding is that amdgpu provides /dev/i2c-* devices in the
+    usual way, so that ddctool should just work without changes.  But of
+    course this needs to be tested.<br>
+    <br>
+    In this regard I have a number of questions and a request.<br>
+    <br>
+    Does the i2c interface depend in some way on whether one is running
+    the AMDGPU-PRO driver?<br>
+    <br>
+    The most current AMD card that I own in a R9 280, which is a first
+    generation GCN device.   Phoronix suggests that first generation GCN
+    support is in the works.  Will this be soon?   If not, would the
+    current development code for amdgpu be sufficient for me to test the
+    i2c support?   If so, what would I have to do to build and install
+    it?<br>
+    <br>
+    Or should I just plunk down a few dollars for a relatively
+    inexpensive R7 260, which I understand is supported by the current
+    amdgpu?<br>
+    <br>
+    Alternatively, if someone running the amdgpu driver would be willing
+    to install and test ddctool on their system I'd be most
+    appreciative.  The git repository is here:
+    <a class="moz-txt-link-freetext" href="https://github.com/rockowitz/ddctool">https://github.com/rockowitz/ddctool</a>, and there's extensive
+    documentation on the website, <a class="moz-txt-link-abbreviated" href="http://www.ddctool.com">www.ddctool.com</a>. <br>
+    <br>
+    A couple of command line options of note: <br>
+    <br>
+      "--stats" reports extensive performance statistics, including
+    counts of i2c retries required <br>
+      "--ddc"  reports DDC protocol data errors <br>
+    <br>
+    If ddctool installs but does not seem to be working, command
+    "ddctool environment" may provide some clues. <br>
+    <br>
+    Finally, the "ddctool interrogate" command fully exercises ddctool
+    and probes the i2c environment.  Depending on permissions, running
+    it as root may provide additional detail.  If you can capture the
+    output and send it to me that would be most helpful.  <br>
+    <br>
+    Thanks in advance, <br>
+    Sanford Rockowitz<br>
+    <br>
+  </body>
+</html>
+
+--------------000404070007020700050700--
+
+--===============0147355687==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0147355687==--
