@@ -1,13 +1,13 @@
-From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/si/dpm: fix swapped ck enable
-Date: Wed, 14 Sep 2016 13:56:54 +0000
-Message-ID: <CY4PR12MB1768C94E4215E44C6F5DF704F7F10@CY4PR12MB1768.namprd12.prod.outlook.com>
-References: <1473860836-12401-1-git-send-email-alexander.deucher@amd.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: move some release handles into fail labels
+Date: Wed, 14 Sep 2016 16:21:21 +0200
+Message-ID: <CAAxE2A7UfeHkWjxpxVQ2Gz7qbLWJ_YKp9Y-k7W__3y+d4aqYhw@mail.gmail.com>
+References: <1473646581-25186-1-git-send-email-ray.huang@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0945047384=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1473860836-12401-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <1473646581-25186-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,165 +18,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0945047384==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB1768C94E4215E44C6F5DF704F7F10CY4PR12MB1768namp_"
-
---_000_CY4PR12MB1768C94E4215E44C6F5DF704F7F10CY4PR12MB1768namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Yup, that looks better.  My apologies.  Guess that's the downside of having=
- assertions for enable and disable in the same driver.
-
-
-Reviewed-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Alex Deu=
-cher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Wednesday, September 14, 2016 09:47
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Deucher, Alexander
-Subject: [PATCH] drm/amdgpu/si/dpm: fix swapped ck enable
-
-Fixes a regression in:
-drm/amd/amdgpu: Tidy up SI SMC code
-
-bug:
-https://bugs.freedesktop.org/show_bug.cgi?id=3D97801
-
-Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/si_smc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/si_smc.c b/drivers/gpu/drm/amd/amdg=
-pu/si_smc.c
-index 2cc628c..47bbb40 100644
---- a/drivers/gpu/drm/amd/amdgpu/si_smc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/si_smc.c
-@@ -143,9 +143,9 @@ void si_smc_clock(struct amdgpu_device *adev, bool enab=
-le)
-         u32 tmp =3D RREG32_SMC(SMC_SYSCON_CLOCK_CNTL_0);
-
-         if (enable)
--               tmp |=3D CK_DISABLE;
--       else
-                 tmp &=3D ~CK_DISABLE;
-+       else
-+               tmp |=3D CK_DISABLE;
-
-         WREG32_SMC(SMC_SYSCON_CLOCK_CNTL_0, tmp);
- }
---
-2.5.5
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_CY4PR12MB1768C94E4215E44C6F5DF704F7F10CY4PR12MB1768namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;back=
-ground-color:#FFFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
-<p>Yup, that looks better. &nbsp;My apologies. &nbsp;Guess that's the downs=
-ide of having assertions for enable and disable in the same driver.</p>
-<p><br>
-</p>
-<p>Reviewed-by: Tom St Denis &lt;tom.stdenis-5C7GfCeVMHo@public.gmane.org&gt;</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Alex Deucher &lt;alexdeuche=
-r@gmail.com&gt;<br>
-<b>Sent:</b> Wednesday, September 14, 2016 09:47<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Deucher, Alexander<br>
-<b>Subject:</b> [PATCH] drm/amdgpu/si/dpm: fix swapped ck enable</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">Fixes a regression in:<br>
-drm/amd/amdgpu: Tidy up SI SMC code<br>
-<br>
-bug:<br>
-<a href=3D"https://bugs.freedesktop.org/show_bug.cgi?id=3D97801" id=3D"LPln=
-k690514">https://bugs.freedesktop.org/show_bug.cgi?id=3D97801</a><br>
-<br>
-Signed-off-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/si_smc.c | 4 &#43;&#43;--<br>
-&nbsp;1 file changed, 2 insertions(&#43;), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/si_smc.c b/drivers/gpu/drm/amd/amdg=
-pu/si_smc.c<br>
-index 2cc628c..47bbb40 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/si_smc.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/si_smc.c<br>
-@@ -143,9 &#43;143,9 @@ void si_smc_clock(struct amdgpu_device *adev, bool =
-enable)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 tmp =3D RREG32_SMC(SMC=
-_SYSCON_CLOCK_CNTL_0);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (enable)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; tmp |=3D CK_DISABLE;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; tmp &amp;=3D ~CK_DISABLE;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; tmp |=3D CK_DISABLE;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SMC(SMC_SYSCON_CLOC=
-K_CNTL_0, tmp);<br>
-&nbsp;}<br>
--- <br>
-2.5.5<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB1768C94E4215E44C6F5DF704F7F10CY4PR12MB1768namp_--
-
---===============0945047384==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0945047384==--
+SGksCgpUaGlzIHBhdGNoIGNhdXNlcyBhIG1hc3NpdmUgcGVyZm9ybWFuY2UgZHJvcCAoYnkgYSBm
+YWN0b3Igb2YgMTAwKQpmb2xsb3dlZCBieSBHUFUgaGFuZ3Mgd2l0aCBGMSAyMDE1IChpdCBuZWVk
+cyBtb3JlIHRoYW4gM0dCIG9mIG1lbW9yeSwKdGhlIGNhcmQgaGFzIDJHQikuIFRoZSBnYW1lIG5v
+cm1hbGx5IHdvcmtzIHJlYWxseSB3ZWxsICgzMCsgRlBTIG9uClBvbGFyaXMxMSAyR0IsIDQwKyBG
+UFMgb24gVG9uZ2EgMkdCKS4KCkl0IHNob3VsZCBiZSBmaXhlZCBvciB0aGUgY29tbWl0IHNob3Vs
+ZCBiZSByZXZlcnRlZCByZWFsbHkgcXVpY2tseS4KCk1hcmVrCgoKT24gTW9uLCBTZXAgMTIsIDIw
+MTYgYXQgNDoxNiBBTSwgSHVhbmcgUnVpIDxyYXkuaHVhbmdAYW1kLmNvbT4gd3JvdGU6Cj4gQ2xl
+YW4gdXAgdGhlIGNvZGVzIHRvIG1vdmUgdGhlIHJlbGVhc2UgaGFuZGxlcyBpbnRvIGZhaWwgbGFi
+ZWxzLgo+Cj4gU2lnbmVkLW9mZi1ieTogSHVhbmcgUnVpIDxyYXkuaHVhbmdAYW1kLmNvbT4KPiAt
+LS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Vjb2RlLmMgfCAyMSArKysr
+KysrKysrLS0tLS0tLS0tLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDEwIGluc2VydGlvbnMoKyksIDEx
+IGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV91Y29kZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Vjb2Rl
+LmMKPiBpbmRleCA1Y2M5NWYxLi40YTVjMjExIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV91Y29kZS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X3Vjb2RlLmMKPiBAQCAtMjQ3LDM1ICsyNDcsMjggQEAgaW50IGFtZGdwdV91
+Y29kZV9pbml0X2JvKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICAgICAgICAgY29uc3Qg
+c3RydWN0IGNvbW1vbl9maXJtd2FyZV9oZWFkZXIgKmhlYWRlciA9IE5VTEw7Cj4KPiAgICAgICAg
+IGVyciA9IGFtZGdwdV9ib19jcmVhdGUoYWRldiwgYWRldi0+ZmlybXdhcmUuZndfc2l6ZSwgUEFH
+RV9TSVpFLCB0cnVlLAo+IC0gICAgICAgICAgICAgICAgICAgICAgIEFNREdQVV9HRU1fRE9NQUlO
+X0dUVCwgMCwgTlVMTCwgTlVMTCwgYm8pOwo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBBTURHUFVfR0VNX0RPTUFJTl9HVFQsIDAsIE5VTEwsIE5VTEwsIGJvKTsKPiAgICAgICAgIGlm
+IChlcnIpIHsKPiAgICAgICAgICAgICAgICAgZGV2X2VycihhZGV2LT5kZXYsICIoJWQpIEZpcm13
+YXJlIGJ1ZmZlciBhbGxvY2F0ZSBmYWlsZWRcbiIsIGVycik7Cj4gLSAgICAgICAgICAgICAgIGVy
+ciA9IC1FTk9NRU07Cj4gICAgICAgICAgICAgICAgIGdvdG8gZmFpbGVkOwo+ICAgICAgICAgfQo+
+Cj4gICAgICAgICBlcnIgPSBhbWRncHVfYm9fcmVzZXJ2ZSgqYm8sIGZhbHNlKTsKPiAgICAgICAg
+IGlmIChlcnIpIHsKPiAtICAgICAgICAgICAgICAgYW1kZ3B1X2JvX3VucmVmKGJvKTsKPiAgICAg
+ICAgICAgICAgICAgZGV2X2VycihhZGV2LT5kZXYsICIoJWQpIEZpcm13YXJlIGJ1ZmZlciByZXNl
+cnZlIGZhaWxlZFxuIiwgZXJyKTsKPiAtICAgICAgICAgICAgICAgZ290byBmYWlsZWQ7Cj4gKyAg
+ICAgICAgICAgICAgIGdvdG8gZmFpbGVkX3Jlc2VydmU7Cj4gICAgICAgICB9Cj4KPiAgICAgICAg
+IGVyciA9IGFtZGdwdV9ib19waW4oKmJvLCBBTURHUFVfR0VNX0RPTUFJTl9HVFQsICZmd19tY19h
+ZGRyKTsKPiAgICAgICAgIGlmIChlcnIpIHsKPiAtICAgICAgICAgICAgICAgYW1kZ3B1X2JvX3Vu
+cmVzZXJ2ZSgqYm8pOwo+IC0gICAgICAgICAgICAgICBhbWRncHVfYm9fdW5yZWYoYm8pOwo+ICAg
+ICAgICAgICAgICAgICBkZXZfZXJyKGFkZXYtPmRldiwgIiglZCkgRmlybXdhcmUgYnVmZmVyIHBp
+biBmYWlsZWRcbiIsIGVycik7Cj4gLSAgICAgICAgICAgICAgIGdvdG8gZmFpbGVkOwo+ICsgICAg
+ICAgICAgICAgICBnb3RvIGZhaWxlZF9waW47Cj4gICAgICAgICB9Cj4KPiAgICAgICAgIGVyciA9
+IGFtZGdwdV9ib19rbWFwKCpibywgJmZ3X2J1Zl9wdHIpOwo+ICAgICAgICAgaWYgKGVycikgewo+
+ICAgICAgICAgICAgICAgICBkZXZfZXJyKGFkZXYtPmRldiwgIiglZCkgRmlybXdhcmUgYnVmZmVy
+IGttYXAgZmFpbGVkXG4iLCBlcnIpOwo+IC0gICAgICAgICAgICAgICBhbWRncHVfYm9fdW5waW4o
+KmJvKTsKPiAtICAgICAgICAgICAgICAgYW1kZ3B1X2JvX3VucmVzZXJ2ZSgqYm8pOwo+IC0gICAg
+ICAgICAgICAgICBhbWRncHVfYm9fdW5yZWYoYm8pOwo+IC0gICAgICAgICAgICAgICBnb3RvIGZh
+aWxlZDsKPiArICAgICAgICAgICAgICAgZ290byBmYWlsZWRfa21hcDsKPiAgICAgICAgIH0KPgo+
+ICAgICAgICAgYW1kZ3B1X2JvX3VucmVzZXJ2ZSgqYm8pOwo+IEBAIC0yOTEsNiArMjg0LDEyIEBA
+IGludCBhbWRncHVfdWNvZGVfaW5pdF9ibyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAg
+ICAgICAgICAgICAgICAgfQo+ICAgICAgICAgfQo+Cj4gK2ZhaWxlZF9rbWFwOgo+ICsgICAgICAg
+YW1kZ3B1X2JvX3VucGluKCpibyk7Cj4gK2ZhaWxlZF9waW46Cj4gKyAgICAgICBhbWRncHVfYm9f
+dW5yZXNlcnZlKCpibyk7Cj4gK2ZhaWxlZF9yZXNlcnZlOgo+ICsgICAgICAgYW1kZ3B1X2JvX3Vu
+cmVmKGJvKTsKPiAgZmFpbGVkOgo+ICAgICAgICAgaWYgKGVycikKPiAgICAgICAgICAgICAgICAg
+YWRldi0+ZmlybXdhcmUuc211X2xvYWQgPSBmYWxzZTsKPiAtLQo+IDIuNy40Cj4KPiBfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGlu
+ZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
