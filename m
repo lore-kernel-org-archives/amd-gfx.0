@@ -1,13 +1,11 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: fix ring space allocation for IB scheduling
-Date: Thu, 15 Sep 2016 20:20:11 +0200
-Message-ID: <467117e3-0f53-af98-b063-c3535db3292b@vodafone.de>
-References: <1473962938-2562-1-git-send-email-alexander.deucher@amd.com>
+From: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Add read_sensor() support for fiji/tonga/iceland/polaris10
+Date: Thu, 15 Sep 2016 14:21:06 -0400
+Message-ID: <20160915182107.9781-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1473962938-2562-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,30 +16,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-QW0gMTUuMDkuMjAxNiB1bSAyMDowOCBzY2hyaWViIEFsZXggRGV1Y2hlcjoKPiBHRlggSUIgZnJh
-bWUgaXMgbXVjaCBiaWdnZXIgdGhhbiBvdGhlciByaW5nLCBzbyBzZXQgdGhlCj4gbGltaXQgbGFy
-Z2VyLgo+Cj4gU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBh
-bWQuY29tPgoKQ291bGQgd2UgcmF0aGVyIGFkZCBzb21lIGZpZWxkcyB0byB0aGUgcmluZyBzdHJ1
-Y3R1cmUgdG8gaW5kaWNhdGUgaG93IAptYW55IGJhc2UgKyBwZXIgSUIgZHcgd2UgbmVlZCB0byBh
-bGxvY2F0ZT8KClByb2JhYmx5IGJldHRlciB0aGFuIGhhdmluZyBlbmdpbmUgc3BlY2lmaWMgY29k
-ZSBoZXJlLgoKQ2hyaXN0aWFuLgoKPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9pYi5jIHwgNiArKysrKy0KPiAgIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMo
-KyksIDEgZGVsZXRpb24oLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfaWIuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pYi5j
-Cj4gaW5kZXggMmFhNzQxYy4uZTExZTRjZiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfaWIuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9pYi5jCj4gQEAgLTE1Miw3ICsxNTIsMTEgQEAgaW50IGFtZGdwdV9pYl9zY2hlZHVs
-ZShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHVuc2lnbmVkIG51bV9pYnMsCj4gICAJCXJldHVy
-biAtRUlOVkFMOwo+ICAgCX0KPiAgIAo+IC0JciA9IGFtZGdwdV9yaW5nX2FsbG9jKHJpbmcsIDI1
-NiAqIG51bV9pYnMpOwo+ICsJLyogR0ZYIERNQSBmcmFtZSBpcyBtdWNoIGJpZ2dlciB0aGFuIG90
-aGVyIHJpbmdzICovCj4gKwlpZiAocmluZy0+dHlwZSA9PSBBTURHUFVfUklOR19UWVBFX0dGWCkK
-PiArCQlyID0gYW1kZ3B1X3JpbmdfYWxsb2MocmluZywgNTEyICsgbnVtX2licyAqIDE2KTsKPiAr
-CWVsc2UKPiArCQlyID0gYW1kZ3B1X3JpbmdfYWxsb2MocmluZywgMjU2ICsgbnVtX2licyAqIDE2
-KTsKPiAgIAlpZiAocikgewo+ICAgCQlkZXZfZXJyKGFkZXYtPmRldiwgInNjaGVkdWxpbmcgSUIg
-ZmFpbGVkICglZCkuXG4iLCByKTsKPiAgIAkJcmV0dXJuIHI7CgoKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+VGVzdGVkIG9uIG15IFRvbmdhIGJ1dCBzaG91bGQgaW4gdGhlb3J5IHdvcmsgZm9yIHRoZSBvdGhl
+cnMgYXMgCndlbGwgc2luY2UgdGhleSdyZSA5OSUgY29weS9wYXN0ZSAoZXhjZXB0IHdoaWNoIFNN
+QyByZWcgaXMgcmVhZApmb3IgR1BVIGxvYWQuLi4pCgpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2FtZC1nZngK
