@@ -1,11 +1,13 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: [ANNOUNCE] xf86-video-ati 7.7.1
-Date: Thu, 15 Sep 2016 18:13:16 +0900
-Message-ID: <01bc1a8d-f892-0a69-741c-2835508dcaae@daenzer.net>
-Reply-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+From: =?UTF-8?q?Christian=20K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: [PATCH 2/6] drm/amdgpu: use explicit limit for VRAM_CONTIGUOUS
+Date: Thu, 15 Sep 2016 12:12:20 +0200
+Message-ID: <1473934344-2106-2-git-send-email-deathsimple@vodafone.de>
+References: <1473934344-2106-1-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1017147424=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1473934344-2106-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,121 +18,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: xorg-announce-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, xorg-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1017147424==
-Content-Type: multipart/signed; micalg=pgp-sha1;
- protocol="application/pgp-signature";
- boundary="7RIoiRiSaC04QxggIFjmCdeEprTQSuON8"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---7RIoiRiSaC04QxggIFjmCdeEprTQSuON8
-Content-Type: multipart/mixed; boundary="FcJaCw5sJt28s7S5AuhOkUdgBTfPtab0d";
- protected-headers="v1"
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Reply-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-To: xorg-announce-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, xorg-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Message-ID: <01bc1a8d-f892-0a69-741c-2835508dcaae-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: [ANNOUNCE] xf86-video-ati 7.7.1
-
---FcJaCw5sJt28s7S5AuhOkUdgBTfPtab0d
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-
-I'm pleased to announce the 7.7.1 release of xf86-video-ati, the Xorg
-driver for ATI/AMD Radeon GPUs supported by the radeon kernel driver.
-This release supports xserver versions 1.9-1.18.
-
-This is a stable point release containing only fixes for
-crash/hang/corruption bugs and other minor changes.
-
-Thanks to Qiang Yu for his contributions to this release!
-
-
-Michel D=C3=A4nzer (15):
-      Handle Zaphod mode correctly in radeon_mode_hotplug
-      Explicitly set the fbcon pixmap pitch again
-      Only use RandR APIs if RandR is enabled
-      Don't enable micro-tiling for scanout buffers on pre-R600
-      Wait for pending flips to complete before turning off an output or =
-CRTC
-      Also call drmmode_clear_pending_flip from radeon_scanout_flip_abort=
-
-      Don't override crtc parameter value in drmmode_flip_handler/abort
-      Also handle disabled CRTCs in drmmode_clear_pending_flip
-      glamor: Fix radeon_glamor_share_pixmap_backing for priv->bo =3D=3D =
-NULL
-      Consolidate get_drawable_pixmap helper
-      Move DRI2's local fixup_glamor helper to radeon_glamor_set_pixmap_b=
-o
-      glamor: Reallocate linear pixmap BO if necessary for DRI2 PRIME
-      Destroy all dedicated scanout buffers during CloseScreen
-      DRI2: Add interpolated_vblanks in radeon_dri2_get_crtc_msc
-      Bump version for 7.7.1 release
-
-Qiang Yu (3):
-      Remove RR_Capability_SinkOutput for GPU without CRTC
-      Fix radeon_mode_hotplug crash on multi GPU platform.
-      DRI2: Fix radeon_dri2_exchange_buffers width/height copy'n'paste er=
-ror
-
-git tag: xf86-video-ati-7.7.1
-
-http://xorg.freedesktop.org/archive/individual/driver/xf86-video-ati-7.7.=
-1.tar.bz2
-MD5:  e46f30e24d9d6acdb256d8a63e0ec07c  xf86-video-ati-7.7.1.tar.bz2
-SHA1: 146be259bd725a0252e2909e1320e42e0a11d582  xf86-video-ati-7.7.1.tar.=
-bz2
-SHA256: 00a58588db62ee309095c5c5920bbd248d965e8627f88affe68a73b18865078d =
- xf86-video-ati-7.7.1.tar.bz2
-PGP:  http://xorg.freedesktop.org/archive/individual/driver/xf86-video-at=
-i-7.7.1.tar.bz2.sig
-
-http://xorg.freedesktop.org/archive/individual/driver/xf86-video-ati-7.7.=
-1.tar.gz
-MD5:  c01f4204fc2bd1890010d7c50a4a01e3  xf86-video-ati-7.7.1.tar.gz
-SHA1: 1369b2c48af1cf06673be0e87285b5ab61b7a282  xf86-video-ati-7.7.1.tar.=
-gz
-SHA256: 890906208cfa41d3ab720e0cfa2ec3ff390fc40e3cdd4f21873db4c5c94abd85 =
- xf86-video-ati-7.7.1.tar.gz
-PGP:  http://xorg.freedesktop.org/archive/individual/driver/xf86-video-at=
-i-7.7.1.tar.gz.sig
-
-
---=20
-Earthling Michel D=C3=A4nzer               |               http://www.amd=
-=2Ecom
-Libre software enthusiast             |             Mesa and X developer
-
-
---FcJaCw5sJt28s7S5AuhOkUdgBTfPtab0d--
-
---7RIoiRiSaC04QxggIFjmCdeEprTQSuON8
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iEYEARECAAYFAlfaZiwACgkQWoGvjmrbsgB2yACdHDvconlMafi8U7A0dRCYw9tZ
-NNcAmwQvOpkgXu5N07cqHbww1IiMas6R
-=CGK6
------END PGP SIGNATURE-----
-
---7RIoiRiSaC04QxggIFjmCdeEprTQSuON8--
-
---===============1017147424==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1017147424==--
+RnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKU3BsaXQg
+VlJBTSB3b24ndCBoYXZlIGEgdmFsaWQgb2Zmc2V0LCBzbyBqdXN0IHNldCBhbiBleHBsaWNpdCBs
+aW1pdAp3aGVuIHRoZSBmbGFnIGlzIGdpdmVuIHRvIHRyaWdnZXIgcmVhbGxvY2F0aW9uIGlmIG5l
+Y2Vzc2FyeS4KClNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2Vu
+aWdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0
+LmMgfCA5ICsrKysrKystLQogMSBmaWxlIGNoYW5nZWQsIDcgaW5zZXJ0aW9ucygrKSwgMiBkZWxl
+dGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+b2JqZWN0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMKaW5k
+ZXggM2JkZGM2OC4uMDNjNmJmYyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X29iamVjdC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9vYmplY3QuYwpAQCAtMTIzLDEyICsxMjMsMTcgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X3R0bV9w
+bGFjZW1lbnRfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAogCWlmIChkb21haW4g
+JiBBTURHUFVfR0VNX0RPTUFJTl9WUkFNKSB7CiAJCXVuc2lnbmVkIHZpc2libGVfcGZuID0gYWRl
+di0+bWMudmlzaWJsZV92cmFtX3NpemUgPj4gUEFHRV9TSElGVDsKKwkJdW5zaWduZWQgbHBmbiA9
+IDA7CisKKwkJLyogVGhpcyBmb3JjZXMgYSByZWFsbG9jYXRpb24gaWYgdGhlIGZsYWcgd2Fzbid0
+IHNldCBiZWZvcmUgKi8KKwkJaWYgKGZsYWdzICYgQU1ER1BVX0dFTV9DUkVBVEVfVlJBTV9DT05U
+SUdVT1VTKQorCQkJbHBmbiA9IGFkZXYtPm1jLnJlYWxfdnJhbV9zaXplID4+IFBBR0VfU0hJRlQ7
+CiAKIAkJaWYgKGZsYWdzICYgQU1ER1BVX0dFTV9DUkVBVEVfTk9fQ1BVX0FDQ0VTUyAmJgogCQkg
+ICAgIShmbGFncyAmIEFNREdQVV9HRU1fQ1JFQVRFX0NQVV9BQ0NFU1NfUkVRVUlSRUQpICYmCiAJ
+CSAgICBhZGV2LT5tYy52aXNpYmxlX3ZyYW1fc2l6ZSA8IGFkZXYtPm1jLnJlYWxfdnJhbV9zaXpl
+KSB7CiAJCQlwbGFjZXNbY10uZnBmbiA9IHZpc2libGVfcGZuOwotCQkJcGxhY2VzW2NdLmxwZm4g
+PSAwOworCQkJcGxhY2VzW2NdLmxwZm4gPSBscGZuOwogCQkJcGxhY2VzW2NdLmZsYWdzID0gVFRN
+X1BMX0ZMQUdfV0MgfAogCQkJCVRUTV9QTF9GTEFHX1VOQ0FDSEVEIHwgVFRNX1BMX0ZMQUdfVlJB
+TSB8CiAJCQkJVFRNX1BMX0ZMQUdfVE9QRE9XTjsKQEAgLTEzNiw3ICsxNDEsNyBAQCBzdGF0aWMg
+dm9pZCBhbWRncHVfdHRtX3BsYWNlbWVudF9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
+LAogCQl9CiAKIAkJcGxhY2VzW2NdLmZwZm4gPSAwOwotCQlwbGFjZXNbY10ubHBmbiA9IDA7CisJ
+CXBsYWNlc1tjXS5scGZuID0gbHBmbjsKIAkJcGxhY2VzW2NdLmZsYWdzID0gVFRNX1BMX0ZMQUdf
+V0MgfCBUVE1fUExfRkxBR19VTkNBQ0hFRCB8CiAJCQlUVE1fUExfRkxBR19WUkFNOwogCQlpZiAo
+ZmxhZ3MgJiBBTURHUFVfR0VNX0NSRUFURV9DUFVfQUNDRVNTX1JFUVVJUkVEKQotLSAKMi41LjAK
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
+bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
