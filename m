@@ -1,10 +1,10 @@
 From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: [ANNOUNCE] xf86-video-amdgpu 1.1.1
-Date: Thu, 15 Sep 2016 16:30:17 +0900
-Message-ID: <c5c26b1d-88ed-c845-be65-9c4388e54309@daenzer.net>
+Subject: [ANNOUNCE] xf86-video-ati 7.7.1
+Date: Thu, 15 Sep 2016 18:13:16 +0900
+Message-ID: <01bc1a8d-f892-0a69-741c-2835508dcaae@daenzer.net>
 Reply-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1496796642=="
+Content-Type: multipart/mixed; boundary="===============1017147424=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,103 +20,85 @@ To: xorg-announce-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, xorg-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1496796642==
+--===============1017147424==
 Content-Type: multipart/signed; micalg=pgp-sha1;
  protocol="application/pgp-signature";
- boundary="hxv55G616wHiXvTRJePFK06eGRKJtxHfR"
+ boundary="7RIoiRiSaC04QxggIFjmCdeEprTQSuON8"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---hxv55G616wHiXvTRJePFK06eGRKJtxHfR
-Content-Type: multipart/mixed; boundary="PlgvlKD8ou7aM1eo9KuxjsWf1NhkkXq9S";
+--7RIoiRiSaC04QxggIFjmCdeEprTQSuON8
+Content-Type: multipart/mixed; boundary="FcJaCw5sJt28s7S5AuhOkUdgBTfPtab0d";
  protected-headers="v1"
 From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
 Reply-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 To: xorg-announce-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, xorg-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Message-ID: <c5c26b1d-88ed-c845-be65-9c4388e54309-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: [ANNOUNCE] xf86-video-amdgpu 1.1.1
+Message-ID: <01bc1a8d-f892-0a69-741c-2835508dcaae-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: [ANNOUNCE] xf86-video-ati 7.7.1
 
---PlgvlKD8ou7aM1eo9KuxjsWf1NhkkXq9S
+--FcJaCw5sJt28s7S5AuhOkUdgBTfPtab0d
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
 
-I'm pleased to announce the 1.1.1 release of xf86-video-amdgpu, the Xorg
-driver for AMD Radeon GPUs supported by the amdgpu kernel driver.
+I'm pleased to announce the 7.7.1 release of xf86-video-ati, the Xorg
+driver for ATI/AMD Radeon GPUs supported by the radeon kernel driver.
 This release supports xserver versions 1.9-1.18.
 
-This is a stable point release containing only fixes and other minor chan=
-ges.
+This is a stable point release containing only fixes for
+crash/hang/corruption bugs and other minor changes.
 
-Highlights:
-
-* Support for all currently available GPUs supported by the amdgpu
-  kernel driver.
-* A few fixes for crash/hang bugs.
-
-Thanks to everybody who contributed to this release in any way!
+Thanks to Qiang Yu for his contributions to this release!
 
 
-Alex Deucher (1):
-      add missing bonaire pci id
+Michel D=C3=A4nzer (15):
+      Handle Zaphod mode correctly in radeon_mode_hotplug
+      Explicitly set the fbcon pixmap pitch again
+      Only use RandR APIs if RandR is enabled
+      Don't enable micro-tiling for scanout buffers on pre-R600
+      Wait for pending flips to complete before turning off an output or =
+CRTC
+      Also call drmmode_clear_pending_flip from radeon_scanout_flip_abort=
 
-Flora Cui (3):
-      add strato pci id
-      Add more Polaris 10 PCI IDs
-      Add more Polaris 11 PCI IDs
-
-Marek Ol=C5=A1=C3=A1k (1):
-      Fix cursor size for SI
-
-Michel D=C3=A4nzer (14):
-      Handle Zaphod mode correctly in amdgpu_mode_hotplug
-      glamor: Fix amdgpu_glamor_share_pixmap_backing for priv->bo =3D=3D =
+      Don't override crtc parameter value in drmmode_flip_handler/abort
+      Also handle disabled CRTCs in drmmode_clear_pending_flip
+      glamor: Fix radeon_glamor_share_pixmap_backing for priv->bo =3D=3D =
 NULL
-      Remove amdgpu_share_pixmap_backing
-      Add amdgpu_pixmap_get_tiling_info
       Consolidate get_drawable_pixmap helper
-      Move DRI2's local fixup_glamor helper to amdgpu_glamor_set_pixmap_b=
-o v2
+      Move DRI2's local fixup_glamor helper to radeon_glamor_set_pixmap_b=
+o
       glamor: Reallocate linear pixmap BO if necessary for DRI2 PRIME
       Destroy all dedicated scanout buffers during CloseScreen
-      Only use RandR APIs if RandR is enabled
-      DRI2: Add interpolated_vblanks in amdgpu_dri2_get_crtc_msc
-      Add Mullins PCI IDs
-      Add missing Kaveri PCI ID (1318)
-      Use --with-xorg-conf-dir=3D$prefix/share/X11/xorg.conf.d by default=
-
-      Bump version for the 1.1.1 release
+      DRI2: Add interpolated_vblanks in radeon_dri2_get_crtc_msc
+      Bump version for 7.7.1 release
 
 Qiang Yu (3):
-      Remove RR_Capability_SinkOutput for GPU without CRTC.
-      Fix amdgpu_mode_hotplug crash on multi GPU platform.
-      DRI2: Fix amdgpu_dri2_exchange_buffers width/height copy'n'paste er=
+      Remove RR_Capability_SinkOutput for GPU without CRTC
+      Fix radeon_mode_hotplug crash on multi GPU platform.
+      DRI2: Fix radeon_dri2_exchange_buffers width/height copy'n'paste er=
 ror
 
-Ronie Salgado (1):
-      Add SI PCI IDs
+git tag: xf86-video-ati-7.7.1
 
-git tag: xf86-video-amdgpu-1.1.1
+http://xorg.freedesktop.org/archive/individual/driver/xf86-video-ati-7.7.=
+1.tar.bz2
+MD5:  e46f30e24d9d6acdb256d8a63e0ec07c  xf86-video-ati-7.7.1.tar.bz2
+SHA1: 146be259bd725a0252e2909e1320e42e0a11d582  xf86-video-ati-7.7.1.tar.=
+bz2
+SHA256: 00a58588db62ee309095c5c5920bbd248d965e8627f88affe68a73b18865078d =
+ xf86-video-ati-7.7.1.tar.bz2
+PGP:  http://xorg.freedesktop.org/archive/individual/driver/xf86-video-at=
+i-7.7.1.tar.bz2.sig
 
-http://xorg.freedesktop.org/archive/individual/driver/xf86-video-amdgpu-1=
-=2E1.1.tar.bz2
-MD5:  8b2e2852299b330da709d0526b2b8134  xf86-video-amdgpu-1.1.1.tar.bz2
-SHA1: 402df5fa62631e7e049261bc29cdc0eb5febe119  xf86-video-amdgpu-1.1.1.t=
-ar.bz2
-SHA256: b6dfe5fb2a9bba5048135c75a507827bc887ac0790214d62b28c47f22fdd238f =
- xf86-video-amdgpu-1.1.1.tar.bz2
-PGP:  http://xorg.freedesktop.org/archive/individual/driver/xf86-video-am=
-dgpu-1.1.1.tar.bz2.sig
-
-http://xorg.freedesktop.org/archive/individual/driver/xf86-video-amdgpu-1=
-=2E1.1.tar.gz
-MD5:  23e39d8586fb89da3e606ebbc2f8e911  xf86-video-amdgpu-1.1.1.tar.gz
-SHA1: 1acf7e7ead43e69b9122e9bb25b95a734cf3ace3  xf86-video-amdgpu-1.1.1.t=
-ar.gz
-SHA256: 40dec655b7f9385d08fd648c359eff63012bfacc16397590ad2f9682e1e4527c =
- xf86-video-amdgpu-1.1.1.tar.gz
-PGP:  http://xorg.freedesktop.org/archive/individual/driver/xf86-video-am=
-dgpu-1.1.1.tar.gz.sig
+http://xorg.freedesktop.org/archive/individual/driver/xf86-video-ati-7.7.=
+1.tar.gz
+MD5:  c01f4204fc2bd1890010d7c50a4a01e3  xf86-video-ati-7.7.1.tar.gz
+SHA1: 1369b2c48af1cf06673be0e87285b5ab61b7a282  xf86-video-ati-7.7.1.tar.=
+gz
+SHA256: 890906208cfa41d3ab720e0cfa2ec3ff390fc40e3cdd4f21873db4c5c94abd85 =
+ xf86-video-ati-7.7.1.tar.gz
+PGP:  http://xorg.freedesktop.org/archive/individual/driver/xf86-video-at=
+i-7.7.1.tar.gz.sig
 
 
 --=20
@@ -125,23 +107,23 @@ Earthling Michel D=C3=A4nzer               |               http://www.amd=
 Libre software enthusiast             |             Mesa and X developer
 
 
---PlgvlKD8ou7aM1eo9KuxjsWf1NhkkXq9S--
+--FcJaCw5sJt28s7S5AuhOkUdgBTfPtab0d--
 
---hxv55G616wHiXvTRJePFK06eGRKJtxHfR
+--7RIoiRiSaC04QxggIFjmCdeEprTQSuON8
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iEYEARECAAYFAlfaTgkACgkQWoGvjmrbsgCbwQCfeAn+6r0ew1D6peVpdesMMrgU
-oAAAoI0v3QM8Flo/xVNqV30RepAHaTDA
-=jhTw
+iEYEARECAAYFAlfaZiwACgkQWoGvjmrbsgB2yACdHDvconlMafi8U7A0dRCYw9tZ
+NNcAmwQvOpkgXu5N07cqHbww1IiMas6R
+=CGK6
 -----END PGP SIGNATURE-----
 
---hxv55G616wHiXvTRJePFK06eGRKJtxHfR--
+--7RIoiRiSaC04QxggIFjmCdeEprTQSuON8--
 
---===============1496796642==
+--===============1017147424==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -151,4 +133,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1496796642==--
+--===============1017147424==--
