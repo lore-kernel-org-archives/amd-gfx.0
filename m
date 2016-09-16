@@ -1,13 +1,16 @@
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/sdma3: drop unused functions
-Date: Fri, 16 Sep 2016 18:28:03 +1000
-Message-ID: <d51682dc-90f4-835c-2468-34cc33ca86ee@folklore1984.net>
-References: <1473971453-12470-1-git-send-email-alexander.deucher@amd.com>
- <a58092fe-b0fa-24d0-04ac-c35250d9ae12@vodafone.de>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH 2/5] drm/amdgpu: fix a bunch of coding style issues in
+ amdgpu_ttm.c
+Date: Fri, 16 Sep 2016 10:41:48 +0200
+Message-ID: <373e7189-b56f-83ee-1955-f7fe70de8ef1@vodafone.de>
+References: <1473945024-8275-1-git-send-email-deathsimple@vodafone.de>
+ <1473945024-8275-2-git-send-email-deathsimple@vodafone.de>
+ <0a85f244-9e39-f5cf-41c7-41f5954094e7@daenzer.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0121837088=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <a58092fe-b0fa-24d0-04ac-c35250d9ae12-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <0a85f244-9e39-f5cf-41c7-41f5954094e7-otUistvHUpPR7s880joybQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,132 +21,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0121837088==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="HNpIuaNPHeuV41rn9pDMQITFihVEpopJV"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---HNpIuaNPHeuV41rn9pDMQITFihVEpopJV
-Content-Type: multipart/mixed; boundary="64XqB4PJc7bRfquOKGSTbFntUSqCLvpft";
- protected-headers="v1"
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>,
- Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Message-ID: <d51682dc-90f4-835c-2468-34cc33ca86ee-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/sdma3: drop unused functions
-References: <1473971453-12470-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
- <a58092fe-b0fa-24d0-04ac-c35250d9ae12-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-In-Reply-To: <a58092fe-b0fa-24d0-04ac-c35250d9ae12-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-
---64XqB4PJc7bRfquOKGSTbFntUSqCLvpft
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-
-
-On 09/16/2016 05:35 PM, Christian K=C3=B6nig wrote:
-> Am 15.09.2016 um 22:30 schrieb Alex Deucher:
->> These are not used yet.
->>
->> Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
->=20
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>.
-Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-
->=20
->> ---
->>   drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c | 25 ------------------------=
--
->>   1 file changed, 25 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
->> b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
->> index bee4978..cabb9fe 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
->> @@ -499,31 +499,6 @@ static void sdma_v3_0_ring_emit_fence(struct
->> amdgpu_ring *ring, u64 addr, u64 se
->>       amdgpu_ring_write(ring, SDMA_PKT_TRAP_INT_CONTEXT_INT_CONTEXT(0)=
-);
->>   }
->>   -unsigned init_cond_exec(struct amdgpu_ring *ring)
->> -{
->> -    unsigned ret;
->> -    amdgpu_ring_write(ring, SDMA_PKT_HEADER_OP(SDMA_OP_COND_EXE));
->> -    amdgpu_ring_write(ring, lower_32_bits(ring->cond_exe_gpu_addr));
->> -    amdgpu_ring_write(ring, upper_32_bits(ring->cond_exe_gpu_addr));
->> -    amdgpu_ring_write(ring, 1);
->> -    ret =3D ring->wptr;/* this is the offset we need patch later */
->> -    amdgpu_ring_write(ring, 0x55aa55aa);/* insert dummy here and
->> patch it later */
->> -    return ret;
->> -}
->> -
->> -void patch_cond_exec(struct amdgpu_ring *ring, unsigned offset)
->> -{
->> -    unsigned cur;
->> -    BUG_ON(ring->ring[offset] !=3D 0x55aa55aa);
->> -
->> -    cur =3D ring->wptr - 1;
->> -    if (likely(cur > offset))
->> -        ring->ring[offset] =3D cur - offset;
->> -    else
->> -        ring->ring[offset] =3D (ring->ring_size>>2) - offset + cur;
->> -}
->> -
->> -
->>   /**
->>    * sdma_v3_0_gfx_stop - stop the gfx async dma engines
->>    *
->=20
->=20
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---64XqB4PJc7bRfquOKGSTbFntUSqCLvpft--
-
---HNpIuaNPHeuV41rn9pDMQITFihVEpopJV
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJX260TAAoJEP4bvbfZuWjbqw0P/iWC4EwabojMzGOARAl182tG
-ZetlZNrRd+BSai+TG8GG/JBO3X0ijPQdEtP6TzeusGj7TgZulNvfoJbCQfnB5aLI
-OqDlH24mTWQiGxWh1c+vuCPZg1v/NI7zyCaNxIHezSa+NC4hOP/xtgiPftoNcJ+d
-1Id+5P7UhHlVwlTjdQ8hblsZzvmqCfMmjGy3LLg0RILmwZByLmx6E07q7zqnAQ9I
-8tyLmRfTlfBpCzETfLaESlJ6OAH0uw9AFRRc1BVb6naWHo+GHNdfBu+0DYRNDeTh
-Ov/2axFZiOKwIcjJY9z4qCqzr849gzR7BGZpG9VzspgGvCwyM7eF1DB9FJSvNM0X
-oFSEFj8gxBqt5rUWF9HN0+7TZlcZwbN0ZyPivfOV3XNEz9hFZoncON89YHA03rAL
-rk9UQxoWpm9Toc93rpm9YkmNjFDp4bPPnRqI16XSPk3jXqG7JXdZ5rO2rvJYkVMN
-qHSr+Jp6wkwo4dgSvU0z7nxNQo/BLiwU6TkSNvxXX8rKBlJ2QmsLoOUwYBxeLQPi
-z4trBJcYna3Jc/72Qms7AS3NZfQjevYsbaNZKk7XNZJgldrq6PDrbDa+od/H9t4e
-g1jobqPG670bj+Ty7o8Yj0wsBcEcH+mIyuT7J2pZqoohNHMwXNUCO+uaDg2sMHfb
-hNDspSE3/69lLuZgOhRh
-=FTX1
------END PGP SIGNATURE-----
-
---HNpIuaNPHeuV41rn9pDMQITFihVEpopJV--
-
---===============0121837088==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0121837088==--
+QW0gMTYuMDkuMjAxNiB1bSAwNDoxNyBzY2hyaWViIE1pY2hlbCBEw6RuemVyOgo+IE9uIDE1LzA5
+LzE2IDEwOjEwIFBNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiBGcm9tOiBDaHJpc3RpYW4g
+S8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4+Cj4+IE5vIGludGVudGVkIGZ1bmN0
+aW9uYWwgY2hhbmdlLgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJp
+c3RpYW4ua29lbmlnQGFtZC5jb20+Cj4+IC0tLQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV90dG0uYyB8IDY1ICsrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLQo+
+PiAgIDEgZmlsZSBjaGFuZ2VkLCA0MiBpbnNlcnRpb25zKCspLCAyMyBkZWxldGlvbnMoLSkKPj4K
+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwo+PiBpbmRleCA0MjhmZmI2
+Li4xOTY1MjA5IDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfdHRtLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5j
+Cj4+IEBAIC0yMTQsOSArMjE0LDExIEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9ldmljdF9mbGFncyhz
+dHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvLAo+PiAgIAlzd2l0Y2ggKGJvLT5tZW0ubWVtX3R5
+cGUpIHsKPj4gICAJY2FzZSBUVE1fUExfVlJBTToKPj4gICAJCWlmIChyYm8tPmFkZXYtPm1tYW4u
+YnVmZmVyX2Z1bmNzX3JpbmctPnJlYWR5ID09IGZhbHNlKSB7Cj4+IC0JCQlhbWRncHVfdHRtX3Bs
+YWNlbWVudF9mcm9tX2RvbWFpbihyYm8sIEFNREdQVV9HRU1fRE9NQUlOX0NQVSk7Cj4+ICsJCQlh
+bWRncHVfdHRtX3BsYWNlbWVudF9mcm9tX2RvbWFpbihyYm8sCj4+ICsJCQkJCQkJIEFNREdQVV9H
+RU1fRE9NQUlOX0NQVSk7Cj4+ICAgCQl9IGVsc2Ugewo+PiAtCQkJYW1kZ3B1X3R0bV9wbGFjZW1l
+bnRfZnJvbV9kb21haW4ocmJvLCBBTURHUFVfR0VNX0RPTUFJTl9HVFQpOwo+PiArCQkJYW1kZ3B1
+X3R0bV9wbGFjZW1lbnRfZnJvbV9kb21haW4ocmJvLAo+PiArCQkJCQkJCSBBTURHUFVfR0VNX0RP
+TUFJTl9HVFQpOwo+IEkgZG9uJ3Qgc2VlIHRoZSBwb2ludCBvZiB0aGlzIGtpbmQgb2YgY2hhbmdl
+LiBXZSBzYXZlIGFsbCBvZiA1IGNvbHVtbnMKPiBvZiBob3Jpem9udGFsIHNwYWNlLCBidXQgZm9y
+IHRoYXQgd2UgcmVkdWNlIHJlYWRhYmlsaXR5IGJ5IGJyZWFraW5nIHVwIGEKPiBzaW5nbGUgbGlu
+ZSBzdGF0ZW1lbnQgdG8gbXVsdGlwbGUgbGluZXMuCj4KPiBJdCBtYWtlcyBtb3JlIHNlbnNlIHdo
+ZW4gc2F2aW5nIGEgbW9yZSBzaWduaWZpY2FudCBhbW91bnQgb2YgaG9yaXpvbnRhbAo+IHNwYWNl
+IG9yIHdoZW4gdGhlIHN0YXRlbWVudCBhbHJlYWR5IHNwYW5zIG11bHRpcGxlIGxpbmVzIHRob3Vn
+aC4KPgoKSSB3YXMgbW9zdGx5IGp1c3QgZm9sbG93aW5nIHdoYXQgdGhlIGF1dG8gZm9ybWF0dGVy
+IHN1Z2dlc3RlZCwgYnV0IG5vdyAKdGhhdCB5b3Ugc2F5IGl0IGl0J3MgcHJvYmFibHkgbm90IHN1
+Y2ggYSBnb29kIGlkZWEgaW4gc29tZSBjYXNlcy4KClNob3VsZCBJIGp1c3QgZHJvcCB0aG9zZSB0
+d28gcGF0Y2hlcyBvciBqdXN0IGZpeCB3aGF0IEFsZXggYW5kIHlvdSBoYXZlIApub3RlZCBhbmQg
+c2VuZCB0aGVtIGFnYWluPyBTb21lIG9mIHRoZSBjaGFuZ2VzIHN0aWxsIHNlZW0gdG8gbWFrZSBz
+ZW5zZSAKdG8gbWUuCgpSZWdhcmRzLApDaHJpc3RhaW4uCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeAo=
