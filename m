@@ -1,13 +1,16 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: allocate GTT space for shadow VM page tables
-Date: Fri, 16 Sep 2016 12:03:06 +0200
-Message-ID: <2d8ffb0d-df79-040c-2f1c-14c028c69840@vodafone.de>
-References: <1474019288-5770-1-git-send-email-deathsimple@vodafone.de>
- <CAHbf0-EBxKZqwWstQxTYt_=2yy_0e0CGMtnnoZiQ_wFs-0itMw@mail.gmail.com>
+Subject: Re: libdrm/amdgpu - Fixup typedef not to hide pointer type
+Date: Fri, 16 Sep 2016 12:49:44 +0200
+Message-ID: <84d42cca-25c9-2349-21d8-542dfaa4267c@vodafone.de>
+References: <1474015570-30928-1-git-send-email-funfunctor@folklore1984.net>
+ <98564703-e915-2729-b5c9-43afddc881a5@vodafone.de>
+ <bc823f27-6163-1688-9cf0-0c8b5934111d@folklore1984.net>
+ <223e0fa5-bb37-c9d8-9d04-b9ef29d0d9f7@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0097092835=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAHbf0-EBxKZqwWstQxTYt_=2yy_0e0CGMtnnoZiQ_wFs-0itMw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <223e0fa5-bb37-c9d8-9d04-b9ef29d0d9f7-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,234 +21,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This is a multi-part message in MIME format.
---===============0097092835==
-Content-Type: multipart/alternative;
- boundary="------------4F78173C316C2E7339B5A67F"
-
-This is a multi-part message in MIME format.
---------------4F78173C316C2E7339B5A67F
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Could be, but possible that I've missed a few other places where GTT is 
-used as well.
-
-What issues where you seeing and are there any backtraces logged? I have 
-a WARN_ON() in the code path which should trigger whenever I missed 
-something.
-
-Christian.
-
-Am 16.09.2016 um 11:55 schrieb Mike Lothian:
->
-> Does this fix the issue I was seeing since the new memory manager went 
-> into thr 4.9-wip branch?
->
->
-> On Fri, 16 Sep 2016, 10:48 am Christian König, 
-> <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org <mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>> wrote:
->
->     From: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org
->     <mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org>>
->
->     We need to access those with the system domain.
->
->     Fixes fallout from only allocating GTT space on demand.
->
->     Signed-off-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org
->     <mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org>>
->     ---
->      drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 17 +++++++++++++++++
->      1 file changed, 17 insertions(+)
->
->     diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->     b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->     index a6a48ed..8928a2a 100644
->     --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->     +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->     @@ -552,6 +552,10 @@ static int amdgpu_vm_clear_bo(struct
->     amdgpu_device *adev,
->             if (r)
->                     goto error;
->
->     +       r = amdgpu_ttm_bind(&bo->tbo, &bo->tbo.mem);
->     +       if (r)
->     +               goto error;
->     +
->             addr = amdgpu_bo_gpu_offset(bo);
->             entries = amdgpu_bo_size(bo) / 8;
->
->     @@ -625,6 +629,11 @@ static int
->     amdgpu_vm_update_pd_or_shadow(struct amdgpu_device *adev,
->
->             if (!pd)
->                     return 0;
->     +
->     +       r = amdgpu_ttm_bind(&pd->tbo, &pd->tbo.mem);
->     +       if (r)
->     +               return r;
->     +
->             pd_addr = amdgpu_bo_gpu_offset(pd);
->             ring = container_of(vm->entity.sched, struct amdgpu_ring,
->     sched);
->
->     @@ -650,6 +659,14 @@ static int
->     amdgpu_vm_update_pd_or_shadow(struct amdgpu_device *adev,
->                     if (bo == NULL)
->                             continue;
->
->     +               if (bo->shadow) {
->     +                       struct amdgpu_bo *shadow = bo->shadow;
->     +
->     +                       r = amdgpu_ttm_bind(&shadow->tbo,
->     &shadow->tbo.mem);
->     +                       if (r)
->     +                               return r;
->     +               }
->     +
->                     pt = amdgpu_bo_gpu_offset(bo);
->                     if (!shadow) {
->                             if (vm->page_tables[pt_idx].addr == pt)
->     --
->     2.5.0
->
->     _______________________________________________
->     amd-gfx mailing list
->     amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->     https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
-
-
---------------4F78173C316C2E7339B5A67F
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body bgcolor="#FFFFFF" text="#000000">
-    <div class="moz-cite-prefix">Could be, but possible that I've missed
-      a few other places where GTT is used as well.<br>
-      <br>
-      What issues where you seeing and are there any backtraces logged?
-      I have a WARN_ON() in the code path which should trigger whenever
-      I missed something.<br>
-      <br>
-      Christian.<br>
-      <br>
-      Am 16.09.2016 um 11:55 schrieb Mike Lothian:<br>
-    </div>
-    <blockquote
-cite="mid:CAHbf0-EBxKZqwWstQxTYt_=2yy_0e0CGMtnnoZiQ_wFs-0itMw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org"
-      type="cite">
-      <p dir="ltr">Does this fix the issue I was seeing since the new
-        memory manager went into thr 4.9-wip branch?</p>
-      <br>
-      <div class="gmail_quote">
-        <div dir="ltr">On Fri, 16 Sep 2016, 10:48 am Christian König,
-          &lt;<a moz-do-not-send="true"
-            href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org</a>&gt;
-          wrote:<br>
-        </div>
-        <blockquote class="gmail_quote" style="margin:0 0 0
-          .8ex;border-left:1px #ccc solid;padding-left:1ex">From:
-          Christian König &lt;<a moz-do-not-send="true"
-            href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org" target="_blank">christian.koenig-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-          <br>
-          We need to access those with the system domain.<br>
-          <br>
-          Fixes fallout from only allocating GTT space on demand.<br>
-          <br>
-          Signed-off-by: Christian König &lt;<a moz-do-not-send="true"
-            href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org" target="_blank">christian.koenig-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-          ---<br>
-           drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 17 +++++++++++++++++<br>
-           1 file changed, 17 insertions(+)<br>
-          <br>
-          diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-          b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-          index a6a48ed..8928a2a 100644<br>
-          --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-          +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-          @@ -552,6 +552,10 @@ static int amdgpu_vm_clear_bo(struct
-          amdgpu_device *adev,<br>
-                  if (r)<br>
-                          goto error;<br>
-          <br>
-          +       r = amdgpu_ttm_bind(&amp;bo-&gt;tbo,
-          &amp;bo-&gt;tbo.mem);<br>
-          +       if (r)<br>
-          +               goto error;<br>
-          +<br>
-                  addr = amdgpu_bo_gpu_offset(bo);<br>
-                  entries = amdgpu_bo_size(bo) / 8;<br>
-          <br>
-          @@ -625,6 +629,11 @@ static int
-          amdgpu_vm_update_pd_or_shadow(struct amdgpu_device *adev,<br>
-          <br>
-                  if (!pd)<br>
-                          return 0;<br>
-          +<br>
-          +       r = amdgpu_ttm_bind(&amp;pd-&gt;tbo,
-          &amp;pd-&gt;tbo.mem);<br>
-          +       if (r)<br>
-          +               return r;<br>
-          +<br>
-                  pd_addr = amdgpu_bo_gpu_offset(pd);<br>
-                  ring = container_of(vm-&gt;entity.sched, struct
-          amdgpu_ring, sched);<br>
-          <br>
-          @@ -650,6 +659,14 @@ static int
-          amdgpu_vm_update_pd_or_shadow(struct amdgpu_device *adev,<br>
-                          if (bo == NULL)<br>
-                                  continue;<br>
-          <br>
-          +               if (bo-&gt;shadow) {<br>
-          +                       struct amdgpu_bo *shadow =
-          bo-&gt;shadow;<br>
-          +<br>
-          +                       r =
-          amdgpu_ttm_bind(&amp;shadow-&gt;tbo, &amp;shadow-&gt;tbo.mem);<br>
-          +                       if (r)<br>
-          +                               return r;<br>
-          +               }<br>
-          +<br>
-                          pt = amdgpu_bo_gpu_offset(bo);<br>
-                          if (!shadow) {<br>
-                                  if (vm-&gt;page_tables[pt_idx].addr ==
-          pt)<br>
-          --<br>
-          2.5.0<br>
-          <br>
-          _______________________________________________<br>
-          amd-gfx mailing list<br>
-          <a moz-do-not-send="true"
-            href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target="_blank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-          <a moz-do-not-send="true"
-            href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-            rel="noreferrer" target="_blank">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-        </blockquote>
-      </div>
-    </blockquote>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------4F78173C316C2E7339B5A67F--
-
---===============0097092835==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0097092835==--
+V2VsbCB0aGlua2luZyBtb3JlIGFib3V0IHRoYXQgd2hhdCB5b3UgcHJvYmFibHkgY291bGQgZG8g
+aXMgY2hhbmdpbmcgdGhlIAp0eXBlZGVmcyB0byBwdXQgdGhlIHBvaW50ZXIgaW50byBhIHNpbmds
+ZSBlbGVtZW50IHN0cnVjdHVyZS4KClRoYXQgc2hvdWxkIGJyZWFrIG9ubHkgd2hlbiBzb21lYm9k
+eSByZWFsbHkgYWJ1c2VkIHRoZSBBUEkgYW5kIHNob3VsZG4ndCAKY2hhbmdlIHRoZSBBQkkuCgpS
+ZWdhcmRzLApDaHJpc3RpYW4uCgpBbSAxNi4wOS4yMDE2IHVtIDExOjEyIHNjaHJpZWIgQ2hyaXN0
+aWFuIEvDtm5pZzoKPiBBbSAxNi4wOS4yMDE2IHVtIDExOjAyIHNjaHJpZWIgRWR3YXJkIE8nQ2Fs
+bGFnaGFuOgo+PiBIaSBDaHJpc3RpYW4sCj4+Cj4+IE9uIDA5LzE2LzIwMTYgMDY6NDkgUE0sIENo
+cmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+PiBOQUssIHRoYXQgaXMgY2xlYXJseSBhbiBBUEkgYnJl
+YWthZ2UuCj4+IEl0IHNob3VsZCBoYXZlIG5ldmVyIGJlZW4gdHlwZWRlZidlZCBpbiB0aGUgZmly
+c3QgcGxhY2UuIERvZXMgdGhhdCBtZWFuCj4+IHdlIHdvdWxkIGhhdmUgdG8gYnVtcCB2ZXJzaW9u
+IGZvciBBUEkgY2hhbmdlPyBXaGF0IGlzIHRoZSBwcm9jZWR1cmUgCj4+IHRoZXJlPwo+Cj4gS2Vl
+cCBpdCBhcyBpdCBpcywgeW91IGNhbid0IGNoYW5nZSBpdCBldmVuIGlmIHdlIGJ1bXAgdGhlIHZl
+cnNpb24gCj4gbnVtYmVyIHlvdSB3b3VsZCBicmVhayBleGlzdGluZyB1c2Vyc3BhY2UuCj4KPj4K
+Pj4+IEJUVzogV2h5IHdvdWxkIHdlIHdhbnQgdG8gc3RvcCBoaWRpbmcgdGhlIHR5cGU/Cj4+IFF1
+aXRlIGEgZmV3IHJlYXNvbnMsIEknbGwgc3RhcnQgd2l0aCB0byBqdXN0aWZ5IHRoZSBjaGFuZ2U6
+Cj4+Cj4+IGh0dHBzOi8vZ2l0Lmtlcm5lbC5vcmcvY2dpdC9saW51eC9rZXJuZWwvZ2l0L3RvcnZh
+bGRzL2xpbnV4LmdpdC90cmVlL0RvY3VtZW50YXRpb24vQ29kaW5nU3R5bGU/aWQ9cmVmcy90YWdz
+L3Y0LjgtcmM2I24yNzYgCj4+Cj4KPiBUaGlzIGRvZXNuJ3QgYXBwbHkgaGVyZSwgdGhpcyBpcyBh
+IHVzZXIgc3BhY2UgbGlicmFyeSBpbnRlcmZhY2UgYW5kIAo+IG5vdCB0aGUga2VybmVsLgo+Cj4g
+VGhlIHN0cnVjdHVyZSB0eXBlcyBhcmUgbm90IGRlZmluZWQgb3V0c2lkZSBvZiB0aGUgbGlicmFy
+eSBhbmQgc28geW91IAo+IGNhbid0IGRlcmVmZXJlbmNlIG9yIE5VTEwgY2hlY2sgdGhlbS4KPgo+
+IFJlZ2FyZHMsCj4gQ2hyaXN0aWFuLgo+Cj4+Cj4+IFN1cHBvc2UgeW91IGhhdmUgJ2FtZGdwdV9z
+ZW1hcGhvcmVfaGFuZGxlJyBhcyB0eXBlZGVmIG9mIGEgcG9pbnRlciB0eXBlCj4+IGFuZCB5b3Ug
+aGFkIHNvbWUgZnVuY3Rpb24gJ3ZvaWQgZihhbWRncHVfc2VtYXBob3JlX2hhbmRsZSAqIGgpIHt9
+Jy4KPj4gU3VwcG9zZSBub3csIHdpdGhpbiAnZigpJyB3ZSBkZWZlcmVuY2UgJ2gnIGFuZCB1c2Ug
+dGhlIHJlc3VsdCBpbiBzb21lCj4+IHdheS4gVGhlIGlzc3VlIGlzIHRoYXQgaXQgaXMgbm90IGRp
+cmVjdGx5IG9idmlvdXMgdGhhdCB3ZSBoYXZlIGEgZG91YmxlCj4+IHBvaW50ZXIgdHlwZSBhbmQg
+c28gd2hpbGUgaXQgbWF5YmUgdGhlIGNhc2UgdGhhdCAnKCpoICE9IE5VTEwpJyBpdCBjb3VsZAo+
+PiB3ZWxsIGJlIHRoZSBjYXNlIHRoYXQgJyhoID09IE5VTEwpJy4KPj4KPj4gS2luZCBSZWdhcmRz
+LAo+PiBFZHdhcmQuCj4+Cj4+PiBDaHJpc3RpYW4uCj4+Pgo+Pj4gQW0gMTYuMDkuMjAxNiB1bSAx
+MDo0NiBzY2hyaWViIEVkd2FyZCBPJ0NhbGxhZ2hhbjoKPj4+PiBPb3BzLCB0dXJucyBvdXQgSSBt
+YWlsZWQgdG8gZHJpLWRldmVsIGJ5IG1pc3Rha2Ugc28gcmVzZW5kaW5nIGhlcmUuCj4+Pj4KPj4+
+PiBUaGUgZm9sbG93aW5nIHNlcmllcyBmaXhlcyB1cCBsaWJkcm0vYW1kZ3B1IHN1Y2ggdGhhdCB0
+byBub3QgaGlkZQo+Pj4+IGEgcG9pbnRlciB0eXBlIGJlaGluZCBhIHR5cGVkZWYuCj4+Pj4KPj4+
+PiBQbGVhc2UgUmV2aWV3LAo+Pj4+Cj4+Pj4gRWR3YXJkIE8nQ2FsbGFnaGFuICgzKToKPj4+PiAg
+ICBbUEFUQ0ggMS8zXSBhbWRncHU6IEZpeCBhbWRncHVfdmFfaGFuZGxlIHR5cGVkZWYgbm90IHRv
+IGhpZGUgCj4+Pj4gcG9pbnRlcgo+Pj4+ICAgIFtQQVRDSCAyLzNdIGFtZGdwdTogRml4IGFtZGdw
+dV9zZW1hcGhvcmVfaGFuZGxlIHR5cGVkZWYgbm90IHRvIGhpZGUKPj4+PiAgICBbUEFUQ0ggMy8z
+XSBhbWRncHU6IEZpeCBhbWRncHVfYm9fbGlzdF9oYW5kbGUgdHlwZWRlZiBub3QgdG8gaGlkZQo+
+Pj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+Pj4g
+YW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+
+Pj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eAo+Pj4KPgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
+Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
