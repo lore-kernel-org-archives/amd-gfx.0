@@ -1,11 +1,10 @@
-From: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 2/2] drm/amd/amdgpu: Hook up read_sensor() to debugfs (v2)
-Date: Fri, 16 Sep 2016 08:44:38 -0400
-Message-ID: <20160916124438.6549-3-tom.stdenis@amd.com>
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: Powerplay sensors (v2.5)
+Date: Fri, 16 Sep 2016 22:58:42 +1000
+Message-ID: <83222ef7-5fc9-58fd-6d25-cfd7c2d12bd5@folklore1984.net>
 References: <20160916124438.6549-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2066510995=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <20160916124438.6549-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
@@ -18,45 +17,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-KHYyKSBUaWR5J2VkIHVwIHJlYWQgZnVuY3Rpb24uCgpTaWduZWQtb2ZmLWJ5OiBUb20gU3QgRGVu
-aXMgPHRvbS5zdGRlbmlzQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X2RldmljZS5jIHwgMzEgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrCiAxIGZp
-bGUgY2hhbmdlZCwgMzEgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9kZXZpY2UuYwppbmRleCA5MTAzZTdiYWYyNmUuLjdmOWZiZWNjMzNjMiAxMDA2NDQK
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCisrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwpAQCAtMjg0MSw2ICsyODQx
-LDI5IEBAIHN0YXRpYyBzc2l6ZV90IGFtZGdwdV9kZWJ1Z2ZzX2djYV9jb25maWdfcmVhZChzdHJ1
-Y3QgZmlsZSAqZiwgY2hhciBfX3VzZXIgKmJ1ZiwKIAlyZXR1cm4gcmVzdWx0OwogfQogCitzdGF0
-aWMgc3NpemVfdCBhbWRncHVfZGVidWdmc19zZW5zb3JfcmVhZChzdHJ1Y3QgZmlsZSAqZiwgY2hh
-ciBfX3VzZXIgKmJ1ZiwKKwkJCQkJc2l6ZV90IHNpemUsIGxvZmZfdCAqcG9zKQoreworCXN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2ID0gZi0+Zl9pbm9kZS0+aV9wcml2YXRlOworCWludCBpZHgs
-IHI7CisJaW50MzJfdCB2YWx1ZTsKKworCWlmIChzaXplICE9IDQgfHwgKnBvcyAmIDB4MykKKwkJ
-cmV0dXJuIC1FSU5WQUw7CisKKwkvKiBjb252ZXJ0IG9mZnNldCB0byBzZW5zb3IgbnVtYmVyICov
-CisJaWR4ID0gKnBvcyA+PiAyOworCisJaWYgKGFkZXYtPnBvd2VycGxheS5wcF9mdW5jcyAmJiBh
-ZGV2LT5wb3dlcnBsYXkucHBfZnVuY3MtPnJlYWRfc2Vuc29yKQorCQlyID0gYWRldi0+cG93ZXJw
-bGF5LnBwX2Z1bmNzLT5yZWFkX3NlbnNvcihhZGV2LT5wb3dlcnBsYXkucHBfaGFuZGxlLCBpZHgs
-ICZ2YWx1ZSk7CisJZWxzZQorCQlyZXR1cm4gLUVJTlZBTDsKKworCWlmICghcikKKwkJciA9IHB1
-dF91c2VyKHZhbHVlLCAoaW50MzJfdCAqKWJ1Zik7CisKKwlyZXR1cm4gIXIgPyA0IDogcjsKK30K
-IAogc3RhdGljIGNvbnN0IHN0cnVjdCBmaWxlX29wZXJhdGlvbnMgYW1kZ3B1X2RlYnVnZnNfcmVn
-c19mb3BzID0gewogCS5vd25lciA9IFRISVNfTU9EVUxFLApAQCAtMjg3MywxMiArMjg5NiwxOSBA
-QCBzdGF0aWMgY29uc3Qgc3RydWN0IGZpbGVfb3BlcmF0aW9ucyBhbWRncHVfZGVidWdmc19nY2Ff
-Y29uZmlnX2ZvcHMgPSB7CiAJLmxsc2VlayA9IGRlZmF1bHRfbGxzZWVrCiB9OwogCitzdGF0aWMg
-Y29uc3Qgc3RydWN0IGZpbGVfb3BlcmF0aW9ucyBhbWRncHVfZGVidWdmc19zZW5zb3JzX2ZvcHMg
-PSB7CisJLm93bmVyID0gVEhJU19NT0RVTEUsCisJLnJlYWQgPSBhbWRncHVfZGVidWdmc19zZW5z
-b3JfcmVhZCwKKwkubGxzZWVrID0gZGVmYXVsdF9sbHNlZWsKK307CisKIHN0YXRpYyBjb25zdCBz
-dHJ1Y3QgZmlsZV9vcGVyYXRpb25zICpkZWJ1Z2ZzX3JlZ3NbXSA9IHsKIAkmYW1kZ3B1X2RlYnVn
-ZnNfcmVnc19mb3BzLAogCSZhbWRncHVfZGVidWdmc19yZWdzX2RpZHRfZm9wcywKIAkmYW1kZ3B1
-X2RlYnVnZnNfcmVnc19wY2llX2ZvcHMsCiAJJmFtZGdwdV9kZWJ1Z2ZzX3JlZ3Nfc21jX2ZvcHMs
-CiAJJmFtZGdwdV9kZWJ1Z2ZzX2djYV9jb25maWdfZm9wcywKKwkmYW1kZ3B1X2RlYnVnZnNfc2Vu
-c29yc19mb3BzLAogfTsKIAogc3RhdGljIGNvbnN0IGNoYXIgKmRlYnVnZnNfcmVnc19uYW1lc1td
-ID0gewpAQCAtMjg4Nyw2ICsyOTE3LDcgQEAgc3RhdGljIGNvbnN0IGNoYXIgKmRlYnVnZnNfcmVn
-c19uYW1lc1tdID0gewogCSJhbWRncHVfcmVnc19wY2llIiwKIAkiYW1kZ3B1X3JlZ3Nfc21jIiwK
-IAkiYW1kZ3B1X2djYV9jb25maWciLAorCSJhbWRncHVfc2Vuc29ycyIsCiB9OwogCiBzdGF0aWMg
-aW50IGFtZGdwdV9kZWJ1Z2ZzX3JlZ3NfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikK
-LS0gCjIuMTAuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============2066510995==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="0FrLhB97RnAJFXDEc1jppNNoTNF6uPuEm"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--0FrLhB97RnAJFXDEc1jppNNoTNF6uPuEm
+Content-Type: multipart/mixed; boundary="iLJoTR7aNh3J6jp17DlxLP991JTdtsIx5";
+ protected-headers="v1"
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Message-ID: <83222ef7-5fc9-58fd-6d25-cfd7c2d12bd5-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: Powerplay sensors (v2.5)
+References: <20160916124438.6549-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20160916124438.6549-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+
+--iLJoTR7aNh3J6jp17DlxLP991JTdtsIx5
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+This series is,
+Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+
+On 09/16/2016 10:44 PM, Tom St Denis wrote:
+> I've rebased the backend to squash the carrizo + rest patches together
+> and then touched up the debugfs entry per Edwards suggestions.
+>=20
+> Tested on Tonga, Carrizo, and Stoney.
+>=20
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>=20
+
+
+--iLJoTR7aNh3J6jp17DlxLP991JTdtsIx5--
+
+--0FrLhB97RnAJFXDEc1jppNNoTNF6uPuEm
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJX2+yCAAoJEP4bvbfZuWjb6fMQALqAlxhl6VeniTBuP+lqX5vE
+Do4y6q1XKcLDy+EIeBVbYWmhv98oXeErK59ydYRKJW46q+92tVw3DRC9QrOqkb2l
+JRpbeXDgk6a8iTps+Ir3htDZfamcB6SyTltyIN5UAYZ1ENMZgmqV2NUjrjkaJpJ9
+VYgcCBZ0Ia6PsZSSm5ilYuWN3WBRAdtf37FCas7dYwbQ5vY4sCeqwYUkfcoBOjkF
+dpof2MgjBoU6yKjzuESndbxf46YNHQZ1dEY5rugAffiVVA3klT2gcd83vSVCmvTS
+XWynZtNAws44lKtQZMRQ7FdrOX61zf24cxOFtaoLU4BupjBIUNw9k+kKXTpGBy4v
+FsfI5YU7xgXvze60ONHL+B+XpNqQ/gH27sswgOdCFe1EWOyQ97ZVJAaDqOLb9QWM
+WV2EqXOTI9Nv8fNOZwkpoNbo8U8uwR9gTjh7LWahj5rmJOs8s9OBO97GzfYjp8Ad
+hTZ/1EQSa6SsN61dtz6lr0YWxiGiqv+ZVuQQP6QjpgJMbk4LAGUNImkvibZrZT6q
+bnVMTkGxsL2pWUgKQ2hQTXmjO73DEKXMcAG4l9wEKUp+x/LRQDpYHyaLdWPIZCKs
+g8ByKFM7AM3Kj0EdGNYmGvdZ/TQgzHtWrP/pKKTBt4wkUEZjqAcOnuHELQ1sCbMc
+Y0bdTPuXY5XXgFFLBQjW
+=LP7o
+-----END PGP SIGNATURE-----
+
+--0FrLhB97RnAJFXDEc1jppNNoTNF6uPuEm--
+
+--===============2066510995==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============2066510995==--
