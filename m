@@ -1,12 +1,13 @@
 From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH 1/3] drm/amdgpu/gfx6: drop duplicate code
-Date: Fri, 16 Sep 2016 18:26:56 +1000
-Message-ID: <957941f6-a36b-4ce0-87db-51417b1f8472@folklore1984.net>
-References: <1473969314-14962-1-git-send-email-alexander.deucher@amd.com>
+Subject: Re: [PATCH] drm/amdgpu/sdma3: drop unused functions
+Date: Fri, 16 Sep 2016 18:28:03 +1000
+Message-ID: <d51682dc-90f4-835c-2468-34cc33ca86ee@folklore1984.net>
+References: <1473971453-12470-1-git-send-email-alexander.deucher@amd.com>
+ <a58092fe-b0fa-24d0-04ac-c35250d9ae12@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1579883985=="
+Content-Type: multipart/mixed; boundary="===============0121837088=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1473969314-14962-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <a58092fe-b0fa-24d0-04ac-c35250d9ae12-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,133 +18,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1579883985==
+--===============0121837088==
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="CHXRsgW2HOEautmB62iteQPD3EWUWPt7W"
+ boundary="HNpIuaNPHeuV41rn9pDMQITFihVEpopJV"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---CHXRsgW2HOEautmB62iteQPD3EWUWPt7W
-Content-Type: multipart/mixed; boundary="X6QQFpfUP1HClOBqdPEWxFJEqh0LUE296";
+--HNpIuaNPHeuV41rn9pDMQITFihVEpopJV
+Content-Type: multipart/mixed; boundary="64XqB4PJc7bRfquOKGSTbFntUSqCLvpft";
  protected-headers="v1"
 From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>,
+ Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Message-ID: <957941f6-a36b-4ce0-87db-51417b1f8472-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH 1/3] drm/amdgpu/gfx6: drop duplicate code
-References: <1473969314-14962-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <1473969314-14962-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Message-ID: <d51682dc-90f4-835c-2468-34cc33ca86ee-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu/sdma3: drop unused functions
+References: <1473971453-12470-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+ <a58092fe-b0fa-24d0-04ac-c35250d9ae12-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <a58092fe-b0fa-24d0-04ac-c35250d9ae12-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 
---X6QQFpfUP1HClOBqdPEWxFJEqh0LUE296
+--64XqB4PJc7bRfquOKGSTbFntUSqCLvpft
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-This series is,
+
+
+On 09/16/2016 05:35 PM, Christian K=C3=B6nig wrote:
+> Am 15.09.2016 um 22:30 schrieb Alex Deucher:
+>> These are not used yet.
+>>
+>> Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+>=20
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>.
 Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
 
-P.S., keep these hedge cuttings coming!
-
-On 09/16/2016 05:55 AM, Alex Deucher wrote:
-> The compute functions just called the gfx functions, drop
-> the wrapper.
 >=20
-> Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c | 33 +++++++++------------------=
-------
->  1 file changed, 9 insertions(+), 24 deletions(-)
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c | 25 ------------------------=
+-
+>>   1 file changed, 25 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+>> b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+>> index bee4978..cabb9fe 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+>> @@ -499,31 +499,6 @@ static void sdma_v3_0_ring_emit_fence(struct
+>> amdgpu_ring *ring, u64 addr, u64 se
+>>       amdgpu_ring_write(ring, SDMA_PKT_TRAP_INT_CONTEXT_INT_CONTEXT(0)=
+);
+>>   }
+>>   -unsigned init_cond_exec(struct amdgpu_ring *ring)
+>> -{
+>> -    unsigned ret;
+>> -    amdgpu_ring_write(ring, SDMA_PKT_HEADER_OP(SDMA_OP_COND_EXE));
+>> -    amdgpu_ring_write(ring, lower_32_bits(ring->cond_exe_gpu_addr));
+>> -    amdgpu_ring_write(ring, upper_32_bits(ring->cond_exe_gpu_addr));
+>> -    amdgpu_ring_write(ring, 1);
+>> -    ret =3D ring->wptr;/* this is the offset we need patch later */
+>> -    amdgpu_ring_write(ring, 0x55aa55aa);/* insert dummy here and
+>> patch it later */
+>> -    return ret;
+>> -}
+>> -
+>> -void patch_cond_exec(struct amdgpu_ring *ring, unsigned offset)
+>> -{
+>> -    unsigned cur;
+>> -    BUG_ON(ring->ring[offset] !=3D 0x55aa55aa);
+>> -
+>> -    cur =3D ring->wptr - 1;
+>> -    if (likely(cur > offset))
+>> -        ring->ring[offset] =3D cur - offset;
+>> -    else
+>> -        ring->ring[offset] =3D (ring->ring_size>>2) - offset + cur;
+>> -}
+>> -
+>> -
+>>   /**
+>>    * sdma_v3_0_gfx_stop - stop the gfx async dma engines
+>>    *
 >=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/am=
-d/amdgpu/gfx_v6_0.c
-> index 9697994..3cf4e9e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-> @@ -1324,8 +1324,8 @@ static void gfx_v6_0_ring_emit_hdp_invalidate(str=
-uct amdgpu_ring *ring)
->  	amdgpu_ring_write(ring, 0x1);
->  }
-> =20
-> -static void gfx_v6_0_ring_emit_fence_gfx(struct amdgpu_ring *ring, u64=
- addr,
-> -					 u64 seq, unsigned flags)
-> +static void gfx_v6_0_ring_emit_fence(struct amdgpu_ring *ring, u64 add=
-r,
-> +				     u64 seq, unsigned flags)
->  {
->  	bool write64bit =3D flags & AMDGPU_FENCE_FLAG_64BIT;
->  	bool int_sel =3D flags & AMDGPU_FENCE_FLAG_INT;
-> @@ -1351,17 +1351,9 @@ static void gfx_v6_0_ring_emit_fence_gfx(struct =
-amdgpu_ring *ring, u64 addr,
->  	amdgpu_ring_write(ring, upper_32_bits(seq));
->  }
-> =20
-> -static void gfx_v6_0_ring_emit_fence_compute(struct amdgpu_ring *ring,=
-
-> -					     u64 addr, u64 seq,
-> -					     unsigned flags)
-> -{
-> -	gfx_v6_0_ring_emit_fence_gfx(ring, addr, seq, flags);
-> -}
-> -
-> -
-> -static void gfx_v6_0_ring_emit_ib_gfx(struct amdgpu_ring *ring,
-> -				      struct amdgpu_ib *ib,
-> -				      unsigned vm_id, bool ctx_switch)
-> +static void gfx_v6_0_ring_emit_ib(struct amdgpu_ring *ring,
-> +				  struct amdgpu_ib *ib,
-> +				  unsigned vm_id, bool ctx_switch)
->  {
->  	u32 header, control =3D 0;
-> =20
-> @@ -1388,13 +1380,6 @@ static void gfx_v6_0_ring_emit_ib_gfx(struct amd=
-gpu_ring *ring,
->  	amdgpu_ring_write(ring, control);
->  }
-> =20
-> -static void gfx_v6_0_ring_emit_ib_compute(struct amdgpu_ring *ring,
-> -					  struct amdgpu_ib *ib,
-> -					  unsigned vm_id, bool ctx_switch)
-> -{
-> -	gfx_v6_0_ring_emit_ib_gfx(ring, ib, vm_id, ctx_switch);
-> -}
-> -
->  /**
->   * gfx_v6_0_ring_test_ib - basic ring IB test
->   *
-> @@ -3119,8 +3104,8 @@ static const struct amdgpu_ring_funcs gfx_v6_0_ri=
-ng_funcs_gfx =3D {
->  	.get_wptr =3D gfx_v6_0_ring_get_wptr,
->  	.set_wptr =3D gfx_v6_0_ring_set_wptr_gfx,
->  	.parse_cs =3D NULL,
-> -	.emit_ib =3D gfx_v6_0_ring_emit_ib_gfx,
-> -	.emit_fence =3D gfx_v6_0_ring_emit_fence_gfx,
-> +	.emit_ib =3D gfx_v6_0_ring_emit_ib,
-> +	.emit_fence =3D gfx_v6_0_ring_emit_fence,
->  	.emit_pipeline_sync =3D gfx_v6_0_ring_emit_pipeline_sync,
->  	.emit_vm_flush =3D gfx_v6_0_ring_emit_vm_flush,
->  	.emit_gds_switch =3D gfx_v6_0_ring_emit_gds_switch,
-> @@ -3136,8 +3121,8 @@ static const struct amdgpu_ring_funcs gfx_v6_0_ri=
-ng_funcs_compute =3D {
->  	.get_wptr =3D gfx_v6_0_ring_get_wptr,
->  	.set_wptr =3D gfx_v6_0_ring_set_wptr_compute,
->  	.parse_cs =3D NULL,
-> -	.emit_ib =3D gfx_v6_0_ring_emit_ib_compute,
-> -	.emit_fence =3D gfx_v6_0_ring_emit_fence_compute,
-> +	.emit_ib =3D gfx_v6_0_ring_emit_ib,
-> +	.emit_fence =3D gfx_v6_0_ring_emit_fence,
->  	.emit_pipeline_sync =3D gfx_v6_0_ring_emit_pipeline_sync,
->  	.emit_vm_flush =3D gfx_v6_0_ring_emit_vm_flush,
->  	.emit_gds_switch =3D gfx_v6_0_ring_emit_gds_switch,
 >=20
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
 
---X6QQFpfUP1HClOBqdPEWxFJEqh0LUE296--
+--64XqB4PJc7bRfquOKGSTbFntUSqCLvpft--
 
---CHXRsgW2HOEautmB62iteQPD3EWUWPt7W
+--HNpIuaNPHeuV41rn9pDMQITFihVEpopJV
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
@@ -151,24 +119,24 @@ Content-Disposition: attachment; filename="signature.asc"
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJX26zQAAoJEP4bvbfZuWjbmioQAJCEVN0G6fDkXVtjTDoy7Ttx
-V8H8WGG4u45riEY9aCknNQ0kJ1ttNRBDSo1Ik3ATlDRpRAQur6ccX9wLeGZZzGkj
-stFOMH5sRuKtpuMl2SQPDy+EYpDQ/Hs4EU2BCh9ajgEjrwPJzUFLvoI7RRNItto7
-Ey9Z7OnoD2y9wsPKZyhnoUzoQjcGynmnUsLPE2pu5jggRZZySDLnniHPc7NASeal
-qQpyiYtk2Kir7c+iJnB4fAHJvkdnA/m7JhcqJq9IaQsQheNbdRd3u9dxvFtr/tE7
-GbmXYoY/P5o+n2vrWYvZJp0FfNUZjfJoXKMDj0wEnckoQdeWxgx1S6U60DZQYdyh
-VjwKd4LKmH8t9cB7VBZIG/5ntabb0DHguehAAO+iLyF5ZM7y+FqhmZR7J/rSnePh
-aRkSlGqcFrIM/Wrm4/fKD4XYJE40TGRK9ZLHWt/eDEiZte8gaoVvQTJKGn3ITlT+
-k++SN9KCWd8zRyU5pTZKgK7NXpbrJwtC19dkH1FInxCOCSF17Bap2m3FrAaFmWzq
-k+ohqYM9mdhL0ZyqihAwzIr3EGL+bYat/fS4cMGI9rwpROYeMD9XNCbOz7TzXhh2
-ACYfAlvLeUHrO7jKz3XkphxMLYHJzu/oYSGuOqDpNhYvld3MSKyOwxIE0SdGuwzH
-6R/SJtXecdjMS0rbpBbs
-=rjh7
+iQIcBAEBCAAGBQJX260TAAoJEP4bvbfZuWjbqw0P/iWC4EwabojMzGOARAl182tG
+ZetlZNrRd+BSai+TG8GG/JBO3X0ijPQdEtP6TzeusGj7TgZulNvfoJbCQfnB5aLI
+OqDlH24mTWQiGxWh1c+vuCPZg1v/NI7zyCaNxIHezSa+NC4hOP/xtgiPftoNcJ+d
+1Id+5P7UhHlVwlTjdQ8hblsZzvmqCfMmjGy3LLg0RILmwZByLmx6E07q7zqnAQ9I
+8tyLmRfTlfBpCzETfLaESlJ6OAH0uw9AFRRc1BVb6naWHo+GHNdfBu+0DYRNDeTh
+Ov/2axFZiOKwIcjJY9z4qCqzr849gzR7BGZpG9VzspgGvCwyM7eF1DB9FJSvNM0X
+oFSEFj8gxBqt5rUWF9HN0+7TZlcZwbN0ZyPivfOV3XNEz9hFZoncON89YHA03rAL
+rk9UQxoWpm9Toc93rpm9YkmNjFDp4bPPnRqI16XSPk3jXqG7JXdZ5rO2rvJYkVMN
+qHSr+Jp6wkwo4dgSvU0z7nxNQo/BLiwU6TkSNvxXX8rKBlJ2QmsLoOUwYBxeLQPi
+z4trBJcYna3Jc/72Qms7AS3NZfQjevYsbaNZKk7XNZJgldrq6PDrbDa+od/H9t4e
+g1jobqPG670bj+Ty7o8Yj0wsBcEcH+mIyuT7J2pZqoohNHMwXNUCO+uaDg2sMHfb
+hNDspSE3/69lLuZgOhRh
+=FTX1
 -----END PGP SIGNATURE-----
 
---CHXRsgW2HOEautmB62iteQPD3EWUWPt7W--
+--HNpIuaNPHeuV41rn9pDMQITFihVEpopJV--
 
---===============1579883985==
+--===============0121837088==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -178,4 +146,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1579883985==--
+--===============0121837088==--
