@@ -1,12 +1,14 @@
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: Powerplay sensors (v2.5)
-Date: Fri, 16 Sep 2016 22:58:42 +1000
-Message-ID: <83222ef7-5fc9-58fd-6d25-cfd7c2d12bd5@folklore1984.net>
-References: <20160916124438.6549-1-tom.stdenis@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] Fix handling of configure option --with-xorg-conf-dir
+Date: Fri, 16 Sep 2016 13:26:35 +0000
+Message-ID: <MWHPR12MB1694AEA3229BCC9AEED160C6F7F30@MWHPR12MB1694.namprd12.prod.outlook.com>
+References: <20160916071017.27036-1-michel@daenzer.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2066510995=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20160916124438.6549-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20160916071017.27036-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,80 +19,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?utf-8?B?J01pY2hlbCBEw6RuemVyJw==?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============2066510995==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="0FrLhB97RnAJFXDEc1jppNNoTNF6uPuEm"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---0FrLhB97RnAJFXDEc1jppNNoTNF6uPuEm
-Content-Type: multipart/mixed; boundary="iLJoTR7aNh3J6jp17DlxLP991JTdtsIx5";
- protected-headers="v1"
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Message-ID: <83222ef7-5fc9-58fd-6d25-cfd7c2d12bd5-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: Powerplay sensors (v2.5)
-References: <20160916124438.6549-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <20160916124438.6549-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-
---iLJoTR7aNh3J6jp17DlxLP991JTdtsIx5
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-This series is,
-Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-
-On 09/16/2016 10:44 PM, Tom St Denis wrote:
-> I've rebased the backend to squash the carrizo + rest patches together
-> and then touched up the debugfs entry per Edwards suggestions.
->=20
-> Tested on Tonga, Carrizo, and Stoney.
->=20
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->=20
-
-
---iLJoTR7aNh3J6jp17DlxLP991JTdtsIx5--
-
---0FrLhB97RnAJFXDEc1jppNNoTNF6uPuEm
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJX2+yCAAoJEP4bvbfZuWjb6fMQALqAlxhl6VeniTBuP+lqX5vE
-Do4y6q1XKcLDy+EIeBVbYWmhv98oXeErK59ydYRKJW46q+92tVw3DRC9QrOqkb2l
-JRpbeXDgk6a8iTps+Ir3htDZfamcB6SyTltyIN5UAYZ1ENMZgmqV2NUjrjkaJpJ9
-VYgcCBZ0Ia6PsZSSm5ilYuWN3WBRAdtf37FCas7dYwbQ5vY4sCeqwYUkfcoBOjkF
-dpof2MgjBoU6yKjzuESndbxf46YNHQZ1dEY5rugAffiVVA3klT2gcd83vSVCmvTS
-XWynZtNAws44lKtQZMRQ7FdrOX61zf24cxOFtaoLU4BupjBIUNw9k+kKXTpGBy4v
-FsfI5YU7xgXvze60ONHL+B+XpNqQ/gH27sswgOdCFe1EWOyQ97ZVJAaDqOLb9QWM
-WV2EqXOTI9Nv8fNOZwkpoNbo8U8uwR9gTjh7LWahj5rmJOs8s9OBO97GzfYjp8Ad
-hTZ/1EQSa6SsN61dtz6lr0YWxiGiqv+ZVuQQP6QjpgJMbk4LAGUNImkvibZrZT6q
-bnVMTkGxsL2pWUgKQ2hQTXmjO73DEKXMcAG4l9wEKUp+x/LRQDpYHyaLdWPIZCKs
-g8ByKFM7AM3Kj0EdGNYmGvdZ/TQgzHtWrP/pKKTBt4wkUEZjqAcOnuHELQ1sCbMc
-Y0bdTPuXY5XXgFFLBQjW
-=LP7o
------END PGP SIGNATURE-----
-
---0FrLhB97RnAJFXDEc1jppNNoTNF6uPuEm--
-
---===============2066510995==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============2066510995==--
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
+LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIE1pY2hl
+bCBEw6RuemVyDQo+IFNlbnQ6IEZyaWRheSwgU2VwdGVtYmVyIDE2LCAyMDE2IDM6MTAgQU0NCj4g
+VG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IFN1YmplY3Q6IFtQQVRDSF0gRml4
+IGhhbmRsaW5nIG9mIGNvbmZpZ3VyZSBvcHRpb24gLS13aXRoLXhvcmctY29uZi1kaXINCj4gDQo+
+IEZyb206IE1pY2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQuY29tPg0KPiANCj4gVGhl
+cmUgd2VyZSB0d28gcHJvYmxlbXM6DQo+IA0KPiBJIGFjY2lkZW50YWxseSBjaGFuZ2VkIHRoZSB2
+YXJpYWJsZSBuYW1lIGluIHRoZSBBQ19BUkdfV0lUSCBzdGFuemEgZnJvbQ0KPiBjb25maWdkaXIg
+dG8geG9yZ2NvbmZpZ2Rpciwgc28gc3BlY2lmeWluZyAtLXdpdGgteG9yZy1jb25mLWRpciB3b3Vs
+ZG4ndA0KPiB3b3JrIGNvcnJlY3RseS4gRml4IHRoaXMgYmFjayB0byBjb25maWdkaXIuDQo+IA0K
+PiBJZiBuZWl0aGVyIC0td2l0aC14b3JnLWNvbmYtZGlyIG5vciAtLXByZWZpeCBpcyBzcGVjaWZp
+ZWQgb24gdGhlIGNvbW1hbmQNCj4gbGluZSwgdGhlICRwcmVmaXggdmFyaWFibGUgZG9lc24ndCBj
+b250YWluICIvdXNyL2xvY2FsIiAodGhlIGRlZmF1bHQNCj4gcHJlZml4KSB5ZXQgYXQgdGhpcyBw
+b2ludCBidXQgIk5PTkUiLiBTbyBtYWtlIGluc3RhbGwgd291bGQgYXR0ZW1wdCB0bw0KPiBpbnN0
+YWxsIDEwLWFtZGdwdS5jb25mIGluICR7REVTVERJUn1OT05FL3NoYXJlL1gxMS94b3JnLmNvbmYu
+ZC8gLiBGaXgNCj4gdGhpcyBieSBsZWF2aW5nICR7cHJlZml4fSB2ZXJiYXRpbSBpbiB0aGUgZGVm
+YXVsdCB2YWx1ZSwgdG8gYmUgcmVzb2x2ZWQNCj4gYnkgbWFrZS4NCj4gDQo+IEFsc28gcHJpbnQg
+dGhlIGNvbmZpZ2RpciB2YWx1ZSBhbG9uZyB3aXRoIHRoZSB2YWx1ZXMgb2Ygb3RoZXIgc2ltaWxh
+cg0KPiBjb25maWd1cmF0aW9uIHZhcmlhYmxlcy4NCj4gDQo+IFJlcG9ydGVkLWJ5OiBUaW1vIEFh
+bHRvbmVuIDx0amFhbHRvbkBkZWJpYW4ub3JnPg0KPiBTaWduZWQtb2ZmLWJ5OiBNaWNoZWwgRMOk
+bnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4NCg0KUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hl
+ciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4NCg0KPiAtLS0NCj4gDQo+IEknbGwgbmVlZCB0
+byBwdXNoIHRoaXMgd2l0aGluIGEgZmV3IGhvdXJzIGZvciB0aGUgMS4xLjIgcmVsZWFzZS4gSWYg
+eW91DQo+IHNlZSBhbnkgcG90ZW50aWFsIGlzc3VlIHdpdGggYW55IG9mIHRoaXMsIHBsZWFzZSBz
+cGVhayB1cC4NCj4gDQo+ICBjb25maWd1cmUuYWMgfCA3ICsrKystLS0NCj4gIDEgZmlsZSBjaGFu
+Z2VkLCA0IGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEv
+Y29uZmlndXJlLmFjIGIvY29uZmlndXJlLmFjDQo+IGluZGV4IDkxNjZjM2YuLjY4ZTFmZWIgMTAw
+NjQ0DQo+IC0tLSBhL2NvbmZpZ3VyZS5hYw0KPiArKysgYi9jb25maWd1cmUuYWMNCj4gQEAgLTg5
+LDkgKzg5LDkgQEAgUEtHX0NIRUNLX0VYSVNUUyhbeG9yZy1zZXJ2ZXIgPj0gMS4xNl0sDQo+ICAJ
+CSBbc3lzY29uZmlnZGlyPSIiXSkNCj4gIEFDX0FSR19XSVRIKHhvcmctY29uZi1kaXIsDQo+ICAg
+ICAgICAgICAgICBBU19IRUxQX1NUUklORyhbLS13aXRoLXhvcmctY29uZi1kaXI9RElSXSwNCj4g
+LSAgICAgICAgICAgICAgICAgICAgICAgICAgIFtEZWZhdWx0IHhvcmcuY29uZi5kIGRpcmVjdG9y
+eQ0KPiBbW2RlZmF1bHQ9JHByZWZpeC9zaGFyZS9YMTEveG9yZy5jb25mLmQvXV1dKSwNCj4gLSAg
+ICAgICAgICAgIFt4b3JnY29uZmRpcj0iJHdpdGh2YWwiXSwNCj4gLSAgICAgICAgICAgIFt4b3Jn
+Y29uZmRpcj0iJHByZWZpeC9zaGFyZS9YMTEveG9yZy5jb25mLmQiXSkNCj4gKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIFtEZWZhdWx0IHhvcmcuY29uZi5kIGRpcmVjdG9yeQ0KPiBbW2RlZmF1
+bHQ9JHtwcmVmaXh9L3NoYXJlL1gxMS94b3JnLmNvbmYuZF1dXSksDQo+ICsgICAgICAgICAgICBb
+Y29uZmlnZGlyPSIkd2l0aHZhbCJdLA0KPiArICAgICAgICAgICAgW2NvbmZpZ2Rpcj0nJHtwcmVm
+aXh9L3NoYXJlL1gxMS94b3JnLmNvbmYuZCddKQ0KPiAgQUNfU1VCU1QoY29uZmlnZGlyKQ0KPiAg
+QU1fQ09ORElUSU9OQUwoSEFTX1hPUkdfQ09ORl9ESVIsIFt0ZXN0ICJ4JHN5c2NvbmZpZ2RpciIg
+IT0gIngiXSkNCj4gDQo+IEBAIC0yNzksNiArMjc5LDcgQEAgZWNobyAiICAgICAgICBwcmVmaXg6
+ICAgICAgICAgICAgICAkcHJlZml4Ig0KPiAgZWNobyAiICAgICAgICBleGVjX3ByZWZpeDogICAg
+ICAgICAkZXhlY19wcmVmaXgiDQo+ICBlY2hvICIgICAgICAgIGxpYmRpcjogICAgICAgICAgICAg
+ICRsaWJkaXIiDQo+ICBlY2hvICIgICAgICAgIGluY2x1ZGVkaXI6ICAgICAgICAgICRpbmNsdWRl
+ZGlyIg0KPiArZWNobyAiICAgICAgICBjb25maWdkaXI6ICAgICAgICAgICAkY29uZmlnZGlyIg0K
+PiANCj4gIGVjaG8gIiINCj4gIGVjaG8gIiAgICAgICAgQ0ZMQUdTOiAgICAgICAgICAgICAgJENG
+TEFHUyINCj4gLS0NCj4gMi45LjMNCj4gDQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fDQo+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnDQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
+Z2Z4Cg==
