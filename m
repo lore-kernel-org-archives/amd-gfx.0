@@ -1,17 +1,12 @@
-From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 3/5] drm/amdgpu:fix RB cost calculator
-Date: Sun, 18 Sep 2016 03:47:53 +0000
-Message-ID: <MWHPR12MB1182A9576AAAB0FE197AE40F84F50@MWHPR12MB1182.namprd12.prod.outlook.com>
-References: <1472193560-29411-1-git-send-email-Monk.Liu@amd.com>
- <1472193560-29411-3-git-send-email-Monk.Liu@amd.com>
- <57D9CE3A.1070007@gmail.com>
- <f621ea99-05af-a3e9-14e5-b2a0be6eeb17@vodafone.de>
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH 0/3] drm/amdgpu: implement raster configuration
+Date: Sun, 18 Sep 2016 15:04:30 +1000
+Message-ID: <36b4b747-5152-4579-9f21-37e17697c703@folklore1984.net>
+References: <1474166210-21736-1-git-send-email-ray.huang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0885330280=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <f621ea99-05af-a3e9-14e5-b2a0be6eeb17-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <1474166210-21736-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,71 +17,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, Andy
- Furniss <adf.lists-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: Ken Wang <Qingqing.Wang-5C7GfCeVMHo@public.gmane.org>, Alvin Huan <Alvin.Huan-5C7GfCeVMHo@public.gmane.org>
 
-SXMgdGhhdCBhcHBsaWVkIHRvIGFsbCByaW5nID8NCg0KQ3V6IHNlZW1zIG9ubHkgR0ZYIHJpbmcg
-ZWFjaCBsb3Qgb2YgZHcgcGVyIHN1Ym1pdCAuLi4gDQoNCkJSIE1vbmsNCg0KLS0tLS1PcmlnaW5h
-bCBNZXNzYWdlLS0tLS0NCkZyb206IENocmlzdGlhbiBLw7ZuaWcgW21haWx0bzpkZWF0aHNpbXBs
-ZUB2b2RhZm9uZS5kZV0gDQpTZW50OiBUaHVyc2RheSwgU2VwdGVtYmVyIDE1LCAyMDE2IDM6MjQg
-UE0NClRvOiBBbmR5IEZ1cm5pc3MgPGFkZi5saXN0c0BnbWFpbC5jb20+OyBMaXUsIE1vbmsgPE1v
-bmsuTGl1QGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KU3ViamVjdDog
-UmU6IFtQQVRDSCAzLzVdIGRybS9hbWRncHU6Zml4IFJCIGNvc3QgY2FsY3VsYXRvcg0KDQoyNTZk
-dyBmb3IgdGhlIGhlYWRlciBhcmUgcHJvYmFibHkgbm90IGVub3VnaC4NCg0KU2luY2Ugd2Ugbm93
-IHVzZXMgTk9QcyBmb3IgdGhlIENFL0RFIHN5bmMgd2Ugb25seSBuZWVkIDI1NmR3IGZvciB0aGF0
-IGFsb25lLiBJIHN1Z2dlc3QgdG8gcmFpc2UgdGhhdCB0byA1MTIuDQoNCkNocmlzdGlhbi4NCg0K
-QW0gMTUuMDkuMjAxNiB1bSAwMDoyNCBzY2hyaWViIEFuZHkgRnVybmlzczoNCj4gVGhpcyBoYXMg
-anVzdCBnb25lIGludG8gZHJtLW5leHQtNC45LXdpcCBhbmQgY2F1c2VkIGxvdHMgb2YgbG9nZ2lu
-ZyANCj4gbm9pc2UuDQo+DQo+IFNlZW1zIHRvIHdvcmsgT0sgdGhvdWdoLg0KPg0KPiBTZXAgMTQg
-MjM6MTg6MzggcGg0IGtlcm5lbDogW2RybTpnZnhfdjhfMF9yaW5nX2VtaXRfZmVuY2VfZ2Z4IA0K
-PiBbYW1kZ3B1XV0gKkVSUk9SKiBhbWRncHU6IHdyaXRpbmcgbW9yZSBkd29yZHMgdG8gdGhlIHJp
-bmcgdGhhbiBleHBlY3RlZCENCj4gU2VwIDE0IDIzOjE4OjM4IHBoNCBsYXN0IG1lc3NhZ2UgcmVw
-ZWF0ZWQgMTEgdGltZXMgU2VwIDE0IDIzOjE4OjM4IHBoNCANCj4ga2VybmVsOiBbZHJtOmdmeF92
-OF9yaW5nX2VtaXRfc2IgW2FtZGdwdV1dICpFUlJPUioNCj4gYW1kZ3B1OiB3cml0aW5nIG1vcmUg
-ZHdvcmRzIHRvIHRoZSByaW5nIHRoYW4gZXhwZWN0ZWQhDQo+IFNlcCAxNCAyMzoxODozOCBwaDQg
-a2VybmVsOiBbZHJtOmdmeF92OF9yaW5nX2VtaXRfc2IgW2FtZGdwdV1dICpFUlJPUioNCj4gYW1k
-Z3B1OiB3cml0aW5nIG1vcmUgZHdvcmRzIHRvIHRoZSByaW5nIHRoYW4gZXhwZWN0ZWQhDQo+IFNl
-cCAxNCAyMzoxODozOCBwaDQga2VybmVsOiBbZHJtOmFtZGdwdV9yaW5nX2luc2VydF9ub3AgW2Ft
-ZGdwdV1dDQo+ICpFUlJPUiogYW1kZ3B1OiB3cml0aW5nIG1vcmUgZHdvcmRzIHRvIHRoZSByaW5n
-IHRoYW4gZXhwZWN0ZWQhDQo+IFNlcCAxNCAyMzoxODozOCBwaDQgbGFzdCBtZXNzYWdlIHJlcGVh
-dGVkIDEwIHRpbWVzIFNlcCAxNCAyMzoxODozOCBwaDQgDQo+IGtlcm5lbDogW2RybTpnZnhfdjhf
-MF9yaW5nX2VtaXRfaWJfZ2Z4IFthbWRncHVdXQ0KPiAqRVJST1IqIGFtZGdwdTogd3JpdGluZyBt
-b3JlIGR3b3JkcyB0byB0aGUgcmluZyB0aGFuIGV4cGVjdGVkIQ0KPiBTZXAgMTQgMjM6MTg6Mzgg
-cGg0IGtlcm5lbDogW2RybTpnZnhfdjhfMF9yaW5nX2VtaXRfaWJfZ2Z4IFthbWRncHVdXQ0KPiAq
-RVJST1IqIGFtZGdwdTogd3JpdGluZyBtb3JlIGR3b3JkcyB0byB0aGUgcmluZyB0aGFuIGV4cGVj
-dGVkIQ0KPiBTZXAgMTQgMjM6MTg6MzggcGg0IGtlcm5lbDogW2RybTpnZnhfdjhfMF9yaW5nX2Vt
-aXRfaGRwX2ludmFsaWRhdGUNCj4gW2FtZGdwdV1dICpFUlJPUiogYW1kZ3B1OiB3cml0aW5nIG1v
-cmUgZHdvcmRzIHRvIHRoZSByaW5nIHRoYW4gZXhwZWN0ZWQhDQo+IFNlcCAxNCAyMzoxODozOCBw
-aDQgbGFzdCBtZXNzYWdlIHJlcGVhdGVkIDQgdGltZXMgU2VwIDE0IDIzOjE4OjM4IHBoNCANCj4g
-a2VybmVsOiBbZHJtOmdmeF92OF8wX3JpbmdfZW1pdF9mZW5jZV9nZnggW2FtZGdwdV1dICpFUlJP
-UiogYW1kZ3B1OiANCj4gd3JpdGluZyBtb3JlIGR3b3JkcyB0byB0aGUgcmluZyB0aGFuIGV4cGVj
-dGVkIQ0KPiBTZXAgMTQgMjM6MTg6MzggcGg0IGxhc3QgbWVzc2FnZSByZXBlYXRlZCAxMSB0aW1l
-cyBTZXAgMTQgMjM6MTg6MzggcGg0IA0KPiBrZXJuZWw6IFtkcm06Z2Z4X3Y4X3JpbmdfZW1pdF9z
-YiBbYW1kZ3B1XV0gKkVSUk9SKg0KPiBhbWRncHU6IHdyaXRpbmcgbW9yZSBkd29yZHMgdG8gdGhl
-IHJpbmcgdGhhbiBleHBlY3RlZCENCj4gU2VwIDE0IDIzOjE4OjM4IHBoNCBrZXJuZWw6IFtkcm06
-Z2Z4X3Y4X3JpbmdfZW1pdF9zYiBbYW1kZ3B1XV0gKkVSUk9SKg0KPiBhbWRncHU6IHdyaXRpbmcg
-bW9yZSBkd29yZHMgdG8gdGhlIHJpbmcgdGhhbiBleHBlY3RlZCENCj4gU2VwIDE0IDIzOjE4OjM4
-IHBoNCBrZXJuZWw6IFtkcm06YW1kZ3B1X3JpbmdfaW5zZXJ0X25vcCBbYW1kZ3B1XV0NCj4gKkVS
-Uk9SKiBhbWRncHU6IHdyaXRpbmcgbW9yZSBkd29yZHMgdG8gdGhlIHJpbmcgdGhhbiBleHBlY3Rl
-ZCENCj4gU2VwIDE0IDIzOjE4OjM4IHBoNCBsYXN0IG1lc3NhZ2UgcmVwZWF0ZWQgMTAgdGltZXMN
-Cj4NCj4gTW9uayBMaXUgd3JvdGU6DQo+PiBDaGFuZ2UtSWQ6IEllM2U0NTg3ZWQ0OWM0ODdjNTYy
-ZjQ1YTk5ZjIzNmE3NjcyN2FjZTFlDQo+PiBTaWduZWQtb2ZmLWJ5OiBNb25rIExpdSA8TW9uay5M
-aXVAYW1kLmNvbT4NCj4+IC0tLQ0KPj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfaWIuYyB8IDIgKy0NCj4+ICAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRl
-bGV0aW9uKC0pDQo+Pg0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9pYi5jDQo+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pYi5j
-DQo+PiBpbmRleCAwMjllZTc5Li42YWQ0NWZhIDEwMDY0NA0KPj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2liLmMNCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9pYi5jDQo+PiBAQCAtMTUxLDcgKzE1MSw3IEBAIGludCBhbWRncHVfaWJf
-c2NoZWR1bGUoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCANCj4+IHVuc2lnbmVkIG51bV9pYnMs
-DQo+PiAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQo+PiAgICAgICB9DQo+Pg0KPj4gLSAgICBy
-ID0gYW1kZ3B1X3JpbmdfYWxsb2MocmluZywgMjU2ICogbnVtX2licyk7DQo+PiArICAgIHIgPSBh
-bWRncHVfcmluZ19hbGxvYyhyaW5nLCAyNTYgKyAobnVtX2licyA8PCA0KSk7DQo+PiAgICAgICBp
-ZiAocikgew0KPj4gICAgICAgICAgIGRldl9lcnIoYWRldi0+ZGV2LCAic2NoZWR1bGluZyBJQiBm
-YWlsZWQgKCVkKS5cbiIsIHIpOw0KPj4gICAgICAgICAgIHJldHVybiByOw0KPj4NCj4NCj4gX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4gYW1kLWdmeCBt
-YWlsaW5nIGxpc3QNCj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gaHR0cHM6Ly9s
-aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQoNCg0KX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0885330280==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="m6eeL5IsW2JO2CV5WfAhMDpX7l7lNjDDx"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--m6eeL5IsW2JO2CV5WfAhMDpX7l7lNjDDx
+Content-Type: multipart/mixed; boundary="rkic7BiJ7XhITnCqBBf72bbaDW8n7p3gd";
+ protected-headers="v1"
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org,
+ Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: Ken Wang <Qingqing.Wang-5C7GfCeVMHo@public.gmane.org>, Alvin Huan <Alvin.Huan-5C7GfCeVMHo@public.gmane.org>
+Message-ID: <36b4b747-5152-4579-9f21-37e17697c703-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH 0/3] drm/amdgpu: implement raster configuration
+References: <1474166210-21736-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1474166210-21736-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
+
+--rkic7BiJ7XhITnCqBBf72bbaDW8n7p3gd
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+This series is,
+Acked-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+
+On 09/18/2016 12:36 PM, Huang Rui wrote:
+> Hi all,
+>=20
+> This patch set is to introduce the raster configuration for all gfx
+> generations.
+>=20
+> Thanks,
+> Rui
+>=20
+> Huang Rui (3):
+>   drm/amdgpu: implement raster configuration for gfx v6
+>   drm/amdgpu: implement raster configuration for gfx v7
+>   drm/amdgpu: implement raster configuration for gfx v8
+>=20
+>  drivers/gpu/drm/amd/amdgpu/cikd.h             |  36 ++++++
+>  drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c         | 133 ++++++++++++++++++=
++-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c         | 160 ++++++++++++++++++=
++++++-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c         | 168 ++++++++++++++++++=
++++++++-
+>  drivers/gpu/drm/amd/amdgpu/vid.h              |  37 ++++++
+>  drivers/gpu/drm/amd/include/asic_reg/si/sid.h |  35 ++++++
+>  6 files changed, 566 insertions(+), 3 deletions(-)
+>=20
+
+
+--rkic7BiJ7XhITnCqBBf72bbaDW8n7p3gd--
+
+--m6eeL5IsW2JO2CV5WfAhMDpX7l7lNjDDx
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJX3iBeAAoJEP4bvbfZuWjbYBwQAMp/fXM3FxUgovTdi4CSizCh
+rV45AS+gU+tVLWkdToNiBAA6VyTLRFWySiwmpDuKsPnNRE2apUoCZu0MpUAujZtA
+H5Q8x84w/GhBrZ1gn02/KkGngIX7nNmx+wYMkwQ0ViwpjkLciXTILgCCPfEqB+bB
+1zMQIVUB8EZTl2h/V3aG5410RUOFRQNwP0ply7NEno1b2kSRh7mInGZ9UzxCdsX7
+XOCVkeSqp7CfTW6vRO+ZRyY4Wjk+WUDnLym+cvHDqLK0xC1gDsYv+vWtJnoMZHQl
+kTvPNNWIcXYbx2N8ESCo/WkjL2e1LEGFZ4Q4pZOdyq1mSMytYwsABjKG4sV0cymY
+gyazNE+YoG4xh+MOzXEzX03e6UlQKBO0Eo6bl6DtV9r8EwStbV2c/Ax/7mtolD68
+7cdRVcJ9h7GHwUX4IGkK0Dxji/puxweyZpu0wBPqANUY9HE3FCoaYL6fOUelLAOG
+GkOr/OcQAsR1TjnqeIQwydhRTfE1F5f7xGKmGWXTapG3ojmBiUzp+wmuyY94Q/6Z
+0Z3ncJaoRfn6FSmh1rgaZwfFVR1okz3xpaIuYE3cznI6MXzl1qhLg9jT+QvqQhwt
+yvr/FK392k9662XsgDln9hd6q0VhNEGdyAb0NESstdhpWgsGeR6da+PsNXbR/cUd
+bynDjRYv9Yc9XIA4BNSr
+=KTiO
+-----END PGP SIGNATURE-----
+
+--m6eeL5IsW2JO2CV5WfAhMDpX7l7lNjDDx--
+
+--===============0885330280==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0885330280==--
