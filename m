@@ -1,60 +1,39 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 2/5] drm/amdgpu:correct smc fw version error
-Date: Mon, 19 Sep 2016 13:12:38 -0400
-Message-ID: <1474305161-11435-2-git-send-email-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: [PATCH 5/5] drm/radeon: narrow asic_init for virtualization
+Date: Mon, 19 Sep 2016 13:12:41 -0400
+Message-ID: <1474305161-11435-5-git-send-email-alexander.deucher@amd.com>
 References: <1474305161-11435-1-git-send-email-alexander.deucher@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1474305161-11435-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <1474305161-11435-1-git-send-email-alexander.deucher@amd.com>
+Sender: stable-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogTW9uayBMaXUgPE1vbmsuTGl1QGFtZC5jb20+CgpvcmlnaW5hbCBtZXRob2QgZ2V0IHdy
-b25nIHNtYyBmdyB2ZXJzaW9uLgoKU2lnbmVkLW9mZi1ieTogTW9uayBMaXUgPE1vbmsuTGl1QGFt
-ZC5jb20+ClJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5j
-b20+ClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNv
-bT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY2dzLmMgfCAxMCArKysr
-KysrLS0tCiAxIGZpbGUgY2hhbmdlZCwgNyBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQoK
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jZ3MuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jZ3MuYwppbmRleCBmMWM1M2EyLi5mNmRi
-ZGY4IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY2dzLmMK
-KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Nncy5jCkBAIC03NDMsMTIg
-Kzc0MywxMyBAQCBzdGF0aWMgaW50IGFtZGdwdV9jZ3NfZ2V0X2Zpcm13YXJlX2luZm8oc3RydWN0
-IGNnc19kZXZpY2UgKmNnc19kZXZpY2UsCiAJCWluZm8tPnZlcnNpb24gPSAodWludDE2X3QpbGUz
-Ml90b19jcHUoaGVhZGVyLT5oZWFkZXIudWNvZGVfdmVyc2lvbik7CiAJCWluZm8tPmZlYXR1cmVf
-dmVyc2lvbiA9ICh1aW50MTZfdClsZTMyX3RvX2NwdShoZWFkZXItPnVjb2RlX2ZlYXR1cmVfdmVy
-c2lvbik7CiAJfSBlbHNlIHsKKwkJdWludDMyX3QgZndfdmVyOwogCQljaGFyIGZ3X25hbWVbMzBd
-ID0gezB9OwogCQlpbnQgZXJyID0gMDsKIAkJdWludDMyX3QgdWNvZGVfc2l6ZTsKIAkJdWludDMy
-X3QgdWNvZGVfc3RhcnRfYWRkcmVzczsKIAkJY29uc3QgdWludDhfdCAqc3JjOwotCQljb25zdCBz
-dHJ1Y3Qgc21jX2Zpcm13YXJlX2hlYWRlcl92MV8wICpoZHI7CisJCXN0cnVjdCBzbWNfZmlybXdh
-cmVfaGVhZGVyX3YxXzAgKmhkcjsKIAogCQlpZiAoIWFkZXYtPnBtLmZ3KSB7CiAJCQlzd2l0Y2gg
-KGFkZXYtPmFzaWNfdHlwZSkgewpAQCAtNzkzLDEyICs3OTQsMTUgQEAgc3RhdGljIGludCBhbWRn
-cHVfY2dzX2dldF9maXJtd2FyZV9pbmZvKHN0cnVjdCBjZ3NfZGV2aWNlICpjZ3NfZGV2aWNlLAog
-CQkJfQogCQl9CiAKLQkJaGRyID0gKGNvbnN0IHN0cnVjdCBzbWNfZmlybXdhcmVfaGVhZGVyX3Yx
-XzAgKikJYWRldi0+cG0uZnctPmRhdGE7CisJCWhkciA9IChzdHJ1Y3Qgc21jX2Zpcm13YXJlX2hl
-YWRlcl92MV8wICopYWRldi0+cG0uZnctPmRhdGE7CisJCS8qIGZpcm13YXJlIHZlcnNpb24gaXMg
-bG9jYXRlZCBhdCA2OSBkdyBmcm9tIGJlZ2luaW5nICovCisJCWZ3X3ZlciA9ICooKHVpbnQzMl90
-ICopYWRldi0+cG0uZnctPmRhdGEgKyA2OSk7CisJCWhkci0+aGVhZGVyLnVjb2RlX3ZlcnNpb24g
-PSBmd192ZXI7CiAJCWFtZGdwdV91Y29kZV9wcmludF9zbWNfaGRyKCZoZHItPmhlYWRlcik7CiAJ
-CWFkZXYtPnBtLmZ3X3ZlcnNpb24gPSBsZTMyX3RvX2NwdShoZHItPmhlYWRlci51Y29kZV92ZXJz
-aW9uKTsKIAkJdWNvZGVfc2l6ZSA9IGxlMzJfdG9fY3B1KGhkci0+aGVhZGVyLnVjb2RlX3NpemVf
-Ynl0ZXMpOwogCQl1Y29kZV9zdGFydF9hZGRyZXNzID0gbGUzMl90b19jcHUoaGRyLT51Y29kZV9z
-dGFydF9hZGRyKTsKLQkJc3JjID0gKGNvbnN0IHVpbnQ4X3QgKikoYWRldi0+cG0uZnctPmRhdGEg
-KworCQlzcmMgPSAodWludDhfdCAqKShhZGV2LT5wbS5mdy0+ZGF0YSArCiAJCSAgICAgICBsZTMy
-X3RvX2NwdShoZHItPmhlYWRlci51Y29kZV9hcnJheV9vZmZzZXRfYnl0ZXMpKTsKIAogCQlpbmZv
-LT52ZXJzaW9uID0gYWRldi0+cG0uZndfdmVyc2lvbjsKLS0gCjIuNS41CgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+Only needed on CIK+ due to the way pci reset is handled
+by the GPU.
+
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+---
+ drivers/gpu/drm/radeon/radeon_device.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
+index bbc8958..eb92aef4 100644
+--- a/drivers/gpu/drm/radeon/radeon_device.c
++++ b/drivers/gpu/drm/radeon/radeon_device.c
+@@ -661,8 +661,9 @@ bool radeon_card_posted(struct radeon_device *rdev)
+ {
+ 	uint32_t reg;
+ 
+-	/* for pass through, always force asic_init */
+-	if (radeon_device_is_virtual())
++	/* for pass through, always force asic_init for CI */
++	if (rdev->family >= CHIP_BONAIRE &&
++	    radeon_device_is_virtual())
+ 		return false;
+ 
+ 	/* required for EFI mode on macbook2,1 which uses an r5xx asic */
+-- 
+2.5.5
