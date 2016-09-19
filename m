@@ -1,16 +1,14 @@
-From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/si: remove unused interface which caused
- build issue
-Date: Mon, 19 Sep 2016 16:37:19 +0800
-Message-ID: <20160919083719.GA2961@hr-amur2>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu/si: remove unused interface which caused build
+ issue
+Date: Mon, 19 Sep 2016 10:31:18 +0200
+Message-ID: <47fdee91-13bb-ff81-2fec-762238bfa32f@amd.com>
 References: <1474272705-32265-1-git-send-email-ray.huang@amd.com>
- <47fdee91-13bb-ff81-2fec-762238bfa32f@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <47fdee91-13bb-ff81-2fec-762238bfa32f-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1474272705-32265-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,23 +19,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Wang, Ken" <Ken.Wang-5C7GfCeVMHo@public.gmane.org>, "Liu,
- Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex
+ Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: Ken Wang <Qingqing.Wang-5C7GfCeVMHo@public.gmane.org>, Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
 
-T24gTW9uLCBTZXAgMTksIDIwMTYgYXQgMDQ6MzE6MThQTSArMDgwMCwgS29lbmlnLCBDaHJpc3Rp
-YW4gd3JvdGU6Cj4gQW0gMTkuMDkuMjAxNiB1bSAxMDoxMSBzY2hyaWViIEh1YW5nIFJ1aToKPiA+
-IEZyb206IEh1YW5nIFJ1aSA8UmF5Lkh1YW5nQGFtZC5jb20+Cj4gPgo+ID4gRml4IGNvbW1pdCAo
-ZWQyMmVlMiBkcm0vYW1kZ3B1OmNoYW5nZXMgb2YgdmlydHVhbGl6YXRpb24gY2FzZXMgcHJvYmUp
-Cj4gPiByZWdyZXNzaW9uLCByZW1vdmUgc2lfZ2V0X3ZpcnR1YWxfY2FwcyBiZWNhdXNlIHRoZSBj
-YWxsYmFjayBpcyByZW1vdmVkCj4gPiBhdCBhbWRncHVfYXNpY19mdW5jcy4KPiA+Cj4gPiBTaWdu
-ZWQtb2ZmLWJ5OiBIdWFuZyBSdWkgPFJheS5IdWFuZ0BhbWQuY29tPgo+ID4gQ2M6IE1vbmsgTGl1
-IDxNb25rLkxpdUBhbWQuY29tPgo+IAo+IFBhdGNoIGlzIFJldmlld2VkLWJ5OiBDaHJpc3RpYW4g
-Sz9uaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4uCj4gCj4gUGxlYXNlIGFsd2F5cyBidWls
-ZCB3aXRoIGFsbCBIVyBnZW5lcmF0aW9ucyBlbmFibGVkIHRvIGNhdGNoIHN1Y2ggZXJyb3JzLgo+
-IAoKWWVwLCBhZ3JlZS4gSSBndWVzcyBDT05GSUdfRFJNX0FNREdQVV9TSSBtaWdodCBub3QgYmUg
-c2V0IGFzIGRlZmF1bHQsIHNvCnNvbWUgZ3V5cyBkaWRuJ3QgZmluZCBpdC4KClRoYW5rcywKUnVp
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
-bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+QW0gMTkuMDkuMjAxNiB1bSAxMDoxMSBzY2hyaWViIEh1YW5nIFJ1aToKPiBGcm9tOiBIdWFuZyBS
+dWkgPFJheS5IdWFuZ0BhbWQuY29tPgo+Cj4gRml4IGNvbW1pdCAoZWQyMmVlMiBkcm0vYW1kZ3B1
+OmNoYW5nZXMgb2YgdmlydHVhbGl6YXRpb24gY2FzZXMgcHJvYmUpCj4gcmVncmVzc2lvbiwgcmVt
+b3ZlIHNpX2dldF92aXJ0dWFsX2NhcHMgYmVjYXVzZSB0aGUgY2FsbGJhY2sgaXMgcmVtb3ZlZAo+
+IGF0IGFtZGdwdV9hc2ljX2Z1bmNzLgo+Cj4gU2lnbmVkLW9mZi1ieTogSHVhbmcgUnVpIDxSYXku
+SHVhbmdAYW1kLmNvbT4KPiBDYzogTW9uayBMaXUgPE1vbmsuTGl1QGFtZC5jb20+CgpQYXRjaCBp
+cyBSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29t
+Pi4KClBsZWFzZSBhbHdheXMgYnVpbGQgd2l0aCBhbGwgSFcgZ2VuZXJhdGlvbnMgZW5hYmxlZCB0
+byBjYXRjaCBzdWNoIGVycm9ycy4KCkNocmlzdGlhbi4KCj4gLS0tCj4gICBkcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9zaS5jIHwgNyAtLS0tLS0tCj4gICAxIGZpbGUgY2hhbmdlZCwgNyBkZWxl
+dGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zaS5j
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2kuYwo+IGluZGV4IGZlZTc2YjguLmEwYjZi
+N2UgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2kuYwo+ICsrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NpLmMKPiBAQCAtOTUyLDEyICs5NTIsNiBAQCBz
+dGF0aWMgdm9pZCBzaV9zbWNfd3JlZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdTMyIHJl
+ZywgdTMyIHYpCj4gICAJc3Bpbl91bmxvY2tfaXJxcmVzdG9yZSgmYWRldi0+c21jX2lkeF9sb2Nr
+LCBmbGFncyk7Cj4gICB9Cj4gICAKPiAtc3RhdGljIHUzMiBzaV9nZXRfdmlydHVhbF9jYXBzKHN0
+cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+IC17Cj4gLQkvKiBTSSBkb2VzIG5vdCBzdXBwb3J0
+IFNSLUlPViAqLwo+IC0JcmV0dXJuIDA7Cj4gLX0KPiAtCj4gICBzdGF0aWMgc3RydWN0IGFtZGdw
+dV9hbGxvd2VkX3JlZ2lzdGVyX2VudHJ5IHNpX2FsbG93ZWRfcmVhZF9yZWdpc3RlcnNbXSA9IHsK
+PiAgIAl7R1JCTV9TVEFUVVMsIGZhbHNlfSwKPiAgIAl7R0JfQUREUl9DT05GSUcsIGZhbHNlfSwK
+PiBAQCAtMTEzMyw3ICsxMTI3LDYgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRncHVfYXNpY19m
+dW5jcyBzaV9hc2ljX2Z1bmNzID0KPiAgIAkuZ2V0X3hjbGsgPSAmc2lfZ2V0X3hjbGssCj4gICAJ
+LnNldF91dmRfY2xvY2tzID0gJnNpX3NldF91dmRfY2xvY2tzLAo+ICAgCS5zZXRfdmNlX2Nsb2Nr
+cyA9IE5VTEwsCj4gLQkuZ2V0X3ZpcnR1YWxfY2FwcyA9ICZzaV9nZXRfdmlydHVhbF9jYXBzLAo+
+ICAgfTsKPiAgIAo+ICAgc3RhdGljIHVpbnQzMl90IHNpX2dldF9yZXZfaWQoc3RydWN0IGFtZGdw
+dV9kZXZpY2UgKmFkZXYpCgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Cg==
