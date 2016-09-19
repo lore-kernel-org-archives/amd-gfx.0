@@ -1,16 +1,17 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 1/2] drm/amd/powerplay: Add read_sensor() callback to
+From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amd/powerplay: Add read_sensor() callback to
  hwmgr (v3)
-Date: Mon, 19 Sep 2016 15:55:49 +0000
-Message-ID: <MWHPR12MB16941412CFD53532924A334AF7F40@MWHPR12MB1694.namprd12.prod.outlook.com>
+Date: Mon, 19 Sep 2016 15:56:27 +0000
+Message-ID: <CY4PR12MB17681DCF4C973DC46834F7ACF7F40@CY4PR12MB1768.namprd12.prod.outlook.com>
 References: <20160919131023.30064-1-tom.stdenis@amd.com>
  <20160919131023.30064-2-tom.stdenis@amd.com>,
  <CADnq5_PDWVmDxGLbQ=Kxe1UADO6PsLC=17uqUrQfnM2BWmKATQ@mail.gmail.com>
- <CY4PR12MB17688AA3886A61A51BE31262F7F40@CY4PR12MB1768.namprd12.prod.outlook.com>
+ <CY4PR12MB17688AA3886A61A51BE31262F7F40@CY4PR12MB1768.namprd12.prod.outlook.com>,
+ <MWHPR12MB16941412CFD53532924A334AF7F40@MWHPR12MB1694.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0643603448=="
+Content-Type: multipart/mixed; boundary="===============0380886736=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CY4PR12MB17688AA3886A61A51BE31262F7F40-rpdhrqHFk06yjjPBNVDk/QdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <MWHPR12MB16941412CFD53532924A334AF7F40-Gy0DoCVfaSW4WA4dJ5YXGAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,21 +23,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0643603448==
+--===============0380886736==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MWHPR12MB16941412CFD53532924A334AF7F40MWHPR12MB1694namp_"
+	boundary="_000_CY4PR12MB17681DCF4C973DC46834F7ACF7F40CY4PR12MB1768namp_"
 
---_000_MWHPR12MB16941412CFD53532924A334AF7F40MWHPR12MB1694namp_
-Content-Type: text/plain; charset="us-ascii"
+--_000_CY4PR12MB17681DCF4C973DC46834F7ACF7F40CY4PR12MB1768namp_
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
+
+Yup.  I misread your comment thinking there was another datastructure you'd=
+ rather I put the callback in.
+
+
+Cheers,
+
+Tom
+
+
+________________________________
+From: Deucher, Alexander
+Sent: Monday, September 19, 2016 11:55
+To: StDenis, Tom; Alex Deucher
+Cc: amd-gfx list
+Subject: RE: [PATCH 1/2] drm/amd/powerplay: Add read_sensor() callback to h=
+wmgr (v3)
+
 
 No need.  The additional cleanups can come later.
 
+
+
 Alex
+
+
 
 From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf Of S=
 tDenis, Tom
@@ -45,6 +68,7 @@ To: Alex Deucher
 Cc: amd-gfx list
 Subject: Re: [PATCH 1/2] drm/amd/powerplay: Add read_sensor() callback to h=
 wmgr (v3)
+
 
 
 Hi Alex,
@@ -59,13 +83,18 @@ Cheers,
 
 Tom
 
+
+
 ________________________________
+
 From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>
 Sent: Monday, September 19, 2016 11:53
 To: Tom St Denis
 Cc: amd-gfx list; StDenis, Tom
 Subject: Re: [PATCH 1/2] drm/amd/powerplay: Add read_sensor() callback to h=
 wmgr (v3)
+
+
 
 On Mon, Sep 19, 2016 at 9:10 AM, Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:=
 tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>> wrote:
@@ -396,178 +425,151 @@ e);
 > amd-gfx mailing list
 > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
 amd-gfx Info Page - lists.freedesktop.org<https://lists.freedesktop.org/mai=
 lman/listinfo/amd-gfx>
+
 lists.freedesktop.org
+
 To see the collection of prior postings to the list, visit the amd-gfx Arch=
 ives. Using amd-gfx: To post a message to all the list members, send email =
 ...
 
 
 
---_000_MWHPR12MB16941412CFD53532924A334AF7F40MWHPR12MB1694namp_
-Content-Type: text/html; charset="us-ascii"
+
+--_000_CY4PR12MB17681DCF4C973DC46834F7ACF7F40CY4PR12MB1768namp_
+Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
+<html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 14 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:Tahoma;
-	panose-1:2 11 6 4 3 5 4 4 2 4;}
-@font-face
-	{font-family:"Segoe UI";
-	panose-1:2 11 5 2 4 2 4 2 2 3;}
-@font-face
-	{font-family:"Segoe UI Light";
-	panose-1:2 11 5 2 4 2 4 2 2 3;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-p
-	{mso-style-priority:99;
-	margin:0in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
-	{mso-style-priority:99;
-	mso-style-link:"Balloon Text Char";
-	margin:0in;
-	margin-bottom:.0001pt;
-	font-size:8.0pt;
-	font-family:"Tahoma","sans-serif";}
-span.EmailStyle18
-	{mso-style-type:personal-reply;
-	font-family:"Calibri","sans-serif";
-	color:#1F497D;}
-span.BalloonTextChar
-	{mso-style-name:"Balloon Text Char";
-	mso-style-priority:99;
-	mso-style-link:"Balloon Text";
-	font-family:"Tahoma","sans-serif";}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
 </head>
-<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">No need.&nbsp; The additi=
-onal cleanups can come later.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
-/p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Alex<o:p></o:p></span></p=
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;back=
+ground-color:#FFFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
+<p>Yup. &nbsp;I misread your comment thinking there was another datastructu=
+re you'd rather I put the callback in.</p>
+<p><br>
+</p>
+<p>Cheers,</p>
+<p>Tom</p>
+<br>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
+lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Deucher, Alexander<br=
 >
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
-/p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
-4.0pt">
+<b>Sent:</b> Monday, September 19, 2016 11:55<br>
+<b>To:</b> StDenis, Tom; Alex Deucher<br>
+<b>Cc:</b> amd-gfx list<br>
+<b>Subject:</b> RE: [PATCH 1/2] drm/amd/powerplay: Add read_sensor() callba=
+ck to hwmgr (v3)</font>
+<div>&nbsp;</div>
+</div>
 <div>
-<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
-;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span style=3D"font-s=
-ize:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> amd-gfx =
-[mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org]
+<div>
+<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
+imes New Roman&quot;, serif;">
+<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,&quot;sans=
+-serif&quot;; color:#1F497D">No need.&nbsp; The additional cleanups can com=
+e later.</span></p>
+<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
+imes New Roman&quot;, serif;">
+<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,&quot;sans=
+-serif&quot;; color:#1F497D">&nbsp;</span></p>
+<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
+imes New Roman&quot;, serif;">
+<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,&quot;sans=
+-serif&quot;; color:#1F497D">Alex</span></p>
+<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
+imes New Roman&quot;, serif;">
+<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,&quot;sans=
+-serif&quot;; color:#1F497D">&nbsp;</span></p>
+<div style=3D"border:none; border-left:solid blue 1.5pt; padding:0in 0in 0i=
+n 4.0pt">
+<div>
+<div style=3D"border:none; border-top:solid #B5C4DF 1.0pt; padding:3.0pt 0i=
+n 0in 0in">
+<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
+imes New Roman&quot;, serif;">
+<b><span style=3D"font-size:10.0pt; font-family:&quot;Tahoma&quot;,&quot;sa=
+ns-serif&quot;">From:</span></b><span style=3D"font-size:10.0pt; font-famil=
+y:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> amd-gfx [mailto:amd-gfx-bounc=
+es-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org]
 <b>On Behalf Of </b>StDenis, Tom<br>
 <b>Sent:</b> Monday, September 19, 2016 11:55 AM<br>
 <b>To:</b> Alex Deucher<br>
 <b>Cc:</b> amd-gfx list<br>
 <b>Subject:</b> Re: [PATCH 1/2] drm/amd/powerplay: Add read_sensor() callba=
-ck to hwmgr (v3)<o:p></o:p></span></p>
+ck to hwmgr (v3)</span></p>
 </div>
 </div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
+imes New Roman&quot;, serif;">
+&nbsp;</p>
 <div>
 <p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
-;,&quot;sans-serif&quot;;color:black">Hi Alex,<o:p></o:p></span></p>
+;,&quot;sans-serif&quot;; color:black">Hi Alex,</span></p>
 <p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
-;,&quot;sans-serif&quot;;color:black"><o:p>&nbsp;</o:p></span></p>
+;,&quot;sans-serif&quot;; color:black">&nbsp;</span></p>
 <p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
-;,&quot;sans-serif&quot;;color:black">Would you prefer I re-write #1 to avo=
-id churn in the tree?<o:p></o:p></span></p>
+;,&quot;sans-serif&quot;; color:black">Would you prefer I re-write #1 to av=
+oid churn in the tree?</span></p>
 <p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
-;,&quot;sans-serif&quot;;color:black"><o:p>&nbsp;</o:p></span></p>
+;,&quot;sans-serif&quot;; color:black">&nbsp;</span></p>
 <p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
-;,&quot;sans-serif&quot;;color:black">Cheers,<o:p></o:p></span></p>
+;,&quot;sans-serif&quot;; color:black">Cheers,</span></p>
 <p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
-;,&quot;sans-serif&quot;;color:black">Tom<o:p></o:p></span></p>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt;background:white"><spa=
-n style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:bla=
-ck"><o:p>&nbsp;</o:p></span></p>
+;,&quot;sans-serif&quot;; color:black">Tom</span></p>
+<p style=3D"background: white; margin: 0in 0in 0.0001pt; font-size: 12pt; f=
+ont-family: &quot;Times New Roman&quot;, serif;">
+<span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; colo=
+r:black">&nbsp;</span></p>
 <div>
 <div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center;backgr=
-ound:white">
-<span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color=
-:black">
+<div align=3D"center" style=3D"text-align: center; background: white; margi=
+n: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;Times New Roman&qu=
+ot;, serif;">
+<span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; colo=
+r:black">
 <hr size=3D"2" width=3D"98%" align=3D"center">
 </span></div>
 <div id=3D"x_divRplyFwdMsg">
-<p class=3D"MsoNormal" style=3D"background:white"><b><span style=3D"font-si=
-ze:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:blac=
-k">From:</span></b><span style=3D"font-size:11.0pt;font-family:&quot;Calibr=
-i&quot;,&quot;sans-serif&quot;;color:black"> Alex Deucher &lt;<a href=3D"ma=
-ilto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
+<p style=3D"background: white; margin: 0in 0in 0.0001pt; font-size: 12pt; f=
+ont-family: &quot;Times New Roman&quot;, serif;">
+<b><span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,&quot;s=
+ans-serif&quot;; color:black">From:</span></b><span style=3D"font-size:11.0=
+pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black"> A=
+lex Deucher &lt;<a href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" style=3D"color: bl=
+ue; text-decoration: underline;">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
 <b>Sent:</b> Monday, September 19, 2016 11:53<br>
 <b>To:</b> Tom St Denis<br>
 <b>Cc:</b> amd-gfx list; StDenis, Tom<br>
 <b>Subject:</b> Re: [PATCH 1/2] drm/amd/powerplay: Add read_sensor() callba=
 ck to hwmgr (v3)</span><span style=3D"font-family:&quot;Calibri&quot;,&quot=
-;sans-serif&quot;;color:black">
-<o:p></o:p></span></p>
-<div>
-<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-famil=
-y:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black">&nbsp;<o:p></o:p>=
+;sans-serif&quot;; color:black">
 </span></p>
+<div>
+<p style=3D"background: white; margin: 0in 0in 0.0001pt; font-size: 12pt; f=
+ont-family: &quot;Times New Roman&quot;, serif;">
+<span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; colo=
+r:black">&nbsp;</span></p>
 </div>
 </div>
 </div>
 <div>
-<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-size:=
-10.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black">=
-On Mon, Sep 19, 2016 at 9:10 AM, Tom St Denis &lt;<a href=3D"mailto:tstdeni=
-s82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br>
+<p style=3D"background: white; margin: 0in 0in 0.0001pt; font-size: 12pt; f=
+ont-family: &quot;Times New Roman&quot;, serif;">
+<span style=3D"font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans=
+-serif&quot;; color:black">On Mon, Sep 19, 2016 at 9:10 AM, Tom St Denis &l=
+t;<a href=3D"mailto:tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" style=3D"color: blue; text-decora=
+tion: underline;">tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br>
 &gt; Provides standardized interface to read various sensors.<br>
 &gt; The API is extensible (by adding to the end of the<br>
 &gt; amd_pp_sensors enumeration list.<br>
@@ -578,7 +580,8 @@ s82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@p
 &gt; (v3) Updated to apply to smu7_hwmgr instead<br>
 &gt;<br>
 &gt; Signed-off-by: Tom St Denis &lt;<a href=3D"mailto:tom.stdenis-5C7GfCeVMHo@public.gmane.org"=
->tom.stdenis-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+ style=3D"color: blue; text-decoration: underline;">tom.stdenis-5C7GfCeVMHo@public.gmane.org</a>=
+&gt;<br>
 &gt; ---<br>
 &gt;&nbsp; drivers/gpu/drm/amd/powerplay/amd_powerplay.c&nbsp;&nbsp;&nbsp;&=
 nbsp; | 20 &#43;&#43;&#43;&#43;&#43;<br>
@@ -651,8 +654,9 @@ As a future patch it would be nice to hook up this sensor interface to<br>
 the existing amdgpu_pm_info code and make that asic indpendent.<br>
 <br>
 Series is:<br>
-Reviewed-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">=
-alexander.deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+Reviewed-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org" =
+style=3D"color: blue; text-decoration: underline;">alexander.deucher-urvtwAKJhsc@public.gmane.org=
+m</a>&gt;<br>
 <br>
 Alex<br>
 <br>
@@ -1084,50 +1088,57 @@ _hwmgr *hwmgr, int idx, int32_t *value);<br>
 &gt;<br>
 &gt; _______________________________________________<br>
 &gt; amd-gfx mailing list<br>
-&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32mqWrfYKbYh0A@public.gmane.org=
-ktop.org</a><br>
+&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" style=3D"color: blue;=
+ text-decoration: underline;">
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
 &gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=
-=3D"LPlnk724524">
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a> <o:p></o:p></spa=
-n></p>
-<div style=3D"margin-bottom:15.0pt;overflow:auto" id=3D"LPBorder_GT_1474300=
-4775210.15276233173698328">
+=3D"LPlnk724524" style=3D"color: blue; text-decoration: underline;">
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a> </span></p>
+<div id=3D"LPBorder_GT_14743004775210.15276233173698328" style=3D"margin-bo=
+ttom:15.0pt; overflow:auto">
 <table class=3D"MsoNormalTable" border=3D"1" cellspacing=3D"0" cellpadding=
-=3D"0" width=3D"90%" style=3D"width:90.0%;background:white;border-top:dotte=
-d #C8C8C8 1.0pt;border-left:none;border-bottom:dotted #C8C8C8 1.0pt;border-=
-right:none">
+=3D"0" width=3D"90%" style=3D"width:90.0%; background:white; border-top:dot=
+ted #C8C8C8 1.0pt; border-left:none; border-bottom:dotted #C8C8C8 1.0pt; bo=
+rder-right:none">
 <tbody>
 <tr>
-<td valign=3D"top" style=3D"border:none;padding:0in 0in 0in 0in">
+<td valign=3D"top" style=3D"border:none; padding:0in 0in 0in 0in">
 <div id=3D"LPTitle_14743004775200.21508066420594152">
-<p class=3D"MsoNormal" style=3D"margin-top:15.0pt;mso-line-height-alt:15.75=
-pt"><span style=3D"font-size:16.0pt;font-family:&quot;Segoe UI Light&quot;,=
-&quot;sans-serif&quot;;color:#3B5777"><a href=3D"https://lists.freedesktop.=
-org/mailman/listinfo/amd-gfx" target=3D"_blank"><span style=3D"text-decorat=
-ion:none">amd-gfx
- Info Page - lists.freedesktop.org</span></a><o:p></o:p></span></p>
+<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
+imes New Roman&quot;, serif;">
+<span style=3D"font-size:16.0pt; font-family:&quot;Segoe UI Light&quot;,&qu=
+ot;sans-serif&quot;; color:#3B5777"><a href=3D"https://lists.freedesktop.or=
+g/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"color: blue; text-de=
+coration: underline;"><span style=3D"text-decoration:none">amd-gfx
+ Info Page - lists.freedesktop.org</span></a></span></p>
 </div>
-<div style=3D"margin-top:7.5pt;margin-bottom:12.0pt" id=3D"LPMetadata_14743=
-004775200.2972104013311352">
-<p class=3D"MsoNormal" style=3D"margin-top:15.0pt;line-height:10.5pt"><span=
- style=3D"font-size:10.5pt;font-family:&quot;Segoe UI&quot;,&quot;sans-seri=
-f&quot;;color:#666666">lists.freedesktop.org<o:p></o:p></span></p>
+<div id=3D"LPMetadata_14743004775200.2972104013311352" style=3D"margin-top:=
+7.5pt; margin-bottom:12.0pt">
+<p style=3D"line-height: 10.5pt; margin: 0in 0in 0.0001pt; font-size: 12pt;=
+ font-family: &quot;Times New Roman&quot;, serif;">
+<span style=3D"font-size:10.5pt; font-family:&quot;Segoe UI&quot;,&quot;san=
+s-serif&quot;; color:#666666">lists.freedesktop.org</span></p>
 </div>
 <div id=3D"LPDescription_14743004775200.9065864460282174">
-<p class=3D"MsoNormal" style=3D"margin-top:15.0pt;line-height:15.0pt"><span=
- style=3D"font-size:10.5pt;font-family:&quot;Segoe UI&quot;,&quot;sans-seri=
-f&quot;;color:#666666">To see the collection of prior postings to the list,=
- visit the amd-gfx Archives. Using amd-gfx: To post a message
- to all the list members, send email ...<o:p></o:p></span></p>
+<p style=3D"line-height: 15pt; margin: 0in 0in 0.0001pt; font-size: 12pt; f=
+ont-family: &quot;Times New Roman&quot;, serif;">
+<span style=3D"font-size:10.5pt; font-family:&quot;Segoe UI&quot;,&quot;san=
+s-serif&quot;; color:#666666">To see the collection of prior postings to th=
+e list, visit the amd-gfx Archives. Using amd-gfx: To post a message to all=
+ the list members, send email ...</span></p>
 </div>
 </td>
 </tr>
 </tbody>
 </table>
 </div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt;background:white"><spa=
-n style=3D"font-size:10.0pt;font-family:&quot;Calibri&quot;,&quot;sans-seri=
-f&quot;;color:black"><o:p>&nbsp;</o:p></span></p>
+<p style=3D"background: white; margin: 0in 0in 0.0001pt; font-size: 12pt; f=
+ont-family: &quot;Times New Roman&quot;, serif;">
+<span style=3D"font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans=
+-serif&quot;; color:black">&nbsp;</span></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1136,9 +1147,9 @@ f&quot;;color:black"><o:p>&nbsp;</o:p></span></p>
 </body>
 </html>
 
---_000_MWHPR12MB16941412CFD53532924A334AF7F40MWHPR12MB1694namp_--
+--_000_CY4PR12MB17681DCF4C973DC46834F7ACF7F40CY4PR12MB1768namp_--
 
---===============0643603448==
+--===============0380886736==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -1148,4 +1159,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0643603448==--
+--===============0380886736==--
