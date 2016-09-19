@@ -1,15 +1,16 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 1/2] drm/amd/powerplay: Add read_sensor() callback to
  hwmgr (v3)
-Date: Mon, 19 Sep 2016 11:53:55 -0400
-Message-ID: <CADnq5_PDWVmDxGLbQ=Kxe1UADO6PsLC=17uqUrQfnM2BWmKATQ@mail.gmail.com>
+Date: Mon, 19 Sep 2016 15:54:59 +0000
+Message-ID: <CY4PR12MB17688AA3886A61A51BE31262F7F40@CY4PR12MB1768.namprd12.prod.outlook.com>
 References: <20160919131023.30064-1-tom.stdenis@amd.com>
- <20160919131023.30064-2-tom.stdenis@amd.com>
+ <20160919131023.30064-2-tom.stdenis@amd.com>,
+ <CADnq5_PDWVmDxGLbQ=Kxe1UADO6PsLC=17uqUrQfnM2BWmKATQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0321915723=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20160919131023.30064-2-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CADnq5_PDWVmDxGLbQ=Kxe1UADO6PsLC=17uqUrQfnM2BWmKATQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,227 +21,989 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gTW9uLCBTZXAgMTksIDIwMTYgYXQgOToxMCBBTSwgVG9tIFN0IERlbmlzIDx0c3RkZW5pczgy
-QGdtYWlsLmNvbT4gd3JvdGU6Cj4gUHJvdmlkZXMgc3RhbmRhcmRpemVkIGludGVyZmFjZSB0byBy
-ZWFkIHZhcmlvdXMgc2Vuc29ycy4KPiBUaGUgQVBJIGlzIGV4dGVuc2libGUgKGJ5IGFkZGluZyB0
-byB0aGUgZW5kIG9mIHRoZQo+IGFtZF9wcF9zZW5zb3JzIGVudW1lcmF0aW9uIGxpc3QuCj4KPiBT
-dXBwb3J0IGhhcyBiZWVuIGFkZGVkIHRvIENhcnJpem8vc211Nwo+Cj4gKHYyKSBTcXVhc2hlZCB0
-aGUgdHdvIHNlbnNvciBwYXRjaGVzIGludG8gb25lLgo+ICh2MykgVXBkYXRlZCB0byBhcHBseSB0
-byBzbXU3X2h3bWdyIGluc3RlYWQKPgo+IFNpZ25lZC1vZmYtYnk6IFRvbSBTdCBEZW5pcyA8dG9t
-LnN0ZGVuaXNAYW1kLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
-YW1kX3Bvd2VycGxheS5jICAgICB8IDIwICsrKysrCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93
-ZXJwbGF5L2h3bWdyL2N6X2h3bWdyLmMgICAgfCA5NiArKysrKysrKysrKysrKysrKysrKysrKwo+
-ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmMgIHwgMzYg
-KysrKysrKysrCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9hbWRfcG93ZXJw
-bGF5LmggfCAxMiArKysKPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2h3bWdy
-LmggICAgICAgICB8ICAxICsKPiAgNSBmaWxlcyBjaGFuZ2VkLCAxNjUgaW5zZXJ0aW9ucygrKQo+
-Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZF9wb3dlcnBs
-YXkuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZF9wb3dlcnBsYXkuYwo+IGlu
-ZGV4IGIxZDE5NDA5YmY4Ni4uZWUwMzY4MzgxZTgyIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvcG93ZXJwbGF5L2FtZF9wb3dlcnBsYXkuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvcG93ZXJwbGF5L2FtZF9wb3dlcnBsYXkuYwo+IEBAIC04OTQsNiArODk0LDI1IEBAIHN0
-YXRpYyBpbnQgcHBfZHBtX3NldF9tY2xrX29kKHZvaWQgKmhhbmRsZSwgdWludDMyX3QgdmFsdWUp
-Cj4gICAgICAgICByZXR1cm4gaHdtZ3ItPmh3bWdyX2Z1bmMtPnNldF9tY2xrX29kKGh3bWdyLCB2
-YWx1ZSk7Cj4gIH0KPgo+ICtzdGF0aWMgaW50IHBwX2RwbV9yZWFkX3NlbnNvcih2b2lkICpoYW5k
-bGUsIGludCBpZHgsIGludDMyX3QgKnZhbHVlKQo+ICt7Cj4gKyAgICAgICBzdHJ1Y3QgcHBfaHdt
-Z3IgKmh3bWdyOwo+ICsKPiArICAgICAgIGlmICghaGFuZGxlKQo+ICsgICAgICAgICAgICAgICBy
-ZXR1cm4gLUVJTlZBTDsKPiArCj4gKyAgICAgICBod21nciA9ICgoc3RydWN0IHBwX2luc3RhbmNl
-ICopaGFuZGxlKS0+aHdtZ3I7Cj4gKwo+ICsgICAgICAgUFBfQ0hFQ0tfSFcoaHdtZ3IpOwo+ICsK
-PiArICAgICAgIGlmIChod21nci0+aHdtZ3JfZnVuYy0+cmVhZF9zZW5zb3IgPT0gTlVMTCkgewo+
-ICsgICAgICAgICAgICAgICBwcmludGsoS0VSTl9JTkZPICIlcyB3YXMgbm90IGltcGxlbWVudGVk
-LlxuIiwgX19mdW5jX18pOwo+ICsgICAgICAgICAgICAgICByZXR1cm4gMDsKPiArICAgICAgIH0K
-PiArCj4gKyAgICAgICByZXR1cm4gaHdtZ3ItPmh3bWdyX2Z1bmMtPnJlYWRfc2Vuc29yKGh3bWdy
-LCBpZHgsIHZhbHVlKTsKPiArfQo+ICsKPiAgY29uc3Qgc3RydWN0IGFtZF9wb3dlcnBsYXlfZnVu
-Y3MgcHBfZHBtX2Z1bmNzID0gewo+ICAgICAgICAgLmdldF90ZW1wZXJhdHVyZSA9IHBwX2RwbV9n
-ZXRfdGVtcGVyYXR1cmUsCj4gICAgICAgICAubG9hZF9maXJtd2FyZSA9IHBwX2RwbV9sb2FkX2Z3
-LAo+IEBAIC05MjAsNiArOTM5LDcgQEAgY29uc3Qgc3RydWN0IGFtZF9wb3dlcnBsYXlfZnVuY3Mg
-cHBfZHBtX2Z1bmNzID0gewo+ICAgICAgICAgLnNldF9zY2xrX29kID0gcHBfZHBtX3NldF9zY2xr
-X29kLAo+ICAgICAgICAgLmdldF9tY2xrX29kID0gcHBfZHBtX2dldF9tY2xrX29kLAo+ICAgICAg
-ICAgLnNldF9tY2xrX29kID0gcHBfZHBtX3NldF9tY2xrX29kLAo+ICsgICAgICAgLnJlYWRfc2Vu
-c29yID0gcHBfZHBtX3JlYWRfc2Vuc29yLAoKQXMgYSBmdXR1cmUgcGF0Y2ggaXQgd291bGQgYmUg
-bmljZSB0byBob29rIHVwIHRoaXMgc2Vuc29yIGludGVyZmFjZSB0bwp0aGUgZXhpc3RpbmcgYW1k
-Z3B1X3BtX2luZm8gY29kZSBhbmQgbWFrZSB0aGF0IGFzaWMgaW5kcGVuZGVudC4KClNlcmllcyBp
-czoKUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4K
-CkFsZXgKCgo+ICB9Owo+Cj4gIHN0YXRpYyBpbnQgYW1kX3BwX2luc3RhbmNlX2luaXQoc3RydWN0
-IGFtZF9wcF9pbml0ICpwcF9pbml0LAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L3Bvd2VycGxheS9od21nci9jel9od21nci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
-YXkvaHdtZ3IvY3pfaHdtZ3IuYwo+IGluZGV4IDVlY2VmMTczMmUyMC4uOWYzYzVhOGE5MDNjIDEw
-MDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2N6X2h3bWdy
-LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9jel9od21nci5j
-Cj4gQEAgLTE4NTcsNiArMTg1NywxMDEgQEAgc3RhdGljIGludCBjel9nZXRfbWF4X2hpZ2hfY2xv
-Y2tzKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIHN0cnVjdCBhbWRfcHBfc2ltcGxlX2MKPiAgICAg
-ICAgIHJldHVybiAwOwo+ICB9Cj4KPiArc3RhdGljIGludCBjel9yZWFkX3NlbnNvcihzdHJ1Y3Qg
-cHBfaHdtZ3IgKmh3bWdyLCBpbnQgaWR4LCBpbnQzMl90ICp2YWx1ZSkKPiArewo+ICsgICAgICAg
-c3RydWN0IGN6X2h3bWdyICpjel9od21nciA9IChzdHJ1Y3QgY3pfaHdtZ3IgKikoaHdtZ3ItPmJh
-Y2tlbmQpOwo+ICsKPiArICAgICAgIHN0cnVjdCBwaG1fY2xvY2tfdm9sdGFnZV9kZXBlbmRlbmN5
-X3RhYmxlICp0YWJsZSA9Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBod21nci0+
-ZHluX3N0YXRlLnZkZGNfZGVwZW5kZW5jeV9vbl9zY2xrOwo+ICsKPiArICAgICAgIHN0cnVjdCBw
-aG1fdmNlX2Nsb2NrX3ZvbHRhZ2VfZGVwZW5kZW5jeV90YWJsZSAqdmNlX3RhYmxlID0KPiArICAg
-ICAgICAgICAgICAgaHdtZ3ItPmR5bl9zdGF0ZS52Y2VfY2xvY2tfdm9sdGFnZV9kZXBlbmRlbmN5
-X3RhYmxlOwo+ICsKPiArICAgICAgIHN0cnVjdCBwaG1fdXZkX2Nsb2NrX3ZvbHRhZ2VfZGVwZW5k
-ZW5jeV90YWJsZSAqdXZkX3RhYmxlID0KPiArICAgICAgICAgICAgICAgaHdtZ3ItPmR5bl9zdGF0
-ZS51dmRfY2xvY2tfdm9sdGFnZV9kZXBlbmRlbmN5X3RhYmxlOwo+ICsKPiArICAgICAgIHVpbnQz
-Ml90IHNjbGtfaW5kZXggPSBQSE1fR0VUX0ZJRUxEKGNnc19yZWFkX2luZF9yZWdpc3Rlcihod21n
-ci0+ZGV2aWNlLCBDR1NfSU5EX1JFR19fU01DLCBpeFRBUkdFVF9BTkRfQ1VSUkVOVF9QUk9GSUxF
-X0lOREVYKSwKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgVEFSR0VU
-X0FORF9DVVJSRU5UX1BST0ZJTEVfSU5ERVgsIENVUlJfU0NMS19JTkRFWCk7Cj4gKyAgICAgICB1
-aW50MzJfdCB1dmRfaW5kZXggPSBQSE1fR0VUX0ZJRUxEKGNnc19yZWFkX2luZF9yZWdpc3Rlciho
-d21nci0+ZGV2aWNlLCBDR1NfSU5EX1JFR19fU01DLCBpeFRBUkdFVF9BTkRfQ1VSUkVOVF9QUk9G
-SUxFX0lOREVYXzIpLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBU
-QVJHRVRfQU5EX0NVUlJFTlRfUFJPRklMRV9JTkRFWF8yLCBDVVJSX1VWRF9JTkRFWCk7Cj4gKyAg
-ICAgICB1aW50MzJfdCB2Y2VfaW5kZXggPSBQSE1fR0VUX0ZJRUxEKGNnc19yZWFkX2luZF9yZWdp
-c3Rlcihod21nci0+ZGV2aWNlLCBDR1NfSU5EX1JFR19fU01DLCBpeFRBUkdFVF9BTkRfQ1VSUkVO
-VF9QUk9GSUxFX0lOREVYXzIpLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBUQVJHRVRfQU5EX0NVUlJFTlRfUFJPRklMRV9JTkRFWF8yLCBDVVJSX1ZDRV9JTkRFWCk7
-Cj4gKwo+ICsgICAgICAgdWludDMyX3Qgc2NsaywgdmNsaywgZGNsaywgZWNjbGssIHRtcCwgYWN0
-aXZpdHlfcGVyY2VudDsKPiArICAgICAgIHVpbnQxNl90IHZkZG5iLCB2ZGRnZng7Cj4gKyAgICAg
-ICBpbnQgcmVzdWx0Owo+ICsKPiArICAgICAgIHN3aXRjaCAoaWR4KSB7Cj4gKyAgICAgICBjYXNl
-IEFNREdQVV9QUF9TRU5TT1JfR0ZYX1NDTEs6Cj4gKyAgICAgICAgICAgICAgIGlmIChzY2xrX2lu
-ZGV4IDwgTlVNX1NDTEtfTEVWRUxTKSB7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgc2NsayA9
-IHRhYmxlLT5lbnRyaWVzW3NjbGtfaW5kZXhdLmNsazsKPiArICAgICAgICAgICAgICAgICAgICAg
-ICAqdmFsdWUgPSBzY2xrOwo+ICsgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAwOwo+ICsg
-ICAgICAgICAgICAgICB9Cj4gKyAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOwo+ICsgICAg
-ICAgY2FzZSBBTURHUFVfUFBfU0VOU09SX1ZERE5COgo+ICsgICAgICAgICAgICAgICB0bXAgPSAo
-Y2dzX3JlYWRfaW5kX3JlZ2lzdGVyKGh3bWdyLT5kZXZpY2UsIENHU19JTkRfUkVHX19TTUMsIGl4
-U01VU1ZJX05CX0NVUlJFTlRWSUQpICYKPiArICAgICAgICAgICAgICAgICAgICAgICBDVVJSRU5U
-X05CX1ZJRF9NQVNLKSA+PiBDVVJSRU5UX05CX1ZJRF9fU0hJRlQ7Cj4gKyAgICAgICAgICAgICAg
-IHZkZG5iID0gY3pfY29udmVydF84Qml0X2luZGV4X3RvX3ZvbHRhZ2UoaHdtZ3IsIHRtcCk7Cj4g
-KyAgICAgICAgICAgICAgICp2YWx1ZSA9IHZkZG5iOwo+ICsgICAgICAgICAgICAgICByZXR1cm4g
-MDsKPiArICAgICAgIGNhc2UgQU1ER1BVX1BQX1NFTlNPUl9WRERHRlg6Cj4gKyAgICAgICAgICAg
-ICAgIHRtcCA9IChjZ3NfcmVhZF9pbmRfcmVnaXN0ZXIoaHdtZ3ItPmRldmljZSwgQ0dTX0lORF9S
-RUdfX1NNQywgaXhTTVVTVklfR0ZYX0NVUlJFTlRWSUQpICYKPiArICAgICAgICAgICAgICAgICAg
-ICAgICBDVVJSRU5UX0dGWF9WSURfTUFTSykgPj4gQ1VSUkVOVF9HRlhfVklEX19TSElGVDsKPiAr
-ICAgICAgICAgICAgICAgdmRkZ2Z4ID0gY3pfY29udmVydF84Qml0X2luZGV4X3RvX3ZvbHRhZ2Uo
-aHdtZ3IsICh1MTYpdG1wKTsKPiArICAgICAgICAgICAgICAgKnZhbHVlID0gdmRkZ2Z4Owo+ICsg
-ICAgICAgICAgICAgICByZXR1cm4gMDsKPiArICAgICAgIGNhc2UgQU1ER1BVX1BQX1NFTlNPUl9V
-VkRfVkNMSzoKPiArICAgICAgICAgICAgICAgaWYgKCFjel9od21nci0+dXZkX3Bvd2VyX2dhdGVk
-KSB7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgaWYgKHV2ZF9pbmRleCA+PSBDWl9NQVhfSEFS
-RFdBUkVfUE9XRVJMRVZFTFMpIHsKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJl
-dHVybiAtRUlOVkFMOwo+ICsgICAgICAgICAgICAgICAgICAgICAgIH0gZWxzZSB7Cj4gKyAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICB2Y2xrID0gdXZkX3RhYmxlLT5lbnRyaWVzW3V2ZF9p
-bmRleF0udmNsazsKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICp2YWx1ZSA9IHZj
-bGs7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gMDsKPiArICAgICAg
-ICAgICAgICAgICAgICAgICB9Cj4gKyAgICAgICAgICAgICAgIH0KPiArICAgICAgICAgICAgICAg
-KnZhbHVlID0gMDsKPiArICAgICAgICAgICAgICAgcmV0dXJuIDA7Cj4gKyAgICAgICBjYXNlIEFN
-REdQVV9QUF9TRU5TT1JfVVZEX0RDTEs6Cj4gKyAgICAgICAgICAgICAgIGlmICghY3pfaHdtZ3It
-PnV2ZF9wb3dlcl9nYXRlZCkgewo+ICsgICAgICAgICAgICAgICAgICAgICAgIGlmICh1dmRfaW5k
-ZXggPj0gQ1pfTUFYX0hBUkRXQVJFX1BPV0VSTEVWRUxTKSB7Cj4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsKPiArICAgICAgICAgICAgICAgICAgICAgICB9
-IGVsc2Ugewo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGNsayA9IHV2ZF90YWJs
-ZS0+ZW50cmllc1t1dmRfaW5kZXhdLmRjbGs7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAqdmFsdWUgPSBkY2xrOwo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0
-dXJuIDA7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgfQo+ICsgICAgICAgICAgICAgICB9Cj4g
-KyAgICAgICAgICAgICAgICp2YWx1ZSA9IDA7Cj4gKyAgICAgICAgICAgICAgIHJldHVybiAwOwo+
-ICsgICAgICAgY2FzZSBBTURHUFVfUFBfU0VOU09SX1ZDRV9FQ0NMSzoKPiArICAgICAgICAgICAg
-ICAgaWYgKCFjel9od21nci0+dmNlX3Bvd2VyX2dhdGVkKSB7Cj4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgaWYgKHZjZV9pbmRleCA+PSBDWl9NQVhfSEFSRFdBUkVfUE9XRVJMRVZFTFMpIHsKPiAr
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOwo+ICsgICAgICAg
-ICAgICAgICAgICAgICAgIH0gZWxzZSB7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBlY2NsayA9IHZjZV90YWJsZS0+ZW50cmllc1t2Y2VfaW5kZXhdLmVjY2xrOwo+ICsgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgKnZhbHVlID0gZWNjbGs7Cj4gKyAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICByZXR1cm4gMDsKPiArICAgICAgICAgICAgICAgICAgICAgICB9Cj4g
-KyAgICAgICAgICAgICAgIH0KPiArICAgICAgICAgICAgICAgKnZhbHVlID0gMDsKPiArICAgICAg
-ICAgICAgICAgcmV0dXJuIDA7Cj4gKyAgICAgICBjYXNlIEFNREdQVV9QUF9TRU5TT1JfR1BVX0xP
-QUQ6Cj4gKyAgICAgICAgICAgICAgIHJlc3VsdCA9IHNtdW1fc2VuZF9tc2dfdG9fc21jKGh3bWdy
-LT5zbXVtZ3IsIFBQU01DX01TR19HZXRBdmVyYWdlR3JhcGhpY3NBY3Rpdml0eSk7Cj4gKyAgICAg
-ICAgICAgICAgIGlmICgwID09IHJlc3VsdCkgewo+ICsgICAgICAgICAgICAgICAgICAgICAgIGFj
-dGl2aXR5X3BlcmNlbnQgPSBjZ3NfcmVhZF9yZWdpc3Rlcihod21nci0+ZGV2aWNlLCBtbVNNVV9N
-UDFfU1JCTTJQX0FSR18wKTsKPiArICAgICAgICAgICAgICAgICAgICAgICBhY3Rpdml0eV9wZXJj
-ZW50ID0gYWN0aXZpdHlfcGVyY2VudCA+IDEwMCA/IDEwMCA6IGFjdGl2aXR5X3BlcmNlbnQ7Cj4g
-KyAgICAgICAgICAgICAgIH0gZWxzZSB7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgYWN0aXZp
-dHlfcGVyY2VudCA9IDUwOwo+ICsgICAgICAgICAgICAgICB9Cj4gKyAgICAgICAgICAgICAgICp2
-YWx1ZSA9IGFjdGl2aXR5X3BlcmNlbnQ7Cj4gKyAgICAgICAgICAgICAgIHJldHVybiAwOwo+ICsg
-ICAgICAgZGVmYXVsdDoKPiArICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7Cj4gKyAgICAg
-ICB9Cj4gK30KPiArCj4gIHN0YXRpYyBjb25zdCBzdHJ1Y3QgcHBfaHdtZ3JfZnVuYyBjel9od21n
-cl9mdW5jcyA9IHsKPiAgICAgICAgIC5iYWNrZW5kX2luaXQgPSBjel9od21ncl9iYWNrZW5kX2lu
-aXQsCj4gICAgICAgICAuYmFja2VuZF9maW5pID0gY3pfaHdtZ3JfYmFja2VuZF9maW5pLAo+IEBA
-IC0xODgyLDYgKzE5NzcsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IHBwX2h3bWdyX2Z1bmMgY3pf
-aHdtZ3JfZnVuY3MgPSB7Cj4gICAgICAgICAuZ2V0X2N1cnJlbnRfc2hhbGxvd19zbGVlcF9jbG9j
-a3MgPSBjel9nZXRfY3VycmVudF9zaGFsbG93X3NsZWVwX2Nsb2NrcywKPiAgICAgICAgIC5nZXRf
-Y2xvY2tfYnlfdHlwZSA9IGN6X2dldF9jbG9ja19ieV90eXBlLAo+ICAgICAgICAgLmdldF9tYXhf
-aGlnaF9jbG9ja3MgPSBjel9nZXRfbWF4X2hpZ2hfY2xvY2tzLAo+ICsgICAgICAgLnJlYWRfc2Vu
-c29yID0gY3pfcmVhZF9zZW5zb3IsCj4gIH07Cj4KPiAgaW50IGN6X2h3bWdyX2luaXQoc3RydWN0
-IHBwX2h3bWdyICpod21ncikKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
-cnBsYXkvaHdtZ3Ivc211N19od21nci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
-aHdtZ3Ivc211N19od21nci5jCj4gaW5kZXggZjY3ZTFlMjYwYjMwLi4wN2E3ZDA0NmQ2ZjYgMTAw
-NjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21n
-ci5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21n
-ci5jCj4gQEAgLTMxNDQsNiArMzE0NCw0MSBAQCBzbXU3X3ByaW50X2N1cnJlbnRfcGVyZm9yY2Vf
-bGV2ZWwoc3RydWN0IHBwX2h3bWdyICpod21nciwgc3RydWN0IHNlcV9maWxlICptKQo+ICAgICAg
-ICAgc2VxX3ByaW50ZihtLCAidmNlICAgICVzYWJsZWRcbiIsIGRhdGEtPnZjZV9wb3dlcl9nYXRl
-ZCA/ICJkaXMiIDogImVuIik7Cj4gIH0KPgo+ICtzdGF0aWMgaW50IHNtdTdfcmVhZF9zZW5zb3Io
-c3RydWN0IHBwX2h3bWdyICpod21nciwgaW50IGlkeCwgaW50MzJfdCAqdmFsdWUpCj4gK3sKPiAr
-ICAgICAgIHVpbnQzMl90IHNjbGssIG1jbGssIGFjdGl2aXR5X3BlcmNlbnQ7Cj4gKyAgICAgICB1
-aW50MzJfdCBvZmZzZXQ7Cj4gKyAgICAgICBzdHJ1Y3Qgc211N19od21nciAqZGF0YSA9IChzdHJ1
-Y3Qgc211N19od21nciAqKShod21nci0+YmFja2VuZCk7Cj4gKwo+ICsgICAgICAgc3dpdGNoIChp
-ZHgpIHsKPiArICAgICAgIGNhc2UgQU1ER1BVX1BQX1NFTlNPUl9HRlhfU0NMSzoKPiArICAgICAg
-ICAgICAgICAgc211bV9zZW5kX21zZ190b19zbWMoaHdtZ3ItPnNtdW1nciwgUFBTTUNfTVNHX0FQ
-SV9HZXRTY2xrRnJlcXVlbmN5KTsKPiArICAgICAgICAgICAgICAgc2NsayA9IGNnc19yZWFkX3Jl
-Z2lzdGVyKGh3bWdyLT5kZXZpY2UsIG1tU01DX01TR19BUkdfMCk7Cj4gKyAgICAgICAgICAgICAg
-ICp2YWx1ZSA9IHNjbGs7Cj4gKyAgICAgICAgICAgICAgIHJldHVybiAwOwo+ICsgICAgICAgY2Fz
-ZSBBTURHUFVfUFBfU0VOU09SX0dGWF9NQ0xLOgo+ICsgICAgICAgICAgICAgICBzbXVtX3NlbmRf
-bXNnX3RvX3NtYyhod21nci0+c211bWdyLCBQUFNNQ19NU0dfQVBJX0dldE1jbGtGcmVxdWVuY3kp
-Owo+ICsgICAgICAgICAgICAgICBtY2xrID0gY2dzX3JlYWRfcmVnaXN0ZXIoaHdtZ3ItPmRldmlj
-ZSwgbW1TTUNfTVNHX0FSR18wKTsKPiArICAgICAgICAgICAgICAgKnZhbHVlID0gbWNsazsKPiAr
-ICAgICAgICAgICAgICAgcmV0dXJuIDA7Cj4gKyAgICAgICBjYXNlIEFNREdQVV9QUF9TRU5TT1Jf
-R1BVX0xPQUQ6Cj4gKyAgICAgICAgICAgICAgIG9mZnNldCA9IGRhdGEtPnNvZnRfcmVnc19zdGFy
-dCArIHNtdW1fZ2V0X29mZnNldG9mKGh3bWdyLT5zbXVtZ3IsCj4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFNNVV9Tb2Z0UmVn
-aXN0ZXJzLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBBdmVyYWdlR3JhcGhpY3NBY3Rpdml0eSk7Cj4gKwo+ICsgICAgICAg
-ICAgICAgICBhY3Rpdml0eV9wZXJjZW50ID0gY2dzX3JlYWRfaW5kX3JlZ2lzdGVyKGh3bWdyLT5k
-ZXZpY2UsIENHU19JTkRfUkVHX19TTUMsIG9mZnNldCk7Cj4gKyAgICAgICAgICAgICAgIGFjdGl2
-aXR5X3BlcmNlbnQgKz0gMHg4MDsKPiArICAgICAgICAgICAgICAgYWN0aXZpdHlfcGVyY2VudCA+
-Pj0gODsKPiArICAgICAgICAgICAgICAgKnZhbHVlID0gYWN0aXZpdHlfcGVyY2VudCA+IDEwMCA/
-IDEwMCA6IGFjdGl2aXR5X3BlcmNlbnQ7Cj4gKyAgICAgICAgICAgICAgIHJldHVybiAwOwo+ICsg
-ICAgICAgY2FzZSBBTURHUFVfUFBfU0VOU09SX0dQVV9URU1QOgo+ICsgICAgICAgICAgICAgICAq
-dmFsdWUgPSBzbXU3X3RoZXJtYWxfZ2V0X3RlbXBlcmF0dXJlKGh3bWdyKTsKPiArICAgICAgICAg
-ICAgICAgcmV0dXJuIDA7Cj4gKyAgICAgICBkZWZhdWx0Ogo+ICsgICAgICAgICAgICAgICByZXR1
-cm4gLUVJTlZBTDsKPiArICAgICAgIH0KPiArfQo+ICsKPiAgc3RhdGljIGludCBzbXU3X2ZpbmRf
-ZHBtX3N0YXRlc19jbG9ja3NfaW5fZHBtX3RhYmxlKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIGNv
-bnN0IHZvaWQgKmlucHV0KQo+ICB7Cj4gICAgICAgICBjb25zdCBzdHJ1Y3QgcGhtX3NldF9wb3dl
-cl9zdGF0ZV9pbnB1dCAqc3RhdGVzID0KPiBAQCAtNDMxNSw2ICs0MzUwLDcgQEAgc3RhdGljIHN0
-cnVjdCBwcF9od21ncl9mdW5jIHNtdTdfaHdtZ3JfZnVuY3MgPSB7Cj4gICAgICAgICAuZ2V0X21j
-bGtfb2QgPSBzbXU3X2dldF9tY2xrX29kLAo+ICAgICAgICAgLnNldF9tY2xrX29kID0gc211N19z
-ZXRfbWNsa19vZCwKPiAgICAgICAgIC5nZXRfY2xvY2tfYnlfdHlwZSA9IHNtdTdfZ2V0X2Nsb2Nr
-X2J5X3R5cGUsCj4gKyAgICAgICAucmVhZF9zZW5zb3IgPSBzbXU3X3JlYWRfc2Vuc29yLAo+ICB9
-Owo+Cj4gIHVpbnQ4X3Qgc211N19nZXRfc2xlZXBfZGl2aWRlcl9pZF9mcm9tX2Nsb2NrKHVpbnQz
-Ml90IGNsb2NrLAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9p
-bmMvYW1kX3Bvd2VycGxheS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2Ft
-ZF9wb3dlcnBsYXkuaAo+IGluZGV4IGY5NDFhY2Y1NjNhOS4uZGZhMGYzOGE1ZTc2IDEwMDY0NAo+
-IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9hbWRfcG93ZXJwbGF5LmgK
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvYW1kX3Bvd2VycGxheS5o
-Cj4gQEAgLTI5LDYgKzI5LDE3IEBACj4gICNpbmNsdWRlICJhbWRfc2hhcmVkLmgiCj4gICNpbmNs
-dWRlICJjZ3NfY29tbW9uLmgiCj4KPiArZW51bSBhbWRfcHBfc2Vuc29ycyB7Cj4gKyAgICAgICBB
-TURHUFVfUFBfU0VOU09SX0dGWF9TQ0xLID0gMCwKPiArICAgICAgIEFNREdQVV9QUF9TRU5TT1Jf
-VkRETkIsCj4gKyAgICAgICBBTURHUFVfUFBfU0VOU09SX1ZEREdGWCwKPiArICAgICAgIEFNREdQ
-VV9QUF9TRU5TT1JfVVZEX1ZDTEssCj4gKyAgICAgICBBTURHUFVfUFBfU0VOU09SX1VWRF9EQ0xL
-LAo+ICsgICAgICAgQU1ER1BVX1BQX1NFTlNPUl9WQ0VfRUNDTEssCj4gKyAgICAgICBBTURHUFVf
-UFBfU0VOU09SX0dQVV9MT0FELAo+ICsgICAgICAgQU1ER1BVX1BQX1NFTlNPUl9HRlhfTUNMSywK
-PiArICAgICAgIEFNREdQVV9QUF9TRU5TT1JfR1BVX1RFTVAsCj4gK307Cj4KPiAgZW51bSBhbWRf
-cHBfZXZlbnQgewo+ICAgICAgICAgQU1EX1BQX0VWRU5UX0lOSVRJQUxJWkUgPSAwLAo+IEBAIC0z
-NDcsNiArMzU4LDcgQEAgc3RydWN0IGFtZF9wb3dlcnBsYXlfZnVuY3Mgewo+ICAgICAgICAgaW50
-ICgqc2V0X3NjbGtfb2QpKHZvaWQgKmhhbmRsZSwgdWludDMyX3QgdmFsdWUpOwo+ICAgICAgICAg
-aW50ICgqZ2V0X21jbGtfb2QpKHZvaWQgKmhhbmRsZSk7Cj4gICAgICAgICBpbnQgKCpzZXRfbWNs
-a19vZCkodm9pZCAqaGFuZGxlLCB1aW50MzJfdCB2YWx1ZSk7Cj4gKyAgICAgICBpbnQgKCpyZWFk
-X3NlbnNvcikodm9pZCAqaGFuZGxlLCBpbnQgaWR4LCBpbnQzMl90ICp2YWx1ZSk7Cj4gIH07Cj4K
-PiAgc3RydWN0IGFtZF9wb3dlcnBsYXkgewo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9pbmMvaHdtZ3IuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
-L2luYy9od21nci5oCj4gaW5kZXggYzk2MjhiNGRiMmMzLi5mY2Q0NTQ1MjM4MGQgMTAwNjQ0Cj4g
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2h3bWdyLmgKPiArKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvaHdtZ3IuaAo+IEBAIC0zNTksNiArMzU5
-LDcgQEAgc3RydWN0IHBwX2h3bWdyX2Z1bmMgewo+ICAgICAgICAgaW50ICgqc2V0X3NjbGtfb2Qp
-KHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIHVpbnQzMl90IHZhbHVlKTsKPiAgICAgICAgIGludCAo
-KmdldF9tY2xrX29kKShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKTsKPiAgICAgICAgIGludCAoKnNl
-dF9tY2xrX29kKShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLCB1aW50MzJfdCB2YWx1ZSk7Cj4gKyAg
-ICAgICBpbnQgKCpyZWFkX3NlbnNvcikoc3RydWN0IHBwX2h3bWdyICpod21nciwgaW50IGlkeCwg
-aW50MzJfdCAqdmFsdWUpOwo+ICB9Owo+Cj4gIHN0cnVjdCBwcF90YWJsZV9mdW5jIHsKPiAtLQo+
-IDIuMTAuMAo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
-bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============0321915723==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB17688AA3886A61A51BE31262F7F40CY4PR12MB1768namp_"
+
+--_000_CY4PR12MB17688AA3886A61A51BE31262F7F40CY4PR12MB1768namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Alex,
+
+
+Would you prefer I re-write #1 to avoid churn in the tree?
+
+
+Cheers,
+
+Tom
+
+
+________________________________
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Monday, September 19, 2016 11:53
+To: Tom St Denis
+Cc: amd-gfx list; StDenis, Tom
+Subject: Re: [PATCH 1/2] drm/amd/powerplay: Add read_sensor() callback to h=
+wmgr (v3)
+
+On Mon, Sep 19, 2016 at 9:10 AM, Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+> Provides standardized interface to read various sensors.
+> The API is extensible (by adding to the end of the
+> amd_pp_sensors enumeration list.
+>
+> Support has been added to Carrizo/smu7
+>
+> (v2) Squashed the two sensor patches into one.
+> (v3) Updated to apply to smu7_hwmgr instead
+>
+> Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/powerplay/amd_powerplay.c     | 20 +++++
+>  drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c    | 96 +++++++++++++++++=
+++++++
+>  drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c  | 36 +++++++++
+>  drivers/gpu/drm/amd/powerplay/inc/amd_powerplay.h | 12 +++
+>  drivers/gpu/drm/amd/powerplay/inc/hwmgr.h         |  1 +
+>  5 files changed, 165 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gpu/=
+drm/amd/powerplay/amd_powerplay.c
+> index b1d19409bf86..ee0368381e82 100644
+> --- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+> +++ b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+> @@ -894,6 +894,25 @@ static int pp_dpm_set_mclk_od(void *handle, uint32_t=
+ value)
+>         return hwmgr->hwmgr_func->set_mclk_od(hwmgr, value);
+>  }
+>
+> +static int pp_dpm_read_sensor(void *handle, int idx, int32_t *value)
+> +{
+> +       struct pp_hwmgr *hwmgr;
+> +
+> +       if (!handle)
+> +               return -EINVAL;
+> +
+> +       hwmgr =3D ((struct pp_instance *)handle)->hwmgr;
+> +
+> +       PP_CHECK_HW(hwmgr);
+> +
+> +       if (hwmgr->hwmgr_func->read_sensor =3D=3D NULL) {
+> +               printk(KERN_INFO "%s was not implemented.\n", __func__);
+> +               return 0;
+> +       }
+> +
+> +       return hwmgr->hwmgr_func->read_sensor(hwmgr, idx, value);
+> +}
+> +
+>  const struct amd_powerplay_funcs pp_dpm_funcs =3D {
+>         .get_temperature =3D pp_dpm_get_temperature,
+>         .load_firmware =3D pp_dpm_load_fw,
+> @@ -920,6 +939,7 @@ const struct amd_powerplay_funcs pp_dpm_funcs =3D {
+>         .set_sclk_od =3D pp_dpm_set_sclk_od,
+>         .get_mclk_od =3D pp_dpm_get_mclk_od,
+>         .set_mclk_od =3D pp_dpm_set_mclk_od,
+> +       .read_sensor =3D pp_dpm_read_sensor,
+
+As a future patch it would be nice to hook up this sensor interface to
+the existing amdgpu_pm_info code and make that asic indpendent.
+
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+Alex
+
+
+>  };
+>
+>  static int amd_pp_instance_init(struct amd_pp_init *pp_init,
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c b/drivers/gpu=
+/drm/amd/powerplay/hwmgr/cz_hwmgr.c
+> index 5ecef1732e20..9f3c5a8a903c 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
+> @@ -1857,6 +1857,101 @@ static int cz_get_max_high_clocks(struct pp_hwmgr=
+ *hwmgr, struct amd_pp_simple_c
+>         return 0;
+>  }
+>
+> +static int cz_read_sensor(struct pp_hwmgr *hwmgr, int idx, int32_t *valu=
+e)
+> +{
+> +       struct cz_hwmgr *cz_hwmgr =3D (struct cz_hwmgr *)(hwmgr->backend)=
+;
+> +
+> +       struct phm_clock_voltage_dependency_table *table =3D
+> +                               hwmgr->dyn_state.vddc_dependency_on_sclk;
+> +
+> +       struct phm_vce_clock_voltage_dependency_table *vce_table =3D
+> +               hwmgr->dyn_state.vce_clock_voltage_dependency_table;
+> +
+> +       struct phm_uvd_clock_voltage_dependency_table *uvd_table =3D
+> +               hwmgr->dyn_state.uvd_clock_voltage_dependency_table;
+> +
+> +       uint32_t sclk_index =3D PHM_GET_FIELD(cgs_read_ind_register(hwmgr=
+->device, CGS_IND_REG__SMC, ixTARGET_AND_CURRENT_PROFILE_INDEX),
+> +                                       TARGET_AND_CURRENT_PROFILE_INDEX,=
+ CURR_SCLK_INDEX);
+> +       uint32_t uvd_index =3D PHM_GET_FIELD(cgs_read_ind_register(hwmgr-=
+>device, CGS_IND_REG__SMC, ixTARGET_AND_CURRENT_PROFILE_INDEX_2),
+> +                                       TARGET_AND_CURRENT_PROFILE_INDEX_=
+2, CURR_UVD_INDEX);
+> +       uint32_t vce_index =3D PHM_GET_FIELD(cgs_read_ind_register(hwmgr-=
+>device, CGS_IND_REG__SMC, ixTARGET_AND_CURRENT_PROFILE_INDEX_2),
+> +                                       TARGET_AND_CURRENT_PROFILE_INDEX_=
+2, CURR_VCE_INDEX);
+> +
+> +       uint32_t sclk, vclk, dclk, ecclk, tmp, activity_percent;
+> +       uint16_t vddnb, vddgfx;
+> +       int result;
+> +
+> +       switch (idx) {
+> +       case AMDGPU_PP_SENSOR_GFX_SCLK:
+> +               if (sclk_index < NUM_SCLK_LEVELS) {
+> +                       sclk =3D table->entries[sclk_index].clk;
+> +                       *value =3D sclk;
+> +                       return 0;
+> +               }
+> +               return -EINVAL;
+> +       case AMDGPU_PP_SENSOR_VDDNB:
+> +               tmp =3D (cgs_read_ind_register(hwmgr->device, CGS_IND_REG=
+__SMC, ixSMUSVI_NB_CURRENTVID) &
+> +                       CURRENT_NB_VID_MASK) >> CURRENT_NB_VID__SHIFT;
+> +               vddnb =3D cz_convert_8Bit_index_to_voltage(hwmgr, tmp);
+> +               *value =3D vddnb;
+> +               return 0;
+> +       case AMDGPU_PP_SENSOR_VDDGFX:
+> +               tmp =3D (cgs_read_ind_register(hwmgr->device, CGS_IND_REG=
+__SMC, ixSMUSVI_GFX_CURRENTVID) &
+> +                       CURRENT_GFX_VID_MASK) >> CURRENT_GFX_VID__SHIFT;
+> +               vddgfx =3D cz_convert_8Bit_index_to_voltage(hwmgr, (u16)t=
+mp);
+> +               *value =3D vddgfx;
+> +               return 0;
+> +       case AMDGPU_PP_SENSOR_UVD_VCLK:
+> +               if (!cz_hwmgr->uvd_power_gated) {
+> +                       if (uvd_index >=3D CZ_MAX_HARDWARE_POWERLEVELS) {
+> +                               return -EINVAL;
+> +                       } else {
+> +                               vclk =3D uvd_table->entries[uvd_index].vc=
+lk;
+> +                               *value =3D vclk;
+> +                               return 0;
+> +                       }
+> +               }
+> +               *value =3D 0;
+> +               return 0;
+> +       case AMDGPU_PP_SENSOR_UVD_DCLK:
+> +               if (!cz_hwmgr->uvd_power_gated) {
+> +                       if (uvd_index >=3D CZ_MAX_HARDWARE_POWERLEVELS) {
+> +                               return -EINVAL;
+> +                       } else {
+> +                               dclk =3D uvd_table->entries[uvd_index].dc=
+lk;
+> +                               *value =3D dclk;
+> +                               return 0;
+> +                       }
+> +               }
+> +               *value =3D 0;
+> +               return 0;
+> +       case AMDGPU_PP_SENSOR_VCE_ECCLK:
+> +               if (!cz_hwmgr->vce_power_gated) {
+> +                       if (vce_index >=3D CZ_MAX_HARDWARE_POWERLEVELS) {
+> +                               return -EINVAL;
+> +                       } else {
+> +                               ecclk =3D vce_table->entries[vce_index].e=
+cclk;
+> +                               *value =3D ecclk;
+> +                               return 0;
+> +                       }
+> +               }
+> +               *value =3D 0;
+> +               return 0;
+> +       case AMDGPU_PP_SENSOR_GPU_LOAD:
+> +               result =3D smum_send_msg_to_smc(hwmgr->smumgr, PPSMC_MSG_=
+GetAverageGraphicsActivity);
+> +               if (0 =3D=3D result) {
+> +                       activity_percent =3D cgs_read_register(hwmgr->dev=
+ice, mmSMU_MP1_SRBM2P_ARG_0);
+> +                       activity_percent =3D activity_percent > 100 ? 100=
+ : activity_percent;
+> +               } else {
+> +                       activity_percent =3D 50;
+> +               }
+> +               *value =3D activity_percent;
+> +               return 0;
+> +       default:
+> +               return -EINVAL;
+> +       }
+> +}
+> +
+>  static const struct pp_hwmgr_func cz_hwmgr_funcs =3D {
+>         .backend_init =3D cz_hwmgr_backend_init,
+>         .backend_fini =3D cz_hwmgr_backend_fini,
+> @@ -1882,6 +1977,7 @@ static const struct pp_hwmgr_func cz_hwmgr_funcs =
+=3D {
+>         .get_current_shallow_sleep_clocks =3D cz_get_current_shallow_slee=
+p_clocks,
+>         .get_clock_by_type =3D cz_get_clock_by_type,
+>         .get_max_high_clocks =3D cz_get_max_high_clocks,
+> +       .read_sensor =3D cz_read_sensor,
+>  };
+>
+>  int cz_hwmgr_init(struct pp_hwmgr *hwmgr)
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+> index f67e1e260b30..07a7d046d6f6 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+> @@ -3144,6 +3144,41 @@ smu7_print_current_perforce_level(struct pp_hwmgr =
+*hwmgr, struct seq_file *m)
+>         seq_printf(m, "vce    %sabled\n", data->vce_power_gated ? "dis" :=
+ "en");
+>  }
+>
+> +static int smu7_read_sensor(struct pp_hwmgr *hwmgr, int idx, int32_t *va=
+lue)
+> +{
+> +       uint32_t sclk, mclk, activity_percent;
+> +       uint32_t offset;
+> +       struct smu7_hwmgr *data =3D (struct smu7_hwmgr *)(hwmgr->backend)=
+;
+> +
+> +       switch (idx) {
+> +       case AMDGPU_PP_SENSOR_GFX_SCLK:
+> +               smum_send_msg_to_smc(hwmgr->smumgr, PPSMC_MSG_API_GetSclk=
+Frequency);
+> +               sclk =3D cgs_read_register(hwmgr->device, mmSMC_MSG_ARG_0=
+);
+> +               *value =3D sclk;
+> +               return 0;
+> +       case AMDGPU_PP_SENSOR_GFX_MCLK:
+> +               smum_send_msg_to_smc(hwmgr->smumgr, PPSMC_MSG_API_GetMclk=
+Frequency);
+> +               mclk =3D cgs_read_register(hwmgr->device, mmSMC_MSG_ARG_0=
+);
+> +               *value =3D mclk;
+> +               return 0;
+> +       case AMDGPU_PP_SENSOR_GPU_LOAD:
+> +               offset =3D data->soft_regs_start + smum_get_offsetof(hwmg=
+r->smumgr,
+> +                                                               SMU_SoftR=
+egisters,
+> +                                                               AverageGr=
+aphicsActivity);
+> +
+> +               activity_percent =3D cgs_read_ind_register(hwmgr->device,=
+ CGS_IND_REG__SMC, offset);
+> +               activity_percent +=3D 0x80;
+> +               activity_percent >>=3D 8;
+> +               *value =3D activity_percent > 100 ? 100 : activity_percen=
+t;
+> +               return 0;
+> +       case AMDGPU_PP_SENSOR_GPU_TEMP:
+> +               *value =3D smu7_thermal_get_temperature(hwmgr);
+> +               return 0;
+> +       default:
+> +               return -EINVAL;
+> +       }
+> +}
+> +
+>  static int smu7_find_dpm_states_clocks_in_dpm_table(struct pp_hwmgr *hwm=
+gr, const void *input)
+>  {
+>         const struct phm_set_power_state_input *states =3D
+> @@ -4315,6 +4350,7 @@ static struct pp_hwmgr_func smu7_hwmgr_funcs =3D {
+>         .get_mclk_od =3D smu7_get_mclk_od,
+>         .set_mclk_od =3D smu7_set_mclk_od,
+>         .get_clock_by_type =3D smu7_get_clock_by_type,
+> +       .read_sensor =3D smu7_read_sensor,
+>  };
+>
+>  uint8_t smu7_get_sleep_divider_id_from_clock(uint32_t clock,
+> diff --git a/drivers/gpu/drm/amd/powerplay/inc/amd_powerplay.h b/drivers/=
+gpu/drm/amd/powerplay/inc/amd_powerplay.h
+> index f941acf563a9..dfa0f38a5e76 100644
+> --- a/drivers/gpu/drm/amd/powerplay/inc/amd_powerplay.h
+> +++ b/drivers/gpu/drm/amd/powerplay/inc/amd_powerplay.h
+> @@ -29,6 +29,17 @@
+>  #include "amd_shared.h"
+>  #include "cgs_common.h"
+>
+> +enum amd_pp_sensors {
+> +       AMDGPU_PP_SENSOR_GFX_SCLK =3D 0,
+> +       AMDGPU_PP_SENSOR_VDDNB,
+> +       AMDGPU_PP_SENSOR_VDDGFX,
+> +       AMDGPU_PP_SENSOR_UVD_VCLK,
+> +       AMDGPU_PP_SENSOR_UVD_DCLK,
+> +       AMDGPU_PP_SENSOR_VCE_ECCLK,
+> +       AMDGPU_PP_SENSOR_GPU_LOAD,
+> +       AMDGPU_PP_SENSOR_GFX_MCLK,
+> +       AMDGPU_PP_SENSOR_GPU_TEMP,
+> +};
+>
+>  enum amd_pp_event {
+>         AMD_PP_EVENT_INITIALIZE =3D 0,
+> @@ -347,6 +358,7 @@ struct amd_powerplay_funcs {
+>         int (*set_sclk_od)(void *handle, uint32_t value);
+>         int (*get_mclk_od)(void *handle);
+>         int (*set_mclk_od)(void *handle, uint32_t value);
+> +       int (*read_sensor)(void *handle, int idx, int32_t *value);
+>  };
+>
+>  struct amd_powerplay {
+> diff --git a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h b/drivers/gpu/drm/=
+amd/powerplay/inc/hwmgr.h
+> index c9628b4db2c3..fcd45452380d 100644
+> --- a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
+> +++ b/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
+> @@ -359,6 +359,7 @@ struct pp_hwmgr_func {
+>         int (*set_sclk_od)(struct pp_hwmgr *hwmgr, uint32_t value);
+>         int (*get_mclk_od)(struct pp_hwmgr *hwmgr);
+>         int (*set_mclk_od)(struct pp_hwmgr *hwmgr, uint32_t value);
+> +       int (*read_sensor)(struct pp_hwmgr *hwmgr, int idx, int32_t *valu=
+e);
+>  };
+>
+>  struct pp_table_func {
+> --
+> 2.10.0
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+amd-gfx Info Page - lists.freedesktop.org<https://lists.freedesktop.org/mai=
+lman/listinfo/amd-gfx>
+lists.freedesktop.org
+To see the collection of prior postings to the list, visit the amd-gfx Arch=
+ives. Using amd-gfx: To post a message to all the list members, send email =
+...
+
+
+
+
+--_000_CY4PR12MB17688AA3886A61A51BE31262F7F40CY4PR12MB1768namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;back=
+ground-color:#FFFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
+<p>Hi Alex,</p>
+<p><br>
+</p>
+<p>Would you prefer I re-write #1 to avoid churn in the tree?</p>
+<p><br>
+</p>
+<p>Cheers,</p>
+<p>Tom</p>
+<br>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Alex Deucher &lt;al=
+exdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Sent:</b> Monday, September 19, 2016 11:53<br>
+<b>To:</b> Tom St Denis<br>
+<b>Cc:</b> amd-gfx list; StDenis, Tom<br>
+<b>Subject:</b> Re: [PATCH 1/2] drm/amd/powerplay: Add read_sensor() callba=
+ck to hwmgr (v3)</font>
+<div>&nbsp;</div>
+</div>
+</div>
+<font size=3D"2"><span style=3D"font-size:10pt;">
+<div class=3D"PlainText">On Mon, Sep 19, 2016 at 9:10 AM, Tom St Denis &lt;=
+tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt; wrote:<br>
+&gt; Provides standardized interface to read various sensors.<br>
+&gt; The API is extensible (by adding to the end of the<br>
+&gt; amd_pp_sensors enumeration list.<br>
+&gt;<br>
+&gt; Support has been added to Carrizo/smu7<br>
+&gt;<br>
+&gt; (v2) Squashed the two sensor patches into one.<br>
+&gt; (v3) Updated to apply to smu7_hwmgr instead<br>
+&gt;<br>
+&gt; Signed-off-by: Tom St Denis &lt;tom.stdenis-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; ---<br>
+&gt;&nbsp; drivers/gpu/drm/amd/powerplay/amd_powerplay.c&nbsp;&nbsp;&nbsp;&=
+nbsp; | 20 &#43;&#43;&#43;&#43;&#43;<br>
+&gt;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c&nbsp;&nbsp;&nbsp;=
+ | 96 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43=
+;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&gt;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c&nbsp; | 36 &#43=
+;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&gt;&nbsp; drivers/gpu/drm/amd/powerplay/inc/amd_powerplay.h | 12 &#43;&#43=
+;&#43;<br>
+&gt;&nbsp; drivers/gpu/drm/amd/powerplay/inc/hwmgr.h&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 1 &#43;<br>
+&gt;&nbsp; 5 files changed, 165 insertions(&#43;)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/g=
+pu/drm/amd/powerplay/amd_powerplay.c<br>
+&gt; index b1d19409bf86..ee0368381e82 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c<br>
+&gt; @@ -894,6 &#43;894,25 @@ static int pp_dpm_set_mclk_od(void *handle, u=
+int32_t value)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return hwmgr-&gt;hwmgr=
+_func-&gt;set_mclk_od(hwmgr, value);<br>
+&gt;&nbsp; }<br>
+&gt;<br>
+&gt; &#43;static int pp_dpm_read_sensor(void *handle, int idx, int32_t *val=
+ue)<br>
+&gt; &#43;{<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pp_hwmgr *hwmgr;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!handle)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr =3D ((struct pp_instan=
+ce *)handle)-&gt;hwmgr;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_CHECK_HW(hwmgr);<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;hwmgr_func-&gt=
+;read_sensor =3D=3D NULL) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; printk(KERN_INFO &quot;%s was not implemented.\n&quot;,=
+ __func__);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return hwmgr-&gt;hwmgr_func-=
+&gt;read_sensor(hwmgr, idx, value);<br>
+&gt; &#43;}<br>
+&gt; &#43;<br>
+&gt;&nbsp; const struct amd_powerplay_funcs pp_dpm_funcs =3D {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_temperature =3D p=
+p_dpm_get_temperature,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .load_firmware =3D pp_=
+dpm_load_fw,<br>
+&gt; @@ -920,6 &#43;939,7 @@ const struct amd_powerplay_funcs pp_dpm_funcs =
+=3D {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_sclk_od =3D pp_dp=
+m_set_sclk_od,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_mclk_od =3D pp_dp=
+m_get_mclk_od,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_mclk_od =3D pp_dp=
+m_set_mclk_od,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_sensor =3D pp_dpm_read=
+_sensor,<br>
+<br>
+As a future patch it would be nice to hook up this sensor interface to<br>
+the existing amdgpu_pm_info code and make that asic indpendent.<br>
+<br>
+Series is:<br>
+Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+Alex<br>
+<br>
+<br>
+&gt;&nbsp; };<br>
+&gt;<br>
+&gt;&nbsp; static int amd_pp_instance_init(struct amd_pp_init *pp_init,<br>
+&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c b/drivers/=
+gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c<br>
+&gt; index 5ecef1732e20..9f3c5a8a903c 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c<br>
+&gt; @@ -1857,6 &#43;1857,101 @@ static int cz_get_max_high_clocks(struct p=
+p_hwmgr *hwmgr, struct amd_pp_simple_c<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp; }<br>
+&gt;<br>
+&gt; &#43;static int cz_read_sensor(struct pp_hwmgr *hwmgr, int idx, int32_=
+t *value)<br>
+&gt; &#43;{<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct cz_hwmgr *cz_hwmgr =
+=3D (struct cz_hwmgr *)(hwmgr-&gt;backend);<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct phm_clock_voltage_dep=
+endency_table *table =3D<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;dyn_state.vddc_dependenc=
+y_on_sclk;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct phm_vce_clock_voltage=
+_dependency_table *vce_table =3D<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; hwmgr-&gt;dyn_state.vce_clock_voltage_dependency_table;=
+<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct phm_uvd_clock_voltage=
+_dependency_table *uvd_table =3D<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; hwmgr-&gt;dyn_state.uvd_clock_voltage_dependency_table;=
+<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sclk_index =3D PHM_=
+GET_FIELD(cgs_read_ind_register(hwmgr-&gt;device, CGS_IND_REG__SMC, ixTARGE=
+T_AND_CURRENT_PROFILE_INDEX),<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; TARGET_AND_CURRENT_PROFILE_INDEX, CURR_SCLK_INDEX);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t uvd_index =3D PHM_G=
+ET_FIELD(cgs_read_ind_register(hwmgr-&gt;device, CGS_IND_REG__SMC, ixTARGET=
+_AND_CURRENT_PROFILE_INDEX_2),<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; TARGET_AND_CURRENT_PROFILE_INDEX_2, CURR_UVD_INDEX);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t vce_index =3D PHM_G=
+ET_FIELD(cgs_read_ind_register(hwmgr-&gt;device, CGS_IND_REG__SMC, ixTARGET=
+_AND_CURRENT_PROFILE_INDEX_2),<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; TARGET_AND_CURRENT_PROFILE_INDEX_2, CURR_VCE_INDEX);<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sclk, vclk, dclk, e=
+cclk, tmp, activity_percent;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint16_t vddnb, vddgfx;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int result;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (idx) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GFX_SC=
+LK:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (sclk_index &lt; NUM_SCLK_LEVELS) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sclk =
+=3D table-&gt;entries[sclk_index].clk;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *value =
+=3D sclk;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
+0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_VDDNB:=
+<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; tmp =3D (cgs_read_ind_register(hwmgr-&gt;device, CGS_IN=
+D_REG__SMC, ixSMUSVI_NB_CURRENTVID) &amp;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CURRENT=
+_NB_VID_MASK) &gt;&gt; CURRENT_NB_VID__SHIFT;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; vddnb =3D cz_convert_8Bit_index_to_voltage(hwmgr, tmp);=
+<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; *value =3D vddnb;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_VDDGFX=
+:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; tmp =3D (cgs_read_ind_register(hwmgr-&gt;device, CGS_IN=
+D_REG__SMC, ixSMUSVI_GFX_CURRENTVID) &amp;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CURRENT=
+_GFX_VID_MASK) &gt;&gt; CURRENT_GFX_VID__SHIFT;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; vddgfx =3D cz_convert_8Bit_index_to_voltage(hwmgr, (u16=
+)tmp);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; *value =3D vddgfx;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_UVD_VC=
+LK:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (!cz_hwmgr-&gt;uvd_power_gated) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (uvd=
+_index &gt;=3D CZ_MAX_HARDWARE_POWERLEVELS) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else =
+{<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vclk =3D uvd_table-&gt;entries[uvd=
+_index].vclk;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *value =3D vclk;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; *value =3D 0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_UVD_DC=
+LK:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (!cz_hwmgr-&gt;uvd_power_gated) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (uvd=
+_index &gt;=3D CZ_MAX_HARDWARE_POWERLEVELS) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else =
+{<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dclk =3D uvd_table-&gt;entries[uvd=
+_index].dclk;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *value =3D dclk;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; *value =3D 0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_VCE_EC=
+CLK:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (!cz_hwmgr-&gt;vce_power_gated) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (vce=
+_index &gt;=3D CZ_MAX_HARDWARE_POWERLEVELS) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else =
+{<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ecclk =3D vce_table-&gt;entries[vc=
+e_index].ecclk;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *value =3D ecclk;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; *value =3D 0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GPU_LO=
+AD:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; result =3D smum_send_msg_to_smc(hwmgr-&gt;smumgr, PPSMC=
+_MSG_GetAverageGraphicsActivity);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (0 =3D=3D result) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; activit=
+y_percent =3D cgs_read_register(hwmgr-&gt;device, mmSMU_MP1_SRBM2P_ARG_0);<=
+br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; activit=
+y_percent =3D activity_percent &gt; 100 ? 100 : activity_percent;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; } else {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; activit=
+y_percent =3D 50;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; *value =3D activity_percent;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;}<br>
+&gt; &#43;<br>
+&gt;&nbsp; static const struct pp_hwmgr_func cz_hwmgr_funcs =3D {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .backend_init =3D cz_h=
+wmgr_backend_init,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .backend_fini =3D cz_h=
+wmgr_backend_fini,<br>
+&gt; @@ -1882,6 &#43;1977,7 @@ static const struct pp_hwmgr_func cz_hwmgr_f=
+uncs =3D {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_current_shallow_s=
+leep_clocks =3D cz_get_current_shallow_sleep_clocks,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_clock_by_type =3D=
+ cz_get_clock_by_type,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_max_high_clocks =
+=3D cz_get_max_high_clocks,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_sensor =3D cz_read_sen=
+sor,<br>
+&gt;&nbsp; };<br>
+&gt;<br>
+&gt;&nbsp; int cz_hwmgr_init(struct pp_hwmgr *hwmgr)<br>
+&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/driver=
+s/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+&gt; index f67e1e260b30..07a7d046d6f6 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+&gt; @@ -3144,6 &#43;3144,41 @@ smu7_print_current_perforce_level(struct pp=
+_hwmgr *hwmgr, struct seq_file *m)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; seq_printf(m, &quot;vc=
+e&nbsp;&nbsp;&nbsp; %sabled\n&quot;, data-&gt;vce_power_gated ? &quot;dis&q=
+uot; : &quot;en&quot;);<br>
+&gt;&nbsp; }<br>
+&gt;<br>
+&gt; &#43;static int smu7_read_sensor(struct pp_hwmgr *hwmgr, int idx, int3=
+2_t *value)<br>
+&gt; &#43;{<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sclk, mclk, activit=
+y_percent;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t offset;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu7_hwmgr *data =3D =
+(struct smu7_hwmgr *)(hwmgr-&gt;backend);<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (idx) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GFX_SC=
+LK:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; smum_send_msg_to_smc(hwmgr-&gt;smumgr, PPSMC_MSG_API_Ge=
+tSclkFrequency);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; sclk =3D cgs_read_register(hwmgr-&gt;device, mmSMC_MSG_=
+ARG_0);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; *value =3D sclk;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GFX_MC=
+LK:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; smum_send_msg_to_smc(hwmgr-&gt;smumgr, PPSMC_MSG_API_Ge=
+tMclkFrequency);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; mclk =3D cgs_read_register(hwmgr-&gt;device, mmSMC_MSG_=
+ARG_0);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; *value =3D mclk;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GPU_LO=
+AD:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; offset =3D data-&gt;soft_regs_start &#43; smum_get_offs=
+etof(hwmgr-&gt;smumgr,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; SMU_SoftRegisters,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; AverageGraphicsActivity);<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; activity_percent =3D cgs_read_ind_register(hwmgr-&gt;de=
+vice, CGS_IND_REG__SMC, offset);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; activity_percent &#43;=3D 0x80;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; activity_percent &gt;&gt;=3D 8;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; *value =3D activity_percent &gt; 100 ? 100 : activity_p=
+ercent;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GPU_TE=
+MP:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; *value =3D smu7_thermal_get_temperature(hwmgr);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;}<br>
+&gt; &#43;<br>
+&gt;&nbsp; static int smu7_find_dpm_states_clocks_in_dpm_table(struct pp_hw=
+mgr *hwmgr, const void *input)<br>
+&gt;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct phm_set_p=
+ower_state_input *states =3D<br>
+&gt; @@ -4315,6 &#43;4350,7 @@ static struct pp_hwmgr_func smu7_hwmgr_funcs=
+ =3D {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_mclk_od =3D smu7_=
+get_mclk_od,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_mclk_od =3D smu7_=
+set_mclk_od,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_clock_by_type =3D=
+ smu7_get_clock_by_type,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_sensor =3D smu7_read_s=
+ensor,<br>
+&gt;&nbsp; };<br>
+&gt;<br>
+&gt;&nbsp; uint8_t smu7_get_sleep_divider_id_from_clock(uint32_t clock,<br>
+&gt; diff --git a/drivers/gpu/drm/amd/powerplay/inc/amd_powerplay.h b/drive=
+rs/gpu/drm/amd/powerplay/inc/amd_powerplay.h<br>
+&gt; index f941acf563a9..dfa0f38a5e76 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/powerplay/inc/amd_powerplay.h<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/amd_powerplay.h<br=
+>
+&gt; @@ -29,6 &#43;29,17 @@<br>
+&gt;&nbsp; #include &quot;amd_shared.h&quot;<br>
+&gt;&nbsp; #include &quot;cgs_common.h&quot;<br>
+&gt;<br>
+&gt; &#43;enum amd_pp_sensors {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_PP_SENSOR_GFX_SCLK =
+=3D 0,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_PP_SENSOR_VDDNB,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_PP_SENSOR_VDDGFX,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_PP_SENSOR_UVD_VCLK,<b=
+r>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_PP_SENSOR_UVD_DCLK,<b=
+r>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_PP_SENSOR_VCE_ECCLK,<=
+br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_PP_SENSOR_GPU_LOAD,<b=
+r>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_PP_SENSOR_GFX_MCLK,<b=
+r>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_PP_SENSOR_GPU_TEMP,<b=
+r>
+&gt; &#43;};<br>
+&gt;<br>
+&gt;&nbsp; enum amd_pp_event {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMD_PP_EVENT_INITIALIZ=
+E =3D 0,<br>
+&gt; @@ -347,6 &#43;358,7 @@ struct amd_powerplay_funcs {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_sclk_od)(voi=
+d *handle, uint32_t value);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*get_mclk_od)(voi=
+d *handle);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_mclk_od)(voi=
+d *handle, uint32_t value);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*read_sensor)(void *han=
+dle, int idx, int32_t *value);<br>
+&gt;&nbsp; };<br>
+&gt;<br>
+&gt;&nbsp; struct amd_powerplay {<br>
+&gt; diff --git a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h b/drivers/gpu/d=
+rm/amd/powerplay/inc/hwmgr.h<br>
+&gt; index c9628b4db2c3..fcd45452380d 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h<br>
+&gt; @@ -359,6 &#43;359,7 @@ struct pp_hwmgr_func {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_sclk_od)(str=
+uct pp_hwmgr *hwmgr, uint32_t value);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*get_mclk_od)(str=
+uct pp_hwmgr *hwmgr);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_mclk_od)(str=
+uct pp_hwmgr *hwmgr, uint32_t value);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*read_sensor)(struct pp=
+_hwmgr *hwmgr, int idx, int32_t *value);<br>
+&gt;&nbsp; };<br>
+&gt;<br>
+&gt;&nbsp; struct pp_table_func {<br>
+&gt; --<br>
+&gt; 2.10.0<br>
+&gt;<br>
+&gt; _______________________________________________<br>
+&gt; amd-gfx mailing list<br>
+&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=
+=3D"LPlnk724524">
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+<div id=3D"LPBorder_GT_14743004775210.15276233173698328" style=3D"margin-bo=
+ttom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
+<table id=3D"LPContainer_14743004775190.49899342106105293" cellspacing=3D"0=
+" style=3D"width: 90%; background-color: rgb(255, 255, 255); position: rela=
+tive; overflow: auto; padding-top: 20px; padding-bottom: 20px; margin-top: =
+20px; border-top: 1px dotted rgb(200, 200, 200); border-bottom: 1px dotted =
+rgb(200, 200, 200);">
+<tbody>
+<tr valign=3D"top" style=3D"border-spacing: 0px;">
+<td id=3D"TextCell_14743004775200.7956016082987132" colspan=3D"2" style=3D"=
+vertical-align: top; position: relative; padding: 0px; display: table-cell;=
+">
+<div id=3D"LPRemovePreviewContainer_14743004775200.6248479015358717"></div>
+<div id=3D"LPTitle_14743004775200.21508066420594152" style=3D"top: 0px; col=
+or: rgb(59, 87, 119); font-weight: normal; font-size: 21px; font-family: wf=
+_segoe-ui_light, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&quot;, &q=
+uot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif; line-h=
+eight: 21px;">
+<a id=3D"LPUrlAnchor_14743004775200.7167293884594854" href=3D"https://lists=
+.freedesktop.org/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"text-=
+decoration: none;">amd-gfx Info Page - lists.freedesktop.org</a></div>
+<div id=3D"LPMetadata_14743004775200.2972104013311352" style=3D"margin: 10p=
+x 0px 16px; color: rgb(102, 102, 102); font-weight: normal; font-family: wf=
+_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial=
+, sans-serif; font-size: 14px; line-height: 14px;">
+lists.freedesktop.org</div>
+<div id=3D"LPDescription_14743004775200.9065864460282174" style=3D"display:=
+ block; color: rgb(102, 102, 102); font-weight: normal; font-family: wf_seg=
+oe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sa=
+ns-serif; font-size: 14px; line-height: 20px; max-height: 100px; overflow: =
+hidden;">
+To see the collection of prior postings to the list, visit the amd-gfx Arch=
+ives. Using amd-gfx: To post a message to all the list members, send email =
+...</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_CY4PR12MB17688AA3886A61A51BE31262F7F40CY4PR12MB1768namp_--
+
+--===============0321915723==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0321915723==--
