@@ -1,11 +1,12 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 2/5] drm/amdgpu: make sriov bios detection generic (v2)
-Date: Mon, 19 Sep 2016 14:44:15 -0400
-Message-ID: <1474310655-3094-1-git-send-email-alexander.deucher@amd.com>
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH 1/5] drm/amdgpu/vi: whitespace fixes
+Date: Tue, 20 Sep 2016 09:31:07 +1000
+Message-ID: <04b4825e-fc31-2c79-9a78-13be900d19d5@folklore1984.net>
+References: <1474310162-21802-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0607897465=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1474310162-21802-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,73 +18,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-SXQncyBub3QgYXNpYyBzcGVjaWZpYy4KCnYyOiBkcm9wIGFzaWMgbWFjcm8KClNpZ25lZC1vZmYt
-Ynk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KLS0tCiBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCAgICAgICAgfCAyIC0tCiBkcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCA5ICsrKysrKystLQogZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvdmkuYyAgICAgICAgICAgIHwgNyAtLS0tLS0tCiAzIGZpbGVzIGNoYW5n
-ZWQsIDcgaW5zZXJ0aW9ucygrKSwgMTEgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHUuaAppbmRleCBmZjZlNjgzLi5mYjhkNjAzIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHUuaApAQCAtMTgyOCw3ICsxODI4LDYgQEAgc3RydWN0IGFtZGdwdV9hc2ljX2Z1bmNz
-IHsKIAlib29sICgqcmVhZF9iaW9zX2Zyb21fcm9tKShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-diwKIAkJCQkgICB1OCAqYmlvcywgdTMyIGxlbmd0aF9ieXRlcyk7CiAJdm9pZCAoKmRldGVjdF9o
-d192aXJ0dWFsaXphdGlvbikgKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKLQl2b2lkICgq
-ZGV0ZWN0X3NyaW92X2Jpb3MpKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKIAlpbnQgKCpy
-ZWFkX3JlZ2lzdGVyKShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdTMyIHNlX251bSwKIAkJ
-CSAgICAgdTMyIHNoX251bSwgdTMyIHJlZ19vZmZzZXQsIHUzMiAqdmFsdWUpOwogCXZvaWQgKCpz
-ZXRfdmdhX3N0YXRlKShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgYm9vbCBzdGF0ZSk7CkBA
-IC0yMjg3LDcgKzIyODYsNiBAQCBhbWRncHVfZ2V0X3NkbWFfaW5zdGFuY2Uoc3RydWN0IGFtZGdw
-dV9yaW5nICpyaW5nKQogI2RlZmluZSBhbWRncHVfYXNpY19yZWFkX2Rpc2FibGVkX2Jpb3MoYWRl
-dikgKGFkZXYpLT5hc2ljX2Z1bmNzLT5yZWFkX2Rpc2FibGVkX2Jpb3MoKGFkZXYpKQogI2RlZmlu
-ZSBhbWRncHVfYXNpY19yZWFkX2Jpb3NfZnJvbV9yb20oYWRldiwgYiwgbCkgKGFkZXYpLT5hc2lj
-X2Z1bmNzLT5yZWFkX2Jpb3NfZnJvbV9yb20oKGFkZXYpLCAoYiksIChsKSkKICNkZWZpbmUgYW1k
-Z3B1X2FzaWNfZGV0ZWN0X2h3X3ZpcnR1YWxpemF0aW9uKGFkZXYpIChhZGV2KS0+YXNpY19mdW5j
-cy0+ZGV0ZWN0X2h3X3ZpcnR1YWxpemF0aW9uKChhZGV2KSkKLSNkZWZpbmUgYW1kZ3B1X2FzaWNf
-ZGV0ZWN0X3NyaW92X2Jpb3MoYWRldikgKGFkZXYpLT5hc2ljX2Z1bmNzLT5kZXRlY3Rfc3Jpb3Zf
-YmlvcygoYWRldikpCiAjZGVmaW5lIGFtZGdwdV9hc2ljX3JlYWRfcmVnaXN0ZXIoYWRldiwgc2Us
-IHNoLCBvZmZzZXQsIHYpKChhZGV2KS0+YXNpY19mdW5jcy0+cmVhZF9yZWdpc3RlcigoYWRldiks
-IChzZSksIChzaCksIChvZmZzZXQpLCAodikpKQogI2RlZmluZSBhbWRncHVfZ2FydF9mbHVzaF9n
-cHVfdGxiKGFkZXYsIHZtaWQpIChhZGV2KS0+Z2FydC5nYXJ0X2Z1bmNzLT5mbHVzaF9ncHVfdGxi
-KChhZGV2KSwgKHZtaWQpKQogI2RlZmluZSBhbWRncHVfZ2FydF9zZXRfcHRlX3BkZShhZGV2LCBw
-dCwgaWR4LCBhZGRyLCBmbGFncykgKGFkZXYpLT5nYXJ0LmdhcnRfZnVuY3MtPnNldF9wdGVfcGRl
-KChhZGV2KSwgKHB0KSwgKGlkeCksIChhZGRyKSwgKGZsYWdzKSkKZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwppbmRleCBjYTE2MWU5Li43NmY4Mjk4IDEwMDY0NAot
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCkBAIC0xNTM1LDYgKzE1MzUs
-MTIgQEAgc3RhdGljIGJvb2wgYW1kZ3B1X2RldmljZV9pc192aXJ0dWFsKHZvaWQpCiAjZW5kaWYK
-IH0KIAorc3RhdGljIHZvaWQgYW1kZ3B1X2RldmljZV9kZXRlY3Rfc3Jpb3ZfYmlvcyhzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqYWRldikKK3sKKwlpZiAoYW1kZ3B1X2F0b21iaW9zX2hhc19ncHVfdmly
-dHVhbGl6YXRpb25fdGFibGUoYWRldikpCisJCWFkZXYtPnZpcnR1YWxpemF0aW9uLnZpcnR1YWxf
-Y2FwcyB8PSBBTURHUFVfU1JJT1ZfQ0FQU19TUklPVl9WQklPUzsKK30KKwogLyoqCiAgKiBhbWRn
-cHVfZGV2aWNlX2luaXQgLSBpbml0aWFsaXplIHRoZSBkcml2ZXIKICAqCkBAIC0xNjkwLDggKzE2
-OTYsNyBAQCBpbnQgYW1kZ3B1X2RldmljZV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-LAogCX0KIAogCS8qIGRldGVjdCBpZiB3ZSBhcmUgd2l0aCBhbiBTUklPViB2YmlvcyAqLwotCWlm
-IChhZGV2LT5hc2ljX2Z1bmNzLT5kZXRlY3Rfc3Jpb3ZfYmlvcykKLQkJYW1kZ3B1X2FzaWNfZGV0
-ZWN0X3NyaW92X2Jpb3MoYWRldik7CisJYW1kZ3B1X2RldmljZV9kZXRlY3Rfc3Jpb3ZfYmlvcyhh
-ZGV2KTsKIAogCS8qIFBvc3QgY2FyZCBpZiBuZWNlc3NhcnkgKi8KIAlpZiAoYW1kZ3B1X3Zwb3N0
-X25lZWRlZChhZGV2KSkgewpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-dmkuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZpLmMKaW5kZXggODE3ODBmMS4uYTgx
-NTRkMCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmkuYworKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92aS5jCkBAIC00NjIsMTIgKzQ2Miw2IEBAIHN0YXRp
-YyB2b2lkIHZpX2RldGVjdF9od192aXJ0dWFsaXphdGlvbihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
-YWRldikKIAl9CiB9CiAKLXN0YXRpYyB2b2lkIHZpX2RldGVjdF9zcmlvdl9iaW9zKHN0cnVjdCBh
-bWRncHVfZGV2aWNlICphZGV2KQotewotCWlmIChhbWRncHVfYXRvbWJpb3NfaGFzX2dwdV92aXJ0
-dWFsaXphdGlvbl90YWJsZShhZGV2KSkKLQkJYWRldi0+dmlydHVhbGl6YXRpb24udmlydHVhbF9j
-YXBzIHw9IEFNREdQVV9TUklPVl9DQVBTX1NSSU9WX1ZCSU9TOwotfQotCiBzdGF0aWMgY29uc3Qg
-c3RydWN0IGFtZGdwdV9hbGxvd2VkX3JlZ2lzdGVyX2VudHJ5IHRvbmdhX2FsbG93ZWRfcmVhZF9y
-ZWdpc3RlcnNbXSA9IHsKIAl7bW1HQl9NQUNST1RJTEVfTU9ERTcsIHRydWV9LAogfTsKQEAgLTE1
-MzEsNyArMTUyNSw2IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1X2FzaWNfZnVuY3Mgdmlf
-YXNpY19mdW5jcyA9CiAJLnJlYWRfZGlzYWJsZWRfYmlvcyA9ICZ2aV9yZWFkX2Rpc2FibGVkX2Jp
-b3MsCiAJLnJlYWRfYmlvc19mcm9tX3JvbSA9ICZ2aV9yZWFkX2Jpb3NfZnJvbV9yb20sCiAJLmRl
-dGVjdF9od192aXJ0dWFsaXphdGlvbiA9IHZpX2RldGVjdF9od192aXJ0dWFsaXphdGlvbiwKLQku
-ZGV0ZWN0X3NyaW92X2Jpb3MgPSB2aV9kZXRlY3Rfc3Jpb3ZfYmlvcywKIAkucmVhZF9yZWdpc3Rl
-ciA9ICZ2aV9yZWFkX3JlZ2lzdGVyLAogCS5yZXNldCA9ICZ2aV9hc2ljX3Jlc2V0LAogCS5zZXRf
-dmdhX3N0YXRlID0gJnZpX3ZnYV9zZXRfc3RhdGUsCi0tIAoyLjUuNQoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0607897465==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="VIcwi9W8oOrKBIk48umRNWTfE5P3Raxpo"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--VIcwi9W8oOrKBIk48umRNWTfE5P3Raxpo
+Content-Type: multipart/mixed; boundary="94aiX901wAlKepkL0J3TEWWQhHU2B96Ns";
+ protected-headers="v1"
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Message-ID: <04b4825e-fc31-2c79-9a78-13be900d19d5-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH 1/5] drm/amdgpu/vi: whitespace fixes
+References: <1474310162-21802-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1474310162-21802-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+--94aiX901wAlKepkL0J3TEWWQhHU2B96Ns
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Series is,
+Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+
+On 09/20/2016 04:35 AM, Alex Deucher wrote:
+> function declaration parens should be a new line.
+>=20
+> Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/vi.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdg=
+pu/vi.c
+> index 5141393..81780f1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+> @@ -445,7 +445,8 @@ static bool vi_read_bios_from_rom(struct amdgpu_dev=
+ice *adev,
+>  	return true;
+>  }
+> =20
+> -static void vi_detect_hw_virtualization(struct amdgpu_device *adev) {
+> +static void vi_detect_hw_virtualization(struct amdgpu_device *adev)
+> +{
+>  	uint32_t reg =3D RREG32(mmBIF_IOV_FUNC_IDENTIFIER);
+>  	/* bit0: 0 means pf and 1 means vf */
+>  	/* bit31: 0 means disable IOV and 1 means enable */
+> @@ -461,7 +462,8 @@ static void vi_detect_hw_virtualization(struct amdg=
+pu_device *adev) {
+>  	}
+>  }
+> =20
+> -static void vi_detect_sriov_bios(struct amdgpu_device *adev) {
+> +static void vi_detect_sriov_bios(struct amdgpu_device *adev)
+> +{
+>  	if (amdgpu_atombios_has_gpu_virtualization_table(adev))
+>  		adev->virtualization.virtual_caps |=3D AMDGPU_SRIOV_CAPS_SRIOV_VBIOS=
+;
+>  }
+>=20
+
+
+--94aiX901wAlKepkL0J3TEWWQhHU2B96Ns--
+
+--VIcwi9W8oOrKBIk48umRNWTfE5P3Raxpo
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJX4HU8AAoJEP4bvbfZuWjbCD8QAMZbAoKotnFRMfbI7+vl9XPg
+lnOW4sF9BXC2uzSqpCP510HA51F8CaYmmU82qFNYNexdtE6aLuYTgaVWbdSgfKXc
+XL6Eerhn/HsVWNFyqNomHd7S4CYQy6cXcqzIzBgewcP2oDYI2JN4huEqUSQIy9yT
+M2yv7bCoyVVIUFQMXcHuIzWasVfYX5vmd+QxMmNvwfzbECVt/Ro69ePZfYpEHz8k
+TXO2fEo332pzhjQxeKMjJM65VDUfMmxs758UFW4ACMlgMAfGecIV/Pc/5U7KuBw5
+XEvz9ZqA1xPMbn9SPwP6WBzOyIItEOSyxnR+VkoQPRr0oe4B1H94OqEZWM57rPUB
+dLz9Y4mEAdLwzPH/MdeHVIP9c88GiozkuKxVXIdaNZ9yhATGnXgRz6pGSdi691T9
+S78d22QwLu+2wyD1Q6gk5Bg/m03hpchQq8yCo/KuOnHv7sc9HtoOV7JlTz/JBw6X
+YSPBd0C8qABu8kENQSfx4gD/iye7Uw6OdyL+Cik0rX/fY2YHwhV3NHDsa8EIoUFi
+0SfxKaG0hAuCGzWlsb3niaZztBcIKl3bdbBpf5BVdQcElFZ91xKUeQNME+DuQvT/
+AcQVqtPFTR5i6UV6Z4SkmadpvNVWjBxQjpM2AbVOw5DvToe6LLo9udtOM3EoazS0
+8eizeZz6VavbyLTA2Cy4
+=rZsU
+-----END PGP SIGNATURE-----
+
+--VIcwi9W8oOrKBIk48umRNWTfE5P3Raxpo--
+
+--===============0607897465==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0607897465==--
