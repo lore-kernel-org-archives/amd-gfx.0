@@ -1,74 +1,54 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [pull] radeon and amdgpu drm-next-4.9
-Date: Mon, 19 Sep 2016 12:19:24 -0400
-Message-ID: <CADnq5_M2+TxvsrmxPp2rgOHxG=6A9dj-4PxKOuOZfDUtJs5Rgg@mail.gmail.com>
-References: <1474058563-2525-1-git-send-email-alexander.deucher@amd.com>
- <20160916213848.GA1116@wunner.de>
- <CADnq5_NZ1+tgEoZKUgWxTYKCtNbvr4cCttpNMzbyGroHdePz=w@mail.gmail.com>
- <20160917102333.GA1422@wunner.de>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20160917102333.GA1422-JFq808J9C/izQB+pC5nmwQ@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Lukas Wunner <lukas-JFq808J9C/izQB+pC5nmwQ@public.gmane.org>
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: [PATCH] drm/amd/powerplay: fix mclk not switching back after multi-head was disabled
+Date: Mon, 19 Sep 2016 12:22:42 -0400
+Message-ID: <1474302162-13007-1-git-send-email-alexander.deucher@amd.com>
+Return-path: <stable-owner@vger.kernel.org>
+Sender: stable-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org
+Cc: Rex Zhu <Rex.Zhu@amd.com>, Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gU2F0LCBTZXAgMTcsIDIwMTYgYXQgNjoyMyBBTSwgTHVrYXMgV3VubmVyIDxsdWthc0B3dW5u
-ZXIuZGU+IHdyb3RlOgo+IE9uIEZyaSwgU2VwIDE2LCAyMDE2IGF0IDA2OjA3OjM2UE0gLTA0MDAs
-IEFsZXggRGV1Y2hlciB3cm90ZToKPj4gT24gRnJpLCBTZXAgMTYsIDIwMTYgYXQgNTozOCBQTSwg
-THVrYXMgV3VubmVyIDxsdWthc0B3dW5uZXIuZGU+IHdyb3RlOgo+PiA+IE9uIEZyaSwgU2VwIDE2
-LCAyMDE2IGF0IDA0OjQyOjQzUE0gLTA0MDAsIEFsZXggRGV1Y2hlciB3cm90ZToKPj4gPj4gICAg
-ICAgZHJtL2FtZGdwdTogc2tpcCBzdXNwZW5kL3Jlc3VtZSBvbiBEUk1fU1dJVENIX1BPV0VSX0RZ
-TkFNSUNfT0ZGCj4+ID4+ICAgICAgIGRybS9yYWRlb246IHNraXAgc3VzcGVuZC9yZXN1bWUgb24g
-RFJNX1NXSVRDSF9QT1dFUl9EWU5BTUlDX09GRgo+PiA+Cj4+ID4gVGhvc2UgdHdvIGFyZSB1bm5l
-Y2Vzc2FyeSwgaXQgY2FuJ3QgaGFwcGVuIHRoYXQgdGhlIC0+c3VzcGVuZCBob29rCj4+ID4gaXMg
-ZXhlY3V0ZWQgd2l0aCB0aGUgZGV2aWNlIHJ1bnRpbWUgc3VzcGVuZGVkLgo+PiA+Cj4+ID4gU2lu
-Y2UgY29tbWl0IGQxNGQyYTg0NTNkNiAoImRybTogUmVtb3ZlIGRldl9wbV9vcHMgZnJvbSBkcm1f
-Y2xhc3MiKSwKPj4gPiBEUk0gZGV2aWNlcyBhcmUgYWZmb3JkZWQgZGlyZWN0X2NvbXBsZXRlLCBp
-LmUuIGlmIHRoZSBHUFUgaXMgcnVudGltZQo+PiA+IHN1c3BlbmRlZCB1cG9uIHN5c3RlbSBzbGVl
-cCwgaXQgaXMgbGVmdCBpbiB0aGlzIHN0YXRlLiAgVGhlIG9ubHkKPj4gPiBjYWxsYmFja3MgdGhh
-dCBhcmUgZXhlY3V0ZWQgYXJlIHRoZSAtPnByZXBhcmUgYW5kIHRoZSAtPmNvbXBsZXRlIGhvb2su
-Cj4+ID4gQWxsIHRoZSBjYWxsYmFja3MgaW4tYmV0d2VlbiwgbGlrZSAtPnN1c3BlbmQsIGFyZSBz
-a2lwcGVkLgo+PiA+Cj4+ID4gRXZlbiBpZiBkaXJlY3RfY29tcGxldGUgaXMgbm90IGFmZm9yZGVk
-IGZvciBzb21lIHJlYXNvbiwgdGhlIFBNIGNvcmUKPj4gPiB3aWxsIGF1dG9tYXRpY2FsbHkgcnVu
-dGltZSByZXN1bWUgdGhlIGRldmljZSBiZWZvcmUgZXhlY3V0aW5nIC0+c3VzcGVuZC4KPj4gPgo+
-PiA+IFRoYXQgLT5zdXNwZW5kIGlzIHNraXBwZWQgaW4gdGhlIERSTV9TV0lUQ0hfUE9XRVJfT0ZG
-IGNhc2Ugd2FzIGRvbmUKPj4gPiBiZWNhdXNlIHRoZSBkZXZpY2UgaXMgc3VzcGVuZGVkIGJlaGlu
-ZCB0aGUgUE0gY29yZSdzIGJhY2sgaWYgcnVucG09MAo+PiA+IGlzIHNldC4gIChBbmQgaXQgZG9l
-c24ndCB3b3JrIHByb3Blcmx5IGJlY2F1c2UgdGhlIFBDSSBjb3JlIHdpbGwKPj4gPiBpbnZhbGlk
-YXRlIHRoZSBzYXZlZF9zdGF0ZSBkdXJpbmcgLT5yZXN1bWVfbm9pcnEuICBUaGF0IGNvdWxkIGJl
-Cj4+ID4gc29sdmVkIGJ5IHJldHVybmluZyAxIGZyb20gdGhlIC0+cHJlcGFyZSBob29rIGluIHRo
-ZSBEUk1fU1dJVENIX1BPV0VSX09GRgo+PiA+IGNhc2UsIGJ1dCB0aGF0J3MgYSBkaWZmZXJlbnQg
-c3RvcnkuKQo+PiA+Cj4+ID4gKFNvcnJ5IGZvciBub3QgcmFpc2luZyB0aGlzIGVhcmxpZXIsIEkn
-bSBub3Qgc3Vic2NyaWJlZCB0byBhbWQtZ2Z4LikKPj4KPj4gVGhhbmtzIGZvciB0aGUgaGVhZHMg
-dXAuICBUaGV5IHNob3VsZG4ndCBodXJ0IGFueXRoaW5nIGFuZCBpdCBtYXRjaGVzCj4+IHdoYXQg
-b3RoZXIgZHJpdmVycyBkby4gIElmIHlvdSBmZWVsIHN0cm9uZ2x5IGFib3V0IGl0LCBJIGNhbiBy
-ZXZlcnQKPj4gdGhlbSBsYXRlci4KPgo+IFdlbGwsIHN1cGVyZmx1b3VzIGNvZGUgc2hvdWxkbid0
-IGJlIGluY2x1ZGVkIGp1c3QgYmVjYXVzZSBpdCBkb2Vzbid0IGh1cnQKPiBvciBiZWNhdXNlIG90
-aGVycyBkaWRuJ3Qga25vdyBiZXR0ZXIgZWl0aGVyLCBvciByZW1vdmVkIGJlY2F1c2Ugb2YKPiBz
-b21lb25lIGVsc2UncyBmZWVsaW5ncy4gOy0pCgpJJ3ZlIHJldmVydGVkIHRoZSBwYXRjaGVzLiAg
-VGhleSdsbCBiZSBpbiBteSBuZXh0IHB1bGwgcmVxdWVzdC4KCkFsZXgKCj4KPiBZb3UgY2FuIGZp
-bmQgdGhlIHJ1bnRpbWUgcmVzdW1lIGJlZm9yZSBleGVjdXRpb24gb2YgdGhlIGRyaXZlciAtPnN1
-c3BlbmQKPiBjYWxsYmFjayBpbiBkcml2ZXJzL3BjaS9wY2ktZHJpdmVyLmM6cGNpX3BtX3N1c3Bl
-bmQoKToKPgo+ICAgICAgICAgY29uc3Qgc3RydWN0IGRldl9wbV9vcHMgKnBtID0gZGV2LT5kcml2
-ZXIgPyBkZXYtPmRyaXZlci0+cG0gOiBOVUxMOwo+ICAgICAgICAgLi4uCj4gICAgICAgICBwbV9y
-dW50aW1lX3Jlc3VtZShkZXYpOwo+ICAgICAgICAgLi4uCj4gICAgICAgICBpZiAocG0tPnN1c3Bl
-bmQpIHsKPiAgICAgICAgICAgICAgICAgLi4uCj4gICAgICAgICAgICAgICAgIGVycm9yID0gcG0t
-PnN1c3BlbmQoZGV2KTsKPgo+IFRoZSBkZXZpY2UgaXMgcHJldmVudGVkIGZyb20gYXV0by1zdXNw
-ZW5kaW5nIGJlY2F1c2Ugb2YgYSBydW50aW1lIFBNIHJlZgo+IGFjcXVpcmVkIGJlZm9yZWhhbmQg
-aW4gZHJpdmVycy9iYXNlL3Bvd2VyL21haW4uYzpkZXZpY2VfcHJlcGFyZSgpLgo+Cj4gQmVzdCBy
-ZWdhcmRzLAo+Cj4gTHVrYXMKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-Cg==
+From: Rex Zhu <Rex.Zhu@amd.com>
+
+Signed-off-by: Rex Zhu <Rex.Zhu@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+---
+ drivers/gpu/drm/amd/powerplay/eventmgr/eventactionchains.c | 2 ++
+ drivers/gpu/drm/amd/powerplay/eventmgr/psm.c               | 3 ++-
+ 2 files changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/eventmgr/eventactionchains.c b/drivers/gpu/drm/amd/powerplay/eventmgr/eventactionchains.c
+index 635fc4b..92b1178 100644
+--- a/drivers/gpu/drm/amd/powerplay/eventmgr/eventactionchains.c
++++ b/drivers/gpu/drm/amd/powerplay/eventmgr/eventactionchains.c
+@@ -262,6 +262,8 @@ static const pem_event_action * const display_config_change_event[] = {
+ 	unblock_adjust_power_state_tasks,
+ 	set_cpu_power_state,
+ 	notify_hw_power_source_tasks,
++	get_2d_performance_state_tasks,
++	set_performance_state_tasks,
+ 	/* updateDALConfigurationTasks,
+ 	variBrightDisplayConfigurationChangeTasks, */
+ 	adjust_power_state_tasks,
+diff --git a/drivers/gpu/drm/amd/powerplay/eventmgr/psm.c b/drivers/gpu/drm/amd/powerplay/eventmgr/psm.c
+index 1d1875a..4899088 100644
+--- a/drivers/gpu/drm/amd/powerplay/eventmgr/psm.c
++++ b/drivers/gpu/drm/amd/powerplay/eventmgr/psm.c
+@@ -101,11 +101,12 @@ int psm_adjust_power_state_dynamic(struct pp_eventmgr *eventmgr, bool skip)
+ 	if (requested == NULL)
+ 		return 0;
+ 
++	phm_apply_state_adjust_rules(hwmgr, requested, pcurrent);
++
+ 	if (pcurrent == NULL || (0 != phm_check_states_equal(hwmgr, &pcurrent->hardware, &requested->hardware, &equal)))
+ 		equal = false;
+ 
+ 	if (!equal || phm_check_smc_update_required_for_display_configuration(hwmgr)) {
+-		phm_apply_state_adjust_rules(hwmgr, requested, pcurrent);
+ 		phm_set_power_state(hwmgr, &pcurrent->hardware, &requested->hardware);
+ 		memcpy(hwmgr->current_ps, hwmgr->request_ps, hwmgr->ps_size);
+ 	}
+-- 
+2.5.5
