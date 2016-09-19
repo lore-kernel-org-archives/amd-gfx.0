@@ -1,15 +1,16 @@
-From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amd/powerplay: Add read_sensor() callback to
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 1/2] drm/amd/powerplay: Add read_sensor() callback to
  hwmgr (v3)
-Date: Mon, 19 Sep 2016 15:54:59 +0000
-Message-ID: <CY4PR12MB17688AA3886A61A51BE31262F7F40@CY4PR12MB1768.namprd12.prod.outlook.com>
+Date: Mon, 19 Sep 2016 15:55:49 +0000
+Message-ID: <MWHPR12MB16941412CFD53532924A334AF7F40@MWHPR12MB1694.namprd12.prod.outlook.com>
 References: <20160919131023.30064-1-tom.stdenis@amd.com>
  <20160919131023.30064-2-tom.stdenis@amd.com>,
  <CADnq5_PDWVmDxGLbQ=Kxe1UADO6PsLC=17uqUrQfnM2BWmKATQ@mail.gmail.com>
+ <CY4PR12MB17688AA3886A61A51BE31262F7F40@CY4PR12MB1768.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0321915723=="
+Content-Type: multipart/mixed; boundary="===============0643603448=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_PDWVmDxGLbQ=Kxe1UADO6PsLC=17uqUrQfnM2BWmKATQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <CY4PR12MB17688AA3886A61A51BE31262F7F40-rpdhrqHFk06yjjPBNVDk/QdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,38 +22,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0321915723==
+--===============0643603448==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB17688AA3886A61A51BE31262F7F40CY4PR12MB1768namp_"
+	boundary="_000_MWHPR12MB16941412CFD53532924A334AF7F40MWHPR12MB1694namp_"
 
---_000_CY4PR12MB17688AA3886A61A51BE31262F7F40CY4PR12MB1768namp_
-Content-Type: text/plain; charset="iso-8859-1"
+--_000_MWHPR12MB16941412CFD53532924A334AF7F40MWHPR12MB1694namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+No need.  The additional cleanups can come later.
+
+Alex
+
+From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf Of S=
+tDenis, Tom
+Sent: Monday, September 19, 2016 11:55 AM
+To: Alex Deucher
+Cc: amd-gfx list
+Subject: Re: [PATCH 1/2] drm/amd/powerplay: Add read_sensor() callback to h=
+wmgr (v3)
+
 
 Hi Alex,
 
 
+
 Would you prefer I re-write #1 to avoid churn in the tree?
+
 
 
 Cheers,
 
 Tom
 
-
 ________________________________
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>
 Sent: Monday, September 19, 2016 11:53
 To: Tom St Denis
 Cc: amd-gfx list; StDenis, Tom
 Subject: Re: [PATCH 1/2] drm/amd/powerplay: Add read_sensor() callback to h=
 wmgr (v3)
 
-On Mon, Sep 19, 2016 at 9:10 AM, Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+On Mon, Sep 19, 2016 at 9:10 AM, Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:=
+tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>> wrote:
 > Provides standardized interface to read various sensors.
 > The API is extensible (by adding to the end of the
 > amd_pp_sensors enumeration list.
@@ -62,7 +78,8 @@ On Mon, Sep 19, 2016 at 9:10 AM, Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w
 > (v2) Squashed the two sensor patches into one.
 > (v3) Updated to apply to smu7_hwmgr instead
 >
-> Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+> Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org<mailto:tom.stdenis@amd.c=
+om>>
 > ---
 >  drivers/gpu/drm/amd/powerplay/amd_powerplay.c     | 20 +++++
 >  drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c    | 96 +++++++++++++++++=
@@ -114,7 +131,8 @@ As a future patch it would be nice to hook up this sensor interface to
 the existing amdgpu_pm_info code and make that asic indpendent.
 
 Series is:
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org<mailto:alexander.deuch=
+er-5C7GfCeVMHo@public.gmane.org>>
 
 Alex
 
@@ -376,7 +394,7 @@ e);
 >
 > _______________________________________________
 > amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 amd-gfx Info Page - lists.freedesktop.org<https://lists.freedesktop.org/mai=
 lman/listinfo/amd-gfx>
@@ -387,48 +405,169 @@ ives. Using amd-gfx: To post a message to all the list members, send email =
 
 
 
-
---_000_CY4PR12MB17688AA3886A61A51BE31262F7F40CY4PR12MB1768namp_
-Content-Type: text/html; charset="iso-8859-1"
+--_000_MWHPR12MB16941412CFD53532924A334AF7F40MWHPR12MB1694namp_
+Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 14 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:"Segoe UI";
+	panose-1:2 11 5 2 4 2 4 2 2 3;}
+@font-face
+	{font-family:"Segoe UI Light";
+	panose-1:2 11 5 2 4 2 4 2 2 3;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p
+	{mso-style-priority:99;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-priority:99;
+	mso-style-link:"Balloon Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:"Tahoma","sans-serif";}
+span.EmailStyle18
+	{mso-style-type:personal-reply;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+span.BalloonTextChar
+	{mso-style-name:"Balloon Text Char";
+	mso-style-priority:99;
+	mso-style-link:"Balloon Text";
+	font-family:"Tahoma","sans-serif";}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
 </head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;back=
-ground-color:#FFFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
-<p>Hi Alex,</p>
-<p><br>
-</p>
-<p>Would you prefer I re-write #1 to avoid churn in the tree?</p>
-<p><br>
-</p>
-<p>Cheers,</p>
-<p>Tom</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">No need.&nbsp; The additi=
+onal cleanups can come later.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
+/p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Alex<o:p></o:p></span></p=
+>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
+/p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
 <div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Alex Deucher &lt;al=
-exdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
+;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span style=3D"font-s=
+ize:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> amd-gfx =
+[mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org]
+<b>On Behalf Of </b>StDenis, Tom<br>
+<b>Sent:</b> Monday, September 19, 2016 11:55 AM<br>
+<b>To:</b> Alex Deucher<br>
+<b>Cc:</b> amd-gfx list<br>
+<b>Subject:</b> Re: [PATCH 1/2] drm/amd/powerplay: Add read_sensor() callba=
+ck to hwmgr (v3)<o:p></o:p></span></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
+;,&quot;sans-serif&quot;;color:black">Hi Alex,<o:p></o:p></span></p>
+<p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
+;,&quot;sans-serif&quot;;color:black"><o:p>&nbsp;</o:p></span></p>
+<p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
+;,&quot;sans-serif&quot;;color:black">Would you prefer I re-write #1 to avo=
+id churn in the tree?<o:p></o:p></span></p>
+<p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
+;,&quot;sans-serif&quot;;color:black"><o:p>&nbsp;</o:p></span></p>
+<p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
+;,&quot;sans-serif&quot;;color:black">Cheers,<o:p></o:p></span></p>
+<p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
+;,&quot;sans-serif&quot;;color:black">Tom<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt;background:white"><spa=
+n style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:bla=
+ck"><o:p>&nbsp;</o:p></span></p>
+<div>
+<div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center;backgr=
+ound:white">
+<span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color=
+:black">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</span></div>
+<div id=3D"x_divRplyFwdMsg">
+<p class=3D"MsoNormal" style=3D"background:white"><b><span style=3D"font-si=
+ze:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:blac=
+k">From:</span></b><span style=3D"font-size:11.0pt;font-family:&quot;Calibr=
+i&quot;,&quot;sans-serif&quot;;color:black"> Alex Deucher &lt;<a href=3D"ma=
+ilto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
 <b>Sent:</b> Monday, September 19, 2016 11:53<br>
 <b>To:</b> Tom St Denis<br>
 <b>Cc:</b> amd-gfx list; StDenis, Tom<br>
 <b>Subject:</b> Re: [PATCH 1/2] drm/amd/powerplay: Add read_sensor() callba=
-ck to hwmgr (v3)</font>
-<div>&nbsp;</div>
+ck to hwmgr (v3)</span><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">
+<o:p></o:p></span></p>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-famil=
+y:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black">&nbsp;<o:p></o:p>=
+</span></p>
 </div>
 </div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">On Mon, Sep 19, 2016 at 9:10 AM, Tom St Denis &lt;=
-tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt; wrote:<br>
+</div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-size:=
+10.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black">=
+On Mon, Sep 19, 2016 at 9:10 AM, Tom St Denis &lt;<a href=3D"mailto:tstdeni=
+s82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br>
 &gt; Provides standardized interface to read various sensors.<br>
 &gt; The API is extensible (by adding to the end of the<br>
 &gt; amd_pp_sensors enumeration list.<br>
@@ -438,7 +577,8 @@ tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt; wrote:<br>
 &gt; (v2) Squashed the two sensor patches into one.<br>
 &gt; (v3) Updated to apply to smu7_hwmgr instead<br>
 &gt;<br>
-&gt; Signed-off-by: Tom St Denis &lt;tom.stdenis-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; Signed-off-by: Tom St Denis &lt;<a href=3D"mailto:tom.stdenis-5C7GfCeVMHo@public.gmane.org"=
+>tom.stdenis-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
 &gt; ---<br>
 &gt;&nbsp; drivers/gpu/drm/amd/powerplay/amd_powerplay.c&nbsp;&nbsp;&nbsp;&=
 nbsp; | 20 &#43;&#43;&#43;&#43;&#43;<br>
@@ -511,7 +651,8 @@ As a future patch it would be nice to hook up this sensor interface to<br>
 the existing amdgpu_pm_info code and make that asic indpendent.<br>
 <br>
 Series is:<br>
-Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+Reviewed-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">=
+alexander.deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
 <br>
 Alex<br>
 <br>
@@ -943,60 +1084,61 @@ _hwmgr *hwmgr, int idx, int32_t *value);<br>
 &gt;<br>
 &gt; _______________________________________________<br>
 &gt; amd-gfx mailing list<br>
-&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32mqWrfYKbYh0A@public.gmane.org=
+ktop.org</a><br>
 &gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=
 =3D"LPlnk724524">
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-<div id=3D"LPBorder_GT_14743004775210.15276233173698328" style=3D"margin-bo=
-ttom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
-<table id=3D"LPContainer_14743004775190.49899342106105293" cellspacing=3D"0=
-" style=3D"width: 90%; background-color: rgb(255, 255, 255); position: rela=
-tive; overflow: auto; padding-top: 20px; padding-bottom: 20px; margin-top: =
-20px; border-top: 1px dotted rgb(200, 200, 200); border-bottom: 1px dotted =
-rgb(200, 200, 200);">
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a> <o:p></o:p></spa=
+n></p>
+<div style=3D"margin-bottom:15.0pt;overflow:auto" id=3D"LPBorder_GT_1474300=
+4775210.15276233173698328">
+<table class=3D"MsoNormalTable" border=3D"1" cellspacing=3D"0" cellpadding=
+=3D"0" width=3D"90%" style=3D"width:90.0%;background:white;border-top:dotte=
+d #C8C8C8 1.0pt;border-left:none;border-bottom:dotted #C8C8C8 1.0pt;border-=
+right:none">
 <tbody>
-<tr valign=3D"top" style=3D"border-spacing: 0px;">
-<td id=3D"TextCell_14743004775200.7956016082987132" colspan=3D"2" style=3D"=
-vertical-align: top; position: relative; padding: 0px; display: table-cell;=
-">
-<div id=3D"LPRemovePreviewContainer_14743004775200.6248479015358717"></div>
-<div id=3D"LPTitle_14743004775200.21508066420594152" style=3D"top: 0px; col=
-or: rgb(59, 87, 119); font-weight: normal; font-size: 21px; font-family: wf=
-_segoe-ui_light, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&quot;, &q=
-uot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif; line-h=
-eight: 21px;">
-<a id=3D"LPUrlAnchor_14743004775200.7167293884594854" href=3D"https://lists=
-.freedesktop.org/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"text-=
-decoration: none;">amd-gfx Info Page - lists.freedesktop.org</a></div>
-<div id=3D"LPMetadata_14743004775200.2972104013311352" style=3D"margin: 10p=
-x 0px 16px; color: rgb(102, 102, 102); font-weight: normal; font-family: wf=
-_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial=
-, sans-serif; font-size: 14px; line-height: 14px;">
-lists.freedesktop.org</div>
-<div id=3D"LPDescription_14743004775200.9065864460282174" style=3D"display:=
- block; color: rgb(102, 102, 102); font-weight: normal; font-family: wf_seg=
-oe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sa=
-ns-serif; font-size: 14px; line-height: 20px; max-height: 100px; overflow: =
-hidden;">
-To see the collection of prior postings to the list, visit the amd-gfx Arch=
-ives. Using amd-gfx: To post a message to all the list members, send email =
-...</div>
+<tr>
+<td valign=3D"top" style=3D"border:none;padding:0in 0in 0in 0in">
+<div id=3D"LPTitle_14743004775200.21508066420594152">
+<p class=3D"MsoNormal" style=3D"margin-top:15.0pt;mso-line-height-alt:15.75=
+pt"><span style=3D"font-size:16.0pt;font-family:&quot;Segoe UI Light&quot;,=
+&quot;sans-serif&quot;;color:#3B5777"><a href=3D"https://lists.freedesktop.=
+org/mailman/listinfo/amd-gfx" target=3D"_blank"><span style=3D"text-decorat=
+ion:none">amd-gfx
+ Info Page - lists.freedesktop.org</span></a><o:p></o:p></span></p>
+</div>
+<div style=3D"margin-top:7.5pt;margin-bottom:12.0pt" id=3D"LPMetadata_14743=
+004775200.2972104013311352">
+<p class=3D"MsoNormal" style=3D"margin-top:15.0pt;line-height:10.5pt"><span=
+ style=3D"font-size:10.5pt;font-family:&quot;Segoe UI&quot;,&quot;sans-seri=
+f&quot;;color:#666666">lists.freedesktop.org<o:p></o:p></span></p>
+</div>
+<div id=3D"LPDescription_14743004775200.9065864460282174">
+<p class=3D"MsoNormal" style=3D"margin-top:15.0pt;line-height:15.0pt"><span=
+ style=3D"font-size:10.5pt;font-family:&quot;Segoe UI&quot;,&quot;sans-seri=
+f&quot;;color:#666666">To see the collection of prior postings to the list,=
+ visit the amd-gfx Archives. Using amd-gfx: To post a message
+ to all the list members, send email ...<o:p></o:p></span></p>
+</div>
 </td>
 </tr>
 </tbody>
 </table>
 </div>
-<br>
-<br>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt;background:white"><spa=
+n style=3D"font-size:10.0pt;font-family:&quot;Calibri&quot;,&quot;sans-seri=
+f&quot;;color:black"><o:p>&nbsp;</o:p></span></p>
 </div>
-</span></font></div>
+</div>
+</div>
+</div>
 </div>
 </body>
 </html>
 
---_000_CY4PR12MB17688AA3886A61A51BE31262F7F40CY4PR12MB1768namp_--
+--_000_MWHPR12MB16941412CFD53532924A334AF7F40MWHPR12MB1694namp_--
 
---===============0321915723==
+--===============0643603448==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -1006,4 +1148,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0321915723==--
+--===============0643603448==--
