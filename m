@@ -1,39 +1,81 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: [PATCH 5/5] drm/radeon: narrow asic_init for virtualization
-Date: Mon, 19 Sep 2016 13:12:41 -0400
-Message-ID: <1474305161-11435-5-git-send-email-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 4/5] drm/amdgpu:add fw version entry to info
+Date: Mon, 19 Sep 2016 13:12:40 -0400
+Message-ID: <1474305161-11435-4-git-send-email-alexander.deucher@amd.com>
 References: <1474305161-11435-1-git-send-email-alexander.deucher@amd.com>
-Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <1474305161-11435-1-git-send-email-alexander.deucher@amd.com>
-Sender: stable-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1474305161-11435-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Frank Min <Frank.Min-5C7GfCeVMHo@public.gmane.org>
 
-Only needed on CIK+ due to the way pci reset is handled
-by the GPU.
-
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
----
- drivers/gpu/drm/radeon/radeon_device.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-index bbc8958..eb92aef4 100644
---- a/drivers/gpu/drm/radeon/radeon_device.c
-+++ b/drivers/gpu/drm/radeon/radeon_device.c
-@@ -661,8 +661,9 @@ bool radeon_card_posted(struct radeon_device *rdev)
- {
- 	uint32_t reg;
- 
--	/* for pass through, always force asic_init */
--	if (radeon_device_is_virtual())
-+	/* for pass through, always force asic_init for CI */
-+	if (rdev->family >= CHIP_BONAIRE &&
-+	    radeon_device_is_virtual())
- 		return false;
- 
- 	/* required for EFI mode on macbook2,1 which uses an r5xx asic */
--- 
-2.5.5
+RnJvbTogRnJhbmsgTWluIDxGcmFuay5NaW5AYW1kLmNvbT4KClNpZ25lZC1vZmYtYnk6IEZyYW5r
+IE1pbiA8RnJhbmsuTWluQGFtZC5jb20+ClJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhh
+bmRlci5kZXVjaGVyQGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFu
+ZGVyLmRldWNoZXJAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfY2dzLmMgICAgICAgICAgICB8IDQyICsrKysrKysrKysrKysrKysrKysrKysKIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvaW5jbHVkZS9jZ3NfY29tbW9uLmggICAgICAgICAgIHwgIDEgKwogZHJpdmVy
+cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL2Zpamlfc211bWdyLmMgfCAgMAogMyBmaWxl
+cyBjaGFuZ2VkLCA0MyBpbnNlcnRpb25zKCspCiBtb2RlIGNoYW5nZSAxMDA2NDQgPT4gMTAwNzU1
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9jZ3NfY29tbW9uLmgKIG1vZGUgY2hhbmdlIDEw
+MDY0NCA9PiAxMDA3NTUgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL2Zpamlf
+c211bWdyLmMKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+Y2dzLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY2dzLmMKaW5kZXggZjZk
+YmRmOC4uYWIyZDdmYiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2Nncy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jZ3MuYwpA
+QCAtNzExLDYgKzcxMSw0NyBAQCBzdGF0aWMgaW50IGFtZGdwdV9jZ3NfcmVsX2Zpcm13YXJlKHN0
+cnVjdCBjZ3NfZGV2aWNlICpjZ3NfZGV2aWNlLCBlbnVtIGNnc191Y29kZQogCXJldHVybiAtRUlO
+VkFMOwogfQogCitzdGF0aWMgdWludDE2X3QgYW1kZ3B1X2dldF9maXJtd2FyZV92ZXJzaW9uKHN0
+cnVjdCBjZ3NfZGV2aWNlICpjZ3NfZGV2aWNlLAorCQkJCQllbnVtIGNnc191Y29kZV9pZCB0eXBl
+KQoreworCUNHU19GVU5DX0FERVY7CisJdWludDE2X3QgZndfdmVyc2lvbjsKKworCXN3aXRjaCAo
+dHlwZSkgeworCQljYXNlIENHU19VQ09ERV9JRF9TRE1BMDoKKwkJCWZ3X3ZlcnNpb24gPSBhZGV2
+LT5zZG1hLmluc3RhbmNlWzBdLmZ3X3ZlcnNpb247CisJCQlicmVhazsKKwkJY2FzZSBDR1NfVUNP
+REVfSURfU0RNQTE6CisJCQlmd192ZXJzaW9uID0gYWRldi0+c2RtYS5pbnN0YW5jZVsxXS5md192
+ZXJzaW9uOworCQkJYnJlYWs7CisJCWNhc2UgQ0dTX1VDT0RFX0lEX0NQX0NFOgorCQkJZndfdmVy
+c2lvbiA9IGFkZXYtPmdmeC5jZV9md192ZXJzaW9uOworCQkJYnJlYWs7CisJCWNhc2UgQ0dTX1VD
+T0RFX0lEX0NQX1BGUDoKKwkJCWZ3X3ZlcnNpb24gPSBhZGV2LT5nZngucGZwX2Z3X3ZlcnNpb247
+CisJCQlicmVhazsKKwkJY2FzZSBDR1NfVUNPREVfSURfQ1BfTUU6CisJCQlmd192ZXJzaW9uID0g
+YWRldi0+Z2Z4Lm1lX2Z3X3ZlcnNpb247CisJCQlicmVhazsKKwkJY2FzZSBDR1NfVUNPREVfSURf
+Q1BfTUVDOgorCQkJZndfdmVyc2lvbiA9IGFkZXYtPmdmeC5tZWNfZndfdmVyc2lvbjsKKwkJCWJy
+ZWFrOworCQljYXNlIENHU19VQ09ERV9JRF9DUF9NRUNfSlQxOgorCQkJZndfdmVyc2lvbiA9IGFk
+ZXYtPmdmeC5tZWNfZndfdmVyc2lvbjsKKwkJCWJyZWFrOworCQljYXNlIENHU19VQ09ERV9JRF9D
+UF9NRUNfSlQyOgorCQkJZndfdmVyc2lvbiA9IGFkZXYtPmdmeC5tZWNfZndfdmVyc2lvbjsKKwkJ
+CWJyZWFrOworCQljYXNlIENHU19VQ09ERV9JRF9STENfRzoKKwkJCWZ3X3ZlcnNpb24gPSBhZGV2
+LT5nZngucmxjX2Z3X3ZlcnNpb247CisJCQlicmVhazsKKwkJZGVmYXVsdDoKKwkJCURSTV9FUlJP
+UigiZmlybXdhcmUgdHlwZSAlZCBkbyBub3QgaGF2ZSB2ZXJzaW9uXG4iLCB0eXBlKTsKKwkJCWZ3
+X3ZlcnNpb24gPSAwOworCX0KKwlyZXR1cm4gZndfdmVyc2lvbjsKK30KKwogc3RhdGljIGludCBh
+bWRncHVfY2dzX2dldF9maXJtd2FyZV9pbmZvKHN0cnVjdCBjZ3NfZGV2aWNlICpjZ3NfZGV2aWNl
+LAogCQkJCQllbnVtIGNnc191Y29kZV9pZCB0eXBlLAogCQkJCQlzdHJ1Y3QgY2dzX2Zpcm13YXJl
+X2luZm8gKmluZm8pCkBAIC03NDEsNiArNzgyLDcgQEAgc3RhdGljIGludCBhbWRncHVfY2dzX2dl
+dF9maXJtd2FyZV9pbmZvKHN0cnVjdCBjZ3NfZGV2aWNlICpjZ3NfZGV2aWNlLAogCQlpbmZvLT5t
+Y19hZGRyID0gZ3B1X2FkZHI7CiAJCWluZm8tPmltYWdlX3NpemUgPSBkYXRhX3NpemU7CiAJCWlu
+Zm8tPnZlcnNpb24gPSAodWludDE2X3QpbGUzMl90b19jcHUoaGVhZGVyLT5oZWFkZXIudWNvZGVf
+dmVyc2lvbik7CisJCWluZm8tPmZ3X3ZlcnNpb24gPSBhbWRncHVfZ2V0X2Zpcm13YXJlX3ZlcnNp
+b24oY2dzX2RldmljZSwgdHlwZSk7CiAJCWluZm8tPmZlYXR1cmVfdmVyc2lvbiA9ICh1aW50MTZf
+dClsZTMyX3RvX2NwdShoZWFkZXItPnVjb2RlX2ZlYXR1cmVfdmVyc2lvbik7CiAJfSBlbHNlIHsK
+IAkJdWludDMyX3QgZndfdmVyOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNs
+dWRlL2Nnc19jb21tb24uaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9jZ3NfY29tbW9u
+LmgKb2xkIG1vZGUgMTAwNjQ0Cm5ldyBtb2RlIDEwMDc1NQppbmRleCA2YWE4OTM4Li5kZjdjMThi
+Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9jZ3NfY29tbW9uLmgKKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2Nnc19jb21tb24uaApAQCAtMTYxLDYgKzE2MSw3IEBA
+IHN0cnVjdCBjZ3NfY2xvY2tfbGltaXRzIHsKICAqLwogc3RydWN0IGNnc19maXJtd2FyZV9pbmZv
+IHsKIAl1aW50MTZfdAkJdmVyc2lvbjsKKwl1aW50MTZfdAkJZndfdmVyc2lvbjsKIAl1aW50MTZf
+dAkJZmVhdHVyZV92ZXJzaW9uOwogCXVpbnQzMl90CQlpbWFnZV9zaXplOwogCXVpbnQ2NF90CQlt
+Y19hZGRyOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdy
+L2Zpamlfc211bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvZmlq
+aV9zbXVtZ3IuYwpvbGQgbW9kZSAxMDA2NDQKbmV3IG1vZGUgMTAwNzU1Ci0tIAoyLjUuNQoKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
+aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
