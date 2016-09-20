@@ -1,16 +1,16 @@
-From: Flora Cui <flora.cui-5C7GfCeVMHo@public.gmane.org>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 Subject: Re: [PATCH] drm/amdgpu: fix gtt_mgr bo's offset
-Date: Tue, 20 Sep 2016 19:16:32 +0800
-Message-ID: <20160920111631.GC9691@flora>
+Date: Tue, 20 Sep 2016 13:40:55 +0200
+Message-ID: <ec255145-4ee3-caab-bfc5-644f4afba6ad@vodafone.de>
 References: <1474362552-9062-1-git-send-email-Flora.Cui@amd.com>
  <57E10D35.5040006@amd.com> <20160920104122.GB9691@flora>
  <b4bb5cc9-39de-aff6-ec12-2d97d0cc9fcd@vodafone.de>
+ <20160920111631.GC9691@flora>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="BXVAT5kNtrzKuDFl"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <b4bb5cc9-39de-aff6-ec12-2d97d0cc9fcd-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <20160920111631.GC9691@flora>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,118 +21,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+To: Flora Cui <flora.cui-5C7GfCeVMHo@public.gmane.org>
 Cc: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>, christian.koenig-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---BXVAT5kNtrzKuDFl
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-
-Does this change make sense? 
-
-On Tue, Sep 20, 2016 at 01:02:20PM +0200, Christian König wrote:
-> Am 20.09.2016 um 12:41 schrieb Flora Cui:
-> >On Tue, Sep 20, 2016 at 06:19:33PM +0800, zhoucm1 wrote:
-> >>
-> >>On 2016年09月20日 17:09, Flora Cui wrote:
-> >>>Change-Id: I89e9be3d5c96d46655f3a977fb557b20b4d87609
-> >>>Signed-off-by: Flora Cui <Flora.Cui-5C7GfCeVMHo@public.gmane.org>
-> >>>---
-> >>>  drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c | 4 ++--
-> >>>  1 file changed, 2 insertions(+), 2 deletions(-)
-> >>>
-> >>>diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-> >>>index 262e872..b266cf7 100644
-> >>>--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-> >>>+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-> >>>@@ -128,8 +128,8 @@ int amdgpu_gtt_mgr_alloc(struct ttm_mem_type_manager *man,
-> >>>  	if (!r) {
-> >>>  		mem->start = node->start;
-> >>>-		tbo->offset = (tbo->mem.start << PAGE_SHIFT) +
-> >>>-		    tbo->bdev->man[tbo->mem.mem_type].gpu_offset;
-> >>>+		tbo->offset = (mem->start << PAGE_SHIFT) +
-> >>>+		    tbo->bdev->man[mem->mem_type].gpu_offset;
-> >>mem->mem_type seems not set yet as well if I am correct.
-> >>IIRC, I feel it's better that tbo->offset is set out of this function after
-> >>get_node successfully.
-> >>
-> >how about change to tbo->bdev->man[TTM_PL_TT].gpu_offset? since
-> >gtt_mgr is for GTT only.
-> 
-> Not 100% correct either.
-> 
-> The problem is that sometimes a GTT MM node will be bound for a BO which is
-> still in VRAM (e.g. on eviction for example).
-> 
-> So you need to check if (&tbo->mem == mem) and only then update the tbo's
-> offset.
-> 
-> Regards,
-> Christian.
-> 
-> >
-> >>Regards,
-> >>David Zhou
-> >>
-> >>>  	}
-> >>>  	return r;
-> >_______________________________________________
-> >amd-gfx mailing list
-> >amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> >https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-> 
-> 
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---BXVAT5kNtrzKuDFl
-Content-Type: text/x-diff; charset="us-ascii"
-Content-Disposition: attachment;
-	filename="0001-drm-amdgpu-fix-gtt_mgr-bo-s-offset.patch"
-
->From 411f93d78e8f3691ce480146374c1e603c2c6db6 Mon Sep 17 00:00:00 2001
-From: Flora Cui <Flora.Cui-5C7GfCeVMHo@public.gmane.org>
-Date: Tue, 20 Sep 2016 17:07:31 +0800
-Subject: [PATCH] drm/amdgpu: fix gtt_mgr bo's offset
-
-Change-Id: I89e9be3d5c96d46655f3a977fb557b20b4d87609
-Signed-off-by: Flora Cui <Flora.Cui-5C7GfCeVMHo@public.gmane.org>
-Reviewed-by: Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-index 262e872..f86c844 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-@@ -128,8 +128,9 @@ int amdgpu_gtt_mgr_alloc(struct ttm_mem_type_manager *man,
- 
- 	if (!r) {
- 		mem->start = node->start;
--		tbo->offset = (tbo->mem.start << PAGE_SHIFT) +
--		    tbo->bdev->man[tbo->mem.mem_type].gpu_offset;
-+		if (&tbo->mem == mem)
-+			tbo->offset = (tbo->mem.start << PAGE_SHIFT) +
-+			    tbo->bdev->man[tbo->mem.mem_type].gpu_offset;
- 	}
- 
- 	return r;
--- 
-2.7.4
-
-
---BXVAT5kNtrzKuDFl
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---BXVAT5kNtrzKuDFl--
+QW0gMjAuMDkuMjAxNiB1bSAxMzoxNiBzY2hyaWViIEZsb3JhIEN1aToKPiBEb2VzIHRoaXMgY2hh
+bmdlIG1ha2Ugc2Vuc2U/CgpZZXMsIGV4YWN0bHkuIFBhdGNoIGlzIFJldmlld2VkLWJ5OiBDaHJp
+c3RpYW4gS8O2bmlnIAo8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPi4KCkJ1dCBwbGVhc2UgYmUg
+YXdhcmUgdGhhdCB0aGVyZSBpcyBhdCBsZWFzdCBvbmUgb3RoZXIgYnVnIEknbSBjdXJyZW50bHkg
+CmludmVzdGlnYXRpbmcuCgpSZWdhcmRzLApDaHJpc3RpYW4uCgo+Cj4gT24gVHVlLCBTZXAgMjAs
+IDIwMTYgYXQgMDE6MDI6MjBQTSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4gQW0g
+MjAuMDkuMjAxNiB1bSAxMjo0MSBzY2hyaWViIEZsb3JhIEN1aToKPj4+IE9uIFR1ZSwgU2VwIDIw
+LCAyMDE2IGF0IDA2OjE5OjMzUE0gKzA4MDAsIHpob3VjbTEgd3JvdGU6Cj4+Pj4gT24gMjAxNuW5
+tDA55pyIMjDml6UgMTc6MDksIEZsb3JhIEN1aSB3cm90ZToKPj4+Pj4gQ2hhbmdlLUlkOiBJODll
+OWJlM2Q1Yzk2ZDQ2NjU1ZjNhOTc3ZmI1NTdiMjBiNGQ4NzYwOQo+Pj4+PiBTaWduZWQtb2ZmLWJ5
+OiBGbG9yYSBDdWkgPEZsb3JhLkN1aUBhbWQuY29tPgo+Pj4+PiAtLS0KPj4+Pj4gICBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ3R0X21nci5jIHwgNCArKy0tCj4+Pj4+ICAgMSBm
+aWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPj4+Pj4KPj4+Pj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9ndHRfbWdyLmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ3R0X21nci5jCj4+Pj4+IGluZGV4
+IDI2MmU4NzIuLmIyNjZjZjcgMTAwNjQ0Cj4+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9ndHRfbWdyLmMKPj4+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2d0dF9tZ3IuYwo+Pj4+PiBAQCAtMTI4LDggKzEyOCw4IEBAIGludCBhbWRn
+cHVfZ3R0X21ncl9hbGxvYyhzdHJ1Y3QgdHRtX21lbV90eXBlX21hbmFnZXIgKm1hbiwKPj4+Pj4g
+ICAJaWYgKCFyKSB7Cj4+Pj4+ICAgCQltZW0tPnN0YXJ0ID0gbm9kZS0+c3RhcnQ7Cj4+Pj4+IC0J
+CXRiby0+b2Zmc2V0ID0gKHRiby0+bWVtLnN0YXJ0IDw8IFBBR0VfU0hJRlQpICsKPj4+Pj4gLQkJ
+ICAgIHRiby0+YmRldi0+bWFuW3Riby0+bWVtLm1lbV90eXBlXS5ncHVfb2Zmc2V0Owo+Pj4+PiAr
+CQl0Ym8tPm9mZnNldCA9IChtZW0tPnN0YXJ0IDw8IFBBR0VfU0hJRlQpICsKPj4+Pj4gKwkJICAg
+IHRiby0+YmRldi0+bWFuW21lbS0+bWVtX3R5cGVdLmdwdV9vZmZzZXQ7Cj4+Pj4gbWVtLT5tZW1f
+dHlwZSBzZWVtcyBub3Qgc2V0IHlldCBhcyB3ZWxsIGlmIEkgYW0gY29ycmVjdC4KPj4+PiBJSVJD
+LCBJIGZlZWwgaXQncyBiZXR0ZXIgdGhhdCB0Ym8tPm9mZnNldCBpcyBzZXQgb3V0IG9mIHRoaXMg
+ZnVuY3Rpb24gYWZ0ZXIKPj4+PiBnZXRfbm9kZSBzdWNjZXNzZnVsbHkuCj4+Pj4KPj4+IGhvdyBh
+Ym91dCBjaGFuZ2UgdG8gdGJvLT5iZGV2LT5tYW5bVFRNX1BMX1RUXS5ncHVfb2Zmc2V0PyBzaW5j
+ZQo+Pj4gZ3R0X21nciBpcyBmb3IgR1RUIG9ubHkuCj4+IE5vdCAxMDAlIGNvcnJlY3QgZWl0aGVy
+Lgo+Pgo+PiBUaGUgcHJvYmxlbSBpcyB0aGF0IHNvbWV0aW1lcyBhIEdUVCBNTSBub2RlIHdpbGwg
+YmUgYm91bmQgZm9yIGEgQk8gd2hpY2ggaXMKPj4gc3RpbGwgaW4gVlJBTSAoZS5nLiBvbiBldmlj
+dGlvbiBmb3IgZXhhbXBsZSkuCj4+Cj4+IFNvIHlvdSBuZWVkIHRvIGNoZWNrIGlmICgmdGJvLT5t
+ZW0gPT0gbWVtKSBhbmQgb25seSB0aGVuIHVwZGF0ZSB0aGUgdGJvJ3MKPj4gb2Zmc2V0Lgo+Pgo+
+PiBSZWdhcmRzLAo+PiBDaHJpc3RpYW4uCj4+Cj4+Pj4gUmVnYXJkcywKPj4+PiBEYXZpZCBaaG91
+Cj4+Pj4KPj4+Pj4gICAJfQo+Pj4+PiAgIAlyZXR1cm4gcjsKPj4+IF9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+
+Pj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+Pgo+PiBfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+
+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiBodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKCgpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2FtZC1nZngK
