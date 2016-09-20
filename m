@@ -1,13 +1,17 @@
 From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH 0/3] drm/amdgpu: implement raster configuration
-Date: Tue, 20 Sep 2016 11:37:16 +0900
-Message-ID: <3790458b-489a-f408-860d-f9650a9f5cab@daenzer.net>
-References: <1474166210-21736-1-git-send-email-ray.huang@amd.com>
+Subject: Re: [PATCH 4/6] drm/radeon: Provide page_flip_target hook
+Date: Tue, 20 Sep 2016 11:59:15 +0900
+Message-ID: <73bb9197-16a5-856d-ffe8-8fdfe007ca3c@daenzer.net>
+References: <1470281981-18172-1-git-send-email-michel@daenzer.net>
+ <1470281981-18172-5-git-send-email-michel@daenzer.net>
+ <dccd9347-afc4-83a6-8014-20692e71fd03@gmail.com>
+ <71aaa221-ad52-25db-f6dc-18c368d57efa@daenzer.net>
+ <b00edbdc-c467-3f33-5a07-32def2961190@gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1474166210-21736-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <b00edbdc-c467-3f33-5a07-32def2961190-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,16 +22,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: Ken Wang <Qingqing.Wang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alvin Huan <Alvin.Huan-5C7GfCeVMHo@public.gmane.org>
+To: Mario Kleiner <mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gMTgvMDkvMTYgMTE6MzYgQU0sIEh1YW5nIFJ1aSB3cm90ZToKPiBIaSBhbGwsCj4gCj4gVGhp
-cyBwYXRjaCBzZXQgaXMgdG8gaW50cm9kdWNlIHRoZSByYXN0ZXIgY29uZmlndXJhdGlvbiBmb3Ig
-YWxsIGdmeAo+IGdlbmVyYXRpb25zLgoKV2hhdCdzIHRoZSBtb3RpdmF0aW9uIGZvciBkb2luZyB0
-aGlzIGluIHRoZSBrZXJuZWw/IE1lc2Egd2lsbCB3cml0ZSBpdHMKb3duIHZhbHVlcyB0byB0aGVz
-ZSByZWdpc3RlcnMgYW55d2F5LgoKCi0tIApFYXJ0aGxpbmcgTWljaGVsIETDpG56ZXIgICAgICAg
-ICAgICAgICB8ICAgICAgICAgICAgICAgaHR0cDovL3d3dy5hbWQuY29tCkxpYnJlIHNvZnR3YXJl
-IGVudGh1c2lhc3QgICAgICAgICAgICAgfCAgICAgICAgICAgICBNZXNhIGFuZCBYIGRldmVsb3Bl
-cgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
-IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+T24gMTcvMDkvMTYgMDk6NDEgUE0sIE1hcmlvIEtsZWluZXIgd3JvdGU6Cj4gSGkgTWljaGVsLAo+
+IAo+IGFsbCB5b3VyIHBhdGNoZXMsIGJvdGggdGhlIGFscmVhZHkgbWVyZ2VkIGtlcm5lbCBiaXRz
+IGluIHJhZGVvbi9hbWRncHUKPiBhbmQgYWxzbyBhbGwgdGhlIHVzZXJzcGFjZSBiaXRzIGluIGxp
+YmRybS9hdGktZGR4L2FtZGdwdS1kZHggYXJlIGFsbAo+IAo+IFJldmlld2VkLWFuZC10ZXN0ZWQt
+Ynk6IE1hcmlvIEtsZWluZXIgPG1hcmlvLmtsZWluZXIuZGVAZ21haWwuY29tPgo+IAo+IEkgc3Vj
+Y2Vzc2Z1bGx5IHRlc3RlZCB3aXRoIG9sZC9jdXJyZW50IHVzZXJzcGFjZSBhbmQgdGhlIG5ldyB1
+c2Vyc3BhY2UKPiBwYXRjaGVzIGZyb20geW91ciBvd24gbGliZHJtL2F0aS1kZHgvYW1kZ3B1LWRk
+eCByZXBvcywgdW5kZXIgcmFkZW9uLWttcwo+IHdpdGggSEQtNTc3MCBhbmQgYW1kZ3B1LWttcyB3
+aXRoIFI5IDM4MCwgdW5kZXIgRFJJMiBhbmQgRFJJMy9QcmVzZW50Cj4gd2l0aCB0aGUgbmV3IHVz
+ZXJzcGFjZSBhbmQgYXQgbGVhc3QgRFJJMy9QcmVzZW50IHdpdGggdGhlIG9sZC9jdXJyZW50Cj4g
+dXNlcnNwYWNlIChjYW4ndCBxdWl0ZSByZW1lbWJlciBpZiBpIGFsc28gdGVzdGVkIHdpdGggRFJJ
+MiBvbgo+IG9sZC9jdXJyZW50IHVzZXJzcGFjZSwgYnV0IHByb2JhYmx5KS4gSGFyZHdhcmUgbWVh
+c3VyZWQgdGltaW5nIHRlc3RzIGFsbAo+IHdvcmsgZmluZS4KPiAKPiBTbyBhbGwgaXMgZ29vZCwg
+ZXhjZXB0IGZvciBwcmUtRENFNCB3aXRob3V0IHBmbGlwIGlycXMsIGJ1dCBmb3IgdGhhdCBzZWUK
+PiB0aGUgcGF0Y2hzZXQgaSBqdXN0IHNlbnQgb3V0LCB3aGljaCBzaG91bGQgbWFrZSB0aG9zZSBv
+bGQgYXNpY3Mgd29yawo+IHdlbGwgYXMgd2VsbC4KClRoYW5rcyBmb3IgdGhlIHRlc3RpbmcgYW5k
+IHBhdGNoZXMhCgoKLS0gCkVhcnRobGluZyBNaWNoZWwgRMOkbnplciAgICAgICAgICAgICAgIHwg
+ICAgICAgICAgICAgICBodHRwOi8vd3d3LmFtZC5jb20KTGlicmUgc29mdHdhcmUgZW50aHVzaWFz
+dCAgICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2ZWxvcGVyCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
+aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
