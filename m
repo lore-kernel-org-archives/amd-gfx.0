@@ -1,41 +1,34 @@
-From: Grazvydas Ignotas <notasas-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: disable CRTCs before teardown
-Date: Sun, 25 Sep 2016 23:34:48 +0300
-Message-ID: <1474835690-2621-3-git-send-email-notasas@gmail.com>
+From: Grazvydas Ignotas <notasas@gmail.com>
+Subject: [PATCH] drm/amdgpu: clear ring pointer in amdgpu_device on teardown
+Date: Sun, 25 Sep 2016 23:34:47 +0300
+Message-ID: <1474835690-2621-2-git-send-email-notasas@gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Grazvydas Ignotas <notasas-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-U29tZSBjb2RlIGNhbGxlZCBieSBkcm1fY3J0Y19mb3JjZV9kaXNhYmxlX2FsbCgpIHdhbnRzIHRv
-IHdhaXQgZm9yIGFsbApmZW5jZXMsIHNvIG9ubHkgZG8gZmVuY2UgdGVhcmRvd24gYWZ0ZXIgQ1JU
-Q3MgYXJlIGRpc2FibGVkLgoKU2lnbmVkLW9mZi1ieTogR3JhenZ5ZGFzIElnbm90YXMgPG5vdGFz
-YXNAZ21haWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZp
-Y2UuYyB8IDIgKy0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigt
-KQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2Uu
-YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwppbmRleCA5OWEx
-NWNhLi4xYTFiYzc5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfZGV2aWNlLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rldmlj
-ZS5jCkBAIC0xODIyLDExICsxODIyLDExIEBAIHZvaWQgYW1kZ3B1X2RldmljZV9maW5pKHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2KQogCiAJRFJNX0lORk8oImFtZGdwdTogZmluaXNoaW5nIGRl
-dmljZS5cbiIpOwogCWFkZXYtPnNodXRkb3duID0gdHJ1ZTsKKwlkcm1fY3J0Y19mb3JjZV9kaXNh
-YmxlX2FsbChhZGV2LT5kZGV2KTsKIAkvKiBldmljdCB2cmFtIG1lbW9yeSAqLwogCWFtZGdwdV9i
-b19ldmljdF92cmFtKGFkZXYpOwogCWFtZGdwdV9pYl9wb29sX2ZpbmkoYWRldik7CiAJYW1kZ3B1
-X2ZlbmNlX2RyaXZlcl9maW5pKGFkZXYpOwotCWRybV9jcnRjX2ZvcmNlX2Rpc2FibGVfYWxsKGFk
-ZXYtPmRkZXYpOwogCWFtZGdwdV9mYmRldl9maW5pKGFkZXYpOwogCXIgPSBhbWRncHVfZmluaShh
-ZGV2KTsKIAlrZnJlZShhZGV2LT5pcF9ibG9ja19zdGF0dXMpOwotLSAKMi43LjQKCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
-aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+VGhpcyBpcyBpbiBzeW1tZXRyeSB0byBzZXR1cCBkb25lIGluIGFtZGdwdV9yaW5nX2luaXQuCgpT
+aWduZWQtb2ZmLWJ5OiBHcmF6dnlkYXMgSWdub3RhcyA8bm90YXNhc0BnbWFpbC5jb20+Ci0tLQog
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3JpbmcuYyB8IDIgKysKIDEgZmlsZSBj
+aGFuZ2VkLCAyIGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfcmluZy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3JpbmcuYwppbmRleCA3NzdmMTFiLi5lMWZhODczIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9yaW5nLmMKQEAgLTI2NCw2ICsyNjQsOCBAQCB2b2lkIGFtZGdwdV9yaW5nX2Zp
+bmkoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKQogCQkJICAgICAgKHZvaWQgKiopJnJpbmctPnJp
+bmcpOwogCiAJYW1kZ3B1X2RlYnVnZnNfcmluZ19maW5pKHJpbmcpOworCisJcmluZy0+YWRldi0+
+cmluZ3NbcmluZy0+aWR4XSA9IE5VTEw7CiB9CiAKIC8qCi0tIAoyLjcuNAoKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlz
+dApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
