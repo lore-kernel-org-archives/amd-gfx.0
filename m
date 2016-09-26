@@ -1,17 +1,18 @@
 From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 Subject: RE: [PATCH] drm/amdgpu: fix addr handling in
  amdgpu_vm_bo_update_mapping
-Date: Mon, 26 Sep 2016 15:16:35 +0000
-Message-ID: <MWHPR12MB16940A99EBD2BCB0A5F687C3F7CD0@MWHPR12MB1694.namprd12.prod.outlook.com>
+Date: Mon, 26 Sep 2016 15:19:55 +0000
+Message-ID: <MWHPR12MB16946020DD39CF8A45EF99CCF7CD0@MWHPR12MB1694.namprd12.prod.outlook.com>
 References: <1474797313-1994-1-git-send-email-deathsimple@vodafone.de>
  <20160926071900.GF9691@flora> <20160926091624.GG9691@flora>
  <5336fe95-9645-0c9c-e948-1e51811ad907@vodafone.de>
  <CY4PR12MB1768C24C35861367BAD1BA07F7CD0@CY4PR12MB1768.namprd12.prod.outlook.com>
  <c6238048-9393-e20c-2b03-6ff11c82ea45@vodafone.de>
+ <MWHPR12MB16940A99EBD2BCB0A5F687C3F7CD0@MWHPR12MB1694.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2003027829=="
+Content-Type: multipart/mixed; boundary="===============0221308552=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <c6238048-9393-e20c-2b03-6ff11c82ea45-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <MWHPR12MB16940A99EBD2BCB0A5F687C3F7CD0-Gy0DoCVfaSW4WA4dJ5YXGAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -23,17 +24,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?iso-8859-1?Q?=27Christian_K=F6nig=27?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, "Cui, Flora" <Flora.Cui-5C7GfCeVMHo@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, =?iso-8859-1?Q?=27Christian_K=F6nig=27?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "StDenis,
+ Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, "Cui, Flora" <Flora.Cui-5C7GfCeVMHo@public.gmane.org>
 Cc: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============2003027829==
+--===============0221308552==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MWHPR12MB16940A99EBD2BCB0A5F687C3F7CD0MWHPR12MB1694namp_"
+	boundary="_000_MWHPR12MB16946020DD39CF8A45EF99CCF7CD0MWHPR12MB1694namp_"
 
---_000_MWHPR12MB16940A99EBD2BCB0A5F687C3F7CD0MWHPR12MB1694namp_
+--_000_MWHPR12MB16946020DD39CF8A45EF99CCF7CD0MWHPR12MB1694namp_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
+
+Wait, nevermind.  It would be good to add a comment that addr needs to be r=
+eset to 0 in this case since it's used below in the amdgpu_vm_frag_ptes().
+
+The patch is:
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf Of D=
+eucher, Alexander
+Sent: Monday, September 26, 2016 11:17 AM
+To: 'Christian K=F6nig'; StDenis, Tom; Cui, Flora
+Cc: Huang, Ray; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: RE: [PATCH] drm/amdgpu: fix addr handling in amdgpu_vm_bo_update_m=
+apping
 
 Maybe it would be cleaner to just pass 0 to amdgpu_vm_frag_ptes() or remove=
  the parameter altogether.
@@ -44,7 +60,8 @@ From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gm
 hristian K=F6nig
 Sent: Monday, September 26, 2016 11:12 AM
 To: StDenis, Tom; Cui, Flora
-Cc: Huang, Ray; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Huang, Ray; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
+top.org>
 Subject: Re: [PATCH] drm/amdgpu: fix addr handling in amdgpu_vm_bo_update_m=
 apping
 
@@ -188,7 +205,7 @@ https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
 
 
---_000_MWHPR12MB16940A99EBD2BCB0A5F687C3F7CD0MWHPR12MB1694namp_
+--_000_MWHPR12MB16946020DD39CF8A45EF99CCF7CD0MWHPR12MB1694namp_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -242,16 +259,20 @@ p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
 	font-size:8.0pt;
 	font-family:"Tahoma","sans-serif";
 	color:black;}
-span.EmailStyle18
-	{mso-style-type:personal-reply;
-	font-family:"Calibri","sans-serif";
-	color:#1F497D;}
 span.BalloonTextChar
 	{mso-style-name:"Balloon Text Char";
 	mso-style-priority:99;
 	mso-style-link:"Balloon Text";
 	font-family:"Tahoma","sans-serif";
 	color:black;}
+span.EmailStyle20
+	{mso-style-type:personal;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+span.EmailStyle21
+	{mso-style-type:personal-reply;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
 .MsoChpDefault
 	{mso-style-type:export-only;
 	font-size:10.0pt;}
@@ -270,15 +291,19 @@ div.WordSection1
 <body bgcolor=3D"white" lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
 <div class=3D"WordSection1">
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Maybe it would be cleaner=
- to just pass 0 to amdgpu_vm_frag_ptes() or remove the parameter altogether=
-.<o:p></o:p></span></p>
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Wait, nevermind.&nbsp; It=
+ would be good to add a comment that addr needs to be reset to 0 in this ca=
+se since it's used below in the amdgpu_vm_frag_ptes().<o:p></o:p></span></p=
+>
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
 libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
 /p>
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Alex<o:p></o:p></span></p=
->
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">The patch is:<o:p></o:p><=
+/span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Reviewed-by: Alex Deucher=
+ &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<o:p></o:p></span></p>
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
 libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
 /p>
@@ -292,15 +317,48 @@ libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
 n style=3D"font-size:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif=
 &quot;;color:windowtext"> amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp93gSJqDPrsil@public.gmane.org=
 .org]
-<b>On Behalf Of </b>Christian K=F6nig<br>
-<b>Sent:</b> Monday, September 26, 2016 11:12 AM<br>
-<b>To:</b> StDenis, Tom; Cui, Flora<br>
+<b>On Behalf Of </b>Deucher, Alexander<br>
+<b>Sent:</b> Monday, September 26, 2016 11:17 AM<br>
+<b>To:</b> 'Christian K=F6nig'; StDenis, Tom; Cui, Flora<br>
 <b>Cc:</b> Huang, Ray; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: fix addr handling in amdgpu_vm_bo_u=
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: fix addr handling in amdgpu_vm_bo_u=
 pdate_mapping<o:p></o:p></span></p>
 </div>
 </div>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Maybe it would be cleaner=
+ to just pass 0 to amdgpu_vm_frag_ptes() or remove the parameter altogether=
+.</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">&nbsp;</span><o:p></o:p><=
+/p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Alex</span><o:p></o:p></p=
+>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">&nbsp;</span><o:p></o:p><=
+/p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
+;Tahoma&quot;,&quot;sans-serif&quot;;color:windowtext">From:</span></b><spa=
+n style=3D"font-size:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif=
+&quot;;color:windowtext"> amd-gfx [<a href=3D"mailto:amd-gfx-bounces@lists.=
+freedesktop.org">mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>]
+<b>On Behalf Of </b>Christian K=F6nig<br>
+<b>Sent:</b> Monday, September 26, 2016 11:12 AM<br>
+<b>To:</b> StDenis, Tom; Cui, Flora<br>
+<b>Cc:</b> Huang, Ray; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd=
+-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: fix addr handling in amdgpu_vm_bo_u=
+pdate_mapping</span><o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
 <div>
 <p class=3D"MsoNormal">The function called is either amdgpu_vm_do_set_ptes(=
 ) or amdgpu_vm_do_copy_ptes().<br>
@@ -324,14 +382,14 @@ e if the patch is correct but I'm not that familiar with the VM side of thi=
 ngs. &nbsp;It seems to boil down to calling params-&gt;func() with
  a new dst value of NULL but that's where I'm stopped at the moment since I=
  don't know what func() is. &nbsp;Nothing up to that point looks overtly wr=
-ong (like trying to use that address as a source for a read/write).<o:p></o=
-:p></span></p>
+ong (like trying to use that address as a source for a read/write).</span><=
+o:p></o:p></p>
 <p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
-;,&quot;sans-serif&quot;"><o:p>&nbsp;</o:p></span></p>
+;,&quot;sans-serif&quot;">&nbsp;</span><o:p></o:p></p>
 <p style=3D"background:white"><span style=3D"font-family:&quot;Calibri&quot=
-;,&quot;sans-serif&quot;">Tom<o:p></o:p></span></p>
+;,&quot;sans-serif&quot;">Tom</span><o:p></o:p></p>
 <p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-famil=
-y:&quot;Calibri&quot;,&quot;sans-serif&quot;"><o:p>&nbsp;</o:p></span></p>
+y:&quot;Calibri&quot;,&quot;sans-serif&quot;">&nbsp;</span><o:p></o:p></p>
 <div>
 <div>
 <div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center;backgr=
@@ -355,10 +413,10 @@ s@lists.freedesktop.org&gt;</a> on behalf of Christian K=F6nig
 <b>Subject:</b> Re: [PATCH] drm/amdgpu: fix addr handling in amdgpu_vm_bo_u=
 pdate_mapping</span><span style=3D"font-family:&quot;Calibri&quot;,&quot;sa=
 ns-serif&quot;">
-<o:p></o:p></span></p>
+</span><o:p></o:p></p>
 <div>
 <p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-famil=
-y:&quot;Calibri&quot;,&quot;sans-serif&quot;">&nbsp;<o:p></o:p></span></p>
+y:&quot;Calibri&quot;,&quot;sans-serif&quot;">&nbsp;</span><o:p></o:p></p>
 </div>
 </div>
 </div>
@@ -482,8 +540,8 @@ nbsp;&nbsp;&nbsp; case TTM_PL_VRAM:<br>
 edesktop.org</a><br>
 &gt;&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx"=
  id=3D"LPlnk752113">
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a> <o:p></o:p></spa=
-n></p>
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a> </span><o:p></o:=
+p></p>
 <div style=3D"margin-bottom:15.0pt;overflow:auto" id=3D"LPBorder_GT_1474897=
 4921180.061148974248180776">
 <table class=3D"MsoNormalTable" border=3D"1" cellspacing=3D"0" cellpadding=
@@ -498,20 +556,20 @@ pt"><span style=3D"font-size:16.0pt;font-family:&quot;Tahoma&quot;,&quot;sa=
 ns-serif&quot;;color:#3B5777"><a href=3D"https://lists.freedesktop.org/mail=
 man/listinfo/amd-gfx" target=3D"_blank"><span style=3D"text-decoration:none=
 ">amd-gfx
- Info Page - lists.freedesktop.org</span></a><o:p></o:p></span></p>
+ Info Page - lists.freedesktop.org</span></a></span><o:p></o:p></p>
 </div>
 <div style=3D"margin-top:7.5pt;margin-bottom:12.0pt" id=3D"LPMetadata_14748=
 974921170.8198680036506909">
 <p class=3D"MsoNormal" style=3D"margin-top:15.0pt;line-height:10.5pt"><span=
  style=3D"font-size:10.5pt;font-family:&quot;Arial&quot;,&quot;sans-serif&q=
-uot;;color:#666666">lists.freedesktop.org<o:p></o:p></span></p>
+uot;;color:#666666">lists.freedesktop.org</span><o:p></o:p></p>
 </div>
 <div id=3D"LPDescription_14748974921180.08916125964466382">
 <p class=3D"MsoNormal" style=3D"margin-top:15.0pt;line-height:15.0pt"><span=
  style=3D"font-size:10.5pt;font-family:&quot;Segoe UI&quot;,&quot;sans-seri=
 f&quot;">To see the collection of prior postings to the list, visit the amd=
 -gfx Archives. Using amd-gfx: To post a message to all the
- list members, send email ...<o:p></o:p></span></p>
+ list members, send email ...</span><o:p></o:p></p>
 </div>
 </td>
 </tr>
@@ -534,20 +592,21 @@ amd-gfx mailing list<br>
 <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
 org</a><br>
 <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></span></p>
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a></span><o:p></o:p></p>
 </div>
 </div>
 </div>
 </blockquote>
-<p><o:p>&nbsp;</o:p></p>
+<p>&nbsp;<o:p></o:p></p>
+</div>
 </div>
 </div>
 </body>
 </html>
 
---_000_MWHPR12MB16940A99EBD2BCB0A5F687C3F7CD0MWHPR12MB1694namp_--
+--_000_MWHPR12MB16946020DD39CF8A45EF99CCF7CD0MWHPR12MB1694namp_--
 
---===============2003027829==
+--===============0221308552==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -557,4 +616,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============2003027829==--
+--===============0221308552==--
