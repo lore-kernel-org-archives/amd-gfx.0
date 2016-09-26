@@ -1,79 +1,41 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-Subject: Re: [PATCH] drm/i915: Before pageflip, also wait for shared dmabuf
- fences.
-Date: Mon, 26 Sep 2016 09:48:37 +0900
-Message-ID: <8c21f70a-7f96-480e-9784-93f2d48f52bb@daenzer.net>
-References: <5c2048ff-0e20-ddf3-2d73-9a3acb38e7ff@vodafone.de>
- <5f57e486-ecda-9fc9-7d08-3855e3080186@daenzer.net>
- <3f4643cb-52a9-d7ae-439b-5f6fc6e718cc@vodafone.de>
- <20160922063625.GD22164@dvetter-linux.ger.corp.intel.com>
- <b95726e7-6bf6-a1b8-2a63-0758b1b185e2@vodafone.de>
- <CAKMK7uF13M7d8qRRwKs_8M-QHjnuB7k3jshTUDnccTTQf6unog@mail.gmail.com>
- <ddf99e2a-5f9a-41b9-9fde-af7bfd522572@vodafone.de>
- <CAKMK7uEidoKbTO-m3KSz8UmQhF+uorg2-cWY8UpOXjZ_9MCxLg@mail.gmail.com>
- <d2430ff8-43bd-bff2-9b02-847cabfd56c0@vodafone.de>
- <ed1a57a4-1409-6d07-998a-2b54f466f710@daenzer.net>
- <20160923120954.GH22164@dvetter-linux.ger.corp.intel.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: Bonair support Kernel compiling instructions
+Date: Mon, 26 Sep 2016 09:52:03 +0900
+Message-ID: <274717c9-5ffe-e3a4-0201-1db0ed0cbc39@daenzer.net>
+References: <1ed3d196-6911-0ce6-74d1-c7ef72344847@terranforge.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20160923120954.GH22164@dvetter-linux.ger.corp.intel.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Daniel Vetter <daniel@ffwll.ch>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1ed3d196-6911-0ce6-74d1-c7ef72344847-VyilM6Du7KTbeXlDLKSl0A@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Striker Leggette <striker-VyilM6Du7KTbeXlDLKSl0A@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gMjMvMDkvMTYgMDk6MDkgUE0sIERhbmllbCBWZXR0ZXIgd3JvdGU6Cj4gT24gRnJpLCBTZXAg
-MjMsIDIwMTYgYXQgMDc6MDA6MjVQTSArMDkwMCwgTWljaGVsIETDpG56ZXIgd3JvdGU6Cj4+IE9u
-IDIyLzA5LzE2IDEwOjIyIFBNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4gQW0gMjIuMDku
-MjAxNiB1bSAxNTowNSBzY2hyaWViIERhbmllbCBWZXR0ZXI6Cj4+Pj4gCj4+Pj4gQnV0IHRoZSBj
-dXJyZW50IGFwcHJvYWNoIGluIGFtZGdwdV9zeW5jLmMgb2YgZGVjbGFyaW5nIGEgZmVuY2UgYXMK
-Pj4+PiBleGNsdXNpdmUgYWZ0ZXIgdGhlIGZhY3QgKGlmIG93bmVycyBkb24ndCBtYXRjaCkganVz
-dCBpc24ndCBob3cKPj4+PiByZXNlcnZhdGlvbl9vYmplY3Qgd29ya3MuIFlvdSBjYW4gb2YgY291
-cnNlIGNoYW5nZSB0aGF0LCBidXQgdGhhdAo+Pj4+IG1lYW5zIHlvdSBtdXN0IGNoYW5nZSBhbGwg
-ZHJpdmVycyBpbXBsZW1lbnRpbmcgc3VwcG9ydCBmb3IgaW1wbGljaXQKPj4+PiBmZW5jaW5nIG9m
-IGRtYS1idWYuIEZpeGluZyBhbWRncHUgd2lsbCBiZSBlYXNpZXIgOy0pCj4+Pgo+Pj4gV2VsbCBh
-cyBmYXIgYXMgSSBjYW4gc2VlIHRoZXJlIGlzIG5vIHdheSBJIGNhbiBmaXggYW1kZ3B1IGluIHRo
-aXMgY2FzZS4KPj4+Cj4+PiBUaGUgaGFuZGxpbmcgY2xlYXJseSBuZWVkcyB0byBiZSBjaGFuZ2Vk
-IG9uIHRoZSByZWNlaXZpbmcgc2lkZSBvZiB0aGUKPj4+IHJlc2VydmF0aW9uIG9iamVjdHMgaWYg
-SSBkb24ndCBjb21wbGV0ZWx5IHdhbnQgdG8gZGlzYWJsZSBjb25jdXJyZW50Cj4+PiBhY2Nlc3Mg
-dG8gQk9zIGluIGFtZGdwdS4KPj4KPj4gQW55d2F5LCB3ZSBuZWVkIGEgc29sdXRpb24gZm9yIHRo
-aXMgYmV0d2VlbiByYWRlb24gYW5kIGFtZGdwdSwgYW5kIEkKPj4gZG9uJ3QgdGhpbmsgYSBzb2x1
-dGlvbiB3aGljaCBpbnZvbHZlcyB0aG9zZSBkcml2ZXJzIHVzaW5nIHJlc2VydmF0aW9uCj4+IG9i
-amVjdCBzZW1hbnRpY3MgYmV0d2VlbiB0aGVtIHdoaWNoIGFyZSBkaWZmZXJlbnQgZnJvbSBhbGwg
-b3RoZXIgZHJpdmVycwo+PiBpcyBhIGdvb2QgaWRlYS4KPiAKPiBBZmFpayB0aGVyZSdzIGFsc28g
-YW1kK2ludGVsIG1hY2hpbmVzIG91dCB0aGVyZSwKClN1cmUsIHdoYXQgSSBtZWFudCB3YXMgdGhh
-dCBldmVuIGlmIHdlIGRpZG4ndCBjYXJlIGFib3V0IHRob3NlICh3aGljaCB3ZQpkbyksIHdlJ2Qg
-c3RpbGwgbmVlZCBhIHNvbHV0aW9uIGJldHdlZW4gb3VyIG93biBkcml2ZXJzLgoKCj4gc28gcmVh
-bGx5IHRoZSBvbmx5IG9wdGlvbiBpcyB0byBlaXRoZXIgZml4IGFtZGdwdSB0byBjb3JyZWN0bHkg
-c2V0Cj4gZXhjbHVzaXZlIGZlbmNlcyBvbiBzaGFyZWQgYnVmZmVycyAod2l0aCB0aGUgaGVscCBv
-ZiB1c2Vyc3BhY2UgaGludHMpLgo+IE9yIGNoYW5nZSBhbGwgdGhlIGV4aXN0aW5nIGRyaXZlcnMu
-CgpJIGdvdCBzb21lIGZyZXNoIHBlcnNwZWN0aXZlIG9uIHRoZSBwcm9ibGVtIHdoaWxlIHRha2lu
-ZyBhIHdhbGssIGFuZCBJJ20Kbm93IGZhaXJseSBjb252aW5jZWQgdGhhdCBuZWl0aGVyIGFtZGdw
-dSB1c2Vyc3BhY2Ugbm9yIG90aGVyIGRyaXZlcnMKbmVlZCB0byBiZSBtb2RpZmllZDoKCkl0IG9j
-Y3VycmVkIHRvIG1lIHRoYXQgYWxsIHRoZSBpbmZvcm1hdGlvbiB3ZSBuZWVkIGlzIGFscmVhZHkg
-dGhlcmUgaW4KdGhlIGV4Y2x1c2l2ZSBhbmQgc2hhcmVkIGZlbmNlcyBzZXQgYnkgYW1kZ3B1LiBX
-ZSBqdXN0IG5lZWQgdG8gdXNlIGl0CmRpZmZlcmVudGx5IHRvIG1hdGNoIHRoZSBleHBlY3RhdGlv
-bnMgb2Ygb3RoZXIgZHJpdmVycy4KCldlIHNob3VsZCBiZSBhYmxlIHRvIHNldCBzb21lIHNvcnQg
-b2YgInBzZXVkbyIgZmVuY2UgYXMgdGhlIGV4Y2x1c2l2ZQpmZW5jZSBvZiB0aGUgcmVzZXJ2YXRp
-b24gb2JqZWN0LiBXaGVuIHdlIGFyZSBhc2tlZCBieSBhbm90aGVyIGRyaXZlciB0bwp3YWl0IGZv
-ciB0aGlzIGZlbmNlIHRvIHNpZ25hbCwgd2UgdGFrZSB0aGUgY3VycmVudCAicmVhbCIgZXhjbHVz
-aXZlCmZlbmNlICh3aGljaCB3ZSBjYW4ga2VlcCB0cmFjayBvZiBlLmcuIGluIG91ciBCTyBzdHJ1
-Y3QpIGFuZCBzaGFyZWQKZmVuY2VzLCBhbmQgd2FpdCBmb3IgYWxsIG9mIHRob3NlIHRvIHNpZ25h
-bDsgdGhlbiB3ZSBtYXJrIHRoZSAicHNldWRvIgpleGNsdXNpdmUgZmVuY2UgYXMgc2lnbmFsbGVk
-LgoKQW0gSSBtaXNzaW5nIGFueXRoaW5nIHdoaWNoIHdvdWxkIHByZXZlbnQgdGhpcyBmcm9tIHdv
-cmtpbmc/CgoKLS0gCkVhcnRobGluZyBNaWNoZWwgRMOkbnplciAgICAgICAgICAgICAgIHwgICAg
-ICAgICAgICAgICBodHRwOi8vd3d3LmFtZC5jb20KTGlicmUgc29mdHdhcmUgZW50aHVzaWFzdCAg
-ICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2ZWxvcGVyCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxp
-c3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
+T24gMjYvMDkvMTYgMDI6NTUgQU0sIFN0cmlrZXIgTGVnZ2V0dGUgd3JvdGU6Cj4gCj4gSSBhbSBy
+dW5uaW5nIGEgTGVub3ZvIFk3MDAgd2l0aCBhbiBSNyBDYXJyaXpvIEFQVSBhbmQgYW4gUjkgQm9u
+YWlyZSBHUFUKPiBvbiBGZWRvcmEgMjQuICBBdCB0aGUgbW9tZW50LCB0aGUgbGF0ZXN0IEZlZG9y
+YSBLZXJuZWwgc3VwcG9ydHMgYW1kZ3B1Cj4gZm9yIHRoZSBDYXJyaXpvLCBhbmQgbWFueSB0aGlu
+Z3MgcnVuIHZlcnkgd2VsbCBvbiB0aGlzLiAgSG93ZXZlciwgaWYgSQo+IHJ1biBhbiBhcHBsaWNh
+dGlvbiBvbiB0aGUgQm9uYWlyZSB1c2luZyByYWRlb24sIEkgZ2V0IGV2ZW4gbGVzcyBGUFMgaW4K
+PiB0aG9zZSBzYW1lIGFwcGxpY2F0aW9uLgoKV2hpY2ggYXBwbGljYXRpb25zIGFyZSB0aG9zZSwg
+YW5kIGhvdyBtYW55IEZQUyBkbyB5b3UgZ2V0IGluIGVhY2ggY2FzZT8KCgo+IEkgd291bGQgbGlr
+ZSB0byBrbm93IGlmIHRoZXJlIGFyZSBjb21waWxpbmcgaW5zdHJ1Y3Rpb25zIGZvciBWYW5pbGxh
+Cj4gS2VybmVscyB0byBlbmFibGUgYW1kZ3B1IHN1cHBvcnQgZm9yIHRoZSBCb25haXJlIGF0IHRo
+aXMgdGltZS4KCkFzIEkgc2FpZCB0byB5b3Ugb24gSVJDIGJlZm9yZSwgZG9uJ3QgZXhwZWN0IGFt
+ZGdwdSB0byBtYWdpY2FsbHkgbWFrZQphbnl0aGluZyBzaWduaWZpY2FudGx5IGZhc3Rlci4KCgot
+LSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAg
+IGh0dHA6Ly93d3cuYW1kLmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAg
+IHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9hbWQtZ2Z4Cg==
