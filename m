@@ -1,46 +1,54 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: [PATCH 1/2] drm/radeon/si/dpm: fix phase shedding setup
-Date: Tue, 27 Sep 2016 14:58:17 -0400
-Message-ID: <1475002698-24318-1-git-send-email-alexander.deucher@amd.com>
-Return-path: <stable-owner@vger.kernel.org>
-Sender: stable-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 2/2] drm/amdgpu/si/dpm: fix phase shedding setup
+Date: Tue, 27 Sep 2016 14:58:18 -0400
+Message-ID: <1475002698-24318-2-git-send-email-alexander.deucher@amd.com>
+References: <1475002698-24318-1-git-send-email-alexander.deucher@amd.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1475002698-24318-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-Used the wrong index to setup the phase shedding mask.
-
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
----
- drivers/gpu/drm/radeon/si_dpm.c       | 2 +-
- drivers/gpu/drm/radeon/sislands_smc.h | 1 +
- 2 files changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/radeon/si_dpm.c b/drivers/gpu/drm/radeon/si_dpm.c
-index 1f78ec2..89bdf20 100644
---- a/drivers/gpu/drm/radeon/si_dpm.c
-+++ b/drivers/gpu/drm/radeon/si_dpm.c
-@@ -4112,7 +4112,7 @@ static int si_populate_smc_voltage_tables(struct radeon_device *rdev,
- 							      &rdev->pm.dpm.dyn_state.phase_shedding_limits_table)) {
- 				si_populate_smc_voltage_table(rdev, &si_pi->vddc_phase_shed_table, table);
- 
--				table->phaseMaskTable.lowMask[SISLANDS_SMC_VOLTAGEMASK_VDDC] =
-+				table->phaseMaskTable.lowMask[SISLANDS_SMC_VOLTAGEMASK_VDDC_PHASE_SHEDDING] =
- 					cpu_to_be32(si_pi->vddc_phase_shed_table.mask_low);
- 
- 				si_write_smc_soft_register(rdev, SI_SMC_SOFT_REGISTER_phase_shedding_delay,
-diff --git a/drivers/gpu/drm/radeon/sislands_smc.h b/drivers/gpu/drm/radeon/sislands_smc.h
-index 3c77983..966e3a5 100644
---- a/drivers/gpu/drm/radeon/sislands_smc.h
-+++ b/drivers/gpu/drm/radeon/sislands_smc.h
-@@ -194,6 +194,7 @@ typedef struct SISLANDS_SMC_SWSTATE SISLANDS_SMC_SWSTATE;
- #define SISLANDS_SMC_VOLTAGEMASK_VDDC  0
- #define SISLANDS_SMC_VOLTAGEMASK_MVDD  1
- #define SISLANDS_SMC_VOLTAGEMASK_VDDCI 2
-+#define SISLANDS_SMC_VOLTAGEMASK_VDDC_PHASE_SHEDDING 3
- #define SISLANDS_SMC_VOLTAGEMASK_MAX   4
- 
- struct SISLANDS_SMC_VOLTAGEMASKTABLE
--- 
-2.5.5
+VXNlZCB0aGUgd3JvbmcgaW5kZXggdG8gc2V0dXAgdGhlIHBoYXNlIHNoZWRkaW5nIG1hc2suCgpT
+aWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Ci0t
+LQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2lfZHBtLmMgICAgICAgfCAyICstCiBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zaXNsYW5kc19zbWMuaCB8IDEgKwogMiBmaWxlcyBjaGFu
+Z2VkLCAyIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9zaV9kcG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L3NpX2RwbS5jCmluZGV4IDczY2NmMzMuLjhiZDA4OTIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L3NpX2RwbS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L3NpX2RwbS5jCkBAIC00NTkzLDcgKzQ1OTMsNyBAQCBzdGF0aWMgaW50IHNpX3BvcHVsYXRlX3Nt
+Y192b2x0YWdlX3RhYmxlcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAkJCQkJCQkgICAg
+ICAmYWRldi0+cG0uZHBtLmR5bl9zdGF0ZS5waGFzZV9zaGVkZGluZ19saW1pdHNfdGFibGUpKSB7
+CiAJCQkJc2lfcG9wdWxhdGVfc21jX3ZvbHRhZ2VfdGFibGUoYWRldiwgJnNpX3BpLT52ZGRjX3Bo
+YXNlX3NoZWRfdGFibGUsIHRhYmxlKTsKIAotCQkJCXRhYmxlLT5waGFzZU1hc2tUYWJsZS5sb3dN
+YXNrW1NJU0xBTkRTX1NNQ19WT0xUQUdFTUFTS19WRERDXSA9CisJCQkJdGFibGUtPnBoYXNlTWFz
+a1RhYmxlLmxvd01hc2tbU0lTTEFORFNfU01DX1ZPTFRBR0VNQVNLX1ZERENfUEhBU0VfU0hFRERJ
+TkddID0KIAkJCQkJY3B1X3RvX2JlMzIoc2lfcGktPnZkZGNfcGhhc2Vfc2hlZF90YWJsZS5tYXNr
+X2xvdyk7CiAKIAkJCQlzaV93cml0ZV9zbWNfc29mdF9yZWdpc3RlcihhZGV2LCBTSV9TTUNfU09G
+VF9SRUdJU1RFUl9waGFzZV9zaGVkZGluZ19kZWxheSwKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L3Npc2xhbmRzX3NtYy5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvc2lzbGFuZHNfc21jLmgKaW5kZXggZWU0Yjg0Ni4uZDI5MzBlYyAxMDA2NDQKLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2lzbGFuZHNfc21jLmgKKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvc2lzbGFuZHNfc21jLmgKQEAgLTE5NCw2ICsxOTQsNyBAQCB0eXBlZGVm
+IHN0cnVjdCBTSVNMQU5EU19TTUNfU1dTVEFURSBTSVNMQU5EU19TTUNfU1dTVEFURTsKICNkZWZp
+bmUgU0lTTEFORFNfU01DX1ZPTFRBR0VNQVNLX1ZEREMgIDAKICNkZWZpbmUgU0lTTEFORFNfU01D
+X1ZPTFRBR0VNQVNLX01WREQgIDEKICNkZWZpbmUgU0lTTEFORFNfU01DX1ZPTFRBR0VNQVNLX1ZE
+RENJIDIKKyNkZWZpbmUgU0lTTEFORFNfU01DX1ZPTFRBR0VNQVNLX1ZERENfUEhBU0VfU0hFRERJ
+TkcgMwogI2RlZmluZSBTSVNMQU5EU19TTUNfVk9MVEFHRU1BU0tfTUFYICAgNAogCiBzdHJ1Y3Qg
+U0lTTEFORFNfU01DX1ZPTFRBR0VNQVNLVEFCTEUKLS0gCjIuNS41CgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
