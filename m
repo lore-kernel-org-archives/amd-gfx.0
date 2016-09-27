@@ -1,40 +1,46 @@
 From: Alex Deucher <alexdeucher@gmail.com>
-Subject: [pull] radeon and amdgpu drm-fixes-4.8
-Date: Tue, 27 Sep 2016 12:58:24 -0400
-Message-ID: <1474995504-19608-1-git-send-email-alexander.deucher@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, airlied@gmail.com
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 1/2] drm/radeon/si/dpm: fix phase shedding setup
+Date: Tue, 27 Sep 2016 14:58:17 -0400
+Message-ID: <1475002698-24318-1-git-send-email-alexander.deucher@amd.com>
+Return-path: <stable-owner@vger.kernel.org>
+Sender: stable-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgRGF2ZSwKCkp1c3QgYSBjb3VwbGUgb2Ygc21hbGwgZml4ZXMgZm9yIDQuODoKLSBkcG0gc3Rh
-YmlsaXR5IGZpeCBmb3Igc29tZSBTSSBwYXJ0cwotIGZpeCBhIHJlZ3Jlc3Npb24gaW4gNC44IG9u
-IGRpc3BsYXkgdGVhciBkb3duCgpUaGUgZm9sbG93aW5nIGNoYW5nZXMgc2luY2UgY29tbWl0IDQ3
-YTY2ZTQ1ZDdhNzYxMzMyMjU0OWMyNDc1ZWE5ZDgwOWJhYWY1MTQ6CgogIGRybTogT25seSB1c2Ug
-Y29tcGF0IGlvY3RsIGZvciBhZGRmYjIgb24gWDg2L0lBNjQgKDIwMTYtMDktMTkgMTc6Mjg6MjAg
-KzEwMDApCgphcmUgYXZhaWxhYmxlIGluIHRoZSBnaXQgcmVwb3NpdG9yeSBhdDoKCiAgZ2l0Oi8v
-cGVvcGxlLmZyZWVkZXNrdG9wLm9yZy9+YWdkNWYvbGludXggZHJtLWZpeGVzLTQuOAoKZm9yIHlv
-dSB0byBmZXRjaCBjaGFuZ2VzIHVwIHRvIDY3MGJiNGZkMjFjOTY2ZDBkMmE1OWFkNGE5OWJiNDg4
-OWY5YTI5ODc6CgogIGRybS9yYWRlb24vc2kvZHBtOiBhZGQgd29ya2Fyb3VuZCBmb3IgZm9yIEpl
-dCBwYXJ0cyAoMjAxNi0wOS0yNyAxMjoyMjoyOSAtMDQwMCkKCi0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KQWxleCBEZXVjaGVy
-ICgxKToKICAgICAgZHJtL3JhZGVvbi9zaS9kcG06IGFkZCB3b3JrYXJvdW5kIGZvciBmb3IgSmV0
-IHBhcnRzCgpHcmF6dnlkYXMgSWdub3RhcyAoMSk6CiAgICAgIGRybS9hbWRncHU6IGRpc2FibGUg
-Q1JUQ3MgYmVmb3JlIHRlYXJkb3duCgogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2RldmljZS5jIHwgMiArLQogZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9zaV9kcG0uYyAgICAgICAg
-ICAgIHwgNiArKysrKysKIDIgZmlsZXMgY2hhbmdlZCwgNyBpbnNlcnRpb25zKCspLCAxIGRlbGV0
-aW9uKC0pCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRy
-aS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
+Used the wrong index to setup the phase shedding mask.
+
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+---
+ drivers/gpu/drm/radeon/si_dpm.c       | 2 +-
+ drivers/gpu/drm/radeon/sislands_smc.h | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/radeon/si_dpm.c b/drivers/gpu/drm/radeon/si_dpm.c
+index 1f78ec2..89bdf20 100644
+--- a/drivers/gpu/drm/radeon/si_dpm.c
++++ b/drivers/gpu/drm/radeon/si_dpm.c
+@@ -4112,7 +4112,7 @@ static int si_populate_smc_voltage_tables(struct radeon_device *rdev,
+ 							      &rdev->pm.dpm.dyn_state.phase_shedding_limits_table)) {
+ 				si_populate_smc_voltage_table(rdev, &si_pi->vddc_phase_shed_table, table);
+ 
+-				table->phaseMaskTable.lowMask[SISLANDS_SMC_VOLTAGEMASK_VDDC] =
++				table->phaseMaskTable.lowMask[SISLANDS_SMC_VOLTAGEMASK_VDDC_PHASE_SHEDDING] =
+ 					cpu_to_be32(si_pi->vddc_phase_shed_table.mask_low);
+ 
+ 				si_write_smc_soft_register(rdev, SI_SMC_SOFT_REGISTER_phase_shedding_delay,
+diff --git a/drivers/gpu/drm/radeon/sislands_smc.h b/drivers/gpu/drm/radeon/sislands_smc.h
+index 3c77983..966e3a5 100644
+--- a/drivers/gpu/drm/radeon/sislands_smc.h
++++ b/drivers/gpu/drm/radeon/sislands_smc.h
+@@ -194,6 +194,7 @@ typedef struct SISLANDS_SMC_SWSTATE SISLANDS_SMC_SWSTATE;
+ #define SISLANDS_SMC_VOLTAGEMASK_VDDC  0
+ #define SISLANDS_SMC_VOLTAGEMASK_MVDD  1
+ #define SISLANDS_SMC_VOLTAGEMASK_VDDCI 2
++#define SISLANDS_SMC_VOLTAGEMASK_VDDC_PHASE_SHEDDING 3
+ #define SISLANDS_SMC_VOLTAGEMASK_MAX   4
+ 
+ struct SISLANDS_SMC_VOLTAGEMASKTABLE
+-- 
+2.5.5
