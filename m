@@ -1,16 +1,16 @@
-From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
 Subject: Re: [PATCH 2/2] drm/amdkfd: Decode bit fields in 'cik_ih_ring_entry'
  directly
-Date: Tue, 27 Sep 2016 13:02:01 +0000
-Message-ID: <CY4PR12MB17680FE69F96B2B57A1161EEF7CC0@CY4PR12MB1768.namprd12.prod.outlook.com>
+Date: Tue, 27 Sep 2016 23:37:46 +1000
+Message-ID: <5fe11925-0570-8a3a-fd0d-66073290c433@folklore1984.net>
 References: <1474980460-8743-1-git-send-email-funfunctor@folklore1984.net>
- <1474980460-8743-3-git-send-email-funfunctor@folklore1984.net>,
+ <1474980460-8743-3-git-send-email-funfunctor@folklore1984.net>
  <856c4498-9096-6a02-9e9a-c97e7f313252@vodafone.de>
+ <CY4PR12MB17680FE69F96B2B57A1161EEF7CC0@CY4PR12MB1768.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0660784530=="
+Content-Type: multipart/mixed; boundary="===============2120577582=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <856c4498-9096-6a02-9e9a-c97e7f313252-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <CY4PR12MB17680FE69F96B2B57A1161EEF7CC0-rpdhrqHFk06yjjPBNVDk/QdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,374 +21,214 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?iso-8859-1?Q?Christian_K=F6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, Edward
- O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0660784530==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB17680FE69F96B2B57A1161EEF7CC0CY4PR12MB1768namp_"
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============2120577582==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="WjkB6XvNKsHICSr79qWuVlVRMqiBuUmSu"
 
---_000_CY4PR12MB17680FE69F96B2B57A1161EEF7CC0CY4PR12MB1768namp_
-Content-Type: text/plain; charset="iso-8859-1"
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--WjkB6XvNKsHICSr79qWuVlVRMqiBuUmSu
+Content-Type: multipart/mixed; boundary="PfXR0o4XQMOIAAenHiphpTGbmn1Qnj889";
+ protected-headers="v1"
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>,
+ "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Message-ID: <5fe11925-0570-8a3a-fd0d-66073290c433-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amdkfd: Decode bit fields in 'cik_ih_ring_entry'
+ directly
+References: <1474980460-8743-1-git-send-email-funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+ <1474980460-8743-3-git-send-email-funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+ <856c4498-9096-6a02-9e9a-c97e7f313252-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+ <CY4PR12MB17680FE69F96B2B57A1161EEF7CC0-rpdhrqHFk06yjjPBNVDk/QdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <CY4PR12MB17680FE69F96B2B57A1161EEF7CC0-rpdhrqHFk06yjjPBNVDk/QdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+
+--PfXR0o4XQMOIAAenHiphpTGbmn1Qnj889
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Better would be to add them to a bitmask header and then use REG_GET_FIELD(=
-) so it's nice and clean looking.
+Excellent point Christian, it did occur to me that endianness could be a
+problem so will definitely fix this one up as Tom suggested.
+
+Kind Regards,
+Edward.
+
+On 09/27/2016 11:02 PM, StDenis, Tom wrote:
+> Better would be to add them to a bitmask header and then use
+> REG_GET_FIELD() so it's nice and clean looking.
+>=20
+>=20
+> Tom
+>=20
+>=20
+>=20
+> -----------------------------------------------------------------------=
+-
+> *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of
+> Christian K=C3=B6nig <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+> *Sent:* Tuesday, September 27, 2016 08:52
+> *To:* Edward O'Callaghan; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> *Subject:* Re: [PATCH 2/2] drm/amdkfd: Decode bit fields in
+> 'cik_ih_ring_entry' directly
+> =20
+> NAK, don't use bitfields to decode hardware values. They aren't portabl=
+e.
+>=20
+> Regards,
+> Christian.
+>=20
+> Am 27.09.2016 um 14:47 schrieb Edward O'Callaghan:
+>> Signed-off-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+>> ---
+>>   drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c | 15 +++++---------=
+-
+>>   drivers/gpu/drm/amd/amdkfd/cik_int.h             | 20 ++++++++++++++=
+++----
+>>   2 files changed, 21 insertions(+), 14 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c b/driver=
+s/gpu/drm/amd/amdkfd/cik_event_interrupt.c
+>> index 211fc48..1c47b9e 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c
+>> @@ -27,14 +27,12 @@
+>>   static bool cik_event_interrupt_isr(struct kfd_dev *dev,
+>>                                        const uint32_t *ih_ring_entry)
+>>   {
+>> -     unsigned int pasid;
+>>        const struct cik_ih_ring_entry *ihre =3D
+>>                        (const struct cik_ih_ring_entry *)ih_ring_entry=
+;
+>>  =20
+>> -     pasid =3D (ihre->ring_id & 0xffff0000) >> 16;
+>>  =20
+>>        /* Do not process in ISR, just request it to be forwarded to WQ=
+=2E */
+>> -     return (pasid !=3D 0) &&
+>> +     return (ihre->pasid !=3D 0) &&
+>>                (ihre->source_id =3D=3D CIK_INTSRC_CP_END_OF_PIPE ||
+>>                ihre->source_id =3D=3D CIK_INTSRC_SQ_INTERRUPT_MSG ||
+>>                ihre->source_id =3D=3D CIK_INTSRC_CP_BAD_OPCODE);
+>> @@ -43,21 +41,18 @@ static bool cik_event_interrupt_isr(struct kfd_dev=
+ *dev,
+>>   static void cik_event_interrupt_wq(struct kfd_dev *dev,
+>>                                        const uint32_t *ih_ring_entry)
+>>   {
+>> -     unsigned int pasid;
+>>        const struct cik_ih_ring_entry *ihre =3D
+>>                        (const struct cik_ih_ring_entry *)ih_ring_entry=
+;
+>>  =20
+>> -     pasid =3D (ihre->ring_id & 0xffff0000) >> 16;
+>> -
+>> -     if (pasid =3D=3D 0)
+>> +     if (ihre->pasid =3D=3D 0)
+>>                return;
+>>  =20
+>>        if (ihre->source_id =3D=3D CIK_INTSRC_CP_END_OF_PIPE)
+>> -             kfd_signal_event_interrupt(pasid, 0, 0);
+>> +             kfd_signal_event_interrupt(ihre->pasid, 0, 0);
+>>        else if (ihre->source_id =3D=3D CIK_INTSRC_SQ_INTERRUPT_MSG)
+>> -             kfd_signal_event_interrupt(pasid, ihre->data & 0xFF, 8);=
+
+>> +             kfd_signal_event_interrupt(ihre->pasid, ihre->data & 0xF=
+F, 8);
+>>        else if (ihre->source_id =3D=3D CIK_INTSRC_CP_BAD_OPCODE)
+>> -             kfd_signal_hw_exception_event(pasid);
+>> +             kfd_signal_hw_exception_event(ihre->pasid);
+>>   }
+>>  =20
+>>   const struct kfd_event_interrupt_class event_interrupt_class_cik =3D=
+ {
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/cik_int.h b/drivers/gpu/drm/am=
+d/amdkfd/cik_int.h
+>> index 79a16d2..27d1ede 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/cik_int.h
+>> +++ b/drivers/gpu/drm/amd/amdkfd/cik_int.h
+>> @@ -26,10 +26,22 @@
+>>   #include <linux/types.h>
+>>  =20
+>>   struct cik_ih_ring_entry {
+>> -     uint32_t source_id;
+>> -     uint32_t data;
+>> -     uint32_t ring_id;
+>> -     uint32_t reserved;
+>> +     uint32_t source_id:8;
+>> +     uint32_t reserved1:8;
+>> +     uint32_t reserved2:16;
+>> +
+>> +     uint32_t data:28;
+>> +     uint32_t reserved3:4;
+>> +
+>> +     /* pipeid, meid and unused3 are officially called RINGID,
+>> +      * but for our purposes, they always decode into pipe and ME. */=
+
+>> +     uint32_t pipeid:2;
+>> +     uint32_t meid:2;
+>> +     uint32_t reserved4:4;
+>> +     uint32_t vmid:8;
+>> +     uint32_t pasid:16;
+>> +
+>> +     uint32_t reserved5;
+>>   };
+>>  =20
+>>   #define CIK_INTSRC_DEQUEUE_COMPLETE 0xC6
+>=20
+>=20
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> amd-gfx Info Page - lists.freedesktop.org
+> <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>
+> lists.freedesktop.org
+> To see the collection of prior postings to the list, visit the amd-gfx
+> Archives. Using amd-gfx: To post a message to all the list members, sen=
+d
+> email ...
+>=20
+>=20
+>=20
+>=20
+>=20
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>=20
 
 
-Tom
+--PfXR0o4XQMOIAAenHiphpTGbmn1Qnj889--
 
+--WjkB6XvNKsHICSr79qWuVlVRMqiBuUmSu
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
 
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Christia=
-n K=F6nig <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Sent: Tuesday, September 27, 2016 08:52
-To: Edward O'Callaghan; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH 2/2] drm/amdkfd: Decode bit fields in 'cik_ih_ring_entr=
-y' directly
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
 
-NAK, don't use bitfields to decode hardware values. They aren't portable.
+iQIcBAEBCAAGBQJX6nYqAAoJEP4bvbfZuWjb06AP/35zumC7VUpOXCChuEHvJsdS
+mQGyjopXncCcW02hf5z/boV/HBfiJboxa/IjtOTC8MBhhtGhpeiowZHJdEwv4+2l
+bk1JdgnzJj28sLWrG1zm0oQaMhaEsBdDAMB8WgLvscJBw2f+A76jq4vnGW+jQRzb
+QTt7PI8lAj5M37kxuwpNqLyhLdd4tJTZog99yB5ncuXGRKXk2sNmDHjamGH6/kKN
+nkqGo25YKQjrmqp4Tj0GQOpLPFOJB4fLn9XjDtM2kbuLOSGZg7YRJBvlDVMIJtph
+LbHQXkvu1QD04V96wg3KNdeEsPahzxmj8CPxIGXDhsw6sPMEE9YfFEQ3uLgiEN0k
+DaJ6hWu9WizH/7F+Pa1oUj4KQAtiCf+8E36rf/OeNrjM7Hxfysp2LmBHpUDYNG/i
+ZMNgmLXCQFuxd7vvp2Lva437DEuGfGkDcVpW1Ok8GPmefmvKNAiAgZ6F2n5TZf1A
+qHRgtkMezn7c8Ip8XgVyglZhfKP0gWR2OEY4MRS4no8Xmlu+hVp311GXxffejh4r
+x3gECo9M0hl8MWS1zQns33DxtKnibgocEq12eGy9v9EXc0uhKtOiQ9AVGz570Usq
+C4/KZNGgQkO2xOvzHJwdP4sRoeNqZ0K2ePZr68P4Ey/lSxsrtZBMr+etv7bF2vcb
+G6NcfZ5hs0DWupsYNa1e
+=GQYw
+-----END PGP SIGNATURE-----
 
-Regards,
-Christian.
+--WjkB6XvNKsHICSr79qWuVlVRMqiBuUmSu--
 
-Am 27.09.2016 um 14:47 schrieb Edward O'Callaghan:
-> Signed-off-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-> ---
->   drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c | 15 +++++----------
->   drivers/gpu/drm/amd/amdkfd/cik_int.h             | 20 ++++++++++++++++-=
----
->   2 files changed, 21 insertions(+), 14 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c b/drivers/g=
-pu/drm/amd/amdkfd/cik_event_interrupt.c
-> index 211fc48..1c47b9e 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c
-> @@ -27,14 +27,12 @@
->   static bool cik_event_interrupt_isr(struct kfd_dev *dev,
->                                        const uint32_t *ih_ring_entry)
->   {
-> -     unsigned int pasid;
->        const struct cik_ih_ring_entry *ihre =3D
->                        (const struct cik_ih_ring_entry *)ih_ring_entry;
->
-> -     pasid =3D (ihre->ring_id & 0xffff0000) >> 16;
->
->        /* Do not process in ISR, just request it to be forwarded to WQ. *=
-/
-> -     return (pasid !=3D 0) &&
-> +     return (ihre->pasid !=3D 0) &&
->                (ihre->source_id =3D=3D CIK_INTSRC_CP_END_OF_PIPE ||
->                ihre->source_id =3D=3D CIK_INTSRC_SQ_INTERRUPT_MSG ||
->                ihre->source_id =3D=3D CIK_INTSRC_CP_BAD_OPCODE);
-> @@ -43,21 +41,18 @@ static bool cik_event_interrupt_isr(struct kfd_dev *d=
-ev,
->   static void cik_event_interrupt_wq(struct kfd_dev *dev,
->                                        const uint32_t *ih_ring_entry)
->   {
-> -     unsigned int pasid;
->        const struct cik_ih_ring_entry *ihre =3D
->                        (const struct cik_ih_ring_entry *)ih_ring_entry;
->
-> -     pasid =3D (ihre->ring_id & 0xffff0000) >> 16;
-> -
-> -     if (pasid =3D=3D 0)
-> +     if (ihre->pasid =3D=3D 0)
->                return;
->
->        if (ihre->source_id =3D=3D CIK_INTSRC_CP_END_OF_PIPE)
-> -             kfd_signal_event_interrupt(pasid, 0, 0);
-> +             kfd_signal_event_interrupt(ihre->pasid, 0, 0);
->        else if (ihre->source_id =3D=3D CIK_INTSRC_SQ_INTERRUPT_MSG)
-> -             kfd_signal_event_interrupt(pasid, ihre->data & 0xFF, 8);
-> +             kfd_signal_event_interrupt(ihre->pasid, ihre->data & 0xFF, =
-8);
->        else if (ihre->source_id =3D=3D CIK_INTSRC_CP_BAD_OPCODE)
-> -             kfd_signal_hw_exception_event(pasid);
-> +             kfd_signal_hw_exception_event(ihre->pasid);
->   }
->
->   const struct kfd_event_interrupt_class event_interrupt_class_cik =3D {
-> diff --git a/drivers/gpu/drm/amd/amdkfd/cik_int.h b/drivers/gpu/drm/amd/a=
-mdkfd/cik_int.h
-> index 79a16d2..27d1ede 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/cik_int.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/cik_int.h
-> @@ -26,10 +26,22 @@
->   #include <linux/types.h>
->
->   struct cik_ih_ring_entry {
-> -     uint32_t source_id;
-> -     uint32_t data;
-> -     uint32_t ring_id;
-> -     uint32_t reserved;
-> +     uint32_t source_id:8;
-> +     uint32_t reserved1:8;
-> +     uint32_t reserved2:16;
-> +
-> +     uint32_t data:28;
-> +     uint32_t reserved3:4;
-> +
-> +     /* pipeid, meid and unused3 are officially called RINGID,
-> +      * but for our purposes, they always decode into pipe and ME. */
-> +     uint32_t pipeid:2;
-> +     uint32_t meid:2;
-> +     uint32_t reserved4:4;
-> +     uint32_t vmid:8;
-> +     uint32_t pasid:16;
-> +
-> +     uint32_t reserved5;
->   };
->
->   #define CIK_INTSRC_DEQUEUE_COMPLETE 0xC6
-
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-amd-gfx Info Page - lists.freedesktop.org<https://lists.freedesktop.org/mai=
-lman/listinfo/amd-gfx>
-lists.freedesktop.org
-To see the collection of prior postings to the list, visit the amd-gfx Arch=
-ives. Using amd-gfx: To post a message to all the list members, send email =
-...
-
-
-
-
---_000_CY4PR12MB17680FE69F96B2B57A1161EEF7CC0CY4PR12MB1768namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Arial,Helvetica,sans-serif;">
-<p>Better would be to add them to a bitmask header and then use REG_GET_FIE=
-LD() so it's nice and clean looking.</p>
-<p><br>
-</p>
-<p>Tom</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Christian K=F6nig &lt;death=
-simple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;<br>
-<b>Sent:</b> Tuesday, September 27, 2016 08:52<br>
-<b>To:</b> Edward O'Callaghan; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: [PATCH 2/2] drm/amdkfd: Decode bit fields in 'cik_ih_ri=
-ng_entry' directly</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">NAK, don't use bitfields to decode hardware values=
-. They aren't portable.<br>
-<br>
-Regards,<br>
-Christian.<br>
-<br>
-Am 27.09.2016 um 14:47 schrieb Edward O'Callaghan:<br>
-&gt; Signed-off-by: Edward O'Callaghan &lt;funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org&gt;<=
-br>
-&gt; ---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c | 15 &#43=
-;&#43;&#43;&#43;&#43;----------<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/cik_int.h&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 20 &#43;&#43;&#43;&#43=
-;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;----<br>
-&gt;&nbsp;&nbsp; 2 files changed, 21 insertions(&#43;), 14 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c b/driver=
-s/gpu/drm/amd/amdkfd/cik_event_interrupt.c<br>
-&gt; index 211fc48..1c47b9e 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c<br>
-&gt; @@ -27,14 &#43;27,12 @@<br>
-&gt;&nbsp;&nbsp; static bool cik_event_interrupt_isr(struct kfd_dev *dev,<b=
-r>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; const uint32_t *ih_ring_entry)<br>
-&gt;&nbsp;&nbsp; {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; unsigned int pasid;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct cik_ih_ring_ent=
-ry *ihre =3D<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (const =
-struct cik_ih_ring_entry *)ih_ring_entry;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; pasid =3D (ihre-&gt;ring_id &amp; 0xffff0000=
-) &gt;&gt; 16;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Do not process in ISR, ju=
-st request it to be forwarded to WQ. */<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; return (pasid !=3D 0) &amp;&amp;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; return (ihre-&gt;pasid !=3D 0) &amp;&amp=
-;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; (ihre-&gt;source_id =3D=3D CIK_INTSRC_CP_END_OF_PIPE ||=
-<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; ihre-&gt;source_id =3D=3D CIK_INTSRC_SQ_INTERRUPT_MSG |=
-|<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; ihre-&gt;source_id =3D=3D CIK_INTSRC_CP_BAD_OPCODE);<br=
->
-&gt; @@ -43,21 &#43;41,18 @@ static bool cik_event_interrupt_isr(struct kfd=
-_dev *dev,<br>
-&gt;&nbsp;&nbsp; static void cik_event_interrupt_wq(struct kfd_dev *dev,<br=
->
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; const uint32_t *ih_ring_entry)<br>
-&gt;&nbsp;&nbsp; {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; unsigned int pasid;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct cik_ih_ring_ent=
-ry *ihre =3D<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (const =
-struct cik_ih_ring_entry *)ih_ring_entry;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; pasid =3D (ihre-&gt;ring_id &amp; 0xffff0000=
-) &gt;&gt; 16;<br>
-&gt; -<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (pasid =3D=3D 0)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (ihre-&gt;pasid =3D=3D 0)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; return;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ihre-&gt;source_id =3D=
-=3D CIK_INTSRC_CP_END_OF_PIPE)<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; kfd_signal_event_interrupt(pasid, 0, 0);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; kfd_signal_event_interrupt(ihre-&gt;pasid, 0, 0);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (ihre-&gt;source_id =
-=3D=3D CIK_INTSRC_SQ_INTERRUPT_MSG)<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; kfd_signal_event_interrupt(pasid, ihre-&gt;data &amp; 0xFF, 8);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; kfd_signal_event_interrupt(ihre-&gt;pasid, ihre-&gt;data &amp; 0xFF=
-, 8);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (ihre-&gt;source_id =
-=3D=3D CIK_INTSRC_CP_BAD_OPCODE)<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; kfd_signal_hw_exception_event(pasid);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; kfd_signal_hw_exception_event(ihre-&gt;pasid);<br>
-&gt;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; const struct kfd_event_interrupt_class event_interrupt_cla=
-ss_cik =3D {<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/cik_int.h b/drivers/gpu/drm/am=
-d/amdkfd/cik_int.h<br>
-&gt; index 79a16d2..27d1ede 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdkfd/cik_int.h<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/cik_int.h<br>
-&gt; @@ -26,10 &#43;26,22 @@<br>
-&gt;&nbsp;&nbsp; #include &lt;linux/types.h&gt;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; struct cik_ih_ring_entry {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t source_id;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t data;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t ring_id;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t reserved;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t source_id:8;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t reserved1:8;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t reserved2:16;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t data:28;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t reserved3:4;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; /* pipeid, meid and unused3 are official=
-ly called RINGID,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * but for our purposes, they alway=
-s decode into pipe and ME. */<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t pipeid:2;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t meid:2;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t reserved4:4;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t vmid:8;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t pasid:16;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t reserved5;<br>
-&gt;&nbsp;&nbsp; };<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; #define CIK_INTSRC_DEQUEUE_COMPLETE 0xC6<br>
-<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk334039" previewremoved=3D"true">https://lists.freedesktop.org/mailman/li=
-stinfo/amd-gfx</a>
-<div id=3D"LPBorder_GT_14749812728050.7048501784478629" style=3D"margin-bot=
-tom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
-<table id=3D"LPContainer_14749812728030.5642919220195035" cellspacing=3D"0"=
- style=3D"width: 90%; background-color: rgb(255, 255, 255); position: relat=
-ive; overflow: auto; padding-top: 20px; padding-bottom: 20px; margin-top: 2=
-0px; border-top: 1px dotted rgb(200, 200, 200); border-bottom: 1px dotted r=
-gb(200, 200, 200);">
-<tbody>
-<tr valign=3D"top" style=3D"border-spacing: 0px;">
-<td id=3D"TextCell_14749812728040.9268417870047556" colspan=3D"2" style=3D"=
-vertical-align: top; position: relative; padding: 0px; display: table-cell;=
-">
-<div id=3D"LPRemovePreviewContainer_14749812728040.34307252866659876"></div=
->
-<div id=3D"LPTitle_14749812728040.8388090385131661" style=3D"top: 0px; colo=
-r: rgb(59, 87, 119); font-weight: normal; font-size: 21px; font-family: wf_=
-segoe-ui_light, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&quot;, &qu=
-ot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif; line-he=
-ight: 21px;">
-<a id=3D"LPUrlAnchor_14749812728050.28844807438263875" href=3D"https://list=
-s.freedesktop.org/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"text=
--decoration: none;">amd-gfx Info Page - lists.freedesktop.org</a></div>
-<div id=3D"LPMetadata_14749812728050.9572512473940396" style=3D"margin: 10p=
-x 0px 16px; color: rgb(102, 102, 102); font-weight: normal; font-family: wf=
-_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial=
-, sans-serif; font-size: 14px; line-height: 14px;">
-lists.freedesktop.org</div>
-<div id=3D"LPDescription_14749812728050.8362385945355966" style=3D"display:=
- block; color: rgb(102, 102, 102); font-weight: normal; font-family: wf_seg=
-oe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sa=
-ns-serif; font-size: 14px; line-height: 20px; max-height: 100px; overflow: =
-hidden;">
-To see the collection of prior postings to the list, visit the amd-gfx Arch=
-ives. Using amd-gfx: To post a message to all the list members, send email =
-...</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB17680FE69F96B2B57A1161EEF7CC0CY4PR12MB1768namp_--
-
---===============0660784530==
+--===============2120577582==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -398,4 +238,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0660784530==--
+--===============2120577582==--
