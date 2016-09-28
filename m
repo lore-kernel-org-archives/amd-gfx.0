@@ -1,13 +1,13 @@
-From: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 9/9] drm/amdgpu:properly fix some JumpTable issues
-Date: Wed, 28 Sep 2016 16:36:20 +0800
-Message-ID: <1475051780-21634-9-git-send-email-Monk.Liu@amd.com>
-References: <1475051780-21634-1-git-send-email-Monk.Liu@amd.com>
+From: Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org>
+Subject: Re: [PATCH xf86-video-amdgpu] Add support for
+ ScreenPtr::SyncSharedPixmap
+Date: Wed, 28 Sep 2016 08:42:39 +0000
+Message-ID: <CAHbf0-GuUZPCGHzQrooOi4cTmRSJMQGrph4oD9E7+4DtW=z0Aw@mail.gmail.com>
+References: <20160928080018.17364-1-michel@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1479052211=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1475051780-21634-1-git-send-email-Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20160928080018.17364-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,87 +18,263 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Frank Min <Frank.Min-5C7GfCeVMHo@public.gmane.org>, Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-d2UgZm91bmQgc29tZSBNRUMgdWNvZGUgbGVhZHMgdG8gSUIgdGVzdCBmYWlsIG9yIGV2ZW4Kcmlu
-ZyB0ZXN0IGZhaWwgaWYgSnVtcCBUYWJsZSBvZiBpdCBpcyBub3Qgc3RhcnQgaW4KRlcgYm8gd2l0
-aCBwYWdlIGFsaWduZWQgYWRkcmVzcywgZml4ZWQgYnkgYWx3YXlzIG1ha2UKSlQgYWRkcmVzcyBw
-YWdlIGFsaWduZWQuCgp3ZSBkb24ndCBuZWVkIHRvIHBhdGNoIEpUMiBmb3IgTUVDMiwgYmVjYXVz
-ZSBmb3IgVkksCk1FQzIgaXMgYSBjb3B5IG9mIE1FQzEsIHRodXMgd2hlbiBjb252ZXJ0aW5nIGZ3
-X3R5cGUKZm9yIE1FQ19KVDIgd2UganVzdCByZXR1cm4gTUVDMSxodyBjYW4gdXNlIHRoZSBzYW1l
-CkpUIGZvciBib3RoIE1FQzEgJiBNRUMyLgoKYWJvdmUgdHdvIGNoYW5nZSBmaXhlZCBzb21lIHJp
-bmcvaWIgdGVzdCBmYWlsdXJlIGlzc3VlCmZvciBzb21lIHZlcnNpb24gb2YgTUVDIHVjb2RlLgoK
-Q2hhbmdlLUlkOiBJZTNiM2M0YzU3MjJmZGY2OGY2NDU0N2NkZmJmOWMwZDMyNzRhMmExNQpTaWdu
-ZWQtb2ZmLWJ5OiBGcmFuayBNaW4gPEZyYW5rLk1pbkBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBN
-b25rIExpdSA8TW9uay5MaXVAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfY2dzLmMgICB8IDIxICsrKysrKysrKysrKysrLS0tLS0tCiBkcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfdWNvZGUuYyB8IDMyICsrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysKIDIgZmlsZXMgY2hhbmdlZCwgNDcgaW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMo
-LSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY2dzLmMg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY2dzLmMKaW5kZXggY2IxYWRlMS4u
-NzI3ODg5OCAxMDA3NTUKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Nn
-cy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jZ3MuYwpAQCAtNjg1
-LDExICs2ODUsMTQgQEAgc3RhdGljIHVpbnQzMl90IGZ3X3R5cGVfY29udmVydChzdHJ1Y3QgY2dz
-X2RldmljZSAqY2dzX2RldmljZSwgdWludDMyX3QgZndfdHlwZSkKIAkJcmVzdWx0ID0gQU1ER1BV
-X1VDT0RFX0lEX0NQX01FQzE7CiAJCWJyZWFrOwogCWNhc2UgQ0dTX1VDT0RFX0lEX0NQX01FQ19K
-VDI6Ci0JCWlmIChhZGV2LT5hc2ljX3R5cGUgPT0gQ0hJUF9UT05HQSB8fCBhZGV2LT5hc2ljX3R5
-cGUgPT0gQ0hJUF9QT0xBUklTMTEKLQkJICB8fCBhZGV2LT5hc2ljX3R5cGUgPT0gQ0hJUF9QT0xB
-UklTMTApCi0JCQlyZXN1bHQgPSBBTURHUFVfVUNPREVfSURfQ1BfTUVDMjsKLQkJZWxzZQorCQkv
-KiBmb3IgVkkuIEpUMiBzaG91bGQgYmUgdGhlIHNhbWUgYXMgSlQxLCBiZWNhdXNlOgorCQkJMSwg
-TUVDMiBhbmQgTUVDMSB1c2UgZXhhY3RseSBzYW1lIEZXLgorCQkJMiwgSlQyIGlzIG5vdCBwYWNo
-ZWQgYnV0IEpUMSBpcy4KKwkJKi8KKwkJaWYgKGFkZXYtPmFzaWNfdHlwZSA+PSBDSElQX1RPUEFa
-KQogCQkJcmVzdWx0ID0gQU1ER1BVX1VDT0RFX0lEX0NQX01FQzE7CisJCWVsc2UKKwkJCXJlc3Vs
-dCA9IEFNREdQVV9VQ09ERV9JRF9DUF9NRUMyOwogCQlicmVhazsKIAljYXNlIENHU19VQ09ERV9J
-RF9STENfRzoKIAkJcmVzdWx0ID0gQU1ER1BVX1VDT0RFX0lEX1JMQ19HOwpAQCAtNzc5LDEyICs3
-ODIsMTggQEAgc3RhdGljIGludCBhbWRncHVfY2dzX2dldF9maXJtd2FyZV9pbmZvKHN0cnVjdCBj
-Z3NfZGV2aWNlICpjZ3NfZGV2aWNlLAogCiAJCWlmICgodHlwZSA9PSBDR1NfVUNPREVfSURfQ1Bf
-TUVDX0pUMSkgfHwKIAkJICAgICh0eXBlID09IENHU19VQ09ERV9JRF9DUF9NRUNfSlQyKSkgewot
-CQkJZ3B1X2FkZHIgKz0gbGUzMl90b19jcHUoaGVhZGVyLT5qdF9vZmZzZXQpIDw8IDI7CisJCQln
-cHVfYWRkciArPSBBTElHTihsZTMyX3RvX2NwdShoZWFkZXItPmhlYWRlci51Y29kZV9zaXplX2J5
-dGVzKSwgUEFHRV9TSVpFKTsKIAkJCWRhdGFfc2l6ZSA9IGxlMzJfdG9fY3B1KGhlYWRlci0+anRf
-c2l6ZSkgPDwgMjsKIAkJfQotCQlpbmZvLT5tY19hZGRyID0gZ3B1X2FkZHI7CisKKwkJaW5mby0+
-a3B0ciA9IHVjb2RlLT5rYWRkcjsKIAkJaW5mby0+aW1hZ2Vfc2l6ZSA9IGRhdGFfc2l6ZTsKKwkJ
-aW5mby0+bWNfYWRkciA9IGdwdV9hZGRyOwogCQlpbmZvLT52ZXJzaW9uID0gKHVpbnQxNl90KWxl
-MzJfdG9fY3B1KGhlYWRlci0+aGVhZGVyLnVjb2RlX3ZlcnNpb24pOworCisJCWlmIChDR1NfVUNP
-REVfSURfQ1BfTUVDID09IHR5cGUpCisJCQlpbmZvLT5pbWFnZV9zaXplID0gKGhlYWRlci0+anRf
-b2Zmc2V0KSA8PCAyOworCiAJCWluZm8tPmZ3X3ZlcnNpb24gPSBhbWRncHVfZ2V0X2Zpcm13YXJl
-X3ZlcnNpb24oY2dzX2RldmljZSwgdHlwZSk7CiAJCWluZm8tPmZlYXR1cmVfdmVyc2lvbiA9ICh1
-aW50MTZfdClsZTMyX3RvX2NwdShoZWFkZXItPnVjb2RlX2ZlYXR1cmVfdmVyc2lvbik7CiAJfSBl
-bHNlIHsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91Y29k
-ZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Vjb2RlLmMKaW5kZXggMDZi
-YWFjOS4uZTJlYTJjOSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3Vjb2RlLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Vjb2Rl
-LmMKQEAgLTIzOSw2ICsyMzksMzEgQEAgc3RhdGljIGludCBhbWRncHVfdWNvZGVfaW5pdF9zaW5n
-bGVfZncoc3RydWN0IGFtZGdwdV9maXJtd2FyZV9pbmZvICp1Y29kZSwKIAlyZXR1cm4gMDsKIH0K
-IAorc3RhdGljIGludCBhbWRncHVfdWNvZGVfcGF0Y2hfanQoc3RydWN0IGFtZGdwdV9maXJtd2Fy
-ZV9pbmZvICp1Y29kZSwKKwkJCQl1aW50NjRfdCBtY19hZGRyLCB2b2lkICprcHRyKQoreworCWNv
-bnN0IHN0cnVjdCBnZnhfZmlybXdhcmVfaGVhZGVyX3YxXzAgKmhlYWRlciA9IE5VTEw7CisJY29u
-c3Qgc3RydWN0IGNvbW1vbl9maXJtd2FyZV9oZWFkZXIgKmNvbW1faGRyID0gTlVMTDsKKwl1aW50
-OF90KiBzcmNfYWRkciA9IE5VTEw7CisJdWludDhfdCogZHN0X2FkZHIgPSBOVUxMOworCisJaWYg
-KE5VTEwgPT0gdWNvZGUtPmZ3KQorCQlyZXR1cm4gMDsKKworCWNvbW1faGRyID0gKGNvbnN0IHN0
-cnVjdCBjb21tb25fZmlybXdhcmVfaGVhZGVyICopdWNvZGUtPmZ3LT5kYXRhOworCWhlYWRlciA9
-IChjb25zdCBzdHJ1Y3QgZ2Z4X2Zpcm13YXJlX2hlYWRlcl92MV8wICopdWNvZGUtPmZ3LT5kYXRh
-OworCWRzdF9hZGRyID0gdWNvZGUtPmthZGRyICsKKwkJCSAgIEFMSUdOKGxlMzJfdG9fY3B1KGNv
-bW1faGRyLT51Y29kZV9zaXplX2J5dGVzKSwKKwkJCSAgIFBBR0VfU0laRSk7CisJc3JjX2FkZHIg
-PSAodWludDhfdCAqKXVjb2RlLT5mdy0+ZGF0YSArCisJCQkgICBsZTMyX3RvX2NwdShjb21tX2hk
-ci0+dWNvZGVfYXJyYXlfb2Zmc2V0X2J5dGVzKSArCisJCQkgICAobGUzMl90b19jcHUoaGVhZGVy
-LT5qdF9vZmZzZXQpICogNCk7CisJbWVtY3B5KGRzdF9hZGRyLCBzcmNfYWRkciwgbGUzMl90b19j
-cHUoaGVhZGVyLT5qdF9zaXplKSAqIDQpOworCisJcmV0dXJuIDA7Cit9CisKKwogaW50IGFtZGdw
-dV91Y29kZV9pbml0X2JvKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogewogCXN0cnVjdCBh
-bWRncHVfYm8gKipibyA9ICZhZGV2LT5maXJtd2FyZS5md19idWY7CkBAIC0yODUsNiArMzEwLDEz
-IEBAIGludCBhbWRncHVfdWNvZGVfaW5pdF9ibyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikK
-IAkJCWhlYWRlciA9IChjb25zdCBzdHJ1Y3QgY29tbW9uX2Zpcm13YXJlX2hlYWRlciAqKXVjb2Rl
-LT5mdy0+ZGF0YTsKIAkJCWFtZGdwdV91Y29kZV9pbml0X3NpbmdsZV9mdyh1Y29kZSwgZndfbWNf
-YWRkciArIGZ3X29mZnNldCwKIAkJCQkJCSAgICBmd19idWZfcHRyICsgZndfb2Zmc2V0KTsKKwkJ
-CWlmIChpID09IEFNREdQVV9VQ09ERV9JRF9DUF9NRUMxKSB7CisJCQkJY29uc3Qgc3RydWN0IGdm
-eF9maXJtd2FyZV9oZWFkZXJfdjFfMCAqY3BfaGRyOworCQkJCWNwX2hkciA9IChjb25zdCBzdHJ1
-Y3QgZ2Z4X2Zpcm13YXJlX2hlYWRlcl92MV8wICopdWNvZGUtPmZ3LT5kYXRhOworCQkJCWFtZGdw
-dV91Y29kZV9wYXRjaF9qdCh1Y29kZSwgZndfbWNfYWRkciArIGZ3X29mZnNldCwKKwkJCQkJCSAg
-ICBmd19idWZfcHRyICsgZndfb2Zmc2V0KTsKKwkJCQlmd19vZmZzZXQgKz0gQUxJR04obGUzMl90
-b19jcHUoY3BfaGRyLT5qdF9zaXplKSA8PCAyLCBQQUdFX1NJWkUpOworCQkJfQogCQkJZndfb2Zm
-c2V0ICs9IEFMSUdOKGxlMzJfdG9fY3B1KGhlYWRlci0+dWNvZGVfc2l6ZV9ieXRlcyksIFBBR0Vf
-U0laRSk7CiAJCX0KIAl9Ci0tIAoxLjkuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4Cg==
+--===============1479052211==
+Content-Type: multipart/alternative; boundary=001a114b2f669ed8e9053d8d5832
+
+--001a114b2f669ed8e9053d8d5832
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Am I right in guessing this is only required for DRI2?
+
+On Wed, 28 Sep 2016 at 09:00 Michel D=C3=A4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org> wrote:
+
+> From: Michel D=C3=A4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
+>
+> This allows deferring shared pixmap updates between different drivers.
+>
+> (Ported from radeon commit 53be26b00e83f871f0afd39caa5a7a1d6ec4aea1)
+>
+> Signed-off-by: Michel D=C3=A4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  src/amdgpu_kms.c | 43 ++++++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 42 insertions(+), 1 deletion(-)
+>
+> diff --git a/src/amdgpu_kms.c b/src/amdgpu_kms.c
+> index a159c84..4ae7995 100644
+> --- a/src/amdgpu_kms.c
+> +++ b/src/amdgpu_kms.c
+> @@ -491,6 +491,35 @@ amdgpu_sync_shared_pixmap(PixmapDirtyUpdatePtr dirty=
+)
+>         }
+>  }
+>
+> +
+> +#if HAS_SYNC_SHARED_PIXMAP
+> +
+> +static Bool
+> +master_has_sync_shared_pixmap(ScrnInfoPtr scrn, PixmapDirtyUpdatePtr
+> dirty)
+> +{
+> +       ScreenPtr master_screen =3D
+> dirty->src->master_pixmap->drawable.pScreen;
+> +
+> +       return master_screen->SyncSharedPixmap !=3D NULL;
+> +}
+> +
+> +static Bool
+> +slave_has_sync_shared_pixmap(ScrnInfoPtr scrn, PixmapDirtyUpdatePtr dirt=
+y)
+> +{
+> +       ScreenPtr slave_screen =3D dirty->slave_dst->drawable.pScreen;
+> +
+> +       return slave_screen->SyncSharedPixmap !=3D NULL;
+> +}
+> +
+> +static void
+> +call_sync_shared_pixmap(PixmapDirtyUpdatePtr dirty)
+> +{
+> +       ScreenPtr master_screen =3D
+> dirty->src->master_pixmap->drawable.pScreen;
+> +
+> +       master_screen->SyncSharedPixmap(dirty);
+> +}
+> +
+> +#else /* !HAS_SYNC_SHARED_PIXMAP */
+> +
+>  static Bool
+>  master_has_sync_shared_pixmap(ScrnInfoPtr scrn, PixmapDirtyUpdatePtr
+> dirty)
+>  {
+> @@ -507,6 +536,15 @@ slave_has_sync_shared_pixmap(ScrnInfoPtr scrn,
+> PixmapDirtyUpdatePtr dirty)
+>         return slave_scrn->driverName =3D=3D scrn->driverName;
+>  }
+>
+> +static void
+> +call_sync_shared_pixmap(PixmapDirtyUpdatePtr dirty)
+> +{
+> +       amdgpu_sync_shared_pixmap(dirty);
+> +}
+> +
+> +#endif /* HAS_SYNC_SHARED_PIXMAPS */
+> +
+> +
+>  static Bool
+>  amdgpu_prime_scanout_do_update(xf86CrtcPtr crtc, unsigned scanout_id)
+>  {
+> @@ -524,7 +562,7 @@ amdgpu_prime_scanout_do_update(xf86CrtcPtr crtc,
+> unsigned scanout_id)
+>                         RegionPtr region;
+>
+>                         if (master_has_sync_shared_pixmap(scrn, dirty))
+> -                               amdgpu_sync_shared_pixmap(dirty);
+> +                               call_sync_shared_pixmap(dirty);
+>
+>                         region =3D dirty_region(dirty);
+>                         if (RegionNil(region))
+> @@ -1803,6 +1841,9 @@ Bool AMDGPUScreenInit_KMS(SCREEN_INIT_ARGS_DECL)
+>  #ifdef AMDGPU_PIXMAP_SHARING
+>         pScreen->StartPixmapTracking =3D PixmapStartDirtyTracking;
+>         pScreen->StopPixmapTracking =3D PixmapStopDirtyTracking;
+> +#if HAS_SYNC_SHARED_PIXMAP
+> +       pScreen->SyncSharedPixmap =3D amdgpu_sync_shared_pixmap;
+> +#endif
+>  #endif
+>
+>         if (!xf86CrtcScreenInit(pScreen))
+> --
+> 2.9.3
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+
+--001a114b2f669ed8e9053d8d5832
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Am I right in guessing this is only required for DRI2?</di=
+v><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Wed, 28 Sep 2016 at 09=
+:00 Michel D=C3=A4nzer &lt;<a href=3D"mailto:michel-otUistvHUpPR7s880joybQ@public.gmane.org">michel@dae=
+nzer.net</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D=
+"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">From: Miche=
+l D=C3=A4nzer &lt;<a href=3D"mailto:michel.daenzer-5C7GfCeVMHo@public.gmane.org" target=3D"_blan=
+k">michel.daenzer-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+<br>
+This allows deferring shared pixmap updates between different drivers.<br>
+<br>
+(Ported from radeon commit 53be26b00e83f871f0afd39caa5a7a1d6ec4aea1)<br>
+<br>
+Signed-off-by: Michel D=C3=A4nzer &lt;<a href=3D"mailto:michel.daenzer@amd.=
+com" target=3D"_blank">michel.daenzer-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+---<br>
+=C2=A0src/amdgpu_kms.c | 43 ++++++++++++++++++++++++++++++++++++++++++-<br>
+=C2=A01 file changed, 42 insertions(+), 1 deletion(-)<br>
+<br>
+diff --git a/src/amdgpu_kms.c b/src/amdgpu_kms.c<br>
+index a159c84..4ae7995 100644<br>
+--- a/src/amdgpu_kms.c<br>
++++ b/src/amdgpu_kms.c<br>
+@@ -491,6 +491,35 @@ amdgpu_sync_shared_pixmap(PixmapDirtyUpdatePtr dirty)<=
+br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+=C2=A0}<br>
+<br>
++<br>
++#if HAS_SYNC_SHARED_PIXMAP<br>
++<br>
++static Bool<br>
++master_has_sync_shared_pixmap(ScrnInfoPtr scrn, PixmapDirtyUpdatePtr dirty=
+)<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0ScreenPtr master_screen =3D dirty-&gt;src-&gt;m=
+aster_pixmap-&gt;drawable.pScreen;<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0return master_screen-&gt;SyncSharedPixmap !=3D =
+NULL;<br>
++}<br>
++<br>
++static Bool<br>
++slave_has_sync_shared_pixmap(ScrnInfoPtr scrn, PixmapDirtyUpdatePtr dirty)=
+<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0ScreenPtr slave_screen =3D dirty-&gt;slave_dst-=
+&gt;drawable.pScreen;<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0return slave_screen-&gt;SyncSharedPixmap !=3D N=
+ULL;<br>
++}<br>
++<br>
++static void<br>
++call_sync_shared_pixmap(PixmapDirtyUpdatePtr dirty)<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0ScreenPtr master_screen =3D dirty-&gt;src-&gt;m=
+aster_pixmap-&gt;drawable.pScreen;<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0master_screen-&gt;SyncSharedPixmap(dirty);<br>
++}<br>
++<br>
++#else /* !HAS_SYNC_SHARED_PIXMAP */<br>
++<br>
+=C2=A0static Bool<br>
+=C2=A0master_has_sync_shared_pixmap(ScrnInfoPtr scrn, PixmapDirtyUpdatePtr =
+dirty)<br>
+=C2=A0{<br>
+@@ -507,6 +536,15 @@ slave_has_sync_shared_pixmap(ScrnInfoPtr scrn, PixmapD=
+irtyUpdatePtr dirty)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 return slave_scrn-&gt;driverName =3D=3D scrn-&g=
+t;driverName;<br>
+=C2=A0}<br>
+<br>
++static void<br>
++call_sync_shared_pixmap(PixmapDirtyUpdatePtr dirty)<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_sync_shared_pixmap(dirty);<br>
++}<br>
++<br>
++#endif /* HAS_SYNC_SHARED_PIXMAPS */<br>
++<br>
++<br>
+=C2=A0static Bool<br>
+=C2=A0amdgpu_prime_scanout_do_update(xf86CrtcPtr crtc, unsigned scanout_id)=
+<br>
+=C2=A0{<br>
+@@ -524,7 +562,7 @@ amdgpu_prime_scanout_do_update(xf86CrtcPtr crtc, unsign=
+ed scanout_id)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 RegionPtr region;<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 if (master_has_sync_shared_pixmap(scrn, dirty))<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_sync_shared_pixmap(dirty);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0call_sync_shared_pixmap(dirty);<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 region =3D dirty_region(dirty);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 if (RegionNil(region))<br>
+@@ -1803,6 +1841,9 @@ Bool AMDGPUScreenInit_KMS(SCREEN_INIT_ARGS_DECL)<br>
+=C2=A0#ifdef AMDGPU_PIXMAP_SHARING<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 pScreen-&gt;StartPixmapTracking =3D PixmapStart=
+DirtyTracking;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 pScreen-&gt;StopPixmapTracking =3D PixmapStopDi=
+rtyTracking;<br>
++#if HAS_SYNC_SHARED_PIXMAP<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0pScreen-&gt;SyncSharedPixmap =3D amdgpu_sync_sh=
+ared_pixmap;<br>
++#endif<br>
+=C2=A0#endif<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!xf86CrtcScreenInit(pScreen))<br>
+--<br>
+2.9.3<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
+lists.freedesktop.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
+/amd-gfx</a><br>
+</blockquote></div>
+
+--001a114b2f669ed8e9053d8d5832--
+
+--===============1479052211==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1479052211==--
