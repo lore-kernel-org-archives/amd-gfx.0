@@ -1,13 +1,16 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: mutex_destroy in amdgpu_ctx_fini()
-Date: Thu, 29 Sep 2016 13:33:50 +0200
-Message-ID: <48ed3d24-2ad2-f39d-bbdb-62ff523b4054@vodafone.de>
-References: <CY4PR12MB1768BBD9F3498EA5EB29C317F7CE0@CY4PR12MB1768.namprd12.prod.outlook.com>
+Subject: Re: [PATCH 2/7] drm/amdgpu: update the shadow PD together with the
+ real one
+Date: Thu, 29 Sep 2016 14:10:02 +0200
+Message-ID: <5ad68770-f356-33b6-a3d0-7cec66c56ca3@vodafone.de>
+References: <1475135557-11537-1-git-send-email-deathsimple@vodafone.de>
+ <1475135557-11537-2-git-send-email-deathsimple@vodafone.de>
+ <57ECDC65.40203@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CY4PR12MB1768BBD9F3498EA5EB29C317F7CE0-rpdhrqHFk06yjjPBNVDk/QdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <57ECDC65.40203-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,25 +21,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-QXQgbGVhc3Qgb2YgaGFuZCB0aGF0IHN0cm9uZ2x5IGxvb2tzIGxpa2UgYSBidWcuCgpQcm9iYWJs
-eSBkb2Vzbid0IGRvIG11Y2ggaGFybSBjYXVzZSBtdXRleF9kZXN0cm95KCkgaXMgbW9zdGx5IGZv
-ciAKbG9ja2RlcCBhbm5vdGF0aW9uLCBidXQgc3RpbGwgc2hvdWxkIGJlIGZpeGVkLgoKQ2hyaXN0
-aWFuLgoKQW0gMjkuMDkuMjAxNiB1bSAxMzoxOCBzY2hyaWViIFN0RGVuaXMsIFRvbToKPiBJbiB0
-aGlzIGJsb2NrIG9mIGNvZGUgSSdtIHdvbmRlcmluZyBpZiB0aGUgbXV0ZXhfZGVzdHJveSBzaG91
-bGQgYmUgaG9pc3RlZCBvdXQgb2YgdGhlIGlubmVyIGxvb3A/Cj4KPiBzdGF0aWMgdm9pZCBhbWRn
-cHVfY3R4X2Zpbmkoc3RydWN0IGFtZGdwdV9jdHggKmN0eCkKPiB7Cj4gICAgICAgICAgc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBjdHgtPmFkZXY7Cj4gICAgICAgICAgdW5zaWduZWQgaSwg
-ajsKPgo+Cj4gICAgICAgICAgaWYgKCFhZGV2KQo+ICAgICAgICAgICAgICAgICAgcmV0dXJuOwo+
-Cj4KPiAgICAgICAgICBmb3IgKGkgPSAwOyBpIDwgQU1ER1BVX01BWF9SSU5HUzsgKytpKQo+ICAg
-ICAgICAgICAgICAgICAgZm9yIChqID0gMDsgaiA8IGFtZGdwdV9zY2hlZF9qb2JzOyArK2opIHsK
-PiAgICAgICAgICAgICAgICAgICAgICAgICAgZmVuY2VfcHV0KGN0eC0+cmluZ3NbaV0uZmVuY2Vz
-W2pdKTsKPiAgICAgICAgICAgICAgICAgICAgICAgICAgbXV0ZXhfZGVzdHJveSgmY3R4LT5yaW5n
-c1tpXS5zZW1fbG9jayk7Cj4gICAgICAgICAgICAgICAgICB9Cj4KPgo+IENoZWVycywKPiBUb20K
-PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1n
-ZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKCgpfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
-bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+QW0gMjkuMDkuMjAxNiB1bSAxMToxOCBzY2hyaWViIHpob3VjbTE6Cj4KPgo+IE9uIDIwMTblubQw
+OeaciDI55pelIDE1OjUyLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiAtICAgIGlmIChjb3Vu
+dCkKPj4gKyAgICBpZiAoY291bnQpIHsKPj4gKyAgICAgICAgaWYgKHZtLT5wYWdlX2RpcmVjdG9y
+eS1zaGFkb3cpCj4gRm9yZ2V0IGNvbXBpbGUgZml4IHRvIGFtZW5kPwoKVXBzLCBubyB0aGF0IGFj
+dHVhbGx5IGNvbXBpbGVzIGJlY2F1c2Ugd2UgaGF2ZSBhIGxvY2FsIHZhcmlhYmxlIG5hbWVkIAoi
+c2hhZG93IiAoYW5kIGJ5IGNvaW5jaWRlbnQgYWN0dWFsbHkgZG9lcyB3aGF0IGl0IHNob3VsZCBk
+bykuCgpBbnl3YXkgY2xlYXJseSBhIHR5cG8uIENhbiBJIGdldCB5b3VyIHJiIGZvciB0aGUgc2Vy
+aWVzPwoKUmVnYXJkcywKQ2hyaXN0aWFuLgoKPgo+IFJlZ2FyZHMsCj4gRGF2aWQgWmhvdQo+PiAr
+IGFtZGdwdV92bV9kb19zZXRfcHRlcygmcGFyYW1zLCBsYXN0X3NoYWRvdywgbGFzdF9wdCwKPj4g
+KyAgICAgICAgICAgICAgICAgICAgICAgICAgY291bnQsIGluY3IsIEFNREdQVV9QVEVfVkFMSUQp
+Owo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBh
+bWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4CgoKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
+aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
