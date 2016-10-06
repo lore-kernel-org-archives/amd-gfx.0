@@ -1,11 +1,18 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: drop atom scratch save/restore in gpu reset
-Date: Thu,  6 Oct 2016 11:27:56 -0400
-Message-ID: <1475767676-10638-1-git-send-email-alexander.deucher@amd.com>
+From: =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: initialize the context reset_counter in
+ amdgpu_ctx_init
+Date: Thu, 6 Oct 2016 17:02:05 +0200
+Message-ID: <7fb5612e-3421-93c4-7f18-6f597be99d15@amd.com>
+References: <1475567106-5818-1-git-send-email-nhaehnle@gmail.com>
+ <2d749b1b-5d1b-f0bc-502b-358acf09e04a@vodafone.de>
+ <CAAxE2A55JNWJ3hP5MtbHA=Jz_5bKQDnfvvTrwvW-g2LiDf8TrA@mail.gmail.com>
+ <CADnq5_O8-D7hS5riU-7izo-jxh7fLTMYfpevcbBJqJHbKmKXjQ@mail.gmail.com>
+ <CAAxE2A6FHmQhfzxAiq9-pMi+LkyJ6PAqvZi_-MV-xX1sZ_vv-A@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CAAxE2A6FHmQhfzxAiq9-pMi+LkyJ6PAqvZi_-MV-xX1sZ_vv-A-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,26 +23,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-VGhpcyBpcyBhbHJlYWR5IGhhbmRsZWQgYnkgdGhlIGRjZSBJUCBtb2R1bGVzIGluIHRoZWlyCnN1
-c3BlbmQgYW5kIHJlc3VtZSBjb2RlLiAgTm8gbmVlZCB0byBkbyBpdCBhZ2Fpbi4KClNpZ25lZC1v
-ZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KLS0tCiBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCA0IC0tLS0KIDEgZmlsZSBj
-aGFuZ2VkLCA0IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9kZXZpY2UuYwppbmRleCA4OWIzNTM0Li5lZjFkNTI4IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCkBAIC0yMzA3LDggKzIzMDcsNiBAQCBpbnQgYW1kZ3B1
-X2dwdV9yZXNldChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAl9CiAKIAlpZiAobmVlZF9m
-dWxsX3Jlc2V0KSB7Ci0JCS8qIHNhdmUgc2NyYXRjaCAqLwotCQlhbWRncHVfYXRvbWJpb3Nfc2Ny
-YXRjaF9yZWdzX3NhdmUoYWRldik7CiAJCXIgPSBhbWRncHVfc3VzcGVuZChhZGV2KTsKIAogcmV0
-cnk6CkBAIC0yMzI3LDggKzIzMjUsNiBAQCByZXRyeToKIAkJCWRldl9pbmZvKGFkZXYtPmRldiwg
-IkdQVSByZXNldCBzdWNjZWVkZWQsIHRyeWluZyB0byByZXN1bWVcbiIpOwogCQkJciA9IGFtZGdw
-dV9yZXN1bWUoYWRldik7CiAJCX0KLQkJLyogcmVzdG9yZSBzY3JhdGNoICovCi0JCWFtZGdwdV9h
-dG9tYmlvc19zY3JhdGNoX3JlZ3NfcmVzdG9yZShhZGV2KTsKIAl9CiAJaWYgKCFyKSB7CiAJCWFt
-ZGdwdV9pcnFfZ3B1X3Jlc2V0X3Jlc3VtZV9oZWxwZXIoYWRldik7Ci0tIAoyLjUuNQoKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+T24gMDYuMTAuMjAxNiAxNjo0MywgTWFyZWsgT2zFocOhayB3cm90ZToKPiBPbiBUaHUsIE9jdCA2
+LCAyMDE2IGF0IDQ6MjQgUE0sIEFsZXggRGV1Y2hlciA8YWxleGRldWNoZXJAZ21haWwuY29tPiB3
+cm90ZToKPj4gT24gVGh1LCBPY3QgNiwgMjAxNiBhdCA2OjI4IEFNLCBNYXJlayBPbMWhw6FrIDxt
+YXJhZW9AZ21haWwuY29tPiB3cm90ZToKPj4+IERvIHdlIG5lZWQgdG8gYnVtcCB0aGUgRFJNIHZl
+cnNpb24gZm9yIHRoaXMgYnVnIGZpeD8KPj4+Cj4+Cj4+IEFsdGVybmF0aXZlbHksIHdlIGNvdWxk
+IGp1c3QgY2Mgc3RhYmxlLiAgQmVpbmcgdGhhdCB0aGUgd2hvbGUgcmVzZXQKPj4gaGFuZGxpbmcg
+aXMgbWVzYSBpcyB0aWxsIGtpbmQgb2YgdXAgaW4gdGhlIGFpciwgSSdtIG5vdCBzdXJlIGhvdwo+
+PiBjcml0aWNhbCBpdCBpcy4KPgo+IFRoZSBNZXNhIHBhcnQgaXMgYWN0dWFsbHkgY29tcGxldGUu
+IFRoZSBwcm9ibGVtIGlzIHRoYXQgaWYgYW4KPiBhcHBsaWNhdGlvbiByZXF1ZXN0cyB0aGUgR0xf
+TE9TRV9DT05URVhUX09OX1JFU0VUIHN0cmF0ZWd5LCBhbgo+IGluY29ycmVjdCByZXNldCBjb3Vu
+dGVyIHJldHVybmVkIGJ5IHRoZSBrZXJuZWwgd2lsbCBhdXRvbWF0aWNhbGx5IGtpbGwKPiB0aGUg
+T3BlbkdMIGNvbnRleHQgKGJ5IHNldHRpbmcgdGhlIG5vLW9wIGRpc3BhdGNoKSwgc28gaXQncyBh
+IHByZXR0eQo+IHNlcmlvdXMgaXNzdWUgYW5kIHRoZSBrZXJuZWwgc2hvdWxkIHJldHVybiBjb3Jy
+ZWN0IHZhbHVlcyByZWdhcmRsZXNzCj4gb2YgdGhlIHN0YXRlIG9mIEdQVSByZXNldCB0aGVyZS4g
+SWYgdGhlIGtlcm5lbCByZXR1cm5zIGFuIGluY29ycmVjdAo+IHJlc2V0IGNvdW50ZXIsIHdlIG5l
+ZWQgYSB2ZXJzaW9uIGJ1bXAgZm9yIHRoZSBmaXguCgpZZWFoLCB0aGF0IHNlZW1zIHRvIGJlIHRo
+ZSBzYWZlc3Qgc29sdXRpb24uCgpOaWNvbGFpCgo+Cj4gTWFyZWsKPgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
