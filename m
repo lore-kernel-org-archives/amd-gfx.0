@@ -1,12 +1,14 @@
-From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: [PATCH xf86-video-ati] Rotate and reflect cursor hotspot position for
- drmModeSetCursor2
-Date: Thu,  6 Oct 2016 18:58:12 +0900
-Message-ID: <20161006095812.26716-1-michel@daenzer.net>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: initialize the context reset_counter in
+ amdgpu_ctx_init
+Date: Thu, 6 Oct 2016 12:28:27 +0200
+Message-ID: <CAAxE2A55JNWJ3hP5MtbHA=Jz_5bKQDnfvvTrwvW-g2LiDf8TrA@mail.gmail.com>
+References: <1475567106-5818-1-git-send-email-nhaehnle@gmail.com>
+ <2d749b1b-5d1b-f0bc-502b-358acf09e04a@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0061078590=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <2d749b1b-5d1b-f0bc-502b-358acf09e04a-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,43 +19,179 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Cc: =?UTF-8?Q?Nicolai_H=C3=A4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?UTF-8?Q?Nicolai_H=C3=A4hnle?= <nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-RnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+CgpXZSB3ZXJlIGFs
-d2F5cyBwYXNzaW5nIHRoZSBob3RzcG90IHBvc2l0aW9uIGluIHRoZSBYIHNjcmVlbiBjb29yZGlu
-YXRlCnNwYWNlLCBidXQgZHJtTW9kZVNldEN1cnNvcjIgbmVlZHMgaXQgaW4gdGhlIENSVEMgY29v
-cmRpbmF0ZSBzcGFjZS4gVGhlCndyb25nIGhvdHNwb3QgcG9zaXRpb24gd291bGQgY2F1c2UgdGhl
-IGtlcm5lbCBkcml2ZXIgdG8gYWRqdXN0IHRoZQpIVyBjdXJzb3IgcG9zaXRpb24gaW5jb3JyZWN0
-bHkgd2hlbiB0aGUgaG90c3BvdCBwb3NpdGlvbiBjaGFuZ2VkLgoKKFBvcnRlZCBmcm9tIGFtZGdw
-dSBjb21taXQgZDQyNzczZWI0NWJhZmY1OTMzNzMwZTI2ODc4YTBiNDVmY2YwN2I2NSkKClNpZ25l
-ZC1vZmYtYnk6IE1pY2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQuY29tPgotLS0KIHNy
-Yy9kcm1tb2RlX2Rpc3BsYXkuYyB8IDMyICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKyst
-CiAxIGZpbGUgY2hhbmdlZCwgMzEgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAt
-LWdpdCBhL3NyYy9kcm1tb2RlX2Rpc3BsYXkuYyBiL3NyYy9kcm1tb2RlX2Rpc3BsYXkuYwppbmRl
-eCAxYjFiM2U2Li4zODg4ZTVjIDEwMDY0NAotLS0gYS9zcmMvZHJtbW9kZV9kaXNwbGF5LmMKKysr
-IGIvc3JjL2RybW1vZGVfZGlzcGxheS5jCkBAIC0xMDQ3LDEyICsxMDQ3LDQyIEBAIGRybW1vZGVf
-c2hvd19jdXJzb3IgKHhmODZDcnRjUHRyIGNydGMpCiAJaWYgKHVzZV9zZXRfY3Vyc29yMikgewog
-CSAgICB4Zjg2Q3J0Y0NvbmZpZ1B0ciB4Zjg2X2NvbmZpZyA9IFhGODZfQ1JUQ19DT05GSUdfUFRS
-KGNydGMtPnNjcm4pOwogCSAgICBDdXJzb3JQdHIgY3Vyc29yID0geGY4Nl9jb25maWctPmN1cnNv
-cjsKKwkgICAgaW50IHhob3QgPSBjdXJzb3ItPmJpdHMtPnhob3Q7CisJICAgIGludCB5aG90ID0g
-Y3Vyc29yLT5iaXRzLT55aG90OwogCSAgICBpbnQgcmV0OwogCisJICAgIGlmIChjcnRjLT5yb3Rh
-dGlvbiAhPSBSUl9Sb3RhdGVfMCAmJgorCQljcnRjLT5yb3RhdGlvbiAhPSAoUlJfUm90YXRlXzE4
-MCB8IFJSX1JlZmxlY3RfWCB8CisJCQkJICAgUlJfUmVmbGVjdF9ZKSkgeworCQlpbnQgdDsKKwor
-CQkvKiBSZWZsZWN0ICYgcm90YXRlIGhvdHNwb3QgcG9zaXRpb24gKi8KKwkJaWYgKGNydGMtPnJv
-dGF0aW9uICYgUlJfUmVmbGVjdF9YKQorCQkgICAgeGhvdCA9IGluZm8tPmN1cnNvcl93IC0geGhv
-dCAtIDE7CisJCWlmIChjcnRjLT5yb3RhdGlvbiAmIFJSX1JlZmxlY3RfWSkKKwkJICAgIHlob3Qg
-PSBpbmZvLT5jdXJzb3JfaCAtIHlob3QgLSAxOworCisJCXN3aXRjaCAoY3J0Yy0+cm90YXRpb24g
-JiAweGYpIHsKKwkJY2FzZSBSUl9Sb3RhdGVfOTA6CisJCSAgICB0ID0geGhvdDsKKwkJICAgIHho
-b3QgPSB5aG90OworCQkgICAgeWhvdCA9IGluZm8tPmN1cnNvcl93IC0gdCAtIDE7CisJCSAgICBi
-cmVhazsKKwkJY2FzZSBSUl9Sb3RhdGVfMTgwOgorCQkgICAgeGhvdCA9IGluZm8tPmN1cnNvcl93
-IC0geGhvdCAtIDE7CisJCSAgICB5aG90ID0gaW5mby0+Y3Vyc29yX2ggLSB5aG90IC0gMTsKKwkJ
-ICAgIGJyZWFrOworCQljYXNlIFJSX1JvdGF0ZV8yNzA6CisJCSAgICB0ID0geGhvdDsKKwkJICAg
-IHhob3QgPSBpbmZvLT5jdXJzb3JfaCAtIHlob3QgLSAxOworCQkgICAgeWhvdCA9IHQ7CisJCX0K
-KwkgICAgfQorCiAJICAgIHJldCA9CiAJCWRybU1vZGVTZXRDdXJzb3IyKGRybW1vZGUtPmZkLCBk
-cm1tb2RlX2NydGMtPm1vZGVfY3J0Yy0+Y3J0Y19pZCwKIAkJCQkgIGhhbmRsZSwgaW5mby0+Y3Vy
-c29yX3csIGluZm8tPmN1cnNvcl9oLAotCQkJCSAgY3Vyc29yLT5iaXRzLT54aG90LCBjdXJzb3It
-PmJpdHMtPnlob3QpOworCQkJCSAgeGhvdCwgeWhvdCk7CiAJICAgIGlmIChyZXQgPT0gLUVJTlZB
-TCkKIAkJdXNlX3NldF9jdXJzb3IyID0gRkFMU0U7CiAJICAgIGVsc2UKLS0gCjIuOS4zCgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
-bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============0061078590==
+Content-Type: multipart/alternative; boundary=001a113bfb7a2015a0053e2fc19b
+
+--001a113bfb7a2015a0053e2fc19b
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Do we need to bump the DRM version for this bug fix?
+
+Marek
+
+On Oct 4, 2016 10:20 AM, "Christian K=C3=B6nig" <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org> w=
+rote:
+
+> Am 04.10.2016 um 09:45 schrieb Nicolai H=C3=A4hnle:
+>
+>> From: Nicolai H=C3=A4hnle <nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>
+>>
+>> Ensure that we really only report a GPU reset if one has happened since
+>> the
+>> creation of the context.
+>>
+>> Signed-off-by: Nicolai H=C3=A4hnle <nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>
+>>
+>
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>.
+>
+> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 3 +++
+>>   1 file changed, 3 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+>> index e203e55..a5e2fcb 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+>> @@ -36,20 +36,23 @@ static int amdgpu_ctx_init(struct amdgpu_device
+>> *adev, struct amdgpu_ctx *ctx)
+>>         spin_lock_init(&ctx->ring_lock);
+>>         ctx->fences =3D kcalloc(amdgpu_sched_jobs * AMDGPU_MAX_RINGS,
+>>                               sizeof(struct fence*), GFP_KERNEL);
+>>         if (!ctx->fences)
+>>                 return -ENOMEM;
+>>         for (i =3D 0; i < AMDGPU_MAX_RINGS; ++i) {
+>>                 ctx->rings[i].sequence =3D 1;
+>>                 ctx->rings[i].fences =3D &ctx->fences[amdgpu_sched_jobs =
+*
+>> i];
+>>         }
+>> +
+>> +       ctx->reset_counter =3D atomic_read(&adev->gpu_reset_counter);
+>> +
+>>         /* create context entity for each ring */
+>>         for (i =3D 0; i < adev->num_rings; i++) {
+>>                 struct amdgpu_ring *ring =3D adev->rings[i];
+>>                 struct amd_sched_rq *rq;
+>>                 rq =3D &ring->sched.sched_rq[AMD_SCHED_PRIORITY_NORMAL];
+>>                 r =3D amd_sched_entity_init(&ring->sched,
+>> &ctx->rings[i].entity,
+>>                                           rq, amdgpu_sched_jobs);
+>>                 if (r)
+>>                         break;
+>>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+
+--001a113bfb7a2015a0053e2fc19b
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<p dir=3D"ltr">Do we need to bump the DRM version for this bug fix?</p>
+<p dir=3D"ltr">Marek</p>
+<div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Oct 4, 2016 10=
+:20 AM, &quot;Christian K=C3=B6nig&quot; &lt;<a href=3D"mailto:deathsimple@=
+vodafone.de">deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org</a>&gt; wrote:<br type=3D"attribution"=
+><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1=
+px #ccc solid;padding-left:1ex">Am 04.10.2016 um 09:45 schrieb Nicolai H=C3=
+=A4hnle:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+From: Nicolai H=C3=A4hnle &lt;<a href=3D"mailto:nicolai.haehnle-5C7GfCeVMHo@public.gmane.org" ta=
+rget=3D"_blank">nicolai.haehnle-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+<br>
+Ensure that we really only report a GPU reset if one has happened since the=
+<br>
+creation of the context.<br>
+<br>
+Signed-off-by: Nicolai H=C3=A4hnle &lt;<a href=3D"mailto:nicolai.haehnle@am=
+d.com" target=3D"_blank">nicolai.haehnle-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+</blockquote>
+<br>
+Reviewed-by: Christian K=C3=B6nig &lt;<a href=3D"mailto:christian.koenig@am=
+d.com" target=3D"_blank">christian.koenig-5C7GfCeVMHo@public.gmane.org</a>&gt;.<br>
+<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+---<br>
+=C2=A0 drivers/gpu/drm/amd/amdgpu/amd<wbr>gpu_ctx.c | 3 +++<br>
+=C2=A0 1 file changed, 3 insertions(+)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_ctx.c b/drivers/gpu/drm=
+/amd/amdgpu/a<wbr>mdgpu_ctx.c<br>
+index e203e55..a5e2fcb 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_ctx.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/a<wbr>mdgpu_ctx.c<br>
+@@ -36,20 +36,23 @@ static int amdgpu_ctx_init(struct amdgpu_device *adev, =
+struct amdgpu_ctx *ctx)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 spin_lock_init(&amp;ctx-&gt;ring_lock<wbr>);<br=
+>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 ctx-&gt;fences =3D kcalloc(amdgpu_sched_jobs * =
+AMDGPU_MAX_RINGS,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 sizeof(struct fence*), GFP_KERNEL);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!ctx-&gt;fences)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return -ENOMEM;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 for (i =3D 0; i &lt; AMDGPU_MAX_RINGS; ++i) {<b=
+r>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ctx-&gt;rings[i].se=
+quence =3D 1;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ctx-&gt;rings[i].fe=
+nces =3D &amp;ctx-&gt;fences[amdgpu_sched_jobs * i];<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0ctx-&gt;reset_counter =3D atomic_read(&amp;adev=
+-&gt;gpu_reset_c<wbr>ounter);<br>
++<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* create context entity for each ring */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 for (i =3D 0; i &lt; adev-&gt;num_rings; i++) {=
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct amdgpu_ring =
+*ring =3D adev-&gt;rings[i];<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct amd_sched_rq=
+ *rq;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 rq =3D &amp;ring-&g=
+t;sched.sched_rq[AMD_SCHE<wbr>D_PRIORITY_NORMAL];<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 r =3D amd_sched_ent=
+ity_init(&amp;ring-&gt;s<wbr>ched, &amp;ctx-&gt;rings[i].entity,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 r=
+q, amdgpu_sched_jobs);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (r)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 break;<br>
+</blockquote>
+<br>
+<br>
+______________________________<wbr>_________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
+lists.freedesktop.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer" target=3D"_blank">https://lists.freedesktop.org/<wbr>mailman/lis=
+tinfo/amd-gfx</a><br>
+</blockquote></div></div>
+
+--001a113bfb7a2015a0053e2fc19b--
+
+--===============0061078590==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0061078590==--
