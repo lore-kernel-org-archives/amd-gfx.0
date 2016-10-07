@@ -1,16 +1,24 @@
-From: Jeremy Newton <alexjnewt-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: Issue with amd-staging-4.7 on rx480
-Date: Thu, 6 Oct 2016 22:19:15 -0400
-Message-ID: <CAHOSEu9cGTbbD9iRsQnhrfmdvyfPiCgkuL0ErWz=UKGV7ZE9rg@mail.gmail.com>
-References: <CAHOSEu8-fa0RznKX7s-vbU_1g_eCaa-ZBp=0ySP5X_VqJA13Ng@mail.gmail.com>
- <CY4PR12MB1768EB91BA59663BC700C2AAF7C70@CY4PR12MB1768.namprd12.prod.outlook.com>
- <CAHOSEu_mFEy5W5v=603raJC21xnAK5TScABCGm-8haO0-xRnkQ@mail.gmail.com>
- <CY4PR12MB1768C5EE5166DBDB8156F199F7C70@CY4PR12MB1768.namprd12.prod.outlook.com>
- <CAHOSEu9edP3sFwkjpzcX2cVt90TPkqJsPn=fazUbYZ6azMm-0A@mail.gmail.com>
+From: Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org>
+Subject: Re: [PATCH] drm/i915: Before pageflip,
+ also wait for shared dmabuf fences.
+Date: Fri, 7 Oct 2016 13:34:41 +0100
+Message-ID: <CAHbf0-HZ6EotqwgvkxRTdRF97xB3qBA=DRKAzaAXguV_PR_P8w@mail.gmail.com>
+References: <3f4643cb-52a9-d7ae-439b-5f6fc6e718cc@vodafone.de>
+ <20160922063625.GD22164@dvetter-linux.ger.corp.intel.com>
+ <b95726e7-6bf6-a1b8-2a63-0758b1b185e2@vodafone.de>
+ <CAKMK7uF13M7d8qRRwKs_8M-QHjnuB7k3jshTUDnccTTQf6unog@mail.gmail.com>
+ <ddf99e2a-5f9a-41b9-9fde-af7bfd522572@vodafone.de>
+ <CAKMK7uEidoKbTO-m3KSz8UmQhF+uorg2-cWY8UpOXjZ_9MCxLg@mail.gmail.com>
+ <d2430ff8-43bd-bff2-9b02-847cabfd56c0@vodafone.de>
+ <ed1a57a4-1409-6d07-998a-2b54f466f710@daenzer.net>
+ <20160923120954.GH22164@dvetter-linux.ger.corp.intel.com>
+ <8c21f70a-7f96-480e-9784-93f2d48f52bb@daenzer.net>
+ <20160926080419.GV20761@phenom.ffwll.local>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0193872757=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAHOSEu9edP3sFwkjpzcX2cVt90TPkqJsPn=fazUbYZ6azMm-0A-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <20160926080419.GV20761-dv86pmgwkMBes7Z6vYuT8azUEOm+Xw19@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,337 +29,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0193872757==
-Content-Type: multipart/alternative; boundary=001a114d826a6f12ea053e3d0968
-
---001a114d826a6f12ea053e3d0968
-Content-Type: text/plain; charset=UTF-8
-
-There were some new commits pushed to fdo today, it seems that whatever the
-issue was, it's now fixed.
-
-No bisect needed after all.
-
-Thanks again!
-
-On Thu, Oct 6, 2016 at 10:38 AM, Jeremy Newton <alexjnewt-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
-
-> Fair enough, I'll bisect and see what happens.
->
-> Thanks for your help!
->
-> On Thu, Oct 6, 2016 at 10:12 AM, StDenis, Tom <Tom.StDenis-5C7GfCeVMHo@public.gmane.org> wrote:
->
->> Hi Jeremy,
->>
->>
->> Nothing between the UVD PG patch and the tip of stg-4.7 seems to be that
->> relevant to 480.
->>
->>
->> If 8f877a8 is stable best you can do is bisect (shouldn't take long) with
->> cold boots in between.  I too run Fedora 24 + GNOME and have good
->> performance with Carrizo, Stoney, FIJI and Tonga (with the 5dw patch
->> reverted) on the tip of stg-4.7.  I have yet to test a polaris asic
->> though...
->>
->>
->> Tom
->>
->>
->> ------------------------------
->> *From:* Jeremy Newton <alexjnewt-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
->> *Sent:* Thursday, October 6, 2016 10:07
->> *To:* StDenis, Tom
->> *Cc:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->> *Subject:* Re: Issue with amd-staging-4.7 on rx480
->>
->> I apologise if what I said was unclear. When I mean I reverted back to 8f877a8,
->> I mean I did a hard reset to this commit, i.e. reverting all
->> commits/changes after this one. Basically I reverted the following
->> commits: e3bb40f, 32ba038, 6892173, 55a9ab5, 4760300, 8ee519
->> 6, 381c90a, 5ae6bd0, 9a846b4, 042f89f, and 78d1842. I just skimmed it
->> last night, so I can't say for sure where the issue is, but I'm assuming
->> it's one of the drm/amdgpu commits, i.e. excluding commits9a846b4, 042f89f,
->> and 78d1842.
->>
->> I have only tested based on a snapshot at 8f877a8 and another snapshot
->> at 78d1842. The latter caused the issue, while the former seems fine. I
->> just discovered this last night, but I'll do some builds tonight to bisect
->> the issue if need be.
->>
->> Commit 6691270 on the other hand doesn't appear cause my issues. And
->> lastly, I rarely do warm boots on my machine, so all of my tests have been
->> cold boots.
->>
->> Thanks,
->> Jeremy
->>
->> On Thu, Oct 6, 2016 at 9:41 AM, StDenis, Tom <Tom.StDenis-5C7GfCeVMHo@public.gmane.org> wrote:
->>
->>> If I read this correctly you reverted the commit which enables UVD PG on
->>> Tonga?  I can't see how that impacts Polaris at all.
->>>
->>>
->>> If I had to guess it's a dGPU state issue.  I've had on occasion to
->>> resort to cold reboots to bisect the kernel because the GPU firmware can
->>> get into states that aren't 100% resolved by a warm reboot.
->>>
->>>
->>> There is a known bad commit which was reverted by Christian which I
->>> guess isn't out on fdo yet.  https://cgit.freedesktop.org/
->>> ~agd5f/linux/commit/?h=amd-staging-4.7&id=6691270952b6909218
->>> c520dcc71a342070c96874 that commit seems to break dGPU support.
->>>
->>>
->>> Cheers,
->>>
->>> Tom
->>>
->>>
->>> ------------------------------
->>> *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of
->>> Jeremy Newton <alexjnewt-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
->>> *Sent:* Wednesday, October 5, 2016 22:54
->>> *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>> *Subject:* Issue with amd-staging-4.7 on rx480
->>>
->>> Hello,
->>>
->>> I'm currently regularly building and using the amd-staging-4.7 linux
->>> branch, which can be found here:
->>>
->>> https://cgit.freedesktop.org/~agd5f/linux/log/?h=amd-staging-4.7
->>>
->>> It seems that one of the commits pushed on 2016-10-03 broke something,
->>> and I just wanted to give the devs a heads up in case no one noticed. I'm
->>> guessing it was caused by one of the commits in the range of e3bb40f all
->>> the way up to 78d1842.
->>>
->>> I'm using an RX480, polaris10. The issue seems to have two symptoms:
->>> - Plymouth (the boot splash screen) seems to get visually corrupted or
->>> just blacked out.
->>> - After login, the screen just remains black until I hard reset.
->>>
->>> Reverting back to 8f877a8 seems to fix it. I'm using Fedora 24 with
->>> GNOME. As well, I haven't had time to bisect, but I can do so if desired.
->>>
->>> Thanks!
->>>
->>
->>
->
-
---001a114d826a6f12ea053e3d0968
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">There were some new commits pushed to fdo today, it seems =
-that whatever the issue was, it&#39;s now fixed.<div><br></div><div>No bise=
-ct needed after all.</div><div><div><br></div><div>Thanks again!<br><div cl=
-ass=3D"gmail_extra"><br><div class=3D"gmail_quote">On Thu, Oct 6, 2016 at 1=
-0:38 AM, Jeremy Newton <span dir=3D"ltr">&lt;<a href=3D"mailto:alexjnewt@gm=
-ail.com" target=3D"_blank">alexjnewt-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;</span> wrote:<br><bl=
-ockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #=
-ccc solid;padding-left:1ex"><div dir=3D"ltr">Fair enough, I&#39;ll bisect a=
-nd see what happens.<div><br></div><div>Thanks for your help!</div></div><d=
-iv class=3D"HOEnZb"><div class=3D"h5"><div class=3D"gmail_extra"><br><div c=
-lass=3D"gmail_quote">On Thu, Oct 6, 2016 at 10:12 AM, StDenis, Tom <span di=
-r=3D"ltr">&lt;<a href=3D"mailto:Tom.StDenis-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">Tom.=
-StDenis-5C7GfCeVMHo@public.gmane.org</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" =
-style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-
-
-
-
-<div dir=3D"ltr">
-<div id=3D"m_1706033156892082374m_4386376317330016210divtagdefaultwrapper" =
-style=3D"font-size:12pt;color:#000000;font-family:Calibri,Arial,Helvetica,s=
-ans-serif">
-<p>Hi Jeremy,</p>
-<p><br>
-</p>
-<p>Nothing between the UVD PG patch and the tip of stg-4.7 seems to be that=
- relevant to 480.</p>
-<p><br>
-</p>
-<p>If 8f877a8 is stable best you can do is bisect (shouldn&#39;t take long)=
- with cold boots in=C2=A0between.=C2=A0 I too run Fedora 24 + GNOME and hav=
-e good performance with Carrizo, Stoney, FIJI and Tonga (with the 5dw patch=
- reverted) on the tip of stg-4.7.=C2=A0 I have yet
- to test a polaris asic though...</p>
-<p><br>
-</p>
-<p>Tom</p>
-<br>
-<br>
-<div style=3D"color:rgb(0,0,0)">
-<hr style=3D"display:inline-block;width:98%">
-<div id=3D"m_1706033156892082374m_4386376317330016210divRplyFwdMsg" dir=3D"=
-ltr"><font face=3D"Calibri, sans-serif" color=3D"#000000" style=3D"font-siz=
-e:11pt"><b>From:</b> Jeremy Newton &lt;<a href=3D"mailto:alexjnewt-Re5JQEeQqe8@public.gmane.org=
-m" target=3D"_blank">alexjnewt-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
-<b>Sent:</b> Thursday, October 6, 2016 10:07<br>
-<b>To:</b> StDenis, Tom<br>
-<b>Cc:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blan=
-k">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-<b>Subject:</b> Re: Issue with amd-staging-4.7 on rx480</font>
-<div>=C2=A0</div>
-</div><div><div class=3D"m_1706033156892082374h5">
-<div>
-<div dir=3D"ltr">I apologise if what I said was unclear. When I mean I reve=
-rted back to=C2=A0<span style=3D"font-size:12.8px">8f877a8, I mean I did a =
-hard reset to this commit, i.e. reverting all commits/changes after this on=
-e. Basically I reverted the following commits:=C2=A0e3bb40f,=C2=A032ba038,=
-=C2=A0689<wbr>2173,=C2=A055a9ab5,=C2=A04760300,=C2=A08ee519<wbr>6,=C2=A0381=
-c90a,=C2=A05ae6bd0,=C2=A09a846b4,=C2=A0<wbr>042f89f,
- and 78d1842. I just skimmed it last night, so I can&#39;t say for sure whe=
-re the issue is, but I&#39;m assuming it&#39;s one of the=C2=A0drm/amdgpu=
-=C2=A0commits, i.e. excluding commits</span><span style=3D"font-size:12.8px=
-">9a846b4,=C2=A0042f89f, and 78d1842</span><span style=3D"font-size:12.8px"=
->.</span>
-<div><span style=3D"font-size:12.8px"><br>
-</span></div>
-<div><span style=3D"font-size:12.8px">I have only tested based on a snapsho=
-t at=C2=A0</span><span style=3D"font-size:12.8px">8f877a8 and another snaps=
-hot at=C2=A0</span><span style=3D"font-size:12.8px">78d1842. The latter cau=
-sed the issue, while the former seems fine. I just
- discovered this last night, but I&#39;ll do some builds tonight to bisect =
-the issue if need be.</span><span style=3D"font-size:12.8px"><br>
-</span>
-<div><span style=3D"font-size:12.8px"><br>
-</span></div>
-<div>Commit=C2=A06691270 on the other hand doesn&#39;t appear cause my issu=
-es. And lastly, I rarely do warm boots on my machine, so all of my tests ha=
-ve been cold boots.</div>
-</div>
-<div><br>
-</div>
-<div>Thanks,</div>
-<div>Jeremy</div>
-</div>
-<div class=3D"gmail_extra"><br>
-<div class=3D"gmail_quote">On Thu, Oct 6, 2016 at 9:41 AM, StDenis, Tom <sp=
-an dir=3D"ltr">
-&lt;<a href=3D"mailto:Tom.StDenis-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">Tom.StDenis@am=
-d.com</a>&gt;</span> wrote:<br>
-<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
-x #ccc solid;padding-left:1ex">
-<div dir=3D"ltr">
-<div id=3D"m_1706033156892082374m_4386376317330016210m_-3510539901589408934=
-divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font-family:Cal=
-ibri,Arial,Helvetica,sans-serif">
-<p>If I read this correctly you reverted the commit which enables UVD PG on=
- Tonga?=C2=A0 I can&#39;t see how that impacts Polaris at all. =C2=A0</p>
-<p><br>
-</p>
-<p>If I had to guess it&#39;s a dGPU state issue.=C2=A0 I&#39;ve had on occ=
-asion to resort to cold reboots to bisect the kernel because the GPU firmwa=
-re can get into states that aren&#39;t 100% resolved by a warm reboot.</p>
-<p><br>
-</p>
-<p>There is a known bad commit which was reverted by Christian which I gues=
-s isn&#39;t out on fdo yet. =C2=A0<a href=3D"https://cgit.freedesktop.org/~=
-agd5f/linux/commit/?h=3Damd-staging-4.7&amp;id=3D6691270952b6909218c520dcc7=
-1a342070c96874" class=3D"m_1706033156892082374m_4386376317330016210m_-35105=
-39901589408934OWAAutoLink" id=3D"m_1706033156892082374m_4386376317330016210=
-m_-3510539901589408934LPlnk533633" target=3D"_blank">https://cgit.freedeskt=
-op.org/<wbr>~agd5f/linux/commit/?h=3Damd-sta<wbr>ging-4.7&amp;id=3D66912709=
-52b6909218<wbr>c520dcc71a342070c96874</a>=C2=A0that
- commit seems to break dGPU support.</p>
-<p><br>
-</p>
-<p>Cheers,</p>
-<p>Tom</p>
-<br>
-<br>
-<div style=3D"color:rgb(0,0,0)">
-<hr style=3D"display:inline-block;width:98%">
-<div id=3D"m_1706033156892082374m_4386376317330016210m_-3510539901589408934=
-divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" color=3D"#000=
-000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;<a href=3D"mailto:am=
-d-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx-bounces@list=
-s.freedes<wbr>ktop.org</a>&gt;
- on behalf of Jeremy Newton &lt;<a href=3D"mailto:alexjnewt-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" targ=
-et=3D"_blank">alexjnewt-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
-<b>Sent:</b> Wednesday, October 5, 2016 22:54<br>
-<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blan=
-k">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-<b>Subject:</b> Issue with amd-staging-4.7 on rx480</font>
-<div>=C2=A0</div>
-</div>
-<div>
-<div class=3D"m_1706033156892082374m_4386376317330016210h5">
-<div>
-<div dir=3D"ltr">
-<div><span style=3D"text-align:right">
-<div style=3D"text-align:start">Hello,</div>
-<div style=3D"text-align:start"><br>
-</div>
-<div style=3D"text-align:start">I&#39;m currently regularly building and us=
-ing the amd-staging-4.7 linux branch, which can be found here:</div>
-<div style=3D"text-align:start"><br>
-</div>
-<div style=3D"text-align:start"><a href=3D"https://cgit.freedesktop.org/~ag=
-d5f/linux/log/?h=3Damd-staging-4.7" id=3D"m_1706033156892082374m_4386376317=
-330016210m_-3510539901589408934LPlnk449083" target=3D"_blank">https://cgit.=
-freedesktop.org/~<wbr>agd5f/linux/log/?h=3Damd-staging<wbr>-4.7</a></div>
-<div style=3D"text-align:start"><br>
-</div>
-<div style=3D"text-align:start">It seems that one of the commits pushed on =
-2016-10-03 broke something, and I just wanted to give the devs a heads up i=
-n case no one noticed. I&#39;m guessing it was caused by one of the commits=
- in the range of e3bb40f all the way up
- to 78d1842.</div>
-<div style=3D"text-align:start"><br>
-</div>
-<div style=3D"text-align:start">I&#39;m using an RX480, polaris10. The issu=
-e seems to have two symptoms:</div>
-<div style=3D"text-align:start">- Plymouth (the boot splash screen) seems t=
-o get visually corrupted or just blacked out.</div>
-<div style=3D"text-align:start">- After login, the screen just remains blac=
-k until I hard reset.</div>
-<div style=3D"text-align:start"><br>
-</div>
-<div style=3D"text-align:start">Reverting back to 8f877a8 seems to fix it. =
-I&#39;m using Fedora 24 with GNOME. As well, I haven&#39;t had time to bise=
-ct, but I can do so if desired.</div>
-<div style=3D"text-align:start"><br>
-</div>
-<div style=3D"text-align:start">Thanks!</div>
-</span></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</blockquote>
-</div>
-<br>
-</div>
-</div>
-</div></div></div>
-</div>
-</div>
-
-</blockquote></div><br></div>
-</div></div></blockquote></div><br></div></div></div></div>
-
---001a114d826a6f12ea053e3d0968--
-
---===============0193872757==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0193872757==--
+SGkKClRoaXMgaGFzIGRpc2N1c3Npb24gaGFzIGdvbmUgYSBsaXR0bGUgcXVpZXQKCldhcyB0aGVy
+ZSBhbnkgYWdyZWVtZW50IGFib3V0IHdoYXQgbmVlZGVkIGRvaW5nIHRvIGdldCB0aGlzIHdvcmtp
+bmcKZm9yIGk5NjUvYW1kZ3B1PwoKUmVnYXJkcwoKTWlrZQoKT24gTW9uLCAyNiBTZXAgMjAxNiBh
+dCAwOTowNCBEYW5pZWwgVmV0dGVyIDxkYW5pZWxAZmZ3bGwuY2g+IHdyb3RlOgo+Cj4gT24gTW9u
+LCBTZXAgMjYsIDIwMTYgYXQgMDk6NDg6MzdBTSArMDkwMCwgTWljaGVsIETDpG56ZXIgd3JvdGU6
+Cj4gPiBPbiAyMy8wOS8xNiAwOTowOSBQTSwgRGFuaWVsIFZldHRlciB3cm90ZToKPiA+ID4gT24g
+RnJpLCBTZXAgMjMsIDIwMTYgYXQgMDc6MDA6MjVQTSArMDkwMCwgTWljaGVsIETDpG56ZXIgd3Jv
+dGU6Cj4gPiA+PiBPbiAyMi8wOS8xNiAxMDoyMiBQTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToK
+PiA+ID4+PiBBbSAyMi4wOS4yMDE2IHVtIDE1OjA1IHNjaHJpZWIgRGFuaWVsIFZldHRlcjoKPiA+
+ID4+Pj4KPiA+ID4+Pj4gQnV0IHRoZSBjdXJyZW50IGFwcHJvYWNoIGluIGFtZGdwdV9zeW5jLmMg
+b2YgZGVjbGFyaW5nIGEgZmVuY2UgYXMKPiA+ID4+Pj4gZXhjbHVzaXZlIGFmdGVyIHRoZSBmYWN0
+IChpZiBvd25lcnMgZG9uJ3QgbWF0Y2gpIGp1c3QgaXNuJ3QgaG93Cj4gPiA+Pj4+IHJlc2VydmF0
+aW9uX29iamVjdCB3b3Jrcy4gWW91IGNhbiBvZiBjb3Vyc2UgY2hhbmdlIHRoYXQsIGJ1dCB0aGF0
+Cj4gPiA+Pj4+IG1lYW5zIHlvdSBtdXN0IGNoYW5nZSBhbGwgZHJpdmVycyBpbXBsZW1lbnRpbmcg
+c3VwcG9ydCBmb3IgaW1wbGljaXQKPiA+ID4+Pj4gZmVuY2luZyBvZiBkbWEtYnVmLiBGaXhpbmcg
+YW1kZ3B1IHdpbGwgYmUgZWFzaWVyIDstKQo+ID4gPj4+Cj4gPiA+Pj4gV2VsbCBhcyBmYXIgYXMg
+SSBjYW4gc2VlIHRoZXJlIGlzIG5vIHdheSBJIGNhbiBmaXggYW1kZ3B1IGluIHRoaXMgY2FzZS4K
+PiA+ID4+Pgo+ID4gPj4+IFRoZSBoYW5kbGluZyBjbGVhcmx5IG5lZWRzIHRvIGJlIGNoYW5nZWQg
+b24gdGhlIHJlY2VpdmluZyBzaWRlIG9mIHRoZQo+ID4gPj4+IHJlc2VydmF0aW9uIG9iamVjdHMg
+aWYgSSBkb24ndCBjb21wbGV0ZWx5IHdhbnQgdG8gZGlzYWJsZSBjb25jdXJyZW50Cj4gPiA+Pj4g
+YWNjZXNzIHRvIEJPcyBpbiBhbWRncHUuCj4gPiA+Pgo+ID4gPj4gQW55d2F5LCB3ZSBuZWVkIGEg
+c29sdXRpb24gZm9yIHRoaXMgYmV0d2VlbiByYWRlb24gYW5kIGFtZGdwdSwgYW5kIEkKPiA+ID4+
+IGRvbid0IHRoaW5rIGEgc29sdXRpb24gd2hpY2ggaW52b2x2ZXMgdGhvc2UgZHJpdmVycyB1c2lu
+ZyByZXNlcnZhdGlvbgo+ID4gPj4gb2JqZWN0IHNlbWFudGljcyBiZXR3ZWVuIHRoZW0gd2hpY2gg
+YXJlIGRpZmZlcmVudCBmcm9tIGFsbCBvdGhlciBkcml2ZXJzCj4gPiA+PiBpcyBhIGdvb2QgaWRl
+YS4KPiA+ID4KPiA+ID4gQWZhaWsgdGhlcmUncyBhbHNvIGFtZCtpbnRlbCBtYWNoaW5lcyBvdXQg
+dGhlcmUsCj4gPgo+ID4gU3VyZSwgd2hhdCBJIG1lYW50IHdhcyB0aGF0IGV2ZW4gaWYgd2UgZGlk
+bid0IGNhcmUgYWJvdXQgdGhvc2UgKHdoaWNoIHdlCj4gPiBkbyksIHdlJ2Qgc3RpbGwgbmVlZCBh
+IHNvbHV0aW9uIGJldHdlZW4gb3VyIG93biBkcml2ZXJzLgo+ID4KPiA+Cj4gPiA+IHNvIHJlYWxs
+eSB0aGUgb25seSBvcHRpb24gaXMgdG8gZWl0aGVyIGZpeCBhbWRncHUgdG8gY29ycmVjdGx5IHNl
+dAo+ID4gPiBleGNsdXNpdmUgZmVuY2VzIG9uIHNoYXJlZCBidWZmZXJzICh3aXRoIHRoZSBoZWxw
+IG9mIHVzZXJzcGFjZSBoaW50cykuCj4gPiA+IE9yIGNoYW5nZSBhbGwgdGhlIGV4aXN0aW5nIGRy
+aXZlcnMuCj4gPgo+ID4gSSBnb3Qgc29tZSBmcmVzaCBwZXJzcGVjdGl2ZSBvbiB0aGUgcHJvYmxl
+bSB3aGlsZSB0YWtpbmcgYSB3YWxrLCBhbmQgSSdtCj4gPiBub3cgZmFpcmx5IGNvbnZpbmNlZCB0
+aGF0IG5laXRoZXIgYW1kZ3B1IHVzZXJzcGFjZSBub3Igb3RoZXIgZHJpdmVycwo+ID4gbmVlZCB0
+byBiZSBtb2RpZmllZDoKPiA+Cj4gPiBJdCBvY2N1cnJlZCB0byBtZSB0aGF0IGFsbCB0aGUgaW5m
+b3JtYXRpb24gd2UgbmVlZCBpcyBhbHJlYWR5IHRoZXJlIGluCj4gPiB0aGUgZXhjbHVzaXZlIGFu
+ZCBzaGFyZWQgZmVuY2VzIHNldCBieSBhbWRncHUuIFdlIGp1c3QgbmVlZCB0byB1c2UgaXQKPiA+
+IGRpZmZlcmVudGx5IHRvIG1hdGNoIHRoZSBleHBlY3RhdGlvbnMgb2Ygb3RoZXIgZHJpdmVycy4K
+PiA+Cj4gPiBXZSBzaG91bGQgYmUgYWJsZSB0byBzZXQgc29tZSBzb3J0IG9mICJwc2V1ZG8iIGZl
+bmNlIGFzIHRoZSBleGNsdXNpdmUKPiA+IGZlbmNlIG9mIHRoZSByZXNlcnZhdGlvbiBvYmplY3Qu
+IFdoZW4gd2UgYXJlIGFza2VkIGJ5IGFub3RoZXIgZHJpdmVyIHRvCj4gPiB3YWl0IGZvciB0aGlz
+IGZlbmNlIHRvIHNpZ25hbCwgd2UgdGFrZSB0aGUgY3VycmVudCAicmVhbCIgZXhjbHVzaXZlCj4g
+PiBmZW5jZSAod2hpY2ggd2UgY2FuIGtlZXAgdHJhY2sgb2YgZS5nLiBpbiBvdXIgQk8gc3RydWN0
+KSBhbmQgc2hhcmVkCj4gPiBmZW5jZXMsIGFuZCB3YWl0IGZvciBhbGwgb2YgdGhvc2UgdG8gc2ln
+bmFsOyB0aGVuIHdlIG1hcmsgdGhlICJwc2V1ZG8iCj4gPiBleGNsdXNpdmUgZmVuY2UgYXMgc2ln
+bmFsbGVkLgo+ID4KPiA+IEFtIEkgbWlzc2luZyBhbnl0aGluZyB3aGljaCB3b3VsZCBwcmV2ZW50
+IHRoaXMgZnJvbSB3b3JraW5nPwo+Cj4gT25lIHRoaW5nIHRvIG1ha2Ugc3VyZSBpcyB0aGF0IHlv
+dSBkb24ndCBjaGFuZ2UgdGhlIChyZWFsLCBwcml2YXRlIHN0b3JlZCkKPiBmZW5jZXMgeW91J3Jl
+IHdhaXRpbmcgb24gb3ZlciB0aGUgbGlmZXRpbWUgb2YgdGhlIHB1YmxpYyBleGNsdXNpdmUgZmVu
+Y2UuCj4gVGhhdCBtaWdodCBsZWFkIHRvIHNvbWUgaGlsYXJpdHkgd3J0IHBvdGVudGlhbGx5IGNy
+ZWF0aW5nIGZlbmNlIGRlcGVuY3kKPiBsb29wcy4gQnV0IEkgdGhpbmsgYXMgbG9uZyBhcyB5b3Ug
+Z3VhcmFudGVlIHRoYXQgdGhlIHByaXZhdGUgaW50ZXJuYWwKPiBmZW5jZXMgYXJlIGFsd2F5cyBh
+bWRncHUgb25lcywgYW5kIG5ldmVyIGFueXRoaW5nIGltcG9ydGVkIGZyb20gYQo+IGRpZmZlcmVu
+dCBkcml2ZXIgZXZlbiB0aGF0IHNob3VsZCBiZSBmaW5lLiBOb3QgYmVjYXVzZSB0aGlzIHdvdWxk
+IGJyZWFrCj4gdGhlIGxvb3BzLCBidXQgc2luY2UgYW1ncHVkIGhhcyBhIGhhbmdjaGVjayBpdCBj
+YW4gc3RpbGwgZ3VyYW50ZWUgdGhhdCB0aGUKPiBmZW5jZSBldmVudHVhbGx5IGZpcmVzIGV2ZW4g
+aWYgdGhlcmUgaXMgYSBsb29wLgo+IC1EYW5pZWwKPiAtLQo+IERhbmllbCBWZXR0ZXIKPiBTb2Z0
+d2FyZSBFbmdpbmVlciwgSW50ZWwgQ29ycG9yYXRpb24KPiBodHRwOi8vYmxvZy5mZndsbC5jaAo+
+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gZHJpLWRl
+dmVsIG1haWxpbmcgbGlzdAo+IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbApfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
+bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
