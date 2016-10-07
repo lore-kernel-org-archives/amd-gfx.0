@@ -1,11 +1,16 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [pull] radeon and amdgpu drm-next-4.9
-Date: Thu,  6 Oct 2016 13:00:25 -0400
-Message-ID: <1475773225-2683-1-git-send-email-alexander.deucher@amd.com>
+From: Jeremy Newton <alexjnewt-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: Issue with amd-staging-4.7 on rx480
+Date: Thu, 6 Oct 2016 22:19:15 -0400
+Message-ID: <CAHOSEu9cGTbbD9iRsQnhrfmdvyfPiCgkuL0ErWz=UKGV7ZE9rg@mail.gmail.com>
+References: <CAHOSEu8-fa0RznKX7s-vbU_1g_eCaa-ZBp=0ySP5X_VqJA13Ng@mail.gmail.com>
+ <CY4PR12MB1768EB91BA59663BC700C2AAF7C70@CY4PR12MB1768.namprd12.prod.outlook.com>
+ <CAHOSEu_mFEy5W5v=603raJC21xnAK5TScABCGm-8haO0-xRnkQ@mail.gmail.com>
+ <CY4PR12MB1768C5EE5166DBDB8156F199F7C70@CY4PR12MB1768.namprd12.prod.outlook.com>
+ <CAHOSEu9edP3sFwkjpzcX2cVt90TPkqJsPn=fazUbYZ6azMm-0A@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0193872757=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CAHOSEu9edP3sFwkjpzcX2cVt90TPkqJsPn=fazUbYZ6azMm-0A-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,50 +21,337 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-SGkgRGF2ZSwKCkp1c3Qgc29tZSBtaXNjIGJ1ZyBmaXhlcyBmb3IgNC45LgoKVGhlIGZvbGxvd2lu
-ZyBjaGFuZ2VzIHNpbmNlIGNvbW1pdCBjMmNiYzM4Yjk3MTViZDgzMTgwNjJlNjAwNjY4ZmMzMGU1
-YTNmYmZhOgoKICBkcm06IHZpcnRpbzogcmVpbnN0YXRlIGRybV92aXJ0aW9fc2V0X2J1c2lkKCkg
-KDIwMTYtMTAtMDQgMTM6MTA6MzAgKzEwMDApCgphcmUgYXZhaWxhYmxlIGluIHRoZSBnaXQgcmVw
-b3NpdG9yeSBhdDoKCiAgZ2l0Oi8vcGVvcGxlLmZyZWVkZXNrdG9wLm9yZy9+YWdkNWYvbGludXgg
-ZHJtLW5leHQtNC45Cgpmb3IgeW91IHRvIGZldGNoIGNoYW5nZXMgdXAgdG8gODAzNjYxN2U5MmUz
-ZmFkNDllZWY5YmJlODY4YjY2MWM1ODI0OWFmZjoKCiAgZHJtL2FtZGdwdTogcmV2ZXJ0ICJ1c2Ug
-bW9yZSB0aGFuIDY0S0IgZnJhZ21lbnQgc2l6ZSBpZiBwb3NzaWJsZSIgKDIwMTYtMTAtMDYgMTI6
-Mzk6MDQgLTA0MDApCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tCkFsZXggRGV1Y2hlciAoMyk6CiAgICAgIGRybS9hbWRncHU6
-IHJlbW92ZSBEUk1fQU1EX1BPV0VSUExBWQogICAgICBkcm0vYW1kZ3B1L3ZjZTogYWRkIHN1cHBv
-cnQgZm9yIGh3IGNvbmZpZyBwYWNrZXQgKHYyKQogICAgICBkcm0vYW1kZ3B1L3ZpcnR1YWxfZGNl
-OiBhZGp1c3QgY29uZmlnIGlmZGVmCgpDaHJpc3RpYW4gS8O2bmlnICgxKToKICAgICAgZHJtL2Ft
-ZGdwdTogcmV2ZXJ0ICJ1c2UgbW9yZSB0aGFuIDY0S0IgZnJhZ21lbnQgc2l6ZSBpZiBwb3NzaWJs
-ZSIKCkdyYXp2eWRhcyBJZ25vdGFzICgzKToKICAgICAgZHJtL2FtZGdwdTogYWxzbyB0cmFjayBs
-YXRlIGluaXQgc3RhdGUKICAgICAgZHJtL2FtZGdwdS9kY2UxMTogYWRkIG1pc3NpbmcgZHJtX21v
-ZGVfY29uZmlnX2NsZWFudXAgY2FsbAogICAgICBkcm0vYW1kZ3B1OiB3YXJuIGlmIGRwIGF1eCBp
-cyBzdGlsbCBhdHRhY2hlZCBvbiBmcmVlCgpIdWFuZyBSdWkgKDEpOgogICAgICBkcm0vYW1kZ3B1
-OiBjbGVhbiB1cCB0byBzZXQgZndfb2Zmc2V0IGFzIDAgdHdpY2UKCk1hcmlvIEtsZWluZXIgKDIp
-OgogICAgICBkcm0vcmFkZW9uOiBTbGlnaHRseSBtb3JlIHJvYnVzdCBmbGlwIGNvbXBsZXRpb24g
-aGFuZGxpbmcgZm9yIDwgRENFLTQKICAgICAgZHJtL3JhZGVvbjogUHJldmVudCByYWNlcyBvbiBw
-cmUgRENFNCBiZXR3ZWVuIGZsaXAgc3VibWlzc2lvbiBhbmQgY29tcGxldGlvbi4KCiBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9LY29uZmlnICAgICAgICAgICAgIHwgIDEgLQogZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvTWFrZWZpbGUgICAgICAgICAgICB8ICA0IC0tLQogZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggICAgICAgICAgICB8ICAxICsKIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jb25uZWN0b3JzLmMgfCAgNCArKy0KIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyAgICAgfCAgNCArKysKIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyAgICAgICAgfCAgMiAtLQogZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2kyYy5jICAgICAgICB8ICAxICsKIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9wb3dlcnBsYXkuYyAgfCAxMyArLS0tLS0tCiBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdWNvZGUuYyAgICAgIHwgIDEgLQogZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZjZS5jICAgICAgICB8IDE0ICsrKysrKysrCiBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyAgICAgICAgIHwgMTIgKysrLS0tLQogZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3YxMV8wLmMgICAgICAgICB8ICAxICsKIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92aXJ0dWFsLmMgICAgICAgfCAgNCArLS0KIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L0tjb25maWcgICAgICAgICAgfCAgNiAtLS0tCiBkcml2
-ZXJzL2dwdS9kcm0vcmFkZW9uL2F0b21iaW9zX2NydGMuYyAgICAgICAgIHwgIDQgKy0tCiBkcml2
-ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9kaXNwbGF5LmMgICAgICAgIHwgNDcgKysrKysrKysr
-KysrKysrKysrLS0tLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcnY1MTUuYyAgICAgICAg
-ICAgICAgICAgfCAgMyArLQogMTcgZmlsZXMgY2hhbmdlZCwgNjcgaW5zZXJ0aW9ucygrKSwgNTUg
-ZGVsZXRpb25zKC0pCiBkZWxldGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
-cnBsYXkvS2NvbmZpZwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============0193872757==
+Content-Type: multipart/alternative; boundary=001a114d826a6f12ea053e3d0968
+
+--001a114d826a6f12ea053e3d0968
+Content-Type: text/plain; charset=UTF-8
+
+There were some new commits pushed to fdo today, it seems that whatever the
+issue was, it's now fixed.
+
+No bisect needed after all.
+
+Thanks again!
+
+On Thu, Oct 6, 2016 at 10:38 AM, Jeremy Newton <alexjnewt-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+
+> Fair enough, I'll bisect and see what happens.
+>
+> Thanks for your help!
+>
+> On Thu, Oct 6, 2016 at 10:12 AM, StDenis, Tom <Tom.StDenis-5C7GfCeVMHo@public.gmane.org> wrote:
+>
+>> Hi Jeremy,
+>>
+>>
+>> Nothing between the UVD PG patch and the tip of stg-4.7 seems to be that
+>> relevant to 480.
+>>
+>>
+>> If 8f877a8 is stable best you can do is bisect (shouldn't take long) with
+>> cold boots in between.  I too run Fedora 24 + GNOME and have good
+>> performance with Carrizo, Stoney, FIJI and Tonga (with the 5dw patch
+>> reverted) on the tip of stg-4.7.  I have yet to test a polaris asic
+>> though...
+>>
+>>
+>> Tom
+>>
+>>
+>> ------------------------------
+>> *From:* Jeremy Newton <alexjnewt-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+>> *Sent:* Thursday, October 6, 2016 10:07
+>> *To:* StDenis, Tom
+>> *Cc:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> *Subject:* Re: Issue with amd-staging-4.7 on rx480
+>>
+>> I apologise if what I said was unclear. When I mean I reverted back to 8f877a8,
+>> I mean I did a hard reset to this commit, i.e. reverting all
+>> commits/changes after this one. Basically I reverted the following
+>> commits: e3bb40f, 32ba038, 6892173, 55a9ab5, 4760300, 8ee519
+>> 6, 381c90a, 5ae6bd0, 9a846b4, 042f89f, and 78d1842. I just skimmed it
+>> last night, so I can't say for sure where the issue is, but I'm assuming
+>> it's one of the drm/amdgpu commits, i.e. excluding commits9a846b4, 042f89f,
+>> and 78d1842.
+>>
+>> I have only tested based on a snapshot at 8f877a8 and another snapshot
+>> at 78d1842. The latter caused the issue, while the former seems fine. I
+>> just discovered this last night, but I'll do some builds tonight to bisect
+>> the issue if need be.
+>>
+>> Commit 6691270 on the other hand doesn't appear cause my issues. And
+>> lastly, I rarely do warm boots on my machine, so all of my tests have been
+>> cold boots.
+>>
+>> Thanks,
+>> Jeremy
+>>
+>> On Thu, Oct 6, 2016 at 9:41 AM, StDenis, Tom <Tom.StDenis-5C7GfCeVMHo@public.gmane.org> wrote:
+>>
+>>> If I read this correctly you reverted the commit which enables UVD PG on
+>>> Tonga?  I can't see how that impacts Polaris at all.
+>>>
+>>>
+>>> If I had to guess it's a dGPU state issue.  I've had on occasion to
+>>> resort to cold reboots to bisect the kernel because the GPU firmware can
+>>> get into states that aren't 100% resolved by a warm reboot.
+>>>
+>>>
+>>> There is a known bad commit which was reverted by Christian which I
+>>> guess isn't out on fdo yet.  https://cgit.freedesktop.org/
+>>> ~agd5f/linux/commit/?h=amd-staging-4.7&id=6691270952b6909218
+>>> c520dcc71a342070c96874 that commit seems to break dGPU support.
+>>>
+>>>
+>>> Cheers,
+>>>
+>>> Tom
+>>>
+>>>
+>>> ------------------------------
+>>> *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of
+>>> Jeremy Newton <alexjnewt-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+>>> *Sent:* Wednesday, October 5, 2016 22:54
+>>> *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>>> *Subject:* Issue with amd-staging-4.7 on rx480
+>>>
+>>> Hello,
+>>>
+>>> I'm currently regularly building and using the amd-staging-4.7 linux
+>>> branch, which can be found here:
+>>>
+>>> https://cgit.freedesktop.org/~agd5f/linux/log/?h=amd-staging-4.7
+>>>
+>>> It seems that one of the commits pushed on 2016-10-03 broke something,
+>>> and I just wanted to give the devs a heads up in case no one noticed. I'm
+>>> guessing it was caused by one of the commits in the range of e3bb40f all
+>>> the way up to 78d1842.
+>>>
+>>> I'm using an RX480, polaris10. The issue seems to have two symptoms:
+>>> - Plymouth (the boot splash screen) seems to get visually corrupted or
+>>> just blacked out.
+>>> - After login, the screen just remains black until I hard reset.
+>>>
+>>> Reverting back to 8f877a8 seems to fix it. I'm using Fedora 24 with
+>>> GNOME. As well, I haven't had time to bisect, but I can do so if desired.
+>>>
+>>> Thanks!
+>>>
+>>
+>>
+>
+
+--001a114d826a6f12ea053e3d0968
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">There were some new commits pushed to fdo today, it seems =
+that whatever the issue was, it&#39;s now fixed.<div><br></div><div>No bise=
+ct needed after all.</div><div><div><br></div><div>Thanks again!<br><div cl=
+ass=3D"gmail_extra"><br><div class=3D"gmail_quote">On Thu, Oct 6, 2016 at 1=
+0:38 AM, Jeremy Newton <span dir=3D"ltr">&lt;<a href=3D"mailto:alexjnewt@gm=
+ail.com" target=3D"_blank">alexjnewt-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;</span> wrote:<br><bl=
+ockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #=
+ccc solid;padding-left:1ex"><div dir=3D"ltr">Fair enough, I&#39;ll bisect a=
+nd see what happens.<div><br></div><div>Thanks for your help!</div></div><d=
+iv class=3D"HOEnZb"><div class=3D"h5"><div class=3D"gmail_extra"><br><div c=
+lass=3D"gmail_quote">On Thu, Oct 6, 2016 at 10:12 AM, StDenis, Tom <span di=
+r=3D"ltr">&lt;<a href=3D"mailto:Tom.StDenis-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">Tom.=
+StDenis-5C7GfCeVMHo@public.gmane.org</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" =
+style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+
+
+
+
+<div dir=3D"ltr">
+<div id=3D"m_1706033156892082374m_4386376317330016210divtagdefaultwrapper" =
+style=3D"font-size:12pt;color:#000000;font-family:Calibri,Arial,Helvetica,s=
+ans-serif">
+<p>Hi Jeremy,</p>
+<p><br>
+</p>
+<p>Nothing between the UVD PG patch and the tip of stg-4.7 seems to be that=
+ relevant to 480.</p>
+<p><br>
+</p>
+<p>If 8f877a8 is stable best you can do is bisect (shouldn&#39;t take long)=
+ with cold boots in=C2=A0between.=C2=A0 I too run Fedora 24 + GNOME and hav=
+e good performance with Carrizo, Stoney, FIJI and Tonga (with the 5dw patch=
+ reverted) on the tip of stg-4.7.=C2=A0 I have yet
+ to test a polaris asic though...</p>
+<p><br>
+</p>
+<p>Tom</p>
+<br>
+<br>
+<div style=3D"color:rgb(0,0,0)">
+<hr style=3D"display:inline-block;width:98%">
+<div id=3D"m_1706033156892082374m_4386376317330016210divRplyFwdMsg" dir=3D"=
+ltr"><font face=3D"Calibri, sans-serif" color=3D"#000000" style=3D"font-siz=
+e:11pt"><b>From:</b> Jeremy Newton &lt;<a href=3D"mailto:alexjnewt-Re5JQEeQqe8@public.gmane.org=
+m" target=3D"_blank">alexjnewt-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
+<b>Sent:</b> Thursday, October 6, 2016 10:07<br>
+<b>To:</b> StDenis, Tom<br>
+<b>Cc:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blan=
+k">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+<b>Subject:</b> Re: Issue with amd-staging-4.7 on rx480</font>
+<div>=C2=A0</div>
+</div><div><div class=3D"m_1706033156892082374h5">
+<div>
+<div dir=3D"ltr">I apologise if what I said was unclear. When I mean I reve=
+rted back to=C2=A0<span style=3D"font-size:12.8px">8f877a8, I mean I did a =
+hard reset to this commit, i.e. reverting all commits/changes after this on=
+e. Basically I reverted the following commits:=C2=A0e3bb40f,=C2=A032ba038,=
+=C2=A0689<wbr>2173,=C2=A055a9ab5,=C2=A04760300,=C2=A08ee519<wbr>6,=C2=A0381=
+c90a,=C2=A05ae6bd0,=C2=A09a846b4,=C2=A0<wbr>042f89f,
+ and 78d1842. I just skimmed it last night, so I can&#39;t say for sure whe=
+re the issue is, but I&#39;m assuming it&#39;s one of the=C2=A0drm/amdgpu=
+=C2=A0commits, i.e. excluding commits</span><span style=3D"font-size:12.8px=
+">9a846b4,=C2=A0042f89f, and 78d1842</span><span style=3D"font-size:12.8px"=
+>.</span>
+<div><span style=3D"font-size:12.8px"><br>
+</span></div>
+<div><span style=3D"font-size:12.8px">I have only tested based on a snapsho=
+t at=C2=A0</span><span style=3D"font-size:12.8px">8f877a8 and another snaps=
+hot at=C2=A0</span><span style=3D"font-size:12.8px">78d1842. The latter cau=
+sed the issue, while the former seems fine. I just
+ discovered this last night, but I&#39;ll do some builds tonight to bisect =
+the issue if need be.</span><span style=3D"font-size:12.8px"><br>
+</span>
+<div><span style=3D"font-size:12.8px"><br>
+</span></div>
+<div>Commit=C2=A06691270 on the other hand doesn&#39;t appear cause my issu=
+es. And lastly, I rarely do warm boots on my machine, so all of my tests ha=
+ve been cold boots.</div>
+</div>
+<div><br>
+</div>
+<div>Thanks,</div>
+<div>Jeremy</div>
+</div>
+<div class=3D"gmail_extra"><br>
+<div class=3D"gmail_quote">On Thu, Oct 6, 2016 at 9:41 AM, StDenis, Tom <sp=
+an dir=3D"ltr">
+&lt;<a href=3D"mailto:Tom.StDenis-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">Tom.StDenis@am=
+d.com</a>&gt;</span> wrote:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+<div dir=3D"ltr">
+<div id=3D"m_1706033156892082374m_4386376317330016210m_-3510539901589408934=
+divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font-family:Cal=
+ibri,Arial,Helvetica,sans-serif">
+<p>If I read this correctly you reverted the commit which enables UVD PG on=
+ Tonga?=C2=A0 I can&#39;t see how that impacts Polaris at all. =C2=A0</p>
+<p><br>
+</p>
+<p>If I had to guess it&#39;s a dGPU state issue.=C2=A0 I&#39;ve had on occ=
+asion to resort to cold reboots to bisect the kernel because the GPU firmwa=
+re can get into states that aren&#39;t 100% resolved by a warm reboot.</p>
+<p><br>
+</p>
+<p>There is a known bad commit which was reverted by Christian which I gues=
+s isn&#39;t out on fdo yet. =C2=A0<a href=3D"https://cgit.freedesktop.org/~=
+agd5f/linux/commit/?h=3Damd-staging-4.7&amp;id=3D6691270952b6909218c520dcc7=
+1a342070c96874" class=3D"m_1706033156892082374m_4386376317330016210m_-35105=
+39901589408934OWAAutoLink" id=3D"m_1706033156892082374m_4386376317330016210=
+m_-3510539901589408934LPlnk533633" target=3D"_blank">https://cgit.freedeskt=
+op.org/<wbr>~agd5f/linux/commit/?h=3Damd-sta<wbr>ging-4.7&amp;id=3D66912709=
+52b6909218<wbr>c520dcc71a342070c96874</a>=C2=A0that
+ commit seems to break dGPU support.</p>
+<p><br>
+</p>
+<p>Cheers,</p>
+<p>Tom</p>
+<br>
+<br>
+<div style=3D"color:rgb(0,0,0)">
+<hr style=3D"display:inline-block;width:98%">
+<div id=3D"m_1706033156892082374m_4386376317330016210m_-3510539901589408934=
+divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" color=3D"#000=
+000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;<a href=3D"mailto:am=
+d-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx-bounces@list=
+s.freedes<wbr>ktop.org</a>&gt;
+ on behalf of Jeremy Newton &lt;<a href=3D"mailto:alexjnewt-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" targ=
+et=3D"_blank">alexjnewt-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
+<b>Sent:</b> Wednesday, October 5, 2016 22:54<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blan=
+k">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+<b>Subject:</b> Issue with amd-staging-4.7 on rx480</font>
+<div>=C2=A0</div>
+</div>
+<div>
+<div class=3D"m_1706033156892082374m_4386376317330016210h5">
+<div>
+<div dir=3D"ltr">
+<div><span style=3D"text-align:right">
+<div style=3D"text-align:start">Hello,</div>
+<div style=3D"text-align:start"><br>
+</div>
+<div style=3D"text-align:start">I&#39;m currently regularly building and us=
+ing the amd-staging-4.7 linux branch, which can be found here:</div>
+<div style=3D"text-align:start"><br>
+</div>
+<div style=3D"text-align:start"><a href=3D"https://cgit.freedesktop.org/~ag=
+d5f/linux/log/?h=3Damd-staging-4.7" id=3D"m_1706033156892082374m_4386376317=
+330016210m_-3510539901589408934LPlnk449083" target=3D"_blank">https://cgit.=
+freedesktop.org/~<wbr>agd5f/linux/log/?h=3Damd-staging<wbr>-4.7</a></div>
+<div style=3D"text-align:start"><br>
+</div>
+<div style=3D"text-align:start">It seems that one of the commits pushed on =
+2016-10-03 broke something, and I just wanted to give the devs a heads up i=
+n case no one noticed. I&#39;m guessing it was caused by one of the commits=
+ in the range of e3bb40f all the way up
+ to 78d1842.</div>
+<div style=3D"text-align:start"><br>
+</div>
+<div style=3D"text-align:start">I&#39;m using an RX480, polaris10. The issu=
+e seems to have two symptoms:</div>
+<div style=3D"text-align:start">- Plymouth (the boot splash screen) seems t=
+o get visually corrupted or just blacked out.</div>
+<div style=3D"text-align:start">- After login, the screen just remains blac=
+k until I hard reset.</div>
+<div style=3D"text-align:start"><br>
+</div>
+<div style=3D"text-align:start">Reverting back to 8f877a8 seems to fix it. =
+I&#39;m using Fedora 24 with GNOME. As well, I haven&#39;t had time to bise=
+ct, but I can do so if desired.</div>
+<div style=3D"text-align:start"><br>
+</div>
+<div style=3D"text-align:start">Thanks!</div>
+</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</blockquote>
+</div>
+<br>
+</div>
+</div>
+</div></div></div>
+</div>
+</div>
+
+</blockquote></div><br></div>
+</div></div></blockquote></div><br></div></div></div></div>
+
+--001a114d826a6f12ea053e3d0968--
+
+--===============0193872757==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0193872757==--
