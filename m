@@ -1,301 +1,106 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: remove duplicate evict_vram in suspend path
-Date: Mon, 10 Oct 2016 09:19:35 +0200
-Message-ID: <eee7ef68-df69-0e74-0201-259112081d4a@vodafone.de>
-References: <1475696538-24754-1-git-send-email-alexander.deucher@amd.com>
- <5f17b1d4-b088-4ed7-06b7-86b4c85bd4f0@vodafone.de>
- <CAAzXoRKnei7U3hvUCosvpOB8z9kM6CL1Lg5GduyzfUpW9ZrxKQ@mail.gmail.com>
- <9a09b439-600b-ed25-4d1c-3ee12848a6d8@vodafone.de> <57FB3F3A.7070902@amd.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: [PATCH] drm/amdgpu: use .early_unregister hook to remove DP AUX
+ i2c
+Date: Mon, 10 Oct 2016 11:25:23 +0200
+Message-ID: <20161010092523.GV20761@phenom.ffwll.local>
+References: <1476034099-4549-1-git-send-email-notasas@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0760506936=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <57FB3F3A.7070902-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>, Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-This is a multi-part message in MIME format.
---===============0760506936==
-Content-Type: multipart/alternative;
- boundary="------------0EE3D4DAD240D1B37B369540"
-
-This is a multi-part message in MIME format.
---------------0EE3D4DAD240D1B37B369540
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-APUs have a problem with that as well when we try to suspend to disk 
-because the kernel has no idea that he needs to backup the stolen VRAM 
-as well.
-
-I discussed that with Alex internally as well and our conclusion is that 
-we could work on this, but it's probably not worth it and potentially 
-causes more trouble than it fixes.
-
-It's probably a better idea to give the suspend/resume and eviction code 
-some more testing and hardening and add comments here and there why we 
-do things like we do them.
-
-Regards,
-Christian.
-
-Am 10.10.2016 um 09:11 schrieb zhoucm1:
-> We can make it dGpu specific if APU has no problem.
->
-> Regards,
-> David Zhou
->
-> On 2016年10月10日 15:09, Christian König wrote:
->>> i'm a trailblazer of bad ideas at times :-) hehehehe
->> Well, I know this because I had the same bad idea earlier and spend a 
->> lot of time bisecting why it broke :)
->>
->> Christian.
->>
->> Am 09.10.2016 um 19:54 schrieb Tom St Denis:
->>> Yup that's what I said in another part of the thread :-)
->>>
->>> i'm a trailblazer of bad ideas at times :-) hehehehe
->>>
->>> Tom
->>>
->>> On Sun, Oct 9, 2016 at 11:13 AM Christian König 
->>> <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org <mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>> wrote:
->>>
->>>     Am 05.10.2016 um 21:42 schrieb Alex Deucher:
->>>     > Looks like fallout from a rebase or merge.
->>>     >
->>>     > Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org
->>>     <mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org>>
->>>
->>>     NAK, this is done on purpose and is for evicting the GART table
->>>     using
->>>     memcpy.
->>>
->>>     Tom wanted to remove that as well and it makes resume then fail
->>>     horrible
->>>     on dGPUs.
->>>
->>>     We should probably add a comment why this is necessary.
->>>
->>>     Christian.
->>>
->>>     > ---
->>>     >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ---
->>>     >   1 file changed, 3 deletions(-)
->>>     >
->>>     > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>     b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>     > index 45259b5..c2f70be 100644
->>>     > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>     > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>     > @@ -1956,9 +1956,6 @@ int amdgpu_device_suspend(struct
->>>     drm_device *dev, bool suspend, bool fbcon)
->>>     >
->>>     >       r = amdgpu_suspend(adev);
->>>     >
->>>     > -     /* evict remaining vram memory */
->>>     > -     amdgpu_bo_evict_vram(adev);
->>>     > -
->>>     >       pci_save_state(dev->pdev);
->>>     >       if (suspend) {
->>>     >               /* Shut down the device */
->>>
->>>
->>>     _______________________________________________
->>>     amd-gfx mailing list
->>>     amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->>>     https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>>
->>
->>
->>
->> _______________________________________________
->> amd-gfx mailing list
->> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
-
-
---------------0EE3D4DAD240D1B37B369540
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body bgcolor="#FFFFFF" text="#000000">
-    <div class="moz-cite-prefix">APUs have a problem with that as well
-      when we try to suspend to disk because the kernel has no idea that
-      he needs to backup the stolen VRAM as well.<br>
-      <br>
-      I discussed that with Alex internally as well and our conclusion
-      is that we could work on this, but it's probably not worth it and
-      potentially causes more trouble than it fixes.<br>
-      <br>
-      It's probably a better idea to give the suspend/resume and
-      eviction code some more testing and hardening and add comments
-      here and there why we do things like we do them.<br>
-      <br>
-      Regards,<br>
-      Christian.<br>
-      <br>
-      Am 10.10.2016 um 09:11 schrieb zhoucm1:<br>
-    </div>
-    <blockquote cite="mid:57FB3F3A.7070902-5C7GfCeVMHo@public.gmane.org" type="cite">
-      <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-      We can make it dGpu specific if APU has no problem.<br>
-      <br>
-      Regards,<br>
-      David Zhou<br>
-      <br>
-      <div class="moz-cite-prefix">On 2016年10月10日 15:09, Christian König
-        wrote:<br>
-      </div>
-      <blockquote
-        cite="mid:9a09b439-600b-ed25-4d1c-3ee12848a6d8-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org"
-        type="cite">
-        <meta http-equiv="Content-Type" content="text/html;
-          charset=utf-8">
-        <div class="moz-cite-prefix">
-          <blockquote type="cite">i'm a trailblazer of bad ideas at
-            times :-) hehehehe</blockquote>
-          Well, I know this because I had the same bad idea earlier and
-          spend a lot of time bisecting why it broke :)<br>
-          <br>
-          Christian.<br>
-          <br>
-          Am 09.10.2016 um 19:54 schrieb Tom St Denis:<br>
-        </div>
-        <blockquote
-cite="mid:CAAzXoRKnei7U3hvUCosvpOB8z9kM6CL1Lg5GduyzfUpW9ZrxKQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org"
-          type="cite">
-          <div dir="ltr">Yup that's what I said in another part of the
-            thread :-)
-            <div><br>
-            </div>
-            <div>i'm a trailblazer of bad ideas at times :-) hehehehe</div>
-            <div><br>
-            </div>
-            <div>Tom</div>
-          </div>
-          <br>
-          <div class="gmail_quote">
-            <div dir="ltr">On Sun, Oct 9, 2016 at 11:13 AM Christian
-              König &lt;<a moz-do-not-send="true"
-                href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org</a>&gt;
-              wrote:<br>
-            </div>
-            <blockquote class="gmail_quote" style="margin:0 0 0
-              .8ex;border-left:1px #ccc solid;padding-left:1ex">Am
-              05.10.2016 um 21:42 schrieb Alex Deucher:<br
-                class="gmail_msg">
-              &gt; Looks like fallout from a rebase or merge.<br
-                class="gmail_msg">
-              &gt;<br class="gmail_msg">
-              &gt; Signed-off-by: Alex Deucher &lt;<a
-                moz-do-not-send="true"
-                href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org"
-                class="gmail_msg" target="_blank">alexander.deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<br
-                class="gmail_msg">
-              <br class="gmail_msg">
-              NAK, this is done on purpose and is for evicting the GART
-              table using<br class="gmail_msg">
-              memcpy.<br class="gmail_msg">
-              <br class="gmail_msg">
-              Tom wanted to remove that as well and it makes resume then
-              fail horrible<br class="gmail_msg">
-              on dGPUs.<br class="gmail_msg">
-              <br class="gmail_msg">
-              We should probably add a comment why this is necessary.<br
-                class="gmail_msg">
-              <br class="gmail_msg">
-              Christian.<br class="gmail_msg">
-              <br class="gmail_msg">
-              &gt; ---<br class="gmail_msg">
-              &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ---<br
-                class="gmail_msg">
-              &gt;   1 file changed, 3 deletions(-)<br class="gmail_msg">
-              &gt;<br class="gmail_msg">
-              &gt; diff --git
-              a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-              b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br
-                class="gmail_msg">
-              &gt; index 45259b5..c2f70be 100644<br class="gmail_msg">
-              &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br
-                class="gmail_msg">
-              &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br
-                class="gmail_msg">
-              &gt; @@ -1956,9 +1956,6 @@ int
-              amdgpu_device_suspend(struct drm_device *dev, bool
-              suspend, bool fbcon)<br class="gmail_msg">
-              &gt;<br class="gmail_msg">
-              &gt;       r = amdgpu_suspend(adev);<br class="gmail_msg">
-              &gt;<br class="gmail_msg">
-              &gt; -     /* evict remaining vram memory */<br
-                class="gmail_msg">
-              &gt; -     amdgpu_bo_evict_vram(adev);<br
-                class="gmail_msg">
-              &gt; -<br class="gmail_msg">
-              &gt;       pci_save_state(dev-&gt;pdev);<br
-                class="gmail_msg">
-              &gt;       if (suspend) {<br class="gmail_msg">
-              &gt;               /* Shut down the device */<br
-                class="gmail_msg">
-              <br class="gmail_msg">
-              <br class="gmail_msg">
-              _______________________________________________<br
-                class="gmail_msg">
-              amd-gfx mailing list<br class="gmail_msg">
-              <a moz-do-not-send="true"
-                href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                class="gmail_msg" target="_blank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br
-                class="gmail_msg">
-              <a moz-do-not-send="true"
-                href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-                rel="noreferrer" class="gmail_msg" target="_blank">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br
-                class="gmail_msg">
-            </blockquote>
-          </div>
-        </blockquote>
-        <p><br>
-        </p>
-        <br>
-        <fieldset class="mimeAttachmentHeader"></fieldset>
-        <br>
-        <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a moz-do-not-send="true" class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a moz-do-not-send="true" class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-      </blockquote>
-      <br>
-    </blockquote>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------0EE3D4DAD240D1B37B369540--
-
---===============0760506936==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
 Content-Disposition: inline
+In-Reply-To: <1476034099-4549-1-git-send-email-notasas@gmail.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Grazvydas Ignotas <notasas@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0760506936==--
+T24gU3VuLCBPY3QgMDksIDIwMTYgYXQgMDg6Mjg6MTlQTSArMDMwMCwgR3JhenZ5ZGFzIElnbm90
+YXMgd3JvdGU6Cj4gV2hlbiBEaXNwbGF5UG9ydCBBVVggY2hhbm5lbCBpMmMgYWRhcHRlciBpcyBy
+ZWdpc3RlcmVkLCBkcm1fY29ubmVjdG9yJ3MKPiBrZGV2IG1lbWJlciBpcyB1c2VkIGFzIGEgcGFy
+ZW50LCBzbyB3ZSBnZXQgc3lzZnMgc3RydWN0dXJlIGxpa2U6Cj4gICAvZHJtL2NhcmQxL2NhcmQx
+LURQLTIvaTJjLTEyCj4gQmVjYXVzZSBvZiB0aGF0LCB0aGVyZSBpcyBhIHByb2JsZW0gd2hlbiBk
+cm0gY29yZSAoYW5kIG5vdCB0aGUgZHJpdmVyKQo+IGNhbGxzIGRybV9jb25uZWN0b3JfdW5yZWdp
+c3RlcigpLCBpdCByZW1vdmVzIHBhcmVudCBzeXNmcyBlbnRyaWVzCj4gKCdjYXJkMS1EUC0yJyBp
+biBvdXIgZXhhbXBsZSkgd2hpbGUgdGhlIGkyYyBhZGFwdGVyIGlzIHN0aWxsIHJlZ2lzdGVyZWQu
+Cj4gTGF0ZXIgd2UgZ2V0IGEgV0FSTiB3aGVuIHdlIHRyeSB0byB1bnJlZ2lzdGVyIHRoZSBpMmMg
+YWRhcHRlcjoKPiAKPiAgIFdBUk5JTkc6IENQVTogMyBQSUQ6IDEzNzQgYXQgZnMvc3lzZnMvZ3Jv
+dXAuYzoyNDMgc3lzZnNfcmVtb3ZlX2dyb3VwKzB4MTRjLzB4MTUwCj4gICBzeXNmcyBncm91cCBm
+ZmZmZmZmZjgyOTExZTQwIG5vdCBmb3VuZCBmb3Iga29iamVjdCAnaTJjLTEyJwo+IAo+IFRvIGZp
+eCBpdCwgd2UgY2FuIHVzZSB0aGUgLmVhcmx5X3VucmVnaXN0ZXIgaG9vayB0byB1bnJlZ2lzdGVy
+IHRoZSBpMmMKPiBhZGFwdGVyIGJlZm9yZSBkcm1fY29ubmVjdG9yJ3Mgc3lzZnMgaXMgdG9ybiBk
+b3duLgo+IAo+IFNpZ25lZC1vZmYtYnk6IEdyYXp2eWRhcyBJZ25vdGFzIDxub3Rhc2FzQGdtYWls
+LmNvbT4KCndvdWxkIGJlIG5pY2UgdG8gYWxzbyBzcGxpdCB0aGluZ3MgdXAgb24gdGhlIHJlZ2lz
+dGVyIHNpZGUsIGZvciBzeW1tZXRyeS4KSnVzdCBhcyBvbmUgc21hbGwgc3RlcCB0b3dhcmRzIGRl
+bWlkbGF5ZXJpbmcgYW1kZ3B1LgotRGFuaWVsCgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfY29ubmVjdG9ycy5jIHwgMTMgKysrKysrKysrKysrLQo+ICAxIGZpbGUg
+Y2hhbmdlZCwgMTIgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQo+IAo+IGRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY29ubmVjdG9ycy5jIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Nvbm5lY3RvcnMuYwo+IGluZGV4IDc2YTc4MzAu
+LjA5Yjc2YTggMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2Nvbm5lY3RvcnMuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9j
+b25uZWN0b3JzLmMKPiBAQCAtNzY1LDcgKzc2NSw3IEBAIGFtZGdwdV9jb25uZWN0b3JfbHZkc19k
+ZXRlY3Qoc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvciwgYm9vbCBmb3JjZSkKPiAgCXJl
+dHVybiByZXQ7Cj4gIH0KPiAgCj4gLXN0YXRpYyB2b2lkIGFtZGdwdV9jb25uZWN0b3JfZGVzdHJv
+eShzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yKQo+ICtzdGF0aWMgdm9pZCBhbWRncHVf
+Y29ubmVjdG9yX3VucmVnaXN0ZXIoc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvcikKPiAg
+ewo+ICAJc3RydWN0IGFtZGdwdV9jb25uZWN0b3IgKmFtZGdwdV9jb25uZWN0b3IgPSB0b19hbWRn
+cHVfY29ubmVjdG9yKGNvbm5lY3Rvcik7Cj4gIAo+IEBAIC03NzMsNiArNzczLDEyIEBAIHN0YXRp
+YyB2b2lkIGFtZGdwdV9jb25uZWN0b3JfZGVzdHJveShzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29u
+bmVjdG9yKQo+ICAJCWRybV9kcF9hdXhfdW5yZWdpc3RlcigmYW1kZ3B1X2Nvbm5lY3Rvci0+ZGRj
+X2J1cy0+YXV4KTsKPiAgCQlhbWRncHVfY29ubmVjdG9yLT5kZGNfYnVzLT5oYXNfYXV4ID0gZmFs
+c2U7Cj4gIAl9Cj4gK30KPiArCj4gK3N0YXRpYyB2b2lkIGFtZGdwdV9jb25uZWN0b3JfZGVzdHJv
+eShzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yKQo+ICt7Cj4gKwlzdHJ1Y3QgYW1kZ3B1
+X2Nvbm5lY3RvciAqYW1kZ3B1X2Nvbm5lY3RvciA9IHRvX2FtZGdwdV9jb25uZWN0b3IoY29ubmVj
+dG9yKTsKPiArCj4gIAlhbWRncHVfY29ubmVjdG9yX2ZyZWVfZWRpZChjb25uZWN0b3IpOwo+ICAJ
+a2ZyZWUoYW1kZ3B1X2Nvbm5lY3Rvci0+Y29uX3ByaXYpOwo+ICAJZHJtX2Nvbm5lY3Rvcl91bnJl
+Z2lzdGVyKGNvbm5lY3Rvcik7Cj4gQEAgLTgyNiw2ICs4MzIsNyBAQCBzdGF0aWMgY29uc3Qgc3Ry
+dWN0IGRybV9jb25uZWN0b3JfZnVuY3MgYW1kZ3B1X2Nvbm5lY3Rvcl9sdmRzX2Z1bmNzID0gewo+
+ICAJLmRwbXMgPSBkcm1faGVscGVyX2Nvbm5lY3Rvcl9kcG1zLAo+ICAJLmRldGVjdCA9IGFtZGdw
+dV9jb25uZWN0b3JfbHZkc19kZXRlY3QsCj4gIAkuZmlsbF9tb2RlcyA9IGRybV9oZWxwZXJfcHJv
+YmVfc2luZ2xlX2Nvbm5lY3Rvcl9tb2RlcywKPiArCS5lYXJseV91bnJlZ2lzdGVyID0gYW1kZ3B1
+X2Nvbm5lY3Rvcl91bnJlZ2lzdGVyLAo+ICAJLmRlc3Ryb3kgPSBhbWRncHVfY29ubmVjdG9yX2Rl
+c3Ryb3ksCj4gIAkuc2V0X3Byb3BlcnR5ID0gYW1kZ3B1X2Nvbm5lY3Rvcl9zZXRfbGNkX3Byb3Bl
+cnR5LAo+ICB9Owo+IEBAIC05MzYsNiArOTQzLDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBkcm1f
+Y29ubmVjdG9yX2Z1bmNzIGFtZGdwdV9jb25uZWN0b3JfdmdhX2Z1bmNzID0gewo+ICAJLmRwbXMg
+PSBkcm1faGVscGVyX2Nvbm5lY3Rvcl9kcG1zLAo+ICAJLmRldGVjdCA9IGFtZGdwdV9jb25uZWN0
+b3JfdmdhX2RldGVjdCwKPiAgCS5maWxsX21vZGVzID0gZHJtX2hlbHBlcl9wcm9iZV9zaW5nbGVf
+Y29ubmVjdG9yX21vZGVzLAo+ICsJLmVhcmx5X3VucmVnaXN0ZXIgPSBhbWRncHVfY29ubmVjdG9y
+X3VucmVnaXN0ZXIsCj4gIAkuZGVzdHJveSA9IGFtZGdwdV9jb25uZWN0b3JfZGVzdHJveSwKPiAg
+CS5zZXRfcHJvcGVydHkgPSBhbWRncHVfY29ubmVjdG9yX3NldF9wcm9wZXJ0eSwKPiAgfTsKPiBA
+QCAtMTIwMyw2ICsxMjExLDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBkcm1fY29ubmVjdG9yX2Z1
+bmNzIGFtZGdwdV9jb25uZWN0b3JfZHZpX2Z1bmNzID0gewo+ICAJLmRldGVjdCA9IGFtZGdwdV9j
+b25uZWN0b3JfZHZpX2RldGVjdCwKPiAgCS5maWxsX21vZGVzID0gZHJtX2hlbHBlcl9wcm9iZV9z
+aW5nbGVfY29ubmVjdG9yX21vZGVzLAo+ICAJLnNldF9wcm9wZXJ0eSA9IGFtZGdwdV9jb25uZWN0
+b3Jfc2V0X3Byb3BlcnR5LAo+ICsJLmVhcmx5X3VucmVnaXN0ZXIgPSBhbWRncHVfY29ubmVjdG9y
+X3VucmVnaXN0ZXIsCj4gIAkuZGVzdHJveSA9IGFtZGdwdV9jb25uZWN0b3JfZGVzdHJveSwKPiAg
+CS5mb3JjZSA9IGFtZGdwdV9jb25uZWN0b3JfZHZpX2ZvcmNlLAo+ICB9Owo+IEBAIC0xNDkzLDYg
+KzE1MDIsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGRybV9jb25uZWN0b3JfZnVuY3MgYW1kZ3B1
+X2Nvbm5lY3Rvcl9kcF9mdW5jcyA9IHsKPiAgCS5kZXRlY3QgPSBhbWRncHVfY29ubmVjdG9yX2Rw
+X2RldGVjdCwKPiAgCS5maWxsX21vZGVzID0gZHJtX2hlbHBlcl9wcm9iZV9zaW5nbGVfY29ubmVj
+dG9yX21vZGVzLAo+ICAJLnNldF9wcm9wZXJ0eSA9IGFtZGdwdV9jb25uZWN0b3Jfc2V0X3Byb3Bl
+cnR5LAo+ICsJLmVhcmx5X3VucmVnaXN0ZXIgPSBhbWRncHVfY29ubmVjdG9yX3VucmVnaXN0ZXIs
+Cj4gIAkuZGVzdHJveSA9IGFtZGdwdV9jb25uZWN0b3JfZGVzdHJveSwKPiAgCS5mb3JjZSA9IGFt
+ZGdwdV9jb25uZWN0b3JfZHZpX2ZvcmNlLAo+ICB9Owo+IEBAIC0xNTAyLDYgKzE1MTIsNyBAQCBz
+dGF0aWMgY29uc3Qgc3RydWN0IGRybV9jb25uZWN0b3JfZnVuY3MgYW1kZ3B1X2Nvbm5lY3Rvcl9l
+ZHBfZnVuY3MgPSB7Cj4gIAkuZGV0ZWN0ID0gYW1kZ3B1X2Nvbm5lY3Rvcl9kcF9kZXRlY3QsCj4g
+IAkuZmlsbF9tb2RlcyA9IGRybV9oZWxwZXJfcHJvYmVfc2luZ2xlX2Nvbm5lY3Rvcl9tb2RlcywK
+PiAgCS5zZXRfcHJvcGVydHkgPSBhbWRncHVfY29ubmVjdG9yX3NldF9sY2RfcHJvcGVydHksCj4g
+KwkuZWFybHlfdW5yZWdpc3RlciA9IGFtZGdwdV9jb25uZWN0b3JfdW5yZWdpc3RlciwKPiAgCS5k
+ZXN0cm95ID0gYW1kZ3B1X2Nvbm5lY3Rvcl9kZXN0cm95LAo+ICAJLmZvcmNlID0gYW1kZ3B1X2Nv
+bm5lY3Rvcl9kdmlfZm9yY2UsCj4gIH07Cj4gLS0gCj4gMi43LjQKPiAKPiBfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGRyaS1kZXZlbCBtYWlsaW5nIGxp
+c3QKPiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwKCi0tIApEYW5pZWwgVmV0dGVy
+ClNvZnR3YXJlIEVuZ2luZWVyLCBJbnRlbCBDb3Jwb3JhdGlvbgpodHRwOi8vYmxvZy5mZndsbC5j
+aApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2
+ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
+aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
