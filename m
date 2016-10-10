@@ -1,12 +1,14 @@
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/powerplay: don't give up if DPM is already running
-Date: Mon, 10 Oct 2016 09:12:41 +1100
-Message-ID: <cbb76619-3282-a7f2-a2af-04e3e258fd71@folklore1984.net>
-References: <1476040988-11676-1-git-send-email-notasas@gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: remove duplicate evict_vram in suspend path
+Date: Mon, 10 Oct 2016 09:09:16 +0200
+Message-ID: <9a09b439-600b-ed25-4d1c-3ee12848a6d8@vodafone.de>
+References: <1475696538-24754-1-git-send-email-alexander.deucher@amd.com>
+ <5f17b1d4-b088-4ed7-06b7-86b4c85bd4f0@vodafone.de>
+ <CAAzXoRKnei7U3hvUCosvpOB8z9kM6CL1Lg5GduyzfUpW9ZrxKQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0465593773=="
+Content-Type: multipart/mixed; boundary="===============1713834427=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1476040988-11676-1-git-send-email-notasas-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <CAAzXoRKnei7U3hvUCosvpOB8z9kM6CL1Lg5GduyzfUpW9ZrxKQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,118 +19,194 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Grazvydas Ignotas <notasas-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0465593773==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="JflGgj4gxwVMnEIr9a4p3w1PNg11qgWG8"
+This is a multi-part message in MIME format.
+--===============1713834427==
+Content-Type: multipart/alternative;
+ boundary="------------E9FE83236ED9590A072BF4A1"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---JflGgj4gxwVMnEIr9a4p3w1PNg11qgWG8
-Content-Type: multipart/mixed; boundary="kwq3LVvv1Nj4t7ilKlS09V3V4h9NFdvGr";
- protected-headers="v1"
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: Grazvydas Ignotas <notasas-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org,
- amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Message-ID: <cbb76619-3282-a7f2-a2af-04e3e258fd71-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/powerplay: don't give up if DPM is already
- running
-References: <1476040988-11676-1-git-send-email-notasas-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-In-Reply-To: <1476040988-11676-1-git-send-email-notasas-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+This is a multi-part message in MIME format.
+--------------E9FE83236ED9590A072BF4A1
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
---kwq3LVvv1Nj4t7ilKlS09V3V4h9NFdvGr
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+> i'm a trailblazer of bad ideas at times :-) hehehehe
+Well, I know this because I had the same bad idea earlier and spend a 
+lot of time bisecting why it broke :)
 
-Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Christian.
 
-On 10/10/2016 06:23 AM, Grazvydas Ignotas wrote:
-> Currently the driver crashes if smu7_enable_dpm_tasks() returns early,
-> which it does if DPM is already active. It seems to be better just to
-> continue anyway, at least I haven't noticed any ill effects. It's also
-> unclear at what state the hardware was left by the previous driver, so
-> IMO it's better to always fully initialize.
->=20
-> Way to reproduce:
-> $ modprobe amdgpu
-> $ rmmod amdgpu
-> $ modprobe amdgpu
-> ...
-> DPM is already running right now, no need to enable DPM!
-> ...
-> failed to send message 18b ret is 0
-> BUG: unable to handle kernel paging request at ffffed01fc9ab21f
-> Call Trace:
->  smu7_set_power_state_tasks+0x499/0x1940 [amdgpu]
->  phm_set_power_state+0xcb/0x120 [amdgpu]
->  psm_adjust_power_state_dynamic+0x11e/0x1b0 [amdgpu]
->  pem_task_adjust_power_state+0xb9/0xd0 [amdgpu]
->  pem_excute_event_chain+0x7d/0xe0 [amdgpu]
->  pem_handle_event_unlocked+0x49/0x60 [amdgpu]
->  pem_handle_event+0xe/0x10 [amdgpu]
->  pp_dpm_dispatch_tasks+0xe0/0x190 [amdgpu]
->  amdgpu_pm_compute_clocks+0x10c/0xc60 [amdgpu]
->  dce_v11_0_crtc_dpms+0x7d/0x150 [amdgpu]
->  dce_v11_0_crtc_disable+0x90/0x4a0 [amdgpu]
->  drm_helper_disable_unused_functions+0x67/0x80 [drm_kms_helper]
->  amdgpu_fbdev_init+0x13e/0x170 [amdgpu]
->  amdgpu_device_init+0x1aeb/0x2490 [amdgpu]
->=20
-> Signed-off-by: Grazvydas Ignotas <notasas-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers=
-/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-> index f6afa6a..327030b 100644
-> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-> @@ -1166,8 +1166,8 @@ static int smu7_enable_dpm_tasks(struct pp_hwmgr =
-*hwmgr)
-> =20
->  	tmp_result =3D (!smum_is_dpm_running(hwmgr)) ? 0 : -1;
->  	PP_ASSERT_WITH_CODE(tmp_result =3D=3D 0,
-> -			"DPM is already running right now, no need to enable DPM!",
-> -			return 0);
-> +			"DPM is already running",
-> +			);
-> =20
->  	if (smu7_voltage_control(hwmgr)) {
->  		tmp_result =3D smu7_enable_voltage_control(hwmgr);
->=20
+Am 09.10.2016 um 19:54 schrieb Tom St Denis:
+> Yup that's what I said in another part of the thread :-)
+>
+> i'm a trailblazer of bad ideas at times :-) hehehehe
+>
+> Tom
+>
+> On Sun, Oct 9, 2016 at 11:13 AM Christian König 
+> <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org <mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>> wrote:
+>
+>     Am 05.10.2016 um 21:42 schrieb Alex Deucher:
+>     > Looks like fallout from a rebase or merge.
+>     >
+>     > Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org
+>     <mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org>>
+>
+>     NAK, this is done on purpose and is for evicting the GART table using
+>     memcpy.
+>
+>     Tom wanted to remove that as well and it makes resume then fail
+>     horrible
+>     on dGPUs.
+>
+>     We should probably add a comment why this is necessary.
+>
+>     Christian.
+>
+>     > ---
+>     >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ---
+>     >   1 file changed, 3 deletions(-)
+>     >
+>     > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>     b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>     > index 45259b5..c2f70be 100644
+>     > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>     > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>     > @@ -1956,9 +1956,6 @@ int amdgpu_device_suspend(struct
+>     drm_device *dev, bool suspend, bool fbcon)
+>     >
+>     >       r = amdgpu_suspend(adev);
+>     >
+>     > -     /* evict remaining vram memory */
+>     > -     amdgpu_bo_evict_vram(adev);
+>     > -
+>     >       pci_save_state(dev->pdev);
+>     >       if (suspend) {
+>     >               /* Shut down the device */
+>
+>
+>     _______________________________________________
+>     amd-gfx mailing list
+>     amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+>     https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
 
 
---kwq3LVvv1Nj4t7ilKlS09V3V4h9NFdvGr--
+--------------E9FE83236ED9590A072BF4A1
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
---JflGgj4gxwVMnEIr9a4p3w1PNg11qgWG8
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <div class="moz-cite-prefix">
+      <blockquote type="cite">i'm a trailblazer of bad ideas at times
+        :-) hehehehe</blockquote>
+      Well, I know this because I had the same bad idea earlier and
+      spend a lot of time bisecting why it broke :)<br>
+      <br>
+      Christian.<br>
+      <br>
+      Am 09.10.2016 um 19:54 schrieb Tom St Denis:<br>
+    </div>
+    <blockquote
+cite="mid:CAAzXoRKnei7U3hvUCosvpOB8z9kM6CL1Lg5GduyzfUpW9ZrxKQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org"
+      type="cite">
+      <div dir="ltr">Yup that's what I said in another part of the
+        thread :-)
+        <div><br>
+        </div>
+        <div>i'm a trailblazer of bad ideas at times :-) hehehehe</div>
+        <div><br>
+        </div>
+        <div>Tom</div>
+      </div>
+      <br>
+      <div class="gmail_quote">
+        <div dir="ltr">On Sun, Oct 9, 2016 at 11:13 AM Christian König
+          &lt;<a moz-do-not-send="true"
+            href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org</a>&gt;
+          wrote:<br>
+        </div>
+        <blockquote class="gmail_quote" style="margin:0 0 0
+          .8ex;border-left:1px #ccc solid;padding-left:1ex">Am
+          05.10.2016 um 21:42 schrieb Alex Deucher:<br class="gmail_msg">
+          &gt; Looks like fallout from a rebase or merge.<br
+            class="gmail_msg">
+          &gt;<br class="gmail_msg">
+          &gt; Signed-off-by: Alex Deucher &lt;<a moz-do-not-send="true"
+            href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org" class="gmail_msg"
+            target="_blank">alexander.deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<br
+            class="gmail_msg">
+          <br class="gmail_msg">
+          NAK, this is done on purpose and is for evicting the GART
+          table using<br class="gmail_msg">
+          memcpy.<br class="gmail_msg">
+          <br class="gmail_msg">
+          Tom wanted to remove that as well and it makes resume then
+          fail horrible<br class="gmail_msg">
+          on dGPUs.<br class="gmail_msg">
+          <br class="gmail_msg">
+          We should probably add a comment why this is necessary.<br
+            class="gmail_msg">
+          <br class="gmail_msg">
+          Christian.<br class="gmail_msg">
+          <br class="gmail_msg">
+          &gt; ---<br class="gmail_msg">
+          &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ---<br
+            class="gmail_msg">
+          &gt;   1 file changed, 3 deletions(-)<br class="gmail_msg">
+          &gt;<br class="gmail_msg">
+          &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+          b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br
+            class="gmail_msg">
+          &gt; index 45259b5..c2f70be 100644<br class="gmail_msg">
+          &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br
+            class="gmail_msg">
+          &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br
+            class="gmail_msg">
+          &gt; @@ -1956,9 +1956,6 @@ int amdgpu_device_suspend(struct
+          drm_device *dev, bool suspend, bool fbcon)<br
+            class="gmail_msg">
+          &gt;<br class="gmail_msg">
+          &gt;       r = amdgpu_suspend(adev);<br class="gmail_msg">
+          &gt;<br class="gmail_msg">
+          &gt; -     /* evict remaining vram memory */<br
+            class="gmail_msg">
+          &gt; -     amdgpu_bo_evict_vram(adev);<br class="gmail_msg">
+          &gt; -<br class="gmail_msg">
+          &gt;       pci_save_state(dev-&gt;pdev);<br class="gmail_msg">
+          &gt;       if (suspend) {<br class="gmail_msg">
+          &gt;               /* Shut down the device */<br
+            class="gmail_msg">
+          <br class="gmail_msg">
+          <br class="gmail_msg">
+          _______________________________________________<br
+            class="gmail_msg">
+          amd-gfx mailing list<br class="gmail_msg">
+          <a moz-do-not-send="true"
+            href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
+            class="gmail_msg" target="_blank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br
+            class="gmail_msg">
+          <a moz-do-not-send="true"
+            href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
+            rel="noreferrer" class="gmail_msg" target="_blank">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br
+            class="gmail_msg">
+        </blockquote>
+      </div>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
 
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
+--------------E9FE83236ED9590A072BF4A1--
 
-iQIcBAEBCAAGBQJX+sDZAAoJEP4bvbfZuWjb0PkQAKUszpkPD5shUVaRhedIB4+O
-3xEYUqaxGomkX7wM066cVU2s5U2OwK4YukDPNvkKhc5x26tiBM5UsSoGtGcyPbwn
-1i/OInifY+UkWvc8LE8R+jHvTQk+YslJNZ3caxs3Zeum20oToAGFewUF1jESp2ai
-Zgu1Sg631A+A+/KAQejeW1MaRvTReXjEcfm/J6JWyz7Por8I9x3uLFR8vHFwN70M
-fV0xzHMSuJ7dyV/BD58PKQl/cag4iRIoKJjckYJFlDl9WoaMngnCDnapCuFc6q61
-cXqmuiWcSdf475nlufcDrpL0L3ZjIZ7eEr4aGdGJ5cE/2GNIkRpB29VpjaLQKVG8
-i4PNgDvK/gBMgQqWxuCoVjvQb6c0IOhH/eF+Z/83gM62JZcnH3Wd/AIXvN+FonlY
-ZjEzZ4Y1tiwSA5ruk1DCvfvi+la0F+FQTjAOkvEmCxPFj4kJfWjmTeat2kb/Dtoi
-tGsQJ22X7A7HEOLhkn86mEsdljaXE0qHk/66LPPLyK3fnBybJQ7Y3CJpRFOaegg7
-apqmr1S89OQlbpx3z/e7mSHnw0L0Jg3lO45zSL3PFBbm/j7/fhC0PRAS9ZrUQNzk
-Av4w2ivv2Z0WVSLHIu4uOGH/jZECh4SEYaostn8l9enlrk+bX99jn8bDKQBsdLh0
-e+eS1h75r9Ria5M7AsQy
-=Dlvq
------END PGP SIGNATURE-----
-
---JflGgj4gxwVMnEIr9a4p3w1PNg11qgWG8--
-
---===============0465593773==
+--===============1713834427==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -138,4 +216,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0465593773==--
+--===============1713834427==--
