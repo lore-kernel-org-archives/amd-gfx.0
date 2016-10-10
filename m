@@ -1,13 +1,11 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/radeon: allow TA_CS_BC_BASE_ADDR on SI
-Date: Mon, 10 Oct 2016 15:00:51 -0400
-Message-ID: <CADnq5_MRYBrre3kTDky3SBbVMYvVQdfyVpUwkcorFmNay1c1oQ@mail.gmail.com>
-References: <1476098605-8594-1-git-send-email-maraeo@gmail.com>
+From: Shawn Starr <shawn.starr-bJEeYj9oJeDQT0dZR+AlfA@public.gmane.org>
+Subject: Latest testing with drm-next-4.9-wip and latest LLVM/mesa stack -
+ Regression in PowerPlay/DPM on CIK?
+Date: Mon, 10 Oct 2016 15:43:57 -0400
+Message-ID: <11271056.dD6Mas21fI@segfault>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2013282365=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1476098605-8594-1-git-send-email-maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,93 +16,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gTW9uLCBPY3QgMTAsIDIwMTYgYXQgNzoyMyBBTSwgTWFyZWsgT2zFocOhayA8bWFyYWVvQGdt
-YWlsLmNvbT4gd3JvdGU6Cj4gRnJvbTogTWFyZWsgT2zFocOhayA8bWFyZWsub2xzYWtAYW1kLmNv
-bT4KPgo+IFJlcXVpcmVkIGZvciBib3JkZXIgY29sb3JzIGluIGNvbXB1dGUgc2hhZGVycy4KPgo+
-IFNpZ25lZC1vZmYtYnk6IE1hcmVrIE9sxaHDoWsgPG1hcmVrLm9sc2FrQGFtZC5jb20+CgpSZXZp
-ZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgoKPiAtLS0K
-PiAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZHJ2LmMgfCAzICsrLQo+ICBkcml2ZXJz
-L2dwdS9kcm0vcmFkZW9uL3NpLmMgICAgICAgICB8IDEgKwo+ICBkcml2ZXJzL2dwdS9kcm0vcmFk
-ZW9uL3NpZC5oICAgICAgICB8IDEgKwo+ICAzIGZpbGVzIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygr
-KSwgMSBkZWxldGlvbigtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24v
-cmFkZW9uX2Rydi5jIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZHJ2LmMKPiBpbmRl
-eCBhMTkyNjUzLi5hOTUyNjNjIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24v
-cmFkZW9uX2Rydi5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZHJ2LmMK
-PiBAQCAtOTAsMjMgKzkwLDI0IEBACj4gICAqICAgMi4zOS4wIC0gQWRkIElORk8gcXVlcnkgZm9y
-IG51bWJlciBvZiBhY3RpdmUgQ1VzCj4gICAqICAgMi40MC4wIC0gQWRkIFJBREVPTl9HRU1fR1RU
-X1dDL1VDLCBmbHVzaCBIRFAgY2FjaGUgYmVmb3JlIHN1Ym1pdHRpbmcKPiAgICogICAgICAgICAg
-ICBDUyB0byBHUFUgb24gPj0gcjYwMAo+ICAgKiAgIDIuNDEuMCAtIGV2ZXJncmVlbi9jYXltYW46
-IEFkZCBTRVRfQkFTRS9EUkFXX0lORElSRUNUIGNvbW1hbmQgcGFyc2luZyBzdXBwb3J0Cj4gICAq
-ICAgMi40Mi4wIC0gQWRkIFZDRS9WVUkgKFZpZGVvIFVzYWJpbGl0eSBJbmZvcm1hdGlvbikgc3Vw
-cG9ydAo+ICAgKiAgIDIuNDMuMCAtIFJBREVPTl9JTkZPX0dQVV9SRVNFVF9DT1VOVEVSCj4gICAq
-ICAgMi40NC4wIC0gU0VUX0FQUEVORF9DTlQgcGFja2V0MyBzdXBwb3J0Cj4gICAqICAgMi40NS4w
-IC0gQWxsb3cgc2V0dGluZyBzaGFkZXIgcmVnaXN0ZXJzIHVzaW5nIERNQS9DT1BZIHBhY2tldDMg
-b24gU0kKPiAgICogICAyLjQ2LjAgLSBBZGQgUEZQX1NZTkNfTUUgc3VwcG9ydCBvbiBldmVyZ3Jl
-ZW4KPiAgICogICAyLjQ3LjAgLSBBZGQgVVZEX05PX09QIHJlZ2lzdGVyIHN1cHBvcnQKPiArICog
-ICAyLjQ4LjAgLSBUQV9DU19CQ19CQVNFX0FERFIgYWxsb3dlZCBvbiBTSQo+ICAgKi8KPiAgI2Rl
-ZmluZSBLTVNfRFJJVkVSX01BSk9SICAgICAgIDIKPiAtI2RlZmluZSBLTVNfRFJJVkVSX01JTk9S
-ICAgICAgIDQ3Cj4gKyNkZWZpbmUgS01TX0RSSVZFUl9NSU5PUiAgICAgICA0OAo+ICAjZGVmaW5l
-IEtNU19EUklWRVJfUEFUQ0hMRVZFTCAgMAo+ICBpbnQgcmFkZW9uX2RyaXZlcl9sb2FkX2ttcyhz
-dHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB1bnNpZ25lZCBsb25nIGZsYWdzKTsKPiAgaW50IHJhZGVv
-bl9kcml2ZXJfdW5sb2FkX2ttcyhzdHJ1Y3QgZHJtX2RldmljZSAqZGV2KTsKPiAgdm9pZCByYWRl
-b25fZHJpdmVyX2xhc3RjbG9zZV9rbXMoc3RydWN0IGRybV9kZXZpY2UgKmRldik7Cj4gIGludCBy
-YWRlb25fZHJpdmVyX29wZW5fa21zKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHN0cnVjdCBkcm1f
-ZmlsZSAqZmlsZV9wcml2KTsKPiAgdm9pZCByYWRlb25fZHJpdmVyX3Bvc3RjbG9zZV9rbXMoc3Ry
-dWN0IGRybV9kZXZpY2UgKmRldiwKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBz
-dHJ1Y3QgZHJtX2ZpbGUgKmZpbGVfcHJpdik7Cj4gIHZvaWQgcmFkZW9uX2RyaXZlcl9wcmVjbG9z
-ZV9rbXMoc3RydWN0IGRybV9kZXZpY2UgKmRldiwKPiAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHN0cnVjdCBkcm1fZmlsZSAqZmlsZV9wcml2KTsKPiAgaW50IHJhZGVvbl9zdXNwZW5k
-X2ttcyhzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCBib29sIHN1c3BlbmQsCj4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vc2kuYyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vc2ku
-Ywo+IGluZGV4IDdlZTlhYWYuLmU0MDJiZTggMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L3JhZGVvbi9zaS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9zaS5jCj4gQEAgLTQ0
-MjQsMjAgKzQ0MjQsMjEgQEAgc3RhdGljIGJvb2wgc2lfdm1fcmVnX3ZhbGlkKHUzMiByZWcpCj4g
-ICAgICAgICBjYXNlIFBBX1NDX0xJTkVfU1RJUFBMRV9TVEFURToKPiAgICAgICAgIGNhc2UgUEFf
-U0NfRU5IQU5DRToKPiAgICAgICAgIGNhc2UgU1FDX0NBQ0hFUzoKPiAgICAgICAgIGNhc2UgU1BJ
-X1NUQVRJQ19USFJFQURfTUdNVF8xOgo+ICAgICAgICAgY2FzZSBTUElfU1RBVElDX1RIUkVBRF9N
-R01UXzI6Cj4gICAgICAgICBjYXNlIFNQSV9TVEFUSUNfVEhSRUFEX01HTVRfMzoKPiAgICAgICAg
-IGNhc2UgU1BJX1BTX01BWF9XQVZFX0lEOgo+ICAgICAgICAgY2FzZSBTUElfQ09ORklHX0NOVEw6
-Cj4gICAgICAgICBjYXNlIFNQSV9DT05GSUdfQ05UTF8xOgo+ICAgICAgICAgY2FzZSBUQV9DTlRM
-X0FVWDoKPiArICAgICAgIGNhc2UgVEFfQ1NfQkNfQkFTRV9BRERSOgo+ICAgICAgICAgICAgICAg
-ICByZXR1cm4gdHJ1ZTsKPiAgICAgICAgIGRlZmF1bHQ6Cj4gICAgICAgICAgICAgICAgIERSTV9F
-UlJPUigiSW52YWxpZCByZWdpc3RlciAweCV4IGluIENTXG4iLCByZWcpOwo+ICAgICAgICAgICAg
-ICAgICByZXR1cm4gZmFsc2U7Cj4gICAgICAgICB9Cj4gIH0KPgo+ICBzdGF0aWMgaW50IHNpX3Zt
-X3BhY2tldDNfY2VfY2hlY2soc3RydWN0IHJhZGVvbl9kZXZpY2UgKnJkZXYsCj4gICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIHUzMiAqaWIsIHN0cnVjdCByYWRlb25fY3NfcGFja2V0
-ICpwa3QpCj4gIHsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9zaWQuaCBi
-L2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vc2lkLmgKPiBpbmRleCBlYjIyMGVlLi42NWE5MTFkIDEw
-MDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vc2lkLmgKPiArKysgYi9kcml2ZXJz
-L2dwdS9kcm0vcmFkZW9uL3NpZC5oCj4gQEAgLTExMzgsMjAgKzExMzgsMjEgQEAKPiAgI2RlZmlu
-ZSAgICAgICAgQ0dUU19VU0VSX1RDQ19ESVNBQkxFICAgICAgICAgICAgICAgICAgICAgICAgICAg
-MHg5MTRDCj4gICNkZWZpbmUgICAgICAgICAgICAgICAgVENDX0RJU0FCTEVfTUFTSyAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgMHhGRkZGMDAwMAo+ICAjZGVmaW5lICAgICAgICAgICAg
-ICAgIFRDQ19ESVNBQkxFX1NISUZUICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDE2Cj4g
-ICNkZWZpbmUgICAgICAgIENHVFNfU01fQ1RSTF9SRUcgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIDB4OTE1MAo+ICAjZGVmaW5lICAgICAgICAgICAgICAgIE9WRVJSSURFICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAoMSA8PCAyMSkKPiAgI2RlZmluZSAgICAgICAgICAgICAg
-ICBMU19PVkVSUklERSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDEgPDwgMjIpCj4KPiAg
-I2RlZmluZSAgICAgICAgU1BJX0xCX0NVX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgMHg5MzU0Cj4KPiAgI2RlZmluZSAgICAgICAgVEFfQ05UTF9BVVggICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgMHg5NTA4Cj4gKyNkZWZpbmUgICAgICAgIFRBX0NTX0JD
-X0JBU0VfQUREUiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4OTUwQwo+Cj4gICNkZWZp
-bmUgQ0NfUkJfQkFDS0VORF9ESVNBQkxFICAgICAgICAgICAgICAgICAgICAgICAgICAweDk4RjQK
-PiAgI2RlZmluZSAgICAgICAgICAgICAgICBCQUNLRU5EX0RJU0FCTEUoeCkgICAgICAgICAgICAg
-ICAgICAgICAgKCh4KSA8PCAxNikKPiAgI2RlZmluZSBHQl9BRERSX0NPTkZJRyAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIDB4OThGOAo+ICAjZGVmaW5lICAgICAgICAgICAgICAgIE5V
-TV9QSVBFUyh4KSAgICAgICAgICAgICAgICAgICAgICAgICAgICAoKHgpIDw8IDApCj4gICNkZWZp
-bmUgICAgICAgICAgICAgICAgTlVNX1BJUEVTX01BU0sgICAgICAgICAgICAgICAgICAgICAgICAg
-IDB4MDAwMDAwMDcKPiAgI2RlZmluZSAgICAgICAgICAgICAgICBOVU1fUElQRVNfU0hJRlQgICAg
-ICAgICAgICAgICAgICAgICAgICAgMAo+ICAjZGVmaW5lICAgICAgICAgICAgICAgIFBJUEVfSU5U
-RVJMRUFWRV9TSVpFKHgpICAgICAgICAgICAgICAgICAoKHgpIDw8IDQpCj4gICNkZWZpbmUgICAg
-ICAgICAgICAgICAgUElQRV9JTlRFUkxFQVZFX1NJWkVfTUFTSyAgICAgICAgICAgICAgIDB4MDAw
-MDAwNzAKPiAgI2RlZmluZSAgICAgICAgICAgICAgICBQSVBFX0lOVEVSTEVBVkVfU0laRV9TSElG
-VCAgICAgICAgICAgICAgNAo+IC0tCj4gMi43LjQKPgo+IF9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
-ZC1nZngK
+This is a multi-part message in MIME format.
+
+--===============2013282365==
+Content-Type: multipart/alternative; boundary="nextPart1610882.XN5YW5VGAD"
+Content-Transfer-Encoding: 7Bit
+
+This is a multi-part message in MIME format.
+
+--nextPart1610882.XN5YW5VGAD
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+
+Hello AMD Folks, 
+
+Bad stalls in Heaven/Valley when transitioning to a new 
+scene, Valley scene rendering 9fps normally 30fps (flying 
+around mountain scene).
+
+Going to downgrade kernel to 4.8 stock w/o drm-next-4.9-wip 
+to see if its kernel regression, GPU is revving up/down maybe 
+something messed up with CLKS?
+
+Thanks,
+Shawn
+
+--nextPart1610882.XN5YW5VGAD
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/html; charset="us-ascii"
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'Monospace'; font-size:10pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">Hello AMD Folks, </p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; ">&nbsp;</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">Bad stalls in Heaven/Valley when transitioning to a new scene, Valley scene rendering 9fps normally 30fps (flying around mountain scene).</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; ">&nbsp;</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">Going to downgrade kernel to 4.8 stock w/o drm-next-4.9-wip to see if its kernel regression, GPU is revving up/down maybe something messed up with CLKS?</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; ">&nbsp;</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">Thanks,</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">Shawn</p></body></html>
+--nextPart1610882.XN5YW5VGAD--
+
+
+--===============2013282365==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============2013282365==--
