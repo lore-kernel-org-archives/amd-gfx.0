@@ -1,13 +1,13 @@
-From: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/amdgpu: Make debugfs write compliment read
-Date: Mon, 10 Oct 2016 13:38:53 +0000
-Message-ID: <CAAzXoRJKusZrvv7obpZ-0tR39pVmdc-7Y8prKCsRC6bchmsOcA@mail.gmail.com>
-References: <20161010125128.18303-1-tom.stdenis@amd.com>
- <91da2060-e6d4-70c9-2ceb-69218e1058ba@vodafone.de>
+From: =?UTF-8?q?Christian=20K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: [PATCH 2/2] drm/amdgpu: add VCE VM session tracking
+Date: Mon, 10 Oct 2016 15:40:08 +0200
+Message-ID: <1476106808-2192-2-git-send-email-deathsimple@vodafone.de>
+References: <1476106808-2192-1-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1014514003=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <91da2060-e6d4-70c9-2ceb-69218e1058ba-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <1476106808-2192-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,261 +18,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============1014514003==
-Content-Type: multipart/alternative; boundary=94eb2c000bec1dcefc053e82e28b
-
---94eb2c000bec1dcefc053e82e28b
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-that's kind of the point.  Its for debugging only.  Also reads can already
-lock
-
-On Mon, Oct 10, 2016, 09:25 Christian K=C3=B6nig <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org> =
-wrote:
-
-> Mhm, that userspace controls if the lock is taken or not is a bit
-> problematic, on the other hand only root could access that.
->
-> Christian.
->
-> Am 10.10.2016 um 14:51 schrieb Tom St Denis:
-> > Add PG lock support as well as bank selection to
-> > the MMIO write function.
-> >
-> > Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 43
-> ++++++++++++++++++++++++++++++
-> >   1 file changed, 43 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > index 04c4aee70452..a9d83c1d7a43 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > @@ -2637,10 +2637,45 @@ static ssize_t amdgpu_debugfs_regs_write(struct
-> file *f, const char __user *buf,
-> >       struct amdgpu_device *adev =3D f->f_inode->i_private;
-> >       ssize_t result =3D 0;
-> >       int r;
-> > +     bool pm_pg_lock, use_bank;
-> > +     unsigned instance_bank, sh_bank, se_bank;
-> >
-> >       if (size & 0x3 || *pos & 0x3)
-> >               return -EINVAL;
-> >
-> > +     /* are we reading registers for which a PG lock is necessary? */
-> > +     pm_pg_lock =3D (*pos >> 23) & 1;
-> > +
-> > +     if (*pos & (1ULL << 62)) {
-> > +             se_bank =3D (*pos >> 24) & 0x3FF;
-> > +             sh_bank =3D (*pos >> 34) & 0x3FF;
-> > +             instance_bank =3D (*pos >> 44) & 0x3FF;
-> > +
-> > +             if (se_bank =3D=3D 0x3FF)
-> > +                     se_bank =3D 0xFFFFFFFF;
-> > +             if (sh_bank =3D=3D 0x3FF)
-> > +                     sh_bank =3D 0xFFFFFFFF;
-> > +             if (instance_bank =3D=3D 0x3FF)
-> > +                     instance_bank =3D 0xFFFFFFFF;
-> > +             use_bank =3D 1;
-> > +     } else {
-> > +             use_bank =3D 0;
-> > +     }
-> > +
-> > +     *pos &=3D 0x3FFFF;
-> > +
-> > +     if (use_bank) {
-> > +             if ((sh_bank !=3D 0xFFFFFFFF && sh_bank >=3D
-> adev->gfx.config.max_sh_per_se) ||
-> > +                 (se_bank !=3D 0xFFFFFFFF && se_bank >=3D
-> adev->gfx.config.max_shader_engines))
-> > +                     return -EINVAL;
-> > +             mutex_lock(&adev->grbm_idx_mutex);
-> > +             amdgpu_gfx_select_se_sh(adev, se_bank,
-> > +                                     sh_bank, instance_bank);
-> > +     }
-> > +
-> > +     if (pm_pg_lock)
-> > +             mutex_lock(&adev->pm.mutex);
-> > +
-> >       while (size) {
-> >               uint32_t value;
-> >
-> > @@ -2659,6 +2694,14 @@ static ssize_t amdgpu_debugfs_regs_write(struct
-> file *f, const char __user *buf,
-> >               size -=3D 4;
-> >       }
-> >
-> > +     if (use_bank) {
-> > +             amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff,
-> 0xffffffff);
-> > +             mutex_unlock(&adev->grbm_idx_mutex);
-> > +     }
-> > +
-> > +     if (pm_pg_lock)
-> > +             mutex_unlock(&adev->pm.mutex);
-> > +
-> >       return result;
-> >   }
-> >
->
->
->
-
---94eb2c000bec1dcefc053e82e28b
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<p dir=3D"ltr">that&#39;s kind of the point.=C2=A0 Its for debugging only.=
-=C2=A0 Also reads can already lock</p>
-<br><div class=3D"gmail_quote"><div dir=3D"ltr">On Mon, Oct 10, 2016, 09:25=
- Christian K=C3=B6nig &lt;<a href=3D"mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">deaths=
-imple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote"=
- style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Mh=
-m, that userspace controls if the lock is taken or not is a bit<br class=3D=
-"gmail_msg">
-problematic, on the other hand only root could access that.<br class=3D"gma=
-il_msg">
-<br class=3D"gmail_msg">
-Christian.<br class=3D"gmail_msg">
-<br class=3D"gmail_msg">
-Am 10.10.2016 um 14:51 schrieb Tom St Denis:<br class=3D"gmail_msg">
-&gt; Add PG lock support as well as bank selection to<br class=3D"gmail_msg=
-">
-&gt; the MMIO write function.<br class=3D"gmail_msg">
-&gt;<br class=3D"gmail_msg">
-&gt; Signed-off-by: Tom St Denis &lt;<a href=3D"mailto:tom.stdenis-5C7GfCeVMHo@public.gmane.org"=
- class=3D"gmail_msg" target=3D"_blank">tom.stdenis-5C7GfCeVMHo@public.gmane.org</a>&gt;<br class=
-=3D"gmail_msg">
-&gt; ---<br class=3D"gmail_msg">
-&gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 43 ++++++++++=
-++++++++++++++++++++<br class=3D"gmail_msg">
-&gt;=C2=A0 =C2=A01 file changed, 43 insertions(+)<br class=3D"gmail_msg">
-&gt;<br class=3D"gmail_msg">
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_device.c<br class=3D"gmail_msg">
-&gt; index 04c4aee70452..a9d83c1d7a43 100644<br class=3D"gmail_msg">
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br class=3D"gmail_msg=
-">
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br class=3D"gmail_msg=
-">
-&gt; @@ -2637,10 +2637,45 @@ static ssize_t amdgpu_debugfs_regs_write(struc=
-t file *f, const char __user *buf,<br class=3D"gmail_msg">
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_device *adev =3D f-&gt;f_inode=
--&gt;i_private;<br class=3D"gmail_msg">
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0ssize_t result =3D 0;<br class=3D"gmail_msg"=
->
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0int r;<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0bool pm_pg_lock, use_bank;<br class=3D"gmail_msg"=
->
-&gt; +=C2=A0 =C2=A0 =C2=A0unsigned instance_bank, sh_bank, se_bank;<br clas=
-s=3D"gmail_msg">
-&gt;<br class=3D"gmail_msg">
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (size &amp; 0x3 || *pos &amp; 0x3)<br cla=
-ss=3D"gmail_msg">
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL;<=
-br class=3D"gmail_msg">
-&gt;<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0/* are we reading registers for which a PG lock i=
-s necessary? */<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0pm_pg_lock =3D (*pos &gt;&gt; 23) &amp; 1;<br cla=
-ss=3D"gmail_msg">
-&gt; +<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0if (*pos &amp; (1ULL &lt;&lt; 62)) {<br class=3D"=
-gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0se_bank =3D (*pos &gt=
-;&gt; 24) &amp; 0x3FF;<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0sh_bank =3D (*pos &gt=
-;&gt; 34) &amp; 0x3FF;<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0instance_bank =3D (*p=
-os &gt;&gt; 44) &amp; 0x3FF;<br class=3D"gmail_msg">
-&gt; +<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (se_bank =3D=3D 0x=
-3FF)<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0se_bank =3D 0xFFFFFFFF;<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (sh_bank =3D=3D 0x=
-3FF)<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0sh_bank =3D 0xFFFFFFFF;<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (instance_bank =3D=
-=3D 0x3FF)<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0instance_bank =3D 0xFFFFFFFF;<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0use_bank =3D 1;<br cl=
-ass=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0} else {<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0use_bank =3D 0;<br cl=
-ass=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br class=3D"gmail_msg">
-&gt; +<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0*pos &amp;=3D 0x3FFFF;<br class=3D"gmail_msg">
-&gt; +<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0if (use_bank) {<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if ((sh_bank !=3D 0xF=
-FFFFFFF &amp;&amp; sh_bank &gt;=3D adev-&gt;gfx.config.max_sh_per_se) ||<br=
- class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(se_ban=
-k !=3D 0xFFFFFFFF &amp;&amp; se_bank &gt;=3D adev-&gt;gfx.config.max_shader=
-_engines))<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0return -EINVAL;<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0mutex_lock(&amp;adev-=
-&gt;grbm_idx_mutex);<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_gfx_select_se_=
-sh(adev, se_bank,<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0sh_bank, ins=
-tance_bank);<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br class=3D"gmail_msg">
-&gt; +<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0if (pm_pg_lock)<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0mutex_lock(&amp;adev-=
-&gt;pm.mutex);<br class=3D"gmail_msg">
-&gt; +<br class=3D"gmail_msg">
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0while (size) {<br class=3D"gmail_msg">
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t value;<=
-br class=3D"gmail_msg">
-&gt;<br class=3D"gmail_msg">
-&gt; @@ -2659,6 +2694,14 @@ static ssize_t amdgpu_debugfs_regs_write(struct=
- file *f, const char __user *buf,<br class=3D"gmail_msg">
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0size -=3D 4;<br =
-class=3D"gmail_msg">
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br class=3D"gmail_msg">
-&gt;<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0if (use_bank) {<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_gfx_select_se_=
-sh(adev, 0xffffffff, 0xffffffff, 0xffffffff);<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0mutex_unlock(&amp;ade=
-v-&gt;grbm_idx_mutex);<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br class=3D"gmail_msg">
-&gt; +<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0if (pm_pg_lock)<br class=3D"gmail_msg">
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0mutex_unlock(&amp;ade=
-v-&gt;pm.mutex);<br class=3D"gmail_msg">
-&gt; +<br class=3D"gmail_msg">
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0return result;<br class=3D"gmail_msg">
-&gt;=C2=A0 =C2=A0}<br class=3D"gmail_msg">
-&gt;<br class=3D"gmail_msg">
-<br class=3D"gmail_msg">
-<br class=3D"gmail_msg">
-</blockquote></div>
-
---94eb2c000bec1dcefc053e82e28b--
-
---===============1014514003==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1014514003==--
+RnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKT25seSBj
+b21waWxlIHRlc3RlZCwgYnV0IHNob3VsZCBmaXggdGhlIHByb2JsZW1zIHdpdGgga2lsbGluZwpW
+Q0Ugc2Vzc2lvbnMgaW4gVk0gbW9kZS4KClNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcg
+PGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfdmNlLmMgfCA5MCArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysKIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y2UuaCB8ICAxICsKIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L3ZjZV92M18wLmMgICB8ICAxICsKIDMgZmlsZXMgY2hhbmdlZCwgOTIg
+aW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV92Y2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y2UuYwppbmRl
+eCAwNWExZWE5Li4zZDZmODZjIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfdmNlLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zj
+ZS5jCkBAIC03OTIsNiArNzkyLDk2IEBAIG91dDoKIH0KIAogLyoqCisgKiBhbWRncHVfdmNlX2Nz
+X3BhcnNlX3ZtIC0gcGFyc2UgdGhlIGNvbW1hbmQgc3RyZWFtIGluIFZNIG1vZGUKKyAqCisgKiBA
+cDogcGFyc2VyIGNvbnRleHQKKyAqCisgKi8KK2ludCBhbWRncHVfdmNlX3JpbmdfcGFyc2VfY3Nf
+dm0oc3RydWN0IGFtZGdwdV9jc19wYXJzZXIgKnAsIHVpbnQzMl90IGliX2lkeCkKK3sKKwlzdHJ1
+Y3QgYW1kZ3B1X2liICppYiA9ICZwLT5qb2ItPmlic1tpYl9pZHhdOworCWludCBzZXNzaW9uX2lk
+eCA9IC0xOworCXVpbnQzMl90IGRlc3Ryb3llZCA9IDA7CisJdWludDMyX3QgY3JlYXRlZCA9IDA7
+CisJdWludDMyX3QgYWxsb2NhdGVkID0gMDsKKwl1aW50MzJfdCB0bXAsIGhhbmRsZSA9IDA7CisJ
+aW50IGksIHIgPSAwLCBpZHggPSAwOworCisJd2hpbGUgKGlkeCA8IGliLT5sZW5ndGhfZHcpIHsK
+KwkJdWludDMyX3QgbGVuID0gYW1kZ3B1X2dldF9pYl92YWx1ZShwLCBpYl9pZHgsIGlkeCk7CisJ
+CXVpbnQzMl90IGNtZCA9IGFtZGdwdV9nZXRfaWJfdmFsdWUocCwgaWJfaWR4LCBpZHggKyAxKTsK
+KworCQlpZiAoKGxlbiA8IDgpIHx8IChsZW4gJiAzKSkgeworCQkJRFJNX0VSUk9SKCJpbnZhbGlk
+IFZDRSBjb21tYW5kIGxlbmd0aCAoJWQpIVxuIiwgbGVuKTsKKwkJCXIgPSAtRUlOVkFMOworCQkJ
+Z290byBvdXQ7CisJCX0KKworCQlzd2l0Y2ggKGNtZCkgeworCQljYXNlIDB4MDAwMDAwMDE6IC8q
+IHNlc3Npb24gKi8KKwkJCWhhbmRsZSA9IGFtZGdwdV9nZXRfaWJfdmFsdWUocCwgaWJfaWR4LCBp
+ZHggKyAyKTsKKwkJCXNlc3Npb25faWR4ID0gYW1kZ3B1X3ZjZV92YWxpZGF0ZV9oYW5kbGUocCwg
+aGFuZGxlLAorCQkJCQkJCQkgJmFsbG9jYXRlZCk7CisJCQlpZiAoc2Vzc2lvbl9pZHggPCAwKSB7
+CisJCQkJciA9IHNlc3Npb25faWR4OworCQkJCWdvdG8gb3V0OworCQkJfQorCQkJYnJlYWs7CisK
+KwkJY2FzZSAweDAxMDAwMDAxOiAvKiBjcmVhdGUgKi8KKwkJCWNyZWF0ZWQgfD0gMSA8PCBzZXNz
+aW9uX2lkeDsKKwkJCWlmIChkZXN0cm95ZWQgJiAoMSA8PCBzZXNzaW9uX2lkeCkpIHsKKwkJCQlk
+ZXN0cm95ZWQgJj0gfigxIDw8IHNlc3Npb25faWR4KTsKKwkJCQlhbGxvY2F0ZWQgfD0gMSA8PCBz
+ZXNzaW9uX2lkeDsKKworCQkJfSBlbHNlIGlmICghKGFsbG9jYXRlZCAmICgxIDw8IHNlc3Npb25f
+aWR4KSkpIHsKKwkJCQlEUk1fRVJST1IoIkhhbmRsZSBhbHJlYWR5IGluIHVzZSFcbiIpOworCQkJ
+CXIgPSAtRUlOVkFMOworCQkJCWdvdG8gb3V0OworCQkJfQorCisJCQlicmVhazsKKworCQljYXNl
+IDB4MDIwMDAwMDE6IC8qIGRlc3Ryb3kgKi8KKwkJCWRlc3Ryb3llZCB8PSAxIDw8IHNlc3Npb25f
+aWR4OworCQkJYnJlYWs7CisKKwkJZGVmYXVsdDoKKwkJCWJyZWFrOworCQl9CisKKwkJaWYgKHNl
+c3Npb25faWR4ID09IC0xKSB7CisJCQlEUk1fRVJST1IoIm5vIHNlc3Npb24gY29tbWFuZCBhdCBz
+dGFydCBvZiBJQlxuIik7CisJCQlyID0gLUVJTlZBTDsKKwkJCWdvdG8gb3V0OworCQl9CisKKwkJ
+aWR4ICs9IGxlbiAvIDQ7CisJfQorCisJaWYgKGFsbG9jYXRlZCAmIH5jcmVhdGVkKSB7CisJCURS
+TV9FUlJPUigiTmV3IHNlc3Npb24gd2l0aG91dCBjcmVhdGUgY29tbWFuZCFcbiIpOworCQlyID0g
+LUVOT0VOVDsKKwl9CisKK291dDoKKwlpZiAoIXIpIHsKKwkJLyogTm8gZXJyb3IsIGZyZWUgYWxs
+IGRlc3Ryb3llZCBoYW5kbGUgc2xvdHMgKi8KKwkJdG1wID0gZGVzdHJveWVkOworCQlhbWRncHVf
+aWJfZnJlZShwLT5hZGV2LCBpYiwgTlVMTCk7CisJfSBlbHNlIHsKKwkJLyogRXJyb3IgZHVyaW5n
+IHBhcnNpbmcsIGZyZWUgYWxsIGFsbG9jYXRlZCBoYW5kbGUgc2xvdHMgKi8KKwkJdG1wID0gYWxs
+b2NhdGVkOworCX0KKworCWZvciAoaSA9IDA7IGkgPCBBTURHUFVfTUFYX1ZDRV9IQU5ETEVTOyAr
+K2kpCisJCWlmICh0bXAgJiAoMSA8PCBpKSkKKwkJCWF0b21pY19zZXQoJnAtPmFkZXYtPnZjZS5o
+YW5kbGVzW2ldLCAwKTsKKworCXJldHVybiByOworfQorCisvKioKICAqIGFtZGdwdV92Y2Vfcmlu
+Z19lbWl0X2liIC0gZXhlY3V0ZSBpbmRpcmVjdCBidWZmZXIKICAqCiAgKiBAcmluZzogZW5naW5l
+IHRvIHVzZQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zj
+ZS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZjZS5oCmluZGV4IDEyNzI5
+ZDIuLjQ0ZDQ5YjUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV92Y2UuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmNlLmgKQEAg
+LTM0LDYgKzM0LDcgQEAgaW50IGFtZGdwdV92Y2VfZ2V0X2Rlc3Ryb3lfbXNnKHN0cnVjdCBhbWRn
+cHVfcmluZyAqcmluZywgdWludDMyX3QgaGFuZGxlLAogCQkJICAgICAgIGJvb2wgZGlyZWN0LCBz
+dHJ1Y3QgZmVuY2UgKipmZW5jZSk7CiB2b2lkIGFtZGdwdV92Y2VfZnJlZV9oYW5kbGVzKHN0cnVj
+dCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbHApOwogaW50IGFtZGdw
+dV92Y2VfcmluZ19wYXJzZV9jcyhzdHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcCwgdWludDMyX3Qg
+aWJfaWR4KTsKK2ludCBhbWRncHVfdmNlX3JpbmdfcGFyc2VfY3Nfdm0oc3RydWN0IGFtZGdwdV9j
+c19wYXJzZXIgKnAsIHVpbnQzMl90IGliX2lkeCk7CiB2b2lkIGFtZGdwdV92Y2VfcmluZ19lbWl0
+X2liKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgc3RydWN0IGFtZGdwdV9pYiAqaWIsCiAJCQkg
+ICAgIHVuc2lnbmVkIHZtX2lkLCBib29sIGN0eF9zd2l0Y2gpOwogdm9pZCBhbWRncHVfdmNlX3Jp
+bmdfZW1pdF9mZW5jZShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHU2NCBhZGRyLCB1NjQgc2Vx
+LApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNlX3YzXzAuYyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92M18wLmMKaW5kZXggZjdkYmQwZC4uMmFiZjVi
+ZCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNlX3YzXzAuYworKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y2VfdjNfMC5jCkBAIC04NTQsNiArODU0LDcg
+QEAgc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRncHVfcmluZ19mdW5jcyB2Y2VfdjNfMF9yaW5nX3Zt
+X2Z1bmNzID0gewogCS5nZXRfcnB0ciA9IHZjZV92M18wX3JpbmdfZ2V0X3JwdHIsCiAJLmdldF93
+cHRyID0gdmNlX3YzXzBfcmluZ19nZXRfd3B0ciwKIAkuc2V0X3dwdHIgPSB2Y2VfdjNfMF9yaW5n
+X3NldF93cHRyLAorCS5wYXJzZV9jcyA9IGFtZGdwdV92Y2VfcmluZ19wYXJzZV9jc192bSwKIAku
+ZW1pdF9mcmFtZV9zaXplID0KIAkJNiArIC8qIHZjZV92M18wX2VtaXRfdm1fZmx1c2ggKi8KIAkJ
+NCArIC8qIHZjZV92M18wX2VtaXRfcGlwZWxpbmVfc3luYyAqLwotLSAKMi41LjAKCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
+aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
