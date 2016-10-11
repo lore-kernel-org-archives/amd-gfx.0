@@ -1,18 +1,19 @@
 From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 4/4] drm/amdgpu: used cached gca values for
  vi_read_register
-Date: Tue, 11 Oct 2016 13:20:20 +0000
-Message-ID: <CY4PR12MB1768C25486E504D61CBD8C24F7DA0@CY4PR12MB1768.namprd12.prod.outlook.com>
+Date: Tue, 11 Oct 2016 13:22:53 +0000
+Message-ID: <CY4PR12MB176874BB07B5252C2279D724F7DA0@CY4PR12MB1768.namprd12.prod.outlook.com>
 References: <1476115696-29640-1-git-send-email-alexander.deucher@amd.com>
  <1476115696-29640-4-git-send-email-alexander.deucher@amd.com>
  <57FCD5F9.6050809@gmail.com>
  <CY4PR12MB1768837F1247030A2662183EF7DA0@CY4PR12MB1768.namprd12.prod.outlook.com>
  <BN6PR12MB17643865565D007D3629FDADF7DA0@BN6PR12MB1764.namprd12.prod.outlook.com>,
- <57FCE4DB.5020404@gmail.com>
+ <57FCE4DB.5020404@gmail.com>,
+ <CY4PR12MB1768C25486E504D61CBD8C24F7DA0@CY4PR12MB1768.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0413636943=="
+Content-Type: multipart/mixed; boundary="===============1046524312=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <57FCE4DB.5020404-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <CY4PR12MB1768C25486E504D61CBD8C24F7DA0-rpdhrqHFk06yjjPBNVDk/QdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -27,14 +28,46 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: Andy Furniss <adf.lists-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
---===============0413636943==
+--===============1046524312==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB1768C25486E504D61CBD8C24F7DA0CY4PR12MB1768namp_"
+	boundary="_000_CY4PR12MB176874BB07B5252C2279D724F7DA0CY4PR12MB1768namp_"
 
---_000_CY4PR12MB1768C25486E504D61CBD8C24F7DA0CY4PR12MB1768namp_
+--_000_CY4PR12MB176874BB07B5252C2279D724F7DA0CY4PR12MB1768namp_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
+
+Yup confirmed...
+
+
+[root@fx6 linux]# git bisect good
+da00756f75422b04befae381e7e48d0cacf299f3 is the first bad commit
+commit da00756f75422b04befae381e7e48d0cacf299f3
+Author: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Date:   Wed Oct 5 16:09:32 2016 +0200
+
+    drm/amdgpu: move align_mask and nop into ring funcs as well
+
+    They are constant as well.
+
+    Signed-off-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+    Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+:040000 040000 a8f2ca9290985991b3cc37cbeb902f060573fdbb 2309b176a1d4ff9e59e=
+af25688b5db6eb9759dd0 M      drivers
+
+
+
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of StDenis,=
+ Tom <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Sent: Tuesday, October 11, 2016 09:20
+To: Andy Furniss; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Deucher, Alexander
+Subject: Re: [PATCH 4/4] drm/amdgpu: used cached gca values for vi_read_reg=
+ister
+
 
 Hi Andy,
 
@@ -190,7 +223,7 @@ l ...
 >
 
 
---_000_CY4PR12MB1768C25486E504D61CBD8C24F7DA0CY4PR12MB1768namp_
+--_000_CY4PR12MB176874BB07B5252C2279D724F7DA0CY4PR12MB1768namp_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -204,6 +237,52 @@ n-bottom:0;} --></style>
 <body dir=3D"ltr">
 <div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
 -family:Calibri,Arial,Helvetica,sans-serif;">
+<p>Yup confirmed...</p>
+<p><br>
+</p>
+<p></p>
+<div>[root@fx6 linux]# git bisect good</div>
+<div>da00756f75422b04befae381e7e48d0cacf299f3 is the first bad commit</div>
+<div>commit da00756f75422b04befae381e7e48d0cacf299f3</div>
+<div>Author: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</div>
+<div>Date: &nbsp; Wed Oct 5 16:09:32 2016 &#43;0200</div>
+<div><br>
+</div>
+<div>&nbsp; &nbsp; drm/amdgpu: move align_mask and nop into ring funcs as w=
+ell</div>
+<div>&nbsp; &nbsp;&nbsp;</div>
+<div>&nbsp; &nbsp; They are constant as well.</div>
+<div>&nbsp; &nbsp;&nbsp;</div>
+<div>&nbsp; &nbsp; Signed-off-by: Christian K=F6nig &lt;christian.koenig@am=
+d.com&gt;</div>
+<div>&nbsp; &nbsp; Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&=
+gt;</div>
+<div><br>
+</div>
+<div>:040000 040000 a8f2ca9290985991b3cc37cbeb902f060573fdbb 2309b176a1d4ff=
+9e59eaf25688b5db6eb9759dd0 M &nbsp; &nbsp; &nbsp;drivers</div>
+<div><br>
+</div>
+<br>
+<p></p>
+<br>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
+lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of StDenis, Tom &lt;Tom.StDenis@=
+amd.com&gt;<br>
+<b>Sent:</b> Tuesday, October 11, 2016 09:20<br>
+<b>To:</b> Andy Furniss; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Deucher, Alexander<br>
+<b>Subject:</b> Re: [PATCH 4/4] drm/amdgpu: used cached gca values for vi_r=
+ead_register</font>
+<div>&nbsp;</div>
+</div>
+<div>
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt; color:#000000; fo=
+nt-family:Calibri,Arial,Helvetica,sans-serif">
 <p>Hi Andy,</p>
 <p><br>
 </p>
@@ -216,7 +295,7 @@ n-bottom:0;} --></style>
 <p>Tom</p>
 <br>
 <br>
-<div style=3D"color: rgb(0, 0, 0);">
+<div style=3D"color:rgb(0,0,0)">
 <div>
 <hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
 <div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
@@ -230,7 +309,7 @@ ead_register</font>
 <div>&nbsp;</div>
 </div>
 </div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
+<font size=3D"2"><span style=3D"font-size:10pt">
 <div class=3D"PlainText">StDenis, Tom wrote:<br>
 &gt; Actually NAK that, I don't have the cache patch internally.&nbsp; So m=
 y Tonga crash is something else.<br>
@@ -368,36 +447,33 @@ x26e) [0x438ebe]<br>
 =3D"LPlnk683572" previewremoved=3D"true">
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
 <div id=3D"LPBorder_GT_14761919710690.7909482946435269" style=3D"margin-bot=
-tom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
+tom:20px; overflow:auto; width:100%; text-indent:0px">
 <table id=3D"LPContainer_14761919710650.21217846862968748" cellspacing=3D"0=
-" style=3D"width: 90%; background-color: rgb(255, 255, 255); position: rela=
-tive; overflow: auto; padding-top: 20px; padding-bottom: 20px; margin-top: =
-20px; border-top: 1px dotted rgb(200, 200, 200); border-bottom: 1px dotted =
-rgb(200, 200, 200);">
+" style=3D"width:90%; background-color:rgb(255,255,255); overflow:auto; pad=
+ding-top:20px; padding-bottom:20px; margin-top:20px; border-top:1px dotted =
+rgb(200,200,200); border-bottom:1px dotted rgb(200,200,200)">
 <tbody>
-<tr valign=3D"top" style=3D"border-spacing: 0px;">
+<tr valign=3D"top" style=3D"border-spacing:0px">
 <td id=3D"TextCell_14761919710670.6703100046398087" colspan=3D"2" style=3D"=
-vertical-align: top; position: relative; padding: 0px; display: table-cell;=
+vertical-align: top; padding: 0px; display: table-cell; position: relative;=
 ">
 <div id=3D"LPRemovePreviewContainer_14761919710670.9148237221026945"></div>
-<div id=3D"LPTitle_14761919710670.5541633888025892" style=3D"top: 0px; colo=
-r: rgb(59, 87, 119); font-weight: normal; font-size: 21px; font-family: wf_=
-segoe-ui_light, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&quot;, &qu=
-ot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif; line-he=
-ight: 21px;">
+<div id=3D"LPTitle_14761919710670.5541633888025892" style=3D"top:0px; color=
+:rgb(59,87,119); font-weight:normal; font-size:21px; font-family:wf_segoe-u=
+i_light,&quot;Segoe UI Light&quot;,&quot;Segoe WP Light&quot;,&quot;Segoe U=
+I&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif; line-height:21px">
 <a id=3D"LPUrlAnchor_14761919710680.020901425608859103" href=3D"https://lis=
 ts.freedesktop.org/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"tex=
-t-decoration: none;">amd-gfx Info Page - lists.freedesktop.org</a></div>
-<div id=3D"LPMetadata_14761919710680.9158180300381105" style=3D"margin: 10p=
-x 0px 16px; color: rgb(102, 102, 102); font-weight: normal; font-family: wf=
-_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial=
-, sans-serif; font-size: 14px; line-height: 14px;">
+t-decoration:none">amd-gfx Info Page - lists.freedesktop.org</a></div>
+<div id=3D"LPMetadata_14761919710680.9158180300381105" style=3D"margin:10px=
+ 0px 16px; color:rgb(102,102,102); font-weight:normal; font-family:wf_segoe=
+-ui_normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-seri=
+f; font-size:14px; line-height:14px">
 lists.freedesktop.org</div>
 <div id=3D"LPDescription_14761919710680.6459750253713015" style=3D"display:=
- block; color: rgb(102, 102, 102); font-weight: normal; font-family: wf_seg=
-oe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sa=
-ns-serif; font-size: 14px; line-height: 20px; max-height: 100px; overflow: =
-hidden;">
+block; color:rgb(102,102,102); font-weight:normal; font-family:wf_segoe-ui_=
+normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif; f=
+ont-size:14px; line-height:20px; max-height:100px; overflow:hidden">
 To see the collection of prior postings to the list, visit the amd-gfx Arch=
 ives. Using amd-gfx: To post a message to all the list members, send email =
 ...</div>
@@ -422,12 +498,15 @@ mail ...<br>
 </div>
 </span></font></div>
 </div>
+</div>
+</div>
+</div>
 </body>
 </html>
 
---_000_CY4PR12MB1768C25486E504D61CBD8C24F7DA0CY4PR12MB1768namp_--
+--_000_CY4PR12MB176874BB07B5252C2279D724F7DA0CY4PR12MB1768namp_--
 
---===============0413636943==
+--===============1046524312==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -437,4 +516,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0413636943==--
+--===============1046524312==--
