@@ -1,16 +1,18 @@
-From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/amdgpu: Allow broadcast on debugfs read (v2)
-Date: Tue, 11 Oct 2016 12:32:42 +0000
-Message-ID: <BN6PR12MB1764A6A7F768C662DC5866EBF7DA0@BN6PR12MB1764.namprd12.prod.outlook.com>
-References: <20161009115808.12776-1-tom.stdenis@amd.com>
- <a2035199-429c-d377-b354-bf42148d3820@mailbox.org>
- <CY4PR12MB176836D549B404152F5A1040F7DA0@CY4PR12MB1768.namprd12.prod.outlook.com>,
- <942ca6f5-fb0b-5f6f-7a87-1ffd6335be5d@vodafone.de>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/amdgpu: Make debugfs write compliment read
+Date: Tue, 11 Oct 2016 14:35:14 +0200
+Message-ID: <361f4210-31d4-a517-e80c-254e6d2dea9d@vodafone.de>
+References: <20161010125128.18303-1-tom.stdenis@amd.com>
+ <91da2060-e6d4-70c9-2ceb-69218e1058ba@vodafone.de>
+ <CAAzXoRJKusZrvv7obpZ-0tR39pVmdc-7Y8prKCsRC6bchmsOcA@mail.gmail.com>
+ <3c1d969b-0141-ef29-1e0f-5267d8a7cae9@vodafone.de>
+ <CY4PR12MB1768813E554E6DB1A40F5848F7DB0@CY4PR12MB1768.namprd12.prod.outlook.com>
+ <50dc12b3-a6bd-ed35-ac8f-e55909d184d2@vodafone.de>
+ <CY4PR12MB1768134851FB1F505F746843F7DA0@CY4PR12MB1768.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1362298042=="
+Content-Type: multipart/mixed; boundary="===============0092430761=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <942ca6f5-fb0b-5f6f-7a87-1ffd6335be5d-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <CY4PR12MB1768134851FB1F505F746843F7DA0-rpdhrqHFk06yjjPBNVDk/QdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,333 +23,608 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?iso-8859-1?Q?Christian_K=F6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, =?iso-8859-1?Q?Michel_D=E4nzer?= <michel.daenzer-cl+VPiYnx/1AfugRpC6u6w@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1362298042==
-Content-Language: en-US
+This is a multi-part message in MIME format.
+--===============0092430761==
 Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1764A6A7F768C662DC5866EBF7DA0BN6PR12MB1764namp_"
+ boundary="------------2E4B51A2E29BFEB0586C2D2A"
 
---_000_BN6PR12MB1764A6A7F768C662DC5866EBF7DA0BN6PR12MB1764namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+This is a multi-part message in MIME format.
+--------------2E4B51A2E29BFEB0586C2D2A
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-It's used by the UMD though they read from 0/*/* when reading the RASTER_CO=
-NFIG registers (which may be a bug...)
+Hi Tom,
 
-
-I only added it because the previous interface was either */*/* or x/y/z (w=
-here none are *).  Now it supports arbitrary bank selections.
-
-
-Tom
-
-
-________________________________
-From: Christian K=F6nig <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Sent: Tuesday, October 11, 2016 08:30
-To: StDenis, Tom; Michel D=E4nzer
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH] drm/amd/amdgpu: Allow broadcast on debugfs read (v2)
-
-I briefly remember reading in some hardware doc that this actually has a de=
-fined behavior.
-
-It was something about applying either bit wise "and" or "or" on the result=
-ing bits and returning that to the reader.
-
-This way you can check with a single broadcast read if an error occurred or=
- if any of the instances are busy.
-
-But if you don't actually use it I suggest to not implement this.
+yeah, the timing issue is a good argument. In this case just go ahead 
+and add my Acked-by to the patch.
 
 Regards,
 Christian.
 
-Am 11.10.2016 um 12:26 schrieb StDenis, Tom:
-
-That actually makes sense.  It came up because mmPA_SC_RASTER_CONFIG (and _=
-1) are read by libdrm with a selection of 0/*/* for se/sh/instance so I wan=
-ted to be able to reproduce that via the debugfs interface for testing.
-
-
-But ya, if you use the broadcast bit who are you reading from then ... hmm.=
-.
-
-
-Tom
-
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org><mailto:amd-gfx-bounce=
-s@lists.freedesktop.org> on behalf of Michel D=E4nzer <michel.daenzer@mailb=
-ox.org><mailto:michel.daenzer-cl+VPiYnx/1AfugRpC6u6w@public.gmane.org>
-Sent: Monday, October 10, 2016 23:52
-To: Tom St Denis
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/amdgpu: Allow broadcast on debugfs read (v2)
-
-On 09/10/16 08:58 PM, Tom St Denis wrote:
-> Allow any of the se/sh/instance fields to be
-> specified as a broadcast by submitting 0x3FF.
+Am 11.10.2016 um 14:19 schrieb StDenis, Tom:
 >
-> (v2) Fix broadcast range checking
+> Hi Christian,
 >
-> Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org><mailto:tom.stdenis@amd.=
-com>
+>
+> I agree with the crux of your argument but you can crash the system 
+> with carefully timed read/writes from the GFX registers, or MC, or ... 
+> That's why the entries are root only.
+>
+>
+> The issue with locking excessively is you might change behaviour of 
+> something you're trying to debug because the kernel then has to wait 
+> on the lock (or you're waiting on the lock).  For instance, suppose 
+> you want to read DCE registers and the kernel is doing some gfx/grbm 
+> related your DCE read will either block the GFX activity or you're 
+> waiting on it which means the behaviour of the system could be 
+> different than from the case where you're not probing the registers.
+>
+>
+> The goal is to be as unobtrusive as possible.  Heck I often mmap the 
+> BAR so I can read MMIO registers directly and not waste CPU cycles on 
+> syscalls.
+>
+>
+> The PM lock is because reading PGFSM registers during a powerup/down 
+> results in a GPU hang, and we only take the GRBM lock when users want 
+> to read from specific banks.  For any other case we don't need a lock. 
+>  In the kernel they should be mutually exclusive.  The PM lock is only 
+> taken in PP when performing a transition (or initializing the core) 
+> and I have yet to see a place where PP/PM related code also grabs the 
+> grbm index lock.
+>
+> I don't have strong feelings against your proposal but I do prefer not 
+> to take the locks when I don't need to.  Ultimately I'll leave the 
+> decision up to you and Alex.  I'd like to get the 2nd patch through 
+> though as it makes the write side of the mmio reg complimentary (e.g. 
+> bank selection/pm lock).
+>
+> Cheers,
+> Tom
+>
+> ------------------------------------------------------------------------
+> *From:* Christian König <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+> *Sent:* Tuesday, October 11, 2016 08:11
+> *To:* StDenis, Tom; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> *Subject:* Re: [PATCH] drm/amd/amdgpu: Make debugfs write compliment read
+>>
+>> The only downside to taking the locks all the time is for 99% of 
+>> debug reads it's unnecessary and in theory could lead to 
+>> performance/behaviour problems.
+>>
+> Yeah, but performance isn't critical here and taking two locks 
+> compared to the rest of what we (IOCTL etc...) do is completely 
+> negligibly.
+>
+>> I've been using this on read for a while now and haven't noticed a 
+>> problem.
+>>
+> My concern is rather that somebody tries to write to the PM regs on 
+> accident or purpose without taking the lock.
+>
+> See, the kernel is usually responsible to keep people from doing 
+> stupid things with the hardware, even if those people are root and 
+> could do stupid things anyway. Well, you know what I mean?
+>
+> Regards,
+> Christian.
+>
+> Am 10.10.2016 um 22:21 schrieb StDenis, Tom:
+>>
+>> The only downside to taking the locks all the time is for 99% of 
+>> debug reads it's unnecessary and in theory could lead to 
+>> performance/behaviour problems.
+>>
+>>
+>> I've been using this on read for a while now and haven't noticed a 
+>> problem.
+>>
+>>
+>> Tom
+>>
+>>
+>>
+>> ------------------------------------------------------------------------
+>> *From:* Christian König <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+>> *Sent:* Monday, October 10, 2016 09:49
+>> *To:* Tom St Denis; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> *Cc:* StDenis, Tom
+>> *Subject:* Re: [PATCH] drm/amd/amdgpu: Make debugfs write compliment 
+>> read
+>> Would it hurt us to always take the looks (both the pm as well as 
+>> grbm idx lock)?
+>>
+>> I don't think that would be much of an issue and I would have a 
+>> better feeling with that.
+>>
+>> Christian.
+>>
+>> Am 10.10.2016 um 15:38 schrieb Tom St Denis:
+>>>
+>>> that's kind of the point.  Its for debugging only.  Also reads can 
+>>> already lock
+>>>
+>>>
+>>> On Mon, Oct 10, 2016, 09:25 Christian König <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org 
+>>> <mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>> wrote:
+>>>
+>>>     Mhm, that userspace controls if the lock is taken or not is a bit
+>>>     problematic, on the other hand only root could access that.
+>>>
+>>>     Christian.
+>>>
+>>>     Am 10.10.2016 um 14:51 schrieb Tom St Denis:
+>>>     > Add PG lock support as well as bank selection to
+>>>     > the MMIO write function.
+>>>     >
+>>>     > Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org
+>>>     <mailto:tom.stdenis-5C7GfCeVMHo@public.gmane.org>>
+>>>     > ---
+>>>     >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 43
+>>>     ++++++++++++++++++++++++++++++
+>>>     >   1 file changed, 43 insertions(+)
+>>>     >
+>>>     > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>     b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>     > index 04c4aee70452..a9d83c1d7a43 100644
+>>>     > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>     > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>     > @@ -2637,10 +2637,45 @@ static ssize_t
+>>>     amdgpu_debugfs_regs_write(struct file *f, const char __user *buf,
+>>>     >       struct amdgpu_device *adev = f->f_inode->i_private;
+>>>     >       ssize_t result = 0;
+>>>     >       int r;
+>>>     > +     bool pm_pg_lock, use_bank;
+>>>     > +     unsigned instance_bank, sh_bank, se_bank;
+>>>     >
+>>>     >       if (size & 0x3 || *pos & 0x3)
+>>>     >               return -EINVAL;
+>>>     >
+>>>     > +     /* are we reading registers for which a PG lock is
+>>>     necessary? */
+>>>     > +     pm_pg_lock = (*pos >> 23) & 1;
+>>>     > +
+>>>     > +     if (*pos & (1ULL << 62)) {
+>>>     > +             se_bank = (*pos >> 24) & 0x3FF;
+>>>     > +             sh_bank = (*pos >> 34) & 0x3FF;
+>>>     > +             instance_bank = (*pos >> 44) & 0x3FF;
+>>>     > +
+>>>     > +             if (se_bank == 0x3FF)
+>>>     > +                     se_bank = 0xFFFFFFFF;
+>>>     > +             if (sh_bank == 0x3FF)
+>>>     > +                     sh_bank = 0xFFFFFFFF;
+>>>     > +             if (instance_bank == 0x3FF)
+>>>     > +                     instance_bank = 0xFFFFFFFF;
+>>>     > +             use_bank = 1;
+>>>     > +     } else {
+>>>     > +             use_bank = 0;
+>>>     > +     }
+>>>     > +
+>>>     > +     *pos &= 0x3FFFF;
+>>>     > +
+>>>     > +     if (use_bank) {
+>>>     > +             if ((sh_bank != 0xFFFFFFFF && sh_bank >=
+>>>     adev->gfx.config.max_sh_per_se) ||
+>>>     > +                 (se_bank != 0xFFFFFFFF && se_bank >=
+>>>     adev->gfx.config.max_shader_engines))
+>>>     > +                     return -EINVAL;
+>>>     > +  mutex_lock(&adev->grbm_idx_mutex);
+>>>     > +  amdgpu_gfx_select_se_sh(adev, se_bank,
+>>>     > +  sh_bank, instance_bank);
+>>>     > +     }
+>>>     > +
+>>>     > +     if (pm_pg_lock)
+>>>     > +  mutex_lock(&adev->pm.mutex);
+>>>     > +
+>>>     >       while (size) {
+>>>     >               uint32_t value;
+>>>     >
+>>>     > @@ -2659,6 +2694,14 @@ static ssize_t
+>>>     amdgpu_debugfs_regs_write(struct file *f, const char __user *buf,
+>>>     >               size -= 4;
+>>>     >       }
+>>>     >
+>>>     > +     if (use_bank) {
+>>>     > +  amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff,
+>>>     0xffffffff);
+>>>     > +  mutex_unlock(&adev->grbm_idx_mutex);
+>>>     > +     }
+>>>     > +
+>>>     > +     if (pm_pg_lock)
+>>>     > +  mutex_unlock(&adev->pm.mutex);
+>>>     > +
+>>>     >       return result;
+>>>     >   }
+>>>     >
+>>>
+>>>
+>>
+>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
-I'm not sure how a "broadcast read" is supposed to work? I can only see
-the register specs talking about broadcast in connection with writes.
 
 
---
-Earthling Michel D=E4nzer               |               http://www.amd.com
-Graphics, Processors and Immersive VR Solutions | AMD <http://www.amd.com/>
-www.amd.com<http://www.amd.com>
-Explore a wide range of innovative next generation computing processors, gr=
-aphics, and Immersive VR solutions by Advanced Micro Devices (AMD). Visit A=
-MD.com now!
-
-
-
-Libre software enthusiast             |             Mesa and X developer
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-amd-gfx Info Page - lists.freedesktop.org<https://lists.freedesktop.org/mai=
-lman/listinfo/amd-gfx>
-lists.freedesktop.org
-To see the collection of prior postings to the list, visit the amd-gfx Arch=
-ives. Using amd-gfx: To post a message to all the list members, send email =
-...
-
-
-
-
-
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
-
---_000_BN6PR12MB1764A6A7F768C662DC5866EBF7DA0BN6PR12MB1764namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+--------------2E4B51A2E29BFEB0586C2D2A
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
 <html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Arial,Helvetica,sans-serif;">
-<p>It's used by the UMD though they read from 0/*/* when reading the RASTER=
-_CONFIG registers (which may be a bug...)</p>
-<p><br>
-</p>
-<p>I only added it because the previous interface was either */*/* or x/y/z=
- (where none are *). &nbsp;Now it supports arbitrary bank selections.</p>
-<p><br>
-</p>
-<p>Tom</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Christian K=F6nig &lt=
-;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;<br>
-<b>Sent:</b> Tuesday, October 11, 2016 08:30<br>
-<b>To:</b> StDenis, Tom; Michel D=E4nzer<br>
-<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: [PATCH] drm/amd/amdgpu: Allow broadcast on debugfs read=
- (v2)</font>
-<div>&nbsp;</div>
-</div>
-<div>
-<div class=3D"moz-cite-prefix">I briefly remember reading in some hardware =
-doc that this actually has a defined behavior.<br>
-<br>
-It was something about applying either bit wise &quot;and&quot; or &quot;or=
-&quot; on the resulting bits and returning that to the reader.<br>
-<br>
-This way you can check with a single broadcast read if an error occurred or=
- if any of the instances are busy.<br>
-<br>
-But if you don't actually use it I suggest to not implement this.<br>
-<br>
-Regards,<br>
-Christian.<br>
-<br>
-Am 11.10.2016 um 12:26 schrieb StDenis, Tom:<br>
-</div>
-<blockquote type=3D"cite">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt; color:#000000; fo=
-nt-family:Calibri,Arial,Helvetica,sans-serif">
-<p>That actually makes sense. &nbsp;It came up because&nbsp;<span>mmPA_SC_R=
-ASTER_CONFIG (and _1) are read by libdrm with a selection of 0/*/* for se/s=
-h/instance so I wanted to be able to reproduce that via the debugfs interfa=
-ce for testing.</span></p>
-<p><span><br>
-</span></p>
-<p><span>But ya, if you use the broadcast bit who are you reading from then=
- ... hmm..</span></p>
-<p><span><br>
-</span></p>
-<p><span>Tom</span></p>
-<br>
-<br>
-<div style=3D"color:rgb(0,0,0)">
-<div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font color=3D"#000000" face=3D"Cal=
-ibri,=0A=
-                sans-serif" style=3D"font-size:11pt"><b>From:</b> amd-gfx
-<a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:amd-gfx-bounces-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
-edesktop.org">
-&lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a> on behalf of Michel D=E4n=
-zer <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:michel.daenzer@mailbo=
-x.org">
-&lt;michel.daenzer-cl+VPiYnx/1AfugRpC6u6w@public.gmane.org&gt;</a><br>
-<b>Sent:</b> Monday, October 10, 2016 23:52<br>
-<b>To:</b> Tom St Denis<br>
-<b>Cc:</b> <a class=3D"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx@lis=
-ts.freedesktop.org">
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-<b>Subject:</b> Re: [PATCH] drm/amd/amdgpu: Allow broadcast on debugfs read=
- (v2)</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt">
-<div class=3D"PlainText">On 09/10/16 08:58 PM, Tom St Denis wrote:<br>
-&gt; Allow any of the se/sh/instance fields to be<br>
-&gt; specified as a broadcast by submitting 0x3FF.<br>
-&gt; <br>
-&gt; (v2) Fix broadcast range checking<br>
-&gt; <br>
-&gt; Signed-off-by: Tom St Denis <a class=3D"moz-txt-link-rfc2396E" href=3D=
-"mailto:tom.stdenis-5C7GfCeVMHo@public.gmane.org">
-&lt;tom.stdenis-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-<br>
-I'm not sure how a &quot;broadcast read&quot; is supposed to work? I can on=
-ly see<br>
-the register specs talking about broadcast in connection with writes.<br>
-<br>
-<br>
--- <br>
-Earthling Michel D=E4nzer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href=3D"http://www.amd.com=
-" id=3D"LPlnk365128" previewremoved=3D"true">
-http://www.amd.com</a>
-<div id=3D"LPBorder_GT_14761814794940.12544022877196426" style=3D"margin-bo=
-ttom:20px; overflow:auto; width:100%; text-indent:0px" contenteditable=3D"f=
-alse">
-<table id=3D"LPContainer_14761814794910.48081554222867373" cellspacing=3D"0=
-" style=3D"width:90%; background-color:rgb(255,255,255); overflow:auto; pad=
-ding-top:20px; padding-bottom:20px; margin-top:20px; border-top:1px dotted =
-rgb(200,200,200); border-bottom:1px dotted rgb(200,200,200)">
-<tbody>
-<tr valign=3D"top" style=3D"border-spacing:0px">
-<td id=3D"TextCell_14761814794930.6330030561431497" colspan=3D"2" style=3D"=
-vertical-align:top; padding:0px; display:table-cell">
-<div id=3D"LPTitle_14761814794930.0860209784141206" style=3D""><a id=3D"LPU=
-rlAnchor_14761814794930.01359389598361771" href=3D"http://www.amd.com/" tar=
-get=3D"_blank" style=3D"text-decoration:none">Graphics, Processors and Imme=
-rsive VR Solutions | AMD
-</a></div>
-<div id=3D"LPMetadata_14761814794940.4677118614629565" style=3D""><a class=
-=3D"moz-txt-link-abbreviated" href=3D"http://www.amd.com">www.amd.com</a></=
-div>
-<div id=3D"LPDescription_14761814794940.37923242485275344" style=3D"display=
-:block; color:rgb(102,102,102); font-weight:normal; font-family:wf_segoe-ui=
-_normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif; =
-font-size:14px; line-height:20px; max-height:100px; overflow:hidden">
-Explore a wide range of innovative next generation computing processors, gr=
-aphics, and Immersive VR solutions by Advanced Micro Devices (AMD). Visit A=
-MD.com now!</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<br>
-<br>
-Libre software enthusiast&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; Mesa and X developer<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a class=3D"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
-top.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk287571" previewremoved=3D"true">https://lists.freedesktop.org/mailman/li=
-stinfo/amd-gfx</a>
-<div id=3D"LPBorder_GT_14761815380460.6817372487984479" style=3D"margin-bot=
-tom:20px; overflow:auto; width:100%; text-indent:0px" contenteditable=3D"fa=
-lse">
-<table id=3D"LPContainer_14761815380420.37970165615775286" cellspacing=3D"0=
-" style=3D"width:90%; background-color:rgb(255,255,255); overflow:auto; pad=
-ding-top:20px; padding-bottom:20px; margin-top:20px; border-top:1px dotted =
-rgb(200,200,200); border-bottom:1px dotted rgb(200,200,200)">
-<tbody>
-<tr valign=3D"top" style=3D"border-spacing:0px">
-<td id=3D"TextCell_14761815380430.2899884346376056" colspan=3D"2" style=3D"=
-vertical-align:top; padding:0px; display:table-cell">
-<div id=3D"LPTitle_14761815380440.5311884203741501" style=3D""><a id=3D"LPU=
-rlAnchor_14761815380450.40820370331518996" href=3D"https://lists.freedeskto=
-p.org/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"text-decoration:=
-none">amd-gfx Info Page - lists.freedesktop.org</a></div>
-<div id=3D"LPMetadata_14761815380450.487355067260703" style=3D"">lists.free=
-desktop.org</div>
-<div id=3D"LPDescription_14761815380450.7331276341568305" style=3D"display:=
-block; color:rgb(102,102,102); font-weight:normal; font-family:wf_segoe-ui_=
-normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif; f=
-ont-size:14px; line-height:20px; max-height:100px; overflow:hidden">
-To see the collection of prior postings to the list, visit the amd-gfx Arch=
-ives. Using amd-gfx: To post a message to all the list members, send email =
-...</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<br>
-<br>
-</div>
-</span></font></div>
-</div>
-<br>
-<fieldset class=3D"mimeAttachmentHeader"></fieldset> <br>
-<pre>_______________________________________________=0A=
-amd-gfx mailing list=0A=
-<a class=3D"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
-top.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>=0A=
-<a class=3D"moz-txt-link-freetext" href=3D"https://lists.freedesktop.org/ma=
-ilman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-=
-gfx</a>=0A=
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <div class="moz-cite-prefix">Hi Tom,<br>
+      <br>
+      yeah, the timing issue is a good argument. In this case just go
+      ahead and add my Acked-by to the patch.<br>
+      <br>
+      Regards,<br>
+      Christian.<br>
+      <br>
+      Am 11.10.2016 um 14:19 schrieb StDenis, Tom:<br>
+    </div>
+    <blockquote
+cite="mid:CY4PR12MB1768134851FB1F505F746843F7DA0-rpdhrqHFk06yjjPBNVDk/QdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org"
+      type="cite">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
+      <div id="divtagdefaultwrapper"
+style="font-size:12pt;color:#000000;font-family:Calibri,Arial,Helvetica,sans-serif;">
+        <p>Hi Christian,</p>
+        <p><br>
+        </p>
+        <p>I agree with the crux of your argument but you can crash the
+          system with carefully timed read/writes from the GFX
+          registers, or MC, or ... That's why the entries are root only.</p>
+        <p><br>
+        </p>
+        <p>The issue with locking excessively is you might change
+          behaviour of something you're trying to debug because the
+          kernel then has to wait on the lock (or you're waiting on the
+          lock).  For instance, suppose you want to read DCE registers
+          and the kernel is doing some gfx/grbm related your DCE read
+          will either block the GFX activity or you're waiting on it
+          which means the behaviour of the system could be different
+          than from the case where you're not probing the registers.</p>
+        <p><br>
+        </p>
+        <p>The goal is to be as unobtrusive as possible.  Heck I often
+          mmap the BAR so I can read MMIO registers directly and not
+          waste CPU cycles on syscalls.</p>
+        <div><br>
+        </div>
+        The PM lock is because reading PGFSM registers during a
+        powerup/down results in a GPU hang, and we only take the GRBM
+        lock when users want to read from specific banks.  For any other
+        case we don't need a lock.  In the kernel they should be
+        mutually exclusive.  The PM lock is only taken in PP when
+        performing a transition (or initializing the core) and I have
+        yet to see a place where PP/PM related code also grabs the grbm
+        index lock.
+        <div><br>
+        </div>
+        <div>I don't have strong feelings against your proposal but I do
+          prefer not to take the locks when I don't need to.  Ultimately
+          I'll leave the decision up to you and Alex.  I'd like to get
+          the 2nd patch through though as it makes the write side of the
+          mmio reg complimentary (e.g. bank selection/pm lock).<br>
+          <div><br>
+          </div>
+          <div>Cheers,</div>
+          <div>Tom<br>
+            <br>
+            <div style="color: rgb(0, 0, 0);">
+              <hr tabindex="-1" style="display:inline-block; width:98%">
+              <div id="divRplyFwdMsg" dir="ltr"><font
+                  style="font-size:11pt" color="#000000" face="Calibri,
+                  sans-serif"><b>From:</b> Christian König
+                  <a class="moz-txt-link-rfc2396E" href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">&lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;</a><br>
+                  <b>Sent:</b> Tuesday, October 11, 2016 08:11<br>
+                  <b>To:</b> StDenis, Tom; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                  <b>Subject:</b> Re: [PATCH] drm/amd/amdgpu: Make
+                  debugfs write compliment read</font>
+                <div> </div>
+              </div>
+              <div>
+                <div class="moz-cite-prefix">
+                  <blockquote type="cite">
+                    <p>The only downside to taking the locks all the
+                      time is for 99% of debug reads it's unnecessary
+                      and in theory could lead to performance/behaviour
+                      problems.</p>
+                  </blockquote>
+                  Yeah, but performance isn't critical here and taking
+                  two locks compared to the rest of what we (IOCTL
+                  etc...) do is completely negligibly.
+                  <br>
+                  <br>
+                  <blockquote type="cite">
+                    <p>I've been using this on read for a while now and
+                      haven't noticed a problem.</p>
+                  </blockquote>
+                  My concern is rather that somebody tries to write to
+                  the PM regs on accident or purpose without taking the
+                  lock.<br>
+                  <br>
+                  See, the kernel is usually responsible to keep people
+                  from doing stupid things with the hardware, even if
+                  those people are root and could do stupid things
+                  anyway. Well, you know what I mean?<br>
+                  <br>
+                  Regards,<br>
+                  Christian.<br>
+                  <br>
+                  Am 10.10.2016 um 22:21 schrieb StDenis, Tom:<br>
+                </div>
+                <blockquote type="cite">
+                  <div id="divtagdefaultwrapper" style="font-size:12pt;
+                    color:#000000;
+                    font-family:Calibri,Arial,Helvetica,sans-serif">
+                    <p>The only downside to taking the locks all the
+                      time is for 99% of debug reads it's unnecessary
+                      and in theory could lead to performance/behaviour
+                      problems.</p>
+                    <p><br>
+                    </p>
+                    <p>I've been using this on read for a while now and
+                      haven't noticed a problem.</p>
+                    <p><br>
+                    </p>
+                    <p>Tom</p>
+                    <br>
+                    <br>
+                    <div style="color:rgb(0,0,0)">
+                      <hr tabindex="-1" style="display:inline-block;
+                        width:98%">
+                      <div id="divRplyFwdMsg" dir="ltr"><font
+                          style="font-size:11pt" color="#000000"
+                          face="Calibri, sans-serif"><b>From:</b>
+                          Christian König
+                          <a moz-do-not-send="true"
+                            class="moz-txt-link-rfc2396E"
+                            href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">&lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;</a><br>
+                          <b>Sent:</b> Monday, October 10, 2016 09:49<br>
+                          <b>To:</b> Tom St Denis; <a
+                            moz-do-not-send="true"
+                            class="moz-txt-link-abbreviated"
+                            href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
+                            amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                          <b>Cc:</b> StDenis, Tom<br>
+                          <b>Subject:</b> Re: [PATCH] drm/amd/amdgpu:
+                          Make debugfs write compliment read</font>
+                        <div> </div>
+                      </div>
+                      <div>
+                        <div class="moz-cite-prefix">Would it hurt us to
+                          always take the looks (both the pm as well as
+                          grbm idx lock)?<br>
+                          <br>
+                          I don't think that would be much of an issue
+                          and I would have a better feeling with that.<br>
+                          <br>
+                          Christian.<br>
+                          <br>
+                          Am 10.10.2016 um 15:38 schrieb Tom St Denis:<br>
+                        </div>
+                        <blockquote type="cite">
+                          <p dir="ltr">that's kind of the point.  Its
+                            for debugging only.  Also reads can already
+                            lock</p>
+                          <br>
+                          <div class="gmail_quote">
+                            <div dir="ltr">On Mon, Oct 10, 2016, 09:25
+                              Christian König &lt;<a
+                                moz-do-not-send="true"
+                                href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org</a>&gt;
+                              wrote:<br>
+                            </div>
+                            <blockquote class="gmail_quote"
+                              style="margin:0 0 0 .8ex; border-left:1px
+                              #ccc solid; padding-left:1ex">
+                              Mhm, that userspace controls if the lock
+                              is taken or not is a bit<br
+                                class="gmail_msg">
+                              problematic, on the other hand only root
+                              could access that.<br class="gmail_msg">
+                              <br class="gmail_msg">
+                              Christian.<br class="gmail_msg">
+                              <br class="gmail_msg">
+                              Am 10.10.2016 um 14:51 schrieb Tom St
+                              Denis:<br class="gmail_msg">
+                              &gt; Add PG lock support as well as bank
+                              selection to<br class="gmail_msg">
+                              &gt; the MMIO write function.<br
+                                class="gmail_msg">
+                              &gt;<br class="gmail_msg">
+                              &gt; Signed-off-by: Tom St Denis &lt;<a
+                                moz-do-not-send="true"
+                                href="mailto:tom.stdenis-5C7GfCeVMHo@public.gmane.org"
+                                class="gmail_msg" target="_blank">tom.stdenis-5C7GfCeVMHo@public.gmane.org</a>&gt;<br
+                                class="gmail_msg">
+                              &gt; ---<br class="gmail_msg">
+                              &gt; 
+                               drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+                              | 43 ++++++++++++++++++++++++++++++<br
+                                class="gmail_msg">
+                              &gt;   1 file changed, 43 insertions(+)<br
+                                class="gmail_msg">
+                              &gt;<br class="gmail_msg">
+                              &gt; diff --git
+                              a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br class="gmail_msg">
+                              &gt; index 04c4aee70452..a9d83c1d7a43
+                              100644<br class="gmail_msg">
+                              &gt; ---
+                              a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br
+                                class="gmail_msg">
+                              &gt; +++
+                              b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br
+                                class="gmail_msg">
+                              &gt; @@ -2637,10 +2637,45 @@ static
+                              ssize_t amdgpu_debugfs_regs_write(struct
+                              file *f, const char __user *buf,<br
+                                class="gmail_msg">
+                              &gt;       struct amdgpu_device *adev =
+                              f-&gt;f_inode-&gt;i_private;<br
+                                class="gmail_msg">
+                              &gt;       ssize_t result = 0;<br
+                                class="gmail_msg">
+                              &gt;       int r;<br class="gmail_msg">
+                              &gt; +     bool pm_pg_lock, use_bank;<br
+                                class="gmail_msg">
+                              &gt; +     unsigned instance_bank,
+                              sh_bank, se_bank;<br class="gmail_msg">
+                              &gt;<br class="gmail_msg">
+                              &gt;       if (size &amp; 0x3 || *pos
+                              &amp; 0x3)<br class="gmail_msg">
+                              &gt;               return -EINVAL;<br
+                                class="gmail_msg">
+                              &gt;<br class="gmail_msg">
+                              &gt; +     /* are we reading registers for
+                              which a PG lock is necessary? */<br
+                                class="gmail_msg">
+                              &gt; +     pm_pg_lock = (*pos &gt;&gt; 23)
+                              &amp; 1;<br class="gmail_msg">
+                              &gt; +<br class="gmail_msg">
+                              &gt; +     if (*pos &amp; (1ULL &lt;&lt;
+                              62)) {<br class="gmail_msg">
+                              &gt; +             se_bank = (*pos
+                              &gt;&gt; 24) &amp; 0x3FF;<br
+                                class="gmail_msg">
+                              &gt; +             sh_bank = (*pos
+                              &gt;&gt; 34) &amp; 0x3FF;<br
+                                class="gmail_msg">
+                              &gt; +             instance_bank = (*pos
+                              &gt;&gt; 44) &amp; 0x3FF;<br
+                                class="gmail_msg">
+                              &gt; +<br class="gmail_msg">
+                              &gt; +             if (se_bank == 0x3FF)<br
+                                class="gmail_msg">
+                              &gt; +                     se_bank =
+                              0xFFFFFFFF;<br class="gmail_msg">
+                              &gt; +             if (sh_bank == 0x3FF)<br
+                                class="gmail_msg">
+                              &gt; +                     sh_bank =
+                              0xFFFFFFFF;<br class="gmail_msg">
+                              &gt; +             if (instance_bank ==
+                              0x3FF)<br class="gmail_msg">
+                              &gt; +                     instance_bank =
+                              0xFFFFFFFF;<br class="gmail_msg">
+                              &gt; +             use_bank = 1;<br
+                                class="gmail_msg">
+                              &gt; +     } else {<br class="gmail_msg">
+                              &gt; +             use_bank = 0;<br
+                                class="gmail_msg">
+                              &gt; +     }<br class="gmail_msg">
+                              &gt; +<br class="gmail_msg">
+                              &gt; +     *pos &amp;= 0x3FFFF;<br
+                                class="gmail_msg">
+                              &gt; +<br class="gmail_msg">
+                              &gt; +     if (use_bank) {<br
+                                class="gmail_msg">
+                              &gt; +             if ((sh_bank !=
+                              0xFFFFFFFF &amp;&amp; sh_bank &gt;=
+                              adev-&gt;gfx.config.max_sh_per_se) ||<br
+                                class="gmail_msg">
+                              &gt; +                 (se_bank !=
+                              0xFFFFFFFF &amp;&amp; se_bank &gt;=
+                              adev-&gt;gfx.config.max_shader_engines))<br
+                                class="gmail_msg">
+                              &gt; +                     return -EINVAL;<br
+                                class="gmail_msg">
+                              &gt; +           
+                               mutex_lock(&amp;adev-&gt;grbm_idx_mutex);<br
+                                class="gmail_msg">
+                              &gt; +           
+                               amdgpu_gfx_select_se_sh(adev, se_bank,<br
+                                class="gmail_msg">
+                              &gt; +                                   
+                               sh_bank, instance_bank);<br
+                                class="gmail_msg">
+                              &gt; +     }<br class="gmail_msg">
+                              &gt; +<br class="gmail_msg">
+                              &gt; +     if (pm_pg_lock)<br
+                                class="gmail_msg">
+                              &gt; +           
+                               mutex_lock(&amp;adev-&gt;pm.mutex);<br
+                                class="gmail_msg">
+                              &gt; +<br class="gmail_msg">
+                              &gt;       while (size) {<br
+                                class="gmail_msg">
+                              &gt;               uint32_t value;<br
+                                class="gmail_msg">
+                              &gt;<br class="gmail_msg">
+                              &gt; @@ -2659,6 +2694,14 @@ static ssize_t
+                              amdgpu_debugfs_regs_write(struct file *f,
+                              const char __user *buf,<br
+                                class="gmail_msg">
+                              &gt;               size -= 4;<br
+                                class="gmail_msg">
+                              &gt;       }<br class="gmail_msg">
+                              &gt;<br class="gmail_msg">
+                              &gt; +     if (use_bank) {<br
+                                class="gmail_msg">
+                              &gt; +           
+                               amdgpu_gfx_select_se_sh(adev, 0xffffffff,
+                              0xffffffff, 0xffffffff);<br
+                                class="gmail_msg">
+                              &gt; +           
+                               mutex_unlock(&amp;adev-&gt;grbm_idx_mutex);<br
+                                class="gmail_msg">
+                              &gt; +     }<br class="gmail_msg">
+                              &gt; +<br class="gmail_msg">
+                              &gt; +     if (pm_pg_lock)<br
+                                class="gmail_msg">
+                              &gt; +           
+                               mutex_unlock(&amp;adev-&gt;pm.mutex);<br
+                                class="gmail_msg">
+                              &gt; +<br class="gmail_msg">
+                              &gt;       return result;<br
+                                class="gmail_msg">
+                              &gt;   }<br class="gmail_msg">
+                              &gt;<br class="gmail_msg">
+                              <br class="gmail_msg">
+                              <br class="gmail_msg">
+                            </blockquote>
+                          </div>
+                        </blockquote>
+                        <p><br>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </blockquote>
+                <p><br>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
 </pre>
-</blockquote>
-<p><br>
-</p>
-</div>
-</div>
-</div>
-</body>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
 </html>
 
---_000_BN6PR12MB1764A6A7F768C662DC5866EBF7DA0BN6PR12MB1764namp_--
+--------------2E4B51A2E29BFEB0586C2D2A--
 
---===============1362298042==
+--===============0092430761==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -357,4 +634,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1362298042==--
+--===============0092430761==--
