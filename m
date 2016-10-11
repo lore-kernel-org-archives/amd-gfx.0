@@ -1,194 +1,106 @@
-From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 8/8] drm/amdgpu: move align_mask and nop into ring funcs
- as well
-Date: Tue, 11 Oct 2016 13:28:05 +0000
-Message-ID: <CY4PR12MB1768C74FCED56F7663ABCE5BF7DA0@CY4PR12MB1768.namprd12.prod.outlook.com>
-References: <1475676809-3061-1-git-send-email-deathsimple@vodafone.de>
- <1475676809-3061-8-git-send-email-deathsimple@vodafone.de>
- <57FCE58E.5040107@gmail.com>,
- <82e102e9-cd1b-10ce-75ca-201ef4b802d4@vodafone.de>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: use .early_unregister hook to remove DP AUX
+ i2c
+Date: Tue, 11 Oct 2016 12:26:10 -0400
+Message-ID: <CADnq5_PXrY+CGh4sWbN3iBRd=Sxma2YA+zfsJtr7WUXYoiabCA@mail.gmail.com>
+References: <1476034099-4549-1-git-send-email-notasas@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1822030838=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <82e102e9-cd1b-10ce-75ca-201ef4b802d4-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?iso-8859-1?Q?Christian_K=F6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
---===============1822030838==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB1768C74FCED56F7663ABCE5BF7DA0CY4PR12MB1768namp_"
-
---_000_CY4PR12MB1768C74FCED56F7663ABCE5BF7DA0CY4PR12MB1768namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-It dies on my Tonga just FYI (save you some trouble).
-
-
-Tom
-
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Christia=
-n K=F6nig <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Sent: Tuesday, October 11, 2016 09:26
-To: Andy Furniss; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH 8/8] drm/amdgpu: move align_mask and nop into ring func=
-s as well
-
-Am 11.10.2016 um 15:13 schrieb Andy Furniss:
-> Christian K=F6nig wrote:
->> From: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
->>
->> They are constant as well.
->
-> I die on driver load with this commit on R9285 testing on 4.9-wip.
->
->
-Probably just a typo in the hardware handling.
-
-Going to switch to my Tonga in a minute, but I only got about half an
-hour left before I need to get my daughter from kindergarten.
-
-Christian.
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-amd-gfx Info Page - lists.freedesktop.org<https://lists.freedesktop.org/mai=
-lman/listinfo/amd-gfx>
-lists.freedesktop.org
-To see the collection of prior postings to the list, visit the amd-gfx Arch=
-ives. Using amd-gfx: To post a message to all the list members, send email =
-...
-
-
-
-
---_000_CY4PR12MB1768C74FCED56F7663ABCE5BF7DA0CY4PR12MB1768namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Arial,Helvetica,sans-serif;">
-<p>It dies on my Tonga just FYI (save you some trouble).</p>
-<p><br>
-</p>
-<p>Tom</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Christian K=F6nig &lt;death=
-simple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;<br>
-<b>Sent:</b> Tuesday, October 11, 2016 09:26<br>
-<b>To:</b> Andy Furniss; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: [PATCH 8/8] drm/amdgpu: move align_mask and nop into ri=
-ng funcs as well</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">Am 11.10.2016 um 15:13 schrieb Andy Furniss:<br>
-&gt; Christian K=F6nig wrote:<br>
-&gt;&gt; From: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt;&gt;<br>
-&gt;&gt; They are constant as well.<br>
-&gt;<br>
-&gt; I die on driver load with this commit on R9285 testing on 4.9-wip.<br>
-&gt;<br>
-&gt;<br>
-Probably just a typo in the hardware handling.<br>
-<br>
-Going to switch to my Tonga in a minute, but I only got about half an <br>
-hour left before I need to get my daughter from kindergarten.<br>
-<br>
-Christian.<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk232679" previewremoved=3D"true">https://lists.freedesktop.org/mailman/li=
-stinfo/amd-gfx</a>
-<div id=3D"LPBorder_GT_14761924713750.3264565919104536" style=3D"margin-bot=
-tom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
-<table id=3D"LPContainer_14761924713730.05028899734727377" cellspacing=3D"0=
-" style=3D"width: 90%; background-color: rgb(255, 255, 255); position: rela=
-tive; overflow: auto; padding-top: 20px; padding-bottom: 20px; margin-top: =
-20px; border-top: 1px dotted rgb(200, 200, 200); border-bottom: 1px dotted =
-rgb(200, 200, 200);">
-<tbody>
-<tr valign=3D"top" style=3D"border-spacing: 0px;">
-<td id=3D"TextCell_14761924713730.314774573443503" colspan=3D"2" style=3D"v=
-ertical-align: top; position: relative; padding: 0px; display: table-cell;"=
->
-<div id=3D"LPRemovePreviewContainer_14761924713740.7538213156845888"></div>
-<div id=3D"LPTitle_14761924713740.009190374513265542" style=3D"top: 0px; co=
-lor: rgb(59, 87, 119); font-weight: normal; font-size: 21px; font-family: w=
-f_segoe-ui_light, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&quot;, &=
-quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif; line-=
-height: 21px;">
-<a id=3D"LPUrlAnchor_14761924713740.4488872061620295" href=3D"https://lists=
-.freedesktop.org/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"text-=
-decoration: none;">amd-gfx Info Page - lists.freedesktop.org</a></div>
-<div id=3D"LPMetadata_14761924713740.6388958295049414" style=3D"margin: 10p=
-x 0px 16px; color: rgb(102, 102, 102); font-weight: normal; font-family: wf=
-_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial=
-, sans-serif; font-size: 14px; line-height: 14px;">
-lists.freedesktop.org</div>
-<div id=3D"LPDescription_14761924713740.42639052946896294" style=3D"display=
-: block; color: rgb(102, 102, 102); font-weight: normal; font-family: wf_se=
-goe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, s=
-ans-serif; font-size: 14px; line-height: 20px; max-height: 100px; overflow:=
- hidden;">
-To see the collection of prior postings to the list, visit the amd-gfx Arch=
-ives. Using amd-gfx: To post a message to all the list members, send email =
-...</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB1768C74FCED56F7663ABCE5BF7DA0CY4PR12MB1768namp_--
-
---===============1822030838==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <1476034099-4549-1-git-send-email-notasas@gmail.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Grazvydas Ignotas <notasas@gmail.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1822030838==--
+T24gU3VuLCBPY3QgOSwgMjAxNiBhdCAxOjI4IFBNLCBHcmF6dnlkYXMgSWdub3RhcyA8bm90YXNh
+c0BnbWFpbC5jb20+IHdyb3RlOgo+IFdoZW4gRGlzcGxheVBvcnQgQVVYIGNoYW5uZWwgaTJjIGFk
+YXB0ZXIgaXMgcmVnaXN0ZXJlZCwgZHJtX2Nvbm5lY3RvcidzCj4ga2RldiBtZW1iZXIgaXMgdXNl
+ZCBhcyBhIHBhcmVudCwgc28gd2UgZ2V0IHN5c2ZzIHN0cnVjdHVyZSBsaWtlOgo+ICAgL2RybS9j
+YXJkMS9jYXJkMS1EUC0yL2kyYy0xMgo+IEJlY2F1c2Ugb2YgdGhhdCwgdGhlcmUgaXMgYSBwcm9i
+bGVtIHdoZW4gZHJtIGNvcmUgKGFuZCBub3QgdGhlIGRyaXZlcikKPiBjYWxscyBkcm1fY29ubmVj
+dG9yX3VucmVnaXN0ZXIoKSwgaXQgcmVtb3ZlcyBwYXJlbnQgc3lzZnMgZW50cmllcwo+ICgnY2Fy
+ZDEtRFAtMicgaW4gb3VyIGV4YW1wbGUpIHdoaWxlIHRoZSBpMmMgYWRhcHRlciBpcyBzdGlsbCBy
+ZWdpc3RlcmVkLgo+IExhdGVyIHdlIGdldCBhIFdBUk4gd2hlbiB3ZSB0cnkgdG8gdW5yZWdpc3Rl
+ciB0aGUgaTJjIGFkYXB0ZXI6Cj4KPiAgIFdBUk5JTkc6IENQVTogMyBQSUQ6IDEzNzQgYXQgZnMv
+c3lzZnMvZ3JvdXAuYzoyNDMgc3lzZnNfcmVtb3ZlX2dyb3VwKzB4MTRjLzB4MTUwCj4gICBzeXNm
+cyBncm91cCBmZmZmZmZmZjgyOTExZTQwIG5vdCBmb3VuZCBmb3Iga29iamVjdCAnaTJjLTEyJwo+
+Cj4gVG8gZml4IGl0LCB3ZSBjYW4gdXNlIHRoZSAuZWFybHlfdW5yZWdpc3RlciBob29rIHRvIHVu
+cmVnaXN0ZXIgdGhlIGkyYwo+IGFkYXB0ZXIgYmVmb3JlIGRybV9jb25uZWN0b3IncyBzeXNmcyBp
+cyB0b3JuIGRvd24uCj4KPiBTaWduZWQtb2ZmLWJ5OiBHcmF6dnlkYXMgSWdub3RhcyA8bm90YXNh
+c0BnbWFpbC5jb20+CgpBcHBsaWVkLiAgdGhhbmtzIQoKQWxleAoKPiAtLS0KPiAgZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Nvbm5lY3RvcnMuYyB8IDEzICsrKysrKysrKysrKy0K
+PiAgMSBmaWxlIGNoYW5nZWQsIDEyIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKPgo+IGRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY29ubmVjdG9ycy5j
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Nvbm5lY3RvcnMuYwo+IGluZGV4
+IDc2YTc4MzAuLjA5Yjc2YTggMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2Nvbm5lY3RvcnMuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9jb25uZWN0b3JzLmMKPiBAQCAtNzY1LDcgKzc2NSw3IEBAIGFtZGdwdV9jb25uZWN0
+b3JfbHZkc19kZXRlY3Qoc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvciwgYm9vbCBmb3Jj
+ZSkKPiAgICAgICAgIHJldHVybiByZXQ7Cj4gIH0KPgo+IC1zdGF0aWMgdm9pZCBhbWRncHVfY29u
+bmVjdG9yX2Rlc3Ryb3koc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvcikKPiArc3RhdGlj
+IHZvaWQgYW1kZ3B1X2Nvbm5lY3Rvcl91bnJlZ2lzdGVyKHN0cnVjdCBkcm1fY29ubmVjdG9yICpj
+b25uZWN0b3IpCj4gIHsKPiAgICAgICAgIHN0cnVjdCBhbWRncHVfY29ubmVjdG9yICphbWRncHVf
+Y29ubmVjdG9yID0gdG9fYW1kZ3B1X2Nvbm5lY3Rvcihjb25uZWN0b3IpOwo+Cj4gQEAgLTc3Myw2
+ICs3NzMsMTIgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X2Nvbm5lY3Rvcl9kZXN0cm95KHN0cnVjdCBk
+cm1fY29ubmVjdG9yICpjb25uZWN0b3IpCj4gICAgICAgICAgICAgICAgIGRybV9kcF9hdXhfdW5y
+ZWdpc3RlcigmYW1kZ3B1X2Nvbm5lY3Rvci0+ZGRjX2J1cy0+YXV4KTsKPiAgICAgICAgICAgICAg
+ICAgYW1kZ3B1X2Nvbm5lY3Rvci0+ZGRjX2J1cy0+aGFzX2F1eCA9IGZhbHNlOwo+ICAgICAgICAg
+fQo+ICt9Cj4gKwo+ICtzdGF0aWMgdm9pZCBhbWRncHVfY29ubmVjdG9yX2Rlc3Ryb3koc3RydWN0
+IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvcikKPiArewo+ICsgICAgICAgc3RydWN0IGFtZGdwdV9j
+b25uZWN0b3IgKmFtZGdwdV9jb25uZWN0b3IgPSB0b19hbWRncHVfY29ubmVjdG9yKGNvbm5lY3Rv
+cik7Cj4gKwo+ICAgICAgICAgYW1kZ3B1X2Nvbm5lY3Rvcl9mcmVlX2VkaWQoY29ubmVjdG9yKTsK
+PiAgICAgICAgIGtmcmVlKGFtZGdwdV9jb25uZWN0b3ItPmNvbl9wcml2KTsKPiAgICAgICAgIGRy
+bV9jb25uZWN0b3JfdW5yZWdpc3Rlcihjb25uZWN0b3IpOwo+IEBAIC04MjYsNiArODMyLDcgQEAg
+c3RhdGljIGNvbnN0IHN0cnVjdCBkcm1fY29ubmVjdG9yX2Z1bmNzIGFtZGdwdV9jb25uZWN0b3Jf
+bHZkc19mdW5jcyA9IHsKPiAgICAgICAgIC5kcG1zID0gZHJtX2hlbHBlcl9jb25uZWN0b3JfZHBt
+cywKPiAgICAgICAgIC5kZXRlY3QgPSBhbWRncHVfY29ubmVjdG9yX2x2ZHNfZGV0ZWN0LAo+ICAg
+ICAgICAgLmZpbGxfbW9kZXMgPSBkcm1faGVscGVyX3Byb2JlX3NpbmdsZV9jb25uZWN0b3JfbW9k
+ZXMsCj4gKyAgICAgICAuZWFybHlfdW5yZWdpc3RlciA9IGFtZGdwdV9jb25uZWN0b3JfdW5yZWdp
+c3RlciwKPiAgICAgICAgIC5kZXN0cm95ID0gYW1kZ3B1X2Nvbm5lY3Rvcl9kZXN0cm95LAo+ICAg
+ICAgICAgLnNldF9wcm9wZXJ0eSA9IGFtZGdwdV9jb25uZWN0b3Jfc2V0X2xjZF9wcm9wZXJ0eSwK
+PiAgfTsKPiBAQCAtOTM2LDYgKzk0Myw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZHJtX2Nvbm5l
+Y3Rvcl9mdW5jcyBhbWRncHVfY29ubmVjdG9yX3ZnYV9mdW5jcyA9IHsKPiAgICAgICAgIC5kcG1z
+ID0gZHJtX2hlbHBlcl9jb25uZWN0b3JfZHBtcywKPiAgICAgICAgIC5kZXRlY3QgPSBhbWRncHVf
+Y29ubmVjdG9yX3ZnYV9kZXRlY3QsCj4gICAgICAgICAuZmlsbF9tb2RlcyA9IGRybV9oZWxwZXJf
+cHJvYmVfc2luZ2xlX2Nvbm5lY3Rvcl9tb2RlcywKPiArICAgICAgIC5lYXJseV91bnJlZ2lzdGVy
+ID0gYW1kZ3B1X2Nvbm5lY3Rvcl91bnJlZ2lzdGVyLAo+ICAgICAgICAgLmRlc3Ryb3kgPSBhbWRn
+cHVfY29ubmVjdG9yX2Rlc3Ryb3ksCj4gICAgICAgICAuc2V0X3Byb3BlcnR5ID0gYW1kZ3B1X2Nv
+bm5lY3Rvcl9zZXRfcHJvcGVydHksCj4gIH07Cj4gQEAgLTEyMDMsNiArMTIxMSw3IEBAIHN0YXRp
+YyBjb25zdCBzdHJ1Y3QgZHJtX2Nvbm5lY3Rvcl9mdW5jcyBhbWRncHVfY29ubmVjdG9yX2R2aV9m
+dW5jcyA9IHsKPiAgICAgICAgIC5kZXRlY3QgPSBhbWRncHVfY29ubmVjdG9yX2R2aV9kZXRlY3Qs
+Cj4gICAgICAgICAuZmlsbF9tb2RlcyA9IGRybV9oZWxwZXJfcHJvYmVfc2luZ2xlX2Nvbm5lY3Rv
+cl9tb2RlcywKPiAgICAgICAgIC5zZXRfcHJvcGVydHkgPSBhbWRncHVfY29ubmVjdG9yX3NldF9w
+cm9wZXJ0eSwKPiArICAgICAgIC5lYXJseV91bnJlZ2lzdGVyID0gYW1kZ3B1X2Nvbm5lY3Rvcl91
+bnJlZ2lzdGVyLAo+ICAgICAgICAgLmRlc3Ryb3kgPSBhbWRncHVfY29ubmVjdG9yX2Rlc3Ryb3ks
+Cj4gICAgICAgICAuZm9yY2UgPSBhbWRncHVfY29ubmVjdG9yX2R2aV9mb3JjZSwKPiAgfTsKPiBA
+QCAtMTQ5Myw2ICsxNTAyLDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBkcm1fY29ubmVjdG9yX2Z1
+bmNzIGFtZGdwdV9jb25uZWN0b3JfZHBfZnVuY3MgPSB7Cj4gICAgICAgICAuZGV0ZWN0ID0gYW1k
+Z3B1X2Nvbm5lY3Rvcl9kcF9kZXRlY3QsCj4gICAgICAgICAuZmlsbF9tb2RlcyA9IGRybV9oZWxw
+ZXJfcHJvYmVfc2luZ2xlX2Nvbm5lY3Rvcl9tb2RlcywKPiAgICAgICAgIC5zZXRfcHJvcGVydHkg
+PSBhbWRncHVfY29ubmVjdG9yX3NldF9wcm9wZXJ0eSwKPiArICAgICAgIC5lYXJseV91bnJlZ2lz
+dGVyID0gYW1kZ3B1X2Nvbm5lY3Rvcl91bnJlZ2lzdGVyLAo+ICAgICAgICAgLmRlc3Ryb3kgPSBh
+bWRncHVfY29ubmVjdG9yX2Rlc3Ryb3ksCj4gICAgICAgICAuZm9yY2UgPSBhbWRncHVfY29ubmVj
+dG9yX2R2aV9mb3JjZSwKPiAgfTsKPiBAQCAtMTUwMiw2ICsxNTEyLDcgQEAgc3RhdGljIGNvbnN0
+IHN0cnVjdCBkcm1fY29ubmVjdG9yX2Z1bmNzIGFtZGdwdV9jb25uZWN0b3JfZWRwX2Z1bmNzID0g
+ewo+ICAgICAgICAgLmRldGVjdCA9IGFtZGdwdV9jb25uZWN0b3JfZHBfZGV0ZWN0LAo+ICAgICAg
+ICAgLmZpbGxfbW9kZXMgPSBkcm1faGVscGVyX3Byb2JlX3NpbmdsZV9jb25uZWN0b3JfbW9kZXMs
+Cj4gICAgICAgICAuc2V0X3Byb3BlcnR5ID0gYW1kZ3B1X2Nvbm5lY3Rvcl9zZXRfbGNkX3Byb3Bl
+cnR5LAo+ICsgICAgICAgLmVhcmx5X3VucmVnaXN0ZXIgPSBhbWRncHVfY29ubmVjdG9yX3VucmVn
+aXN0ZXIsCj4gICAgICAgICAuZGVzdHJveSA9IGFtZGdwdV9jb25uZWN0b3JfZGVzdHJveSwKPiAg
+ICAgICAgIC5mb3JjZSA9IGFtZGdwdV9jb25uZWN0b3JfZHZpX2ZvcmNlLAo+ICB9Owo+IC0tCj4g
+Mi43LjQKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+Cj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+
+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwg
+bWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
