@@ -1,13 +1,25 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer-cl+VPiYnx/1AfugRpC6u6w@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/amdgpu: Allow broadcast on debugfs read (v2)
-Date: Tue, 11 Oct 2016 12:52:27 +0900
-Message-ID: <a2035199-429c-d377-b354-bf42148d3820@mailbox.org>
-References: <20161009115808.12776-1-tom.stdenis@amd.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: [PATCH] drm/i915: Before pageflip, also wait for shared dmabuf
+ fences.
+Date: Tue, 11 Oct 2016 12:58:45 +0900
+Message-ID: <d74d34a7-5221-d282-d9d1-b0e1007fc0c7@daenzer.net>
+References: <3f4643cb-52a9-d7ae-439b-5f6fc6e718cc@vodafone.de>
+ <20160922063625.GD22164@dvetter-linux.ger.corp.intel.com>
+ <b95726e7-6bf6-a1b8-2a63-0758b1b185e2@vodafone.de>
+ <CAKMK7uF13M7d8qRRwKs_8M-QHjnuB7k3jshTUDnccTTQf6unog@mail.gmail.com>
+ <ddf99e2a-5f9a-41b9-9fde-af7bfd522572@vodafone.de>
+ <CAKMK7uEidoKbTO-m3KSz8UmQhF+uorg2-cWY8UpOXjZ_9MCxLg@mail.gmail.com>
+ <d2430ff8-43bd-bff2-9b02-847cabfd56c0@vodafone.de>
+ <ed1a57a4-1409-6d07-998a-2b54f466f710@daenzer.net>
+ <20160923120954.GH22164@dvetter-linux.ger.corp.intel.com>
+ <8c21f70a-7f96-480e-9784-93f2d48f52bb@daenzer.net>
+ <20160926080419.GV20761@phenom.ffwll.local>
+ <CAHbf0-HZ6EotqwgvkxRTdRF97xB3qBA=DRKAzaAXguV_PR_P8w@mail.gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20161009115808.12776-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CAHbf0-HZ6EotqwgvkxRTdRF97xB3qBA=DRKAzaAXguV_PR_P8w-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,18 +30,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Cc: dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gMDkvMTAvMTYgMDg6NTggUE0sIFRvbSBTdCBEZW5pcyB3cm90ZToKPiBBbGxvdyBhbnkgb2Yg
-dGhlIHNlL3NoL2luc3RhbmNlIGZpZWxkcyB0byBiZQo+IHNwZWNpZmllZCBhcyBhIGJyb2FkY2Fz
-dCBieSBzdWJtaXR0aW5nIDB4M0ZGLgo+IAo+ICh2MikgRml4IGJyb2FkY2FzdCByYW5nZSBjaGVj
-a2luZwo+IAo+IFNpZ25lZC1vZmYtYnk6IFRvbSBTdCBEZW5pcyA8dG9tLnN0ZGVuaXNAYW1kLmNv
-bT4KCkknbSBub3Qgc3VyZSBob3cgYSAiYnJvYWRjYXN0IHJlYWQiIGlzIHN1cHBvc2VkIHRvIHdv
-cms/IEkgY2FuIG9ubHkgc2VlCnRoZSByZWdpc3RlciBzcGVjcyB0YWxraW5nIGFib3V0IGJyb2Fk
-Y2FzdCBpbiBjb25uZWN0aW9uIHdpdGggd3JpdGVzLgoKCi0tIApFYXJ0aGxpbmcgTWljaGVsIETD
-pG56ZXIgICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAgaHR0cDovL3d3dy5hbWQuY29tCkxp
-YnJlIHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAgICAgICAgfCAgICAgICAgICAgICBNZXNhIGFu
-ZCBYIGRldmVsb3BlcgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+T24gMDcvMTAvMTYgMDk6MzQgUE0sIE1pa2UgTG90aGlhbiB3cm90ZToKPiAKPiBUaGlzIGhhcyBk
+aXNjdXNzaW9uIGhhcyBnb25lIGEgbGl0dGxlIHF1aWV0Cj4gCj4gV2FzIHRoZXJlIGFueSBhZ3Jl
+ZW1lbnQgYWJvdXQgd2hhdCBuZWVkZWQgZG9pbmcgdG8gZ2V0IHRoaXMgd29ya2luZwo+IGZvciBp
+OTY1L2FtZGdwdT8KCkNocmlzdGlhbiwgZG8geW91IHNlZSBhbnl0aGluZyB3aGljaCBjb3VsZCBw
+cmV2ZW50IHRoZSBzb2x1dGlvbiBJCm91dGxpbmVkIGZyb20gd29ya2luZz8KCgotLSAKRWFydGhs
+aW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93
+d3cuYW1kLmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAg
+ICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cg==
