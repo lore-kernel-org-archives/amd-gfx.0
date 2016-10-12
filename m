@@ -1,52 +1,51 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: [PATCH] drm/radeon: change vblank_time's calculation method to reduce computational error.
-Date: Wed, 12 Oct 2016 15:29:43 -0400
-Message-ID: <1476300583-28928-1-git-send-email-alexander.deucher@amd.com>
-Return-path: <stable-owner@vger.kernel.org>
-Sender: stable-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 5/6] drm/amdgpu/powerplay: add an implementation for
+ get_vce_clock_table
+Date: Wed, 12 Oct 2016 17:11:48 -0400
+Message-ID: <CADnq5_OT26ScfS8kvBPyzapFi+-=O8BMy59U286LWBLvXPgyag@mail.gmail.com>
+References: <1475864905-21269-1-git-send-email-alexander.deucher@amd.com>
+ <1475864905-21269-5-git-send-email-alexander.deucher@amd.com>
+ <CADnq5_MFT8M8VRu17gOcZjjRCK9Z-c3mG7=V46BQhYZXMKMetA@mail.gmail.com>
+ <CY4PR12MB16871A098341B047DBA0DEADFBDD0@CY4PR12MB1687.namprd12.prod.outlook.com>
+ <e8cdcd80-3df3-940f-32b5-9116e5d15fa6@vodafone.de>
+ <CY4PR12MB168795F3CD0C3B58ED38828DFBDD0@CY4PR12MB1687.namprd12.prod.outlook.com>
+ <4117134e-ff2f-808d-4354-3e51c2410724@vodafone.de>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <4117134e-ff2f-808d-4354-3e51c2410724-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Zhang,
+ Boyuan" <Boyuan.Zhang-5C7GfCeVMHo@public.gmane.org>, "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Fang,
+ Peter" <Peter.Fang-5C7GfCeVMHo@public.gmane.org>
 
-Ported from Rex's amdgpu change.
-
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
----
- drivers/gpu/drm/radeon/r600_dpm.c | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/radeon/r600_dpm.c b/drivers/gpu/drm/radeon/r600_dpm.c
-index 6a4b020..5a26eb4 100644
---- a/drivers/gpu/drm/radeon/r600_dpm.c
-+++ b/drivers/gpu/drm/radeon/r600_dpm.c
-@@ -156,19 +156,20 @@ u32 r600_dpm_get_vblank_time(struct radeon_device *rdev)
- 	struct drm_device *dev = rdev->ddev;
- 	struct drm_crtc *crtc;
- 	struct radeon_crtc *radeon_crtc;
--	u32 line_time_us, vblank_lines;
-+	u32 vblank_in_pixels;
- 	u32 vblank_time_us = 0xffffffff; /* if the displays are off, vblank time is max */
- 
- 	if (rdev->num_crtc && rdev->mode_info.mode_config_initialized) {
- 		list_for_each_entry(crtc, &dev->mode_config.crtc_list, head) {
- 			radeon_crtc = to_radeon_crtc(crtc);
- 			if (crtc->enabled && radeon_crtc->enabled && radeon_crtc->hw_mode.clock) {
--				line_time_us = (radeon_crtc->hw_mode.crtc_htotal * 1000) /
--					radeon_crtc->hw_mode.clock;
--				vblank_lines = radeon_crtc->hw_mode.crtc_vblank_end -
--					radeon_crtc->hw_mode.crtc_vdisplay +
--					(radeon_crtc->v_border * 2);
--				vblank_time_us = vblank_lines * line_time_us;
-+				vblank_in_pixels =
-+					radeon_crtc->hw_mode.crtc_htotal *
-+					(radeon_crtc->hw_mode.crtc_vblank_end -
-+					 radeon_crtc->hw_mode.crtc_vdisplay +
-+					 (radeon_crtc->v_border * 2));
-+
-+				vblank_time_us = vblank_in_pixels * 1000 / radeon_crtc->hw_mode.clock;
- 				break;
- 			}
- 		}
--- 
-2.5.5
+T24gV2VkLCBPY3QgMTIsIDIwMTYgYXQgNTo1NiBBTSwgQ2hyaXN0aWFuIEvDtm5pZwo8ZGVhdGhz
+aW1wbGVAdm9kYWZvbmUuZGU+IHdyb3RlOgo+IEhpIFJleCwKPgo+IFNvIGFtZF92Y2Vfc3RhdGUg
+aXMgb3VyIGhhcmR3YXJlIHJlcHJlc2VudGF0aW9uIGFuZAo+IGRybV9hbWRncHVfaW5mb192Y2Vf
+Y2xvY2tfdGFibGUgaXMgdGhlIElPQ1RMIGludGVyZmFjZSBzdHJ1Y3R1cmU/IElzIHRoZXJlIGEK
+PiByZWFzb24gZm9yIG5vdCB1c2luZyBkcm1fYW1kZ3B1X2luZm9fdmNlX2Nsb2NrX3RhYmxlIGRp
+cmVjdGx5IGluIHRoZSBodwo+IG1hbmFnZXIsIGV4Y2VwdCB0aGF0IHdlIGRvbid0IHdhbnQgdG8g
+aW5jbHVkZSB0aGUgSU9DVEwgaW50ZXJmYWNlIGhlcmU/Cj4KPiBDYXVzZSB0aGF0IHdvdWxkIGF0
+IGxlYXN0IGJlIGEgYml0IGF3a3dhcmQsIHRoaXMgaXMgYW4gZXh0cmEgYWJzdHJhY3Rpb24KPiBs
+YXllciB3ZSB1c3VhbGx5IHRyeSB0byBhdm9pZCB1cHN0cmVhbS4KPgo+IEknbSBmaW5lIHdpdGgg
+dGhpcyBhcHByb2FjaCBmb3IgdGhpcyB1c2UgY2FzZSwgYnV0IHdoZW4gd2UgZ2V0IG1vcmUgYW5k
+IG1vcmUKPiBwb3dlciBtYW5hZ2VtZW50IGV4cG9zZWQgdG8gdXNlcnNwYWNlIHRoaXMgY291bGQg
+cmFpc2Ugb2JqZWN0aW9ucyBjYXVzZSB0aGlzCj4gZXNzZW50aWFsbHkgbWVhbnMgd2UgbmVlZCB0
+byBkdXBsaWNhdGUgYWxsIGludGVybmFsIHBvd2VyIG1hbmFnZW1lbnQKPiBzdHJ1Y3R1cmVzIGZv
+ciB0aGUgcHVibGljIGludGVyZmFjZSBhZ2Fpbi4KCkl0J3Mgb25seSBuZWVkZWQgZm9yIGEgc3Vi
+c2V0IG9mIGFzaWNzIChzb21lIENJIGFuZCBWSSBwYXJ0cykuCkV2ZXJ5dGhpbmcgZWxzZSBnZXRz
+IGhhbmRsZWQgaW4gdGhlIGZpcm13YXJlIHNpbWlsYXIgdG8gVVZEIERQTS4KCkFsZXgKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
+IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
