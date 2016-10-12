@@ -1,143 +1,52 @@
-From: Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amdgpu: add VCE VM session tracking
-Date: Wed, 12 Oct 2016 11:38:04 -0400
-Message-ID: <57FE58DC.9080500@amd.com>
-References: <1476106808-2192-1-git-send-email-deathsimple@vodafone.de>
- <1476106808-2192-2-git-send-email-deathsimple@vodafone.de>
- <CADnq5_MOTCFmRLhv+u+Usi2-uA5ajYffrRmPKqDpy8s4Q2JOaQ@mail.gmail.com>
- <bbf01ee4-b771-cb84-0a35-c8d098097d91@vodafone.de>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <bbf01ee4-b771-cb84-0a35-c8d098097d91-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Andy Furniss <adf.lists-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: [PATCH] drm/radeon: change vblank_time's calculation method to reduce computational error.
+Date: Wed, 12 Oct 2016 15:29:43 -0400
+Message-ID: <1476300583-28928-1-git-send-email-alexander.deucher@amd.com>
+Return-path: <stable-owner@vger.kernel.org>
+Sender: stable-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-CgpPbiAxMC8xMi8yMDE2IDA3OjA1IEFNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+IEFuZHkg
-JiBMZW8gY291bGQgeW91IGdpdmUgdGhhdCBhIGJyaWVmIHRlc3Rpbmc/CgpydW4gYGtpbGwgLTkn
-IG92ZXIgMzAgdGltZXMsIG5vIGlzc3VlLgoKUGF0Y2ggaXM6ClJldmlld2VkLWFuZC1UZXN0ZWQg
-Ynk6IExlbyBMaXUgPGxlby5saXVAYW1kLmNvbT4KCj4gSSBjdXJyZW50bHkgZG9uJ3QgaGF2ZSBh
-IHNldHVwIGZvciBlbmNvZGluZy90cmFuc2NvZGluZyBjbGlwcy4KPgo+IFJlZ2FyZHMsCj4gQ2hy
-aXN0aWFuLgo+Cj4gQW0gMTAuMTAuMjAxNiB1bSAxODo0NSBzY2hyaWViIEFsZXggRGV1Y2hlcjoK
-Pj4gT24gTW9uLCBPY3QgMTAsIDIwMTYgYXQgOTo0MCBBTSwgQ2hyaXN0aWFuIEvDtm5pZwo+PiA8
-ZGVhdGhzaW1wbGVAdm9kYWZvbmUuZGU+IHdyb3RlOgo+Pj4gRnJvbTogQ2hyaXN0aWFuIEvDtm5p
-ZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+Pj4KPj4+IE9ubHkgY29tcGlsZSB0ZXN0ZWQs
-IGJ1dCBzaG91bGQgZml4IHRoZSBwcm9ibGVtcyB3aXRoIGtpbGxpbmcKPj4+IFZDRSBzZXNzaW9u
-cyBpbiBWTSBtb2RlLgo+Pj4KPj4+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNo
-cmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPj4gU2VyaWVzIGlzOgo+PiBSZXZpZXdlZC1ieTogQWxl
-eCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+Pgo+Pj4gLS0tCj4+PiAgIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y2UuYyB8IDkwIAo+Pj4gKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrCj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV92Y2UuaCB8ICAxICsKPj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNl
-X3YzXzAuYyAgIHwgIDEgKwo+Pj4gICAzIGZpbGVzIGNoYW5nZWQsIDkyIGluc2VydGlvbnMoKykK
-Pj4+Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zj
-ZS5jIAo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmNlLmMKPj4+IGlu
-ZGV4IDA1YTFlYTkuLjNkNmY4NmMgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfdmNlLmMKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV92Y2UuYwo+Pj4gQEAgLTc5Miw2ICs3OTIsOTYgQEAgb3V0Ogo+Pj4gICB9Cj4+Pgo+
-Pj4gICAvKioKPj4+ICsgKiBhbWRncHVfdmNlX2NzX3BhcnNlX3ZtIC0gcGFyc2UgdGhlIGNvbW1h
-bmQgc3RyZWFtIGluIFZNIG1vZGUKPj4+ICsgKgo+Pj4gKyAqIEBwOiBwYXJzZXIgY29udGV4dAo+
-Pj4gKyAqCj4+PiArICovCj4+PiAraW50IGFtZGdwdV92Y2VfcmluZ19wYXJzZV9jc192bShzdHJ1
-Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcCwgCj4+PiB1aW50MzJfdCBpYl9pZHgpCj4+PiArewo+Pj4g
-KyAgICAgICBzdHJ1Y3QgYW1kZ3B1X2liICppYiA9ICZwLT5qb2ItPmlic1tpYl9pZHhdOwo+Pj4g
-KyAgICAgICBpbnQgc2Vzc2lvbl9pZHggPSAtMTsKPj4+ICsgICAgICAgdWludDMyX3QgZGVzdHJv
-eWVkID0gMDsKPj4+ICsgICAgICAgdWludDMyX3QgY3JlYXRlZCA9IDA7Cj4+PiArICAgICAgIHVp
-bnQzMl90IGFsbG9jYXRlZCA9IDA7Cj4+PiArICAgICAgIHVpbnQzMl90IHRtcCwgaGFuZGxlID0g
-MDsKPj4+ICsgICAgICAgaW50IGksIHIgPSAwLCBpZHggPSAwOwo+Pj4gKwo+Pj4gKyAgICAgICB3
-aGlsZSAoaWR4IDwgaWItPmxlbmd0aF9kdykgewo+Pj4gKyAgICAgICAgICAgICAgIHVpbnQzMl90
-IGxlbiA9IGFtZGdwdV9nZXRfaWJfdmFsdWUocCwgaWJfaWR4LCBpZHgpOwo+Pj4gKyAgICAgICAg
-ICAgICAgIHVpbnQzMl90IGNtZCA9IGFtZGdwdV9nZXRfaWJfdmFsdWUocCwgaWJfaWR4LCBpZHgg
-KyAxKTsKPj4+ICsKPj4+ICsgICAgICAgICAgICAgICBpZiAoKGxlbiA8IDgpIHx8IChsZW4gJiAz
-KSkgewo+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgRFJNX0VSUk9SKCJpbnZhbGlkIFZDRSBj
-b21tYW5kIGxlbmd0aCAKPj4+ICglZCkhXG4iLCBsZW4pOwo+Pj4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgciA9IC1FSU5WQUw7Cj4+PiArICAgICAgICAgICAgICAgICAgICAgICBnb3RvIG91dDsK
-Pj4+ICsgICAgICAgICAgICAgICB9Cj4+PiArCj4+PiArICAgICAgICAgICAgICAgc3dpdGNoIChj
-bWQpIHsKPj4+ICsgICAgICAgICAgICAgICBjYXNlIDB4MDAwMDAwMDE6IC8qIHNlc3Npb24gKi8K
-Pj4+ICsgICAgICAgICAgICAgICAgICAgICAgIGhhbmRsZSA9IGFtZGdwdV9nZXRfaWJfdmFsdWUo
-cCwgaWJfaWR4LCBpZHggCj4+PiArIDIpOwo+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgc2Vz
-c2lvbl9pZHggPSBhbWRncHVfdmNlX3ZhbGlkYXRlX2hhbmRsZShwLCAKPj4+IGhhbmRsZSwKPj4+
-ICsgJmFsbG9jYXRlZCk7Cj4+PiArICAgICAgICAgICAgICAgICAgICAgICBpZiAoc2Vzc2lvbl9p
-ZHggPCAwKSB7Cj4+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHIgPSBzZXNzaW9u
-X2lkeDsKPj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZ290byBvdXQ7Cj4+PiAr
-ICAgICAgICAgICAgICAgICAgICAgICB9Cj4+PiArICAgICAgICAgICAgICAgICAgICAgICBicmVh
-azsKPj4+ICsKPj4+ICsgICAgICAgICAgICAgICBjYXNlIDB4MDEwMDAwMDE6IC8qIGNyZWF0ZSAq
-Lwo+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgY3JlYXRlZCB8PSAxIDw8IHNlc3Npb25faWR4
-Owo+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgaWYgKGRlc3Ryb3llZCAmICgxIDw8IHNlc3Np
-b25faWR4KSkgewo+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkZXN0cm95ZWQg
-Jj0gfigxIDw8IHNlc3Npb25faWR4KTsKPj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgYWxsb2NhdGVkIHw9IDEgPDwgc2Vzc2lvbl9pZHg7Cj4+PiArCj4+PiArICAgICAgICAgICAg
-ICAgICAgICAgICB9IGVsc2UgaWYgKCEoYWxsb2NhdGVkICYgKDEgPDwgc2Vzc2lvbl9pZHgpKSkg
-ewo+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBEUk1fRVJST1IoIkhhbmRsZSBh
-bHJlYWR5IGluIHVzZSFcbiIpOwo+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBy
-ID0gLUVJTlZBTDsKPj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZ290byBvdXQ7
-Cj4+PiArICAgICAgICAgICAgICAgICAgICAgICB9Cj4+PiArCj4+PiArICAgICAgICAgICAgICAg
-ICAgICAgICBicmVhazsKPj4+ICsKPj4+ICsgICAgICAgICAgICAgICBjYXNlIDB4MDIwMDAwMDE6
-IC8qIGRlc3Ryb3kgKi8KPj4+ICsgICAgICAgICAgICAgICAgICAgICAgIGRlc3Ryb3llZCB8PSAx
-IDw8IHNlc3Npb25faWR4Owo+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7Cj4+PiAr
-Cj4+PiArICAgICAgICAgICAgICAgZGVmYXVsdDoKPj4+ICsgICAgICAgICAgICAgICAgICAgICAg
-IGJyZWFrOwo+Pj4gKyAgICAgICAgICAgICAgIH0KPj4+ICsKPj4+ICsgICAgICAgICAgICAgICBp
-ZiAoc2Vzc2lvbl9pZHggPT0gLTEpIHsKPj4+ICsgICAgICAgICAgICAgICAgICAgICAgIERSTV9F
-UlJPUigibm8gc2Vzc2lvbiBjb21tYW5kIGF0IHN0YXJ0IG9mIAo+Pj4gSUJcbiIpOwo+Pj4gKyAg
-ICAgICAgICAgICAgICAgICAgICAgciA9IC1FSU5WQUw7Cj4+PiArICAgICAgICAgICAgICAgICAg
-ICAgICBnb3RvIG91dDsKPj4+ICsgICAgICAgICAgICAgICB9Cj4+PiArCj4+PiArICAgICAgICAg
-ICAgICAgaWR4ICs9IGxlbiAvIDQ7Cj4+PiArICAgICAgIH0KPj4+ICsKPj4+ICsgICAgICAgaWYg
-KGFsbG9jYXRlZCAmIH5jcmVhdGVkKSB7Cj4+PiArICAgICAgICAgICAgICAgRFJNX0VSUk9SKCJO
-ZXcgc2Vzc2lvbiB3aXRob3V0IGNyZWF0ZSBjb21tYW5kIVxuIik7Cj4+PiArICAgICAgICAgICAg
-ICAgciA9IC1FTk9FTlQ7Cj4+PiArICAgICAgIH0KPj4+ICsKPj4+ICtvdXQ6Cj4+PiArICAgICAg
-IGlmICghcikgewo+Pj4gKyAgICAgICAgICAgICAgIC8qIE5vIGVycm9yLCBmcmVlIGFsbCBkZXN0
-cm95ZWQgaGFuZGxlIHNsb3RzICovCj4+PiArICAgICAgICAgICAgICAgdG1wID0gZGVzdHJveWVk
-Owo+Pj4gKyAgICAgICAgICAgICAgIGFtZGdwdV9pYl9mcmVlKHAtPmFkZXYsIGliLCBOVUxMKTsK
-Pj4+ICsgICAgICAgfSBlbHNlIHsKPj4+ICsgICAgICAgICAgICAgICAvKiBFcnJvciBkdXJpbmcg
-cGFyc2luZywgZnJlZSBhbGwgYWxsb2NhdGVkIGhhbmRsZSAKPj4+IHNsb3RzICovCj4+PiArICAg
-ICAgICAgICAgICAgdG1wID0gYWxsb2NhdGVkOwo+Pj4gKyAgICAgICB9Cj4+PiArCj4+PiArICAg
-ICAgIGZvciAoaSA9IDA7IGkgPCBBTURHUFVfTUFYX1ZDRV9IQU5ETEVTOyArK2kpCj4+PiArICAg
-ICAgICAgICAgICAgaWYgKHRtcCAmICgxIDw8IGkpKQo+Pj4gKyBhdG9taWNfc2V0KCZwLT5hZGV2
-LT52Y2UuaGFuZGxlc1tpXSwgMCk7Cj4+PiArCj4+PiArICAgICAgIHJldHVybiByOwo+Pj4gK30K
-Pj4+ICsKPj4+ICsvKioKPj4+ICAgICogYW1kZ3B1X3ZjZV9yaW5nX2VtaXRfaWIgLSBleGVjdXRl
-IGluZGlyZWN0IGJ1ZmZlcgo+Pj4gICAgKgo+Pj4gICAgKiBAcmluZzogZW5naW5lIHRvIHVzZQo+
-Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y2UuaCAK
-Pj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZjZS5oCj4+PiBpbmRleCAx
-MjcyOWQyLi40NGQ0OWI1IDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3ZjZS5oCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfdmNlLmgKPj4+IEBAIC0zNCw2ICszNCw3IEBAIGludCBhbWRncHVfdmNlX2dldF9kZXN0cm95
-X21zZyhzdHJ1Y3QgYW1kZ3B1X3JpbmcgCj4+PiAqcmluZywgdWludDMyX3QgaGFuZGxlLAo+Pj4g
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBib29sIGRpcmVjdCwgc3RydWN0IGZlbmNl
-ICoqZmVuY2UpOwo+Pj4gICB2b2lkIGFtZGdwdV92Y2VfZnJlZV9oYW5kbGVzKHN0cnVjdCBhbWRn
-cHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgCj4+PiBkcm1fZmlsZSAqZmlscCk7Cj4+PiAgIGludCBh
-bWRncHVfdmNlX3JpbmdfcGFyc2VfY3Moc3RydWN0IGFtZGdwdV9jc19wYXJzZXIgKnAsIHVpbnQz
-Ml90IAo+Pj4gaWJfaWR4KTsKPj4+ICtpbnQgYW1kZ3B1X3ZjZV9yaW5nX3BhcnNlX2NzX3ZtKHN0
-cnVjdCBhbWRncHVfY3NfcGFyc2VyICpwLCAKPj4+IHVpbnQzMl90IGliX2lkeCk7Cj4+PiAgIHZv
-aWQgYW1kZ3B1X3ZjZV9yaW5nX2VtaXRfaWIoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCBzdHJ1
-Y3QgCj4+PiBhbWRncHVfaWIgKmliLAo+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-dW5zaWduZWQgdm1faWQsIGJvb2wgY3R4X3N3aXRjaCk7Cj4+PiAgIHZvaWQgYW1kZ3B1X3ZjZV9y
-aW5nX2VtaXRfZmVuY2Uoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCB1NjQgCj4+PiBhZGRyLCB1
-NjQgc2VxLAo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92
-M18wLmMgCj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92M18wLmMKPj4+IGlu
-ZGV4IGY3ZGJkMGQuLjJhYmY1YmQgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS92Y2VfdjNfMC5jCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92
-Y2VfdjNfMC5jCj4+PiBAQCAtODU0LDYgKzg1NCw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1k
-Z3B1X3JpbmdfZnVuY3MgCj4+PiB2Y2VfdjNfMF9yaW5nX3ZtX2Z1bmNzID0gewo+Pj4gICAgICAg
-ICAgLmdldF9ycHRyID0gdmNlX3YzXzBfcmluZ19nZXRfcnB0ciwKPj4+ICAgICAgICAgIC5nZXRf
-d3B0ciA9IHZjZV92M18wX3JpbmdfZ2V0X3dwdHIsCj4+PiAgICAgICAgICAuc2V0X3dwdHIgPSB2
-Y2VfdjNfMF9yaW5nX3NldF93cHRyLAo+Pj4gKyAgICAgICAucGFyc2VfY3MgPSBhbWRncHVfdmNl
-X3JpbmdfcGFyc2VfY3Nfdm0sCj4+PiAgICAgICAgICAuZW1pdF9mcmFtZV9zaXplID0KPj4+ICAg
-ICAgICAgICAgICAgICAgNiArIC8qIHZjZV92M18wX2VtaXRfdm1fZmx1c2ggKi8KPj4+ICAgICAg
-ICAgICAgICAgICAgNCArIC8qIHZjZV92M18wX2VtaXRfcGlwZWxpbmVfc3luYyAqLwo+Pj4gLS0g
-Cj4+PiAyLjUuMAo+Pj4KPj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCj4+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+Pj4gYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKPj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vYW1kLWdmeAo+Cj4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eAo=
+Ported from Rex's amdgpu change.
+
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+---
+ drivers/gpu/drm/radeon/r600_dpm.c | 15 ++++++++-------
+ 1 file changed, 8 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/r600_dpm.c b/drivers/gpu/drm/radeon/r600_dpm.c
+index 6a4b020..5a26eb4 100644
+--- a/drivers/gpu/drm/radeon/r600_dpm.c
++++ b/drivers/gpu/drm/radeon/r600_dpm.c
+@@ -156,19 +156,20 @@ u32 r600_dpm_get_vblank_time(struct radeon_device *rdev)
+ 	struct drm_device *dev = rdev->ddev;
+ 	struct drm_crtc *crtc;
+ 	struct radeon_crtc *radeon_crtc;
+-	u32 line_time_us, vblank_lines;
++	u32 vblank_in_pixels;
+ 	u32 vblank_time_us = 0xffffffff; /* if the displays are off, vblank time is max */
+ 
+ 	if (rdev->num_crtc && rdev->mode_info.mode_config_initialized) {
+ 		list_for_each_entry(crtc, &dev->mode_config.crtc_list, head) {
+ 			radeon_crtc = to_radeon_crtc(crtc);
+ 			if (crtc->enabled && radeon_crtc->enabled && radeon_crtc->hw_mode.clock) {
+-				line_time_us = (radeon_crtc->hw_mode.crtc_htotal * 1000) /
+-					radeon_crtc->hw_mode.clock;
+-				vblank_lines = radeon_crtc->hw_mode.crtc_vblank_end -
+-					radeon_crtc->hw_mode.crtc_vdisplay +
+-					(radeon_crtc->v_border * 2);
+-				vblank_time_us = vblank_lines * line_time_us;
++				vblank_in_pixels =
++					radeon_crtc->hw_mode.crtc_htotal *
++					(radeon_crtc->hw_mode.crtc_vblank_end -
++					 radeon_crtc->hw_mode.crtc_vdisplay +
++					 (radeon_crtc->v_border * 2));
++
++				vblank_time_us = vblank_in_pixels * 1000 / radeon_crtc->hw_mode.clock;
+ 				break;
+ 			}
+ 		}
+-- 
+2.5.5
