@@ -1,16 +1,18 @@
-From: Andy Furniss <adf.lists-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amdgpu: add VCE VM session tracking
-Date: Wed, 12 Oct 2016 15:47:41 +0100
-Message-ID: <57FE4D0D.9050208@gmail.com>
-References: <1476106808-2192-1-git-send-email-deathsimple@vodafone.de>
- <1476106808-2192-2-git-send-email-deathsimple@vodafone.de>
- <CADnq5_MOTCFmRLhv+u+Usi2-uA5ajYffrRmPKqDpy8s4Q2JOaQ@mail.gmail.com>
- <bbf01ee4-b771-cb84-0a35-c8d098097d91@vodafone.de>
+From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/amdgpu: Allow broadcast on debugfs read (v2)
+Date: Wed, 12 Oct 2016 15:39:43 +0000
+Message-ID: <CY4PR12MB1768476CAA76C1F8BE2D429FF7DD0@CY4PR12MB1768.namprd12.prod.outlook.com>
+References: <20161009115808.12776-1-tom.stdenis@amd.com>
+ <a2035199-429c-d377-b354-bf42148d3820@mailbox.org>
+ <CY4PR12MB176836D549B404152F5A1040F7DA0@CY4PR12MB1768.namprd12.prod.outlook.com>
+ <942ca6f5-fb0b-5f6f-7a87-1ffd6335be5d@vodafone.de>
+ <BN6PR12MB1764A6A7F768C662DC5866EBF7DA0@BN6PR12MB1764.namprd12.prod.outlook.com>,
+ <d1a48843-4541-1f68-eac1-21821998b735@mailbox.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1618389737=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <bbf01ee4-b771-cb84-0a35-c8d098097d91-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <d1a48843-4541-1f68-eac1-21821998b735-cl+VPiYnx/1AfugRpC6u6w@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,121 +23,229 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "Liu, Leo" <Leo.Liu-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?iso-8859-1?Q?Michel_D=E4nzer?= <michel.daenzer-cl+VPiYnx/1AfugRpC6u6w@public.gmane.org>, =?iso-8859-1?Q?Christian_K=F6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Q2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBBbmR5ICYgTGVvIGNvdWxkIHlvdSBnaXZlIHRoYXQg
-YSBicmllZiB0ZXN0aW5nPwoKU2VlbXMgdG8gYmUgT0sgZm9yIG1lLgoKPgo+IEkgY3VycmVudGx5
-IGRvbid0IGhhdmUgYSBzZXR1cCBmb3IgZW5jb2RpbmcvdHJhbnNjb2RpbmcgY2xpcHMuCj4KPiBS
-ZWdhcmRzLAo+IENocmlzdGlhbi4KPgo+IEFtIDEwLjEwLjIwMTYgdW0gMTg6NDUgc2NocmllYiBB
-bGV4IERldWNoZXI6Cj4+IE9uIE1vbiwgT2N0IDEwLCAyMDE2IGF0IDk6NDAgQU0sIENocmlzdGlh
-biBLw7ZuaWcKPj4gPGRlYXRoc2ltcGxlQHZvZGFmb25lLmRlPiB3cm90ZToKPj4+IEZyb206IENo
-cmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPj4+Cj4+PiBPbmx5IGNv
-bXBpbGUgdGVzdGVkLCBidXQgc2hvdWxkIGZpeCB0aGUgcHJvYmxlbXMgd2l0aCBraWxsaW5nCj4+
-PiBWQ0Ugc2Vzc2lvbnMgaW4gVk0gbW9kZS4KPj4+Cj4+PiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3Rp
-YW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4+IFNlcmllcyBpczoKPj4gUmV2
-aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KPj4KPj4+
-IC0tLQo+Pj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmNlLmMgfCA5MAo+
-Pj4gKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrCj4+PiAgIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV92Y2UuaCB8ICAxICsKPj4+ICAgZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvdmNlX3YzXzAuYyAgIHwgIDEgKwo+Pj4gICAzIGZpbGVzIGNoYW5nZWQsIDkyIGlu
-c2VydGlvbnMoKykKPj4+Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3ZjZS5jCj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92
-Y2UuYwo+Pj4gaW5kZXggMDVhMWVhOS4uM2Q2Zjg2YyAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y2UuYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3ZjZS5jCj4+PiBAQCAtNzkyLDYgKzc5Miw5NiBAQCBvdXQ6Cj4+
-PiAgIH0KPj4+Cj4+PiAgIC8qKgo+Pj4gKyAqIGFtZGdwdV92Y2VfY3NfcGFyc2Vfdm0gLSBwYXJz
-ZSB0aGUgY29tbWFuZCBzdHJlYW0gaW4gVk0gbW9kZQo+Pj4gKyAqCj4+PiArICogQHA6IHBhcnNl
-ciBjb250ZXh0Cj4+PiArICoKPj4+ICsgKi8KPj4+ICtpbnQgYW1kZ3B1X3ZjZV9yaW5nX3BhcnNl
-X2NzX3ZtKHN0cnVjdCBhbWRncHVfY3NfcGFyc2VyICpwLCB1aW50MzJfdAo+Pj4gaWJfaWR4KQo+
-Pj4gK3sKPj4+ICsgICAgICAgc3RydWN0IGFtZGdwdV9pYiAqaWIgPSAmcC0+am9iLT5pYnNbaWJf
-aWR4XTsKPj4+ICsgICAgICAgaW50IHNlc3Npb25faWR4ID0gLTE7Cj4+PiArICAgICAgIHVpbnQz
-Ml90IGRlc3Ryb3llZCA9IDA7Cj4+PiArICAgICAgIHVpbnQzMl90IGNyZWF0ZWQgPSAwOwo+Pj4g
-KyAgICAgICB1aW50MzJfdCBhbGxvY2F0ZWQgPSAwOwo+Pj4gKyAgICAgICB1aW50MzJfdCB0bXAs
-IGhhbmRsZSA9IDA7Cj4+PiArICAgICAgIGludCBpLCByID0gMCwgaWR4ID0gMDsKPj4+ICsKPj4+
-ICsgICAgICAgd2hpbGUgKGlkeCA8IGliLT5sZW5ndGhfZHcpIHsKPj4+ICsgICAgICAgICAgICAg
-ICB1aW50MzJfdCBsZW4gPSBhbWRncHVfZ2V0X2liX3ZhbHVlKHAsIGliX2lkeCwgaWR4KTsKPj4+
-ICsgICAgICAgICAgICAgICB1aW50MzJfdCBjbWQgPSBhbWRncHVfZ2V0X2liX3ZhbHVlKHAsIGli
-X2lkeCwgaWR4ICsgMSk7Cj4+PiArCj4+PiArICAgICAgICAgICAgICAgaWYgKChsZW4gPCA4KSB8
-fCAobGVuICYgMykpIHsKPj4+ICsgICAgICAgICAgICAgICAgICAgICAgIERSTV9FUlJPUigiaW52
-YWxpZCBWQ0UgY29tbWFuZCBsZW5ndGgKPj4+ICglZCkhXG4iLCBsZW4pOwo+Pj4gKyAgICAgICAg
-ICAgICAgICAgICAgICAgciA9IC1FSU5WQUw7Cj4+PiArICAgICAgICAgICAgICAgICAgICAgICBn
-b3RvIG91dDsKPj4+ICsgICAgICAgICAgICAgICB9Cj4+PiArCj4+PiArICAgICAgICAgICAgICAg
-c3dpdGNoIChjbWQpIHsKPj4+ICsgICAgICAgICAgICAgICBjYXNlIDB4MDAwMDAwMDE6IC8qIHNl
-c3Npb24gKi8KPj4+ICsgICAgICAgICAgICAgICAgICAgICAgIGhhbmRsZSA9IGFtZGdwdV9nZXRf
-aWJfdmFsdWUocCwgaWJfaWR4LCBpZHggKwo+Pj4gMik7Cj4+PiArICAgICAgICAgICAgICAgICAg
-ICAgICBzZXNzaW9uX2lkeCA9IGFtZGdwdV92Y2VfdmFsaWRhdGVfaGFuZGxlKHAsCj4+PiBoYW5k
-bGUsCj4+PiArCj4+PiAmYWxsb2NhdGVkKTsKPj4+ICsgICAgICAgICAgICAgICAgICAgICAgIGlm
-IChzZXNzaW9uX2lkeCA8IDApIHsKPj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ciA9IHNlc3Npb25faWR4Owo+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBnb3Rv
-IG91dDsKPj4+ICsgICAgICAgICAgICAgICAgICAgICAgIH0KPj4+ICsgICAgICAgICAgICAgICAg
-ICAgICAgIGJyZWFrOwo+Pj4gKwo+Pj4gKyAgICAgICAgICAgICAgIGNhc2UgMHgwMTAwMDAwMTog
-LyogY3JlYXRlICovCj4+PiArICAgICAgICAgICAgICAgICAgICAgICBjcmVhdGVkIHw9IDEgPDwg
-c2Vzc2lvbl9pZHg7Cj4+PiArICAgICAgICAgICAgICAgICAgICAgICBpZiAoZGVzdHJveWVkICYg
-KDEgPDwgc2Vzc2lvbl9pZHgpKSB7Cj4+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IGRlc3Ryb3llZCAmPSB+KDEgPDwgc2Vzc2lvbl9pZHgpOwo+Pj4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBhbGxvY2F0ZWQgfD0gMSA8PCBzZXNzaW9uX2lkeDsKPj4+ICsKPj4+ICsg
-ICAgICAgICAgICAgICAgICAgICAgIH0gZWxzZSBpZiAoIShhbGxvY2F0ZWQgJiAoMSA8PCBzZXNz
-aW9uX2lkeCkpKSB7Cj4+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIERSTV9FUlJP
-UigiSGFuZGxlIGFscmVhZHkgaW4gdXNlIVxuIik7Cj4+PiArICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIHIgPSAtRUlOVkFMOwo+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBnb3RvIG91dDsKPj4+ICsgICAgICAgICAgICAgICAgICAgICAgIH0KPj4+ICsKPj4+ICsgICAg
-ICAgICAgICAgICAgICAgICAgIGJyZWFrOwo+Pj4gKwo+Pj4gKyAgICAgICAgICAgICAgIGNhc2Ug
-MHgwMjAwMDAwMTogLyogZGVzdHJveSAqLwo+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgZGVz
-dHJveWVkIHw9IDEgPDwgc2Vzc2lvbl9pZHg7Cj4+PiArICAgICAgICAgICAgICAgICAgICAgICBi
-cmVhazsKPj4+ICsKPj4+ICsgICAgICAgICAgICAgICBkZWZhdWx0Ogo+Pj4gKyAgICAgICAgICAg
-ICAgICAgICAgICAgYnJlYWs7Cj4+PiArICAgICAgICAgICAgICAgfQo+Pj4gKwo+Pj4gKyAgICAg
-ICAgICAgICAgIGlmIChzZXNzaW9uX2lkeCA9PSAtMSkgewo+Pj4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgRFJNX0VSUk9SKCJubyBzZXNzaW9uIGNvbW1hbmQgYXQgc3RhcnQgb2YKPj4+IElCXG4i
-KTsKPj4+ICsgICAgICAgICAgICAgICAgICAgICAgIHIgPSAtRUlOVkFMOwo+Pj4gKyAgICAgICAg
-ICAgICAgICAgICAgICAgZ290byBvdXQ7Cj4+PiArICAgICAgICAgICAgICAgfQo+Pj4gKwo+Pj4g
-KyAgICAgICAgICAgICAgIGlkeCArPSBsZW4gLyA0Owo+Pj4gKyAgICAgICB9Cj4+PiArCj4+PiAr
-ICAgICAgIGlmIChhbGxvY2F0ZWQgJiB+Y3JlYXRlZCkgewo+Pj4gKyAgICAgICAgICAgICAgIERS
-TV9FUlJPUigiTmV3IHNlc3Npb24gd2l0aG91dCBjcmVhdGUgY29tbWFuZCFcbiIpOwo+Pj4gKyAg
-ICAgICAgICAgICAgIHIgPSAtRU5PRU5UOwo+Pj4gKyAgICAgICB9Cj4+PiArCj4+PiArb3V0Ogo+
-Pj4gKyAgICAgICBpZiAoIXIpIHsKPj4+ICsgICAgICAgICAgICAgICAvKiBObyBlcnJvciwgZnJl
-ZSBhbGwgZGVzdHJveWVkIGhhbmRsZSBzbG90cyAqLwo+Pj4gKyAgICAgICAgICAgICAgIHRtcCA9
-IGRlc3Ryb3llZDsKPj4+ICsgICAgICAgICAgICAgICBhbWRncHVfaWJfZnJlZShwLT5hZGV2LCBp
-YiwgTlVMTCk7Cj4+PiArICAgICAgIH0gZWxzZSB7Cj4+PiArICAgICAgICAgICAgICAgLyogRXJy
-b3IgZHVyaW5nIHBhcnNpbmcsIGZyZWUgYWxsIGFsbG9jYXRlZCBoYW5kbGUKPj4+IHNsb3RzICov
-Cj4+PiArICAgICAgICAgICAgICAgdG1wID0gYWxsb2NhdGVkOwo+Pj4gKyAgICAgICB9Cj4+PiAr
-Cj4+PiArICAgICAgIGZvciAoaSA9IDA7IGkgPCBBTURHUFVfTUFYX1ZDRV9IQU5ETEVTOyArK2kp
-Cj4+PiArICAgICAgICAgICAgICAgaWYgKHRtcCAmICgxIDw8IGkpKQo+Pj4gKyAgICAgICAgICAg
-ICAgICAgICAgICAgYXRvbWljX3NldCgmcC0+YWRldi0+dmNlLmhhbmRsZXNbaV0sIDApOwo+Pj4g
-Kwo+Pj4gKyAgICAgICByZXR1cm4gcjsKPj4+ICt9Cj4+PiArCj4+PiArLyoqCj4+PiAgICAqIGFt
-ZGdwdV92Y2VfcmluZ19lbWl0X2liIC0gZXhlY3V0ZSBpbmRpcmVjdCBidWZmZXIKPj4+ICAgICoK
-Pj4+ICAgICogQHJpbmc6IGVuZ2luZSB0byB1c2UKPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmNlLmgKPj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X3ZjZS5oCj4+PiBpbmRleCAxMjcyOWQyLi40NGQ0OWI1IDEwMDY0NAo+Pj4g
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZjZS5oCj4+PiArKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmNlLmgKPj4+IEBAIC0zNCw2ICszNCw3
-IEBAIGludCBhbWRncHVfdmNlX2dldF9kZXN0cm95X21zZyhzdHJ1Y3QgYW1kZ3B1X3JpbmcKPj4+
-ICpyaW5nLCB1aW50MzJfdCBoYW5kbGUsCj4+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIGJvb2wgZGlyZWN0LCBzdHJ1Y3QgZmVuY2UgKipmZW5jZSk7Cj4+PiAgIHZvaWQgYW1kZ3B1
-X3ZjZV9mcmVlX2hhbmRsZXMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHN0cnVjdAo+Pj4g
-ZHJtX2ZpbGUgKmZpbHApOwo+Pj4gICBpbnQgYW1kZ3B1X3ZjZV9yaW5nX3BhcnNlX2NzKHN0cnVj
-dCBhbWRncHVfY3NfcGFyc2VyICpwLCB1aW50MzJfdAo+Pj4gaWJfaWR4KTsKPj4+ICtpbnQgYW1k
-Z3B1X3ZjZV9yaW5nX3BhcnNlX2NzX3ZtKHN0cnVjdCBhbWRncHVfY3NfcGFyc2VyICpwLCB1aW50
-MzJfdAo+Pj4gaWJfaWR4KTsKPj4+ICAgdm9pZCBhbWRncHVfdmNlX3JpbmdfZW1pdF9pYihzdHJ1
-Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHN0cnVjdAo+Pj4gYW1kZ3B1X2liICppYiwKPj4+ICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIHVuc2lnbmVkIHZtX2lkLCBib29sIGN0eF9zd2l0Y2gp
-Owo+Pj4gICB2b2lkIGFtZGdwdV92Y2VfcmluZ19lbWl0X2ZlbmNlKHN0cnVjdCBhbWRncHVfcmlu
-ZyAqcmluZywgdTY0IGFkZHIsCj4+PiB1NjQgc2VxLAo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92M18wLmMKPj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvdmNlX3YzXzAuYwo+Pj4gaW5kZXggZjdkYmQwZC4uMmFiZjViZCAxMDA2NDQKPj4+IC0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92M18wLmMKPj4+ICsrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92M18wLmMKPj4+IEBAIC04NTQsNiArODU0LDcgQEAg
-c3RhdGljIGNvbnN0IHN0cnVjdCBhbWRncHVfcmluZ19mdW5jcwo+Pj4gdmNlX3YzXzBfcmluZ192
-bV9mdW5jcyA9IHsKPj4+ICAgICAgICAgIC5nZXRfcnB0ciA9IHZjZV92M18wX3JpbmdfZ2V0X3Jw
-dHIsCj4+PiAgICAgICAgICAuZ2V0X3dwdHIgPSB2Y2VfdjNfMF9yaW5nX2dldF93cHRyLAo+Pj4g
-ICAgICAgICAgLnNldF93cHRyID0gdmNlX3YzXzBfcmluZ19zZXRfd3B0ciwKPj4+ICsgICAgICAg
-LnBhcnNlX2NzID0gYW1kZ3B1X3ZjZV9yaW5nX3BhcnNlX2NzX3ZtLAo+Pj4gICAgICAgICAgLmVt
-aXRfZnJhbWVfc2l6ZSA9Cj4+PiAgICAgICAgICAgICAgICAgIDYgKyAvKiB2Y2VfdjNfMF9lbWl0
-X3ZtX2ZsdXNoICovCj4+PiAgICAgICAgICAgICAgICAgIDQgKyAvKiB2Y2VfdjNfMF9lbWl0X3Bp
-cGVsaW5lX3N5bmMgKi8KPj4+IC0tCj4+PiAyLjUuMAo+Pj4KPj4+IF9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+
-Pj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+Cj4KPgoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1618389737==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB1768476CAA76C1F8BE2D429FF7DD0CY4PR12MB1768namp_"
+
+--_000_CY4PR12MB1768476CAA76C1F8BE2D429FF7DD0CY4PR12MB1768namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+It comes from amdgpu_query_gpu_info_init()
+
+
+        for (i =3D 0; i < (int)dev->info.num_shader_engines; i++) {
+                unsigned instance =3D (i << AMDGPU_INFO_MMR_SE_INDEX_SHIFT)=
+ |
+                                    (AMDGPU_INFO_MMR_SH_INDEX_MASK <<
+                                     AMDGPU_INFO_MMR_SH_INDEX_SHIFT);
+
+                r =3D amdgpu_read_mm_registers(dev, 0x263d, 1, instance, 0,
+                                             &dev->info.backend_disable[i])=
+;
+
+This effectively reads from 0/* where the kernel adds the instance of * so =
+it's 0/*/*.  That line was last changed  by Alex
+
+0936139536380 (Alex Deucher  2015-04-20 12:04:22 -0400 174)                =
+                 (AMDGPU_INFO_MMR_SH_INDEX_MASK <<
+
+I still don't get why this is a reason to hit pause on the patch(es) though=
+.  They're root only, you can still not use * if you don't want to and furt=
+hermore I'm already using the write debugfs content (to debug waveforms).
+
+Tom
+
+
+________________________________
+From: Michel D=E4nzer <michel.daenzer-cl+VPiYnx/1AfugRpC6u6w@public.gmane.org>
+Sent: Tuesday, October 11, 2016 20:34
+To: StDenis, Tom; Christian K=F6nig
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH] drm/amd/amdgpu: Allow broadcast on debugfs read (v2)
+
+On 11/10/16 09:32 PM, StDenis, Tom wrote:
+> It's used by the UMD though they read from 0/*/* when reading the
+> RASTER_CONFIG registers (which may be a bug...)
+
+We should probably clarify what userspace is trying to do there, and
+whether the hardware actually does that.
+
+
+--
+Earthling Michel D=E4nzer               |               http://www.amd.com
+Graphics, Processors and Immersive VR Solutions | AMD <http://www.amd.com/>
+www.amd.com
+Explore a wide range of innovative next generation computing processors, gr=
+aphics, and Immersive VR solutions by Advanced Micro Devices (AMD). Visit A=
+MD.com now!
+
+
+
+Libre software enthusiast             |             Mesa and X developer
+
+--_000_CY4PR12MB1768476CAA76C1F8BE2D429FF7DD0CY4PR12MB1768namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Arial,Helvetica,sans-serif;">
+<p>It comes from&nbsp;<span>amdgpu_query_gpu_info_init()</span></p>
+<p><br>
+</p>
+<p></p>
+<div><span style=3D"font-family: &quot;Courier New&quot;, monospace;">&nbsp=
+; &nbsp; &nbsp; &nbsp; for (i =3D 0; i &lt; (int)dev-&gt;info.num_shader_en=
+gines; i&#43;&#43;) {</span></div>
+<div><span style=3D"font-family: &quot;Courier New&quot;, monospace;">&nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; unsigned instance =3D (i=
+ &lt;&lt; AMDGPU_INFO_MMR_SE_INDEX_SHIFT) |</span></div>
+<div><span style=3D"font-family: &quot;Courier New&quot;, monospace;">&nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (</span><b><span style=3D"fon=
+t-family: &quot;Courier New&quot;, monospace;">AMDGPU_INFO_MMR_SH_INDEX_MAS=
+K</span></b><span style=3D"font-family: &quot;Courier New&quot;, monospace;=
+"> &lt;&lt;</span></div>
+<div><span style=3D"font-family: &quot;Courier New&quot;, monospace;">&nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;AMDGPU_INFO_MMR_SH_INDE=
+X_SHIFT);</span></div>
+<div><br>
+</div>
+<div><span style=3D"font-family: &quot;Courier New&quot;, monospace;">&nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; r =3D amdgpu_read_mm_reg=
+isters(dev, 0x263d, 1, instance, 0,</span></div>
+<div><span style=3D"font-family: &quot;Courier New&quot;, monospace;">&nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp;&amp;dev-&gt;info.backend_disable[i]);</span></div>
+<div><br>
+</div>
+<div>This effectively reads from 0/* where the kernel adds the instance of =
+* so it's 0/*/*. &nbsp;That line was last changed &nbsp;by Alex</div>
+<div><br>
+</div>
+<div>
+<div><span style=3D"font-family: &quot;Courier New&quot;, monospace; font-s=
+ize: 10pt;"><b>0936139536380</b> (Alex Deucher &nbsp;2015-04-20 12:04:22 -0=
+400 174) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (AMDGPU_INFO_MMR_SH_INDEX_MAS=
+K &lt;&lt;</span></div>
+</div>
+<div><br>
+</div>
+<div>I still don't get why this is a reason to hit pause on the patch(es) t=
+hough. &nbsp;They're root only, you can still not use * if you don't want t=
+o and furthermore I'm already using the write debugfs content (to debug wav=
+eforms). &nbsp;</div>
+<div><br>
+</div>
+<div>Tom</div>
+<p></p>
+<br>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Michel D=E4nzer &lt=
+;michel.daenzer-cl+VPiYnx/1AfugRpC6u6w@public.gmane.org&gt;<br>
+<b>Sent:</b> Tuesday, October 11, 2016 20:34<br>
+<b>To:</b> StDenis, Tom; Christian K=F6nig<br>
+<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH] drm/amd/amdgpu: Allow broadcast on debugfs read=
+ (v2)</font>
+<div>&nbsp;</div>
+</div>
+</div>
+<font size=3D"2"><span style=3D"font-size:10pt;">
+<div class=3D"PlainText">On 11/10/16 09:32 PM, StDenis, Tom wrote:<br>
+&gt; It's used by the UMD though they read from 0/*/* when reading the<br>
+&gt; RASTER_CONFIG registers (which may be a bug...)<br>
+<br>
+We should probably clarify what userspace is trying to do there, and<br>
+whether the hardware actually does that.<br>
+<br>
+<br>
+-- <br>
+Earthling Michel D=E4nzer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href=3D"http://www.amd.com=
+" id=3D"LPlnk115396" previewremoved=3D"true">
+http://www.amd.com</a>
+<div id=3D"LPBorder_GT_14762864460090.3072699807620518" style=3D"margin-bot=
+tom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
+<table id=3D"LPContainer_14762864460060.8831490190015878" cellspacing=3D"0"=
+ style=3D"width: 90%; background-color: rgb(255, 255, 255); position: relat=
+ive; overflow: auto; padding-top: 20px; padding-bottom: 20px; margin-top: 2=
+0px; border-top: 1px dotted rgb(200, 200, 200); border-bottom: 1px dotted r=
+gb(200, 200, 200);">
+<tbody>
+<tr valign=3D"top" style=3D"border-spacing: 0px;">
+<td id=3D"TextCell_14762864460070.24216894343271722" colspan=3D"2" style=3D=
+"vertical-align: top; position: relative; padding: 0px; display: table-cell=
+;">
+<div id=3D"LPRemovePreviewContainer_14762864460070.8888817369809654"></div>
+<div id=3D"LPTitle_14762864460070.3011910420489814" style=3D"top: 0px; colo=
+r: rgb(59, 87, 119); font-weight: normal; font-size: 21px; font-family: wf_=
+segoe-ui_light, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&quot;, &qu=
+ot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif; line-he=
+ight: 21px;">
+<a id=3D"LPUrlAnchor_14762864460080.3324236906153566" href=3D"http://www.am=
+d.com/" target=3D"_blank" style=3D"text-decoration: none;">Graphics, Proces=
+sors and Immersive VR Solutions | AMD
+</a></div>
+<div id=3D"LPMetadata_14762864460080.08593046515590075" style=3D"margin: 10=
+px 0px 16px; color: rgb(102, 102, 102); font-weight: normal; font-family: w=
+f_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Aria=
+l, sans-serif; font-size: 14px; line-height: 14px;">
+www.amd.com</div>
+<div id=3D"LPDescription_14762864460080.9804859375779311" style=3D"display:=
+ block; color: rgb(102, 102, 102); font-weight: normal; font-family: wf_seg=
+oe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sa=
+ns-serif; font-size: 14px; line-height: 20px; max-height: 100px; overflow: =
+hidden;">
+Explore a wide range of innovative next generation computing processors, gr=
+aphics, and Immersive VR solutions by Advanced Micro Devices (AMD). Visit A=
+MD.com now!</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br>
+<br>
+Libre software enthusiast&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; Mesa and X developer<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_CY4PR12MB1768476CAA76C1F8BE2D429FF7DD0CY4PR12MB1768namp_--
+
+--===============1618389737==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1618389737==--
