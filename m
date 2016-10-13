@@ -1,7 +1,7 @@
 From: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Fix lock imbalance in debugfs wave reader
-Date: Thu, 13 Oct 2016 12:16:48 -0400
-Message-ID: <20161013161649.8089-1-tom.stdenis@amd.com>
+Subject: [PATCH] drm/radeon/si_dpm: Limit clocks on HD86xx part
+Date: Thu, 13 Oct 2016 12:41:32 -0400
+Message-ID: <20161013164132.9063-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
@@ -17,9 +17,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 
-SSBpbnRyb2R1Y2VkIGEgbG9jayBpbWJhbGFuY2UgaW4gdGhlIGRlYnVnZnMgd2F2ZSByZWFkZXIu
-ICBUaGlzIHBhdGNoIGZpeGVzIHRoYXQuCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2FtZC1nZngK
+TGltaXQgY2xvY2tzIG9uIGEgc3BlY2lmaWMgSEQ4Nnh4IHBhcnQgdG8gYXZvaWQKY3Jhc2hlcyAo
+d2hpbGUgYXdhaXRpbmcgYW4gYXBwcm9wcmlhdGUgUFAgZml4KS4KClNpZ25lZC1vZmYtYnk6IFRv
+bSBTdCBEZW5pcyA8dG9tLnN0ZGVuaXNAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vcmFk
+ZW9uL3NpX2RwbS5jIHwgNiArKysrKysKIDEgZmlsZSBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKykK
+CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3NpX2RwbS5jIGIvZHJpdmVycy9n
+cHUvZHJtL3JhZGVvbi9zaV9kcG0uYwppbmRleCA4OWJkZjIwMzQ0YWUuLjY5MWYzN2IyOGIxYSAx
+MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9zaV9kcG0uYworKysgYi9kcml2ZXJz
+L2dwdS9kcm0vcmFkZW9uL3NpX2RwbS5jCkBAIC0zMDIxLDYgKzMwMjEsMTIgQEAgc3RhdGljIHZv
+aWQgc2lfYXBwbHlfc3RhdGVfYWRqdXN0X3J1bGVzKHN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2
+LAogCQltYXhfc2NsayA9IDc1MDAwOwogCQltYXhfbWNsayA9IDgwMDAwOwogCX0KKwkvKiBsaW1p
+dCBjbG9ja3Mgb24gSEQ4NjAwIHNlcmllcyAqLworCWlmIChyZGV2LT5wZGV2LT5kZXZpY2UgPT0g
+MHg2NjYwICYmCisJICAgICByZGV2LT5wZGV2LT5yZXZpc2lvbiA9PSAweDgzKSB7CisJCW1heF9z
+Y2xrID0gNzUwMDA7CisJCW1heF9tY2xrID0gODAwMDA7CisJfQogCiAJaWYgKHJwcy0+dmNlX2Fj
+dGl2ZSkgewogCQlycHMtPmV2Y2xrID0gcmRldi0+cG0uZHBtLnZjZV9zdGF0ZXNbcmRldi0+cG0u
+ZHBtLnZjZV9sZXZlbF0uZXZjbGs7Ci0tIAoyLjEwLjAKCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeAo=
