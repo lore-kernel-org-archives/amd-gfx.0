@@ -1,14 +1,16 @@
-From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/radeon/si_dpm: Limit clocks on HD86xx part
-Date: Thu, 13 Oct 2016 21:39:11 +0000
-Message-ID: <CY4PR12MB176872C35AB5686E46D2D867F7DC0@CY4PR12MB1768.namprd12.prod.outlook.com>
-References: <20161013164132.9063-1-tom.stdenis@amd.com>,
- <MWHPR12MB16940F2576B819EA50D823A3F7DC0@MWHPR12MB1694.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: drm/amd/powerplay: expose max engine and memory clock info for
+ powerplay enabled case
+Date: Thu, 13 Oct 2016 17:52:17 -0400
+Message-ID: <CADnq5_M3eA=4uUauzefUAf-KCEw5uj-rr7BjpBP5QnNRrx=+ZA@mail.gmail.com>
+References: <CY1PR12MB063370D13A0A96E852E569A8E4DD0@CY1PR12MB0633.namprd12.prod.outlook.com>
+ <MWHPR12MB169404C5213FB6A0F7BE904BF7DD0@MWHPR12MB1694.namprd12.prod.outlook.com>
+ <CY1PR12MB06331A0838154A671573DFDFE4DC0@CY1PR12MB0633.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0653760948=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MWHPR12MB16940F2576B819EA50D823A3F7DC0-Gy0DoCVfaSW4WA4dJ5YXGAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <CY1PR12MB06331A0838154A671573DFDFE4DC0-1s8aH8ViOEci1RctLPzdkAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,203 +21,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, 'Tom St Denis' <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Zhang,
+ Jerry" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Huan,
+ Alvin" <Alvin.Huan-5C7GfCeVMHo@public.gmane.org>
 
---===============0653760948==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB176872C35AB5686E46D2D867F7DC0CY4PR12MB1768namp_"
-
---_000_CY4PR12MB176872C35AB5686E46D2D867F7DC0CY4PR12MB1768namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Alex,
-
-
-No problem I'll submit that tomorrow morning.
-
-
-Cheers,
-
-Tom
-
-
-________________________________
-From: Deucher, Alexander
-Sent: Thursday, October 13, 2016 15:19
-To: 'Tom St Denis'; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: StDenis, Tom
-Subject: RE: [PATCH] drm/radeon/si_dpm: Limit clocks on HD86xx part
-
-> -----Original Message-----
-> From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf
-> Of Tom St Denis
-> Sent: Thursday, October 13, 2016 12:42 PM
-> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> Cc: StDenis, Tom
-> Subject: [PATCH] drm/radeon/si_dpm: Limit clocks on HD86xx part
->
-> Limit clocks on a specific HD86xx part to avoid
-> crashes (while awaiting an appropriate PP fix).
->
-> Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-Care to send a patch for amdgpu as well?
-
-Alex
-
-> ---
->  drivers/gpu/drm/radeon/si_dpm.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-> diff --git a/drivers/gpu/drm/radeon/si_dpm.c
-> b/drivers/gpu/drm/radeon/si_dpm.c
-> index 89bdf20344ae..691f37b28b1a 100644
-> --- a/drivers/gpu/drm/radeon/si_dpm.c
-> +++ b/drivers/gpu/drm/radeon/si_dpm.c
-> @@ -3021,6 +3021,12 @@ static void si_apply_state_adjust_rules(struct
-> radeon_device *rdev,
->                max_sclk =3D 75000;
->                max_mclk =3D 80000;
->        }
-> +     /* limit clocks on HD8600 series */
-> +     if (rdev->pdev->device =3D=3D 0x6660 &&
-> +          rdev->pdev->revision =3D=3D 0x83) {
-> +             max_sclk =3D 75000;
-> +             max_mclk =3D 80000;
-> +     }
->
->        if (rps->vce_active) {
->                rps->evclk =3D rdev->pm.dpm.vce_states[rdev-
-> >pm.dpm.vce_level].evclk;
-> --
-> 2.10.0
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_CY4PR12MB176872C35AB5686E46D2D867F7DC0CY4PR12MB1768namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Arial,Helvetica,sans-serif;">
-<p>Hi Alex,</p>
-<p><br>
-</p>
-<p>No problem I'll submit that tomorrow morning.</p>
-<p><br>
-</p>
-<p>Cheers,</p>
-<p>Tom</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Deucher, Alexander<=
-br>
-<b>Sent:</b> Thursday, October 13, 2016 15:19<br>
-<b>To:</b> 'Tom St Denis'; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> StDenis, Tom<br>
-<b>Subject:</b> RE: [PATCH] drm/radeon/si_dpm: Limit clocks on HD86xx part<=
-/font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">&gt; -----Original Message-----<br>
-&gt; From: amd-gfx [<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org=
-">mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>] On Behalf<br>
-&gt; Of Tom St Denis<br>
-&gt; Sent: Thursday, October 13, 2016 12:42 PM<br>
-&gt; To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; Cc: StDenis, Tom<br>
-&gt; Subject: [PATCH] drm/radeon/si_dpm: Limit clocks on HD86xx part<br>
-&gt; <br>
-&gt; Limit clocks on a specific HD86xx part to avoid<br>
-&gt; crashes (while awaiting an appropriate PP fix).<br>
-&gt; <br>
-&gt; Signed-off-by: Tom St Denis &lt;tom.stdenis-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
-Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
-Care to send a patch for amdgpu as well?<br>
-<br>
-Alex<br>
-<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/radeon/si_dpm.c | 6 &#43;&#43;&#43;&#43;&#43;&#4=
-3;<br>
-&gt;&nbsp; 1 file changed, 6 insertions(&#43;)<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/radeon/si_dpm.c<br>
-&gt; b/drivers/gpu/drm/radeon/si_dpm.c<br>
-&gt; index 89bdf20344ae..691f37b28b1a 100644<br>
-&gt; --- a/drivers/gpu/drm/radeon/si_dpm.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/radeon/si_dpm.c<br>
-&gt; @@ -3021,6 &#43;3021,12 @@ static void si_apply_state_adjust_rules(str=
-uct<br>
-&gt; radeon_device *rdev,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; max_sclk =3D 75000;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; max_mclk =3D 80000;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; /* limit clocks on HD8600 series */<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (rdev-&gt;pdev-&gt;device =3D=3D 0x66=
-60 &amp;&amp;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rdev-&gt;p=
-dev-&gt;revision =3D=3D 0x83) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; max_sclk =3D 75000;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; max_mclk =3D 80000;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (rps-&gt;vce_active) {<br=
->
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; rps-&gt;evclk =3D rdev-&gt;pm.dpm.vce_states[rdev-<br>
-&gt; &gt;pm.dpm.vce_level].evclk;<br>
-&gt; --<br>
-&gt; 2.10.0<br>
-&gt; <br>
-&gt; _______________________________________________<br>
-&gt; amd-gfx mailing list<br>
-&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
-ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB176872C35AB5686E46D2D867F7DC0CY4PR12MB1768namp_--
-
---===============0653760948==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0653760948==--
+T24gVGh1LCBPY3QgMTMsIDIwMTYgYXQgNDoyNCBBTSwgUXVhbiwgRXZhbiA8RXZhbi5RdWFuQGFt
+ZC5jb20+IHdyb3RlOgo+IEhpIEFsZXgsCj4KPgo+Cj4gVGhhbmtzIGZvciB5b3VyIGluZm9ybWF0
+aW9uLgo+Cj4gSSB1cGRhdGVkIHRoZSBwYXRjaCB1c2luZyB0aGUgYW1kZ3B1X2RwbV9nZXRfc2Ns
+ay9tY2xrIEFQSXMgd2hpY2ggbWFrZSB0aGUKPiBwYXRjaCBtdWNoIHNpbXBsZXIuCj4KPgoKV2Ug
+Y2FuIHVzZSBhbWRncHVfZHBtX2dldF9zY2xrKCkgYW5kIGFtZGdwdV9kcG1fZ2V0X21jbGsoKSBm
+b3IgYm90aApwb3dlcnBsYXkgYW5kIG5vbi1wb3dlcnBsYXkuICBObyBuZWVkIHRvIHNwZWNpYWwg
+Y2FzZSBpdC4KCkFsZXgKCj4KPiBSZWdhcmRzLAo+Cj4gRXZhbgo+Cj4KPgo+IEZyb206IERldWNo
+ZXIsIEFsZXhhbmRlcgo+IFNlbnQ6IFRodXJzZGF5LCBPY3RvYmVyIDEzLCAyMDE2IDY6MDQgQU0K
+PiBUbzogUXVhbiwgRXZhbiA8RXZhbi5RdWFuQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwo+IENjOiBaaGFuZywgSmVycnkgPEplcnJ5LlpoYW5nQGFtZC5jb20+OyBIdWFu
+LCBBbHZpbiA8QWx2aW4uSHVhbkBhbWQuY29tPjsKPiBRdWFuLCBFdmFuIDxFdmFuLlF1YW5AYW1k
+LmNvbT47IEh1YW5nLCBSYXkgPFJheS5IdWFuZ0BhbWQuY29tPgo+IFN1YmplY3Q6IFJFOiBkcm0v
+YW1kL3Bvd2VycGxheTogZXhwb3NlIG1heCBlbmdpbmUgYW5kIG1lbW9yeSBjbG9jayBpbmZvIGZv
+cgo+IHBvd2VycGxheSBlbmFibGVkIGNhc2UKPgo+Cj4KPiBJIGRvbid0IGtub3cgaWYgd2UgbmVl
+ZCB0byBhZGQgYSBjZ3MgY2FsbCB0byBmaWxsIGluIHRoZQo+IG1heF9jbG9ja192b2x0YWdlX2xp
+bWl0cyBzdHJ1Y3R1cmUuICBUaGF0J3MgbW9zdGx5IGp1c3QgbGVmdG92ZXIgZnJvbQo+IHJhZGVv
+bi4gIEEgYmV0dGVyIHNvbHV0aW9uIHdvdWxkIGJlIHVzZSB0aGUgZXhpc3RpbmcgYW1kZ3B1X2Rw
+bV9nZXRfc2NsayBhbmQKPiBhbWRncHVfZHBtX2dldF9tY2xrIG1hY3Jvcy4gIE1heWJlIHNvbWV0
+aGluZyBsaWtlIHRoZSBhdHRhY2hlZCBwYXRjaD8gVW5sZXNzCj4gdGhlcmUgaXMgYSBzcGVjaWZp
+YyBuZWVkIGZvciB0aGUgbWF4IGNsb2NrcyBvbiBBQy4gIEkgdGhpbmsgaW4gbW9zdCBjYXNlcwo+
+IHRoZSByZXN1bHRzIHdpbGwgYmUgdGhlIHNhbWUuCj4KPgo+Cj4gQWxleAo+Cj4KPgo+IEZyb206
+IGFtZC1nZnggW21haWx0bzphbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnXSBP
+biBCZWhhbGYgT2YKPiBRdWFuLCBFdmFuCj4gU2VudDogV2VkbmVzZGF5LCBPY3RvYmVyIDEyLCAy
+MDE2IDE6NTMgQU0KPiBUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBDYzogWmhh
+bmcsIEplcnJ5OyBIdWFuLCBBbHZpbjsgUXVhbiwgRXZhbjsgSHVhbmcsIFJheQo+IFN1YmplY3Q6
+IGRybS9hbWQvcG93ZXJwbGF5OiBleHBvc2UgbWF4IGVuZ2luZSBhbmQgbWVtb3J5IGNsb2NrIGlu
+Zm8gZm9yCj4gcG93ZXJwbGF5IGVuYWJsZWQgY2FzZQo+Cj4KPgo+IEhpIEFsbCwKPgo+Cj4KPiBX
+ZSBmb3VuZCB0aGUgbWF4IGVuZ2luZSBjbG9jayBhbmQgbWF4IG1lbW9yeSBjbG9jayBhcmUgYm90
+aCB3cm9uZ2x5IHJlcG9ydGVkCj4gYXMgMChieSBBTURHUFVfSU5GT19ERVZfSU5GTyBpb2N0bCku
+Cj4KPiBUaGUgYXR0YWNoZWQgcGF0Y2ggdHJpZXMgdG8gZml4IGl0Lgo+Cj4gUGxlYXNlIGhlbHAg
+dG8gcmV2aWV3IGl0Lgo+Cj4gQW55IGNvbW1lbnQgaXMgd2VsY29tZWQuCj4KPgo+Cj4gUmVnYXJk
+cywKPgo+IEV2YW4KPgo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4Cj4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
+Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
