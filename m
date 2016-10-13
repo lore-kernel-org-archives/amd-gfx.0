@@ -1,13 +1,11 @@
 From: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amd/amdgpu: Fix debugfs wave reader
-Date: Thu, 13 Oct 2016 12:16:49 -0400
-Message-ID: <20161013161649.8089-2-tom.stdenis@amd.com>
-References: <20161013161649.8089-1-tom.stdenis@amd.com>
+Subject: Fix lock imbalance in debugfs wave reader
+Date: Thu, 13 Oct 2016 12:16:48 -0400
+Message-ID: <20161013161649.8089-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20161013161649.8089-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,26 +17,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 
-T24gbm9uIFZJL0NaIHBsYXRmb3JtcyBpdCB3b3VsZCBub3QgZnJlZQp0aGUgZ3JibSBpbmRleCBs
-b2NrLgoKU2lnbmVkLW9mZi1ieTogVG9tIFN0IERlbmlzIDx0b20uc3RkZW5pc0BhbWQuY29tPgot
-LS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8IDUgKysrLS0K
-IDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCmluZGV4IDMwNGY2NmFlNDg0Zi4u
-ZDE0MWY3ZjZmMjI1IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfZGV2aWNlLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rldmlj
-ZS5jCkBAIC0zMDI1LDEzICszMDI1LDE0IEBAIHN0YXRpYyBzc2l6ZV90IGFtZGdwdV9kZWJ1Z2Zz
-X3dhdmVfcmVhZChzdHJ1Y3QgZmlsZSAqZiwgY2hhciBfX3VzZXIgKmJ1ZiwKIAkJZGF0YVt4Kytd
-ID0gd2F2ZV9yZWFkX2luZChhZGV2LCAweDIzNzgsIDB4MjM3OSwgc2ltZCwgd2F2ZSwgMHgxNCk7
-CiAJCWRhdGFbeCsrXSA9IHdhdmVfcmVhZF9pbmQoYWRldiwgMHgyMzc4LCAweDIzNzksIHNpbWQs
-IHdhdmUsIDB4MUEpOwogCQlkYXRhW3grK10gPSB3YXZlX3JlYWRfaW5kKGFkZXYsIDB4MjM3OCwg
-MHgyMzc5LCBzaW1kLCB3YXZlLCAweDFCKTsKLQl9IGVsc2UgewotCQlyZXR1cm4gLUVJTlZBTDsK
-IAl9CiAKIAlhbWRncHVfZ2Z4X3NlbGVjdF9zZV9zaChhZGV2LCAweEZGRkZGRkZGLCAweEZGRkZG
-RkZGLCAweEZGRkZGRkZGKTsKIAltdXRleF91bmxvY2soJmFkZXYtPmdyYm1faWR4X211dGV4KTsK
-IAorCWlmICgheCkKKwkJcmV0dXJuIC1FSU5WQUw7CisKIAl3aGlsZSAoc2l6ZSAmJiAoKnBvcyA8
-IHggKiA0KSkgewogCQl1aW50MzJfdCB2YWx1ZTsKIAotLSAKMi4xMC4wCgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+SSBpbnRyb2R1Y2VkIGEgbG9jayBpbWJhbGFuY2UgaW4gdGhlIGRlYnVnZnMgd2F2ZSByZWFkZXIu
+ICBUaGlzIHBhdGNoIGZpeGVzIHRoYXQuCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZngK
