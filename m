@@ -1,14 +1,17 @@
-From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/3] drm/amd/amdgpu: Add wave reader to debugfs
-Date: Fri, 14 Oct 2016 10:56:12 +0000
-Message-ID: <CY4PR12MB1768E88741EB80464DC9151DF7DF0@CY4PR12MB1768.namprd12.prod.outlook.com>
-References: <20161011191815.2097-1-tom.stdenis@amd.com>
- <20161011191815.2097-2-tom.stdenis@amd.com>,
- <74d8807b-fb6b-d249-3c6a-2eba72fa73a3@gmail.com>
+From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amd/powerplay: don't give up if DPM is already running
+Date: Fri, 14 Oct 2016 12:12:25 +0000
+Message-ID: <CY4PR12MB168731E2B30496DA257B1AFFFBDF0@CY4PR12MB1687.namprd12.prod.outlook.com>
+References: <1476040988-11676-1-git-send-email-notasas@gmail.com>
+ <CADnq5_PBtB=c=ycPRU-gOndt8C7HaZL_7SxKD6uEBFvWsSXz8w@mail.gmail.com>
+ <CY4PR12MB16875537013AAC3A7C43B615FBDD0@CY4PR12MB1687.namprd12.prod.outlook.com>
+ <CY4PR12MB1687EAFA6B672B00C4C608D4FBDC0@CY4PR12MB1687.namprd12.prod.outlook.com>
+ <CADnq5_M=Lt1qoOG2=T+t+TjaJNJQpU=_vPqUZbusAq+6O7Hq9Q@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1393007096=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <74d8807b-fb6b-d249-3c6a-2eba72fa73a3-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <CADnq5_M=Lt1qoOG2=T+t+TjaJNJQpU=_vPqUZbusAq+6O7Hq9Q-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,432 +23,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?iso-8859-1?Q?Nicolai_H=E4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1393007096==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB1768E88741EB80464DC9151DF7DF0CY4PR12MB1768namp_"
-
---_000_CY4PR12MB1768E88741EB80464DC9151DF7DF0CY4PR12MB1768namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Nicolai,
-
-
-I was trying to avoid having ASIC specific includes/etc in the amdgpu_devic=
-e.c file.  Agreed that de-numberifying it would be nice.  Maybe we can add =
-some /**/ comments to clear it up.  I imagine in the future we'll add more =
-fields (upto 32 in this design) anyways.
-
-
-Cheers,
-
-Tom
-
-
-________________________________
-From: Nicolai H=E4hnle <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Friday, October 14, 2016 03:25
-To: Tom St Denis; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: StDenis, Tom
-Subject: Re: [PATCH 1/3] drm/amd/amdgpu: Add wave reader to debugfs
-
-On 11.10.2016 21:18, Tom St Denis wrote:
-> Currently supports CZ/VI.  Allows nearly atomic read
-> of wave data from GPU.
->
-> Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 74 ++++++++++++++++++++++++=
-++++++
->  1 file changed, 74 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index 89b353418195..b1ab6358fa0f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -2914,6 +2914,72 @@ static ssize_t amdgpu_debugfs_sensor_read(struct f=
-ile *f, char __user *buf,
->        return !r ? 4 : r;
->  }
->
-> +static uint32_t wave_read_ind(struct amdgpu_device *adev, uint32_t SQ_IN=
-DEX, uint32_t SQ_DATA, uint32_t simd, uint32_t wave, uint32_t address)
-> +{
-> +     WREG32(SQ_INDEX, (wave & 0xF) | ((simd & 0x3) << 4) | (address << 1=
-6) | (1 << 13));
-> +     return RREG32(SQ_DATA);
-> +}
-> +
-> +static ssize_t amdgpu_debugfs_wave_read(struct file *f, char __user *buf=
-,
-> +                                     size_t size, loff_t *pos)
-> +{
-> +     struct amdgpu_device *adev =3D f->f_inode->i_private;
-> +     int r, x;
-> +     ssize_t result=3D0;
-> +     uint32_t offset, se, sh, cu, wave, simd, data[16];
-> +
-> +     if (size & 3 || *pos & 3)
-> +             return -EINVAL;
-> +
-> +     /* decode offset */
-> +     offset =3D (*pos & 0x7F);
-> +     se =3D ((*pos >> 7) & 0xFF);
-> +     sh =3D ((*pos >> 15) & 0xFF);
-> +     cu =3D ((*pos >> 23) & 0xFF);
-> +     wave =3D ((*pos >> 31) & 0xFF);
-> +     simd =3D ((*pos >> 37) & 0xFF);
-> +     *pos &=3D 0x7F;
-> +
-> +     /* switch to the specific se/sh/cu */
-> +     mutex_lock(&adev->grbm_idx_mutex);
-> +     amdgpu_gfx_select_se_sh(adev, se, sh, cu);
-> +
-> +     x =3D 0;
-> +     if (adev->family =3D=3D AMDGPU_FAMILY_CZ || adev->family =3D=3D AMD=
-GPU_FAMILY_VI) {
-> +             /* type 0 wave data */
-> +             data[x++] =3D 0;
-> +             data[x++] =3D wave_read_ind(adev, 0x2378, 0x2379, simd, wav=
-e, 0x12);
-> +             data[x++] =3D wave_read_ind(adev, 0x2378, 0x2379, simd, wav=
-e, 0x18);
-> +             data[x++] =3D wave_read_ind(adev, 0x2378, 0x2379, simd, wav=
-e, 0x19);
-> +             data[x++] =3D wave_read_ind(adev, 0x2378, 0x2379, simd, wav=
-e, 0x27E);
-> +             data[x++] =3D wave_read_ind(adev, 0x2378, 0x2379, simd, wav=
-e, 0x27F);
-> +             data[x++] =3D wave_read_ind(adev, 0x2378, 0x2379, simd, wav=
-e, 0x14);
-> +             data[x++] =3D wave_read_ind(adev, 0x2378, 0x2379, simd, wav=
-e, 0x1A);
-> +             data[x++] =3D wave_read_ind(adev, 0x2378, 0x2379, simd, wav=
-e, 0x1B);
-
-I know this is just debug code, but it's still annoying to have all
-these magic constants here, when there are perfectly good ixSQ_WAVE_*
-etc. defines in the asic_reg headers.
-
-Nicolai
-
-> +     } else {
-> +             return -EINVAL;
-> +     }
-> +
-> +     amdgpu_gfx_select_se_sh(adev, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF);
-> +     mutex_unlock(&adev->grbm_idx_mutex);
-> +
-> +     while (size && (*pos < x * 4)) {
-> +             uint32_t value;
-> +
-> +             value =3D data[*pos >> 2];
-> +             r =3D put_user(value, (uint32_t *)buf);
-> +             if (r)
-> +                     return r;
-> +
-> +             result +=3D 4;
-> +             buf +=3D 4;
-> +             *pos +=3D 4;
-> +             size -=3D 4;
-> +     }
-> +
-> +     return result;
-> +}
-> +
->  static const struct file_operations amdgpu_debugfs_regs_fops =3D {
->        .owner =3D THIS_MODULE,
->        .read =3D amdgpu_debugfs_regs_read,
-> @@ -2951,6 +3017,12 @@ static const struct file_operations amdgpu_debugfs=
-_sensors_fops =3D {
->        .llseek =3D default_llseek
->  };
->
-> +static const struct file_operations amdgpu_debugfs_wave_fops =3D {
-> +     .owner =3D THIS_MODULE,
-> +     .read =3D amdgpu_debugfs_wave_read,
-> +     .llseek =3D default_llseek
-> +};
-> +
->  static const struct file_operations *debugfs_regs[] =3D {
->        &amdgpu_debugfs_regs_fops,
->        &amdgpu_debugfs_regs_didt_fops,
-> @@ -2958,6 +3030,7 @@ static const struct file_operations *debugfs_regs[]=
- =3D {
->        &amdgpu_debugfs_regs_smc_fops,
->        &amdgpu_debugfs_gca_config_fops,
->        &amdgpu_debugfs_sensors_fops,
-> +     &amdgpu_debugfs_wave_fops,
->  };
->
->  static const char *debugfs_regs_names[] =3D {
-> @@ -2967,6 +3040,7 @@ static const char *debugfs_regs_names[] =3D {
->        "amdgpu_regs_smc",
->        "amdgpu_gca_config",
->        "amdgpu_sensors",
-> +     "amdgpu_wave",
->  };
->
->  static int amdgpu_debugfs_regs_init(struct amdgpu_device *adev)
->
-
---_000_CY4PR12MB1768E88741EB80464DC9151DF7DF0CY4PR12MB1768namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Arial,Helvetica,sans-serif;">
-<p>Hi Nicolai,</p>
-<p><br>
-</p>
-<p>I was trying to avoid having ASIC specific includes/etc in the amdgpu_de=
-vice.c file. &nbsp;Agreed that de-numberifying it would be nice. &nbsp;Mayb=
-e we can add some /**/ comments to clear it up. &nbsp;I imagine in the futu=
-re we'll add more fields (upto 32 in this design)
- anyways.</p>
-<p><br>
-</p>
-<p>Cheers,</p>
-<p>Tom</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Nicolai H=E4hnle &l=
-t;nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Sent:</b> Friday, October 14, 2016 03:25<br>
-<b>To:</b> Tom St Denis; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> StDenis, Tom<br>
-<b>Subject:</b> Re: [PATCH 1/3] drm/amd/amdgpu: Add wave reader to debugfs<=
-/font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">On 11.10.2016 21:18, Tom St Denis wrote:<br>
-&gt; Currently supports CZ/VI.&nbsp; Allows nearly atomic read<br>
-&gt; of wave data from GPU.<br>
-&gt;<br>
-&gt; Signed-off-by: Tom St Denis &lt;tom.stdenis-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 74 &#43;&#43;&#43;&=
-#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
-#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
-&gt;&nbsp; 1 file changed, 74 insertions(&#43;)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; index 89b353418195..b1ab6358fa0f 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; @@ -2914,6 &#43;2914,72 @@ static ssize_t amdgpu_debugfs_sensor_read(s=
-truct file *f, char __user *buf,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return !r ? 4 : r;<br>
-&gt;&nbsp; }<br>
-&gt;<br>
-&gt; &#43;static uint32_t wave_read_ind(struct amdgpu_device *adev, uint32_=
-t SQ_INDEX, uint32_t SQ_DATA, uint32_t simd, uint32_t wave, uint32_t addres=
-s)<br>
-&gt; &#43;{<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(SQ_INDEX, (wave &amp; 0xF) | ((si=
-md &amp; 0x3) &lt;&lt; 4) | (address &lt;&lt; 16) | (1 &lt;&lt; 13));<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; return RREG32(SQ_DATA);<br>
-&gt; &#43;}<br>
-&gt; &#43;<br>
-&gt; &#43;static ssize_t amdgpu_debugfs_wave_read(struct file *f, char __us=
-er *buf,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; size_t size, loff_t *pos)<br>
-&gt; &#43;{<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D f-&gt;f_i=
-node-&gt;i_private;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; int r, x;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; ssize_t result=3D0;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t offset, se, sh, cu, wave, simd,=
- data[16];<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; <br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (size &amp; 3 || *pos &amp; 3)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; return -EINVAL;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; /* decode offset */<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; offset =3D (*pos &amp; 0x7F);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; se =3D ((*pos &gt;&gt; 7) &amp; 0xFF);<b=
-r>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; sh =3D ((*pos &gt;&gt; 15) &amp; 0xFF);<=
-br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; cu =3D ((*pos &gt;&gt; 23) &amp; 0xFF);<=
-br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; wave =3D ((*pos &gt;&gt; 31) &amp; 0xFF)=
-;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; simd =3D ((*pos &gt;&gt; 37) &amp; 0xFF)=
-;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; *pos &amp;=3D 0x7F;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; /* switch to the specific se/sh/cu */<br=
->
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;adev-&gt;grbm_idx_mutex)=
-;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_gfx_select_se_sh(adev, se, sh, cu=
-);<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; x =3D 0;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;family =3D=3D AMDGPU_FAMILY=
-_CZ || adev-&gt;family =3D=3D AMDGPU_FAMILY_VI) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; /* type 0 wave data */<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; data[x&#43;&#43;] =3D 0;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; data[x&#43;&#43;] =3D wave_read_ind(adev, 0x2378, 0x2379, simd, wav=
-e, 0x12);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; data[x&#43;&#43;] =3D wave_read_ind(adev, 0x2378, 0x2379, simd, wav=
-e, 0x18);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; data[x&#43;&#43;] =3D wave_read_ind(adev, 0x2378, 0x2379, simd, wav=
-e, 0x19);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; data[x&#43;&#43;] =3D wave_read_ind(adev, 0x2378, 0x2379, simd, wav=
-e, 0x27E);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; data[x&#43;&#43;] =3D wave_read_ind(adev, 0x2378, 0x2379, simd, wav=
-e, 0x27F);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; data[x&#43;&#43;] =3D wave_read_ind(adev, 0x2378, 0x2379, simd, wav=
-e, 0x14);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; data[x&#43;&#43;] =3D wave_read_ind(adev, 0x2378, 0x2379, simd, wav=
-e, 0x1A);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; data[x&#43;&#43;] =3D wave_read_ind(adev, 0x2378, 0x2379, simd, wav=
-e, 0x1B);<br>
-<br>
-I know this is just debug code, but it's still annoying to have all <br>
-these magic constants here, when there are perfectly good ixSQ_WAVE_* <br>
-etc. defines in the asic_reg headers.<br>
-<br>
-Nicolai<br>
-<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; return -EINVAL;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_gfx_select_se_sh(adev, 0xFFFFFFFF=
-, 0xFFFFFFFF, 0xFFFFFFFF);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;adev-&gt;grbm_idx_mute=
-x);<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; while (size &amp;&amp; (*pos &lt; x * 4)=
-) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; uint32_t value;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; value =3D data[*pos &gt;&gt; 2];<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; r =3D put_user(value, (uint32_t *)buf);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; if (r)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; result &#43;=3D 4;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; buf &#43;=3D 4;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; *pos &#43;=3D 4;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; size -=3D 4;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; return result;<br>
-&gt; &#43;}<br>
-&gt; &#43;<br>
-&gt;&nbsp; static const struct file_operations amdgpu_debugfs_regs_fops =3D=
- {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .owner =3D THIS_MODULE,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read =3D amdgpu_debugfs_reg=
-s_read,<br>
-&gt; @@ -2951,6 &#43;3017,12 @@ static const struct file_operations amdgpu_=
-debugfs_sensors_fops =3D {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .llseek =3D default_llseek<b=
-r>
-&gt;&nbsp; };<br>
-&gt;<br>
-&gt; &#43;static const struct file_operations amdgpu_debugfs_wave_fops =3D =
-{<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .owner =3D THIS_MODULE,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .read =3D amdgpu_debugfs_wave_read,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .llseek =3D default_llseek<br>
-&gt; &#43;};<br>
-&gt; &#43;<br>
-&gt;&nbsp; static const struct file_operations *debugfs_regs[] =3D {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;amdgpu_debugfs_regs_fop=
-s,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;amdgpu_debugfs_regs_did=
-t_fops,<br>
-&gt; @@ -2958,6 &#43;3030,7 @@ static const struct file_operations *debugfs=
-_regs[] =3D {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;amdgpu_debugfs_regs_smc=
-_fops,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;amdgpu_debugfs_gca_conf=
-ig_fops,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;amdgpu_debugfs_sensors_=
-fops,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; &amp;amdgpu_debugfs_wave_fops,<br>
-&gt;&nbsp; };<br>
-&gt;<br>
-&gt;&nbsp; static const char *debugfs_regs_names[] =3D {<br>
-&gt; @@ -2967,6 &#43;3040,7 @@ static const char *debugfs_regs_names[] =3D =
-{<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;amdgpu_regs_smc&quot;,=
-<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;amdgpu_gca_config&quot=
-;,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;amdgpu_sensors&quot;,<=
-br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; &quot;amdgpu_wave&quot;,<br>
-&gt;&nbsp; };<br>
-&gt;<br>
-&gt;&nbsp; static int amdgpu_debugfs_regs_init(struct amdgpu_device *adev)<=
-br>
-&gt;<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB1768E88741EB80464DC9151DF7DF0CY4PR12MB1768namp_--
-
---===============1393007096==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1393007096==--
+IEhpIEFsZXgsDQoNCllvdXIgbmV3IGF0dGFjaGVkIHBhdGNoIGlzIFRlc3RlZC1ieSBhbmQgUmV2
+aWV3ZWQtYnk6IFJleCBaaHUgPFJleC5aaHVAYW1kLmNvbT4NCg0KSnVzdCBvbmUgcXVlc3Rpb24s
+DQoNCkRvIHdlIG5lZWQgdG8gc2V0IGNsb2NrX2dhdGUgZm9yIHNtdT8gDQoNCkJlc3QgUmVnYXJk
+cw0KUmV4DQoNCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IEFsZXggRGV1Y2hl
+ciBbbWFpbHRvOmFsZXhkZXVjaGVyQGdtYWlsLmNvbV0gDQpTZW50OiBUaHVyc2RheSwgT2N0b2Jl
+ciAxMywgMjAxNiAxMToyOSBQTQ0KVG86IFpodSwgUmV4DQpDYzogR3JhenZ5ZGFzIElnbm90YXM7
+IGFtZC1nZnggbGlzdDsgTWFsaW5nIGxpc3QgLSBEUkkgZGV2ZWxvcGVycw0KU3ViamVjdDogUmU6
+IFtQQVRDSF0gZHJtL2FtZC9wb3dlcnBsYXk6IGRvbid0IGdpdmUgdXAgaWYgRFBNIGlzIGFscmVh
+ZHkgcnVubmluZw0KDQogT24gVGh1LCBPY3QgMTMsIDIwMTYgYXQgMzo0NSBBTSwgWmh1LCBSZXgg
+PFJleC5aaHVAYW1kLmNvbT4gd3JvdGU6DQo+IEhpIGFsbCwNCj4NCj4gVGhlIGF0dGFjaGVkIHBh
+dGNoZXMgd2VyZSBhbHNvIGZvciB0aGlzIGlzc3VlLg0KPiBEaXNhYmxlIGRwbSB3aGVuIHJtbW9k
+IGFtZGdwdS4NCj4NCj4gUGxlYXNlIGhlbHAgdG8gcmV2aWV3Lg0KDQpQYXRjaCAxOg0KKyAgICBy
+ID0gYWRldi0+aXBfYmxvY2tzW0FNRF9JUF9CTE9DS19UWVBFX1NNQ10uZnVuY3MtPmh3X2Zpbmko
+KHZvaWQgKilhZGV2KTsNCisgICAgaWYgKHIpDQorICAgICAgICBEUk1fREVCVUcoImh3X2Zpbmkg
+b2YgSVAgYmxvY2sgPCVzPiBmYWlsZWQgJWRcbiIsDQorICAgICAgICAgICAgYWRldi0+aXBfYmxv
+Y2tzW0FNRF9JUF9CTE9DS19UWVBFX1NNQ10uZnVuY3MtPm5hbWUsIHIpOw0KKw0KKyAgICBhZGV2
+LT5pcF9ibG9ja19zdGF0dXNbQU1EX0lQX0JMT0NLX1RZUEVfU01DXS5odyA9IGZhbHNlOw0KDQpZ
+b3UgY2FuJ3QgdXNlIEFNRF9JUF9CTE9DS19UWVBFXyogYXMgaW5kZXguICBTb21lIGNoaXBzIG1h
+eSBub3QgaGF2ZSB0aGUgSVAgYmxvY2suICBNYXliZSBzb21ldGhpbmcgbGlrZSB0aGUgYXR0YWNo
+ZWQgcGF0Y2guICBUaGF0IHNhaWQsIEkgdGhpbmsgbG9uZ2VyIHRlcm0gaXQgbWFrZXMgbW9yZSBz
+ZW5zZSB0byBhbGxvd3MgdGhlIFNPQ3MgdG8gc3BlY2lmeSB0aGUgb3JkZXIgZm9yIGluaXQsIGZp
+bmksIGV0Yy4gb3RoZXJ3aXNlIHdlJ2xsIGhhdmUgbG90cyBvZiB2YXJpYWJsZSBsb2dpYyBpbiB0
+aGUgY29tbW9uIGNvZGUuDQoNClBhdGNoIDI6DQorICAgIGlmICgxID09IFBITV9SRUFEX1ZGUEZf
+SU5ESVJFQ1RfRklFTEQoaHdtZ3ItPmRldmljZSwNCkNHU19JTkRfUkVHX19TTUMsIEZFQVRVUkVf
+U1RBVFVTLCBBVlNfT04pKSB7DQorICAgICAgICBQUF9BU1NFUlRfV0lUSF9DT0RFKCgwID09IHNt
+dW1fc2VuZF9tc2dfdG9fc21jKGh3bWdyLT5zbXVtZ3IsDQpQUFNNQ19NU0dfRGlzYWJsZUF2ZnMp
+KSwNCisgICAgICAgICAgICAgICAgICAgICJGYWlsZWQgdG8gZGlzYWJsZSBBVkZTISIsDQorICAg
+ICAgICAgICAgICAgICAgICByZXR1cm4gLTE7KTsNCisgICAgfQ0KDQpVc2UgYSBwcm9wZXIgZXJy
+b3IgY29kZSB0aGVyZSBsaWtlIC1FSU5WQUwgb3Igc29tZXRoaW5nLiAgV2l0aCB0aGF0IGZpeGVk
+Og0KUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4N
+Cg0KQWxleA0KDQo+DQo+IEJlc3QgUmVnYXJkcw0KPiBSZXgNCj4NCj4gLS0tLS1PcmlnaW5hbCBN
+ZXNzYWdlLS0tLS0NCj4gRnJvbTogYW1kLWdmeCBbbWFpbHRvOmFtZC1nZngtYm91bmNlc0BsaXN0
+cy5mcmVlZGVza3RvcC5vcmddIE9uIEJlaGFsZiANCj4gT2YgWmh1LCBSZXgNCj4gU2VudDogV2Vk
+bmVzZGF5LCBPY3RvYmVyIDEyLCAyMDE2IDk6NDUgUE0NCj4gVG86IEFsZXggRGV1Y2hlcjsgR3Jh
+enZ5ZGFzIElnbm90YXMNCj4gQ2M6IGFtZC1nZnggbGlzdDsgTWFsaW5nIGxpc3QgLSBEUkkgZGV2
+ZWxvcGVycw0KPiBTdWJqZWN0OiBSRTogW1BBVENIXSBkcm0vYW1kL3Bvd2VycGxheTogZG9uJ3Qg
+Z2l2ZSB1cCBpZiBEUE0gaXMgDQo+IGFscmVhZHkgcnVubmluZw0KPg0KPiBIaSBHcmF6dnlkYXMg
+YW5kIEFsZXgsDQo+DQo+IFdlIG5lZWRlZCB0byBkaXNhYmxlIGRwbSB3aGVuIHJtbW9kIGFtZGdw
+dSBmb3IgdGhpcyBpc3N1ZS4NCj4NCj4gSSBhbSBjaGVja2luZyB0aGUgZnVuY3Rpb24gb2YgZGlz
+YWJsZSBkcG0gdGFzay4NCj4NCj4gQmVzdCBSZWdhcmRzDQo+IFJleA0KPg0KPiAtLS0tLU9yaWdp
+bmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBBbGV4IERldWNoZXIgW21haWx0bzphbGV4ZGV1Y2hl
+ckBnbWFpbC5jb21dDQo+IFNlbnQ6IFdlZG5lc2RheSwgT2N0b2JlciAxMiwgMjAxNiA0OjAxIEFN
+DQo+IFRvOiBHcmF6dnlkYXMgSWdub3RhczsgWmh1LCBSZXgNCj4gQ2M6IE1hbGluZyBsaXN0IC0g
+RFJJIGRldmVsb3BlcnM7IGFtZC1nZnggbGlzdA0KPiBTdWJqZWN0OiBSZTogW1BBVENIXSBkcm0v
+YW1kL3Bvd2VycGxheTogZG9uJ3QgZ2l2ZSB1cCBpZiBEUE0gaXMgDQo+IGFscmVhZHkgcnVubmlu
+Zw0KPg0KPiArUmV4IHRvIHJldmlldyB0aGlzLg0KPg0KPiBBbGV4DQo+DQo+IE9uIFN1biwgT2N0
+IDksIDIwMTYgYXQgMzoyMyBQTSwgR3JhenZ5ZGFzIElnbm90YXMgPG5vdGFzYXNAZ21haWwuY29t
+PiB3cm90ZToNCj4+IEN1cnJlbnRseSB0aGUgZHJpdmVyIGNyYXNoZXMgaWYgc211N19lbmFibGVf
+ZHBtX3Rhc2tzKCkgcmV0dXJucyANCj4+IGVhcmx5LCB3aGljaCBpdCBkb2VzIGlmIERQTSBpcyBh
+bHJlYWR5IGFjdGl2ZS4gSXQgc2VlbXMgdG8gYmUgYmV0dGVyIA0KPj4ganVzdCB0byBjb250aW51
+ZSBhbnl3YXksIGF0IGxlYXN0IEkgaGF2ZW4ndCBub3RpY2VkIGFueSBpbGwgZWZmZWN0cy4gDQo+
+PiBJdCdzIGFsc28gdW5jbGVhciBhdCB3aGF0IHN0YXRlIHRoZSBoYXJkd2FyZSB3YXMgbGVmdCBi
+eSB0aGUgcHJldmlvdXMgDQo+PiBkcml2ZXIsIHNvIElNTyBpdCdzIGJldHRlciB0byBhbHdheXMg
+ZnVsbHkgaW5pdGlhbGl6ZS4NCj4+DQo+PiBXYXkgdG8gcmVwcm9kdWNlOg0KPj4gJCBtb2Rwcm9i
+ZSBhbWRncHUNCj4+ICQgcm1tb2QgYW1kZ3B1DQo+PiAkIG1vZHByb2JlIGFtZGdwdQ0KPj4gLi4u
+DQo+PiBEUE0gaXMgYWxyZWFkeSBydW5uaW5nIHJpZ2h0IG5vdywgbm8gbmVlZCB0byBlbmFibGUg
+RFBNIQ0KPj4gLi4uDQo+PiBmYWlsZWQgdG8gc2VuZCBtZXNzYWdlIDE4YiByZXQgaXMgMA0KPj4g
+QlVHOiB1bmFibGUgdG8gaGFuZGxlIGtlcm5lbCBwYWdpbmcgcmVxdWVzdCBhdCBmZmZmZWQwMWZj
+OWFiMjFmIENhbGwNCj4+IFRyYWNlOg0KPj4gIHNtdTdfc2V0X3Bvd2VyX3N0YXRlX3Rhc2tzKzB4
+NDk5LzB4MTk0MCBbYW1kZ3B1XQ0KPj4gIHBobV9zZXRfcG93ZXJfc3RhdGUrMHhjYi8weDEyMCBb
+YW1kZ3B1XQ0KPj4gIHBzbV9hZGp1c3RfcG93ZXJfc3RhdGVfZHluYW1pYysweDExZS8weDFiMCBb
+YW1kZ3B1XQ0KPj4gIHBlbV90YXNrX2FkanVzdF9wb3dlcl9zdGF0ZSsweGI5LzB4ZDAgW2FtZGdw
+dV0NCj4+ICBwZW1fZXhjdXRlX2V2ZW50X2NoYWluKzB4N2QvMHhlMCBbYW1kZ3B1XQ0KPj4gIHBl
+bV9oYW5kbGVfZXZlbnRfdW5sb2NrZWQrMHg0OS8weDYwIFthbWRncHVdDQo+PiAgcGVtX2hhbmRs
+ZV9ldmVudCsweGUvMHgxMCBbYW1kZ3B1XQ0KPj4gIHBwX2RwbV9kaXNwYXRjaF90YXNrcysweGUw
+LzB4MTkwIFthbWRncHVdDQo+PiAgYW1kZ3B1X3BtX2NvbXB1dGVfY2xvY2tzKzB4MTBjLzB4YzYw
+IFthbWRncHVdDQo+PiAgZGNlX3YxMV8wX2NydGNfZHBtcysweDdkLzB4MTUwIFthbWRncHVdDQo+
+PiAgZGNlX3YxMV8wX2NydGNfZGlzYWJsZSsweDkwLzB4NGEwIFthbWRncHVdDQo+PiAgZHJtX2hl
+bHBlcl9kaXNhYmxlX3VudXNlZF9mdW5jdGlvbnMrMHg2Ny8weDgwIFtkcm1fa21zX2hlbHBlcl0N
+Cj4+ICBhbWRncHVfZmJkZXZfaW5pdCsweDEzZS8weDE3MCBbYW1kZ3B1XQ0KPj4gIGFtZGdwdV9k
+ZXZpY2VfaW5pdCsweDFhZWIvMHgyNDkwIFthbWRncHVdDQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTog
+R3JhenZ5ZGFzIElnbm90YXMgPG5vdGFzYXNAZ21haWwuY29tPg0KPj4gLS0tDQo+PiAgZHJpdmVy
+cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jIHwgNCArKy0tDQo+PiAg
+MSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkNCj4+DQo+PiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21n
+ci5jDQo+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3Iu
+Yw0KPj4gaW5kZXggZjZhZmE2YS4uMzI3MDMwYiAxMDA2NDQNCj4+IC0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYw0KPj4gKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jDQo+PiBAQCAtMTE2Niw4ICsx
+MTY2LDggQEAgc3RhdGljIGludCBzbXU3X2VuYWJsZV9kcG1fdGFza3Moc3RydWN0IA0KPj4gcHBf
+aHdtZ3INCj4+ICpod21ncikNCj4+DQo+PiAgICAgICAgIHRtcF9yZXN1bHQgPSAoIXNtdW1faXNf
+ZHBtX3J1bm5pbmcoaHdtZ3IpKSA/IDAgOiAtMTsNCj4+ICAgICAgICAgUFBfQVNTRVJUX1dJVEhf
+Q09ERSh0bXBfcmVzdWx0ID09IDAsDQo+PiAtICAgICAgICAgICAgICAgICAgICAgICAiRFBNIGlz
+IGFscmVhZHkgcnVubmluZyByaWdodCBub3csIG5vIG5lZWQgdG8gZW5hYmxlIERQTSEiLA0KPj4g
+LSAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIDApOw0KPj4gKyAgICAgICAgICAgICAgICAg
+ICAgICAgIkRQTSBpcyBhbHJlYWR5IHJ1bm5pbmciLA0KPj4gKyAgICAgICAgICAgICAgICAgICAg
+ICAgKTsNCj4+DQo+PiAgICAgICAgIGlmIChzbXU3X3ZvbHRhZ2VfY29udHJvbChod21ncikpIHsN
+Cj4+ICAgICAgICAgICAgICAgICB0bXBfcmVzdWx0ID0gc211N19lbmFibGVfdm9sdGFnZV9jb250
+cm9sKGh3bWdyKTsNCj4+IC0tDQo+PiAyLjcuNA0KPj4NCj4+IF9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPj4g
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KPiBfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPiBhbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeAo=
