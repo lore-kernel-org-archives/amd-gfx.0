@@ -1,17 +1,17 @@
-From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+From: =?UTF-8?Q?Ernst_Sj=C3=B6strand?= <ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Subject: Re: [PATCH] amdgpu: Fix failing boot after support for third vce ring
-Date: Fri, 14 Oct 2016 13:17:20 +0000
-Message-ID: <CY4PR12MB17686E7D2D814A6B94CA861AF7DF0@CY4PR12MB1768.namprd12.prod.outlook.com>
+Date: Fri, 14 Oct 2016 15:20:34 +0200
+Message-ID: <CAD=4a=XVD6dq7KWFtY9r5qS4saARoXvpqLcshX1L=Vibri7cLA@mail.gmail.com>
 References: <1476449341-2673-1-git-send-email-ernstp@gmail.com>
  <CY4PR12MB1768CDAC43129C814D75DCE0F7DF0@CY4PR12MB1768.namprd12.prod.outlook.com>
  <CAD=4a=XdwL5AaZ=kJKQXWgcYPUYrCJd4SMXT9FH470Ei5_dqOA@mail.gmail.com>
- <CY4PR12MB1768287E6AD0257F6330C5CFF7DF0@CY4PR12MB1768.namprd12.prod.outlook.com>,
+ <CY4PR12MB1768287E6AD0257F6330C5CFF7DF0@CY4PR12MB1768.namprd12.prod.outlook.com>
  <CAD=4a=VjQmmZtLb9h87jzm_Oha+NOLZ83JeYRreQzwsK7aCZTw@mail.gmail.com>
+ <CAD=4a=VHdJ1WKE3XQmiSK+-M2NLfZq5N6kgU_J7tcjVmmz8vpg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1133103268=="
+Content-Type: multipart/mixed; boundary="===============1308687318=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAD=4a=VjQmmZtLb9h87jzm_Oha+NOLZ83JeYRreQzwsK7aCZTw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <CAD=4a=VHdJ1WKE3XQmiSK+-M2NLfZq5N6kgU_J7tcjVmmz8vpg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,313 +22,441 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?RXJuc3QgU2rDtnN0cmFuZA==?= <ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
 Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1133103268==
-Content-Language: en-US
-Content-Type: multipart/related;
-	boundary="_004_CY4PR12MB17686E7D2D814A6B94CA861AF7DF0CY4PR12MB1768namp_";
-	type="multipart/alternative"
+--===============1308687318==
+Content-Type: multipart/alternative; boundary=001a114289ea69abac053ed3175f
 
---_004_CY4PR12MB17686E7D2D814A6B94CA861AF7DF0CY4PR12MB1768namp_
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB17686E7D2D814A6B94CA861AF7DF0CY4PR12MB1768namp_"
+--001a114289ea69abac053ed3175f
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
---_000_CY4PR12MB17686E7D2D814A6B94CA861AF7DF0CY4PR12MB1768namp_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Means the drm pull request for 4.9 is broken then also, FYI.
 
-WW91IGRlZmluaXRlbHkgbmVlZCB0aGUgcGF0Y2ggZnJvbSBzdGFnaW5nLTQuNy4NCg0KDQpUaGUg
-ImFtZC1zdGFnaW5nLTQueCIgYnJhbmNoZXMgYXJlIHdoYXQgd2UgKGFtZCBmb2xrKSBub3JtYWxs
-eSBkZXZlbG9wIGFnYWluc3Qgb24gYSBkYWlseSBiYXNpcyBhbmQgdGhlbiBhbGV4IGNoZXJyeSBw
-aWNrcyB0aGVtIHRvIGRybS1uZXh0LSouICBTb21ldGltZXMgcGF0Y2hlcyBhcmUgbWlzc2VkLg0K
-DQpIb3BlZnVsbHkgQWxleCBjYW4gY2hlcnJ5IHBpY2sgaXQgdG8gZHJtLW5leHQgYnJhbmNoZXMg
-c2hvcnRseSBb8J+Yil0NCg0KDQpUb20NCg0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXw0KRnJvbTogRXJuc3QgU2rDtnN0cmFuZCA8ZXJuc3RwQGdtYWlsLmNvbT4NClNlbnQ6IEZy
-aWRheSwgT2N0b2JlciAxNCwgMjAxNiAwOToxNQ0KVG86IFN0RGVuaXMsIFRvbQ0KQ2M6IGFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpTdWJqZWN0OiBSZTogW1BBVENIXSBhbWRncHU6IEZp
-eCBmYWlsaW5nIGJvb3QgYWZ0ZXIgc3VwcG9ydCBmb3IgdGhpcmQgdmNlIHJpbmcNCg0KSSdtIHRl
-c3RpbmcgYm90aCBkcm0tbmV4dC00LjkgYW5kIGRybS1uZXh0LTQuOS13aXAgZnJvbSB+YWdkNWYu
-DQpJIHRoaW5rIHRoZSBwcm9ibGVtIGlzIGluIGRybS1uZXh0IG5vdyBhbHNvLg0KVGhleSBhbGwg
-aGF2ZQ0KNmYwMzU5ZiBkcm0vYW1kZ3B1L3ZjZTM6IGFkZCBzdXBwb3J0IGZvciB0aGlyZCB2Y2Ug
-cmluZw0KNzVjNjU0OCBkcm0vYW1kZ3B1OiB0cmFjayB0aGUgbnVtYmVyIG9mIHZjZSByaW5ncw0K
-DQpCdXQgbm90DQo5ZDI0YjMwIGRybS9hbWRncHU6IGZpeCBicm9rZW4gVkNFIHN0YXJ0dXAgaW4g
-cGh5cyBtb2RlDQp3aGljaCBvbmx5IGV4aXN0cyBpbiBhbWQtc3RhZ2luZy00LjcNCihXaGF0IGRv
-ZXMgNC43IG1lYW4gaW4gdGhpcyBjb250ZXh0Li4uID8pDQoNClJlZ2FyZHMNCi8vRXJuc3QNCg0K
-DQoyMDE2LTEwLTE0IDE1OjA3IEdNVCswMjowMCBTdERlbmlzLCBUb20gPFRvbS5TdERlbmlzQGFt
-ZC5jb208bWFpbHRvOlRvbS5TdERlbmlzQGFtZC5jb20+PjoNCg0KRG8geW91IGhhdmUgaHR0cHM6
-Ly9jZ2l0LmZyZWVkZXNrdG9wLm9yZy9+YWdkNWYvbGludXgvY29tbWl0Lz9oPWRybS1uZXh0LTQu
-Ny13aXAmaWQ9OWQyNGIzMDRhYmJlNTM4MGRhMWJjNzgyYjQ0NjA1OTZlN2NiMTEwOSBhcyB3ZWxs
-Pw0KDQoNCkkndmUgYm9vdGVkIHRoZSB0aXAgb2Ygb3VyIHN0YWdpbmctNC43IGJyYW5jaCB3aXRo
-IGEgRklKSSBkZXZpY2UgKEZVUlkpIGFuZCB3YXMgYWJsZSB0byBwbGF5IHZpZGVvcyAodmRwYXUp
-IGFuZCBub3JtYWwgR0wgYXBwcy4NCg0KDQpUb20NCg0KDQpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXw0KRnJvbTogRXJuc3QgU2rDtnN0cmFuZCA8ZXJuc3RwQGdtYWlsLmNvbTxtYWls
-dG86ZXJuc3RwQGdtYWlsLmNvbT4+DQpTZW50OiBGcmlkYXksIE9jdG9iZXIgMTQsIDIwMTYgMDk6
-MDUNClRvOiBTdERlbmlzLCBUb20NCkNjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzxt
-YWlsdG86YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+DQpTdWJqZWN0OiBSZTogW1BBVENI
-XSBhbWRncHU6IEZpeCBmYWlsaW5nIGJvb3QgYWZ0ZXIgc3VwcG9ydCBmb3IgdGhpcmQgdmNlIHJp
-bmcNCg0KWWVzLCB0aGUgIDZmMDM1OWZmNzMwNzY0ODM5MDJkZTBjMTdmOTY0OWJmNTU2NTFlMmEg
-SSdtIHJlZmVycmluZyB0byBpcyB0aGUgc2FtZSBhcw0KNzgwNjA1ZGIxMmM1MmYyYzIyZDRkMmNj
-MDVjZWI3ZDJhOWQ1NTU3OSAob25seSBleGlzdHMgaW4gYW1kLXN0YWdpbmcpLg0KU28gdGhlIGxh
-c3Qgb2YgdGhvc2UgdHdvIGNvbW1pdHMgaXMgdGhlIG9uZSB0aGF0IGNhdXNlcyBteSBwcm9ibGVt
-Lg0KDQpSZWdhcmRzDQovL0VybnN0DQoNCjIwMTYtMTAtMTQgMTQ6NTMgR01UKzAyOjAwIFN0RGVu
-aXMsIFRvbSA8VG9tLlN0RGVuaXNAYW1kLmNvbTxtYWlsdG86VG9tLlN0RGVuaXNAYW1kLmNvbT4+
-Og0KDQpEb2VzIHlvdXIgdHJlZSBoYXZlDQoNCg0KMmYzZDY4NmQwZWU5NTMzMmQ4ODg4MTY5Yzdi
-Njc4OGJiMmQ5ZjVhZA0KDQo3ODA2MDVkYjEyYzUyZjJjMjJkNGQyY2MwNWNlYjdkMmE5ZDU1NTc5
-DQoNCg0KaW4gaXQ/ICBUaG9zZSBhcmUgZml4ZXMgZm9yIHdoZW4gdGhlIHRoaXJkIHJpbmcgd2Vy
-ZSBhZGRlZC4NCg0KDQpUb20NCg0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0K
-RnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZzxtYWls
-dG86YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4+IG9uIGJlaGFsZiBvZiBF
-cm5zdCBTasO2c3RyYW5kIDxlcm5zdHBAZ21haWwuY29tPG1haWx0bzplcm5zdHBAZ21haWwuY29t
-Pj4NClNlbnQ6IEZyaWRheSwgT2N0b2JlciAxNCwgMjAxNiAwODo0OQ0KVG86IGFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnPG1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4N
-CkNjOiBFcm5zdCBTasO2c3RyYW5kDQpTdWJqZWN0OiBbUEFUQ0hdIGFtZGdwdTogRml4IGZhaWxp
-bmcgYm9vdCBhZnRlciBzdXBwb3J0IGZvciB0aGlyZCB2Y2UgcmluZw0KDQpNeSBGaWppIGNsYXNz
-IEZ1cnkgZmFpbHMgdG8gYm9vdCBhZnRlciBjb21taXQNCjZmMDM1OWZmNzMwNzY0ODM5MDJkZTBj
-MTdmOTY0OWJmNTU2NTFlMmENCiJkcm0vYW1kZ3B1L3ZjZTM6IGFkZCBzdXBwb3J0IGZvciB0aGly
-ZCB2Y2UgcmluZyINClRoaXMgY29tbWl0cyByZXZlcnRzIHRoZSBudW1iZXIgb2YgdmNlIHJpbmdz
-IGJhY2sgdG8gMiwNCmJ1dCBsZWF2ZXMgdGhlIG90aGVyIGNoYW5nZXMgaW50YWN0Lg0KDQpTaWdu
-ZWQtb2ZmLWJ5OiBFcm5zdCBTasO2c3RyYW5kIDxlcm5zdHBAZ21haWwuY29tPG1haWx0bzplcm5z
-dHBAZ21haWwuY29tPj4NCi0tLQ0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92M18w
-LmMgfCAyICstDQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0p
-DQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y2VfdjNfMC5jIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNlX3YzXzAuYw0KaW5kZXggM2Y4OTllMy4uNmY1
-ZWI2NCAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92M18wLmMN
-CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92M18wLmMNCkBAIC0zNTgsNyAr
-MzU4LDcgQEAgc3RhdGljIGludCB2Y2VfdjNfMF9lYXJseV9pbml0KHZvaWQgKmhhbmRsZSkNCiAg
-ICAgICAgICAgICAoQU1ER1BVX1ZDRV9IQVJWRVNUX1ZDRTAgfCBBTURHUFVfVkNFX0hBUlZFU1Rf
-VkNFMSkpDQogICAgICAgICAgICAgICAgIHJldHVybiAtRU5PRU5UOw0KDQotICAgICAgIGFkZXYt
-PnZjZS5udW1fcmluZ3MgPSAzOw0KKyAgICAgICBhZGV2LT52Y2UubnVtX3JpbmdzID0gMjsNCg0K
-ICAgICAgICAgdmNlX3YzXzBfc2V0X3JpbmdfZnVuY3MoYWRldik7DQogICAgICAgICB2Y2VfdjNf
-MF9zZXRfaXJxX2Z1bmNzKGFkZXYpOw0KLS0NCjIuNy40DQoNCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fDQphbWQtZ2Z4IG1haWxpbmcgbGlzdA0KYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmc8bWFpbHRvOmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnPg0KaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
-Z2Z4DQphbWQtZ2Z4IEluZm8gUGFnZSAtIGxpc3RzLmZyZWVkZXNrdG9wLm9yZzxodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng+DQpsaXN0cy5mcmVl
-ZGVza3RvcC5vcmc8aHR0cDovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZz4NClRvIHNlZSB0aGUgY29s
-bGVjdGlvbiBvZiBwcmlvciBwb3N0aW5ncyB0byB0aGUgbGlzdCwgdmlzaXQgdGhlIGFtZC1nZngg
-QXJjaGl2ZXMuIFVzaW5nIGFtZC1nZng6IFRvIHBvc3QgYSBtZXNzYWdlIHRvIGFsbCB0aGUgbGlz
-dCBtZW1iZXJzLCBzZW5kIGVtYWlsIC4uLg0KDQoNCg0KDQoNCg==
+2016-10-14 15:17 GMT+02:00 Ernst Sj=C3=B6strand <ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>:
 
---_000_CY4PR12MB17686E7D2D814A6B94CA861AF7DF0CY4PR12MB1768namp_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+> 9d24b304abbe5380da1bc782b4460596e7cb1109
+> cherry-picks cleanly on drm-next-4.9-wip but then fails to build:
+>
+>   CC [M]  drivers/gpu/drm/amd/amdgpu/vce_v3_0.o
+> drivers/gpu/drm/amd/amdgpu/vce_v3_0.c:854:2: error: unknown field =E2=80=
+=98type=E2=80=99
+> specified in initializer
+>   .type =3D AMDGPU_RING_TYPE_VCE,
+>   ^
+> drivers/gpu/drm/amd/amdgpu/vce_v3_0.c:854:10: warning: initialization
+> makes pointer from integer without a cast [-Wint-conversion]
+>   .type =3D AMDGPU_RING_TYPE_VCE,
+>           ^
+> drivers/gpu/drm/amd/amdgpu/vce_v3_0.c:854:10: note: (near initialization
+> for =E2=80=98vce_v3_0_ring_phys_funcs.get_rptr=E2=80=99)
+> drivers/gpu/drm/amd/amdgpu/vce_v3_0.c:855:2: error: unknown field
+> =E2=80=98align_mask=E2=80=99 specified in initializer
+>   .align_mask =3D 0xf,
+>   ^
+> drivers/gpu/drm/amd/amdgpu/vce_v3_0.c:855:16: warning: initialization
+> makes pointer from integer without a cast [-Wint-conversion]
+>   .align_mask =3D 0xf,
+>                 ^
+> drivers/gpu/drm/amd/amdgpu/vce_v3_0.c:855:16: note: (near initialization
+> for =E2=80=98vce_v3_0_ring_phys_funcs.get_wptr=E2=80=99)
+> drivers/gpu/drm/amd/amdgpu/vce_v3_0.c:856:2: error: unknown field =E2=80=
+=98nop=E2=80=99
+> specified in initializer
+>   .nop =3D VCE_CMD_NO_OP,
+>   ^
+>
+>
+> 2016-10-14 15:15 GMT+02:00 Ernst Sj=C3=B6strand <ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>:
+>
+>> I'm testing both drm-next-4.9 and drm-next-4.9-wip from ~agd5f.
+>> I think the problem is in drm-next now also.
+>> They all have
+>> 6f0359f drm/amdgpu/vce3: add support for third vce ring
+>> 75c6548 drm/amdgpu: track the number of vce rings
+>>
+>> But not
+>> 9d24b30 drm/amdgpu: fix broken VCE startup in phys mode
+>> which only exists in amd-staging-4.7
+>> (What does 4.7 mean in this context... ?)
+>>
+>> Regards
+>> //Ernst
+>>
+>>
+>> 2016-10-14 15:07 GMT+02:00 StDenis, Tom <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>:
+>>
+>>> Do you have https://cgit.freedesktop.org/~agd5f/linux/commit/?h=3Ddrm
+>>> -next-4.7-wip&id=3D9d24b304abbe5380da1bc782b4460596e7cb1109 as well?
+>>>
+>>>
+>>> I've booted the tip of our staging-4.7 branch with a FIJI device (FURY)
+>>> and was able to play videos (vdpau) and normal GL apps.
+>>>
+>>>
+>>> Tom
+>>>
+>>>
+>>> ------------------------------
+>>> *From:* Ernst Sj=C3=B6strand <ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+>>> *Sent:* Friday, October 14, 2016 09:05
+>>> *To:* StDenis, Tom
+>>> *Cc:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>>> *Subject:* Re: [PATCH] amdgpu: Fix failing boot after support for third
+>>> vce ring
+>>>
+>>> Yes, the  6f0359ff73076483902de0c17f9649bf55651e2a I'm referring to is
+>>> the same as
+>>> 780605db12c52f2c22d4d2cc05ceb7d2a9d55579 (only exists in amd-staging).
+>>> So the last of those two commits is the one that causes my problem.
+>>>
+>>> Regards
+>>> //Ernst
+>>>
+>>> 2016-10-14 14:53 GMT+02:00 StDenis, Tom <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>:
+>>>
+>>>> Does your tree have
+>>>>
+>>>>
+>>>> 2f3d686d0ee95332d8888169c7b6788bb2d9f5ad
+>>>>
+>>>> 780605db12c52f2c22d4d2cc05ceb7d2a9d55579
+>>>>
+>>>>
+>>>> in it?  Those are fixes for when the third ring were added.
+>>>>
+>>>>
+>>>> Tom
+>>>>
+>>>>
+>>>> ------------------------------
+>>>> *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of
+>>>> Ernst Sj=C3=B6strand <ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+>>>> *Sent:* Friday, October 14, 2016 08:49
+>>>> *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>>>> *Cc:* Ernst Sj=C3=B6strand
+>>>> *Subject:* [PATCH] amdgpu: Fix failing boot after support for third
+>>>> vce ring
+>>>>
+>>>> My Fiji class Fury fails to boot after commit
+>>>> 6f0359ff73076483902de0c17f9649bf55651e2a
+>>>> "drm/amdgpu/vce3: add support for third vce ring"
+>>>> This commits reverts the number of vce rings back to 2,
+>>>> but leaves the other changes intact.
+>>>>
+>>>> Signed-off-by: Ernst Sj=C3=B6strand <ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+>>>> ---
+>>>>  drivers/gpu/drm/amd/amdgpu/vce_v3_0.c | 2 +-
+>>>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+>>>> b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+>>>> index 3f899e3..6f5eb64 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+>>>> @@ -358,7 +358,7 @@ static int vce_v3_0_early_init(void *handle)
+>>>>              (AMDGPU_VCE_HARVEST_VCE0 | AMDGPU_VCE_HARVEST_VCE1))
+>>>>                  return -ENOENT;
+>>>>
+>>>> -       adev->vce.num_rings =3D 3;
+>>>> +       adev->vce.num_rings =3D 2;
+>>>>
+>>>>          vce_v3_0_set_ring_funcs(adev);
+>>>>          vce_v3_0_set_irq_funcs(adev);
+>>>> --
+>>>> 2.7.4
+>>>>
+>>>> _______________________________________________
+>>>> amd-gfx mailing list
+>>>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>>>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>>>> amd-gfx Info Page - lists.freedesktop.org
+>>>> <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>
+>>>> lists.freedesktop.org
+>>>> To see the collection of prior postings to the list, visit the amd-gfx
+>>>> Archives. Using amd-gfx: To post a message to all the list members, se=
+nd
+>>>> email ...
+>>>>
+>>>>
+>>>>
+>>>
+>>
+>
 
-PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
-dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyIgc3R5bGU9
-ImRpc3BsYXk6bm9uZTsiPjwhLS0gUCB7bWFyZ2luLXRvcDowO21hcmdpbi1ib3R0b206MDt9IC0t
-Pjwvc3R5bGU+DQo8L2hlYWQ+DQo8Ym9keSBkaXI9Imx0ciI+DQo8ZGl2IGlkPSJkaXZ0YWdkZWZh
-dWx0d3JhcHBlciIgc3R5bGU9ImZvbnQtc2l6ZToxMnB0O2NvbG9yOiMwMDAwMDA7Zm9udC1mYW1p
-bHk6Q2FsaWJyaSxBcmlhbCxIZWx2ZXRpY2Esc2Fucy1zZXJpZjsiPg0KPHA+WW91IGRlZmluaXRl
-bHkgbmVlZCB0aGUgcGF0Y2ggZnJvbSBzdGFnaW5nLTQuNy48L3A+DQo8cD48YnI+DQo8L3A+DQo8
-cD5UaGUgJnF1b3Q7YW1kLXN0YWdpbmctNC54JnF1b3Q7IGJyYW5jaGVzIGFyZSB3aGF0IHdlIChh
-bWQgZm9saykgbm9ybWFsbHkgZGV2ZWxvcCBhZ2FpbnN0IG9uIGEgZGFpbHkgYmFzaXMgYW5kIHRo
-ZW4gYWxleCBjaGVycnkgcGlja3MgdGhlbSB0byBkcm0tbmV4dC0qLiAmbmJzcDtTb21ldGltZXMg
-cGF0Y2hlcyBhcmUgbWlzc2VkLiAmbmJzcDs8L3A+DQo8cD5Ib3BlZnVsbHkgQWxleCBjYW4gY2hl
-cnJ5IHBpY2sgaXQgdG8gZHJtLW5leHQgYnJhbmNoZXMgc2hvcnRseSA8aW1nIGNsYXNzPSJFbW9q
-aUluc2VydCIgaWQ9Ik9XQUVtb2ppMzgxMTE2IiBhbHQ9IvCfmIoiIHN0eWxlPSJ2ZXJ0aWNhbC1h
-bGlnbjogYm90dG9tOyIgc3JjPSJjaWQ6YjUyOWM5NmQtNTE0My00ZGZhLTk4ZjItMzRmODk3ZmZk
-ZDViIj48L3A+DQo8cD48YnI+DQo8L3A+DQo8cD5Ub208L3A+DQo8YnI+DQo8YnI+DQo8ZGl2IHN0
-eWxlPSJjb2xvcjogcmdiKDAsIDAsIDApOyI+DQo8aHIgdGFiaW5kZXg9Ii0xIiBzdHlsZT0iZGlz
-cGxheTppbmxpbmUtYmxvY2s7IHdpZHRoOjk4JSI+DQo8ZGl2IGlkPSJkaXZScGx5RndkTXNnIiBk
-aXI9Imx0ciI+PGZvbnQgZmFjZT0iQ2FsaWJyaSwgc2Fucy1zZXJpZiIgY29sb3I9IiMwMDAwMDAi
-IHN0eWxlPSJmb250LXNpemU6MTFwdCI+PGI+RnJvbTo8L2I+IEVybnN0IFNqw7ZzdHJhbmQgJmx0
-O2VybnN0cEBnbWFpbC5jb20mZ3Q7PGJyPg0KPGI+U2VudDo8L2I+IEZyaWRheSwgT2N0b2JlciAx
-NCwgMjAxNiAwOToxNTxicj4NCjxiPlRvOjwvYj4gU3REZW5pcywgVG9tPGJyPg0KPGI+Q2M6PC9i
-PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzxicj4NCjxiPlN1YmplY3Q6PC9iPiBSZTog
-W1BBVENIXSBhbWRncHU6IEZpeCBmYWlsaW5nIGJvb3QgYWZ0ZXIgc3VwcG9ydCBmb3IgdGhpcmQg
-dmNlIHJpbmc8L2ZvbnQ+DQo8ZGl2PiZuYnNwOzwvZGl2Pg0KPC9kaXY+DQo8ZGl2Pg0KPGRpdiBk
-aXI9Imx0ciI+DQo8ZGl2Pg0KPGRpdj4NCjxkaXY+DQo8ZGl2Pg0KPGRpdj4NCjxkaXY+DQo8ZGl2
-PkknbSB0ZXN0aW5nIGJvdGggZHJtLW5leHQtNC45IGFuZCBkcm0tbmV4dC00Ljktd2lwIGZyb20g
-fmFnZDVmLjxicj4NCjwvZGl2Pg0KSSB0aGluayB0aGUgcHJvYmxlbSBpcyBpbiBkcm0tbmV4dCBu
-b3cgYWxzby48YnI+DQo8L2Rpdj4NClRoZXkgYWxsIGhhdmU8YnI+DQo2ZjAzNTlmIGRybS9hbWRn
-cHUvdmNlMzogYWRkIHN1cHBvcnQgZm9yIHRoaXJkIHZjZSByaW5nPGJyPg0KNzVjNjU0OCBkcm0v
-YW1kZ3B1OiB0cmFjayB0aGUgbnVtYmVyIG9mIHZjZSByaW5nczxicj4NCjxicj4NCjwvZGl2Pg0K
-QnV0IG5vdDxicj4NCjlkMjRiMzAgZHJtL2FtZGdwdTogZml4IGJyb2tlbiBWQ0Ugc3RhcnR1cCBp
-biBwaHlzIG1vZGU8YnI+DQo8L2Rpdj4NCndoaWNoIG9ubHkgZXhpc3RzIGluIGFtZC1zdGFnaW5n
-LTQuNzxicj4NCjwvZGl2Pg0KKFdoYXQgZG9lcyA0LjcgbWVhbiBpbiB0aGlzIGNvbnRleHQuLi4g
-Pyk8YnI+DQo8YnI+DQo8L2Rpdj4NClJlZ2FyZHM8YnI+DQo8L2Rpdj4NCi8vRXJuc3Q8YnI+DQo8
-ZGl2Pg0KPGRpdj4NCjxkaXY+PGJyPg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8
-ZGl2IGNsYXNzPSJnbWFpbF9leHRyYSI+PGJyPg0KPGRpdiBjbGFzcz0iZ21haWxfcXVvdGUiPjIw
-MTYtMTAtMTQgMTU6MDcgR01UJiM0MzswMjowMCBTdERlbmlzLCBUb20gPHNwYW4gZGlyPSJsdHIi
-Pg0KJmx0OzxhIGhyZWY9Im1haWx0bzpUb20uU3REZW5pc0BhbWQuY29tIiB0YXJnZXQ9Il9ibGFu
-ayI+VG9tLlN0RGVuaXNAYW1kLmNvbTwvYT4mZ3Q7PC9zcGFuPjo8YnI+DQo8YmxvY2txdW90ZSBj
-bGFzcz0iZ21haWxfcXVvdGUiIHN0eWxlPSJtYXJnaW46MCAwIDAgLjhleDsgYm9yZGVyLWxlZnQ6
-MXB4ICNjY2Mgc29saWQ7IHBhZGRpbmctbGVmdDoxZXgiPg0KPGRpdiBkaXI9Imx0ciI+DQo8ZGl2
-IGlkPSJtXy04MTMzMzM0NzAzMjk4NDk0NDIxZGl2dGFnZGVmYXVsdHdyYXBwZXIiIHN0eWxlPSJm
-b250LXNpemU6MTJwdDsgY29sb3I6IzAwMDAwMDsgZm9udC1mYW1pbHk6Q2FsaWJyaSxBcmlhbCxI
-ZWx2ZXRpY2Esc2Fucy1zZXJpZiI+DQo8cD5EbyB5b3UgaGF2ZSZuYnNwOzxhIGhyZWY9Imh0dHBz
-Oi8vY2dpdC5mcmVlZGVza3RvcC5vcmcvfmFnZDVmL2xpbnV4L2NvbW1pdC8/aD1kcm0tbmV4dC00
-Ljctd2lwJmFtcDtpZD05ZDI0YjMwNGFiYmU1MzgwZGExYmM3ODJiNDQ2MDU5NmU3Y2IxMTA5IiBj
-bGFzcz0ibV8tODEzMzMzNDcwMzI5ODQ5NDQyMU9XQUF1dG9MaW5rIiBpZD0ibV8tODEzMzMzNDcw
-MzI5ODQ5NDQyMUxQbG5rNjQwNTI4IiB0YXJnZXQ9Il9ibGFuayI+aHR0cHM6Ly9jZ2l0LmZyZWVk
-ZXNrdG9wLjx3YnI+b3JnL35hZ2Q1Zi9saW51eC9jb21taXQvP2g9PHdicj5kcm0tbmV4dC00Ljct
-d2lwJmFtcDtpZD08d2JyPjlkMjRiMzA0YWJiZTUzODBkYTFiYzc4MmI0NDYwNTx3YnI+OTZlN2Ni
-MTEwOTwvYT4mbmJzcDthcw0KIHdlbGw/PC9wPg0KPHA+PGJyPg0KPC9wPg0KPHA+SSd2ZSBib290
-ZWQgdGhlIHRpcCBvZiBvdXIgc3RhZ2luZy00LjcgYnJhbmNoIHdpdGggYSBGSUpJIGRldmljZSAo
-RlVSWSkgYW5kIHdhcyBhYmxlIHRvIHBsYXkgdmlkZW9zICh2ZHBhdSkgYW5kIG5vcm1hbCBHTCBh
-cHBzLjwvcD4NCjxwPjxicj4NCjwvcD4NCjxwPlRvbTwvcD4NCjxicj4NCjxicj4NCjxkaXYgc3R5
-bGU9ImNvbG9yOnJnYigwLDAsMCkiPg0KPGhyIHN0eWxlPSJkaXNwbGF5OmlubGluZS1ibG9jazsg
-d2lkdGg6OTglIj4NCjxkaXYgaWQ9Im1fLTgxMzMzMzQ3MDMyOTg0OTQ0MjFkaXZScGx5RndkTXNn
-IiBkaXI9Imx0ciI+PGZvbnQgY29sb3I9IiMwMDAwMDAiIGZhY2U9IkNhbGlicmksIHNhbnMtc2Vy
-aWYiIHN0eWxlPSJmb250LXNpemU6MTFwdCI+PGI+RnJvbTo8L2I+IEVybnN0IFNqw7ZzdHJhbmQg
-Jmx0OzxhIGhyZWY9Im1haWx0bzplcm5zdHBAZ21haWwuY29tIiB0YXJnZXQ9Il9ibGFuayI+ZXJu
-c3RwQGdtYWlsLmNvbTwvYT4mZ3Q7PGJyPg0KPGI+U2VudDo8L2I+IEZyaWRheSwgT2N0b2JlciAx
-NCwgMjAxNiAwOTowNTxicj4NCjxiPlRvOjwvYj4gU3REZW5pcywgVG9tPGJyPg0KPGI+Q2M6PC9i
-PiA8YSBocmVmPSJtYWlsdG86YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmciIHRhcmdldD0i
-X2JsYW5rIj5hbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzwvYT48YnI+DQo8Yj5TdWJqZWN0
-OjwvYj4gUmU6IFtQQVRDSF0gYW1kZ3B1OiBGaXggZmFpbGluZyBib290IGFmdGVyIHN1cHBvcnQg
-Zm9yIHRoaXJkIHZjZSByaW5nPC9mb250Pg0KPGRpdj4mbmJzcDs8L2Rpdj4NCjwvZGl2Pg0KPGRp
-dj4NCjxkaXYgY2xhc3M9Img1Ij4NCjxkaXY+DQo8ZGl2IGRpcj0ibHRyIj4NCjxkaXY+WWVzLCB0
-aGUmbmJzcDsgNmYwMzU5ZmY3MzA3NjQ4MzkwMmRlMGMxN2Y5NjQ5PHdicj5iZjU1NjUxZTJhIEkn
-bSByZWZlcnJpbmcgdG8gaXMgdGhlIHNhbWUgYXMNCjxicj4NCjxzcGFuPjxzcGFuPjc4MDYwNWRi
-MTJjNTJmMmMyMmQ0ZDJjYzA1Y2ViNzx3YnI+ZDJhOWQ1NTU3OSAob25seSBleGlzdHMgaW4gYW1k
-LXN0YWdpbmcpLjxicj4NCjwvc3Bhbj48L3NwYW4+PC9kaXY+DQo8c3Bhbj48c3Bhbj5TbyB0aGUg
-bGFzdCBvZiB0aG9zZSB0d28gY29tbWl0cyBpcyB0aGUgb25lIHRoYXQgY2F1c2VzIG15IHByb2Js
-ZW0uPGJyPg0KPC9zcGFuPjwvc3Bhbj4NCjxkaXY+PHNwYW4+PHNwYW4+PGJyPg0KPC9zcGFuPjwv
-c3Bhbj48L2Rpdj4NCjxkaXY+PHNwYW4+PHNwYW4+UmVnYXJkczxicj4NCjwvc3Bhbj48L3NwYW4+
-PC9kaXY+DQo8ZGl2PjxzcGFuPjxzcGFuPi8vRXJuc3Q8YnI+DQo8L3NwYW4+PC9zcGFuPjwvZGl2
-Pg0KPC9kaXY+DQo8ZGl2IGNsYXNzPSJnbWFpbF9leHRyYSI+PGJyPg0KPGRpdiBjbGFzcz0iZ21h
-aWxfcXVvdGUiPjIwMTYtMTAtMTQgMTQ6NTMgR01UJiM0MzswMjowMCBTdERlbmlzLCBUb20gPHNw
-YW4gZGlyPSJsdHIiPg0KJmx0OzxhIGhyZWY9Im1haWx0bzpUb20uU3REZW5pc0BhbWQuY29tIiB0
-YXJnZXQ9Il9ibGFuayI+VG9tLlN0RGVuaXNAYW1kLmNvbTwvYT4mZ3Q7PC9zcGFuPjo8YnI+DQo8
-YmxvY2txdW90ZSBjbGFzcz0iZ21haWxfcXVvdGUiIHN0eWxlPSJtYXJnaW46MCAwIDAgLjhleDsg
-Ym9yZGVyLWxlZnQ6MXB4ICNjY2Mgc29saWQ7IHBhZGRpbmctbGVmdDoxZXgiPg0KPGRpdiBkaXI9
-Imx0ciI+DQo8ZGl2IGlkPSJtXy04MTMzMzM0NzAzMjk4NDk0NDIxbV8tMTc3MTU5ODMwNDg1ODMy
-NTgyNGRpdnRhZ2RlZmF1bHR3cmFwcGVyIiBzdHlsZT0iZm9udC1zaXplOjEycHQ7IGNvbG9yOiMw
-MDAwMDA7IGZvbnQtZmFtaWx5OkNhbGlicmksQXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWYiPg0K
-PHA+RG9lcyB5b3VyIHRyZWUgaGF2ZSZuYnNwOzwvcD4NCjxwPjxicj4NCjwvcD4NCjxwPjxzcGFu
-PjJmM2Q2ODZkMGVlOTUzMzJkODg4ODE2OWM3YjY3ODx3YnI+OGJiMmQ5ZjVhZDwvc3Bhbj48YnI+
-DQo8L3A+DQo8cD48c3Bhbj48c3Bhbj43ODA2MDVkYjEyYzUyZjJjMjJkNGQyY2MwNWNlYjc8d2Jy
-PmQyYTlkNTU1Nzk8L3NwYW4+PGJyPg0KPC9zcGFuPjwvcD4NCjxwPjxzcGFuPjxzcGFuPjxicj4N
-Cjwvc3Bhbj48L3NwYW4+PC9wPg0KPHA+PHNwYW4+PHNwYW4+aW4gaXQ/Jm5ic3A7IFRob3NlIGFy
-ZSBmaXhlcyBmb3Igd2hlbiB0aGUgdGhpcmQgcmluZyB3ZXJlIGFkZGVkLjwvc3Bhbj48L3NwYW4+
-PC9wPg0KPHA+PHNwYW4+PHNwYW4+PGJyPg0KPC9zcGFuPjwvc3Bhbj48L3A+DQo8cD48c3Bhbj48
-c3Bhbj5Ub208L3NwYW4+PC9zcGFuPjwvcD4NCjxicj4NCjxicj4NCjxkaXYgc3R5bGU9ImNvbG9y
-OnJnYigwLDAsMCkiPg0KPGRpdj4NCjxociBzdHlsZT0iZGlzcGxheTppbmxpbmUtYmxvY2s7IHdp
-ZHRoOjk4JSI+DQo8ZGl2IGlkPSJtXy04MTMzMzM0NzAzMjk4NDk0NDIxbV8tMTc3MTU5ODMwNDg1
-ODMyNTgyNHhfZGl2UnBseUZ3ZE1zZyIgZGlyPSJsdHIiPjxmb250IGNvbG9yPSIjMDAwMDAwIiBm
-YWNlPSJDYWxpYnJpLCBzYW5zLXNlcmlmIiBzdHlsZT0iZm9udC1zaXplOjExcHQiPjxiPkZyb206
-PC9iPiBhbWQtZ2Z4ICZsdDs8YSBocmVmPSJtYWlsdG86YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZyIgdGFyZ2V0PSJfYmxhbmsiPmFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVl
-ZGVzPHdicj5rdG9wLm9yZzwvYT4mZ3Q7DQogb24gYmVoYWxmIG9mIEVybnN0IFNqw7ZzdHJhbmQg
-Jmx0OzxhIGhyZWY9Im1haWx0bzplcm5zdHBAZ21haWwuY29tIiB0YXJnZXQ9Il9ibGFuayI+ZXJu
-c3RwQGdtYWlsLmNvbTwvYT4mZ3Q7PGJyPg0KPGI+U2VudDo8L2I+IEZyaWRheSwgT2N0b2JlciAx
-NCwgMjAxNiAwODo0OTxicj4NCjxiPlRvOjwvYj4gPGEgaHJlZj0ibWFpbHRvOmFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnIiB0YXJnZXQ9Il9ibGFuayI+YW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmc8L2E+PGJyPg0KPGI+Q2M6PC9iPiBFcm5zdCBTasO2c3RyYW5kPGJyPg0KPGI+U3Vi
-amVjdDo8L2I+IFtQQVRDSF0gYW1kZ3B1OiBGaXggZmFpbGluZyBib290IGFmdGVyIHN1cHBvcnQg
-Zm9yIHRoaXJkIHZjZSByaW5nPC9mb250Pg0KPGRpdj4mbmJzcDs8L2Rpdj4NCjwvZGl2Pg0KPC9k
-aXY+DQo8Zm9udCBzaXplPSIyIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwcHQiPg0KPGRpdiBj
-bGFzcz0ibV8tODEzMzMzNDcwMzI5ODQ5NDQyMW1fLTE3NzE1OTgzMDQ4NTgzMjU4MjRQbGFpblRl
-eHQiPg0KPGRpdj4NCjxkaXYgY2xhc3M9Im1fLTgxMzMzMzQ3MDMyOTg0OTQ0MjFoNSI+TXkgRmlq
-aSBjbGFzcyBGdXJ5IGZhaWxzIHRvIGJvb3QgYWZ0ZXIgY29tbWl0PGJyPg0KNmYwMzU5ZmY3MzA3
-NjQ4MzkwMmRlMGMxN2Y5NjQ5PHdicj5iZjU1NjUxZTJhPGJyPg0KJnF1b3Q7ZHJtL2FtZGdwdS92
-Y2UzOiBhZGQgc3VwcG9ydCBmb3IgdGhpcmQgdmNlIHJpbmcmcXVvdDs8YnI+DQpUaGlzIGNvbW1p
-dHMgcmV2ZXJ0cyB0aGUgbnVtYmVyIG9mIHZjZSByaW5ncyBiYWNrIHRvIDIsPGJyPg0KYnV0IGxl
-YXZlcyB0aGUgb3RoZXIgY2hhbmdlcyBpbnRhY3QuPGJyPg0KPGJyPg0KU2lnbmVkLW9mZi1ieTog
-RXJuc3QgU2rDtnN0cmFuZCAmbHQ7PGEgaHJlZj0ibWFpbHRvOmVybnN0cEBnbWFpbC5jb20iIHRh
-cmdldD0iX2JsYW5rIj5lcm5zdHBAZ21haWwuY29tPC9hPiZndDs8YnI+DQotLS08YnI+DQombmJz
-cDtkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Yzx3YnI+ZV92M18wLmMgfCAyICYjNDM7LTxi
-cj4NCiZuYnNwOzEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigmIzQzOyksIDEgZGVsZXRpb24o
-LSk8YnI+DQo8YnI+DQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdjx3
-YnI+Y2VfdjNfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdjx3YnI+Y2VfdjNfMC5j
-PGJyPg0KaW5kZXggM2Y4OTllMy4uNmY1ZWI2NCAxMDA2NDQ8YnI+DQotLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS92PHdicj5jZV92M18wLmM8YnI+DQomIzQzOyYjNDM7JiM0MzsgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92PHdicj5jZV92M18wLmM8YnI+DQpAQCAtMzU4LDcg
-JiM0MzszNTgsNyBAQCBzdGF0aWMgaW50IHZjZV92M18wX2Vhcmx5X2luaXQodm9pZCAqaGFuZGxl
-KTxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyAoQU1ER1BVX1ZDRV9IQVJWRVNUX1ZDRTAgfCBBTURHUFVf
-VkNFX0hBUlZFU1RfVkNFMSkpPGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7IHJldHVybiAtRU5PRU5UOzxicj4NCiZuYnNwOzxicj4NCi0mbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsmbmJzcDsgYWRldi0mZ3Q7dmNlLm51bV9yaW5ncyA9IDM7PGJyPg0KJiM0
-MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgYWRldi0mZ3Q7dmNlLm51bV9y
-aW5ncyA9IDI7PGJyPg0KJm5ic3A7PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7IHZjZV92M18wX3NldF9yaW5nX2Z1bmNzKGFkZXYpOzxicj4NCiZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB2Y2VfdjNfMF9z
-ZXRfaXJxX2Z1bmNzKGFkZXYpOzxicj4NCi0tIDxicj4NCjIuNy40PGJyPg0KPGJyPg0KPC9kaXY+
-DQo8L2Rpdj4NCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fXzx3YnI+X19fX19fX19fX19f
-X19fX188YnI+DQphbWQtZ2Z4IG1haWxpbmcgbGlzdDxicj4NCjxhIGhyZWY9Im1haWx0bzphbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyIgdGFyZ2V0PSJfYmxhbmsiPmFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnPC9hPjxicj4NCjxhIGhyZWY9Imh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeCIgaWQ9Im1fLTgxMzMzMzQ3MDMyOTg0OTQ0
-MjFtXy0xNzcxNTk4MzA0ODU4MzI1ODI0TFBsbms5NTkyNTAiIHRhcmdldD0iX2JsYW5rIj5odHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy88d2JyPm1haWxtYW4vbGlzdGluZm8vYW1kLWdmeDwv
-YT4NCjxkaXYgaWQ9Im1fLTgxMzMzMzQ3MDMyOTg0OTQ0MjFtXy0xNzcxNTk4MzA0ODU4MzI1ODI0
-TFBCb3JkZXJfR1RfMTQ3NjQ0OTU0NzA0NzAuOTg4MTI2NjUzMDc4MzkzMiIgc3R5bGU9Im1hcmdp
-bi1ib3R0b206MjBweDsgb3ZlcmZsb3c6YXV0bzsgd2lkdGg6MTAwJTsgdGV4dC1pbmRlbnQ6MHB4
-Ij4NCjx0YWJsZSBpZD0ibV8tODEzMzMzNDcwMzI5ODQ5NDQyMW1fLTE3NzE1OTgzMDQ4NTgzMjU4
-MjRMUENvbnRhaW5lcl8xNDc2NDQ5NTQ3MDQ1MC4xMTAyNjE0OTE2Mzk5NDg5MiIgY2VsbHNwYWNp
-bmc9IjAiIHN0eWxlPSJ3aWR0aDo5MCU7IGJhY2tncm91bmQtY29sb3I6cmdiKDI1NSwyNTUsMjU1
-KTsgb3ZlcmZsb3c6YXV0bzsgcGFkZGluZy10b3A6MjBweDsgcGFkZGluZy1ib3R0b206MjBweDsg
-bWFyZ2luLXRvcDoyMHB4OyBib3JkZXItdG9wOjFweCBkb3R0ZWQgcmdiKDIwMCwyMDAsMjAwKTsg
-Ym9yZGVyLWJvdHRvbToxcHggZG90dGVkIHJnYigyMDAsMjAwLDIwMCkiPg0KPHRib2R5Pg0KPHRy
-IHZhbGlnbj0idG9wIiBzdHlsZT0iYm9yZGVyLXNwYWNpbmc6MHB4Ij4NCjx0ZCBpZD0ibV8tODEz
-MzMzNDcwMzI5ODQ5NDQyMW1fLTE3NzE1OTgzMDQ4NTgzMjU4MjRUZXh0Q2VsbF8xNDc2NDQ5NTQ3
-MDQ2MC43Mjg4MDI2Mjk3NjgzNTA4IiBjb2xzcGFuPSIyIiBzdHlsZT0idmVydGljYWwtYWxpZ246
-dG9wOyBwYWRkaW5nOjBweDsgZGlzcGxheTp0YWJsZS1jZWxsIj4NCjxkaXYgaWQ9Im1fLTgxMzMz
-MzQ3MDMyOTg0OTQ0MjFtXy0xNzcxNTk4MzA0ODU4MzI1ODI0TFBSZW1vdmVQcmV2aWV3Q29udGFp
-bmVyXzE0NzY0NDk1NDcwNDYwLjE2NDI3NjkwMDQ2MTU5MDI3Ij4NCjwvZGl2Pg0KPGRpdiBpZD0i
-bV8tODEzMzMzNDcwMzI5ODQ5NDQyMW1fLTE3NzE1OTgzMDQ4NTgzMjU4MjRMUFRpdGxlXzE0NzY0
-NDk1NDcwNDYwLjc0MTYzNjEzMjQzMzU4MSIgc3R5bGU9ImNvbG9yOnJnYig1OSw4NywxMTkpOyBm
-b250LXdlaWdodDpub3JtYWw7IGZvbnQtc2l6ZToyMXB4OyBmb250LWZhbWlseTp3Zl9zZWdvZS11
-aV9saWdodCwmcXVvdDtTZWdvZSBVSSBMaWdodCZxdW90OywmcXVvdDtTZWdvZSBXUCBMaWdodCZx
-dW90OywmcXVvdDtTZWdvZSBVSSZxdW90OywmcXVvdDtTZWdvZSBXUCZxdW90OyxUYWhvbWEsQXJp
-YWwsc2Fucy1zZXJpZjsgbGluZS1oZWlnaHQ6MjFweCI+DQo8YSBpZD0ibV8tODEzMzMzNDcwMzI5
-ODQ5NDQyMW1fLTE3NzE1OTgzMDQ4NTgzMjU4MjRMUFVybEFuY2hvcl8xNDc2NDQ5NTQ3MDQ2MC4y
-Njk4MDg3OTE5MDc3MjQxIiBocmVmPSJodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2FtZC1nZngiIHRhcmdldD0iX2JsYW5rIiBzdHlsZT0idGV4dC1kZWNvcmF0
-aW9uOm5vbmUiPmFtZC1nZnggSW5mbyBQYWdlIC0gbGlzdHMuZnJlZWRlc2t0b3Aub3JnPC9hPjwv
-ZGl2Pg0KPGRpdiBpZD0ibV8tODEzMzMzNDcwMzI5ODQ5NDQyMW1fLTE3NzE1OTgzMDQ4NTgzMjU4
-MjRMUE1ldGFkYXRhXzE0NzY0NDk1NDcwNDYwLjE4Njk4OTU4NDY2MDE0OTkyIiBzdHlsZT0ibWFy
-Z2luOjEwcHggMHB4IDE2cHg7IGNvbG9yOnJnYigxMDIsMTAyLDEwMik7IGZvbnQtd2VpZ2h0Om5v
-cm1hbDsgZm9udC1mYW1pbHk6d2Zfc2Vnb2UtdWlfbm9ybWFsLCZxdW90O1NlZ29lIFVJJnF1b3Q7
-LCZxdW90O1NlZ29lIFdQJnF1b3Q7LFRhaG9tYSxBcmlhbCxzYW5zLXNlcmlmOyBmb250LXNpemU6
-MTRweDsgbGluZS1oZWlnaHQ6MTRweCI+DQo8YSBocmVmPSJodHRwOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnIiB0YXJnZXQ9Il9ibGFuayI+bGlzdHMuZnJlZWRlc2t0b3Aub3JnPC9hPjwvZGl2Pg0K
-PGRpdiBpZD0ibV8tODEzMzMzNDcwMzI5ODQ5NDQyMW1fLTE3NzE1OTgzMDQ4NTgzMjU4MjRMUERl
-c2NyaXB0aW9uXzE0NzY0NDk1NDcwNDYwLjY0NDgxOTc4NDY1MDg5NzgiIHN0eWxlPSJkaXNwbGF5
-OmJsb2NrOyBjb2xvcjpyZ2IoMTAyLDEwMiwxMDIpOyBmb250LXdlaWdodDpub3JtYWw7IGZvbnQt
-ZmFtaWx5OndmX3NlZ29lLXVpX25vcm1hbCwmcXVvdDtTZWdvZSBVSSZxdW90OywmcXVvdDtTZWdv
-ZSBXUCZxdW90OyxUYWhvbWEsQXJpYWwsc2Fucy1zZXJpZjsgZm9udC1zaXplOjE0cHg7IGxpbmUt
-aGVpZ2h0OjIwcHg7IG1heC1oZWlnaHQ6MTAwcHg7IG92ZXJmbG93OmhpZGRlbiI+DQpUbyBzZWUg
-dGhlIGNvbGxlY3Rpb24gb2YgcHJpb3IgcG9zdGluZ3MgdG8gdGhlIGxpc3QsIHZpc2l0IHRoZSBh
-bWQtZ2Z4IEFyY2hpdmVzLiBVc2luZyBhbWQtZ2Z4OiBUbyBwb3N0IGEgbWVzc2FnZSB0byBhbGwg
-dGhlIGxpc3QgbWVtYmVycywgc2VuZCBlbWFpbCAuLi48L2Rpdj4NCjwvdGQ+DQo8L3RyPg0KPC90
-Ym9keT4NCjwvdGFibGU+DQo8L2Rpdj4NCjxicj4NCjxicj4NCjwvZGl2Pg0KPC9zcGFuPjwvZm9u
-dD48L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Jsb2NrcXVvdGU+DQo8L2Rpdj4NCjxicj4NCjwv
-ZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9i
-bG9ja3F1b3RlPg0KPC9kaXY+DQo8YnI+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4N
-CjwvYm9keT4NCjwvaHRtbD4NCg==
+--001a114289ea69abac053ed3175f
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
---_000_CY4PR12MB17686E7D2D814A6B94CA861AF7DF0CY4PR12MB1768namp_--
+<div dir=3D"ltr">Means the drm pull request for 4.9 is broken then also, FY=
+I.<br></div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">2016-=
+10-14 15:17 GMT+02:00 Ernst Sj=C3=B6strand <span dir=3D"ltr">&lt;<a href=3D=
+"mailto:ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;</span>=
+:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-le=
+ft:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr"><div>9d24b304abbe5380d=
+a1bc782b44605<wbr>96e7cb1109<br></div>cherry-picks cleanly on drm-next-4.9-=
+wip but then fails to build:<br><br>=C2=A0 CC [M]=C2=A0 drivers/gpu/drm/amd=
+/amdgpu/<wbr>vce_v3_0.o<br>drivers/gpu/drm/amd/amdgpu/<wbr>vce_v3_0.c:854:2=
+: error: unknown field =E2=80=98type=E2=80=99 specified in initializer<br>=
+=C2=A0 .type =3D AMDGPU_RING_TYPE_VCE,<br>=C2=A0 ^<br>drivers/gpu/drm/amd/a=
+mdgpu/<wbr>vce_v3_0.c:854:10: warning: initialization makes pointer from in=
+teger without a cast [-Wint-conversion]<br>=C2=A0 .type =3D AMDGPU_RING_TYP=
+E_VCE,<br>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ^<br>drive=
+rs/gpu/drm/amd/amdgpu/<wbr>vce_v3_0.c:854:10: note: (near initialization fo=
+r =E2=80=98vce_v3_0_ring_phys_funcs.get_<wbr>rptr=E2=80=99)<br>drivers/gpu/=
+drm/amd/amdgpu/<wbr>vce_v3_0.c:855:2: error: unknown field =E2=80=98align_m=
+ask=E2=80=99 specified in initializer<br>=C2=A0 .align_mask =3D 0xf,<br>=C2=
+=A0 ^<br>drivers/gpu/drm/amd/amdgpu/<wbr>vce_v3_0.c:855:16: warning: initia=
+lization makes pointer from integer without a cast [-Wint-conversion]<br>=
+=C2=A0 .align_mask =3D 0xf,<br>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ^<br>drivers/gpu/drm/amd/a=
+mdgpu/<wbr>vce_v3_0.c:855:16: note: (near initialization for =E2=80=98vce_v=
+3_0_ring_phys_funcs.get_<wbr>wptr=E2=80=99)<br>drivers/gpu/drm/amd/amdgpu/<=
+wbr>vce_v3_0.c:856:2: error: unknown field =E2=80=98nop=E2=80=99 specified =
+in initializer<br>=C2=A0 .nop =3D VCE_CMD_NO_OP,<br>=C2=A0 ^<br><br></div><=
+div class=3D"HOEnZb"><div class=3D"h5"><div class=3D"gmail_extra"><br><div =
+class=3D"gmail_quote">2016-10-14 15:15 GMT+02:00 Ernst Sj=C3=B6strand <span=
+ dir=3D"ltr">&lt;<a href=3D"mailto:ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">erns=
+tp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;</span>:<br><blockquote class=3D"gmail_quote" style=3D"=
+margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div dir=3D"=
+ltr"><div><div><div><div><div><div><div>I&#39;m testing both drm-next-4.9 a=
+nd drm-next-4.9-wip from ~agd5f.<br></div>I think the problem is in drm-nex=
+t now also.<br></div>They all have<br>6f0359f drm/amdgpu/vce3: add support =
+for third vce ring<br>75c6548 drm/amdgpu: track the number of vce rings<br>=
+<br></div>But not<br>9d24b30 drm/amdgpu: fix broken VCE startup in phys mod=
+e<br></div>which only exists in amd-staging-4.7<br></div>(What does 4.7 mea=
+n in this context... ?)<br><br></div>Regards<span class=3D"m_-2167022505463=
+390063HOEnZb"><font color=3D"#888888"><br></font></span></div><span class=
+=3D"m_-2167022505463390063HOEnZb"><font color=3D"#888888">//Ernst<br><div><=
+div><div><br></div></div></div></font></span></div><div class=3D"m_-2167022=
+505463390063HOEnZb"><div class=3D"m_-2167022505463390063h5"><div class=3D"g=
+mail_extra"><br><div class=3D"gmail_quote">2016-10-14 15:07 GMT+02:00 StDen=
+is, Tom <span dir=3D"ltr">&lt;<a href=3D"mailto:Tom.StDenis-5C7GfCeVMHo@public.gmane.org" target=
+=3D"_blank">Tom.StDenis-5C7GfCeVMHo@public.gmane.org</a>&gt;</span>:<br><blockquote class=3D"gma=
+il_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-lef=
+t:1ex">
 
---_004_CY4PR12MB17686E7D2D814A6B94CA861AF7DF0CY4PR12MB1768namp_
-Content-Type: image/png; name="=?utf-8?B?T3V0bG9va0Vtb2ppLfCfmIoucG5n?="
-Content-Description: =?utf-8?B?T3V0bG9va0Vtb2ppLfCfmIoucG5n?=
-Content-Disposition: inline;
-	filename="=?utf-8?B?T3V0bG9va0Vtb2ppLfCfmIoucG5n?="; size=488;
-	creation-date="Fri, 14 Oct 2016 13:17:19 GMT";
-	modification-date="Fri, 14 Oct 2016 13:17:19 GMT"
-Content-ID: <b529c96d-5143-4dfa-98f2-34f897ffdd5b>
-Content-Transfer-Encoding: base64
 
-iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
-bWFnZVJlYWR5ccllPAAAAYpJREFUeNpi/P//PwO1ACM2wf9njBWAVD4QBwCxApLUAyDeAMQTGU3O
-PkDRA3QUIxaD+oFUAREOaQQa2IDTMKBB84FUAgk+WwA0MBFmGBOaixJIDKYEoD6465igBjkge+3C
-rW94TUCTr4eGMdxl8TCZxMYHDIZR1xk2HPiA1SCQOEgepA4J5CMbFgAPhM1vwfTFW9+xGgYTh6lD
-1s8IdKIAkH4PEz1w9jOYVpBiZ1CQZMMw7MHzXwwPnv0Esx2MeRESxmcYWYCUAbJiFAVYAMgCbJbA
-vPmAWjmACZqS4aHdOOs5wdgEBcWE5a8Y0HIGPAIOwETtjXkYJqIqxAAgeQM1ThTzkQ2biB5mC7a8
-xZ7kgeICvMzoYTsRJaMDY3U9chIBpaMHz34xxPsKgwMcFIsLgckB5KL+YllkgyYAg6oQJW9Ck8h+
-5NgFhd3GAx/humAGI2cGIHYEGvYBW0YHGTgf2YX4MjkQF4IMwlkEIeXVfByGwsqzAwTLMywGg7wN
-cvED9AIR3TCAAAMAqh+p+YMVeBQAAAAASUVORK5CYII=
 
---_004_CY4PR12MB17686E7D2D814A6B94CA861AF7DF0CY4PR12MB1768namp_--
 
---===============1133103268==
+<div dir=3D"ltr">
+<div id=3D"m_-2167022505463390063m_7545045248063895902m_-813333470329849442=
+1divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font-family:Ca=
+libri,Arial,Helvetica,sans-serif">
+<p>Do you have=C2=A0<a href=3D"https://cgit.freedesktop.org/~agd5f/linux/co=
+mmit/?h=3Ddrm-next-4.7-wip&amp;id=3D9d24b304abbe5380da1bc782b4460596e7cb110=
+9" class=3D"m_-2167022505463390063m_7545045248063895902m_-81333347032984944=
+21OWAAutoLink" id=3D"m_-2167022505463390063m_7545045248063895902m_-81333347=
+03298494421LPlnk640528" target=3D"_blank">https://cgit.freedesktop.<wbr>org=
+/~agd5f/linux/commit/?h=3Ddrm<wbr>-next-4.7-wip&amp;id=3D9d24b304abbe5<wbr>=
+380da1bc782b4460596e7cb1109</a>=C2=A0as
+ well?</p>
+<p><br>
+</p>
+<p>I&#39;ve booted the tip of our staging-4.7 branch with a FIJI device (FU=
+RY) and was able to play videos (vdpau) and normal GL apps.</p>
+<p><br>
+</p>
+<p>Tom</p>
+<br>
+<br>
+<div style=3D"color:rgb(0,0,0)">
+<hr style=3D"display:inline-block;width:98%">
+<div id=3D"m_-2167022505463390063m_7545045248063895902m_-813333470329849442=
+1divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" color=3D"#000000=
+" face=3D"Calibri, sans-serif"><b>From:</b> Ernst Sj=C3=B6strand &lt;<a hre=
+f=3D"mailto:ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br=
+>
+<b>Sent:</b> Friday, October 14, 2016 09:05<br>
+<b>To:</b> StDenis, Tom<br>
+<b>Cc:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blan=
+k">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+<b>Subject:</b> Re: [PATCH] amdgpu: Fix failing boot after support for thir=
+d vce ring</font>
+<div>=C2=A0</div>
+</div><div><div class=3D"m_-2167022505463390063m_7545045248063895902h5">
+<div>
+<div dir=3D"ltr">
+<div>Yes, the=C2=A0 6f0359ff73076483902de0c17f9649<wbr>bf55651e2a I&#39;m r=
+eferring to is the same as
+<br>
+<span><span>780605db12c52f2c22d4d2cc05ceb7<wbr>d2a9d55579 (only exists in a=
+md-staging).<br>
+</span></span></div>
+<span><span>So the last of those two commits is the one that causes my prob=
+lem.<br>
+</span></span>
+<div><span><span><br>
+</span></span></div>
+<div><span><span>Regards<br>
+</span></span></div>
+<div><span><span>//Ernst<br>
+</span></span></div>
+</div>
+<div class=3D"gmail_extra"><br>
+<div class=3D"gmail_quote">2016-10-14 14:53 GMT+02:00 StDenis, Tom <span di=
+r=3D"ltr">
+&lt;<a href=3D"mailto:Tom.StDenis-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">Tom.StDenis@am=
+d.com</a>&gt;</span>:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+<div dir=3D"ltr">
+<div id=3D"m_-2167022505463390063m_7545045248063895902m_-813333470329849442=
+1m_-1771598304858325824divtagdefaultwrapper" style=3D"font-size:12pt;color:=
+#000000;font-family:Calibri,Arial,Helvetica,sans-serif">
+<p>Does your tree have=C2=A0</p>
+<p><br>
+</p>
+<p><span>2f3d686d0ee95332d8888169c7b678<wbr>8bb2d9f5ad</span><br>
+</p>
+<p><span><span>780605db12c52f2c22d4d2cc05ceb7<wbr>d2a9d55579</span><br>
+</span></p>
+<p><span><span><br>
+</span></span></p>
+<p><span><span>in it?=C2=A0 Those are fixes for when the third ring were ad=
+ded.</span></span></p>
+<p><span><span><br>
+</span></span></p>
+<p><span><span>Tom</span></span></p>
+<br>
+<br>
+<div style=3D"color:rgb(0,0,0)">
+<div>
+<hr style=3D"display:inline-block;width:98%">
+<div id=3D"m_-2167022505463390063m_7545045248063895902m_-813333470329849442=
+1m_-1771598304858325824x_divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-siz=
+e:11pt" color=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> amd-gfx=
+ &lt;<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_bl=
+ank">amd-gfx-bounces-PD4FTy7X32mqWrfYKbYh0A@public.gmane.org<wbr>ktop.org</a>&gt;
+ on behalf of Ernst Sj=C3=B6strand &lt;<a href=3D"mailto:ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" =
+target=3D"_blank">ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
+<b>Sent:</b> Friday, October 14, 2016 08:49<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blan=
+k">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+<b>Cc:</b> Ernst Sj=C3=B6strand<br>
+<b>Subject:</b> [PATCH] amdgpu: Fix failing boot after support for third vc=
+e ring</font>
+<div>=C2=A0</div>
+</div>
+</div>
+<font size=3D"2"><span style=3D"font-size:10pt">
+<div class=3D"m_-2167022505463390063m_7545045248063895902m_-813333470329849=
+4421m_-1771598304858325824PlainText">
+<div>
+<div class=3D"m_-2167022505463390063m_7545045248063895902m_-813333470329849=
+4421h5">My Fiji class Fury fails to boot after commit<br>
+6f0359ff73076483902de0c17f9649<wbr>bf55651e2a<br>
+&quot;drm/amdgpu/vce3: add support for third vce ring&quot;<br>
+This commits reverts the number of vce rings back to 2,<br>
+but leaves the other changes intact.<br>
+<br>
+Signed-off-by: Ernst Sj=C3=B6strand &lt;<a href=3D"mailto:ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"=
+ target=3D"_blank">ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
+---<br>
+=C2=A0drivers/gpu/drm/amd/amdgpu/vc<wbr>e_v3_0.c | 2 +-<br>
+=C2=A01 file changed, 1 insertion(+), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/v<wbr>ce_v3_0.c b/drivers/gpu/drm/a=
+md/amdgpu/v<wbr>ce_v3_0.c<br>
+index 3f899e3..6f5eb64 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/v<wbr>ce_v3_0.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/v<wbr>ce_v3_0.c<br>
+@@ -358,7 +358,7 @@ static int vce_v3_0_early_init(void *handle)<br>
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (A=
+MDGPU_VCE_HARVEST_VCE0 | AMDGPU_VCE_HARVEST_VCE1))<br>
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 return -ENOENT;<br>
+=C2=A0<br>
+-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adev-&gt;vce.num_rings =3D 3;<br>
++=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adev-&gt;vce.num_rings =3D 2;<br>
+=C2=A0<br>
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 vce_v3_0_set_ring_funcs(ad=
+ev);<br>
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 vce_v3_0_set_irq_funcs(ade=
+v);<br>
+-- <br>
+2.7.4<br>
+<br>
+</div>
+</div>
+______________________________<wbr>_________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
+lists.freedesktop.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"m_=
+-2167022505463390063m_7545045248063895902m_-8133334703298494421m_-177159830=
+4858325824LPlnk959250" target=3D"_blank">https://lists.freedesktop.org/<wbr=
+>mailman/listinfo/amd-gfx</a>
+<div id=3D"m_-2167022505463390063m_7545045248063895902m_-813333470329849442=
+1m_-1771598304858325824LPBorder_GT_14764495470470.9881266530783932" style=
+=3D"margin-bottom:20px;overflow:auto;width:100%;text-indent:0px">
+<table id=3D"m_-2167022505463390063m_7545045248063895902m_-8133334703298494=
+421m_-1771598304858325824LPContainer_14764495470450.11026149163994892" styl=
+e=3D"width:90%;background-color:rgb(255,255,255);overflow:auto;padding-top:=
+20px;padding-bottom:20px;margin-top:20px;border-top:1px dotted rgb(200,200,=
+200);border-bottom:1px dotted rgb(200,200,200)" cellspacing=3D"0">
+<tbody>
+<tr style=3D"border-spacing:0px" valign=3D"top">
+<td id=3D"m_-2167022505463390063m_7545045248063895902m_-8133334703298494421=
+m_-1771598304858325824TextCell_14764495470460.7288026297683508" colspan=3D"=
+2" style=3D"vertical-align:top;padding:0px;display:table-cell">
+<div id=3D"m_-2167022505463390063m_7545045248063895902m_-813333470329849442=
+1m_-1771598304858325824LPRemovePreviewContainer_14764495470460.164276900461=
+59027">
+</div>
+<div id=3D"m_-2167022505463390063m_7545045248063895902m_-813333470329849442=
+1m_-1771598304858325824LPTitle_14764495470460.741636132433581" style=3D"col=
+or:rgb(59,87,119);font-weight:normal;font-size:21px;font-family:wf_segoe-ui=
+_light,&quot;Segoe UI Light&quot;,&quot;Segoe WP Light&quot;,&quot;Segoe UI=
+&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif;line-height:21px">
+<a id=3D"m_-2167022505463390063m_7545045248063895902m_-8133334703298494421m=
+_-1771598304858325824LPUrlAnchor_14764495470460.2698087919077241" href=3D"h=
+ttps://lists.freedesktop.org/mailman/listinfo/amd-gfx" style=3D"text-decora=
+tion:none" target=3D"_blank">amd-gfx Info Page - lists.freedesktop.org</a><=
+/div>
+<div id=3D"m_-2167022505463390063m_7545045248063895902m_-813333470329849442=
+1m_-1771598304858325824LPMetadata_14764495470460.18698958466014992" style=
+=3D"margin:10px 0px 16px;color:rgb(102,102,102);font-weight:normal;font-fam=
+ily:wf_segoe-ui_normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Ari=
+al,sans-serif;font-size:14px;line-height:14px">
+<a href=3D"http://lists.freedesktop.org" target=3D"_blank">lists.freedeskto=
+p.org</a></div>
+<div id=3D"m_-2167022505463390063m_7545045248063895902m_-813333470329849442=
+1m_-1771598304858325824LPDescription_14764495470460.6448197846508978" style=
+=3D"display:block;color:rgb(102,102,102);font-weight:normal;font-family:wf_=
+segoe-ui_normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans=
+-serif;font-size:14px;line-height:20px;max-height:100px;overflow:hidden">
+To see the collection of prior postings to the list, visit the amd-gfx Arch=
+ives. Using amd-gfx: To post a message to all the list members, send email =
+...</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</div>
+</blockquote>
+</div>
+<br>
+</div>
+</div>
+</div></div></div>
+</div>
+</div>
+
+</blockquote></div><br></div>
+</div></div></blockquote></div><br></div>
+</div></div></blockquote></div><br></div>
+
+--001a114289ea69abac053ed3175f--
+
+--===============1308687318==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -338,4 +466,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1133103268==--
+--===============1308687318==--
