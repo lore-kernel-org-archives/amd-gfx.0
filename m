@@ -1,13 +1,22 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/amdgpu: re-factor debugfs wave reader
-Date: Fri, 14 Oct 2016 10:19:19 -0400
-Message-ID: <CADnq5_NcCwqKzkXiwzuVfms_5uQsY=NjmGsSe-n5AGXhaWB5NQ@mail.gmail.com>
-References: <20161014141053.13219-1-tom.stdenis@amd.com>
+From: =?UTF-8?Q?Ernst_Sj=C3=B6strand?= <ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] amdgpu: Fix failing boot after support for third vce ring
+Date: Fri, 14 Oct 2016 16:23:14 +0200
+Message-ID: <CAD=4a=VhF4J9KHfcME6BVyBaSEmkFfApM_XSi2yewU23iu646A@mail.gmail.com>
+References: <1476449341-2673-1-git-send-email-ernstp@gmail.com>
+ <CY4PR12MB1768CDAC43129C814D75DCE0F7DF0@CY4PR12MB1768.namprd12.prod.outlook.com>
+ <CAD=4a=XdwL5AaZ=kJKQXWgcYPUYrCJd4SMXT9FH470Ei5_dqOA@mail.gmail.com>
+ <CY4PR12MB1768287E6AD0257F6330C5CFF7DF0@CY4PR12MB1768.namprd12.prod.outlook.com>
+ <CAD=4a=VjQmmZtLb9h87jzm_Oha+NOLZ83JeYRreQzwsK7aCZTw@mail.gmail.com>
+ <CAD=4a=VHdJ1WKE3XQmiSK+-M2NLfZq5N6kgU_J7tcjVmmz8vpg@mail.gmail.com>
+ <CAD=4a=XVD6dq7KWFtY9r5qS4saARoXvpqLcshX1L=Vibri7cLA@mail.gmail.com>
+ <CY4PR12MB1768FB1C0830FC368B671BC5F7DF0@CY4PR12MB1768.namprd12.prod.outlook.com>
+ <MWHPR12MB169476FBE38ABF8A3A991604F7DF0@MWHPR12MB1694.namprd12.prod.outlook.com>
+ <CAD=4a=U=FmHfSSv=TbhKusb+_DzPRQWNdh8orrtoXqac0tBVZQ@mail.gmail.com>
+ <MWHPR12MB1694DBE440378F972AEA111BF7DF0@MWHPR12MB1694.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0021667994=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20161014141053.13219-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <MWHPR12MB1694DBE440378F972AEA111BF7DF0-Gy0DoCVfaSW4WA4dJ5YXGAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,169 +27,869 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gRnJpLCBPY3QgMTQsIDIwMTYgYXQgMTA6MTAgQU0sIFRvbSBTdCBEZW5pcyA8dHN0ZGVuaXM4
-MkBnbWFpbC5jb20+IHdyb3RlOgo+IE1vdmUgSVAgdmVyc2lvbiBzcGVjaWZpYyBjb2RlIGludG8g
-YSBjYWxsYmFjay4KPgo+IEFsc28gYWRkIHN1cHBvcnQgZm9yIGdmeDcgZGV2aWNlcy4KPgo+IFNp
-Z25lZC1vZmYtYnk6IFRvbSBTdCBEZW5pcyA8dG9tLnN0ZGVuaXNAYW1kLmNvbT4KClJldmlld2Vk
-LWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+CgoKPiAtLS0KPiAg
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggICAgICAgIHwgIDEgKwo+ICBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCAyOSArKysrKystLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjdfMC5j
-ICAgICAgfCAyNSArKysrKysrKysrKysrKysrKysrKysrKysrCj4gIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2dmeF92OF8wLmMgICAgICB8IDI2ICsrKysrKysrKysrKysrKysrKysrKysrKysr
-Cj4gIDQgZmlsZXMgY2hhbmdlZCwgNTggaW5zZXJ0aW9ucygrKSwgMjMgZGVsZXRpb25zKC0pCj4K
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAo+IGluZGV4IDRjZmQ1NWMyMjQyMy4uNmQ1
-OTBiMzJhODU5IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dS5oCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPiBAQCAtODEy
-LDYgKzgxMiw3IEBAIHN0cnVjdCBhbWRncHVfZ2Z4X2Z1bmNzIHsKPiAgICAgICAgIC8qIGdldCB0
-aGUgZ3B1IGNsb2NrIGNvdW50ZXIgKi8KPiAgICAgICAgIHVpbnQ2NF90ICgqZ2V0X2dwdV9jbG9j
-a19jb3VudGVyKShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7Cj4gICAgICAgICB2b2lkICgq
-c2VsZWN0X3NlX3NoKShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdTMyIHNlX251bSwgdTMy
-IHNoX251bSwgdTMyIGluc3RhbmNlKTsKPiArICAgICAgIHZvaWQgKCpyZWFkX3dhdmVfZGF0YSko
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IHNpbWQsIHVpbnQzMl90IHdhdmUs
-IHVpbnQzMl90ICpkc3QsIGludCAqbm9fZmllbGRzKTsKPiAgfTsKPgo+ICBzdHJ1Y3QgYW1kZ3B1
-X2dmeCB7Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
-ZXZpY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+IGlu
-ZGV4IGQxNDFmN2Y2ZjIyNS4uYWIzODliNDg3ZTNmIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+IEBAIC0yOTgzLDE5ICsyOTgzLDEzIEBAIHN0YXRp
-YyBzc2l6ZV90IGFtZGdwdV9kZWJ1Z2ZzX3NlbnNvcl9yZWFkKHN0cnVjdCBmaWxlICpmLCBjaGFy
-IF9fdXNlciAqYnVmLAo+ICAgICAgICAgcmV0dXJuICFyID8gNCA6IHI7Cj4gIH0KPgo+IC1zdGF0
-aWMgdWludDMyX3Qgd2F2ZV9yZWFkX2luZChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdWlu
-dDMyX3QgU1FfSU5ERVgsIHVpbnQzMl90IFNRX0RBVEEsIHVpbnQzMl90IHNpbWQsIHVpbnQzMl90
-IHdhdmUsIHVpbnQzMl90IGFkZHJlc3MpCj4gLXsKPiAtICAgICAgIFdSRUczMihTUV9JTkRFWCwg
-KHdhdmUgJiAweEYpIHwgKChzaW1kICYgMHgzKSA8PCA0KSB8IChhZGRyZXNzIDw8IDE2KSB8ICgx
-IDw8IDEzKSk7Cj4gLSAgICAgICByZXR1cm4gUlJFRzMyKFNRX0RBVEEpOwo+IC19Cj4gLQo+ICBz
-dGF0aWMgc3NpemVfdCBhbWRncHVfZGVidWdmc193YXZlX3JlYWQoc3RydWN0IGZpbGUgKmYsIGNo
-YXIgX191c2VyICpidWYsCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IHNpemVfdCBzaXplLCBsb2ZmX3QgKnBvcykKPiAgewo+ICAgICAgICAgc3RydWN0IGFtZGdwdV9k
-ZXZpY2UgKmFkZXYgPSBmLT5mX2lub2RlLT5pX3ByaXZhdGU7Cj4gICAgICAgICBpbnQgciwgeDsK
-PiAgICAgICAgIHNzaXplX3QgcmVzdWx0PTA7Cj4gLSAgICAgICB1aW50MzJfdCBvZmZzZXQsIHNl
-LCBzaCwgY3UsIHdhdmUsIHNpbWQsIGRhdGFbMTZdOwo+ICsgICAgICAgdWludDMyX3Qgb2Zmc2V0
-LCBzZSwgc2gsIGN1LCB3YXZlLCBzaW1kLCBkYXRhWzMyXTsKPgo+ICAgICAgICAgaWYgKHNpemUg
-JiAzIHx8ICpwb3MgJiAzKQo+ICAgICAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsKPiBAQCAt
-MzAwNywyNSArMzAwMSwxNCBAQCBzdGF0aWMgc3NpemVfdCBhbWRncHVfZGVidWdmc193YXZlX3Jl
-YWQoc3RydWN0IGZpbGUgKmYsIGNoYXIgX191c2VyICpidWYsCj4gICAgICAgICBjdSA9ICgoKnBv
-cyA+PiAyMykgJiAweEZGKTsKPiAgICAgICAgIHdhdmUgPSAoKCpwb3MgPj4gMzEpICYgMHhGRik7
-Cj4gICAgICAgICBzaW1kID0gKCgqcG9zID4+IDM3KSAmIDB4RkYpOwo+IC0gICAgICAgKnBvcyAm
-PSAweDdGOwo+Cj4gICAgICAgICAvKiBzd2l0Y2ggdG8gdGhlIHNwZWNpZmljIHNlL3NoL2N1ICov
-Cj4gICAgICAgICBtdXRleF9sb2NrKCZhZGV2LT5ncmJtX2lkeF9tdXRleCk7Cj4gICAgICAgICBh
-bWRncHVfZ2Z4X3NlbGVjdF9zZV9zaChhZGV2LCBzZSwgc2gsIGN1KTsKPgo+ICAgICAgICAgeCA9
-IDA7Cj4gLSAgICAgICBpZiAoYWRldi0+ZmFtaWx5ID09IEFNREdQVV9GQU1JTFlfQ1ogfHwgYWRl
-di0+ZmFtaWx5ID09IEFNREdQVV9GQU1JTFlfVkkpIHsKPiAtICAgICAgICAgICAgICAgLyogdHlw
-ZSAwIHdhdmUgZGF0YSAqLwo+IC0gICAgICAgICAgICAgICBkYXRhW3grK10gPSAwOwo+IC0gICAg
-ICAgICAgICAgICBkYXRhW3grK10gPSB3YXZlX3JlYWRfaW5kKGFkZXYsIDB4MjM3OCwgMHgyMzc5
-LCBzaW1kLCB3YXZlLCAweDEyKTsKPiAtICAgICAgICAgICAgICAgZGF0YVt4KytdID0gd2F2ZV9y
-ZWFkX2luZChhZGV2LCAweDIzNzgsIDB4MjM3OSwgc2ltZCwgd2F2ZSwgMHgxOCk7Cj4gLSAgICAg
-ICAgICAgICAgIGRhdGFbeCsrXSA9IHdhdmVfcmVhZF9pbmQoYWRldiwgMHgyMzc4LCAweDIzNzks
-IHNpbWQsIHdhdmUsIDB4MTkpOwo+IC0gICAgICAgICAgICAgICBkYXRhW3grK10gPSB3YXZlX3Jl
-YWRfaW5kKGFkZXYsIDB4MjM3OCwgMHgyMzc5LCBzaW1kLCB3YXZlLCAweDI3RSk7Cj4gLSAgICAg
-ICAgICAgICAgIGRhdGFbeCsrXSA9IHdhdmVfcmVhZF9pbmQoYWRldiwgMHgyMzc4LCAweDIzNzks
-IHNpbWQsIHdhdmUsIDB4MjdGKTsKPiAtICAgICAgICAgICAgICAgZGF0YVt4KytdID0gd2F2ZV9y
-ZWFkX2luZChhZGV2LCAweDIzNzgsIDB4MjM3OSwgc2ltZCwgd2F2ZSwgMHgxNCk7Cj4gLSAgICAg
-ICAgICAgICAgIGRhdGFbeCsrXSA9IHdhdmVfcmVhZF9pbmQoYWRldiwgMHgyMzc4LCAweDIzNzks
-IHNpbWQsIHdhdmUsIDB4MUEpOwo+IC0gICAgICAgICAgICAgICBkYXRhW3grK10gPSB3YXZlX3Jl
-YWRfaW5kKGFkZXYsIDB4MjM3OCwgMHgyMzc5LCBzaW1kLCB3YXZlLCAweDFCKTsKPiAtICAgICAg
-IH0KPiArICAgICAgIGlmIChhZGV2LT5nZnguZnVuY3MtPnJlYWRfd2F2ZV9kYXRhKQo+ICsgICAg
-ICAgICAgICAgICBhZGV2LT5nZnguZnVuY3MtPnJlYWRfd2F2ZV9kYXRhKGFkZXYsIHNpbWQsIHdh
-dmUsIGRhdGEsICZ4KTsKPgo+ICAgICAgICAgYW1kZ3B1X2dmeF9zZWxlY3Rfc2Vfc2goYWRldiwg
-MHhGRkZGRkZGRiwgMHhGRkZGRkZGRiwgMHhGRkZGRkZGRik7Cj4gICAgICAgICBtdXRleF91bmxv
-Y2soJmFkZXYtPmdyYm1faWR4X211dGV4KTsKPiBAQCAtMzAzMywxNyArMzAxNiwxNyBAQCBzdGF0
-aWMgc3NpemVfdCBhbWRncHVfZGVidWdmc193YXZlX3JlYWQoc3RydWN0IGZpbGUgKmYsIGNoYXIg
-X191c2VyICpidWYsCj4gICAgICAgICBpZiAoIXgpCj4gICAgICAgICAgICAgICAgIHJldHVybiAt
-RUlOVkFMOwo+Cj4gLSAgICAgICB3aGlsZSAoc2l6ZSAmJiAoKnBvcyA8IHggKiA0KSkgewo+ICsg
-ICAgICAgd2hpbGUgKHNpemUgJiYgKG9mZnNldCA8IHggKiA0KSkgewo+ICAgICAgICAgICAgICAg
-ICB1aW50MzJfdCB2YWx1ZTsKPgo+IC0gICAgICAgICAgICAgICB2YWx1ZSA9IGRhdGFbKnBvcyA+
-PiAyXTsKPiArICAgICAgICAgICAgICAgdmFsdWUgPSBkYXRhW29mZnNldCA+PiAyXTsKPiAgICAg
-ICAgICAgICAgICAgciA9IHB1dF91c2VyKHZhbHVlLCAodWludDMyX3QgKilidWYpOwo+ICAgICAg
-ICAgICAgICAgICBpZiAocikKPiAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gcjsKPgo+
-ICAgICAgICAgICAgICAgICByZXN1bHQgKz0gNDsKPiAgICAgICAgICAgICAgICAgYnVmICs9IDQ7
-Cj4gLSAgICAgICAgICAgICAgICpwb3MgKz0gNDsKPiArICAgICAgICAgICAgICAgb2Zmc2V0ICs9
-IDQ7Cj4gICAgICAgICAgICAgICAgIHNpemUgLT0gNDsKPiAgICAgICAgIH0KPgo+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjdfMC5jIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvZ2Z4X3Y3XzAuYwo+IGluZGV4IDE1ZjI0YmQxYWRmZS4uMzkzZmI4ZTFm
-NzUzIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92N18wLmMK
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjdfMC5jCj4gQEAgLTQzNTEs
-OSArNDM1MSwzNCBAQCBzdGF0aWMgdm9pZCBnZnhfdjdfMF9yaW5nX2VtaXRfZ2RzX3N3aXRjaChz
-dHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsCj4gICAgICAgICBhbWRncHVfcmluZ193cml0ZShyaW5n
-LCAoMSA8PCAob2Ffc2l6ZSArIG9hX2Jhc2UpKSAtICgxIDw8IG9hX2Jhc2UpKTsKPiAgfQo+Cj4g
-K3N0YXRpYyB1aW50MzJfdCB3YXZlX3JlYWRfaW5kKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-LCB1aW50MzJfdCBzaW1kLCB1aW50MzJfdCB3YXZlLCB1aW50MzJfdCBhZGRyZXNzKQo+ICt7Cj4g
-KyAgICAgICBXUkVHMzIobW1TUV9JTkRfSU5ERVgsICh3YXZlICYgMHhGKSB8ICgoc2ltZCAmIDB4
-MykgPDwgNCkgfCAoYWRkcmVzcyA8PCAxNikgfCAoMSA8PCAxMykpOwo+ICsgICAgICAgcmV0dXJu
-IFJSRUczMihtbVNRX0lORF9EQVRBKTsKPiArfQo+ICsKPiArc3RhdGljIHZvaWQgZ2Z4X3Y3XzBf
-cmVhZF93YXZlX2RhdGEoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IHNpbWQs
-IHVpbnQzMl90IHdhdmUsIHVpbnQzMl90ICpkc3QsIGludCAqbm9fZmllbGRzKQo+ICt7Cj4gKyAg
-ICAgICAvKiB0eXBlIDAgd2F2ZSBkYXRhICovCj4gKyAgICAgICBkc3RbKCpub19maWVsZHMpKytd
-ID0gMDsKPiArICAgICAgIGRzdFsoKm5vX2ZpZWxkcykrK10gPSB3YXZlX3JlYWRfaW5kKGFkZXYs
-IHNpbWQsIHdhdmUsIGl4U1FfV0FWRV9TVEFUVVMpOwo+ICsgICAgICAgZHN0Wygqbm9fZmllbGRz
-KSsrXSA9IHdhdmVfcmVhZF9pbmQoYWRldiwgc2ltZCwgd2F2ZSwgaXhTUV9XQVZFX1BDX0xPKTsK
-PiArICAgICAgIGRzdFsoKm5vX2ZpZWxkcykrK10gPSB3YXZlX3JlYWRfaW5kKGFkZXYsIHNpbWQs
-IHdhdmUsIGl4U1FfV0FWRV9QQ19ISSk7Cj4gKyAgICAgICBkc3RbKCpub19maWVsZHMpKytdID0g
-d2F2ZV9yZWFkX2luZChhZGV2LCBzaW1kLCB3YXZlLCBpeFNRX1dBVkVfRVhFQ19MTyk7Cj4gKyAg
-ICAgICBkc3RbKCpub19maWVsZHMpKytdID0gd2F2ZV9yZWFkX2luZChhZGV2LCBzaW1kLCB3YXZl
-LCBpeFNRX1dBVkVfRVhFQ19ISSk7Cj4gKyAgICAgICBkc3RbKCpub19maWVsZHMpKytdID0gd2F2
-ZV9yZWFkX2luZChhZGV2LCBzaW1kLCB3YXZlLCBpeFNRX1dBVkVfSFdfSUQpOwo+ICsgICAgICAg
-ZHN0Wygqbm9fZmllbGRzKSsrXSA9IHdhdmVfcmVhZF9pbmQoYWRldiwgc2ltZCwgd2F2ZSwgaXhT
-UV9XQVZFX0lOU1RfRFcwKTsKPiArICAgICAgIGRzdFsoKm5vX2ZpZWxkcykrK10gPSB3YXZlX3Jl
-YWRfaW5kKGFkZXYsIHNpbWQsIHdhdmUsIGl4U1FfV0FWRV9JTlNUX0RXMSk7Cj4gKyAgICAgICBk
-c3RbKCpub19maWVsZHMpKytdID0gd2F2ZV9yZWFkX2luZChhZGV2LCBzaW1kLCB3YXZlLCBpeFNR
-X1dBVkVfR1BSX0FMTE9DKTsKPiArICAgICAgIGRzdFsoKm5vX2ZpZWxkcykrK10gPSB3YXZlX3Jl
-YWRfaW5kKGFkZXYsIHNpbWQsIHdhdmUsIGl4U1FfV0FWRV9MRFNfQUxMT0MpOwo+ICsgICAgICAg
-ZHN0Wygqbm9fZmllbGRzKSsrXSA9IHdhdmVfcmVhZF9pbmQoYWRldiwgc2ltZCwgd2F2ZSwgaXhT
-UV9XQVZFX1RSQVBTVFMpOwo+ICsgICAgICAgZHN0Wygqbm9fZmllbGRzKSsrXSA9IHdhdmVfcmVh
-ZF9pbmQoYWRldiwgc2ltZCwgd2F2ZSwgaXhTUV9XQVZFX0lCX1NUUyk7Cj4gK30KPiArCj4gIHN0
-YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1X2dmeF9mdW5jcyBnZnhfdjdfMF9nZnhfZnVuY3MgPSB7
-Cj4gICAgICAgICAuZ2V0X2dwdV9jbG9ja19jb3VudGVyID0gJmdmeF92N18wX2dldF9ncHVfY2xv
-Y2tfY291bnRlciwKPiAgICAgICAgIC5zZWxlY3Rfc2Vfc2ggPSAmZ2Z4X3Y3XzBfc2VsZWN0X3Nl
-X3NoLAo+ICsgICAgICAgLnJlYWRfd2F2ZV9kYXRhID0gJmdmeF92N18wX3JlYWRfd2F2ZV9kYXRh
-LAo+ICB9Owo+Cj4gIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1X3JsY19mdW5jcyBnZnhfdjdf
-MF9ybGNfZnVuY3MgPSB7Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2dmeF92OF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jCj4gaW5k
-ZXggMzg0OGU5OTM3NzE2Li4yZGY2ZmI0ZDNhYzkgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2dmeF92OF8wLmMKPiBAQCAtNTQ1Miw5ICs1NDUyLDM1IEBAIHN0YXRpYyB2b2lkIGdmeF92
-OF8wX3JpbmdfZW1pdF9nZHNfc3dpdGNoKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywKPiAgICAg
-ICAgIGFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsICgxIDw8IChvYV9zaXplICsgb2FfYmFzZSkpIC0g
-KDEgPDwgb2FfYmFzZSkpOwo+ICB9Cj4KPiArc3RhdGljIHVpbnQzMl90IHdhdmVfcmVhZF9pbmQo
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IHNpbWQsIHVpbnQzMl90IHdhdmUs
-IHVpbnQzMl90IGFkZHJlc3MpCj4gK3sKPiArICAgICAgIFdSRUczMihtbVNRX0lORF9JTkRFWCwg
-KHdhdmUgJiAweEYpIHwgKChzaW1kICYgMHgzKSA8PCA0KSB8IChhZGRyZXNzIDw8IDE2KSB8ICgx
-IDw8IDEzKSk7Cj4gKyAgICAgICByZXR1cm4gUlJFRzMyKG1tU1FfSU5EX0RBVEEpOwo+ICt9Cj4g
-Kwo+ICtzdGF0aWMgdm9pZCBnZnhfdjhfMF9yZWFkX3dhdmVfZGF0YShzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSAqYWRldiwgdWludDMyX3Qgc2ltZCwgdWludDMyX3Qgd2F2ZSwgdWludDMyX3QgKmRzdCwg
-aW50ICpub19maWVsZHMpCj4gK3sKPiArICAgICAgIC8qIHR5cGUgMCB3YXZlIGRhdGEgKi8KPiAr
-ICAgICAgIGRzdFsoKm5vX2ZpZWxkcykrK10gPSAwOwo+ICsgICAgICAgZHN0Wygqbm9fZmllbGRz
-KSsrXSA9IHdhdmVfcmVhZF9pbmQoYWRldiwgc2ltZCwgd2F2ZSwgaXhTUV9XQVZFX1NUQVRVUyk7
-Cj4gKyAgICAgICBkc3RbKCpub19maWVsZHMpKytdID0gd2F2ZV9yZWFkX2luZChhZGV2LCBzaW1k
-LCB3YXZlLCBpeFNRX1dBVkVfUENfTE8pOwo+ICsgICAgICAgZHN0Wygqbm9fZmllbGRzKSsrXSA9
-IHdhdmVfcmVhZF9pbmQoYWRldiwgc2ltZCwgd2F2ZSwgaXhTUV9XQVZFX1BDX0hJKTsKPiArICAg
-ICAgIGRzdFsoKm5vX2ZpZWxkcykrK10gPSB3YXZlX3JlYWRfaW5kKGFkZXYsIHNpbWQsIHdhdmUs
-IGl4U1FfV0FWRV9FWEVDX0xPKTsKPiArICAgICAgIGRzdFsoKm5vX2ZpZWxkcykrK10gPSB3YXZl
-X3JlYWRfaW5kKGFkZXYsIHNpbWQsIHdhdmUsIGl4U1FfV0FWRV9FWEVDX0hJKTsKPiArICAgICAg
-IGRzdFsoKm5vX2ZpZWxkcykrK10gPSB3YXZlX3JlYWRfaW5kKGFkZXYsIHNpbWQsIHdhdmUsIGl4
-U1FfV0FWRV9IV19JRCk7Cj4gKyAgICAgICBkc3RbKCpub19maWVsZHMpKytdID0gd2F2ZV9yZWFk
-X2luZChhZGV2LCBzaW1kLCB3YXZlLCBpeFNRX1dBVkVfSU5TVF9EVzApOwo+ICsgICAgICAgZHN0
-Wygqbm9fZmllbGRzKSsrXSA9IHdhdmVfcmVhZF9pbmQoYWRldiwgc2ltZCwgd2F2ZSwgaXhTUV9X
-QVZFX0lOU1RfRFcxKTsKPiArICAgICAgIGRzdFsoKm5vX2ZpZWxkcykrK10gPSB3YXZlX3JlYWRf
-aW5kKGFkZXYsIHNpbWQsIHdhdmUsIGl4U1FfV0FWRV9HUFJfQUxMT0MpOwo+ICsgICAgICAgZHN0
-Wygqbm9fZmllbGRzKSsrXSA9IHdhdmVfcmVhZF9pbmQoYWRldiwgc2ltZCwgd2F2ZSwgaXhTUV9X
-QVZFX0xEU19BTExPQyk7Cj4gKyAgICAgICBkc3RbKCpub19maWVsZHMpKytdID0gd2F2ZV9yZWFk
-X2luZChhZGV2LCBzaW1kLCB3YXZlLCBpeFNRX1dBVkVfVFJBUFNUUyk7Cj4gKyAgICAgICBkc3Rb
-KCpub19maWVsZHMpKytdID0gd2F2ZV9yZWFkX2luZChhZGV2LCBzaW1kLCB3YXZlLCBpeFNRX1dB
-VkVfSUJfU1RTKTsKPiArfQo+ICsKPiArCj4gIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1X2dm
-eF9mdW5jcyBnZnhfdjhfMF9nZnhfZnVuY3MgPSB7Cj4gICAgICAgICAuZ2V0X2dwdV9jbG9ja19j
-b3VudGVyID0gJmdmeF92OF8wX2dldF9ncHVfY2xvY2tfY291bnRlciwKPiAgICAgICAgIC5zZWxl
-Y3Rfc2Vfc2ggPSAmZ2Z4X3Y4XzBfc2VsZWN0X3NlX3NoLAo+ICsgICAgICAgLnJlYWRfd2F2ZV9k
-YXRhID0gJmdmeF92OF8wX3JlYWRfd2F2ZV9kYXRhLAo+ICB9Owo+Cj4gIHN0YXRpYyBpbnQgZ2Z4
-X3Y4XzBfZWFybHlfaW5pdCh2b2lkICpoYW5kbGUpCj4gLS0KPiAyLjEwLjAKPgo+IF9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============0021667994==
+Content-Type: multipart/alternative; boundary=94eb2c06ae327faeb1053ed3f7e3
+
+--94eb2c06ae327faeb1053ed3f7e3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+https://cgit.freedesktop.org/~agd5f/linux/commit/?h=3Ddrm-next-4.7-wip&id=
+=3D9d24b304abbe5380da1bc782b4460596e7cb1109
+
+2016-10-14 16:12 GMT+02:00 Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>:
+
+> What patch are you referring to?
+>
+>
+>
+> Alex
+>
+>
+>
+> *From:* Ernst Sj=C3=B6strand [mailto:ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org]
+> *Sent:* Friday, October 14, 2016 10:06 AM
+> *To:* Deucher, Alexander
+> *Cc:* amd-gfx mailing list; StDenis, Tom
+> *Subject:* RE: [PATCH] amdgpu: Fix failing boot after support for third
+> vce ring
+>
+>
+>
+> next-4.9 and wip are the broken branches for me so something is wrong. I
+> could cherry pick the patch Tom mentioned and got a delta so I don't thin=
+k
+> you have it.
+>
+>
+>
+> Den 14 okt. 2016 3:49 em skrev "Deucher, Alexander" <
+> Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>:
+>
+> All of those patches are integrated:
+>
+> https://cgit.freedesktop.org/~agd5f/linux/commit/?h=3Ddrm-next-4.9-wip&id=
+=3D
+> 57da26e4c4c1c7cc042aba1925813fea7413dbeb
+>
+> https://cgit.freedesktop.org/~agd5f/linux/commit/?h=3Ddrm-next-4.9-wip&id=
+=3D
+> d7ca7ab8259f43473bc387dda2a5b84aeb049961
+>
+>
+>
+>
+>
+> *From:* amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] *On Behalf
+> Of *StDenis, Tom
+> *Sent:* Friday, October 14, 2016 9:21 AM
+> *To:* Ernst Sj=C3=B6strand
+> *Cc:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> *Subject:* Re: [PATCH] amdgpu: Fix failing boot after support for third
+> vce ring
+>
+>
+>
+> You'd need
+>
+>
+>
+> https://cgit.freedesktop.org/~agd5f/linux/commit/?h=3Ddrm-next-4.7-wip&id=
+=3D
+> 9ab4662c313d25731e53cc4f044bddb9c506ca13
+>
+> and
+>
+> https://cgit.freedesktop.org/~agd5f/linux/commit/?h=3Ddrm-next-4.7-wip&id=
+=3D
+> da00756f75422b04befae381e7e48d0cacf299f3
+>
+>
+>
+> I'll let Alex speak for the drm-next branches since he manages them.
+>
+>
+>
+> Tom
+>
+>
+> ------------------------------
+>
+> *From:* Ernst Sj=C3=B6strand <ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+> *Sent:* Friday, October 14, 2016 09:20
+> *To:* StDenis, Tom
+> *Cc:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> *Subject:* Re: [PATCH] amdgpu: Fix failing boot after support for third
+> vce ring
+>
+>
+>
+> Means the drm pull request for 4.9 is broken then also, FYI.
+>
+>
+>
+> 2016-10-14 15:17 GMT+02:00 Ernst Sj=C3=B6strand <ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>:
+>
+> 9d24b304abbe5380da1bc782b4460596e7cb1109
+>
+> cherry-picks cleanly on drm-next-4.9-wip but then fails to build:
+>
+>   CC [M]  drivers/gpu/drm/amd/amdgpu/vce_v3_0.o
+> drivers/gpu/drm/amd/amdgpu/vce_v3_0.c:854:2: error: unknown field =E2=80=
+=98type=E2=80=99
+> specified in initializer
+>   .type =3D AMDGPU_RING_TYPE_VCE,
+>   ^
+> drivers/gpu/drm/amd/amdgpu/vce_v3_0.c:854:10: warning: initialization
+> makes pointer from integer without a cast [-Wint-conversion]
+>   .type =3D AMDGPU_RING_TYPE_VCE,
+>           ^
+> drivers/gpu/drm/amd/amdgpu/vce_v3_0.c:854:10: note: (near initialization
+> for =E2=80=98vce_v3_0_ring_phys_funcs.get_rptr=E2=80=99)
+> drivers/gpu/drm/amd/amdgpu/vce_v3_0.c:855:2: error: unknown field
+> =E2=80=98align_mask=E2=80=99 specified in initializer
+>   .align_mask =3D 0xf,
+>   ^
+> drivers/gpu/drm/amd/amdgpu/vce_v3_0.c:855:16: warning: initialization
+> makes pointer from integer without a cast [-Wint-conversion]
+>   .align_mask =3D 0xf,
+>                 ^
+> drivers/gpu/drm/amd/amdgpu/vce_v3_0.c:855:16: note: (near initialization
+> for =E2=80=98vce_v3_0_ring_phys_funcs.get_wptr=E2=80=99)
+> drivers/gpu/drm/amd/amdgpu/vce_v3_0.c:856:2: error: unknown field =E2=80=
+=98nop=E2=80=99
+> specified in initializer
+>   .nop =3D VCE_CMD_NO_OP,
+>   ^
+>
+>
+>
+> 2016-10-14 15:15 GMT+02:00 Ernst Sj=C3=B6strand <ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>:
+>
+> I'm testing both drm-next-4.9 and drm-next-4.9-wip from ~agd5f.
+>
+> I think the problem is in drm-next now also.
+>
+> They all have
+> 6f0359f drm/amdgpu/vce3: add support for third vce ring
+> 75c6548 drm/amdgpu: track the number of vce rings
+>
+> But not
+> 9d24b30 drm/amdgpu: fix broken VCE startup in phys mode
+>
+> which only exists in amd-staging-4.7
+>
+> (What does 4.7 mean in this context... ?)
+>
+> Regards
+>
+> //Ernst
+>
+>
+>
+>
+>
+> 2016-10-14 15:07 GMT+02:00 StDenis, Tom <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>:
+>
+> Do you have https://cgit.freedesktop.org/~agd5f/linux/commit/?h=3D
+> drm-next-4.7-wip&id=3D9d24b304abbe5380da1bc782b4460596e7cb1109 as well?
+>
+>
+>
+> I've booted the tip of our staging-4.7 branch with a FIJI device (FURY)
+> and was able to play videos (vdpau) and normal GL apps.
+>
+>
+>
+> Tom
+>
+>
+> ------------------------------
+>
+> *From:* Ernst Sj=C3=B6strand <ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+> *Sent:* Friday, October 14, 2016 09:05
+> *To:* StDenis, Tom
+> *Cc:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> *Subject:* Re: [PATCH] amdgpu: Fix failing boot after support for third
+> vce ring
+>
+>
+>
+> Yes, the  6f0359ff73076483902de0c17f9649bf55651e2a I'm referring to is
+> the same as
+> 780605db12c52f2c22d4d2cc05ceb7d2a9d55579 (only exists in amd-staging).
+>
+> So the last of those two commits is the one that causes my problem.
+>
+>
+>
+> Regards
+>
+> //Ernst
+>
+>
+>
+> 2016-10-14 14:53 GMT+02:00 StDenis, Tom <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>:
+>
+> Does your tree have
+>
+>
+>
+> 2f3d686d0ee95332d8888169c7b6788bb2d9f5ad
+>
+> 780605db12c52f2c22d4d2cc05ceb7d2a9d55579
+>
+>
+>
+> in it?  Those are fixes for when the third ring were added.
+>
+>
+>
+> Tom
+>
+>
+> ------------------------------
+>
+> *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of
+> Ernst Sj=C3=B6strand <ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+> *Sent:* Friday, October 14, 2016 08:49
+> *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> *Cc:* Ernst Sj=C3=B6strand
+> *Subject:* [PATCH] amdgpu: Fix failing boot after support for third vce
+> ring
+>
+>
+>
+> My Fiji class Fury fails to boot after commit
+> 6f0359ff73076483902de0c17f9649bf55651e2a
+> "drm/amdgpu/vce3: add support for third vce ring"
+> This commits reverts the number of vce rings back to 2,
+> but leaves the other changes intact.
+>
+> Signed-off-by: Ernst Sj=C3=B6strand <ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/vce_v3_0.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+> b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+> index 3f899e3..6f5eb64 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+> @@ -358,7 +358,7 @@ static int vce_v3_0_early_init(void *handle)
+>              (AMDGPU_VCE_HARVEST_VCE0 | AMDGPU_VCE_HARVEST_VCE1))
+>                  return -ENOENT;
+>
+> -       adev->vce.num_rings =3D 3;
+> +       adev->vce.num_rings =3D 2;
+>
+>          vce_v3_0_set_ring_funcs(adev);
+>          vce_v3_0_set_irq_funcs(adev);
+> --
+> 2.7.4
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+> amd-gfx Info Page - lists.freedesktop.org
+> <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>
+>
+> lists.freedesktop.org
+>
+> To see the collection of prior postings to the list, visit the amd-gfx
+> Archives. Using amd-gfx: To post a message to all the list members, send
+> email ...
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
+
+--94eb2c06ae327faeb1053ed3f7e3
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><a href=3D"https://cgit.freedesktop.org/~agd5f/linux/commi=
+t/?h=3Ddrm-next-4.7-wip&amp;id=3D9d24b304abbe5380da1bc782b4460596e7cb1109">=
+https://cgit.freedesktop.org/~agd5f/linux/commit/?h=3Ddrm-next-4.7-wip&amp;=
+id=3D9d24b304abbe5380da1bc782b4460596e7cb1109</a><br></div><div class=3D"gm=
+ail_extra"><br><div class=3D"gmail_quote">2016-10-14 16:12 GMT+02:00 Deuche=
+r, Alexander <span dir=3D"ltr">&lt;<a href=3D"mailto:Alexander.Deucher@amd.=
+com" target=3D"_blank">Alexander.Deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;</span>:<br><blockq=
+uote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc =
+solid;padding-left:1ex">
+
+
+
+
+
+<div link=3D"blue" vlink=3D"purple" lang=3D"EN-US">
+<div class=3D"m_5585073502184114943WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d">What patch are you referr=
+ing to?<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d"><u></u>=C2=A0<u></u></spa=
+n></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d">Alex<u></u><u></u></span>=
+</p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d"><u></u>=C2=A0<u></u></spa=
+n></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #b5c4df 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
+;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span style=3D"font-s=
+ize:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> Ernst Sj=
+=C3=B6strand [mailto:<a href=3D"mailto:ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">=
+ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>]
+<br>
+<b>Sent:</b> Friday, October 14, 2016 10:06 AM<br>
+<b>To:</b> Deucher, Alexander<br>
+<b>Cc:</b> amd-gfx mailing list; StDenis, Tom<br>
+<b>Subject:</b> RE: [PATCH] amdgpu: Fix failing boot after support for thir=
+d vce ring<u></u><u></u></span></p>
+</div>
+</div><div><div class=3D"h5">
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p>next-4.9 and wip are the broken branches for me so something is wrong. I=
+ could cherry pick the patch Tom mentioned and got a delta so I don&#39;t t=
+hink you have it.
+<u></u><u></u></p>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<div>
+<p class=3D"MsoNormal">Den 14 okt. 2016 3:49 em skrev &quot;Deucher, Alexan=
+der&quot; &lt;<a href=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org" target=3D"_blank=
+">Alexander.Deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;:<u></u><u></u></p>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d">All of those patches are =
+integrated:</span><u></u><u></u></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d"><a href=3D"https://cgit.f=
+reedesktop.org/~agd5f/linux/commit/?h=3Ddrm-next-4.9-wip&amp;id=3D57da26e4c=
+4c1c7cc042aba1925813fea7413dbeb" target=3D"_blank">https://cgit.freedesktop=
+.org/~<wbr>agd5f/linux/commit/?h=3Ddrm-<wbr>next-4.9-wip&amp;id=3D<wbr>57da=
+26e4c4c1c7cc042aba1925813f<wbr>ea7413dbeb</a></span><u></u><u></u></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d"><a href=3D"https://cgit.f=
+reedesktop.org/~agd5f/linux/commit/?h=3Ddrm-next-4.9-wip&amp;id=3Dd7ca7ab82=
+59f43473bc387dda2a5b84aeb049961" target=3D"_blank">https://cgit.freedesktop=
+.org/~<wbr>agd5f/linux/commit/?h=3Ddrm-<wbr>next-4.9-wip&amp;id=3D<wbr>d7ca=
+7ab8259f43473bc387dda2a5b8<wbr>4aeb049961</a></span><u></u><u></u></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d">=C2=A0</span><u></u><u></=
+u></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d">=C2=A0</span><u></u><u></=
+u></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #b5c4df 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
+;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span style=3D"font-s=
+ize:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> amd-gfx =
+[mailto:<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"=
+_blank">amd-gfx-bounces@lists.<wbr>freedesktop.org</a>]
+<b>On Behalf Of </b>StDenis, Tom<br>
+<b>Sent:</b> Friday, October 14, 2016 9:21 AM<br>
+<b>To:</b> Ernst Sj=C3=B6strand<br>
+<b>Cc:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blan=
+k">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+<b>Subject:</b> Re: [PATCH] amdgpu: Fix failing boot after support for thir=
+d vce ring</span><u></u><u></u></p>
+</div>
+</div>
+<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
+<div id=3D"m_5585073502184114943m_2020318726477089758m_-2167022505463390063=
+m_7545045248063895902m_-8133334703298494421m_-1771598304858325824LPMetadata=
+_14764495470460.18698958466014992">
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black">You&#39;d need=C2=A0</span><u></u><u></u></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black">=C2=A0</span><u></u><u></u></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black"><a href=3D"https://cgit.freedesktop.org/~agd5f/linux/commit/?h=
+=3Ddrm-next-4.7-wip&amp;id=3D9ab4662c313d25731e53cc4f044bddb9c506ca13" id=
+=3D"m_5585073502184114943m_2020318726477089758LPlnk511980" target=3D"_blank=
+">https://cgit.freedesktop.org/~<wbr>agd5f/linux/commit/?h=3Ddrm-<wbr>next-=
+4.7-wip&amp;id=3D<wbr>9ab4662c313d25731e53cc4f044bdd<wbr>b9c506ca13</a></sp=
+an><u></u><u></u></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black">and</span><u></u><u></u></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black"><a href=3D"https://cgit.freedesktop.org/~agd5f/linux/commit/?h=
+=3Ddrm-next-4.7-wip&amp;id=3Dda00756f75422b04befae381e7e48d0cacf299f3" id=
+=3D"m_5585073502184114943m_2020318726477089758LPlnk276724" target=3D"_blank=
+">https://cgit.freedesktop.org/~<wbr>agd5f/linux/commit/?h=3Ddrm-<wbr>next-=
+4.7-wip&amp;id=3D<wbr>da00756f75422b04befae381e7e48d<wbr>0cacf299f3</a></sp=
+an><u></u><u></u></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black">=C2=A0</span><u></u><u></u></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black">I&#39;ll let Alex speak for the drm-next branches since he manag=
+es them.</span><u></u><u></u></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black">=C2=A0</span><u></u><u></u></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black">Tom</span><u></u><u></u></p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span style=3D"font-f=
+amily:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black">=C2=A0</span>=
+<u></u><u></u></p>
+<div>
+<div class=3D"MsoNormal" style=3D"text-align:center" align=3D"center"><span=
+ style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:blac=
+k">
+<hr width=3D"98%" size=3D"2" align=3D"center">
+</span></div>
+<div id=3D"m_5585073502184114943m_2020318726477089758divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
+;Calibri&quot;,&quot;sans-serif&quot;;color:black">From:</span></b><span st=
+yle=3D"font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&qu=
+ot;;color:black"> Ernst
+ Sj=C3=B6strand &lt;<a href=3D"mailto:ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">e=
+rnstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
+<b>Sent:</b> Friday, October 14, 2016 09:20<br>
+<b>To:</b> StDenis, Tom<br>
+<b>Cc:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blan=
+k">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+<b>Subject:</b> Re: [PATCH] amdgpu: Fix failing boot after support for thir=
+d vce ring</span><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-=
+serif&quot;;color:black">
+</span><u></u><u></u></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">=C2=A0</span><u></u><u></u></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">Means the drm pull request for 4.9 is broken=
+ then also, FYI.</span><u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">=C2=A0</span><u></u><u></u></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">2016-10-14 15:17 GMT+02:00 Ernst Sj=C3=B6str=
+and &lt;<a href=3D"mailto:ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">ernstp@gmail.=
+com</a>&gt;:</span><u></u><u></u></p>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">9d24b304abbe5380da1bc782b44605<wbr>96e7cb110=
+9</span><u></u><u></u></p>
+</div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span style=3D"font-f=
+amily:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black">cherry-picks =
+cleanly on drm-next-4.9-wip but then fails to build:<br>
+<br>
+=C2=A0 CC [M]=C2=A0 drivers/gpu/drm/amd/amdgpu/<wbr>vce_v3_0.o<br>
+drivers/gpu/drm/amd/amdgpu/<wbr>vce_v3_0.c:854:2: error: unknown field =E2=
+=80=98type=E2=80=99 specified in initializer<br>
+=C2=A0 .type =3D AMDGPU_RING_TYPE_VCE,<br>
+=C2=A0 ^<br>
+drivers/gpu/drm/amd/amdgpu/<wbr>vce_v3_0.c:854:10: warning: initialization =
+makes pointer from integer without a cast [-Wint-conversion]<br>
+=C2=A0 .type =3D AMDGPU_RING_TYPE_VCE,<br>
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ^<br>
+drivers/gpu/drm/amd/amdgpu/<wbr>vce_v3_0.c:854:10: note: (near initializati=
+on for =E2=80=98vce_v3_0_ring_phys_funcs.get_<wbr>rptr=E2=80=99)<br>
+drivers/gpu/drm/amd/amdgpu/<wbr>vce_v3_0.c:855:2: error: unknown field =E2=
+=80=98align_mask=E2=80=99 specified in initializer<br>
+=C2=A0 .align_mask =3D 0xf,<br>
+=C2=A0 ^<br>
+drivers/gpu/drm/amd/amdgpu/<wbr>vce_v3_0.c:855:16: warning: initialization =
+makes pointer from integer without a cast [-Wint-conversion]<br>
+=C2=A0 .align_mask =3D 0xf,<br>
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 ^<br>
+drivers/gpu/drm/amd/amdgpu/<wbr>vce_v3_0.c:855:16: note: (near initializati=
+on for =E2=80=98vce_v3_0_ring_phys_funcs.get_<wbr>wptr=E2=80=99)<br>
+drivers/gpu/drm/amd/amdgpu/<wbr>vce_v3_0.c:856:2: error: unknown field =E2=
+=80=98nop=E2=80=99 specified in initializer<br>
+=C2=A0 .nop =3D VCE_CMD_NO_OP,<br>
+=C2=A0 ^</span><u></u><u></u></p>
+</div>
+<div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">=C2=A0</span><u></u><u></u></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">2016-10-14 15:15 GMT+02:00 Ernst Sj=C3=B6str=
+and &lt;<a href=3D"mailto:ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">ernstp@gmail.=
+com</a>&gt;:</span><u></u><u></u></p>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">I&#39;m testing both drm-next-4.9 and drm-ne=
+xt-4.9-wip from ~agd5f.</span><u></u><u></u></p>
+</div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">I think the problem is in drm-next now also.=
+</span><u></u><u></u></p>
+</div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span style=3D"font-f=
+amily:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black">They all have=
+<br>
+6f0359f drm/amdgpu/vce3: add support for third vce ring<br>
+75c6548 drm/amdgpu: track the number of vce rings</span><u></u><u></u></p>
+</div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">But not<br>
+9d24b30 drm/amdgpu: fix broken VCE startup in phys mode</span><u></u><u></u=
+></p>
+</div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">which only exists in amd-staging-4.7</span><=
+u></u><u></u></p>
+</div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span style=3D"font-f=
+amily:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black">(What does 4.=
+7 mean in this context... ?)</span><u></u><u></u></p>
+</div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">Regards</span><u></u><u></u></p>
+</div>
+<p class=3D"MsoNormal"><span class=3D"m_5585073502184114943m202031872647708=
+9758m-2167022505463390063hoenzb"><span style=3D"font-family:&quot;Calibri&q=
+uot;,&quot;sans-serif&quot;;color:#888888">//Ernst</span></span><u></u><u><=
+/u></p>
+<div>
+<div>
+<div>
+<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
+</div>
+</div>
+</div>
+</div>
+<div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">=C2=A0</span><u></u><u></u></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">2016-10-14 15:07 GMT+02:00 StDenis, Tom &lt;=
+<a href=3D"mailto:Tom.StDenis-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">Tom.StDenis-urvtwAKJhsc@public.gmane.org=
+m</a>&gt;:</span><u></u><u></u></p>
+<div>
+<div>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black">Do you have=C2=A0<a href=3D"https://cgit.freedesktop.org/~agd5f/=
+linux/commit/?h=3Ddrm-next-4.7-wip&amp;id=3D9d24b304abbe5380da1bc782b446059=
+6e7cb1109" id=3D"m_5585073502184114943m_2020318726477089758m_-2167022505463=
+390063m_7545045248063895902m_-8133334703298494421LPlnk640528" target=3D"_bl=
+ank">https://cgit.freedesktop.<wbr>org/~agd5f/linux/commit/?h=3D<wbr>drm-ne=
+xt-4.7-wip&amp;id=3D<wbr>9d24b304abbe5380da1bc782b44605<wbr>96e7cb1109</a>=
+=C2=A0as
+ well?</span><u></u><u></u></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black">=C2=A0</span><u></u><u></u></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black">I&#39;ve booted the tip of our staging-4.7 branch with a FIJI de=
+vice (FURY) and was able to play videos (vdpau) and normal GL apps.</span><=
+u></u><u></u></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black">=C2=A0</span><u></u><u></u></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black">Tom</span><u></u><u></u></p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span style=3D"font-f=
+amily:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black">=C2=A0</span>=
+<u></u><u></u></p>
+<div>
+<div class=3D"MsoNormal" style=3D"text-align:center" align=3D"center"><span=
+ style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:blac=
+k">
+<hr width=3D"98%" size=3D"2" align=3D"center">
+</span></div>
+<div id=3D"m_5585073502184114943m_2020318726477089758m_-2167022505463390063=
+m_7545045248063895902m_-8133334703298494421divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
+;Calibri&quot;,&quot;sans-serif&quot;;color:black">From:</span></b><span st=
+yle=3D"font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&qu=
+ot;;color:black"> Ernst
+ Sj=C3=B6strand &lt;<a href=3D"mailto:ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">e=
+rnstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
+<b>Sent:</b> Friday, October 14, 2016 09:05<br>
+<b>To:</b> StDenis, Tom<br>
+<b>Cc:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blan=
+k">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+<b>Subject:</b> Re: [PATCH] amdgpu: Fix failing boot after support for thir=
+d vce ring</span><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-=
+serif&quot;;color:black">
+</span><u></u><u></u></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">=C2=A0</span><u></u><u></u></p>
+</div>
+</div>
+<div>
+<div>
+<div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">Yes, the=C2=A0 6f0359ff73076483902de0c17f964=
+9<wbr>bf55651e2a I&#39;m referring to is the same as
+<br>
+780605db12c52f2c22d4d2cc05ceb7<wbr>d2a9d55579 (only exists in amd-staging).=
+</span><u></u><u></u></p>
+</div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">So the last of those two commits is the one =
+that causes my problem.</span><u></u><u></u></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">=C2=A0</span><u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">Regards</span><u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">//Ernst</span><u></u><u></u></p>
+</div>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">=C2=A0</span><u></u><u></u></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">2016-10-14 14:53 GMT+02:00 StDenis, Tom &lt;=
+<a href=3D"mailto:Tom.StDenis-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">Tom.StDenis-urvtwAKJhsc@public.gmane.org=
+m</a>&gt;:</span><u></u><u></u></p>
+<div>
+<div>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black">Does your tree have=C2=A0</span><u></u><u></u></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black">=C2=A0</span><u></u><u></u></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black">2f3d686d0ee95332d8888169c7b678<wbr>8bb2d9f5ad</span><u></u><u></=
+u></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black">780605db12c52f2c22d4d2cc05ceb7<wbr>d2a9d55579</span><u></u><u></=
+u></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black">=C2=A0</span><u></u><u></u></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black">in it?=C2=A0 Those are fixes for when the third ring were added.=
+</span><u></u><u></u></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black">=C2=A0</span><u></u><u></u></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black">Tom</span><u></u><u></u></p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span style=3D"font-f=
+amily:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black">=C2=A0</span>=
+<u></u><u></u></p>
+<div>
+<div>
+<div class=3D"MsoNormal" style=3D"text-align:center" align=3D"center"><span=
+ style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:blac=
+k">
+<hr width=3D"98%" size=3D"2" align=3D"center">
+</span></div>
+<div id=3D"m_5585073502184114943m_2020318726477089758m_-2167022505463390063=
+m_7545045248063895902m_-8133334703298494421m_-1771598304858325824x_divRplyF=
+wdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
+;Calibri&quot;,&quot;sans-serif&quot;;color:black">From:</span></b><span st=
+yle=3D"font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&qu=
+ot;;color:black"> amd-gfx
+ &lt;<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_bl=
+ank">amd-gfx-bounces@lists.<wbr>freedesktop.org</a>&gt; on behalf of Ernst =
+Sj=C3=B6strand &lt;<a href=3D"mailto:ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">er=
+nstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
+<b>Sent:</b> Friday, October 14, 2016 08:49<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blan=
+k">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+<b>Cc:</b> Ernst Sj=C3=B6strand<br>
+<b>Subject:</b> [PATCH] amdgpu: Fix failing boot after support for third vc=
+e ring</span><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-seri=
+f&quot;;color:black">
+</span><u></u><u></u></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">=C2=A0</span><u></u><u></u></p>
+</div>
+</div>
+</div>
+<div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span style=3D"font-s=
+ize:10.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:bla=
+ck">My Fiji class Fury fails to boot after commit<br>
+6f0359ff73076483902de0c17f9649<wbr>bf55651e2a<br>
+&quot;drm/amdgpu/vce3: add support for third vce ring&quot;<br>
+This commits reverts the number of vce rings back to 2,<br>
+but leaves the other changes intact.<br>
+<br>
+Signed-off-by: Ernst Sj=C3=B6strand &lt;<a href=3D"mailto:ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"=
+ target=3D"_blank">ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
+---<br>
+=C2=A0drivers/gpu/drm/amd/amdgpu/<wbr>vce_v3_0.c | 2 +-<br>
+=C2=A01 file changed, 1 insertion(+), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/<wbr>vce_v3_0.c b/drivers/gpu/drm/a=
+md/amdgpu/<wbr>vce_v3_0.c<br>
+index 3f899e3..6f5eb64 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/<wbr>vce_v3_0.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/<wbr>vce_v3_0.c<br>
+@@ -358,7 +358,7 @@ static int vce_v3_0_early_init(void *handle)<br>
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (A=
+MDGPU_VCE_HARVEST_VCE0 | AMDGPU_VCE_HARVEST_VCE1))<br>
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 return -ENOENT;<br>
+=C2=A0<br>
+-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adev-&gt;vce.num_rings =3D 3;<br>
++=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 adev-&gt;vce.num_rings =3D 2;<br>
+=C2=A0<br>
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 vce_v3_0_set_ring_funcs(ad=
+ev);<br>
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 vce_v3_0_set_irq_funcs(ade=
+v);<br>
+-- <br>
+2.7.4</span><u></u><u></u></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:black">___________________________=
+___<wbr>_________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
+lists.freedesktop.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"m_=
+5585073502184114943m_2020318726477089758m_-2167022505463390063m_75450452480=
+63895902m_-8133334703298494421m_-1771598304858325824LPlnk959250" target=3D"=
+_blank">https://lists.freedesktop.org/<wbr>mailman/listinfo/amd-gfx</a>
+</span><u></u><u></u></p>
+<div style=3D"margin-bottom:15.0pt">
+<table class=3D"m_5585073502184114943MsoNormalTable" style=3D"width:90.0%;b=
+ackground:white;border-top:dotted #c8c8c8 1.0pt;border-left:none;border-bot=
+tom:dotted #c8c8c8 1.0pt;border-right:none" width=3D"90%" cellspacing=3D"0"=
+ cellpadding=3D"0" border=3D"1">
+<tbody>
+<tr>
+<td style=3D"border:none;padding:0in 0in 0in 0in" valign=3D"top">
+<div>
+<p class=3D"MsoNormal" style=3D"margin-top:15.0pt"><span style=3D"font-size=
+:16.0pt;font-family:&quot;Segoe UI Light&quot;,&quot;sans-serif&quot;;color=
+:#3b5777"><a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx=
+" target=3D"_blank"><span style=3D"text-decoration:none">amd-gfx
+ Info Page - lists.freedesktop.org</span></a></span><u></u><u></u></p>
+</div>
+<div style=3D"margin-top:7.5pt;margin-bottom:12.0pt" id=3D"m_55850735021841=
+14943m_2020318726477089758m_-2167022505463390063m_7545045248063895902m_-813=
+3334703298494421m_-1771598304858325824LPMetadata_14764495470460.18698958466=
+014992">
+<p class=3D"MsoNormal" style=3D"margin-top:15.0pt;line-height:10.5pt">
+<span style=3D"font-size:10.5pt;font-family:&quot;Segoe UI&quot;,&quot;sans=
+-serif&quot;;color:#666666"><a href=3D"http://lists.freedesktop.org" target=
+=3D"_blank">lists.freedesktop.org</a></span><u></u><u></u></p>
+</div>
+<div id=3D"m_5585073502184114943m_2020318726477089758m_-2167022505463390063=
+m_7545045248063895902m_-8133334703298494421m_-1771598304858325824LPDescript=
+ion_14764495470460.6448197846508978">
+<p class=3D"MsoNormal" style=3D"margin-top:15.0pt;line-height:15.0pt">
+<span style=3D"font-size:10.5pt;font-family:&quot;Segoe UI&quot;,&quot;sans=
+-serif&quot;;color:#666666">To see the collection of prior postings to the =
+list, visit the amd-gfx Archives. Using amd-gfx: To post a message to all t=
+he list members, send email ...</span><u></u><u></u></p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span style=3D"font-s=
+ize:10.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:bla=
+ck">=C2=A0</span><u></u><u></u></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">=C2=A0</span><u></u><u></u></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">=C2=A0</span><u></u><u></u></p>
+</div>
+</div>
+</div>
+</div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">=C2=A0</span><u></u><u></u></p>
+</div>
+</div>
+</div>
+</div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
+;sans-serif&quot;;color:black">=C2=A0</span><u></u><u></u></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div></div>
+</div>
+</div>
+
+</blockquote></div><br></div>
+
+--94eb2c06ae327faeb1053ed3f7e3--
+
+--===============0021667994==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0021667994==--
