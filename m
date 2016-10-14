@@ -1,23 +1,13 @@
-From: Andy Furniss <adf.lists-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 4/4] drm/amdgpu: used cached gca values for
- vi_read_register
-Date: Fri, 14 Oct 2016 10:02:43 +0100
-Message-ID: <58009F33.9090003@gmail.com>
-References: <1476115696-29640-1-git-send-email-alexander.deucher@amd.com>
- <1476115696-29640-4-git-send-email-alexander.deucher@amd.com>
- <57FCD5F9.6050809@gmail.com>
- <CY4PR12MB1768837F1247030A2662183EF7DA0@CY4PR12MB1768.namprd12.prod.outlook.com>
- <BN6PR12MB17643865565D007D3629FDADF7DA0@BN6PR12MB1764.namprd12.prod.outlook.com>
- <57FCE4DB.5020404@gmail.com>
- <CY4PR12MB1768C25486E504D61CBD8C24F7DA0@CY4PR12MB1768.namprd12.prod.outlook.com>
- <CY4PR12MB176874BB07B5252C2279D724F7DA0@CY4PR12MB1768.namprd12.prod.outlook.com>
- <57FD7A3E.5030501@gmail.com>
- <CADnq5_MOQ2_B-wKfNxpeNV0cP=qUzh_c7=znc2ZsdQYpLRLC6g@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu/virtual_dce: move define into source file
+Date: Fri, 14 Oct 2016 11:17:07 +0200
+Message-ID: <ae5bbb41-9be4-bc0a-b9cb-db2879b867cd@vodafone.de>
+References: <1476394671-21670-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_MOQ2_B-wKfNxpeNV0cP=qUzh_c7=znc2ZsdQYpLRLC6g-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <1476394671-21670-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -28,15 +18,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-QWxleCBEZXVjaGVyIHdyb3RlOgo+IE9uIFR1ZSwgT2N0IDExLCAyMDE2IGF0IDc6NDggUE0sIEFu
-ZHkgRnVybmlzcyA8YWRmLmxpc3RzQGdtYWlsLmNvbT4gd3JvdGU6Cj4+IFRoZSBib290IHZjZS91
-dmQgaXNzdWUgaXMgZml4ZWQgaW4gNC45LXdpcCBub3csIHNvIEkgY2FuIGJvb3QgbGF0ZXN0IGJ1
-dCAtCj4+Cj4+IFRoZSBzZWdmYXVsdCBvbiBzdGFydHggaXMgc3RpbGwgdGhlcmUuCj4KPiBGaXhl
-ZCBpbiB2Mi4KClllYSwgYWxsIE9LIG5vdy4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYW1kLWdmeAo=
+QW0gMTMuMTAuMjAxNiB1bSAyMzozNyBzY2hyaWViIEFsZXggRGV1Y2hlcjoKPiBJdCdzIG5vdCB1
+c2VkIG91dHNpZGUgdGhlIGZpbGUuCj4KPiBTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFs
+ZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+CgpSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8
+Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPi4KCj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9kY2VfdmlydHVhbC5jIHwgMyArKysKPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2RjZV92aXJ0dWFsLmggfCAxIC0KPiAgIDIgZmlsZXMgY2hhbmdlZCwgMyBpbnNlcnRpb25z
+KCspLCAxIGRlbGV0aW9uKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvZGNlX3ZpcnR1YWwuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92aXJ0
+dWFsLmMKPiBpbmRleCBjMTE4NjQ4Li42MzJhMzg1IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2RjZV92aXJ0dWFsLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9kY2VfdmlydHVhbC5jCj4gQEAgLTM3LDYgKzM3LDkgQEAKPiAgICNpbmNsdWRlICJk
+Y2VfdjExXzAuaCIKPiAgICNpbmNsdWRlICJkY2VfdmlydHVhbC5oIgo+ICAgCj4gKyNkZWZpbmUg
+RENFX1ZJUlRVQUxfVkJMQU5LX1BFUklPRCAxNjY2NjY2Ngo+ICsKPiArCj4gICBzdGF0aWMgdm9p
+ZCBkY2VfdmlydHVhbF9zZXRfZGlzcGxheV9mdW5jcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
+dik7Cj4gICBzdGF0aWMgdm9pZCBkY2VfdmlydHVhbF9zZXRfaXJxX2Z1bmNzKHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2KTsKPiAgIHN0YXRpYyBpbnQgZGNlX3ZpcnR1YWxfY29ubmVjdG9yX2Vu
+Y29kZXJfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiBkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3ZpcnR1YWwuaCBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2RjZV92aXJ0dWFsLmgKPiBpbmRleCBlMjM5MjQzLi4zOTNjZTk3IDEwMDY0NAo+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92aXJ0dWFsLmgKPiArKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdmlydHVhbC5oCj4gQEAgLTI1LDcgKzI1LDYg
+QEAKPiAgICNkZWZpbmUgX19EQ0VfVklSVFVBTF9IX18KPiAgIAo+ICAgZXh0ZXJuIGNvbnN0IHN0
+cnVjdCBhbWRfaXBfZnVuY3MgZGNlX3ZpcnR1YWxfaXBfZnVuY3M7Cj4gLSNkZWZpbmUgRENFX1ZJ
+UlRVQUxfVkJMQU5LX1BFUklPRCAxNjY2NjY2Ngo+ICAgCj4gICAjZW5kaWYKPiAgIAoKCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
+ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
