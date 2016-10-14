@@ -1,15 +1,16 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 1/3] drm/amd/amdgpu: Add wave reader to debugfs
-Date: Fri, 14 Oct 2016 13:33:11 +0000
-Message-ID: <MWHPR12MB16942B1E36EC312FA807A250F7DF0@MWHPR12MB1694.namprd12.prod.outlook.com>
+From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/3] drm/amd/amdgpu: Add wave reader to debugfs
+Date: Fri, 14 Oct 2016 13:35:47 +0000
+Message-ID: <CY4PR12MB1768ACB62C43AC65AD6F5735F7DF0@CY4PR12MB1768.namprd12.prod.outlook.com>
 References: <20161011191815.2097-1-tom.stdenis@amd.com>
  <20161011191815.2097-2-tom.stdenis@amd.com>,
  <74d8807b-fb6b-d249-3c6a-2eba72fa73a3@gmail.com>
- <CY4PR12MB1768E88741EB80464DC9151DF7DF0@CY4PR12MB1768.namprd12.prod.outlook.com>
+ <CY4PR12MB1768E88741EB80464DC9151DF7DF0@CY4PR12MB1768.namprd12.prod.outlook.com>,
+ <MWHPR12MB16942B1E36EC312FA807A250F7DF0@MWHPR12MB1694.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0614517058=="
+Content-Type: multipart/mixed; boundary="===============1366228994=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CY4PR12MB1768E88741EB80464DC9151DF7DF0-rpdhrqHFk06yjjPBNVDk/QdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <MWHPR12MB16942B1E36EC312FA807A250F7DF0-Gy0DoCVfaSW4WA4dJ5YXGAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,22 +22,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, =?iso-8859-1?Q?Nicolai_H=E4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, =?iso-8859-1?Q?Nicolai_H=E4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0614517058==
+--===============1366228994==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MWHPR12MB16942B1E36EC312FA807A250F7DF0MWHPR12MB1694namp_"
+	boundary="_000_CY4PR12MB1768ACB62C43AC65AD6F5735F7DF0CY4PR12MB1768namp_"
 
---_000_MWHPR12MB16942B1E36EC312FA807A250F7DF0MWHPR12MB1694namp_
+--_000_CY4PR12MB1768ACB62C43AC65AD6F5735F7DF0CY4PR12MB1768namp_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
+
+Hi Alex,
+
+
+Sounds like a plan since I want to add a few fields anyways.
+
+
+Tom
+
+
+________________________________
+From: Deucher, Alexander
+Sent: Friday, October 14, 2016 09:33
+To: StDenis, Tom; Nicolai H=E4hnle
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: RE: [PATCH 1/3] drm/amd/amdgpu: Add wave reader to debugfs
+
 
 You could make the wave decode a gfx callback and move the code into the IP=
  modules.
 
+
+
 Alex
+
+
 
 From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf Of S=
 tDenis, Tom
@@ -44,6 +66,7 @@ Sent: Friday, October 14, 2016 6:56 AM
 To: Nicolai H=E4hnle
 Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Subject: Re: [PATCH 1/3] drm/amd/amdgpu: Add wave reader to debugfs
+
 
 
 Hi Nicolai,
@@ -61,13 +84,18 @@ Cheers,
 
 Tom
 
+
+
 ________________________________
+
 From: Nicolai H=E4hnle <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>
 Sent: Friday, October 14, 2016 03:25
 To: Tom St Denis; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lMiVNPc3mojA@public.gmane.org=
 sktop.org>
 Cc: StDenis, Tom
 Subject: Re: [PATCH 1/3] drm/amd/amdgpu: Add wave reader to debugfs
+
+
 
 On 11.10.2016 21:18, Tom St Denis wrote:
 > Currently supports CZ/VI.  Allows nearly atomic read
@@ -211,7 +239,7 @@ _sensors_fops =3D {
 >  static int amdgpu_debugfs_regs_init(struct amdgpu_device *adev)
 >
 
---_000_MWHPR12MB16942B1E36EC312FA807A250F7DF0MWHPR12MB1694namp_
+--_000_CY4PR12MB1768ACB62C43AC65AD6F5735F7DF0CY4PR12MB1768namp_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -219,159 +247,139 @@ Content-Transfer-Encoding: quoted-printable
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
 1">
-<meta name=3D"Generator" content=3D"Microsoft Word 14 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:Tahoma;
-	panose-1:2 11 6 4 3 5 4 4 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-p
-	{mso-style-priority:99;
-	margin:0in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
-	{mso-style-priority:99;
-	mso-style-link:"Balloon Text Char";
-	margin:0in;
-	margin-bottom:.0001pt;
-	font-size:8.0pt;
-	font-family:"Tahoma","sans-serif";}
-span.EmailStyle18
-	{mso-style-type:personal-reply;
-	font-family:"Calibri","sans-serif";
-	color:#1F497D;}
-span.BalloonTextChar
-	{mso-style-name:"Balloon Text Char";
-	mso-style-priority:99;
-	mso-style-link:"Balloon Text";
-	font-family:"Tahoma","sans-serif";}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
 </head>
-<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">You could make the wave d=
-ecode a gfx callback and move the code into the IP modules.<o:p></o:p></spa=
-n></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
-/p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Alex<o:p></o:p></span></p=
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Arial,Helvetica,sans-serif;">
+<p>Hi Alex,</p>
+<p><br>
+</p>
+<p>Sounds like a plan since I want to add a few fields anyways. &nbsp;</p>
+<p><br>
+</p>
+<p>Tom</p>
+<br>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
+lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Deucher, Alexander<br=
 >
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
-/p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
-4.0pt">
+<b>Sent:</b> Friday, October 14, 2016 09:33<br>
+<b>To:</b> StDenis, Tom; Nicolai H=E4hnle<br>
+<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> RE: [PATCH 1/3] drm/amd/amdgpu: Add wave reader to debugfs<=
+/font>
+<div>&nbsp;</div>
+</div>
 <div>
-<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
-;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span style=3D"font-s=
-ize:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> amd-gfx =
-[mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org]
+<div>
+<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
+imes New Roman&quot;, serif;">
+<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,&quot;sans=
+-serif&quot;; color:#1F497D">You could make the wave decode a gfx callback =
+and move the code into the IP modules.</span></p>
+<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
+imes New Roman&quot;, serif;">
+<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,&quot;sans=
+-serif&quot;; color:#1F497D">&nbsp;</span></p>
+<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
+imes New Roman&quot;, serif;">
+<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,&quot;sans=
+-serif&quot;; color:#1F497D">Alex</span></p>
+<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
+imes New Roman&quot;, serif;">
+<span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,&quot;sans=
+-serif&quot;; color:#1F497D">&nbsp;</span></p>
+<div style=3D"border:none; border-left:solid blue 1.5pt; padding:0in 0in 0i=
+n 4.0pt">
+<div>
+<div style=3D"border:none; border-top:solid #B5C4DF 1.0pt; padding:3.0pt 0i=
+n 0in 0in">
+<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
+imes New Roman&quot;, serif;">
+<b><span style=3D"font-size:10.0pt; font-family:&quot;Tahoma&quot;,&quot;sa=
+ns-serif&quot;">From:</span></b><span style=3D"font-size:10.0pt; font-famil=
+y:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> amd-gfx [mailto:amd-gfx-bounc=
+es-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org]
 <b>On Behalf Of </b>StDenis, Tom<br>
 <b>Sent:</b> Friday, October 14, 2016 6:56 AM<br>
 <b>To:</b> Nicolai H=E4hnle<br>
 <b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
 <b>Subject:</b> Re: [PATCH 1/3] drm/amd/amdgpu: Add wave reader to debugfs<=
-o:p></o:p></span></p>
+/span></p>
 </div>
 </div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
+imes New Roman&quot;, serif;">
+&nbsp;</p>
 <div id=3D"divtagdefaultwrapper">
-<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
-lor:black">Hi Nicolai,<o:p></o:p></span></p>
-<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
-lor:black"><o:p>&nbsp;</o:p></span></p>
-<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
-lor:black">I was trying to avoid having ASIC specific includes/etc in the a=
-mdgpu_device.c file. &nbsp;Agreed that de-numberifying it would be nice. &n=
-bsp;Maybe we can add some /**/ comments to clear it up. &nbsp;I imagine
- in the future we'll add more fields (upto 32 in this design) anyways.<o:p>=
-</o:p></span></p>
-<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
-lor:black"><o:p>&nbsp;</o:p></span></p>
-<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
-lor:black">Cheers,<o:p></o:p></span></p>
-<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
-lor:black">Tom<o:p></o:p></span></p>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span style=3D"font-f=
-amily:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black"><o:p>&nbsp;</=
-o:p></span></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; c=
+olor:black">Hi Nicolai,</span></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; c=
+olor:black">&nbsp;</span></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; c=
+olor:black">I was trying to avoid having ASIC specific includes/etc in the =
+amdgpu_device.c file. &nbsp;Agreed that de-numberifying it would be nice. &=
+nbsp;Maybe we can add some /**/ comments to clear it up. &nbsp;I imagine
+ in the future we'll add more fields (upto 32 in this design) anyways.</spa=
+n></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; c=
+olor:black">&nbsp;</span></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; c=
+olor:black">Cheers,</span></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; c=
+olor:black">Tom</span></p>
+<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
+imes New Roman&quot;, serif;">
+<span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; colo=
+r:black">&nbsp;</span></p>
 <div>
 <div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center"><span=
- style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:blac=
-k">
+<div align=3D"center" style=3D"text-align: center; margin: 0in 0in 0.0001pt=
+; font-size: 12pt; font-family: &quot;Times New Roman&quot;, serif;">
+<span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; colo=
+r:black">
 <hr size=3D"2" width=3D"98%" align=3D"center">
 </span></div>
 <div id=3D"x_divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
-;Calibri&quot;,&quot;sans-serif&quot;;color:black">From:</span></b><span st=
-yle=3D"font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&qu=
-ot;;color:black"> Nicolai H=E4hnle &lt;<a href=3D"mailto:nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org=
-">nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
+<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
+imes New Roman&quot;, serif;">
+<b><span style=3D"font-size:11.0pt; font-family:&quot;Calibri&quot;,&quot;s=
+ans-serif&quot;; color:black">From:</span></b><span style=3D"font-size:11.0=
+pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black"> N=
+icolai H=E4hnle &lt;<a href=3D"mailto:nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" style=3D"color: b=
+lue; text-decoration: underline;">nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
 <b>Sent:</b> Friday, October 14, 2016 03:25<br>
-<b>To:</b> Tom St Denis; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">a=
-md-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+<b>To:</b> Tom St Denis; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" s=
+tyle=3D"color: blue; text-decoration: underline;">
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
 <b>Cc:</b> StDenis, Tom<br>
 <b>Subject:</b> Re: [PATCH 1/3] drm/amd/amdgpu: Add wave reader to debugfs<=
 /span><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;=
-;color:black">
-<o:p></o:p></span></p>
+; color:black">
+</span></p>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,&quot=
-;sans-serif&quot;;color:black">&nbsp;<o:p></o:p></span></p>
+<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
+imes New Roman&quot;, serif;">
+<span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; colo=
+r:black">&nbsp;</span></p>
 </div>
 </div>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:black">On 11.10.2016 21:18, Tom St=
- Denis wrote:<br>
+<p style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: &quot;T=
+imes New Roman&quot;, serif;">
+<span style=3D"font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans=
+-serif&quot;; color:black">On 11.10.2016 21:18, Tom St Denis wrote:<br>
 &gt; Currently supports CZ/VI.&nbsp; Allows nearly atomic read<br>
 &gt; of wave data from GPU.<br>
 &gt;<br>
 &gt; Signed-off-by: Tom St Denis &lt;<a href=3D"mailto:tom.stdenis-5C7GfCeVMHo@public.gmane.org"=
->tom.stdenis-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+ style=3D"color: blue; text-decoration: underline;">tom.stdenis-5C7GfCeVMHo@public.gmane.org</a>=
+&gt;<br>
 &gt; ---<br>
 &gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 74 &#43;&#43;&#43;&=
 #43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
@@ -559,7 +567,10 @@ br>
 &gt;<br>
 &gt;&nbsp; static int amdgpu_debugfs_regs_init(struct amdgpu_device *adev)<=
 br>
-&gt;<o:p></o:p></span></p>
+&gt;</span></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -568,9 +579,9 @@ br>
 </body>
 </html>
 
---_000_MWHPR12MB16942B1E36EC312FA807A250F7DF0MWHPR12MB1694namp_--
+--_000_CY4PR12MB1768ACB62C43AC65AD6F5735F7DF0CY4PR12MB1768namp_--
 
---===============0614517058==
+--===============1366228994==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -580,4 +591,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0614517058==--
+--===============1366228994==--
