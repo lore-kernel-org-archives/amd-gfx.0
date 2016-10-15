@@ -1,16 +1,12 @@
-From: Shawn Starr <shawn.starr-bJEeYj9oJeDQT0dZR+AlfA@public.gmane.org>
-Subject: Re: [regression][amdgpu][CIK] drm-next-4.9-wip - piglit test -
- max-texture-size - GPU deadlock
-Date: Fri, 14 Oct 2016 16:04:35 -0400
-Message-ID: <3847887.DvRpnxj69X@segfault>
-References: <1684872.K1LPhXps8I@segfault>
- <CAAxE2A6LYPm_ZCSPK6yLMhCNj0eG_acBwK+XObm6bPUKMjHuvg@mail.gmail.com>
- <2357723.EHtFVLQf92@segfault>
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: fix warning in dce_virtual.c
+Date: Sat, 15 Oct 2016 21:35:11 +1100
+Message-ID: <2c0ac9ff-75f6-dcd3-4583-ec3ef66ea921@folklore1984.net>
+References: <1476468027-10305-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1207094735=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <2357723.EHtFVLQf92@segfault>
+In-Reply-To: <1476468027-10305-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,37 +17,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Marek =?utf-8?B?T2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-T24gRnJpZGF5LCBPY3RvYmVyIDE0LCAyMDE2IDM6NTk6MTMgUE0gRURUIFNoYXduIFN0YXJyIHdy
-b3RlOgo+IE9uIE1vbmRheSwgU2VwdGVtYmVyIDI2LCAyMDE2IDQ6NTM6MDAgUE0gRURUIE1hcmVr
-IE9sxaHDoWsgd3JvdGU6Cj4gPiBIaSwKPiA+IAo+ID4gWW91IGNhbiB0cnkgdGhpcyBwYXRjaDoK
-PiA+ICAgZHJtL2FtZGdwdTogZml4IGFkZHIgaGFuZGxpbmcgaW4gYW1kZ3B1X3ZtX2JvX3VwZGF0
-ZV9tYXBwaW5nCj4gPiAKPiA+IE1hcmVrCj4gCj4gSGVsbG8gTWFyZWssCj4gCj4gVGhpcyBoYXMg
-cmVncmVzc2VkLCBjYW4gd2VkZ2UgR1BVIGFnYWluLgo+IAo+IEtlcm5lbCBsb2c6Cj4gCj4gWyAx
-NTgxLjQ4ODQzMF0gW2RybTphbWRncHVfY3NfaW9jdGwgW2FtZGdwdV1dICpFUlJPUiogdHRtX2V1
-X3Jlc2VydmVfYnVmZmVycwo+IGZhaWxlZC4KPiBbIDE1ODEuNDkzNDI2XSBbZHJtOmFtZGdwdV9j
-c19pb2N0bCBbYW1kZ3B1XV0gKkVSUk9SKiB0dG1fZXVfcmVzZXJ2ZV9idWZmZXJzCj4gZmFpbGVk
-Lgo+IFsgMTU4MS40OTg0MThdIFtkcm06YW1kZ3B1X2NzX2lvY3RsIFthbWRncHVdXSAqRVJST1Iq
-IHR0bV9ldV9yZXNlcnZlX2J1ZmZlcnMKPiBmYWlsZWQuCj4gClRoaXMgZG9lc24ndCBzZWVtIHRv
-IHdlZGdlIEdQVSwgcmVib290aW5nIGxhcHRvcCB0aGVuIHJ1bmluZyBtYXgtdGV4dHVyZS1zaXpl
-IApvdmVyIGFuZCBvdmVyLCBzZWVtcyB0byBoYXBwZW4gd2hlbiBjb21iaW5lZCB3aXRoIG90aGVy
-IHBpZ2xpdCB0ZXN0cyBydW5uaW5nLiAKCldpbGwgcnVuIHBpZ2xpdCB3aXRob3V0IC1jIGFuZCBz
-ZWUgd2hhdHMgZ29pbmcgb24uCgpUaGFua3MsClNoYXduCgo+ID4gT24gRnJpLCBTZXAgMjMsIDIw
-MTYgYXQgMTI6MzcgQU0sIFNoYXduIFN0YXJyIDxzaGF3bi5zdGFyckByb2dlcnMuY29tPgo+IAo+
-IHdyb3RlOgo+ID4gPiBXaGVuIEkgdHJ5IHRvIHJ1biBwaWdsaXQsIEkgZ2V0IGEgR1BVIGRlYWRs
-b2NrIHJ1bm5pbmcgbWF4LXRleHR1cmUtc2l6ZSwKPiA+ID4gCj4gPiA+IFRlc3Q6IHNwZWMvIW9w
-ZW5nbCAxLjEvbWF4LXRleHR1cmUtc2l6ZQo+ID4gPiAKPiA+ID4gSSB3aWxsIGJlZ2luIGJpc2Vj
-dGluZyBrZXJuZWwgZHJpdmVyLCBidXQgaWYgYW55b25lIGhhcyBzb21lIHRpcHMgb24KPiA+ID4g
-bGlrZWx5Cj4gPiA+IGNvbW1pdHMgSSBjYW4gdGVzdCBmdXJ0aGVyLgo+ID4gPiAKPiA+ID4gVGhh
-bmtzLAo+ID4gPiBTaGF3bgo+ID4gPiAKPiA+ID4gX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KPiA+ID4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiA+ID4gYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiA+ID4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cj4gCj4gX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4CgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4Cg==
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============1207094735==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="xlraca1P0TVQjXg1PPLeaqosJN67ep0pU"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--xlraca1P0TVQjXg1PPLeaqosJN67ep0pU
+Content-Type: multipart/mixed; boundary="FaHjGj33mvPLPqEhn75NjmFDFTf2dbCHB";
+ protected-headers="v1"
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Message-ID: <2c0ac9ff-75f6-dcd3-4583-ec3ef66ea921-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: fix warning in dce_virtual.c
+References: <1476468027-10305-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1476468027-10305-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+--FaHjGj33mvPLPqEhn75NjmFDFTf2dbCHB
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+
+if possible can you squash it into the original bad commit?
+
+On 10/15/2016 05:00 AM, Alex Deucher wrote:
+> copy paste typo when I re-arranged the code.
+>=20
+> Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/dce_virtual.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c b/drivers/gpu/drm=
+/amd/amdgpu/dce_virtual.c
+> index 2eefa5d..48973b7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
+> @@ -657,18 +657,18 @@ static int dce_virtual_connector_encoder_init(str=
+uct amdgpu_device *adev,
+> =20
+>  	/* add a new encoder */
+>  	encoder =3D kzalloc(sizeof(struct drm_encoder), GFP_KERNEL);
+> -	if (!encoder) {
+> -		kfree(connector);
+> +	if (!encoder)
+>  		return -ENOMEM;
+> -	}
+>  	encoder->possible_crtcs =3D 1 << index;
+>  	drm_encoder_init(adev->ddev, encoder, &dce_virtual_encoder_funcs,
+>  			 DRM_MODE_ENCODER_VIRTUAL, NULL);
+>  	drm_encoder_helper_add(encoder, &dce_virtual_encoder_helper_funcs);
+> =20
+>  	connector =3D kzalloc(sizeof(struct drm_connector), GFP_KERNEL);
+> -	if (!connector)
+> +	if (!connector) {
+> +		kfree(encoder);
+>  		return -ENOMEM;
+> +	}
+> =20
+>  	/* add a new connector */
+>  	drm_connector_init(adev->ddev, connector, &dce_virtual_connector_func=
+s,
+>=20
+
+
+--FaHjGj33mvPLPqEhn75NjmFDFTf2dbCHB--
+
+--xlraca1P0TVQjXg1PPLeaqosJN67ep0pU
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJYAgZfAAoJEP4bvbfZuWjbp4MP/0q6HnT31UpmOX0FZdrB1mvI
+3X1Msn3ak9E4wFeIoif2DhLxlAz6o54ABnbX4Xi1Y3xpSf07WllQDuVnR7593YFd
+9xQBEqgUF92cJGyf5nGrddt6LWZGYBtRkA4+2FtQB0XO8dxn7mlVe+udaJK584lQ
+IaaIigqgIiQDjaQ7PcqC14SdD59HiFrYh+v2QCrWv9edNwdrOIkdgXmO/wiudICq
+S4q1mWzMmkfh/GQW/P3N/cpkeCM8isdeZQXSLdI3Rj1MJyHZyI9dmfyDSoTukRZb
+mkXptDx5o+OAaICgMJ/G8yZJljmrGotMeDuX2HssSZXg5/yYd3yVmUdPg12ZgrMM
+gX87MbotsWTlIOExL97HuGBfEUwORp2Oo+HSDsA+k25vvEs9oSrhWinc176UUWYQ
+kF9pHhGmy6TkzZzh8QyYU+CyAAGmd8/Ma5L/PHL5YFB0bEXXBFkpkX1KSYb38ZBq
+CFRvHkP9aqIeTvEvrDdE255aJJsRlgLh/F8pJDGhmtBP+TTCbpiZRFF9/wgapVbT
+/x1IpCrDCckEHnm3nYYsrAngXvzS4puiIBq4+Vi6Uhq6xYoLCKIWHKKqH9KJ6rRD
+4CaEMmzwlm9AU/W8W87pMJZAJfT59EwVIRiNHt4qZ/4vtTFwEiBqmOxi255MDHMc
+65wxuYxsDrpUfuOef847
+=D8Bk
+-----END PGP SIGNATURE-----
+
+--xlraca1P0TVQjXg1PPLeaqosJN67ep0pU--
+
+--===============1207094735==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1207094735==--
