@@ -1,131 +1,107 @@
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH 1/3] x86/pat: export io memory reserve/free api.
-Date: Tue, 18 Oct 2016 18:22:51 +1100
-Message-ID: <d5dcf484-d760-8fe6-bc00-4d6db3ef9d05@folklore1984.net>
-References: <1476771193-2759-1-git-send-email-airlied@gmail.com>
- <1476771193-2759-2-git-send-email-airlied@gmail.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: mm: fix cache mode tracking in vm_insert_mixed() breaks AMDGPU
+ [was: Re: Latest testing with drm-next-4.9-wip and latest LLVM/mesa stack -
+ Regression in PowerPlay/DPM on CIK?]
+Date: Tue, 18 Oct 2016 09:39:14 +0200
+Message-ID: <20161018073914.GV20761@phenom.ffwll.local>
+References: <11271056.dD6Mas21fI@segfault> <5955047.4M9YlcR7bW@segfault>
+ <8025413.75ZrRe18t5@segfault> <3888118.bNeqOmVUhz@segfault>
+ <10a1e298-df32-52a5-7694-b205794ca009@daenzer.net>
+ <CAAxE2A6T9wX9tbsYhLA+zPGSQBXfCTAntKw5uTgfWu__7btHiA@mail.gmail.com>
+ <CAPM=9twLoEY-huyv6kaupqu6XodgqGsEmgHqx4vasJ1aj_1HdA@mail.gmail.com>
+ <CAPcyv4hbgnmETbne6qXizaBkUTJm291xRa4BuouFb_6uJAZj3w@mail.gmail.com>
+ <CAPM=9tx5ayYzTk8hm-c8JaWReNEQ3yem-r4ac5r8bFuQXzOwiA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0808570027=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1476771193-2759-2-git-send-email-airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dan.j.williams-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org
-Cc: shawn.starr-bJEeYj9oJeDQT0dZR+AlfA@public.gmane.org
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0808570027==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="oKxsOSMI1KPTRESeGDh71Ss7r5MmPsjf7"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---oKxsOSMI1KPTRESeGDh71Ss7r5MmPsjf7
-Content-Type: multipart/mixed; boundary="jX1Am56n4JjVns7ovojd2MneFkHIFhw4B";
- protected-headers="v1"
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org,
- amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dan.j.williams-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org
-Cc: shawn.starr-bJEeYj9oJeDQT0dZR+AlfA@public.gmane.org
-Message-ID: <d5dcf484-d760-8fe6-bc00-4d6db3ef9d05-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH 1/3] x86/pat: export io memory reserve/free api.
-References: <1476771193-2759-1-git-send-email-airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
- <1476771193-2759-2-git-send-email-airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-In-Reply-To: <1476771193-2759-2-git-send-email-airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-
---jX1Am56n4JjVns7ovojd2MneFkHIFhw4B
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-NACK,
-
-I think you want to use 'iomap_create_wc()' instead to avoid aliasing.
-
-Kind Regards,
-Edward.
-
-On 10/18/2016 05:13 PM, Dave Airlie wrote:
-> From: Dave Airlie <airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
->=20
-> These functions are needed for gpu/ttm drivers to reserve the
-> VRAM area as write combined. In a lot of places we don't ioremap
-> but still need to insert pfn from it into a VMA using vm_insert_mixed,
-> but a recent change in mixed insertion means we need to reserve
-> VRAM as WC upfront, so we need these APIs exported.
->=20
-> Signed-off-by: Dave Airlie <airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-> ---
->  arch/x86/mm/pat.c | 2 ++
->  1 file changed, 2 insertions(+)
->=20
-> diff --git a/arch/x86/mm/pat.c b/arch/x86/mm/pat.c
-> index 170cc4f..5ce2fbb 100644
-> --- a/arch/x86/mm/pat.c
-> +++ b/arch/x86/mm/pat.c
-> @@ -719,6 +719,7 @@ out_free:
->  out_err:
->  	return ret;
->  }
-> +EXPORT_SYMBOL(io_reserve_memtype);
-> =20
->  /**
->   * io_free_memtype - Release a memory type mapping for a region of mem=
-ory
-> @@ -729,6 +730,7 @@ void io_free_memtype(resource_size_t start, resourc=
-e_size_t end)
->  {
->  	free_memtype(start, end);
->  }
-> +EXPORT_SYMBOL(io_free_memtype);
-> =20
->  pgprot_t phys_mem_access_prot(struct file *file, unsigned long pfn,
->  				unsigned long size, pgprot_t vma_prot)
->=20
-
-
---jX1Am56n4JjVns7ovojd2MneFkHIFhw4B--
-
---oKxsOSMI1KPTRESeGDh71Ss7r5MmPsjf7
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJYBc3LAAoJEP4bvbfZuWjbWCwP/2n3KC0fvXhB03MG6krTn/ui
-oaOyN3K3oTTzzPwfqpTge0JNpSJbHlTRhtbtCG8dqz0EICefd9n5g3xv/HOhvrPq
-l2saHtXSXH+0uHquh/VMKTDgxQ96wy2rnPQGgBl4hBVy9Kk2zJSRldYzo2IgdBff
-rUPbVeRusY0XCrzndY5GMnSrexURP9I/cwGkq0qIpm1mq0tj/MygkY9hgqTWidUj
-XLYa5M1GTfVNVuDB/iBvLRDH3P0NOorL0uFAFBRELyrZ7mi1rdU+2sC3INq1Hfmg
-Q6/ep70kZKPHPk2aWn2r6ke7gf6qt4777AhDE2MxvH7k/2MzNnlLZCOTXuGBgcJ4
-xLZXJ5hd/EHHO7as8zhwZLq9GpaDxkF8Qar42NA/axjqzLIgapgbSyIZDwMo71KE
-zfKK4r2e7mU9Yx7Y8Z2F2Sp3+nnXM91AIDnKn5vJl0KKQIVrm1uYW5aHcq1ThlWf
-HH8ri55lAR7ihyIz6ocjM3lFyM4GFyAh/bG+9wFs5N5CAf31xwvfHkOdyditoP1O
-n++hO38E0IP/uiHZBPvQKOYSjHSzPdSAydim+AxIjmqWKr6oAstdX5igjDvz4VPo
-jY8wpVDlq4UzrGSnFOnrgYOV6Db11ui0TocJcf+ftJHOstF5Brc9X8NqsiOZLQFM
-VfrTNhLZPNidTKu/9wmD
-=gCby
------END PGP SIGNATURE-----
-
---oKxsOSMI1KPTRESeGDh71Ss7r5MmPsjf7--
-
---===============0808570027==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
 Content-Disposition: inline
+In-Reply-To: <CAPM=9tx5ayYzTk8hm-c8JaWReNEQ3yem-r4ac5r8bFuQXzOwiA@mail.gmail.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Dave Airlie <airlied@gmail.com>
+Cc: Dan Williams <dan.j.williams@intel.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, Shawn Starr <shawn.starr@rogers.com>, Michel =?iso-8859-1?Q?D=E4nzer?= <michel@daenzer.net>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0808570027==--
+T24gVHVlLCBPY3QgMTgsIDIwMTYgYXQgMDg6MDE6MDFBTSArMTAwMCwgRGF2ZSBBaXJsaWUgd3Jv
+dGU6Cj4gT24gMTggT2N0b2JlciAyMDE2IGF0IDA3OjI1LCBEYW4gV2lsbGlhbXMgPGRhbi5qLndp
+bGxpYW1zQGludGVsLmNvbT4gd3JvdGU6Cj4gPiBPbiBTdW4sIE9jdCAxNiwgMjAxNiBhdCAxOjUz
+IFBNLCBEYXZlIEFpcmxpZSA8YWlybGllZEBnbWFpbC5jb20+IHdyb3RlOgo+ID4+IE9uIDE3IE9j
+dG9iZXIgMjAxNiBhdCAwNDo0MSwgTWFyZWsgT2zFocOhayA8bWFyYWVvQGdtYWlsLmNvbT4gd3Jv
+dGU6Cj4gPj4+IE9uIEZyaSwgT2N0IDE0LCAyMDE2IGF0IDM6MzMgQU0sIE1pY2hlbCBEw6RuemVy
+IDxtaWNoZWxAZGFlbnplci5uZXQ+IHdyb3RlOgo+ID4+Pj4KPiA+Pj4+IFsgQWRkaW5nIERhbiBX
+aWxsaWFtcyBhbmQgZHJpLWRldmVsIF0KPiA+Pj4+Cj4gPj4+PiBPbiAxNC8xMC8xNiAwMzoyOCBB
+TSwgU2hhd24gU3RhcnIgd3JvdGU6Cj4gPj4+Pj4gSGVsbG8gQU1EIGZvbGtzLAo+ID4+Pj4+Cj4g
+Pj4+Pj4gSSBoYXZlIGRpc2NvdmVyZWQgYSBwcm9ibGVtIGluIExpbnVzIG1hc3RlciB0aGF0IGFm
+ZmVjdHMgQU1ER1BVLCBub2JvZHkgd291bGQKPiA+Pj4+PiBub3RpY2UgdGhpcyBpbiBkcm0tbmV4
+dC00Ljktd2lwIHNpbmNlIGl0cyBub3QgaW4gdGhpcyByZXBvLgo+ID4+Pj4KPiA+Pj4+IFsuLi5d
+Cj4gPj4+Pgo+ID4+Pj4+IDg3NzQ0YWIzODMyYjgzYmE3MWI5MzFmODZmOWNmZGIwMDBkMDdkYTUg
+aXMgdGhlIGZpcnN0IGJhZCBjb21taXQKPiA+Pj4+PiBjb21taXQgODc3NDRhYjM4MzJiODNiYTcx
+YjkzMWY4NmY5Y2ZkYjAwMGQwN2RhNQo+ID4+Pj4+IEF1dGhvcjogRGFuIFdpbGxpYW1zIDxkYW4u
+ai53aWxsaWFtc0BpbnRlbC5jb20+Cj4gPj4+Pj4gRGF0ZTogICBGcmkgT2N0IDcgMTc6MDA6MTgg
+MjAxNiAtMDcwMAo+ID4+Pj4+Cj4gPj4+Pj4gICAgIG1tOiBmaXggY2FjaGUgbW9kZSB0cmFja2lu
+ZyBpbiB2bV9pbnNlcnRfbWl4ZWQoKQo+ID4+Pj4+Cj4gPj4+Pj4gICAgIHZtX2luc2VydF9taXhl
+ZCgpIHVubGlrZSB2bV9pbnNlcnRfcGZuX3Byb3QoKSBhbmQgdm1mX2luc2VydF9wZm5fcG1kKCks
+Cj4gPj4+Pj4gICAgIGZhaWxzIHRvIGNoZWNrIHRoZSBwZ3Byb3RfdCBpdCB1c2VzIGZvciB0aGUg
+bWFwcGluZyBhZ2FpbnN0IHRoZSBvbmUKPiA+Pj4+PiAgICAgcmVjb3JkZWQgaW4gdGhlIG1lbXR5
+cGUgdHJhY2tpbmcgdHJlZS4gIEFkZCB0aGUgbWlzc2luZyBjYWxsIHRvCj4gPj4+Pj4gICAgIHRy
+YWNrX3Bmbl9pbnNlcnQoKSB0byBwcmVjbHVkZSBjYXNlcyB3aGVyZSBpbmNvbXBhdGlibGUgYWxp
+YXNlZCBtYXBwaW5ncwo+ID4+Pj4+ICAgICBhcmUgZXN0YWJsaXNoZWQgZm9yIGEgZ2l2ZW4gcGh5
+c2ljYWwgYWRkcmVzcyByYW5nZS4KPiA+Pj4+Pgo+ID4+Pj4+ICAgICBMaW5rOiBodHRwOi8vbGtt
+bC5rZXJuZWwub3JnL3IvCj4gPj4+Pj4gMTQ3MzI4NzE3OTA5LjM1MDY5LjE0MjU2NTg5MTIzNTcw
+NjUzNjk3LnN0Z2l0QGR3aWxsaWEyLQo+ID4+Pj4+IGRlc2szLmFtci5jb3JwLmludGVsLmNvbQo+
+ID4+Pj4+ICAgICBTaWduZWQtb2ZmLWJ5OiBEYW4gV2lsbGlhbXMgPGRhbi5qLndpbGxpYW1zQGlu
+dGVsLmNvbT4KPiA+Pj4+PiAgICAgQ2M6IERhdmlkIEFpcmxpZSA8YWlybGllZEBsaW51eC5pZT4K
+PiA+Pj4+PiAgICAgQ2M6IE1hdHRoZXcgV2lsY294IDxtYXdpbGNveEBtaWNyb3NvZnQuY29tPgo+
+ID4+Pj4+ICAgICBDYzogUm9zcyBad2lzbGVyIDxyb3NzLnp3aXNsZXJAbGludXguaW50ZWwuY29t
+Pgo+ID4+Pj4+ICAgICBTaWduZWQtb2ZmLWJ5OiBBbmRyZXcgTW9ydG9uIDxha3BtQGxpbnV4LWZv
+dW5kYXRpb24ub3JnPgo+ID4+Pj4+ICAgICBTaWduZWQtb2ZmLWJ5OiBMaW51cyBUb3J2YWxkcyA8
+dG9ydmFsZHNAbGludXgtZm91bmRhdGlvbi5vcmc+Cj4gPj4+Pj4KPiA+Pj4+PiA6MDQwMDAwIDA0
+MDAwMCA3NTE3YzAwMTlmZTQ5YzE4MzBiNWExZDgxZjFkYzA5OWM1YWFiOThhCj4gPj4+Pj4gZmQ0
+OTdhNjA0YTJhZjU5OTVkYjJiOGVkMWU5YzY0MGJlZGU2YWRmMyBNICAgICAgbW0KPiA+Pj4+Pgo+
+ID4+Pj4+Cj4gPj4+Pj4gUmVtb3ZhbCBvZiB0aGlzIHBhdGNoIHN0b3BzIGdyYXBoaWNzIHN0YWxs
+cy4KPiA+Pj4+Cj4gPj4+PiBUaGFua3MgZm9yIGJpc2VjdGluZyB0aGlzIFNoYXduLgo+ID4+Pj4K
+PiA+Pj4+Cj4gPj4+Pj4gQSBmcmllbmQgb2YgbWluZSBtZW50aW9ucywKPiA+Pj4+Pgo+ID4+Pj4+
+ICJsb29rcyBsaWtlIGEgZ3JhcGhpY3MgdGhpbmd5IHlvdSBkZXBlbmQgb24gaXMgcmVxdWVzdGlu
+ZyBhIG1hcHBpbmcgd2l0aCBhCj4gPj4+Pj4gbm90LWFsbG93ZWQgY2FjaGUgbW9kZSwgYW5kIG5v
+dyB5b3UgYXJlIChyaWdodGZ1bGx5KSBnZXR0aW5nIGVycm9ycz8iCj4gPj4+Pgo+ID4+Pj4gSXQg
+d291bGQgYmUgbmljZSB0byBnZXQgc29tZSBtb3JlIHNwZWNpZmljIHBvaW50ZXJzIHdoYXQgYW1k
+Z3B1IChvcgo+ID4+Pj4gbWF5YmUgdHRtLCBzaW5jZSB0aGF0IGNhbGxzIHZtX2luc2VydF9taXhl
+ZCBpbiB0dG1fYm9fdm1fZmF1bHQpIG1pZ2h0IGJlCj4gPj4+PiBkb2luZyB3cm9uZy4KPiA+Pgo+
+ID4+ICAgICAgICAvKgo+ID4+ICAgICAgICAgICogV2UnZCBsaWtlIHRvIHVzZSBWTV9QRk5NQVAg
+b24gc2hhcmVkIG1hcHBpbmdzLCB3aGVyZQo+ID4+ICAgICAgICAgICogKHZtYS0+dm1fZmxhZ3Mg
+JiBWTV9TSEFSRUQpICE9IDAsIGZvciBwZXJmb3JtYW5jZSByZWFzb25zLAo+ID4+ICAgICAgICAg
+ICogYnV0IGZvciBzb21lIHJlYXNvbiBWTV9QRk5NQVAgKyB4ODYgUEFUICsgd3JpdGUtY29tYmlu
+ZSBpcyB2ZXJ5Cj4gPj4gICAgICAgICAgKiBiYWQgZm9yIHBlcmZvcm1hbmNlLiBVbnRpbCB0aGF0
+IGhhcyBiZWVuIHNvcnRlZCBvdXQsIHVzZQo+ID4+ICAgICAgICAgICogVk1fTUlYRURNQVAgb24g
+YWxsIG1hcHBpbmdzLiBTZWUgZnJlZWRlc2t0b3Aub3JnIGJ1ZyAjNzU3MTkKPiA+PiAgICAgICAg
+ICAqLwo+ID4+ICAgICAgICAgdm1hLT52bV9mbGFncyB8PSBWTV9NSVhFRE1BUDsKPiA+Pgo+ID4+
+IFdlIGhhdmUgdGhhdCBjb21tZW50IGluIHRoZSB0dG0gY29kZSwgd2hpY2ggdG8gbWUgaW1wbGll
+cyB0aGF0IG1peGVkIGlzCj4gPj4gZG9pbmcgdGhlIHJpZ2h0IHRoaW5nIG5vdywgYnV0IHRoYXQg
+aXMgc2xvdywgYXMgdGhlIGludGVyZmFjZSB3ZQo+ID4+IHNob3VsZCBiZSB1c2luZy4KPiA+Pgo+
+ID4KPiA+IEFyZW4ndCB0aGVyZSBvbmx5IDIgcG9zc2liaWxpdGllcyBmb3IgdGhpcyByZWdyZXNz
+aW9uPwo+ID4KPiA+IDEvIGEgbWVtdHlwZSBlbnRyeSB3YXMgbmV2ZXIgbWFkZSBzbyB0cmFja19w
+Zm5faW5zZXJ0KCkgcmV0dXJucyBhbgo+ID4gdW5jYWNoZWQgbWFwcGluZwo+ID4KPiA+IDIvIGEg
+Y29uZmxpY3RpbmcgbWVtdHlwZSBlbnRyeSBleGlzdHMgYW5kIHVuZGVmaW5lZCBiZWhhdmlvciBk
+dWUgdG8KPiA+IG1peGVkIG1hcHBpbmcgdHlwZXMgaXMgYXZvaWRlZCB3aXRoIHRoZSBjaGFuZ2Uu
+Cj4gCj4gMy8gVGhlIENQVSB1c2FnZSB0aHJvdWdoIHRoaXMgcGF0aCBnb2VzIHVwLCBhbmQgc2xv
+d3MgdGhpbmdzIGRvd24sCj4gdGhvdWdoIEkgc3VzcGVjdCB5b3UgaXQncyBtb3JlIGFuIHVuY2Fj
+aGVkIG1hcHBpbmcgc2hvd2luZyB1cAo+IHdoZW4gd2UgZG9uJ3QgZXhwZWN0IGl0LgoKU291bmRz
+IHJlYXNvbmFibGUsIGF0IGxlYXN0IHdlICg9aTkxNSBmb2xrcykga25vd24gcHRlIGNhY2hpbmcg
+dHlwZQp0cmFja2luZyBpcyByaWRpY3Vsb3VzbHkgZXhwZW5zaXZlLiBJbiA0Ljkgd2UgaGF2ZSBv
+dXIgb3duIHB0ZSB3YWxrZXIgYW5kCnVwZnJvbnQgKGF0IGRyaXZlciBsb2FkKSBjYWNoaW5nIHR5
+cGUgY2hlY2tpbmcgdG8gYXZvaWQgYWxsIHRoYXQuIEl0J3MgaW4KaTkxNV9tbS5jLCBidXQgcHJv
+YmFibHkgc2hvdWxkIGJlIG1vdmVkIGludG8gY29yZSBrZXJuZWwgY29kZSAobmV4dCB0byB0aGUK
+aW9fbWFwcGluZyBzdHVmZiwgd2hpY2ggd2UgcmV1c2VkIGFzIHRoZSB0cmFja2luZyBzdHJ1Y3R1
+cmUpLgotRGFuaWVsCi0tIApEYW5pZWwgVmV0dGVyClNvZnR3YXJlIEVuZ2luZWVyLCBJbnRlbCBD
+b3Jwb3JhdGlvbgpodHRwOi8vYmxvZy5mZndsbC5jaApfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9kcmktZGV2ZWwK
