@@ -1,14 +1,13 @@
-From: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 1/3] x86/pat: export io memory reserve/free api.
-Date: Tue, 18 Oct 2016 18:29:30 +1000
-Message-ID: <CAPM=9tx2iBaHt-bg_WjUHE3wPprs2GvNt1LZNLngF-GLH2U_Zw@mail.gmail.com>
-References: <1476771193-2759-1-git-send-email-airlied@gmail.com>
- <1476771193-2759-2-git-send-email-airlied@gmail.com>
- <d5dcf484-d760-8fe6-bc00-4d6db3ef9d05@folklore1984.net>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu/st: move ATC CG golden init from gfx to mc
+Date: Tue, 18 Oct 2016 11:00:48 +0200
+Message-ID: <676e9d6f-8366-3063-23df-263cf782bc07@vodafone.de>
+References: <1476765276-11866-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1538487487=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <d5dcf484-d760-8fe6-bc00-4d6db3ef9d05-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+In-Reply-To: <1476765276-11866-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,145 +18,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Cc: dan.j.williams-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org, Shawn Starr <shawn.starr-bJEeYj9oJeDQT0dZR+AlfA@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
---===============1538487487==
-Content-Type: multipart/alternative; boundary=001a11478364d69910053f1f7d24
-
---001a11478364d69910053f1f7d24
-Content-Type: text/plain; charset=UTF-8
-
-On 18 Oct. 2016 17:23, "Edward O'Callaghan" <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-wrote:
->
-> NACK,
->
-> I think you want to use 'iomap_create_wc()' instead to avoid aliasing.
-
-Please explain what can alias here?
-
-Dave.
-
->
-> Kind Regards,
-> Edward.
->
-> On 10/18/2016 05:13 PM, Dave Airlie wrote:
-> > From: Dave Airlie <airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-> >
-> > These functions are needed for gpu/ttm drivers to reserve the
-> > VRAM area as write combined. In a lot of places we don't ioremap
-> > but still need to insert pfn from it into a VMA using vm_insert_mixed,
-> > but a recent change in mixed insertion means we need to reserve
-> > VRAM as WC upfront, so we need these APIs exported.
-> >
-> > Signed-off-by: Dave Airlie <airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-> > ---
-> >  arch/x86/mm/pat.c | 2 ++
-> >  1 file changed, 2 insertions(+)
-> >
-> > diff --git a/arch/x86/mm/pat.c b/arch/x86/mm/pat.c
-> > index 170cc4f..5ce2fbb 100644
-> > --- a/arch/x86/mm/pat.c
-> > +++ b/arch/x86/mm/pat.c
-> > @@ -719,6 +719,7 @@ out_free:
-> >  out_err:
-> >       return ret;
-> >  }
-> > +EXPORT_SYMBOL(io_reserve_memtype);
-> >
-> >  /**
-> >   * io_free_memtype - Release a memory type mapping for a region of
-memory
-> > @@ -729,6 +730,7 @@ void io_free_memtype(resource_size_t start,
-resource_size_t end)
-> >  {
-> >       free_memtype(start, end);
-> >  }
-> > +EXPORT_SYMBOL(io_free_memtype);
-> >
-> >  pgprot_t phys_mem_access_prot(struct file *file, unsigned long pfn,
-> >                               unsigned long size, pgprot_t vma_prot)
-> >
->
-
---001a11478364d69910053f1f7d24
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<p dir=3D"ltr"></p>
-<p dir=3D"ltr">On 18 Oct. 2016 17:23, &quot;Edward O&#39;Callaghan&quot; &l=
-t;<a href=3D"mailto:funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org">funfunctor-dczkZgxz+BNOTv0TxJ7zrQ@public.gmane.org=
-t</a>&gt; wrote:<br>
-&gt;<br>
-&gt; NACK,<br>
-&gt;<br>
-&gt; I think you want to use &#39;iomap_create_wc()&#39; instead to avoid a=
-liasing.</p>
-<p dir=3D"ltr">Please explain what can alias here?</p>
-<p dir=3D"ltr">Dave.</p>
-<p dir=3D"ltr">&gt;<br>
-&gt; Kind Regards,<br>
-&gt; Edward.<br>
-&gt;<br>
-&gt; On 10/18/2016 05:13 PM, Dave Airlie wrote:<br>
-&gt; &gt; From: Dave Airlie &lt;<a href=3D"mailto:airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org">airli=
-ed-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org</a>&gt;<br>
-&gt; &gt;<br>
-&gt; &gt; These functions are needed for gpu/ttm drivers to reserve the<br>
-&gt; &gt; VRAM area as write combined. In a lot of places we don&#39;t iore=
-map<br>
-&gt; &gt; but still need to insert pfn from it into a VMA using vm_insert_m=
-ixed,<br>
-&gt; &gt; but a recent change in mixed insertion means we need to reserve<b=
-r>
-&gt; &gt; VRAM as WC upfront, so we need these APIs exported.<br>
-&gt; &gt;<br>
-&gt; &gt; Signed-off-by: Dave Airlie &lt;<a href=3D"mailto:airlied@redhat.c=
-om">airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org</a>&gt;<br>
-&gt; &gt; ---<br>
-&gt; &gt;=C2=A0 arch/x86/mm/pat.c | 2 ++<br>
-&gt; &gt;=C2=A0 1 file changed, 2 insertions(+)<br>
-&gt; &gt;<br>
-&gt; &gt; diff --git a/arch/x86/mm/pat.c b/arch/x86/mm/pat.c<br>
-&gt; &gt; index 170cc4f..5ce2fbb 100644<br>
-&gt; &gt; --- a/arch/x86/mm/pat.c<br>
-&gt; &gt; +++ b/arch/x86/mm/pat.c<br>
-&gt; &gt; @@ -719,6 +719,7 @@ out_free:<br>
-&gt; &gt;=C2=A0 out_err:<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0return ret;<br>
-&gt; &gt;=C2=A0 }<br>
-&gt; &gt; +EXPORT_SYMBOL(io_reserve_memtype);<br>
-&gt; &gt;<br>
-&gt; &gt;=C2=A0 /**<br>
-&gt; &gt;=C2=A0 =C2=A0* io_free_memtype - Release a memory type mapping for=
- a region of memory<br>
-&gt; &gt; @@ -729,6 +730,7 @@ void io_free_memtype(resource_size_t start, r=
-esource_size_t end)<br>
-&gt; &gt;=C2=A0 {<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0free_memtype(start, end);<br>
-&gt; &gt;=C2=A0 }<br>
-&gt; &gt; +EXPORT_SYMBOL(io_free_memtype);<br>
-&gt; &gt;<br>
-&gt; &gt;=C2=A0 pgprot_t phys_mem_access_prot(struct file *file, unsigned l=
-ong pfn,<br>
-&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned long size, pgprot_t v=
-ma_prot)<br>
-&gt; &gt;<br>
-&gt;</p>
-
---001a11478364d69910053f1f7d24--
-
---===============1538487487==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1538487487==--
+QW0gMTguMTAuMjAxNiB1bSAwNjozNCBzY2hyaWViIEFsZXggRGV1Y2hlcjoKPiBJdCdzIHRlY2hu
+aWNhbGx5IGFuIE1DIHJlZ2lzdGVyIHNvIG1ha2Ugc3VyZSB3ZSBpbml0aWFsaXplIGl0Cj4gaW4g
+dGhlIE1DIG1vZHVsZSByYXRoZXIgdGhhbiB0aGUgZ2Z4IG1vZHVsZS4gIFNpbmNlIG90aGVyIGJp
+dHMKPiBpbiB0aGUgc2FtZSByZWdpc3RlciBhcmUgdXNlZCB0byBlbmFibGUgQVRDIENHIGZlYXR1
+cmVzIG1ha2UKPiBzdXJlIHdlIGFwcGx5IHRoZSBnb2xkZW4gc2V0dGluZyBmaXJzdC4KPgo+IFNp
+Z25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KClJl
+dmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+LgoK
+PiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMgfCAxIC0KPiAg
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMgfCAxICsKPiAgIDIgZmlsZXMg
+Y2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKPgo+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvZ2Z4X3Y4XzAuYwo+IGluZGV4IDFjMjU0NGYuLjZjZTQ0YmYgMTAwNjQ0Cj4gLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYwo+ICsrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMKPiBAQCAtNjQwLDcgKzY0MCw2IEBAIHN0YXRp
+YyBjb25zdCB1MzIgc3RvbmV5X21nY2dfY2djZ19pbml0W10gPQo+ICAgCW1tQ1BfTUVNX1NMUF9D
+TlRMLCAweGZmZmZmZmZmLCAweDAwMDIwMjAxLAo+ICAgCW1tUkxDX01FTV9TTFBfQ05UTCwgMHhm
+ZmZmZmZmZiwgMHgwMDAyMDIwMSwKPiAgIAltbUNHVFNfU01fQ1RSTF9SRUcsIDB4ZmZmZmZmZmYs
+IDB4OTY5NDAyMDAsCj4gLQltbUFUQ19NSVNDX0NHLCAweGZmZmZmZmZmLCAweDAwMGMwMjAwLAo+
+ICAgfTsKPiAgIAo+ICAgc3RhdGljIHZvaWQgZ2Z4X3Y4XzBfc2V0X3JpbmdfZnVuY3Moc3RydWN0
+IGFtZGdwdV9kZXZpY2UgKmFkZXYpOwo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9nbWNfdjhfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y4XzAu
+Ywo+IGluZGV4IDc0ZDdjYzMuLmY3MzcyZDMgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvZ21jX3Y4XzAuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2dtY192OF8wLmMKPiBAQCAtMTAwLDYgKzEwMCw3IEBAIHN0YXRpYyBjb25zdCB1MzIgY3pfbWdj
+Z19jZ2NnX2luaXRbXSA9Cj4gICAKPiAgIHN0YXRpYyBjb25zdCB1MzIgc3RvbmV5X21nY2dfY2dj
+Z19pbml0W10gPQo+ICAgewo+ICsJbW1BVENfTUlTQ19DRywgMHhmZmZmZmZmZiwgMHgwMDBjMDIw
+MCwKPiAgIAltbU1DX01FTV9QT1dFUl9MUywgMHhmZmZmZmZmZiwgMHgwMDAwMDEwNAo+ICAgfTsK
+PiAgIAoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
+ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
