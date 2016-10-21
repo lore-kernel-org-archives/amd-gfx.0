@@ -1,13 +1,14 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: fix s3 resume back, uvd dpm randomly
- can't disable.
-Date: Fri, 21 Oct 2016 13:07:56 +0200
-Message-ID: <c2524a31-254e-54dd-391f-390b1c184117@vodafone.de>
-References: <1477044836-21474-1-git-send-email-Rex.Zhu@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu:set preemption flag bit
+Date: Fri, 21 Oct 2016 10:55:02 -0400
+Message-ID: <CADnq5_MY+NHBU7Xn9m6qOX4gC7sx2XhpUUe=Ls1whfq-Kwr0eA@mail.gmail.com>
+References: <1477020857-2921-1-git-send-email-Monk.Liu@amd.com>
+ <882294ec-ec3b-95c3-2caf-8e9e49bd6a08@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0900559233=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1477044836-21474-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <882294ec-ec3b-95c3-2caf-8e9e49bd6a08-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,111 +19,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============0900559233==
-Content-Type: multipart/alternative;
- boundary="------------5D7D149856B235FD1344B2A9"
-
-This is a multi-part message in MIME format.
---------------5D7D149856B235FD1344B2A9
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Am 21.10.2016 um 12:13 schrieb Rex Zhu:
-> the value of last_mclk_dpm_enable_mask will be changed if
-> other clients(vce,dal) trigger set power state between enable
-> and disable uvd dpm.
->
-> Change-Id: I5bdca2ff7d401243780c71c8d73fdc1e8febaae1
-> Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-
-Acked-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org> for the series/./
-
-> ---
->   drivers/gpu/drm/amd/amdgpu/ci_dpm.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/ci_dpm.c b/drivers/gpu/drm/amd/amdgpu/ci_dpm.c
-> index 6ecfc48..966e5bf 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/ci_dpm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/ci_dpm.c
-> @@ -4081,7 +4081,7 @@ static int ci_enable_uvd_dpm(struct amdgpu_device *adev, bool enable)
->   							  pi->dpm_level_enable_mask.mclk_dpm_enable_mask);
->   		}
->   	} else {
-> -		if (pi->last_mclk_dpm_enable_mask & 0x1) {
-> +		if (pi->uvd_enabled == true) {
->   			pi->uvd_enabled = false;
->   			pi->dpm_level_enable_mask.mclk_dpm_enable_mask |= 1;
->   			amdgpu_ci_send_msg_to_smc_with_parameter(adev,
-
-
-
---------------5D7D149856B235FD1344B2A9
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body bgcolor="#FFFFFF" text="#000000">
-    <div class="moz-cite-prefix">Am 21.10.2016 um 12:13 schrieb Rex Zhu:<br>
-    </div>
-    <blockquote
-      cite="mid:1477044836-21474-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org"
-      type="cite">
-      <pre wrap="">the value of last_mclk_dpm_enable_mask will be changed if
-other clients(vce,dal) trigger set power state between enable
-and disable uvd dpm.
-
-Change-Id: I5bdca2ff7d401243780c71c8d73fdc1e8febaae1
-Signed-off-by: Rex Zhu <a class="moz-txt-link-rfc2396E" href="mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org">&lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;</a></pre>
-    </blockquote>
-    <br>
-    Acked-by: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a> for the
-    series<i>.</i><br>
-    <br>
-    <blockquote
-      cite="mid:1477044836-21474-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org"
-      type="cite">
-      <pre wrap="">
----
- drivers/gpu/drm/amd/amdgpu/ci_dpm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/ci_dpm.c b/drivers/gpu/drm/amd/amdgpu/ci_dpm.c
-index 6ecfc48..966e5bf 100644
---- a/drivers/gpu/drm/amd/amdgpu/ci_dpm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/ci_dpm.c
-@@ -4081,7 +4081,7 @@ static int ci_enable_uvd_dpm(struct amdgpu_device *adev, bool enable)
- 							  pi-&gt;dpm_level_enable_mask.mclk_dpm_enable_mask);
- 		}
- 	} else {
--		if (pi-&gt;last_mclk_dpm_enable_mask &amp; 0x1) {
-+		if (pi-&gt;uvd_enabled == true) {
- 			pi-&gt;uvd_enabled = false;
- 			pi-&gt;dpm_level_enable_mask.mclk_dpm_enable_mask |= 1;
- 			amdgpu_ci_send_msg_to_smc_with_parameter(adev,
-</pre>
-    </blockquote>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------5D7D149856B235FD1344B2A9--
-
---===============0900559233==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0900559233==--
+T24gRnJpLCBPY3QgMjEsIDIwMTYgYXQgNTo1OSBBTSwgQ2hyaXN0aWFuIEvDtm5pZwo8ZGVhdGhz
+aW1wbGVAdm9kYWZvbmUuZGU+IHdyb3RlOgo+IFdheSB0byBtdWNoIG92ZXJraWxsLCBqdXN0IHB1
+dCB0aGF0IGludG8gdGhlIGRldmljZSBpbmZvIGZsYWdzLgo+Cj4gU2VlIEFNREdQVV9JRFNfRkxB
+R1NfRlVTSU9OIGZvciByZWZlcmVuY2UuCgpZZWFoLCBhZ3JlZWQuCgpBbGV4Cgo+Cj4gQ2hyaXN0
+aWFuLgo+Cj4KPiBBbSAyMS4xMC4yMDE2IHVtIDA1OjM0IHNjaHJpZWIgTW9uayBMaXU6Cj4+Cj4+
+IFVNRCBuZWVkIHRoaXMgYml0IGlmIHByZWVtcHRpb24gd2FudCBzdXBwb3J0ZWQKPj4KPj4gQ2hh
+bmdlLUlkOiBJYzY1N2IzZTZmNDZhMTQ4ZWQzY2YwZTkzMmNjZjQ2ZjJjNTIzMGQ3Zgo+PiBTaWdu
+ZWQtb2ZmLWJ5OiBNb25rIExpdSA8TW9uay5MaXVAYW1kLmNvbT4KPj4KPj4gQ29uZmxpY3RzOgo+
+PiAgICAgICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYwo+PiAtLS0K
+Pj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMgfCA4ICsrKysrKysr
+Cj4+ICAgaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmggICAgICAgICAgIHwgNCArKysrCj4+
+ICAgMiBmaWxlcyBjaGFuZ2VkLCAxMiBpbnNlcnRpb25zKCspCj4+Cj4+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMKPj4gYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMKPj4gaW5kZXggNThhMGI1OS4uODViNGM1ZiAxMDA2
+NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jCj4+ICsr
+KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYwo+PiBAQCAtNTQwLDYg
+KzU0MCwxNCBAQCBzdGF0aWMgaW50IGFtZGdwdV9pbmZvX2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNl
+ICpkZXYsCj4+IHZvaWQgKmRhdGEsIHN0cnVjdCBkcm1fZmlsZQo+PiAgICAgICAgICAgICAgICAg
+cmV0dXJuIGNvcHlfdG9fdXNlcihvdXQsICZ2Y2VfY2xrX3RhYmxlLAo+PiAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBtaW4oKHNpemVfdClzaXplLAo+PiBzaXplb2YodmNlX2Ns
+a190YWJsZSkpKSA/IC1FRkFVTFQgOiAwOwo+PiAgICAgICAgIH0KPj4gKwo+PiArICAgICAgIGNh
+c2UgQU1ER1BVX0lORk9fUFJFRU1QVElPTjogewo+PiArICAgICAgICAgICAgICAgaWYgKGFtZGdw
+dV9zcmlvdl92ZihhZGV2KSkKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgdWkzMiB8PSBBTURH
+UFVfSU5GT19QUkVFTVBUSU9OX0VOQUxCRUQ7Cj4+ICsgICAgICAgICAgICAgICByZXR1cm4gY29w
+eV90b191c2VyKG91dCwgJnVpMzIsIG1pbihzaXplLCA0dSkpID8gLUVGQVVMVDoKPj4gMDsKPj4g
+KyAgICAgICAgICAgICAgIGJyZWFrOwo+PiArICAgICAgIH0KPj4gKwo+PiAgICAgICAgIGRlZmF1
+bHQ6Cj4+ICAgICAgICAgICAgICAgICBEUk1fREVCVUdfS01TKCJJbnZhbGlkIHJlcXVlc3QgJWRc
+biIsIGluZm8tPnF1ZXJ5KTsKPj4gICAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOwo+PiBk
+aWZmIC0tZ2l0IGEvaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmggYi9pbmNsdWRlL3VhcGkv
+ZHJtL2FtZGdwdV9kcm0uaAo+PiBpbmRleCA2NjdlOWJjLi4yZjI1YzUwIDEwMDY0NAo+PiAtLS0g
+YS9pbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaAo+PiArKysgYi9pbmNsdWRlL3VhcGkvZHJt
+L2FtZGdwdV9kcm0uaAo+PiBAQCAtNTAxLDYgKzUwMSwxMCBAQCBzdHJ1Y3QgZHJtX2FtZGdwdV9j
+c19jaHVua19kYXRhIHsKPj4gICAjZGVmaW5lIEFNREdQVV9JTkZPX01NUl9TSF9JTkRFWF9TSElG
+VCAgICAgICAgOAo+PiAgICNkZWZpbmUgQU1ER1BVX0lORk9fTU1SX1NIX0lOREVYX01BU0sgMHhm
+Zgo+PiAgICsvKiBRdWVyeSBpbmZvIGFib3V0IHByZWVtcHRpb24gKi8KPj4gKyNkZWZpbmUgQU1E
+R1BVX0lORk9fUFJFRU1QVElPTiAgICAgICAgICAweDFCCj4+ICsgICAgICAgI2RlZmluZSBBTURH
+UFVfSU5GT19QUkVFTVBUSU9OX0VOQUxCRUQgIDEKPj4gKwo+PiAgIHN0cnVjdCBkcm1fYW1kZ3B1
+X3F1ZXJ5X2Z3IHsKPj4gICAgICAgICAvKiogQU1ER1BVX0lORk9fRldfKiAqLwo+PiAgICAgICAg
+IF9fdTMyIGZ3X3R5cGU7Cj4KPgo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
