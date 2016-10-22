@@ -1,13 +1,12 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: s/amdgpuCrtc/amdgpu_crtc/ in pageflip code
-Date: Fri, 21 Oct 2016 16:45:14 -0400
-Message-ID: <1477082714-15229-3-git-send-email-alexander.deucher@amd.com>
-References: <1477082714-15229-1-git-send-email-alexander.deucher@amd.com>
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu/atom: remove a bunch of unused functions
+Date: Sat, 22 Oct 2016 19:06:43 +1100
+Message-ID: <77779d91-8ccd-4809-3630-c15bf7c5682d@folklore1984.net>
+References: <1477079709-10093-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0060249293=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1477082714-15229-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1477079709-10093-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,49 +17,219 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-Rml4IHJhbmRvbSBDYW1lbENhc2UgdGhhdCBoYXMgYW5ub3llZCBtZSBmb3IgYSB3aGlsZS4KClNp
-Z25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KLS0t
-CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jIHwgMTIgKysrKysr
-LS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgNiBpbnNlcnRpb25zKCspLCA2IGRlbGV0aW9ucygtKQoK
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5LmMg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jCmluZGV4IDA4M2Uy
-YjQuLmM3YmMyYjMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9kaXNwbGF5LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3Bs
-YXkuYwpAQCAtNjgsOSArNjgsOSBAQCBzdGF0aWMgdm9pZCBhbWRncHVfZmxpcF93b3JrX2Z1bmMo
-c3RydWN0IHdvcmtfc3RydWN0ICpfX3dvcmspCiAJc3RydWN0IGFtZGdwdV9mbGlwX3dvcmsgKndv
-cmsgPQogCQljb250YWluZXJfb2YoZGVsYXllZF93b3JrLCBzdHJ1Y3QgYW1kZ3B1X2ZsaXBfd29y
-aywgZmxpcF93b3JrKTsKIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IHdvcmstPmFkZXY7
-Ci0Jc3RydWN0IGFtZGdwdV9jcnRjICphbWRncHVDcnRjID0gYWRldi0+bW9kZV9pbmZvLmNydGNz
-W3dvcmstPmNydGNfaWRdOworCXN0cnVjdCBhbWRncHVfY3J0YyAqYW1kZ3B1X2NydGMgPSBhZGV2
-LT5tb2RlX2luZm8uY3J0Y3Nbd29yay0+Y3J0Y19pZF07CiAKLQlzdHJ1Y3QgZHJtX2NydGMgKmNy
-dGMgPSAmYW1kZ3B1Q3J0Yy0+YmFzZTsKKwlzdHJ1Y3QgZHJtX2NydGMgKmNydGMgPSAmYW1kZ3B1
-X2NydGMtPmJhc2U7CiAJdW5zaWduZWQgbG9uZyBmbGFnczsKIAl1bnNpZ25lZCBpOwogCWludCB2
-cG9zLCBocG9zOwpAQCAtODUsMTQgKzg1LDE0IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9mbGlwX3dv
-cmtfZnVuYyhzdHJ1Y3Qgd29ya19zdHJ1Y3QgKl9fd29yaykKIAkvKiBXYWl0IHVudGlsIHdlJ3Jl
-IG91dCBvZiB0aGUgdmVydGljYWwgYmxhbmsgcGVyaW9kIGJlZm9yZSB0aGUgb25lCiAJICogdGFy
-Z2V0ZWQgYnkgdGhlIGZsaXAKIAkgKi8KLQlpZiAoYW1kZ3B1Q3J0Yy0+ZW5hYmxlZCAmJgorCWlm
-IChhbWRncHVfY3J0Yy0+ZW5hYmxlZCAmJgogCSAgICAoYW1kZ3B1X2dldF9jcnRjX3NjYW5vdXRw
-b3MoYWRldi0+ZGRldiwgd29yay0+Y3J0Y19pZCwgMCwKIAkJCQkJJnZwb3MsICZocG9zLCBOVUxM
-LCBOVUxMLAogCQkJCQkmY3J0Yy0+aHdtb2RlKQogCSAgICAgJiAoRFJNX1NDQU5PVVRQT1NfVkFM
-SUQgfCBEUk1fU0NBTk9VVFBPU19JTl9WQkxBTkspKSA9PQogCSAgICAoRFJNX1NDQU5PVVRQT1Nf
-VkFMSUQgfCBEUk1fU0NBTk9VVFBPU19JTl9WQkxBTkspICYmCiAJICAgIChpbnQpKHdvcmstPnRh
-cmdldF92YmxhbmsgLQotCQkgIGFtZGdwdV9nZXRfdmJsYW5rX2NvdW50ZXJfa21zKGFkZXYtPmRk
-ZXYsIGFtZGdwdUNydGMtPmNydGNfaWQpKSA+IDApIHsKKwkJICBhbWRncHVfZ2V0X3ZibGFua19j
-b3VudGVyX2ttcyhhZGV2LT5kZGV2LCBhbWRncHVfY3J0Yy0+Y3J0Y19pZCkpID4gMCkgewogCQlz
-Y2hlZHVsZV9kZWxheWVkX3dvcmsoJndvcmstPmZsaXBfd29yaywgdXNlY3NfdG9famlmZmllcygx
-MDAwKSk7CiAJCXJldHVybjsKIAl9CkBAIC0xMDQsMTIgKzEwNCwxMiBAQCBzdGF0aWMgdm9pZCBh
-bWRncHVfZmxpcF93b3JrX2Z1bmMoc3RydWN0IHdvcmtfc3RydWN0ICpfX3dvcmspCiAJYWRldi0+
-bW9kZV9pbmZvLmZ1bmNzLT5wYWdlX2ZsaXAoYWRldiwgd29yay0+Y3J0Y19pZCwgd29yay0+YmFz
-ZSwgd29yay0+YXN5bmMpOwogCiAJLyogU2V0IHRoZSBmbGlwIHN0YXR1cyAqLwotCWFtZGdwdUNy
-dGMtPnBmbGlwX3N0YXR1cyA9IEFNREdQVV9GTElQX1NVQk1JVFRFRDsKKwlhbWRncHVfY3J0Yy0+
-cGZsaXBfc3RhdHVzID0gQU1ER1BVX0ZMSVBfU1VCTUlUVEVEOwogCXNwaW5fdW5sb2NrX2lycXJl
-c3RvcmUoJmNydGMtPmRldi0+ZXZlbnRfbG9jaywgZmxhZ3MpOwogCiAKIAlEUk1fREVCVUdfRFJJ
-VkVSKCJjcnRjOiVkWyVwXSwgcGZsaXBfc3RhdDpBTURHUFVfRkxJUF9TVUJNSVRURUQsIHdvcms6
-ICVwLFxuIiwKLQkJCQkJIGFtZGdwdUNydGMtPmNydGNfaWQsIGFtZGdwdUNydGMsIHdvcmspOwor
-CQkJCQkgYW1kZ3B1X2NydGMtPmNydGNfaWQsIGFtZGdwdV9jcnRjLCB3b3JrKTsKIAogfQogCi0t
-IAoyLjUuNQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0060249293==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="hKxdPGB2O4K1w2DP5BxSMUa4jjB1XAq7O"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--hKxdPGB2O4K1w2DP5BxSMUa4jjB1XAq7O
+Content-Type: multipart/mixed; boundary="Kugs1it0cDxGNNjdOKlsV7TAJgd02PCXT";
+ protected-headers="v1"
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Message-ID: <77779d91-8ccd-4809-3630-c15bf7c5682d-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu/atom: remove a bunch of unused functions
+References: <1477079709-10093-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1477079709-10093-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+--Kugs1it0cDxGNNjdOKlsV7TAJgd02PCXT
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+
+On 10/22/2016 06:55 AM, Alex Deucher wrote:
+> Leftovers from the radeon.
+>=20
+> Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c | 82 --------------------=
+--------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h | 10 ----
+>  2 files changed, 92 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_atombios.c
+> index 76cbb1d..56a86dd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+> @@ -1115,49 +1115,6 @@ int amdgpu_atombios_get_memory_pll_dividers(stru=
+ct amdgpu_device *adev,
+>  	return 0;
+>  }
+> =20
+> -uint32_t amdgpu_atombios_get_engine_clock(struct amdgpu_device *adev)
+> -{
+> -	GET_ENGINE_CLOCK_PS_ALLOCATION args;
+> -	int index =3D GetIndexIntoMasterTable(COMMAND, GetEngineClock);
+> -
+> -	amdgpu_atom_execute_table(adev->mode_info.atom_context, index, (uint3=
+2_t *)&args);
+> -	return le32_to_cpu(args.ulReturnEngineClock);
+> -}
+> -
+> -uint32_t amdgpu_atombios_get_memory_clock(struct amdgpu_device *adev)
+> -{
+> -	GET_MEMORY_CLOCK_PS_ALLOCATION args;
+> -	int index =3D GetIndexIntoMasterTable(COMMAND, GetMemoryClock);
+> -
+> -	amdgpu_atom_execute_table(adev->mode_info.atom_context, index, (uint3=
+2_t *)&args);
+> -	return le32_to_cpu(args.ulReturnMemoryClock);
+> -}
+> -
+> -void amdgpu_atombios_set_engine_clock(struct amdgpu_device *adev,
+> -				      uint32_t eng_clock)
+> -{
+> -	SET_ENGINE_CLOCK_PS_ALLOCATION args;
+> -	int index =3D GetIndexIntoMasterTable(COMMAND, SetEngineClock);
+> -
+> -	args.ulTargetEngineClock =3D cpu_to_le32(eng_clock);	/* 10 khz */
+> -
+> -	amdgpu_atom_execute_table(adev->mode_info.atom_context, index, (uint3=
+2_t *)&args);
+> -}
+> -
+> -void amdgpu_atombios_set_memory_clock(struct amdgpu_device *adev,
+> -				      uint32_t mem_clock)
+> -{
+> -	SET_MEMORY_CLOCK_PS_ALLOCATION args;
+> -	int index =3D GetIndexIntoMasterTable(COMMAND, SetMemoryClock);
+> -
+> -	if (adev->flags & AMD_IS_APU)
+> -		return;
+> -
+> -	args.ulTargetMemoryClock =3D cpu_to_le32(mem_clock);	/* 10 khz */
+> -
+> -	amdgpu_atom_execute_table(adev->mode_info.atom_context, index, (uint3=
+2_t *)&args);
+> -}
+> -
+>  void amdgpu_atombios_set_engine_dram_timings(struct amdgpu_device *ade=
+v,
+>  					     u32 eng_clock, u32 mem_clock)
+>  {
+> @@ -1256,45 +1213,6 @@ int amdgpu_atombios_get_leakage_vddc_based_on_le=
+akage_idx(struct amdgpu_device *
+>  	return amdgpu_atombios_get_max_vddc(adev, VOLTAGE_TYPE_VDDC, leakage_=
+idx, voltage);
+>  }
+> =20
+> -void amdgpu_atombios_set_voltage(struct amdgpu_device *adev,
+> -				 u16 voltage_level,
+> -				 u8 voltage_type)
+> -{
+> -	union set_voltage args;
+> -	int index =3D GetIndexIntoMasterTable(COMMAND, SetVoltage);
+> -	u8 frev, crev, volt_index =3D voltage_level;
+> -
+> -	if (!amdgpu_atom_parse_cmd_header(adev->mode_info.atom_context, index=
+, &frev, &crev))
+> -		return;
+> -
+> -	/* 0xff01 is a flag rather then an actual voltage */
+> -	if (voltage_level =3D=3D 0xff01)
+> -		return;
+> -
+> -	switch (crev) {
+> -	case 1:
+> -		args.v1.ucVoltageType =3D voltage_type;
+> -		args.v1.ucVoltageMode =3D SET_ASIC_VOLTAGE_MODE_ALL_SOURCE;
+> -		args.v1.ucVoltageIndex =3D volt_index;
+> -		break;
+> -	case 2:
+> -		args.v2.ucVoltageType =3D voltage_type;
+> -		args.v2.ucVoltageMode =3D SET_ASIC_VOLTAGE_MODE_SET_VOLTAGE;
+> -		args.v2.usVoltageLevel =3D cpu_to_le16(voltage_level);
+> -		break;
+> -	case 3:
+> -		args.v3.ucVoltageType =3D voltage_type;
+> -		args.v3.ucVoltageMode =3D ATOM_SET_VOLTAGE;
+> -		args.v3.usVoltageLevel =3D cpu_to_le16(voltage_level);
+> -		break;
+> -	default:
+> -		DRM_ERROR("Unknown table version %d, %d\n", frev, crev);
+> -		return;
+> -	}
+> -
+> -	amdgpu_atom_execute_table(adev->mode_info.atom_context, index, (uint3=
+2_t *)&args);
+> -}
+> -
+>  int amdgpu_atombios_get_leakage_id_from_vbios(struct amdgpu_device *ad=
+ev,
+>  					      u16 *leakage_id)
+>  {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h b/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_atombios.h
+> index e4afb16..70e9ace 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h
+> @@ -163,16 +163,6 @@ int amdgpu_atombios_get_memory_pll_dividers(struct=
+ amdgpu_device *adev,
+>  					    bool strobe_mode,
+>  					    struct atom_mpll_param *mpll_param);
+> =20
+> -uint32_t amdgpu_atombios_get_engine_clock(struct amdgpu_device *adev);=
+
+> -uint32_t amdgpu_atombios_get_memory_clock(struct amdgpu_device *adev);=
+
+> -void amdgpu_atombios_set_engine_clock(struct amdgpu_device *adev,
+> -				      uint32_t eng_clock);
+> -void amdgpu_atombios_set_memory_clock(struct amdgpu_device *adev,
+> -				      uint32_t mem_clock);
+> -void amdgpu_atombios_set_voltage(struct amdgpu_device *adev,
+> -				 u16 voltage_level,
+> -				 u8 voltage_type);
+> -
+>  void amdgpu_atombios_set_engine_dram_timings(struct amdgpu_device *ade=
+v,
+>  					     u32 eng_clock, u32 mem_clock);
+> =20
+>=20
+
+
+--Kugs1it0cDxGNNjdOKlsV7TAJgd02PCXT--
+
+--hKxdPGB2O4K1w2DP5BxSMUa4jjB1XAq7O
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJYCx4UAAoJEP4bvbfZuWjbOJEP/jYLvOUtONZBTZ7ycV1DQrZk
+mZKwDRIskrbbxOURqDv25cBQnmGxsHlNoMpyjIRdU1kOsYnvjmKEbY4ZYE/XnCZ2
+WRNseyrldRSpirC3sM5STh4nTZ4CngadpGJiOXIf0qwIlYyPm1pQrPcvP9YllbqT
+Ks9J84FFpziCFjzQLJ2tLYUU3Qgt39RV6wfu64tf/L6XMXo6DFhnlAkD8SBHxaVk
+6K1wawQzia+lSenRLIszvabzpqC6FbL3PZTBv+4/23VR+UYGImcYPkWc3N0TglhX
+GHwtcgqwxPJTUMTgweQUNazJyxDQwhiwvPYxH6t+ybCkoNBBCcB9ju/swnBqymhF
+roO2WtHSf5krKl+DgGz69Q8jSBwW84vO/oIfSgbWHVKpVTF+037K7w39NPnDOSJU
+TJqQc85jM/VYRNXU5vUkxtltNGLzLHgYdFEJlUyGdqix22DKyhQDAdHrCQ1xy9sb
+/Hwbvj6B1AjMuSieSLe1fnc4XmpfUuEiOZG+bnIU3LgavzdPmM3AtqPvOwCXCalF
+dNlt9rTOEY/rn63O+5wDfzh3jcGK7sv/I6rpSg7rlq/O9aG7na/HDkgBGCNn8Vr9
+D011BPYxaUxfVTloQxoJCqB3PXG5uX4eOCw2YUvG7yhObqrhL+SWp99lxpAPoJ1m
+kNw8aqehWS3MQEWbDLTR
+=iDvy
+-----END PGP SIGNATURE-----
+
+--hKxdPGB2O4K1w2DP5BxSMUa4jjB1XAq7O--
+
+--===============0060249293==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0060249293==--
