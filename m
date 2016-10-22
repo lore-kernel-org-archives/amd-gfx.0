@@ -1,14 +1,13 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: s/amdgpuCrtc/amdgpu_crtc/ in pageflip code
-Date: Sat, 22 Oct 2016 19:50:14 +0200
-Message-ID: <5026980f-81db-8520-671a-09981b254565@vodafone.de>
-References: <1477082714-15229-1-git-send-email-alexander.deucher@amd.com>
- <1477082714-15229-3-git-send-email-alexander.deucher@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: use amdgpu_bo_[create|free]_kernel for wb
+Date: Sat, 22 Oct 2016 19:45:44 +0200
+Message-ID: <871ee1fe-fd9b-c442-64b5-1bacf669d870@vodafone.de>
+References: <1477078293-23098-1-git-send-email-alexander.deucher@amd.com>
+ <0851af1f-0e53-b0aa-10a7-432f6fad68dd@folklore1984.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1989252153=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1477082714-15229-3-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <0851af1f-0e53-b0aa-10a7-432f6fad68dd-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,53 +18,218 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-QW0gMjEuMTAuMjAxNiB1bSAyMjo0NSBzY2hyaWViIEFsZXggRGV1Y2hlcjoKPiBGaXggcmFuZG9t
-IENhbWVsQ2FzZSB0aGF0IGhhcyBhbm5veWVkIG1lIGZvciBhIHdoaWxlLgo+Cj4gU2lnbmVkLW9m
-Zi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgoKUmV2aWV3ZWQt
-Ynk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4uCgo+IC0tLQo+
-ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXkuYyB8IDEyICsrKysr
-Ky0tLS0tLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMo
-LSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlz
-cGxheS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXkuYwo+IGlu
-ZGV4IDA4M2UyYjQuLmM3YmMyYjMgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2Rpc3BsYXkuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9kaXNwbGF5LmMKPiBAQCAtNjgsOSArNjgsOSBAQCBzdGF0aWMgdm9pZCBhbWRncHVf
-ZmxpcF93b3JrX2Z1bmMoc3RydWN0IHdvcmtfc3RydWN0ICpfX3dvcmspCj4gICAJc3RydWN0IGFt
-ZGdwdV9mbGlwX3dvcmsgKndvcmsgPQo+ICAgCQljb250YWluZXJfb2YoZGVsYXllZF93b3JrLCBz
-dHJ1Y3QgYW1kZ3B1X2ZsaXBfd29yaywgZmxpcF93b3JrKTsKPiAgIAlzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSAqYWRldiA9IHdvcmstPmFkZXY7Cj4gLQlzdHJ1Y3QgYW1kZ3B1X2NydGMgKmFtZGdwdUNy
-dGMgPSBhZGV2LT5tb2RlX2luZm8uY3J0Y3Nbd29yay0+Y3J0Y19pZF07Cj4gKwlzdHJ1Y3QgYW1k
-Z3B1X2NydGMgKmFtZGdwdV9jcnRjID0gYWRldi0+bW9kZV9pbmZvLmNydGNzW3dvcmstPmNydGNf
-aWRdOwo+ICAgCj4gLQlzdHJ1Y3QgZHJtX2NydGMgKmNydGMgPSAmYW1kZ3B1Q3J0Yy0+YmFzZTsK
-PiArCXN0cnVjdCBkcm1fY3J0YyAqY3J0YyA9ICZhbWRncHVfY3J0Yy0+YmFzZTsKPiAgIAl1bnNp
-Z25lZCBsb25nIGZsYWdzOwo+ICAgCXVuc2lnbmVkIGk7Cj4gICAJaW50IHZwb3MsIGhwb3M7Cj4g
-QEAgLTg1LDE0ICs4NSwxNCBAQCBzdGF0aWMgdm9pZCBhbWRncHVfZmxpcF93b3JrX2Z1bmMoc3Ry
-dWN0IHdvcmtfc3RydWN0ICpfX3dvcmspCj4gICAJLyogV2FpdCB1bnRpbCB3ZSdyZSBvdXQgb2Yg
-dGhlIHZlcnRpY2FsIGJsYW5rIHBlcmlvZCBiZWZvcmUgdGhlIG9uZQo+ICAgCSAqIHRhcmdldGVk
-IGJ5IHRoZSBmbGlwCj4gICAJICovCj4gLQlpZiAoYW1kZ3B1Q3J0Yy0+ZW5hYmxlZCAmJgo+ICsJ
-aWYgKGFtZGdwdV9jcnRjLT5lbmFibGVkICYmCj4gICAJICAgIChhbWRncHVfZ2V0X2NydGNfc2Nh
-bm91dHBvcyhhZGV2LT5kZGV2LCB3b3JrLT5jcnRjX2lkLCAwLAo+ICAgCQkJCQkmdnBvcywgJmhw
-b3MsIE5VTEwsIE5VTEwsCj4gICAJCQkJCSZjcnRjLT5od21vZGUpCj4gICAJICAgICAmIChEUk1f
-U0NBTk9VVFBPU19WQUxJRCB8IERSTV9TQ0FOT1VUUE9TX0lOX1ZCTEFOSykpID09Cj4gICAJICAg
-IChEUk1fU0NBTk9VVFBPU19WQUxJRCB8IERSTV9TQ0FOT1VUUE9TX0lOX1ZCTEFOSykgJiYKPiAg
-IAkgICAgKGludCkod29yay0+dGFyZ2V0X3ZibGFuayAtCj4gLQkJICBhbWRncHVfZ2V0X3ZibGFu
-a19jb3VudGVyX2ttcyhhZGV2LT5kZGV2LCBhbWRncHVDcnRjLT5jcnRjX2lkKSkgPiAwKSB7Cj4g
-KwkJICBhbWRncHVfZ2V0X3ZibGFua19jb3VudGVyX2ttcyhhZGV2LT5kZGV2LCBhbWRncHVfY3J0
-Yy0+Y3J0Y19pZCkpID4gMCkgewo+ICAgCQlzY2hlZHVsZV9kZWxheWVkX3dvcmsoJndvcmstPmZs
-aXBfd29yaywgdXNlY3NfdG9famlmZmllcygxMDAwKSk7Cj4gICAJCXJldHVybjsKPiAgIAl9Cj4g
-QEAgLTEwNCwxMiArMTA0LDEyIEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9mbGlwX3dvcmtfZnVuYyhz
-dHJ1Y3Qgd29ya19zdHJ1Y3QgKl9fd29yaykKPiAgIAlhZGV2LT5tb2RlX2luZm8uZnVuY3MtPnBh
-Z2VfZmxpcChhZGV2LCB3b3JrLT5jcnRjX2lkLCB3b3JrLT5iYXNlLCB3b3JrLT5hc3luYyk7Cj4g
-ICAKPiAgIAkvKiBTZXQgdGhlIGZsaXAgc3RhdHVzICovCj4gLQlhbWRncHVDcnRjLT5wZmxpcF9z
-dGF0dXMgPSBBTURHUFVfRkxJUF9TVUJNSVRURUQ7Cj4gKwlhbWRncHVfY3J0Yy0+cGZsaXBfc3Rh
-dHVzID0gQU1ER1BVX0ZMSVBfU1VCTUlUVEVEOwo+ICAgCXNwaW5fdW5sb2NrX2lycXJlc3RvcmUo
-JmNydGMtPmRldi0+ZXZlbnRfbG9jaywgZmxhZ3MpOwo+ICAgCj4gICAKPiAgIAlEUk1fREVCVUdf
-RFJJVkVSKCJjcnRjOiVkWyVwXSwgcGZsaXBfc3RhdDpBTURHUFVfRkxJUF9TVUJNSVRURUQsIHdv
-cms6ICVwLFxuIiwKPiAtCQkJCQkgYW1kZ3B1Q3J0Yy0+Y3J0Y19pZCwgYW1kZ3B1Q3J0Yywgd29y
-ayk7Cj4gKwkJCQkJIGFtZGdwdV9jcnRjLT5jcnRjX2lkLCBhbWRncHVfY3J0Yywgd29yayk7Cj4g
-ICAKPiAgIH0KPiAgIAoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This is a multi-part message in MIME format.
+--===============1989252153==
+Content-Type: multipart/alternative;
+ boundary="------------A34C319463E69BD51CB04021"
+
+This is a multi-part message in MIME format.
+--------------A34C319463E69BD51CB04021
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Reviewed-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>.
+
+Am 22.10.2016 um 10:20 schrieb Edward O'Callaghan:
+> Acked-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+>
+> On 10/22/2016 06:31 AM, Alex Deucher wrote:
+>> Rather than open coding it.
+>>
+>> Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 37 ++++++------------------------
+>>   1 file changed, 7 insertions(+), 30 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> index b7b6542..314295f 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> @@ -443,13 +443,9 @@ void amdgpu_doorbell_get_kfd_info(struct amdgpu_device *adev,
+>>   static void amdgpu_wb_fini(struct amdgpu_device *adev)
+>>   {
+>>   	if (adev->wb.wb_obj) {
+>> -		if (!amdgpu_bo_reserve(adev->wb.wb_obj, false)) {
+>> -			amdgpu_bo_kunmap(adev->wb.wb_obj);
+>> -			amdgpu_bo_unpin(adev->wb.wb_obj);
+>> -			amdgpu_bo_unreserve(adev->wb.wb_obj);
+>> -		}
+>> -		amdgpu_bo_unref(&adev->wb.wb_obj);
+>> -		adev->wb.wb = NULL;
+>> +		amdgpu_bo_free_kernel(&adev->wb.wb_obj,
+>> +				      &adev->wb.gpu_addr,
+>> +				      (void **)&adev->wb.wb);
+>>   		adev->wb.wb_obj = NULL;
+>>   	}
+>>   }
+>> @@ -468,33 +464,14 @@ static int amdgpu_wb_init(struct amdgpu_device *adev)
+>>   	int r;
+>>   
+>>   	if (adev->wb.wb_obj == NULL) {
+>> -		r = amdgpu_bo_create(adev, AMDGPU_MAX_WB * 4, PAGE_SIZE, true,
+>> -				     AMDGPU_GEM_DOMAIN_GTT, 0,  NULL, NULL,
+>> -				     &adev->wb.wb_obj);
+>> +		r = amdgpu_bo_create_kernel(adev, AMDGPU_MAX_WB * 4,
+>> +					    PAGE_SIZE, AMDGPU_GEM_DOMAIN_GTT,
+>> +					    &adev->wb.wb_obj, &adev->wb.gpu_addr,
+>> +					    (void **)&adev->wb.wb);
+>>   		if (r) {
+>>   			dev_warn(adev->dev, "(%d) create WB bo failed\n", r);
+>>   			return r;
+>>   		}
+>> -		r = amdgpu_bo_reserve(adev->wb.wb_obj, false);
+>> -		if (unlikely(r != 0)) {
+>> -			amdgpu_wb_fini(adev);
+>> -			return r;
+>> -		}
+>> -		r = amdgpu_bo_pin(adev->wb.wb_obj, AMDGPU_GEM_DOMAIN_GTT,
+>> -				&adev->wb.gpu_addr);
+>> -		if (r) {
+>> -			amdgpu_bo_unreserve(adev->wb.wb_obj);
+>> -			dev_warn(adev->dev, "(%d) pin WB bo failed\n", r);
+>> -			amdgpu_wb_fini(adev);
+>> -			return r;
+>> -		}
+>> -		r = amdgpu_bo_kmap(adev->wb.wb_obj, (void **)&adev->wb.wb);
+>> -		amdgpu_bo_unreserve(adev->wb.wb_obj);
+>> -		if (r) {
+>> -			dev_warn(adev->dev, "(%d) map WB bo failed\n", r);
+>> -			amdgpu_wb_fini(adev);
+>> -			return r;
+>> -		}
+>>   
+>>   		adev->wb.num_wb = AMDGPU_MAX_WB;
+>>   		memset(&adev->wb.used, 0, sizeof(adev->wb.used));
+>>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+
+--------------A34C319463E69BD51CB04021
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <div class="moz-cite-prefix">Reviewed-by: Christian König
+      <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>.<br>
+      <br>
+      Am 22.10.2016 um 10:20 schrieb Edward O'Callaghan:<br>
+    </div>
+    <blockquote
+      cite="mid:0851af1f-0e53-b0aa-10a7-432f6fad68dd-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org"
+      type="cite">
+      <pre wrap="">Acked-by: Edward O'Callaghan <a class="moz-txt-link-rfc2396E" href="mailto:funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org">&lt;funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org&gt;</a>
+
+On 10/22/2016 06:31 AM, Alex Deucher wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="">Rather than open coding it.
+
+Signed-off-by: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">&lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;</a>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 37 ++++++------------------------
+ 1 file changed, 7 insertions(+), 30 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index b7b6542..314295f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -443,13 +443,9 @@ void amdgpu_doorbell_get_kfd_info(struct amdgpu_device *adev,
+ static void amdgpu_wb_fini(struct amdgpu_device *adev)
+ {
+ 	if (adev-&gt;wb.wb_obj) {
+-		if (!amdgpu_bo_reserve(adev-&gt;wb.wb_obj, false)) {
+-			amdgpu_bo_kunmap(adev-&gt;wb.wb_obj);
+-			amdgpu_bo_unpin(adev-&gt;wb.wb_obj);
+-			amdgpu_bo_unreserve(adev-&gt;wb.wb_obj);
+-		}
+-		amdgpu_bo_unref(&amp;adev-&gt;wb.wb_obj);
+-		adev-&gt;wb.wb = NULL;
++		amdgpu_bo_free_kernel(&amp;adev-&gt;wb.wb_obj,
++				      &amp;adev-&gt;wb.gpu_addr,
++				      (void **)&amp;adev-&gt;wb.wb);
+ 		adev-&gt;wb.wb_obj = NULL;
+ 	}
+ }
+@@ -468,33 +464,14 @@ static int amdgpu_wb_init(struct amdgpu_device *adev)
+ 	int r;
+ 
+ 	if (adev-&gt;wb.wb_obj == NULL) {
+-		r = amdgpu_bo_create(adev, AMDGPU_MAX_WB * 4, PAGE_SIZE, true,
+-				     AMDGPU_GEM_DOMAIN_GTT, 0,  NULL, NULL,
+-				     &amp;adev-&gt;wb.wb_obj);
++		r = amdgpu_bo_create_kernel(adev, AMDGPU_MAX_WB * 4,
++					    PAGE_SIZE, AMDGPU_GEM_DOMAIN_GTT,
++					    &amp;adev-&gt;wb.wb_obj, &amp;adev-&gt;wb.gpu_addr,
++					    (void **)&amp;adev-&gt;wb.wb);
+ 		if (r) {
+ 			dev_warn(adev-&gt;dev, "(%d) create WB bo failed\n", r);
+ 			return r;
+ 		}
+-		r = amdgpu_bo_reserve(adev-&gt;wb.wb_obj, false);
+-		if (unlikely(r != 0)) {
+-			amdgpu_wb_fini(adev);
+-			return r;
+-		}
+-		r = amdgpu_bo_pin(adev-&gt;wb.wb_obj, AMDGPU_GEM_DOMAIN_GTT,
+-				&amp;adev-&gt;wb.gpu_addr);
+-		if (r) {
+-			amdgpu_bo_unreserve(adev-&gt;wb.wb_obj);
+-			dev_warn(adev-&gt;dev, "(%d) pin WB bo failed\n", r);
+-			amdgpu_wb_fini(adev);
+-			return r;
+-		}
+-		r = amdgpu_bo_kmap(adev-&gt;wb.wb_obj, (void **)&amp;adev-&gt;wb.wb);
+-		amdgpu_bo_unreserve(adev-&gt;wb.wb_obj);
+-		if (r) {
+-			dev_warn(adev-&gt;dev, "(%d) map WB bo failed\n", r);
+-			amdgpu_wb_fini(adev);
+-			return r;
+-		}
+ 
+ 		adev-&gt;wb.num_wb = AMDGPU_MAX_WB;
+ 		memset(&amp;adev-&gt;wb.used, 0, sizeof(adev-&gt;wb.used));
+
+</pre>
+      </blockquote>
+      <pre wrap="">
+</pre>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------A34C319463E69BD51CB04021--
+
+--===============1989252153==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1989252153==--
