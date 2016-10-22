@@ -1,14 +1,13 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: consolidate atom scratch reg handling for
- hangs
-Date: Sat, 22 Oct 2016 19:47:16 +0200
-Message-ID: <a30160e7-3c00-231d-4736-f2a28888c7b2@vodafone.de>
-References: <1477079193-32725-1-git-send-email-alexander.deucher@amd.com>
+Subject: Re: [PATCH] drm/amdgpu/atom: remove a bunch of unused functions
+Date: Sat, 22 Oct 2016 19:48:00 +0200
+Message-ID: <66ae4441-5037-8a83-9e78-fa03663bf943@vodafone.de>
+References: <1477079709-10093-1-git-send-email-alexander.deucher@amd.com>
+ <77779d91-8ccd-4809-3630-c15bf7c5682d@folklore1984.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1756458946=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1477079193-32725-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <77779d91-8ccd-4809-3630-c15bf7c5682d-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,87 +18,344 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-QW0gMjEuMTAuMjAxNiB1bSAyMTo0NiBzY2hyaWViIEFsZXggRGV1Y2hlcjoKPiBNb3ZlIGZyb20g
-YXNpYyBzcGVjaWZpYyBjb2RlIHRvIGNvbW1vbiBhdG9tIGNvZGUuCj4KPiBTaWduZWQtb2ZmLWJ5
-OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+CgpSZXZpZXdlZC1ieTog
-Q2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPi4KCj4gLS0tCj4gICBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYXRvbWJpb3MuYyB8IDEzICsrKysrKysr
-KysrKysKPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hdG9tYmlvcy5oIHwg
-IDIgKysKPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Npay5jICAgICAgICAgICAgIHwg
-MTcgKysrLS0tLS0tLS0tLS0tLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZpLmMg
-ICAgICAgICAgICAgIHwgMTYgKystLS0tLS0tLS0tLS0tLQo+ICAgNCBmaWxlcyBjaGFuZ2VkLCAy
-MCBpbnNlcnRpb25zKCspLCAyOCBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYXRvbWJpb3MuYyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9hdG9tYmlvcy5jCj4gaW5kZXggOGU2YmY1NC4uNzZjYmIxZCAxMDA2
-NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYXRvbWJpb3MuYwo+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hdG9tYmlvcy5jCj4gQEAg
-LTE3ODQsNiArMTc4NCwxOSBAQCB2b2lkIGFtZGdwdV9hdG9tYmlvc19zY3JhdGNoX3JlZ3NfcmVz
-dG9yZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAgIAkJV1JFRzMyKG1tQklPU19TQ1JB
-VENIXzAgKyBpLCBhZGV2LT5iaW9zX3NjcmF0Y2hbaV0pOwo+ICAgfQo+ICAgCj4gK3ZvaWQgYW1k
-Z3B1X2F0b21iaW9zX3NjcmF0Y2hfcmVnc19lbmdpbmVfaHVuZyhzdHJ1Y3QgYW1kZ3B1X2Rldmlj
-ZSAqYWRldiwKPiArCQkJCQkgICAgICBib29sIGh1bmcpCj4gK3sKPiArCXUzMiB0bXAgPSBSUkVH
-MzIobW1CSU9TX1NDUkFUQ0hfMyk7Cj4gKwo+ICsJaWYgKGh1bmcpCj4gKwkJdG1wIHw9IEFUT01f
-UzNfQVNJQ19HVUlfRU5HSU5FX0hVTkc7Cj4gKwllbHNlCj4gKwkJdG1wICY9IH5BVE9NX1MzX0FT
-SUNfR1VJX0VOR0lORV9IVU5HOwo+ICsKPiArCVdSRUczMihtbUJJT1NfU0NSQVRDSF8zLCB0bXAp
-Owo+ICt9Cj4gKwo+ICAgLyogQXRvbSBuZWVkcyBkYXRhIGluIGxpdHRsZSBlbmRpYW4gZm9ybWF0
-Cj4gICAgKiBzbyBzd2FwIGFzIGFwcHJvcHJpYXRlIHdoZW4gY29weWluZyBkYXRhIHRvCj4gICAg
-KiBvciBmcm9tIGF0b20uIE5vdGUgdGhhdCBhdG9tIG9wZXJhdGVzIG9uCj4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hdG9tYmlvcy5oIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2F0b21iaW9zLmgKPiBpbmRleCAxNzM1NjE1Li5lNGFm
-YjE2IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hdG9t
-Ymlvcy5oCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2F0b21iaW9z
-LmgKPiBAQCAtMjA2LDYgKzIwNiw4IEBAIHZvaWQgYW1kZ3B1X2F0b21iaW9zX3NjcmF0Y2hfcmVn
-c19sb2NrKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBib29sIGxvY2spOwo+ICAgdm9pZCBh
-bWRncHVfYXRvbWJpb3Nfc2NyYXRjaF9yZWdzX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
-ZXYpOwo+ICAgdm9pZCBhbWRncHVfYXRvbWJpb3Nfc2NyYXRjaF9yZWdzX3NhdmUoc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYpOwo+ICAgdm9pZCBhbWRncHVfYXRvbWJpb3Nfc2NyYXRjaF9yZWdz
-X3Jlc3RvcmUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOwo+ICt2b2lkIGFtZGdwdV9hdG9t
-Ymlvc19zY3JhdGNoX3JlZ3NfZW5naW5lX2h1bmcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYs
-Cj4gKwkJCQkJICAgICAgYm9vbCBodW5nKTsKPiAgIAo+ICAgdm9pZCBhbWRncHVfYXRvbWJpb3Nf
-Y29weV9zd2FwKHU4ICpkc3QsIHU4ICpzcmMsIHU4IG51bV9ieXRlcywgYm9vbCB0b19sZSk7Cj4g
-ICBpbnQgYW1kZ3B1X2F0b21iaW9zX2dldF9tYXhfdmRkYyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
-YWRldiwgdTggdm9sdGFnZV90eXBlLAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9jaWsuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Npay5jCj4gaW5kZXgg
-MWI3MGY4ZmEuLjMwMmRmODUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvY2lrLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaWsuYwo+IEBAIC0x
-MTg5LDE4ICsxMTg5LDYgQEAgc3RhdGljIGludCBjaWtfZ3B1X3BjaV9jb25maWdfcmVzZXQoc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gICAJcmV0dXJuIHI7Cj4gICB9Cj4gICAKPiAtc3Rh
-dGljIHZvaWQgY2lrX3NldF9iaW9zX3NjcmF0Y2hfZW5naW5lX2h1bmcoc3RydWN0IGFtZGdwdV9k
-ZXZpY2UgKmFkZXYsIGJvb2wgaHVuZykKPiAtewo+IC0JdTMyIHRtcCA9IFJSRUczMihtbUJJT1Nf
-U0NSQVRDSF8zKTsKPiAtCj4gLQlpZiAoaHVuZykKPiAtCQl0bXAgfD0gQVRPTV9TM19BU0lDX0dV
-SV9FTkdJTkVfSFVORzsKPiAtCWVsc2UKPiAtCQl0bXAgJj0gfkFUT01fUzNfQVNJQ19HVUlfRU5H
-SU5FX0hVTkc7Cj4gLQo+IC0JV1JFRzMyKG1tQklPU19TQ1JBVENIXzMsIHRtcCk7Cj4gLX0KPiAt
-Cj4gICAvKioKPiAgICAqIGNpa19hc2ljX3Jlc2V0IC0gc29mdCByZXNldCBHUFUKPiAgICAqCj4g
-QEAgLTEyMTMsMTEgKzEyMDEsMTIgQEAgc3RhdGljIHZvaWQgY2lrX3NldF9iaW9zX3NjcmF0Y2hf
-ZW5naW5lX2h1bmcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIGJvb2wgaHUKPiAgIHN0YXRp
-YyBpbnQgY2lrX2FzaWNfcmVzZXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gICB7Cj4g
-ICAJaW50IHI7Cj4gLQljaWtfc2V0X2Jpb3Nfc2NyYXRjaF9lbmdpbmVfaHVuZyhhZGV2LCB0cnVl
-KTsKPiArCj4gKwlhbWRncHVfYXRvbWJpb3Nfc2NyYXRjaF9yZWdzX2VuZ2luZV9odW5nKGFkZXYs
-IHRydWUpOwo+ICAgCj4gICAJciA9IGNpa19ncHVfcGNpX2NvbmZpZ19yZXNldChhZGV2KTsKPiAg
-IAo+IC0JY2lrX3NldF9iaW9zX3NjcmF0Y2hfZW5naW5lX2h1bmcoYWRldiwgZmFsc2UpOwo+ICsJ
-YW1kZ3B1X2F0b21iaW9zX3NjcmF0Y2hfcmVnc19lbmdpbmVfaHVuZyhhZGV2LCBmYWxzZSk7Cj4g
-ICAKPiAgIAlyZXR1cm4gcjsKPiAgIH0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvdmkuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZpLmMKPiBpbmRleCBi
-MmExY2Y0Li41MmQwYTgzIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L3ZpLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92aS5jCj4gQEAgLTcyOSwx
-OCArNzI5LDYgQEAgc3RhdGljIGludCB2aV9ncHVfcGNpX2NvbmZpZ19yZXNldChzdHJ1Y3QgYW1k
-Z3B1X2RldmljZSAqYWRldikKPiAgIAlyZXR1cm4gLUVJTlZBTDsKPiAgIH0KPiAgIAo+IC1zdGF0
-aWMgdm9pZCB2aV9zZXRfYmlvc19zY3JhdGNoX2VuZ2luZV9odW5nKHN0cnVjdCBhbWRncHVfZGV2
-aWNlICphZGV2LCBib29sIGh1bmcpCj4gLXsKPiAtCXUzMiB0bXAgPSBSUkVHMzIobW1CSU9TX1ND
-UkFUQ0hfMyk7Cj4gLQo+IC0JaWYgKGh1bmcpCj4gLQkJdG1wIHw9IEFUT01fUzNfQVNJQ19HVUlf
-RU5HSU5FX0hVTkc7Cj4gLQllbHNlCj4gLQkJdG1wICY9IH5BVE9NX1MzX0FTSUNfR1VJX0VOR0lO
-RV9IVU5HOwo+IC0KPiAtCVdSRUczMihtbUJJT1NfU0NSQVRDSF8zLCB0bXApOwo+IC19Cj4gLQo+
-ICAgLyoqCj4gICAgKiB2aV9hc2ljX3Jlc2V0IC0gc29mdCByZXNldCBHUFUKPiAgICAqCj4gQEAg
-LTc1NCwxMSArNzQyLDExIEBAIHN0YXRpYyBpbnQgdmlfYXNpY19yZXNldChzdHJ1Y3QgYW1kZ3B1
-X2RldmljZSAqYWRldikKPiAgIHsKPiAgIAlpbnQgcjsKPiAgIAo+IC0Jdmlfc2V0X2Jpb3Nfc2Ny
-YXRjaF9lbmdpbmVfaHVuZyhhZGV2LCB0cnVlKTsKPiArCWFtZGdwdV9hdG9tYmlvc19zY3JhdGNo
-X3JlZ3NfZW5naW5lX2h1bmcoYWRldiwgdHJ1ZSk7Cj4gICAKPiAgIAlyID0gdmlfZ3B1X3BjaV9j
-b25maWdfcmVzZXQoYWRldik7Cj4gICAKPiAtCXZpX3NldF9iaW9zX3NjcmF0Y2hfZW5naW5lX2h1
-bmcoYWRldiwgZmFsc2UpOwo+ICsJYW1kZ3B1X2F0b21iaW9zX3NjcmF0Y2hfcmVnc19lbmdpbmVf
-aHVuZyhhZGV2LCBmYWxzZSk7Cj4gICAKPiAgIAlyZXR1cm4gcjsKPiAgIH0KCgpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
-dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is a multi-part message in MIME format.
+--===============1756458946==
+Content-Type: multipart/alternative;
+ boundary="------------F6C798A1B9096DB05FB4FA4F"
+
+This is a multi-part message in MIME format.
+--------------F6C798A1B9096DB05FB4FA4F
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Reviewed-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>.
+
+Am 22.10.2016 um 10:06 schrieb Edward O'Callaghan:
+> Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+>
+> On 10/22/2016 06:55 AM, Alex Deucher wrote:
+>> Leftovers from the radeon.
+>>
+>> Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c | 82 ----------------------------
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h | 10 ----
+>>   2 files changed, 92 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+>> index 76cbb1d..56a86dd 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+>> @@ -1115,49 +1115,6 @@ int amdgpu_atombios_get_memory_pll_dividers(struct amdgpu_device *adev,
+>>   	return 0;
+>>   }
+>>   
+>> -uint32_t amdgpu_atombios_get_engine_clock(struct amdgpu_device *adev)
+>> -{
+>> -	GET_ENGINE_CLOCK_PS_ALLOCATION args;
+>> -	int index = GetIndexIntoMasterTable(COMMAND, GetEngineClock);
+>> -
+>> -	amdgpu_atom_execute_table(adev->mode_info.atom_context, index, (uint32_t *)&args);
+>> -	return le32_to_cpu(args.ulReturnEngineClock);
+>> -}
+>> -
+>> -uint32_t amdgpu_atombios_get_memory_clock(struct amdgpu_device *adev)
+>> -{
+>> -	GET_MEMORY_CLOCK_PS_ALLOCATION args;
+>> -	int index = GetIndexIntoMasterTable(COMMAND, GetMemoryClock);
+>> -
+>> -	amdgpu_atom_execute_table(adev->mode_info.atom_context, index, (uint32_t *)&args);
+>> -	return le32_to_cpu(args.ulReturnMemoryClock);
+>> -}
+>> -
+>> -void amdgpu_atombios_set_engine_clock(struct amdgpu_device *adev,
+>> -				      uint32_t eng_clock)
+>> -{
+>> -	SET_ENGINE_CLOCK_PS_ALLOCATION args;
+>> -	int index = GetIndexIntoMasterTable(COMMAND, SetEngineClock);
+>> -
+>> -	args.ulTargetEngineClock = cpu_to_le32(eng_clock);	/* 10 khz */
+>> -
+>> -	amdgpu_atom_execute_table(adev->mode_info.atom_context, index, (uint32_t *)&args);
+>> -}
+>> -
+>> -void amdgpu_atombios_set_memory_clock(struct amdgpu_device *adev,
+>> -				      uint32_t mem_clock)
+>> -{
+>> -	SET_MEMORY_CLOCK_PS_ALLOCATION args;
+>> -	int index = GetIndexIntoMasterTable(COMMAND, SetMemoryClock);
+>> -
+>> -	if (adev->flags & AMD_IS_APU)
+>> -		return;
+>> -
+>> -	args.ulTargetMemoryClock = cpu_to_le32(mem_clock);	/* 10 khz */
+>> -
+>> -	amdgpu_atom_execute_table(adev->mode_info.atom_context, index, (uint32_t *)&args);
+>> -}
+>> -
+>>   void amdgpu_atombios_set_engine_dram_timings(struct amdgpu_device *adev,
+>>   					     u32 eng_clock, u32 mem_clock)
+>>   {
+>> @@ -1256,45 +1213,6 @@ int amdgpu_atombios_get_leakage_vddc_based_on_leakage_idx(struct amdgpu_device *
+>>   	return amdgpu_atombios_get_max_vddc(adev, VOLTAGE_TYPE_VDDC, leakage_idx, voltage);
+>>   }
+>>   
+>> -void amdgpu_atombios_set_voltage(struct amdgpu_device *adev,
+>> -				 u16 voltage_level,
+>> -				 u8 voltage_type)
+>> -{
+>> -	union set_voltage args;
+>> -	int index = GetIndexIntoMasterTable(COMMAND, SetVoltage);
+>> -	u8 frev, crev, volt_index = voltage_level;
+>> -
+>> -	if (!amdgpu_atom_parse_cmd_header(adev->mode_info.atom_context, index, &frev, &crev))
+>> -		return;
+>> -
+>> -	/* 0xff01 is a flag rather then an actual voltage */
+>> -	if (voltage_level == 0xff01)
+>> -		return;
+>> -
+>> -	switch (crev) {
+>> -	case 1:
+>> -		args.v1.ucVoltageType = voltage_type;
+>> -		args.v1.ucVoltageMode = SET_ASIC_VOLTAGE_MODE_ALL_SOURCE;
+>> -		args.v1.ucVoltageIndex = volt_index;
+>> -		break;
+>> -	case 2:
+>> -		args.v2.ucVoltageType = voltage_type;
+>> -		args.v2.ucVoltageMode = SET_ASIC_VOLTAGE_MODE_SET_VOLTAGE;
+>> -		args.v2.usVoltageLevel = cpu_to_le16(voltage_level);
+>> -		break;
+>> -	case 3:
+>> -		args.v3.ucVoltageType = voltage_type;
+>> -		args.v3.ucVoltageMode = ATOM_SET_VOLTAGE;
+>> -		args.v3.usVoltageLevel = cpu_to_le16(voltage_level);
+>> -		break;
+>> -	default:
+>> -		DRM_ERROR("Unknown table version %d, %d\n", frev, crev);
+>> -		return;
+>> -	}
+>> -
+>> -	amdgpu_atom_execute_table(adev->mode_info.atom_context, index, (uint32_t *)&args);
+>> -}
+>> -
+>>   int amdgpu_atombios_get_leakage_id_from_vbios(struct amdgpu_device *adev,
+>>   					      u16 *leakage_id)
+>>   {
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h
+>> index e4afb16..70e9ace 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h
+>> @@ -163,16 +163,6 @@ int amdgpu_atombios_get_memory_pll_dividers(struct amdgpu_device *adev,
+>>   					    bool strobe_mode,
+>>   					    struct atom_mpll_param *mpll_param);
+>>   
+>> -uint32_t amdgpu_atombios_get_engine_clock(struct amdgpu_device *adev);
+>> -uint32_t amdgpu_atombios_get_memory_clock(struct amdgpu_device *adev);
+>> -void amdgpu_atombios_set_engine_clock(struct amdgpu_device *adev,
+>> -				      uint32_t eng_clock);
+>> -void amdgpu_atombios_set_memory_clock(struct amdgpu_device *adev,
+>> -				      uint32_t mem_clock);
+>> -void amdgpu_atombios_set_voltage(struct amdgpu_device *adev,
+>> -				 u16 voltage_level,
+>> -				 u8 voltage_type);
+>> -
+>>   void amdgpu_atombios_set_engine_dram_timings(struct amdgpu_device *adev,
+>>   					     u32 eng_clock, u32 mem_clock);
+>>   
+>>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+
+--------------F6C798A1B9096DB05FB4FA4F
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <div class="moz-cite-prefix">Reviewed-by: Christian König
+      <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>.<br>
+      <br>
+      Am 22.10.2016 um 10:06 schrieb Edward O'Callaghan:<br>
+    </div>
+    <blockquote
+      cite="mid:77779d91-8ccd-4809-3630-c15bf7c5682d-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org"
+      type="cite">
+      <pre wrap="">Reviewed-by: Edward O'Callaghan <a class="moz-txt-link-rfc2396E" href="mailto:funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org">&lt;funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org&gt;</a>
+
+On 10/22/2016 06:55 AM, Alex Deucher wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="">Leftovers from the radeon.
+
+Signed-off-by: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">&lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;</a>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c | 82 ----------------------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h | 10 ----
+ 2 files changed, 92 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+index 76cbb1d..56a86dd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+@@ -1115,49 +1115,6 @@ int amdgpu_atombios_get_memory_pll_dividers(struct amdgpu_device *adev,
+ 	return 0;
+ }
+ 
+-uint32_t amdgpu_atombios_get_engine_clock(struct amdgpu_device *adev)
+-{
+-	GET_ENGINE_CLOCK_PS_ALLOCATION args;
+-	int index = GetIndexIntoMasterTable(COMMAND, GetEngineClock);
+-
+-	amdgpu_atom_execute_table(adev-&gt;mode_info.atom_context, index, (uint32_t *)&amp;args);
+-	return le32_to_cpu(args.ulReturnEngineClock);
+-}
+-
+-uint32_t amdgpu_atombios_get_memory_clock(struct amdgpu_device *adev)
+-{
+-	GET_MEMORY_CLOCK_PS_ALLOCATION args;
+-	int index = GetIndexIntoMasterTable(COMMAND, GetMemoryClock);
+-
+-	amdgpu_atom_execute_table(adev-&gt;mode_info.atom_context, index, (uint32_t *)&amp;args);
+-	return le32_to_cpu(args.ulReturnMemoryClock);
+-}
+-
+-void amdgpu_atombios_set_engine_clock(struct amdgpu_device *adev,
+-				      uint32_t eng_clock)
+-{
+-	SET_ENGINE_CLOCK_PS_ALLOCATION args;
+-	int index = GetIndexIntoMasterTable(COMMAND, SetEngineClock);
+-
+-	args.ulTargetEngineClock = cpu_to_le32(eng_clock);	/* 10 khz */
+-
+-	amdgpu_atom_execute_table(adev-&gt;mode_info.atom_context, index, (uint32_t *)&amp;args);
+-}
+-
+-void amdgpu_atombios_set_memory_clock(struct amdgpu_device *adev,
+-				      uint32_t mem_clock)
+-{
+-	SET_MEMORY_CLOCK_PS_ALLOCATION args;
+-	int index = GetIndexIntoMasterTable(COMMAND, SetMemoryClock);
+-
+-	if (adev-&gt;flags &amp; AMD_IS_APU)
+-		return;
+-
+-	args.ulTargetMemoryClock = cpu_to_le32(mem_clock);	/* 10 khz */
+-
+-	amdgpu_atom_execute_table(adev-&gt;mode_info.atom_context, index, (uint32_t *)&amp;args);
+-}
+-
+ void amdgpu_atombios_set_engine_dram_timings(struct amdgpu_device *adev,
+ 					     u32 eng_clock, u32 mem_clock)
+ {
+@@ -1256,45 +1213,6 @@ int amdgpu_atombios_get_leakage_vddc_based_on_leakage_idx(struct amdgpu_device *
+ 	return amdgpu_atombios_get_max_vddc(adev, VOLTAGE_TYPE_VDDC, leakage_idx, voltage);
+ }
+ 
+-void amdgpu_atombios_set_voltage(struct amdgpu_device *adev,
+-				 u16 voltage_level,
+-				 u8 voltage_type)
+-{
+-	union set_voltage args;
+-	int index = GetIndexIntoMasterTable(COMMAND, SetVoltage);
+-	u8 frev, crev, volt_index = voltage_level;
+-
+-	if (!amdgpu_atom_parse_cmd_header(adev-&gt;mode_info.atom_context, index, &amp;frev, &amp;crev))
+-		return;
+-
+-	/* 0xff01 is a flag rather then an actual voltage */
+-	if (voltage_level == 0xff01)
+-		return;
+-
+-	switch (crev) {
+-	case 1:
+-		args.v1.ucVoltageType = voltage_type;
+-		args.v1.ucVoltageMode = SET_ASIC_VOLTAGE_MODE_ALL_SOURCE;
+-		args.v1.ucVoltageIndex = volt_index;
+-		break;
+-	case 2:
+-		args.v2.ucVoltageType = voltage_type;
+-		args.v2.ucVoltageMode = SET_ASIC_VOLTAGE_MODE_SET_VOLTAGE;
+-		args.v2.usVoltageLevel = cpu_to_le16(voltage_level);
+-		break;
+-	case 3:
+-		args.v3.ucVoltageType = voltage_type;
+-		args.v3.ucVoltageMode = ATOM_SET_VOLTAGE;
+-		args.v3.usVoltageLevel = cpu_to_le16(voltage_level);
+-		break;
+-	default:
+-		DRM_ERROR("Unknown table version %d, %d\n", frev, crev);
+-		return;
+-	}
+-
+-	amdgpu_atom_execute_table(adev-&gt;mode_info.atom_context, index, (uint32_t *)&amp;args);
+-}
+-
+ int amdgpu_atombios_get_leakage_id_from_vbios(struct amdgpu_device *adev,
+ 					      u16 *leakage_id)
+ {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h
+index e4afb16..70e9ace 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h
+@@ -163,16 +163,6 @@ int amdgpu_atombios_get_memory_pll_dividers(struct amdgpu_device *adev,
+ 					    bool strobe_mode,
+ 					    struct atom_mpll_param *mpll_param);
+ 
+-uint32_t amdgpu_atombios_get_engine_clock(struct amdgpu_device *adev);
+-uint32_t amdgpu_atombios_get_memory_clock(struct amdgpu_device *adev);
+-void amdgpu_atombios_set_engine_clock(struct amdgpu_device *adev,
+-				      uint32_t eng_clock);
+-void amdgpu_atombios_set_memory_clock(struct amdgpu_device *adev,
+-				      uint32_t mem_clock);
+-void amdgpu_atombios_set_voltage(struct amdgpu_device *adev,
+-				 u16 voltage_level,
+-				 u8 voltage_type);
+-
+ void amdgpu_atombios_set_engine_dram_timings(struct amdgpu_device *adev,
+ 					     u32 eng_clock, u32 mem_clock);
+ 
+
+</pre>
+      </blockquote>
+      <pre wrap="">
+</pre>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------F6C798A1B9096DB05FB4FA4F--
+
+--===============1756458946==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1756458946==--
