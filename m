@@ -1,53 +1,160 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu:new ids flag for preempt
-Date: Mon, 24 Oct 2016 11:15:39 +0200
-Message-ID: <c8ac4ce0-232f-2fde-9af3-ee4c7bd20088@vodafone.de>
-References: <1477280253-3180-1-git-send-email-Monk.Liu@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple@vodafone.de>
+Subject: Re: [PATCH] drm/amdgpu: update kernel-doc for some functions
+Date: Mon, 24 Oct 2016 11:14:23 +0200
+Message-ID: <db14a045-b135-4e2a-f67b-867f8a50296f@vodafone.de>
+References: <1477247507-11378-5-git-send-email-notasas@gmail.com>
+ <20d1f285-6a45-fe57-404a-1974b4e62a49@folklore1984.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1477280253-3180-1-git-send-email-Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-CC+yJ3UmIYqDUpFQwHEjaQ@public.gmane.org
+Content-Type: multipart/mixed; boundary="===============1091497105=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20d1f285-6a45-fe57-404a-1974b4e62a49@folklore1984.net>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Edward O'Callaghan <funfunctor@folklore1984.net>, Grazvydas Ignotas <notasas@gmail.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMjQuMTAuMjAxNiB1bSAwNTozNyBzY2hyaWViIE1vbmsgTGl1Ogo+IENoYW5nZS1JZDogSWRh
-ZTMzYzY5MTk4YzMwYmQ4NDFmYjU1NTY0MTcyOWQzYjZlMDZhMmUKPiBTaWduZWQtb2ZmLWJ5OiBN
-b25rIExpdSA8TW9uay5MaXVAYW1kLmNvbT4KClJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmln
-IDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2ttcy5jIHwgMiArKwo+ICAgaW5jbHVkZS91YXBpL2RybS9hbWRncHVf
-ZHJtLmggICAgICAgICAgIHwgMSArCj4gICAyIGZpbGVzIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygr
-KQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMu
-YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYwo+IGluZGV4IDU4YTBi
-NTkuLjBhMTI2MGUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2ttcy5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5j
-Cj4gQEAgLTUwMyw2ICs1MDMsOCBAQCBzdGF0aWMgaW50IGFtZGdwdV9pbmZvX2lvY3RsKHN0cnVj
-dCBkcm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsIHN0cnVjdCBkcm1fZmlsZQo+ICAgCQlkZXZf
-aW5mby5pZHNfZmxhZ3MgPSAwOwo+ICAgCQlpZiAoYWRldi0+ZmxhZ3MgJiBBTURfSVNfQVBVKQo+
-ICAgCQkJZGV2X2luZm8uaWRzX2ZsYWdzIHw9IEFNREdQVV9JRFNfRkxBR1NfRlVTSU9OOwo+ICsJ
-CWlmIChhbWRncHVfc3Jpb3ZfdmYoYWRldikpCj4gKwkJCWRldl9pbmZvLmlkc19mbGFncyB8PSBB
-TURHUFVfSURTX0ZMQUdTX1BSRUVNUFRJT047Cj4gICAJCWRldl9pbmZvLnZpcnR1YWxfYWRkcmVz
-c19vZmZzZXQgPSBBTURHUFVfVkFfUkVTRVJWRURfU0laRTsKPiAgIAkJZGV2X2luZm8udmlydHVh
-bF9hZGRyZXNzX21heCA9ICh1aW50NjRfdClhZGV2LT52bV9tYW5hZ2VyLm1heF9wZm4gKiBBTURH
-UFVfR1BVX1BBR0VfU0laRTsKPiAgIAkJZGV2X2luZm8udmlydHVhbF9hZGRyZXNzX2FsaWdubWVu
-dCA9IG1heCgoaW50KVBBR0VfU0laRSwgQU1ER1BVX0dQVV9QQUdFX1NJWkUpOwo+IGRpZmYgLS1n
-aXQgYS9pbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaCBiL2luY2x1ZGUvdWFwaS9kcm0vYW1k
-Z3B1X2RybS5oCj4gaW5kZXggNjY3ZTliYy4uNDlkMjQwNCAxMDA2NDQKPiAtLS0gYS9pbmNsdWRl
-L3VhcGkvZHJtL2FtZGdwdV9kcm0uaAo+ICsrKyBiL2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2Ry
-bS5oCj4gQEAgLTQ0MCw2ICs0NDAsNyBAQCBzdHJ1Y3QgZHJtX2FtZGdwdV9jc19jaHVua19kYXRh
-IHsKPiAgICAqCj4gICAgKi8KPiAgICNkZWZpbmUgQU1ER1BVX0lEU19GTEFHU19GVVNJT04gICAg
-ICAgICAweDEKPiArI2RlZmluZSBBTURHUFVfSURTX0ZMQUdTX1BSRUVNUFRJT04gICAgIDB4Mgo+
-ICAgCj4gICAvKiBpbmRpY2F0ZSBpZiBhY2NlbGVyYXRpb24gY2FuIGJlIHdvcmtpbmcgKi8KPiAg
-ICNkZWZpbmUgQU1ER1BVX0lORk9fQUNDRUxfV09SS0lORwkJMHgwMAoKCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This is a multi-part message in MIME format.
+--===============1091497105==
+Content-Type: multipart/alternative;
+ boundary="------------5B46B49F796216C0BCC9CD45"
+
+This is a multi-part message in MIME format.
+--------------5B46B49F796216C0BCC9CD45
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Reviewed-by: Christian König <christian.koenig@amd.com>.
+
+Am 24.10.2016 um 00:29 schrieb Edward O'Callaghan:
+> Reviewed-by: Edward O'Callaghan <funfunctor@folklore1984.net>
+>
+> On 10/24/2016 05:31 AM, Grazvydas Ignotas wrote:
+>> The names were wrong.
+>>
+>> Signed-off-by: Grazvydas Ignotas <notasas@gmail.com>
+>> ---
+>>   drivers/gpu/drm/amd/scheduler/sched_fence.c | 4 ++--
+>>   1 file changed, 2 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/scheduler/sched_fence.c b/drivers/gpu/drm/amd/scheduler/sched_fence.c
+>> index 6b63bea..3653b5a 100644
+>> --- a/drivers/gpu/drm/amd/scheduler/sched_fence.c
+>> +++ b/drivers/gpu/drm/amd/scheduler/sched_fence.c
+>> @@ -103,7 +103,7 @@ static void amd_sched_fence_free(struct rcu_head *rcu)
+>>   }
+>>   
+>>   /**
+>> - * amd_sched_fence_release - callback that fence can be freed
+>> + * amd_sched_fence_release_scheduled - callback that fence can be freed
+>>    *
+>>    * @fence: fence
+>>    *
+>> @@ -118,7 +118,7 @@ static void amd_sched_fence_release_scheduled(struct fence *f)
+>>   }
+>>   
+>>   /**
+>> - * amd_sched_fence_release_scheduled - drop extra reference
+>> + * amd_sched_fence_release_finished - drop extra reference
+>>    *
+>>    * @f: fence
+>>    *
+>>
+>
+>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+
+
+
+--------------5B46B49F796216C0BCC9CD45
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <div class="moz-cite-prefix">Reviewed-by: Christian König
+      <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a>.<br>
+      <br>
+      Am 24.10.2016 um 00:29 schrieb Edward O'Callaghan:<br>
+    </div>
+    <blockquote
+      cite="mid:20d1f285-6a45-fe57-404a-1974b4e62a49@folklore1984.net"
+      type="cite">
+      <pre wrap="">Reviewed-by: Edward O'Callaghan <a class="moz-txt-link-rfc2396E" href="mailto:funfunctor@folklore1984.net">&lt;funfunctor@folklore1984.net&gt;</a>
+
+On 10/24/2016 05:31 AM, Grazvydas Ignotas wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="">The names were wrong.
+
+Signed-off-by: Grazvydas Ignotas <a class="moz-txt-link-rfc2396E" href="mailto:notasas@gmail.com">&lt;notasas@gmail.com&gt;</a>
+---
+ drivers/gpu/drm/amd/scheduler/sched_fence.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/scheduler/sched_fence.c b/drivers/gpu/drm/amd/scheduler/sched_fence.c
+index 6b63bea..3653b5a 100644
+--- a/drivers/gpu/drm/amd/scheduler/sched_fence.c
++++ b/drivers/gpu/drm/amd/scheduler/sched_fence.c
+@@ -103,7 +103,7 @@ static void amd_sched_fence_free(struct rcu_head *rcu)
+ }
+ 
+ /**
+- * amd_sched_fence_release - callback that fence can be freed
++ * amd_sched_fence_release_scheduled - callback that fence can be freed
+  *
+  * @fence: fence
+  *
+@@ -118,7 +118,7 @@ static void amd_sched_fence_release_scheduled(struct fence *f)
+ }
+ 
+ /**
+- * amd_sched_fence_release_scheduled - drop extra reference
++ * amd_sched_fence_release_finished - drop extra reference
+  *
+  * @f: fence
+  *
+
+</pre>
+      </blockquote>
+      <pre wrap="">
+</pre>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+dri-devel mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:dri-devel@lists.freedesktop.org">dri-devel@lists.freedesktop.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/dri-devel">https://lists.freedesktop.org/mailman/listinfo/dri-devel</a>
+</pre>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------5B46B49F796216C0BCC9CD45--
+
+--===============1091497105==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--===============1091497105==--
