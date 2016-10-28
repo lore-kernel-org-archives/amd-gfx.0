@@ -1,62 +1,183 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: add some error hanbdling to amdgpu_init
-Date: Fri, 28 Oct 2016 16:37:28 +0000
-Message-ID: <MWHPR12MB16949010D53461B16D34B49AF7AD0@MWHPR12MB1694.namprd12.prod.outlook.com>
-References: <1477669187-6294-1-git-send-email-deathsimple@vodafone.de>
+From: Mario Kleiner <mario.kleiner.de@gmail.com>
+Subject: Re: [PATCH] drm/i915: Before pageflip, also wait for shared dmabuf
+ fences.
+Date: Fri, 28 Oct 2016 19:37:28 +0200
+Message-ID: <7eb19a73-a558-d2e6-bd8d-34fe95045dfd@gmail.com>
+References: <3f4643cb-52a9-d7ae-439b-5f6fc6e718cc@vodafone.de>
+ <20160922063625.GD22164@dvetter-linux.ger.corp.intel.com>
+ <b95726e7-6bf6-a1b8-2a63-0758b1b185e2@vodafone.de>
+ <CAKMK7uF13M7d8qRRwKs_8M-QHjnuB7k3jshTUDnccTTQf6unog@mail.gmail.com>
+ <ddf99e2a-5f9a-41b9-9fde-af7bfd522572@vodafone.de>
+ <CAKMK7uEidoKbTO-m3KSz8UmQhF+uorg2-cWY8UpOXjZ_9MCxLg@mail.gmail.com>
+ <d2430ff8-43bd-bff2-9b02-847cabfd56c0@vodafone.de>
+ <ed1a57a4-1409-6d07-998a-2b54f466f710@daenzer.net>
+ <20160923120954.GH22164@dvetter-linux.ger.corp.intel.com>
+ <8c21f70a-7f96-480e-9784-93f2d48f52bb@daenzer.net>
+ <20160926080419.GV20761@phenom.ffwll.local>
+ <CAHbf0-HZ6EotqwgvkxRTdRF97xB3qBA=DRKAzaAXguV_PR_P8w@mail.gmail.com>
+ <d74d34a7-5221-d282-d9d1-b0e1007fc0c7@daenzer.net>
+ <c77a2cb9-1f0e-f1a3-aedd-a111cd6ba8e8@vodafone.de>
+ <e92512c7-4fb5-6fa1-e93f-0322d1537c46@daenzer.net>
+ <CAHbf0-GGMWZrhB+PKpc-QbD__6fqB4pQVFfN+gzLWNhi+DuG3Q@mail.gmail.com>
+ <720351a2-7597-aee3-58ce-9d65cad5762f@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1477669187-6294-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?J0NocmlzdGlhbiBLw7ZuaWcn?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: multipart/mixed; boundary="------------21E73F7677855EB9ABB04C72"
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <720351a2-7597-aee3-58ce-9d65cad5762f@daenzer.net>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>, Mike Lothian <mike@fireburn.co.uk>, =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple@vodafone.de>, Daniel Vetter <daniel@ffwll.ch>
+Cc: Nayan Deshmukh <nayan26deshmukh@gmail.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
-LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIENocmlz
-dGlhbiBLw7ZuaWcNCj4gU2VudDogRnJpZGF5LCBPY3RvYmVyIDI4LCAyMDE2IDExOjQwIEFNDQo+
-IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBTdWJqZWN0OiBbUEFUQ0hdIGRy
-bS9hbWRncHU6IGFkZCBzb21lIGVycm9yIGhhbmJkbGluZyB0byBhbWRncHVfaW5pdA0KPiANCj4g
-RnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPg0KPiANCj4g
-SnVzdCB0byBiZSBjbGVhbiBzaG91bGQgd2UgZXZlciBydW4gaW50byAtRU5PTUVNIGR1cmluZyBt
-b2R1bGUgaW5pdC4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlz
-dGlhbi5rb2VuaWdAYW1kLmNvbT4NCg0KUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFu
-ZGVyLmRldWNoZXJAYW1kLmNvbT4NCg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9kcnYuYyB8IDI2DQo+ICsrKysrKysrKysrKysrKysrKysrKysrLS0tDQo+ICAx
-IGZpbGUgY2hhbmdlZCwgMjMgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkNCj4gDQo+IGRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMNCj4gYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMNCj4gaW5kZXggNzIyNGQxNy4u
-ZWI0MThhMCAxMDA3NTUNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2Rydi5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYw0K
-PiBAQCAtNzQ2LDkgKzc0NiwyMCBAQCBzdGF0aWMgc3RydWN0IHBjaV9kcml2ZXIgYW1kZ3B1X2tt
-c19wY2lfZHJpdmVyID0gew0KPiANCj4gIHN0YXRpYyBpbnQgX19pbml0IGFtZGdwdV9pbml0KHZv
-aWQpDQo+ICB7DQo+IC0JYW1kZ3B1X3N5bmNfaW5pdCgpOw0KPiAtCWFtZGdwdV9mZW5jZV9zbGFi
-X2luaXQoKTsNCj4gLQlhbWRfc2NoZWRfZmVuY2Vfc2xhYl9pbml0KCk7DQo+ICsJaW50IHI7DQo+
-ICsNCj4gKwlyID0gYW1kZ3B1X3N5bmNfaW5pdCgpOw0KPiArCWlmIChyKQ0KPiArCQlnb3RvIGVy
-cm9yX3N5bmM7DQo+ICsNCj4gKwlyID0gYW1kZ3B1X2ZlbmNlX3NsYWJfaW5pdCgpOw0KPiArCWlm
-IChyKQ0KPiArCQlnb3RvIGVycm9yX2ZlbmNlOw0KPiArDQo+ICsJciA9IGFtZF9zY2hlZF9mZW5j
-ZV9zbGFiX2luaXQoKTsNCj4gKwlpZiAocikNCj4gKwkJZ290byBlcnJvcl9zY2hlZDsNCj4gKw0K
-PiAgCWlmICh2Z2Fjb25fdGV4dF9mb3JjZSgpKSB7DQo+ICAJCURSTV9FUlJPUigiVkdBQ09OIGRp
-c2FibGVzIGFtZGdwdSBrZXJuZWwNCj4gbW9kZXNldHRpbmcuXG4iKTsNCj4gIAkJcmV0dXJuIC1F
-SU5WQUw7DQo+IEBAIC03NjAsNiArNzcxLDE1IEBAIHN0YXRpYyBpbnQgX19pbml0IGFtZGdwdV9p
-bml0KHZvaWQpDQo+ICAJYW1kZ3B1X3JlZ2lzdGVyX2F0cHhfaGFuZGxlcigpOw0KPiAgCS8qIGxl
-dCBtb2Rwcm9iZSBvdmVycmlkZSB2Z2EgY29uc29sZSBzZXR0aW5nICovDQo+ICAJcmV0dXJuIGRy
-bV9wY2lfaW5pdChkcml2ZXIsIHBkcml2ZXIpOw0KPiArDQo+ICtlcnJvcl9zY2hlZDoNCj4gKwlh
-bWRncHVfZmVuY2Vfc2xhYl9maW5pKCk7DQo+ICsNCj4gK2Vycm9yX2ZlbmNlOg0KPiArCWFtZGdw
-dV9zeW5jX2ZpbmkoKTsNCj4gKw0KPiArZXJyb3Jfc3luYzoNCj4gKwlyZXR1cm4gcjsNCj4gIH0N
-Cj4gDQo+ICBzdGF0aWMgdm9pZCBfX2V4aXQgYW1kZ3B1X2V4aXQodm9pZCkNCj4gLS0NCj4gMi41
-LjANCj4gDQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-DQo+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-DQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+This is a multi-part message in MIME format.
+--------------21E73F7677855EB9ABB04C72
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+
+
+On 10/28/2016 03:34 AM, Michel Dänzer wrote:
+> On 27/10/16 10:33 PM, Mike Lothian wrote:
+>>
+>> Just another gentle ping to see where you are with this?
+>
+> I haven't got a chance to look into this any further.
+>
+>
+
+Fwiw., as a proof of concept, the attached experimental patch does work 
+as tested on Intel HD Haswell + AMD R9 380 Tonga under amdgpu and 
+DRI3/Present when applied to drm-next (updated from a few days ago). 
+With DRI_PRIME=1 tearing for page-flipped fullscreen windows is gone 
+under all loads. The tearing with "windowed" windows now looks as 
+expected for regular tearing not related to Prime.
+
+ftrace confirms the i915 driver's pageflip function is waiting on the 
+fence in reservation_object_wait_timeout_rcu() as it should.
+
+That entry->tv.shared needs to be set false for such buffers in 
+amdgpu_bo_list_set() makes sense to me, as that is part of the buffer 
+validation for command stream submission. There are other places in the 
+driver where tv.shared is set, which i didn't check so far.
+
+I don't know which of these would need to be updated with a "exported 
+bo" check as well, e.g., for video decoding or maybe gpu compute? Adding 
+or removing the check to amdgpu_gem_va_update_vm(), e.g., made no 
+difference. I assume that makes sense because that functions seems to 
+deal with amdgpu internal vm page tables or page table entries for such 
+a bo, not with something visible to external clients?
+
+All i can say is it fixes 3D rendering under DRI3 + Prime + pageflipping 
+without causing any obvious new problems.
+
+-mario
+
+--------------21E73F7677855EB9ABB04C72
+Content-Type: text/x-patch;
+ name="0001-drm-amdgpu-Attach-exclusive-fence-to-prime-exported-.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename*0="0001-drm-amdgpu-Attach-exclusive-fence-to-prime-exported-.pa";
+ filename*1="tch"
+
+>From 2a8d7fcd36da30305fa675df311c697162792597 Mon Sep 17 00:00:00 2001
+From: Mario Kleiner <mario.kleiner.de@gmail.com>
+Date: Wed, 26 Oct 2016 10:58:00 +0200
+Subject: [PATCH] drm/amdgpu: Attach exclusive fence to prime exported bo's.
+
+External clients which import our bo's wait only
+for exclusive dmabuf-fences, not on shared ones,
+so attach fences on such exported buffers as
+exclusive ones, not shared ones.
+
+-> Backup commit. Work in progress.
+
+Signed-off-by: Mario Kleiner <mario.kleiner.de@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h         | 1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 5 ++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c     | 6 ++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c   | 3 +++
+ 4 files changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 039b57e..a337d56 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -459,6 +459,7 @@ struct amdgpu_bo {
+ 	u64				metadata_flags;
+ 	void				*metadata;
+ 	u32				metadata_size;
++	bool				prime_exported;
+ 	/* list of all virtual address to which this bo
+ 	 * is associated to
+ 	 */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+index 651115d..6e1d7b3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+@@ -132,7 +132,10 @@ static int amdgpu_bo_list_set(struct amdgpu_device *adev,
+ 		entry->priority = min(info[i].bo_priority,
+ 				      AMDGPU_BO_LIST_MAX_PRIORITY);
+ 		entry->tv.bo = &entry->robj->tbo;
+-		entry->tv.shared = true;
++		entry->tv.shared = !entry->robj->prime_exported;
++
++		if (entry->robj->prime_exported)
++		    DRM_DEBUG_PRIME("Exclusive fence for exported prime bo %p\n", entry->robj);
+ 
+ 		if (entry->robj->prefered_domains == AMDGPU_GEM_DOMAIN_GDS)
+ 			gds_obj = entry->robj;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index a7ea9a3..730a68e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -494,6 +494,12 @@ static void amdgpu_gem_va_update_vm(struct amdgpu_device *adev,
+ 
+ 	tv.bo = &bo_va->bo->tbo;
+ 	tv.shared = true;
++
++	if (bo_va->bo->prime_exported) {
++	    DRM_DEBUG_PRIME("Update for exported prime bo %p\n", bo_va->bo);
++	    /* tv.shared = false; */
++	}
++
+ 	list_add(&tv.head, &list);
+ 
+ 	amdgpu_vm_get_pd_bo(bo_va->vm, &list, &vm_pd);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
+index 7700dc2..bfbfeb9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
+@@ -121,5 +121,8 @@ struct dma_buf *amdgpu_gem_prime_export(struct drm_device *dev,
+ 	if (amdgpu_ttm_tt_get_usermm(bo->tbo.ttm))
+ 		return ERR_PTR(-EPERM);
+ 
++	bo->prime_exported = true;
++	DRM_DEBUG_PRIME("Exporting prime bo %p\n", bo);
++
+ 	return drm_gem_prime_export(dev, gobj, flags);
+ }
+-- 
+2.7.4
+
+
+--------------21E73F7677855EB9ABB04C72
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--------------21E73F7677855EB9ABB04C72--
