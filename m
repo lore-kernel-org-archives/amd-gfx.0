@@ -1,39 +1,52 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] amdgpu: check parameters in amdgpu_query_gpu_info
-Date: Fri, 28 Oct 2016 17:01:46 -0400
-Message-ID: <1477688506-26549-1-git-send-email-alexander.deucher@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: [PATCH] drm/amdgpu: add support for new smc firmware on iceland
+Date: Fri, 28 Oct 2016 17:05:09 -0400
+Message-ID: <1477688709-26603-1-git-send-email-alexander.deucher@amd.com>
+Return-path: <stable-owner@vger.kernel.org>
+Sender: stable-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-TWFrZSBzdXJlIHRoZXkgYXJlbid0IE5VTEwuCgpCdWc6IGh0dHBzOi8vYnVncy5mcmVlZGVza3Rv
-cC5vcmcvc2hvd19idWcuY2dpP2lkPTk3OTkzCgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIg
-PGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Ci0tLQoKVGhpcyBidWcgcHJvYmFibHkgbmVlZHMg
-dG8gYmUgZml4ZWQgaW4gdGhlIE9DTCBkcml2ZXIsIGJ1dCB0aGlzCnBhdGNoIGZpeGVzIHRoZSBh
-Y3V0ZSBwcm9ibGVtIGFuZCBtYXkgYmUgZW5vdWdoIHRvIGZpeCB0aGUgYnVnCm92ZXJhbGwuICBO
-ZWVkcyBmdXJ0aGVyIGludmVzdGlnYXRpb24gYnkgdGhlIE9DTCB0ZWFtLgoKYW1kZ3B1L2FtZGdw
-dV9ncHVfaW5mby5jIHwgMiArKwogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKQoKZGlm
-ZiAtLWdpdCBhL2FtZGdwdS9hbWRncHVfZ3B1X2luZm8uYyBiL2FtZGdwdS9hbWRncHVfZ3B1X2lu
-Zm8uYwppbmRleCAwZjIzMjk3Li42NmM3ZTBlIDEwMDY0NAotLS0gYS9hbWRncHUvYW1kZ3B1X2dw
-dV9pbmZvLmMKKysrIGIvYW1kZ3B1L2FtZGdwdV9ncHVfaW5mby5jCkBAIC0yMzAsNiArMjMwLDgg
-QEAgZHJtX3ByaXZhdGUgaW50IGFtZGdwdV9xdWVyeV9ncHVfaW5mb19pbml0KGFtZGdwdV9kZXZp
-Y2VfaGFuZGxlIGRldikKIGludCBhbWRncHVfcXVlcnlfZ3B1X2luZm8oYW1kZ3B1X2RldmljZV9o
-YW5kbGUgZGV2LAogCQkJc3RydWN0IGFtZGdwdV9ncHVfaW5mbyAqaW5mbykKIHsKKwlpZiAoKGRl
-diA9PSBOVUxMKSB8fCAoaW5mbyA9PSBOVUxMKSkKKwkJcmV0dXJuIC1FSU5WQUw7CiAJLyogR2V0
-IEFTSUMgaW5mbyovCiAJKmluZm8gPSBkZXYtPmluZm87CiAKLS0gCjIuNS41CgpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
-dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+Newer iceland parts require new smc firmware.
+
+Reviewed-by: Huang Rui <ray.huang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c | 7 ++++++-
+ drivers/gpu/drm/amd/amdgpu/vi.c         | 1 +
+ 2 files changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
+index 2e238a4..7ded61e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
+@@ -809,7 +809,12 @@ static int amdgpu_cgs_get_firmware_info(struct cgs_device *cgs_device,
+ 		if (!adev->pm.fw) {
+ 			switch (adev->asic_type) {
+ 			case CHIP_TOPAZ:
+-				strcpy(fw_name, "amdgpu/topaz_smc.bin");
++				if (((adev->pdev->device == 0x6900) && (adev->pdev->revision == 0x81)) ||
++				    ((adev->pdev->device == 0x6900) && (adev->pdev->revision == 0x83)) ||
++				    ((adev->pdev->device == 0x6907) && (adev->pdev->revision == 0x87)))
++					strcpy(fw_name, "amdgpu/topaz_k_smc.bin");
++				else
++					strcpy(fw_name, "amdgpu/topaz_smc.bin");
+ 				break;
+ 			case CHIP_TONGA:
+ 				if (((adev->pdev->device == 0x6939) && (adev->pdev->revision == 0xf1)) ||
+diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
+index ab030c5..0b21e7b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vi.c
++++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+@@ -80,6 +80,7 @@
+ #include "dce_virtual.h"
+ 
+ MODULE_FIRMWARE("amdgpu/topaz_smc.bin");
++MODULE_FIRMWARE("amdgpu/topaz_k_smc.bin");
+ MODULE_FIRMWARE("amdgpu/tonga_smc.bin");
+ MODULE_FIRMWARE("amdgpu/tonga_k_smc.bin");
+ MODULE_FIRMWARE("amdgpu/fiji_smc.bin");
+-- 
+2.5.5
