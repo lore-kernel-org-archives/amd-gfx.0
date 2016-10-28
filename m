@@ -1,9 +1,10 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH] drm/i915: Before pageflip, also wait for shared dmabuf
- fences.
-Date: Fri, 28 Oct 2016 19:48:40 +0200
-Message-ID: <5e655b6e-82ac-05ed-080e-4dc7c270bec4@vodafone.de>
+From: Mike Lothian <mike@fireburn.co.uk>
+Subject: Re: [PATCH] drm/i915: Before pageflip,
+ also wait for shared dmabuf fences.
+Date: Fri, 28 Oct 2016 18:37:26 +0000
+Message-ID: <CAHbf0-H0owRAp_VXWd84E03OiPKXSE0jZ1=+OAtvoKuoSyt_=A@mail.gmail.com>
 References: <3f4643cb-52a9-d7ae-439b-5f6fc6e718cc@vodafone.de>
+ <20160922063625.GD22164@dvetter-linux.ger.corp.intel.com>
  <b95726e7-6bf6-a1b8-2a63-0758b1b185e2@vodafone.de>
  <CAKMK7uF13M7d8qRRwKs_8M-QHjnuB7k3jshTUDnccTTQf6unog@mail.gmail.com>
  <ddf99e2a-5f9a-41b9-9fde-af7bfd522572@vodafone.de>
@@ -21,62 +22,216 @@ References: <3f4643cb-52a9-d7ae-439b-5f6fc6e718cc@vodafone.de>
  <720351a2-7597-aee3-58ce-9d65cad5762f@daenzer.net>
  <7eb19a73-a558-d2e6-bd8d-34fe95045dfd@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <7eb19a73-a558-d2e6-bd8d-34fe95045dfd-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Mario Kleiner <mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
-Cc: Nayan Deshmukh <nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: multipart/mixed; boundary=001a11471a14071c2f053ff127a8
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <7eb19a73-a558-d2e6-bd8d-34fe95045dfd@gmail.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Mario Kleiner <mario.kleiner.de@gmail.com>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>, =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple@vodafone.de>, Daniel Vetter <daniel@ffwll.ch>
+Cc: Nayan Deshmukh <nayan26deshmukh@gmail.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMjguMTAuMjAxNiB1bSAxOTozNyBzY2hyaWViIE1hcmlvIEtsZWluZXI6Cj4KPgo+IE9uIDEw
-LzI4LzIwMTYgMDM6MzQgQU0sIE1pY2hlbCBEw6RuemVyIHdyb3RlOgo+PiBPbiAyNy8xMC8xNiAx
-MDozMyBQTSwgTWlrZSBMb3RoaWFuIHdyb3RlOgo+Pj4KPj4+IEp1c3QgYW5vdGhlciBnZW50bGUg
-cGluZyB0byBzZWUgd2hlcmUgeW91IGFyZSB3aXRoIHRoaXM/Cj4+Cj4+IEkgaGF2ZW4ndCBnb3Qg
-YSBjaGFuY2UgdG8gbG9vayBpbnRvIHRoaXMgYW55IGZ1cnRoZXIuCj4+Cj4+Cj4KPiBGd2l3Liwg
-YXMgYSBwcm9vZiBvZiBjb25jZXB0LCB0aGUgYXR0YWNoZWQgZXhwZXJpbWVudGFsIHBhdGNoIGRv
-ZXMgCj4gd29yayBhcyB0ZXN0ZWQgb24gSW50ZWwgSEQgSGFzd2VsbCArIEFNRCBSOSAzODAgVG9u
-Z2EgdW5kZXIgYW1kZ3B1IGFuZCAKPiBEUkkzL1ByZXNlbnQgd2hlbiBhcHBsaWVkIHRvIGRybS1u
-ZXh0ICh1cGRhdGVkIGZyb20gYSBmZXcgZGF5cyBhZ28pLiAKPiBXaXRoIERSSV9QUklNRT0xIHRl
-YXJpbmcgZm9yIHBhZ2UtZmxpcHBlZCBmdWxsc2NyZWVuIHdpbmRvd3MgaXMgZ29uZSAKPiB1bmRl
-ciBhbGwgbG9hZHMuIFRoZSB0ZWFyaW5nIHdpdGggIndpbmRvd2VkIiB3aW5kb3dzIG5vdyBsb29r
-cyBhcyAKPiBleHBlY3RlZCBmb3IgcmVndWxhciB0ZWFyaW5nIG5vdCByZWxhdGVkIHRvIFByaW1l
-LgoKWWVhaCwgdGhhdCdzIHByZXR0eSBtdWNoIHdoYXQgSSBoYWQgaW4gbWluZCBhcyB3ZWxsLiBZ
-b3UgYWRkaXRpb25hbGx5IApuZWVkIHRvIHdhaXQgZm9yIHRoZSBzaGFyZWQgZmVuY2VzIHdoZW4g
-eW91IGV4cG9ydCB0aGUgQk8gZm9yIHRoZSBmaXJzdCAKdGltZSwgYnV0IHRoYXQncyBvbmx5IGEg
-bml0cGljay4KCj4KPiBmdHJhY2UgY29uZmlybXMgdGhlIGk5MTUgZHJpdmVyJ3MgcGFnZWZsaXAg
-ZnVuY3Rpb24gaXMgd2FpdGluZyBvbiB0aGUgCj4gZmVuY2UgaW4gcmVzZXJ2YXRpb25fb2JqZWN0
-X3dhaXRfdGltZW91dF9yY3UoKSBhcyBpdCBzaG91bGQuCj4KPiBUaGF0IGVudHJ5LT50di5zaGFy
-ZWQgbmVlZHMgdG8gYmUgc2V0IGZhbHNlIGZvciBzdWNoIGJ1ZmZlcnMgaW4gCj4gYW1kZ3B1X2Jv
-X2xpc3Rfc2V0KCkgbWFrZXMgc2Vuc2UgdG8gbWUsIGFzIHRoYXQgaXMgcGFydCBvZiB0aGUgYnVm
-ZmVyIAo+IHZhbGlkYXRpb24gZm9yIGNvbW1hbmQgc3RyZWFtIHN1Ym1pc3Npb24uIFRoZXJlIGFy
-ZSBvdGhlciBwbGFjZXMgaW4gCj4gdGhlIGRyaXZlciB3aGVyZSB0di5zaGFyZWQgaXMgc2V0LCB3
-aGljaCBpIGRpZG4ndCBjaGVjayBzbyBmYXIuCj4KPiBJIGRvbid0IGtub3cgd2hpY2ggb2YgdGhl
-c2Ugd291bGQgbmVlZCB0byBiZSB1cGRhdGVkIHdpdGggYSAiZXhwb3J0ZWQgCj4gYm8iIGNoZWNr
-IGFzIHdlbGwsIGUuZy4sIGZvciB2aWRlbyBkZWNvZGluZyBvciBtYXliZSBncHUgY29tcHV0ZT8g
-Cj4gQWRkaW5nIG9yIHJlbW92aW5nIHRoZSBjaGVjayB0byBhbWRncHVfZ2VtX3ZhX3VwZGF0ZV92
-bSgpLCBlLmcuLCBtYWRlIAo+IG5vIGRpZmZlcmVuY2UuIEkgYXNzdW1lIHRoYXQgbWFrZXMgc2Vu
-c2UgYmVjYXVzZSB0aGF0IGZ1bmN0aW9ucyBzZWVtcyAKPiB0byBkZWFsIHdpdGggYW1kZ3B1IGlu
-dGVybmFsIHZtIHBhZ2UgdGFibGVzIG9yIHBhZ2UgdGFibGUgZW50cmllcyBmb3IgCj4gc3VjaCBh
-IGJvLCBub3Qgd2l0aCBzb21ldGhpbmcgdmlzaWJsZSB0byBleHRlcm5hbCBjbGllbnRzPwoKWWVz
-LCBleGFjdGx5LiBWTSB1cGRhdGVzIGRvZXNuJ3QgbWF0dGVyIGZvciBhbnlib2R5IGVsc2UgdGhh
-biBhbWRncHUuIApBZGRpdGlvbmFsIHRvIHRoYXQgd2UgZG9uJ3QgZXZlbiBhZGQgYSBmZW5jZSB0
-byB0aGUgc2hhcmVkIHNsb3Qgd2UgCnJlc2VydmUgKGNvdWxkIHByb2JhYmx5IGRyb3AgdGhhdCBm
-b3Igb3B0aW1pemF0aW9uKS4KClBsZWFzZSByZW1vdmUgdGhlIGRlYnVnZ2luZyBzdHVmZiBhbmQg
-dGhlIGV4dHJhIGNvZGUgb24gdGhlIFZNIHVwZGF0ZXMgCmFuZCBhZGQgYSByZXNlcnZhdGlvbl9v
-YmplY3Rfd2FpdF90aW1lb3V0X3JjdSgpIHRvIHRoZSBleHBvcnQgcGF0aCBhbmQgCndlIHNob3Vs
-ZCBiZSBnb29kIHRvIGdvLgoKUmVnYXJkcywKQ2hyaXN0aWFuLgoKPgo+IEFsbCBpIGNhbiBzYXkg
-aXMgaXQgZml4ZXMgM0QgcmVuZGVyaW5nIHVuZGVyIERSSTMgKyBQcmltZSArIAo+IHBhZ2VmbGlw
-cGluZyB3aXRob3V0IGNhdXNpbmcgYW55IG9idmlvdXMgbmV3IHByb2JsZW1zLgo+Cj4gLW1hcmlv
-CgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--001a11471a14071c2f053ff127a8
+Content-Type: multipart/alternative; boundary=001a11471a14071c29053ff127a6
+
+--001a11471a14071c29053ff127a6
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Hi Mario
+
+That fixes the tearing, it's been replaced with a strange stutter, like
+it's only showing half the number of frames being reported - it's really
+noticeable in tomb raider
+
+Thanks for your work on this, the stutter is much more manageable than the
+tearing was
+
+I've attached the patch that applies cleanly to 4.10-wip
+
+
+
+On Fri, 28 Oct 2016 at 18:37 Mario Kleiner <mario.kleiner.de@gmail.com>
+wrote:
+
+>
+>
+> On 10/28/2016 03:34 AM, Michel D=C3=A4nzer wrote:
+> > On 27/10/16 10:33 PM, Mike Lothian wrote:
+> >>
+> >> Just another gentle ping to see where you are with this?
+> >
+> > I haven't got a chance to look into this any further.
+> >
+> >
+>
+> Fwiw., as a proof of concept, the attached experimental patch does work
+> as tested on Intel HD Haswell + AMD R9 380 Tonga under amdgpu and
+> DRI3/Present when applied to drm-next (updated from a few days ago).
+> With DRI_PRIME=3D1 tearing for page-flipped fullscreen windows is gone
+> under all loads. The tearing with "windowed" windows now looks as
+> expected for regular tearing not related to Prime.
+>
+> ftrace confirms the i915 driver's pageflip function is waiting on the
+> fence in reservation_object_wait_timeout_rcu() as it should.
+>
+> That entry->tv.shared needs to be set false for such buffers in
+> amdgpu_bo_list_set() makes sense to me, as that is part of the buffer
+> validation for command stream submission. There are other places in the
+> driver where tv.shared is set, which i didn't check so far.
+>
+> I don't know which of these would need to be updated with a "exported
+> bo" check as well, e.g., for video decoding or maybe gpu compute? Adding
+> or removing the check to amdgpu_gem_va_update_vm(), e.g., made no
+> difference. I assume that makes sense because that functions seems to
+> deal with amdgpu internal vm page tables or page table entries for such
+> a bo, not with something visible to external clients?
+>
+> All i can say is it fixes 3D rendering under DRI3 + Prime + pageflipping
+> without causing any obvious new problems.
+>
+> -mario
+>
+
+--001a11471a14071c29053ff127a6
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi Mario<div><br></div><div>That fixes the tearing, it&#39=
+;s been replaced with a strange stutter, like it&#39;s only showing half th=
+e number of frames being reported - it&#39;s really noticeable in tomb raid=
+er</div><div><br></div><div>Thanks for your work on this, the stutter is mu=
+ch more manageable than the tearing was</div><div><br></div><div>I&#39;ve a=
+ttached the patch that applies cleanly to 4.10-wip</div><div><br></div><div=
+>=C2=A0<br><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Fri, 28 Oct 2=
+016 at 18:37 Mario Kleiner &lt;<a href=3D"mailto:mario.kleiner.de@gmail.com=
+">mario.kleiner.de@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"g=
+mail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-l=
+eft:1ex"><br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+On 10/28/2016 03:34 AM, Michel D=C3=A4nzer wrote:<br class=3D"gmail_msg">
+&gt; On 27/10/16 10:33 PM, Mike Lothian wrote:<br class=3D"gmail_msg">
+&gt;&gt;<br class=3D"gmail_msg">
+&gt;&gt; Just another gentle ping to see where you are with this?<br class=
+=3D"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+&gt; I haven&#39;t got a chance to look into this any further.<br class=3D"=
+gmail_msg">
+&gt;<br class=3D"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+Fwiw., as a proof of concept, the attached experimental patch does work<br =
+class=3D"gmail_msg">
+as tested on Intel HD Haswell + AMD R9 380 Tonga under amdgpu and<br class=
+=3D"gmail_msg">
+DRI3/Present when applied to drm-next (updated from a few days ago).<br cla=
+ss=3D"gmail_msg">
+With DRI_PRIME=3D1 tearing for page-flipped fullscreen windows is gone<br c=
+lass=3D"gmail_msg">
+under all loads. The tearing with &quot;windowed&quot; windows now looks as=
+<br class=3D"gmail_msg">
+expected for regular tearing not related to Prime.<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+ftrace confirms the i915 driver&#39;s pageflip function is waiting on the<b=
+r class=3D"gmail_msg">
+fence in reservation_object_wait_timeout_rcu() as it should.<br class=3D"gm=
+ail_msg">
+<br class=3D"gmail_msg">
+That entry-&gt;tv.shared needs to be set false for such buffers in<br class=
+=3D"gmail_msg">
+amdgpu_bo_list_set() makes sense to me, as that is part of the buffer<br cl=
+ass=3D"gmail_msg">
+validation for command stream submission. There are other places in the<br =
+class=3D"gmail_msg">
+driver where tv.shared is set, which i didn&#39;t check so far.<br class=3D=
+"gmail_msg">
+<br class=3D"gmail_msg">
+I don&#39;t know which of these would need to be updated with a &quot;expor=
+ted<br class=3D"gmail_msg">
+bo&quot; check as well, e.g., for video decoding or maybe gpu compute? Addi=
+ng<br class=3D"gmail_msg">
+or removing the check to amdgpu_gem_va_update_vm(), e.g., made no<br class=
+=3D"gmail_msg">
+difference. I assume that makes sense because that functions seems to<br cl=
+ass=3D"gmail_msg">
+deal with amdgpu internal vm page tables or page table entries for such<br =
+class=3D"gmail_msg">
+a bo, not with something visible to external clients?<br class=3D"gmail_msg=
+">
+<br class=3D"gmail_msg">
+All i can say is it fixes 3D rendering under DRI3 + Prime + pageflipping<br=
+ class=3D"gmail_msg">
+without causing any obvious new problems.<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+-mario<br class=3D"gmail_msg">
+</blockquote></div></div></div>
+
+--001a11471a14071c29053ff127a6--
+
+--001a11471a14071c2f053ff127a8
+Content-Type: text/x-patch; charset=US-ASCII;
+	name="0001-drm-amdgpu-Attach-exclusive-fence-to-prime-exported-.patch"
+Content-Disposition: attachment;
+	filename="0001-drm-amdgpu-Attach-exclusive-fence-to-prime-exported-.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <1580c9501f771cb66681>
+X-Attachment-Id: 1580c9501f771cb66681
+
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKaW5kZXggMjE3ZGYyNC4uNjc1N2I5OSAxMDA2
+NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKQEAgLTM5MSw2ICszOTEsNyBAQCBzdHJ1Y3Qg
+YW1kZ3B1X2JvIHsKIAl1NjQJCQkJbWV0YWRhdGFfZmxhZ3M7CiAJdm9pZAkJCQkqbWV0YWRhdGE7
+CiAJdTMyCQkJCW1ldGFkYXRhX3NpemU7CisJYm9vbAkJCQlwcmltZV9leHBvcnRlZDsKIAkvKiBs
+aXN0IG9mIGFsbCB2aXJ0dWFsIGFkZHJlc3MgdG8gd2hpY2ggdGhpcyBibwogCSAqIGlzIGFzc29j
+aWF0ZWQgdG8KIAkgKi8KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9ib19saXN0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYm9fbGlz
+dC5jCmluZGV4IDY1MTExNWQuLjZlMWQ3YjMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9ib19saXN0LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2JvX2xpc3QuYwpAQCAtMTMyLDcgKzEzMiwxMCBAQCBzdGF0aWMgaW50IGFtZGdw
+dV9ib19saXN0X3NldChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAkJZW50cnktPnByaW9y
+aXR5ID0gbWluKGluZm9baV0uYm9fcHJpb3JpdHksCiAJCQkJICAgICAgQU1ER1BVX0JPX0xJU1Rf
+TUFYX1BSSU9SSVRZKTsKIAkJZW50cnktPnR2LmJvID0gJmVudHJ5LT5yb2JqLT50Ym87Ci0JCWVu
+dHJ5LT50di5zaGFyZWQgPSB0cnVlOworCQllbnRyeS0+dHYuc2hhcmVkID0gIWVudHJ5LT5yb2Jq
+LT5wcmltZV9leHBvcnRlZDsKKworCQlpZiAoZW50cnktPnJvYmotPnByaW1lX2V4cG9ydGVkKQor
+CQkgICAgRFJNX0RFQlVHX1BSSU1FKCJFeGNsdXNpdmUgZmVuY2UgZm9yIGV4cG9ydGVkIHByaW1l
+IGJvICVwXG4iLCBlbnRyeS0+cm9iaik7CiAKIAkJaWYgKGVudHJ5LT5yb2JqLT5wcmVmZXJlZF9k
+b21haW5zID09IEFNREdQVV9HRU1fRE9NQUlOX0dEUykKIAkJCWdkc19vYmogPSBlbnRyeS0+cm9i
+ajsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYwppbmRleCBjZDYyZjZmLi41
+NDA5OWE1IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2Vt
+LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jCkBAIC01MDQs
+NiArNTA0LDEyIEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9nZW1fdmFfdXBkYXRlX3ZtKHN0cnVjdCBh
+bWRncHVfZGV2aWNlICphZGV2LAogCiAJdHYuYm8gPSAmYm9fdmEtPmJvLT50Ym87CiAJdHYuc2hh
+cmVkID0gdHJ1ZTsKKworCWlmIChib192YS0+Ym8tPnByaW1lX2V4cG9ydGVkKSB7CisJICAgIERS
+TV9ERUJVR19QUklNRSgiVXBkYXRlIGZvciBleHBvcnRlZCBwcmltZSBibyAlcFxuIiwgYm9fdmEt
+PmJvKTsKKwkgICAgLyogdHYuc2hhcmVkID0gZmFsc2U7ICovCisJfQorCiAJbGlzdF9hZGQoJnR2
+LmhlYWQsICZsaXN0KTsKIAogCWFtZGdwdV92bV9nZXRfcGRfYm8oYm9fdmEtPnZtLCAmbGlzdCwg
+JnZtX3BkKTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9w
+cmltZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ByaW1lLmMKaW5kZXgg
+NzcwMGRjMi4uYmZiZmViOSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X3ByaW1lLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3By
+aW1lLmMKQEAgLTEyMSw1ICsxMjEsOCBAQCBzdHJ1Y3QgZG1hX2J1ZiAqYW1kZ3B1X2dlbV9wcmlt
+ZV9leHBvcnQoc3RydWN0IGRybV9kZXZpY2UgKmRldiwKIAlpZiAoYW1kZ3B1X3R0bV90dF9nZXRf
+dXNlcm1tKGJvLT50Ym8udHRtKSkKIAkJcmV0dXJuIEVSUl9QVFIoLUVQRVJNKTsKIAorCWJvLT5w
+cmltZV9leHBvcnRlZCA9IHRydWU7CisJRFJNX0RFQlVHX1BSSU1FKCJFeHBvcnRpbmcgcHJpbWUg
+Ym8gJXBcbiIsIGJvKTsKKwogCXJldHVybiBkcm1fZ2VtX3ByaW1lX2V4cG9ydChkZXYsIGdvYmos
+IGZsYWdzKTsKIH0K
+--001a11471a14071c2f053ff127a8
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--001a11471a14071c2f053ff127a8--
