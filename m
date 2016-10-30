@@ -1,12 +1,14 @@
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+From: Grazvydas Ignotas <notasas-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Subject: Re: [PATCH 1/2] drm/amd/powerplay: export a function to read fan rpm
-Date: Sun, 30 Oct 2016 16:10:28 +1100
-Message-ID: <85ab550e-ccff-6f0c-9a1e-4a9aa2feaf34@folklore1984.net>
+Date: Sun, 30 Oct 2016 17:49:35 +0200
+Message-ID: <CANOLnOPO4e+wLx8Cq0CVuX4N_YhNvDj9wFtCXqQKbWEzF-1ydw@mail.gmail.com>
 References: <1477772939-23619-1-git-send-email-notasas@gmail.com>
+ <85ab550e-ccff-6f0c-9a1e-4a9aa2feaf34@folklore1984.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1812874039=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1477772939-23619-1-git-send-email-notasas-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <85ab550e-ccff-6f0c-9a1e-4a9aa2feaf34-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,142 +19,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Grazvydas Ignotas <notasas-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1812874039==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="ebDQQB1qeKstO91i1ARgWxe6L1tPL8AWA"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---ebDQQB1qeKstO91i1ARgWxe6L1tPL8AWA
-Content-Type: multipart/mixed; boundary="jiiPrJvOUwJkLR242cB1PbubqDULxic8c";
- protected-headers="v1"
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: Grazvydas Ignotas <notasas-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Message-ID: <85ab550e-ccff-6f0c-9a1e-4a9aa2feaf34-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amd/powerplay: export a function to read fan rpm
-References: <1477772939-23619-1-git-send-email-notasas-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-In-Reply-To: <1477772939-23619-1-git-send-email-notasas-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-
---jiiPrJvOUwJkLR242cB1PbubqDULxic8c
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-Howdy,
-
-On 10/30/2016 07:28 AM, Grazvydas Ignotas wrote:
-> Powerplay hwmgr already has an implementation, all we need to do is to =
-call it.
->=20
-> Signed-off-by: Grazvydas Ignotas <notasas-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/powerplay/amd_powerplay.c     | 18 +++++++++++++++=
-+++
->  drivers/gpu/drm/amd/powerplay/inc/amd_powerplay.h |  1 +
->  2 files changed, 19 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gp=
-u/drm/amd/powerplay/amd_powerplay.c
-> index 0b1f220..1f49764 100644
-> --- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
-> +++ b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
-> @@ -582,6 +582,23 @@ static int pp_dpm_get_fan_speed_percent(void *hand=
-le, uint32_t *speed)
->  	return hwmgr->hwmgr_func->get_fan_speed_percent(hwmgr, speed);
->  }
-> =20
-> +static int pp_dpm_get_fan_speed_rpm(void *handle, uint32_t *rpm)
-
-why not type the handle rather than have 'void *' and a coercion (I
-didn't check the call site yet..)
-
-> +{
-> +	struct pp_hwmgr *hwmgr;
-> +
-> +	if (handle =3D=3D NULL)
-
-if (!handle)
-
-> +		return -EINVAL;
-> +
-> +	hwmgr =3D ((struct pp_instance *)handle)->hwmgr;
-> +
-> +	PP_CHECK_HW(hwmgr);
-> +
-> +	if (hwmgr->hwmgr_func->get_fan_speed_rpm =3D=3D NULL)
-
-if (!hwmgr->hwmgr_func->get_fan_speed_rpm)
-
-> +		return -EINVAL;
-> +
-> +	return hwmgr->hwmgr_func->get_fan_speed_rpm(hwmgr, rpm);
-> +}
-> +
->  static int pp_dpm_get_temperature(void *handle)
->  {
->  	struct pp_hwmgr  *hwmgr;
-> @@ -852,6 +869,7 @@ const struct amd_powerplay_funcs pp_dpm_funcs =3D {=
-
->  	.get_fan_control_mode =3D pp_dpm_get_fan_control_mode,
->  	.set_fan_speed_percent =3D pp_dpm_set_fan_speed_percent,
->  	.get_fan_speed_percent =3D pp_dpm_get_fan_speed_percent,
-> +	.get_fan_speed_rpm =3D pp_dpm_get_fan_speed_rpm,
->  	.get_pp_num_states =3D pp_dpm_get_pp_num_states,
->  	.get_pp_table =3D pp_dpm_get_pp_table,
->  	.set_pp_table =3D pp_dpm_set_pp_table,
-> diff --git a/drivers/gpu/drm/amd/powerplay/inc/amd_powerplay.h b/driver=
-s/gpu/drm/amd/powerplay/inc/amd_powerplay.h
-> index eb3e83d..2892b4e 100644
-> --- a/drivers/gpu/drm/amd/powerplay/inc/amd_powerplay.h
-> +++ b/drivers/gpu/drm/amd/powerplay/inc/amd_powerplay.h
-> @@ -349,6 +349,7 @@ struct amd_powerplay_funcs {
->  	int (*get_fan_control_mode)(void *handle);
->  	int (*set_fan_speed_percent)(void *handle, uint32_t percent);
->  	int (*get_fan_speed_percent)(void *handle, uint32_t *speed);
-> +	int (*get_fan_speed_rpm)(void *handle, uint32_t *rpm);
->  	int (*get_pp_num_states)(void *handle, struct pp_states_info *data);
->  	int (*get_pp_table)(void *handle, char **table);
->  	int (*set_pp_table)(void *handle, const char *buf, size_t size);
->=20
-
-
---jiiPrJvOUwJkLR242cB1PbubqDULxic8c--
-
---ebDQQB1qeKstO91i1ARgWxe6L1tPL8AWA
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJYFYDFAAoJEP4bvbfZuWjblH0P/2WLMq+KJswDmm2N3IrVVAmL
-/93Aj+tm3Q3hAcorEXqvgKoO37lWURh7dndz2b7D535jKP0pOmen9oiZugs9I6+N
-QccGhOo9irr0CCQ95nvrXNEUTjabmeDgvCTzlDQdqB/2o8Bz5BmtMeEhA2RVqEO9
-ZebXxEDvvntmXn2xgnOa0Kmv1w4Jy7w7Zngonkn5o4zgh8Gz1Bjr5dDWT01ouW70
-NPkQqyLsZo6JO0qiQ3mNKi6QAzFF/Fr33PEw0u77fIRO7dxiFWGYhBb5vtAQxni1
-pavlV45QT76jErPJSb6NeEy01uQYx+Z29+fu97ZU/1rRevWqAAZP0e4iHWP06Fda
-YILrM8jyaJtYnzt5DOZc1r9Wskge6I0HLnR4MWVTiK7I+UBfQGGwKE9uO8hb4blT
-9CjSNbKQtyCmrKCBZ8r269+CEc/z78+Iv2wE7w+GovdLpplSqIXDxnhtLyTHiUEc
-D6AGrQjlvXvL1GrGyDB4eOB8GkqX6+OmIB+DX6fCkgwnuvAwTRR8l2iiJ7ES5AbJ
-qvCwVnKhZRMWFjTbBPmxgUOf94PeQL5LipQ3jrYia7cKH8RqqifKqDpXMFnykEF9
-X84Bv4Siko4Vb5sAFd6TxClt5mtHTmFbeJHZlI3y1qnC990Wj8UbTlXcsGRNSTy5
-q4gUUu+06DtxYQ7NUn0s
-=1rKU
------END PGP SIGNATURE-----
-
---ebDQQB1qeKstO91i1ARgWxe6L1tPL8AWA--
-
---===============1812874039==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1812874039==--
+SGksCgpPbiBTdW4sIE9jdCAzMCwgMjAxNiBhdCA3OjEwIEFNLCBFZHdhcmQgTydDYWxsYWdoYW4K
+PGZ1bmZ1bmN0b3JAZm9sa2xvcmUxOTg0Lm5ldD4gd3JvdGU6Cj4gSG93ZHksCj4KPiBPbiAxMC8z
+MC8yMDE2IDA3OjI4IEFNLCBHcmF6dnlkYXMgSWdub3RhcyB3cm90ZToKPj4gUG93ZXJwbGF5IGh3
+bWdyIGFscmVhZHkgaGFzIGFuIGltcGxlbWVudGF0aW9uLCBhbGwgd2UgbmVlZCB0byBkbyBpcyB0
+byBjYWxsIGl0Lgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBHcmF6dnlkYXMgSWdub3RhcyA8bm90YXNh
+c0BnbWFpbC5jb20+Cj4+IC0tLQo+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1k
+X3Bvd2VycGxheS5jICAgICB8IDE4ICsrKysrKysrKysrKysrKysrKwo+PiAgZHJpdmVycy9ncHUv
+ZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2FtZF9wb3dlcnBsYXkuaCB8ICAxICsKPj4gIDIgZmlsZXMg
+Y2hhbmdlZCwgMTkgaW5zZXJ0aW9ucygrKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9wb3dlcnBsYXkvYW1kX3Bvd2VycGxheS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9w
+b3dlcnBsYXkvYW1kX3Bvd2VycGxheS5jCj4+IGluZGV4IDBiMWYyMjAuLjFmNDk3NjQgMTAwNjQ0
+Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZF9wb3dlcnBsYXkuYwo+
+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRfcG93ZXJwbGF5LmMKPj4g
+QEAgLTU4Miw2ICs1ODIsMjMgQEAgc3RhdGljIGludCBwcF9kcG1fZ2V0X2Zhbl9zcGVlZF9wZXJj
+ZW50KHZvaWQgKmhhbmRsZSwgdWludDMyX3QgKnNwZWVkKQo+PiAgICAgICByZXR1cm4gaHdtZ3It
+Pmh3bWdyX2Z1bmMtPmdldF9mYW5fc3BlZWRfcGVyY2VudChod21nciwgc3BlZWQpOwo+PiAgfQo+
+Pgo+PiArc3RhdGljIGludCBwcF9kcG1fZ2V0X2Zhbl9zcGVlZF9ycG0odm9pZCAqaGFuZGxlLCB1
+aW50MzJfdCAqcnBtKQo+Cj4gd2h5IG5vdCB0eXBlIHRoZSBoYW5kbGUgcmF0aGVyIHRoYW4gaGF2
+ZSAndm9pZCAqJyBhbmQgYSBjb2VyY2lvbiAoSQo+IGRpZG4ndCBjaGVjayB0aGUgY2FsbCBzaXRl
+IHlldC4uKQoKV2VsbCB0aGUgcmVzdCBvZiB0aGlzIGZpbGUgaXMgd3JpdHRlbiBpbiBzdWNoIGEg
+c3R5bGUsIGFzIHdlbGwgYXMgYWxsCnRoZSBvdGhlciBmdW5jdGlvbiBwb2ludGVycyBoYXZpbmcg
+dm9pZCAqIGhhbmRsZXMgaW4gdGhlIHBvd2VycGxheQp0YWJsZSwgc28gaXQgd291bGQgYmUgYW4g
+b2RkIG9uZSBzdGFuZGluZyBvdXQgZnJvbSB0aGUgb3RoZXJzLiBTYW1lCnRoaW5nIGZvciB0aGUg
+TlVMTCBjaGVja3MuCgo+Cj4+ICt7Cj4+ICsgICAgIHN0cnVjdCBwcF9od21nciAqaHdtZ3I7Cj4+
+ICsKPj4gKyAgICAgaWYgKGhhbmRsZSA9PSBOVUxMKQo+Cj4gaWYgKCFoYW5kbGUpCj4KPj4gKyAg
+ICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsKPj4gKwo+PiArICAgICBod21nciA9ICgoc3RydWN0
+IHBwX2luc3RhbmNlICopaGFuZGxlKS0+aHdtZ3I7Cj4+ICsKPj4gKyAgICAgUFBfQ0hFQ0tfSFco
+aHdtZ3IpOwo+PiArCj4+ICsgICAgIGlmIChod21nci0+aHdtZ3JfZnVuYy0+Z2V0X2Zhbl9zcGVl
+ZF9ycG0gPT0gTlVMTCkKPgo+IGlmICghaHdtZ3ItPmh3bWdyX2Z1bmMtPmdldF9mYW5fc3BlZWRf
+cnBtKQo+Cj4+ICsgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7Cj4+ICsKPj4gKyAgICAgcmV0
+dXJuIGh3bWdyLT5od21ncl9mdW5jLT5nZXRfZmFuX3NwZWVkX3JwbShod21nciwgcnBtKTsKPj4g
+K30KPj4gKwo+PiAgc3RhdGljIGludCBwcF9kcG1fZ2V0X3RlbXBlcmF0dXJlKHZvaWQgKmhhbmRs
+ZSkKPj4gIHsKPj4gICAgICAgc3RydWN0IHBwX2h3bWdyICAqaHdtZ3I7Cj4+IEBAIC04NTIsNiAr
+ODY5LDcgQEAgY29uc3Qgc3RydWN0IGFtZF9wb3dlcnBsYXlfZnVuY3MgcHBfZHBtX2Z1bmNzID0g
+ewo+PiAgICAgICAuZ2V0X2Zhbl9jb250cm9sX21vZGUgPSBwcF9kcG1fZ2V0X2Zhbl9jb250cm9s
+X21vZGUsCj4+ICAgICAgIC5zZXRfZmFuX3NwZWVkX3BlcmNlbnQgPSBwcF9kcG1fc2V0X2Zhbl9z
+cGVlZF9wZXJjZW50LAo+PiAgICAgICAuZ2V0X2Zhbl9zcGVlZF9wZXJjZW50ID0gcHBfZHBtX2dl
+dF9mYW5fc3BlZWRfcGVyY2VudCwKPj4gKyAgICAgLmdldF9mYW5fc3BlZWRfcnBtID0gcHBfZHBt
+X2dldF9mYW5fc3BlZWRfcnBtLAo+PiAgICAgICAuZ2V0X3BwX251bV9zdGF0ZXMgPSBwcF9kcG1f
+Z2V0X3BwX251bV9zdGF0ZXMsCj4+ICAgICAgIC5nZXRfcHBfdGFibGUgPSBwcF9kcG1fZ2V0X3Bw
+X3RhYmxlLAo+PiAgICAgICAuc2V0X3BwX3RhYmxlID0gcHBfZHBtX3NldF9wcF90YWJsZSwKPj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9hbWRfcG93ZXJw
+bGF5LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvYW1kX3Bvd2VycGxheS5o
+Cj4+IGluZGV4IGViM2U4M2QuLjI4OTJiNGUgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvcG93ZXJwbGF5L2luYy9hbWRfcG93ZXJwbGF5LmgKPj4gKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2FtZF9wb3dlcnBsYXkuaAo+PiBAQCAtMzQ5LDYgKzM0OSw3
+IEBAIHN0cnVjdCBhbWRfcG93ZXJwbGF5X2Z1bmNzIHsKPj4gICAgICAgaW50ICgqZ2V0X2Zhbl9j
+b250cm9sX21vZGUpKHZvaWQgKmhhbmRsZSk7Cj4+ICAgICAgIGludCAoKnNldF9mYW5fc3BlZWRf
+cGVyY2VudCkodm9pZCAqaGFuZGxlLCB1aW50MzJfdCBwZXJjZW50KTsKPj4gICAgICAgaW50ICgq
+Z2V0X2Zhbl9zcGVlZF9wZXJjZW50KSh2b2lkICpoYW5kbGUsIHVpbnQzMl90ICpzcGVlZCk7Cj4+
+ICsgICAgIGludCAoKmdldF9mYW5fc3BlZWRfcnBtKSh2b2lkICpoYW5kbGUsIHVpbnQzMl90ICpy
+cG0pOwo+PiAgICAgICBpbnQgKCpnZXRfcHBfbnVtX3N0YXRlcykodm9pZCAqaGFuZGxlLCBzdHJ1
+Y3QgcHBfc3RhdGVzX2luZm8gKmRhdGEpOwo+PiAgICAgICBpbnQgKCpnZXRfcHBfdGFibGUpKHZv
+aWQgKmhhbmRsZSwgY2hhciAqKnRhYmxlKTsKPj4gICAgICAgaW50ICgqc2V0X3BwX3RhYmxlKSh2
+b2lkICpoYW5kbGUsIGNvbnN0IGNoYXIgKmJ1Ziwgc2l6ZV90IHNpemUpOwo+Pgo+Cl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
+aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
