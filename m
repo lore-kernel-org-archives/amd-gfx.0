@@ -1,16 +1,11 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: cleanup amdgpu_cs_ioctl to make code
- logicality clear
-Date: Mon, 31 Oct 2016 10:14:26 +0100
-Message-ID: <34d30f03-b833-ce49-b50b-bf6b81f46886@vodafone.de>
-References: <1477879680-21488-1-git-send-email-ray.huang@amd.com>
- <54bf14e1-8a3c-2710-df52-0f9d82f91a90@vodafone.de>
- <20161031085807.GA3927@hr-amur2>
+From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: remove amdgpu_cs_handle_lockup
+Date: Mon, 31 Oct 2016 17:24:07 +0800
+Message-ID: <1477905847-25731-1-git-send-email-ray.huang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20161031085807.GA3927@hr-amur2>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,27 +16,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
 
-QW0gMzEuMTAuMjAxNiB1bSAwOTo1OCBzY2hyaWViIEh1YW5nIFJ1aToKPiBPbiBNb24sIE9jdCAz
-MSwgMjAxNiBhdCAwMzo1Mzo1MlBNICswODAwLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiBB
-bSAzMS4xMC4yMDE2IHVtIDAzOjA4IHNjaHJpZWIgSHVhbmcgUnVpOgo+Pj4gU2lnbmVkLW9mZi1i
-eTogSHVhbmcgUnVpIDxyYXkuaHVhbmdAYW1kLmNvbT4KPj4gTG9va3MgZ29vZCB0byBtZSwgcGF0
-Y2ggaXMgUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcKPj4gPGNocmlzdGlhbi5rb2VuaWdA
-YW1kLmNvbT4uCj4+Cj4+IEJUVzogYW1kZ3B1X2NzX2hhbmRsZV9sb2NrdXAoKSBpcyBhIGxlZnRv
-dmVyIGZyb20gcmFkZW9uIGFuZCBjYW4gYmUKPj4gcmVtb3ZlZC4gV291bGQgYmUgbmljZSBpZiB5
-b3UgY2FuIHRha2UgY2FyZSBvZiB0aGlzIGFzIHdlbGwuCj4+Cj4gU3VyZS4gYW1kZ3B1X2NzX2hh
-bmRsZV9sb2NrdXAgYWN0dWFsbHkgd2lsbCB0cmlnZ2VyIGEgZ3B1IHJlc2V0IHdoZW4gciA9PQo+
-IC1FREVBRExLLiBJJ20gbm90IHZlcnkgY2xlYXIgd2l0aCB3aHkgd2UgbmVlZG4ndCBncHUgcmVz
-ZXQgb24gdGhhdCBjYXNlCj4geWV0LCBjb3VsZCB5b3UgZXhwbGFpbj8KCk9uIHJhZGVvbiB0aGUg
-ZmVuY2Ugd2FpdCBmdW5jdGlvbiByZXR1cm5lZCAtRURFQURMSyB3aGVuIGl0IGRldGVjdGVkIAp0
-aGF0IHRoZSBoYXJkd2FyZSBpcyBsb2NrZWQgdXAuCgpJbiB0aGUgQ1MgYW5kIEdFTSBJT0NUTHMg
-d2UgdGhlbiBjYXRjaCB0aGlzIGVycm9yLCByZXNldGVkIHRoZSBoYXJkd2FyZSAKYW5kIHRyaWVk
-IGFnYWluLgoKU2luY2Ugd2UgbmV2ZXIgcmV0dXJuIC1FREVBRExLIGFueSBtb3JlIHdlIGNhbiBq
-dXN0IGRyb3AgdGhlIGhhbmRsaW5nIApmb3IgdGhpcy4KClJlZ2FyZHMsCkNocmlzdGlhbi4KCj4K
-PiBUaGFua3MsCj4gUnVpCgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-Cg==
+SW4gZmVuY2Ugd2FpdGluZywgaXQgbmV2ZXIgcmV0dXJuIC1FREVBRExLIHlldCwgc28gZHJvcCB0
+aGlzIGZ1bmN0aW9uCmhlcmUuCgpTaWduZWQtb2ZmLWJ5OiBIdWFuZyBSdWkgPHJheS5odWFuZ0Bh
+bWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jIHwgMTEg
+LS0tLS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCAxMSBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCmluZGV4IGQ3M2RkMWIuLjJjNTU5ZTYgMTAwNjQ0Ci0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCisrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCkBAIC04MzksMTYgKzgzOSw2IEBAIHN0YXRp
+YyBpbnQgYW1kZ3B1X2NzX2liX3ZtX2NodW5rKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAog
+CXJldHVybiBhbWRncHVfY3Nfc3luY19yaW5ncyhwKTsKIH0KIAotc3RhdGljIGludCBhbWRncHVf
+Y3NfaGFuZGxlX2xvY2t1cChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgaW50IHIpCi17Ci0J
+aWYgKHIgPT0gLUVERUFETEspIHsKLQkJciA9IGFtZGdwdV9ncHVfcmVzZXQoYWRldik7Ci0JCWlm
+ICghcikKLQkJCXIgPSAtRUFHQUlOOwotCX0KLQlyZXR1cm4gcjsKLX0KLQogc3RhdGljIGludCBh
+bWRncHVfY3NfaWJfZmlsbChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAkJCSAgICAgc3Ry
+dWN0IGFtZGdwdV9jc19wYXJzZXIgKnBhcnNlcikKIHsKQEAgLTEwODYsNyArMTA3Niw2IEBAIGlu
+dCBhbWRncHVfY3NfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwgc3Ry
+dWN0IGRybV9maWxlICpmaWxwKQogCiBvdXQ6CiAJYW1kZ3B1X2NzX3BhcnNlcl9maW5pKCZwYXJz
+ZXIsIHIsIHJlc2VydmVkX2J1ZmZlcnMpOwotCXIgPSBhbWRncHVfY3NfaGFuZGxlX2xvY2t1cChh
+ZGV2LCByKTsKIAlyZXR1cm4gcjsKIH0KIAotLSAKMi43LjQKCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vYW1kLWdmeAo=
