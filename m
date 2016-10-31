@@ -1,61 +1,43 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple@vodafone.de>
-Subject: Re: [PATCH 1/2] drm/radeon: disable runtime pm in certain cases
-Date: Mon, 31 Oct 2016 16:12:20 +0100
-Message-ID: <08b26706-3b59-e9bb-dd12-68585024ad97@vodafone.de>
-References: <1477926480-13391-1-git-send-email-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: make sure ddc_bus is valid in connector unregister
+Date: Mon, 31 Oct 2016 12:30:46 -0400
+Message-ID: <1477931446-22078-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <1477926480-13391-1-git-send-email-alexander.deucher@amd.com>
-Sender: stable-owner@vger.kernel.org
-To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-Am 31.10.2016 um 16:07 schrieb Alex Deucher:
-> If the platform does not support hybrid graphics or ATPX dGPU
-> power control.
->
-> bug: https://bugzilla.kernel.org/show_bug.cgi?id=51381
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Cc: stable@vger.kernel.org
-
-Acked-by: Christian König <christian.koenig@amd.com> for both.
-
-> ---
->   drivers/gpu/drm/radeon/radeon_device.c | 13 +++++++++++++
->   1 file changed, 13 insertions(+)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-> index 79c9b6f..2be984d 100644
-> --- a/drivers/gpu/drm/radeon/radeon_device.c
-> +++ b/drivers/gpu/drm/radeon/radeon_device.c
-> @@ -104,6 +104,14 @@ static const char radeon_family_name[][16] = {
->   	"LAST",
->   };
->   
-> +#if defined(CONFIG_VGA_SWITCHEROO)
-> +bool radeon_has_atpx_dgpu_power_cntl(void);
-> +bool radeon_is_atpx_hybrid(void);
-> +#else
-> +static inline bool radeon_has_atpx_dgpu_power_cntl(void) { return false; }
-> +static inline bool radeon_is_atpx_hybrid(void) { return false; }
-> +#endif
-> +
->   #define RADEON_PX_QUIRK_DISABLE_PX  (1 << 0)
->   #define RADEON_PX_QUIRK_LONG_WAKEUP (1 << 1)
->   
-> @@ -160,6 +168,11 @@ static void radeon_device_handle_px_quirks(struct radeon_device *rdev)
->   
->   	if (rdev->px_quirk_flags & RADEON_PX_QUIRK_DISABLE_PX)
->   		rdev->flags &= ~RADEON_IS_PX;
-> +
-> +	/* disable PX is the system doesn't support dGPU power control or hybrid gfx */
-> +	if (!radeon_is_atpx_hybrid() &&
-> +	    !radeon_has_atpx_dgpu_power_cntl())
-> +		rdev->flags &= ~RADEON_IS_PX;
->   }
->   
->   /**
+VGhpcyBzaG91bGQgb25seSBoYXBwZW4gb24gYm9hcmRzIFRWIGNvbm5lY3RvcnMgd2hpY2ggZG8g
+bm90CmhhdmUgYSBkZGMgYnVzIGZvciB0aG9zZSBjb25uZWN0b3JzLiAgTm9uZSBvZiB0aGUgYXNp
+Y3Mgc3VwcG9ydGVkCmJ5IGFtZGdwdSBzdXBwb3J0IHR2LCBzbyB3ZSBzaG91bGRuJ3QgaGl0IHRo
+aXMsIGJ1dCBjaGVjawp0byBiZSBvbiB0aGUgc2FmZSBzaWRlIChlLmcuLCBiaW9zIGJ1ZyBmb3Ig
+ZXhhbXBsZSkuCgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVy
+QGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Nvbm5lY3Rv
+cnMuYyB8IDIgKy0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigt
+KQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jb25uZWN0
+b3JzLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY29ubmVjdG9ycy5jCmlu
+ZGV4IGUzMjgxZDQuLjA4NmFhNWMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9jb25uZWN0b3JzLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2Nvbm5lY3RvcnMuYwpAQCAtNzY5LDcgKzc2OSw3IEBAIHN0YXRpYyB2b2lkIGFtZGdw
+dV9jb25uZWN0b3JfdW5yZWdpc3RlcihzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yKQog
+ewogCXN0cnVjdCBhbWRncHVfY29ubmVjdG9yICphbWRncHVfY29ubmVjdG9yID0gdG9fYW1kZ3B1
+X2Nvbm5lY3Rvcihjb25uZWN0b3IpOwogCi0JaWYgKGFtZGdwdV9jb25uZWN0b3ItPmRkY19idXMt
+Pmhhc19hdXgpIHsKKwlpZiAoYW1kZ3B1X2Nvbm5lY3Rvci0+ZGRjX2J1cyAmJiBhbWRncHVfY29u
+bmVjdG9yLT5kZGNfYnVzLT5oYXNfYXV4KSB7CiAJCWRybV9kcF9hdXhfdW5yZWdpc3RlcigmYW1k
+Z3B1X2Nvbm5lY3Rvci0+ZGRjX2J1cy0+YXV4KTsKIAkJYW1kZ3B1X2Nvbm5lY3Rvci0+ZGRjX2J1
+cy0+aGFzX2F1eCA9IGZhbHNlOwogCX0KLS0gCjIuNS41CgpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2FtZC1nZngK
