@@ -1,48 +1,61 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 1/2] drm/radeon: disable runtime pm in certain cases
-Date: Mon, 31 Oct 2016 11:07:59 -0400
-Message-ID: <1477926480-13391-1-git-send-email-alexander.deucher@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple@vodafone.de>
+Subject: Re: [PATCH 1/2] drm/radeon: disable runtime pm in certain cases
+Date: Mon, 31 Oct 2016 16:12:20 +0100
+Message-ID: <08b26706-3b59-e9bb-dd12-68585024ad97@vodafone.de>
+References: <1477926480-13391-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <1477926480-13391-1-git-send-email-alexander.deucher@amd.com>
+Sender: stable-owner@vger.kernel.org
+To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-SWYgdGhlIHBsYXRmb3JtIGRvZXMgbm90IHN1cHBvcnQgaHlicmlkIGdyYXBoaWNzIG9yIEFUUFgg
-ZEdQVQpwb3dlciBjb250cm9sLgoKYnVnOiBodHRwczovL2J1Z3ppbGxhLmtlcm5lbC5vcmcvc2hv
-d19idWcuY2dpP2lkPTUxMzgxCgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRl
-ci5kZXVjaGVyQGFtZC5jb20+CkNjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnCi0tLQogZHJpdmVy
-cy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZGV2aWNlLmMgfCAxMyArKysrKysrKysrKysrCiAxIGZp
-bGUgY2hhbmdlZCwgMTMgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9yYWRlb24vcmFkZW9uX2RldmljZS5jIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25f
-ZGV2aWNlLmMKaW5kZXggNzljOWI2Zi4uMmJlOTg0ZCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL3JhZGVvbi9yYWRlb25fZGV2aWNlLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9y
-YWRlb25fZGV2aWNlLmMKQEAgLTEwNCw2ICsxMDQsMTQgQEAgc3RhdGljIGNvbnN0IGNoYXIgcmFk
-ZW9uX2ZhbWlseV9uYW1lW11bMTZdID0gewogCSJMQVNUIiwKIH07CiAKKyNpZiBkZWZpbmVkKENP
-TkZJR19WR0FfU1dJVENIRVJPTykKK2Jvb2wgcmFkZW9uX2hhc19hdHB4X2RncHVfcG93ZXJfY250
-bCh2b2lkKTsKK2Jvb2wgcmFkZW9uX2lzX2F0cHhfaHlicmlkKHZvaWQpOworI2Vsc2UKK3N0YXRp
-YyBpbmxpbmUgYm9vbCByYWRlb25faGFzX2F0cHhfZGdwdV9wb3dlcl9jbnRsKHZvaWQpIHsgcmV0
-dXJuIGZhbHNlOyB9CitzdGF0aWMgaW5saW5lIGJvb2wgcmFkZW9uX2lzX2F0cHhfaHlicmlkKHZv
-aWQpIHsgcmV0dXJuIGZhbHNlOyB9CisjZW5kaWYKKwogI2RlZmluZSBSQURFT05fUFhfUVVJUktf
-RElTQUJMRV9QWCAgKDEgPDwgMCkKICNkZWZpbmUgUkFERU9OX1BYX1FVSVJLX0xPTkdfV0FLRVVQ
-ICgxIDw8IDEpCiAKQEAgLTE2MCw2ICsxNjgsMTEgQEAgc3RhdGljIHZvaWQgcmFkZW9uX2Rldmlj
-ZV9oYW5kbGVfcHhfcXVpcmtzKHN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2KQogCiAJaWYgKHJk
-ZXYtPnB4X3F1aXJrX2ZsYWdzICYgUkFERU9OX1BYX1FVSVJLX0RJU0FCTEVfUFgpCiAJCXJkZXYt
-PmZsYWdzICY9IH5SQURFT05fSVNfUFg7CisKKwkvKiBkaXNhYmxlIFBYIGlzIHRoZSBzeXN0ZW0g
-ZG9lc24ndCBzdXBwb3J0IGRHUFUgcG93ZXIgY29udHJvbCBvciBoeWJyaWQgZ2Z4ICovCisJaWYg
-KCFyYWRlb25faXNfYXRweF9oeWJyaWQoKSAmJgorCSAgICAhcmFkZW9uX2hhc19hdHB4X2RncHVf
-cG93ZXJfY250bCgpKQorCQlyZGV2LT5mbGFncyAmPSB+UkFERU9OX0lTX1BYOwogfQogCiAvKioK
-LS0gCjIuNS41CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+Am 31.10.2016 um 16:07 schrieb Alex Deucher:
+> If the platform does not support hybrid graphics or ATPX dGPU
+> power control.
+>
+> bug: https://bugzilla.kernel.org/show_bug.cgi?id=51381
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Cc: stable@vger.kernel.org
+
+Acked-by: Christian König <christian.koenig@amd.com> for both.
+
+> ---
+>   drivers/gpu/drm/radeon/radeon_device.c | 13 +++++++++++++
+>   1 file changed, 13 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
+> index 79c9b6f..2be984d 100644
+> --- a/drivers/gpu/drm/radeon/radeon_device.c
+> +++ b/drivers/gpu/drm/radeon/radeon_device.c
+> @@ -104,6 +104,14 @@ static const char radeon_family_name[][16] = {
+>   	"LAST",
+>   };
+>   
+> +#if defined(CONFIG_VGA_SWITCHEROO)
+> +bool radeon_has_atpx_dgpu_power_cntl(void);
+> +bool radeon_is_atpx_hybrid(void);
+> +#else
+> +static inline bool radeon_has_atpx_dgpu_power_cntl(void) { return false; }
+> +static inline bool radeon_is_atpx_hybrid(void) { return false; }
+> +#endif
+> +
+>   #define RADEON_PX_QUIRK_DISABLE_PX  (1 << 0)
+>   #define RADEON_PX_QUIRK_LONG_WAKEUP (1 << 1)
+>   
+> @@ -160,6 +168,11 @@ static void radeon_device_handle_px_quirks(struct radeon_device *rdev)
+>   
+>   	if (rdev->px_quirk_flags & RADEON_PX_QUIRK_DISABLE_PX)
+>   		rdev->flags &= ~RADEON_IS_PX;
+> +
+> +	/* disable PX is the system doesn't support dGPU power control or hybrid gfx */
+> +	if (!radeon_is_atpx_hybrid() &&
+> +	    !radeon_has_atpx_dgpu_power_cntl())
+> +		rdev->flags &= ~RADEON_IS_PX;
+>   }
+>   
+>   /**
