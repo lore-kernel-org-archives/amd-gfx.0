@@ -1,41 +1,41 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: [PATCH] drm/amdgpu: fix crash in acp_hw_init
-Date: Thu,  3 Nov 2016 17:50:15 -0400
-Message-ID: <1478209815-15695-1-git-send-email-alexander.deucher@amd.com>
-Return-path: <stable-owner@vger.kernel.org>
-Sender: stable-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: fix crash in acp_hw_fini
+Date: Thu,  3 Nov 2016 17:51:02 -0400
+Message-ID: <1478209862-15764-1-git-send-email-alexander.deucher@amd.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
 
-On CZ/ST systems with AZ rather than ACP audio, we need to bail
-early in hw_fini since there is nothing to do.
-
-bug: https://bugs.freedesktop.org/show_bug.cgi?id=98276
-
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-index 176c3d7..1130f9d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-@@ -395,9 +395,12 @@ static int acp_hw_fini(void *handle)
- {
- 	int i, ret;
- 	struct device *dev;
--
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 
-+	/* return early if no ACP */
-+	if (!adev->acp.acp_genpd)
-+		return 0;
-+
- 	for (i = 0; i < ACP_DEVS ; i++) {
- 		dev = get_mfd_cell_dev(adev->acp.acp_cell[i].name, i);
- 		ret = pm_genpd_remove_device(&adev->acp.acp_genpd->gpd, dev);
--- 
-2.5.5
+T24gQ1ovU1Qgc3lzdGVtcyB3aXRoIEFaIHJhdGhlciB0aGFuIEFDUCBhdWRpbywgd2UgbmVlZCB0
+byBiYWlsCmVhcmx5IGluIGh3X2Zpbmkgc2luY2UgdGhlcmUgaXMgbm90aGluZyB0byBkby4KCmJ1
+ZzogaHR0cHM6Ly9idWdzLmZyZWVkZXNrdG9wLm9yZy9zaG93X2J1Zy5jZ2k/aWQ9OTgyNzYKClNp
+Z25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KQ2M6
+IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcKLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfYWNwLmMgfCA1ICsrKystCiAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCAx
+IGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2FjcC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FjcC5jCmluZGV4
+IDE3NmMzZDcuLjExMzBmOWQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9hY3AuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYWNw
+LmMKQEAgLTM5NSw5ICszOTUsMTIgQEAgc3RhdGljIGludCBhY3BfaHdfZmluaSh2b2lkICpoYW5k
+bGUpCiB7CiAJaW50IGksIHJldDsKIAlzdHJ1Y3QgZGV2aWNlICpkZXY7Ci0KIAlzdHJ1Y3QgYW1k
+Z3B1X2RldmljZSAqYWRldiA9IChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqKWhhbmRsZTsKIAorCS8q
+IHJldHVybiBlYXJseSBpZiBubyBBQ1AgKi8KKwlpZiAoIWFkZXYtPmFjcC5hY3BfZ2VucGQpCisJ
+CXJldHVybiAwOworCiAJZm9yIChpID0gMDsgaSA8IEFDUF9ERVZTIDsgaSsrKSB7CiAJCWRldiA9
+IGdldF9tZmRfY2VsbF9kZXYoYWRldi0+YWNwLmFjcF9jZWxsW2ldLm5hbWUsIGkpOwogCQlyZXQg
+PSBwbV9nZW5wZF9yZW1vdmVfZGV2aWNlKCZhZGV2LT5hY3AuYWNwX2dlbnBkLT5ncGQsIGRldik7
+Ci0tIAoyLjUuNQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
