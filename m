@@ -1,10 +1,13 @@
-From: Jochen Rollwagen <joro-2013-zqRNUXuvxA0b1SvskN2V4Q@public.gmane.org>
-Subject: [PATCH] Fix RadeonCopyData bpp=2 case for big-endian
-Date: Fri, 4 Nov 2016 09:21:40 +0100
-Message-ID: <581C4514.2040806@t-online.de>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: remove dummy codes
+Date: Fri, 4 Nov 2016 09:52:16 +0100
+Message-ID: <d7965a02-31ba-cc14-0a37-a0debb216d49@vodafone.de>
+References: <1478244748-15866-1-git-send-email-Flora.Cui@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="------------080403050005090306000905"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1478244748-15866-1-git-send-email-Flora.Cui-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -15,119 +18,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Flora Cui <Flora.Cui-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This is a multi-part message in MIME format.
---------------080403050005090306000905
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
- From 66b8b1513464aa3258ae6a024fcaea7a02e2def0 Mon Sep 17 00:00:00 2001
-From: Jochen Rollwagen <joro-2013-zqRNUXuvxA0b1SvskN2V4Q@public.gmane.org>
-Date: Fri, 4 Nov 2016 09:11:38 +0100
-Subject: [PATCH] Fix RadeonCopyData bpp=2 case for big-endian
-
-The current code in RadeonCopyData blocks the bpp=2 case setting 
-swappiness to RADEON_HOST_DATA_SWAP_16BIT.
-This patch fixes this.
----
-  src/radeon_video.c |   10 ++--------
-  1 file changed, 2 insertions(+), 8 deletions(-)
-
-diff --git a/src/radeon_video.c b/src/radeon_video.c
-index d058986..2de0b48 100644
---- a/src/radeon_video.c
-+++ b/src/radeon_video.c
-@@ -198,15 +198,10 @@ RADEONCopyData(
-    unsigned int w,
-    unsigned int bpp
-  ){
--    /* Get the byte-swapping right for big endian systems */
--    if ( bpp == 2 ) {
--    w *= 2;
--    bpp = 1;
--    }
--
--    {
-      int swap = RADEON_HOST_DATA_SWAP_NONE;
-
-+    /* Get the byte-swapping right for big endian systems */
-+
-  #if X_BYTE_ORDER == X_BIG_ENDIAN
-      switch(bpp) {
-      case 2:
-@@ -229,7 +224,6 @@ RADEONCopyData(
-          dst += dstPitch;
-          }
-      }
--    }
-  }
-
-
--- 
-1.7.9.5
-
-
---------------080403050005090306000905
-Content-Type: text/x-patch;
- name="0001-Fix-RadeonCopyData-bpp-2-case-for-big-endian.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
- filename="0001-Fix-RadeonCopyData-bpp-2-case-for-big-endian.patch"
-
->From 66b8b1513464aa3258ae6a024fcaea7a02e2def0 Mon Sep 17 00:00:00 2001
-From: Jochen Rollwagen <joro-2013-zqRNUXuvxA0b1SvskN2V4Q@public.gmane.org>
-Date: Fri, 4 Nov 2016 09:11:38 +0100
-Subject: [PATCH] Fix RadeonCopyData bpp=2 case for big-endian
-
-The current code in RadeonCopyData blocks the bpp=2 case setting swappiness to RADEON_HOST_DATA_SWAP_16BIT.
-This patch fixes this.
----
- src/radeon_video.c |   10 ++--------
- 1 file changed, 2 insertions(+), 8 deletions(-)
-
-diff --git a/src/radeon_video.c b/src/radeon_video.c
-index d058986..2de0b48 100644
---- a/src/radeon_video.c
-+++ b/src/radeon_video.c
-@@ -198,15 +198,10 @@ RADEONCopyData(
-   unsigned int w,
-   unsigned int bpp
- ){
--    /* Get the byte-swapping right for big endian systems */
--    if ( bpp == 2 ) {
--	w *= 2;
--	bpp = 1;
--    }
--
--    {
- 	int swap = RADEON_HOST_DATA_SWAP_NONE;
- 
-+    /* Get the byte-swapping right for big endian systems */
-+    
- #if X_BYTE_ORDER == X_BIG_ENDIAN
- 	switch(bpp) {
- 	case 2:
-@@ -229,7 +224,6 @@ RADEONCopyData(
- 		dst += dstPitch;
- 	    }
- 	}
--    }
- }
- 
- 
--- 
-1.7.9.5
-
-
---------------080403050005090306000905
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---------------080403050005090306000905--
+V2VsbCBjbGVhcmx5IGEgTkFLIG9uIHRoaXMsIHdoeSBkbyB5b3UgdGhpbmsgdGhpcyBpcyBqdXN0
+IGR1bW15IGNvZGU/CgpBbSAwNC4xMS4yMDE2IHVtIDA4OjMyIHNjaHJpZWIgRmxvcmEgQ3VpOgo+
+IENoYW5nZS1JZDogSTMyMzhhMjUyMGM5MTYxYjFjMmY5Y2YxNzYxNThiZGViOWNiMjFjYmIKPiBT
+aWduZWQtb2ZmLWJ5OiBGbG9yYSBDdWkgPEZsb3JhLkN1aUBhbWQuY29tPgo+IC0tLQo+ICAgZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMgfCAxNSArLS0tLS0tLS0tLS0tLS0K
+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIHwgIDQgLS0tLQo+ICAg
+MiBmaWxlcyBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMTggZGVsZXRpb25zKC0pCj4KPiBkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYwo+IGluZGV4IDQwNjg1MDQuLmJlMmFkNzkg
+MTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMKPiAr
+KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYwo+IEBAIC05MTcsMTMg
+KzkxNyw2IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2NzX2liX2ZpbGwoc3RydWN0IGFtZGdwdV9kZXZp
+Y2UgKmFkZXYsCj4gICAKPiAgIAkJCW1lbWNweShpYi0+cHRyLCBrcHRyLCBjaHVua19pYi0+aWJf
+Ynl0ZXMpOwo+ICAgCQkJYW1kZ3B1X2JvX2t1bm1hcChhb2JqKTsKPiAtCQl9IGVsc2Ugewo+IC0J
+CQlyID0gIGFtZGdwdV9pYl9nZXQoYWRldiwgdm0sIDAsIGliKTsKPiAtCQkJaWYgKHIpIHsKPiAt
+CQkJCURSTV9FUlJPUigiRmFpbGVkIHRvIGdldCBpYiAhXG4iKTsKPiAtCQkJCXJldHVybiByOwo+
+IC0JCQl9Cj4gLQoKVGhpcyBpcyB0aGUgSUIgYWxsb2NhdGlvbiBhbmQgaW5pdGlhbGl6YXRpb24g
+Zm9yIHRoZSBWTSBjYXNlIGFuZCB2aXRhbCAKdG8gY29tbWFuZCBzdWJtaXNzaW9uLgoKPiAgIAkJ
+fQo+ICAgCj4gICAJCWliLT5ncHVfYWRkciA9IGNodW5rX2liLT52YV9zdGFydDsKPiBAQCAtMTAw
+OCwyMSArMTAwMSwxNSBAQCBzdGF0aWMgaW50IGFtZGdwdV9jc19zdWJtaXQoc3RydWN0IGFtZGdw
+dV9jc19wYXJzZXIgKnAsCj4gICAJam9iID0gcC0+am9iOwo+ICAgCXAtPmpvYiA9IE5VTEw7Cj4g
+ICAKPiAtCXIgPSBhbWRfc2NoZWRfam9iX2luaXQoJmpvYi0+YmFzZSwgJnJpbmctPnNjaGVkLCBl
+bnRpdHksIHAtPmZpbHApOwo+ICsJciA9IGFtZGdwdV9qb2Jfc3VibWl0KGpvYiwgcmluZywgZW50
+aXR5LCBwLT5maWxwLCAmcC0+ZmVuY2UpOwo+ICAgCWlmIChyKSB7Cj4gICAJCWFtZGdwdV9qb2Jf
+ZnJlZShqb2IpOwo+ICAgCQlyZXR1cm4gcjsKPiAgIAl9Cj4gICAKPiAtCWpvYi0+b3duZXIgPSBw
+LT5maWxwOwo+IC0Jam9iLT5mZW5jZV9jdHggPSBlbnRpdHktPmZlbmNlX2NvbnRleHQ7Cj4gLQlw
+LT5mZW5jZSA9IGZlbmNlX2dldCgmam9iLT5iYXNlLnNfZmVuY2UtPmZpbmlzaGVkKTsKPiAgIAlj
+cy0+b3V0LmhhbmRsZSA9IGFtZGdwdV9jdHhfYWRkX2ZlbmNlKHAtPmN0eCwgcmluZywgcC0+ZmVu
+Y2UpOwo+ICAgCWpvYi0+dWZfc2VxdWVuY2UgPSBjcy0+b3V0LmhhbmRsZTsKPiAtCWFtZGdwdV9q
+b2JfZnJlZV9yZXNvdXJjZXMoam9iKTsKPiAtCj4gICAJdHJhY2VfYW1kZ3B1X2NzX2lvY3RsKGpv
+Yik7Cj4gLQlhbWRfc2NoZWRfZW50aXR5X3B1c2hfam9iKCZqb2ItPmJhc2UpOwoKVGhpcyByZXN1
+bHRzIGluIGEgcmFjZSBjb25kaXRpb24gYmVjYXVzZSB0aGUgam9iIG1pZ2h0IGFscmVhZHkgYmUg
+ZnJlZWQgCmFmdGVyIGFtZGdwdV9qb2Jfc3VibWl0KCkgc3VjY2VlZGVkLgoKPiAgIAo+ICAgCXJl
+dHVybiAwOwo+ICAgfQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfdm0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4gaW5k
+ZXggZDZjMjgzOS4uYzY0NDhlMSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfdm0uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV92bS5jCj4gQEAgLTk2MCwxMCArOTYwLDYgQEAgc3RhdGljIGludCBhbWRncHVfdm1fYm9fdXBk
+YXRlX21hcHBpbmcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gICAKPiAgIAlyaW5nID0g
+Y29udGFpbmVyX29mKHZtLT5lbnRpdHkuc2NoZWQsIHN0cnVjdCBhbWRncHVfcmluZywgc2NoZWQp
+Owo+ICAgCj4gLQltZW1zZXQoJnBhcmFtcywgMCwgc2l6ZW9mKHBhcmFtcykpOwo+IC0JcGFyYW1z
+LmFkZXYgPSBhZGV2Owo+IC0JcGFyYW1zLnNyYyA9IHNyYzsKPiAtCgpUaGlzIGluZGVlZCBsb29r
+cyBsaWtlIGEgZHVwbGljYXRlLCBwcm9iYWJseSBhIGxlZnRvdmVyIG1lcmdlIGlzc3VlLgoKUmVn
+YXJkcywKQ2hyaXN0aWFuLgoKPiAgIAkvKiBzeW5jIHRvIGV2ZXJ5dGhpbmcgb24gdW5tYXBwaW5n
+ICovCj4gICAJaWYgKCEoZmxhZ3MgJiBBTURHUFVfUFRFX1ZBTElEKSkKPiAgIAkJb3duZXIgPSBB
+TURHUFVfRkVOQ0VfT1dORVJfVU5ERUZJTkVEOwoKCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vYW1kLWdmeAo=
