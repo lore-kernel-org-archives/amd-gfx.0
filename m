@@ -1,9 +1,9 @@
 From: Jochen Rollwagen <joro-2013-zqRNUXuvxA0b1SvskN2V4Q@public.gmane.org>
-Subject: [PATCH] Remove RADEON_HOST_DATA_SWAP_HDW case from RadeonCopySwap
-Date: Fri, 4 Nov 2016 09:23:09 +0100
-Message-ID: <581C456D.7010707@t-online.de>
+Subject: [PATCH] Fix RadeonCopyData bpp=2 case for big-endian
+Date: Fri, 4 Nov 2016 09:21:40 +0100
+Message-ID: <581C4514.2040806@t-online.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="------------060503030806010704020805"
+Content-Type: multipart/mixed; boundary="------------080403050005090306000905"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -18,92 +18,109 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
 This is a multi-part message in MIME format.
---------------060503030806010704020805
+--------------080403050005090306000905
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
- From ba45efaafc3cf790c44b905d2f6272ef7830b403 Mon Sep 17 00:00:00 2001
+ From 66b8b1513464aa3258ae6a024fcaea7a02e2def0 Mon Sep 17 00:00:00 2001
 From: Jochen Rollwagen <joro-2013-zqRNUXuvxA0b1SvskN2V4Q@public.gmane.org>
-Date: Fri, 4 Nov 2016 08:39:30 +0100
-Subject: [PATCH] Remove RADEON_HOST_DATA_SWAP_HDW case from RadeonCopySwap
+Date: Fri, 4 Nov 2016 09:11:38 +0100
+Subject: [PATCH] Fix RadeonCopyData bpp=2 case for big-endian
 
-RadeonCopySwap is never called with swap=RADEON_HOST_DATA_SWAP_HDW. 
-Remove the case from the switch for clarity.
+The current code in RadeonCopyData blocks the bpp=2 case setting 
+swappiness to RADEON_HOST_DATA_SWAP_16BIT.
+This patch fixes this.
 ---
-  src/radeon_accel.c |   10 ----------
-  1 file changed, 10 deletions(-)
+  src/radeon_video.c |   10 ++--------
+  1 file changed, 2 insertions(+), 8 deletions(-)
 
-diff --git a/src/radeon_accel.c b/src/radeon_accel.c
-index 1def2a3..af2fc99 100644
---- a/src/radeon_accel.c
-+++ b/src/radeon_accel.c
-@@ -131,16 +131,6 @@ int radeon_cs_space_remaining(ScrnInfoPtr pScrn)
-  void RADEONCopySwap(uint8_t *dst, uint8_t *src, unsigned int size, int 
-swap)
-  {
-      switch(swap) {
--    case RADEON_HOST_DATA_SWAP_HDW:
--        {
--        unsigned int *d = (unsigned int *)dst;
--        unsigned int *s = (unsigned int *)src;
--        unsigned int nwords = size >> 2;
+diff --git a/src/radeon_video.c b/src/radeon_video.c
+index d058986..2de0b48 100644
+--- a/src/radeon_video.c
++++ b/src/radeon_video.c
+@@ -198,15 +198,10 @@ RADEONCopyData(
+    unsigned int w,
+    unsigned int bpp
+  ){
+-    /* Get the byte-swapping right for big endian systems */
+-    if ( bpp == 2 ) {
+-    w *= 2;
+-    bpp = 1;
+-    }
 -
--        for (; nwords > 0; --nwords, ++d, ++s)
--        *d = ((*s & 0xffff) << 16) | ((*s >> 16) & 0xffff);
--        return;
--        }
-      case RADEON_HOST_DATA_SWAP_32BIT:
-          {
-          unsigned int *d = (unsigned int *)dst;
+-    {
+      int swap = RADEON_HOST_DATA_SWAP_NONE;
+
++    /* Get the byte-swapping right for big endian systems */
++
+  #if X_BYTE_ORDER == X_BIG_ENDIAN
+      switch(bpp) {
+      case 2:
+@@ -229,7 +224,6 @@ RADEONCopyData(
+          dst += dstPitch;
+          }
+      }
+-    }
+  }
+
+
 -- 
 1.7.9.5
 
 
-
---------------060503030806010704020805
+--------------080403050005090306000905
 Content-Type: text/x-patch;
- name="0001-Remove-RADEON_HOST_DATA_SWAP_HDW-case-from-RadeonCop.patch"
+ name="0001-Fix-RadeonCopyData-bpp-2-case-for-big-endian.patch"
 Content-Transfer-Encoding: 7bit
 Content-Disposition: attachment;
- filename*0="0001-Remove-RADEON_HOST_DATA_SWAP_HDW-case-from-RadeonCop.pa";
- filename*1="tch"
+ filename="0001-Fix-RadeonCopyData-bpp-2-case-for-big-endian.patch"
 
->From ba45efaafc3cf790c44b905d2f6272ef7830b403 Mon Sep 17 00:00:00 2001
+>From 66b8b1513464aa3258ae6a024fcaea7a02e2def0 Mon Sep 17 00:00:00 2001
 From: Jochen Rollwagen <joro-2013-zqRNUXuvxA0b1SvskN2V4Q@public.gmane.org>
-Date: Fri, 4 Nov 2016 08:39:30 +0100
-Subject: [PATCH] Remove RADEON_HOST_DATA_SWAP_HDW case from RadeonCopySwap
+Date: Fri, 4 Nov 2016 09:11:38 +0100
+Subject: [PATCH] Fix RadeonCopyData bpp=2 case for big-endian
 
-RadeonCopySwap is never called with swap=RADEON_HOST_DATA_SWAP_HDW. Remove the case from the switch for clarity.
+The current code in RadeonCopyData blocks the bpp=2 case setting swappiness to RADEON_HOST_DATA_SWAP_16BIT.
+This patch fixes this.
 ---
- src/radeon_accel.c |   10 ----------
- 1 file changed, 10 deletions(-)
+ src/radeon_video.c |   10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
 
-diff --git a/src/radeon_accel.c b/src/radeon_accel.c
-index 1def2a3..af2fc99 100644
---- a/src/radeon_accel.c
-+++ b/src/radeon_accel.c
-@@ -131,16 +131,6 @@ int radeon_cs_space_remaining(ScrnInfoPtr pScrn)
- void RADEONCopySwap(uint8_t *dst, uint8_t *src, unsigned int size, int swap)
- {
-     switch(swap) {
--    case RADEON_HOST_DATA_SWAP_HDW:
--        {
--	    unsigned int *d = (unsigned int *)dst;
--	    unsigned int *s = (unsigned int *)src;
--	    unsigned int nwords = size >> 2;
+diff --git a/src/radeon_video.c b/src/radeon_video.c
+index d058986..2de0b48 100644
+--- a/src/radeon_video.c
++++ b/src/radeon_video.c
+@@ -198,15 +198,10 @@ RADEONCopyData(
+   unsigned int w,
+   unsigned int bpp
+ ){
+-    /* Get the byte-swapping right for big endian systems */
+-    if ( bpp == 2 ) {
+-	w *= 2;
+-	bpp = 1;
+-    }
 -
--	    for (; nwords > 0; --nwords, ++d, ++s)
--		*d = ((*s & 0xffff) << 16) | ((*s >> 16) & 0xffff);
--	    return;
--        }
-     case RADEON_HOST_DATA_SWAP_32BIT:
-         {
- 	    unsigned int *d = (unsigned int *)dst;
+-    {
+ 	int swap = RADEON_HOST_DATA_SWAP_NONE;
+ 
++    /* Get the byte-swapping right for big endian systems */
++    
+ #if X_BYTE_ORDER == X_BIG_ENDIAN
+ 	switch(bpp) {
+ 	case 2:
+@@ -229,7 +224,6 @@ RADEONCopyData(
+ 		dst += dstPitch;
+ 	    }
+ 	}
+-    }
+ }
+ 
+ 
 -- 
 1.7.9.5
 
 
---------------060503030806010704020805
+--------------080403050005090306000905
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -113,4 +130,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---------------060503030806010704020805--
+--------------080403050005090306000905--
