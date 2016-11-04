@@ -1,10 +1,9 @@
-From: Flora Cui <Flora.Cui-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: remove dummy codes
-Date: Fri, 4 Nov 2016 15:32:28 +0800
-Message-ID: <1478244748-15866-1-git-send-email-Flora.Cui@amd.com>
+From: Jochen Rollwagen <joro-2013-zqRNUXuvxA0b1SvskN2V4Q@public.gmane.org>
+Subject: [PATCH] Remove RADEON_HOST_DATA_SWAP_HDW case from RadeonCopySwap
+Date: Fri, 4 Nov 2016 09:23:09 +0100
+Message-ID: <581C456D.7010707@t-online.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="------------060503030806010704020805"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -17,44 +16,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Flora Cui <Flora.Cui-5C7GfCeVMHo@public.gmane.org>
 
-Q2hhbmdlLUlkOiBJMzIzOGEyNTIwYzkxNjFiMWMyZjljZjE3NjE1OGJkZWI5Y2IyMWNiYgpTaWdu
-ZWQtb2ZmLWJ5OiBGbG9yYSBDdWkgPEZsb3JhLkN1aUBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jIHwgMTUgKy0tLS0tLS0tLS0tLS0tCiBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyB8ICA0IC0tLS0KIDIgZmlsZXMgY2hhbmdl
-ZCwgMSBpbnNlcnRpb24oKyksIDE4IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X2NzLmMKaW5kZXggNDA2ODUwNC4uYmUyYWQ3OSAxMDA2NDQKLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2NzLmMKQEAgLTkxNywxMyArOTE3LDYgQEAgc3RhdGljIGludCBhbWRn
-cHVfY3NfaWJfZmlsbChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAogCQkJbWVtY3B5KGli
-LT5wdHIsIGtwdHIsIGNodW5rX2liLT5pYl9ieXRlcyk7CiAJCQlhbWRncHVfYm9fa3VubWFwKGFv
-YmopOwotCQl9IGVsc2UgewotCQkJciA9ICBhbWRncHVfaWJfZ2V0KGFkZXYsIHZtLCAwLCBpYik7
-Ci0JCQlpZiAocikgewotCQkJCURSTV9FUlJPUigiRmFpbGVkIHRvIGdldCBpYiAhXG4iKTsKLQkJ
-CQlyZXR1cm4gcjsKLQkJCX0KLQogCQl9CiAKIAkJaWItPmdwdV9hZGRyID0gY2h1bmtfaWItPnZh
-X3N0YXJ0OwpAQCAtMTAwOCwyMSArMTAwMSwxNSBAQCBzdGF0aWMgaW50IGFtZGdwdV9jc19zdWJt
-aXQoc3RydWN0IGFtZGdwdV9jc19wYXJzZXIgKnAsCiAJam9iID0gcC0+am9iOwogCXAtPmpvYiA9
-IE5VTEw7CiAKLQlyID0gYW1kX3NjaGVkX2pvYl9pbml0KCZqb2ItPmJhc2UsICZyaW5nLT5zY2hl
-ZCwgZW50aXR5LCBwLT5maWxwKTsKKwlyID0gYW1kZ3B1X2pvYl9zdWJtaXQoam9iLCByaW5nLCBl
-bnRpdHksIHAtPmZpbHAsICZwLT5mZW5jZSk7CiAJaWYgKHIpIHsKIAkJYW1kZ3B1X2pvYl9mcmVl
-KGpvYik7CiAJCXJldHVybiByOwogCX0KIAotCWpvYi0+b3duZXIgPSBwLT5maWxwOwotCWpvYi0+
-ZmVuY2VfY3R4ID0gZW50aXR5LT5mZW5jZV9jb250ZXh0OwotCXAtPmZlbmNlID0gZmVuY2VfZ2V0
-KCZqb2ItPmJhc2Uuc19mZW5jZS0+ZmluaXNoZWQpOwogCWNzLT5vdXQuaGFuZGxlID0gYW1kZ3B1
-X2N0eF9hZGRfZmVuY2UocC0+Y3R4LCByaW5nLCBwLT5mZW5jZSk7CiAJam9iLT51Zl9zZXF1ZW5j
-ZSA9IGNzLT5vdXQuaGFuZGxlOwotCWFtZGdwdV9qb2JfZnJlZV9yZXNvdXJjZXMoam9iKTsKLQog
-CXRyYWNlX2FtZGdwdV9jc19pb2N0bChqb2IpOwotCWFtZF9zY2hlZF9lbnRpdHlfcHVzaF9qb2Io
-JmpvYi0+YmFzZSk7CiAKIAlyZXR1cm4gMDsKIH0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3ZtLmMKaW5kZXggZDZjMjgzOS4uYzY0NDhlMSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3ZtLmMKQEAgLTk2MCwxMCArOTYwLDYgQEAgc3RhdGljIGludCBhbWRncHVfdm1f
-Ym9fdXBkYXRlX21hcHBpbmcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAKIAlyaW5nID0g
-Y29udGFpbmVyX29mKHZtLT5lbnRpdHkuc2NoZWQsIHN0cnVjdCBhbWRncHVfcmluZywgc2NoZWQp
-OwogCi0JbWVtc2V0KCZwYXJhbXMsIDAsIHNpemVvZihwYXJhbXMpKTsKLQlwYXJhbXMuYWRldiA9
-IGFkZXY7Ci0JcGFyYW1zLnNyYyA9IHNyYzsKLQogCS8qIHN5bmMgdG8gZXZlcnl0aGluZyBvbiB1
-bm1hcHBpbmcgKi8KIAlpZiAoIShmbGFncyAmIEFNREdQVV9QVEVfVkFMSUQpKQogCQlvd25lciA9
-IEFNREdQVV9GRU5DRV9PV05FUl9VTkRFRklORUQ7Ci0tIAoyLjcuNAoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+This is a multi-part message in MIME format.
+--------------060503030806010704020805
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+ From ba45efaafc3cf790c44b905d2f6272ef7830b403 Mon Sep 17 00:00:00 2001
+From: Jochen Rollwagen <joro-2013-zqRNUXuvxA0b1SvskN2V4Q@public.gmane.org>
+Date: Fri, 4 Nov 2016 08:39:30 +0100
+Subject: [PATCH] Remove RADEON_HOST_DATA_SWAP_HDW case from RadeonCopySwap
+
+RadeonCopySwap is never called with swap=RADEON_HOST_DATA_SWAP_HDW. 
+Remove the case from the switch for clarity.
+---
+  src/radeon_accel.c |   10 ----------
+  1 file changed, 10 deletions(-)
+
+diff --git a/src/radeon_accel.c b/src/radeon_accel.c
+index 1def2a3..af2fc99 100644
+--- a/src/radeon_accel.c
++++ b/src/radeon_accel.c
+@@ -131,16 +131,6 @@ int radeon_cs_space_remaining(ScrnInfoPtr pScrn)
+  void RADEONCopySwap(uint8_t *dst, uint8_t *src, unsigned int size, int 
+swap)
+  {
+      switch(swap) {
+-    case RADEON_HOST_DATA_SWAP_HDW:
+-        {
+-        unsigned int *d = (unsigned int *)dst;
+-        unsigned int *s = (unsigned int *)src;
+-        unsigned int nwords = size >> 2;
+-
+-        for (; nwords > 0; --nwords, ++d, ++s)
+-        *d = ((*s & 0xffff) << 16) | ((*s >> 16) & 0xffff);
+-        return;
+-        }
+      case RADEON_HOST_DATA_SWAP_32BIT:
+          {
+          unsigned int *d = (unsigned int *)dst;
+-- 
+1.7.9.5
+
+
+
+--------------060503030806010704020805
+Content-Type: text/x-patch;
+ name="0001-Remove-RADEON_HOST_DATA_SWAP_HDW-case-from-RadeonCop.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename*0="0001-Remove-RADEON_HOST_DATA_SWAP_HDW-case-from-RadeonCop.pa";
+ filename*1="tch"
+
+>From ba45efaafc3cf790c44b905d2f6272ef7830b403 Mon Sep 17 00:00:00 2001
+From: Jochen Rollwagen <joro-2013-zqRNUXuvxA0b1SvskN2V4Q@public.gmane.org>
+Date: Fri, 4 Nov 2016 08:39:30 +0100
+Subject: [PATCH] Remove RADEON_HOST_DATA_SWAP_HDW case from RadeonCopySwap
+
+RadeonCopySwap is never called with swap=RADEON_HOST_DATA_SWAP_HDW. Remove the case from the switch for clarity.
+---
+ src/radeon_accel.c |   10 ----------
+ 1 file changed, 10 deletions(-)
+
+diff --git a/src/radeon_accel.c b/src/radeon_accel.c
+index 1def2a3..af2fc99 100644
+--- a/src/radeon_accel.c
++++ b/src/radeon_accel.c
+@@ -131,16 +131,6 @@ int radeon_cs_space_remaining(ScrnInfoPtr pScrn)
+ void RADEONCopySwap(uint8_t *dst, uint8_t *src, unsigned int size, int swap)
+ {
+     switch(swap) {
+-    case RADEON_HOST_DATA_SWAP_HDW:
+-        {
+-	    unsigned int *d = (unsigned int *)dst;
+-	    unsigned int *s = (unsigned int *)src;
+-	    unsigned int nwords = size >> 2;
+-
+-	    for (; nwords > 0; --nwords, ++d, ++s)
+-		*d = ((*s & 0xffff) << 16) | ((*s >> 16) & 0xffff);
+-	    return;
+-        }
+     case RADEON_HOST_DATA_SWAP_32BIT:
+         {
+ 	    unsigned int *d = (unsigned int *)dst;
+-- 
+1.7.9.5
+
+
+--------------060503030806010704020805
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--------------060503030806010704020805--
