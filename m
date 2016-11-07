@@ -1,68 +1,148 @@
-From: Andy Furniss <adf.lists-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: set bypass mode when uvd is idle.
-Date: Mon, 7 Nov 2016 22:29:08 +0000
-Message-ID: <58210034.4050001@gmail.com>
-References: <1478160844-19257-1-git-send-email-Rex.Zhu@amd.com>
- <MWHPR12MB1694C107EE49E6ED48556689F7A30@MWHPR12MB1694.namprd12.prod.outlook.com>
- <CY4PR12MB1687482B47589EC01F8755E4FBA20@CY4PR12MB1687.namprd12.prod.outlook.com>
- <581F9303.80403@gmail.com>
- <MWHPR12MB16940014C3AFE7AEA9B2924AF7A70@MWHPR12MB1694.namprd12.prod.outlook.com>
+From: Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH 1/2] dma-buf: return index of the first signaled fence (v2)
+Date: Tue, 8 Nov 2016 04:12:30 +0530
+Message-ID: <CAO_48GH5Xzc-+wWxpAqcE7t7yjQz7XS=U4M+E-PR_X+RFfvRew@mail.gmail.com>
+References: <1478290570-30982-1-git-send-email-alexander.deucher@amd.com>
+ <CAO_48GGiBXFFqxWg1fUKMVUR13QvwaH5a8eiGrOgeCbUyY0WnA@mail.gmail.com>
+ <CADnq5_Nv+wgCorQ88wQ1Kc-f+nJPFzLoBMBV591zFiw-NMy3Sg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MWHPR12MB16940014C3AFE7AEA9B2924AF7A70-Gy0DoCVfaSW4WA4dJ5YXGAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: multipart/mixed; boundary="===============1012795919=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <CADnq5_Nv+wgCorQ88wQ1Kc-f+nJPFzLoBMBV591zFiw-NMy3Sg@mail.gmail.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, DRI mailing list <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, "monk.liu" <monk.liu@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-RGV1Y2hlciwgQWxleGFuZGVyIHdyb3RlOgo+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLSBG
-cm9tOiBhbWQtZ2Z4Cj4+IFttYWlsdG86YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZ10gT24gQmVoYWxmIE9mIEFuZHkKPj4gRnVybmlzcyBTZW50OiBTdW5kYXksIE5vdmVtYmVy
-IDA2LCAyMDE2IDM6MzEgUE0gVG86IFpodSwgUmV4Owo+PiBEZXVjaGVyLCBBbGV4YW5kZXI7IGFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnIFN1YmplY3Q6IFJlOgo+PiBbUEFUQ0hdIGRybS9h
-bWRncHU6IHNldCBieXBhc3MgbW9kZSB3aGVuIHV2ZCBpcyBpZGxlLgo+Pgo+PiBaaHUsIFJleCB3
-cm90ZToKPj4+Pj4+IElzIHRoZXJlIGFueSBoYXJtIGluIGp1c3QgYWx3YXlzIHB1dHRpbmcgaXQg
-aW50byBieXBhc3MKPj4+Pj4+IG1vZGUgb3IgZG9lcyBpdCBpbnRlcmFjdCBiYWRseSB3aXRoIFBH
-PyAgUHJlc3VtYWJseSBpdCBkb2VzCj4+Pj4+PiAob3RoZXJ3aXNlIHdlIHdvdWxkbid0IG5lZWQg
-dGhpcyBwYXRjaCksIGl0IHdvdWxkIGJlIGdvb2QKPj4+Pj4+IHRvIG5vdGUgd2h5Lgo+Pj4KPj4+
-IFJleDogd2hlbiBVVkQgUEcgZW5hYmxlZCwgRENMSy9WQ0xLIHdpbGwgYmUgdHVybiBvZmYgd2hl
-biB1dmQgaXMKPj4+IGlkbGUoRENMSz1PRkYpLiBJZiB3ZSBzZXQgYnlwYXNzIG1vZGU9MSwgZGNs
-ay92Y2xrIHdpbGwgYmUKPj4+IGJ5cGFzc2VkIHRvIGFuIGV4dGVybmFsIOKAmEJ5cGFzc+KAmSBj
-bG9jayhEQ0xLID0gMTAwTUh6KQo+Pj4KPj4+IFNvIGl0IGlzIHVubmVjZXNzYXJ5IHRvIHNldCBi
-eXBhc3MgbW9kZSB3aGVuIFBHIGVuYWJsZWQuCj4+Pgo+Pj4gK3V2ZF92NV8wX3NldF9ieXBhc3Nf
-bW9kZShhZGV2LCAhZW5hYmxlKTsgVGhpcyBjaGFuZ2UgaXMgYmVjYXVzZQo+Pj4gdG9tJ3MgY29t
-bWl0IDcyY2I2NGMxZjZhM2E4MTI5YWYzNDFlOTA0MThhNjg3YzQ5NzFhNDAgRml4IHRoZQo+Pj4g
-c2VxdWVuY2Ugb2YgVVZEIHBvd2VyZ2F0ZSBmdW5jdGlvbiBpbiBzbXU3X2Nsb2NrZ2F0aW5nLmMu
-Cj4+Cj4+IEkgd2FzIGFib3V0IHRvIGZpbGUgYSBidWcgdGlsbCBJIHRyaWVkIHRoaXMgd2hpY2gg
-Zml4ZXMgVVZEIHBlcmYgb24KPj4gbXkgUjkyODUgKyBhZ2Q1ZiBkcm0tbmV4dC00LjEwLXdpcC4K
-Pj4KPj4gQWRkaXRpb25hbCB1bnJlbGF0ZWQgcXVlc3Rpb24gPSBJIG5vdGljZSB0aGF0IFVWRCBk
-b2VzIG5vdCBzZWVtIHRvCj4+IHNldCBvdGhlciBjbG9ja3MgcXVpdGUgaGlnaCBlbm91Z2ggd2hl
-biB1c2VkLgo+Pgo+PiBGb3IgcGxheWJhY2sgdGhlIHZvIG1heSBidW1wIHRoaW5ncyB1cCBhIGJp
-dCwgYnV0IGV2ZW4gdGhlbiBpdCBjYW4KPj4gYmUgYSBiaXQgYm9yZGVybGluZSBmb3IgcGxheWlu
-ZyBoaWdoIGJpdHJhdGUgVUhEIHdpdGggcG93ZXJwbGF5IG9uCj4+IGF1dG8uCj4+Cj4+IFB1cmUg
-ZGVjb2RlIGJlbmNobWFya3MgbGlrZQo+Pgo+PiBmZm1wZWcgLWh3YWNjZWwgdmRwYXUgLWkgaGln
-aC1iaXRyYXRlLTIxNjBwNjAtdmlkIC1waXhfZm10IG52MTIgLWYKPj4gbnVsbCAtCj4+Cj4+IGdv
-IGZyb20gNjMgLT4gODEgZnBzLCBwb3dlcnBsYXkgYXV0byAtPiBoaWdoLgo+Cj4gVGhlIFVWRCBh
-bmQgZ2Z4IGNsb2NrcyBhcmUgc2VwYXJhdGUuICBUaGUgZ2Z4IGxvYWQgZm9yIHZpZGVvIGRlY29k
-ZQo+IG9wZXJhdGlvbnMgaXMgbm90IGdlbmVyYWxseSBncmVhdCBlbm91Z2ggKENTQyBhbmQgbWF5
-YmUgc2NhbGluZykgdG8KPiBnZW5lcmF0ZSBlbm91Z2ggZ2Z4IGxvYWQgdG8gYm9vc3QgdGhlIGdm
-eCBjbG9ja3MgdG8gdGhlaXIgaGlnaGVzdAo+IGxldmVsLiAgV2UgcGxhbiB0byBhZGQgYW4gQVBJ
-IHRvIGFsbG93IHVzZXJzcGFjZSBhcHBsaWNhdGlvbnMgdG8KPiByZXF1ZXN0IGEgbWluaW11bSBm
-bG9vciBmb3Igc3BlY2lmaWMgY29udGV4dHMsIGJ1dCBpdCBoYXNuJ3QgYmVlbgo+IGltcGxlbWVu
-dGVkIHlldC4gIFRoaXMgaXMgdXNlZnVsIGlmIHlvdSBhcmUgdHJ5aW5nIHRvIGhpdCBtYXhpbXVt
-Cj4gZGVjb2RlIHJhdGVzLCBidXQgbWF5IG5vdCBhbHdheXMgYmUgdGhlIGJlc3QgY2hvaWNlIGZv
-ciBwb3dlciB1c2FnZS4KPiBZb3UgcmVhbGx5IG9ubHkgd2FudCB0byBzZXQgdGhlIGNsb2NrcyBo
-aWdoIGVub3VnaCB0byBoaXQgdGhlIHRhcmdldAo+IGZyYW1lIHJhdGUuCj4KPiBBbGV4CgpPSywg
-dGhhbmtzIGZvciB0aGUgaW5mby4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
-Z2Z4Cg==
+--===============1012795919==
+Content-Type: multipart/alternative; boundary=001a114ba8543ffd2f0540bdbdce
+
+--001a114ba8543ffd2f0540bdbdce
+Content-Type: text/plain; charset=UTF-8
+
+Hi Alex,
+
+On 07-Nov-2016 11:14 PM, "Alex Deucher" <alexdeucher@gmail.com> wrote:
+>
+> On Fri, Nov 4, 2016 at 6:03 PM, Sumit Semwal <sumit.semwal@linaro.org>
+wrote:
+> > Hi Alex,
+> >
+> > Thanks for the patches.
+> >
+> > On 4 November 2016 at 14:16, Alex Deucher <alexdeucher@gmail.com> wrote:
+> >> From: "monk.liu" <monk.liu@amd.com>
+> >>
+> >> Return the index of the first signaled fence.  This information
+> >> is useful in some APIs like Vulkan.
+> >>
+> >> v2: rebase on drm-next (fence -> dma_fence)
+> >>
+> >> Signed-off-by: monk.liu <monk.liu@amd.com>
+> >> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> >> Cc: Sumit Semwal <sumit.semwal@linaro.org>
+> >> ---
+> >>
+> >> This is the same patch set I send out yesterday, I just
+> >> squashed the amdgpu patches together and rebased everything on
+> >> the fence -> dma_fence renaming.  This is used by our VK driver
+> >> and we are planning to use it in mesa as well.
+> >>
+> >
+> > Would you be ok if I apply this and the amdgpu patch both together via
+> > drm-misc, or would you like me to notify you once I merge this for you
+> > to take the amdgpu patch via your tree? I'm fine either ways, but
+> > perhaps drm-misc would be a bit neater.
+> >
+>
+> Either way works for me.  Whatever is easier for you.
+>
+Thanks, will take these and Christian's patches through the  drm-misc tree,
+hopefully today. (returning from LPC and just landed at my home city, 4am
+here, but will hope to push these today! )
+> Alex
+
+Best,
+Sumit.
+
+--001a114ba8543ffd2f0540bdbdce
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<p dir=3D"ltr">Hi Alex, </p>
+<p dir=3D"ltr">On 07-Nov-2016 11:14 PM, &quot;Alex Deucher&quot; &lt;<a hre=
+f=3D"mailto:alexdeucher@gmail.com">alexdeucher@gmail.com</a>&gt; wrote:<br>
+&gt;<br>
+&gt; On Fri, Nov 4, 2016 at 6:03 PM, Sumit Semwal &lt;<a href=3D"mailto:sum=
+it.semwal@linaro.org">sumit.semwal@linaro.org</a>&gt; wrote:<br>
+&gt; &gt; Hi Alex,<br>
+&gt; &gt;<br>
+&gt; &gt; Thanks for the patches.<br>
+&gt; &gt;<br>
+&gt; &gt; On 4 November 2016 at 14:16, Alex Deucher &lt;<a href=3D"mailto:a=
+lexdeucher@gmail.com">alexdeucher@gmail.com</a>&gt; wrote:<br>
+&gt; &gt;&gt; From: &quot;monk.liu&quot; &lt;<a href=3D"mailto:monk.liu@amd=
+.com">monk.liu@amd.com</a>&gt;<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; Return the index of the first signaled fence.=C2=A0 This info=
+rmation<br>
+&gt; &gt;&gt; is useful in some APIs like Vulkan.<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; v2: rebase on drm-next (fence -&gt; dma_fence)<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; Signed-off-by: monk.liu &lt;<a href=3D"mailto:monk.liu@amd.co=
+m">monk.liu@amd.com</a>&gt;<br>
+&gt; &gt;&gt; Signed-off-by: Alex Deucher &lt;<a href=3D"mailto:alexander.d=
+eucher@amd.com">alexander.deucher@amd.com</a>&gt;<br>
+&gt; &gt;&gt; Cc: Sumit Semwal &lt;<a href=3D"mailto:sumit.semwal@linaro.or=
+g">sumit.semwal@linaro.org</a>&gt;<br>
+&gt; &gt;&gt; ---<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; This is the same patch set I send out yesterday, I just<br>
+&gt; &gt;&gt; squashed the amdgpu patches together and rebased everything o=
+n<br>
+&gt; &gt;&gt; the fence -&gt; dma_fence renaming.=C2=A0 This is used by our=
+ VK driver<br>
+&gt; &gt;&gt; and we are planning to use it in mesa as well.<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;<br>
+&gt; &gt; Would you be ok if I apply this and the amdgpu patch both togethe=
+r via<br>
+&gt; &gt; drm-misc, or would you like me to notify you once I merge this fo=
+r you<br>
+&gt; &gt; to take the amdgpu patch via your tree? I&#39;m fine either ways,=
+ but<br>
+&gt; &gt; perhaps drm-misc would be a bit neater.<br>
+&gt; &gt;<br>
+&gt;<br>
+&gt; Either way works for me.=C2=A0 Whatever is easier for you.<br>
+&gt;<br>
+Thanks, will take these and Christian&#39;s patches through the=C2=A0 drm-m=
+isc tree, hopefully today. (returning from LPC and just landed at my home c=
+ity, 4am here, but will hope to push these today! ) <br>
+&gt; Alex</p>
+<p dir=3D"ltr">Best, <br>
+Sumit. <br>
+</p>
+
+--001a114ba8543ffd2f0540bdbdce--
+
+--===============1012795919==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--===============1012795919==--
