@@ -1,7 +1,7 @@
 From: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 2/2] drm/amd/amdgpu: Clean up wave gfx8 helper
-Date: Mon,  7 Nov 2016 10:35:50 -0500
-Message-ID: <20161107153550.15344-3-tom.stdenis@amd.com>
+Subject: [PATCH 1/2] drm/amd/amdgpu: Clean up wave gfx7 helper
+Date: Mon,  7 Nov 2016 10:35:49 -0500
+Message-ID: <20161107153550.15344-2-tom.stdenis@amd.com>
 References: <20161107153550.15344-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
@@ -21,15 +21,15 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 
-RGUtbnVtYmVyaWZ5IGluZGlyZWN0IHJlZ2lzdGVyIGFjY2VzcyBmb3IgZ2Z4IHY4LgoKU2lnbmVk
+RGUtbnVtYmVyaWZ5IGluZGlyZWN0IHJlZ2lzdGVyIGFjY2VzcyBmb3IgZ2Z4IHY3LgoKU2lnbmVk
 LW9mZi1ieTogVG9tIFN0IERlbmlzIDx0b20uc3RkZW5pc0BhbWQuY29tPgotLS0KIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMgfCA2ICsrKysrLQogMSBmaWxlIGNoYW5nZWQs
+Z3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92N18wLmMgfCA2ICsrKysrLQogMSBmaWxlIGNoYW5nZWQs
 IDUgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
-ZnhfdjhfMC5jCmluZGV4IDRmNDZkNzA2Njc1Yi4uOGQxNjY4OTlkZDcwIDEwMDY0NAotLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMKQEAgLTU0NDMsNyArNTQ0MywxMSBAQCBzdGF0aWMgdm9p
-ZCBnZnhfdjhfMF9yaW5nX2VtaXRfZ2RzX3N3aXRjaChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcs
+L2RybS9hbWQvYW1kZ3B1L2dmeF92N18wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
+ZnhfdjdfMC5jCmluZGV4IDRkZGEzZGRiM2ZlYy4uYmQ5YTZjOGM3ZGM1IDEwMDY0NAotLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjdfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2dmeF92N18wLmMKQEAgLTQzNTMsNyArNDM1MywxMSBAQCBzdGF0aWMgdm9p
+ZCBnZnhfdjdfMF9yaW5nX2VtaXRfZ2RzX3N3aXRjaChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcs
 CiAKIHN0YXRpYyB1aW50MzJfdCB3YXZlX3JlYWRfaW5kKHN0cnVjdCBhbWRncHVfZGV2aWNlICph
 ZGV2LCB1aW50MzJfdCBzaW1kLCB1aW50MzJfdCB3YXZlLCB1aW50MzJfdCBhZGRyZXNzKQogewot
 CVdSRUczMihtbVNRX0lORF9JTkRFWCwgKHdhdmUgJiAweEYpIHwgKChzaW1kICYgMHgzKSA8PCA0
