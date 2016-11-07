@@ -1,11 +1,13 @@
 From: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Clean up indirect SQ register accessors for gfx7/8
-Date: Mon,  7 Nov 2016 10:35:48 -0500
-Message-ID: <20161107153550.15344-1-tom.stdenis@amd.com>
+Subject: [PATCH 2/2] drm/amd/amdgpu: Clean up wave gfx8 helper
+Date: Mon,  7 Nov 2016 10:35:50 -0500
+Message-ID: <20161107153550.15344-3-tom.stdenis@amd.com>
+References: <20161107153550.15344-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20161107153550.15344-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,8 +19,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 
-RGVudW1iZXJpZnkgdGhlIHR3byBpbmRpcmVjdCBhY2Nlc3NvcnMgdG8gbWFrZSB0aGUgY29kZSBj
-bGVhbmVyLgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+RGUtbnVtYmVyaWZ5IGluZGlyZWN0IHJlZ2lzdGVyIGFjY2VzcyBmb3IgZ2Z4IHY4LgoKU2lnbmVk
+LW9mZi1ieTogVG9tIFN0IERlbmlzIDx0b20uc3RkZW5pc0BhbWQuY29tPgotLS0KIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMgfCA2ICsrKysrLQogMSBmaWxlIGNoYW5nZWQs
+IDUgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
+ZnhfdjhfMC5jCmluZGV4IDRmNDZkNzA2Njc1Yi4uOGQxNjY4OTlkZDcwIDEwMDY0NAotLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMKQEAgLTU0NDMsNyArNTQ0MywxMSBAQCBzdGF0aWMgdm9p
+ZCBnZnhfdjhfMF9yaW5nX2VtaXRfZ2RzX3N3aXRjaChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcs
+CiAKIHN0YXRpYyB1aW50MzJfdCB3YXZlX3JlYWRfaW5kKHN0cnVjdCBhbWRncHVfZGV2aWNlICph
+ZGV2LCB1aW50MzJfdCBzaW1kLCB1aW50MzJfdCB3YXZlLCB1aW50MzJfdCBhZGRyZXNzKQogewot
+CVdSRUczMihtbVNRX0lORF9JTkRFWCwgKHdhdmUgJiAweEYpIHwgKChzaW1kICYgMHgzKSA8PCA0
+KSB8IChhZGRyZXNzIDw8IDE2KSB8ICgxIDw8IDEzKSk7CisJV1JFRzMyKG1tU1FfSU5EX0lOREVY
+LAorCQkod2F2ZSA8PCBTUV9JTkRfSU5ERVhfX1dBVkVfSURfX1NISUZUKSB8CisJCShzaW1kIDw8
+IFNRX0lORF9JTkRFWF9fU0lNRF9JRF9fU0hJRlQpIHwKKwkJKGFkZHJlc3MgPDwgU1FfSU5EX0lO
+REVYX19JTkRFWF9fU0hJRlQpIHwKKwkJKFNRX0lORF9JTkRFWF9fRk9SQ0VfUkVBRF9NQVNLKSk7
+CiAJcmV0dXJuIFJSRUczMihtbVNRX0lORF9EQVRBKTsKIH0KIAotLSAKMi4xMC4wCgpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
+bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
