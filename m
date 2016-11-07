@@ -1,191 +1,93 @@
-From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: amdgpu: ratelimit on vm faults to avoid spaming console
-Date: Mon, 7 Nov 2016 18:42:12 +0000
-Message-ID: <CY4PR12MB1768E71EFBD0472E7E170B72F7A70@CY4PR12MB1768.namprd12.prod.outlook.com>
-References: <1478493309-30328-1-git-send-email-funfunctor@folklore1984.net>,
- <CADnq5_NG7GcFJxA8mq0-fEE51Jw7TCjYPn68wSMA846tFB8fNQ@mail.gmail.com>
+From: Mario Kleiner <mario.kleiner.de@gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Attach exclusive fence to prime exported
+ bo's. (v3)
+Date: Mon, 7 Nov 2016 20:20:53 +0100
+Message-ID: <2969084b-e63c-a852-c17c-fe7ac9110153@gmail.com>
+References: <1478486854-30715-1-git-send-email-mario.kleiner.de@gmail.com>
+ <aec496f1-9a5d-d7c5-1f6f-bfce991b510e@daenzer.net>
+ <b646067a-71ee-71b8-744c-96b2e96db0b8@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0456307927=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_NG7GcFJxA8mq0-fEE51Jw7TCjYPn68wSMA846tFB8fNQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>, =?iso-8859-1?Q?Nicolai_H=E4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Marek Olsak <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: =?iso-8859-1?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
---===============0456307927==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB1768E71EFBD0472E7E170B72F7A70CY4PR12MB1768namp_"
-
---_000_CY4PR12MB1768E71EFBD0472E7E170B72F7A70CY4PR12MB1768namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Could we provide fault information through a ring buffer and a debugfs or d=
-rm ioctl interface?
-
-
-Tom
-
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Alex Deu=
-cher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Monday, November 7, 2016 13:35
-To: Edward O'Callaghan; Nicolai H=E4hnle; Marek Olsak
-Cc: Michel D=E4nzer; amd-gfx list
-Subject: Re: amdgpu: ratelimit on vm faults to avoid spaming console
-
-On Sun, Nov 6, 2016 at 11:35 PM, Edward O'Callaghan
-<funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org> wrote:
-> These are rather minor however should help stop some folks
-> machines grinding to a halt when a userspace application somehow
-> gets the GPU into some horrible state causing the console to fill
-> very quickly. Applies on top of master.
-
-I'm generally ok with the idea.  My only concern would be if this
-would adversely affect the radeon GPUVM debugging options in mesa and
-piglit. Nicolai? Marek?
-
-Alex
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-amd-gfx Info Page - lists.freedesktop.org<https://lists.freedesktop.org/mai=
-lman/listinfo/amd-gfx>
-lists.freedesktop.org
-To see the collection of prior postings to the list, visit the amd-gfx Arch=
-ives. Using amd-gfx: To post a message to all the list members, send email =
-...
-
-
-
-
---_000_CY4PR12MB1768E71EFBD0472E7E170B72F7A70CY4PR12MB1768namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Arial,Helvetica,sans-serif;" dir=3D"ltr">
-<p>Could we provide fault information through a ring buffer and a debugfs o=
-r drm ioctl interface?</p>
-<p><br>
-</p>
-<p>Tom</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Alex Deucher &lt;alexdeuche=
-r@gmail.com&gt;<br>
-<b>Sent:</b> Monday, November 7, 2016 13:35<br>
-<b>To:</b> Edward O'Callaghan; Nicolai H=E4hnle; Marek Olsak<br>
-<b>Cc:</b> Michel D=E4nzer; amd-gfx list<br>
-<b>Subject:</b> Re: amdgpu: ratelimit on vm faults to avoid spaming console=
-</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">On Sun, Nov 6, 2016 at 11:35 PM, Edward O'Callagha=
-n<br>
-&lt;funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org&gt; wrote:<br>
-&gt; These are rather minor however should help stop some folks<br>
-&gt; machines grinding to a halt when a userspace application somehow<br>
-&gt; gets the GPU into some horrible state causing the console to fill<br>
-&gt; very quickly. Applies on top of master.<br>
-<br>
-I'm generally ok with the idea.&nbsp; My only concern would be if this<br>
-would adversely affect the radeon GPUVM debugging options in mesa and<br>
-piglit. Nicolai? Marek?<br>
-<br>
-Alex<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk579816" previewremoved=3D"true">https://lists.freedesktop.org/mailman/li=
-stinfo/amd-gfx</a>
-<div id=3D"LPBorder_GT_14785440992340.6054453351200089" style=3D"margin-bot=
-tom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
-<table id=3D"LPContainer_14785440992320.1566381865079014" cellspacing=3D"0"=
- style=3D"width: 90%; background-color: rgb(255, 255, 255); position: relat=
-ive; overflow: auto; padding-top: 20px; padding-bottom: 20px; margin-top: 2=
-0px; border-top: 1px dotted rgb(200, 200, 200); border-bottom: 1px dotted r=
-gb(200, 200, 200);">
-<tbody>
-<tr valign=3D"top" style=3D"border-spacing: 0px;">
-<td id=3D"TextCell_14785440992330.6501901400933325" colspan=3D"2" style=3D"=
-vertical-align: top; position: relative; padding: 0px; display: table-cell;=
-">
-<div id=3D"LPRemovePreviewContainer_14785440992330.028717221349876754"></di=
-v>
-<div id=3D"LPTitle_14785440992330.4408640782321278" style=3D"top: 0px; colo=
-r: rgb(59, 87, 119); font-weight: normal; font-size: 21px; font-family: wf_=
-segoe-ui_light, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&quot;, &qu=
-ot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif; line-he=
-ight: 21px;">
-<a id=3D"LPUrlAnchor_14785440992330.7137225661684092" href=3D"https://lists=
-.freedesktop.org/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"text-=
-decoration: none;">amd-gfx Info Page - lists.freedesktop.org</a></div>
-<div id=3D"LPMetadata_14785440992340.5134728364532262" style=3D"margin: 10p=
-x 0px 16px; color: rgb(102, 102, 102); font-weight: normal; font-family: wf=
-_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial=
-, sans-serif; font-size: 14px; line-height: 14px;">
-lists.freedesktop.org</div>
-<div id=3D"LPDescription_14785440992340.6803326765635758" style=3D"display:=
- block; color: rgb(102, 102, 102); font-weight: normal; font-family: wf_seg=
-oe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sa=
-ns-serif; font-size: 14px; line-height: 20px; max-height: 100px; overflow: =
-hidden;">
-To see the collection of prior postings to the list, visit the amd-gfx Arch=
-ives. Using amd-gfx: To post a message to all the list members, send email =
-...</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB1768E71EFBD0472E7E170B72F7A70CY4PR12MB1768namp_--
-
---===============0456307927==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <b646067a-71ee-71b8-744c-96b2e96db0b8@vodafone.de>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple@vodafone.de>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0456307927==--
+T24gMTEvMDcvMjAxNiAwODo1NSBBTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBBbSAwNy4x
+MS4yMDE2IHVtIDA0OjI5IHNjaHJpZWIgTWljaGVsIETDpG56ZXI6Cj4+IE9uIDA3LzExLzE2IDEx
+OjQ3IEFNLCBNYXJpbyBLbGVpbmVyIHdyb3RlOgo+Pj4gRXh0ZXJuYWwgY2xpZW50cyB3aGljaCBp
+bXBvcnQgb3VyIGJvJ3Mgd2FpdCBvbmx5Cj4+PiBmb3IgZXhjbHVzaXZlIGRtYWJ1Zi1mZW5jZXMs
+IG5vdCBvbiBzaGFyZWQgb25lcywKPj4+IHNvIGF0dGFjaCBmZW5jZXMgb24gZXhwb3J0ZWQgYnVm
+ZmVycyBhcyBleGNsdXNpdmUKPj4+IG9uZXMsIGlmIHRoZSBidWZmZXJzIGdldCBpbXBvcnRlZCBi
+eSBhbiBleHRlcm5hbAo+Pj4gY2xpZW50Lgo+Pj4KPj4+IFNlZSBkaXNjdXNzaW9uIGluIHRocmVh
+ZDoKPj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL2FyY2hpdmVzL2RyaS1kZXZlbC8y
+MDE2LU9jdG9iZXIvMTIyMzcwLmh0bWwKPj4+Cj4+Pgo+Pj4gVGVzdGVkIG9uIEludGVsIGlHUFUg
+KyBBTUQgVG9uZ2EgZEdQVSBhcyBEUkkzL1ByZXNlbnQKPj4+IFByaW1lIHJlbmRlciBvZmZsb2Fk
+LCBhbmQgd2l0aCB0aGUgVG9uZ2Egc3RhbmRhbG9uZSBhcwo+Pj4gcHJpbWFyeSBncHUuCj4+Pgo+
+Pj4gdjI6IEFkZCBhIHdhaXQgZm9yIGFsbCBzaGFyZWQgZmVuY2VzIGJlZm9yZSBwcmltZSBleHBv
+cnQsCj4+PiAgICAgIGFzIHN1Z2dlc3RlZCBieSBDaHJpc3RpYW4gS29lbmlnLgo+Pj4KPj4+IHYz
+OiAtIE1hcmsgYnVmZmVyIHByaW1lX2V4cG9ydGVkIGluIGFtZGdwdV9nZW1fcHJpbWVfcGluLAo+
+Pj4gICAgICBzbyB3ZSBvbmx5IHVzZSB0aGUgZXhjbHVzaXZlIGZlbmNlIHdoZW4gZXhwb3J0aW5n
+IGEKPj4+ICAgICAgYm8gdG8gZXh0ZXJuYWwgY2xpZW50cyBsaWtlIGEgc2VwYXJhdGUgaUdQVSwg
+YnV0IG5vdAo+Pj4gICAgICB3aGVuIGV4cG9ydGluZy9pbXBvcnRpbmcgZnJvbS90byBvdXJzZWx2
+ZXMgYXMgcGFydCBvZgo+Pj4gICAgICByZWd1bGFyIERSSTMgZmQgcGFzc2luZy4KPj4+Cj4+PiAg
+ICAgIC0gUHJvcGFnYXRlIGZhaWx1cmUgb2YgcmVzZXJ2YXRpb25fb2JqZWN0X3dhaXRfcmN1IGJh
+Y2sKPj4+ICAgICAgdG8gY2FsbGVyLgo+Pj4KPj4+IEJ1Z3ppbGxhOiBodHRwczovL2J1Z3MuZnJl
+ZWRlc2t0b3Aub3JnL3Nob3dfYnVnLmNnaT9pZD05NTQ3Mgo+Pj4gKHYxKSBUZXN0ZWQtYnk6IE1p
+a2UgTG90aGlhbiA8bWlrZUBmaXJlYnVybi5jby51az4KPj4gRldJVywgSSB0aGluayB0aGUgKHYx
+KSBpcyB1c3VhbGx5IGFkZGVkIGF0IHRoZSBlbmQgb2YgdGhlIGxpbmUsIG5vdCBhdAo+PiB0aGUg
+YmVnaW5uaW5nLgoKT2suCgo+Pgo+PiBbLi4uXQo+Pgo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wcmltZS5jCj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9wcmltZS5jCj4+PiBpbmRleCA3NzAwZGMyLi5jNDQ5NGQwIDEwMDY0
+NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ByaW1lLmMKPj4+
+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wcmltZS5jCj4+PiBAQCAt
+ODEsNiArODEsMjAgQEAgaW50IGFtZGdwdV9nZW1fcHJpbWVfcGluKHN0cnVjdCBkcm1fZ2VtX29i
+amVjdCAqb2JqKQo+Pj4gICB7Cj4+PiAgICAgICBzdHJ1Y3QgYW1kZ3B1X2JvICpibyA9IGdlbV90
+b19hbWRncHVfYm8ob2JqKTsKPj4+ICAgICAgIGludCByZXQgPSAwOwo+Pj4gKyAgICBsb25nIGxy
+ZXQ7Cj4+PiArCj4+PiArICAgIC8qCj4+PiArICAgICAqIFdhaXQgZm9yIGFsbCBzaGFyZWQgZmVu
+Y2VzIHRvIGNvbXBsZXRlIGJlZm9yZSB3ZSBzd2l0Y2ggdG8KPj4+IGZ1dHVyZQo+Pj4gKyAgICAg
+KiB1c2Ugb2YgZXhjbHVzaXZlIGZlbmNlIG9uIHRoaXMgcHJpbWVfZXhwb3J0ZWQgYm8uCj4+PiAr
+ICAgICAqLwo+Pj4gKyAgICBscmV0ID0gcmVzZXJ2YXRpb25fb2JqZWN0X3dhaXRfdGltZW91dF9y
+Y3UoYm8tPnRiby5yZXN2LCB0cnVlLAo+Pj4gZmFsc2UsCj4+PiArICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgTUFYX1NDSEVEVUxFX1RJTUVPVVQpOwo+Pj4gKyAgICBpZiAodW5saWtlbHkobHJl
+dCA8IDApKSB7Cj4+PiArICAgICAgICBEUk1fREVCVUdfUFJJTUUoIkZlbmNlIHdhaXQgZmFpbGVk
+OiAlbGlcbiIsIGxyZXQpOwo+Pj4gKyAgICAgICAgcmV0dXJuIGxyZXQ7Cj4+PiArICAgIH0KPj4+
+ICsKPj4+ICsgICAgYm8tPnByaW1lX2V4cG9ydGVkID0gdHJ1ZTsKPj4gV2Ugc2hvdWxkIHByb2Jh
+Ymx5IGNsZWFyIGJvLT5wcmltZV9leHBvcnRlZCBpbiBhbWRncHVfZ2VtX3ByaW1lX3VucGluLgo+
+Pgo+PiBBbHNvLCBJIHRoaW5rIHdlIHNob3VsZCBzZXQgYm8tPnByaW1lX2V4cG9ydGVkIChwcmlt
+ZV9zaGFyZWQ/KSBpbgo+PiBhbWRncHVfZ2VtX3ByaW1lX2ltcG9ydF9zZ190YWJsZSBhcyB3ZWxs
+LCBzbyB0aGF0IHdlJ2xsIGFsc28gc2V0Cj4+IGV4Y2x1c2l2ZSBmZW5jZXMgb24gQk9zIGltcG9y
+dGVkIGZyb20gb3RoZXIgR1BVcy4KPiBZZXMsIHJlYWxseSBnb29kIGlkZWEuCj4KCk9rLiBJIGd1
+ZXNzIHdlIGRvbid0IG5lZWQgdG8gd2FpdCBmb3IgZmVuY2VzIHRoZXJlIGJlZm9yZSBzZXR0aW5n
+IHRoZSAKZmxhZy9jb3VudGVyLCBhcyB3ZSBjYW4ndCBoYXZlIGRvbmUgYW55dGhpbmcgeWV0IHdp
+dGggdGhlIGJvIGp1c3QgCmNyZWF0ZWQgZnJvbSB0aGUgaW1wb3J0ZWQgc2dfdGFibGU/Cgo+IEFk
+ZGl0aW9uYWwgdG8gdGhhdCBhcmUgd2Ugc3VyZSB0aGF0IGFtZGdwdV9nZW1fcHJpbWVfcGluKCkg
+aXMgb25seQo+IGNhbGxlZCBvbmNlIGZvciBlYWNoIEdFTSBvYmplY3Q/IENvdWxkIGluIHRoZW9y
+eSBiZSB0aGF0IHNvbWVib2R5Cj4gZXhwb3J0cyBhIEJPIHRvIGFub3RoZXIgR0ZYIGRldmljZSBh
+cyB3ZWxsIGFzIGEgVjRMIGRldmljZSBmb3IgZXhhbXBsZS4KPgo+IEluIHRoaXMgY2FzZSB3ZSB3
+b3VsZCBuZWVkIGEgY291bnRlciwgYnV0IEkgbmVlZCB0byBkb3VibGUgY2hlY2sgdGhhdCBhcwo+
+IHdlbGwuCj4KCklmIHdlIHdhbnQgdG8gY2xlYXIgdGhlIHByaW1lX2V4cG9ydGVkIGZsYWcgaW4g
+YW1kZ3B1X2dlbV9wcmltZV91bnBpbigpIAphcyBhbiBvcHRpbWl6YXRpb24gaWYgYWxsIGNsaWVu
+dHMgZGV0YWNoIGZyb20gdGhlIGJ1ZmZlciwgdGhlbiB3ZSBuZWVkIGEgCnByaW1lX3NoYXJlZF9j
+b3VudGVyIGluc3RlYWQgb2YgYSBwcmltZV9leHBvcnRlZCBmbGFnIGFmYWljcy4gVGhlIGRtYWJ1
+ZiAKYXBpIGFsbG93cyBtdWx0aXBsZSBjbGllbnRzIHRvIGltcG9ydCBhbmQgYXR0YWNoIHRvIGFu
+IGV4cG9ydGVkIGRtYWJ1ZiwgCmVhY2ggb25lIGNhbGxpbmcgZG1hX2J1Zl9hdHRhY2ggd2hpY2gg
+d2lsbCBjYWxsIGFtZGdwdV9nZW1fcHJpbWVfcGluLgoKCj4gSW4gZ2VuZXJhbCBJIHdvdWxkIHBy
+b3RlY3RlZCB0aGUgZmxhZy9jb3VudGVyIGJ5IHRoZSBCTyBiZWluZyByZXNlcnZlZAo+IHRvIGF2
+b2lkIGFueSByYWNlcy4gSW4gb3RoZXIgd29yZCBtb3ZlIHRob3NlIGxpbmVzIGEgYml0IGRvd24g
+YWZ0ZXIgdGhlCj4gYW1kZ3B1X2JvX3Jlc2VydmUoKS4KCk9rLgoKLW1hcmlvCgo+Cj4gUmVnYXJk
+cywKPiBDaHJpc3RpYW4uCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1k
+ZXZlbAo=
