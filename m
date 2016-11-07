@@ -1,148 +1,51 @@
-From: Sumit Semwal <sumit.semwal@linaro.org>
-Subject: Re: [PATCH 1/2] dma-buf: return index of the first signaled fence (v2)
-Date: Tue, 8 Nov 2016 04:12:30 +0530
-Message-ID: <CAO_48GH5Xzc-+wWxpAqcE7t7yjQz7XS=U4M+E-PR_X+RFfvRew@mail.gmail.com>
-References: <1478290570-30982-1-git-send-email-alexander.deucher@amd.com>
- <CAO_48GGiBXFFqxWg1fUKMVUR13QvwaH5a8eiGrOgeCbUyY0WnA@mail.gmail.com>
- <CADnq5_Nv+wgCorQ88wQ1Kc-f+nJPFzLoBMBV591zFiw-NMy3Sg@mail.gmail.com>
+From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu: access stolen VRAM directly on KV/KB
+Date: Mon, 7 Nov 2016 17:02:14 -0500
+Message-ID: <1bb11732-507e-24aa-541b-f56f3856a0d4@amd.com>
+References: <1478510481-1768-1-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1012795919=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <CADnq5_Nv+wgCorQ88wQ1Kc-f+nJPFzLoBMBV591zFiw-NMy3Sg@mail.gmail.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, DRI mailing list <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, "monk.liu" <monk.liu@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
-
---===============1012795919==
-Content-Type: multipart/alternative; boundary=001a114ba8543ffd2f0540bdbdce
-
---001a114ba8543ffd2f0540bdbdce
-Content-Type: text/plain; charset=UTF-8
-
-Hi Alex,
-
-On 07-Nov-2016 11:14 PM, "Alex Deucher" <alexdeucher@gmail.com> wrote:
->
-> On Fri, Nov 4, 2016 at 6:03 PM, Sumit Semwal <sumit.semwal@linaro.org>
-wrote:
-> > Hi Alex,
-> >
-> > Thanks for the patches.
-> >
-> > On 4 November 2016 at 14:16, Alex Deucher <alexdeucher@gmail.com> wrote:
-> >> From: "monk.liu" <monk.liu@amd.com>
-> >>
-> >> Return the index of the first signaled fence.  This information
-> >> is useful in some APIs like Vulkan.
-> >>
-> >> v2: rebase on drm-next (fence -> dma_fence)
-> >>
-> >> Signed-off-by: monk.liu <monk.liu@amd.com>
-> >> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> >> Cc: Sumit Semwal <sumit.semwal@linaro.org>
-> >> ---
-> >>
-> >> This is the same patch set I send out yesterday, I just
-> >> squashed the amdgpu patches together and rebased everything on
-> >> the fence -> dma_fence renaming.  This is used by our VK driver
-> >> and we are planning to use it in mesa as well.
-> >>
-> >
-> > Would you be ok if I apply this and the amdgpu patch both together via
-> > drm-misc, or would you like me to notify you once I merge this for you
-> > to take the amdgpu patch via your tree? I'm fine either ways, but
-> > perhaps drm-misc would be a bit neater.
-> >
->
-> Either way works for me.  Whatever is easier for you.
->
-Thanks, will take these and Christian's patches through the  drm-misc tree,
-hopefully today. (returning from LPC and just landed at my home city, 4am
-here, but will hope to push these today! )
-> Alex
-
-Best,
-Sumit.
-
---001a114ba8543ffd2f0540bdbdce
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<p dir=3D"ltr">Hi Alex, </p>
-<p dir=3D"ltr">On 07-Nov-2016 11:14 PM, &quot;Alex Deucher&quot; &lt;<a hre=
-f=3D"mailto:alexdeucher@gmail.com">alexdeucher@gmail.com</a>&gt; wrote:<br>
-&gt;<br>
-&gt; On Fri, Nov 4, 2016 at 6:03 PM, Sumit Semwal &lt;<a href=3D"mailto:sum=
-it.semwal@linaro.org">sumit.semwal@linaro.org</a>&gt; wrote:<br>
-&gt; &gt; Hi Alex,<br>
-&gt; &gt;<br>
-&gt; &gt; Thanks for the patches.<br>
-&gt; &gt;<br>
-&gt; &gt; On 4 November 2016 at 14:16, Alex Deucher &lt;<a href=3D"mailto:a=
-lexdeucher@gmail.com">alexdeucher@gmail.com</a>&gt; wrote:<br>
-&gt; &gt;&gt; From: &quot;monk.liu&quot; &lt;<a href=3D"mailto:monk.liu@amd=
-.com">monk.liu@amd.com</a>&gt;<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; Return the index of the first signaled fence.=C2=A0 This info=
-rmation<br>
-&gt; &gt;&gt; is useful in some APIs like Vulkan.<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; v2: rebase on drm-next (fence -&gt; dma_fence)<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; Signed-off-by: monk.liu &lt;<a href=3D"mailto:monk.liu@amd.co=
-m">monk.liu@amd.com</a>&gt;<br>
-&gt; &gt;&gt; Signed-off-by: Alex Deucher &lt;<a href=3D"mailto:alexander.d=
-eucher@amd.com">alexander.deucher@amd.com</a>&gt;<br>
-&gt; &gt;&gt; Cc: Sumit Semwal &lt;<a href=3D"mailto:sumit.semwal@linaro.or=
-g">sumit.semwal@linaro.org</a>&gt;<br>
-&gt; &gt;&gt; ---<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; This is the same patch set I send out yesterday, I just<br>
-&gt; &gt;&gt; squashed the amdgpu patches together and rebased everything o=
-n<br>
-&gt; &gt;&gt; the fence -&gt; dma_fence renaming.=C2=A0 This is used by our=
- VK driver<br>
-&gt; &gt;&gt; and we are planning to use it in mesa as well.<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;<br>
-&gt; &gt; Would you be ok if I apply this and the amdgpu patch both togethe=
-r via<br>
-&gt; &gt; drm-misc, or would you like me to notify you once I merge this fo=
-r you<br>
-&gt; &gt; to take the amdgpu patch via your tree? I&#39;m fine either ways,=
- but<br>
-&gt; &gt; perhaps drm-misc would be a bit neater.<br>
-&gt; &gt;<br>
-&gt;<br>
-&gt; Either way works for me.=C2=A0 Whatever is easier for you.<br>
-&gt;<br>
-Thanks, will take these and Christian&#39;s patches through the=C2=A0 drm-m=
-isc tree, hopefully today. (returning from LPC and just landed at my home c=
-ity, 4am here, but will hope to push these today! ) <br>
-&gt; Alex</p>
-<p dir=3D"ltr">Best, <br>
-Sumit. <br>
-</p>
-
---001a114ba8543ffd2f0540bdbdce--
-
---===============1012795919==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1478510481-1768-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
-
---===============1012795919==--
+QXMgYSBuZXh0IHN0ZXAsIHlvdSBjb3VsZCBhbHNvIHJlbW92ZSBIRFAgZmx1c2hpbmcgb24gQVBV
+cy4KClJlZ2FyZHMsCiAgRmVsaXgKCgpPbiAxNi0xMS0wNyAwNDoyMSBBTSwgQ2hyaXN0aWFuIEvD
+tm5pZyB3cm90ZToKPiBGcm9tOiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFt
+ZC5jb20+Cj4KPiBXZSBkb24ndCBuZWVkIHRvIHVzZSB0aGUgUENJIEJBUiBvbiBBUFVzLiBUaGlz
+IGFsbG93cyB1cyB0byBhY2Nlc3MKPiB0aGUgZnVsbCBWUkFNIGRpcmVjdGx5IHdpdGhvdXQgYmVp
+bmcgbGltaXRlZCBieSB0aGUgQkFSIHNpemUuCj4KPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4g
+S8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2dtY192N18wLmMgfCA5ICsrKysrKysrLQo+ICAxIGZpbGUgY2hhbmdlZCwg
+OCBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y3XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2dtY192N18wLmMKPiBpbmRleCAzYTI1ZjcyLi43MDU4NWIxIDEwMDY0NAo+IC0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192N18wLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9nbWNfdjdfMC5jCj4gQEAgLTM3NSw5ICszNzUsMTYgQEAgc3RhdGljIGludCBn
+bWNfdjdfMF9tY19pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICAJLyogc2l6ZSBp
+biBNQiBvbiBzaSAqLwo+ICAJYWRldi0+bWMubWNfdnJhbV9zaXplID0gUlJFRzMyKG1tQ09ORklH
+X01FTVNJWkUpICogMTAyNFVMTCAqIDEwMjRVTEw7Cj4gIAlhZGV2LT5tYy5yZWFsX3ZyYW1fc2l6
+ZSA9IFJSRUczMihtbUNPTkZJR19NRU1TSVpFKSAqIDEwMjRVTEwgKiAxMDI0VUxMOwo+IC0JYWRl
+di0+bWMudmlzaWJsZV92cmFtX3NpemUgPSBhZGV2LT5tYy5hcGVyX3NpemU7Cj4gKwo+ICsjaWZk
+ZWYgQ09ORklHX1g4Nl82NAo+ICsJaWYgKGFkZXYtPmZsYWdzICYgQU1EX0lTX0FQVSkgewo+ICsJ
+CWFkZXYtPm1jLmFwZXJfYmFzZSA9IFJSRUczMihtbU1DX1ZNX0ZCX09GRlNFVCkgPDwgMjJVTEw7
+Cj4gKwkJYWRldi0+bWMuYXBlcl9zaXplID0gYWRldi0+bWMucmVhbF92cmFtX3NpemU7Cj4gKwl9
+Cj4gKyNlbmRpZgo+ICAKPiAgCS8qIEluIGNhc2UgdGhlIFBDSSBCQVIgaXMgbGFyZ2VyIHRoYW4g
+dGhlIGFjdHVhbCBhbW91bnQgb2YgdnJhbSAqLwo+ICsJYWRldi0+bWMudmlzaWJsZV92cmFtX3Np
+emUgPSBhZGV2LT5tYy5hcGVyX3NpemU7Cj4gIAlpZiAoYWRldi0+bWMudmlzaWJsZV92cmFtX3Np
+emUgPiBhZGV2LT5tYy5yZWFsX3ZyYW1fc2l6ZSkKPiAgCQlhZGV2LT5tYy52aXNpYmxlX3ZyYW1f
+c2l6ZSA9IGFkZXYtPm1jLnJlYWxfdnJhbV9zaXplOwo+ICAKCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vYW1kLWdmeAo=
