@@ -1,13 +1,14 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 Subject: Re: [PATCH 1/2] drm/amdgpu: access stolen VRAM directly on KV/KB
-Date: Mon, 7 Nov 2016 18:29:33 +0900
-Message-ID: <9d218698-d588-090a-eb47-d0142cfdb623@daenzer.net>
+Date: Mon, 7 Nov 2016 10:33:46 +0100
+Message-ID: <7be5b56d-fae3-d71b-485f-01227172859d@vodafone.de>
 References: <1478510481-1768-1-git-send-email-deathsimple@vodafone.de>
+ <9d218698-d588-090a-eb47-d0142cfdb623@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1478510481-1768-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <9d218698-d588-090a-eb47-d0142cfdb623-otUistvHUpPR7s880joybQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,20 +19,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
 Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gMDcvMTEvMTYgMDY6MjEgUE0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4gRnJvbTogQ2hy
-aXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+IAo+IFdlIGRvbid0IG5l
-ZWQgdG8gdXNlIHRoZSBQQ0kgQkFSIG9uIEFQVXMuIFRoaXMgYWxsb3dzIHVzIHRvIGFjY2Vzcwo+
-IHRoZSBmdWxsIFZSQU0gZGlyZWN0bHkgd2l0aG91dCBiZWluZyBsaW1pdGVkIGJ5IHRoZSBCQVIg
-c2l6ZS4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29l
-bmlnQGFtZC5jb20+CgpUaGUgc2VyaWVzIGlzCgpSZXZpZXdlZC1ieTogTWljaGVsIETDpG56ZXIg
-PG1pY2hlbC5kYWVuemVyQGFtZC5jb20+CgoKV2UgY291bGQgYWxzbyBkcm9wIHRoZSBIRFAgZmx1
-c2hlcyAvIGludmFsaWRhdGVzIGluIHRoaXMgY2FzZSwgcmlnaHQ/CgoKLS0gCkVhcnRobGluZyBN
-aWNoZWwgRMOkbnplciAgICAgICAgICAgICAgIHwgICAgICAgICAgICAgICBodHRwOi8vd3d3LmFt
-ZC5jb20KTGlicmUgc29mdHdhcmUgZW50aHVzaWFzdCAgICAgICAgICAgICB8ICAgICAgICAgICAg
-IE1lc2EgYW5kIFggZGV2ZWxvcGVyCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
-LWdmeAo=
+QW0gMDcuMTEuMjAxNiB1bSAxMDoyOSBzY2hyaWViIE1pY2hlbCBEw6RuemVyOgo+IE9uIDA3LzEx
+LzE2IDA2OjIxIFBNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiBGcm9tOiBDaHJpc3RpYW4g
+S8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4+Cj4+IFdlIGRvbid0IG5lZWQgdG8g
+dXNlIHRoZSBQQ0kgQkFSIG9uIEFQVXMuIFRoaXMgYWxsb3dzIHVzIHRvIGFjY2Vzcwo+PiB0aGUg
+ZnVsbCBWUkFNIGRpcmVjdGx5IHdpdGhvdXQgYmVpbmcgbGltaXRlZCBieSB0aGUgQkFSIHNpemUu
+Cj4+Cj4+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdA
+YW1kLmNvbT4KPiBUaGUgc2VyaWVzIGlzCj4KPiBSZXZpZXdlZC1ieTogTWljaGVsIETDpG56ZXIg
+PG1pY2hlbC5kYWVuemVyQGFtZC5jb20+Cj4KPgo+IFdlIGNvdWxkIGFsc28gZHJvcCB0aGUgSERQ
+IGZsdXNoZXMgLyBpbnZhbGlkYXRlcyBpbiB0aGlzIGNhc2UsIHJpZ2h0PwpDb3VsZCBiZSwgYnV0
+IEknbSBub3QgMTAwJSBzdXJlIGhvdyB0aG9zZSBhcmUgYWN0dWFsbHkgd2lyZWQgdXAgb24gQVBV
+cy4KCk1pZ2h0IGJlIHRoYXQgdGhleSBhcmUgTk9QcyBhbnl3YXksIGJ1dCBjb3VsZCBiZSB0aGF0
+IGF0IGxlYXN0IHRoZSAKZmx1c2hlcyBhcmUgc3RpbGwgdml0YWwuCgpSZWdhcmRzLApDaHJpc3Rp
+YW4uCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
+ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
