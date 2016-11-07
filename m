@@ -1,13 +1,11 @@
 From: =?UTF-8?q?Christian=20K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: [PATCH 2/2] drm/amdgpu: access stolen VRAM directly on CZ
-Date: Mon,  7 Nov 2016 10:21:21 +0100
-Message-ID: <1478510481-1768-2-git-send-email-deathsimple@vodafone.de>
-References: <1478510481-1768-1-git-send-email-deathsimple@vodafone.de>
+Subject: [PATCH 1/2] drm/amdgpu: access stolen VRAM directly on KV/KB
+Date: Mon,  7 Nov 2016 10:21:20 +0100
+Message-ID: <1478510481-1768-1-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1478510481-1768-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -24,13 +22,13 @@ RnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKV2UgZG9u
 J3QgbmVlZCB0byB1c2UgdGhlIFBDSSBCQVIgb24gQVBVcy4gVGhpcyBhbGxvd3MgdXMgdG8gYWNj
 ZXNzCnRoZSBmdWxsIFZSQU0gZGlyZWN0bHkgd2l0aG91dCBiZWluZyBsaW1pdGVkIGJ5IHRoZSBC
 QVIgc2l6ZS4KClNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2Vu
-aWdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjhfMC5jIHwg
+aWdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjdfMC5jIHwg
 OSArKysrKysrKy0KIDEgZmlsZSBjaGFuZ2VkLCA4IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24o
-LSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjhfMC5jIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y4XzAuYwppbmRleCBmNzM3MmQzLi4wMzIz
-ZjVkIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjhfMC5jCisr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMKQEAgLTQ2Miw5ICs0NjIs
-MTYgQEAgc3RhdGljIGludCBnbWNfdjhfMF9tY19pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICph
+LSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjdfMC5jIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y3XzAuYwppbmRleCAzYTI1ZjcyLi43MDU4
+NWIxIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjdfMC5jCisr
+KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192N18wLmMKQEAgLTM3NSw5ICszNzUs
+MTYgQEAgc3RhdGljIGludCBnbWNfdjdfMF9tY19pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICph
 ZGV2KQogCS8qIHNpemUgaW4gTUIgb24gc2kgKi8KIAlhZGV2LT5tYy5tY192cmFtX3NpemUgPSBS
 UkVHMzIobW1DT05GSUdfTUVNU0laRSkgKiAxMDI0VUxMICogMTAyNFVMTDsKIAlhZGV2LT5tYy5y
 ZWFsX3ZyYW1fc2l6ZSA9IFJSRUczMihtbUNPTkZJR19NRU1TSVpFKSAqIDEwMjRVTEwgKiAxMDI0
