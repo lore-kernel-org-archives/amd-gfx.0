@@ -1,16 +1,15 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 1/2] drm/amdgpu: disable the VRAM manager on special
- placements v2
-Date: Tue, 8 Nov 2016 13:51:05 +0000
-Message-ID: <MWHPR12MB16940A3E5A0539038FB37A65F7A60@MWHPR12MB1694.namprd12.prod.outlook.com>
-References: <1478257213-1946-1-git-send-email-deathsimple@vodafone.de>
- <508632be-2cfc-de34-4ad7-68fb518c9d68@vodafone.de>
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: amdgpu: ratelimit on vm faults to avoid spaming console
+Date: Wed, 9 Nov 2016 00:53:02 +1100
+Message-ID: <0e09d12c-87cc-976d-fb89-8ab23f517ec8@folklore1984.net>
+References: <1478493309-30328-1-git-send-email-funfunctor@folklore1984.net>
+ <CADnq5_NG7GcFJxA8mq0-fEE51Jw7TCjYPn68wSMA846tFB8fNQ@mail.gmail.com>
+ <CY4PR12MB1768E71EFBD0472E7E170B72F7A70@CY4PR12MB1768.namprd12.prod.outlook.com>
+ <02ac0302-1977-feab-575a-96ad69c43c7f@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1012114273=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <508632be-2cfc-de34-4ad7-68fb518c9d68-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <02ac0302-1977-feab-575a-96ad69c43c7f-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,41 +20,167 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?J0NocmlzdGlhbiBLw7ZuaWcn?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Qu, Jim" <Jim.Qu-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Marek Olsak <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
-LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIENocmlz
-dGlhbiBLw7ZuaWcNCj4gU2VudDogVHVlc2RheSwgTm92ZW1iZXIgMDgsIDIwMTYgODoxMCBBTQ0K
-PiBUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IFF1LCBKaW07IFpob3UsIERhdmlk
-KENodW5NaW5nKQ0KPiBTdWJqZWN0OiBSZTogW1BBVENIIDEvMl0gZHJtL2FtZGdwdTogZGlzYWJs
-ZSB0aGUgVlJBTSBtYW5hZ2VyIG9uIHNwZWNpYWwNCj4gcGxhY2VtZW50cyB2Mg0KPiANCj4gQW0g
-MDQuMTEuMjAxNiB1bSAxMjowMCBzY2hyaWViIENocmlzdGlhbiBLw7ZuaWc6DQo+ID4gRnJvbTog
-Q2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPg0KPiA+DQo+ID4gVGhp
-cyBkaXNhYmxlcyB0aGUgVlJBTSBtYW5hZ2VyIHdoZW4gYSBzcGVjaWFsIHBsYWNlbWVudCBpcyBy
-ZXF1ZXN0ZWQsDQo+IG90aGVyd2lzZQ0KPiA+IHdlIHBsYXkgcGluZy9wb25nIHdpdGggdGhlIGJ1
-ZmZlcnMgb24gZXZlcnkgY29tbWFuZCBzdWJtaXNzaW9uLg0KPiA+DQo+ID4gdjI6IG9ubHkgY2hl
-Y2sgbHBmbg0KPiA+DQo+ID4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0
-aWFuLmtvZW5pZ0BhbWQuY29tPg0KPiANCj4gQ291bGQgYW55Ym9keSBnaXZlIGEgUmV2aWV3ZWQt
-YnkgZm9yIHRoaXM/IEkgdGhpbmsgdGhhdCBpcyBhIHJhdGhlcg0KPiBpbXBvcnRhbnQgcGVyZm9y
-bWFuY2UgYnVnIGZpeC4NCg0KSSBzd2VhciBJIHJlcGxpZWQgdG8gdGhpcy4gIEFueXdheSwgdGhl
-IHNlcmllcyBpczoNClJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVy
-QGFtZC5jb20+DQoNCj4gDQo+IFJlZ2FyZHMsDQo+IENocmlzdGlhbi4NCj4gDQo+ID4gLS0tDQo+
-ID4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdnJhbV9tZ3IuYyB8IDIgKy0N
-Cj4gPiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQ0KPiA+
-DQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92cmFt
-X21nci5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMN
-Cj4gPiBpbmRleCAxODBlZWQ3Yy4uZDcxMDIyNiAxMDA2NDQNCj4gPiAtLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdnJhbV9tZ3IuYw0KPiA+ICsrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92cmFtX21nci5jDQo+ID4gQEAgLTEwOCw3ICsxMDgsNyBA
-QCBzdGF0aWMgaW50IGFtZGdwdV92cmFtX21ncl9uZXcoc3RydWN0DQo+IHR0bV9tZW1fdHlwZV9t
-YW5hZ2VyICptYW4sDQo+ID4gICAJCWxwZm4gPSBtYW4tPnNpemU7DQo+ID4NCj4gPiAgIAlpZiAo
-Ym8tPmZsYWdzICYgQU1ER1BVX0dFTV9DUkVBVEVfVlJBTV9DT05USUdVT1VTIHx8DQo+ID4gLQkg
-ICAgYW1kZ3B1X3ZyYW1fcGFnZV9zcGxpdCA9PSAtMSkgew0KPiA+ICsJICAgIHBsYWNlLT5scGZu
-IHx8IGFtZGdwdV92cmFtX3BhZ2Vfc3BsaXQgPT0gLTEpIHsNCj4gPiAgIAkJcGFnZXNfcGVyX25v
-ZGUgPSB+MHVsOw0KPiA+ICAgCQludW1fbm9kZXMgPSAxOw0KPiA+ICAgCX0gZWxzZSB7DQo+IA0K
-PiANCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4g
-YW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4g
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============1012114273==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="cplOFaKeCT3CGWxroTfhQ32j8GJiDN5ig"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--cplOFaKeCT3CGWxroTfhQ32j8GJiDN5ig
+Content-Type: multipart/mixed; boundary="k6BWlqxq11FJITjpvLvB8JVoLj6KTXWr0";
+ protected-headers="v1"
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>,
+ "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>,
+ =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>,
+ Marek Olsak <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>,
+ amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Message-ID: <0e09d12c-87cc-976d-fb89-8ab23f517ec8-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: amdgpu: ratelimit on vm faults to avoid spaming console
+References: <1478493309-30328-1-git-send-email-funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+ <CADnq5_NG7GcFJxA8mq0-fEE51Jw7TCjYPn68wSMA846tFB8fNQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+ <CY4PR12MB1768E71EFBD0472E7E170B72F7A70-rpdhrqHFk06yjjPBNVDk/QdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+ <02ac0302-1977-feab-575a-96ad69c43c7f-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <02ac0302-1977-feab-575a-96ad69c43c7f-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+
+--k6BWlqxq11FJITjpvLvB8JVoLj6KTXWr0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+I had a mini discussion about this issue the other day on the IRC
+channel. Essentially yes - we would want to map back from the offending
+context back to the pid and I suppose kill it to restore a 'good state'.
+I don't know yet how to go about implementing such a mechanism so any
+suggestions would be really helpful to me!
+
+I think, when the driver does winds up in these kinds of state, for us
+to have the ability to provide something meaningful for the user to do
+to file a bug report much like how the intel driver does would be a nice
+addition.
+
+In any case, this point of those patches were just to give some
+breathing room and allow for machines to stay responsive enough to allow
+for further debug and maintain access to a working console for the user.
+
+Cheers,
+Edward.
+
+On 11/08/2016 09:10 PM, Christian K=C3=B6nig wrote:
+> I would rather say that we need to add this to the per context lockup
+> informations.
+>=20
+> Marek had a rather good start for this, but from the VM fault handler i=
+t
+> is actually rather tricky to figure out reliable who caused it.
+>=20
+> Because of this we didn't followed this approach to the end.
+>=20
+> Christian.
+>=20
+> Am 07.11.2016 um 19:42 schrieb StDenis, Tom:
+>>
+>> Could we provide fault information through a ring buffer and a debugfs=
+
+>> or drm ioctl interface?
+>>
+>>
+>> Tom
+>>
+>>
+>>
+>> ----------------------------------------------------------------------=
+--
+>> *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of
+>> Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+>> *Sent:* Monday, November 7, 2016 13:35
+>> *To:* Edward O'Callaghan; Nicolai H=C3=A4hnle; Marek Olsak
+>> *Cc:* Michel D=C3=A4nzer; amd-gfx list
+>> *Subject:* Re: amdgpu: ratelimit on vm faults to avoid spaming console=
+
+>> =20
+>> On Sun, Nov 6, 2016 at 11:35 PM, Edward O'Callaghan
+>> <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org> wrote:
+>> > These are rather minor however should help stop some folks
+>> > machines grinding to a halt when a userspace application somehow
+>> > gets the GPU into some horrible state causing the console to fill
+>> > very quickly. Applies on top of master.
+>>
+>> I'm generally ok with the idea.  My only concern would be if this
+>> would adversely affect the radeon GPUVM debugging options in mesa and
+>> piglit. Nicolai? Marek?
+>>
+>> Alex
+>> _______________________________________________
+>> amd-gfx mailing list
+>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>> amd-gfx Info Page - lists.freedesktop.org
+>> <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>
+>> lists.freedesktop.org
+>> To see the collection of prior postings to the list, visit the amd-gfx=
+
+>> Archives. Using amd-gfx: To post a message to all the list members,
+>> send email ...
+>>
+>>
+>>
+>>
+>>
+>> _______________________________________________
+>> amd-gfx mailing list
+>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>=20
+>=20
+>=20
+>=20
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>=20
+
+
+--k6BWlqxq11FJITjpvLvB8JVoLj6KTXWr0--
+
+--cplOFaKeCT3CGWxroTfhQ32j8GJiDN5ig
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJYIdi+AAoJEP4bvbfZuWjbXGcP/1DgxsdH6E6pCJoO6PtHSkNX
+G2xmdq1y0OXV1iPUBL4FwJk8pj68s+jCyBUsIHRO4t79uF/HmgznU0HMJhwsD7Bb
+Pf6LnaxGJeTJDT7Kkl9GMLSmimmOTimSRuDfGEQX1PmTz1qYioQAoSZh2Dz10mBH
+KNzl6wTNqcc4vGaMx96TvAO6uQfPlx3pksf1JTLdQSzwnmGEUGUmi+G9GdcWYlCG
+yQD0z5syAJWAYY6QI7FE5wkUEJ3UVmVKiuLNkZF8NiVDnnJNA5MuyHp1x6n1JmG8
+vNcR5pCwq5r3G6lGPbJZFyY6meZlNa528g4Xjg75Bx5EK909C77i9RT5OjNcDyFu
+Nq3Z1QTqN51kENviKiFvoL+JaK8c2zEhFxqLNFPO9RBoC0RYr1Bvb5wsUE9cLIoK
+0nfXPJUOysjifYX/twQ0qgYXoJgUm9QVwPTk9vjXTqqYwhRR1m4sgEhj2wwdyY3v
+gUm7BbQgTKP+RGtV4XjrqJH/xlixK+pDYrUF2nVxSSRUsR0/w0r7wTp8ncwPtLbn
+Q7DMxMa/qjjUBsJuF2QudyuhPqM1IVfymCmayJRflDJEgy2bj//vl8uYhfbS53Ia
+WgNgjIsbioqoI4enYCB18EB9eBNtIKqzzZo6Z6shGVbVj5Tl/4gt2l9tSGyqQzbd
+EjhzVLtGB438n9Q2cWFs
+=uLK4
+-----END PGP SIGNATURE-----
+
+--cplOFaKeCT3CGWxroTfhQ32j8GJiDN5ig--
+
+--===============1012114273==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1012114273==--
