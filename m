@@ -1,43 +1,40 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 1/4] drm/amd/powerplay: propagate errors in
- phm_get_voltage_evv_on_sclk
-Date: Thu, 10 Nov 2016 11:25:32 -0500
-Message-ID: <1478795135-11758-1-git-send-email-alexander.deucher@amd.com>
+From: Max Staudt <mstaudt@suse.de>
+Subject: gnome-shell is frozen upon wakeup from DPMS (bisected)
+Date: Thu, 10 Nov 2016 18:21:50 +0100
+Message-ID: <e0aa85a5-c26e-f5ea-556b-ee8e5f3bc37e@suse.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <stable-owner@vger.kernel.org>
+Sender: stable-owner@vger.kernel.org
+To: stable@vger.kernel.org
+Cc: dri-devel <dri-devel@lists.freedesktop.org>, daniel.vetter@ffwll.ch, michel.daenzer@amd.com, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-TWlzc2luZyBmb3Igb25lIGNhc2UuCgpidWdzOgpodHRwczovL2J1Z3ppbGxhLmtlcm5lbC5vcmcv
-c2hvd19idWcuY2dpP2lkPTE4NTY4MQpodHRwczovL2J1Z3MuZnJlZWRlc2t0b3Aub3JnL3Nob3df
-YnVnLmNnaT9pZD05ODM1NwoKUmV2aWV3ZWQtYnk6IFJleCBaaHUgPFJleC5aaHVAYW1kLmNvbT4K
-UmV2aWV3ZWQtYnk6IEh1YW5nIFJ1aSA8cmF5Lmh1YW5nQGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6
-IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dw
-dS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9od21nci5jIHwgMiArLQogMSBmaWxlIGNoYW5nZWQs
-IDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvaHdtZ3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93
-ZXJwbGF5L2h3bWdyL2h3bWdyLmMKaW5kZXggMmJhNzkzNy4uNTIwNjY1ZSAxMDA2NDQKLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvaHdtZ3IuYworKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9od21nci5jCkBAIC03MTEsNyArNzExLDcgQEAg
-aW50IHBobV9nZXRfdm9sdGFnZV9ldnZfb25fc2NsayhzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLCB1
-aW50OF90IHZvbHRhZ2VfdHlwZSwKIAlpbnQgcmV0ID0gMDsKIAogCWlmIChod21nci0+Y2hpcF9p
-ZCA8IENISVBfUE9MQVJJUzEwKSB7Ci0JCWF0b21jdHJsX2dldF92b2x0YWdlX2V2dl9vbl9zY2xr
-KGh3bWdyLCB2b2x0YWdlX3R5cGUsIHNjbGssIGlkLCB2b2x0YWdlKTsKKwkJcmV0ID0gYXRvbWN0
-cmxfZ2V0X3ZvbHRhZ2VfZXZ2X29uX3NjbGsoaHdtZ3IsIHZvbHRhZ2VfdHlwZSwgc2NsaywgaWQs
-IHZvbHRhZ2UpOwogCQlpZiAoKnZvbHRhZ2UgPj0gMjAwMCB8fCAqdm9sdGFnZSA9PSAwKQogCQkJ
-KnZvbHRhZ2UgPSAxMTUwOwogCX0gZWxzZSB7Ci0tIAoyLjUuNQoKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Hi,
+
+I have bisected a commit in v4.6 that fixes a freeze of the screen on
+DPMS sleep:
+
+777e3cbc791f131806d9bf24b3325637c7fc228d drm/radeon: Switch to drm_vblank_on/off
+
+
+When running 'xset dpms force off' in a GNOME session (I tested this on
+openSUSE Leap 42.2), sometimes the screen will freeze, sometimes it will
+not. It may take several tries.
+
+When it does freeze, the mouse can still be used, but clicking anything
+will (seem to?) have no effect. Typing in an open terminal still works,
+albeit the screen will still be frozen. Run "xterm" and the screen will
+unfreeze. Running "xlogo" does not unfreeze it.
+
+
+Can we include the above commit in linux-stable?
+
+I have tested it on v4.4 - it applies cleanly and resolves the issue.
+
+
+
+Thanks!
+
+Max
