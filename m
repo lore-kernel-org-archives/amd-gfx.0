@@ -1,40 +1,43 @@
-From: Max Staudt <mstaudt@suse.de>
-Subject: gnome-shell is frozen upon wakeup from DPMS (bisected)
-Date: Thu, 10 Nov 2016 18:21:50 +0100
-Message-ID: <e0aa85a5-c26e-f5ea-556b-ee8e5f3bc37e@suse.de>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [pull] amdgpu drm-fixes-4.9
+Date: Thu, 10 Nov 2016 14:07:02 -0500
+Message-ID: <1478804822-1719-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Return-path: <stable-owner@vger.kernel.org>
-Sender: stable-owner@vger.kernel.org
-To: stable@vger.kernel.org
-Cc: dri-devel <dri-devel@lists.freedesktop.org>, daniel.vetter@ffwll.ch, michel.daenzer@amd.com, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-Hi,
-
-I have bisected a commit in v4.6 that fixes a freeze of the screen on
-DPMS sleep:
-
-777e3cbc791f131806d9bf24b3325637c7fc228d drm/radeon: Switch to drm_vblank_on/off
-
-
-When running 'xset dpms force off' in a GNOME session (I tested this on
-openSUSE Leap 42.2), sometimes the screen will freeze, sometimes it will
-not. It may take several tries.
-
-When it does freeze, the mouse can still be used, but clicking anything
-will (seem to?) have no effect. Typing in an open terminal still works,
-albeit the screen will still be frozen. Run "xterm" and the screen will
-unfreeze. Running "xlogo" does not unfreeze it.
-
-
-Can we include the above commit in linux-stable?
-
-I have tested it on v4.4 - it applies cleanly and resolves the issue.
-
-
-
-Thanks!
-
-Max
+SGkgRGF2ZSwKClJlZ3Jlc3Npb24gZml4IGZvciBwb3dlcnBsYXkgb24gc29tZSBpY2VsYW5kIGJv
+YXJkcy4KClRoZSBmb2xsb3dpbmcgY2hhbmdlcyBzaW5jZSBjb21taXQgZjIwMDI0ZDhiYTZiYzhh
+YmY4ZDBlYzEyZWFiZmRlZGQ5OTM1ZmZmMjoKCiAgZHJtL2FtZC9wb3dlcnBsYXk6IHJldHVybiBm
+YWxzZSBpbnN0ZWFkIG9mIC1FSU5WQUwgKDIwMTYtMTEtMDggMTE6NDM6MDUgLTA1MDApCgphcmUg
+YXZhaWxhYmxlIGluIHRoZSBnaXQgcmVwb3NpdG9yeSBhdDoKCiAgZ2l0Oi8vcGVvcGxlLmZyZWVk
+ZXNrdG9wLm9yZy9+YWdkNWYvbGludXggZHJtLWZpeGVzLTQuOQoKZm9yIHlvdSB0byBmZXRjaCBj
+aGFuZ2VzIHVwIHRvIDk1NGU2YmVlMDNmZWE1MDlhODVhZWE0Y2JmNDUzMDdmZTRlM2I0M2U6Cgog
+IGRybS9hbWQvcG93ZXJwbGF5OiBpbXBsZW1lbnQgZ2V0X2Nsb2NrX2J5X3R5cGUgZm9yIGljZWxh
+bmQuICgyMDE2LTExLTEwIDE0OjA0OjI3IC0wNTAwKQoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpBbGV4IERldWNoZXIgKDMp
+OgogICAgICBkcm0vYW1kL3Bvd2VycGxheTogcHJvcGFnYXRlIGVycm9ycyBpbiBwaG1fZ2V0X3Zv
+bHRhZ2VfZXZ2X29uX3NjbGsKICAgICAgZHJtL2FtZC9wb3dlcnBsYXk6IHVwZGF0ZSBwaG1fZ2V0
+X3ZvbHRhZ2VfZXZ2X29uX3NjbGsgZm9yIGljZWxhbmQKICAgICAgZHJtL2FtZC9wb3dlcnBsYXkv
+c211NzogZml4IGNoZWNrcyBpbiBzbXU3X2dldF9ldnZfdm9sdGFnZXMgKHYyKQoKUmV4IFpodSAo
+MSk6CiAgICAgIGRybS9hbWQvcG93ZXJwbGF5OiBpbXBsZW1lbnQgZ2V0X2Nsb2NrX2J5X3R5cGUg
+Zm9yIGljZWxhbmQuCgogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvaHdtZ3Iu
+YyAgICAgIHwgIDYgKystCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3
+X2h3bWdyLmMgfCA2OCArKysrKysrKysrKysrKystLS0tLS0tLS0KIDIgZmlsZXMgY2hhbmdlZCwg
+NDcgaW5zZXJ0aW9ucygrKSwgMjcgZGVsZXRpb25zKC0pCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeAo=
