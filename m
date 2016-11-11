@@ -1,48 +1,96 @@
-From: Daniel Vetter <daniel@ffwll.ch>
-Subject: Re: gnome-shell is frozen upon wakeup from DPMS (bisected)
-Date: Fri, 11 Nov 2016 10:30:06 +0100
-Message-ID: <20161111093006.4ohlgbhoqatg67fb@phenom.ffwll.local>
-References: <e0aa85a5-c26e-f5ea-556b-ee8e5f3bc37e@suse.de>
+From: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu:impl vgt_flush for VI
+Date: Fri, 11 Nov 2016 18:32:13 +0800
+Message-ID: <1478860333-14270-1-git-send-email-Monk.Liu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <stable-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <e0aa85a5-c26e-f5ea-556b-ee8e5f3bc37e@suse.de>
-Sender: stable-owner@vger.kernel.org
-To: Max Staudt <mstaudt@suse.de>
-Cc: stable@vger.kernel.org, dri-devel <dri-devel@lists.freedesktop.org>, daniel.vetter@ffwll.ch, michel.daenzer@amd.com, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-CC+yJ3UmIYqDUpFQwHEjaQ@public.gmane.org
+Cc: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
 
-On Thu, Nov 10, 2016 at 06:21:50PM +0100, Max Staudt wrote:
-> Hi,
-> 
-> I have bisected a commit in v4.6 that fixes a freeze of the screen on
-> DPMS sleep:
-> 
-> 777e3cbc791f131806d9bf24b3325637c7fc228d drm/radeon: Switch to drm_vblank_on/off
-> 
-> 
-> When running 'xset dpms force off' in a GNOME session (I tested this on
-> openSUSE Leap 42.2), sometimes the screen will freeze, sometimes it will
-> not. It may take several tries.
-> 
-> When it does freeze, the mouse can still be used, but clicking anything
-> will (seem to?) have no effect. Typing in an open terminal still works,
-> albeit the screen will still be frozen. Run "xterm" and the screen will
-> unfreeze. Running "xlogo" does not unfreeze it.
-> 
-> 
-> Can we include the above commit in linux-stable?
-> 
-> I have tested it on v4.4 - it applies cleanly and resolves the issue.
-
-I had to take a few rounds in getting this one right, personally I'd be
-wary with backporting due to that fireworks potential. Yes it works for
-you, but who knows where it blows up.
-
-Leaving the final decision to Alex ofc.
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+d2hlbiBoYXJkd2FyZSBzaGFkb3dpbmcgZW5hYmxlZCwgdGVzc2VsYXRpb24gd2lsbCB0cmlnZ2Vy
+CnZtIGZhdWx0LCB0aGUgcm9vdCBjYXVzZSBpcyBiZWNhdXNlIFZHVF9GTFVTSCBub3QgaW50cm9k
+dWNlZAppbiBrbWQuIHRoaXMgY291bGQgZml4IHRlc3NlbGF0aW9uIGNyYXNoIGlzc3VlLgoKQ2hh
+bmdlLUlkOiBJNzdkODdkOTNjZTY1ODBlNTU5ZTczNGZiNDFkOTdlZThjNTlkMjQ1YgpTaWduZWQt
+b2ZmLWJ5OiBNb25rIExpdSA8TW9uay5MaXVAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHUuaCAgICAgIHwgIDEgKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2liLmMgICB8ICA1ICsrKystCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfcmluZy5oIHwgIDEgKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAu
+YyAgICB8IDEzICsrKysrKysrKysrKysKIDQgZmlsZXMgY2hhbmdlZCwgMTkgaW5zZXJ0aW9ucygr
+KSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKaW5kZXggMTUw
+MTViYy4uZjQ2ZTk2YiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1LmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKQEAgLTE2MzAs
+NiArMTYzMCw3IEBAIGFtZGdwdV9nZXRfc2RtYV9pbnN0YW5jZShzdHJ1Y3QgYW1kZ3B1X3Jpbmcg
+KnJpbmcpCiAjZGVmaW5lIGFtZGdwdV9yaW5nX2VtaXRfZmVuY2UociwgYWRkciwgc2VxLCBmbGFn
+cykgKHIpLT5mdW5jcy0+ZW1pdF9mZW5jZSgociksIChhZGRyKSwgKHNlcSksIChmbGFncykpCiAj
+ZGVmaW5lIGFtZGdwdV9yaW5nX2VtaXRfZ2RzX3N3aXRjaChyLCB2LCBkYiwgZHMsIHdiLCB3cywg
+YWIsIGFzKSAociktPmZ1bmNzLT5lbWl0X2dkc19zd2l0Y2goKHIpLCAodiksIChkYiksIChkcyks
+ICh3YiksICh3cyksIChhYiksIChhcykpCiAjZGVmaW5lIGFtZGdwdV9yaW5nX2VtaXRfaGRwX2Zs
+dXNoKHIpIChyKS0+ZnVuY3MtPmVtaXRfaGRwX2ZsdXNoKChyKSkKKyNkZWZpbmUgYW1kZ3B1X3Jp
+bmdfZW1pdF92Z3RfZmx1c2gocikgKHIpLT5mdW5jcy0+ZW1pdF92Z3RfZmx1c2goKHIpKQogI2Rl
+ZmluZSBhbWRncHVfcmluZ19lbWl0X2hkcF9pbnZhbGlkYXRlKHIpIChyKS0+ZnVuY3MtPmVtaXRf
+aGRwX2ludmFsaWRhdGUoKHIpKQogI2RlZmluZSBhbWRncHVfcmluZ19lbWl0X3N3aXRjaF9idWZm
+ZXIocikgKHIpLT5mdW5jcy0+ZW1pdF9zd2l0Y2hfYnVmZmVyKChyKSkKICNkZWZpbmUgYW1kZ3B1
+X3JpbmdfZW1pdF9jbnR4Y250bChyLCBkKSAociktPmZ1bmNzLT5lbWl0X2NudHhjbnRsKChyKSwg
+KGQpKQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2liLmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaWIuYwppbmRleCBhY2Y0OGRlLi5j
+MDM5ODkwIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaWIu
+YworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaWIuYwpAQCAtMTc1LDEx
+ICsxNzUsMTQgQEAgaW50IGFtZGdwdV9pYl9zY2hlZHVsZShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJp
+bmcsIHVuc2lnbmVkIG51bV9pYnMsCiAJaWYgKHJpbmctPmZ1bmNzLT5lbWl0X2hkcF9mbHVzaCkK
+IAkJYW1kZ3B1X3JpbmdfZW1pdF9oZHBfZmx1c2gocmluZyk7CiAKKwluZWVkX2N0eF9zd2l0Y2gg
+PSByaW5nLT5jdXJyZW50X2N0eCAhPSBmZW5jZV9jdHg7CisJaWYgKHJpbmctPmZ1bmNzLT5lbWl0
+X3ZndF9mbHVzaCAmJiBuZWVkX2N0eF9zd2l0Y2gpCisJCSBhbWRncHVfcmluZ19lbWl0X3ZndF9m
+bHVzaChyaW5nKTsKKwogCS8qIGFsd2F5cyBzZXQgY29uZF9leGVjX3BvbGxpbmcgdG8gQ09OVElO
+VUUgKi8KIAkqcmluZy0+Y29uZF9leGVfY3B1X2FkZHIgPSAxOwogCiAJc2tpcF9wcmVhbWJsZSA9
+IHJpbmctPmN1cnJlbnRfY3R4ID09IGZlbmNlX2N0eDsKLQluZWVkX2N0eF9zd2l0Y2ggPSByaW5n
+LT5jdXJyZW50X2N0eCAhPSBmZW5jZV9jdHg7CiAJaWYgKGpvYiAmJiByaW5nLT5mdW5jcy0+ZW1p
+dF9jbnR4Y250bCkgewogCQlpZiAobmVlZF9jdHhfc3dpdGNoKQogCQkJc3RhdHVzIHw9IEFNREdQ
+VV9IQVZFX0NUWF9TV0lUQ0g7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfcmluZy5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jpbmcu
+aAppbmRleCA5MmJjODliLi5jM2E3MzI5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfcmluZy5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9yaW5nLmgKQEAgLTExNiw2ICsxMTYsNyBAQCBzdHJ1Y3QgYW1kZ3B1X3JpbmdfZnVuY3Mg
+ewogCXZvaWQgKCplbWl0X3ZtX2ZsdXNoKShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHVuc2ln
+bmVkIHZtX2lkLAogCQkJICAgICAgdWludDY0X3QgcGRfYWRkcik7CiAJdm9pZCAoKmVtaXRfaGRw
+X2ZsdXNoKShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpOworCXZvaWQgKCplbWl0X3ZndF9mbHVz
+aCkoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKTsKIAl2b2lkICgqZW1pdF9oZHBfaW52YWxpZGF0
+ZSkoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKTsKIAl2b2lkICgqZW1pdF9nZHNfc3dpdGNoKShz
+dHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHVpbnQzMl90IHZtaWQsCiAJCQkJdWludDMyX3QgZ2Rz
+X2Jhc2UsIHVpbnQzMl90IGdkc19zaXplLApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvZ2Z4X3Y4XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8w
+LmMKaW5kZXggOTAxNzgwMy4uMWQ0MDdkNzYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2dmeF92OF8wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4
+X3Y4XzAuYwpAQCAtNjE4Nyw2ICs2MTg3LDE4IEBAIHN0YXRpYyB2b2lkIGdmeF92OF8wX3Jpbmdf
+ZW1pdF9oZHBfZmx1c2goc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKQogCWFtZGdwdV9yaW5nX3dy
+aXRlKHJpbmcsIDB4MjApOyAvKiBwb2xsIGludGVydmFsICovCiB9CiAKK3N0YXRpYyB2b2lkIGdm
+eF92OF8wX3JpbmdfZW1pdF92Z3RfZmx1c2goc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKQorewor
+CWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIFBBQ0tFVDMoUEFDS0VUM19FVkVOVF9XUklURSwgMCkp
+OworCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIEVWRU5UX1RZUEUoVlNfUEFSVElBTF9GTFVTSCkg
+fAorCQlFVkVOVF9JTkRFWCg0KSk7CisKKwlhbWRncHVfcmluZ193cml0ZShyaW5nLCBQQUNLRVQz
+KFBBQ0tFVDNfRVZFTlRfV1JJVEUsIDApKTsKKwlhbWRncHVfcmluZ193cml0ZShyaW5nLCBFVkVO
+VF9UWVBFKFZHVF9GTFVTSCkgfAorCQlFVkVOVF9JTkRFWCgwKSk7Cit9CisKKwogc3RhdGljIHZv
+aWQgZ2Z4X3Y4XzBfcmluZ19lbWl0X2hkcF9pbnZhbGlkYXRlKHN0cnVjdCBhbWRncHVfcmluZyAq
+cmluZykKIHsKIAlhbWRncHVfcmluZ193cml0ZShyaW5nLCBQQUNLRVQzKFBBQ0tFVDNfV1JJVEVf
+REFUQSwgMykpOwpAQCAtNjU5MCw2ICs2NjAyLDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRn
+cHVfcmluZ19mdW5jcyBnZnhfdjhfMF9yaW5nX2Z1bmNzX2dmeCA9IHsKIAkucGFkX2liID0gYW1k
+Z3B1X3JpbmdfZ2VuZXJpY19wYWRfaWIsCiAJLmVtaXRfc3dpdGNoX2J1ZmZlciA9IGdmeF92OF9y
+aW5nX2VtaXRfc2IsCiAJLmVtaXRfY250eGNudGwgPSBnZnhfdjhfcmluZ19lbWl0X2NudHhjbnRs
+LAorCS5lbWl0X3ZndF9mbHVzaCA9IGdmeF92OF8wX3JpbmdfZW1pdF92Z3RfZmx1c2gsCiB9Owog
+CiBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9yaW5nX2Z1bmNzIGdmeF92OF8wX3JpbmdfZnVu
+Y3NfY29tcHV0ZSA9IHsKLS0gCjEuOS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZngK
