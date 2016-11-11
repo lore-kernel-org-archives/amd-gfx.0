@@ -1,9 +1,10 @@
-From: Benjamin Bellec <b.bellec-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: HDMI audio broken on RX470 since 2016-10-21
-Date: Thu, 10 Nov 2016 22:35:20 +0100
-Message-ID: <CANzfOVKP5OcFq_iiCJMo+bA+O34HogUTVLetENqSVX6vhaLGLQ@mail.gmail.com>
+From: Russell Currey <ruscur-3Su/lFKaw5ejKv3TNrM5DQ@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: Restrict GART size to half of the GPU pages
+Date: Fri, 11 Nov 2016 12:02:55 +1100
+Message-ID: <20161111010255.20542-1-ruscur@russell.cc>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1860653311=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -16,66 +17,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Russell Currey <ruscur-3Su/lFKaw5ejKv3TNrM5DQ@public.gmane.org>
 
---===============1860653311==
-Content-Type: multipart/alternative; boundary=94eb2c19018c818b3c0540f926c8
-
---94eb2c19018c818b3c0540f926c8
-Content-Type: text/plain; charset=UTF-8
-
-Hello everyone,
-
-I'm currently using mystro256's amd-staging-kernel copr repo [1] on my
-Fedora 24 computer, with a MSI RX470 4GB. Mainly in order to use the HDMI
-audio feature (the RX470 is plug to my Thomson TV).
-
-The copr build [2] kernel-4.7.9-20161017.amd.fc24 is the last with HDMI
-audio working.
-The next build mystro256 have done, aka kernel-4.7.10-20161021.amd.fc2
-break the HDMI audio. I have no more sound on the TV.
-All next builds fails too, even the last one he did from the 2016-11-08 git.
-
-[1]
-http://copr-fe.cloud.fedoraproject.org/coprs/mystro256/amd-staging-kernel/
-[2]
-https://copr.fedorainfracloud.org/coprs/mystro256/amd-staging-kernel/builds/
-
-Regards.
-
---
-Benjamin
-
---94eb2c19018c818b3c0540f926c8
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div><div><div><div>Hello everyone,<br><br></div>I&#39;m c=
-urrently using mystro256&#39;s amd-staging-kernel copr repo [1] on my Fedor=
-a 24 computer, with a MSI RX470 4GB. Mainly in order to use the HDMI audio =
-feature (the RX470 is plug to my Thomson TV).<br><br></div>The copr build [=
-2] kernel-4.7.9-20161017.amd.fc24 is the last with HDMI audio working.<br><=
-/div>The next build mystro256 have done, aka=20
-                kernel-4.7.10-20161021.amd.fc2 break the HDMI audio. I have=
- no more sound on the TV.<br></div>All next builds fails too, even the last=
- one he did from the 2016-11-08 git.<br><div>
-        <div><div><br>[1] <a href=3D"http://copr-fe.cloud.fedoraproject.org=
-/coprs/mystro256/amd-staging-kernel/">http://copr-fe.cloud.fedoraproject.or=
-g/coprs/mystro256/amd-staging-kernel/</a><br>[2] <a href=3D"https://copr.fe=
-dorainfracloud.org/coprs/mystro256/amd-staging-kernel/builds/">https://copr=
-.fedorainfracloud.org/coprs/mystro256/amd-staging-kernel/builds/</a><br><br=
-></div><div>Regards.<br></div><div><br>--<br></div><div>Benjamin<br></div><=
-/div></div></div>
-
---94eb2c19018c818b3c0540f926c8--
-
---===============1860653311==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1860653311==--
+VXNpbmcgdGhlIGtlcm5lbCB6b25lIG1lbW9yeSBzaXplIHRvIGRldGVybWluZSB0aGUgc2l6ZSBv
+ZiB0aGUgR0FSVCB0YWJsZQppbnRyb2R1Y2VkIGEgcmVncmVzc2lvbiBvbiBzeXN0ZW1zIHdpdGgg
+YSBsYXJnZSBhbW91bnQgb2Ygc3lzdGVtIG1lbW9yeS4KT24gYSBzeXN0ZW0gd2l0aCA1MTJHQiBS
+QU0sIGRyaXZlciBpbml0aWFsaXNhdGlvbiB3b3VsZCBmYWlsIGFzIHRoZXJlIGFyZQptb3JlIEdB
+UlQgZW50cmllcyB0aGFuIHRoZXJlIGFyZSBHUFUgcGFnZXMgdG8gbWFwIHRvIHRoZW0uIFdpdGgg
+MjU2R0IgUkFNLAp0aGUgdGFibGUgd291bGQgYmFyZWx5IGZpdCwgYnV0IG5vIG90aGVyIGFsbG9j
+YXRpb25zIGFyZSBwb3NzaWJsZS4KClJlc3RyaWN0IHRoZSBzaXplIG9mIHRoZSBHQVJUIHN1Y2gg
+dGhhdCBpdCB3aWxsIG9jY3VweSBhdCBtYXhpbXVtIGhhbGYKb2YgdGhlIHBhZ2VzIGF2YWlsYWJs
+ZSB0byB0aGUgR1BVLgoKRml4ZXM6IGE2OTNlMDUwICgiZHJtL2FtZGdwdTogdXNlIHRoZSBrZXJu
+ZWwgem9uZSBtZW1vcnkgc2l6ZSBhcyB0aGUgbWF4CgkJICByZW1vdGUgbWVtb3J5IGluIGFtZGdw
+dSIpClNpZ25lZC1vZmYtYnk6IFJ1c3NlbGwgQ3VycmV5IDxydXNjdXJAcnVzc2VsbC5jYz4KLS0t
+CkkgZG9uJ3Qga25vdyBtdWNoIGFib3V0IEdQVXMsIHJlc3RyaWN0aW5nIHRoaXMgdG8gbGVzcyB0
+aGFuIGhhbGYgbWlnaHQKbWFrZSBtb3JlIHNlbnNlLgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2dtY192Nl8wLmMgfCAyMSArKysrKysrKysrKysrKystLS0tLS0KIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2dtY192N18wLmMgfCAyMSArKysrKysrKysrKysrKystLS0tLS0KIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMgfCAyMSArKysrKysrKysrKysrKyst
+LS0tLS0KIDMgZmlsZXMgY2hhbmdlZCwgNDUgaW5zZXJ0aW9ucygrKSwgMTggZGVsZXRpb25zKC0p
+CgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y2XzAuYyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192Nl8wLmMKaW5kZXggYjEzYzhhYS4uZjhiYmIx
+NyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y2XzAuYworKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjZfMC5jCkBAIC0yNjQsNiArMjY0LDcg
+QEAgc3RhdGljIGludCBnbWNfdjZfMF9tY19pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
+KQogCiAJdTMyIHRtcDsKIAlpbnQgY2hhbnNpemUsIG51bWNoYW47CisJdTY0IG1heF9ndHRfZW50
+cmllczsKIAogCXRtcCA9IFJSRUczMihNQ19BUkJfUkFNQ0ZHKTsKIAlpZiAodG1wICYgQ0hBTlNJ
+WkVfT1ZFUlJJREUpIHsKQEAgLTMxMywxMyArMzE0LDIxIEBAIHN0YXRpYyBpbnQgZ21jX3Y2XzBf
+bWNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAlhZGV2LT5tYy5yZWFsX3ZyYW1f
+c2l6ZSA9IFJSRUczMihDT05GSUdfTUVNU0laRSkgKiAxMDI0VUxMICogMTAyNFVMTDsKIAlhZGV2
+LT5tYy52aXNpYmxlX3ZyYW1fc2l6ZSA9IGFkZXYtPm1jLmFwZXJfc2l6ZTsKIAotCS8qIHVubGVz
+cyB0aGUgdXNlciBoYWQgb3ZlcnJpZGRlbiBpdCwgc2V0IHRoZSBnYXJ0Ci0JICogc2l6ZSBlcXVh
+bCB0byB0aGUgMTAyNCBvciB2cmFtLCB3aGljaGV2ZXIgaXMgbGFyZ2VyLgotCSAqLwotCWlmIChh
+bWRncHVfZ2FydF9zaXplID09IC0xKQotCQlhZGV2LT5tYy5ndHRfc2l6ZSA9IGFtZGdwdV90dG1f
+Z2V0X2d0dF9tZW1fc2l6ZShhZGV2KTsKLQllbHNlCisJLyogdW5sZXNzIHRoZSB1c2VyIGhhZCBv
+dmVycmlkZGVuIGl0LCBzZXQgdGhlIEdBUlQgc2l6ZSBwcm9wb3J0aW9uYWwKKwkgKiB0byBzeXN0
+ZW0gbWVtb3J5LCBidXQgbm8gbW9yZSB0aGFuIGhhbGYgb2YgdGhlIEdQVSBwYWdlcy4gKi8KKwlp
+ZiAoYW1kZ3B1X2dhcnRfc2l6ZSA9PSAtMSkgeworCQkvKiBhIHRhYmxlIGVudHJ5IGlzIDggR1BV
+IHBhZ2VzICovCisJCW1heF9ndHRfZW50cmllcyA9IGFtZGdwdV90dG1fZ2V0X2d0dF9tZW1fc2l6
+ZShhZGV2KSAvCisJCQkoQU1ER1BVX0dQVV9QQUdFX1NJWkUgLyA4KTsKKworCQlpZiAobWF4X2d0
+dF9lbnRyaWVzID4gYWRldi0+bWMudmlzaWJsZV92cmFtX3NpemUgLyAyKQorCQkJYWRldi0+bWMu
+Z3R0X3NpemUgPSAoYWRldi0+bWMudmlzaWJsZV92cmFtX3NpemUgLyAyKSAqCisJCQkJQU1ER1BV
+X0dQVV9QQUdFX1NJWkUgLyA4OworCQllbHNlCisJCQlhZGV2LT5tYy5ndHRfc2l6ZSA9IGFtZGdw
+dV90dG1fZ2V0X2d0dF9tZW1fc2l6ZShhZGV2KTsKKwl9IGVsc2UgewogCQlhZGV2LT5tYy5ndHRf
+c2l6ZSA9ICh1aW50NjRfdClhbWRncHVfZ2FydF9zaXplIDw8IDIwOworCX0KIAogCWdtY192Nl8w
+X3ZyYW1fZ3R0X2xvY2F0aW9uKGFkZXYsICZhZGV2LT5tYyk7CiAKZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192N18wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9nbWNfdjdfMC5jCmluZGV4IGFhMGM0YjkuLjI3NmE2NjIgMTAwNjQ0Ci0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192N18wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvZ21jX3Y3XzAuYwpAQCAtMzI5LDYgKzMyOSw3IEBAIHN0YXRpYyBpbnQgZ21jX3Y3
+XzBfbWNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIHsKIAl1MzIgdG1wOwogCWlu
+dCBjaGFuc2l6ZSwgbnVtY2hhbjsKKwl1NjQgbWF4X2d0dF9lbnRyaWVzOwogCiAJLyogR2V0IFZS
+QU0gaW5mb3JtYXRpb25zICovCiAJdG1wID0gUlJFRzMyKG1tTUNfQVJCX1JBTUNGRyk7CkBAIC0z
+ODEsMTMgKzM4MiwyMSBAQCBzdGF0aWMgaW50IGdtY192N18wX21jX2luaXQoc3RydWN0IGFtZGdw
+dV9kZXZpY2UgKmFkZXYpCiAJaWYgKGFkZXYtPm1jLnZpc2libGVfdnJhbV9zaXplID4gYWRldi0+
+bWMucmVhbF92cmFtX3NpemUpCiAJCWFkZXYtPm1jLnZpc2libGVfdnJhbV9zaXplID0gYWRldi0+
+bWMucmVhbF92cmFtX3NpemU7CiAKLQkvKiB1bmxlc3MgdGhlIHVzZXIgaGFkIG92ZXJyaWRkZW4g
+aXQsIHNldCB0aGUgZ2FydAotCSAqIHNpemUgZXF1YWwgdG8gdGhlIDEwMjQgb3IgdnJhbSwgd2hp
+Y2hldmVyIGlzIGxhcmdlci4KLQkgKi8KLQlpZiAoYW1kZ3B1X2dhcnRfc2l6ZSA9PSAtMSkKLQkJ
+YWRldi0+bWMuZ3R0X3NpemUgPSBhbWRncHVfdHRtX2dldF9ndHRfbWVtX3NpemUoYWRldik7Ci0J
+ZWxzZQorCS8qIHVubGVzcyB0aGUgdXNlciBoYWQgb3ZlcnJpZGRlbiBpdCwgc2V0IHRoZSBHQVJU
+IHNpemUgcHJvcG9ydGlvbmFsCisJICogdG8gc3lzdGVtIG1lbW9yeSwgYnV0IG5vIG1vcmUgdGhh
+biBoYWxmIG9mIHRoZSBHUFUgcGFnZXMuICovCisJaWYgKGFtZGdwdV9nYXJ0X3NpemUgPT0gLTEp
+IHsKKwkJLyogYSB0YWJsZSBlbnRyeSBpcyA4IEdQVSBwYWdlcyAqLworCQltYXhfZ3R0X2VudHJp
+ZXMgPSBhbWRncHVfdHRtX2dldF9ndHRfbWVtX3NpemUoYWRldikgLworCQkJKEFNREdQVV9HUFVf
+UEFHRV9TSVpFIC8gOCk7CisKKwkJaWYgKG1heF9ndHRfZW50cmllcyA+IGFkZXYtPm1jLnZpc2li
+bGVfdnJhbV9zaXplIC8gMikKKwkJCWFkZXYtPm1jLmd0dF9zaXplID0gKGFkZXYtPm1jLnZpc2li
+bGVfdnJhbV9zaXplIC8gMikgKgorCQkJCUFNREdQVV9HUFVfUEFHRV9TSVpFIC8gODsKKwkJZWxz
+ZQorCQkJYWRldi0+bWMuZ3R0X3NpemUgPSBhbWRncHVfdHRtX2dldF9ndHRfbWVtX3NpemUoYWRl
+dik7CisJfSBlbHNlIHsKIAkJYWRldi0+bWMuZ3R0X3NpemUgPSAodWludDY0X3QpYW1kZ3B1X2dh
+cnRfc2l6ZSA8PCAyMDsKKwl9CiAKIAlnbWNfdjdfMF92cmFtX2d0dF9sb2NhdGlvbihhZGV2LCAm
+YWRldi0+bWMpOwogCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNf
+djhfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y4XzAuYwppbmRleCBhMTZi
+MjIwLi40NjAxMDBhIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNf
+djhfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMKQEAgLTQx
+Niw2ICs0MTYsNyBAQCBzdGF0aWMgaW50IGdtY192OF8wX21jX2luaXQoc3RydWN0IGFtZGdwdV9k
+ZXZpY2UgKmFkZXYpCiB7CiAJdTMyIHRtcDsKIAlpbnQgY2hhbnNpemUsIG51bWNoYW47CisJdTY0
+IG1heF9ndHRfZW50cmllczsKIAogCS8qIEdldCBWUkFNIGluZm9ybWF0aW9ucyAqLwogCXRtcCA9
+IFJSRUczMihtbU1DX0FSQl9SQU1DRkcpOwpAQCAtNDY4LDEzICs0NjksMjEgQEAgc3RhdGljIGlu
+dCBnbWNfdjhfMF9tY19pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCWlmIChhZGV2
+LT5tYy52aXNpYmxlX3ZyYW1fc2l6ZSA+IGFkZXYtPm1jLnJlYWxfdnJhbV9zaXplKQogCQlhZGV2
+LT5tYy52aXNpYmxlX3ZyYW1fc2l6ZSA9IGFkZXYtPm1jLnJlYWxfdnJhbV9zaXplOwogCi0JLyog
+dW5sZXNzIHRoZSB1c2VyIGhhZCBvdmVycmlkZGVuIGl0LCBzZXQgdGhlIGdhcnQKLQkgKiBzaXpl
+IGVxdWFsIHRvIHRoZSAxMDI0IG9yIHZyYW0sIHdoaWNoZXZlciBpcyBsYXJnZXIuCi0JICovCi0J
+aWYgKGFtZGdwdV9nYXJ0X3NpemUgPT0gLTEpCi0JCWFkZXYtPm1jLmd0dF9zaXplID0gYW1kZ3B1
+X3R0bV9nZXRfZ3R0X21lbV9zaXplKGFkZXYpOwotCWVsc2UKKwkvKiB1bmxlc3MgdGhlIHVzZXIg
+aGFkIG92ZXJyaWRkZW4gaXQsIHNldCB0aGUgR0FSVCBzaXplIHByb3BvcnRpb25hbAorCSAqIHRv
+IHN5c3RlbSBtZW1vcnksIGJ1dCBubyBtb3JlIHRoYW4gaGFsZiBvZiB0aGUgR1BVIHBhZ2VzLiAq
+LworCWlmIChhbWRncHVfZ2FydF9zaXplID09IC0xKSB7CisJCS8qIGEgdGFibGUgZW50cnkgaXMg
+OCBHUFUgcGFnZXMgKi8KKwkJbWF4X2d0dF9lbnRyaWVzID0gYW1kZ3B1X3R0bV9nZXRfZ3R0X21l
+bV9zaXplKGFkZXYpIC8KKwkJCShBTURHUFVfR1BVX1BBR0VfU0laRSAvIDgpOworCisJCWlmICht
+YXhfZ3R0X2VudHJpZXMgPiBhZGV2LT5tYy52aXNpYmxlX3ZyYW1fc2l6ZSAvIDIpCisJCQlhZGV2
+LT5tYy5ndHRfc2l6ZSA9IChhZGV2LT5tYy52aXNpYmxlX3ZyYW1fc2l6ZSAvIDIpICoKKwkJCQlB
+TURHUFVfR1BVX1BBR0VfU0laRSAvIDg7CisJCWVsc2UKKwkJCWFkZXYtPm1jLmd0dF9zaXplID0g
+YW1kZ3B1X3R0bV9nZXRfZ3R0X21lbV9zaXplKGFkZXYpOworCX0gZWxzZSB7CiAJCWFkZXYtPm1j
+Lmd0dF9zaXplID0gKHVpbnQ2NF90KWFtZGdwdV9nYXJ0X3NpemUgPDwgMjA7CisJfQogCiAJZ21j
+X3Y4XzBfdnJhbV9ndHRfbG9jYXRpb24oYWRldiwgJmFkZXYtPm1jKTsKIAotLSAKMi4xMC4yCgpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
