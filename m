@@ -1,66 +1,48 @@
-From: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: not hardcode high performance level to 1 on Ci.
-Date: Fri, 11 Nov 2016 17:02:04 +0800
-Message-ID: <1478854924-4385-1-git-send-email-Rex.Zhu@amd.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: gnome-shell is frozen upon wakeup from DPMS (bisected)
+Date: Fri, 11 Nov 2016 10:30:06 +0100
+Message-ID: <20161111093006.4ohlgbhoqatg67fb@phenom.ffwll.local>
+References: <e0aa85a5-c26e-f5ea-556b-ee8e5f3bc37e@suse.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <stable-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <e0aa85a5-c26e-f5ea-556b-ee8e5f3bc37e@suse.de>
+Sender: stable-owner@vger.kernel.org
+To: Max Staudt <mstaudt@suse.de>
+Cc: stable@vger.kernel.org, dri-devel <dri-devel@lists.freedesktop.org>, daniel.vetter@ffwll.ch, michel.daenzer@amd.com, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-Q2hhbmdlLUlkOiBJMzkwMDk2OTc2MzlmMWFlYWVmYmU0NDRiYWUyYmYwODFmMTU2ZGU2MQpTaWdu
-ZWQtb2ZmLWJ5OiBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvY2lfZHBtLmMgfCAyMyArKysrKysrKysrKysrKysrLS0tLS0tLQogMSBmaWxl
-IGNoYW5nZWQsIDE2IGluc2VydGlvbnMoKyksIDcgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvY2lfZHBtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9jaV9kcG0uYwppbmRleCAxMDI3ZjkyLi44NjgzNzgyIDEwMDY0NAotLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaV9kcG0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9jaV9kcG0uYwpAQCAtOTEzLDYgKzkxMywxNSBAQCBzdGF0aWMgdm9pZCBjaV9hcHBs
-eV9zdGF0ZV9hZGp1c3RfcnVsZXMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJYm9vbCBk
-aXNhYmxlX21jbGtfc3dpdGNoaW5nOwogCXUzMiBzY2xrLCBtY2xrOwogCWludCBpOworCWludCBo
-aWdoX2xldmVsOworCisKKwlpZiAocHMgPT0gTlVMTCB8fCBwcy0+cGVyZm9ybWFuY2VfbGV2ZWxf
-Y291bnQgPCAxKSB7CisJCURSTV9FUlJPUigiZmFpbGVkIHRvIGFwcGx5IHN0YXRlIGFkanVzdFxu
-Iik7CisJCXJldHVybjsKKwl9CisKKwloaWdoX2xldmVsID0gcHMtPnBlcmZvcm1hbmNlX2xldmVs
-X2NvdW50IC0gMTsKIAogCWlmIChycHMtPnZjZV9hY3RpdmUpIHsKIAkJcnBzLT5ldmNsayA9IGFk
-ZXYtPnBtLmRwbS52Y2Vfc3RhdGVzW2FkZXYtPnBtLmRwbS52Y2VfbGV2ZWxdLmV2Y2xrOwpAQCAt
-OTUwLDcgKzk1OSw3IEBAIHN0YXRpYyB2b2lkIGNpX2FwcGx5X3N0YXRlX2FkanVzdF9ydWxlcyhz
-dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAkvKiBYWFggdmFsaWRhdGUgdGhlIG1pbiBjbG9j
-a3MgcmVxdWlyZWQgZm9yIGRpc3BsYXkgKi8KIAogCWlmIChkaXNhYmxlX21jbGtfc3dpdGNoaW5n
-KSB7Ci0JCW1jbGsgID0gcHMtPnBlcmZvcm1hbmNlX2xldmVsc1twcy0+cGVyZm9ybWFuY2VfbGV2
-ZWxfY291bnQgLSAxXS5tY2xrOworCQltY2xrICA9IHBzLT5wZXJmb3JtYW5jZV9sZXZlbHNbaGln
-aF9sZXZlbF0ubWNsazsKIAkJc2NsayA9IHBzLT5wZXJmb3JtYW5jZV9sZXZlbHNbMF0uc2NsazsK
-IAl9IGVsc2UgewogCQltY2xrID0gcHMtPnBlcmZvcm1hbmNlX2xldmVsc1swXS5tY2xrOwpAQCAt
-OTczLDE1ICs5ODIsMTUgQEAgc3RhdGljIHZvaWQgY2lfYXBwbHlfc3RhdGVfYWRqdXN0X3J1bGVz
-KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCXBzLT5wZXJmb3JtYW5jZV9sZXZlbHNbMF0u
-c2NsayA9IHNjbGs7CiAJcHMtPnBlcmZvcm1hbmNlX2xldmVsc1swXS5tY2xrID0gbWNsazsKIAot
-CWlmIChwcy0+cGVyZm9ybWFuY2VfbGV2ZWxzWzFdLnNjbGsgPCBwcy0+cGVyZm9ybWFuY2VfbGV2
-ZWxzWzBdLnNjbGspCi0JCXBzLT5wZXJmb3JtYW5jZV9sZXZlbHNbMV0uc2NsayA9IHBzLT5wZXJm
-b3JtYW5jZV9sZXZlbHNbMF0uc2NsazsKKwlpZiAocHMtPnBlcmZvcm1hbmNlX2xldmVsc1toaWdo
-X2xldmVsXS5zY2xrIDwgcHMtPnBlcmZvcm1hbmNlX2xldmVsc1swXS5zY2xrKQorCQlwcy0+cGVy
-Zm9ybWFuY2VfbGV2ZWxzW2hpZ2hfbGV2ZWxdLnNjbGsgPSBwcy0+cGVyZm9ybWFuY2VfbGV2ZWxz
-WzBdLnNjbGs7CiAKIAlpZiAoZGlzYWJsZV9tY2xrX3N3aXRjaGluZykgewotCQlpZiAocHMtPnBl
-cmZvcm1hbmNlX2xldmVsc1swXS5tY2xrIDwgcHMtPnBlcmZvcm1hbmNlX2xldmVsc1sxXS5tY2xr
-KQotCQkJcHMtPnBlcmZvcm1hbmNlX2xldmVsc1swXS5tY2xrID0gcHMtPnBlcmZvcm1hbmNlX2xl
-dmVsc1sxXS5tY2xrOworCQlpZiAocHMtPnBlcmZvcm1hbmNlX2xldmVsc1swXS5tY2xrIDwgcHMt
-PnBlcmZvcm1hbmNlX2xldmVsc1toaWdoX2xldmVsXS5tY2xrKQorCQkJcHMtPnBlcmZvcm1hbmNl
-X2xldmVsc1swXS5tY2xrID0gcHMtPnBlcmZvcm1hbmNlX2xldmVsc1toaWdoX2xldmVsXS5tY2xr
-OwogCX0gZWxzZSB7Ci0JCWlmIChwcy0+cGVyZm9ybWFuY2VfbGV2ZWxzWzFdLm1jbGsgPCBwcy0+
-cGVyZm9ybWFuY2VfbGV2ZWxzWzBdLm1jbGspCi0JCQlwcy0+cGVyZm9ybWFuY2VfbGV2ZWxzWzFd
-Lm1jbGsgPSBwcy0+cGVyZm9ybWFuY2VfbGV2ZWxzWzBdLm1jbGs7CisJCWlmIChwcy0+cGVyZm9y
-bWFuY2VfbGV2ZWxzW2hpZ2hfbGV2ZWxdLm1jbGsgPCBwcy0+cGVyZm9ybWFuY2VfbGV2ZWxzWzBd
-Lm1jbGspCisJCQlwcy0+cGVyZm9ybWFuY2VfbGV2ZWxzW2hpZ2hfbGV2ZWxdLm1jbGsgPSBwcy0+
-cGVyZm9ybWFuY2VfbGV2ZWxzWzBdLm1jbGs7CiAJfQogfQogCi0tIAoxLjkuMQoKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
-c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Thu, Nov 10, 2016 at 06:21:50PM +0100, Max Staudt wrote:
+> Hi,
+> 
+> I have bisected a commit in v4.6 that fixes a freeze of the screen on
+> DPMS sleep:
+> 
+> 777e3cbc791f131806d9bf24b3325637c7fc228d drm/radeon: Switch to drm_vblank_on/off
+> 
+> 
+> When running 'xset dpms force off' in a GNOME session (I tested this on
+> openSUSE Leap 42.2), sometimes the screen will freeze, sometimes it will
+> not. It may take several tries.
+> 
+> When it does freeze, the mouse can still be used, but clicking anything
+> will (seem to?) have no effect. Typing in an open terminal still works,
+> albeit the screen will still be frozen. Run "xterm" and the screen will
+> unfreeze. Running "xlogo" does not unfreeze it.
+> 
+> 
+> Can we include the above commit in linux-stable?
+> 
+> I have tested it on v4.4 - it applies cleanly and resolves the issue.
+
+I had to take a few rounds in getting this one right, personally I'd be
+wary with backporting due to that fireworks potential. Yes it works for
+you, but who knows where it blows up.
+
+Leaving the final decision to Alex ofc.
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
