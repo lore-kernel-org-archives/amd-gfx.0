@@ -1,15 +1,16 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: Bug#839381: xserver-xorg-video-amdgpu: very long Xorg
- initilization time in recent kernels
-Date: Mon, 14 Nov 2016 10:53:33 +0900
-Message-ID: <e2e7bdcf-173f-a94f-eeda-b511fa5552d8@daenzer.net>
-References: <147531420383.5700.12068166754566664671.reportbug@debian>
- <e6f090e9-2876-9cc1-131a-bc3ebda7deba@daenzer.net>
- <9e5dee7b-4768-af18-407e-1c1e581a6b03@fs.tum.de>
+From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: =?utf-8?B?562U5aSNOiBbUEFUQ0hdIGRybS9hbWRncHU6Zml4IHZwb3N0X25lZWRlZCBy?=
+ =?utf-8?Q?outine?=
+Date: Mon, 14 Nov 2016 03:16:38 +0000
+Message-ID: <CY4PR12MB13511E2D9B98BF92CCBAFB2E84BC0@CY4PR12MB1351.namprd12.prod.outlook.com>
+References: <1478858668-9642-1-git-send-email-Monk.Liu@amd.com>
+ <MWHPR12MB1694C8C5179C1F2B0207059AF7BB0@MWHPR12MB1694.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1376218939=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <9e5dee7b-4768-af18-407e-1c1e581a6b03-cg1h10c7RbKzQB+pC5nmwQ@public.gmane.org>
+In-Reply-To: <MWHPR12MB1694C8C5179C1F2B0207059AF7BB0-Gy0DoCVfaSW4WA4dJ5YXGAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: zh-CN
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,121 +21,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Michael Strobel <strobel-cg1h10c7RbKzQB+pC5nmwQ@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "839381-61a8vm9lEZVf4u+23C9RwQ@public.gmane.org" <839381-61a8vm9lEZVf4u+23C9RwQ@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-CC+yJ3UmIYqDUpFQwHEjaQ@public.gmane.org" <amd-gfx-CC+yJ3UmIYqDUpFQwHEjaQ@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1376218939==
-Content-Type: multipart/signed; micalg=pgp-sha1;
- protocol="application/pgp-signature";
- boundary="AMbO2ttLNAd76FG5M9WQF2qKKpdoVuR9b"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---AMbO2ttLNAd76FG5M9WQF2qKKpdoVuR9b
-Content-Type: multipart/mixed; boundary="MlLDnI7Bcp19aPFBTe631dU7qrS9aH8e5";
- protected-headers="v1"
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-To: Michael Strobel <strobel-cg1h10c7RbKzQB+pC5nmwQ@public.gmane.org>
-Cc: "839381-61a8vm9lEZVf4u+23C9RwQ@public.gmane.org" <839381-61a8vm9lEZVf4u+23C9RwQ@public.gmane.org>,
- "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Message-ID: <e2e7bdcf-173f-a94f-eeda-b511fa5552d8-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: Bug#839381: xserver-xorg-video-amdgpu: very long Xorg
- initilization time in recent kernels
-References: <147531420383.5700.12068166754566664671.reportbug@debian>
- <e6f090e9-2876-9cc1-131a-bc3ebda7deba-otUistvHUpPR7s880joybQ@public.gmane.org>
- <9e5dee7b-4768-af18-407e-1c1e581a6b03-cg1h10c7RbKzQB+pC5nmwQ@public.gmane.org>
-In-Reply-To: <9e5dee7b-4768-af18-407e-1c1e581a6b03-cg1h10c7RbKzQB+pC5nmwQ@public.gmane.org>
-
---MlLDnI7Bcp19aPFBTe631dU7qrS9aH8e5
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-On 13/11/16 09:09 PM, Michael Strobel wrote:
-> Hi,
->=20
-> i think i found the problem: it's powerplay. The bisection showed that
-> 3466904d38ff1e63f0a19cb31166db67f2d05c61 is the commit which introduced=
-
-> the problem:
->=20
-> while the code before checked if amdgpu_powerplay > 0 now it checks
-> equality. The default value is -1 so pp is enabled. I booted with
-> amdgpu.powerplay=3D0 and the problem is gone for the testing kernel 4.7=
-=2E
->=20
-> I tried a more recent kernel (4.9-rc5) and it seemed that it's not
-> checked anymore if amdgpu.powerplay equals 0. I'm adding a patch which
-> re enables the boot parameter.
->=20
-> Furthermore i'm not sure what causes the problem with my GPU in the
-> first place. If there is anything i can do please let me know.
-
-Adding the amd-gfx mailing list to Cc.
-
-This bug report should be reassigned to the kernel package.
-
-
-> On 10/03/2016 04:45 AM, Michel D=C3=A4nzer wrote:
->> On 01/10/16 06:30 PM, Michael Strobel wrote:
->>> Package: xserver-xorg-video-amdgpu
->>> Version: 1.1.2-1
->>> Severity: normal
->>>
->>> Dear Maintainer,
->>>
->>> i'm running debian testing and for quite a while i have problems with=
- my
->>> xserver on newer kernels. While linux-image-4.2.0-1-amd64 works fine =
-linux-image-4.6.0-1-amd64 and linux-image-4.7.0-1-amd64 my xserver spends=
- very long time (several minutes) on initialization.=20
->>> The only problem i can spot is a lot of=20
->>>
->>> Failed to send Previous Message.
->>> Failed to send Message.
->>>
->>> messages in dmesg. I'm not complete sure if the problem is even xserv=
-er
->>
->> Yeah, unless this doesn't happen with an older version of
->> xserver-xorg-video-amdgpu (and possibly related packages), it sounds
->> like an amdgpu kernel driver regression. Any chance you can bisect or =
-at
->> least narrow down which kernel version introduced the problem?
->>
->>
->=20
-
-
---=20
-Earthling Michel D=C3=A4nzer               |               http://www.amd=
-=2Ecom
-Libre software enthusiast             |             Mesa and X developer
-
-
---MlLDnI7Bcp19aPFBTe631dU7qrS9aH8e5--
-
---AMbO2ttLNAd76FG5M9WQF2qKKpdoVuR9b
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iFoEARECABoFAlgpGSITHG1pY2hlbEBkYWVuemVyLm5ldAAKCRBaga+OatuyAN1F
-AJ9zZdHhefGHDZD+2Gl8L1JfsPt3kwCfVG/s2aRp51dBKyDXQuGuyqlXWq4=
-=07Zt
------END PGP SIGNATURE-----
-
---AMbO2ttLNAd76FG5M9WQF2qKKpdoVuR9b--
-
---===============1376218939==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1376218939==--
+QWxleCwgdGhlIHBhdGNoIGlzIGFscmVhZHkgcmViYXNlZCBhZ2FpbnN0IHN0YWdpbmctNC43ICwg
+aXQganVzdCBmaXhlZCBub24tRklKSSBwYXNzLXRocm91Z2ggYnVnLCAgd2hpY2ggc2hvdWxkIHVz
+ZSByZWd1bGFyIHJ1bGVzIGJ1dCB3aXRob3V0IHRoaXMgcGF0Y2ggaXQgd2lsbCBhbHdheXMgZG8g
+cG9zdC4NCg0KQlIgTW9uaw0KDQotLS0tLemCruS7tuWOn+S7ti0tLS0tDQrlj5Hku7bkuro6IERl
+dWNoZXIsIEFsZXhhbmRlciANCuWPkemAgeaXtumXtDogRnJpZGF5LCBOb3ZlbWJlciAxMSwgMjAx
+NiAxMTowNSBQTQ0K5pS25Lu25Lq6OiBMaXUsIE1vbms7IGFtZC1nZnhAZnJlZWRlc2t0b3Aub3Jn
+DQrmioTpgIE6IExpdSwgTW9uaw0K5Li76aKYOiBSRTogW1BBVENIXSBkcm0vYW1kZ3B1OmZpeCB2
+cG9zdF9uZWVkZWQgcm91dGluZQ0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZy
+b206IGFtZC1nZnggW21haWx0bzphbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+XSBPbiBCZWhhbGYgDQo+IE9mIE1vbmsgTGl1DQo+IFNlbnQ6IEZyaWRheSwgTm92ZW1iZXIgMTEs
+IDIwMTYgNTowNCBBTQ0KPiBUbzogYW1kLWdmeEBmcmVlZGVza3RvcC5vcmcNCj4gQ2M6IExpdSwg
+TW9uaw0KPiBTdWJqZWN0OiBbUEFUQ0hdIGRybS9hbWRncHU6Zml4IHZwb3N0X25lZWRlZCByb3V0
+aW5lDQo+IA0KPiAxLGNsZWFudXAgZGVzY3JpcHRpb24vY29tbWVudHMNCj4gMixmb3IgRklKSSAm
+IHBhc3N0aHJvdWdoLCBmb3JjZSBwb3N0IHdoZW4gc21jIGZ3IHZlcnNpb24gYmVsb3cgMjIuMTUg
+DQo+IDMsZm9yIG90aGVyIGNhc2VzLCBmb2xsb3cgcmVndWxhciBydWxlcw0KPiANCj4gQ2hhbmdl
+LUlkOiBJZWNkZWVjMTgwMWE5MjBjMWY0ZWE5YzhmZDQwYmU5YWMyZjFmM2M1MQ0KPiBTaWduZWQt
+b2ZmLWJ5OiBNb25rIExpdSA8TW9uay5MaXVAYW1kLmNvbT4NCg0KQ2FuIHlvdSByZWJhc2UgdGhp
+cyBhZ2FpbnN0IGFtZC1zdGFnaW5nLTQuNz8gIFdlIHJld29ya2VkIHRoaXMgY29kZSBvbmNlIHdl
+IGZpeGVkIHRoZSBmaXJtd2FyZSB2ZXJzaW9uIHRyYWNraW5nIGluIHRoZSBmaXJtd2FyZSBpdHNl
+bGYuICBUaGUgZmlybXdhcmUgcHJpb3IgdG8gdGhhdCBoYXMgYSBmaXhlZCB2ZXJzaW9uIHNvIHdl
+IGNhbiBjaGVjayBmb3IgdGhhdCBhbmQgc3BlY2lhbCBjYXNlIGl0Lg0KDQpBbGV4DQoNCj4gLS0t
+DQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCAyNyANCj4g
+KysrKysrKy0tLS0tLS0tLS0tLS0tLQ0KPiAtLS0tLQ0KPiAgMSBmaWxlIGNoYW5nZWQsIDcgaW5z
+ZXJ0aW9ucygrKSwgMjAgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jDQo+IGluZGV4IDU5NzBjNDAuLmRiZmU0NzEgMTAwNjQ0
+DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYw0KPiAr
+KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4gQEAgLTYz
+NywxMiArNjM3LDEwIEBAIHN0YXRpYyBib29sIGFtZGdwdV92cG9zdF9uZWVkZWQoc3RydWN0IA0K
+PiBhbWRncHVfZGV2aWNlICphZGV2KQ0KPiAgCQlyZXR1cm4gZmFsc2U7DQo+IA0KPiAgCWlmIChh
+bWRncHVfcGFzc3Rocm91Z2goYWRldikpIHsNCj4gLQkJLyogZm9yIEZJSkk6IEluIHdob2xlIEdQ
+VSBwYXNzLXRocm91Z2ggdmlydHVhbGl6YXRpb24gY2FzZQ0KPiAtCQkgKiBvbGQgc21jIGZ3IHdv
+bid0IGNsZWFyIHNvbWUgcmVnaXN0ZXJzIChlLmcuIE1FTV9TSVpFLA0KPiBCSU9TX1NDUkFUQ0gp
+DQo+IC0JCSAqIHNvIGFtZGdwdV9jYXJkX3Bvc3RlZCByZXR1cm4gZmFsc2UgYW5kIGRyaXZlciB3
+aWxsDQo+IGluY29ycmVjdGx5IHNraXAgdlBvc3QuDQo+IC0JCSAqIGJ1dCBpZiB3ZSBmb3JjZSB2
+UG9zdCBkbyBpbiBwYXNzLXRocm91Z2ggY2FzZSwgdGhlIGRyaXZlcg0KPiByZWxvYWQgd2lsbCBo
+YW5nLg0KPiAtCQkgKiB3aGV0aGVyIGRvaW5nIHZQb3N0IGRlcGVuZHMgb24gYW1kZ3B1X2NhcmRf
+cG9zdGVkIGlmDQo+IHNtYyB2ZXJzaW9uIGlzIGFib3ZlDQo+IC0JCSAqIDAwMTYwZTAwIGZvciBG
+SUpJLg0KPiArCQkvKiBmb3IgRklKSTogSW4gd2hvbGUgR1BVIHBhc3MtdGhyb3VnaCB2aXJ0dWFs
+aXphdGlvbiBjYXNlLA0KPiBhZnRlciBWTSByZWJvb3QNCj4gKwkJICogc29tZSBvbGQgc21jIGZ3
+IHN0aWxsIG5lZWQgZHJpdmVyIGRvIHZQb3N0IG90aGVyd2lzZSBncHUNCj4gaGFuZywgd2hpbGUN
+Cj4gKwkJICogdGhvc2Ugc21jIGZ3IHZlcnNpb24gYWJvdmUgMjIuMTUgZG9lc24ndCBoYXZlIHRo
+aXMgZmxhdywNCj4gc28gd2UgZm9yY2UNCj4gKwkJICogdnBvc3QgZXhlY3V0ZWQgZm9yIHNtYyB2
+ZXJzaW9uIGJlbG93IDIyLjE1DQo+ICAJCSAqLw0KPiAgCQlpZiAoYWRldi0+YXNpY190eXBlID09
+IENISVBfRklKSSkgew0KPiAgCQkJaW50IGVycjsNCj4gQEAgLTY1MywyMiArNjUxLDExIEBAIHN0
+YXRpYyBib29sIGFtZGdwdV92cG9zdF9uZWVkZWQoc3RydWN0IA0KPiBhbWRncHVfZGV2aWNlICph
+ZGV2KQ0KPiAgCQkJCXJldHVybiB0cnVlOw0KPiANCj4gIAkJCWZ3X3ZlciA9ICooKHVpbnQzMl90
+ICopYWRldi0+cG0uZnctPmRhdGEgKyA2OSk7DQo+IC0JCQlpZiAoZndfdmVyID49IDB4MDAxNjBl
+MDApDQo+IC0JCQkJcmV0dXJuICFhbWRncHVfY2FyZF9wb3N0ZWQoYWRldik7DQo+ICsJCQlpZiAo
+ZndfdmVyIDwgMHgwMDE2MGUwMCkNCj4gKwkJCQlyZXR1cm4gdHJ1ZTsNCj4gIAkJfQ0KPiAtCX0g
+ZWxzZSB7DQo+IC0JCS8qIGluIGJhcmUtbWV0YWwgY2FzZSwgYW1kZ3B1X2NhcmRfcG9zdGVkIHJl
+dHVybiBmYWxzZQ0KPiAtCQkgKiBhZnRlciBzeXN0ZW0gcmVib290L2Jvb3QsIGFuZCByZXR1cm4g
+dHJ1ZSBpZiBkcml2ZXINCj4gLQkJICogcmVsb2FkZWQuDQo+IC0JCSAqIHdlIHNob3VsZG4ndCBk
+byB2UG9zdCBhZnRlciBkcml2ZXIgcmVsb2FkIG90aGVyd2lzZSBHUFUNCj4gLQkJICogY291bGQg
+aGFuZy4NCj4gLQkJICovDQo+IC0JCWlmIChhbWRncHVfY2FyZF9wb3N0ZWQoYWRldikpDQo+IC0J
+CQlyZXR1cm4gZmFsc2U7DQo+ICAJfQ0KPiAtDQo+IC0JLyogd2UgYXNzdW1lIHZQb3N0IGlzIG5l
+ZWRlIGZvciBhbGwgb3RoZXIgY2FzZXMgKi8NCj4gLQlyZXR1cm4gdHJ1ZTsNCj4gKwlyZXR1cm4g
+IWFtZGdwdV9jYXJkX3Bvc3RlZChhZGV2KTsNCj4gIH0NCj4gDQo+ICAvKioNCj4gLS0NCj4gMS45
+LjENCj4gDQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+DQo+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+DQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
