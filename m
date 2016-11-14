@@ -1,13 +1,13 @@
 From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [AMDGPU][CIK] PRIME with DRI3 + stalls rendering
-Date: Mon, 14 Nov 2016 10:40:17 +0900
-Message-ID: <472120da-9ec1-3963-484f-24add93f8eb6@daenzer.net>
-References: <8755034.yvhYdOUKRs@segfault>
+Subject: Re: gnome-shell is frozen upon wakeup from DPMS (bisected)
+Date: Mon, 14 Nov 2016 10:46:13 +0900
+Message-ID: <0c0ae77d-fb23-0cdb-161b-c57f41327ad1@daenzer.net>
+References: <e0aa85a5-c26e-f5ea-556b-ee8e5f3bc37e@suse.de>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <8755034.yvhYdOUKRs@segfault>
+In-Reply-To: <e0aa85a5-c26e-f5ea-556b-ee8e5f3bc37e-l3A5Bk7waGM@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,18 +18,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Shawn Starr <shawn.starr-bJEeYj9oJeDQT0dZR+AlfA@public.gmane.org>, Mario Kleiner <mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: Max Staudt <mstaudt-l3A5Bk7waGM@public.gmane.org>
 Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gMTMvMTEvMTYgMDY6NTkgQU0sIFNoYXduIFN0YXJyIHdyb3RlOgo+IAo+IEknbSBjdXJyZW50
-bHkgdHJ5aW5nIHRoZSBuZXcgZmVuY2UgcGF0Y2hlcyB0aGF0IHByZXZlbnQgdGVhcmluZyBpbiBQ
-UklNRSBvbiAKPiBCb25haXJlIENJSywgaXQgd29ya3Mgd2l0aCBubyB0ZWFyaW5nIHdpdGggbGF0
-ZXN0IHBhdGNoZXMgZnJvbSBNYXJpbywgYnV0IAo+IHRoZXJlIGlzIHNpZ25pZmljYW50IGZyYW1l
-IHN0YWxscywgZXZlbiB0aG91Z2ggdGhlIHBlcmZvcm1hbmNlIGlzIGhpZ2hlciB0aGFuIAo+IHJ1
-bm5pbmcgdGhlIEFNREdQVSBhcyBkZWRpY2F0ZWQuCgpQbGVhc2UgZWxhYm9yYXRlIG9uIHdoYXQg
-ImZyYW1lIHN0YWxscyIgbWVhbnMgZXhhY3RseS4KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6Ru
-emVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpMaWJy
-ZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQg
-WCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+T24gMTEvMTEvMTYgMDI6MjEgQU0sIE1heCBTdGF1ZHQgd3JvdGU6Cj4gSGksCj4gCj4gSSBoYXZl
+IGJpc2VjdGVkIGEgY29tbWl0IGluIHY0LjYgdGhhdCBmaXhlcyBhIGZyZWV6ZSBvZiB0aGUgc2Ny
+ZWVuIG9uCj4gRFBNUyBzbGVlcDoKPiAKPiA3NzdlM2NiYzc5MWYxMzE4MDZkOWJmMjRiMzMyNTYz
+N2M3ZmMyMjhkIGRybS9yYWRlb246IFN3aXRjaCB0byBkcm1fdmJsYW5rX29uL29mZgo+IAo+IAo+
+IFdoZW4gcnVubmluZyAneHNldCBkcG1zIGZvcmNlIG9mZicgaW4gYSBHTk9NRSBzZXNzaW9uIChJ
+IHRlc3RlZCB0aGlzIG9uCj4gb3BlblNVU0UgTGVhcCA0Mi4yKSwgc29tZXRpbWVzIHRoZSBzY3Jl
+ZW4gd2lsbCBmcmVlemUsIHNvbWV0aW1lcyBpdCB3aWxsCj4gbm90LiBJdCBtYXkgdGFrZSBzZXZl
+cmFsIHRyaWVzLgo+IAo+IFdoZW4gaXQgZG9lcyBmcmVlemUsIHRoZSBtb3VzZSBjYW4gc3RpbGwg
+YmUgdXNlZCwgYnV0IGNsaWNraW5nIGFueXRoaW5nCj4gd2lsbCAoc2VlbSB0bz8pIGhhdmUgbm8g
+ZWZmZWN0LiBUeXBpbmcgaW4gYW4gb3BlbiB0ZXJtaW5hbCBzdGlsbCB3b3JrcywKPiBhbGJlaXQg
+dGhlIHNjcmVlbiB3aWxsIHN0aWxsIGJlIGZyb3plbi4gUnVuICJ4dGVybSIgYW5kIHRoZSBzY3Jl
+ZW4gd2lsbAo+IHVuZnJlZXplLiBSdW5uaW5nICJ4bG9nbyIgZG9lcyBub3QgdW5mcmVlemUgaXQu
+CgpEb2VzIHRoaXMgc3RpbGwgaGFwcGVuIHdpdGggY3VycmVudCB4Zjg2LXZpZGVvLWF0aSBHaXQg
+bWFzdGVyPwoKCi0tIApFYXJ0aGxpbmcgTWljaGVsIETDpG56ZXIgICAgICAgICAgICAgICB8ICAg
+ICAgICAgICAgICAgaHR0cDovL3d3dy5hbWQuY29tCkxpYnJlIHNvZnR3YXJlIGVudGh1c2lhc3Qg
+ICAgICAgICAgICAgfCAgICAgICAgICAgICBNZXNhIGFuZCBYIGRldmVsb3BlcgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
+dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
