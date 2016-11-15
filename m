@@ -1,16 +1,11 @@
-From: Max Staudt <mstaudt-l3A5Bk7waGM@public.gmane.org>
-Subject: Re: gnome-shell is frozen upon wakeup from DPMS (bisected)
-Date: Tue, 15 Nov 2016 10:41:06 +0100
-Message-ID: <14a09eed-2de2-21fd-b44e-4d8178333ee2@suse.de>
-References: <e0aa85a5-c26e-f5ea-556b-ee8e5f3bc37e@suse.de>
- <0c0ae77d-fb23-0cdb-161b-c57f41327ad1@daenzer.net>
- <1b69099b-ffb0-0f48-2ab1-34dd6632f000@suse.de>
- <87d5d2c4-19c2-350c-f103-99d5eeb6ba9a@daenzer.net>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu/powerplay: drop a redundant NULL check
+Date: Tue, 15 Nov 2016 11:47:48 -0500
+Message-ID: <1479228468-23660-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <87d5d2c4-19c2-350c-f103-99d5eeb6ba9a-otUistvHUpPR7s880joybQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,13 +16,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Colin King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>, Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
 
-T24gMTEvMTUvMjAxNiAxMDoyMyBBTSwgTWljaGVsIETDpG56ZXIgd3JvdGU6Cj4gRG9lcyBpdCBz
-dGlsbCBoYXBwZW4gd2l0aCBEUkkyPyBZb3UgY2FuIGVpdGhlciBkaXNhYmxlIERSSTMgY29tcGxl
-dGVseSB3aXRoCj4gCj4gCU9wdGlvbiAiRFJJIiAiMiIKCgpZdXAsIHN0aWxsIGhhcHBlbnMgd2l0
-aCB0aGlzIG9wdGlvbi4KCgpNYXgKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
-LWdmeAo=
+TGVmdCBvdmVyIGZyb20gYW4gZWFybGllciByZXYgb2YgdGhlIHBhdGNoLgoKQ2M6IERhbiBDYXJw
+ZW50ZXIgPGRhbi5jYXJwZW50ZXJAb3JhY2xlLmNvbT4KQ2M6IENvbGluIEtpbmcgPGNvbGluLmtp
+bmdAY2Fub25pY2FsLmNvbT4KU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIu
+ZGV1Y2hlckBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdy
+L3NtdTdfaHdtZ3IuYyB8IDIgLS0KIDEgZmlsZSBjaGFuZ2VkLCAyIGRlbGV0aW9ucygtKQoKZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3Iu
+YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYwppbmRl
+eCBiMGM5MjlkZC4uMTNmMmI3MDUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93
+ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
+cGxheS9od21nci9zbXU3X2h3bWdyLmMKQEAgLTE0NjksOCArMTQ2OSw2IEBAIHN0YXRpYyBpbnQg
+c211N19nZXRfZXZ2X3ZvbHRhZ2VzKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCiAJCQkJCQl0YWJs
+ZV9pbmZvLT52ZGRnZnhfbG9va3VwX3RhYmxlLCB2dl9pZCwgJnNjbGspKSB7CiAJCQkJaWYgKHBo
+bV9jYXBfZW5hYmxlZChod21nci0+cGxhdGZvcm1fZGVzY3JpcHRvci5wbGF0Zm9ybUNhcHMsCiAJ
+CQkJCQkJUEhNX1BsYXRmb3JtQ2Fwc19DbG9ja1N0cmV0Y2hlcikpIHsKLQkJCQkJaWYgKHRhYmxl
+X2luZm8gPT0gTlVMTCkKLQkJCQkJCXJldHVybiAtRUlOVkFMOwogCQkJCQlzY2xrX3RhYmxlID0g
+dGFibGVfaW5mby0+dmRkX2RlcF9vbl9zY2xrOwogCiAJCQkJCWZvciAoaiA9IDE7IGogPCBzY2xr
+X3RhYmxlLT5jb3VudDsgaisrKSB7Ci0tIAoyLjUuNQoKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9hbWQtZ2Z4Cg==
