@@ -1,7 +1,7 @@
 From: Colin Ian King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
 Subject: Re: [PATCH] drm/amdgpu/powerplay: drop a redundant NULL check
-Date: Tue, 15 Nov 2016 16:50:08 +0000
-Message-ID: <965d822b-1e47-9e2b-5af0-89db6ae95578@canonical.com>
+Date: Tue, 15 Nov 2016 18:03:29 +0000
+Message-ID: <1cb0b132-d8dd-9893-e73f-48f8b4787034@canonical.com>
 References: <1479228468-23660-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
@@ -38,10 +38,8 @@ Cj4gIAkJCQlpZiAocGhtX2NhcF9lbmFibGVkKGh3bWdyLT5wbGF0Zm9ybV9kZXNjcmlwdG9yLnBs
 YXRmb3JtQ2FwcywKPiAgCQkJCQkJCVBITV9QbGF0Zm9ybUNhcHNfQ2xvY2tTdHJldGNoZXIpKSB7
 Cj4gLQkJCQkJaWYgKHRhYmxlX2luZm8gPT0gTlVMTCkKPiAtCQkJCQkJcmV0dXJuIC1FSU5WQUw7
 Cj4gIAkJCQkJc2Nsa190YWJsZSA9IHRhYmxlX2luZm8tPnZkZF9kZXBfb25fc2NsazsKPiAgCj4g
-IAkJCQkJZm9yIChqID0gMTsgaiA8IHNjbGtfdGFibGUtPmNvdW50OyBqKyspIHsKPiAKCklzIHRo
-ZXJlIGFub3RoZXIgaW5zdGFuY2Ugd2hlcmUgdGhlIHRhYmxlX2luZm8gPT0gTlVMTCBjaGVjayBj
-YW4gYmUKcmVtb3ZlZCBpbiB0aGUgaWYgKGh3bWdyLT5wcF90YWJsZV92ZXJzaW9uID09IFBQX1RB
-QkxFX1YwKSBzZWN0aW9uIG9mCnRoZSBmdW5jdGlvbj8KCkNvbGluCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+IAkJCQkJZm9yIChqID0gMTsgaiA8IHNjbGtfdGFibGUtPmNvdW50OyBqKyspIHsKPiAKVGhhbmtz
+IEFsZXguCgpBY2tlZC1ieTogQ29saW4gSWFuIEtpbmcgPGNvbGluLmtpbmdAY2Fub25pY2FsLmNv
+bT4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
