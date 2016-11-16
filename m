@@ -1,14 +1,15 @@
-From: Russell Currey <ruscur-3Su/lFKaw5ejKv3TNrM5DQ@public.gmane.org>
-Subject: Re: [PATCH] Revert "drm/amdgpu: use the kernel zone memory size as
- the max remote memory in amdgpu"
-Date: Wed, 16 Nov 2016 13:47:41 +1100
-Message-ID: <1479264461.6000.4.camel@russell.cc>
-References: <1479247509-6807-1-git-send-email-alexander.deucher@amd.com>
+From: Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org>
+Subject: Re: [AMDGPU][CIK] PRIME with DRI3 + stalls rendering
+Date: Wed, 16 Nov 2016 11:45:24 +0000
+Message-ID: <CAHbf0-EyOvHUHK1_t_uSy4c-sJQb5yCVnFfBLQ9FqvfQGwcGhg@mail.gmail.com>
+References: <8755034.yvhYdOUKRs@segfault>
+ <472120da-9ec1-3963-484f-24add93f8eb6@daenzer.net>
+ <1502264.CaXMU5SOfp@segfault> <7436783.BjWzAA5TzI@segfault>
+ <3eff28a2-e53c-74b9-4e34-6e7e206f0fc5@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0474028364=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1479247509-6807-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <3eff28a2-e53c-74b9-4e34-6e7e206f0fc5-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,111 +20,180 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+To: Mario Kleiner <mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Shawn Starr <shawn.starr-bJEeYj9oJeDQT0dZR+AlfA@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
 
-T24gVHVlLCAyMDE2LTExLTE1IGF0IDE3OjA1IC0wNTAwLCBBbGV4IERldWNoZXIgd3JvdGU6Cj4g
-VGhpcyByZXZlcnRzIGNvbW1pdCBhNjkzZTA1MGVkZmU3OTRmZWE4MWQ3Y2ZlNzI0MjlhNDA2YWEz
-ODBiLgo+IAo+IFRoaXMgYnJlYWtzIG9uIHN5c3RlbXMgd2l0aCBodWdlIGFtb3VudHMgb2Ygc3lz
-dGVtIG1lbW9yeSBhcyB3ZSBkbyBub3QgaGF2ZQo+IGVub3VnaCB2cmFtIHRvIHN0b3JlIHRoZSBw
-YWdlIHRhYmxlcy7CoMKgQWRkaXRpb25hbGx5LCB0aGlzIGlzIGxlc3Mgb2YgYW4gaXNzdWUKPiB3
-aXRoIHRoZSByZWNlbnQgZ3R0IG1hbmFnZXIgY2hhbmdlcy4KCldoeSByZXZlcnQgaXQgaW5zdGVh
-ZCBvZiBsaW1pdCB0aGUgYW1vdW50IG9mIHZyYW0gaXQgY2FuIHVzZSAoYXMgcGVyIHRoZSBwYXRj
-aCBJCnNlbnQgdGhlIG90aGVyIGRheSk/CgpJZiB0aGVyZSdzIG5vIGJlbmVmaXQgdG8gc2NhbGlu
-ZyB0aGUgR1RUIHNpemUgd2h5IHdhcyB0aGUgY2hhbmdlIG1hZGUgaW4gdGhlCmZpcnN0IHBsYWNl
-PwoKLSBSdXNzZWxsCgo+IAo+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVy
-LmRldWNoZXJAYW1kLmNvbT4KPiAtLS0KPiDCoGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdS5owqDCoMKgwqDCoHzCoMKgMiAtLQo+IMKgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3R0bS5jIHwgMTIgKysrKystLS0tLS0tCj4gwqBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9nbWNfdjZfMC5jwqDCoMKgfMKgwqA3ICstLS0tLS0KPiDCoGRyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2dtY192N18wLmPCoMKgwqB8wqDCoDcgKy0tLS0tLQo+IMKgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvZ21jX3Y4XzAuY8KgwqDCoHzCoMKgNyArLS0tLS0tCj4gwqA1IGZpbGVz
-IGNoYW5nZWQsIDggaW5zZXJ0aW9ucygrKSwgMjcgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4gYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHUuaAo+IGluZGV4IDQ5NmY3MmIuLjMwMzk4OWIgMTAwNjQ0Cj4g
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPiArKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAo+IEBAIC0yNDM0LDggKzI0MzQsNiBAQCB1aW50
-MzJfdCBhbWRncHVfdHRtX3R0X3B0ZV9mbGFncyhzdHJ1Y3QgYW1kZ3B1X2RldmljZQo+ICphZGV2
-LCBzdHJ1Y3QgdHRtX3R0ICp0dG0sCj4gwqB2b2lkIGFtZGdwdV92cmFtX2xvY2F0aW9uKHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1X21jICptYywKPiB1NjQgYmFzZSk7
-Cj4gwqB2b2lkIGFtZGdwdV9ndHRfbG9jYXRpb24oc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYs
-IHN0cnVjdCBhbWRncHVfbWMgKm1jKTsKPiDCoHZvaWQgYW1kZ3B1X3R0bV9zZXRfYWN0aXZlX3Zy
-YW1fc2l6ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdTY0IHNpemUpOwo+IC11NjQgYW1k
-Z3B1X3R0bV9nZXRfZ3R0X21lbV9zaXplKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKPiAt
-aW50IGFtZGdwdV90dG1fZ2xvYmFsX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOwo+
-IMKgaW50IGFtZGdwdV90dG1faW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7Cj4gwqB2
-b2lkIGFtZGdwdV90dG1fZmluaShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7Cj4gwqB2b2lk
-IGFtZGdwdV9wcm9ncmFtX3JlZ2lzdGVyX3NlcXVlbmNlKHN0cnVjdCBhbWRncHVfZGV2aWNlICph
-ZGV2LAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRt
-LmMKPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwo+IGluZGV4IGRj
-YWY2OTEuLmFmYWRhMmYgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3R0bS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0
-bS5jCj4gQEAgLTM0LDcgKzM0LDYgQEAKPiDCoCNpbmNsdWRlIDx0dG0vdHRtX3BsYWNlbWVudC5o
-Pgo+IMKgI2luY2x1ZGUgPHR0bS90dG1fbW9kdWxlLmg+Cj4gwqAjaW5jbHVkZSA8dHRtL3R0bV9w
-YWdlX2FsbG9jLmg+Cj4gLSNpbmNsdWRlIDx0dG0vdHRtX21lbW9yeS5oPgo+IMKgI2luY2x1ZGUg
-PGRybS9kcm1QLmg+Cj4gwqAjaW5jbHVkZSA8ZHJtL2FtZGdwdV9kcm0uaD4KPiDCoCNpbmNsdWRl
-IDxsaW51eC9zZXFfZmlsZS5oPgo+IEBAIC03NSw3ICs3NCw3IEBAIHN0YXRpYyB2b2lkIGFtZGdw
-dV90dG1fbWVtX2dsb2JhbF9yZWxlYXNlKHN0cnVjdAo+IGRybV9nbG9iYWxfcmVmZXJlbmNlICpy
-ZWYpCj4gwqAJdHRtX21lbV9nbG9iYWxfcmVsZWFzZShyZWYtPm9iamVjdCk7Cj4gwqB9Cj4gwqAK
-PiAtaW50IGFtZGdwdV90dG1fZ2xvYmFsX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYp
-Cj4gK3N0YXRpYyBpbnQgYW1kZ3B1X3R0bV9nbG9iYWxfaW5pdChzdHJ1Y3QgYW1kZ3B1X2Rldmlj
-ZSAqYWRldikKPiDCoHsKPiDCoAlzdHJ1Y3QgZHJtX2dsb2JhbF9yZWZlcmVuY2UgKmdsb2JhbF9y
-ZWY7Cj4gwqAJc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nOwo+IEBAIC0xMDgzLDYgKzEwODIsMTAg
-QEAgaW50IGFtZGdwdV90dG1faW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiDCoAl1
-bnNpZ25lZCBpLCBqOwo+IMKgCWludCByOwo+IMKgCj4gKwlyID0gYW1kZ3B1X3R0bV9nbG9iYWxf
-aW5pdChhZGV2KTsKPiArCWlmIChyKSB7Cj4gKwkJcmV0dXJuIHI7Cj4gKwl9Cj4gwqAJLyogTm8g
-b3RoZXJzIHVzZXIgb2YgYWRkcmVzcyBzcGFjZSBzbyBzZXQgaXQgdG8gMCAqLwo+IMKgCXIgPSB0
-dG1fYm9fZGV2aWNlX2luaXQoJmFkZXYtPm1tYW4uYmRldiwKPiDCoAkJCcKgwqDCoMKgwqDCoMKg
-YWRldi0+bW1hbi5ib19nbG9iYWxfcmVmLnJlZi5vYmplY3QsCj4gQEAgLTE1NTQsOCArMTU1Nywz
-IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV90dG1fZGVidWdmc19maW5pKHN0cnVjdCBhbWRncHVfZGV2
-aWNlCj4gKmFkZXYpCj4gwqAKPiDCoCNlbmRpZgo+IMKgfQo+IC0KPiAtdTY0IGFtZGdwdV90dG1f
-Z2V0X2d0dF9tZW1fc2l6ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAtewo+IC0JcmV0
-dXJuIHR0bV9nZXRfa2VybmVsX3pvbmVfbWVtb3J5X3NpemUoYWRldi0KPiA+bW1hbi5tZW1fZ2xv
-YmFsX3JlZi5vYmplY3QpOwo+IC19Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2dtY192Nl8wLmMKPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192Nl8w
-LmMKPiBpbmRleCBiMTNjOGFhLi5jYTdhNzdiIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2dtY192Nl8wLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9nbWNfdjZfMC5jCj4gQEAgLTMxNyw3ICszMTcsNyBAQCBzdGF0aWMgaW50IGdtY192Nl8wX21j
-X2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gwqAJwqAqIHNpemUgZXF1YWwgdG8g
-dGhlIDEwMjQgb3IgdnJhbSwgd2hpY2hldmVyIGlzIGxhcmdlci4KPiDCoAnCoCovCj4gwqAJaWYg
-KGFtZGdwdV9nYXJ0X3NpemUgPT0gLTEpCj4gLQkJYWRldi0+bWMuZ3R0X3NpemUgPSBhbWRncHVf
-dHRtX2dldF9ndHRfbWVtX3NpemUoYWRldik7Cj4gKwkJYWRldi0+bWMuZ3R0X3NpemUgPSBtYXgo
-KDEwMjRVTEwgPDwgMjApLCBhZGV2LQo+ID5tYy5tY192cmFtX3NpemUpOwo+IMKgCWVsc2UKPiDC
-oAkJYWRldi0+bWMuZ3R0X3NpemUgPSAodWludDY0X3QpYW1kZ3B1X2dhcnRfc2l6ZSA8PCAyMDsK
-PiDCoAo+IEBAIC03NjYsMTEgKzc2Niw2IEBAIHN0YXRpYyBpbnQgZ21jX3Y2XzBfc3dfaW5pdCh2
-b2lkICpoYW5kbGUpCj4gwqAJCXJldHVybiByOwo+IMKgCX0KPiDCoAo+IC0JciA9IGFtZGdwdV90
-dG1fZ2xvYmFsX2luaXQoYWRldik7Cj4gLQlpZiAocikgewo+IC0JCXJldHVybiByOwo+IC0JfQo+
-IC0KPiDCoAlyID0gZ21jX3Y2XzBfbWNfaW5pdChhZGV2KTsKPiDCoAlpZiAocikKPiDCoAkJcmV0
-dXJuIHI7Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192N18w
-LmMKPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192N18wLmMKPiBpbmRleCBhYTBj
-NGI5Li5iMWEwMWRkIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dt
-Y192N18wLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjdfMC5jCj4g
-QEAgLTM4NSw3ICszODUsNyBAQCBzdGF0aWMgaW50IGdtY192N18wX21jX2luaXQoc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYpCj4gwqAJwqAqIHNpemUgZXF1YWwgdG8gdGhlIDEwMjQgb3IgdnJh
-bSwgd2hpY2hldmVyIGlzIGxhcmdlci4KPiDCoAnCoCovCj4gwqAJaWYgKGFtZGdwdV9nYXJ0X3Np
-emUgPT0gLTEpCj4gLQkJYWRldi0+bWMuZ3R0X3NpemUgPSBhbWRncHVfdHRtX2dldF9ndHRfbWVt
-X3NpemUoYWRldik7Cj4gKwkJYWRldi0+bWMuZ3R0X3NpemUgPSBtYXgoKDEwMjRVTEwgPDwgMjAp
-LCBhZGV2LQo+ID5tYy5tY192cmFtX3NpemUpOwo+IMKgCWVsc2UKPiDCoAkJYWRldi0+bWMuZ3R0
-X3NpemUgPSAodWludDY0X3QpYW1kZ3B1X2dhcnRfc2l6ZSA8PCAyMDsKPiDCoAo+IEBAIC05NDUs
-MTEgKzk0NSw2IEBAIHN0YXRpYyBpbnQgZ21jX3Y3XzBfc3dfaW5pdCh2b2lkICpoYW5kbGUpCj4g
-wqAJCXJldHVybiByOwo+IMKgCX0KPiDCoAo+IC0JciA9IGFtZGdwdV90dG1fZ2xvYmFsX2luaXQo
-YWRldik7Cj4gLQlpZiAocikgewo+IC0JCXJldHVybiByOwo+IC0JfQo+IC0KPiDCoAlyID0gZ21j
-X3Y3XzBfbWNfaW5pdChhZGV2KTsKPiDCoAlpZiAocikKPiDCoAkJcmV0dXJuIHI7Cj4gZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMKPiBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMKPiBpbmRleCBhMTZiMjIwLi4xY2NkYWMzIDEw
-MDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMKPiArKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjhfMC5jCj4gQEAgLTQ3Miw3ICs0NzIs
-NyBAQCBzdGF0aWMgaW50IGdtY192OF8wX21jX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
-ZXYpCj4gwqAJwqAqIHNpemUgZXF1YWwgdG8gdGhlIDEwMjQgb3IgdnJhbSwgd2hpY2hldmVyIGlz
-IGxhcmdlci4KPiDCoAnCoCovCj4gwqAJaWYgKGFtZGdwdV9nYXJ0X3NpemUgPT0gLTEpCj4gLQkJ
-YWRldi0+bWMuZ3R0X3NpemUgPSBhbWRncHVfdHRtX2dldF9ndHRfbWVtX3NpemUoYWRldik7Cj4g
-KwkJYWRldi0+bWMuZ3R0X3NpemUgPSBtYXgoKDEwMjRVTEwgPDwgMjApLCBhZGV2LQo+ID5tYy5t
-Y192cmFtX3NpemUpOwo+IMKgCWVsc2UKPiDCoAkJYWRldi0+bWMuZ3R0X3NpemUgPSAodWludDY0
-X3QpYW1kZ3B1X2dhcnRfc2l6ZSA8PCAyMDsKPiDCoAo+IEBAIC05NTIsMTEgKzk1Miw2IEBAIHN0
-YXRpYyBpbnQgZ21jX3Y4XzBfc3dfaW5pdCh2b2lkICpoYW5kbGUpCj4gwqAJCXJldHVybiByOwo+
-IMKgCX0KPiDCoAo+IC0JciA9IGFtZGdwdV90dG1fZ2xvYmFsX2luaXQoYWRldik7Cj4gLQlpZiAo
-cikgewo+IC0JCXJldHVybiByOwo+IC0JfQo+IC0KPiDCoAlyID0gZ21jX3Y4XzBfbWNfaW5pdChh
-ZGV2KTsKPiDCoAlpZiAocikKPiDCoAkJcmV0dXJuIHI7CgpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZngK
+--===============0474028364==
+Content-Type: multipart/alternative; boundary=001a11423f446f00d60541699c51
+
+--001a11423f446f00d60541699c51
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Alternatively you can switch to the modesetting driver - it works well here
+
+On Wed, 16 Nov 2016 at 01:33 Mario Kleiner <mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+wrote:
+
+> On 11/15/2016 09:25 AM, Shawn Starr wrote:
+> > On Monday, November 14, 2016 3:40:17 PM EST Shawn Starr wrote:
+> >> On Monday, November 14, 2016 10:40:17 AM EST Michel D=C3=A4nzer wrote:
+> >>> On 13/11/16 06:59 AM, Shawn Starr wrote:
+> >>>> I'm currently trying the new fence patches that prevent tearing in
+> PRIME
+> >>>> on
+> >>>> Bonaire CIK, it works with no tearing with latest patches from Mario=
+,
+> >>>> but
+> >>>> there is significant frame stalls, even though the performance is
+> higher
+> >>>> than running the AMDGPU as dedicated.
+> >>>
+> >>> Please elaborate on what "frame stalls" means exactly.
+> >>
+> >> It looks like vsync issues, even though if I try vblank_mode=3D# it st=
+ill
+> >> shows stalling.
+> >>
+> >> I'll have to make a video to show the results and post link here.
+> >>
+> >> Thanks,
+> >> Shawn
+> >
+> > So, It turns out to be KDE (Kwin) fault, if I start a GNOME session, an=
+d
+> run
+> > Valley, no such stalls. Even though I told KWIN to disable Vsync
+> completely
+> > and disable composite on full screen windows. Seems it doesn't work
+> right.
+> >
+> > Consider the PRIME patches working for me.
+> >
+> > Thanks,
+> > Shawn
+> >
+> >
+>
+> Glad it works for you with GNOME.
+>
+> Wrt. Kwin, KWin doesn't unredirect fullscreen windows if the display
+> iGPU is Intel, apparently because sometime in the past there were bugs
+> in the intel ddx related to switching between redirected and
+> unredirected mode. That might explain the problem under KDE.
+>
+> You'd need to disable the compositor manually (SHIFT + ALT + F12 to
+> toggle at runtime) while running a fullscreen app/game that way, or the
+> application needs to set some NetWM hints on its window to ask for no
+> composition, or some KWin rule needs to be set for the app. I tested the
+> patches under KDE Plasma 5 (KUbuntu 16.04 LTS) with composition disabled
+> this way and at least my tests worked fine then.
+>
+> -mario
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+
+--001a11423f446f00d60541699c51
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Alternatively you can switch to the modesetting driver - i=
+t works well here</div><br><div class=3D"gmail_quote"><div dir=3D"ltr">On W=
+ed, 16 Nov 2016 at 01:33 Mario Kleiner &lt;<a href=3D"mailto:mario.kleiner.=
+de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br></div><blockquot=
+e class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc sol=
+id;padding-left:1ex">On 11/15/2016 09:25 AM, Shawn Starr wrote:<br class=3D=
+"gmail_msg">
+&gt; On Monday, November 14, 2016 3:40:17 PM EST Shawn Starr wrote:<br clas=
+s=3D"gmail_msg">
+&gt;&gt; On Monday, November 14, 2016 10:40:17 AM EST Michel D=C3=A4nzer wr=
+ote:<br class=3D"gmail_msg">
+&gt;&gt;&gt; On 13/11/16 06:59 AM, Shawn Starr wrote:<br class=3D"gmail_msg=
+">
+&gt;&gt;&gt;&gt; I&#39;m currently trying the new fence patches that preven=
+t tearing in PRIME<br class=3D"gmail_msg">
+&gt;&gt;&gt;&gt; on<br class=3D"gmail_msg">
+&gt;&gt;&gt;&gt; Bonaire CIK, it works with no tearing with latest patches =
+from Mario,<br class=3D"gmail_msg">
+&gt;&gt;&gt;&gt; but<br class=3D"gmail_msg">
+&gt;&gt;&gt;&gt; there is significant frame stalls, even though the perform=
+ance is higher<br class=3D"gmail_msg">
+&gt;&gt;&gt;&gt; than running the AMDGPU as dedicated.<br class=3D"gmail_ms=
+g">
+&gt;&gt;&gt;<br class=3D"gmail_msg">
+&gt;&gt;&gt; Please elaborate on what &quot;frame stalls&quot; means exactl=
+y.<br class=3D"gmail_msg">
+&gt;&gt;<br class=3D"gmail_msg">
+&gt;&gt; It looks like vsync issues, even though if I try vblank_mode=3D# i=
+t still<br class=3D"gmail_msg">
+&gt;&gt; shows stalling.<br class=3D"gmail_msg">
+&gt;&gt;<br class=3D"gmail_msg">
+&gt;&gt; I&#39;ll have to make a video to show the results and post link he=
+re.<br class=3D"gmail_msg">
+&gt;&gt;<br class=3D"gmail_msg">
+&gt;&gt; Thanks,<br class=3D"gmail_msg">
+&gt;&gt; Shawn<br class=3D"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+&gt; So, It turns out to be KDE (Kwin) fault, if I start a GNOME session, a=
+nd run<br class=3D"gmail_msg">
+&gt; Valley, no such stalls. Even though I told KWIN to disable Vsync compl=
+etely<br class=3D"gmail_msg">
+&gt; and disable composite on full screen windows. Seems it doesn&#39;t wor=
+k right.<br class=3D"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+&gt; Consider the PRIME patches working for me.<br class=3D"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+&gt; Thanks,<br class=3D"gmail_msg">
+&gt; Shawn<br class=3D"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+Glad it works for you with GNOME.<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+Wrt. Kwin, KWin doesn&#39;t unredirect fullscreen windows if the display<br=
+ class=3D"gmail_msg">
+iGPU is Intel, apparently because sometime in the past there were bugs<br c=
+lass=3D"gmail_msg">
+in the intel ddx related to switching between redirected and<br class=3D"gm=
+ail_msg">
+unredirected mode. That might explain the problem under KDE.<br class=3D"gm=
+ail_msg">
+<br class=3D"gmail_msg">
+You&#39;d need to disable the compositor manually (SHIFT + ALT + F12 to<br =
+class=3D"gmail_msg">
+toggle at runtime) while running a fullscreen app/game that way, or the<br =
+class=3D"gmail_msg">
+application needs to set some NetWM hints on its window to ask for no<br cl=
+ass=3D"gmail_msg">
+composition, or some KWin rule needs to be set for the app. I tested the<br=
+ class=3D"gmail_msg">
+patches under KDE Plasma 5 (KUbuntu 16.04 LTS) with composition disabled<br=
+ class=3D"gmail_msg">
+this way and at least my tests worked fine then.<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+-mario<br class=3D"gmail_msg">
+_______________________________________________<br class=3D"gmail_msg">
+amd-gfx mailing list<br class=3D"gmail_msg">
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" class=3D"gmail_msg" target=
+=3D"_blank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br class=3D"gmail_msg">
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer" class=3D"gmail_msg" target=3D"_blank">https://lists.freedesktop.=
+org/mailman/listinfo/amd-gfx</a><br class=3D"gmail_msg">
+</blockquote></div>
+
+--001a11423f446f00d60541699c51--
+
+--===============0474028364==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0474028364==--
