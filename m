@@ -1,13 +1,14 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH v2] drm/amdgpu: Disable DPM in virtualization
-Date: Thu, 17 Nov 2016 08:56:01 +0100
-Message-ID: <231d4241-a5aa-d45c-5312-138b8be14591@vodafone.de>
-References: <1479362340-6222-1-git-send-email-trigger.huang@amd.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: gnome-shell is frozen upon wakeup from DPMS (bisected)
+Date: Thu, 17 Nov 2016 17:27:17 +0900
+Message-ID: <9a09c38c-870f-dc5b-327b-3cc99da49600@daenzer.net>
+References: <e0aa85a5-c26e-f5ea-556b-ee8e5f3bc37e@suse.de>
+ <0c0ae77d-fb23-0cdb-161b-c57f41327ad1@daenzer.net>
+ <1b69099b-ffb0-0f48-2ab1-34dd6632f000@suse.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="------------F71D03CEACB4888BF4E581D7"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1479362340-6222-1-git-send-email-trigger.huang-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1b69099b-ffb0-0f48-2ab1-34dd6632f000-l3A5Bk7waGM@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,52 +19,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Trigger Huang <trigger.huang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Max Staudt <mstaudt-l3A5Bk7waGM@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QW0gMTcuMTEuMjAxNiB1bSAwNjo1OSBzY2hyaWViIFRyaWdnZXIgSHVhbmc6Cj4gVGhpcyBwYXRj
-aCBpcyB1c2VkIGZvciB2aXJ0dWFsaXphdGlvbiBzdXBwb3J0LiBJbiB2aXJ0dWFsaXphdGlvbiwK
-PiBvbmx5IFNNVSBtYW5hZ2VyIGlzIG5lZWRlZCwgRFBNIHNob3VsZCBiZSBkaXNhYmxlZC4gVGhp
-cyBpcyBhCj4gdXNlIGNhc2UgZm9yIGNvbW1pdCAyZjkzNDZiNmY5ODQKPiAoImRybS9hbWRncHUv
-cG93ZXJwbGF5OiBwcCBtb2R1bGUgb25seSBlbmFibGUgc211IHdoZW4gZHBtIGRpc2FibGVkLiIp
-Cj4KPiBDaGFuZ2UgaW4gVjIsIGFjY29yZGluZyB0byBDaHJpc3RpYW4ncyBzdWdnZXN0aW9uLAo+
-IFRoaXMgcGF0Y2ggd2lsbCBub3QgbWVzcyB3aXRoIG1vZHVsZSBwYXJhbWV0ZXJzIGFtZGdwdV9k
-cG0sIGJ1dCBtYWtlCj4gdGhhdCBhIGRlcGVuZGVuY3kgZm9yIHdoZW4gYW1kZ3B1X2RwbSBpcyBl
-dmFsdWF0ZWQuCj4KPiBTaWduZWQtb2ZmLWJ5OiBUcmlnZ2VyIEh1YW5nIDx0cmlnZ2VyLmh1YW5n
-QGFtZC5jb20+CgpSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5p
-Z0BhbWQuY29tPi4KCj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-cG93ZXJwbGF5LmMgfCAyICstCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRf
-cG93ZXJwbGF5LmMgfCA5ICsrKysrKy0tLQo+ICAgMiBmaWxlcyBjaGFuZ2VkLCA3IGluc2VydGlv
-bnMoKyksIDQgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X3Bvd2VycGxheS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3Bvd2VycGxheS5jCj4gaW5kZXggZTJmMDUwNy4uZmM1OTJjMiAxMDA2NDQKPiAtLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG93ZXJwbGF5LmMKPiArKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG93ZXJwbGF5LmMKPiBAQCAtMTg0LDcg
-KzE4NCw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3BwX2h3X2luaXQodm9pZCAqaGFuZGxlKQo+ICAg
-CQlyZXQgPSBhZGV2LT5wb3dlcnBsYXkuaXBfZnVuY3MtPmh3X2luaXQoCj4gICAJCQkJCWFkZXYt
-PnBvd2VycGxheS5wcF9oYW5kbGUpOwo+ICAgCj4gLQlpZiAoYW1kZ3B1X2RwbSAhPSAwKQo+ICsJ
-aWYgKChhbWRncHVfZHBtICE9IDApICYmICFhbWRncHVfc3Jpb3ZfdmYoYWRldikpCj4gICAJCWFk
-ZXYtPnBtLmRwbV9lbmFibGVkID0gdHJ1ZTsKPiAgIAo+ICAgCXJldHVybiByZXQ7Cj4gZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZF9wb3dlcnBsYXkuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZF9wb3dlcnBsYXkuYwo+IGluZGV4IDRhNGY5
-N2IuLjUxYTM2MDcgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
-YW1kX3Bvd2VycGxheS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1k
-X3Bvd2VycGxheS5jCj4gQEAgLTkxMSw3ICs5MTEsOCBAQCBzdGF0aWMgaW50IGFtZF9wcF9pbnN0
-YW5jZV9pbml0KHN0cnVjdCBhbWRfcHBfaW5pdCAqcHBfaW5pdCwKPiAgIAo+ICAgCWFtZF9wcC0+
-cHBfaGFuZGxlID0gaGFuZGxlOwo+ICAgCj4gLQlpZiAoYW1kZ3B1X2RwbSA9PSAwKQo+ICsJaWYg
-KChhbWRncHVfZHBtID09IDApCj4gKwkJfHwgY2dzX2lzX3ZpcnR1YWxpemF0aW9uX2VuYWJsZWQo
-cHBfaW5pdC0+ZGV2aWNlKSkKPiAgIAkJcmV0dXJuIDA7Cj4gICAKPiAgIAlyZXQgPSBod21ncl9p
-bml0KHBwX2luaXQsIGhhbmRsZSk7Cj4gQEAgLTk0MCw3ICs5NDEsOCBAQCBzdGF0aWMgaW50IGFt
-ZF9wcF9pbnN0YW5jZV9maW5pKHZvaWQgKmhhbmRsZSkKPiAgIAlpZiAoaW5zdGFuY2UgPT0gTlVM
-TCkKPiAgIAkJcmV0dXJuIC1FSU5WQUw7Cj4gICAKPiAtCWlmIChhbWRncHVfZHBtICE9IDApIHsK
-PiArCWlmICgoYW1kZ3B1X2RwbSAhPSAwKQo+ICsJCSYmICFjZ3NfaXNfdmlydHVhbGl6YXRpb25f
-ZW5hYmxlZChpbnN0YW5jZS0+c211X21nci0+ZGV2aWNlKSkgewo+ICAgCQlldmVudG1ncl9maW5p
-KGluc3RhbmNlLT5ldmVudG1ncik7Cj4gICAJCWh3bWdyX2ZpbmkoaW5zdGFuY2UtPmh3bWdyKTsK
-PiAgIAl9Cj4gQEAgLTEwMDQsNyArMTAwNiw4IEBAIGludCBhbWRfcG93ZXJwbGF5X3Jlc2V0KHZv
-aWQgKmhhbmRsZSkKPiAgIAo+ICAgCWh3X2luaXRfcG93ZXJfc3RhdGVfdGFibGUoaW5zdGFuY2Ut
-Pmh3bWdyKTsKPiAgIAo+IC0JaWYgKGFtZGdwdV9kcG0gPT0gMCkKPiArCWlmICgoYW1kZ3B1X2Rw
-bSA9PSAwKQo+ICsJCXx8IGNnc19pc192aXJ0dWFsaXphdGlvbl9lbmFibGVkKGluc3RhbmNlLT5z
-bXVfbWdyLT5kZXZpY2UpKQo+ICAgCQlyZXR1cm4gMDsKPiAgIAo+ICAgCWlmIChldmVudG1nciA9
-PSBOVUxMIHx8IGV2ZW50bWdyLT5wcF9ldmVudG1ncl9pbml0ID09IE5VTEwpCgoKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
-c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+This is a multi-part message in MIME format.
+--------------F71D03CEACB4888BF4E581D7
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+On 14/11/16 11:12 PM, Max Staudt wrote:
+> On 11/14/2016 02:46 AM, Michel Dänzer wrote:
+>> On 11/11/16 02:21 AM, Max Staudt wrote:
+>>> Hi,
+>>>
+>>> I have bisected a commit in v4.6 that fixes a freeze of the screen on
+>>> DPMS sleep:
+>>>
+>>> 777e3cbc791f131806d9bf24b3325637c7fc228d drm/radeon: Switch to drm_vblank_on/off
+>>>
+>>>
+>>> When running 'xset dpms force off' in a GNOME session (I tested this on
+>>> openSUSE Leap 42.2), sometimes the screen will freeze, sometimes it will
+>>> not. It may take several tries.
+>>>
+>>> When it does freeze, the mouse can still be used, but clicking anything
+>>> will (seem to?) have no effect. Typing in an open terminal still works,
+>>> albeit the screen will still be frozen. Run "xterm" and the screen will
+>>> unfreeze. Running "xlogo" does not unfreeze it.
+>>
+>> Does this still happen with current xf86-video-ati Git master?
+> 
+> 
+> Hmm, good idea!
+> 
+> 
+> I bisected this, and the problem goes away in this xf86-video-ati commit:
+> 
+> 1181b9c582f10b6c523e4b2988e2ce87ecf3d367 Enable DRI3 by default when building for Xorg >= 1.18.3
+> 
+> 
+> I tested this on Kabini.
+> 
+> 
+> So... what about DRI2?
+
+Does the attached kernel patch help with pre-4.6 kernels?
+
+
+-- 
+Earthling Michel Dänzer               |               http://www.amd.com
+Libre software enthusiast             |             Mesa and X developer
+
+--------------F71D03CEACB4888BF4E581D7
+Content-Type: text/x-patch;
+ name="radeon-post-modeset-reset-irq.diff"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="radeon-post-modeset-reset-irq.diff"
+
+diff --git a/drivers/gpu/drm/radeon/atombios_crtc.c b/drivers/gpu/drm/rad=
+eon/atombios_crtc.c
+index 801dd60..3d41415 100644
+--- a/drivers/gpu/drm/radeon/atombios_crtc.c
++++ b/drivers/gpu/drm/radeon/atombios_crtc.c
+@@ -276,6 +276,7 @@ void atombios_crtc_dpms(struct drm_crtc *crtc, int mo=
+de)
+ 			atombios_enable_crtc_memreq(crtc, ATOM_ENABLE);
+ 		atombios_blank_crtc(crtc, ATOM_DISABLE);
+ 		drm_vblank_post_modeset(dev, radeon_crtc->crtc_id);
++		radeon_irq_set(rdev);
+ 		radeon_crtc_load_lut(crtc);
+ 		break;
+ 	case DRM_MODE_DPMS_STANDBY:
+diff --git a/drivers/gpu/drm/radeon/radeon_legacy_crtc.c b/drivers/gpu/dr=
+m/radeon/radeon_legacy_crtc.c
+index 32b338f..911efe5 100644
+--- a/drivers/gpu/drm/radeon/radeon_legacy_crtc.c
++++ b/drivers/gpu/drm/radeon/radeon_legacy_crtc.c
+@@ -332,6 +332,7 @@ static void radeon_crtc_dpms(struct drm_crtc *crtc, i=
+nt mode)
+ 			WREG32_P(RADEON_CRTC_EXT_CNTL, crtc_ext_cntl, ~(mask | crtc_ext_cntl)=
+);
+ 		}
+ 		drm_vblank_post_modeset(dev, radeon_crtc->crtc_id);
++		radeon_irq_set(rdev);
+ 		radeon_crtc_load_lut(crtc);
+ 		break;
+ 	case DRM_MODE_DPMS_STANDBY:
+
+--------------F71D03CEACB4888BF4E581D7
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--------------F71D03CEACB4888BF4E581D7--
