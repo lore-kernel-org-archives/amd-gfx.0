@@ -1,79 +1,95 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 00/76] DAL Patches Nov 21, 2016
-Date: Wed, 23 Nov 2016 13:56:12 -0500
-Message-ID: <CADnq5_Ne4knqL0q7wsq0kkb__crqKH6OZBV2jKJLVe1andyT_g@mail.gmail.com>
-References: <20161121230136.5208-1-harry.wentland@amd.com>
- <20161123000638.GA3312@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/radeon: fix power state when port pm is unavailable (v2)
+Date: Wed, 23 Nov 2016 13:58:52 -0500
+Message-ID: <CADnq5_MAbY8tLHNcuu3A0cviSYKFTMR4C6QUbTVV_JrdEO2AoA@mail.gmail.com>
+References: <1479923013-14627-1-git-send-email-alexander.deucher@amd.com> <20161123182802.GB18537@al>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20161123000638.GA3312-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Jerome Glisse <j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "Wentland, Harry" <harry.wentland-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=UTF-8
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20161123182802.GB18537@al>
+Sender: stable-owner@vger.kernel.org
+To: Peter Wu <peter@lekensteyn.nl>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, "for 3.8" <stable@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVHVlLCBOb3YgMjIsIDIwMTYgYXQgNzowNiBQTSwgSmVyb21lIEdsaXNzZSA8ai5nbGlzc2VA
-Z21haWwuY29tPiB3cm90ZToKPiBJIGhhdGUgdG8gc2hpbWUgaW4gYnV0IGZyb20gcmV2aWV3IHBv
-aW50IG9mIHZpZXcgd2hhdCBpIGRvbid0IHVuZGVyc250YW5kIGlzIHdoeQo+IGlzbid0IHRoZXJl
-IGEgc2luZ2xlIHJldmlld2FibGUgcGF0Y2hzZXQgZm9yIERBTCA/Cj4KPiBXaGF0IGkgbWVhbiBi
-eSB0aGF0IGlzIGEgcGF0Y2hzZXQgaW4gd2hpY2ggeW91IGNvbGxhcHNlIGFsbCBmaXhlcyBhbmQg
-Y2xlYW51cCBzbwo+IHRoYXQgdGhlcmUgaXMgYW4gZWFzeSB3YXkgdG8gcmV2aWV3IHRoaW5nLiBZ
-ZXMgdGhpcyBtZWFucyBsb29zaW5nIGhpc3RvcnkgYW5kCj4gbWFqb3Igd29yayB0byBqdXN0IHNw
-YXduIGEgbmV3IHBhdGNoc2V0IGJ1dCBxdWl0ZSBmcmFua2x5IGluIHRoaXMgc3RhdGUgdGhpcyB0
-aGluZwo+IGlzIGp1c3QgdW5yZXZpZXdhYmxlLiBUaGUgb25seSBzYW5lIHdheSB0b2RheSBpcyB0
-byBsb29rIGF0IGdpdCB0cmVlIHdpdGggdGhlIHdob2xlCj4gdGhpbmcgYXBwbGllZCBhbmQgYXZv
-aWQgbG9va2luZyBhdCBpbmRpdmlkdWFsIHBhdGNoLiBUaGF0IG5vdCBhIHNhbmUgd2F5IHRvIGRv
-Cj4gcmV2aWV3IGluIG15IG1pbmQuCgpBcyBIYXJyeSBtZW50aW9uZWQsIHRoZSBkaXNwbGF5IHRl
-YW0gaXMgc3RhcnRpbmcgdGhlIHByb2Nlc3Mgb2YgbW92aW5nCnRoZWlyIGRldmVsb3BtZW50IHRv
-IHRoaXMgbWFpbGluZyBsaXN0IHNvIEhhcnJ5IHdpbGwgc3RhcnQgc2VuZGluZwpyZWd1bGFyIGRl
-dmVsb3BtZW50IHBhdGNoZXMgZnJvbSB0aGUgZGlzcGxheSB0ZWFtIHVudGlsIHRoZXkgZ2V0IGZ1
-bGx5CnJhbXBlZCB1cCBvbiB1c2luZyB0aGUgcHVibGljIG1haWxpbmcgbGlzdC4KCkFzIGZvciB1
-cHN0cmVhbWluZyB0aGUgbmV3IGRpc3BsYXkgY29kZSwgd2UgYXJlIHN0aWxsIHdvcmtpbmcgb24K
-YWRkcmVzc2luZyBhbGwgb2YgdGhlIHByZXZpb3VzIGNvbmNlcm5zLCBidXQgaXQgdGFrZXMgYSB3
-aGlsZSBhcyB3ZQpoYXZlIGEgbG90IG9mIGN1c3RvbWVyIGRlbGl2ZXJhYmxlcyBhbmQgbmV3IGFz
-aWMgd29yayBzbyB0aGUgY2xlYW4gdXAKYW5kIHJlb3JnIGhhcyBoYWQgdG8gaGFwcGVuIGluIHBh
-cmFsbGVsIGFzIHRpbWUgcGVybWl0cy4gIEkgZG9uJ3Qga25vdwp0aGF0IGl0IG1ha2VzIGEgbG90
-IG9mIHNlbnNlIHRvIHJlLWdlbmVyYXRlIG5ldyBwYXRjaGVzIGZvciB1cHN0cmVhbQphZ2FpbiBh
-dCB0aGlzIHBvaW50IGlmIHRoZXkgYXJlIG5vdCBsaWtlbHkgdG8gbWFrZSBpdCB1cHN0cmVhbS4g
-IFRoZQppZGVhIG9mIGZsYWdnaW5nIHRoZSBuZXcgZGlzcGxheSBjb2RlIGFzIHN0YWdpbmcgY29k
-ZSB3YXMgc3VnZ2VzdGVkIGEKd2hpbGUgYWdvIHNvIHRoYXQgd2UgY291bGQgd29yayBvbiBjbGVh
-biB1cCBhbmQgYmV0dGVyIGludGVncmF0aW9uCnVwc3RyZWFtLCBidXQgSSB0aGluayB0aGF0IGdv
-dCBzaG90IGRvd24uICBXZSBkb24ndCBoYXZlIHRoZSByZXNvdXJjZXMKdG8gcmV3cml0ZSB0aGUg
-ZW50aXJlIHRoaW5nIGZyb20gc2NyYXRjaCwgc28gaXQgbmVlZHMgdG8gYmUgYW4KaXRlcmF0aXZl
-IHByb2Nlc3MuICBSaWdodCBub3cgd2Ugc2hhcmUgdGhlIExpbnV4IGRpc3BsYXkgY29kZSB3aXRo
-IHRoZQpvdXIgcHJlLWFuZCBwb3N0IHNpbGljb24gdmFsaWRhdGlvbiBhbmQgZGlhZ25vc3RpY3Mg
-dGVhbXMgKGFuZCB3ZSBoYXZlCnBsYW5zIHRvIG1vdmUgb3RoZXIgcGxhdGZvcm1zIHRvIHRoaXMg
-Y29kZSBhcyB3ZWxsIGRvd24gdGhlIHJvYWQpIHNvCndlIG5lZWQgdG8gbWFrZSBzdXJlIHdlIGRv
-bid0IGJyZWFrIHRoZW0gd2hpbGUgd2UgcmVvcmcgdGhlIGNvZGUgZm9yCnVwc3RyZWFtLgoKRm9y
-IHRoZSBtb3N0IHBhcnQsIEkgYWdyZWUgd2l0aCBtYW55IG9mIHRoZSBjaGFuZ2VzIHdlIG5lZWQg
-dG8gbWFrZSB0bwpnZXQgdGhlIGNvZGUgdXBzdHJlYW0sIGl0J3MganVzdCBmcnVzdHJhdGluZyBm
-b3IgdXMgYW5kIGZvciBvdXIgdXNlcnMKdG8gaGF2ZSB0byB1c2Ugb3V0IG9mIHRyZWUgY29kZSB0
-byBlbmFibGUgbW9zdCBhZHZhbmNlZCBkaXNwbGF5CmZ1bmN0aW9uYWxpdHkgd2hpbGUgd2Ugd29y
-ayB0aHJvdWdoIHRob3NlIGlzc3Vlcy4gIEkgdW5kZXJzdGFuZCB0aGUKYXJndW1lbnRzIGZvciBn
-ZW5lcmFsIHVwc3RyZWFtIG1haW50YWluYWJpbGl0eSBhYnNlbnQgb3VyIHN1cHBvcnQsIGJ1dAp0
-aGF0IGhhcyB0byBiZSBjb3VudGVyZWQgd2l0aCBiZWluZyBhYmxlIHRvIHN1cHBvcnQgZmVhdHVy
-ZXMgYW5kIGFzaWNzCm5vdy4gIE1vcmVvdmVyLCB3ZSd2ZSBiZWVuIHdvcmtpbmcgdXBzdHJlYW0g
-Zm9yIGEgbG9uZyB0aW1lIG5vdywgc28gSQpkb24ndCB0aGluayBpdCdzIHRoYXQgbGlrZWx5IHRo
-YXQgd2UgYXJlIGp1c3QgZ29pbmcgdG8gZGlzYXBwZWFyIGFuZApsZWF2ZSBoYXJkIHRvIG1haW50
-YWluIGNvZGUuICBXZSBlbmQgdXAgaGF2aW5nIHRvIHNwZW5kIGEgbG90IG9mCnJlc291cmNlcyBv
-biBtYWludGFpbmluZyBiaWcgb3V0IG9mIHRyZWUgcGFja2FnZXMgZm9yIE9FTXMgYW5kIG90aGVy
-CmN1c3RvbWVycyB0aGF0IHdlIGNvdWxkIGJlIHNwZW50IG9uIGdldHRpbmcgdGhlIGNvZGUgcmVh
-ZHkgZm9yCnVwc3RyZWFtLiAgSXQncyBhIHZpY2lvdXMgY3ljbGUuCgpBbGV4Cgo+Cj4gVGhhdCBq
-dXN0IG15IG9waW5pb24gb3RoZXIgbWlnaHQgZGlzYWdyZWUgYnV0IGkgdGhvdWdodCBpIHdvdWxk
-IHNheSB0aGF0IG91dGxvdWQuCj4KPiBDaGVlcnMsCj4gSsOpcsO0bWUKPiBfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0
-Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4Cg==
+On Wed, Nov 23, 2016 at 1:34 PM, Peter Wu <peter@lekensteyn.nl> wrote:
+> On Wed, Nov 23, 2016 at 12:43:33PM -0500, Alex Deucher wrote:
+>> From: Peter Wu <peter@lekensteyn.nl>
+>>
+>> When PCIe port PM is not enabled (system BIOS is pre-2015 or the
+>> pcie_port_pm=off parameter is set), legacy ATPX PM should still be
+>> marked as supported. Otherwise the GPU can fail to power on after
+>> runtime suspend. This affected a Dell Inspiron 5548.
+>>
+>> Ideally the BIOS date in the PCI core is lowered to 2013 (the first year
+>> where hybrid graphics platforms using power resources was introduced),
+>> but that seems more risky at this point and would not solve the
+>> pcie_port_pm=off issue.
+>>
+>> v2: agd: fix typo
+>
+> Oops, silly copy/paste error from my side (accidentally replaced
+> is_hybrid instead of power_cntl). Good catch!
+>
+> Peter
+>
+> PS. mail server refused to accept mail due to '#' in Cc, need CC:
+> <stable@...> # 4.8+ below.
+
+Whoops.  fixed.  thanks.
+
+Alex
+
+>
+>> Bugzilla: https://bugs.freedesktop.org/show_bug.cgi?id=98505
+>> Signed-off-by: Peter Wu <peter@lekensteyn.nl>
+>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>> Cc: stable@vger.kernel.org # 4.8
+>> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+>> ---
+>>  drivers/gpu/drm/radeon/radeon_atpx_handler.c | 9 ++++++++-
+>>  1 file changed, 8 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/radeon/radeon_atpx_handler.c b/drivers/gpu/drm/radeon/radeon_atpx_handler.c
+>> index 2fdcd04..4129b12 100644
+>> --- a/drivers/gpu/drm/radeon/radeon_atpx_handler.c
+>> +++ b/drivers/gpu/drm/radeon/radeon_atpx_handler.c
+>> @@ -34,6 +34,7 @@ struct radeon_atpx {
+>>
+>>  static struct radeon_atpx_priv {
+>>       bool atpx_detected;
+>> +     bool bridge_pm_usable;
+>>       /* handle for device - and atpx */
+>>       acpi_handle dhandle;
+>>       struct radeon_atpx atpx;
+>> @@ -203,7 +204,11 @@ static int radeon_atpx_validate(struct radeon_atpx *atpx)
+>>       atpx->is_hybrid = false;
+>>       if (valid_bits & ATPX_MS_HYBRID_GFX_SUPPORTED) {
+>>               printk("ATPX Hybrid Graphics\n");
+>> -             atpx->functions.power_cntl = false;
+>> +             /*
+>> +              * Disable legacy PM methods only when pcie port PM is usable,
+>> +              * otherwise the device might fail to power off or power on.
+>> +              */
+>> +             atpx->functions.power_cntl = !radeon_atpx_priv.bridge_pm_usable;
+>>               atpx->is_hybrid = true;
+>>       }
+>>
+>> @@ -474,6 +479,7 @@ static int radeon_atpx_power_state(enum vga_switcheroo_client_id id,
+>>   */
+>>  static bool radeon_atpx_pci_probe_handle(struct pci_dev *pdev)
+>>  {
+>> +     struct pci_dev *parent_pdev = pci_upstream_bridge(pdev);
+>>       acpi_handle dhandle, atpx_handle;
+>>       acpi_status status;
+>>
+>> @@ -487,6 +493,7 @@ static bool radeon_atpx_pci_probe_handle(struct pci_dev *pdev)
+>>
+>>       radeon_atpx_priv.dhandle = dhandle;
+>>       radeon_atpx_priv.atpx.handle = atpx_handle;
+>> +     radeon_atpx_priv.bridge_pm_usable = parent_pdev && parent_pdev->bridge_d3;
+>>       return true;
+>>  }
+>>
+>> --
+>> 2.5.5
