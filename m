@@ -1,95 +1,40 @@
 From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/radeon: fix power state when port pm is unavailable (v2)
-Date: Wed, 23 Nov 2016 13:58:52 -0500
-Message-ID: <CADnq5_MAbY8tLHNcuu3A0cviSYKFTMR4C6QUbTVV_JrdEO2AoA@mail.gmail.com>
-References: <1479923013-14627-1-git-send-email-alexander.deucher@amd.com> <20161123182802.GB18537@al>
+Subject: [pull] radeon and amdgpu drm-fixes-4.9
+Date: Wed, 23 Nov 2016 15:04:03 -0500
+Message-ID: <1479931443-24641-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <20161123182802.GB18537@al>
-Sender: stable-owner@vger.kernel.org
-To: Peter Wu <peter@lekensteyn.nl>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, "for 3.8" <stable@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, airlied@gmail.com
+Cc: Alex Deucher <alexander.deucher@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Wed, Nov 23, 2016 at 1:34 PM, Peter Wu <peter@lekensteyn.nl> wrote:
-> On Wed, Nov 23, 2016 at 12:43:33PM -0500, Alex Deucher wrote:
->> From: Peter Wu <peter@lekensteyn.nl>
->>
->> When PCIe port PM is not enabled (system BIOS is pre-2015 or the
->> pcie_port_pm=off parameter is set), legacy ATPX PM should still be
->> marked as supported. Otherwise the GPU can fail to power on after
->> runtime suspend. This affected a Dell Inspiron 5548.
->>
->> Ideally the BIOS date in the PCI core is lowered to 2013 (the first year
->> where hybrid graphics platforms using power resources was introduced),
->> but that seems more risky at this point and would not solve the
->> pcie_port_pm=off issue.
->>
->> v2: agd: fix typo
->
-> Oops, silly copy/paste error from my side (accidentally replaced
-> is_hybrid instead of power_cntl). Good catch!
->
-> Peter
->
-> PS. mail server refused to accept mail due to '#' in Cc, need CC:
-> <stable@...> # 4.8+ below.
-
-Whoops.  fixed.  thanks.
-
-Alex
-
->
->> Bugzilla: https://bugs.freedesktop.org/show_bug.cgi?id=98505
->> Signed-off-by: Peter Wu <peter@lekensteyn.nl>
->> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->> Cc: stable@vger.kernel.org # 4.8
->> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
->> ---
->>  drivers/gpu/drm/radeon/radeon_atpx_handler.c | 9 ++++++++-
->>  1 file changed, 8 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/radeon/radeon_atpx_handler.c b/drivers/gpu/drm/radeon/radeon_atpx_handler.c
->> index 2fdcd04..4129b12 100644
->> --- a/drivers/gpu/drm/radeon/radeon_atpx_handler.c
->> +++ b/drivers/gpu/drm/radeon/radeon_atpx_handler.c
->> @@ -34,6 +34,7 @@ struct radeon_atpx {
->>
->>  static struct radeon_atpx_priv {
->>       bool atpx_detected;
->> +     bool bridge_pm_usable;
->>       /* handle for device - and atpx */
->>       acpi_handle dhandle;
->>       struct radeon_atpx atpx;
->> @@ -203,7 +204,11 @@ static int radeon_atpx_validate(struct radeon_atpx *atpx)
->>       atpx->is_hybrid = false;
->>       if (valid_bits & ATPX_MS_HYBRID_GFX_SUPPORTED) {
->>               printk("ATPX Hybrid Graphics\n");
->> -             atpx->functions.power_cntl = false;
->> +             /*
->> +              * Disable legacy PM methods only when pcie port PM is usable,
->> +              * otherwise the device might fail to power off or power on.
->> +              */
->> +             atpx->functions.power_cntl = !radeon_atpx_priv.bridge_pm_usable;
->>               atpx->is_hybrid = true;
->>       }
->>
->> @@ -474,6 +479,7 @@ static int radeon_atpx_power_state(enum vga_switcheroo_client_id id,
->>   */
->>  static bool radeon_atpx_pci_probe_handle(struct pci_dev *pdev)
->>  {
->> +     struct pci_dev *parent_pdev = pci_upstream_bridge(pdev);
->>       acpi_handle dhandle, atpx_handle;
->>       acpi_status status;
->>
->> @@ -487,6 +493,7 @@ static bool radeon_atpx_pci_probe_handle(struct pci_dev *pdev)
->>
->>       radeon_atpx_priv.dhandle = dhandle;
->>       radeon_atpx_priv.atpx.handle = atpx_handle;
->> +     radeon_atpx_priv.bridge_pm_usable = parent_pdev && parent_pdev->bridge_d3;
->>       return true;
->>  }
->>
->> --
->> 2.5.5
+SGkgRGF2ZSwKCkp1c3QgYSByZWdyZXNzaW9uIGZpeCBmb3IgY2VydGFpbiBvbGRlciBQWCBzeXN0
+ZW1zIHVzaW5nIGQzY29sZC4KClRoZSBmb2xsb3dpbmcgY2hhbmdlcyBzaW5jZSBjb21taXQgZGE3
+ODAwYTg4YzVhM2I3OThmNzYzZDZmOWYzNDNlOWE0OTg2MGM0ZjoKCiAgZHJtL2FtZC9wb3dlcnBs
+YXk6IGF2b2lkIG91dCBvZiBib3VuZHMgYWNjZXNzIG9uIGFycmF5IHBzLiAoMjAxNi0xMS0xNiAx
+NDoyNjoxNyAtMDUwMCkKCmFyZSBhdmFpbGFibGUgaW4gdGhlIGdpdCByZXBvc2l0b3J5IGF0OgoK
+ICBnaXQ6Ly9wZW9wbGUuZnJlZWRlc2t0b3Aub3JnL35hZ2Q1Zi9saW51eCBkcm0tZml4ZXMtNC45
+Cgpmb3IgeW91IHRvIGZldGNoIGNoYW5nZXMgdXAgdG8gZDNhYzMxZjNiNGJmOWZhZGU5M2Q2OTc3
+MGNiOWMzNDkxMmUwMTdiZToKCiAgZHJtL3JhZGVvbjogZml4IHBvd2VyIHN0YXRlIHdoZW4gcG9y
+dCBwbSBpcyB1bmF2YWlsYWJsZSAodjIpICgyMDE2LTExLTIzIDEzOjU3OjU4IC0wNTAwKQoKLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLQpQZXRlciBXdSAoMik6CiAgICAgIGRybS9hbWRncHU6IGZpeCBwb3dlciBzdGF0ZSB3aGVu
+IHBvcnQgcG0gaXMgdW5hdmFpbGFibGUKICAgICAgZHJtL3JhZGVvbjogZml4IHBvd2VyIHN0YXRl
+IHdoZW4gcG9ydCBwbSBpcyB1bmF2YWlsYWJsZSAodjIpCgogZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2F0cHhfaGFuZGxlci5jIHwgOSArKysrKysrKy0KIGRyaXZlcnMvZ3B1L2Ry
+bS9yYWRlb24vcmFkZW9uX2F0cHhfaGFuZGxlci5jICAgICB8IDkgKysrKysrKystCiAyIGZpbGVz
+IGNoYW5nZWQsIDE2IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QK
+ZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
