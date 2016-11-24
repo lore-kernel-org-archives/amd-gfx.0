@@ -1,11 +1,9 @@
-From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: [PATCH xf86-video-ati] Pass fb_id into
- drmmode_page_flip_target_absolute/relative
-Date: Thu, 24 Nov 2016 18:47:55 +0900
-Message-ID: <20161124094755.9808-1-michel@daenzer.net>
+From: Jochen Rollwagen <joro-2013-zqRNUXuvxA0b1SvskN2V4Q@public.gmane.org>
+Subject: [PATCH] xf86-video-ati: Fix build for xserver < 1.13
+Date: Thu, 24 Nov 2016 19:00:58 +0100
+Message-ID: <58372ADA.8040009@t-online.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="------------040009000409020300090101"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -18,111 +16,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Marcin Deranek <gringo-qzsPd3quv1asTnJN9+BGXg@public.gmane.org>
 
-RnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+Cgpkcm1tb2RlLT5m
-Yl9pZCBpc24ndCB3aGF0IHdlIG5lZWQgaW4gdGhlIFRlYXJGcmVlIGNhc2UuIEZpeGVzIFRlYXJG
-cmVlCmZyZWV6aW5nIHdpdGgKCihXVykgUkFERU9OKDApOiBmbGlwIHF1ZXVlIGZhaWxlZCBpbiBy
-YWRlb25fc2Nhbm91dF9mbGlwOiBObyBzdWNoIGZpbGUgb3IgZGlyZWN0b3J5CgppbiB0aGUgbG9n
-IGZpbGUuCgpCdWd6aWxsYTogaHR0cHM6Ly9idWdzLmZyZWVkZXNrdG9wLm9yZy9zaG93X2J1Zy5j
-Z2k/aWQ9OTg4MzQKRml4ZXM6IDExMDZiMmY3NzNhZCAoIlVzZSBEUk1fTU9ERV9QQUdFX0ZMSVBf
-VEFSR0VUX0FCU09MVVRFL1JFTEFUSVZFIGZsYWdzIHdoZW4gYXZhaWxhYmxlIikKU2lnbmVkLW9m
-Zi1ieTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+Ci0tLQogc3JjL2Ry
-bW1vZGVfZGlzcGxheS5jIHwgMjggKysrKysrKysrKysrKysrLS0tLS0tLS0tLS0tLQogc3JjL2Ry
-bW1vZGVfZGlzcGxheS5oIHwgIDYgKysrKy0tCiBzcmMvcmFkZW9uX2ttcy5jICAgICAgfCAxMCAr
-KysrKystLS0tCiAzIGZpbGVzIGNoYW5nZWQsIDI1IGluc2VydGlvbnMoKyksIDE5IGRlbGV0aW9u
-cygtKQoKZGlmZiAtLWdpdCBhL3NyYy9kcm1tb2RlX2Rpc3BsYXkuYyBiL3NyYy9kcm1tb2RlX2Rp
-c3BsYXkuYwppbmRleCA4ODM5NjE2Li5mODU2ZjY3IDEwMDY0NAotLS0gYS9zcmMvZHJtbW9kZV9k
-aXNwbGF5LmMKKysrIGIvc3JjL2RybW1vZGVfZGlzcGxheS5jCkBAIC0yMzE0LDIxICsyMzE0LDIx
-IEBAIHN0YXRpYyBCb29sIGRybW1vZGVfcHJvYmVfcGFnZV9mbGlwX3RhcmdldChkcm1tb2RlX3B0
-ciBkcm1tb2RlKQogfQogCiBzdGF0aWMgaW50Ci1kcm1tb2RlX3BhZ2VfZmxpcChkcm1tb2RlX2Ny
-dGNfcHJpdmF0ZV9wdHIgZHJtbW9kZV9jcnRjLCB1aW50MzJfdCBmbGFncywKLQkJICB1aW50cHRy
-X3QgZHJtX3F1ZXVlX3NlcSkKK2RybW1vZGVfcGFnZV9mbGlwKGRybW1vZGVfY3J0Y19wcml2YXRl
-X3B0ciBkcm1tb2RlX2NydGMsIGludCBmYl9pZCwKKwkJICB1aW50MzJfdCBmbGFncywgdWludHB0
-cl90IGRybV9xdWV1ZV9zZXEpCiB7CiAJZHJtbW9kZV9wdHIgZHJtbW9kZSA9IGRybW1vZGVfY3J0
-Yy0+ZHJtbW9kZTsKIAogCWZsYWdzIHw9IERSTV9NT0RFX1BBR0VfRkxJUF9FVkVOVDsKIAlyZXR1
-cm4gZHJtTW9kZVBhZ2VGbGlwKGRybW1vZGUtPmZkLCBkcm1tb2RlX2NydGMtPm1vZGVfY3J0Yy0+
-Y3J0Y19pZCwKLQkJCSAgICAgICBkcm1tb2RlLT5mYl9pZCwgZmxhZ3MsICh2b2lkKilkcm1fcXVl
-dWVfc2VxKTsKKwkJCSAgICAgICBmYl9pZCwgZmxhZ3MsICh2b2lkKilkcm1fcXVldWVfc2VxKTsK
-IH0KIAogaW50CiBkcm1tb2RlX3BhZ2VfZmxpcF90YXJnZXRfYWJzb2x1dGUoUkFERU9ORW50UHRy
-IHBSQURFT05FbnQsCiAJCQkJICBkcm1tb2RlX2NydGNfcHJpdmF0ZV9wdHIgZHJtbW9kZV9jcnRj
-LAotCQkJCSAgdWludDMyX3QgZmxhZ3MsIHVpbnRwdHJfdCBkcm1fcXVldWVfc2VxLAotCQkJCSAg
-dWludDMyX3QgdGFyZ2V0X21zYykKKwkJCQkgIGludCBmYl9pZCwgdWludDMyX3QgZmxhZ3MsCisJ
-CQkJICB1aW50cHRyX3QgZHJtX3F1ZXVlX3NlcSwgdWludDMyX3QgdGFyZ2V0X21zYykKIHsKICNp
-ZmRlZiBEUk1fTU9ERV9QQUdFX0ZMSVBfVEFSR0VUCiAJaWYgKHBSQURFT05FbnQtPmhhc19wYWdl
-X2ZsaXBfdGFyZ2V0KSB7CkBAIC0yMzM3LDE5ICsyMzM3LDE5IEBAIGRybW1vZGVfcGFnZV9mbGlw
-X3RhcmdldF9hYnNvbHV0ZShSQURFT05FbnRQdHIgcFJBREVPTkVudCwKIAkJZmxhZ3MgfD0gRFJN
-X01PREVfUEFHRV9GTElQX0VWRU5UIHwgRFJNX01PREVfUEFHRV9GTElQX1RBUkdFVF9BQlNPTFVU
-RTsKIAkJcmV0dXJuIGRybU1vZGVQYWdlRmxpcFRhcmdldChkcm1tb2RlLT5mZCwKIAkJCQkJICAg
-ICBkcm1tb2RlX2NydGMtPm1vZGVfY3J0Yy0+Y3J0Y19pZCwKLQkJCQkJICAgICBkcm1tb2RlLT5m
-Yl9pZCwgZmxhZ3MsCi0JCQkJCSAgICAgKHZvaWQqKWRybV9xdWV1ZV9zZXEsIHRhcmdldF9tc2Mp
-OworCQkJCQkgICAgIGZiX2lkLCBmbGFncywgKHZvaWQqKWRybV9xdWV1ZV9zZXEsCisJCQkJCSAg
-ICAgdGFyZ2V0X21zYyk7CiAJfQogI2VuZGlmCiAKLQlyZXR1cm4gZHJtbW9kZV9wYWdlX2ZsaXAo
-ZHJtbW9kZV9jcnRjLCBmbGFncywgZHJtX3F1ZXVlX3NlcSk7CisJcmV0dXJuIGRybW1vZGVfcGFn
-ZV9mbGlwKGRybW1vZGVfY3J0YywgZmJfaWQsIGZsYWdzLCBkcm1fcXVldWVfc2VxKTsKIH0KIAog
-aW50CiBkcm1tb2RlX3BhZ2VfZmxpcF90YXJnZXRfcmVsYXRpdmUoUkFERU9ORW50UHRyIHBSQURF
-T05FbnQsCiAJCQkJICBkcm1tb2RlX2NydGNfcHJpdmF0ZV9wdHIgZHJtbW9kZV9jcnRjLAotCQkJ
-CSAgdWludDMyX3QgZmxhZ3MsIHVpbnRwdHJfdCBkcm1fcXVldWVfc2VxLAotCQkJCSAgdWludDMy
-X3QgdGFyZ2V0X21zYykKKwkJCQkgIGludCBmYl9pZCwgdWludDMyX3QgZmxhZ3MsCisJCQkJICB1
-aW50cHRyX3QgZHJtX3F1ZXVlX3NlcSwgdWludDMyX3QgdGFyZ2V0X21zYykKIHsKICNpZmRlZiBE
-Uk1fTU9ERV9QQUdFX0ZMSVBfVEFSR0VUCiAJaWYgKHBSQURFT05FbnQtPmhhc19wYWdlX2ZsaXBf
-dGFyZ2V0KSB7CkBAIC0yMzU4LDEyICsyMzU4LDEyIEBAIGRybW1vZGVfcGFnZV9mbGlwX3Rhcmdl
-dF9yZWxhdGl2ZShSQURFT05FbnRQdHIgcFJBREVPTkVudCwKIAkJZmxhZ3MgfD0gRFJNX01PREVf
-UEFHRV9GTElQX0VWRU5UIHwgRFJNX01PREVfUEFHRV9GTElQX1RBUkdFVF9SRUxBVElWRTsKIAkJ
-cmV0dXJuIGRybU1vZGVQYWdlRmxpcFRhcmdldChkcm1tb2RlLT5mZCwKIAkJCQkJICAgICBkcm1t
-b2RlX2NydGMtPm1vZGVfY3J0Yy0+Y3J0Y19pZCwKLQkJCQkJICAgICBkcm1tb2RlLT5mYl9pZCwg
-ZmxhZ3MsCi0JCQkJCSAgICAgKHZvaWQqKWRybV9xdWV1ZV9zZXEsIHRhcmdldF9tc2MpOworCQkJ
-CQkgICAgIGZiX2lkLCBmbGFncywgKHZvaWQqKWRybV9xdWV1ZV9zZXEsCisJCQkJCSAgICAgdGFy
-Z2V0X21zYyk7CiAJfQogI2VuZGlmCiAKLQlyZXR1cm4gZHJtbW9kZV9wYWdlX2ZsaXAoZHJtbW9k
-ZV9jcnRjLCBmbGFncywgZHJtX3F1ZXVlX3NlcSk7CisJcmV0dXJuIGRybW1vZGVfcGFnZV9mbGlw
-KGRybW1vZGVfY3J0YywgZmJfaWQsIGZsYWdzLCBkcm1fcXVldWVfc2VxKTsKIH0KIAogQm9vbCBk
-cm1tb2RlX3ByZV9pbml0KFNjcm5JbmZvUHRyIHBTY3JuLCBkcm1tb2RlX3B0ciBkcm1tb2RlLCBp
-bnQgY3BwKQpAQCAtMjg2OCw2ICsyODY4LDcgQEAgQm9vbCByYWRlb25fZG9fcGFnZWZsaXAoU2Ny
-bkluZm9QdHIgc2NybiwgQ2xpZW50UHRyIGNsaWVudCwKIAkJaWYgKGRybW1vZGVfY3J0Yy0+aHdf
-aWQgPT0gcmVmX2NydGNfaHdfaWQpIHsKIAkJCWlmIChkcm1tb2RlX3BhZ2VfZmxpcF90YXJnZXRf
-YWJzb2x1dGUocFJBREVPTkVudCwKIAkJCQkJCQkgICAgICBkcm1tb2RlX2NydGMsCisJCQkJCQkJ
-ICAgICAgZHJtbW9kZS0+ZmJfaWQsCiAJCQkJCQkJICAgICAgZmxpcF9mbGFncywKIAkJCQkJCQkg
-ICAgICBkcm1fcXVldWVfc2VxLAogCQkJCQkJCSAgICAgIHRhcmdldF9tc2MpICE9IDApCkBAIC0y
-ODc1LDYgKzI4NzYsNyBAQCBCb29sIHJhZGVvbl9kb19wYWdlZmxpcChTY3JuSW5mb1B0ciBzY3Ju
-LCBDbGllbnRQdHIgY2xpZW50LAogCQl9IGVsc2UgewogCQkJaWYgKGRybW1vZGVfcGFnZV9mbGlw
-X3RhcmdldF9yZWxhdGl2ZShwUkFERU9ORW50LAogCQkJCQkJCSAgICAgIGRybW1vZGVfY3J0YywK
-KwkJCQkJCQkgICAgICBkcm1tb2RlLT5mYl9pZCwKIAkJCQkJCQkgICAgICBmbGlwX2ZsYWdzLAog
-CQkJCQkJCSAgICAgIGRybV9xdWV1ZV9zZXEsIDApICE9IDApCiAJCQkJZ290byBmbGlwX2Vycm9y
-OwpkaWZmIC0tZ2l0IGEvc3JjL2RybW1vZGVfZGlzcGxheS5oIGIvc3JjL2RybW1vZGVfZGlzcGxh
-eS5oCmluZGV4IGI4ZjU1M2EuLjZiYmY3MWMgMTAwNjQ0Ci0tLSBhL3NyYy9kcm1tb2RlX2Rpc3Bs
-YXkuaAorKysgYi9zcmMvZHJtbW9kZV9kaXNwbGF5LmgKQEAgLTEzNSwxMSArMTM1LDEzIEBAIGVu
-dW0gZHJtbW9kZV9mbGlwX3N5bmMgewogCiBleHRlcm4gaW50IGRybW1vZGVfcGFnZV9mbGlwX3Rh
-cmdldF9hYnNvbHV0ZShSQURFT05FbnRQdHIgcFJBREVPTkVudCwKIAkJCQkJICAgICBkcm1tb2Rl
-X2NydGNfcHJpdmF0ZV9wdHIgZHJtbW9kZV9jcnRjLAotCQkJCQkgICAgIHVpbnQzMl90IGZsYWdz
-LCB1aW50cHRyX3QgZHJtX3F1ZXVlX3NlcSwKKwkJCQkJICAgICBpbnQgZmJfaWQsIHVpbnQzMl90
-IGZsYWdzLAorCQkJCQkgICAgIHVpbnRwdHJfdCBkcm1fcXVldWVfc2VxLAogCQkJCQkgICAgIHVp
-bnQzMl90IHRhcmdldF9tc2MpOwogZXh0ZXJuIGludCBkcm1tb2RlX3BhZ2VfZmxpcF90YXJnZXRf
-cmVsYXRpdmUoUkFERU9ORW50UHRyIHBSQURFT05FbnQsCiAJCQkJCSAgICAgZHJtbW9kZV9jcnRj
-X3ByaXZhdGVfcHRyIGRybW1vZGVfY3J0YywKLQkJCQkJICAgICB1aW50MzJfdCBmbGFncywgdWlu
-dHB0cl90IGRybV9xdWV1ZV9zZXEsCisJCQkJCSAgICAgaW50IGZiX2lkLCB1aW50MzJfdCBmbGFn
-cywKKwkJCQkJICAgICB1aW50cHRyX3QgZHJtX3F1ZXVlX3NlcSwKIAkJCQkJICAgICB1aW50MzJf
-dCB0YXJnZXRfbXNjKTsKIGV4dGVybiBCb29sIGRybW1vZGVfcHJlX2luaXQoU2NybkluZm9QdHIg
-cFNjcm4sIGRybW1vZGVfcHRyIGRybW1vZGUsIGludCBjcHApOwogZXh0ZXJuIHZvaWQgZHJtbW9k
-ZV9pbml0KFNjcm5JbmZvUHRyIHBTY3JuLCBkcm1tb2RlX3B0ciBkcm1tb2RlKTsKZGlmZiAtLWdp
-dCBhL3NyYy9yYWRlb25fa21zLmMgYi9zcmMvcmFkZW9uX2ttcy5jCmluZGV4IGE1OTQzZDEuLmRj
-ZjQxNTcgMTAwNjQ0Ci0tLSBhL3NyYy9yYWRlb25fa21zLmMKKysrIGIvc3JjL3JhZGVvbl9rbXMu
-YwpAQCAtNzk0LDggKzc5NCw5IEBAIHJhZGVvbl9wcmltZV9zY2Fub3V0X2ZsaXAoUGl4bWFwRGly
-dHlVcGRhdGVQdHIgZW50KQogCXJldHVybjsKICAgICB9CiAKLSAgICBpZiAoZHJtbW9kZV9wYWdl
-X2ZsaXBfdGFyZ2V0X3JlbGF0aXZlKHBSQURFT05FbnQsIGRybW1vZGVfY3J0YywgMCwKLQkJCQkJ
-ICBkcm1fcXVldWVfc2VxLCAwKSAhPSAwKSB7CisgICAgaWYgKGRybW1vZGVfcGFnZV9mbGlwX3Rh
-cmdldF9yZWxhdGl2ZShwUkFERU9ORW50LCBkcm1tb2RlX2NydGMsCisJCQkJCSAgZHJtbW9kZV9j
-cnRjLT5zY2Fub3V0W3NjYW5vdXRfaWRdLmZiX2lkLAorCQkJCQkgIDAsIGRybV9xdWV1ZV9zZXEs
-IDApICE9IDApIHsKIAl4Zjg2RHJ2TXNnKHNjcm4tPnNjcm5JbmRleCwgWF9XQVJOSU5HLCAiZmxp
-cCBxdWV1ZSBmYWlsZWQgaW4gJXM6ICVzXG4iLAogCQkgICBfX2Z1bmNfXywgc3RyZXJyb3IoZXJy
-bm8pKTsKIAlyZXR1cm47CkBAIC0xMDY5LDggKzEwNzAsOSBAQCByYWRlb25fc2Nhbm91dF9mbGlw
-KFNjcmVlblB0ciBwU2NyZWVuLCBSQURFT05JbmZvUHRyIGluZm8sCiAJcmV0dXJuOwogICAgIH0K
-IAotICAgIGlmIChkcm1tb2RlX3BhZ2VfZmxpcF90YXJnZXRfcmVsYXRpdmUocFJBREVPTkVudCwg
-ZHJtbW9kZV9jcnRjLCAwLAotCQkJCQkgIGRybV9xdWV1ZV9zZXEsIDApICE9IDApIHsKKyAgICBp
-ZiAoZHJtbW9kZV9wYWdlX2ZsaXBfdGFyZ2V0X3JlbGF0aXZlKHBSQURFT05FbnQsIGRybW1vZGVf
-Y3J0YywKKwkJCQkJICBkcm1tb2RlX2NydGMtPnNjYW5vdXRbc2Nhbm91dF9pZF0uZmJfaWQsCisJ
-CQkJCSAgMCwgZHJtX3F1ZXVlX3NlcSwgMCkgIT0gMCkgewogCXhmODZEcnZNc2coc2Nybi0+c2Ny
-bkluZGV4LCBYX1dBUk5JTkcsICJmbGlwIHF1ZXVlIGZhaWxlZCBpbiAlczogJXNcbiIsCiAJCSAg
-IF9fZnVuY19fLCBzdHJlcnJvcihlcnJubykpOwogCXJldHVybjsKLS0gCjIuMTAuMgoKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+This is a multi-part message in MIME format.
+--------------040009000409020300090101
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Subject: [PATCH] fix build for xserver < 1.13
+
+same procedure every few patches.....
+---
+  src/radeon_kms.c |    6 +++++-
+  1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/src/radeon_kms.c b/src/radeon_kms.c
+index a5943d1..ec099c9 100644
+--- a/src/radeon_kms.c
++++ b/src/radeon_kms.c
+@@ -360,7 +360,11 @@ static Bool 
+RADEONCreateScreenResources_KMS(ScreenPtr pScre
+en)
+      radeon_glamor_create_screen_resources(pScreen);
+
+      info->callback_event_type = -1;
+-    if (!pScreen->isGPU && (damage_ext = CheckExtension("DAMAGE"))) {
++    if (
++#ifdef RADEON_PIXMAP_SHARING
++        !pScreen->isGPU &&
++#endif
++        (damage_ext = CheckExtension("DAMAGE"))) {
+      info->callback_event_type = damage_ext->eventBase + XDamageNotify;
+
+      if (!AddCallback(&FlushCallback, radeon_flush_callback, pScrn))
+-- 
+1.7.9.5
+
+
+--------------040009000409020300090101
+Content-Type: text/x-patch;
+ name="0001-fix-build-for-xserver-1.13.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename="0001-fix-build-for-xserver-1.13.patch"
+
+>From d3bf43ba5ca62dc2409b58cb4f79efe387bf891f Mon Sep 17 00:00:00 2001
+From: Jochen Rollwagen <joro-2013-zqRNUXuvxA0b1SvskN2V4Q@public.gmane.org>
+Date: Thu, 24 Nov 2016 18:44:01 +0100
+Subject: [PATCH] fix build for xserver < 1.13
+
+same procedure every few patches.....
+---
+ src/radeon_kms.c |    6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/src/radeon_kms.c b/src/radeon_kms.c
+index a5943d1..ec099c9 100644
+--- a/src/radeon_kms.c
++++ b/src/radeon_kms.c
+@@ -360,7 +360,11 @@ static Bool RADEONCreateScreenResources_KMS(ScreenPtr pScreen)
+ 	radeon_glamor_create_screen_resources(pScreen);
+ 
+     info->callback_event_type = -1;
+-    if (!pScreen->isGPU && (damage_ext = CheckExtension("DAMAGE"))) {
++    if (
++#ifdef RADEON_PIXMAP_SHARING
++	    !pScreen->isGPU &&
++#endif    
++    	(damage_ext = CheckExtension("DAMAGE"))) {
+ 	info->callback_event_type = damage_ext->eventBase + XDamageNotify;
+ 
+ 	if (!AddCallback(&FlushCallback, radeon_flush_callback, pScrn))
+-- 
+1.7.9.5
+
+
+--------------040009000409020300090101
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--------------040009000409020300090101--
