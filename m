@@ -1,8 +1,8 @@
-From: Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org>
+From: Peter Wu <peter-VTkQYDcBqhK7DlmcbJSQ7g@public.gmane.org>
 Subject: Re: [PATCH 1/2] drm/amdgpu: fix power state when port pm is
  unavailable
-Date: Sat, 26 Nov 2016 11:20:28 +0000
-Message-ID: <CAHbf0-HHFFthD3Li0wM8x5rciRreeWoE0SkQOvsENT9+ZRFEcg@mail.gmail.com>
+Date: Sat, 26 Nov 2016 12:38:53 +0100
+Message-ID: <20161126113853.GA25175@al>
 References: <20161123012225.11586-1-peter@lekensteyn.nl>
  <CADnq5_On72XmLrE3wjD0u1=tmwghv6GofzfEGM5mhGoVtJav+Q@mail.gmail.com>
  <20161123171255.GA18537@al>
@@ -10,10 +10,13 @@ References: <20161123012225.11586-1-peter@lekensteyn.nl>
  <CAHbf0-FgRU=6tYe2SYcm8E0ZvJuRFoqPpk77_DZdQKXdxZSsGg@mail.gmail.com>
  <20161126101942.GA20829@al>
  <CAHbf0-HfHGt5HvAosxgVf=rgevPK3KqBCQt4cJqjDiEaQWM1pQ@mail.gmail.com>
+ <CAHbf0-HHFFthD3Li0wM8x5rciRreeWoE0SkQOvsENT9+ZRFEcg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0002450852=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAHbf0-HfHGt5HvAosxgVf=rgevPK3KqBCQt4cJqjDiEaQWM1pQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Disposition: inline
+In-Reply-To: <CAHbf0-HHFFthD3Li0wM8x5rciRreeWoE0SkQOvsENT9+ZRFEcg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -24,524 +27,164 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Peter Wu <peter-VTkQYDcBqhK7DlmcbJSQ7g@public.gmane.org>
+To: Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org>
 Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Nayan Deshmukh <nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 
---===============0002450852==
-Content-Type: multipart/alternative; boundary=001a11c39b22b35d8b0542326d2e
-
---001a11c39b22b35d8b0542326d2e
-Content-Type: text/plain; charset=UTF-8
-
-He's some screen shots of the booting screens, apologies they're not that
-clear
-
-https://imgur.com/a/V7mRA
-
-On Sat, 26 Nov 2016 at 11:00 Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org> wrote:
-
-> Hi
->
-> The previous working kernel, was the patch before this - reverting fixes it
->
-> My bios date is quite new 08/05/2016
->
-> Most of the messages fly straight off the screen, the journal isn't kept
-> and the wifi driver also complains, will see if I can get a slow motion
-> capture of the errors and screen shot them
->
-> Regards
->
-> Mike
->
-> On Sat, 26 Nov 2016 at 10:20 Peter Wu <peter-VTkQYDcBqhK7DlmcbJSQ7g@public.gmane.org> wrote:
->
-> Hi Mike,
->
-> On Sat, Nov 26, 2016 at 12:36:27AM +0000, Mike Lothian wrote:
-> > This patch is preventing my laptop from booting, I'm getting D3 error
-> > messages and atom bios stuck messages
->
-> Can you post a dmesg and acpidump? What was the previous working kernel?
-> I suppose your BIOS date (/sys/class/dmi/id/bios_date) is pre-2015?
-> Does booting with runpm=0 work?
->
-> > I mistakenly saw the v2 patch and didn't realise it was for radeon not
-> > amdgpu - this branch and Linus's tree are currently not booting for me
->
-> What do you mean by this?
->
-> Kind regards,
-> Peter
->
-> > On Wed, 23 Nov 2016 at 17:16 Deucher, Alexander <
-> Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-> > wrote:
-> >
-> > > > -----Original Message-----
-> > > > From: Peter Wu [mailto:peter-VTkQYDcBqhK7DlmcbJSQ7g@public.gmane.org]
-> > > > Sent: Wednesday, November 23, 2016 12:13 PM
-> > > > To: Alex Deucher
-> > > > Cc: amd-gfx list; Deucher, Alexander; Nayan Deshmukh
-> > > > Subject: Re: [PATCH 1/2] drm/amdgpu: fix power state when port pm is
-> > > > unavailable
-> > > >
-> > > > On Wed, Nov 23, 2016 at 12:01:55PM -0500, Alex Deucher wrote:
-> > > > >  On Tue, Nov 22, 2016 at 8:22 PM, Peter Wu <peter-VTkQYDcBqhK7DlmcbJSQ7g@public.gmane.org>
-> > > wrote:
-> > > > > > When PCIe port PM is not enabled (system BIOS is pre-2015 or the
-> > > > > > pcie_port_pm=off parameter is set), legacy ATPX PM should still
-> be
-> > > > > > marked as supported. Otherwise the GPU can fail to power on after
-> > > > > > runtime suspend. This affected a Dell Inspiron 5548.
-> > > > > >
-> > > > > > Ideally the BIOS date in the PCI core is lowered to 2013 (the
-> first
-> > > year
-> > > > > > where hybrid graphics platforms using power resources was
-> > > introduced),
-> > > > > > but that seems more risky at this point and would not solve the
-> > > > > > pcie_port_pm=off issue.
-> > > > > >
-> > > > > > Bugzilla: https://bugs.freedesktop.org/show_bug.cgi?id=98505
-> > > > > > Reported-and-tested-by: Nayan Deshmukh
-> > > > <nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-> > > > > > Signed-off-by: Peter Wu <peter-VTkQYDcBqhK7DlmcbJSQ7g@public.gmane.org>
-> > > > > > ---
-> > > > > > Hi,
-> > > > > >
-> > > > > > This patch is already three weeks old. One alternative idea was
-> > > lowering
-> > > > BIOS
-> > > > > > date in PCI core, but as pcie_port_pm=force did not have the
-> desired
-> > > > effect, I
-> > > > > > do not think that this would help though.
-> > > > >
-> > > > > Thanks for doing this.
-> > > > >
-> > > > > >
-> > > > > > I have also not contacted linux-pci or Mika about lowering the
-> year
-> > > due to
-> > > > the
-> > > > > > lack of a good reason.  Might do it later though once ACPICA bug
-> > > 1333 is
-> > > > sorted
-> > > > > > out such that lowering the year actually has benefits for a
-> Nvidia
-> > > laptop
-> > > > (or if
-> > > > > > some amdgpu problem can be solved by this).
-> > > > > >
-> > > > > > Both patches should probably be Cc stable (4.8+), fixing
-> > > 2f5af82eeab2 and
-> > > > > > b8c9fd5ad4b4 ("track whether if this is a hybrid graphics
-> > > platform"). There
-> > > > have
-> > > > > > been some ifdef 0's and reverts in between, so I was not sure if
-> > > adding
-> > > > the
-> > > > > > Fixes tag is appropriate.
-> > > > >
-> > > > > I don't think we need to cc stable.  In kernel 4.8 we don't
-> attempt to
-> > > > > do d3cold at all.  4.8 and older kernels have:
-> > > > > c63695cc5e5f685e924e25a8f9555f6e846f1fc6 (drm/amdgpu: work around
-> > > > lack
-> > > > > of upstream ACPI support for D3cold)
-> > > > > which was reverted for 4.9.
-> > > >
-> > > > That patch was already reverted in 4.8 as far as I can see:
-> > > >
-> > > > $ git tag --contains c39b487f195b93235ee76384427467786f7bf29f | grep
-> v4.8
-> > > > v4.8
-> > > >
-> > > > Can you double-check? v4.8 was the first kernel with D3cold support
-> in
-> > > > PCI core.
-> > >
-> > > You are right.  I was thinking d3cold went upstream in 4.9, so yes, we
-> > > should apply this to 4.8.
-> > >
-> > > Alex
-> > >
-> > > >
-> > > > > Series is:
-> > > > > Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-> > > >
-> > > > Thanks!
-> > > >
-> > > > Kind regards,
-> > > > Peter
-> > > >
-> > > > >
-> > > > > >
-> > > > > > Kind regards,
-> > > > > > Peter
-> > > > > > ---
-> > > > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c | 9 ++++++++-
-> > > > > >  1 file changed, 8 insertions(+), 1 deletion(-)
-> > > > > >
-> > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
-> > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
-> > > > > > index 10b5ddf..951addf 100644
-> > > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
-> > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
-> > > > > > @@ -33,6 +33,7 @@ struct amdgpu_atpx {
-> > > > > >
-> > > > > >  static struct amdgpu_atpx_priv {
-> > > > > >         bool atpx_detected;
-> > > > > > +       bool bridge_pm_usable;
-> > > > > >         /* handle for device - and atpx */
-> > > > > >         acpi_handle dhandle;
-> > > > > >         acpi_handle other_handle;
-> > > > > > @@ -200,7 +201,11 @@ static int amdgpu_atpx_validate(struct
-> > > > amdgpu_atpx *atpx)
-> > > > > >         atpx->is_hybrid = false;
-> > > > > >         if (valid_bits & ATPX_MS_HYBRID_GFX_SUPPORTED) {
-> > > > > >                 printk("ATPX Hybrid Graphics\n");
-> > > > > > -               atpx->functions.power_cntl = false;
-> > > > > > +               /*
-> > > > > > +                * Disable legacy PM methods only when pcie port
-> PM
-> > > is usable,
-> > > > > > +                * otherwise the device might fail to power off
-> or
-> > > power on.
-> > > > > > +                */
-> > > > > > +               atpx->functions.power_cntl =
-> > > > !amdgpu_atpx_priv.bridge_pm_usable;
-> > > > > >                 atpx->is_hybrid = true;
-> > > > > >         }
-> > > > > >
-> > > > > > @@ -471,6 +476,7 @@ static int amdgpu_atpx_power_state(enum
-> > > > vga_switcheroo_client_id id,
-> > > > > >   */
-> > > > > >  static bool amdgpu_atpx_pci_probe_handle(struct pci_dev *pdev)
-> > > > > >  {
-> > > > > > +       struct pci_dev *parent_pdev = pci_upstream_bridge(pdev);
-> > > > > >         acpi_handle dhandle, atpx_handle;
-> > > > > >         acpi_status status;
-> > > > > >
-> > > > > > @@ -485,6 +491,7 @@ static bool
-> > > > amdgpu_atpx_pci_probe_handle(struct pci_dev *pdev)
-> > > > > >         }
-> > > > > >         amdgpu_atpx_priv.dhandle = dhandle;
-> > > > > >         amdgpu_atpx_priv.atpx.handle = atpx_handle;
-> > > > > > +       amdgpu_atpx_priv.bridge_pm_usable = parent_pdev &&
-> > > > parent_pdev->bridge_d3;
-> > > > > >         return true;
-> > > > > >  }
-> > > > > >
-> > > > > > --
-> > > > > > 2.10.2
->
->
-
---001a11c39b22b35d8b0542326d2e
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">He&#39;s some screen shots of the booting screens, apologi=
-es they&#39;re not that clear<div><br></div><div><a href=3D"https://imgur.c=
-om/a/V7mRA">https://imgur.com/a/V7mRA</a><br></div></div><br><div class=3D"=
-gmail_quote"><div dir=3D"ltr">On Sat, 26 Nov 2016 at 11:00 Mike Lothian &lt=
-;<a href=3D"mailto:mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org">mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org</a>&gt; wrote:<=
-br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;borde=
-r-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr" class=3D"gmail_msg=
-">Hi<div class=3D"gmail_msg"><br class=3D"gmail_msg"></div><div class=3D"gm=
-ail_msg">The previous working kernel, was the patch before this - reverting=
- fixes it</div><div class=3D"gmail_msg"><br class=3D"gmail_msg"></div><div =
-class=3D"gmail_msg">My bios date is quite new=C2=A0<span style=3D"font-fami=
-ly:monospace" class=3D"gmail_msg">08/05/2016</span></div><span style=3D"fon=
-t-family:monospace" class=3D"gmail_msg"><br class=3D"gmail_msg"></span><div=
- class=3D"gmail_msg">Most of the messages fly straight off the screen, the =
-journal isn&#39;t kept and the wifi driver also complains, will see if I ca=
-n get a slow motion capture of the errors and screen shot them</div><div cl=
-ass=3D"gmail_msg"><br class=3D"gmail_msg"></div><div class=3D"gmail_msg">Re=
-gards</div></div><div dir=3D"ltr" class=3D"gmail_msg"><div class=3D"gmail_m=
-sg"><br class=3D"gmail_msg"></div><div class=3D"gmail_msg">Mike</div></div>=
-<br class=3D"gmail_msg"><div class=3D"gmail_quote gmail_msg"><div dir=3D"lt=
-r" class=3D"gmail_msg">On Sat, 26 Nov 2016 at 10:20 Peter Wu &lt;<a href=3D=
-"mailto:peter-VTkQYDcBqhK7DlmcbJSQ7g@public.gmane.org" class=3D"gmail_msg" target=3D"_blank">peter@le=
-kensteyn.nl</a>&gt; wrote:<br class=3D"gmail_msg"></div><blockquote class=
-=3D"gmail_quote gmail_msg" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc =
-solid;padding-left:1ex">Hi Mike,<br class=3D"gmail_msg">
-<br class=3D"gmail_msg">
-On Sat, Nov 26, 2016 at 12:36:27AM +0000, Mike Lothian wrote:<br class=3D"g=
-mail_msg">
-&gt; This patch is preventing my laptop from booting, I&#39;m getting D3 er=
-ror<br class=3D"gmail_msg">
-&gt; messages and atom bios stuck messages<br class=3D"gmail_msg">
-<br class=3D"gmail_msg">
-Can you post a dmesg and acpidump? What was the previous working kernel?<br=
- class=3D"gmail_msg">
-I suppose your BIOS date (/sys/class/dmi/id/bios_date) is pre-2015?<br clas=
-s=3D"gmail_msg">
-Does booting with runpm=3D0 work?<br class=3D"gmail_msg">
-<br class=3D"gmail_msg">
-&gt; I mistakenly saw the v2 patch and didn&#39;t realise it was for radeon=
- not<br class=3D"gmail_msg">
-&gt; amdgpu - this branch and Linus&#39;s tree are currently not booting fo=
-r me<br class=3D"gmail_msg">
-<br class=3D"gmail_msg">
-What do you mean by this?<br class=3D"gmail_msg">
-<br class=3D"gmail_msg">
-Kind regards,<br class=3D"gmail_msg">
-Peter<br class=3D"gmail_msg">
-<br class=3D"gmail_msg">
-&gt; On Wed, 23 Nov 2016 at 17:16 Deucher, Alexander &lt;<a href=3D"mailto:=
-Alexander.Deucher-5C7GfCeVMHo@public.gmane.org" class=3D"gmail_msg" target=3D"_blank">Alexander.=
-Deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<br class=3D"gmail_msg">
-&gt; wrote:<br class=3D"gmail_msg">
-&gt;<br class=3D"gmail_msg">
-&gt; &gt; &gt; -----Original Message-----<br class=3D"gmail_msg">
-&gt; &gt; &gt; From: Peter Wu [mailto:<a href=3D"mailto:peter-VTkQYDcBqhK7DlmcbJSQ7g@public.gmane.org=
-" class=3D"gmail_msg" target=3D"_blank">peter-VTkQYDcBqhK7DlmcbJSQ7g@public.gmane.org</a>]<br class=
-=3D"gmail_msg">
-&gt; &gt; &gt; Sent: Wednesday, November 23, 2016 12:13 PM<br class=3D"gmai=
-l_msg">
-&gt; &gt; &gt; To: Alex Deucher<br class=3D"gmail_msg">
-&gt; &gt; &gt; Cc: amd-gfx list; Deucher, Alexander; Nayan Deshmukh<br clas=
-s=3D"gmail_msg">
-&gt; &gt; &gt; Subject: Re: [PATCH 1/2] drm/amdgpu: fix power state when po=
-rt pm is<br class=3D"gmail_msg">
-&gt; &gt; &gt; unavailable<br class=3D"gmail_msg">
-&gt; &gt; &gt;<br class=3D"gmail_msg">
-&gt; &gt; &gt; On Wed, Nov 23, 2016 at 12:01:55PM -0500, Alex Deucher wrote=
-:<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt;=C2=A0 On Tue, Nov 22, 2016 at 8:22 PM, Peter Wu &lt;<a =
-href=3D"mailto:peter-VTkQYDcBqhK7DlmcbJSQ7g@public.gmane.org" class=3D"gmail_msg" target=3D"_blank">p=
-eter-VTkQYDcBqhK7DlmcbJSQ7g@public.gmane.org</a>&gt;<br class=3D"gmail_msg">
-&gt; &gt; wrote:<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; When PCIe port PM is not enabled (system BIOS is p=
-re-2015 or the<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; pcie_port_pm=3Doff parameter is set), legacy ATPX =
-PM should still be<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; marked as supported. Otherwise the GPU can fail to=
- power on after<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; runtime suspend. This affected a Dell Inspiron 554=
-8.<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; Ideally the BIOS date in the PCI core is lowered t=
-o 2013 (the first<br class=3D"gmail_msg">
-&gt; &gt; year<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; where hybrid graphics platforms using power resour=
-ces was<br class=3D"gmail_msg">
-&gt; &gt; introduced),<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; but that seems more risky at this point and would =
-not solve the<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; pcie_port_pm=3Doff issue.<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; Bugzilla: <a href=3D"https://bugs.freedesktop.org/=
-show_bug.cgi?id=3D98505" rel=3D"noreferrer" class=3D"gmail_msg" target=3D"_=
-blank">https://bugs.freedesktop.org/show_bug.cgi?id=3D98505</a><br class=3D=
-"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; Reported-and-tested-by: Nayan Deshmukh<br class=3D=
-"gmail_msg">
-&gt; &gt; &gt; &lt;<a href=3D"mailto:nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" class=3D"gm=
-ail_msg" target=3D"_blank">nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br class=3D"gm=
-ail_msg">
-&gt; &gt; &gt; &gt; &gt; Signed-off-by: Peter Wu &lt;<a href=3D"mailto:pete=
-r@lekensteyn.nl" class=3D"gmail_msg" target=3D"_blank">peter-VTkQYDcBqhK7DlmcbJSQ7g@public.gmane.org<=
-/a>&gt;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; ---<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; Hi,<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; This patch is already three weeks old. One alterna=
-tive idea was<br class=3D"gmail_msg">
-&gt; &gt; lowering<br class=3D"gmail_msg">
-&gt; &gt; &gt; BIOS<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; date in PCI core, but as pcie_port_pm=3Dforce did =
-not have the desired<br class=3D"gmail_msg">
-&gt; &gt; &gt; effect, I<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; do not think that this would help though.<br class=
-=3D"gmail_msg">
-&gt; &gt; &gt; &gt;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; Thanks for doing this.<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; I have also not contacted linux-pci or Mika about =
-lowering the year<br class=3D"gmail_msg">
-&gt; &gt; due to<br class=3D"gmail_msg">
-&gt; &gt; &gt; the<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; lack of a good reason.=C2=A0 Might do it later tho=
-ugh once ACPICA bug<br class=3D"gmail_msg">
-&gt; &gt; 1333 is<br class=3D"gmail_msg">
-&gt; &gt; &gt; sorted<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; out such that lowering the year actually has benef=
-its for a Nvidia<br class=3D"gmail_msg">
-&gt; &gt; laptop<br class=3D"gmail_msg">
-&gt; &gt; &gt; (or if<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; some amdgpu problem can be solved by this).<br cla=
-ss=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; Both patches should probably be Cc stable (4.8+), =
-fixing<br class=3D"gmail_msg">
-&gt; &gt; 2f5af82eeab2 and<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; b8c9fd5ad4b4 (&quot;track whether if this is a hyb=
-rid graphics<br class=3D"gmail_msg">
-&gt; &gt; platform&quot;). There<br class=3D"gmail_msg">
-&gt; &gt; &gt; have<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; been some ifdef 0&#39;s and reverts in between, so=
- I was not sure if<br class=3D"gmail_msg">
-&gt; &gt; adding<br class=3D"gmail_msg">
-&gt; &gt; &gt; the<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; Fixes tag is appropriate.<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; I don&#39;t think we need to cc stable.=C2=A0 In kernel=
- 4.8 we don&#39;t attempt to<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; do d3cold at all.=C2=A0 4.8 and older kernels have:<br =
-class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; c63695cc5e5f685e924e25a8f9555f6e846f1fc6 (drm/amdgpu: w=
-ork around<br class=3D"gmail_msg">
-&gt; &gt; &gt; lack<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; of upstream ACPI support for D3cold)<br class=3D"gmail_=
-msg">
-&gt; &gt; &gt; &gt; which was reverted for 4.9.<br class=3D"gmail_msg">
-&gt; &gt; &gt;<br class=3D"gmail_msg">
-&gt; &gt; &gt; That patch was already reverted in 4.8 as far as I can see:<=
-br class=3D"gmail_msg">
-&gt; &gt; &gt;<br class=3D"gmail_msg">
-&gt; &gt; &gt; $ git tag --contains c39b487f195b93235ee76384427467786f7bf29=
-f | grep v4.8<br class=3D"gmail_msg">
-&gt; &gt; &gt; v4.8<br class=3D"gmail_msg">
-&gt; &gt; &gt;<br class=3D"gmail_msg">
-&gt; &gt; &gt; Can you double-check? v4.8 was the first kernel with D3cold =
-support in<br class=3D"gmail_msg">
-&gt; &gt; &gt; PCI core.<br class=3D"gmail_msg">
-&gt; &gt;<br class=3D"gmail_msg">
-&gt; &gt; You are right.=C2=A0 I was thinking d3cold went upstream in 4.9, =
-so yes, we<br class=3D"gmail_msg">
-&gt; &gt; should apply this to 4.8.<br class=3D"gmail_msg">
-&gt; &gt;<br class=3D"gmail_msg">
-&gt; &gt; Alex<br class=3D"gmail_msg">
-&gt; &gt;<br class=3D"gmail_msg">
-&gt; &gt; &gt;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; Series is:<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; Reviewed-by: Alex Deucher &lt;<a href=3D"mailto:alexand=
-er.deucher-5C7GfCeVMHo@public.gmane.org" class=3D"gmail_msg" target=3D"_blank">alexander.deucher=
-@amd.com</a>&gt;<br class=3D"gmail_msg">
-&gt; &gt; &gt;<br class=3D"gmail_msg">
-&gt; &gt; &gt; Thanks!<br class=3D"gmail_msg">
-&gt; &gt; &gt;<br class=3D"gmail_msg">
-&gt; &gt; &gt; Kind regards,<br class=3D"gmail_msg">
-&gt; &gt; &gt; Peter<br class=3D"gmail_msg">
-&gt; &gt; &gt;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; Kind regards,<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; Peter<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; ---<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handl=
-er.c | 9 ++++++++-<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;=C2=A0 1 file changed, 8 insertions(+), 1 deletion(=
--)<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atp=
-x_handler.c<br class=3D"gmail_msg">
-&gt; &gt; &gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c<br class=
-=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; index 10b5ddf..951addf 100644<br class=3D"gmail_ms=
-g">
-&gt; &gt; &gt; &gt; &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handl=
-er.c<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handl=
-er.c<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; @@ -33,6 +33,7 @@ struct amdgpu_atpx {<br class=3D=
-"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;=C2=A0 static struct amdgpu_atpx_priv {<br class=3D=
-"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0bool atpx_detecte=
-d;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0bool bridge_pm_usable;=
-<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* handle for dev=
-ice - and atpx */<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0acpi_handle dhand=
-le;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0acpi_handle other=
-_handle;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; @@ -200,7 +201,11 @@ static int amdgpu_atpx_valida=
-te(struct<br class=3D"gmail_msg">
-&gt; &gt; &gt; amdgpu_atpx *atpx)<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0atpx-&gt;is_hybri=
-d =3D false;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (valid_bits &a=
-mp; ATPX_MS_HYBRID_GFX_SUPPORTED) {<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0printk(&quot;ATPX Hybrid Graphics\n&quot;);<br class=3D"gmail_=
-msg">
-&gt; &gt; &gt; &gt; &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0atpx-&gt;functions.power_cntl =3D false;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0/*<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 * Disable legacy PM methods only when pcie port PM<br class=3D"gmail=
-_msg">
-&gt; &gt; is usable,<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 * otherwise the device might fail to power off or<br class=3D"gmail_=
-msg">
-&gt; &gt; power on.<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 */<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0atpx-&gt;functions.power_cntl =3D<br class=3D"gmail_msg">
-&gt; &gt; &gt; !amdgpu_atpx_priv.bridge_pm_usable;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0atpx-&gt;is_hybrid =3D true;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br class=3D"gma=
-il_msg">
-&gt; &gt; &gt; &gt; &gt;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; @@ -471,6 +476,7 @@ static int amdgpu_atpx_power_s=
-tate(enum<br class=3D"gmail_msg">
-&gt; &gt; &gt; vga_switcheroo_client_id id,<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;=C2=A0 =C2=A0*/<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;=C2=A0 static bool amdgpu_atpx_pci_probe_handle(str=
-uct pci_dev *pdev)<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;=C2=A0 {<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0struct pci_dev *parent=
-_pdev =3D pci_upstream_bridge(pdev);<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0acpi_handle dhand=
-le, atpx_handle;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0acpi_status statu=
-s;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; @@ -485,6 +491,7 @@ static bool<br class=3D"gmail_=
-msg">
-&gt; &gt; &gt; amdgpu_atpx_pci_probe_handle(struct pci_dev *pdev)<br class=
-=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br class=3D"gma=
-il_msg">
-&gt; &gt; &gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_atpx_priv.=
-dhandle =3D dhandle;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_atpx_priv.=
-atpx.handle =3D atpx_handle;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_atpx_priv.bridg=
-e_pm_usable =3D parent_pdev &amp;&amp;<br class=3D"gmail_msg">
-&gt; &gt; &gt; parent_pdev-&gt;bridge_d3;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return true;<br c=
-lass=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;=C2=A0 }<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt;<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; --<br class=3D"gmail_msg">
-&gt; &gt; &gt; &gt; &gt; 2.10.2<br class=3D"gmail_msg">
-</blockquote></div></blockquote></div>
-
---001a11c39b22b35d8b0542326d2e--
-
---===============0002450852==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
+SGkgTWlrZSwKClRvIGdyYWIgY29uc29sZSBvdXRwdXQsIHlvdSBjb3VsZCBhbHNvIHRyeSB0byBi
+bGFja2xpc3QgYW1kZ3B1IGF0CnN0YXJ0dXAgYW5kIGxvYWQgaXQgbGF0ZXIuCgpDYW4geW91IHBy
+b3ZpZGUgeW91ciBhY3BpZHVtcCAoYW5kIGxzcGNpIC1ubiwgZXNwZWNpYWxseSBpZiB5b3UgZG8g
+bm90CmhhdmUgYSBkbWVzZykuCgpUaGlzIGlzIHRoZSBjYWxsIGNoYWluOgoKKyBhbWRncHVfYXRw
+eF9kZXRlY3QKICArIGFtZGdwdV9hdHB4X3BjaV9wcm9iZV9oYW5kbGUKICAgICsgcmV0dXJuIGlm
+IEFUUFggQUNQSSBoYW5kbGUgY2Fubm90IGJlIGZvdW5kCiAgICArIHNldCBhbWRncHVfYXRweF9w
+cml2LmJyaWRnZV9wbV91c2FibGUKICArIGFtZGdwdV9hdHB4X2luaXQKICAgICsgYW1kZ3B1X2F0
+cHhfdmFsaWRhdGUKICAgICAgKyB1c2UgYW1kZ3B1X2F0cHhfcHJpdi5icmlkZ2VfcG1fdXNhYmxl
+CgpJIHdvbmRlciB3aGV0aGVyIG5ld2VyIGRldmljZXMgcmVtb3ZlIEFUUFggY29tcGxldGVseS4g
+SWYgdGhhdCBpcyB0aGUKY2FzZSAocGxlYXNlIHByb3ZpZGUgYWNwaWR1bXAhKSwgY2FuIHlvdSB0
+cnkgdGhpcyBoYWNrOgoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9hdHB4X2hhbmRsZXIuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9h
+dHB4X2hhbmRsZXIuYwppbmRleCA5NTFhZGRmLi41YzIzMzgyIDEwMDY0NAotLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYXRweF9oYW5kbGVyLmMKKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2F0cHhfaGFuZGxlci5jCkBAIC00ODcsNiArNDg3LDcg
+QEAgc3RhdGljIGJvb2wgYW1kZ3B1X2F0cHhfcGNpX3Byb2JlX2hhbmRsZShzdHJ1Y3QgcGNpX2Rl
+diAqcGRldikKIAlzdGF0dXMgPSBhY3BpX2dldF9oYW5kbGUoZGhhbmRsZSwgIkFUUFgiLCAmYXRw
+eF9oYW5kbGUpOwogCWlmIChBQ1BJX0ZBSUxVUkUoc3RhdHVzKSkgewogCQlhbWRncHVfYXRweF9w
+cml2Lm90aGVyX2hhbmRsZSA9IGRoYW5kbGU7CisJCWFtZGdwdV9hdHB4X3ByaXYuYnJpZGdlX3Bt
+X3VzYWJsZSA9IHRydWU7CiAJCXJldHVybiBmYWxzZTsKIAl9CiAJYW1kZ3B1X2F0cHhfcHJpdi5k
+aGFuZGxlID0gZGhhbmRsZTsKClRoaXMgaXMgbm90IGludGVuZGVkIGZvciBtZXJnaW5nLCBidXQg
+anVzdCB0ZXN0aW5nIGEgaHlwb3RoZXNpcy4KCktpbmQgcmVnYXJkcywKUGV0ZXIKCk9uIFNhdCwg
+Tm92IDI2LCAyMDE2IGF0IDExOjIwOjI4QU0gKzAwMDAsIE1pa2UgTG90aGlhbiB3cm90ZToKPiBI
+ZSdzIHNvbWUgc2NyZWVuIHNob3RzIG9mIHRoZSBib290aW5nIHNjcmVlbnMsIGFwb2xvZ2llcyB0
+aGV5J3JlIG5vdCB0aGF0Cj4gY2xlYXIKPiAKPiBodHRwczovL2ltZ3VyLmNvbS9hL1Y3bVJBCj4g
+Cj4gT24gU2F0LCAyNiBOb3YgMjAxNiBhdCAxMTowMCBNaWtlIExvdGhpYW4gPG1pa2VAZmlyZWJ1
+cm4uY28udWs+IHdyb3RlOgo+IAo+ID4gSGkKPiA+Cj4gPiBUaGUgcHJldmlvdXMgd29ya2luZyBr
+ZXJuZWwsIHdhcyB0aGUgcGF0Y2ggYmVmb3JlIHRoaXMgLSByZXZlcnRpbmcgZml4ZXMgaXQKPiA+
+Cj4gPiBNeSBiaW9zIGRhdGUgaXMgcXVpdGUgbmV3IDA4LzA1LzIwMTYKPiA+Cj4gPiBNb3N0IG9m
+IHRoZSBtZXNzYWdlcyBmbHkgc3RyYWlnaHQgb2ZmIHRoZSBzY3JlZW4sIHRoZSBqb3VybmFsIGlz
+bid0IGtlcHQKPiA+IGFuZCB0aGUgd2lmaSBkcml2ZXIgYWxzbyBjb21wbGFpbnMsIHdpbGwgc2Vl
+IGlmIEkgY2FuIGdldCBhIHNsb3cgbW90aW9uCj4gPiBjYXB0dXJlIG9mIHRoZSBlcnJvcnMgYW5k
+IHNjcmVlbiBzaG90IHRoZW0KPiA+Cj4gPiBSZWdhcmRzCj4gPgo+ID4gTWlrZQo+ID4KPiA+IE9u
+IFNhdCwgMjYgTm92IDIwMTYgYXQgMTA6MjAgUGV0ZXIgV3UgPHBldGVyQGxla2Vuc3RleW4ubmw+
+IHdyb3RlOgo+ID4KPiA+IEhpIE1pa2UsCj4gPgo+ID4gT24gU2F0LCBOb3YgMjYsIDIwMTYgYXQg
+MTI6MzY6MjdBTSArMDAwMCwgTWlrZSBMb3RoaWFuIHdyb3RlOgo+ID4gPiBUaGlzIHBhdGNoIGlz
+IHByZXZlbnRpbmcgbXkgbGFwdG9wIGZyb20gYm9vdGluZywgSSdtIGdldHRpbmcgRDMgZXJyb3IK
+PiA+ID4gbWVzc2FnZXMgYW5kIGF0b20gYmlvcyBzdHVjayBtZXNzYWdlcwo+ID4KPiA+IENhbiB5
+b3UgcG9zdCBhIGRtZXNnIGFuZCBhY3BpZHVtcD8gV2hhdCB3YXMgdGhlIHByZXZpb3VzIHdvcmtp
+bmcga2VybmVsPwo+ID4gSSBzdXBwb3NlIHlvdXIgQklPUyBkYXRlICgvc3lzL2NsYXNzL2RtaS9p
+ZC9iaW9zX2RhdGUpIGlzIHByZS0yMDE1Pwo+ID4gRG9lcyBib290aW5nIHdpdGggcnVucG09MCB3
+b3JrPwo+ID4KPiA+ID4gSSBtaXN0YWtlbmx5IHNhdyB0aGUgdjIgcGF0Y2ggYW5kIGRpZG4ndCBy
+ZWFsaXNlIGl0IHdhcyBmb3IgcmFkZW9uIG5vdAo+ID4gPiBhbWRncHUgLSB0aGlzIGJyYW5jaCBh
+bmQgTGludXMncyB0cmVlIGFyZSBjdXJyZW50bHkgbm90IGJvb3RpbmcgZm9yIG1lCj4gPgo+ID4g
+V2hhdCBkbyB5b3UgbWVhbiBieSB0aGlzPwo+ID4KPiA+IEtpbmQgcmVnYXJkcywKPiA+IFBldGVy
+Cj4gPgo+ID4gPiBPbiBXZWQsIDIzIE5vdiAyMDE2IGF0IDE3OjE2IERldWNoZXIsIEFsZXhhbmRl
+ciA8Cj4gPiBBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPgo+ID4gPiB3cm90ZToKPiA+ID4KPiA+
+ID4gPiA+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tCj4gPiA+ID4gPiBGcm9tOiBQZXRlciBX
+dSBbbWFpbHRvOnBldGVyQGxla2Vuc3RleW4ubmxdCj4gPiA+ID4gPiBTZW50OiBXZWRuZXNkYXks
+IE5vdmVtYmVyIDIzLCAyMDE2IDEyOjEzIFBNCj4gPiA+ID4gPiBUbzogQWxleCBEZXVjaGVyCj4g
+PiA+ID4gPiBDYzogYW1kLWdmeCBsaXN0OyBEZXVjaGVyLCBBbGV4YW5kZXI7IE5heWFuIERlc2ht
+dWtoCj4gPiA+ID4gPiBTdWJqZWN0OiBSZTogW1BBVENIIDEvMl0gZHJtL2FtZGdwdTogZml4IHBv
+d2VyIHN0YXRlIHdoZW4gcG9ydCBwbSBpcwo+ID4gPiA+ID4gdW5hdmFpbGFibGUKPiA+ID4gPiA+
+Cj4gPiA+ID4gPiBPbiBXZWQsIE5vdiAyMywgMjAxNiBhdCAxMjowMTo1NVBNIC0wNTAwLCBBbGV4
+IERldWNoZXIgd3JvdGU6Cj4gPiA+ID4gPiA+ICBPbiBUdWUsIE5vdiAyMiwgMjAxNiBhdCA4OjIy
+IFBNLCBQZXRlciBXdSA8cGV0ZXJAbGVrZW5zdGV5bi5ubD4KPiA+ID4gPiB3cm90ZToKPiA+ID4g
+PiA+ID4gPiBXaGVuIFBDSWUgcG9ydCBQTSBpcyBub3QgZW5hYmxlZCAoc3lzdGVtIEJJT1MgaXMg
+cHJlLTIwMTUgb3IgdGhlCj4gPiA+ID4gPiA+ID4gcGNpZV9wb3J0X3BtPW9mZiBwYXJhbWV0ZXIg
+aXMgc2V0KSwgbGVnYWN5IEFUUFggUE0gc2hvdWxkIHN0aWxsCj4gPiBiZQo+ID4gPiA+ID4gPiA+
+IG1hcmtlZCBhcyBzdXBwb3J0ZWQuIE90aGVyd2lzZSB0aGUgR1BVIGNhbiBmYWlsIHRvIHBvd2Vy
+IG9uIGFmdGVyCj4gPiA+ID4gPiA+ID4gcnVudGltZSBzdXNwZW5kLiBUaGlzIGFmZmVjdGVkIGEg
+RGVsbCBJbnNwaXJvbiA1NTQ4Lgo+ID4gPiA+ID4gPiA+Cj4gPiA+ID4gPiA+ID4gSWRlYWxseSB0
+aGUgQklPUyBkYXRlIGluIHRoZSBQQ0kgY29yZSBpcyBsb3dlcmVkIHRvIDIwMTMgKHRoZQo+ID4g
+Zmlyc3QKPiA+ID4gPiB5ZWFyCj4gPiA+ID4gPiA+ID4gd2hlcmUgaHlicmlkIGdyYXBoaWNzIHBs
+YXRmb3JtcyB1c2luZyBwb3dlciByZXNvdXJjZXMgd2FzCj4gPiA+ID4gaW50cm9kdWNlZCksCj4g
+PiA+ID4gPiA+ID4gYnV0IHRoYXQgc2VlbXMgbW9yZSByaXNreSBhdCB0aGlzIHBvaW50IGFuZCB3
+b3VsZCBub3Qgc29sdmUgdGhlCj4gPiA+ID4gPiA+ID4gcGNpZV9wb3J0X3BtPW9mZiBpc3N1ZS4K
+PiA+ID4gPiA+ID4gPgo+ID4gPiA+ID4gPiA+IEJ1Z3ppbGxhOiBodHRwczovL2J1Z3MuZnJlZWRl
+c2t0b3Aub3JnL3Nob3dfYnVnLmNnaT9pZD05ODUwNQo+ID4gPiA+ID4gPiA+IFJlcG9ydGVkLWFu
+ZC10ZXN0ZWQtYnk6IE5heWFuIERlc2htdWtoCj4gPiA+ID4gPiA8bmF5YW4yNmRlc2htdWtoQGdt
+YWlsLmNvbT4KPiA+ID4gPiA+ID4gPiBTaWduZWQtb2ZmLWJ5OiBQZXRlciBXdSA8cGV0ZXJAbGVr
+ZW5zdGV5bi5ubD4KPiA+ID4gPiA+ID4gPiAtLS0KPiA+ID4gPiA+ID4gPiBIaSwKPiA+ID4gPiA+
+ID4gPgo+ID4gPiA+ID4gPiA+IFRoaXMgcGF0Y2ggaXMgYWxyZWFkeSB0aHJlZSB3ZWVrcyBvbGQu
+IE9uZSBhbHRlcm5hdGl2ZSBpZGVhIHdhcwo+ID4gPiA+IGxvd2VyaW5nCj4gPiA+ID4gPiBCSU9T
+Cj4gPiA+ID4gPiA+ID4gZGF0ZSBpbiBQQ0kgY29yZSwgYnV0IGFzIHBjaWVfcG9ydF9wbT1mb3Jj
+ZSBkaWQgbm90IGhhdmUgdGhlCj4gPiBkZXNpcmVkCj4gPiA+ID4gPiBlZmZlY3QsIEkKPiA+ID4g
+PiA+ID4gPiBkbyBub3QgdGhpbmsgdGhhdCB0aGlzIHdvdWxkIGhlbHAgdGhvdWdoLgo+ID4gPiA+
+ID4gPgo+ID4gPiA+ID4gPiBUaGFua3MgZm9yIGRvaW5nIHRoaXMuCj4gPiA+ID4gPiA+Cj4gPiA+
+ID4gPiA+ID4KPiA+ID4gPiA+ID4gPiBJIGhhdmUgYWxzbyBub3QgY29udGFjdGVkIGxpbnV4LXBj
+aSBvciBNaWthIGFib3V0IGxvd2VyaW5nIHRoZQo+ID4geWVhcgo+ID4gPiA+IGR1ZSB0bwo+ID4g
+PiA+ID4gdGhlCj4gPiA+ID4gPiA+ID4gbGFjayBvZiBhIGdvb2QgcmVhc29uLiAgTWlnaHQgZG8g
+aXQgbGF0ZXIgdGhvdWdoIG9uY2UgQUNQSUNBIGJ1Zwo+ID4gPiA+IDEzMzMgaXMKPiA+ID4gPiA+
+IHNvcnRlZAo+ID4gPiA+ID4gPiA+IG91dCBzdWNoIHRoYXQgbG93ZXJpbmcgdGhlIHllYXIgYWN0
+dWFsbHkgaGFzIGJlbmVmaXRzIGZvciBhCj4gPiBOdmlkaWEKPiA+ID4gPiBsYXB0b3AKPiA+ID4g
+PiA+IChvciBpZgo+ID4gPiA+ID4gPiA+IHNvbWUgYW1kZ3B1IHByb2JsZW0gY2FuIGJlIHNvbHZl
+ZCBieSB0aGlzKS4KPiA+ID4gPiA+ID4gPgo+ID4gPiA+ID4gPiA+IEJvdGggcGF0Y2hlcyBzaG91
+bGQgcHJvYmFibHkgYmUgQ2Mgc3RhYmxlICg0LjgrKSwgZml4aW5nCj4gPiA+ID4gMmY1YWY4MmVl
+YWIyIGFuZAo+ID4gPiA+ID4gPiA+IGI4YzlmZDVhZDRiNCAoInRyYWNrIHdoZXRoZXIgaWYgdGhp
+cyBpcyBhIGh5YnJpZCBncmFwaGljcwo+ID4gPiA+IHBsYXRmb3JtIikuIFRoZXJlCj4gPiA+ID4g
+PiBoYXZlCj4gPiA+ID4gPiA+ID4gYmVlbiBzb21lIGlmZGVmIDAncyBhbmQgcmV2ZXJ0cyBpbiBi
+ZXR3ZWVuLCBzbyBJIHdhcyBub3Qgc3VyZSBpZgo+ID4gPiA+IGFkZGluZwo+ID4gPiA+ID4gdGhl
+Cj4gPiA+ID4gPiA+ID4gRml4ZXMgdGFnIGlzIGFwcHJvcHJpYXRlLgo+ID4gPiA+ID4gPgo+ID4g
+PiA+ID4gPiBJIGRvbid0IHRoaW5rIHdlIG5lZWQgdG8gY2Mgc3RhYmxlLiAgSW4ga2VybmVsIDQu
+OCB3ZSBkb24ndAo+ID4gYXR0ZW1wdCB0bwo+ID4gPiA+ID4gPiBkbyBkM2NvbGQgYXQgYWxsLiAg
+NC44IGFuZCBvbGRlciBrZXJuZWxzIGhhdmU6Cj4gPiA+ID4gPiA+IGM2MzY5NWNjNWU1ZjY4NWU5
+MjRlMjVhOGY5NTU1ZjZlODQ2ZjFmYzYgKGRybS9hbWRncHU6IHdvcmsgYXJvdW5kCj4gPiA+ID4g
+PiBsYWNrCj4gPiA+ID4gPiA+IG9mIHVwc3RyZWFtIEFDUEkgc3VwcG9ydCBmb3IgRDNjb2xkKQo+
+ID4gPiA+ID4gPiB3aGljaCB3YXMgcmV2ZXJ0ZWQgZm9yIDQuOS4KPiA+ID4gPiA+Cj4gPiA+ID4g
+PiBUaGF0IHBhdGNoIHdhcyBhbHJlYWR5IHJldmVydGVkIGluIDQuOCBhcyBmYXIgYXMgSSBjYW4g
+c2VlOgo+ID4gPiA+ID4KPiA+ID4gPiA+ICQgZ2l0IHRhZyAtLWNvbnRhaW5zIGMzOWI0ODdmMTk1
+YjkzMjM1ZWU3NjM4NDQyNzQ2Nzc4NmY3YmYyOWYgfCBncmVwCj4gPiB2NC44Cj4gPiA+ID4gPiB2
+NC44Cj4gPiA+ID4gPgo+ID4gPiA+ID4gQ2FuIHlvdSBkb3VibGUtY2hlY2s/IHY0Ljggd2FzIHRo
+ZSBmaXJzdCBrZXJuZWwgd2l0aCBEM2NvbGQgc3VwcG9ydAo+ID4gaW4KPiA+ID4gPiA+IFBDSSBj
+b3JlLgo+ID4gPiA+Cj4gPiA+ID4gWW91IGFyZSByaWdodC4gIEkgd2FzIHRoaW5raW5nIGQzY29s
+ZCB3ZW50IHVwc3RyZWFtIGluIDQuOSwgc28geWVzLCB3ZQo+ID4gPiA+IHNob3VsZCBhcHBseSB0
+aGlzIHRvIDQuOC4KPiA+ID4gPgo+ID4gPiA+IEFsZXgKPiA+ID4gPgo+ID4gPiA+ID4KPiA+ID4g
+PiA+ID4gU2VyaWVzIGlzOgo+ID4gPiA+ID4gPiBSZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxh
+bGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+ID4gPiA+ID4KPiA+ID4gPiA+IFRoYW5rcyEKPiA+
+ID4gPiA+Cj4gPiA+ID4gPiBLaW5kIHJlZ2FyZHMsCj4gPiA+ID4gPiBQZXRlcgo+ID4gPiA+ID4K
+PiA+ID4gPiA+ID4KPiA+ID4gPiA+ID4gPgo+ID4gPiA+ID4gPiA+IEtpbmQgcmVnYXJkcywKPiA+
+ID4gPiA+ID4gPiBQZXRlcgo+ID4gPiA+ID4gPiA+IC0tLQo+ID4gPiA+ID4gPiA+ICBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYXRweF9oYW5kbGVyLmMgfCA5ICsrKysrKysrLQo+
+ID4gPiA+ID4gPiA+ICAxIGZpbGUgY2hhbmdlZCwgOCBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9u
+KC0pCj4gPiA+ID4gPiA+ID4KPiA+ID4gPiA+ID4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2F0cHhfaGFuZGxlci5jCj4gPiA+ID4gPiBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hdHB4X2hhbmRsZXIuYwo+ID4gPiA+ID4gPiA+IGlu
+ZGV4IDEwYjVkZGYuLjk1MWFkZGYgMTAwNjQ0Cj4gPiA+ID4gPiA+ID4gLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2F0cHhfaGFuZGxlci5jCj4gPiA+ID4gPiA+ID4gKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2F0cHhfaGFuZGxlci5jCj4gPiA+
+ID4gPiA+ID4gQEAgLTMzLDYgKzMzLDcgQEAgc3RydWN0IGFtZGdwdV9hdHB4IHsKPiA+ID4gPiA+
+ID4gPgo+ID4gPiA+ID4gPiA+ICBzdGF0aWMgc3RydWN0IGFtZGdwdV9hdHB4X3ByaXYgewo+ID4g
+PiA+ID4gPiA+ICAgICAgICAgYm9vbCBhdHB4X2RldGVjdGVkOwo+ID4gPiA+ID4gPiA+ICsgICAg
+ICAgYm9vbCBicmlkZ2VfcG1fdXNhYmxlOwo+ID4gPiA+ID4gPiA+ICAgICAgICAgLyogaGFuZGxl
+IGZvciBkZXZpY2UgLSBhbmQgYXRweCAqLwo+ID4gPiA+ID4gPiA+ICAgICAgICAgYWNwaV9oYW5k
+bGUgZGhhbmRsZTsKPiA+ID4gPiA+ID4gPiAgICAgICAgIGFjcGlfaGFuZGxlIG90aGVyX2hhbmRs
+ZTsKPiA+ID4gPiA+ID4gPiBAQCAtMjAwLDcgKzIwMSwxMSBAQCBzdGF0aWMgaW50IGFtZGdwdV9h
+dHB4X3ZhbGlkYXRlKHN0cnVjdAo+ID4gPiA+ID4gYW1kZ3B1X2F0cHggKmF0cHgpCj4gPiA+ID4g
+PiA+ID4gICAgICAgICBhdHB4LT5pc19oeWJyaWQgPSBmYWxzZTsKPiA+ID4gPiA+ID4gPiAgICAg
+ICAgIGlmICh2YWxpZF9iaXRzICYgQVRQWF9NU19IWUJSSURfR0ZYX1NVUFBPUlRFRCkgewo+ID4g
+PiA+ID4gPiA+ICAgICAgICAgICAgICAgICBwcmludGsoIkFUUFggSHlicmlkIEdyYXBoaWNzXG4i
+KTsKPiA+ID4gPiA+ID4gPiAtICAgICAgICAgICAgICAgYXRweC0+ZnVuY3Rpb25zLnBvd2VyX2Nu
+dGwgPSBmYWxzZTsKPiA+ID4gPiA+ID4gPiArICAgICAgICAgICAgICAgLyoKPiA+ID4gPiA+ID4g
+PiArICAgICAgICAgICAgICAgICogRGlzYWJsZSBsZWdhY3kgUE0gbWV0aG9kcyBvbmx5IHdoZW4g
+cGNpZSBwb3J0Cj4gPiBQTQo+ID4gPiA+IGlzIHVzYWJsZSwKPiA+ID4gPiA+ID4gPiArICAgICAg
+ICAgICAgICAgICogb3RoZXJ3aXNlIHRoZSBkZXZpY2UgbWlnaHQgZmFpbCB0byBwb3dlciBvZmYK
+PiA+IG9yCj4gPiA+ID4gcG93ZXIgb24uCj4gPiA+ID4gPiA+ID4gKyAgICAgICAgICAgICAgICAq
+Lwo+ID4gPiA+ID4gPiA+ICsgICAgICAgICAgICAgICBhdHB4LT5mdW5jdGlvbnMucG93ZXJfY250
+bCA9Cj4gPiA+ID4gPiAhYW1kZ3B1X2F0cHhfcHJpdi5icmlkZ2VfcG1fdXNhYmxlOwo+ID4gPiA+
+ID4gPiA+ICAgICAgICAgICAgICAgICBhdHB4LT5pc19oeWJyaWQgPSB0cnVlOwo+ID4gPiA+ID4g
+PiA+ICAgICAgICAgfQo+ID4gPiA+ID4gPiA+Cj4gPiA+ID4gPiA+ID4gQEAgLTQ3MSw2ICs0NzYs
+NyBAQCBzdGF0aWMgaW50IGFtZGdwdV9hdHB4X3Bvd2VyX3N0YXRlKGVudW0KPiA+ID4gPiA+IHZn
+YV9zd2l0Y2hlcm9vX2NsaWVudF9pZCBpZCwKPiA+ID4gPiA+ID4gPiAgICovCj4gPiA+ID4gPiA+
+ID4gIHN0YXRpYyBib29sIGFtZGdwdV9hdHB4X3BjaV9wcm9iZV9oYW5kbGUoc3RydWN0IHBjaV9k
+ZXYgKnBkZXYpCj4gPiA+ID4gPiA+ID4gIHsKPiA+ID4gPiA+ID4gPiArICAgICAgIHN0cnVjdCBw
+Y2lfZGV2ICpwYXJlbnRfcGRldiA9IHBjaV91cHN0cmVhbV9icmlkZ2UocGRldik7Cj4gPiA+ID4g
+PiA+ID4gICAgICAgICBhY3BpX2hhbmRsZSBkaGFuZGxlLCBhdHB4X2hhbmRsZTsKPiA+ID4gPiA+
+ID4gPiAgICAgICAgIGFjcGlfc3RhdHVzIHN0YXR1czsKPiA+ID4gPiA+ID4gPgo+ID4gPiA+ID4g
+PiA+IEBAIC00ODUsNiArNDkxLDcgQEAgc3RhdGljIGJvb2wKPiA+ID4gPiA+IGFtZGdwdV9hdHB4
+X3BjaV9wcm9iZV9oYW5kbGUoc3RydWN0IHBjaV9kZXYgKnBkZXYpCj4gPiA+ID4gPiA+ID4gICAg
+ICAgICB9Cj4gPiA+ID4gPiA+ID4gICAgICAgICBhbWRncHVfYXRweF9wcml2LmRoYW5kbGUgPSBk
+aGFuZGxlOwo+ID4gPiA+ID4gPiA+ICAgICAgICAgYW1kZ3B1X2F0cHhfcHJpdi5hdHB4LmhhbmRs
+ZSA9IGF0cHhfaGFuZGxlOwo+ID4gPiA+ID4gPiA+ICsgICAgICAgYW1kZ3B1X2F0cHhfcHJpdi5i
+cmlkZ2VfcG1fdXNhYmxlID0gcGFyZW50X3BkZXYgJiYKPiA+ID4gPiA+IHBhcmVudF9wZGV2LT5i
+cmlkZ2VfZDM7Cj4gPiA+ID4gPiA+ID4gICAgICAgICByZXR1cm4gdHJ1ZTsKPiA+ID4gPiA+ID4g
+PiAgfQo+ID4gPiA+ID4gPiA+Cj4gPiA+ID4gPiA+ID4gLS0KPiA+ID4gPiA+ID4gPiAyLjEwLjIK
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0002450852==--
