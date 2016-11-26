@@ -1,14 +1,16 @@
-From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: fix bug uvd status not true in debugfs.
-Date: Sat, 26 Nov 2016 00:03:24 +0000
-Message-ID: <CY4PR12MB1768E24C5D959D3FBEFC72FFF7880@CY4PR12MB1768.namprd12.prod.outlook.com>
-References: <1480073981-6561-1-git-send-email-Rex.Zhu@amd.com>,
- <CADnq5_NAHDDvSjKWLDqeXOFASUnN7BFpWjCTa0bpEgZbqDjNog@mail.gmail.com>
+From: Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu: fix power state when port pm is
+ unavailable
+Date: Sat, 26 Nov 2016 00:36:27 +0000
+Message-ID: <CAHbf0-FgRU=6tYe2SYcm8E0ZvJuRFoqPpk77_DZdQKXdxZSsGg@mail.gmail.com>
+References: <20161123012225.11586-1-peter@lekensteyn.nl>
+ <CADnq5_On72XmLrE3wjD0u1=tmwghv6GofzfEGM5mhGoVtJav+Q@mail.gmail.com>
+ <20161123171255.GA18537@al>
+ <MWHPR12MB16949832E9DB44C53995493AF7B70@MWHPR12MB1694.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2040327999=="
+Content-Type: multipart/mixed; boundary="===============0015194520=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_NAHDDvSjKWLDqeXOFASUnN7BFpWjCTa0bpEgZbqDjNog-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <MWHPR12MB16949832E9DB44C53995493AF7B70-Gy0DoCVfaSW4WA4dJ5YXGAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,280 +21,415 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Peter Wu <peter-VTkQYDcBqhK7DlmcbJSQ7g@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Nayan Deshmukh <nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============2040327999==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB1768E24C5D959D3FBEFC72FFF7880CY4PR12MB1768namp_"
+--===============0015194520==
+Content-Type: multipart/alternative; boundary=001a1130cf06813f790542296ed1
 
---_000_CY4PR12MB1768E24C5D959D3FBEFC72FFF7880CY4PR12MB1768namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+--001a1130cf06813f790542296ed1
+Content-Type: text/plain; charset=UTF-8
 
-Keep in mind this is the older "method" since SI and up have a unified pm_s=
-tatus.
+This patch is preventing my laptop from booting, I'm getting D3 error
+messages and atom bios stuck messages
 
+I mistakenly saw the v2 patch and didn't realise it was for radeon not
+amdgpu - this branch and Linus's tree are currently not booting for me
 
-Tom
+On Wed, 23 Nov 2016 at 17:16 Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+wrote:
 
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Alex Deu=
-cher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Friday, November 25, 2016 18:30
-To: Zhu, Rex
-Cc: amd-gfx list
-Subject: Re: [PATCH] drm/amdgpu: fix bug uvd status not true in debugfs.
-
-On Fri, Nov 25, 2016 at 6:39 AM, Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org> wrote:
-> can't get uvd's state by uvd_enabled. uvd_enabled
-> is used for request higher mclk.
-> in multi-display case, mclk has been in highest clock,
-> no matter uvd's state changed, uvd_enabled will not
-> be changed.
+> > -----Original Message-----
+> > From: Peter Wu [mailto:peter-VTkQYDcBqhK7DlmcbJSQ7g@public.gmane.org]
+> > Sent: Wednesday, November 23, 2016 12:13 PM
+> > To: Alex Deucher
+> > Cc: amd-gfx list; Deucher, Alexander; Nayan Deshmukh
+> > Subject: Re: [PATCH 1/2] drm/amdgpu: fix power state when port pm is
+> > unavailable
+> >
+> > On Wed, Nov 23, 2016 at 12:01:55PM -0500, Alex Deucher wrote:
+> > >  On Tue, Nov 22, 2016 at 8:22 PM, Peter Wu <peter-VTkQYDcBqhK7DlmcbJSQ7g@public.gmane.org>
+> wrote:
+> > > > When PCIe port PM is not enabled (system BIOS is pre-2015 or the
+> > > > pcie_port_pm=off parameter is set), legacy ATPX PM should still be
+> > > > marked as supported. Otherwise the GPU can fail to power on after
+> > > > runtime suspend. This affected a Dell Inspiron 5548.
+> > > >
+> > > > Ideally the BIOS date in the PCI core is lowered to 2013 (the first
+> year
+> > > > where hybrid graphics platforms using power resources was
+> introduced),
+> > > > but that seems more risky at this point and would not solve the
+> > > > pcie_port_pm=off issue.
+> > > >
+> > > > Bugzilla: https://bugs.freedesktop.org/show_bug.cgi?id=98505
+> > > > Reported-and-tested-by: Nayan Deshmukh
+> > <nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+> > > > Signed-off-by: Peter Wu <peter-VTkQYDcBqhK7DlmcbJSQ7g@public.gmane.org>
+> > > > ---
+> > > > Hi,
+> > > >
+> > > > This patch is already three weeks old. One alternative idea was
+> lowering
+> > BIOS
+> > > > date in PCI core, but as pcie_port_pm=force did not have the desired
+> > effect, I
+> > > > do not think that this would help though.
+> > >
+> > > Thanks for doing this.
+> > >
+> > > >
+> > > > I have also not contacted linux-pci or Mika about lowering the year
+> due to
+> > the
+> > > > lack of a good reason.  Might do it later though once ACPICA bug
+> 1333 is
+> > sorted
+> > > > out such that lowering the year actually has benefits for a Nvidia
+> laptop
+> > (or if
+> > > > some amdgpu problem can be solved by this).
+> > > >
+> > > > Both patches should probably be Cc stable (4.8+), fixing
+> 2f5af82eeab2 and
+> > > > b8c9fd5ad4b4 ("track whether if this is a hybrid graphics
+> platform"). There
+> > have
+> > > > been some ifdef 0's and reverts in between, so I was not sure if
+> adding
+> > the
+> > > > Fixes tag is appropriate.
+> > >
+> > > I don't think we need to cc stable.  In kernel 4.8 we don't attempt to
+> > > do d3cold at all.  4.8 and older kernels have:
+> > > c63695cc5e5f685e924e25a8f9555f6e846f1fc6 (drm/amdgpu: work around
+> > lack
+> > > of upstream ACPI support for D3cold)
+> > > which was reverted for 4.9.
+> >
+> > That patch was already reverted in 4.8 as far as I can see:
+> >
+> > $ git tag --contains c39b487f195b93235ee76384427467786f7bf29f | grep v4.8
+> > v4.8
+> >
+> > Can you double-check? v4.8 was the first kernel with D3cold support in
+> > PCI core.
 >
-> Change-Id: Iedbe3b7ce085e9199fa7fddb88185bfd16f26612
-> Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/ci_dpm.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> You are right.  I was thinking d3cold went upstream in 4.9, so yes, we
+> should apply this to 4.8.
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/ci_dpm.c b/drivers/gpu/drm/amd/am=
-dgpu/ci_dpm.c
-> index 1027f92..bda9e3d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/ci_dpm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/ci_dpm.c
-> @@ -6083,7 +6083,7 @@ ci_dpm_debugfs_print_current_performance_level(stru=
-ct amdgpu_device *adev,
->                 activity_percent =3D activity_percent > 100 ? 100 : activ=
-ity_percent;
->         }
+> Alex
 >
-> -       seq_printf(m, "uvd %sabled\n", pi->uvd_enabled ? "en" : "dis");
-> +       seq_printf(m, "uvd %sabled\n", pi->uvd_power_gated ? "dis" : "en"=
-);
->         seq_printf(m, "vce %sabled\n", rps->vce_active ? "en" : "dis");
->         seq_printf(m, "power level avg    sclk: %u mclk: %u\n",
->                    sclk, mclk);
-> --
-> 1.9.1
->
+> >
+> > > Series is:
+> > > Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+> >
+> > Thanks!
+> >
+> > Kind regards,
+> > Peter
+> >
+> > >
+> > > >
+> > > > Kind regards,
+> > > > Peter
+> > > > ---
+> > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c | 9 ++++++++-
+> > > >  1 file changed, 8 insertions(+), 1 deletion(-)
+> > > >
+> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
+> > > > index 10b5ddf..951addf 100644
+> > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
+> > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c
+> > > > @@ -33,6 +33,7 @@ struct amdgpu_atpx {
+> > > >
+> > > >  static struct amdgpu_atpx_priv {
+> > > >         bool atpx_detected;
+> > > > +       bool bridge_pm_usable;
+> > > >         /* handle for device - and atpx */
+> > > >         acpi_handle dhandle;
+> > > >         acpi_handle other_handle;
+> > > > @@ -200,7 +201,11 @@ static int amdgpu_atpx_validate(struct
+> > amdgpu_atpx *atpx)
+> > > >         atpx->is_hybrid = false;
+> > > >         if (valid_bits & ATPX_MS_HYBRID_GFX_SUPPORTED) {
+> > > >                 printk("ATPX Hybrid Graphics\n");
+> > > > -               atpx->functions.power_cntl = false;
+> > > > +               /*
+> > > > +                * Disable legacy PM methods only when pcie port PM
+> is usable,
+> > > > +                * otherwise the device might fail to power off or
+> power on.
+> > > > +                */
+> > > > +               atpx->functions.power_cntl =
+> > !amdgpu_atpx_priv.bridge_pm_usable;
+> > > >                 atpx->is_hybrid = true;
+> > > >         }
+> > > >
+> > > > @@ -471,6 +476,7 @@ static int amdgpu_atpx_power_state(enum
+> > vga_switcheroo_client_id id,
+> > > >   */
+> > > >  static bool amdgpu_atpx_pci_probe_handle(struct pci_dev *pdev)
+> > > >  {
+> > > > +       struct pci_dev *parent_pdev = pci_upstream_bridge(pdev);
+> > > >         acpi_handle dhandle, atpx_handle;
+> > > >         acpi_status status;
+> > > >
+> > > > @@ -485,6 +491,7 @@ static bool
+> > amdgpu_atpx_pci_probe_handle(struct pci_dev *pdev)
+> > > >         }
+> > > >         amdgpu_atpx_priv.dhandle = dhandle;
+> > > >         amdgpu_atpx_priv.atpx.handle = atpx_handle;
+> > > > +       amdgpu_atpx_priv.bridge_pm_usable = parent_pdev &&
+> > parent_pdev->bridge_d3;
+> > > >         return true;
+> > > >  }
+> > > >
+> > > > --
+> > > > 2.10.2
 > _______________________________________________
 > amd-gfx mailing list
 > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-amd-gfx Info Page - lists.freedesktop.org<https://lists.freedesktop.org/mai=
-lman/listinfo/amd-gfx>
-lists.freedesktop.org
-To see the collection of prior postings to the list, visit the amd-gfx Arch=
-ives. Using amd-gfx: To post a message to all the list members, send email =
-...
+>
 
-
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-amd-gfx Info Page - lists.freedesktop.org<https://lists.freedesktop.org/mai=
-lman/listinfo/amd-gfx>
-lists.freedesktop.org
-To see the collection of prior postings to the list, visit the amd-gfx Arch=
-ives. Using amd-gfx: To post a message to all the list members, send email =
-...
-
-
-
-
---_000_CY4PR12MB1768E24C5D959D3FBEFC72FFF7880CY4PR12MB1768namp_
-Content-Type: text/html; charset="iso-8859-1"
+--001a1130cf06813f790542296ed1
+Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Arial,Helvetica,sans-serif;" dir=3D"ltr">
-<p>Keep in mind this is the older &quot;method&quot; since SI and up have a=
- unified pm_status.</p>
-<p><br>
-</p>
-<p>Tom</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Alex Deucher &lt;alexdeuche=
-r@gmail.com&gt;<br>
-<b>Sent:</b> Friday, November 25, 2016 18:30<br>
-<b>To:</b> Zhu, Rex<br>
-<b>Cc:</b> amd-gfx list<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: fix bug uvd status not true in debu=
-gfs.</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">On Fri, Nov 25, 2016 at 6:39 AM, Rex Zhu &lt;Rex.Z=
-hu-5C7GfCeVMHo@public.gmane.org&gt; wrote:<br>
-&gt; can't get uvd's state by uvd_enabled. uvd_enabled<br>
-&gt; is used for request higher mclk.<br>
-&gt; in multi-display case, mclk has been in highest clock,<br>
-&gt; no matter uvd's state changed, uvd_enabled will not<br>
-&gt; be changed.<br>
-&gt;<br>
-&gt; Change-Id: Iedbe3b7ce085e9199fa7fddb88185bfd16f26612<br>
-&gt; Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
-Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/ci_dpm.c | 2 &#43;-<br>
-&gt;&nbsp; 1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/ci_dpm.c b/drivers/gpu/drm/amd=
-/amdgpu/ci_dpm.c<br>
-&gt; index 1027f92..bda9e3d 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/ci_dpm.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/ci_dpm.c<br>
-&gt; @@ -6083,7 &#43;6083,7 @@ ci_dpm_debugfs_print_current_performance_lev=
-el(struct amdgpu_device *adev,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; activity_percent =3D activity_percent &gt; 100 ? =
-100 : activity_percent;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; seq_printf(m, &quot;uvd %sabled\=
-n&quot;, pi-&gt;uvd_enabled ? &quot;en&quot; : &quot;dis&quot;);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; seq_printf(m, &quot;uvd %sab=
-led\n&quot;, pi-&gt;uvd_power_gated ? &quot;dis&quot; : &quot;en&quot;);<br=
->
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; seq_printf(m, &quot;vc=
-e %sabled\n&quot;, rps-&gt;vce_active ? &quot;en&quot; : &quot;dis&quot;);<=
-br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; seq_printf(m, &quot;po=
-wer level avg&nbsp;&nbsp;&nbsp; sclk: %u mclk: %u\n&quot;,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sclk, mclk);<br>
-&gt; --<br>
-&gt; 1.9.1<br>
-&gt;<br>
-&gt; _______________________________________________<br>
-&gt; amd-gfx mailing list<br>
-&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=
-=3D"LPlnk171794" previewremoved=3D"true">
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-<div id=3D"LPBorder_GT_14801185773940.17051369363968827" style=3D"margin-bo=
-ttom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
-<table id=3D"LPContainer_14801185773920.9248670488252808" cellspacing=3D"0"=
- style=3D"width: 90%; background-color: rgb(255, 255, 255); position: relat=
-ive; overflow: auto; padding-top: 20px; padding-bottom: 20px; margin-top: 2=
-0px; border-top: 1px dotted rgb(200, 200, 200); border-bottom: 1px dotted r=
-gb(200, 200, 200);">
-<tbody>
-<tr valign=3D"top" style=3D"border-spacing: 0px;">
-<td id=3D"TextCell_14801185773930.6401998758254679" colspan=3D"2" style=3D"=
-vertical-align: top; position: relative; padding: 0px; display: table-cell;=
+<div dir=3D"ltr">This patch is preventing my laptop from booting, I&#39;m g=
+etting D3 error messages and atom bios stuck messages<div><br></div><div>I =
+mistakenly saw the v2 patch and didn&#39;t realise it was for radeon not am=
+dgpu - this branch and Linus&#39;s tree are currently not booting for me</d=
+iv></div><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Wed, 23 Nov 201=
+6 at 17:16 Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.c=
+om">Alexander.Deucher-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<br></div><blockquote class=3D"=
+gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-=
+left:1ex">&gt; -----Original Message-----<br class=3D"gmail_msg">
+&gt; From: Peter Wu [mailto:<a href=3D"mailto:peter-VTkQYDcBqhK7DlmcbJSQ7g@public.gmane.org" class=3D=
+"gmail_msg" target=3D"_blank">peter-VTkQYDcBqhK7DlmcbJSQ7g@public.gmane.org</a>]<br class=3D"gmail_ms=
+g">
+&gt; Sent: Wednesday, November 23, 2016 12:13 PM<br class=3D"gmail_msg">
+&gt; To: Alex Deucher<br class=3D"gmail_msg">
+&gt; Cc: amd-gfx list; Deucher, Alexander; Nayan Deshmukh<br class=3D"gmail=
+_msg">
+&gt; Subject: Re: [PATCH 1/2] drm/amdgpu: fix power state when port pm is<b=
+r class=3D"gmail_msg">
+&gt; unavailable<br class=3D"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+&gt; On Wed, Nov 23, 2016 at 12:01:55PM -0500, Alex Deucher wrote:<br class=
+=3D"gmail_msg">
+&gt; &gt;=C2=A0 On Tue, Nov 22, 2016 at 8:22 PM, Peter Wu &lt;<a href=3D"ma=
+ilto:peter-VTkQYDcBqhK7DlmcbJSQ7g@public.gmane.org" class=3D"gmail_msg" target=3D"_blank">peter@leken=
+steyn.nl</a>&gt; wrote:<br class=3D"gmail_msg">
+&gt; &gt; &gt; When PCIe port PM is not enabled (system BIOS is pre-2015 or=
+ the<br class=3D"gmail_msg">
+&gt; &gt; &gt; pcie_port_pm=3Doff parameter is set), legacy ATPX PM should =
+still be<br class=3D"gmail_msg">
+&gt; &gt; &gt; marked as supported. Otherwise the GPU can fail to power on =
+after<br class=3D"gmail_msg">
+&gt; &gt; &gt; runtime suspend. This affected a Dell Inspiron 5548.<br clas=
+s=3D"gmail_msg">
+&gt; &gt; &gt;<br class=3D"gmail_msg">
+&gt; &gt; &gt; Ideally the BIOS date in the PCI core is lowered to 2013 (th=
+e first year<br class=3D"gmail_msg">
+&gt; &gt; &gt; where hybrid graphics platforms using power resources was in=
+troduced),<br class=3D"gmail_msg">
+&gt; &gt; &gt; but that seems more risky at this point and would not solve =
+the<br class=3D"gmail_msg">
+&gt; &gt; &gt; pcie_port_pm=3Doff issue.<br class=3D"gmail_msg">
+&gt; &gt; &gt;<br class=3D"gmail_msg">
+&gt; &gt; &gt; Bugzilla: <a href=3D"https://bugs.freedesktop.org/show_bug.c=
+gi?id=3D98505" rel=3D"noreferrer" class=3D"gmail_msg" target=3D"_blank">htt=
+ps://bugs.freedesktop.org/show_bug.cgi?id=3D98505</a><br class=3D"gmail_msg=
 ">
-<div id=3D"LPRemovePreviewContainer_14801185773930.8816180458484846"></div>
-<div id=3D"LPTitle_14801185773930.004196379659541227" style=3D"top: 0px; co=
-lor: rgb(59, 87, 119); font-weight: normal; font-size: 21px; font-family: w=
-f_segoe-ui_light, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&quot;, &=
-quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif; line-=
-height: 21px;">
-<a id=3D"LPUrlAnchor_14801185773930.8827735506297412" href=3D"https://lists=
-.freedesktop.org/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"text-=
-decoration: none;">amd-gfx Info Page - lists.freedesktop.org</a></div>
-<div id=3D"LPMetadata_14801185773930.3457931822389826" style=3D"margin: 10p=
-x 0px 16px; color: rgb(102, 102, 102); font-weight: normal; font-family: wf=
-_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial=
-, sans-serif; font-size: 14px; line-height: 14px;">
-lists.freedesktop.org</div>
-<div id=3D"LPDescription_14801185773930.05896295709174937" style=3D"display=
-: block; color: rgb(102, 102, 102); font-weight: normal; font-family: wf_se=
-goe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, s=
-ans-serif; font-size: 14px; line-height: 20px; max-height: 100px; overflow:=
- hidden;">
-To see the collection of prior postings to the list, visit the amd-gfx Arch=
-ives. Using amd-gfx: To post a message to all the list members, send email =
-...</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk678144" previewremoved=3D"true">https://lists.freedesktop.org/mailman/li=
-stinfo/amd-gfx</a>
-<div id=3D"LPBorder_GT_14801185773890.4751618025135469" style=3D"margin-bot=
-tom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
-<table id=3D"LPContainer_14801185773870.18946393732986366" cellspacing=3D"0=
-" style=3D"width: 90%; background-color: rgb(255, 255, 255); position: rela=
-tive; overflow: auto; padding-top: 20px; padding-bottom: 20px; margin-top: =
-20px; border-top: 1px dotted rgb(200, 200, 200); border-bottom: 1px dotted =
-rgb(200, 200, 200);">
-<tbody>
-<tr valign=3D"top" style=3D"border-spacing: 0px;">
-<td id=3D"TextCell_14801185773880.663572088103862" colspan=3D"2" style=3D"v=
-ertical-align: top; position: relative; padding: 0px; display: table-cell;"=
->
-<div id=3D"LPRemovePreviewContainer_14801185773880.441810841792474"></div>
-<div id=3D"LPTitle_14801185773880.7770359503036259" style=3D"top: 0px; colo=
-r: rgb(59, 87, 119); font-weight: normal; font-size: 21px; font-family: wf_=
-segoe-ui_light, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&quot;, &qu=
-ot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif; line-he=
-ight: 21px;">
-<a id=3D"LPUrlAnchor_14801185773880.19461278251189418" href=3D"https://list=
-s.freedesktop.org/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"text=
--decoration: none;">amd-gfx Info Page - lists.freedesktop.org</a></div>
-<div id=3D"LPMetadata_14801185773880.3799326466507251" style=3D"margin: 10p=
-x 0px 16px; color: rgb(102, 102, 102); font-weight: normal; font-family: wf=
-_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial=
-, sans-serif; font-size: 14px; line-height: 14px;">
-lists.freedesktop.org</div>
-<div id=3D"LPDescription_14801185773880.6828870188274139" style=3D"display:=
- block; color: rgb(102, 102, 102); font-weight: normal; font-family: wf_seg=
-oe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sa=
-ns-serif; font-size: 14px; line-height: 20px; max-height: 100px; overflow: =
-hidden;">
-To see the collection of prior postings to the list, visit the amd-gfx Arch=
-ives. Using amd-gfx: To post a message to all the list members, send email =
-...</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+&gt; &gt; &gt; Reported-and-tested-by: Nayan Deshmukh<br class=3D"gmail_msg=
+">
+&gt; &lt;<a href=3D"mailto:nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" class=3D"gmail_msg" t=
+arget=3D"_blank">nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br class=3D"gmail_msg">
+&gt; &gt; &gt; Signed-off-by: Peter Wu &lt;<a href=3D"mailto:peter@lekenste=
+yn.nl" class=3D"gmail_msg" target=3D"_blank">peter-VTkQYDcBqhK7DlmcbJSQ7g@public.gmane.org</a>&gt;<br=
+ class=3D"gmail_msg">
+&gt; &gt; &gt; ---<br class=3D"gmail_msg">
+&gt; &gt; &gt; Hi,<br class=3D"gmail_msg">
+&gt; &gt; &gt;<br class=3D"gmail_msg">
+&gt; &gt; &gt; This patch is already three weeks old. One alternative idea =
+was lowering<br class=3D"gmail_msg">
+&gt; BIOS<br class=3D"gmail_msg">
+&gt; &gt; &gt; date in PCI core, but as pcie_port_pm=3Dforce did not have t=
+he desired<br class=3D"gmail_msg">
+&gt; effect, I<br class=3D"gmail_msg">
+&gt; &gt; &gt; do not think that this would help though.<br class=3D"gmail_=
+msg">
+&gt; &gt;<br class=3D"gmail_msg">
+&gt; &gt; Thanks for doing this.<br class=3D"gmail_msg">
+&gt; &gt;<br class=3D"gmail_msg">
+&gt; &gt; &gt;<br class=3D"gmail_msg">
+&gt; &gt; &gt; I have also not contacted linux-pci or Mika about lowering t=
+he year due to<br class=3D"gmail_msg">
+&gt; the<br class=3D"gmail_msg">
+&gt; &gt; &gt; lack of a good reason.=C2=A0 Might do it later though once A=
+CPICA bug 1333 is<br class=3D"gmail_msg">
+&gt; sorted<br class=3D"gmail_msg">
+&gt; &gt; &gt; out such that lowering the year actually has benefits for a =
+Nvidia laptop<br class=3D"gmail_msg">
+&gt; (or if<br class=3D"gmail_msg">
+&gt; &gt; &gt; some amdgpu problem can be solved by this).<br class=3D"gmai=
+l_msg">
+&gt; &gt; &gt;<br class=3D"gmail_msg">
+&gt; &gt; &gt; Both patches should probably be Cc stable (4.8+), fixing 2f5=
+af82eeab2 and<br class=3D"gmail_msg">
+&gt; &gt; &gt; b8c9fd5ad4b4 (&quot;track whether if this is a hybrid graphi=
+cs platform&quot;). There<br class=3D"gmail_msg">
+&gt; have<br class=3D"gmail_msg">
+&gt; &gt; &gt; been some ifdef 0&#39;s and reverts in between, so I was not=
+ sure if adding<br class=3D"gmail_msg">
+&gt; the<br class=3D"gmail_msg">
+&gt; &gt; &gt; Fixes tag is appropriate.<br class=3D"gmail_msg">
+&gt; &gt;<br class=3D"gmail_msg">
+&gt; &gt; I don&#39;t think we need to cc stable.=C2=A0 In kernel 4.8 we do=
+n&#39;t attempt to<br class=3D"gmail_msg">
+&gt; &gt; do d3cold at all.=C2=A0 4.8 and older kernels have:<br class=3D"g=
+mail_msg">
+&gt; &gt; c63695cc5e5f685e924e25a8f9555f6e846f1fc6 (drm/amdgpu: work around=
+<br class=3D"gmail_msg">
+&gt; lack<br class=3D"gmail_msg">
+&gt; &gt; of upstream ACPI support for D3cold)<br class=3D"gmail_msg">
+&gt; &gt; which was reverted for 4.9.<br class=3D"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+&gt; That patch was already reverted in 4.8 as far as I can see:<br class=
+=3D"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+&gt; $ git tag --contains c39b487f195b93235ee76384427467786f7bf29f | grep v=
+4.8<br class=3D"gmail_msg">
+&gt; v4.8<br class=3D"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+&gt; Can you double-check? v4.8 was the first kernel with D3cold support in=
+<br class=3D"gmail_msg">
+&gt; PCI core.<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+You are right.=C2=A0 I was thinking d3cold went upstream in 4.9, so yes, we=
+ should apply this to 4.8.<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+Alex<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+&gt; &gt; Series is:<br class=3D"gmail_msg">
+&gt; &gt; Reviewed-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher=
+@amd.com" class=3D"gmail_msg" target=3D"_blank">alexander.deucher-5C7GfCeVMHo@public.gmane.org</=
+a>&gt;<br class=3D"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+&gt; Thanks!<br class=3D"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+&gt; Kind regards,<br class=3D"gmail_msg">
+&gt; Peter<br class=3D"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+&gt; &gt;<br class=3D"gmail_msg">
+&gt; &gt; &gt;<br class=3D"gmail_msg">
+&gt; &gt; &gt; Kind regards,<br class=3D"gmail_msg">
+&gt; &gt; &gt; Peter<br class=3D"gmail_msg">
+&gt; &gt; &gt; ---<br class=3D"gmail_msg">
+&gt; &gt; &gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c | 9 +=
++++++++-<br class=3D"gmail_msg">
+&gt; &gt; &gt;=C2=A0 1 file changed, 8 insertions(+), 1 deletion(-)<br clas=
+s=3D"gmail_msg">
+&gt; &gt; &gt;<br class=3D"gmail_msg">
+&gt; &gt; &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.=
+c<br class=3D"gmail_msg">
+&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c<br class=3D"gmail_m=
+sg">
+&gt; &gt; &gt; index 10b5ddf..951addf 100644<br class=3D"gmail_msg">
+&gt; &gt; &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c<br cl=
+ass=3D"gmail_msg">
+&gt; &gt; &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atpx_handler.c<br cl=
+ass=3D"gmail_msg">
+&gt; &gt; &gt; @@ -33,6 +33,7 @@ struct amdgpu_atpx {<br class=3D"gmail_msg=
+">
+&gt; &gt; &gt;<br class=3D"gmail_msg">
+&gt; &gt; &gt;=C2=A0 static struct amdgpu_atpx_priv {<br class=3D"gmail_msg=
+">
+&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0bool atpx_detected;<br clas=
+s=3D"gmail_msg">
+&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0bool bridge_pm_usable;<br class=
+=3D"gmail_msg">
+&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* handle for device - and =
+atpx */<br class=3D"gmail_msg">
+&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0acpi_handle dhandle;<br cla=
+ss=3D"gmail_msg">
+&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0acpi_handle other_handle;<b=
+r class=3D"gmail_msg">
+&gt; &gt; &gt; @@ -200,7 +201,11 @@ static int amdgpu_atpx_validate(struct<=
+br class=3D"gmail_msg">
+&gt; amdgpu_atpx *atpx)<br class=3D"gmail_msg">
+&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0atpx-&gt;is_hybrid =3D fals=
+e;<br class=3D"gmail_msg">
+&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (valid_bits &amp; ATPX_M=
+S_HYBRID_GFX_SUPPORTED) {<br class=3D"gmail_msg">
+&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0printk(&quot;ATPX Hybrid Graphics\n&quot;);<br class=3D"gmail_msg">
+&gt; &gt; &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0atpx=
+-&gt;functions.power_cntl =3D false;<br class=3D"gmail_msg">
+&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/*<b=
+r class=3D"gmail_msg">
+&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * D=
+isable legacy PM methods only when pcie port PM is usable,<br class=3D"gmai=
+l_msg">
+&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * o=
+therwise the device might fail to power off or power on.<br class=3D"gmail_=
+msg">
+&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 */<=
+br class=3D"gmail_msg">
+&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0atpx=
+-&gt;functions.power_cntl =3D<br class=3D"gmail_msg">
+&gt; !amdgpu_atpx_priv.bridge_pm_usable;<br class=3D"gmail_msg">
+&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0atpx-&gt;is_hybrid =3D true;<br class=3D"gmail_msg">
+&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br class=3D"gmail_msg">
+&gt; &gt; &gt;<br class=3D"gmail_msg">
+&gt; &gt; &gt; @@ -471,6 +476,7 @@ static int amdgpu_atpx_power_state(enum<=
+br class=3D"gmail_msg">
+&gt; vga_switcheroo_client_id id,<br class=3D"gmail_msg">
+&gt; &gt; &gt;=C2=A0 =C2=A0*/<br class=3D"gmail_msg">
+&gt; &gt; &gt;=C2=A0 static bool amdgpu_atpx_pci_probe_handle(struct pci_de=
+v *pdev)<br class=3D"gmail_msg">
+&gt; &gt; &gt;=C2=A0 {<br class=3D"gmail_msg">
+&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0struct pci_dev *parent_pdev =3D =
+pci_upstream_bridge(pdev);<br class=3D"gmail_msg">
+&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0acpi_handle dhandle, atpx_h=
+andle;<br class=3D"gmail_msg">
+&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0acpi_status status;<br clas=
+s=3D"gmail_msg">
+&gt; &gt; &gt;<br class=3D"gmail_msg">
+&gt; &gt; &gt; @@ -485,6 +491,7 @@ static bool<br class=3D"gmail_msg">
+&gt; amdgpu_atpx_pci_probe_handle(struct pci_dev *pdev)<br class=3D"gmail_m=
+sg">
+&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br class=3D"gmail_msg">
+&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_atpx_priv.dhandle =
+=3D dhandle;<br class=3D"gmail_msg">
+&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_atpx_priv.atpx.handl=
+e =3D atpx_handle;<br class=3D"gmail_msg">
+&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_atpx_priv.bridge_pm_usabl=
+e =3D parent_pdev &amp;&amp;<br class=3D"gmail_msg">
+&gt; parent_pdev-&gt;bridge_d3;<br class=3D"gmail_msg">
+&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return true;<br class=3D"gm=
+ail_msg">
+&gt; &gt; &gt;=C2=A0 }<br class=3D"gmail_msg">
+&gt; &gt; &gt;<br class=3D"gmail_msg">
+&gt; &gt; &gt; --<br class=3D"gmail_msg">
+&gt; &gt; &gt; 2.10.2<br class=3D"gmail_msg">
+_______________________________________________<br class=3D"gmail_msg">
+amd-gfx mailing list<br class=3D"gmail_msg">
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" class=3D"gmail_msg" target=
+=3D"_blank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br class=3D"gmail_msg">
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer" class=3D"gmail_msg" target=3D"_blank">https://lists.freedesktop.=
+org/mailman/listinfo/amd-gfx</a><br class=3D"gmail_msg">
+</blockquote></div>
 
---_000_CY4PR12MB1768E24C5D959D3FBEFC72FFF7880CY4PR12MB1768namp_--
+--001a1130cf06813f790542296ed1--
 
---===============2040327999==
+--===============0015194520==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -302,4 +439,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============2040327999==--
+--===============0015194520==--
