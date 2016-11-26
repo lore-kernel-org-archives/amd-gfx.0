@@ -1,18 +1,19 @@
 From: Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org>
 Subject: Re: [PATCH 1/2] drm/amdgpu: fix power state when port pm is
  unavailable
-Date: Sat, 26 Nov 2016 11:00:50 +0000
-Message-ID: <CAHbf0-HfHGt5HvAosxgVf=rgevPK3KqBCQt4cJqjDiEaQWM1pQ@mail.gmail.com>
+Date: Sat, 26 Nov 2016 11:20:28 +0000
+Message-ID: <CAHbf0-HHFFthD3Li0wM8x5rciRreeWoE0SkQOvsENT9+ZRFEcg@mail.gmail.com>
 References: <20161123012225.11586-1-peter@lekensteyn.nl>
  <CADnq5_On72XmLrE3wjD0u1=tmwghv6GofzfEGM5mhGoVtJav+Q@mail.gmail.com>
  <20161123171255.GA18537@al>
  <MWHPR12MB16949832E9DB44C53995493AF7B70@MWHPR12MB1694.namprd12.prod.outlook.com>
  <CAHbf0-FgRU=6tYe2SYcm8E0ZvJuRFoqPpk77_DZdQKXdxZSsGg@mail.gmail.com>
  <20161126101942.GA20829@al>
+ <CAHbf0-HfHGt5HvAosxgVf=rgevPK3KqBCQt4cJqjDiEaQWM1pQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1622737113=="
+Content-Type: multipart/mixed; boundary="===============0002450852=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20161126101942.GA20829@al>
+In-Reply-To: <CAHbf0-HfHGt5HvAosxgVf=rgevPK3KqBCQt4cJqjDiEaQWM1pQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -26,28 +27,35 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: Peter Wu <peter-VTkQYDcBqhK7DlmcbJSQ7g@public.gmane.org>
 Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Nayan Deshmukh <nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 
---===============1622737113==
-Content-Type: multipart/alternative; boundary=001a114425d66c419005423227d3
+--===============0002450852==
+Content-Type: multipart/alternative; boundary=001a11c39b22b35d8b0542326d2e
 
---001a114425d66c419005423227d3
+--001a11c39b22b35d8b0542326d2e
 Content-Type: text/plain; charset=UTF-8
 
-Hi
+He's some screen shots of the booting screens, apologies they're not that
+clear
 
-The previous working kernel, was the patch before this - reverting fixes it
+https://imgur.com/a/V7mRA
 
-My bios date is quite new 08/05/2016
+On Sat, 26 Nov 2016 at 11:00 Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org> wrote:
 
-Most of the messages fly straight off the screen, the journal isn't kept
-and the wifi driver also complains, will see if I can get a slow motion
-capture of the errors and screen shot them
-
-Regards
-
-Mike
-
-On Sat, 26 Nov 2016 at 10:20 Peter Wu <peter-VTkQYDcBqhK7DlmcbJSQ7g@public.gmane.org> wrote:
-
+> Hi
+>
+> The previous working kernel, was the patch before this - reverting fixes it
+>
+> My bios date is quite new 08/05/2016
+>
+> Most of the messages fly straight off the screen, the journal isn't kept
+> and the wifi driver also complains, will see if I can get a slow motion
+> capture of the errors and screen shot them
+>
+> Regards
+>
+> Mike
+>
+> On Sat, 26 Nov 2016 at 10:20 Peter Wu <peter-VTkQYDcBqhK7DlmcbJSQ7g@public.gmane.org> wrote:
+>
 > Hi Mike,
 >
 > On Sat, Nov 26, 2016 at 12:36:27AM +0000, Mike Lothian wrote:
@@ -230,23 +238,37 @@ On Sat, 26 Nov 2016 at 10:20 Peter Wu <peter-VTkQYDcBqhK7DlmcbJSQ7g@public.gmane
 > > > > > > --
 > > > > > > 2.10.2
 >
+>
 
---001a114425d66c419005423227d3
+--001a11c39b22b35d8b0542326d2e
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Hi<div><br></div><div>The previous working kernel, was the=
- patch before this - reverting fixes it</div><div><br></div><div>My bios da=
-te is quite new=C2=A0<span style=3D"font-family:monospace">08/05/2016</span=
-></div><span style=3D"font-family:monospace"><br></span><div>Most of the me=
-ssages fly straight off the screen, the journal isn&#39;t kept and the wifi=
- driver also complains, will see if I can get a slow motion capture of the =
-errors and screen shot them</div><div><br></div><div>Regards</div><div><br>=
-</div><div>Mike</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr">=
-On Sat, 26 Nov 2016 at 10:20 Peter Wu &lt;<a href=3D"mailto:peter@lekenstey=
-n.nl">peter-VTkQYDcBqhK7DlmcbJSQ7g@public.gmane.org</a>&gt; wrote:<br></div><blockquote class=3D"gmai=
-l_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left=
-:1ex">Hi Mike,<br class=3D"gmail_msg">
+<div dir=3D"ltr">He&#39;s some screen shots of the booting screens, apologi=
+es they&#39;re not that clear<div><br></div><div><a href=3D"https://imgur.c=
+om/a/V7mRA">https://imgur.com/a/V7mRA</a><br></div></div><br><div class=3D"=
+gmail_quote"><div dir=3D"ltr">On Sat, 26 Nov 2016 at 11:00 Mike Lothian &lt=
+;<a href=3D"mailto:mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org">mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org</a>&gt; wrote:<=
+br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;borde=
+r-left:1px #ccc solid;padding-left:1ex"><div dir=3D"ltr" class=3D"gmail_msg=
+">Hi<div class=3D"gmail_msg"><br class=3D"gmail_msg"></div><div class=3D"gm=
+ail_msg">The previous working kernel, was the patch before this - reverting=
+ fixes it</div><div class=3D"gmail_msg"><br class=3D"gmail_msg"></div><div =
+class=3D"gmail_msg">My bios date is quite new=C2=A0<span style=3D"font-fami=
+ly:monospace" class=3D"gmail_msg">08/05/2016</span></div><span style=3D"fon=
+t-family:monospace" class=3D"gmail_msg"><br class=3D"gmail_msg"></span><div=
+ class=3D"gmail_msg">Most of the messages fly straight off the screen, the =
+journal isn&#39;t kept and the wifi driver also complains, will see if I ca=
+n get a slow motion capture of the errors and screen shot them</div><div cl=
+ass=3D"gmail_msg"><br class=3D"gmail_msg"></div><div class=3D"gmail_msg">Re=
+gards</div></div><div dir=3D"ltr" class=3D"gmail_msg"><div class=3D"gmail_m=
+sg"><br class=3D"gmail_msg"></div><div class=3D"gmail_msg">Mike</div></div>=
+<br class=3D"gmail_msg"><div class=3D"gmail_quote gmail_msg"><div dir=3D"lt=
+r" class=3D"gmail_msg">On Sat, 26 Nov 2016 at 10:20 Peter Wu &lt;<a href=3D=
+"mailto:peter-VTkQYDcBqhK7DlmcbJSQ7g@public.gmane.org" class=3D"gmail_msg" target=3D"_blank">peter@le=
+kensteyn.nl</a>&gt; wrote:<br class=3D"gmail_msg"></div><blockquote class=
+=3D"gmail_quote gmail_msg" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc =
+solid;padding-left:1ex">Hi Mike,<br class=3D"gmail_msg">
 <br class=3D"gmail_msg">
 On Sat, Nov 26, 2016 at 12:36:27AM +0000, Mike Lothian wrote:<br class=3D"g=
 mail_msg">
@@ -508,11 +530,11 @@ lass=3D"gmail_msg">
 &gt; &gt; &gt; &gt; &gt;<br class=3D"gmail_msg">
 &gt; &gt; &gt; &gt; &gt; --<br class=3D"gmail_msg">
 &gt; &gt; &gt; &gt; &gt; 2.10.2<br class=3D"gmail_msg">
-</blockquote></div>
+</blockquote></div></blockquote></div>
 
---001a114425d66c419005423227d3--
+--001a11c39b22b35d8b0542326d2e--
 
---===============1622737113==
+--===============0002450852==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -522,4 +544,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1622737113==--
+--===============0002450852==--
