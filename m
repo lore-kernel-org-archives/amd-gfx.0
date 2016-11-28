@@ -1,15 +1,16 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH xf86-video-amdgpu v2] Add amdgpu_is_gpu_screen helper
-Date: Mon, 28 Nov 2016 16:09:03 +0000
-Message-ID: <MWHPR12MB1694EC0A5AE0B064FA195EE2F78A0@MWHPR12MB1694.namprd12.prod.outlook.com>
-References: <20161128085139.30426-1-michel@daenzer.net>
- <20161128085642.30554-1-michel@daenzer.net>
+From: Jochen Rollwagen <joro-2013-zqRNUXuvxA0b1SvskN2V4Q@public.gmane.org>
+Subject: [PATCH xf86-video-ati] Replace loop with clz to calculate log base 2
+ on non-x86 platforms in radeon.h
+Date: Mon, 28 Nov 2016 19:18:02 +0100
+Message-ID: <583C74DA.2070701@t-online.de>
+References: <58372ADA.8040009@t-online.de>
+ <dd911a26-9976-6570-f5ac-5efe67e27928@daenzer.net>
+ <58380BA2.3060006@t-online.de>
+ <f3c04cd0-06b0-85c4-48d0-1bfbdd98dfdf@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="------------050703080302010506090609"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20161128085642.30554-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <f3c04cd0-06b0-85c4-48d0-1bfbdd98dfdf-otUistvHUpPR7s880joybQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,71 +21,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?J01pY2hlbCBEw6RuemVyJw==?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
-LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIE1pY2hl
-bCBEw6RuemVyDQo+IFNlbnQ6IE1vbmRheSwgTm92ZW1iZXIgMjgsIDIwMTYgMzo1NyBBTQ0KPiBU
-bzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gU3ViamVjdDogW1BBVENIIHhmODYt
-dmlkZW8tYW1kZ3B1IHYyXSBBZGQgYW1kZ3B1X2lzX2dwdV9zY3JlZW4gaGVscGVyDQo+IA0KPiBG
-cm9tOiBNaWNoZWwgRMOkbnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4NCj4gDQo+IFRoaXMg
-d2lsbCBob3BlZnVsbHkgZGVjcmVhc2UgdGhlIGNoYW5jZSBvZiBhY2NpZGVudGFsbHkgYnJlYWtp
-bmcgdGhlDQo+IGJ1aWxkIGFnYWluc3QgeHNlcnZlciA8IDEuMTMgaW4gdGhlIGZ1dHVyZS4NCj4g
-DQo+IChQb3J0ZWQgZnJvbSByYWRlb24gY29tbWl0IGYxMzBiMTBlNjNmNzUyNjM2MGI0MWFhMDkx
-OGI0OTQwZjYzZjY2MmEpDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBNaWNoZWwgRMOkbnplciA8bWlj
-aGVsLmRhZW56ZXJAYW1kLmNvbT4NCj4gLS0tDQo+IA0KPiB2MjogcmFkZW9uX2lzX2dwdV9zY3Jl
-ZW4gLT4gYW1kZ3B1X2lzX2dwdV9zY3JlZW4gaW4gc2hvcnRsb2cNCg0KUmV2aWV3ZWQtYnk6IEFs
-ZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4NCg0KPiANCj4gIHNyYy9hbWRn
-cHVfZHJ2LmggICAgICB8ICAzICsrKw0KPiAgc3JjL2FtZGdwdV9rbXMuYyAgICAgIHwgMTQgKysr
-LS0tLS0tLS0tLS0NCj4gIHNyYy9kcm1tb2RlX2Rpc3BsYXkuYyB8ICA2ICsrLS0tLQ0KPiAgMyBm
-aWxlcyBjaGFuZ2VkLCA4IGluc2VydGlvbnMoKyksIDE1IGRlbGV0aW9ucygtKQ0KPiANCj4gZGlm
-ZiAtLWdpdCBhL3NyYy9hbWRncHVfZHJ2LmggYi9zcmMvYW1kZ3B1X2Rydi5oDQo+IGluZGV4IGVi
-ZmNhOGMuLjRlYjRjZjQgMTAwNjQ0DQo+IC0tLSBhL3NyYy9hbWRncHVfZHJ2LmgNCj4gKysrIGIv
-c3JjL2FtZGdwdV9kcnYuaA0KPiBAQCAtMTQ5LDYgKzE0OSw5IEBAIHR5cGVkZWYgZW51bSB7DQo+
-IA0KPiAgI2lmIFhGODZfQ1JUQ19WRVJTSU9OID49IDUNCj4gICNkZWZpbmUgQU1ER1BVX1BJWE1B
-UF9TSEFSSU5HIDENCj4gKyNkZWZpbmUgYW1kZ3B1X2lzX2dwdV9zY3JlZW4oc2NyZWVuKSAoc2Ny
-ZWVuKS0+aXNHUFUNCj4gKyNlbHNlDQo+ICsjZGVmaW5lIGFtZGdwdV9pc19ncHVfc2NyZWVuKHNj
-cmVlbikgMA0KPiAgI2VuZGlmDQo+IA0KPiAgI2RlZmluZSBBTURHUFVfVlNZTkNfVElNRU9VVAky
-MDAwMAkvKiBNYXhpbXVtIHdhaXQgZm9yIFZTWU5DDQo+IChpbiB1c2VjcykgKi8NCj4gZGlmZiAt
-LWdpdCBhL3NyYy9hbWRncHVfa21zLmMgYi9zcmMvYW1kZ3B1X2ttcy5jDQo+IGluZGV4IDE4ZDJh
-YmIuLmJjNDhjYTYgMTAwNjQ0DQo+IC0tLSBhL3NyYy9hbWRncHVfa21zLmMNCj4gKysrIGIvc3Jj
-L2FtZGdwdV9rbXMuYw0KPiBAQCAtMjM3LDEwICsyMzcsNyBAQCBzdGF0aWMgQm9vbA0KPiBBTURH
-UFVDcmVhdGVTY3JlZW5SZXNvdXJjZXNfS01TKFNjcmVlblB0ciBwU2NyZWVuKQ0KPiAgCWlmIChk
-aXhQcml2YXRlS2V5UmVnaXN0ZXJlZChyclByaXZLZXkpKSB7DQo+ICAJCXJyU2NyUHJpdlB0ciBy
-clNjclByaXYgPSByckdldFNjclByaXYocFNjcmVlbik7DQo+IA0KPiAtCQlpZiAoDQo+IC0jaWZk
-ZWYgQU1ER1BVX1BJWE1BUF9TSEFSSU5HDQo+IC0JCSAgICAhcFNjcmVlbi0+aXNHUFUgJiYNCj4g
-LSNlbmRpZg0KPiArCQlpZiAoIWFtZGdwdV9pc19ncHVfc2NyZWVuKHBTY3JlZW4pICYmDQo+ICAJ
-CSAgICAhcnJTY3JQcml2LT5wcmltYXJ5T3V0cHV0KQ0KPiAgCQl7DQo+ICAJCQl4Zjg2Q3J0Y0Nv
-bmZpZ1B0ciB4Zjg2X2NvbmZpZyA9DQo+IFhGODZfQ1JUQ19DT05GSUdfUFRSKHBTY3JuKTsNCj4g
-QEAgLTI3NywxMCArMjc0LDcgQEAgc3RhdGljIEJvb2wNCj4gQU1ER1BVQ3JlYXRlU2NyZWVuUmVz
-b3VyY2VzX0tNUyhTY3JlZW5QdHIgcFNjcmVlbikNCj4gIAkJYW1kZ3B1X2dsYW1vcl9jcmVhdGVf
-c2NyZWVuX3Jlc291cmNlcyhwU2NyZWVuKTsNCj4gDQo+ICAJaW5mby0+Y2FsbGJhY2tfZXZlbnRf
-dHlwZSA9IC0xOw0KPiAtCWlmICgNCj4gLSNpZmRlZiBBTURHUFVfUElYTUFQX1NIQVJJTkcNCj4g
-LQkJIXBTY3JlZW4tPmlzR1BVICYmDQo+IC0jZW5kaWYNCj4gKwlpZiAoIWFtZGdwdV9pc19ncHVf
-c2NyZWVuKHBTY3JlZW4pICYmDQo+ICAJCShkYW1hZ2VfZXh0ID0gQ2hlY2tFeHRlbnNpb24oIkRB
-TUFHRSIpKSkgew0KPiAgCQlpbmZvLT5jYWxsYmFja19ldmVudF90eXBlID0gZGFtYWdlX2V4dC0+
-ZXZlbnRCYXNlICsNCj4gWERhbWFnZU5vdGlmeTsNCj4gDQo+IEBAIC0xMDAxLDkgKzk5NSw3IEBA
-IHN0YXRpYyB2b2lkDQo+IEFNREdQVUJsb2NrSGFuZGxlcl9LTVMoQkxPQ0tIQU5ETEVSX0FSR1Nf
-REVDTCkNCj4gIAkoKnBTY3JlZW4tPkJsb2NrSGFuZGxlcikgKEJMT0NLSEFORExFUl9BUkdTKTsN
-Cj4gIAlwU2NyZWVuLT5CbG9ja0hhbmRsZXIgPSBBTURHUFVCbG9ja0hhbmRsZXJfS01TOw0KPiAN
-Cj4gLSNpZmRlZiBBTURHUFVfUElYTUFQX1NIQVJJTkcNCj4gLQlpZiAoIXBTY3JlZW4tPmlzR1BV
-KQ0KPiAtI2VuZGlmDQo+ICsJaWYgKCFhbWRncHVfaXNfZ3B1X3NjcmVlbihwU2NyZWVuKSkNCj4g
-IAl7DQo+ICAJCWZvciAoYyA9IDA7IGMgPCB4Zjg2X2NvbmZpZy0+bnVtX2NydGM7IGMrKykgew0K
-PiAgCQkJaWYgKGluZm8tPnRlYXJfZnJlZSkNCj4gZGlmZiAtLWdpdCBhL3NyYy9kcm1tb2RlX2Rp
-c3BsYXkuYyBiL3NyYy9kcm1tb2RlX2Rpc3BsYXkuYw0KPiBpbmRleCA4Y2VkYzVmLi4zMGEwZjU0
-IDEwMDY0NA0KPiAtLS0gYS9zcmMvZHJtbW9kZV9kaXNwbGF5LmMNCj4gKysrIGIvc3JjL2RybW1v
-ZGVfZGlzcGxheS5jDQo+IEBAIC03MjEsMTAgKzcyMSw4IEBAIGRybW1vZGVfc2V0X21vZGVfbWFq
-b3IoeGY4NkNydGNQdHIgY3J0YywNCj4gRGlzcGxheU1vZGVQdHIgbW9kZSwNCj4gIAkJaWYgKGRy
-bW1vZGVfY3J0Yy0+cm90YXRlLmZiX2lkKSB7DQo+ICAJCQlmYl9pZCA9IGRybW1vZGVfY3J0Yy0+
-cm90YXRlLmZiX2lkOw0KPiAgCQkJeCA9IHkgPSAwOw0KPiAtCQl9IGVsc2UgaWYgKA0KPiAtI2lm
-ZGVmIEFNREdQVV9QSVhNQVBfU0hBUklORw0KPiAtCQkJICAgIXBTY3JlZW4tPmlzR1BVICYmDQo+
-IC0jZW5kaWYNCj4gKw0KPiArCQl9IGVsc2UgaWYgKCFhbWRncHVfaXNfZ3B1X3NjcmVlbihwU2Ny
-ZWVuKSAmJg0KPiAgCQkJICAgKGluZm8tPnRlYXJfZnJlZSB8fA0KPiAgI2lmIFhGODZfQ1JUQ19W
-RVJTSU9OID49IDQNCj4gIAkJCSAgICBjcnRjLT5kcml2ZXJJc1BlcmZvcm1pbmdUcmFuc2Zvcm0g
-fHwNCj4gLS0NCj4gMi4xMC4yDQo+IA0KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXw0KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPiBhbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZw0KPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eAo=
+This is a multi-part message in MIME format.
+--------------050703080302010506090609
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+This commit replaces the loop for calculating log base 2 for 
+non-x86-platforms in radeon.h with a clz (count leading zeroes)-based 
+version to simplify the code and, well, eliminate the loop.
+Note: There’s no check for val=0 case, since x86-bsr is undefined for 
+that case too, that should be okay.
+---
+  src/radeon.h |    7 +++----
+  1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/src/radeon.h b/src/radeon.h
+index cbc7866..b1a1ce0 100644
+--- a/src/radeon.h
++++ b/src/radeon.h
+@@ -933,17 +933,16 @@ enum {
+  static __inline__ int
+  RADEONLog2(int val)
+  {
+-    int bits;
+  #if (defined __i386__ || defined __x86_64__) && (defined __GNUC__)
++    int bits;
++
+      __asm volatile("bsrl    %1, %0"
+          : "=r" (bits)
+          : "c" (val)
+      );
+      return bits;
+  #else
+-    for (bits = 0; val != 0; val >>= 1, ++bits)
+-        ;
+-    return bits - 1;
++    return (31 - __builtin_clz(val));
+  #endif
+  }
+
+-- 
+1.7.9.5
+
+
+--------------050703080302010506090609
+Content-Type: text/x-patch;
+ name="0001-Replace-loop-with-clz-to-calculate-log-base-2-on-non.patch"
+Content-Transfer-Encoding: 8bit
+Content-Disposition: attachment;
+ filename*0="0001-Replace-loop-with-clz-to-calculate-log-base-2-on-non.pa";
+ filename*1="tch"
+
+>From d39f7a0d42fcc423030cd73bff8afe6d39d13e80 Mon Sep 17 00:00:00 2001
+From: Jochen Rollwagen <joro-2013-zqRNUXuvxA0b1SvskN2V4Q@public.gmane.org>
+Date: Mon, 28 Nov 2016 19:02:13 +0100
+Subject: [PATCH] Replace loop with clz to calculate log base 2 on non-x86
+ platforms in radeon.h
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This commit replaces the loop for calculating log base 2 for non-x86-platforms in radeon.h with a clz (count leading zeroes)-based version to simplify the code and, well, eliminate the loop.
+Note: There’s no check for val=0 case, since x86-bsr is undefined for that case too, that should be okay.
+---
+ src/radeon.h |    7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/src/radeon.h b/src/radeon.h
+index cbc7866..b1a1ce0 100644
+--- a/src/radeon.h
++++ b/src/radeon.h
+@@ -933,17 +933,16 @@ enum {
+ static __inline__ int
+ RADEONLog2(int val)
+ {
+-	int bits;
+ #if (defined __i386__ || defined __x86_64__) && (defined __GNUC__)
++	int bits;
++	
+ 	__asm volatile("bsrl	%1, %0"
+ 		: "=r" (bits)
+ 		: "c" (val)
+ 	);
+ 	return bits;
+ #else
+-	for (bits = 0; val != 0; val >>= 1, ++bits)
+-		;
+-	return bits - 1;
++	return (31 - __builtin_clz(val));
+ #endif
+ }
+ 
+-- 
+1.7.9.5
+
+
+--------------050703080302010506090609
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--------------050703080302010506090609--
