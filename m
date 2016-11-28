@@ -1,42 +1,84 @@
-From: Bernhard Froemel <bfroemel-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: amdgpu support for Polaris11, Radeon Pro 400 series graphics
-Date: Mon, 28 Nov 2016 22:59:13 +0100
-Message-ID: <CALTeitvBJccpu_HPK06MGTJdp3QHf+vHJBXeHKt6O38opC2DQA@mail.gmail.com>
-References: <CALTeituzRvVW6CNeQJJEHg8_yicB0Jq3EXN3EkD0iauKdaMNmg@mail.gmail.com>
- <CY4PR12MB176823BA821AF6B716F97566F7880@CY4PR12MB1768.namprd12.prod.outlook.com>
- <CALTeittqYK=QsY61DrkD22uq8d8CR=5P4B7hNAF5gbp=YSOnvg@mail.gmail.com>
- <5cc32b87-6467-3a1d-0678-6fbfd1c6f846@daenzer.net>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <5cc32b87-6467-3a1d-0678-6fbfd1c6f846-otUistvHUpPR7s880joybQ@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: [PATCH] drm/amd/amdgpu: enable GUI idle INT after enabling CGCG
+Date: Mon, 28 Nov 2016 17:10:01 -0500
+Message-ID: <1480371001-17318-1-git-send-email-alexander.deucher@amd.com>
+Return-path: <stable-owner@vger.kernel.org>
+Sender: stable-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org
+Cc: Arindam Nath <arindam.nath@amd.com>, Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gTW9uLCBOb3YgMjgsIDIwMTYgYXQgMjo0MCBBTSwgTWljaGVsIETDpG56ZXIgPG1pY2hlbEBk
-YWVuemVyLm5ldD4gd3JvdGU6Cj4gT24gMjYvMTEvMTYgMTA6MjcgUE0sIEJlcm5oYXJkIEZyb2Vt
-ZWwgd3JvdGU6Cj4+Cj4+PiAgICAgRGV2aWNlOiBBTUQgUE9MQVJJUzExIChEUk0gMy44LjAgLyA0
-LjkuMC1yYzYsIExMVk0gMy44LjEpICgweDY3ZWYpCj4KPiBJdCBtaWdodCBiZSB3b3J0aCB0cnlp
-bmcgTWVzYSAxMyBjb21waWxlZCBhZ2FpbnN0IExMVk0gMy45Lgo+CgpUaGFua3MgYW5kIHRyaWVk
-IGl0LCBidXQgdW5mb3J0dW5hdGVseSBpdCdzIGVzc2VudGlhbGx5IHRoZSBzYW1lOgpibGFuayBz
-Y3JlZW4vZ3B1IGNyYXNoIHRoYXQgc29tZXRpbWVzIGxvY2tzIHVwIHRoZSB3aG9sZSBzeXN0ZW0u
-IE5vCmNvbnNpc3RlbnQgZG1lc2cgb3V0cHV0IChvZnRlbiB0aGVyZSBpc24ndCBldmVuIHJlcG9y
-dGVkIGFueXRoaW5nKSBvcgpvdGhlciBlcnJvciBtZXNzYWdlcyBhbnl3aGVyZS4KCkp1c3QgZm9y
-IHJlZmVyZW5jZToKPiAgICAgRGV2aWNlOiBBTUQgUE9MQVJJUzExIChEUk0gMy44LjAgLyA0Ljku
-MC1yYzYsIExMVk0gMy45LjApICgweDY3ZWYpCj4gICAgIFZlcnNpb246IDEzLjAuMQoKV2lsbCBl
-bmFibGUgbW9yZSBrZXJuZWwgZGVidWdnaW5nIGFuZCBob3BlZnVsbHkgYmV0dGVyIGlzb2xhdGUg
-dGhlCnByb2JsZW0ocykgaW4gdGhlIG5leHQgY291cGxlIG9mIGRheXMuCgpHcmVldGluZ3MsCiAg
-QmVybmhhcmQKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+From: Arindam Nath <arindam.nath@amd.com>
+
+GUI idle interrupts should be enabled only after we
+have enabled coarse grain clock gating (CGCG). This
+prevents GFX engine generating idle interrupt even
+though CGCG is not completely enabled.
+
+Most of the time this goes un-noticed, but on some
+Stoney ASICs this results in GFX engine hang after
+system resumes from suspend. The issue is not
+particular to Stoney though and could have occured
+on any ASIC. The patch fixes this issue.
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Reported-by: Sunil Uttarwar <Sunil.Uttarwar1@amd.com>
+Signed-off-by: Arindam Nath <arindam.nath@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+index 33be2c1..4602757 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -5919,29 +5919,24 @@ static void gfx_v8_0_update_coarse_grain_clock_gating(struct amdgpu_device *adev
+ 	adev->gfx.rlc.funcs->enter_safe_mode(adev);
+ 
+ 	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_GFX_CGCG)) {
+-		/* 1 enable cntx_empty_int_enable/cntx_busy_int_enable/
+-		 * Cmp_busy/GFX_Idle interrupts
+-		 */
+-		gfx_v8_0_enable_gui_idle_interrupt(adev, true);
+-
+ 		temp1 = data1 =	RREG32(mmRLC_CGTT_MGCG_OVERRIDE);
+ 		data1 &= ~RLC_CGTT_MGCG_OVERRIDE__CGCG_MASK;
+ 		if (temp1 != data1)
+ 			WREG32(mmRLC_CGTT_MGCG_OVERRIDE, data1);
+ 
+-		/* 2 wait for RLC_SERDES_CU_MASTER & RLC_SERDES_NONCU_MASTER idle */
++		/* : wait for RLC_SERDES_CU_MASTER & RLC_SERDES_NONCU_MASTER idle */
+ 		gfx_v8_0_wait_for_rlc_serdes(adev);
+ 
+-		/* 3 - clear cgcg override */
++		/* 2 - clear cgcg override */
+ 		gfx_v8_0_send_serdes_cmd(adev, BPM_REG_CGCG_OVERRIDE, CLE_BPM_SERDES_CMD);
+ 
+ 		/* wait for RLC_SERDES_CU_MASTER & RLC_SERDES_NONCU_MASTER idle */
+ 		gfx_v8_0_wait_for_rlc_serdes(adev);
+ 
+-		/* 4 - write cmd to set CGLS */
++		/* 3 - write cmd to set CGLS */
+ 		gfx_v8_0_send_serdes_cmd(adev, BPM_REG_CGLS_EN, SET_BPM_SERDES_CMD);
+ 
+-		/* 5 - enable cgcg */
++		/* 4 - enable cgcg */
+ 		data |= RLC_CGCG_CGLS_CTRL__CGCG_EN_MASK;
+ 
+ 		if (adev->cg_flags & AMD_CG_SUPPORT_GFX_CGLS) {
+@@ -5959,6 +5954,11 @@ static void gfx_v8_0_update_coarse_grain_clock_gating(struct amdgpu_device *adev
+ 
+ 		if (temp != data)
+ 			WREG32(mmRLC_CGCG_CGLS_CTRL, data);
++
++		/* 5 enable cntx_empty_int_enable/cntx_busy_int_enable/
++		 * Cmp_busy/GFX_Idle interrupts
++		 */
++		gfx_v8_0_enable_gui_idle_interrupt(adev, true);
+ 	} else {
+ 		/* disable cntx_empty_int_enable & GFX Idle interrupt */
+ 		gfx_v8_0_enable_gui_idle_interrupt(adev, false);
+-- 
+2.5.5
