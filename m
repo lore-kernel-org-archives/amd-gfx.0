@@ -1,16 +1,14 @@
-From: Jochen Rollwagen <joro-2013-zqRNUXuvxA0b1SvskN2V4Q@public.gmane.org>
-Subject: [PATCH xf86-video-ati] Replace loop with clz to calculate log base 2
- on non-x86 platforms in radeon.h
-Date: Mon, 28 Nov 2016 19:18:02 +0100
-Message-ID: <583C74DA.2070701@t-online.de>
-References: <58372ADA.8040009@t-online.de>
- <dd911a26-9976-6570-f5ac-5efe67e27928@daenzer.net>
- <58380BA2.3060006@t-online.de>
- <f3c04cd0-06b0-85c4-48d0-1bfbdd98dfdf@daenzer.net>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 2/2] drm/amd/powerplay: initialize the soft_regs offset in
+ struct smu7_hwmgr
+Date: Mon, 28 Nov 2016 16:29:34 -0500
+Message-ID: <1480368574-29681-2-git-send-email-alexander.deucher@amd.com>
+References: <1480368574-29681-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="------------050703080302010506090609"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <f3c04cd0-06b0-85c4-48d0-1bfbdd98dfdf-otUistvHUpPR7s880joybQ@public.gmane.org>
+In-Reply-To: <1480368574-29681-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,110 +20,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
-This is a multi-part message in MIME format.
---------------050703080302010506090609
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-This commit replaces the loop for calculating log base 2 for 
-non-x86-platforms in radeon.h with a clz (count leading zeroes)-based 
-version to simplify the code and, well, eliminate the loop.
-Note: There’s no check for val=0 case, since x86-bsr is undefined for 
-that case too, that should be okay.
----
-  src/radeon.h |    7 +++----
-  1 file changed, 3 insertions(+), 4 deletions(-)
-
-diff --git a/src/radeon.h b/src/radeon.h
-index cbc7866..b1a1ce0 100644
---- a/src/radeon.h
-+++ b/src/radeon.h
-@@ -933,17 +933,16 @@ enum {
-  static __inline__ int
-  RADEONLog2(int val)
-  {
--    int bits;
-  #if (defined __i386__ || defined __x86_64__) && (defined __GNUC__)
-+    int bits;
-+
-      __asm volatile("bsrl    %1, %0"
-          : "=r" (bits)
-          : "c" (val)
-      );
-      return bits;
-  #else
--    for (bits = 0; val != 0; val >>= 1, ++bits)
--        ;
--    return bits - 1;
-+    return (31 - __builtin_clz(val));
-  #endif
-  }
-
--- 
-1.7.9.5
-
-
---------------050703080302010506090609
-Content-Type: text/x-patch;
- name="0001-Replace-loop-with-clz-to-calculate-log-base-2-on-non.patch"
-Content-Transfer-Encoding: 8bit
-Content-Disposition: attachment;
- filename*0="0001-Replace-loop-with-clz-to-calculate-log-base-2-on-non.pa";
- filename*1="tch"
-
->From d39f7a0d42fcc423030cd73bff8afe6d39d13e80 Mon Sep 17 00:00:00 2001
-From: Jochen Rollwagen <joro-2013-zqRNUXuvxA0b1SvskN2V4Q@public.gmane.org>
-Date: Mon, 28 Nov 2016 19:02:13 +0100
-Subject: [PATCH] Replace loop with clz to calculate log base 2 on non-x86
- platforms in radeon.h
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-This commit replaces the loop for calculating log base 2 for non-x86-platforms in radeon.h with a clz (count leading zeroes)-based version to simplify the code and, well, eliminate the loop.
-Note: There’s no check for val=0 case, since x86-bsr is undefined for that case too, that should be okay.
----
- src/radeon.h |    7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
-
-diff --git a/src/radeon.h b/src/radeon.h
-index cbc7866..b1a1ce0 100644
---- a/src/radeon.h
-+++ b/src/radeon.h
-@@ -933,17 +933,16 @@ enum {
- static __inline__ int
- RADEONLog2(int val)
- {
--	int bits;
- #if (defined __i386__ || defined __x86_64__) && (defined __GNUC__)
-+	int bits;
-+	
- 	__asm volatile("bsrl	%1, %0"
- 		: "=r" (bits)
- 		: "c" (val)
- 	);
- 	return bits;
- #else
--	for (bits = 0; val != 0; val >>= 1, ++bits)
--		;
--	return bits - 1;
-+	return (31 - __builtin_clz(val));
- #endif
- }
- 
--- 
-1.7.9.5
-
-
---------------050703080302010506090609
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---------------050703080302010506090609--
+RnJvbTogUmV4IFpodSA8UmV4LlpodUBhbWQuY29tPgoKVGhpcyBjb3VsZCBsZWFkIHRvIG1jbGsg
+ZHBtIHByb2JsZW1zIG9uIHNvbWUgYm9hcmRzLgoKU2lnbmVkLW9mZi1ieTogUmV4IFpodSA8UmV4
+LlpodUBhbWQuY29tPgpBY2stYnk6IFRvbSBTdCBEZW5pcyA8dG9tLnN0ZGVuaXNAYW1kLmNvbT4K
+UmV2aWV3ZWQtYnk6IEh1YW5nIFJ1aSA8cmF5Lmh1YW5nQGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6
+IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dw
+dS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvcG9sYXJpczEwX3NtYy5jIHwgNSArKysrLQogMSBm
+aWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9wb2xhcmlzMTBfc21jLmMgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvcG9sYXJpczEwX3NtYy5jCmluZGV4
+IDAwNmIyMjAuLjhkYjhlMjAgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJw
+bGF5L3NtdW1nci9wb2xhcmlzMTBfc21jLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
+cnBsYXkvc211bWdyL3BvbGFyaXMxMF9zbWMuYwpAQCAtMjIxNCw2ICsyMjE0LDcgQEAgdWludDMy
+X3QgcG9sYXJpczEwX2dldF9tYWNfZGVmaW5pdGlvbih1aW50MzJfdCB2YWx1ZSkKIGludCBwb2xh
+cmlzMTBfcHJvY2Vzc19maXJtd2FyZV9oZWFkZXIoc3RydWN0IHBwX2h3bWdyICpod21ncikKIHsK
+IAlzdHJ1Y3QgcG9sYXJpczEwX3NtdW1nciAqc211X2RhdGEgPSAoc3RydWN0IHBvbGFyaXMxMF9z
+bXVtZ3IgKikoaHdtZ3ItPnNtdW1nci0+YmFja2VuZCk7CisJc3RydWN0IHNtdTdfaHdtZ3IgKmRh
+dGEgPSAoc3RydWN0IHNtdTdfaHdtZ3IgKikoaHdtZ3ItPmJhY2tlbmQpOwogCXVpbnQzMl90IHRt
+cDsKIAlpbnQgcmVzdWx0OwogCWJvb2wgZXJyb3IgPSBmYWxzZTsKQEAgLTIyMzMsOCArMjIzNCwx
+MCBAQCBpbnQgcG9sYXJpczEwX3Byb2Nlc3NfZmlybXdhcmVfaGVhZGVyKHN0cnVjdCBwcF9od21n
+ciAqaHdtZ3IpCiAJCQlvZmZzZXRvZihTTVU3NF9GaXJtd2FyZV9IZWFkZXIsIFNvZnRSZWdpc3Rl
+cnMpLAogCQkJJnRtcCwgU01DX1JBTV9FTkQpOwogCi0JaWYgKCFyZXN1bHQpCisJaWYgKCFyZXN1
+bHQpIHsKKwkJZGF0YS0+c29mdF9yZWdzX3N0YXJ0ID0gdG1wOwogCQlzbXVfZGF0YS0+c211N19k
+YXRhLnNvZnRfcmVnc19zdGFydCA9IHRtcDsKKwl9CiAKIAllcnJvciB8PSAoMCAhPSByZXN1bHQp
+OwogCi0tIAoyLjUuNQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
