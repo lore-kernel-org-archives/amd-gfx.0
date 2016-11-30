@@ -1,16 +1,18 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH xf86-video-amdgpu 4/4] Call amdgpu_drm_abort_entry on
- failure to flip to a scanout pixmap
-Date: Wed, 30 Nov 2016 16:51:23 +0000
-Message-ID: <MWHPR12MB16946C595C400968D6DD3805F78C0@MWHPR12MB1694.namprd12.prod.outlook.com>
-References: <20161130074203.10584-1-michel@daenzer.net>
- <20161130074203.10584-4-michel@daenzer.net>
+From: Jochen Rollwagen <joro-2013-zqRNUXuvxA0b1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH xf86-video-ati] Replace loop with clz to calculate log
+ base 2 on non-x86 platforms in radeon.h
+Date: Wed, 30 Nov 2016 18:52:54 +0100
+Message-ID: <583F11F6.7000005@t-online.de>
+References: <58372ADA.8040009@t-online.de>
+ <dd911a26-9976-6570-f5ac-5efe67e27928@daenzer.net>
+ <58380BA2.3060006@t-online.de>
+ <f3c04cd0-06b0-85c4-48d0-1bfbdd98dfdf@daenzer.net>
+ <583C74DA.2070701@t-online.de>
+ <e3556fa8-39eb-6b1d-9d71-316c23bff9ea@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0461226669=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20161130074203.10584-4-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <e3556fa8-39eb-6b1d-9d71-316c23bff9ea-otUistvHUpPR7s880joybQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,38 +23,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?J01pY2hlbCBEw6RuemVyJw==?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
-LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIE1pY2hl
-bCBEw6RuemVyDQo+IFNlbnQ6IFdlZG5lc2RheSwgTm92ZW1iZXIgMzAsIDIwMTYgMjo0MiBBTQ0K
-PiBUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gU3ViamVjdDogW1BBVENIIHhm
-ODYtdmlkZW8tYW1kZ3B1IDQvNF0gQ2FsbCBhbWRncHVfZHJtX2Fib3J0X2VudHJ5IG9uDQo+IGZh
-aWx1cmUgdG8gZmxpcCB0byBhIHNjYW5vdXQgcGl4bWFwDQo+IA0KPiBGcm9tOiBNaWNoZWwgRMOk
-bnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4NCj4gDQo+IEZpeGVzIGxlYWtpbmcgdGhlIGNv
-cnJlc3BvbmRpbmcgc3RydWN0IGFtZGdwdV9kcm1fcXVldWUgbGlzdCBlbnRyeSBpbg0KPiB0aGF0
-IGNhc2UuDQo+IA0KPiAoUG9ydGVkIGZyb20gcmFkZW9uIGNvbW1pdCBlMjk0MjQ0OTE3MWZlNjI4
-YTc3MjZlNTliY2FhYjY1ZTI3ZDg4NTYzKQ0KPiANCj4gU2lnbmVkLW9mZi1ieTogTWljaGVsIETD
-pG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+DQoNClNlcmllcyBpczoNClJldmlld2VkLWJ5
-OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQoNCj4gLS0tDQo+ICBz
-cmMvYW1kZ3B1X2ttcy5jIHwgMiArKw0KPiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygr
-KQ0KPiANCj4gZGlmZiAtLWdpdCBhL3NyYy9hbWRncHVfa21zLmMgYi9zcmMvYW1kZ3B1X2ttcy5j
-DQo+IGluZGV4IGY4NTU2YzkuLmIyZDA5OGEgMTAwNjQ0DQo+IC0tLSBhL3NyYy9hbWRncHVfa21z
-LmMNCj4gKysrIGIvc3JjL2FtZGdwdV9rbXMuYw0KPiBAQCAtNzE0LDYgKzcxNCw3IEBAIGFtZGdw
-dV9wcmltZV9zY2Fub3V0X2ZsaXAoUGl4bWFwRGlydHlVcGRhdGVQdHINCj4gZW50KQ0KPiAgCQkJ
-CQkgICAgICAwLCBkcm1fcXVldWVfc2VxLCAwKSAhPSAwKSB7DQo+ICAJCXhmODZEcnZNc2coc2Ny
-bi0+c2NybkluZGV4LCBYX1dBUk5JTkcsICJmbGlwIHF1ZXVlDQo+IGZhaWxlZCBpbiAlczogJXNc
-biIsDQo+ICAJCQkgICBfX2Z1bmNfXywgc3RyZXJyb3IoZXJybm8pKTsNCj4gKwkJYW1kZ3B1X2Ry
-bV9hYm9ydF9lbnRyeShkcm1fcXVldWVfc2VxKTsNCj4gIAkJcmV0dXJuOw0KPiAgCX0NCj4gDQo+
-IEBAIC05ODUsNiArOTg2LDcgQEAgYW1kZ3B1X3NjYW5vdXRfZmxpcChTY3JlZW5QdHIgcFNjcmVl
-biwNCj4gQU1ER1BVSW5mb1B0ciBpbmZvLA0KPiAgCQkJCQkgICAgICAwLCBkcm1fcXVldWVfc2Vx
-LCAwKSAhPSAwKSB7DQo+ICAJCXhmODZEcnZNc2coc2Nybi0+c2NybkluZGV4LCBYX1dBUk5JTkcs
-ICJmbGlwIHF1ZXVlDQo+IGZhaWxlZCBpbiAlczogJXNcbiIsDQo+ICAJCQkgICBfX2Z1bmNfXywg
-c3RyZXJyb3IoZXJybm8pKTsNCj4gKwkJYW1kZ3B1X2RybV9hYm9ydF9lbnRyeShkcm1fcXVldWVf
-c2VxKTsNCj4gIAkJcmV0dXJuOw0KPiAgCX0NCj4gDQo+IC0tDQo+IDIuMTAuMg0KPiANCj4gX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4gYW1kLWdmeCBt
-YWlsaW5nIGxpc3QNCj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gaHR0cHM6Ly9s
-aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
-dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is a multi-part message in MIME format.
+--===============0461226669==
+Content-Type: multipart/alternative;
+ boundary="------------020706050908000601060600"
+
+This is a multi-part message in MIME format.
+--------------020706050908000601060600
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Am 29.11.2016 um 08:32 schrieb Michel Dänzer:
+> On 29/11/16 03:18 AM, Jochen Rollwagen wrote:
+>> This commit replaces the loop for calculating log base 2 for
+>> non-x86-platforms in radeon.h with a clz (count leading zeroes)-based
+>> version to simplify the code and, well, eliminate the loop.
+>> Note: There’s no check for val=0 case, since x86-bsr is undefined for
+>> that case too, that should be okay.
+>> ---
+>>   src/radeon.h |    7 +++----
+>>   1 file changed, 3 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/src/radeon.h b/src/radeon.h
+>> index cbc7866..b1a1ce0 100644
+>> --- a/src/radeon.h
+>> +++ b/src/radeon.h
+>> @@ -933,17 +933,16 @@ enum {
+>>   static __inline__ int
+>>   RADEONLog2(int val)
+>>   {
+>> -    int bits;
+>>   #if (defined __i386__ || defined __x86_64__) && (defined __GNUC__)
+>> +    int bits;
+>> +
+>>       __asm volatile("bsrl    %1, %0"
+>>           : "=r" (bits)
+>>           : "c" (val)
+>>       );
+>>       return bits;
+>>   #else
+>> -    for (bits = 0; val != 0; val >>= 1, ++bits)
+>> -        ;
+>> -    return bits - 1;
+>> +    return (31 - __builtin_clz(val));
+>>   #endif
+>>   }
+> Any reason for not using __builtin_clz on x86 as well? AFAICT both gcc
+> and clang seem to generate more or less the same code with that as with
+> the inline assembly.
+>
+>
+I guess not. According to 
+http://stackoverflow.com/questions/9353973/implementation-of-builtin-clz 
+"bsr and clz are related but different.
+
+On x86 for clz gcc (-O2) generates:
+
+|bsrl %edi, %eax xorl $31, %eax ret " |
+
+
+--------------020706050908000601060600
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <div class="moz-cite-prefix">Am 29.11.2016 um 08:32 schrieb Michel
+      Dänzer:<br>
+    </div>
+    <blockquote
+      cite="mid:e3556fa8-39eb-6b1d-9d71-316c23bff9ea-otUistvHUpPR7s880joybQ@public.gmane.org"
+      type="cite">
+      <pre wrap="">On 29/11/16 03:18 AM, Jochen Rollwagen wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="">This commit replaces the loop for calculating log base 2 for
+non-x86-platforms in radeon.h with a clz (count leading zeroes)-based
+version to simplify the code and, well, eliminate the loop.
+Note: There’s no check for val=0 case, since x86-bsr is undefined for
+that case too, that should be okay.
+---
+ src/radeon.h |    7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/src/radeon.h b/src/radeon.h
+index cbc7866..b1a1ce0 100644
+--- a/src/radeon.h
++++ b/src/radeon.h
+@@ -933,17 +933,16 @@ enum {
+ static __inline__ int
+ RADEONLog2(int val)
+ {
+-    int bits;
+ #if (defined __i386__ || defined __x86_64__) &amp;&amp; (defined __GNUC__)
++    int bits;
++
+     __asm volatile("bsrl    %1, %0"
+         : "=r" (bits)
+         : "c" (val)
+     );
+     return bits;
+ #else
+-    for (bits = 0; val != 0; val &gt;&gt;= 1, ++bits)
+-        ;
+-    return bits - 1;
++    return (31 - __builtin_clz(val));
+ #endif
+ }
+</pre>
+      </blockquote>
+      <pre wrap="">
+Any reason for not using __builtin_clz on x86 as well? AFAICT both gcc
+and clang seem to generate more or less the same code with that as with
+the inline assembly.
+
+
+</pre>
+    </blockquote>
+    I guess not. According to <span><a class="moz-txt-link-freetext" href="http://stackoverflow.com/questions/9353973/implementation-of-builtin-clz">http://stackoverflow.com/questions/9353973/implementation-of-builtin-clz</a>
+      "bsr and clz are related but different. </span><br>
+    <p>On x86 for clz gcc (-O2) generates:</p>
+    <pre><code>bsrl    %edi, %eax
+xorl    $31, %eax
+ret
+
+" 
+
+
+</code></pre>
+  </body>
+</html>
+
+--------------020706050908000601060600--
+
+--===============0461226669==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0461226669==--
