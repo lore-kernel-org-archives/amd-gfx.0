@@ -1,11 +1,21 @@
 From: Jochen Rollwagen <joro-2013-zqRNUXuvxA0b1SvskN2V4Q@public.gmane.org>
-Subject: [PATCH xf86-video-ati] Calculate log base 2 in radeon.h based on clz
- for all platforms
-Date: Fri, 2 Dec 2016 11:07:02 +0100
-Message-ID: <584147C6.8000004@t-online.de>
+Subject: Re: [PATCH xf86-video-ati] Replace loop with clz to calculate log
+ base 2 on non-x86 platforms in radeon.h
+Date: Fri, 2 Dec 2016 10:31:20 +0100
+Message-ID: <58413F68.70807@t-online.de>
+References: <58372ADA.8040009@t-online.de>
+ <dd911a26-9976-6570-f5ac-5efe67e27928@daenzer.net>
+ <58380BA2.3060006@t-online.de>
+ <f3c04cd0-06b0-85c4-48d0-1bfbdd98dfdf@daenzer.net>
+ <583C74DA.2070701@t-online.de>
+ <e3556fa8-39eb-6b1d-9d71-316c23bff9ea@daenzer.net>
+ <583F11F6.7000005@t-online.de>
+ <b61bde0b-5120-5eaa-4243-18e30091ef86@daenzer.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="------------060606080109020805020002"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <b61bde0b-5120-5eaa-4243-18e30091ef86-otUistvHUpPR7s880joybQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,103 +26,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This is a multi-part message in MIME format.
---------------060606080109020805020002
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-This commit replaces the inline assembler code (for x86 platforms) and 
-loop (for non-x86 platforms) in RADEONLog2 with a one-liner version 
-based on clz (count leading zeroes).
----
-  src/radeon.h |   13 +------------
-  1 file changed, 1 insertion(+), 12 deletions(-)
-
-diff --git a/src/radeon.h b/src/radeon.h
-index 5797bed..23ecfeb 100644
---- a/src/radeon.h
-+++ b/src/radeon.h
-@@ -935,18 +935,7 @@ enum {
-  static __inline__ int
-  RADEONLog2(int val)
-  {
--    int bits;
--#if (defined __i386__ || defined __x86_64__) && (defined __GNUC__)
--    __asm volatile("bsrl    %1, %0"
--        : "=r" (bits)
--        : "c" (val)
--    );
--    return bits;
--#else
--    for (bits = 0; val != 0; val >>= 1, ++bits)
--        ;
--    return bits - 1;
--#endif
-+    return (31 - __builtin_clz(val));
-  }
-
-  #define RADEON_TILING_MASK                0xff
--- 
-1.7.9.5
-
-
---------------060606080109020805020002
-Content-Type: text/x-patch;
- name="0001-Calculate-log-base-2-in-radeon.h-based-on-clz-for-al.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
- filename*0="0001-Calculate-log-base-2-in-radeon.h-based-on-clz-for-al.pa";
- filename*1="tch"
-
->From 350d663a5ce85d51632a6fa56d28afa2447c6558 Mon Sep 17 00:00:00 2001
-From: Jochen Rollwagen <joro-2013-zqRNUXuvxA0b1SvskN2V4Q@public.gmane.org>
-Date: Fri, 2 Dec 2016 10:56:39 +0100
-Subject: [PATCH] Calculate log base 2 in radeon.h based on clz for all
- platforms
-
-This commit replaces the inline assembler code (for x86 platforms) and loop (for non-x86 platforms) in RADEONLog2 with a one-liner version based on clz (count leading zeroes).
----
- src/radeon.h |   13 +------------
- 1 file changed, 1 insertion(+), 12 deletions(-)
-
-diff --git a/src/radeon.h b/src/radeon.h
-index 5797bed..23ecfeb 100644
---- a/src/radeon.h
-+++ b/src/radeon.h
-@@ -935,18 +935,7 @@ enum {
- static __inline__ int
- RADEONLog2(int val)
- {
--	int bits;
--#if (defined __i386__ || defined __x86_64__) && (defined __GNUC__)
--	__asm volatile("bsrl	%1, %0"
--		: "=r" (bits)
--		: "c" (val)
--	);
--	return bits;
--#else
--	for (bits = 0; val != 0; val >>= 1, ++bits)
--		;
--	return bits - 1;
--#endif
-+	return (31 - __builtin_clz(val));
- }
- 
- #define RADEON_TILING_MASK				0xff
--- 
-1.7.9.5
-
-
---------------060606080109020805020002
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---------------060606080109020805020002--
+QW0gMDEuMTIuMjAxNiB1bSAwMTo1NyBzY2hyaWViIE1pY2hlbCBEw6RuemVyOgo+IE9uIDAxLzEy
+LzE2IDAyOjUyIEFNLCBKb2NoZW4gUm9sbHdhZ2VuIHdyb3RlOgo+PiBBbSAyOS4xMS4yMDE2IHVt
+IDA4OjMyIHNjaHJpZWIgTWljaGVsIETDpG56ZXI6Cj4+PiBPbiAyOS8xMS8xNiAwMzoxOCBBTSwg
+Sm9jaGVuIFJvbGx3YWdlbiB3cm90ZToKPj4+PiBUaGlzIGNvbW1pdCByZXBsYWNlcyB0aGUgbG9v
+cCBmb3IgY2FsY3VsYXRpbmcgbG9nIGJhc2UgMiBmb3IKPj4+PiBub24teDg2LXBsYXRmb3JtcyBp
+biByYWRlb24uaCB3aXRoIGEgY2x6IChjb3VudCBsZWFkaW5nIHplcm9lcyktYmFzZWQKPj4+PiB2
+ZXJzaW9uIHRvIHNpbXBsaWZ5IHRoZSBjb2RlIGFuZCwgd2VsbCwgZWxpbWluYXRlIHRoZSBsb29w
+Lgo+Pj4+IE5vdGU6IFRoZXJl4oCZcyBubyBjaGVjayBmb3IgdmFsPTAgY2FzZSwgc2luY2UgeDg2
+LWJzciBpcyB1bmRlZmluZWQgZm9yCj4+Pj4gdGhhdCBjYXNlIHRvbywgdGhhdCBzaG91bGQgYmUg
+b2theS4KPj4+PiAtLS0KPj4+PiAgIHNyYy9yYWRlb24uaCB8ICAgIDcgKysrLS0tLQo+Pj4+ICAg
+MSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMoLSkKPj4+Pgo+Pj4+
+IGRpZmYgLS1naXQgYS9zcmMvcmFkZW9uLmggYi9zcmMvcmFkZW9uLmgKPj4+PiBpbmRleCBjYmM3
+ODY2Li5iMWExY2UwIDEwMDY0NAo+Pj4+IC0tLSBhL3NyYy9yYWRlb24uaAo+Pj4+ICsrKyBiL3Ny
+Yy9yYWRlb24uaAo+Pj4+IEBAIC05MzMsMTcgKzkzMywxNiBAQCBlbnVtIHsKPj4+PiAgIHN0YXRp
+YyBfX2lubGluZV9fIGludAo+Pj4+ICAgUkFERU9OTG9nMihpbnQgdmFsKQo+Pj4+ICAgewo+Pj4+
+IC0gICAgaW50IGJpdHM7Cj4+Pj4gICAjaWYgKGRlZmluZWQgX19pMzg2X18gfHwgZGVmaW5lZCBf
+X3g4Nl82NF9fKSAmJiAoZGVmaW5lZCBfX0dOVUNfXykKPj4+PiArICAgIGludCBiaXRzOwo+Pj4+
+ICsKPj4+PiAgICAgICBfX2FzbSB2b2xhdGlsZSgiYnNybCAgICAlMSwgJTAiCj4+Pj4gICAgICAg
+ICAgIDogIj1yIiAoYml0cykKPj4+PiAgICAgICAgICAgOiAiYyIgKHZhbCkKPj4+PiAgICAgICAp
+Owo+Pj4+ICAgICAgIHJldHVybiBiaXRzOwo+Pj4+ICAgI2Vsc2UKPj4+PiAtICAgIGZvciAoYml0
+cyA9IDA7IHZhbCAhPSAwOyB2YWwgPj49IDEsICsrYml0cykKPj4+PiAtICAgICAgICA7Cj4+Pj4g
+LSAgICByZXR1cm4gYml0cyAtIDE7Cj4+Pj4gKyAgICByZXR1cm4gKDMxIC0gX19idWlsdGluX2Ns
+eih2YWwpKTsKPj4+PiAgICNlbmRpZgo+Pj4+ICAgfQo+Pj4gQW55IHJlYXNvbiBmb3Igbm90IHVz
+aW5nIF9fYnVpbHRpbl9jbHogb24geDg2IGFzIHdlbGw/IEFGQUlDVCBib3RoIGdjYwo+Pj4gYW5k
+IGNsYW5nIHNlZW0gdG8gZ2VuZXJhdGUgbW9yZSBvciBsZXNzIHRoZSBzYW1lIGNvZGUgd2l0aCB0
+aGF0IGFzIHdpdGgKPj4+IHRoZSBpbmxpbmUgYXNzZW1ibHkuCj4+Pgo+Pj4KPj4gSSBndWVzcyBu
+b3QuIEFjY29yZGluZyB0bwo+PiBodHRwOi8vc3RhY2tvdmVyZmxvdy5jb20vcXVlc3Rpb25zLzkz
+NTM5NzMvaW1wbGVtZW50YXRpb24tb2YtYnVpbHRpbi1jbHoKPj4gImJzciBhbmQgY2x6IGFyZSBy
+ZWxhdGVkIGJ1dCBkaWZmZXJlbnQuCj4+Cj4+IE9uIHg4NiBmb3IgY2x6IGdjYyAoLU8yKSBnZW5l
+cmF0ZXM6Cj4+Cj4+IGJzcmwgJWVkaSwgJWVheAo+PiB4b3JsICQzMSwgJWVheAo+PiByZXQgIgo+
+IFRoYXQncyBub3Qgd2hhdCBJJ20gc2VlaW5nLiBIYXZlIHlvdSBjb21wYXJlZCB0aGUgY29kZSBn
+ZW5lcmF0ZWQgYnkgeW91cgo+IGNvbXBpbGVyIGluIGJvdGggY2FzZXM/Cj4KPgpXZWxsLCBJJ20g
+b24gYSBwb3dlcnBjIHBsYXRmb3JtLCB0aGUgZ2VuZXJhdGVkIGNvZGUgbG9va3MgbGlrZSB0aGlz
+OgoKUkFERU9OTG9nMjoKICAgICBzdHd1ICVyMSwtMTYoJXIxKQogICAgIGNudGx6dyAlcjMsJXIz
+CiAgICAgc3ViZmljICVyMywlcjMsMzEKICAgICBhZGRpICVyMSwlcjEsMTYKICAgICBibHIKClN0
+cmFpZ2h0Zm9yd2FyZCBlbm91Z2guCgpCdXQgaSBndWVzcyB5b3XigJlyZSByaWdodCwgdGhlIGdl
+bmVyYXRlZCBjb2RlIGlzIHNpbWlsYXIgZW5vdWdoIHRvIApqdXN0aWZ5IGEgZ2VuZXJhbCBhcHBy
+b2FjaCB3aXRob3V0IHBsYXRmb3JtLXNwZWNpZmljIGlubGluZSBhc3NlbWJsZXIgCmFuZCBsZWF2
+aW5nIHRoZSByZXN0IHRvIHRoZSBjb21waWxlci4KCiAgSSdsbCBwb3N0IFYyIG9mIHRoZSBwYXRj
+aC4KCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
+Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
