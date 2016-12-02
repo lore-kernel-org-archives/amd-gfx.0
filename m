@@ -1,32 +1,39 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: [PATCH 1/2] drm/radeon: add additional pci revision to dpm workaround
-Date: Fri,  2 Dec 2016 00:25:42 -0500
-Message-ID: <1480656343-330-1-git-send-email-alexander.deucher@amd.com>
-Return-path: <stable-owner@vger.kernel.org>
-Sender: stable-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+From: Xiangliang Yu <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
+Subject: [V2 0/6] drm/amdgpu: add support SR-IOV initialization
+Date: Fri, 2 Dec 2016 14:03:42 +0800
+Message-ID: <1480658628-24446-1-git-send-email-Xiangliang.Yu@amd.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Xiangliang Yu <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
 
-New variant.
-
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
----
- drivers/gpu/drm/radeon/si_dpm.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/radeon/si_dpm.c b/drivers/gpu/drm/radeon/si_dpm.c
-index c4993452..8b5e697 100644
---- a/drivers/gpu/drm/radeon/si_dpm.c
-+++ b/drivers/gpu/drm/radeon/si_dpm.c
-@@ -3026,6 +3026,7 @@ static void si_apply_state_adjust_rules(struct radeon_device *rdev,
- 		    (rdev->pdev->revision == 0x80) ||
- 		    (rdev->pdev->revision == 0x81) ||
- 		    (rdev->pdev->revision == 0x83) ||
-+		    (rdev->pdev->revision == 0x87) ||
- 		    (rdev->pdev->device == 0x6604) ||
- 		    (rdev->pdev->device == 0x6605)) {
- 			max_sclk = 75000;
--- 
-2.5.5
+QXMgU1ItSU9WIGluaXRpYWxpemF0aW9uIGlzIGRpZmZlcmVuY2UgZnJvbSBiYXJlIG1ldGFsLCB0
+aGUgc2VyaWVzIHBhdGNoCndpbGwgY2hhbmdlIGNvZGUgcGF0aCBvZiBpbml0aWFsaXphdGlvbiBh
+Y2NvcmRpbmcgdG8gSFcgZGVzaWduLgoKQ2hhbmdlcyBpbiBWMjoKMS4gUmVtb3ZlIFZNIGZhdWx0
+IHBhdGNoOwoyLiBTcGxpdCBvdXQgdGhlIHRoaXJkIHBhdGNoIGludG8gdHdvIHBhdGNoZXMgdG8g
+bWFrZSBtb3JlIGNsZWFyOwoKWGlhbmdsaWFuZyBZdSAoNik6CiAgZHJtL2FtZGdwdTogZHJvcCBy
+ZWR1bmRhbnQgdmlfbXFkIGRlZmluZQogIGRybS9hbWQvcG93ZXJwbGF5OiBjdXQgZGlnZXN0IHBh
+cnQKICBkcm0vYW1kL3Bvd2VycGxheTogSWdub3JlIHNtdSBidWZmZXIgdXNhZ2UKICBkcm0vYW1k
+L3Bvd2VycGxheTogQWRqdXN0IHRoZSBwb3NpdGlvbiBvZiBkYXRhIHNpemUgaW5pdGlhbAogIGRy
+bS9hbWRncHU6IERvbid0IHRvdWNoIEdGWCBodyBkdXJpbmcgSFcgZmluaQogIGRybS9hbWQvcG93
+ZXJwbGF5OiBGaXggcG90ZW50aWFsIE5VTEwgcG9pbnRlciBpc3N1ZQoKIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMgICAgICAgICAgICAgIHwgMjcwICstLS0tLS0tLS0tLS0t
+LS0tLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kX3Bvd2VycGxheS5jICAg
+ICAgfCAgIDQgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9zbXU3X3Nt
+dW1nci5jIHwgIDE5ICstCiAzIGZpbGVzIGNoYW5nZWQsIDI1IGluc2VydGlvbnMoKyksIDI2OCBk
+ZWxldGlvbnMoLSkKCi0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4Cg==
