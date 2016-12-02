@@ -1,104 +1,34 @@
-From: "Yu, Xiangliang" <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 3/6] drm/amd/powerplay: Ignore smu buffer usage
-Date: Fri, 2 Dec 2016 02:57:12 +0000
-Message-ID: <CY4PR12MB1701EF2FCB0AF7BACC2C4BE0EB8E0@CY4PR12MB1701.namprd12.prod.outlook.com>
-References: <1480489332-29092-1-git-send-email-Xiangliang.Yu@amd.com>
- <MWHPR12MB16940AD26D5DE55A89898018F78C0@MWHPR12MB1694.namprd12.prod.outlook.com>
- <CY4PR12MB17014445B8939BF52AE0CF5AEB8F0@CY4PR12MB1701.namprd12.prod.outlook.com>
- <CADnq5_MFObCa6TaVx6cZ3JDojkLEoh0RO1i41fyCooSby=7y_Q@mail.gmail.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_MFObCa6TaVx6cZ3JDojkLEoh0RO1i41fyCooSby=7y_Q-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Liu,
- Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: [PATCH 2/2] drm/radeon/si: load the proper firmware on 0x87 oland boards
+Date: Fri,  2 Dec 2016 00:25:43 -0500
+Message-ID: <1480656343-330-2-git-send-email-alexander.deucher@amd.com>
+References: <1480656343-330-1-git-send-email-alexander.deucher@amd.com>
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <1480656343-330-1-git-send-email-alexander.deucher@amd.com>
+Sender: stable-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-PiBPbiBUaHUsIERlYyAxLCAyMDE2IGF0IDE6NTMgQU0sIFl1LCBYaWFuZ2xpYW5nIDxYaWFuZ2xp
-YW5nLll1QGFtZC5jb20+DQo+IHdyb3RlOg0KPiA+Pg0KPiA+PiA+IC0tLS0tT3JpZ2luYWwgTWVz
-c2FnZS0tLS0tDQo+ID4+ID4gRnJvbTogYW1kLWdmeCBbbWFpbHRvOmFtZC1nZngtYm91bmNlc0Bs
-aXN0cy5mcmVlZGVza3RvcC5vcmddIE9uDQo+ID4+ID4gQmVoYWxmIE9mIFhpYW5nbGlhbmcgWXUN
-Cj4gPj4gPiBTZW50OiBXZWRuZXNkYXksIE5vdmVtYmVyIDMwLCAyMDE2IDI6MDIgQU0NCj4gPj4g
-PiBUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gPj4gPiBDYzogWXUsIFhpYW5n
-bGlhbmc7IExpdSwgTW9uaw0KPiA+PiA+IFN1YmplY3Q6IFtQQVRDSCAzLzZdIGRybS9hbWQvcG93
-ZXJwbGF5OiBJZ25vcmUgc211IGJ1ZmZlciB1c2FnZQ0KPiA+PiA+DQo+ID4+ID4gU01VIGJ1ZmZl
-ciBpcyB1c2VkIGZvciBwb3dlciBmZWF0dXJlLCBidXQgZm9yIHZpcnR1YWxpemF0aW9uLCB0aGUN
-Cj4gPj4gPiBwb3dlciBpcyBjb250cm9sbGVkIGJ5IGh5cGVydmlzb3IuIElnbm9yZSBpdC4NCj4g
-Pj4gPg0KPiA+PiA+IFNpZ25lZC1vZmYtYnk6IFhpYW5nbGlhbmcgWXUgPFhpYW5nbGlhbmcuWXVA
-YW1kLmNvbT4NCj4gPj4gPiBTaWduZWQtb2ZmLWJ5OiBNb25rIExpdSA8TW9uay5MaXVAYW1kLmNv
-bT4NCj4gPj4gPiAtLS0NCj4gPj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211
-bWdyL3NtdTdfc211bWdyLmMgfCAxNQ0KPiA+PiA+ICsrKysrKysrKysrKy0tLQ0KPiA+PiA+ICAx
-IGZpbGUgY2hhbmdlZCwgMTIgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkNCj4gPj4gPg0K
-PiA+PiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3Iv
-c211N19zbXVtZ3IuYw0KPiA+PiA+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211
-bWdyL3NtdTdfc211bWdyLmMNCj4gPj4gPiBpbmRleCA4Nzc0NDVkLi5mNDliNTQ4IDEwMDY0NA0K
-PiA+PiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9zbXU3X3Nt
-dW1nci5jDQo+ID4+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdy
-L3NtdTdfc211bWdyLmMNCj4gPj4gPiBAQCAtNDA3LDggKzQwNywxNCBAQCBpbnQgc211N19yZXF1
-ZXN0X3NtdV9sb2FkX2Z3KHN0cnVjdA0KPiA+PiBwcF9zbXVtZ3INCj4gPj4gPiAqc211bWdyKQ0K
-PiA+PiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MCk7DQo+ID4+ID4N
-Cj4gPj4gPiAgICAgaWYgKHNtdW1nci0+Y2hpcF9pZCA+IENISVBfVE9QQVopIHsgLyogYWRkIHN1
-cHBvcnQgZm9yIFRvcGF6ICovDQo+ID4+ID4gLSAgICAgICAgICAgc211N19zZW5kX21zZ190b19z
-bWNfd2l0aF9wYXJhbWV0ZXIoc211bWdyLA0KPiA+PiA+IFBQU01DX01TR19TTVVfRFJBTV9BRERS
-X0hJLCBzbXVfZGF0YS0NCj4gPj4gPiA+c211X2J1ZmZlci5tY19hZGRyX2hpZ2gpOw0KPiA+PiA+
-IC0gICAgICAgICAgIHNtdTdfc2VuZF9tc2dfdG9fc21jX3dpdGhfcGFyYW1ldGVyKHNtdW1nciwN
-Cj4gPj4gPiBQUFNNQ19NU0dfU01VX0RSQU1fQUREUl9MTywgc211X2RhdGEtDQo+ID4+ID4gPnNt
-dV9idWZmZXIubWNfYWRkcl9sb3cpOw0KPiA+PiA+ICsgICAgICAgICAgIGlmICghY2dzX2lzX3Zp
-cnR1YWxpemF0aW9uX2VuYWJsZWQoc211bWdyLT5kZXZpY2UpKSB7DQo+ID4+ID4gKyAgICAgICAg
-ICAgICAgICAgICBzbXU3X3NlbmRfbXNnX3RvX3NtY193aXRoX3BhcmFtZXRlcihzbXVtZ3IsDQo+
-ID4+ID4gKw0KPiA+PiA+ICAgICBQUFNNQ19NU0dfU01VX0RSQU1fQUREUl9ISSwNCj4gPj4gPiAr
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNtdV9kYXRhLQ0KPiA+
-PiA+ID5zbXVfYnVmZmVyLm1jX2FkZHJfaGlnaCk7DQo+ID4+ID4gKyAgICAgICAgICAgICAgICAg
-ICBzbXU3X3NlbmRfbXNnX3RvX3NtY193aXRoX3BhcmFtZXRlcihzbXVtZ3IsDQo+ID4+ID4gKw0K
-PiA+PiA+ICAgICBQUFNNQ19NU0dfU01VX0RSQU1fQUREUl9MTywNCj4gPj4gPiArICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNtdV9kYXRhLQ0KPiA+PiA+ID5zbXVf
-YnVmZmVyLm1jX2FkZHJfbG93KTsNCj4gPj4gPiArICAgICAgICAgICB9DQo+ID4+ID4gICAgICAg
-ICAgICAgZndfdG9fbG9hZCA9IFVDT0RFX0lEX1JMQ19HX01BU0sNCj4gPj4gPiAgICAgICAgICAg
-ICAgICAgICAgICAgICsgVUNPREVfSURfU0RNQTBfTUFTSw0KPiA+PiA+ICAgICAgICAgICAgICAg
-ICAgICAgICAgKyBVQ09ERV9JRF9TRE1BMV9NQVNLIEBAIC01NDMsNyArNTQ5LDYgQEANCj4gPj4g
-PiBpbnQgc211N19pbml0KHN0cnVjdCBwcF9zbXVtZ3IgKnNtdW1ncikNCj4gPj4gPiAgICAgc211
-X2RhdGEgPSAoc3RydWN0IHNtdTdfc211bWdyICopKHNtdW1nci0+YmFja2VuZCk7DQo+ID4+ID4g
-ICAgIHNtdV9kYXRhLT5oZWFkZXJfYnVmZmVyLmRhdGFfc2l6ZSA9DQo+ID4+ID4gICAgICAgICAg
-ICAgICAgICAgICAoKHNpemVvZihzdHJ1Y3QgU01VX0RSQU1EYXRhX1RPQykgLyA0MDk2KSArIDEp
-DQo+ID4+ID4gKg0KPiA+PiA0MDk2Ow0KPiA+PiA+IC0gICBzbXVfZGF0YS0+c211X2J1ZmZlci5k
-YXRhX3NpemUgPSAyMDAqNDA5NjsNCj4gPj4NCj4gPj4gV2FzIHRoaXMgY2hhbmdlIGludGVuZGVk
-PyAgSSdtIGFzc3VtaW5nIHRoaXMgaXMgZXh0cmFuZW91cyBhcyBpdCdzDQo+ID4+IHNldCBpbg0K
-PiA+PiBzbXU3X2luaXQoKSBhcyB3ZWxsLg0KPiA+DQo+ID4gSXQgc3RpbGwgaW4gc211N19pbml0
-KCkgZnVuY3Rpb24sIGp1c3QgcHV0IGl0IHRvZ2V0aGVyLiBJIHRoaW5rIGl0IG1ha2UgY29kZSBt
-b3JlDQo+IGNsZWFyLg0KPiA+DQo+IA0KPiBUaGF0IHNob3VsZCBwcm9iYWJseSBiZSBhIHNlcGFy
-YXRlIGNvbW1pdCBzaW5jZSBpdCdzIGEgZGlmZmVyZW50IGxvZ2ljYWwNCj4gY2hhbmdlLiAgV2l0
-aCB0aGF0IGZpeGVkLCB0aGlzIHBhdGNoIGlzOg0KPiBSZXZpZXdlZC1ieTogQWxleCBEZXVjaGVy
-IDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0KDQpPaywgSSdsbCBzdWJtaXQgVjIgbGF0ZXIu
-DQoNCj4gPj4NCj4gPj4gPg0KPiA+PiA+ICAvKiBBbGxvY2F0ZSBGVyBpbWFnZSBkYXRhIHN0cnVj
-dHVyZSBhbmQgaGVhZGVyIGJ1ZmZlciBhbmQNCj4gPj4gPiAgICogc2VuZCB0aGUgaGVhZGVyIGJ1
-ZmZlciBhZGRyZXNzIHRvIFNNVSAqLyBAQCAtNTY2LDYgKzU3MSwxMCBAQA0KPiA+PiA+IGludCBz
-bXU3X2luaXQoc3RydWN0IHBwX3NtdW1nciAqc211bWdyKQ0KPiA+PiA+ICAgICAgICAgICAgIChj
-Z3NfaGFuZGxlX3Qpc211X2RhdGEtPmhlYWRlcl9idWZmZXIuaGFuZGxlKTsNCj4gPj4gPiAgICAg
-ICAgICAgICByZXR1cm4gLUVJTlZBTCk7DQo+ID4+ID4NCj4gPj4gPiArICAgaWYgKGNnc19pc192
-aXJ0dWFsaXphdGlvbl9lbmFibGVkKHNtdW1nci0+ZGV2aWNlKSkNCj4gPj4gPiArICAgICAgICAg
-ICByZXR1cm4gMDsNCj4gPj4gPiArDQo+ID4+ID4gKyAgIHNtdV9kYXRhLT5zbXVfYnVmZmVyLmRh
-dGFfc2l6ZSA9IDIwMCo0MDk2Ow0KPiA+PiA+ICAgICBzbXVfYWxsb2NhdGVfbWVtb3J5KHNtdW1n
-ci0+ZGV2aWNlLA0KPiA+PiA+ICAgICAgICAgICAgIHNtdV9kYXRhLT5zbXVfYnVmZmVyLmRhdGFf
-c2l6ZSwNCj4gPj4gPiAgICAgICAgICAgICBDR1NfR1BVX01FTV9UWVBFX19WSVNJQkxFX0NPTlRJ
-R19GQiwNCj4gPj4gPiAtLQ0KPiA+PiA+IDIuNy40DQo+ID4+ID4NCj4gPj4gPiBfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiA+PiA+IGFtZC1nZnggbWFp
-bGluZyBsaXN0DQo+ID4+ID4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gPj4gPiBo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCj4g
-PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiA+IGFt
-ZC1nZnggbWFpbGluZyBsaXN0DQo+ID4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4g
-PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngN
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
-bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+New variant.
+
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+---
+ drivers/gpu/drm/radeon/si.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/radeon/si.c b/drivers/gpu/drm/radeon/si.c
+index 143280d..ad4d7b8 100644
+--- a/drivers/gpu/drm/radeon/si.c
++++ b/drivers/gpu/drm/radeon/si.c
+@@ -1714,6 +1714,7 @@ static int si_init_microcode(struct radeon_device *rdev)
+ 		    (rdev->pdev->revision == 0x80) ||
+ 		    (rdev->pdev->revision == 0x81) ||
+ 		    (rdev->pdev->revision == 0x83) ||
++		    (rdev->pdev->revision == 0x87) ||
+ 		    (rdev->pdev->device == 0x6604) ||
+ 		    (rdev->pdev->device == 0x6605))
+ 			new_smc = true;
+-- 
+2.5.5
