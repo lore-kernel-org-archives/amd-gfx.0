@@ -1,34 +1,25 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: [PATCH 2/2] drm/amdgpu/si: load the proper firmware on 0x87 oland boards
-Date: Mon,  5 Dec 2016 13:06:32 -0500
-Message-ID: <1480961192-23310-2-git-send-email-alexander.deucher@amd.com>
-References: <1480961192-23310-1-git-send-email-alexander.deucher@amd.com>
-Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <1480961192-23310-1-git-send-email-alexander.deucher@amd.com>
-Sender: stable-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+From: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: debugfs support for reading GPRs
+Date: Mon,  5 Dec 2016 13:36:49 -0500
+Message-ID: <20161205183652.29325-1-tom.stdenis@amd.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-New variant.
-
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
----
- drivers/gpu/drm/amd/amdgpu/si_dpm.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/si_dpm.c b/drivers/gpu/drm/amd/amdgpu/si_dpm.c
-index 95c4e25..6c65a1a 100644
---- a/drivers/gpu/drm/amd/amdgpu/si_dpm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/si_dpm.c
-@@ -7716,6 +7716,7 @@ static int si_dpm_init_microcode(struct amdgpu_device *adev)
- 		    (adev->pdev->revision == 0x80) ||
- 		    (adev->pdev->revision == 0x81) ||
- 		    (adev->pdev->revision == 0x83) ||
-+		    (adev->pdev->revision == 0x87) ||
- 		    (adev->pdev->device == 0x6604) ||
- 		    (adev->pdev->device == 0x6605))
- 			chip_name = "oland_k";
--- 
-2.5.5
+VGhlIGZvbGxvd2luZyBwYXRjaGVzIGFkZCBzdXBwb3J0IGZvciBHRlggdjYsIHY3LCBhbmQgdjgg
+dG8gYWxsb3cKdXNlcnNwYWNlIHRvIHJlYWQgR1BScyAoU0dQUnMpIHZpYSBkZWJ1Z2ZzLiAgCgpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
