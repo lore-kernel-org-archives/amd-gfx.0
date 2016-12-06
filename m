@@ -1,12 +1,11 @@
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: GPR read support via debugfs (v2)
-Date: Wed, 7 Dec 2016 09:15:33 +1100
-Message-ID: <b0979deb-7d97-f81f-65af-3a0800d55e4b@folklore1984.net>
-References: <20161206145014.9140-1-tom.stdenis@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: just suspend the hw on pci shutdown
+Date: Tue,  6 Dec 2016 17:55:01 -0500
+Message-ID: <1481064901-15982-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0967545221=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20161206145014.9140-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,81 +16,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0967545221==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="qhWXrvgRk0umiGA5RHcbAJE6FFaxvpNuA"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---qhWXrvgRk0umiGA5RHcbAJE6FFaxvpNuA
-Content-Type: multipart/mixed; boundary="lfBv5HTWC6JTP69XHds47JgB5Gn9fiTJK";
- protected-headers="v1"
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Message-ID: <b0979deb-7d97-f81f-65af-3a0800d55e4b-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: GPR read support via debugfs (v2)
-References: <20161206145014.9140-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <20161206145014.9140-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-
---lfBv5HTWC6JTP69XHds47JgB5Gn9fiTJK
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-This series is,
-Acked-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-
-On 12/07/2016 01:50 AM, Tom St Denis wrote:
-> These patches introduce debugfs access to read GPRs (SGPRs for now).
->=20
-> (v2): Fixes white space, addressing is in dwords not bytes, and removes=
-
->       the buggy sanity checking.
->=20
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->=20
-
-
---lfBv5HTWC6JTP69XHds47JgB5Gn9fiTJK--
-
---qhWXrvgRk0umiGA5RHcbAJE6FFaxvpNuA
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJYRziJAAoJEP4bvbfZuWjbMNYP/0uVoGpwGcvaTMcKBOSj091i
-DiALZJmEFhzjn7vvqOVeMd9DhZZ8QJzvn2R+KnfiErY3in7oRFfUs1x6F7CZdv3h
-tJ8XWjOZBTWy0NlV0mQEQhBVELan8kP0TAWfGOTS/IPvcSJTxLbDRtSHWg/MaboQ
-5m5ugAEX1kcZuvhjWyTYP4oYlTfis0hpNHW1N4s+OuZXdUiBq1IEIn1BzI/2b7SC
-3SPt5Vn0qeHJRomKRStB3pPnKHIO63HkNO7oBnx1diQQhqlXqWWUa8RT0+WR00R7
-awT8xYSNdzaeZoRmRGRl99pN0XZ7bTwFB0i+5sJcAQr2QE2dF7mte6x9dN/oH4Zd
-p5xdEd6UPfpVBDHiwtWhCyZObj3wZsal2mYA/S/QvnXYMTbigdoN1clNSYpfPnjJ
-I0lLUbvqY8sOyfVPTRMwW/UycnhUMT0FkkZ+e3JLikLn7heC6JutVMzd5IuzJniq
-j/z+9KtZPMWZWXmMNSneCjO8i3CCKzemQYdF89yUl4SHLoVONa/TIdjHaJIdRPhS
-olGYy+0eIph0UH5MD7Ev9gkWKdi7Kz/6Rrh1zpgr6ElUWOqPoHRwIXYwQoJiQDfZ
-Wdxbg7gpdRnnD9VgNnJxjZEUdk7t3Vxyhhx88iqObXJY8r3clS+NNNqyatR5d6JS
-1B7eAaivGw5Q4FIXbcg8
-=0w0j
------END PGP SIGNATURE-----
-
---qhWXrvgRk0umiGA5RHcbAJE6FFaxvpNuA--
-
---===============0967545221==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0967545221==--
+V2UgY2FuJ3QganVzdCByZXVzZSBwY2lfcmVtb3ZlIGFzIHRoZXJlIG1heSBiZSB1c2Vyc3BhY2Ug
+c3RpbGwKZG9pbmcgdGhpbmdzLgoKQnVnemlsbGE6IGh0dHBzOi8vYnVncy5mcmVlZGVza3RvcC5v
+cmcvc2hvd19idWcuY2dpP2lkPTk4NjM4CkJ1Z3ppbGxhOiBodHRwczovL2J1Z3MuZnJlZWRlc2t0
+b3Aub3JnL3Nob3dfYnVnLmNnaT9pZD05Nzk4MApTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIg
+PGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+CkNjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnCi0t
+LQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggICAgICAgIHwgMSArCiBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCAyICstCiBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgICAgfCA1ICsrKystCiAzIGZpbGVzIGNoYW5n
+ZWQsIDYgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdS5oCmluZGV4IDk0NmRmY2MuLjEyM2Y4MTUyIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHUuaApAQCAtMTcxNCw2ICsxNzE0LDcgQEAgdm9pZCBhbWRncHVfZHJpdmVyX3Bvc3Rj
+bG9zZV9rbXMoc3RydWN0IGRybV9kZXZpY2UgKmRldiwKIAkJCQkgc3RydWN0IGRybV9maWxlICpm
+aWxlX3ByaXYpOwogdm9pZCBhbWRncHVfZHJpdmVyX3ByZWNsb3NlX2ttcyhzdHJ1Y3QgZHJtX2Rl
+dmljZSAqZGV2LAogCQkJCXN0cnVjdCBkcm1fZmlsZSAqZmlsZV9wcml2KTsKK2ludCBhbWRncHVf
+c3VzcGVuZChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7CiBpbnQgYW1kZ3B1X2RldmljZV9z
+dXNwZW5kKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIGJvb2wgc3VzcGVuZCwgYm9vbCBmYmNvbik7
+CiBpbnQgYW1kZ3B1X2RldmljZV9yZXN1bWUoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgYm9vbCBy
+ZXN1bWUsIGJvb2wgZmJjb24pOwogdTMyIGFtZGdwdV9nZXRfdmJsYW5rX2NvdW50ZXJfa21zKHN0
+cnVjdCBkcm1fZGV2aWNlICpkZXYsIHVuc2lnbmVkIGludCBwaXBlKTsKZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwppbmRleCA0NzAxZDk0Li44YjM5ZmQzIDEwMDY0
+NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCkBAIC0xNTMwLDcgKzE1
+MzAsNyBAQCBzdGF0aWMgaW50IGFtZGdwdV9maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
+KQogCXJldHVybiAwOwogfQogCi1zdGF0aWMgaW50IGFtZGdwdV9zdXNwZW5kKHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2KQoraW50IGFtZGdwdV9zdXNwZW5kKHN0cnVjdCBhbWRncHVfZGV2aWNl
+ICphZGV2KQogewogCWludCBpLCByOwogCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfZHJ2LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+ZHJ2LmMKaW5kZXggMzIxMDA4MS4uNmU0ZTNhMSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9kcnYuYwpAQCAtNDg2LDEyICs0ODYsMTUgQEAgYW1kZ3B1X3BjaV9yZW1vdmUoc3Ry
+dWN0IHBjaV9kZXYgKnBkZXYpCiBzdGF0aWMgdm9pZAogYW1kZ3B1X3BjaV9zaHV0ZG93bihzdHJ1
+Y3QgcGNpX2RldiAqcGRldikKIHsKKwlzdHJ1Y3QgZHJtX2RldmljZSAqZGV2ID0gcGNpX2dldF9k
+cnZkYXRhKHBkZXYpOworCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gZGV2LT5kZXZfcHJp
+dmF0ZTsKKwogCS8qIGlmIHdlIGFyZSBydW5uaW5nIGluIGEgVk0sIG1ha2Ugc3VyZSB0aGUgZGV2
+aWNlCiAJICogdG9ybiBkb3duIHByb3Blcmx5IG9uIHJlYm9vdC9zaHV0ZG93bi4KIAkgKiB1bmZv
+cnR1bmF0ZWx5IHdlIGNhbid0IGRldGVjdCBjZXJ0YWluCiAJICogaHlwZXJ2aXNvcnMgc28ganVz
+dCBkbyB0aGlzIGFsbCB0aGUgdGltZS4KIAkgKi8KLQlhbWRncHVfcGNpX3JlbW92ZShwZGV2KTsK
+KwlhbWRncHVfc3VzcGVuZChhZGV2KTsKIH0KIAogc3RhdGljIGludCBhbWRncHVfcG1vcHNfc3Vz
+cGVuZChzdHJ1Y3QgZGV2aWNlICpkZXYpCi0tIAoyLjUuNQoKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9hbWQtZ2Z4Cg==
