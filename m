@@ -1,11 +1,12 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: just suspend the hw on pci shutdown
-Date: Tue,  6 Dec 2016 17:55:01 -0500
-Message-ID: <1481064901-15982-1-git-send-email-alexander.deucher@amd.com>
+From: Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: just suspend the hw on pci shutdown
+Date: Wed, 07 Dec 2016 04:59:34 +0000
+Message-ID: <CAHbf0-HB02ASxouwHyG9X5EdK3hz03OGVY7pyGgtzVEUd34=wg@mail.gmail.com>
+References: <1481064901-15982-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0938622661=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1481064901-15982-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,51 +17,220 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
 
-V2UgY2FuJ3QganVzdCByZXVzZSBwY2lfcmVtb3ZlIGFzIHRoZXJlIG1heSBiZSB1c2Vyc3BhY2Ug
-c3RpbGwKZG9pbmcgdGhpbmdzLgoKQnVnemlsbGE6IGh0dHBzOi8vYnVncy5mcmVlZGVza3RvcC5v
-cmcvc2hvd19idWcuY2dpP2lkPTk4NjM4CkJ1Z3ppbGxhOiBodHRwczovL2J1Z3MuZnJlZWRlc2t0
-b3Aub3JnL3Nob3dfYnVnLmNnaT9pZD05Nzk4MApTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIg
-PGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+CkNjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnCi0t
-LQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggICAgICAgIHwgMSArCiBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCAyICstCiBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgICAgfCA1ICsrKystCiAzIGZpbGVzIGNoYW5n
-ZWQsIDYgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdS5oCmluZGV4IDk0NmRmY2MuLjEyM2Y4MTUyIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHUuaApAQCAtMTcxNCw2ICsxNzE0LDcgQEAgdm9pZCBhbWRncHVfZHJpdmVyX3Bvc3Rj
-bG9zZV9rbXMoc3RydWN0IGRybV9kZXZpY2UgKmRldiwKIAkJCQkgc3RydWN0IGRybV9maWxlICpm
-aWxlX3ByaXYpOwogdm9pZCBhbWRncHVfZHJpdmVyX3ByZWNsb3NlX2ttcyhzdHJ1Y3QgZHJtX2Rl
-dmljZSAqZGV2LAogCQkJCXN0cnVjdCBkcm1fZmlsZSAqZmlsZV9wcml2KTsKK2ludCBhbWRncHVf
-c3VzcGVuZChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7CiBpbnQgYW1kZ3B1X2RldmljZV9z
-dXNwZW5kKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIGJvb2wgc3VzcGVuZCwgYm9vbCBmYmNvbik7
-CiBpbnQgYW1kZ3B1X2RldmljZV9yZXN1bWUoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgYm9vbCBy
-ZXN1bWUsIGJvb2wgZmJjb24pOwogdTMyIGFtZGdwdV9nZXRfdmJsYW5rX2NvdW50ZXJfa21zKHN0
-cnVjdCBkcm1fZGV2aWNlICpkZXYsIHVuc2lnbmVkIGludCBwaXBlKTsKZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwppbmRleCA0NzAxZDk0Li44YjM5ZmQzIDEwMDY0
-NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCkBAIC0xNTMwLDcgKzE1
-MzAsNyBAQCBzdGF0aWMgaW50IGFtZGdwdV9maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-KQogCXJldHVybiAwOwogfQogCi1zdGF0aWMgaW50IGFtZGdwdV9zdXNwZW5kKHN0cnVjdCBhbWRn
-cHVfZGV2aWNlICphZGV2KQoraW50IGFtZGdwdV9zdXNwZW5kKHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICphZGV2KQogewogCWludCBpLCByOwogCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfZHJ2LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-ZHJ2LmMKaW5kZXggMzIxMDA4MS4uNmU0ZTNhMSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9kcnYuYwpAQCAtNDg2LDEyICs0ODYsMTUgQEAgYW1kZ3B1X3BjaV9yZW1vdmUoc3Ry
-dWN0IHBjaV9kZXYgKnBkZXYpCiBzdGF0aWMgdm9pZAogYW1kZ3B1X3BjaV9zaHV0ZG93bihzdHJ1
-Y3QgcGNpX2RldiAqcGRldikKIHsKKwlzdHJ1Y3QgZHJtX2RldmljZSAqZGV2ID0gcGNpX2dldF9k
-cnZkYXRhKHBkZXYpOworCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gZGV2LT5kZXZfcHJp
-dmF0ZTsKKwogCS8qIGlmIHdlIGFyZSBydW5uaW5nIGluIGEgVk0sIG1ha2Ugc3VyZSB0aGUgZGV2
-aWNlCiAJICogdG9ybiBkb3duIHByb3Blcmx5IG9uIHJlYm9vdC9zaHV0ZG93bi4KIAkgKiB1bmZv
-cnR1bmF0ZWx5IHdlIGNhbid0IGRldGVjdCBjZXJ0YWluCiAJICogaHlwZXJ2aXNvcnMgc28ganVz
-dCBkbyB0aGlzIGFsbCB0aGUgdGltZS4KIAkgKi8KLQlhbWRncHVfcGNpX3JlbW92ZShwZGV2KTsK
-KwlhbWRncHVfc3VzcGVuZChhZGV2KTsKIH0KIAogc3RhdGljIGludCBhbWRncHVfcG1vcHNfc3Vz
-cGVuZChzdHJ1Y3QgZGV2aWNlICpkZXYpCi0tIAoyLjUuNQoKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============0938622661==
+Content-Type: multipart/alternative; boundary=047d7bae4532b8b12105430a6302
+
+--047d7bae4532b8b12105430a6302
+Content-Type: text/plain; charset=UTF-8
+
+Feel free to add a reported and tested by flag
+
+Thanks for sorting this
+
+On Tue, 6 Dec 2016 at 22:55 Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+
+> We can't just reuse pci_remove as there may be userspace still
+> doing things.
+>
+> Bugzilla: https://bugs.freedesktop.org/show_bug.cgi?id=98638
+> Bugzilla: https://bugs.freedesktop.org/show_bug.cgi?id=97980
+> Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+> Cc: stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 5 ++++-
+>  3 files changed, 6 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 946dfcc..123f8152 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1714,6 +1714,7 @@ void amdgpu_driver_postclose_kms(struct drm_device
+> *dev,
+>                                  struct drm_file *file_priv);
+>  void amdgpu_driver_preclose_kms(struct drm_device *dev,
+>                                 struct drm_file *file_priv);
+> +int amdgpu_suspend(struct amdgpu_device *adev);
+>  int amdgpu_device_suspend(struct drm_device *dev, bool suspend, bool
+> fbcon);
+>  int amdgpu_device_resume(struct drm_device *dev, bool resume, bool fbcon);
+>  u32 amdgpu_get_vblank_counter_kms(struct drm_device *dev, unsigned int
+> pipe);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 4701d94..8b39fd3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -1530,7 +1530,7 @@ static int amdgpu_fini(struct amdgpu_device *adev)
+>         return 0;
+>  }
+>
+> -static int amdgpu_suspend(struct amdgpu_device *adev)
+> +int amdgpu_suspend(struct amdgpu_device *adev)
+>  {
+>         int i, r;
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 3210081..6e4e3a1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -486,12 +486,15 @@ amdgpu_pci_remove(struct pci_dev *pdev)
+>  static void
+>  amdgpu_pci_shutdown(struct pci_dev *pdev)
+>  {
+> +       struct drm_device *dev = pci_get_drvdata(pdev);
+> +       struct amdgpu_device *adev = dev->dev_private;
+> +
+>         /* if we are running in a VM, make sure the device
+>          * torn down properly on reboot/shutdown.
+>          * unfortunately we can't detect certain
+>          * hypervisors so just do this all the time.
+>          */
+> -       amdgpu_pci_remove(pdev);
+> +       amdgpu_suspend(adev);
+>  }
+>
+>  static int amdgpu_pmops_suspend(struct device *dev)
+> --
+> 2.5.5
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+
+--047d7bae4532b8b12105430a6302
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Feel free to add a reported and tested by flag<div><br></d=
+iv><div>Thanks for sorting this</div></div><br><div class=3D"gmail_quote"><=
+div dir=3D"ltr">On Tue, 6 Dec 2016 at 22:55 Alex Deucher &lt;<a href=3D"mai=
+lto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br></div><b=
+lockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px =
+#ccc solid;padding-left:1ex">We can&#39;t just reuse pci_remove as there ma=
+y be userspace still<br class=3D"gmail_msg">
+doing things.<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+Bugzilla: <a href=3D"https://bugs.freedesktop.org/show_bug.cgi?id=3D98638" =
+rel=3D"noreferrer" class=3D"gmail_msg" target=3D"_blank">https://bugs.freed=
+esktop.org/show_bug.cgi?id=3D98638</a><br class=3D"gmail_msg">
+Bugzilla: <a href=3D"https://bugs.freedesktop.org/show_bug.cgi?id=3D97980" =
+rel=3D"noreferrer" class=3D"gmail_msg" target=3D"_blank">https://bugs.freed=
+esktop.org/show_bug.cgi?id=3D97980</a><br class=3D"gmail_msg">
+Signed-off-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org=
+" class=3D"gmail_msg" target=3D"_blank">alexander.deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<b=
+r class=3D"gmail_msg">
+Cc: <a href=3D"mailto:stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" class=3D"gmail_msg" target=3D=
+"_blank">stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org</a><br class=3D"gmail_msg">
+---<br class=3D"gmail_msg">
+=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 | 1 +<=
+br class=3D"gmail_msg">
+=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-<br class=3D"gmail_m=
+sg">
+=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c=C2=A0 =C2=A0 | 5 ++++-<br cla=
+ss=3D"gmail_msg">
+=C2=A03 files changed, 6 insertions(+), 2 deletions(-)<br class=3D"gmail_ms=
+g">
+<br class=3D"gmail_msg">
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
+pu/amdgpu.h<br class=3D"gmail_msg">
+index 946dfcc..123f8152 100644<br class=3D"gmail_msg">
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br class=3D"gmail_msg">
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br class=3D"gmail_msg">
+@@ -1714,6 +1714,7 @@ void amdgpu_driver_postclose_kms(struct drm_device *d=
+ev,<br class=3D"gmail_msg">
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct drm_file *file_priv);<b=
+r class=3D"gmail_msg">
+=C2=A0void amdgpu_driver_preclose_kms(struct drm_device *dev,<br class=3D"g=
+mail_msg">
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct drm_file *file_priv);<br clas=
+s=3D"gmail_msg">
++int amdgpu_suspend(struct amdgpu_device *adev);<br class=3D"gmail_msg">
+=C2=A0int amdgpu_device_suspend(struct drm_device *dev, bool suspend, bool =
+fbcon);<br class=3D"gmail_msg">
+=C2=A0int amdgpu_device_resume(struct drm_device *dev, bool resume, bool fb=
+con);<br class=3D"gmail_msg">
+=C2=A0u32 amdgpu_get_vblank_counter_kms(struct drm_device *dev, unsigned in=
+t pipe);<br class=3D"gmail_msg">
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c<br class=3D"gmail_msg">
+index 4701d94..8b39fd3 100644<br class=3D"gmail_msg">
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br class=3D"gmail_msg">
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br class=3D"gmail_msg">
+@@ -1530,7 +1530,7 @@ static int amdgpu_fini(struct amdgpu_device *adev)<br=
+ class=3D"gmail_msg">
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 return 0;<br class=3D"gmail_msg">
+=C2=A0}<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+-static int amdgpu_suspend(struct amdgpu_device *adev)<br class=3D"gmail_ms=
+g">
++int amdgpu_suspend(struct amdgpu_device *adev)<br class=3D"gmail_msg">
+=C2=A0{<br class=3D"gmail_msg">
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 int i, r;<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_drv.c<br class=3D"gmail_msg">
+index 3210081..6e4e3a1 100644<br class=3D"gmail_msg">
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br class=3D"gmail_msg">
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br class=3D"gmail_msg">
+@@ -486,12 +486,15 @@ amdgpu_pci_remove(struct pci_dev *pdev)<br class=3D"g=
+mail_msg">
+=C2=A0static void<br class=3D"gmail_msg">
+=C2=A0amdgpu_pci_shutdown(struct pci_dev *pdev)<br class=3D"gmail_msg">
+=C2=A0{<br class=3D"gmail_msg">
++=C2=A0 =C2=A0 =C2=A0 =C2=A0struct drm_device *dev =3D pci_get_drvdata(pdev=
+);<br class=3D"gmail_msg">
++=C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_device *adev =3D dev-&gt;dev_priv=
+ate;<br class=3D"gmail_msg">
++<br class=3D"gmail_msg">
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* if we are running in a VM, make sure the dev=
+ice<br class=3D"gmail_msg">
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* torn down properly on reboot/shutdown.<=
+br class=3D"gmail_msg">
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* unfortunately we can&#39;t detect certa=
+in<br class=3D"gmail_msg">
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* hypervisors so just do this all the tim=
+e.<br class=3D"gmail_msg">
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*/<br class=3D"gmail_msg">
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_pci_remove(pdev);<br class=3D"gmail_msg"=
+>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_suspend(adev);<br class=3D"gmail_msg">
+=C2=A0}<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+=C2=A0static int amdgpu_pmops_suspend(struct device *dev)<br class=3D"gmail=
+_msg">
+--<br class=3D"gmail_msg">
+2.5.5<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+_______________________________________________<br class=3D"gmail_msg">
+amd-gfx mailing list<br class=3D"gmail_msg">
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" class=3D"gmail_msg" target=
+=3D"_blank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br class=3D"gmail_msg">
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer" class=3D"gmail_msg" target=3D"_blank">https://lists.freedesktop.=
+org/mailman/listinfo/amd-gfx</a><br class=3D"gmail_msg">
+</blockquote></div>
+
+--047d7bae4532b8b12105430a6302--
+
+--===============0938622661==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0938622661==--
