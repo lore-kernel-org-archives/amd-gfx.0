@@ -1,12 +1,13 @@
 From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amd/amdgpu: stored bios_size
-Date: Thu, 8 Dec 2016 10:46:56 +1100
-Message-ID: <a72df745-760e-21df-6ad9-dc7815e1808c@folklore1984.net>
-References: <1481138544-32505-1-git-send-email-alexander.deucher@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: use pin rather than pin_restricted in a few
+ cases
+Date: Thu, 8 Dec 2016 11:35:55 +1100
+Message-ID: <903d5cee-23aa-2626-83f4-92ff77306765@folklore1984.net>
+References: <1481145457-23105-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1823379678=="
+Content-Type: multipart/mixed; boundary="===============0381373041=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1481138544-32505-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1481145457-23105-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,124 +19,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1823379678==
+--===============0381373041==
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="d27l42KlvrTXxOv5FjWQCiGCaMw5uBKxw"
+ boundary="4Up6gjnoLgKjjE0w1VXBtPe8Ja9VoLtIK"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---d27l42KlvrTXxOv5FjWQCiGCaMw5uBKxw
-Content-Type: multipart/mixed; boundary="2xj0xCrUMPKOQUo3fe4NVNWRjL1J1j8J0";
+--4Up6gjnoLgKjjE0w1VXBtPe8Ja9VoLtIK
+Content-Type: multipart/mixed; boundary="JHxebIgnbd9NCk4WgIcOqQOephd4AOaBK";
  protected-headers="v1"
 From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
 To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-Message-ID: <a72df745-760e-21df-6ad9-dc7815e1808c-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amd/amdgpu: stored bios_size
-References: <1481138544-32505-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <1481138544-32505-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Message-ID: <903d5cee-23aa-2626-83f4-92ff77306765-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: use pin rather than pin_restricted in a few
+ cases
+References: <1481145457-23105-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1481145457-23105-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
---2xj0xCrUMPKOQUo3fe4NVNWRjL1J1j8J0
+--JHxebIgnbd9NCk4WgIcOqQOephd4AOaBK
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-1&2 are Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
 
-On 12/08/2016 06:22 AM, Alex Deucher wrote:
-> From: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+On 12/08/2016 08:17 AM, Alex Deucher wrote:
+> We don't require a resticted pinning in these cases, so just
+> use plain pin.
 >=20
-> It's necessary if we want to export vbios image out.
->=20
-> Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-> Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-> Reviewed-by: Christian Koenig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 > Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h      | 1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c | 6 ++++++
->  2 files changed, 7 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c      | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
 >=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu.h
-> index 29d3a91..f31936b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1330,6 +1330,7 @@ struct amdgpu_device {
-> =20
->  	/* BIOS */
->  	uint8_t				*bios;
-> +	uint32_t			bios_size;
->  	bool				is_atom_bios;
->  	struct amdgpu_bo		*stollen_vga_memory;
->  	uint32_t			bios_scratch[AMDGPU_BIOS_NUM_SCRATCH];
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_bios.c
-> index b7e2762..4f973a9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-> @@ -74,6 +74,7 @@ static bool igp_read_bios_from_vram(struct amdgpu_dev=
-ice *adev)
->  		iounmap(bios);
->  		return false;
->  	}
-> +	adev->bios_size =3D size;
->  	memcpy_fromio(adev->bios, bios, size);
->  	iounmap(bios);
->  	return true;
-> @@ -103,6 +104,7 @@ bool amdgpu_read_bios(struct amdgpu_device *adev)
->  		pci_unmap_rom(adev->pdev, bios);
->  		return false;
->  	}
-> +	adev->bios_size =3D size;
->  	memcpy_fromio(adev->bios, bios, size);
->  	pci_unmap_rom(adev->pdev, bios);
->  	return true;
-> @@ -135,6 +137,7 @@ static bool amdgpu_read_bios_from_rom(struct amdgpu=
-_device *adev)
->  		DRM_ERROR("no memory to allocate for BIOS\n");
->  		return false;
->  	}
-> +	adev->bios_size =3D len;
-> =20
->  	/* read complete BIOS */
->  	return amdgpu_asic_read_bios_from_rom(adev, adev->bios, len);
-> @@ -159,6 +162,7 @@ static bool amdgpu_read_platform_bios(struct amdgpu=
-_device *adev)
->  	if (adev->bios =3D=3D NULL) {
->  		return false;
->  	}
-> +	adev->bios_size =3D size;
-> =20
->  	return true;
->  }
-> @@ -273,6 +277,7 @@ static bool amdgpu_atrm_get_bios(struct amdgpu_devi=
-ce *adev)
->  		kfree(adev->bios);
->  		return false;
->  	}
-> +	adev->bios_size =3D size;
->  	return true;
->  }
->  #else
-> @@ -334,6 +339,7 @@ static bool amdgpu_acpi_vfct_bios(struct amdgpu_dev=
-ice *adev)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_display.c
+> index 741144f..581601c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> @@ -187,7 +187,7 @@ int amdgpu_crtc_page_flip_target(struct drm_crtc *c=
+rtc,
+>  		goto cleanup;
 >  	}
 > =20
->  	adev->bios =3D kmemdup(&vbios->VbiosContent, vhdr->ImageLength, GFP_K=
-ERNEL);
-> +	adev->bios_size =3D vhdr->ImageLength;
->  	ret =3D !!adev->bios;
+> -	r =3D amdgpu_bo_pin_restricted(new_abo, AMDGPU_GEM_DOMAIN_VRAM, 0, 0,=
+ &base);
+> +	r =3D amdgpu_bo_pin(new_abo, AMDGPU_GEM_DOMAIN_VRAM, &base);
+>  	if (unlikely(r !=3D 0)) {
+>  		r =3D -EINVAL;
+>  		DRM_ERROR("failed to pin new abo buffer before flip\n");
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_fb.c
+> index f1c9e59..24629be 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
+> @@ -171,7 +171,7 @@ static int amdgpufb_create_pinned_object(struct amd=
+gpu_fbdev *rfbdev,
+>  	}
 > =20
->  out_unmap:
+> =20
+> -	ret =3D amdgpu_bo_pin_restricted(abo, AMDGPU_GEM_DOMAIN_VRAM, 0, 0, N=
+ULL);
+> +	ret =3D amdgpu_bo_pin(abo, AMDGPU_GEM_DOMAIN_VRAM, NULL);
+>  	if (ret) {
+>  		amdgpu_bo_unreserve(abo);
+>  		goto out_unref;
 >=20
 
 
---2xj0xCrUMPKOQUo3fe4NVNWRjL1J1j8J0--
+--JHxebIgnbd9NCk4WgIcOqQOephd4AOaBK--
 
---d27l42KlvrTXxOv5FjWQCiGCaMw5uBKxw
+--4Up6gjnoLgKjjE0w1VXBtPe8Ja9VoLtIK
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
@@ -143,24 +101,24 @@ Content-Disposition: attachment; filename="signature.asc"
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJYSJ9wAAoJEP4bvbfZuWjb0dMQAJAFqFnaM+lgTkJptffOuSEO
-wIi0lYdBgUOt4kNtYL80s4wVnRKznwIzn1dFYH9UBNMmqM0Or/DJqDLMlIYcDZyO
-XukOooPb+z/5RLCpisLBWQbNd6WdNFCiqYuMTW1Zp7FXXqZwEKElRpgC3+oqBwE2
-FlGVS6V0HC0SG9bVQgQ9OGFL0oNUDIReRcGJpeyZplgvsvma0p/BQ2xZP7Ve9eBF
-9DqCwkpUvkI5W/RAdh1stQmANrV5wl/a8/hUhwjweEjptae2/3H3L1cBAZ3aRXdl
-yMfN7M4LV0GV7V9rPc5y28l6suZCIQigNw8sh09m+hVcWudtOMf9H+H+w+nQi2O1
-fU/gstjHL54EPeqb1rUzF18Y9TfZ4hfz1iXixF8+7JjJbVPzLGWABE22IlTPIVru
-pqe/InEgKVQ5B8amJdiJOMDC1uoN+Erh7z/ZMY6xEAV0O3u+/uEbM4gTTL3ZGqT0
-VNToHca5kzjCEvEacGSgDljLgpscDUtXGkBmQYLOEMin35OfBQnPo8mRBBWQ56J7
-arCMbKUCD5pui/qHwu3R0A74zUPH9VnjrpckMr3nsdPmoa28B0asrGenoKIrOk1E
-aDEa94UGQ3HlbeCg/s/7RUEGkXkj+lLtcX9kdez8t5CwdLCdWu2YUivbcqbVX5NA
-iyXjqUUCBgOXvd4rkvS+
-=tk7H
+iQIcBAEBCAAGBQJYSKrrAAoJEP4bvbfZuWjbmVwQALOjsEGoInltkEop7wgWiuBv
+xeJes3OaX1E2si4QTlFwGWIT5pMpu4J1Ibk9JIe4rvp4tP1ieX5wAuPiEY2Z2enY
+NdD/6Lsh6PRUJrUwbYZIr2X20XOwP9RntNhMM7D3fEPNbSsUvm3MV6biieduroK4
+yFDDPsk6/wRfunU0U1aq+10d8eEFDNU7/yjx86Vqp4Tf4d6UgqI8+6SRtLITW3vw
+/v81z1gE8hbMyfDGkbHytsduhkJQnq1Se1L9MNInW+hNT4oo58msssKhrqnZBC0J
+TAf4KFRrck0J5/fRDauxmVH5KcLkzFXIeUkydnocVQI9vMHgS+F6pfaNAEU070gd
+PkNXuB/AE5Z6zKPF+Esd4O0Fo1ICiWzwrn4qMVOC7trNuNWTZnsuomwkBFQI4pT+
+p57nUSe2UHcgW9kVi4fq5LgD9MskhOc30J4z2goyfMZeber7jejo3TGmzj5pJzzj
+sukexUqlJ+a8E9ft3cuDOs5kJFih+X357bsxUQh2EOH87RLS2mlkkK4RojVc/+mn
+mMzfAToj8IPMkVUI1USsbCC2gAZjav7QPoIWUCVu479ig+VMlLnoM/MK/aRrwrdN
+HHZDzv5aJsuF0ULvvwPUiL9U/MESqyvjLaPoKBO9bC++usj2JLGJUFXLybB9tldn
+9p5Ox7+Ct807WLQisgZv
+=h/IY
 -----END PGP SIGNATURE-----
 
---d27l42KlvrTXxOv5FjWQCiGCaMw5uBKxw--
+--4Up6gjnoLgKjjE0w1VXBtPe8Ja9VoLtIK--
 
---===============1823379678==
+--===============0381373041==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -170,4 +128,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1823379678==--
+--===============0381373041==--
