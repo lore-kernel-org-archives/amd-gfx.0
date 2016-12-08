@@ -1,13 +1,11 @@
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/powerplay: use pr_debug to print function not
- implemented message
-Date: Thu, 8 Dec 2016 11:36:57 +1100
-Message-ID: <e7d99fd0-09c8-06d5-46db-24352f19bdd4@folklore1984.net>
-References: <1481138889-10312-1-git-send-email-alexander.deucher@amd.com>
+From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 00/12] DC Patches for Dec 7, 2016
+Date: Wed, 7 Dec 2016 20:26:12 -0500
+Message-ID: <20161208012624.8914-1-harry.wentland@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1838913244=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1481138889-10312-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,110 +16,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Arindam Nath <arindam.nath-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1838913244==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="Cjg6tDhjbinwkT9ek6WM7jfakxGGRUmOu"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---Cjg6tDhjbinwkT9ek6WM7jfakxGGRUmOu
-Content-Type: multipart/mixed; boundary="NVdJHu9eQQRu0hINdpWbuJtwDjHB7XKxf";
- protected-headers="v1"
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Arindam Nath <arindam.nath-5C7GfCeVMHo@public.gmane.org>,
- Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Message-ID: <e7d99fd0-09c8-06d5-46db-24352f19bdd4-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/powerplay: use pr_debug to print function not
- implemented message
-References: <1481138889-10312-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <1481138889-10312-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
---NVdJHu9eQQRu0hINdpWbuJtwDjHB7XKxf
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-
-On 12/08/2016 06:28 AM, Alex Deucher wrote:
-> From: Arindam Nath <arindam.nath-5C7GfCeVMHo@public.gmane.org>
->=20
-> For CZ, some function pointers like display_configuration_changed
-> are not set. So when HW manager tries to configure display, we
-> end up with messages like
->=20
-> "[ powerplay ] this function not implement!"
->=20
-> in the logs. This message is informational, but lacks details
-> on which function is not implemented and why.
->=20
-> Rather than using KERN_INFO to print the message everytime the
-> system boots, we rather use pr_debug so that it is only printed
-> when debug prints are enabled at runtime.
->=20
-> Reviewed-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
-> Signed-off-by: Arindam Nath <arindam.nath-5C7GfCeVMHo@public.gmane.org>
-> Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/powerplay/hwmgr/functiontables.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/functiontables.c b/dri=
-vers/gpu/drm/amd/powerplay/hwmgr/functiontables.c
-> index a6abe81..71822ae 100644
-> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/functiontables.c
-> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/functiontables.c
-> @@ -35,7 +35,7 @@ static int phm_run_table(struct pp_hwmgr *hwmgr,
->  	phm_table_function *function;
-> =20
->  	if (rt_table->function_list =3D=3D NULL) {
-> -		printk(KERN_INFO "[ powerplay ] this function not implement!\n");
-> +		pr_debug("[ powerplay ] this function not implement!\n");
->  		return 0;
->  	}
-> =20
->=20
-
-
---NVdJHu9eQQRu0hINdpWbuJtwDjHB7XKxf--
-
---Cjg6tDhjbinwkT9ek6WM7jfakxGGRUmOu
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJYSKspAAoJEP4bvbfZuWjbY+8QAL32lNmjAhek7ID3uvRisNT1
-xaSEEJfIQGcgcl3a7qmIyaDSBFRjp2xxZtUcc/Jj2Of3jLmyIdNBSGT8oDxzIRy2
-C/Kfbla4glb0TBnbxEG8DRXNHeUVt+fIo24e1VCKI1reFaTmZHxF3q3ier7szYf0
-c4z4vs1Ol6VZq3QdawYygFmnixYEc9HAgKNBQKDI+QiFGniDRJRBIqO2GI5G+sUu
-Ftky8jhYA13dnBVqwaOMSZyngZ6YAFXWPKFR0vxAASYScRzaF9IwsubOSkaT6fgG
-7PNGsBnZASOtfnr4Hap3AvZ/tzlGgP8/avhQFGdxpnz0IDneUxuFGgMyIACm+XZ3
-8V53+dh+GAQNk7LtYRu7n25H5JcFQpruMQ3YSV0dWemxgGlkWAaqWibCtLriWkzA
-Pb+lDaBlKgCeFjE37837ZAnRFSEbiB8+OKUm/+dMiujGnNxM2JMWvu1Phoqql3lD
-zs1d0PoTKuhnH6VDtKZK4PPxuJiaOMwPAYLNyvntI4i/Nidmt8MoaP0jgy94SKsR
-CRPdeUj+JV4fMDD07cdqJ4Z/PRFtUuLnNKn2WBSiTH8fXD7mvYwzc+vQisLs/L+X
-NYB6fNab1knLLLdcm1pNb8Khg70nCnuLtC3UErEqdGFru6l1i1E7bXco2Au1L31S
-P0lJb/enBac1h36afn3z
-=3/0n
------END PGP SIGNATURE-----
-
---Cjg6tDhjbinwkT9ek6WM7jfakxGGRUmOu--
-
---===============1838913244==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1838913244==--
+KiBidW5jaCBvZiB3YXJuaW5nIGZpeGVzCiogc29tZSBidWcgZml4ZXMKKiBtb3JlIGRpc3BsYXlf
+Y2xvY2sgY2xlYW51cAoKQW5kcmV5IEdyb2R6b3Zza3kgKDEpOgogIGRybS9hbWQvZGlzcGxheTog
+Rml4IHJlZmNvdW50IG92ZXIgZGNfc2luay4KCkFyaW5kYW0gTmF0aCAoMSk6CiAgZHJtL2FtZC9k
+aXNwbGF5OiByZW1vdmUgRE1fTk9UX0lNUEwgbWVzc2FnZXMKCkRpbmcgV2FuZyAoMSk6CiAgZHJt
+L2FtZC9kaXNwbGF5OiBUZW1wb3JhcmlseSBibG9ja2luZyBpbnRlcmxhY2luZyBtb2RlIHVudGls
+IGl0J3MKICAgIHN1cHBvcnRlZC4KCkRteXRybyBMYWt0eXVzaGtpbiAoMik6CiAgZHJtL2FtZC9k
+aXNwbGF5OiBtb3ZpbmcgcmVtYWluaW5nIGZ1bmN0aW9uYWxpdHkgZnJvbSBncHUgdG8gZGNlX2Ns
+b2NrcwogIGRybS9hbWQvZGlzcGxheTogZml4IHVwIGNvbnN0cnVjdGlvbiBvZiBzY3JhdGNoX3Zh
+bF9jdHgKCkhhcnJ5IFdlbnRsYW5kICgzKToKICBkcm0vYW1kL2Rpc3BsYXk6IEZpeCBidW5jaCBv
+ZiB3YXJuaW5ncyBpbiBEQwogIGRybS9hbWQvZGlzcGxheTogRml4IHdhcm5pbmcgaW4gZnJlZXN5
+bmMgbW9kdWxlCiAgZHJtL2FtZC9kaXNwbGF5OiBGaXggd2FybmluZy4gU2V0IE1BWF9TVVJGQUNF
+UyB0byAzCgpUb255IENoZW5nICgyKToKICBkcm0vYW1kL2Rpc3BsYXk6IGZpeCBpbmRleGluZyBi
+dWcKICBkcm0vYW1kL2Rpc3BsYXk6IGF2b2lkIGFwcGx5X2Nsa19jb25zdHJhaW50cyBmb3IgYWRk
+cmVzcyB1cGRhdGUKClpleXUgRmFuICgyKToKICBkcm0vYW1kL2Rpc3BsYXk6IEZpeCBidWdzIGNh
+dXNpbmcgSGF3YWlpIGFuZCBCb25haXJlIG5vdCBsaWdodCB1cC4KICBkcm0vYW1kL2Rpc3BsYXk6
+IEZpeCBoZG1pIG5vdCBsaWdodGluZyB1cCBvbiBIYXdhaWkuCgogZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyAgfCAgMjAgKy0KIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvZGlzcGxheS9kYy9NYWtlZmlsZSAgICAgICAgICAgIHwgICA3ICstCiAuLi4vZGMvYmlv
+cy9kY2UxMTAvY29tbWFuZF90YWJsZV9oZWxwZXJfZGNlMTEwLmMgICB8ICAgMiArLQogLi4uL2Rj
+L2Jpb3MvZGNlMTEyL2NvbW1hbmRfdGFibGVfaGVscGVyX2RjZTExMi5jICAgfCAgIDIgKy0KIC4u
+Li9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NhbGNzL2JhbmR3aWR0aF9jYWxjcy5jIHwgICAyICst
+CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kYy5jICAgICAgICAgICB8ICAy
+MCArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGNfcmVzb3VyY2UuYyAg
+fCAgIDUgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kYy5oICAgICAgICAgICAg
+ICAgIHwgICAyICstCiAuLi4vZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UvZGNlX2Nsb2NrX3Nv
+dXJjZS5jICB8ICAgNSAtCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9j
+bG9ja3MuYyAgICB8IDE0MiArKysrKysrKystLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
+L2RjL2RjZS9kY2VfY2xvY2tzLmggICAgfCAgMzYgKystCiAuLi4vZ3B1L2RybS9hbWQvZGlzcGxh
+eS9kYy9kY2UvZGNlX2xpbmtfZW5jb2Rlci5jICB8ICAgNCArLQogZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9kaXNwbGF5L2RjL2RjZS9kY2VfdHJhbnNmb3JtLmMgfCAgIDIgLQogLi4uL2Rpc3BsYXkvZGMv
+ZGNlMTEwL2RjZTExMF90aW1pbmdfZ2VuZXJhdG9yLmMgICAgfCAgIDQgKwogLi4uL2RybS9hbWQv
+ZGlzcGxheS9kYy9kY2UxMTAvZGNlMTEwX3RyYW5zZm9ybV92LmMgfCAgIDMgKy0KIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvZGlzcGxheS9kYy9ncHUvTWFrZWZpbGUgICAgICAgIHwgIDIxIC0tCiAuLi4v
+ZGlzcGxheS9kYy9ncHUvZGNlMTEyL2Rpc3BsYXlfY2xvY2tfZGNlMTEyLmMgICB8IDI3NyAtLS0t
+LS0tLS0tLS0tLS0tLS0tLS0KIC4uLi9kaXNwbGF5L2RjL2dwdS9kY2UxMTIvZGlzcGxheV9jbG9j
+a19kY2UxMTIuaCAgIHwgIDc5IC0tLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Rj
+L2dwdS9kaXZpZGVyX3JhbmdlLmMgfCAxMjcgLS0tLS0tLS0tLQogZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9kaXNwbGF5L2RjL2dwdS9kaXZpZGVyX3JhbmdlLmggfCAgNjIgLS0tLS0KIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvZGlzcGxheS9kYy9pbmMvY29yZV90eXBlcy5oICAgIHwgICA0ICstCiAuLi4vaW5j
+L2h3L2Rpc3BsYXlfY2xvY2suaH0gICAgICAgICAgICAgICAgICAgICAgICB8ICAyNyArLQogLi4u
+L2RybS9hbWQvZGlzcGxheS9tb2R1bGVzL2ZyZWVzeW5jL2ZyZWVzeW5jLmMgICAgfCAgIDMgKwog
+MjMgZmlsZXMgY2hhbmdlZCwgMjA3IGluc2VydGlvbnMoKyksIDY0OSBkZWxldGlvbnMoLSkKIGRl
+bGV0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZ3B1L01ha2Vm
+aWxlCiBkZWxldGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2dw
+dS9kY2UxMTIvZGlzcGxheV9jbG9ja19kY2UxMTIuYwogZGVsZXRlIG1vZGUgMTAwNjQ0IGRyaXZl
+cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9ncHUvZGNlMTEyL2Rpc3BsYXlfY2xvY2tfZGNlMTEy
+LmgKIGRlbGV0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZ3B1
+L2RpdmlkZXJfcmFuZ2UuYwogZGVsZXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9hbWQv
+ZGlzcGxheS9kYy9ncHUvZGl2aWRlcl9yYW5nZS5oCiByZW5hbWUgZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9kaXNwbGF5L3tpbmNsdWRlL2Rpc3BsYXlfY2xvY2tfaW50ZXJmYWNlLmggPT4gZGMvaW5jL2h3
+L2Rpc3BsYXlfY2xvY2suaH0gKDc1JSkKCi0tIAoyLjkuMwoKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9hbWQtZ2Z4Cg==
