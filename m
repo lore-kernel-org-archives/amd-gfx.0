@@ -1,16 +1,12 @@
 From: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
-Subject: Re: [PATCH 10/12] drm/amd/display: avoid apply_clk_constraints for
- address update
-Date: Thu, 8 Dec 2016 17:51:36 +0100
-Message-ID: <e3284189-bc14-a2ba-a8a8-a7ba2be3b0cc@dev.carbon-project.org>
+Subject: Re: [PATCH 00/12] DC Patches for Dec 7, 2016
+Date: Thu, 8 Dec 2016 17:43:58 +0100
+Message-ID: <537b4136-c619-248a-150c-a12fcae920e0@dev.carbon-project.org>
 References: <20161208012624.8914-1-harry.wentland@amd.com>
- <20161208012624.8914-11-harry.wentland@amd.com>
- <3b1b2891-1d61-3592-af23-c8a7034a7d05@dev.carbon-project.org>
- <6d3c6747-e68e-2891-c304-90b9d76d3c9a@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0739506902=="
+Content-Type: multipart/mixed; boundary="===============1962070459=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <6d3c6747-e68e-2891-c304-90b9d76d3c9a-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20161208012624.8914-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,105 +18,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Tony Cheng <tony.cheng-5C7GfCeVMHo@public.gmane.org>
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0739506902==
+--===============1962070459==
 Content-Type: multipart/signed; micalg=pgp-sha512;
  protocol="application/pgp-signature";
- boundary="doniqffBRJi7c5OLkcfinWb0RhFA9lmIQ"
+ boundary="b1f9e4UrE9Hisn8rAUte8qAOF93IHF0NL"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---doniqffBRJi7c5OLkcfinWb0RhFA9lmIQ
-Content-Type: multipart/mixed; boundary="r5jGo6RDDMvKIJXFAb8qEHh5XvpAr6Dtx";
+--b1f9e4UrE9Hisn8rAUte8qAOF93IHF0NL
+Content-Type: multipart/mixed; boundary="BwpFMoihAMiab20xpuv23wpXa1r6tVqNS";
  protected-headers="v1"
 From: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
 To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Tony Cheng <tony.cheng-5C7GfCeVMHo@public.gmane.org>
-Message-ID: <e3284189-bc14-a2ba-a8a8-a7ba2be3b0cc-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
-Subject: Re: [PATCH 10/12] drm/amd/display: avoid apply_clk_constraints for
- address update
+Message-ID: <537b4136-c619-248a-150c-a12fcae920e0-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+Subject: Re: [PATCH 00/12] DC Patches for Dec 7, 2016
 References: <20161208012624.8914-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
- <20161208012624.8914-11-harry.wentland-5C7GfCeVMHo@public.gmane.org>
- <3b1b2891-1d61-3592-af23-c8a7034a7d05-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
- <6d3c6747-e68e-2891-c304-90b9d76d3c9a-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <6d3c6747-e68e-2891-c304-90b9d76d3c9a-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20161208012624.8914-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
 
---r5jGo6RDDMvKIJXFAb8qEHh5XvpAr6Dtx
+--BwpFMoihAMiab20xpuv23wpXa1r6tVqNS
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Harry Wentland wrote on 08.12.2016 17:47:
-> Alex's tree isn't fully in sync yet.
->=20
-> This is currently only used by code for unreleased ASICs, so the public=
- code
-> won't use it (yet).
+[Please CC me on all replies, I'm not subscribed to the list.]
 
-ok, though that seems turned around. Why not squash this into the enablem=
-ent
-series for the as of yet unreleased ASICs ("uGPU" from the other thread, =
-I assume?)
+Dear Harry,
+I've sent a couple of questions/suggestions/notes on patches 2, 5, 10 and=
+ 12.
+Since I'm not familiar with the module these comments are mostly
+stylistic/understanding. But there's also a null pointer dereference ques=
+tion in
+there. ;-)
+Apart from that I was wondering, if there is any recent tree containing a=
+ll of
+DAL/Display? The latest version I've seen is
+<https://cgit.freedesktop.org/~agd5f/linux/log/?h=3Damd-staging-4.7>, but=
+ that
+doesn't seem to be based on a more recent 4.9/4.10? Is there a rebased ve=
+rsion
+available somewhere?
 
-Cheers,
+Thanks,
 Kai
 
-> On 2016-12-08 11:39 AM, Kai Wasserb=C3=A4ch wrote:
->> [Please CC me on all replies, I'm not subscribed to the list.]
->>
->> Harry Wentland wrote on 08.12.2016 02:26:
->>> From: Tony Cheng <tony.cheng-5C7GfCeVMHo@public.gmane.org>
->>>
->>> - dc_update_surfaces_for_target get called in ISR but apply_clk_const=
-raints
->>> allocates memory
->>>
->>> Change-Id: I9f4b7b6ca4af27c35c007e3af95111081a77d242
->>> Signed-off-by: Tony Cheng <tony.cheng-5C7GfCeVMHo@public.gmane.org>
->>> Reviewed-by: Dmytro Laktyushkin <Dmytro.Laktyushkin-5C7GfCeVMHo@public.gmane.org>
->>> Acked-by: Harry Wentland <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
->>> ---
->>>   drivers/gpu/drm/amd/display/dc/core/dc.c | 2 ++
->>>   1 file changed, 2 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c
->>> b/drivers/gpu/drm/amd/display/dc/core/dc.c
->>> index 70b7673993b2..522ef7047564 100644
->>> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
->>> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
->>> @@ -1336,6 +1336,7 @@ void dc_update_surfaces_for_target(struct dc *d=
-c,
->>> struct dc_surface_update *upda
->>>       int i, j;
->>>       bool is_new_pipe_surface[MAX_PIPES];
->>>       const struct dc_surface *new_surfaces[MAX_SURFACES] =3D { 0 };
->>> +    bool need_apply_clk_constraints =3D false;
->>>         update_surface_trace(dc, updates, surface_count);
->>>   @@ -1405,6 +1406,7 @@ void dc_update_surfaces_for_target(struct dc =
-*dc,
->>> struct dc_surface_update *upda
->>>                 if (updates[i].plane_info || updates[i].scaling_info
->>>                       || is_new_pipe_surface[j]) {
->>> +                need_apply_clk_constraints =3D true;
->> Where is this variable used? I grepped through the tree at
->> <https://cgit.freedesktop.org/~agd5f/linux/tree/drivers/gpu/drm/amd?h=3D=
-amd-staging-4.7>,
->>
->> but couldn't find it anywhere and it doesn't get passed anywhere from =
-here. Or
->> are there patches missing in Alex' tree?
->>
->> Cheers,
->> Kai
->>
->>>                   if (updates[i].plane_info) {
->>>                       surface->public.color_space =3D
->>>
+
+Harry Wentland wrote on 08.12.2016 02:26:
+> * bunch of warning fixes
+> * some bug fixes
+> * more display_clock cleanup
 >=20
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> Andrey Grodzovsky (1):
+>   drm/amd/display: Fix refcount over dc_sink.
+>=20
+> Arindam Nath (1):
+>   drm/amd/display: remove DM_NOT_IMPL messages
+>=20
+> Ding Wang (1):
+>   drm/amd/display: Temporarily blocking interlacing mode until it's
+>     supported.
+>=20
+> Dmytro Laktyushkin (2):
+>   drm/amd/display: moving remaining functionality from gpu to dce_clock=
+s
+>   drm/amd/display: fix up construction of scratch_val_ctx
+>=20
+> Harry Wentland (3):
+>   drm/amd/display: Fix bunch of warnings in DC
+>   drm/amd/display: Fix warning in freesync module
+>   drm/amd/display: Fix warning. Set MAX_SURFACES to 3
+>=20
+> Tony Cheng (2):
+>   drm/amd/display: fix indexing bug
+>   drm/amd/display: avoid apply_clk_constraints for address update
+>=20
+> Zeyu Fan (2):
+>   drm/amd/display: Fix bugs causing Hawaii and Bonaire not light up.
+>   drm/amd/display: Fix hdmi not lighting up on Hawaii.
+>=20
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  20 +-
+>  drivers/gpu/drm/amd/display/dc/Makefile            |   7 +-
+>  .../dc/bios/dce110/command_table_helper_dce110.c   |   2 +-
+>  .../dc/bios/dce112/command_table_helper_dce112.c   |   2 +-
+>  .../gpu/drm/amd/display/dc/calcs/bandwidth_calcs.c |   2 +-
+>  drivers/gpu/drm/amd/display/dc/core/dc.c           |  20 +-
+>  drivers/gpu/drm/amd/display/dc/core/dc_resource.c  |   5 +-
+>  drivers/gpu/drm/amd/display/dc/dc.h                |   2 +-
+>  .../gpu/drm/amd/display/dc/dce/dce_clock_source.c  |   5 -
+>  drivers/gpu/drm/amd/display/dc/dce/dce_clocks.c    | 142 +++++++++--
+>  drivers/gpu/drm/amd/display/dc/dce/dce_clocks.h    |  36 ++-
+>  .../gpu/drm/amd/display/dc/dce/dce_link_encoder.c  |   4 +-
+>  drivers/gpu/drm/amd/display/dc/dce/dce_transform.c |   2 -
+>  .../display/dc/dce110/dce110_timing_generator.c    |   4 +
+>  .../drm/amd/display/dc/dce110/dce110_transform_v.c |   3 +-
+>  drivers/gpu/drm/amd/display/dc/gpu/Makefile        |  21 --
+>  .../display/dc/gpu/dce112/display_clock_dce112.c   | 277 -------------=
+--------
+>  .../display/dc/gpu/dce112/display_clock_dce112.h   |  79 ------
+>  drivers/gpu/drm/amd/display/dc/gpu/divider_range.c | 127 ----------
+>  drivers/gpu/drm/amd/display/dc/gpu/divider_range.h |  62 -----
+>  drivers/gpu/drm/amd/display/dc/inc/core_types.h    |   4 +-
+>  .../inc/hw/display_clock.h}                        |  27 +-
+>  .../drm/amd/display/modules/freesync/freesync.c    |   3 +
+>  23 files changed, 207 insertions(+), 649 deletions(-)
+>  delete mode 100644 drivers/gpu/drm/amd/display/dc/gpu/Makefile
+>  delete mode 100644 drivers/gpu/drm/amd/display/dc/gpu/dce112/display_c=
+lock_dce112.c
+>  delete mode 100644 drivers/gpu/drm/amd/display/dc/gpu/dce112/display_c=
+lock_dce112.h
+>  delete mode 100644 drivers/gpu/drm/amd/display/dc/gpu/divider_range.c
+>  delete mode 100644 drivers/gpu/drm/amd/display/dc/gpu/divider_range.h
+>  rename drivers/gpu/drm/amd/display/{include/display_clock_interface.h =
+=3D> dc/inc/hw/display_clock.h} (75%)
+>=20
 
 --=20
 
@@ -129,31 +138,31 @@ Kai Wasserb=C3=A4ch (Kai Wasserbaech)
 E-Mail: kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org
 
 
---r5jGo6RDDMvKIJXFAb8qEHh5XvpAr6Dtx--
+--BwpFMoihAMiab20xpuv23wpXa1r6tVqNS--
 
---doniqffBRJi7c5OLkcfinWb0RhFA9lmIQ
+--b1f9e4UrE9Hisn8rAUte8qAOF93IHF0NL
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQGzBAEBCgAdFiEEBgCWzvPI5zPlthWHownXbOHeWdIFAlhJj5gACgkQownXbOHe
-WdIg+gv/QzWCCX01VW3m4NJCRhqdIiAq86vS0eG2p0Ml/nzoFC7QIU67Dgadgq4K
-kiZ4WEZhegmxsbtfZPEq4FJ0fsg2m5CtkmXTiS9l3okXH7nEFgu32n77va1N6vJS
-lgDlGBi4KxHVII086hmWQbLUAiYYINkvFYUx0muBFHFSfHN0bncgeBDGHP/Jjoy7
-+KDtVZzy8yaxKlgsLDdPFDWzUlOojKTO23p3GeyX9Z06y/YlRQ6+2GoIjcmR5igM
-4M+EFRng73S+3dlNikHPccTBGLwQkIdwKCE9LkAv/sUL7vNb0S15+JQm+taTfp4q
-UJgu0xdxRdtysHVjnkJNKGmJqlGMbP0ms2N7xlR/R1Fi9FH3eBs4BS1nqM3tI3bG
-qqwxbk5qVA3yN2HpEkuJTtbQsoe1akzSwq7Qge/Nc78YbQ4hEupDJkmSkcr+K5Bk
-qJpBNZwyhIRWo0rNEv2vx+u7Jhnox3yF0mSeVcLEM244Qpb8pIZjHaNYdkZHSLP7
-p99vSjNf
-=J7+T
+iQGzBAEBCgAdFiEEBgCWzvPI5zPlthWHownXbOHeWdIFAlhJjeIACgkQownXbOHe
+WdKtFAv7BFY2yMR1XHTBE9+Fic+bcbNv0RSKGSBOezNvfY8XKF6k4TfYL0sEh8Hm
+Zegh9xrLTBbDaDoVrkKlX8Zy0uWzY0d6ZApFroEBxDn9zJi84p3exhVW3MkJ/+LT
+PkdK4BN/1YpGhzhSr3Ai30lhH4/IgH0trWQy8f6yFjj6OULYZrMHxR9vH/xPv2Mq
+9MlQbqIOJB6rz82Q0jepDwZhw31zOe+HVmOWzMA87xmB08dropK864dL9By5Vaq7
+1QRt0w6mSeAc5oyUZ+Kq/MlifDwAALrec2iNz2Ch4f6pmwqkOddXdZELVY+klln5
+cdZZXLn74x+HKkTmkUl7q3MVRZ+WmVn5N4LBhR69TEQwryg46dZv0AXW3SDu4Fpd
+dlT2Zdw9HKW1vZOwRQTer1FFiqPUH8T8eV1LVBsjMWA4x0FloPtrjYey06XYKad2
+pbPjPlCGp39SFYop8QsZfXKWEQJ+2c8Y4ZLqu9I/zftx4rP3ODcM0iFZY2EsU7HG
+ADxcUiyl
+=0/vd
 -----END PGP SIGNATURE-----
 
---doniqffBRJi7c5OLkcfinWb0RhFA9lmIQ--
+--b1f9e4UrE9Hisn8rAUte8qAOF93IHF0NL--
 
---===============0739506902==
+--===============1962070459==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -163,4 +172,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0739506902==--
+--===============1962070459==--
