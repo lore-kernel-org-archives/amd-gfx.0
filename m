@@ -1,15 +1,16 @@
-From: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
-Subject: Re: [PATCH 05/12] drm/amd/display: Fix bunch of warnings in DC
-Date: Thu, 8 Dec 2016 17:58:44 +0100
-Message-ID: <e78be440-a0eb-4a96-7f71-317a6a5ce862@dev.carbon-project.org>
-References: <20161208012624.8914-1-harry.wentland@amd.com>
- <20161208012624.8914-6-harry.wentland@amd.com>
- <9f4c678e-4598-3ac1-73c8-038183bc30e2@dev.carbon-project.org>
- <9a6bc7fb-225a-c693-5a6c-3420d64d51d9@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [RFC] Using DC in amdgpu for upcoming GPU
+Date: Thu, 8 Dec 2016 12:40:19 -0500
+Message-ID: <CADnq5_NAFtgJhhfRxngK5d5fuCQOO32uPOyU6gy=D6pA45ORZQ@mail.gmail.com>
+References: <55d5e664-25f7-70e0-f2f5-9c9daf3efdf6@amd.com>
+ <20161208095952.hnbfs4b3nac7faap@phenom.ffwll.local>
+ <a495025b-fb31-ede6-f1ed-15b22c50daba@amd.com>
+ <20161208153417.yrpbhmot5gfv37lo@phenom.ffwll.local>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0878376801=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <9a6bc7fb-225a-c693-5a6c-3420d64d51d9-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20161208153417.yrpbhmot5gfv37lo-dv86pmgwkMBes7Z6vYuT8azUEOm+Xw19@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,354 +21,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+Cc: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher,
+ Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Cheng, Tony" <Tony.Cheng-5C7GfCeVMHo@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0878376801==
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature";
- boundary="5wrSGQXSF9PrRxlOuWG3MsvPW4nAqIit4"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---5wrSGQXSF9PrRxlOuWG3MsvPW4nAqIit4
-Content-Type: multipart/mixed; boundary="J6R4R9jC054IodHAuRj3dbfMsPSrVXgd0";
- protected-headers="v1"
-From: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
-To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Message-ID: <e78be440-a0eb-4a96-7f71-317a6a5ce862-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
-Subject: Re: [PATCH 05/12] drm/amd/display: Fix bunch of warnings in DC
-References: <20161208012624.8914-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
- <20161208012624.8914-6-harry.wentland-5C7GfCeVMHo@public.gmane.org>
- <9f4c678e-4598-3ac1-73c8-038183bc30e2-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
- <9a6bc7fb-225a-c693-5a6c-3420d64d51d9-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <9a6bc7fb-225a-c693-5a6c-3420d64d51d9-5C7GfCeVMHo@public.gmane.org>
-
---J6R4R9jC054IodHAuRj3dbfMsPSrVXgd0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-Harry Wentland wrote on 08.12.2016 17:36:
->=20
->=20
-> On 2016-12-08 11:22 AM, Kai Wasserb=C3=A4ch wrote:
->> [Please CC me on all replies, I'm not subscribed to the list.]
->>
->> Harry Wentland wrote on 08.12.2016 02:26:
->>> Some of those are potential bugs
->> Are they related? If not: maybe split the changes up?
->>
->>> Change-Id: I53b2c663e18b57013e1b891fc2ecf1fb2d7d3a08
->>> Signed-off-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
->>> Reviewed-by: Tony Cheng <Tony.Cheng-5C7GfCeVMHo@public.gmane.org>
->> It'd be nice to see these reviews on list... (applies to all patches h=
-ere)
-> These patches currently start out in our internal tree with a whole lot=
- of stuff
-> that we can't open up, like new IP, so unfortunately can't be done in a=
- public
-> forum. I pull the r-b from our internal review system for reference whe=
-n I
-> prepare the patches for public review.
-
-Hm, not nice, but not my place to tell you to change this. That's Dave's =
-and
-Linus' job. ;-)
-
->>> Acked-by: Harry Wentland <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
->>> ---
->>>   .../gpu/drm/amd/display/dc/calcs/bandwidth_calcs.c |  2 +-
->>>   drivers/gpu/drm/amd/display/dc/core/dc_resource.c  |  5 +--
->>>   .../gpu/drm/amd/display/dc/dce/dce_clock_source.c  |  5 ---
->>>   drivers/gpu/drm/amd/display/dc/dce/dce_clocks.c    | 43 +----------=
------------
->>>   drivers/gpu/drm/amd/display/dc/dce/dce_transform.c |  2 -
->>>   .../drm/amd/display/dc/dce110/dce110_transform_v.c |  3 +-
->>>   6 files changed, 6 insertions(+), 54 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/display/dc/calcs/bandwidth_calcs.c
->>> b/drivers/gpu/drm/amd/display/dc/calcs/bandwidth_calcs.c
->>> index 0b2bb3992f1a..3b0710ef4716 100644
->>> --- a/drivers/gpu/drm/amd/display/dc/calcs/bandwidth_calcs.c
->>> +++ b/drivers/gpu/drm/amd/display/dc/calcs/bandwidth_calcs.c
->>> @@ -1709,7 +1709,7 @@ static void calculate_bandwidth(
->>>               else {
->>>                   data->blackout_recovery_time =3D
->>> bw_max2(data->blackout_recovery_time, bw_add(bw_mul(bw_int_to_fixed(2=
-),
->>> vbios->mcifwrmc_urgent_latency),
->>> data->mcifwr_burst_time[data->y_clk_level][data->sclk_level]));
->>>                   if (bw_ltn(data->adjusted_data_buffer_size[k],
->>> bw_mul(bw_div(bw_mul(data->display_bandwidth[k],
->>> data->useful_bytes_per_request[k]), data->bytes_per_request[k]),
->>> (bw_add(vbios->blackout_duration, bw_add(bw_mul(bw_int_to_fixed(2),
->>> vbios->mcifwrmc_urgent_latency),
->>> data->mcifwr_burst_time[data->y_clk_level][data->sclk_level])))))) {
->>> -                    data->blackout_recovery_time =3D
->>> bw_max2(data->blackout_recovery_time,
->>> bw_div((bw_add(bw_mul(bw_div(bw_mul(data->display_bandwidth[k],
->>> data->useful_bytes_per_request[k]), data->bytes_per_request[k]),
->>> vbios->blackout_duration),
->>> bw_sub(bw_div(bw_mul(bw_mul(bw_mul((bw_add(bw_add(bw_mul(bw_int_to_fi=
-xed(2),
->>> vbios->mcifwrmc_urgent_latency), data->dmif_burst_time[i][j]),
->>> data->mcifwr_burst_time[data->y_clk_level][data->sclk_level])),
->>> data->dispclk), bw_int_to_fixed(data->bytes_per_pixel[k])),
->>> data->lines_interleaved_in_mem_access[k]), data->latency_hiding_lines=
-[k]),
->>> data->adjusted_data_buffer_size[k]))),
->>> (bw_sub(bw_div(bw_mul(bw_mul(data->dispclk,
->>> bw_int_to_fixed(data->bytes_per_pixel[k])),
->>> data->lines_interleaved_in_mem_access[k]), data->latency_hiding_lines=
-[k]),
->>> bw_div(bw_mul(data->display_bandwidth[k], data->useful_bytes_per_requ=
-est[k]),
->>> data->bytes_per_request[k])))));
->>> +                    data->blackout_recovery_time =3D
->>> bw_max2(data->blackout_recovery_time,
->>> bw_div((bw_add(bw_mul(bw_div(bw_mul(data->display_bandwidth[k],
->>> data->useful_bytes_per_request[k]), data->bytes_per_request[k]),
->>> vbios->blackout_duration),
->>> bw_sub(bw_div(bw_mul(bw_mul(bw_mul((bw_add(bw_add(bw_mul(bw_int_to_fi=
-xed(2),
->>> vbios->mcifwrmc_urgent_latency),
->>> data->dmif_burst_time[data->y_clk_level][data->sclk_level]),
->>> data->mcifwr_burst_time[data->y_clk_level][data->sclk_level])),
->>> data->dispclk), bw_int_to_fixed(data->bytes_per_pixel[k])),
->>> data->lines_interleaved_in_mem_access[k]), data->latency_hiding_lines=
-[k]),
->>> data->adjusted_data_buffer_size[k]))),
->>> (bw_sub(bw_div(bw_mul(bw_mul(data->dispclk,
->>> bw_int_to_fixed(data->bytes_per_pixel[k])),
->>> data->lines_interleaved_in_mem_access[k]), data->latency_hiding_lines=
-[k]),
->>> bw_div(bw_mul(data->display_bandwidth[k], data->useful_bytes_per_requ=
-est[k]),
->>> data->bytes_per_request[k])))));
->> Uhg, can this be wrapped/split up somehow? Seeing the changes is nigh =
-impossible
->> and I suspect it might even be impossible for you to check internally.=
-
-> I believe this comes straight from some complicated code HW gives us an=
-d we use
-> directly. I'll see if we can somehow make this more readable or at leas=
-t add a
-> comment, as you mention below.
-
-That would be really appreciated. I mean, I'm in no way able to review
-DAL/Display thoroughly (huge code base I'm not familiar with and where I =
-might
-easily miss interactions), but this is just not reviewable/verifiable at =
-all for
-any person outside your inner circle.
-
-Thanks,
-Kai
-
->> A nice comment above giving the formula and maybe some reasoning would=
- also be
->> nice, that way somebody from the outside has at least a chance to chec=
-k if the
->> code does what it's supposed to do.
->>
->> Cheers,
->> Kai
->>
->>
->>>                   }
->>>               }
->>>           }
->>> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
->>> b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
->>> index bd53d27e5414..f552b0468186 100644
->>> --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
->>> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
->>> @@ -1834,11 +1834,10 @@ void resource_build_info_frame(struct pipe_ct=
-x
->>> *pipe_ctx)
->>>           set_vendor_info_packet(
->>>               pipe_ctx->stream, &info_frame.vendor_info_packet);
->>>           set_spd_info_packet(pipe_ctx->stream, &info_frame.spd_packe=
-t);
->>> -    }
->>> -
->>> -    else if (dc_is_dp_signal(signal))
->>> +    } else if (dc_is_dp_signal(signal)) {
->>>           set_vsc_info_packet(pipe_ctx->stream, &info_frame.vsc_packe=
-t);
->>>           set_spd_info_packet(pipe_ctx->stream, &info_frame.spd_packe=
-t);
->>> +    }
->>>         translate_info_frame(&info_frame,
->>>               &pipe_ctx->encoder_info_frame);
->>> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
->>> b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
->>> index 80ac5d9efa71..3d1c32122d69 100644
->>> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
->>> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
->>> @@ -465,7 +465,6 @@ static uint32_t dce110_get_pix_clk_dividers_helpe=
-r (
->>>           struct pll_settings *pll_settings,
->>>           struct pixel_clk_params *pix_clk_params)
->>>   {
->>> -    uint32_t addr =3D 0;
->>>       uint32_t value =3D 0;
->>>       uint32_t field =3D 0;
->>>       uint32_t pll_calc_error =3D MAX_PLL_CALC_ERROR;
->>> @@ -731,8 +730,6 @@ static void dce110_program_pixel_clk_resync(
->>>           enum signal_type signal_type,
->>>           enum dc_color_depth colordepth)
->>>   {
->>> -    uint32_t value =3D 0;
->>> -
->>>       REG_UPDATE(RESYNC_CNTL,
->>>               DCCG_DEEP_COLOR_CNTL1, 0);
->>>       /*
->>> @@ -772,8 +769,6 @@ static void dce112_program_pixel_clk_resync(
->>>           enum dc_color_depth colordepth,
->>>           bool enable_ycbcr420)
->>>   {
->>> -    uint32_t value =3D 0;
->>> -
->>>       REG_UPDATE(PIXCLK_RESYNC_CNTL,
->>>               PHYPLLA_DCCG_DEEP_COLOR_CNTL, 0);
->>>       /*
->>> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clocks.c
->>> b/drivers/gpu/drm/amd/display/dc/dce/dce_clocks.c
->>> index c2bd8dc7b4ad..262612061c68 100644
->>> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_clocks.c
->>> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clocks.c
->>> @@ -148,29 +148,6 @@ static int dce_divider_range_calc_divider(
->>>     }
->>>   -static int dce_divider_range_calc_did(
->>> -    struct dce_divider_range *div_range,
->>> -    int div)
->>> -{
->>> -    int did;
->>> -    /* Check before dividing.*/
->>> -    if (div_range->div_range_step =3D=3D 0) {
->>> -        div_range->div_range_step =3D 1;
->>> -        /*div_range_step cannot be zero*/
->>> -        BREAK_TO_DEBUGGER();
->>> -    }
->>> -    /* Is this divider within our range?*/
->>> -    if ((div < div_range->div_range_start)
->>> -        || (div >=3D div_range->div_range_end))
->>> -        return INVALID_DID;
->>> -/* did =3D (divider - range_start + (range_step-1)) / range_step) + =
-did_min*/
->>> -    did =3D div - div_range->div_range_start;
->>> -    did +=3D div_range->div_range_step - 1;
->>> -    did /=3D div_range->div_range_step;
->>> -    did +=3D div_range->did_min;
->>> -    return did;
->>> -}
->>> -
->>>   static int dce_divider_range_get_divider(
->>>       struct dce_divider_range *div_range,
->>>       int ranges_num,
->>> @@ -189,25 +166,7 @@ static int dce_divider_range_get_divider(
->>>       return div;
->>>   }
->>>   -static int dce_divider_range_get_did(
->>> -    struct dce_divider_range *div_range,
->>> -    int ranges_num,
->>> -    int divider)
->>> -{
->>> -    int did =3D INVALID_DID;
->>> -    int i;
->>> -
->>> -    for (i =3D 0; i < ranges_num; i++) {
->>> -        /*  CalcDid returns InvalidDid if a divider ID isn't found*/=
-
->>> -        did =3D dce_divider_range_calc_did(&div_range[i], divider);
->>> -        /* Found a valid return did*/
->>> -        if (did !=3D INVALID_DID)
->>> -            break;
->>> -    }
->>> -    return did;
->>> -}
->>> -
->>> -static uint32_t dce_clocks_get_dp_ref_freq(struct display_clock *clk=
-)
->>> +static int dce_clocks_get_dp_ref_freq(struct display_clock *clk)
->>>   {
->>>       struct dce_disp_clk *clk_dce =3D TO_DCE_CLOCKS(clk);
->>>       int dprefclk_wdivider;
->>> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c
->>> b/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c
->>> index f47b6617f662..bbf4d97cb980 100644
->>> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c
->>> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c
->>> @@ -83,8 +83,6 @@ static bool setup_scaling_configuration(
->>>       struct dce_transform *xfm_dce,
->>>       const struct scaler_data *data)
->>>   {
->>> -    struct dc_context *ctx =3D xfm_dce->base.ctx;
->>> -
->>>       if (data->taps.h_taps + data->taps.v_taps <=3D 2) {
->>>           /* Set bypass */
->>>           REG_UPDATE_2(SCL_MODE, SCL_MODE, 0, SCL_PSCL_EN, 0);
->>> diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_transform_v=
-=2Ec
->>> b/drivers/gpu/drm/amd/display/dc/dce110/dce110_transform_v.c
->>> index 7d8cf7a58f46..feb5f3c29804 100644
->>> --- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_transform_v.c
->>> +++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_transform_v.c
->>> @@ -621,7 +621,8 @@ static void dce110_xfmv_set_pixel_storage_depth(
->>>       const struct bit_depth_reduction_params *bit_depth_params)
->>>   {
->>>       struct dce_transform *xfm_dce =3D TO_DCE_TRANSFORM(xfm);
->>> -    int pixel_depth, expan_mode;
->>> +    int pixel_depth =3D 0;
->>> +    int expan_mode =3D 0;
->>>       uint32_t reg_data =3D 0;
->>>         switch (depth) {
->>>
->=20
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---=20
-
-Kai Wasserb=C3=A4ch (Kai Wasserbaech)
-
-E-Mail: kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org
-
-
---J6R4R9jC054IodHAuRj3dbfMsPSrVXgd0--
-
---5wrSGQXSF9PrRxlOuWG3MsvPW4nAqIit4
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQGyBAEBCgAdFiEEBgCWzvPI5zPlthWHownXbOHeWdIFAlhJkUQACgkQownXbOHe
-WdK+lAv4lkefAs3/m4jsikoCKAjAk6nNw5bGkjLVlTdbtDEU6qgIjB33GWk6aPCf
-iYaxjF5kXOMOlGa3tk2quKL7yRjsbAw5ewt9uhC3xbxMsxccNhMH9Grp1KYydFXO
-usBSr8igfYt8mroiterQRnn8pEynlktWy5ZP8dIeqtvoz/9KsEMMLdPswiIRwU5M
-dEZetUM2n1uxo8TH2osxOAamnuQwmBGC93OnO6ATg3LBVEqZcQPzImyekn2ZNZBb
-StADlbxZnCh+YZfM0rP3Z3UgvylzYsW41qDd5AP42BZsyFLtc2VQyJTqlvGkrWSz
-oIbfD+MJnhQeYbOdOIEgjGfnOEud8ZiNWqvO3EXmBeYJtBvQ6UtiU0jeMrDVwGBR
-GVCZorkr0mjl58vzsyEp/gM/mSnNQd9M6E/kzL8uQKfn6ObytssK+suvhtgI7hzR
-iQoz7fz1mOQYl13Uih+r0f+w7bJ37mgp9G3Ip5cilbDlQoBefVczj7YnVGBk8wLS
-5WZ9EBI=
-=HVa8
------END PGP SIGNATURE-----
-
---5wrSGQXSF9PrRxlOuWG3MsvPW4nAqIit4--
-
---===============0878376801==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0878376801==--
+T24gVGh1LCBEZWMgOCwgMjAxNiBhdCAxMDozNCBBTSwgRGFuaWVsIFZldHRlciA8ZGFuaWVsQGZm
+d2xsLmNoPiB3cm90ZToKPiBPbiBUaHUsIERlYyAwOCwgMjAxNiBhdCAwOTozMzoyNUFNIC0wNTAw
+LCBIYXJyeSBXZW50bGFuZCB3cm90ZToKPj4gSGkgRGFuaWVsLAo+Pgo+PiBqdXN0IGEgcXVpY2sg
+Y2xhcmlmaWNhdGlvbiBpbi1saW5lIGFib3V0ICJ2YWxpZGF0aW9uIiBpbnNpZGUgYXRvbWljX2Nv
+bW1pdC4KPj4KPj4gT24gMjAxNi0xMi0wOCAwNDo1OSBBTSwgRGFuaWVsIFZldHRlciB3cm90ZToK
+Pj4gPiBIaSBIYXJyeSwKPj4gPgo+PiA+IE9uIFdlZCwgRGVjIDA3LCAyMDE2IGF0IDA5OjAyOjEz
+UE0gLTA1MDAsIEhhcnJ5IFdlbnRsYW5kIHdyb3RlOgo+PiA+ID4gV2UgcHJvcG9zZSB0byB1c2Ug
+dGhlIERpc3BsYXkgQ29yZSAoREMpIGRyaXZlciBmb3IgZGlzcGxheSBzdXBwb3J0IG9uCj4+ID4g
+PiBBTUQncyB1cGNvbWluZyBHUFUgKHJlZmVycmVkIHRvIGJ5IHVHUFUgaW4gdGhlIHJlc3Qgb2Yg
+dGhlIGRvYykuIEluIG9yZGVyIHRvCj4+ID4gPiBhdm9pZCBhIGZsYWcgZGF5IHRoZSBwbGFuIGlz
+IHRvIG9ubHkgc3VwcG9ydCB1R1BVIGluaXRpYWxseSBhbmQgdHJhbnNpdGlvbgo+PiA+ID4gdG8g
+b2xkZXIgQVNJQ3MgZ3JhZHVhbGx5Lgo+PiA+ID4KPj4gPiA+IFRoZSBEQyBjb21wb25lbnQgaGFz
+IHJlY2VpdmVkIGV4dGVuc2l2ZSB0ZXN0aW5nIHdpdGhpbiBBTUQgZm9yIERDRTgsIDEwLCBhbmQK
+Pj4gPiA+IDExIEdQVXMgYW5kIGlzIGJlaW5nIHByZXBhcmVkIGZvciB1R1BVLiBTdXBwb3J0IHNo
+b3VsZCBiZSBiZXR0ZXIgdGhhbgo+PiA+ID4gYW1kZ3B1J3MgY3VycmVudCBkaXNwbGF5IHN1cHBv
+cnQuCj4+ID4gPgo+PiA+ID4gICogQWxsIG9mIG91ciBRQSBlZmZvcnQgaXMgZm9jdXNlZCBvbiBE
+Qwo+PiA+ID4gICogQWxsIG9mIG91ciBDUUUgZWZmb3J0IGlzIGZvY3VzZWQgb24gREMKPj4gPiA+
+ICAqIEFsbCBvZiBvdXIgT0VNIHByZWxvYWRzIGFuZCBjdXN0b20gZW5nYWdlbWVudHMgdXNlIERD
+Cj4+ID4gPiAgKiBEQyBiZWhhdmlvciBtaXJyb3JzIHdoYXQgd2UgZG8gZm9yIG90aGVyIE9TZXMK
+Pj4gPiA+Cj4+ID4gPiBUaGUgbmV3IGFzaWMgdXRpbGl6ZXMgYSBjb21wbGV0ZWx5IHJlLWRlc2ln
+bmVkIGF0b20gaW50ZXJmYWNlLCBzbyB3ZSBjYW5ub3QKPj4gPiA+IGVhc2lseSBsZXZlcmFnZSBt
+dWNoIG9mIHRoZSBleGlzdGluZyBhdG9tLWJhc2VkIGNvZGUuCj4+ID4gPgo+PiA+ID4gV2UndmUg
+aW50cm9kdWNlZCBEQyB0byB0aGUgY29tbXVuaXR5IGVhcmxpZXIgaW4gMjAxNiBhbmQgcmVjZWl2
+ZWQgYSBmYWlyCj4+ID4gPiBhbW91bnQgb2YgZmVlZGJhY2suIFNvbWUgb2Ygd2hhdCB3ZSd2ZSBh
+ZGRyZXNzZWQgc28gZmFyIGFyZToKPj4gPiA+Cj4+ID4gPiAgKiBTZWxmLWNvbnRhaW4gQVNJQyBz
+cGVjaWZpYyBjb2RlLiBXZSBkaWQgYSBidW5jaCBvZiB3b3JrIHRvIHB1bGwKPj4gPiA+ICAgIGNv
+bW1vbiBzZXF1ZW5jZXMgaW50byBkYy9kY2UgYW5kIGxlYXZlIEFTSUMgc3BlY2lmaWMgY29kZSBp
+bgo+PiA+ID4gICAgc2VwYXJhdGUgZm9sZGVycy4KPj4gPiA+ICAqIFN0YXJ0ZWQgdG8gZXhwb3Nl
+IEFVWCBhbmQgSTJDIHRocm91Z2ggZ2VuZXJpYyBrZXJuZWwvZHJtCj4+ID4gPiAgICBmdW5jdGlv
+bmFsaXR5IGFuZCBhcmUgbW9zdGx5IHVzaW5nIHRoYXQuIFNvbWUgb2YgdGhhdCBjb2RlIGlzIHN0
+aWxsCj4+ID4gPiAgICBuZWVkbGVzc2x5IGNvbnZvbHV0ZWQuIFRoaXMgY2xlYW51cCBpcyBpbiBw
+cm9ncmVzcy4KPj4gPiA+ICAqIEludGVncmF0ZWQgRGF2ZSBhbmQgSmVyb21l4oCZcyB3b3JrIG9u
+IHJlbW92aW5nIGFic3RyYWN0aW9uIGluIGJpb3MKPj4gPiA+ICAgIHBhcnNlci4KPj4gPiA+ICAq
+IFJldGlyZSBhZGFwdGVyIHNlcnZpY2UgYW5kIGFzaWMgY2FwYWJpbGl0eQo+PiA+ID4gICogUmVt
+b3ZlIHNvbWUgYWJzdHJhY3Rpb24gaW4gR1BJTwo+PiA+ID4KPj4gPiA+IFNpbmNlIGEgbG90IG9m
+IG91ciBjb2RlIGlzIHNoYXJlZCB3aXRoIHByZS0gYW5kIHBvc3Qtc2lsaWNvbiB2YWxpZGF0aW9u
+Cj4+ID4gPiBzdWl0ZXMgY2hhbmdlcyBuZWVkIHRvIGJlIGRvbmUgZ3JhZHVhbGx5IHRvIHByZXZl
+bnQgYnJlYWthZ2VzIGR1ZSB0byBhIG1ham9yCj4+ID4gPiBmbGFnIGRheS4gIFRoaXMsIGNvdXBs
+ZWQgd2l0aCBhZGRpbmcgc3VwcG9ydCBmb3IgbmV3IGFzaWNzIGFuZCBsb3RzIG9mIG5ldwo+PiA+
+ID4gZmVhdHVyZSBpbnRyb2R1Y3Rpb25zIG1lYW5zIHByb2dyZXNzIGhhcyBub3QgYmVlbiBhcyBx
+dWljayBhcyB3ZSB3b3VsZCBoYXZlCj4+ID4gPiBsaWtlZC4gV2UgaGF2ZSBtYWRlIGEgbG90IG9m
+IHByb2dyZXNzIG5vbmUgdGhlIGxlc3MuCj4+ID4gPgo+PiA+ID4gVGhlIHJlbWFpbmluZyBjb25j
+ZXJucyB0aGF0IHdlcmUgYnJvdWdodCB1cCBkdXJpbmcgdGhlIGxhc3QgcmV2aWV3IHRoYXQgd2UK
+Pj4gPiA+IGFyZSB3b3JraW5nIG9uIGFkZHJlc3Npbmc6Cj4+ID4gPgo+PiA+ID4gICogQ29udGlu
+dWUgdG8gY2xlYW51cCBhbmQgcmVkdWNlIHRoZSBhYnN0cmFjdGlvbnMgaW4gREMgd2hlcmUgaXQK
+Pj4gPiA+ICAgIG1ha2VzIHNlbnNlLgo+PiA+ID4gICogUmVtb3ZpbmcgZHVwbGljYXRlIGNvZGUg
+aW4gSTJDIGFuZCBBVVggYXMgd2UgdHJhbnNpdGlvbiB0byB1c2luZyB0aGUKPj4gPiA+ICAgIERS
+TSBjb3JlIGludGVyZmFjZXMuICBXZSBjYW4ndCBmdWxseSB0cmFuc2l0aW9uIHVudGlsIHdlJ3Zl
+IGhlbHBlZAo+PiA+ID4gICAgZmlsbCBpbiB0aGUgZ2FwcyBpbiB0aGUgZHJtIGNvcmUgdGhhdCB3
+ZSBuZWVkIGZvciBjZXJ0YWluIGZlYXR1cmVzLgo+PiA+ID4gICogTWFraW5nIHN1cmUgQXRvbWlj
+IEFQSSBzdXBwb3J0IGlzIGNvcnJlY3QuICBTb21lIG9mIHRoZSBzZW1hbnRpY3Mgb2YKPj4gPiA+
+ICAgIHRoZSBBdG9taWMgQVBJIHdlcmUgbm90IHBhcnRpY3VsYXJseSBjbGVhciB3aGVuIHdlIHN0
+YXJ0ZWQgdGhpcywKPj4gPiA+ICAgIGhvd2V2ZXIsIHRoYXQgaXMgaW1wcm92aW5nIGEgbG90IGFz
+IHRoZSBjb3JlIGRybSBkb2N1bWVudGF0aW9uCj4+ID4gPiAgICBpbXByb3Zlcy4gIEdldHRpbmcg
+dGhpcyBjb2RlIHVwc3RyZWFtIGFuZCBpbiB0aGUgaGFuZHMgb2YgbW9yZQo+PiA+ID4gICAgYXRv
+bWljIHVzZXJzIHdpbGwgZnVydGhlciBoZWxwIHVzIGlkZW50aWZ5IGFuZCByZWN0aWZ5IGFueSBn
+YXBzIHdlCj4+ID4gPiAgICBoYXZlLgo+PiA+ID4KPj4gPiA+IFVuZm9ydHVuYXRlbHkgd2UgY2Fu
+bm90IGV4cG9zZSBjb2RlIGZvciB1R1BVIHlldC4gSG93ZXZlciByZWZhY3RvciAvIGNsZWFudXAK
+Pj4gPiA+IHdvcmsgb24gREMgaXMgcHVibGljLiAgV2UncmUgY3VycmVudGx5IHRyYW5zaXRpb25p
+bmcgdG8gYSBwdWJsaWMgcGF0Y2gKPj4gPiA+IHJldmlldy4gWW91IGNhbiBmb2xsb3cgb3VyIHBy
+b2dyZXNzIG9uIHRoZSBhbWQtZ2Z4IG1haWxpbmcgbGlzdC4gV2UgdmFsdWUKPj4gPiA+IGNvbW11
+bml0eSBmZWVkYmFjayBvbiBvdXIgd29yay4KPj4gPiA+Cj4+ID4gPiBBcyBhbiBhcHBlbmRpeCBJ
+J3ZlIGluY2x1ZGVkIGEgYnJpZWYgb3ZlcnZpZXcgb2YgdGhlIGhvdyB0aGUgY29kZSBjdXJyZW50
+bHkKPj4gPiA+IHdvcmtzIHRvIG1ha2UgdW5kZXJzdGFuZGluZyBhbmQgcmV2aWV3aW5nIHRoZSBj
+b2RlIGVhc2llci4KPj4gPiA+Cj4+ID4gPiBQcmlvciBkaXNjdXNzaW9ucyBvbiBEQzoKPj4gPiA+
+Cj4+ID4gPiAgKiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9hcmNoaXZlcy9kcmktZGV2
+ZWwvMjAxNi1NYXJjaC8xMDMzOTguaHRtbAo+PiA+ID4gICoKPj4gPiA+IGh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL2FyY2hpdmVzL2RyaS1kZXZlbC8yMDE2LUZlYnJ1YXJ5LzEwMDUyNC5o
+dG1sCj4+ID4gPgo+PiA+ID4gQ3VycmVudCB2ZXJzaW9uIG9mIERDOgo+PiA+ID4KPj4gPiA+ICAq
+IGh0dHBzOi8vY2dpdC5mcmVlZGVza3RvcC5vcmcvfmFnZDVmL2xpbnV4L3RyZWUvZHJpdmVycy9n
+cHUvZHJtL2FtZC9kaXNwbGF5P2g9YW1kLXN0YWdpbmctNC43Cj4+ID4gPgo+PiA+ID4gT25jZSBB
+bGV4IHB1bGxzIGluIHRoZSBsYXRlc3QgcGF0Y2hlczoKPj4gPiA+Cj4+ID4gPiAgKiBodHRwczov
+L2NnaXQuZnJlZWRlc2t0b3Aub3JnL35hZ2Q1Zi9saW51eC90cmVlL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvZGlzcGxheT9oPWFtZC1zdGFnaW5nLTQuNwo+PiA+ID4KPj4gPiA+IEJlc3QgUmVnYXJkcywK
+Pj4gPiA+IEhhcnJ5Cj4+ID4gPgo+PiA+ID4KPj4gPiA+ICoqKioqKioqKioqKioqKioqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKioqKgo+PiA+ID4gKioqIEFwcGVuZGl4OiBBIERheSBpbiB0
+aGUgTGlmZSBvZiBhIE1vZGVzZXQgKioqCj4+ID4gPiAqKioqKioqKioqKioqKioqKioqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKioKPj4gPiA+Cj4+ID4gPiBCZWxvdyBpcyBhIGhpZ2gtbGV2
+ZWwgb3ZlcnZpZXcgb2YgYSBtb2Rlc2V0IHdpdGggZGMuIFNvbWUgb2YgdGhpcyBtaWdodCBiZSBh
+Cj4+ID4gPiBsaXR0bGUgb3V0LW9mLWRhdGUgc2luY2UgaXQncyBiYXNlZCBvbiBteSBYREMgcHJl
+c2VudGF0aW9uIGJ1dCBpdCBzaG91bGQgYmUKPj4gPiA+IG1vcmUtb3ItbGVzcyB0aGUgc2FtZS4K
+Pj4gPiA+Cj4+ID4gPiBhbWRncHVfZG1fYXRvbWljX2NvbW1pdCgpCj4+ID4gPiB7Cj4+ID4gPiAg
+IC8qIHNldHVwIGF0b21pYyBzdGF0ZSAqLwo+PiA+ID4gICBkcm1fYXRvbWljX2hlbHBlcl9wcmVw
+YXJlX3BsYW5lcyhkZXYsIHN0YXRlKTsKPj4gPiA+ICAgZHJtX2F0b21pY19oZWxwZXJfc3dhcF9z
+dGF0ZShkZXYsIHN0YXRlKTsKPj4gPiA+ICAgZHJtX2F0b21pY19oZWxwZXJfdXBkYXRlX2xlZ2Fj
+eV9tb2Rlc2V0X3N0YXRlKGRldiwgc3RhdGUpOwo+PiA+ID4KPj4gPiA+ICAgLyogY3JlYXRlIG9y
+IHJlbW92ZSB0YXJnZXRzICovCj4+ID4gPgo+PiA+ID4gICAvKioqKioqKioqKioqKioqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioKPj4gPiA+ICAg
+ICogKioqIENhbGwgaW50byBEQyB0byBjb21taXQgdGFyZ2V0cyB3aXRoIGxpc3Qgb2YgYWxsIGtu
+b3duIHRhcmdldHMKPj4gPiA+ICAgICoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqLwo+PiA+ID4gICAvKiBEQyBpcyBvcHRp
+bWl6ZWQgbm90IHRvIGRvIGFueXRoaW5nIGlmICd0YXJnZXRzJyBkaWRuJ3QgY2hhbmdlLiAqLwo+
+PiA+ID4gICBkY19jb21taXRfdGFyZ2V0cyhkbS0+ZGMsIGNvbW1pdF90YXJnZXRzLCBjb21taXRf
+dGFyZ2V0c19jb3VudCkKPj4gPiA+ICAgewo+PiA+ID4gICAgIC8qKioqKioqKioqKioqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioKPj4gPiA+ICAg
+ICAgKiAqKiogQnVpbGQgY29udGV4dCAoZnVuY3Rpb24gYWxzbyB1c2VkIGZvciB2YWxpZGF0aW9u
+KQo+PiA+ID4gICAgICAqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKiovCj4+ID4gPiAgICAgcmVzdWx0ID0gY29yZV9kYy0+cmVz
+X3Bvb2wtPmZ1bmNzLT52YWxpZGF0ZV93aXRoX2NvbnRleHQoCj4+ID4gPiAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgY29yZV9kYyxzZXQsdGFyZ2V0X2NvdW50LGNvbnRleHQpOwo+PiA+
+Cj4+ID4gSSBjYW4ndCBkaWcgaW50byBkZXRhaWxzIG9mIERDLCBzbyB0aGlzIGlzIG5vdCBhIDEw
+MCUgYXNzZXNzbWVudCwgYnV0IGlmCj4+ID4geW91IGNhbGwgYSBmdW5jdGlvbiBjYWxsZWQgInZh
+bGlkYXRlIiBpbiBhdG9taWNfY29tbWl0LCB5b3UncmUgdmVyeSwgdmVyeQo+PiA+IGxpa2VseSBi
+cmVha2luZyBhdG9taWMuIF9BbGxfIHZhbGlkYXRpb24gbXVzdCBoYXBwZW4gaW4gLT5hdG9taWNf
+Y2hlY2ssCj4+ID4gaWYgdGhhdCdzIG5vdCB0aGUgY2FzZSBURVNUX09OTFkgbW9kZSBpcyBicm9r
+ZW4uIEFuZCBhdG9taWMgdXNlcnNwYWNlIGlzCj4+ID4gcmVseWluZyBvbiB0aGF0IHdvcmtpbmcu
+Cj4+ID4KPj4KPj4gVGhpcyBmdW5jdGlvbiBpcyBub3QgcmVhbGx5IG5hbWVkIGNvcnJlY3RseS4g
+V2hhdCBpdCBkb2VzIGlzIGl0IGJ1aWxkcyBhCj4+IGNvbnRleHQgYW5kIHZhbGlkYXRlcyBhdCB0
+aGUgc2FtZSB0aW1lLiBJbiBjb21taXQgd2Ugc2ltcGx5IGNhcmUgdGhhdCBpdAo+PiBidWlsZHMg
+dGhlIGNvbnRleHQuIFZhbGlkYXRlIHNob3VsZCBuZXZlciBmYWlsIGhlcmUgKHNpbmNlIHRoaXMg
+d2FzIGFscmVhZHkKPj4gdmFsaWRhdGVkIGluIGF0b21pY19jaGVjaykuCj4+Cj4+IFdlIGNhbGwg
+dGhlIHNhbWUgZnVuY3Rpb24gYXQgYXRvbWljX2NoZWNrCj4+Cj4+IGFtZGdwdV9kbV9hdG9taWNf
+Y2hlY2sgLT4KPj4gICAgICAgZGNfdmFsaWRhdGVfcmVzb3VyY2VzIC0+Cj4+ICAgICAgICAgICAg
+ICAgY29yZV9kYy0+cmVzX3Bvb2wtPmZ1bmNzLT52YWxpZGF0ZV93aXRoX2NvbnRleHQKPgo+IEFo
+IHJpZ2h0LCBpaXJjIHlvdSB0b2xkIG1lIHRoaXMgdGhlIGxhc3QgdGltZSBhcm91bmQgdG9vIDst
+KSBJIGd1ZXNzIGEKPiBncmVhdCBleGFtcGxlIGZvciB3aGF0IEkgbWVhbiB3aXRoIHJvbGxpbmcg
+eW91ciBvd24gd29ybGQ6IEV4aXN0aW5nIGF0b21pYwo+IGRyaXZlcnMgcHV0IHRoZWlyIGRlcml2
+ZWQvY29tcHV0ZWQvdmFsaWRhdGVkIGNoZWNrIGludG8gdGhlaXIgc3ViY2xhc3Nlcwo+IHN0YXRl
+IHN0cnVjdHVyZXMsIHdoaWNoIG1lYW5zIHRoZXkgZG9uJ3QgbmVlZCB0byBiZSByZS1jb21wdXRl
+ZCBpbgo+IGF0b21pY19jaGVjay4gSXQgYWxzbyBtYWtlcyBzdXJlIHRoYXQgdGhlIHZhbGlkYXRp
+b24gY29kZS9zdGF0ZQo+IGNvbXB1dGF0aW9uIGNvZGUgYmV0d2VlbiBjaGVjayBhbmQgY29tbWl0
+IGRvZXNuJ3QgZ2V0IG91dCBvZiBzeW5jLgo+Cj4+IEFzIGZvciB0aGUgcmVzdCwgSSBoZWFyIHlv
+dSBhbmQgYXBwcmVjaWF0ZSB5b3VyIGZlZWRiYWNrLiBMZXQgbWUgZ2V0IGJhY2sgdG8KPj4geW91
+IG9uIHRoYXQgbGF0ZXIuCj4KPiBKdXN0IGFuIGFkZGVkIG5vdGUgb24gdGhhdDogSSBkbyB0aGlu
+ayB0aGF0IHRoZXJlJ3Mgc29tZSBkcml2ZXIgdGVhbXMKPiB3aG8ndmUgbWFuYWdlZCB0byBwdWxs
+IGEgc2hhcmVkIGNvZGViYXNlIGJldHdlZW4gdmFsaWRhdGlvbiBhbmQgdXBzdHJlYW0KPiBsaW51
+eCAoaWlyYyBzb21lIG9mIHRoZSBpbnRlbCB3aXJlbGVzcyBkcml2ZXJzIHdvcmsgbGlrZSB0aGF0
+KS4gQnV0IGl0Cj4gcmVxdWlyZXMgY2FyZWZ1bCBhbGlnbmluZyBvZiBldmVyeXRoaW5nLCBhbmQg
+d2l0aCBzb21ldGhpbmcgZmFzdC1tb3ZpbmcKPiBsaWtlIGRybSBpdCBtaWdodCBiZWNvbWUgcmVh
+bCBwYWluZnVsIGFuZCBub3QgcmVhbGx5IHdvcnRoIGl0LiBTbyBub3QKPiBvdXRyaWdodCByZWpl
+Y3RpbmcgREMgKGFuZCB0aGUgY29kZSBzaGFyaW5nIHlvdSB3YW50IHRvIGFjaGlldmUgd2l0aCBp
+dCkKPiBhcyBhbiBpZGVhIGhlcmUuCgpJIHRoaW5rIHdlIGhhdmUgdG8gbWFrZSBpdCB3b3JrLiAg
+V2UgZG9uJ3QgaGF2ZSB0aGUgcmVzb3VyY2VzIHRvIGhhdmUKc2VwYXJhdGUgdmFsaWRhdGlvbiBh
+bmQgTGludXggY29yZSB0ZWFtcy4gIEl0J3Mgbm90IGp1c3QgdGhlIGNvZGluZy4KTXVjaCBvZiBv
+dXIgdmFsaWRhdGlvbiBhbmQgY29tcGxpYW5jZSB0ZXN0aW5nIG9uIExpbnV4IGxldmVyYWdlcyB0
+aGlzCmFzIHdlbGwuICAgRnJvbSBvdXIgcGVyc3BlY3RpdmUsIEkgdGhpbmsgdGhlIHBhaW4gaXMg
+cHJvYmFibHkgd29ydGggaXQKYXQgdGhpcyBwb2ludC4gIERpc3BsYXkgaXMgc3RhcnRpbmcgdG8g
+ZWNsaXBzZSBvdGhlciBibG9ja3MgYXMgZmFyIGFzCmNvbXBsZXhpdHkuIE5vdCBldmVuIGp1c3Qg
+dGhlIGNvbXBsZXhpdHkgb2YgbGlnaHRpbmcgdXAgY29tcGxleAp0b3BvbG9naWVzLiAgVGhlIHJl
+YWxseSB0b3VnaCBzdHVmZiBpcyB0aGF0IGRpc3BsYXkgaXMgYmFzaWNhbGx5IGEKcmVhbC10aW1l
+IHNlcnZpY2UgYW5kIHRoZSBodyBpcyBkZXNpZ25lZCB3aXRoIHZlcnkgbGl0dGxlIG1hcmdpbiBm
+b3IKZXJyb3Igd2l0aCByZXNwZWN0IHRvIHRpbWluZyBhbmQgYmFuZHdpZHRoLiAgVGhhdCdzIHdo
+ZXJlIG11Y2ggb2YgdGhlCnZhbHVlIGNvbWVzIGZyb20gc2hhcmluZyByZXNvdXJjZXMgd2l0aCB2
+YWxpZGF0aW9uIHRlYW1zLiAgRm9yIHVzLAp0aGF0IG1ha2VzIHRoZSBwb3RlbnRpYWwgcGFpbiBv
+ZiBkZWFsaW5nIHdpdGggZmFzdCBtb3ZpbmcgZHJtIHdvcnRoCml0LiAgVGhpcyBpcyBub3QgdG8g
+c2F5IHRoYXQgd2Ugd29uJ3QgYWRvcHQgbW9yZSB1c2Ugb2YgZHJtCmluZnJhc3RydWN0dXJlLCB3
+ZSBhcmUgd29ya2luZyBvbiBpdCB3aXRoaW4gdGhlIGJvdW5kcyBvZiBvdXIgcmVzb3VyY2UKY29u
+c3RyYWludHMuCgpBbGV4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
