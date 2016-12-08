@@ -1,13 +1,13 @@
 From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: use pin rather than pin_restricted in a few
- cases
-Date: Thu, 8 Dec 2016 11:35:55 +1100
-Message-ID: <903d5cee-23aa-2626-83f4-92ff77306765@folklore1984.net>
-References: <1481145457-23105-1-git-send-email-alexander.deucher@amd.com>
+Subject: Re: [PATCH] drm/amd/powerplay: use pr_debug to print function not
+ implemented message
+Date: Thu, 8 Dec 2016 11:36:57 +1100
+Message-ID: <e7d99fd0-09c8-06d5-46db-24352f19bdd4@folklore1984.net>
+References: <1481138889-10312-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0381373041=="
+Content-Type: multipart/mixed; boundary="===============1838913244=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1481145457-23105-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1481138889-10312-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,81 +19,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: Arindam Nath <arindam.nath-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0381373041==
+--===============1838913244==
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="4Up6gjnoLgKjjE0w1VXBtPe8Ja9VoLtIK"
+ boundary="Cjg6tDhjbinwkT9ek6WM7jfakxGGRUmOu"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---4Up6gjnoLgKjjE0w1VXBtPe8Ja9VoLtIK
-Content-Type: multipart/mixed; boundary="JHxebIgnbd9NCk4WgIcOqQOephd4AOaBK";
+--Cjg6tDhjbinwkT9ek6WM7jfakxGGRUmOu
+Content-Type: multipart/mixed; boundary="NVdJHu9eQQRu0hINdpWbuJtwDjHB7XKxf";
  protected-headers="v1"
 From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
 To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Message-ID: <903d5cee-23aa-2626-83f4-92ff77306765-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: use pin rather than pin_restricted in a few
- cases
-References: <1481145457-23105-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <1481145457-23105-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: Arindam Nath <arindam.nath-5C7GfCeVMHo@public.gmane.org>,
+ Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Message-ID: <e7d99fd0-09c8-06d5-46db-24352f19bdd4-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/powerplay: use pr_debug to print function not
+ implemented message
+References: <1481138889-10312-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1481138889-10312-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
---JHxebIgnbd9NCk4WgIcOqQOephd4AOaBK
+--NVdJHu9eQQRu0hINdpWbuJtwDjHB7XKxf
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
 Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
 
-On 12/08/2016 08:17 AM, Alex Deucher wrote:
-> We don't require a resticted pinning in these cases, so just
-> use plain pin.
+On 12/08/2016 06:28 AM, Alex Deucher wrote:
+> From: Arindam Nath <arindam.nath-5C7GfCeVMHo@public.gmane.org>
 >=20
+> For CZ, some function pointers like display_configuration_changed
+> are not set. So when HW manager tries to configure display, we
+> end up with messages like
+>=20
+> "[ powerplay ] this function not implement!"
+>=20
+> in the logs. This message is informational, but lacks details
+> on which function is not implemented and why.
+>=20
+> Rather than using KERN_INFO to print the message everytime the
+> system boots, we rather use pr_debug so that it is only printed
+> when debug prints are enabled at runtime.
+>=20
+> Reviewed-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+> Signed-off-by: Arindam Nath <arindam.nath-5C7GfCeVMHo@public.gmane.org>
 > Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c      | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/powerplay/hwmgr/functiontables.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_display.c
-> index 741144f..581601c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> @@ -187,7 +187,7 @@ int amdgpu_crtc_page_flip_target(struct drm_crtc *c=
-rtc,
->  		goto cleanup;
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/functiontables.c b/dri=
+vers/gpu/drm/amd/powerplay/hwmgr/functiontables.c
+> index a6abe81..71822ae 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/functiontables.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/functiontables.c
+> @@ -35,7 +35,7 @@ static int phm_run_table(struct pp_hwmgr *hwmgr,
+>  	phm_table_function *function;
+> =20
+>  	if (rt_table->function_list =3D=3D NULL) {
+> -		printk(KERN_INFO "[ powerplay ] this function not implement!\n");
+> +		pr_debug("[ powerplay ] this function not implement!\n");
+>  		return 0;
 >  	}
 > =20
-> -	r =3D amdgpu_bo_pin_restricted(new_abo, AMDGPU_GEM_DOMAIN_VRAM, 0, 0,=
- &base);
-> +	r =3D amdgpu_bo_pin(new_abo, AMDGPU_GEM_DOMAIN_VRAM, &base);
->  	if (unlikely(r !=3D 0)) {
->  		r =3D -EINVAL;
->  		DRM_ERROR("failed to pin new abo buffer before flip\n");
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_fb.c
-> index f1c9e59..24629be 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-> @@ -171,7 +171,7 @@ static int amdgpufb_create_pinned_object(struct amd=
-gpu_fbdev *rfbdev,
->  	}
-> =20
-> =20
-> -	ret =3D amdgpu_bo_pin_restricted(abo, AMDGPU_GEM_DOMAIN_VRAM, 0, 0, N=
-ULL);
-> +	ret =3D amdgpu_bo_pin(abo, AMDGPU_GEM_DOMAIN_VRAM, NULL);
->  	if (ret) {
->  		amdgpu_bo_unreserve(abo);
->  		goto out_unref;
 >=20
 
 
---JHxebIgnbd9NCk4WgIcOqQOephd4AOaBK--
+--NVdJHu9eQQRu0hINdpWbuJtwDjHB7XKxf--
 
---4Up6gjnoLgKjjE0w1VXBtPe8Ja9VoLtIK
+--Cjg6tDhjbinwkT9ek6WM7jfakxGGRUmOu
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
@@ -101,24 +97,24 @@ Content-Disposition: attachment; filename="signature.asc"
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJYSKrrAAoJEP4bvbfZuWjbmVwQALOjsEGoInltkEop7wgWiuBv
-xeJes3OaX1E2si4QTlFwGWIT5pMpu4J1Ibk9JIe4rvp4tP1ieX5wAuPiEY2Z2enY
-NdD/6Lsh6PRUJrUwbYZIr2X20XOwP9RntNhMM7D3fEPNbSsUvm3MV6biieduroK4
-yFDDPsk6/wRfunU0U1aq+10d8eEFDNU7/yjx86Vqp4Tf4d6UgqI8+6SRtLITW3vw
-/v81z1gE8hbMyfDGkbHytsduhkJQnq1Se1L9MNInW+hNT4oo58msssKhrqnZBC0J
-TAf4KFRrck0J5/fRDauxmVH5KcLkzFXIeUkydnocVQI9vMHgS+F6pfaNAEU070gd
-PkNXuB/AE5Z6zKPF+Esd4O0Fo1ICiWzwrn4qMVOC7trNuNWTZnsuomwkBFQI4pT+
-p57nUSe2UHcgW9kVi4fq5LgD9MskhOc30J4z2goyfMZeber7jejo3TGmzj5pJzzj
-sukexUqlJ+a8E9ft3cuDOs5kJFih+X357bsxUQh2EOH87RLS2mlkkK4RojVc/+mn
-mMzfAToj8IPMkVUI1USsbCC2gAZjav7QPoIWUCVu479ig+VMlLnoM/MK/aRrwrdN
-HHZDzv5aJsuF0ULvvwPUiL9U/MESqyvjLaPoKBO9bC++usj2JLGJUFXLybB9tldn
-9p5Ox7+Ct807WLQisgZv
-=h/IY
+iQIcBAEBCAAGBQJYSKspAAoJEP4bvbfZuWjbY+8QAL32lNmjAhek7ID3uvRisNT1
+xaSEEJfIQGcgcl3a7qmIyaDSBFRjp2xxZtUcc/Jj2Of3jLmyIdNBSGT8oDxzIRy2
+C/Kfbla4glb0TBnbxEG8DRXNHeUVt+fIo24e1VCKI1reFaTmZHxF3q3ier7szYf0
+c4z4vs1Ol6VZq3QdawYygFmnixYEc9HAgKNBQKDI+QiFGniDRJRBIqO2GI5G+sUu
+Ftky8jhYA13dnBVqwaOMSZyngZ6YAFXWPKFR0vxAASYScRzaF9IwsubOSkaT6fgG
+7PNGsBnZASOtfnr4Hap3AvZ/tzlGgP8/avhQFGdxpnz0IDneUxuFGgMyIACm+XZ3
+8V53+dh+GAQNk7LtYRu7n25H5JcFQpruMQ3YSV0dWemxgGlkWAaqWibCtLriWkzA
+Pb+lDaBlKgCeFjE37837ZAnRFSEbiB8+OKUm/+dMiujGnNxM2JMWvu1Phoqql3lD
+zs1d0PoTKuhnH6VDtKZK4PPxuJiaOMwPAYLNyvntI4i/Nidmt8MoaP0jgy94SKsR
+CRPdeUj+JV4fMDD07cdqJ4Z/PRFtUuLnNKn2WBSiTH8fXD7mvYwzc+vQisLs/L+X
+NYB6fNab1knLLLdcm1pNb8Khg70nCnuLtC3UErEqdGFru6l1i1E7bXco2Au1L31S
+P0lJb/enBac1h36afn3z
+=3/0n
 -----END PGP SIGNATURE-----
 
---4Up6gjnoLgKjjE0w1VXBtPe8Ja9VoLtIK--
+--Cjg6tDhjbinwkT9ek6WM7jfakxGGRUmOu--
 
---===============0381373041==
+--===============1838913244==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -128,4 +124,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0381373041==--
+--===============1838913244==--
