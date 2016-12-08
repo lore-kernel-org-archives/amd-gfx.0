@@ -1,17 +1,20 @@
-From: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
-Subject: Re: [PATCH 05/12] drm/amd/display: Fix bunch of warnings in DC
-Date: Thu, 8 Dec 2016 20:52:02 +0100
-Message-ID: <89a8a4f0-0ea7-cb5a-f6cc-efdb5f8e195f@dev.carbon-project.org>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 05/12] drm/amd/display: Fix bunch of warnings in DC
+Date: Thu, 8 Dec 2016 19:59:31 +0000
+Message-ID: <MWHPR12MB16947FF09C0005078C70ABD2F7840@MWHPR12MB1694.namprd12.prod.outlook.com>
 References: <20161208012624.8914-1-harry.wentland@amd.com>
  <20161208012624.8914-6-harry.wentland@amd.com>
  <9f4c678e-4598-3ac1-73c8-038183bc30e2@dev.carbon-project.org>
  <9a6bc7fb-225a-c693-5a6c-3420d64d51d9@amd.com>
  <e78be440-a0eb-4a96-7f71-317a6a5ce862@dev.carbon-project.org>
  <bf41a889-5d85-2646-76c7-801453175dab@amd.com>
+ <89a8a4f0-0ea7-cb5a-f6cc-efdb5f8e195f@dev.carbon-project.org>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1129600679=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <bf41a889-5d85-2646-76c7-801453175dab-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <89a8a4f0-0ea7-cb5a-f6cc-efdb5f8e195f-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,205 +25,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, "Cheng, Tony" <Tony.Cheng-5C7GfCeVMHo@public.gmane.org>
+To: =?utf-8?B?J0thaSBXYXNzZXJiw6RjaCc=?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Cheng, Tony" <Tony.Cheng-5C7GfCeVMHo@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1129600679==
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature";
- boundary="rUvaMUixVc60kHfrkt3xIg0ER5O3o6UIa"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---rUvaMUixVc60kHfrkt3xIg0ER5O3o6UIa
-Content-Type: multipart/mixed; boundary="AuXScq7ATQOuhI0XHsst3NacUdi3CbKvW";
- protected-headers="v1"
-From: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
-To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org,
- "Cheng, Tony" <Tony.Cheng-5C7GfCeVMHo@public.gmane.org>
-Message-ID: <89a8a4f0-0ea7-cb5a-f6cc-efdb5f8e195f-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
-Subject: Re: [PATCH 05/12] drm/amd/display: Fix bunch of warnings in DC
-References: <20161208012624.8914-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
- <20161208012624.8914-6-harry.wentland-5C7GfCeVMHo@public.gmane.org>
- <9f4c678e-4598-3ac1-73c8-038183bc30e2-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
- <9a6bc7fb-225a-c693-5a6c-3420d64d51d9-5C7GfCeVMHo@public.gmane.org>
- <e78be440-a0eb-4a96-7f71-317a6a5ce862-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
- <bf41a889-5d85-2646-76c7-801453175dab-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <bf41a889-5d85-2646-76c7-801453175dab-5C7GfCeVMHo@public.gmane.org>
-
---AuXScq7ATQOuhI0XHsst3NacUdi3CbKvW
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-Harry Wentland wrote on 08.12.2016 19:58:
-> On 2016-12-08 11:58 AM, Kai Wasserb=C3=A4ch wrote:
->> Harry Wentland wrote on 08.12.2016 17:36:
->>> On 2016-12-08 11:22 AM, Kai Wasserb=C3=A4ch wrote:
->>>> [Please CC me on all replies, I'm not subscribed to the list.]
->>>>
->>>> Harry Wentland wrote on 08.12.2016 02:26:
->>>>> Some of those are potential bugs
->>>> Are they related? If not: maybe split the changes up?
->>>>
->>>>> Change-Id: I53b2c663e18b57013e1b891fc2ecf1fb2d7d3a08
->>>>> Signed-off-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
->>>>> Reviewed-by: Tony Cheng <Tony.Cheng-5C7GfCeVMHo@public.gmane.org>
->>>> It'd be nice to see these reviews on list... (applies to all patches=
- here)
->>> These patches currently start out in our internal tree with a whole l=
-ot of stuff
->>> that we can't open up, like new IP, so unfortunately can't be done in=
- a public
->>> forum. I pull the r-b from our internal review system for reference w=
-hen I
->>> prepare the patches for public review.
->> Hm, not nice, but not my place to tell you to change this. That's Dave=
-'s and
->> Linus' job. ;-)
->>
->>>>> Acked-by: Harry Wentland <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
->>>>> ---
->>>>>    .../gpu/drm/amd/display/dc/calcs/bandwidth_calcs.c |  2 +-
->>>>>    drivers/gpu/drm/amd/display/dc/core/dc_resource.c  |  5 +--
->>>>>    .../gpu/drm/amd/display/dc/dce/dce_clock_source.c  |  5 ---
->>>>>    drivers/gpu/drm/amd/display/dc/dce/dce_clocks.c    | 43
->>>>> +---------------------
->>>>>    drivers/gpu/drm/amd/display/dc/dce/dce_transform.c |  2 -
->>>>>    .../drm/amd/display/dc/dce110/dce110_transform_v.c |  3 +-
->>>>>    6 files changed, 6 insertions(+), 54 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/display/dc/calcs/bandwidth_calcs.c=
-
->>>>> b/drivers/gpu/drm/amd/display/dc/calcs/bandwidth_calcs.c
->>>>> index 0b2bb3992f1a..3b0710ef4716 100644
->>>>> --- a/drivers/gpu/drm/amd/display/dc/calcs/bandwidth_calcs.c
->>>>> +++ b/drivers/gpu/drm/amd/display/dc/calcs/bandwidth_calcs.c
->>>>> @@ -1709,7 +1709,7 @@ static void calculate_bandwidth(
->>>>>                else {
->>>>>                    data->blackout_recovery_time =3D
->>>>> bw_max2(data->blackout_recovery_time, bw_add(bw_mul(bw_int_to_fixed=
-(2),
->>>>> vbios->mcifwrmc_urgent_latency),
->>>>> data->mcifwr_burst_time[data->y_clk_level][data->sclk_level]));
->>>>>                    if (bw_ltn(data->adjusted_data_buffer_size[k],
->>>>> bw_mul(bw_div(bw_mul(data->display_bandwidth[k],
->>>>> data->useful_bytes_per_request[k]), data->bytes_per_request[k]),
->>>>> (bw_add(vbios->blackout_duration, bw_add(bw_mul(bw_int_to_fixed(2),=
-
->>>>> vbios->mcifwrmc_urgent_latency),
->>>>> data->mcifwr_burst_time[data->y_clk_level][data->sclk_level])))))) =
-{
->>>>> -                    data->blackout_recovery_time =3D
->>>>> bw_max2(data->blackout_recovery_time,
->>>>> bw_div((bw_add(bw_mul(bw_div(bw_mul(data->display_bandwidth[k],
->>>>> data->useful_bytes_per_request[k]), data->bytes_per_request[k]),
->>>>> vbios->blackout_duration),
->>>>> bw_sub(bw_div(bw_mul(bw_mul(bw_mul((bw_add(bw_add(bw_mul(bw_int_to_=
-fixed(2),
->>>>> vbios->mcifwrmc_urgent_latency), data->dmif_burst_time[i][j]),
->>>>> data->mcifwr_burst_time[data->y_clk_level][data->sclk_level])),
->>>>> data->dispclk), bw_int_to_fixed(data->bytes_per_pixel[k])),
->>>>> data->lines_interleaved_in_mem_access[k]), data->latency_hiding_lin=
-es[k]),
->>>>> data->adjusted_data_buffer_size[k]))),
->>>>> (bw_sub(bw_div(bw_mul(bw_mul(data->dispclk,
->>>>> bw_int_to_fixed(data->bytes_per_pixel[k])),
->>>>> data->lines_interleaved_in_mem_access[k]), data->latency_hiding_lin=
-es[k]),
->>>>> bw_div(bw_mul(data->display_bandwidth[k], data->useful_bytes_per_re=
-quest[k]),
->>>>> data->bytes_per_request[k])))));
->>>>> +                    data->blackout_recovery_time =3D
->>>>> bw_max2(data->blackout_recovery_time,
->>>>> bw_div((bw_add(bw_mul(bw_div(bw_mul(data->display_bandwidth[k],
->>>>> data->useful_bytes_per_request[k]), data->bytes_per_request[k]),
->>>>> vbios->blackout_duration),
->>>>> bw_sub(bw_div(bw_mul(bw_mul(bw_mul((bw_add(bw_add(bw_mul(bw_int_to_=
-fixed(2),
->>>>> vbios->mcifwrmc_urgent_latency),
->>>>> data->dmif_burst_time[data->y_clk_level][data->sclk_level]),
->>>>> data->mcifwr_burst_time[data->y_clk_level][data->sclk_level])),
->>>>> data->dispclk), bw_int_to_fixed(data->bytes_per_pixel[k])),
->>>>> data->lines_interleaved_in_mem_access[k]), data->latency_hiding_lin=
-es[k]),
->>>>> data->adjusted_data_buffer_size[k]))),
->>>>> (bw_sub(bw_div(bw_mul(bw_mul(data->dispclk,
->>>>> bw_int_to_fixed(data->bytes_per_pixel[k])),
->>>>> data->lines_interleaved_in_mem_access[k]), data->latency_hiding_lin=
-es[k]),
->>>>> bw_div(bw_mul(data->display_bandwidth[k], data->useful_bytes_per_re=
-quest[k]),
->>>>> data->bytes_per_request[k])))));
->>>> Uhg, can this be wrapped/split up somehow? Seeing the changes is nig=
-h
->>>> impossible
->>>> and I suspect it might even be impossible for you to check internall=
-y.
->>> I believe this comes straight from some complicated code HW gives us =
-and we use
->>> directly. I'll see if we can somehow make this more readable or at le=
-ast add a
->>> comment, as you mention below.
->> That would be really appreciated. I mean, I'm in no way able to review=
-
->> DAL/Display thoroughly (huge code base I'm not familiar with and where=
- I might
->> easily miss interactions), but this is just not reviewable/verifiable =
-at all for
->> any person outside your inner circle.
-> I followed up with Tony, who's been working with HW guys to get them to=
- share
-> this code with us. Unfortunately there isn't much we can do in the way =
-of
-> changing this code.
-
-That's rather unfortunate, that not even reformatting into an easier to r=
-ead
-format is possible (though I do not really understand why, beyond "it tak=
-es
-work"); maybe the comment showing the formula in an easier to read form c=
-an be
-done then?
-
-Cheers,
-Kai
-
-P.S.: Did you see my comments on patch 2? That contained the null pointer=
- deref
-(if I didn't misread something).
-
-
---AuXScq7ATQOuhI0XHsst3NacUdi3CbKvW--
-
---rUvaMUixVc60kHfrkt3xIg0ER5O3o6UIa
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQGzBAEBCgAdFiEEBgCWzvPI5zPlthWHownXbOHeWdIFAlhJueIACgkQownXbOHe
-WdLOPgv9E0P4D5HbHzBxWFsvPRPwCEdOvSmDnA9Ivk4M86yKbVJ069qZgeItRmjo
-UDlfmNooWd1bHnJoTyPYtAoIugcSeMBHMbyvNb1qx+X+rV17ykSYWyAPr5ltnWKm
-eRFU04+CcG/I6E5stPHWuluxaOcu5+nWqlE0QC6er6/wttyrgABd92nE6qjtxFdL
-UCfjqWDJLrtvIAYlyHOzd+AVCKGUxeM6tS6eBnMy8XgKz2xO5YehaQ6j8ydk2cHC
-2k0k2nL5XLgEJiwhCXM65Tjdsem3hQW1eGJhzCk69sRqTgUeR4cs3VWJB1BuAlR/
-jz98CtWXnWyV2aXTmjGX7j7yisxB5i74ruJyg/hScBH1b+djkswlFCQWMDqGm/Ab
-hAFsQc11CoaaI6m03heiunxZ+gfC2JqAJnhzJJsuREPaneiQ9DcoWaOHfhZ/ohuq
-nU5SusAuQVaenQjZB7k9YJcgWTOPzDgiy3S1twiTEwDohICU7B/7MNHXtsb2nHWB
-eqyNY90y
-=q2qM
------END PGP SIGNATURE-----
-
---rUvaMUixVc60kHfrkt3xIg0ER5O3o6UIa--
-
---===============1129600679==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1129600679==--
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
+LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIEthaSBX
+YXNzZXJiw6RjaA0KPiBTZW50OiBUaHVyc2RheSwgRGVjZW1iZXIgMDgsIDIwMTYgMjo1MiBQTQ0K
+PiBUbzogV2VudGxhbmQsIEhhcnJ5OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgQ2hl
+bmcsIFRvbnkNCj4gU3ViamVjdDogUmU6IFtQQVRDSCAwNS8xMl0gZHJtL2FtZC9kaXNwbGF5OiBG
+aXggYnVuY2ggb2Ygd2FybmluZ3MgaW4gREMNCj4gDQo+IEhhcnJ5IFdlbnRsYW5kIHdyb3RlIG9u
+IDA4LjEyLjIwMTYgMTk6NTg6DQo+ID4gT24gMjAxNi0xMi0wOCAxMTo1OCBBTSwgS2FpIFdhc3Nl
+cmLDpGNoIHdyb3RlOg0KPiA+PiBIYXJyeSBXZW50bGFuZCB3cm90ZSBvbiAwOC4xMi4yMDE2IDE3
+OjM2Og0KPiA+Pj4gT24gMjAxNi0xMi0wOCAxMToyMiBBTSwgS2FpIFdhc3NlcmLDpGNoIHdyb3Rl
+Og0KPiA+Pj4+IFtQbGVhc2UgQ0MgbWUgb24gYWxsIHJlcGxpZXMsIEknbSBub3Qgc3Vic2NyaWJl
+ZCB0byB0aGUgbGlzdC5dDQo+ID4+Pj4NCj4gPj4+PiBIYXJyeSBXZW50bGFuZCB3cm90ZSBvbiAw
+OC4xMi4yMDE2IDAyOjI2Og0KPiA+Pj4+PiBTb21lIG9mIHRob3NlIGFyZSBwb3RlbnRpYWwgYnVn
+cw0KPiA+Pj4+IEFyZSB0aGV5IHJlbGF0ZWQ/IElmIG5vdDogbWF5YmUgc3BsaXQgdGhlIGNoYW5n
+ZXMgdXA/DQo+ID4+Pj4NCj4gPj4+Pj4gQ2hhbmdlLUlkOiBJNTNiMmM2NjNlMThiNTcwMTNlMWI4
+OTFmYzJlY2YxZmIyZDdkM2EwOA0KPiA+Pj4+PiBTaWduZWQtb2ZmLWJ5OiBIYXJyeSBXZW50bGFu
+ZCA8aGFycnkud2VudGxhbmRAYW1kLmNvbT4NCj4gPj4+Pj4gUmV2aWV3ZWQtYnk6IFRvbnkgQ2hl
+bmcgPFRvbnkuQ2hlbmdAYW1kLmNvbT4NCj4gPj4+PiBJdCdkIGJlIG5pY2UgdG8gc2VlIHRoZXNl
+IHJldmlld3Mgb24gbGlzdC4uLiAoYXBwbGllcyB0byBhbGwgcGF0Y2hlcyBoZXJlKQ0KPiA+Pj4g
+VGhlc2UgcGF0Y2hlcyBjdXJyZW50bHkgc3RhcnQgb3V0IGluIG91ciBpbnRlcm5hbCB0cmVlIHdp
+dGggYSB3aG9sZSBsb3Qgb2YNCj4gc3R1ZmYNCj4gPj4+IHRoYXQgd2UgY2FuJ3Qgb3BlbiB1cCwg
+bGlrZSBuZXcgSVAsIHNvIHVuZm9ydHVuYXRlbHkgY2FuJ3QgYmUgZG9uZSBpbiBhDQo+IHB1Ymxp
+Yw0KPiA+Pj4gZm9ydW0uIEkgcHVsbCB0aGUgci1iIGZyb20gb3VyIGludGVybmFsIHJldmlldyBz
+eXN0ZW0gZm9yIHJlZmVyZW5jZSB3aGVuDQo+IEkNCj4gPj4+IHByZXBhcmUgdGhlIHBhdGNoZXMg
+Zm9yIHB1YmxpYyByZXZpZXcuDQo+ID4+IEhtLCBub3QgbmljZSwgYnV0IG5vdCBteSBwbGFjZSB0
+byB0ZWxsIHlvdSB0byBjaGFuZ2UgdGhpcy4gVGhhdCdzIERhdmUncyBhbmQNCj4gPj4gTGludXMn
+IGpvYi4gOy0pDQo+ID4+DQo+ID4+Pj4+IEFja2VkLWJ5OiBIYXJyeSBXZW50bGFuZCA8SGFycnku
+V2VudGxhbmRAYW1kLmNvbT4NCj4gPj4+Pj4gLS0tDQo+ID4+Pj4+ICAgIC4uLi9ncHUvZHJtL2Ft
+ZC9kaXNwbGF5L2RjL2NhbGNzL2JhbmR3aWR0aF9jYWxjcy5jIHwgIDIgKy0NCj4gPj4+Pj4gICAg
+ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGNfcmVzb3VyY2UuYyAgfCAgNSAr
+LS0NCj4gPj4+Pj4gICAgLi4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9jbG9ja19z
+b3VyY2UuYyAgfCAgNSAtLS0NCj4gPj4+Pj4gICAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
+L2RjL2RjZS9kY2VfY2xvY2tzLmMgICAgfCA0Mw0KPiA+Pj4+PiArLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tDQo+ID4+Pj4+ICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UvZGNlX3Ry
+YW5zZm9ybS5jIHwgIDIgLQ0KPiA+Pj4+PiAgICAuLi4vZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTEx
+MC9kY2UxMTBfdHJhbnNmb3JtX3YuYyB8ICAzICstDQo+ID4+Pj4+ICAgIDYgZmlsZXMgY2hhbmdl
+ZCwgNiBpbnNlcnRpb25zKCspLCA1NCBkZWxldGlvbnMoLSkNCj4gPj4+Pj4NCj4gPj4+Pj4gZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jYWxjcy9iYW5kd2lkdGhf
+Y2FsY3MuYw0KPiA+Pj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jYWxjcy9i
+YW5kd2lkdGhfY2FsY3MuYw0KPiA+Pj4+PiBpbmRleCAwYjJiYjM5OTJmMWEuLjNiMDcxMGVmNDcx
+NiAxMDA2NDQNCj4gPj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Nh
+bGNzL2JhbmR3aWR0aF9jYWxjcy5jDQo+ID4+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+ZGlzcGxheS9kYy9jYWxjcy9iYW5kd2lkdGhfY2FsY3MuYw0KPiA+Pj4+PiBAQCAtMTcwOSw3ICsx
+NzA5LDcgQEAgc3RhdGljIHZvaWQgY2FsY3VsYXRlX2JhbmR3aWR0aCgNCj4gPj4+Pj4gICAgICAg
+ICAgICAgICAgZWxzZSB7DQo+ID4+Pj4+ICAgICAgICAgICAgICAgICAgICBkYXRhLT5ibGFja291
+dF9yZWNvdmVyeV90aW1lID0NCj4gPj4+Pj4gYndfbWF4MihkYXRhLT5ibGFja291dF9yZWNvdmVy
+eV90aW1lLA0KPiBid19hZGQoYndfbXVsKGJ3X2ludF90b19maXhlZCgyKSwNCj4gPj4+Pj4gdmJp
+b3MtPm1jaWZ3cm1jX3VyZ2VudF9sYXRlbmN5KSwNCj4gPj4+Pj4gZGF0YS0+bWNpZndyX2J1cnN0
+X3RpbWVbZGF0YS0+eV9jbGtfbGV2ZWxdW2RhdGEtPnNjbGtfbGV2ZWxdKSk7DQo+ID4+Pj4+ICAg
+ICAgICAgICAgICAgICAgICBpZiAoYndfbHRuKGRhdGEtPmFkanVzdGVkX2RhdGFfYnVmZmVyX3Np
+emVba10sDQo+ID4+Pj4+IGJ3X211bChid19kaXYoYndfbXVsKGRhdGEtPmRpc3BsYXlfYmFuZHdp
+ZHRoW2tdLA0KPiA+Pj4+PiBkYXRhLT51c2VmdWxfYnl0ZXNfcGVyX3JlcXVlc3Rba10pLCBkYXRh
+LT5ieXRlc19wZXJfcmVxdWVzdFtrXSksDQo+ID4+Pj4+IChid19hZGQodmJpb3MtPmJsYWNrb3V0
+X2R1cmF0aW9uLA0KPiBid19hZGQoYndfbXVsKGJ3X2ludF90b19maXhlZCgyKSwNCj4gPj4+Pj4g
+dmJpb3MtPm1jaWZ3cm1jX3VyZ2VudF9sYXRlbmN5KSwNCj4gPj4+Pj4gZGF0YS0+bWNpZndyX2J1
+cnN0X3RpbWVbZGF0YS0+eV9jbGtfbGV2ZWxdW2RhdGEtPnNjbGtfbGV2ZWxdKSkpKSkpIHsNCj4g
+Pj4+Pj4gLSAgICAgICAgICAgICAgICAgICAgZGF0YS0+YmxhY2tvdXRfcmVjb3ZlcnlfdGltZSA9
+DQo+ID4+Pj4+IGJ3X21heDIoZGF0YS0+YmxhY2tvdXRfcmVjb3ZlcnlfdGltZSwNCj4gPj4+Pj4g
+YndfZGl2KChid19hZGQoYndfbXVsKGJ3X2Rpdihid19tdWwoZGF0YS0NCj4gPmRpc3BsYXlfYmFu
+ZHdpZHRoW2tdLA0KPiA+Pj4+PiBkYXRhLT51c2VmdWxfYnl0ZXNfcGVyX3JlcXVlc3Rba10pLCBk
+YXRhLT5ieXRlc19wZXJfcmVxdWVzdFtrXSksDQo+ID4+Pj4+IHZiaW9zLT5ibGFja291dF9kdXJh
+dGlvbiksDQo+ID4+Pj4+DQo+IGJ3X3N1Yihid19kaXYoYndfbXVsKGJ3X211bChid19tdWwoKGJ3
+X2FkZChid19hZGQoYndfbXVsKGJ3X2kNCj4gbnRfdG9fZml4ZWQoMiksDQo+ID4+Pj4+IHZiaW9z
+LT5tY2lmd3JtY191cmdlbnRfbGF0ZW5jeSksIGRhdGEtPmRtaWZfYnVyc3RfdGltZVtpXVtqXSks
+DQo+ID4+Pj4+IGRhdGEtPm1jaWZ3cl9idXJzdF90aW1lW2RhdGEtPnlfY2xrX2xldmVsXVtkYXRh
+LT5zY2xrX2xldmVsXSkpLA0KPiA+Pj4+PiBkYXRhLT5kaXNwY2xrKSwgYndfaW50X3RvX2ZpeGVk
+KGRhdGEtPmJ5dGVzX3Blcl9waXhlbFtrXSkpLA0KPiA+Pj4+PiBkYXRhLT5saW5lc19pbnRlcmxl
+YXZlZF9pbl9tZW1fYWNjZXNzW2tdKSwgZGF0YS0NCj4gPmxhdGVuY3lfaGlkaW5nX2xpbmVzW2td
+KSwNCj4gPj4+Pj4gZGF0YS0+YWRqdXN0ZWRfZGF0YV9idWZmZXJfc2l6ZVtrXSkpKSwNCj4gPj4+
+Pj4gKGJ3X3N1Yihid19kaXYoYndfbXVsKGJ3X211bChkYXRhLT5kaXNwY2xrLA0KPiA+Pj4+PiBi
+d19pbnRfdG9fZml4ZWQoZGF0YS0+Ynl0ZXNfcGVyX3BpeGVsW2tdKSksDQo+ID4+Pj4+IGRhdGEt
+PmxpbmVzX2ludGVybGVhdmVkX2luX21lbV9hY2Nlc3Nba10pLCBkYXRhLQ0KPiA+bGF0ZW5jeV9o
+aWRpbmdfbGluZXNba10pLA0KPiA+Pj4+PiBid19kaXYoYndfbXVsKGRhdGEtPmRpc3BsYXlfYmFu
+ZHdpZHRoW2tdLCBkYXRhLQ0KPiA+dXNlZnVsX2J5dGVzX3Blcl9yZXF1ZXN0W2tdKSwNCj4gPj4+
+Pj4gZGF0YS0+Ynl0ZXNfcGVyX3JlcXVlc3Rba10pKSkpKTsNCj4gPj4+Pj4gKyAgICAgICAgICAg
+ICAgICAgICAgZGF0YS0+YmxhY2tvdXRfcmVjb3ZlcnlfdGltZSA9DQo+ID4+Pj4+IGJ3X21heDIo
+ZGF0YS0+YmxhY2tvdXRfcmVjb3ZlcnlfdGltZSwNCj4gPj4+Pj4gYndfZGl2KChid19hZGQoYndf
+bXVsKGJ3X2Rpdihid19tdWwoZGF0YS0NCj4gPmRpc3BsYXlfYmFuZHdpZHRoW2tdLA0KPiA+Pj4+
+PiBkYXRhLT51c2VmdWxfYnl0ZXNfcGVyX3JlcXVlc3Rba10pLCBkYXRhLT5ieXRlc19wZXJfcmVx
+dWVzdFtrXSksDQo+ID4+Pj4+IHZiaW9zLT5ibGFja291dF9kdXJhdGlvbiksDQo+ID4+Pj4+DQo+
+IGJ3X3N1Yihid19kaXYoYndfbXVsKGJ3X211bChid19tdWwoKGJ3X2FkZChid19hZGQoYndfbXVs
+KGJ3X2kNCj4gbnRfdG9fZml4ZWQoMiksDQo+ID4+Pj4+IHZiaW9zLT5tY2lmd3JtY191cmdlbnRf
+bGF0ZW5jeSksDQo+ID4+Pj4+IGRhdGEtPmRtaWZfYnVyc3RfdGltZVtkYXRhLT55X2Nsa19sZXZl
+bF1bZGF0YS0+c2Nsa19sZXZlbF0pLA0KPiA+Pj4+PiBkYXRhLT5tY2lmd3JfYnVyc3RfdGltZVtk
+YXRhLT55X2Nsa19sZXZlbF1bZGF0YS0+c2Nsa19sZXZlbF0pKSwNCj4gPj4+Pj4gZGF0YS0+ZGlz
+cGNsayksIGJ3X2ludF90b19maXhlZChkYXRhLT5ieXRlc19wZXJfcGl4ZWxba10pKSwNCj4gPj4+
+Pj4gZGF0YS0+bGluZXNfaW50ZXJsZWF2ZWRfaW5fbWVtX2FjY2Vzc1trXSksIGRhdGEtDQo+ID5s
+YXRlbmN5X2hpZGluZ19saW5lc1trXSksDQo+ID4+Pj4+IGRhdGEtPmFkanVzdGVkX2RhdGFfYnVm
+ZmVyX3NpemVba10pKSksDQo+ID4+Pj4+IChid19zdWIoYndfZGl2KGJ3X211bChid19tdWwoZGF0
+YS0+ZGlzcGNsaywNCj4gPj4+Pj4gYndfaW50X3RvX2ZpeGVkKGRhdGEtPmJ5dGVzX3Blcl9waXhl
+bFtrXSkpLA0KPiA+Pj4+PiBkYXRhLT5saW5lc19pbnRlcmxlYXZlZF9pbl9tZW1fYWNjZXNzW2td
+KSwgZGF0YS0NCj4gPmxhdGVuY3lfaGlkaW5nX2xpbmVzW2tdKSwNCj4gPj4+Pj4gYndfZGl2KGJ3
+X211bChkYXRhLT5kaXNwbGF5X2JhbmR3aWR0aFtrXSwgZGF0YS0NCj4gPnVzZWZ1bF9ieXRlc19w
+ZXJfcmVxdWVzdFtrXSksDQo+ID4+Pj4+IGRhdGEtPmJ5dGVzX3Blcl9yZXF1ZXN0W2tdKSkpKSk7
+DQo+ID4+Pj4gVWhnLCBjYW4gdGhpcyBiZSB3cmFwcGVkL3NwbGl0IHVwIHNvbWVob3c/IFNlZWlu
+ZyB0aGUgY2hhbmdlcyBpcw0KPiBuaWdoDQo+ID4+Pj4gaW1wb3NzaWJsZQ0KPiA+Pj4+IGFuZCBJ
+IHN1c3BlY3QgaXQgbWlnaHQgZXZlbiBiZSBpbXBvc3NpYmxlIGZvciB5b3UgdG8gY2hlY2sgaW50
+ZXJuYWxseS4NCj4gPj4+IEkgYmVsaWV2ZSB0aGlzIGNvbWVzIHN0cmFpZ2h0IGZyb20gc29tZSBj
+b21wbGljYXRlZCBjb2RlIEhXIGdpdmVzIHVzDQo+IGFuZCB3ZSB1c2UNCj4gPj4+IGRpcmVjdGx5
+LiBJJ2xsIHNlZSBpZiB3ZSBjYW4gc29tZWhvdyBtYWtlIHRoaXMgbW9yZSByZWFkYWJsZSBvciBh
+dCBsZWFzdA0KPiBhZGQgYQ0KPiA+Pj4gY29tbWVudCwgYXMgeW91IG1lbnRpb24gYmVsb3cuDQo+
+ID4+IFRoYXQgd291bGQgYmUgcmVhbGx5IGFwcHJlY2lhdGVkLiBJIG1lYW4sIEknbSBpbiBubyB3
+YXkgYWJsZSB0byByZXZpZXcNCj4gPj4gREFML0Rpc3BsYXkgdGhvcm91Z2hseSAoaHVnZSBjb2Rl
+IGJhc2UgSSdtIG5vdCBmYW1pbGlhciB3aXRoIGFuZCB3aGVyZSBJDQo+IG1pZ2h0DQo+ID4+IGVh
+c2lseSBtaXNzIGludGVyYWN0aW9ucyksIGJ1dCB0aGlzIGlzIGp1c3Qgbm90IHJldmlld2FibGUv
+dmVyaWZpYWJsZSBhdCBhbGwgZm9yDQo+ID4+IGFueSBwZXJzb24gb3V0c2lkZSB5b3VyIGlubmVy
+IGNpcmNsZS4NCj4gPiBJIGZvbGxvd2VkIHVwIHdpdGggVG9ueSwgd2hvJ3MgYmVlbiB3b3JraW5n
+IHdpdGggSFcgZ3V5cyB0byBnZXQgdGhlbSB0bw0KPiBzaGFyZQ0KPiA+IHRoaXMgY29kZSB3aXRo
+IHVzLiBVbmZvcnR1bmF0ZWx5IHRoZXJlIGlzbid0IG11Y2ggd2UgY2FuIGRvIGluIHRoZSB3YXkg
+b2YNCj4gPiBjaGFuZ2luZyB0aGlzIGNvZGUuDQo+IA0KPiBUaGF0J3MgcmF0aGVyIHVuZm9ydHVu
+YXRlLCB0aGF0IG5vdCBldmVuIHJlZm9ybWF0dGluZyBpbnRvIGFuIGVhc2llciB0byByZWFkDQo+
+IGZvcm1hdCBpcyBwb3NzaWJsZSAodGhvdWdoIEkgZG8gbm90IHJlYWxseSB1bmRlcnN0YW5kIHdo
+eSwgYmV5b25kICJpdCB0YWtlcw0KPiB3b3JrIik7IG1heWJlIHRoZSBjb21tZW50IHNob3dpbmcg
+dGhlIGZvcm11bGEgaW4gYW4gZWFzaWVyIHRvIHJlYWQgZm9ybQ0KPiBjYW4gYmUNCj4gZG9uZSB0
+aGVuPw0KDQpJSVJDLCB0aGlzIGNvZGUgaXMgbWFjaGluZSBnZW5lcmF0ZWQgYnkgdGhlIGh3IHRl
+YW0uICBXZSd2ZSBiZWVuIGRvd24gdGhpcyByb2FkIHdpdGggdGhlbSBiZWZvcmUuICBVbmZvcnR1
+bmF0ZWx5LCBpdCBoYXNuJ3QgYmVlbiBhIGhpZ2ggZW5vdWdoIHByaW9yaXR5IGZvciB0aGVtIHRv
+IGdldCBhcm91bmQgdG8gaXQuICBXZSBkb24ndCByZWFsbHkgaGF2ZSBpbnNpZ2h0IGludG8gaXQg
+YXQgdGhlIG1vbWVudCB0byBrbm93IGhvdyBtdWNoIHdvcmsgaXQgd291bGQgYmUuDQoNCkFsZXgN
+Cg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
