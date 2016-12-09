@@ -1,118 +1,104 @@
-From: Matthew Macy <mmacy@nextbsd.org>
-Subject: Re: [RFC] Using DC in amdgpu for upcoming GPU
-Date: Fri, 09 Dec 2016 16:29:19 -0800
-Message-ID: <158e622544e.bf0d533f51101.1625188135613562366@nextbsd.org>
-References: <55d5e664-25f7-70e0-f2f5-9c9daf3efdf6@amd.com>
- <20161208095952.hnbfs4b3nac7faap@phenom.ffwll.local>
- <CAPM=9tw=OLirgVU1RVxfPZ1PV64qtjOPTJ2q540=9VJhF4o2RQ@mail.gmail.com>
- <CAPM=9tzqaSR3dUBV9RUmo-kQZ8VmNP=rdgiHwOBii=7A2X0Dew@mail.gmail.com>
- <MWHPR12MB14069887D43D80E37F6A133A98870@MWHPR12MB1406.namprd12.prod.outlook.com>
- <CAKMK7uGDUBHZKNEZTdOi2_66vKZmCsc+ViM0UyTdRPfnYa-Zww@mail.gmail.com>
- <CAPM=9txML=Go-CaFzEbm2AkWKKdOKMySa+GMLaQ=Q9kBJx93=Q@mail.gmail.com>
+From: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+Subject: Video memory reported by GLX_MESA_query_renderer differs between
+ amdgpu and radeon
+Date: Fri, 9 Dec 2016 21:27:24 +0100
+Message-ID: <dfe0d8dd-81fb-8703-61c8-e1a17ba7c9c4@dev.carbon-project.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <CAPM=9txML=Go-CaFzEbm2AkWKKdOKMySa+GMLaQ=Q9kBJx93=Q@mail.gmail.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Dave Airlie <airlied@gmail.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0802965236=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-CiAtLS0tIE9uIEZyaSwgMDkgRGVjIDIwMTYgMTI6MzQ6MTcgLTA4MDAgRGF2ZSBBaXJsaWUgPGFp
-cmxpZWRAZ21haWwuY29tPiB3cm90ZSAtLS0tIAogPiBPbiAxMCBEZWNlbWJlciAyMDE2IGF0IDA1
-OjU5LCBEYW5pZWwgVmV0dGVyIDxkYW5pZWxAZmZ3bGwuY2g+IHdyb3RlOgogPiA+IEkgZ3Vlc3Mg
-dGhpbmdzIHdlbnQgYSBiaXQgc2lkZXdheXMgYnkgbWUgYW5kIERhdmUgb25seSB0YWxraW5nIGFi
-b3V0CiA+ID4gdGhlIG1pZGxheWVyLCBzbyBsZXQgbWUgZmlyc3Qgc3RhdGUgdGhhdCB0aGUgREMg
-c3R1ZmYgaGFzIG1hc3NpdmVseQogPiA+IGltcHJvdmVkIHRocm91Z2ggcmVwbGFjaW5nIGFsbCB0
-aGUgYmFja2VuZCBzZXJ2aWNlcyB0aGF0IHJlaW1wbGVtZW50ZWQKID4gPiBMaW51eCBoZWxwZXIg
-bGlicmFyaWVzIHdpdGggdGhlaXIgbmF0aXZlIGVxdWl2YWxlbnQuIFRoYXQncyBzb21lCiA+ID4g
-c2VyaW91cyB3b3JrLCBhbmQgaXQgc2hvd3MgdGhhdCBBTUQgaXMgY29tbWl0dGVkIHRvIGRvaW5n
-IHRoZSByaWdodAogPiA+IHRoaW5nLgogPiA+CiA+ID4gSSBhYnNvbHV0ZWx5IGRpZG4ndCB3YW50
-IHRvIGJlbGl0dGxlIGFsbCB0aGF0IGVmZm9ydCBieSBvbmx5IHJhaXNpbmcKID4gPiB3aGF0IEkg
-c2VlIGlzIHRoZSBvbmUgaG9sZG92ZXIgbGVmdC4KID4gCiA+IEkgc2VlIG15c2VsZiBhbmQgRGFu
-aWVsIGhhdmUga2luZGEgZmFsbGVuIGludG8gZ29vZC1jb3AsIGJhZC1jb3AgbW9kZS4KID4gCiA+
-IEkgYWdyZWUgd2l0aCBldmVyeXRoaW5nIERhbmllbCBoYWQgc2FpZCBpbiBoZXJlLCBhbmQgY29t
-ZSBuZXh0IHdlZWsgSSBtaWdodAogPiB0cnkgYW5kIHdyaXRlIHNvbWV0aGluZyBtb3JlIGNvbnN0
-cnVjdGl2ZSB1cCwgYnV0IGJlbGlldmUgbWUgRGFuaWVsIGlzIHRvdGFsbHkKID4gcmlnaHQhIEl0
-J3MgU2F0dXJkYXkgbW9ybmluZywgSSd2ZSBnb3QgYSB3ZWVrZW5kIHRvIGRlYWwgd2l0aCBhbmQg
-SSdtIGdvaW5nIHRvCiA+IHRyeSBhbmQgYXZvaWQgdGhpbmtpbmcgdG9vIG11Y2ggYWJvdXQgdGhp
-cy4KID4gCiA+IEkgYWN0dWFsbHkgbG92ZSBiYW5kd2lkdGhfY2FsY3MuYyBJJ2QgbGlrZSB0byBt
-ZXJnZSBpdCBldmVuIGJlZm9yZSBEQUwsIHllcwogPiBpdCdzIHVnbHkgY29kZSwgYW5kIGl0J3Mg
-aG9ycmlibGUgYnV0IGl0J3MgYSBzaW5nbGUgcGllY2Ugb2YgaHcgdGVhbSBtYWdpYywgYW5kCiA+
-IHdlIGNhbiBoaWRlIHRoYXQuIEl0J3MgdGhlIHN3IGFic3RyYWN0aW9uIG1hZ2ljIHRoYXQgaXMg
-bXkgaXNzdWUuCiA+IAogPiBEYXZlLgogCgpEYXZpZCAtIAogSSByZWNvZ25pemUgdGhhdCB0aGUg
-bWFpbnRhaW5lciByb2xlIHlvdSBwbGF5IGlzIGNyaXRpY2FsIHRvIHRoZSBzdWNjZXNzIG9mIExp
-bnV4LiAKWW91IG5lZWQgdG8gaG9ub3IgeW91ciByZXNwb25zaWJpbGl0aWVzIGFzIHdlbGwgYXMg
-bWFpbnRhaW4gCnlvdXIgcmFwcG9ydCB3aXRoIExpbnVzLiBJbiBGcmVlQlNEIGNvbW1pdHRlcnMg
-YXJlIGxhcmdlbHkgc2lsb2VkIGFuZCAKbm8gb25lIGlzIGRlc2lnbmF0ZWQgdG8gZmFjaWxpdGF0
-ZSB0aGUgaW1wb3J0IG9mIG91dHNpZGUgY29udHJpYnV0aW9ucy4gQXMgYSAKY29uc2VxdWVuY2Us
-IHZlbmRvciBkcml2ZXIgZGV2ZWxvcGVycyBhcmUgZ2l2ZW4gY29tbWl0IGJpdHMgYW5kIApub3Qg
-aW5mcmVxdWVudGx5IGNvbW1pdCBuZWFyIHVubWFpbnRhaW5hYmxlIGdhcmJhZ2UuIEFjYWRlbWlj
-IApjb21taXR0ZXJzIGNvbW1pdCBoYWxmIGJha2VkIGNvZGUgdG8gbWVldCBhIHB1Ymxpc2hpbmcg
-ZGVhZGxpbmUgLSB3aGljaCAKdGhleSBzdWJzZXF1ZW50bHkgYWJhbmRvbi4gQW5kIG11Y2ggd29y
-ayBieSBub24tY29tbWl0dGVycyBuZXZlciBtYWtlcyBpdCAKaW4uIEZyZXF1ZW50bHksIHRoZSBz
-ZWxmLWFwcG9pbnRlZCBnYXRla2VlcGVycyBpbiB0aGUgY29tbXVuaXR5IHdpbGwgYmxvY2sgd29y
-ayAKd2l0aCBsaXR0bGUgdmlzaWJsZSBkaXNjdXNzaW9uIG9yIG5lZ290aWF0aW9uIGFib3V0IGhv
-dyB0byBtZWV0IHRoZWlyIGRlbWFuZHMgCihFTk9USU1FIGJlaW5nIHRoZSB0eXBpY2FsIHJlc3Bv
-bnNlKS4gV2hlbiBJIHRhbGsgdG8gcGVvcGxlIG91dHNpZGUgdGhlIApjb21tdW5pdHkgYWJvdXQg
-dGhlIHdheXMgaW4gd2hpY2ggRnJlZUJTRCBtb3N0IG5vdGFibHkgZmVsbCBzaG9ydCBvZiBMaW51
-eCwgCnRoZSBvbmUgcG9pbnQgdGhhdCByZXNvbmF0ZXMgdGhlIG1vc3QgaXMgdGhlIGxhY2sgb2Yg
-Y2xlYXIgcGF0aCBvciB0cmFuc3BhcmVuY3kgCmluIHVwc3RyZWFtaW5nIGNvbnRyaWJ1dGlvbnMu
-IAoKQXMgbWFpbnRhaW5lciB5b3VyIHJlc3BvbnNpYmlsaXR5IGlzIGZpcnN0IGFuZCBmb3JlbW9z
-dCB0byB0aGUgbG9uZyB0ZXJtIGhlYWx0aCBvZiAKTGludXggLSBub3QgYmVpbmcgcG9wdWxhciB3
-aXRoIGNvbnRyaWJ1dG9ycy4gCgoKVGhhdCBzYWlkLCBhcyBhIHByb3NwZWN0aXZlIEFNRCBzaGFy
-ZWhvbGRlciBJIGhhdmUgYSBmZXcgb2JzZXJ2YXRpb25zIHRvIG1ha2UgCmFib3V0IHdoYXQgdGhl
-eSBzaG91bGQgZG8uIAoKRmlyc3Qgb2YgYWxsLCBieSBhbnkgbWVhc3VyZXMgQU1EIGdyYXBoaWNz
-IHByb2ZpdCBtYXJnaW5zIGFyZSByYXpvciB0aGluLiBFdmVuIAp3aGVuIHRoZWlyIHByb2R1Y3Rz
-IGhhdmUgYmVlbiBjbGVhcmx5IHN1cGVyaW9yIHRvIE52aWRpYSdzIGNvbnN1bWVycyBoYXZlLCAK
-YXMgYSBncm91cCwgaGVsZCBvZmYgYW5kIHBhaWQgbW9yZSBmb3IgTnZpZGlhJ3MuIFNlZSB0aGUg
-Zm9sbG93aW5nIHlvdXR1YmUgdmlkZW8gCmlmIHlvdSdyZSBjdXJpb3VzIGFzIHRvIGp1c3QgaG93
-IHBvb3JseSB0aGV5IGhhdmUgZmFyZWQgaW4gbWluZHNoYXJlOiBodHRwOi8vYml0Lmx5LzFKNzAy
-MFAgCkkgaGF2ZSBubyBkb3VidCB0aGF0IHRoZXkgbGFjayB0aGUgcmVzb3VyY2VzIHRvIHN1cHBv
-cnQgTGludXggYXQgdGhlIHNhbWUgbGV2ZWwgCm9mIFdpbmRvd3Mgd2l0aG91dCBsYXJnZSBhbW91
-bnRzIG9mIGNvZGUgc2hhcmluZy4gSSB3YXMgdW5kZXIgdGhlIGltcHJlc3Npb24gCnRoYXQgdGhl
-aXIgUk9DIGNvbXB1dGUgc3RhY2sgd291bGQgYmUgbmVhciByZWFkeSBmb3IgbWFpbmxpbmUgdGhp
-cyBzdW1tZXIuIEl0J3MgCm5vdyBjbGVhciB0aGF0LCBhdCBiZXN0LCBpdCB3b24ndCBoYXBwZW4g
-YW55IHNvb25lciB0aGFuIG5leHQgc3VtbWVyLiAKCkFzIGEgZG93bnN0cmVhbSBjb25zdW1lciBv
-ZiBBbGV4J3MgY29kZSBvbiBMaW51eCBhbmQgRnJlZUJTRCBJICpob3BlKiB0aGF0IApBTUQgd2ls
-bCBkbyB3aGF0ZXZlciBpdCB0YWtlcyB0byBwdXQgdGhlaXIgY29kZWJhc2Ugb24gcGFyIHdpdGgg
-V2luZG93cy4gVGhlcmUgYXJlIApvbmx5IHR3byBtYWtlcnMgb2YgaGlnaCBlbmQgR1BVcyBhbmQg
-b25lIG9uZSBvZiB0aGVtIGlzIG9wYXF1ZSBhbmQgY2xvc2VkIHNvdXJjZS4gCgpIb3dldmVyLCBh
-cyBhIHByb3NwZWN0aXZlIHNoYXJlaG9sZGVyIHdobyBpcyB1bmRlciB0aGUgaW1wcmVzc2lvbiB0
-aGF0IGFsbW9zdCBub25lIApvZiB0aGVpciBpbmNvbWUgY29tZXMgZnJvbSBMaW51eCB1c2VycyAt
-IGlmIHRoZXkgbmVlZCB0byBoYXZlIGEgZnVsbHkgbmF0aXZlIApMaW51eCBkcml2ZXIgSSB0aGlu
-ayB0aGV5IGhhdmUgMyByZWFsIGNob2ljZXM6IAoKYSkgRHVtYiBkb3duIHRoZSBkcml2ZXIuIEl0
-IGp1c3QgbmVlZHMgdG8gcHVzaCBwaXhlbHMuIEFkbWl0IHRoYXQgTnZpZGlhIGhhcyB3b24gdGhl
-IG1pbmRzaGFyZSAKZm9yIGFueXRoaW5nIGxpa2UgaGlnaCBlbmQgZ3JhcGhpY3Mgb24gTGludXgu
-IEp1c3QgYmUgZ29vZCBlbm91Z2ggdG8gcnVuIFggYW5kIGJhc2ljIG1lc2EgZGVtb3MuIAoKYikg
-R28gYmFjayB0byBhIGNsb3NlZCBzb3VyY2UgZHJpdmVyLiBBbHRob3VnaCB0aGUgRFJNIGxheWVy
-IGNodXJucyByYXBpZGx5LCB0aGUgdW5kZXJseWluZyAKS1BJcyB0aGF0IGl0IHVzZXMgY2hhbmdl
-IHZlcnkgc2xvd2x5LiBUbyB0aGUgbGltaXRlZCBleHRlbnQgdGhleSBuZWVkIHRvIGl0J3Mgbm90
-IHRoYXQgaGFyZCB0byAKZGVjb3VwbGUgZnJvbSB0aGUgdW5kZXJseWluZyBrZXJuZWwuIE52aWRp
-YSdzIHNlZW4gbGl0dGxlIHRvIG5vIGJsb3diYWNrIGZvciBvbmx5IHByb3ZpZGluZyAKYmluYXJ5
-IHN1cHBvcnQgZm9yIGEgbmFycm93IHNldCBvZiBMaW51eCBrZXJuZWxzLiAKCkluIGZhY3QgLSB0
-aGUgcmVhc29uIEkgcnVuIExpbnV4IGlzIGJlY2F1c2Ugb2YgdGhlIExpbnV4IG9ubHkgYmluYXJ5
-IENVREEgc3RhY2suIEJsb2JzIGNhbiAKaGF2ZSBzb21lIG5pY2UgbG9jay1pbiBiZW5lZml0cyBm
-b3IgTGludXguIAoKYykgYStiIC0gd3JpdGUgYSAiZ29vZCBlbm91Z2giIGRyaXZlciBmb3Igb3Bl
-biBzb3VyY2UgYW5kIGtlZXAgYSBjbG9zZWQgZHJpdmVyIGZvciBzZWxlY3RlZCAKbGFyZ2UgY29u
-c3VtZXJzLiAKCkFNRCdzIHJlc3BvbnNpYmlsaXR5IGlzIGZpcnN0IGFuZCBmb3JlbW9zdCB0byBp
-dHMgc2hhcmVob2xkZXJzLiBJZiBkb2luZyByaWdodCBieSBMaW51eCBpcyBpbiAKY29uZmxpY3Qg
-d2l0aCB0aGF0IHRoZSBjaG9pY2UgaXMgY2xlYXIuIEl0IGlzIHRob3NlIG9mIHVzIGRlcGVuZGVu
-dCBvbiBpdCBiZWluZyBvcGVuIHNvdXJjZSB0aGF0IGxvc2UgCnRoZSBtb3N0LiAKCkkgdGhpbmsg
-dGhlIG5ldCBjb25zZXF1ZW5jZSBvZiB0aGlzIHdpbGwgYmUgdG8gcmVpbmZvcmNlIHRoZSBkb21p
-bmFudCBwb3NpdGlvbiBvZiBOdmlkaWEgYW5kICB0aGUgbWFyZ2luYWwgcmVsZXZhbmNlIG9mIG9w
-ZW4gc291cmNlIGdyYXBoaWNzIG91dHNpZGUgb2YgZW1iZWRkZWQgKEludGVsJ3Mgc3VwcG9ydCBm
-b3IgTGludXggaXMgZ3JlYXQsIGJ1dCBpdCByZWFsbHkgaXMgbm90IGluIHRoZSBzYW1lIGxlYWd1
-ZSBhcyBOdmlkaWEgb3IgQU1EKS4KCi1NCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9kcmktZGV2ZWwK
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0802965236==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature";
+ boundary="8ajlwmlNdScDQV8ANMn2w5Asadd81abT6"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--8ajlwmlNdScDQV8ANMn2w5Asadd81abT6
+Content-Type: multipart/mixed; boundary="nJSO0Q9l65IFGpBGVP26Jkm3Ru7Psn6JL";
+ protected-headers="v1"
+From: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Message-ID: <dfe0d8dd-81fb-8703-61c8-e1a17ba7c9c4-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+Subject: Video memory reported by GLX_MESA_query_renderer differs between
+ amdgpu and radeon
+
+--nJSO0Q9l65IFGpBGVP26Jkm3Ru7Psn6JL
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+[Please CC me on all replies, I'm not subscribed to this list.]
+
+Hey,
+I've been noticing that GLX_MESA_query_renderer reports less video memory=
+ when I
+use amdgpu for my Hawaii PRO GPU, than when I use radeon. Since I'm prett=
+y happy
+with amdgpu (as I do not use HDMI audio) and it's the code, that gets act=
+ive
+improvements, I'd like to stay with it, but having 40 MB of video memory
+"vanish" is not nice.
+With radeon GLX_MESA_query_renderer reports 4096 MB RAM (as expected, the=
+ R9 290
+was sold/advertised with that), while I'm seeing 4056 MB with amdgpu (las=
+t
+tested kernel: 4.8.13).
+
+As I'm not sure, whether this is a bug or rather some always reserved mem=
+ory
+area, which gets subtracted before reporting the available memory, I didn=
+'t file
+a bug report and rather am writing this e-mail. If it's a bug I'm happy t=
+o file
+the report against amdgpu.
+
+Cheers,
+Kai
+
+
+--nJSO0Q9l65IFGpBGVP26Jkm3Ru7Psn6JL--
+
+--8ajlwmlNdScDQV8ANMn2w5Asadd81abT6
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQGzBAEBCgAdFiEEBgCWzvPI5zPlthWHownXbOHeWdIFAlhLE70ACgkQownXbOHe
+WdKB3gv9GoFE8SlA/+7cSWCPIkVCAwT9hXnTAoW9MqgR4nPpXbZNlYK785v6xvrs
+Uai+dPJjXMbJfzGaWFgPbPl2QTNlMbxjEwiXq/lLCyfvlwudi4s78VZ5eMXbE93Z
+hxLLymMbrbeotXgV7H1r8euW2DfI4Hs6QXvMCKa/S8yUKY3ZKaqjPTIL4x41IkQK
+irzvBPwVlINfpfuZu4XwWL1x9YycW2BeEb1KLNMZncB//f0eFVrzr7q8RIYi6TSR
+zLqo5LBlo+eMHMh3F+qkK7bzin+fbSzNc2Axn9IcTF+1lfQCK6bFbxlsUCzVTjB6
+8h3A+QAJj/m9isBd1uJgC5aEl+BWa4yGjPCehNfD85s6yUS0uF8d5zuD0fbvCW2H
+tkV7+WdJgH6J4+3Vlw9SdUw+8nR3AWJ49n5MNMupRUN8ncy9jsS9OPy1Ag1baHP/
+V9SIW8bZGAOtNw4kUAJ9J3PCXk57dnP3VhRZcsI57GzAkc1s4L1Q/EKiLLpvm67u
+XStfkzHZ
+=/t8j
+-----END PGP SIGNATURE-----
+
+--8ajlwmlNdScDQV8ANMn2w5Asadd81abT6--
+
+--===============0802965236==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0802965236==--
