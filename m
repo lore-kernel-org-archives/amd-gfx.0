@@ -1,15 +1,12 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amd/amdgpu: skip amdgpu_gem_va_update_vm when
- shadow page directory is swapped out
-Date: Mon, 12 Dec 2016 19:16:36 +0100
-Message-ID: <3b6af8eb-0bc3-f6ab-fb8e-12f5fd7796f5@vodafone.de>
-References: <1481555054-27405-1-git-send-email-nhaehnle@gmail.com>
- <1481555054-27405-2-git-send-email-nhaehnle@gmail.com>
+Subject: Re: Raciness with page table shadows being swapped out
+Date: Mon, 12 Dec 2016 19:22:48 +0100
+Message-ID: <c59a9faa-ae45-eecf-5648-ba8143bc2b53@vodafone.de>
+References: <9153dde6-9087-94b0-a062-dd223e5f381a@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1649314847=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1481555054-27405-2-git-send-email-nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <9153dde6-9087-94b0-a062-dd223e5f381a-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,57 +17,197 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>
+To: =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QW0gMTIuMTIuMjAxNiB1bSAxNjowNCBzY2hyaWViIE5pY29sYWkgSMOkaG5sZToKPiBGcm9tOiBO
-aWNvbGFpIEjDpGhubGUgPG5pY29sYWkuaGFlaG5sZUBhbWQuY29tPgo+Cj4gVGhpcyBmaXhlcyBh
-IGNyYXNoIHdpdGggdGhlIGZvbGxvd2luZyBzdGFjayB0cmFjZToKPgo+ICAgYW1kZ3B1X2d0dF9t
-Z3JfYWxsb2MKPiAgIGFtZGdwdV90dG1fYmluZAo+ICAgYW1kZ3B1X3ZtX3VwZGF0ZV9wYWdlX2Rp
-cmVjdG9yeQo+ICAgYW1kZ3B1X2dlbV92YV91cGRhdGVfdm0KPgo+IFNpZ25lZC1vZmYtYnk6IE5p
-Y29sYWkgSMOkaG5sZSA8bmljb2xhaS5oYWVobmxlQGFtZC5jb20+Cj4gLS0tCj4gICBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMgfCAxMSArKysrKysrKysrKwo+ICAgMSBm
-aWxlIGNoYW5nZWQsIDExIGluc2VydGlvbnMoKykKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfZ2VtLmMKPiBpbmRleCBmYmZiZTVhLi5mZmIzZTcwIDEwMDY0NAo+IC0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYwo+IEBAIC00OTUsMjAgKzQ5NSwyMSBAQCBzdGF0
-aWMgaW50IGFtZGdwdV9nZW1fdmFfY2hlY2sodm9pZCAqcGFyYW0sIHN0cnVjdCBhbWRncHVfYm8g
-KmJvKQo+ICAgICoKPiAgICAqIFVwZGF0ZSB0aGUgYm9fdmEgZGlyZWN0bHkgYWZ0ZXIgc2V0dGlu
-ZyBpdCdzIGFkZHJlc3MuIEVycm9ycyBhcmUgbm90Cj4gICAgKiB2aXRhbCBoZXJlLCBzbyB0aGV5
-IGFyZSBub3QgcmVwb3J0ZWQgYmFjayB0byB1c2Vyc3BhY2UuCj4gICAgKi8KPiAgIHN0YXRpYyB2
-b2lkIGFtZGdwdV9nZW1fdmFfdXBkYXRlX3ZtKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+
-ICAgCQkJCSAgICBzdHJ1Y3QgYW1kZ3B1X2JvX3ZhICpib192YSwKPiAgIAkJCQkgICAgdWludDMy
-X3Qgb3BlcmF0aW9uKQo+ICAgewo+ICAgCXN0cnVjdCB0dG1fdmFsaWRhdGVfYnVmZmVyIHR2LCAq
-ZW50cnk7Cj4gICAJc3RydWN0IGFtZGdwdV9ib19saXN0X2VudHJ5IHZtX3BkOwo+ICsJc3RydWN0
-IGFtZGdwdV9ibyAqcGRfc2hhZG93Owo+ICAgCXN0cnVjdCB3d19hY3F1aXJlX2N0eCB0aWNrZXQ7
-Cj4gICAJc3RydWN0IGxpc3RfaGVhZCBsaXN0LCBkdXBsaWNhdGVzOwo+ICAgCXVuc2lnbmVkIGRv
-bWFpbjsKPiAgIAlpbnQgcjsKPiAgIAo+ICAgCUlOSVRfTElTVF9IRUFEKCZsaXN0KTsKPiAgIAlJ
-TklUX0xJU1RfSEVBRCgmZHVwbGljYXRlcyk7Cj4gICAKPiAgIAl0di5ibyA9ICZib192YS0+Ym8t
-PnRibzsKPiAgIAl0di5zaGFyZWQgPSB0cnVlOwo+IEBAIC01MjEsMjAgKzUyMiwzMCBAQCBzdGF0
-aWMgdm9pZCBhbWRncHVfZ2VtX3ZhX3VwZGF0ZV92bShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-diwKPiAgIAlpZiAocikKPiAgIAkJZ290byBlcnJvcl9wcmludDsKPiAgIAo+ICAgCWxpc3RfZm9y
-X2VhY2hfZW50cnkoZW50cnksICZsaXN0LCBoZWFkKSB7Cj4gICAJCWRvbWFpbiA9IGFtZGdwdV9t
-ZW1fdHlwZV90b19kb21haW4oZW50cnktPmJvLT5tZW0ubWVtX3R5cGUpOwo+ICAgCQkvKiBpZiBh
-bnl0aGluZyBpcyBzd2FwcGVkIG91dCBkb24ndCBzd2FwIGl0IGluIGhlcmUsCj4gICAJCSAgIGp1
-c3QgYWJvcnQgYW5kIHdhaXQgZm9yIHRoZSBuZXh0IENTICovCj4gICAJCWlmIChkb21haW4gPT0g
-QU1ER1BVX0dFTV9ET01BSU5fQ1BVKQo+ICAgCQkJZ290byBlcnJvcl91bnJlc2VydmU7CgpJIHdv
-dWxkIGp1c3QgZG8gdGhlIGNoZWNrIGluIHRoaXMgbG9vcCBpbnN0ZWFkIG9mIGRvd24gYmVsb3cg
-c3BlY2lhbGl6ZWQgCmZvciB0aGUgcGFnZSBkaXJlY3RvcnkuCgpXZSBoYXZlIG9ubHkgdHdvIGVu
-dHJpZXMgaW4gdGhlIGxpc3QgYW55d2F5IGFuZCBJIGFjdHVhbGx5IHdvdWxkIHN1Z2dlc3QgCnRv
-IGhhdmUgc29tZXRoaW5nIGxpa2UgYSBhbWRncHVfYm9fc3dhcHBlZF9vdXQoKSBvciAKYW1kZ3B1
-X2JvX2dwdV9hY2Nlc3NpYmxlKCkgaGVscGVyIGluIGFtZGdwdV9vYmplY3QuaC4KClJlZ2FyZHMs
-CkNocmlzdGlhbi4KCj4gICAJfQo+ICsKPiArCS8qIEFsc28gYWJvcnQgaWYgdGhlIHBhZ2UgZGly
-ZWN0b3J5IHNoYWRvdyBoYXMgYmVlbiBzd2FwcGVkIG91dC4gKi8KPiArCXBkX3NoYWRvdyA9IGJv
-X3ZhLT52bS0+cGFnZV9kaXJlY3RvcnktPnNoYWRvdzsKPiArCWlmIChwZF9zaGFkb3cpIHsKPiAr
-CQlkb21haW4gPSBhbWRncHVfbWVtX3R5cGVfdG9fZG9tYWluKHBkX3NoYWRvdy0+dGJvLm1lbS5t
-ZW1fdHlwZSk7Cj4gKwo+ICsJCWlmIChkb21haW4gPT0gQU1ER1BVX0dFTV9ET01BSU5fQ1BVKQo+
-ICsJCQlnb3RvIGVycm9yX3VucmVzZXJ2ZTsKPiArCX0KPiArCj4gICAJciA9IGFtZGdwdV92bV92
-YWxpZGF0ZV9wdF9ib3MoYWRldiwgYm9fdmEtPnZtLCBhbWRncHVfZ2VtX3ZhX2NoZWNrLAo+ICAg
-CQkJCSAgICAgIE5VTEwpOwo+ICAgCWlmIChyKQo+ICAgCQlnb3RvIGVycm9yX3VucmVzZXJ2ZTsK
-PiAgIAo+ICAgCXIgPSBhbWRncHVfdm1fdXBkYXRlX3BhZ2VfZGlyZWN0b3J5KGFkZXYsIGJvX3Zh
-LT52bSk7Cj4gICAJaWYgKHIpCj4gICAJCWdvdG8gZXJyb3JfdW5yZXNlcnZlOwo+ICAgCj4gICAJ
-ciA9IGFtZGdwdV92bV9jbGVhcl9mcmVlZChhZGV2LCBib192YS0+dm0pOwoKCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
-CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This is a multi-part message in MIME format.
+--===============1649314847==
+Content-Type: multipart/alternative;
+ boundary="------------9803D8A781C5384692306545"
+
+This is a multi-part message in MIME format.
+--------------9803D8A781C5384692306545
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Am 12.12.2016 um 16:20 schrieb Nicolai Hähnle:
+> Hi all,
+>
+> I just sent out two patches that hopefully make the kernel module more 
+> robust in the face of page table shadows being swapped out.
+>
+> However, even with those patches, I can still fairly reliably 
+> reproduce crashes with a backtrace of the shape
+>
+> amdgpu_cs_ioctl
+>  -> amdgpu_vm_update_page_directory
+>  -> amdgpu_ttm_bind
+>  -> amdgpu_gtt_mgr_alloc
+>
+> The plausible reason for these crashes is that nothing seems to 
+> prevent the shadow BOs from being moved between the calls to 
+> amdgpu_cs_validate in amdgpu_cs_parser_bos and the calls to 
+> amdgpu_ttm_bind.
+
+The shadow BOs use the same reservation object than the real BOs. So as 
+long as the real BOs can't be evicted the shadows can't be evicted either.
+
+>
+> The attached patch has fixed these crashes for me so far, but it's 
+> very heavy-handed: it collects all page table shadows and the page 
+> directory shadow and adds them all to the reservations for the callers 
+> of amdgpu_vm_update_page_directory.
+
+That is most likely just a timing change, cause the shadows should end 
+up in the duplicates list anyway. So the patch shouldn't have any effect.
+
+>
+> I feel like there should be a better way. In part, I wonder why the 
+> shadows are needed in the first place. I vaguely recall the 
+> discussions about GPU reset and such, but I don't remember why the 
+> page tables can't just be rebuilt in some other way.
+
+It's just the simplest and fastest way to keep a copy of the page tables 
+around.
+
+The problem with rebuilding the page tables from the mappings is that 
+the housekeeping structures already have the future state when a reset 
+happens, not the state we need to rebuild the tables.
+
+We could obviously change the housekeeping a bit to keep both states, 
+but that would complicate mapping and unmapping of BOs significantly.
+
+Regards,
+Christian.
+
+>
+> Cheers,
+> Nicolai
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+
+--------------9803D8A781C5384692306545
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <div class="moz-cite-prefix">Am 12.12.2016 um 16:20 schrieb Nicolai
+      Hähnle:<br>
+    </div>
+    <blockquote
+      cite="mid:9153dde6-9087-94b0-a062-dd223e5f381a-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
+      type="cite">Hi all,
+      <br>
+      <br>
+      I just sent out two patches that hopefully make the kernel module
+      more robust in the face of page table shadows being swapped out.
+      <br>
+      <br>
+      However, even with those patches, I can still fairly reliably
+      reproduce crashes with a backtrace of the shape
+      <br>
+      <br>
+      amdgpu_cs_ioctl
+      <br>
+       -&gt; amdgpu_vm_update_page_directory
+      <br>
+       -&gt; amdgpu_ttm_bind
+      <br>
+       -&gt; amdgpu_gtt_mgr_alloc
+      <br>
+      <br>
+      The plausible reason for these crashes is that nothing seems to
+      prevent the shadow BOs from being moved between the calls to
+      amdgpu_cs_validate in amdgpu_cs_parser_bos and the calls to
+      amdgpu_ttm_bind.
+      <br>
+    </blockquote>
+    <br>
+    The shadow BOs use the same reservation object than the real BOs. So
+    as long as the real BOs can't be evicted the shadows can't be
+    evicted either.<br>
+    <br>
+    <blockquote
+      cite="mid:9153dde6-9087-94b0-a062-dd223e5f381a-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
+      type="cite">
+      <br>
+      The attached patch has fixed these crashes for me so far, but it's
+      very heavy-handed: it collects all page table shadows and the page
+      directory shadow and adds them all to the reservations for the
+      callers of amdgpu_vm_update_page_directory.
+      <br>
+    </blockquote>
+    <br>
+    That is most likely just a timing change, cause the shadows should
+    end up in the duplicates list anyway. So the patch shouldn't have
+    any effect.<br>
+    <br>
+    <blockquote
+      cite="mid:9153dde6-9087-94b0-a062-dd223e5f381a-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
+      type="cite">
+      <br>
+      I feel like there should be a better way. In part, I wonder why
+      the shadows are needed in the first place. I vaguely recall the
+      discussions about GPU reset and such, but I don't remember why the
+      page tables can't just be rebuilt in some other way.
+      <br>
+    </blockquote>
+    <br>
+    It's just the simplest and fastest way to keep a copy of the page
+    tables around.<br>
+    <br>
+    The problem with rebuilding the page tables from the mappings is
+    that the housekeeping structures already have the future state when
+    a reset happens, not the state we need to rebuild the tables.<br>
+    <br>
+    We could obviously change the housekeeping a bit to keep both
+    states, but that would complicate mapping and unmapping of BOs
+    significantly.<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <blockquote
+      cite="mid:9153dde6-9087-94b0-a062-dd223e5f381a-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
+      type="cite">
+      <br>
+      Cheers,
+      <br>
+      Nicolai
+      <br>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------9803D8A781C5384692306545--
+
+--===============1649314847==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1649314847==--
