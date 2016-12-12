@@ -1,12 +1,11 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: Raciness with page table shadows being swapped out
-Date: Mon, 12 Dec 2016 19:22:48 +0100
-Message-ID: <c59a9faa-ae45-eecf-5648-ba8143bc2b53@vodafone.de>
-References: <9153dde6-9087-94b0-a062-dd223e5f381a@gmail.com>
+From: arindam.nath-5C7GfCeVMHo@public.gmane.org
+Subject: [PATCH 1/1] drm/amd/amdgpu: get maximum and used UVD handles (v3)
+Date: Tue, 13 Dec 2016 00:19:52 +0530
+Message-ID: <1481568592-3509-1-git-send-email-arindam.nath@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1649314847=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <9153dde6-9087-94b0-a062-dd223e5f381a-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,197 +16,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: airlied-cv59FeDIM0c@public.gmane.org
+Cc: alexander.deucher-5C7GfCeVMHo@public.gmane.org, Arindam Nath <arindam.nath-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, christian.koenig-5C7GfCeVMHo@public.gmane.org
 
-This is a multi-part message in MIME format.
---===============1649314847==
-Content-Type: multipart/alternative;
- boundary="------------9803D8A781C5384692306545"
-
-This is a multi-part message in MIME format.
---------------9803D8A781C5384692306545
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Am 12.12.2016 um 16:20 schrieb Nicolai Hähnle:
-> Hi all,
->
-> I just sent out two patches that hopefully make the kernel module more 
-> robust in the face of page table shadows being swapped out.
->
-> However, even with those patches, I can still fairly reliably 
-> reproduce crashes with a backtrace of the shape
->
-> amdgpu_cs_ioctl
->  -> amdgpu_vm_update_page_directory
->  -> amdgpu_ttm_bind
->  -> amdgpu_gtt_mgr_alloc
->
-> The plausible reason for these crashes is that nothing seems to 
-> prevent the shadow BOs from being moved between the calls to 
-> amdgpu_cs_validate in amdgpu_cs_parser_bos and the calls to 
-> amdgpu_ttm_bind.
-
-The shadow BOs use the same reservation object than the real BOs. So as 
-long as the real BOs can't be evicted the shadows can't be evicted either.
-
->
-> The attached patch has fixed these crashes for me so far, but it's 
-> very heavy-handed: it collects all page table shadows and the page 
-> directory shadow and adds them all to the reservations for the callers 
-> of amdgpu_vm_update_page_directory.
-
-That is most likely just a timing change, cause the shadows should end 
-up in the duplicates list anyway. So the patch shouldn't have any effect.
-
->
-> I feel like there should be a better way. In part, I wonder why the 
-> shadows are needed in the first place. I vaguely recall the 
-> discussions about GPU reset and such, but I don't remember why the 
-> page tables can't just be rebuilt in some other way.
-
-It's just the simplest and fastest way to keep a copy of the page tables 
-around.
-
-The problem with rebuilding the page tables from the mappings is that 
-the housekeeping structures already have the future state when a reset 
-happens, not the state we need to rebuild the tables.
-
-We could obviously change the housekeeping a bit to keep both states, 
-but that would complicate mapping and unmapping of BOs significantly.
-
-Regards,
-Christian.
-
->
-> Cheers,
-> Nicolai
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
-
---------------9803D8A781C5384692306545
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body bgcolor="#FFFFFF" text="#000000">
-    <div class="moz-cite-prefix">Am 12.12.2016 um 16:20 schrieb Nicolai
-      Hähnle:<br>
-    </div>
-    <blockquote
-      cite="mid:9153dde6-9087-94b0-a062-dd223e5f381a-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
-      type="cite">Hi all,
-      <br>
-      <br>
-      I just sent out two patches that hopefully make the kernel module
-      more robust in the face of page table shadows being swapped out.
-      <br>
-      <br>
-      However, even with those patches, I can still fairly reliably
-      reproduce crashes with a backtrace of the shape
-      <br>
-      <br>
-      amdgpu_cs_ioctl
-      <br>
-       -&gt; amdgpu_vm_update_page_directory
-      <br>
-       -&gt; amdgpu_ttm_bind
-      <br>
-       -&gt; amdgpu_gtt_mgr_alloc
-      <br>
-      <br>
-      The plausible reason for these crashes is that nothing seems to
-      prevent the shadow BOs from being moved between the calls to
-      amdgpu_cs_validate in amdgpu_cs_parser_bos and the calls to
-      amdgpu_ttm_bind.
-      <br>
-    </blockquote>
-    <br>
-    The shadow BOs use the same reservation object than the real BOs. So
-    as long as the real BOs can't be evicted the shadows can't be
-    evicted either.<br>
-    <br>
-    <blockquote
-      cite="mid:9153dde6-9087-94b0-a062-dd223e5f381a-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
-      type="cite">
-      <br>
-      The attached patch has fixed these crashes for me so far, but it's
-      very heavy-handed: it collects all page table shadows and the page
-      directory shadow and adds them all to the reservations for the
-      callers of amdgpu_vm_update_page_directory.
-      <br>
-    </blockquote>
-    <br>
-    That is most likely just a timing change, cause the shadows should
-    end up in the duplicates list anyway. So the patch shouldn't have
-    any effect.<br>
-    <br>
-    <blockquote
-      cite="mid:9153dde6-9087-94b0-a062-dd223e5f381a-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
-      type="cite">
-      <br>
-      I feel like there should be a better way. In part, I wonder why
-      the shadows are needed in the first place. I vaguely recall the
-      discussions about GPU reset and such, but I don't remember why the
-      page tables can't just be rebuilt in some other way.
-      <br>
-    </blockquote>
-    <br>
-    It's just the simplest and fastest way to keep a copy of the page
-    tables around.<br>
-    <br>
-    The problem with rebuilding the page tables from the mappings is
-    that the housekeeping structures already have the future state when
-    a reset happens, not the state we need to rebuild the tables.<br>
-    <br>
-    We could obviously change the housekeeping a bit to keep both
-    states, but that would complicate mapping and unmapping of BOs
-    significantly.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <blockquote
-      cite="mid:9153dde6-9087-94b0-a062-dd223e5f381a-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
-      type="cite">
-      <br>
-      Cheers,
-      <br>
-      Nicolai
-      <br>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------9803D8A781C5384692306545--
-
---===============1649314847==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1649314847==--
+RnJvbTogQXJpbmRhbSBOYXRoIDxhcmluZGFtLm5hdGhAYW1kLmNvbT4KCkNoYW5nZSBIaXN0b3J5
+Ci0tLS0tLS0tLS0tLS0tCgp2MzogY2hhbmdlcyBzdWdnZXN0ZWQgYnkgQ2hyaXN0aWFuCi0gQWRk
+IGEgY2hlY2sgZm9yIFVWRCBJUCBibG9jayB1c2luZyBBTURHUFVfSFdfSVBfVVZECiAgcXVlcnkg
+dHlwZS4KLSBBZGQgYSBjaGVjayBmb3IgYXNpY190eXBlIHRvIGJlIGxlc3MgdGhhbgogIENISVBf
+UE9MQVJJUzEwIHNpbmNlIHN0YXJ0aW5nIFBvbGFyaXMsIHdlIHN1cHBvcnQKICB1bmxpbWl0ZWQg
+VVZEIGluc3RhbmNlcy4KLSBBZGQga2VybmVsZG9jIHN0eWxlIGNvbW1lbnQgZm9yCiAgYW1kZ3B1
+X3V2ZF91c2VkX2hhbmRsZXMoKS4KCnYyOiBhcyBzdWdnZXN0ZWQgYnkgQ2hyaXN0aWFuCi0gQWRk
+IGEgbmV3IHF1ZXJ5IEFNREdQVV9JTkZPX05VTV9IQU5ETEVTCi0gQ3JlYXRlIGEgaGVscGVyIGZ1
+bmN0aW9uIHRvIHJldHVybiB0aGUgbnVtYmVyCiAgb2YgY3VycmVudGx5IHVzZWQgVVZEIGhhbmRs
+ZXMuCi0gTW9kaWZ5IHRoZSBsb2dpYyB0byBjb3VudCB0aGUgbnVtYmVyIG9mIHVzZWQKICBVVkQg
+aGFuZGxlcyBzaW5jZSBoYW5kbGVzIGNhbiBiZSBmcmVlZCBpbgogIG5vbi1saW5lYXIgZmFzaGlv
+bi4KCnYxOgotIFVzZXIgbWlnaHQgd2FudCB0byBxdWVyeSB0aGUgbWF4aW11bSBudW1iZXIgb2Yg
+VVZECiAgaW5zdGFuY2VzIHN1cHBvcnRlZCBieSBmaXJtd2FyZS4gSW4gYWRkaXRpb24gdG8gdGhh
+dCwKICBpZiB0aGVyZSBhcmUgbXVsdGlwbGUgYXBwbGljYXRpb25zIHVzaW5nIFVWRCBoYW5kbGVz
+CiAgYXQgdGhlIHNhbWUgdGltZSwgaGUgbWlnaHQgYWxzbyB3YW50IHRvIHF1ZXJ5IHRoZQogIGN1
+cnJlbnRseSB1c2VkIG51bWJlciBvZiBoYW5kbGVzLgoKICBGb3IgdGhpcyB3ZSBhZGQgdHdvIHZh
+cmlhYmxlcyBtYXhfaGFuZGxlcyBhbmQKICB1c2VkX2hhbmRsZXMgaW5zaWRlIGRybV9hbWRncHVf
+aW5mb19od19pcC4gU28gbm93CiAgYW4gYXBwbGljYXRpb24gKG9yIGxpYmRybSkgY2FuIHVzZSBB
+TURHUFVfSU5GTyBJT0NUTAogIHdpdGggQU1ER1BVX0lORk9fSFdfSVBfSU5GTyBxdWVyeSB0eXBl
+IHRvIGdldCB0aGVzZQogIHZhbHVlcy4KClNpZ25lZC1vZmYtYnk6IEFyaW5kYW0gTmF0aCA8YXJp
+bmRhbS5uYXRoQGFtZC5jb20+ClJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3Rp
+YW4ua29lbmlnQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2ttcy5jIHwgMjEgKysrKysrKysrKysrKysrKysrKysrCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfdXZkLmMgfCAyNSArKysrKysrKysrKysrKysrKysrKysrKysrCiBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdXZkLmggfCAgMSArCiBpbmNsdWRlL3VhcGkvZHJt
+L2FtZGdwdV9kcm0uaCAgICAgICAgICAgfCAgOSArKysrKysrKysKIDQgZmlsZXMgY2hhbmdlZCwg
+NTYgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9rbXMuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYwpp
+bmRleCAxNzRlYjU5Li4zMjczZDhjIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfa21zLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2ttcy5jCkBAIC01NzAsNiArNTcwLDI3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2luZm9faW9jdGwo
+c3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwgc3RydWN0IGRybV9maWxlCiAJCQly
+ZXR1cm4gLUVJTlZBTDsKIAkJfQogCX0KKwljYXNlIEFNREdQVV9JTkZPX05VTV9IQU5ETEVTOiB7
+CisJCXN0cnVjdCBkcm1fYW1kZ3B1X2luZm9fbnVtX2hhbmRsZXMgaGFuZGxlOworCisJCXN3aXRj
+aCAoaW5mby0+cXVlcnlfaHdfaXAudHlwZSkgeworCQljYXNlIEFNREdQVV9IV19JUF9VVkQ6CisJ
+CQkvKiBTdGFydGluZyBQb2xhcmlzLCB3ZSBzdXBwb3J0IHVubGltaXRlZCBVVkQgaGFuZGxlcyAq
+LworCQkJaWYgKGFkZXYtPmFzaWNfdHlwZSA8IENISVBfUE9MQVJJUzEwKSB7CisJCQkJaGFuZGxl
+LnV2ZF9tYXhfaGFuZGxlcyA9IGFkZXYtPnV2ZC5tYXhfaGFuZGxlczsKKwkJCQloYW5kbGUudXZk
+X3VzZWRfaGFuZGxlcyA9IGFtZGdwdV91dmRfdXNlZF9oYW5kbGVzKGFkZXYpOworCisJCQkJcmV0
+dXJuIGNvcHlfdG9fdXNlcihvdXQsICZoYW5kbGUsCisJCQkJCW1pbigoc2l6ZV90KXNpemUsIHNp
+emVvZihoYW5kbGUpKSkgPyAtRUZBVUxUIDogMDsKKwkJCX0gZWxzZSB7CisJCQkJcmV0dXJuIC1F
+SU5WQUw7CisJCQl9CisKKwkJCWJyZWFrOworCQlkZWZhdWx0OgorCQkJcmV0dXJuIC1FSU5WQUw7
+CisJCX0KKwl9CiAJZGVmYXVsdDoKIAkJRFJNX0RFQlVHX0tNUygiSW52YWxpZCByZXF1ZXN0ICVk
+XG4iLCBpbmZvLT5xdWVyeSk7CiAJCXJldHVybiAtRUlOVkFMOwpkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3V2ZC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X3V2ZC5jCmluZGV4IGE4ODE2YmEuLjAyMTg3ZmQgMTAwNjQ0Ci0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91dmQuYworKysgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfdXZkLmMKQEAgLTExNzMsMyArMTE3MywyOCBAQCBpbnQgYW1k
+Z3B1X3V2ZF9yaW5nX3Rlc3RfaWIoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCBsb25nIHRpbWVv
+dXQpCiBlcnJvcjoKIAlyZXR1cm4gcjsKIH0KKworLyoqCisgKiBhbWRncHVfdXZkX3VzZWRfaGFu
+ZGxlcyAtIHJldHVybnMgdXNlZCBVVkQgaGFuZGxlcworICoKKyAqIEBhZGV2OiBhbWRncHVfZGV2
+aWNlIHBvaW50ZXIKKyAqCisgKiBSZXR1cm5zIHRoZSBudW1iZXIgb2YgVVZEIGhhbmRsZXMgaW4g
+dXNlCisgKi8KK3VpbnQzMl90IGFtZGdwdV91dmRfdXNlZF9oYW5kbGVzKHN0cnVjdCBhbWRncHVf
+ZGV2aWNlICphZGV2KQoreworCXVuc2lnbmVkIGk7CisJdWludDMyX3QgdXNlZF9oYW5kbGVzID0g
+MDsKKworCWZvciAoaSA9IDA7IGkgPCBhZGV2LT51dmQubWF4X2hhbmRsZXM7ICsraSkgeworCQkv
+KgorCQkgKiBIYW5kbGVzIGNhbiBiZSBmcmVlZCBpbiBhbnkgb3JkZXIsIGFuZCBub3QKKwkJICog
+bmVjZXNzYXJpbHkgbGluZWFyLiBTbyB3ZSBuZWVkIHRvIGNvdW50CisJCSAqIGFsbCBub24temVy
+byBoYW5kbGVzLgorCQkgKi8KKwkJaWYgKGF0b21pY19yZWFkKCZhZGV2LT51dmQuaGFuZGxlc1tp
+XSkpCisJCQl1c2VkX2hhbmRsZXMrKzsKKwl9CisKKwlyZXR1cm4gdXNlZF9oYW5kbGVzOworfQpk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3V2ZC5oIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3V2ZC5oCmluZGV4IGM4NTAwMDkuLjBmZWU4
+NjEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91dmQuaAor
+KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdXZkLmgKQEAgLTM4LDUgKzM4
+LDYgQEAgaW50IGFtZGdwdV91dmRfcmluZ19wYXJzZV9jcyhzdHJ1Y3QgYW1kZ3B1X2NzX3BhcnNl
+ciAqcGFyc2VyLCB1aW50MzJfdCBpYl9pZHgpOwogdm9pZCBhbWRncHVfdXZkX3JpbmdfYmVnaW5f
+dXNlKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZyk7CiB2b2lkIGFtZGdwdV91dmRfcmluZ19lbmRf
+dXNlKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZyk7CiBpbnQgYW1kZ3B1X3V2ZF9yaW5nX3Rlc3Rf
+aWIoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCBsb25nIHRpbWVvdXQpOwordWludDMyX3QgYW1k
+Z3B1X3V2ZF91c2VkX2hhbmRsZXMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOwogCiAjZW5k
+aWYKZGlmZiAtLWdpdCBhL2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oIGIvaW5jbHVkZS91
+YXBpL2RybS9hbWRncHVfZHJtLmgKaW5kZXggYmVhOTg3NS4uMmNmOGRmOCAxMDA2NDQKLS0tIGEv
+aW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmgKKysrIGIvaW5jbHVkZS91YXBpL2RybS9hbWRn
+cHVfZHJtLmgKQEAgLTUzMCw2ICs1MzAsOCBAQCBzdHJ1Y3QgZHJtX2FtZGdwdV9jc19jaHVua19k
+YXRhIHsKIAkjZGVmaW5lIEFNREdQVV9JTkZPX1ZCSU9TX1NJWkUJCTB4MQogCS8qIFN1YnF1ZXJ5
+IGlkOiBRdWVyeSB2YmlvcyBpbWFnZSAqLwogCSNkZWZpbmUgQU1ER1BVX0lORk9fVkJJT1NfSU1B
+R0UJCTB4MgorLyogUXVlcnkgVVZEIGhhbmRsZXMgKi8KKyNkZWZpbmUgQU1ER1BVX0lORk9fTlVN
+X0hBTkRMRVMJCQkweDFDCiAKICNkZWZpbmUgQU1ER1BVX0lORk9fTU1SX1NFX0lOREVYX1NISUZU
+CTAKICNkZWZpbmUgQU1ER1BVX0lORk9fTU1SX1NFX0lOREVYX01BU0sJMHhmZgpAQCAtNzIxLDYg
+KzcyMywxMyBAQCBzdHJ1Y3QgZHJtX2FtZGdwdV9pbmZvX2h3X2lwIHsKIAlfX3UzMiAgX3BhZDsK
+IH07CiAKK3N0cnVjdCBkcm1fYW1kZ3B1X2luZm9fbnVtX2hhbmRsZXMgeworCS8qKiBNYXggaGFu
+ZGxlcyBhcyBzdXBwb3J0ZWQgYnkgZmlybXdhcmUgZm9yIFVWRCAqLworCV9fdTMyICB1dmRfbWF4
+X2hhbmRsZXM7CisJLyoqIEhhbmRsZXMgY3VycmVudGx5IGluIHVzZSBmb3IgVVZEICovCisJX191
+MzIgIHV2ZF91c2VkX2hhbmRsZXM7Cit9OworCiAjZGVmaW5lIEFNREdQVV9WQ0VfQ0xPQ0tfVEFC
+TEVfRU5UUklFUwkJNgogCiBzdHJ1Y3QgZHJtX2FtZGdwdV9pbmZvX3ZjZV9jbG9ja190YWJsZV9l
+bnRyeSB7Ci0tIAoxLjkuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Cg==
