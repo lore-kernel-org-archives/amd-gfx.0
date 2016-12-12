@@ -1,17 +1,15 @@
-From: Dave Airlie <airlied@gmail.com>
+From: Daniel Vetter <daniel@ffwll.ch>
 Subject: Re: [RFC] Using DC in amdgpu for upcoming GPU
-Date: Mon, 12 Dec 2016 14:05:04 +1000
-Message-ID: <CAPM=9tznLdQ7SvwCD4wkBEVsh7Y30BTV_0hEYoE+Y0_KCYuXbA@mail.gmail.com>
+Date: Mon, 12 Dec 2016 08:09:50 +0100
+Message-ID: <20161212070950.2bn7dtxynkj26dte@phenom.ffwll.local>
 References: <55d5e664-25f7-70e0-f2f5-9c9daf3efdf6@amd.com>
  <CAPM=9tx+j9-3fZNY=peLjdsVqyLS6i3V-sV3XrnYsK2YuhWRBA@mail.gmail.com>
- <BN6PR12MB134883D1437EC26D13BA62D0E8980@BN6PR12MB1348.namprd12.prod.outlook.com>
- <BN6PR12MB13484A1D247707C399180266E8980@BN6PR12MB1348.namprd12.prod.outlook.com>
- <BN6PR12MB13482393D316367FCCD71BB6E8980@BN6PR12MB1348.namprd12.prod.outlook.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <BN6PR12MB13482393D316367FCCD71BB6E8980@BN6PR12MB1348.namprd12.prod.outlook.com>
+Content-Disposition: inline
+In-Reply-To: <CAPM=9tx+j9-3fZNY=peLjdsVqyLS6i3V-sV3XrnYsK2YuhWRBA@mail.gmail.com>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
 List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
@@ -21,20 +19,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: "Bridgman, John" <John.Bridgman@amd.com>
-Cc: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, "Deucher,
+To: Dave Airlie <airlied@gmail.com>
+Cc: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>, dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, "Deucher,
  Alexander" <Alexander.Deucher@amd.com>, "Cheng, Tony" <Tony.Cheng@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-Pgo+PlRoaXMgY29kZSBuZWVkcyByZXdyaXRpbmcsIG5vdCBjbGVhbmluZywgbm90IHBvbGlzaGlu
-ZywgaXQgbmVlZHMgdG8gYmUKPj5zcGxpdCBpbnRvIGl0cyBjb25zdGl0dWVudCBwYXJ0cywgYW5k
-IHJlaW50ZWdyYXRlZCBpbiBhIGZvcm0gbW9yZQo+PkxpbnV4IHByb2Nlc3MgZnJpZW5kbHkuCj4K
-Pgo+IENhbiB3ZSBzYXkgInJlc3RydWN0dXJpbmciIGp1c3QgZm9yIGNvbnNpc3RlbmN5IHdpdGgg
-RGFuaWVsJ3MgbWVzc2FnZSAodGhlCj4gSFctZGVwZW5kZW50IGJpdHMgZG9uJ3QgbmVlZCB0byBi
-ZSByZXdyaXR0ZW4gYnV0IHRoZSB3YXkgdGhleSBhcmUKPiB1c2VkL2NhbGxlZCBuZWVkcyB0byBj
-aGFuZ2UpID8KClllcyBJIHRoaW5rIHRoZXJlIGlzIGEgbG90IG9mIHRoZSBjb2RlIHRoYXQgY291
-bGQgYmUgcmV1c2VkIHdpdGggbGl0dGxlIGNoYW5nZSwKCml0J3MganVzdCBhbGwgdGhlIHBpZWNl
-cyB0eWluZyBpdCB0b2dldGhlciBuZWVkcyByZXN0cnVjdHVyZS4KCkRhdmUuCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxp
-c3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
+T24gTW9uLCBEZWMgMTIsIDIwMTYgYXQgMTI6NTc6NDBQTSArMTAwMCwgRGF2ZSBBaXJsaWUgd3Jv
+dGU6Cj4gNCkgV2h5IGNhbid0IHdlIHB1dCB0aGlzIGluIHN0YWdpbmc/Cj4gUGVvcGxlIGhhdmUg
+YWxzbyBtZW50aW9uZWQgc3RhZ2luZywgRGFuaWVsIGhhcyBjYWxsZWQgaXQgYSBkZWFkIGVuZCwK
+PiBJJ2QgaGF2ZSBjb25zaWRlcmVkIHN0YWdpbmcgZm9yIHRoaXMgY29kZSBiYXNlLCBhbmQgSSBz
+dGlsbCBtaWdodC4KPiBIb3dldmVyIHN0YWdpbmcgaGFzIHJ1bGVzLCBhbmQgdGhlIG1haW4gb25l
+IGlzIGNvZGUgaW4gc3RhZ2luZyBuZWVkcyBhCj4gVE9ETyBsaXN0LCBhbmQgYWdyZWVkIGNyaXRl
+cmlhIGZvciBleGl0aW5nIHN0YWdpbmcsIEkgZG9uJ3QgdGhpbmsgd2UnZAo+IGJlIGFibGUgdG8g
+Z2V0IGFuIGFncmVlbWVudCBvbiB3aGF0IHRoZSBUT0RPIGxpc3Qgc2hvdWxkIGNvbnRhaW4gYW5k
+Cj4gaG93IHdlJ2QgZXZlciBnZXQgYWxsIHRoaW5ncyBvbiBpdCBkb25lLiBJZiB0aGlzIGNvZGUg
+ZW5kZWQgdXAgaW4KPiBzdGFnaW5nLCBpdCB3b3VsZCBtb3N0IGxpa2VseSByZXF1aXJlIHNvbWVv
+bmUgZGVkaWNhdGVkIHRvIHJlY3JlYXRpbmcKPiBpdCBpbiB0aGUgbWFpbmxpbmUgZHJpdmVyIGlu
+IGFuIGluY3JlbWVudGFsIGZhc2hpb24sIGFuZCBJIGRvbid0IHNlZQo+IHRoYXQgcmVzb3VyY2Ug
+YmVpbmcgYXZhaWxhYmxlLgoKU28gaXQncyBub3QganVzdCB0aGF0IEkgdGhpbmsgdGhlIHN0YWdp
+bmcgZXhwZXJpZW5jZSBmb3IgZHJpdmVycyBpc24ndApnb29kIChlLmcuIGlteCwgZ21hNTAwKSwg
+dGhlcmUncyBhbHNvIHRoZSB0cm91YmxlIHRoYXQgaXQncyBhIHNlcGFyYXRlCnRyZWUgYW5kIHRo
+ZSBjb29yZGluYXRpb24gYmVjb21lcyBhIHBhaW4uIFRoYXQgd2FzIHZlcnkgdWdseSBhcm91bmQg
+YWxsCnRoZSBzeW5jX2ZpbGUgc3R1ZmYgaW1vLCBhbmQgZm9yIG5leHQgdGltZSBhcm91bmQgd2Ug
+ZXZlciBkbyB0aGF0IHdlCnNob3VsZCBqdXN0IHB1dCBpdCBpbnRvIGRybSBmaXJzdCBhbmQgY2xl
+YW4gdXAgc2Vjb25kLiBXZSBjb3VsZCBkbyBzdGFnaW5nCmxpa2Ugd2l0aCBub3V2ZWF1LCBidXQg
+dGhhdCdzIGltbyBub3QgcmVhbGx5IGFueSBkaWZmZXJlbnQgZnJvbSBqdXN0Cm1lcmdpbmcgaWYg
+d2Ugb25seSBzbGFwIGEgS2NvbmZpZyBkZXBlbmRzIHVwb24gdGhlIGVudGlyZSBwaWxlLiBTbyBq
+dXN0CmRvbid0IHNlZSB0aGUgYmVuZWZpdC4KCkkgdGhpbmsgc3RhZ2luIGlzIGdvb2QgZm9yIGNo
+ZWNrcGF0Y2ggY2xlYW51cCwgYnV0IHdlIGFscmVhZHkgYWdyZWVkIHRoYXQKd2UncmUgb2sgd2l0
+aCB1Z2x5IGNvZGUgaWYgaXQncyB0aGUgc3R1ZmYgZGVidWdnZWQgYnkgaHcgZW5naW5lZXJzLiBB
+bmQKZm9yIGFueXRoaW5nIGVsc2UgbGlrZSByZWFsIHJlZmFjdG9yaW5nIEkgb2YgYmlnIHBpZWNl
+cyBvZiBjb2RlIEkganVzdApkb24ndCBzZWUgaG93IHN0YWdpbmcgbWFrZXMgc2Vuc2UuIE1heWJl
+IGlmIGl0J3MgYSBjb21wbGV0ZWx5IG5ldwpzdWJzeXN0ZW0sIGJ1dCB0aGUgcG9pbnQgaGVyZSBp
+cyB0aGF0IHdlIHdhbnQgREMgdG8gaW50ZWdyYXRlIHRpZ2h0ZXIgd2l0aApkcm0gYW5kIGJlIGFi
+bGUgdG8gc2hhcmUgY29kZS4KLURhbmllbAotLSAKRGFuaWVsIFZldHRlcgpTb2Z0d2FyZSBFbmdp
+bmVlciwgSW50ZWwgQ29ycG9yYXRpb24KaHR0cDovL2Jsb2cuZmZ3bGwuY2gKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlz
+dApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
