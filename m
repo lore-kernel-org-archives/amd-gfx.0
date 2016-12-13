@@ -1,73 +1,223 @@
-From: Lukas Wunner <lukas@wunner.de>
+From: "Bridgman, John" <John.Bridgman-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [RFC] Using DC in amdgpu for upcoming GPU
-Date: Tue, 13 Dec 2016 16:57:31 +0100
-Message-ID: <20161213155731.GA10997@wunner.de>
+Date: Tue, 13 Dec 2016 16:14:38 +0000
+Message-ID: <BN6PR12MB1348DDDE4F10510BE614C230E89B0@BN6PR12MB1348.namprd12.prod.outlook.com>
 References: <55d5e664-25f7-70e0-f2f5-9c9daf3efdf6@amd.com>
  <CAPM=9tx+j9-3fZNY=peLjdsVqyLS6i3V-sV3XrnYsK2YuhWRBA@mail.gmail.com>
- <5a1f2762-f1e0-05f1-3c16-173cb1f46571@amd.com>
+ <5a1f2762-f1e0-05f1-3c16-173cb1f46571@amd.com>,
  <20161213094035.GA10916@wunner.de>
- <0fcd4fc6-970c-da48-f790-e927c79cca26@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-Content-Disposition: inline
-In-Reply-To: <0fcd4fc6-970c-da48-f790-e927c79cca26@amd.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: "Cheng, Tony" <tony.cheng@amd.com>
-Cc: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>, dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1266762744=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20161213094035.GA10916-JFq808J9C/izQB+pC5nmwQ@public.gmane.org>
+Content-Language: en-CA
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Lukas Wunner <lukas-JFq808J9C/izQB+pC5nmwQ@public.gmane.org>, "Cheng, Tony" <Tony.Cheng-5C7GfCeVMHo@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Grodzovsky,
+ Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gVHVlLCBEZWMgMTMsIDIwMTYgYXQgMTA6MDM6NThBTSAtMDUwMCwgQ2hlbmcsIFRvbnkgd3Jv
-dGU6Cj4gT24gMTIvMTMvMjAxNiA0OjQwIEFNLCBMdWthcyBXdW5uZXIgd3JvdGU6Cj4gPiBJZiB0
-aGUgTGludXggY29tbXVuaXR5IGNvbnRyaWJ1dGVzIHRvIERDLCBJIGd1ZXNzIHRob3NlIGNvbnRy
-aWJ1dGlvbnMKPiA+IGNhbiBnZW5lcmFsbHkgYmUgYXNzdW1lZCB0byBiZSBHUEx2MiBsaWNlbnNl
-ZC4gIFlldCBhIGZ1dHVyZSB2ZXJzaW9uCj4gPiBvZiB0aGUgbWFjT1MgZHJpdmVyIHdvdWxkIGlu
-Y29ycG9yYXRlIHRob3NlIGNvbnRyaWJ1dGlvbnMgaW4gdGhlIHNhbWUKPiA+IGJpbmFyeSBhcyB0
-aGVpciBjbG9zZWQgc291cmNlIE9TLXNwZWNpZmljIHBvcnRpb24uCj4gCj4gSSBhbSBzdHJ1Z2ds
-aW5nIHdpdGggdGhhdCB0aGVzZSBjb21taW50eSBjb250cmlidXRpb25zIHRvIERDIHdvdWxkIGJl
-Lgo+IAo+IFVzIEFNRCBkZXZlbG9wZXIgaGFzIGFjY2VzcyB0byBIVyBkb2NzIGFuZCBkZXNpZ25l
-ciBhbmQgd2UgYXJlIHN0aWxsCj4gc3BlbmRpbmcgNTAlIG9mIG91ciB0aW1lIGZpZ3VyaW5nIG91
-dCB3aHkgb3VyIEhXIGRvZXNuJ3Qgd29yayByaWdodC4KPiBJIGNhbid0IGltYWdlIGNvbW11bml0
-eSBkb2luZyBtdWNoIG9mIHRoaXMgaGVhdnkgbGlmdGluZy4KClRydWUsIGJ1dCBwYXN0IGV4cGVy
-aWVuY2Ugd2l0aCByYWRlb24vYW1kZ3B1IGlzIHRoYXQgdGhlIGNvbW11bml0eSBoYXMKdXNlIGNh
-c2VzIHRoYXQgQU1EIGRldmVsb3BlcnMgZG9uJ3Qgc3BlY2lmaWNhbGx5IGNhdGVyIHRvLCBlLmcu
-IGR1ZSB0bwpsYWNrIG9mIHRoZSByZXF1aXJlZCBoYXJkd2FyZSBvciByZXNvdXJjZSBjb25zdHJh
-aW50cy4KCkUuZy4gTWFyaW8gS2xlaW5lciBoYXMgY29udHJpYnV0ZWQgbG90cyBvZiBwYXRjaGVz
-IGZvciBwcm9wZXIgdnN5bmMKaGFuZGxpbmcgd2hpY2ggYXJlIG5lZWRlZCBmb3IgaGlzIG5ldXJv
-c2NpZW5jZSBzb2Z0d2FyZS4gIEkndmUKY29udHJpYnV0ZWQgRERDIHN3aXRjaGluZyBzdXBwb3J0
-IGZvciBNYWNCb29rIFByb3MgdG8gcmFkZW9uLgpZb3VyIGRyaXZlciBiZWNvbWVzIG1vcmUgdXNl
-ZnVsLCB5b3UgZ2V0IG1vcmUgY3VzdG9tZXJzLCBldmVyeW9uZSB3aW5zLgoKCj4gPiBEbyBJIHVu
-ZGVyc3RhbmQgREFMMy5qcGcgY29ycmVjdGx5IHRoYXQgdGhlIG1hY09TIGRyaXZlciBidWlsZHMg
-b24gdG9wCj4gPiBvZiBEQUwgQ29yZT8gIEknbSBhc2tpbmcgYmVjYXVzZSB0aGUgZ3JhcGhpY3Mg
-ZHJpdmVycyBzaGlwcGluZyB3aXRoCj4gPiBtYWNPUyBhcyB3ZWxsIGFzIG9uIEFwcGxlJ3MgRUZJ
-IEZpcm13YXJlIFZvbHVtZSBhcmUgY2xvc2VkIHNvdXJjZS4KPiAKPiBtYWNPUyBjdXJyZW50bHkg
-c2hpcCB3aXRoIHRoZWlyIG93biBkcml2ZXIuICBJIGNhbid0IHJlYWxseSBjb21tZW50IG9uIHdo
-YXQKPiBtYWNPUyBkbyB3aXRob3V0IGdldHRpbmcgaW50byB0cm91YmxlLgoKVGhlIEludGVsIElz
-cmFlbCBmb2xrcyB3b3JraW5nIG9uIFRodW5kZXJib2x0IGFyZSBzaW1pbGFybHkgYmV0d2Vlbgp0
-aGUgcm9jayB0aGF0IGlzIHRoZSBjb21tdW5pdHkncyBleHBlY3RhdGlvbiBvZiBvcGVubmVzcyBh
-bmQgdGhlIGhhcmQKcGxhY2UgdGhhdCBpcyBBcHBsZSdzIHNlY3JlY3kuICBTbyBJIHN5bXBhdGhp
-emUgd2l0aCB5b3VyIHNpdHVhdGlvbiwKa3Vkb3MgZm9yIHRyeWluZyB0byBkbyB0aGUgcmlnaHQg
-dGhpbmcuCgoKPiBJIGd1ZXNzIHdlIGNhbiBuYWsgYWxsIGNoYW5nZXMgYW5kICJyZXdyaXRlIiBv
-dXIKPiBvd24gdmVyc2lvbiBvZiBjbGVhbiB1cCBwYXRjaCBjb21tdW5pdHkgd2FudCB0byBzZWU/
-CgpJIGRvbid0IHRoaW5rIHRoYXQgd291bGQgYmUgd29ya2FibGUgaG9uZXN0bHkuCgpPbmUgd2F5
-IG91dCBvZiB0aGlzIGNvbnVuZHJ1bSBtaWdodCBiZSB0byB1c2UgYSBwZXJtaXNzaXZlIGxpY2Vu
-c2Ugc3VjaAphcyBCU0QgZm9yIERDLiAgVGhlbiB3aGVuZXZlciB5b3UgbWVyZ2UgYSBjb21tdW5p
-dHkgcGF0Y2gsIGluIGFkZGl0aW9uCnRvIGluZm9ybWluZyB0aGUgY29udHJpYnV0b3IgdGhlcmVv
-Ziwgc2VuZCB0aGVtIGEgYm9pbGVycGxhdGUgb25lLWxpbmVyCnRoYXQgY29tbXVuaXR5IGNvbnRy
-aWJ1dGlvbnMgYXJlIGFzc3VtZWQgdG8gYmUgdW5kZXIgdGhlIHNhbWUgbGljZW5zZQphbmQgaWYg
-dGhlIGNvbnRyaWJ1dG9yIGRpc2FncmVlcyB0aGV5IHNob3VsZCBzZW5kIGEgc2hvcnQgbm90aWNl
-IHRvCmhhdmUgdGhlaXIgY29udHJpYnV0aW9uIHJlbW92ZWQuCgpCdXQgSUFOQUwuCgpCZXN0IHJl
-Z2FyZHMsCgpMdWthcwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2
-ZWwK
+--===============1266762744==
+Content-Language: en-CA
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1348DDDE4F10510BE614C230E89B0BN6PR12MB1348namp_"
+
+--_000_BN6PR12MB1348DDDE4F10510BE614C230E89B0BN6PR12MB1348namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+>>If the Linux community contributes to DC, I guess those contributions
+can generally be assumed to be GPLv2 licensed.  Yet a future version
+of the macOS driver would incorporate those contributions in the same
+binary as their closed source OS-specific portion.
+
+
+My understanding of the "general rule" was that contributions are normally =
+assumed to be made under the "local license", ie GPLv2 for kernel changes i=
+n general, but the appropriate lower-level license when made to a specific =
+subsystem with a more permissive license (eg the X11 license aka MIT aka "G=
+PL plus additional rights" license we use for almost all of the graphics su=
+bsystem. If DC is not X11 licensed today it should be (but I'm pretty sure =
+it already is).
+
+
+We need to keep the graphics subsystem permissively licensed in general to =
+allow uptake by other free OS projects such as *BSD, not just closed source=
+.
+
+
+Either way, driver-level maintainers are going to have to make sure that co=
+ntributions have clear licensing.
+
+
+Thanks,
+
+John
+
+________________________________
+From: dri-devel <dri-devel-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Luka=
+s Wunner <lukas-JFq808J9C/izQB+pC5nmwQ@public.gmane.org>
+Sent: December 13, 2016 4:40 AM
+To: Cheng, Tony
+Cc: Grodzovsky, Andrey; dri-devel; amd-gfx mailing list; Deucher, Alexander
+Subject: Re: [RFC] Using DC in amdgpu for upcoming GPU
+
+On Mon, Dec 12, 2016 at 09:52:08PM -0500, Cheng, Tony wrote:
+> With DC the display hardware programming, resource optimization, power
+> management and interaction with rest of system will be fully validated
+> across multiple OSs.
+
+Do I understand DAL3.jpg correctly that the macOS driver builds on top
+of DAL Core?  I'm asking because the graphics drivers shipping with
+macOS as well as on Apple's EFI Firmware Volume are closed source.
+
+If the Linux community contributes to DC, I guess those contributions
+can generally be assumed to be GPLv2 licensed.  Yet a future version
+of the macOS driver would incorporate those contributions in the same
+binary as their closed source OS-specific portion.
+
+I don't quite see how that would be legal but maybe I'm missing
+something.
+
+Presumably the situation with the Windows driver is the same.
+
+I guess you could maintain a separate branch sans community contributions
+which would serve as a basis for closed source drivers, but not sure if
+that is feasible given your resource constraints.
+
+Thanks,
+
+Lukas
+_______________________________________________
+dri-devel mailing list
+dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/dri-devel
+
+--_000_BN6PR12MB1348DDDE4F10510BE614C230E89B0BN6PR12MB1348namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Arial,Helvetica,sans-serif;" dir=3D"ltr">
+<p>&gt;&gt;<font size=3D"2"><span style=3D"font-size:10pt;">If the Linux co=
+mmunity contributes to DC, I guess those contributions<br>
+can generally be assumed to be GPLv2 licensed.&nbsp; Yet a future version<b=
+r>
+of the macOS driver would incorporate those contributions in the same<br>
+binary as their closed source OS-specific portion.</span></font><br>
+</p>
+<br>
+<p>My understanding of the &quot;general rule&quot; was that contributions =
+are normally assumed to be made under the &quot;local license&quot;, ie GPL=
+v2 for kernel changes in general, but the appropriate lower-level license w=
+hen made to a specific subsystem with a more permissive
+ license (eg the X11 license aka MIT aka &quot;GPL plus additional rights&q=
+uot; license we use for almost all of the graphics subsystem. If DC is not =
+X11 licensed today it should be (but I'm pretty sure it already is).&nbsp;<=
+/p>
+<p><br>
+</p>
+<p>We need to keep the graphics subsystem permissively licensed in general =
+to allow uptake by other free OS projects such as *BSD, not just closed sou=
+rce.
+<br>
+</p>
+<p><br>
+</p>
+<p>Either way, driver-level maintainers are going to have to make sure that=
+ contributions have clear licensing.
+<br>
+</p>
+<p><br>
+</p>
+<p>Thanks,</p>
+<p>John<br>
+</p>
+<div style=3D"color: rgb(0, 0, 0);">
+<div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" colo=
+r=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> dri-devel &lt;dri-d=
+evel-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Lukas Wunner &lt;lukas@=
+wunner.de&gt;<br>
+<b>Sent:</b> December 13, 2016 4:40 AM<br>
+<b>To:</b> Cheng, Tony<br>
+<b>Cc:</b> Grodzovsky, Andrey; dri-devel; amd-gfx mailing list; Deucher, Al=
+exander<br>
+<b>Subject:</b> Re: [RFC] Using DC in amdgpu for upcoming GPU</font>
+<div>&nbsp;</div>
+</div>
+</div>
+<font size=3D"2"><span style=3D"font-size:10pt;">
+<div class=3D"PlainText">On Mon, Dec 12, 2016 at 09:52:08PM -0500, Cheng, T=
+ony wrote:<br>
+&gt; With DC the display hardware programming, resource optimization, power=
+<br>
+&gt; management and interaction with rest of system will be fully validated=
+<br>
+&gt; across multiple OSs.<br>
+<br>
+Do I understand DAL3.jpg correctly that the macOS driver builds on top<br>
+of DAL Core?&nbsp; I'm asking because the graphics drivers shipping with<br=
+>
+macOS as well as on Apple's EFI Firmware Volume are closed source.<br>
+<br>
+If the Linux community contributes to DC, I guess those contributions<br>
+can generally be assumed to be GPLv2 licensed.&nbsp; Yet a future version<b=
+r>
+of the macOS driver would incorporate those contributions in the same<br>
+binary as their closed source OS-specific portion.<br>
+<br>
+I don't quite see how that would be legal but maybe I'm missing<br>
+something.<br>
+<br>
+Presumably the situation with the Windows driver is the same.<br>
+<br>
+I guess you could maintain a separate branch sans community contributions<b=
+r>
+which would serve as a basis for closed source drivers, but not sure if<br>
+that is feasible given your resource constraints.<br>
+<br>
+Thanks,<br>
+<br>
+Lukas<br>
+_______________________________________________<br>
+dri-devel mailing list<br>
+dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/dri-devel">https:=
+//lists.freedesktop.org/mailman/listinfo/dri-devel</a><br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_BN6PR12MB1348DDDE4F10510BE614C230E89B0BN6PR12MB1348namp_--
+
+--===============1266762744==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1266762744==--
