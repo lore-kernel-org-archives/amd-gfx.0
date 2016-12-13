@@ -1,14 +1,15 @@
-From: =?UTF-8?Q?Ernst_Sj=C3=B6strand?= <ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [RFC] Using DC in amdgpu for upcoming GPU
-Date: Tue, 13 Dec 2016 11:09:46 +0100
-Message-ID: <CAD=4a=W4oWDQfnLx-O8T9hS2xU74U+ncvrGg5qdgKTcRDbhwLA@mail.gmail.com>
-References: <55d5e664-25f7-70e0-f2f5-9c9daf3efdf6@amd.com>
- <20161211202827.cif3jnbuouay6xyz@phenom.ffwll.local>
- <b64d0072-4909-c680-2f09-adae9f856642@amd.com>
+From: =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: Raciness with page table shadows being swapped out
+Date: Tue, 13 Dec 2016 11:23:46 +0100
+Message-ID: <45571857-e9e9-3c5c-276a-9cf34b22ba8c@gmail.com>
+References: <9153dde6-9087-94b0-a062-dd223e5f381a@gmail.com>
+ <c59a9faa-ae45-eecf-5648-ba8143bc2b53@vodafone.de>
+ <c90b06c1-9f80-1c3a-0e38-a66adec1469f@gmail.com>
+ <95a847c6-d223-7fd8-bb9c-994fc60f9b88@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1176070192=="
+Content-Type: multipart/mixed; boundary="------------64A616614FD89371BFD7E1BF"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <b64d0072-4909-c680-2f09-adae9f856642-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <95a847c6-d223-7fd8-bb9c-994fc60f9b88-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,54 +20,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Cc: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "Cheng,
- Tony" <Tony.Cheng-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1176070192==
-Content-Type: multipart/alternative; boundary=94eb2c0b131a81edb40543876b1c
+This is a multi-part message in MIME format.
+--------------64A616614FD89371BFD7E1BF
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
---94eb2c0b131a81edb40543876b1c
-Content-Type: text/plain; charset=UTF-8
-
-2016-12-13 3:33 GMT+01:00 Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>:
-
-Please keep asking us to get on dri-devel with questions. I need to get
-> into the habit again of leaving the IRC channel open. I think most of us
-> are still a bit scared of it or don't know how to deal with some of the
-> information overload (IRC and mailing list). It's some of my job to change
-> that all the while I'm learning this myself. :)
+On 13.12.2016 10:48, Christian König wrote:
+>>>> The attached patch has fixed these crashes for me so far, but it's
+>>>> very heavy-handed: it collects all page table shadows and the page
+>>>> directory shadow and adds them all to the reservations for the callers
+>>>> of amdgpu_vm_update_page_directory.
+>>>
+>>> That is most likely just a timing change, cause the shadows should end
+>>> up in the duplicates list anyway. So the patch shouldn't have any
+>>> effect.
+>>
+>> Okay, so the reason for the remaining crash is still unclear at least
+>> for me.
 >
+> Yeah, that's a really good question. Can you share the call stack of the
+> problem once more?
 
-https://www.irccloud.com/ is pretty nice if you're not the
-keep-irssi-running-in-screen-on-a-server type.
+Attaching the dmesg again.
 
-Regards
-//Ernst
+amdgpu_gtt_mgr_alloc+0x23 resolves to the check
 
---94eb2c0b131a81edb40543876b1c
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+    if (node->start != AMDGPU_BO_INVALID_OFFSET)
 
-<div dir=3D"ltr">2016-12-13 3:33 GMT+01:00 Harry Wentland <span dir=3D"ltr"=
->&lt;<a href=3D"mailto:harry.wentland-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">harry.went=
-land-5C7GfCeVMHo@public.gmane.org</a>&gt;</span>:<br><div class=3D"gmail_extra"><div class=3D"gm=
-ail_quote"><br><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0p=
-x 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><span clas=
-s=3D"gmail-"></span>Please keep asking us to get on dri-devel with question=
-s. I need to get into the habit again of leaving the IRC channel open. I th=
-ink most of us are still a bit scared of it or don&#39;t know how to deal w=
-ith some of the information overload (IRC and mailing list). It&#39;s some =
-of my job to change that all the while I&#39;m learning this myself. :)<br>=
-</blockquote><div><br><a href=3D"https://www.irccloud.com/">https://www.irc=
-cloud.com/</a> is pretty nice if you&#39;re not the keep-irssi-running-in-s=
-creen-on-a-server type.<br><br></div><div>Regards<br></div><div>//Ernst<br>=
-</div></div></div></div>
+amdgpu_vm_update_page_directory+0x23f is
 
---94eb2c0b131a81edb40543876b1c--
+	r = amdgpu_ttm_bind(&pt_shadow->tbo,
+			    &pt_shadow->tbo.mem);
 
---===============1176070192==
+Nicolai
+
+--------------64A616614FD89371BFD7E1BF
+Content-Type: text/plain; charset=UTF-8;
+ name="dmesg.txt"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename="dmesg.txt"
+
+WyAgNTQ1LjQ3NzY0Nl0gQlVHOiB1bmFibGUgdG8gaGFuZGxlIGtlcm5lbCBOVUxMIHBvaW50
+ZXIgZGVyZWZlcmVuY2UgYXQgMDAwMDAwMDAwMDAwMDA0OApbICA1NDUuNDc3Njg5XSBJUDog
+WzxmZmZmZmZmZmMwNTMzY2EzPl0gYW1kZ3B1X2d0dF9tZ3JfYWxsb2MrMHgyMy8weDE1MCBb
+YW1kZ3B1XQpbICA1NDUuNDc3NzY0XSBQR0QgN2UzODRhMDY3ClsgIDU0NS40Nzc3NzVdIFBV
+RCA3ZjRhODQwNjcKWyAgNTQ1LjQ3Nzc4Nl0gUE1EIDAKClsgIDU0NS40Nzc3OTddIE9vcHM6
+IDAwMDAgWyMxXSBTTVAKWyAgNTQ1LjQ3NzgxMF0gTW9kdWxlcyBsaW5rZWQgaW46IGJpbmZt
+dF9taXNjIG5sc19pc284ODU5XzEgZWVlcGNfd21pIGFzdXNfd21pIHZpZGVvIHNwYXJzZV9r
+ZXltYXAgbXhtX3dtaSBqb3lkZXYgaW5wdXRfbGVkcyBlZGFjX21jZV9hbWQgZWRhY19jb3Jl
+IGt2bV9hbWQga3ZtIGlycWJ5cGFzcyBzbmRfaGRhX2NvZGVjX3JlYWx0ZWsgc25kX2hkYV9j
+b2RlY19nZW5lcmljIHNuZF9oZGFfY29kZWNfaGRtaSBzbmRfaGRhX2ludGVsIHNlcmlvX3Jh
+dyBzbmRfaGRhX2NvZGVjIHNuZF9oZGFfY29yZSBzbmRfaHdkZXAgZmFtMTVoX3Bvd2VyIGsx
+MHRlbXAgc25kX3BjbSBzbmRfc2VxX21pZGkgaTJjX3BpaXg0IHNuZF9zZXFfbWlkaV9ldmVu
+dCBzbmRfcmF3bWlkaSBzbmRfc2VxIHNuZF9zZXFfZGV2aWNlIHNuZF90aW1lciB0cG1faW5m
+aW5lb24gc25kIHNvdW5kY29yZSB3bWkgbWFjX2hpZCBzaHBjaHAgcGFycG9ydF9wYyBwcGRl
+diBscCBwYXJwb3J0IGF1dG9mczQgYWxnaWZfc2tjaXBoZXIgYWZfYWxnIGhpZF9nZW5lcmlj
+IHVzYmhpZCBoaWQgZG1fY3J5cHQgYW1ka2ZkIGFtZF9pb21tdV92MiBhbWRncHUgY3JjdDEw
+ZGlmX3BjbG11bCBjcmMzMl9wY2xtdWwgZ2hhc2hfY2xtdWxuaV9pbnRlbCBhZXNuaV9pbnRl
+bCBpMmNfYWxnb19iaXQgYWVzX3g4Nl82NCBkcm1fa21zX2hlbHBlciBnbHVlX2hlbHBlciBs
+cncgc3lzY29weWFyZWEgZ2YxMjhtdWwgc3lzZmlsbHJlY3QgYWJsa19oZWxwZXIgc3lzaW1n
+Ymx0IGNyeXB0ZCBmYl9zeXNfZm9wcyB0dG0gcHNtb3VzZSBkcm0gYWhjaSByODE2OSBsaWJh
+aGNpIG1paSBmamVzClsgIDU0NS40NzgxNjVdIENQVTogNSBQSUQ6IDI5NjE5IENvbW06IGds
+Y3RzIE5vdCB0YWludGVkIDQuOS4wLXJjNi10aXArZHJtLW5leHQtMiAjMTA0ClsgIDU0NS40
+NzgxOTFdIEhhcmR3YXJlIG5hbWU6IFRvIGJlIGZpbGxlZCBieSBPLkUuTS4gVG8gYmUgZmls
+bGVkIGJ5IE8uRS5NLi9NNUE5NyBMRSBSMi4wLCBCSU9TIDI2MDEgMDMvMjQvMjAxNQpbICA1
+NDUuNDc4MjI1XSB0YXNrOiBmZmZmOGJlODk2ZjRkNTgwIHRhc2suc3RhY2s6IGZmZmZiN2Fm
+NGMzZjQwMDAKWyAgNTQ1LjQ3ODI0Nl0gUklQOiAwMDEwOls8ZmZmZmZmZmZjMDUzM2NhMz5d
+ICBbPGZmZmZmZmZmYzA1MzNjYTM+XSBhbWRncHVfZ3R0X21ncl9hbGxvYysweDIzLzB4MTUw
+IFthbWRncHVdClsgIDU0NS40NzgzMDFdIFJTUDogMDAxODpmZmZmYjdhZjRjM2Y3YTI4ICBF
+RkxBR1M6IDAwMDEwMjk2ClsgIDU0NS40NzgzMjBdIFJBWDogN2ZmZmZmZmZmZmZmZmZmZiBS
+Qlg6IGZmZmY4YmU4OTY3ZTYxODAgUkNYOiBmZmZmOGJlODI4MDZlYzkwClsgIDU0NS40Nzgz
+NDNdIFJEWDogMDAwMDAwMDAwMDAwMDAwMCBSU0k6IGZmZmY4YmU4MjgwNmVjNTggUkRJOiBm
+ZmZmOGJlODk1N2M5OTgwClsgIDU0NS40NzgzNjddIFJCUDogZmZmZmI3YWY0YzNmN2E4OCBS
+MDg6IGZmZmY4YmU4YmVkNWM1NDAgUjA5OiBmZmZmOGJlODllMDAzOTAwClsgIDU0NS40Nzgz
+OTBdIFIxMDogZmZmZjhiZTg5NmFmNGNjMCBSMTE6IGZmZmY4YmU4OTU3YzE5MDAgUjEyOiAw
+MDAwMDAwMDAwMDAwMDAwClsgIDU0NS40Nzg0MTJdIFIxMzogMDAwMDAwMDAwMDAwMDAwMCBS
+MTQ6IGZmZmY4YmU4OTY3ZTYyMjggUjE1OiBmZmZmOGJlODI4MDZmYzAwClsgIDU0NS40Nzg0
+MzddIEZTOiAgMDAwMDdmZjQ0MTVmMjc0MCgwMDAwKSBHUzpmZmZmOGJlOGJlZDQwMDAwKDAw
+MDApIGtubEdTOjAwMDAwMDAwMDAwMDAwMDAKWyAgNTQ1LjQ3ODQ2Ml0gQ1M6ICAwMDEwIERT
+OiAwMDAwIEVTOiAwMDAwIENSMDogMDAwMDAwMDA4MDA1MDAzMwpbICA1NDUuNDc4NDgxXSBD
+UjI6IDAwMDAwMDAwMDAwMDAwNDggQ1IzOiAwMDAwMDAwN2MwMzFhMDAwIENSNDogMDAwMDAw
+MDAwMDA0MDZlMApbICA1NDUuNDc4NTA2XSBTdGFjazoKWyAgNTQ1LjQ3ODUxM10gIDAwMDAw
+MDAwMDAwMDAwMDAgMDAwMDAwMDBkMzQ1MWMwOSBmZmZmOGJlNzgzMDhhOWQ4IDAwMDAwMDAw
+MDAwMDAwMDAKWyAgNTQ1LjQ3ODU0NF0gIGZmZmY4YmU4OTU3YzgwMDAgMDAwMDAwMDAwMDAw
+MWEwMCBmZmZmOGJlODYzYjg2MDAwIGZmZmY4YmU4OTY3ZTYxODAKWyAgNTQ1LjQ3ODU3NV0g
+IGZmZmY4YmU4MjgwNmVjOTAgMDAwMDAwMDAwMDAwMDAwMCBmZmZmOGJlODk2N2U2MjI4IGZm
+ZmY4YmU4MjgwNmZjMDAKWyAgNTQ1LjQ3ODYwNF0gQ2FsbCBUcmFjZToKWyAgNTQ1LjQ3ODYz
+Ml0gIFs8ZmZmZmZmZmZjMDUxNmJmMT5dIGFtZGdwdV90dG1fYmluZCsweDYxLzB4MTYwIFth
+bWRncHVdClsgIDU0NS40Nzg2NzJdICBbPGZmZmZmZmZmYzA1MmY1OGY+XSBhbWRncHVfdm1f
+dXBkYXRlX3BhZ2VfZGlyZWN0b3J5KzB4MjNmLzB4NGMwIFthbWRncHVdClsgIDU0NS40Nzg3
+MTddICBbPGZmZmZmZmZmYzA1MjEyNGE+XSBhbWRncHVfY3NfaW9jdGwrMHhkOGEvMHgxNDAw
+IFthbWRncHVdClsgIDU0NS40Nzg3NTldICBbPGZmZmZmZmZmYzAyZjllNzY+XSBkcm1faW9j
+dGwrMHgxZjYvMHg0YTAgW2RybV0KWyAgNTQ1LjQ3ODc5NF0gIFs8ZmZmZmZmZmZjMDUyMDRj
+MD5dID8gYW1kZ3B1X2NzX2ZpbmRfbWFwcGluZysweGEwLzB4YTAgW2FtZGdwdV0KWyAgNTQ1
+LjQ3ODgyM10gIFs8ZmZmZmZmZmY4YjBiODI1NT5dID8gdXBkYXRlX2xvYWRfYXZnKzB4NzUv
+MHgzOTAKWyAgNTQ1LjQ3ODg1OF0gIFs8ZmZmZmZmZmZjMDUwNDA0Yz5dIGFtZGdwdV9kcm1f
+aW9jdGwrMHg0Yy8weDgwIFthbWRncHVdClsgIDU0NS40Nzg4ODJdICBbPGZmZmZmZmZmOGIy
+NDFlODE+XSBkb192ZnNfaW9jdGwrMHhhMS8weDVkMApbICA1NDUuNDc4OTAyXSAgWzxmZmZm
+ZmZmZjhiODQyZTJhPl0gPyBfX3NjaGVkdWxlKzB4MjNhLzB4NmYwClsgIDU0NS40Nzg5MjNd
+ICBbPGZmZmZmZmZmOGIyNDI0Mjk+XSBTeVNfaW9jdGwrMHg3OS8weDkwClsgIDU0NS40Nzg5
+NDJdICBbPGZmZmZmZmZmOGI4NDhiZmI+XSBlbnRyeV9TWVNDQUxMXzY0X2Zhc3RwYXRoKzB4
+MWUvMHhhZApbICA1NDUuNDc4OTY1XSBDb2RlOiAwZiAxZiA4NCAwMCAwMCAwMCAwMCAwMCAw
+ZiAxZiA0NCAwMCAwMCA1NSA0OCBiOCBmZiBmZiBmZiBmZiBmZiBmZiBmZiA3ZiA0OCA4OSBl
+NSA0MSA1NyA0MSA1NiA0MSA1NSA0MSA1NCA1MyA0OCA4MyBlYyAzOCA0YyA4YiAyMSA8NDk+
+IDM5IDQ0IDI0IDQ4IDc0IDExIDMxIGMwIDQ4IDgzIGM0IDM4IDViIDQxIDVjIDQxIDVkIDQx
+IDVlIDQxClsgIDU0NS40NzkxMzNdIFJJUCAgWzxmZmZmZmZmZmMwNTMzY2EzPl0gYW1kZ3B1
+X2d0dF9tZ3JfYWxsb2MrMHgyMy8weDE1MCBbYW1kZ3B1XQpbICA1NDUuNDc5MTc5XSAgUlNQ
+IDxmZmZmYjdhZjRjM2Y3YTI4PgpbICA1NDUuNDc5MTkyXSBDUjI6IDAwMDAwMDAwMDAwMDAw
+NDgKWyAgNTQ1LjQ4NTAxNV0gLS0tWyBlbmQgdHJhY2UgMzkwYzNkNjI1MGE3NjUwNiBdLS0t
+Cg==
+--------------64A616614FD89371BFD7E1BF
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -76,4 +142,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1176070192==--
+--------------64A616614FD89371BFD7E1BF--
