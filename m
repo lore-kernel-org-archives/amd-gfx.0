@@ -1,11 +1,14 @@
-From: =?UTF-8?q?Nils=20Wallm=C3=A9nius?= <nils.wallmenius-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: Remove checking for atombios
-Date: Wed, 14 Dec 2016 21:52:45 +0100
-Message-ID: <20161214205245.2639-1-nils.wallmenius@gmail.com>
+From: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 2/8] dal: remove some unused wrappers
+Date: Thu, 15 Dec 2016 07:04:20 +1000
+Message-ID: <CAPM=9twTT9HGzonG5Oz9pb+-B_1p7UAOYRbExVk_NmRTyssMkQ@mail.gmail.com>
+References: <20161213064112.20004-1-airlied@gmail.com>
+ <20161213064112.20004-3-airlied@gmail.com>
+ <f30d9730-8d3d-4b9d-ced2-4a1bb93138d2@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1212854423=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <f30d9730-8d3d-4b9d-ced2-4a1bb93138d2-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,109 +19,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: =?UTF-8?q?Nils=20Wallm=C3=A9nius?= <nils.wallmenius-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-VGhpcyBpcyBhIGxlZnQgb3ZlciBmcm9tIHJhZGVvbiwgYW1kZ3B1IGRvZXNuJ3Qgc3VwcG9ydCBh
-bnkKbm9uLWF0b21iaW9zIHBhcnRzIGFuZCBhbWRncHVfZGV2aWNlX2luaXQgd291bGQgYmFpbCBp
-ZiB0aGUKY2hlY2sgZm9yIGF0b21iaW9zIGZhaWxlZCBhbnl3YXkuCgpTaWduZWQtb2ZmLWJ5OiBO
-aWxzIFdhbGxtw6luaXVzIDxuaWxzLndhbGxtZW5pdXNAZ21haWwuY29tPgotLS0KIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAgICAgICAgICAgfCAgMSAtCiBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYWNwaS5jICAgICAgIHwgMTAgKysrKy0tLS0tLQogZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Jpb3MuYyAgICAgICB8IDEyICsrKysrKy0t
-LS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jICAgICB8ICA4
-ICstLS0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jICAg
-IHwgMTAgKysrKy0tLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2kyYy5j
-ICAgICAgICB8ICAzICstLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYXRvbWJpb3NfZW5j
-b2RlcnMuYyB8ICA2IC0tLS0tLQogNyBmaWxlcyBjaGFuZ2VkLCAxNiBpbnNlcnRpb25zKCspLCAz
-NCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHUuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCmluZGV4IDI5ZDNh
-OTEuLjExZGU3MTAgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCkBAIC0xMzMwLDcg
-KzEzMzAsNiBAQCBzdHJ1Y3QgYW1kZ3B1X2RldmljZSB7CiAKIAkvKiBCSU9TICovCiAJdWludDhf
-dAkJCQkqYmlvczsKLQlib29sCQkJCWlzX2F0b21fYmlvczsKIAlzdHJ1Y3QgYW1kZ3B1X2JvCQkq
-c3RvbGxlbl92Z2FfbWVtb3J5OwogCXVpbnQzMl90CQkJYmlvc19zY3JhdGNoW0FNREdQVV9CSU9T
-X05VTV9TQ1JBVENIXTsKIApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X2FjcGkuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hY3BpLmMK
-aW5kZXggNTc5NjUzOS4uZWY3OTU1MSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2FjcGkuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfYWNwaS5jCkBAIC02NzIsMTIgKzY3MiwxMCBAQCBpbnQgYW1kZ3B1X2FjcGlfaW5pdChzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAogCQkJaWYgKChlbmMtPmRldmljZXMgJiAoQVRPTV9E
-RVZJQ0VfTENEX1NVUFBPUlQpKSAmJgogCQkJICAgIGVuYy0+ZW5jX3ByaXYpIHsKLQkJCQlpZiAo
-YWRldi0+aXNfYXRvbV9iaW9zKSB7Ci0JCQkJCXN0cnVjdCBhbWRncHVfZW5jb2Rlcl9hdG9tX2Rp
-ZyAqZGlnID0gZW5jLT5lbmNfcHJpdjsKLQkJCQkJaWYgKGRpZy0+YmxfZGV2KSB7Ci0JCQkJCQlh
-dGlmLT5lbmNvZGVyX2Zvcl9ibCA9IGVuYzsKLQkJCQkJCWJyZWFrOwotCQkJCQl9CisJCQkJc3Ry
-dWN0IGFtZGdwdV9lbmNvZGVyX2F0b21fZGlnICpkaWcgPSBlbmMtPmVuY19wcml2OworCQkJCWlm
-IChkaWctPmJsX2RldikgeworCQkJCQlhdGlmLT5lbmNvZGVyX2Zvcl9ibCA9IGVuYzsKKwkJCQkJ
-YnJlYWs7CiAJCQkJfQogCQkJfQogCQl9CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfYmlvcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2Jpb3MuYwppbmRleCBiN2UyNzYyLi4xMTAzMjU5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfYmlvcy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9iaW9zLmMKQEAgLTM4NywxNSArMzg3LDE1IEBAIGJvb2wgYW1kZ3B1X2dldF9i
-aW9zKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCWlmICghYmlvc19oZWFkZXJfc3RhcnQp
-IHsKIAkJZ290byBmcmVlX2Jpb3M7CiAJfQorCisJLyogTXVzdCBiZSBhbiBBVE9NQklPUyAqLwog
-CXRtcCA9IGJpb3NfaGVhZGVyX3N0YXJ0ICsgNDsKLQlpZiAoIW1lbWNtcChhZGV2LT5iaW9zICsg
-dG1wLCAiQVRPTSIsIDQpIHx8Ci0JICAgICFtZW1jbXAoYWRldi0+YmlvcyArIHRtcCwgIk1PVEEi
-LCA0KSkgewotCQlhZGV2LT5pc19hdG9tX2Jpb3MgPSB0cnVlOwotCX0gZWxzZSB7Ci0JCWFkZXYt
-PmlzX2F0b21fYmlvcyA9IGZhbHNlOworCWlmIChtZW1jbXAoYWRldi0+YmlvcyArIHRtcCwgIkFU
-T00iLCA0KSAmJgorCSAgICBtZW1jbXAoYWRldi0+YmlvcyArIHRtcCwgIk1PVEEiLCA0KSkgewor
-CQlnb3RvIGZyZWVfYmlvczsKIAl9CiAKLQlEUk1fREVCVUcoIiVzQklPUyBkZXRlY3RlZFxuIiwg
-YWRldi0+aXNfYXRvbV9iaW9zID8gIkFUT00iIDogIkNPTSIpOworCURSTV9ERUJVRygiQVRPTUJJ
-T1MgZGV0ZWN0ZWRcbiIpOwogCXJldHVybiB0cnVlOwogZnJlZV9iaW9zOgogCWtmcmVlKGFkZXYt
-PmJpb3MpOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rl
-dmljZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCmluZGV4
-IGQ5MDc0MTEuLmRjMDE3ZDEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9kZXZpY2UuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-ZGV2aWNlLmMKQEAgLTE2MDMsNyArMTYwMyw2IEBAIGludCBhbWRncHVfZGV2aWNlX2luaXQoc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJYWRldi0+cGRldiA9IHBkZXY7CiAJYWRldi0+Zmxh
-Z3MgPSBmbGFnczsKIAlhZGV2LT5hc2ljX3R5cGUgPSBmbGFncyAmIEFNRF9BU0lDX01BU0s7Ci0J
-YWRldi0+aXNfYXRvbV9iaW9zID0gZmFsc2U7CiAJYWRldi0+dXNlY190aW1lb3V0ID0gQU1ER1BV
-X01BWF9VU0VDX1RJTUVPVVQ7CiAJYWRldi0+bWMuZ3R0X3NpemUgPSA1MTIgKiAxMDI0ICogMTAy
-NDsKIAlhZGV2LT5hY2NlbF93b3JraW5nID0gZmFsc2U7CkBAIC0xNzE4LDEyICsxNzE3LDcgQEAg
-aW50IGFtZGdwdV9kZXZpY2VfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAkJciA9
-IC1FSU5WQUw7CiAJCWdvdG8gZmFpbGVkOwogCX0KLQkvKiBNdXN0IGJlIGFuIEFUT01CSU9TICov
-Ci0JaWYgKCFhZGV2LT5pc19hdG9tX2Jpb3MpIHsKLQkJZGV2X2VycihhZGV2LT5kZXYsICJFeHBl
-Y3RpbmcgYXRvbWJpb3MgZm9yIEdQVVxuIik7Ci0JCXIgPSAtRUlOVkFMOwotCQlnb3RvIGZhaWxl
-ZDsKLQl9CisKIAlyID0gYW1kZ3B1X2F0b21iaW9zX2luaXQoYWRldik7CiAJaWYgKHIpIHsKIAkJ
-ZGV2X2VycihhZGV2LT5kZXYsICJhbWRncHVfYXRvbWJpb3NfaW5pdCBmYWlsZWRcbiIpOwpkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXkuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5LmMKaW5kZXggNzQxMTQ0Zi4u
-ZDIzNTEyNSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rp
-c3BsYXkuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5j
-CkBAIC01ODIsMTIgKzU4MiwxMCBAQCBpbnQgYW1kZ3B1X21vZGVzZXRfY3JlYXRlX3Byb3BzKHN0
-cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogewogCWludCBzejsKIAotCWlmIChhZGV2LT5pc19h
-dG9tX2Jpb3MpIHsKLQkJYWRldi0+bW9kZV9pbmZvLmNvaGVyZW50X21vZGVfcHJvcGVydHkgPQot
-CQkJZHJtX3Byb3BlcnR5X2NyZWF0ZV9yYW5nZShhZGV2LT5kZGV2LCAwICwgImNvaGVyZW50Iiwg
-MCwgMSk7Ci0JCWlmICghYWRldi0+bW9kZV9pbmZvLmNvaGVyZW50X21vZGVfcHJvcGVydHkpCi0J
-CQlyZXR1cm4gLUVOT01FTTsKLQl9CisJYWRldi0+bW9kZV9pbmZvLmNvaGVyZW50X21vZGVfcHJv
-cGVydHkgPQorCQlkcm1fcHJvcGVydHlfY3JlYXRlX3JhbmdlKGFkZXYtPmRkZXYsIDAgLCAiY29o
-ZXJlbnQiLCAwLCAxKTsKKwlpZiAoIWFkZXYtPm1vZGVfaW5mby5jb2hlcmVudF9tb2RlX3Byb3Bl
-cnR5KQorCQlyZXR1cm4gLUVOT01FTTsKIAogCWFkZXYtPm1vZGVfaW5mby5sb2FkX2RldGVjdF9w
-cm9wZXJ0eSA9CiAJCWRybV9wcm9wZXJ0eV9jcmVhdGVfcmFuZ2UoYWRldi0+ZGRldiwgMCwgImxv
-YWQgZGV0ZWN0aW9uIiwgMCwgMSk7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfaTJjLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaTJj
-LmMKaW5kZXggOTFkMzY3My4uZjI3Mzk5OSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2kyYy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9pMmMuYwpAQCAtMjMxLDggKzIzMSw3IEBAIHZvaWQgYW1kZ3B1X2kyY19pbml0KHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2KQogCWlmIChhbWRncHVfaHdfaTJjKQogCQlEUk1fSU5GTygi
-aHdfaTJjIGZvcmNlZCBvbiwgeW91IG1heSBleHBlcmllbmNlIGRpc3BsYXkgZGV0ZWN0aW9uIHBy
-b2JsZW1zIVxuIik7CiAKLQlpZiAoYWRldi0+aXNfYXRvbV9iaW9zKQotCQlhbWRncHVfYXRvbWJp
-b3NfaTJjX2luaXQoYWRldik7CisJYW1kZ3B1X2F0b21iaW9zX2kyY19pbml0KGFkZXYpOwogfQog
-CiAvKiByZW1vdmUgYWxsIHRoZSBidXNlcyAqLwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYXRvbWJpb3NfZW5jb2RlcnMuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2F0b21iaW9zX2VuY29kZXJzLmMKaW5kZXggYzMyZWNhMi4uMmFmMjZkMiAxMDA2NDQKLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYXRvbWJpb3NfZW5jb2RlcnMuYworKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hdG9tYmlvc19lbmNvZGVycy5jCkBAIC0xODEsOSAr
-MTgxLDYgQEAgdm9pZCBhbWRncHVfYXRvbWJpb3NfZW5jb2Rlcl9pbml0X2JhY2tsaWdodChzdHJ1
-Y3QgYW1kZ3B1X2VuY29kZXIgKmFtZGdwdV9lbmNvZGUKIAlpZiAoIWFtZGdwdV9lbmNvZGVyLT5l
-bmNfcHJpdikKIAkJcmV0dXJuOwogCi0JaWYgKCFhZGV2LT5pc19hdG9tX2Jpb3MpCi0JCXJldHVy
-bjsKLQogCWlmICghKGFkZXYtPm1vZGVfaW5mby5maXJtd2FyZV9mbGFncyAmIEFUT01fQklPU19J
-TkZPX0JMX0NPTlRST0xMRURfQllfR1BVKSkKIAkJcmV0dXJuOwogCkBAIC0yMzYsOSArMjMzLDYg
-QEAgYW1kZ3B1X2F0b21iaW9zX2VuY29kZXJfZmluaV9iYWNrbGlnaHQoc3RydWN0IGFtZGdwdV9l
-bmNvZGVyICphbWRncHVfZW5jb2RlcikKIAlpZiAoIWFtZGdwdV9lbmNvZGVyLT5lbmNfcHJpdikK
-IAkJcmV0dXJuOwogCi0JaWYgKCFhZGV2LT5pc19hdG9tX2Jpb3MpCi0JCXJldHVybjsKLQogCWlm
-ICghKGFkZXYtPm1vZGVfaW5mby5maXJtd2FyZV9mbGFncyAmIEFUT01fQklPU19JTkZPX0JMX0NP
-TlRST0xMRURfQllfR1BVKSkKIAkJcmV0dXJuOwogCi0tIAoyLjEwLjIKCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============1212854423==
+Content-Type: multipart/alternative; boundary=001a1143915847d2f40543a4ae43
+
+--001a1143915847d2f40543a4ae43
+Content-Type: text/plain; charset=UTF-8
+
+On 15 Dec. 2016 02:27, "Harry Wentland" <harry.wentland-5C7GfCeVMHo@public.gmane.org> wrote:
+
+They are still used all over the place (e.g. dc/dce110/dce110_resource.c:41
+3).
+
+We should at least do an spatch to use kzalloc/krealloc/kfree across the
+board if the wrappers are an issue.
+
+
+Some are used, these 3 defines are not, there is another header defining
+them,
+
+But yes it would be good to drop all alloc wrappers
+
+Dave.
+
+
+NAKed
+
+Harry
+
+
+On 2016-12-13 01:41 AM, Dave Airlie wrote:
+
+> From: Dave Airlie <airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+>
+> Signed-off-by: Dave Airlie <airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c | 4 ----
+>  1 file changed, 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c
+> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c
+> index 9d51259..9c852a3 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c
+> @@ -36,10 +36,6 @@
+>  #include "amdgpu_dm_types.h"
+>  #include "amdgpu_pm.h"
+>
+> -#define dm_alloc(size) kzalloc(size, GFP_KERNEL)
+> -#define dm_realloc(ptr, size) krealloc(ptr, size, GFP_KERNEL)
+> -#define dm_free(ptr) kfree(ptr)
+> -
+>  /**********************************************************
+> ********************
+>   * IRQ Interfaces.
+>   ************************************************************
+> *****************/
+>
+> _______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--001a1143915847d2f40543a4ae43
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><br><div class=3D"gmail_extra"><br><div class=3D"gma=
+il_quote">On 15 Dec. 2016 02:27, &quot;Harry Wentland&quot; &lt;<a href=3D"=
+mailto:harry.wentland-5C7GfCeVMHo@public.gmane.org">harry.wentland-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<br typ=
+e=3D"attribution"><blockquote class=3D"quote" style=3D"margin:0 0 0 .8ex;bo=
+rder-left:1px #ccc solid;padding-left:1ex">They are still used all over the=
+ place (e.g. dc/dce110/dce110_resource.c:41<wbr>3).<br>
+<br>
+We should at least do an spatch to use kzalloc/krealloc/kfree across the bo=
+ard if the wrappers are an issue.<br></blockquote></div></div></div><div di=
+r=3D"auto"><br></div><div dir=3D"auto">Some are used, these 3 defines are n=
+ot, there is another header defining them,</div><div dir=3D"auto"><br></div=
+><div dir=3D"auto">But yes it would be good to drop all alloc wrappers=C2=
+=A0</div><div dir=3D"auto"><br></div><div dir=3D"auto">Dave.</div><div dir=
+=3D"auto"><div class=3D"gmail_extra"><div class=3D"gmail_quote"><blockquote=
+ class=3D"quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padd=
+ing-left:1ex">
+<br>
+NAKed<font color=3D"#888888"><br>
+<br>
+Harry</font><div class=3D"quoted-text"><br>
+<br>
+On 2016-12-13 01:41 AM, Dave Airlie wrote:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+From: Dave Airlie &lt;<a href=3D"mailto:airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org" target=3D"_blan=
+k">airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org</a>&gt;<br>
+<br>
+Signed-off-by: Dave Airlie &lt;<a href=3D"mailto:airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org" target=
+=3D"_blank">airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org</a>&gt;<br>
+---<br>
+=C2=A0drivers/gpu/drm/amd/display/a<wbr>mdgpu_dm/amdgpu_dm_services.c | 4 -=
+---<br>
+=C2=A01 file changed, 4 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/display/<wbr>amdgpu_dm/amdgpu_dm_services.=
+c b/drivers/gpu/drm/amd/display/<wbr>amdgpu_dm/amdgpu_dm_services.c<br>
+index 9d51259..9c852a3 100644<br>
+--- a/drivers/gpu/drm/amd/display/<wbr>amdgpu_dm/amdgpu_dm_services.c<br>
++++ b/drivers/gpu/drm/amd/display/<wbr>amdgpu_dm/amdgpu_dm_services.c<br>
+@@ -36,10 +36,6 @@<br>
+=C2=A0#include &quot;amdgpu_dm_types.h&quot;<br>
+=C2=A0#include &quot;amdgpu_pm.h&quot;<br>
+<br>
+-#define dm_alloc(size) kzalloc(size, GFP_KERNEL)<br>
+-#define dm_realloc(ptr, size) krealloc(ptr, size, GFP_KERNEL)<br>
+-#define dm_free(ptr) kfree(ptr)<br>
+-<br>
+=C2=A0/****************************<wbr>******************************<wbr>=
+********************<br>
+=C2=A0 * IRQ Interfaces.<br>
+=C2=A0 ******************************<wbr>******************************<wb=
+r>*****************/<br>
+<br>
+</blockquote></div><div class=3D"elided-text">
+______________________________<wbr>_________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
+lists.freedesktop.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer" target=3D"_blank">https://lists.freedesktop.org/<wbr>mailman/lis=
+tinfo/amd-gfx</a><br>
+</div></blockquote></div><br></div></div></div>
+
+--001a1143915847d2f40543a4ae43--
+
+--===============1212854423==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1212854423==--
