@@ -1,7 +1,7 @@
 From: Flora Cui <Flora.Cui-5C7GfCeVMHo@public.gmane.org>
 Subject: [PATCH 1/2] drm/amdgpu: update si kicker smc firmware
-Date: Thu, 15 Dec 2016 13:51:04 +0800
-Message-ID: <1481781065-31701-1-git-send-email-Flora.Cui@amd.com>
+Date: Thu, 15 Dec 2016 13:50:21 +0800
+Message-ID: <1481781022-31647-1-git-send-email-Flora.Cui@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
