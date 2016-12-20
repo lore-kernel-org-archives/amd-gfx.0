@@ -1,19 +1,15 @@
-From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: =?utf-8?B?562U5aSNOiDovazlj5E6IFtQQVRDSCAwMi8yM10gZHJtL2FtZGdwdTogYWRk?=
- =?utf-8?Q?_kiq_into_compiling?=
-Date: Tue, 20 Dec 2016 03:43:06 +0000
-Message-ID: <BY2PR12MB00547828A6FEEE6B3349F5AE84900@BY2PR12MB0054.namprd12.prod.outlook.com>
+From: Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org>
+Subject: Re: [PATCH 02/23] drm/amdgpu: add kiq into compiling
+Date: Tue, 20 Dec 2016 03:48:54 +0000
+Message-ID: <CAHbf0-EqT1YHuxButQkfb8s3mGT4WjVdcjCWMFetiqwjEME8pA@mail.gmail.com>
 References: <1481991405-30422-1-git-send-email-Xiangliang.Yu@amd.com>
  <1481991405-30422-3-git-send-email-Xiangliang.Yu@amd.com>
  <CY4PR12MB170115ECFEEDEE2B92071FE7EB9E0@CY4PR12MB1701.namprd12.prod.outlook.com>
  <BY2PR12MB0054C15BB4903E12764EABF684910@BY2PR12MB0054.namprd12.prod.outlook.com>
- <beb83cf9-2683-569e-ea68-df3894e11dc0@vodafone.de>,
- <CADnq5_MDTdnOcarCkDFdb5d=nJxDpt4ATkvmDG+BFG5thLa-eA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0432608699=="
+Content-Type: multipart/mixed; boundary="===============1072782104=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_MDTdnOcarCkDFdb5d=nJxDpt4ATkvmDG+BFG5thLa-eA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: zh-CN
+In-Reply-To: <BY2PR12MB0054C15BB4903E12764EABF684910-K//h7OWB4q7GdVlgMuSljQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -24,193 +20,182 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0432608699==
-Content-Language: zh-CN
-Content-Type: multipart/alternative;
-	boundary="_000_BY2PR12MB00547828A6FEEE6B3349F5AE84900BY2PR12MB0054namp_"
+--===============1072782104==
+Content-Type: multipart/alternative; boundary=94eb2c0864fce7af9005440eeac6
 
---_000_BY2PR12MB00547828A6FEEE6B3349F5AE84900BY2PR12MB0054namp_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+--94eb2c0864fce7af9005440eeac6
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-eWVhaCwgSSdsbCB0YWtlIGEgZGVlcCBsb29rLCB3ZSBhcmUgbm90IGluIGh1cnJ5IHRvIHN1Ym1p
-dCB0aG9zZSBTUklPViBwYXRjaGVzLCBmb3IgdGhlIFZBIHVwZGF0ZSBwYXJ0IChpZiB5b3UgbWVh
-biBDU0EgbWFwcGluZ3MpIEknbGwgcGF5IGF0dGVudGlvbiBvbiBpdCwgdGhhbmtzDQoNCg0KQlIg
-TW9uaw0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0K5Y+R5Lu25Lq6OiBBbGV4
-IERldWNoZXIgPGFsZXhkZXVjaGVyQGdtYWlsLmNvbT4NCuWPkemAgeaXtumXtDogMjAxNuW5tDEy
-5pyIMjDml6UgNzozODoxMA0K5pS25Lu25Lq6OiBDaHJpc3RpYW4gS8O2bmlnDQrmioTpgIE6IExp
-dSwgTW9uazsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCuS4u+mimDogUmU6IOi9rOWP
-kTogW1BBVENIIDAyLzIzXSBkcm0vYW1kZ3B1OiBhZGQga2lxIGludG8gY29tcGlsaW5nDQoNCk9u
-IE1vbiwgRGVjIDE5LCAyMDE2IGF0IDY6MTcgQU0sIENocmlzdGlhbiBLw7ZuaWcNCjxkZWF0aHNp
-bXBsZUB2b2RhZm9uZS5kZT4gd3JvdGU6DQo+IFllYWgsIGFncmVlIHRvdGFsbHkgd2l0aCBNb25r
-IGhlcmUuDQo+DQo+IElmIHlvdSBmaW5kIHRoYXQgeW91IG5lZWQgc29tZSBLSVEgaGVscGVycyB3
-aGljaCBhcmUgaW5kZXBlbmRlbnQgb2YgdGhlDQo+IGhhcmR3YXJlIGdlbmVyYXRpb24geW91IGNh
-biBwdXQgdGhlbSBpbnRvIGFtZGdwdV9raXEuYy4NCj4NCj4gTW9uaywgRGF2aWQgb3IgbWF5YmUg
-ZXZlbiBNaWNoZWwgYW5kIE5pY29sYWkgY291bGQgeW91IGd1eXMgdGFrZSBhIGNsb3Nlcg0KPiBs
-b29rIGF0IHRoZSBwYXRjaGVzLg0KPg0KPiBJJ20gY3VycmVudGx5IHRvIGJ1c3kgd2l0aCBwcml2
-YXRlIGlzc3Vlcywgc28gSSBqdXN0IGJyaWVmbHkgc2tpbW1lZCBvdmVyDQo+IHRoZW0sIGJ1dCBz
-dGlsbCBmb3VuZCBzb21lIGlzc3Vlcy4NCj4NCj4gVGhlIFZBIHVwZGF0ZSBzdHVmZiBzZWVtcyBp
-bmNvcnJlY3RseSBoYW5kbGVkIHRvIG1lIGZvciBleGFtcGxlLiBZb3Ugb25seQ0KPiB1cGRhdGUg
-dGhlIHBhZ2UgdGFibGVzIG9uY2UgYW5kIHRoZW4gYXNzdW1lIHRoYXQgZXZlcnl0aGluZyBzdGF5
-cyBhcyBpdCBpcy4NCj4NCg0KSSBhZ3JlZSB3aXRoIGFsbCBvZiBDaHJpc3RpYW4gYW5kIE1vbmsn
-cyBjb21tZW50cy4gIFBsZWFzZSBzZWUgbXkNCmNvbW1lbnRzIG9uIHRoZSBwYXRjaGVzLg0KDQpB
-bGV4DQoNCj4gUmVnYXJkcywNCj4gQ2hyaXN0aWFuLg0KPg0KPg0KPiBBbSAxOS4xMi4yMDE2IHVt
-IDA4OjEzIHNjaHJpZWIgTGl1LCBNb25rOg0KPj4NCj4+IFNvcnJ5LCBOQUsgZm9yIHRoZSBLSVEg
-aW1wbGVtZW50IHBhdGNoZXMuDQo+Pg0KPj4gS0lRIGlzIGp1c3QgYW5vdGhlciBjb21wdXRlIHF1
-ZXVlLCBhbmQgZWFjaCAgZ2VuZXJhdGlvbiBvZiBjb21wdXRlIHF1ZXVlDQo+PiBpbml0aWFsaXph
-dGlvbiBpcyBkaWZmZXJlbnQsIHNvIHRoZXJlIGlzIG5vIG5lZWQgb2YgYSBhbWRncHVfa2lxLmMg
-ZmlsZSB0bw0KPj4gY292ZXIgdGhlIGZ1bmN0aW9uIG9mIGtpcSwNCj4+DQo+PiBLaXEgaXMgZ29v
-ZCBlbm91Z2ggdG8gYmUgaW4gZWFjaCBnZnhfeF94LmMgZmlsZSAuZS5nIDoNCj4+IEtJUSAgZm9y
-IFZJIGlzIGluIGdmeF92OF8wLmMNCj4+IEFuZCBLSVEgZm9yIEFJIGlzIGluIGdmeF92OV8wLmMN
-Cj4+DQo+PiBNb3N0IGltcG9ydGFudCBpcyB0aGF0IHRoZSAicXVldWVfaW5pdCIgcm91dGluZSBv
-ZiBhYm92ZSB0d28gY2hpcHMgb24gS0lRDQo+PiBpcyBkaWZmZXJlbnQgKE1RRCBkZXNjcmlwdG9y
-IGFzIHdlbGwgYXMgcmVnaXN0ZXJzIG5lZWQgcHJvZ3JhbWluZyAuLi4gKSwNCj4+IHBsZWFzZSBq
-dXN0IGFsaWduIHdpdGggdGhlIHByZXZpb3VzIHBhdGNoIHN0eWxlIGluIGFtZC1zcmlvdi00LjYg
-Zm9yIEtJUQ0KPj4gcGFydA0KPj4NCj4+IEJSIE1vbmsNCj4+DQo+PiAtLS0tLemCruS7tuWOn+S7
-ti0tLS0tDQo+PiDlj5Hku7bkuro6IFl1LCBYaWFuZ2xpYW5nDQo+PiDlj5HpgIHml7bpl7Q6IFN1
-bmRheSwgRGVjZW1iZXIgMTgsIDIwMTYgOTo0NyBBTQ0KPj4g5pS25Lu25Lq6OiBkbC5TUkRDX1NX
-X0dQVVZpcnR1YWxpemF0aW9uDQo+PiDkuLvpopg6IEZXOiBbUEFUQ0ggMDIvMjNdIGRybS9hbWRn
-cHU6IGFkZCBraXEgaW50byBjb21waWxpbmcNCj4+DQo+Pg0KPj4NCj4+IC0tLS0tT3JpZ2luYWwg
-TWVzc2FnZS0tLS0tDQo+PiBGcm9tOiBYaWFuZ2xpYW5nIFl1IFttYWlsdG86WGlhbmdsaWFuZy5Z
-dUBhbWQuY29tXQ0KPj4gU2VudDogU3VuZGF5LCBEZWNlbWJlciAxOCwgMjAxNiAxMjoxNiBBTQ0K
-Pj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBkbC5TUkRDX1NXX0dQVVZpcnR1
-YWxpemF0aW9uDQo+PiA8ZGwuU1JEQ19TV19HUFVWaXJ0dWFsaXphdGlvbkBhbWQuY29tPg0KPj4g
-Q2M6IFl1LCBYaWFuZ2xpYW5nIDxYaWFuZ2xpYW5nLll1QGFtZC5jb20+DQo+PiBTdWJqZWN0OiBb
-UEFUQ0ggMDIvMjNdIGRybS9hbWRncHU6IGFkZCBraXEgaW50byBjb21waWxpbmcNCj4+DQo+PiBB
-ZGQgc3VwcG9ydCBLSVEgaW4gTWFrZWZpbGUgdG8gbWFrZSBpdCBpbnRvIG1vZHVsZS4NCj4+DQo+
-PiBTaWduZWQtb2ZmLWJ5OiBYaWFuZ2xpYW5nIFl1IDxYaWFuZ2xpYW5nLll1QGFtZC5jb20+DQo+
-PiAtLS0NCj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvTWFrZWZpbGUgfCAyICstDQo+
-PiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQ0KPj4NCj4+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9NYWtlZmlsZQ0KPj4gYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9NYWtlZmlsZQ0KPj4gaW5kZXggZGQwYjZkYi4uNjM1
-ZmY5NCAxMDA2NDQNCj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L01ha2VmaWxl
-DQo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9NYWtlZmlsZQ0KPj4gQEAgLTMw
-LDcgKzMwLDcgQEAgYW1kZ3B1LXkgKz0gYW1kZ3B1X2RldmljZS5vIGFtZGdwdV9rbXMubyBcDQo+
-PiAgICAgICAgIGF0b21iaW9zX2VuY29kZXJzLm8gYW1kZ3B1X3NhLm8gYXRvbWJpb3NfaTJjLm8g
-XA0KPj4gICAgICAgICBhbWRncHVfcHJpbWUubyBhbWRncHVfdm0ubyBhbWRncHVfaWIubyBhbWRn
-cHVfcGxsLm8gXA0KPj4gICAgICAgICBhbWRncHVfdWNvZGUubyBhbWRncHVfYm9fbGlzdC5vIGFt
-ZGdwdV9jdHgubyBhbWRncHVfc3luYy5vIFwNCj4+IC0gICAgICAgYW1kZ3B1X2d0dF9tZ3IubyBh
-bWRncHVfdnJhbV9tZ3Iubw0KPj4gKyAgICAgICBhbWRncHVfZ3R0X21nci5vIGFtZGdwdV92cmFt
-X21nci5vIGFtZGdwdV9raXEubw0KPj4gICAgICMgYWRkIGFzaWMgc3BlY2lmaWMgYmxvY2sNCj4+
-ICAgYW1kZ3B1LSQoQ09ORklHX0RSTV9BTURHUFVfQ0lLKSs9IGNpay5vIGNpa19paC5vIGt2X3Nt
-Yy5vIGt2X2RwbS5vIFwNCj4NCj4NCj4NCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18NCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4gYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcNCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4DQo=
+I'd be curious to know what AI stands for in this context
 
---_000_BY2PR12MB00547828A6FEEE6B3349F5AE84900BY2PR12MB0054namp_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+On Mon, 19 Dec 2016 at 07:28 Liu, Monk <Monk.Liu-5C7GfCeVMHo@public.gmane.org> wrote:
 
-PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
-dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRvciIgY29udGVu
-dD0iTWljcm9zb2Z0IEV4Y2hhbmdlIFNlcnZlciI+DQo8IS0tIGNvbnZlcnRlZCBmcm9tIHRleHQg
-LS0+PHN0eWxlPjwhLS0gLkVtYWlsUXVvdGUgeyBtYXJnaW4tbGVmdDogMXB0OyBwYWRkaW5nLWxl
-ZnQ6IDRwdDsgYm9yZGVyLWxlZnQ6ICM4MDAwMDAgMnB4IHNvbGlkOyB9IC0tPjwvc3R5bGU+DQo8
-L2hlYWQ+DQo8Ym9keT4NCjxtZXRhIGNvbnRlbnQ9InRleHQvaHRtbDsgY2hhcnNldD1VVEYtOCI+
-DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiIHN0eWxlPSIiPg0KPCEtLQ0KcA0KCXttYXJnaW4tdG9w
-OjA7DQoJbWFyZ2luLWJvdHRvbTowfQ0KLS0+DQo8L3N0eWxlPg0KPGRpdiBkaXI9Imx0ciI+DQo8
-ZGl2IGlkPSJ4X2RpdnRhZ2RlZmF1bHR3cmFwcGVyIiBkaXI9Imx0ciIgc3R5bGU9ImZvbnQtc2l6
-ZToxMnB0OyBjb2xvcjojMDAwMDAwOyBmb250LWZhbWlseTpDYWxpYnJpLEFyaWFsLEhlbHZldGlj
-YSxzYW5zLXNlcmlmIj4NCjxwPnllYWgsIEknbGwgdGFrZSBhIGRlZXAgbG9vaywgd2UgYXJlIG5v
-dCBpbiBodXJyeSB0byBzdWJtaXQgdGhvc2UgU1JJT1YgcGF0Y2hlcywgZm9yIHRoZSBWQSB1cGRh
-dGUgcGFydCAoaWYgeW91IG1lYW4gQ1NBIG1hcHBpbmdzKSBJJ2xsIHBheSBhdHRlbnRpb24gb24g
-aXQsIHRoYW5rcw0KPGJyPg0KPC9wPg0KPHA+PGJyPg0KPC9wPg0KPHA+QlIgTW9uazxicj4NCjwv
-cD4NCjwvZGl2Pg0KPGhyIHRhYmluZGV4PSItMSIgc3R5bGU9ImRpc3BsYXk6aW5saW5lLWJsb2Nr
-OyB3aWR0aDo5OCUiPg0KPGRpdiBpZD0ieF9kaXZScGx5RndkTXNnIiBkaXI9Imx0ciI+PGZvbnQg
-ZmFjZT0iQ2FsaWJyaSwgc2Fucy1zZXJpZiIgY29sb3I9IiMwMDAwMDAiIHN0eWxlPSJmb250LXNp
-emU6MTFwdCI+PGI+5Y+R5Lu25Lq6OjwvYj4gQWxleCBEZXVjaGVyICZsdDthbGV4ZGV1Y2hlckBn
-bWFpbC5jb20mZ3Q7PGJyPg0KPGI+5Y+R6YCB5pe26Ze0OjwvYj4gMjAxNuW5tDEy5pyIMjDml6Ug
-NzozODoxMDxicj4NCjxiPuaUtuS7tuS6ujo8L2I+IENocmlzdGlhbiBLw7ZuaWc8YnI+DQo8Yj7m
-ioTpgIE6PC9iPiBMaXUsIE1vbms7IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPGJyPg0K
-PGI+5Li76aKYOjwvYj4gUmU6IOi9rOWPkTogW1BBVENIIDAyLzIzXSBkcm0vYW1kZ3B1OiBhZGQg
-a2lxIGludG8gY29tcGlsaW5nPC9mb250Pg0KPGRpdj4mbmJzcDs8L2Rpdj4NCjwvZGl2Pg0KPC9k
-aXY+DQo8Zm9udCBzaXplPSIyIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwcHQ7Ij4NCjxkaXYg
-Y2xhc3M9IlBsYWluVGV4dCI+T24gTW9uLCBEZWMgMTksIDIwMTYgYXQgNjoxNyBBTSwgQ2hyaXN0
-aWFuIEvDtm5pZzxicj4NCiZsdDtkZWF0aHNpbXBsZUB2b2RhZm9uZS5kZSZndDsgd3JvdGU6PGJy
-Pg0KJmd0OyBZZWFoLCBhZ3JlZSB0b3RhbGx5IHdpdGggTW9uayBoZXJlLjxicj4NCiZndDs8YnI+
-DQomZ3Q7IElmIHlvdSBmaW5kIHRoYXQgeW91IG5lZWQgc29tZSBLSVEgaGVscGVycyB3aGljaCBh
-cmUgaW5kZXBlbmRlbnQgb2YgdGhlPGJyPg0KJmd0OyBoYXJkd2FyZSBnZW5lcmF0aW9uIHlvdSBj
-YW4gcHV0IHRoZW0gaW50byBhbWRncHVfa2lxLmMuPGJyPg0KJmd0Ozxicj4NCiZndDsgTW9uaywg
-RGF2aWQgb3IgbWF5YmUgZXZlbiBNaWNoZWwgYW5kIE5pY29sYWkgY291bGQgeW91IGd1eXMgdGFr
-ZSBhIGNsb3Nlcjxicj4NCiZndDsgbG9vayBhdCB0aGUgcGF0Y2hlcy48YnI+DQomZ3Q7PGJyPg0K
-Jmd0OyBJJ20gY3VycmVudGx5IHRvIGJ1c3kgd2l0aCBwcml2YXRlIGlzc3Vlcywgc28gSSBqdXN0
-IGJyaWVmbHkgc2tpbW1lZCBvdmVyPGJyPg0KJmd0OyB0aGVtLCBidXQgc3RpbGwgZm91bmQgc29t
-ZSBpc3N1ZXMuPGJyPg0KJmd0Ozxicj4NCiZndDsgVGhlIFZBIHVwZGF0ZSBzdHVmZiBzZWVtcyBp
-bmNvcnJlY3RseSBoYW5kbGVkIHRvIG1lIGZvciBleGFtcGxlLiBZb3Ugb25seTxicj4NCiZndDsg
-dXBkYXRlIHRoZSBwYWdlIHRhYmxlcyBvbmNlIGFuZCB0aGVuIGFzc3VtZSB0aGF0IGV2ZXJ5dGhp
-bmcgc3RheXMgYXMgaXQgaXMuPGJyPg0KJmd0Ozxicj4NCjxicj4NCkkgYWdyZWUgd2l0aCBhbGwg
-b2YgQ2hyaXN0aWFuIGFuZCBNb25rJ3MgY29tbWVudHMuJm5ic3A7IFBsZWFzZSBzZWUgbXk8YnI+
-DQpjb21tZW50cyBvbiB0aGUgcGF0Y2hlcy48YnI+DQo8YnI+DQpBbGV4PGJyPg0KPGJyPg0KJmd0
-OyBSZWdhcmRzLDxicj4NCiZndDsgQ2hyaXN0aWFuLjxicj4NCiZndDs8YnI+DQomZ3Q7PGJyPg0K
-Jmd0OyBBbSAxOS4xMi4yMDE2IHVtIDA4OjEzIHNjaHJpZWIgTGl1LCBNb25rOjxicj4NCiZndDsm
-Z3Q7PGJyPg0KJmd0OyZndDsgU29ycnksIE5BSyBmb3IgdGhlIEtJUSBpbXBsZW1lbnQgcGF0Y2hl
-cy48YnI+DQomZ3Q7Jmd0Ozxicj4NCiZndDsmZ3Q7IEtJUSBpcyBqdXN0IGFub3RoZXIgY29tcHV0
-ZSBxdWV1ZSwgYW5kIGVhY2gmbmJzcDsgZ2VuZXJhdGlvbiBvZiBjb21wdXRlIHF1ZXVlPGJyPg0K
-Jmd0OyZndDsgaW5pdGlhbGl6YXRpb24gaXMgZGlmZmVyZW50LCBzbyB0aGVyZSBpcyBubyBuZWVk
-IG9mIGEgYW1kZ3B1X2tpcS5jIGZpbGUgdG88YnI+DQomZ3Q7Jmd0OyBjb3ZlciB0aGUgZnVuY3Rp
-b24gb2Yga2lxLDxicj4NCiZndDsmZ3Q7PGJyPg0KJmd0OyZndDsgS2lxIGlzIGdvb2QgZW5vdWdo
-IHRvIGJlIGluIGVhY2ggZ2Z4X3hfeC5jIGZpbGUgLmUuZyA6PGJyPg0KJmd0OyZndDsgS0lRJm5i
-c3A7IGZvciBWSSBpcyBpbiBnZnhfdjhfMC5jPGJyPg0KJmd0OyZndDsgQW5kIEtJUSBmb3IgQUkg
-aXMgaW4gZ2Z4X3Y5XzAuYzxicj4NCiZndDsmZ3Q7PGJyPg0KJmd0OyZndDsgTW9zdCBpbXBvcnRh
-bnQgaXMgdGhhdCB0aGUgJnF1b3Q7cXVldWVfaW5pdCZxdW90OyByb3V0aW5lIG9mIGFib3ZlIHR3
-byBjaGlwcyBvbiBLSVE8YnI+DQomZ3Q7Jmd0OyBpcyBkaWZmZXJlbnQgKE1RRCBkZXNjcmlwdG9y
-IGFzIHdlbGwgYXMgcmVnaXN0ZXJzIG5lZWQgcHJvZ3JhbWluZyAuLi4gKSw8YnI+DQomZ3Q7Jmd0
-OyBwbGVhc2UganVzdCBhbGlnbiB3aXRoIHRoZSBwcmV2aW91cyBwYXRjaCBzdHlsZSBpbiBhbWQt
-c3Jpb3YtNC42IGZvciBLSVE8YnI+DQomZ3Q7Jmd0OyBwYXJ0PGJyPg0KJmd0OyZndDs8YnI+DQom
-Z3Q7Jmd0OyBCUiBNb25rPGJyPg0KJmd0OyZndDs8YnI+DQomZ3Q7Jmd0OyAtLS0tLemCruS7tuWO
-n+S7ti0tLS0tPGJyPg0KJmd0OyZndDsg5Y+R5Lu25Lq6OiBZdSwgWGlhbmdsaWFuZzxicj4NCiZn
-dDsmZ3Q7IOWPkemAgeaXtumXtDogU3VuZGF5LCBEZWNlbWJlciAxOCwgMjAxNiA5OjQ3IEFNPGJy
-Pg0KJmd0OyZndDsg5pS25Lu25Lq6OiBkbC5TUkRDX1NXX0dQVVZpcnR1YWxpemF0aW9uPGJyPg0K
-Jmd0OyZndDsg5Li76aKYOiBGVzogW1BBVENIIDAyLzIzXSBkcm0vYW1kZ3B1OiBhZGQga2lxIGlu
-dG8gY29tcGlsaW5nPGJyPg0KJmd0OyZndDs8YnI+DQomZ3Q7Jmd0Ozxicj4NCiZndDsmZ3Q7PGJy
-Pg0KJmd0OyZndDsgLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS08YnI+DQomZ3Q7Jmd0OyBGcm9t
-OiBYaWFuZ2xpYW5nIFl1IFs8YSBocmVmPSJtYWlsdG86WGlhbmdsaWFuZy5ZdUBhbWQuY29tIj5t
-YWlsdG86WGlhbmdsaWFuZy5ZdUBhbWQuY29tPC9hPl08YnI+DQomZ3Q7Jmd0OyBTZW50OiBTdW5k
-YXksIERlY2VtYmVyIDE4LCAyMDE2IDEyOjE2IEFNPGJyPg0KJmd0OyZndDsgVG86IGFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBkbC5TUkRDX1NXX0dQVVZpcnR1YWxpemF0aW9uPGJyPg0K
-Jmd0OyZndDsgJmx0O2RsLlNSRENfU1dfR1BVVmlydHVhbGl6YXRpb25AYW1kLmNvbSZndDs8YnI+
-DQomZ3Q7Jmd0OyBDYzogWXUsIFhpYW5nbGlhbmcgJmx0O1hpYW5nbGlhbmcuWXVAYW1kLmNvbSZn
-dDs8YnI+DQomZ3Q7Jmd0OyBTdWJqZWN0OiBbUEFUQ0ggMDIvMjNdIGRybS9hbWRncHU6IGFkZCBr
-aXEgaW50byBjb21waWxpbmc8YnI+DQomZ3Q7Jmd0Ozxicj4NCiZndDsmZ3Q7IEFkZCBzdXBwb3J0
-IEtJUSBpbiBNYWtlZmlsZSB0byBtYWtlIGl0IGludG8gbW9kdWxlLjxicj4NCiZndDsmZ3Q7PGJy
-Pg0KJmd0OyZndDsgU2lnbmVkLW9mZi1ieTogWGlhbmdsaWFuZyBZdSAmbHQ7WGlhbmdsaWFuZy5Z
-dUBhbWQuY29tJmd0Ozxicj4NCiZndDsmZ3Q7IC0tLTxicj4NCiZndDsmZ3Q7Jm5ic3A7Jm5ic3A7
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L01ha2VmaWxlIHwgMiAmIzQzOy08YnI+DQomZ3Q7
-Jmd0OyZuYnNwOyZuYnNwOyAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oJiM0MzspLCAxIGRl
-bGV0aW9uKC0pPGJyPg0KJmd0OyZndDs8YnI+DQomZ3Q7Jmd0OyBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvTWFrZWZpbGU8YnI+DQomZ3Q7Jmd0OyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L01ha2VmaWxlPGJyPg0KJmd0OyZndDsgaW5kZXggZGQwYjZkYi4uNjM1
-ZmY5NCAxMDA2NDQ8YnI+DQomZ3Q7Jmd0OyAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9NYWtlZmlsZTxicj4NCiZndDsmZ3Q7ICYjNDM7JiM0MzsmIzQzOyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L01ha2VmaWxlPGJyPg0KJmd0OyZndDsgQEAgLTMwLDcgJiM0MzszMCw3IEBA
-IGFtZGdwdS15ICYjNDM7PSBhbWRncHVfZGV2aWNlLm8gYW1kZ3B1X2ttcy5vIFw8YnI+DQomZ3Q7
-Jmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBhdG9t
-Ymlvc19lbmNvZGVycy5vIGFtZGdwdV9zYS5vIGF0b21iaW9zX2kyYy5vIFw8YnI+DQomZ3Q7Jmd0
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBhbWRncHVf
-cHJpbWUubyBhbWRncHVfdm0ubyBhbWRncHVfaWIubyBhbWRncHVfcGxsLm8gXDxicj4NCiZndDsm
-Z3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGFtZGdw
-dV91Y29kZS5vIGFtZGdwdV9ib19saXN0Lm8gYW1kZ3B1X2N0eC5vIGFtZGdwdV9zeW5jLm8gXDxi
-cj4NCiZndDsmZ3Q7IC0mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgYW1kZ3B1
-X2d0dF9tZ3IubyBhbWRncHVfdnJhbV9tZ3Iubzxicj4NCiZndDsmZ3Q7ICYjNDM7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGFtZGdwdV9ndHRfbWdyLm8gYW1kZ3B1X3ZyYW1f
-bWdyLm8gYW1kZ3B1X2tpcS5vPGJyPg0KJmd0OyZndDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsg
-IyBhZGQgYXNpYyBzcGVjaWZpYyBibG9jazxicj4NCiZndDsmZ3Q7Jm5ic3A7Jm5ic3A7IGFtZGdw
-dS0kKENPTkZJR19EUk1fQU1ER1BVX0NJSykmIzQzOz0gY2lrLm8gY2lrX2loLm8ga3Zfc21jLm8g
-a3ZfZHBtLm8gXDxicj4NCiZndDs8YnI+DQomZ3Q7PGJyPg0KJmd0Ozxicj4NCiZndDsgX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX188YnI+DQomZ3Q7IGFtZC1n
-ZnggbWFpbGluZyBsaXN0PGJyPg0KJmd0OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzxi
-cj4NCiZndDsgPGEgaHJlZj0iaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4Ij5odHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2FtZC1nZng8L2E+PGJyPg0KPC9kaXY+DQo8L3NwYW4+PC9mb250Pg0KPC9ib2R5Pg0K
-PC9odG1sPg0K
+> Sorry, NAK for the KIQ implement patches.
+>
+> KIQ is just another compute queue, and each  generation of compute queue
+> initialization is different, so there is no need of a amdgpu_kiq.c file t=
+o
+> cover the function of kiq,
+>
+> Kiq is good enough to be in each gfx_x_x.c file .e.g :
+> KIQ  for VI is in gfx_v8_0.c
+> And KIQ for AI is in gfx_v9_0.c
+>
+> Most important is that the "queue_init" routine of above two chips on KIQ
+> is different (MQD descriptor as well as registers need programing ... ),
+> please just align with the previous patch style in amd-sriov-4.6 for KIQ
+> part
+>
+> BR Monk
+>
+> -----=E9=82=AE=E4=BB=B6=E5=8E=9F=E4=BB=B6-----
+> =E5=8F=91=E4=BB=B6=E4=BA=BA: Yu, Xiangliang
+> =E5=8F=91=E9=80=81=E6=97=B6=E9=97=B4: Sunday, December 18, 2016 9:47 AM
+> =E6=94=B6=E4=BB=B6=E4=BA=BA: dl.SRDC_SW_GPUVirtualization
+> =E4=B8=BB=E9=A2=98: FW: [PATCH 02/23] drm/amdgpu: add kiq into compiling
+>
+>
+>
+> -----Original Message-----
+> From: Xiangliang Yu [mailto:Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org]
+> Sent: Sunday, December 18, 2016 12:16 AM
+> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; dl.SRDC_SW_GPUVirtualization <
+> dl.SRDC_SW_GPUVirtualization-5C7GfCeVMHo@public.gmane.org>
+> Cc: Yu, Xiangliang <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
+> Subject: [PATCH 02/23] drm/amdgpu: add kiq into compiling
+>
+> Add support KIQ in Makefile to make it into module.
+>
+> Signed-off-by: Xiangliang Yu <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/Makefile | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile
+> b/drivers/gpu/drm/amd/amdgpu/Makefile
+> index dd0b6db..635ff94 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+> @@ -30,7 +30,7 @@ amdgpu-y +=3D amdgpu_device.o amdgpu_kms.o \
+>         atombios_encoders.o amdgpu_sa.o atombios_i2c.o \
+>         amdgpu_prime.o amdgpu_vm.o amdgpu_ib.o amdgpu_pll.o \
+>         amdgpu_ucode.o amdgpu_bo_list.o amdgpu_ctx.o amdgpu_sync.o \
+> -       amdgpu_gtt_mgr.o amdgpu_vram_mgr.o
+> +       amdgpu_gtt_mgr.o amdgpu_vram_mgr.o amdgpu_kiq.o
+>
+>  # add asic specific block
+>  amdgpu-$(CONFIG_DRM_AMDGPU_CIK)+=3D cik.o cik_ih.o kv_smc.o kv_dpm.o \
+> --
+> 2.7.4
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
 
---_000_BY2PR12MB00547828A6FEEE6B3349F5AE84900BY2PR12MB0054namp_--
+--94eb2c0864fce7af9005440eeac6
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
---===============0432608699==
+<div dir=3D"ltr">I&#39;d be curious to know what AI stands for in this cont=
+ext<br><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Mon, 19 Dec 2016 =
+at 07:28 Liu, Monk &lt;<a href=3D"mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org">Monk.Liu-5C7GfCeVMHo@public.gmane.org=
+</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:=
+0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Sorry, NAK for the =
+KIQ implement patches.<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+KIQ is just another compute queue, and each=C2=A0 generation of compute que=
+ue initialization is different, so there is no need of a amdgpu_kiq.c file =
+to cover the function of kiq,<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+Kiq is good enough to be in each gfx_x_x.c file .e.g :<br class=3D"gmail_ms=
+g">
+KIQ=C2=A0 for VI is in gfx_v8_0.c<br class=3D"gmail_msg">
+And KIQ for AI is in gfx_v9_0.c<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+Most important is that the &quot;queue_init&quot; routine of above two chip=
+s on KIQ is different (MQD descriptor as well as registers need programing =
+... ), please just align with the previous patch style in amd-sriov-4.6 for=
+ KIQ part<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+BR Monk<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+-----=E9=82=AE=E4=BB=B6=E5=8E=9F=E4=BB=B6-----<br class=3D"gmail_msg">
+=E5=8F=91=E4=BB=B6=E4=BA=BA: Yu, Xiangliang<br class=3D"gmail_msg">
+=E5=8F=91=E9=80=81=E6=97=B6=E9=97=B4: Sunday, December 18, 2016 9:47 AM<br =
+class=3D"gmail_msg">
+=E6=94=B6=E4=BB=B6=E4=BA=BA: dl.SRDC_SW_GPUVirtualization<br class=3D"gmail=
+_msg">
+=E4=B8=BB=E9=A2=98: FW: [PATCH 02/23] drm/amdgpu: add kiq into compiling<br=
+ class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+-----Original Message-----<br class=3D"gmail_msg">
+From: Xiangliang Yu [mailto:<a href=3D"mailto:Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org" class=
+=3D"gmail_msg" target=3D"_blank">Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org</a>]<br class=3D"gma=
+il_msg">
+Sent: Sunday, December 18, 2016 12:16 AM<br class=3D"gmail_msg">
+To: <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" class=3D"gmail_msg" ta=
+rget=3D"_blank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>; dl.SRDC_SW_GPUVirtualiza=
+tion &lt;<a href=3D"mailto:dl.SRDC_SW_GPUVirtualization-5C7GfCeVMHo@public.gmane.org" class=3D"g=
+mail_msg" target=3D"_blank">dl.SRDC_SW_GPUVirtualization-5C7GfCeVMHo@public.gmane.org</a>&gt;<br=
+ class=3D"gmail_msg">
+Cc: Yu, Xiangliang &lt;<a href=3D"mailto:Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org" class=3D"gm=
+ail_msg" target=3D"_blank">Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org</a>&gt;<br class=3D"gmail_=
+msg">
+Subject: [PATCH 02/23] drm/amdgpu: add kiq into compiling<br class=3D"gmail=
+_msg">
+<br class=3D"gmail_msg">
+Add support KIQ in Makefile to make it into module.<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+Signed-off-by: Xiangliang Yu &lt;<a href=3D"mailto:Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org" c=
+lass=3D"gmail_msg" target=3D"_blank">Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org</a>&gt;<br class=
+=3D"gmail_msg">
+---<br class=3D"gmail_msg">
+=C2=A0drivers/gpu/drm/amd/amdgpu/Makefile | 2 +-<br class=3D"gmail_msg">
+=C2=A01 file changed, 1 insertion(+), 1 deletion(-)<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdg=
+pu/Makefile<br class=3D"gmail_msg">
+index dd0b6db..635ff94 100644<br class=3D"gmail_msg">
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile<br class=3D"gmail_msg">
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile<br class=3D"gmail_msg">
+@@ -30,7 +30,7 @@ amdgpu-y +=3D amdgpu_device.o amdgpu_kms.o \<br class=3D"=
+gmail_msg">
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 atombios_encoders.o amdgpu_sa.o atombios_i2c.o =
+\<br class=3D"gmail_msg">
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 amdgpu_prime.o amdgpu_vm.o amdgpu_ib.o amdgpu_p=
+ll.o \<br class=3D"gmail_msg">
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 amdgpu_ucode.o amdgpu_bo_list.o amdgpu_ctx.o am=
+dgpu_sync.o \<br class=3D"gmail_msg">
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_gtt_mgr.o amdgpu_vram_mgr.o<br class=3D"=
+gmail_msg">
++=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_gtt_mgr.o amdgpu_vram_mgr.o amdgpu_kiq.o=
+<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+=C2=A0# add asic specific block<br class=3D"gmail_msg">
+=C2=A0amdgpu-$(CONFIG_DRM_AMDGPU_CIK)+=3D cik.o cik_ih.o kv_smc.o kv_dpm.o =
+\<br class=3D"gmail_msg">
+--<br class=3D"gmail_msg">
+2.7.4<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+_______________________________________________<br class=3D"gmail_msg">
+amd-gfx mailing list<br class=3D"gmail_msg">
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" class=3D"gmail_msg" target=
+=3D"_blank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br class=3D"gmail_msg">
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer" class=3D"gmail_msg" target=3D"_blank">https://lists.freedesktop.=
+org/mailman/listinfo/amd-gfx</a><br class=3D"gmail_msg">
+</blockquote></div></div>
+
+--94eb2c0864fce7af9005440eeac6--
+
+--===============1072782104==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -220,4 +205,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0432608699==--
+--===============1072782104==--
