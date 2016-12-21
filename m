@@ -1,14 +1,14 @@
-From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 08/22] drm/amd/display: Implement PQ curve based on output
- transfer function
-Date: Wed, 21 Dec 2016 11:30:02 -0500
-Message-ID: <20161221163016.970-9-harry.wentland@amd.com>
-References: <20161221163016.970-1-harry.wentland@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: remove static integer at uvd power gate to fix two gpu core boot
+ up
+Date: Wed, 21 Dec 2016 16:42:09 +0000
+Message-ID: <BN6PR12MB165289837711D92C9EF59116F7930@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <CY1PR12MB08399D7CE3500C4373CF023EE5930@CY1PR12MB0839.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0306923962=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20161221163016.970-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CY1PR12MB08399D7CE3500C4373CF023EE5930-1s8aH8ViOEfL8a+y8HKU/gdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,121 +19,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Anthony Koo <anthony.koo-5C7GfCeVMHo@public.gmane.org>
+To: "Tao, Yintian" <Yintian.Tao-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-RnJvbTogQW50aG9ueSBLb28gPEFudGhvbnkuS29vQGFtZC5jb20+CgpSZWZhY3RvciBwYXJ0IDUg
-LSBSZWdhbW1hIHByb2dyYW1taW5nIHNob3VsZCBiZSBkZXBlbmRlbnQgb24gT3V0cHV0CnRyYW5z
-ZmVyIGZ1bmN0aW9uIHR5cGUKClByb2dyYW0gc1JHQiBnYW1tYSBvciBQUSB0cmFuc2ZlciBmdW5j
-dGlvbiBiYXNlZCBvbiBvdXRwdXQgdHJhbnNmZXIKZnVuY3Rpb24uCgpDaGFuZ2UtSWQ6IEk0NDJm
-YmEzMDAzMDY4YTE1YmZkNjk1OWIzZWM2OWYwZGQ0MmM0ZDIyClNpZ25lZC1vZmYtYnk6IEFudGhv
-bnkgS29vIDxhbnRob255Lmtvb0BhbWQuY29tPgpSZXZpZXdlZC1ieTogQXJpYyBDeXIgPEFyaWMu
-Q3lyQGFtZC5jb20+CkFja2VkLWJ5OiBIYXJyeSBXZW50bGFuZCA8SGFycnkuV2VudGxhbmRAYW1k
-LmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY2FsY3MvZ2FtbWFfY2Fs
-Y3MuYyB8IDkzICsrKysrKysrKysrKysrKysrKysrLS0KIC4uLi9hbWQvZGlzcGxheS9kYy9kY2Ux
-MTAvZGNlMTEwX2h3X3NlcXVlbmNlci5jICAgIHwgIDMgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-ZGlzcGxheS9kYy9pbmMvZ2FtbWFfY2FsY3MuaCAgIHwgIDMgKy0KIDMgZmlsZXMgY2hhbmdlZCwg
-OTIgaW5zZXJ0aW9ucygrKSwgNyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2Rpc3BsYXkvZGMvY2FsY3MvZ2FtbWFfY2FsY3MuYyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvZGlzcGxheS9kYy9jYWxjcy9nYW1tYV9jYWxjcy5jCmluZGV4IDg1NDc5NmFhMGM3MS4u
-OTczYmU4ZjY0OWNjIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMv
-Y2FsY3MvZ2FtbWFfY2FsY3MuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMv
-Y2FsY3MvZ2FtbWFfY2FsY3MuYwpAQCAtNzkxLDYgKzc5MSw4MiBAQCBzdGF0aWMgaW5saW5lIHN0
-cnVjdCBmaXhlZDMxXzMyIGNhbGN1bGF0ZV9vZW1fbWFwcGVkX3ZhbHVlKAogCQkJbWF4X2luZGV4
-KTsKIH0KIAorc3RhdGljIHZvaWQgY29tcHV0ZV9wcShzdHJ1Y3QgZml4ZWQzMV8zMiBpbl94LCBz
-dHJ1Y3QgZml4ZWQzMV8zMiAqb3V0X3kpCit7CisJLyogY29uc3RzIGZvciBQUSBnYW1tYSBmb3Jt
-dWxhLiAqLworCWNvbnN0IHN0cnVjdCBmaXhlZDMxXzMyIG0xID0KKwkJZGFsX2ZpeGVkMzFfMzJf
-ZnJvbV9mcmFjdGlvbigxNTkzMDE3NTgsIDEwMDAwMDAwMDApOworCWNvbnN0IHN0cnVjdCBmaXhl
-ZDMxXzMyIG0yID0KKwkJZGFsX2ZpeGVkMzFfMzJfZnJvbV9mcmFjdGlvbig3ODg0Mzc1LCAxMDAw
-MDApOworCWNvbnN0IHN0cnVjdCBmaXhlZDMxXzMyIGMxID0KKwkJZGFsX2ZpeGVkMzFfMzJfZnJv
-bV9mcmFjdGlvbig4MzU5Mzc1LCAxMDAwMDAwMCk7CisJY29uc3Qgc3RydWN0IGZpeGVkMzFfMzIg
-YzIgPQorCQlkYWxfZml4ZWQzMV8zMl9mcm9tX2ZyYWN0aW9uKDE4ODUxNTYyNSwgMTAwMDAwMDAp
-OworCWNvbnN0IHN0cnVjdCBmaXhlZDMxXzMyIGMzID0KKwkJZGFsX2ZpeGVkMzFfMzJfZnJvbV9m
-cmFjdGlvbigxODY4NzUsIDEwMDAwKTsKKworCXN0cnVjdCBmaXhlZDMxXzMyIGxfcG93X20xOwor
-CXN0cnVjdCBmaXhlZDMxXzMyIGJhc2U7CisKKwlpZiAoZGFsX2ZpeGVkMzFfMzJfbHQoaW5feCwg
-ZGFsX2ZpeGVkMzFfMzJfemVybykpCisJCWluX3ggPSBkYWxfZml4ZWQzMV8zMl96ZXJvOworCisJ
-bF9wb3dfbTEgPSBkYWxfZml4ZWQzMV8zMl9wb3coaW5feCwgbTEpOworCWJhc2UgPSBkYWxfZml4
-ZWQzMV8zMl9kaXYoCisJCQlkYWxfZml4ZWQzMV8zMl9hZGQoYzEsCisJCQkJCShkYWxfZml4ZWQz
-MV8zMl9tdWwoYzIsIGxfcG93X20xKSkpLAorCQkJZGFsX2ZpeGVkMzFfMzJfYWRkKGRhbF9maXhl
-ZDMxXzMyX29uZSwKKwkJCQkJKGRhbF9maXhlZDMxXzMyX211bChjMywgbF9wb3dfbTEpKSkpOwor
-CSpvdXRfeSA9IGRhbF9maXhlZDMxXzMyX3BvdyhiYXNlLCBtMik7Cit9CisKK3N0YXRpYyB2b2lk
-IGJ1aWxkX3JlZ2FtbWFfY3VydmVfcHEoc3RydWN0IHB3bF9mbG9hdF9kYXRhX2V4ICpyZ2JfcmVn
-YW1tYSwKKwkJc3RydWN0IHB3bF9mbG9hdF9kYXRhICpyZ2Jfb2VtLAorCQlzdHJ1Y3QgcGl4ZWxf
-Z2FtbWFfcG9pbnQgKmNvZWZmMTI4X29lbSwKKwkJY29uc3Qgc3RydWN0IGNvcmVfZ2FtbWEgKnJh
-bXAsCisJCWNvbnN0IHN0cnVjdCBjb3JlX3N1cmZhY2UgKnN1cmZhY2UsCisJCXVpbnQzMl90IGh3
-X3BvaW50c19udW0sCisJCWNvbnN0IHN0cnVjdCBod194X3BvaW50ICpjb29yZGluYXRlX3gsCisJ
-CWNvbnN0IHN0cnVjdCBnYW1tYV9waXhlbCAqYXhpc194LAorCQlzdHJ1Y3QgZGl2aWRlcnMgZGl2
-aWRlcnMpCit7CisJdWludDMyX3QgaTsKKworCXN0cnVjdCBwd2xfZmxvYXRfZGF0YV9leCAqcmdi
-ID0gcmdiX3JlZ2FtbWE7CisJY29uc3Qgc3RydWN0IGh3X3hfcG9pbnQgKmNvb3JkX3ggPSBjb29y
-ZGluYXRlX3g7CisJc3RydWN0IGZpeGVkMzFfMzIgeDsKKwlzdHJ1Y3QgZml4ZWQzMV8zMiBvdXRw
-dXQ7CisJc3RydWN0IGZpeGVkMzFfMzIgc2NhbGluZ19mYWN0b3IgPQorCQkJZGFsX2ZpeGVkMzFf
-MzJfZnJvbV9mcmFjdGlvbig4LCAxMDAwKTsKKworCS8qIHVzZSBjb29yZF94IHRvIHJldHJpZXZl
-IGNvb3JkaW5hdGVzIGNob3NlbiBiYXNlIG9uIGdpdmVuIHVzZXIgY3VydmUKKwkgKiB0aGUgeCB2
-YWx1ZXMgYXJlIGV4cG9uZW50aWFsbHkgZGlzdHJpYnV0ZWQgYW5kIGN1cnJlbnRseSBpdCBpcyBo
-YXJkCisJICogY29kZWQsIHRoZSB1c2VyIGN1cnZlIHNoYXBlIGlzIGlnbm9yZWQuIE5lZWQgdG8g
-cmVjYWxjdWxhdGUgY29vcmRfeAorCSAqIGJhc2VkIG9uIGlucHV0IGN1cnZlLCB0cmFuc2xhdGlv
-biBmcm9tIDI1Ni8xMDI1IHRvIDEyOCBQV0wgcG9pbnRzLgorCSAqLworCWZvciAoaSA9IDA7IGkg
-PD0gaHdfcG9pbnRzX251bTsgaSsrKSB7CisJCS8qIE11bHRpcGx5IDAuMDA4IGFzIHJlZ2FtbWEg
-aXMgMC0xIGFuZCBGUDE2IGlucHV0IGlzIDAtMTI1LgorCQkgKiBGUCAxLjAgPSA4MG5pdHMKKwkJ
-ICovCisJCXggPSBkYWxfZml4ZWQzMV8zMl9tdWwoY29vcmRfeC0+YWRqdXN0ZWRfeCwgc2NhbGlu
-Z19mYWN0b3IpOworCisJCWNvbXB1dGVfcHEoeCwgJm91dHB1dCk7CisKKwkJLyogc2hvdWxkIHJl
-YWxseSBub3QgaGFwcGVuPyAqLworCQlpZiAoZGFsX2ZpeGVkMzFfMzJfbHQob3V0cHV0LCBkYWxf
-Zml4ZWQzMV8zMl96ZXJvKSkKKwkJCW91dHB1dCA9IGRhbF9maXhlZDMxXzMyX3plcm87CisJCWVs
-c2UgaWYgKGRhbF9maXhlZDMxXzMyX2x0KGRhbF9maXhlZDMxXzMyX29uZSwgb3V0cHV0KSkKKwkJ
-CW91dHB1dCA9IGRhbF9maXhlZDMxXzMyX29uZTsKKworCQlyZ2ItPnIgPSBvdXRwdXQ7CisJCXJn
-Yi0+ZyA9IG91dHB1dDsKKwkJcmdiLT5iID0gb3V0cHV0OworCisJCSsrY29vcmRfeDsKKwkJKyty
-Z2I7CisJfQorfQorCiBzdGF0aWMgdm9pZCBidWlsZF9yZWdhbW1hX2N1cnZlKHN0cnVjdCBwd2xf
-ZmxvYXRfZGF0YV9leCAqcmdiX3JlZ2FtbWEsCiAJCXN0cnVjdCBwd2xfZmxvYXRfZGF0YSAqcmdi
-X29lbSwKIAkJc3RydWN0IHBpeGVsX2dhbW1hX3BvaW50ICpjb2VmZjEyOF9vZW0sCkBAIC0xMjg2
-LDcgKzEzNjIsOCBAQCBzdGF0aWMgYm9vbCBjb252ZXJ0X3RvX2N1c3RvbV9mbG9hdCgKIAogYm9v
-bCBjYWxjdWxhdGVfcmVnYW1tYV9wYXJhbXMoc3RydWN0IHB3bF9wYXJhbXMgKnBhcmFtcywKIAkJ
-Y29uc3Qgc3RydWN0IGNvcmVfZ2FtbWEgKnJhbXAsCi0JCWNvbnN0IHN0cnVjdCBjb3JlX3N1cmZh
-Y2UgKnN1cmZhY2UpCisJCWNvbnN0IHN0cnVjdCBjb3JlX3N1cmZhY2UgKnN1cmZhY2UsCisJCWNv
-bnN0IHN0cnVjdCBjb3JlX3N0cmVhbSAqc3RyZWFtKQogewogCXN0cnVjdCBnYW1tYV9jdXJ2ZSAq
-YXJyX2N1cnZlX3BvaW50cyA9IHBhcmFtcy0+YXJyX2N1cnZlX3BvaW50czsKIAlzdHJ1Y3QgY3Vy
-dmVfcG9pbnRzICphcnJfcG9pbnRzID0gcGFyYW1zLT5hcnJfcG9pbnRzOwpAQCAtMTMwMSw3ICsx
-Mzc4LDYgQEAgYm9vbCBjYWxjdWxhdGVfcmVnYW1tYV9wYXJhbXMoc3RydWN0IHB3bF9wYXJhbXMg
-KnBhcmFtcywKIAlzdHJ1Y3QgcGl4ZWxfZ2FtbWFfcG9pbnQgKmNvZWZmMTI4X29lbSA9IE5VTEw7
-CiAJc3RydWN0IHBpeGVsX2dhbW1hX3BvaW50ICpjb2VmZjEyOCA9IE5VTEw7CiAKLQogCWJvb2wg
-cmV0ID0gZmFsc2U7CiAKIAljb29yZGluYXRlc194ID0gZG1fYWxsb2Moc2l6ZW9mKCpjb29yZGlu
-YXRlc194KSooMjU2ICsgMykpOwpAQCAtMTM0MSw5ICsxNDE3LDE2IEBAIGJvb2wgY2FsY3VsYXRl
-X3JlZ2FtbWFfcGFyYW1zKHN0cnVjdCBwd2xfcGFyYW1zICpwYXJhbXMsCiAJc2V0dXBfZGlzdHJp
-YnV0aW9uX3BvaW50cyhhcnJfY3VydmVfcG9pbnRzLCBhcnJfcG9pbnRzLAogCQkJJnBhcmFtcy0+
-aHdfcG9pbnRzX251bSwgY29vcmRpbmF0ZXNfeCk7CiAKLQlidWlsZF9yZWdhbW1hX2N1cnZlKHJn
-Yl9yZWdhbW1hLCByZ2Jfb2VtLCBjb2VmZjEyOF9vZW0sCi0JCQlyYW1wLCBzdXJmYWNlLCBwYXJh
-bXMtPmh3X3BvaW50c19udW0sCi0JCQljb29yZGluYXRlc194LCBheGl4X3hfMjU2LCBkaXZpZGVy
-cyk7CisJaWYgKHN0cmVhbS0+cHVibGljLm91dF90cmFuc2Zlcl9mdW5jICYmCisJCXN0cmVhbS0+
-cHVibGljLm91dF90cmFuc2Zlcl9mdW5jLT50ZiA9PSBUUkFOU0ZFUl9GVU5DVElPTl9QUSkgewor
-CQlidWlsZF9yZWdhbW1hX2N1cnZlX3BxKHJnYl9yZWdhbW1hLCByZ2Jfb2VtLCBjb2VmZjEyOF9v
-ZW0sCisJCQkJcmFtcCwgc3VyZmFjZSwgcGFyYW1zLT5od19wb2ludHNfbnVtLAorCQkJCWNvb3Jk
-aW5hdGVzX3gsIGF4aXhfeF8yNTYsIGRpdmlkZXJzKTsKKwl9IGVsc2UgeworCQlidWlsZF9yZWdh
-bW1hX2N1cnZlKHJnYl9yZWdhbW1hLCByZ2Jfb2VtLCBjb2VmZjEyOF9vZW0sCisJCQkJcmFtcCwg
-c3VyZmFjZSwgcGFyYW1zLT5od19wb2ludHNfbnVtLAorCQkJCWNvb3JkaW5hdGVzX3gsIGF4aXhf
-eF8yNTYsIGRpdmlkZXJzKTsKKwl9CiAKIAltYXBfcmVnYW1tYV9od190b194X3VzZXIoY29lZmYx
-MjgsIHJnYl9vZW0sIHJnYl9yZXN1bHRlZCwgcmdiX3VzZXIsCiAJCQljb29yZGluYXRlc194LCBh
-eGl4X3hfMjU2LCAmcmFtcC0+cHVibGljLCByZ2JfcmVnYW1tYSwKZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMTAvZGNlMTEwX2h3X3NlcXVlbmNlci5jIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTExMC9kY2UxMTBfaHdfc2VxdWVuY2Vy
-LmMKaW5kZXggNzIwMTdkNWE4MjUyLi4yZjc5MDc1M2I1NTkgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMTAvZGNlMTEwX2h3X3NlcXVlbmNlci5jCisrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMTAvZGNlMTEwX2h3X3NlcXVlbmNl
-ci5jCkBAIC0zMDMsNyArMzAzLDggQEAgc3RhdGljIGJvb2wgZGNlMTEwX3NldF9vdXRwdXRfdHJh
-bnNmZXJfZnVuYygKIAogCW9wcC0+ZnVuY3MtPm9wcF9wb3dlcl9vbl9yZWdhbW1hX2x1dChvcHAs
-IHRydWUpOwogCi0JaWYgKHJhbXAgJiYgY2FsY3VsYXRlX3JlZ2FtbWFfcGFyYW1zKHJlZ2FtbWFf
-cGFyYW1zLCByYW1wLCBzdXJmYWNlKSkgeworCWlmIChyYW1wICYmIGNhbGN1bGF0ZV9yZWdhbW1h
-X3BhcmFtcygKKwkJCQlyZWdhbW1hX3BhcmFtcywgcmFtcCwgc3VyZmFjZSwgc3RyZWFtKSkgewog
-CQlvcHAtPmZ1bmNzLT5vcHBfcHJvZ3JhbV9yZWdhbW1hX3B3bChvcHAsIHJlZ2FtbWFfcGFyYW1z
-KTsKIAkJb3BwLT5mdW5jcy0+b3BwX3NldF9yZWdhbW1hX21vZGUob3BwLCBPUFBfUkVHQU1NQV9V
-U0VSKTsKIAl9IGVsc2UgewpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
-L2RjL2luYy9nYW1tYV9jYWxjcy5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2lu
-Yy9nYW1tYV9jYWxjcy5oCmluZGV4IGUyYzYzZmQ0ZmU5Mi4uMDcxMjI2ODg1NmMyIDEwMDY0NAot
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvaW5jL2dhbW1hX2NhbGNzLmgKKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2luYy9nYW1tYV9jYWxjcy5oCkBAIC0x
-NCw2ICsxNCw3IEBACiAKIGJvb2wgY2FsY3VsYXRlX3JlZ2FtbWFfcGFyYW1zKHN0cnVjdCBwd2xf
-cGFyYW1zICpwYXJhbXMsCiAJCWNvbnN0IHN0cnVjdCBjb3JlX2dhbW1hICpyYW1wLAotCQljb25z
-dCBzdHJ1Y3QgY29yZV9zdXJmYWNlICpzdXJmYWNlKTsKKwkJY29uc3Qgc3RydWN0IGNvcmVfc3Vy
-ZmFjZSAqc3VyZmFjZSwKKwkJY29uc3Qgc3RydWN0IGNvcmVfc3RyZWFtICpzdHJlYW0pOwogCiAj
-ZW5kaWYgLyogRFJJVkVSU19HUFVfRFJNX0FNRF9EQ19ERVZfRENfSU5DX0dBTU1BX0NBTENTX0hf
-ICovCi0tIAoyLjkuMwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============0306923962==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB165289837711D92C9EF59116F7930BN6PR12MB1652namp_"
+
+--_000_BN6PR12MB165289837711D92C9EF59116F7930BN6PR12MB1652namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+From: Tao, Yintian
+Sent: Wednesday, December 21, 2016 2:31 AM
+To: Deucher, Alexander
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: remove static integer at uvd power gate to fix two gpu core boot u=
+p
+
+Hi  Alex
+
+
+Please help have a review. Thanks a lot.
+
+
+Best Regards
+Yintian Tao
+
+--_000_BN6PR12MB165289837711D92C9EF59116F7930BN6PR12MB1652namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 14 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal;
+	font-family:"Calibri","sans-serif";
+	color:windowtext;}
+span.EmailStyle18
+	{mso-style-type:personal-reply;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D">Reviewed-by: Alex Deuc=
+her &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D"><o:p>&nbsp;</o:p></spa=
+n></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
+;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span style=3D"font-s=
+ize:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> Tao, Yin=
+tian
+<br>
+<b>Sent:</b> Wednesday, December 21, 2016 2:31 AM<br>
+<b>To:</b> Deucher, Alexander<br>
+<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> remove static integer at uvd power gate to fix two gpu core=
+ boot up<o:p></o:p></span></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Hi&nbsp; Alex<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Please help have a review. Thanks a lot.<o:p></o:p><=
+/p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Best Regards<o:p></o:p></p>
+<p class=3D"MsoNormal">Yintian Tao<o:p></o:p></p>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BN6PR12MB165289837711D92C9EF59116F7930BN6PR12MB1652namp_--
+
+--===============0306923962==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0306923962==--
