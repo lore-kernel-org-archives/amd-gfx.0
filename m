@@ -1,13 +1,13 @@
-From: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 4/4] drm/amd/powerplay: add profiling mode in dpm level
-Date: Fri, 23 Dec 2016 16:45:52 +0800
-Message-ID: <1482482752-31020-4-git-send-email-Rex.Zhu@amd.com>
-References: <1482482752-31020-1-git-send-email-Rex.Zhu@amd.com>
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amd/powerplay: add prefix for all powerplay pr_*
+ prints
+Date: Fri, 23 Dec 2016 20:32:58 +1100
+Message-ID: <a4500215-e3d3-fd84-2444-f028241f6c4a@folklore1984.net>
+References: <1482461108-8463-1-git-send-email-ray.huang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0082317980=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1482482752-31020-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1482461108-8463-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,93 +18,536 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Arindam Nath <Arindam.Nath-5C7GfCeVMHo@public.gmane.org>
 
-Q2hhbmdlLUlkOiBJNGE0NjQ0MDg4MmNkOTRmZTVlNzdlM2YzNTFhYWNjYzIxOGEyZWNlNQotLS0K
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jICAgICAgICAgICB8IDE3ICsr
-KysrKysrKysrKysrKysrCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaV9kcG0uYyAgICAg
-ICAgICAgICAgfCAgNCArKy0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvYW1kX3NoYXJl
-ZC5oICAgICAgICAgfCAgMSArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9j
-el9od21nci5jICAgfCAgMyArKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdy
-L3NtdTdfaHdtZ3IuYyB8ICAzICsrLQogNSBmaWxlcyBjaGFuZ2VkLCAyNCBpbnNlcnRpb25zKCsp
-LCA0IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9wbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtLmMKaW5k
-ZXggMmJmZWRlOC4uODQzODY0MiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3BtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Bt
-LmMKQEAgLTEyNCw2ICsxMjQsNyBAQCBzdGF0aWMgc3NpemVfdCBhbWRncHVfZ2V0X2RwbV9mb3Jj
-ZWRfcGVyZm9ybWFuY2VfbGV2ZWwoc3RydWN0IGRldmljZSAqZGV2LAogCQkJKGxldmVsICYgQU1E
-X0RQTV9GT1JDRURfTEVWRUxfTE9XKSA/ICJsb3ciIDoKIAkJCShsZXZlbCAmIEFNRF9EUE1fRk9S
-Q0VEX0xFVkVMX0hJR0gpID8gImhpZ2giIDoKIAkJCShsZXZlbCAmIEFNRF9EUE1fRk9SQ0VEX0xF
-VkVMX01BTlVBTCkgPyAibWFudWFsIiA6CisJCQkobGV2ZWwgJiBBTURfRFBNX0ZPUkNFRF9MRVZF
-TF9QUk9GSUxJTkcpID8gInByb2ZpbGluZyIgOgogCQkJInVua25vd24iKSk7CiB9CiAKQEAgLTEz
-NSw2ICsxMzYsNyBAQCBzdGF0aWMgc3NpemVfdCBhbWRncHVfc2V0X2RwbV9mb3JjZWRfcGVyZm9y
-bWFuY2VfbGV2ZWwoc3RydWN0IGRldmljZSAqZGV2LAogCXN0cnVjdCBkcm1fZGV2aWNlICpkZGV2
-ID0gZGV2X2dldF9kcnZkYXRhKGRldik7CiAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBk
-ZGV2LT5kZXZfcHJpdmF0ZTsKIAllbnVtIGFtZF9kcG1fZm9yY2VkX2xldmVsIGxldmVsOworCWVu
-dW0gYW1kX2RwbV9mb3JjZWRfbGV2ZWwgY3VycmVudF9sZXZlbDsKIAlpbnQgcmV0ID0gMDsKIAog
-CS8qIENhbid0IGZvcmNlIHBlcmZvcm1hbmNlIGxldmVsIHdoZW4gdGhlIGNhcmQgaXMgb2ZmICov
-CkBAIC0xNDIsNiArMTQ0LDggQEAgc3RhdGljIHNzaXplX3QgYW1kZ3B1X3NldF9kcG1fZm9yY2Vk
-X3BlcmZvcm1hbmNlX2xldmVsKHN0cnVjdCBkZXZpY2UgKmRldiwKIAkgICAgIChkZGV2LT5zd2l0
-Y2hfcG93ZXJfc3RhdGUgIT0gRFJNX1NXSVRDSF9QT1dFUl9PTikpCiAJCXJldHVybiAtRUlOVkFM
-OwogCisJY3VycmVudF9sZXZlbCA9IGFtZGdwdV9kcG1fZ2V0X3BlcmZvcm1hbmNlX2xldmVsKGFk
-ZXYpOworCiAJaWYgKHN0cm5jbXAoImxvdyIsIGJ1Ziwgc3RybGVuKCJsb3ciKSkgPT0gMCkgewog
-CQlsZXZlbCA9IEFNRF9EUE1fRk9SQ0VEX0xFVkVMX0xPVzsKIAl9IGVsc2UgaWYgKHN0cm5jbXAo
-ImhpZ2giLCBidWYsIHN0cmxlbigiaGlnaCIpKSA9PSAwKSB7CkBAIC0xNTAsMTEgKzE1NCwyNCBA
-QCBzdGF0aWMgc3NpemVfdCBhbWRncHVfc2V0X2RwbV9mb3JjZWRfcGVyZm9ybWFuY2VfbGV2ZWwo
-c3RydWN0IGRldmljZSAqZGV2LAogCQlsZXZlbCA9IEFNRF9EUE1fRk9SQ0VEX0xFVkVMX0FVVE87
-CiAJfSBlbHNlIGlmIChzdHJuY21wKCJtYW51YWwiLCBidWYsIHN0cmxlbigibWFudWFsIikpID09
-IDApIHsKIAkJbGV2ZWwgPSBBTURfRFBNX0ZPUkNFRF9MRVZFTF9NQU5VQUw7CisJfSBlbHNlIGlm
-IChzdHJuY21wKCJwcm9maWxlIiwgYnVmLCBzdHJsZW4oInByb2ZpbGUiKSkgPT0gMCkgeworCQls
-ZXZlbCA9IEFNRF9EUE1fRk9SQ0VEX0xFVkVMX1BST0ZJTElORzsKIAl9IGVsc2UgewogCQljb3Vu
-dCA9IC1FSU5WQUw7CiAJCWdvdG8gZmFpbDsKIAl9CiAKKwlpZiAoY3VycmVudF9sZXZlbCA9PSBs
-ZXZlbCkKKwkJcmV0dXJuIDA7CisKKwlpZiAobGV2ZWwgPT0gQU1EX0RQTV9GT1JDRURfTEVWRUxf
-UFJPRklMSU5HKQorCQlhbWRncHVfc2V0X2Nsb2NrZ2F0aW5nX3N0YXRlKGFkZXYsIEFNRF9JUF9C
-TE9DS19UWVBFX0dGWCwKKwkJCQkJCUFNRF9DR19TVEFURV9VTkdBVEUpOworCWVsc2UgaWYgKGxl
-dmVsICE9IEFNRF9EUE1fRk9SQ0VEX0xFVkVMX1BST0ZJTElORyAmJgorCQkJY3VycmVudF9sZXZl
-bCA9PSBBTURfRFBNX0ZPUkNFRF9MRVZFTF9QUk9GSUxJTkcpCisJCWFtZGdwdV9zZXRfY2xvY2tn
-YXRpbmdfc3RhdGUoYWRldiwgQU1EX0lQX0JMT0NLX1RZUEVfR0ZYLAorCQkJCQkJQU1EX0NHX1NU
-QVRFX0dBVEUpOworCiAJaWYgKGFkZXYtPnBwX2VuYWJsZWQpCiAJCWFtZGdwdV9kcG1fZm9yY2Vf
-cGVyZm9ybWFuY2VfbGV2ZWwoYWRldiwgbGV2ZWwpOwogCWVsc2UgewpkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvY2lfZHBtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9jaV9kcG0uYwppbmRleCBkOGRlN2ViLi41OWJlNjk0IDEwMDY0NAotLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9jaV9kcG0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9jaV9kcG0uYwpAQCAtNjU3MSw4ICs2NTcxLDggQEAgc3RhdGljIGludCBjaV9kcG1fZm9y
-Y2VfY2xvY2tfbGV2ZWwoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiB7CiAJc3RydWN0IGNp
-X3Bvd2VyX2luZm8gKnBpID0gY2lfZ2V0X3BpKGFkZXYpOwogCi0JaWYgKGFkZXYtPnBtLmRwbS5m
-b3JjZWRfbGV2ZWwKLQkJCSE9IEFNRF9EUE1fRk9SQ0VEX0xFVkVMX01BTlVBTCkKKwlpZiAoIShh
-ZGV2LT5wbS5kcG0uZm9yY2VkX2xldmVsICYKKwkJKEFNRF9EUE1fRk9SQ0VEX0xFVkVMX01BTlVB
-TCB8IEFNRF9EUE1fRk9SQ0VEX0xFVkVMX1BST0ZJTElORykpKQogCQlyZXR1cm4gLUVJTlZBTDsK
-IAogCXN3aXRjaCAodHlwZSkgewpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNs
-dWRlL2FtZF9zaGFyZWQuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hbWRfc2hhcmVk
-LmgKaW5kZXggM2YyYTZiOS4uZjM0MjRhMSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9pbmNsdWRlL2FtZF9zaGFyZWQuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUv
-YW1kX3NoYXJlZC5oCkBAIC04NSw2ICs4NSw3IEBAIGVudW0gYW1kX2RwbV9mb3JjZWRfbGV2ZWwg
-ewogCUFNRF9EUE1fRk9SQ0VEX0xFVkVMX01BTlVBTCA9IDB4MiwKIAlBTURfRFBNX0ZPUkNFRF9M
-RVZFTF9MT1cgPSAweDQsCiAJQU1EX0RQTV9GT1JDRURfTEVWRUxfSElHSCA9IDB4OCwKKwlBTURf
-RFBNX0ZPUkNFRF9MRVZFTF9QUk9GSUxJTkcgPSAweDEwLAogfTsKIAogZW51bSBhbWRfcG93ZXJn
-YXRpbmdfc3RhdGUgewpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
-aHdtZ3IvY3pfaHdtZ3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2N6
-X2h3bWdyLmMKaW5kZXggNzRkYmJkMS4uYmVhYTdlMiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvY3pfaHdtZ3IuYworKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9od21nci9jel9od21nci5jCkBAIC0xNjM3LDcgKzE2MzcsOCBAQCBzdGF0
-aWMgaW50IGN6X2dldF9kYWxfcG93ZXJfbGV2ZWwoc3RydWN0IHBwX2h3bWdyICpod21nciwKIHN0
-YXRpYyBpbnQgY3pfZm9yY2VfY2xvY2tfbGV2ZWwoc3RydWN0IHBwX2h3bWdyICpod21nciwKIAkJ
-ZW51bSBwcF9jbG9ja190eXBlIHR5cGUsIHVpbnQzMl90IG1hc2spCiB7Ci0JaWYgKGh3bWdyLT5k
-cG1fbGV2ZWwgIT0gQU1EX0RQTV9GT1JDRURfTEVWRUxfTUFOVUFMKQorCWlmICghKGh3bWdyLT5k
-cG1fbGV2ZWwgJgorCQkoQU1EX0RQTV9GT1JDRURfTEVWRUxfTUFOVUFMIHwgQU1EX0RQTV9GT1JD
-RURfTEVWRUxfUFJPRklMSU5HKSkpCiAJCXJldHVybiAtRUlOVkFMOwogCiAJc3dpdGNoICh0eXBl
-KSB7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3
-X2h3bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdy
-LmMKaW5kZXggYWU1NTE3YS4uMTQ2ZDdkZCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-cG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYwpAQCAtNDAzMyw3ICs0MDMzLDggQEAgc3RhdGlj
-IGludCBzbXU3X2ZvcmNlX2Nsb2NrX2xldmVsKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsCiB7CiAJ
-c3RydWN0IHNtdTdfaHdtZ3IgKmRhdGEgPSAoc3RydWN0IHNtdTdfaHdtZ3IgKikoaHdtZ3ItPmJh
-Y2tlbmQpOwogCi0JaWYgKGh3bWdyLT5kcG1fbGV2ZWwgIT0gQU1EX0RQTV9GT1JDRURfTEVWRUxf
-TUFOVUFMKQorCWlmICghKGh3bWdyLT5kcG1fbGV2ZWwgJgorCQkoQU1EX0RQTV9GT1JDRURfTEVW
-RUxfTUFOVUFMIHwgQU1EX0RQTV9GT1JDRURfTEVWRUxfUFJPRklMSU5HKSkpCiAJCXJldHVybiAt
-RUlOVkFMOwogCiAJc3dpdGNoICh0eXBlKSB7Ci0tIAoxLjkuMQoKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0082317980==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="rP9OIiXH4WWCvAKqCrMNLn2UJ7axaSo6A"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--rP9OIiXH4WWCvAKqCrMNLn2UJ7axaSo6A
+Content-Type: multipart/mixed; boundary="cnCFeL6iq0rjwP6iITJpSjQIU4hSso3TQ";
+ protected-headers="v1"
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>,
+ amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Arindam Nath <Arindam.Nath-5C7GfCeVMHo@public.gmane.org>
+Message-ID: <a4500215-e3d3-fd84-2444-f028241f6c4a-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amd/powerplay: add prefix for all powerplay pr_*
+ prints
+References: <1482461108-8463-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1482461108-8463-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
+
+--cnCFeL6iq0rjwP6iITJpSjQIU4hSso3TQ
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Hi,
+
+I would say drop all the header relocation churn, it distracts away from
+the functional changes in this commit. Also see inline comments.
+
+With those fixes,
+Acked-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+
+Kindest Regards,
+Edward.
+
+On 12/23/2016 01:45 PM, Huang Rui wrote:
+> Powerplay will be used them instead of raw printk, and we can dynamic
+> change the debug level with it.
+>=20
+> The prefix is like below:
+>=20
+> [  197.755167] [powerplay] amdgpu: powerplay initialized
+
+Ideally I think it would be better to look like this:
+
+[  xxx.xxxxxx ] amdgpu: [powerplay] initialized.
+
+but certainly drop repeating "powerplay" twice..
+
+>=20
+> Suggested-by: Grazvydas Ignotas <notasas-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+> Signed-off-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+> Cc: Arindam Nath <Arindam.Nath-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/powerplay/amd_powerplay.c               |  2 +-
+>  drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c              |  3 +--
+>  drivers/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c       |  2 +-
+>  drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c                 |  3 ++-
+>  drivers/gpu/drm/amd/powerplay/hwmgr/ppatomctrl.c            |  2 +-
+>  drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c |  2 +-
+>  drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c       |  2 +-
+>  drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c            |  2 +-
+>  drivers/gpu/drm/amd/powerplay/hwmgr/smu7_powertune.c        |  2 +-
+>  drivers/gpu/drm/amd/powerplay/inc/pp_debug.h                | 10 +++++=
++++--
+>  drivers/gpu/drm/amd/powerplay/smumgr/fiji_smc.c             |  2 +-
+>  drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c          |  2 +-
+>  drivers/gpu/drm/amd/powerplay/smumgr/iceland_smc.c          |  2 +-
+>  drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c       |  2 +-
+>  drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smc.c        |  2 +-
+>  drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c     |  2 +-
+>  drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c          |  2 +-
+>  drivers/gpu/drm/amd/powerplay/smumgr/tonga_smc.c            |  2 +-
+>  drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c         |  2 +-
+>  19 files changed, 27 insertions(+), 21 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gp=
+u/drm/amd/powerplay/amd_powerplay.c
+> index cc72190..8b85153 100644
+> --- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+> +++ b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+> @@ -20,6 +20,7 @@
+>   * OTHER DEALINGS IN THE SOFTWARE.
+>   *
+>   */
+> +#include "pp_debug.h"
+>  #include <linux/types.h>
+>  #include <linux/kernel.h>
+>  #include <linux/gfp.h>
+> @@ -29,7 +30,6 @@
+>  #include "pp_instance.h"
+>  #include "power_state.h"
+>  #include "eventmanager.h"
+> -#include "pp_debug.h"
+> =20
+> =20
+>  #define PP_CHECK(handle)						\
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
+> index 74dbbd1..d043337 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
+> @@ -20,13 +20,13 @@
+>   * OTHER DEALINGS IN THE SOFTWARE.
+>   *
+>   */
+> +#include "pp_debug.h"
+>  #include <linux/types.h>
+>  #include <linux/kernel.h>
+>  #include <linux/slab.h>
+>  #include "atom-types.h"
+>  #include "atombios.h"
+>  #include "processpptables.h"
+> -#include "pp_debug.h"
+>  #include "cgs_common.h"
+>  #include "smu/smu_8_0_d.h"
+>  #include "smu8_fusion.h"
+> @@ -38,7 +38,6 @@
+>  #include "cz_hwmgr.h"
+>  #include "power_state.h"
+>  #include "cz_clockpowergating.h"
+> -#include "pp_debug.h"
+> =20
+>  #define ixSMUSVI_NB_CURRENTVID 0xD8230044
+>  #define CURRENT_NB_VID_MASK 0xff000000
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c b/dr=
+ivers/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c
+> index c355a0f..0eb8e886 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c
+> @@ -20,11 +20,11 @@
+>   * OTHER DEALINGS IN THE SOFTWARE.
+>   *
+>   */
+> +#include "pp_debug.h"
+>  #include <linux/errno.h>
+>  #include "hwmgr.h"
+>  #include "hardwaremanager.h"
+>  #include "power_state.h"
+> -#include "pp_debug.h"
+> =20
+>  #define PHM_FUNC_CHECK(hw) \
+>  	do {							\
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c b/drivers/gpu/=
+drm/amd/powerplay/hwmgr/hwmgr.c
+> index b036064..fcfd648 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
+> @@ -20,6 +20,8 @@
+>   * OTHER DEALINGS IN THE SOFTWARE.
+>   *
+>   */
+> +
+> +#include "pp_debug.h"
+>  #include "linux/delay.h"
+>  #include <linux/types.h>
+>  #include <linux/kernel.h>
+> @@ -29,7 +31,6 @@
+>  #include "power_state.h"
+>  #include "hwmgr.h"
+>  #include "pppcielanes.h"
+> -#include "pp_debug.h"
+>  #include "ppatomctrl.h"
+>  #include "ppsmc.h"
+>  #include "pp_acpi.h"
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomctrl.c b/drivers=
+/gpu/drm/amd/powerplay/hwmgr/ppatomctrl.c
+> index ddaea1d..2c60f7b 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomctrl.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomctrl.c
+> @@ -20,6 +20,7 @@
+>   * OTHER DEALINGS IN THE SOFTWARE.
+>   *
+>   */
+> +#include "pp_debug.h"
+>  #include <linux/module.h>
+>  #include <linux/slab.h>
+>  #include <linux/fb.h>
+> @@ -27,7 +28,6 @@
+>  #include "ppatomctrl.h"
+>  #include "atombios.h"
+>  #include "cgs_common.h"
+> -#include "pp_debug.h"
+>  #include "ppevvmath.h"
+> =20
+>  #define MEM_ID_MASK           0xff000000
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.=
+c b/drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c
+> index 7925185..f2f0fcc 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c
+> @@ -20,6 +20,7 @@
+>   * OTHER DEALINGS IN THE SOFTWARE.
+>   *
+>   */
+> +#include "pp_debug.h"
+>  #include <linux/module.h>
+>  #include <linux/slab.h>
+>  #include <linux/fb.h>
+> @@ -27,7 +28,6 @@
+>  #include "process_pptables_v1_0.h"
+>  #include "ppatomctrl.h"
+>  #include "atombios.h"
+> -#include "pp_debug.h"
+>  #include "hwmgr.h"
+>  #include "cgs_common.h"
+>  #include "pptable_v1_0.h"
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c b/dr=
+ivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c
+> index a4e9cf4..ed6c934 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c
+> @@ -20,6 +20,7 @@
+>   * OTHER DEALINGS IN THE SOFTWARE.
+>   *
+>   */
+> +#include "pp_debug.h"
+>  #include <linux/types.h>
+>  #include <linux/kernel.h>
+>  #include <linux/slab.h>
+> @@ -27,7 +28,6 @@
+>  #include "processpptables.h"
+>  #include <atom-types.h>
+>  #include <atombios.h>
+> -#include "pp_debug.h"
+>  #include "pptable.h"
+>  #include "power_state.h"
+>  #include "hwmgr.h"
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers=
+/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+> index ae5517a..9dc0e52 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+> @@ -20,13 +20,13 @@
+>   * OTHER DEALINGS IN THE SOFTWARE.
+>   *
+>   */
+> +#include "pp_debug.h"
+>  #include <linux/module.h>
+>  #include <linux/slab.h>
+>  #include <linux/fb.h>
+>  #include <asm/div64.h>
+>  #include "linux/delay.h"
+>  #include "pp_acpi.h"
+> -#include "pp_debug.h"
+>  #include "ppatomctrl.h"
+>  #include "atombios.h"
+>  #include "pptable_v1_0.h"
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_powertune.c b/dri=
+vers/gpu/drm/amd/powerplay/hwmgr/smu7_powertune.c
+> index 6cd1287..0f2325e 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_powertune.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_powertune.c
+> @@ -20,11 +20,11 @@
+>   * OTHER DEALINGS IN THE SOFTWARE.
+>   *
+>   */
+> +#include "pp_debug.h"
+>  #include "hwmgr.h"
+>  #include "smumgr.h"
+>  #include "smu7_hwmgr.h"
+>  #include "smu7_powertune.h"
+> -#include "pp_debug.h"
+>  #include "smu7_common.h"
+> =20
+>  #define VOLTAGE_SCALE  4
+> diff --git a/drivers/gpu/drm/amd/powerplay/inc/pp_debug.h b/drivers/gpu=
+/drm/amd/powerplay/inc/pp_debug.h
+> index bfdbec1..8301b82 100644
+> --- a/drivers/gpu/drm/amd/powerplay/inc/pp_debug.h
+> +++ b/drivers/gpu/drm/amd/powerplay/inc/pp_debug.h
+> @@ -24,6 +24,12 @@
+>  #ifndef PP_DEBUG_H
+>  #define PP_DEBUG_H
+> =20
+> +#ifdef pr_fmt
+> +#undef pr_fmt
+> +#endif
+> +
+> +#define pr_fmt(fmt) "[powerplay] " fmt
+> +
+>  #include <linux/types.h>
+>  #include <linux/kernel.h>
+>  #include <linux/slab.h>
+> @@ -31,7 +37,7 @@
+>  #define PP_ASSERT_WITH_CODE(cond, msg, code)	\
+>  	do {					\
+>  		if (!(cond)) {			\
+> -			printk("%s\n", msg);	\
+> +			pr_warning("%s\n", msg);	\
+>  			code;			\
+>  		}				\
+>  	} while (0)
+> @@ -39,7 +45,7 @@
+> =20
+>  #define PP_DBG_LOG(fmt, ...) \
+>  	do { \
+> -		if(0)printk(KERN_INFO "[ pp_dbg ] " fmt, ##__VA_ARGS__); \
+> +		if(0)pr_info(fmt, ##__VA_ARGS__); \
+
+Just squash the next commit into this one to remove the 'if(0)' cond.
+
+>  	} while (0)
+> =20
+> =20
+> diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smc.c b/drivers/=
+gpu/drm/amd/powerplay/smumgr/fiji_smc.c
+> index 6aeb1d2..5d5b8a0 100644
+> --- a/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smc.c
+> +++ b/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smc.c
+> @@ -21,13 +21,13 @@
+>   *
+>   */
+> =20
+> +#include "pp_debug.h"
+>  #include "fiji_smc.h"
+>  #include "smu7_dyn_defaults.h"
+> =20
+>  #include "smu7_hwmgr.h"
+>  #include "hardwaremanager.h"
+>  #include "ppatomctrl.h"
+> -#include "pp_debug.h"
+>  #include "cgs_common.h"
+>  #include "atombios.h"
+>  #include "fiji_smumgr.h"
+> diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c b/drive=
+rs/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c
+> index 26eff56..7a87e5a 100755
+> --- a/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c
+> @@ -21,6 +21,7 @@
+>   *
+>   */
+> =20
+> +#include "pp_debug.h"
+>  #include "smumgr.h"
+>  #include "smu73.h"
+>  #include "smu_ucode_xfer_vi.h"
+> @@ -36,7 +37,6 @@
+>  #include "gca/gfx_8_0_d.h"
+>  #include "bif/bif_5_0_d.h"
+>  #include "bif/bif_5_0_sh_mask.h"
+> -#include "pp_debug.h"
+>  #include "fiji_pwrvirus.h"
+>  #include "fiji_smc.h"
+> =20
+> diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smc.c b/drive=
+rs/gpu/drm/amd/powerplay/smumgr/iceland_smc.c
+> index a24971a..ef435f1 100644
+> --- a/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smc.c
+> +++ b/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smc.c
+> @@ -21,13 +21,13 @@
+>   *
+>   */
+> =20
+> +#include "pp_debug.h"
+>  #include "iceland_smc.h"
+>  #include "smu7_dyn_defaults.h"
+> =20
+>  #include "smu7_hwmgr.h"
+>  #include "hardwaremanager.h"
+>  #include "ppatomctrl.h"
+> -#include "pp_debug.h"
+>  #include "cgs_common.h"
+>  #include "atombios.h"
+>  #include "pppcielanes.h"
+> diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c b/dr=
+ivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c
+> index eeafefc..1fde30d 100644
+> --- a/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c
+> @@ -22,6 +22,7 @@
+>   * Author: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+>   *
+>   */
+> +#include "pp_debug.h"
+>  #include <linux/types.h>
+>  #include <linux/kernel.h>
+>  #include <linux/slab.h>
+> @@ -29,7 +30,6 @@
+> =20
+>  #include "smumgr.h"
+>  #include "iceland_smumgr.h"
+> -#include "pp_debug.h"
+>  #include "smu_ucode_xfer_vi.h"
+>  #include "ppsmc.h"
+>  #include "smu/smu_7_1_1_d.h"
+> diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smc.c b/dri=
+vers/gpu/drm/amd/powerplay/smumgr/polaris10_smc.c
+> index 5190e82..c2889b5 100644
+> --- a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smc.c
+> +++ b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smc.c
+> @@ -21,13 +21,13 @@
+>   *
+>   */
+> =20
+> +#include "pp_debug.h"
+>  #include "polaris10_smc.h"
+>  #include "smu7_dyn_defaults.h"
+> =20
+>  #include "smu7_hwmgr.h"
+>  #include "hardwaremanager.h"
+>  #include "ppatomctrl.h"
+> -#include "pp_debug.h"
+>  #include "cgs_common.h"
+>  #include "atombios.h"
+>  #include "polaris10_smumgr.h"
+> diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c b/=
+drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
+> index f38a687..7e1e330 100644
+> --- a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
+> @@ -21,6 +21,7 @@
+>   *
+>   */
+> =20
+> +#include "pp_debug.h"
+>  #include "smumgr.h"
+>  #include "smu74.h"
+>  #include "smu_ucode_xfer_vi.h"
+> @@ -36,7 +37,6 @@
+>  #include "bif/bif_5_0_sh_mask.h"
+>  #include "polaris10_pwrvirus.h"
+>  #include "ppatomctrl.h"
+> -#include "pp_debug.h"
+>  #include "cgs_common.h"
+>  #include "polaris10_smc.h"
+>  #include "smu7_ppsmc.h"
+> diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c b/drive=
+rs/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c
+> index f49b548..d0a77be 100644
+> --- a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c
+> @@ -22,12 +22,12 @@
+>   */
+> =20
+> =20
+> +#include "pp_debug.h"
+>  #include "smumgr.h"
+>  #include "smu_ucode_xfer_vi.h"
+>  #include "smu/smu_7_1_3_d.h"
+>  #include "smu/smu_7_1_3_sh_mask.h"
+>  #include "ppatomctrl.h"
+> -#include "pp_debug.h"
+>  #include "cgs_common.h"
+>  #include "smu7_ppsmc.h"
+>  #include "smu7_smumgr.h"
+> diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smc.c b/drivers=
+/gpu/drm/amd/powerplay/smumgr/tonga_smc.c
+> index 2e1493c..93bfb19 100644
+> --- a/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smc.c
+> +++ b/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smc.c
+> @@ -21,13 +21,13 @@
+>   *
+>   */
+> =20
+> +#include "pp_debug.h"
+>  #include "tonga_smc.h"
+>  #include "smu7_dyn_defaults.h"
+> =20
+>  #include "smu7_hwmgr.h"
+>  #include "hardwaremanager.h"
+>  #include "ppatomctrl.h"
+> -#include "pp_debug.h"
+>  #include "cgs_common.h"
+>  #include "atombios.h"
+>  #include "tonga_smumgr.h"
+> diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c b/driv=
+ers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c
+> index eff9a232..d0aef72 100644
+> --- a/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c
+> @@ -20,6 +20,7 @@
+>   * OTHER DEALINGS IN THE SOFTWARE.
+>   *
+>   */
+> +#include "pp_debug.h"
+>  #include <linux/types.h>
+>  #include <linux/kernel.h>
+>  #include <linux/slab.h>
+> @@ -27,7 +28,6 @@
+> =20
+>  #include "smumgr.h"
+>  #include "tonga_smumgr.h"
+> -#include "pp_debug.h"
+>  #include "smu_ucode_xfer_vi.h"
+>  #include "tonga_ppsmc.h"
+>  #include "smu/smu_7_1_2_d.h"
+>=20
+
+
+--cnCFeL6iq0rjwP6iITJpSjQIU4hSso3TQ--
+
+--rP9OIiXH4WWCvAKqCrMNLn2UJ7axaSo6A
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJYXO9KAAoJEP4bvbfZuWjbVVIQAKt9fS+MvR4+6Q1D7VAxzXy0
+XiqK5Axa/+ssMKFEwdmt3tcAX33uZWzjlsDi3wIkDgCEM4NFQWL68o48o2rx8Toy
+Kr81AWKaP5lcW+KdxR0x5/eoyy53QsHspIEHBNlFq0YkBSBNs33mnUrSKA1OlET6
+N9ccWh+s5vnv+VfkWCoTz413dilDI+nUNgGmGWSPYYlVW+vAZSVmQ2FplExW2rkf
+ybcgPJPRYI+61UpR+kM0fqHvV2TL0ys/hLdckvVWH3ya/8/0ljkzVk05U1toff4e
+YUA+4etrxNN5mJSAaDo3JfGO0bYM1MCvxp3s/kGGeLDGXO7V9YtaRxk96h5EGM/G
+q72m1s+ixl82tVmgJsQ5XINJNY087Xvtm2OIUTKAcehb2drXDI+9SklKRHjThOzN
+HeLJ6fm5O4oRV9jh4hYHKPqdB4riiR/yeMnHqIIBQiVrxVlxGsnRHHW4D6plpv0A
+7ZuQuhoDyK3R01RaFDuNjlN6+IQSZiBED9gvbBxCQgw7jOGu+YqmMOFfFNvY4TH2
+FuW5D9rRxeCEVe09ZutpNkE2cuuBn8CjsTciK5XTSRK3HQnHObBX+8jlgukz+rvq
+U6ihCWBosd7SjvEcnnmNDcAfXM9oWN2XIK3FS1EjSmNWxM6SQICL9mo6nBoC4FIu
+Sb4zNvAJZeTUTyzlwxWf
+=Ov9r
+-----END PGP SIGNATURE-----
+
+--rP9OIiXH4WWCvAKqCrMNLn2UJ7axaSo6A--
+
+--===============0082317980==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0082317980==--
