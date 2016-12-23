@@ -1,16 +1,15 @@
-From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
 Subject: Re: [PATCH 1/2] drm/amd/powerplay: add prefix for all powerplay pr_*
  prints
-Date: Fri, 23 Dec 2016 17:54:09 +0800
-Message-ID: <20161223095408.GA11638@hr-amur2>
+Date: Fri, 23 Dec 2016 20:59:15 +1100
+Message-ID: <7f5e9c3e-68d0-0e26-2e2f-2aba1104818a@folklore1984.net>
 References: <1482461108-8463-1-git-send-email-ray.huang@amd.com>
  <a4500215-e3d3-fd84-2444-f028241f6c4a@folklore1984.net>
+ <20161223095408.GA11638@hr-amur2>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1089418020=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <a4500215-e3d3-fd84-2444-f028241f6c4a-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+In-Reply-To: <20161223095408.GA11638@hr-amur2>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,186 +20,399 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
 Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Nath,
  Arindam" <Arindam.Nath-5C7GfCeVMHo@public.gmane.org>, "Koenig,
  Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gRnJpLCBEZWMgMjMsIDIwMTYgYXQgMDU6MzI6NThQTSArMDgwMCwgRWR3YXJkIE8nQ2FsbGFn
-aGFuIHdyb3RlOgo+IEhpLAo+IAo+IEkgd291bGQgc2F5IGRyb3AgYWxsIHRoZSBoZWFkZXIgcmVs
-b2NhdGlvbiBjaHVybiwgaXQgZGlzdHJhY3RzIGF3YXkgZnJvbQo+IHRoZSBmdW5jdGlvbmFsIGNo
-YW5nZXMgaW4gdGhpcyBjb21taXQuIEFsc28gc2VlIGlubGluZSBjb21tZW50cy4KPiAKClllcywg
-aWYgZG91YmxlIGNoZWNrIHVuZGVmLCBpdCBuZWVkbid0IG1vdmUgbWFjcm8gYmVmb3JlIDxsaW51
-eC94eHguaD4KCj4gV2l0aCB0aG9zZSBmaXhlcywKPiBBY2tlZC1ieTogRWR3YXJkIE8nQ2FsbGFn
-aGFuIDxmdW5mdW5jdG9yQGZvbGtsb3JlMTk4NC5uZXQ+Cj4gCj4gS2luZGVzdCBSZWdhcmRzLAo+
-IEVkd2FyZC4KPiAKPiBPbiAxMi8yMy8yMDE2IDAxOjQ1IFBNLCBIdWFuZyBSdWkgd3JvdGU6Cj4g
-PiBQb3dlcnBsYXkgd2lsbCBiZSB1c2VkIHRoZW0gaW5zdGVhZCBvZiByYXcgcHJpbnRrLCBhbmQg
-d2UgY2FuIGR5bmFtaWMKPiA+IGNoYW5nZSB0aGUgZGVidWcgbGV2ZWwgd2l0aCBpdC4KPiA+IAo+
-ID4gVGhlIHByZWZpeCBpcyBsaWtlIGJlbG93Ogo+ID4gCj4gPiBbICAxOTcuNzU1MTY3XSBbcG93
-ZXJwbGF5XSBhbWRncHU6IHBvd2VycGxheSBpbml0aWFsaXplZAo+IAo+IElkZWFsbHkgSSB0aGlu
-ayBpdCB3b3VsZCBiZSBiZXR0ZXIgdG8gbG9vayBsaWtlIHRoaXM6Cj4gCj4gWyAgeHh4Lnh4eHh4
-eCBdIGFtZGdwdTogW3Bvd2VycGxheV0gaW5pdGlhbGl6ZWQuCj4gCj4gYnV0IGNlcnRhaW5seSBk
-cm9wIHJlcGVhdGluZyAicG93ZXJwbGF5IiB0d2ljZS4uCj4gCgpXZSBkZWZpbmUgaXQgYXMgYmVs
-b3c6IAoKI2RlZmluZSBwcl9mbXQoZm10KSAiYW1kZ3B1OiBbcG93ZXJwbGF5XSAiIGZtdAoKQnV0
-IHdlIG5lZWQgcmVmaW5lIG1vc3QgZGV0YWlsIHByaW50cyBtZXNzYWdlIHdpdGggbW9yZSBwYXRj
-aGVzIGluIHRoZQpjb2Rlcy4KCj4gPiAKPiA+IFN1Z2dlc3RlZC1ieTogR3JhenZ5ZGFzIElnbm90
-YXMgPG5vdGFzYXNAZ21haWwuY29tPgo+ID4gU2lnbmVkLW9mZi1ieTogSHVhbmcgUnVpIDxyYXku
-aHVhbmdAYW1kLmNvbT4KPiA+IENjOiBBcmluZGFtIE5hdGggPEFyaW5kYW0uTmF0aEBhbWQuY29t
-Pgo+ID4gLS0tCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kX3Bvd2VycGxh
-eS5jICAgICAgICAgICAgICAgfCAgMiArLQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJw
-bGF5L2h3bWdyL2N6X2h3bWdyLmMgICAgICAgICAgICAgIHwgIDMgKy0tCj4gPiAgZHJpdmVycy9n
-cHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvaGFyZHdhcmVtYW5hZ2VyLmMgICAgICAgfCAgMiAr
-LQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2h3bWdyLmMgICAgICAg
-ICAgICAgICAgIHwgIDMgKystCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdt
-Z3IvcHBhdG9tY3RybC5jICAgICAgICAgICAgfCAgMiArLQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvcG93ZXJwbGF5L2h3bWdyL3Byb2Nlc3NfcHB0YWJsZXNfdjFfMC5jIHwgIDIgKy0KPiA+ICBk
-cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9wcm9jZXNzcHB0YWJsZXMuYyAgICAg
-ICB8ICAyICstCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19o
-d21nci5jICAgICAgICAgICAgfCAgMiArLQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJw
-bGF5L2h3bWdyL3NtdTdfcG93ZXJ0dW5lLmMgICAgICAgIHwgIDIgKy0KPiA+ICBkcml2ZXJzL2dw
-dS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvcHBfZGVidWcuaCAgICAgICAgICAgICAgICB8IDEwICsr
-KysrKysrLS0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvZmlqaV9z
-bWMuYyAgICAgICAgICAgICB8ICAyICstCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
-YXkvc211bWdyL2Zpamlfc211bWdyLmMgICAgICAgICAgfCAgMiArLQo+ID4gIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9pY2VsYW5kX3NtYy5jICAgICAgICAgIHwgIDIgKy0K
-PiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvaWNlbGFuZF9zbXVtZ3Iu
-YyAgICAgICB8ICAyICstCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdy
-L3BvbGFyaXMxMF9zbWMuYyAgICAgICAgfCAgMiArLQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-cG93ZXJwbGF5L3NtdW1nci9wb2xhcmlzMTBfc211bWdyLmMgICAgIHwgIDIgKy0KPiA+ICBkcml2
-ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3Ivc211N19zbXVtZ3IuYyAgICAgICAgICB8
-ICAyICstCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3RvbmdhX3Nt
-Yy5jICAgICAgICAgICAgfCAgMiArLQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
-L3NtdW1nci90b25nYV9zbXVtZ3IuYyAgICAgICAgIHwgIDIgKy0KPiA+ICAxOSBmaWxlcyBjaGFu
-Z2VkLCAyNyBpbnNlcnRpb25zKCspLCAyMSBkZWxldGlvbnMoLSkKPiA+IAo+ID4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZF9wb3dlcnBsYXkuYyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZF9wb3dlcnBsYXkuYwo+ID4gaW5kZXggY2M3MjE5
-MC4uOGI4NTE1MyAxMDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
-L2FtZF9wb3dlcnBsYXkuYwo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
-YW1kX3Bvd2VycGxheS5jCj4gPiBAQCAtMjAsNiArMjAsNyBAQAo+ID4gICAqIE9USEVSIERFQUxJ
-TkdTIElOIFRIRSBTT0ZUV0FSRS4KPiA+ICAgKgo+ID4gICAqLwo+ID4gKyNpbmNsdWRlICJwcF9k
-ZWJ1Zy5oIgo+ID4gICNpbmNsdWRlIDxsaW51eC90eXBlcy5oPgo+ID4gICNpbmNsdWRlIDxsaW51
-eC9rZXJuZWwuaD4KPiA+ICAjaW5jbHVkZSA8bGludXgvZ2ZwLmg+Cj4gPiBAQCAtMjksNyArMzAs
-NiBAQAo+ID4gICNpbmNsdWRlICJwcF9pbnN0YW5jZS5oIgo+ID4gICNpbmNsdWRlICJwb3dlcl9z
-dGF0ZS5oIgo+ID4gICNpbmNsdWRlICJldmVudG1hbmFnZXIuaCIKPiA+IC0jaW5jbHVkZSAicHBf
-ZGVidWcuaCIKPiA+ICAKPiA+ICAKPiA+ICAjZGVmaW5lIFBQX0NIRUNLKGhhbmRsZSkJCQkJCQlc
-Cj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvY3pf
-aHdtZ3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2N6X2h3bWdyLmMK
-PiA+IGluZGV4IDc0ZGJiZDEuLmQwNDMzMzcgMTAwNjQ0Cj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL3Bvd2VycGxheS9od21nci9jel9od21nci5jCj4gPiArKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL3Bvd2VycGxheS9od21nci9jel9od21nci5jCj4gPiBAQCAtMjAsMTMgKzIwLDEzIEBA
-Cj4gPiAgICogT1RIRVIgREVBTElOR1MgSU4gVEhFIFNPRlRXQVJFLgo+ID4gICAqCj4gPiAgICov
-Cj4gPiArI2luY2x1ZGUgInBwX2RlYnVnLmgiCj4gPiAgI2luY2x1ZGUgPGxpbnV4L3R5cGVzLmg+
-Cj4gPiAgI2luY2x1ZGUgPGxpbnV4L2tlcm5lbC5oPgo+ID4gICNpbmNsdWRlIDxsaW51eC9zbGFi
-Lmg+Cj4gPiAgI2luY2x1ZGUgImF0b20tdHlwZXMuaCIKPiA+ICAjaW5jbHVkZSAiYXRvbWJpb3Mu
-aCIKPiA+ICAjaW5jbHVkZSAicHJvY2Vzc3BwdGFibGVzLmgiCj4gPiAtI2luY2x1ZGUgInBwX2Rl
-YnVnLmgiCj4gPiAgI2luY2x1ZGUgImNnc19jb21tb24uaCIKPiA+ICAjaW5jbHVkZSAic211L3Nt
-dV84XzBfZC5oIgo+ID4gICNpbmNsdWRlICJzbXU4X2Z1c2lvbi5oIgo+ID4gQEAgLTM4LDcgKzM4
-LDYgQEAKPiA+ICAjaW5jbHVkZSAiY3pfaHdtZ3IuaCIKPiA+ICAjaW5jbHVkZSAicG93ZXJfc3Rh
-dGUuaCIKPiA+ICAjaW5jbHVkZSAiY3pfY2xvY2twb3dlcmdhdGluZy5oIgo+ID4gLSNpbmNsdWRl
-ICJwcF9kZWJ1Zy5oIgo+ID4gIAo+ID4gICNkZWZpbmUgaXhTTVVTVklfTkJfQ1VSUkVOVFZJRCAw
-eEQ4MjMwMDQ0Cj4gPiAgI2RlZmluZSBDVVJSRU5UX05CX1ZJRF9NQVNLIDB4ZmYwMDAwMDAKPiA+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9oYXJkd2Fy
-ZW1hbmFnZXIuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2hhcmR3YXJl
-bWFuYWdlci5jCj4gPiBpbmRleCBjMzU1YTBmLi4wZWI4ZTg4NiAxMDA2NDQKPiA+IC0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2hhcmR3YXJlbWFuYWdlci5jCj4gPiAr
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9oYXJkd2FyZW1hbmFnZXIu
-Ywo+ID4gQEAgLTIwLDExICsyMCwxMSBAQAo+ID4gICAqIE9USEVSIERFQUxJTkdTIElOIFRIRSBT
-T0ZUV0FSRS4KPiA+ICAgKgo+ID4gICAqLwo+ID4gKyNpbmNsdWRlICJwcF9kZWJ1Zy5oIgo+ID4g
-ICNpbmNsdWRlIDxsaW51eC9lcnJuby5oPgo+ID4gICNpbmNsdWRlICJod21nci5oIgo+ID4gICNp
-bmNsdWRlICJoYXJkd2FyZW1hbmFnZXIuaCIKPiA+ICAjaW5jbHVkZSAicG93ZXJfc3RhdGUuaCIK
-PiA+IC0jaW5jbHVkZSAicHBfZGVidWcuaCIKPiA+ICAKPiA+ICAjZGVmaW5lIFBITV9GVU5DX0NI
-RUNLKGh3KSBcCj4gPiAgCWRvIHsJCQkJCQkJXAo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2h3bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bv
-d2VycGxheS9od21nci9od21nci5jCj4gPiBpbmRleCBiMDM2MDY0Li5mY2ZkNjQ4IDEwMDY0NAo+
-ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvaHdtZ3IuYwo+ID4g
-KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvaHdtZ3IuYwo+ID4gQEAg
-LTIwLDYgKzIwLDggQEAKPiA+ICAgKiBPVEhFUiBERUFMSU5HUyBJTiBUSEUgU09GVFdBUkUuCj4g
-PiAgICoKPiA+ICAgKi8KPiA+ICsKPiA+ICsjaW5jbHVkZSAicHBfZGVidWcuaCIKPiA+ICAjaW5j
-bHVkZSAibGludXgvZGVsYXkuaCIKPiA+ICAjaW5jbHVkZSA8bGludXgvdHlwZXMuaD4KPiA+ICAj
-aW5jbHVkZSA8bGludXgva2VybmVsLmg+Cj4gPiBAQCAtMjksNyArMzEsNiBAQAo+ID4gICNpbmNs
-dWRlICJwb3dlcl9zdGF0ZS5oIgo+ID4gICNpbmNsdWRlICJod21nci5oIgo+ID4gICNpbmNsdWRl
-ICJwcHBjaWVsYW5lcy5oIgo+ID4gLSNpbmNsdWRlICJwcF9kZWJ1Zy5oIgo+ID4gICNpbmNsdWRl
-ICJwcGF0b21jdHJsLmgiCj4gPiAgI2luY2x1ZGUgInBwc21jLmgiCj4gPiAgI2luY2x1ZGUgInBw
-X2FjcGkuaCIKPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9o
-d21nci9wcGF0b21jdHJsLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9w
-cGF0b21jdHJsLmMKPiA+IGluZGV4IGRkYWVhMWQuLjJjNjBmN2IgMTAwNjQ0Cj4gPiAtLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9wcGF0b21jdHJsLmMKPiA+ICsrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3BwYXRvbWN0cmwuYwo+ID4gQEAg
-LTIwLDYgKzIwLDcgQEAKPiA+ICAgKiBPVEhFUiBERUFMSU5HUyBJTiBUSEUgU09GVFdBUkUuCj4g
-PiAgICoKPiA+ICAgKi8KPiA+ICsjaW5jbHVkZSAicHBfZGVidWcuaCIKPiA+ICAjaW5jbHVkZSA8
-bGludXgvbW9kdWxlLmg+Cj4gPiAgI2luY2x1ZGUgPGxpbnV4L3NsYWIuaD4KPiA+ICAjaW5jbHVk
-ZSA8bGludXgvZmIuaD4KPiA+IEBAIC0yNyw3ICsyOCw2IEBACj4gPiAgI2luY2x1ZGUgInBwYXRv
-bWN0cmwuaCIKPiA+ICAjaW5jbHVkZSAiYXRvbWJpb3MuaCIKPiA+ICAjaW5jbHVkZSAiY2dzX2Nv
-bW1vbi5oIgo+ID4gLSNpbmNsdWRlICJwcF9kZWJ1Zy5oIgo+ID4gICNpbmNsdWRlICJwcGV2dm1h
-dGguaCIKPiA+ICAKPiA+ICAjZGVmaW5lIE1FTV9JRF9NQVNLICAgICAgICAgICAweGZmMDAwMDAw
-Cj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvcHJv
-Y2Vzc19wcHRhYmxlc192MV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21n
-ci9wcm9jZXNzX3BwdGFibGVzX3YxXzAuYwo+ID4gaW5kZXggNzkyNTE4NS4uZjJmMGZjYyAxMDA2
-NDQKPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3Byb2Nlc3Nf
-cHB0YWJsZXNfdjFfMC5jCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9o
-d21nci9wcm9jZXNzX3BwdGFibGVzX3YxXzAuYwo+ID4gQEAgLTIwLDYgKzIwLDcgQEAKPiA+ICAg
-KiBPVEhFUiBERUFMSU5HUyBJTiBUSEUgU09GVFdBUkUuCj4gPiAgICoKPiA+ICAgKi8KPiA+ICsj
-aW5jbHVkZSAicHBfZGVidWcuaCIKPiA+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4gPiAg
-I2luY2x1ZGUgPGxpbnV4L3NsYWIuaD4KPiA+ICAjaW5jbHVkZSA8bGludXgvZmIuaD4KPiA+IEBA
-IC0yNyw3ICsyOCw2IEBACj4gPiAgI2luY2x1ZGUgInByb2Nlc3NfcHB0YWJsZXNfdjFfMC5oIgo+
-ID4gICNpbmNsdWRlICJwcGF0b21jdHJsLmgiCj4gPiAgI2luY2x1ZGUgImF0b21iaW9zLmgiCj4g
-PiAtI2luY2x1ZGUgInBwX2RlYnVnLmgiCj4gPiAgI2luY2x1ZGUgImh3bWdyLmgiCj4gPiAgI2lu
-Y2x1ZGUgImNnc19jb21tb24uaCIKPiA+ICAjaW5jbHVkZSAicHB0YWJsZV92MV8wLmgiCj4gPiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvcHJvY2Vzc3Bw
-dGFibGVzLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9wcm9jZXNzcHB0
-YWJsZXMuYwo+ID4gaW5kZXggYTRlOWNmNC4uZWQ2YzkzNCAxMDA2NDQKPiA+IC0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3Byb2Nlc3NwcHRhYmxlcy5jCj4gPiArKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9wcm9jZXNzcHB0YWJsZXMuYwo+
-ID4gQEAgLTIwLDYgKzIwLDcgQEAKPiA+ICAgKiBPVEhFUiBERUFMSU5HUyBJTiBUSEUgU09GVFdB
-UkUuCj4gPiAgICoKPiA+ICAgKi8KPiA+ICsjaW5jbHVkZSAicHBfZGVidWcuaCIKPiA+ICAjaW5j
-bHVkZSA8bGludXgvdHlwZXMuaD4KPiA+ICAjaW5jbHVkZSA8bGludXgva2VybmVsLmg+Cj4gPiAg
-I2luY2x1ZGUgPGxpbnV4L3NsYWIuaD4KPiA+IEBAIC0yNyw3ICsyOCw2IEBACj4gPiAgI2luY2x1
-ZGUgInByb2Nlc3NwcHRhYmxlcy5oIgo+ID4gICNpbmNsdWRlIDxhdG9tLXR5cGVzLmg+Cj4gPiAg
-I2luY2x1ZGUgPGF0b21iaW9zLmg+Cj4gPiAtI2luY2x1ZGUgInBwX2RlYnVnLmgiCj4gPiAgI2lu
-Y2x1ZGUgInBwdGFibGUuaCIKPiA+ICAjaW5jbHVkZSAicG93ZXJfc3RhdGUuaCIKPiA+ICAjaW5j
-bHVkZSAiaHdtZ3IuaCIKPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
-cGxheS9od21nci9zbXU3X2h3bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9o
-d21nci9zbXU3X2h3bWdyLmMKPiA+IGluZGV4IGFlNTUxN2EuLjlkYzBlNTIgMTAwNjQ0Cj4gPiAt
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmMKPiA+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYwo+
-ID4gQEAgLTIwLDEzICsyMCwxMyBAQAo+ID4gICAqIE9USEVSIERFQUxJTkdTIElOIFRIRSBTT0ZU
-V0FSRS4KPiA+ICAgKgo+ID4gICAqLwo+ID4gKyNpbmNsdWRlICJwcF9kZWJ1Zy5oIgo+ID4gICNp
-bmNsdWRlIDxsaW51eC9tb2R1bGUuaD4KPiA+ICAjaW5jbHVkZSA8bGludXgvc2xhYi5oPgo+ID4g
-ICNpbmNsdWRlIDxsaW51eC9mYi5oPgo+ID4gICNpbmNsdWRlIDxhc20vZGl2NjQuaD4KPiA+ICAj
-aW5jbHVkZSAibGludXgvZGVsYXkuaCIKPiA+ICAjaW5jbHVkZSAicHBfYWNwaS5oIgo+ID4gLSNp
-bmNsdWRlICJwcF9kZWJ1Zy5oIgo+ID4gICNpbmNsdWRlICJwcGF0b21jdHJsLmgiCj4gPiAgI2lu
-Y2x1ZGUgImF0b21iaW9zLmgiCj4gPiAgI2luY2x1ZGUgInBwdGFibGVfdjFfMC5oIgo+ID4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfcG93ZXJ0
-dW5lLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X3Bvd2VydHVu
-ZS5jCj4gPiBpbmRleCA2Y2QxMjg3Li4wZjIzMjVlIDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19wb3dlcnR1bmUuYwo+ID4gKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19wb3dlcnR1bmUuYwo+ID4gQEAg
-LTIwLDExICsyMCwxMSBAQAo+ID4gICAqIE9USEVSIERFQUxJTkdTIElOIFRIRSBTT0ZUV0FSRS4K
-PiA+ICAgKgo+ID4gICAqLwo+ID4gKyNpbmNsdWRlICJwcF9kZWJ1Zy5oIgo+ID4gICNpbmNsdWRl
-ICJod21nci5oIgo+ID4gICNpbmNsdWRlICJzbXVtZ3IuaCIKPiA+ICAjaW5jbHVkZSAic211N19o
-d21nci5oIgo+ID4gICNpbmNsdWRlICJzbXU3X3Bvd2VydHVuZS5oIgo+ID4gLSNpbmNsdWRlICJw
-cF9kZWJ1Zy5oIgo+ID4gICNpbmNsdWRlICJzbXU3X2NvbW1vbi5oIgo+ID4gIAo+ID4gICNkZWZp
-bmUgVk9MVEFHRV9TQ0FMRSAgNAo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-cG93ZXJwbGF5L2luYy9wcF9kZWJ1Zy5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
-aW5jL3BwX2RlYnVnLmgKPiA+IGluZGV4IGJmZGJlYzEuLjgzMDFiODIgMTAwNjQ0Cj4gPiAtLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvcHBfZGVidWcuaAo+ID4gKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3BwX2RlYnVnLmgKPiA+IEBAIC0yNCw2
-ICsyNCwxMiBAQAo+ID4gICNpZm5kZWYgUFBfREVCVUdfSAo+ID4gICNkZWZpbmUgUFBfREVCVUdf
-SAo+ID4gIAo+ID4gKyNpZmRlZiBwcl9mbXQKPiA+ICsjdW5kZWYgcHJfZm10Cj4gPiArI2VuZGlm
-Cj4gPiArCj4gPiArI2RlZmluZSBwcl9mbXQoZm10KSAiW3Bvd2VycGxheV0gIiBmbXQKPiA+ICsK
-PiA+ICAjaW5jbHVkZSA8bGludXgvdHlwZXMuaD4KPiA+ICAjaW5jbHVkZSA8bGludXgva2VybmVs
-Lmg+Cj4gPiAgI2luY2x1ZGUgPGxpbnV4L3NsYWIuaD4KPiA+IEBAIC0zMSw3ICszNyw3IEBACj4g
-PiAgI2RlZmluZSBQUF9BU1NFUlRfV0lUSF9DT0RFKGNvbmQsIG1zZywgY29kZSkJXAo+ID4gIAlk
-byB7CQkJCQlcCj4gPiAgCQlpZiAoIShjb25kKSkgewkJCVwKPiA+IC0JCQlwcmludGsoIiVzXG4i
-LCBtc2cpOwlcCj4gPiArCQkJcHJfd2FybmluZygiJXNcbiIsIG1zZyk7CVwKPiA+ICAJCQljb2Rl
-OwkJCVwKPiA+ICAJCX0JCQkJXAo+ID4gIAl9IHdoaWxlICgwKQo+ID4gQEAgLTM5LDcgKzQ1LDcg
-QEAKPiA+ICAKPiA+ICAjZGVmaW5lIFBQX0RCR19MT0coZm10LCAuLi4pIFwKPiA+ICAJZG8geyBc
-Cj4gPiAtCQlpZigwKXByaW50ayhLRVJOX0lORk8gIlsgcHBfZGJnIF0gIiBmbXQsICMjX19WQV9B
-UkdTX18pOyBcCj4gPiArCQlpZigwKXByX2luZm8oZm10LCAjI19fVkFfQVJHU19fKTsgXAo+IAo+
-IEp1c3Qgc3F1YXNoIHRoZSBuZXh0IGNvbW1pdCBpbnRvIHRoaXMgb25lIHRvIHJlbW92ZSB0aGUg
-J2lmKDApJyBjb25kLgo+IAoKQWN0dWFsbHksIHRoaXMgcGF0Y2gganVzdCBhZGRzIHByZWZpeC4g
-InJlbW92ZSAnaWYoMCknIiBpcyBhbm90aGVyCmJlaGF2aW9yIGV2ZW4gaXQncyBtaW5vciBjaGFu
-Z2UuCgpBbnl3YXksIEkgYW0gZmluZSB0byBzcXVhc2ggaXQuCgpUaGFua3MsClJ1aQpfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
-bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============1089418020==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="AVoptVKsih1s2TWAfWqsLp7PK6PavhnCO"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--AVoptVKsih1s2TWAfWqsLp7PK6PavhnCO
+Content-Type: multipart/mixed; boundary="86OUua7V6SDTLxt2OEsHG0VbKl6ibG4fT";
+ protected-headers="v1"
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>,
+ "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>,
+ "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>,
+ "Nath, Arindam" <Arindam.Nath-5C7GfCeVMHo@public.gmane.org>
+Message-ID: <7f5e9c3e-68d0-0e26-2e2f-2aba1104818a-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amd/powerplay: add prefix for all powerplay pr_*
+ prints
+References: <1482461108-8463-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
+ <a4500215-e3d3-fd84-2444-f028241f6c4a-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+ <20161223095408.GA11638@hr-amur2>
+In-Reply-To: <20161223095408.GA11638@hr-amur2>
+
+--86OUua7V6SDTLxt2OEsHG0VbKl6ibG4fT
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: quoted-printable
+
+
+
+On 12/23/2016 08:54 PM, Huang Rui wrote:
+> On Fri, Dec 23, 2016 at 05:32:58PM +0800, Edward O'Callaghan wrote:
+>> Hi,
+>>
+>> I would say drop all the header relocation churn, it distracts away fr=
+om
+>> the functional changes in this commit. Also see inline comments.
+>>
+>=20
+> Yes, if double check undef, it needn't move macro before <linux/xxx.h>
+
+If you want to reshuffle headers I would say that is a seperate patch
+and the functional changes as their own changeset. That's my view any way=
+=2E
+
+>=20
+>> With those fixes,
+>> Acked-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+>>
+>> Kindest Regards,
+>> Edward.
+>>
+>> On 12/23/2016 01:45 PM, Huang Rui wrote:
+>>> Powerplay will be used them instead of raw printk, and we can dynamic=
+
+>>> change the debug level with it.
+>>>
+>>> The prefix is like below:
+>>>
+>>> [  197.755167] [powerplay] amdgpu: powerplay initialized
+>>
+>> Ideally I think it would be better to look like this:
+>>
+>> [  xxx.xxxxxx ] amdgpu: [powerplay] initialized.
+>>
+>> but certainly drop repeating "powerplay" twice..
+>>
+>=20
+> We define it as below:=20
+>=20
+> #define pr_fmt(fmt) "amdgpu: [powerplay] " fmt
+>=20
+> But we need refine most detail prints message with more patches in the
+> codes.
+
+I suggest if your going to touch it you may as well go all the way and
+get the thing fixed up properly, then its done.
+
+>=20
+>>>
+>>> Suggested-by: Grazvydas Ignotas <notasas-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+>>> Signed-off-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+>>> Cc: Arindam Nath <Arindam.Nath-5C7GfCeVMHo@public.gmane.org>
+>>> ---
+>>>  drivers/gpu/drm/amd/powerplay/amd_powerplay.c               |  2 +-
+>>>  drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c              |  3 +--=
+
+>>>  drivers/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c       |  2 +-
+>>>  drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c                 |  3 ++-=
+
+>>>  drivers/gpu/drm/amd/powerplay/hwmgr/ppatomctrl.c            |  2 +-
+>>>  drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c |  2 +-
+>>>  drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c       |  2 +-
+>>>  drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c            |  2 +-
+>>>  drivers/gpu/drm/amd/powerplay/hwmgr/smu7_powertune.c        |  2 +-
+>>>  drivers/gpu/drm/amd/powerplay/inc/pp_debug.h                | 10 +++=
++++++--
+>>>  drivers/gpu/drm/amd/powerplay/smumgr/fiji_smc.c             |  2 +-
+>>>  drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c          |  2 +-
+>>>  drivers/gpu/drm/amd/powerplay/smumgr/iceland_smc.c          |  2 +-
+>>>  drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c       |  2 +-
+>>>  drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smc.c        |  2 +-
+>>>  drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c     |  2 +-
+>>>  drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c          |  2 +-
+>>>  drivers/gpu/drm/amd/powerplay/smumgr/tonga_smc.c            |  2 +-
+>>>  drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c         |  2 +-
+>>>  19 files changed, 27 insertions(+), 21 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/=
+gpu/drm/amd/powerplay/amd_powerplay.c
+>>> index cc72190..8b85153 100644
+>>> --- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+>>> +++ b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+>>> @@ -20,6 +20,7 @@
+>>>   * OTHER DEALINGS IN THE SOFTWARE.
+>>>   *
+>>>   */
+>>> +#include "pp_debug.h"
+>>>  #include <linux/types.h>
+>>>  #include <linux/kernel.h>
+>>>  #include <linux/gfp.h>
+>>> @@ -29,7 +30,6 @@
+>>>  #include "pp_instance.h"
+>>>  #include "power_state.h"
+>>>  #include "eventmanager.h"
+>>> -#include "pp_debug.h"
+>>> =20
+>>> =20
+>>>  #define PP_CHECK(handle)						\
+>>> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c b/drivers=
+/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
+>>> index 74dbbd1..d043337 100644
+>>> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
+>>> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
+>>> @@ -20,13 +20,13 @@
+>>>   * OTHER DEALINGS IN THE SOFTWARE.
+>>>   *
+>>>   */
+>>> +#include "pp_debug.h"
+>>>  #include <linux/types.h>
+>>>  #include <linux/kernel.h>
+>>>  #include <linux/slab.h>
+>>>  #include "atom-types.h"
+>>>  #include "atombios.h"
+>>>  #include "processpptables.h"
+>>> -#include "pp_debug.h"
+>>>  #include "cgs_common.h"
+>>>  #include "smu/smu_8_0_d.h"
+>>>  #include "smu8_fusion.h"
+>>> @@ -38,7 +38,6 @@
+>>>  #include "cz_hwmgr.h"
+>>>  #include "power_state.h"
+>>>  #include "cz_clockpowergating.h"
+>>> -#include "pp_debug.h"
+>>> =20
+>>>  #define ixSMUSVI_NB_CURRENTVID 0xD8230044
+>>>  #define CURRENT_NB_VID_MASK 0xff000000
+>>> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c b/=
+drivers/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c
+>>> index c355a0f..0eb8e886 100644
+>>> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c
+>>> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c
+>>> @@ -20,11 +20,11 @@
+>>>   * OTHER DEALINGS IN THE SOFTWARE.
+>>>   *
+>>>   */
+>>> +#include "pp_debug.h"
+>>>  #include <linux/errno.h>
+>>>  #include "hwmgr.h"
+>>>  #include "hardwaremanager.h"
+>>>  #include "power_state.h"
+>>> -#include "pp_debug.h"
+>>> =20
+>>>  #define PHM_FUNC_CHECK(hw) \
+>>>  	do {							\
+>>> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c b/drivers/gp=
+u/drm/amd/powerplay/hwmgr/hwmgr.c
+>>> index b036064..fcfd648 100644
+>>> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
+>>> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
+>>> @@ -20,6 +20,8 @@
+>>>   * OTHER DEALINGS IN THE SOFTWARE.
+>>>   *
+>>>   */
+>>> +
+>>> +#include "pp_debug.h"
+>>>  #include "linux/delay.h"
+>>>  #include <linux/types.h>
+>>>  #include <linux/kernel.h>
+>>> @@ -29,7 +31,6 @@
+>>>  #include "power_state.h"
+>>>  #include "hwmgr.h"
+>>>  #include "pppcielanes.h"
+>>> -#include "pp_debug.h"
+>>>  #include "ppatomctrl.h"
+>>>  #include "ppsmc.h"
+>>>  #include "pp_acpi.h"
+>>> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomctrl.c b/drive=
+rs/gpu/drm/amd/powerplay/hwmgr/ppatomctrl.c
+>>> index ddaea1d..2c60f7b 100644
+>>> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomctrl.c
+>>> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/ppatomctrl.c
+>>> @@ -20,6 +20,7 @@
+>>>   * OTHER DEALINGS IN THE SOFTWARE.
+>>>   *
+>>>   */
+>>> +#include "pp_debug.h"
+>>>  #include <linux/module.h>
+>>>  #include <linux/slab.h>
+>>>  #include <linux/fb.h>
+>>> @@ -27,7 +28,6 @@
+>>>  #include "ppatomctrl.h"
+>>>  #include "atombios.h"
+>>>  #include "cgs_common.h"
+>>> -#include "pp_debug.h"
+>>>  #include "ppevvmath.h"
+>>> =20
+>>>  #define MEM_ID_MASK           0xff000000
+>>> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_=
+0.c b/drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c
+>>> index 7925185..f2f0fcc 100644
+>>> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c
+>>> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c
+>>> @@ -20,6 +20,7 @@
+>>>   * OTHER DEALINGS IN THE SOFTWARE.
+>>>   *
+>>>   */
+>>> +#include "pp_debug.h"
+>>>  #include <linux/module.h>
+>>>  #include <linux/slab.h>
+>>>  #include <linux/fb.h>
+>>> @@ -27,7 +28,6 @@
+>>>  #include "process_pptables_v1_0.h"
+>>>  #include "ppatomctrl.h"
+>>>  #include "atombios.h"
+>>> -#include "pp_debug.h"
+>>>  #include "hwmgr.h"
+>>>  #include "cgs_common.h"
+>>>  #include "pptable_v1_0.h"
+>>> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c b/=
+drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c
+>>> index a4e9cf4..ed6c934 100644
+>>> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c
+>>> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c
+>>> @@ -20,6 +20,7 @@
+>>>   * OTHER DEALINGS IN THE SOFTWARE.
+>>>   *
+>>>   */
+>>> +#include "pp_debug.h"
+>>>  #include <linux/types.h>
+>>>  #include <linux/kernel.h>
+>>>  #include <linux/slab.h>
+>>> @@ -27,7 +28,6 @@
+>>>  #include "processpptables.h"
+>>>  #include <atom-types.h>
+>>>  #include <atombios.h>
+>>> -#include "pp_debug.h"
+>>>  #include "pptable.h"
+>>>  #include "power_state.h"
+>>>  #include "hwmgr.h"
+>>> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drive=
+rs/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+>>> index ae5517a..9dc0e52 100644
+>>> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+>>> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+>>> @@ -20,13 +20,13 @@
+>>>   * OTHER DEALINGS IN THE SOFTWARE.
+>>>   *
+>>>   */
+>>> +#include "pp_debug.h"
+>>>  #include <linux/module.h>
+>>>  #include <linux/slab.h>
+>>>  #include <linux/fb.h>
+>>>  #include <asm/div64.h>
+>>>  #include "linux/delay.h"
+>>>  #include "pp_acpi.h"
+>>> -#include "pp_debug.h"
+>>>  #include "ppatomctrl.h"
+>>>  #include "atombios.h"
+>>>  #include "pptable_v1_0.h"
+>>> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_powertune.c b/d=
+rivers/gpu/drm/amd/powerplay/hwmgr/smu7_powertune.c
+>>> index 6cd1287..0f2325e 100644
+>>> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_powertune.c
+>>> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_powertune.c
+>>> @@ -20,11 +20,11 @@
+>>>   * OTHER DEALINGS IN THE SOFTWARE.
+>>>   *
+>>>   */
+>>> +#include "pp_debug.h"
+>>>  #include "hwmgr.h"
+>>>  #include "smumgr.h"
+>>>  #include "smu7_hwmgr.h"
+>>>  #include "smu7_powertune.h"
+>>> -#include "pp_debug.h"
+>>>  #include "smu7_common.h"
+>>> =20
+>>>  #define VOLTAGE_SCALE  4
+>>> diff --git a/drivers/gpu/drm/amd/powerplay/inc/pp_debug.h b/drivers/g=
+pu/drm/amd/powerplay/inc/pp_debug.h
+>>> index bfdbec1..8301b82 100644
+>>> --- a/drivers/gpu/drm/amd/powerplay/inc/pp_debug.h
+>>> +++ b/drivers/gpu/drm/amd/powerplay/inc/pp_debug.h
+>>> @@ -24,6 +24,12 @@
+>>>  #ifndef PP_DEBUG_H
+>>>  #define PP_DEBUG_H
+>>> =20
+>>> +#ifdef pr_fmt
+>>> +#undef pr_fmt
+>>> +#endif
+>>> +
+>>> +#define pr_fmt(fmt) "[powerplay] " fmt
+>>> +
+>>>  #include <linux/types.h>
+>>>  #include <linux/kernel.h>
+>>>  #include <linux/slab.h>
+>>> @@ -31,7 +37,7 @@
+>>>  #define PP_ASSERT_WITH_CODE(cond, msg, code)	\
+>>>  	do {					\
+>>>  		if (!(cond)) {			\
+>>> -			printk("%s\n", msg);	\
+>>> +			pr_warning("%s\n", msg);	\
+>>>  			code;			\
+>>>  		}				\
+>>>  	} while (0)
+>>> @@ -39,7 +45,7 @@
+>>> =20
+>>>  #define PP_DBG_LOG(fmt, ...) \
+>>>  	do { \
+>>> -		if(0)printk(KERN_INFO "[ pp_dbg ] " fmt, ##__VA_ARGS__); \
+>>> +		if(0)pr_info(fmt, ##__VA_ARGS__); \
+>>
+>> Just squash the next commit into this one to remove the 'if(0)' cond.
+>>
+>=20
+> Actually, this patch just adds prefix. "remove 'if(0)'" is another
+> behavior even it's minor change.
+>=20
+> Anyway, I am fine to squash it.
+
+Yes, just to make clear - squash it with the other functional change as
+they are interdependent and keep the pure header churn as a separate patc=
+h.
+
+>=20
+> Thanks,
+> Rui
+>=20
+
+Cheers,
+Edward.
+
+
+--86OUua7V6SDTLxt2OEsHG0VbKl6ibG4fT--
+
+--AVoptVKsih1s2TWAfWqsLp7PK6PavhnCO
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJYXPVzAAoJEP4bvbfZuWjb1XYP/j4k8iYl3alQX2qfljyItPDY
+J5tcciXwWFIyq3hYvEcPez+mN72aAZ1dLc4DqPgcHbEkSuYqA7Y/t+IkK9HSL15T
+jykhirVv+XRvblBN8qaw+ebA31tDxCX/nyA+k0MzQYO7aycQEhv/QQ7630oYIiNy
+eBaPKiZGq2lp8GXn9z9fnViCwjFUJ3yPZMiTJKk/AjsLGaU6wUE3CCQKqM7MpHrS
+2wjHGnGzlP0L9VcGnI37mgT8xVa2lj8B7R8+02qf/XfgUXzdmqViwIyEILmsg/DB
+XB81SzYwA5EEuoeYsDw/ZPABTvla9U48cVHR/YqkUMA3zI0ZBGRma9OrZ/zW6NvS
+/A3kD/vXDfk5VLT9IZeKS4SvtRkUN57TjV6sTwxT/nP77AxsHR87xmfUwyIqq3l5
+ag69AdJr/GF53ReXqF7QIdbAZNc1PIEW+zq6O1kElVzF0hBaEe/MyISoRLfaAaY8
+wmLvoApgxuFxPOwVexNm/0ofbjYNKrGWEJhTVNMhCX/d6jmSqmePbAs+mRU7kHvu
+QMLZonXU1s2XoBcDvm/y546CM0LkfjkG0IejNtCilCzH3hMf/ZsnqJSNN1JBiKnI
+Vcr+DGjkpzrWN4OMH/hU+Oss3wZxwunbLw/0wr88W1b2QowlT2x/ocbh/Dll931q
+EUAQtIrn0FnXN4YUSebH
+=W+o2
+-----END PGP SIGNATURE-----
+
+--AVoptVKsih1s2TWAfWqsLp7PK6PavhnCO--
+
+--===============1089418020==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1089418020==--
