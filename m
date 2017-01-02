@@ -1,8 +1,9 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 Subject: Re: [RFC] Mechanism for high priority scheduling in amdgpu
-Date: Mon, 2 Jan 2017 16:43:40 +0100
-Message-ID: <fa97b20f-4c8d-8ee0-fbed-ca9144fc9be9@amd.com>
+Date: Mon, 2 Jan 2017 15:09:45 +0100
+Message-ID: <2a257f55-084e-9762-dcae-2b4a6df2dc46@vodafone.de>
 References: <544E607D03B20249AA404517E498FC4699EBD3@exchange01.valvesoftware.com>
+ <544E607D03B20249AA404517E498FC4699EC70@exchange01.valvesoftware.com>
  <SN1PR12MB0703173C7AD623F6C5AECE7DFE9F0@SN1PR12MB0703.namprd12.prod.outlook.com>
  <bd0ba668-3d13-6343-a1c6-de5d0b7b3be3@valvesoftware.com>
  <58575362.2030100@amd.com>
@@ -17,12 +18,11 @@ References: <544E607D03B20249AA404517E498FC4699EBD3@exchange01.valvesoftware.com
  <2e8051cb-09b1-c5cb-cb5a-b7ca30f65e89@valvesoftware.com>
  <1c3ea5aa-36ee-5031-5f32-d860e9e0bf7c@amd.com>
  <b853e4e3-0ba5-2bda-e129-d9253e7b098d@valvesoftware.com>
- <CAFQ_0eHg=Kf5qV50cgm51m6bTcMYdkgRXkT-sykJnYNzu3Zzsg@mail.gmail.com>
- <58607FDF.2080200@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0808856035=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <58607FDF.2080200-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <b853e4e3-0ba5-2bda-e129-d9253e7b098d-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -33,5414 +33,756 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>, Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Pierre-Loup A. Griffais" <pgriffais-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org>
-Cc: "Huan, Alvin" <Alvin.Huan-5C7GfCeVMHo@public.gmane.org>, "Mao, David" <David.Mao-5C7GfCeVMHo@public.gmane.org>, Serguei Sagalovitch <serguei.sagalovitch-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Andres Rodriguez <andresr-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org>, "Zhang,
- Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+To: "Pierre-Loup A. Griffais" <pgriffais-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Serguei Sagalovitch <serguei.sagalovitch-5C7GfCeVMHo@public.gmane.org>, Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>, Andres Rodriguez <andresr-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Mao, David" <David.Mao-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, "Huan, Alvin" <Alvin.Huan-5C7GfCeVMHo@public.gmane.org>
 
---===============0808856035==
-Content-Type: multipart/alternative;
-	boundary="------------8A0F7AEF1F662A95B70010BF"
-
---------------8A0F7AEF1F662A95B70010BF
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Indeed a couple of nice numbers.
-
-> but everything already commited
-> to the HW queue is executed in strict FIFO order.
-Well actually if we get a high priority submission we could 
-preempt/abort everything on the ring buffer before it in theory.
-
-Probably not as fine granularity as the hardware scheduler, but might be 
-easier to get working.
-
-Regards,
-Christian.
-
-Am 26.12.2016 um 03:26 schrieb zhoucm1:
-> Nice experiment, which is exactly SW scheduler can provide.
-> And as you said "I.e. your context can be scheduled into the
-> HW queue ahead of any other context, but everything already commited
-> to the HW queue is executed in strict FIFO order."
->
-> If you want to keep consistent latency, which will need to enable hw 
-> priority queue feature.
->
-> Regards,
-> David Zhou
->
-> On 2016年12月24日 06:20, Andres Rodriguez wrote:
->> Hey John,
->>
->> I've collected bit of data using high priority SW scheduler queues,
->> thought you might be interested.
->>
->> Implementation as per the patch above.
->>
->> Control test 1
->> ==============
->>
->> Sascha Willems mesh sample running on its own at regular priority
->>
->> Results
->> -------
->>
->> Mesh: ~0.14ms per-frame latency
->>
->> Control test 2
->> ==============
->>
->> Two Sascha Willems mesh sample running on its own at regular priority
->>
->> Results
->> -------
->>
->> Mesh 1: ~0.26ms per-frame latency
->> Mesh 2: ~0.26ms per-frame latency
->>
->> Test 1
->> ======
->>
->> Two Sascha Willems mesh samples running simultaneously. One at high
->> priority and the other running in a regular priority graphics context.
->>
->> Results
->> -------
->>
->> Mesh High:    0.14 - 0.24ms per-frame latency
->> Mesh Regular: 0.24 - 0.40ms per-frame latency
->>
->> Test 2
->> ======
->>
->> Ten Sascha Willems mesh samples running simultaneously. One at high
->> priority and the others running in a regular priority graphics context.
->>
->> Results
->> -------
->>
->> Mesh High:    0.14 - 0.8ms per-frame latency
->> Mesh Regular: 1.10 - 2.05ms per-frame latency
->>
->> Test 3
->> ======
->>
->> Two Sascha Willems mesh samples running simultaneously. One at high
->> priority and the other running in a regular priority graphics context.
->>
->> Also running Unigine Heaven at Exteme preset @ 2560x1600
->>
->> Results
->> -------
->>
->> Mesh High:     7 - 100ms per-frame latency (Lots of fluctuation)
->> Mesh Regular: 40 - 130ms per-frame latency(Lots of fluctuation)
->> Unigine Heaven: 20-40 fps
->>
->>
->> Test 4
->> ======
->>
->> Two Sascha Willems mesh samples running simultaneously. One at high
->> priority and the other running in a regular priority graphics context.
->>
->> Also running Talos Principle @ 4K
->>
->> Results
->> -------
->>
->> Mesh High:    0.14 - 3.97ms per-frame latency (Mostly floats ~0.4ms)
->> Mesh Regular: 0.43 - 8.11ms per-frame latency (Lots of fluctuation)
->> Talos: 24.8 fps AVG
->>
->> Observations
->> ============
->>
->> The high priority queue based on the SW scheduler provides significant
->> gains when paired with tasks that submit short duration commands into
->> the queue. This can be observed in tests 1 and 2.
->>
->> When the pipe is full of long running commands, the effects are dampened.
->> As observed in test 3, the per-frame latency suffers very large spikes,
->> and the latencies are very inconsistent.
->>
->> Talos seems to be a better behaved game. It may be submitting shorter
->> draw commands and the SW scheduler is able to interleave the rest of
->> the work.
->>
->> The results seem consistent with the hypothetical advantages the SW
->> scheduler should provide. I.e. your context can be scheduled into the
->> HW queue ahead of any other context, but everything already commited
->> to the HW queue is executed in strict FIFO order.
->>
->> In order to deal with cases similar to Test 3, we will need to take
->> advantage of further features.
->>
->> Notes
->> =====
->>
->> - Tests were run multiple times, and reboots were performed during tests.
->> - The mesh sample isn't really designed for benchmarking, but it should
->>   be decent for ballpark figures
->> - The high priority mesh app was run with default niceness and also 
->> niceness
->>   at -20. This had no effect on the results, so it was not added above.
->> - CPU usage was not saturated while running the tests
->>
->> Regards,
->> Andres
->>
->>
->> On Fri, Dec 23, 2016 at 1:18 PM, Pierre-Loup A. Griffais 
->> <pgriffais-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org <mailto:pgriffais-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org>> wrote:
->>
->>     I hate to keep bringing up display topics in an unrelated
->>     conversation, but I'm not sure where you got "Application -> X
->>     server -> compositor -> X server" from. As I was saying before,
->>     we need to be presenting directly to the HMD display as no
->>     display server can be in the way, both for latency but also
->>     quality of service reasons (a buggy application cannot be allowed
->>     to accidentally display undistorted rendering into the HMD); we
->>     intend to do the necessary work for this, and the extent of X's
->>     (or a Wayland implementation, or any other display server)
->>     involvment will be to participate enough to know that the HMD
->>     display is off-limits. If you have more questions on the display
->>     aspect, or VR rendering in general, I'm happy to try to address
->>     them out-of-band from this conversation.
->>
->>
->>     On 12/23/2016 02:54 AM, Christian König wrote:
->>
->>             But yes, in general you don't want another compositor in
->>             the way, so
->>             we'll be acquiring the HMD display directly, separate
->>             from any desktop
->>             or display server.
->>
->>         Assuming that the the HMD is attached to the rendering device
->>         in some
->>         way you have the X server and the Compositor which both try
->>         to be DRM
->>         master at the same time.
->>
->>         Please correct me if that was fixed in the meantime, but that
->>         sounds
->>         like it will simply not work. Or is this what Andres mention
->>         below Dave
->>         is working on ?.
->>
->>         Additional to that a compositor in combination with X is a
->>         bit counter
->>         productive when you want to keep the latency low.
->>
->>         E.g. the "normal" flow of a GL or Vulkan surface filled with
->>         rendered
->>         data to be displayed is from the Application -> X server ->
->>         compositor
->>         -> X server.
->>
->>         The extra step between X server and compositor just means
->>         extra latency
->>         and for this use case you probably don't want that.
->>
->>         Targeting something like Wayland and when you need X
->>         compatibility
->>         XWayland sounds like the much better idea.
->>
->>         Regards,
->>         Christian.
->>
->>         Am 22.12.2016 um 20:54 schrieb Pierre-Loup A. Griffais:
->>
->>             Display concerns are a separate issue, and as Andres said
->>             we have
->>             other plans to address. But yes, in general you don't
->>             want another
->>             compositor in the way, so we'll be acquiring the HMD
->>             display directly,
->>             separate from any desktop or display server. Same with
->>             security, we
->>             can have a separate conversation about that when the time
->>             comes.
->>
->>             On 12/22/2016 08:41 AM, Serguei Sagalovitch wrote:
->>
->>                 Andres,
->>
->>                 Did you measure  latency, etc. impact of __any__
->>                 compositor?
->>
->>                 My understanding is that VR has pretty strict
->>                 requirements related to
->>                 QoS.
->>
->>                 Sincerely yours,
->>                 Serguei Sagalovitch
->>
->>
->>                 On 2016-12-22 11:35 AM, Andres Rodriguez wrote:
->>
->>                     Hey Christian,
->>
->>                     We are currently interested in X, but with some
->>                     distros switching to
->>                     other compositors by default, we also need to
->>                     consider those.
->>
->>                     We agree, running the full vrcompositor in root
->>                     isn't something that
->>                     we want to do. Too many security concerns. Having
->>                     a small root helper
->>                     that does the privilege escalation for us is the
->>                     initial idea.
->>
->>                     For a long term approach, Pierre-Loup and Dave
->>                     are working on dealing
->>                     with the "two compositors" scenario a little
->>                     better in DRM+X.
->>                     Fullscreen isn't really a sufficient approach,
->>                     since we don't want the
->>                     HMD to be used as part of the Desktop environment
->>                     when a VR app is not
->>                     in use (this is extremely annoying).
->>
->>                     When the above is settled, we should have an auth
->>                     mechanism besides
->>                     DRM_MASTER or DRM_AUTH that allows the
->>                     vrcompositor to take over the
->>                     HMD permanently away from X. Re-using that auth
->>                     method to gate this
->>                     IOCTL is probably going to be the final solution.
->>
->>                     I propose to start with ROOT_ONLY since it should
->>                     allow us to respect
->>                     kernel IOCTL compatibility guidelines with the
->>                     most flexibility. Going
->>                     from a restrictive to a more flexible permission
->>                     model would be
->>                     inclusive, but going from a general to a
->>                     restrictive model may exclude
->>                     some apps that used to work.
->>
->>                     Regards,
->>                     Andres
->>
->>                     On 12/22/2016 6:42 AM, Christian König wrote:
->>
->>                         Hi Andres,
->>
->>                         well using root might cause stability and
->>                         security problems as well.
->>                         We worked quite hard to avoid exactly this for X.
->>
->>                         We could make this feature depend on the
->>                         compositor being DRM master,
->>                         but for example with X the X server is master
->>                         (and e.g. can change
->>                         resolutions etc..) and not the compositor.
->>
->>                         So another question is also what windowing
->>                         system (if any) are you
->>                         planning to use? X, Wayland, Flinger or
->>                         something completely
->>                         different ?
->>
->>                         Regards,
->>                         Christian.
->>
->>                         Am 20.12.2016 um 16:51 schrieb Andres Rodriguez:
->>
->>                             Hi Christian,
->>
->>                             That is definitely a concern. What we are
->>                             currently thinking is to
->>                             make the high priority queues accessible
->>                             to root only.
->>
->>                             Therefore is a non-root user attempts to
->>                             set the high priority flag
->>                             on context allocation, we would fail the
->>                             call and return ENOPERM.
->>
->>                             Regards,
->>                             Andres
->>
->>
->>                             On 12/20/2016 7:56 AM, Christian König wrote:
->>
->>                                     BTW: If there is  non-VR
->>                                     application which will use
->>                                     high-priority
->>                                     h/w queue then VR application
->>                                     will suffer.  Any ideas how
->>                                     to solve it?
->>
->>                                 Yeah, that problem came to my mind as
->>                                 well.
->>
->>                                 Basically we need to restrict those
->>                                 high priority submissions to
->>                                 the VR compositor or otherwise any
->>                                 malfunctioning application could
->>                                 use it.
->>
->>                                 Just think about some WebGL suddenly
->>                                 taking all our rendering away
->>                                 and we won't get anything drawn any more.
->>
->>                                 Alex or Michel any ideas on that?
->>
->>                                 Regards,
->>                                 Christian.
->>
->>                                 Am 19.12.2016 um 15:48 schrieb
->>                                 Serguei Sagalovitch:
->>
->>                                     > If compute queue is occupied
->>                                     only by you, the efficiency
->>                                     > is equal with setting job queue
->>                                     to high priority I think.
->>                                     The only risk is the situation
->>                                     when graphics will take all
->>                                     needed CUs. But in any case it
->>                                     should be very good test.
->>
->>                                     Andres/Pierre-Loup,
->>
->>                                     Did you try to do it or it is a
->>                                     lot of work for you?
->>
->>
->>                                     BTW: If there is  non-VR
->>                                     application which will use
->>                                     high-priority
->>                                     h/w queue then VR application
->>                                     will suffer.  Any ideas how
->>                                     to solve it?
->>
->>                                     Sincerely yours,
->>                                     Serguei Sagalovitch
->>
->>                                     On 2016-12-19 12:50 AM, zhoucm1
->>                                     wrote:
->>
->>                                         Do you encounter the priority
->>                                         issue for compute queue with
->>                                         current driver?
->>
->>                                         If compute queue is occupied
->>                                         only by you, the efficiency
->>                                         is equal
->>                                         with setting job queue to
->>                                         high priority I think.
->>
->>                                         Regards,
->>                                         David Zhou
->>
->>                                         On 2016年12月19日 13:29, Andres
->>                                         Rodriguez wrote:
->>
->>                                             Yes, vulkan is available
->>                                             on all-open through the
->>                                             mesa radv UMD.
->>
->>                                             I'm not sure if I'm
->>                                             asking for too much, but
->>                                             if we can
->>                                             coordinate a similar
->>                                             interface in radv and
->>                                             amdgpu-pro at the
->>                                             vulkan level that would
->>                                             be great.
->>
->>                                             I'm not sure what that's
->>                                             going to be yet.
->>
->>                                             - Andres
->>
->>                                             On 12/19/2016 12:11 AM,
->>                                             zhoucm1 wrote:
->>
->>
->>
->>                                                 On 2016年12月19日 11:33,
->>                                                 Pierre-Loup A.
->>                                                 Griffais wrote:
->>
->>                                                     We're currently
->>                                                     working with the
->>                                                     open stack; I
->>                                                     assume that a
->>                                                     mechanism could
->>                                                     be exposed by
->>                                                     both open and Pro
->>                                                     Vulkan
->>                                                     userspace drivers
->>                                                     and that the
->>                                                     amdgpu kernel
->>                                                     interface
->>                                                     improvements we
->>                                                     would pursue
->>                                                     following this
->>                                                     discussion would
->>                                                     let both drivers
->>                                                     take advantage of
->>                                                     the feature, correct?
->>
->>                                                 Of course.
->>                                                 Does open stack have
->>                                                 Vulkan support?
->>
->>                                                 Regards,
->>                                                 David Zhou
->>
->>
->>                                                     On 12/18/2016
->>                                                     07:26 PM, zhoucm1
->>                                                     wrote:
->>
->>                                                         By the way,
->>                                                         are you using
->>                                                         all-open
->>                                                         driver or
->>                                                         amdgpu-pro
->>                                                         driver?
->>
->>                                                         +David Mao,
->>                                                         who is
->>                                                         working on
->>                                                         our Vulkan
->>                                                         driver.
->>
->>                                                         Regards,
->>                                                         David Zhou
->>
->>                                                         On
->>                                                         2016年12月18日
->>                                                         06:05,
->>                                                         Pierre-Loup
->>                                                         A. Griffais
->>                                                         wrote:
->>
->>                                                             Hi Serguei,
->>
->>                                                             I'm also
->>                                                             working
->>                                                             on the
->>                                                             bringing
->>                                                             up our VR
->>                                                             runtime
->>                                                             on top of
->>                                                             amgpu;
->>                                                             see
->>                                                             replies
->>                                                             inline.
->>
->>                                                             On
->>                                                             12/16/2016
->>                                                             09:05 PM,
->>                                                             Sagalovitch,
->>                                                             Serguei
->>                                                             wrote:
->>
->>                                                                 Andres,
->>
->>                                                                      For
->>                                                                     current
->>                                                                     VR
->>                                                                     workloads
->>                                                                     we
->>                                                                     have
->>                                                                     3
->>                                                                     separate
->>                                                                     processes
->>                                                                     running
->>                                                                     actually:
->>
->>                                                                 So we
->>                                                                 could
->>                                                                 have
->>                                                                 potential
->>                                                                 memory
->>                                                                 overcommit
->>                                                                 case
->>                                                                 or do
->>                                                                 you do
->>                                                                 partitioning
->>                                                                 on
->>                                                                 your
->>                                                                 own? 
->>                                                                 I
->>                                                                 would
->>                                                                 think
->>                                                                 that
->>                                                                 there
->>                                                                 is
->>                                                                 need
->>                                                                 to avoid
->>                                                                 overcomit
->>                                                                 in
->>                                                                 VR
->>                                                                 case to
->>                                                                 prevent
->>                                                                 any
->>                                                                 BO
->>                                                                 migration.
->>
->>
->>                                                             You're
->>                                                             entirely
->>                                                             correct;
->>                                                             currently
->>                                                             the VR
->>                                                             runtime is
->>                                                             setting up
->>                                                             prioritized
->>                                                             CPU
->>                                                             scheduling
->>                                                             for its
->>                                                             VR
->>                                                             compositor,
->>                                                             we're
->>                                                             working on
->>                                                             prioritized
->>                                                             GPU
->>                                                             scheduling
->>                                                             and
->>                                                             pre-emption
->>                                                             (eg. this
->>                                                             thread),
->>                                                             and in
->>                                                             the
->>                                                             future it
->>                                                             will make
->>                                                             sense to
->>                                                             do work
->>                                                             in order
->>                                                             to make
->>                                                             sure that
->>                                                             its
->>                                                             memory
->>                                                             allocations
->>                                                             do not
->>                                                             get
->>                                                             evicted,
->>                                                             to
->>                                                             prevent any
->>                                                             unwelcome
->>                                                             additional
->>                                                             latency
->>                                                             in the
->>                                                             event of
->>                                                             needing
->>                                                             to perform
->>                                                             just-in-time
->>                                                             reprojection.
->>
->>                                                                 BTW:
->>                                                                 Do
->>                                                                 you
->>                                                                 mean
->>                                                                 __real__
->>                                                                 processes
->>                                                                 or
->>                                                                 threads?
->>                                                                 Based
->>                                                                 on my
->>                                                                 understanding
->>                                                                 sharing
->>                                                                 BOs
->>                                                                 between
->>                                                                 different
->>                                                                 processes
->>                                                                 could
->>                                                                 introduce
->>                                                                 additional
->>                                                                 synchronization
->>                                                                 constrains.
->>                                                                 btw:
->>                                                                 I am not
->>                                                                 sure
->>                                                                 if we
->>                                                                 are
->>                                                                 able
->>                                                                 to
->>                                                                 share
->>                                                                 Vulkan
->>                                                                 sync.
->>                                                                 object
->>                                                                 cross-process
->>                                                                 boundary.
->>
->>
->>                                                             They are
->>                                                             different
->>                                                             processes;
->>                                                             it is
->>                                                             important
->>                                                             for the
->>                                                             compositor
->>                                                             that
->>                                                             is
->>                                                             responsible
->>                                                             for
->>                                                             quality-of-service
->>                                                             features
->>                                                             such as
->>                                                             consistently
->>                                                             presenting
->>                                                             distorted
->>                                                             frames
->>                                                             with the
->>                                                             right
->>                                                             latency,
->>                                                             reprojection,
->>                                                             etc,
->>                                                             to be
->>                                                             separate
->>                                                             from the
->>                                                             main
->>                                                             application.
->>
->>                                                             Currently
->>                                                             we are
->>                                                             using
->>                                                             unreleased
->>                                                             cross-process
->>                                                             memory and
->>                                                             semaphore
->>                                                             extensions
->>                                                             to fetch
->>                                                             updated
->>                                                             eye
->>                                                             images
->>                                                             from the
->>                                                             client
->>                                                             application,
->>                                                             but the
->>                                                             just-in-time
->>                                                             reprojection
->>                                                             discussed
->>                                                             here does not
->>                                                             actually
->>                                                             have any
->>                                                             direct
->>                                                             interactions
->>                                                             with
->>                                                             cross-process
->>                                                             resource
->>                                                             sharing,
->>                                                             since
->>                                                             it's
->>                                                             achieved
->>                                                             by using
->>                                                             whatever
->>                                                             is the
->>                                                             latest, most
->>                                                             up-to-date
->>                                                             eye
->>                                                             images
->>                                                             that have
->>                                                             already
->>                                                             been sent
->>                                                             by the client
->>                                                             application,
->>                                                             which are
->>                                                             already
->>                                                             available
->>                                                             to use
->>                                                             without
->>                                                             additional
->>                                                             synchronization.
->>
->>
->>                                                                      
->>                                                                      3)
->>                                                                     System
->>                                                                     compositor
->>                                                                     (we
->>                                                                     are
->>                                                                     looking
->>                                                                     at
->>                                                                     approaches
->>                                                                     to
->>                                                                     remove
->>                                                                     this
->>                                                                     overhead)
->>
->>                                                                 Yes, 
->>                                                                 IMHO
->>                                                                 the
->>                                                                 best
->>                                                                 is to
->>                                                                 run
->>                                                                 in 
->>                                                                 "full
->>                                                                 screen
->>                                                                 mode".
->>
->>
->>                                                             Yes, we
->>                                                             are
->>                                                             working
->>                                                             on
->>                                                             mechanisms
->>                                                             to
->>                                                             present
->>                                                             directly
->>                                                             to the
->>                                                             headset
->>                                                             display
->>                                                             without
->>                                                             any
->>                                                             intermediaries
->>                                                             as a
->>                                                             separate
->>                                                             effort.
->>
->>
->>                                                                      The
->>                                                                     latency
->>                                                                     is
->>                                                                     our
->>                                                                     main
->>                                                                     concern,
->>
->>                                                                 I
->>                                                                 would
->>                                                                 assume
->>                                                                 that
->>                                                                 this
->>                                                                 is
->>                                                                 the
->>                                                                 known
->>                                                                 problem
->>                                                                 (at
->>                                                                 least for
->>                                                                 compute
->>                                                                 usage).
->>                                                                 It
->>                                                                 looks
->>                                                                 like
->>                                                                 that
->>                                                                 amdgpu
->>                                                                 /
->>                                                                 kernel
->>                                                                 submission
->>                                                                 is
->>                                                                 rather
->>                                                                 CPU
->>                                                                 intensive
->>                                                                 (at least
->>                                                                 in
->>                                                                 the
->>                                                                 default
->>                                                                 configuration).
->>
->>
->>                                                             As long
->>                                                             as it's a
->>                                                             consistent
->>                                                             cost, it
->>                                                             shouldn't
->>                                                             an issue.
->>                                                             However, if
->>                                                             there's
->>                                                             high
->>                                                             degrees
->>                                                             of
->>                                                             variance
->>                                                             then that
->>                                                             would be
->>                                                             troublesome
->>                                                             and we
->>                                                             would
->>                                                             need to
->>                                                             account
->>                                                             for the
->>                                                             worst case.
->>
->>                                                             Hopefully
->>                                                             the
->>                                                             requirements
->>                                                             and
->>                                                             approach
->>                                                             we
->>                                                             described
->>                                                             make
->>                                                             sense, we're
->>                                                             looking
->>                                                             forward
->>                                                             to your
->>                                                             feedback
->>                                                             and
->>                                                             suggestions.
->>
->>                                                             Thanks!
->>                                                              -
->>                                                             Pierre-Loup
->>
->>
->>                                                                 Sincerely
->>                                                                 yours,
->>                                                                 Serguei
->>                                                                 Sagalovitch
->>
->>
->>                                                                 From:
->>                                                                 Andres
->>                                                                 Rodriguez
->>                                                                 <andresr-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org
->>                                                                 <mailto:andresr-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org>>
->>                                                                 Sent:
->>                                                                 December
->>                                                                 16,
->>                                                                 2016
->>                                                                 10:00 PM
->>                                                                 To:
->>                                                                 Sagalovitch,
->>                                                                 Serguei;
->>                                                                 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>                                                                 <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->>                                                                 Subject:
->>                                                                 RE:
->>                                                                 [RFC]
->>                                                                 Mechanism
->>                                                                 for
->>                                                                 high
->>                                                                 priority
->>                                                                 scheduling
->>                                                                 in amdgpu
->>
->>                                                                 Hey
->>                                                                 Serguei,
->>
->>                                                                     [Serguei]
->>                                                                     No.
->>                                                                     I
->>                                                                     mean
->>                                                                     pipe
->>                                                                     :-)
->>                                                                     as
->>                                                                     MEC
->>                                                                     define
->>                                                                     it. 
->>                                                                     As
->>                                                                     far
->>                                                                     as I
->>                                                                     understand
->>                                                                     (by
->>                                                                     simplifying)
->>                                                                     some
->>                                                                     scheduling
->>                                                                     is
->>                                                                     per
->>                                                                     pipe. 
->>                                                                     I
->>                                                                     know
->>                                                                     about
->>                                                                     the
->>                                                                     current
->>                                                                     allocation
->>                                                                     scheme
->>                                                                     but
->>                                                                     I
->>                                                                     do
->>                                                                     not
->>                                                                     think
->>                                                                     that
->>                                                                     it
->>                                                                     is 
->>                                                                     ideal. 
->>                                                                     I
->>                                                                     would
->>                                                                     assume
->>                                                                     that
->>                                                                     we
->>                                                                     need
->>                                                                     to
->>                                                                     switch
->>                                                                     to
->>                                                                     dynamical
->>                                                                     partition
->>                                                                     of
->>                                                                     resources 
->>                                                                     based
->>                                                                     on
->>                                                                     the
->>                                                                     workload
->>                                                                     otherwise
->>                                                                     we
->>                                                                     will
->>                                                                     have
->>                                                                     resource
->>                                                                     conflict
->>                                                                     between
->>                                                                     Vulkan
->>                                                                     compute
->>                                                                     and 
->>                                                                     OpenCL.
->>
->>
->>                                                                 I
->>                                                                 agree
->>                                                                 the
->>                                                                 partitioning
->>                                                                 isn't
->>                                                                 ideal.
->>                                                                 I'm
->>                                                                 hoping
->>                                                                 we can
->>                                                                 start
->>                                                                 with a
->>                                                                 solution
->>                                                                 that
->>                                                                 assumes
->>                                                                 that
->>                                                                 only
->>                                                                 pipe0
->>                                                                 has
->>                                                                 any
->>                                                                 work
->>                                                                 and
->>                                                                 the
->>                                                                 other
->>                                                                 pipes
->>                                                                 are
->>                                                                 idle (no
->>                                                                 HSA/ROCm
->>                                                                 running
->>                                                                 on
->>                                                                 the
->>                                                                 system).
->>
->>                                                                 This
->>                                                                 should
->>                                                                 be
->>                                                                 more
->>                                                                 or
->>                                                                 less
->>                                                                 the
->>                                                                 use
->>                                                                 case
->>                                                                 we
->>                                                                 expect
->>                                                                 from VR
->>                                                                 users.
->>
->>                                                                 I
->>                                                                 agree
->>                                                                 the
->>                                                                 split
->>                                                                 is
->>                                                                 currently
->>                                                                 not
->>                                                                 ideal,
->>                                                                 but
->>                                                                 I'd
->>                                                                 like to
->>                                                                 consider
->>                                                                 that
->>                                                                 a
->>                                                                 separate
->>                                                                 task,
->>                                                                 because
->>                                                                 making
->>                                                                 it
->>                                                                 dynamic
->>                                                                 is
->>                                                                 not
->>                                                                 straight
->>                                                                 forward
->>                                                                 :P
->>
->>                                                                     [Serguei]
->>                                                                     Vulkan
->>                                                                     works
->>                                                                     via
->>                                                                     amdgpu
->>                                                                     (kernel
->>                                                                     submissions)
->>                                                                     so
->>                                                                     amdkfd
->>                                                                     will
->>                                                                     be
->>                                                                     not
->>                                                                     involved. 
->>                                                                     I
->>                                                                     would
->>                                                                     assume
->>                                                                     that
->>                                                                     in
->>                                                                     the
->>                                                                     case
->>                                                                     of
->>                                                                     VR
->>                                                                     we
->>                                                                     will
->>                                                                     have
->>                                                                     one
->>                                                                     main
->>                                                                     application
->>                                                                     ("console"
->>                                                                     mode(?))
->>                                                                     so
->>                                                                     we
->>                                                                     could
->>                                                                     temporally
->>                                                                     "ignore"
->>                                                                     OpenCL/ROCm
->>                                                                     needs
->>                                                                     when
->>                                                                     VR
->>                                                                     is
->>                                                                     running.
->>
->>
->>                                                                 Correct,
->>                                                                 this
->>                                                                 is
->>                                                                 why
->>                                                                 we
->>                                                                 want
->>                                                                 to
->>                                                                 enable
->>                                                                 the
->>                                                                 high
->>                                                                 priority
->>                                                                 compute
->>                                                                 queue
->>                                                                 through
->>                                                                 libdrm-amdgpu,
->>                                                                 so
->>                                                                 that
->>                                                                 we
->>                                                                 can
->>                                                                 expose
->>                                                                 it
->>                                                                 through
->>                                                                 Vulkan
->>                                                                 later.
->>
->>                                                                 For
->>                                                                 current
->>                                                                 VR
->>                                                                 workloads
->>                                                                 we
->>                                                                 have
->>                                                                 3
->>                                                                 separate
->>                                                                 processes
->>                                                                 running
->>                                                                 actually:
->>                                                                    
->>                                                                 1)
->>                                                                 Game
->>                                                                 process
->>                                                                    
->>                                                                 2) VR
->>                                                                 Compositor
->>                                                                 (this
->>                                                                 is
->>                                                                 the
->>                                                                 process
->>                                                                 that
->>                                                                 will
->>                                                                 require
->>                                                                 high
->>                                                                 priority
->>                                                                 queue)
->>                                                                    
->>                                                                 3)
->>                                                                 System
->>                                                                 compositor
->>                                                                 (we
->>                                                                 are
->>                                                                 looking
->>                                                                 at
->>                                                                 approaches
->>                                                                 to
->>                                                                 remove
->>                                                                 this
->>                                                                 overhead)
->>
->>                                                                 For
->>                                                                 now I
->>                                                                 think
->>                                                                 it is
->>                                                                 okay
->>                                                                 to
->>                                                                 assume
->>                                                                 no
->>                                                                 OpenCL/ROCm
->>                                                                 running
->>                                                                 simultaneously,
->>                                                                 but
->>                                                                 I
->>                                                                 would
->>                                                                 also
->>                                                                 like
->>                                                                 to be
->>                                                                 able
->>                                                                 to
->>                                                                 address
->>                                                                 this
->>                                                                 case
->>                                                                 in the
->>                                                                 future
->>                                                                 (cross-pipe
->>                                                                 priorities).
->>
->>                                                                     [Serguei] 
->>                                                                     The
->>                                                                     problem
->>                                                                     with
->>                                                                     pre-emption
->>                                                                     of
->>                                                                     graphics
->>                                                                     task:
->>                                                                     (a)
->>                                                                     it
->>                                                                     may
->>                                                                     take
->>                                                                     time
->>                                                                     so
->>                                                                     latency
->>                                                                     may
->>                                                                     suffer
->>
->>
->>                                                                 The
->>                                                                 latency
->>                                                                 is
->>                                                                 our
->>                                                                 main
->>                                                                 concern,
->>                                                                 we
->>                                                                 want
->>                                                                 something
->>                                                                 that is
->>                                                                 predictable.
->>                                                                 A good
->>                                                                 illustration
->>                                                                 of
->>                                                                 what
->>                                                                 the
->>                                                                 reprojection
->>                                                                 scheduling
->>                                                                 looks
->>                                                                 like
->>                                                                 can be
->>                                                                 found
->>                                                                 here:
->>                                                                 https://community.amd.com/servlet/JiveServlet/showImage/38-1310-104754/pastedImage_3.png
->>                                                                 <https://community.amd.com/servlet/JiveServlet/showImage/38-1310-104754/pastedImage_3.png>
->>
->>
->>
->>
->>                                                                     (b)
->>                                                                     to
->>                                                                     preempt
->>                                                                     we
->>                                                                     need
->>                                                                     to
->>                                                                     have
->>                                                                     different
->>                                                                     "context"
->>                                                                     - we
->>                                                                     want
->>                                                                     to
->>                                                                     guarantee
->>                                                                     that
->>                                                                     submissions
->>                                                                     from
->>                                                                     the
->>                                                                     same
->>                                                                     context
->>                                                                     will
->>                                                                     be
->>                                                                     executed
->>                                                                     in
->>                                                                     order.
->>
->>
->>                                                                 This
->>                                                                 is
->>                                                                 okay,
->>                                                                 as
->>                                                                 the
->>                                                                 reprojection
->>                                                                 work
->>                                                                 doesn't
->>                                                                 have
->>                                                                 dependencies
->>                                                                 on
->>                                                                 the
->>                                                                 game
->>                                                                 context,
->>                                                                 and it
->>                                                                 even
->>                                                                 happens
->>                                                                 in a
->>                                                                 separate
->>                                                                 process.
->>
->>                                                                     BTW:
->>                                                                     (a)
->>                                                                     Do
->>                                                                     you
->>                                                                     want
->>                                                                     "preempt"
->>                                                                     and
->>                                                                     later
->>                                                                     resume
->>                                                                     or
->>                                                                     do
->>                                                                     you
->>                                                                     want
->>                                                                     "preempt"
->>                                                                     and
->>                                                                     "cancel/abort"
->>
->>
->>                                                                 Preempt
->>                                                                 the
->>                                                                 game
->>                                                                 with
->>                                                                 the
->>                                                                 compositor
->>                                                                 task
->>                                                                 and
->>                                                                 then
->>                                                                 resume
->>                                                                 it.
->>
->>                                                                     (b)
->>                                                                     Vulkan
->>                                                                     is
->>                                                                     generic
->>                                                                     API
->>                                                                     and
->>                                                                     could
->>                                                                     be
->>                                                                     used
->>                                                                     for
->>                                                                     graphics
->>                                                                     as
->>                                                                     well
->>                                                                     as
->>                                                                     for
->>                                                                     plain
->>                                                                     compute
->>                                                                     tasks
->>                                                                     (VK_QUEUE_COMPUTE_BIT).
->>
->>
->>                                                                 Yeah,
->>                                                                 the
->>                                                                 plan
->>                                                                 is to
->>                                                                 use
->>                                                                 vulkan
->>                                                                 compute.
->>                                                                 But
->>                                                                 if
->>                                                                 you
->>                                                                 figure
->>                                                                 out a way
->>                                                                 for
->>                                                                 us to get
->>                                                                 a
->>                                                                 guaranteed
->>                                                                 execution
->>                                                                 time
->>                                                                 using
->>                                                                 vulkan
->>                                                                 graphics,
->>                                                                 then
->>                                                                 I'll
->>                                                                 take you
->>                                                                 out
->>                                                                 for a
->>                                                                 beer :)
->>
->>                                                                 Regards,
->>                                                                 Andres
->>                                                                 ________________________________________
->>                                                                 From:
->>                                                                 Sagalovitch,
->>                                                                 Serguei
->>                                                                 [Serguei.Sagalovitch-5C7GfCeVMHo@public.gmane.org
->>                                                                 <mailto:Serguei.Sagalovitch-5C7GfCeVMHo@public.gmane.org>]
->>                                                                 Sent:
->>                                                                 Friday,
->>                                                                 December
->>                                                                 16,
->>                                                                 2016
->>                                                                 9:13 PM
->>                                                                 To:
->>                                                                 Andres
->>                                                                 Rodriguez;
->>                                                                 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>                                                                 <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->>                                                                 Subject:
->>                                                                 Re:
->>                                                                 [RFC]
->>                                                                 Mechanism
->>                                                                 for
->>                                                                 high
->>                                                                 priority
->>                                                                 scheduling
->>                                                                 in amdgpu
->>
->>                                                                 Hi
->>                                                                 Andres,
->>
->>                                                                 Please
->>                                                                 see
->>                                                                 inline
->>                                                                 (as
->>                                                                 [Serguei])
->>
->>                                                                 Sincerely
->>                                                                 yours,
->>                                                                 Serguei
->>                                                                 Sagalovitch
->>
->>
->>                                                                 From:
->>                                                                 Andres
->>                                                                 Rodriguez
->>                                                                 <andresr-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org
->>                                                                 <mailto:andresr-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org>>
->>                                                                 Sent:
->>                                                                 December
->>                                                                 16,
->>                                                                 2016
->>                                                                 8:29 PM
->>                                                                 To:
->>                                                                 Sagalovitch,
->>                                                                 Serguei;
->>                                                                 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>                                                                 <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->>                                                                 Subject:
->>                                                                 RE:
->>                                                                 [RFC]
->>                                                                 Mechanism
->>                                                                 for
->>                                                                 high
->>                                                                 priority
->>                                                                 scheduling
->>                                                                 in amdgpu
->>
->>                                                                 Hi
->>                                                                 Serguei,
->>
->>                                                                 Thanks
->>                                                                 for
->>                                                                 the
->>                                                                 feedback.
->>                                                                 Answers
->>                                                                 inline
->>                                                                 as [AR].
->>
->>                                                                 Regards,
->>                                                                 Andres
->>
->>                                                                 ________________________________________
->>                                                                 From:
->>                                                                 Sagalovitch,
->>                                                                 Serguei
->>                                                                 [Serguei.Sagalovitch-5C7GfCeVMHo@public.gmane.org
->>                                                                 <mailto:Serguei.Sagalovitch-5C7GfCeVMHo@public.gmane.org>]
->>                                                                 Sent:
->>                                                                 Friday,
->>                                                                 December
->>                                                                 16,
->>                                                                 2016
->>                                                                 8:15 PM
->>                                                                 To:
->>                                                                 Andres
->>                                                                 Rodriguez;
->>                                                                 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>                                                                 <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->>                                                                 Subject:
->>                                                                 Re:
->>                                                                 [RFC]
->>                                                                 Mechanism
->>                                                                 for
->>                                                                 high
->>                                                                 priority
->>                                                                 scheduling
->>                                                                 in amdgpu
->>
->>                                                                 Andres,
->>
->>
->>                                                                 Quick
->>                                                                 comments:
->>
->>                                                                 1) To
->>                                                                 minimize
->>                                                                 "bubbles",
->>                                                                 etc.
->>                                                                 we
->>                                                                 need
->>                                                                 to
->>                                                                 "force"
->>                                                                 CU
->>                                                                 assignments/binding
->>                                                                 to
->>                                                                 high-priority
->>                                                                 queue
->>                                                                 when
->>                                                                 it
->>                                                                 will
->>                                                                 be in
->>                                                                 use
->>                                                                 and
->>                                                                 "free"
->>                                                                 them
->>                                                                 later
->>                                                                 (we 
->>                                                                 do
->>                                                                 not
->>                                                                 want
->>                                                                 forever
->>                                                                 take
->>                                                                 CUs
->>                                                                 from
->>                                                                 e.g.
->>                                                                 graphic
->>                                                                 task to
->>                                                                 degrade
->>                                                                 graphics
->>                                                                 performance).
->>
->>                                                                 Otherwise
->>                                                                 we
->>                                                                 could
->>                                                                 have
->>                                                                 scenario
->>                                                                 when
->>                                                                 long
->>                                                                 graphics
->>                                                                 task (or
->>                                                                 low-priority
->>                                                                 compute)
->>                                                                 will
->>                                                                 took
->>                                                                 all
->>                                                                 (extra)
->>                                                                 CUs
->>                                                                 and
->>                                                                 high--priority
->>                                                                 will
->>                                                                 wait for
->>                                                                 needed
->>                                                                 resources.
->>                                                                 It
->>                                                                 will
->>                                                                 not
->>                                                                 be
->>                                                                 visible
->>                                                                 on
->>                                                                 "NOP
->>                                                                 " but
->>                                                                 only
->>                                                                 when
->>                                                                 you
->>                                                                 submit
->>                                                                 "real"
->>                                                                 compute
->>                                                                 task
->>                                                                 so I
->>                                                                 would
->>                                                                 recommend
->>                                                                 not
->>                                                                 to
->>                                                                 use
->>                                                                 "NOP"
->>                                                                 packets
->>                                                                 at
->>                                                                 all for
->>                                                                 testing.
->>
->>                                                                 It
->>                                                                 (CU
->>                                                                 assignment)
->>                                                                 could
->>                                                                 be
->>                                                                 relatively
->>                                                                 easy
->>                                                                 done when
->>                                                                 everything
->>                                                                 is
->>                                                                 going
->>                                                                 via
->>                                                                 kernel
->>                                                                 (e.g.
->>                                                                 as
->>                                                                 part
->>                                                                 of
->>                                                                 frame
->>                                                                 submission)
->>                                                                 but I
->>                                                                 must
->>                                                                 admit
->>                                                                 that I
->>                                                                 am
->>                                                                 not sure
->>                                                                 about
->>                                                                 the
->>                                                                 best
->>                                                                 way
->>                                                                 for
->>                                                                 user
->>                                                                 level
->>                                                                 submissions
->>                                                                 (amdkfd).
->>
->>                                                                 [AR]
->>                                                                 I
->>                                                                 wasn't
->>                                                                 aware
->>                                                                 of
->>                                                                 this
->>                                                                 part
->>                                                                 of
->>                                                                 the
->>                                                                 programming
->>                                                                 sequence.
->>                                                                 Thanks
->>                                                                 for
->>                                                                 the
->>                                                                 heads up!
->>                                                                 Is
->>                                                                 this
->>                                                                 similar
->>                                                                 to
->>                                                                 the
->>                                                                 CU
->>                                                                 masking
->>                                                                 programming?
->>                                                                 [Serguei]
->>                                                                 Yes.
->>                                                                 To
->>                                                                 simplify:
->>                                                                 the
->>                                                                 problem
->>                                                                 is
->>                                                                 that
->>                                                                 "scheduler"
->>                                                                 when
->>                                                                 deciding
->>                                                                 which
->>                                                                 queue
->>                                                                 to 
->>                                                                 run
->>                                                                 will
->>                                                                 check
->>                                                                 if
->>                                                                 there
->>                                                                 is
->>                                                                 enough
->>                                                                 resources
->>                                                                 and
->>                                                                 if
->>                                                                 not then
->>                                                                 it
->>                                                                 will
->>                                                                 begin
->>                                                                 to
->>                                                                 check
->>                                                                 other
->>                                                                 queues
->>                                                                 with
->>                                                                 lower
->>                                                                 priority.
->>
->>                                                                 2) I
->>                                                                 would
->>                                                                 recommend
->>                                                                 to
->>                                                                 dedicate
->>                                                                 the
->>                                                                 whole
->>                                                                 pipe to
->>                                                                 high-priority
->>                                                                 queue
->>                                                                 and have
->>                                                                 nothing
->>                                                                 their
->>                                                                 except
->>                                                                 it.
->>
->>                                                                 [AR]
->>                                                                 I'm
->>                                                                 guessing
->>                                                                 in
->>                                                                 this
->>                                                                 context
->>                                                                 you
->>                                                                 mean
->>                                                                 pipe
->>                                                                 = queue?
->>                                                                 (as
->>                                                                 opposed
->>                                                                 to
->>                                                                 the
->>                                                                 MEC
->>                                                                 definition
->>                                                                 of
->>                                                                 pipe,
->>                                                                 which
->>                                                                 is a
->>                                                                 grouping
->>                                                                 of
->>                                                                 queues).
->>                                                                 I say
->>                                                                 this
->>                                                                 because
->>                                                                 amdgpu
->>                                                                 only
->>                                                                 has
->>                                                                 access
->>                                                                 to 1
->>                                                                 pipe,
->>                                                                 and
->>                                                                 the
->>                                                                 rest
->>                                                                 are
->>                                                                 statically
->>                                                                 partitioned
->>                                                                 for
->>                                                                 amdkfd
->>                                                                 usage.
->>
->>                                                                 [Serguei]
->>                                                                 No. I
->>                                                                 mean
->>                                                                 pipe
->>                                                                 :-) 
->>                                                                 as
->>                                                                 MEC
->>                                                                 define
->>                                                                 it.
->>                                                                 As
->>                                                                 far as I
->>                                                                 understand
->>                                                                 (by
->>                                                                 simplifying)
->>                                                                 some
->>                                                                 scheduling
->>                                                                 is
->>                                                                 per
->>                                                                 pipe. 
->>                                                                 I
->>                                                                 know
->>                                                                 about
->>                                                                 the
->>                                                                 current
->>                                                                 allocation
->>                                                                 scheme
->>                                                                 but I
->>                                                                 do
->>                                                                 not think
->>                                                                 that
->>                                                                 it
->>                                                                 is 
->>                                                                 ideal. 
->>                                                                 I
->>                                                                 would
->>                                                                 assume
->>                                                                 that
->>                                                                 we
->>                                                                 need
->>                                                                 to
->>                                                                 switch to
->>                                                                 dynamical
->>                                                                 partition
->>                                                                 of
->>                                                                 resources 
->>                                                                 based
->>                                                                 on
->>                                                                 the
->>                                                                 workload
->>                                                                 otherwise
->>                                                                 we
->>                                                                 will have
->>                                                                 resource
->>                                                                 conflict
->>                                                                 between
->>                                                                 Vulkan
->>                                                                 compute
->>                                                                 and 
->>                                                                 OpenCL.
->>
->>
->>                                                                 BTW:
->>                                                                 Which
->>                                                                 user
->>                                                                 level
->>                                                                 API
->>                                                                 do
->>                                                                 you
->>                                                                 want
->>                                                                 to
->>                                                                 use
->>                                                                 for
->>                                                                 compute:
->>                                                                 Vulkan or
->>                                                                 OpenCL?
->>
->>                                                                 [AR]
->>                                                                 Vulkan
->>
->>                                                                 [Serguei]
->>                                                                 Vulkan
->>                                                                 works
->>                                                                 via
->>                                                                 amdgpu
->>                                                                 (kernel
->>                                                                 submissions)
->>                                                                 so
->>                                                                 amdkfd
->>                                                                 will
->>                                                                 be not
->>                                                                 involved. 
->>                                                                 I
->>                                                                 would
->>                                                                 assume
->>                                                                 that
->>                                                                 in
->>                                                                 the
->>                                                                 case
->>                                                                 of VR
->>                                                                 we will
->>                                                                 have
->>                                                                 one main
->>                                                                 application
->>                                                                 ("console"
->>                                                                 mode(?))
->>                                                                 so we
->>                                                                 could
->>                                                                 temporally
->>                                                                 "ignore"
->>                                                                 OpenCL/ROCm
->>                                                                 needs
->>                                                                 when
->>                                                                 VR is
->>                                                                 running.
->>
->>                                                                      we
->>                                                                     will
->>                                                                     not
->>                                                                     be
->>                                                                     able
->>                                                                     to
->>                                                                     provide
->>                                                                     a
->>                                                                     solution
->>                                                                     compatible
->>                                                                     with
->>                                                                     GFX
->>                                                                     worloads.
->>
->>                                                                 I
->>                                                                 assume
->>                                                                 that
->>                                                                 you
->>                                                                 are
->>                                                                 talking
->>                                                                 about
->>                                                                 graphics?
->>                                                                 Am I
->>                                                                 right?
->>
->>                                                                 [AR]
->>                                                                 Yeah,
->>                                                                 my
->>                                                                 understanding
->>                                                                 is
->>                                                                 that
->>                                                                 pre-empting
->>                                                                 the
->>                                                                 currently
->>                                                                 running
->>                                                                 graphics
->>                                                                 job
->>                                                                 and
->>                                                                 scheduling
->>                                                                 in
->>                                                                 something
->>                                                                 else
->>                                                                 using
->>                                                                 mid-buffer
->>                                                                 pre-emption
->>                                                                 has
->>                                                                 some
->>                                                                 cases
->>                                                                 where it
->>                                                                 doesn't
->>                                                                 work
->>                                                                 well.
->>                                                                 But
->>                                                                 if with
->>                                                                 polaris10
->>                                                                 it
->>                                                                 starts
->>                                                                 working
->>                                                                 well,
->>                                                                 it
->>                                                                 might
->>                                                                 be a
->>                                                                 better
->>                                                                 solution
->>                                                                 for
->>                                                                 us
->>                                                                 (because
->>                                                                 the
->>                                                                 whole
->>                                                                 reprojection
->>                                                                 work
->>                                                                 uses
->>                                                                 the
->>                                                                 vulkan
->>                                                                 graphics
->>                                                                 stack
->>                                                                 at
->>                                                                 the
->>                                                                 moment,
->>                                                                 and
->>                                                                 porting
->>                                                                 it to
->>                                                                 compute
->>                                                                 is
->>                                                                 not
->>                                                                 trivial).
->>
->>                                                                 [Serguei] 
->>                                                                 The
->>                                                                 problem
->>                                                                 with
->>                                                                 pre-emption
->>                                                                 of
->>                                                                 graphics
->>                                                                 task:
->>                                                                 (a)
->>                                                                 it may
->>                                                                 take
->>                                                                 time so
->>                                                                 latency
->>                                                                 may
->>                                                                 suffer
->>                                                                 (b)
->>                                                                 to
->>                                                                 preempt
->>                                                                 we
->>                                                                 need
->>                                                                 to
->>                                                                 have
->>                                                                 different
->>                                                                 "context"
->>                                                                 - we want
->>                                                                 to
->>                                                                 guarantee
->>                                                                 that
->>                                                                 submissions
->>                                                                 from
->>                                                                 the
->>                                                                 same
->>                                                                 context
->>                                                                 will be
->>                                                                 executed
->>                                                                 in order.
->>                                                                 BTW:
->>                                                                 (a)
->>                                                                 Do
->>                                                                 you
->>                                                                 want
->>                                                                 "preempt"
->>                                                                 and
->>                                                                 later
->>                                                                 resume
->>                                                                 or do you
->>                                                                 want
->>                                                                 "preempt"
->>                                                                 and
->>                                                                 "cancel/abort"? 
->>                                                                 (b)
->>                                                                 Vulkan
->>                                                                 is
->>                                                                 generic
->>                                                                 API
->>                                                                 and
->>                                                                 could
->>                                                                 be used
->>                                                                 for
->>                                                                 graphics
->>                                                                 as
->>                                                                 well
->>                                                                 as
->>                                                                 for
->>                                                                 plain
->>                                                                 compute
->>                                                                 tasks
->>                                                                 (VK_QUEUE_COMPUTE_BIT).
->>
->>
->>                                                                 Sincerely
->>                                                                 yours,
->>                                                                 Serguei
->>                                                                 Sagalovitch
->>
->>
->>
->>                                                                 From:
->>                                                                 amd-gfx
->>                                                                 <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>                                                                 <mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>>
->>                                                                 on
->>                                                                 behalf of
->>                                                                 Andres
->>                                                                 Rodriguez
->>                                                                 <andresr-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org
->>                                                                 <mailto:andresr-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org>>
->>                                                                 Sent:
->>                                                                 December
->>                                                                 16,
->>                                                                 2016
->>                                                                 6:15 PM
->>                                                                 To:
->>                                                                 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>                                                                 <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->>                                                                 Subject:
->>                                                                 [RFC]
->>                                                                 Mechanism
->>                                                                 for
->>                                                                 high
->>                                                                 priority
->>                                                                 scheduling
->>                                                                 in
->>                                                                 amdgpu
->>
->>                                                                 Hi
->>                                                                 Everyone,
->>
->>                                                                 This
->>                                                                 RFC
->>                                                                 is
->>                                                                 also
->>                                                                 available
->>                                                                 as a
->>                                                                 gist
->>                                                                 here:
->>                                                                 https://gist.github.com/lostgoat/7000432cd6864265dbc2c3ab93204249
->>                                                                 <https://gist.github.com/lostgoat/7000432cd6864265dbc2c3ab93204249>
->>
->>
->>
->>
->>
->>                                                                 [RFC]
->>                                                                 Mechanism
->>                                                                 for
->>                                                                 high
->>                                                                 priority
->>                                                                 scheduling
->>                                                                 in amdgpu
->>                                                                 gist.github.com
->>                                                                 <http://gist.github.com>
->>                                                                 [RFC]
->>                                                                 Mechanism
->>                                                                 for
->>                                                                 high
->>                                                                 priority
->>                                                                 scheduling
->>                                                                 in amdgpu
->>
->>
->>
->>                                                                 [RFC]
->>                                                                 Mechanism
->>                                                                 for
->>                                                                 high
->>                                                                 priority
->>                                                                 scheduling
->>                                                                 in amdgpu
->>                                                                 gist.github.com
->>                                                                 <http://gist.github.com>
->>                                                                 [RFC]
->>                                                                 Mechanism
->>                                                                 for
->>                                                                 high
->>                                                                 priority
->>                                                                 scheduling
->>                                                                 in amdgpu
->>
->>
->>
->>
->>                                                                 [RFC]
->>                                                                 Mechanism
->>                                                                 for
->>                                                                 high
->>                                                                 priority
->>                                                                 scheduling
->>                                                                 in amdgpu
->>                                                                 gist.github.com
->>                                                                 <http://gist.github.com>
->>                                                                 [RFC]
->>                                                                 Mechanism
->>                                                                 for
->>                                                                 high
->>                                                                 priority
->>                                                                 scheduling
->>                                                                 in amdgpu
->>
->>
->>                                                                 We
->>                                                                 are
->>                                                                 interested
->>                                                                 in
->>                                                                 feedback
->>                                                                 for a
->>                                                                 mechanism
->>                                                                 to
->>                                                                 effectively
->>                                                                 schedule
->>                                                                 high
->>                                                                 priority
->>                                                                 VR
->>                                                                 reprojection
->>                                                                 tasks
->>                                                                 (also
->>                                                                 referred
->>                                                                 to as
->>                                                                 time-warping)
->>                                                                 for
->>                                                                 Polaris10
->>                                                                 running
->>                                                                 on
->>                                                                 the
->>                                                                 amdgpu
->>                                                                 kernel
->>                                                                 driver.
->>
->>                                                                 Brief
->>                                                                 context:
->>                                                                 --------------
->>
->>                                                                 The
->>                                                                 main
->>                                                                 objective
->>                                                                 of
->>                                                                 reprojection
->>                                                                 is to
->>                                                                 avoid
->>                                                                 motion
->>                                                                 sickness
->>                                                                 for VR
->>                                                                 users in
->>                                                                 scenarios
->>                                                                 where
->>                                                                 the
->>                                                                 game
->>                                                                 or
->>                                                                 application
->>                                                                 would
->>                                                                 fail
->>                                                                 to finish
->>                                                                 rendering
->>                                                                 a new
->>                                                                 frame
->>                                                                 in
->>                                                                 time
->>                                                                 for
->>                                                                 the
->>                                                                 next
->>                                                                 VBLANK.
->>                                                                 When
->>                                                                 this
->>                                                                 happens,
->>                                                                 the
->>                                                                 user's
->>                                                                 head
->>                                                                 movements
->>                                                                 are
->>                                                                 not
->>                                                                 reflected
->>                                                                 on
->>                                                                 the
->>                                                                 Head
->>                                                                 Mounted
->>                                                                 Display
->>                                                                 (HMD)
->>                                                                 for the
->>                                                                 duration
->>                                                                 of an
->>                                                                 extra
->>                                                                 frame.
->>                                                                 This
->>                                                                 extended
->>                                                                 mismatch
->>                                                                 between
->>                                                                 the
->>                                                                 inner ear
->>                                                                 and the
->>                                                                 eyes may
->>                                                                 cause
->>                                                                 the
->>                                                                 user
->>                                                                 to
->>                                                                 experience
->>                                                                 motion
->>                                                                 sickness.
->>
->>                                                                 The
->>                                                                 VR
->>                                                                 compositor
->>                                                                 deals
->>                                                                 with
->>                                                                 this
->>                                                                 problem
->>                                                                 by
->>                                                                 fabricating
->>                                                                 a
->>                                                                 new frame
->>                                                                 using the
->>                                                                 user's
->>                                                                 updated
->>                                                                 head
->>                                                                 position
->>                                                                 in
->>                                                                 combination
->>                                                                 with the
->>                                                                 previous
->>                                                                 frames.
->>                                                                 This
->>                                                                 avoids
->>                                                                 a
->>                                                                 prolonged
->>                                                                 mismatch
->>                                                                 between
->>                                                                 the
->>                                                                 HMD
->>                                                                 output
->>                                                                 and the
->>                                                                 inner
->>                                                                 ear.
->>
->>                                                                 Because
->>                                                                 of
->>                                                                 the
->>                                                                 adverse
->>                                                                 effects
->>                                                                 on
->>                                                                 the
->>                                                                 user,
->>                                                                 we
->>                                                                 require
->>                                                                 high
->>                                                                 confidence
->>                                                                 that the
->>                                                                 reprojection
->>                                                                 task
->>                                                                 will
->>                                                                 complete
->>                                                                 before
->>                                                                 the
->>                                                                 VBLANK
->>                                                                 interval.
->>                                                                 Even if
->>                                                                 the
->>                                                                 GFX pipe
->>                                                                 is
->>                                                                 currently
->>                                                                 full
->>                                                                 of
->>                                                                 work
->>                                                                 from
->>                                                                 the
->>                                                                 game/application
->>                                                                 (which
->>                                                                 is most
->>                                                                 likely
->>                                                                 the
->>                                                                 case).
->>
->>                                                                 For
->>                                                                 more
->>                                                                 details
->>                                                                 and
->>                                                                 illustrations,
->>                                                                 please
->>                                                                 refer
->>                                                                 to the
->>                                                                 following
->>                                                                 document:
->>                                                                 https://community.amd.com/community/gaming/blog/2016/03/28/asynchronous-shaders-evolved
->>                                                                 <https://community.amd.com/community/gaming/blog/2016/03/28/asynchronous-shaders-evolved>
->>
->>
->>
->>
->>
->>                                                                 Gaming:
->>                                                                 Asynchronous
->>                                                                 Shaders
->>                                                                 Evolved
->>                                                                 |
->>                                                                 Community
->>                                                                 community.amd.com
->>                                                                 <http://community.amd.com>
->>                                                                 One
->>                                                                 of
->>                                                                 the
->>                                                                 most
->>                                                                 exciting
->>                                                                 new
->>                                                                 developments
->>                                                                 in
->>                                                                 GPU
->>                                                                 technology
->>                                                                 over the
->>                                                                 past
->>                                                                 year
->>                                                                 has
->>                                                                 been
->>                                                                 the
->>                                                                 adoption
->>                                                                 of
->>                                                                 asynchronous
->>                                                                 shaders,
->>                                                                 which can
->>                                                                 make
->>                                                                 more
->>                                                                 efficient
->>                                                                 use
->>                                                                 of ...
->>
->>
->>
->>                                                                 Gaming:
->>                                                                 Asynchronous
->>                                                                 Shaders
->>                                                                 Evolved
->>                                                                 |
->>                                                                 Community
->>                                                                 community.amd.com
->>                                                                 <http://community.amd.com>
->>                                                                 One
->>                                                                 of
->>                                                                 the
->>                                                                 most
->>                                                                 exciting
->>                                                                 new
->>                                                                 developments
->>                                                                 in
->>                                                                 GPU
->>                                                                 technology
->>                                                                 over the
->>                                                                 past
->>                                                                 year
->>                                                                 has
->>                                                                 been
->>                                                                 the
->>                                                                 adoption
->>                                                                 of
->>                                                                 asynchronous
->>                                                                 shaders,
->>                                                                 which can
->>                                                                 make
->>                                                                 more
->>                                                                 efficient
->>                                                                 use
->>                                                                 of ...
->>
->>
->>
->>                                                                 Gaming:
->>                                                                 Asynchronous
->>                                                                 Shaders
->>                                                                 Evolved
->>                                                                 |
->>                                                                 Community
->>                                                                 community.amd.com
->>                                                                 <http://community.amd.com>
->>                                                                 One
->>                                                                 of
->>                                                                 the
->>                                                                 most
->>                                                                 exciting
->>                                                                 new
->>                                                                 developments
->>                                                                 in
->>                                                                 GPU
->>                                                                 technology
->>                                                                 over the
->>                                                                 past
->>                                                                 year
->>                                                                 has
->>                                                                 been
->>                                                                 the
->>                                                                 adoption
->>                                                                 of
->>                                                                 asynchronous
->>                                                                 shaders,
->>                                                                 which can
->>                                                                 make
->>                                                                 more
->>                                                                 efficient
->>                                                                 use
->>                                                                 of ...
->>
->>
->>                                                                 Requirements:
->>                                                                 -------------
->>
->>                                                                 The
->>                                                                 mechanism
->>                                                                 must
->>                                                                 expose
->>                                                                 the
->>                                                                 following
->>                                                                 functionaility:
->>
->>                                                                     *
->>                                                                 Job
->>                                                                 round
->>                                                                 trip
->>                                                                 time
->>                                                                 must
->>                                                                 be
->>                                                                 predictable,
->>                                                                 from
->>                                                                 submission
->>                                                                 to
->>                                                                 fence
->>                                                                 signal
->>
->>                                                                     *
->>                                                                 The
->>                                                                 mechanism
->>                                                                 must
->>                                                                 support
->>                                                                 compute
->>                                                                 workloads.
->>
->>                                                                 Goals:
->>                                                                 ------
->>
->>                                                                     *
->>                                                                 The
->>                                                                 mechanism
->>                                                                 should
->>                                                                 provide
->>                                                                 low
->>                                                                 submission
->>                                                                 latencies
->>
->>                                                                 Test:
->>                                                                 submitting
->>                                                                 a NOP
->>                                                                 packet
->>                                                                 through
->>                                                                 the
->>                                                                 mechanism
->>                                                                 on busy
->>                                                                 hardware
->>                                                                 should
->>                                                                 be
->>                                                                 equivalent
->>                                                                 to
->>                                                                 submitting
->>                                                                 a NOP
->>                                                                 on
->>                                                                 idle
->>                                                                 hardware.
->>
->>                                                                 Nice
->>                                                                 to have:
->>                                                                 -------------
->>
->>                                                                     *
->>                                                                 The
->>                                                                 mechanism
->>                                                                 should
->>                                                                 also
->>                                                                 support
->>                                                                 GFX
->>                                                                 workloads.
->>
->>                                                                 My
->>                                                                 understanding
->>                                                                 is
->>                                                                 that
->>                                                                 with
->>                                                                 the
->>                                                                 current
->>                                                                 hardware
->>                                                                 capabilities
->>                                                                 in
->>                                                                 Polaris10
->>                                                                 we
->>                                                                 will
->>                                                                 not
->>                                                                 be
->>                                                                 able
->>                                                                 to
->>                                                                 provide
->>                                                                 a
->>                                                                 solution
->>                                                                 compatible
->>                                                                 with GFX
->>                                                                 worloads.
->>
->>                                                                 But I
->>                                                                 would
->>                                                                 love
->>                                                                 to
->>                                                                 hear
->>                                                                 otherwise.
->>                                                                 So if
->>                                                                 anyone
->>                                                                 has an
->>                                                                 idea,
->>                                                                 approach
->>                                                                 or
->>                                                                 suggestion
->>                                                                 that
->>                                                                 will
->>                                                                 also
->>                                                                 be
->>                                                                 compatible
->>                                                                 with
->>                                                                 the
->>                                                                 GFX ring,
->>                                                                 please
->>                                                                 let
->>                                                                 us know
->>                                                                 about it.
->>
->>                                                                     *
->>                                                                 The
->>                                                                 above
->>                                                                 guarantees
->>                                                                 should
->>                                                                 also
->>                                                                 be
->>                                                                 respected
->>                                                                 by
->>                                                                 amdkfd
->>                                                                 workloads
->>
->>                                                                 Would
->>                                                                 be
->>                                                                 good
->>                                                                 to
->>                                                                 have
->>                                                                 for
->>                                                                 consistency,
->>                                                                 but
->>                                                                 not
->>                                                                 strictly
->>                                                                 necessary
->>                                                                 as
->>                                                                 users
->>                                                                 running
->>                                                                 games
->>                                                                 are
->>                                                                 not
->>                                                                 traditionally
->>                                                                 running
->>                                                                 HPC
->>                                                                 workloads
->>                                                                 in the
->>                                                                 background.
->>
->>                                                                 Proposed
->>                                                                 approach:
->>                                                                 ------------------
->>
->>                                                                 Similar
->>                                                                 to
->>                                                                 the
->>                                                                 windows
->>                                                                 driver,
->>                                                                 we
->>                                                                 could
->>                                                                 expose
->>                                                                 a high
->>                                                                 priority
->>                                                                 compute
->>                                                                 queue to
->>                                                                 userspace.
->>
->>                                                                 Submissions
->>                                                                 to
->>                                                                 this
->>                                                                 compute
->>                                                                 queue
->>                                                                 will
->>                                                                 be
->>                                                                 scheduled
->>                                                                 with
->>                                                                 high
->>                                                                 priority,
->>                                                                 and may
->>                                                                 acquire
->>                                                                 hardware
->>                                                                 resources
->>                                                                 previously
->>                                                                 in
->>                                                                 use
->>                                                                 by other
->>                                                                 queues.
->>
->>                                                                 This
->>                                                                 can
->>                                                                 be
->>                                                                 achieved
->>                                                                 by
->>                                                                 taking
->>                                                                 advantage
->>                                                                 of
->>                                                                 the
->>                                                                 'priority'
->>                                                                 field in
->>                                                                 the HQDs
->>                                                                 and
->>                                                                 could
->>                                                                 be
->>                                                                 programmed
->>                                                                 by
->>                                                                 amdgpu
->>                                                                 or
->>                                                                 the
->>                                                                 amdgpu
->>                                                                 scheduler.
->>                                                                 The
->>                                                                 relevant
->>                                                                 register
->>                                                                 fields
->>                                                                 are:
->>                                                                      
->>                                                                   *
->>                                                                 mmCP_HQD_PIPE_PRIORITY
->>                                                                      
->>                                                                   *
->>                                                                 mmCP_HQD_QUEUE_PRIORITY
->>
->>                                                                 Implementation
->>                                                                 approach
->>                                                                 1 -
->>                                                                 static
->>                                                                 partitioning:
->>                                                                 ------------------------------------------------
->>
->>                                                                 The
->>                                                                 amdgpu
->>                                                                 driver
->>                                                                 currently
->>                                                                 controls
->>                                                                 8
->>                                                                 compute
->>                                                                 queues
->>                                                                 from
->>                                                                 pipe0.
->>                                                                 We can
->>                                                                 statically
->>                                                                 partition
->>                                                                 these
->>                                                                 as
->>                                                                 follows:
->>                                                                      
->>                                                                   *
->>                                                                 7x
->>                                                                 regular
->>                                                                      
->>                                                                   *
->>                                                                 1x
->>                                                                 high
->>                                                                 priority
->>
->>                                                                 The
->>                                                                 relevant
->>                                                                 priorities
->>                                                                 can
->>                                                                 be
->>                                                                 set
->>                                                                 so
->>                                                                 that
->>                                                                 submissions
->>                                                                 to
->>                                                                 the high
->>                                                                 priority
->>                                                                 ring
->>                                                                 will
->>                                                                 starve
->>                                                                 the
->>                                                                 other
->>                                                                 compute
->>                                                                 rings
->>                                                                 and
->>                                                                 the
->>                                                                 GFX ring.
->>
->>                                                                 The
->>                                                                 amdgpu
->>                                                                 scheduler
->>                                                                 will
->>                                                                 only
->>                                                                 place
->>                                                                 jobs
->>                                                                 into
->>                                                                 the high
->>                                                                 priority
->>                                                                 rings
->>                                                                 if the
->>                                                                 context
->>                                                                 is
->>                                                                 marked
->>                                                                 as
->>                                                                 high
->>                                                                 priority.
->>                                                                 And a
->>                                                                 corresponding
->>                                                                 priority
->>                                                                 should be
->>                                                                 added
->>                                                                 to
->>                                                                 keep
->>                                                                 track
->>                                                                 of
->>                                                                 this
->>                                                                 information:
->>                                                                    
->>                                                                  *
->>                                                                 AMD_SCHED_PRIORITY_KERNEL
->>                                                                    
->>                                                                  * ->
->>                                                                 AMD_SCHED_PRIORITY_HIGH
->>                                                                    
->>                                                                  *
->>                                                                 AMD_SCHED_PRIORITY_NORMAL
->>
->>                                                                 The
->>                                                                 user
->>                                                                 will
->>                                                                 request
->>                                                                 a
->>                                                                 high
->>                                                                 priority
->>                                                                 context
->>                                                                 by
->>                                                                 setting
->>                                                                 an
->>                                                                 appropriate
->>                                                                 flag
->>                                                                 in
->>                                                                 drm_amdgpu_ctx_in
->>                                                                 (AMDGPU_CTX_HIGH_PRIORITY
->>                                                                 or
->>                                                                 similar):
->>                                                                 https://github.com/torvalds/linux/blob/master/include/uapi/drm/amdgpu_drm.h#L163
->>                                                                 <https://github.com/torvalds/linux/blob/master/include/uapi/drm/amdgpu_drm.h#L163>
->>
->>
->>
->>
->>                                                                 The
->>                                                                 setting
->>                                                                 is in
->>                                                                 a per
->>                                                                 context
->>                                                                 level
->>                                                                 so
->>                                                                 that
->>                                                                 we can:
->>                                                                     *
->>                                                                 Maintain
->>                                                                 a
->>                                                                 consistent
->>                                                                 FIFO
->>                                                                 ordering
->>                                                                 of all
->>                                                                 submissions
->>                                                                 to a
->>                                                                 context
->>                                                                     *
->>                                                                 Create
->>                                                                 high
->>                                                                 priority
->>                                                                 and
->>                                                                 non-high
->>                                                                 priority
->>                                                                 contexts
->>                                                                 in
->>                                                                 the same
->>                                                                 process
->>
->>                                                                 Implementation
->>                                                                 approach
->>                                                                 2 -
->>                                                                 dynamic
->>                                                                 priority
->>                                                                 programming:
->>                                                                 ---------------------------------------------------------
->>
->>                                                                 Similar
->>                                                                 to
->>                                                                 the
->>                                                                 above,
->>                                                                 but
->>                                                                 instead
->>                                                                 of
->>                                                                 programming
->>                                                                 the
->>                                                                 priorities
->>                                                                 and
->>                                                                 amdgpu_init()
->>                                                                 time,
->>                                                                 the
->>                                                                 SW
->>                                                                 scheduler
->>                                                                 will
->>                                                                 reprogram
->>                                                                 the
->>                                                                 queue
->>                                                                 priorities
->>                                                                 dynamically
->>                                                                 when
->>                                                                 scheduling
->>                                                                 a task.
->>
->>                                                                 This
->>                                                                 would
->>                                                                 involve
->>                                                                 having
->>                                                                 a
->>                                                                 hardware
->>                                                                 specific
->>                                                                 callback
->>                                                                 from
->>                                                                 the
->>                                                                 scheduler
->>                                                                 to
->>                                                                 set
->>                                                                 the
->>                                                                 appropriate
->>                                                                 queue
->>                                                                 priority:
->>                                                                 set_priority(int
->>                                                                 ring,
->>                                                                 int
->>                                                                 index,
->>                                                                 int
->>                                                                 priority)
->>
->>                                                                 During
->>                                                                 this
->>                                                                 callback
->>                                                                 we
->>                                                                 would
->>                                                                 have
->>                                                                 to
->>                                                                 grab
->>                                                                 the
->>                                                                 SRBM
->>                                                                 mutex
->>                                                                 to
->>                                                                 perform
->>                                                                 the
->>                                                                 appropriate
->>                                                                 HW
->>                                                                 programming,
->>                                                                 and
->>                                                                 I'm
->>                                                                 not
->>                                                                 really
->>                                                                 sure
->>                                                                 if
->>                                                                 that is
->>                                                                 something
->>                                                                 we
->>                                                                 should
->>                                                                 be
->>                                                                 doing
->>                                                                 from
->>                                                                 the
->>                                                                 scheduler.
->>
->>                                                                 On
->>                                                                 the
->>                                                                 positive
->>                                                                 side,
->>                                                                 this
->>                                                                 approach
->>                                                                 would
->>                                                                 allow
->>                                                                 us to
->>                                                                 program
->>                                                                 a
->>                                                                 range of
->>                                                                 priorities
->>                                                                 for
->>                                                                 jobs
->>                                                                 instead
->>                                                                 of a
->>                                                                 single
->>                                                                 "high
->>                                                                 priority"
->>                                                                 value",
->>                                                                 achieving
->>                                                                 something
->>                                                                 similar
->>                                                                 to
->>                                                                 the
->>                                                                 niceness
->>                                                                 API
->>                                                                 available
->>                                                                 for CPU
->>                                                                 scheduling.
->>
->>                                                                 I'm
->>                                                                 not
->>                                                                 sure
->>                                                                 if
->>                                                                 this
->>                                                                 flexibility
->>                                                                 is
->>                                                                 something
->>                                                                 that
->>                                                                 we would
->>                                                                 need for
->>                                                                 our use
->>                                                                 case,
->>                                                                 but
->>                                                                 it
->>                                                                 might
->>                                                                 be
->>                                                                 useful
->>                                                                 in
->>                                                                 other
->>                                                                 scenarios
->>                                                                 (multiple
->>                                                                 users
->>                                                                 sharing
->>                                                                 compute
->>                                                                 time
->>                                                                 on a
->>                                                                 server).
->>
->>                                                                 This
->>                                                                 approach
->>                                                                 would
->>                                                                 require
->>                                                                 a new
->>                                                                 int
->>                                                                 field in
->>                                                                 drm_amdgpu_ctx_in,
->>                                                                 or
->>                                                                 repurposing
->>                                                                 of
->>                                                                 the
->>                                                                 flags
->>                                                                 field.
->>
->>                                                                 Known
->>                                                                 current
->>                                                                 obstacles:
->>                                                                 ------------------------
->>
->>                                                                 The
->>                                                                 SQ is
->>                                                                 currently
->>                                                                 programmed
->>                                                                 to
->>                                                                 disregard
->>                                                                 the HQD
->>                                                                 priorities,
->>                                                                 and
->>                                                                 instead
->>                                                                 it picks
->>                                                                 jobs
->>                                                                 at
->>                                                                 random.
->>                                                                 Settings
->>                                                                 from
->>                                                                 the
->>                                                                 shader
->>                                                                 itself
->>                                                                 are also
->>                                                                 disregarded
->>                                                                 as
->>                                                                 this is
->>                                                                 considered
->>                                                                 a
->>                                                                 privileged
->>                                                                 field.
->>
->>                                                                 Effectively
->>                                                                 we
->>                                                                 can
->>                                                                 get
->>                                                                 our
->>                                                                 compute
->>                                                                 wavefront
->>                                                                 launched
->>                                                                 ASAP,
->>                                                                 but we
->>                                                                 might
->>                                                                 not
->>                                                                 get the
->>                                                                 time
->>                                                                 we
->>                                                                 need
->>                                                                 on
->>                                                                 the SQ.
->>
->>                                                                 The
->>                                                                 current
->>                                                                 programming
->>                                                                 would
->>                                                                 have
->>                                                                 to be
->>                                                                 changed
->>                                                                 to allow
->>                                                                 priority
->>                                                                 propagation
->>                                                                 from
->>                                                                 the
->>                                                                 HQD
->>                                                                 into
->>                                                                 the SQ.
->>
->>                                                                 Generic
->>                                                                 approach
->>                                                                 for
->>                                                                 all
->>                                                                 HW IPs:
->>                                                                 --------------------------------
->>
->>                                                                 For
->>                                                                 consistency
->>                                                                 purposes,
->>                                                                 the
->>                                                                 high
->>                                                                 priority
->>                                                                 context
->>                                                                 can be
->>                                                                 enabled
->>                                                                 for
->>                                                                 all
->>                                                                 HW IPs
->>                                                                 with
->>                                                                 support
->>                                                                 of
->>                                                                 the
->>                                                                 SW
->>                                                                 scheduler.
->>                                                                 This
->>                                                                 will
->>                                                                 function
->>                                                                 similarly
->>                                                                 to the
->>                                                                 current
->>                                                                 AMD_SCHED_PRIORITY_KERNEL
->>                                                                 priority,
->>                                                                 where
->>                                                                 the
->>                                                                 job
->>                                                                 can jump
->>                                                                 ahead of
->>                                                                 anything
->>                                                                 not
->>                                                                 commited
->>                                                                 to
->>                                                                 the
->>                                                                 HW queue.
->>
->>                                                                 The
->>                                                                 benefits
->>                                                                 of
->>                                                                 requesting
->>                                                                 a
->>                                                                 high
->>                                                                 priority
->>                                                                 context
->>                                                                 for a
->>                                                                 non-compute
->>                                                                 queue
->>                                                                 will
->>                                                                 be
->>                                                                 lesser
->>                                                                 (e.g.
->>                                                                 up to
->>                                                                 10s
->>                                                                 of
->>                                                                 wait
->>                                                                 time
->>                                                                 if a
->>                                                                 GFX
->>                                                                 command
->>                                                                 is
->>                                                                 stuck in
->>                                                                 front of
->>                                                                 you),
->>                                                                 but
->>                                                                 having
->>                                                                 the
->>                                                                 API
->>                                                                 in
->>                                                                 place
->>                                                                 will
->>                                                                 allow
->>                                                                 us to
->>                                                                 easily
->>                                                                 improve
->>                                                                 the
->>                                                                 implementation
->>                                                                 in
->>                                                                 the
->>                                                                 future
->>                                                                 as
->>                                                                 new
->>                                                                 features
->>                                                                 become
->>                                                                 available
->>                                                                 in new
->>                                                                 hardware.
->>
->>                                                                 Future
->>                                                                 steps:
->>                                                                 -------------
->>
->>                                                                 Once
->>                                                                 we
->>                                                                 have
->>                                                                 an
->>                                                                 approach
->>                                                                 settled,
->>                                                                 I can
->>                                                                 take
->>                                                                 care
->>                                                                 of the
->>                                                                 implementation.
->>
->>                                                                 Also,
->>                                                                 once
->>                                                                 the
->>                                                                 interface
->>                                                                 is
->>                                                                 mostly
->>                                                                 decided,
->>                                                                 we
->>                                                                 can start
->>                                                                 thinking
->>                                                                 about
->>                                                                 exposing
->>                                                                 the
->>                                                                 high
->>                                                                 priority
->>                                                                 queue
->>                                                                 through
->>                                                                 radv.
->>
->>                                                                 Request
->>                                                                 for
->>                                                                 feedback:
->>                                                                 ---------------------
->>
->>                                                                 We
->>                                                                 aren't
->>                                                                 married
->>                                                                 to
->>                                                                 any
->>                                                                 of
->>                                                                 the
->>                                                                 approaches
->>                                                                 outlined
->>                                                                 above.
->>                                                                 Our goal
->>                                                                 is to
->>                                                                 obtain
->>                                                                 a
->>                                                                 mechanism
->>                                                                 that
->>                                                                 will
->>                                                                 allow
->>                                                                 us to
->>                                                                 complete
->>                                                                 the
->>                                                                 reprojection
->>                                                                 job
->>                                                                 within a
->>                                                                 predictable
->>                                                                 amount
->>                                                                 of
->>                                                                 time.
->>                                                                 So if
->>                                                                 anyone
->>                                                                 anyone
->>                                                                 has any
->>                                                                 suggestions
->>                                                                 for
->>                                                                 improvements
->>                                                                 or
->>                                                                 alternative
->>                                                                 strategies
->>                                                                 we
->>                                                                 are
->>                                                                 more than
->>                                                                 happy
->>                                                                 to hear
->>                                                                 them.
->>
->>                                                                 If
->>                                                                 any
->>                                                                 of
->>                                                                 the
->>                                                                 technical
->>                                                                 information
->>                                                                 above
->>                                                                 is also
->>                                                                 incorrect,
->>                                                                 feel
->>                                                                 free
->>                                                                 to point
->>                                                                 out
->>                                                                 my
->>                                                                 misunderstandings.
->>
->>                                                                 Looking
->>                                                                 forward
->>                                                                 to
->>                                                                 hearing
->>                                                                 from you.
->>
->>                                                                 Regards,
->>                                                                 Andres
->>
->>                                                                 _______________________________________________
->>                                                                 amd-gfx
->>                                                                 mailing
->>                                                                 list
->>                                                                 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>                                                                 <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->>                                                                 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>                                                                 <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>
->>
->>
->>                                                                 amd-gfx
->>                                                                 Info
->>                                                                 Page
->>                                                                 -
->>                                                                 lists.freedesktop.org
->>                                                                 <http://lists.freedesktop.org>
->>                                                                 lists.freedesktop.org
->>                                                                 <http://lists.freedesktop.org>
->>                                                                 To
->>                                                                 see
->>                                                                 the
->>                                                                 collection
->>                                                                 of
->>                                                                 prior
->>                                                                 postings
->>                                                                 to
->>                                                                 the list,
->>                                                                 visit the
->>                                                                 amd-gfx
->>                                                                 Archives.
->>                                                                 Using
->>                                                                 amd-gfx:
->>                                                                 To
->>                                                                 post
->>                                                                 a
->>                                                                 message
->>                                                                 to all
->>                                                                 the list
->>                                                                 members,
->>                                                                 send
->>                                                                 email ...
->>
->>
->>
->>                                                                 amd-gfx
->>                                                                 Info
->>                                                                 Page
->>                                                                 -
->>                                                                 lists.freedesktop.org
->>                                                                 <http://lists.freedesktop.org>
->>                                                                 lists.freedesktop.org
->>                                                                 <http://lists.freedesktop.org>
->>                                                                 To
->>                                                                 see
->>                                                                 the
->>                                                                 collection
->>                                                                 of
->>                                                                 prior
->>                                                                 postings
->>                                                                 to
->>                                                                 the list,
->>                                                                 visit the
->>                                                                 amd-gfx
->>                                                                 Archives.
->>                                                                 Using
->>                                                                 amd-gfx:
->>                                                                 To
->>                                                                 post
->>                                                                 a
->>                                                                 message
->>                                                                 to all
->>                                                                 the list
->>                                                                 members,
->>                                                                 send
->>                                                                 email ...
->>
->>
->>
->>
->>
->>
->>
->>
->>
->>
->>
->>                                                                 _______________________________________________
->>                                                                 amd-gfx
->>                                                                 mailing
->>                                                                 list
->>                                                                 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>                                                                 <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->>                                                                 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>                                                                 <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>
->>
->>
->>                                                             _______________________________________________
->>                                                             amd-gfx
->>                                                             mailing list
->>                                                             amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>                                                             <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->>                                                             https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>                                                             <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>
->>
->>
->>
->>
->>                                                 _______________________________________________
->>                                                 amd-gfx mailing list
->>                                                 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>                                                 <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->>                                                 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>                                                 <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>
->>
->>
->>
->>
->>                                     Sincerely yours,
->>                                     Serguei Sagalovitch
->>
->>                                     _______________________________________________
->>                                     amd-gfx mailing list
->>                                     amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>                                     <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->>                                     https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>                                     <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>
->>
->>
->>
->>
->>
->>
->>
->>                 Sincerely yours,
->>                 Serguei Sagalovitch
->>
->>
->>
->>
->>
->
-
-
---------------8A0F7AEF1F662A95B70010BF
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body bgcolor="#FFFFFF" text="#000000">
-    <div class="moz-cite-prefix">Indeed a couple of nice numbers.<br>
-      <br>
-      <blockquote type="cite"><span
-          style="font-family:monospace,monospace">but everything already
-          commited<br>
-          to the HW queue is executed in strict FIFO order.</span></blockquote>
-      Well actually if we get a high priority submission we could
-      preempt/abort everything on the ring buffer before it in theory.<br>
-      <br>
-      Probably not as fine granularity as the hardware scheduler, but
-      might be easier to get working.<br>
-      <br>
-      Regards,<br>
-      Christian.<br>
-      <br>
-      Am 26.12.2016 um 03:26 schrieb zhoucm1:<br>
-    </div>
-    <blockquote cite="mid:58607FDF.2080200-5C7GfCeVMHo@public.gmane.org" type="cite">
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      Nice experiment, which is exactly SW scheduler can provide.<br>
-      And as you said "<span style="font-family:monospace,monospace">I.e.
-        your context can be scheduled into the<br>
-        HW queue ahead of any other context, but everything already
-        commited<br>
-        to the HW queue is executed in strict FIFO order.</span>"<br>
-      <br>
-      If you want to keep <span style="font-family:monospace,monospace">consistent</span>
-      latency, which will need to enable hw priority queue feature.<br>
-      <br>
-      Regards,<br>
-      David Zhou<br>
-      <br>
-      <div class="moz-cite-prefix">On 2016年12月24日 06:20, Andres
-        Rodriguez wrote:<br>
-      </div>
-      <blockquote
-cite="mid:CAFQ_0eHg=Kf5qV50cgm51m6bTcMYdkgRXkT-sykJnYNzu3Zzsg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org"
-        type="cite">
-        <div dir="ltr">
-          <div>
-            <div><span style="font-family:monospace,monospace">Hey John,<br>
-                <br>
-              </span></div>
-            <span style="font-family:monospace,monospace">I've collected
-              bit of data using high priority SW scheduler queues,<br>
-            </span></div>
-          <div><span style="font-family:monospace,monospace">thought you
-              might be interested.<br>
-            </span></div>
-          <div><span style="font-family:monospace,monospace"><br>
-              Implementation as per the patch above.<br>
-              <br>
-              Control test 1<br>
-              ==============<br>
-              <br>
-              Sascha Willems mesh sample running on its own at regular
-              priority<br>
-              <br>
-              Results<br>
-              -------<br>
-              <br>
-              Mesh: ~0.14ms per-frame latency<br>
-              <br>
-              Control test 2<br>
-              ==============<br>
-              <br>
-              Two Sascha Willems mesh sample running on its own at
-              regular priority<br>
-              <br>
-              Results<br>
-              -------<br>
-              <br>
-              Mesh 1: ~0.26ms per-frame latency<br>
-              Mesh 2: ~0.26ms per-frame latency<br>
-              <br>
-              Test 1<br>
-              ======<br>
-              <br>
-              Two Sascha Willems mesh samples running simultaneously.
-              One at high<br>
-              priority and the other running in a regular priority
-              graphics context.<br>
-              <br>
-              Results<br>
-              -------<br>
-              <br>
-              Mesh High:    0.14 - 0.24ms per-frame latency<br>
-              Mesh Regular: 0.24 - 0.40ms per-frame latency<br>
-              <br>
-              Test 2<br>
-              ======<br>
-              <br>
-              Ten Sascha Willems mesh samples running simultaneously.
-              One at high<br>
-              priority and the others running in a regular priority
-              graphics context.<br>
-              <br>
-              Results<br>
-              -------<br>
-              <br>
-              Mesh High:    0.14 - 0.8ms per-frame latency<br>
-              Mesh Regular: 1.10 - 2.05ms per-frame latency<br>
-              <br>
-              Test 3<br>
-              ======<br>
-              <br>
-              Two Sascha Willems mesh samples running simultaneously.
-              One at high<br>
-              priority and the other running in a regular priority
-              graphics context.<br>
-              <br>
-              Also running Unigine Heaven at Exteme preset @ 2560x1600<br>
-              <br>
-              Results<br>
-              -------<br>
-              <br>
-              Mesh High:     7 - 100ms per-frame latency </span><span
-              style="font-family:monospace,monospace"><span
-                style="font-family:monospace,monospace"><span
-                  style="font-family:monospace,monospace">(Lots of
-                  fluctuation)</span></span><br>
-              Mesh Regular: 40 - 130ms per-frame latency</span><span
-              style="font-family:monospace,monospace"><span
-                style="font-family:monospace,monospace"></span><span
-                style="font-family:monospace,monospace"><span
-                  style="font-family:monospace,monospace"><span
-                    style="font-family:monospace,monospace"> (Lots of
-                    fluctuation)<br>
-                  </span></span></span>Unigine Heaven: 20-40 fps<br>
-              <br>
-            </span><br>
-            <span style="font-family:monospace,monospace"><span
-                style="font-family:monospace,monospace">Test 4<br>
-                ======<br>
-                <br>
-                Two Sascha Willems mesh samples running simultaneously.
-                One at high<br>
-                priority and the other running in a regular priority
-                graphics context.<br>
-                <br>
-                Also running Talos Principle @ 4K<br>
-                <br>
-                Results<br>
-                -------<br>
-                <br>
-                Mesh High:    0.14 - 3.97ms per-frame latency (Mostly
-                floats ~0.4ms)<br>
-                Mesh Regular: 0.43 - 8.11ms per-frame latency (Lots of
-                fluctuation)<br>
-                Talos: 24.8 fps AVG</span><br>
-              <br>
-              Observations<br>
-              ============<br>
-              <br>
-              The high priority queue based on the SW scheduler provides
-              significant<br>
-              gains when paired with tasks that submit short duration
-              commands into<br>
-              the queue. This can be observed in tests 1 and 2.<br>
-              <br>
-              When the pipe is full of long running commands, the
-              effects are dampened.<br>
-              As observed in test 3, the per-frame latency suffers very
-              large spikes,<br>
-              and the latencies are very inconsistent.<br>
-              <br>
-              Talos seems to be a better behaved game. It may be
-              submitting shorter<br>
-              draw commands and the SW scheduler is able to interleave
-              the rest of<br>
-              the work.<br>
-              <br>
-              The results seem consistent with the hypothetical
-              advantages the SW<br>
-              scheduler should provide. I.e. your context can be
-              scheduled into the<br>
-              HW queue ahead of any other context, but everything
-              already commited<br>
-              to the HW queue is executed in strict FIFO order.<br>
-              <br>
-            </span></div>
-          <div><span style="font-family:monospace,monospace">In order to
-              deal with cases similar to Test 3, we will need to take<br>
-            </span></div>
-          <div><span style="font-family:monospace,monospace">advantage
-              of further features.<br>
-              <br>
-              Notes<br>
-              =====<br>
-              <br>
-              - Tests were run multiple times, and reboots were
-              performed during tests.<br>
-              - The mesh sample isn't really designed for benchmarking,
-              but it should<br>
-                be decent for ballpark figures<br>
-              - The high priority mesh app was run with default niceness
-              and also niceness<br>
-                at -20. This had no effect on the results, so it was not
-              added above.<br>
-              - CPU usage was not saturated while running the tests<br>
-              <br>
-            </span></div>
-          <div><span style="font-family:monospace,monospace">Regards,<br>
-            </span></div>
-          <div><span style="font-family:monospace,monospace">Andres<br>
-            </span></div>
-          <br>
-        </div>
-        <div class="gmail_extra"><br>
-          <div class="gmail_quote">On Fri, Dec 23, 2016 at 1:18 PM,
-            Pierre-Loup A. Griffais <span dir="ltr">&lt;<a
-                moz-do-not-send="true"
-                href="mailto:pgriffais-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org"
-                target="_blank"><a class="moz-txt-link-abbreviated" href="mailto:pgriffais-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org">pgriffais-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org</a></a>&gt;</span>
-            wrote:<br>
-            <blockquote class="gmail_quote" style="margin:0 0 0
-              .8ex;border-left:1px #ccc solid;padding-left:1ex">I hate
-              to keep bringing up display topics in an unrelated
-              conversation, but I'm not sure where you got "Application
-              -&gt; X server -&gt; compositor -&gt; X server" from. As I
-              was saying before, we need to be presenting directly to
-              the HMD display as no display server can be in the way,
-              both for latency but also quality of service reasons (a
-              buggy application cannot be allowed to accidentally
-              display undistorted rendering into the HMD); we intend to
-              do the necessary work for this, and the extent of X's (or
-              a Wayland implementation, or any other display server)
-              involvment will be to participate enough to know that the
-              HMD display is off-limits. If you have more questions on
-              the display aspect, or VR rendering in general, I'm happy
-              to try to address them out-of-band from this conversation.
-              <div class="HOEnZb">
-                <div class="h5"><br>
-                  <br>
-                  On 12/23/2016 02:54 AM, Christian König wrote:<br>
-                  <blockquote class="gmail_quote" style="margin:0 0 0
-                    .8ex;border-left:1px #ccc solid;padding-left:1ex">
-                    <blockquote class="gmail_quote" style="margin:0 0 0
-                      .8ex;border-left:1px #ccc solid;padding-left:1ex">
-                      But yes, in general you don't want another
-                      compositor in the way, so<br>
-                      we'll be acquiring the HMD display directly,
-                      separate from any desktop<br>
-                      or display server.<br>
-                    </blockquote>
-                    Assuming that the the HMD is attached to the
-                    rendering device in some<br>
-                    way you have the X server and the Compositor which
-                    both try to be DRM<br>
-                    master at the same time.<br>
-                    <br>
-                    Please correct me if that was fixed in the meantime,
-                    but that sounds<br>
-                    like it will simply not work. Or is this what Andres
-                    mention below Dave<br>
-                    is working on ?.<br>
-                    <br>
-                    Additional to that a compositor in combination with
-                    X is a bit counter<br>
-                    productive when you want to keep the latency low.<br>
-                    <br>
-                    E.g. the "normal" flow of a GL or Vulkan surface
-                    filled with rendered<br>
-                    data to be displayed is from the Application -&gt; X
-                    server -&gt; compositor<br>
-                    -&gt; X server.<br>
-                    <br>
-                    The extra step between X server and compositor just
-                    means extra latency<br>
-                    and for this use case you probably don't want that.<br>
-                    <br>
-                    Targeting something like Wayland and when you need X
-                    compatibility<br>
-                    XWayland sounds like the much better idea.<br>
-                    <br>
-                    Regards,<br>
-                    Christian.<br>
-                    <br>
-                    Am 22.12.2016 um 20:54 schrieb Pierre-Loup A.
-                    Griffais:<br>
-                    <blockquote class="gmail_quote" style="margin:0 0 0
-                      .8ex;border-left:1px #ccc solid;padding-left:1ex">
-                      Display concerns are a separate issue, and as
-                      Andres said we have<br>
-                      other plans to address. But yes, in general you
-                      don't want another<br>
-                      compositor in the way, so we'll be acquiring the
-                      HMD display directly,<br>
-                      separate from any desktop or display server. Same
-                      with security, we<br>
-                      can have a separate conversation about that when
-                      the time comes.<br>
-                      <br>
-                      On 12/22/2016 08:41 AM, Serguei Sagalovitch wrote:<br>
-                      <blockquote class="gmail_quote" style="margin:0 0
-                        0 .8ex;border-left:1px #ccc
-                        solid;padding-left:1ex"> Andres,<br>
-                        <br>
-                        Did you measure  latency, etc. impact of __any__
-                        compositor?<br>
-                        <br>
-                        My understanding is that VR has pretty strict
-                        requirements related to<br>
-                        QoS.<br>
-                        <br>
-                        Sincerely yours,<br>
-                        Serguei Sagalovitch<br>
-                        <br>
-                        <br>
-                        On 2016-12-22 11:35 AM, Andres Rodriguez wrote:<br>
-                        <blockquote class="gmail_quote" style="margin:0
-                          0 0 .8ex;border-left:1px #ccc
-                          solid;padding-left:1ex"> Hey Christian,<br>
-                          <br>
-                          We are currently interested in X, but with
-                          some distros switching to<br>
-                          other compositors by default, we also need to
-                          consider those.<br>
-                          <br>
-                          We agree, running the full vrcompositor in
-                          root isn't something that<br>
-                          we want to do. Too many security concerns.
-                          Having a small root helper<br>
-                          that does the privilege escalation for us is
-                          the initial idea.<br>
-                          <br>
-                          For a long term approach, Pierre-Loup and Dave
-                          are working on dealing<br>
-                          with the "two compositors" scenario a little
-                          better in DRM+X.<br>
-                          Fullscreen isn't really a sufficient approach,
-                          since we don't want the<br>
-                          HMD to be used as part of the Desktop
-                          environment when a VR app is not<br>
-                          in use (this is extremely annoying).<br>
-                          <br>
-                          When the above is settled, we should have an
-                          auth mechanism besides<br>
-                          DRM_MASTER or DRM_AUTH that allows the
-                          vrcompositor to take over the<br>
-                          HMD permanently away from X. Re-using that
-                          auth method to gate this<br>
-                          IOCTL is probably going to be the final
-                          solution.<br>
-                          <br>
-                          I propose to start with ROOT_ONLY since it
-                          should allow us to respect<br>
-                          kernel IOCTL compatibility guidelines with the
-                          most flexibility. Going<br>
-                          from a restrictive to a more flexible
-                          permission model would be<br>
-                          inclusive, but going from a general to a
-                          restrictive model may exclude<br>
-                          some apps that used to work.<br>
-                          <br>
-                          Regards,<br>
-                          Andres<br>
-                          <br>
-                          On 12/22/2016 6:42 AM, Christian König wrote:<br>
-                          <blockquote class="gmail_quote"
-                            style="margin:0 0 0 .8ex;border-left:1px
-                            #ccc solid;padding-left:1ex"> Hi Andres,<br>
-                            <br>
-                            well using root might cause stability and
-                            security problems as well.<br>
-                            We worked quite hard to avoid exactly this
-                            for X.<br>
-                            <br>
-                            We could make this feature depend on the
-                            compositor being DRM master,<br>
-                            but for example with X the X server is
-                            master (and e.g. can change<br>
-                            resolutions etc..) and not the compositor.<br>
-                            <br>
-                            So another question is also what windowing
-                            system (if any) are you<br>
-                            planning to use? X, Wayland, Flinger or
-                            something completely<br>
-                            different ?<br>
-                            <br>
-                            Regards,<br>
-                            Christian.<br>
-                            <br>
-                            Am 20.12.2016 um 16:51 schrieb Andres
-                            Rodriguez:<br>
-                            <blockquote class="gmail_quote"
-                              style="margin:0 0 0 .8ex;border-left:1px
-                              #ccc solid;padding-left:1ex"> Hi
-                              Christian,<br>
-                              <br>
-                              That is definitely a concern. What we are
-                              currently thinking is to<br>
-                              make the high priority queues accessible
-                              to root only.<br>
-                              <br>
-                              Therefore is a non-root user attempts to
-                              set the high priority flag<br>
-                              on context allocation, we would fail the
-                              call and return ENOPERM.<br>
-                              <br>
-                              Regards,<br>
-                              Andres<br>
-                              <br>
-                              <br>
-                              On 12/20/2016 7:56 AM, Christian König
-                              wrote:<br>
-                              <blockquote class="gmail_quote"
-                                style="margin:0 0 0 .8ex;border-left:1px
-                                #ccc solid;padding-left:1ex">
-                                <blockquote class="gmail_quote"
-                                  style="margin:0 0 0
-                                  .8ex;border-left:1px #ccc
-                                  solid;padding-left:1ex"> BTW: If there
-                                  is  non-VR application which will use
-                                  high-priority<br>
-                                  h/w queue then VR application will
-                                  suffer.  Any ideas how<br>
-                                  to solve it?<br>
-                                </blockquote>
-                                Yeah, that problem came to my mind as
-                                well.<br>
-                                <br>
-                                Basically we need to restrict those high
-                                priority submissions to<br>
-                                the VR compositor or otherwise any
-                                malfunctioning application could<br>
-                                use it.<br>
-                                <br>
-                                Just think about some WebGL suddenly
-                                taking all our rendering away<br>
-                                and we won't get anything drawn any
-                                more.<br>
-                                <br>
-                                Alex or Michel any ideas on that?<br>
-                                <br>
-                                Regards,<br>
-                                Christian.<br>
-                                <br>
-                                Am 19.12.2016 um 15:48 schrieb Serguei
-                                Sagalovitch:<br>
-                                <blockquote class="gmail_quote"
-                                  style="margin:0 0 0
-                                  .8ex;border-left:1px #ccc
-                                  solid;padding-left:1ex"> &gt; If
-                                  compute queue is occupied only by you,
-                                  the efficiency<br>
-                                  &gt; is equal with setting job queue
-                                  to high priority I think.<br>
-                                  The only risk is the situation when
-                                  graphics will take all<br>
-                                  needed CUs. But in any case it should
-                                  be very good test.<br>
-                                  <br>
-                                  Andres/Pierre-Loup,<br>
-                                  <br>
-                                  Did you try to do it or it is a lot of
-                                  work for you?<br>
-                                  <br>
-                                  <br>
-                                  BTW: If there is  non-VR application
-                                  which will use high-priority<br>
-                                  h/w queue then VR application will
-                                  suffer.  Any ideas how<br>
-                                  to solve it?<br>
-                                  <br>
-                                  Sincerely yours,<br>
-                                  Serguei Sagalovitch<br>
-                                  <br>
-                                  On 2016-12-19 12:50 AM, zhoucm1 wrote:<br>
-                                  <blockquote class="gmail_quote"
-                                    style="margin:0 0 0
-                                    .8ex;border-left:1px #ccc
-                                    solid;padding-left:1ex"> Do you
-                                    encounter the priority issue for
-                                    compute queue with<br>
-                                    current driver?<br>
-                                    <br>
-                                    If compute queue is occupied only by
-                                    you, the efficiency is equal<br>
-                                    with setting job queue to high
-                                    priority I think.<br>
-                                    <br>
-                                    Regards,<br>
-                                    David Zhou<br>
-                                    <br>
-                                    On 2016年12月19日 13:29, Andres
-                                    Rodriguez wrote:<br>
-                                    <blockquote class="gmail_quote"
-                                      style="margin:0 0 0
-                                      .8ex;border-left:1px #ccc
-                                      solid;padding-left:1ex"> Yes,
-                                      vulkan is available on all-open
-                                      through the mesa radv UMD.<br>
-                                      <br>
-                                      I'm not sure if I'm asking for too
-                                      much, but if we can<br>
-                                      coordinate a similar interface in
-                                      radv and amdgpu-pro at the<br>
-                                      vulkan level that would be great.<br>
-                                      <br>
-                                      I'm not sure what that's going to
-                                      be yet.<br>
-                                      <br>
-                                      - Andres<br>
-                                      <br>
-                                      On 12/19/2016 12:11 AM, zhoucm1
-                                      wrote:<br>
-                                      <blockquote class="gmail_quote"
-                                        style="margin:0 0 0
-                                        .8ex;border-left:1px #ccc
-                                        solid;padding-left:1ex"> <br>
-                                        <br>
-                                        On 2016年12月19日 11:33,
-                                        Pierre-Loup A. Griffais wrote:<br>
-                                        <blockquote class="gmail_quote"
-                                          style="margin:0 0 0
-                                          .8ex;border-left:1px #ccc
-                                          solid;padding-left:1ex"> We're
-                                          currently working with the
-                                          open stack; I assume that a<br>
-                                          mechanism could be exposed by
-                                          both open and Pro Vulkan<br>
-                                          userspace drivers and that the
-                                          amdgpu kernel interface<br>
-                                          improvements we would pursue
-                                          following this discussion
-                                          would<br>
-                                          let both drivers take
-                                          advantage of the feature,
-                                          correct?<br>
-                                        </blockquote>
-                                        Of course.<br>
-                                        Does open stack have Vulkan
-                                        support?<br>
-                                        <br>
-                                        Regards,<br>
-                                        David Zhou<br>
-                                        <blockquote class="gmail_quote"
-                                          style="margin:0 0 0
-                                          .8ex;border-left:1px #ccc
-                                          solid;padding-left:1ex"> <br>
-                                          On 12/18/2016 07:26 PM,
-                                          zhoucm1 wrote:<br>
-                                          <blockquote
-                                            class="gmail_quote"
-                                            style="margin:0 0 0
-                                            .8ex;border-left:1px #ccc
-                                            solid;padding-left:1ex"> By
-                                            the way, are you using
-                                            all-open driver or
-                                            amdgpu-pro<br>
-                                            driver?<br>
-                                            <br>
-                                            +David Mao, who is working
-                                            on our Vulkan driver.<br>
-                                            <br>
-                                            Regards,<br>
-                                            David Zhou<br>
-                                            <br>
-                                            On 2016年12月18日 06:05,
-                                            Pierre-Loup A. Griffais
-                                            wrote:<br>
-                                            <blockquote
-                                              class="gmail_quote"
-                                              style="margin:0 0 0
-                                              .8ex;border-left:1px #ccc
-                                              solid;padding-left:1ex">
-                                              Hi Serguei,<br>
-                                              <br>
-                                              I'm also working on the
-                                              bringing up our VR runtime
-                                              on top of<br>
-                                              amgpu;<br>
-                                              see replies inline.<br>
-                                              <br>
-                                              On 12/16/2016 09:05 PM,
-                                              Sagalovitch, Serguei
-                                              wrote:<br>
-                                              <blockquote
-                                                class="gmail_quote"
-                                                style="margin:0 0 0
-                                                .8ex;border-left:1px
-                                                #ccc
-                                                solid;padding-left:1ex">
-                                                Andres,<br>
-                                                <br>
-                                                <blockquote
-                                                  class="gmail_quote"
-                                                  style="margin:0 0 0
-                                                  .8ex;border-left:1px
-                                                  #ccc
-                                                  solid;padding-left:1ex">
-                                                   For current VR
-                                                  workloads we have 3
-                                                  separate processes<br>
-                                                  running<br>
-                                                  actually:<br>
-                                                </blockquote>
-                                                So we could have
-                                                potential memory
-                                                overcommit case or do<br>
-                                                you do<br>
-                                                partitioning<br>
-                                                on your own?  I would
-                                                think that there is need
-                                                to avoid<br>
-                                                overcomit in<br>
-                                                VR case to<br>
-                                                prevent any BO
-                                                migration.<br>
-                                              </blockquote>
-                                              <br>
-                                              You're entirely correct;
-                                              currently the VR runtime
-                                              is<br>
-                                              setting up<br>
-                                              prioritized CPU scheduling
-                                              for its VR compositor,
-                                              we're<br>
-                                              working on<br>
-                                              prioritized GPU scheduling
-                                              and pre-emption (eg. this<br>
-                                              thread), and in<br>
-                                              the future it will make
-                                              sense to do work in order
-                                              to make<br>
-                                              sure that<br>
-                                              its memory allocations do
-                                              not get evicted, to
-                                              prevent any<br>
-                                              unwelcome<br>
-                                              additional latency in the
-                                              event of needing to
-                                              perform<br>
-                                              just-in-time<br>
-                                              reprojection.<br>
-                                              <br>
-                                              <blockquote
-                                                class="gmail_quote"
-                                                style="margin:0 0 0
-                                                .8ex;border-left:1px
-                                                #ccc
-                                                solid;padding-left:1ex">
-                                                BTW: Do you mean
-                                                __real__ processes or
-                                                threads?<br>
-                                                Based on my
-                                                understanding sharing
-                                                BOs between different<br>
-                                                processes<br>
-                                                could introduce
-                                                additional
-                                                synchronization
-                                                constrains. btw:<br>
-                                                I am not<br>
-                                                sure<br>
-                                                if we are able to share
-                                                Vulkan sync. object
-                                                cross-process<br>
-                                                boundary.<br>
-                                              </blockquote>
-                                              <br>
-                                              They are different
-                                              processes; it is important
-                                              for the<br>
-                                              compositor that<br>
-                                              is responsible for
-                                              quality-of-service
-                                              features such as<br>
-                                              consistently<br>
-                                              presenting distorted
-                                              frames with the right
-                                              latency,<br>
-                                              reprojection, etc,<br>
-                                              to be separate from the
-                                              main application.<br>
-                                              <br>
-                                              Currently we are using
-                                              unreleased cross-process
-                                              memory and<br>
-                                              semaphore<br>
-                                              extensions to fetch
-                                              updated eye images from
-                                              the client<br>
-                                              application,<br>
-                                              but the just-in-time
-                                              reprojection discussed
-                                              here does not<br>
-                                              actually<br>
-                                              have any direct
-                                              interactions with
-                                              cross-process resource<br>
-                                              sharing,<br>
-                                              since it's achieved by
-                                              using whatever is the
-                                              latest, most<br>
-                                              up-to-date<br>
-                                              eye images that have
-                                              already been sent by the
-                                              client<br>
-                                              application,<br>
-                                              which are already
-                                              available to use without
-                                              additional<br>
-                                              synchronization.<br>
-                                              <br>
-                                              <blockquote
-                                                class="gmail_quote"
-                                                style="margin:0 0 0
-                                                .8ex;border-left:1px
-                                                #ccc
-                                                solid;padding-left:1ex">
-                                                <br>
-                                                <blockquote
-                                                  class="gmail_quote"
-                                                  style="margin:0 0 0
-                                                  .8ex;border-left:1px
-                                                  #ccc
-                                                  solid;padding-left:1ex">
-                                                     3) System
-                                                  compositor (we are
-                                                  looking at approaches
-                                                  to<br>
-                                                  remove this<br>
-                                                  overhead)<br>
-                                                </blockquote>
-                                                Yes,  IMHO the best is
-                                                to run in  "full screen
-                                                mode".<br>
-                                              </blockquote>
-                                              <br>
-                                              Yes, we are working on
-                                              mechanisms to present
-                                              directly to the<br>
-                                              headset<br>
-                                              display without any
-                                              intermediaries as a
-                                              separate effort.<br>
-                                              <br>
-                                              <blockquote
-                                                class="gmail_quote"
-                                                style="margin:0 0 0
-                                                .8ex;border-left:1px
-                                                #ccc
-                                                solid;padding-left:1ex">
-                                                <br>
-                                                <blockquote
-                                                  class="gmail_quote"
-                                                  style="margin:0 0 0
-                                                  .8ex;border-left:1px
-                                                  #ccc
-                                                  solid;padding-left:1ex">
-                                                   The latency is our
-                                                  main concern,<br>
-                                                </blockquote>
-                                                I would assume that this
-                                                is the known problem (at
-                                                least for<br>
-                                                compute<br>
-                                                usage).<br>
-                                                It looks like that
-                                                amdgpu / kernel
-                                                submission is rather CPU<br>
-                                                intensive<br>
-                                                (at least<br>
-                                                in the default
-                                                configuration).<br>
-                                              </blockquote>
-                                              <br>
-                                              As long as it's a
-                                              consistent cost, it
-                                              shouldn't an issue.<br>
-                                              However, if<br>
-                                              there's high degrees of
-                                              variance then that would
-                                              be<br>
-                                              troublesome and we<br>
-                                              would need to account for
-                                              the worst case.<br>
-                                              <br>
-                                              Hopefully the requirements
-                                              and approach we described
-                                              make<br>
-                                              sense, we're<br>
-                                              looking forward to your
-                                              feedback and suggestions.<br>
-                                              <br>
-                                              Thanks!<br>
-                                               - Pierre-Loup<br>
-                                              <br>
-                                              <blockquote
-                                                class="gmail_quote"
-                                                style="margin:0 0 0
-                                                .8ex;border-left:1px
-                                                #ccc
-                                                solid;padding-left:1ex">
-                                                <br>
-                                                Sincerely yours,<br>
-                                                Serguei Sagalovitch<br>
-                                                <br>
-                                                <br>
-                                                From: Andres Rodriguez
-                                                &lt;<a
-                                                  moz-do-not-send="true"
-href="mailto:andresr-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org" target="_blank"><a class="moz-txt-link-abbreviated" href="mailto:andresr-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org">andresr-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org</a></a>&gt;<br>
-                                                Sent: December 16, 2016
-                                                10:00 PM<br>
-                                                To: Sagalovitch,
-                                                Serguei; <a
-                                                  moz-do-not-send="true"
-href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target="_blank"><a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a></a><br>
-                                                Subject: RE: [RFC]
-                                                Mechanism for high
-                                                priority scheduling<br>
-                                                in amdgpu<br>
-                                                <br>
-                                                Hey Serguei,<br>
-                                                <br>
-                                                <blockquote
-                                                  class="gmail_quote"
-                                                  style="margin:0 0 0
-                                                  .8ex;border-left:1px
-                                                  #ccc
-                                                  solid;padding-left:1ex">
-                                                  [Serguei] No. I mean
-                                                  pipe :-) as MEC define
-                                                  it.  As far<br>
-                                                  as I<br>
-                                                  understand (by
-                                                  simplifying)<br>
-                                                  some scheduling is per
-                                                  pipe.  I know about
-                                                  the current<br>
-                                                  allocation<br>
-                                                  scheme but I do not
-                                                  think<br>
-                                                  that it is  ideal.  I
-                                                  would assume that we
-                                                  need to<br>
-                                                  switch to<br>
-                                                  dynamical partition<br>
-                                                  of resources  based on
-                                                  the workload otherwise
-                                                  we will have<br>
-                                                  resource<br>
-                                                  conflict<br>
-                                                  between Vulkan compute
-                                                  and  OpenCL.<br>
-                                                </blockquote>
-                                                <br>
-                                                I agree the partitioning
-                                                isn't ideal. I'm hoping
-                                                we can<br>
-                                                start with a<br>
-                                                solution that assumes
-                                                that<br>
-                                                only pipe0 has any work
-                                                and the other pipes are
-                                                idle (no<br>
-                                                HSA/ROCm<br>
-                                                running on the system).<br>
-                                                <br>
-                                                This should be more or
-                                                less the use case we
-                                                expect from VR<br>
-                                                users.<br>
-                                                <br>
-                                                I agree the split is
-                                                currently not ideal, but
-                                                I'd like to<br>
-                                                consider<br>
-                                                that a separate task,
-                                                because<br>
-                                                making it dynamic is not
-                                                straight forward :P<br>
-                                                <br>
-                                                <blockquote
-                                                  class="gmail_quote"
-                                                  style="margin:0 0 0
-                                                  .8ex;border-left:1px
-                                                  #ccc
-                                                  solid;padding-left:1ex">
-                                                  [Serguei] Vulkan works
-                                                  via amdgpu (kernel
-                                                  submissions) so<br>
-                                                  amdkfd<br>
-                                                  will be not<br>
-                                                  involved.  I would
-                                                  assume that in the
-                                                  case of VR we will<br>
-                                                  have one main<br>
-                                                  application ("console"
-                                                  mode(?)) so we could
-                                                  temporally<br>
-                                                  "ignore"<br>
-                                                  OpenCL/ROCm needs when
-                                                  VR is running.<br>
-                                                </blockquote>
-                                                <br>
-                                                Correct, this is why we
-                                                want to enable the high
-                                                priority<br>
-                                                compute<br>
-                                                queue through<br>
-                                                libdrm-amdgpu, so that
-                                                we can expose it through
-                                                Vulkan<br>
-                                                later.<br>
-                                                <br>
-                                                For current VR workloads
-                                                we have 3 separate
-                                                processes<br>
-                                                running actually:<br>
-                                                    1) Game process<br>
-                                                    2) VR Compositor
-                                                (this is the process
-                                                that will require<br>
-                                                high<br>
-                                                priority queue)<br>
-                                                    3) System compositor
-                                                (we are looking at
-                                                approaches to<br>
-                                                remove this<br>
-                                                overhead)<br>
-                                                <br>
-                                                For now I think it is
-                                                okay to assume no
-                                                OpenCL/ROCm running<br>
-                                                simultaneously, but<br>
-                                                I would also like to be
-                                                able to address this
-                                                case in the<br>
-                                                future<br>
-                                                (cross-pipe priorities).<br>
-                                                <br>
-                                                <blockquote
-                                                  class="gmail_quote"
-                                                  style="margin:0 0 0
-                                                  .8ex;border-left:1px
-                                                  #ccc
-                                                  solid;padding-left:1ex">
-                                                  [Serguei]  The problem
-                                                  with pre-emption of
-                                                  graphics task:<br>
-                                                  (a) it<br>
-                                                  may take time so<br>
-                                                  latency may suffer<br>
-                                                </blockquote>
-                                                <br>
-                                                The latency is our main
-                                                concern, we want
-                                                something that is<br>
-                                                predictable. A good<br>
-                                                illustration of what the
-                                                reprojection scheduling
-                                                looks like<br>
-                                                can be<br>
-                                                found here:<br>
-                                                <a
-                                                  moz-do-not-send="true"
-href="https://community.amd.com/servlet/JiveServlet/showImage/38-1310-104754/pastedImage_3.png"
-                                                  rel="noreferrer"
-                                                  target="_blank"><a class="moz-txt-link-freetext" href="https://community.amd.com/serv">https://community.amd.com/serv</a><wbr>let/JiveServlet/showImage/38-<wbr>1310-104754/pastedImage_3.png</a><br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <blockquote
-                                                  class="gmail_quote"
-                                                  style="margin:0 0 0
-                                                  .8ex;border-left:1px
-                                                  #ccc
-                                                  solid;padding-left:1ex">
-                                                  (b) to preempt we need
-                                                  to have different
-                                                  "context" - we<br>
-                                                  want<br>
-                                                  to guarantee that
-                                                  submissions from the
-                                                  same context will<br>
-                                                  be executed<br>
-                                                  in order.<br>
-                                                </blockquote>
-                                                <br>
-                                                This is okay, as the
-                                                reprojection work
-                                                doesn't have<br>
-                                                dependencies on<br>
-                                                the game context, and it<br>
-                                                even happens in a
-                                                separate process.<br>
-                                                <br>
-                                                <blockquote
-                                                  class="gmail_quote"
-                                                  style="margin:0 0 0
-                                                  .8ex;border-left:1px
-                                                  #ccc
-                                                  solid;padding-left:1ex">
-                                                  BTW: (a) Do you want
-                                                  "preempt" and later
-                                                  resume or do you<br>
-                                                  want<br>
-                                                  "preempt" and<br>
-                                                  "cancel/abort"<br>
-                                                </blockquote>
-                                                <br>
-                                                Preempt the game with
-                                                the compositor task and
-                                                then resume<br>
-                                                it.<br>
-                                                <br>
-                                                <blockquote
-                                                  class="gmail_quote"
-                                                  style="margin:0 0 0
-                                                  .8ex;border-left:1px
-                                                  #ccc
-                                                  solid;padding-left:1ex">
-                                                  (b) Vulkan is generic
-                                                  API and could be used
-                                                  for graphics<br>
-                                                  as well as<br>
-                                                  for plain compute
-                                                  tasks
-                                                  (VK_QUEUE_COMPUTE_BIT).<br>
-                                                </blockquote>
-                                                <br>
-                                                Yeah, the plan is to use
-                                                vulkan compute. But if
-                                                you figure<br>
-                                                out a way<br>
-                                                for us to get<br>
-                                                a guaranteed execution
-                                                time using vulkan
-                                                graphics, then<br>
-                                                I'll take you<br>
-                                                out for a beer :)<br>
-                                                <br>
-                                                Regards,<br>
-                                                Andres<br>
-______________________________<wbr>__________<br>
-                                                From: Sagalovitch,
-                                                Serguei [<a
-                                                  moz-do-not-send="true"
-href="mailto:Serguei.Sagalovitch-5C7GfCeVMHo@public.gmane.org" target="_blank"><a class="moz-txt-link-abbreviated" href="mailto:Serguei.Sagalovitch-5C7GfCeVMHo@public.gmane.org">Serguei.Sagalovitch-5C7GfCeVMHo@public.gmane.org</a></a>]<br>
-                                                Sent: Friday, December
-                                                16, 2016 9:13 PM<br>
-                                                To: Andres Rodriguez; <a
-                                                  moz-do-not-send="true"
-href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target="_blank"><a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a></a><br>
-                                                Subject: Re: [RFC]
-                                                Mechanism for high
-                                                priority scheduling<br>
-                                                in amdgpu<br>
-                                                <br>
-                                                Hi Andres,<br>
-                                                <br>
-                                                Please see inline (as
-                                                [Serguei])<br>
-                                                <br>
-                                                Sincerely yours,<br>
-                                                Serguei Sagalovitch<br>
-                                                <br>
-                                                <br>
-                                                From: Andres Rodriguez
-                                                &lt;<a
-                                                  moz-do-not-send="true"
-href="mailto:andresr-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org" target="_blank"><a class="moz-txt-link-abbreviated" href="mailto:andresr-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org">andresr-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org</a></a>&gt;<br>
-                                                Sent: December 16, 2016
-                                                8:29 PM<br>
-                                                To: Sagalovitch,
-                                                Serguei; <a
-                                                  moz-do-not-send="true"
-href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target="_blank"><a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a></a><br>
-                                                Subject: RE: [RFC]
-                                                Mechanism for high
-                                                priority scheduling<br>
-                                                in amdgpu<br>
-                                                <br>
-                                                Hi Serguei,<br>
-                                                <br>
-                                                Thanks for the feedback.
-                                                Answers inline as [AR].<br>
-                                                <br>
-                                                Regards,<br>
-                                                Andres<br>
-                                                <br>
-______________________________<wbr>__________<br>
-                                                From: Sagalovitch,
-                                                Serguei [<a
-                                                  moz-do-not-send="true"
-href="mailto:Serguei.Sagalovitch-5C7GfCeVMHo@public.gmane.org" target="_blank"><a class="moz-txt-link-abbreviated" href="mailto:Serguei.Sagalovitch-5C7GfCeVMHo@public.gmane.org">Serguei.Sagalovitch-5C7GfCeVMHo@public.gmane.org</a></a>]<br>
-                                                Sent: Friday, December
-                                                16, 2016 8:15 PM<br>
-                                                To: Andres Rodriguez; <a
-                                                  moz-do-not-send="true"
-href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target="_blank"><a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a></a><br>
-                                                Subject: Re: [RFC]
-                                                Mechanism for high
-                                                priority scheduling<br>
-                                                in amdgpu<br>
-                                                <br>
-                                                Andres,<br>
-                                                <br>
-                                                <br>
-                                                Quick comments:<br>
-                                                <br>
-                                                1) To minimize
-                                                "bubbles", etc. we need
-                                                to "force" CU<br>
-                                                assignments/binding<br>
-                                                to high-priority queue 
-                                                when it will be in use
-                                                and "free"<br>
-                                                them later<br>
-                                                (we  do not want forever
-                                                take CUs from e.g.
-                                                graphic task to<br>
-                                                degrade<br>
-                                                graphics<br>
-                                                performance).<br>
-                                                <br>
-                                                Otherwise we could have
-                                                scenario when long
-                                                graphics task (or<br>
-                                                low-priority<br>
-                                                compute) will took all
-                                                (extra) CUs and
-                                                high--priority will<br>
-                                                wait for<br>
-                                                needed resources.<br>
-                                                It will not be visible
-                                                on "NOP " but only when
-                                                you submit<br>
-                                                "real"<br>
-                                                compute task<br>
-                                                so I would recommend 
-                                                not to use "NOP" packets
-                                                at all for<br>
-                                                testing.<br>
-                                                <br>
-                                                It (CU assignment) could
-                                                be relatively easy done
-                                                when<br>
-                                                everything is<br>
-                                                going via kernel<br>
-                                                (e.g. as part of frame
-                                                submission) but I must
-                                                admit that I<br>
-                                                am not sure<br>
-                                                about the best way for
-                                                user level submissions
-                                                (amdkfd).<br>
-                                                <br>
-                                                [AR] I wasn't aware of
-                                                this part of the
-                                                programming<br>
-                                                sequence. Thanks<br>
-                                                for the heads up!<br>
-                                                Is this similar to the
-                                                CU masking programming?<br>
-                                                [Serguei] Yes. To
-                                                simplify: the problem is
-                                                that "scheduler"<br>
-                                                when<br>
-                                                deciding which<br>
-                                                queue to  run will check
-                                                if there is enough
-                                                resources and<br>
-                                                if not then<br>
-                                                it will begin<br>
-                                                to check other queues
-                                                with lower priority.<br>
-                                                <br>
-                                                2) I would recommend to
-                                                dedicate the whole pipe
-                                                to<br>
-                                                high-priority<br>
-                                                queue and have<br>
-                                                nothing their except it.<br>
-                                                <br>
-                                                [AR] I'm guessing in
-                                                this context you mean
-                                                pipe = queue?<br>
-                                                (as opposed<br>
-                                                to the MEC definition<br>
-                                                of pipe, which is a
-                                                grouping of queues). I
-                                                say this because<br>
-                                                amdgpu<br>
-                                                only has access to 1
-                                                pipe,<br>
-                                                and the rest are
-                                                statically partitioned
-                                                for amdkfd usage.<br>
-                                                <br>
-                                                [Serguei] No. I mean
-                                                pipe :-)  as MEC define
-                                                it. As far as I<br>
-                                                understand (by
-                                                simplifying)<br>
-                                                some scheduling is per
-                                                pipe.  I know about the
-                                                current<br>
-                                                allocation<br>
-                                                scheme but I do not
-                                                think<br>
-                                                that it is  ideal.  I
-                                                would assume that we
-                                                need to switch to<br>
-                                                dynamical partition<br>
-                                                of resources  based on
-                                                the workload otherwise
-                                                we will have<br>
-                                                resource<br>
-                                                conflict<br>
-                                                between Vulkan compute
-                                                and  OpenCL.<br>
-                                                <br>
-                                                <br>
-                                                BTW: Which user level
-                                                API do you want to use
-                                                for compute:<br>
-                                                Vulkan or<br>
-                                                OpenCL?<br>
-                                                <br>
-                                                [AR] Vulkan<br>
-                                                <br>
-                                                [Serguei] Vulkan works
-                                                via amdgpu (kernel
-                                                submissions) so<br>
-                                                amdkfd will<br>
-                                                be not<br>
-                                                involved.  I would
-                                                assume that in the case
-                                                of VR we will<br>
-                                                have one main<br>
-                                                application ("console"
-                                                mode(?)) so we could
-                                                temporally<br>
-                                                "ignore"<br>
-                                                OpenCL/ROCm needs when
-                                                VR is running.<br>
-                                                <br>
-                                                <blockquote
-                                                  class="gmail_quote"
-                                                  style="margin:0 0 0
-                                                  .8ex;border-left:1px
-                                                  #ccc
-                                                  solid;padding-left:1ex">
-                                                   we will not be able
-                                                  to provide a solution
-                                                  compatible with<br>
-                                                  GFX<br>
-                                                  worloads.<br>
-                                                </blockquote>
-                                                I assume that you are
-                                                talking about graphics?
-                                                Am I right?<br>
-                                                <br>
-                                                [AR] Yeah, my
-                                                understanding is that
-                                                pre-empting the<br>
-                                                currently running<br>
-                                                graphics job and
-                                                scheduling in<br>
-                                                something else using
-                                                mid-buffer pre-emption
-                                                has some cases<br>
-                                                where it<br>
-                                                doesn't work well. But
-                                                if with<br>
-                                                polaris10 it starts
-                                                working well, it might
-                                                be a better<br>
-                                                solution for<br>
-                                                us (because the whole
-                                                reprojection<br>
-                                                work uses the vulkan
-                                                graphics stack at the
-                                                moment, and<br>
-                                                porting it to<br>
-                                                compute is not trivial).<br>
-                                                <br>
-                                                [Serguei]  The problem
-                                                with pre-emption of
-                                                graphics task:<br>
-                                                (a) it may<br>
-                                                take time so<br>
-                                                latency may suffer (b)
-                                                to preempt we need to
-                                                have different<br>
-                                                "context"<br>
-                                                - we want<br>
-                                                to guarantee that
-                                                submissions from the
-                                                same context will be<br>
-                                                executed<br>
-                                                in order.<br>
-                                                BTW: (a) Do you want 
-                                                "preempt" and later
-                                                resume or do you<br>
-                                                want<br>
-                                                "preempt" and<br>
-                                                "cancel/abort"?  (b)
-                                                Vulkan is generic API
-                                                and could be used<br>
-                                                for graphics as well as
-                                                for plain compute tasks<br>
-                                                (VK_QUEUE_COMPUTE_BIT).<br>
-                                                <br>
-                                                <br>
-                                                Sincerely yours,<br>
-                                                Serguei Sagalovitch<br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                From: amd-gfx &lt;<a
-                                                  moz-do-not-send="true"
-href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target="_blank"><a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-bounces-PD4FTy7X32mqWrfYKbYh0A@public.gmane.org">amd-gfx-bounces-PD4FTy7X32mqWrfYKbYh0A@public.gmane.org</a><wbr>ktop.org</a>&gt;
-                                                on<br>
-                                                behalf of<br>
-                                                Andres Rodriguez &lt;<a
-                                                  moz-do-not-send="true"
-href="mailto:andresr-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org" target="_blank"><a class="moz-txt-link-abbreviated" href="mailto:andresr-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org">andresr-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org</a></a>&gt;<br>
-                                                Sent: December 16, 2016
-                                                6:15 PM<br>
-                                                To: <a
-                                                  moz-do-not-send="true"
-href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target="_blank"><a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a></a><br>
-                                                Subject: [RFC] Mechanism
-                                                for high priority
-                                                scheduling in<br>
-                                                amdgpu<br>
-                                                <br>
-                                                Hi Everyone,<br>
-                                                <br>
-                                                This RFC is also
-                                                available as a gist
-                                                here:<br>
-                                                <a
-                                                  moz-do-not-send="true"
-href="https://gist.github.com/lostgoat/7000432cd6864265dbc2c3ab93204249"
-                                                  rel="noreferrer"
-                                                  target="_blank"><a class="moz-txt-link-freetext" href="https://gist.github.com/lostgo">https://gist.github.com/lostgo</a><wbr>at/7000432cd6864265dbc2c3ab932<wbr>04249</a><br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                [RFC] Mechanism for high
-                                                priority scheduling in
-                                                amdgpu<br>
-                                                <a
-                                                  moz-do-not-send="true"
-href="http://gist.github.com" rel="noreferrer" target="_blank">gist.github.com</a><br>
-                                                [RFC] Mechanism for high
-                                                priority scheduling in
-                                                amdgpu<br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                [RFC] Mechanism for high
-                                                priority scheduling in
-                                                amdgpu<br>
-                                                <a
-                                                  moz-do-not-send="true"
-href="http://gist.github.com" rel="noreferrer" target="_blank">gist.github.com</a><br>
-                                                [RFC] Mechanism for high
-                                                priority scheduling in
-                                                amdgpu<br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                [RFC] Mechanism for high
-                                                priority scheduling in
-                                                amdgpu<br>
-                                                <a
-                                                  moz-do-not-send="true"
-href="http://gist.github.com" rel="noreferrer" target="_blank">gist.github.com</a><br>
-                                                [RFC] Mechanism for high
-                                                priority scheduling in
-                                                amdgpu<br>
-                                                <br>
-                                                <br>
-                                                We are interested in
-                                                feedback for a mechanism
-                                                to<br>
-                                                effectively schedule<br>
-                                                high<br>
-                                                priority VR reprojection
-                                                tasks (also referred to
-                                                as<br>
-                                                time-warping) for<br>
-                                                Polaris10<br>
-                                                running on the amdgpu
-                                                kernel driver.<br>
-                                                <br>
-                                                Brief context:<br>
-                                                --------------<br>
-                                                <br>
-                                                The main objective of
-                                                reprojection is to avoid
-                                                motion<br>
-                                                sickness for VR<br>
-                                                users in<br>
-                                                scenarios where the game
-                                                or application would
-                                                fail to finish<br>
-                                                rendering a new<br>
-                                                frame in time for the
-                                                next VBLANK. When this
-                                                happens, the<br>
-                                                user's head<br>
-                                                movements<br>
-                                                are not reflected on the
-                                                Head Mounted Display
-                                                (HMD) for the<br>
-                                                duration<br>
-                                                of an<br>
-                                                extra frame. This
-                                                extended mismatch
-                                                between the inner ear<br>
-                                                and the<br>
-                                                eyes may<br>
-                                                cause the user to
-                                                experience motion
-                                                sickness.<br>
-                                                <br>
-                                                The VR compositor deals
-                                                with this problem by
-                                                fabricating a<br>
-                                                new frame<br>
-                                                using the<br>
-                                                user's updated head
-                                                position in combination
-                                                with the<br>
-                                                previous frames.<br>
-                                                This<br>
-                                                avoids a prolonged
-                                                mismatch between the HMD
-                                                output and the<br>
-                                                inner ear.<br>
-                                                <br>
-                                                Because of the adverse
-                                                effects on the user, we
-                                                require high<br>
-                                                confidence that the<br>
-                                                reprojection task will
-                                                complete before the
-                                                VBLANK interval.<br>
-                                                Even if<br>
-                                                the GFX pipe<br>
-                                                is currently full of
-                                                work from the
-                                                game/application (which<br>
-                                                is most<br>
-                                                likely the case).<br>
-                                                <br>
-                                                For more details and
-                                                illustrations, please
-                                                refer to the<br>
-                                                following<br>
-                                                document:<br>
-                                                <a
-                                                  moz-do-not-send="true"
-href="https://community.amd.com/community/gaming/blog/2016/03/28/asynchronous-shaders-evolved"
-                                                  rel="noreferrer"
-                                                  target="_blank"><a class="moz-txt-link-freetext" href="https://community.amd.com/comm">https://community.amd.com/comm</a><wbr>unity/gaming/blog/2016/03/28/<wbr>asynchronous-shaders-evolved</a><br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                Gaming: Asynchronous
-                                                Shaders Evolved |
-                                                Community<br>
-                                                <a
-                                                  moz-do-not-send="true"
-href="http://community.amd.com" rel="noreferrer" target="_blank">community.amd.com</a><br>
-                                                One of the most exciting
-                                                new developments in GPU
-                                                technology<br>
-                                                over the<br>
-                                                past year has been the
-                                                adoption of asynchronous
-                                                shaders,<br>
-                                                which can<br>
-                                                make more efficient use
-                                                of ...<br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                Gaming: Asynchronous
-                                                Shaders Evolved |
-                                                Community<br>
-                                                <a
-                                                  moz-do-not-send="true"
-href="http://community.amd.com" rel="noreferrer" target="_blank">community.amd.com</a><br>
-                                                One of the most exciting
-                                                new developments in GPU
-                                                technology<br>
-                                                over the<br>
-                                                past year has been the
-                                                adoption of asynchronous
-                                                shaders,<br>
-                                                which can<br>
-                                                make more efficient use
-                                                of ...<br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                Gaming: Asynchronous
-                                                Shaders Evolved |
-                                                Community<br>
-                                                <a
-                                                  moz-do-not-send="true"
-href="http://community.amd.com" rel="noreferrer" target="_blank">community.amd.com</a><br>
-                                                One of the most exciting
-                                                new developments in GPU
-                                                technology<br>
-                                                over the<br>
-                                                past year has been the
-                                                adoption of asynchronous
-                                                shaders,<br>
-                                                which can<br>
-                                                make more efficient use
-                                                of ...<br>
-                                                <br>
-                                                <br>
-                                                Requirements:<br>
-                                                -------------<br>
-                                                <br>
-                                                The mechanism must
-                                                expose the following
-                                                functionaility:<br>
-                                                <br>
-                                                    * Job round trip
-                                                time must be
-                                                predictable, from<br>
-                                                submission to<br>
-                                                fence signal<br>
-                                                <br>
-                                                    * The mechanism must
-                                                support compute
-                                                workloads.<br>
-                                                <br>
-                                                Goals:<br>
-                                                ------<br>
-                                                <br>
-                                                    * The mechanism
-                                                should provide low
-                                                submission latencies<br>
-                                                <br>
-                                                Test: submitting a NOP
-                                                packet through the
-                                                mechanism on busy<br>
-                                                hardware<br>
-                                                should<br>
-                                                be equivalent to
-                                                submitting a NOP on idle
-                                                hardware.<br>
-                                                <br>
-                                                Nice to have:<br>
-                                                -------------<br>
-                                                <br>
-                                                    * The mechanism
-                                                should also support GFX
-                                                workloads.<br>
-                                                <br>
-                                                My understanding is that
-                                                with the current
-                                                hardware<br>
-                                                capabilities in<br>
-                                                Polaris10 we<br>
-                                                will not be able to
-                                                provide a solution
-                                                compatible with GFX<br>
-                                                worloads.<br>
-                                                <br>
-                                                But I would love to hear
-                                                otherwise. So if anyone
-                                                has an<br>
-                                                idea,<br>
-                                                approach or<br>
-                                                suggestion that will
-                                                also be compatible with
-                                                the GFX ring,<br>
-                                                please let<br>
-                                                us know<br>
-                                                about it.<br>
-                                                <br>
-                                                    * The above
-                                                guarantees should also
-                                                be respected by<br>
-                                                amdkfd workloads<br>
-                                                <br>
-                                                Would be good to have
-                                                for consistency, but not
-                                                strictly<br>
-                                                necessary as<br>
-                                                users running<br>
-                                                games are not
-                                                traditionally running
-                                                HPC workloads in the<br>
-                                                background.<br>
-                                                <br>
-                                                Proposed approach:<br>
-                                                ------------------<br>
-                                                <br>
-                                                Similar to the windows
-                                                driver, we could expose
-                                                a high<br>
-                                                priority<br>
-                                                compute queue to<br>
-                                                userspace.<br>
-                                                <br>
-                                                Submissions to this
-                                                compute queue will be
-                                                scheduled with<br>
-                                                high<br>
-                                                priority, and may<br>
-                                                acquire hardware
-                                                resources previously in
-                                                use by other<br>
-                                                queues.<br>
-                                                <br>
-                                                This can be achieved by
-                                                taking advantage of the
-                                                'priority'<br>
-                                                field in<br>
-                                                the HQDs<br>
-                                                and could be programmed
-                                                by amdgpu or the amdgpu
-                                                scheduler.<br>
-                                                The relevant<br>
-                                                register fields are:<br>
-                                                        *
-                                                mmCP_HQD_PIPE_PRIORITY<br>
-                                                        *
-                                                mmCP_HQD_QUEUE_PRIORITY<br>
-                                                <br>
-                                                Implementation approach
-                                                1 - static partitioning:<br>
-------------------------------<wbr>------------------<br>
-                                                <br>
-                                                The amdgpu driver
-                                                currently controls 8
-                                                compute queues from<br>
-                                                pipe0. We can<br>
-                                                statically partition
-                                                these as follows:<br>
-                                                        * 7x regular<br>
-                                                        * 1x high
-                                                priority<br>
-                                                <br>
-                                                The relevant priorities
-                                                can be set so that
-                                                submissions to<br>
-                                                the high<br>
-                                                priority<br>
-                                                ring will starve the
-                                                other compute rings and
-                                                the GFX ring.<br>
-                                                <br>
-                                                The amdgpu scheduler
-                                                will only place jobs
-                                                into the high<br>
-                                                priority<br>
-                                                rings if the<br>
-                                                context is marked as
-                                                high priority. And a
-                                                corresponding<br>
-                                                priority<br>
-                                                should be<br>
-                                                added to keep track of
-                                                this information:<br>
-                                                     *
-                                                AMD_SCHED_PRIORITY_KERNEL<br>
-                                                     * -&gt;
-                                                AMD_SCHED_PRIORITY_HIGH<br>
-                                                     *
-                                                AMD_SCHED_PRIORITY_NORMAL<br>
-                                                <br>
-                                                The user will request a
-                                                high priority context by
-                                                setting an<br>
-                                                appropriate flag<br>
-                                                in drm_amdgpu_ctx_in
-                                                (AMDGPU_CTX_HIGH_PRIORITY
-                                                or similar):<br>
-                                                <a
-                                                  moz-do-not-send="true"
-href="https://github.com/torvalds/linux/blob/master/include/uapi/drm/amdgpu_drm.h#L163"
-                                                  rel="noreferrer"
-                                                  target="_blank"><a class="moz-txt-link-freetext" href="https://github.com/torvalds/li">https://github.com/torvalds/li</a><wbr>nux/blob/master/include/uapi/<wbr>drm/amdgpu_drm.h#L163</a><br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                The setting is in a per
-                                                context level so that we
-                                                can:<br>
-                                                    * Maintain a
-                                                consistent FIFO ordering
-                                                of all<br>
-                                                submissions to a<br>
-                                                context<br>
-                                                    * Create high
-                                                priority and non-high
-                                                priority contexts<br>
-                                                in the same<br>
-                                                process<br>
-                                                <br>
-                                                Implementation approach
-                                                2 - dynamic priority
-                                                programming:<br>
-------------------------------<wbr>---------------------------<br>
-                                                <br>
-                                                Similar to the above,
-                                                but instead of
-                                                programming the<br>
-                                                priorities and<br>
-                                                amdgpu_init() time, the
-                                                SW scheduler will
-                                                reprogram the<br>
-                                                queue priorities<br>
-                                                dynamically when
-                                                scheduling a task.<br>
-                                                <br>
-                                                This would involve
-                                                having a hardware
-                                                specific callback from<br>
-                                                the<br>
-                                                scheduler to<br>
-                                                set the appropriate
-                                                queue priority:
-                                                set_priority(int ring,<br>
-                                                int index,<br>
-                                                int priority)<br>
-                                                <br>
-                                                During this callback we
-                                                would have to grab the
-                                                SRBM mutex<br>
-                                                to perform<br>
-                                                the appropriate<br>
-                                                HW programming, and I'm
-                                                not really sure if that
-                                                is<br>
-                                                something we<br>
-                                                should be doing from<br>
-                                                the scheduler.<br>
-                                                <br>
-                                                On the positive side,
-                                                this approach would
-                                                allow us to<br>
-                                                program a range of<br>
-                                                priorities for jobs
-                                                instead of a single
-                                                "high priority"<br>
-                                                value",<br>
-                                                achieving<br>
-                                                something similar to the
-                                                niceness API available
-                                                for CPU<br>
-                                                scheduling.<br>
-                                                <br>
-                                                I'm not sure if this
-                                                flexibility is something
-                                                that we would<br>
-                                                need for<br>
-                                                our use<br>
-                                                case, but it might be
-                                                useful in other
-                                                scenarios (multiple<br>
-                                                users<br>
-                                                sharing compute<br>
-                                                time on a server).<br>
-                                                <br>
-                                                This approach would
-                                                require a new int field
-                                                in<br>
-                                                drm_amdgpu_ctx_in, or<br>
-                                                repurposing<br>
-                                                of the flags field.<br>
-                                                <br>
-                                                Known current obstacles:<br>
-                                                ------------------------<br>
-                                                <br>
-                                                The SQ is currently
-                                                programmed to disregard
-                                                the HQD<br>
-                                                priorities, and<br>
-                                                instead it picks<br>
-                                                jobs at random. Settings
-                                                from the shader itself
-                                                are also<br>
-                                                disregarded<br>
-                                                as this is<br>
-                                                considered a privileged
-                                                field.<br>
-                                                <br>
-                                                Effectively we can get
-                                                our compute wavefront
-                                                launched ASAP,<br>
-                                                but we<br>
-                                                might not get the<br>
-                                                time we need on the SQ.<br>
-                                                <br>
-                                                The current programming
-                                                would have to be changed
-                                                to allow<br>
-                                                priority<br>
-                                                propagation<br>
-                                                from the HQD into the
-                                                SQ.<br>
-                                                <br>
-                                                Generic approach for all
-                                                HW IPs:<br>
-------------------------------<wbr>--<br>
-                                                <br>
-                                                For consistency
-                                                purposes, the high
-                                                priority context can be<br>
-                                                enabled<br>
-                                                for all HW IPs<br>
-                                                with support of the SW
-                                                scheduler. This will
-                                                function<br>
-                                                similarly to the<br>
-                                                current<br>
-AMD_SCHED_PRIORITY_KERNEL priority, where the job can jump<br>
-                                                ahead of<br>
-                                                anything not<br>
-                                                commited to the HW
-                                                queue.<br>
-                                                <br>
-                                                The benefits of
-                                                requesting a high
-                                                priority context for a<br>
-                                                non-compute<br>
-                                                queue will<br>
-                                                be lesser (e.g. up to
-                                                10s of wait time if a
-                                                GFX command is<br>
-                                                stuck in<br>
-                                                front of<br>
-                                                you), but having the API
-                                                in place will allow us
-                                                to easily<br>
-                                                improve the<br>
-                                                implementation<br>
-                                                in the future as new
-                                                features become
-                                                available in new<br>
-                                                hardware.<br>
-                                                <br>
-                                                Future steps:<br>
-                                                -------------<br>
-                                                <br>
-                                                Once we have an approach
-                                                settled, I can take care
-                                                of the<br>
-                                                implementation.<br>
-                                                <br>
-                                                Also, once the interface
-                                                is mostly decided, we
-                                                can start<br>
-                                                thinking about<br>
-                                                exposing the high
-                                                priority queue through
-                                                radv.<br>
-                                                <br>
-                                                Request for feedback:<br>
-                                                ---------------------<br>
-                                                <br>
-                                                We aren't married to any
-                                                of the approaches
-                                                outlined above.<br>
-                                                Our goal<br>
-                                                is to<br>
-                                                obtain a mechanism that
-                                                will allow us to
-                                                complete the<br>
-                                                reprojection<br>
-                                                job within a<br>
-                                                predictable amount of
-                                                time. So if anyone
-                                                anyone has any<br>
-                                                suggestions for<br>
-                                                improvements or
-                                                alternative strategies
-                                                we are more than<br>
-                                                happy to hear<br>
-                                                them.<br>
-                                                <br>
-                                                If any of the technical
-                                                information above is
-                                                also<br>
-                                                incorrect, feel<br>
-                                                free to point<br>
-                                                out my
-                                                misunderstandings.<br>
-                                                <br>
-                                                Looking forward to
-                                                hearing from you.<br>
-                                                <br>
-                                                Regards,<br>
-                                                Andres<br>
-                                                <br>
-______________________________<wbr>_________________<br>
-                                                amd-gfx mailing list<br>
-                                                <a
-                                                  moz-do-not-send="true"
-href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target="_blank"><a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a></a><br>
-                                                <a
-                                                  moz-do-not-send="true"
-href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-                                                  rel="noreferrer"
-                                                  target="_blank"><a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/">https://lists.freedesktop.org/</a><wbr>mailman/listinfo/amd-gfx</a><br>
-                                                <br>
-                                                <br>
-                                                amd-gfx Info Page - <a
-                                                  moz-do-not-send="true"
-href="http://lists.freedesktop.org" rel="noreferrer" target="_blank">lists.freedesktop.org</a><br>
-                                                <a
-                                                  moz-do-not-send="true"
-href="http://lists.freedesktop.org" rel="noreferrer" target="_blank">lists.freedesktop.org</a><br>
-                                                To see the collection of
-                                                prior postings to the
-                                                list,<br>
-                                                visit the<br>
-                                                amd-gfx Archives. Using
-                                                amd-gfx: To post a
-                                                message to all<br>
-                                                the list<br>
-                                                members, send email ...<br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                amd-gfx Info Page - <a
-                                                  moz-do-not-send="true"
-href="http://lists.freedesktop.org" rel="noreferrer" target="_blank">lists.freedesktop.org</a><br>
-                                                <a
-                                                  moz-do-not-send="true"
-href="http://lists.freedesktop.org" rel="noreferrer" target="_blank">lists.freedesktop.org</a><br>
-                                                To see the collection of
-                                                prior postings to the
-                                                list,<br>
-                                                visit the<br>
-                                                amd-gfx Archives. Using
-                                                amd-gfx: To post a
-                                                message to all<br>
-                                                the list<br>
-                                                members, send email ...<br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <br>
-______________________________<wbr>_________________<br>
-                                                amd-gfx mailing list<br>
-                                                <a
-                                                  moz-do-not-send="true"
-href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target="_blank"><a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a></a><br>
-                                                <a
-                                                  moz-do-not-send="true"
-href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-                                                  rel="noreferrer"
-                                                  target="_blank"><a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/">https://lists.freedesktop.org/</a><wbr>mailman/listinfo/amd-gfx</a><br>
-                                                <br>
-                                              </blockquote>
-                                              <br>
-______________________________<wbr>_________________<br>
-                                              amd-gfx mailing list<br>
-                                              <a moz-do-not-send="true"
-href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target="_blank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                                              <a moz-do-not-send="true"
-href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-                                                rel="noreferrer"
-                                                target="_blank">https://lists.freedesktop.org/<wbr>mailman/listinfo/amd-gfx</a><br>
-                                            </blockquote>
-                                            <br>
-                                          </blockquote>
-                                          <br>
-                                        </blockquote>
-                                        <br>
-                                        ______________________________<wbr>_________________<br>
-                                        amd-gfx mailing list<br>
-                                        <a moz-do-not-send="true"
-                                          href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                                          target="_blank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                                        <a moz-do-not-send="true"
-                                          href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-                                          rel="noreferrer"
-                                          target="_blank">https://lists.freedesktop.org/<wbr>mailman/listinfo/amd-gfx</a><br>
-                                      </blockquote>
-                                      <br>
-                                    </blockquote>
-                                    <br>
-                                  </blockquote>
-                                  <br>
-                                  Sincerely yours,<br>
-                                  Serguei Sagalovitch<br>
-                                  <br>
-                                  ______________________________<wbr>_________________<br>
-                                  amd-gfx mailing list<br>
-                                  <a moz-do-not-send="true"
-                                    href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                                    target="_blank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                                  <a moz-do-not-send="true"
-                                    href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-                                    rel="noreferrer" target="_blank">https://lists.freedesktop.org/<wbr>mailman/listinfo/amd-gfx</a><br>
-                                </blockquote>
-                                <br>
-                                <br>
-                              </blockquote>
-                              <br>
-                            </blockquote>
-                            <br>
-                          </blockquote>
-                          <br>
-                        </blockquote>
-                        <br>
-                        Sincerely yours,<br>
-                        Serguei Sagalovitch<br>
-                        <br>
-                      </blockquote>
-                      <br>
-                    </blockquote>
-                    <br>
-                  </blockquote>
-                  <br>
-                </div>
-              </div>
-            </blockquote>
-          </div>
-          <br>
-        </div>
-      </blockquote>
-      <br>
-    </blockquote>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------8A0F7AEF1F662A95B70010BF--
-
---===============0808856035==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0808856035==--
+PiBJIGhhdGUgdG8ga2VlcCBicmluZ2luZyB1cCBkaXNwbGF5IHRvcGljcyBpbiBhbiB1bnJlbGF0
+ZWQgCj4gY29udmVyc2F0aW9uLCBidXQgSSdtIG5vdCBzdXJlIHdoZXJlIHlvdSBnb3QgIkFwcGxp
+Y2F0aW9uIC0+IFggc2VydmVyIAo+IC0+IGNvbXBvc2l0b3IgLT4gWCBzZXJ2ZXIiIGZyb20uClNv
+cnJ5IGZvciB0aGF0LiBJdCBqdXN0IHNvdW5kZWQgbGlrZSB5b3Ugd2FzIGFzc3VtaW5nIHNvbWV0
+aGluZyBhYm91dCAKdGhlIGN1cnJlbnQgc3RhY2sgd2hpY2ggbG9va2VkIGxpa2UgaXQgd29uJ3Qg
+d29yayBjdXJyZW50bHkuCgpCdXQgd2hlbiB5b3UgYXJlIHdpbGxpbmcgdG8gaW1wbGVtZW50IHRo
+YXQgc3R1ZmYgdGhlbiBJJ20gbm90IHJlYWxseSAKY29uY2VybmVkIGFueSBtb3JlLiBFc3BlY2lh
+bGx5IHdoZW4gRGF2ZSBpcyBhbHJlYWR5IGludm9sdmVkLgoKUmVnYXJkcywKQ2hyaXN0aWFuLgoK
+QW0gMjMuMTIuMjAxNiB1bSAxOToxOCBzY2hyaWViIFBpZXJyZS1Mb3VwIEEuIEdyaWZmYWlzOgo+
+IEkgaGF0ZSB0byBrZWVwIGJyaW5naW5nIHVwIGRpc3BsYXkgdG9waWNzIGluIGFuIHVucmVsYXRl
+ZCAKPiBjb252ZXJzYXRpb24sIGJ1dCBJJ20gbm90IHN1cmUgd2hlcmUgeW91IGdvdCAiQXBwbGlj
+YXRpb24gLT4gWCBzZXJ2ZXIgCj4gLT4gY29tcG9zaXRvciAtPiBYIHNlcnZlciIgZnJvbS4gQXMg
+SSB3YXMgc2F5aW5nIGJlZm9yZSwgd2UgbmVlZCB0byBiZSAKPiBwcmVzZW50aW5nIGRpcmVjdGx5
+IHRvIHRoZSBITUQgZGlzcGxheSBhcyBubyBkaXNwbGF5IHNlcnZlciBjYW4gYmUgaW4gCj4gdGhl
+IHdheSwgYm90aCBmb3IgbGF0ZW5jeSBidXQgYWxzbyBxdWFsaXR5IG9mIHNlcnZpY2UgcmVhc29u
+cyAoYSBidWdneSAKPiBhcHBsaWNhdGlvbiBjYW5ub3QgYmUgYWxsb3dlZCB0byBhY2NpZGVudGFs
+bHkgZGlzcGxheSB1bmRpc3RvcnRlZCAKPiByZW5kZXJpbmcgaW50byB0aGUgSE1EKTsgd2UgaW50
+ZW5kIHRvIGRvIHRoZSBuZWNlc3Nhcnkgd29yayBmb3IgdGhpcywgCj4gYW5kIHRoZSBleHRlbnQg
+b2YgWCdzIChvciBhIFdheWxhbmQgaW1wbGVtZW50YXRpb24sIG9yIGFueSBvdGhlciAKPiBkaXNw
+bGF5IHNlcnZlcikgaW52b2x2bWVudCB3aWxsIGJlIHRvIHBhcnRpY2lwYXRlIGVub3VnaCB0byBr
+bm93IHRoYXQgCj4gdGhlIEhNRCBkaXNwbGF5IGlzIG9mZi1saW1pdHMuIElmIHlvdSBoYXZlIG1v
+cmUgcXVlc3Rpb25zIG9uIHRoZSAKPiBkaXNwbGF5IGFzcGVjdCwgb3IgVlIgcmVuZGVyaW5nIGlu
+IGdlbmVyYWwsIEknbSBoYXBweSB0byB0cnkgdG8gCj4gYWRkcmVzcyB0aGVtIG91dC1vZi1iYW5k
+IGZyb20gdGhpcyBjb252ZXJzYXRpb24uCj4KPiBPbiAxMi8yMy8yMDE2IDAyOjU0IEFNLCBDaHJp
+c3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4gQnV0IHllcywgaW4gZ2VuZXJhbCB5b3UgZG9uJ3Qgd2Fu
+dCBhbm90aGVyIGNvbXBvc2l0b3IgaW4gdGhlIHdheSwgc28KPj4+IHdlJ2xsIGJlIGFjcXVpcmlu
+ZyB0aGUgSE1EIGRpc3BsYXkgZGlyZWN0bHksIHNlcGFyYXRlIGZyb20gYW55IGRlc2t0b3AKPj4+
+IG9yIGRpc3BsYXkgc2VydmVyLgo+PiBBc3N1bWluZyB0aGF0IHRoZSB0aGUgSE1EIGlzIGF0dGFj
+aGVkIHRvIHRoZSByZW5kZXJpbmcgZGV2aWNlIGluIHNvbWUKPj4gd2F5IHlvdSBoYXZlIHRoZSBY
+IHNlcnZlciBhbmQgdGhlIENvbXBvc2l0b3Igd2hpY2ggYm90aCB0cnkgdG8gYmUgRFJNCj4+IG1h
+c3RlciBhdCB0aGUgc2FtZSB0aW1lLgo+Pgo+PiBQbGVhc2UgY29ycmVjdCBtZSBpZiB0aGF0IHdh
+cyBmaXhlZCBpbiB0aGUgbWVhbnRpbWUsIGJ1dCB0aGF0IHNvdW5kcwo+PiBsaWtlIGl0IHdpbGwg
+c2ltcGx5IG5vdCB3b3JrLiBPciBpcyB0aGlzIHdoYXQgQW5kcmVzIG1lbnRpb24gYmVsb3cgRGF2
+ZQo+PiBpcyB3b3JraW5nIG9uID8uCj4+Cj4+IEFkZGl0aW9uYWwgdG8gdGhhdCBhIGNvbXBvc2l0
+b3IgaW4gY29tYmluYXRpb24gd2l0aCBYIGlzIGEgYml0IGNvdW50ZXIKPj4gcHJvZHVjdGl2ZSB3
+aGVuIHlvdSB3YW50IHRvIGtlZXAgdGhlIGxhdGVuY3kgbG93Lgo+Pgo+PiBFLmcuIHRoZSAibm9y
+bWFsIiBmbG93IG9mIGEgR0wgb3IgVnVsa2FuIHN1cmZhY2UgZmlsbGVkIHdpdGggcmVuZGVyZWQK
+Pj4gZGF0YSB0byBiZSBkaXNwbGF5ZWQgaXMgZnJvbSB0aGUgQXBwbGljYXRpb24gLT4gWCBzZXJ2
+ZXIgLT4gY29tcG9zaXRvcgo+PiAtPiBYIHNlcnZlci4KPj4KPj4gVGhlIGV4dHJhIHN0ZXAgYmV0
+d2VlbiBYIHNlcnZlciBhbmQgY29tcG9zaXRvciBqdXN0IG1lYW5zIGV4dHJhIGxhdGVuY3kKPj4g
+YW5kIGZvciB0aGlzIHVzZSBjYXNlIHlvdSBwcm9iYWJseSBkb24ndCB3YW50IHRoYXQuCj4+Cj4+
+IFRhcmdldGluZyBzb21ldGhpbmcgbGlrZSBXYXlsYW5kIGFuZCB3aGVuIHlvdSBuZWVkIFggY29t
+cGF0aWJpbGl0eQo+PiBYV2F5bGFuZCBzb3VuZHMgbGlrZSB0aGUgbXVjaCBiZXR0ZXIgaWRlYS4K
+Pj4KPj4gUmVnYXJkcywKPj4gQ2hyaXN0aWFuLgo+Pgo+PiBBbSAyMi4xMi4yMDE2IHVtIDIwOjU0
+IHNjaHJpZWIgUGllcnJlLUxvdXAgQS4gR3JpZmZhaXM6Cj4+PiBEaXNwbGF5IGNvbmNlcm5zIGFy
+ZSBhIHNlcGFyYXRlIGlzc3VlLCBhbmQgYXMgQW5kcmVzIHNhaWQgd2UgaGF2ZQo+Pj4gb3RoZXIg
+cGxhbnMgdG8gYWRkcmVzcy4gQnV0IHllcywgaW4gZ2VuZXJhbCB5b3UgZG9uJ3Qgd2FudCBhbm90
+aGVyCj4+PiBjb21wb3NpdG9yIGluIHRoZSB3YXksIHNvIHdlJ2xsIGJlIGFjcXVpcmluZyB0aGUg
+SE1EIGRpc3BsYXkgZGlyZWN0bHksCj4+PiBzZXBhcmF0ZSBmcm9tIGFueSBkZXNrdG9wIG9yIGRp
+c3BsYXkgc2VydmVyLiBTYW1lIHdpdGggc2VjdXJpdHksIHdlCj4+PiBjYW4gaGF2ZSBhIHNlcGFy
+YXRlIGNvbnZlcnNhdGlvbiBhYm91dCB0aGF0IHdoZW4gdGhlIHRpbWUgY29tZXMuCj4+Pgo+Pj4g
+T24gMTIvMjIvMjAxNiAwODo0MSBBTSwgU2VyZ3VlaSBTYWdhbG92aXRjaCB3cm90ZToKPj4+PiBB
+bmRyZXMsCj4+Pj4KPj4+PiBEaWQgeW91IG1lYXN1cmUgIGxhdGVuY3ksIGV0Yy4gaW1wYWN0IG9m
+IF9fYW55X18gY29tcG9zaXRvcj8KPj4+Pgo+Pj4+IE15IHVuZGVyc3RhbmRpbmcgaXMgdGhhdCBW
+UiBoYXMgcHJldHR5IHN0cmljdCByZXF1aXJlbWVudHMgcmVsYXRlZCB0bwo+Pj4+IFFvUy4KPj4+
+Pgo+Pj4+IFNpbmNlcmVseSB5b3VycywKPj4+PiBTZXJndWVpIFNhZ2Fsb3ZpdGNoCj4+Pj4KPj4+
+Pgo+Pj4+IE9uIDIwMTYtMTItMjIgMTE6MzUgQU0sIEFuZHJlcyBSb2RyaWd1ZXogd3JvdGU6Cj4+
+Pj4+IEhleSBDaHJpc3RpYW4sCj4+Pj4+Cj4+Pj4+IFdlIGFyZSBjdXJyZW50bHkgaW50ZXJlc3Rl
+ZCBpbiBYLCBidXQgd2l0aCBzb21lIGRpc3Ryb3Mgc3dpdGNoaW5nIHRvCj4+Pj4+IG90aGVyIGNv
+bXBvc2l0b3JzIGJ5IGRlZmF1bHQsIHdlIGFsc28gbmVlZCB0byBjb25zaWRlciB0aG9zZS4KPj4+
+Pj4KPj4+Pj4gV2UgYWdyZWUsIHJ1bm5pbmcgdGhlIGZ1bGwgdnJjb21wb3NpdG9yIGluIHJvb3Qg
+aXNuJ3Qgc29tZXRoaW5nIHRoYXQKPj4+Pj4gd2Ugd2FudCB0byBkby4gVG9vIG1hbnkgc2VjdXJp
+dHkgY29uY2VybnMuIEhhdmluZyBhIHNtYWxsIHJvb3QgaGVscGVyCj4+Pj4+IHRoYXQgZG9lcyB0
+aGUgcHJpdmlsZWdlIGVzY2FsYXRpb24gZm9yIHVzIGlzIHRoZSBpbml0aWFsIGlkZWEuCj4+Pj4+
+Cj4+Pj4+IEZvciBhIGxvbmcgdGVybSBhcHByb2FjaCwgUGllcnJlLUxvdXAgYW5kIERhdmUgYXJl
+IHdvcmtpbmcgb24gZGVhbGluZwo+Pj4+PiB3aXRoIHRoZSAidHdvIGNvbXBvc2l0b3JzIiBzY2Vu
+YXJpbyBhIGxpdHRsZSBiZXR0ZXIgaW4gRFJNK1guCj4+Pj4+IEZ1bGxzY3JlZW4gaXNuJ3QgcmVh
+bGx5IGEgc3VmZmljaWVudCBhcHByb2FjaCwgc2luY2Ugd2UgZG9uJ3Qgd2FudCAKPj4+Pj4gdGhl
+Cj4+Pj4+IEhNRCB0byBiZSB1c2VkIGFzIHBhcnQgb2YgdGhlIERlc2t0b3AgZW52aXJvbm1lbnQg
+d2hlbiBhIFZSIGFwcCBpcyAKPj4+Pj4gbm90Cj4+Pj4+IGluIHVzZSAodGhpcyBpcyBleHRyZW1l
+bHkgYW5ub3lpbmcpLgo+Pj4+Pgo+Pj4+PiBXaGVuIHRoZSBhYm92ZSBpcyBzZXR0bGVkLCB3ZSBz
+aG91bGQgaGF2ZSBhbiBhdXRoIG1lY2hhbmlzbSBiZXNpZGVzCj4+Pj4+IERSTV9NQVNURVIgb3Ig
+RFJNX0FVVEggdGhhdCBhbGxvd3MgdGhlIHZyY29tcG9zaXRvciB0byB0YWtlIG92ZXIgdGhlCj4+
+Pj4+IEhNRCBwZXJtYW5lbnRseSBhd2F5IGZyb20gWC4gUmUtdXNpbmcgdGhhdCBhdXRoIG1ldGhv
+ZCB0byBnYXRlIHRoaXMKPj4+Pj4gSU9DVEwgaXMgcHJvYmFibHkgZ29pbmcgdG8gYmUgdGhlIGZp
+bmFsIHNvbHV0aW9uLgo+Pj4+Pgo+Pj4+PiBJIHByb3Bvc2UgdG8gc3RhcnQgd2l0aCBST09UX09O
+TFkgc2luY2UgaXQgc2hvdWxkIGFsbG93IHVzIHRvIHJlc3BlY3QKPj4+Pj4ga2VybmVsIElPQ1RM
+IGNvbXBhdGliaWxpdHkgZ3VpZGVsaW5lcyB3aXRoIHRoZSBtb3N0IGZsZXhpYmlsaXR5LiAKPj4+
+Pj4gR29pbmcKPj4+Pj4gZnJvbSBhIHJlc3RyaWN0aXZlIHRvIGEgbW9yZSBmbGV4aWJsZSBwZXJt
+aXNzaW9uIG1vZGVsIHdvdWxkIGJlCj4+Pj4+IGluY2x1c2l2ZSwgYnV0IGdvaW5nIGZyb20gYSBn
+ZW5lcmFsIHRvIGEgcmVzdHJpY3RpdmUgbW9kZWwgbWF5IAo+Pj4+PiBleGNsdWRlCj4+Pj4+IHNv
+bWUgYXBwcyB0aGF0IHVzZWQgdG8gd29yay4KPj4+Pj4KPj4+Pj4gUmVnYXJkcywKPj4+Pj4gQW5k
+cmVzCj4+Pj4+Cj4+Pj4+IE9uIDEyLzIyLzIwMTYgNjo0MiBBTSwgQ2hyaXN0aWFuIEvDtm5pZyB3
+cm90ZToKPj4+Pj4+IEhpIEFuZHJlcywKPj4+Pj4+Cj4+Pj4+PiB3ZWxsIHVzaW5nIHJvb3QgbWln
+aHQgY2F1c2Ugc3RhYmlsaXR5IGFuZCBzZWN1cml0eSBwcm9ibGVtcyBhcyB3ZWxsLgo+Pj4+Pj4g
+V2Ugd29ya2VkIHF1aXRlIGhhcmQgdG8gYXZvaWQgZXhhY3RseSB0aGlzIGZvciBYLgo+Pj4+Pj4K
+Pj4+Pj4+IFdlIGNvdWxkIG1ha2UgdGhpcyBmZWF0dXJlIGRlcGVuZCBvbiB0aGUgY29tcG9zaXRv
+ciBiZWluZyBEUk0gCj4+Pj4+PiBtYXN0ZXIsCj4+Pj4+PiBidXQgZm9yIGV4YW1wbGUgd2l0aCBY
+IHRoZSBYIHNlcnZlciBpcyBtYXN0ZXIgKGFuZCBlLmcuIGNhbiBjaGFuZ2UKPj4+Pj4+IHJlc29s
+dXRpb25zIGV0Yy4uKSBhbmQgbm90IHRoZSBjb21wb3NpdG9yLgo+Pj4+Pj4KPj4+Pj4+IFNvIGFu
+b3RoZXIgcXVlc3Rpb24gaXMgYWxzbyB3aGF0IHdpbmRvd2luZyBzeXN0ZW0gKGlmIGFueSkgYXJl
+IHlvdQo+Pj4+Pj4gcGxhbm5pbmcgdG8gdXNlPyBYLCBXYXlsYW5kLCBGbGluZ2VyIG9yIHNvbWV0
+aGluZyBjb21wbGV0ZWx5Cj4+Pj4+PiBkaWZmZXJlbnQgPwo+Pj4+Pj4KPj4+Pj4+IFJlZ2FyZHMs
+Cj4+Pj4+PiBDaHJpc3RpYW4uCj4+Pj4+Pgo+Pj4+Pj4gQW0gMjAuMTIuMjAxNiB1bSAxNjo1MSBz
+Y2hyaWViIEFuZHJlcyBSb2RyaWd1ZXo6Cj4+Pj4+Pj4gSGkgQ2hyaXN0aWFuLAo+Pj4+Pj4+Cj4+
+Pj4+Pj4gVGhhdCBpcyBkZWZpbml0ZWx5IGEgY29uY2Vybi4gV2hhdCB3ZSBhcmUgY3VycmVudGx5
+IHRoaW5raW5nIGlzIHRvCj4+Pj4+Pj4gbWFrZSB0aGUgaGlnaCBwcmlvcml0eSBxdWV1ZXMgYWNj
+ZXNzaWJsZSB0byByb290IG9ubHkuCj4+Pj4+Pj4KPj4+Pj4+PiBUaGVyZWZvcmUgaXMgYSBub24t
+cm9vdCB1c2VyIGF0dGVtcHRzIHRvIHNldCB0aGUgaGlnaCBwcmlvcml0eSBmbGFnCj4+Pj4+Pj4g
+b24gY29udGV4dCBhbGxvY2F0aW9uLCB3ZSB3b3VsZCBmYWlsIHRoZSBjYWxsIGFuZCByZXR1cm4g
+RU5PUEVSTS4KPj4+Pj4+Pgo+Pj4+Pj4+IFJlZ2FyZHMsCj4+Pj4+Pj4gQW5kcmVzCj4+Pj4+Pj4K
+Pj4+Pj4+Pgo+Pj4+Pj4+IE9uIDEyLzIwLzIwMTYgNzo1NiBBTSwgQ2hyaXN0aWFuIEvDtm5pZyB3
+cm90ZToKPj4+Pj4+Pj4+IEJUVzogSWYgdGhlcmUgaXMgIG5vbi1WUiBhcHBsaWNhdGlvbiB3aGlj
+aCB3aWxsIHVzZSBoaWdoLXByaW9yaXR5Cj4+Pj4+Pj4+PiBoL3cgcXVldWUgdGhlbiBWUiBhcHBs
+aWNhdGlvbiB3aWxsIHN1ZmZlci4gIEFueSBpZGVhcyBob3cKPj4+Pj4+Pj4+IHRvIHNvbHZlIGl0
+Pwo+Pj4+Pj4+PiBZZWFoLCB0aGF0IHByb2JsZW0gY2FtZSB0byBteSBtaW5kIGFzIHdlbGwuCj4+
+Pj4+Pj4+Cj4+Pj4+Pj4+IEJhc2ljYWxseSB3ZSBuZWVkIHRvIHJlc3RyaWN0IHRob3NlIGhpZ2gg
+cHJpb3JpdHkgc3VibWlzc2lvbnMgdG8KPj4+Pj4+Pj4gdGhlIFZSIGNvbXBvc2l0b3Igb3Igb3Ro
+ZXJ3aXNlIGFueSBtYWxmdW5jdGlvbmluZyBhcHBsaWNhdGlvbiAKPj4+Pj4+Pj4gY291bGQKPj4+
+Pj4+Pj4gdXNlIGl0Lgo+Pj4+Pj4+Pgo+Pj4+Pj4+PiBKdXN0IHRoaW5rIGFib3V0IHNvbWUgV2Vi
+R0wgc3VkZGVubHkgdGFraW5nIGFsbCBvdXIgcmVuZGVyaW5nIGF3YXkKPj4+Pj4+Pj4gYW5kIHdl
+IHdvbid0IGdldCBhbnl0aGluZyBkcmF3biBhbnkgbW9yZS4KPj4+Pj4+Pj4KPj4+Pj4+Pj4gQWxl
+eCBvciBNaWNoZWwgYW55IGlkZWFzIG9uIHRoYXQ/Cj4+Pj4+Pj4+Cj4+Pj4+Pj4+IFJlZ2FyZHMs
+Cj4+Pj4+Pj4+IENocmlzdGlhbi4KPj4+Pj4+Pj4KPj4+Pj4+Pj4gQW0gMTkuMTIuMjAxNiB1bSAx
+NTo0OCBzY2hyaWViIFNlcmd1ZWkgU2FnYWxvdml0Y2g6Cj4+Pj4+Pj4+PiA+IElmIGNvbXB1dGUg
+cXVldWUgaXMgb2NjdXBpZWQgb25seSBieSB5b3UsIHRoZSBlZmZpY2llbmN5Cj4+Pj4+Pj4+PiA+
+IGlzIGVxdWFsIHdpdGggc2V0dGluZyBqb2IgcXVldWUgdG8gaGlnaCBwcmlvcml0eSBJIHRoaW5r
+Lgo+Pj4+Pj4+Pj4gVGhlIG9ubHkgcmlzayBpcyB0aGUgc2l0dWF0aW9uIHdoZW4gZ3JhcGhpY3Mg
+d2lsbCB0YWtlIGFsbAo+Pj4+Pj4+Pj4gbmVlZGVkIENVcy4gQnV0IGluIGFueSBjYXNlIGl0IHNo
+b3VsZCBiZSB2ZXJ5IGdvb2QgdGVzdC4KPj4+Pj4+Pj4+Cj4+Pj4+Pj4+PiBBbmRyZXMvUGllcnJl
+LUxvdXAsCj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4gRGlkIHlvdSB0cnkgdG8gZG8gaXQgb3IgaXQgaXMg
+YSBsb3Qgb2Ygd29yayBmb3IgeW91Pwo+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Cj4+Pj4+Pj4+PiBCVFc6
+IElmIHRoZXJlIGlzICBub24tVlIgYXBwbGljYXRpb24gd2hpY2ggd2lsbCB1c2UgaGlnaC1wcmlv
+cml0eQo+Pj4+Pj4+Pj4gaC93IHF1ZXVlIHRoZW4gVlIgYXBwbGljYXRpb24gd2lsbCBzdWZmZXIu
+ICBBbnkgaWRlYXMgaG93Cj4+Pj4+Pj4+PiB0byBzb2x2ZSBpdD8KPj4+Pj4+Pj4+Cj4+Pj4+Pj4+
+PiBTaW5jZXJlbHkgeW91cnMsCj4+Pj4+Pj4+PiBTZXJndWVpIFNhZ2Fsb3ZpdGNoCj4+Pj4+Pj4+
+Pgo+Pj4+Pj4+Pj4gT24gMjAxNi0xMi0xOSAxMjo1MCBBTSwgemhvdWNtMSB3cm90ZToKPj4+Pj4+
+Pj4+PiBEbyB5b3UgZW5jb3VudGVyIHRoZSBwcmlvcml0eSBpc3N1ZSBmb3IgY29tcHV0ZSBxdWV1
+ZSB3aXRoCj4+Pj4+Pj4+Pj4gY3VycmVudCBkcml2ZXI/Cj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+PiBJ
+ZiBjb21wdXRlIHF1ZXVlIGlzIG9jY3VwaWVkIG9ubHkgYnkgeW91LCB0aGUgZWZmaWNpZW5jeSBp
+cyAKPj4+Pj4+Pj4+PiBlcXVhbAo+Pj4+Pj4+Pj4+IHdpdGggc2V0dGluZyBqb2IgcXVldWUgdG8g
+aGlnaCBwcmlvcml0eSBJIHRoaW5rLgo+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4gUmVnYXJkcywKPj4+
+Pj4+Pj4+PiBEYXZpZCBaaG91Cj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+PiBPbiAyMDE25bm0MTLmnIgx
+OeaXpSAxMzoyOSwgQW5kcmVzIFJvZHJpZ3VleiB3cm90ZToKPj4+Pj4+Pj4+Pj4gWWVzLCB2dWxr
+YW4gaXMgYXZhaWxhYmxlIG9uIGFsbC1vcGVuIHRocm91Z2ggdGhlIG1lc2EgcmFkdiBVTUQuCj4+
+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+IEknbSBub3Qgc3VyZSBpZiBJJ20gYXNraW5nIGZvciB0b28g
+bXVjaCwgYnV0IGlmIHdlIGNhbgo+Pj4+Pj4+Pj4+PiBjb29yZGluYXRlIGEgc2ltaWxhciBpbnRl
+cmZhY2UgaW4gcmFkdiBhbmQgYW1kZ3B1LXBybyBhdCB0aGUKPj4+Pj4+Pj4+Pj4gdnVsa2FuIGxl
+dmVsIHRoYXQgd291bGQgYmUgZ3JlYXQuCj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+IEknbSBub3Qg
+c3VyZSB3aGF0IHRoYXQncyBnb2luZyB0byBiZSB5ZXQuCj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+
+IC0gQW5kcmVzCj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+IE9uIDEyLzE5LzIwMTYgMTI6MTEgQU0s
+IHpob3VjbTEgd3JvdGU6Cj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+IE9u
+IDIwMTblubQxMuaciDE55pelIDExOjMzLCBQaWVycmUtTG91cCBBLiBHcmlmZmFpcyB3cm90ZToK
+Pj4+Pj4+Pj4+Pj4+PiBXZSdyZSBjdXJyZW50bHkgd29ya2luZyB3aXRoIHRoZSBvcGVuIHN0YWNr
+OyBJIGFzc3VtZSB0aGF0IGEKPj4+Pj4+Pj4+Pj4+PiBtZWNoYW5pc20gY291bGQgYmUgZXhwb3Nl
+ZCBieSBib3RoIG9wZW4gYW5kIFBybyBWdWxrYW4KPj4+Pj4+Pj4+Pj4+PiB1c2Vyc3BhY2UgZHJp
+dmVycyBhbmQgdGhhdCB0aGUgYW1kZ3B1IGtlcm5lbCBpbnRlcmZhY2UKPj4+Pj4+Pj4+Pj4+PiBp
+bXByb3ZlbWVudHMgd2Ugd291bGQgcHVyc3VlIGZvbGxvd2luZyB0aGlzIGRpc2N1c3Npb24gd291
+bGQKPj4+Pj4+Pj4+Pj4+PiBsZXQgYm90aCBkcml2ZXJzIHRha2UgYWR2YW50YWdlIG9mIHRoZSBm
+ZWF0dXJlLCBjb3JyZWN0Pwo+Pj4+Pj4+Pj4+Pj4gT2YgY291cnNlLgo+Pj4+Pj4+Pj4+Pj4gRG9l
+cyBvcGVuIHN0YWNrIGhhdmUgVnVsa2FuIHN1cHBvcnQ/Cj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+
+Pj4gUmVnYXJkcywKPj4+Pj4+Pj4+Pj4+IERhdmlkIFpob3UKPj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+
+Pj4+Pj4+IE9uIDEyLzE4LzIwMTYgMDc6MjYgUE0sIHpob3VjbTEgd3JvdGU6Cj4+Pj4+Pj4+Pj4+
+Pj4+IEJ5IHRoZSB3YXksIGFyZSB5b3UgdXNpbmcgYWxsLW9wZW4gZHJpdmVyIG9yIGFtZGdwdS1w
+cm8KPj4+Pj4+Pj4+Pj4+Pj4gZHJpdmVyPwo+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+PiAr
+RGF2aWQgTWFvLCB3aG8gaXMgd29ya2luZyBvbiBvdXIgVnVsa2FuIGRyaXZlci4KPj4+Pj4+Pj4+
+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4gUmVnYXJkcywKPj4+Pj4+Pj4+Pj4+Pj4gRGF2aWQgWmhvdQo+
+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+PiBPbiAyMDE25bm0MTLmnIgxOOaXpSAwNjowNSwg
+UGllcnJlLUxvdXAgQS4gR3JpZmZhaXMgd3JvdGU6Cj4+Pj4+Pj4+Pj4+Pj4+PiBIaSBTZXJndWVp
+LAo+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+IEknbSBhbHNvIHdvcmtpbmcgb24gdGhl
+IGJyaW5naW5nIHVwIG91ciBWUiBydW50aW1lIG9uIAo+Pj4+Pj4+Pj4+Pj4+Pj4gdG9wIG9mCj4+
+Pj4+Pj4+Pj4+Pj4+PiBhbWdwdTsKPj4+Pj4+Pj4+Pj4+Pj4+IHNlZSByZXBsaWVzIGlubGluZS4K
+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+PiBPbiAxMi8xNi8yMDE2IDA5OjA1IFBNLCBT
+YWdhbG92aXRjaCwgU2VyZ3VlaSB3cm90ZToKPj4+Pj4+Pj4+Pj4+Pj4+PiBBbmRyZXMsCj4+Pj4+
+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+Pj4gIEZvciBjdXJyZW50IFZSIHdvcmtsb2FkcyB3
+ZSBoYXZlIDMgc2VwYXJhdGUgcHJvY2Vzc2VzCj4+Pj4+Pj4+Pj4+Pj4+Pj4+IHJ1bm5pbmcKPj4+
+Pj4+Pj4+Pj4+Pj4+Pj4gYWN0dWFsbHk6Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gU28gd2UgY291bGQgaGF2
+ZSBwb3RlbnRpYWwgbWVtb3J5IG92ZXJjb21taXQgY2FzZSBvciBkbwo+Pj4+Pj4+Pj4+Pj4+Pj4+
+IHlvdSBkbwo+Pj4+Pj4+Pj4+Pj4+Pj4+IHBhcnRpdGlvbmluZwo+Pj4+Pj4+Pj4+Pj4+Pj4+IG9u
+IHlvdXIgb3duPyAgSSB3b3VsZCB0aGluayB0aGF0IHRoZXJlIGlzIG5lZWQgdG8gYXZvaWQKPj4+
+Pj4+Pj4+Pj4+Pj4+PiBvdmVyY29taXQgaW4KPj4+Pj4+Pj4+Pj4+Pj4+PiBWUiBjYXNlIHRvCj4+
+Pj4+Pj4+Pj4+Pj4+Pj4gcHJldmVudCBhbnkgQk8gbWlncmF0aW9uLgo+Pj4+Pj4+Pj4+Pj4+Pj4K
+Pj4+Pj4+Pj4+Pj4+Pj4+IFlvdSdyZSBlbnRpcmVseSBjb3JyZWN0OyBjdXJyZW50bHkgdGhlIFZS
+IHJ1bnRpbWUgaXMKPj4+Pj4+Pj4+Pj4+Pj4+IHNldHRpbmcgdXAKPj4+Pj4+Pj4+Pj4+Pj4+IHBy
+aW9yaXRpemVkIENQVSBzY2hlZHVsaW5nIGZvciBpdHMgVlIgY29tcG9zaXRvciwgd2UncmUKPj4+
+Pj4+Pj4+Pj4+Pj4+IHdvcmtpbmcgb24KPj4+Pj4+Pj4+Pj4+Pj4+IHByaW9yaXRpemVkIEdQVSBz
+Y2hlZHVsaW5nIGFuZCBwcmUtZW1wdGlvbiAoZWcuIHRoaXMKPj4+Pj4+Pj4+Pj4+Pj4+IHRocmVh
+ZCksIGFuZCBpbgo+Pj4+Pj4+Pj4+Pj4+Pj4gdGhlIGZ1dHVyZSBpdCB3aWxsIG1ha2Ugc2Vuc2Ug
+dG8gZG8gd29yayBpbiBvcmRlciB0byBtYWtlCj4+Pj4+Pj4+Pj4+Pj4+PiBzdXJlIHRoYXQKPj4+
+Pj4+Pj4+Pj4+Pj4+IGl0cyBtZW1vcnkgYWxsb2NhdGlvbnMgZG8gbm90IGdldCBldmljdGVkLCB0
+byBwcmV2ZW50IGFueQo+Pj4+Pj4+Pj4+Pj4+Pj4gdW53ZWxjb21lCj4+Pj4+Pj4+Pj4+Pj4+PiBh
+ZGRpdGlvbmFsIGxhdGVuY3kgaW4gdGhlIGV2ZW50IG9mIG5lZWRpbmcgdG8gcGVyZm9ybQo+Pj4+
+Pj4+Pj4+Pj4+Pj4ganVzdC1pbi10aW1lCj4+Pj4+Pj4+Pj4+Pj4+PiByZXByb2plY3Rpb24uCj4+
+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+IEJUVzogRG8geW91IG1lYW4gX19yZWFsX18g
+cHJvY2Vzc2VzIG9yIHRocmVhZHM/Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gQmFzZWQgb24gbXkgdW5kZXJz
+dGFuZGluZyBzaGFyaW5nIEJPcyBiZXR3ZWVuIGRpZmZlcmVudAo+Pj4+Pj4+Pj4+Pj4+Pj4+IHBy
+b2Nlc3Nlcwo+Pj4+Pj4+Pj4+Pj4+Pj4+IGNvdWxkIGludHJvZHVjZSBhZGRpdGlvbmFsIHN5bmNo
+cm9uaXphdGlvbiBjb25zdHJhaW5zLiAKPj4+Pj4+Pj4+Pj4+Pj4+PiBidHc6Cj4+Pj4+Pj4+Pj4+
+Pj4+Pj4gSSBhbSBub3QKPj4+Pj4+Pj4+Pj4+Pj4+PiBzdXJlCj4+Pj4+Pj4+Pj4+Pj4+Pj4gaWYg
+d2UgYXJlIGFibGUgdG8gc2hhcmUgVnVsa2FuIHN5bmMuIG9iamVjdCBjcm9zcy1wcm9jZXNzCj4+
+Pj4+Pj4+Pj4+Pj4+Pj4gYm91bmRhcnkuCj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4g
+VGhleSBhcmUgZGlmZmVyZW50IHByb2Nlc3NlczsgaXQgaXMgaW1wb3J0YW50IGZvciB0aGUKPj4+
+Pj4+Pj4+Pj4+Pj4+IGNvbXBvc2l0b3IgdGhhdAo+Pj4+Pj4+Pj4+Pj4+Pj4gaXMgcmVzcG9uc2li
+bGUgZm9yIHF1YWxpdHktb2Ytc2VydmljZSBmZWF0dXJlcyBzdWNoIGFzCj4+Pj4+Pj4+Pj4+Pj4+
+PiBjb25zaXN0ZW50bHkKPj4+Pj4+Pj4+Pj4+Pj4+IHByZXNlbnRpbmcgZGlzdG9ydGVkIGZyYW1l
+cyB3aXRoIHRoZSByaWdodCBsYXRlbmN5LAo+Pj4+Pj4+Pj4+Pj4+Pj4gcmVwcm9qZWN0aW9uLCBl
+dGMsCj4+Pj4+Pj4+Pj4+Pj4+PiB0byBiZSBzZXBhcmF0ZSBmcm9tIHRoZSBtYWluIGFwcGxpY2F0
+aW9uLgo+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+IEN1cnJlbnRseSB3ZSBhcmUgdXNp
+bmcgdW5yZWxlYXNlZCBjcm9zcy1wcm9jZXNzIG1lbW9yeSBhbmQKPj4+Pj4+Pj4+Pj4+Pj4+IHNl
+bWFwaG9yZQo+Pj4+Pj4+Pj4+Pj4+Pj4gZXh0ZW5zaW9ucyB0byBmZXRjaCB1cGRhdGVkIGV5ZSBp
+bWFnZXMgZnJvbSB0aGUgY2xpZW50Cj4+Pj4+Pj4+Pj4+Pj4+PiBhcHBsaWNhdGlvbiwKPj4+Pj4+
+Pj4+Pj4+Pj4+IGJ1dCB0aGUganVzdC1pbi10aW1lIHJlcHJvamVjdGlvbiBkaXNjdXNzZWQgaGVy
+ZSBkb2VzIG5vdAo+Pj4+Pj4+Pj4+Pj4+Pj4gYWN0dWFsbHkKPj4+Pj4+Pj4+Pj4+Pj4+IGhhdmUg
+YW55IGRpcmVjdCBpbnRlcmFjdGlvbnMgd2l0aCBjcm9zcy1wcm9jZXNzIHJlc291cmNlCj4+Pj4+
+Pj4+Pj4+Pj4+PiBzaGFyaW5nLAo+Pj4+Pj4+Pj4+Pj4+Pj4gc2luY2UgaXQncyBhY2hpZXZlZCBi
+eSB1c2luZyB3aGF0ZXZlciBpcyB0aGUgbGF0ZXN0LCBtb3N0Cj4+Pj4+Pj4+Pj4+Pj4+PiB1cC10
+by1kYXRlCj4+Pj4+Pj4+Pj4+Pj4+PiBleWUgaW1hZ2VzIHRoYXQgaGF2ZSBhbHJlYWR5IGJlZW4g
+c2VudCBieSB0aGUgY2xpZW50Cj4+Pj4+Pj4+Pj4+Pj4+PiBhcHBsaWNhdGlvbiwKPj4+Pj4+Pj4+
+Pj4+Pj4+IHdoaWNoIGFyZSBhbHJlYWR5IGF2YWlsYWJsZSB0byB1c2Ugd2l0aG91dCBhZGRpdGlv
+bmFsCj4+Pj4+Pj4+Pj4+Pj4+PiBzeW5jaHJvbml6YXRpb24uCj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+
+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4+ICAgIDMpIFN5c3RlbSBjb21wb3NpdG9yICh3
+ZSBhcmUgbG9va2luZyBhdCBhcHByb2FjaGVzIHRvCj4+Pj4+Pj4+Pj4+Pj4+Pj4+IHJlbW92ZSB0
+aGlzCj4+Pj4+Pj4+Pj4+Pj4+Pj4+IG92ZXJoZWFkKQo+Pj4+Pj4+Pj4+Pj4+Pj4+IFllcywgIElN
+SE8gdGhlIGJlc3QgaXMgdG8gcnVuIGluICJmdWxsIHNjcmVlbiBtb2RlIi4KPj4+Pj4+Pj4+Pj4+
+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+PiBZZXMsIHdlIGFyZSB3b3JraW5nIG9uIG1lY2hhbmlzbXMgdG8g
+cHJlc2VudCBkaXJlY3RseSB0byAKPj4+Pj4+Pj4+Pj4+Pj4+IHRoZQo+Pj4+Pj4+Pj4+Pj4+Pj4g
+aGVhZHNldAo+Pj4+Pj4+Pj4+Pj4+Pj4gZGlzcGxheSB3aXRob3V0IGFueSBpbnRlcm1lZGlhcmll
+cyBhcyBhIHNlcGFyYXRlIGVmZm9ydC4KPj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4K
+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4gIFRoZSBsYXRlbmN5IGlzIG91ciBtYWluIGNvbmNlcm4sCj4+Pj4+
+Pj4+Pj4+Pj4+Pj4gSSB3b3VsZCBhc3N1bWUgdGhhdCB0aGlzIGlzIHRoZSBrbm93biBwcm9ibGVt
+IChhdCBsZWFzdCAKPj4+Pj4+Pj4+Pj4+Pj4+PiBmb3IKPj4+Pj4+Pj4+Pj4+Pj4+PiBjb21wdXRl
+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gdXNhZ2UpLgo+Pj4+Pj4+Pj4+Pj4+Pj4+IEl0IGxvb2tzIGxpa2Ug
+dGhhdCBhbWRncHUgLyBrZXJuZWwgc3VibWlzc2lvbiBpcyByYXRoZXIgCj4+Pj4+Pj4+Pj4+Pj4+
+Pj4gQ1BVCj4+Pj4+Pj4+Pj4+Pj4+Pj4gaW50ZW5zaXZlCj4+Pj4+Pj4+Pj4+Pj4+Pj4gKGF0IGxl
+YXN0Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gaW4gdGhlIGRlZmF1bHQgY29uZmlndXJhdGlvbikuCj4+Pj4+
+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4gQXMgbG9uZyBhcyBpdCdzIGEgY29uc2lzdGVudCBj
+b3N0LCBpdCBzaG91bGRuJ3QgYW4gaXNzdWUuCj4+Pj4+Pj4+Pj4+Pj4+PiBIb3dldmVyLCBpZgo+
+Pj4+Pj4+Pj4+Pj4+Pj4gdGhlcmUncyBoaWdoIGRlZ3JlZXMgb2YgdmFyaWFuY2UgdGhlbiB0aGF0
+IHdvdWxkIGJlCj4+Pj4+Pj4+Pj4+Pj4+PiB0cm91Ymxlc29tZSBhbmQgd2UKPj4+Pj4+Pj4+Pj4+
+Pj4+IHdvdWxkIG5lZWQgdG8gYWNjb3VudCBmb3IgdGhlIHdvcnN0IGNhc2UuCj4+Pj4+Pj4+Pj4+
+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4gSG9wZWZ1bGx5IHRoZSByZXF1aXJlbWVudHMgYW5kIGFwcHJv
+YWNoIHdlIGRlc2NyaWJlZCBtYWtlCj4+Pj4+Pj4+Pj4+Pj4+PiBzZW5zZSwgd2UncmUKPj4+Pj4+
+Pj4+Pj4+Pj4+IGxvb2tpbmcgZm9yd2FyZCB0byB5b3VyIGZlZWRiYWNrIGFuZCBzdWdnZXN0aW9u
+cy4KPj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+PiBUaGFua3MhCj4+Pj4+Pj4+Pj4+Pj4+
+PiAgLSBQaWVycmUtTG91cAo+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+
+Pj4+Pj4+Pj4+IFNpbmNlcmVseSB5b3VycywKPj4+Pj4+Pj4+Pj4+Pj4+PiBTZXJndWVpIFNhZ2Fs
+b3ZpdGNoCj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+
+IEZyb206IEFuZHJlcyBSb2RyaWd1ZXogPGFuZHJlc3JAdmFsdmVzb2Z0d2FyZS5jb20+Cj4+Pj4+
+Pj4+Pj4+Pj4+Pj4gU2VudDogRGVjZW1iZXIgMTYsIDIwMTYgMTA6MDAgUE0KPj4+Pj4+Pj4+Pj4+
+Pj4+PiBUbzogU2FnYWxvdml0Y2gsIFNlcmd1ZWk7IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCj4+Pj4+Pj4+Pj4+Pj4+Pj4gU3ViamVjdDogUkU6IFtSRkNdIE1lY2hhbmlzbSBmb3IgaGln
+aCBwcmlvcml0eSBzY2hlZHVsaW5nCj4+Pj4+Pj4+Pj4+Pj4+Pj4gaW4gYW1kZ3B1Cj4+Pj4+Pj4+
+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+PiBIZXkgU2VyZ3VlaSwKPj4+Pj4+Pj4+Pj4+Pj4+Pgo+
+Pj4+Pj4+Pj4+Pj4+Pj4+PiBbU2VyZ3VlaV0gTm8uIEkgbWVhbiBwaXBlIDotKSBhcyBNRUMgZGVm
+aW5lIGl0LiAgQXMgZmFyCj4+Pj4+Pj4+Pj4+Pj4+Pj4+IGFzIEkKPj4+Pj4+Pj4+Pj4+Pj4+Pj4g
+dW5kZXJzdGFuZCAoYnkgc2ltcGxpZnlpbmcpCj4+Pj4+Pj4+Pj4+Pj4+Pj4+IHNvbWUgc2NoZWR1
+bGluZyBpcyBwZXIgcGlwZS4gIEkga25vdyBhYm91dCB0aGUgY3VycmVudAo+Pj4+Pj4+Pj4+Pj4+
+Pj4+PiBhbGxvY2F0aW9uCj4+Pj4+Pj4+Pj4+Pj4+Pj4+IHNjaGVtZSBidXQgSSBkbyBub3QgdGhp
+bmsKPj4+Pj4+Pj4+Pj4+Pj4+Pj4gdGhhdCBpdCBpcyAgaWRlYWwuICBJIHdvdWxkIGFzc3VtZSB0
+aGF0IHdlIG5lZWQgdG8KPj4+Pj4+Pj4+Pj4+Pj4+Pj4gc3dpdGNoIHRvCj4+Pj4+Pj4+Pj4+Pj4+
+Pj4+IGR5bmFtaWNhbCBwYXJ0aXRpb24KPj4+Pj4+Pj4+Pj4+Pj4+Pj4gb2YgcmVzb3VyY2VzICBi
+YXNlZCBvbiB0aGUgd29ya2xvYWQgb3RoZXJ3aXNlIHdlIHdpbGwgCj4+Pj4+Pj4+Pj4+Pj4+Pj4+
+IGhhdmUKPj4+Pj4+Pj4+Pj4+Pj4+Pj4gcmVzb3VyY2UKPj4+Pj4+Pj4+Pj4+Pj4+Pj4gY29uZmxp
+Y3QKPj4+Pj4+Pj4+Pj4+Pj4+Pj4gYmV0d2VlbiBWdWxrYW4gY29tcHV0ZSBhbmQgT3BlbkNMLgo+
+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gSSBhZ3JlZSB0aGUgcGFydGl0aW9uaW5n
+IGlzbid0IGlkZWFsLiBJJ20gaG9waW5nIHdlIGNhbgo+Pj4+Pj4+Pj4+Pj4+Pj4+IHN0YXJ0IHdp
+dGggYQo+Pj4+Pj4+Pj4+Pj4+Pj4+IHNvbHV0aW9uIHRoYXQgYXNzdW1lcyB0aGF0Cj4+Pj4+Pj4+
+Pj4+Pj4+Pj4gb25seSBwaXBlMCBoYXMgYW55IHdvcmsgYW5kIHRoZSBvdGhlciBwaXBlcyBhcmUg
+aWRsZSAobm8KPj4+Pj4+Pj4+Pj4+Pj4+PiBIU0EvUk9DbQo+Pj4+Pj4+Pj4+Pj4+Pj4+IHJ1bm5p
+bmcgb24gdGhlIHN5c3RlbSkuCj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+PiBUaGlz
+IHNob3VsZCBiZSBtb3JlIG9yIGxlc3MgdGhlIHVzZSBjYXNlIHdlIGV4cGVjdCBmcm9tIFZSCj4+
+Pj4+Pj4+Pj4+Pj4+Pj4gdXNlcnMuCj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+PiBJ
+IGFncmVlIHRoZSBzcGxpdCBpcyBjdXJyZW50bHkgbm90IGlkZWFsLCBidXQgSSdkIGxpa2UgdG8K
+Pj4+Pj4+Pj4+Pj4+Pj4+PiBjb25zaWRlcgo+Pj4+Pj4+Pj4+Pj4+Pj4+IHRoYXQgYSBzZXBhcmF0
+ZSB0YXNrLCBiZWNhdXNlCj4+Pj4+Pj4+Pj4+Pj4+Pj4gbWFraW5nIGl0IGR5bmFtaWMgaXMgbm90
+IHN0cmFpZ2h0IGZvcndhcmQgOlAKPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+PiBb
+U2VyZ3VlaV0gVnVsa2FuIHdvcmtzIHZpYSBhbWRncHUgKGtlcm5lbCBzdWJtaXNzaW9ucykgc28K
+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4gYW1ka2ZkCj4+Pj4+Pj4+Pj4+Pj4+Pj4+IHdpbGwgYmUgbm90Cj4+
+Pj4+Pj4+Pj4+Pj4+Pj4+IGludm9sdmVkLiAgSSB3b3VsZCBhc3N1bWUgdGhhdCBpbiB0aGUgY2Fz
+ZSBvZiBWUiB3ZSB3aWxsCj4+Pj4+Pj4+Pj4+Pj4+Pj4+IGhhdmUgb25lIG1haW4KPj4+Pj4+Pj4+
+Pj4+Pj4+Pj4gYXBwbGljYXRpb24gKCJjb25zb2xlIiBtb2RlKD8pKSBzbyB3ZSBjb3VsZCB0ZW1w
+b3JhbGx5Cj4+Pj4+Pj4+Pj4+Pj4+Pj4+ICJpZ25vcmUiCj4+Pj4+Pj4+Pj4+Pj4+Pj4+IE9wZW5D
+TC9ST0NtIG5lZWRzIHdoZW4gVlIgaXMgcnVubmluZy4KPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+
+Pj4+Pj4+Pj4+IENvcnJlY3QsIHRoaXMgaXMgd2h5IHdlIHdhbnQgdG8gZW5hYmxlIHRoZSBoaWdo
+IHByaW9yaXR5Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gY29tcHV0ZQo+Pj4+Pj4+Pj4+Pj4+Pj4+IHF1ZXVl
+IHRocm91Z2gKPj4+Pj4+Pj4+Pj4+Pj4+PiBsaWJkcm0tYW1kZ3B1LCBzbyB0aGF0IHdlIGNhbiBl
+eHBvc2UgaXQgdGhyb3VnaCBWdWxrYW4KPj4+Pj4+Pj4+Pj4+Pj4+PiBsYXRlci4KPj4+Pj4+Pj4+
+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+IEZvciBjdXJyZW50IFZSIHdvcmtsb2FkcyB3ZSBoYXZl
+IDMgc2VwYXJhdGUgcHJvY2Vzc2VzCj4+Pj4+Pj4+Pj4+Pj4+Pj4gcnVubmluZyBhY3R1YWxseToK
+Pj4+Pj4+Pj4+Pj4+Pj4+PiAgICAgMSkgR2FtZSBwcm9jZXNzCj4+Pj4+Pj4+Pj4+Pj4+Pj4gICAg
+IDIpIFZSIENvbXBvc2l0b3IgKHRoaXMgaXMgdGhlIHByb2Nlc3MgdGhhdCB3aWxsIAo+Pj4+Pj4+
+Pj4+Pj4+Pj4+IHJlcXVpcmUKPj4+Pj4+Pj4+Pj4+Pj4+PiBoaWdoCj4+Pj4+Pj4+Pj4+Pj4+Pj4g
+cHJpb3JpdHkgcXVldWUpCj4+Pj4+Pj4+Pj4+Pj4+Pj4gICAgIDMpIFN5c3RlbSBjb21wb3NpdG9y
+ICh3ZSBhcmUgbG9va2luZyBhdCBhcHByb2FjaGVzIHRvCj4+Pj4+Pj4+Pj4+Pj4+Pj4gcmVtb3Zl
+IHRoaXMKPj4+Pj4+Pj4+Pj4+Pj4+PiBvdmVyaGVhZCkKPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+
+Pj4+Pj4+Pj4+IEZvciBub3cgSSB0aGluayBpdCBpcyBva2F5IHRvIGFzc3VtZSBubyBPcGVuQ0wv
+Uk9DbSAKPj4+Pj4+Pj4+Pj4+Pj4+PiBydW5uaW5nCj4+Pj4+Pj4+Pj4+Pj4+Pj4gc2ltdWx0YW5l
+b3VzbHksIGJ1dAo+Pj4+Pj4+Pj4+Pj4+Pj4+IEkgd291bGQgYWxzbyBsaWtlIHRvIGJlIGFibGUg
+dG8gYWRkcmVzcyB0aGlzIGNhc2UgaW4gdGhlCj4+Pj4+Pj4+Pj4+Pj4+Pj4gZnV0dXJlCj4+Pj4+
+Pj4+Pj4+Pj4+Pj4gKGNyb3NzLXBpcGUgcHJpb3JpdGllcykuCj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+
+Pj4+Pj4+Pj4+Pj4+Pj4gW1Nlcmd1ZWldIFRoZSBwcm9ibGVtIHdpdGggcHJlLWVtcHRpb24gb2Yg
+Z3JhcGhpY3MgdGFzazoKPj4+Pj4+Pj4+Pj4+Pj4+Pj4gKGEpIGl0Cj4+Pj4+Pj4+Pj4+Pj4+Pj4+
+IG1heSB0YWtlIHRpbWUgc28KPj4+Pj4+Pj4+Pj4+Pj4+Pj4gbGF0ZW5jeSBtYXkgc3VmZmVyCj4+
+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+PiBUaGUgbGF0ZW5jeSBpcyBvdXIgbWFpbiBj
+b25jZXJuLCB3ZSB3YW50IHNvbWV0aGluZyB0aGF0IGlzCj4+Pj4+Pj4+Pj4+Pj4+Pj4gcHJlZGlj
+dGFibGUuIEEgZ29vZAo+Pj4+Pj4+Pj4+Pj4+Pj4+IGlsbHVzdHJhdGlvbiBvZiB3aGF0IHRoZSBy
+ZXByb2plY3Rpb24gc2NoZWR1bGluZyBsb29rcyAKPj4+Pj4+Pj4+Pj4+Pj4+PiBsaWtlCj4+Pj4+
+Pj4+Pj4+Pj4+Pj4gY2FuIGJlCj4+Pj4+Pj4+Pj4+Pj4+Pj4gZm91bmQgaGVyZToKPj4+Pj4+Pj4+
+Pj4+Pj4+PiBodHRwczovL2NvbW11bml0eS5hbWQuY29tL3NlcnZsZXQvSml2ZVNlcnZsZXQvc2hv
+d0ltYWdlLzM4LTEzMTAtMTA0NzU0L3Bhc3RlZEltYWdlXzMucG5nIAo+Pj4+Pj4+Pj4+Pj4+Pj4+
+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+
+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+Pj4gKGIpIHRvIHByZWVtcHQgd2UgbmVlZCB0byBo
+YXZlIGRpZmZlcmVudCAiY29udGV4dCIgLSB3ZQo+Pj4+Pj4+Pj4+Pj4+Pj4+PiB3YW50Cj4+Pj4+
+Pj4+Pj4+Pj4+Pj4+IHRvIGd1YXJhbnRlZSB0aGF0IHN1Ym1pc3Npb25zIGZyb20gdGhlIHNhbWUg
+Y29udGV4dCB3aWxsCj4+Pj4+Pj4+Pj4+Pj4+Pj4+IGJlIGV4ZWN1dGVkCj4+Pj4+Pj4+Pj4+Pj4+
+Pj4+IGluIG9yZGVyLgo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gVGhpcyBpcyBv
+a2F5LCBhcyB0aGUgcmVwcm9qZWN0aW9uIHdvcmsgZG9lc24ndCBoYXZlCj4+Pj4+Pj4+Pj4+Pj4+
+Pj4gZGVwZW5kZW5jaWVzIG9uCj4+Pj4+Pj4+Pj4+Pj4+Pj4gdGhlIGdhbWUgY29udGV4dCwgYW5k
+IGl0Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gZXZlbiBoYXBwZW5zIGluIGEgc2VwYXJhdGUgcHJvY2Vzcy4K
+Pj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+PiBCVFc6IChhKSBEbyB5b3Ugd2FudCAi
+cHJlZW1wdCIgYW5kIGxhdGVyIHJlc3VtZSBvciBkbyB5b3UKPj4+Pj4+Pj4+Pj4+Pj4+Pj4gd2Fu
+dAo+Pj4+Pj4+Pj4+Pj4+Pj4+PiAicHJlZW1wdCIgYW5kCj4+Pj4+Pj4+Pj4+Pj4+Pj4+ICJjYW5j
+ZWwvYWJvcnQiCj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+PiBQcmVlbXB0IHRoZSBn
+YW1lIHdpdGggdGhlIGNvbXBvc2l0b3IgdGFzayBhbmQgdGhlbiByZXN1bWUKPj4+Pj4+Pj4+Pj4+
+Pj4+PiBpdC4KPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+PiAoYikgVnVsa2FuIGlz
+IGdlbmVyaWMgQVBJIGFuZCBjb3VsZCBiZSB1c2VkIGZvciBncmFwaGljcwo+Pj4+Pj4+Pj4+Pj4+
+Pj4+PiBhcyB3ZWxsIGFzCj4+Pj4+Pj4+Pj4+Pj4+Pj4+IGZvciBwbGFpbiBjb21wdXRlIHRhc2tz
+IChWS19RVUVVRV9DT01QVVRFX0JJVCkuCj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+
+PiBZZWFoLCB0aGUgcGxhbiBpcyB0byB1c2UgdnVsa2FuIGNvbXB1dGUuIEJ1dCBpZiB5b3UgZmln
+dXJlCj4+Pj4+Pj4+Pj4+Pj4+Pj4gb3V0IGEgd2F5Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gZm9yIHVzIHRv
+IGdldAo+Pj4+Pj4+Pj4+Pj4+Pj4+IGEgZ3VhcmFudGVlZCBleGVjdXRpb24gdGltZSB1c2luZyB2
+dWxrYW4gZ3JhcGhpY3MsIHRoZW4KPj4+Pj4+Pj4+Pj4+Pj4+PiBJJ2xsIHRha2UgeW91Cj4+Pj4+
+Pj4+Pj4+Pj4+Pj4gb3V0IGZvciBhIGJlZXIgOikKPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+
+Pj4+Pj4+IFJlZ2FyZHMsCj4+Pj4+Pj4+Pj4+Pj4+Pj4gQW5kcmVzCj4+Pj4+Pj4+Pj4+Pj4+Pj4g
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+Pj4+Pj4+Pj4+Pj4+Pj4+
+IEZyb206IFNhZ2Fsb3ZpdGNoLCBTZXJndWVpIFtTZXJndWVpLlNhZ2Fsb3ZpdGNoQGFtZC5jb21d
+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gU2VudDogRnJpZGF5LCBEZWNlbWJlciAxNiwgMjAxNiA5OjEzIFBN
+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gVG86IEFuZHJlcyBSb2RyaWd1ZXo7IGFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCj4+Pj4+Pj4+Pj4+Pj4+Pj4gU3ViamVjdDogUmU6IFtSRkNdIE1lY2hhbmlz
+bSBmb3IgaGlnaCBwcmlvcml0eSBzY2hlZHVsaW5nCj4+Pj4+Pj4+Pj4+Pj4+Pj4gaW4gYW1kZ3B1
+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+PiBIaSBBbmRyZXMsCj4+Pj4+Pj4+Pj4+
+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+PiBQbGVhc2Ugc2VlIGlubGluZSAoYXMgW1Nlcmd1ZWldKQo+
+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gU2luY2VyZWx5IHlvdXJzLAo+Pj4+Pj4+
+Pj4+Pj4+Pj4+IFNlcmd1ZWkgU2FnYWxvdml0Y2gKPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+
+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gRnJvbTogQW5kcmVzIFJvZHJpZ3VleiA8YW5kcmVzckB2
+YWx2ZXNvZnR3YXJlLmNvbT4KPj4+Pj4+Pj4+Pj4+Pj4+PiBTZW50OiBEZWNlbWJlciAxNiwgMjAx
+NiA4OjI5IFBNCj4+Pj4+Pj4+Pj4+Pj4+Pj4gVG86IFNhZ2Fsb3ZpdGNoLCBTZXJndWVpOyBhbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+Pj4+Pj4+Pj4+Pj4+Pj4+IFN1YmplY3Q6IFJFOiBb
+UkZDXSBNZWNoYW5pc20gZm9yIGhpZ2ggcHJpb3JpdHkgc2NoZWR1bGluZwo+Pj4+Pj4+Pj4+Pj4+
+Pj4+IGluIGFtZGdwdQo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gSGkgU2VyZ3Vl
+aSwKPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+IFRoYW5rcyBmb3IgdGhlIGZlZWRi
+YWNrLiBBbnN3ZXJzIGlubGluZSBhcyBbQVJdLgo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+
+Pj4+Pj4gUmVnYXJkcywKPj4+Pj4+Pj4+Pj4+Pj4+PiBBbmRyZXMKPj4+Pj4+Pj4+Pj4+Pj4+Pgo+
+Pj4+Pj4+Pj4+Pj4+Pj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+Pj4+Pj4+Pj4+Pj4+Pj4+PiBGcm9tOiBTYWdhbG92aXRjaCwgU2VyZ3VlaSBbU2VyZ3VlaS5TYWdh
+bG92aXRjaEBhbWQuY29tXQo+Pj4+Pj4+Pj4+Pj4+Pj4+IFNlbnQ6IEZyaWRheSwgRGVjZW1iZXIg
+MTYsIDIwMTYgODoxNSBQTQo+Pj4+Pj4+Pj4+Pj4+Pj4+IFRvOiBBbmRyZXMgUm9kcmlndWV6OyBh
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+Pj4+Pj4+Pj4+Pj4+Pj4+IFN1YmplY3Q6IFJl
+OiBbUkZDXSBNZWNoYW5pc20gZm9yIGhpZ2ggcHJpb3JpdHkgc2NoZWR1bGluZwo+Pj4+Pj4+Pj4+
+Pj4+Pj4+IGluIGFtZGdwdQo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gQW5kcmVz
+LAo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+PiBRdWlj
+ayBjb21tZW50czoKPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+IDEpIFRvIG1pbmlt
+aXplICJidWJibGVzIiwgZXRjLiB3ZSBuZWVkIHRvICJmb3JjZSIgQ1UKPj4+Pj4+Pj4+Pj4+Pj4+
+PiBhc3NpZ25tZW50cy9iaW5kaW5nCj4+Pj4+Pj4+Pj4+Pj4+Pj4gdG8gaGlnaC1wcmlvcml0eSBx
+dWV1ZSAgd2hlbiBpdCB3aWxsIGJlIGluIHVzZSBhbmQgImZyZWUiCj4+Pj4+Pj4+Pj4+Pj4+Pj4g
+dGhlbSBsYXRlcgo+Pj4+Pj4+Pj4+Pj4+Pj4+ICh3ZSAgZG8gbm90IHdhbnQgZm9yZXZlciB0YWtl
+IENVcyBmcm9tIGUuZy4gZ3JhcGhpYyAKPj4+Pj4+Pj4+Pj4+Pj4+PiB0YXNrIHRvCj4+Pj4+Pj4+
+Pj4+Pj4+Pj4gZGVncmFkZQo+Pj4+Pj4+Pj4+Pj4+Pj4+IGdyYXBoaWNzCj4+Pj4+Pj4+Pj4+Pj4+
+Pj4gcGVyZm9ybWFuY2UpLgo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gT3RoZXJ3
+aXNlIHdlIGNvdWxkIGhhdmUgc2NlbmFyaW8gd2hlbiBsb25nIGdyYXBoaWNzIAo+Pj4+Pj4+Pj4+
+Pj4+Pj4+IHRhc2sgKG9yCj4+Pj4+Pj4+Pj4+Pj4+Pj4gbG93LXByaW9yaXR5Cj4+Pj4+Pj4+Pj4+
+Pj4+Pj4gY29tcHV0ZSkgd2lsbCB0b29rIGFsbCAoZXh0cmEpIENVcyBhbmQgaGlnaC0tcHJpb3Jp
+dHkgd2lsbAo+Pj4+Pj4+Pj4+Pj4+Pj4+IHdhaXQgZm9yCj4+Pj4+Pj4+Pj4+Pj4+Pj4gbmVlZGVk
+IHJlc291cmNlcy4KPj4+Pj4+Pj4+Pj4+Pj4+PiBJdCB3aWxsIG5vdCBiZSB2aXNpYmxlIG9uICJO
+T1AgIiBidXQgb25seSB3aGVuIHlvdSBzdWJtaXQKPj4+Pj4+Pj4+Pj4+Pj4+PiAicmVhbCIKPj4+
+Pj4+Pj4+Pj4+Pj4+PiBjb21wdXRlIHRhc2sKPj4+Pj4+Pj4+Pj4+Pj4+PiBzbyBJIHdvdWxkIHJl
+Y29tbWVuZCAgbm90IHRvIHVzZSAiTk9QIiBwYWNrZXRzIGF0IGFsbCBmb3IKPj4+Pj4+Pj4+Pj4+
+Pj4+PiB0ZXN0aW5nLgo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gSXQgKENVIGFz
+c2lnbm1lbnQpIGNvdWxkIGJlIHJlbGF0aXZlbHkgZWFzeSBkb25lIHdoZW4KPj4+Pj4+Pj4+Pj4+
+Pj4+PiBldmVyeXRoaW5nIGlzCj4+Pj4+Pj4+Pj4+Pj4+Pj4gZ29pbmcgdmlhIGtlcm5lbAo+Pj4+
+Pj4+Pj4+Pj4+Pj4+IChlLmcuIGFzIHBhcnQgb2YgZnJhbWUgc3VibWlzc2lvbikgYnV0IEkgbXVz
+dCBhZG1pdCB0aGF0IEkKPj4+Pj4+Pj4+Pj4+Pj4+PiBhbSBub3Qgc3VyZQo+Pj4+Pj4+Pj4+Pj4+
+Pj4+IGFib3V0IHRoZSBiZXN0IHdheSBmb3IgdXNlciBsZXZlbCBzdWJtaXNzaW9ucyAoYW1ka2Zk
+KS4KPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+IFtBUl0gSSB3YXNuJ3QgYXdhcmUg
+b2YgdGhpcyBwYXJ0IG9mIHRoZSBwcm9ncmFtbWluZwo+Pj4+Pj4+Pj4+Pj4+Pj4+IHNlcXVlbmNl
+LiBUaGFua3MKPj4+Pj4+Pj4+Pj4+Pj4+PiBmb3IgdGhlIGhlYWRzIHVwIQo+Pj4+Pj4+Pj4+Pj4+
+Pj4+IElzIHRoaXMgc2ltaWxhciB0byB0aGUgQ1UgbWFza2luZyBwcm9ncmFtbWluZz8KPj4+Pj4+
+Pj4+Pj4+Pj4+PiBbU2VyZ3VlaV0gWWVzLiBUbyBzaW1wbGlmeTogdGhlIHByb2JsZW0gaXMgdGhh
+dCAKPj4+Pj4+Pj4+Pj4+Pj4+PiAic2NoZWR1bGVyIgo+Pj4+Pj4+Pj4+Pj4+Pj4+IHdoZW4KPj4+
+Pj4+Pj4+Pj4+Pj4+PiBkZWNpZGluZyB3aGljaAo+Pj4+Pj4+Pj4+Pj4+Pj4+IHF1ZXVlIHRvICBy
+dW4gd2lsbCBjaGVjayBpZiB0aGVyZSBpcyBlbm91Z2ggcmVzb3VyY2VzIGFuZAo+Pj4+Pj4+Pj4+
+Pj4+Pj4+IGlmIG5vdCB0aGVuCj4+Pj4+Pj4+Pj4+Pj4+Pj4gaXQgd2lsbCBiZWdpbgo+Pj4+Pj4+
+Pj4+Pj4+Pj4+IHRvIGNoZWNrIG90aGVyIHF1ZXVlcyB3aXRoIGxvd2VyIHByaW9yaXR5Lgo+Pj4+
+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gMikgSSB3b3VsZCByZWNvbW1lbmQgdG8gZGVk
+aWNhdGUgdGhlIHdob2xlIHBpcGUgdG8KPj4+Pj4+Pj4+Pj4+Pj4+PiBoaWdoLXByaW9yaXR5Cj4+
+Pj4+Pj4+Pj4+Pj4+Pj4gcXVldWUgYW5kIGhhdmUKPj4+Pj4+Pj4+Pj4+Pj4+PiBub3RoaW5nIHRo
+ZWlyIGV4Y2VwdCBpdC4KPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+IFtBUl0gSSdt
+IGd1ZXNzaW5nIGluIHRoaXMgY29udGV4dCB5b3UgbWVhbiBwaXBlID0gcXVldWU/Cj4+Pj4+Pj4+
+Pj4+Pj4+Pj4gKGFzIG9wcG9zZWQKPj4+Pj4+Pj4+Pj4+Pj4+PiB0byB0aGUgTUVDIGRlZmluaXRp
+b24KPj4+Pj4+Pj4+Pj4+Pj4+PiBvZiBwaXBlLCB3aGljaCBpcyBhIGdyb3VwaW5nIG9mIHF1ZXVl
+cykuIEkgc2F5IHRoaXMgCj4+Pj4+Pj4+Pj4+Pj4+Pj4gYmVjYXVzZQo+Pj4+Pj4+Pj4+Pj4+Pj4+
+IGFtZGdwdQo+Pj4+Pj4+Pj4+Pj4+Pj4+IG9ubHkgaGFzIGFjY2VzcyB0byAxIHBpcGUsCj4+Pj4+
+Pj4+Pj4+Pj4+Pj4gYW5kIHRoZSByZXN0IGFyZSBzdGF0aWNhbGx5IHBhcnRpdGlvbmVkIGZvciBh
+bWRrZmQgdXNhZ2UuCj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+PiBbU2VyZ3VlaV0g
+Tm8uIEkgbWVhbiBwaXBlIDotKSAgYXMgTUVDIGRlZmluZSBpdC4gQXMgZmFyIAo+Pj4+Pj4+Pj4+
+Pj4+Pj4+IGFzIEkKPj4+Pj4+Pj4+Pj4+Pj4+PiB1bmRlcnN0YW5kIChieSBzaW1wbGlmeWluZykK
+Pj4+Pj4+Pj4+Pj4+Pj4+PiBzb21lIHNjaGVkdWxpbmcgaXMgcGVyIHBpcGUuICBJIGtub3cgYWJv
+dXQgdGhlIGN1cnJlbnQKPj4+Pj4+Pj4+Pj4+Pj4+PiBhbGxvY2F0aW9uCj4+Pj4+Pj4+Pj4+Pj4+
+Pj4gc2NoZW1lIGJ1dCBJIGRvIG5vdCB0aGluawo+Pj4+Pj4+Pj4+Pj4+Pj4+IHRoYXQgaXQgaXMg
+IGlkZWFsLiAgSSB3b3VsZCBhc3N1bWUgdGhhdCB3ZSBuZWVkIHRvIAo+Pj4+Pj4+Pj4+Pj4+Pj4+
+IHN3aXRjaCB0bwo+Pj4+Pj4+Pj4+Pj4+Pj4+IGR5bmFtaWNhbCBwYXJ0aXRpb24KPj4+Pj4+Pj4+
+Pj4+Pj4+PiBvZiByZXNvdXJjZXMgIGJhc2VkIG9uIHRoZSB3b3JrbG9hZCBvdGhlcndpc2Ugd2Ug
+d2lsbCBoYXZlCj4+Pj4+Pj4+Pj4+Pj4+Pj4gcmVzb3VyY2UKPj4+Pj4+Pj4+Pj4+Pj4+PiBjb25m
+bGljdAo+Pj4+Pj4+Pj4+Pj4+Pj4+IGJldHdlZW4gVnVsa2FuIGNvbXB1dGUgYW5kICBPcGVuQ0wu
+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+IEJUVzog
+V2hpY2ggdXNlciBsZXZlbCBBUEkgZG8geW91IHdhbnQgdG8gdXNlIGZvciBjb21wdXRlOgo+Pj4+
+Pj4+Pj4+Pj4+Pj4+IFZ1bGthbiBvcgo+Pj4+Pj4+Pj4+Pj4+Pj4+IE9wZW5DTD8KPj4+Pj4+Pj4+
+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+IFtBUl0gVnVsa2FuCj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+
+Pj4+Pj4+Pj4+Pj4+PiBbU2VyZ3VlaV0gVnVsa2FuIHdvcmtzIHZpYSBhbWRncHUgKGtlcm5lbCBz
+dWJtaXNzaW9ucykgc28KPj4+Pj4+Pj4+Pj4+Pj4+PiBhbWRrZmQgd2lsbAo+Pj4+Pj4+Pj4+Pj4+
+Pj4+IGJlIG5vdAo+Pj4+Pj4+Pj4+Pj4+Pj4+IGludm9sdmVkLiAgSSB3b3VsZCBhc3N1bWUgdGhh
+dCBpbiB0aGUgY2FzZSBvZiBWUiB3ZSB3aWxsCj4+Pj4+Pj4+Pj4+Pj4+Pj4gaGF2ZSBvbmUgbWFp
+bgo+Pj4+Pj4+Pj4+Pj4+Pj4+IGFwcGxpY2F0aW9uICgiY29uc29sZSIgbW9kZSg/KSkgc28gd2Ug
+Y291bGQgdGVtcG9yYWxseQo+Pj4+Pj4+Pj4+Pj4+Pj4+ICJpZ25vcmUiCj4+Pj4+Pj4+Pj4+Pj4+
+Pj4gT3BlbkNML1JPQ20gbmVlZHMgd2hlbiBWUiBpcyBydW5uaW5nLgo+Pj4+Pj4+Pj4+Pj4+Pj4+
+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4+ICB3ZSB3aWxsIG5vdCBiZSBhYmxlIHRvIHByb3ZpZGUgYSBzb2x1
+dGlvbiBjb21wYXRpYmxlIAo+Pj4+Pj4+Pj4+Pj4+Pj4+PiB3aXRoCj4+Pj4+Pj4+Pj4+Pj4+Pj4+
+IEdGWAo+Pj4+Pj4+Pj4+Pj4+Pj4+PiB3b3Jsb2Fkcy4KPj4+Pj4+Pj4+Pj4+Pj4+PiBJIGFzc3Vt
+ZSB0aGF0IHlvdSBhcmUgdGFsa2luZyBhYm91dCBncmFwaGljcz8gQW0gSSByaWdodD8KPj4+Pj4+
+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+IFtBUl0gWWVhaCwgbXkgdW5kZXJzdGFuZGluZyBp
+cyB0aGF0IHByZS1lbXB0aW5nIHRoZQo+Pj4+Pj4+Pj4+Pj4+Pj4+IGN1cnJlbnRseSBydW5uaW5n
+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gZ3JhcGhpY3Mgam9iIGFuZCBzY2hlZHVsaW5nIGluCj4+Pj4+Pj4+
+Pj4+Pj4+Pj4gc29tZXRoaW5nIGVsc2UgdXNpbmcgbWlkLWJ1ZmZlciBwcmUtZW1wdGlvbiBoYXMg
+c29tZSBjYXNlcwo+Pj4+Pj4+Pj4+Pj4+Pj4+IHdoZXJlIGl0Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gZG9l
+c24ndCB3b3JrIHdlbGwuIEJ1dCBpZiB3aXRoCj4+Pj4+Pj4+Pj4+Pj4+Pj4gcG9sYXJpczEwIGl0
+IHN0YXJ0cyB3b3JraW5nIHdlbGwsIGl0IG1pZ2h0IGJlIGEgYmV0dGVyCj4+Pj4+Pj4+Pj4+Pj4+
+Pj4gc29sdXRpb24gZm9yCj4+Pj4+Pj4+Pj4+Pj4+Pj4gdXMgKGJlY2F1c2UgdGhlIHdob2xlIHJl
+cHJvamVjdGlvbgo+Pj4+Pj4+Pj4+Pj4+Pj4+IHdvcmsgdXNlcyB0aGUgdnVsa2FuIGdyYXBoaWNz
+IHN0YWNrIGF0IHRoZSBtb21lbnQsIGFuZAo+Pj4+Pj4+Pj4+Pj4+Pj4+IHBvcnRpbmcgaXQgdG8K
+Pj4+Pj4+Pj4+Pj4+Pj4+PiBjb21wdXRlIGlzIG5vdCB0cml2aWFsKS4KPj4+Pj4+Pj4+Pj4+Pj4+
+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+IFtTZXJndWVpXSAgVGhlIHByb2JsZW0gd2l0aCBwcmUtZW1wdGlv
+biBvZiBncmFwaGljcyB0YXNrOgo+Pj4+Pj4+Pj4+Pj4+Pj4+IChhKSBpdCBtYXkKPj4+Pj4+Pj4+
+Pj4+Pj4+PiB0YWtlIHRpbWUgc28KPj4+Pj4+Pj4+Pj4+Pj4+PiBsYXRlbmN5IG1heSBzdWZmZXIg
+KGIpIHRvIHByZWVtcHQgd2UgbmVlZCB0byBoYXZlIAo+Pj4+Pj4+Pj4+Pj4+Pj4+IGRpZmZlcmVu
+dAo+Pj4+Pj4+Pj4+Pj4+Pj4+ICJjb250ZXh0Igo+Pj4+Pj4+Pj4+Pj4+Pj4+IC0gd2Ugd2FudAo+
+Pj4+Pj4+Pj4+Pj4+Pj4+IHRvIGd1YXJhbnRlZSB0aGF0IHN1Ym1pc3Npb25zIGZyb20gdGhlIHNh
+bWUgY29udGV4dCAKPj4+Pj4+Pj4+Pj4+Pj4+PiB3aWxsIGJlCj4+Pj4+Pj4+Pj4+Pj4+Pj4gZXhl
+Y3V0ZWQKPj4+Pj4+Pj4+Pj4+Pj4+PiBpbiBvcmRlci4KPj4+Pj4+Pj4+Pj4+Pj4+PiBCVFc6IChh
+KSBEbyB5b3Ugd2FudCAgInByZWVtcHQiIGFuZCBsYXRlciByZXN1bWUgb3IgZG8geW91Cj4+Pj4+
+Pj4+Pj4+Pj4+Pj4gd2FudAo+Pj4+Pj4+Pj4+Pj4+Pj4+ICJwcmVlbXB0IiBhbmQKPj4+Pj4+Pj4+
+Pj4+Pj4+PiAiY2FuY2VsL2Fib3J0Ij8gIChiKSBWdWxrYW4gaXMgZ2VuZXJpYyBBUEkgYW5kIGNv
+dWxkIGJlIAo+Pj4+Pj4+Pj4+Pj4+Pj4+IHVzZWQKPj4+Pj4+Pj4+Pj4+Pj4+PiBmb3IgZ3JhcGhp
+Y3MgYXMgd2VsbCBhcyBmb3IgcGxhaW4gY29tcHV0ZSB0YXNrcwo+Pj4+Pj4+Pj4+Pj4+Pj4+IChW
+S19RVUVVRV9DT01QVVRFX0JJVCkuCj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+Pgo+
+Pj4+Pj4+Pj4+Pj4+Pj4+IFNpbmNlcmVseSB5b3VycywKPj4+Pj4+Pj4+Pj4+Pj4+PiBTZXJndWVp
+IFNhZ2Fsb3ZpdGNoCj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+
+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZz4gb24KPj4+Pj4+Pj4+Pj4+Pj4+PiBiZWhhbGYgb2YKPj4+Pj4+
+Pj4+Pj4+Pj4+PiBBbmRyZXMgUm9kcmlndWV6IDxhbmRyZXNyQHZhbHZlc29mdHdhcmUuY29tPgo+
+Pj4+Pj4+Pj4+Pj4+Pj4+IFNlbnQ6IERlY2VtYmVyIDE2LCAyMDE2IDY6MTUgUE0KPj4+Pj4+Pj4+
+Pj4+Pj4+PiBUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4+Pj4+Pj4+Pj4+Pj4+
+PiBTdWJqZWN0OiBbUkZDXSBNZWNoYW5pc20gZm9yIGhpZ2ggcHJpb3JpdHkgc2NoZWR1bGluZyBp
+bgo+Pj4+Pj4+Pj4+Pj4+Pj4+IGFtZGdwdQo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+
+Pj4gSGkgRXZlcnlvbmUsCj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+PiBUaGlzIFJG
+QyBpcyBhbHNvIGF2YWlsYWJsZSBhcyBhIGdpc3QgaGVyZToKPj4+Pj4+Pj4+Pj4+Pj4+PiBodHRw
+czovL2dpc3QuZ2l0aHViLmNvbS9sb3N0Z29hdC83MDAwNDMyY2Q2ODY0MjY1ZGJjMmMzYWI5MzIw
+NDI0OSAKPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4K
+Pj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+
+Pj4+Pj4+Pj4+PiBbUkZDXSBNZWNoYW5pc20gZm9yIGhpZ2ggcHJpb3JpdHkgc2NoZWR1bGluZyBp
+biBhbWRncHUKPj4+Pj4+Pj4+Pj4+Pj4+PiBnaXN0LmdpdGh1Yi5jb20KPj4+Pj4+Pj4+Pj4+Pj4+
+PiBbUkZDXSBNZWNoYW5pc20gZm9yIGhpZ2ggcHJpb3JpdHkgc2NoZWR1bGluZyBpbiBhbWRncHUK
+Pj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+
+Pj4+Pj4+Pj4+PiBbUkZDXSBNZWNoYW5pc20gZm9yIGhpZ2ggcHJpb3JpdHkgc2NoZWR1bGluZyBp
+biBhbWRncHUKPj4+Pj4+Pj4+Pj4+Pj4+PiBnaXN0LmdpdGh1Yi5jb20KPj4+Pj4+Pj4+Pj4+Pj4+
+PiBbUkZDXSBNZWNoYW5pc20gZm9yIGhpZ2ggcHJpb3JpdHkgc2NoZWR1bGluZyBpbiBhbWRncHUK
+Pj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+
+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+IFtSRkNdIE1lY2hhbmlzbSBmb3IgaGlnaCBwcmlv
+cml0eSBzY2hlZHVsaW5nIGluIGFtZGdwdQo+Pj4+Pj4+Pj4+Pj4+Pj4+IGdpc3QuZ2l0aHViLmNv
+bQo+Pj4+Pj4+Pj4+Pj4+Pj4+IFtSRkNdIE1lY2hhbmlzbSBmb3IgaGlnaCBwcmlvcml0eSBzY2hl
+ZHVsaW5nIGluIGFtZGdwdQo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+
+Pj4+Pj4+Pj4+PiBXZSBhcmUgaW50ZXJlc3RlZCBpbiBmZWVkYmFjayBmb3IgYSBtZWNoYW5pc20g
+dG8KPj4+Pj4+Pj4+Pj4+Pj4+PiBlZmZlY3RpdmVseSBzY2hlZHVsZQo+Pj4+Pj4+Pj4+Pj4+Pj4+
+IGhpZ2gKPj4+Pj4+Pj4+Pj4+Pj4+PiBwcmlvcml0eSBWUiByZXByb2plY3Rpb24gdGFza3MgKGFs
+c28gcmVmZXJyZWQgdG8gYXMKPj4+Pj4+Pj4+Pj4+Pj4+PiB0aW1lLXdhcnBpbmcpIGZvcgo+Pj4+
+Pj4+Pj4+Pj4+Pj4+IFBvbGFyaXMxMAo+Pj4+Pj4+Pj4+Pj4+Pj4+IHJ1bm5pbmcgb24gdGhlIGFt
+ZGdwdSBrZXJuZWwgZHJpdmVyLgo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gQnJp
+ZWYgY29udGV4dDoKPj4+Pj4+Pj4+Pj4+Pj4+PiAtLS0tLS0tLS0tLS0tLQo+Pj4+Pj4+Pj4+Pj4+
+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gVGhlIG1haW4gb2JqZWN0aXZlIG9mIHJlcHJvamVjdGlvbiBp
+cyB0byBhdm9pZCBtb3Rpb24KPj4+Pj4+Pj4+Pj4+Pj4+PiBzaWNrbmVzcyBmb3IgVlIKPj4+Pj4+
+Pj4+Pj4+Pj4+PiB1c2VycyBpbgo+Pj4+Pj4+Pj4+Pj4+Pj4+IHNjZW5hcmlvcyB3aGVyZSB0aGUg
+Z2FtZSBvciBhcHBsaWNhdGlvbiB3b3VsZCBmYWlsIHRvIAo+Pj4+Pj4+Pj4+Pj4+Pj4+IGZpbmlz
+aAo+Pj4+Pj4+Pj4+Pj4+Pj4+IHJlbmRlcmluZyBhIG5ldwo+Pj4+Pj4+Pj4+Pj4+Pj4+IGZyYW1l
+IGluIHRpbWUgZm9yIHRoZSBuZXh0IFZCTEFOSy4gV2hlbiB0aGlzIGhhcHBlbnMsIHRoZQo+Pj4+
+Pj4+Pj4+Pj4+Pj4+IHVzZXIncyBoZWFkCj4+Pj4+Pj4+Pj4+Pj4+Pj4gbW92ZW1lbnRzCj4+Pj4+
+Pj4+Pj4+Pj4+Pj4gYXJlIG5vdCByZWZsZWN0ZWQgb24gdGhlIEhlYWQgTW91bnRlZCBEaXNwbGF5
+IChITUQpIGZvciAKPj4+Pj4+Pj4+Pj4+Pj4+PiB0aGUKPj4+Pj4+Pj4+Pj4+Pj4+PiBkdXJhdGlv
+bgo+Pj4+Pj4+Pj4+Pj4+Pj4+IG9mIGFuCj4+Pj4+Pj4+Pj4+Pj4+Pj4gZXh0cmEgZnJhbWUuIFRo
+aXMgZXh0ZW5kZWQgbWlzbWF0Y2ggYmV0d2VlbiB0aGUgaW5uZXIgZWFyCj4+Pj4+Pj4+Pj4+Pj4+
+Pj4gYW5kIHRoZQo+Pj4+Pj4+Pj4+Pj4+Pj4+IGV5ZXMgbWF5Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gY2F1
+c2UgdGhlIHVzZXIgdG8gZXhwZXJpZW5jZSBtb3Rpb24gc2lja25lc3MuCj4+Pj4+Pj4+Pj4+Pj4+
+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+PiBUaGUgVlIgY29tcG9zaXRvciBkZWFscyB3aXRoIHRoaXMgcHJv
+YmxlbSBieSBmYWJyaWNhdGluZyBhCj4+Pj4+Pj4+Pj4+Pj4+Pj4gbmV3IGZyYW1lCj4+Pj4+Pj4+
+Pj4+Pj4+Pj4gdXNpbmcgdGhlCj4+Pj4+Pj4+Pj4+Pj4+Pj4gdXNlcidzIHVwZGF0ZWQgaGVhZCBw
+b3NpdGlvbiBpbiBjb21iaW5hdGlvbiB3aXRoIHRoZQo+Pj4+Pj4+Pj4+Pj4+Pj4+IHByZXZpb3Vz
+IGZyYW1lcy4KPj4+Pj4+Pj4+Pj4+Pj4+PiBUaGlzCj4+Pj4+Pj4+Pj4+Pj4+Pj4gYXZvaWRzIGEg
+cHJvbG9uZ2VkIG1pc21hdGNoIGJldHdlZW4gdGhlIEhNRCBvdXRwdXQgYW5kIHRoZQo+Pj4+Pj4+
+Pj4+Pj4+Pj4+IGlubmVyIGVhci4KPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+IEJl
+Y2F1c2Ugb2YgdGhlIGFkdmVyc2UgZWZmZWN0cyBvbiB0aGUgdXNlciwgd2UgcmVxdWlyZSAKPj4+
+Pj4+Pj4+Pj4+Pj4+PiBoaWdoCj4+Pj4+Pj4+Pj4+Pj4+Pj4gY29uZmlkZW5jZSB0aGF0IHRoZQo+
+Pj4+Pj4+Pj4+Pj4+Pj4+IHJlcHJvamVjdGlvbiB0YXNrIHdpbGwgY29tcGxldGUgYmVmb3JlIHRo
+ZSBWQkxBTksgCj4+Pj4+Pj4+Pj4+Pj4+Pj4gaW50ZXJ2YWwuCj4+Pj4+Pj4+Pj4+Pj4+Pj4gRXZl
+biBpZgo+Pj4+Pj4+Pj4+Pj4+Pj4+IHRoZSBHRlggcGlwZQo+Pj4+Pj4+Pj4+Pj4+Pj4+IGlzIGN1
+cnJlbnRseSBmdWxsIG9mIHdvcmsgZnJvbSB0aGUgZ2FtZS9hcHBsaWNhdGlvbiAod2hpY2gKPj4+
+Pj4+Pj4+Pj4+Pj4+PiBpcyBtb3N0Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gbGlrZWx5IHRoZSBjYXNlKS4K
+Pj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+IEZvciBtb3JlIGRldGFpbHMgYW5kIGls
+bHVzdHJhdGlvbnMsIHBsZWFzZSByZWZlciB0byB0aGUKPj4+Pj4+Pj4+Pj4+Pj4+PiBmb2xsb3dp
+bmcKPj4+Pj4+Pj4+Pj4+Pj4+PiBkb2N1bWVudDoKPj4+Pj4+Pj4+Pj4+Pj4+PiBodHRwczovL2Nv
+bW11bml0eS5hbWQuY29tL2NvbW11bml0eS9nYW1pbmcvYmxvZy8yMDE2LzAzLzI4L2FzeW5jaHJv
+bm91cy1zaGFkZXJzLWV2b2x2ZWQgCj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+Pgo+
+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+
+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gR2FtaW5nOiBBc3luY2hyb25vdXMgU2hhZGVycyBF
+dm9sdmVkIHwgQ29tbXVuaXR5Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gY29tbXVuaXR5LmFtZC5jb20KPj4+
+Pj4+Pj4+Pj4+Pj4+PiBPbmUgb2YgdGhlIG1vc3QgZXhjaXRpbmcgbmV3IGRldmVsb3BtZW50cyBp
+biBHUFUgCj4+Pj4+Pj4+Pj4+Pj4+Pj4gdGVjaG5vbG9neQo+Pj4+Pj4+Pj4+Pj4+Pj4+IG92ZXIg
+dGhlCj4+Pj4+Pj4+Pj4+Pj4+Pj4gcGFzdCB5ZWFyIGhhcyBiZWVuIHRoZSBhZG9wdGlvbiBvZiBh
+c3luY2hyb25vdXMgc2hhZGVycywKPj4+Pj4+Pj4+Pj4+Pj4+PiB3aGljaCBjYW4KPj4+Pj4+Pj4+
+Pj4+Pj4+PiBtYWtlIG1vcmUgZWZmaWNpZW50IHVzZSBvZiAuLi4KPj4+Pj4+Pj4+Pj4+Pj4+Pgo+
+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+PiBHYW1pbmc6
+IEFzeW5jaHJvbm91cyBTaGFkZXJzIEV2b2x2ZWQgfCBDb21tdW5pdHkKPj4+Pj4+Pj4+Pj4+Pj4+
+PiBjb21tdW5pdHkuYW1kLmNvbQo+Pj4+Pj4+Pj4+Pj4+Pj4+IE9uZSBvZiB0aGUgbW9zdCBleGNp
+dGluZyBuZXcgZGV2ZWxvcG1lbnRzIGluIEdQVSAKPj4+Pj4+Pj4+Pj4+Pj4+PiB0ZWNobm9sb2d5
+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gb3ZlciB0aGUKPj4+Pj4+Pj4+Pj4+Pj4+PiBwYXN0IHllYXIgaGFz
+IGJlZW4gdGhlIGFkb3B0aW9uIG9mIGFzeW5jaHJvbm91cyBzaGFkZXJzLAo+Pj4+Pj4+Pj4+Pj4+
+Pj4+IHdoaWNoIGNhbgo+Pj4+Pj4+Pj4+Pj4+Pj4+IG1ha2UgbW9yZSBlZmZpY2llbnQgdXNlIG9m
+IC4uLgo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+Pgo+
+Pj4+Pj4+Pj4+Pj4+Pj4+IEdhbWluZzogQXN5bmNocm9ub3VzIFNoYWRlcnMgRXZvbHZlZCB8IENv
+bW11bml0eQo+Pj4+Pj4+Pj4+Pj4+Pj4+IGNvbW11bml0eS5hbWQuY29tCj4+Pj4+Pj4+Pj4+Pj4+
+Pj4gT25lIG9mIHRoZSBtb3N0IGV4Y2l0aW5nIG5ldyBkZXZlbG9wbWVudHMgaW4gR1BVIAo+Pj4+
+Pj4+Pj4+Pj4+Pj4+IHRlY2hub2xvZ3kKPj4+Pj4+Pj4+Pj4+Pj4+PiBvdmVyIHRoZQo+Pj4+Pj4+
+Pj4+Pj4+Pj4+IHBhc3QgeWVhciBoYXMgYmVlbiB0aGUgYWRvcHRpb24gb2YgYXN5bmNocm9ub3Vz
+IHNoYWRlcnMsCj4+Pj4+Pj4+Pj4+Pj4+Pj4gd2hpY2ggY2FuCj4+Pj4+Pj4+Pj4+Pj4+Pj4gbWFr
+ZSBtb3JlIGVmZmljaWVudCB1c2Ugb2YgLi4uCj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+
+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+IFJlcXVpcmVtZW50czoKPj4+Pj4+Pj4+Pj4+Pj4+PiAtLS0t
+LS0tLS0tLS0tCj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+PiBUaGUgbWVjaGFuaXNt
+IG11c3QgZXhwb3NlIHRoZSBmb2xsb3dpbmcgZnVuY3Rpb25haWxpdHk6Cj4+Pj4+Pj4+Pj4+Pj4+
+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+PiAgICAgKiBKb2Igcm91bmQgdHJpcCB0aW1lIG11c3QgYmUgcHJl
+ZGljdGFibGUsIGZyb20KPj4+Pj4+Pj4+Pj4+Pj4+PiBzdWJtaXNzaW9uIHRvCj4+Pj4+Pj4+Pj4+
+Pj4+Pj4gZmVuY2Ugc2lnbmFsCj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+PiAgICAg
+KiBUaGUgbWVjaGFuaXNtIG11c3Qgc3VwcG9ydCBjb21wdXRlIHdvcmtsb2Fkcy4KPj4+Pj4+Pj4+
+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+IEdvYWxzOgo+Pj4+Pj4+Pj4+Pj4+Pj4+IC0tLS0tLQo+
+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gICAgICogVGhlIG1lY2hhbmlzbSBzaG91
+bGQgcHJvdmlkZSBsb3cgc3VibWlzc2lvbiAKPj4+Pj4+Pj4+Pj4+Pj4+PiBsYXRlbmNpZXMKPj4+
+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+IFRlc3Q6IHN1Ym1pdHRpbmcgYSBOT1AgcGFj
+a2V0IHRocm91Z2ggdGhlIG1lY2hhbmlzbSBvbiAKPj4+Pj4+Pj4+Pj4+Pj4+PiBidXN5Cj4+Pj4+
+Pj4+Pj4+Pj4+Pj4gaGFyZHdhcmUKPj4+Pj4+Pj4+Pj4+Pj4+PiBzaG91bGQKPj4+Pj4+Pj4+Pj4+
+Pj4+PiBiZSBlcXVpdmFsZW50IHRvIHN1Ym1pdHRpbmcgYSBOT1Agb24gaWRsZSBoYXJkd2FyZS4K
+Pj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+IE5pY2UgdG8gaGF2ZToKPj4+Pj4+Pj4+
+Pj4+Pj4+PiAtLS0tLS0tLS0tLS0tCj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+PiAg
+ICAgKiBUaGUgbWVjaGFuaXNtIHNob3VsZCBhbHNvIHN1cHBvcnQgR0ZYIHdvcmtsb2Fkcy4KPj4+
+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+IE15IHVuZGVyc3RhbmRpbmcgaXMgdGhhdCB3
+aXRoIHRoZSBjdXJyZW50IGhhcmR3YXJlCj4+Pj4+Pj4+Pj4+Pj4+Pj4gY2FwYWJpbGl0aWVzIGlu
+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gUG9sYXJpczEwIHdlCj4+Pj4+Pj4+Pj4+Pj4+Pj4gd2lsbCBub3Qg
+YmUgYWJsZSB0byBwcm92aWRlIGEgc29sdXRpb24gY29tcGF0aWJsZSB3aXRoIEdGWAo+Pj4+Pj4+
+Pj4+Pj4+Pj4+IHdvcmxvYWRzLgo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gQnV0
+IEkgd291bGQgbG92ZSB0byBoZWFyIG90aGVyd2lzZS4gU28gaWYgYW55b25lIGhhcyBhbgo+Pj4+
+Pj4+Pj4+Pj4+Pj4+IGlkZWEsCj4+Pj4+Pj4+Pj4+Pj4+Pj4gYXBwcm9hY2ggb3IKPj4+Pj4+Pj4+
+Pj4+Pj4+PiBzdWdnZXN0aW9uIHRoYXQgd2lsbCBhbHNvIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUg
+R0ZYIHJpbmcsCj4+Pj4+Pj4+Pj4+Pj4+Pj4gcGxlYXNlIGxldAo+Pj4+Pj4+Pj4+Pj4+Pj4+IHVz
+IGtub3cKPj4+Pj4+Pj4+Pj4+Pj4+PiBhYm91dCBpdC4KPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+
+Pj4+Pj4+Pj4+ICAgICAqIFRoZSBhYm92ZSBndWFyYW50ZWVzIHNob3VsZCBhbHNvIGJlIHJlc3Bl
+Y3RlZCBieQo+Pj4+Pj4+Pj4+Pj4+Pj4+IGFtZGtmZCB3b3JrbG9hZHMKPj4+Pj4+Pj4+Pj4+Pj4+
+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+IFdvdWxkIGJlIGdvb2QgdG8gaGF2ZSBmb3IgY29uc2lzdGVuY3ks
+IGJ1dCBub3Qgc3RyaWN0bHkKPj4+Pj4+Pj4+Pj4+Pj4+PiBuZWNlc3NhcnkgYXMKPj4+Pj4+Pj4+
+Pj4+Pj4+PiB1c2VycyBydW5uaW5nCj4+Pj4+Pj4+Pj4+Pj4+Pj4gZ2FtZXMgYXJlIG5vdCB0cmFk
+aXRpb25hbGx5IHJ1bm5pbmcgSFBDIHdvcmtsb2FkcyBpbiB0aGUKPj4+Pj4+Pj4+Pj4+Pj4+PiBi
+YWNrZ3JvdW5kLgo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gUHJvcG9zZWQgYXBw
+cm9hY2g6Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gLS0tLS0tLS0tLS0tLS0tLS0tCj4+Pj4+Pj4+Pj4+Pj4+
+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+PiBTaW1pbGFyIHRvIHRoZSB3aW5kb3dzIGRyaXZlciwgd2UgY291
+bGQgZXhwb3NlIGEgaGlnaAo+Pj4+Pj4+Pj4+Pj4+Pj4+IHByaW9yaXR5Cj4+Pj4+Pj4+Pj4+Pj4+
+Pj4gY29tcHV0ZSBxdWV1ZSB0bwo+Pj4+Pj4+Pj4+Pj4+Pj4+IHVzZXJzcGFjZS4KPj4+Pj4+Pj4+
+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+IFN1Ym1pc3Npb25zIHRvIHRoaXMgY29tcHV0ZSBxdWV1
+ZSB3aWxsIGJlIHNjaGVkdWxlZCB3aXRoCj4+Pj4+Pj4+Pj4+Pj4+Pj4gaGlnaAo+Pj4+Pj4+Pj4+
+Pj4+Pj4+IHByaW9yaXR5LCBhbmQgbWF5Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gYWNxdWlyZSBoYXJkd2Fy
+ZSByZXNvdXJjZXMgcHJldmlvdXNseSBpbiB1c2UgYnkgb3RoZXIKPj4+Pj4+Pj4+Pj4+Pj4+PiBx
+dWV1ZXMuCj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+PiBUaGlzIGNhbiBiZSBhY2hp
+ZXZlZCBieSB0YWtpbmcgYWR2YW50YWdlIG9mIHRoZSAncHJpb3JpdHknCj4+Pj4+Pj4+Pj4+Pj4+
+Pj4gZmllbGQgaW4KPj4+Pj4+Pj4+Pj4+Pj4+PiB0aGUgSFFEcwo+Pj4+Pj4+Pj4+Pj4+Pj4+IGFu
+ZCBjb3VsZCBiZSBwcm9ncmFtbWVkIGJ5IGFtZGdwdSBvciB0aGUgYW1kZ3B1IHNjaGVkdWxlci4K
+Pj4+Pj4+Pj4+Pj4+Pj4+PiBUaGUgcmVsZXZhbnQKPj4+Pj4+Pj4+Pj4+Pj4+PiByZWdpc3RlciBm
+aWVsZHMgYXJlOgo+Pj4+Pj4+Pj4+Pj4+Pj4+ICAgICAgICAgKiBtbUNQX0hRRF9QSVBFX1BSSU9S
+SVRZCj4+Pj4+Pj4+Pj4+Pj4+Pj4gICAgICAgICAqIG1tQ1BfSFFEX1FVRVVFX1BSSU9SSVRZCj4+
+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+PiBJbXBsZW1lbnRhdGlvbiBhcHByb2FjaCAx
+IC0gc3RhdGljIHBhcnRpdGlvbmluZzoKPj4+Pj4+Pj4+Pj4+Pj4+PiAtLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+
+Pj4+Pj4+Pj4+IFRoZSBhbWRncHUgZHJpdmVyIGN1cnJlbnRseSBjb250cm9scyA4IGNvbXB1dGUg
+cXVldWVzIGZyb20KPj4+Pj4+Pj4+Pj4+Pj4+PiBwaXBlMC4gV2UgY2FuCj4+Pj4+Pj4+Pj4+Pj4+
+Pj4gc3RhdGljYWxseSBwYXJ0aXRpb24gdGhlc2UgYXMgZm9sbG93czoKPj4+Pj4+Pj4+Pj4+Pj4+
+PiAgICAgICAgICogN3ggcmVndWxhcgo+Pj4+Pj4+Pj4+Pj4+Pj4+ICAgICAgICAgKiAxeCBoaWdo
+IHByaW9yaXR5Cj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+PiBUaGUgcmVsZXZhbnQg
+cHJpb3JpdGllcyBjYW4gYmUgc2V0IHNvIHRoYXQgc3VibWlzc2lvbnMgdG8KPj4+Pj4+Pj4+Pj4+
+Pj4+PiB0aGUgaGlnaAo+Pj4+Pj4+Pj4+Pj4+Pj4+IHByaW9yaXR5Cj4+Pj4+Pj4+Pj4+Pj4+Pj4g
+cmluZyB3aWxsIHN0YXJ2ZSB0aGUgb3RoZXIgY29tcHV0ZSByaW5ncyBhbmQgdGhlIEdGWCByaW5n
+Lgo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gVGhlIGFtZGdwdSBzY2hlZHVsZXIg
+d2lsbCBvbmx5IHBsYWNlIGpvYnMgaW50byB0aGUgaGlnaAo+Pj4+Pj4+Pj4+Pj4+Pj4+IHByaW9y
+aXR5Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gcmluZ3MgaWYgdGhlCj4+Pj4+Pj4+Pj4+Pj4+Pj4gY29udGV4
+dCBpcyBtYXJrZWQgYXMgaGlnaCBwcmlvcml0eS4gQW5kIGEgY29ycmVzcG9uZGluZwo+Pj4+Pj4+
+Pj4+Pj4+Pj4+IHByaW9yaXR5Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gc2hvdWxkIGJlCj4+Pj4+Pj4+Pj4+
+Pj4+Pj4gYWRkZWQgdG8ga2VlcCB0cmFjayBvZiB0aGlzIGluZm9ybWF0aW9uOgo+Pj4+Pj4+Pj4+
+Pj4+Pj4+ICAgICAgKiBBTURfU0NIRURfUFJJT1JJVFlfS0VSTkVMCj4+Pj4+Pj4+Pj4+Pj4+Pj4g
+ICAgICAqIC0+IEFNRF9TQ0hFRF9QUklPUklUWV9ISUdICj4+Pj4+Pj4+Pj4+Pj4+Pj4gICAgICAq
+IEFNRF9TQ0hFRF9QUklPUklUWV9OT1JNQUwKPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+
+Pj4+IFRoZSB1c2VyIHdpbGwgcmVxdWVzdCBhIGhpZ2ggcHJpb3JpdHkgY29udGV4dCBieSAKPj4+
+Pj4+Pj4+Pj4+Pj4+PiBzZXR0aW5nIGFuCj4+Pj4+Pj4+Pj4+Pj4+Pj4gYXBwcm9wcmlhdGUgZmxh
+Zwo+Pj4+Pj4+Pj4+Pj4+Pj4+IGluIGRybV9hbWRncHVfY3R4X2luIChBTURHUFVfQ1RYX0hJR0hf
+UFJJT1JJVFkgb3IgCj4+Pj4+Pj4+Pj4+Pj4+Pj4gc2ltaWxhcik6Cj4+Pj4+Pj4+Pj4+Pj4+Pj4g
+aHR0cHM6Ly9naXRodWIuY29tL3RvcnZhbGRzL2xpbnV4L2Jsb2IvbWFzdGVyL2luY2x1ZGUvdWFw
+aS9kcm0vYW1kZ3B1X2RybS5oI0wxNjMgCj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+
+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+
+Pj4+Pj4+Pj4+Pj4+IFRoZSBzZXR0aW5nIGlzIGluIGEgcGVyIGNvbnRleHQgbGV2ZWwgc28gdGhh
+dCB3ZSBjYW46Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gICAgICogTWFpbnRhaW4gYSBjb25zaXN0ZW50IEZJ
+Rk8gb3JkZXJpbmcgb2YgYWxsCj4+Pj4+Pj4+Pj4+Pj4+Pj4gc3VibWlzc2lvbnMgdG8gYQo+Pj4+
+Pj4+Pj4+Pj4+Pj4+IGNvbnRleHQKPj4+Pj4+Pj4+Pj4+Pj4+PiAgICAgKiBDcmVhdGUgaGlnaCBw
+cmlvcml0eSBhbmQgbm9uLWhpZ2ggcHJpb3JpdHkgY29udGV4dHMKPj4+Pj4+Pj4+Pj4+Pj4+PiBp
+biB0aGUgc2FtZQo+Pj4+Pj4+Pj4+Pj4+Pj4+IHByb2Nlc3MKPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+
+Pj4+Pj4+Pj4+Pj4+IEltcGxlbWVudGF0aW9uIGFwcHJvYWNoIDIgLSBkeW5hbWljIHByaW9yaXR5
+IHByb2dyYW1taW5nOgo+Pj4+Pj4+Pj4+Pj4+Pj4+IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+
+Pj4+Pj4+Pj4gU2ltaWxhciB0byB0aGUgYWJvdmUsIGJ1dCBpbnN0ZWFkIG9mIHByb2dyYW1taW5n
+IHRoZQo+Pj4+Pj4+Pj4+Pj4+Pj4+IHByaW9yaXRpZXMgYW5kCj4+Pj4+Pj4+Pj4+Pj4+Pj4gYW1k
+Z3B1X2luaXQoKSB0aW1lLCB0aGUgU1cgc2NoZWR1bGVyIHdpbGwgcmVwcm9ncmFtIHRoZQo+Pj4+
+Pj4+Pj4+Pj4+Pj4+IHF1ZXVlIHByaW9yaXRpZXMKPj4+Pj4+Pj4+Pj4+Pj4+PiBkeW5hbWljYWxs
+eSB3aGVuIHNjaGVkdWxpbmcgYSB0YXNrLgo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+
+Pj4gVGhpcyB3b3VsZCBpbnZvbHZlIGhhdmluZyBhIGhhcmR3YXJlIHNwZWNpZmljIGNhbGxiYWNr
+IAo+Pj4+Pj4+Pj4+Pj4+Pj4+IGZyb20KPj4+Pj4+Pj4+Pj4+Pj4+PiB0aGUKPj4+Pj4+Pj4+Pj4+
+Pj4+PiBzY2hlZHVsZXIgdG8KPj4+Pj4+Pj4+Pj4+Pj4+PiBzZXQgdGhlIGFwcHJvcHJpYXRlIHF1
+ZXVlIHByaW9yaXR5OiBzZXRfcHJpb3JpdHkoaW50IHJpbmcsCj4+Pj4+Pj4+Pj4+Pj4+Pj4gaW50
+IGluZGV4LAo+Pj4+Pj4+Pj4+Pj4+Pj4+IGludCBwcmlvcml0eSkKPj4+Pj4+Pj4+Pj4+Pj4+Pgo+
+Pj4+Pj4+Pj4+Pj4+Pj4+IER1cmluZyB0aGlzIGNhbGxiYWNrIHdlIHdvdWxkIGhhdmUgdG8gZ3Jh
+YiB0aGUgU1JCTSBtdXRleAo+Pj4+Pj4+Pj4+Pj4+Pj4+IHRvIHBlcmZvcm0KPj4+Pj4+Pj4+Pj4+
+Pj4+PiB0aGUgYXBwcm9wcmlhdGUKPj4+Pj4+Pj4+Pj4+Pj4+PiBIVyBwcm9ncmFtbWluZywgYW5k
+IEknbSBub3QgcmVhbGx5IHN1cmUgaWYgdGhhdCBpcwo+Pj4+Pj4+Pj4+Pj4+Pj4+IHNvbWV0aGlu
+ZyB3ZQo+Pj4+Pj4+Pj4+Pj4+Pj4+IHNob3VsZCBiZSBkb2luZyBmcm9tCj4+Pj4+Pj4+Pj4+Pj4+
+Pj4gdGhlIHNjaGVkdWxlci4KPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+IE9uIHRo
+ZSBwb3NpdGl2ZSBzaWRlLCB0aGlzIGFwcHJvYWNoIHdvdWxkIGFsbG93IHVzIHRvCj4+Pj4+Pj4+
+Pj4+Pj4+Pj4gcHJvZ3JhbSBhIHJhbmdlIG9mCj4+Pj4+Pj4+Pj4+Pj4+Pj4gcHJpb3JpdGllcyBm
+b3Igam9icyBpbnN0ZWFkIG9mIGEgc2luZ2xlICJoaWdoIHByaW9yaXR5Igo+Pj4+Pj4+Pj4+Pj4+
+Pj4+IHZhbHVlIiwKPj4+Pj4+Pj4+Pj4+Pj4+PiBhY2hpZXZpbmcKPj4+Pj4+Pj4+Pj4+Pj4+PiBz
+b21ldGhpbmcgc2ltaWxhciB0byB0aGUgbmljZW5lc3MgQVBJIGF2YWlsYWJsZSBmb3IgQ1BVCj4+
+Pj4+Pj4+Pj4+Pj4+Pj4gc2NoZWR1bGluZy4KPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+
+Pj4+IEknbSBub3Qgc3VyZSBpZiB0aGlzIGZsZXhpYmlsaXR5IGlzIHNvbWV0aGluZyB0aGF0IHdl
+IAo+Pj4+Pj4+Pj4+Pj4+Pj4+IHdvdWxkCj4+Pj4+Pj4+Pj4+Pj4+Pj4gbmVlZCBmb3IKPj4+Pj4+
+Pj4+Pj4+Pj4+PiBvdXIgdXNlCj4+Pj4+Pj4+Pj4+Pj4+Pj4gY2FzZSwgYnV0IGl0IG1pZ2h0IGJl
+IHVzZWZ1bCBpbiBvdGhlciBzY2VuYXJpb3MgKG11bHRpcGxlCj4+Pj4+Pj4+Pj4+Pj4+Pj4gdXNl
+cnMKPj4+Pj4+Pj4+Pj4+Pj4+PiBzaGFyaW5nIGNvbXB1dGUKPj4+Pj4+Pj4+Pj4+Pj4+PiB0aW1l
+IG9uIGEgc2VydmVyKS4KPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+IFRoaXMgYXBw
+cm9hY2ggd291bGQgcmVxdWlyZSBhIG5ldyBpbnQgZmllbGQgaW4KPj4+Pj4+Pj4+Pj4+Pj4+PiBk
+cm1fYW1kZ3B1X2N0eF9pbiwgb3IKPj4+Pj4+Pj4+Pj4+Pj4+PiByZXB1cnBvc2luZwo+Pj4+Pj4+
+Pj4+Pj4+Pj4+IG9mIHRoZSBmbGFncyBmaWVsZC4KPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+
+Pj4+Pj4+IEtub3duIGN1cnJlbnQgb2JzdGFjbGVzOgo+Pj4+Pj4+Pj4+Pj4+Pj4+IC0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLQo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gVGhlIFNR
+IGlzIGN1cnJlbnRseSBwcm9ncmFtbWVkIHRvIGRpc3JlZ2FyZCB0aGUgSFFECj4+Pj4+Pj4+Pj4+
+Pj4+Pj4gcHJpb3JpdGllcywgYW5kCj4+Pj4+Pj4+Pj4+Pj4+Pj4gaW5zdGVhZCBpdCBwaWNrcwo+
+Pj4+Pj4+Pj4+Pj4+Pj4+IGpvYnMgYXQgcmFuZG9tLiBTZXR0aW5ncyBmcm9tIHRoZSBzaGFkZXIg
+aXRzZWxmIGFyZSBhbHNvCj4+Pj4+Pj4+Pj4+Pj4+Pj4gZGlzcmVnYXJkZWQKPj4+Pj4+Pj4+Pj4+
+Pj4+PiBhcyB0aGlzIGlzCj4+Pj4+Pj4+Pj4+Pj4+Pj4gY29uc2lkZXJlZCBhIHByaXZpbGVnZWQg
+ZmllbGQuCj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+PiBFZmZlY3RpdmVseSB3ZSBj
+YW4gZ2V0IG91ciBjb21wdXRlIHdhdmVmcm9udCBsYXVuY2hlZCAKPj4+Pj4+Pj4+Pj4+Pj4+PiBB
+U0FQLAo+Pj4+Pj4+Pj4+Pj4+Pj4+IGJ1dCB3ZQo+Pj4+Pj4+Pj4+Pj4+Pj4+IG1pZ2h0IG5vdCBn
+ZXQgdGhlCj4+Pj4+Pj4+Pj4+Pj4+Pj4gdGltZSB3ZSBuZWVkIG9uIHRoZSBTUS4KPj4+Pj4+Pj4+
+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+IFRoZSBjdXJyZW50IHByb2dyYW1taW5nIHdvdWxkIGhh
+dmUgdG8gYmUgY2hhbmdlZCB0byBhbGxvdwo+Pj4+Pj4+Pj4+Pj4+Pj4+IHByaW9yaXR5Cj4+Pj4+
+Pj4+Pj4+Pj4+Pj4gcHJvcGFnYXRpb24KPj4+Pj4+Pj4+Pj4+Pj4+PiBmcm9tIHRoZSBIUUQgaW50
+byB0aGUgU1EuCj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+PiBHZW5lcmljIGFwcHJv
+YWNoIGZvciBhbGwgSFcgSVBzOgo+Pj4+Pj4+Pj4+Pj4+Pj4+IC0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tCj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+PiBGb3IgY29uc2lz
+dGVuY3kgcHVycG9zZXMsIHRoZSBoaWdoIHByaW9yaXR5IGNvbnRleHQgY2FuIGJlCj4+Pj4+Pj4+
+Pj4+Pj4+Pj4gZW5hYmxlZAo+Pj4+Pj4+Pj4+Pj4+Pj4+IGZvciBhbGwgSFcgSVBzCj4+Pj4+Pj4+
+Pj4+Pj4+Pj4gd2l0aCBzdXBwb3J0IG9mIHRoZSBTVyBzY2hlZHVsZXIuIFRoaXMgd2lsbCBmdW5j
+dGlvbgo+Pj4+Pj4+Pj4+Pj4+Pj4+IHNpbWlsYXJseSB0byB0aGUKPj4+Pj4+Pj4+Pj4+Pj4+PiBj
+dXJyZW50Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gQU1EX1NDSEVEX1BSSU9SSVRZX0tFUk5FTCBwcmlvcml0
+eSwgd2hlcmUgdGhlIGpvYiBjYW4ganVtcAo+Pj4+Pj4+Pj4+Pj4+Pj4+IGFoZWFkIG9mCj4+Pj4+
+Pj4+Pj4+Pj4+Pj4gYW55dGhpbmcgbm90Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gY29tbWl0ZWQgdG8gdGhl
+IEhXIHF1ZXVlLgo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gVGhlIGJlbmVmaXRz
+IG9mIHJlcXVlc3RpbmcgYSBoaWdoIHByaW9yaXR5IGNvbnRleHQgZm9yIGEKPj4+Pj4+Pj4+Pj4+
+Pj4+PiBub24tY29tcHV0ZQo+Pj4+Pj4+Pj4+Pj4+Pj4+IHF1ZXVlIHdpbGwKPj4+Pj4+Pj4+Pj4+
+Pj4+PiBiZSBsZXNzZXIgKGUuZy4gdXAgdG8gMTBzIG9mIHdhaXQgdGltZSBpZiBhIEdGWCBjb21t
+YW5kIGlzCj4+Pj4+Pj4+Pj4+Pj4+Pj4gc3R1Y2sgaW4KPj4+Pj4+Pj4+Pj4+Pj4+PiBmcm9udCBv
+Zgo+Pj4+Pj4+Pj4+Pj4+Pj4+IHlvdSksIGJ1dCBoYXZpbmcgdGhlIEFQSSBpbiBwbGFjZSB3aWxs
+IGFsbG93IHVzIHRvIGVhc2lseQo+Pj4+Pj4+Pj4+Pj4+Pj4+IGltcHJvdmUgdGhlCj4+Pj4+Pj4+
+Pj4+Pj4+Pj4gaW1wbGVtZW50YXRpb24KPj4+Pj4+Pj4+Pj4+Pj4+PiBpbiB0aGUgZnV0dXJlIGFz
+IG5ldyBmZWF0dXJlcyBiZWNvbWUgYXZhaWxhYmxlIGluIG5ldwo+Pj4+Pj4+Pj4+Pj4+Pj4+IGhh
+cmR3YXJlLgo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gRnV0dXJlIHN0ZXBzOgo+
+Pj4+Pj4+Pj4+Pj4+Pj4+IC0tLS0tLS0tLS0tLS0KPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+
+Pj4+Pj4+IE9uY2Ugd2UgaGF2ZSBhbiBhcHByb2FjaCBzZXR0bGVkLCBJIGNhbiB0YWtlIGNhcmUg
+b2YgdGhlCj4+Pj4+Pj4+Pj4+Pj4+Pj4gaW1wbGVtZW50YXRpb24uCj4+Pj4+Pj4+Pj4+Pj4+Pj4K
+Pj4+Pj4+Pj4+Pj4+Pj4+PiBBbHNvLCBvbmNlIHRoZSBpbnRlcmZhY2UgaXMgbW9zdGx5IGRlY2lk
+ZWQsIHdlIGNhbiBzdGFydAo+Pj4+Pj4+Pj4+Pj4+Pj4+IHRoaW5raW5nIGFib3V0Cj4+Pj4+Pj4+
+Pj4+Pj4+Pj4gZXhwb3NpbmcgdGhlIGhpZ2ggcHJpb3JpdHkgcXVldWUgdGhyb3VnaCByYWR2Lgo+
+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gUmVxdWVzdCBmb3IgZmVlZGJhY2s6Cj4+
+Pj4+Pj4+Pj4+Pj4+Pj4gLS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+
+Pj4+Pj4+Pj4+Pj4+PiBXZSBhcmVuJ3QgbWFycmllZCB0byBhbnkgb2YgdGhlIGFwcHJvYWNoZXMg
+b3V0bGluZWQgYWJvdmUuCj4+Pj4+Pj4+Pj4+Pj4+Pj4gT3VyIGdvYWwKPj4+Pj4+Pj4+Pj4+Pj4+
+PiBpcyB0bwo+Pj4+Pj4+Pj4+Pj4+Pj4+IG9idGFpbiBhIG1lY2hhbmlzbSB0aGF0IHdpbGwgYWxs
+b3cgdXMgdG8gY29tcGxldGUgdGhlCj4+Pj4+Pj4+Pj4+Pj4+Pj4gcmVwcm9qZWN0aW9uCj4+Pj4+
+Pj4+Pj4+Pj4+Pj4gam9iIHdpdGhpbiBhCj4+Pj4+Pj4+Pj4+Pj4+Pj4gcHJlZGljdGFibGUgYW1v
+dW50IG9mIHRpbWUuIFNvIGlmIGFueW9uZSBhbnlvbmUgaGFzIGFueQo+Pj4+Pj4+Pj4+Pj4+Pj4+
+IHN1Z2dlc3Rpb25zIGZvcgo+Pj4+Pj4+Pj4+Pj4+Pj4+IGltcHJvdmVtZW50cyBvciBhbHRlcm5h
+dGl2ZSBzdHJhdGVnaWVzIHdlIGFyZSBtb3JlIHRoYW4KPj4+Pj4+Pj4+Pj4+Pj4+PiBoYXBweSB0
+byBoZWFyCj4+Pj4+Pj4+Pj4+Pj4+Pj4gdGhlbS4KPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+
+Pj4+Pj4+IElmIGFueSBvZiB0aGUgdGVjaG5pY2FsIGluZm9ybWF0aW9uIGFib3ZlIGlzIGFsc28K
+Pj4+Pj4+Pj4+Pj4+Pj4+PiBpbmNvcnJlY3QsIGZlZWwKPj4+Pj4+Pj4+Pj4+Pj4+PiBmcmVlIHRv
+IHBvaW50Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gb3V0IG15IG1pc3VuZGVyc3RhbmRpbmdzLgo+Pj4+Pj4+
+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gTG9va2luZyBmb3J3YXJkIHRvIGhlYXJpbmcgZnJv
+bSB5b3UuCj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+PiBSZWdhcmRzLAo+Pj4+Pj4+
+Pj4+Pj4+Pj4+IEFuZHJlcwo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPj4+Pj4+Pj4+Pj4+Pj4+
+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+Pj4+Pj4+Pj4+Pj4+Pj4+IGFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCj4+Pj4+Pj4+Pj4+Pj4+Pj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+
+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+IGFtZC1nZnggSW5mbyBQYWdlIC0gbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnCj4+Pj4+Pj4+Pj4+Pj4+Pj4gbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+Pj4+Pj4+Pj4+
+Pj4+Pj4gVG8gc2VlIHRoZSBjb2xsZWN0aW9uIG9mIHByaW9yIHBvc3RpbmdzIHRvIHRoZSBsaXN0
+LAo+Pj4+Pj4+Pj4+Pj4+Pj4+IHZpc2l0IHRoZQo+Pj4+Pj4+Pj4+Pj4+Pj4+IGFtZC1nZnggQXJj
+aGl2ZXMuIFVzaW5nIGFtZC1nZng6IFRvIHBvc3QgYSBtZXNzYWdlIHRvIGFsbAo+Pj4+Pj4+Pj4+
+Pj4+Pj4+IHRoZSBsaXN0Cj4+Pj4+Pj4+Pj4+Pj4+Pj4gbWVtYmVycywgc2VuZCBlbWFpbCAuLi4K
+Pj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+
+Pj4+Pj4+Pj4+PiBhbWQtZ2Z4IEluZm8gUGFnZSAtIGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+Pj4+
+Pj4+Pj4+Pj4+Pj4+IGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+Pj4+Pj4+Pj4+Pj4+Pj4+IFRvIHNl
+ZSB0aGUgY29sbGVjdGlvbiBvZiBwcmlvciBwb3N0aW5ncyB0byB0aGUgbGlzdCwKPj4+Pj4+Pj4+
+Pj4+Pj4+PiB2aXNpdCB0aGUKPj4+Pj4+Pj4+Pj4+Pj4+PiBhbWQtZ2Z4IEFyY2hpdmVzLiBVc2lu
+ZyBhbWQtZ2Z4OiBUbyBwb3N0IGEgbWVzc2FnZSB0byBhbGwKPj4+Pj4+Pj4+Pj4+Pj4+PiB0aGUg
+bGlzdAo+Pj4+Pj4+Pj4+Pj4+Pj4+IG1lbWJlcnMsIHNlbmQgZW1haWwgLi4uCj4+Pj4+Pj4+Pj4+
+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4K
+Pj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+
+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+
+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCj4+Pj4+Pj4+Pj4+Pj4+Pj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4+Pj4+
+Pj4+Pj4+Pj4+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+Pj4+Pj4+Pj4+Pj4+Pj4+
+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+
+Pj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+Pj4+Pj4gX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPj4+Pj4+Pj4+Pj4+Pj4+IGFt
+ZC1nZnggbWFpbGluZyBsaXN0Cj4+Pj4+Pj4+Pj4+Pj4+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwo+Pj4+Pj4+Pj4+Pj4+Pj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cj4+Pj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+
+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwo+Pj4+Pj4+Pj4+Pj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4+Pj4+Pj4+Pj4+
+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+Pj4+Pj4+Pj4+PiBodHRwczovL2xpc3Rz
+LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKPj4+Pj4+Pj4+Pj4KPj4+
+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+IFNpbmNlcmVseSB5b3VycywKPj4+Pj4+Pj4+IFNl
+cmd1ZWkgU2FnYWxvdml0Y2gKPj4+Pj4+Pj4+Cj4+Pj4+Pj4+PiBfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+Pj4+Pj4+Pj4gYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKPj4+Pj4+Pj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+Pj4+Pj4+PiBodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKPj4+Pj4+
+Pj4KPj4+Pj4+Pj4KPj4+Pj4+Pgo+Pj4+Pj4KPj4+Pj4KPj4+Pgo+Pj4+IFNpbmNlcmVseSB5b3Vy
+cywKPj4+PiBTZXJndWVpIFNhZ2Fsb3ZpdGNoCj4+Pj4KPj4+Cj4+Cj4KPiBfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0
+Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKCgpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2FtZC1nZngK
