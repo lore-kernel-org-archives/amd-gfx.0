@@ -1,14 +1,16 @@
-From: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Subject: Re: [PATCH] drm/amdgpu: add flag for high priority contexts
-Date: Tue, 3 Jan 2017 18:00:51 -0500
-Message-ID: <CAFQ_0eG9k3b=FLxa0kwF1-56dbMBub-cDst1p4_F9KBbayuS=g@mail.gmail.com>
+Date: Tue, 3 Jan 2017 18:02:48 -0500
+Message-ID: <CADnq5_Mu4t4i9prGhZakMdd3cFB5NRWE6zh0zFp05T1Z_WONmQ@mail.gmail.com>
 References: <1483484076-10424-1-git-send-email-andresx7@gmail.com>
  <1483484076-10424-2-git-send-email-andresx7@gmail.com>
  <CADnq5_Mt_-61h6DG77kqepp5psS2JGHJOA-mek513s5HgvtTDA@mail.gmail.com>
+ <CAFQ_0eG9k3b=FLxa0kwF1-56dbMBub-cDst1p4_F9KBbayuS=g@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0352489691=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_Mt_-61h6DG77kqepp5psS2JGHJOA-mek513s5HgvtTDA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <CAFQ_0eG9k3b=FLxa0kwF1-56dbMBub-cDst1p4_F9KBbayuS=g@mail.gmail.com>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,395 +21,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0352489691==
-Content-Type: multipart/alternative; boundary=94eb2c058c72c36bdd054538a333
-
---94eb2c058c72c36bdd054538a333
-Content-Type: text/plain; charset=UTF-8
-
-I was thinking of that originally, but the allocation context already has a
-flags variable which allows us to preserve the IOCTL ABI.
-
-We could reserve a few bits of the flags for a priority level instead if
-that sounds good?
-
-Regards,
-Andres
-
-On Tue, Jan 3, 2017 at 5:59 PM, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
-
-> On Tue, Jan 3, 2017 at 5:54 PM, Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-> wrote:
-> > Add a new context creation flag, AMDGPU_CTX_FLAG_HIGHPRIORITY. This flag
-> > results in the allocated context receiving a higher scheduler priority
-> > that other contexts system-wide.
-> >
-> > Signed-off-by: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c       | 24
-> ++++++++++++++++++------
-> >  drivers/gpu/drm/amd/scheduler/gpu_scheduler.h |  1 +
-> >  include/uapi/drm/amdgpu_drm.h                 |  3 ++-
-> >  3 files changed, 21 insertions(+), 7 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> > index 400c66b..ce470e2 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> > @@ -25,11 +25,17 @@
-> >  #include <drm/drmP.h>
-> >  #include "amdgpu.h"
-> >
-> > -static int amdgpu_ctx_init(struct amdgpu_device *adev, struct
-> amdgpu_ctx *ctx)
-> > +static int amdgpu_ctx_init(struct amdgpu_device *adev, int priority,
-> struct amdgpu_ctx *ctx)
-> >  {
-> >         unsigned i, j;
-> >         int r;
-> >
-> > +       if (priority < 0 || priority >= AMD_SCHED_MAX_PRIORITY)
-> > +               return -EINVAL;
-> > +
-> > +       if (priority == AMD_SCHED_PRIORITY_HIGH &&
-> !capable(CAP_SYS_ADMIN))
-> > +               return -EACCES;
-> > +
-> >         memset(ctx, 0, sizeof(*ctx));
-> >         ctx->adev = adev;
-> >         kref_init(&ctx->refcount);
-> > @@ -51,7 +57,7 @@ static int amdgpu_ctx_init(struct amdgpu_device *adev,
-> struct amdgpu_ctx *ctx)
-> >                 struct amdgpu_ring *ring = adev->rings[i];
-> >                 struct amd_sched_rq *rq;
-> >
-> > -               rq = &ring->sched.sched_rq[AMD_SCHED_PRIORITY_NORMAL];
-> > +               rq = &ring->sched.sched_rq[priority];
-> >                 r = amd_sched_entity_init(&ring->sched,
-> &ctx->rings[i].entity,
-> >                                           rq, amdgpu_sched_jobs);
-> >                 if (r)
-> > @@ -90,11 +96,15 @@ static void amdgpu_ctx_fini(struct amdgpu_ctx *ctx)
-> >
-> >  static int amdgpu_ctx_alloc(struct amdgpu_device *adev,
-> >                             struct amdgpu_fpriv *fpriv,
-> > +                           int flags,
-> >                             uint32_t *id)
-> >  {
-> >         struct amdgpu_ctx_mgr *mgr = &fpriv->ctx_mgr;
-> >         struct amdgpu_ctx *ctx;
-> > -       int r;
-> > +       int r, priority;
-> > +
-> > +       priority = flags & AMDGPU_CTX_FLAG_HIGHPRIORITY ?
-> > +               AMD_SCHED_PRIORITY_HIGH : AMD_SCHED_PRIORITY_NORMAL;
-> >
-> >         ctx = kmalloc(sizeof(*ctx), GFP_KERNEL);
-> >         if (!ctx)
-> > @@ -107,8 +117,9 @@ static int amdgpu_ctx_alloc(struct amdgpu_device
-> *adev,
-> >                 kfree(ctx);
-> >                 return r;
-> >         }
-> > +
-> >         *id = (uint32_t)r;
-> > -       r = amdgpu_ctx_init(adev, ctx);
-> > +       r = amdgpu_ctx_init(adev, priority, ctx);
-> >         if (r) {
-> >                 idr_remove(&mgr->ctx_handles, *id);
-> >                 *id = 0;
-> > @@ -186,7 +197,7 @@ int amdgpu_ctx_ioctl(struct drm_device *dev, void
-> *data,
-> >                      struct drm_file *filp)
-> >  {
-> >         int r;
-> > -       uint32_t id;
-> > +       uint32_t id, flags;
-> >
-> >         union drm_amdgpu_ctx *args = data;
-> >         struct amdgpu_device *adev = dev->dev_private;
-> > @@ -194,10 +205,11 @@ int amdgpu_ctx_ioctl(struct drm_device *dev, void
-> *data,
-> >
-> >         r = 0;
-> >         id = args->in.ctx_id;
-> > +       flags = args->in.flags;
-> >
-> >         switch (args->in.op) {
-> >         case AMDGPU_CTX_OP_ALLOC_CTX:
-> > -               r = amdgpu_ctx_alloc(adev, fpriv, &id);
-> > +               r = amdgpu_ctx_alloc(adev, fpriv, flags, &id);
-> >                 args->out.alloc.ctx_id = id;
-> >                 break;
-> >         case AMDGPU_CTX_OP_FREE_CTX:
-> > diff --git a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h
-> b/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h
-> > index d8dc681..2e458de 100644
-> > --- a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h
-> > +++ b/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h
-> > @@ -108,6 +108,7 @@ struct amd_sched_backend_ops {
-> >
-> >  enum amd_sched_priority {
-> >         AMD_SCHED_PRIORITY_KERNEL = 0,
-> > +       AMD_SCHED_PRIORITY_HIGH,
-> >         AMD_SCHED_PRIORITY_NORMAL,
-> >         AMD_SCHED_MAX_PRIORITY
-> >  };
-> > diff --git a/include/uapi/drm/amdgpu_drm.h
-> b/include/uapi/drm/amdgpu_drm.h
-> > index 3961836..702332e 100644
-> > --- a/include/uapi/drm/amdgpu_drm.h
-> > +++ b/include/uapi/drm/amdgpu_drm.h
-> > @@ -160,10 +160,11 @@ union drm_amdgpu_bo_list {
-> >  /* unknown cause */
-> >  #define AMDGPU_CTX_UNKNOWN_RESET       3
-> >
-> > +#define AMDGPU_CTX_FLAG_HIGHPRIORITY   (1 << 0)
->
-> Would it be better to expose a priority level rather than a single
-> flag?  If we want to expose more than just normal/high in the future
-> for example.
->
-> Alex
->
-> >  struct drm_amdgpu_ctx_in {
-> >         /** AMDGPU_CTX_OP_* */
-> >         __u32   op;
-> > -       /** For future use, no flags defined so far */
-> > +       /** AMDGPU_CTX_FLAG_* */
-> >         __u32   flags;
-> >         __u32   ctx_id;
-> >         __u32   _pad;
-> > --
-> > 2.7.4
-> >
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
-
---94eb2c058c72c36bdd054538a333
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div><div><div>I was thinking of that originally, but the =
-allocation context already has a flags variable which allows us to preserve=
- the IOCTL ABI.<br><br></div>We could reserve a few bits of the flags for a=
- priority level instead if that sounds good?<br><br></div>Regards,<br></div=
->Andres<br></div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">=
-On Tue, Jan 3, 2017 at 5:59 PM, Alex Deucher <span dir=3D"ltr">&lt;<a href=
-=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</=
-a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0=
- 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div class=3D"HOEnZb=
-"><div class=3D"h5">On Tue, Jan 3, 2017 at 5:54 PM, Andres Rodriguez &lt;<a=
- href=3D"mailto:andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br>
-&gt; Add a new context creation flag, AMDGPU_CTX_FLAG_HIGHPRIORITY. This fl=
-ag<br>
-&gt; results in the allocated context receiving a higher scheduler priority=
-<br>
-&gt; that other contexts system-wide.<br>
-&gt;<br>
-&gt; Signed-off-by: Andres Rodriguez &lt;<a href=3D"mailto:andresx7@gmail.c=
-om">andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_ctx.c=C2=A0 =C2=A0 =C2=A0=
- =C2=A0| 24 ++++++++++++++++++------<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/scheduler/<wbr>gpu_scheduler.h |=C2=A0 1 +<b=
-r>
-&gt;=C2=A0 include/uapi/drm/amdgpu_drm.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 3 ++-<br>
-&gt;=C2=A0 3 files changed, 21 insertions(+), 7 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_ctx.c b/drivers/gp=
-u/drm/amd/amdgpu/<wbr>amdgpu_ctx.c<br>
-&gt; index 400c66b..ce470e2 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_ctx.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_ctx.c<br>
-&gt; @@ -25,11 +25,17 @@<br>
-&gt;=C2=A0 #include &lt;drm/drmP.h&gt;<br>
-&gt;=C2=A0 #include &quot;amdgpu.h&quot;<br>
-&gt;<br>
-&gt; -static int amdgpu_ctx_init(struct amdgpu_device *adev, struct amdgpu_=
-ctx *ctx)<br>
-&gt; +static int amdgpu_ctx_init(struct amdgpu_device *adev, int priority, =
-struct amdgpu_ctx *ctx)<br>
-&gt;=C2=A0 {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned i, j;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0int r;<br>
-&gt;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (priority &lt; 0 || priority &gt;=3D AM=
-D_SCHED_MAX_PRIORITY)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL=
-;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (priority =3D=3D AMD_SCHED_PRIORITY_HIG=
-H &amp;&amp; !capable(CAP_SYS_ADMIN))<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EACCES=
-;<br>
-&gt; +<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0memset(ctx, 0, sizeof(*ctx));<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ctx-&gt;adev =3D adev;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kref_init(&amp;ctx-&gt;refcount);<br>
-&gt; @@ -51,7 +57,7 @@ static int amdgpu_ctx_init(struct amdgpu_device *ade=
-v, struct amdgpu_ctx *ctx)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct am=
-dgpu_ring *ring =3D adev-&gt;rings[i];<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct am=
-d_sched_rq *rq;<br>
-&gt;<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0rq =3D &amp;ri=
-ng-&gt;sched.sched_rq[AMD_<wbr>SCHED_PRIORITY_NORMAL];<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0rq =3D &amp;ri=
-ng-&gt;sched.sched_rq[<wbr>priority];<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D amd=
-_sched_entity_init(&amp;ring-&gt;<wbr>sched, &amp;ctx-&gt;rings[i].entity,<=
-br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0rq, amdgpu_sched_jobs);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (r)<br=
->
-&gt; @@ -90,11 +96,15 @@ static void amdgpu_ctx_fini(struct amdgpu_ctx *ctx=
-)<br>
-&gt;<br>
-&gt;=C2=A0 static int amdgpu_ctx_alloc(struct amdgpu_device *adev,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_fpriv *fpriv,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0int flags,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t *id)<br>
-&gt;=C2=A0 {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_ctx_mgr *mgr =3D &amp;f=
-priv-&gt;ctx_mgr;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_ctx *ctx;<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0int r;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0int r, priority;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0priority =3D flags &amp; AMDGPU_CTX_FLAG_H=
-IGHPRIORITY ?<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_SCHED_PRIO=
-RITY_HIGH : AMD_SCHED_PRIORITY_NORMAL;<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ctx =3D kmalloc(sizeof(*ctx), GFP_KER=
-NEL);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!ctx)<br>
-&gt; @@ -107,8 +117,9 @@ static int amdgpu_ctx_alloc(struct amdgpu_device *=
-adev,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kfree(ctx=
-);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return r;=
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*id =3D (uint32_t)r;<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D amdgpu_ctx_init(adev, ctx);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D amdgpu_ctx_init(adev, priority, ctx)=
-;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (r) {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0idr_remov=
-e(&amp;mgr-&gt;ctx_handles, *id);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*id =3D 0=
-;<br>
-&gt; @@ -186,7 +197,7 @@ int amdgpu_ctx_ioctl(struct drm_device *dev, void =
-*data,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 struct drm_file *filp)<br>
-&gt;=C2=A0 {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0int r;<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t id;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t id, flags;<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0union drm_amdgpu_ctx *args =3D data;<=
-br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_device *adev =3D dev-&g=
-t;dev_private;<br>
-&gt; @@ -194,10 +205,11 @@ int amdgpu_ctx_ioctl(struct drm_device *dev, voi=
-d *data,<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D 0;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0id =3D args-&gt;in.ctx_id;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0flags =3D args-&gt;in.flags;<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0switch (args-&gt;in.op) {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case AMDGPU_CTX_OP_ALLOC_CTX:<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D amdgpu_c=
-tx_alloc(adev, fpriv, &amp;id);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D amdgpu_c=
-tx_alloc(adev, fpriv, flags, &amp;id);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0args-&gt;=
-out.alloc.ctx_id =3D id;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br=
->
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case AMDGPU_CTX_OP_FREE_CTX:<br>
-&gt; diff --git a/drivers/gpu/drm/amd/<wbr>scheduler/gpu_scheduler.h b/driv=
-ers/gpu/drm/amd/<wbr>scheduler/gpu_scheduler.h<br>
-&gt; index d8dc681..2e458de 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/<wbr>scheduler/gpu_scheduler.h<br>
-&gt; +++ b/drivers/gpu/drm/amd/<wbr>scheduler/gpu_scheduler.h<br>
-&gt; @@ -108,6 +108,7 @@ struct amd_sched_backend_ops {<br>
-&gt;<br>
-&gt;=C2=A0 enum amd_sched_priority {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_SCHED_PRIORITY_KERNEL =3D 0,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_SCHED_PRIORITY_HIGH,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_SCHED_PRIORITY_NORMAL,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMD_SCHED_MAX_PRIORITY<br>
-&gt;=C2=A0 };<br>
-&gt; diff --git a/include/uapi/drm/amdgpu_drm.<wbr>h b/include/uapi/drm/amd=
-gpu_drm.<wbr>h<br>
-&gt; index 3961836..702332e 100644<br>
-&gt; --- a/include/uapi/drm/amdgpu_drm.<wbr>h<br>
-&gt; +++ b/include/uapi/drm/amdgpu_drm.<wbr>h<br>
-&gt; @@ -160,10 +160,11 @@ union drm_amdgpu_bo_list {<br>
-&gt;=C2=A0 /* unknown cause */<br>
-&gt;=C2=A0 #define AMDGPU_CTX_UNKNOWN_RESET=C2=A0 =C2=A0 =C2=A0 =C2=A03<br>
-&gt;<br>
-&gt; +#define AMDGPU_CTX_FLAG_HIGHPRIORITY=C2=A0 =C2=A0(1 &lt;&lt; 0)<br>
-<br>
-</div></div>Would it be better to expose a priority level rather than a sin=
-gle<br>
-flag?=C2=A0 If we want to expose more than just normal/high in the future<b=
-r>
-for example.<br>
-<br>
-Alex<br>
-<span class=3D""><br>
-&gt;=C2=A0 struct drm_amdgpu_ctx_in {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/** AMDGPU_CTX_OP_* */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0__u32=C2=A0 =C2=A0op;<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0/** For future use, no flags defined so fa=
-r */<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0/** AMDGPU_CTX_FLAG_* */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0__u32=C2=A0 =C2=A0flags;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0__u32=C2=A0 =C2=A0ctx_id;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0__u32=C2=A0 =C2=A0_pad;<br>
-&gt; --<br>
-&gt; 2.7.4<br>
-&gt;<br>
-</span>&gt; ______________________________<wbr>_________________<br>
-&gt; amd-gfx mailing list<br>
-&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32mqWrfYKbYh0A@public.gmane.org=
-ktop.org</a><br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=
-=3D"noreferrer" target=3D"_blank">https://lists.freedesktop.org/<wbr>mailma=
-n/listinfo/amd-gfx</a><br>
-</blockquote></div><br></div>
-
---94eb2c058c72c36bdd054538a333--
-
---===============0352489691==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0352489691==--
+T24gVHVlLCBKYW4gMywgMjAxNyBhdCA2OjAwIFBNLCBBbmRyZXMgUm9kcmlndWV6IDxhbmRyZXN4
+N0BnbWFpbC5jb20+IHdyb3RlOgo+IEkgd2FzIHRoaW5raW5nIG9mIHRoYXQgb3JpZ2luYWxseSwg
+YnV0IHRoZSBhbGxvY2F0aW9uIGNvbnRleHQgYWxyZWFkeSBoYXMgYQo+IGZsYWdzIHZhcmlhYmxl
+IHdoaWNoIGFsbG93cyB1cyB0byBwcmVzZXJ2ZSB0aGUgSU9DVEwgQUJJLgo+Cj4gV2UgY291bGQg
+cmVzZXJ2ZSBhIGZldyBiaXRzIG9mIHRoZSBmbGFncyBmb3IgYSBwcmlvcml0eSBsZXZlbCBpbnN0
+ZWFkIGlmCj4gdGhhdCBzb3VuZHMgZ29vZD8KCldlIGNhbiBhbHNvIHVzZSBfcGFkIGZvciBzb21l
+dGhpbmcgZWxzZS4KCkFsZXgKCj4KPiBSZWdhcmRzLAo+IEFuZHJlcwo+Cj4gT24gVHVlLCBKYW4g
+MywgMjAxNyBhdCA1OjU5IFBNLCBBbGV4IERldWNoZXIgPGFsZXhkZXVjaGVyQGdtYWlsLmNvbT4g
+d3JvdGU6Cj4+Cj4+IE9uIFR1ZSwgSmFuIDMsIDIwMTcgYXQgNTo1NCBQTSwgQW5kcmVzIFJvZHJp
+Z3VleiA8YW5kcmVzeDdAZ21haWwuY29tPgo+PiB3cm90ZToKPj4gPiBBZGQgYSBuZXcgY29udGV4
+dCBjcmVhdGlvbiBmbGFnLCBBTURHUFVfQ1RYX0ZMQUdfSElHSFBSSU9SSVRZLiBUaGlzIGZsYWcK
+Pj4gPiByZXN1bHRzIGluIHRoZSBhbGxvY2F0ZWQgY29udGV4dCByZWNlaXZpbmcgYSBoaWdoZXIg
+c2NoZWR1bGVyIHByaW9yaXR5Cj4+ID4gdGhhdCBvdGhlciBjb250ZXh0cyBzeXN0ZW0td2lkZS4K
+Pj4gPgo+PiA+IFNpZ25lZC1vZmYtYnk6IEFuZHJlcyBSb2RyaWd1ZXogPGFuZHJlc3g3QGdtYWls
+LmNvbT4KPj4gPiAtLS0KPj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0
+eC5jICAgICAgIHwgMjQKPj4gPiArKysrKysrKysrKysrKysrKystLS0tLS0KPj4gPiAgZHJpdmVy
+cy9ncHUvZHJtL2FtZC9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxlci5oIHwgIDEgKwo+PiA+ICBpbmNs
+dWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaCAgICAgICAgICAgICAgICAgfCAgMyArKy0KPj4gPiAg
+MyBmaWxlcyBjaGFuZ2VkLCAyMSBpbnNlcnRpb25zKCspLCA3IGRlbGV0aW9ucygtKQo+PiA+Cj4+
+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHguYwo+
+PiA+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0eC5jCj4+ID4gaW5kZXgg
+NDAwYzY2Yi4uY2U0NzBlMiAxMDA2NDQKPj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfY3R4LmMKPj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfY3R4LmMKPj4gPiBAQCAtMjUsMTEgKzI1LDE3IEBACj4+ID4gICNpbmNsdWRlIDxkcm0v
+ZHJtUC5oPgo+PiA+ICAjaW5jbHVkZSAiYW1kZ3B1LmgiCj4+ID4KPj4gPiAtc3RhdGljIGludCBh
+bWRncHVfY3R4X2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHN0cnVjdAo+PiA+IGFt
+ZGdwdV9jdHggKmN0eCkKPj4gPiArc3RhdGljIGludCBhbWRncHVfY3R4X2luaXQoc3RydWN0IGFt
+ZGdwdV9kZXZpY2UgKmFkZXYsIGludCBwcmlvcml0eSwKPj4gPiBzdHJ1Y3QgYW1kZ3B1X2N0eCAq
+Y3R4KQo+PiA+ICB7Cj4+ID4gICAgICAgICB1bnNpZ25lZCBpLCBqOwo+PiA+ICAgICAgICAgaW50
+IHI7Cj4+ID4KPj4gPiArICAgICAgIGlmIChwcmlvcml0eSA8IDAgfHwgcHJpb3JpdHkgPj0gQU1E
+X1NDSEVEX01BWF9QUklPUklUWSkKPj4gPiArICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7
+Cj4+ID4gKwo+PiA+ICsgICAgICAgaWYgKHByaW9yaXR5ID09IEFNRF9TQ0hFRF9QUklPUklUWV9I
+SUdIICYmCj4+ID4gIWNhcGFibGUoQ0FQX1NZU19BRE1JTikpCj4+ID4gKyAgICAgICAgICAgICAg
+IHJldHVybiAtRUFDQ0VTOwo+PiA+ICsKPj4gPiAgICAgICAgIG1lbXNldChjdHgsIDAsIHNpemVv
+ZigqY3R4KSk7Cj4+ID4gICAgICAgICBjdHgtPmFkZXYgPSBhZGV2Owo+PiA+ICAgICAgICAga3Jl
+Zl9pbml0KCZjdHgtPnJlZmNvdW50KTsKPj4gPiBAQCAtNTEsNyArNTcsNyBAQCBzdGF0aWMgaW50
+IGFtZGdwdV9jdHhfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4gPiBzdHJ1Y3Qg
+YW1kZ3B1X2N0eCAqY3R4KQo+PiA+ICAgICAgICAgICAgICAgICBzdHJ1Y3QgYW1kZ3B1X3Jpbmcg
+KnJpbmcgPSBhZGV2LT5yaW5nc1tpXTsKPj4gPiAgICAgICAgICAgICAgICAgc3RydWN0IGFtZF9z
+Y2hlZF9ycSAqcnE7Cj4+ID4KPj4gPiAtICAgICAgICAgICAgICAgcnEgPSAmcmluZy0+c2NoZWQu
+c2NoZWRfcnFbQU1EX1NDSEVEX1BSSU9SSVRZX05PUk1BTF07Cj4+ID4gKyAgICAgICAgICAgICAg
+IHJxID0gJnJpbmctPnNjaGVkLnNjaGVkX3JxW3ByaW9yaXR5XTsKPj4gPiAgICAgICAgICAgICAg
+ICAgciA9IGFtZF9zY2hlZF9lbnRpdHlfaW5pdCgmcmluZy0+c2NoZWQsCj4+ID4gJmN0eC0+cmlu
+Z3NbaV0uZW50aXR5LAo+PiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHJxLCBhbWRncHVfc2NoZWRfam9icyk7Cj4+ID4gICAgICAgICAgICAgICAgIGlmIChyKQo+
+PiA+IEBAIC05MCwxMSArOTYsMTUgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X2N0eF9maW5pKHN0cnVj
+dCBhbWRncHVfY3R4ICpjdHgpCj4+ID4KPj4gPiAgc3RhdGljIGludCBhbWRncHVfY3R4X2FsbG9j
+KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+PiA+ICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBzdHJ1Y3QgYW1kZ3B1X2Zwcml2ICpmcHJpdiwKPj4gPiArICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgaW50IGZsYWdzLAo+PiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICB1aW50
+MzJfdCAqaWQpCj4+ID4gIHsKPj4gPiAgICAgICAgIHN0cnVjdCBhbWRncHVfY3R4X21nciAqbWdy
+ID0gJmZwcml2LT5jdHhfbWdyOwo+PiA+ICAgICAgICAgc3RydWN0IGFtZGdwdV9jdHggKmN0eDsK
+Pj4gPiAtICAgICAgIGludCByOwo+PiA+ICsgICAgICAgaW50IHIsIHByaW9yaXR5Owo+PiA+ICsK
+Pj4gPiArICAgICAgIHByaW9yaXR5ID0gZmxhZ3MgJiBBTURHUFVfQ1RYX0ZMQUdfSElHSFBSSU9S
+SVRZID8KPj4gPiArICAgICAgICAgICAgICAgQU1EX1NDSEVEX1BSSU9SSVRZX0hJR0ggOiBBTURf
+U0NIRURfUFJJT1JJVFlfTk9STUFMOwo+PiA+Cj4+ID4gICAgICAgICBjdHggPSBrbWFsbG9jKHNp
+emVvZigqY3R4KSwgR0ZQX0tFUk5FTCk7Cj4+ID4gICAgICAgICBpZiAoIWN0eCkKPj4gPiBAQCAt
+MTA3LDggKzExNyw5IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2N0eF9hbGxvYyhzdHJ1Y3QgYW1kZ3B1
+X2RldmljZQo+PiA+ICphZGV2LAo+PiA+ICAgICAgICAgICAgICAgICBrZnJlZShjdHgpOwo+PiA+
+ICAgICAgICAgICAgICAgICByZXR1cm4gcjsKPj4gPiAgICAgICAgIH0KPj4gPiArCj4+ID4gICAg
+ICAgICAqaWQgPSAodWludDMyX3QpcjsKPj4gPiAtICAgICAgIHIgPSBhbWRncHVfY3R4X2luaXQo
+YWRldiwgY3R4KTsKPj4gPiArICAgICAgIHIgPSBhbWRncHVfY3R4X2luaXQoYWRldiwgcHJpb3Jp
+dHksIGN0eCk7Cj4+ID4gICAgICAgICBpZiAocikgewo+PiA+ICAgICAgICAgICAgICAgICBpZHJf
+cmVtb3ZlKCZtZ3ItPmN0eF9oYW5kbGVzLCAqaWQpOwo+PiA+ICAgICAgICAgICAgICAgICAqaWQg
+PSAwOwo+PiA+IEBAIC0xODYsNyArMTk3LDcgQEAgaW50IGFtZGdwdV9jdHhfaW9jdGwoc3RydWN0
+IGRybV9kZXZpY2UgKmRldiwgdm9pZAo+PiA+ICpkYXRhLAo+PiA+ICAgICAgICAgICAgICAgICAg
+ICAgIHN0cnVjdCBkcm1fZmlsZSAqZmlscCkKPj4gPiAgewo+PiA+ICAgICAgICAgaW50IHI7Cj4+
+ID4gLSAgICAgICB1aW50MzJfdCBpZDsKPj4gPiArICAgICAgIHVpbnQzMl90IGlkLCBmbGFnczsK
+Pj4gPgo+PiA+ICAgICAgICAgdW5pb24gZHJtX2FtZGdwdV9jdHggKmFyZ3MgPSBkYXRhOwo+PiA+
+ICAgICAgICAgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBkZXYtPmRldl9wcml2YXRlOwo+
+PiA+IEBAIC0xOTQsMTAgKzIwNSwxMSBAQCBpbnQgYW1kZ3B1X2N0eF9pb2N0bChzdHJ1Y3QgZHJt
+X2RldmljZSAqZGV2LCB2b2lkCj4+ID4gKmRhdGEsCj4+ID4KPj4gPiAgICAgICAgIHIgPSAwOwo+
+PiA+ICAgICAgICAgaWQgPSBhcmdzLT5pbi5jdHhfaWQ7Cj4+ID4gKyAgICAgICBmbGFncyA9IGFy
+Z3MtPmluLmZsYWdzOwo+PiA+Cj4+ID4gICAgICAgICBzd2l0Y2ggKGFyZ3MtPmluLm9wKSB7Cj4+
+ID4gICAgICAgICBjYXNlIEFNREdQVV9DVFhfT1BfQUxMT0NfQ1RYOgo+PiA+IC0gICAgICAgICAg
+ICAgICByID0gYW1kZ3B1X2N0eF9hbGxvYyhhZGV2LCBmcHJpdiwgJmlkKTsKPj4gPiArICAgICAg
+ICAgICAgICAgciA9IGFtZGdwdV9jdHhfYWxsb2MoYWRldiwgZnByaXYsIGZsYWdzLCAmaWQpOwo+
+PiA+ICAgICAgICAgICAgICAgICBhcmdzLT5vdXQuYWxsb2MuY3R4X2lkID0gaWQ7Cj4+ID4gICAg
+ICAgICAgICAgICAgIGJyZWFrOwo+PiA+ICAgICAgICAgY2FzZSBBTURHUFVfQ1RYX09QX0ZSRUVf
+Q1RYOgo+PiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3NjaGVkdWxlci9ncHVf
+c2NoZWR1bGVyLmgKPj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvc2NoZWR1bGVyL2dwdV9zY2hl
+ZHVsZXIuaAo+PiA+IGluZGV4IGQ4ZGM2ODEuLjJlNDU4ZGUgMTAwNjQ0Cj4+ID4gLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxlci5oCj4+ID4gKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxlci5oCj4+ID4gQEAgLTEwOCw2
+ICsxMDgsNyBAQCBzdHJ1Y3QgYW1kX3NjaGVkX2JhY2tlbmRfb3BzIHsKPj4gPgo+PiA+ICBlbnVt
+IGFtZF9zY2hlZF9wcmlvcml0eSB7Cj4+ID4gICAgICAgICBBTURfU0NIRURfUFJJT1JJVFlfS0VS
+TkVMID0gMCwKPj4gPiArICAgICAgIEFNRF9TQ0hFRF9QUklPUklUWV9ISUdILAo+PiA+ICAgICAg
+ICAgQU1EX1NDSEVEX1BSSU9SSVRZX05PUk1BTCwKPj4gPiAgICAgICAgIEFNRF9TQ0hFRF9NQVhf
+UFJJT1JJVFkKPj4gPiAgfTsKPj4gPiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS91YXBpL2RybS9hbWRn
+cHVfZHJtLmgKPj4gPiBiL2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oCj4+ID4gaW5kZXgg
+Mzk2MTgzNi4uNzAyMzMyZSAxMDA2NDQKPj4gPiAtLS0gYS9pbmNsdWRlL3VhcGkvZHJtL2FtZGdw
+dV9kcm0uaAo+PiA+ICsrKyBiL2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oCj4+ID4gQEAg
+LTE2MCwxMCArMTYwLDExIEBAIHVuaW9uIGRybV9hbWRncHVfYm9fbGlzdCB7Cj4+ID4gIC8qIHVu
+a25vd24gY2F1c2UgKi8KPj4gPiAgI2RlZmluZSBBTURHUFVfQ1RYX1VOS05PV05fUkVTRVQgICAg
+ICAgMwo+PiA+Cj4+ID4gKyNkZWZpbmUgQU1ER1BVX0NUWF9GTEFHX0hJR0hQUklPUklUWSAgICgx
+IDw8IDApCj4+Cj4+IFdvdWxkIGl0IGJlIGJldHRlciB0byBleHBvc2UgYSBwcmlvcml0eSBsZXZl
+bCByYXRoZXIgdGhhbiBhIHNpbmdsZQo+PiBmbGFnPyAgSWYgd2Ugd2FudCB0byBleHBvc2UgbW9y
+ZSB0aGFuIGp1c3Qgbm9ybWFsL2hpZ2ggaW4gdGhlIGZ1dHVyZQo+PiBmb3IgZXhhbXBsZS4KPj4K
+Pj4gQWxleAo+Pgo+PiA+ICBzdHJ1Y3QgZHJtX2FtZGdwdV9jdHhfaW4gewo+PiA+ICAgICAgICAg
+LyoqIEFNREdQVV9DVFhfT1BfKiAqLwo+PiA+ICAgICAgICAgX191MzIgICBvcDsKPj4gPiAtICAg
+ICAgIC8qKiBGb3IgZnV0dXJlIHVzZSwgbm8gZmxhZ3MgZGVmaW5lZCBzbyBmYXIgKi8KPj4gPiAr
+ICAgICAgIC8qKiBBTURHUFVfQ1RYX0ZMQUdfKiAqLwo+PiA+ICAgICAgICAgX191MzIgICBmbGFn
+czsKPj4gPiAgICAgICAgIF9fdTMyICAgY3R4X2lkOwo+PiA+ICAgICAgICAgX191MzIgICBfcGFk
+Owo+PiA+IC0tCj4+ID4gMi43LjQKPj4gPgo+PiA+IF9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCj4+ID4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4gPiBhbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiA+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+Cj4KX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9hbWQtZ2Z4Cg==
