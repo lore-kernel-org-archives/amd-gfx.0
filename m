@@ -1,16 +1,16 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH 1/5] drm/ttm: add evict parameter to
- ttm_bo_driver::move_notify
-Date: Tue, 3 Jan 2017 12:42:59 +0100
-Message-ID: <c0907516-d7d4-a79e-ac7c-837c8ce900ba@vodafone.de>
-References: <1481821815-9971-1-git-send-email-nhaehnle@gmail.com>
- <1481821815-9971-2-git-send-email-nhaehnle@gmail.com>
- <5853564E.5020005@amd.com> <8f68adf1-52bc-b2ef-2fa7-79a8f9695164@gmail.com>
+Subject: Re: [PATCH 11/23] drm/amdgpu: implement context save area(CSA) feature
+Date: Tue, 3 Jan 2017 15:30:56 +0100
+Message-ID: <a3d544d8-8d9e-a6a8-1779-bf37d0cf28cf@vodafone.de>
+References: <1481991405-30422-1-git-send-email-Xiangliang.Yu@amd.com>
+ <1481991405-30422-12-git-send-email-Xiangliang.Yu@amd.com>
+ <CADnq5_P1hOrd7Vk1G01Gj7aM1RjkyhgLGWV6CnTu9mvrGhtxsg@mail.gmail.com>
+ <BY2PR12MB00547F38C7E612AE3A4D027184900@BY2PR12MB0054.namprd12.prod.outlook.com>
+ <CY4PR12MB1701351D6DCEA18714735B3DEB900@CY4PR12MB1701.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1290484405=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <8f68adf1-52bc-b2ef-2fa7-79a8f9695164-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <CY4PR12MB1701351D6DCEA18714735B3DEB900-rpdhrqHFk05QaJCA3gGb3wdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,272 +21,1203 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "Yu, Xiangliang" <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>, "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "dl.SRDC_SW_GPUVirtualization" <dl.SRDC_SW_GPUVirtualization-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QW0gMjEuMTIuMjAxNiB1bSAxNjoxMiBzY2hyaWViIE5pY29sYWkgSMOkaG5sZToKPiBPbiAxNi4x
-Mi4yMDE2IDAzOjQ5LCB6aG91Y20xIHdyb3RlOgo+PiBPbiAyMDE25bm0MTLmnIgxNuaXpSAwMTox
-MCwgTmljb2xhaSBIw6RobmxlIHdyb3RlOgo+Pj4gRnJvbTogTmljb2xhaSBIw6RobmxlIDxuaWNv
-bGFpLmhhZWhubGVAYW1kLmNvbT4KPj4+Cj4+PiBFbnN1cmUgdGhhdCB0aGUgZHJpdmVyIGNhbiBs
-aXN0ZW4gdG8gZXZpY3Rpb25zIGV2ZW4gd2hlbiB0aGV5IGRvbid0Cj4+PiB0YWtlIHRoZQo+Pj4g
-cGF0aCB0aHJvdWdoIHR0bV9ib19kcml2ZXI6Om1vdmUuCj4+Pgo+Pj4gVGhpcyBpcyBjcnVjaWFs
-IGZvciBhbWRncHUsIHdoaWNoIHJlbGllcyBvbiBhbiBldmljdGlvbiBjb3VudGVyIHRvIHNraXAK
-Pj4+IHJlLWJpbmRpbmcgcGFnZSB0YWJsZXMgd2hlbiBwb3NzaWJsZS4KPj4+Cj4+PiBTaWduZWQt
-b2ZmLWJ5OiBOaWNvbGFpIEjDpGhubGUgPG5pY29sYWkuaGFlaG5sZUBhbWQuY29tPgo+PiBBY2tl
-ZC1ieTogQ2h1bm1pbmcgWmhvdSA8ZGF2aWQxLnpob3VAYW1kLmNvbT4KCkZlZWwgZnJlZSB0byBh
-ZGQgbXkgUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgCjxjaHJpc3RpYW4ua29lbmlnQGFt
-ZC5jb20+IHRvIHBhdGNoICMxLSM0IGFuZCBWMiBvZiBwYXRjaCAjNSBhcyB3ZWxsLgoKPgo+IFRo
-YW5rcy4gUGluZyBmb3IgZmVlZGJhY2sgZnJvbSBub24tQU1EIHBlb3BsZT8KClBpbmcgb25jZSBt
-b3JlLiBXb3VsZCBiZSBuaWNlIGlmIHNvbWVib2R5IGVsc2UgY2FuIHRha2UgYSBsb29rIGFzIHdl
-bGwuCgpDaHJpc3RpYW4uCgo+Cj4gTmljb2xhaQo+Cj4KPj4+IC0tLQo+Pj4gICBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMgfCAgMSArCj4+PiAgIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuaCB8ICAzICsrLQo+Pj4gICBkcml2ZXJzL2dw
-dS9kcm0vbm91dmVhdS9ub3V2ZWF1X2JvLmMgICAgICAgfCAgMyArKy0KPj4+ICAgZHJpdmVycy9n
-cHUvZHJtL3F4bC9xeGxfdHRtLmMgICAgICAgICAgICAgIHwgIDEgKwo+Pj4gICBkcml2ZXJzL2dw
-dS9kcm0vcmFkZW9uL3JhZGVvbl9vYmplY3QuYyAgICAgfCAgMSArCj4+PiAgIGRyaXZlcnMvZ3B1
-L2RybS9yYWRlb24vcmFkZW9uX29iamVjdC5oICAgICB8ICAxICsKPj4+ICAgZHJpdmVycy9ncHUv
-ZHJtL3R0bS90dG1fYm8uYyAgICAgICAgICAgICAgIHwgIDggKysrKy0tLS0KPj4+ICAgZHJpdmVy
-cy9ncHUvZHJtL3ZpcnRpby92aXJ0Z3B1X3R0bS5jICAgICAgIHwgIDEgKwo+Pj4gICBkcml2ZXJz
-L2dwdS9kcm0vdm13Z2Z4L3Ztd2dmeF9idWZmZXIuYyAgICAgfCAgMSArCj4+PiAgIGluY2x1ZGUv
-ZHJtL3R0bS90dG1fYm9fZHJpdmVyLmggICAgICAgICAgICB8IDEwICsrKysrKysrLS0KPj4+ICAg
-MTAgZmlsZXMgY2hhbmdlZCwgMjIgaW5zZXJ0aW9ucygrKSwgOCBkZWxldGlvbnMoLSkKPj4+Cj4+
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5j
-Cj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYwo+Pj4gaW5k
-ZXggYmY3OWI3My4uYzI5ZGI5OSAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9vYmplY3QuYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X29iamVjdC5jCj4+PiBAQCAtODQyLDIwICs4NDIsMjEgQEAgaW50IGFtZGdwdV9i
-b19nZXRfbWV0YWRhdGEoc3RydWN0IGFtZGdwdV9ibyAqYm8sCj4+PiB2b2lkICpidWZmZXIsCj4+
-PiAgICAgICAgIGlmIChtZXRhZGF0YV9zaXplKQo+Pj4gICAgICAgICAgICptZXRhZGF0YV9zaXpl
-ID0gYm8tPm1ldGFkYXRhX3NpemU7Cj4+PiAgICAgICBpZiAoZmxhZ3MpCj4+PiAgICAgICAgICAg
-KmZsYWdzID0gYm8tPm1ldGFkYXRhX2ZsYWdzOwo+Pj4gICAgICAgICByZXR1cm4gMDsKPj4+ICAg
-fQo+Pj4gICAgIHZvaWQgYW1kZ3B1X2JvX21vdmVfbm90aWZ5KHN0cnVjdCB0dG1fYnVmZmVyX29i
-amVjdCAqYm8sCj4+PiArICAgICAgICAgICAgICAgYm9vbCBldmljdCwKPj4+ICAgICAgICAgICAg
-ICAgICAgc3RydWN0IHR0bV9tZW1fcmVnICpuZXdfbWVtKQo+Pj4gICB7Cj4+PiAgICAgICBzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGFtZGdwdV90dG1fYWRldihiby0+YmRldik7Cj4+PiAg
-ICAgICBzdHJ1Y3QgYW1kZ3B1X2JvICphYm87Cj4+PiAgICAgICBzdHJ1Y3QgdHRtX21lbV9yZWcg
-Km9sZF9tZW0gPSAmYm8tPm1lbTsKPj4+ICAgICAgICAgaWYgKCFhbWRncHVfdHRtX2JvX2lzX2Ft
-ZGdwdV9ibyhibykpCj4+PiAgICAgICAgICAgcmV0dXJuOwo+Pj4gICAgICAgICBhYm8gPSBjb250
-YWluZXJfb2YoYm8sIHN0cnVjdCBhbWRncHVfYm8sIHRibyk7Cj4+PiBkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5oCj4+PiBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuaAo+Pj4gaW5kZXggNWNiZjU5ZS4uNDMwNmIy
-ZiAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmpl
-Y3QuaAo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5o
-Cj4+PiBAQCAtMTQ4LDIxICsxNDgsMjIgQEAgdm9pZCBhbWRncHVfYm9fZmluaShzdHJ1Y3QgYW1k
-Z3B1X2RldmljZSAqYWRldik7Cj4+PiAgIGludCBhbWRncHVfYm9fZmJkZXZfbW1hcChzdHJ1Y3Qg
-YW1kZ3B1X2JvICpibywKPj4+ICAgICAgICAgICAgICAgICAgIHN0cnVjdCB2bV9hcmVhX3N0cnVj
-dCAqdm1hKTsKPj4+ICAgaW50IGFtZGdwdV9ib19zZXRfdGlsaW5nX2ZsYWdzKHN0cnVjdCBhbWRn
-cHVfYm8gKmJvLCB1NjQgCj4+PiB0aWxpbmdfZmxhZ3MpOwo+Pj4gICB2b2lkIGFtZGdwdV9ib19n
-ZXRfdGlsaW5nX2ZsYWdzKHN0cnVjdCBhbWRncHVfYm8gKmJvLCB1NjQKPj4+ICp0aWxpbmdfZmxh
-Z3MpOwo+Pj4gICBpbnQgYW1kZ3B1X2JvX3NldF9tZXRhZGF0YSAoc3RydWN0IGFtZGdwdV9ibyAq
-Ym8sIHZvaWQgKm1ldGFkYXRhLAo+Pj4gICAgICAgICAgICAgICAgICAgdWludDMyX3QgbWV0YWRh
-dGFfc2l6ZSwgdWludDY0X3QgZmxhZ3MpOwo+Pj4gICBpbnQgYW1kZ3B1X2JvX2dldF9tZXRhZGF0
-YShzdHJ1Y3QgYW1kZ3B1X2JvICpibywgdm9pZCAqYnVmZmVyLAo+Pj4gICAgICAgICAgICAgICAg
-ICBzaXplX3QgYnVmZmVyX3NpemUsIHVpbnQzMl90ICptZXRhZGF0YV9zaXplLAo+Pj4gICAgICAg
-ICAgICAgICAgICB1aW50NjRfdCAqZmxhZ3MpOwo+Pj4gICB2b2lkIGFtZGdwdV9ib19tb3ZlX25v
-dGlmeShzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvLAo+Pj4gLSAgICAgICAgICAgICAgICAg
-IHN0cnVjdCB0dG1fbWVtX3JlZyAqbmV3X21lbSk7Cj4+PiArICAgICAgICAgICAgICAgYm9vbCBl
-dmljdCwKPj4+ICsgICAgICAgICAgICAgICBzdHJ1Y3QgdHRtX21lbV9yZWcgKm5ld19tZW0pOwo+
-Pj4gICBpbnQgYW1kZ3B1X2JvX2ZhdWx0X3Jlc2VydmVfbm90aWZ5KHN0cnVjdCB0dG1fYnVmZmVy
-X29iamVjdCAqYm8pOwo+Pj4gICB2b2lkIGFtZGdwdV9ib19mZW5jZShzdHJ1Y3QgYW1kZ3B1X2Jv
-ICpibywgc3RydWN0IGRtYV9mZW5jZSAqZmVuY2UsCj4+PiAgICAgICAgICAgICAgICBib29sIHNo
-YXJlZCk7Cj4+PiAgIHU2NCBhbWRncHVfYm9fZ3B1X29mZnNldChzdHJ1Y3QgYW1kZ3B1X2JvICpi
-byk7Cj4+PiAgIGludCBhbWRncHVfYm9fYmFja3VwX3RvX3NoYWRvdyhzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSAqYWRldiwKPj4+ICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBhbWRncHVfcmluZyAq
-cmluZywKPj4+ICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBhbWRncHVfYm8gKmJvLAo+Pj4g
-ICAgICAgICAgICAgICAgICAgICAgc3RydWN0IHJlc2VydmF0aW9uX29iamVjdCAqcmVzdiwKPj4+
-ICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBkbWFfZmVuY2UgKipmZW5jZSwgYm9vbCBkaXJl
-Y3QpOwo+Pj4gICBpbnQgYW1kZ3B1X2JvX3Jlc3RvcmVfZnJvbV9zaGFkb3coc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmFkZXYsCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUv
-bm91dmVhdV9iby5jCj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L25vdXZlYXVfYm8uYwo+
-Pj4gaW5kZXggZTBjMDAwNy4uNmZhMTUyMSAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9ub3V2ZWF1L25vdXZlYXVfYm8uYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUv
-bm91dmVhdV9iby5jCj4+PiBAQCAtMTE4NywyMSArMTE4NywyMiBAQCBub3V2ZWF1X2JvX21vdmVf
-ZmxpcHMoc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0Cj4+PiAqYm8sIGJvb2wgZXZpY3QsIGJvb2wg
-aW50ciwKPj4+ICAgICAgIHJldCA9IG5vdXZlYXVfYm9fbW92ZV9tMm1mKGJvLCB0cnVlLCBpbnRy
-LCBub193YWl0X2dwdSwgbmV3X21lbSk7Cj4+PiAgICAgICBpZiAocmV0KQo+Pj4gICAgICAgICAg
-IGdvdG8gb3V0Owo+Pj4gICAgIG91dDoKPj4+ICAgICAgIHR0bV9ib19tZW1fcHV0KGJvLCAmdG1w
-X21lbSk7Cj4+PiAgICAgICByZXR1cm4gcmV0Owo+Pj4gICB9Cj4+PiAgICAgc3RhdGljIHZvaWQK
-Pj4+IC1ub3V2ZWF1X2JvX21vdmVfbnRmeShzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvLCBz
-dHJ1Y3QgdHRtX21lbV9yZWcKPj4+ICpuZXdfbWVtKQo+Pj4gK25vdXZlYXVfYm9fbW92ZV9udGZ5
-KHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAqYm8sIGJvb2wgZXZpY3QsCj4+PiArICAgICAgICAg
-ICAgIHN0cnVjdCB0dG1fbWVtX3JlZyAqbmV3X21lbSkKPj4+ICAgewo+Pj4gICAgICAgc3RydWN0
-IG5vdXZlYXVfYm8gKm52Ym8gPSBub3V2ZWF1X2JvKGJvKTsKPj4+ICAgICAgIHN0cnVjdCBudmtt
-X3ZtYSAqdm1hOwo+Pj4gICAgICAgICAvKiB0dG0gY2FuIG5vdyAoc3R1cGlkbHkpIHBhc3MgdGhl
-IGRyaXZlciBib3MgaXQgZGlkbid0Cj4+PiBjcmVhdGUuLi4gKi8KPj4+ICAgICAgIGlmIChiby0+
-ZGVzdHJveSAhPSBub3V2ZWF1X2JvX2RlbF90dG0pCj4+PiAgICAgICAgICAgcmV0dXJuOwo+Pj4g
-ICAgICAgICBsaXN0X2Zvcl9lYWNoX2VudHJ5KHZtYSwgJm52Ym8tPnZtYV9saXN0LCBoZWFkKSB7
-Cj4+PiAgICAgICAgICAgaWYgKG5ld19tZW0gJiYgbmV3X21lbS0+bWVtX3R5cGUgIT0gVFRNX1BM
-X1NZU1RFTSAmJgo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9xeGwvcXhsX3R0bS5j
-Cj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9xeGwvcXhsX3R0bS5jCj4+PiBpbmRleCAxMTc2MTMzLi5m
-MzkzOWE5IDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3F4bC9xeGxfdHRtLmMKPj4+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9xeGwvcXhsX3R0bS5jCj4+PiBAQCAtMzYwLDIwICszNjAs
-MjEgQEAgc3RhdGljIGludCBxeGxfYm9fbW92ZShzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QKPj4+
-ICpibywKPj4+ICAgICAgICAgaWYgKG9sZF9tZW0tPm1lbV90eXBlID09IFRUTV9QTF9TWVNURU0g
-JiYgYm8tPnR0bSA9PSBOVUxMKSB7Cj4+PiAgICAgICAgICAgcXhsX21vdmVfbnVsbChibywgbmV3
-X21lbSk7Cj4+PiAgICAgICAgICAgcmV0dXJuIDA7Cj4+PiAgICAgICB9Cj4+PiAgICAgICByZXR1
-cm4gdHRtX2JvX21vdmVfbWVtY3B5KGJvLCBpbnRlcnJ1cHRpYmxlLCBub193YWl0X2dwdSwKPj4+
-ICAgICAgICAgICAgICAgICAgICAgbmV3X21lbSk7Cj4+PiAgIH0KPj4+ICAgICBzdGF0aWMgdm9p
-ZCBxeGxfYm9fbW92ZV9ub3RpZnkoc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpibywKPj4+ICsg
-ICAgICAgICAgICAgICAgICAgYm9vbCBldmljdCwKPj4+ICAgICAgICAgICAgICAgICAgICAgIHN0
-cnVjdCB0dG1fbWVtX3JlZyAqbmV3X21lbSkKPj4+ICAgewo+Pj4gICAgICAgc3RydWN0IHF4bF9i
-byAqcWJvOwo+Pj4gICAgICAgc3RydWN0IHF4bF9kZXZpY2UgKnFkZXY7Cj4+PiAgICAgICAgIGlm
-ICghcXhsX3R0bV9ib19pc19xeGxfYm8oYm8pKQo+Pj4gICAgICAgICAgIHJldHVybjsKPj4+ICAg
-ICAgIHFibyA9IHRvX3F4bF9ibyhibyk7Cj4+PiAgICAgICBxZGV2ID0gcWJvLT5nZW1fYmFzZS5k
-ZXYtPmRldl9wcml2YXRlOwo+Pj4gICBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3JhZGVv
-bi9yYWRlb25fb2JqZWN0LmMKPj4+IGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fb2Jq
-ZWN0LmMKPj4+IGluZGV4IDQxYjcyY2UuLjc0YjI3NjAgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9vYmplY3QuYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
-L3JhZGVvbi9yYWRlb25fb2JqZWN0LmMKPj4+IEBAIC03NTgsMjAgKzc1OCwyMSBAQCBpbnQgcmFk
-ZW9uX2JvX2NoZWNrX3RpbGluZyhzdHJ1Y3QgcmFkZW9uX2JvICpibywKPj4+IGJvb2wgaGFzX21v
-dmVkLAo+Pj4gICAgICAgICAgIHJldHVybiAwOwo+Pj4gICAgICAgfQo+Pj4gICAgICAgICBpZiAo
-KGJvLT5zdXJmYWNlX3JlZyA+PSAwKSAmJiAhaGFzX21vdmVkKQo+Pj4gICAgICAgICAgIHJldHVy
-biAwOwo+Pj4gICAgICAgICByZXR1cm4gcmFkZW9uX2JvX2dldF9zdXJmYWNlX3JlZyhibyk7Cj4+
-PiAgIH0KPj4+ICAgICB2b2lkIHJhZGVvbl9ib19tb3ZlX25vdGlmeShzdHJ1Y3QgdHRtX2J1ZmZl
-cl9vYmplY3QgKmJvLAo+Pj4gKyAgICAgICAgICAgICAgIGJvb2wgZXZpY3QsCj4+PiAgICAgICAg
-ICAgICAgICAgIHN0cnVjdCB0dG1fbWVtX3JlZyAqbmV3X21lbSkKPj4+ICAgewo+Pj4gICAgICAg
-c3RydWN0IHJhZGVvbl9ibyAqcmJvOwo+Pj4gICAgICAgICBpZiAoIXJhZGVvbl90dG1fYm9faXNf
-cmFkZW9uX2JvKGJvKSkKPj4+ICAgICAgICAgICByZXR1cm47Cj4+PiAgICAgICAgIHJibyA9IGNv
-bnRhaW5lcl9vZihibywgc3RydWN0IHJhZGVvbl9ibywgdGJvKTsKPj4+ICAgICAgIHJhZGVvbl9i
-b19jaGVja190aWxpbmcocmJvLCAwLCAxKTsKPj4+ICAgICAgIHJhZGVvbl92bV9ib19pbnZhbGlk
-YXRlKHJiby0+cmRldiwgcmJvKTsKPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcmFk
-ZW9uL3JhZGVvbl9vYmplY3QuaAo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9v
-YmplY3QuaAo+Pj4gaW5kZXggYTEwYmIzZC4uOWZmZDgyMSAxMDA2NDQKPj4+IC0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX29iamVjdC5oCj4+PiArKysgYi9kcml2ZXJzL2dwdS9k
-cm0vcmFkZW9uL3JhZGVvbl9vYmplY3QuaAo+Pj4gQEAgLTE0MywyMCArMTQzLDIxIEBAIGV4dGVy
-biB2b2lkIHJhZGVvbl9ib19maW5pKHN0cnVjdCByYWRlb25fZGV2aWNlCj4+PiAqcmRldik7Cj4+
-PiAgIGV4dGVybiBpbnQgcmFkZW9uX2JvX2xpc3RfdmFsaWRhdGUoc3RydWN0IHJhZGVvbl9kZXZp
-Y2UgKnJkZXYsCj4+PiAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3Qgd3dfYWNxdWlyZV9jdHgg
-KnRpY2tldCwKPj4+ICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBsaXN0X2hlYWQgKmhlYWQs
-IGludCByaW5nKTsKPj4+ICAgZXh0ZXJuIGludCByYWRlb25fYm9fc2V0X3RpbGluZ19mbGFncyhz
-dHJ1Y3QgcmFkZW9uX2JvICpibywKPj4+ICAgICAgICAgICAgICAgICAgIHUzMiB0aWxpbmdfZmxh
-Z3MsIHUzMiBwaXRjaCk7Cj4+PiAgIGV4dGVybiB2b2lkIHJhZGVvbl9ib19nZXRfdGlsaW5nX2Zs
-YWdzKHN0cnVjdCByYWRlb25fYm8gKmJvLAo+Pj4gICAgICAgICAgICAgICAgICAgdTMyICp0aWxp
-bmdfZmxhZ3MsIHUzMiAqcGl0Y2gpOwo+Pj4gICBleHRlcm4gaW50IHJhZGVvbl9ib19jaGVja190
-aWxpbmcoc3RydWN0IHJhZGVvbl9ibyAqYm8sIGJvb2wgCj4+PiBoYXNfbW92ZWQsCj4+PiAgICAg
-ICAgICAgICAgICAgICBib29sIGZvcmNlX2Ryb3ApOwo+Pj4gICBleHRlcm4gdm9pZCByYWRlb25f
-Ym9fbW92ZV9ub3RpZnkoc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpibywKPj4+ICsgICAgICAg
-ICAgICAgICAgICBib29sIGV2aWN0LAo+Pj4gICAgICAgICAgICAgICAgICAgICBzdHJ1Y3QgdHRt
-X21lbV9yZWcgKm5ld19tZW0pOwo+Pj4gICBleHRlcm4gaW50IHJhZGVvbl9ib19mYXVsdF9yZXNl
-cnZlX25vdGlmeShzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QKPj4+ICpibyk7Cj4+PiAgIGV4dGVy
-biBpbnQgcmFkZW9uX2JvX2dldF9zdXJmYWNlX3JlZyhzdHJ1Y3QgcmFkZW9uX2JvICpibyk7Cj4+
-PiAgIGV4dGVybiB2b2lkIHJhZGVvbl9ib19mZW5jZShzdHJ1Y3QgcmFkZW9uX2JvICpibywgc3Ry
-dWN0Cj4+PiByYWRlb25fZmVuY2UgKmZlbmNlLAo+Pj4gICAgICAgICAgICAgICAgICAgYm9vbCBz
-aGFyZWQpOwo+Pj4gICAgIC8qCj4+PiAgICAqIHN1YiBhbGxvY2F0aW9uCj4+PiAgICAqLwo+Pj4g
-ICBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm8uYwo+Pj4gYi9kcml2ZXJz
-L2dwdS9kcm0vdHRtL3R0bV9iby5jCj4+PiBpbmRleCBkNTA2MzYxLi5kNDk3M2U5YyAxMDA2NDQK
-Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMKPj4+ICsrKyBiL2RyaXZlcnMv
-Z3B1L2RybS90dG0vdHRtX2JvLmMKPj4+IEBAIC0zMzUsNDUgKzMzNSw0NSBAQCBzdGF0aWMgaW50
-IHR0bV9ib19oYW5kbGVfbW92ZV9tZW0oc3RydWN0Cj4+PiB0dG1fYnVmZmVyX29iamVjdCAqYm8s
-Cj4+PiAgICAgICAgICAgICAgIGdvdG8gb3V0X2VycjsKPj4+ICAgICAgICAgICAgIGlmIChtZW0t
-Pm1lbV90eXBlICE9IFRUTV9QTF9TWVNURU0pIHsKPj4+ICAgICAgICAgICAgICAgcmV0ID0gdHRt
-X3R0X2JpbmQoYm8tPnR0bSwgbWVtKTsKPj4+ICAgICAgICAgICAgICAgaWYgKHJldCkKPj4+ICAg
-ICAgICAgICAgICAgICAgIGdvdG8gb3V0X2VycjsKPj4+ICAgICAgICAgICB9Cj4+PiAgICAgICAg
-ICAgICBpZiAoYm8tPm1lbS5tZW1fdHlwZSA9PSBUVE1fUExfU1lTVEVNKSB7Cj4+PiAgICAgICAg
-ICAgICAgIGlmIChiZGV2LT5kcml2ZXItPm1vdmVfbm90aWZ5KQo+Pj4gLSAgICAgICAgICAgICAg
-ICBiZGV2LT5kcml2ZXItPm1vdmVfbm90aWZ5KGJvLCBtZW0pOwo+Pj4gKyAgICAgICAgICAgICAg
-ICBiZGV2LT5kcml2ZXItPm1vdmVfbm90aWZ5KGJvLCBldmljdCwgbWVtKTsKPj4+ICAgICAgICAg
-ICAgICAgYm8tPm1lbSA9ICptZW07Cj4+PiAgICAgICAgICAgICAgIG1lbS0+bW1fbm9kZSA9IE5V
-TEw7Cj4+PiAgICAgICAgICAgICAgIGdvdG8gbW92ZWQ7Cj4+PiAgICAgICAgICAgfQo+Pj4gICAg
-ICAgfQo+Pj4gICAgICAgICBpZiAoYmRldi0+ZHJpdmVyLT5tb3ZlX25vdGlmeSkKPj4+IC0gICAg
-ICAgIGJkZXYtPmRyaXZlci0+bW92ZV9ub3RpZnkoYm8sIG1lbSk7Cj4+PiArICAgICAgICBiZGV2
-LT5kcml2ZXItPm1vdmVfbm90aWZ5KGJvLCBldmljdCwgbWVtKTsKPj4+ICAgICAgICAgaWYgKCEo
-b2xkX21hbi0+ZmxhZ3MgJiBUVE1fTUVNVFlQRV9GTEFHX0ZJWEVEKSAmJgo+Pj4gICAgICAgICAg
-ICEobmV3X21hbi0+ZmxhZ3MgJiBUVE1fTUVNVFlQRV9GTEFHX0ZJWEVEKSkKPj4+ICAgICAgICAg
-ICByZXQgPSB0dG1fYm9fbW92ZV90dG0oYm8sIGludGVycnVwdGlibGUsIG5vX3dhaXRfZ3B1LCBt
-ZW0pOwo+Pj4gICAgICAgZWxzZSBpZiAoYmRldi0+ZHJpdmVyLT5tb3ZlKQo+Pj4gICAgICAgICAg
-IHJldCA9IGJkZXYtPmRyaXZlci0+bW92ZShibywgZXZpY3QsIGludGVycnVwdGlibGUsCj4+PiAg
-ICAgICAgICAgICAgICAgICAgICAgIG5vX3dhaXRfZ3B1LCBtZW0pOwo+Pj4gICAgICAgZWxzZQo+
-Pj4gICAgICAgICAgIHJldCA9IHR0bV9ib19tb3ZlX21lbWNweShibywgaW50ZXJydXB0aWJsZSwg
-bm9fd2FpdF9ncHUsIAo+Pj4gbWVtKTsKPj4+ICAgICAgICAgaWYgKHJldCkgewo+Pj4gICAgICAg
-ICAgIGlmIChiZGV2LT5kcml2ZXItPm1vdmVfbm90aWZ5KSB7Cj4+PiAgICAgICAgICAgICAgIHN0
-cnVjdCB0dG1fbWVtX3JlZyB0bXBfbWVtID0gKm1lbTsKPj4+ICAgICAgICAgICAgICAgKm1lbSA9
-IGJvLT5tZW07Cj4+PiAgICAgICAgICAgICAgIGJvLT5tZW0gPSB0bXBfbWVtOwo+Pj4gLSAgICAg
-ICAgICAgIGJkZXYtPmRyaXZlci0+bW92ZV9ub3RpZnkoYm8sIG1lbSk7Cj4+PiArICAgICAgICAg
-ICAgYmRldi0+ZHJpdmVyLT5tb3ZlX25vdGlmeShibywgZmFsc2UsIG1lbSk7Cj4+PiAgICAgICAg
-ICAgICAgIGJvLT5tZW0gPSAqbWVtOwo+Pj4gICAgICAgICAgICAgICAqbWVtID0gdG1wX21lbTsK
-Pj4+ICAgICAgICAgICB9Cj4+PiAgICAgICAgICAgICBnb3RvIG91dF9lcnI7Cj4+PiAgICAgICB9
-Cj4+PiAgICAgbW92ZWQ6Cj4+PiAgICAgICBpZiAoYm8tPmV2aWN0ZWQpIHsKPj4+ICAgICAgICAg
-ICBpZiAoYmRldi0+ZHJpdmVyLT5pbnZhbGlkYXRlX2NhY2hlcykgewo+Pj4gQEAgLTQwNywyMSAr
-NDA3LDIxIEBAIHN0YXRpYyBpbnQgdHRtX2JvX2hhbmRsZV9tb3ZlX21lbShzdHJ1Y3QKPj4+IHR0
-bV9idWZmZXJfb2JqZWN0ICpibywKPj4+ICAgICogQ2FsbCBibzo6cmVzZXJ2ZWQuCj4+PiAgICAq
-IFdpbGwgcmVsZWFzZSBHUFUgbWVtb3J5IHR5cGUgdXNhZ2Ugb24gZGVzdHJ1Y3Rpb24uCj4+PiAg
-ICAqIFRoaXMgaXMgdGhlIHBsYWNlIHRvIHB1dCBpbiBkcml2ZXIgc3BlY2lmaWMgaG9va3MgdG8g
-cmVsZWFzZQo+Pj4gICAgKiBkcml2ZXIgcHJpdmF0ZSByZXNvdXJjZXMuCj4+PiAgICAqIFdpbGwg
-cmVsZWFzZSB0aGUgYm86OnJlc2VydmVkIGxvY2suCj4+PiAgICAqLwo+Pj4gICAgIHN0YXRpYyB2
-b2lkIHR0bV9ib19jbGVhbnVwX21lbXR5cGVfdXNlKHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAK
-Pj4+ICpibykKPj4+ICAgewo+Pj4gICAgICAgaWYgKGJvLT5iZGV2LT5kcml2ZXItPm1vdmVfbm90
-aWZ5KQo+Pj4gLSAgICAgICAgYm8tPmJkZXYtPmRyaXZlci0+bW92ZV9ub3RpZnkoYm8sIE5VTEwp
-Owo+Pj4gKyAgICAgICAgYm8tPmJkZXYtPmRyaXZlci0+bW92ZV9ub3RpZnkoYm8sIGZhbHNlLCBO
-VUxMKTsKPj4+ICAgICAgICAgdHRtX3R0X2Rlc3Ryb3koYm8tPnR0bSk7Cj4+PiAgICAgICBiby0+
-dHRtID0gTlVMTDsKPj4+ICAgICAgIHR0bV9ib19tZW1fcHV0KGJvLCAmYm8tPm1lbSk7Cj4+PiAg
-ICAgICAgIHd3X211dGV4X3VubG9jayAoJmJvLT5yZXN2LT5sb2NrKTsKPj4+ICAgfQo+Pj4gICAg
-IHN0YXRpYyB2b2lkIHR0bV9ib19mbHVzaF9hbGxfZmVuY2VzKHN0cnVjdCB0dG1fYnVmZmVyX29i
-amVjdCAqYm8pCj4+PiAgIHsKPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdmlydGlv
-L3ZpcnRncHVfdHRtLmMKPj4+IGIvZHJpdmVycy9ncHUvZHJtL3ZpcnRpby92aXJ0Z3B1X3R0bS5j
-Cj4+PiBpbmRleCA0YTFkZTlmLi4xMDM4N2Q3IDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL3ZpcnRpby92aXJ0Z3B1X3R0bS5jCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vdmlydGlv
-L3ZpcnRncHVfdHRtLmMKPj4+IEBAIC0zNzksMjAgKzM3OSwyMSBAQCBzdGF0aWMgaW50IHZpcnRp
-b19ncHVfYm9fbW92ZShzdHJ1Y3QKPj4+IHR0bV9idWZmZXJfb2JqZWN0ICpibywKPj4+ICAgICAg
-ICAgcmV0ID0gdHRtX2JvX3dhaXQoYm8sIGludGVycnVwdGlibGUsIG5vX3dhaXRfZ3B1KTsKPj4+
-ICAgICAgIGlmIChyZXQpCj4+PiAgICAgICAgICAgcmV0dXJuIHJldDsKPj4+ICAgICAgICAgdmly
-dGlvX2dwdV9tb3ZlX251bGwoYm8sIG5ld19tZW0pOwo+Pj4gICAgICAgcmV0dXJuIDA7Cj4+PiAg
-IH0KPj4+ICAgICBzdGF0aWMgdm9pZCB2aXJ0aW9fZ3B1X2JvX21vdmVfbm90aWZ5KHN0cnVjdCB0
-dG1fYnVmZmVyX29iamVjdCAKPj4+ICp0Ym8sCj4+PiArICAgICAgICAgICAgICAgICAgICAgIGJv
-b2wgZXZpY3QsCj4+PiAgICAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3QgdHRtX21lbV9yZWcg
-Km5ld19tZW0pCj4+PiAgIHsKPj4+ICAgICAgIHN0cnVjdCB2aXJ0aW9fZ3B1X29iamVjdCAqYm87
-Cj4+PiAgICAgICBzdHJ1Y3QgdmlydGlvX2dwdV9kZXZpY2UgKnZnZGV2Owo+Pj4gICAgICAgICBi
-byA9IGNvbnRhaW5lcl9vZih0Ym8sIHN0cnVjdCB2aXJ0aW9fZ3B1X29iamVjdCwgdGJvKTsKPj4+
-ICAgICAgIHZnZGV2ID0gKHN0cnVjdCB2aXJ0aW9fZ3B1X2RldmljZSAKPj4+ICopYm8tPmdlbV9i
-YXNlLmRldi0+ZGV2X3ByaXZhdGU7Cj4+PiAgICAgICAgIGlmICghbmV3X21lbSB8fCAobmV3X21l
-bS0+cGxhY2VtZW50ICYgVFRNX1BMX0ZMQUdfU1lTVEVNKSkgewo+Pj4gICAgICAgICAgIGlmIChi
-by0+aHdfcmVzX2hhbmRsZSkKPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdm13Z2Z4
-L3Ztd2dmeF9idWZmZXIuYwo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vdm13Z2Z4L3Ztd2dmeF9idWZm
-ZXIuYwo+Pj4gaW5kZXggYzg5NGE0OC4uY2FhMjc5YiAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS92bXdnZngvdm13Z2Z4X2J1ZmZlci5jCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-dm13Z2Z4L3Ztd2dmeF9idWZmZXIuYwo+Pj4gQEAgLTgxOCwyMCArODE4LDIxIEBAIHN0YXRpYyBp
-bnQgdm13X3R0bV9mYXVsdF9yZXNlcnZlX25vdGlmeShzdHJ1Y3QKPj4+IHR0bV9idWZmZXJfb2Jq
-ZWN0ICpibykKPj4+ICAgICogdm13X21vdmVfbm90aWZ5IC0gVFRNIG1vdmVfbm90aWZ5X2NhbGxi
-YWNrCj4+PiAgICAqCj4+PiAgICAqIEBibzogVGhlIFRUTSBidWZmZXIgb2JqZWN0IGFib3V0IHRv
-IG1vdmUuCj4+PiAgICAqIEBtZW06IFRoZSBzdHJ1Y3QgdHRtX21lbV9yZWcgaW5kaWNhdGluZyB0
-byB3aGF0IG1lbW9yeQo+Pj4gICAgKiAgICAgICByZWdpb24gdGhlIG1vdmUgaXMgdGFraW5nIHBs
-YWNlLgo+Pj4gICAgKgo+Pj4gICAgKiBDYWxscyBtb3ZlX25vdGlmeSBmb3IgYWxsIHN1YnN5c3Rl
-bXMgbmVlZGluZyBpdC4KPj4+ICAgICogKGN1cnJlbnRseSBvbmx5IHJlc291cmNlcykuCj4+PiAg
-ICAqLwo+Pj4gICBzdGF0aWMgdm9pZCB2bXdfbW92ZV9ub3RpZnkoc3RydWN0IHR0bV9idWZmZXJf
-b2JqZWN0ICpibywKPj4+ICsgICAgICAgICAgICAgICAgYm9vbCBldmljdCwKPj4+ICAgICAgICAg
-ICAgICAgICAgIHN0cnVjdCB0dG1fbWVtX3JlZyAqbWVtKQo+Pj4gICB7Cj4+PiAgICAgICB2bXdf
-cmVzb3VyY2VfbW92ZV9ub3RpZnkoYm8sIG1lbSk7Cj4+PiAgICAgICB2bXdfcXVlcnlfbW92ZV9u
-b3RpZnkoYm8sIG1lbSk7Cj4+PiAgIH0KPj4+ICAgICAgIC8qKgo+Pj4gICAgKiB2bXdfc3dhcF9u
-b3RpZnkgLSBUVE0gbW92ZV9ub3RpZnlfY2FsbGJhY2sKPj4+ICAgICoKPj4+IGRpZmYgLS1naXQg
-YS9pbmNsdWRlL2RybS90dG0vdHRtX2JvX2RyaXZlci5oCj4+PiBiL2luY2x1ZGUvZHJtL3R0bS90
-dG1fYm9fZHJpdmVyLmgKPj4+IGluZGV4IGNkYmRiNDAuLjhiNGJlYzcgMTAwNjQ0Cj4+PiAtLS0g
-YS9pbmNsdWRlL2RybS90dG0vdHRtX2JvX2RyaXZlci5oCj4+PiArKysgYi9pbmNsdWRlL2RybS90
-dG0vdHRtX2JvX2RyaXZlci5oCj4+PiBAQCAtNDI0LDIzICs0MjQsMjkgQEAgc3RydWN0IHR0bV9i
-b19kcml2ZXIgewo+Pj4gICAgICAgICoKPj4+ICAgICAgICAqIENhbGxlZCBmcm9tIHRoZSBtYXAg
-LyB3cml0ZSAvIHJlYWQgbWV0aG9kcyB0byB2ZXJpZnkgdGhhdCB0aGUKPj4+ICAgICAgICAqIGNh
-bGxlciBpcyBwZXJtaXR0ZWQgdG8gYWNjZXNzIHRoZSBidWZmZXIgb2JqZWN0Lgo+Pj4gICAgICAg
-ICogVGhpcyBtZW1iZXIgbWF5IGJlIHNldCB0byBOVUxMLCB3aGljaCB3aWxsIHJlZnVzZSB0aGlz
-IGtpbmQgb2YKPj4+ICAgICAgICAqIGFjY2VzcyBmb3IgYWxsIGJ1ZmZlciBvYmplY3RzLgo+Pj4g
-ICAgICAgICogVGhpcyBmdW5jdGlvbiBzaG91bGQgcmV0dXJuIDAgaWYgYWNjZXNzIGlzIGdyYW50
-ZWQsIC1FUEVSTQo+Pj4gb3RoZXJ3aXNlLgo+Pj4gICAgICAgICovCj4+PiAgICAgICBpbnQgKCp2
-ZXJpZnlfYWNjZXNzKShzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvLAo+Pj4gICAgICAgICAg
-ICAgICAgICAgIHN0cnVjdCBmaWxlICpmaWxwKTsKPj4+ICAgLSAgICAvKiBob29rIHRvIG5vdGlm
-eSBkcml2ZXIgYWJvdXQgYSBkcml2ZXIgbW92ZSBzbyBpdAo+Pj4gLSAgICAgKiBjYW4gZG8gdGls
-aW5nIHRoaW5ncyAqLwo+Pj4gKyAgICAvKioKPj4+ICsgICAgICogSG9vayB0byBub3RpZnkgZHJp
-dmVyIGFib3V0IGEgZHJpdmVyIG1vdmUgc28gaXQKPj4+ICsgICAgICogY2FuIGRvIHRpbGluZyB0
-aGluZ3MgYW5kIGJvb2sta2VlcGluZy4KPj4+ICsgICAgICoKPj4+ICsgICAgICogQGV2aWN0OiB3
-aGV0aGVyIHRoaXMgbW92ZSBpcyBldmljdGluZyB0aGUgYnVmZmVyIGZyb20gdGhlCj4+PiBncmFw
-aGljcwo+Pj4gKyAgICAgKiBhZGRyZXNzIHNwYWNlCj4+PiArICAgICAqLwo+Pj4gICAgICAgdm9p
-ZCAoKm1vdmVfbm90aWZ5KShzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvLAo+Pj4gKyAgICAg
-ICAgICAgICAgICBib29sIGV2aWN0LAo+Pj4gICAgICAgICAgICAgICAgICAgc3RydWN0IHR0bV9t
-ZW1fcmVnICpuZXdfbWVtKTsKPj4+ICAgICAgIC8qIG5vdGlmeSB0aGUgZHJpdmVyIHdlIGFyZSB0
-YWtpbmcgYSBmYXVsdCBvbiB0aGlzIEJPCj4+PiAgICAgICAgKiBhbmQgaGF2ZSByZXNlcnZlZCBp
-dCAqLwo+Pj4gICAgICAgaW50ICgqZmF1bHRfcmVzZXJ2ZV9ub3RpZnkpKHN0cnVjdCB0dG1fYnVm
-ZmVyX29iamVjdCAqYm8pOwo+Pj4gICAgICAgICAvKioKPj4+ICAgICAgICAqIG5vdGlmeSB0aGUg
-ZHJpdmVyIHRoYXQgd2UncmUgYWJvdXQgdG8gc3dhcCBvdXQgdGhpcyBibwo+Pj4gICAgICAgICov
-Cj4+PiAgICAgICB2b2lkICgqc3dhcF9ub3RpZnkpKHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAq
-Ym8pOwo+Pj4KPj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-ZngKCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
-Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is a multi-part message in MIME format.
+--===============1290484405==
+Content-Type: multipart/alternative;
+ boundary="------------F23A1F81410AA5D80B4D0444"
+
+This is a multi-part message in MIME format.
+--------------F23A1F81410AA5D80B4D0444
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+NAK on that whole approach. We previously had similar handling in radeon 
+for the temporary IB buffer and it was a pain to support correctly.
+
+The main problem is that you might then have a mismatch between the 
+housekeeping structures in the VM and what is really in the page tables 
+/ page directory.
+
+Additional a concrete problem is that you simply assume that the PD and 
+PTs are present when the VM is created, but that might not be correct 
+under memory pressure. In this case the code below will just fail miserable.
+
+I suggest that you go a step back and fully implement the support for 
+the CSA for each context and not just a quick hack like this. If I 
+remember our internal discussion correctly Monk already had promising 
+locking patches for this for the general preemption support.
+
+Regards,
+Christian.
+
+Am 20.12.2016 um 06:43 schrieb Yu, Xiangliang:
+>
+> Thank monk’s detail expanation.
+>
+> And I think this patch is only support virtualization world switch, 
+> not touch whole amdpgu preemption.
+>
+> Thanks!
+>
+> Xiangliang Yu
+>
+> *From:*Liu, Monk
+> *Sent:* Tuesday, December 20, 2016 11:58 AM
+> *To:* Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>; Yu, Xiangliang 
+> <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
+> *Cc:* amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; 
+> dl.SRDC_SW_GPUVirtualization <dl.SRDC_SW_GPUVirtualization-5C7GfCeVMHo@public.gmane.org>
+> *Subject:* 答复: [PATCH 11/23] drm/amdgpu: implement context save 
+> area(CSA) feature
+>
+> the CSA is used for world switch, and each amdgpu device should have 
+> one and only one CSA,
+>
+> and this CSA will pined, and mapped to each virtual memory /process.
+>
+> CP/RLCV will use this CSA buffer when preemption occurred, and will 
+> write some hardware status into this CSA buffer, within the current 
+> IB's context (that's why need do mapping for each virtual memory on CSA)
+>
+> BR Monk
+>
+> ------------------------------------------------------------------------
+>
+> *发件人**:*Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org 
+> <mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>
+> *发送时间**:*2016年12月20日7:20:09
+> *收件人**:*Yu, Xiangliang
+> *抄送**:*amd-gfx list; dl.SRDC_SW_GPUVirtualization; Liu, Monk
+> *主题**:*Re: [PATCH 11/23] drm/amdgpu: implement context save area(CSA) 
+> feature
+>
+> On Sat, Dec 17, 2016 at 11:16 AM, Xiangliang Yu <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org 
+> <mailto:Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>> wrote:
+> > CSA is need by world switch. This patch implement CSA feature and
+> > bind it to each VM, so hardware can save the state into the area
+> > and restore it when running again.
+> >
+> > Signed-off-by: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org <mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org>>
+> > Signed-off-by: Xiangliang Yu <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org 
+> <mailto:Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>>
+>
+> Isn't the CSA actually for preemption?  Preemption is useful outside
+> of the VF case as well so it should be untangled from the mxgpu code
+> so it can be utilized independently.
+>
+> Alex
+>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h |  14 +++
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c   |   8 ++
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h   |   4 +
+> >  drivers/gpu/drm/amd/mxgpu/amd_mxgpu.h    |  12 ++
+> >  drivers/gpu/drm/amd/mxgpu/mxgpu_csa.c    | 209 
+> +++++++++++++++++++++++++++++++
+> >  5 files changed, 247 insertions(+)
+> >  create mode 100644 drivers/gpu/drm/amd/mxgpu/mxgpu_csa.c
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> > index 8ee70f8..dff1248 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> > @@ -24,6 +24,8 @@
+> >  #ifndef AMDGPU_VIRT_H
+> >  #define AMDGPU_VIRT_H
+> >
+> > +struct amdgpu_vm;
+> > +
+> >  #define AMDGPU_SRIOV_CAPS_SRIOV_VBIOS  (1 << 0) /* vBIOS is sr-iov 
+> ready */
+> >  #define AMDGPU_SRIOV_CAPS_ENABLE_IOV   (1 << 1) /* sr-iov is 
+> enabled on this GPU */
+> >  #define AMDGPU_SRIOV_CAPS_IS_VF        (1 << 2) /* this GPU is a 
+> virtual function */
+> > @@ -33,6 +35,14 @@ struct amdgpu_virtualization {
+> >         uint32_t virtual_caps;
+> >  };
+> >
+> > +struct amdgpu_csa {
+> > +       struct amdgpu_bo_va             *va;
+> > +       struct ttm_validate_buffer      tv;
+> > +       uint64_t reserved_top;
+> > +       uint64_t                        csa_addr;
+> > +       uint64_t                        gds_addr;
+> > +};
+> > +
+> >  #define amdgpu_sriov_enabled(adev) \
+> >  ((adev)->virtualization.virtual_caps & AMDGPU_SRIOV_CAPS_ENABLE_IOV)
+> >
+> > @@ -55,4 +65,8 @@ static inline bool is_virtual_machine(void)
+> >  }
+> >
+> >  int amd_xgpu_set_ip_blocks(struct amdgpu_device *adev);
+> > +
+> > +/* Context Save Area functions */
+> > +int amdgpu_vm_map_csa(struct amdgpu_device *adev, struct amdgpu_vm 
+> *vm);
+> > +void amdgpu_vm_unmap_csa(struct amdgpu_device *adev, struct 
+> amdgpu_vm *vm);
+> >  #endif
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > index d05546e..98540d9 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > @@ -1539,6 +1539,8 @@ int amdgpu_vm_init(struct amdgpu_device *adev, 
+> struct amdgpu_vm *vm)
+> >         pd_size = amdgpu_vm_directory_size(adev);
+> >         pd_entries = amdgpu_vm_num_pdes(adev);
+> >
+> > +       vm->csa.reserved_top = AMDGPU_VA_RESERVED_SIZE;
+> > +
+> >         /* allocate page table array */
+> >         vm->page_tables = drm_calloc_large(pd_entries, sizeof(struct 
+> amdgpu_vm_pt));
+> >         if (vm->page_tables == NULL) {
+> > @@ -1576,6 +1578,10 @@ int amdgpu_vm_init(struct amdgpu_device 
+> *adev, struct amdgpu_vm *vm)
+> >         vm->last_eviction_counter = atomic64_read(&adev->num_evictions);
+> >         amdgpu_bo_unreserve(vm->page_directory);
+> >
+> > +       r = amdgpu_vm_map_csa(adev, vm);
+> > +       if (r)
+> > +               goto error_free_page_directory;
+> > +
+> >         return 0;
+> >
+> >  error_free_page_directory:
+> > @@ -1606,6 +1612,8 @@ void amdgpu_vm_fini(struct amdgpu_device 
+> *adev, struct amdgpu_vm *vm)
+> >         struct amdgpu_bo_va_mapping *mapping, *tmp;
+> >         int i;
+> >
+> > +       amdgpu_vm_unmap_csa(adev, vm);
+> > +
+> >         amd_sched_entity_fini(vm->entity.sched, &vm->entity);
+> >
+> >         if (!RB_EMPTY_ROOT(&vm->va)) {
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> > index 42a629b..d90630a 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> > @@ -29,6 +29,7 @@
+> >  #include "gpu_scheduler.h"
+> >  #include "amdgpu_sync.h"
+> >  #include "amdgpu_ring.h"
+> > +#include "amdgpu_virt.h"
+> >
+> >  struct amdgpu_bo_va;
+> >  struct amdgpu_job;
+> > @@ -109,6 +110,9 @@ struct amdgpu_vm {
+> >         /* Scheduler entity for page table updates */
+> >         struct amd_sched_entity entity;
+> >
+> > +       /* Context Save Area */
+> > +       struct amdgpu_csa       csa;
+> > +
+> >         /* client id */
+> >         u64                     client_id;
+> >  };
+> > diff --git a/drivers/gpu/drm/amd/mxgpu/amd_mxgpu.h 
+> b/drivers/gpu/drm/amd/mxgpu/amd_mxgpu.h
+> > index 6ab13bc..a25e07f 100644
+> > --- a/drivers/gpu/drm/amd/mxgpu/amd_mxgpu.h
+> > +++ b/drivers/gpu/drm/amd/mxgpu/amd_mxgpu.h
+> > @@ -26,12 +26,24 @@
+> >
+> >  #include "amdgpu.h"
+> >
+> > +/* xgpu structures */
+> > +struct amd_xgpu_csa {
+> > +       struct amdgpu_bo            *robj;
+> > +       uint64_t                    gpu_addr;
+> > +       uint64_t                    gds_addr;
+> > +       int32_t                     size;
+> > +};
+> > +
+> >  struct amd_xgpu {
+> >         struct amdgpu_device    *adev;
+> >         struct mutex            lock;
+> > +       struct amd_xgpu_csa     sa;
+> >         u32                     reg_val_offs;
+> >  };
+> >
+> >  extern int amd_xgpu_alloc(struct amdgpu_device *adev);
+> >  extern void amd_xgpu_free(struct amd_xgpu *xgpu);
+> > +
+> > +extern int xgpu_allocate_csa(struct amd_xgpu *xgpu);
+> > +extern void xgpu_destroy_csa(struct amd_xgpu_csa *csa);
+> >  #endif
+> > diff --git a/drivers/gpu/drm/amd/mxgpu/mxgpu_csa.c 
+> b/drivers/gpu/drm/amd/mxgpu/mxgpu_csa.c
+> > new file mode 100644
+> > index 0000000..246a747
+> > --- /dev/null
+> > +++ b/drivers/gpu/drm/amd/mxgpu/mxgpu_csa.c
+> > @@ -0,0 +1,209 @@
+> > +/*
+> > + * Copyright 2016 Advanced Micro Devices, Inc.
+> > + *
+> > + * Permission is hereby granted, free of charge, to any person 
+> obtaining a
+> > + * copy of this software and associated documentation files (the 
+> "Software"),
+> > + * to deal in the Software without restriction, including without 
+> limitation
+> > + * the rights to use, copy, modify, merge, publish, distribute, 
+> sublicense,
+> > + * and/or sell copies of the Software, and to permit persons to 
+> whom the
+> > + * Software is furnished to do so, subject to the following conditions:
+> > + *
+> > + * The above copyright notice and this permission notice shall be 
+> included in
+> > + * all copies or substantial portions of the Software.
+> > + *
+> > + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+> EXPRESS OR
+> > + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+> MERCHANTABILITY,
+> > + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO 
+> EVENT SHALL
+> > + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, 
+> DAMAGES OR
+> > + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
+> OTHERWISE,
+> > + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE 
+> USE OR
+> > + * OTHER DEALINGS IN THE SOFTWARE.
+> > + *
+> > + * Authors: Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org <mailto:Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
+> > + * Monk.Liu-5C7GfCeVMHo@public.gmane.org <mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+> > + *
+> > + */
+> > +#include "amd_mxgpu.h"
+> > +#include "vid.h"
+> > +
+> > +static int xgpu_init_csa(struct amdgpu_device *adev, struct 
+> amd_xgpu_csa *sa)
+> > +{
+> > +       int r, size;
+> > +       void *ptr;
+> > +
+> > +       /* meta data (4k) + gds-gfx (4k)*/
+> > +       size = PAGE_SIZE + adev->gds.mem.gfx_partition_size;
+> > +
+> > +       r = amdgpu_bo_create(adev, size, PAGE_SIZE, true,
+> > +                            AMDGPU_GEM_DOMAIN_GTT,
+> > + AMDGPU_GEM_CREATE_CPU_GTT_USWC,
+> > +                            NULL, NULL, &sa->robj);
+> > +       if (r) {
+> > +               dev_err(adev->dev, "(%d) failed to allocate csa 
+> bo\n", r);
+> > +               return r;
+> > +       }
+> > +
+> > +       r = amdgpu_bo_reserve(sa->robj, true);
+> > +       if (unlikely(r != 0))
+> > +               goto error_free;
+> > +
+> > +       r = amdgpu_bo_pin(sa->robj, AMDGPU_GEM_DOMAIN_GTT, 
+> &sa->gpu_addr);
+> > +       if (r)
+> > +               goto error_unreserve;
+> > +
+> > +       r = amdgpu_bo_kmap(sa->robj, &ptr);
+> > +       if (r)
+> > +               goto error_unpin;
+> > +
+> > +       memset(ptr, 0, size);
+> > +       amdgpu_bo_unreserve(sa->robj);
+> > +
+> > +       sa->size = size;
+> > +       sa->gds_addr = sa->gpu_addr + PAGE_SIZE;
+> > +
+> > +       return 0;
+> > +
+> > +error_unpin:
+> > +       amdgpu_bo_unpin(sa->robj);
+> > +error_unreserve:
+> > +       amdgpu_bo_unreserve(sa->robj);
+> > +error_free:
+> > +       amdgpu_bo_unref(&sa->robj);
+> > +       return r;
+> > +}
+> > +
+> > +int xgpu_allocate_csa(struct amd_xgpu *xgpu)
+> > +{
+> > +       struct amdgpu_device *adev = xgpu->adev;
+> > +       struct amd_xgpu_csa *sa = &xgpu->sa;
+> > +
+> > +       return xgpu_init_csa(adev, sa);
+> > +}
+> > +
+> > +void xgpu_destroy_csa(struct amd_xgpu_csa *sa)
+> > +{
+> > +       amdgpu_bo_reserve(sa->robj, true);
+> > +       amdgpu_bo_unpin(sa->robj);
+> > +       amdgpu_bo_unreserve(sa->robj);
+> > +       amdgpu_bo_unref(&sa->robj);
+> > +       sa->gpu_addr = 0;
+> > +       sa->gds_addr = 0;
+> > +}
+> > +
+> > +static int xgpu_vm_map_csa(struct amdgpu_device *adev, struct 
+> amdgpu_vm *vm,
+> > +                          struct amd_xgpu_csa *sa)
+> > +{
+> > +       int r;
+> > +       uint64_t vaddr;
+> > +       struct ww_acquire_ctx ticket;
+> > +       struct list_head list, duplicates;
+> > +       struct amdgpu_bo_list_entry pd;
+> > +       struct amdgpu_bo_va *bo_va;
+> > +
+> > +       INIT_LIST_HEAD(&list);
+> > +       INIT_LIST_HEAD(&duplicates);
+> > +       INIT_LIST_HEAD(&vm->csa.tv.head);
+> > +       vm->csa.tv.bo = &sa->robj->tbo;
+> > +       vm->csa.tv.shared = true;
+> > +
+> > +       list_add(&vm->csa.tv.head, &list);
+> > +       amdgpu_vm_get_pd_bo(vm, &list, &pd);
+> > +
+> > +       spin_lock(&vm->status_lock);
+> > +       vm->csa.reserved_top -= sa->size;
+> > +       vaddr = vm->csa.reserved_top;
+> > +       spin_unlock(&vm->status_lock);
+> > +
+> > +       r = ttm_eu_reserve_buffers(&ticket, &list, true, &duplicates);
+> > +       if (r) {
+> > +               DRM_ERROR("failed to reserve global CSA 
+> buffer(%d).\n", r);
+> > +               return r;
+> > +       }
+> > +
+> > +       bo_va = amdgpu_vm_bo_add(adev, vm, sa->robj);
+> > +       if (!bo_va) {
+> > +               DRM_ERROR("failed to create bo_va for global CSA 
+> buffer.\n");
+> > +               return -ENOMEM;
+> > +       }
+> > +
+> > +
+> > +       r = amdgpu_vm_bo_map(adev, bo_va, vaddr, 0, sa->size,
+> > +                            AMDGPU_PTE_READABLE | 
+> AMDGPU_PTE_WRITEABLE |
+> > + AMDGPU_PTE_EXECUTABLE);
+> > +       if (r) {
+> > +               DRM_ERROR("failed to do bo_map on global CSA 
+> buffer(%d).\n", r);
+> > +               amdgpu_vm_bo_rmv(adev, bo_va);
+> > + ttm_eu_backoff_reservation(&ticket, &list);
+> > +               kfree(bo_va);
+> > +               return r;
+> > +       }
+> > +
+> > +       ttm_eu_backoff_reservation(&ticket, &list);
+> > +       amdgpu_gem_va_update_vm(adev, bo_va, AMDGPU_VA_OP_MAP);
+> > +
+> > +       vm->csa.va = bo_va;
+> > +       vm->csa.csa_addr = vaddr;
+> > +       vm->csa.gds_addr = vaddr + PAGE_SIZE;
+> > +
+> > +       return 0;
+> > +}
+> > +
+> > +int amdgpu_vm_map_csa(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+> > +{
+> > +       struct amd_xgpu *xgpu = (struct amd_xgpu *)adev->priv_data;
+> > +       struct amd_xgpu_csa *sa = NULL;
+> > +
+> > +       if (!xgpu)
+> > +               return 0;
+> > +
+> > +       sa = &xgpu->sa;
+> > +
+> > +       return xgpu_vm_map_csa(adev, vm, sa);
+> > +}
+> > +
+> > +static void xgpu_vm_unmap_csa(struct amdgpu_device *adev, struct 
+> amdgpu_vm *vm,
+> > +                             struct amd_xgpu_csa *sa)
+> > +{
+> > +       int r;
+> > +       struct ww_acquire_ctx ticket;
+> > +       struct list_head list, duplicates;
+> > +       struct amdgpu_bo_list_entry pd;
+> > +
+> > +       if (!vm->csa.va)
+> > +               return;
+> > +
+> > +       INIT_LIST_HEAD(&list);
+> > +       INIT_LIST_HEAD(&duplicates);
+> > +       list_add(&vm->csa.tv.head, &list);
+> > +       amdgpu_vm_get_pd_bo(vm, &list, &pd);
+> > +
+> > +       r = ttm_eu_reserve_buffers(&ticket, &list, true, &duplicates);
+> > +       if (r) {
+> > +               DRM_ERROR("failed to reserve global CSA 
+> buffer(%d).\n", r);
+> > +               return;
+> > +       }
+> > +
+> > +       amdgpu_vm_bo_rmv(adev, vm->csa.va);
+> > +       /* maybe we don't need to do real clearing for the vm will 
+> die soon */
+> > +       r = amdgpu_vm_clear_freed(adev, vm);
+> > +       if (r) {
+> > +               DRM_ERROR("failed to clear global CSA bo(%d).\n", r);
+> > +               return;
+> > +       }
+> > +
+> > +       ttm_eu_backoff_reservation(&ticket, &list);
+> > +       vm->csa.va = NULL;
+> > +       vm->csa.csa_addr = vm->csa.gds_addr = 0;
+> > +}
+> > +
+> > +void amdgpu_vm_unmap_csa(struct amdgpu_device *adev, struct 
+> amdgpu_vm *vm)
+> > +{
+> > +       struct amd_xgpu *xgpu = (struct amd_xgpu *)adev->priv_data;
+> > +       struct amd_xgpu_csa *sa = NULL;
+> > +
+> > +       if (!xgpu)
+> > +               return;
+> > +
+> > +       sa = &xgpu->sa;
+> > +       xgpu_vm_unmap_csa(adev, vm, sa);
+> > +}
+> > --
+> > 2.7.4
+> >
+> > _______________________________________________
+> > amd-gfx mailing list
+> > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+
+--------------F23A1F81410AA5D80B4D0444
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <div class="moz-cite-prefix">NAK on that whole approach. We
+      previously had similar handling in radeon for the temporary IB
+      buffer and it was a pain to support correctly.<br>
+      <br>
+      The main problem is that you might then have a mismatch between
+      the housekeeping structures in the VM and what is really in the
+      page tables / page directory.<br>
+      <br>
+      Additional a concrete problem is that you simply assume that the
+      PD and PTs are present when the VM is created, but that might not
+      be correct under memory pressure. In this case the code below will
+      just fail miserable.<br>
+      <br>
+      I suggest that you go a step back and fully implement the support
+      for the CSA for each context and not just a quick hack like this.
+      If I remember our internal discussion correctly Monk already had
+      promising locking patches for this for the general preemption
+      support.<br>
+      <br>
+      Regards,<br>
+      Christian.<br>
+      <br>
+      Am 20.12.2016 um 06:43 schrieb Yu, Xiangliang:<br>
+    </div>
+    <blockquote
+cite="mid:CY4PR12MB1701351D6DCEA18714735B3DEB900-rpdhrqHFk05QaJCA3gGb3wdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org"
+      type="cite">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="Generator" content="Microsoft Word 15 (filtered
+        medium)">
+      <!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]-->
+      <style><!--
+/* Font Definitions */
+@font-face
+	{font-family:宋体;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@宋体";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:宋体;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p
+	{mso-style-priority:99;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:宋体;}
+p.emailquote, li.emailquote, div.emailquote
+	{mso-style-name:emailquote;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:1.0pt;
+	margin-bottom:.0001pt;
+	border:none;
+	padding:0in;
+	font-size:12.0pt;
+	font-family:宋体;}
+span.EmailStyle19
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:#1F497D;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext="edit" spidmax="1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext="edit">
+<o:idmap v:ext="edit" data="1" />
+</o:shapelayout></xml><![endif]-->
+      <div class="WordSection1">
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D">Thank
+            monk’s detail expanation.<o:p></o:p></span></p>
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D">And
+            I think this patch is only support virtualization world
+            switch, not touch whole amdpgu preemption.
+            <o:p></o:p></span></p>
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D"><o:p> </o:p></span></p>
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D">Thanks!<o:p></o:p></span></p>
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D">Xiangliang
+            Yu<o:p></o:p></span></p>
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D"><o:p> </o:p></span></p>
+        <div style="border:none;border-left:solid blue 1.5pt;padding:0in
+          0in 0in 4.0pt">
+          <div>
+            <div style="border:none;border-top:solid #E1E1E1
+              1.0pt;padding:3.0pt 0in 0in 0in">
+              <p class="MsoNormal"><b><span
+                    style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif">From:</span></b><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif">
+                  Liu, Monk
+                  <br>
+                  <b>Sent:</b> Tuesday, December 20, 2016 11:58 AM<br>
+                  <b>To:</b> Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">&lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a>;
+                  Yu, Xiangliang <a class="moz-txt-link-rfc2396E" href="mailto:Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org">&lt;Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+                  <b>Cc:</b> amd-gfx list
+                  <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">&lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a>;
+                  dl.SRDC_SW_GPUVirtualization
+                  <a class="moz-txt-link-rfc2396E" href="mailto:dl.SRDC_SW_GPUVirtualization-5C7GfCeVMHo@public.gmane.org">&lt;dl.SRDC_SW_GPUVirtualization-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+                  <b>Subject:</b> </span><span style="font-size:11.0pt"
+                  lang="ZH-CN">答复</span><span
+                  style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif">:
+                  [PATCH 11/23] drm/amdgpu: implement context save
+                  area(CSA) feature<o:p></o:p></span></p>
+            </div>
+          </div>
+          <p class="MsoNormal"><o:p> </o:p></p>
+          <div>
+            <div id="x_divtagdefaultwrapper">
+              <p><span
+                  style="font-family:&quot;Calibri&quot;,sans-serif;color:black">the
+                  CSA is used for world switch, and each amdgpu device
+                  should have one and only one CSA,<o:p></o:p></span></p>
+              <p><span
+                  style="font-family:&quot;Calibri&quot;,sans-serif;color:black">and
+                  this CSA will pined, and mapped to each virtual memory
+                  /process.<o:p></o:p></span></p>
+              <p><span
+                  style="font-family:&quot;Calibri&quot;,sans-serif;color:black"><o:p> </o:p></span></p>
+              <p><span
+                  style="font-family:&quot;Calibri&quot;,sans-serif;color:black">CP/RLCV
+                  will use this CSA buffer when preemption occurred, and
+                  will write some hardware status into this CSA buffer,
+                  within the current IB's context (that's why need do
+                  mapping for each virtual memory on CSA)<o:p></o:p></span></p>
+              <p><span
+                  style="font-family:&quot;Calibri&quot;,sans-serif;color:black"><o:p> </o:p></span></p>
+              <p><span
+                  style="font-family:&quot;Calibri&quot;,sans-serif;color:black">BR
+                  Monk<o:p></o:p></span></p>
+            </div>
+            <div class="MsoNormal" style="text-align:center"
+              align="center">
+              <hr width="98%" align="center" size="2">
+            </div>
+            <div id="x_divRplyFwdMsg">
+              <p class="MsoNormal"><b><span
+                    style="font-size:11.0pt;color:black" lang="ZH-CN">发件人</span></b><b><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black">:</span></b><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black">
+                  Alex Deucher &lt;<a moz-do-not-send="true"
+                    href="mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
+                </span><b><span style="font-size:11.0pt;color:black"
+                    lang="ZH-CN">发送时间</span></b><b><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black">:</span></b><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black">
+                  2016</span><span style="font-size:11.0pt;color:black"
+                  lang="ZH-CN">年</span><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black">12</span><span
+                  style="font-size:11.0pt;color:black" lang="ZH-CN">月</span><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black">20</span><span
+                  style="font-size:11.0pt;color:black" lang="ZH-CN">日</span><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black">
+                  7:20:09<br>
+                </span><b><span style="font-size:11.0pt;color:black"
+                    lang="ZH-CN">收件人</span></b><b><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black">:</span></b><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black">
+                  Yu, Xiangliang<br>
+                </span><b><span style="font-size:11.0pt;color:black"
+                    lang="ZH-CN">抄送</span></b><b><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black">:</span></b><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black">
+                  amd-gfx list; dl.SRDC_SW_GPUVirtualization; Liu, Monk<br>
+                </span><b><span style="font-size:11.0pt;color:black"
+                    lang="ZH-CN">主题</span></b><b><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black">:</span></b><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black">
+                  Re: [PATCH 11/23] drm/amdgpu: implement context save
+                  area(CSA) feature</span> <o:p></o:p></p>
+              <div>
+                <p class="MsoNormal"> <o:p></o:p></p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="MsoNormal"><span style="font-size:10.0pt">On Sat,
+                Dec 17, 2016 at 11:16 AM, Xiangliang Yu &lt;<a
+                  moz-do-not-send="true"
+                  href="mailto:Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org"><a class="moz-txt-link-abbreviated" href="mailto:Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org">Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org</a></a>&gt;
+                wrote:<br>
+                &gt; CSA is need by world switch. This patch implement
+                CSA feature and<br>
+                &gt; bind it to each VM, so hardware can save the state
+                into the area<br>
+                &gt; and restore it when running again.<br>
+                &gt;<br>
+                &gt; Signed-off-by: Monk Liu &lt;<a
+                  moz-do-not-send="true" href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org"><a class="moz-txt-link-abbreviated" href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org">Monk.Liu-5C7GfCeVMHo@public.gmane.org</a></a>&gt;<br>
+                &gt; Signed-off-by: Xiangliang Yu &lt;<a
+                  moz-do-not-send="true"
+                  href="mailto:Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org"><a class="moz-txt-link-abbreviated" href="mailto:Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org">Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org</a></a>&gt;<br>
+                <br>
+                Isn't the CSA actually for preemption?  Preemption is
+                useful outside<br>
+                of the VF case as well so it should be untangled from
+                the mxgpu code<br>
+                so it can be utilized independently.<br>
+                <br>
+                Alex<br>
+                <br>
+                &gt; ---<br>
+                &gt;  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h |  14 +++<br>
+                &gt;  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c   |   8 ++<br>
+                &gt;  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h   |   4 +<br>
+                &gt;  drivers/gpu/drm/amd/mxgpu/amd_mxgpu.h    |  12 ++<br>
+                &gt;  drivers/gpu/drm/amd/mxgpu/mxgpu_csa.c    | 209
+                +++++++++++++++++++++++++++++++<br>
+                &gt;  5 files changed, 247 insertions(+)<br>
+                &gt;  create mode 100644
+                drivers/gpu/drm/amd/mxgpu/mxgpu_csa.c<br>
+                &gt;<br>
+                &gt; diff --git
+                a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+                b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
+                &gt; index 8ee70f8..dff1248 100644<br>
+                &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
+                &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
+                &gt; @@ -24,6 +24,8 @@<br>
+                &gt;  #ifndef AMDGPU_VIRT_H<br>
+                &gt;  #define AMDGPU_VIRT_H<br>
+                &gt;<br>
+                &gt; +struct amdgpu_vm;<br>
+                &gt; +<br>
+                &gt;  #define AMDGPU_SRIOV_CAPS_SRIOV_VBIOS  (1 &lt;&lt;
+                0) /* vBIOS is sr-iov ready */<br>
+                &gt;  #define AMDGPU_SRIOV_CAPS_ENABLE_IOV   (1 &lt;&lt;
+                1) /* sr-iov is enabled on this GPU */<br>
+                &gt;  #define AMDGPU_SRIOV_CAPS_IS_VF        (1 &lt;&lt;
+                2) /* this GPU is a virtual function */<br>
+                &gt; @@ -33,6 +35,14 @@ struct amdgpu_virtualization {<br>
+                &gt;         uint32_t virtual_caps;<br>
+                &gt;  };<br>
+                &gt;<br>
+                &gt; +struct amdgpu_csa {<br>
+                &gt; +       struct amdgpu_bo_va             *va;<br>
+                &gt; +       struct ttm_validate_buffer      tv;<br>
+                &gt; +       uint64_t                       
+                reserved_top;<br>
+                &gt; +       uint64_t                        csa_addr;<br>
+                &gt; +       uint64_t                        gds_addr;<br>
+                &gt; +};<br>
+                &gt; +<br>
+                &gt;  #define amdgpu_sriov_enabled(adev) \<br>
+                &gt;  ((adev)-&gt;virtualization.virtual_caps &amp;
+                AMDGPU_SRIOV_CAPS_ENABLE_IOV)<br>
+                &gt;<br>
+                &gt; @@ -55,4 +65,8 @@ static inline bool
+                is_virtual_machine(void)<br>
+                &gt;  }<br>
+                &gt;<br>
+                &gt;  int amd_xgpu_set_ip_blocks(struct amdgpu_device
+                *adev);<br>
+                &gt; +<br>
+                &gt; +/* Context Save Area functions */<br>
+                &gt; +int amdgpu_vm_map_csa(struct amdgpu_device *adev,
+                struct amdgpu_vm *vm);<br>
+                &gt; +void amdgpu_vm_unmap_csa(struct amdgpu_device
+                *adev, struct amdgpu_vm *vm);<br>
+                &gt;  #endif<br>
+                &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+                b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+                &gt; index d05546e..98540d9 100644<br>
+                &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+                &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+                &gt; @@ -1539,6 +1539,8 @@ int amdgpu_vm_init(struct
+                amdgpu_device *adev, struct amdgpu_vm *vm)<br>
+                &gt;         pd_size = amdgpu_vm_directory_size(adev);<br>
+                &gt;         pd_entries = amdgpu_vm_num_pdes(adev);<br>
+                &gt;<br>
+                &gt; +       vm-&gt;csa.reserved_top =
+                AMDGPU_VA_RESERVED_SIZE;<br>
+                &gt; +<br>
+                &gt;         /* allocate page table array */<br>
+                &gt;         vm-&gt;page_tables =
+                drm_calloc_large(pd_entries, sizeof(struct
+                amdgpu_vm_pt));<br>
+                &gt;         if (vm-&gt;page_tables == NULL) {<br>
+                &gt; @@ -1576,6 +1578,10 @@ int amdgpu_vm_init(struct
+                amdgpu_device *adev, struct amdgpu_vm *vm)<br>
+                &gt;         vm-&gt;last_eviction_counter =
+                atomic64_read(&amp;adev-&gt;num_evictions);<br>
+                &gt;         amdgpu_bo_unreserve(vm-&gt;page_directory);<br>
+                &gt;<br>
+                &gt; +       r = amdgpu_vm_map_csa(adev, vm);<br>
+                &gt; +       if (r)<br>
+                &gt; +               goto error_free_page_directory;<br>
+                &gt; +<br>
+                &gt;         return 0;<br>
+                &gt;<br>
+                &gt;  error_free_page_directory:<br>
+                &gt; @@ -1606,6 +1612,8 @@ void amdgpu_vm_fini(struct
+                amdgpu_device *adev, struct amdgpu_vm *vm)<br>
+                &gt;         struct amdgpu_bo_va_mapping *mapping, *tmp;<br>
+                &gt;         int i;<br>
+                &gt;<br>
+                &gt; +       amdgpu_vm_unmap_csa(adev, vm);<br>
+                &gt; +<br>
+                &gt;         amd_sched_entity_fini(vm-&gt;entity.sched,
+                &amp;vm-&gt;entity);<br>
+                &gt;<br>
+                &gt;         if (!RB_EMPTY_ROOT(&amp;vm-&gt;va)) {<br>
+                &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+                b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
+                &gt; index 42a629b..d90630a 100644<br>
+                &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
+                &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
+                &gt; @@ -29,6 +29,7 @@<br>
+                &gt;  #include "gpu_scheduler.h"<br>
+                &gt;  #include "amdgpu_sync.h"<br>
+                &gt;  #include "amdgpu_ring.h"<br>
+                &gt; +#include "amdgpu_virt.h"<br>
+                &gt;<br>
+                &gt;  struct amdgpu_bo_va;<br>
+                &gt;  struct amdgpu_job;<br>
+                &gt; @@ -109,6 +110,9 @@ struct amdgpu_vm {<br>
+                &gt;         /* Scheduler entity for page table updates
+                */<br>
+                &gt;         struct amd_sched_entity entity;<br>
+                &gt;<br>
+                &gt; +       /* Context Save Area */<br>
+                &gt; +       struct amdgpu_csa       csa;<br>
+                &gt; +<br>
+                &gt;         /* client id */<br>
+                &gt;         u64                     client_id;<br>
+                &gt;  };<br>
+                &gt; diff --git a/drivers/gpu/drm/amd/mxgpu/amd_mxgpu.h
+                b/drivers/gpu/drm/amd/mxgpu/amd_mxgpu.h<br>
+                &gt; index 6ab13bc..a25e07f 100644<br>
+                &gt; --- a/drivers/gpu/drm/amd/mxgpu/amd_mxgpu.h<br>
+                &gt; +++ b/drivers/gpu/drm/amd/mxgpu/amd_mxgpu.h<br>
+                &gt; @@ -26,12 +26,24 @@<br>
+                &gt;<br>
+                &gt;  #include "amdgpu.h"<br>
+                &gt;<br>
+                &gt; +/* xgpu structures */<br>
+                &gt; +struct amd_xgpu_csa {<br>
+                &gt; +       struct amdgpu_bo            *robj;<br>
+                &gt; +       uint64_t                    gpu_addr;<br>
+                &gt; +       uint64_t                    gds_addr;<br>
+                &gt; +       int32_t                     size;<br>
+                &gt; +};<br>
+                &gt; +<br>
+                &gt;  struct amd_xgpu {<br>
+                &gt;         struct amdgpu_device    *adev;<br>
+                &gt;         struct mutex            lock;<br>
+                &gt; +       struct amd_xgpu_csa     sa;<br>
+                &gt;         u32                     reg_val_offs;<br>
+                &gt;  };<br>
+                &gt;<br>
+                &gt;  extern int amd_xgpu_alloc(struct amdgpu_device
+                *adev);<br>
+                &gt;  extern void amd_xgpu_free(struct amd_xgpu *xgpu);<br>
+                &gt; +<br>
+                &gt; +extern int xgpu_allocate_csa(struct amd_xgpu
+                *xgpu);<br>
+                &gt; +extern void xgpu_destroy_csa(struct amd_xgpu_csa
+                *csa);<br>
+                &gt;  #endif<br>
+                &gt; diff --git a/drivers/gpu/drm/amd/mxgpu/mxgpu_csa.c
+                b/drivers/gpu/drm/amd/mxgpu/mxgpu_csa.c<br>
+                &gt; new file mode 100644<br>
+                &gt; index 0000000..246a747<br>
+                &gt; --- /dev/null<br>
+                &gt; +++ b/drivers/gpu/drm/amd/mxgpu/mxgpu_csa.c<br>
+                &gt; @@ -0,0 +1,209 @@<br>
+                &gt; +/*<br>
+                &gt; + * Copyright 2016 Advanced Micro Devices, Inc.<br>
+                &gt; + *<br>
+                &gt; + * Permission is hereby granted, free of charge,
+                to any person obtaining a<br>
+                &gt; + * copy of this software and associated
+                documentation files (the "Software"),<br>
+                &gt; + * to deal in the Software without restriction,
+                including without limitation<br>
+                &gt; + * the rights to use, copy, modify, merge,
+                publish, distribute, sublicense,<br>
+                &gt; + * and/or sell copies of the Software, and to
+                permit persons to whom the<br>
+                &gt; + * Software is furnished to do so, subject to the
+                following conditions:<br>
+                &gt; + *<br>
+                &gt; + * The above copyright notice and this permission
+                notice shall be included in<br>
+                &gt; + * all copies or substantial portions of the
+                Software.<br>
+                &gt; + *<br>
+                &gt; + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT
+                WARRANTY OF ANY KIND, EXPRESS OR<br>
+                &gt; + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+                WARRANTIES OF MERCHANTABILITY,<br>
+                &gt; + * FITNESS FOR A PARTICULAR PURPOSE AND
+                NONINFRINGEMENT.  IN NO EVENT SHALL<br>
+                &gt; + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE
+                FOR ANY CLAIM, DAMAGES OR<br>
+                &gt; + * OTHER LIABILITY, WHETHER IN AN ACTION OF
+                CONTRACT, TORT OR OTHERWISE,<br>
+                &gt; + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+                SOFTWARE OR THE USE OR<br>
+                &gt; + * OTHER DEALINGS IN THE SOFTWARE.<br>
+                &gt; + *<br>
+                &gt; + * Authors: <a moz-do-not-send="true"
+                  href="mailto:Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org">Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org</a><br>
+                &gt; + *         <a moz-do-not-send="true"
+                  href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org">Monk.Liu-5C7GfCeVMHo@public.gmane.org</a><br>
+                &gt; + *<br>
+                &gt; + */<br>
+                &gt; +#include "amd_mxgpu.h"<br>
+                &gt; +#include "vid.h"<br>
+                &gt; +<br>
+                &gt; +static int xgpu_init_csa(struct amdgpu_device
+                *adev, struct amd_xgpu_csa *sa)<br>
+                &gt; +{<br>
+                &gt; +       int r, size;<br>
+                &gt; +       void *ptr;<br>
+                &gt; +<br>
+                &gt; +       /* meta data (4k) + gds-gfx (4k)*/<br>
+                &gt; +       size = PAGE_SIZE +
+                adev-&gt;gds.mem.gfx_partition_size;<br>
+                &gt; +<br>
+                &gt; +       r = amdgpu_bo_create(adev, size, PAGE_SIZE,
+                true,<br>
+                &gt; +                            AMDGPU_GEM_DOMAIN_GTT,<br>
+                &gt; +                           
+                AMDGPU_GEM_CREATE_CPU_GTT_USWC,<br>
+                &gt; +                            NULL, NULL,
+                &amp;sa-&gt;robj);<br>
+                &gt; +       if (r) {<br>
+                &gt; +               dev_err(adev-&gt;dev, "(%d) failed
+                to allocate csa bo\n", r);<br>
+                &gt; +               return r;<br>
+                &gt; +       }<br>
+                &gt; +<br>
+                &gt; +       r = amdgpu_bo_reserve(sa-&gt;robj, true);<br>
+                &gt; +       if (unlikely(r != 0))<br>
+                &gt; +               goto error_free;<br>
+                &gt; +<br>
+                &gt; +       r = amdgpu_bo_pin(sa-&gt;robj,
+                AMDGPU_GEM_DOMAIN_GTT, &amp;sa-&gt;gpu_addr);<br>
+                &gt; +       if (r)<br>
+                &gt; +               goto error_unreserve;<br>
+                &gt; +<br>
+                &gt; +       r = amdgpu_bo_kmap(sa-&gt;robj, &amp;ptr);<br>
+                &gt; +       if (r)<br>
+                &gt; +               goto error_unpin;<br>
+                &gt; +<br>
+                &gt; +       memset(ptr, 0, size);<br>
+                &gt; +       amdgpu_bo_unreserve(sa-&gt;robj);<br>
+                &gt; +<br>
+                &gt; +       sa-&gt;size = size;<br>
+                &gt; +       sa-&gt;gds_addr = sa-&gt;gpu_addr +
+                PAGE_SIZE;<br>
+                &gt; +<br>
+                &gt; +       return 0;<br>
+                &gt; +<br>
+                &gt; +error_unpin:<br>
+                &gt; +       amdgpu_bo_unpin(sa-&gt;robj);<br>
+                &gt; +error_unreserve:<br>
+                &gt; +       amdgpu_bo_unreserve(sa-&gt;robj);<br>
+                &gt; +error_free:<br>
+                &gt; +       amdgpu_bo_unref(&amp;sa-&gt;robj);<br>
+                &gt; +       return r;<br>
+                &gt; +}<br>
+                &gt; +<br>
+                &gt; +int xgpu_allocate_csa(struct amd_xgpu *xgpu)<br>
+                &gt; +{<br>
+                &gt; +       struct amdgpu_device *adev = xgpu-&gt;adev;<br>
+                &gt; +       struct amd_xgpu_csa *sa = &amp;xgpu-&gt;sa;<br>
+                &gt; +<br>
+                &gt; +       return xgpu_init_csa(adev, sa);<br>
+                &gt; +}<br>
+                &gt; +<br>
+                &gt; +void xgpu_destroy_csa(struct amd_xgpu_csa *sa)<br>
+                &gt; +{<br>
+                &gt; +       amdgpu_bo_reserve(sa-&gt;robj, true);<br>
+                &gt; +       amdgpu_bo_unpin(sa-&gt;robj);<br>
+                &gt; +       amdgpu_bo_unreserve(sa-&gt;robj);<br>
+                &gt; +       amdgpu_bo_unref(&amp;sa-&gt;robj);<br>
+                &gt; +       sa-&gt;gpu_addr = 0;<br>
+                &gt; +       sa-&gt;gds_addr = 0;<br>
+                &gt; +}<br>
+                &gt; +<br>
+                &gt; +static int xgpu_vm_map_csa(struct amdgpu_device
+                *adev, struct amdgpu_vm *vm,<br>
+                &gt; +                          struct amd_xgpu_csa *sa)<br>
+                &gt; +{<br>
+                &gt; +       int r;<br>
+                &gt; +       uint64_t vaddr;<br>
+                &gt; +       struct ww_acquire_ctx ticket;<br>
+                &gt; +       struct list_head list, duplicates;<br>
+                &gt; +       struct amdgpu_bo_list_entry pd;<br>
+                &gt; +       struct amdgpu_bo_va *bo_va;<br>
+                &gt; +<br>
+                &gt; +       INIT_LIST_HEAD(&amp;list);<br>
+                &gt; +       INIT_LIST_HEAD(&amp;duplicates);<br>
+                &gt; +       INIT_LIST_HEAD(&amp;vm-&gt;csa.tv.head);<br>
+                &gt; +       vm-&gt;csa.tv.bo =
+                &amp;sa-&gt;robj-&gt;tbo;<br>
+                &gt; +       vm-&gt;csa.tv.shared = true;<br>
+                &gt; +<br>
+                &gt; +       list_add(&amp;vm-&gt;csa.tv.head,
+                &amp;list);<br>
+                &gt; +       amdgpu_vm_get_pd_bo(vm, &amp;list,
+                &amp;pd);<br>
+                &gt; +<br>
+                &gt; +       spin_lock(&amp;vm-&gt;status_lock);<br>
+                &gt; +       vm-&gt;csa.reserved_top -= sa-&gt;size;<br>
+                &gt; +       vaddr = vm-&gt;csa.reserved_top;<br>
+                &gt; +       spin_unlock(&amp;vm-&gt;status_lock);<br>
+                &gt; +<br>
+                &gt; +       r = ttm_eu_reserve_buffers(&amp;ticket,
+                &amp;list, true, &amp;duplicates);<br>
+                &gt; +       if (r) {<br>
+                &gt; +               DRM_ERROR("failed to reserve global
+                CSA buffer(%d).\n", r);<br>
+                &gt; +               return r;<br>
+                &gt; +       }<br>
+                &gt; +<br>
+                &gt; +       bo_va = amdgpu_vm_bo_add(adev, vm,
+                sa-&gt;robj);<br>
+                &gt; +       if (!bo_va) {<br>
+                &gt; +               DRM_ERROR("failed to create bo_va
+                for global CSA buffer.\n");<br>
+                &gt; +               return -ENOMEM;<br>
+                &gt; +       }<br>
+                &gt; +<br>
+                &gt; +<br>
+                &gt; +       r = amdgpu_vm_bo_map(adev, bo_va, vaddr, 0,
+                sa-&gt;size,<br>
+                &gt; +                            AMDGPU_PTE_READABLE |
+                AMDGPU_PTE_WRITEABLE |<br>
+                &gt; +                           
+                AMDGPU_PTE_EXECUTABLE);<br>
+                &gt; +       if (r) {<br>
+                &gt; +               DRM_ERROR("failed to do bo_map on
+                global CSA buffer(%d).\n", r);<br>
+                &gt; +               amdgpu_vm_bo_rmv(adev, bo_va);<br>
+                &gt; +              
+                ttm_eu_backoff_reservation(&amp;ticket, &amp;list);<br>
+                &gt; +               kfree(bo_va);<br>
+                &gt; +               return r;<br>
+                &gt; +       }<br>
+                &gt; +<br>
+                &gt; +       ttm_eu_backoff_reservation(&amp;ticket,
+                &amp;list);<br>
+                &gt; +       amdgpu_gem_va_update_vm(adev, bo_va,
+                AMDGPU_VA_OP_MAP);<br>
+                &gt; +<br>
+                &gt; +       vm-&gt;csa.va = bo_va;<br>
+                &gt; +       vm-&gt;csa.csa_addr = vaddr;<br>
+                &gt; +       vm-&gt;csa.gds_addr = vaddr + PAGE_SIZE;<br>
+                &gt; +<br>
+                &gt; +       return 0;<br>
+                &gt; +}<br>
+                &gt; +<br>
+                &gt; +int amdgpu_vm_map_csa(struct amdgpu_device *adev,
+                struct amdgpu_vm *vm)<br>
+                &gt; +{<br>
+                &gt; +       struct amd_xgpu *xgpu = (struct amd_xgpu
+                *)adev-&gt;priv_data;<br>
+                &gt; +       struct amd_xgpu_csa *sa = NULL;<br>
+                &gt; +<br>
+                &gt; +       if (!xgpu)<br>
+                &gt; +               return 0;<br>
+                &gt; +<br>
+                &gt; +       sa = &amp;xgpu-&gt;sa;<br>
+                &gt; +<br>
+                &gt; +       return xgpu_vm_map_csa(adev, vm, sa);<br>
+                &gt; +}<br>
+                &gt; +<br>
+                &gt; +static void xgpu_vm_unmap_csa(struct amdgpu_device
+                *adev, struct amdgpu_vm *vm,<br>
+                &gt; +                             struct amd_xgpu_csa
+                *sa)<br>
+                &gt; +{<br>
+                &gt; +       int r;<br>
+                &gt; +       struct ww_acquire_ctx ticket;<br>
+                &gt; +       struct list_head list, duplicates;<br>
+                &gt; +       struct amdgpu_bo_list_entry pd;<br>
+                &gt; +<br>
+                &gt; +       if (!vm-&gt;csa.va)<br>
+                &gt; +               return;<br>
+                &gt; +<br>
+                &gt; +       INIT_LIST_HEAD(&amp;list);<br>
+                &gt; +       INIT_LIST_HEAD(&amp;duplicates);<br>
+                &gt; +       list_add(&amp;vm-&gt;csa.tv.head,
+                &amp;list);<br>
+                &gt; +       amdgpu_vm_get_pd_bo(vm, &amp;list,
+                &amp;pd);<br>
+                &gt; +<br>
+                &gt; +       r = ttm_eu_reserve_buffers(&amp;ticket,
+                &amp;list, true, &amp;duplicates);<br>
+                &gt; +       if (r) {<br>
+                &gt; +               DRM_ERROR("failed to reserve global
+                CSA buffer(%d).\n", r);<br>
+                &gt; +               return;<br>
+                &gt; +       }<br>
+                &gt; +<br>
+                &gt; +       amdgpu_vm_bo_rmv(adev, vm-&gt;csa.va);<br>
+                &gt; +       /* maybe we don't need to do real clearing
+                for the vm will die soon */<br>
+                &gt; +       r = amdgpu_vm_clear_freed(adev, vm);<br>
+                &gt; +       if (r) {<br>
+                &gt; +               DRM_ERROR("failed to clear global
+                CSA bo(%d).\n", r);<br>
+                &gt; +               return;<br>
+                &gt; +       }<br>
+                &gt; +<br>
+                &gt; +       ttm_eu_backoff_reservation(&amp;ticket,
+                &amp;list);<br>
+                &gt; +       vm-&gt;csa.va = NULL;<br>
+                &gt; +       vm-&gt;csa.csa_addr = vm-&gt;csa.gds_addr =
+                0;<br>
+                &gt; +}<br>
+                &gt; +<br>
+                &gt; +void amdgpu_vm_unmap_csa(struct amdgpu_device
+                *adev, struct amdgpu_vm *vm)<br>
+                &gt; +{<br>
+                &gt; +       struct amd_xgpu *xgpu = (struct amd_xgpu
+                *)adev-&gt;priv_data;<br>
+                &gt; +       struct amd_xgpu_csa *sa = NULL;<br>
+                &gt; +<br>
+                &gt; +       if (!xgpu)<br>
+                &gt; +               return;<br>
+                &gt; +<br>
+                &gt; +       sa = &amp;xgpu-&gt;sa;<br>
+                &gt; +       xgpu_vm_unmap_csa(adev, vm, sa);<br>
+                &gt; +}<br>
+                &gt; --<br>
+                &gt; 2.7.4<br>
+                &gt;<br>
+                &gt; _______________________________________________<br>
+                &gt; amd-gfx mailing list<br>
+                &gt; <a moz-do-not-send="true"
+                  href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                &gt; <a moz-do-not-send="true"
+                  href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></span></p>
+          </div>
+        </div>
+      </div>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------F23A1F81410AA5D80B4D0444--
+
+--===============1290484405==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1290484405==--
