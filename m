@@ -1,15 +1,13 @@
-From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: show gfx clock gating status to user
-Date: Wed, 4 Jan 2017 10:21:45 +0800
-Message-ID: <20170104022144.GA21218@hr-amur2>
-References: <1483440426-22080-1-git-send-email-ray.huang@amd.com>
- <BN6PR12MB1652A908E7D3DAD0302D6217F76E0@BN6PR12MB1652.namprd12.prod.outlook.com>
+From: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] radv: Initial implementation of
+ VK_EXT_queue_global_priority
+Date: Tue, 3 Jan 2017 22:26:07 -0500
+Message-ID: <CAFQ_0eEf=qLF6Kgj38Av8hm_6s9MfCBN3xtg-HZOugw3HnjBTw@mail.gmail.com>
+References: <20170104022229.7747-1-andresx7@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1055478061=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <BN6PR12MB1652A908E7D3DAD0302D6217F76E0-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <20170104022229.7747-1-andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,46 +18,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "Fu, Ping" <Ping.Fu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Mao,
- David" <David.Mao-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gVHVlLCBKYW4gMDMsIDIwMTcgYXQgMTE6MDI6MDlQTSArMDgwMCwgRGV1Y2hlciwgQWxleGFu
-ZGVyIHdyb3RlOgo+ID4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPiA+IEZyb206IEh1YW5n
-IFJ1aSBbbWFpbHRvOnJheS5odWFuZ0BhbWQuY29tXQo+ID4gU2VudDogVHVlc2RheSwgSmFudWFy
-eSAwMywgMjAxNyA1OjQ3IEFNCj4gPiBUbzogRGV1Y2hlciwgQWxleGFuZGVyOyBhbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwo+ID4gQ2M6IFpodSwgUmV4OyBNYW8sIERhdmlkOyBGdSwgUGlu
-ZzsgSHVhbmcsIFJheQo+ID4gU3ViamVjdDogW1BBVENIXSBkcm0vYW1kZ3B1OiBzaG93IGdmeCBj
-bG9jayBnYXRpbmcgc3RhdHVzIHRvIHVzZXIKPiA+IAo+ID4gU2lnbmVkLW9mZi1ieTogSHVhbmcg
-UnVpIDxyYXkuaHVhbmdAYW1kLmNvbT4KPiA+IC0tLQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdS5oICAgIHwgMSArCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3BtLmMgfCA1ICsrKysrCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4
-X3Y2XzAuYyAgfCAyICsrCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y3XzAu
-YyAgfCAyICsrCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYyAgfCAz
-ICsrKwo+ID4gIDUgZmlsZXMgY2hhbmdlZCwgMTMgaW5zZXJ0aW9ucygrKQo+ID4gCj4gPiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPiA+IGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPiA+IGluZGV4IDk2ZWVlYTcuLjk4OWQzMTEg
-MTAwNjQ0Cj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAo+ID4g
-KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPiA+IEBAIC0xMDMzLDYg
-KzEwMzMsNyBAQCBzdHJ1Y3QgYW1kZ3B1X2dmeCB7Cj4gPiAgCXN0cnVjdCBhbWRncHVfaXJxX3Ny
-YwkJcHJpdl9pbnN0X2lycTsKPiA+ICAJLyogZ2Z4IHN0YXR1cyAqLwo+ID4gIAl1aW50MzJfdAkJ
-CWdmeF9jdXJyZW50X3N0YXR1czsKPiA+ICsJYm9vbAkJCQljZ19lbmFibGVkOwo+ID4gIAkvKiBj
-ZSByYW0gc2l6ZSovCj4gPiAgCXVuc2lnbmVkCQkJY2VfcmFtX3NpemU7Cj4gPiAgCXN0cnVjdCBh
-bWRncHVfY3VfaW5mbwkJY3VfaW5mbzsKPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfcG0uYwo+ID4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfcG0uYwo+ID4gaW5kZXggYTdjNzY1Ny4uMTBmMmVhYiAxMDA2NDQKPiA+IC0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jCj4gPiArKysgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYwo+ID4gQEAgLTE1NDMsNiArMTU0MywxMSBAQCBz
-dGF0aWMgaW50IGFtZGdwdV9kZWJ1Z2ZzX3BtX2luZm8oc3RydWN0Cj4gPiBzZXFfZmlsZSAqbSwg
-dm9pZCAqZGF0YSkKPiA+ICAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBkZXYtPmRldl9w
-cml2YXRlOwo+ID4gIAlzdHJ1Y3QgZHJtX2RldmljZSAqZGRldiA9IGFkZXYtPmRkZXY7Cj4gPiAK
-PiA+ICsJaWYgKGFkZXYtPmdmeC5jZ19lbmFibGVkKQo+ID4gKwkJc2VxX3ByaW50ZihtLCAiR0ZY
-IENsb2NrIEdhdGluZzogRW5hYmxlZFxuIik7Cj4gPiArCWVsc2UKPiA+ICsJCXNlcV9wcmludGYo
-bSwgIkdGWCBDbG9jayBHYXRpbmc6IERpc2FibGVkXG4iKTsKPiA+ICsKPiAKPiAKPiBJIHRoaW5r
-IGl0IHdvdWxkIGJlIGJldHRlciB0byBwcmludCB0aGUgY2dfZmxhZ3MgYW5kIHBnX2ZsYWdzIChi
-b3RoIGFzIGEgbWFzayBhbmQgaW4gaHVtYW4gcmVhZGFibGUgZm9ybSkgc28gd2Uga25vdyBleGFj
-dGx5IGNnIGFuZCBwZyBmZWF0dXJlcyBhcmUgZW5hYmxlZC4KPiAKCkl0J3MgcHJvYmFibGUgYmV0
-dGVyLiBMZXQgbWUgcmV2aXNlIHRoaXMgcGF0Y2ggYW5kIHNlbmQgaXQgbGF0ZXIuCgpUaGFua3Ms
-ClJ1aQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
-Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============1055478061==
+Content-Type: multipart/alternative; boundary=94eb2c11ca14755adb05453c58e5
+
+--94eb2c11ca14755adb05453c58e5
+Content-Type: text/plain; charset=UTF-8
+
+Hey Guys,
+
+One of my first non-trivial contributions to mesa here. Let me know if I've
+messed up anything, bad coding style or some patch validation script I
+should've run or any other kind of pitfall a newbie might make.
+
+I tried to follow the guidelines over at:
+http://www.mesa3d.org/devinfo.html
+
+Although some of them seen to not apply anymore (radv code was tabs instead
+of 3 spaces).
+
+Thanks for taking the time to review :)
+
+Regards,
+Andres
+
+
+On Tue, Jan 3, 2017 at 9:22 PM, Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+
+> This patch series implements VK_EXT_queue_global_priority, a vulkan
+> extension
+> that focuses on providing scheduling guarantees.
+>
+> For further information on the use case refer to:
+> https://lists.freedesktop.org/archives/amd-gfx/2016-December/004068.html
+>
+> For some perf data on this initial implementation:
+> https://lists.freedesktop.org/archives/amd-gfx/2016-December/004257.html
+>
+> Test apps available at:
+> https://github.com/lostgoat/Vulkan
+>
+> Related amdgpu and libdrm_amdgpu patches can be found on the amd-gfx
+> mailing list.
+>
+> Additionaly, results for vk-cts -n *semaphore* on an RX480:
+>
+> Test run totals:
+>   Passed:        1821/4046 (45.0%)
+>   Failed:        0/4046 (0.0%)
+>   Not supported: 2225/4046 (55.0%)
+>   Warnings:      0/4046 (0.0%)
+>
+>
+
+--94eb2c11ca14755adb05453c58e5
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div><div><div><div>Hey Guys,<br><br></div>One of my first=
+ non-trivial contributions to mesa here. Let me know if I&#39;ve messed up =
+anything, bad coding style or some patch validation script I should&#39;ve =
+run or any other kind of pitfall a newbie might make.<br><br></div>I tried =
+to follow the guidelines over at:<br><a href=3D"http://www.mesa3d.org/devin=
+fo.html">http://www.mesa3d.org/devinfo.html</a><br><br></div>Although some =
+of them seen to not apply anymore (radv code was tabs instead of 3 spaces).=
+<br><br></div><div>Thanks for taking the time to review :)<br><br></div><di=
+v>Regards,<br></div><div>Andres<br></div><br></div><div class=3D"gmail_extr=
+a"><br><div class=3D"gmail_quote">On Tue, Jan 3, 2017 at 9:22 PM, Andres Ro=
+driguez <span dir=3D"ltr">&lt;<a href=3D"mailto:andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=
+=3D"_blank">andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;</span> wrote:<br><blockquote class=
+=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padd=
+ing-left:1ex">This patch series implements VK_EXT_queue_global_priority, a =
+vulkan extension<br>
+that focuses on providing scheduling guarantees.<br>
+<br>
+For further information on the use case refer to:<br>
+<a href=3D"https://lists.freedesktop.org/archives/amd-gfx/2016-December/004=
+068.html" rel=3D"noreferrer" target=3D"_blank">https://lists.freedesktop.or=
+g/<wbr>archives/amd-gfx/2016-<wbr>December/004068.html</a><br>
+<br>
+For some perf data on this initial implementation:<br>
+<a href=3D"https://lists.freedesktop.org/archives/amd-gfx/2016-December/004=
+257.html" rel=3D"noreferrer" target=3D"_blank">https://lists.freedesktop.or=
+g/<wbr>archives/amd-gfx/2016-<wbr>December/004257.html</a><br>
+<br>
+Test apps available at:<br>
+<a href=3D"https://github.com/lostgoat/Vulkan" rel=3D"noreferrer" target=3D=
+"_blank">https://github.com/lostgoat/<wbr>Vulkan</a><br>
+<br>
+Related amdgpu and libdrm_amdgpu patches can be found on the amd-gfx mailin=
+g list.<br>
+<br>
+Additionaly, results for vk-cts -n *semaphore* on an RX480:<br>
+<br>
+Test run totals:<br>
+=C2=A0 Passed:=C2=A0 =C2=A0 =C2=A0 =C2=A0 1821/4046 (45.0%)<br>
+=C2=A0 Failed:=C2=A0 =C2=A0 =C2=A0 =C2=A0 0/4046 (0.0%)<br>
+=C2=A0 Not supported: 2225/4046 (55.0%)<br>
+=C2=A0 Warnings:=C2=A0 =C2=A0 =C2=A0 0/4046 (0.0%)<br>
+<br>
+</blockquote></div><br></div>
+
+--94eb2c11ca14755adb05453c58e5--
+
+--===============1055478061==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1055478061==--
