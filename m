@@ -1,13 +1,16 @@
-From: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] radv: Initial implementation of
- VK_EXT_queue_global_priority
-Date: Tue, 3 Jan 2017 22:26:07 -0500
-Message-ID: <CAFQ_0eEf=qLF6Kgj38Av8hm_6s9MfCBN3xtg-HZOugw3HnjBTw@mail.gmail.com>
-References: <20170104022229.7747-1-andresx7@gmail.com>
+From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: show gfx clock gating status to user
+Date: Wed, 4 Jan 2017 14:52:33 +0800
+Message-ID: <20170104065232.GA22326@hr-amur2>
+References: <1483440426-22080-1-git-send-email-ray.huang@amd.com>
+ <BN6PR12MB1652A908E7D3DAD0302D6217F76E0@BN6PR12MB1652.namprd12.prod.outlook.com>
+ <20170104022144.GA21218@hr-amur2>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1055478061=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170104022229.7747-1-andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Disposition: inline
+In-Reply-To: <20170104022144.GA21218@hr-amur2>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,118 +21,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: Hawking Zhang <hawking.zhang-5C7GfCeVMHo@public.gmane.org>, "Zhu,
+ Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "Fu, Ping" <Ping.Fu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Mao,
+ David" <David.Mao-5C7GfCeVMHo@public.gmane.org>
 
---===============1055478061==
-Content-Type: multipart/alternative; boundary=94eb2c11ca14755adb05453c58e5
-
---94eb2c11ca14755adb05453c58e5
-Content-Type: text/plain; charset=UTF-8
-
-Hey Guys,
-
-One of my first non-trivial contributions to mesa here. Let me know if I've
-messed up anything, bad coding style or some patch validation script I
-should've run or any other kind of pitfall a newbie might make.
-
-I tried to follow the guidelines over at:
-http://www.mesa3d.org/devinfo.html
-
-Although some of them seen to not apply anymore (radv code was tabs instead
-of 3 spaces).
-
-Thanks for taking the time to review :)
-
-Regards,
-Andres
-
-
-On Tue, Jan 3, 2017 at 9:22 PM, Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
-
-> This patch series implements VK_EXT_queue_global_priority, a vulkan
-> extension
-> that focuses on providing scheduling guarantees.
->
-> For further information on the use case refer to:
-> https://lists.freedesktop.org/archives/amd-gfx/2016-December/004068.html
->
-> For some perf data on this initial implementation:
-> https://lists.freedesktop.org/archives/amd-gfx/2016-December/004257.html
->
-> Test apps available at:
-> https://github.com/lostgoat/Vulkan
->
-> Related amdgpu and libdrm_amdgpu patches can be found on the amd-gfx
-> mailing list.
->
-> Additionaly, results for vk-cts -n *semaphore* on an RX480:
->
-> Test run totals:
->   Passed:        1821/4046 (45.0%)
->   Failed:        0/4046 (0.0%)
->   Not supported: 2225/4046 (55.0%)
->   Warnings:      0/4046 (0.0%)
->
->
-
---94eb2c11ca14755adb05453c58e5
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div><div><div><div>Hey Guys,<br><br></div>One of my first=
- non-trivial contributions to mesa here. Let me know if I&#39;ve messed up =
-anything, bad coding style or some patch validation script I should&#39;ve =
-run or any other kind of pitfall a newbie might make.<br><br></div>I tried =
-to follow the guidelines over at:<br><a href=3D"http://www.mesa3d.org/devin=
-fo.html">http://www.mesa3d.org/devinfo.html</a><br><br></div>Although some =
-of them seen to not apply anymore (radv code was tabs instead of 3 spaces).=
-<br><br></div><div>Thanks for taking the time to review :)<br><br></div><di=
-v>Regards,<br></div><div>Andres<br></div><br></div><div class=3D"gmail_extr=
-a"><br><div class=3D"gmail_quote">On Tue, Jan 3, 2017 at 9:22 PM, Andres Ro=
-driguez <span dir=3D"ltr">&lt;<a href=3D"mailto:andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=
-=3D"_blank">andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;</span> wrote:<br><blockquote class=
-=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padd=
-ing-left:1ex">This patch series implements VK_EXT_queue_global_priority, a =
-vulkan extension<br>
-that focuses on providing scheduling guarantees.<br>
-<br>
-For further information on the use case refer to:<br>
-<a href=3D"https://lists.freedesktop.org/archives/amd-gfx/2016-December/004=
-068.html" rel=3D"noreferrer" target=3D"_blank">https://lists.freedesktop.or=
-g/<wbr>archives/amd-gfx/2016-<wbr>December/004068.html</a><br>
-<br>
-For some perf data on this initial implementation:<br>
-<a href=3D"https://lists.freedesktop.org/archives/amd-gfx/2016-December/004=
-257.html" rel=3D"noreferrer" target=3D"_blank">https://lists.freedesktop.or=
-g/<wbr>archives/amd-gfx/2016-<wbr>December/004257.html</a><br>
-<br>
-Test apps available at:<br>
-<a href=3D"https://github.com/lostgoat/Vulkan" rel=3D"noreferrer" target=3D=
-"_blank">https://github.com/lostgoat/<wbr>Vulkan</a><br>
-<br>
-Related amdgpu and libdrm_amdgpu patches can be found on the amd-gfx mailin=
-g list.<br>
-<br>
-Additionaly, results for vk-cts -n *semaphore* on an RX480:<br>
-<br>
-Test run totals:<br>
-=C2=A0 Passed:=C2=A0 =C2=A0 =C2=A0 =C2=A0 1821/4046 (45.0%)<br>
-=C2=A0 Failed:=C2=A0 =C2=A0 =C2=A0 =C2=A0 0/4046 (0.0%)<br>
-=C2=A0 Not supported: 2225/4046 (55.0%)<br>
-=C2=A0 Warnings:=C2=A0 =C2=A0 =C2=A0 0/4046 (0.0%)<br>
-<br>
-</blockquote></div><br></div>
-
---94eb2c11ca14755adb05453c58e5--
-
---===============1055478061==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1055478061==--
+T24gV2VkLCBKYW4gMDQsIDIwMTcgYXQgMTA6MjE6NDRBTSArMDgwMCwgSHVhbmcgUnVpIHdyb3Rl
+Ogo+IE9uIFR1ZSwgSmFuIDAzLCAyMDE3IGF0IDExOjAyOjA5UE0gKzA4MDAsIERldWNoZXIsIEFs
+ZXhhbmRlciB3cm90ZToKPiA+ID4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPiA+ID4gRnJv
+bTogSHVhbmcgUnVpIFttYWlsdG86cmF5Lmh1YW5nQGFtZC5jb21dCj4gPiA+IFNlbnQ6IFR1ZXNk
+YXksIEphbnVhcnkgMDMsIDIwMTcgNTo0NyBBTQo+ID4gPiBUbzogRGV1Y2hlciwgQWxleGFuZGVy
+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+ID4gPiBDYzogWmh1LCBSZXg7IE1hbywg
+RGF2aWQ7IEZ1LCBQaW5nOyBIdWFuZywgUmF5Cj4gPiA+IFN1YmplY3Q6IFtQQVRDSF0gZHJtL2Ft
+ZGdwdTogc2hvdyBnZnggY2xvY2sgZ2F0aW5nIHN0YXR1cyB0byB1c2VyCj4gPiA+IAo+ID4gPiBT
+aWduZWQtb2ZmLWJ5OiBIdWFuZyBSdWkgPHJheS5odWFuZ0BhbWQuY29tPgo+ID4gPiAtLS0KPiA+
+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAgIHwgMSArCj4gPiA+ICBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYyB8IDUgKysrKysKPiA+ID4gIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92Nl8wLmMgIHwgMiArKwo+ID4gPiAgZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y3XzAuYyAgfCAyICsrCj4gPiA+ICBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jICB8IDMgKysrCj4gPiA+ICA1IGZpbGVzIGNoYW5n
+ZWQsIDEzIGluc2VydGlvbnMoKykKPiA+ID4gCj4gPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAo+ID4gPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdS5oCj4gPiA+IGluZGV4IDk2ZWVlYTcuLjk4OWQzMTEgMTAwNjQ0Cj4gPiA+IC0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4gPiA+ICsrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4gPiA+IEBAIC0xMDMzLDYgKzEwMzMsNyBA
+QCBzdHJ1Y3QgYW1kZ3B1X2dmeCB7Cj4gPiA+ICAJc3RydWN0IGFtZGdwdV9pcnFfc3JjCQlwcml2
+X2luc3RfaXJxOwo+ID4gPiAgCS8qIGdmeCBzdGF0dXMgKi8KPiA+ID4gIAl1aW50MzJfdAkJCWdm
+eF9jdXJyZW50X3N0YXR1czsKPiA+ID4gKwlib29sCQkJCWNnX2VuYWJsZWQ7Cj4gPiA+ICAJLyog
+Y2UgcmFtIHNpemUqLwo+ID4gPiAgCXVuc2lnbmVkCQkJY2VfcmFtX3NpemU7Cj4gPiA+ICAJc3Ry
+dWN0IGFtZGdwdV9jdV9pbmZvCQljdV9pbmZvOwo+ID4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtLmMKPiA+ID4gYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfcG0uYwo+ID4gPiBpbmRleCBhN2M3NjU3Li4xMGYyZWFiIDEwMDY0NAo+
+ID4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYwo+ID4gPiAr
+KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYwo+ID4gPiBAQCAtMTU0
+Myw2ICsxNTQzLDExIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2RlYnVnZnNfcG1faW5mbyhzdHJ1Y3QK
+PiA+ID4gc2VxX2ZpbGUgKm0sIHZvaWQgKmRhdGEpCj4gPiA+ICAJc3RydWN0IGFtZGdwdV9kZXZp
+Y2UgKmFkZXYgPSBkZXYtPmRldl9wcml2YXRlOwo+ID4gPiAgCXN0cnVjdCBkcm1fZGV2aWNlICpk
+ZGV2ID0gYWRldi0+ZGRldjsKPiA+ID4gCj4gPiA+ICsJaWYgKGFkZXYtPmdmeC5jZ19lbmFibGVk
+KQo+ID4gPiArCQlzZXFfcHJpbnRmKG0sICJHRlggQ2xvY2sgR2F0aW5nOiBFbmFibGVkXG4iKTsK
+PiA+ID4gKwllbHNlCj4gPiA+ICsJCXNlcV9wcmludGYobSwgIkdGWCBDbG9jayBHYXRpbmc6IERp
+c2FibGVkXG4iKTsKPiA+ID4gKwo+ID4gCj4gPiAKPiA+IEkgdGhpbmsgaXQgd291bGQgYmUgYmV0
+dGVyIHRvIHByaW50IHRoZSBjZ19mbGFncyBhbmQgcGdfZmxhZ3MgKGJvdGggYXMgYSBtYXNrIGFu
+ZCBpbiBodW1hbiByZWFkYWJsZSBmb3JtKSBzbyB3ZSBrbm93IGV4YWN0bHkgY2cgYW5kIHBnIGZl
+YXR1cmVzIGFyZSBlbmFibGVkLgo+ID4gCj4gCj4gSXQncyBwcm9iYWJsZSBiZXR0ZXIuIExldCBt
+ZSByZXZpc2UgdGhpcyBwYXRjaCBhbmQgc2VuZCBpdCBsYXRlci4KPiAKCkhpIEFsZXgsCgpUaGVy
+ZSBpcyBvbmUgaXNzdWUgb24gdG9uZ2EsIHBvbGFyaXMxMCwgYW5kIHBvbGFyaXMxMSwgdGhleSB1
+c2Ugc211IHRvCmNvbnRyb2wgY2xvY2sgZ2F0aW5nLiBBbmQgZmxhZ3MgYXJlIGJlbG93LCBub3Qg
+dXNlIGFkZXYtPmNnX2ZsYWdzLiBJdApjYW5ub3QgaW5kaWNhdGUgY2xvY2sgZ2F0aW5nIHN0YXR1
+cyBmcm9tIGFkZXYtPmNnX2ZsYWdzIGFuZCB0aGUKY2dfZmxhZ3MvcGdfZmxhZ3MgaXMgbWFya2Vk
+IHN1cHBvcnRlZCBzdGF0ZSBieSBIVywgbm90IHJ1bnRpbWUgZW5hYmxlbWVudCBzdGF0ZToKCiNk
+ZWZpbmUgUFBfU1RBVEVfQ0cgICAgICAgICAgICAgMHgwMQojZGVmaW5lIFBQX1NUQVRFX0xTICAg
+ICAgICAgICAgIDB4MDIKI2RlZmluZSBQUF9TVEFURV9EUyAgICAgICAgICAgICAweDA0CiNkZWZp
+bmUgUFBfU1RBVEVfU0QgICAgICAgICAgICAgMHgwOAojZGVmaW5lIFBQX1NUQVRFX1NVUFBPUlRf
+Q0cgICAgIDB4MTAKI2RlZmluZSBQUF9TVEFURV9TVVBQT1JUX0xTICAgICAweDIwCiNkZWZpbmUg
+UFBfU1RBVEVfU1VQUE9SVF9EUyAgICAgMHg0MAojZGVmaW5lIFBQX1NUQVRFX1NVUFBPUlRfU0Qg
+ICAgIDB4ODAKCkkgdGhpbmsgc2hhbGwgd2UgY29tYmluZSB0aGVtIHdpdGggQU1EX0NHX1NVUFBP
+UlRfR0ZYX01HQ0cgYW5kIGV0Yy4/ClRyeSB0byBmaW5kIHVuaWZpZWQgZmxhZ3MgdG8gY29udHJv
+bCBjbG9jayBnYXRpbmcgYW5kIHBvd2VyIGdhdGluZy4uLgoKVGhhbmtzLApSdWkKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
