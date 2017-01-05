@@ -1,14 +1,14 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PART1 PATCH 0/8] Introduce a method to get clock gating status
+From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PART1 PATCH 0/8] Introduce a method to get clock gating status
  dynamically
-Date: Thu, 5 Jan 2017 15:40:33 +0000
-Message-ID: <BN6PR12MB1652B0E3AD8F9252CE089FA0F7600@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <1483624193-20897-1-git-send-email-ray.huang@amd.com>
+Date: Thu, 5 Jan 2017 15:51:48 +0000
+Message-ID: <CY4PR12MB17686EC2FEE291EF2A874F90F7600@CY4PR12MB1768.namprd12.prod.outlook.com>
+References: <1483624193-20897-1-git-send-email-ray.huang@amd.com>,
+ <BN6PR12MB1652B0E3AD8F9252CE089FA0F7600@BN6PR12MB1652.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0506138490=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1483624193-20897-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <BN6PR12MB1652B0E3AD8F9252CE089FA0F7600-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,66 +20,308 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "Fu, Ping" <Ping.Fu-5C7GfCeVMHo@public.gmane.org>, "Mao,
- David" <David.Mao-5C7GfCeVMHo@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Mao, David" <David.Mao-5C7GfCeVMHo@public.gmane.org>, "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "Fu,
+ Ping" <Ping.Fu-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+IEZyb206IEh1YW5nIFJ1aSBbbWFpbHRvOnJh
-eS5odWFuZ0BhbWQuY29tXQo+IFNlbnQ6IFRodXJzZGF5LCBKYW51YXJ5IDA1LCAyMDE3IDg6NTAg
-QU0KPiBUbzogRGV1Y2hlciwgQWxleGFuZGVyOyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-Zwo+IENjOiBaaHUsIFJleDsgTWFvLCBEYXZpZDsgRnUsIFBpbmc7IFpoYW5nLCBIYXdraW5nOyBI
-dWFuZywgUmF5Cj4gU3ViamVjdDogW1BBUlQxIFBBVENIIDAvOF0gSW50cm9kdWNlIGEgbWV0aG9k
-IHRvIGdldCBjbG9jayBnYXRpbmcgc3RhdHVzCj4gZHluYW1pY2FsbHkKPiAKPiBUaGlzIHNlcmll
-cyBwYXRjaGVzIGltcGxlbWVudCB0byBnZXQgdGhlIGNsb2NrIGdhdGluZyBzdGF0dXMKPiBkeW5h
-bWljYWxseSBpbnRvIGRlYnVnZnMuIFVzZXIgd2lsbCBlbnRlciBwcm9maWxpbmcgbW9kZSB0byBy
-dW50aW1lCj4gZGlzYWJsZSBjbG9ja2dhdGluZywgc28gaXQgbmVlZHMgYW4gaW50ZXJmYWNlIHRv
-IGV4cG9zZSBjbG9jayBnYXRpbmcKPiBzdGF0ZXMuIFBhcnQgMSB3b3JrcyBmb3IgVkksIEkgd2ls
-bCBpbXBsZW1lbnQgaXQgb24gQ0kvU0kgaW4gZm9sbG93aW5nCj4gZGF5cy4KClBhdGNoZXMgMS02
-OgpSZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgoK
-UGF0Y2hlcyA3LCA4OgpJJ20gbm90IHN1cmUgaWYgdGhlIFVWRCBhbmQgVkNFIHN0YXR1cyByZWdp
-c3RlcnMgYXJlIGF2YWlsYWJsZSBpZiB0aGUgYmxvY2tzIGFyZSBwb3dlcmdhdGVkLiAgUmVhZGlu
-ZyB0aGVtIGJhY2sgd2hpbGUgcG93ZXJnYXRlZCBjYW4gY2F1c2UgYSBoYW5nLiAgTWlnaHQgd2Fu
-dCB0byBjaGVjayB0aGUgUEcgc3cgc3RhdGUgYmVmb3JlIHJlYWRpbmcgYmFjayB0aGUgcmVnaXN0
-ZXJzLgoKQWxleAoKPiAKPiBIZXJlIGlzIHRoZSBleGFtcGxlIG9uIEZpamk6Cj4gCj4gcm9vdEBq
-ZW5raW5zLUFsbC1TZXJpZXM6L2hvbWUvamVua2lucyMgY2F0Cj4gL3N5cy9rZXJuZWwvZGVidWcv
-ZHJpLzY0L2FtZGdwdV9wbV9pbmZvCj4gQ2xvY2sgR2F0aW5nIEZsYWdzIE1hc2s6IDB4M2RmZmYK
-PiAgICAgICAgIE1lZGl1bSBHcmFpbiBDbG9jayBHYXRpbmc6IE9uCj4gICAgICAgICBNZWRpdW0g
-R3JhaW4gbWVtb3J5IExpZ2h0IFNsZWVwOiBPbgo+ICAgICAgICAgQ29hcnNlIEdyYWluIENsb2Nr
-IEdhdGluZzogT24KPiAgICAgICAgIENvYXJzZSBHcmFpbiBtZW1vcnkgTGlnaHQgU2xlZXA6IE9u
-Cj4gICAgICAgICBDb2Fyc2UgR3JhaW4gVHJlZSBTaGFkZXI6IE9uCj4gICAgICAgICBDb2Fyc2Ug
-R3JhaW4gVHJlZSBTaGFkZXIgTGlnaHQgU2xlZXA6IE9uCj4gICAgICAgICBDb21tYW5kIFByb2Nl
-c3NvciBMaWdodCBTbGVlcDogT24KPiAgICAgICAgIFJ1biBMaXN0IENvbnRyb2xsZXIgTGlnaHQg
-U2xlZXA6IE9uCj4gICAgICAgICBNZW1vcnkgQ29udHJvbGxlciBMaWdodCBTbGVlcDogT24KPiAg
-ICAgICAgIE1lbW9yeSBDb250cm9sbGVyIE1lZGl1bSBHcmFpbiBDbG9jayBHYXRpbmc6IE9uCj4g
-ICAgICAgICBTeXN0ZW0gRGlyZWN0IE1lbW9yeSBBY2Nlc3MgTGlnaHQgU2xlZXA6IE9uCj4gICAg
-ICAgICBTeXN0ZW0gRGlyZWN0IE1lbW9yeSBBY2Nlc3MgTWVkaXVtIEdyYWluIENsb2NrIEdhdGlu
-ZzogT24KPiAgICAgICAgIEJ1cyBJbnRlcmZhY2UgTGlnaHQgU2xlZXA6IE9uCj4gICAgICAgICBV
-bml2ZXJzYWwgVmlkZW8gRGVjb2RlciBNZWRpdW0gR3JhaW4gQ2xvY2sgR2F0aW5nOiBPZmYKPiAg
-ICAgICAgIFZpZGVvIENvZGluZyBFbmdpbmUgTWVkaXVtIEdyYWluIENsb2NrIEdhdGluZzogT24K
-PiAgICAgICAgIEhvc3QgRGF0YSBQYXRoIExpZ2h0IFNsZWVwOiBPbgo+ICAgICAgICAgSG9zdCBE
-YXRhIFBhdGggTWVkaXVtIEdyYWluIENsb2NrIEdhdGluZzogT24KPiAgICAgICAgIFJvbSBNZWRp
-dW0gR3JhaW4gQ2xvY2sgR2F0aW5nOiBPbgo+IC4uLgo+IAo+IFRoYW5rcywKPiBSdWkKPiAKPiBI
-dWFuZyBSdWkgKDgpOgo+ICAgZHJtL2FtZGdwdTogaW50cm9kdWNlIGFuIGludGVyZmFjZSB0byBn
-ZXQgY2xvY2sgZ2F0aW5nIHN0YXR1cwo+ICAgICBkeW5hbWljYWxseQo+ICAgZHJtL2FtZGdwdTog
-YWRkIHBhcnNlIGNsb2NrIGdhdGluZyBzdGF0ZQo+ICAgZHJtL2FtZGdwdTogYWRkIGNsb2NrZ2F0
-aW5nX3N0YXRlIG1ldGhvZCBmb3IgZ2Z4IHY4Cj4gICBkcm0vYW1kZ3B1OiBhZGQgY2xvY2tnYXRp
-bmdfc3RhdGUgbWV0aG9kIGZvciBnbWMgdjgKPiAgIGRybS9hbWRncHU6IGFkZCBjbG9ja2dhdGlu
-Z19zdGF0ZSBtZXRob2QgZm9yIHNkbWEgdjMKPiAgIGRybS9hbWRncHU6IGFkZCBjbG9ja2dhdGlu
-Z19zdGF0ZSBtZXRob2QgZm9yIHZpIGNvbW1vbgo+ICAgZHJtL2FtZGdwdTogYWRkIGNsb2NrZ2F0
-aW5nX3N0YXRlIG1ldGhvZCBmb3IgdXZkIHY1JnY2Cj4gICBkcm0vYW1kZ3B1OiBhZGQgY2xvY2tn
-YXRpbmdfc3RhdGUgbWV0aG9kIGZvciB2Y2UgdjMKPiAKPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1LmggICAgICAgIHwgIDEgKwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfZGV2aWNlLmMgfCAxMiArKysrCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9wbS5jICAgICB8IDk5Cj4gKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrCj4g
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMgICAgICB8IDQwICsrKysrKysr
-KysrKwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjhfMC5jICAgICAgfCAxNiAr
-KysrKwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3YzXzAuYyAgICAgfCAxNyAr
-KysrKwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjVfMC5jICAgICAgfCAxMiAr
-KysrCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3V2ZF92Nl8wLmMgICAgICB8IDEyICsr
-KysKPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNlX3YzXzAuYyAgICAgIHwgMTggKysr
-KysrCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZpLmMgICAgICAgICAgICB8IDI3ICsr
-KysrKysrCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hbWRfc2hhcmVkLmggICB8ICAy
-ICsKPiAgMTEgZmlsZXMgY2hhbmdlZCwgMjU2IGluc2VydGlvbnMoKykKPiAKPiAtLQo+IDIuNy40
-CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
-IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============0506138490==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB17686EC2FEE291EF2A874F90F7600CY4PR12MB1768namp_"
+
+--_000_CY4PR12MB17686EC2FEE291EF2A874F90F7600CY4PR12MB1768namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Some of them are part of AON tiles but are unstable during PM switches.  Th=
+at's why the debugfs mmio entry supports a PM lock.
+
+
+So they might be readable while powered off but unstable if the firmware is=
+ in the middle of a PM switch.
+
+
+Tom
+
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Deucher,=
+ Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Sent: Thursday, January 5, 2017 10:40
+To: Huang, Ray; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Huang, Ray; Zhang, Hawking; Zhu, Rex; Fu, Ping; Mao, David
+Subject: RE: [PART1 PATCH 0/8] Introduce a method to get clock gating statu=
+s dynamically
+
+> -----Original Message-----
+> From: Huang Rui [mailto:ray.huang-5C7GfCeVMHo@public.gmane.org]
+> Sent: Thursday, January 05, 2017 8:50 AM
+> To: Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> Cc: Zhu, Rex; Mao, David; Fu, Ping; Zhang, Hawking; Huang, Ray
+> Subject: [PART1 PATCH 0/8] Introduce a method to get clock gating status
+> dynamically
+>
+> This series patches implement to get the clock gating status
+> dynamically into debugfs. User will enter profiling mode to runtime
+> disable clockgating, so it needs an interface to expose clock gating
+> states. Part 1 works for VI, I will implement it on CI/SI in following
+> days.
+
+Patches 1-6:
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+Patches 7, 8:
+I'm not sure if the UVD and VCE status registers are available if the block=
+s are powergated.  Reading them back while powergated can cause a hang.  Mi=
+ght want to check the PG sw state before reading back the registers.
+
+Alex
+
+>
+> Here is the example on Fiji:
+>
+> root@jenkins-All-Series:/home/jenkins# cat
+> /sys/kernel/debug/dri/64/amdgpu_pm_info
+> Clock Gating Flags Mask: 0x3dfff
+>         Medium Grain Clock Gating: On
+>         Medium Grain memory Light Sleep: On
+>         Coarse Grain Clock Gating: On
+>         Coarse Grain memory Light Sleep: On
+>         Coarse Grain Tree Shader: On
+>         Coarse Grain Tree Shader Light Sleep: On
+>         Command Processor Light Sleep: On
+>         Run List Controller Light Sleep: On
+>         Memory Controller Light Sleep: On
+>         Memory Controller Medium Grain Clock Gating: On
+>         System Direct Memory Access Light Sleep: On
+>         System Direct Memory Access Medium Grain Clock Gating: On
+>         Bus Interface Light Sleep: On
+>         Universal Video Decoder Medium Grain Clock Gating: Off
+>         Video Coding Engine Medium Grain Clock Gating: On
+>         Host Data Path Light Sleep: On
+>         Host Data Path Medium Grain Clock Gating: On
+>         Rom Medium Grain Clock Gating: On
+> ...
+>
+> Thanks,
+> Rui
+>
+> Huang Rui (8):
+>   drm/amdgpu: introduce an interface to get clock gating status
+>     dynamically
+>   drm/amdgpu: add parse clock gating state
+>   drm/amdgpu: add clockgating_state method for gfx v8
+>   drm/amdgpu: add clockgating_state method for gmc v8
+>   drm/amdgpu: add clockgating_state method for sdma v3
+>   drm/amdgpu: add clockgating_state method for vi common
+>   drm/amdgpu: add clockgating_state method for uvd v5&v6
+>   drm/amdgpu: add clockgating_state method for vce v3
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 12 ++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c     | 99
+> ++++++++++++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c      | 40 ++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c      | 16 +++++
+>  drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c     | 17 +++++
+>  drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c      | 12 ++++
+>  drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c      | 12 ++++
+>  drivers/gpu/drm/amd/amdgpu/vce_v3_0.c      | 18 ++++++
+>  drivers/gpu/drm/amd/amdgpu/vi.c            | 27 ++++++++
+>  drivers/gpu/drm/amd/include/amd_shared.h   |  2 +
+>  11 files changed, 256 insertions(+)
+>
+> --
+> 2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_CY4PR12MB17686EC2FEE291EF2A874F90F7600CY4PR12MB1768namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Arial,Helvetica,sans-serif;" dir=3D"ltr">
+<p>Some of them are part of AON tiles but are unstable during PM switches. =
+&nbsp;That's why the debugfs mmio&nbsp;entry supports a PM lock.</p>
+<p><br>
+</p>
+<p>So they might be readable while powered off but unstable if the firmware=
+ is in the middle of a PM switch.</p>
+<p><br>
+</p>
+<p>Tom</p>
+<br>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Deucher, Alexander &lt;Alex=
+ander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Thursday, January 5, 2017 10:40<br>
+<b>To:</b> Huang, Ray; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Huang, Ray; Zhang, Hawking; Zhu, Rex; Fu, Ping; Mao, David<br>
+<b>Subject:</b> RE: [PART1 PATCH 0/8] Introduce a method to get clock gatin=
+g status dynamically</font>
+<div>&nbsp;</div>
+</div>
+</div>
+<font size=3D"2"><span style=3D"font-size:10pt;">
+<div class=3D"PlainText">&gt; -----Original Message-----<br>
+&gt; From: Huang Rui [<a href=3D"mailto:ray.huang-5C7GfCeVMHo@public.gmane.org">mailto:ray.huang=
+@amd.com</a>]<br>
+&gt; Sent: Thursday, January 05, 2017 8:50 AM<br>
+&gt; To: Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; Cc: Zhu, Rex; Mao, David; Fu, Ping; Zhang, Hawking; Huang, Ray<br>
+&gt; Subject: [PART1 PATCH 0/8] Introduce a method to get clock gating stat=
+us<br>
+&gt; dynamically<br>
+&gt; <br>
+&gt; This series patches implement to get the clock gating status<br>
+&gt; dynamically into debugfs. User will enter profiling mode to runtime<br=
+>
+&gt; disable clockgating, so it needs an interface to expose clock gating<b=
+r>
+&gt; states. Part 1 works for VI, I will implement it on CI/SI in following=
+<br>
+&gt; days.<br>
+<br>
+Patches 1-6:<br>
+Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+Patches 7, 8:<br>
+I'm not sure if the UVD and VCE status registers are available if the block=
+s are powergated.&nbsp; Reading them back while powergated can cause a hang=
+.&nbsp; Might want to check the PG sw state before reading back the registe=
+rs.<br>
+<br>
+Alex<br>
+<br>
+&gt; <br>
+&gt; Here is the example on Fiji:<br>
+&gt; <br>
+&gt; root@jenkins-All-Series:/home/jenkins# cat<br>
+&gt; /sys/kernel/debug/dri/64/amdgpu_pm_info<br>
+&gt; Clock Gating Flags Mask: 0x3dfff<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Medium Grain Clock Gat=
+ing: On<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Medium Grain memory Li=
+ght Sleep: On<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Coarse Grain Clock Gat=
+ing: On<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Coarse Grain memory Li=
+ght Sleep: On<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Coarse Grain Tree Shad=
+er: On<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Coarse Grain Tree Shad=
+er Light Sleep: On<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Command Processor Ligh=
+t Sleep: On<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Run List Controller Li=
+ght Sleep: On<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Memory Controller Ligh=
+t Sleep: On<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Memory Controller Medi=
+um Grain Clock Gating: On<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System Direct Memory A=
+ccess Light Sleep: On<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System Direct Memory A=
+ccess Medium Grain Clock Gating: On<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Bus Interface Light Sl=
+eep: On<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Universal Video Decode=
+r Medium Grain Clock Gating: Off<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Video Coding Engine Me=
+dium Grain Clock Gating: On<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Host Data Path Light S=
+leep: On<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Host Data Path Medium =
+Grain Clock Gating: On<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Rom Medium Grain Clock=
+ Gating: On<br>
+&gt; ...<br>
+&gt; <br>
+&gt; Thanks,<br>
+&gt; Rui<br>
+&gt; <br>
+&gt; Huang Rui (8):<br>
+&gt;&nbsp;&nbsp; drm/amdgpu: introduce an interface to get clock gating sta=
+tus<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp; dynamically<br>
+&gt;&nbsp;&nbsp; drm/amdgpu: add parse clock gating state<br>
+&gt;&nbsp;&nbsp; drm/amdgpu: add clockgating_state method for gfx v8<br>
+&gt;&nbsp;&nbsp; drm/amdgpu: add clockgating_state method for gmc v8<br>
+&gt;&nbsp;&nbsp; drm/amdgpu: add clockgating_state method for sdma v3<br>
+&gt;&nbsp;&nbsp; drm/amdgpu: add clockgating_state method for vi common<br>
+&gt;&nbsp;&nbsp; drm/amdgpu: add clockgating_state method for uvd v5&amp;v6=
+<br>
+&gt;&nbsp;&nbsp; drm/amdgpu: add clockgating_state method for vce v3<br>
+&gt; <br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; |&nbsp; 1 &#43;<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 12 &#43;&#43;&#43;&=
+#43;<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c&nbsp;&nbsp;&nbsp;&nbsp; |=
+ 99<br>
+&gt; &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
+&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
+&#43;<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; | 40 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; | 16 &#43;&#43;&#43;&#43;&#43;<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c&nbsp;&nbsp;&nbsp;&nbsp; |=
+ 17 &#43;&#43;&#43;&#43;&#43;<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; | 12 &#43;&#43;&#43;&#43;<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; | 12 &#43;&#43;&#43;&#43;<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/vce_v3_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; | 18 &#43;&#43;&#43;&#43;&#43;&#43;<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/vi.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 27 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
+#43;<br>
+&gt;&nbsp; drivers/gpu/drm/amd/include/amd_shared.h&nbsp;&nbsp; |&nbsp; 2 &=
+#43;<br>
+&gt;&nbsp; 11 files changed, 256 insertions(&#43;)<br>
+&gt; <br>
+&gt; --<br>
+&gt; 2.7.4<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_CY4PR12MB17686EC2FEE291EF2A874F90F7600CY4PR12MB1768namp_--
+
+--===============0506138490==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0506138490==--
