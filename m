@@ -1,16 +1,13 @@
-From: William Lewis <minutemaidpark-PkbjNfxxIARBDgjK7y7TUQ@public.gmane.org>
-Subject: Re: [PART1 PATCH 2/8] drm/amdgpu: add parse clock gating state
-Date: Thu, 5 Jan 2017 16:34:45 +0000
-Message-ID: <BN6PR17MB0913FDE2AC51D02FD9730FD1C8600@BN6PR17MB0913.namprd17.prod.outlook.com>
-References: <1483624193-20897-1-git-send-email-ray.huang@amd.com>
- <1483624193-20897-3-git-send-email-ray.huang@amd.com>
+From: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: Shared semaphores for amdgpu
+Date: Thu, 5 Jan 2017 12:48:36 -0500
+Message-ID: <a25fdfeb-be5d-2d23-d7b1-ef14891ba6d5@gmail.com>
+References: <544E607D03B20249AA404517E498FC469A558B@exchange01.valvesoftware.com>
+ <BN4PR12MB0787AE3A185BE4D6916CE42AEE600@BN4PR12MB0787.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1302418559=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1483624193-20897-3-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <3DAD1DBF8B35344A9536E780AD5D0EA8-D2/8MP7PhqWcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+In-Reply-To: <BN4PR12MB0787AE3A185BE4D6916CE42AEE600-aH9FTdWx9BancvD3hK8fMAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,104 +18,237 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Mao, David" <David.Mao-5C7GfCeVMHo@public.gmane.org>, Andres Rodriguez <andresr-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: Dave Airlie <airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Pierre-Loup Griffais <pgriffais-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-TWlub3Igbml0Lg0KDQpzL0dyYWluL0dyYWluZWQvDQoNCkFsc28sIGFtZGdwdV9jbG9ja2dhdGlu
-Z19zdGF0ZSBhcyBhIGZ1bmN0aW9uIG5hbWUgZG9lcyBub3Qgc2VlbSBleHBsaWNpdCANCmVub3Vn
-aCBhcyB0byB3aGF0IGl0J3MgZG9pbmcsIG1heWJlIGFtZGdwdV9nZXRfY2xvY2tnYXRpbmdfc3Rh
-dGU/DQoNCk9uIDAxLzA1LzE3IDA3OjQ5LCBIdWFuZyBSdWkgd3JvdGU6DQo+IFNpZ25lZC1vZmYt
-Ynk6IEh1YW5nIFJ1aSA8cmF5Lmh1YW5nQGFtZC5jb20+DQo+IC0tLQ0KPiAgIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jIHwgOTUgKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKw0KPiAgIDEgZmlsZSBjaGFuZ2VkLCA5NSBpbnNlcnRpb25zKCspDQo+DQo+IGRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jDQo+IGluZGV4IDdhYTU2MWQuLjQzMWJh
-ZTQgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5j
-DQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jDQo+IEBAIC0x
-NTM2LDYgKzE1MzYsOTkgQEAgc3RhdGljIGludCBhbWRncHVfZGVidWdmc19wbV9pbmZvX3BwKHN0
-cnVjdCBzZXFfZmlsZSAqbSwgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmENCj4gICAJcmV0dXJuIDA7
-DQo+ICAgfQ0KPiAgIA0KPiArc3RhdGljIHZvaWQgYW1kZ3B1X3BhcnNlX2NnX3N0YXRlKHN0cnVj
-dCBzZXFfZmlsZSAqbSwgdTMyIGZsYWdzKQ0KPiArew0KPiArICAgICAgIGlmIChmbGFncyAmIEFN
-RF9DR19TVVBQT1JUX0dGWF9NR0NHKQ0KPiArICAgICAgICAgICAgICAgc2VxX3ByaW50ZihtLCAi
-XHRNZWRpdW0gR3JhaW4gQ2xvY2sgR2F0aW5nOiBPblxuIik7DQo+ICsgICAgICAgZWxzZQ0KPiAr
-ICAgICAgICAgICAgICAgc2VxX3ByaW50ZihtLCAiXHRNZWRpdW0gR3JhaW4gQ2xvY2sgR2F0aW5n
-OiBPZmZcbiIpOw0KPiArDQo+ICsgICAgICAgaWYgKGZsYWdzICYgQU1EX0NHX1NVUFBPUlRfR0ZY
-X01HTFMpDQo+ICsgICAgICAgICAgICAgICBzZXFfcHJpbnRmKG0sICJcdE1lZGl1bSBHcmFpbiBt
-ZW1vcnkgTGlnaHQgU2xlZXA6IE9uXG4iKTsNCj4gKyAgICAgICBlbHNlDQo+ICsgICAgICAgICAg
-ICAgICBzZXFfcHJpbnRmKG0sICJcdE1lZGl1bSBHcmFpbiBtZW1vcnkgTGlnaHQgU2xlZXA6IE9m
-ZlxuIik7DQo+ICsNCj4gKyAgICAgICBpZiAoZmxhZ3MgJiBBTURfQ0dfU1VQUE9SVF9HRlhfQ0dD
-RykNCj4gKyAgICAgICAgICAgICAgIHNlcV9wcmludGYobSwgIlx0Q29hcnNlIEdyYWluIENsb2Nr
-IEdhdGluZzogT25cbiIpOw0KPiArICAgICAgIGVsc2UNCj4gKyAgICAgICAgICAgICAgIHNlcV9w
-cmludGYobSwgIlx0Q29hcnNlIEdyYWluIENsb2NrIEdhdGluZzogT2ZmXG4iKTsNCj4gKw0KPiAr
-ICAgICAgIGlmIChmbGFncyAmIEFNRF9DR19TVVBQT1JUX0dGWF9DR0xTKQ0KPiArICAgICAgICAg
-ICAgICAgc2VxX3ByaW50ZihtLCAiXHRDb2Fyc2UgR3JhaW4gbWVtb3J5IExpZ2h0IFNsZWVwOiBP
-blxuIik7DQo+ICsgICAgICAgZWxzZQ0KPiArICAgICAgICAgICAgICAgc2VxX3ByaW50ZihtLCAi
-XHRDb2Fyc2UgR3JhaW4gbWVtb3J5IExpZ2h0IFNsZWVwOiBPZmZcbiIpOw0KPiArDQo+ICsgICAg
-ICAgaWYgKGZsYWdzICYgQU1EX0NHX1NVUFBPUlRfR0ZYX0NHVFMpDQo+ICsgICAgICAgICAgICAg
-ICBzZXFfcHJpbnRmKG0sICJcdENvYXJzZSBHcmFpbiBUcmVlIFNoYWRlcjogT25cbiIpOw0KPiAr
-ICAgICAgIGVsc2UNCj4gKyAgICAgICAgICAgICAgIHNlcV9wcmludGYobSwgIlx0Q29hcnNlIEdy
-YWluIFRyZWUgU2hhZGVyOiBPZmZcbiIpOw0KPiArDQo+ICsgICAgICAgaWYgKGZsYWdzICYgQU1E
-X0NHX1NVUFBPUlRfR0ZYX0NHVFNfTFMpDQo+ICsgICAgICAgICAgICAgICBzZXFfcHJpbnRmKG0s
-ICJcdENvYXJzZSBHcmFpbiBUcmVlIFNoYWRlciBMaWdodCBTbGVlcDogT25cbiIpOw0KPiArICAg
-ICAgIGVsc2UNCj4gKyAgICAgICAgICAgICAgIHNlcV9wcmludGYobSwgIlx0Q29hcnNlIEdyYWlu
-IFRyZWUgU2hhZGVyIExpZ2h0IFNsZWVwOiBPZmZcbiIpOw0KPiArDQo+ICsgICAgICAgaWYgKGZs
-YWdzICYgQU1EX0NHX1NVUFBPUlRfR0ZYX0NQX0xTKQ0KPiArICAgICAgICAgICAgICAgc2VxX3By
-aW50ZihtLCAiXHRDb21tYW5kIFByb2Nlc3NvciBMaWdodCBTbGVlcDogT25cbiIpOw0KPiArICAg
-ICAgIGVsc2UNCj4gKyAgICAgICAgICAgICAgIHNlcV9wcmludGYobSwgIlx0Q29tbWFuZCBQcm9j
-ZXNzb3IgTGlnaHQgU2xlZXA6IE9mZlxuIik7DQo+ICsNCj4gKyAgICAgICBpZiAoZmxhZ3MgJiBB
-TURfQ0dfU1VQUE9SVF9HRlhfUkxDX0xTKQ0KPiArICAgICAgICAgICAgICAgc2VxX3ByaW50Ziht
-LCAiXHRSdW4gTGlzdCBDb250cm9sbGVyIExpZ2h0IFNsZWVwOiBPblxuIik7DQo+ICsgICAgICAg
-ZWxzZQ0KPiArICAgICAgICAgICAgICAgc2VxX3ByaW50ZihtLCAiXHRSdW4gTGlzdCBDb250cm9s
-bGVyIExpZ2h0IFNsZWVwOiBPZmZcbiIpOw0KPiArDQo+ICsgICAgICAgaWYgKGZsYWdzICYgQU1E
-X0NHX1NVUFBPUlRfTUNfTFMpDQo+ICsgICAgICAgICAgICAgICBzZXFfcHJpbnRmKG0sICJcdE1l
-bW9yeSBDb250cm9sbGVyIExpZ2h0IFNsZWVwOiBPblxuIik7DQo+ICsgICAgICAgZWxzZQ0KPiAr
-ICAgICAgICAgICAgICAgc2VxX3ByaW50ZihtLCAiXHRNZW1vcnkgQ29udHJvbGxlciBMaWdodCBT
-bGVlcDogT2ZmXG4iKTsNCj4gKw0KPiArICAgICAgIGlmIChmbGFncyAmIEFNRF9DR19TVVBQT1JU
-X01DX01HQ0cpDQo+ICsgICAgICAgICAgICAgICBzZXFfcHJpbnRmKG0sICJcdE1lbW9yeSBDb250
-cm9sbGVyIE1lZGl1bSBHcmFpbiBDbG9jayBHYXRpbmc6IE9uXG4iKTsNCj4gKyAgICAgICBlbHNl
-DQo+ICsgICAgICAgICAgICAgICBzZXFfcHJpbnRmKG0sICJcdE1lbW9yeSBDb250cm9sbGVyIE1l
-ZGl1bSBHcmFpbiBDbG9jayBHYXRpbmc6IE9mZlxuIik7DQo+ICsNCj4gKyAgICAgICBpZiAoZmxh
-Z3MgJiBBTURfQ0dfU1VQUE9SVF9TRE1BX0xTKQ0KPiArICAgICAgICAgICAgICAgc2VxX3ByaW50
-ZihtLCAiXHRTeXN0ZW0gRGlyZWN0IE1lbW9yeSBBY2Nlc3MgTGlnaHQgU2xlZXA6IE9uXG4iKTsN
-Cj4gKyAgICAgICBlbHNlDQo+ICsgICAgICAgICAgICAgICBzZXFfcHJpbnRmKG0sICJcdFN5c3Rl
-bSBEaXJlY3QgTWVtb3J5IEFjY2VzcyBMaWdodCBTbGVlcDogT2ZmXG4iKTsNCj4gKw0KPiArICAg
-ICAgIGlmIChmbGFncyAmIEFNRF9DR19TVVBQT1JUX1NETUFfTUdDRykNCj4gKyAgICAgICAgICAg
-ICAgIHNlcV9wcmludGYobSwgIlx0U3lzdGVtIERpcmVjdCBNZW1vcnkgQWNjZXNzIE1lZGl1bSBH
-cmFpbiBDbG9jayBHYXRpbmc6IE9uXG4iKTsNCj4gKyAgICAgICBlbHNlDQo+ICsgICAgICAgICAg
-ICAgICBzZXFfcHJpbnRmKG0sICJcdFN5c3RlbSBEaXJlY3QgTWVtb3J5IEFjY2VzcyBNZWRpdW0g
-R3JhaW4gQ2xvY2sgR2F0aW5nOiBPZmZcbiIpOw0KPiArDQo+ICsgICAgICAgaWYgKGZsYWdzICYg
-QU1EX0NHX1NVUFBPUlRfQklGX0xTKQ0KPiArICAgICAgICAgICAgICAgc2VxX3ByaW50ZihtLCAi
-XHRCdXMgSW50ZXJmYWNlIExpZ2h0IFNsZWVwOiBPblxuIik7DQo+ICsgICAgICAgZWxzZQ0KPiAr
-ICAgICAgICAgICAgICAgc2VxX3ByaW50ZihtLCAiXHRCdXMgSW50ZXJmYWNlIExpZ2h0IFNsZWVw
-OiBPZmZcbiIpOw0KPiArDQo+ICsgICAgICAgaWYgKGZsYWdzICYgQU1EX0NHX1NVUFBPUlRfVVZE
-X01HQ0cpDQo+ICsgICAgICAgICAgICAgICBzZXFfcHJpbnRmKG0sICJcdFVuaXZlcnNhbCBWaWRl
-byBEZWNvZGVyIE1lZGl1bSBHcmFpbiBDbG9jayBHYXRpbmc6IE9uXG4iKTsNCj4gKyAgICAgICBl
-bHNlDQo+ICsgICAgICAgICAgICAgICBzZXFfcHJpbnRmKG0sICJcdFVuaXZlcnNhbCBWaWRlbyBE
-ZWNvZGVyIE1lZGl1bSBHcmFpbiBDbG9jayBHYXRpbmc6IE9mZlxuIik7DQo+ICsNCj4gKyAgICAg
-ICBpZiAoZmxhZ3MgJiBBTURfQ0dfU1VQUE9SVF9WQ0VfTUdDRykNCj4gKyAgICAgICAgICAgICAg
-IHNlcV9wcmludGYobSwgIlx0VmlkZW8gQ29kaW5nIEVuZ2luZSBNZWRpdW0gR3JhaW4gQ2xvY2sg
-R2F0aW5nOiBPblxuIik7DQo+ICsgICAgICAgZWxzZQ0KPiArICAgICAgICAgICAgICAgc2VxX3By
-aW50ZihtLCAiXHRWaWRlbyBDb2RpbmcgRW5naW5lIE1lZGl1bSBHcmFpbiBDbG9jayBHYXRpbmc6
-IE9mZlxuIik7DQo+ICsNCj4gKyAgICAgICBpZiAoZmxhZ3MgJiBBTURfQ0dfU1VQUE9SVF9IRFBf
-TFMpDQo+ICsgICAgICAgICAgICAgICBzZXFfcHJpbnRmKG0sICJcdEhvc3QgRGF0YSBQYXRoIExp
-Z2h0IFNsZWVwOiBPblxuIik7DQo+ICsgICAgICAgZWxzZQ0KPiArICAgICAgICAgICAgICAgc2Vx
-X3ByaW50ZihtLCAiXHRIb3N0IERhdGEgUGF0aCBMaWdodCBTbGVlcDogT2ZmXG4iKTsNCj4gKw0K
-PiArICAgICAgIGlmIChmbGFncyAmIEFNRF9DR19TVVBQT1JUX0hEUF9NR0NHKQ0KPiArICAgICAg
-ICAgICAgICAgc2VxX3ByaW50ZihtLCAiXHRIb3N0IERhdGEgUGF0aCBNZWRpdW0gR3JhaW4gQ2xv
-Y2sgR2F0aW5nOiBPblxuIik7DQo+ICsgICAgICAgZWxzZQ0KPiArICAgICAgICAgICAgICAgc2Vx
-X3ByaW50ZihtLCAiXHRIb3N0IERhdGEgUGF0aCBNZWRpdW0gR3JhaW4gQ2xvY2sgR2F0aW5nOiBP
-ZmZcbiIpOw0KPiArDQo+ICsgICAgICAgaWYgKGZsYWdzICYgQU1EX0NHX1NVUFBPUlRfUk9NX01H
-Q0cpDQo+ICsgICAgICAgICAgICAgICBzZXFfcHJpbnRmKG0sICJcdFJvbSBNZWRpdW0gR3JhaW4g
-Q2xvY2sgR2F0aW5nOiBPblxuIik7DQo+ICsgICAgICAgZWxzZQ0KPiArICAgICAgICAgICAgICAg
-c2VxX3ByaW50ZihtLCAiXHRSb20gTWVkaXVtIEdyYWluIENsb2NrIEdhdGluZzogT2ZmXG4iKTsN
-Cj4gK30NCj4gKw0KPiAgIHN0YXRpYyBpbnQgYW1kZ3B1X2RlYnVnZnNfcG1faW5mbyhzdHJ1Y3Qg
-c2VxX2ZpbGUgKm0sIHZvaWQgKmRhdGEpDQo+ICAgew0KPiAgIAlzdHJ1Y3QgZHJtX2luZm9fbm9k
-ZSAqbm9kZSA9IChzdHJ1Y3QgZHJtX2luZm9fbm9kZSAqKSBtLT5wcml2YXRlOw0KPiBAQCAtMTU0
-Niw2ICsxNjM5LDggQEAgc3RhdGljIGludCBhbWRncHVfZGVidWdmc19wbV9pbmZvKHN0cnVjdCBz
-ZXFfZmlsZSAqbSwgdm9pZCAqZGF0YSkNCj4gICANCj4gICAJYW1kZ3B1X2Nsb2NrZ2F0aW5nX3N0
-YXRlKGFkZXYsICZmbGFncyk7DQo+ICAgCXNlcV9wcmludGYobSwgIkNsb2NrIEdhdGluZyBGbGFn
-cyBNYXNrOiAweCV4XG4iLCBmbGFncyk7DQo+ICsJYW1kZ3B1X3BhcnNlX2NnX3N0YXRlKG0sIGZs
-YWdzKTsNCj4gKwlzZXFfcHJpbnRmKG0sICJcbiIpOw0KPiAgIA0KPiAgIAlpZiAoIWFkZXYtPnBt
-LmRwbV9lbmFibGVkKSB7DQo+ICAgCQlzZXFfcHJpbnRmKG0sICJkcG0gbm90IGVuYWJsZWRcbiIp
-Ow0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
-Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is a multi-part message in MIME format.
+--===============1302418559==
+Content-Type: multipart/alternative;
+ boundary="------------E3CB88839E55229FA96D0A2A"
+
+This is a multi-part message in MIME format.
+--------------E3CB88839E55229FA96D0A2A
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Cool, thanks for the heads up David.
+
+
+Regards,
+
+Andres
+
+
+On 1/4/2017 11:13 PM, Mao, David wrote:
+>
+> Hi Andres,
+>
+> We have a local change made yesterday which eliminate the need to get 
+> unused fd in the creation time.
+>
+> If everything goes well, I expect the change could be sent out for 
+> review next week.
+>
+> Best Regards,
+>
+> David
+>
+> *From:*Andres Rodriguez [mailto:andresr-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org]
+> *Sent:* Thursday, January 5, 2017 12:10 PM
+> *To:* Zhou, David(ChunMing) <David1.Zhou-5C7GfCeVMHo@public.gmane.org>; Mao, David 
+> <David.Mao-5C7GfCeVMHo@public.gmane.org>; Koenig, Christian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+> *Cc:* Pierre-Loup Griffais <pgriffais-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org>; Dave Airlie 
+> <airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> *Subject:* Shared semaphores for amdgpu
+>
+> Hey guys,
+>
+> Just curious if there are any updates on the topic of shared 
+> semaphores for amdgpu discussed here:
+> https://lists.freedesktop.org/archives/amd-gfx/2016-December/003777.html
+>
+> I wasn't subscribed to amd-gfx yet when the topic started, so replying 
+> to it directly is cumbersome.
+>
+> Regards,
+> Andres
+>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--------------E3CB88839E55229FA96D0A2A
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <p>Cool, thanks for the heads up David.</p>
+    <p><br>
+    </p>
+    <p>Regards,</p>
+    <p>Andres<br>
+    </p>
+    <br>
+    <div class="moz-cite-prefix">On 1/4/2017 11:13 PM, Mao, David wrote:<br>
+    </div>
+    <blockquote
+cite="mid:BN4PR12MB0787AE3A185BE4D6916CE42AEE600-aH9FTdWx9BancvD3hK8fMAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org"
+      type="cite">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="Generator" content="Microsoft Word 15 (filtered
+        medium)">
+      <style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p
+	{mso-style-priority:99;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;}
+span.EmailStyle19
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:#1F497D;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext="edit" spidmax="1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext="edit">
+<o:idmap v:ext="edit" data="1" />
+</o:shapelayout></xml><![endif]-->
+      <div class="WordSection1">
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D">Hi
+            Andres,<o:p></o:p></span></p>
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D">We
+            have a local change made yesterday which eliminate the need
+            to get unused fd in the creation time.<o:p></o:p></span></p>
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D">If
+            everything goes well, I expect the change could be sent out
+            for review next week.<o:p></o:p></span></p>
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D"><o:p> </o:p></span></p>
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D">Best
+            Regards,<o:p></o:p></span></p>
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D">David<o:p></o:p></span></p>
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D"><o:p> </o:p></span></p>
+        <div>
+          <div style="border:none;border-top:solid #E1E1E1
+            1.0pt;padding:3.0pt 0in 0in 0in">
+            <p class="MsoNormal"><b><span
+                  style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif">From:</span></b><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif">
+                Andres Rodriguez [<a class="moz-txt-link-freetext" href="mailto:andresr-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org">mailto:andresr-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org</a>]
+                <br>
+                <b>Sent:</b> Thursday, January 5, 2017 12:10 PM<br>
+                <b>To:</b> Zhou, David(ChunMing)
+                <a class="moz-txt-link-rfc2396E" href="mailto:David1.Zhou-5C7GfCeVMHo@public.gmane.org">&lt;David1.Zhou-5C7GfCeVMHo@public.gmane.org&gt;</a>; Mao, David
+                <a class="moz-txt-link-rfc2396E" href="mailto:David.Mao-5C7GfCeVMHo@public.gmane.org">&lt;David.Mao-5C7GfCeVMHo@public.gmane.org&gt;</a>; Koenig, Christian
+                <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org">&lt;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+                <b>Cc:</b> Pierre-Loup Griffais
+                <a class="moz-txt-link-rfc2396E" href="mailto:pgriffais-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org">&lt;pgriffais-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org&gt;</a>; Dave Airlie
+                <a class="moz-txt-link-rfc2396E" href="mailto:airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org">&lt;airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org&gt;</a>;
+                <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                <b>Subject:</b> Shared semaphores for amdgpu<o:p></o:p></span></p>
+          </div>
+        </div>
+        <p class="MsoNormal"><o:p> </o:p></p>
+        <div>
+          <p class="MsoNormal"><span
+style="font-size:10.0pt;font-family:&quot;Tahoma&quot;,sans-serif;color:black">Hey
+              guys,<br>
+              <br>
+              Just curious if there are any updates on the topic of
+              shared semaphores for amdgpu discussed here:<br>
+              <a moz-do-not-send="true"
+href="https://lists.freedesktop.org/archives/amd-gfx/2016-December/003777.html"
+                target="_blank">https://lists.freedesktop.org/archives/amd-gfx/2016-December/003777.html</a><br>
+              <br>
+              I wasn't subscribed to amd-gfx yet when the topic started,
+              so replying to it directly is cumbersome.<br>
+              <br>
+              Regards,<br>
+              Andres<o:p></o:p></span></p>
+        </div>
+      </div>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------E3CB88839E55229FA96D0A2A--
+
+--===============1302418559==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1302418559==--
