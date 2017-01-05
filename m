@@ -1,15 +1,10 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: show gfx clock gating status to user
-Date: Thu, 5 Jan 2017 03:33:30 +0000
-Message-ID: <CY4PR12MB16874CDA4D402175D60E8918FB600@CY4PR12MB1687.namprd12.prod.outlook.com>
-References: <1483440426-22080-1-git-send-email-ray.huang@amd.com>
- <BN6PR12MB1652A908E7D3DAD0302D6217F76E0@BN6PR12MB1652.namprd12.prod.outlook.com>
- <20170104022144.GA21218@hr-amur2>
+From: Andres Rodriguez <andresr-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org>
+Subject: Shared semaphores for amdgpu
+Date: Thu, 5 Jan 2017 04:09:50 +0000
+Message-ID: <544E607D03B20249AA404517E498FC469A558B@exchange01.valvesoftware.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1207213876=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170104022144.GA21218@hr-amur2>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,57 +16,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: "Fu, Ping" <Ping.Fu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Mao,
- David" <David.Mao-5C7GfCeVMHo@public.gmane.org>
+To: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>, "Mao, David" <David.Mao-5C7GfCeVMHo@public.gmane.org>, "Christian.Koenig-5C7GfCeVMHo@public.gmane.org" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: Dave Airlie <airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Pierre-Loup Griffais <pgriffais-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org>
 
-QXMgdGFsa2VkIHdpdGggRGF2aWQuIFRoZXkgbm90IG9ubHkgbmVlZCB0byBrbm93IHdoZXRoZXIg
-dGhlIENHL1BHIGlzIHN1cHBvcnRlZCwgYnV0IGFsc28gbmVlZCB0byAKa25vdyBjdXJyZW50IENH
-L1BHIHN0YXRlLiAKCndlIGFkZGVkIHRoZSBwcm9maWxlIG1vZGUsIHNvIGluIHJ1bnRpbWUsIHVz
-ZXIgY2FuIGRpc2FibGUvZW5hYmxlIGNnLiAKVGhlbiB1c2VyIHdhbnRlZCB0byBjb25maXJtIGN1
-cnJlbnQgY2cgc3RhdGUuCgpTbyB3ZSBtYXkgbmVlZCB0byBleHBvcnQgY2cvcGcgbWFzayBhbmQg
-Y3VycmVudCBjZy9wZyBzdGF0ZS4KCkJlc3QgUmVnYXJkcwpSZXgKCgotLS0tLU9yaWdpbmFsIE1l
-c3NhZ2UtLS0tLQpGcm9tOiBIdWFuZyBSdWkgW21haWx0bzpyYXkuaHVhbmdAYW1kLmNvbV0gClNl
-bnQ6IFdlZG5lc2RheSwgSmFudWFyeSAwNCwgMjAxNyAxMDoyMiBBTQpUbzogRGV1Y2hlciwgQWxl
-eGFuZGVyCkNjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgWmh1LCBSZXg7IE1hbywg
-RGF2aWQ7IEZ1LCBQaW5nClN1YmplY3Q6IFJlOiBbUEFUQ0hdIGRybS9hbWRncHU6IHNob3cgZ2Z4
-IGNsb2NrIGdhdGluZyBzdGF0dXMgdG8gdXNlcgoKT24gVHVlLCBKYW4gMDMsIDIwMTcgYXQgMTE6
-MDI6MDlQTSArMDgwMCwgRGV1Y2hlciwgQWxleGFuZGVyIHdyb3RlOgo+ID4gLS0tLS1PcmlnaW5h
-bCBNZXNzYWdlLS0tLS0KPiA+IEZyb206IEh1YW5nIFJ1aSBbbWFpbHRvOnJheS5odWFuZ0BhbWQu
-Y29tXQo+ID4gU2VudDogVHVlc2RheSwgSmFudWFyeSAwMywgMjAxNyA1OjQ3IEFNCj4gPiBUbzog
-RGV1Y2hlciwgQWxleGFuZGVyOyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+ID4gQ2M6
-IFpodSwgUmV4OyBNYW8sIERhdmlkOyBGdSwgUGluZzsgSHVhbmcsIFJheQo+ID4gU3ViamVjdDog
-W1BBVENIXSBkcm0vYW1kZ3B1OiBzaG93IGdmeCBjbG9jayBnYXRpbmcgc3RhdHVzIHRvIHVzZXIK
-PiA+IAo+ID4gU2lnbmVkLW9mZi1ieTogSHVhbmcgUnVpIDxyYXkuaHVhbmdAYW1kLmNvbT4KPiA+
-IC0tLQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAgIHwgMSArCj4g
-PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtLmMgfCA1ICsrKysrICAKPiA+
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92Nl8wLmMgIHwgMiArKyAgCj4gPiBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjdfMC5jICB8IDIgKysgIAo+ID4gZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYyAgfCAzICsrKwo+ID4gIDUgZmlsZXMgY2hhbmdl
-ZCwgMTMgaW5zZXJ0aW9ucygrKQo+ID4gCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1LmgKPiA+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1LmgKPiA+IGluZGV4IDk2ZWVlYTcuLjk4OWQzMTEgMTAwNjQ0Cj4gPiAtLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1LmgKPiA+IEBAIC0xMDMzLDYgKzEwMzMsNyBAQCBzdHJ1Y3QgYW1kZ3B1
-X2dmeCB7Cj4gPiAgCXN0cnVjdCBhbWRncHVfaXJxX3NyYwkJcHJpdl9pbnN0X2lycTsKPiA+ICAJ
-LyogZ2Z4IHN0YXR1cyAqLwo+ID4gIAl1aW50MzJfdAkJCWdmeF9jdXJyZW50X3N0YXR1czsKPiA+
-ICsJYm9vbAkJCQljZ19lbmFibGVkOwo+ID4gIAkvKiBjZSByYW0gc2l6ZSovCj4gPiAgCXVuc2ln
-bmVkCQkJY2VfcmFtX3NpemU7Cj4gPiAgCXN0cnVjdCBhbWRncHVfY3VfaW5mbwkJY3VfaW5mbzsK
-PiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYwo+
-ID4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYwo+ID4gaW5kZXggYTdj
-NzY1Ny4uMTBmMmVhYiAxMDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9wbS5jCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-cG0uYwo+ID4gQEAgLTE1NDMsNiArMTU0MywxMSBAQCBzdGF0aWMgaW50IGFtZGdwdV9kZWJ1Z2Zz
-X3BtX2luZm8oc3RydWN0IAo+ID4gc2VxX2ZpbGUgKm0sIHZvaWQgKmRhdGEpCj4gPiAgCXN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2ID0gZGV2LT5kZXZfcHJpdmF0ZTsKPiA+ICAJc3RydWN0IGRy
-bV9kZXZpY2UgKmRkZXYgPSBhZGV2LT5kZGV2Owo+ID4gCj4gPiArCWlmIChhZGV2LT5nZnguY2df
-ZW5hYmxlZCkKPiA+ICsJCXNlcV9wcmludGYobSwgIkdGWCBDbG9jayBHYXRpbmc6IEVuYWJsZWRc
-biIpOwo+ID4gKwllbHNlCj4gPiArCQlzZXFfcHJpbnRmKG0sICJHRlggQ2xvY2sgR2F0aW5nOiBE
-aXNhYmxlZFxuIik7Cj4gPiArCj4gCj4gCj4gSSB0aGluayBpdCB3b3VsZCBiZSBiZXR0ZXIgdG8g
-cHJpbnQgdGhlIGNnX2ZsYWdzIGFuZCBwZ19mbGFncyAoYm90aCBhcyBhIG1hc2sgYW5kIGluIGh1
-bWFuIHJlYWRhYmxlIGZvcm0pIHNvIHdlIGtub3cgZXhhY3RseSBjZyBhbmQgcGcgZmVhdHVyZXMg
-YXJlIGVuYWJsZWQuCj4gCgpJdCdzIHByb2JhYmxlIGJldHRlci4gTGV0IG1lIHJldmlzZSB0aGlz
-IHBhdGNoIGFuZCBzZW5kIGl0IGxhdGVyLgoKVGhhbmtzLApSdWkKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1207213876==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_544E607D03B20249AA404517E498FC469A558Bexchange01valveso_"
+
+--_000_544E607D03B20249AA404517E498FC469A558Bexchange01valveso_
+Content-Type: text/plain; charset=WINDOWS-1252
+Content-Transfer-Encoding: quoted-printable
+
+Hey guys,
+
+Just curious if there are any updates on the topic of shared semaphores for=
+ amdgpu discussed here:
+https://lists.freedesktop.org/archives/amd-gfx/2016-December/003777.html
+
+I wasn't subscribed to amd-gfx yet when the topic started, so replying to i=
+t directly is cumbersome.
+
+Regards,
+Andres
+
+--_000_544E607D03B20249AA404517E498FC469A558Bexchange01valveso_
+Content-Type: text/html; charset=WINDOWS-1252
+Content-Transfer-Encoding: quoted-printable
+
+<html dir=3D"ltr">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" id=3D"owaParaStyle">P {margin-top:0;margin-bottom:=
+0;}</style>
+</head>
+<body fpstyle=3D"1" ocsi=3D"0">
+<div style=3D"direction: ltr;font-family: Tahoma;color: #000000;font-size: =
+10pt;">Hey guys,<br>
+<br>
+Just curious if there are any updates on the topic of shared semaphores for=
+ amdgpu discussed here:<br>
+<a href=3D"https://lists.freedesktop.org/archives/amd-gfx/2016-December/003=
+777.html" target=3D"_blank">https://lists.freedesktop.org/archives/amd-gfx/=
+2016-December/003777.html</a><br>
+<br>
+I wasn't subscribed to amd-gfx yet when the topic started, so replying to i=
+t directly is cumbersome.<br>
+<br>
+Regards,<br>
+Andres<br>
+</div>
+</body>
+</html>
+
+--_000_544E607D03B20249AA404517E498FC469A558Bexchange01valveso_--
+
+
+--===============1207213876==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1207213876==--
