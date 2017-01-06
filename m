@@ -1,15 +1,13 @@
-From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PART1 PATCH v3 7/8] drm/amdgpu: add get clockgating_state method
- for uvd v5&v6
-Date: Fri, 6 Jan 2017 13:42:11 +0000
-Message-ID: <CY4PR12MB1768DCF4453B731FDD726447F7630@CY4PR12MB1768.namprd12.prod.outlook.com>
-References: <1483699875-27734-1-git-send-email-ray.huang@amd.com>,
- <e2d8d323-1ee0-6f76-74c4-18a19fb2b0da@amd.com>
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH 01/10] drm/radeon/si: load special ucode for certain MC
+ configs
+Date: Sat, 7 Jan 2017 01:20:52 +1100
+Message-ID: <5f0ad2a1-5452-7422-c898-b1490e697c71@folklore1984.net>
+References: <1483639864-16171-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1778292958=="
+Content-Type: multipart/mixed; boundary="===============0378020507=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <e2d8d323-1ee0-6f76-74c4-18a19fb2b0da-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <1483639864-16171-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,569 +18,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Mao,
- David" <David.Mao-5C7GfCeVMHo@public.gmane.org>, "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "Fu,
- Ping" <Ping.Fu-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
---===============1778292958==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB1768DCF4453B731FDD726447F7630CY4PR12MB1768namp_"
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0378020507==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="fTPALfW283hSIlcrFK9pg9t3ouGVd3IaH"
 
---_000_CY4PR12MB1768DCF4453B731FDD726447F7630CY4PR12MB1768namp_
-Content-Type: text/plain; charset="iso-8859-1"
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--fTPALfW283hSIlcrFK9pg9t3ouGVd3IaH
+Content-Type: multipart/mixed; boundary="qn5dK9HLcA8eHxm5iiPU2bkBI9OABbggN";
+ protected-headers="v1"
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Message-ID: <5f0ad2a1-5452-7422-c898-b1490e697c71-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH 01/10] drm/radeon/si: load special ucode for certain MC
+ configs
+References: <1483639864-16171-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1483639864-16171-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+--qn5dK9HLcA8eHxm5iiPU2bkBI9OABbggN
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-There's already the adev->pm.mutex which is held while gating/ungating bloc=
-ks.  There's no need for a second mutex right?
 
 
-Tom
-
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Christia=
-n K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Sent: Friday, January 6, 2017 07:52
-To: Huang, Ray; Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Kuehling, Felix; Zhang, Hawking; Zhu, Rex; Fu, Ping; Mao, David
-Subject: Re: [PART1 PATCH v3 7/8] drm/amdgpu: add get clockgating_state met=
-hod for uvd v5&v6
-
-Am 06.01.2017 um 11:51 schrieb Huang Rui:
-> Signed-off-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+On 01/06/2017 05:10 AM, Alex Deucher wrote:
+> Required for certain MC configs.
+>=20
+> Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 > ---
->
-> Changes from V2 -> V3:
-> - add mutex to protect the is_powergated flag.
->
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h   |  2 ++
->   drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c | 37 ++++++++++++++++++++++++++++=
-+++++--
->   drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c | 37 ++++++++++++++++++++++++++++=
-+++++--
->   3 files changed, 72 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
-dgpu/amdgpu.h
-> index 530549b..afb3ded 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1183,6 +1183,8 @@ struct amdgpu_uvd {
->        bool                    use_ctx_buf;
->        struct amd_sched_entity entity;
->        uint32_t                srbm_soft_reset;
-> +     bool                    is_powergated;
-> +     struct mutex            pg_mutex;
+>  drivers/gpu/drm/radeon/si.c | 11 ++++++++++-
+>  1 file changed, 10 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/radeon/si.c b/drivers/gpu/drm/radeon/si.c
+> index ad4d7b8..bbc239e 100644
+> --- a/drivers/gpu/drm/radeon/si.c
+> +++ b/drivers/gpu/drm/radeon/si.c
+> @@ -116,6 +116,8 @@ MODULE_FIRMWARE("radeon/hainan_rlc.bin");
+>  MODULE_FIRMWARE("radeon/hainan_smc.bin");
+>  MODULE_FIRMWARE("radeon/hainan_k_smc.bin");
+> =20
+> +MODULE_FIRMWARE("radeon/si58_mc.bin");
+> +
+>  static u32 si_get_cu_active_bitmap(struct radeon_device *rdev, u32 se,=
+ u32 sh);
+>  static void si_pcie_gen3_enable(struct radeon_device *rdev);
+>  static void si_program_aspm(struct radeon_device *rdev);
+> @@ -1651,6 +1653,7 @@ static int si_init_microcode(struct radeon_device=
+ *rdev)
+>  	int err;
+>  	int new_fw =3D 0;
+>  	bool new_smc =3D false;
+> +	bool si58_fw =3D false;
+> =20
+>  	DRM_DEBUG("\n");
+> =20
+> @@ -1746,6 +1749,9 @@ static int si_init_microcode(struct radeon_device=
+ *rdev)
+>  	default: BUG();
+>  	}
+> =20
 
-You are missing a mutex_init for pg_mutex, probably best to put this
-into amdgpu_uvd_sw_init().
+Hi Alex,
 
-Apart from that the patch looks good to me now.
+I suggest just a short one line comment above here and also in the
+amdgpu patch too explaining what a 'si58_fw' actually means for a
+non-AMD eng.
 
-Regards,
-Christian.
+With that this series is,
+Acked-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
 
->   };
->
->   /*
-> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c b/drivers/gpu/drm/amd/=
-amdgpu/uvd_v5_0.c
-> index 03a35d9..bf797b8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
-> @@ -781,16 +781,48 @@ static int uvd_v5_0_set_powergating_state(void *han=
-dle,
->         * the smc and the hw blocks
->         */
->        struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
-> +     int ret =3D 0;
->
->        if (!(adev->pg_flags & AMD_PG_SUPPORT_UVD))
->                return 0;
->
-> +     mutex_lock(&adev->uvd.pg_mutex);
+> +	if (((RREG32(MC_SEQ_MISC0) & 0xff000000) >> 24) =3D=3D 0x58)
+> +		si58_fw =3D true;
 > +
->        if (state =3D=3D AMD_PG_STATE_GATE) {
-> +             adev->uvd.is_powergated =3D true;
->                uvd_v5_0_stop(adev);
-> -             return 0;
->        } else {
-> -             return uvd_v5_0_start(adev);
-> +             ret =3D uvd_v5_0_start(adev);
-> +             if (ret)
-> +                     goto out;
-> +             adev->uvd.is_powergated =3D false;
-> +     }
-> +
-> +out:
-> +     mutex_unlock(&adev->uvd.pg_mutex);
-> +
-> +     return ret;
-> +}
-> +
-> +static void uvd_v5_0_get_clockgating_state(void *handle, u32 *flags)
-> +{
-> +     struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
-> +     int data;
-> +
-> +     mutex_lock(&adev->uvd.pg_mutex);
-> +
-> +     if (adev->uvd.is_powergated) {
-> +             DRM_INFO("Cannot get clockgating state when UVD is powergat=
-ed.\n");
-> +             goto out;
->        }
-> +
-> +     /* AMD_CG_SUPPORT_UVD_MGCG */
-> +     data =3D RREG32(mmUVD_CGC_CTRL);
-> +     if (data & UVD_CGC_CTRL__DYN_CLOCK_MODE_MASK)
-> +             *flags |=3D AMD_CG_SUPPORT_UVD_MGCG;
-> +
-> +out:
-> +     mutex_unlock(&adev->uvd.pg_mutex);
->   }
->
->   static const struct amd_ip_funcs uvd_v5_0_ip_funcs =3D {
-> @@ -808,6 +840,7 @@ static const struct amd_ip_funcs uvd_v5_0_ip_funcs =
-=3D {
->        .soft_reset =3D uvd_v5_0_soft_reset,
->        .set_clockgating_state =3D uvd_v5_0_set_clockgating_state,
->        .set_powergating_state =3D uvd_v5_0_set_powergating_state,
-> +     .get_clockgating_state =3D uvd_v5_0_get_clockgating_state,
->   };
->
->   static const struct amdgpu_ring_funcs uvd_v5_0_ring_funcs =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/amd/=
-amdgpu/uvd_v6_0.c
-> index 8779d4b..0ec692d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-> @@ -987,18 +987,50 @@ static int uvd_v6_0_set_powergating_state(void *han=
-dle,
->         * the smc and the hw blocks
->         */
->        struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
-> +     int ret =3D 0;
->
->        if (!(adev->pg_flags & AMD_PG_SUPPORT_UVD))
->                return 0;
->
->        WREG32(mmUVD_POWER_STATUS, UVD_POWER_STATUS__UVD_PG_EN_MASK);
->
-> +     mutex_lock(&adev->uvd.pg_mutex);
-> +
->        if (state =3D=3D AMD_PG_STATE_GATE) {
-> +             adev->uvd.is_powergated =3D true;
->                uvd_v6_0_stop(adev);
-> -             return 0;
->        } else {
-> -             return uvd_v6_0_start(adev);
-> +             ret =3D uvd_v6_0_start(adev);
-> +             if (ret)
-> +                     goto out;
-> +             adev->uvd.is_powergated =3D false;
-> +     }
-> +
-> +out:
-> +     mutex_unlock(&adev->uvd.pg_mutex);
-> +
-> +     return ret;
-> +}
-> +
-> +static void uvd_v6_0_get_clockgating_state(void *handle, u32 *flags)
-> +{
-> +     struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
-> +     int data;
-> +
-> +     mutex_lock(&adev->uvd.pg_mutex);
-> +
-> +     if (adev->uvd.is_powergated) {
-> +             DRM_INFO("Cannot get clockgating state when UVD is powergat=
-ed.\n");
-> +             goto out;
->        }
-> +
-> +     /* AMD_CG_SUPPORT_UVD_MGCG */
-> +     data =3D RREG32(mmUVD_CGC_CTRL);
-> +     if (data & UVD_CGC_CTRL__DYN_CLOCK_MODE_MASK)
-> +             *flags |=3D AMD_CG_SUPPORT_UVD_MGCG;
-> +
-> +out:
-> +     mutex_unlock(&adev->uvd.pg_mutex);
->   }
->
->   static const struct amd_ip_funcs uvd_v6_0_ip_funcs =3D {
-> @@ -1019,6 +1051,7 @@ static const struct amd_ip_funcs uvd_v6_0_ip_funcs =
-=3D {
->        .post_soft_reset =3D uvd_v6_0_post_soft_reset,
->        .set_clockgating_state =3D uvd_v6_0_set_clockgating_state,
->        .set_powergating_state =3D uvd_v6_0_set_powergating_state,
-> +     .get_clockgating_state =3D uvd_v6_0_get_clockgating_state,
->   };
->
->   static const struct amdgpu_ring_funcs uvd_v6_0_ring_phys_funcs =3D {
+>  	DRM_INFO("Loading %s Microcode\n", new_chip_name);
+> =20
+>  	snprintf(fw_name, sizeof(fw_name), "radeon/%s_pfp.bin", new_chip_name=
+);
+> @@ -1849,7 +1855,10 @@ static int si_init_microcode(struct radeon_devic=
+e *rdev)
+>  		}
+>  	}
+> =20
+> -	snprintf(fw_name, sizeof(fw_name), "radeon/%s_mc.bin", new_chip_name)=
+;
+> +	if (si58_fw)
+> +		snprintf(fw_name, sizeof(fw_name), "radeon/si58_mc.bin");
+> +	else
+> +		snprintf(fw_name, sizeof(fw_name), "radeon/%s_mc.bin", new_chip_name=
+);
+>  	err =3D request_firmware(&rdev->mc_fw, fw_name, rdev->dev);
+>  	if (err) {
+>  		snprintf(fw_name, sizeof(fw_name), "radeon/%s_mc2.bin", chip_name);
+>=20
 
 
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-amd-gfx Info Page - lists.freedesktop.org<https://lists.freedesktop.org/mai=
-lman/listinfo/amd-gfx>
-lists.freedesktop.org
-To see the collection of prior postings to the list, visit the amd-gfx Arch=
-ives. Using amd-gfx: To post a message to all the list members, send email =
-...
+--qn5dK9HLcA8eHxm5iiPU2bkBI9OABbggN--
 
+--fTPALfW283hSIlcrFK9pg9t3ouGVd3IaH
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
 
+iQIcBAEBCAAGBQJYb6fEAAoJEP4bvbfZuWjbgiEQAIMLRd9AbO9gM2xwLeqvOy4P
+6Cv7p0WpI24HCvJMItjE5zcZ3W1uGBygULFWJAoj68UlrI8CcU4eVaXVwWlJ7oZM
+MyaibqHaMi6HGEhKHS5F+oIUKB/uhs/IRxRExR8vUgJmkP+qZwjuXe4vDAZC3+fB
+9zDKnEME97rt99AJBt2aQSrC3hrsA0hCXxIYqounGVFkqvcrBWnWBbXPHfEaVV8a
+ycLZ1bEIsXd9p24VgyL3a2N7rF8CVLYnqzQ92LqHcsyvm7O1NaOkVKAf9bDdMK9J
+FMU7gU4dRGMMMSETGcdp4a6b1O0tFH2uVZVj3V0muM94tn8Z9vc3ckhmdZmt6QRo
+7VkAcTIVA5ulU0pts5yHe1DQoHw+KO2RJjNappcR+H7lFkrPCBk7L7wOx+UKDdEH
+cUdMrxCVXA0uHosrs+eNAdCDK21HzgGGXEM7N7CzJR+3M/CgCavktGcvJZGt4/yV
+/mDI+3Q7kIh/vX/UK0/vQqSjbxB8gnQC6n6BquOK02t5vsObESLbEGPt9T/A6hMn
+CNuX4rvAp3UJ1WBA83tQxPGZ6jjoHZ8hkJe8QvOP0ADYtPIOWS//yvDpfAYw6Q7T
+uSinRh0X9Ep2JcjKt57NSThxPg+pnRI3uGRUbt4qhUVfRGigx9JjcPyAjHR8WG5n
+ZzC3yBjTdttIYnHy5/HZ
+=tYdg
+-----END PGP SIGNATURE-----
 
---_000_CY4PR12MB1768DCF4453B731FDD726447F7630CY4PR12MB1768namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+--fTPALfW283hSIlcrFK9pg9t3ouGVd3IaH--
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Arial,Helvetica,sans-serif;" dir=3D"ltr">
-<p>There's already the adev-&gt;pm.mutex which is held while gating/ungatin=
-g blocks. &nbsp;There's no need for a second mutex right?</p>
-<p><br>
-</p>
-<p>Tom</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Christian K=F6nig &lt;chris=
-tian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Friday, January 6, 2017 07:52<br>
-<b>To:</b> Huang, Ray; Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br=
->
-<b>Cc:</b> Kuehling, Felix; Zhang, Hawking; Zhu, Rex; Fu, Ping; Mao, David<=
-br>
-<b>Subject:</b> Re: [PART1 PATCH v3 7/8] drm/amdgpu: add get clockgating_st=
-ate method for uvd v5&amp;v6</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">Am 06.01.2017 um 11:51 schrieb Huang Rui:<br>
-&gt; Signed-off-by: Huang Rui &lt;ray.huang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; ---<br>
-&gt;<br>
-&gt; Changes from V2 -&gt; V3:<br>
-&gt; - add mutex to protect the is_powergated flag.<br>
-&gt;<br>
-&gt; ---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp; |&nbsp; 2 =
-&#43;&#43;<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c | 37 &#43;&#43;&#43;=
-&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
-&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c | 37 &#43;&#43;&#43;=
-&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
-&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
---<br>
-&gt;&nbsp;&nbsp; 3 files changed, 72 insertions(&#43;), 4 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu.h<br>
-&gt; index 530549b..afb3ded 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-&gt; @@ -1183,6 &#43;1183,8 @@ struct amdgpu_uvd {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; use_ctx_buf;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amd_sched_entity enti=
-ty;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; srbm=
-_soft_reset;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; is_powergated;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; struct mutex&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pg_mutex;<br>
-<br>
-You are missing a mutex_init for pg_mutex, probably best to put this <br>
-into amdgpu_uvd_sw_init().<br>
-<br>
-Apart from that the patch looks good to me now.<br>
-<br>
-Regards,<br>
-Christian.<br>
-<br>
-&gt;&nbsp;&nbsp; };<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; /*<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c b/drivers/gpu/drm/a=
-md/amdgpu/uvd_v5_0.c<br>
-&gt; index 03a35d9..bf797b8 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c<br>
-&gt; @@ -781,16 &#43;781,48 @@ static int uvd_v5_0_set_powergating_state(vo=
-id *handle,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * the smc and the hw b=
-locks<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
-=3D (struct amdgpu_device *)handle;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(adev-&gt;pg_flags &amp=
-; AMD_PG_SUPPORT_UVD))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;adev-&gt;uvd.pg_mutex);<=
-br>
-&gt; &#43;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (state =3D=3D AMD_PG_STAT=
-E_GATE) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; adev-&gt;uvd.is_powergated =3D true;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; uvd_v5_0_stop(adev);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; return 0;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; return uvd_v5_0_start(adev);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; ret =3D uvd_v5_0_start(adev);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; if (ret)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; adev-&gt;uvd.is_powergated =3D false;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; &#43;<br>
-&gt; &#43;out:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;adev-&gt;uvd.pg_mutex)=
-;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&gt; &#43;}<br>
-&gt; &#43;<br>
-&gt; &#43;static void uvd_v5_0_get_clockgating_state(void *handle, u32 *fla=
-gs)<br>
-&gt; &#43;{<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D (struct a=
-mdgpu_device *)handle;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; int data;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;adev-&gt;uvd.pg_mutex);<=
-br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;uvd.is_powergated) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; DRM_INFO(&quot;Cannot get clockgating state when UVD is powergated.=
-\n&quot;);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; goto out;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; /* AMD_CG_SUPPORT_UVD_MGCG */<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; data =3D RREG32(mmUVD_CGC_CTRL);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (data &amp; UVD_CGC_CTRL__DYN_CLOCK_M=
-ODE_MASK)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; *flags |=3D AMD_CG_SUPPORT_UVD_MGCG;<br>
-&gt; &#43;<br>
-&gt; &#43;out:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;adev-&gt;uvd.pg_mutex)=
-;<br>
-&gt;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; static const struct amd_ip_funcs uvd_v5_0_ip_funcs =3D {<b=
-r>
-&gt; @@ -808,6 &#43;840,7 @@ static const struct amd_ip_funcs uvd_v5_0_ip_f=
-uncs =3D {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .soft_reset =3D uvd_v5_0_sof=
-t_reset,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_clockgating_state =3D u=
-vd_v5_0_set_clockgating_state,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_powergating_state =3D u=
-vd_v5_0_set_powergating_state,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .get_clockgating_state =3D uvd_v5_0_get_=
-clockgating_state,<br>
-&gt;&nbsp;&nbsp; };<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; static const struct amdgpu_ring_funcs uvd_v5_0_ring_funcs =
-=3D {<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/a=
-md/amdgpu/uvd_v6_0.c<br>
-&gt; index 8779d4b..0ec692d 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c<br>
-&gt; @@ -987,18 &#43;987,50 @@ static int uvd_v6_0_set_powergating_state(vo=
-id *handle,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * the smc and the hw b=
-locks<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
-=3D (struct amdgpu_device *)handle;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(adev-&gt;pg_flags &amp=
-; AMD_PG_SUPPORT_UVD))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmUVD_POWER_STATUS, U=
-VD_POWER_STATUS__UVD_PG_EN_MASK);<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;adev-&gt;uvd.pg_mutex);<=
-br>
-&gt; &#43;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (state =3D=3D AMD_PG_STAT=
-E_GATE) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; adev-&gt;uvd.is_powergated =3D true;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; uvd_v6_0_stop(adev);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; return 0;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; return uvd_v6_0_start(adev);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; ret =3D uvd_v6_0_start(adev);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; if (ret)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; adev-&gt;uvd.is_powergated =3D false;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; &#43;<br>
-&gt; &#43;out:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;adev-&gt;uvd.pg_mutex)=
-;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&gt; &#43;}<br>
-&gt; &#43;<br>
-&gt; &#43;static void uvd_v6_0_get_clockgating_state(void *handle, u32 *fla=
-gs)<br>
-&gt; &#43;{<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D (struct a=
-mdgpu_device *)handle;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; int data;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;adev-&gt;uvd.pg_mutex);<=
-br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;uvd.is_powergated) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; DRM_INFO(&quot;Cannot get clockgating state when UVD is powergated.=
-\n&quot;);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; goto out;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; /* AMD_CG_SUPPORT_UVD_MGCG */<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; data =3D RREG32(mmUVD_CGC_CTRL);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (data &amp; UVD_CGC_CTRL__DYN_CLOCK_M=
-ODE_MASK)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; *flags |=3D AMD_CG_SUPPORT_UVD_MGCG;<br>
-&gt; &#43;<br>
-&gt; &#43;out:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;adev-&gt;uvd.pg_mutex)=
-;<br>
-&gt;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; static const struct amd_ip_funcs uvd_v6_0_ip_funcs =3D {<b=
-r>
-&gt; @@ -1019,6 &#43;1051,7 @@ static const struct amd_ip_funcs uvd_v6_0_ip=
-_funcs =3D {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .post_soft_reset =3D uvd_v6_=
-0_post_soft_reset,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_clockgating_state =3D u=
-vd_v6_0_set_clockgating_state,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_powergating_state =3D u=
-vd_v6_0_set_powergating_state,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .get_clockgating_state =3D uvd_v6_0_get_=
-clockgating_state,<br>
-&gt;&nbsp;&nbsp; };<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; static const struct amdgpu_ring_funcs uvd_v6_0_ring_phys_f=
-uncs =3D {<br>
-<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk851602" previewremoved=3D"true">https://lists.freedesktop.org/mailman/li=
-stinfo/amd-gfx</a>
-<div id=3D"LPBorder_GT_14837099174670.7732004508767665" style=3D"margin-bot=
-tom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
-<table id=3D"LPContainer_14837099174620.9257069430170277" cellspacing=3D"0"=
- style=3D"width: 90%; background-color: rgb(255, 255, 255); position: relat=
-ive; overflow: auto; padding-top: 20px; padding-bottom: 20px; margin-top: 2=
-0px; border-top: 1px dotted rgb(200, 200, 200); border-bottom: 1px dotted r=
-gb(200, 200, 200);">
-<tbody>
-<tr valign=3D"top" style=3D"border-spacing: 0px;">
-<td id=3D"TextCell_14837099174640.8034805271988259" colspan=3D"2" style=3D"=
-vertical-align: top; position: relative; padding: 0px; display: table-cell;=
-">
-<div id=3D"LPRemovePreviewContainer_14837099174640.6575590637284081"></div>
-<div id=3D"LPTitle_14837099174640.500860546474154" style=3D"top: 0px; color=
-: rgb(59, 87, 119); font-weight: normal; font-size: 21px; font-family: wf_s=
-egoe-ui_light, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&quot;, &quo=
-t;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif; line-hei=
-ght: 21px;">
-<a id=3D"LPUrlAnchor_14837099174650.4952875786439821" href=3D"https://lists=
-.freedesktop.org/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"text-=
-decoration: none;">amd-gfx Info Page - lists.freedesktop.org</a></div>
-<div id=3D"LPMetadata_14837099174650.6970539461685066" style=3D"margin: 10p=
-x 0px 16px; color: rgb(102, 102, 102); font-weight: normal; font-family: wf=
-_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial=
-, sans-serif; font-size: 14px; line-height: 14px;">
-lists.freedesktop.org</div>
-<div id=3D"LPDescription_14837099174660.9659595296758496" style=3D"display:=
- block; color: rgb(102, 102, 102); font-weight: normal; font-family: wf_seg=
-oe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sa=
-ns-serif; font-size: 14px; line-height: 20px; max-height: 100px; overflow: =
-hidden;">
-To see the collection of prior postings to the list, visit the amd-gfx Arch=
-ives. Using amd-gfx: To post a message to all the list members, send email =
-...</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB1768DCF4453B731FDD726447F7630CY4PR12MB1768namp_--
-
---===============1778292958==
+--===============0378020507==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -592,4 +154,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1778292958==--
+--===============0378020507==--
