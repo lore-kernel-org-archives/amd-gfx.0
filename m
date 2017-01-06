@@ -1,16 +1,14 @@
 From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PART1 PATCH v3 7/8] drm/amdgpu: add get clockgating_state method
  for uvd v5&v6
-Date: Fri, 6 Jan 2017 13:48:33 +0000
-Message-ID: <CY4PR12MB176840D39A2545BE80DC57B0F7630@CY4PR12MB1768.namprd12.prod.outlook.com>
-References: <1483699875-27734-1-git-send-email-ray.huang@amd.com>
+Date: Fri, 6 Jan 2017 13:42:11 +0000
+Message-ID: <CY4PR12MB1768DCF4453B731FDD726447F7630@CY4PR12MB1768.namprd12.prod.outlook.com>
+References: <1483699875-27734-1-git-send-email-ray.huang@amd.com>,
  <e2d8d323-1ee0-6f76-74c4-18a19fb2b0da@amd.com>
- <CY4PR12MB1768DCF4453B731FDD726447F7630@CY4PR12MB1768.namprd12.prod.outlook.com>,
- <1e6d1ea8-00b4-2af2-bedd-c1abaa5d24a6@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0628243437=="
+Content-Type: multipart/mixed; boundary="===============1778292958=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1e6d1ea8-00b4-2af2-bedd-c1abaa5d24a6-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <e2d8d323-1ee0-6f76-74c4-18a19fb2b0da-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -27,39 +25,14 @@ Cc: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Mao,
  David" <David.Mao-5C7GfCeVMHo@public.gmane.org>, "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "Fu,
  Ping" <Ping.Fu-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
---===============0628243437==
+--===============1778292958==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB176840D39A2545BE80DC57B0F7630CY4PR12MB1768namp_"
+	boundary="_000_CY4PR12MB1768DCF4453B731FDD726447F7630CY4PR12MB1768namp_"
 
---_000_CY4PR12MB176840D39A2545BE80DC57B0F7630CY4PR12MB1768namp_
+--_000_CY4PR12MB1768DCF4453B731FDD726447F7630CY4PR12MB1768namp_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
-
-It was added late last year so that debugfs mmio could read vce/uvd registe=
-rs without triggering a race condition between transitions.
-
-
-Cheers,
-
-Tom
-
-
-________________________________
-From: Koenig, Christian
-Sent: Friday, January 6, 2017 08:45
-To: StDenis, Tom; Huang, Ray; Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp93gSJqDPrsil@public.gmane.org=
-.org
-Cc: Kuehling, Felix; Zhang, Hawking; Zhu, Rex; Fu, Ping; Mao, David
-Subject: Re: [PART1 PATCH v3 7/8] drm/amdgpu: add get clockgating_state met=
-hod for uvd v5&v6
-
-Good point, I wasn't ware that the pm mutex still existed and is taken unde=
-r all code flows.
-
-Christian.
-
-Am 06.01.2017 um 14:42 schrieb StDenis, Tom:
 
 There's already the adev->pm.mutex which is held while gating/ungating bloc=
 ks.  There's no need for a second mutex right?
@@ -69,18 +42,16 @@ Tom
 
 
 ________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org><mailto:amd-gfx-bounce=
-s@lists.freedesktop.org> on behalf of Christian K=F6nig <christian.koenig@a=
-md.com><mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org>
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Christia=
+n K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 Sent: Friday, January 6, 2017 07:52
-To: Huang, Ray; Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:am=
-d-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Huang, Ray; Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: Kuehling, Felix; Zhang, Hawking; Zhu, Rex; Fu, Ping; Mao, David
 Subject: Re: [PART1 PATCH v3 7/8] drm/amdgpu: add get clockgating_state met=
 hod for uvd v5&v6
 
 Am 06.01.2017 um 11:51 schrieb Huang Rui:
-> Signed-off-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org><mailto:ray.huang-5C7GfCeVMHo@public.gmane.org>
+> Signed-off-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
 > ---
 >
 > Changes from V2 -> V3:
@@ -257,7 +228,7 @@ ed.\n");
 
 _______________________________________________
 amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 amd-gfx Info Page - lists.freedesktop.org<https://lists.freedesktop.org/mai=
 lman/listinfo/amd-gfx>
@@ -269,8 +240,7 @@ ives. Using amd-gfx: To post a message to all the list members, send email =
 
 
 
-
---_000_CY4PR12MB176840D39A2545BE80DC57B0F7630CY4PR12MB1768namp_
+--_000_CY4PR12MB1768DCF4453B731FDD726447F7630CY4PR12MB1768namp_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -284,38 +254,6 @@ n-bottom:0;} --></style>
 <body dir=3D"ltr">
 <div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
 -family:Calibri,Arial,Helvetica,sans-serif;" dir=3D"ltr">
-<p>It was added late last year so that debugfs mmio could read vce/uvd regi=
-sters without triggering a race condition between transitions. &nbsp;</p>
-<p><br>
-</p>
-<p>Cheers,</p>
-<p>Tom</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Koenig, Christian<br>
-<b>Sent:</b> Friday, January 6, 2017 08:45<br>
-<b>To:</b> StDenis, Tom; Huang, Ray; Deucher, Alexander; amd-gfx-PD4FTy7X32mptlylMvRsHA@public.gmane.org=
-desktop.org<br>
-<b>Cc:</b> Kuehling, Felix; Zhang, Hawking; Zhu, Rex; Fu, Ping; Mao, David<=
-br>
-<b>Subject:</b> Re: [PART1 PATCH v3 7/8] drm/amdgpu: add get clockgating_st=
-ate method for uvd v5&amp;v6</font>
-<div>&nbsp;</div>
-</div>
-<div>
-<div class=3D"moz-cite-prefix">Good point, I wasn't ware that the pm mutex =
-still existed and is taken under all code flows.<br>
-<br>
-Christian.<br>
-<br>
-Am 06.01.2017 um 14:42 schrieb StDenis, Tom:<br>
-</div>
-<blockquote type=3D"cite">
-<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; color=
-:#000000; font-family:Calibri,Arial,Helvetica,sans-serif">
 <p>There's already the adev-&gt;pm.mutex which is held while gating/ungatin=
 g blocks. &nbsp;There's no need for a second mutex right?</p>
 <p><br>
@@ -323,22 +261,16 @@ g blocks. &nbsp;There's no need for a second mutex right?</p>
 <p>Tom</p>
 <br>
 <br>
-<div style=3D"color:rgb(0,0,0)">
+<div style=3D"color: rgb(0, 0, 0);">
 <div>
 <hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font color=3D"#000000" face=3D"Cal=
-ibri,=0A=
-                sans-serif" style=3D"font-size:11pt"><b>From:</b> amd-gfx
-<a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:amd-gfx-bounces-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
-edesktop.org">
-&lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a> on behalf of Christian K=
-=F6nig <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:christian.koenig@a=
-md.com">
-&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Christian K=F6nig &lt;chris=
+tian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
 <b>Sent:</b> Friday, January 6, 2017 07:52<br>
-<b>To:</b> Huang, Ray; Deucher, Alexander; <a class=3D"moz-txt-link-abbrevi=
-ated" href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+<b>To:</b> Huang, Ray; Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br=
+>
 <b>Cc:</b> Kuehling, Felix; Zhang, Hawking; Zhu, Rex; Fu, Ping; Mao, David<=
 br>
 <b>Subject:</b> Re: [PART1 PATCH v3 7/8] drm/amdgpu: add get clockgating_st=
@@ -346,11 +278,9 @@ ate method for uvd v5&amp;v6</font>
 <div>&nbsp;</div>
 </div>
 </div>
-<font size=3D"2"><span style=3D"font-size:10pt">
+<font size=3D"2"><span style=3D"font-size:10pt;">
 <div class=3D"PlainText">Am 06.01.2017 um 11:51 schrieb Huang Rui:<br>
-&gt; Signed-off-by: Huang Rui <a class=3D"moz-txt-link-rfc2396E" href=3D"ma=
-ilto:ray.huang-5C7GfCeVMHo@public.gmane.org">
-&lt;ray.huang-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+&gt; Signed-off-by: Huang Rui &lt;ray.huang-5C7GfCeVMHo@public.gmane.org&gt;<br>
 &gt; ---<br>
 &gt;<br>
 &gt; Changes from V2 -&gt; V3:<br>
@@ -599,32 +529,41 @@ uncs =3D {<br>
 <br>
 _______________________________________________<br>
 amd-gfx mailing list<br>
-<a class=3D"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
-top.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
 <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
 lnk851602" previewremoved=3D"true">https://lists.freedesktop.org/mailman/li=
 stinfo/amd-gfx</a>
 <div id=3D"LPBorder_GT_14837099174670.7732004508767665" style=3D"margin-bot=
-tom:20px; overflow:auto; width:100%; text-indent:0px" contenteditable=3D"fa=
-lse">
+tom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
 <table id=3D"LPContainer_14837099174620.9257069430170277" cellspacing=3D"0"=
- style=3D"width:90%; background-color:rgb(255,255,255); overflow:auto; padd=
-ing-top:20px; padding-bottom:20px; margin-top:20px; border-top:1px dotted r=
-gb(200,200,200); border-bottom:1px dotted rgb(200,200,200)">
+ style=3D"width: 90%; background-color: rgb(255, 255, 255); position: relat=
+ive; overflow: auto; padding-top: 20px; padding-bottom: 20px; margin-top: 2=
+0px; border-top: 1px dotted rgb(200, 200, 200); border-bottom: 1px dotted r=
+gb(200, 200, 200);">
 <tbody>
-<tr valign=3D"top" style=3D"border-spacing:0px">
+<tr valign=3D"top" style=3D"border-spacing: 0px;">
 <td id=3D"TextCell_14837099174640.8034805271988259" colspan=3D"2" style=3D"=
-vertical-align:top; padding:0px; display:table-cell">
-<div id=3D"LPTitle_14837099174640.500860546474154" style=3D""><a id=3D"LPUr=
-lAnchor_14837099174650.4952875786439821" href=3D"https://lists.freedesktop.=
-org/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"text-decoration:no=
-ne">amd-gfx Info Page - lists.freedesktop.org</a></div>
-<div id=3D"LPMetadata_14837099174650.6970539461685066" style=3D"">lists.fre=
-edesktop.org</div>
+vertical-align: top; position: relative; padding: 0px; display: table-cell;=
+">
+<div id=3D"LPRemovePreviewContainer_14837099174640.6575590637284081"></div>
+<div id=3D"LPTitle_14837099174640.500860546474154" style=3D"top: 0px; color=
+: rgb(59, 87, 119); font-weight: normal; font-size: 21px; font-family: wf_s=
+egoe-ui_light, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&quot;, &quo=
+t;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif; line-hei=
+ght: 21px;">
+<a id=3D"LPUrlAnchor_14837099174650.4952875786439821" href=3D"https://lists=
+.freedesktop.org/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"text-=
+decoration: none;">amd-gfx Info Page - lists.freedesktop.org</a></div>
+<div id=3D"LPMetadata_14837099174650.6970539461685066" style=3D"margin: 10p=
+x 0px 16px; color: rgb(102, 102, 102); font-weight: normal; font-family: wf=
+_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial=
+, sans-serif; font-size: 14px; line-height: 14px;">
+lists.freedesktop.org</div>
 <div id=3D"LPDescription_14837099174660.9659595296758496" style=3D"display:=
-block; color:rgb(102,102,102); font-weight:normal; font-family:wf_segoe-ui_=
-normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif; f=
-ont-size:14px; line-height:20px; max-height:100px; overflow:hidden">
+ block; color: rgb(102, 102, 102); font-weight: normal; font-family: wf_seg=
+oe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sa=
+ns-serif; font-size: 14px; line-height: 20px; max-height: 100px; overflow: =
+hidden;">
 To see the collection of prior postings to the list, visit the amd-gfx Arch=
 ives. Using amd-gfx: To post a message to all the list members, send email =
 ...</div>
@@ -638,18 +577,12 @@ ives. Using amd-gfx: To post a message to all the list members, send email =
 </div>
 </span></font></div>
 </div>
-</blockquote>
-<p><br>
-</p>
-</div>
-</div>
-</div>
 </body>
 </html>
 
---_000_CY4PR12MB176840D39A2545BE80DC57B0F7630CY4PR12MB1768namp_--
+--_000_CY4PR12MB1768DCF4453B731FDD726447F7630CY4PR12MB1768namp_--
 
---===============0628243437==
+--===============1778292958==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -659,4 +592,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0628243437==--
+--===============1778292958==--
