@@ -1,16 +1,15 @@
-From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PART1 PATCH v4 7/8] drm/amdgpu: add get clockgating_state method
  for uvd v5&v6
-Date: Mon, 9 Jan 2017 11:29:00 +0000
-Message-ID: <CY4PR12MB176846FDA72EF232B6825609F7640@CY4PR12MB1768.namprd12.prod.outlook.com>
+Date: Mon, 9 Jan 2017 11:32:18 +0100
+Message-ID: <364cc068-e347-5f77-b4ff-414f8e8b4fdb@amd.com>
 References: <1483930814-23529-1-git-send-email-ray.huang@amd.com>
- <1483930814-23529-2-git-send-email-ray.huang@amd.com>,
- <364cc068-e347-5f77-b4ff-414f8e8b4fdb@amd.com>
+ <1483930814-23529-2-git-send-email-ray.huang@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1431866472=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <364cc068-e347-5f77-b4ff-414f8e8b4fdb-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <1483930814-23529-2-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,508 +20,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Kuehling,
- Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, "Zhu,
- Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "Fu, Ping" <Ping.Fu-5C7GfCeVMHo@public.gmane.org>, "Mao,
- David" <David.Mao-5C7GfCeVMHo@public.gmane.org>
+To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Tom StDenis <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Cc: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>, Hawking Zhang <hawking.zhang-5C7GfCeVMHo@public.gmane.org>, Rex Zhu <rex.zhu-5C7GfCeVMHo@public.gmane.org>, Ping Fu <ping.fu-5C7GfCeVMHo@public.gmane.org>, David Mao <david.mao-5C7GfCeVMHo@public.gmane.org>
 
---===============1431866472==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB176846FDA72EF232B6825609F7640CY4PR12MB1768namp_"
-
---_000_CY4PR12MB176846FDA72EF232B6825609F7640CY4PR12MB1768namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Yup it's held by both amdgpu_dpm_enable_uvd() and amdgpu_dpm_enable_vce()
-
-
-Tom
-
-
-________________________________
-From: Koenig, Christian
-Sent: Monday, January 9, 2017 05:32
-To: Huang, Ray; Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; StDenis,=
- Tom
-Cc: Zhu, Rex; Mao, David; Fu, Ping; Zhang, Hawking; Kuehling, Felix
-Subject: Re: [PART1 PATCH v4 7/8] drm/amdgpu: add get clockgating_state met=
-hod for uvd v5&v6
-
-Am 09.01.2017 um 04:00 schrieb Huang Rui:
-> Signed-off-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
-> ---
->
-> Changes from V3 -> V4:
-> - use pm mutex to protect UVD clock gating status
->
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h   |  1 +
->   drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c | 37 ++++++++++++++++++++++++++++=
-+++++--
->   drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c | 37 ++++++++++++++++++++++++++++=
-+++++--
->   3 files changed, 71 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
-dgpu/amdgpu.h
-> index 530549b..31054c7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -1183,6 +1183,7 @@ struct amdgpu_uvd {
->        bool                    use_ctx_buf;
->        struct amd_sched_entity entity;
->        uint32_t                srbm_soft_reset;
-> +     bool                    is_powergated;
->   };
->
->   /*
-> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c b/drivers/gpu/drm/amd/=
-amdgpu/uvd_v5_0.c
-> index 03a35d9..e647d3e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
-> @@ -781,16 +781,48 @@ static int uvd_v5_0_set_powergating_state(void *han=
-dle,
->         * the smc and the hw blocks
->         */
->        struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
-> +     int ret =3D 0;
->
->        if (!(adev->pg_flags & AMD_PG_SUPPORT_UVD))
->                return 0;
->
-> +     mutex_lock(&adev->pm.mutex);
-
-Might be that I'm wrong, but didn't Tom said the mutex is taken anyway
-when this function is called?
-
-If that's true we would certainly run into problem when we try to
-acquire it again.
-
-Christian.
-
-> +
->        if (state =3D=3D AMD_PG_STATE_GATE) {
-> +             adev->uvd.is_powergated =3D true;
->                uvd_v5_0_stop(adev);
-> -             return 0;
->        } else {
-> -             return uvd_v5_0_start(adev);
-> +             ret =3D uvd_v5_0_start(adev);
-> +             if (ret)
-> +                     goto out;
-> +             adev->uvd.is_powergated =3D false;
-> +     }
-> +
-> +out:
-> +     mutex_unlock(&adev->pm.mutex);
-> +
-> +     return ret;
-> +}
-> +
-> +static void uvd_v5_0_get_clockgating_state(void *handle, u32 *flags)
-> +{
-> +     struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
-> +     int data;
-> +
-> +     mutex_lock(&adev->pm.mutex);
-> +
-> +     if (adev->uvd.is_powergated) {
-> +             DRM_INFO("Cannot get clockgating state when UVD is powergat=
-ed.\n");
-> +             goto out;
->        }
-> +
-> +     /* AMD_CG_SUPPORT_UVD_MGCG */
-> +     data =3D RREG32(mmUVD_CGC_CTRL);
-> +     if (data & UVD_CGC_CTRL__DYN_CLOCK_MODE_MASK)
-> +             *flags |=3D AMD_CG_SUPPORT_UVD_MGCG;
-> +
-> +out:
-> +     mutex_unlock(&adev->pm.mutex);
->   }
->
->   static const struct amd_ip_funcs uvd_v5_0_ip_funcs =3D {
-> @@ -808,6 +840,7 @@ static const struct amd_ip_funcs uvd_v5_0_ip_funcs =
-=3D {
->        .soft_reset =3D uvd_v5_0_soft_reset,
->        .set_clockgating_state =3D uvd_v5_0_set_clockgating_state,
->        .set_powergating_state =3D uvd_v5_0_set_powergating_state,
-> +     .get_clockgating_state =3D uvd_v5_0_get_clockgating_state,
->   };
->
->   static const struct amdgpu_ring_funcs uvd_v5_0_ring_funcs =3D {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/amd/=
-amdgpu/uvd_v6_0.c
-> index 8779d4b..2585ae9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
-> @@ -987,18 +987,50 @@ static int uvd_v6_0_set_powergating_state(void *han=
-dle,
->         * the smc and the hw blocks
->         */
->        struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
-> +     int ret =3D 0;
->
->        if (!(adev->pg_flags & AMD_PG_SUPPORT_UVD))
->                return 0;
->
->        WREG32(mmUVD_POWER_STATUS, UVD_POWER_STATUS__UVD_PG_EN_MASK);
->
-> +     mutex_lock(&adev->pm.mutex);
-> +
->        if (state =3D=3D AMD_PG_STATE_GATE) {
-> +             adev->uvd.is_powergated =3D true;
->                uvd_v6_0_stop(adev);
-> -             return 0;
->        } else {
-> -             return uvd_v6_0_start(adev);
-> +             ret =3D uvd_v6_0_start(adev);
-> +             if (ret)
-> +                     goto out;
-> +             adev->uvd.is_powergated =3D false;
-> +     }
-> +
-> +out:
-> +     mutex_unlock(&adev->pm.mutex);
-> +
-> +     return ret;
-> +}
-> +
-> +static void uvd_v6_0_get_clockgating_state(void *handle, u32 *flags)
-> +{
-> +     struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
-> +     int data;
-> +
-> +     mutex_lock(&adev->pm.mutex);
-> +
-> +     if (adev->uvd.is_powergated) {
-> +             DRM_INFO("Cannot get clockgating state when UVD is powergat=
-ed.\n");
-> +             goto out;
->        }
-> +
-> +     /* AMD_CG_SUPPORT_UVD_MGCG */
-> +     data =3D RREG32(mmUVD_CGC_CTRL);
-> +     if (data & UVD_CGC_CTRL__DYN_CLOCK_MODE_MASK)
-> +             *flags |=3D AMD_CG_SUPPORT_UVD_MGCG;
-> +
-> +out:
-> +     mutex_unlock(&adev->pm.mutex);
->   }
->
->   static const struct amd_ip_funcs uvd_v6_0_ip_funcs =3D {
-> @@ -1019,6 +1051,7 @@ static const struct amd_ip_funcs uvd_v6_0_ip_funcs =
-=3D {
->        .post_soft_reset =3D uvd_v6_0_post_soft_reset,
->        .set_clockgating_state =3D uvd_v6_0_set_clockgating_state,
->        .set_powergating_state =3D uvd_v6_0_set_powergating_state,
-> +     .get_clockgating_state =3D uvd_v6_0_get_clockgating_state,
->   };
->
->   static const struct amdgpu_ring_funcs uvd_v6_0_ring_phys_funcs =3D {
-
-
-
---_000_CY4PR12MB176846FDA72EF232B6825609F7640CY4PR12MB1768namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Arial,Helvetica,sans-serif;" dir=3D"ltr">
-<p>Yup it's held by both&nbsp;<span>amdgpu_dpm_enable_uvd() and&nbsp;<span>=
-amdgpu_dpm_enable_vce()</span></span></p>
-<p><span><span><br>
-</span></span></p>
-<p><span><span>Tom</span></span></p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Koenig, Christian<b=
-r>
-<b>Sent:</b> Monday, January 9, 2017 05:32<br>
-<b>To:</b> Huang, Ray; Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; S=
-tDenis, Tom<br>
-<b>Cc:</b> Zhu, Rex; Mao, David; Fu, Ping; Zhang, Hawking; Kuehling, Felix<=
-br>
-<b>Subject:</b> Re: [PART1 PATCH v4 7/8] drm/amdgpu: add get clockgating_st=
-ate method for uvd v5&amp;v6</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">Am 09.01.2017 um 04:00 schrieb Huang Rui:<br>
-&gt; Signed-off-by: Huang Rui &lt;ray.huang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; ---<br>
-&gt;<br>
-&gt; Changes from V3 -&gt; V4:<br>
-&gt; - use pm mutex to protect UVD clock gating status<br>
-&gt;<br>
-&gt; ---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp; |&nbsp; 1 =
-&#43;<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c | 37 &#43;&#43;&#43;=
-&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
-&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c | 37 &#43;&#43;&#43;=
-&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
-&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
---<br>
-&gt;&nbsp;&nbsp; 3 files changed, 71 insertions(&#43;), 4 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu.h<br>
-&gt; index 530549b..31054c7 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-&gt; @@ -1183,6 &#43;1183,7 @@ struct amdgpu_uvd {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; use_ctx_buf;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amd_sched_entity enti=
-ty;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; srbm=
-_soft_reset;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; is_powergated;<br>
-&gt;&nbsp;&nbsp; };<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; /*<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c b/drivers/gpu/drm/a=
-md/amdgpu/uvd_v5_0.c<br>
-&gt; index 03a35d9..e647d3e 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c<br>
-&gt; @@ -781,16 &#43;781,48 @@ static int uvd_v5_0_set_powergating_state(vo=
-id *handle,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * the smc and the hw b=
-locks<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
-=3D (struct amdgpu_device *)handle;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(adev-&gt;pg_flags &amp=
-; AMD_PG_SUPPORT_UVD))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;adev-&gt;pm.mutex);<br>
-<br>
-Might be that I'm wrong, but didn't Tom said the mutex is taken anyway <br>
-when this function is called?<br>
-<br>
-If that's true we would certainly run into problem when we try to <br>
-acquire it again.<br>
-<br>
-Christian.<br>
-<br>
-&gt; &#43;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (state =3D=3D AMD_PG_STAT=
-E_GATE) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; adev-&gt;uvd.is_powergated =3D true;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; uvd_v5_0_stop(adev);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; return 0;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; return uvd_v5_0_start(adev);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; ret =3D uvd_v5_0_start(adev);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; if (ret)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; adev-&gt;uvd.is_powergated =3D false;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; &#43;<br>
-&gt; &#43;out:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;adev-&gt;pm.mutex);<br=
->
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&gt; &#43;}<br>
-&gt; &#43;<br>
-&gt; &#43;static void uvd_v5_0_get_clockgating_state(void *handle, u32 *fla=
-gs)<br>
-&gt; &#43;{<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D (struct a=
-mdgpu_device *)handle;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; int data;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;adev-&gt;pm.mutex);<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;uvd.is_powergated) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; DRM_INFO(&quot;Cannot get clockgating state when UVD is powergated.=
-\n&quot;);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; goto out;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; /* AMD_CG_SUPPORT_UVD_MGCG */<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; data =3D RREG32(mmUVD_CGC_CTRL);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (data &amp; UVD_CGC_CTRL__DYN_CLOCK_M=
-ODE_MASK)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; *flags |=3D AMD_CG_SUPPORT_UVD_MGCG;<br>
-&gt; &#43;<br>
-&gt; &#43;out:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;adev-&gt;pm.mutex);<br=
->
-&gt;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; static const struct amd_ip_funcs uvd_v5_0_ip_funcs =3D {<b=
-r>
-&gt; @@ -808,6 &#43;840,7 @@ static const struct amd_ip_funcs uvd_v5_0_ip_f=
-uncs =3D {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .soft_reset =3D uvd_v5_0_sof=
-t_reset,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_clockgating_state =3D u=
-vd_v5_0_set_clockgating_state,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_powergating_state =3D u=
-vd_v5_0_set_powergating_state,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .get_clockgating_state =3D uvd_v5_0_get_=
-clockgating_state,<br>
-&gt;&nbsp;&nbsp; };<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; static const struct amdgpu_ring_funcs uvd_v5_0_ring_funcs =
-=3D {<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/a=
-md/amdgpu/uvd_v6_0.c<br>
-&gt; index 8779d4b..2585ae9 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c<br>
-&gt; @@ -987,18 &#43;987,50 @@ static int uvd_v6_0_set_powergating_state(vo=
-id *handle,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * the smc and the hw b=
-locks<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
-=3D (struct amdgpu_device *)handle;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(adev-&gt;pg_flags &amp=
-; AMD_PG_SUPPORT_UVD))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmUVD_POWER_STATUS, U=
-VD_POWER_STATUS__UVD_PG_EN_MASK);<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;adev-&gt;pm.mutex);<br>
-&gt; &#43;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (state =3D=3D AMD_PG_STAT=
-E_GATE) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; adev-&gt;uvd.is_powergated =3D true;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; uvd_v6_0_stop(adev);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; return 0;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; return uvd_v6_0_start(adev);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; ret =3D uvd_v6_0_start(adev);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; if (ret)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; adev-&gt;uvd.is_powergated =3D false;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; &#43;<br>
-&gt; &#43;out:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;adev-&gt;pm.mutex);<br=
->
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&gt; &#43;}<br>
-&gt; &#43;<br>
-&gt; &#43;static void uvd_v6_0_get_clockgating_state(void *handle, u32 *fla=
-gs)<br>
-&gt; &#43;{<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D (struct a=
-mdgpu_device *)handle;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; int data;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;adev-&gt;pm.mutex);<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;uvd.is_powergated) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; DRM_INFO(&quot;Cannot get clockgating state when UVD is powergated.=
-\n&quot;);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; goto out;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; /* AMD_CG_SUPPORT_UVD_MGCG */<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; data =3D RREG32(mmUVD_CGC_CTRL);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (data &amp; UVD_CGC_CTRL__DYN_CLOCK_M=
-ODE_MASK)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; *flags |=3D AMD_CG_SUPPORT_UVD_MGCG;<br>
-&gt; &#43;<br>
-&gt; &#43;out:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;adev-&gt;pm.mutex);<br=
->
-&gt;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; static const struct amd_ip_funcs uvd_v6_0_ip_funcs =3D {<b=
-r>
-&gt; @@ -1019,6 &#43;1051,7 @@ static const struct amd_ip_funcs uvd_v6_0_ip=
-_funcs =3D {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .post_soft_reset =3D uvd_v6_=
-0_post_soft_reset,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_clockgating_state =3D u=
-vd_v6_0_set_clockgating_state,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_powergating_state =3D u=
-vd_v6_0_set_powergating_state,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .get_clockgating_state =3D uvd_v6_0_get_=
-clockgating_state,<br>
-&gt;&nbsp;&nbsp; };<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; static const struct amdgpu_ring_funcs uvd_v6_0_ring_phys_f=
-uncs =3D {<br>
-<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB176846FDA72EF232B6825609F7640CY4PR12MB1768namp_--
-
---===============1431866472==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1431866472==--
+QW0gMDkuMDEuMjAxNyB1bSAwNDowMCBzY2hyaWViIEh1YW5nIFJ1aToKPiBTaWduZWQtb2ZmLWJ5
+OiBIdWFuZyBSdWkgPHJheS5odWFuZ0BhbWQuY29tPgo+IC0tLQo+Cj4gQ2hhbmdlcyBmcm9tIFYz
+IC0+IFY0Ogo+IC0gdXNlIHBtIG11dGV4IHRvIHByb3RlY3QgVVZEIGNsb2NrIGdhdGluZyBzdGF0
+dXMKPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggICB8ICAx
+ICsKPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3V2ZF92NV8wLmMgfCAzNyArKysrKysr
+KysrKysrKysrKysrKysrKysrKysrKysrKystLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvdXZkX3Y2XzAuYyB8IDM3ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tCj4g
+ICAzIGZpbGVzIGNoYW5nZWQsIDcxIGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCj4KPiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAo+IGluZGV4IDUzMDU0OWIuLjMxMDU0YzcgMTAw
+NjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPiArKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAo+IEBAIC0xMTgzLDYgKzExODMsNyBA
+QCBzdHJ1Y3QgYW1kZ3B1X3V2ZCB7Cj4gICAJYm9vbAkJCXVzZV9jdHhfYnVmOwo+ICAgCXN0cnVj
+dCBhbWRfc2NoZWRfZW50aXR5IGVudGl0eTsKPiAgIAl1aW50MzJfdCAgICAgICAgICAgICAgICBz
+cmJtX3NvZnRfcmVzZXQ7Cj4gKwlib29sCQkJaXNfcG93ZXJnYXRlZDsKPiAgIH07Cj4gICAKPiAg
+IC8qCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3V2ZF92NV8wLmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjVfMC5jCj4gaW5kZXggMDNhMzVkOS4u
+ZTY0N2QzZSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjVf
+MC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdXZkX3Y1XzAuYwo+IEBAIC03
+ODEsMTYgKzc4MSw0OCBAQCBzdGF0aWMgaW50IHV2ZF92NV8wX3NldF9wb3dlcmdhdGluZ19zdGF0
+ZSh2b2lkICpoYW5kbGUsCj4gICAJICogdGhlIHNtYyBhbmQgdGhlIGh3IGJsb2Nrcwo+ICAgCSAq
+Lwo+ICAgCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gKHN0cnVjdCBhbWRncHVfZGV2aWNl
+ICopaGFuZGxlOwo+ICsJaW50IHJldCA9IDA7Cj4gICAKPiAgIAlpZiAoIShhZGV2LT5wZ19mbGFn
+cyAmIEFNRF9QR19TVVBQT1JUX1VWRCkpCj4gICAJCXJldHVybiAwOwo+ICAgCj4gKwltdXRleF9s
+b2NrKCZhZGV2LT5wbS5tdXRleCk7CgpNaWdodCBiZSB0aGF0IEknbSB3cm9uZywgYnV0IGRpZG4n
+dCBUb20gc2FpZCB0aGUgbXV0ZXggaXMgdGFrZW4gYW55d2F5IAp3aGVuIHRoaXMgZnVuY3Rpb24g
+aXMgY2FsbGVkPwoKSWYgdGhhdCdzIHRydWUgd2Ugd291bGQgY2VydGFpbmx5IHJ1biBpbnRvIHBy
+b2JsZW0gd2hlbiB3ZSB0cnkgdG8gCmFjcXVpcmUgaXQgYWdhaW4uCgpDaHJpc3RpYW4uCgo+ICsK
+PiAgIAlpZiAoc3RhdGUgPT0gQU1EX1BHX1NUQVRFX0dBVEUpIHsKPiArCQlhZGV2LT51dmQuaXNf
+cG93ZXJnYXRlZCA9IHRydWU7Cj4gICAJCXV2ZF92NV8wX3N0b3AoYWRldik7Cj4gLQkJcmV0dXJu
+IDA7Cj4gICAJfSBlbHNlIHsKPiAtCQlyZXR1cm4gdXZkX3Y1XzBfc3RhcnQoYWRldik7Cj4gKwkJ
+cmV0ID0gdXZkX3Y1XzBfc3RhcnQoYWRldik7Cj4gKwkJaWYgKHJldCkKPiArCQkJZ290byBvdXQ7
+Cj4gKwkJYWRldi0+dXZkLmlzX3Bvd2VyZ2F0ZWQgPSBmYWxzZTsKPiArCX0KPiArCj4gK291dDoK
+PiArCW11dGV4X3VubG9jaygmYWRldi0+cG0ubXV0ZXgpOwo+ICsKPiArCXJldHVybiByZXQ7Cj4g
+K30KPiArCj4gK3N0YXRpYyB2b2lkIHV2ZF92NV8wX2dldF9jbG9ja2dhdGluZ19zdGF0ZSh2b2lk
+ICpoYW5kbGUsIHUzMiAqZmxhZ3MpCj4gK3sKPiArCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
+ID0gKHN0cnVjdCBhbWRncHVfZGV2aWNlICopaGFuZGxlOwo+ICsJaW50IGRhdGE7Cj4gKwo+ICsJ
+bXV0ZXhfbG9jaygmYWRldi0+cG0ubXV0ZXgpOwo+ICsKPiArCWlmIChhZGV2LT51dmQuaXNfcG93
+ZXJnYXRlZCkgewo+ICsJCURSTV9JTkZPKCJDYW5ub3QgZ2V0IGNsb2NrZ2F0aW5nIHN0YXRlIHdo
+ZW4gVVZEIGlzIHBvd2VyZ2F0ZWQuXG4iKTsKPiArCQlnb3RvIG91dDsKPiAgIAl9Cj4gKwo+ICsJ
+LyogQU1EX0NHX1NVUFBPUlRfVVZEX01HQ0cgKi8KPiArCWRhdGEgPSBSUkVHMzIobW1VVkRfQ0dD
+X0NUUkwpOwo+ICsJaWYgKGRhdGEgJiBVVkRfQ0dDX0NUUkxfX0RZTl9DTE9DS19NT0RFX01BU0sp
+Cj4gKwkJKmZsYWdzIHw9IEFNRF9DR19TVVBQT1JUX1VWRF9NR0NHOwo+ICsKPiArb3V0Ogo+ICsJ
+bXV0ZXhfdW5sb2NrKCZhZGV2LT5wbS5tdXRleCk7Cj4gICB9Cj4gICAKPiAgIHN0YXRpYyBjb25z
+dCBzdHJ1Y3QgYW1kX2lwX2Z1bmNzIHV2ZF92NV8wX2lwX2Z1bmNzID0gewo+IEBAIC04MDgsNiAr
+ODQwLDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRfaXBfZnVuY3MgdXZkX3Y1XzBfaXBfZnVu
+Y3MgPSB7Cj4gICAJLnNvZnRfcmVzZXQgPSB1dmRfdjVfMF9zb2Z0X3Jlc2V0LAo+ICAgCS5zZXRf
+Y2xvY2tnYXRpbmdfc3RhdGUgPSB1dmRfdjVfMF9zZXRfY2xvY2tnYXRpbmdfc3RhdGUsCj4gICAJ
+LnNldF9wb3dlcmdhdGluZ19zdGF0ZSA9IHV2ZF92NV8wX3NldF9wb3dlcmdhdGluZ19zdGF0ZSwK
+PiArCS5nZXRfY2xvY2tnYXRpbmdfc3RhdGUgPSB1dmRfdjVfMF9nZXRfY2xvY2tnYXRpbmdfc3Rh
+dGUsCj4gICB9Owo+ICAgCj4gICBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9yaW5nX2Z1bmNz
+IHV2ZF92NV8wX3JpbmdfZnVuY3MgPSB7Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L3V2ZF92Nl8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjZf
+MC5jCj4gaW5kZXggODc3OWQ0Yi4uMjU4NWFlOSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS91dmRfdjZfMC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvdXZkX3Y2XzAuYwo+IEBAIC05ODcsMTggKzk4Nyw1MCBAQCBzdGF0aWMgaW50IHV2ZF92Nl8w
+X3NldF9wb3dlcmdhdGluZ19zdGF0ZSh2b2lkICpoYW5kbGUsCj4gICAJICogdGhlIHNtYyBhbmQg
+dGhlIGh3IGJsb2Nrcwo+ICAgCSAqLwo+ICAgCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0g
+KHN0cnVjdCBhbWRncHVfZGV2aWNlICopaGFuZGxlOwo+ICsJaW50IHJldCA9IDA7Cj4gICAKPiAg
+IAlpZiAoIShhZGV2LT5wZ19mbGFncyAmIEFNRF9QR19TVVBQT1JUX1VWRCkpCj4gICAJCXJldHVy
+biAwOwo+ICAgCj4gICAJV1JFRzMyKG1tVVZEX1BPV0VSX1NUQVRVUywgVVZEX1BPV0VSX1NUQVRV
+U19fVVZEX1BHX0VOX01BU0spOwo+ICAgCj4gKwltdXRleF9sb2NrKCZhZGV2LT5wbS5tdXRleCk7
+Cj4gKwo+ICAgCWlmIChzdGF0ZSA9PSBBTURfUEdfU1RBVEVfR0FURSkgewo+ICsJCWFkZXYtPnV2
+ZC5pc19wb3dlcmdhdGVkID0gdHJ1ZTsKPiAgIAkJdXZkX3Y2XzBfc3RvcChhZGV2KTsKPiAtCQly
+ZXR1cm4gMDsKPiAgIAl9IGVsc2Ugewo+IC0JCXJldHVybiB1dmRfdjZfMF9zdGFydChhZGV2KTsK
+PiArCQlyZXQgPSB1dmRfdjZfMF9zdGFydChhZGV2KTsKPiArCQlpZiAocmV0KQo+ICsJCQlnb3Rv
+IG91dDsKPiArCQlhZGV2LT51dmQuaXNfcG93ZXJnYXRlZCA9IGZhbHNlOwo+ICsJfQo+ICsKPiAr
+b3V0Ogo+ICsJbXV0ZXhfdW5sb2NrKCZhZGV2LT5wbS5tdXRleCk7Cj4gKwo+ICsJcmV0dXJuIHJl
+dDsKPiArfQo+ICsKPiArc3RhdGljIHZvaWQgdXZkX3Y2XzBfZ2V0X2Nsb2NrZ2F0aW5nX3N0YXRl
+KHZvaWQgKmhhbmRsZSwgdTMyICpmbGFncykKPiArewo+ICsJc3RydWN0IGFtZGdwdV9kZXZpY2Ug
+KmFkZXYgPSAoc3RydWN0IGFtZGdwdV9kZXZpY2UgKiloYW5kbGU7Cj4gKwlpbnQgZGF0YTsKPiAr
+Cj4gKwltdXRleF9sb2NrKCZhZGV2LT5wbS5tdXRleCk7Cj4gKwo+ICsJaWYgKGFkZXYtPnV2ZC5p
+c19wb3dlcmdhdGVkKSB7Cj4gKwkJRFJNX0lORk8oIkNhbm5vdCBnZXQgY2xvY2tnYXRpbmcgc3Rh
+dGUgd2hlbiBVVkQgaXMgcG93ZXJnYXRlZC5cbiIpOwo+ICsJCWdvdG8gb3V0Owo+ICAgCX0KPiAr
+Cj4gKwkvKiBBTURfQ0dfU1VQUE9SVF9VVkRfTUdDRyAqLwo+ICsJZGF0YSA9IFJSRUczMihtbVVW
+RF9DR0NfQ1RSTCk7Cj4gKwlpZiAoZGF0YSAmIFVWRF9DR0NfQ1RSTF9fRFlOX0NMT0NLX01PREVf
+TUFTSykKPiArCQkqZmxhZ3MgfD0gQU1EX0NHX1NVUFBPUlRfVVZEX01HQ0c7Cj4gKwo+ICtvdXQ6
+Cj4gKwltdXRleF91bmxvY2soJmFkZXYtPnBtLm11dGV4KTsKPiAgIH0KPiAgIAo+ICAgc3RhdGlj
+IGNvbnN0IHN0cnVjdCBhbWRfaXBfZnVuY3MgdXZkX3Y2XzBfaXBfZnVuY3MgPSB7Cj4gQEAgLTEw
+MTksNiArMTA1MSw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kX2lwX2Z1bmNzIHV2ZF92Nl8w
+X2lwX2Z1bmNzID0gewo+ICAgCS5wb3N0X3NvZnRfcmVzZXQgPSB1dmRfdjZfMF9wb3N0X3NvZnRf
+cmVzZXQsCj4gICAJLnNldF9jbG9ja2dhdGluZ19zdGF0ZSA9IHV2ZF92Nl8wX3NldF9jbG9ja2dh
+dGluZ19zdGF0ZSwKPiAgIAkuc2V0X3Bvd2VyZ2F0aW5nX3N0YXRlID0gdXZkX3Y2XzBfc2V0X3Bv
+d2VyZ2F0aW5nX3N0YXRlLAo+ICsJLmdldF9jbG9ja2dhdGluZ19zdGF0ZSA9IHV2ZF92Nl8wX2dl
+dF9jbG9ja2dhdGluZ19zdGF0ZSwKPiAgIH07Cj4gICAKPiAgIHN0YXRpYyBjb25zdCBzdHJ1Y3Qg
+YW1kZ3B1X3JpbmdfZnVuY3MgdXZkX3Y2XzBfcmluZ19waHlzX2Z1bmNzID0gewoKCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
+aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
