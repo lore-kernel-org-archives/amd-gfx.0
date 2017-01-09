@@ -1,19 +1,12 @@
-From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PART1 PATCH v4 7/8] drm/amdgpu: add get clockgating_state method
- for uvd v5&v6
-Date: Mon, 9 Jan 2017 14:50:37 +0000
-Message-ID: <CY4PR12MB1768D65E3065C4D143C3513BF7640@CY4PR12MB1768.namprd12.prod.outlook.com>
-References: <1483930814-23529-1-git-send-email-ray.huang@amd.com>
- <1483930814-23529-2-git-send-email-ray.huang@amd.com>
- <364cc068-e347-5f77-b4ff-414f8e8b4fdb@amd.com>
- <CY4PR12MB176846FDA72EF232B6825609F7640@CY4PR12MB1768.namprd12.prod.outlook.com>
- <20170109144614.GA3743@hr-amur2>,
- <523a8df8-2573-0c56-e6c7-5ac74f77f1f3@amd.com>
+From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PART1 PATCH v5 7/8] drm/amdgpu: add get clockgating_state method for
+ uvd v5&v6
+Date: Tue, 10 Jan 2017 00:04:48 +0800
+Message-ID: <1483977889-16256-1-git-send-email-ray.huang@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1418388937=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <523a8df8-2573-0c56-e6c7-5ac74f77f1f3-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -24,224 +17,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
-Cc: "Fu, Ping" <Ping.Fu-5C7GfCeVMHo@public.gmane.org>, "Mao, David" <David.Mao-5C7GfCeVMHo@public.gmane.org>, "Kuehling,
- Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "Zhang,
- Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+To: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Tom StDenis <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Cc: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, Hawking Zhang <hawking.zhang-5C7GfCeVMHo@public.gmane.org>, Rex Zhu <rex.zhu-5C7GfCeVMHo@public.gmane.org>, Ping Fu <ping.fu-5C7GfCeVMHo@public.gmane.org>, David Mao <david.mao-5C7GfCeVMHo@public.gmane.org>
 
---===============1418388937==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB1768D65E3065C4D143C3513BF7640CY4PR12MB1768namp_"
-
---_000_CY4PR12MB1768D65E3065C4D143C3513BF7640CY4PR12MB1768namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Yes, holding pm.mutex will prevent PP/DPM from entering/leaving PG states a=
-nd is used as a means to probe power/clock related signals reliably (except=
- for VCE clock signals which aren't part of an AON tile).
-
-
-You just can't take it from a "set" state function since the higher up API =
-will take it.
-
-
-Tom
-
-
-________________________________
-From: Koenig, Christian
-Sent: Monday, January 9, 2017 09:45
-To: Huang, Ray; StDenis, Tom
-Cc: Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Zhu, Rex; Mao, David=
-; Fu, Ping; Zhang, Hawking; Kuehling, Felix
-Subject: Re: [PART1 PATCH v4 7/8] drm/amdgpu: add get clockgating_state met=
-hod for uvd v5&v6
-
-Am 09.01.2017 um 15:46 schrieb Huang Rui:
-> On Mon, Jan 09, 2017 at 07:29:00PM +0800, StDenis, Tom wrote:
->> Yup it's held by both amdgpu_dpm_enable_uvd() and amdgpu_dpm_enable_vce(=
-)
->>
->> Tom
->>
-> <snip>
->
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c b/drivers/gpu/drm/am=
-d/
->> amdgpu/uvd_v5_0.c
->>> index 03a35d9..e647d3e 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
->>> @@ -781,16 +781,48 @@ static int uvd_v5_0_set_powergating_state(void *h=
-andle,
->>>          * the smc and the hw blocks
->>>          */
->>>         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
->>> +     int ret =3D 0;
->>>
->>>         if (!(adev->pg_flags & AMD_PG_SUPPORT_UVD))
->>>                 return 0;
->>>
->>> +     mutex_lock(&adev->pm.mutex);
->> Might be that I'm wrong, but didn't Tom said the mutex is taken anyway
->> when this function is called?
->>
->> If that's true we would certainly run into problem when we try to
->> acquire it again.
->>
-> OK, I see. Actually, pm.mutex is already held on upper layer call
-> (amdgpu_dpm_enable_uvd). So we should not hold it again here.
->
->>> +
->>> +static void uvd_v5_0_get_clockgating_state(void *handle, u32 *flags)
->>> +{
->>> +     struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
->>> +     int data;
->>> +
->>> +     mutex_lock(&adev->pm.mutex);
->>> +
-> We just need keep pm.mutex here in set_clockgating_state, that's enough.
->
-> Christian, Tom, am I right?
-
-Yes, I think so.
-
-Christian.
-
->
-> Thanks,
-> Rui
-
-
-
---_000_CY4PR12MB1768D65E3065C4D143C3513BF7640CY4PR12MB1768namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Arial,Helvetica,sans-serif;" dir=3D"ltr">
-<p>Yes, holding pm.mutex will prevent PP/DPM from entering/leaving PG state=
-s and is used as a means to probe power/clock related signals reliably (exc=
-ept for VCE clock signals which aren't part of an AON tile).</p>
-<p><br>
-</p>
-<p>You just can't take it from a &quot;set&quot; state function since the h=
-igher up API will take it.</p>
-<p><br>
-</p>
-<p>Tom</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Koenig, Christian<b=
-r>
-<b>Sent:</b> Monday, January 9, 2017 09:45<br>
-<b>To:</b> Huang, Ray; StDenis, Tom<br>
-<b>Cc:</b> Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Zhu, Rex; Mao=
-, David; Fu, Ping; Zhang, Hawking; Kuehling, Felix<br>
-<b>Subject:</b> Re: [PART1 PATCH v4 7/8] drm/amdgpu: add get clockgating_st=
-ate method for uvd v5&amp;v6</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">Am 09.01.2017 um 15:46 schrieb Huang Rui:<br>
-&gt; On Mon, Jan 09, 2017 at 07:29:00PM &#43;0800, StDenis, Tom wrote:<br>
-&gt;&gt; Yup it's held by both amdgpu_dpm_enable_uvd() and amdgpu_dpm_enabl=
-e_vce()<br>
-&gt;&gt;<br>
-&gt;&gt; Tom<br>
-&gt;&gt;<br>
-&gt; &lt;snip&gt;<br>
-&gt;<br>
-&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c b/drivers/g=
-pu/drm/amd/<br>
-&gt;&gt; amdgpu/uvd_v5_0.c<br>
-&gt;&gt;&gt; index 03a35d9..e647d3e 100644<br>
-&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c<br>
-&gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c<br>
-&gt;&gt;&gt; @@ -781,16 &#43;781,48 @@ static int uvd_v5_0_set_powergating_=
-state(void *handle,<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * the sm=
-c and the hw blocks<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_=
-device *adev =3D (struct amdgpu_device *)handle;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&gt;&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(adev-&gt=
-;pg_flags &amp; AMD_PG_SUPPORT_UVD))<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt;&gt;&gt;&nbsp;&nbsp; <br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;adev-&gt;pm.mute=
-x);<br>
-&gt;&gt; Might be that I'm wrong, but didn't Tom said the mutex is taken an=
-yway<br>
-&gt;&gt; when this function is called?<br>
-&gt;&gt;<br>
-&gt;&gt; If that's true we would certainly run into problem when we try to<=
-br>
-&gt;&gt; acquire it again.<br>
-&gt;&gt;<br>
-&gt; OK, I see. Actually, pm.mutex is already held on upper layer call<br>
-&gt; (amdgpu_dpm_enable_uvd). So we should not hold it again here.<br>
-&gt;<br>
-&gt;&gt;&gt; &#43;<br>
-&gt;&gt;&gt; &#43;static void uvd_v5_0_get_clockgating_state(void *handle, =
-u32 *flags)<br>
-&gt;&gt;&gt; &#43;{<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D (=
-struct amdgpu_device *)handle;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; int data;<br>
-&gt;&gt;&gt; &#43;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;adev-&gt;pm.mute=
-x);<br>
-&gt;&gt;&gt; &#43;<br>
-&gt; We just need keep pm.mutex here in set_clockgating_state, that's enoug=
-h.<br>
-&gt;<br>
-&gt; Christian, Tom, am I right?<br>
-<br>
-Yes, I think so.<br>
-<br>
-Christian.<br>
-<br>
-&gt;<br>
-&gt; Thanks,<br>
-&gt; Rui<br>
-<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB1768D65E3065C4D143C3513BF7640CY4PR12MB1768namp_--
-
---===============1418388937==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1418388937==--
+U2lnbmVkLW9mZi1ieTogSHVhbmcgUnVpIDxyYXkuaHVhbmdAYW1kLmNvbT4KLS0tCgpDaGFuZ2Vz
+IGZyb20gVjQgLT4gVjU6Ci0gcmVtb3ZlIHBtIG11dGV4IGZyb20gc2V0IGNsb2NrIGdhdGluZyBm
+dW5jdGlvbgoKLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCAgIHwgIDEg
+KwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdXZkX3Y1XzAuYyB8IDMzICsrKysrKysrKysr
+KysrKysrKysrKysrKysrKysrKystLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdXZkX3Y2
+XzAuYyB8IDMzICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKystLQogMyBmaWxlcyBjaGFu
+Z2VkLCA2MyBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1LmgKaW5kZXggNTMwNTQ5Yi4uMzEwNTRjNyAxMDA2NDQKLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1LmgKQEAgLTExODMsNiArMTE4Myw3IEBAIHN0cnVjdCBhbWRncHVfdXZkIHsKIAli
+b29sCQkJdXNlX2N0eF9idWY7CiAJc3RydWN0IGFtZF9zY2hlZF9lbnRpdHkgZW50aXR5OwogCXVp
+bnQzMl90ICAgICAgICAgICAgICAgIHNyYm1fc29mdF9yZXNldDsKKwlib29sCQkJaXNfcG93ZXJn
+YXRlZDsKIH07CiAKIC8qCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91
+dmRfdjVfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdXZkX3Y1XzAuYwppbmRleCAw
+M2EzNWQ5Li4yYjhkMmIyIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91
+dmRfdjVfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3V2ZF92NV8wLmMKQEAg
+LTc4MSwxNiArNzgxLDQ0IEBAIHN0YXRpYyBpbnQgdXZkX3Y1XzBfc2V0X3Bvd2VyZ2F0aW5nX3N0
+YXRlKHZvaWQgKmhhbmRsZSwKIAkgKiB0aGUgc21jIGFuZCB0aGUgaHcgYmxvY2tzCiAJICovCiAJ
+c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSAoc3RydWN0IGFtZGdwdV9kZXZpY2UgKiloYW5k
+bGU7CisJaW50IHJldCA9IDA7CiAKIAlpZiAoIShhZGV2LT5wZ19mbGFncyAmIEFNRF9QR19TVVBQ
+T1JUX1VWRCkpCiAJCXJldHVybiAwOwogCiAJaWYgKHN0YXRlID09IEFNRF9QR19TVEFURV9HQVRF
+KSB7CiAJCXV2ZF92NV8wX3N0b3AoYWRldik7Ci0JCXJldHVybiAwOworCQlhZGV2LT51dmQuaXNf
+cG93ZXJnYXRlZCA9IHRydWU7CiAJfSBlbHNlIHsKLQkJcmV0dXJuIHV2ZF92NV8wX3N0YXJ0KGFk
+ZXYpOworCQlyZXQgPSB1dmRfdjVfMF9zdGFydChhZGV2KTsKKwkJaWYgKHJldCkKKwkJCWdvdG8g
+b3V0OworCQlhZGV2LT51dmQuaXNfcG93ZXJnYXRlZCA9IGZhbHNlOworCX0KKworb3V0OgorCXJl
+dHVybiByZXQ7Cit9CisKK3N0YXRpYyB2b2lkIHV2ZF92NV8wX2dldF9jbG9ja2dhdGluZ19zdGF0
+ZSh2b2lkICpoYW5kbGUsIHUzMiAqZmxhZ3MpCit7CisJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
+ZXYgPSAoc3RydWN0IGFtZGdwdV9kZXZpY2UgKiloYW5kbGU7CisJaW50IGRhdGE7CisKKwltdXRl
+eF9sb2NrKCZhZGV2LT5wbS5tdXRleCk7CisKKwlpZiAoYWRldi0+dXZkLmlzX3Bvd2VyZ2F0ZWQp
+IHsKKwkJRFJNX0lORk8oIkNhbm5vdCBnZXQgY2xvY2tnYXRpbmcgc3RhdGUgd2hlbiBVVkQgaXMg
+cG93ZXJnYXRlZC5cbiIpOworCQlnb3RvIG91dDsKIAl9CisKKwkvKiBBTURfQ0dfU1VQUE9SVF9V
+VkRfTUdDRyAqLworCWRhdGEgPSBSUkVHMzIobW1VVkRfQ0dDX0NUUkwpOworCWlmIChkYXRhICYg
+VVZEX0NHQ19DVFJMX19EWU5fQ0xPQ0tfTU9ERV9NQVNLKQorCQkqZmxhZ3MgfD0gQU1EX0NHX1NV
+UFBPUlRfVVZEX01HQ0c7CisKK291dDoKKwltdXRleF91bmxvY2soJmFkZXYtPnBtLm11dGV4KTsK
+IH0KIAogc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRfaXBfZnVuY3MgdXZkX3Y1XzBfaXBfZnVuY3Mg
+PSB7CkBAIC04MDgsNiArODM2LDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRfaXBfZnVuY3Mg
+dXZkX3Y1XzBfaXBfZnVuY3MgPSB7CiAJLnNvZnRfcmVzZXQgPSB1dmRfdjVfMF9zb2Z0X3Jlc2V0
+LAogCS5zZXRfY2xvY2tnYXRpbmdfc3RhdGUgPSB1dmRfdjVfMF9zZXRfY2xvY2tnYXRpbmdfc3Rh
+dGUsCiAJLnNldF9wb3dlcmdhdGluZ19zdGF0ZSA9IHV2ZF92NV8wX3NldF9wb3dlcmdhdGluZ19z
+dGF0ZSwKKwkuZ2V0X2Nsb2NrZ2F0aW5nX3N0YXRlID0gdXZkX3Y1XzBfZ2V0X2Nsb2NrZ2F0aW5n
+X3N0YXRlLAogfTsKIAogc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRncHVfcmluZ19mdW5jcyB1dmRf
+djVfMF9yaW5nX2Z1bmNzID0gewpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvdXZkX3Y2XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3V2ZF92Nl8wLmMKaW5k
+ZXggODc3OWQ0Yi4uZjExZDc2MCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvdXZkX3Y2XzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjZfMC5j
+CkBAIC05ODcsNiArOTg3LDcgQEAgc3RhdGljIGludCB1dmRfdjZfMF9zZXRfcG93ZXJnYXRpbmdf
+c3RhdGUodm9pZCAqaGFuZGxlLAogCSAqIHRoZSBzbWMgYW5kIHRoZSBodyBibG9ja3MKIAkgKi8K
+IAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqKWhh
+bmRsZTsKKwlpbnQgcmV0ID0gMDsKIAogCWlmICghKGFkZXYtPnBnX2ZsYWdzICYgQU1EX1BHX1NV
+UFBPUlRfVVZEKSkKIAkJcmV0dXJuIDA7CkBAIC05OTUsMTAgKzk5NiwzNyBAQCBzdGF0aWMgaW50
+IHV2ZF92Nl8wX3NldF9wb3dlcmdhdGluZ19zdGF0ZSh2b2lkICpoYW5kbGUsCiAKIAlpZiAoc3Rh
+dGUgPT0gQU1EX1BHX1NUQVRFX0dBVEUpIHsKIAkJdXZkX3Y2XzBfc3RvcChhZGV2KTsKLQkJcmV0
+dXJuIDA7CisJCWFkZXYtPnV2ZC5pc19wb3dlcmdhdGVkID0gdHJ1ZTsKIAl9IGVsc2UgewotCQly
+ZXR1cm4gdXZkX3Y2XzBfc3RhcnQoYWRldik7CisJCXJldCA9IHV2ZF92Nl8wX3N0YXJ0KGFkZXYp
+OworCQlpZiAocmV0KQorCQkJZ290byBvdXQ7CisJCWFkZXYtPnV2ZC5pc19wb3dlcmdhdGVkID0g
+ZmFsc2U7CisJfQorCitvdXQ6CisJcmV0dXJuIHJldDsKK30KKworc3RhdGljIHZvaWQgdXZkX3Y2
+XzBfZ2V0X2Nsb2NrZ2F0aW5nX3N0YXRlKHZvaWQgKmhhbmRsZSwgdTMyICpmbGFncykKK3sKKwlz
+dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqKWhhbmRs
+ZTsKKwlpbnQgZGF0YTsKKworCW11dGV4X2xvY2soJmFkZXYtPnBtLm11dGV4KTsKKworCWlmIChh
+ZGV2LT51dmQuaXNfcG93ZXJnYXRlZCkgeworCQlEUk1fSU5GTygiQ2Fubm90IGdldCBjbG9ja2dh
+dGluZyBzdGF0ZSB3aGVuIFVWRCBpcyBwb3dlcmdhdGVkLlxuIik7CisJCWdvdG8gb3V0OwogCX0K
+KworCS8qIEFNRF9DR19TVVBQT1JUX1VWRF9NR0NHICovCisJZGF0YSA9IFJSRUczMihtbVVWRF9D
+R0NfQ1RSTCk7CisJaWYgKGRhdGEgJiBVVkRfQ0dDX0NUUkxfX0RZTl9DTE9DS19NT0RFX01BU0sp
+CisJCSpmbGFncyB8PSBBTURfQ0dfU1VQUE9SVF9VVkRfTUdDRzsKKworb3V0OgorCW11dGV4X3Vu
+bG9jaygmYWRldi0+cG0ubXV0ZXgpOwogfQogCiBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZF9pcF9m
+dW5jcyB1dmRfdjZfMF9pcF9mdW5jcyA9IHsKQEAgLTEwMTksNiArMTA0Nyw3IEBAIHN0YXRpYyBj
+b25zdCBzdHJ1Y3QgYW1kX2lwX2Z1bmNzIHV2ZF92Nl8wX2lwX2Z1bmNzID0gewogCS5wb3N0X3Nv
+ZnRfcmVzZXQgPSB1dmRfdjZfMF9wb3N0X3NvZnRfcmVzZXQsCiAJLnNldF9jbG9ja2dhdGluZ19z
+dGF0ZSA9IHV2ZF92Nl8wX3NldF9jbG9ja2dhdGluZ19zdGF0ZSwKIAkuc2V0X3Bvd2VyZ2F0aW5n
+X3N0YXRlID0gdXZkX3Y2XzBfc2V0X3Bvd2VyZ2F0aW5nX3N0YXRlLAorCS5nZXRfY2xvY2tnYXRp
+bmdfc3RhdGUgPSB1dmRfdjZfMF9nZXRfY2xvY2tnYXRpbmdfc3RhdGUsCiB9OwogCiBzdGF0aWMg
+Y29uc3Qgc3RydWN0IGFtZGdwdV9yaW5nX2Z1bmNzIHV2ZF92Nl8wX3JpbmdfcGh5c19mdW5jcyA9
+IHsKLS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
+dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
