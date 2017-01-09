@@ -1,11 +1,13 @@
 From: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] sync libdrm headers with kernel
-Date: Mon,  9 Jan 2017 13:34:25 -0500
-Message-ID: <20170109183427.5466-1-andresx7@gmail.com>
+Subject: [PATCH linux] drm/radeon: define RADEON_TILING_R600_NO_SCANOUT
+Date: Mon,  9 Jan 2017 13:34:26 -0500
+Message-ID: <20170109183427.5466-2-andresx7@gmail.com>
+References: <20170109183427.5466-1-andresx7@gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20170109183427.5466-1-andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,10 +19,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
+Cc: Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 
-QWRkZWQgbWlzc2luZyBkZWZpbmVzIHRvIHRoZSBrZXJuZWwgdHJlZSBpbiBvcmRlciB0byBtYWtl
-IGZ1dHVyZSBoZWFkZXIKc3luY3MgZWFzaWVyLgoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4Cg==
+QWRkIHRoZSBtaXNzaW5nIGRlZmluaXRpb24gb2YgUkFERU9OX1RJTElOR19SNjAwX05PX1NDQU5P
+VVQuCgpUaGlzIGRlZmluZSBjdXJyZW50bHkgZXhpc3RzIGluIHRoZSBsaWJkcm0gcmFkZW9uX2Ry
+bS5oLCBidXQgbWlzc2luZwpmcm9tIGZyb20gdGhlIGtlcm5lbCByYWRlb25fZHJtLmguIFRoaXMg
+bWFrZXMgdGhlIGhlYWRlciB1cGRhdGUgcHJvY2VzcwppbmNvbnZlbmllbnQuCgpUbyBzb2x2ZSB0
+aGUgcHJvYmxlbSwgYWRkIHRoZSBkZWZpbmUgb24gdGhlIGtlcm5lbCBzaWRlLgoKUkFERU9OX1RJ
+TElOR19SNjAwX05PX1NDQU5PVVQgaXMgY29uc3VtZWQgYnkgdGhlIHJhZGVvbiBNZXNhL0dhbGxp
+dW0KZHJpdmVyLgoKU2lnbmVkLW9mZi1ieTogQW5kcmVzIFJvZHJpZ3VleiA8YW5kcmVzeDdAZ21h
+aWwuY29tPgotLS0KIGluY2x1ZGUvdWFwaS9kcm0vcmFkZW9uX2RybS5oIHwgMSArCiAxIGZpbGUg
+Y2hhbmdlZCwgMSBpbnNlcnRpb24oKykKCmRpZmYgLS1naXQgYS9pbmNsdWRlL3VhcGkvZHJtL3Jh
+ZGVvbl9kcm0uaCBiL2luY2x1ZGUvdWFwaS9kcm0vcmFkZW9uX2RybS5oCmluZGV4IDQ5MGE1OWMu
+Ljk3MzQ2NzAgMTAwNjQ0Ci0tLSBhL2luY2x1ZGUvdWFwaS9kcm0vcmFkZW9uX2RybS5oCisrKyBi
+L2luY2x1ZGUvdWFwaS9kcm0vcmFkZW9uX2RybS5oCkBAIC04MzgsNiArODM4LDcgQEAgc3RydWN0
+IGRybV9yYWRlb25fZ2VtX3VzZXJwdHIgewogI2RlZmluZSBSQURFT05fVElMSU5HX01BQ1JPCQkJ
+CTB4MQogI2RlZmluZSBSQURFT05fVElMSU5HX01JQ1JPCQkJCTB4MgogI2RlZmluZSBSQURFT05f
+VElMSU5HX1NXQVBfMTZCSVQJCQkweDQKKyNkZWZpbmUgUkFERU9OX1RJTElOR19SNjAwX05PX1ND
+QU5PVVQJCQlSQURFT05fVElMSU5HX1NXQVBfMTZCSVQKICNkZWZpbmUgUkFERU9OX1RJTElOR19T
+V0FQXzMyQklUCQkJMHg4CiAvKiB0aGlzIG9iamVjdCByZXF1aXJlcyBhIHN1cmZhY2Ugd2hlbiBt
+YXBwZWQgLSBpLmUuIGZyb250IGJ1ZmZlciAqLwogI2RlZmluZSBSQURFT05fVElMSU5HX1NVUkZB
+Q0UJCQkJMHgxMAotLSAKMi45LjMKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
+LWdmeAo=
