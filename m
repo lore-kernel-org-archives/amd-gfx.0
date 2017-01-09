@@ -1,13 +1,13 @@
 From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: =?gb2312?B?tPC4tDogW1BBVENIIDEvMl0gZHJtL2FtZGdwdS92aTogbW92ZSB2aXJ0dWFs?=
- =?gb2312?Q?ization_detection_forward?=
-Date: Mon, 9 Jan 2017 03:29:56 +0000
-Message-ID: <BY2PR1201MB1110D467A3353F6025BA7C6884640@BY2PR1201MB1110.namprd12.prod.outlook.com>
-References: <1483845155-13398-1-git-send-email-Xiangliang.Yu@amd.com>
+Subject: =?gb2312?B?tPC4tDogW1BBVENIIDIvMl0gZHJtL2FtZGdwdTogcmVtb3ZlIGRldGVjdF9o?=
+ =?gb2312?Q?w=5Fvirtualization_interface?=
+Date: Mon, 9 Jan 2017 03:31:42 +0000
+Message-ID: <BY2PR1201MB1110912AAE15127F5BE9F38B84640@BY2PR1201MB1110.namprd12.prod.outlook.com>
+References: <1483845169-13445-1-git-send-email-Xiangliang.Yu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0299849213=="
+Content-Type: multipart/mixed; boundary="===============0369402011=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1483845155-13398-1-git-send-email-Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1483845169-13445-1-git-send-email-Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
 Content-Language: zh-CN
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,78 +21,93 @@ Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: "Yu, Xiangliang" <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0299849213==
+--===============0369402011==
 Content-Language: zh-CN
 Content-Type: multipart/alternative;
-	boundary="_000_BY2PR1201MB1110D467A3353F6025BA7C6884640BY2PR1201MB1110_"
+	boundary="_000_BY2PR1201MB1110912AAE15127F5BE9F38B84640BY2PR1201MB1110_"
 
---_000_BY2PR1201MB1110D467A3353F6025BA7C6884640BY2PR1201MB1110_
+--_000_BY2PR1201MB1110912AAE15127F5BE9F38B84640BY2PR1201MB1110_
 Content-Type: text/plain; charset="gb2312"
 Content-Transfer-Encoding: base64
 
-SGkgWGlhbmdsaWFuZw0KDQoNCnBsZWFzZSBjaGFuZ2UgYXMgYmVsb3cgYWNjb3JkaW5nbHk6DQoN
-CjEsIGNhbGwgInZpX2RldGVjdF9od192aXJ0dWFsaXphdGlvbiIgaW4gdmlfc2V0X2lwX2Jsb2Nr
-cyBkaXJlY3RseQ0KDQoyLCBkcm9wIGJlbG93IGNoYW5nZXM6DQoNCisgICAgICAgaWYgKGFtZGdw
-dV9zcmlvdl92ZihhZGV2KSkgew0KKyAgICAgICAgICAgICAgIGFtZGdwdV9pcF9ibG9ja19hZGQo
-YWRldiwgJnZpX2NvbW1vbl9pcF9ibG9jayk7DQorICAgICAgICAgICAgICAgYW1kZ3B1X2lwX2Js
-b2NrX2FkZChhZGV2LCAmZ21jX3Y4XzVfaXBfYmxvY2spOw0KKyAgICAgICAgICAgICAgIGFtZGdw
-dV9pcF9ibG9ja19hZGQoYWRldiwgJnRvbmdhX2loX2lwX2Jsb2NrKTsNCisgICAgICAgICAgICAg
-ICBhbWRncHVfaXBfYmxvY2tfYWRkKGFkZXYsICZhbWRncHVfcHBfaXBfYmxvY2spOw0KKyAgICAg
-ICAgICAgICAgIGFtZGdwdV9pcF9ibG9ja19hZGQoYWRldiwgJmRjZV92aXJ0dWFsX2lwX2Jsb2Nr
-KTsNCisgICAgICAgICAgICAgICBhbWRncHVfaXBfYmxvY2tfYWRkKGFkZXYsICZnZnhfdjhfMF9p
-cF9ibG9jayk7DQorICAgICAgICAgICAgICAgYW1kZ3B1X2lwX2Jsb2NrX2FkZChhZGV2LCAmc2Rt
-YV92M18wX2lwX2Jsb2NrKTsNCisgICAgICAgfQ0KDQoNCnNpbmNlIHNvbWUgaXAgIHZlcnNpb24g
-aXMgZGlmZmVyZW50IGJldHdlZW4gVkkgKGUuZy4gRklKSSB1c2UgZ21jX3Y4XzUgYW5kIHRvbmdh
-IHVzZSB2OF8wLCBzbyB5b3VyIGNoYW5nZSBhdCBsYXN0IGluY3JlYXNlIG1vcmUgbGluZXMsIHdl
-J2xsIGZpbmFsbHkgc3VwcG9ydCBUT05HQS9GSUpJL0VsbGVzbWVyZSBmb3IgU1JJT1YpDQoNCg0K
-QlIgTW9uaw0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0Kt6K8/sjLOiBhbWQt
-Z2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiC0+rHtIFhpYW5nbGlh
-bmcgWXUgPFhpYW5nbGlhbmcuWXVAYW1kLmNvbT4NCreiy83KsbzkOiAyMDE3xOox1MI4yNUgMTE6
-MTI6MzUNCsrVvP7IyzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCrOty806IFl1LCBY
-aWFuZ2xpYW5nDQrW98ziOiBbUEFUQ0ggMS8yXSBkcm0vYW1kZ3B1L3ZpOiBtb3ZlIHZpcnR1YWxp
-emF0aW9uIGRldGVjdGlvbiBmb3J3YXJkDQoNCk1vdmUgdGhlIGRldGVjdGlvbiBmb3J3YXJkIGlu
-dG8gdmlfc2V0X2lwX2Jsb2NrcyBmdW5jdGlvbiwgdGhlbg0KYWRkIGlwIGJsb2NrcyB2aXJ0dWFs
-aXphdGlvbiBuZWVkIGlmIGRldmljZSBpcyBWRi4NCg0KU2lnbmVkLW9mZi1ieTogWGlhbmdsaWFu
-ZyBZdSA8WGlhbmdsaWFuZy5ZdUBhbWQuY29tPg0KLS0tDQogZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvdmkuYyB8IDE3ICsrKysrKysrKysrKy0tLS0tDQogMSBmaWxlIGNoYW5nZWQsIDEyIGlu
-c2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS92aS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmkuYw0KaW5k
-ZXggYjJjZTdkYS4uNTgwYjM5MiAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L3ZpLmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZpLmMNCkBAIC04NTcs
-NyArODU3LDYgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRncHVfYXNpY19mdW5jcyB2aV9hc2lj
-X2Z1bmNzID0NCiB7DQogICAgICAgICAucmVhZF9kaXNhYmxlZF9iaW9zID0gJnZpX3JlYWRfZGlz
-YWJsZWRfYmlvcywNCiAgICAgICAgIC5yZWFkX2Jpb3NfZnJvbV9yb20gPSAmdmlfcmVhZF9iaW9z
-X2Zyb21fcm9tLA0KLSAgICAgICAuZGV0ZWN0X2h3X3ZpcnR1YWxpemF0aW9uID0gdmlfZGV0ZWN0
-X2h3X3ZpcnR1YWxpemF0aW9uLA0KICAgICAgICAgLnJlYWRfcmVnaXN0ZXIgPSAmdmlfcmVhZF9y
-ZWdpc3RlciwNCiAgICAgICAgIC5yZXNldCA9ICZ2aV9hc2ljX3Jlc2V0LA0KICAgICAgICAgLnNl
-dF92Z2Ffc3RhdGUgPSAmdmlfdmdhX3NldF9zdGF0ZSwNCkBAIC0xMDQ5LDEwICsxMDQ4LDYgQEAg
-c3RhdGljIGludCB2aV9jb21tb25fZWFybHlfaW5pdCh2b2lkICpoYW5kbGUpDQogICAgICAgICAg
-ICAgICAgIHJldHVybiAtRUlOVkFMOw0KICAgICAgICAgfQ0KDQotICAgICAgIC8qIGluIGVhcmx5
-IGluaXQgc3RhZ2UsIHZiaW9zIGNvZGUgd29uJ3Qgd29yayAqLw0KLSAgICAgICBpZiAoYWRldi0+
-YXNpY19mdW5jcy0+ZGV0ZWN0X2h3X3ZpcnR1YWxpemF0aW9uKQ0KLSAgICAgICAgICAgICAgIGFt
-ZGdwdV9hc2ljX2RldGVjdF9od192aXJ0dWFsaXphdGlvbihhZGV2KTsNCi0NCiAgICAgICAgIGlm
-IChhbWRncHVfc21jX2xvYWRfZncgJiYgc21jX2VuYWJsZWQpDQogICAgICAgICAgICAgICAgIGFk
-ZXYtPmZpcm13YXJlLnNtdV9sb2FkID0gdHJ1ZTsNCg0KQEAgLTE0MDMsNiArMTM5OCwxOCBAQCBz
-dGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9pcF9ibG9ja192ZXJzaW9uIHZpX2NvbW1vbl9pcF9i
-bG9jayA9DQoNCiBpbnQgdmlfc2V0X2lwX2Jsb2NrcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-dikNCiB7DQorICAgICAgIC8qIGluIGVhcmx5IGluaXQgc3RhZ2UsIHZiaW9zIGNvZGUgd29uJ3Qg
-d29yayAqLw0KKyAgICAgICB2aV9kZXRlY3RfaHdfdmlydHVhbGl6YXRpb24oYWRldik7DQorICAg
-ICAgIGlmIChhbWRncHVfc3Jpb3ZfdmYoYWRldikpIHsNCisgICAgICAgICAgICAgICBhbWRncHVf
-aXBfYmxvY2tfYWRkKGFkZXYsICZ2aV9jb21tb25faXBfYmxvY2spOw0KKyAgICAgICAgICAgICAg
-IGFtZGdwdV9pcF9ibG9ja19hZGQoYWRldiwgJmdtY192OF81X2lwX2Jsb2NrKTsNCisgICAgICAg
-ICAgICAgICBhbWRncHVfaXBfYmxvY2tfYWRkKGFkZXYsICZ0b25nYV9paF9pcF9ibG9jayk7DQor
-ICAgICAgICAgICAgICAgYW1kZ3B1X2lwX2Jsb2NrX2FkZChhZGV2LCAmYW1kZ3B1X3BwX2lwX2Js
-b2NrKTsNCisgICAgICAgICAgICAgICBhbWRncHVfaXBfYmxvY2tfYWRkKGFkZXYsICZkY2Vfdmly
-dHVhbF9pcF9ibG9jayk7DQorICAgICAgICAgICAgICAgYW1kZ3B1X2lwX2Jsb2NrX2FkZChhZGV2
-LCAmZ2Z4X3Y4XzBfaXBfYmxvY2spOw0KKyAgICAgICAgICAgICAgIGFtZGdwdV9pcF9ibG9ja19h
-ZGQoYWRldiwgJnNkbWFfdjNfMF9pcF9ibG9jayk7DQorICAgICAgIH0NCisNCiAgICAgICAgIHN3
-aXRjaCAoYWRldi0+YXNpY190eXBlKSB7DQogICAgICAgICBjYXNlIENISVBfVE9QQVo6DQogICAg
-ICAgICAgICAgICAgIC8qIHRvcGF6IGhhcyBubyBEQ0UsIFVWRCwgVkNFICovDQotLQ0KMi43LjQN
-Cg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCmFtZC1n
-ZnggbWFpbGluZyBsaXN0DQphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KaHR0cHM6Ly9s
-aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQo=
+YWZ0ZXIgeW91IHJlbW92ZWQgdGhpcyBpbnRlcmZhY2UsIGRvbid0IGZvcmdldCB0byBjYWxsIHRo
+b3MgInh4X2RldGVjdF9od192aXJ0dWFsaXphdGlvbiIgaW4gaGVhZCBvZiB4eF9zZXRfaXBfYmxv
+Y2tzKCkgcm91dGluZQ0KDQoNCmUuZy4gQ0kgYWxzbyBuZWVkIGl0cyAiYWRldi0+dmlydC5jYXBz
+IiB3aXRoIGZsYWcgb2YgIkFNREdQVV9QQVNTVEhST1VHSF9NT0RFIg0KDQoNCkJSIE1vbmsNCg0K
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCreivP7IyzogYW1kLWdmeCA8YW1kLWdm
+eC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gtPqx7SBYaWFuZ2xpYW5nIFl1IDxYaWFu
+Z2xpYW5nLll1QGFtZC5jb20+DQq3osvNyrG85DogMjAxN8TqMdTCOMjVIDExOjEyOjQ5DQrK1bz+
+yMs6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQqzrcvNOiBZdSwgWGlhbmdsaWFuZw0K
+1vfM4jogW1BBVENIIDIvMl0gZHJtL2FtZGdwdTogcmVtb3ZlIGRldGVjdF9od192aXJ0dWFsaXph
+dGlvbiBpbnRlcmZhY2UNCg0KRG9uJ3QgdXNlIHRoZSBpbnRlcmZhY2UgYW55bW9yZSwgcmVtb3Zl
+IGl0Lg0KDQpTaWduZWQtb2ZmLWJ5OiBYaWFuZ2xpYW5nIFl1IDxYaWFuZ2xpYW5nLll1QGFtZC5j
+b20+DQotLS0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCB8IDIgLS0NCiBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaWsuYyAgICB8IDcgLS0tLS0tLQ0KIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L3NpLmMgICAgIHwgNyAtLS0tLS0tDQogMyBmaWxlcyBjaGFuZ2Vk
+LCAxNiBkZWxldGlvbnMoLSkNCg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgNCmluZGV4
+IGI3ZDUyMGZjLi4xM2MzMGFiIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1LmgNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oDQpA
+QCAtMTE5Miw3ICsxMTkyLDYgQEAgc3RydWN0IGFtZGdwdV9hc2ljX2Z1bmNzIHsNCiAgICAgICAg
+IGJvb2wgKCpyZWFkX2Rpc2FibGVkX2Jpb3MpKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsN
+CiAgICAgICAgIGJvb2wgKCpyZWFkX2Jpb3NfZnJvbV9yb20pKHN0cnVjdCBhbWRncHVfZGV2aWNl
+ICphZGV2LA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdTggKmJpb3MsIHUz
+MiBsZW5ndGhfYnl0ZXMpOw0KLSAgICAgICB2b2lkICgqZGV0ZWN0X2h3X3ZpcnR1YWxpemF0aW9u
+KSAoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOw0KICAgICAgICAgaW50ICgqcmVhZF9yZWdp
+c3Rlcikoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHUzMiBzZV9udW0sDQogICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICB1MzIgc2hfbnVtLCB1MzIgcmVnX29mZnNldCwgdTMyICp2YWx1
+ZSk7DQogICAgICAgICB2b2lkICgqc2V0X3ZnYV9zdGF0ZSkoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
+KmFkZXYsIGJvb2wgc3RhdGUpOw0KQEAgLTE2MjYsNyArMTYyNSw2IEBAIGFtZGdwdV9nZXRfc2Rt
+YV9pbnN0YW5jZShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpDQogI2RlZmluZSBhbWRncHVfYXNp
+Y19nZXRfZ3B1X2Nsb2NrX2NvdW50ZXIoYWRldikgKGFkZXYpLT5hc2ljX2Z1bmNzLT5nZXRfZ3B1
+X2Nsb2NrX2NvdW50ZXIoKGFkZXYpKQ0KICNkZWZpbmUgYW1kZ3B1X2FzaWNfcmVhZF9kaXNhYmxl
+ZF9iaW9zKGFkZXYpIChhZGV2KS0+YXNpY19mdW5jcy0+cmVhZF9kaXNhYmxlZF9iaW9zKChhZGV2
+KSkNCiAjZGVmaW5lIGFtZGdwdV9hc2ljX3JlYWRfYmlvc19mcm9tX3JvbShhZGV2LCBiLCBsKSAo
+YWRldiktPmFzaWNfZnVuY3MtPnJlYWRfYmlvc19mcm9tX3JvbSgoYWRldiksIChiKSwgKGwpKQ0K
+LSNkZWZpbmUgYW1kZ3B1X2FzaWNfZGV0ZWN0X2h3X3ZpcnR1YWxpemF0aW9uKGFkZXYpIChhZGV2
+KS0+YXNpY19mdW5jcy0+ZGV0ZWN0X2h3X3ZpcnR1YWxpemF0aW9uKChhZGV2KSkNCiAjZGVmaW5l
+IGFtZGdwdV9hc2ljX3JlYWRfcmVnaXN0ZXIoYWRldiwgc2UsIHNoLCBvZmZzZXQsIHYpKChhZGV2
+KS0+YXNpY19mdW5jcy0+cmVhZF9yZWdpc3RlcigoYWRldiksIChzZSksIChzaCksIChvZmZzZXQp
+LCAodikpKQ0KICNkZWZpbmUgYW1kZ3B1X2dhcnRfZmx1c2hfZ3B1X3RsYihhZGV2LCB2bWlkKSAo
+YWRldiktPmdhcnQuZ2FydF9mdW5jcy0+Zmx1c2hfZ3B1X3RsYigoYWRldiksICh2bWlkKSkNCiAj
+ZGVmaW5lIGFtZGdwdV9nYXJ0X3NldF9wdGVfcGRlKGFkZXYsIHB0LCBpZHgsIGFkZHIsIGZsYWdz
+KSAoYWRldiktPmdhcnQuZ2FydF9mdW5jcy0+c2V0X3B0ZV9wZGUoKGFkZXYpLCAocHQpLCAoaWR4
+KSwgKGFkZHIpLCAoZmxhZ3MpKQ0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2Npay5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvY2lrLmMNCmluZGV4IDM3OTNh
+MDQuLmQ2MTVkNjQgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaWsu
+Yw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvY2lrLmMNCkBAIC0xNjI1LDE3ICsx
+NjI1LDEwIEBAIHN0YXRpYyB1aW50MzJfdCBjaWtfZ2V0X3Jldl9pZChzdHJ1Y3QgYW1kZ3B1X2Rl
+dmljZSAqYWRldikNCiAgICAgICAgICAgICAgICAgPj4gQ0NfRFJNX0lEX1NUUkFQU19fQVRJX1JF
+Vl9JRF9fU0hJRlQ7DQogfQ0KDQotc3RhdGljIHZvaWQgY2lrX2RldGVjdF9od192aXJ0dWFsaXph
+dGlvbihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCi17DQotICAgICAgIGlmIChpc192aXJ0
+dWFsX21hY2hpbmUoKSkgLyogcGFzc3Rocm91Z2ggbW9kZSAqLw0KLSAgICAgICAgICAgICAgIGFk
+ZXYtPnZpcnQuY2FwcyB8PSBBTURHUFVfUEFTU1RIUk9VR0hfTU9ERTsNCi19DQotDQogc3RhdGlj
+IGNvbnN0IHN0cnVjdCBhbWRncHVfYXNpY19mdW5jcyBjaWtfYXNpY19mdW5jcyA9DQogew0KICAg
+ICAgICAgLnJlYWRfZGlzYWJsZWRfYmlvcyA9ICZjaWtfcmVhZF9kaXNhYmxlZF9iaW9zLA0KICAg
+ICAgICAgLnJlYWRfYmlvc19mcm9tX3JvbSA9ICZjaWtfcmVhZF9iaW9zX2Zyb21fcm9tLA0KLSAg
+ICAgICAuZGV0ZWN0X2h3X3ZpcnR1YWxpemF0aW9uID0gY2lrX2RldGVjdF9od192aXJ0dWFsaXph
+dGlvbiwNCiAgICAgICAgIC5yZWFkX3JlZ2lzdGVyID0gJmNpa19yZWFkX3JlZ2lzdGVyLA0KICAg
+ICAgICAgLnJlc2V0ID0gJmNpa19hc2ljX3Jlc2V0LA0KICAgICAgICAgLnNldF92Z2Ffc3RhdGUg
+PSAmY2lrX3ZnYV9zZXRfc3RhdGUsDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvc2kuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NpLmMNCmluZGV4IDZhODVk
+YWEuLmJkZTgyZmEgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zaS5j
+DQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zaS5jDQpAQCAtMTEzNSwxNiArMTEz
+NSw5IEBAIHN0YXRpYyBpbnQgc2lfc2V0X3V2ZF9jbG9ja3Moc3RydWN0IGFtZGdwdV9kZXZpY2Ug
+KmFkZXYsIHUzMiB2Y2xrLCB1MzIgZGNsaykNCiAgICAgICAgIHJldHVybiAwOw0KIH0NCg0KLXN0
+YXRpYyB2b2lkIHNpX2RldGVjdF9od192aXJ0dWFsaXphdGlvbihzdHJ1Y3QgYW1kZ3B1X2Rldmlj
+ZSAqYWRldikNCi17DQotICAgICAgIGlmIChpc192aXJ0dWFsX21hY2hpbmUoKSkgLyogcGFzc3Ro
+cm91Z2ggbW9kZSAqLw0KLSAgICAgICAgICAgICAgIGFkZXYtPnZpcnQuY2FwcyB8PSBBTURHUFVf
+UEFTU1RIUk9VR0hfTU9ERTsNCi19DQotDQogc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRncHVfYXNp
+Y19mdW5jcyBzaV9hc2ljX2Z1bmNzID0NCiB7DQogICAgICAgICAucmVhZF9kaXNhYmxlZF9iaW9z
+ID0gJnNpX3JlYWRfZGlzYWJsZWRfYmlvcywNCi0gICAgICAgLmRldGVjdF9od192aXJ0dWFsaXph
+dGlvbiA9IHNpX2RldGVjdF9od192aXJ0dWFsaXphdGlvbiwNCiAgICAgICAgIC5yZWFkX3JlZ2lz
+dGVyID0gJnNpX3JlYWRfcmVnaXN0ZXIsDQogICAgICAgICAucmVzZXQgPSAmc2lfYXNpY19yZXNl
+dCwNCiAgICAgICAgIC5zZXRfdmdhX3N0YXRlID0gJnNpX3ZnYV9zZXRfc3RhdGUsDQotLQ0KMi43
+LjQNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCmFt
+ZC1nZnggbWFpbGluZyBsaXN0DQphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KaHR0cHM6
+Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQo=
 
---_000_BY2PR1201MB1110D467A3353F6025BA7C6884640BY2PR1201MB1110_
+--_000_BY2PR1201MB1110912AAE15127F5BE9F38B84640BY2PR1201MB1110_
 Content-Type: text/html; charset="gb2312"
 Content-Transfer-Encoding: quoted-printable
 
@@ -115,39 +130,14 @@ p
 <div dir=3D"ltr">
 <div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
 or:#000000; font-family:Calibri,Arial,Helvetica,sans-serif">
-<p>Hi Xiangliang<br>
-</p>
+<p>after you removed this interface, don't forget to call thos &quot;xx_det=
+ect_hw_virtualization&quot; in head of xx_set_ip_blocks() routine</p>
 <p><br>
 </p>
-<p>please change as below accordingly:<br>
+<p>e.g. CI also need its &quot;adev-&gt;virt.caps&quot; with flag of &quot;=
+<font size=3D"2"><span style=3D"font-size:10pt">AMDGPU_PASSTHROUGH_MODE</sp=
+an></font>&quot;<br>
 </p>
-<p>1, call &quot;<font size=3D"2"><span style=3D"font-size:10pt">vi_detect_=
-hw_virtualization</span></font>&quot; in vi_set_ip_blocks directly
-<br>
-</p>
-<p>2, drop below changes:</p>
-<p><font size=3D"2"><span style=3D"font-size:10pt">&#43;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev)) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_ip_block_add(adev, &amp;vi_common_ip_block);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_ip_block_add(adev, &amp;gmc_v8_5_ip_block);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_ip_block_add(adev, &amp;tonga_ih_ip_block);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_ip_block_add(adev, &amp;amdgpu_pp_ip_block);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_ip_block_add(adev, &amp;dce_virtual_ip_block);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_ip_block_add(adev, &amp;gfx_v8_0_ip_block);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_ip_block_add(adev, &amp;sdma_v3_0_ip_block);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></font></p>
-<p><br>
-</p>
-<p>since some ip&nbsp; version is different between VI (e.g. FIJI use gmc_v=
-8_5 and tonga use v8_0, so your change at last increase more lines, we'll f=
-inally support TONGA/FIJI/Ellesmere for SRIOV)</p>
 <p><br>
 </p>
 <p>BR Monk<br>
@@ -158,94 +148,127 @@ inally support TONGA/FIJI/Ellesmere for SRIOV)</p>
 color=3D"#000000" style=3D"font-size:11pt"><b>=B7=A2=BC=FE=C8=CB:</b> amd-g=
 fx &lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; =B4=FA=B1=ED Xiangliang Yu=
  &lt;Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>=B7=A2=CB=CD=CA=B1=BC=E4:</b> 2017=C4=EA1=D4=C28=C8=D5 11:12:35<br>
+<b>=B7=A2=CB=CD=CA=B1=BC=E4:</b> 2017=C4=EA1=D4=C28=C8=D5 11:12:49<br>
 <b>=CA=D5=BC=FE=C8=CB:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
 <b>=B3=AD=CB=CD:</b> Yu, Xiangliang<br>
-<b>=D6=F7=CC=E2:</b> [PATCH 1/2] drm/amdgpu/vi: move virtualization detecti=
-on forward</font>
+<b>=D6=F7=CC=E2:</b> [PATCH 2/2] drm/amdgpu: remove detect_hw_virtualizatio=
+n interface</font>
 <div>&nbsp;</div>
 </div>
 </div>
 <font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">Move the detection forward into vi_set_ip_blocks f=
-unction, then<br>
-add ip blocks virtualization need if device is VF.<br>
+<div class=3D"PlainText">Don't use the interface anymore, remove it.<br>
 <br>
 Signed-off-by: Xiangliang Yu &lt;Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org&gt;<br>
 ---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/vi.c | 17 &#43;&#43;&#43;&#43;&#43;&#43;&#=
-43;&#43;&#43;&#43;&#43;&#43;-----<br>
-&nbsp;1 file changed, 12 insertions(&#43;), 5 deletions(-)<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu.h | 2 --<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/cik.c&nbsp;&nbsp;&nbsp; | 7 -------<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/si.c&nbsp;&nbsp;&nbsp;&nbsp; | 7 -------<b=
+r>
+&nbsp;3 files changed, 16 deletions(-)<br>
 <br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/v=
-i.c<br>
-index b2ce7da..580b392 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/vi.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/vi.c<br>
-@@ -857,7 &#43;857,6 @@ static const struct amdgpu_asic_funcs vi_asic_funcs=
- =3D<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
+pu/amdgpu.h<br>
+index b7d520fc..13c30ab 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+@@ -1192,7 &#43;1192,6 @@ struct amdgpu_asic_funcs {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool (*read_disabled_bios)=
+(struct amdgpu_device *adev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool (*read_bios_from_rom)=
+(struct amdgpu_device *adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u8 *bios, u32 =
+length_bytes);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void (*detect_hw_virtualization) (str=
+uct amdgpu_device *adev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*read_register)(struc=
+t amdgpu_device *adev, u32 se_num,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; u32 sh_num, u32 reg_offset, u32 *value);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void (*set_vga_state)(stru=
+ct amdgpu_device *adev, bool state);<br>
+@@ -1626,7 &#43;1625,6 @@ amdgpu_get_sdma_instance(struct amdgpu_ring *ring=
+)<br>
+&nbsp;#define amdgpu_asic_get_gpu_clock_counter(adev) (adev)-&gt;asic_funcs=
+-&gt;get_gpu_clock_counter((adev))<br>
+&nbsp;#define amdgpu_asic_read_disabled_bios(adev) (adev)-&gt;asic_funcs-&g=
+t;read_disabled_bios((adev))<br>
+&nbsp;#define amdgpu_asic_read_bios_from_rom(adev, b, l) (adev)-&gt;asic_fu=
+ncs-&gt;read_bios_from_rom((adev), (b), (l))<br>
+-#define amdgpu_asic_detect_hw_virtualization(adev) (adev)-&gt;asic_funcs-&=
+gt;detect_hw_virtualization((adev))<br>
+&nbsp;#define amdgpu_asic_read_register(adev, se, sh, offset, v)((adev)-&gt=
+;asic_funcs-&gt;read_register((adev), (se), (sh), (offset), (v)))<br>
+&nbsp;#define amdgpu_gart_flush_gpu_tlb(adev, vmid) (adev)-&gt;gart.gart_fu=
+ncs-&gt;flush_gpu_tlb((adev), (vmid))<br>
+&nbsp;#define amdgpu_gart_set_pte_pde(adev, pt, idx, addr, flags) (adev)-&g=
+t;gart.gart_funcs-&gt;set_pte_pde((adev), (pt), (idx), (addr), (flags))<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/=
+cik.c<br>
+index 3793a04..d615d64 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/cik.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/cik.c<br>
+@@ -1625,17 &#43;1625,10 @@ static uint32_t cik_get_rev_id(struct amdgpu_de=
+vice *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; &gt;&gt; CC_DRM_ID_STRAPS__ATI_REV_ID__SHIFT;<br>
+&nbsp;}<br>
+&nbsp;<br>
+-static void cik_detect_hw_virtualization(struct amdgpu_device *adev)<br>
+-{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (is_virtual_machine()) /* passthro=
+ugh mode */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; adev-&gt;virt.caps |=3D AMDGPU_PASSTHROUGH_MODE;<br>
+-}<br>
+-<br>
+&nbsp;static const struct amdgpu_asic_funcs cik_asic_funcs =3D<br>
 &nbsp;{<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_disabled_bios =3D &a=
-mp;vi_read_disabled_bios,<br>
+mp;cik_read_disabled_bios,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_bios_from_rom =3D &a=
-mp;vi_read_bios_from_rom,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .detect_hw_virtualization =3D vi_dete=
-ct_hw_virtualization,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_register =3D &amp;vi=
-_read_register,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .reset =3D &amp;vi_asic_re=
-set,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_vga_state =3D &amp;vi=
-_vga_set_state,<br>
-@@ -1049,10 &#43;1048,6 @@ static int vi_common_early_init(void *handle)<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+mp;cik_read_bios_from_rom,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .detect_hw_virtualization =3D cik_det=
+ect_hw_virtualization,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_register =3D &amp;ci=
+k_read_register,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .reset =3D &amp;cik_asic_r=
+eset,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_vga_state =3D &amp;ci=
+k_vga_set_state,<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/s=
+i.c<br>
+index 6a85daa..bde82fa 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/si.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/si.c<br>
+@@ -1135,16 &#43;1135,9 @@ static int si_set_uvd_clocks(struct amdgpu_devic=
+e *adev, u32 vclk, u32 dclk)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
 &nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* in early init stage, vbios code wo=
-n't work */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;asic_funcs-&gt;detect_hw=
-_virtualization)<br>
+-static void si_detect_hw_virtualization(struct amdgpu_device *adev)<br>
+-{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (is_virtual_machine()) /* passthro=
+ugh mode */<br>
 -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_asic_detect_hw_virtualization(adev);<br>
+bsp;&nbsp; adev-&gt;virt.caps |=3D AMDGPU_PASSTHROUGH_MODE;<br>
+-}<br>
 -<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_smc_load_fw &am=
-p;&amp; smc_enabled)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; adev-&gt;firmware.smu_load =3D true;<br>
-&nbsp;<br>
-@@ -1403,6 &#43;1398,18 @@ static const struct amdgpu_ip_block_version vi_c=
-ommon_ip_block =3D<br>
-&nbsp;<br>
-&nbsp;int vi_set_ip_blocks(struct amdgpu_device *adev)<br>
+&nbsp;static const struct amdgpu_asic_funcs si_asic_funcs =3D<br>
 &nbsp;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* in early init stage, vbios cod=
-e won't work */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vi_detect_hw_virtualization(adev)=
-;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev)) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_ip_block_add(adev, &amp;vi_common_ip_block);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_ip_block_add(adev, &amp;gmc_v8_5_ip_block);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_ip_block_add(adev, &amp;tonga_ih_ip_block);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_ip_block_add(adev, &amp;amdgpu_pp_ip_block);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_ip_block_add(adev, &amp;dce_virtual_ip_block);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_ip_block_add(adev, &amp;gfx_v8_0_ip_block);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_ip_block_add(adev, &amp;sdma_v3_0_ip_block);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (adev-&gt;asic_type=
-) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_TOPAZ:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; /* topaz has no DCE, UVD, VCE */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_disabled_bios =3D &a=
+mp;si_read_disabled_bios,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .detect_hw_virtualization =3D si_dete=
+ct_hw_virtualization,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_register =3D &amp;si=
+_read_register,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .reset =3D &amp;si_asic_re=
+set,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_vga_state =3D &amp;si=
+_vga_set_state,<br>
 -- <br>
 2.7.4<br>
 <br>
@@ -259,9 +282,9 @@ lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
 </body>
 </html>
 
---_000_BY2PR1201MB1110D467A3353F6025BA7C6884640BY2PR1201MB1110_--
+--_000_BY2PR1201MB1110912AAE15127F5BE9F38B84640BY2PR1201MB1110_--
 
---===============0299849213==
+--===============0369402011==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -271,4 +294,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0299849213==--
+--===============0369402011==--
