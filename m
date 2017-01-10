@@ -1,16 +1,16 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 Subject: =?UTF-8?Q?Re:_=e7=ad=94=e5=a4=8d:_[PATCH_2/7]_drm/amdgpu:new_field_?=
  =?UTF-8?Q?members_for_SRIOV?=
-Date: Tue, 10 Jan 2017 10:48:43 +0100
-Message-ID: <2631a3de-989a-d6d6-2347-da64d94ee01c@vodafone.de>
+Date: Tue, 10 Jan 2017 10:51:46 +0100
+Message-ID: <aec66a0f-0fd7-1e02-f160-999fc76de4a6@vodafone.de>
 References: <1483948982-27056-1-git-send-email-Monk.Liu@amd.com>
  <1483948982-27056-3-git-send-email-Monk.Liu@amd.com>
  <9f6b9ab8-3bb1-7a57-75d9-70d23d5dd74b@vodafone.de>
- <BY2PR1201MB1110963B2DE72B2892D4AC1F84670@BY2PR1201MB1110.namprd12.prod.outlook.com>
+ <BY2PR1201MB11106E7ABC5FF87AF1F6F67A84670@BY2PR1201MB1110.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1510215876=="
+Content-Type: multipart/mixed; boundary="===============1809154821=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BY2PR1201MB1110963B2DE72B2892D4AC1F84670-O28G1zQ8oGliQkyLPkmea2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
+In-Reply-To: <BY2PR1201MB11106E7ABC5FF87AF1F6F67A84670-O28G1zQ8oGliQkyLPkmea2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -24,51 +24,41 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
 This is a multi-part message in MIME format.
---===============1510215876==
+--===============1809154821==
 Content-Type: multipart/alternative;
- boundary="------------8DFC91795B9B9ECE8CAEAF92"
+ boundary="------------9C3BAE0757D969E4ACFAED39"
 
 This is a multi-part message in MIME format.
---------------8DFC91795B9B9ECE8CAEAF92
+--------------9C3BAE0757D969E4ACFAED39
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-We don't need the validate buffer and even when you need it putting it 
-into the VM structure is illegal, because it can be used by more than 
-one thread at the same time.
+Am 10.01.2017 um 04:03 schrieb Liu, Monk:
+>
+> > +     /* virtual MC address of CSA & GDS for each VM */
+> > +     uint64_t vm_csa_addr;
+> > +     uint64_t vm_gds_addr;
+>
+> That should be constant, shouldn't it?
+>
+>
+>
+> [ML] do you mean "const uint64_t vm_csa_addr" ? of cause not if that's 
+> your point ... compiling error on that
+>
+> and strictly speaking that's not constant, the address is calculated ...
+>
 
-This leaves only the csa_bo_va in the amdgpu_vm_virt structure and 
-having a structure with only one field is rather pointless.
+No that wasn't what I meant. The address is constant for all VM's in the 
+system, isn't it?
 
-Additional to that I really don't see CSA handling as something related 
-to virtualization.
+Just add a define similar to AMDGPU_VA_RESERVED_SIZE and stop 
+calculating it all together (BTW: AMDGPU_VA_RESERVED_SIZE should 
+probably be moved to amdgpu_vm.h).
 
 Regards,
 Christian.
 
-Am 10.01.2017 um 04:05 schrieb Liu, Monk:
->
->
-> > +};
-> > +
-> > +struct amdgpu_vm_virt {
-> > +     /* each VM will map on CSA */
-> > +     struct ttm_validate_buffer csa_tv;
-> > +     struct amdgpu_bo_va *csa_bo_va;
->
-> Please put that directly into the amdgpu_vm structure.
->
->
->
-> [ML] they are not a tiny used by bare-metal case so I don't think they 
-> should be put into common structure at all.
->
-> see we have "struct amdgpu_virt" in "struct amdgpu_device", the same 
-> style
->
->
-> BR Monk
->
 > ------------------------------------------------------------------------
 > *发件人:* Christian König <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 > *发送时间:* 2017年1月9日 18:57:06
@@ -155,9 +145,16 @@ Am 10.01.2017 um 04:05 schrieb Liu, Monk:
 > >   struct amdgpu_vm_id {
 >
 >
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
 
---------------8DFC91795B9B9ECE8CAEAF92
+
+--------------9C3BAE0757D969E4ACFAED39
 Content-Type: text/html; charset=utf-8
 Content-Transfer-Encoding: 8bit
 
@@ -166,23 +163,11 @@ Content-Transfer-Encoding: 8bit
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
   </head>
   <body bgcolor="#FFFFFF" text="#000000">
-    <div class="moz-cite-prefix">We don't need the validate buffer and
-      even when you need it putting it into the VM structure is illegal,
-      because it can be used by more than one thread at the same time.<br>
-      <br>
-      This leaves only the csa_bo_va in the amdgpu_vm_virt structure and
-      having a structure with only one field is rather pointless.<br>
-      <br>
-      Additional to that I really don't see CSA handling as something
-      related to virtualization.<br>
-      <br>
-      Regards,<br>
-      Christian.<br>
-      <br>
-      Am 10.01.2017 um 04:05 schrieb Liu, Monk:<br>
+    <div class="moz-cite-prefix">Am 10.01.2017 um 04:03 schrieb Liu,
+      Monk:<br>
     </div>
     <blockquote
-cite="mid:BY2PR1201MB1110963B2DE72B2892D4AC1F84670-O28G1zQ8oGliQkyLPkmea2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org"
+cite="mid:BY2PR1201MB11106E7ABC5FF87AF1F6F67A84670-O28G1zQ8oGliQkyLPkmea2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org"
       type="cite">
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
       <meta name="Generator" content="Microsoft Exchange Server">
@@ -200,27 +185,45 @@ p
         <div id="x_divtagdefaultwrapper" dir="ltr"
           style="font-size:12pt; color:#000000;
           font-family:Calibri,Arial,Helvetica,sans-serif">
-          <p><font size="2"><span style="font-size:10pt"><br>
-                &gt; +};<br>
-                &gt; +<br>
-                &gt; +struct amdgpu_vm_virt {<br>
-                &gt; +     /* each VM will map on CSA */<br>
-                &gt; +     struct ttm_validate_buffer csa_tv;<br>
-                &gt; +     struct amdgpu_bo_va *csa_bo_va;<br>
+          <p><font size="2"><span style="font-size:10pt">&gt; +     /*
+                virtual MC address of CSA &amp; GDS for each VM */<br>
+                &gt; +     uint64_t vm_csa_addr;<br>
+                &gt; +     uint64_t vm_gds_addr;<br>
                 <br>
-                Please put that directly into the amdgpu_vm structure.</span></font></p>
+                That should be constant, shouldn't it?</span></font></p>
           <p><br>
           </p>
           <p><br>
           </p>
-          <p>[ML] they are not a tiny used by bare-metal case so I don't
-            think they should be put into common structure at all.</p>
-          <p>see we have "struct amdgpu_virt" in "struct amdgpu_device",
-            the same style <br>
+          <p>[ML] do you mean "const uint64_t vm_csa_addr" ? of cause
+            not if that's your point ... compiling error on that
+            <br>
           </p>
-          <p><br>
+          <p>and strictly speaking that's not constant, the address is
+            calculated ...<br>
           </p>
-          <p>BR Monk<br>
+        </div>
+      </div>
+    </blockquote>
+    <br>
+    No that wasn't what I meant. The address is constant for all VM's in
+    the system, isn't it?<br>
+    <br>
+    Just add a define similar to AMDGPU_VA_RESERVED_SIZE and stop
+    calculating it all together (BTW: AMDGPU_VA_RESERVED_SIZE should
+    probably be moved to amdgpu_vm.h).<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <blockquote
+cite="mid:BY2PR1201MB11106E7ABC5FF87AF1F6F67A84670-O28G1zQ8oGliQkyLPkmea2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org"
+      type="cite">
+      <div dir="ltr">
+        <div id="x_divtagdefaultwrapper" dir="ltr"
+          style="font-size:12pt; color:#000000;
+          font-family:Calibri,Arial,Helvetica,sans-serif">
+          <p>
           </p>
         </div>
         <hr tabindex="-1" style="display:inline-block; width:98%">
@@ -323,15 +326,23 @@ p
             <br>
           </div>
         </span></font>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
     </blockquote>
     <p><br>
     </p>
   </body>
 </html>
 
---------------8DFC91795B9B9ECE8CAEAF92--
+--------------9C3BAE0757D969E4ACFAED39--
 
---===============1510215876==
+--===============1809154821==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -341,4 +352,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1510215876==--
+--===============1809154821==--
