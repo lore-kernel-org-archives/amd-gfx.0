@@ -1,10 +1,13 @@
-From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
-Subject: amdgpu_pm_info small nit
-Date: Tue, 10 Jan 2017 19:01:12 +0000
-Message-ID: <CY4PR12MB1768A1C2762C6946CD818D20F7670@CY4PR12MB1768.namprd12.prod.outlook.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amd/powerplay: refine vce dpm update code on Cz.
+Date: Tue, 10 Jan 2017 21:42:04 +0000
+Message-ID: <BN6PR12MB1652CB0F467CB8EE1981BEE1F7670@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <1484054886-31741-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0571636871=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1484054886-31741-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -16,85 +19,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
---===============0571636871==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB1768A1C2762C6946CD818D20F7670CY4PR12MB1768namp_"
-
---_000_CY4PR12MB1768A1C2762C6946CD818D20F7670CY4PR12MB1768namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Ray,
-
-
-Small nit but I saw this in the output
-
-
-+       {AMD_CG_SUPPORT_GFX_CGTS, "Graphics Coarse Grain Tree Shader Light =
-Sleep"},
-+       {AMD_CG_SUPPORT_GFX_CGTS_LS, "Graphics Coarse Grain Tree Shader Lig=
-ht Sleep"},
-
-The first you probably want to remove "Light Sleep" from otherwise the outp=
-ut has a duplicate line for different bits.
-
-
-Cheers,
-
-Tom
-
---_000_CY4PR12MB1768A1C2762C6946CD818D20F7670CY4PR12MB1768namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Arial,Helvetica,sans-serif;" dir=3D"ltr">
-<p>Hi Ray,</p>
-<p><br>
-</p>
-<p>Small nit but I saw this in the output&nbsp;</p>
-<p><br>
-</p>
-<p></p>
-<div>&#43; &nbsp; &nbsp; &nbsp; {AMD_CG_SUPPORT_GFX_CGTS, &quot;Graphics Co=
-arse Grain Tree Shader Light Sleep&quot;}, &nbsp;&nbsp;</div>
-<div>&#43; &nbsp; &nbsp; &nbsp; {AMD_CG_SUPPORT_GFX_CGTS_LS, &quot;Graphics=
- Coarse Grain Tree Shader Light Sleep&quot;},</div>
-<div><br>
-</div>
-The first you probably want to remove &quot;Light Sleep&quot; from otherwis=
-e the output has a duplicate line for different bits.
-<p></p>
-<p><br>
-</p>
-<p>Cheers,</p>
-<p>Tom</p>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB1768A1C2762C6946CD818D20F7670CY4PR12MB1768namp_--
-
---===============0571636871==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0571636871==--
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
+LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIFJleCBa
+aHUNCj4gU2VudDogVHVlc2RheSwgSmFudWFyeSAxMCwgMjAxNyA4OjI4IEFNDQo+IFRvOiBhbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBDYzogWmh1LCBSZXgNCj4gU3ViamVjdDogW1BB
+VENIXSBkcm0vYW1kL3Bvd2VycGxheTogcmVmaW5lIHZjZSBkcG0gdXBkYXRlIGNvZGUgb24gQ3ou
+DQo+IA0KPiBQcm9ncmFtIEhhcmRNaW4gYmFzZWQgb24gdGhlIHZjZV9hcmJpdGVyLmVjY2xrDQo+
+IGlmIGVjY2xrIGlzIDAsIGRpc2FibGUgRUNMSyBEUE0gMC4gT3RoZXJ3aXNlIFZDRQ0KPiBjb3Vs
+ZCBoYW5nIGlmIHN3aXRjaGluZyBTQ0xLIGZyb20gRFBNIDAgdG8gNi83DQo+IA0KPiBDaGFuZ2Ut
+SWQ6IEllZDViMTYzMGEwMzIyNjc4NjAxY2Y1NzQ0YmQxYmE2YjNiNDJjYTIzDQo+IFNpZ25lZC1v
+ZmYtYnk6IFJleCBaaHUgPFJleC5aaHVAYW1kLmNvbT4NCg0KQWNrZWQtYnk6IEFsZXggRGV1Y2hl
+ciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4NCg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvcG93ZXJwbGF5L2h3bWdyL2N6X2h3bWdyLmMgfCAyNA0KPiArKysrKysrKysrKysrKysr
+LS0tLS0tLS0NCj4gIDEgZmlsZSBjaGFuZ2VkLCAxNiBpbnNlcnRpb25zKCspLCA4IGRlbGV0aW9u
+cygtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3
+bWdyL2N6X2h3bWdyLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9j
+el9od21nci5jDQo+IGluZGV4IDA2NjhiMGIuLmE0Y2RlM2QgMTAwNjQ0DQo+IC0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2N6X2h3bWdyLmMNCj4gKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvY3pfaHdtZ3IuYw0KPiBAQCAtMTQwNywxNCAr
+MTQwNywyMiBAQCBpbnQgIGN6X2RwbV91cGRhdGVfdmNlX2RwbShzdHJ1Y3QgcHBfaHdtZ3INCj4g
+Kmh3bWdyKQ0KPiAgCQkJCQkgICAgIGN6X2h3bWdyLQ0KPiA+dmNlX2RwbS5oYXJkX21pbl9jbGss
+DQo+IA0KPiAJUFBTTUNfTVNHX1NldEVjbGtIYXJkTWluKSk7DQo+ICAJfSBlbHNlIHsNCj4gLQkJ
+LypFUFIjIDQxOTIyMCAtSFcgbGltaXRhdGlvbiB0byB0byAqLw0KPiAtCQljel9od21nci0+dmNl
+X2RwbS5oYXJkX21pbl9jbGsgPSBod21nci0NCj4gPnZjZV9hcmJpdGVyLmVjY2xrOw0KPiAtCQlz
+bXVtX3NlbmRfbXNnX3RvX3NtY193aXRoX3BhcmFtZXRlcihod21nci0NCj4gPnNtdW1nciwNCj4g
+LQkJCQkJICAgIFBQU01DX01TR19TZXRFY2xrSGFyZE1pbiwNCj4gLQkJCQkJICAgIGN6X2dldF9l
+Y2xrX2xldmVsKGh3bWdyLA0KPiAtCQkJCSAgICAgY3pfaHdtZ3ItPnZjZV9kcG0uaGFyZF9taW5f
+Y2xrLA0KPiAtCQkJCQkgIFBQU01DX01TR19TZXRFY2xrSGFyZE1pbikpOw0KPiAtDQo+ICsJCS8q
+UHJvZ3JhbSBIYXJkTWluIGJhc2VkIG9uIHRoZSB2Y2VfYXJiaXRlci5lY2NsayAqLw0KPiArCQlp
+ZiAoaHdtZ3ItPnZjZV9hcmJpdGVyLmVjY2xrID09IDApIHsNCj4gKwkJCXNtdW1fc2VuZF9tc2df
+dG9fc21jX3dpdGhfcGFyYW1ldGVyKGh3bWdyLQ0KPiA+c211bWdyLA0KPiArCQkJCQkgICAgUFBT
+TUNfTVNHX1NldEVjbGtIYXJkTWluLCAwKTsNCj4gKwkJLyogZGlzYWJsZSBFQ0xLIERQTSAwLiBP
+dGhlcndpc2UgVkNFIGNvdWxkIGhhbmcgaWYNCj4gKwkJICogc3dpdGNoaW5nIFNDTEsgZnJvbSBE
+UE0gMCB0byA2LzcgKi8NCj4gKwkJCXNtdW1fc2VuZF9tc2dfdG9fc21jX3dpdGhfcGFyYW1ldGVy
+KGh3bWdyLQ0KPiA+c211bWdyLA0KPiArCQkJCQlQUFNNQ19NU0dfU2V0RWNsa1NvZnRNaW4sIDEp
+Ow0KPiArCQl9IGVsc2Ugew0KPiArCQkJY3pfaHdtZ3ItPnZjZV9kcG0uaGFyZF9taW5fY2xrID0g
+aHdtZ3ItDQo+ID52Y2VfYXJiaXRlci5lY2NsazsNCj4gKwkJCXNtdW1fc2VuZF9tc2dfdG9fc21j
+X3dpdGhfcGFyYW1ldGVyKGh3bWdyLQ0KPiA+c211bWdyLA0KPiArDQo+IAlQUFNNQ19NU0dfU2V0
+RWNsa0hhcmRNaW4sDQo+ICsJCQkJCQljel9nZXRfZWNsa19sZXZlbChod21nciwNCj4gKwkJCQkJ
+CWN6X2h3bWdyLQ0KPiA+dmNlX2RwbS5oYXJkX21pbl9jbGssDQo+ICsNCj4gCVBQU01DX01TR19T
+ZXRFY2xrSGFyZE1pbikpOw0KPiArCQl9DQo+ICAJfQ0KPiAgCXJldHVybiAwOw0KPiAgfQ0KPiAt
+LQ0KPiAxLjkuMQ0KPiANCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18NCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcNCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
