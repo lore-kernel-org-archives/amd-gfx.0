@@ -1,18 +1,14 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: =?UTF-8?B?UmU6IOetlOWkjTog562U5aSNOiBbUEFUQ0ggMi83XSBkcm0vYW1kZ3B1?=
- =?UTF-8?Q?:new_field_members_for_SRIOV?=
-Date: Tue, 10 Jan 2017 13:25:12 +0100
-Message-ID: <e31d43f1-caa1-099c-a8c1-998f1aaa17c6@vodafone.de>
-References: <1483948982-27056-1-git-send-email-Monk.Liu@amd.com>
- <1483948982-27056-3-git-send-email-Monk.Liu@amd.com>
- <9f6b9ab8-3bb1-7a57-75d9-70d23d5dd74b@vodafone.de>
- <BY2PR1201MB11106E7ABC5FF87AF1F6F67A84670@BY2PR1201MB1110.namprd12.prod.outlook.com>
- <aec66a0f-0fd7-1e02-f160-999fc76de4a6@vodafone.de>
- <BY2PR1201MB1110F2B6E7FB093F369ACA2884670@BY2PR1201MB1110.namprd12.prod.outlook.com>
+Subject: Re: [V2 04/11] drm/amdgpu/virt: use kiq to access registers
+Date: Tue, 10 Jan 2017 14:09:00 +0100
+Message-ID: <35600919-5cd3-4920-f2dd-db0e0620e3fa@vodafone.de>
+References: <1484042450-22987-1-git-send-email-Xiangliang.Yu@amd.com>
+ <1484042450-22987-5-git-send-email-Xiangliang.Yu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0758251168=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BY2PR1201MB1110F2B6E7FB093F369ACA2884670-O28G1zQ8oGliQkyLPkmea2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
+In-Reply-To: <1484042450-22987-5-git-send-email-Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,454 +19,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Xiangliang Yu <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This is a multi-part message in MIME format.
---===============0758251168==
-Content-Type: multipart/alternative;
- boundary="------------0018BA6362DD98FA17EFDC8A"
-
-This is a multi-part message in MIME format.
---------------0018BA6362DD98FA17EFDC8A
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-> NAH, for AI/VI the gds_addr is the bottom half of CSA area (8kb), but 
-> we don't know for later chips ...
->
-In this case we shouldn't store the offset anywhere, but rather just 
-calculate it in the chip specific code from the CSA address when it is 
-needed.
-
-> I prefer keep a member field in the struct for flexibility ...
->
-We can still change it if we find that we need more flexibility here. 
-Usually we try to avoid flexibility for the cost of complexity if we 
-don't have a good reason for it.
-
-It just complicates the code and over the long term creates maintenance 
-problems because you end of with a lot of only halve way implemented 
-features.
-
-Regards,
-Christian.
-
-Am 10.01.2017 um 10:57 schrieb Liu, Monk:
->
-> NAH, for AI/VI the gds_addr is the bottom half of CSA area (8kb), but 
-> we don't know for later chips ...
->
-> I prefer keep a member field in the struct for flexibility ...
->
->
-> regards with put those member into amdgpu_vm structure, if you really 
-> prefer that way  I'm fine by moving them, not too important anyway.
->
->
-> BR Monk
->
->
-> ------------------------------------------------------------------------
-> *发件人:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> 代表 Christian 
-> König <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-> *发送时间:* 2017年1月10日 17:51:46
-> *收件人:* Liu, Monk; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> *主题:* Re: 答复: [PATCH 2/7] drm/amdgpu:new field members for SRIOV
-> Am 10.01.2017 um 04:03 schrieb Liu, Monk:
->>
->> > +/* virtual MC address of CSA & GDS for each VM */
->> > +     uint64_t vm_csa_addr;
->> > +     uint64_t vm_gds_addr;
->>
->> That should be constant, shouldn't it?
->>
->>
->>
->> [ML] do you mean "const uint64_t vm_csa_addr" ? of cause not if 
->> that's your point ... compiling error on that
->>
->> and strictly speaking that's not constant, the address is calculated ...
->>
->
-> No that wasn't what I meant. The address is constant for all VM's in 
-> the system, isn't it?
->
-> Just add a define similar to AMDGPU_VA_RESERVED_SIZE and stop 
-> calculating it all together (BTW: AMDGPU_VA_RESERVED_SIZE should 
-> probably be moved to amdgpu_vm.h).
->
-> Regards,
-> Christian.
->
->> ------------------------------------------------------------------------
->> *发件人:* Christian König <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
->> *发送时间:* 2017年1月9日 18:57:06
->> *收件人:* Liu, Monk; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->> *主题:* Re: [PATCH 2/7] drm/amdgpu:new field members for SRIOV
->> Am 09.01.2017 um 09:02 schrieb Monk Liu:
->> > Change-Id: Ife0eff7b13b8b5946f005a39f6ecb8db1cb72c38
->> > Signed-off-by: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
->> > ---
->> >   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h | 19 +++++++++++++++++++
->> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h   |  2 ++
->> >   2 files changed, 21 insertions(+)
->> >
->> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
->> > index 0d821d9..5aa7f0c 100644
->> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
->> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
->> > @@ -28,9 +28,28 @@
->> >   #define AMDGPU_SRIOV_CAPS_ENABLE_IOV   (1 << 1) /* sr-iov is 
->> enabled on this GPU */
->> >   #define AMDGPU_SRIOV_CAPS_IS_VF        (1 << 2) /* this GPU is a 
->> virtual function */
->> >   #define AMDGPU_PASSTHROUGH_MODE        (1 << 3) /* thw whole GPU 
->> is pass through for VM */
->> > +
->> > +struct amdgpu_vm;
->> >   /* GPU virtualization */
->> >   struct amdgpu_virt {
->> >        uint32_t caps;
->> > +     uint32_t csa_size;
->> > +     struct amdgpu_bo *csa_obj;
->> > +     uint64_t csa_vmid0_addr;
->> > +     uint64_t gds_vmid0_addr;
->> > +     int (*allocate_csa)(struct amdgpu_device *adev);
->> > +     void (*deallocate_csa)(struct amdgpu_device *adev);
->> > +     int (*map_csa)(struct amdgpu_device *adev, struct amdgpu_vm *vm);
->> > +     void (*unmap_csa)(struct amdgpu_device *adev, struct 
->> amdgpu_vm *vm);
->>
->> Why callbacks for this?
->>
->> > +};
->> > +
->> > +struct amdgpu_vm_virt {
->> > +     /* each VM will map on CSA */
->> > +     struct ttm_validate_buffer csa_tv;
->> > +     struct amdgpu_bo_va *csa_bo_va;
->>
->> Please put that directly into the amdgpu_vm structure.
->>
->> > +     /* virtual MC address of CSA & GDS for each VM */
->> > +     uint64_t vm_csa_addr;
->> > +     uint64_t vm_gds_addr;
->>
->> That should be constant, shouldn't it?
->>
->> Regards,
->> Christian.
->>
->> >   };
->> >
->> >   #define amdgpu_sriov_enabled(adev) \
->> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->> > index 42a629b..27cbcbc 100644
->> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
->> > @@ -29,6 +29,7 @@
->> >   #include "gpu_scheduler.h"
->> >   #include "amdgpu_sync.h"
->> >   #include "amdgpu_ring.h"
->> > +#include "amdgpu_virt.h"
->> >
->> >   struct amdgpu_bo_va;
->> >   struct amdgpu_job;
->> > @@ -111,6 +112,7 @@ struct amdgpu_vm {
->> >
->> >        /* client id */
->> >        u64                     client_id;
->> > +     struct amdgpu_vm_virt   vm_virt;
->> >   };
->> >
->> >   struct amdgpu_vm_id {
->>
->>
->>
->>
->> _______________________________________________
->> amd-gfx mailing list
->> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
->
-
-
---------------0018BA6362DD98FA17EFDC8A
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body bgcolor="#FFFFFF" text="#000000">
-    <div class="moz-cite-prefix">
-      <blockquote type="cite">
-        <p>NAH, for AI/VI the gds_addr is the bottom half of CSA area
-          (8kb), but we don't know for later chips ...</p>
-      </blockquote>
-      In this case we shouldn't store the offset anywhere, but rather
-      just calculate it in the chip specific code from the CSA address
-      when it is needed.<br>
-      <br>
-      <blockquote type="cite">
-        <p>I prefer keep a member field in the struct for flexibility
-          ... <br>
-        </p>
-      </blockquote>
-      We can still change it if we find that we need more flexibility
-      here. Usually we try to avoid flexibility for the cost of
-      complexity if we don't have a good reason for it.<br>
-      <br>
-      It just complicates the code and over the long term creates
-      maintenance problems because you end of with a lot of only halve
-      way implemented features.<br>
-      <br>
-      Regards,<br>
-      Christian.<br>
-      <br>
-      Am 10.01.2017 um 10:57 schrieb Liu, Monk:<br>
-    </div>
-    <blockquote
-cite="mid:BY2PR1201MB1110F2B6E7FB093F369ACA2884670-O28G1zQ8oGliQkyLPkmea2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org"
-      type="cite">
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
-      <div id="divtagdefaultwrapper"
-style="font-size:12pt;color:#000000;font-family:Calibri,Arial,Helvetica,sans-serif;"
-        dir="ltr">
-        <p>NAH, for AI/VI the gds_addr is the bottom half of CSA area
-          (8kb), but we don't know for later chips ...</p>
-        <p>I prefer keep a member field in the struct for flexibility
-          ... <br>
-        </p>
-        <p><br>
-        </p>
-        <p>regards with put those member into amdgpu_vm structure, if
-          you really prefer that way  I'm fine by moving them, not too
-          important anyway.</p>
-        <p><br>
-        </p>
-        <p>BR Monk<br>
-        </p>
-        <p><br>
-        </p>
-      </div>
-      <hr style="display:inline-block;width:98%" tabindex="-1">
-      <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
-          color="#000000" face="Calibri, sans-serif"><b>发件人:</b> amd-gfx
-          <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">&lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a> 代表 Christian
-          König <a class="moz-txt-link-rfc2396E" href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">&lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;</a><br>
-          <b>发送时间:</b> 2017年1月10日 17:51:46<br>
-          <b>收件人:</b> Liu, Monk; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-          <b>主题:</b> Re: 答复: [PATCH 2/7] drm/amdgpu:new field members
-          for SRIOV</font>
-        <div> </div>
-      </div>
-      <div>
-        <div class="moz-cite-prefix">Am 10.01.2017 um 04:03 schrieb Liu,
-          Monk:<br>
-        </div>
-        <blockquote
-cite="mid:BY2PR1201MB11106E7ABC5FF87AF1F6F67A84670-O28G1zQ8oGliQkyLPkmea2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org"
-          type="cite">
-          <meta name="Generator" content="Microsoft Exchange Server">
-          <!-- converted from text -->
-          <style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left: #800000 2px solid; } --></style>
-          <meta content="text/html; charset=UTF-8">
-          <style type="text/css" style="">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-          <div dir="ltr">
-            <div id="x_divtagdefaultwrapper" dir="ltr"
-              style="font-size:12pt; color:#000000;
-              font-family:Calibri,Arial,Helvetica,sans-serif">
-              <p><font size="2"><span style="font-size:10pt">&gt; +    
-                    /* virtual MC address of CSA &amp; GDS for each VM
-                    */<br>
-                    &gt; +     uint64_t vm_csa_addr;<br>
-                    &gt; +     uint64_t vm_gds_addr;<br>
-                    <br>
-                    That should be constant, shouldn't it?</span></font></p>
-              <p><br>
-              </p>
-              <p><br>
-              </p>
-              <p>[ML] do you mean "const uint64_t vm_csa_addr" ? of
-                cause not if that's your point ... compiling error on
-                that
-                <br>
-              </p>
-              <p>and strictly speaking that's not constant, the address
-                is calculated ...<br>
-              </p>
-            </div>
-          </div>
-        </blockquote>
-        <br>
-        No that wasn't what I meant. The address is constant for all
-        VM's in the system, isn't it?<br>
-        <br>
-        Just add a define similar to AMDGPU_VA_RESERVED_SIZE and stop
-        calculating it all together (BTW: AMDGPU_VA_RESERVED_SIZE should
-        probably be moved to amdgpu_vm.h).<br>
-        <br>
-        Regards,<br>
-        Christian.<br>
-        <br>
-        <blockquote
-cite="mid:BY2PR1201MB11106E7ABC5FF87AF1F6F67A84670-O28G1zQ8oGliQkyLPkmea2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org"
-          type="cite">
-          <div dir="ltr">
-            <div id="x_divtagdefaultwrapper" dir="ltr"
-              style="font-size:12pt; color:#000000;
-              font-family:Calibri,Arial,Helvetica,sans-serif">
-            </div>
-            <hr tabindex="-1" style="display:inline-block; width:98%">
-            <div id="x_divRplyFwdMsg" dir="ltr"><font
-                style="font-size:11pt" color="#000000" face="Calibri,
-                sans-serif"><b>发件人:</b> Christian König
-                <a moz-do-not-send="true" class="moz-txt-link-rfc2396E"
-                  href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">&lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;</a><br>
-                <b>发送时间:</b> 2017年1月9日 18:57:06<br>
-                <b>收件人:</b> Liu, Monk; <a moz-do-not-send="true"
-                  class="moz-txt-link-abbreviated"
-                  href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
-                  amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                <b>主题:</b> Re: [PATCH 2/7] drm/amdgpu:new field members
-                for SRIOV</font>
-              <div> </div>
-            </div>
-          </div>
-          <font size="2"><span style="font-size:10pt;">
-              <div class="PlainText">Am 09.01.2017 um 09:02 schrieb Monk
-                Liu:<br>
-                &gt; Change-Id:
-                Ife0eff7b13b8b5946f005a39f6ecb8db1cb72c38<br>
-                &gt; Signed-off-by: Monk Liu <a moz-do-not-send="true"
-                  class="moz-txt-link-rfc2396E"
-                  href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org">
-                  &lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-                &gt; ---<br>
-                &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h | 19
-                +++++++++++++++++++<br>
-                &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h   |  2 ++<br>
-                &gt;   2 files changed, 21 insertions(+)<br>
-                &gt;<br>
-                &gt; diff --git
-                a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-                b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
-                &gt; index 0d821d9..5aa7f0c 100644<br>
-                &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
-                &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
-                &gt; @@ -28,9 +28,28 @@<br>
-                &gt;   #define AMDGPU_SRIOV_CAPS_ENABLE_IOV   (1
-                &lt;&lt; 1) /* sr-iov is enabled on this GPU */<br>
-                &gt;   #define AMDGPU_SRIOV_CAPS_IS_VF        (1
-                &lt;&lt; 2) /* this GPU is a virtual function */<br>
-                &gt;   #define AMDGPU_PASSTHROUGH_MODE        (1
-                &lt;&lt; 3) /* thw whole GPU is pass through for VM */<br>
-                &gt; +<br>
-                &gt; +struct amdgpu_vm;<br>
-                &gt;   /* GPU virtualization */<br>
-                &gt;   struct amdgpu_virt {<br>
-                &gt;        uint32_t caps;<br>
-                &gt; +     uint32_t csa_size;<br>
-                &gt; +     struct amdgpu_bo *csa_obj;<br>
-                &gt; +     uint64_t csa_vmid0_addr;<br>
-                &gt; +     uint64_t gds_vmid0_addr;<br>
-                &gt; +     int (*allocate_csa)(struct amdgpu_device
-                *adev);<br>
-                &gt; +     void (*deallocate_csa)(struct amdgpu_device
-                *adev);<br>
-                &gt; +     int (*map_csa)(struct amdgpu_device *adev,
-                struct amdgpu_vm *vm);<br>
-                &gt; +     void (*unmap_csa)(struct amdgpu_device *adev,
-                struct amdgpu_vm *vm);<br>
-                <br>
-                Why callbacks for this?<br>
-                <br>
-                &gt; +};<br>
-                &gt; +<br>
-                &gt; +struct amdgpu_vm_virt {<br>
-                &gt; +     /* each VM will map on CSA */<br>
-                &gt; +     struct ttm_validate_buffer csa_tv;<br>
-                &gt; +     struct amdgpu_bo_va *csa_bo_va;<br>
-                <br>
-                Please put that directly into the amdgpu_vm structure.<br>
-                <br>
-                &gt; +     /* virtual MC address of CSA &amp; GDS for
-                each VM */<br>
-                &gt; +     uint64_t vm_csa_addr;<br>
-                &gt; +     uint64_t vm_gds_addr;<br>
-                <br>
-                That should be constant, shouldn't it?<br>
-                <br>
-                Regards,<br>
-                Christian.<br>
-                <br>
-                &gt;   };<br>
-                &gt;   <br>
-                &gt;   #define amdgpu_sriov_enabled(adev) \<br>
-                &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-                b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
-                &gt; index 42a629b..27cbcbc 100644<br>
-                &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
-                &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
-                &gt; @@ -29,6 +29,7 @@<br>
-                &gt;   #include "gpu_scheduler.h"<br>
-                &gt;   #include "amdgpu_sync.h"<br>
-                &gt;   #include "amdgpu_ring.h"<br>
-                &gt; +#include "amdgpu_virt.h"<br>
-                &gt;   <br>
-                &gt;   struct amdgpu_bo_va;<br>
-                &gt;   struct amdgpu_job;<br>
-                &gt; @@ -111,6 +112,7 @@ struct amdgpu_vm {<br>
-                &gt;   <br>
-                &gt;        /* client id */<br>
-                &gt;        u64                     client_id;<br>
-                &gt; +     struct amdgpu_vm_virt   vm_virt;<br>
-                &gt;   };<br>
-                &gt;   <br>
-                &gt;   struct amdgpu_vm_id {<br>
-                <br>
-                <br>
-              </div>
-            </span></font><br>
-          <fieldset class="mimeAttachmentHeader"></fieldset>
-          <br>
-          <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a moz-do-not-send="true" class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a moz-do-not-send="true" class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-        </blockquote>
-        <p><br>
-        </p>
-      </div>
-    </blockquote>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------0018BA6362DD98FA17EFDC8A--
-
---===============0758251168==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0758251168==--
+QW0gMTAuMDEuMjAxNyB1bSAxMTowMCBzY2hyaWViIFhpYW5nbGlhbmcgWXU6Cj4gRm9yIHZpcnR1
+YWxpemF0aW9uLCBpdCBpcyBtdXN0IGZvciBkcml2ZXIgdG8gdXNlIEtJUSB0byBhY2Nlc3MKPiBy
+ZWdpc3RlcnMgd2hlbiBpdCBpcyBvdXQgb2YgR1BVIGZ1bGwgYWNjZXNzIG1vZGUuCj4KPiBTaWdu
+ZWQtb2ZmLWJ5OiBYaWFuZ2xpYW5nIFl1IDxYaWFuZ2xpYW5nLll1QGFtZC5jb20+Cj4gLS0tCj4g
+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9NYWtlZmlsZSAgICAgICAgfCAgMiArLQo+ICAg
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIHwgIDYgKysrCj4gICBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmlydC5jICAgfCA4NiArKysrKysrKysr
+KysrKysrKysrKysrKysrKysrKysKPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV92aXJ0LmggICB8ICA1ICsrCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92aS5jICAg
+ICAgICAgICAgfCAgMyArKwo+ICAgNSBmaWxlcyBjaGFuZ2VkLCAxMDEgaW5zZXJ0aW9ucygrKSwg
+MSBkZWxldGlvbigtKQo+ICAgY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV92aXJ0LmMKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9NYWtlZmlsZSBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L01ha2VmaWxlCj4g
+aW5kZXggNDE4NWIwMy4uMGI4ZTQ3MCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9NYWtlZmlsZQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L01ha2Vm
+aWxlCj4gQEAgLTMwLDcgKzMwLDcgQEAgYW1kZ3B1LXkgKz0gYW1kZ3B1X2RldmljZS5vIGFtZGdw
+dV9rbXMubyBcCj4gICAJYXRvbWJpb3NfZW5jb2RlcnMubyBhbWRncHVfc2EubyBhdG9tYmlvc19p
+MmMubyBcCj4gICAJYW1kZ3B1X3ByaW1lLm8gYW1kZ3B1X3ZtLm8gYW1kZ3B1X2liLm8gYW1kZ3B1
+X3BsbC5vIFwKPiAgIAlhbWRncHVfdWNvZGUubyBhbWRncHVfYm9fbGlzdC5vIGFtZGdwdV9jdHgu
+byBhbWRncHVfc3luYy5vIFwKPiAtCWFtZGdwdV9ndHRfbWdyLm8gYW1kZ3B1X3ZyYW1fbWdyLm8K
+PiArCWFtZGdwdV9ndHRfbWdyLm8gYW1kZ3B1X3ZyYW1fbWdyLm8gYW1kZ3B1X3ZpcnQubwo+ICAg
+Cj4gICAjIGFkZCBhc2ljIHNwZWNpZmljIGJsb2NrCj4gICBhbWRncHUtJChDT05GSUdfRFJNX0FN
+REdQVV9DSUspKz0gY2lrLm8gY2lrX2loLm8ga3Zfc21jLm8ga3ZfZHBtLm8gXAo+IGRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPiBpbmRleCBmODI5MTlkLi45YTJm
+ZDNlIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZp
+Y2UuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+
+IEBAIC05NSw2ICs5NSw5IEBAIHVpbnQzMl90IGFtZGdwdV9tbV9ycmVnKHN0cnVjdCBhbWRncHVf
+ZGV2aWNlICphZGV2LCB1aW50MzJfdCByZWcsCj4gICB7Cj4gICAJdWludDMyX3QgcmV0Owo+ICAg
+Cj4gKwlpZiAoYW1kZ3B1X3NyaW92X3J1bnRpbWUoYWRldikgJiYgIWluX2ludGVycnVwdCgpKQo+
+ICsJCXJldHVybiBhbWRncHVfdmlydF9raXFfcnJlZyhhZGV2LCByZWcpOwo+ICsKPiAgIAlpZiAo
+KHJlZyAqIDQpIDwgYWRldi0+cm1taW9fc2l6ZSAmJiAhYWx3YXlzX2luZGlyZWN0KQo+ICAgCQly
+ZXQgPSByZWFkbCgoKHZvaWQgX19pb21lbSAqKWFkZXYtPnJtbWlvKSArIChyZWcgKiA0KSk7Cj4g
+ICAJZWxzZSB7Cj4gQEAgLTExNCw2ICsxMTcsOSBAQCB2b2lkIGFtZGdwdV9tbV93cmVnKHN0cnVj
+dCBhbWRncHVfZGV2aWNlICphZGV2LCB1aW50MzJfdCByZWcsIHVpbnQzMl90IHYsCj4gICB7Cj4g
+ICAJdHJhY2VfYW1kZ3B1X21tX3dyZWcoYWRldi0+cGRldi0+ZGV2aWNlLCByZWcsIHYpOwo+ICAg
+Cj4gKwlpZiAoYW1kZ3B1X3NyaW92X3J1bnRpbWUoYWRldikpCj4gKwkJcmV0dXJuIGFtZGdwdV92
+aXJ0X2tpcV93cmVnKGFkZXYsIHJlZywgdik7Cj4gKwo+ICAgCWlmICgocmVnICogNCkgPCBhZGV2
+LT5ybW1pb19zaXplICYmICFhbHdheXNfaW5kaXJlY3QpCj4gICAJCXdyaXRlbCh2LCAoKHZvaWQg
+X19pb21lbSAqKWFkZXYtPnJtbWlvKSArIChyZWcgKiA0KSk7Cj4gICAJZWxzZSB7Cj4gZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92aXJ0LmMgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmlydC5jCj4gbmV3IGZpbGUgbW9kZSAxMDA2NDQK
+PiBpbmRleCAwMDAwMDAwLi42NTIwYTRlCj4gLS0tIC9kZXYvbnVsbAo+ICsrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92aXJ0LmMKPiBAQCAtMCwwICsxLDg2IEBACj4gKy8q
+Cj4gKyAqIENvcHlyaWdodCAyMDE3IEFkdmFuY2VkIE1pY3JvIERldmljZXMsIEluYy4KPiArICoK
+PiArICogUGVybWlzc2lvbiBpcyBoZXJlYnkgZ3JhbnRlZCwgZnJlZSBvZiBjaGFyZ2UsIHRvIGFu
+eSBwZXJzb24gb2J0YWluaW5nIGEKPiArICogY29weSBvZiB0aGlzIHNvZnR3YXJlIGFuZCBhc3Nv
+Y2lhdGVkIGRvY3VtZW50YXRpb24gZmlsZXMgKHRoZSAiU29mdHdhcmUiKSwKPiArICogdG8gZGVh
+bCBpbiB0aGUgU29mdHdhcmUgd2l0aG91dCByZXN0cmljdGlvbiwgaW5jbHVkaW5nIHdpdGhvdXQg
+bGltaXRhdGlvbgo+ICsgKiB0aGUgcmlnaHRzIHRvIHVzZSwgY29weSwgbW9kaWZ5LCBtZXJnZSwg
+cHVibGlzaCwgZGlzdHJpYnV0ZSwgc3VibGljZW5zZSwKPiArICogYW5kL29yIHNlbGwgY29waWVz
+IG9mIHRoZSBTb2Z0d2FyZSwgYW5kIHRvIHBlcm1pdCBwZXJzb25zIHRvIHdob20gdGhlCj4gKyAq
+IFNvZnR3YXJlIGlzIGZ1cm5pc2hlZCB0byBkbyBzbywgc3ViamVjdCB0byB0aGUgZm9sbG93aW5n
+IGNvbmRpdGlvbnM6Cj4gKyAqCj4gKyAqIFRoZSBhYm92ZSBjb3B5cmlnaHQgbm90aWNlIGFuZCB0
+aGlzIHBlcm1pc3Npb24gbm90aWNlIHNoYWxsIGJlIGluY2x1ZGVkIGluCj4gKyAqIGFsbCBjb3Bp
+ZXMgb3Igc3Vic3RhbnRpYWwgcG9ydGlvbnMgb2YgdGhlIFNvZnR3YXJlLgo+ICsgKgo+ICsgKiBU
+SEUgU09GVFdBUkUgSVMgUFJPVklERUQgIkFTIElTIiwgV0lUSE9VVCBXQVJSQU5UWSBPRiBBTlkg
+S0lORCwgRVhQUkVTUyBPUgo+ICsgKiBJTVBMSUVELCBJTkNMVURJTkcgQlVUIE5PVCBMSU1JVEVE
+IFRPIFRIRSBXQVJSQU5USUVTIE9GIE1FUkNIQU5UQUJJTElUWSwKPiArICogRklUTkVTUyBGT1Ig
+QSBQQVJUSUNVTEFSIFBVUlBPU0UgQU5EIE5PTklORlJJTkdFTUVOVC4gIElOIE5PIEVWRU5UIFNI
+QUxMCj4gKyAqIFRIRSBDT1BZUklHSFQgSE9MREVSKFMpIE9SIEFVVEhPUihTKSBCRSBMSUFCTEUg
+Rk9SIEFOWSBDTEFJTSwgREFNQUdFUyBPUgo+ICsgKiBPVEhFUiBMSUFCSUxJVFksIFdIRVRIRVIg
+SU4gQU4gQUNUSU9OIE9GIENPTlRSQUNULCBUT1JUIE9SIE9USEVSV0lTRSwKPiArICogQVJJU0lO
+RyBGUk9NLCBPVVQgT0YgT1IgSU4gQ09OTkVDVElPTiBXSVRIIFRIRSBTT0ZUV0FSRSBPUiBUSEUg
+VVNFIE9SCj4gKyAqIE9USEVSIERFQUxJTkdTIElOIFRIRSBTT0ZUV0FSRS4KPiArICovCj4gKwo+
+ICsjaW5jbHVkZSAiYW1kZ3B1LmgiCj4gKyNpbmNsdWRlICJhbWRncHVfdmlydC5oIgo+ICsKPiAr
+dm9pZCBhbWRncHVfdmlydF9pbml0X3NldHRpbmcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYp
+Cj4gK3sKPiArCW11dGV4X2luaXQoJmFkZXYtPnZpcnQubG9jayk7Cj4gK30KPiArCj4gK3VpbnQz
+Ml90IGFtZGdwdV92aXJ0X2tpcV9ycmVnKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1aW50
+MzJfdCByZWcpCj4gK3sKPiArCXNpZ25lZCBsb25nIHI7Cj4gKwl1aW50MzJfdCB2YWw7Cj4gKwlz
+dHJ1Y3QgZmVuY2UgKmY7Cj4gKwlzdHJ1Y3QgYW1kZ3B1X2tpcSAqa2lxID0gJmFkZXYtPmdmeC5r
+aXE7Cj4gKwlzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcgPSAma2lxLT5yaW5nOwo+ICsKPiArCUJV
+R19PTighcmluZy0+ZnVuY3MtPmVtaXRfcnJlZyk7Cj4gKwo+ICsJbXV0ZXhfbG9jaygmYWRldi0+
+dmlydC5sb2NrKTsKPiArCWFtZGdwdV9yaW5nX2FsbG9jKHJpbmcsIDMyKTsKPiArCWFtZGdwdV9y
+aW5nX2VtaXRfaGRwX2ZsdXNoKHJpbmcpOwo+ICsJYW1kZ3B1X3JpbmdfZW1pdF9ycmVnKHJpbmcs
+IHJlZyk7Cj4gKwlhbWRncHVfcmluZ19lbWl0X2hkcF9pbnZhbGlkYXRlKHJpbmcpOwo+ICsJYW1k
+Z3B1X2ZlbmNlX2VtaXQocmluZywgJmYpOwo+ICsJZmVuY2VfZ2V0KGYpOwo+ICsJYW1kZ3B1X3Jp
+bmdfY29tbWl0KHJpbmcpOwo+ICsJbXV0ZXhfdW5sb2NrKCZhZGV2LT52aXJ0LmxvY2spOwo+ICsK
+PiArCXIgPSBmZW5jZV93YWl0KGYsIGZhbHNlKTsKPiArCWZlbmNlX3B1dChmKTsKCldoeSBkbyB5
+b3UgZ3JhYiBhbmQgcmVsZWFzZSBhbiBleHRyYSBmZW5jZSByZWZlcmVuY2UgaGVyZT8KCkNocmlz
+dGlhbi4KCj4gKwlpZiAocikKPiArCQlEUk1fRVJST1IoIndhaXQgZm9yIGtpcSBmZW5jZSBlcnJv
+cjogJWxkLlxuIiwgcik7Cj4gKwlmZW5jZV9wdXQoZik7Cj4gKwo+ICsJdmFsID0gYWRldi0+d2Iu
+d2JbYWRldi0+dmlydC52YWxfb2Zmc107Cj4gKwo+ICsJcmV0dXJuIHZhbDsKPiArfQo+ICsKPiAr
+dm9pZCBhbWRncHVfdmlydF9raXFfd3JlZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdWlu
+dDMyX3QgcmVnLCB1aW50MzJfdCB2KQo+ICt7Cj4gKwlzaWduZWQgbG9uZyByOwo+ICsJc3RydWN0
+IGZlbmNlICpmOwo+ICsJc3RydWN0IGFtZGdwdV9raXEgKmtpcSA9ICZhZGV2LT5nZngua2lxOwo+
+ICsJc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nID0gJmtpcS0+cmluZzsKPiArCj4gKwlCVUdfT04o
+IXJpbmctPmZ1bmNzLT5lbWl0X3dyZWcpOwo+ICsKPiArCW11dGV4X2xvY2soJmFkZXYtPnZpcnQu
+bG9jayk7Cj4gKwlhbWRncHVfcmluZ19hbGxvYyhyaW5nLCAzMik7Cj4gKwlhbWRncHVfcmluZ19l
+bWl0X2hkcF9mbHVzaChyaW5nKTsKPiArCWFtZGdwdV9yaW5nX2VtaXRfd3JlZyhyaW5nLCByZWcs
+IHYpOwo+ICsJYW1kZ3B1X3JpbmdfZW1pdF9oZHBfaW52YWxpZGF0ZShyaW5nKTsKPiArCWFtZGdw
+dV9mZW5jZV9lbWl0KHJpbmcsICZmKTsKPiArCWZlbmNlX2dldChmKTsKPiArCWFtZGdwdV9yaW5n
+X2NvbW1pdChyaW5nKTsKPiArCW11dGV4X3VubG9jaygmYWRldi0+dmlydC5sb2NrKTsKPiArCj4g
+KwlyID0gZmVuY2Vfd2FpdChmLCBmYWxzZSk7Cj4gKwlmZW5jZV9wdXQoZik7Cj4gKwlpZiAocikK
+PiArCQlEUk1fRVJST1IoIndhaXQgZm9yIGtpcSBmZW5jZSBlcnJvcjogJWxkLlxuIiwgcik7Cj4g
+KwlmZW5jZV9wdXQoZik7Cj4gK30KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X3ZpcnQuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92
+aXJ0LmgKPiBpbmRleCA3OTYxOWI2Li4yNGYwNTkwIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92aXJ0LmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfdmlydC5oCj4gQEAgLTMzLDYgKzMzLDcgQEAKPiAgIHN0cnVjdCBhbWRn
+cHVfdmlydCB7Cj4gICAJdWludDMyX3QJCWNhcHM7Cj4gICAJdWludDMyX3QJCXZhbF9vZmZzOwo+
+ICsJc3RydWN0IG11dGV4CQlsb2NrOwo+ICAgfTsKPiAgIAo+ICAgI2RlZmluZSBhbWRncHVfc3Jp
+b3ZfZW5hYmxlZChhZGV2KSBcCj4gQEAgLTU5LDQgKzYwLDggQEAgc3RhdGljIGlubGluZSBib29s
+IGlzX3ZpcnR1YWxfbWFjaGluZSh2b2lkKQo+ICAgI2VuZGlmCj4gICB9Cj4gICAKPiArdm9pZCBh
+bWRncHVfdmlydF9pbml0X3NldHRpbmcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOwo+ICt1
+aW50MzJfdCBhbWRncHVfdmlydF9raXFfcnJlZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwg
+dWludDMyX3QgcmVnKTsKPiArdm9pZCBhbWRncHVfdmlydF9raXFfd3JlZyhzdHJ1Y3QgYW1kZ3B1
+X2RldmljZSAqYWRldiwgdWludDMyX3QgcmVnLCB1aW50MzJfdCB2KTsKPiArCj4gICAjZW5kaWYK
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmkuYyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L3ZpLmMKPiBpbmRleCA3MzUwYThmLi5kYzBkNGZhIDEwMDY0NAo+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZpLmMKPiArKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS92aS5jCj4gQEAgLTg5Miw2ICs4OTIsOSBAQCBzdGF0aWMgaW50IHZp
+X2NvbW1vbl9lYXJseV9pbml0KHZvaWQgKmhhbmRsZSkKPiAgIAkJKGFtZGdwdV9pcF9ibG9ja19t
+YXNrICYgKDEgPDwgQU1EX0lQX0JMT0NLX1RZUEVfU01DKSkpCj4gICAJCXNtY19lbmFibGVkID0g
+dHJ1ZTsKPiAgIAo+ICsJaWYgKGFtZGdwdV9zcmlvdl92ZihhZGV2KSkKPiArCQlhbWRncHVfdmly
+dF9pbml0X3NldHRpbmcoYWRldik7Cj4gKwo+ICAgCWFkZXYtPnJldl9pZCA9IHZpX2dldF9yZXZf
+aWQoYWRldik7Cj4gICAJYWRldi0+ZXh0ZXJuYWxfcmV2X2lkID0gMHhGRjsKPiAgIAlzd2l0Y2gg
+KGFkZXYtPmFzaWNfdHlwZSkgewoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
+LWdmeAo=
