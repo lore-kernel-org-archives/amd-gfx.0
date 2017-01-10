@@ -1,16 +1,18 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: =?UTF-8?Q?Re:_=e7=ad=94=e5=a4=8d:_[PATCH_2/7]_drm/amdgpu:new_field_?=
- =?UTF-8?Q?members_for_SRIOV?=
-Date: Tue, 10 Jan 2017 10:51:46 +0100
-Message-ID: <aec66a0f-0fd7-1e02-f160-999fc76de4a6@vodafone.de>
+From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: =?utf-8?B?562U5aSNOiDnrZTlpI06IFtQQVRDSCA3LzddIGRybS9hbWRncHU6bWFwL3Vu?=
+ =?utf-8?Q?map_static_csa_accordingly?=
+Date: Tue, 10 Jan 2017 09:53:50 +0000
+Message-ID: <BY2PR1201MB1110632E66A596FA820250E584670@BY2PR1201MB1110.namprd12.prod.outlook.com>
 References: <1483948982-27056-1-git-send-email-Monk.Liu@amd.com>
- <1483948982-27056-3-git-send-email-Monk.Liu@amd.com>
- <9f6b9ab8-3bb1-7a57-75d9-70d23d5dd74b@vodafone.de>
- <BY2PR1201MB11106E7ABC5FF87AF1F6F67A84670@BY2PR1201MB1110.namprd12.prod.outlook.com>
+ <1483948982-27056-8-git-send-email-Monk.Liu@amd.com>
+ <4f78e5dd-f7e8-0976-5abf-305e0b793ba1@vodafone.de>
+ <BY2PR1201MB11108A5E8A3EF7F10C0392AE84670@BY2PR1201MB1110.namprd12.prod.outlook.com>,
+ <cd95519f-f45b-6865-0fab-e75a970a48b0@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1809154821=="
+Content-Type: multipart/mixed; boundary="===============1327029694=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BY2PR1201MB11106E7ABC5FF87AF1F6F67A84670-O28G1zQ8oGliQkyLPkmea2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
+In-Reply-To: <cd95519f-f45b-6865-0fab-e75a970a48b0-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Content-Language: zh-CN
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,328 +23,258 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============1809154821==
+--===============1327029694==
+Content-Language: zh-CN
 Content-Type: multipart/alternative;
- boundary="------------9C3BAE0757D969E4ACFAED39"
+	boundary="_000_BY2PR1201MB1110632E66A596FA820250E584670BY2PR1201MB1110_"
 
-This is a multi-part message in MIME format.
---------------9C3BAE0757D969E4ACFAED39
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+--_000_BY2PR1201MB1110632E66A596FA820250E584670BY2PR1201MB1110_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Am 10.01.2017 um 04:03 schrieb Liu, Monk:
->
-> > +     /* virtual MC address of CSA & GDS for each VM */
-> > +     uint64_t vm_csa_addr;
-> > +     uint64_t vm_gds_addr;
->
-> That should be constant, shouldn't it?
->
->
->
-> [ML] do you mean "const uint64_t vm_csa_addr" ? of cause not if that's 
-> your point ... compiling error on that
->
-> and strictly speaking that's not constant, the address is calculated ...
->
+dGhlbiB3aGF0IGFib3V0ICJhbWRncHVfdm1fYm9fbWFwIiA/IHdlIG5lZWQgY2FsbCBpdCBmaXJz
+dCBiZWZvcmUgY2FsbCAiYW1kZ3B1X3ZtX2JvX3VwZGF0ZSIgaW4gImFtZGdwdV9ib192bV91cGRh
+dGVfcHRlIiAsIGNvcnJlY3QgPyBvdGhlcndpc2Ugd2UgZXZlbiBub3QgY3JlYXRlIFBUIGJvIGZv
+ciB0aGUgQ1NBIC4uLg0KDQoNCkRvIHlvdSBzdWdnZXN0IHRoYXQgcmlwIG91dCBvZiBhbWRncHVf
+bWFwX2NzYSgpIHJvdXRpbmUgdG90YWxseSwgYW5kIG1hbnVhbGx5IGNhbGwgImFtZGdwdV92bV9i
+b19tYXAiIGFzIHdlbGwgYXMgImFtZGdwdV92bV9ib191cGRhdGUiIGluIHNlcXVlbmNlIGluICJh
+bWRncHVfdm1fYm9fdXBkYXRlIiA/DQoNCg0KQlIgTW9uaw0KDQpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXw0K5Y+R5Lu25Lq6OiBDaHJpc3RpYW4gS8O2bmlnIDxkZWF0aHNpbXBsZUB2
+b2RhZm9uZS5kZT4NCuWPkemAgeaXtumXtDogMjAxN+W5tDHmnIgxMOaXpSAxNzo0NDoyMQ0K5pS2
+5Lu25Lq6OiBMaXUsIE1vbms7IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQrkuLvpopg6
+IFJlOiDnrZTlpI06IFtQQVRDSCA3LzddIGRybS9hbWRncHU6bWFwL3VubWFwIHN0YXRpYyBjc2Eg
+YWNjb3JkaW5nbHkNCg0KQWRkaW5nIHRoZSBCTyBhbmQgaXQncyBtYXBwaW5nIGlzIFZNIHNwZWNp
+ZmljIGNvZGUsIHdlIHNob3VsZCBpbml0aWFsaXplDQp0aGF0IGRpcmVjdGx5IGluIGFtZGdwdV92
+bV9pbml0KCkgYW5kIG5vdCBjYWxsIGFueSBoZWxwZXIgdG8gZGVsZWdhdGUNCnRoZSB3b3JrLg0K
+DQpFc3BlY2lhbGx5IGRvbid0IGNhbGwgZnJvbSB0aGUgVk0gY29kZSBpbnRvIHRoZSB2aXJ0IGNv
+ZGUgYW5kIGJhY2sgaW50bw0KdGhlIFZNIGNvZGUuDQoNCklmIHlvdSByZWFsbHkgd2FudCB0byBr
+ZWVwIHRoYXQgaW4gYW1kZ3B1X3ZpcnQuIGFuIGFsdGVybmF0aXZlIHdvdWxkIGJlDQp0byBwdXQg
+dGhlIGNhbGwgaW50byBhbWRncHVfZHJpdmVyX29wZW5fa21zKCkgZGlyZWN0bHkgYWZ0ZXIgY2Fs
+bGluZw0KYW1kZ3B1X3ZtX2luaXQoKS4NCg0KUmVnYXJkcywNCkNocmlzdGlhbi4NCg0KQW0gMTAu
+MDEuMjAxNyB1bSAwMzo0MCBzY2hyaWViIExpdSwgTW9uazoNCj4NCj4gd2h5IHlvdSB3YW50IHRv
+IGRyb3AgdGhhdCAiYWRldi0+dmlydC5tYXBfY3NhKCkiIGNhbGxpbmcgPyAgd2l0aG91dA0KPiB0
+aGF0IGNhbGxpbmcgeW91IGRvbid0IGhhdmUgQ1NBJ3MgaW5pdGlhbGl6ZWQgYm9fdmEgYW5kIG1h
+cHBpbmdzIGFzDQo+IHdlbGwsIGFuZCB3aXRob3V0IGJvX3ZhIGFuZCBtYXBwaW5ncyBob3cgeW91
+IGNhbiBtYWtlDQo+ICJhbWRncHVfdm1fYm9fdXBkYXRlKCkiIGludm9rZSB3b3JrID8NCj4NCj4N
+Cj4gTW9uaw0KPg0KPiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0NCj4gKuWPkeS7tuS6ujoqIENocmlzdGlhbiBL
+w7ZuaWcgPGRlYXRoc2ltcGxlQHZvZGFmb25lLmRlPg0KPiAq5Y+R6YCB5pe26Ze0OiogMjAxN+W5
+tDHmnIg55pelIDE5OjA0OjQ0DQo+ICrmlLbku7bkuro6KiBMaXUsIE1vbms7IGFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnDQo+ICrkuLvpopg6KiBSZTogW1BBVENIIDcvN10gZHJtL2FtZGdw
+dTptYXAvdW5tYXAgc3RhdGljIGNzYSBhY2NvcmRpbmdseQ0KPiBBbSAwOS4wMS4yMDE3IHVtIDA5
+OjAzIHNjaHJpZWIgTW9uayBMaXU6DQo+ID4gYW5kIHVwZGF0ZSBDU0EgYm9fdmEgaW4gZWFjaCBz
+dWJtaXQNCj4gPg0KPiA+IENoYW5nZS1JZDogSTVlZDczZTFiN2Y4OTc0M2Q5MDI5OGJjODE0YTQy
+YTkxZTE2NmJlM2INCj4gPiBTaWduZWQtb2ZmLWJ5OiBNb25rIExpdSA8TW9uay5MaXVAYW1kLmNv
+bT4NCj4gPiAtLS0NCj4gPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5j
+IHwgMTQgKysrKysrKysrKysrKysNCj4gPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV92bS5jIHwgMTEgKysrKysrKysrKysNCj4gPiAgIDIgZmlsZXMgY2hhbmdlZCwgMjUgaW5z
+ZXJ0aW9ucygrKQ0KPiA+DQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9jcy5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Nz
+LmMNCj4gPiBpbmRleCA2MTU5YWZjLi4wODNhYjczIDEwMDY0NA0KPiA+IC0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jDQo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMNCj4gPiBAQCAtNzcxLDYgKzc3MSwyMCBAQCBzdGF0aWMg
+aW50IGFtZGdwdV9ib192bV91cGRhdGVfcHRlKHN0cnVjdA0KPiBhbWRncHVfY3NfcGFyc2VyICpw
+LA0KPiA+ICAgICAgICBpZiAocikNCj4gPiAgICAgICAgICAgICAgICByZXR1cm4gcjsNCj4gPg0K
+PiA+ICsgICAgIGlmIChhbWRncHVfc3Jpb3ZfdmYoYWRldikpIHsNCj4gPiArICAgICAgICAgICAg
+IHN0cnVjdCBmZW5jZSAqZjsNCj4NCj4gQSBuZXcgbGluZSBpcyBuZWVkZWQgYmV0d2VlbiBkZWNl
+bGVyYXRpb24gYW5kIGNvZGUuDQo+DQo+ID4gKyAgICAgICAgICAgICBib192YSA9IHZtLT52bV92
+aXJ0LmNzYV9ib192YTsNCj4gPiArICAgICAgICAgICAgIEJVR19PTighYm9fdmEpOw0KPiA+ICsg
+ICAgICAgICAgICAgciA9IGFtZGdwdV92bV9ib191cGRhdGUoYWRldiwgYm9fdmEsIGZhbHNlKTsN
+Cj4gPiArICAgICAgICAgICAgIGlmIChyKQ0KPiA+ICsgICAgICAgICAgICAgICAgICAgICByZXR1
+cm4gcjsNCj4gPiArDQo+ID4gKyAgICAgICAgICAgICBmID0gYm9fdmEtPmxhc3RfcHRfdXBkYXRl
+Ow0KPiA+ICsgICAgICAgICAgICAgciA9IGFtZGdwdV9zeW5jX2ZlbmNlKGFkZXYsICZwLT5qb2It
+PnN5bmMsIGYpOw0KPiA+ICsgICAgICAgICAgICAgaWYgKHIpDQo+ID4gKyAgICAgICAgICAgICAg
+ICAgICAgIHJldHVybiByOw0KPiA+ICsgICAgIH0NCj4gPiArDQo+ID4gICAgICAgIGlmIChwLT5i
+b19saXN0KSB7DQo+ID4gICAgICAgICAgICAgICAgZm9yIChpID0gMDsgaSA8IHAtPmJvX2xpc3Qt
+Pm51bV9lbnRyaWVzOyBpKyspIHsNCj4gPiAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBm
+ZW5jZSAqZjsNCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X3ZtLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0KPiA+
+IGluZGV4IGQwNTU0NmUuLmI5Y2Q2ODYgMTAwNjQ0DQo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMNCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfdm0uYw0KPiA+IEBAIC0xNTc2LDYgKzE1NzYsMTQgQEAgaW50IGFtZGdwdV92
+bV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlDQo+ICphZGV2LCBzdHJ1Y3QgYW1kZ3B1X3ZtICp2
+bSkNCj4gPiAgICAgICAgdm0tPmxhc3RfZXZpY3Rpb25fY291bnRlciA9IGF0b21pYzY0X3JlYWQo
+JmFkZXYtPm51bV9ldmljdGlvbnMpOw0KPiA+ICAgICAgICBhbWRncHVfYm9fdW5yZXNlcnZlKHZt
+LT5wYWdlX2RpcmVjdG9yeSk7DQo+ID4NCj4gPiArICAgICBpZiAoYW1kZ3B1X3NyaW92X3ZmKGFk
+ZXYpKSB7DQo+ID4gKyAgICAgICAgICAgICBCVUdfT04oIWFkZXYtPnZpcnQubWFwX2NzYSk7DQo+
+ID4gKyAgICAgICAgICAgICBCVUdfT04oIWFkZXYtPnZpcnQudW5tYXBfY3NhKTsNCj4gPiArICAg
+ICAgICAgICAgIHIgPSBhZGV2LT52aXJ0Lm1hcF9jc2EoYWRldiwgdm0pOw0KPiA+ICsgICAgICAg
+ICAgICAgaWYgKHIpDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIGdvdG8gZXJyb3JfZnJlZV9w
+YWdlX2RpcmVjdG9yeTsNCj4gPiArICAgICB9DQo+ID4gKw0KPg0KPiBKdXN0IGNvbXBsZXRlbHkg
+ZHJvcCB0aGF0LiBVcGRhdGluZyB0aGUgVk0gb24gdGhlIGZpcnN0IGNvbW1hbmQNCj4gc3VibWlz
+c2lvbiBzaG91bGQgYmUgc3VmZmljaWVudC4NCj4NCj4gQ2hyaXN0aWFuLg0KPg0KPiA+ICAgICAg
+ICByZXR1cm4gMDsNCj4gPg0KPiA+ICAgZXJyb3JfZnJlZV9wYWdlX2RpcmVjdG9yeToNCj4gPiBA
+QCAtMTYwNiw2ICsxNjE0LDkgQEAgdm9pZCBhbWRncHVfdm1fZmluaShzdHJ1Y3QgYW1kZ3B1X2Rl
+dmljZQ0KPiAqYWRldiwgc3RydWN0IGFtZGdwdV92bSAqdm0pDQo+ID4gICAgICAgIHN0cnVjdCBh
+bWRncHVfYm9fdmFfbWFwcGluZyAqbWFwcGluZywgKnRtcDsNCj4gPiAgICAgICAgaW50IGk7DQo+
+ID4NCj4gPiArICAgICBpZiAoYW1kZ3B1X3NyaW92X3ZmKGFkZXYpKQ0KPiA+ICsgICAgICAgICAg
+ICAgYWRldi0+dmlydC51bm1hcF9jc2EoYWRldiwgdm0pOw0KPiA+ICsNCj4gPiAgICAgICAgYW1k
+X3NjaGVkX2VudGl0eV9maW5pKHZtLT5lbnRpdHkuc2NoZWQsICZ2bS0+ZW50aXR5KTsNCj4gPg0K
+PiA+ICAgICAgICBpZiAoIVJCX0VNUFRZX1JPT1QoJnZtLT52YSkpIHsNCj4NCj4NCg0K
 
-No that wasn't what I meant. The address is constant for all VM's in the 
-system, isn't it?
+--_000_BY2PR1201MB1110632E66A596FA820250E584670BY2PR1201MB1110_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Just add a define similar to AMDGPU_VA_RESERVED_SIZE and stop 
-calculating it all together (BTW: AMDGPU_VA_RESERVED_SIZE should 
-probably be moved to amdgpu_vm.h).
+PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
+dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRvciIgY29udGVu
+dD0iTWljcm9zb2Z0IEV4Y2hhbmdlIFNlcnZlciI+DQo8IS0tIGNvbnZlcnRlZCBmcm9tIHRleHQg
+LS0+PHN0eWxlPjwhLS0gLkVtYWlsUXVvdGUgeyBtYXJnaW4tbGVmdDogMXB0OyBwYWRkaW5nLWxl
+ZnQ6IDRwdDsgYm9yZGVyLWxlZnQ6ICM4MDAwMDAgMnB4IHNvbGlkOyB9IC0tPjwvc3R5bGU+DQo8
+L2hlYWQ+DQo8Ym9keT4NCjxtZXRhIGNvbnRlbnQ9InRleHQvaHRtbDsgY2hhcnNldD1VVEYtOCI+
+DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiIHN0eWxlPSIiPg0KPCEtLQ0KcA0KCXttYXJnaW4tdG9w
+OjA7DQoJbWFyZ2luLWJvdHRvbTowfQ0KLS0+DQo8L3N0eWxlPg0KPGRpdiBkaXI9Imx0ciI+DQo8
+ZGl2IGlkPSJ4X2RpdnRhZ2RlZmF1bHR3cmFwcGVyIiBkaXI9Imx0ciIgc3R5bGU9ImZvbnQtc2l6
+ZToxMnB0OyBjb2xvcjojMDAwMDAwOyBmb250LWZhbWlseTpDYWxpYnJpLEFyaWFsLEhlbHZldGlj
+YSxzYW5zLXNlcmlmIj4NCjxwPnRoZW4gd2hhdCBhYm91dCAmcXVvdDs8c3Bhbj5hbWRncHVfdm1f
+Ym9fbWFwPC9zcGFuPiZxdW90OyA/IHdlIG5lZWQgY2FsbCBpdCBmaXJzdCBiZWZvcmUgY2FsbCAm
+cXVvdDs8c3Bhbj5hbWRncHVfdm1fYm9fdXBkYXRlPC9zcGFuPiZxdW90OyBpbiAmcXVvdDs8c3Bh
+bj5hbWRncHVfYm9fdm1fdXBkYXRlX3B0ZTwvc3Bhbj4mcXVvdDsgLCBjb3JyZWN0ID8gb3RoZXJ3
+aXNlIHdlIGV2ZW4gbm90IGNyZWF0ZSBQVCBibyBmb3IgdGhlIENTQSAuLi4mbmJzcDs8L3A+DQo8
+cD48YnI+DQo8L3A+DQo8cD5EbyB5b3Ugc3VnZ2VzdCB0aGF0IHJpcCBvdXQgb2YgYW1kZ3B1X21h
+cF9jc2EoKSByb3V0aW5lIHRvdGFsbHksIGFuZCBtYW51YWxseSBjYWxsICZxdW90OzxzcGFuPmFt
+ZGdwdV92bV9ib19tYXA8L3NwYW4+JnF1b3Q7IGFzIHdlbGwgYXMgJnF1b3Q7PHNwYW4+YW1kZ3B1
+X3ZtX2JvX3VwZGF0ZTwvc3Bhbj4mcXVvdDsgaW4gc2VxdWVuY2UgaW4gJnF1b3Q7PHNwYW4+YW1k
+Z3B1X3ZtX2JvX3VwZGF0ZTwvc3Bhbj4mcXVvdDsgPzwvcD4NCjxwPjxicj4NCjwvcD4NCjxwPkJS
+IE1vbms8L3A+DQo8L2Rpdj4NCjxociB0YWJpbmRleD0iLTEiIHN0eWxlPSJkaXNwbGF5OmlubGlu
+ZS1ibG9jazsgd2lkdGg6OTglIj4NCjxkaXYgaWQ9InhfZGl2UnBseUZ3ZE1zZyIgZGlyPSJsdHIi
+Pjxmb250IGZhY2U9IkNhbGlicmksIHNhbnMtc2VyaWYiIGNvbG9yPSIjMDAwMDAwIiBzdHlsZT0i
+Zm9udC1zaXplOjExcHQiPjxiPuWPkeS7tuS6ujo8L2I+IENocmlzdGlhbiBLw7ZuaWcgJmx0O2Rl
+YXRoc2ltcGxlQHZvZGFmb25lLmRlJmd0Ozxicj4NCjxiPuWPkemAgeaXtumXtDo8L2I+IDIwMTfl
+ubQx5pyIMTDml6UgMTc6NDQ6MjE8YnI+DQo8Yj7mlLbku7bkuro6PC9iPiBMaXUsIE1vbms7IGFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPGJyPg0KPGI+5Li76aKYOjwvYj4gUmU6IOetlOWk
+jTogW1BBVENIIDcvN10gZHJtL2FtZGdwdTptYXAvdW5tYXAgc3RhdGljIGNzYSBhY2NvcmRpbmds
+eTwvZm9udD4NCjxkaXY+Jm5ic3A7PC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPGZvbnQgc2l6ZT0i
+MiI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMHB0OyI+DQo8ZGl2IGNsYXNzPSJQbGFpblRleHQi
+PkFkZGluZyB0aGUgQk8gYW5kIGl0J3MgbWFwcGluZyBpcyBWTSBzcGVjaWZpYyBjb2RlLCB3ZSBz
+aG91bGQgaW5pdGlhbGl6ZQ0KPGJyPg0KdGhhdCBkaXJlY3RseSBpbiBhbWRncHVfdm1faW5pdCgp
+IGFuZCBub3QgY2FsbCBhbnkgaGVscGVyIHRvIGRlbGVnYXRlIDxicj4NCnRoZSB3b3JrLjxicj4N
+Cjxicj4NCkVzcGVjaWFsbHkgZG9uJ3QgY2FsbCBmcm9tIHRoZSBWTSBjb2RlIGludG8gdGhlIHZp
+cnQgY29kZSBhbmQgYmFjayBpbnRvIDxicj4NCnRoZSBWTSBjb2RlLjxicj4NCjxicj4NCklmIHlv
+dSByZWFsbHkgd2FudCB0byBrZWVwIHRoYXQgaW4gYW1kZ3B1X3ZpcnQuIGFuIGFsdGVybmF0aXZl
+IHdvdWxkIGJlIDxicj4NCnRvIHB1dCB0aGUgY2FsbCBpbnRvIGFtZGdwdV9kcml2ZXJfb3Blbl9r
+bXMoKSBkaXJlY3RseSBhZnRlciBjYWxsaW5nIDxicj4NCmFtZGdwdV92bV9pbml0KCkuPGJyPg0K
+PGJyPg0KUmVnYXJkcyw8YnI+DQpDaHJpc3RpYW4uPGJyPg0KPGJyPg0KQW0gMTAuMDEuMjAxNyB1
+bSAwMzo0MCBzY2hyaWViIExpdSwgTW9uazo8YnI+DQomZ3Q7PGJyPg0KJmd0OyB3aHkgeW91IHdh
+bnQgdG8gZHJvcCB0aGF0ICZxdW90O2FkZXYtJmd0O3ZpcnQubWFwX2NzYSgpJnF1b3Q7IGNhbGxp
+bmcgPyZuYnNwOyB3aXRob3V0IDxicj4NCiZndDsgdGhhdCBjYWxsaW5nIHlvdSBkb24ndCBoYXZl
+IENTQSdzIGluaXRpYWxpemVkIGJvX3ZhIGFuZCBtYXBwaW5ncyBhcyA8YnI+DQomZ3Q7IHdlbGws
+IGFuZCB3aXRob3V0IGJvX3ZhIGFuZCBtYXBwaW5ncyBob3cgeW91IGNhbiBtYWtlIDxicj4NCiZn
+dDsgJnF1b3Q7YW1kZ3B1X3ZtX2JvX3VwZGF0ZSgpJnF1b3Q7IGludm9rZSB3b3JrID88YnI+DQom
+Z3Q7PGJyPg0KJmd0Ozxicj4NCiZndDsgTW9uazxicj4NCiZndDs8YnI+DQomZ3Q7IC0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLTxicj4NCiZndDsgKuWPkeS7tuS6ujoqIENocmlzdGlhbiBLw7ZuaWcgJmx0O2RlYXRo
+c2ltcGxlQHZvZGFmb25lLmRlJmd0Ozxicj4NCiZndDsgKuWPkemAgeaXtumXtDoqIDIwMTflubQx
+5pyIOeaXpSAxOTowNDo0NDxicj4NCiZndDsgKuaUtuS7tuS6ujoqIExpdSwgTW9uazsgYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmc8YnI+DQomZ3Q7ICrkuLvpopg6KiBSZTogW1BBVENIIDcv
+N10gZHJtL2FtZGdwdTptYXAvdW5tYXAgc3RhdGljIGNzYSBhY2NvcmRpbmdseTxicj4NCiZndDsg
+QW0gMDkuMDEuMjAxNyB1bSAwOTowMyBzY2hyaWViIE1vbmsgTGl1Ojxicj4NCiZndDsgJmd0OyBh
+bmQgdXBkYXRlIENTQSBib192YSBpbiBlYWNoIHN1Ym1pdDxicj4NCiZndDsgJmd0Ozxicj4NCiZn
+dDsgJmd0OyBDaGFuZ2UtSWQ6IEk1ZWQ3M2UxYjdmODk3NDNkOTAyOThiYzgxNGE0MmE5MWUxNjZi
+ZTNiPGJyPg0KJmd0OyAmZ3Q7IFNpZ25lZC1vZmYtYnk6IE1vbmsgTGl1ICZsdDtNb25rLkxpdUBh
+bWQuY29tJmd0Ozxicj4NCiZndDsgJmd0OyAtLS08YnI+DQomZ3Q7ICZndDsmbmJzcDsmbmJzcDsg
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMgfCAxNCAmIzQzOyYjNDM7JiM0
+MzsmIzQzOyYjNDM7JiM0MzsmIzQzOyYjNDM7JiM0MzsmIzQzOyYjNDM7JiM0MzsmIzQzOyYjNDM7
+PGJyPg0KJmd0OyAmZ3Q7Jm5ic3A7Jm5ic3A7IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV92bS5jIHwgMTEgJiM0MzsmIzQzOyYjNDM7JiM0MzsmIzQzOyYjNDM7JiM0MzsmIzQzOyYj
+NDM7JiM0MzsmIzQzOzxicj4NCiZndDsgJmd0OyZuYnNwOyZuYnNwOyAyIGZpbGVzIGNoYW5nZWQs
+IDI1IGluc2VydGlvbnMoJiM0MzspPGJyPg0KJmd0OyAmZ3Q7PGJyPg0KJmd0OyAmZ3Q7IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYyA8YnI+DQomZ3Q7
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmM8YnI+DQomZ3Q7ICZndDsg
+aW5kZXggNjE1OWFmYy4uMDgzYWI3MyAxMDA2NDQ8YnI+DQomZ3Q7ICZndDsgLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmM8YnI+DQomZ3Q7ICZndDsgJiM0MzsmIzQz
+OyYjNDM7IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmM8YnI+DQomZ3Q7
+ICZndDsgQEAgLTc3MSw2ICYjNDM7NzcxLDIwIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2JvX3ZtX3Vw
+ZGF0ZV9wdGUoc3RydWN0IDxicj4NCiZndDsgYW1kZ3B1X2NzX3BhcnNlciAqcCw8YnI+DQomZ3Q7
+ICZndDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgaWYgKHIpPGJy
+Pg0KJmd0OyAmZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHJldHVybiByOzxi
+cj4NCiZndDsgJmd0Ozxicj4NCiZndDsgJmd0OyAmIzQzOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyBpZiAoYW1kZ3B1X3NyaW92X3ZmKGFkZXYpKSB7PGJyPg0KJmd0OyAmZ3Q7ICYjNDM7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7IHN0cnVjdCBmZW5jZSAqZjs8YnI+DQomZ3Q7PGJyPg0KJmd0OyBBIG5ldyBsaW5l
+IGlzIG5lZWRlZCBiZXR3ZWVuIGRlY2VsZXJhdGlvbiBhbmQgY29kZS48YnI+DQomZ3Q7PGJyPg0K
+Jmd0OyAmZ3Q7ICYjNDM7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGJvX3ZhID0gdm0tJmd0O3ZtX3ZpcnQuY3Nh
+X2JvX3ZhOzxicj4NCiZndDsgJmd0OyAmIzQzOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBCVUdfT04oIWJvX3Zh
+KTs8YnI+DQomZ3Q7ICZndDsgJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgciA9IGFtZGdwdV92bV9ib191
+cGRhdGUoYWRldiwgYm9fdmEsIGZhbHNlKTs8YnI+DQomZ3Q7ICZndDsgJiM0MzsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsgaWYgKHIpPGJyPg0KJmd0OyAmZ3Q7ICYjNDM7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHJldHVybiByOzxicj4NCiZn
+dDsgJmd0OyAmIzQzOzxicj4NCiZndDsgJmd0OyAmIzQzOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBmID0gYm9f
+dmEtJmd0O2xhc3RfcHRfdXBkYXRlOzxicj4NCiZndDsgJmd0OyAmIzQzOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyByID0gYW1kZ3B1X3N5bmNfZmVuY2UoYWRldiwgJmFtcDtwLSZndDtqb2ItJmd0O3N5bmMsIGYp
+Ozxicj4NCiZndDsgJmd0OyAmIzQzOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBpZiAocik8YnI+DQomZ3Q7ICZn
+dDsgJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsgcmV0dXJuIHI7PGJyPg0KJmd0OyAmZ3Q7ICYjNDM7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7IH08YnI+DQomZ3Q7ICZndDsgJiM0Mzs8YnI+DQomZ3Q7ICZndDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgaWYgKHAtJmd0O2JvX2xpc3QpIHs8
+YnI+DQomZ3Q7ICZndDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgZm9yIChpID0g
+MDsgaSAmbHQ7IHAtJmd0O2JvX2xpc3QtJmd0O251bV9lbnRyaWVzOyBpJiM0MzsmIzQzOykgezxi
+cj4NCiZndDsgJmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBzdHJ1Y3QgZmVuY2UgKmY7PGJy
+Pg0KJmd0OyAmZ3Q7IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfdm0uYyA8YnI+DQomZ3Q7IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zt
+LmM8YnI+DQomZ3Q7ICZndDsgaW5kZXggZDA1NTQ2ZS4uYjljZDY4NiAxMDA2NDQ8YnI+DQomZ3Q7
+ICZndDsgLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmM8YnI+DQom
+Z3Q7ICZndDsgJiM0MzsmIzQzOyYjNDM7IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X3ZtLmM8YnI+DQomZ3Q7ICZndDsgQEAgLTE1NzYsNiAmIzQzOzE1NzYsMTQgQEAgaW50IGFt
+ZGdwdV92bV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlIDxicj4NCiZndDsgKmFkZXYsIHN0cnVj
+dCBhbWRncHVfdm0gKnZtKTxicj4NCiZndDsgJmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyB2bS0mZ3Q7bGFzdF9ldmljdGlvbl9jb3VudGVyID0gYXRvbWljNjRf
+cmVhZCgmYW1wO2FkZXYtJmd0O251bV9ldmljdGlvbnMpOzxicj4NCiZndDsgJmd0OyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBhbWRncHVfYm9fdW5yZXNlcnZlKHZt
+LSZndDtwYWdlX2RpcmVjdG9yeSk7PGJyPg0KJmd0OyAmZ3Q7PGJyPg0KJmd0OyAmZ3Q7ICYjNDM7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGlmIChhbWRncHVfc3Jpb3ZfdmYoYWRldikpIHs8YnI+
+DQomZ3Q7ICZndDsgJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgQlVHX09OKCFhZGV2LSZndDt2aXJ0Lm1h
+cF9jc2EpOzxicj4NCiZndDsgJmd0OyAmIzQzOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBCVUdfT04oIWFkZXYt
+Jmd0O3ZpcnQudW5tYXBfY3NhKTs8YnI+DQomZ3Q7ICZndDsgJiM0MzsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsg
+ciA9IGFkZXYtJmd0O3ZpcnQubWFwX2NzYShhZGV2LCB2bSk7PGJyPg0KJmd0OyAmZ3Q7ICYjNDM7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7IGlmIChyKTxicj4NCiZndDsgJmd0OyAmIzQzOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBnb3RvIGVy
+cm9yX2ZyZWVfcGFnZV9kaXJlY3Rvcnk7PGJyPg0KJmd0OyAmZ3Q7ICYjNDM7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7IH08YnI+DQomZ3Q7ICZndDsgJiM0Mzs8YnI+DQomZ3Q7PGJyPg0KJmd0OyBK
+dXN0IGNvbXBsZXRlbHkgZHJvcCB0aGF0LiBVcGRhdGluZyB0aGUgVk0gb24gdGhlIGZpcnN0IGNv
+bW1hbmQ8YnI+DQomZ3Q7IHN1Ym1pc3Npb24gc2hvdWxkIGJlIHN1ZmZpY2llbnQuPGJyPg0KJmd0
+Ozxicj4NCiZndDsgQ2hyaXN0aWFuLjxicj4NCiZndDs8YnI+DQomZ3Q7ICZndDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgcmV0dXJuIDA7PGJyPg0KJmd0OyAmZ3Q7
+PGJyPg0KJmd0OyAmZ3Q7Jm5ic3A7Jm5ic3A7IGVycm9yX2ZyZWVfcGFnZV9kaXJlY3Rvcnk6PGJy
+Pg0KJmd0OyAmZ3Q7IEBAIC0xNjA2LDYgJiM0MzsxNjE0LDkgQEAgdm9pZCBhbWRncHVfdm1fZmlu
+aShzdHJ1Y3QgYW1kZ3B1X2RldmljZSA8YnI+DQomZ3Q7ICphZGV2LCBzdHJ1Y3QgYW1kZ3B1X3Zt
+ICp2bSk8YnI+DQomZ3Q7ICZndDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsgc3RydWN0IGFtZGdwdV9ib192YV9tYXBwaW5nICptYXBwaW5nLCAqdG1wOzxicj4NCiZn
+dDsgJmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBpbnQgaTs8
+YnI+DQomZ3Q7ICZndDs8YnI+DQomZ3Q7ICZndDsgJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsgaWYgKGFtZGdwdV9zcmlvdl92ZihhZGV2KSk8YnI+DQomZ3Q7ICZndDsgJiM0MzsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsgYWRldi0mZ3Q7dmlydC51bm1hcF9jc2EoYWRldiwgdm0pOzxicj4NCiZndDsgJmd0
+OyAmIzQzOzxicj4NCiZndDsgJmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyBhbWRfc2NoZWRfZW50aXR5X2Zpbmkodm0tJmd0O2VudGl0eS5zY2hlZCwgJmFtcDt2
+bS0mZ3Q7ZW50aXR5KTs8YnI+DQomZ3Q7ICZndDs8YnI+DQomZ3Q7ICZndDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgaWYgKCFSQl9FTVBUWV9ST09UKCZhbXA7dm0t
+Jmd0O3ZhKSkgezxicj4NCiZndDs8YnI+DQomZ3Q7PGJyPg0KPGJyPg0KPC9kaXY+DQo8L3NwYW4+
+PC9mb250Pg0KPC9ib2R5Pg0KPC9odG1sPg0K
 
-Regards,
-Christian.
+--_000_BY2PR1201MB1110632E66A596FA820250E584670BY2PR1201MB1110_--
 
-> ------------------------------------------------------------------------
-> *发件人:* Christian König <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-> *发送时间:* 2017年1月9日 18:57:06
-> *收件人:* Liu, Monk; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> *主题:* Re: [PATCH 2/7] drm/amdgpu:new field members for SRIOV
-> Am 09.01.2017 um 09:02 schrieb Monk Liu:
-> > Change-Id: Ife0eff7b13b8b5946f005a39f6ecb8db1cb72c38
-> > Signed-off-by: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h | 19 +++++++++++++++++++
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h   |  2 ++
-> >   2 files changed, 21 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-> > index 0d821d9..5aa7f0c 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-> > @@ -28,9 +28,28 @@
-> >   #define AMDGPU_SRIOV_CAPS_ENABLE_IOV   (1 << 1) /* sr-iov is 
-> enabled on this GPU */
-> >   #define AMDGPU_SRIOV_CAPS_IS_VF        (1 << 2) /* this GPU is a 
-> virtual function */
-> >   #define AMDGPU_PASSTHROUGH_MODE        (1 << 3) /* thw whole GPU 
-> is pass through for VM */
-> > +
-> > +struct amdgpu_vm;
-> >   /* GPU virtualization */
-> >   struct amdgpu_virt {
-> >        uint32_t caps;
-> > +     uint32_t csa_size;
-> > +     struct amdgpu_bo *csa_obj;
-> > +     uint64_t csa_vmid0_addr;
-> > +     uint64_t gds_vmid0_addr;
-> > +     int (*allocate_csa)(struct amdgpu_device *adev);
-> > +     void (*deallocate_csa)(struct amdgpu_device *adev);
-> > +     int (*map_csa)(struct amdgpu_device *adev, struct amdgpu_vm *vm);
-> > +     void (*unmap_csa)(struct amdgpu_device *adev, struct amdgpu_vm 
-> *vm);
->
-> Why callbacks for this?
->
-> > +};
-> > +
-> > +struct amdgpu_vm_virt {
-> > +     /* each VM will map on CSA */
-> > +     struct ttm_validate_buffer csa_tv;
-> > +     struct amdgpu_bo_va *csa_bo_va;
->
-> Please put that directly into the amdgpu_vm structure.
->
-> > +     /* virtual MC address of CSA & GDS for each VM */
-> > +     uint64_t vm_csa_addr;
-> > +     uint64_t vm_gds_addr;
->
-> That should be constant, shouldn't it?
->
-> Regards,
-> Christian.
->
-> >   };
-> >
-> >   #define amdgpu_sriov_enabled(adev) \
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> > index 42a629b..27cbcbc 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> > @@ -29,6 +29,7 @@
-> >   #include "gpu_scheduler.h"
-> >   #include "amdgpu_sync.h"
-> >   #include "amdgpu_ring.h"
-> > +#include "amdgpu_virt.h"
-> >
-> >   struct amdgpu_bo_va;
-> >   struct amdgpu_job;
-> > @@ -111,6 +112,7 @@ struct amdgpu_vm {
-> >
-> >        /* client id */
-> >        u64                     client_id;
-> > +     struct amdgpu_vm_virt   vm_virt;
-> >   };
-> >
-> >   struct amdgpu_vm_id {
->
->
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
-
---------------9C3BAE0757D969E4ACFAED39
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body bgcolor="#FFFFFF" text="#000000">
-    <div class="moz-cite-prefix">Am 10.01.2017 um 04:03 schrieb Liu,
-      Monk:<br>
-    </div>
-    <blockquote
-cite="mid:BY2PR1201MB11106E7ABC5FF87AF1F6F67A84670-O28G1zQ8oGliQkyLPkmea2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org"
-      type="cite">
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <meta name="Generator" content="Microsoft Exchange Server">
-      <!-- converted from text -->
-      <style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left: #800000 2px solid; } --></style>
-      <meta content="text/html; charset=UTF-8">
-      <style type="text/css" style="">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-      <div dir="ltr">
-        <div id="x_divtagdefaultwrapper" dir="ltr"
-          style="font-size:12pt; color:#000000;
-          font-family:Calibri,Arial,Helvetica,sans-serif">
-          <p><font size="2"><span style="font-size:10pt">&gt; +     /*
-                virtual MC address of CSA &amp; GDS for each VM */<br>
-                &gt; +     uint64_t vm_csa_addr;<br>
-                &gt; +     uint64_t vm_gds_addr;<br>
-                <br>
-                That should be constant, shouldn't it?</span></font></p>
-          <p><br>
-          </p>
-          <p><br>
-          </p>
-          <p>[ML] do you mean "const uint64_t vm_csa_addr" ? of cause
-            not if that's your point ... compiling error on that
-            <br>
-          </p>
-          <p>and strictly speaking that's not constant, the address is
-            calculated ...<br>
-          </p>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-    No that wasn't what I meant. The address is constant for all VM's in
-    the system, isn't it?<br>
-    <br>
-    Just add a define similar to AMDGPU_VA_RESERVED_SIZE and stop
-    calculating it all together (BTW: AMDGPU_VA_RESERVED_SIZE should
-    probably be moved to amdgpu_vm.h).<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <blockquote
-cite="mid:BY2PR1201MB11106E7ABC5FF87AF1F6F67A84670-O28G1zQ8oGliQkyLPkmea2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org"
-      type="cite">
-      <div dir="ltr">
-        <div id="x_divtagdefaultwrapper" dir="ltr"
-          style="font-size:12pt; color:#000000;
-          font-family:Calibri,Arial,Helvetica,sans-serif">
-          <p>
-          </p>
-        </div>
-        <hr tabindex="-1" style="display:inline-block; width:98%">
-        <div id="x_divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
-            color="#000000" face="Calibri, sans-serif"><b>发件人:</b>
-            Christian König <a class="moz-txt-link-rfc2396E" href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">&lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;</a><br>
-            <b>发送时间:</b> 2017年1月9日 18:57:06<br>
-            <b>收件人:</b> Liu, Monk; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-            <b>主题:</b> Re: [PATCH 2/7] drm/amdgpu:new field members for
-            SRIOV</font>
-          <div> </div>
-        </div>
-      </div>
-      <font size="2"><span style="font-size:10pt;">
-          <div class="PlainText">Am 09.01.2017 um 09:02 schrieb Monk
-            Liu:<br>
-            &gt; Change-Id: Ife0eff7b13b8b5946f005a39f6ecb8db1cb72c38<br>
-            &gt; Signed-off-by: Monk Liu <a class="moz-txt-link-rfc2396E" href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org">&lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-            &gt; ---<br>
-            &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h | 19
-            +++++++++++++++++++<br>
-            &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h   |  2 ++<br>
-            &gt;   2 files changed, 21 insertions(+)<br>
-            &gt;<br>
-            &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-            b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
-            &gt; index 0d821d9..5aa7f0c 100644<br>
-            &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
-            &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
-            &gt; @@ -28,9 +28,28 @@<br>
-            &gt;   #define AMDGPU_SRIOV_CAPS_ENABLE_IOV   (1 &lt;&lt; 1)
-            /* sr-iov is enabled on this GPU */<br>
-            &gt;   #define AMDGPU_SRIOV_CAPS_IS_VF        (1 &lt;&lt; 2)
-            /* this GPU is a virtual function */<br>
-            &gt;   #define AMDGPU_PASSTHROUGH_MODE        (1 &lt;&lt; 3)
-            /* thw whole GPU is pass through for VM */<br>
-            &gt; +<br>
-            &gt; +struct amdgpu_vm;<br>
-            &gt;   /* GPU virtualization */<br>
-            &gt;   struct amdgpu_virt {<br>
-            &gt;        uint32_t caps;<br>
-            &gt; +     uint32_t csa_size;<br>
-            &gt; +     struct amdgpu_bo *csa_obj;<br>
-            &gt; +     uint64_t csa_vmid0_addr;<br>
-            &gt; +     uint64_t gds_vmid0_addr;<br>
-            &gt; +     int (*allocate_csa)(struct amdgpu_device *adev);<br>
-            &gt; +     void (*deallocate_csa)(struct amdgpu_device
-            *adev);<br>
-            &gt; +     int (*map_csa)(struct amdgpu_device *adev, struct
-            amdgpu_vm *vm);<br>
-            &gt; +     void (*unmap_csa)(struct amdgpu_device *adev,
-            struct amdgpu_vm *vm);<br>
-            <br>
-            Why callbacks for this?<br>
-            <br>
-            &gt; +};<br>
-            &gt; +<br>
-            &gt; +struct amdgpu_vm_virt {<br>
-            &gt; +     /* each VM will map on CSA */<br>
-            &gt; +     struct ttm_validate_buffer csa_tv;<br>
-            &gt; +     struct amdgpu_bo_va *csa_bo_va;<br>
-            <br>
-            Please put that directly into the amdgpu_vm structure.<br>
-            <br>
-            &gt; +     /* virtual MC address of CSA &amp; GDS for each
-            VM */<br>
-            &gt; +     uint64_t vm_csa_addr;<br>
-            &gt; +     uint64_t vm_gds_addr;<br>
-            <br>
-            That should be constant, shouldn't it?<br>
-            <br>
-            Regards,<br>
-            Christian.<br>
-            <br>
-            &gt;   };<br>
-            &gt;   <br>
-            &gt;   #define amdgpu_sriov_enabled(adev) \<br>
-            &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-            b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
-            &gt; index 42a629b..27cbcbc 100644<br>
-            &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
-            &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
-            &gt; @@ -29,6 +29,7 @@<br>
-            &gt;   #include "gpu_scheduler.h"<br>
-            &gt;   #include "amdgpu_sync.h"<br>
-            &gt;   #include "amdgpu_ring.h"<br>
-            &gt; +#include "amdgpu_virt.h"<br>
-            &gt;   <br>
-            &gt;   struct amdgpu_bo_va;<br>
-            &gt;   struct amdgpu_job;<br>
-            &gt; @@ -111,6 +112,7 @@ struct amdgpu_vm {<br>
-            &gt;   <br>
-            &gt;        /* client id */<br>
-            &gt;        u64                     client_id;<br>
-            &gt; +     struct amdgpu_vm_virt   vm_virt;<br>
-            &gt;   };<br>
-            &gt;   <br>
-            &gt;   struct amdgpu_vm_id {<br>
-            <br>
-            <br>
-          </div>
-        </span></font>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------9C3BAE0757D969E4ACFAED39--
-
---===============1809154821==
+--===============1327029694==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -352,4 +284,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1809154821==--
+--===============1327029694==--
