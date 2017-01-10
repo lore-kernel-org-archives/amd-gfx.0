@@ -1,18 +1,18 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: =?UTF-8?B?UmU6IOetlOWkjTog562U5aSNOiBbUEFUQ0ggNy83XSBkcm0vYW1kZ3B1?=
- =?UTF-8?Q?:map/unmap_static_csa_accordingly?=
-Date: Tue, 10 Jan 2017 13:19:49 +0100
-Message-ID: <2e2f00da-a5b6-1ade-6061-dba03cef697b@vodafone.de>
+Subject: =?UTF-8?B?UmU6IOetlOWkjTog562U5aSNOiBbUEFUQ0ggMi83XSBkcm0vYW1kZ3B1?=
+ =?UTF-8?Q?:new_field_members_for_SRIOV?=
+Date: Tue, 10 Jan 2017 13:25:12 +0100
+Message-ID: <e31d43f1-caa1-099c-a8c1-998f1aaa17c6@vodafone.de>
 References: <1483948982-27056-1-git-send-email-Monk.Liu@amd.com>
- <1483948982-27056-8-git-send-email-Monk.Liu@amd.com>
- <4f78e5dd-f7e8-0976-5abf-305e0b793ba1@vodafone.de>
- <BY2PR1201MB11108A5E8A3EF7F10C0392AE84670@BY2PR1201MB1110.namprd12.prod.outlook.com>
- <cd95519f-f45b-6865-0fab-e75a970a48b0@vodafone.de>
- <BY2PR1201MB1110632E66A596FA820250E584670@BY2PR1201MB1110.namprd12.prod.outlook.com>
+ <1483948982-27056-3-git-send-email-Monk.Liu@amd.com>
+ <9f6b9ab8-3bb1-7a57-75d9-70d23d5dd74b@vodafone.de>
+ <BY2PR1201MB11106E7ABC5FF87AF1F6F67A84670@BY2PR1201MB1110.namprd12.prod.outlook.com>
+ <aec66a0f-0fd7-1e02-f160-999fc76de4a6@vodafone.de>
+ <BY2PR1201MB1110F2B6E7FB093F369ACA2884670@BY2PR1201MB1110.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1910182533=="
+Content-Type: multipart/mixed; boundary="===============0758251168=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BY2PR1201MB1110632E66A596FA820250E584670-O28G1zQ8oGliQkyLPkmea2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
+In-Reply-To: <BY2PR1201MB1110F2B6E7FB093F369ACA2884670-O28G1zQ8oGliQkyLPkmea2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -26,163 +26,179 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
 This is a multi-part message in MIME format.
---===============1910182533==
+--===============0758251168==
 Content-Type: multipart/alternative;
- boundary="------------2E4AD5CD15CAB4CD501A6D1D"
+ boundary="------------0018BA6362DD98FA17EFDC8A"
 
 This is a multi-part message in MIME format.
---------------2E4AD5CD15CAB4CD501A6D1D
+--------------0018BA6362DD98FA17EFDC8A
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-> Do you suggest that rip out of amdgpu_map_csa() routine totally,
+> NAH, for AI/VI the gds_addr is the bottom half of CSA area (8kb), but 
+> we don't know for later chips ...
 >
-Yes, mapping the CSA is not something specific to virtualization, so we 
-shouldn't put that into amdgpu_virt.c.
+In this case we shouldn't store the offset anywhere, but rather just 
+calculate it in the chip specific code from the CSA address when it is 
+needed.
 
-> and manually call "amdgpu_vm_bo_map" as well as "amdgpu_vm_bo_update" 
-> in sequence in "amdgpu_vm_bo_update" ?
+> I prefer keep a member field in the struct for flexibility ...
 >
-No, during command submission it is to late to allocate the PT. Better 
-put this a layer up into amdgpu_driver_open_kms() after the VM is 
-initialized.
+We can still change it if we find that we need more flexibility here. 
+Usually we try to avoid flexibility for the cost of complexity if we 
+don't have a good reason for it.
+
+It just complicates the code and over the long term creates maintenance 
+problems because you end of with a lot of only halve way implemented 
+features.
 
 Regards,
 Christian.
 
-Am 10.01.2017 um 10:53 schrieb Liu, Monk:
+Am 10.01.2017 um 10:57 schrieb Liu, Monk:
 >
-> then what about "amdgpu_vm_bo_map" ? we need call it first before call 
-> "amdgpu_vm_bo_update" in "amdgpu_bo_vm_update_pte" , correct ? 
-> otherwise we even not create PT bo for the CSA ...
+> NAH, for AI/VI the gds_addr is the bottom half of CSA area (8kb), but 
+> we don't know for later chips ...
+>
+> I prefer keep a member field in the struct for flexibility ...
 >
 >
-> Do you suggest that rip out of amdgpu_map_csa() routine totally, and 
-> manually call "amdgpu_vm_bo_map" as well as "amdgpu_vm_bo_update" in 
-> sequence in "amdgpu_vm_bo_update" ?
+> regards with put those member into amdgpu_vm structure, if you really 
+> prefer that way  I'm fine by moving them, not too important anyway.
 >
 >
 > BR Monk
 >
+>
 > ------------------------------------------------------------------------
-> *发件人:* Christian König <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-> *发送时间:* 2017年1月10日 17:44:21
+> *发件人:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> 代表 Christian 
+> König <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+> *发送时间:* 2017年1月10日 17:51:46
 > *收件人:* Liu, Monk; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> *主题:* Re: 答复: [PATCH 7/7] drm/amdgpu:map/unmap static csa accordingly
-> Adding the BO and it's mapping is VM specific code, we should initialize
-> that directly in amdgpu_vm_init() and not call any helper to delegate
-> the work.
+> *主题:* Re: 答复: [PATCH 2/7] drm/amdgpu:new field members for SRIOV
+> Am 10.01.2017 um 04:03 schrieb Liu, Monk:
+>>
+>> > +/* virtual MC address of CSA & GDS for each VM */
+>> > +     uint64_t vm_csa_addr;
+>> > +     uint64_t vm_gds_addr;
+>>
+>> That should be constant, shouldn't it?
+>>
+>>
+>>
+>> [ML] do you mean "const uint64_t vm_csa_addr" ? of cause not if 
+>> that's your point ... compiling error on that
+>>
+>> and strictly speaking that's not constant, the address is calculated ...
+>>
 >
-> Especially don't call from the VM code into the virt code and back into
-> the VM code.
+> No that wasn't what I meant. The address is constant for all VM's in 
+> the system, isn't it?
 >
-> If you really want to keep that in amdgpu_virt. an alternative would be
-> to put the call into amdgpu_driver_open_kms() directly after calling
-> amdgpu_vm_init().
+> Just add a define similar to AMDGPU_VA_RESERVED_SIZE and stop 
+> calculating it all together (BTW: AMDGPU_VA_RESERVED_SIZE should 
+> probably be moved to amdgpu_vm.h).
 >
 > Regards,
 > Christian.
 >
-> Am 10.01.2017 um 03:40 schrieb Liu, Monk:
-> >
-> > why you want to drop that "adev->virt.map_csa()" calling ?  without
-> > that calling you don't have CSA's initialized bo_va and mappings as
-> > well, and without bo_va and mappings how you can make
-> > "amdgpu_vm_bo_update()" invoke work ?
-> >
-> >
-> > Monk
-> >
-> > ------------------------------------------------------------------------
-> > *发件人:* Christian König <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-> > *发送时间:* 2017年1月9日 19:04:44
-> > *收件人:* Liu, Monk; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> > *主题:* Re: [PATCH 7/7] drm/amdgpu:map/unmap static csa accordingly
-> > Am 09.01.2017 um 09:03 schrieb Monk Liu:
-> > > and update CSA bo_va in each submit
-> > >
-> > > Change-Id: I5ed73e1b7f89743d90298bc814a42a91e166be3b
-> > > Signed-off-by: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-> > > ---
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 14 ++++++++++++++
-> > >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 11 +++++++++++
-> > >   2 files changed, 25 insertions(+)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> > > index 6159afc..083ab73 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> > > @@ -771,6 +771,20 @@ static int amdgpu_bo_vm_update_pte(struct
-> > amdgpu_cs_parser *p,
-> > >        if (r)
-> > >                return r;
-> > >
-> > > +     if (amdgpu_sriov_vf(adev)) {
-> > > +             struct fence *f;
-> >
-> > A new line is needed between deceleration and code.
-> >
-> > > +             bo_va = vm->vm_virt.csa_bo_va;
-> > > +             BUG_ON(!bo_va);
-> > > +             r = amdgpu_vm_bo_update(adev, bo_va, false);
-> > > +             if (r)
-> > > +                     return r;
-> > > +
-> > > +             f = bo_va->last_pt_update;
-> > > +             r = amdgpu_sync_fence(adev, &p->job->sync, f);
-> > > +             if (r)
-> > > +                     return r;
-> > > +     }
-> > > +
-> > >        if (p->bo_list) {
-> > >                for (i = 0; i < p->bo_list->num_entries; i++) {
-> > >                        struct fence *f;
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > > index d05546e..b9cd686 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > > @@ -1576,6 +1576,14 @@ int amdgpu_vm_init(struct amdgpu_device
-> > *adev, struct amdgpu_vm *vm)
-> > >        vm->last_eviction_counter = 
-> atomic64_read(&adev->num_evictions);
-> > >        amdgpu_bo_unreserve(vm->page_directory);
-> > >
-> > > +     if (amdgpu_sriov_vf(adev)) {
-> > > +             BUG_ON(!adev->virt.map_csa);
-> > > +             BUG_ON(!adev->virt.unmap_csa);
-> > > +             r = adev->virt.map_csa(adev, vm);
-> > > +             if (r)
-> > > +                     goto error_free_page_directory;
-> > > +     }
-> > > +
-> >
-> > Just completely drop that. Updating the VM on the first command
-> > submission should be sufficient.
-> >
-> > Christian.
-> >
-> > >        return 0;
-> > >
-> > >   error_free_page_directory:
-> > > @@ -1606,6 +1614,9 @@ void amdgpu_vm_fini(struct amdgpu_device
-> > *adev, struct amdgpu_vm *vm)
-> > >        struct amdgpu_bo_va_mapping *mapping, *tmp;
-> > >        int i;
-> > >
-> > > +     if (amdgpu_sriov_vf(adev))
-> > > +             adev->virt.unmap_csa(adev, vm);
-> > > +
-> > >        amd_sched_entity_fini(vm->entity.sched, &vm->entity);
-> > >
-> > >        if (!RB_EMPTY_ROOT(&vm->va)) {
-> >
-> >
+>> ------------------------------------------------------------------------
+>> *发件人:* Christian König <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+>> *发送时间:* 2017年1月9日 18:57:06
+>> *收件人:* Liu, Monk; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> *主题:* Re: [PATCH 2/7] drm/amdgpu:new field members for SRIOV
+>> Am 09.01.2017 um 09:02 schrieb Monk Liu:
+>> > Change-Id: Ife0eff7b13b8b5946f005a39f6ecb8db1cb72c38
+>> > Signed-off-by: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+>> > ---
+>> >   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h | 19 +++++++++++++++++++
+>> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h   |  2 ++
+>> >   2 files changed, 21 insertions(+)
+>> >
+>> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+>> > index 0d821d9..5aa7f0c 100644
+>> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+>> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+>> > @@ -28,9 +28,28 @@
+>> >   #define AMDGPU_SRIOV_CAPS_ENABLE_IOV   (1 << 1) /* sr-iov is 
+>> enabled on this GPU */
+>> >   #define AMDGPU_SRIOV_CAPS_IS_VF        (1 << 2) /* this GPU is a 
+>> virtual function */
+>> >   #define AMDGPU_PASSTHROUGH_MODE        (1 << 3) /* thw whole GPU 
+>> is pass through for VM */
+>> > +
+>> > +struct amdgpu_vm;
+>> >   /* GPU virtualization */
+>> >   struct amdgpu_virt {
+>> >        uint32_t caps;
+>> > +     uint32_t csa_size;
+>> > +     struct amdgpu_bo *csa_obj;
+>> > +     uint64_t csa_vmid0_addr;
+>> > +     uint64_t gds_vmid0_addr;
+>> > +     int (*allocate_csa)(struct amdgpu_device *adev);
+>> > +     void (*deallocate_csa)(struct amdgpu_device *adev);
+>> > +     int (*map_csa)(struct amdgpu_device *adev, struct amdgpu_vm *vm);
+>> > +     void (*unmap_csa)(struct amdgpu_device *adev, struct 
+>> amdgpu_vm *vm);
+>>
+>> Why callbacks for this?
+>>
+>> > +};
+>> > +
+>> > +struct amdgpu_vm_virt {
+>> > +     /* each VM will map on CSA */
+>> > +     struct ttm_validate_buffer csa_tv;
+>> > +     struct amdgpu_bo_va *csa_bo_va;
+>>
+>> Please put that directly into the amdgpu_vm structure.
+>>
+>> > +     /* virtual MC address of CSA & GDS for each VM */
+>> > +     uint64_t vm_csa_addr;
+>> > +     uint64_t vm_gds_addr;
+>>
+>> That should be constant, shouldn't it?
+>>
+>> Regards,
+>> Christian.
+>>
+>> >   };
+>> >
+>> >   #define amdgpu_sriov_enabled(adev) \
+>> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>> > index 42a629b..27cbcbc 100644
+>> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>> > @@ -29,6 +29,7 @@
+>> >   #include "gpu_scheduler.h"
+>> >   #include "amdgpu_sync.h"
+>> >   #include "amdgpu_ring.h"
+>> > +#include "amdgpu_virt.h"
+>> >
+>> >   struct amdgpu_bo_va;
+>> >   struct amdgpu_job;
+>> > @@ -111,6 +112,7 @@ struct amdgpu_vm {
+>> >
+>> >        /* client id */
+>> >        u64                     client_id;
+>> > +     struct amdgpu_vm_virt   vm_virt;
+>> >   };
+>> >
+>> >   struct amdgpu_vm_id {
+>>
+>>
+>>
+>>
+>> _______________________________________________
+>> amd-gfx mailing list
+>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
 >
 
 
---------------2E4AD5CD15CAB4CD501A6D1D
+--------------0018BA6362DD98FA17EFDC8A
 Content-Type: text/html; charset=utf-8
 Content-Transfer-Encoding: 8bit
 
@@ -193,217 +209,261 @@ Content-Transfer-Encoding: 8bit
   <body bgcolor="#FFFFFF" text="#000000">
     <div class="moz-cite-prefix">
       <blockquote type="cite">
-        <p>Do you suggest that rip out of amdgpu_map_csa() routine
-          totally,</p>
+        <p>NAH, for AI/VI the gds_addr is the bottom half of CSA area
+          (8kb), but we don't know for later chips ...</p>
       </blockquote>
-      Yes, mapping the CSA is not something specific to virtualization,
-      so we shouldn't put that into amdgpu_virt.c.<br>
+      In this case we shouldn't store the offset anywhere, but rather
+      just calculate it in the chip specific code from the CSA address
+      when it is needed.<br>
       <br>
       <blockquote type="cite">
-        <p> and manually call "<span>amdgpu_vm_bo_map</span>" as well as
-          "<span>amdgpu_vm_bo_update</span>" in sequence in "<span>amdgpu_vm_bo_update</span>"
-          ?</p>
+        <p>I prefer keep a member field in the struct for flexibility
+          ... <br>
+        </p>
       </blockquote>
-      No, during command submission it is to late to allocate the PT.
-      Better put this a layer up into amdgpu_driver_open_kms() after the
-      VM is initialized.<br>
+      We can still change it if we find that we need more flexibility
+      here. Usually we try to avoid flexibility for the cost of
+      complexity if we don't have a good reason for it.<br>
+      <br>
+      It just complicates the code and over the long term creates
+      maintenance problems because you end of with a lot of only halve
+      way implemented features.<br>
       <br>
       Regards,<br>
       Christian.<br>
       <br>
-      Am 10.01.2017 um 10:53 schrieb Liu, Monk:<br>
+      Am 10.01.2017 um 10:57 schrieb Liu, Monk:<br>
     </div>
     <blockquote
-cite="mid:BY2PR1201MB1110632E66A596FA820250E584670-O28G1zQ8oGliQkyLPkmea2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org"
+cite="mid:BY2PR1201MB1110F2B6E7FB093F369ACA2884670-O28G1zQ8oGliQkyLPkmea2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org"
       type="cite">
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <meta name="Generator" content="Microsoft Exchange Server">
-      <!-- converted from text -->
-      <style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left: #800000 2px solid; } --></style>
-      <meta content="text/html; charset=UTF-8">
-      <style type="text/css" style="">
+      <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
+      <div id="divtagdefaultwrapper"
+style="font-size:12pt;color:#000000;font-family:Calibri,Arial,Helvetica,sans-serif;"
+        dir="ltr">
+        <p>NAH, for AI/VI the gds_addr is the bottom half of CSA area
+          (8kb), but we don't know for later chips ...</p>
+        <p>I prefer keep a member field in the struct for flexibility
+          ... <br>
+        </p>
+        <p><br>
+        </p>
+        <p>regards with put those member into amdgpu_vm structure, if
+          you really prefer that way  I'm fine by moving them, not too
+          important anyway.</p>
+        <p><br>
+        </p>
+        <p>BR Monk<br>
+        </p>
+        <p><br>
+        </p>
+      </div>
+      <hr style="display:inline-block;width:98%" tabindex="-1">
+      <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
+          color="#000000" face="Calibri, sans-serif"><b>发件人:</b> amd-gfx
+          <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">&lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a> 代表 Christian
+          König <a class="moz-txt-link-rfc2396E" href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">&lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;</a><br>
+          <b>发送时间:</b> 2017年1月10日 17:51:46<br>
+          <b>收件人:</b> Liu, Monk; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+          <b>主题:</b> Re: 答复: [PATCH 2/7] drm/amdgpu:new field members
+          for SRIOV</font>
+        <div> </div>
+      </div>
+      <div>
+        <div class="moz-cite-prefix">Am 10.01.2017 um 04:03 schrieb Liu,
+          Monk:<br>
+        </div>
+        <blockquote
+cite="mid:BY2PR1201MB11106E7ABC5FF87AF1F6F67A84670-O28G1zQ8oGliQkyLPkmea2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org"
+          type="cite">
+          <meta name="Generator" content="Microsoft Exchange Server">
+          <!-- converted from text -->
+          <style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left: #800000 2px solid; } --></style>
+          <meta content="text/html; charset=UTF-8">
+          <style type="text/css" style="">
 <!--
 p
 	{margin-top:0;
 	margin-bottom:0}
 -->
 </style>
-      <div dir="ltr">
-        <div id="x_divtagdefaultwrapper" dir="ltr"
-          style="font-size:12pt; color:#000000;
-          font-family:Calibri,Arial,Helvetica,sans-serif">
-          <p>then what about "<span>amdgpu_vm_bo_map</span>" ? we need
-            call it first before call "<span>amdgpu_vm_bo_update</span>"
-            in "<span>amdgpu_bo_vm_update_pte</span>" , correct ?
-            otherwise we even not create PT bo for the CSA ... </p>
-          <p><br>
-          </p>
-          <p>Do you suggest that rip out of amdgpu_map_csa() routine
-            totally, and manually call "<span>amdgpu_vm_bo_map</span>"
-            as well as "<span>amdgpu_vm_bo_update</span>" in sequence in
-            "<span>amdgpu_vm_bo_update</span>" ?</p>
-          <p><br>
-          </p>
-          <p>BR Monk</p>
-        </div>
-        <hr tabindex="-1" style="display:inline-block; width:98%">
-        <div id="x_divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
-            color="#000000" face="Calibri, sans-serif"><b>发件人:</b>
-            Christian König <a class="moz-txt-link-rfc2396E" href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">&lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;</a><br>
-            <b>发送时间:</b> 2017年1月10日 17:44:21<br>
-            <b>收件人:</b> Liu, Monk; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-            <b>主题:</b> Re: 答复: [PATCH 7/7] drm/amdgpu:map/unmap static
-            csa accordingly</font>
-          <div> </div>
-        </div>
-      </div>
-      <font size="2"><span style="font-size:10pt;">
-          <div class="PlainText">Adding the BO and it's mapping is VM
-            specific code, we should initialize
-            <br>
-            that directly in amdgpu_vm_init() and not call any helper to
-            delegate <br>
-            the work.<br>
-            <br>
-            Especially don't call from the VM code into the virt code
-            and back into <br>
-            the VM code.<br>
-            <br>
-            If you really want to keep that in amdgpu_virt. an
-            alternative would be <br>
-            to put the call into amdgpu_driver_open_kms() directly after
-            calling <br>
-            amdgpu_vm_init().<br>
-            <br>
-            Regards,<br>
-            Christian.<br>
-            <br>
-            Am 10.01.2017 um 03:40 schrieb Liu, Monk:<br>
-            &gt;<br>
-            &gt; why you want to drop that "adev-&gt;virt.map_csa()"
-            calling ?  without <br>
-            &gt; that calling you don't have CSA's initialized bo_va and
-            mappings as <br>
-            &gt; well, and without bo_va and mappings how you can make <br>
-            &gt; "amdgpu_vm_bo_update()" invoke work ?<br>
-            &gt;<br>
-            &gt;<br>
-            &gt; Monk<br>
-            &gt;<br>
-            &gt;
-            ------------------------------------------------------------------------<br>
-            &gt; *发件人:* Christian König <a class="moz-txt-link-rfc2396E" href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">&lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;</a><br>
-            &gt; *发送时间:* 2017年1月9日 19:04:44<br>
-            &gt; *收件人:* Liu, Monk; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-            &gt; *主题:* Re: [PATCH 7/7] drm/amdgpu:map/unmap static csa
-            accordingly<br>
-            &gt; Am 09.01.2017 um 09:03 schrieb Monk Liu:<br>
-            &gt; &gt; and update CSA bo_va in each submit<br>
-            &gt; &gt;<br>
-            &gt; &gt; Change-Id:
-            I5ed73e1b7f89743d90298bc814a42a91e166be3b<br>
-            &gt; &gt; Signed-off-by: Monk Liu <a class="moz-txt-link-rfc2396E" href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org">&lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-            &gt; &gt; ---<br>
-            &gt; &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 14
-            ++++++++++++++<br>
-            &gt; &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 11
-            +++++++++++<br>
-            &gt; &gt;   2 files changed, 25 insertions(+)<br>
-            &gt; &gt;<br>
-            &gt; &gt; diff --git
-            a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c <br>
-            &gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
-            &gt; &gt; index 6159afc..083ab73 100644<br>
-            &gt; &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
-            &gt; &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
-            &gt; &gt; @@ -771,6 +771,20 @@ static int
-            amdgpu_bo_vm_update_pte(struct <br>
-            &gt; amdgpu_cs_parser *p,<br>
-            &gt; &gt;        if (r)<br>
-            &gt; &gt;                return r;<br>
-            &gt; &gt;<br>
-            &gt; &gt; +     if (amdgpu_sriov_vf(adev)) {<br>
-            &gt; &gt; +             struct fence *f;<br>
-            &gt;<br>
-            &gt; A new line is needed between deceleration and code.<br>
-            &gt;<br>
-            &gt; &gt; +             bo_va = vm-&gt;vm_virt.csa_bo_va;<br>
-            &gt; &gt; +             BUG_ON(!bo_va);<br>
-            &gt; &gt; +             r = amdgpu_vm_bo_update(adev, bo_va,
-            false);<br>
-            &gt; &gt; +             if (r)<br>
-            &gt; &gt; +                     return r;<br>
-            &gt; &gt; +<br>
-            &gt; &gt; +             f = bo_va-&gt;last_pt_update;<br>
-            &gt; &gt; +             r = amdgpu_sync_fence(adev,
-            &amp;p-&gt;job-&gt;sync, f);<br>
-            &gt; &gt; +             if (r)<br>
-            &gt; &gt; +                     return r;<br>
-            &gt; &gt; +     }<br>
-            &gt; &gt; +<br>
-            &gt; &gt;        if (p-&gt;bo_list) {<br>
-            &gt; &gt;                for (i = 0; i &lt;
-            p-&gt;bo_list-&gt;num_entries; i++) {<br>
-            &gt; &gt;                        struct fence *f;<br>
-            &gt; &gt; diff --git
-            a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c <br>
-            &gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-            &gt; &gt; index d05546e..b9cd686 100644<br>
-            &gt; &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-            &gt; &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-            &gt; &gt; @@ -1576,6 +1576,14 @@ int amdgpu_vm_init(struct
-            amdgpu_device <br>
-            &gt; *adev, struct amdgpu_vm *vm)<br>
-            &gt; &gt;        vm-&gt;last_eviction_counter =
-            atomic64_read(&amp;adev-&gt;num_evictions);<br>
-            &gt; &gt;        amdgpu_bo_unreserve(vm-&gt;page_directory);<br>
-            &gt; &gt;<br>
-            &gt; &gt; +     if (amdgpu_sriov_vf(adev)) {<br>
-            &gt; &gt; +             BUG_ON(!adev-&gt;virt.map_csa);<br>
-            &gt; &gt; +             BUG_ON(!adev-&gt;virt.unmap_csa);<br>
-            &gt; &gt; +             r = adev-&gt;virt.map_csa(adev, vm);<br>
-            &gt; &gt; +             if (r)<br>
-            &gt; &gt; +                     goto
-            error_free_page_directory;<br>
-            &gt; &gt; +     }<br>
-            &gt; &gt; +<br>
-            &gt;<br>
-            &gt; Just completely drop that. Updating the VM on the first
-            command<br>
-            &gt; submission should be sufficient.<br>
-            &gt;<br>
-            &gt; Christian.<br>
-            &gt;<br>
-            &gt; &gt;        return 0;<br>
-            &gt; &gt;<br>
-            &gt; &gt;   error_free_page_directory:<br>
-            &gt; &gt; @@ -1606,6 +1614,9 @@ void amdgpu_vm_fini(struct
-            amdgpu_device <br>
-            &gt; *adev, struct amdgpu_vm *vm)<br>
-            &gt; &gt;        struct amdgpu_bo_va_mapping *mapping, *tmp;<br>
-            &gt; &gt;        int i;<br>
-            &gt; &gt;<br>
-            &gt; &gt; +     if (amdgpu_sriov_vf(adev))<br>
-            &gt; &gt; +             adev-&gt;virt.unmap_csa(adev, vm);<br>
-            &gt; &gt; +<br>
-            &gt; &gt;        amd_sched_entity_fini(vm-&gt;entity.sched,
-            &amp;vm-&gt;entity);<br>
-            &gt; &gt;<br>
-            &gt; &gt;        if (!RB_EMPTY_ROOT(&amp;vm-&gt;va)) {<br>
-            &gt;<br>
-            &gt;<br>
-            <br>
+          <div dir="ltr">
+            <div id="x_divtagdefaultwrapper" dir="ltr"
+              style="font-size:12pt; color:#000000;
+              font-family:Calibri,Arial,Helvetica,sans-serif">
+              <p><font size="2"><span style="font-size:10pt">&gt; +    
+                    /* virtual MC address of CSA &amp; GDS for each VM
+                    */<br>
+                    &gt; +     uint64_t vm_csa_addr;<br>
+                    &gt; +     uint64_t vm_gds_addr;<br>
+                    <br>
+                    That should be constant, shouldn't it?</span></font></p>
+              <p><br>
+              </p>
+              <p><br>
+              </p>
+              <p>[ML] do you mean "const uint64_t vm_csa_addr" ? of
+                cause not if that's your point ... compiling error on
+                that
+                <br>
+              </p>
+              <p>and strictly speaking that's not constant, the address
+                is calculated ...<br>
+              </p>
+            </div>
           </div>
-        </span></font>
+        </blockquote>
+        <br>
+        No that wasn't what I meant. The address is constant for all
+        VM's in the system, isn't it?<br>
+        <br>
+        Just add a define similar to AMDGPU_VA_RESERVED_SIZE and stop
+        calculating it all together (BTW: AMDGPU_VA_RESERVED_SIZE should
+        probably be moved to amdgpu_vm.h).<br>
+        <br>
+        Regards,<br>
+        Christian.<br>
+        <br>
+        <blockquote
+cite="mid:BY2PR1201MB11106E7ABC5FF87AF1F6F67A84670-O28G1zQ8oGliQkyLPkmea2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org"
+          type="cite">
+          <div dir="ltr">
+            <div id="x_divtagdefaultwrapper" dir="ltr"
+              style="font-size:12pt; color:#000000;
+              font-family:Calibri,Arial,Helvetica,sans-serif">
+            </div>
+            <hr tabindex="-1" style="display:inline-block; width:98%">
+            <div id="x_divRplyFwdMsg" dir="ltr"><font
+                style="font-size:11pt" color="#000000" face="Calibri,
+                sans-serif"><b>发件人:</b> Christian König
+                <a moz-do-not-send="true" class="moz-txt-link-rfc2396E"
+                  href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">&lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;</a><br>
+                <b>发送时间:</b> 2017年1月9日 18:57:06<br>
+                <b>收件人:</b> Liu, Monk; <a moz-do-not-send="true"
+                  class="moz-txt-link-abbreviated"
+                  href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
+                  amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                <b>主题:</b> Re: [PATCH 2/7] drm/amdgpu:new field members
+                for SRIOV</font>
+              <div> </div>
+            </div>
+          </div>
+          <font size="2"><span style="font-size:10pt;">
+              <div class="PlainText">Am 09.01.2017 um 09:02 schrieb Monk
+                Liu:<br>
+                &gt; Change-Id:
+                Ife0eff7b13b8b5946f005a39f6ecb8db1cb72c38<br>
+                &gt; Signed-off-by: Monk Liu <a moz-do-not-send="true"
+                  class="moz-txt-link-rfc2396E"
+                  href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org">
+                  &lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+                &gt; ---<br>
+                &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h | 19
+                +++++++++++++++++++<br>
+                &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h   |  2 ++<br>
+                &gt;   2 files changed, 21 insertions(+)<br>
+                &gt;<br>
+                &gt; diff --git
+                a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+                b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
+                &gt; index 0d821d9..5aa7f0c 100644<br>
+                &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
+                &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
+                &gt; @@ -28,9 +28,28 @@<br>
+                &gt;   #define AMDGPU_SRIOV_CAPS_ENABLE_IOV   (1
+                &lt;&lt; 1) /* sr-iov is enabled on this GPU */<br>
+                &gt;   #define AMDGPU_SRIOV_CAPS_IS_VF        (1
+                &lt;&lt; 2) /* this GPU is a virtual function */<br>
+                &gt;   #define AMDGPU_PASSTHROUGH_MODE        (1
+                &lt;&lt; 3) /* thw whole GPU is pass through for VM */<br>
+                &gt; +<br>
+                &gt; +struct amdgpu_vm;<br>
+                &gt;   /* GPU virtualization */<br>
+                &gt;   struct amdgpu_virt {<br>
+                &gt;        uint32_t caps;<br>
+                &gt; +     uint32_t csa_size;<br>
+                &gt; +     struct amdgpu_bo *csa_obj;<br>
+                &gt; +     uint64_t csa_vmid0_addr;<br>
+                &gt; +     uint64_t gds_vmid0_addr;<br>
+                &gt; +     int (*allocate_csa)(struct amdgpu_device
+                *adev);<br>
+                &gt; +     void (*deallocate_csa)(struct amdgpu_device
+                *adev);<br>
+                &gt; +     int (*map_csa)(struct amdgpu_device *adev,
+                struct amdgpu_vm *vm);<br>
+                &gt; +     void (*unmap_csa)(struct amdgpu_device *adev,
+                struct amdgpu_vm *vm);<br>
+                <br>
+                Why callbacks for this?<br>
+                <br>
+                &gt; +};<br>
+                &gt; +<br>
+                &gt; +struct amdgpu_vm_virt {<br>
+                &gt; +     /* each VM will map on CSA */<br>
+                &gt; +     struct ttm_validate_buffer csa_tv;<br>
+                &gt; +     struct amdgpu_bo_va *csa_bo_va;<br>
+                <br>
+                Please put that directly into the amdgpu_vm structure.<br>
+                <br>
+                &gt; +     /* virtual MC address of CSA &amp; GDS for
+                each VM */<br>
+                &gt; +     uint64_t vm_csa_addr;<br>
+                &gt; +     uint64_t vm_gds_addr;<br>
+                <br>
+                That should be constant, shouldn't it?<br>
+                <br>
+                Regards,<br>
+                Christian.<br>
+                <br>
+                &gt;   };<br>
+                &gt;   <br>
+                &gt;   #define amdgpu_sriov_enabled(adev) \<br>
+                &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+                b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
+                &gt; index 42a629b..27cbcbc 100644<br>
+                &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
+                &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
+                &gt; @@ -29,6 +29,7 @@<br>
+                &gt;   #include "gpu_scheduler.h"<br>
+                &gt;   #include "amdgpu_sync.h"<br>
+                &gt;   #include "amdgpu_ring.h"<br>
+                &gt; +#include "amdgpu_virt.h"<br>
+                &gt;   <br>
+                &gt;   struct amdgpu_bo_va;<br>
+                &gt;   struct amdgpu_job;<br>
+                &gt; @@ -111,6 +112,7 @@ struct amdgpu_vm {<br>
+                &gt;   <br>
+                &gt;        /* client id */<br>
+                &gt;        u64                     client_id;<br>
+                &gt; +     struct amdgpu_vm_virt   vm_virt;<br>
+                &gt;   };<br>
+                &gt;   <br>
+                &gt;   struct amdgpu_vm_id {<br>
+                <br>
+                <br>
+              </div>
+            </span></font><br>
+          <fieldset class="mimeAttachmentHeader"></fieldset>
+          <br>
+          <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a moz-do-not-send="true" class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a moz-do-not-send="true" class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+        </blockquote>
+        <p><br>
+        </p>
+      </div>
     </blockquote>
     <p><br>
     </p>
   </body>
 </html>
 
---------------2E4AD5CD15CAB4CD501A6D1D--
+--------------0018BA6362DD98FA17EFDC8A--
 
---===============1910182533==
+--===============0758251168==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -413,4 +473,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1910182533==--
+--===============0758251168==--
