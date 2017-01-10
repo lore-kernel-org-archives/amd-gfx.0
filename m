@@ -1,17 +1,16 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: =?UTF-8?Q?Re:_=e7=ad=94=e5=a4=8d:_[PATCH_7/7]_drm/amdgpu:map/unmap_?=
- =?UTF-8?Q?static_csa_accordingly?=
-Date: Tue, 10 Jan 2017 10:44:21 +0100
-Message-ID: <cd95519f-f45b-6865-0fab-e75a970a48b0@vodafone.de>
+Subject: =?UTF-8?Q?Re:_=e7=ad=94=e5=a4=8d:_[PATCH_2/7]_drm/amdgpu:new_field_?=
+ =?UTF-8?Q?members_for_SRIOV?=
+Date: Tue, 10 Jan 2017 10:48:43 +0100
+Message-ID: <2631a3de-989a-d6d6-2347-da64d94ee01c@vodafone.de>
 References: <1483948982-27056-1-git-send-email-Monk.Liu@amd.com>
- <1483948982-27056-8-git-send-email-Monk.Liu@amd.com>
- <4f78e5dd-f7e8-0976-5abf-305e0b793ba1@vodafone.de>
- <BY2PR1201MB11108A5E8A3EF7F10C0392AE84670@BY2PR1201MB1110.namprd12.prod.outlook.com>
+ <1483948982-27056-3-git-send-email-Monk.Liu@amd.com>
+ <9f6b9ab8-3bb1-7a57-75d9-70d23d5dd74b@vodafone.de>
+ <BY2PR1201MB1110963B2DE72B2892D4AC1F84670@BY2PR1201MB1110.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1510215876=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BY2PR1201MB11108A5E8A3EF7F10C0392AE84670-O28G1zQ8oGliQkyLPkmea2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
+In-Reply-To: <BY2PR1201MB1110963B2DE72B2892D4AC1F84670-O28G1zQ8oGliQkyLPkmea2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -24,72 +23,322 @@ Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QWRkaW5nIHRoZSBCTyBhbmQgaXQncyBtYXBwaW5nIGlzIFZNIHNwZWNpZmljIGNvZGUsIHdlIHNo
-b3VsZCBpbml0aWFsaXplIAp0aGF0IGRpcmVjdGx5IGluIGFtZGdwdV92bV9pbml0KCkgYW5kIG5v
-dCBjYWxsIGFueSBoZWxwZXIgdG8gZGVsZWdhdGUgCnRoZSB3b3JrLgoKRXNwZWNpYWxseSBkb24n
-dCBjYWxsIGZyb20gdGhlIFZNIGNvZGUgaW50byB0aGUgdmlydCBjb2RlIGFuZCBiYWNrIGludG8g
-CnRoZSBWTSBjb2RlLgoKSWYgeW91IHJlYWxseSB3YW50IHRvIGtlZXAgdGhhdCBpbiBhbWRncHVf
-dmlydC4gYW4gYWx0ZXJuYXRpdmUgd291bGQgYmUgCnRvIHB1dCB0aGUgY2FsbCBpbnRvIGFtZGdw
-dV9kcml2ZXJfb3Blbl9rbXMoKSBkaXJlY3RseSBhZnRlciBjYWxsaW5nIAphbWRncHVfdm1faW5p
-dCgpLgoKUmVnYXJkcywKQ2hyaXN0aWFuLgoKQW0gMTAuMDEuMjAxNyB1bSAwMzo0MCBzY2hyaWVi
-IExpdSwgTW9uazoKPgo+IHdoeSB5b3Ugd2FudCB0byBkcm9wIHRoYXQgImFkZXYtPnZpcnQubWFw
-X2NzYSgpIiBjYWxsaW5nID8gIHdpdGhvdXQgCj4gdGhhdCBjYWxsaW5nIHlvdSBkb24ndCBoYXZl
-IENTQSdzIGluaXRpYWxpemVkIGJvX3ZhIGFuZCBtYXBwaW5ncyBhcyAKPiB3ZWxsLCBhbmQgd2l0
-aG91dCBib192YSBhbmQgbWFwcGluZ3MgaG93IHlvdSBjYW4gbWFrZSAKPiAiYW1kZ3B1X3ZtX2Jv
-X3VwZGF0ZSgpIiBpbnZva2Ugd29yayA/Cj4KPgo+IE1vbmsKPgo+IC0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+
-ICrlj5Hku7bkuro6KiBDaHJpc3RpYW4gS8O2bmlnIDxkZWF0aHNpbXBsZUB2b2RhZm9uZS5kZT4K
-PiAq5Y+R6YCB5pe26Ze0OiogMjAxN+W5tDHmnIg55pelIDE5OjA0OjQ0Cj4gKuaUtuS7tuS6ujoq
-IExpdSwgTW9uazsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiAq5Li76aKYOiogUmU6
-IFtQQVRDSCA3LzddIGRybS9hbWRncHU6bWFwL3VubWFwIHN0YXRpYyBjc2EgYWNjb3JkaW5nbHkK
-PiBBbSAwOS4wMS4yMDE3IHVtIDA5OjAzIHNjaHJpZWIgTW9uayBMaXU6Cj4gPiBhbmQgdXBkYXRl
-IENTQSBib192YSBpbiBlYWNoIHN1Ym1pdAo+ID4KPiA+IENoYW5nZS1JZDogSTVlZDczZTFiN2Y4
-OTc0M2Q5MDI5OGJjODE0YTQyYTkxZTE2NmJlM2IKPiA+IFNpZ25lZC1vZmYtYnk6IE1vbmsgTGl1
-IDxNb25rLkxpdUBhbWQuY29tPgo+ID4gLS0tCj4gPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9jcy5jIHwgMTQgKysrKysrKysrKysrKysKPiA+ICAgZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgfCAxMSArKysrKysrKysrKwo+ID4gICAyIGZpbGVzIGNo
-YW5nZWQsIDI1IGluc2VydGlvbnMoKykKPiA+Cj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMgCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfY3MuYwo+ID4gaW5kZXggNjE1OWFmYy4uMDgzYWI3MyAxMDA2NDQKPiA+IC0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCj4gPiArKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYwo+ID4gQEAgLTc3MSw2ICs3NzEsMjAgQEAg
-c3RhdGljIGludCBhbWRncHVfYm9fdm1fdXBkYXRlX3B0ZShzdHJ1Y3QgCj4gYW1kZ3B1X2NzX3Bh
-cnNlciAqcCwKPiA+ICAgICAgICBpZiAocikKPiA+ICAgICAgICAgICAgICAgIHJldHVybiByOwo+
-ID4KPiA+ICsgICAgIGlmIChhbWRncHVfc3Jpb3ZfdmYoYWRldikpIHsKPiA+ICsgICAgICAgICAg
-ICAgc3RydWN0IGZlbmNlICpmOwo+Cj4gQSBuZXcgbGluZSBpcyBuZWVkZWQgYmV0d2VlbiBkZWNl
-bGVyYXRpb24gYW5kIGNvZGUuCj4KPiA+ICsgICAgICAgICAgICAgYm9fdmEgPSB2bS0+dm1fdmly
-dC5jc2FfYm9fdmE7Cj4gPiArICAgICAgICAgICAgIEJVR19PTighYm9fdmEpOwo+ID4gKyAgICAg
-ICAgICAgICByID0gYW1kZ3B1X3ZtX2JvX3VwZGF0ZShhZGV2LCBib192YSwgZmFsc2UpOwo+ID4g
-KyAgICAgICAgICAgICBpZiAocikKPiA+ICsgICAgICAgICAgICAgICAgICAgICByZXR1cm4gcjsK
-PiA+ICsKPiA+ICsgICAgICAgICAgICAgZiA9IGJvX3ZhLT5sYXN0X3B0X3VwZGF0ZTsKPiA+ICsg
-ICAgICAgICAgICAgciA9IGFtZGdwdV9zeW5jX2ZlbmNlKGFkZXYsICZwLT5qb2ItPnN5bmMsIGYp
-Owo+ID4gKyAgICAgICAgICAgICBpZiAocikKPiA+ICsgICAgICAgICAgICAgICAgICAgICByZXR1
-cm4gcjsKPiA+ICsgICAgIH0KPiA+ICsKPiA+ICAgICAgICBpZiAocC0+Ym9fbGlzdCkgewo+ID4g
-ICAgICAgICAgICAgICAgZm9yIChpID0gMDsgaSA8IHAtPmJvX2xpc3QtPm51bV9lbnRyaWVzOyBp
-KyspIHsKPiA+ICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IGZlbmNlICpmOwo+ID4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIAo+IGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPiA+IGluZGV4IGQwNTU0NmUuLmI5
-Y2Q2ODYgMTAwNjQ0Cj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-dm0uYwo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPiA+
-IEBAIC0xNTc2LDYgKzE1NzYsMTQgQEAgaW50IGFtZGdwdV92bV9pbml0KHN0cnVjdCBhbWRncHVf
-ZGV2aWNlIAo+ICphZGV2LCBzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSkKPiA+ICAgICAgICB2bS0+bGFz
-dF9ldmljdGlvbl9jb3VudGVyID0gYXRvbWljNjRfcmVhZCgmYWRldi0+bnVtX2V2aWN0aW9ucyk7
-Cj4gPiAgICAgICAgYW1kZ3B1X2JvX3VucmVzZXJ2ZSh2bS0+cGFnZV9kaXJlY3RvcnkpOwo+ID4K
-PiA+ICsgICAgIGlmIChhbWRncHVfc3Jpb3ZfdmYoYWRldikpIHsKPiA+ICsgICAgICAgICAgICAg
-QlVHX09OKCFhZGV2LT52aXJ0Lm1hcF9jc2EpOwo+ID4gKyAgICAgICAgICAgICBCVUdfT04oIWFk
-ZXYtPnZpcnQudW5tYXBfY3NhKTsKPiA+ICsgICAgICAgICAgICAgciA9IGFkZXYtPnZpcnQubWFw
-X2NzYShhZGV2LCB2bSk7Cj4gPiArICAgICAgICAgICAgIGlmIChyKQo+ID4gKyAgICAgICAgICAg
-ICAgICAgICAgIGdvdG8gZXJyb3JfZnJlZV9wYWdlX2RpcmVjdG9yeTsKPiA+ICsgICAgIH0KPiA+
-ICsKPgo+IEp1c3QgY29tcGxldGVseSBkcm9wIHRoYXQuIFVwZGF0aW5nIHRoZSBWTSBvbiB0aGUg
-Zmlyc3QgY29tbWFuZAo+IHN1Ym1pc3Npb24gc2hvdWxkIGJlIHN1ZmZpY2llbnQuCj4KPiBDaHJp
-c3RpYW4uCj4KPiA+ICAgICAgICByZXR1cm4gMDsKPiA+Cj4gPiAgIGVycm9yX2ZyZWVfcGFnZV9k
-aXJlY3Rvcnk6Cj4gPiBAQCAtMTYwNiw2ICsxNjE0LDkgQEAgdm9pZCBhbWRncHVfdm1fZmluaShz
-dHJ1Y3QgYW1kZ3B1X2RldmljZSAKPiAqYWRldiwgc3RydWN0IGFtZGdwdV92bSAqdm0pCj4gPiAg
-ICAgICAgc3RydWN0IGFtZGdwdV9ib192YV9tYXBwaW5nICptYXBwaW5nLCAqdG1wOwo+ID4gICAg
-ICAgIGludCBpOwo+ID4KPiA+ICsgICAgIGlmIChhbWRncHVfc3Jpb3ZfdmYoYWRldikpCj4gPiAr
-ICAgICAgICAgICAgIGFkZXYtPnZpcnQudW5tYXBfY3NhKGFkZXYsIHZtKTsKPiA+ICsKPiA+ICAg
-ICAgICBhbWRfc2NoZWRfZW50aXR5X2Zpbmkodm0tPmVudGl0eS5zY2hlZCwgJnZtLT5lbnRpdHkp
-Owo+ID4KPiA+ICAgICAgICBpZiAoIVJCX0VNUFRZX1JPT1QoJnZtLT52YSkpIHsKPgo+CgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
-bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is a multi-part message in MIME format.
+--===============1510215876==
+Content-Type: multipart/alternative;
+ boundary="------------8DFC91795B9B9ECE8CAEAF92"
+
+This is a multi-part message in MIME format.
+--------------8DFC91795B9B9ECE8CAEAF92
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+We don't need the validate buffer and even when you need it putting it 
+into the VM structure is illegal, because it can be used by more than 
+one thread at the same time.
+
+This leaves only the csa_bo_va in the amdgpu_vm_virt structure and 
+having a structure with only one field is rather pointless.
+
+Additional to that I really don't see CSA handling as something related 
+to virtualization.
+
+Regards,
+Christian.
+
+Am 10.01.2017 um 04:05 schrieb Liu, Monk:
+>
+>
+> > +};
+> > +
+> > +struct amdgpu_vm_virt {
+> > +     /* each VM will map on CSA */
+> > +     struct ttm_validate_buffer csa_tv;
+> > +     struct amdgpu_bo_va *csa_bo_va;
+>
+> Please put that directly into the amdgpu_vm structure.
+>
+>
+>
+> [ML] they are not a tiny used by bare-metal case so I don't think they 
+> should be put into common structure at all.
+>
+> see we have "struct amdgpu_virt" in "struct amdgpu_device", the same 
+> style
+>
+>
+> BR Monk
+>
+> ------------------------------------------------------------------------
+> *发件人:* Christian König <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+> *发送时间:* 2017年1月9日 18:57:06
+> *收件人:* Liu, Monk; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> *主题:* Re: [PATCH 2/7] drm/amdgpu:new field members for SRIOV
+> Am 09.01.2017 um 09:02 schrieb Monk Liu:
+> > Change-Id: Ife0eff7b13b8b5946f005a39f6ecb8db1cb72c38
+> > Signed-off-by: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h | 19 +++++++++++++++++++
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h   |  2 ++
+> >   2 files changed, 21 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> > index 0d821d9..5aa7f0c 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> > @@ -28,9 +28,28 @@
+> >   #define AMDGPU_SRIOV_CAPS_ENABLE_IOV   (1 << 1) /* sr-iov is 
+> enabled on this GPU */
+> >   #define AMDGPU_SRIOV_CAPS_IS_VF        (1 << 2) /* this GPU is a 
+> virtual function */
+> >   #define AMDGPU_PASSTHROUGH_MODE        (1 << 3) /* thw whole GPU 
+> is pass through for VM */
+> > +
+> > +struct amdgpu_vm;
+> >   /* GPU virtualization */
+> >   struct amdgpu_virt {
+> >        uint32_t caps;
+> > +     uint32_t csa_size;
+> > +     struct amdgpu_bo *csa_obj;
+> > +     uint64_t csa_vmid0_addr;
+> > +     uint64_t gds_vmid0_addr;
+> > +     int (*allocate_csa)(struct amdgpu_device *adev);
+> > +     void (*deallocate_csa)(struct amdgpu_device *adev);
+> > +     int (*map_csa)(struct amdgpu_device *adev, struct amdgpu_vm *vm);
+> > +     void (*unmap_csa)(struct amdgpu_device *adev, struct amdgpu_vm 
+> *vm);
+>
+> Why callbacks for this?
+>
+> > +};
+> > +
+> > +struct amdgpu_vm_virt {
+> > +     /* each VM will map on CSA */
+> > +     struct ttm_validate_buffer csa_tv;
+> > +     struct amdgpu_bo_va *csa_bo_va;
+>
+> Please put that directly into the amdgpu_vm structure.
+>
+> > +     /* virtual MC address of CSA & GDS for each VM */
+> > +     uint64_t vm_csa_addr;
+> > +     uint64_t vm_gds_addr;
+>
+> That should be constant, shouldn't it?
+>
+> Regards,
+> Christian.
+>
+> >   };
+> >
+> >   #define amdgpu_sriov_enabled(adev) \
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> > index 42a629b..27cbcbc 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> > @@ -29,6 +29,7 @@
+> >   #include "gpu_scheduler.h"
+> >   #include "amdgpu_sync.h"
+> >   #include "amdgpu_ring.h"
+> > +#include "amdgpu_virt.h"
+> >
+> >   struct amdgpu_bo_va;
+> >   struct amdgpu_job;
+> > @@ -111,6 +112,7 @@ struct amdgpu_vm {
+> >
+> >        /* client id */
+> >        u64                     client_id;
+> > +     struct amdgpu_vm_virt   vm_virt;
+> >   };
+> >
+> >   struct amdgpu_vm_id {
+>
+>
+
+
+--------------8DFC91795B9B9ECE8CAEAF92
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <div class="moz-cite-prefix">We don't need the validate buffer and
+      even when you need it putting it into the VM structure is illegal,
+      because it can be used by more than one thread at the same time.<br>
+      <br>
+      This leaves only the csa_bo_va in the amdgpu_vm_virt structure and
+      having a structure with only one field is rather pointless.<br>
+      <br>
+      Additional to that I really don't see CSA handling as something
+      related to virtualization.<br>
+      <br>
+      Regards,<br>
+      Christian.<br>
+      <br>
+      Am 10.01.2017 um 04:05 schrieb Liu, Monk:<br>
+    </div>
+    <blockquote
+cite="mid:BY2PR1201MB1110963B2DE72B2892D4AC1F84670-O28G1zQ8oGliQkyLPkmea2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org"
+      type="cite">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="Generator" content="Microsoft Exchange Server">
+      <!-- converted from text -->
+      <style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left: #800000 2px solid; } --></style>
+      <meta content="text/html; charset=UTF-8">
+      <style type="text/css" style="">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+      <div dir="ltr">
+        <div id="x_divtagdefaultwrapper" dir="ltr"
+          style="font-size:12pt; color:#000000;
+          font-family:Calibri,Arial,Helvetica,sans-serif">
+          <p><font size="2"><span style="font-size:10pt"><br>
+                &gt; +};<br>
+                &gt; +<br>
+                &gt; +struct amdgpu_vm_virt {<br>
+                &gt; +     /* each VM will map on CSA */<br>
+                &gt; +     struct ttm_validate_buffer csa_tv;<br>
+                &gt; +     struct amdgpu_bo_va *csa_bo_va;<br>
+                <br>
+                Please put that directly into the amdgpu_vm structure.</span></font></p>
+          <p><br>
+          </p>
+          <p><br>
+          </p>
+          <p>[ML] they are not a tiny used by bare-metal case so I don't
+            think they should be put into common structure at all.</p>
+          <p>see we have "struct amdgpu_virt" in "struct amdgpu_device",
+            the same style <br>
+          </p>
+          <p><br>
+          </p>
+          <p>BR Monk<br>
+          </p>
+        </div>
+        <hr tabindex="-1" style="display:inline-block; width:98%">
+        <div id="x_divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
+            color="#000000" face="Calibri, sans-serif"><b>发件人:</b>
+            Christian König <a class="moz-txt-link-rfc2396E" href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">&lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;</a><br>
+            <b>发送时间:</b> 2017年1月9日 18:57:06<br>
+            <b>收件人:</b> Liu, Monk; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+            <b>主题:</b> Re: [PATCH 2/7] drm/amdgpu:new field members for
+            SRIOV</font>
+          <div> </div>
+        </div>
+      </div>
+      <font size="2"><span style="font-size:10pt;">
+          <div class="PlainText">Am 09.01.2017 um 09:02 schrieb Monk
+            Liu:<br>
+            &gt; Change-Id: Ife0eff7b13b8b5946f005a39f6ecb8db1cb72c38<br>
+            &gt; Signed-off-by: Monk Liu <a class="moz-txt-link-rfc2396E" href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org">&lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+            &gt; ---<br>
+            &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h | 19
+            +++++++++++++++++++<br>
+            &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h   |  2 ++<br>
+            &gt;   2 files changed, 21 insertions(+)<br>
+            &gt;<br>
+            &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+            b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
+            &gt; index 0d821d9..5aa7f0c 100644<br>
+            &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
+            &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
+            &gt; @@ -28,9 +28,28 @@<br>
+            &gt;   #define AMDGPU_SRIOV_CAPS_ENABLE_IOV   (1 &lt;&lt; 1)
+            /* sr-iov is enabled on this GPU */<br>
+            &gt;   #define AMDGPU_SRIOV_CAPS_IS_VF        (1 &lt;&lt; 2)
+            /* this GPU is a virtual function */<br>
+            &gt;   #define AMDGPU_PASSTHROUGH_MODE        (1 &lt;&lt; 3)
+            /* thw whole GPU is pass through for VM */<br>
+            &gt; +<br>
+            &gt; +struct amdgpu_vm;<br>
+            &gt;   /* GPU virtualization */<br>
+            &gt;   struct amdgpu_virt {<br>
+            &gt;        uint32_t caps;<br>
+            &gt; +     uint32_t csa_size;<br>
+            &gt; +     struct amdgpu_bo *csa_obj;<br>
+            &gt; +     uint64_t csa_vmid0_addr;<br>
+            &gt; +     uint64_t gds_vmid0_addr;<br>
+            &gt; +     int (*allocate_csa)(struct amdgpu_device *adev);<br>
+            &gt; +     void (*deallocate_csa)(struct amdgpu_device
+            *adev);<br>
+            &gt; +     int (*map_csa)(struct amdgpu_device *adev, struct
+            amdgpu_vm *vm);<br>
+            &gt; +     void (*unmap_csa)(struct amdgpu_device *adev,
+            struct amdgpu_vm *vm);<br>
+            <br>
+            Why callbacks for this?<br>
+            <br>
+            &gt; +};<br>
+            &gt; +<br>
+            &gt; +struct amdgpu_vm_virt {<br>
+            &gt; +     /* each VM will map on CSA */<br>
+            &gt; +     struct ttm_validate_buffer csa_tv;<br>
+            &gt; +     struct amdgpu_bo_va *csa_bo_va;<br>
+            <br>
+            Please put that directly into the amdgpu_vm structure.<br>
+            <br>
+            &gt; +     /* virtual MC address of CSA &amp; GDS for each
+            VM */<br>
+            &gt; +     uint64_t vm_csa_addr;<br>
+            &gt; +     uint64_t vm_gds_addr;<br>
+            <br>
+            That should be constant, shouldn't it?<br>
+            <br>
+            Regards,<br>
+            Christian.<br>
+            <br>
+            &gt;   };<br>
+            &gt;   <br>
+            &gt;   #define amdgpu_sriov_enabled(adev) \<br>
+            &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+            b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
+            &gt; index 42a629b..27cbcbc 100644<br>
+            &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
+            &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
+            &gt; @@ -29,6 +29,7 @@<br>
+            &gt;   #include "gpu_scheduler.h"<br>
+            &gt;   #include "amdgpu_sync.h"<br>
+            &gt;   #include "amdgpu_ring.h"<br>
+            &gt; +#include "amdgpu_virt.h"<br>
+            &gt;   <br>
+            &gt;   struct amdgpu_bo_va;<br>
+            &gt;   struct amdgpu_job;<br>
+            &gt; @@ -111,6 +112,7 @@ struct amdgpu_vm {<br>
+            &gt;   <br>
+            &gt;        /* client id */<br>
+            &gt;        u64                     client_id;<br>
+            &gt; +     struct amdgpu_vm_virt   vm_virt;<br>
+            &gt;   };<br>
+            &gt;   <br>
+            &gt;   struct amdgpu_vm_id {<br>
+            <br>
+            <br>
+          </div>
+        </span></font>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------8DFC91795B9B9ECE8CAEAF92--
+
+--===============1510215876==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1510215876==--
