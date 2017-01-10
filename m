@@ -1,14 +1,11 @@
-From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: drop min/max wrappers
-Date: Tue, 10 Jan 2017 13:42:30 -0500
-Message-ID: <faa2c550-4a64-fadf-26a8-1da78b6d94de@amd.com>
-References: <20170109223547.24601-1-airlied@gmail.com>
- <5dd6c190-a2e5-8acc-125b-5102f92167ef@folklore1984.net>
+From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Subject: amdgpu_pm_info small nit
+Date: Tue, 10 Jan 2017 19:01:12 +0000
+Message-ID: <CY4PR12MB1768A1C2762C6946CD818D20F7670@CY4PR12MB1768.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0571636871=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <5dd6c190-a2e5-8acc-125b-5102f92167ef-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,57 +16,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-UmV2aWV3ZWQtYnk6IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPgoKT24g
-MjAxNy0wMS0wOSAwODozNiBQTSwgRWR3YXJkIE8nQ2FsbGFnaGFuIHdyb3RlOgo+IFJldmlld2Vk
-LWJ5OiBFZHdhcmQgTydDYWxsYWdoYW4gPGZ1bmZ1bmN0b3JAZm9sa2xvcmUxOTg0Lm5ldD4KPgo+
-IE9uIDAxLzEwLzIwMTcgMDk6MzUgQU0sIERhdmUgQWlybGllIHdyb3RlOgo+PiBGcm9tOiBEYXZl
-IEFpcmxpZSA8YWlybGllZEByZWRoYXQuY29tPgo+Pgo+PiBUaGVzZSBhcmVuJ3QgbmVlZGVkLCBh
-bmQgYXJlbid0IHJlYWxseSB1c2VkIGluIHRvbyBtYW55IHBsYWNlcy4KPj4KPj4gU2lnbmVkLW9m
-Zi1ieTogRGF2ZSBBaXJsaWUgPGFpcmxpZWRAcmVkaGF0LmNvbT4KPj4gLS0tCj4+ICBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kYy5jICAgICAgICB8IDIgKy0KPj4gIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UvZGNlX2Nsb2Nrcy5jIHwgNCArKy0tCj4+ICBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvb3NfdHlwZXMuaCAgICAgICB8IDIgLS0KPj4g
-IDMgZmlsZXMgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCA1IGRlbGV0aW9ucygtKQo+Pgo+PiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGMuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjLmMKPj4gaW5kZXggNjk4MTlkOC4u
-NzYzZDFlMyAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Nv
-cmUvZGMuYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kYy5j
-Cj4+IEBAIC02MjgsNyArNjI4LDcgQEAgc3RydWN0IGRjICpkY19jcmVhdGUoY29uc3Qgc3RydWN0
-IGRjX2luaXRfZGF0YSAqaW5pdF9wYXJhbXMpCj4+ICAJZnVsbF9waXBlX2NvdW50ID0gY29yZV9k
-Yy0+cmVzX3Bvb2wtPnBpcGVfY291bnQ7Cj4+ICAJaWYgKGNvcmVfZGMtPnJlc19wb29sLT51bmRl
-cmxheV9waXBlX2luZGV4ID49IDApCj4+ICAJCWZ1bGxfcGlwZV9jb3VudC0tOwo+PiAtCWNvcmVf
-ZGMtPnB1YmxpYy5jYXBzLm1heF90YXJnZXRzID0gZG1fbWluKAo+PiArCWNvcmVfZGMtPnB1Ymxp
-Yy5jYXBzLm1heF90YXJnZXRzID0gbWluKAo+PiAgCQkJZnVsbF9waXBlX2NvdW50LAo+PiAgCQkJ
-Y29yZV9kYy0+cmVzX3Bvb2wtPnN0cmVhbV9lbmNfY291bnQpOwo+Pgo+PiBkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZS9kY2VfY2xvY2tzLmMgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9jbG9ja3MuYwo+PiBpbmRleCAyNjI2MTIw
-Li5kZDkyMmJkIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMv
-ZGNlL2RjZV9jbG9ja3MuYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMv
-ZGNlL2RjZV9jbG9ja3MuYwo+PiBAQCAtMjg5LDcgKzI4OSw3IEBAIHN0YXRpYyB2b2lkIGRjZV9z
-ZXRfY2xvY2soCj4+Cj4+ICAJLyogTWFrZSBzdXJlIHJlcXVlc3RlZCBjbG9jayBpc24ndCBsb3dl
-ciB0aGFuIG1pbmltdW0gdGhyZXNob2xkKi8KPj4gIAlpZiAocmVxdWVzdGVkX2Nsa19raHogPiAw
-KQo+PiAtCQlyZXF1ZXN0ZWRfY2xrX2toeiA9IGRtX21heChyZXF1ZXN0ZWRfY2xrX2toeiwKPj4g
-KwkJcmVxdWVzdGVkX2Nsa19raHogPSBtYXgocmVxdWVzdGVkX2Nsa19raHosCj4+ICAJCQkJY2xr
-X2RjZS0+ZGVudGlzdF92Y29fZnJlcV9raHogLyA2NCk7Cj4+Cj4+ICAJLyogUHJlcGFyZSB0byBw
-cm9ncmFtIGRpc3BsYXkgY2xvY2sqLwo+PiBAQCAtMzY0LDcgKzM2NCw3IEBAIHN0YXRpYyB2b2lk
-IGRjZTExMl9zZXRfY2xvY2soCj4+Cj4+ICAJLyogTWFrZSBzdXJlIHJlcXVlc3RlZCBjbG9jayBp
-c24ndCBsb3dlciB0aGFuIG1pbmltdW0gdGhyZXNob2xkKi8KPj4gIAlpZiAocmVxdWVzdGVkX2Ns
-a19raHogPiAwKQo+PiAtCQlyZXF1ZXN0ZWRfY2xrX2toeiA9IGRtX21heChyZXF1ZXN0ZWRfY2xr
-X2toeiwKPj4gKwkJcmVxdWVzdGVkX2Nsa19raHogPSBtYXgocmVxdWVzdGVkX2Nsa19raHosCj4+
-ICAJCQkJY2xrX2RjZS0+ZGVudGlzdF92Y29fZnJlcV9raHogLyA2Mik7Cj4+Cj4+ICAJZGNlX2Ns
-a19wYXJhbXMudGFyZ2V0X2Nsb2NrX2ZyZXF1ZW5jeSA9IHJlcXVlc3RlZF9jbGtfa2h6Owo+PiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL29zX3R5cGVzLmggYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvb3NfdHlwZXMuaAo+PiBpbmRleCA3ZjBjMjgy
-Li4yN2VkMmE2IDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMv
-b3NfdHlwZXMuaAo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvb3NfdHlw
-ZXMuaAo+PiBAQCAtNTIsOCArNTIsNiBAQAo+Pgo+PiAgI2RlZmluZSBkbV92bG9nKGZtdCwgYXJn
-cykgdnByaW50ayhmbXQsIGFyZ3MpCj4+Cj4+IC0jZGVmaW5lIGRtX21pbih4LCB5KSBtaW4oeCwg
-eSkKPj4gLSNkZWZpbmUgZG1fbWF4KHgsIHkpIG1heCh4LCB5KQo+PiAgI2VuZGlmCj4+Cj4+Cj4+
-Cj4KPgo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4g
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cj4K
+--===============0571636871==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB1768A1C2762C6946CD818D20F7670CY4PR12MB1768namp_"
+
+--_000_CY4PR12MB1768A1C2762C6946CD818D20F7670CY4PR12MB1768namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Ray,
+
+
+Small nit but I saw this in the output
+
+
++       {AMD_CG_SUPPORT_GFX_CGTS, "Graphics Coarse Grain Tree Shader Light =
+Sleep"},
++       {AMD_CG_SUPPORT_GFX_CGTS_LS, "Graphics Coarse Grain Tree Shader Lig=
+ht Sleep"},
+
+The first you probably want to remove "Light Sleep" from otherwise the outp=
+ut has a duplicate line for different bits.
+
+
+Cheers,
+
+Tom
+
+--_000_CY4PR12MB1768A1C2762C6946CD818D20F7670CY4PR12MB1768namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Arial,Helvetica,sans-serif;" dir=3D"ltr">
+<p>Hi Ray,</p>
+<p><br>
+</p>
+<p>Small nit but I saw this in the output&nbsp;</p>
+<p><br>
+</p>
+<p></p>
+<div>&#43; &nbsp; &nbsp; &nbsp; {AMD_CG_SUPPORT_GFX_CGTS, &quot;Graphics Co=
+arse Grain Tree Shader Light Sleep&quot;}, &nbsp;&nbsp;</div>
+<div>&#43; &nbsp; &nbsp; &nbsp; {AMD_CG_SUPPORT_GFX_CGTS_LS, &quot;Graphics=
+ Coarse Grain Tree Shader Light Sleep&quot;},</div>
+<div><br>
+</div>
+The first you probably want to remove &quot;Light Sleep&quot; from otherwis=
+e the output has a duplicate line for different bits.
+<p></p>
+<p><br>
+</p>
+<p>Cheers,</p>
+<p>Tom</p>
+</div>
+</body>
+</html>
+
+--_000_CY4PR12MB1768A1C2762C6946CD818D20F7670CY4PR12MB1768namp_--
+
+--===============0571636871==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0571636871==--
