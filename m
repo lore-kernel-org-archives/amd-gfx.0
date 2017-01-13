@@ -1,15 +1,15 @@
-From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: =?utf-8?B?562U5aSNOiBbUEFUQ0hdIGRybS9hbWRncHU6cHV0IENTQSB1bm1hcCBhZnRl?=
- =?utf-8?B?ciBzY2hlZF9lbnRpdHlfZmluaQ==?=
-Date: Fri, 13 Jan 2017 09:56:01 +0000
-Message-ID: <BY2PR1201MB11102468908DDFD083C45B5384780@BY2PR1201MB1110.namprd12.prod.outlook.com>
-References: <1484280664-22845-1-git-send-email-Monk.Liu@amd.com>,
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: =?UTF-8?Q?Re:_=e7=ad=94=e5=a4=8d:_[PATCH]_drm/amdgpu:put_CSA_unmap_?=
+ =?UTF-8?Q?after_sched=5fentity=5ffini?=
+Date: Fri, 13 Jan 2017 11:23:26 +0100
+Message-ID: <936c3f9b-2545-3b18-c7ad-f3440d203ea6@vodafone.de>
+References: <1484280664-22845-1-git-send-email-Monk.Liu@amd.com>
  <dadee34c-ca4c-6a2a-8053-4bfdeb1466c3@vodafone.de>
+ <BY2PR1201MB11102468908DDFD083C45B5384780@BY2PR1201MB1110.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0486917841=="
+Content-Type: multipart/mixed; boundary="===============1544592784=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <dadee34c-ca4c-6a2a-8053-4bfdeb1466c3-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Content-Language: zh-CN
+In-Reply-To: <BY2PR1201MB11102468908DDFD083C45B5384780-O28G1zQ8oGliQkyLPkmea2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,192 +20,297 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0486917841==
-Content-Language: zh-CN
+This is a multi-part message in MIME format.
+--===============1544592784==
 Content-Type: multipart/alternative;
-	boundary="_000_BY2PR1201MB11102468908DDFD083C45B5384780BY2PR1201MB1110_"
+ boundary="------------0E84747C94F1BCF76917282E"
 
---_000_BY2PR1201MB11102468908DDFD083C45B5384780BY2PR1201MB1110_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+This is a multi-part message in MIME format.
+--------------0E84747C94F1BCF76917282E
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-b25seSB3aXRoIGFtZGdwdV92bV9ib19ybXYoKSB3b24ndCBoYXMgc3VjaCBidWcsIGJ1dCBpbiBh
-bm90aGVyIGJyYW5jaCBmb3Igc3Jpb3YsIHdlIG5vdCBvbmx5IGNhbGwgdm1fYm9fcm12KCksIGFu
-ZCB3ZSBhbHNvIHNldCBjc2FfYWRkciB0byBOVUxMIGFmdGVyIGl0LCBzbyB0aGUgTlVMTCBhZGRy
-ZXNzIGlzIGluc2VydGVkIGluIFJCLCBhbmQgd2hlbiBwcmVlbXB0aW9uIG9jY3VyZWQsIENQIGJh
-Y2t1cCBzbmFwc2hvdCB0byBOVUxMIGFkZHJlc3MuDQoNCg0KYWx0aG91Z2ggaW4gc3RhZ2luZy00
-Ljkgd2UgZGlkbid0IHNldCBjc2FfYWRkciB0byBOVUxMIChiZWNhdXNlIGFzIHlvdSBzdWdnZXN0
-ZWQgd2UgYWx3YXlzIHVzZSBIQVJEQ09ERS9NQUNSTyBmb3IgQ1NBIGFkZHJlc3MpLCBidXQgbG9n
-aWNhbGx5IHdlJ2QgYmV0dGVyIHB1dCBDU0EgdW5tYXBwaW5nIHN0dWZmcyBiZWhpbmQgInNjaGVk
-X2VudGl0eV9maW5pIiwgd2hpY2ggaXMgbW9yZSByZWFzb25hYmxlIC4uLg0KDQoNCkJSIE1vbmsN
-Cg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCuWPkeS7tuS6ujogYW1kLWdmeCA8
-YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4g5Luj6KGoIENocmlzdGlhbiBL
-w7ZuaWcgPGRlYXRoc2ltcGxlQHZvZGFmb25lLmRlPg0K5Y+R6YCB5pe26Ze0OiAyMDE35bm0Meac
-iDEz5pelIDE3OjI1OjA5DQrmlLbku7bkuro6IExpdSwgTW9uazsgYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcNCuS4u+mimDogUmU6IFtQQVRDSF0gZHJtL2FtZGdwdTpwdXQgQ1NBIHVubWFw
-IGFmdGVyIHNjaGVkX2VudGl0eV9maW5pDQoNCkFtIDEzLjAxLjIwMTcgdW0gMDU6MTEgc2Nocmll
-YiBNb25rIExpdToNCj4gb3RoZXJ3aXNlIENTQSBtYXkgdW5tYXBwZWQgYmVmb3JlIGdwdV9zY2hl
-ZHVsZXIgc2NoZWR1bGluZw0KPiBqb2JzIGFuZCB0cmlnZ2VyIFZNIGZhdWx0IG9uIENTQSBhZGRy
-ZXNzDQo+DQo+IENoYW5nZS1JZDogSWIyZTI1ZWRlZGY4OWJjYTQ0Yzc2NDQ3N2RkMmY5MTI3MDI0
-Y2E3OGMNCj4gU2lnbmVkLW9mZi1ieTogTW9uayBMaXUgPE1vbmsuTGl1QGFtZC5jb20+DQoNCkRp
-ZCB5b3UgcmVhbGx5IHJ1biBpbnRvIGFuIGlzc3VlIGJlY2F1c2Ugb2YgdGhhdD8NCg0KQ2FsbGlu
-ZyBhbWRncHVfdm1fYm9fcm12KCkgc2hvdWxkbid0IGFmZmVjdCB0aGUgcGFnZSB0YWJsZXMgbm9y
-IGFscmVhZHkNCnN1Ym1pdHRlZCBjb21tYW5kIHN1Ym1pc3Npb25zIGluIGFueSB3YXkuDQoNClJl
-Z2FyZHMsDQpDaHJpc3RpYW4uDQoNCj4gLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X2ttcy5jIHwgOCAtLS0tLS0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV92bS5jICB8IDggKysrKysrKysNCj4gICAyIGZpbGVzIGNoYW5nZWQsIDggaW5z
-ZXJ0aW9ucygrKSwgOCBkZWxldGlvbnMoLSkNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9rbXMuYw0KPiBpbmRleCA0NTQ4NGMwLi5lMTNjZGRlIDEwMDY0NA0KPiAtLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMNCj4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jDQo+IEBAIC02OTQsMTQgKzY5NCw2IEBAIHZv
-aWQgYW1kZ3B1X2RyaXZlcl9wb3N0Y2xvc2Vfa21zKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsDQo+
-ICAgICAgICBhbWRncHVfdXZkX2ZyZWVfaGFuZGxlcyhhZGV2LCBmaWxlX3ByaXYpOw0KPiAgICAg
-ICAgYW1kZ3B1X3ZjZV9mcmVlX2hhbmRsZXMoYWRldiwgZmlsZV9wcml2KTsNCj4NCj4gLSAgICAg
-aWYgKGFtZGdwdV9zcmlvdl92ZihhZGV2KSkgew0KPiAtICAgICAgICAgICAgIC8qIFRPRE86IGhv
-dyB0byBoYW5kbGUgcmVzZXJ2ZSBmYWlsdXJlICovDQo+IC0gICAgICAgICAgICAgQlVHX09OKGFt
-ZGdwdV9ib19yZXNlcnZlKGFkZXYtPnZpcnQuY3NhX29iaiwgZmFsc2UpKTsNCj4gLSAgICAgICAg
-ICAgICBhbWRncHVfdm1fYm9fcm12KGFkZXYsIGZwcml2LT52bS5jc2FfYm9fdmEpOw0KPiAtICAg
-ICAgICAgICAgIGZwcml2LT52bS5jc2FfYm9fdmEgPSBOVUxMOw0KPiAtICAgICAgICAgICAgIGFt
-ZGdwdV9ib191bnJlc2VydmUoYWRldi0+dmlydC5jc2Ffb2JqKTsNCj4gLSAgICAgfQ0KPiAtDQo+
-ICAgICAgICBhbWRncHVfdm1fZmluaShhZGV2LCAmZnByaXYtPnZtKTsNCj4NCj4gICAgICAgIGlk
-cl9mb3JfZWFjaF9lbnRyeSgmZnByaXYtPmJvX2xpc3RfaGFuZGxlcywgbGlzdCwgaGFuZGxlKQ0K
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0KPiBpbmRleCBkMDU1NDZlLi45
-NDA5OGJjIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-dm0uYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0KPiBA
-QCAtMTYwOCw2ICsxNjA4LDE0IEBAIHZvaWQgYW1kZ3B1X3ZtX2Zpbmkoc3RydWN0IGFtZGdwdV9k
-ZXZpY2UgKmFkZXYsIHN0cnVjdCBhbWRncHVfdm0gKnZtKQ0KPg0KPiAgICAgICAgYW1kX3NjaGVk
-X2VudGl0eV9maW5pKHZtLT5lbnRpdHkuc2NoZWQsICZ2bS0+ZW50aXR5KTsNCj4NCj4gKyAgICAg
-aWYgKGFtZGdwdV9zcmlvdl92ZihhZGV2KSkgew0KPiArICAgICAgICAgICAgIC8qIFRPRE86IGhv
-dyB0byBoYW5kbGUgcmVzZXJ2ZSBmYWlsdXJlICovDQo+ICsgICAgICAgICAgICAgQlVHX09OKGFt
-ZGdwdV9ib19yZXNlcnZlKGFkZXYtPnZpcnQuY3NhX29iaiwgZmFsc2UpKTsNCj4gKyAgICAgICAg
-ICAgICBhbWRncHVfdm1fYm9fcm12KGFkZXYsIHZtLT5jc2FfYm9fdmEpOw0KPiArICAgICAgICAg
-ICAgIHZtLT5jc2FfYm9fdmEgPSBOVUxMOw0KPiArICAgICAgICAgICAgIGFtZGdwdV9ib191bnJl
-c2VydmUoYWRldi0+dmlydC5jc2Ffb2JqKTsNCj4gKyAgICAgfQ0KPiArDQo+ICAgICAgICBpZiAo
-IVJCX0VNUFRZX1JPT1QoJnZtLT52YSkpIHsNCj4gICAgICAgICAgICAgICAgZGV2X2VycihhZGV2
-LT5kZXYsICJzdGlsbCBhY3RpdmUgYm8gaW5zaWRlIHZtXG4iKTsNCj4gICAgICAgIH0NCg0KDQpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QNCmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCg==
+Ah, in this case please separate the amdgpu_vm_bo_rmv() from setting 
+csa_addr to NULL.
 
---_000_BY2PR1201MB11102468908DDFD083C45B5384780BY2PR1201MB1110_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cause amdgpu_vm_bo_rmv() should come before amdgpu_vm_fini() and that in 
+turn should become before waiting for the scheduler so that the MM knows 
+that the memory is about to be freed.
 
-PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
-dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRvciIgY29udGVu
-dD0iTWljcm9zb2Z0IEV4Y2hhbmdlIFNlcnZlciI+DQo8IS0tIGNvbnZlcnRlZCBmcm9tIHRleHQg
-LS0+PHN0eWxlPjwhLS0gLkVtYWlsUXVvdGUgeyBtYXJnaW4tbGVmdDogMXB0OyBwYWRkaW5nLWxl
-ZnQ6IDRwdDsgYm9yZGVyLWxlZnQ6ICM4MDAwMDAgMnB4IHNvbGlkOyB9IC0tPjwvc3R5bGU+DQo8
-L2hlYWQ+DQo8Ym9keT4NCjxtZXRhIGNvbnRlbnQ9InRleHQvaHRtbDsgY2hhcnNldD1VVEYtOCI+
-DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiIHN0eWxlPSIiPg0KPCEtLQ0KcA0KCXttYXJnaW4tdG9w
-OjA7DQoJbWFyZ2luLWJvdHRvbTowfQ0KLS0+DQo8L3N0eWxlPg0KPGRpdiBkaXI9Imx0ciI+DQo8
-ZGl2IGlkPSJ4X2RpdnRhZ2RlZmF1bHR3cmFwcGVyIiBkaXI9Imx0ciIgc3R5bGU9ImZvbnQtc2l6
-ZToxMnB0OyBjb2xvcjojMDAwMDAwOyBmb250LWZhbWlseTpDYWxpYnJpLEFyaWFsLEhlbHZldGlj
-YSxzYW5zLXNlcmlmIj4NCjxwPm9ubHkgd2l0aCBhbWRncHVfdm1fYm9fcm12KCkgd29uJ3QgaGFz
-IHN1Y2ggYnVnLCBidXQgaW4gYW5vdGhlciBicmFuY2ggZm9yIHNyaW92LCB3ZSBub3Qgb25seSBj
-YWxsIHZtX2JvX3JtdigpLCBhbmQgd2UgYWxzbyBzZXQgY3NhX2FkZHIgdG8gTlVMTCBhZnRlciBp
-dCwgc28gdGhlIE5VTEwgYWRkcmVzcyBpcyBpbnNlcnRlZCBpbiBSQiwgYW5kIHdoZW4gcHJlZW1w
-dGlvbiBvY2N1cmVkLCBDUCBiYWNrdXAgc25hcHNob3QgdG8gTlVMTCBhZGRyZXNzLjwvcD4NCjxw
-Pjxicj4NCjwvcD4NCjxwPmFsdGhvdWdoIGluIHN0YWdpbmctNC45IHdlIGRpZG4ndCBzZXQgY3Nh
-X2FkZHIgdG8gTlVMTCAoYmVjYXVzZSBhcyB5b3Ugc3VnZ2VzdGVkIHdlIGFsd2F5cyB1c2UgSEFS
-RENPREUvTUFDUk8gZm9yIENTQSBhZGRyZXNzKSwgYnV0IGxvZ2ljYWxseSB3ZSdkIGJldHRlciBw
-dXQgQ1NBIHVubWFwcGluZyBzdHVmZnMgYmVoaW5kICZxdW90O3NjaGVkX2VudGl0eV9maW5pJnF1
-b3Q7LCB3aGljaCBpcyBtb3JlIHJlYXNvbmFibGUgLi4uPC9wPg0KPHA+PGJyPg0KPC9wPg0KPHA+
-QlIgTW9uazxicj4NCjwvcD4NCjwvZGl2Pg0KPGhyIHRhYmluZGV4PSItMSIgc3R5bGU9ImRpc3Bs
-YXk6aW5saW5lLWJsb2NrOyB3aWR0aDo5OCUiPg0KPGRpdiBpZD0ieF9kaXZScGx5RndkTXNnIiBk
-aXI9Imx0ciI+PGZvbnQgZmFjZT0iQ2FsaWJyaSwgc2Fucy1zZXJpZiIgY29sb3I9IiMwMDAwMDAi
-IHN0eWxlPSJmb250LXNpemU6MTFwdCI+PGI+5Y+R5Lu25Lq6OjwvYj4gYW1kLWdmeCAmbHQ7YW1k
-LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZyZndDsg5Luj6KGoIENocmlzdGlhbiBL
-w7ZuaWcgJmx0O2RlYXRoc2ltcGxlQHZvZGFmb25lLmRlJmd0Ozxicj4NCjxiPuWPkemAgeaXtumX
-tDo8L2I+IDIwMTflubQx5pyIMTPml6UgMTc6MjU6MDk8YnI+DQo8Yj7mlLbku7bkuro6PC9iPiBM
-aXUsIE1vbms7IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPGJyPg0KPGI+5Li76aKYOjwv
-Yj4gUmU6IFtQQVRDSF0gZHJtL2FtZGdwdTpwdXQgQ1NBIHVubWFwIGFmdGVyIHNjaGVkX2VudGl0
-eV9maW5pPC9mb250Pg0KPGRpdj4mbmJzcDs8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8Zm9udCBz
-aXplPSIyIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwcHQ7Ij4NCjxkaXYgY2xhc3M9IlBsYWlu
-VGV4dCI+QW0gMTMuMDEuMjAxNyB1bSAwNToxMSBzY2hyaWViIE1vbmsgTGl1Ojxicj4NCiZndDsg
-b3RoZXJ3aXNlIENTQSBtYXkgdW5tYXBwZWQgYmVmb3JlIGdwdV9zY2hlZHVsZXIgc2NoZWR1bGlu
-Zzxicj4NCiZndDsgam9icyBhbmQgdHJpZ2dlciBWTSBmYXVsdCBvbiBDU0EgYWRkcmVzczxicj4N
-CiZndDs8YnI+DQomZ3Q7IENoYW5nZS1JZDogSWIyZTI1ZWRlZGY4OWJjYTQ0Yzc2NDQ3N2RkMmY5
-MTI3MDI0Y2E3OGM8YnI+DQomZ3Q7IFNpZ25lZC1vZmYtYnk6IE1vbmsgTGl1ICZsdDtNb25rLkxp
-dUBhbWQuY29tJmd0Ozxicj4NCjxicj4NCkRpZCB5b3UgcmVhbGx5IHJ1biBpbnRvIGFuIGlzc3Vl
-IGJlY2F1c2Ugb2YgdGhhdD88YnI+DQo8YnI+DQpDYWxsaW5nIGFtZGdwdV92bV9ib19ybXYoKSBz
-aG91bGRuJ3QgYWZmZWN0IHRoZSBwYWdlIHRhYmxlcyBub3IgYWxyZWFkeSA8YnI+DQpzdWJtaXR0
-ZWQgY29tbWFuZCBzdWJtaXNzaW9ucyBpbiBhbnkgd2F5Ljxicj4NCjxicj4NClJlZ2FyZHMsPGJy
-Pg0KQ2hyaXN0aWFuLjxicj4NCjxicj4NCiZndDsgLS0tPGJyPg0KJmd0OyZuYnNwOyZuYnNwOyBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMgfCA4IC0tLS0tLS0tPGJyPg0K
-Jmd0OyZuYnNwOyZuYnNwOyBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyZu
-YnNwOyB8IDggJiM0MzsmIzQzOyYjNDM7JiM0MzsmIzQzOyYjNDM7JiM0MzsmIzQzOzxicj4NCiZn
-dDsmbmJzcDsmbmJzcDsgMiBmaWxlcyBjaGFuZ2VkLCA4IGluc2VydGlvbnMoJiM0MzspLCA4IGRl
-bGV0aW9ucygtKTxicj4NCiZndDs8YnI+DQomZ3Q7IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfa21zLmM8YnI+DQomZ3Q7IGluZGV4IDQ1NDg0YzAuLmUxM2NkZGUgMTAwNjQ0PGJyPg0K
-Jmd0OyAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmM8YnI+DQom
-Z3Q7ICYjNDM7JiM0MzsmIzQzOyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9r
-bXMuYzxicj4NCiZndDsgQEAgLTY5NCwxNCAmIzQzOzY5NCw2IEBAIHZvaWQgYW1kZ3B1X2RyaXZl
-cl9wb3N0Y2xvc2Vfa21zKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsPGJyPg0KJmd0OyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBhbWRncHVfdXZkX2ZyZWVfaGFuZGxl
-cyhhZGV2LCBmaWxlX3ByaXYpOzxicj4NCiZndDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsgYW1kZ3B1X3ZjZV9mcmVlX2hhbmRsZXMoYWRldiwgZmlsZV9wcml2KTs8
-YnI+DQomZ3Q7Jm5ic3A7Jm5ic3A7IDxicj4NCiZndDsgLSZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyBpZiAoYW1kZ3B1X3NyaW92X3ZmKGFkZXYpKSB7PGJyPg0KJmd0OyAtJm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-IC8qIFRPRE86IGhvdyB0byBoYW5kbGUgcmVzZXJ2ZSBmYWlsdXJlICovPGJyPg0KJmd0OyAtJm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7IEJVR19PTihhbWRncHVfYm9fcmVzZXJ2ZShhZGV2LSZndDt2aXJ0LmNzYV9v
-YmosIGZhbHNlKSk7PGJyPg0KJmd0OyAtJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGFtZGdwdV92bV9ib19ybXYo
-YWRldiwgZnByaXYtJmd0O3ZtLmNzYV9ib192YSk7PGJyPg0KJmd0OyAtJm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-IGZwcml2LSZndDt2bS5jc2FfYm9fdmEgPSBOVUxMOzxicj4NCiZndDsgLSZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyBhbWRncHVfYm9fdW5yZXNlcnZlKGFkZXYtJmd0O3ZpcnQuY3NhX29iaik7PGJyPg0KJmd0OyAt
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IH08YnI+DQomZ3Q7IC08YnI+DQomZ3Q7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGFtZGdwdV92bV9maW5pKGFkZXYsICZh
-bXA7ZnByaXYtJmd0O3ZtKTs8YnI+DQomZ3Q7Jm5ic3A7Jm5ic3A7IDxicj4NCiZndDsmbmJzcDsm
-bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgaWRyX2Zvcl9lYWNoX2VudHJ5KCZh
-bXA7ZnByaXYtJmd0O2JvX2xpc3RfaGFuZGxlcywgbGlzdCwgaGFuZGxlKTxicj4NCiZndDsgZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmM8YnI+DQomZ3Q7IGluZGV4IGQwNTU0NmUu
-Ljk0MDk4YmMgMTAwNjQ0PGJyPg0KJmd0OyAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfdm0uYzxicj4NCiZndDsgJiM0MzsmIzQzOyYjNDM7IGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmM8YnI+DQomZ3Q7IEBAIC0xNjA4LDYgJiM0MzsxNjA4LDE0
-IEBAIHZvaWQgYW1kZ3B1X3ZtX2Zpbmkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHN0cnVj
-dCBhbWRncHVfdm0gKnZtKTxicj4NCiZndDsmbmJzcDsmbmJzcDsgPGJyPg0KJmd0OyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBhbWRfc2NoZWRfZW50aXR5X2Zpbmko
-dm0tJmd0O2VudGl0eS5zY2hlZCwgJmFtcDt2bS0mZ3Q7ZW50aXR5KTs8YnI+DQomZ3Q7Jm5ic3A7
-Jm5ic3A7IDxicj4NCiZndDsgJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgaWYgKGFtZGdw
-dV9zcmlvdl92ZihhZGV2KSkgezxicj4NCiZndDsgJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgLyogVE9E
-TzogaG93IHRvIGhhbmRsZSByZXNlcnZlIGZhaWx1cmUgKi88YnI+DQomZ3Q7ICYjNDM7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7IEJVR19PTihhbWRncHVfYm9fcmVzZXJ2ZShhZGV2LSZndDt2aXJ0LmNzYV9vYmos
-IGZhbHNlKSk7PGJyPg0KJmd0OyAmIzQzOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBhbWRncHVfdm1fYm9fcm12
-KGFkZXYsIHZtLSZndDtjc2FfYm9fdmEpOzxicj4NCiZndDsgJiM0MzsmbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsg
-dm0tJmd0O2NzYV9ib192YSA9IE5VTEw7PGJyPg0KJmd0OyAmIzQzOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBh
-bWRncHVfYm9fdW5yZXNlcnZlKGFkZXYtJmd0O3ZpcnQuY3NhX29iaik7PGJyPg0KJmd0OyAmIzQz
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB9PGJyPg0KJmd0OyAmIzQzOzxicj4NCiZndDsmbmJz
-cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgaWYgKCFSQl9FTVBUWV9ST09U
-KCZhbXA7dm0tJmd0O3ZhKSkgezxicj4NCiZndDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
-bmJzcDsgZGV2X2VycihhZGV2LSZndDtkZXYsICZxdW90O3N0aWxsIGFjdGl2ZSBibyBpbnNpZGUg
-dm1cbiZxdW90Oyk7PGJyPg0KJmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyB9PGJyPg0KPGJyPg0KPGJyPg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX188YnI+DQphbWQtZ2Z4IG1haWxpbmcgbGlzdDxicj4NCmFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnPGJyPg0KPGEgaHJlZj0iaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Ij5odHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng8L2E+PGJyPg0KPC9kaXY+DQo8L3NwYW4+
-PC9mb250Pg0KPC9ib2R5Pg0KPC9odG1sPg0K
+Regards,
+Christian.
 
---_000_BY2PR1201MB11102468908DDFD083C45B5384780BY2PR1201MB1110_--
+Am 13.01.2017 um 10:56 schrieb Liu, Monk:
+>
+> only with amdgpu_vm_bo_rmv() won't has such bug, but in another branch 
+> for sriov, we not only call vm_bo_rmv(), and we also set csa_addr to 
+> NULL after it, so the NULL address is inserted in RB, and when 
+> preemption occured, CP backup snapshot to NULL address.
+>
+>
+> although in staging-4.9 we didn't set csa_addr to NULL (because as you 
+> suggested we always use HARDCODE/MACRO for CSA address), but logically 
+> we'd better put CSA unmapping stuffs behind "sched_entity_fini", which 
+> is more reasonable ...
+>
+>
+> BR Monk
+>
+> ------------------------------------------------------------------------
+> *发件人:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> 代表 Christian 
+> König <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+> *发送时间:* 2017年1月13日 17:25:09
+> *收件人:* Liu, Monk; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> *主题:* Re: [PATCH] drm/amdgpu:put CSA unmap after sched_entity_fini
+> Am 13.01.2017 um 05:11 schrieb Monk Liu:
+> > otherwise CSA may unmapped before gpu_scheduler scheduling
+> > jobs and trigger VM fault on CSA address
+> >
+> > Change-Id: Ib2e25ededf89bca44c764477dd2f9127024ca78c
+> > Signed-off-by: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+>
+> Did you really run into an issue because of that?
+>
+> Calling amdgpu_vm_bo_rmv() shouldn't affect the page tables nor already
+> submitted command submissions in any way.
+>
+> Regards,
+> Christian.
+>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 8 --------
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 8 ++++++++
+> >   2 files changed, 8 insertions(+), 8 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> > index 45484c0..e13cdde 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> > @@ -694,14 +694,6 @@ void amdgpu_driver_postclose_kms(struct 
+> drm_device *dev,
+> >        amdgpu_uvd_free_handles(adev, file_priv);
+> >        amdgpu_vce_free_handles(adev, file_priv);
+> >
+> > -     if (amdgpu_sriov_vf(adev)) {
+> > -             /* TODO: how to handle reserve failure */
+> > - BUG_ON(amdgpu_bo_reserve(adev->virt.csa_obj, false));
+> > -             amdgpu_vm_bo_rmv(adev, fpriv->vm.csa_bo_va);
+> > -             fpriv->vm.csa_bo_va = NULL;
+> > - amdgpu_bo_unreserve(adev->virt.csa_obj);
+> > -     }
+> > -
+> >        amdgpu_vm_fini(adev, &fpriv->vm);
+> >
+> > idr_for_each_entry(&fpriv->bo_list_handles, list, handle)
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > index d05546e..94098bc 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > @@ -1608,6 +1608,14 @@ void amdgpu_vm_fini(struct amdgpu_device 
+> *adev, struct amdgpu_vm *vm)
+> >
+> >        amd_sched_entity_fini(vm->entity.sched, &vm->entity);
+> >
+> > +     if (amdgpu_sriov_vf(adev)) {
+> > +             /* TODO: how to handle reserve failure */
+> > + BUG_ON(amdgpu_bo_reserve(adev->virt.csa_obj, false));
+> > +             amdgpu_vm_bo_rmv(adev, vm->csa_bo_va);
+> > +             vm->csa_bo_va = NULL;
+> > + amdgpu_bo_unreserve(adev->virt.csa_obj);
+> > +     }
+> > +
+> >        if (!RB_EMPTY_ROOT(&vm->va)) {
+> >                dev_err(adev->dev, "still active bo inside vm\n");
+> >        }
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0486917841==
+
+
+--------------0E84747C94F1BCF76917282E
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <div class="moz-cite-prefix">Ah, in this case please separate the
+      amdgpu_vm_bo_rmv() from setting csa_addr to NULL.<br>
+      <br>
+      Cause amdgpu_vm_bo_rmv() should come before amdgpu_vm_fini() and
+      that in turn should become before waiting for the scheduler so
+      that the MM knows that the memory is about to be freed.<br>
+      <br>
+      Regards,<br>
+      Christian.<br>
+      <br>
+      Am 13.01.2017 um 10:56 schrieb Liu, Monk:<br>
+    </div>
+    <blockquote
+cite="mid:BY2PR1201MB11102468908DDFD083C45B5384780-O28G1zQ8oGliQkyLPkmea2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org"
+      type="cite">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="Generator" content="Microsoft Exchange Server">
+      <!-- converted from text -->
+      <style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left: #800000 2px solid; } --></style>
+      <meta content="text/html; charset=UTF-8">
+      <style type="text/css" style="">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+      <div dir="ltr">
+        <div id="x_divtagdefaultwrapper" dir="ltr"
+          style="font-size:12pt; color:#000000;
+          font-family:Calibri,Arial,Helvetica,sans-serif">
+          <p>only with amdgpu_vm_bo_rmv() won't has such bug, but in
+            another branch for sriov, we not only call vm_bo_rmv(), and
+            we also set csa_addr to NULL after it, so the NULL address
+            is inserted in RB, and when preemption occured, CP backup
+            snapshot to NULL address.</p>
+          <p><br>
+          </p>
+          <p>although in staging-4.9 we didn't set csa_addr to NULL
+            (because as you suggested we always use HARDCODE/MACRO for
+            CSA address), but logically we'd better put CSA unmapping
+            stuffs behind "sched_entity_fini", which is more reasonable
+            ...</p>
+          <p><br>
+          </p>
+          <p>BR Monk<br>
+          </p>
+        </div>
+        <hr tabindex="-1" style="display:inline-block; width:98%">
+        <div id="x_divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
+            color="#000000" face="Calibri, sans-serif"><b>发件人:</b>
+            amd-gfx <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">&lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a> 代表
+            Christian König <a class="moz-txt-link-rfc2396E" href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">&lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;</a><br>
+            <b>发送时间:</b> 2017年1月13日 17:25:09<br>
+            <b>收件人:</b> Liu, Monk; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+            <b>主题:</b> Re: [PATCH] drm/amdgpu:put CSA unmap after
+            sched_entity_fini</font>
+          <div> </div>
+        </div>
+      </div>
+      <font size="2"><span style="font-size:10pt;">
+          <div class="PlainText">Am 13.01.2017 um 05:11 schrieb Monk
+            Liu:<br>
+            &gt; otherwise CSA may unmapped before gpu_scheduler
+            scheduling<br>
+            &gt; jobs and trigger VM fault on CSA address<br>
+            &gt;<br>
+            &gt; Change-Id: Ib2e25ededf89bca44c764477dd2f9127024ca78c<br>
+            &gt; Signed-off-by: Monk Liu <a class="moz-txt-link-rfc2396E" href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org">&lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+            <br>
+            Did you really run into an issue because of that?<br>
+            <br>
+            Calling amdgpu_vm_bo_rmv() shouldn't affect the page tables
+            nor already <br>
+            submitted command submissions in any way.<br>
+            <br>
+            Regards,<br>
+            Christian.<br>
+            <br>
+            &gt; ---<br>
+            &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 8 --------<br>
+            &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 8 ++++++++<br>
+            &gt;   2 files changed, 8 insertions(+), 8 deletions(-)<br>
+            &gt;<br>
+            &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+            b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+            &gt; index 45484c0..e13cdde 100644<br>
+            &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+            &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+            &gt; @@ -694,14 +694,6 @@ void
+            amdgpu_driver_postclose_kms(struct drm_device *dev,<br>
+            &gt;        amdgpu_uvd_free_handles(adev, file_priv);<br>
+            &gt;        amdgpu_vce_free_handles(adev, file_priv);<br>
+            &gt;   <br>
+            &gt; -     if (amdgpu_sriov_vf(adev)) {<br>
+            &gt; -             /* TODO: how to handle reserve failure */<br>
+            &gt; -            
+            BUG_ON(amdgpu_bo_reserve(adev-&gt;virt.csa_obj, false));<br>
+            &gt; -             amdgpu_vm_bo_rmv(adev,
+            fpriv-&gt;vm.csa_bo_va);<br>
+            &gt; -             fpriv-&gt;vm.csa_bo_va = NULL;<br>
+            &gt; -            
+            amdgpu_bo_unreserve(adev-&gt;virt.csa_obj);<br>
+            &gt; -     }<br>
+            &gt; -<br>
+            &gt;        amdgpu_vm_fini(adev, &amp;fpriv-&gt;vm);<br>
+            &gt;   <br>
+            &gt;       
+            idr_for_each_entry(&amp;fpriv-&gt;bo_list_handles, list,
+            handle)<br>
+            &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+            b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+            &gt; index d05546e..94098bc 100644<br>
+            &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+            &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+            &gt; @@ -1608,6 +1608,14 @@ void amdgpu_vm_fini(struct
+            amdgpu_device *adev, struct amdgpu_vm *vm)<br>
+            &gt;   <br>
+            &gt;        amd_sched_entity_fini(vm-&gt;entity.sched,
+            &amp;vm-&gt;entity);<br>
+            &gt;   <br>
+            &gt; +     if (amdgpu_sriov_vf(adev)) {<br>
+            &gt; +             /* TODO: how to handle reserve failure */<br>
+            &gt; +            
+            BUG_ON(amdgpu_bo_reserve(adev-&gt;virt.csa_obj, false));<br>
+            &gt; +             amdgpu_vm_bo_rmv(adev, vm-&gt;csa_bo_va);<br>
+            &gt; +             vm-&gt;csa_bo_va = NULL;<br>
+            &gt; +            
+            amdgpu_bo_unreserve(adev-&gt;virt.csa_obj);<br>
+            &gt; +     }<br>
+            &gt; +<br>
+            &gt;        if (!RB_EMPTY_ROOT(&amp;vm-&gt;va)) {<br>
+            &gt;                dev_err(adev-&gt;dev, "still active bo
+            inside vm\n");<br>
+            &gt;        }<br>
+            <br>
+            <br>
+            _______________________________________________<br>
+            amd-gfx mailing list<br>
+            <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+            <a moz-do-not-send="true"
+              href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+          </div>
+        </span></font>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------0E84747C94F1BCF76917282E--
+
+--===============1544592784==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -215,4 +320,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0486917841==--
+--===============1544592784==--
