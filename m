@@ -1,43 +1,175 @@
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Subject: Re: [PATCH 2/4] drm/amdgpu: Remove flip_flag from amdgpu_crtc
-Date: Tue, 17 Jan 2017 00:15:02 +0200
-Message-ID: <4263487.dgH0XJJ2RW@avalon>
-References: <1484581498-32309-1-git-send-email-Andrey.Grodzovsky@amd.com>
- <1484581498-32309-3-git-send-email-Andrey.Grodzovsky@amd.com>
+From: "Xie, AlexBin" <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: More specific libdrm error message
+Date: Mon, 16 Jan 2017 22:00:41 +0000
+Message-ID: <CY4PR12MB1640989B7A281937181286D4F27D0@CY4PR12MB1640.namprd12.prod.outlook.com>
+References: <CY4PR12MB1640D019595EC5A1C6D1F670F2660@CY4PR12MB1640.namprd12.prod.outlook.com>
+ <CY4PR12MB16409A6D631EA457A365ECF0F2660@CY4PR12MB1640.namprd12.prod.outlook.com>
+ <CY4PR12MB16405027D18941DAF1D35A22F2660@CY4PR12MB1640.namprd12.prod.outlook.com>
+ <2e756ad0-f6b9-7838-c09d-149d7624c529@folklore1984.net>,
+ <CACvgo53sAL5p=jTzrZNP7T_8aSc6KyO4Phfkwy95j_r_0HbBLQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <1484581498-32309-3-git-send-email-Andrey.Grodzovsky@amd.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: dri-devel@lists.freedesktop.org
-Cc: Alexander.Deucher@amd.com, daniel.vetter@intel.com, amd-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============2022064600=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CACvgo53sAL5p=jTzrZNP7T_8aSc6KyO4Phfkwy95j_r_0HbBLQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Emil Velikov <emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-SGkgQW5kcmV5LAoKVGhhbmsgeW91IGZvciB0aGUgcGF0Y2guCgpPbiBNb25kYXkgMTYgSmFuIDIw
-MTcgMTA6NDQ6NTYgQW5kcmV5IEdyb2R6b3Zza3kgd3JvdGU6Cj4gRm9sbHdpbmcgaW50cm9kdWN0
-aW9uIG9mIHBmbGlwX2ZsYWdzIGluIGRybV9wbGFuZV9zdGF0ZQo+IHRoaXMgaXMgbm90IG5lZWRl
-ZCBhbnltb3JlLgo+IAo+IFNpZ25lZC1vZmYtYnk6IEFuZHJleSBHcm9kem92c2t5IDxBbmRyZXku
-R3JvZHpvdnNreUBhbWQuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfbW9kZS5oIHwgMSAtCj4gIDEgZmlsZSBjaGFuZ2VkLCAxIGRlbGV0aW9uKC0pCj4gCj4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9tb2RlLmgKPiBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9tb2RlLmggaW5kZXggNGMwYTg2ZS4u
-M2ZmM2MxNCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-bW9kZS5oCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21vZGUuaAo+
-IEBAIC00NDMsNyArNDQzLDYgQEAgc3RydWN0IGFtZGdwdV9jcnRjIHsKPiAgCWVudW0gYW1kZ3B1
-X2ludGVycnVwdF9zdGF0ZSB2c3luY190aW1lcl9lbmFibGVkOwo+IAo+ICAJaW50IG90Z19pbnN0
-Owo+IC0JdWludDMyX3QgZmxpcF9mbGFnczsKClRoaXMgYnJlYWtzIGNvbXBpbGF0aW9uIG9mIHRo
-ZSBhbWRncHUgZHJpdmVyLiBZb3Ugc2hvdWxkIHNxdWFzaCB0aGlzIHBhdGNoIAp3aXRoIDMvNC4K
-Cj4gIAkvKiBBZnRlciBTZXQgTW9kZSB0YXJnZXQgd2lsbCBiZSBub24tTlVMTCAqLwo+ICAJc3Ry
-dWN0IGRjX3RhcmdldCAqdGFyZ2V0Owo+ICB9OwoKLS0gClJlZ2FyZHMsCgpMYXVyZW50IFBpbmNo
-YXJ0CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmkt
-ZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
+--===============2022064600==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB1640989B7A281937181286D4F27D0CY4PR12MB1640namp_"
+
+--_000_CY4PR12MB1640989B7A281937181286D4F27D0CY4PR12MB1640namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Emil,
+
+
+Thanks for the advice. I noticed that you have changed some tests using drm=
+GetDevices2.
+
+I mark this to my to do list.
+
+
+Thanks,
+
+Alex Bin Xie
+
+________________________________
+From: Emil Velikov <emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Thursday, January 12, 2017 2:26 PM
+To: Edward O'Callaghan
+Cc: Xie, AlexBin; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: More specific libdrm error message
+
+On 12 January 2017 at 01:29, Edward O'Callaghan
+<funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org> wrote:
+> Hi Xie,
+>
+> Perhaps you want to use `fprintf(stderr, "...")` over `printf("..")` and
+> lose the space before the start parenthesis. Also, line wrap
+> your commit message.
+>
+> Side note, use git send-email so that the patch is inline and not a HTML
+> email for easy review and application of the patch.
+>
+Thanks Edward.
+
+Xie, suggesting to run almost anything as root is a bad idea ;-)
+Instead one could auth, in order to have the correct permissions.
+Alternatively can use the renderD node all together.
+
+Idea for future work:
+Would be even better to use drmGetDevices2 to fetch all the devices
+and use the correct node since card0/renderD128 is not guaranteed to
+be a amdgpu one. Or maybe even run all the amdgpu devices through the
+tests ?
+
+Please correctly wrap commit messages and code.
+
+Thanks
+Emil
+
+--_000_CY4PR12MB1640989B7A281937181286D4F27D0CY4PR12MB1640namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Arial,Helvetica,sans-serif;" dir=3D"ltr">
+<p>Hi Emil,</p>
+<p><br>
+</p>
+<p>Thanks for the advice. I noticed that you have changed some tests using =
+<span>
+drmGetDevices2</span>.</p>
+<p>I mark this to my to do list.<br>
+</p>
+<p><br>
+</p>
+<p>Thanks,</p>
+<p>Alex Bin Xie<br>
+</p>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
+=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> Emil Velikov &lt;em=
+il.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Sent:</b> Thursday, January 12, 2017 2:26 PM<br>
+<b>To:</b> Edward O'Callaghan<br>
+<b>Cc:</b> Xie, AlexBin; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: More specific libdrm error message</font>
+<div>&nbsp;</div>
+</div>
+</div>
+<font size=3D"2"><span style=3D"font-size:10pt;">
+<div class=3D"PlainText">On 12 January 2017 at 01:29, Edward O'Callaghan<br=
+>
+&lt;funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org&gt; wrote:<br>
+&gt; Hi Xie,<br>
+&gt;<br>
+&gt; Perhaps you want to use `fprintf(stderr, &quot;...&quot;)` over `print=
+f(&quot;..&quot;)` and<br>
+&gt; lose the space before the start parenthesis. Also, line wrap<br>
+&gt; your commit message.<br>
+&gt;<br>
+&gt; Side note, use git send-email so that the patch is inline and not a HT=
+ML<br>
+&gt; email for easy review and application of the patch.<br>
+&gt;<br>
+Thanks Edward.<br>
+<br>
+Xie, suggesting to run almost anything as root is a bad idea ;-)<br>
+Instead one could auth, in order to have the correct permissions.<br>
+Alternatively can use the renderD node all together.<br>
+<br>
+Idea for future work:<br>
+Would be even better to use drmGetDevices2 to fetch all the devices<br>
+and use the correct node since card0/renderD128 is not guaranteed to<br>
+be a amdgpu one. Or maybe even run all the amdgpu devices through the<br>
+tests ?<br>
+<br>
+Please correctly wrap commit messages and code.<br>
+<br>
+Thanks<br>
+Emil<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_CY4PR12MB1640989B7A281937181286D4F27D0CY4PR12MB1640namp_--
+
+--===============2022064600==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============2022064600==--
