@@ -1,175 +1,121 @@
-From: "Xie, AlexBin" <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: More specific libdrm error message
-Date: Mon, 16 Jan 2017 22:00:41 +0000
-Message-ID: <CY4PR12MB1640989B7A281937181286D4F27D0@CY4PR12MB1640.namprd12.prod.outlook.com>
-References: <CY4PR12MB1640D019595EC5A1C6D1F670F2660@CY4PR12MB1640.namprd12.prod.outlook.com>
- <CY4PR12MB16409A6D631EA457A365ECF0F2660@CY4PR12MB1640.namprd12.prod.outlook.com>
- <CY4PR12MB16405027D18941DAF1D35A22F2660@CY4PR12MB1640.namprd12.prod.outlook.com>
- <2e756ad0-f6b9-7838-c09d-149d7624c529@folklore1984.net>,
- <CACvgo53sAL5p=jTzrZNP7T_8aSc6KyO4Phfkwy95j_r_0HbBLQ@mail.gmail.com>
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Subject: Re: [PATCH 3/4] drm/amd/display: Switch to using atomic_helper for
+ flip.
+Date: Tue, 17 Jan 2017 00:16:45 +0200
+Message-ID: <2158092.LKM1DbUVy7@avalon>
+References: <1484581498-32309-1-git-send-email-Andrey.Grodzovsky@amd.com>
+ <1484581498-32309-4-git-send-email-Andrey.Grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2022064600=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CACvgo53sAL5p=jTzrZNP7T_8aSc6KyO4Phfkwy95j_r_0HbBLQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Emil Velikov <emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
---===============2022064600==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB1640989B7A281937181286D4F27D0CY4PR12MB1640namp_"
-
---_000_CY4PR12MB1640989B7A281937181286D4F27D0CY4PR12MB1640namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Emil,
-
-
-Thanks for the advice. I noticed that you have changed some tests using drm=
-GetDevices2.
-
-I mark this to my to do list.
-
-
-Thanks,
-
-Alex Bin Xie
-
-________________________________
-From: Emil Velikov <emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Thursday, January 12, 2017 2:26 PM
-To: Edward O'Callaghan
-Cc: Xie, AlexBin; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: More specific libdrm error message
-
-On 12 January 2017 at 01:29, Edward O'Callaghan
-<funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org> wrote:
-> Hi Xie,
->
-> Perhaps you want to use `fprintf(stderr, "...")` over `printf("..")` and
-> lose the space before the start parenthesis. Also, line wrap
-> your commit message.
->
-> Side note, use git send-email so that the patch is inline and not a HTML
-> email for easy review and application of the patch.
->
-Thanks Edward.
-
-Xie, suggesting to run almost anything as root is a bad idea ;-)
-Instead one could auth, in order to have the correct permissions.
-Alternatively can use the renderD node all together.
-
-Idea for future work:
-Would be even better to use drmGetDevices2 to fetch all the devices
-and use the correct node since card0/renderD128 is not guaranteed to
-be a amdgpu one. Or maybe even run all the amdgpu devices through the
-tests ?
-
-Please correctly wrap commit messages and code.
-
-Thanks
-Emil
-
---_000_CY4PR12MB1640989B7A281937181286D4F27D0CY4PR12MB1640namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Arial,Helvetica,sans-serif;" dir=3D"ltr">
-<p>Hi Emil,</p>
-<p><br>
-</p>
-<p>Thanks for the advice. I noticed that you have changed some tests using =
-<span>
-drmGetDevices2</span>.</p>
-<p>I mark this to my to do list.<br>
-</p>
-<p><br>
-</p>
-<p>Thanks,</p>
-<p>Alex Bin Xie<br>
-</p>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> Emil Velikov &lt;em=
-il.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Sent:</b> Thursday, January 12, 2017 2:26 PM<br>
-<b>To:</b> Edward O'Callaghan<br>
-<b>Cc:</b> Xie, AlexBin; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: More specific libdrm error message</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">On 12 January 2017 at 01:29, Edward O'Callaghan<br=
->
-&lt;funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org&gt; wrote:<br>
-&gt; Hi Xie,<br>
-&gt;<br>
-&gt; Perhaps you want to use `fprintf(stderr, &quot;...&quot;)` over `print=
-f(&quot;..&quot;)` and<br>
-&gt; lose the space before the start parenthesis. Also, line wrap<br>
-&gt; your commit message.<br>
-&gt;<br>
-&gt; Side note, use git send-email so that the patch is inline and not a HT=
-ML<br>
-&gt; email for easy review and application of the patch.<br>
-&gt;<br>
-Thanks Edward.<br>
-<br>
-Xie, suggesting to run almost anything as root is a bad idea ;-)<br>
-Instead one could auth, in order to have the correct permissions.<br>
-Alternatively can use the renderD node all together.<br>
-<br>
-Idea for future work:<br>
-Would be even better to use drmGetDevices2 to fetch all the devices<br>
-and use the correct node since card0/renderD128 is not guaranteed to<br>
-be a amdgpu one. Or maybe even run all the amdgpu devices through the<br>
-tests ?<br>
-<br>
-Please correctly wrap commit messages and code.<br>
-<br>
-Thanks<br>
-Emil<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB1640989B7A281937181286D4F27D0CY4PR12MB1640namp_--
-
---===============2022064600==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <1484581498-32309-4-git-send-email-Andrey.Grodzovsky@amd.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: dri-devel@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com, daniel.vetter@intel.com, amd-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============2022064600==--
+SGkgQW5kcmV5LAoKVGhhbmsgeW91IGZvciB0aGUgcGF0Y2guCgpPbiBNb25kYXkgMTYgSmFuIDIw
+MTcgMTA6NDQ6NTcgQW5kcmV5IEdyb2R6b3Zza3kgd3JvdGU6Cj4gQ2hhbmdlLUlkOiBJYWQzZTBi
+OWIzNTQ2ZTRlNGRjNzliZTkyMzNkYWY0ZmU0ZGJhODNlMAo+IFNpZ25lZC1vZmYtYnk6IEFuZHJl
+eSBHcm9kem92c2t5IDxBbmRyZXkuR3JvZHpvdnNreUBhbWQuY29tPgo+IC0tLQo+ICAuLi4vZHJt
+L2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fdHlwZXMuYyAgICB8IDkyICsrLS0tLS0t
+LS0tLS0tLS0tLQo+ICAxIGZpbGUgY2hhbmdlZCwgNiBpbnNlcnRpb25zKCspLCA4NiBkZWxldGlv
+bnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdw
+dV9kbS9hbWRncHVfZG1fdHlwZXMuYwo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Ft
+ZGdwdV9kbS9hbWRncHVfZG1fdHlwZXMuYyBpbmRleAo+IGE0NDNiNzAuLmQ0NjY0YmYgMTAwNjQ0
+Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1f
+dHlwZXMuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1k
+Z3B1X2RtX3R5cGVzLmMKPiBAQCAtMTA2MCw4MyArMTA2MCw2IEBAIHN0YXRpYyBpbnQgZG1fY3J0
+Y19mdW5jc19hdG9taWNfc2V0X3Byb3BlcnR5KAo+ICAJcmV0dXJuIDA7Cj4gIH0KPiAKPiAtCj4g
+LXN0YXRpYyBpbnQgYW1kZ3B1X2F0b21pY19oZWxwZXJfcGFnZV9mbGlwKHN0cnVjdCBkcm1fY3J0
+YyAqY3J0YywKPiAtCQkJCXN0cnVjdCBkcm1fZnJhbWVidWZmZXIgKmZiLAo+IC0JCQkJc3RydWN0
+IGRybV9wZW5kaW5nX3ZibGFua19ldmVudCAqZXZlbnQsCj4gLQkJCQl1aW50MzJfdCBmbGFncykK
+PiAtewo+IC0Jc3RydWN0IGRybV9wbGFuZSAqcGxhbmUgPSBjcnRjLT5wcmltYXJ5Owo+IC0Jc3Ry
+dWN0IGFtZGdwdV9jcnRjICphY3J0YyA9IHRvX2FtZGdwdV9jcnRjKGNydGMpOwo+IC0Jc3RydWN0
+IGRybV9hdG9taWNfc3RhdGUgKnN0YXRlOwo+IC0Jc3RydWN0IGRybV9wbGFuZV9zdGF0ZSAqcGxh
+bmVfc3RhdGU7Cj4gLQlzdHJ1Y3QgZHJtX2NydGNfc3RhdGUgKmNydGNfc3RhdGU7Cj4gLQlpbnQg
+cmV0ID0gMDsKPiAtCj4gLQlzdGF0ZSA9IGRybV9hdG9taWNfc3RhdGVfYWxsb2MocGxhbmUtPmRl
+dik7Cj4gLQlpZiAoIXN0YXRlKQo+IC0JCXJldHVybiAtRU5PTUVNOwo+IC0KPiAtCXJldCA9IGRy
+bV9jcnRjX3ZibGFua19nZXQoY3J0Yyk7CgpUaGUgRFJNIGNvcmUncyBhdG9taWMgcGFnZSBmbGlw
+IGhlbHBlciBkb2Vzbid0IGdldC9wdXQgdmJsYW5rLiBIYXZlIHlvdSAKZG91YmxlLWNoZWNrZWQg
+dGhhdCByZW1vdmluZyB0aGVtIGlzbid0IGEgcHJvYmxlbSA/Cgo+IC0JaWYgKHJldCkKPiAtCQly
+ZXR1cm4gcmV0Owo+IC0KPiAtCXN0YXRlLT5hY3F1aXJlX2N0eCA9IGRybV9tb2Rlc2V0X2xlZ2Fj
+eV9hY3F1aXJlX2N0eChjcnRjKTsKPiAtcmV0cnk6Cj4gLQljcnRjX3N0YXRlID0gZHJtX2F0b21p
+Y19nZXRfY3J0Y19zdGF0ZShzdGF0ZSwgY3J0Yyk7Cj4gLQlpZiAoSVNfRVJSKGNydGNfc3RhdGUp
+KSB7Cj4gLQkJcmV0ID0gUFRSX0VSUihjcnRjX3N0YXRlKTsKPiAtCQlnb3RvIGZhaWw7Cj4gLQl9
+Cj4gLQljcnRjX3N0YXRlLT5ldmVudCA9IGV2ZW50Owo+IC0KPiAtCXBsYW5lX3N0YXRlID0gZHJt
+X2F0b21pY19nZXRfcGxhbmVfc3RhdGUoc3RhdGUsIHBsYW5lKTsKPiAtCWlmIChJU19FUlIocGxh
+bmVfc3RhdGUpKSB7Cj4gLQkJcmV0ID0gUFRSX0VSUihwbGFuZV9zdGF0ZSk7Cj4gLQkJZ290byBm
+YWlsOwo+IC0JfQo+IC0KPiAtCXJldCA9IGRybV9hdG9taWNfc2V0X2NydGNfZm9yX3BsYW5lKHBs
+YW5lX3N0YXRlLCBjcnRjKTsKPiAtCWlmIChyZXQgIT0gMCkKPiAtCQlnb3RvIGZhaWw7Cj4gLQlk
+cm1fYXRvbWljX3NldF9mYl9mb3JfcGxhbmUocGxhbmVfc3RhdGUsIGZiKTsKPiAtCj4gLQkvKiBN
+YWtlIHN1cmUgd2UgZG9uJ3QgYWNjaWRlbnRhbGx5IGRvIGEgZnVsbCBtb2Rlc2V0LiAqLwo+IC0J
+c3RhdGUtPmFsbG93X21vZGVzZXQgPSBmYWxzZTsKPiAtCWlmICghY3J0Y19zdGF0ZS0+YWN0aXZl
+KSB7Cj4gLQkJRFJNX0RFQlVHX0FUT01JQygiW0NSVEM6JWRdIGRpc2FibGVkLCByZWplY3Rpbmcg
+bGVnYWN5IApmbGlwXG4iLAo+IC0JCQkJIGNydGMtPmJhc2UuaWQpOwo+IC0JCXJldCA9IC1FSU5W
+QUw7Cj4gLQkJZ290byBmYWlsOwo+IC0JfQo+IC0JYWNydGMtPmZsaXBfZmxhZ3MgPSBmbGFnczsK
+PiAtCj4gLQlyZXQgPSBkcm1fYXRvbWljX25vbmJsb2NraW5nX2NvbW1pdChzdGF0ZSk7Cj4gLQo+
+IC1mYWlsOgo+IC0JaWYgKHJldCA9PSAtRURFQURMSykKPiAtCQlnb3RvIGJhY2tvZmY7Cj4gLQo+
+IC0JaWYgKHJldCkKPiAtCQlkcm1fY3J0Y192YmxhbmtfcHV0KGNydGMpOwo+IC0KPiAtCWRybV9h
+dG9taWNfc3RhdGVfcHV0KHN0YXRlKTsKPiAtCj4gLQlyZXR1cm4gcmV0Owo+IC1iYWNrb2ZmOgo+
+IC0JZHJtX2F0b21pY19zdGF0ZV9jbGVhcihzdGF0ZSk7Cj4gLQlkcm1fYXRvbWljX2xlZ2FjeV9i
+YWNrb2ZmKHN0YXRlKTsKPiAtCj4gLQkvKgo+IC0JICogU29tZW9uZSBtaWdodCBoYXZlIGV4Y2hh
+bmdlZCB0aGUgZnJhbWVidWZmZXIgd2hpbGUgd2UgZHJvcHBlZCBsb2Nrcwo+IC0JICogaW4gdGhl
+IGJhY2tvZmYgY29kZS4gV2UgbmVlZCB0byBmaXggdXAgdGhlIGZiIHJlZmNvdW50IHRyYWNraW5n
+IHRoZQo+IC0JICogY29yZSBkb2VzIGZvciB1cy4KPiAtCSAqLwo+IC0JcGxhbmUtPm9sZF9mYiA9
+IHBsYW5lLT5mYjsKPiAtCj4gLQlnb3RvIHJldHJ5Owo+IC19Cj4gLQo+ICAvKiBJbXBsZW1lbnRl
+ZCBvbmx5IHRoZSBvcHRpb25zIGN1cnJlbnRseSBhdmFpbGlibGUgZm9yIHRoZSBkcml2ZXIgKi8K
+PiAgc3RhdGljIGNvbnN0IHN0cnVjdCBkcm1fY3J0Y19mdW5jcyBhbWRncHVfZG1fY3J0Y19mdW5j
+cyA9IHsKPiAgCS5yZXNldCA9IGRybV9hdG9taWNfaGVscGVyX2NydGNfcmVzZXQsCj4gQEAgLTEx
+NDUsNyArMTA2OCw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2F0b21pY19oZWxwZXJfcGFnZV9mbGlw
+KHN0cnVjdAo+IGRybV9jcnRjICpjcnRjLCAuZGVzdHJveSA9IGFtZGdwdV9kbV9jcnRjX2Rlc3Ry
+b3ksCj4gIAkuZ2FtbWFfc2V0ID0gYW1kZ3B1X2RtX2F0b21pY19jcnRjX2dhbW1hX3NldCwKPiAg
+CS5zZXRfY29uZmlnID0gZHJtX2F0b21pY19oZWxwZXJfc2V0X2NvbmZpZywKPiAtCS5wYWdlX2Zs
+aXAgPSBhbWRncHVfYXRvbWljX2hlbHBlcl9wYWdlX2ZsaXAsCj4gKwkucGFnZV9mbGlwX3Rhcmdl
+dCA9IGRybV9hdG9taWNfaGVscGVyX3BhZ2VfZmxpcF90YXJnZXQsCj4gIAkuYXRvbWljX2R1cGxp
+Y2F0ZV9zdGF0ZSA9IGRybV9hdG9taWNfaGVscGVyX2NydGNfZHVwbGljYXRlX3N0YXRlLAo+ICAJ
+LmF0b21pY19kZXN0cm95X3N0YXRlID0gZHJtX2F0b21pY19oZWxwZXJfY3J0Y19kZXN0cm95X3N0
+YXRlLAo+ICAJLmF0b21pY19zZXRfcHJvcGVydHkgPSBkbV9jcnRjX2Z1bmNzX2F0b21pY19zZXRf
+cHJvcGVydHkKPiBAQCAtMTY3OSw3ICsxNjAyLDcgQEAgc3RhdGljIGJvb2wgcGFnZV9mbGlwX25l
+ZWRlZCgKPiAgCQkJCSAgICBzaXplb2Yob2xkX3N0YXRlX3RtcCkpID09IDAgPyB0cnVlOmZhbHNl
+Owo+ICAJaWYgKG5ld19zdGF0ZS0+Y3J0YyAmJiBwYWdlX2ZsaXBfcmVxdWlyZWQgPT0gZmFsc2Up
+IHsKPiAgCQlhY3J0Y19uZXcgPSB0b19hbWRncHVfY3J0YyhuZXdfc3RhdGUtPmNydGMpOwo+IC0J
+CWlmIChhY3J0Y19uZXctPmZsaXBfZmxhZ3MgJiBEUk1fTU9ERV9QQUdFX0ZMSVBfQVNZTkMpCj4g
+KwkJaWYgKG5ld19zdGF0ZS0+cGZsaXBfZmxhZ3MgJiBEUk1fTU9ERV9QQUdFX0ZMSVBfQVNZTkMp
+Cj4gIAkJCXBhZ2VfZmxpcF9yZXF1aXJlZCA9IHRydWU7Cj4gIAl9Cj4gIAlyZXR1cm4gcGFnZV9m
+bGlwX3JlcXVpcmVkOwo+IEBAIC0yNzYwLDcgKzI2ODMsNiBAQCBpbnQgYW1kZ3B1X2RtX2F0b21p
+Y19jb21taXQoCj4gIAlmb3JfZWFjaF9wbGFuZV9pbl9zdGF0ZShzdGF0ZSwgcGxhbmUsIG9sZF9w
+bGFuZV9zdGF0ZSwgaSkgewo+ICAJCXN0cnVjdCBkcm1fcGxhbmVfc3RhdGUgKnBsYW5lX3N0YXRl
+ID0gcGxhbmUtPnN0YXRlOwo+ICAJCXN0cnVjdCBkcm1fY3J0YyAqY3J0YyA9IHBsYW5lX3N0YXRl
+LT5jcnRjOwo+IC0JCXN0cnVjdCBhbWRncHVfY3J0YyAqYWNydGMgPSB0b19hbWRncHVfY3J0Yyhj
+cnRjKTsKPiAgCQlzdHJ1Y3QgZHJtX2ZyYW1lYnVmZmVyICpmYiA9IHBsYW5lX3N0YXRlLT5mYjsK
+PiAKPiAgCQlpZiAoIWZiIHx8ICFjcnRjIHx8ICFjcnRjLT5zdGF0ZS0+cGxhbmVzX2NoYW5nZWQg
+fHwKPiBAQCAtMjc3MSwxMCArMjY5Myw5IEBAIGludCBhbWRncHVfZG1fYXRvbWljX2NvbW1pdCgK
+PiAgCQkJcmV0ID0gYW1kZ3B1X2NydGNfcGFnZV9mbGlwX3RhcmdldChjcnRjLAo+ICAJCQkJCQkJ
+ICAgZmIsCj4gIAkJCQkJCQkgICBjcnRjLT5zdGF0ZS0+ZXZlbnQsCj4gLQkJCQkJCQkgICBhY3J0
+Yy0+ZmxpcF9mbGFncywKPiAtCQkJCQkJCSAgIApkcm1fY3J0Y192YmxhbmtfY291bnQoY3J0Yykp
+Owo+IC0JCQkvKmNsZWFuIHVwIHRoZSBmbGFncyBmb3IgbmV4dCB1c2FnZSovCj4gLQkJCWFjcnRj
+LT5mbGlwX2ZsYWdzID0gMDsKPiArCQkJCQkJCSAgIHBsYW5lX3N0YXRlLQo+cGZsaXBfZmxhZ3Ms
+Cj4gKwkJCQkJCQkgICBjcnRjLT5zdGF0ZS0KPnRhcmdldF92YmxhbmspOwo+ICsKPiAgCQkJaWYg
+KHJldCkKPiAgCQkJCWJyZWFrOwo+ICAJCX0KPiBAQCAtMzE0Myw4ICszMDY0LDcgQEAgaW50IGFt
+ZGdwdV9kbV9hdG9taWNfY2hlY2soc3RydWN0IGRybV9kZXZpY2UgKmRldiwKPiAgCQkJICogMS4g
+VGhpcyBjb21taXQgaXMgbm90IGEgcGFnZSBmbGlwLgo+ICAJCQkgKiAyLiBUaGlzIGNvbW1pdCBp
+cyBhIHBhZ2UgZmxpcCwgYW5kIHRhcmdldHMgYXJlIApjcmVhdGVkLgo+ICAJCQkgKi8KPiAtCQkJ
+aWYgKCFwYWdlX2ZsaXBfbmVlZGVkKHBsYW5lX3N0YXRlLCBvbGRfcGxhbmVfc3RhdGUsCj4gLQkJ
+CQkJICAgICAgdHJ1ZSkgfHwKPiArCQkJaWYgKCFwYWdlX2ZsaXBfbmVlZGVkKHBsYW5lX3N0YXRl
+LCBvbGRfcGxhbmVfc3RhdGUsIAp0cnVlKSB8fAoKVGhpcyBzZWVtcyB0byBiZSBhbiB1bnJlbGF0
+ZWQgY2hhbmdlLgoKPiAgCQkJCQlhY3Rpb24gPT0gRE1fQ09NTUlUX0FDVElPTl9EUE1TX09OIHx8
+Cj4gIAkJCQkJYWN0aW9uID09IERNX0NPTU1JVF9BQ1RJT05fU0VUKSB7Cj4gIAkJCQlzdHJ1Y3Qg
+ZGNfc3VyZmFjZSAqc3VyZmFjZTsKCi0tIApSZWdhcmRzLAoKTGF1cmVudCBQaW5jaGFydAoKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1h
+aWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
