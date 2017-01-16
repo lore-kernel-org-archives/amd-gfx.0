@@ -1,17 +1,16 @@
-From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: =?gb2312?B?tPC4tDogW1BBVENIIDMvM10gZHJtL2FtZGdwdTppbnZva2UgbWV0YS1kYXRh?=
- =?gb2312?Q?_write_around_cntx=5Fcntl?=
-Date: Mon, 16 Jan 2017 08:21:22 +0000
-Message-ID: <BY2PR1201MB1110254EE3F6E5B71C41201C847D0@BY2PR1201MB1110.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: =?UTF-8?Q?Re:_=e7=ad=94=e5=a4=8d:_[PATCH_2/3]_drm/amdgpu:implement_?=
+ =?UTF-8?Q?META-DATA_write_routines?=
+Date: Mon, 16 Jan 2017 11:50:23 +0100
+Message-ID: <d6a5c11f-713a-d2f5-f620-cfae5e4e2423@vodafone.de>
 References: <1484206893-18806-1-git-send-email-Monk.Liu@amd.com>
- <1484206893-18806-4-git-send-email-Monk.Liu@amd.com>
- <CADnq5_Pe=z1hG9RBXPZ1KGfPHEHqksm9PBJdfeNdKsQDOK59eQ@mail.gmail.com>,
- <CADnq5_M3ig9C3N7V6B=5n3XJ8eYy5foucWtG+3V3LqSL80uR2A@mail.gmail.com>
+ <1484206893-18806-3-git-send-email-Monk.Liu@amd.com>
+ <b750813c-5af3-5353-2f08-5b54e0495375@vodafone.de>
+ <BY2PR1201MB111021CE95196ED42C7694E4847D0@BY2PR1201MB1110.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1887758279=="
+Content-Type: multipart/mixed; boundary="===============2008902084=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_M3ig9C3N7V6B=5n3XJ8eYy5foucWtG+3V3LqSL80uR2A-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: zh-CN
+In-Reply-To: <BY2PR1201MB111021CE95196ED42C7694E4847D0-O28G1zQ8oGliQkyLPkmea2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,269 +21,470 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1887758279==
-Content-Language: zh-CN
+This is a multi-part message in MIME format.
+--===============2008902084==
 Content-Type: multipart/alternative;
-	boundary="_000_BY2PR1201MB1110254EE3F6E5B71C41201C847D0BY2PR1201MB1110_"
+ boundary="------------E941B9AFBCD98DD509A0B8CE"
 
---_000_BY2PR1201MB1110254EE3F6E5B71C41201C847D0BY2PR1201MB1110_
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+This is a multi-part message in MIME format.
+--------------E941B9AFBCD98DD509A0B8CE
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-b2theSwgdGhhbmtzDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQq3orz+yMs6
-IEFsZXggRGV1Y2hlciA8YWxleGRldWNoZXJAZ21haWwuY29tPg0Kt6LLzcqxvOQ6IDIwMTfE6jHU
-wjE0yNUgMDozNTo0NQ0KytW8/sjLOiBMaXUsIE1vbmsNCrOty806IGFtZC1nZnggbGlzdA0K1vfM
-4jogUmU6IFtQQVRDSCAzLzNdIGRybS9hbWRncHU6aW52b2tlIG1ldGEtZGF0YSB3cml0ZSBhcm91
-bmQgY250eF9jbnRsDQoNCk9uIEZyaSwgSmFuIDEzLCAyMDE3IGF0IDExOjI4IEFNLCBBbGV4IERl
-dWNoZXIgPGFsZXhkZXVjaGVyQGdtYWlsLmNvbT4gd3JvdGU6DQo+IE9uIFRodSwgSmFuIDEyLCAy
-MDE3IGF0IDI6NDEgQU0sIE1vbmsgTGl1IDxNb25rLkxpdUBhbWQuY29tPiB3cm90ZToNCj4+IGNl
-J3MgTUVUQS1EQVRBIHdyaXRlIG5lZWQgcHJpb3IgdG8gY250eF9jbnRybCBwYWNrYWdlDQo+PiBh
-bmQgZGUncyBzaG91bGQgZm9sbG93aW5nLg0KPj4NCj4+IENoYW5nZS1JZDogSTJiZjQzNmQ4YTE2
-YmFlMzhjZTQ4NGY4NDZmMGIzOTllMTZjZmU4MGENCj4+IFNpZ25lZC1vZmYtYnk6IE1vbmsgTGl1
-IDxNb25rLkxpdUBhbWQuY29tPg0KPg0KPiBSZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4
-YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0KQWN0dWFsbHksIEkgdGFrZSB0aGF0IGJhY2suICBBIGZl
-dyBjb21tZW50cyBiZWxvdy4NCg0KPg0KPj4gLS0tDQo+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1LmggICAgfCAxICsNCj4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfaWIuYyB8IDMgKysrDQo+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4
-XzAuYyAgfCA4ICsrKysrKysrDQo+PiAgMyBmaWxlcyBjaGFuZ2VkLCAxMiBpbnNlcnRpb25zKCsp
-DQo+Pg0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5o
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgNCj4+IGluZGV4IDIwMzlkYTcu
-LmI3Zjc2NzkgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHUuaA0KPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgNCj4+IEBA
-IC05NTMsNiArOTUzLDcgQEAgc3RydWN0IGFtZGdwdV9jc19wYXJzZXIgew0KPj4gICNkZWZpbmUg
-QU1ER1BVX1BSRUFNQkxFX0lCX1BSRVNFTlQgICAgICAgICAgKDEgPDwgMCkgLyogYml0IHNldCBt
-ZWFucyBjb21tYW5kIHN1Ym1pdCBpbnZvbHZlcyBhIHByZWFtYmxlIElCICovDQo+PiAgI2RlZmlu
-ZSBBTURHUFVfUFJFQU1CTEVfSUJfUFJFU0VOVF9GSVJTVCAgICAoMSA8PCAxKSAvKiBiaXQgc2V0
-IG1lYW5zIHByZWFtYmxlIElCIGlzIGZpcnN0IHByZXNlbnRlZCBpbiBiZWxvbmdpbmcgY29udGV4
-dCAqLw0KPj4gICNkZWZpbmUgQU1ER1BVX0hBVkVfQ1RYX1NXSVRDSCAgICAgICAgICAgICAgKDEg
-PDwgMikgLyogYml0IHNldCBtZWFucyBjb250ZXh0IHN3aXRjaCBvY2N1cmVkICovDQo+PiArI2Rl
-ZmluZSBBTURHUFVfVk1fRE9NQUlOICAgICAgICAgICAgICAgICAgICAoMSA8PCAzKSAvKiBiaXQg
-c2V0IG1lYW5zIGluIHZpcnR1YWwgbWVtb3J5IGNvbnRleHQgKi8NCj4+DQo+PiAgc3RydWN0IGFt
-ZGdwdV9qb2Igew0KPj4gICAgICAgICBzdHJ1Y3QgYW1kX3NjaGVkX2pvYiAgICBiYXNlOw0KPj4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pYi5jIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2liLmMNCj4+IGluZGV4IDE2MzA4ZWIuLjY5
-Mzk4MjIgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-aWIuYw0KPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2liLmMNCj4+
-IEBAIC0xODQsNiArMTg0LDkgQEAgaW50IGFtZGdwdV9pYl9zY2hlZHVsZShzdHJ1Y3QgYW1kZ3B1
-X3JpbmcgKnJpbmcsIHVuc2lnbmVkIG51bV9pYnMsDQo+PiAgICAgICAgICAgICAgICAgaWYgKG5l
-ZWRfY3R4X3N3aXRjaCkNCj4+ICAgICAgICAgICAgICAgICAgICAgICAgIHN0YXR1cyB8PSBBTURH
-UFVfSEFWRV9DVFhfU1dJVENIOw0KPj4gICAgICAgICAgICAgICAgIHN0YXR1cyB8PSBqb2ItPnBy
-ZWFtYmxlX3N0YXR1czsNCj4+ICsNCj4+ICsgICAgICAgICAgICAgICBpZiAodm0pDQo+PiArICAg
-ICAgICAgICAgICAgICAgICAgICBzdGF0dXMgfD0gQU1ER1BVX1ZNX0RPTUFJTjsNCj4+ICAgICAg
-ICAgICAgICAgICBhbWRncHVfcmluZ19lbWl0X2NudHhjbnRsKHJpbmcsIHN0YXR1cyk7DQo+PiAg
-ICAgICAgIH0NCj4+DQoNClRoaXMgdG9wIGNodW5rIHNob3VsZCBiZSBhIHNlcGFyYXRlIHBhdGNo
-Lg0KDQoNCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhf
-MC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYw0KPj4gaW5kZXggM2U4
-Y2ZmMy4uOGE1YzgxOCAxMDA2NDQNCj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2dmeF92OF8wLmMNCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8w
-LmMNCj4+IEBAIC02NzA0LDYgKzY3MDQsMTAgQEAgc3RhdGljIHZvaWQgZ2Z4X3Y4X3JpbmdfZW1p
-dF9jbnR4Y250bChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHVpbnQzMl90IGZsYWdzKQ0KPj4g
-IHsNCj4+ICAgICAgICAgdWludDMyX3QgZHcyID0gMDsNCj4+DQo+PiArICAgICAgIGlmIChhbWRn
-cHVfc3Jpb3ZfdmYocmluZy0+YWRldikpDQo+PiArICAgICAgICAgICAgICAgZ2Z4X3Y4XzBfcmlu
-Z19lbWl0X2NlX21ldGFfaW5pdChyaW5nLA0KPj4gKyAgICAgICAgICAgICAgICAgICAgICAgKGZs
-YWdzICYgQU1ER1BVX1ZNX0RPTUFJTikgPyBBTURHUFVfQ1NBX1ZBRERSIDogcmluZy0+YWRldi0+
-dmlydC5jc2Ffdm1pZDBfYWRkcik7DQo+PiArDQo+PiAgICAgICAgIGR3MiB8PSAweDgwMDAwMDAw
-OyAvKiBzZXQgbG9hZF9lbmFibGUgb3RoZXJ3aXNlIHRoaXMgcGFja2FnZSBpcyBqdXN0IE5PUHMg
-Ki8NCj4+ICAgICAgICAgaWYgKGZsYWdzICYgQU1ER1BVX0hBVkVfQ1RYX1NXSVRDSCkgew0KPj4g
-ICAgICAgICAgICAgICAgIGdmeF92OF8wX3JpbmdfZW1pdF92Z3RfZmx1c2gocmluZyk7DQo+PiBA
-QCAtNjcyOCw2ICs2NzMyLDEwIEBAIHN0YXRpYyB2b2lkIGdmeF92OF9yaW5nX2VtaXRfY250eGNu
-dGwoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCB1aW50MzJfdCBmbGFncykNCj4+ICAgICAgICAg
-YW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgUEFDS0VUMyhQQUNLRVQzX0NPTlRFWFRfQ09OVFJPTCwg
-MSkpOw0KPj4gICAgICAgICBhbWRncHVfcmluZ193cml0ZShyaW5nLCBkdzIpOw0KPj4gICAgICAg
-ICBhbWRncHVfcmluZ193cml0ZShyaW5nLCAwKTsNCj4+ICsNCj4+ICsgICAgICAgaWYgKGFtZGdw
-dV9zcmlvdl92ZihyaW5nLT5hZGV2KSkNCj4+ICsgICAgICAgICAgICAgICBnZnhfdjhfMF9yaW5n
-X2VtaXRfZGVfbWV0YV9pbml0KHJpbmcsDQo+PiArICAgICAgICAgICAgICAgICAgICAgICAoZmxh
-Z3MgJiBBTURHUFVfVk1fRE9NQUlOKSA/IEFNREdQVV9DU0FfVkFERFIgOiByaW5nLT5hZGV2LT52
-aXJ0LmNzYV92bWlkMF9hZGRyKTsNCj4+ICB9DQo+Pg0KDQpJIHRoaW5rIHlvdSBuZWVkIHRvIHVw
-ZGF0ZSB0aGUgZW1pdF9mcmFtZV9zaXplIHRvIHJlZmxlY3QgdGhlIGxhcmdlciBmcmFtZS4NCg0K
-Pj4gIHN0YXRpYyB2b2lkIGdmeF92OF8wX3NldF9nZnhfZW9wX2ludGVycnVwdF9zdGF0ZShzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4+IC0tDQo+PiAyLjcuNA0KPj4NCj4+IF9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+PiBhbWQtZ2Z4IG1haWxp
-bmcgbGlzdA0KPj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4+IGh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0K
+That is perfectly fine as long as you add the code using it in the same 
+set of patches.
 
---_000_BY2PR1201MB1110254EE3F6E5B71C41201C847D0BY2PR1201MB1110_
-Content-Type: text/html; charset="gb2312"
-Content-Transfer-Encoding: quoted-printable
+What we should avoid is adding a lot of code and then not using for for 
+quite some time, that get certainly removed sooner or later.
+
+Regards,
+Christian.
+
+Am 16.01.2017 um 09:20 schrieb Liu, Monk:
+>
+> if ring_write_multiple is organized in a separate patch, doesn't it 
+> introduces an function that no client using it ??
+>
+>
+> fine by me although ...
+>
+>
+> BR Monk
+>
+> ------------------------------------------------------------------------
+> *发件人:* Christian König <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+> *发送时间:* 2017年1月12日 20:27:48
+> *收件人:* Liu, Monk; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> *主题:* Re: [PATCH 2/3] drm/amdgpu:implement META-DATA write routines
+> Am 12.01.2017 um 08:41 schrieb Monk Liu:
+> > Change-Id: I66007a7f7e4e27fb129121f36143dce3cfb43738
+> > Signed-off-by: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu.h   | 31 ++++++++++++++++++
+> >   drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 61 
+> +++++++++++++++++++++++++++++++++++
+> >   2 files changed, 92 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > index e9983fb..2039da7 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > @@ -1599,6 +1599,37 @@ static inline void amdgpu_ring_write(struct 
+> amdgpu_ring *ring, uint32_t v)
+> >        ring->count_dw--;
+> >   }
+> >
+> > +static inline void amdgpu_ring_write_multiple(struct amdgpu_ring 
+> *ring, void *src, int count_dw)
+> > +{
+> > +     unsigned occupied, chunk1, chunk2;
+> > +     void *dst;
+> > +
+> > +     if (ring->count_dw < count_dw)
+> > +             DRM_ERROR("amdgpu: writing more dwords to the ring 
+> than expected!\n");
+> > +     else {
+>
+> Coding style says when either the "if" or the "else" branch uses "{" and
+> "}" both should use them.
+>
+> I think even better would be to use a return statement in the "if",
+> cause this is just checking the prerequisites for errors.
+>
+> Additional to that adding this function should be a separate patch.
+>
+> Christian.
+>
+> > +             occupied = ring->wptr & ring->ptr_mask;
+> > +             dst = (void *)&ring->ring[occupied];
+> > +             chunk1 = ring->ptr_mask + 1 - occupied;
+> > +             chunk1 = (chunk1 >= count_dw) ? count_dw: chunk1;
+> > +             chunk2 = count_dw - chunk1;
+> > +             chunk1 <<= 2;
+> > +             chunk2 <<= 2;
+> > +             if (chunk1) {
+> > +                     memcpy(dst, src, chunk1);
+> > +             }
+> > +
+> > +             if (chunk2) {
+> > +                     src += chunk1;
+> > +                     dst = (void *)ring->ring;
+> > +                     memcpy(dst, src, chunk2);
+> > +             }
+> > +
+> > +             ring->wptr += count_dw;
+> > +             ring->wptr &= ring->ptr_mask;
+> > +             ring->count_dw -= count_dw;
+> > +     }
+> > +}
+> > +
+> >   static inline struct amdgpu_sdma_instance *
+> >   amdgpu_get_sdma_instance(struct amdgpu_ring *ring)
+> >   {
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c 
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> > index 375784d..3e8cff3 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> > @@ -657,6 +657,8 @@ static void gfx_v8_0_set_gds_init(struct 
+> amdgpu_device *adev);
+> >   static void gfx_v8_0_set_rlc_funcs(struct amdgpu_device *adev);
+> >   static u32 gfx_v8_0_get_csb_size(struct amdgpu_device *adev);
+> >   static void gfx_v8_0_get_cu_info(struct amdgpu_device *adev);
+> > +static void gfx_v8_0_ring_emit_ce_meta_init(struct amdgpu_ring 
+> *ring, uint64_t addr);
+> > +static void gfx_v8_0_ring_emit_de_meta_init(struct amdgpu_ring 
+> *ring, uint64_t addr);
+> >
+> >   static void gfx_v8_0_init_golden_registers(struct amdgpu_device *adev)
+> >   {
+> > @@ -7212,3 +7214,62 @@ const struct amdgpu_ip_block_version 
+> gfx_v8_1_ip_block =
+> >        .rev = 0,
+> >        .funcs = &gfx_v8_0_ip_funcs,
+> >   };
+> > +
+> > +static void gfx_v8_0_ring_emit_ce_meta_init(struct amdgpu_ring 
+> *ring, uint64_t csa_addr)
+> > +{
+> > +     uint64_t ce_payload_addr;
+> > +     int cnt_ce;
+> > +     static union {
+> > +             struct amdgpu_ce_ib_state regular;
+> > +             struct amdgpu_ce_ib_state_chained_ib chained;
+> > +     } ce_payload = {0};
+> > +
+> > +     if (ring->adev->virt.chained_ib_support) {
+> > +             ce_payload_addr = csa_addr + offsetof(struct 
+> amdgpu_gfx_meta_data_chained_ib, ce_payload);
+> > +             cnt_ce = (sizeof(ce_payload.chained) >> 2) + 4 - 2;
+> > +     } else {
+> > +             ce_payload_addr = csa_addr + offsetof(struct 
+> amdgpu_gfx_meta_data, ce_payload);
+> > +             cnt_ce = (sizeof(ce_payload.regular) >> 2) + 4 - 2;
+> > +     }
+> > +
+> > +     amdgpu_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, cnt_ce));
+> > +     amdgpu_ring_write(ring, (WRITE_DATA_ENGINE_SEL(2) |
+> > +                             WRITE_DATA_DST_SEL(8) |
+> > +                             WR_CONFIRM) |
+> > + WRITE_DATA_CACHE_POLICY(0));
+> > +     amdgpu_ring_write(ring, lower_32_bits(ce_payload_addr));
+> > +     amdgpu_ring_write(ring, upper_32_bits(ce_payload_addr));
+> > +     amdgpu_ring_write_multiple(ring, (void *)&ce_payload, cnt_ce - 2);
+> > +}
+> > +
+> > +static void gfx_v8_0_ring_emit_de_meta_init(struct amdgpu_ring 
+> *ring, uint64_t csa_addr)
+> > +{
+> > +     uint64_t de_payload_addr, gds_addr;
+> > +     int cnt_de;
+> > +     static union {
+> > +             struct amdgpu_de_ib_state regular;
+> > +             struct amdgpu_de_ib_state_chained_ib chained;
+> > +     } de_payload = {0};
+> > +
+> > +     gds_addr = csa_addr + 4096;
+> > +     if (ring->adev->virt.chained_ib_support) {
+> > +             de_payload.chained.gds_backup_addrlo = 
+> lower_32_bits(gds_addr);
+> > +             de_payload.chained.gds_backup_addrhi = 
+> upper_32_bits(gds_addr);
+> > +             de_payload_addr = csa_addr + offsetof(struct 
+> amdgpu_gfx_meta_data_chained_ib, de_payload);
+> > +             cnt_de = (sizeof(de_payload.chained) >> 2) + 4 - 2;
+> > +     } else {
+> > +             de_payload.regular.gds_backup_addrlo = 
+> lower_32_bits(gds_addr);
+> > +             de_payload.regular.gds_backup_addrhi = 
+> upper_32_bits(gds_addr);
+> > +             de_payload_addr = csa_addr + offsetof(struct 
+> amdgpu_gfx_meta_data, de_payload);
+> > +             cnt_de = (sizeof(de_payload.regular) >> 2) + 4 - 2;
+> > +     }
+> > +
+> > +     amdgpu_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, cnt_de));
+> > +     amdgpu_ring_write(ring, (WRITE_DATA_ENGINE_SEL(1) |
+> > +                             WRITE_DATA_DST_SEL(8) |
+> > +                             WR_CONFIRM) |
+> > + WRITE_DATA_CACHE_POLICY(0));
+> > +     amdgpu_ring_write(ring, lower_32_bits(de_payload_addr));
+> > +     amdgpu_ring_write(ring, upper_32_bits(de_payload_addr));
+> > +     amdgpu_ring_write_multiple(ring, (void *)&de_payload, cnt_de - 2);
+> > +}
+>
+>
+
+
+--------------E941B9AFBCD98DD509A0B8CE
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
 <html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dgb2312">
-<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
-<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
-ding-left: 4pt; border-left: #800000 2px solid; } --></style>
-</head>
-<body>
-<meta content=3D"text/html; charset=3DUTF-8">
-<style type=3D"text/css" style=3D"">
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <div class="moz-cite-prefix">That is perfectly fine as long as you
+      add the code using it in the same set of patches.<br>
+      <br>
+      What we should avoid is adding a lot of code and then not using
+      for for quite some time, that get certainly removed sooner or
+      later.<br>
+      <br>
+      Regards,<br>
+      Christian.<br>
+      <br>
+      Am 16.01.2017 um 09:20 schrieb Liu, Monk:<br>
+    </div>
+    <blockquote
+cite="mid:BY2PR1201MB111021CE95196ED42C7694E4847D0-O28G1zQ8oGliQkyLPkmea2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org"
+      type="cite">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="Generator" content="Microsoft Exchange Server">
+      <!-- converted from text -->
+      <style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left: #800000 2px solid; } --></style>
+      <meta content="text/html; charset=UTF-8">
+      <style type="text/css" style="">
 <!--
 p
 	{margin-top:0;
 	margin-bottom:0}
 -->
 </style>
-<div dir=3D"ltr">
-<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
-or:#000000; font-family:Calibri,Arial,Helvetica,sans-serif">
-<p>okay, thanks <br>
-</p>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>=B7=A2=BC=FE=C8=CB:</b> Alex =
-Deucher &lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>=B7=A2=CB=CD=CA=B1=BC=E4:</b> 2017=C4=EA1=D4=C214=C8=D5 0:35:45<br>
-<b>=CA=D5=BC=FE=C8=CB:</b> Liu, Monk<br>
-<b>=B3=AD=CB=CD:</b> amd-gfx list<br>
-<b>=D6=F7=CC=E2:</b> Re: [PATCH 3/3] drm/amdgpu:invoke meta-data write arou=
-nd cntx_cntl</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">On Fri, Jan 13, 2017 at 11:28 AM, Alex Deucher &lt=
-;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt; wrote:<br>
-&gt; On Thu, Jan 12, 2017 at 2:41 AM, Monk Liu &lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt; wro=
-te:<br>
-&gt;&gt; ce's META-DATA write need prior to cntx_cntrl package<br>
-&gt;&gt; and de's should following.<br>
-&gt;&gt;<br>
-&gt;&gt; Change-Id: I2bf436d8a16bae38ce484f846f0b399e16cfe80a<br>
-&gt;&gt; Signed-off-by: Monk Liu &lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt;<br>
-&gt; Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-Actually, I take that back.&nbsp; A few comments below.<br>
-<br>
-&gt;<br>
-&gt;&gt; ---<br>
-&gt;&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp; | 1 &#=
-43;<br>
-&gt;&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c | 3 &#43;&#43;&#43;<b=
-r>
-&gt;&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c&nbsp; | 8 &#43;&#43;&#=
-43;&#43;&#43;&#43;&#43;&#43;<br>
-&gt;&gt;&nbsp; 3 files changed, 12 insertions(&#43;)<br>
-&gt;&gt;<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu.h<br>
-&gt;&gt; index 2039da7..b7f7679 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-&gt;&gt; @@ -953,6 &#43;953,7 @@ struct amdgpu_cs_parser {<br>
-&gt;&gt;&nbsp; #define AMDGPU_PREAMBLE_IB_PRESENT&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; (1 &lt;&lt; 0) /* bit set means command submit=
- involves a preamble IB */<br>
-&gt;&gt;&nbsp; #define AMDGPU_PREAMBLE_IB_PRESENT_FIRST&nbsp;&nbsp;&nbsp; (=
-1 &lt;&lt; 1) /* bit set means preamble IB is first presented in belonging =
-context */<br>
-&gt;&gt;&nbsp; #define AMDGPU_HAVE_CTX_SWITCH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1 &lt;&lt; 2) /* bit set =
-means context switch occured */<br>
-&gt;&gt; &#43;#define AMDGPU_VM_DOMAIN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; (1 &lt;&lt; 3) /* bit set means in virtual memory context */<br>
-&gt;&gt;<br>
-&gt;&gt;&nbsp; struct amdgpu_job {<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amd_sched_j=
-ob&nbsp;&nbsp;&nbsp; base;<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_ib.c<br>
-&gt;&gt; index 16308eb..6939822 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c<br>
-&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c<br>
-&gt;&gt; @@ -184,6 &#43;184,9 @@ int amdgpu_ib_schedule(struct amdgpu_ring =
-*ring, unsigned num_ibs,<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (need_ctx_switch)<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; status |=3D AMDGPU_HAVE_CTX_SWITCH;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp; status |=3D job-&gt;preamble_status;<br>
-&gt;&gt; &#43;<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; if (vm)<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sta=
-tus |=3D AMDGPU_VM_DOMAIN;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_emit_cntxcntl(ring, status);<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt;<br>
-<br>
-This top chunk should be a separate patch.<br>
-<br>
-<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/d=
-rm/amd/amdgpu/gfx_v8_0.c<br>
-&gt;&gt; index 3e8cff3..8a5c818 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
-&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
-&gt;&gt; @@ -6704,6 &#43;6704,10 @@ static void gfx_v8_ring_emit_cntxcntl(s=
-truct amdgpu_ring *ring, uint32_t flags)<br>
-&gt;&gt;&nbsp; {<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t dw2 =3D 0=
-;<br>
-&gt;&gt;<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(ring=
--&gt;adev))<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; gfx_v8_0_ring_emit_ce_meta_init(ring,<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (fl=
-ags &amp; AMDGPU_VM_DOMAIN) ? AMDGPU_CSA_VADDR : ring-&gt;adev-&gt;virt.csa=
-_vmid0_addr);<br>
-&gt;&gt; &#43;<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dw2 |=3D 0x8000000=
-0; /* set load_enable otherwise this package is just NOPs */<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (flags &amp; AM=
-DGPU_HAVE_CTX_SWITCH) {<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx_v8_0_ring_emit_vgt_flush(ring);<br>
-&gt;&gt; @@ -6728,6 &#43;6732,10 @@ static void gfx_v8_ring_emit_cntxcntl(s=
-truct amdgpu_ring *ring, uint32_t flags)<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(=
-ring, PACKET3(PACKET3_CONTEXT_CONTROL, 1));<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(=
-ring, dw2);<br>
-&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(=
-ring, 0);<br>
-&gt;&gt; &#43;<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(ring=
--&gt;adev))<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; gfx_v8_0_ring_emit_de_meta_init(ring,<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (fl=
-ags &amp; AMDGPU_VM_DOMAIN) ? AMDGPU_CSA_VADDR : ring-&gt;adev-&gt;virt.csa=
-_vmid0_addr);<br>
-&gt;&gt;&nbsp; }<br>
-&gt;&gt;<br>
-<br>
-I think you need to update the emit_frame_size to reflect the larger frame.=
-<br>
-<br>
-&gt;&gt;&nbsp; static void gfx_v8_0_set_gfx_eop_interrupt_state(struct amdg=
-pu_device *adev,<br>
-&gt;&gt; --<br>
-&gt;&gt; 2.7.4<br>
-&gt;&gt;<br>
-&gt;&gt; _______________________________________________<br>
-&gt;&gt; amd-gfx mailing list<br>
-&gt;&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt;&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx"=
->https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font>
-</body>
+      <div dir="ltr">
+        <div id="x_divtagdefaultwrapper" dir="ltr"
+          style="font-size:12pt; color:#000000;
+          font-family:Calibri,Arial,Helvetica,sans-serif">
+          <p>if ring_write_multiple is organized in a separate patch,
+            doesn't it introduces an function that no client using it ??</p>
+          <p><br>
+          </p>
+          <p>fine by me although ...<br>
+          </p>
+          <p><br>
+          </p>
+          <p>BR Monk<br>
+          </p>
+        </div>
+        <hr tabindex="-1" style="display:inline-block; width:98%">
+        <div id="x_divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
+            color="#000000" face="Calibri, sans-serif"><b>发件人:</b>
+            Christian König <a class="moz-txt-link-rfc2396E" href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">&lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;</a><br>
+            <b>发送时间:</b> 2017年1月12日 20:27:48<br>
+            <b>收件人:</b> Liu, Monk; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+            <b>主题:</b> Re: [PATCH 2/3] drm/amdgpu:implement META-DATA
+            write routines</font>
+          <div> </div>
+        </div>
+      </div>
+      <font size="2"><span style="font-size:10pt;">
+          <div class="PlainText">Am 12.01.2017 um 08:41 schrieb Monk
+            Liu:<br>
+            &gt; Change-Id: I66007a7f7e4e27fb129121f36143dce3cfb43738<br>
+            &gt; Signed-off-by: Monk Liu <a class="moz-txt-link-rfc2396E" href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org">&lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+            &gt; ---<br>
+            &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu.h   | 31
+            ++++++++++++++++++<br>
+            &gt;   drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 61
+            +++++++++++++++++++++++++++++++++++<br>
+            &gt;   2 files changed, 92 insertions(+)<br>
+            &gt;<br>
+            &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+            b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+            &gt; index e9983fb..2039da7 100644<br>
+            &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+            &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+            &gt; @@ -1599,6 +1599,37 @@ static inline void
+            amdgpu_ring_write(struct amdgpu_ring *ring, uint32_t v)<br>
+            &gt;        ring-&gt;count_dw--;<br>
+            &gt;   }<br>
+            &gt;   <br>
+            &gt; +static inline void amdgpu_ring_write_multiple(struct
+            amdgpu_ring *ring, void *src, int count_dw)<br>
+            &gt; +{<br>
+            &gt; +     unsigned occupied, chunk1, chunk2;<br>
+            &gt; +     void *dst;<br>
+            &gt; +<br>
+            &gt; +     if (ring-&gt;count_dw &lt; count_dw)<br>
+            &gt; +             DRM_ERROR("amdgpu: writing more dwords to
+            the ring than expected!\n");<br>
+            &gt; +     else {<br>
+            <br>
+            Coding style says when either the "if" or the "else" branch
+            uses "{" and <br>
+            "}" both should use them.<br>
+            <br>
+            I think even better would be to use a return statement in
+            the "if", <br>
+            cause this is just checking the prerequisites for errors.<br>
+            <br>
+            Additional to that adding this function should be a separate
+            patch.<br>
+            <br>
+            Christian.<br>
+            <br>
+            &gt; +             occupied = ring-&gt;wptr &amp;
+            ring-&gt;ptr_mask;<br>
+            &gt; +             dst = (void
+            *)&amp;ring-&gt;ring[occupied];<br>
+            &gt; +             chunk1 = ring-&gt;ptr_mask + 1 -
+            occupied;<br>
+            &gt; +             chunk1 = (chunk1 &gt;= count_dw) ?
+            count_dw: chunk1;<br>
+            &gt; +             chunk2 = count_dw - chunk1;<br>
+            &gt; +             chunk1 &lt;&lt;= 2;<br>
+            &gt; +             chunk2 &lt;&lt;= 2;<br>
+            &gt; +             if (chunk1) {<br>
+            &gt; +                     memcpy(dst, src, chunk1);<br>
+            &gt; +             }<br>
+            &gt; +<br>
+            &gt; +             if (chunk2) {<br>
+            &gt; +                     src += chunk1;<br>
+            &gt; +                     dst = (void *)ring-&gt;ring;<br>
+            &gt; +                     memcpy(dst, src, chunk2);<br>
+            &gt; +             }<br>
+            &gt; +<br>
+            &gt; +             ring-&gt;wptr += count_dw;<br>
+            &gt; +             ring-&gt;wptr &amp;= ring-&gt;ptr_mask;<br>
+            &gt; +             ring-&gt;count_dw -= count_dw;<br>
+            &gt; +     }<br>
+            &gt; +}<br>
+            &gt; +<br>
+            &gt;   static inline struct amdgpu_sdma_instance *<br>
+            &gt;   amdgpu_get_sdma_instance(struct amdgpu_ring *ring)<br>
+            &gt;   {<br>
+            &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+            b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
+            &gt; index 375784d..3e8cff3 100644<br>
+            &gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
+            &gt; +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
+            &gt; @@ -657,6 +657,8 @@ static void
+            gfx_v8_0_set_gds_init(struct amdgpu_device *adev);<br>
+            &gt;   static void gfx_v8_0_set_rlc_funcs(struct
+            amdgpu_device *adev);<br>
+            &gt;   static u32 gfx_v8_0_get_csb_size(struct amdgpu_device
+            *adev);<br>
+            &gt;   static void gfx_v8_0_get_cu_info(struct amdgpu_device
+            *adev);<br>
+            &gt; +static void gfx_v8_0_ring_emit_ce_meta_init(struct
+            amdgpu_ring *ring, uint64_t addr);<br>
+            &gt; +static void gfx_v8_0_ring_emit_de_meta_init(struct
+            amdgpu_ring *ring, uint64_t addr);<br>
+            &gt;   <br>
+            &gt;   static void gfx_v8_0_init_golden_registers(struct
+            amdgpu_device *adev)<br>
+            &gt;   {<br>
+            &gt; @@ -7212,3 +7214,62 @@ const struct
+            amdgpu_ip_block_version gfx_v8_1_ip_block =<br>
+            &gt;        .rev = 0,<br>
+            &gt;        .funcs = &amp;gfx_v8_0_ip_funcs,<br>
+            &gt;   };<br>
+            &gt; +<br>
+            &gt; +static void gfx_v8_0_ring_emit_ce_meta_init(struct
+            amdgpu_ring *ring, uint64_t csa_addr)<br>
+            &gt; +{<br>
+            &gt; +     uint64_t ce_payload_addr;<br>
+            &gt; +     int cnt_ce;<br>
+            &gt; +     static union {<br>
+            &gt; +             struct amdgpu_ce_ib_state regular;<br>
+            &gt; +             struct amdgpu_ce_ib_state_chained_ib
+            chained;<br>
+            &gt; +     } ce_payload = {0};<br>
+            &gt; +<br>
+            &gt; +     if (ring-&gt;adev-&gt;virt.chained_ib_support) {<br>
+            &gt; +             ce_payload_addr = csa_addr +
+            offsetof(struct amdgpu_gfx_meta_data_chained_ib,
+            ce_payload);<br>
+            &gt; +             cnt_ce = (sizeof(ce_payload.chained)
+            &gt;&gt; 2) + 4 - 2;<br>
+            &gt; +     } else {<br>
+            &gt; +             ce_payload_addr = csa_addr +
+            offsetof(struct amdgpu_gfx_meta_data, ce_payload);<br>
+            &gt; +             cnt_ce = (sizeof(ce_payload.regular)
+            &gt;&gt; 2) + 4 - 2;<br>
+            &gt; +     }<br>
+            &gt; +<br>
+            &gt; +     amdgpu_ring_write(ring,
+            PACKET3(PACKET3_WRITE_DATA, cnt_ce));<br>
+            &gt; +     amdgpu_ring_write(ring, (WRITE_DATA_ENGINE_SEL(2)
+            |<br>
+            &gt; +                             WRITE_DATA_DST_SEL(8) |<br>
+            &gt; +                             WR_CONFIRM) |<br>
+            &gt; +                            
+            WRITE_DATA_CACHE_POLICY(0));<br>
+            &gt; +     amdgpu_ring_write(ring,
+            lower_32_bits(ce_payload_addr));<br>
+            &gt; +     amdgpu_ring_write(ring,
+            upper_32_bits(ce_payload_addr));<br>
+            &gt; +     amdgpu_ring_write_multiple(ring, (void
+            *)&amp;ce_payload, cnt_ce - 2);<br>
+            &gt; +}<br>
+            &gt; +<br>
+            &gt; +static void gfx_v8_0_ring_emit_de_meta_init(struct
+            amdgpu_ring *ring, uint64_t csa_addr)<br>
+            &gt; +{<br>
+            &gt; +     uint64_t de_payload_addr, gds_addr;<br>
+            &gt; +     int cnt_de;<br>
+            &gt; +     static union {<br>
+            &gt; +             struct amdgpu_de_ib_state regular;<br>
+            &gt; +             struct amdgpu_de_ib_state_chained_ib
+            chained;<br>
+            &gt; +     } de_payload = {0};<br>
+            &gt; +<br>
+            &gt; +     gds_addr = csa_addr + 4096;<br>
+            &gt; +     if (ring-&gt;adev-&gt;virt.chained_ib_support) {<br>
+            &gt; +             de_payload.chained.gds_backup_addrlo =
+            lower_32_bits(gds_addr);<br>
+            &gt; +             de_payload.chained.gds_backup_addrhi =
+            upper_32_bits(gds_addr);<br>
+            &gt; +             de_payload_addr = csa_addr +
+            offsetof(struct amdgpu_gfx_meta_data_chained_ib,
+            de_payload);<br>
+            &gt; +             cnt_de = (sizeof(de_payload.chained)
+            &gt;&gt; 2) + 4 - 2;<br>
+            &gt; +     } else {<br>
+            &gt; +             de_payload.regular.gds_backup_addrlo =
+            lower_32_bits(gds_addr);<br>
+            &gt; +             de_payload.regular.gds_backup_addrhi =
+            upper_32_bits(gds_addr);<br>
+            &gt; +             de_payload_addr = csa_addr +
+            offsetof(struct amdgpu_gfx_meta_data, de_payload);<br>
+            &gt; +             cnt_de = (sizeof(de_payload.regular)
+            &gt;&gt; 2) + 4 - 2;<br>
+            &gt; +     }<br>
+            &gt; +<br>
+            &gt; +     amdgpu_ring_write(ring,
+            PACKET3(PACKET3_WRITE_DATA, cnt_de));<br>
+            &gt; +     amdgpu_ring_write(ring, (WRITE_DATA_ENGINE_SEL(1)
+            |<br>
+            &gt; +                             WRITE_DATA_DST_SEL(8) |<br>
+            &gt; +                             WR_CONFIRM) |<br>
+            &gt; +                            
+            WRITE_DATA_CACHE_POLICY(0));<br>
+            &gt; +     amdgpu_ring_write(ring,
+            lower_32_bits(de_payload_addr));<br>
+            &gt; +     amdgpu_ring_write(ring,
+            upper_32_bits(de_payload_addr));<br>
+            &gt; +     amdgpu_ring_write_multiple(ring, (void
+            *)&amp;de_payload, cnt_de - 2);<br>
+            &gt; +}<br>
+            <br>
+            <br>
+          </div>
+        </span></font>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
 </html>
 
---_000_BY2PR1201MB1110254EE3F6E5B71C41201C847D0BY2PR1201MB1110_--
+--------------E941B9AFBCD98DD509A0B8CE--
 
---===============1887758279==
+--===============2008902084==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -294,4 +494,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1887758279==--
+--===============2008902084==--
