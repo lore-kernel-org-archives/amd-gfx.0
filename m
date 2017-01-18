@@ -1,13 +1,14 @@
 From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
 Subject: =?gb2312?B?tPC4tDogW1BBVENIXSBkcm0vYW1kZ3B1OmZpeCB3cml0ZSBtb3JlIGR3cyB0?=
  =?gb2312?Q?o_ring?=
-Date: Wed, 18 Jan 2017 07:04:57 +0000
-Message-ID: <BY2PR1201MB1110D85DD19A01E8F9090AD3847F0@BY2PR1201MB1110.namprd12.prod.outlook.com>
-References: <1484722606-14767-1-git-send-email-Monk.Liu@amd.com>
+Date: Wed, 18 Jan 2017 07:17:31 +0000
+Message-ID: <BY2PR1201MB1110C6197FB884CA22C92FC7847F0@BY2PR1201MB1110.namprd12.prod.outlook.com>
+References: <1484722606-14767-1-git-send-email-Monk.Liu@amd.com>,
+ <BY2PR1201MB1110D85DD19A01E8F9090AD3847F0@BY2PR1201MB1110.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1117914201=="
+Content-Type: multipart/mixed; boundary="===============0754290458=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1484722606-14767-1-git-send-email-Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <BY2PR1201MB1110D85DD19A01E8F9090AD3847F0-O28G1zQ8oGliQkyLPkmea2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
 Content-Language: zh-CN
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,55 +22,62 @@ Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1117914201==
+--===============0754290458==
 Content-Language: zh-CN
 Content-Type: multipart/alternative;
-	boundary="_000_BY2PR1201MB1110D85DD19A01E8F9090AD3847F0BY2PR1201MB1110_"
+	boundary="_000_BY2PR1201MB1110C6197FB884CA22C92FC7847F0BY2PR1201MB1110_"
 
---_000_BY2PR1201MB1110D85DD19A01E8F9090AD3847F0BY2PR1201MB1110_
+--_000_BY2PR1201MB1110C6197FB884CA22C92FC7847F0BY2PR1201MB1110_
 Content-Type: text/plain; charset="gb2312"
 Content-Transfer-Encoding: base64
 
-SGkgQWxleA0KDQoNCnByZXZpb3VzIHBhdGNoIGlzIGp1c3QgZm9yIHNob3dpbmcgd2hhdCBJIHdh
-bnQgdG8gZXhwcmVzcyA6DQoNCg0KSSBmb3VuZCAiZW1pdF9mcmFtZV9zaXplIiBpcyBub3QgZG9h
-YmxlIGFueW1vcmUgZm9yIGdmeCByaW5nIC4uLg0KDQoNCndlIGFscmVhZHkgc2V0ICJmdW5jcy0+
-YWxpZ25fbWFzayIgdG8gMHhmZiB3aGljaCBtZWFucyAiYW1kZ3B1X3JpbmdfY29tbWl0IiBjYWxs
-IHdpbGwgYXV0b21hdGljYWxseSBpbnNlcnQgc29tZSBOT1AgdG8gbWFrZSBlYWNoIHN1Ym1pc3Np
-b24gMjU2IGR3b3JkIGFsaWduZWQgKGFuZCB3aWxsIGJlIDUxMiBpZiB3ZSB1c2VkIGFib3ZlIDI1
-NiBEV3MpLCBzbyBhdCBsZWFzdCB3ZSBuZWVkIDI1NiBkdyBwZXIgc3VibWl0Lg0KDQoNCmJ1dCAo
-ZW1pdF9mcmFtZV9zaXplICsgaWJfY291bnQgKiBlbWl0X2liX3NpemUpICBpcyBhbHdheXMgbGVz
-cyB0aGFuIDI1NiAsIGFuZCBpZiB3ZSBwYXNzIGl0IHRvIGFtZGdwdV9yaW5nX2FsbG9jLCB3ZSds
-bCBydW4gaW50byB0aGlzIGlzc3VlOg0KDQoNCltkcm06YW1kZ3B1X3JpbmdfaW5zZXJ0X25vcCBb
-YW1kZ3B1XV0gKkVSUk9SKiBhbWRncHU6IHdyaXRpbmcgbW9yZSBkd29yZHMgdG8gdGhlIHJpbmcg
-dGhhbiBleHBlY3RlZCENCg0KDQoNCmFueSBjb21tZW50cyA/DQoNCg0KQlIgTW9uaw0KDQoNCg0K
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCreivP7IyzogTW9uayBMaXUgPE1vbmsu
-TGl1QGFtZC5jb20+DQq3osvNyrG85DogMjAxN8TqMdTCMTjI1SAxNDo1Njo0Ng0KytW8/sjLOiBh
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0Ks63LzTogTGl1LCBNb25rDQrW98ziOiBbUEFU
-Q0hdIGRybS9hbWRncHU6Zml4IHdyaXRlIG1vcmUgZHdzIHRvIHJpbmcNCg0KQ2hhbmdlLUlkOiBJ
-NzQ1NTEyZWQ3ZDE4MWUyY2QwY2U2NjhjODZjY2ZiYjJkZWM4MGQ0ZA0KU2lnbmVkLW9mZi1ieTog
-TW9uayBMaXUgPE1vbmsuTGl1QGFtZC5jb20+DQotLS0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfaWIuYyB8IDcgKystLS0tLQ0KIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlv
-bnMoKyksIDUgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfaWIuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9p
-Yi5jDQppbmRleCA5MTI5YjhjLi42YzI0ZWQ4IDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2liLmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9pYi5jDQpAQCAtMTI1LDcgKzEyNSw3IEBAIGludCBhbWRncHVfaWJfc2NoZWR1bGUo
-c3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCB1bnNpZ25lZCBudW1faWJzLA0KICAgICAgICAgdW5z
-aWduZWQgcGF0Y2hfb2Zmc2V0ID0gfjA7DQogICAgICAgICBzdHJ1Y3QgYW1kZ3B1X3ZtICp2bTsN
-CiAgICAgICAgIHVpbnQ2NF90IGZlbmNlX2N0eDsNCi0gICAgICAgdWludDMyX3Qgc3RhdHVzID0g
-MCwgYWxsb2Nfc2l6ZTsNCisgICAgICAgdWludDMyX3Qgc3RhdHVzID0gMDsNCg0KICAgICAgICAg
-dW5zaWduZWQgaTsNCiAgICAgICAgIGludCByID0gMDsNCkBAIC0xNTIsMTAgKzE1Miw3IEBAIGlu
-dCBhbWRncHVfaWJfc2NoZWR1bGUoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCB1bnNpZ25lZCBu
-dW1faWJzLA0KICAgICAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsNCiAgICAgICAgIH0NCg0K
-LSAgICAgICBhbGxvY19zaXplID0gcmluZy0+ZnVuY3MtPmVtaXRfZnJhbWVfc2l6ZSArIG51bV9p
-YnMgKg0KLSAgICAgICAgICAgICAgIHJpbmctPmZ1bmNzLT5lbWl0X2liX3NpemU7DQotDQotICAg
-ICAgIHIgPSBhbWRncHVfcmluZ19hbGxvYyhyaW5nLCBhbGxvY19zaXplKTsNCisgICAgICAgciA9
-IGFtZGdwdV9yaW5nX2FsbG9jKHJpbmcsIHJpbmctPmZ1bmNzLmFsaWduX21hc2sgKyAxKTsNCiAg
-ICAgICAgIGlmIChyKSB7DQogICAgICAgICAgICAgICAgIGRldl9lcnIoYWRldi0+ZGV2LCAic2No
-ZWR1bGluZyBJQiBmYWlsZWQgKCVkKS5cbiIsIHIpOw0KICAgICAgICAgICAgICAgICByZXR1cm4g
-cjsNCi0tDQoyLjcuNA0KDQo=
+c29ycnksIEkgc2VlIHdlIGFscmVhZHkgaGF2ZSBwYWRkaW5nIGluc2lkZSByaW5nX2FsbG9jLCBJ
+J2xsIHNlZSB3aHkgSSBzdGlsbCBnZXQNCg0KDQpbZHJtOmFtZGdwdV9yaW5nX2luc2VydF9ub3Ag
+W2FtZGdwdV1dICpFUlJPUiogYW1kZ3B1OiB3cml0aW5nIG1vcmUgZHdvcmRzIHRvIHRoZSByaW5n
+IHRoYW4gZXhwZWN0ZWQhDQoNCg0KQlIgTW9uaw0KDQpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXw0Kt6K8/sjLOiBMaXUsIE1vbmsNCreiy83KsbzkOiAyMDE3xOox1MIxOMjVIDE1OjA0
+OjU3DQrK1bz+yMs6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQrW98ziOiC08Li0OiBb
+UEFUQ0hdIGRybS9hbWRncHU6Zml4IHdyaXRlIG1vcmUgZHdzIHRvIHJpbmcNCg0KDQpIaSBBbGV4
+DQoNCg0KcHJldmlvdXMgcGF0Y2ggaXMganVzdCBmb3Igc2hvd2luZyB3aGF0IEkgd2FudCB0byBl
+eHByZXNzIDoNCg0KDQpJIGZvdW5kICJlbWl0X2ZyYW1lX3NpemUiIGlzIG5vdCBkb2FibGUgYW55
+bW9yZSBmb3IgZ2Z4IHJpbmcgLi4uDQoNCg0Kd2UgYWxyZWFkeSBzZXQgImZ1bmNzLT5hbGlnbl9t
+YXNrIiB0byAweGZmIHdoaWNoIG1lYW5zICJhbWRncHVfcmluZ19jb21taXQiIGNhbGwgd2lsbCBh
+dXRvbWF0aWNhbGx5IGluc2VydCBzb21lIE5PUCB0byBtYWtlIGVhY2ggc3VibWlzc2lvbiAyNTYg
+ZHdvcmQgYWxpZ25lZCAoYW5kIHdpbGwgYmUgNTEyIGlmIHdlIHVzZWQgYWJvdmUgMjU2IERXcyks
+IHNvIGF0IGxlYXN0IHdlIG5lZWQgMjU2IGR3IHBlciBzdWJtaXQuDQoNCg0KYnV0IChlbWl0X2Zy
+YW1lX3NpemUgKyBpYl9jb3VudCAqIGVtaXRfaWJfc2l6ZSkgIGlzIGFsd2F5cyBsZXNzIHRoYW4g
+MjU2ICwgYW5kIGlmIHdlIHBhc3MgaXQgdG8gYW1kZ3B1X3JpbmdfYWxsb2MsIHdlJ2xsIHJ1biBp
+bnRvIHRoaXMgaXNzdWU6DQoNCg0KW2RybTphbWRncHVfcmluZ19pbnNlcnRfbm9wIFthbWRncHVd
+XSAqRVJST1IqIGFtZGdwdTogd3JpdGluZyBtb3JlIGR3b3JkcyB0byB0aGUgcmluZyB0aGFuIGV4
+cGVjdGVkIQ0KDQoNCg0KYW55IGNvbW1lbnRzID8NCg0KDQpCUiBNb25rDQoNCg0KDQpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXw0Kt6K8/sjLOiBNb25rIExpdSA8TW9uay5MaXVAYW1k
+LmNvbT4NCreiy83KsbzkOiAyMDE3xOox1MIxOMjVIDE0OjU2OjQ2DQrK1bz+yMs6IGFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnDQqzrcvNOiBMaXUsIE1vbmsNCtb3zOI6IFtQQVRDSF0gZHJt
+L2FtZGdwdTpmaXggd3JpdGUgbW9yZSBkd3MgdG8gcmluZw0KDQpDaGFuZ2UtSWQ6IEk3NDU1MTJl
+ZDdkMTgxZTJjZDBjZTY2OGM4NmNjZmJiMmRlYzgwZDRkDQpTaWduZWQtb2ZmLWJ5OiBNb25rIExp
+dSA8TW9uay5MaXVAYW1kLmNvbT4NCi0tLQ0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9pYi5jIHwgNyArKy0tLS0tDQogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwg
+NSBkZWxldGlvbnMoLSkNCg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9pYi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2liLmMNCmlu
+ZGV4IDkxMjliOGMuLjZjMjRlZDggMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfaWIuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2liLmMNCkBAIC0xMjUsNyArMTI1LDcgQEAgaW50IGFtZGdwdV9pYl9zY2hlZHVsZShzdHJ1Y3Qg
+YW1kZ3B1X3JpbmcgKnJpbmcsIHVuc2lnbmVkIG51bV9pYnMsDQogICAgICAgICB1bnNpZ25lZCBw
+YXRjaF9vZmZzZXQgPSB+MDsNCiAgICAgICAgIHN0cnVjdCBhbWRncHVfdm0gKnZtOw0KICAgICAg
+ICAgdWludDY0X3QgZmVuY2VfY3R4Ow0KLSAgICAgICB1aW50MzJfdCBzdGF0dXMgPSAwLCBhbGxv
+Y19zaXplOw0KKyAgICAgICB1aW50MzJfdCBzdGF0dXMgPSAwOw0KDQogICAgICAgICB1bnNpZ25l
+ZCBpOw0KICAgICAgICAgaW50IHIgPSAwOw0KQEAgLTE1MiwxMCArMTUyLDcgQEAgaW50IGFtZGdw
+dV9pYl9zY2hlZHVsZShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHVuc2lnbmVkIG51bV9pYnMs
+DQogICAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOw0KICAgICAgICAgfQ0KDQotICAgICAg
+IGFsbG9jX3NpemUgPSByaW5nLT5mdW5jcy0+ZW1pdF9mcmFtZV9zaXplICsgbnVtX2licyAqDQot
+ICAgICAgICAgICAgICAgcmluZy0+ZnVuY3MtPmVtaXRfaWJfc2l6ZTsNCi0NCi0gICAgICAgciA9
+IGFtZGdwdV9yaW5nX2FsbG9jKHJpbmcsIGFsbG9jX3NpemUpOw0KKyAgICAgICByID0gYW1kZ3B1
+X3JpbmdfYWxsb2MocmluZywgcmluZy0+ZnVuY3MuYWxpZ25fbWFzayArIDEpOw0KICAgICAgICAg
+aWYgKHIpIHsNCiAgICAgICAgICAgICAgICAgZGV2X2VycihhZGV2LT5kZXYsICJzY2hlZHVsaW5n
+IElCIGZhaWxlZCAoJWQpLlxuIiwgcik7DQogICAgICAgICAgICAgICAgIHJldHVybiByOw0KLS0N
+CjIuNy40DQoNCg==
 
---_000_BY2PR1201MB1110D85DD19A01E8F9090AD3847F0BY2PR1201MB1110_
+--_000_BY2PR1201MB1110C6197FB884CA22C92FC7847F0BY2PR1201MB1110_
 Content-Type: text/html; charset="gb2312"
 Content-Transfer-Encoding: quoted-printable
 
@@ -81,6 +89,36 @@ Content-Transfer-Encoding: quoted-printable
 ding-left: 4pt; border-left: #800000 2px solid; } --></style>
 </head>
 <body>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Arial,Helvetica,sans-serif;" dir=3D"ltr">
+<p>sorry, I see we already have padding inside ring_alloc, I'll see why I s=
+till get
+<br>
+</p>
+<p><br>
+</p>
+<p><font size=3D"3" color=3D"black" face=3D"Calibri,Arial,Helvetica,sans-se=
+rif"><span style=3D"font-size:12pt;" id=3D"x_divtagdefaultwrapper">[drm:amd=
+gpu_ring_insert_nop [amdgpu]] *ERROR* amdgpu: writing more dwords to the ri=
+ng than expected!</span></font></p>
+<p><br>
+</p>
+<p>BR Monk<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>=B7=A2=BC=FE=C8=CB:</b> Liu, Mo=
+nk<br>
+<b>=B7=A2=CB=CD=CA=B1=BC=E4:</b> 2017=C4=EA1=D4=C218=C8=D5 15:04:57<br>
+<b>=CA=D5=BC=FE=C8=CB:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>=D6=F7=CC=E2:</b> =B4=F0=B8=B4: [PATCH] drm/amdgpu:fix write more dws to=
+ ring</font>
+<div>&nbsp;</div>
+</div>
+<div>
 <meta content=3D"text/html; charset=3DUTF-8">
 <style type=3D"text/css" style=3D"">
 <!--
@@ -193,13 +231,13 @@ sp;&nbsp;&nbsp;&nbsp; return r;<br>
 2.7.4<br>
 <br>
 </div>
-</span></font>
+</span></font></div>
 </body>
 </html>
 
---_000_BY2PR1201MB1110D85DD19A01E8F9090AD3847F0BY2PR1201MB1110_--
+--_000_BY2PR1201MB1110C6197FB884CA22C92FC7847F0BY2PR1201MB1110_--
 
---===============1117914201==
+--===============0754290458==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -209,4 +247,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1117914201==--
+--===============0754290458==--
