@@ -1,13 +1,14 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH 0/3] some cleanups and fixes
-Date: Wed, 18 Jan 2017 10:20:16 +0100
-Message-ID: <e0056137-c82c-5055-aa4a-ea22c822b695@vodafone.de>
-References: <1484707233-29838-1-git-send-email-Monk.Liu@amd.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu: fix reboot failure issue for
+ virtualization
+Date: Wed, 18 Jan 2017 10:21:45 +0100
+Message-ID: <501f5df7-6fc7-7c20-7359-e65909336145@vodafone.de>
+References: <1484715614-5702-1-git-send-email-Xiangliang.Yu@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1484707233-29838-1-git-send-email-Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1484715614-5702-1-git-send-email-Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,17 +19,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Xiangliang Yu <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-UmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4g
-Zm9yIHRoZSBzZXJpZXMuCgpSZWdhcmRzLApDaHJpc3RpYW4uCgpBbSAxOC4wMS4yMDE3IHVtIDAz
-OjQwIHNjaHJpZWIgTW9uayBMaXU6Cj4gTW9uayBMaXUgKDMpOgo+ICAgIGRybS9hbWRncHU6c2V0
-IGNvbmRfZXhlYyBwb2xsaW5nIHZhbHVlIHRvIDEgaW4gcmluZ19pbml0Cj4gICAgZHJtL2FtZGdw
-dTpQcmVhbWJsZSBpcyBmb3JiaWQgdG8gYmUgaWdub3JlZCBpbiBTUklPVgo+ICAgIGRybS9hbWRn
-cHU6aW5zZXJ0IHN3aXRjaCBidWZmZXIgb25seSBmb3IgVk0gc3VibWl0Cj4KPiAgIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pYi5jICAgfCA4ICsrKy0tLS0tCj4gICBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5jIHwgNCArKystCj4gICAyIGZpbGVzIGNo
-YW5nZWQsIDYgaW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMoLSkKPgoKX19fX19fX19fX19fX19f
+QW0gMTguMDEuMjAxNyB1bSAwNjowMCBzY2hyaWViIFhpYW5nbGlhbmcgWXU6Cj4gUmVib290IHBy
+b2Nlc3Mgd2lsbCBjYWxsIEhXIGZpbmkgZnVuY3Rpb25zIG9mIElQIGJsb2Nrcy4gRm9yIHZpcnQs
+Cj4gbmVlZCB0byBzZW5kIGV2ZW50IHRocmVlIGJlZm9yZSBodyBmaW5pIGFuZCBzZW5kIGV2ZW50
+IGZvdXIgYWZ0ZXIKPiBodyBmaW5pLgo+Cj4gU2lnbmVkLW9mZi1ieTogWGlhbmdsaWFuZyBZdSA8
+WGlhbmdsaWFuZy5ZdUBhbWQuY29tPgoKUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNo
+cmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4gZm9yIGJvdGggcGF0Y2hlcy4KCj4gLS0tCj4gICBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCA2ICsrKysrKwo+ICAgMSBm
+aWxlIGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygrKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9kZXZpY2UuYwo+IGluZGV4IDI4NjgxMjguLjRiODIwODEgMTAwNjQ0Cj4gLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4gKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4gQEAgLTE1NjYsNiArMTU2
+Niw5IEBAIGludCBhbWRncHVfc3VzcGVuZChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAg
+IHsKPiAgIAlpbnQgaSwgcjsKPiAgIAo+ICsJaWYgKGFtZGdwdV9zcmlvdl92ZihhZGV2KSkKPiAr
+CQlhbWRncHVfdmlydF9yZXF1ZXN0X2Z1bGxfZ3B1KGFkZXYsIGZhbHNlKTsKPiArCj4gICAJLyog
+dW5nYXRlIFNNQyBibG9jayBmaXJzdCAqLwo+ICAgCXIgPSBhbWRncHVfc2V0X2Nsb2NrZ2F0aW5n
+X3N0YXRlKGFkZXYsIEFNRF9JUF9CTE9DS19UWVBFX1NNQywKPiAgIAkJCQkJIEFNRF9DR19TVEFU
+RV9VTkdBVEUpOwo+IEBAIC0xNTk0LDYgKzE1OTcsOSBAQCBpbnQgYW1kZ3B1X3N1c3BlbmQoc3Ry
+dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gICAJCX0KPiAgIAl9Cj4gICAKPiArCWlmIChhbWRn
+cHVfc3Jpb3ZfdmYoYWRldikpCj4gKwkJYW1kZ3B1X3ZpcnRfcmVsZWFzZV9mdWxsX2dwdShhZGV2
+LCBmYWxzZSk7Cj4gKwo+ICAgCXJldHVybiAwOwo+ICAgfQo+ICAgCgoKX19fX19fX19fX19fX19f
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
 LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
 bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
