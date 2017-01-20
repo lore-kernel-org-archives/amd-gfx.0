@@ -1,14 +1,15 @@
-From: "Xie, AlexBin" <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
+From: Emil Velikov <emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Subject: Re: [PATCH libdrm 1/3] amdgpu: verify the tested device
-Date: Fri, 20 Jan 2017 19:14:18 +0000
-Message-ID: <CY4PR12MB1640D78EBE9F998A00F5323FF2710@CY4PR12MB1640.namprd12.prod.outlook.com>
-References: <1484866391-17175-1-git-send-email-AlexBin.Xie@amd.com>,
+Date: Fri, 20 Jan 2017 19:45:11 +0000
+Message-ID: <CACvgo53-EusyMSeXS-DBxCUv=gpdY_rXcaQyV15XvykracPPFg@mail.gmail.com>
+References: <1484866391-17175-1-git-send-email-AlexBin.Xie@amd.com>
  <CACvgo50HCafUSw7zDjkS+_1xs67=QgHcOWcO1DDqzBL4RcRBJA@mail.gmail.com>
+ <CY4PR12MB1640D78EBE9F998A00F5323FF2710@CY4PR12MB1640.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0500462108=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CACvgo50HCafUSw7zDjkS+_1xs67=QgHcOWcO1DDqzBL4RcRBJA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <CY4PR12MB1640D78EBE9F998A00F5323FF2710-rpdhrqHFk06q//3LJcutlgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,397 +20,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Emil Velikov <emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: "Xie, AlexBin" <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
 Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0500462108==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB1640D78EBE9F998A00F5323FF2710CY4PR12MB1640namp_"
-
---_000_CY4PR12MB1640D78EBE9F998A00F5323FF2710CY4PR12MB1640namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Emil,
-
-
-Thanks for the comments.
-
-
-Please see below.
-
-
-Regards,
-
-Alex Bin Xie
-
-
-________________________________
-From: Emil Velikov <emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Friday, January 20, 2017 8:18 AM
-To: Xie, AlexBin
-Cc: amd-gfx mailing list
-Subject: Re: [PATCH libdrm 1/3] amdgpu: verify the tested device
-
-Hi Alex,
-
-Thanks for doing this. There's a few nitpicks on top of what David and
-Christian has spotted.
-
-On 19 January 2017 at 22:53, Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org> wrote:
-> Verify the vender ID and driver name.
-> Open all AMDGPU devices.
-> Provide an option to open render node.
->
-> Tested as root: PASS
-> Tested as non-privileged user:
-> All tests failed as expected
->
-> Signed-off-by: Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
-> ---
->  tests/amdgpu/amdgpu_test.c | 144 +++++++++++++++++++++++++++++++++++++--=
-------
->  1 file changed, 121 insertions(+), 23 deletions(-)
->
-> diff --git a/tests/amdgpu/amdgpu_test.c b/tests/amdgpu/amdgpu_test.c
-> index 71f357c..e42ef9d 100644
-> --- a/tests/amdgpu/amdgpu_test.c
-> +++ b/tests/amdgpu/amdgpu_test.c
-> @@ -115,6 +115,119 @@ static const char usage[] =3D "Usage: %s [-hl] [<-s=
- <suite id>> [-t <test id>]]\n"
->  /** Specified options strings for getopt */
->  static const char options[]   =3D "hls:t:";
->
-> +/* Open AMD devices.
-> + * Return the number of AMD device openned.
-> + */
-> +static int amdgpu_open_devices(int open_render_node)
-> +{
-> +       drmDevicePtr devices[MAX_CARDS_SUPPORTED];
-> +       int ret;
-> +       int i;
-> +       int j;
-> +       int amd_index =3D 0;
-> +       int drm_count;
-> +       int fd;
-> +       char *device_name;
-> +       drmVersionPtr version;
-> +
-> +       drm_count =3D drmGetDevices2(0, devices, MAX_CARDS_SUPPORTED);
-> +
-> +       if (drm_count < 0) {
-> +               fprintf(stderr,
-> +                       "drmGetDevices2() returned an error %d\n",
-> +                       drm_count);
-> +               return 0;
-> +       }
-> +
-> +       for (i =3D 0; i < drm_count; i++) {
-> +               /* If this is not AMD GPU vender ID, skip*/
-> +               if (devices[i]->bustype =3D=3D DRM_BUS_PCI)
-> +                       if (devices[i]->deviceinfo.pci->vendor_id !=3D 0x=
-1002)
-> +                               continue;
-> +
-> +               for (j =3D 0; j < DRM_NODE_MAX; j++) {
-> +                       if (devices[i]->available_nodes & 1 << j) {
-> +                               fd =3D open(
-> +                                       devices[i]->nodes[j],
-> +                                       O_RDONLY | O_CLOEXEC,
-> +                                       0);
-> +                               if (fd < 0) continue;
-> +                       }
-You don't need to iterate over all the available nodes. Just fetch the
-PRIMARY or RENDER based on open_render_node.
-Note that a device can be missing some node types (say RENDER) so make
-sure the available_nodes bitmask is set.
-
-[Alex Bin Xie]:
-That was my original design, but later I changed.
-I knew this work for the current xf86drm.c. But is the nodes[0]  always pri=
-mary?
-I was afraid that this may be changed in future. I searched all drm tests. =
-I did not see an example.
-
-So amdgpu_test will be the first to access nodes like: open(devices[i]->nod=
-es[DRM_NODE_PRIMARY]), for example.
-
-> +                       if (open_render_node)
-> +                               device_name =3D drmGetRenderDeviceNameFro=
-mFd(fd);
-> +                       else
-> +                               device_name =3D drmGetPrimaryDeviceNameFr=
-omFd(fd);
-> +
-> +                       close(fd);
-> +
-> +                       drm_amdgpu[amd_index] =3D open(device_name,
-> +                                                       O_RDWR | O_CLOEXE=
-C);
-> +
-> +                       if (drm_amdgpu[amd_index] >=3D 0)
-> +                               amd_index++;
-> +
-> +                       free(device_name);
-> +
-With the above comment this becomes redundant.
-
-> +                       /* We have open this device. Go to next device.*/
-> +                       break;
-> +               }
-> +       }
-> +
-Here you want to initialise the remainder of drm_amdgpu[] (since
-drm_count can be less than MAX_CARDS_SUPPORTED) with -1.
-Otherwise you'll have fun experiences during close/print (below).
-
-[Alex Bin Xie]: This initialization is done in existing main() function (no=
-t introduced this patch).
-
--Emil
-
---_000_CY4PR12MB1640D78EBE9F998A00F5323FF2710CY4PR12MB1640namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Arial,Helvetica,sans-serif;" dir=3D"ltr">
-<p>Hi Emil,</p>
-<p><br>
-</p>
-<p>Thanks for the comments.</p>
-<p><br>
-</p>
-<p>Please see below.<br>
-</p>
-<p><br>
-</p>
-<p>Regards,</p>
-<p>Alex Bin Xie<br>
-</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> Emil Velikov &lt;em=
-il.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Sent:</b> Friday, January 20, 2017 8:18 AM<br>
-<b>To:</b> Xie, AlexBin<br>
-<b>Cc:</b> amd-gfx mailing list<br>
-<b>Subject:</b> Re: [PATCH libdrm 1/3] amdgpu: verify the tested device</fo=
-nt>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">Hi Alex,<br>
-<br>
-Thanks for doing this. There's a few nitpicks on top of what David and<br>
-Christian has spotted.<br>
-<br>
-On 19 January 2017 at 22:53, Alex Xie &lt;AlexBin.Xie-5C7GfCeVMHo@public.gmane.org&gt; wrote:<br=
->
-&gt; Verify the vender ID and driver name.<br>
-&gt; Open all AMDGPU devices.<br>
-&gt; Provide an option to open render node.<br>
-&gt;<br>
-&gt; Tested as root: PASS<br>
-&gt; Tested as non-privileged user:<br>
-&gt; All tests failed as expected<br>
-&gt;<br>
-&gt; Signed-off-by: Alex Xie &lt;AlexBin.Xie-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; tests/amdgpu/amdgpu_test.c | 144 &#43;&#43;&#43;&#43;&#43;&#43;&=
-#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
-#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
-#43;--------<br>
-&gt;&nbsp; 1 file changed, 121 insertions(&#43;), 23 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/tests/amdgpu/amdgpu_test.c b/tests/amdgpu/amdgpu_test.c<b=
-r>
-&gt; index 71f357c..e42ef9d 100644<br>
-&gt; --- a/tests/amdgpu/amdgpu_test.c<br>
-&gt; &#43;&#43;&#43; b/tests/amdgpu/amdgpu_test.c<br>
-&gt; @@ -115,6 &#43;115,119 @@ static const char usage[] =3D &quot;Usage: %=
-s [-hl] [&lt;-s &lt;suite id&gt;&gt; [-t &lt;test id&gt;]]\n&quot;<br>
-&gt;&nbsp; /** Specified options strings for getopt */<br>
-&gt;&nbsp; static const char options[]&nbsp;&nbsp; =3D &quot;hls:t:&quot;;<=
-br>
-&gt;<br>
-&gt; &#43;/* Open AMD devices.<br>
-&gt; &#43; * Return the number of AMD device openned.<br>
-&gt; &#43; */<br>
-&gt; &#43;static int amdgpu_open_devices(int open_render_node)<br>
-&gt; &#43;{<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drmDevicePtr devices[MAX_CAR=
-DS_SUPPORTED];<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int j;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int amd_index =3D 0;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int drm_count;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int fd;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char *device_name;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drmVersionPtr version;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_count =3D drmGetDevices2=
-(0, devices, MAX_CARDS_SUPPORTED);<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (drm_count &lt; 0) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; fprintf(stderr,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;d=
-rmGetDevices2() returned an error %d\n&quot;,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_cou=
-nt);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; drm_cou=
-nt; i&#43;&#43;) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; /* If this is not AMD GPU vender ID, skip*/<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (devices[i]-&gt;bustype =3D=3D DRM_BUS_PCI)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (dev=
-ices[i]-&gt;deviceinfo.pci-&gt;vendor_id !=3D 0x1002)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; for (j =3D 0; j &lt; DRM_NODE_MAX; j&#43;&#43;) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (dev=
-ices[i]-&gt;available_nodes &amp; 1 &lt;&lt; j) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fd =3D open(<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; devices[i]-&gt;nodes[j],<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; O_RDONLY | O_CLOEXEC,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; 0);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (fd &lt; 0) continue;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-You don't need to iterate over all the available nodes. Just fetch the<br>
-PRIMARY or RENDER based on open_render_node.<br>
-Note that a device can be missing some node types (say RENDER) so make<br>
-sure the available_nodes bitmask is set.<br>
-<br>
-[Alex Bin Xie]:<br>
-That was my original design, but later I changed.<br>
-I knew this work for the current xf86drm.c. But is the nodes[0]&nbsp; alway=
-s primary?<br>
-I was afraid that this may be changed in future. I searched all drm tests. =
-I did not see an example.<br>
-<br>
-So amdgpu_test will be the first to access nodes like:<font size=3D"2"><spa=
-n style=3D"font-size:10pt;"><font size=3D"2"> open(<span class=3D"blob-code=
--inner">devices[i]-&gt;nodes[DRM_NODE_PRIMARY]</span>), for example.<br>
-</font></span></font><br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ope=
-n_render_node)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; device_name =3D drmGetRenderDevice=
-NameFromFd(fd);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br=
->
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; device_name =3D drmGetPrimaryDevic=
-eNameFromFd(fd);<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; close(f=
-d);<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_amd=
-gpu[amd_index] =3D open(device_name,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; O_RDWR | O_CLOEXEC);<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (drm=
-_amdgpu[amd_index] &gt;=3D 0)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amd_index&#43;&#43;;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; free(de=
-vice_name);<br>
-&gt; &#43;<br>
-With the above comment this becomes redundant.<br>
-<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* We h=
-ave open this device. Go to next device.*/<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<=
-br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; }<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; &#43;<br>
-Here you want to initialise the remainder of drm_amdgpu[] (since<br>
-drm_count can be less than MAX_CARDS_SUPPORTED) with -1.<br>
-Otherwise you'll have fun experiences during close/print (below).<br>
-<br>
-<font size=3D"2"><span style=3D"font-size:10pt;">[Alex Bin Xie]:</span></fo=
-nt> This initialization is done in existing main<font size=3D"2"><span styl=
-e=3D"font-size:10pt;">() function</span></font> (not introduced this patch)=
-.<br>
-<br>
--Emil<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB1640D78EBE9F998A00F5323FF2710CY4PR12MB1640namp_--
-
---===============0500462108==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0500462108==--
+T24gMjAgSmFudWFyeSAyMDE3IGF0IDE5OjE0LCBYaWUsIEFsZXhCaW4gPEFsZXhCaW4uWGllQGFt
+ZC5jb20+IHdyb3RlOgo+IEhpIEVtaWwsCj4KPgo+IFRoYW5rcyBmb3IgdGhlIGNvbW1lbnRzLgo+
+Cj4KPiBQbGVhc2Ugc2VlIGJlbG93Lgo+Cj4KPiBSZWdhcmRzLAo+Cj4gQWxleCBCaW4gWGllCj4K
+Pgo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBGcm9tOiBFbWlsIFZlbGlr
+b3YgPGVtaWwubC52ZWxpa292QGdtYWlsLmNvbT4KPiBTZW50OiBGcmlkYXksIEphbnVhcnkgMjAs
+IDIwMTcgODoxOCBBTQo+IFRvOiBYaWUsIEFsZXhCaW4KPiBDYzogYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKPiBTdWJqZWN0OiBSZTogW1BBVENIIGxpYmRybSAxLzNdIGFtZGdwdTogdmVyaWZ5IHRoZSB0
+ZXN0ZWQgZGV2aWNlCj4KPiBIaSBBbGV4LAo+Cj4gVGhhbmtzIGZvciBkb2luZyB0aGlzLiBUaGVy
+ZSdzIGEgZmV3IG5pdHBpY2tzIG9uIHRvcCBvZiB3aGF0IERhdmlkIGFuZAo+IENocmlzdGlhbiBo
+YXMgc3BvdHRlZC4KPgo+IE9uIDE5IEphbnVhcnkgMjAxNyBhdCAyMjo1MywgQWxleCBYaWUgPEFs
+ZXhCaW4uWGllQGFtZC5jb20+IHdyb3RlOgo+PiBWZXJpZnkgdGhlIHZlbmRlciBJRCBhbmQgZHJp
+dmVyIG5hbWUuCj4+IE9wZW4gYWxsIEFNREdQVSBkZXZpY2VzLgo+PiBQcm92aWRlIGFuIG9wdGlv
+biB0byBvcGVuIHJlbmRlciBub2RlLgo+Pgo+PiBUZXN0ZWQgYXMgcm9vdDogUEFTUwo+PiBUZXN0
+ZWQgYXMgbm9uLXByaXZpbGVnZWQgdXNlcjoKPj4gQWxsIHRlc3RzIGZhaWxlZCBhcyBleHBlY3Rl
+ZAo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBBbGV4IFhpZSA8QWxleEJpbi5YaWVAYW1kLmNvbT4KPj4g
+LS0tCj4+ICB0ZXN0cy9hbWRncHUvYW1kZ3B1X3Rlc3QuYyB8IDE0NAo+PiArKysrKysrKysrKysr
+KysrKysrKysrKysrKysrKysrKysrKysrLS0tLS0tLS0KPj4gIDEgZmlsZSBjaGFuZ2VkLCAxMjEg
+aW5zZXJ0aW9ucygrKSwgMjMgZGVsZXRpb25zKC0pCj4+Cj4+IGRpZmYgLS1naXQgYS90ZXN0cy9h
+bWRncHUvYW1kZ3B1X3Rlc3QuYyBiL3Rlc3RzL2FtZGdwdS9hbWRncHVfdGVzdC5jCj4+IGluZGV4
+IDcxZjM1N2MuLmU0MmVmOWQgMTAwNjQ0Cj4+IC0tLSBhL3Rlc3RzL2FtZGdwdS9hbWRncHVfdGVz
+dC5jCj4+ICsrKyBiL3Rlc3RzL2FtZGdwdS9hbWRncHVfdGVzdC5jCj4+IEBAIC0xMTUsNiArMTE1
+LDExOSBAQCBzdGF0aWMgY29uc3QgY2hhciB1c2FnZVtdID0gIlVzYWdlOiAlcyBbLWhsXSBbPC1z
+Cj4+IDxzdWl0ZSBpZD4+IFstdCA8dGVzdCBpZD5dXVxuIgo+PiAgLyoqIFNwZWNpZmllZCBvcHRp
+b25zIHN0cmluZ3MgZm9yIGdldG9wdCAqLwo+PiAgc3RhdGljIGNvbnN0IGNoYXIgb3B0aW9uc1td
+ICAgPSAiaGxzOnQ6IjsKPj4KPj4gKy8qIE9wZW4gQU1EIGRldmljZXMuCj4+ICsgKiBSZXR1cm4g
+dGhlIG51bWJlciBvZiBBTUQgZGV2aWNlIG9wZW5uZWQuCj4+ICsgKi8KPj4gK3N0YXRpYyBpbnQg
+YW1kZ3B1X29wZW5fZGV2aWNlcyhpbnQgb3Blbl9yZW5kZXJfbm9kZSkKPj4gK3sKPj4gKyAgICAg
+ICBkcm1EZXZpY2VQdHIgZGV2aWNlc1tNQVhfQ0FSRFNfU1VQUE9SVEVEXTsKPj4gKyAgICAgICBp
+bnQgcmV0Owo+PiArICAgICAgIGludCBpOwo+PiArICAgICAgIGludCBqOwo+PiArICAgICAgIGlu
+dCBhbWRfaW5kZXggPSAwOwo+PiArICAgICAgIGludCBkcm1fY291bnQ7Cj4+ICsgICAgICAgaW50
+IGZkOwo+PiArICAgICAgIGNoYXIgKmRldmljZV9uYW1lOwo+PiArICAgICAgIGRybVZlcnNpb25Q
+dHIgdmVyc2lvbjsKPj4gKwo+PiArICAgICAgIGRybV9jb3VudCA9IGRybUdldERldmljZXMyKDAs
+IGRldmljZXMsIE1BWF9DQVJEU19TVVBQT1JURUQpOwo+PiArCj4+ICsgICAgICAgaWYgKGRybV9j
+b3VudCA8IDApIHsKPj4gKyAgICAgICAgICAgICAgIGZwcmludGYoc3RkZXJyLAo+PiArICAgICAg
+ICAgICAgICAgICAgICAgICAiZHJtR2V0RGV2aWNlczIoKSByZXR1cm5lZCBhbiBlcnJvciAlZFxu
+IiwKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgZHJtX2NvdW50KTsKPj4gKyAgICAgICAgICAg
+ICAgIHJldHVybiAwOwo+PiArICAgICAgIH0KPj4gKwo+PiArICAgICAgIGZvciAoaSA9IDA7IGkg
+PCBkcm1fY291bnQ7IGkrKykgewo+PiArICAgICAgICAgICAgICAgLyogSWYgdGhpcyBpcyBub3Qg
+QU1EIEdQVSB2ZW5kZXIgSUQsIHNraXAqLwo+PiArICAgICAgICAgICAgICAgaWYgKGRldmljZXNb
+aV0tPmJ1c3R5cGUgPT0gRFJNX0JVU19QQ0kpCj4+ICsgICAgICAgICAgICAgICAgICAgICAgIGlm
+IChkZXZpY2VzW2ldLT5kZXZpY2VpbmZvLnBjaS0+dmVuZG9yX2lkICE9Cj4+IDB4MTAwMikKPj4g
+KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb250aW51ZTsKPj4gKwo+PiArICAgICAg
+ICAgICAgICAgZm9yIChqID0gMDsgaiA8IERSTV9OT0RFX01BWDsgaisrKSB7Cj4+ICsgICAgICAg
+ICAgICAgICAgICAgICAgIGlmIChkZXZpY2VzW2ldLT5hdmFpbGFibGVfbm9kZXMgJiAxIDw8IGop
+IHsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmZCA9IG9wZW4oCj4+ICsgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkZXZpY2VzW2ldLT5ub2Rlc1tqXSwK
+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIE9fUkRPTkxZIHwgT19D
+TE9FWEVDLAo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMCk7Cj4+
+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaWYgKGZkIDwgMCkgY29udGludWU7Cj4+
+ICsgICAgICAgICAgICAgICAgICAgICAgIH0KPiBZb3UgZG9uJ3QgbmVlZCB0byBpdGVyYXRlIG92
+ZXIgYWxsIHRoZSBhdmFpbGFibGUgbm9kZXMuIEp1c3QgZmV0Y2ggdGhlCj4gUFJJTUFSWSBvciBS
+RU5ERVIgYmFzZWQgb24gb3Blbl9yZW5kZXJfbm9kZS4KPiBOb3RlIHRoYXQgYSBkZXZpY2UgY2Fu
+IGJlIG1pc3Npbmcgc29tZSBub2RlIHR5cGVzIChzYXkgUkVOREVSKSBzbyBtYWtlCj4gc3VyZSB0
+aGUgYXZhaWxhYmxlX25vZGVzIGJpdG1hc2sgaXMgc2V0Lgo+Cj4gW0FsZXggQmluIFhpZV06Cj4g
+VGhhdCB3YXMgbXkgb3JpZ2luYWwgZGVzaWduLCBidXQgbGF0ZXIgSSBjaGFuZ2VkLgo+IEkga25l
+dyB0aGlzIHdvcmsgZm9yIHRoZSBjdXJyZW50IHhmODZkcm0uYy4gQnV0IGlzIHRoZSBub2Rlc1sw
+XSAgYWx3YXlzCj4gcHJpbWFyeT8KPiBJIHdhcyBhZnJhaWQgdGhhdCB0aGlzIG1heSBiZSBjaGFu
+Z2VkIGluIGZ1dHVyZS4gSSBzZWFyY2hlZCBhbGwgZHJtIHRlc3RzLiBJCj4gZGlkIG5vdCBzZWUg
+YW4gZXhhbXBsZS4KPgo+IFNvIGFtZGdwdV90ZXN0IHdpbGwgYmUgdGhlIGZpcnN0IHRvIGFjY2Vz
+cyBub2RlcyBsaWtlOgo+IG9wZW4oZGV2aWNlc1tpXS0+bm9kZXNbRFJNX05PREVfUFJJTUFSWV0p
+LCBmb3IgZXhhbXBsZS4KPgpQbGVhc2UgYXZvaWQgbm9kZXNbMF0gYW5kIHVzZSB0aGUgc3ltYm9s
+aWMgbmFtZSAtIG5vZGVzW0RSTV9OT0RFX1BSSU1BUlldLgpDb21tZW50IGFwcGxpZXMgZm9yIGFu
+eSBEUk1fTk9ERV8qLgoKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgaWYgKG9wZW5fcmVuZGVy
+X25vZGUpCj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGV2aWNlX25hbWUgPQo+
+PiBkcm1HZXRSZW5kZXJEZXZpY2VOYW1lRnJvbUZkKGZkKTsKPj4gKyAgICAgICAgICAgICAgICAg
+ICAgICAgZWxzZQo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRldmljZV9uYW1l
+ID0KPj4gZHJtR2V0UHJpbWFyeURldmljZU5hbWVGcm9tRmQoZmQpOwo+PiArCj4+ICsgICAgICAg
+ICAgICAgICAgICAgICAgIGNsb3NlKGZkKTsKPj4gKwo+PiArICAgICAgICAgICAgICAgICAgICAg
+ICBkcm1fYW1kZ3B1W2FtZF9pbmRleF0gPSBvcGVuKGRldmljZV9uYW1lLAo+PiArICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIE9fUkRXUiB8Cj4+
+IE9fQ0xPRVhFQyk7Cj4+ICsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgaWYgKGRybV9hbWRn
+cHVbYW1kX2luZGV4XSA+PSAwKQo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFt
+ZF9pbmRleCsrOwo+PiArCj4+ICsgICAgICAgICAgICAgICAgICAgICAgIGZyZWUoZGV2aWNlX25h
+bWUpOwo+PiArCj4gV2l0aCB0aGUgYWJvdmUgY29tbWVudCB0aGlzIGJlY29tZXMgcmVkdW5kYW50
+Lgo+Cj4+ICsgICAgICAgICAgICAgICAgICAgICAgIC8qIFdlIGhhdmUgb3BlbiB0aGlzIGRldmlj
+ZS4gR28gdG8gbmV4dCBkZXZpY2UuKi8KPj4gKyAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7
+Cj4+ICsgICAgICAgICAgICAgICB9Cj4+ICsgICAgICAgfQo+PiArCj4gSGVyZSB5b3Ugd2FudCB0
+byBpbml0aWFsaXNlIHRoZSByZW1haW5kZXIgb2YgZHJtX2FtZGdwdVtdIChzaW5jZQo+IGRybV9j
+b3VudCBjYW4gYmUgbGVzcyB0aGFuIE1BWF9DQVJEU19TVVBQT1JURUQpIHdpdGggLTEuCj4gT3Ro
+ZXJ3aXNlIHlvdSdsbCBoYXZlIGZ1biBleHBlcmllbmNlcyBkdXJpbmcgY2xvc2UvcHJpbnQgKGJl
+bG93KS4KPgo+IFtBbGV4IEJpbiBYaWVdOiBUaGlzIGluaXRpYWxpemF0aW9uIGlzIGRvbmUgaW4g
+ZXhpc3RpbmcgbWFpbigpIGZ1bmN0aW9uIChub3QKPiBpbnRyb2R1Y2VkIHRoaXMgcGF0Y2gpLgo+
+CkluZGVlZCB0aGF0J3MgY29ycmVjdC4gSXQgbG9va3MgYSBiaXQgc3RyYW5nZSB0byBoYXZlIGl0
+IHNlcGFyYXRlLCBidXQKbm90IG15IGNhbGwuCgpVbnJlbGF0ZWQ6CkZ3aXcgcGxlYXNlIGNhbiBk
+cm9wIHRoZSBsZWdhY3kgZHJtQXZhaWxhYmxlKCkgZnJvbSB0aGUgdGVzdCwgaWYgeW91CmhhdmUg
+YSBtaW51dGUuCgpUaGFua3MgIQpFbWlsCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+YW1kLWdmeAo=
