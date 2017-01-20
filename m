@@ -1,167 +1,87 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu:guarantee 128dws between vm flush and IB(v3)
-Date: Fri, 20 Jan 2017 09:48:17 +0100
-Message-ID: <72ce673f-a232-290d-62c0-082e6ede3bbd@vodafone.de>
-References: <1484739739-30080-1-git-send-email-Monk.Liu@amd.com>
- <7ff8505a-a6c2-8258-5cfa-45a5344ba2df@vodafone.de>
- <BY2PR1201MB1110457767084D1B300C67D8847E0@BY2PR1201MB1110.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple@vodafone.de>
+Subject: Re: amdgpu: Corrupted video on 32 bit systems (possible fix)
+Date: Fri, 20 Jan 2017 10:11:41 +0100
+Message-ID: <d45d5242-5c42-1ac7-d850-dae49804ec09@vodafone.de>
+References: <20170119193537.GA3296@teela.fritz.box>
+ <40da3f7e-6634-7588-36b5-f03378faee26@daenzer.net>
+ <20170120074427.GA2793@boerne.fritz.box>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BY2PR1201MB1110457767084D1B300C67D8847E0-O28G1zQ8oGliQkyLPkmea2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20170120074427.GA2793@boerne.fritz.box>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Nils Holland <nholland@tisys.org>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Cc: amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-WWVhaCwgdGhvdWdodCBhYm91dCB0aGF0IHBvc3NpYmlsaXR5IGFzIHdlbGwgd2hlbiB3ZSBjaGFu
-Z2UgdGhlIHBhZGRpbmcgCnRvIDI1Ni4KClRoaXMgaGFwcGVucyBldmVyeSB0aW1lIG91ciBjb21t
-YW5kIHN1Ym1pc3Npb24gdXNlcyBtb3JlIHRoYW4gMTI4IGR3LCBpbiAKdGhpcyBjYXNlIHlvdSBv
-YnZpb3VzbHkgaGF2ZSBsZXNzIHRoYW4gMTI4IHBhZGRpbmcuCgpCdXQgd2h5IGRvZXNuJ3QgdGhp
-cyBoYXBwZW4gb24gV2luZG93cyB0aGVuPwoKUmVnYXJkcywKQ2hyaXN0aWFuLgoKQW0gMTkuMDEu
-MjAxNyB1bSAxNTo0OSBzY2hyaWViIExpdSwgTW9uazoKPiBBbmQgd2l0aCBtb3JlIHRoaW5rIG9u
-IGl0LCBldmVuIHRoZSB2ZXJ5IGZpcnN0IFVNRCBjbWQgc3RhcnQgd2l0aCB3cHRyIGF0IDI1Ni81
-MTIgcG9zaXRpb24gKCBiZWNhdXNlIGliIHRlc3QgZW5kcyB1cCBhdCAyNTUgYWxpZ25lZCBwb3Np
-dGlvbiksIHlvdXIgYXBwcm9hY2ggc3RpbGwgY2Fubm90IHNhdGlzZnkgMTI4IERXIGJldHdlZW4g
-U1dUSUNIX0JVRkZFUiBhbmQgUHJlYW1ibGUgSUIgKGlmIG5vIHZtX2ZsdXNoKSBvciAxMjggTm9w
-cyBiZWZvcmUgVk1fZmx1c2ggKGlmIG5lZWRlZCkgZm9yIHRoZSBuZXh0IGZyYW1lLgo+Cj4gZS5n
-LiB3ZSBpbnNlcnQgMTgwIGR3IHRoaXMgZnJhbWUsIHN0YXJ0IGZyb20wLCBlbmQgdXAgYXQgMTc5
-LCBhbmQgcmluZ19jb21taXQoKSBwYWRkaW5nIE5PUHMgYW5kIG1ha2Ugd3B0ciBlbmQgdXAgYXQg
-MjU1LCBzbyBvbmx5IDc1IE5PUHMgaXMgYmV0d2VlbiBTV0lUQ0hfQlVGRkVSIGFuZCBuZXh0IGZy
-YW1lIChhc3N1bWUgd2UgZG9uJ3QgaGF2ZSB2bS1mbHVzaCBuZXh0IGZyYW1lKQo+Cj4gQlIgTW9u
-awo+Cj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPiBGcm9tOiBMaXUsIE1vbmsKPiBTZW50
-OiBUaHVyc2RheSwgSmFudWFyeSAxOSwgMjAxNyAxMDozOSBQTQo+IFRvOiAnQ2hyaXN0aWFuIEvD
-tm5pZycgPGRlYXRoc2ltcGxlQHZvZGFmb25lLmRlPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKPiBTdWJqZWN0OiBSRTogW1BBVENIXSBkcm0vYW1kZ3B1Omd1YXJhbnRlZSAxMjhkd3Mg
-YmV0d2VlbiB2bSBmbHVzaCBhbmQgSUIodjMpCj4KPiBDaHJpc3RpYW4KPgo+IEkganVzdCBmb3Vu
-ZCBvbmUgaXNzdWUgaW4geW91ciBwcmV2aW91cyBwYXRjaCAoIHRoZSBvbmUgeW91IHJlbW92ZSBp
-bnNlcnRpbmcgMTI4bm9wIGJlZm9yZSB2bV9mdXNoIGFuZCBtZWFud2hpbGUgc2V0IGFsaWduX21h
-c2sgb2YgR0ZYIHJpbmcgdG8gMHhmZikKPgo+IEJlY2F1c2UgSSBjaGVja2VkIGFtZGdwdV9yaW5n
-X2NvbW1pdCgpIGFnYWluLCB0aGlzIGZ1bmN0aW9uIHdpbGwgbm90IGd1YXJhbnRlZSBjdXJyZW50
-IHN1Ym1pdCBzaXplIGFsaWduZWQgd2l0aCAyNTYgZHcsIGluc3RlYWQgaXQgb25seSBndWFyYW50
-ZWUgdGhlIHJpbmctPndwdHIgd2lsbCBiZSAyNTYgZHcgYWxpZ25lZCBhZnRlciBhbWRncHVfcmlu
-Z19jb21taXQoKQo+Cj4gU28gdGhhdCBtZWFucyB5b3VyIGFwcHJvYWNoIGNhbiBub3QgbWFrZSBz
-dXJlIHRoZXJlIHdpbGwgYmUgMTI4IE5PUCBiZWZvcmUgdm1fZmx1c2ggYXQgYWxsICEKPgo+IGUu
-Zy4gdGhpcyBmcmFtZSBzdGFydCBhdCAyMDAgcG9zaXRpb24gb2YgUkIsIGFuZCBpdCBzdWJtaXR0
-ZWQgNTAgZHcgc28gaXQgZW5kcyBhdCAyNDkgcG9zaXRpb24sIHlvdSBjYWxsIGFtZGdwdV9yaW5n
-X2NvbW1pdCgpIG5vdyBhbmQgaXQgb25seSBwYWRkaW5nIDYgbW9yZSBOT1BzIHRvIHJpbmcgYnVm
-ZmVyLCBzbyB3cHRyIGZpbm5hbHkgZW5kIGF0IDI1NSwgIHRoYXQgY2xlYXJseSBub3Qgd2hhdCB3
-ZSB3YW50IG9yaWdpbmFsbHkgfiB3ZSB3YW50IHRvIGluc2VydCAxMjggbm9wIGFmdGVyIFNXSVRD
-SF9CVUZGRVIgKG9yIHNheSwgYmVmb3JlIHZtX2ZsdXNoKSwgYnV0IHlvdSBvbmx5IGFkZCA2IE5P
-UHMgLi4uLgo+Cj4geW91ciBhcHByb2FjaCBvbmx5IHdvcmtzIHdpdGggd3B0ciA9PSAwICBmb3Ig
-dGhlIGZpcnN0IFVNRCBzdWJtaXQKPgo+IEJSIE1vbmsKPgo+IC0tLS0tT3JpZ2luYWwgTWVzc2Fn
-ZS0tLS0tCj4gRnJvbTogYW1kLWdmeCBbbWFpbHRvOmFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVl
-ZGVza3RvcC5vcmddIE9uIEJlaGFsZiBPZiBDaHJpc3RpYW4gSz9uaWcKPiBTZW50OiBUaHVyc2Rh
-eSwgSmFudWFyeSAxOSwgMjAxNyA1OjExIFBNCj4gVG86IExpdSwgTW9uayA8TW9uay5MaXVAYW1k
-LmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gU3ViamVjdDogUmU6IFtQQVRD
-SF0gZHJtL2FtZGdwdTpndWFyYW50ZWUgMTI4ZHdzIGJldHdlZW4gdm0gZmx1c2ggYW5kIElCKHYz
-KQo+Cj4gQW0gMTguMDEuMjAxNyB1bSAxMjo0MiBzY2hyaWViIE1vbmsgTGl1Ogo+PiBwcmV2aW91
-c2x5IHdlIGFsd2F5cyBpbnNlcnQgMTI4bm9wcyBiZWhpbmQgdm1fZmx1c2gsIHdoaWNoIG1heSBs
-ZWFkIHRvCj4+IERBTWZyYW1lIHNpemUgYWJvdmUgMjU2IGR3IGFuZCBhdXRvbWF0aWFsbHkgYWxp
-Z25lZCB0byA1MTIgZHcuCj4+Cj4+IG5vdyB3ZSBjYWxjdWxhdGUgaG93IG1hbnkgRFdzIGFscmVh
-ZHkgaW5zZXJ0ZWQgYWZ0ZXIgdm1fZmx1c2ggYW5kIG1ha2UKPj4gdXAgZm9yIHRoZSByZXNldCB0
-byBwYWQgdXAgdG8gMTI4ZHdzIGJlZm9yZSBlbWl0X2liLgo+PiB0aGF0IHdheSB3ZSBvbmx5IHRh
-a2UgMjU2IGR3IHBlciBzdWJtaXQuCj4+Cj4+IHYyOgo+PiBkcm9wIGluc2VydF9ub3BzIGluIHZt
-X2ZsdXNoCj4+IHJlLWNhbGN1bGF0ZSB0aGUgZXN0aW1hdGUgZnJhbWUgc2l6ZSBmb3IgZ2Z4OCBy
-aW5nCj4+IHYzOgo+PiBjYWxjdWxhdGUgdGhlIGdhcCBiZXR3ZWVuIHZtX2ZsdXNoIGFuZCBJQiBp
-biBjbnR4X2NudGwgb24gYW4gbWVtYmVyCj4+IGZpZWxkIG9mIHJpbmcgc3RydWN0dXJlCj4+IHY0
-Ogo+PiBzZXQgbGFzdF92bV9mbHVzaF9wb3MgZXZlbiBmb3IgY2FzZSBvZiBubyB2bSBmbHVzaC4K
-Pj4KPj4gQ2hhbmdlLUlkOiBJMGExODQ1ZGUwN2MwYjg2YWMxYjc3YWMxYTAwN2U4OTMxNDQxNDRm
-ZAo+PiBTaWduZWQtb2ZmLWJ5OiBNb25rIExpdSA8TW9uay5MaXVAYW1kLmNvbT4KPj4gLS0tCj4+
-ICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yaW5nLmggfCAgMSArCj4+ICAg
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jICAgfCAgNyArKysrKysrCj4+
-ICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMgICAgfCAxNiArKysrKysr
-KysrKystLS0tCj4+ICAgIDMgZmlsZXMgY2hhbmdlZCwgMjAgaW5zZXJ0aW9ucygrKSwgNCBkZWxl
-dGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9yaW5nLmgKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5o
-Cj4+IGluZGV4IGM4MTNjYmUuLjMzMjk2OWYgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9yaW5nLmgKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X3JpbmcuaAo+PiBAQCAtMTczLDYgKzE3Myw3IEBAIHN0cnVjdCBhbWRncHVf
-cmluZyB7Cj4+ICAgICNpZiBkZWZpbmVkKENPTkZJR19ERUJVR19GUykKPj4gICAgCXN0cnVjdCBk
-ZW50cnkgKmVudDsKPj4gICAgI2VuZGlmCj4+ICsJdTMyIGxhc3Rfdm1fZmx1c2hfcG9zOwo+PiAg
-ICB9Owo+PiAgICAKPj4gICAgaW50IGFtZGdwdV9yaW5nX2FsbG9jKHN0cnVjdCBhbWRncHVfcmlu
-ZyAqcmluZywgdW5zaWduZWQgbmR3KTsgZGlmZgo+PiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3ZtLmMKPj4gaW5kZXggZDA1NTQ2ZS4uNTNmYzVlMCAxMDA2NDQKPj4gLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4gQEAgLTM5Niw2ICszOTYsMTMgQEAgaW50IGFtZGdw
-dV92bV9mbHVzaChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHN0cnVjdCBhbWRncHVfam9iICpq
-b2IpCj4+ICAgIAkgICAgYW1kZ3B1X3ZtX3JpbmdfaGFzX2NvbXB1dGVfdm1fYnVnKHJpbmcpKSkK
-Pj4gICAgCQlhbWRncHVfcmluZ19lbWl0X3BpcGVsaW5lX3N5bmMocmluZyk7Cj4+ICAgIAo+PiAr
-CS8qIHdoZW4gbm8gdm0tZmx1c2ggdGhpcyBmcmFtZSwgd2Ugc3RpbGwgbmVlZCB0byBtYXJrIGRv
-d24KPj4gKwkgKiB0aGUgcG9zaXRpb24gb2YgdGhlIHRhaWwgb2YgaGRwX2ZsdXNoLCBiZWNhdXNl
-IHdlIHN0aWxsCj4+ICsJICogbmVlZCB0byBtYWtlIHN1cmUgdGhlcmUgYXJlIDEyOCBEV3MgYmV0
-d2VlbiBsYXN0IFNXSVRDSF9CVUZGRVIgYW5kCj4+ICsJICogdGhlIGVtaXRfaWIgdGhpcyBmcmFt
-ZS4gb3RoZXJ3aXNlIHRoZXJlIGlzIHN0aWxsIFZNIGZhdWx0IG9jY3VyZWQgb24KPj4gKwkgKiBj
-b25zdGFudCBlbmdpbmUuCj4+ICsJICovCj4+ICsJcmluZy0+bGFzdF92bV9mbHVzaF9wb3MgPSBy
-aW5nLT53cHRyOwo+PiAgICAJaWYgKHJpbmctPmZ1bmNzLT5lbWl0X3ZtX2ZsdXNoICYmIChqb2It
-PnZtX25lZWRzX2ZsdXNoIHx8Cj4+ICAgIAkgICAgYW1kZ3B1X3ZtX2lzX2dwdV9yZXNldChhZGV2
-LCBpZCkpKSB7Cj4+ICAgIAkJc3RydWN0IGZlbmNlICpmZW5jZTsKPj4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMKPj4gYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9nZnhfdjhfMC5jCj4+IGluZGV4IDVmMzczMTMuLmRkZTQxNzcgMTAwNjQ0Cj4+
-IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMKPj4gKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYwo+PiBAQCAtNjU3Miw3ICs2NTcyLDYg
-QEAgc3RhdGljIHZvaWQgZ2Z4X3Y4XzBfcmluZ19lbWl0X2ZlbmNlX2dmeChzdHJ1Y3QgYW1kZ3B1
-X3JpbmcgKnJpbmcsIHU2NCBhZGRyLAo+PiAgICAJCQkgIERBVEFfU0VMKHdyaXRlNjRiaXQgPyAy
-IDogMSkgfCBJTlRfU0VMKGludF9zZWwgPyAyIDogMCkpOwo+PiAgICAJYW1kZ3B1X3Jpbmdfd3Jp
-dGUocmluZywgbG93ZXJfMzJfYml0cyhzZXEpKTsKPj4gICAgCWFtZGdwdV9yaW5nX3dyaXRlKHJp
-bmcsIHVwcGVyXzMyX2JpdHMoc2VxKSk7Cj4+IC0KPj4gICAgfQo+PiAgICAKPj4gICAgc3RhdGlj
-IHZvaWQgZ2Z4X3Y4XzBfcmluZ19lbWl0X3BpcGVsaW5lX3N5bmMoc3RydWN0IGFtZGdwdV9yaW5n
-Cj4+ICpyaW5nKSBAQCAtNjYzNiw5ICs2NjM1LDggQEAgc3RhdGljIHZvaWQgZ2Z4X3Y4XzBfcmlu
-Z19lbWl0X3ZtX2ZsdXNoKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywKPj4gICAgCQkvKiBzeW5j
-IFBGUCB0byBNRSwgb3RoZXJ3aXNlIHdlIG1pZ2h0IGdldCBpbnZhbGlkIFBGUCByZWFkcyAqLwo+
-PiAgICAJCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIFBBQ0tFVDMoUEFDS0VUM19QRlBfU1lOQ19N
-RSwgMCkpOwo+PiAgICAJCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIDB4MCk7Cj4+IC0JCS8qIEdG
-WDggZW1pdHMgMTI4IGR3IG5vcCB0byBwcmV2ZW50IENFIGFjY2VzcyBWTSBiZWZvcmUgdm1fZmx1
-c2ggZmluaXNoICovCj4+IC0JCWFtZGdwdV9yaW5nX2luc2VydF9ub3AocmluZywgMTI4KTsKPj4g
-ICAgCX0KPj4gKwlyaW5nLT5sYXN0X3ZtX2ZsdXNoX3BvcyA9IHJpbmctPndwdHI7Cj4+ICAgIH0K
-Pj4gICAgCj4+ICAgIHN0YXRpYyB1MzIgZ2Z4X3Y4XzBfcmluZ19nZXRfd3B0cl9jb21wdXRlKHN0
-cnVjdCBhbWRncHVfcmluZyAqcmluZykKPj4gQEAgLTY3NDMsNiArNjc0MSwxNSBAQCBzdGF0aWMg
-dm9pZCBnZnhfdjhfcmluZ19lbWl0X2NudHhjbnRsKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywg
-dWludDMyX3QgZmxhZ3MpCj4+ICAgIAlpZiAoYW1kZ3B1X3NyaW92X3ZmKHJpbmctPmFkZXYpKQo+
-PiAgICAJCWdmeF92OF8wX3JpbmdfZW1pdF9kZV9tZXRhX2luaXQocmluZywKPj4gICAgCQkJKGZs
-YWdzICYgQU1ER1BVX1ZNX0RPTUFJTikgPyBBTURHUFVfQ1NBX1ZBRERSIDoKPj4gcmluZy0+YWRl
-di0+dmlydC5jc2Ffdm1pZDBfYWRkcik7Cj4+ICsKPj4gKwkvKiBXZSBuZWVkIHRvIHBhZCBzb21l
-IE5PUHMgYmVmb3JlIGVtaXRfaWIgdG8gcHJldmVudCBDRSBydW4gYWhlYWQgb2YKPj4gKwkgKiB2
-bV9mbHVzaCwgd2hpY2ggbWF5IHRyaWdnZXIgVk0gZmF1bHQuICovCj4+ICsJaWYgKHJpbmctPndw
-dHIgPiByaW5nLT5sYXN0X3ZtX2ZsdXNoX3BvcykgLyogbm8gd3B0ciB3cmFwcGluZyB0byBSQiBo
-ZWFkICovCj4+ICsJCWFtZGdwdV9yaW5nX2luc2VydF9ub3AocmluZywgMTI4IC0gKHJpbmctPndw
-dHIgLQo+PiArcmluZy0+bGFzdF92bV9mbHVzaF9wb3MpKTsKPiBUaGlzIGNhbiBlYXNpbHkgcmVz
-dWx0IGluIGEgbmVnYXRpdmUgbnVtYmVyLCBjb3VsZG4ndCBpdD8KPgo+PiArCWVsc2UKPj4gKwkJ
-aWYgKHJpbmctPnB0cl9tYXNrICsgMSAtIHJpbmctPmxhc3Rfdm1fZmx1c2hfcG9zICsgcmluZy0+
-d3B0ciA8IDEyOCkKPj4gKwkJCWFtZGdwdV9yaW5nX2luc2VydF9ub3AocmluZywKPj4gKwkJCQkx
-MjggLSAocmluZy0+cHRyX21hc2sgKyAxIC0gcmluZy0+bGFzdF92bV9mbHVzaF9wb3MgKwo+PiAr
-cmluZy0+d3B0cikpOwo+IEkgdGhpbmsgaXQgd291bGQgYmUgY2xlYW5lciBpZiB5b3UgY2FsY3Vs
-YXRlIHRoZSBudW1iZXIgb2YgTk9QcyBuZWVkZWQgZmlyc3QgZm9yIGJvdGggY2FzZXMgYW5kIHRo
-ZW4gY2hlY2sgaWYgdGhlIG51bWJlciBpc24ndCBuZWdhdGl2ZSBmb3IgYm90aCBjYXNlcy4KPgo+
-PiAgICB9Cj4+ICAgIAo+PiAgICBzdGF0aWMgdm9pZCBnZnhfdjhfMF9yaW5nX2VtaXRfcnJlZyhz
-dHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsCj4+IHVpbnQzMl90IHJlZykgQEAgLTcwMTgsNyArNzAy
-NSw4IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1X3JpbmdfZnVuY3MgZ2Z4X3Y4XzBfcmlu
-Z19mdW5jc19nZnggPSB7Cj4+ICAgIAkJNyArIC8qIGdmeF92OF8wX3JpbmdfZW1pdF9waXBlbGlu
-ZV9zeW5jICovCj4+ICAgIAkJMTI4ICsgMTkgKyAvKiBnZnhfdjhfMF9yaW5nX2VtaXRfdm1fZmx1
-c2ggKi8KPj4gICAgCQkyICsgLyogZ2Z4X3Y4X3JpbmdfZW1pdF9zYiAqLwo+PiAtCQkzICsgNCAr
-IDI5LCAvKiBnZnhfdjhfcmluZ19lbWl0X2NudHhjbnRsIGluY2x1ZGluZyB2Z3QgZmx1c2gvbWV0
-YS1kYXRhICovCj4+ICsJCTMgKyA0ICsgMjkgLSAvKiBnZnhfdjhfcmluZ19lbWl0X2NudHhjbnRs
-IGluY2x1ZGluZyB2Z3QKPj4gK2ZsdXNoL21ldGEtZGF0YSAqLwo+IFBsZWFzZSBwdXQgdGhlIC0g
-b24gdGhlIG5leHQgbGluZS4gVGhhdCBpcyBlYXN5IHRvIG1pc3MgYW5kIEkgYXNrZWQgbXlzZWxm
-IGZvciBhIG1vbWVudCB3aHkgeW91IHdhbnQgdG8gYWRkIDIwIGhlcmUuCj4KPiBBcGFydCBmcm9t
-IHRoYXQgdGhlIHBhdGNoIGxvb2tzIGdvb2QgdG8gbWUsIENocmlzdGlhbi4KPgo+PiArCQkyMCAt
-IDcgLSA2IC0gMyAtIDQgLSAyOSwgLyogbm8gbmVlZCB0byBjb3VudCBnZHMvaGRwX2ZsdXNoL3Zt
-X2ZsdXNoCj4+ICtmZW5jZS9jbnR4X2NudGwvdmd0X2ZsdXNoL21ldGEtZGF0YSBhbnltb3JlICov
-Cj4+ICAgIAkuZW1pdF9pYl9zaXplID0JNCwgLyogZ2Z4X3Y4XzBfcmluZ19lbWl0X2liX2dmeCAq
-Lwo+PiAgICAJLmVtaXRfaWIgPSBnZnhfdjhfMF9yaW5nX2VtaXRfaWJfZ2Z4LAo+PiAgICAJLmVt
-aXRfZmVuY2UgPSBnZnhfdjhfMF9yaW5nX2VtaXRfZmVuY2VfZ2Z4LAo+Cj4gX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlz
-dAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4CgoKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Am 20.01.2017 um 08:44 schrieb Nils Holland:
+> On Fri, Jan 20, 2017 at 11:47:53AM +0900, Michel Dänzer wrote:
+>> On 20/01/17 04:35 AM, Nils Holland wrote:
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c	2016-12-11 20:17:54.000000000 +0100
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c	2017-01-19 15:38:56.972034489 +0100
+>>> @@ -372,6 +372,10 @@
+>>>   	if (!drm_arch_can_wc_memory())
+>>>   		bo->flags &= ~AMDGPU_GEM_CREATE_CPU_GTT_USWC;
+>>>   
+>>> +	#ifdef CONFIG_X86_32
+>>> +		bo->flags &= ~AMDGPU_GEM_CREATE_CPU_GTT_USWC;
+>>> +	#endif
+>>> +
+>>>   	amdgpu_fill_placement_to_bo(bo, placement);
+>>>   	/* Kernel allocation are uninterruptible */
+>>>   	r = ttm_bo_init(&adev->mman.bdev, &bo->tbo, size, type,
+>> The corresponding code in the radeon driver has changed quite a bit
+>> since this original fix. It would be better to bring the amdgpu code in
+>> line with the current radeon code.
+>>
+>>
+>>> With this patch, the amdgpu driver works fine for me on my 32 bit
+>>> kernel: All graphics output looks the way it's supposed to, even with
+>>> full acceleration enabled - great!
+>>>
+>>> I'd suggest that it might be a good idea to put to apply the above
+>>> patch or something similar to the official sources.
+>> Indeed. Do you want to create a proper patch and submit it to the
+>> amd-gfx mailing list for review? See Documentation/SubmittingPatches for
+>> more information.
+> Sounds like a good idea! I was a bit heasitant because, to be honest,
+> I'm not at all an expert about the code in question and basically only
+> saw how you fixed the issue in radeon and thought: "Well, let's see if
+> I can do the same thing in amdgpu and if so, if it helps there, too".
+> ;-)
+
+Well first of all thanks for testing this and pointing into the correct 
+direction how to fix the issue.
+
+>
+> However, since you've said that a 32 bit fix in amdgpu generally seems
+> like a good idea, I would indeed use a little time on the weekend to
+> get a proper patch ready and submit it for review. Even if the "no wc
+> for x86_32" part is probably the only thing it'll contain - more of
+> "bringing the amdgpu code in line with the current radeon code" might,
+> for the time being, be beyond my capabilities, at least if we assume
+> that the code should stay in a sane and working condition. ;-)
+
+The amdgpu code is a successor of the radeon code, we just forked it of 
+to avoid regressing radeon while working on new stuff (and radeon just 
+became way to big to handle).
+
+Unfortunately that fork happened before the final fix in radeon for 
+32bit systems landed. I think it's just the #if condition which changed 
+on radeon, e.g. instead of always disabling it on 32bit X86 we do so 
+when the feature needed for USWC isn't enabled on the architecture in 
+general IIRC.
+
+Shouldn't be to much of an issue to port the current status over to amdgpu.
+
+Regards,
+Christian.
+
+>
+> Thanks and greetings
+> Nils
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
