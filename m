@@ -1,62 +1,77 @@
-From: Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH libdrm 3/3] amdgpu: A new option to run tests on render node
-Date: Thu, 19 Jan 2017 17:53:11 -0500
-Message-ID: <1484866391-17175-3-git-send-email-AlexBin.Xie@amd.com>
-References: <1484866391-17175-1-git-send-email-AlexBin.Xie@amd.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Subject: Re: amdgpu: Corrupted video on 32 bit systems (possible fix)
+Date: Fri, 20 Jan 2017 11:47:53 +0900
+Message-ID: <40da3f7e-6634-7588-36b5-f03378faee26@daenzer.net>
+References: <20170119193537.GA3296@teela.fritz.box>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1484866391-17175-1-git-send-email-AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20170119193537.GA3296@teela.fritz.box>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Nils Holland <nholland@tisys.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-VGVzdGVkOgoxLiBBcyByb290LCB0ZXN0cyBwYXNzZWQgb24gcHJpbWFyeS4KMi4gQXMgcm9vdCwg
-Qk8gZXhwb3J0L2ltcG9ydCBmYWlsZWQgb24gcmVuZGVyIG5vZGUgYXMgZXhwZWN0ZWQuCjMuIEFz
-IG5vbi1wcml2aWxlZ2VkIHVzZXIsIHRlc3RzIGZhaWxlZCBvbiBwcmltYXJ5IGFzIGV4cGVjdGVk
-Lgo0LiBBcyBub24tcHJpdmlsZWdlZCB1c2VyLCBvbmx5IEJPIGV4cG9ydC9pbXBvcnQKICAgZmFp
-bGVkIG9uIHJlbmRlciBub2RlIGFzIGV4cGVjdGVkLgoKU2lnbmVkLW9mZi1ieTogQWxleCBYaWUg
-PEFsZXhCaW4uWGllQGFtZC5jb20+Ci0tLQogdGVzdHMvYW1kZ3B1L2FtZGdwdV90ZXN0LmMgfCAx
-MSArKysrKysrKy0tLQogMSBmaWxlIGNoYW5nZWQsIDggaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlv
-bnMoLSkKCmRpZmYgLS1naXQgYS90ZXN0cy9hbWRncHUvYW1kZ3B1X3Rlc3QuYyBiL3Rlc3RzL2Ft
-ZGdwdS9hbWRncHVfdGVzdC5jCmluZGV4IDI0MzdkYjQuLmE2ZjFkZDEgMTAwNjQ0Ci0tLSBhL3Rl
-c3RzL2FtZGdwdS9hbWRncHVfdGVzdC5jCisrKyBiL3Rlc3RzL2FtZGdwdS9hbWRncHVfdGVzdC5j
-CkBAIC0xMDksMTMgKzEwOSwxNCBAQCBzdGF0aWMgdm9pZCBkaXNwbGF5X3Rlc3Rfc3VpdGVzKHZv
-aWQpCiAKIC8qKiBIZWxwIHN0cmluZyBmb3IgY29tbWFuZCBsaW5lIHBhcmFtZXRlcnMgKi8KIHN0
-YXRpYyBjb25zdCBjaGFyIHVzYWdlW10gPQotCSJVc2FnZTogJXMgWy1obF0gWzwtcyA8c3VpdGUg
-aWQ+PiBbLXQgPHRlc3QgaWQ+XV0gWy1kIDxkZXZpY2VfaWQ+XVxuIgorCSJVc2FnZTogJXMgWy1o
-bHJdIFs8LXMgPHN1aXRlIGlkPj4gWy10IDx0ZXN0IGlkPl1dIFstZCA8ZGV2aWNlX2lkPl1cbiIK
-IAkid2hlcmU6XG4iCiAJIiAgICAgICBsIC0gRGlzcGxheSBhbGwgc3VpdGVzIGFuZCB0aGVpciB0
-ZXN0c1xuIgorCSIgICAgICAgciAtIFJ1biB0aGUgdGVzdHMgb24gcmVuZGVyIG5vZGVcbiIKIAki
-ICAgICAgIGQgLSBDaG9vc2Ugd2hpY2ggZGV2aWNlIHRvIHJ1biB0ZXN0c1xuIgogCSIgICAgICAg
-aCAtIERpc3BsYXkgdGhpcyBoZWxwXG4iOwogLyoqIFNwZWNpZmllZCBvcHRpb25zIHN0cmluZ3Mg
-Zm9yIGdldG9wdCAqLwotc3RhdGljIGNvbnN0IGNoYXIgb3B0aW9uc1tdICAgPSAiaGxzOnQ6ZDoi
-Oworc3RhdGljIGNvbnN0IGNoYXIgb3B0aW9uc1tdICAgPSAiaGxyczp0OmQ6IjsKIAogLyogT3Bl
-biBBTUQgZGV2aWNlcy4KICAqIFJldHVybiB0aGUgbnVtYmVyIG9mIEFNRCBkZXZpY2Ugb3Blbm5l
-ZC4KQEAgLTI0MSw2ICsyNDIsNyBAQCBpbnQgbWFpbihpbnQgYXJnYywgY2hhciAqKmFyZ3YpCiAJ
-aW50IHN1aXRlX2lkID0gLTE7CS8qIEJ5IGRlZmF1bHQgcnVuIGV2ZXJ5dGhpbmcgKi8KIAlpbnQg
-dGVzdF9pZCAgPSAtMTsJLyogQnkgZGVmYXVsdCBydW4gYWxsIHRlc3RzIGluIHRoZSBzdWl0ZSAq
-LwogCWludCBkZXZpY2VfaWQgPSAwOwkvKiBCeSBkZWZhdWx0IHJ1biBtb3N0IHRlc3RzIG9uIGRl
-dmljZSAwICovCisJaW50IHJlbmRlcl9ub2RlID0gMDsJLyogQnkgZGVmYXVsdCBydW4gbW9zdCB0
-ZXN0cyBvbiBwcmltYXJ5IG5vZGUgKi8KIAlDVV9wU3VpdGUgcFN1aXRlID0gTlVMTDsKIAlDVV9w
-VGVzdCAgcFRlc3QgID0gTlVMTDsKIApAQCAtMjcyLDYgKzI3NCw5IEBAIGludCBtYWluKGludCBh
-cmdjLCBjaGFyICoqYXJndikKIAkJY2FzZSAnZCc6CiAJCQlkZXZpY2VfaWQgPSBhdG9pKG9wdGFy
-Zyk7CiAJCQlicmVhazsKKwkJY2FzZSAncic6CisJCQlyZW5kZXJfbm9kZSA9IDE7CisJCQlicmVh
-azsKIAkJY2FzZSAnPyc6CiAJCWNhc2UgJ2gnOgogCQkJZnByaW50ZihzdGRlcnIsIHVzYWdlLCBh
-cmd2WzBdKTsKQEAgLTI4Miw3ICsyODcsNyBAQCBpbnQgbWFpbihpbnQgYXJnYywgY2hhciAqKmFy
-Z3YpCiAJCX0KIAl9CiAKLQlhbWRncHVfb3Blbl9kZXZpY2VzKDApOworCWFtZGdwdV9vcGVuX2Rl
-dmljZXMocmVuZGVyX25vZGUpOwogCiAJaWYgKGRybV9hbWRncHVbMF0gPCAwKSB7CiAJCXBlcnJv
-cigiQ2Fubm90IG9wZW4gQU1ER1BVIGRldmljZS5cbiIpOwotLSAKMi43LjQKCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
-CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+On 20/01/17 04:35 AM, Nils Holland wrote:
+> Hi folks,
+> 
+> there seems to be an issue on 32 bit kernels which makes graphics
+> output look all messed up under X when using the amdgpu drm kernel
+> driver.
+> 
+> In fact, the same issue was present at some time in 2015 using the
+> radeon driver too, but it has been fixed a long time ago, as can be
+> seen here:
+> 
+> https://bugs.freedesktop.org/show_bug.cgi?id=84627#c35
+> 
+> Now, I reported the same issue in conjunction with the amdgpu driver
+> back when I first noticed it back then. Nothing has happened since
+> then, but my bug report can still be found here:
+> 
+> https://bugs.freedesktop.org/show_bug.cgi?id=91831
+> 
+> Personally, I had been using the (working) radeon driver again, and
+> only today I decided to check if the issue in amdgpu still exists. And
+> yes, it seems so: I still get garbled output when using a current
+> kernel with a current version of the amdgpu driver.
+> 
+> Now, I've tried to just "port"  the fix that had been done to the radeon
+> driver in 2015 (see the first link above) to the amdgpu driver and created
+> myself the following little patch:
+> 
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c	2016-12-11 20:17:54.000000000 +0100
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c	2017-01-19 15:38:56.972034489 +0100
+> @@ -372,6 +372,10 @@
+>  	if (!drm_arch_can_wc_memory())
+>  		bo->flags &= ~AMDGPU_GEM_CREATE_CPU_GTT_USWC;
+>  
+> +	#ifdef CONFIG_X86_32
+> +		bo->flags &= ~AMDGPU_GEM_CREATE_CPU_GTT_USWC;
+> +	#endif
+> +
+>  	amdgpu_fill_placement_to_bo(bo, placement);
+>  	/* Kernel allocation are uninterruptible */
+>  	r = ttm_bo_init(&adev->mman.bdev, &bo->tbo, size, type,
+
+The corresponding code in the radeon driver has changed quite a bit
+since this original fix. It would be better to bring the amdgpu code in
+line with the current radeon code.
+
+
+> With this patch, the amdgpu driver works fine for me on my 32 bit
+> kernel: All graphics output looks the way it's supposed to, even with
+> full acceleration enabled - great!
+> 
+> I'd suggest that it might be a good idea to put to apply the above
+> patch or something similar to the official sources.
+
+Indeed. Do you want to create a proper patch and submit it to the
+amd-gfx mailing list for review? See Documentation/SubmittingPatches for
+more information.
+
+
+-- 
+Earthling Michel Dänzer               |               http://www.amd.com
+Libre software enthusiast             |             Mesa and X developer
