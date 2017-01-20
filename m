@@ -1,128 +1,66 @@
-From: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH libdrm 1/3] amdgpu: verify the tested device
-Date: Fri, 20 Jan 2017 11:45:00 +0800
-Message-ID: <588187BC.9070806@amd.com>
-References: <1484866391-17175-1-git-send-email-AlexBin.Xie@amd.com>
+From: Nils Holland <nholland@tisys.org>
+Subject: Re: amdgpu: Corrupted video on 32 bit systems (possible fix)
+Date: Fri, 20 Jan 2017 08:44:27 +0100
+Message-ID: <20170120074427.GA2793@boerne.fritz.box>
+References: <20170119193537.GA3296@teela.fritz.box>
+ <40da3f7e-6634-7588-36b5-f03378faee26@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1484866391-17175-1-git-send-email-AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <40da3f7e-6634-7588-36b5-f03378faee26@daenzer.net>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Michel =?iso-8859-1?Q?D=E4nzer?= <michel@daenzer.net>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-c29tZSBzbWFsbCBuaXRwaWNrLi4uCgpPbiAyMDE35bm0MDHmnIgyMOaXpSAwNjo1MywgQWxleCBY
-aWUgd3JvdGU6Cj4gVmVyaWZ5IHRoZSB2ZW5kZXIgSUQgYW5kIGRyaXZlciBuYW1lLgo+IE9wZW4g
-YWxsIEFNREdQVSBkZXZpY2VzLgo+IFByb3ZpZGUgYW4gb3B0aW9uIHRvIG9wZW4gcmVuZGVyIG5v
-ZGUuCj4KPiBUZXN0ZWQgYXMgcm9vdDogUEFTUwo+IFRlc3RlZCBhcyBub24tcHJpdmlsZWdlZCB1
-c2VyOgo+IEFsbCB0ZXN0cyBmYWlsZWQgYXMgZXhwZWN0ZWQKPgo+IFNpZ25lZC1vZmYtYnk6IEFs
-ZXggWGllIDxBbGV4QmluLlhpZUBhbWQuY29tPgo+IC0tLQo+ICAgdGVzdHMvYW1kZ3B1L2FtZGdw
-dV90ZXN0LmMgfCAxNDQgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0t
-LS0tCj4gICAxIGZpbGUgY2hhbmdlZCwgMTIxIGluc2VydGlvbnMoKyksIDIzIGRlbGV0aW9ucygt
-KQo+Cj4gZGlmZiAtLWdpdCBhL3Rlc3RzL2FtZGdwdS9hbWRncHVfdGVzdC5jIGIvdGVzdHMvYW1k
-Z3B1L2FtZGdwdV90ZXN0LmMKPiBpbmRleCA3MWYzNTdjLi5lNDJlZjlkIDEwMDY0NAo+IC0tLSBh
-L3Rlc3RzL2FtZGdwdS9hbWRncHVfdGVzdC5jCj4gKysrIGIvdGVzdHMvYW1kZ3B1L2FtZGdwdV90
-ZXN0LmMKPiBAQCAtMTE1LDYgKzExNSwxMTkgQEAgc3RhdGljIGNvbnN0IGNoYXIgdXNhZ2VbXSA9
-ICJVc2FnZTogJXMgWy1obF0gWzwtcyA8c3VpdGUgaWQ+PiBbLXQgPHRlc3QgaWQ+XV1cbiIKPiAg
-IC8qKiBTcGVjaWZpZWQgb3B0aW9ucyBzdHJpbmdzIGZvciBnZXRvcHQgKi8KPiAgIHN0YXRpYyBj
-b25zdCBjaGFyIG9wdGlvbnNbXSAgID0gImhsczp0OiI7Cj4gICAKPiArLyogT3BlbiBBTUQgZGV2
-aWNlcy4KPiArICogUmV0dXJuIHRoZSBudW1iZXIgb2YgQU1EIGRldmljZSBvcGVubmVkLgo+ICsg
-Ki8KPiArc3RhdGljIGludCBhbWRncHVfb3Blbl9kZXZpY2VzKGludCBvcGVuX3JlbmRlcl9ub2Rl
-KQo+ICt7Cj4gKwlkcm1EZXZpY2VQdHIgZGV2aWNlc1tNQVhfQ0FSRFNfU1VQUE9SVEVEXTsKPiAr
-CWludCByZXQ7Cj4gKwlpbnQgaTsKPiArCWludCBqOwo+ICsJaW50IGFtZF9pbmRleCA9IDA7Cj4g
-KwlpbnQgZHJtX2NvdW50Owo+ICsJaW50IGZkOwo+ICsJY2hhciAqZGV2aWNlX25hbWU7Cj4gKwlk
-cm1WZXJzaW9uUHRyIHZlcnNpb247Cj4gKwo+ICsJZHJtX2NvdW50ID0gZHJtR2V0RGV2aWNlczIo
-MCwgZGV2aWNlcywgTUFYX0NBUkRTX1NVUFBPUlRFRCk7Cj4gKwo+ICsJaWYgKGRybV9jb3VudCA8
-IDApIHsKPiArCQlmcHJpbnRmKHN0ZGVyciwKPiArCQkJImRybUdldERldmljZXMyKCkgcmV0dXJu
-ZWQgYW4gZXJyb3IgJWRcbiIsCj4gKwkJCWRybV9jb3VudCk7Cj4gKwkJcmV0dXJuIDA7Cj4gKwl9
-Cj4gKwo+ICsJZm9yIChpID0gMDsgaSA8IGRybV9jb3VudDsgaSsrKSB7Cj4gKwkJLyogSWYgdGhp
-cyBpcyBub3QgQU1EIEdQVSB2ZW5kZXIgSUQsIHNraXAqLwo+ICsJCWlmIChkZXZpY2VzW2ldLT5i
-dXN0eXBlID09IERSTV9CVVNfUENJKQo+ICsJCQlpZiAoZGV2aWNlc1tpXS0+ZGV2aWNlaW5mby5w
-Y2ktPnZlbmRvcl9pZCAhPSAweDEwMDIpCj4gKwkJCQljb250aW51ZTsKPiArCj4gKwkJZm9yIChq
-ID0gMDsgaiA8IERSTV9OT0RFX01BWDsgaisrKSB7Cj4gKwkJCWlmIChkZXZpY2VzW2ldLT5hdmFp
-bGFibGVfbm9kZXMgJiAxIDw8IGopIHsKPiArCQkJCWZkID0gb3BlbigKPiArCQkJCQlkZXZpY2Vz
-W2ldLT5ub2Rlc1tqXSwKPiArCQkJCQlPX1JET05MWSB8IE9fQ0xPRVhFQywKPiArCQkJCQkwKTsK
-PiArCQkJCWlmIChmZCA8IDApIGNvbnRpbnVlOwo+ICsJCQl9Cj4gKwo+ICsJCQl2ZXJzaW9uID0g
-ZHJtR2V0VmVyc2lvbihmZCk7Cj4gKwkJCWlmICghdmVyc2lvbikgewo+ICsJCQkJZnByaW50Zihz
-dGRlcnIsCj4gKwkJCQkJIldhcm5pbmc6IENhbm5vdCBnZXQgdmVyc2lvbiBmb3IgJXMuIgo+ICsJ
-CQkJCSJFcnJvciBpcyAlc1xuIiwKPiArCQkJCQlkZXZpY2VzW2ldLT5ub2Rlc1tqXSwKPiArCQkJ
-CQlzdHJlcnJvcihlcnJubykpOwo+ICsJCQkJY2xvc2UoZmQpOwo+ICsJCQkJYnJlYWs7Cj4gKwkJ
-CX0KPiArCj4gKwkJCWlmIChzdHJjbXAodmVyc2lvbi0+bmFtZSwgImFtZGdwdSIpKSB7Cj4gKwkJ
-CQkvKiBUaGlzIGlzIG5vdCBBTURHUFUgZHJpdmVyLCBza2lwLiovCj4gKwkJCQlkcm1GcmVlVmVy
-c2lvbih2ZXJzaW9uKTsKPiArCQkJCWNsb3NlKGZkKTsKPiArCQkJCWJyZWFrOwo+ICsJCQl9Cj4g
-Kwo+ICsJCQlkcm1GcmVlVmVyc2lvbih2ZXJzaW9uKTsKPiArCj4gKwkJCWlmIChvcGVuX3JlbmRl
-cl9ub2RlKQo+ICsJCQkJZGV2aWNlX25hbWUgPSBkcm1HZXRSZW5kZXJEZXZpY2VOYW1lRnJvbUZk
-KGZkKTsKPiArCQkJZWxzZQo+ICsJCQkJZGV2aWNlX25hbWUgPSBkcm1HZXRQcmltYXJ5RGV2aWNl
-TmFtZUZyb21GZChmZCk7Cj4gKwo+ICsJCQljbG9zZShmZCk7Cj4gKwo+ICsJCQlkcm1fYW1kZ3B1
-W2FtZF9pbmRleF0gPSBvcGVuKGRldmljZV9uYW1lLAo+ICsJCQkJCQkJT19SRFdSIHwgT19DTE9F
-WEVDKTsKPiArCj4gKwkJCWlmIChkcm1fYW1kZ3B1W2FtZF9pbmRleF0gPj0gMCkKPiArCQkJCWFt
-ZF9pbmRleCsrOwo+ICsKPiArCQkJZnJlZShkZXZpY2VfbmFtZSk7Cj4gKwo+ICsJCQkvKiBXZSBo
-YXZlIG9wZW4gdGhpcyBkZXZpY2UuIEdvIHRvIG5leHQgZGV2aWNlLiovCj4gKwkJCWJyZWFrOwo+
-ICsJCX0KPiArCX0KPiArCj4gKwlkcm1GcmVlRGV2aWNlcyhkZXZpY2VzLCBkcm1fY291bnQpOwpo
-ZXJlIG5lZWRzIHJldHVybiB2YWx1ZTsKPiArfQo+ICsKPiArLyogQ2xvc2UgQU1EIGRldmljZXMu
-Cj4gKyAqLwo+ICtzdGF0aWMgdm9pZCBhbWRncHVfY2xvc2VfZGV2aWNlcygpCj4gK3sKPiArCWlu
-dCBpOwo+ICsJZm9yIChpID0gMDsgaSA8IE1BWF9DQVJEU19TVVBQT1JURUQ7IGkrKykKPiArCQlp
-ZiAoZHJtX2FtZGdwdVtpXSA+PTApCj4gKwkJCWNsb3NlKGRybV9hbWRncHVbaV0pOwo+ICt9Cj4g
-Kwo+ICsvKiBQcmludCBBTUQgZGV2aWNlcyBpbmZvcm1hdGlvbiAqLwo+ICtzdGF0aWMgdm9pZCBh
-bWRncHVfcHJpbnRfZGV2aWNlcygpCj4gK3sKPiArCWludCBpOwo+ICsJZm9yIChpID0gMDsgaSA8
-IE1BWF9DQVJEU19TVVBQT1JURUQ7IGkrKykKPiArCQlpZiAoZHJtX2FtZGdwdVtpXSA+PTApIHsK
-PiArCQkJLyoqIERpc3BsYXkgdmVyc2lvbiBvZiBEUk0gZHJpdmVyICovCj4gKwkJCWRybVZlcnNp
-b25QdHIgcmV0dmFsID0gZHJtR2V0VmVyc2lvbihkcm1fYW1kZ3B1WzBdKTsKPiArCj4gKwkJCWlm
-IChyZXR2YWwgPT0gTlVMTCkgewo+ICsJCQkJcGVycm9yKCJDYW5ub3QgZ2V0IHZlcnNpb24gZm9y
-IEFNREdQVSBkZXZpY2UiKTsKPiArCQkJCWV4aXQoRVhJVF9GQUlMVVJFKTsKPiArCQkJfQo+ICsK
-PiArCQkJcHJpbnRmKCJBTURHUFUgZGV2aWNlICMlZDogIgo+ICsJCQkJIk5hbWU6IFslc10gOiBE
-YXRlIFslc10gOiBEZXNjcmlwdGlvbiBbJXNdXG4iLAo+ICsJCQkJaSwgcmV0dmFsLT5uYW1lLCBy
-ZXR2YWwtPmRhdGUsIHJldHZhbC0+ZGVzYyk7Cj4gKwkJCWRybUZyZWVWZXJzaW9uKHJldHZhbCk7
-Cj4gKwkJfQo+ICt9Cj4gKwo+ICAgLyogVGhlIG1haW4oKSBmdW5jdGlvbiBmb3Igc2V0dGluZyB1
-cCBhbmQgcnVubmluZyB0aGUgdGVzdHMuCj4gICAgKiBSZXR1cm5zIGEgQ1VFX1NVQ0NFU1Mgb24g
-c3VjY2Vzc2Z1bCBydW5uaW5nLCBhbm90aGVyCj4gICAgKiBDVW5pdCBlcnJvciBjb2RlIG9uIGZh
-aWx1cmUuCj4gQEAgLTE2MywzNSArMjc2LDIwIEBAIGludCBtYWluKGludCBhcmdjLCBjaGFyICoq
-YXJndikKPiAgIAkJfQo+ICAgCX0KPiAgIAo+IC0JLyogVHJ5IHRvIG9wZW4gYWxsIHBvc3NpYmxl
-IHJhZGVvbiBjb25uZWN0aW9ucwo+IC0JICogUmlnaHQgbm93OiBPcGVuIG9ubHkgdGhlIDAuCj4g
-LQkgKi8KPiAtCXByaW50ZigiVHJ5IHRvIG9wZW4gdGhlIGNhcmQgMC4uXG4iKTsKPiAtCWRybV9h
-bWRncHVbMF0gPSBvcGVuKCIvZGV2L2RyaS9jYXJkMCIsIE9fUkRXUiB8IE9fQ0xPRVhFQyk7Cj4g
-KwlhbWRncHVfb3Blbl9kZXZpY2VzKDApOwp3ZSdkIGJldHRlciB0byBjaGVjayB0aGlzIGZ1bmN0
-aW9uIHJldHVybiB2YWx1ZS4KClJlZ2FyZHMsCkRhdmlkIFpob3UKPiAgIAo+ICAgCWlmIChkcm1f
-YW1kZ3B1WzBdIDwgMCkgewo+IC0JCXBlcnJvcigiQ2Fubm90IG9wZW4gL2Rldi9kcmkvY2FyZDBc
-biIpOwo+IC0JCWV4aXQoRVhJVF9GQUlMVVJFKTsKPiAtCX0KPiAtCj4gLQkvKiogRGlzcGxheSB2
-ZXJzaW9uIG9mIERSTSBkcml2ZXIgKi8KPiAtCWRybVZlcnNpb25QdHIgcmV0dmFsID0gZHJtR2V0
-VmVyc2lvbihkcm1fYW1kZ3B1WzBdKTsKPiAtCj4gLQlpZiAocmV0dmFsID09IE5VTEwpIHsKPiAt
-CQlwZXJyb3IoIkNvdWxkIG5vdCBnZXQgaW5mb3JtYXRpb24gYWJvdXQgRFJNIGRyaXZlciIpOwo+
-ICsJCXBlcnJvcigiQ2Fubm90IG9wZW4gQU1ER1BVIGRldmljZS5cbiIpOwo+ICAgCQlleGl0KEVY
-SVRfRkFJTFVSRSk7Cj4gICAJfQo+ICAgCj4gLQlwcmludGYoIkRSTSBEcml2ZXI6IE5hbWU6IFsl
-c10gOiBEYXRlIFslc10gOiBEZXNjcmlwdGlvbiBbJXNdXG4iLAo+IC0JICAgICAgIHJldHZhbC0+
-bmFtZSwgcmV0dmFsLT5kYXRlLCByZXR2YWwtPmRlc2MpOwo+IC0KPiAtCWRybUZyZWVWZXJzaW9u
-KHJldHZhbCk7Cj4gKwlhbWRncHVfcHJpbnRfZGV2aWNlcygpOwo+ICAgCj4gICAJLyogSW5pdGlh
-bGl6ZSB0ZXN0IHN1aXRlcyB0byBydW4gKi8KPiAgIAo+ICAgCS8qIGluaXRpYWxpemUgdGhlIENV
-bml0IHRlc3QgcmVnaXN0cnkgKi8KPiAgIAlpZiAoQ1VFX1NVQ0NFU1MgIT0gQ1VfaW5pdGlhbGl6
-ZV9yZWdpc3RyeSgpKSB7Cj4gLQkJY2xvc2UoZHJtX2FtZGdwdVswXSk7Cj4gKwkJYW1kZ3B1X2Ns
-b3NlX2RldmljZXMoKTsKPiAgIAkJcmV0dXJuIENVX2dldF9lcnJvcigpOwo+ICAgCX0KPiAgIAo+
-IEBAIC0yMDAsNyArMjk4LDcgQEAgaW50IG1haW4oaW50IGFyZ2MsIGNoYXIgKiphcmd2KQo+ICAg
-CQlmcHJpbnRmKHN0ZGVyciwgInN1aXRlIHJlZ2lzdHJhdGlvbiBmYWlsZWQgLSAlc1xuIiwKPiAg
-IAkJCQlDVV9nZXRfZXJyb3JfbXNnKCkpOwo+ICAgCQlDVV9jbGVhbnVwX3JlZ2lzdHJ5KCk7Cj4g
-LQkJY2xvc2UoZHJtX2FtZGdwdVswXSk7Cj4gKwkJYW1kZ3B1X2Nsb3NlX2RldmljZXMoKTsKPiAg
-IAkJZXhpdChFWElUX0ZBSUxVUkUpOwo+ICAgCX0KPiAgIAo+IEBAIC0yMjIsNyArMzIwLDcgQEAg
-aW50IG1haW4oaW50IGFyZ2MsIGNoYXIgKiphcmd2KQo+ICAgCQkJCQlmcHJpbnRmKHN0ZGVyciwg
-IkludmFsaWQgdGVzdCBpZDogJWRcbiIsCj4gICAJCQkJCQkJCXRlc3RfaWQpOwo+ICAgCQkJCQlD
-VV9jbGVhbnVwX3JlZ2lzdHJ5KCk7Cj4gLQkJCQkJY2xvc2UoZHJtX2FtZGdwdVswXSk7Cj4gKwkJ
-CQkJYW1kZ3B1X2Nsb3NlX2RldmljZXMoKTsKPiAgIAkJCQkJZXhpdChFWElUX0ZBSUxVUkUpOwo+
-ICAgCQkJCX0KPiAgIAkJCX0gZWxzZQo+IEBAIC0yMzEsMTMgKzMyOSwxMyBAQCBpbnQgbWFpbihp
-bnQgYXJnYywgY2hhciAqKmFyZ3YpCj4gICAJCQlmcHJpbnRmKHN0ZGVyciwgIkludmFsaWQgc3Vp
-dGUgaWQgOiAlZFxuIiwKPiAgIAkJCQkJc3VpdGVfaWQpOwo+ICAgCQkJQ1VfY2xlYW51cF9yZWdp
-c3RyeSgpOwo+IC0JCQljbG9zZShkcm1fYW1kZ3B1WzBdKTsKPiArCQkJYW1kZ3B1X2Nsb3NlX2Rl
-dmljZXMoKTsKPiAgIAkJCWV4aXQoRVhJVF9GQUlMVVJFKTsKPiAgIAkJfQo+ICAgCX0gZWxzZQo+
-ICAgCQlDVV9iYXNpY19ydW5fdGVzdHMoKTsKPiAgIAo+ICAgCUNVX2NsZWFudXBfcmVnaXN0cnko
-KTsKPiAtCWNsb3NlKGRybV9hbWRncHVbMF0pOwo+ICsJYW1kZ3B1X2Nsb3NlX2RldmljZXMoKTsK
-PiAgIAlyZXR1cm4gQ1VfZ2V0X2Vycm9yKCk7Cj4gICB9CgpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZngK
+On Fri, Jan 20, 2017 at 11:47:53AM +0900, Michel Dänzer wrote:
+> On 20/01/17 04:35 AM, Nils Holland wrote:
+> > 
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c	2016-12-11 20:17:54.000000000 +0100
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c	2017-01-19 15:38:56.972034489 +0100
+> > @@ -372,6 +372,10 @@
+> >  	if (!drm_arch_can_wc_memory())
+> >  		bo->flags &= ~AMDGPU_GEM_CREATE_CPU_GTT_USWC;
+> >  
+> > +	#ifdef CONFIG_X86_32
+> > +		bo->flags &= ~AMDGPU_GEM_CREATE_CPU_GTT_USWC;
+> > +	#endif
+> > +
+> >  	amdgpu_fill_placement_to_bo(bo, placement);
+> >  	/* Kernel allocation are uninterruptible */
+> >  	r = ttm_bo_init(&adev->mman.bdev, &bo->tbo, size, type,
+> 
+> The corresponding code in the radeon driver has changed quite a bit
+> since this original fix. It would be better to bring the amdgpu code in
+> line with the current radeon code.
+> 
+> 
+> > With this patch, the amdgpu driver works fine for me on my 32 bit
+> > kernel: All graphics output looks the way it's supposed to, even with
+> > full acceleration enabled - great!
+> > 
+> > I'd suggest that it might be a good idea to put to apply the above
+> > patch or something similar to the official sources.
+> 
+> Indeed. Do you want to create a proper patch and submit it to the
+> amd-gfx mailing list for review? See Documentation/SubmittingPatches for
+> more information.
+
+Sounds like a good idea! I was a bit heasitant because, to be honest,
+I'm not at all an expert about the code in question and basically only
+saw how you fixed the issue in radeon and thought: "Well, let's see if
+I can do the same thing in amdgpu and if so, if it helps there, too".
+;-)
+
+However, since you've said that a 32 bit fix in amdgpu generally seems
+like a good idea, I would indeed use a little time on the weekend to
+get a proper patch ready and submit it for review. Even if the "no wc
+for x86_32" part is probably the only thing it'll contain - more of
+"bringing the amdgpu code in line with the current radeon code" might,
+for the time being, be beyond my capabilities, at least if we assume
+that the code should stay in a sane and working condition. ;-)
+
+Thanks and greetings
+Nils
