@@ -1,15 +1,16 @@
-From: Emil Velikov <emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH libdrm 1/3] amdgpu: verify the tested device
-Date: Fri, 20 Jan 2017 19:45:11 +0000
-Message-ID: <CACvgo53-EusyMSeXS-DBxCUv=gpdY_rXcaQyV15XvykracPPFg@mail.gmail.com>
+From: "Xie, AlexBin" <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH libdrm 2/3] amdgpu: A new option to choose which device to
+ run most tests
+Date: Fri, 20 Jan 2017 22:08:27 +0000
+Message-ID: <CY4PR12MB1640A585145DD409BEB07511F2710@CY4PR12MB1640.namprd12.prod.outlook.com>
 References: <1484866391-17175-1-git-send-email-AlexBin.Xie@amd.com>
- <CACvgo50HCafUSw7zDjkS+_1xs67=QgHcOWcO1DDqzBL4RcRBJA@mail.gmail.com>
- <CY4PR12MB1640D78EBE9F998A00F5323FF2710@CY4PR12MB1640.namprd12.prod.outlook.com>
+ <1484866391-17175-2-git-send-email-AlexBin.Xie@amd.com>,
+ <CACvgo52ia8zBmvFm9P_zSv0fFntO1od71OawQ9e4GD64yj3DQw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0354529542=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CY4PR12MB1640D78EBE9F998A00F5323FF2710-rpdhrqHFk06q//3LJcutlgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <CACvgo52ia8zBmvFm9P_zSv0fFntO1od71OawQ9e4GD64yj3DQw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,95 +21,206 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Xie, AlexBin" <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
+To: Emil Velikov <emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gMjAgSmFudWFyeSAyMDE3IGF0IDE5OjE0LCBYaWUsIEFsZXhCaW4gPEFsZXhCaW4uWGllQGFt
-ZC5jb20+IHdyb3RlOgo+IEhpIEVtaWwsCj4KPgo+IFRoYW5rcyBmb3IgdGhlIGNvbW1lbnRzLgo+
-Cj4KPiBQbGVhc2Ugc2VlIGJlbG93Lgo+Cj4KPiBSZWdhcmRzLAo+Cj4gQWxleCBCaW4gWGllCj4K
-Pgo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBGcm9tOiBFbWlsIFZlbGlr
-b3YgPGVtaWwubC52ZWxpa292QGdtYWlsLmNvbT4KPiBTZW50OiBGcmlkYXksIEphbnVhcnkgMjAs
-IDIwMTcgODoxOCBBTQo+IFRvOiBYaWUsIEFsZXhCaW4KPiBDYzogYW1kLWdmeCBtYWlsaW5nIGxp
-c3QKPiBTdWJqZWN0OiBSZTogW1BBVENIIGxpYmRybSAxLzNdIGFtZGdwdTogdmVyaWZ5IHRoZSB0
-ZXN0ZWQgZGV2aWNlCj4KPiBIaSBBbGV4LAo+Cj4gVGhhbmtzIGZvciBkb2luZyB0aGlzLiBUaGVy
-ZSdzIGEgZmV3IG5pdHBpY2tzIG9uIHRvcCBvZiB3aGF0IERhdmlkIGFuZAo+IENocmlzdGlhbiBo
-YXMgc3BvdHRlZC4KPgo+IE9uIDE5IEphbnVhcnkgMjAxNyBhdCAyMjo1MywgQWxleCBYaWUgPEFs
-ZXhCaW4uWGllQGFtZC5jb20+IHdyb3RlOgo+PiBWZXJpZnkgdGhlIHZlbmRlciBJRCBhbmQgZHJp
-dmVyIG5hbWUuCj4+IE9wZW4gYWxsIEFNREdQVSBkZXZpY2VzLgo+PiBQcm92aWRlIGFuIG9wdGlv
-biB0byBvcGVuIHJlbmRlciBub2RlLgo+Pgo+PiBUZXN0ZWQgYXMgcm9vdDogUEFTUwo+PiBUZXN0
-ZWQgYXMgbm9uLXByaXZpbGVnZWQgdXNlcjoKPj4gQWxsIHRlc3RzIGZhaWxlZCBhcyBleHBlY3Rl
-ZAo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBBbGV4IFhpZSA8QWxleEJpbi5YaWVAYW1kLmNvbT4KPj4g
-LS0tCj4+ICB0ZXN0cy9hbWRncHUvYW1kZ3B1X3Rlc3QuYyB8IDE0NAo+PiArKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrLS0tLS0tLS0KPj4gIDEgZmlsZSBjaGFuZ2VkLCAxMjEg
-aW5zZXJ0aW9ucygrKSwgMjMgZGVsZXRpb25zKC0pCj4+Cj4+IGRpZmYgLS1naXQgYS90ZXN0cy9h
-bWRncHUvYW1kZ3B1X3Rlc3QuYyBiL3Rlc3RzL2FtZGdwdS9hbWRncHVfdGVzdC5jCj4+IGluZGV4
-IDcxZjM1N2MuLmU0MmVmOWQgMTAwNjQ0Cj4+IC0tLSBhL3Rlc3RzL2FtZGdwdS9hbWRncHVfdGVz
-dC5jCj4+ICsrKyBiL3Rlc3RzL2FtZGdwdS9hbWRncHVfdGVzdC5jCj4+IEBAIC0xMTUsNiArMTE1
-LDExOSBAQCBzdGF0aWMgY29uc3QgY2hhciB1c2FnZVtdID0gIlVzYWdlOiAlcyBbLWhsXSBbPC1z
-Cj4+IDxzdWl0ZSBpZD4+IFstdCA8dGVzdCBpZD5dXVxuIgo+PiAgLyoqIFNwZWNpZmllZCBvcHRp
-b25zIHN0cmluZ3MgZm9yIGdldG9wdCAqLwo+PiAgc3RhdGljIGNvbnN0IGNoYXIgb3B0aW9uc1td
-ICAgPSAiaGxzOnQ6IjsKPj4KPj4gKy8qIE9wZW4gQU1EIGRldmljZXMuCj4+ICsgKiBSZXR1cm4g
-dGhlIG51bWJlciBvZiBBTUQgZGV2aWNlIG9wZW5uZWQuCj4+ICsgKi8KPj4gK3N0YXRpYyBpbnQg
-YW1kZ3B1X29wZW5fZGV2aWNlcyhpbnQgb3Blbl9yZW5kZXJfbm9kZSkKPj4gK3sKPj4gKyAgICAg
-ICBkcm1EZXZpY2VQdHIgZGV2aWNlc1tNQVhfQ0FSRFNfU1VQUE9SVEVEXTsKPj4gKyAgICAgICBp
-bnQgcmV0Owo+PiArICAgICAgIGludCBpOwo+PiArICAgICAgIGludCBqOwo+PiArICAgICAgIGlu
-dCBhbWRfaW5kZXggPSAwOwo+PiArICAgICAgIGludCBkcm1fY291bnQ7Cj4+ICsgICAgICAgaW50
-IGZkOwo+PiArICAgICAgIGNoYXIgKmRldmljZV9uYW1lOwo+PiArICAgICAgIGRybVZlcnNpb25Q
-dHIgdmVyc2lvbjsKPj4gKwo+PiArICAgICAgIGRybV9jb3VudCA9IGRybUdldERldmljZXMyKDAs
-IGRldmljZXMsIE1BWF9DQVJEU19TVVBQT1JURUQpOwo+PiArCj4+ICsgICAgICAgaWYgKGRybV9j
-b3VudCA8IDApIHsKPj4gKyAgICAgICAgICAgICAgIGZwcmludGYoc3RkZXJyLAo+PiArICAgICAg
-ICAgICAgICAgICAgICAgICAiZHJtR2V0RGV2aWNlczIoKSByZXR1cm5lZCBhbiBlcnJvciAlZFxu
-IiwKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgZHJtX2NvdW50KTsKPj4gKyAgICAgICAgICAg
-ICAgIHJldHVybiAwOwo+PiArICAgICAgIH0KPj4gKwo+PiArICAgICAgIGZvciAoaSA9IDA7IGkg
-PCBkcm1fY291bnQ7IGkrKykgewo+PiArICAgICAgICAgICAgICAgLyogSWYgdGhpcyBpcyBub3Qg
-QU1EIEdQVSB2ZW5kZXIgSUQsIHNraXAqLwo+PiArICAgICAgICAgICAgICAgaWYgKGRldmljZXNb
-aV0tPmJ1c3R5cGUgPT0gRFJNX0JVU19QQ0kpCj4+ICsgICAgICAgICAgICAgICAgICAgICAgIGlm
-IChkZXZpY2VzW2ldLT5kZXZpY2VpbmZvLnBjaS0+dmVuZG9yX2lkICE9Cj4+IDB4MTAwMikKPj4g
-KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb250aW51ZTsKPj4gKwo+PiArICAgICAg
-ICAgICAgICAgZm9yIChqID0gMDsgaiA8IERSTV9OT0RFX01BWDsgaisrKSB7Cj4+ICsgICAgICAg
-ICAgICAgICAgICAgICAgIGlmIChkZXZpY2VzW2ldLT5hdmFpbGFibGVfbm9kZXMgJiAxIDw8IGop
-IHsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmZCA9IG9wZW4oCj4+ICsgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkZXZpY2VzW2ldLT5ub2Rlc1tqXSwK
-Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIE9fUkRPTkxZIHwgT19D
-TE9FWEVDLAo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMCk7Cj4+
-ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaWYgKGZkIDwgMCkgY29udGludWU7Cj4+
-ICsgICAgICAgICAgICAgICAgICAgICAgIH0KPiBZb3UgZG9uJ3QgbmVlZCB0byBpdGVyYXRlIG92
-ZXIgYWxsIHRoZSBhdmFpbGFibGUgbm9kZXMuIEp1c3QgZmV0Y2ggdGhlCj4gUFJJTUFSWSBvciBS
-RU5ERVIgYmFzZWQgb24gb3Blbl9yZW5kZXJfbm9kZS4KPiBOb3RlIHRoYXQgYSBkZXZpY2UgY2Fu
-IGJlIG1pc3Npbmcgc29tZSBub2RlIHR5cGVzIChzYXkgUkVOREVSKSBzbyBtYWtlCj4gc3VyZSB0
-aGUgYXZhaWxhYmxlX25vZGVzIGJpdG1hc2sgaXMgc2V0Lgo+Cj4gW0FsZXggQmluIFhpZV06Cj4g
-VGhhdCB3YXMgbXkgb3JpZ2luYWwgZGVzaWduLCBidXQgbGF0ZXIgSSBjaGFuZ2VkLgo+IEkga25l
-dyB0aGlzIHdvcmsgZm9yIHRoZSBjdXJyZW50IHhmODZkcm0uYy4gQnV0IGlzIHRoZSBub2Rlc1sw
-XSAgYWx3YXlzCj4gcHJpbWFyeT8KPiBJIHdhcyBhZnJhaWQgdGhhdCB0aGlzIG1heSBiZSBjaGFu
-Z2VkIGluIGZ1dHVyZS4gSSBzZWFyY2hlZCBhbGwgZHJtIHRlc3RzLiBJCj4gZGlkIG5vdCBzZWUg
-YW4gZXhhbXBsZS4KPgo+IFNvIGFtZGdwdV90ZXN0IHdpbGwgYmUgdGhlIGZpcnN0IHRvIGFjY2Vz
-cyBub2RlcyBsaWtlOgo+IG9wZW4oZGV2aWNlc1tpXS0+bm9kZXNbRFJNX05PREVfUFJJTUFSWV0p
-LCBmb3IgZXhhbXBsZS4KPgpQbGVhc2UgYXZvaWQgbm9kZXNbMF0gYW5kIHVzZSB0aGUgc3ltYm9s
-aWMgbmFtZSAtIG5vZGVzW0RSTV9OT0RFX1BSSU1BUlldLgpDb21tZW50IGFwcGxpZXMgZm9yIGFu
-eSBEUk1fTk9ERV8qLgoKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgaWYgKG9wZW5fcmVuZGVy
-X25vZGUpCj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGV2aWNlX25hbWUgPQo+
-PiBkcm1HZXRSZW5kZXJEZXZpY2VOYW1lRnJvbUZkKGZkKTsKPj4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgZWxzZQo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRldmljZV9uYW1l
-ID0KPj4gZHJtR2V0UHJpbWFyeURldmljZU5hbWVGcm9tRmQoZmQpOwo+PiArCj4+ICsgICAgICAg
-ICAgICAgICAgICAgICAgIGNsb3NlKGZkKTsKPj4gKwo+PiArICAgICAgICAgICAgICAgICAgICAg
-ICBkcm1fYW1kZ3B1W2FtZF9pbmRleF0gPSBvcGVuKGRldmljZV9uYW1lLAo+PiArICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIE9fUkRXUiB8Cj4+
-IE9fQ0xPRVhFQyk7Cj4+ICsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgaWYgKGRybV9hbWRn
-cHVbYW1kX2luZGV4XSA+PSAwKQo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFt
-ZF9pbmRleCsrOwo+PiArCj4+ICsgICAgICAgICAgICAgICAgICAgICAgIGZyZWUoZGV2aWNlX25h
-bWUpOwo+PiArCj4gV2l0aCB0aGUgYWJvdmUgY29tbWVudCB0aGlzIGJlY29tZXMgcmVkdW5kYW50
-Lgo+Cj4+ICsgICAgICAgICAgICAgICAgICAgICAgIC8qIFdlIGhhdmUgb3BlbiB0aGlzIGRldmlj
-ZS4gR28gdG8gbmV4dCBkZXZpY2UuKi8KPj4gKyAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7
-Cj4+ICsgICAgICAgICAgICAgICB9Cj4+ICsgICAgICAgfQo+PiArCj4gSGVyZSB5b3Ugd2FudCB0
-byBpbml0aWFsaXNlIHRoZSByZW1haW5kZXIgb2YgZHJtX2FtZGdwdVtdIChzaW5jZQo+IGRybV9j
-b3VudCBjYW4gYmUgbGVzcyB0aGFuIE1BWF9DQVJEU19TVVBQT1JURUQpIHdpdGggLTEuCj4gT3Ro
-ZXJ3aXNlIHlvdSdsbCBoYXZlIGZ1biBleHBlcmllbmNlcyBkdXJpbmcgY2xvc2UvcHJpbnQgKGJl
-bG93KS4KPgo+IFtBbGV4IEJpbiBYaWVdOiBUaGlzIGluaXRpYWxpemF0aW9uIGlzIGRvbmUgaW4g
-ZXhpc3RpbmcgbWFpbigpIGZ1bmN0aW9uIChub3QKPiBpbnRyb2R1Y2VkIHRoaXMgcGF0Y2gpLgo+
-CkluZGVlZCB0aGF0J3MgY29ycmVjdC4gSXQgbG9va3MgYSBiaXQgc3RyYW5nZSB0byBoYXZlIGl0
-IHNlcGFyYXRlLCBidXQKbm90IG15IGNhbGwuCgpVbnJlbGF0ZWQ6CkZ3aXcgcGxlYXNlIGNhbiBk
-cm9wIHRoZSBsZWdhY3kgZHJtQXZhaWxhYmxlKCkgZnJvbSB0aGUgdGVzdCwgaWYgeW91CmhhdmUg
-YSBtaW51dGUuCgpUaGFua3MgIQpFbWlsCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeAo=
+--===============0354529542==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB1640A585145DD409BEB07511F2710CY4PR12MB1640namp_"
+
+--_000_CY4PR12MB1640A585145DD409BEB07511F2710CY4PR12MB1640namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+HI Emil,
+
+
+See below.
+
+
+Thanks,
+
+Alex
+
+
+________________________________
+From: Emil Velikov <emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Friday, January 20, 2017 8:24 AM
+To: Xie, AlexBin
+Cc: amd-gfx mailing list
+Subject: Re: [PATCH libdrm 2/3] amdgpu: A new option to choose which device=
+ to run most tests
+
+On 19 January 2017 at 22:53, Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org> wrote:
+> This can be used to test multiple GPUs
+>
+> Signed-off-by: Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  tests/amdgpu/amdgpu_test.c | 25 ++++++++++++++++++++-----
+>  1 file changed, 20 insertions(+), 5 deletions(-)
+>
+> diff --git a/tests/amdgpu/amdgpu_test.c b/tests/amdgpu/amdgpu_test.c
+> index e42ef9d..2437db4 100644
+> --- a/tests/amdgpu/amdgpu_test.c
+> +++ b/tests/amdgpu/amdgpu_test.c
+> @@ -108,12 +108,14 @@ static void display_test_suites(void)
+>
+>
+>  /** Help string for command line parameters */
+> -static const char usage[] =3D "Usage: %s [-hl] [<-s <suite id>> [-t <tes=
+t id>]]\n"
+> -                               "where:\n"
+> -                               "       l - Display all suites and their =
+tests\n"
+> -                               "       h - Display this help\n";
+> +static const char usage[] =3D
+> +       "Usage: %s [-hl] [<-s <suite id>> [-t <test id>]] [-d <device_id>=
+]\n"
+> +       "where:\n"
+> +       "       l - Display all suites and their tests\n"
+> +       "       d - Choose which device to run tests\n"
+You want to elaborate on what you mean with "device" here.
+Even if currently "card0 is my Kabini, card1 Hawaii, card2 other" that
+may change upon reboot.
+So although very nice to say "0,1, 2..." things are non-deterministic.
+
+[Alex Bin Xie] Originally I just want to give a simple solution for people =
+to swap to test another GPU device.
+Every time amdgpu_test runs, it lists the device id and its information. I =
+was thinking to improve this but such as adding an option to list the devic=
+es. So that the 0, 1 ,2 does not change if computer is not reboot. If 0, 1,=
+ 2 is not deterministic, I have to give up this human friendly interface...
+
+How about choose the test device by bus ID?  I will add an option to list t=
+he devices with BUS ID (if people run drmdevice program, they know the info=
+rmation too). Then people can choose  device on which BUS ID to run the tes=
+t. I will provide a new patch if there is no object to this.
+
+
+-Emil
+
+--_000_CY4PR12MB1640A585145DD409BEB07511F2710CY4PR12MB1640namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Arial,Helvetica,sans-serif;" dir=3D"ltr">
+<p>HI Emil,</p>
+<p><br>
+</p>
+<p>See below.</p>
+<p><br>
+</p>
+<p>Thanks,</p>
+<p>Alex<br>
+</p>
+<br>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
+=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> Emil Velikov &lt;em=
+il.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Sent:</b> Friday, January 20, 2017 8:24 AM<br>
+<b>To:</b> Xie, AlexBin<br>
+<b>Cc:</b> amd-gfx mailing list<br>
+<b>Subject:</b> Re: [PATCH libdrm 2/3] amdgpu: A new option to choose which=
+ device to run most tests</font>
+<div>&nbsp;</div>
+</div>
+</div>
+<font size=3D"2"><span style=3D"font-size:10pt;">
+<div class=3D"PlainText">On 19 January 2017 at 22:53, Alex Xie &lt;AlexBin.=
+Xie-5C7GfCeVMHo@public.gmane.org&gt; wrote:<br>
+&gt; This can be used to test multiple GPUs<br>
+&gt;<br>
+&gt; Signed-off-by: Alex Xie &lt;AlexBin.Xie-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; ---<br>
+&gt;&nbsp; tests/amdgpu/amdgpu_test.c | 25 &#43;&#43;&#43;&#43;&#43;&#43;&#=
+43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;-----<b=
+r>
+&gt;&nbsp; 1 file changed, 20 insertions(&#43;), 5 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/tests/amdgpu/amdgpu_test.c b/tests/amdgpu/amdgpu_test.c<b=
+r>
+&gt; index e42ef9d..2437db4 100644<br>
+&gt; --- a/tests/amdgpu/amdgpu_test.c<br>
+&gt; &#43;&#43;&#43; b/tests/amdgpu/amdgpu_test.c<br>
+&gt; @@ -108,12 &#43;108,14 @@ static void display_test_suites(void)<br>
+&gt;<br>
+&gt;<br>
+&gt;&nbsp; /** Help string for command line parameters */<br>
+&gt; -static const char usage[] =3D &quot;Usage: %s [-hl] [&lt;-s &lt;suite=
+ id&gt;&gt; [-t &lt;test id&gt;]]\n&quot;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;where:\n&quot;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; l - Display all suites and their tests\n&quot;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; h - Display this help\n&quot;;<br>
+&gt; &#43;static const char usage[] =3D<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Usage: %s [-hl] [&lt;-=
+s &lt;suite id&gt;&gt; [-t &lt;test id&gt;]] [-d &lt;device_id&gt;]\n&quot;=
+<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;where:\n&quot;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; l - Display all suites and their tests\n&quot;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; d - Choose which device to run tests\n&quot;<br>
+You want to elaborate on what you mean with &quot;device&quot; here.<br>
+Even if currently &quot;card0 is my Kabini, card1 Hawaii, card2 other&quot;=
+ that<br>
+may change upon reboot.<br>
+So although very nice to say &quot;0,1, 2...&quot; things are non-determini=
+stic.<br>
+<br>
+[Alex Bin Xie] Originally I just want to give a simple solution for people =
+to swap to test another GPU device.<br>
+Every time amdgpu_test runs, it lists the device id and its information. I =
+was thinking to improve this but such as adding an option to list the devic=
+es. So that the 0, 1 ,2 does not change if computer is not reboot. If 0, 1,=
+ 2 is not deterministic, I have
+ to give up this human friendly interface...<br>
+<br>
+How about choose the test device by bus ID?&nbsp; I will add an option to l=
+ist the devices with BUS ID (if people run drmdevice program, they know the=
+ information too). Then people can choose&nbsp; device on which BUS ID to r=
+un the test. I will provide a new patch if
+ there is no object to this.<br>
+<br>
+<br>
+-Emil<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_CY4PR12MB1640A585145DD409BEB07511F2710CY4PR12MB1640namp_--
+
+--===============0354529542==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0354529542==--
