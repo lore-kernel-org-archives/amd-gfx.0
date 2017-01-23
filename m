@@ -1,58 +1,39 @@
-From: =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nhaehnle@gmail.com>
-Subject: Re: [PATCH libdrm 2/3] amdgpu: don't mess with shared_handle if
- amdgpu_bo_import() fails
-Date: Mon, 23 Jan 2017 17:14:30 +0100
-Message-ID: <ce6bb726-b57a-a2a8-f63d-6ac9673a128b@gmail.com>
+From: =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH libdrm 1/3] amdgpu: add missing unlock on
+ drmPrimeFDToHandle() failure
+Date: Mon, 23 Jan 2017 17:15:33 +0100
+Message-ID: <88bb524f-e720-9cf3-ebbb-90b644c00712@gmail.com>
 References: <20170122184813.12995-1-emil.l.velikov@gmail.com>
- <20170122184813.12995-2-emil.l.velikov@gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20170122184813.12995-2-emil.l.velikov@gmail.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Emil Velikov <emil.l.velikov@gmail.com>, dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20170122184813.12995-1-emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Emil Velikov <emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-SSBkb24ndCB0aGluayBpcyBjb3JyZWN0LiBUaGUgaW5jb21pbmcgaGFuZGxlIGlzIGluIHNoYXJl
-ZF9oYW5kbGUsIG5vdCAKaW4gaGFuZGxlLiBPbmNlIHRoZSBjb2RlIGJsb2NrIGFyb3VuZCBsaW5l
-IDMxMCBoYXMgZXhlY3V0ZWQsIApzaGFyZWRfaGFuZGxlIGlzIHRoZSBoYW5kbGUgcHJvZHVjZWQg
-YnkgZHJtUHJpbWVGRFRvSGFuZGxlLCBhbmQgY2xvc2luZyAKaXQgb24gZXJyb3IgKGFzIHRoZSBj
-b2RlIGN1cnJlbnRseSBkb2VzKSBzaG91bGQgYmUgdGhlIGNvcnJlY3QgdGhpbmcgdG8gZG8uCgpU
-aGUgb25seSBwb3NzaWJsZSBpc3N1ZSBpcyB0aGF0IEknbSBzZWVpbmcgaXMgdGhhdCBwZXJoYXBz
-IHRoZSBoYW5kbGUgCnNob3VsZCBiZSBjbG9zZWQgX2JlZm9yZV8gdGhlIHVubG9jay4gTWF5YmUg
-c29tZW9uZSBlbHNlIGtub3dzIHRoZSBkZXRhaWxzLgoKQ2hlZXJzLApOaWNvbGFpCgpPbiAyMi4w
-MS4yMDE3IDE5OjQ4LCBFbWlsIFZlbGlrb3Ygd3JvdGU6Cj4gRG8gbm90IGNsb3NlIHRoZSBoYW5k
-bGUgaWYgc29tZW9uZSBlbHNlIGhhcyBjcmVhdGVkIGl0LiBBZmFpY3QgdGhlcmUncwo+IG5vIGNo
-YW5nZSBvZiBvd25lcnNoaXAgaW1wbGllZCBpZiB0aGUgZnVuY3Rpb24gZmFpbHMuIFRodXMgdGhl
-IGNhbGxlciBpcwo+IHJlc3BvbnNpYmxlIHRvIGRvaW5nIHRoZSByaWdodCB0aGluZyAtIHRyeWlu
-ZyBhZ2FpbiwgY2xvc2luZyB0aGUgaGFuZGxlCj4gYW5kL29yIG90aGVyLgo+Cj4gQ2M6IGFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gU2lnbmVkLW9mZi1ieTogRW1pbCBWZWxpa292IDxl
-bWlsLmwudmVsaWtvdkBnbWFpbC5jb20+Cj4gLS0tCj4gTm90IDEwMCUgc3VyZSBpZiBpdCdzIHRo
-ZSBjb3JyZWN0IHRoaW5nLgo+IC0tLQo+ICBhbWRncHUvYW1kZ3B1X2JvLmMgfCA0IC0tLS0KPiAg
-MSBmaWxlIGNoYW5nZWQsIDQgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvYW1kZ3B1L2Ft
-ZGdwdV9iby5jIGIvYW1kZ3B1L2FtZGdwdV9iby5jCj4gaW5kZXggYzlmMzE1ODcuLjI0ZmE4ODgw
+T24gMjIuMDEuMjAxNyAxOTo0OCwgRW1pbCBWZWxpa292IHdyb3RlOgo+IENjOiBhbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZwo+IFNpZ25lZC1vZmYtYnk6IEVtaWwgVmVsaWtvdiA8ZW1pbC5s
+LnZlbGlrb3ZAZ21haWwuY29tPgoKUmV2aWV3ZWQtYnk6IE5pY29sYWkgSMOkaG5sZSA8bmljb2xh
+aS5oYWVobmxlQGFtZC5jb20+Cgo+IC0tLQo+ICBhbWRncHUvYW1kZ3B1X2JvLmMgfCAxICsKPiAg
+MSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspCj4KPiBkaWZmIC0tZ2l0IGEvYW1kZ3B1L2Ft
+ZGdwdV9iby5jIGIvYW1kZ3B1L2FtZGdwdV9iby5jCj4gaW5kZXggZDMwZmQxZTcuLmM5ZjMxNTg3
 IDEwMDY0NAo+IC0tLSBhL2FtZGdwdS9hbWRncHVfYm8uYwo+ICsrKyBiL2FtZGdwdS9hbWRncHVf
-Ym8uYwo+IEBAIC0zMTAsNyArMzEwLDYgQEAgaW50IGFtZGdwdV9ib19pbXBvcnQoYW1kZ3B1X2Rl
-dmljZV9oYW5kbGUgZGV2LAo+ICAJCXNpemUgPSBsc2VlayhzaGFyZWRfaGFuZGxlLCAwLCBTRUVL
-X0VORCk7Cj4gIAkJaWYgKHNpemUgPT0gKG9mZl90KS0xKSB7Cj4gIAkJCXB0aHJlYWRfbXV0ZXhf
-dW5sb2NrKCZkZXYtPmJvX3RhYmxlX211dGV4KTsKPiAtCQkJYW1kZ3B1X2Nsb3NlX2ttc19oYW5k
-bGUoZGV2LCBoYW5kbGUpOwo+ICAJCQlyZXR1cm4gLWVycm5vOwo+ICAJCX0KPiAgCQlsc2Vlayhz
-aGFyZWRfaGFuZGxlLCAwLCBTRUVLX1NFVCk7Cj4gQEAgLTM1NSw5ICszNTQsNiBAQCBpbnQgYW1k
-Z3B1X2JvX2ltcG9ydChhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYsCj4gIAlibyA9IGNhbGxvYygx
-LCBzaXplb2Yoc3RydWN0IGFtZGdwdV9ibykpOwo+ICAJaWYgKCFibykgewo+ICAJCXB0aHJlYWRf
-bXV0ZXhfdW5sb2NrKCZkZXYtPmJvX3RhYmxlX211dGV4KTsKPiAtCQlpZiAodHlwZSA9PSBhbWRn
-cHVfYm9faGFuZGxlX3R5cGVfZG1hX2J1Zl9mZCkgewo+IC0JCQlhbWRncHVfY2xvc2Vfa21zX2hh
-bmRsZShkZXYsIHNoYXJlZF9oYW5kbGUpOwo+IC0JCX0KPiAgCQlyZXR1cm4gLUVOT01FTTsKPiAg
-CX0KPgo+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRy
-aS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
+Ym8uYwo+IEBAIC0zMDIsNiArMzAyLDcgQEAgaW50IGFtZGdwdV9ib19pbXBvcnQoYW1kZ3B1X2Rl
+dmljZV9oYW5kbGUgZGV2LAo+ICAJCS8qIEdldCBhIEtNUyBoYW5kbGUuICovCj4gIAkJciA9IGRy
+bVByaW1lRkRUb0hhbmRsZShkZXYtPmZkLCBzaGFyZWRfaGFuZGxlLCAmaGFuZGxlKTsKPiAgCQlp
+ZiAocikgewo+ICsJCQlwdGhyZWFkX211dGV4X3VubG9jaygmZGV2LT5ib190YWJsZV9tdXRleCk7
+Cj4gIAkJCXJldHVybiByOwo+ICAJCX0KPgo+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeAo=
