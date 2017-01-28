@@ -1,14 +1,12 @@
 From: Grazvydas Ignotas <notasas-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Subject: [PATCH libdrm 2/3] amdgpu: vamgr_32 can be a struct instead of a
  pointer
-Date: Sat, 28 Jan 2017 21:49:31 +0200
-Message-ID: <1485632972-4790-3-git-send-email-notasas@gmail.com>
-References: <1485632972-4790-1-git-send-email-notasas@gmail.com>
+Date: Sat, 28 Jan 2017 21:50:36 +0200
+Message-ID: <1485633036-4928-1-git-send-email-notasas@gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1485632972-4790-1-git-send-email-notasas-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
