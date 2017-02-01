@@ -1,66 +1,38 @@
-From: Bjorn Helgaas <helgaas@kernel.org>
-Subject: Re: [PATCH v1 2/2] drm/radeon: make MacBook Pro d3_delay quirk more
- generic
-Date: Wed, 1 Feb 2017 10:15:14 -0600
-Message-ID: <20170201161514.GA13183@bhelgaas-glaptop.roam.corp.google.com>
-References: <20170130203822.31891.22461.stgit@bhelgaas-glaptop.roam.corp.google.com>
- <20170130204106.31891.59164.stgit@bhelgaas-glaptop.roam.corp.google.com>
- <CACiKqBfECOAsBHNqkkO84sZrjJ1itv5chOz4ZAu2jwQvBEyacg@mail.gmail.com>
+From: Bjorn Helgaas <bhelgaas@google.com>
+Subject: [PATCH v2 0/2] drm amdgpu/radeon: clean up d3_delay usage
+Date: Wed, 01 Feb 2017 10:22:11 -0600
+Message-ID: <20170201162020.24314.27094.stgit@bhelgaas-glaptop.roam.corp.google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-pci-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <CACiKqBfECOAsBHNqkkO84sZrjJ1itv5chOz4ZAu2jwQvBEyacg@mail.gmail.com>
-Sender: linux-pci-owner@vger.kernel.org
-To: Andreas Boll <andreas.boll.dev@gmail.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, linux-pm@vger.kernel.org, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Maarten Lankhorst <maarten.lankhorst@canonical.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Alex Deucher <alexander.deucher@amd.com>, Christian =?utf-8?b?S8O2bmln?= <christian.koenig@amd.com>
+Cc: linux-pm@vger.kernel.org, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Maarten Lankhorst <maarten.lankhorst@canonical.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Wed, Feb 01, 2017 at 04:45:42PM +0100, Andreas Boll wrote:
-> 2017-01-30 21:41 GMT+01:00 Bjorn Helgaas <bhelgaas@google.com>:
-> > The PCI Power Management Spec, r1.2, sec 5.6.1, requires a 10 millisecond
-> > delay when powering on a device, i.e., transitioning from state D3hot to
-> > D0.
-> >
-> > Apparently some devices require more time, and d1f9809ed131 ("drm/radeon:
-> > add quirk for d3 delay during switcheroo poweron for apple macbooks") added
-> > an additional delay for the Radeon device in a MacBook Pro.  4807c5a8a0c8
-> > ("drm/radeon: add a PX quirk list") made the affected device more explicit.
-> >
-> > Add a generic PCI quirk to increase the d3_delay.  This means we will use
-> > the additional delay for *all* wakeups from D3, not just those initiated by
-> > radeon_switcheroo_set_state().
-> >
-> > Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-> > CC: Maarten Lankhorst <maarten.lankhorst@canonical.com>
-> > ---
-> >  drivers/gpu/drm/radeon/radeon_device.c |   12 ------------
-> >  drivers/pci/quirks.c                   |   13 +++++++++++++
-> >  2 files changed, 13 insertions(+), 12 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-> > index 8a1df2a1afbd..8b8fd981cae5 100644
-> > --- a/drivers/gpu/drm/radeon/radeon_device.c
-> > +++ b/drivers/gpu/drm/radeon/radeon_device.c
-> > @@ -113,7 +113,6 @@ static inline bool radeon_is_atpx_hybrid(void) { return false; }
-> >  #endif
-> >
-> >  #define RADEON_PX_QUIRK_DISABLE_PX  (1 << 0)
-> > -#define RADEON_PX_QUIRK_LONG_WAKEUP (1 << 1)
-> >
-> >  struct radeon_px_quirk {
-> >         u32 chip_vendor;
-> > @@ -136,9 +135,6 @@ static struct radeon_px_quirk radeon_px_quirk_list[] = {
-> >          * https://bugzilla.kernel.org/show_bug.cgi?id=51381
-> >          */
-> >         { PCI_VENDOR_ID_ATI, 0x6840, 0x1043, 0x2122, RADEON_PX_QUIRK_DISABLE_PX },
-> > -       /* macbook pro 8.2 */
-> > -       { PCI_VENDOR_ID_ATI, 0x6741, PCI_VENDOR_ID_APPLE, 0x00e2, RADEON_PX_QUIRK_LONG_WAKEUP },
-> 
-> Do you intentionally removed the following line?
-> > -       { 0, 0, 0, 0, 0 },
-
-Ooh, definitely not!  Thanks for catching this.  I'll post a v2 that fixes
-this.
-
-Bjorn
+YW1kZ3B1IGRvZXNuJ3QgbmVlZCB0byB0b3VjaCBwZGV2LT5kM19kZWxheSBhdCBhbGwuCgpyYWRl
+b24gaGFzIGEgZDNfZGVsYXkgcXVpcmsgZm9yIE1hY0Jvb2sgUHJvLCBidXQgaXQgb25seSBhZmZl
+Y3RzCnJhZGVvbl9zd2l0Y2hlcm9vX3NldF9zdGF0ZSgpLiAgSSB0aGluayBpdCBzaG91bGQgYWZm
+ZWN0IHdha2V1cHMgZG9uZSBieQp0aGUgUENJIGNvcmUgYXMgd2VsbC4KCkNoYW5nZXMgZnJvbSB2
+MSB0byB2MjoKICAtIEZpeCBhY2NpZGVudGFsIHJlbW92YWwgb2YgInsgMCwgMCwgMCwgMCwgMCB9
+IiBxdWlyayBsaXN0IHRlcm1pbmF0aW9uCiAgICAodGhhbmtzLCBBbmRyZWFzIEJvbGwhKQogIC0g
+QWRkIGFjayBmcm9tIEFsZXggRGV1Y2hlcgotLS0KCkJqb3JuIEhlbGdhYXMgKDIpOgogICAgICBk
+cm0vYW1kZ3B1OiByZW1vdmUgdW5uZWNlc3Nhcnkgc2F2ZS9yZXN0b3JlIG9mIHBkZXYtPmQzX2Rl
+bGF5CiAgICAgIGRybS9yYWRlb246IG1ha2UgTWFjQm9vayBQcm8gZDNfZGVsYXkgcXVpcmsgbW9y
+ZSBnZW5lcmljCgoKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8
+ICAgIDQgLS0tLQogZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZGV2aWNlLmMgICAgIHwg
+ICAxMSAtLS0tLS0tLS0tLQogZHJpdmVycy9wY2kvcXVpcmtzLmMgICAgICAgICAgICAgICAgICAg
+ICAgIHwgICAxMyArKysrKysrKysrKysrCiAzIGZpbGVzIGNoYW5nZWQsIDEzIGluc2VydGlvbnMo
+KyksIDE1IGRlbGV0aW9ucygtKQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9k
+cmktZGV2ZWwK
