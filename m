@@ -1,43 +1,48 @@
-From: Andreas Boll <andreas.boll.dev@gmail.com>
-Subject: Re: [PATCH v2 0/2] drm amdgpu/radeon: clean up d3_delay usage
-Date: Wed, 1 Feb 2017 17:30:39 +0100
-Message-ID: <CACiKqBcZkX0V2EJPy+sPfDg0LWHSzBbkEVfL4h24iCKBFqqSpA@mail.gmail.com>
-References: <20170201162020.24314.27094.stgit@bhelgaas-glaptop.roam.corp.google.com>
+From: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+Subject: [PATCH v4 0/3] Allow ASYNC flip with atomic helpers.
+Date: Wed, 1 Feb 2017 12:03:33 -0500
+Message-ID: <1485968616-4296-1-git-send-email-Andrey.Grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Return-path: <linux-pm-owner@vger.kernel.org>
-In-Reply-To: <20170201162020.24314.27094.stgit@bhelgaas-glaptop.roam.corp.google.com>
-Sender: linux-pm-owner@vger.kernel.org
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, linux-pm@vger.kernel.org, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Maarten Lankhorst <maarten.lankhorst@canonical.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: dri-devel@lists.freedesktop.org
+Cc: dc_upstream@amd.com, nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, laurent.pinchart@ideasonboard.com, daniel.vetter@intel.com
 List-Id: amd-gfx.lists.freedesktop.org
 
-For the series:
-Reviewed-by: Andreas Boll <andreas.boll.dev@gmail.com>
-
-2017-02-01 17:22 GMT+01:00 Bjorn Helgaas <bhelgaas@google.com>:
-> amdgpu doesn't need to touch pdev->d3_delay at all.
->
-> radeon has a d3_delay quirk for MacBook Pro, but it only affects
-> radeon_switcheroo_set_state().  I think it should affect wakeups done by
-> the PCI core as well.
->
-> Changes from v1 to v2:
->   - Fix accidental removal of "{ 0, 0, 0, 0, 0 }" quirk list termination
->     (thanks, Andreas Boll!)
->   - Add ack from Alex Deucher
-> ---
->
-> Bjorn Helgaas (2):
->       drm/amdgpu: remove unnecessary save/restore of pdev->d3_delay
->       drm/radeon: make MacBook Pro d3_delay quirk more generic
->
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |    4 ----
->  drivers/gpu/drm/radeon/radeon_device.c     |   11 -----------
->  drivers/pci/quirks.c                       |   13 +++++++++++++
->  3 files changed, 13 insertions(+), 15 deletions(-)
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+VGhpcyBzZXJpZXMgaXMgYSBmb2xvdy11cCBvbgpodHRwczovL3BhdGNod29yay5rZXJuZWwub3Jn
+L3BhdGNoLzk1MDE3ODcvCgpUaGUgZmlyc3QgcGF0Y2ggbWFrZXMgY2hhbmdlcyB0byBhdG9taWMg
+aGVscGVycyB0byBhbGxvdyBmb3IgZHJpdmVzIHdpdGggQVNZTkMgZmxpcCBzdXBwb3J0IHRvIHVz
+ZSB0aGVtLgpQYXRjaCAyIGlzIHRvIHVzZSB0aGlzIGluIEFNREdQVS9EQy4KUGF0Y2ggMyBpcyBw
+b3NzaWJsZSBjbGVhbnVwIGluIG5vdXZlYXUva21zIHdobyBzZWVtcyB0byBoYXZlIHRvIGR1cGxp
+Y2F0ZSB0aGUgaGVscGVyIGFzIHdlIGRpZCB0byBzdXBwb3J0IEFTWU5DIGZsaXBzLiAKCnYyOiAK
+UmVzZW5kIGRybS9hdG9taWM6IFNhdmUgZmxpcCBmbGFncyBpbiBkcm1fcGxhbmVfc3RhdGUgc2lu
+Y2UgdGhlIG9yaWdpbmFsIHBhdGNoIHdhcyBpbmNvbXBsZXRlLgpTcXVhc2ggMiBBTUQgY2hhbmdl
+cyBpbnRvIG9uZSB0byBub3QgYnJlYWsgY29tcGlsYXRpb24uCgp2MzoKRm9sbG93aW5nIERhbmll
+bCdzIGNvbW1lbnRzLCBzYXZlIGZsaXAgZmxhZ3MgaW4gY3J0Y19zdGF0ZSBpbnN0ZWFkIG9mIHBs
+YW5lX3N0YXRlLgoKdjQ6CkxhdXJlbidzIGNvbW1lbnQsIHJlc2V0IGZscCBmbGFncyBiZWZvcmUg
+dXNpbmcgYWdhaW4uCkhhcnJ5J3MgY29tbWVudCwgZml4IGlkZW50YXRpb24gaW4gYW1kL2Rpc3Bs
+YXkuCgpBbmRyZXkgR3JvZHpvdnNreSAoMyk6CiAgZHJtL2F0b21pYzogU2F2ZSBmbGlwIGZsYWdz
+IGluIGRybV9jcnRjdF9zdGF0ZQogIGRybS9ub3V2ZWF1L2ttcy9udjUwOiBTd2l0Y2ggdG8gdXNp
+bmcgYXRvbWljIGhlbHBlciBmb3IgZmxpcC4KICBkcm0vYW1kL2Rpc3BsYXk6IFN3aXRjaCB0byB1
+c2luZyBhdG9taWNfaGVscGVyIGZvciBmbGlwLgoKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9tb2RlLmggICAgICAgICAgIHwgICAxIC0KIC4uLi9kcm0vYW1kL2Rpc3BsYXkvYW1k
+Z3B1X2RtL2FtZGdwdV9kbV90eXBlcy5jICAgIHwgMTEzICsrKysrLS0tLS0tLS0tLS0tLS0tLQog
+ZHJpdmVycy9ncHUvZHJtL2RybV9hdG9taWNfaGVscGVyLmMgICAgICAgICAgICAgICAgfCAgMjAg
+KystLQogZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvbnY1MF9kaXNwbGF5LmMgICAgICAgICAgICAg
+fCAgODQgKystLS0tLS0tLS0tLS0tCiBpbmNsdWRlL2RybS9kcm1fY3J0Yy5oICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICB8ICAgOSArLQogaW5jbHVkZS9kcm0vZHJtX3BsYW5lLmggICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgfCAgIDEgKwogNiBmaWxlcyBjaGFuZ2VkLCA0OSBpbnNlcnRp
+b25zKCspLCAxNzkgZGVsZXRpb25zKC0pCgotLSAKMS45LjEKCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRl
+dmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
