@@ -1,38 +1,53 @@
-From: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: PRT support for amdgpu
-Date: Thu, 2 Feb 2017 11:49:44 +1000
-Message-ID: <CAPM=9tzUNgK5MHVBaMzVsn-z=Pn-nSBFTswUcGc+zttbYLE7FA@mail.gmail.com>
-References: <1485781060-1910-1-git-send-email-deathsimple@vodafone.de>
- <1485867969.839629.865389344.09B29312@webmail.messagingengine.com>
- <ba418c16-e2ca-ddff-4147-387e5b7a2d14@vodafone.de>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Subject: Re: [PATCH] drm/amdgpu: shut up #warning for compile testing
+Date: Thu, 2 Feb 2017 15:09:01 +0900
+Message-ID: <145f62b4-13da-a796-9c10-7f839224b549@daenzer.net>
+References: <20170201155943.1740947-1-arnd@arndb.de>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <ba418c16-e2ca-ddff-4147-387e5b7a2d14-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Bas Nieuwenhuizen <bas-dldO88ZXqoXqqjsSq9zF6IRWq/SkRNHw@public.gmane.org>
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20170201155943.1740947-1-arnd@arndb.de>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Arnd Bergmann <arnd@arndb.de>, Alex Deucher <alexander.deucher@amd.com>
+Cc: =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nicolai.haehnle@amd.com>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@amd.com>, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Junwei Zhang <Jerry.Zhang@amd.com>, Flora Cui <Flora.Cui@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-Pj4gYW5zd2VyZWQgYmV0dGVyIGJ5IERhdmUuCj4KPgo+IFllYWgsIHRob3VnaCBzbyBhcyB3ZWxs
-LiBEYXZlIGNhbiB5b3UgY29tbWVudD8KCkkgdGhpbmsgd2Ugd291bGQgcmVxdWlyZSBhIGZ1bGx5
-IG9wZW4gc291cmNlIHVzZXIgZm9yIHRoaXMgc29ydCBvZiB0aGluZywKdGhlcmUgYXJlIHdheSB0
-byBtYW55IGNvcm5lciBjYXNlcyBmb3IgdXMgdG8gZmFsbCBkb3duIGhlcmUsIHByZW1hdHVyZWx5
-CnB1c2hpbmcgdGhlIEFQSSB3aXRob3V0IGEgcHJvdmVuIHRlc3Qgc3VpdGUgcnVubmluZyBvbiBp
-dCB3b3VsZCBiZSBiYWQuCgpXZSdkIHdhbnQgdG8gZ2V0IHJhZGVvbnNpIG9yIHJhZHYgdXAgYW5k
-IHJ1bm5pbmcgYW5kIGhhdmUgYSBjb21wbGV0ZQpydW4gb2YgdGhlIGNvbmZvcm1hbmNlIHN1aXRl
-IHRvIG1ha2Ugc3VyZSB0aGUga2VybmVsIEFQSSB3YXMgc2FuZSwKZGVzaWduIGlzIGdvb2QsIHBy
-b3ZpbmcgdGhlIGRlc2lnbiBpcyB0aGUgaGFyZCBiaXQuCgpBbmQgdWdnaCBvbiBhZGRybGliLCBq
-dXN0IHN0aWNrIHRoZSB3aG9sZSB0aGluZyBvbiBnaXRodWIgYWxyZWFkeS4KCkRhdmUuCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
-ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+T24gMDIvMDIvMTcgMTI6NTkgQU0sIEFybmQgQmVyZ21hbm4gd3JvdGU6Cj4gTXkgcmFuZGNvbmZp
+ZyB0ZXN0cyBvbiBsaW51eC1uZXh0IHNob3dlZCBhIG5ld2x5IGludHJvZHVjZWQgd2FybmluZzoK
+PiAKPiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmM6IEluIGZ1bmN0
+aW9uICdhbWRncHVfYm9fY3JlYXRlX3Jlc3RyaWN0ZWQnOgo+IGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9vYmplY3QuYzozNzc6MjogZXJyb3I6ICN3YXJuaW5nIFBsZWFzZSBlbmFi
+bGUgQ09ORklHX01UUlIgYW5kIENPTkZJR19YODZfUEFUIGZvciBiZXR0ZXIgcGVyZm9ybWFuY2Ug
+dGhhbmtzIHRvIHdyaXRlLWNvbWJpbmluZyBbLVdlcnJvcj1jcHBdCj4gCj4gR2VuZXJhbGx5IHNw
+ZWFraW5nLCB3YXJuaW5ncyBhYm91dCBiYWQga2VybmVsIGNvbmZpZ3VyYXRpb24gYXJlIG5vdCBw
+YXJ0aWN1bGFybHkKPiBoZWxwZnVsLiBXZSBjb3VsZCBlbmZvcmNlIHRoZSBzZWxlY3Rpb24gb2Yg
+WDg2X1BBVCB0aHJvdWdoIEtjb25maWcsIHNvIHRoZSBkcml2ZXIKPiBjYW5ub3QgZXZlbiBiZSB1
+c2VkIHVubGVzcyBpdCBpcyBlbmFibGVkLAoKTWFraW5nIEFNREdQVSBkZXBlbmQgb24gWDg2X1BB
+VCB3b3VsZCBiZSB3cm9uZyBJIHRoaW5rLCBhbmQgYW55IGZhbmNpZXIKS2NvbmZpZyBzb2x1dGlv
+biBtaWdodCBiZSBvdmVya2lsbC4KCgo+IG9yIHdlIGNvdWxkIGp1c3QgcmVseSBvbiB0aGUgcnVu
+dGltZSB3YXJuaW5nIHRoYXQgaXMgYWxzbyB0aGVyZS4KClRoYXQgbWlnaHQgbWFrZSBzZW5zZSwg
+c2luY2UgdGhlIHJ1bnRpbWUgd2FybmluZyBpcyBvbmx5IHRyaWdnZXJlZCB3aGVuCnRoZSBsYWNr
+IG9mIFBBVCBhY3R1YWxseSBtYWtlcyBhIGRpZmZlcmVuY2UuCgpPVE9IIHRoZSBwZW9wbGUgcnVu
+bmluZyB0aGUga2VybmVsIGFyZW4ndCBhbHdheXMgdGhlIHNhbWUgcGVvcGxlCmJ1aWxkaW5nIGl0
+LCBzbyB0aGUgZG93bnNpZGUgaXMgdGhhdCB0aGlzIHdvdWxkIHBvdGVudGlhbGx5IGRlbGF5Cmdl
+dHRpbmcgWDg2X1BBVCBlbmFibGVkLgoKCj4gSW4gdGhpcyB2ZXJzaW9uLCBJJ20gbWFraW5nIHRo
+ZSB3YXJuaW5nIGNvbmRpdGlvbmFsIG9uIENPTkZJR19DT01QSUxFX1RFU1QsIHdoaWNoCj4gc2h1
+dHMgaXQgdXAgZm9yIG1lLCBidXQgbm90IHBlb3BsZSB0aGF0IG1heSBhY3R1YWxseSB3YW50IHRv
+IHJ1biB0aGUga2VybmVsCj4gYXMgYSBjb21wcm9taXplLgoKVGhpcyBpcyBmaW5lIHdpdGggbWUg
+YXMgd2VsbC4KCgpXaGljaGV2ZXIgd2F5IHdlIGVuZCB1cCBnb2luZyBmb3IgdGhpcywgaXQgc2hv
+dWxkIGJlIGFwcGxpZWQgdG8gdGhlCnJhZGVvbiBkcml2ZXIgYXMgd2VsbC4KCgotLSAKRWFydGhs
+aW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93
+d3cuYW1kLmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAg
+ICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vZHJpLWRldmVsCg==
