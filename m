@@ -1,10 +1,12 @@
 From: Kent Russell <kent.russell-5C7GfCeVMHo@public.gmane.org>
 Subject: drm/ttm: Fix unused variable warning
-Date: Fri, 3 Feb 2017 12:16:31 -0500
-Message-ID: <124f223e-07df-197e-6126-8787c8b06406@amd.com>
+Date: Fri, 3 Feb 2017 12:23:49 -0500
+Message-ID: <bf0f349e-adde-d20c-cfdc-ddf500c8df0d@amd.com>
+References: <124f223e-07df-197e-6126-8787c8b06406@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="------------95618E3AA507DDFF23191A06"
+Content-Type: multipart/mixed; boundary="------------CF4E771AA4BA1D8AAE015A51"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <124f223e-07df-197e-6126-8787c8b06406-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -15,9 +17,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---------------95618E3AA507DDFF23191A06
+--------------CF4E771AA4BA1D8AAE015A51
 Content-Type: text/plain; charset="utf-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 
@@ -27,7 +29,7 @@ optional LRU removal callback v2")
   Kent
 
 
---------------95618E3AA507DDFF23191A06
+--------------CF4E771AA4BA1D8AAE015A51
 Content-Type: text/x-patch;
 	name="0001-drm-ttm-Fix-unused-variable-warning.patch"
 Content-Transfer-Encoding: 8bit
@@ -63,7 +65,8 @@ index dfaeac4..bdb5812 100644
 2.7.4
 
 
---------------95618E3AA507DDFF23191A06
+
+--------------CF4E771AA4BA1D8AAE015A51
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -73,4 +76,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---------------95618E3AA507DDFF23191A06--
+--------------CF4E771AA4BA1D8AAE015A51--
