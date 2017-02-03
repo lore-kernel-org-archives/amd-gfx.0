@@ -1,55 +1,76 @@
-From: Arnd Bergmann <arnd@arndb.de>
-Subject: [PATCH] drm/amdgpu: fix warning on older gcc releases
-Date: Fri,  3 Feb 2017 17:47:26 +0100
-Message-ID: <20170203164756.3625272-1-arnd@arndb.de>
+From: Kent Russell <kent.russell-5C7GfCeVMHo@public.gmane.org>
+Subject: drm/ttm: Fix unused variable warning
+Date: Fri, 3 Feb 2017 12:16:31 -0500
+Message-ID: <124f223e-07df-197e-6126-8787c8b06406@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: Tom St Denis <tom.stdenis@amd.com>, Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Rex Zhu <Rex.Zhu@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Monk Liu <Monk.Liu@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="------------95618E3AA507DDFF23191A06"
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-Z2NjLTQuOCB3YXJucyBhYm91dCAnezB9JyBiZWluZyB1c2VkIGFuIGFuIGluaXRpYWxpemVyIGZv
-ciBuZXN0ZWQgc3RydWN0dXJlczoKCmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8w
-LmM6IEluIGZ1bmN0aW9uIOKAmGdmeF92OF8wX3JpbmdfZW1pdF9jZV9tZXRhX2luaXTigJk6CmRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmM6NzI2MzoyOiB3YXJuaW5nOiBtaXNz
-aW5nIGJyYWNlcyBhcm91bmQgaW5pdGlhbGl6ZXIgWy1XbWlzc2luZy1icmFjZXNdCiAgfSBjZV9w
-YXlsb2FkID0gezB9Owpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jOiBJbiBm
-dW5jdGlvbiDigJhnZnhfdjhfMF9yaW5nX2VtaXRfZGVfbWV0YV9pbml04oCZOgpkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jOjcyOTA6Mjogd2FybmluZzogbWlzc2luZyBicmFj
-ZXMgYXJvdW5kIGluaXRpYWxpemVyIFstV21pc3NpbmctYnJhY2VzXQogIH0gZGVfcGF5bG9hZCA9
-IHswfTsKClVzaW5nIGFuIGVtcHR5IHt9IGluaXRpYWxpemVyIGhvd2V2ZXIgaGFzIHRoZSBzYW1l
-IGVmZmVjdCBhbmQgd29ya3Mgb24gYWxsIHZlcnNpb25zLgoKRml4ZXM6IGFjYWQyYjJhN2I3MCAo
-ImRybS9hbWRncHU6aW1wbGVtZW50IENFL0RFIG1ldGEtaW5pdCByb3V0aW5lcyIpClNpZ25lZC1v
-ZmYtYnk6IEFybmQgQmVyZ21hbm4gPGFybmRAYXJuZGIuZGU+Ci0tLQogZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYyB8IDQgKystLQogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0
-aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9nZnhfdjhfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAu
-YwppbmRleCAzNWY5Y2Q4M2I4MjEuLmNmMWNiNDA2YjVlZCAxMDA2NDQKLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9nZnhfdjhfMC5jCkBAIC03MjYwLDcgKzcyNjAsNyBAQCBzdGF0aWMgdm9pZCBnZnhfdjhf
-MF9yaW5nX2VtaXRfY2VfbWV0YV9pbml0KHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgdWludDY0
-X3QgYwogCXN0YXRpYyB1bmlvbiB7CiAJCXN0cnVjdCBhbWRncHVfY2VfaWJfc3RhdGUgcmVndWxh
-cjsKIAkJc3RydWN0IGFtZGdwdV9jZV9pYl9zdGF0ZV9jaGFpbmVkX2liIGNoYWluZWQ7Ci0JfSBj
-ZV9wYXlsb2FkID0gezB9OworCX0gY2VfcGF5bG9hZCA9IHt9OwogCiAJaWYgKHJpbmctPmFkZXYt
-PnZpcnQuY2hhaW5lZF9pYl9zdXBwb3J0KSB7CiAJCWNlX3BheWxvYWRfYWRkciA9IGNzYV9hZGRy
-ICsgb2Zmc2V0b2Yoc3RydWN0IGFtZGdwdV9nZnhfbWV0YV9kYXRhX2NoYWluZWRfaWIsIGNlX3Bh
-eWxvYWQpOwpAQCAtNzI4Nyw3ICs3Mjg3LDcgQEAgc3RhdGljIHZvaWQgZ2Z4X3Y4XzBfcmluZ19l
-bWl0X2RlX21ldGFfaW5pdChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHVpbnQ2NF90IGMKIAlz
-dGF0aWMgdW5pb24gewogCQlzdHJ1Y3QgYW1kZ3B1X2RlX2liX3N0YXRlIHJlZ3VsYXI7CiAJCXN0
-cnVjdCBhbWRncHVfZGVfaWJfc3RhdGVfY2hhaW5lZF9pYiBjaGFpbmVkOwotCX0gZGVfcGF5bG9h
-ZCA9IHswfTsKKwl9IGRlX3BheWxvYWQgPSB7fTsKIAogCWdkc19hZGRyID0gY3NhX2FkZHIgKyA0
-MDk2OwogCWlmIChyaW5nLT5hZGV2LT52aXJ0LmNoYWluZWRfaWJfc3VwcG9ydCkgewotLSAKMi45
-LjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1k
-ZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
+--------------95618E3AA507DDFF23191A06
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+
+This cleans up a remnant from Christian's patch (drm/ttm: revert "add 
+optional LRU removal callback v2")
+
+  Kent
+
+
+--------------95618E3AA507DDFF23191A06
+Content-Type: text/x-patch;
+	name="0001-drm-ttm-Fix-unused-variable-warning.patch"
+Content-Transfer-Encoding: 8bit
+Content-Disposition: attachment;
+	filename="0001-drm-ttm-Fix-unused-variable-warning.patch"
+
+>From dfdf89a8dff0e378db6fa9578f75b02eec02ca0e Mon Sep 17 00:00:00 2001
+From: Kent Russell <kent.russell-5C7GfCeVMHo@public.gmane.org>
+Date: Tue, 31 Jan 2017 06:44:10 -0500
+Subject: [PATCH] drm/ttm: Fix unused variable warning
+
+Remove an unused variable in ttm_bo
+
+Signed-off-by: Kent Russell <kent.russell-5C7GfCeVMHo@public.gmane.org>
+Reviewed-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/ttm/ttm_bo.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index dfaeac4..bdb5812 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -230,7 +230,6 @@ EXPORT_SYMBOL(ttm_bo_del_sub_from_lru);
+ 
+ void ttm_bo_move_to_lru_tail(struct ttm_buffer_object *bo)
+ {
+-	struct ttm_bo_device *bdev = bo->bdev;
+ 	int put_count = 0;
+ 
+ 	lockdep_assert_held(&bo->resv->lock.base);
+-- 
+2.7.4
+
+
+--------------95618E3AA507DDFF23191A06
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--------------95618E3AA507DDFF23191A06--
