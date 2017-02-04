@@ -1,14 +1,13 @@
 From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH 13/13] drm/amdgpu: new queue policy, take first 2 queues
- of each pipe
-Date: Sat, 4 Feb 2017 23:08:51 +1100
-Message-ID: <86138a88-e90f-3234-7109-67ca0c427071@folklore1984.net>
-References: <20170204045142.5596-1-andresx7@gmail.com>
- <20170204045142.5596-14-andresx7@gmail.com>
+Subject: Re: [PATCH v5 0/3] Allow ASYNC flip with atomic helpers.
+Date: Sat, 4 Feb 2017 23:11:49 +1100
+Message-ID: <e784ec98-b96e-2554-40f4-fd4a15dcaabb@folklore1984.net>
+References: <1486072591-3893-1-git-send-email-Andrey.Grodzovsky@amd.com>
+ <CADnq5_N74zmu+O-yHMp28+8pihvwYV06mzTfD_NbzZnKJB+r_w@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0486900607=="
+Content-Type: multipart/mixed; boundary="===============2076422059=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170204045142.5596-14-andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <CADnq5_N74zmu+O-yHMp28+8pihvwYV06mzTfD_NbzZnKJB+r_w-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,93 +18,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, jay-gJmSnxjMpeIFV7jr3Ov9Ew@public.gmane.org, Felix.Kuehling-5C7GfCeVMHo@public.gmane.org, John.Bridgman-5C7GfCeVMHo@public.gmane.org
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Cc: dc_upstream-5C7GfCeVMHo@public.gmane.org, "nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Laurent Pinchart <laurent.pinchart-ryLnwIuWjnjg/C1BVhZhaw@public.gmane.org>, "Deucher,
+ Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Daniel Vetter <daniel.vetter-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0486900607==
+--===============2076422059==
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="XaSlQTcKXlh24REG7MlfRqIlo2Xs3op2X"
+ boundary="A6i0M7fjIOk04FQ6DSNgGtfVBW06VDLL2"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---XaSlQTcKXlh24REG7MlfRqIlo2Xs3op2X
-Content-Type: multipart/mixed; boundary="56t0AKWkRbpo1JTLBhXWW88Ac2bxhQtDt";
+--A6i0M7fjIOk04FQ6DSNgGtfVBW06VDLL2
+Content-Type: multipart/mixed; boundary="5NDxELS76Iqd721FUwjWR7JAFb8oj6TMg";
  protected-headers="v1"
 From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, jay-gJmSnxjMpeIFV7jr3Ov9Ew@public.gmane.org, Felix.Kuehling-5C7GfCeVMHo@public.gmane.org,
- John.Bridgman-5C7GfCeVMHo@public.gmane.org
-Message-ID: <86138a88-e90f-3234-7109-67ca0c427071-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH 13/13] drm/amdgpu: new queue policy, take first 2 queues
- of each pipe
-References: <20170204045142.5596-1-andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
- <20170204045142.5596-14-andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-In-Reply-To: <20170204045142.5596-14-andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>,
+ Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Cc: dc_upstream-5C7GfCeVMHo@public.gmane.org,
+ "nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>,
+ Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>,
+ amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>,
+ Laurent Pinchart <laurent.pinchart-ryLnwIuWjnjg/C1BVhZhaw@public.gmane.org>,
+ "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>,
+ Daniel Vetter <daniel.vetter-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
+Message-ID: <e784ec98-b96e-2554-40f4-fd4a15dcaabb-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH v5 0/3] Allow ASYNC flip with atomic helpers.
+References: <1486072591-3893-1-git-send-email-Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+ <CADnq5_N74zmu+O-yHMp28+8pihvwYV06mzTfD_NbzZnKJB+r_w-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <CADnq5_N74zmu+O-yHMp28+8pihvwYV06mzTfD_NbzZnKJB+r_w-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 
---56t0AKWkRbpo1JTLBhXWW88Ac2bxhQtDt
+--5NDxELS76Iqd721FUwjWR7JAFb8oj6TMg
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-This series is,
 Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
 
-On 02/04/2017 03:51 PM, Andres Rodriguez wrote:
-> Instead of taking the first pipe and givint the rest to kfd, take the
-
-s/givint/giving/
-
-> first 2 queues of each pipe.
+On 02/04/2017 04:46 AM, Alex Deucher wrote:
+> On Thu, Feb 2, 2017 at 4:56 PM, Andrey Grodzovsky
+> <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org> wrote:
+>> This series is a folow-up on
+>> https://patchwork.kernel.org/patch/9501787/
+>>
+>> The first patch makes changes to atomic helpers to allow for drives wi=
+th ASYNC flip support to use them.
+>> Patch 2 is to use this in AMDGPU/DC.
+>> Patch 3 is possible cleanup in nouveau/kms who seems to have to duplic=
+ate the helper as we did to support ASYNC flips.
+>>
+>> v2:
+>> Resend drm/atomic: Save flip flags in drm_plane_state since the origin=
+al patch was incomplete.
+>> Squash 2 AMD changes into one to not break compilation.
+>>
+>> v3:
+>> Following Daniel's comments, save flip flags in crtc_state instead of =
+plane_state.
+>>
+>> v4:
+>> Lauren's comment, reset flp flags before using again.
+>> Harry's comment, fix identation in amd/display.
+>>
+>> v5:
+>> Rename the flag, fix typo in header.
 >=20
-> Effectively, amdgpu and amdkfd own the same number of queues. But
-> because the queues are spread over multiple pipes the hardware will be
-> able to better handle concurrent compute workloads.
+> Looks good.  The series is:
+> Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+> Unless there are any objections I'll push to drm-misc today.
 >=20
-> amdgpu goes from 1 pipe to 4 pipes, i.e. from 1 compute threads to 4
-> amdkfd goes from 3 pipe to 4 pipes, i.e. from 3 compute threads to 4
+> Thanks!
 >=20
-> Signed-off-by: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 2 +-
->  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
+> Alex
 >=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/am=
-d/amdgpu/gfx_v7_0.c
-> index 2218b65..da28174 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> @@ -2810,7 +2810,7 @@ static void gfx_v7_0_compute_queue_acquire(struct=
- amdgpu_device *adev)
->  			break;
-> =20
->  		/* policy: amdgpu owns all queues in the first pipe */
-> -		if (mec =3D=3D 0 && pipe =3D=3D 0)
-> +		if (mec =3D=3D 0 && queue < 2)
->  			set_bit(i, adev->gfx.mec.queue_bitmap);
->  	}
-> =20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/am=
-d/amdgpu/gfx_v8_0.c
-> index 04b4448..0a16cab 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> @@ -1436,7 +1436,7 @@ static void gfx_v8_0_compute_queue_acquire(struct=
- amdgpu_device *adev)
->  			break;
-> =20
->  		/* policy: amdgpu owns all queues in the first pipe */
-> -		if (mec =3D=3D 0 && pipe =3D=3D 0)
-> +		if (mec =3D=3D 0 && queue < 2)
->  			set_bit(i, adev->gfx.mec.queue_bitmap);
->  	}
-> =20
+>>
+>> Andrey Grodzovsky (3):
+>>   drm/atomic: Save flip flags in drm_crtc_state
+>>   drm/nouveau/kms/nv50: Switch to using atomic helper for flip.
+>>   drm/amd/display: Switch to using atomic_helper for flip.
+>>
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h           |   1 -
+>>  .../drm/amd/display/amdgpu_dm/amdgpu_dm_types.c    | 113 +++++-------=
+---------
+>>  drivers/gpu/drm/drm_atomic_helper.c                |  20 ++--
+>>  drivers/gpu/drm/nouveau/nv50_display.c             |  84 ++----------=
+---
+>>  include/drm/drm_crtc.h                             |   9 +-
+>>  5 files changed, 48 insertions(+), 179 deletions(-)
+>>
+>> --
+>> 1.9.1
+>>
+>> _______________________________________________
+>> amd-gfx mailing list
+>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 >=20
 
 
---56t0AKWkRbpo1JTLBhXWW88Ac2bxhQtDt--
+--5NDxELS76Iqd721FUwjWR7JAFb8oj6TMg--
 
---XaSlQTcKXlh24REG7MlfRqIlo2Xs3op2X
+--A6i0M7fjIOk04FQ6DSNgGtfVBW06VDLL2
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
@@ -113,24 +129,24 @@ Content-Disposition: attachment; filename="signature.asc"
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJYlcRXAAoJEP4bvbfZuWjbHRcP/iERM7crLE+pgl83oQ+tctL0
-zQUT9Z6kJU6f0K4fevuWAvovLJ2x7QELncz5KGOVeBO2FEvaFuC8SB+RZAbuVfG6
-Se4C+Z2bi53ycxAsqNWsoymNd2JL7dPcOqeEkJ4OYPhc1J887zOJNbeSirGkgptg
-+xwb16REaa3y9lC9Gc1Ow8mPffRq7HFQ6HrdxlWJsrXIuAHijqkyuM0XSWZCctzR
-qdjiXOjKabFiUESqa8UIpVGjYBP6O9zRC8crY7yD3yPpFUOVh7zVumFgGIGR2/8G
-Ykr5X5qZU8ciSMxAoLmr1QwN9wUpHKo4Cu5W/smRG18vcvnVZqt5oRvs4M5H59DJ
-Ggc3zWo3lcZAWAhVq9ouvMyQFx9fWhGkOPwuSG4pNsfuYrhdijPEJ2Cum9tmCZVx
-T3EdjXIzV2MwgFg3g1RXtG/4XwOre89lT0ps2mUideLg8z2aKdQmuuTmY/NMcnMK
-nj/x2fiEuMVVnOoodTZULphsTXfMOAwsVLjQ4vhU0mQz4gQcIu5hMDx+F8/0s4u2
-mYi2Ork/GeNodpP3XotRvuwXHoKjPWe1rXWgHw+y+kJJIYuKSChuf87fTPf65PlL
-9BjbCvQ2XFtD87CQRXrjtpY/ihD8FYn4bZuCsPkaV+juvusFdBtu5KCsKQNxQa4a
-dl3ZxNFs9mHMW4baFkZm
-=Z6Sy
+iQIcBAEBCAAGBQJYlcUFAAoJEP4bvbfZuWjbUkQQAIptDsGlarI9jPutVxPXB0Jy
+SOAeI6mzu544qAe5d6eCmcwOfYleeV0Krm2nv1SGN5/apQeBJOzayYr0fuIRl/Mm
+AIbXNMVRGaPpBDUeIFZPs+vH5p3TK86sWSGsgUEqrAyAWBeeFf3t+6/B+E8I4uOg
+izcEbBHew53/WfxRAIP1wxr5/yhAh42gVAD/fr3WJjLfDGW8bVDIN8BX0YAmShd3
+hnlJ9AKKeMW8Up/CH2dYZEOOY1i3tfXooA/E5gBZO1iRx9IOBfQ9DreumI+vpLrV
+CWhra4Oi6uPGSumnWZz6r6fFvC7OoAFVQPQfhA77cHa1YcnA9l9Gd53FA8LlM4qs
+wH11o96nRRxXUGoawEd/LpySOsxZObaDkXT532vF3QMGBw4qjd42YZvDA4GLMwYE
+iTFDYWKTCqt6LEjuilgtZCvJcYTMLD8Eg3IWJF1Q0wMjh6F0FGS/vdlrkRYmXhSU
+j7Tt5f1kDwxSP5d7B06EehhOWbZCBy0TF4QTL1+SqtK5xOQAdba40O8wBFQ+qZiv
+NcXXyuCNOXdEO1vLUeq0XffgRV66Nw/rs2wVUHMlK5lp/oAm/qrEyAYA9TvvFXsl
+z5LmFf8Bv7DTD+940UAMIwtNH1g+S64/sxx8jdIxDY3L3eyd/qYWMEsrEzzwo6W5
+k/Jx7MrPy3zIMY7sWm1t
+=8Zrl
 -----END PGP SIGNATURE-----
 
---XaSlQTcKXlh24REG7MlfRqIlo2Xs3op2X--
+--A6i0M7fjIOk04FQ6DSNgGtfVBW06VDLL2--
 
---===============0486900607==
+--===============2076422059==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -140,4 +156,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0486900607==--
+--===============2076422059==--
