@@ -1,11 +1,13 @@
 From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: [RFC]: More robust build sys for UMR
-Date: Sun,  5 Feb 2017 15:59:05 +1100
-Message-ID: <20170205045909.17616-1-funfunctor@folklore1984.net>
+Subject: [PATCH 3/4] README: minor update for cmake buildsys
+Date: Sun,  5 Feb 2017 15:59:08 +1100
+Message-ID: <20170205045909.17616-4-funfunctor@folklore1984.net>
+References: <20170205045909.17616-1-funfunctor@folklore1984.net>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20170205045909.17616-1-funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,17 +21,15 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: Tom.StDenis-5C7GfCeVMHo@public.gmane.org
 
-S2VlcGluZyB3aXRoIHRoZSB0cmFkaXRpb24gb2YgY2hhbmdpbmcgdGhlIGJ1aWxkIHN5c3RlbSBv
-biBpbml0aWFsCnJlbGVhc2UsIGhlcmUgd2UgZ28gYWdhaW4uLiBUaGlzIGZvbGxvdyBzZXJpZXMg
-aW50cm9kdWNlcyB0aGUgY21ha2UKYnVpbGQgc3lzdGVtIHRoYXQgaXMgaW50ZW5kZWQgdG8gYmUg
-YSBsaXR0bGUgbW9yZSByb2J1c3QgYWNyb3NzCnZhcmlvdXMgZGlzdHJvcyBhbmQgcHJlc3VtYWJs
-eSB0aGUgQlNEJ3MgYWxzby4gVGhlIGluc3RhbGxhdGlvbgpwcmVmaXggaXMgY29uZmlndXJhYmxl
-IGluIHRoZSB1c3VhbCBjbWFrZSB3YXk6CiBgY21ha2UgLURDTUFLRV9JTlNUQUxMX1BSRUZJWDpQ
-QVRIPS91c3IgLi5gCgpQbGVhc2Uga2luZGx5IHJldmlldywKCkVkd2FyZCBPJ0NhbGxhZ2hhbiAo
-NCk6CiBbUEFUQ0ggMS80XSBjbWFrZV9tb2R1bGVzOiBBZGQgbGlicGNpYWNjZXNzIGZpbmRlcgog
-W1BBVENIIDIvNF0gY21ha2U6IEluaXRpYWwgYnVpbGQgc3lzdGVtCiBbUEFUQ0ggMy80XSBSRUFE
-TUU6IG1pbm9yIHVwZGF0ZSBmb3IgY21ha2UgYnVpbGRzeXMKIFtQQVRDSCA0LzRdIGRyb3Agb3Jn
-aW5hbCBNYWtlZmlsZSAmJiBzdHViIGJpbi8gZGlyZWN0b3J5Cl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vYW1kLWdmeAo=
+U2lnbmVkLW9mZi1ieTogRWR3YXJkIE8nQ2FsbGFnaGFuIDxmdW5mdW5jdG9yQGZvbGtsb3JlMTk4
+NC5uZXQ+Ci0tLQogUkVBRE1FIHwgMSArCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykK
+CmRpZmYgLS1naXQgYS9SRUFETUUgYi9SRUFETUUKaW5kZXggMjcwMDczNi4uN2Q4YjAyNSAxMDA2
+NDQKLS0tIGEvUkVBRE1FCisrKyBiL1JFQURNRQpAQCAtMzIsNiArMzIsNyBAQCBUbyBidWlsZCB1
+bXIgeW91IHdpbGwgbmVlZCBwY2lhY2Nlc3MgYW5kIG5jdXJzZXMgaGVhZGVycyBhbmQgbGlicmFy
+aWVzLgogV2hpY2ggYXJlIGF2YWlsYWJsZSBpbiBib3RoIEZlZG9yYSBhbmQgVWJ1bnR1IChhcyB3
+ZWxsIGFzIG90aGVyCiBkaXN0cmlidXRpb25zKS4gIFRvIGJ1aWxkIHNpbXBseSBpbnZva2UgdGhl
+IG1ha2UgY29tbWFuZAogCisgICAgJCBta2RpciBidWlsZCAmJiBjZCBidWlsZC8gJiYgY21ha2Ug
+Li4vCiAgICAgJCBtYWtlCiAKIGFuZCB0aGVuCi0tIAoyLjkuMwoKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
