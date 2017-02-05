@@ -1,13 +1,15 @@
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [RFC]: More robust build sys for UMR
-Date: Mon, 6 Feb 2017 00:29:42 +1100
-Message-ID: <7cba846c-4b94-3297-dc66-f494aebf0e3f@folklore1984.net>
+Date: Sun, 5 Feb 2017 14:52:51 +0000
+Message-ID: <CY4PR12MB17687B9F4EC96C40E6E84441F7410@CY4PR12MB1768.namprd12.prod.outlook.com>
 References: <20170205045909.17616-1-funfunctor@folklore1984.net>
- <CY4PR12MB17682A4C6E095C68F9F29A44F7410@CY4PR12MB1768.namprd12.prod.outlook.com>
+ <CY4PR12MB17682A4C6E095C68F9F29A44F7410@CY4PR12MB1768.namprd12.prod.outlook.com>,
+ <7cba846c-4b94-3297-dc66-f494aebf0e3f@folklore1984.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2132936232=="
+Content-Type: multipart/mixed; boundary="===============0813426268=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CY4PR12MB17682A4C6E095C68F9F29A44F7410-rpdhrqHFk06yjjPBNVDk/QdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <7cba846c-4b94-3297-dc66-f494aebf0e3f-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,150 +20,223 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============2132936232==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="KNqrXgusJCQfEuU2uktJUD8qka3Jdk0fL"
+--===============0813426268==
+Content-Language: en-US
+Content-Type: multipart/related;
+	boundary="_004_CY4PR12MB17687B9F4EC96C40E6E84441F7410CY4PR12MB1768namp_";
+	type="multipart/alternative"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---KNqrXgusJCQfEuU2uktJUD8qka3Jdk0fL
-Content-Type: multipart/mixed; boundary="aS9ub2ho6QV5god4qgwJxupLIHnsa2Dls";
- protected-headers="v1"
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>,
- "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Message-ID: <7cba846c-4b94-3297-dc66-f494aebf0e3f-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [RFC]: More robust build sys for UMR
-References: <20170205045909.17616-1-funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
- <CY4PR12MB17682A4C6E095C68F9F29A44F7410-rpdhrqHFk06yjjPBNVDk/QdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-In-Reply-To: <CY4PR12MB17682A4C6E095C68F9F29A44F7410-rpdhrqHFk06yjjPBNVDk/QdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+--_004_CY4PR12MB17687B9F4EC96C40E6E84441F7410CY4PR12MB1768namp_
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB17687B9F4EC96C40E6E84441F7410CY4PR12MB1768namp_"
 
---aS9ub2ho6QV5god4qgwJxupLIHnsa2Dls
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+--_000_CY4PR12MB17687B9F4EC96C40E6E84441F7410CY4PR12MB1768namp_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
+SGkgRWR3YXJkLA0KDQoNClNvdW5kcyBnb29kIHRvIG1lLiAgSSdtIHN1cmUgb3VyIGJ1aWxkLXRl
+YW0gZm9sa3Mgd291bGQgYWN0dWFsbHkgYmUgaW4gZmF2b3VyIG9mIHNvbWV0aGluZyB0aGF0IGNv
+dWxkIGhlbHAgbWFrZSBkZWIvcnBtIHBhY2thZ2VzLg0KDQoNCkkgdHlwaWNhbGx5IG9ubHkgcnVu
+IEZlZG9yYSBhbmQgVWJ1bnR1IHNvIGlmIG90aGVycyB3aG8gcnVuIEFyY2gvR2VudG9vL1NVU0Uv
+ZXRjIHdhbnQgdG8gd2VpZ2ggaW4gdGhhdCdkIGJlIGFwcHJlY2lhdGVkLiAgSWYgbm9ib2R5IHJh
+aXNlcyBhbnkgb2JqZWN0aW9ucyBJJ2xsIFJCIHlvdXIgc2VyaWVzIGFuZCBwdXNoIHRoZW0gdG8g
+bWFzdGVyIHNvbWV0aW1lIHRvbW9ycm93Lg0KDQoNCkJ5IGFsbCBtZWFucyBpZiB5b3Ugd2FudCB0
+byBhZGQgb3RoZXIgZGVidWcgZmVhdHVyZXMgZ28gZm9yIGl0LiAgS2VlcCBpbiBtaW5kIGl0IGFs
+cmVhZHkgY2FwdHVyZXMgZmVhdHVyZXMgZnJvbSB0aGluZ3MgbGlrZSByYWRlb250b3AgYW5kIHNl
+dHJlZyB0eXBlIHRvb2xzIFvwn5iKXQ0KDQoNCk9uZSBvZiB0aGUgb3BlbiBpc3N1ZXMgcmlnaHQg
+bm93IGlzIHRoZSBWTSBkZWNvZGluZyBpbiB0aGUgcmVhZF92cmFtKCkgZnVuY3Rpb25hbGl0eSAo
+c3BlY2lmaWNhbGx5IHdoZW4gdXNpbmcgZm9sbG93X2liKS4gIEl0J3MgaGFyZCB0byBpbnN0cnVt
+ZW50IGEgdGVzdCBvZiB0aGF0IHNpbmNlIFZNIGFkZHJlc3NlcyBhcmUgbGl2ZSBhbmQgZXZlciBj
+aGFvdGljIGJ1dCBJJ3ZlIHlldCB0byBzZWUgYSBzdWNjZXNzZnVsIElCIHJlYWQgYmFjay4NCg0K
+DQpUb20NCg0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KRnJvbTogRWR3YXJk
+IE8nQ2FsbGFnaGFuIDxmdW5mdW5jdG9yQGZvbGtsb3JlMTk4NC5uZXQ+DQpTZW50OiBTdW5kYXks
+IEZlYnJ1YXJ5IDUsIDIwMTcgMDg6MjkNClRvOiBTdERlbmlzLCBUb207IGFtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnDQpTdWJqZWN0OiBSZTogW1JGQ106IE1vcmUgcm9idXN0IGJ1aWxkIHN5
+cyBmb3IgVU1SDQoNCg0KDQpPbiAwMi8wNS8yMDE3IDEwOjQyIFBNLCBTdERlbmlzLCBUb20gd3Jv
+dGU6DQo+IEhpIEVkd2FyZCwNCg0KSGV5IFRvbSwNCg0KPg0KPg0KPiBXZWxsIHRoZSBwYXRjaGVz
+IGFwcGx5IGFuZCB3b3JrIGJ1dCBJJ20gbm90IHJlYWxseSBzdXJlIHdoYXQgcHJvYmxlbQ0KPiBp
+dCdzIG1lYW50IHRvIHNvbHZlIPCfmIouICBCdWlsZGluZyBwcmV2aW91c2x5IHdhcyBhY3R1YWxs
+eSBzaW1wbGVyIHdpdGgNCg0KU28gdGhlIGlkZWEgaGVyZSB3YXMgdG8gaW1wbGVtZW50IHNvbWV0
+aGluZyBhIGxpdHRsZSBtb3JlIHJvYnVzdCBhbmQNCmV4dGVuc2libGUuIEZvciBleGFtcGxlIHdp
+dGggYSBjb3VwbGUgb2YgZXh0cmEgbGluZXMgY21ha2UgY2FuIHByb2R1Y2UNCnJwbSdzLCBkZWIn
+cyBhbmQgdGFyJ3MgdG9vIGFzIGJ1aWxkIGJ5LXByb2R1Y3RzLiBJIGNhbiBhZGQgdGhpcw0KZnVu
+Y3Rpb25hbGl0eSBpZiB5b3Ugd2lzaD8gQWRkaXRpb25hbGx5IGFub3RoZXIgY291cGxlIG9mIGxp
+bmVzIGEgdW5pdA0KdGVzdHMgY291bGQgYmUgaG9va2VkIGluIGlmIHRoYXQgaXMgdXNlZnVsPw0K
+DQpGdW5kYW1lbnRhbGx5IHRoZSBpZGVhIHdhcyB0byBoYXZlIGEgInByb3BlciIgYnVpbGQgc3lz
+dGVtIHRoYXQgY2FuDQpiZSBleHRlbnNpYmxlIGVub3VnaCBub3QgdG8gZ2V0IGluIHRoZSB3YXkg
+d2hpbGUgdGhlIGNvbW11bml0eQ0KZWxhYm9yYXRlcyBvbiBVTVIgc29tZSBtb3JlIHdpdGggYWRk
+aXRpb25hbCBmZWF0dXJlcy4gSSB3YXMgdGhpbmtpbmcNCmFib3V0IGxvb2tpbmcgYXQgdW5pZnlp
+bmcgb3RoZXIgcGVvcGxlcyByYWRlb24gZGVidWcvcmUgdG9vbGluZyB0b2dldGhlcg0KaW50byBV
+TVIgdG8gYmUgdGhlIG9uZS1zdG9wIHRvb2wgYXMgbXkgU3VuZGF5IGFmdGVybm9vbiB3ZWVrZW5k
+IHByb2plY3QNCnlvdSBzZWUgOikgLg0KDQo+ICJtYWtlIiBhcyBvcHBvc2VkIHRvICJta2RpciBi
+dWlsZCAmJiBjZCBidWlsZCAmJiBjbWFrZSAuLiAmJiBtYWtlIi4NCj4NCg0KSSBqdXN0IGFkZGVk
+IHRoYXQgc3RlcCBiZWNhdXNlIGl0cyBuaWNlIHRvIGJ1aWxkIG91dCBvZiB0cmVlLCB5b3UgZG9u
+J3QNCmhhdmUgdG8uDQoNCj4NCj4gT24gYSBCU0Qgc3lzdGVtICh3aGVyZSB0aGlzIHdvdWxkbid0
+IHJlYWxseSB3b3JrIHdpdGhvdXQgdGhlDQo+IGNvcnJlc3BvbmRpbmcgZGVidWdmcyBlbnRyaWVz
+KSBnbWFrZSBjb3VsZCBiZSB1c2VkIHRvIGJ1aWxkIGl0IHByb3ZpZGVkDQo+IG5jdXJzZXMvcGNp
+YWNjZXNzIHdlcmUgYXJvdW5kLg0KDQpXZWxsIGluIHRydXRoIEkgZGlkbid0IHRlc3Qgb24gdGhl
+IEJTRCdzIHlldCwgaG93ZXZlciBpdCBoZWxwcyBnaXZlIHNvbWUNCmEgZ29vZCBmb3VuZGF0aW9u
+IHNvIHRoZXkgY291bGQgcG9ydCBpdCBzaG91bGQgdGhleSB3aXNoLiBJIGFtIGFzc3VtaW5nDQpz
+byBzaW5jZSB0aGV5IHNlZW0gdG8gYmUgdXBkYXRpbmcgdGhlaXIgZ3JhcGhpY3Mgc3RhY2sgdGhl
+c2UgZGF5cy4NCg0KPg0KPg0KPiBJZiB0aGlzIGxlZ2l0aW1hdGVseSBtYWtlcyBpdCBtb3JlIHN0
+YWJsZSB0byBidWlsZCBvbiBMaW51eCBzeXN0ZW1zIHRoZW4NCj4gSSdtIGFsbCBmb3IgaXQuICBD
+YW4gYW55b25lIGVsYWJvcmF0ZSBvbiB3aGVyZSB0aGUgc2ltcGxlIG1ha2Ugc3lzdGVtDQo+IHdv
+dWxkIGZhaWw/DQoNCldlbGwgSSBob3BlIHNvLCB0aGF0J3Mgd2h5IEkgUkZDIGl0LiBJIGV4cGVj
+dCB0aGlzIHRvIHdvcmsgb3V0IHRoZSBib3gNCm9uIGFsbCBkaXN0cmlidXRpb25zIHJpZ2h0IG9m
+ZiB0aGUgYmF0IGFuZCBJIHdvdWxkIGJlIGludGVyZXN0ZWQgaW4NCmZlZWRiYWNrIGZvciB0aGF0
+Lg0KDQo+DQo+IChJJ20gbm90IHNheWluZyBOQUsgSSdtIHNpbXBseSBhc2tpbmcgZm9yIG15IG93
+biBlZGlmaWNhdGlvbikuDQoNClN1cmUgc3VyZSwgdGhpcyBvbmx5IHRvb2sgbWUgYSBob3VyIHRv
+IHB1dCB0b2dldGhlciBiZWNhdXNlIG9mIF9teV8gaXRjaA0Kc28gZG9uJ3Qgc3RyZXNzLg0KDQo+
+DQo+IFRoYW5rcywNCj4gVG9tDQoNCktpbmQgUmVnYXJkcywNCkVkd2FyZC4NCg0KPg0KPiAtLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0NCj4gKkZyb206KiBFZHdhcmQgTydDYWxsYWdoYW4gPGZ1bmZ1bmN0b3JAZm9s
+a2xvcmUxOTg0Lm5ldD4NCj4gKlNlbnQ6KiBTYXR1cmRheSwgRmVicnVhcnkgNCwgMjAxNyAyMzo1
+OQ0KPiAqVG86KiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiAqQ2M6KiBTdERlbmlz
+LCBUb20NCj4gKlN1YmplY3Q6KiBbUkZDXTogTW9yZSByb2J1c3QgYnVpbGQgc3lzIGZvciBVTVIN
+Cj4NCj4gS2VlcGluZyB3aXRoIHRoZSB0cmFkaXRpb24gb2YgY2hhbmdpbmcgdGhlIGJ1aWxkIHN5
+c3RlbSBvbiBpbml0aWFsDQo+IHJlbGVhc2UsIGhlcmUgd2UgZ28gYWdhaW4uLiBUaGlzIGZvbGxv
+dyBzZXJpZXMgaW50cm9kdWNlcyB0aGUgY21ha2UNCj4gYnVpbGQgc3lzdGVtIHRoYXQgaXMgaW50
+ZW5kZWQgdG8gYmUgYSBsaXR0bGUgbW9yZSByb2J1c3QgYWNyb3NzDQo+IHZhcmlvdXMgZGlzdHJv
+cyBhbmQgcHJlc3VtYWJseSB0aGUgQlNEJ3MgYWxzby4gVGhlIGluc3RhbGxhdGlvbg0KPiBwcmVm
+aXggaXMgY29uZmlndXJhYmxlIGluIHRoZSB1c3VhbCBjbWFrZSB3YXk6DQo+ICBgY21ha2UgLURD
+TUFLRV9JTlNUQUxMX1BSRUZJWDpQQVRIPS91c3IgLi5gDQo+DQo+IFBsZWFzZSBraW5kbHkgcmV2
+aWV3LA0KPg0KPiBFZHdhcmQgTydDYWxsYWdoYW4gKDQpOg0KPiAgW1BBVENIIDEvNF0gY21ha2Vf
+bW9kdWxlczogQWRkIGxpYnBjaWFjY2VzcyBmaW5kZXINCj4gIFtQQVRDSCAyLzRdIGNtYWtlOiBJ
+bml0aWFsIGJ1aWxkIHN5c3RlbQ0KPiAgW1BBVENIIDMvNF0gUkVBRE1FOiBtaW5vciB1cGRhdGUg
+Zm9yIGNtYWtlIGJ1aWxkc3lzDQo+ICBbUEFUQ0ggNC80XSBkcm9wIG9yZ2luYWwgTWFrZWZpbGUg
+JiYgc3R1YiBiaW4vIGRpcmVjdG9yeQ0KDQo=
 
+--_000_CY4PR12MB17687B9F4EC96C40E6E84441F7410CY4PR12MB1768namp_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On 02/05/2017 10:42 PM, StDenis, Tom wrote:
-> Hi Edward,
+PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
+dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyIgc3R5bGU9
+ImRpc3BsYXk6bm9uZTsiPjwhLS0gUCB7bWFyZ2luLXRvcDowO21hcmdpbi1ib3R0b206MDt9IC0t
+Pjwvc3R5bGU+DQo8L2hlYWQ+DQo8Ym9keSBkaXI9Imx0ciI+DQo8ZGl2IGlkPSJkaXZ0YWdkZWZh
+dWx0d3JhcHBlciIgc3R5bGU9ImZvbnQtc2l6ZToxMnB0O2NvbG9yOiMwMDAwMDA7Zm9udC1mYW1p
+bHk6Q2FsaWJyaSxBcmlhbCxIZWx2ZXRpY2Esc2Fucy1zZXJpZjsiIGRpcj0ibHRyIj4NCjxwPkhp
+IEVkd2FyZCw8L3A+DQo8cD48YnI+DQo8L3A+DQo8cD5Tb3VuZHMgZ29vZCB0byBtZS4gJm5ic3A7
+SSdtIHN1cmUgb3VyIGJ1aWxkLXRlYW0gZm9sa3Mgd291bGQgYWN0dWFsbHkgYmUgaW4gZmF2b3Vy
+IG9mIHNvbWV0aGluZyB0aGF0IGNvdWxkIGhlbHAgbWFrZSBkZWIvcnBtIHBhY2thZ2VzLjwvcD4N
+CjxwPjxicj4NCjwvcD4NCjxwPkkgdHlwaWNhbGx5IG9ubHkgcnVuIEZlZG9yYSBhbmQgVWJ1bnR1
+IHNvIGlmIG90aGVycyB3aG8gcnVuIEFyY2gvR2VudG9vL1NVU0UvZXRjIHdhbnQgdG8gd2VpZ2gg
+aW4gdGhhdCdkIGJlIGFwcHJlY2lhdGVkLiAmbmJzcDtJZiBub2JvZHkgcmFpc2VzIGFueSBvYmpl
+Y3Rpb25zIEknbGwgUkIgeW91ciBzZXJpZXMgYW5kIHB1c2ggdGhlbSB0byBtYXN0ZXIgc29tZXRp
+bWUmbmJzcDt0b21vcnJvdy48L3A+DQo8cD48YnI+DQo8L3A+DQo8cD5CeSBhbGwgbWVhbnMgaWYg
+eW91IHdhbnQgdG8gYWRkIG90aGVyIGRlYnVnIGZlYXR1cmVzIGdvIGZvciBpdC4gJm5ic3A7S2Vl
+cCBpbiBtaW5kIGl0IGFscmVhZHkgY2FwdHVyZXMgZmVhdHVyZXMgZnJvbSB0aGluZ3MgbGlrZSBy
+YWRlb250b3AgYW5kIHNldHJlZyB0eXBlIHRvb2xzDQo8aW1nIGNsYXNzPSJFbW9qaUluc2VydCIg
+aWQ9Ik9XQUVtb2ppMTI2MjQ1IiBhbHQ9IvCfmIoiIHN0eWxlPSJ2ZXJ0aWNhbC1hbGlnbjogYm90
+dG9tOyIgc3JjPSJjaWQ6N2IxY2Y1NjEtMTJhMC00MjRkLTk3N2YtMjEzY2E3NmJhM2RhIj48L3A+
+DQo8cD48YnI+DQo8L3A+DQo8cD5PbmUgb2YgdGhlIG9wZW4gaXNzdWVzIHJpZ2h0IG5vdyBpcyB0
+aGUgVk0gZGVjb2RpbmcgaW4gdGhlIHJlYWRfdnJhbSgpIGZ1bmN0aW9uYWxpdHkgKHNwZWNpZmlj
+YWxseSB3aGVuIHVzaW5nIGZvbGxvd19pYikuICZuYnNwO0l0J3MgaGFyZCB0byBpbnN0cnVtZW50
+IGEgdGVzdCBvZiB0aGF0IHNpbmNlIFZNIGFkZHJlc3NlcyBhcmUgbGl2ZSBhbmQgZXZlciBjaGFv
+dGljIGJ1dCBJJ3ZlIHlldCB0byBzZWUgYSBzdWNjZXNzZnVsIElCIHJlYWQgYmFjay4NCiAmbmJz
+cDs8L3A+DQo8cD48YnI+DQo8L3A+DQo8cD5Ub208L3A+DQo8YnI+DQo8YnI+DQo8ZGl2IHN0eWxl
+PSJjb2xvcjogcmdiKDAsIDAsIDApOyI+DQo8ZGl2Pg0KPGhyIHRhYmluZGV4PSItMSIgc3R5bGU9
+ImRpc3BsYXk6aW5saW5lLWJsb2NrOyB3aWR0aDo5OCUiPg0KPGRpdiBpZD0ieF9kaXZScGx5Rndk
+TXNnIiBkaXI9Imx0ciI+PGZvbnQgZmFjZT0iQ2FsaWJyaSwgc2Fucy1zZXJpZiIgY29sb3I9IiMw
+MDAwMDAiIHN0eWxlPSJmb250LXNpemU6MTFwdCI+PGI+RnJvbTo8L2I+IEVkd2FyZCBPJ0NhbGxh
+Z2hhbiAmbHQ7ZnVuZnVuY3RvckBmb2xrbG9yZTE5ODQubmV0Jmd0Ozxicj4NCjxiPlNlbnQ6PC9i
+PiBTdW5kYXksIEZlYnJ1YXJ5IDUsIDIwMTcgMDg6Mjk8YnI+DQo8Yj5Ubzo8L2I+IFN0RGVuaXMs
+IFRvbTsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc8YnI+DQo8Yj5TdWJqZWN0OjwvYj4g
+UmU6IFtSRkNdOiBNb3JlIHJvYnVzdCBidWlsZCBzeXMgZm9yIFVNUjwvZm9udD4NCjxkaXY+Jm5i
+c3A7PC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPGZvbnQgc2l6ZT0iMiI+PHNwYW4gc3R5bGU9ImZv
+bnQtc2l6ZToxMHB0OyI+DQo8ZGl2IGNsYXNzPSJQbGFpblRleHQiPjxicj4NCjxicj4NCk9uIDAy
+LzA1LzIwMTcgMTA6NDIgUE0sIFN0RGVuaXMsIFRvbSB3cm90ZTo8YnI+DQomZ3Q7IEhpIEVkd2Fy
+ZCw8YnI+DQo8YnI+DQpIZXkgVG9tLDxicj4NCjxicj4NCiZndDsgPGJyPg0KJmd0OyA8YnI+DQom
+Z3Q7IFdlbGwgdGhlIHBhdGNoZXMgYXBwbHkgYW5kIHdvcmsgYnV0IEknbSBub3QgcmVhbGx5IHN1
+cmUgd2hhdCBwcm9ibGVtPGJyPg0KJmd0OyBpdCdzIG1lYW50IHRvIHNvbHZlIPCfmIouJm5ic3A7
+IEJ1aWxkaW5nIHByZXZpb3VzbHkgd2FzIGFjdHVhbGx5IHNpbXBsZXIgd2l0aDxicj4NCjxicj4N
+ClNvIHRoZSBpZGVhIGhlcmUgd2FzIHRvIGltcGxlbWVudCBzb21ldGhpbmcgYSBsaXR0bGUgbW9y
+ZSByb2J1c3QgYW5kPGJyPg0KZXh0ZW5zaWJsZS4gRm9yIGV4YW1wbGUgd2l0aCBhIGNvdXBsZSBv
+ZiBleHRyYSBsaW5lcyBjbWFrZSBjYW4gcHJvZHVjZTxicj4NCnJwbSdzLCBkZWIncyBhbmQgdGFy
+J3MgdG9vIGFzIGJ1aWxkIGJ5LXByb2R1Y3RzLiBJIGNhbiBhZGQgdGhpczxicj4NCmZ1bmN0aW9u
+YWxpdHkgaWYgeW91IHdpc2g/IEFkZGl0aW9uYWxseSBhbm90aGVyIGNvdXBsZSBvZiBsaW5lcyBh
+IHVuaXQ8YnI+DQp0ZXN0cyBjb3VsZCBiZSBob29rZWQgaW4gaWYgdGhhdCBpcyB1c2VmdWw/PGJy
+Pg0KPGJyPg0KRnVuZGFtZW50YWxseSB0aGUgaWRlYSB3YXMgdG8gaGF2ZSBhICZxdW90O3Byb3Bl
+ciZxdW90OyBidWlsZCBzeXN0ZW0gdGhhdCBjYW48YnI+DQpiZSBleHRlbnNpYmxlIGVub3VnaCBu
+b3QgdG8gZ2V0IGluIHRoZSB3YXkgd2hpbGUgdGhlIGNvbW11bml0eTxicj4NCmVsYWJvcmF0ZXMg
+b24gVU1SIHNvbWUgbW9yZSB3aXRoIGFkZGl0aW9uYWwgZmVhdHVyZXMuIEkgd2FzIHRoaW5raW5n
+PGJyPg0KYWJvdXQgbG9va2luZyBhdCB1bmlmeWluZyBvdGhlciBwZW9wbGVzIHJhZGVvbiBkZWJ1
+Zy9yZSB0b29saW5nIHRvZ2V0aGVyPGJyPg0KaW50byBVTVIgdG8gYmUgdGhlIG9uZS1zdG9wIHRv
+b2wgYXMgbXkgU3VuZGF5IGFmdGVybm9vbiB3ZWVrZW5kIHByb2plY3Q8YnI+DQp5b3Ugc2VlIDop
+IC48YnI+DQo8YnI+DQomZ3Q7ICZxdW90O21ha2UmcXVvdDsgYXMgb3Bwb3NlZCB0byAmcXVvdDtt
+a2RpciBidWlsZCAmYW1wOyZhbXA7IGNkIGJ1aWxkICZhbXA7JmFtcDsgY21ha2UgLi4gJmFtcDsm
+YW1wOyBtYWtlJnF1b3Q7Ljxicj4NCiZndDs8YnI+DQo8YnI+DQpJIGp1c3QgYWRkZWQgdGhhdCBz
+dGVwIGJlY2F1c2UgaXRzIG5pY2UgdG8gYnVpbGQgb3V0IG9mIHRyZWUsIHlvdSBkb24ndDxicj4N
+CmhhdmUgdG8uPGJyPg0KPGJyPg0KJmd0OyA8YnI+DQomZ3Q7IE9uIGEgQlNEIHN5c3RlbSAod2hl
+cmUgdGhpcyB3b3VsZG4ndCByZWFsbHkgd29yayB3aXRob3V0IHRoZTxicj4NCiZndDsgY29ycmVz
+cG9uZGluZyBkZWJ1Z2ZzIGVudHJpZXMpIGdtYWtlIGNvdWxkIGJlIHVzZWQgdG8gYnVpbGQgaXQg
+cHJvdmlkZWQ8YnI+DQomZ3Q7IG5jdXJzZXMvcGNpYWNjZXNzIHdlcmUgYXJvdW5kLjxicj4NCjxi
+cj4NCldlbGwgaW4gdHJ1dGggSSBkaWRuJ3QgdGVzdCBvbiB0aGUgQlNEJ3MgeWV0LCBob3dldmVy
+IGl0IGhlbHBzIGdpdmUgc29tZTxicj4NCmEgZ29vZCBmb3VuZGF0aW9uIHNvIHRoZXkgY291bGQg
+cG9ydCBpdCBzaG91bGQgdGhleSB3aXNoLiBJIGFtIGFzc3VtaW5nPGJyPg0Kc28gc2luY2UgdGhl
+eSBzZWVtIHRvIGJlIHVwZGF0aW5nIHRoZWlyIGdyYXBoaWNzIHN0YWNrIHRoZXNlIGRheXMuPGJy
+Pg0KPGJyPg0KJmd0OyA8YnI+DQomZ3Q7IDxicj4NCiZndDsgSWYgdGhpcyBsZWdpdGltYXRlbHkg
+bWFrZXMgaXQgbW9yZSBzdGFibGUgdG8gYnVpbGQgb24gTGludXggc3lzdGVtcyB0aGVuPGJyPg0K
+Jmd0OyBJJ20gYWxsIGZvciBpdC4mbmJzcDsgQ2FuIGFueW9uZSBlbGFib3JhdGUgb24gd2hlcmUg
+dGhlIHNpbXBsZSBtYWtlIHN5c3RlbTxicj4NCiZndDsgd291bGQgZmFpbD88YnI+DQo8YnI+DQpX
+ZWxsIEkgaG9wZSBzbywgdGhhdCdzIHdoeSBJIFJGQyBpdC4gSSBleHBlY3QgdGhpcyB0byB3b3Jr
+IG91dCB0aGUgYm94PGJyPg0Kb24gYWxsIGRpc3RyaWJ1dGlvbnMgcmlnaHQgb2ZmIHRoZSBiYXQg
+YW5kIEkgd291bGQgYmUgaW50ZXJlc3RlZCBpbjxicj4NCmZlZWRiYWNrIGZvciB0aGF0Ljxicj4N
+Cjxicj4NCiZndDsgPGJyPg0KJmd0OyAoSSdtIG5vdCBzYXlpbmcgTkFLIEknbSBzaW1wbHkgYXNr
+aW5nIGZvciBteSBvd24gZWRpZmljYXRpb24pLjxicj4NCjxicj4NClN1cmUgc3VyZSwgdGhpcyBv
+bmx5IHRvb2sgbWUgYSBob3VyIHRvIHB1dCB0b2dldGhlciBiZWNhdXNlIG9mIF9teV8gaXRjaDxi
+cj4NCnNvIGRvbid0IHN0cmVzcy48YnI+DQo8YnI+DQomZ3Q7IDxicj4NCiZndDsgVGhhbmtzLDxi
+cj4NCiZndDsgVG9tPGJyPg0KPGJyPg0KS2luZCBSZWdhcmRzLDxicj4NCkVkd2FyZC48YnI+DQo8
+YnI+DQomZ3Q7IDxicj4NCiZndDsgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tPGJyPg0KJmd0OyAqRnJvbToqIEVk
+d2FyZCBPJ0NhbGxhZ2hhbiAmbHQ7ZnVuZnVuY3RvckBmb2xrbG9yZTE5ODQubmV0Jmd0Ozxicj4N
+CiZndDsgKlNlbnQ6KiBTYXR1cmRheSwgRmVicnVhcnkgNCwgMjAxNyAyMzo1OTxicj4NCiZndDsg
+KlRvOiogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc8YnI+DQomZ3Q7ICpDYzoqIFN0RGVu
+aXMsIFRvbTxicj4NCiZndDsgKlN1YmplY3Q6KiBbUkZDXTogTW9yZSByb2J1c3QgYnVpbGQgc3lz
+IGZvciBVTVI8YnI+DQomZ3Q7Jm5ic3A7IDxicj4NCiZndDsgS2VlcGluZyB3aXRoIHRoZSB0cmFk
+aXRpb24gb2YgY2hhbmdpbmcgdGhlIGJ1aWxkIHN5c3RlbSBvbiBpbml0aWFsPGJyPg0KJmd0OyBy
+ZWxlYXNlLCBoZXJlIHdlIGdvIGFnYWluLi4gVGhpcyBmb2xsb3cgc2VyaWVzIGludHJvZHVjZXMg
+dGhlIGNtYWtlPGJyPg0KJmd0OyBidWlsZCBzeXN0ZW0gdGhhdCBpcyBpbnRlbmRlZCB0byBiZSBh
+IGxpdHRsZSBtb3JlIHJvYnVzdCBhY3Jvc3M8YnI+DQomZ3Q7IHZhcmlvdXMgZGlzdHJvcyBhbmQg
+cHJlc3VtYWJseSB0aGUgQlNEJ3MgYWxzby4gVGhlIGluc3RhbGxhdGlvbjxicj4NCiZndDsgcHJl
+Zml4IGlzIGNvbmZpZ3VyYWJsZSBpbiB0aGUgdXN1YWwgY21ha2Ugd2F5Ojxicj4NCiZndDsmbmJz
+cDsgYGNtYWtlIC1EQ01BS0VfSU5TVEFMTF9QUkVGSVg6UEFUSD0vdXNyIC4uYDxicj4NCiZndDsg
+PGJyPg0KJmd0OyBQbGVhc2Uga2luZGx5IHJldmlldyw8YnI+DQomZ3Q7IDxicj4NCiZndDsgRWR3
+YXJkIE8nQ2FsbGFnaGFuICg0KTo8YnI+DQomZ3Q7Jm5ic3A7IFtQQVRDSCAxLzRdIGNtYWtlX21v
+ZHVsZXM6IEFkZCBsaWJwY2lhY2Nlc3MgZmluZGVyPGJyPg0KJmd0OyZuYnNwOyBbUEFUQ0ggMi80
+XSBjbWFrZTogSW5pdGlhbCBidWlsZCBzeXN0ZW08YnI+DQomZ3Q7Jm5ic3A7IFtQQVRDSCAzLzRd
+IFJFQURNRTogbWlub3IgdXBkYXRlIGZvciBjbWFrZSBidWlsZHN5czxicj4NCiZndDsmbmJzcDsg
+W1BBVENIIDQvNF0gZHJvcCBvcmdpbmFsIE1ha2VmaWxlICZhbXA7JmFtcDsgc3R1YiBiaW4vIGRp
+cmVjdG9yeTxicj4NCjxicj4NCjwvZGl2Pg0KPC9zcGFuPjwvZm9udD48L2Rpdj4NCjwvZGl2Pg0K
+PC9ib2R5Pg0KPC9odG1sPg0K
 
-Hey Tom,
+--_000_CY4PR12MB17687B9F4EC96C40E6E84441F7410CY4PR12MB1768namp_--
 
->=20
->=20
-> Well the patches apply and work but I'm not really sure what problem
-> it's meant to solve =F0=9F=98=8A.  Building previously was actually sim=
-pler with
+--_004_CY4PR12MB17687B9F4EC96C40E6E84441F7410CY4PR12MB1768namp_
+Content-Type: image/png; name="=?utf-8?B?T3V0bG9va0Vtb2ppLfCfmIoucG5n?="
+Content-Description: =?utf-8?B?T3V0bG9va0Vtb2ppLfCfmIoucG5n?=
+Content-Disposition: inline;
+	filename="=?utf-8?B?T3V0bG9va0Vtb2ppLfCfmIoucG5n?="; size=488;
+	creation-date="Sun, 05 Feb 2017 14:50:41 GMT";
+	modification-date="Sun, 05 Feb 2017 14:50:41 GMT"
+Content-ID: <7b1cf561-12a0-424d-977f-213ca76ba3da>
+Content-Transfer-Encoding: base64
 
-So the idea here was to implement something a little more robust and
-extensible. For example with a couple of extra lines cmake can produce
-rpm's, deb's and tar's too as build by-products. I can add this
-functionality if you wish? Additionally another couple of lines a unit
-tests could be hooked in if that is useful?
+iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
+bWFnZVJlYWR5ccllPAAAAYpJREFUeNpi/P//PwO1ACM2wf9njBWAVD4QBwCxApLUAyDeAMQTGU3O
+PkDRA3QUIxaD+oFUAREOaQQa2IDTMKBB84FUAgk+WwA0MBFmGBOaixJIDKYEoD6465igBjkge+3C
+rW94TUCTr4eGMdxl8TCZxMYHDIZR1xk2HPiA1SCQOEgepA4J5CMbFgAPhM1vwfTFW9+xGgYTh6lD
+1s8IdKIAkH4PEz1w9jOYVpBiZ1CQZMMw7MHzXwwPnv0Esx2MeRESxmcYWYCUAbJiFAVYAMgCbJbA
+vPmAWjmACZqS4aHdOOs5wdgEBcWE5a8Y0HIGPAIOwETtjXkYJqIqxAAgeQM1ThTzkQ2biB5mC7a8
+xZ7kgeICvMzoYTsRJaMDY3U9chIBpaMHz34xxPsKgwMcFIsLgckB5KL+YllkgyYAg6oQJW9Ck8h+
+5NgFhd3GAx/humAGI2cGIHYEGvYBW0YHGTgf2YX4MjkQF4IMwlkEIeXVfByGwsqzAwTLMywGg7wN
+cvED9AIR3TCAAAMAqh+p+YMVeBQAAAAASUVORK5CYII=
 
-Fundamentally the idea was to have a "proper" build system that can
-be extensible enough not to get in the way while the community
-elaborates on UMR some more with additional features. I was thinking
-about looking at unifying other peoples radeon debug/re tooling together
-into UMR to be the one-stop tool as my Sunday afternoon weekend project
-you see :) .
+--_004_CY4PR12MB17687B9F4EC96C40E6E84441F7410CY4PR12MB1768namp_--
 
-> "make" as opposed to "mkdir build && cd build && cmake .. && make".
->
-
-I just added that step because its nice to build out of tree, you don't
-have to.
-
->=20
-> On a BSD system (where this wouldn't really work without the
-> corresponding debugfs entries) gmake could be used to build it provided=
-
-> ncurses/pciaccess were around.
-
-Well in truth I didn't test on the BSD's yet, however it helps give some
-a good foundation so they could port it should they wish. I am assuming
-so since they seem to be updating their graphics stack these days.
-
->=20
->=20
-> If this legitimately makes it more stable to build on Linux systems the=
-n
-> I'm all for it.  Can anyone elaborate on where the simple make system
-> would fail?
-
-Well I hope so, that's why I RFC it. I expect this to work out the box
-on all distributions right off the bat and I would be interested in
-feedback for that.
-
->=20
-> (I'm not saying NAK I'm simply asking for my own edification).
-
-Sure sure, this only took me a hour to put together because of _my_ itch
-so don't stress.
-
->=20
-> Thanks,
-> Tom
-
-Kind Regards,
-Edward.
-
->=20
-> -----------------------------------------------------------------------=
--
-> *From:* Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-> *Sent:* Saturday, February 4, 2017 23:59
-> *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> *Cc:* StDenis, Tom
-> *Subject:* [RFC]: More robust build sys for UMR
-> =20
-> Keeping with the tradition of changing the build system on initial
-> release, here we go again.. This follow series introduces the cmake
-> build system that is intended to be a little more robust across
-> various distros and presumably the BSD's also. The installation
-> prefix is configurable in the usual cmake way:
->  `cmake -DCMAKE_INSTALL_PREFIX:PATH=3D/usr ..`
->=20
-> Please kindly review,
->=20
-> Edward O'Callaghan (4):
->  [PATCH 1/4] cmake_modules: Add libpciaccess finder
->  [PATCH 2/4] cmake: Initial build system
->  [PATCH 3/4] README: minor update for cmake buildsys
->  [PATCH 4/4] drop orginal Makefile && stub bin/ directory
-
-
---aS9ub2ho6QV5god4qgwJxupLIHnsa2Dls--
-
---KNqrXgusJCQfEuU2uktJUD8qka3Jdk0fL
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJYlyjGAAoJEP4bvbfZuWjbZ3QQAL/KaTX1od6EGO9vPNY+Zapn
-V+NBP9lZs0GBCM9JiQUa6r8euWBLuiK0+Ct5szJZsRTG1RkgAzUfasZQStpoEnTA
-V7Oyhrh6wkFZ/ELHZ1auiMX8hyMu0I5BF+bEoNRSSlfNDetf2R3iBczu/9P35Ep6
-JbwzMOBd30twg5yPEMjasyBm+wB43qQ8QSbhvEg9wvelUBjnWJlikkesf4MrtSO1
-7CzT7Ea6acE11hN4VTgx5guWo8+IER7qnI5AWDvyZRZB0ief3z15UkDNe1Uuss+K
-G9XLXUA25oOjwadO2WxYiAJQnJttLi5MQeRe4UJw2l/ZC1DIpvEkmg0sIV3GrgPk
-QoZYRZgVP/aeNHaqCqcQ5YDWmuJDrVFdkez77znd3YHX9jBDDECeV2Bm+XluJP1E
-jEi68lAu6fHYZmDocLKY+0VMovY6e4Qg9eP4GzSx8RvWzHoEx39IHWe0BipGC8c5
-3OFtg4urp5E+Hup4ySET1Netts4KRtLJKuMf3AU8vuCveLfG57UGw8sLl6ikjMTR
-z9nVrKSUEHAysD6HVEl7VGy4SN4F0f4CQOECadUewsxKFiJtypJ55QeZVcMe8utL
-GfXQUjr53W7th0P6yKzx8AQrdM61hvt85ycB0te93lI28K31z4WowvHsgn9p1xpD
-L37M3m6b+ENxQixMhJ4e
-=EoOH
------END PGP SIGNATURE-----
-
---KNqrXgusJCQfEuU2uktJUD8qka3Jdk0fL--
-
---===============2132936232==
+--===============0813426268==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -171,4 +246,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============2132936232==--
+--===============0813426268==--
