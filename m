@@ -1,13 +1,13 @@
-From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+From: Bas Nieuwenhuizen <bas-dldO88ZXqoXqqjsSq9zF6IRWq/SkRNHw@public.gmane.org>
 Subject: Re: [RFC]: More robust build sys for UMR
-Date: Sun, 5 Feb 2017 11:42:54 +0000
-Message-ID: <CY4PR12MB17682A4C6E095C68F9F29A44F7410@CY4PR12MB1768.namprd12.prod.outlook.com>
+Date: Sun, 05 Feb 2017 14:12:20 +0100
+Message-ID: <1486300340.569179.870833952.54395662@webmail.messagingengine.com>
 References: <20170205045909.17616-1-funfunctor@folklore1984.net>
+ <CY4PR12MB17682A4C6E095C68F9F29A44F7410@CY4PR12MB1768.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1695236632=="
+Content-Type: multipart/mixed; boundary="===============1835141525=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170205045909.17616-1-funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <CY4PR12MB17682A4C6E095C68F9F29A44F7410-rpdhrqHFk06yjjPBNVDk/QdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,127 +18,252 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============1695236632==
-Content-Language: en-US
-Content-Type: multipart/related;
-	boundary="_004_CY4PR12MB17682A4C6E095C68F9F29A44F7410CY4PR12MB1768namp_";
-	type="multipart/alternative"
+This is a multi-part message in MIME format.
 
---_004_CY4PR12MB17682A4C6E095C68F9F29A44F7410CY4PR12MB1768namp_
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB17682A4C6E095C68F9F29A44F7410CY4PR12MB1768namp_"
+--===============1835141525==
+Content-Transfer-Encoding: 7bit
+Content-Type: multipart/alternative; boundary="_----------=_14863003405691791"
 
---_000_CY4PR12MB17682A4C6E095C68F9F29A44F7410CY4PR12MB1768namp_
+This is a multi-part message in MIME format.
+
+--_----------=_14863003405691791
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
 
-SGkgRWR3YXJkLA0KDQoNCldlbGwgdGhlIHBhdGNoZXMgYXBwbHkgYW5kIHdvcmsgYnV0IEknbSBu
-b3QgcmVhbGx5IHN1cmUgd2hhdCBwcm9ibGVtIGl0J3MgbWVhbnQgdG8gc29sdmUgW/CfmIpdIC4g
-IEJ1aWxkaW5nIHByZXZpb3VzbHkgd2FzIGFjdHVhbGx5IHNpbXBsZXIgd2l0aCAibWFrZSIgYXMg
-b3Bwb3NlZCB0byAibWtkaXIgYnVpbGQgJiYgY2QgYnVpbGQgJiYgY21ha2UgLi4gJiYgbWFrZSIu
-DQoNCg0KT24gYSBCU0Qgc3lzdGVtICh3aGVyZSB0aGlzIHdvdWxkbid0IHJlYWxseSB3b3JrIHdp
-dGhvdXQgdGhlIGNvcnJlc3BvbmRpbmcgZGVidWdmcyBlbnRyaWVzKSBnbWFrZSBjb3VsZCBiZSB1
-c2VkIHRvIGJ1aWxkIGl0IHByb3ZpZGVkIG5jdXJzZXMvcGNpYWNjZXNzIHdlcmUgYXJvdW5kLg0K
-DQpJZiB0aGlzIGxlZ2l0aW1hdGVseSBtYWtlcyBpdCBtb3JlIHN0YWJsZSB0byBidWlsZCBvbiBM
-aW51eCBzeXN0ZW1zIHRoZW4gSSdtIGFsbCBmb3IgaXQuICBDYW4gYW55b25lIGVsYWJvcmF0ZSBv
-biB3aGVyZSB0aGUgc2ltcGxlIG1ha2Ugc3lzdGVtIHdvdWxkIGZhaWw/DQoNCihJJ20gbm90IHNh
-eWluZyBOQUsgSSdtIHNpbXBseSBhc2tpbmcgZm9yIG15IG93biBlZGlmaWNhdGlvbikuDQoNClRo
-YW5rcywNClRvbQ0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KRnJvbTogRWR3
-YXJkIE8nQ2FsbGFnaGFuIDxmdW5mdW5jdG9yQGZvbGtsb3JlMTk4NC5uZXQ+DQpTZW50OiBTYXR1
-cmRheSwgRmVicnVhcnkgNCwgMjAxNyAyMzo1OQ0KVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnDQpDYzogU3REZW5pcywgVG9tDQpTdWJqZWN0OiBbUkZDXTogTW9yZSByb2J1c3QgYnVp
-bGQgc3lzIGZvciBVTVINCg0KS2VlcGluZyB3aXRoIHRoZSB0cmFkaXRpb24gb2YgY2hhbmdpbmcg
-dGhlIGJ1aWxkIHN5c3RlbSBvbiBpbml0aWFsDQpyZWxlYXNlLCBoZXJlIHdlIGdvIGFnYWluLi4g
-VGhpcyBmb2xsb3cgc2VyaWVzIGludHJvZHVjZXMgdGhlIGNtYWtlDQpidWlsZCBzeXN0ZW0gdGhh
-dCBpcyBpbnRlbmRlZCB0byBiZSBhIGxpdHRsZSBtb3JlIHJvYnVzdCBhY3Jvc3MNCnZhcmlvdXMg
-ZGlzdHJvcyBhbmQgcHJlc3VtYWJseSB0aGUgQlNEJ3MgYWxzby4gVGhlIGluc3RhbGxhdGlvbg0K
-cHJlZml4IGlzIGNvbmZpZ3VyYWJsZSBpbiB0aGUgdXN1YWwgY21ha2Ugd2F5Og0KIGBjbWFrZSAt
-RENNQUtFX0lOU1RBTExfUFJFRklYOlBBVEg9L3VzciAuLmANCg0KUGxlYXNlIGtpbmRseSByZXZp
-ZXcsDQoNCkVkd2FyZCBPJ0NhbGxhZ2hhbiAoNCk6DQogW1BBVENIIDEvNF0gY21ha2VfbW9kdWxl
-czogQWRkIGxpYnBjaWFjY2VzcyBmaW5kZXINCiBbUEFUQ0ggMi80XSBjbWFrZTogSW5pdGlhbCBi
-dWlsZCBzeXN0ZW0NCiBbUEFUQ0ggMy80XSBSRUFETUU6IG1pbm9yIHVwZGF0ZSBmb3IgY21ha2Ug
-YnVpbGRzeXMNCiBbUEFUQ0ggNC80XSBkcm9wIG9yZ2luYWwgTWFrZWZpbGUgJiYgc3R1YiBiaW4v
-IGRpcmVjdG9yeQ0K
+Hi,
 
---_000_CY4PR12MB17682A4C6E095C68F9F29A44F7410CY4PR12MB1768namp_
+
+
+I think the current build system is a bit too naive though. On my distro
+archlinux the libdrm headers are installed in /usr/include/libdrm, which
+causes the include to drm/drm.h in src/lib/query_drm.c to fail.
+
+
+So if it is in /usr/include/drm on Ubuntu, we are going to need some
+autodetection to find the right include path. Autotools definitely
+sounds like overkill to me, and the current build system is pretty
+simple indeed, but needing to change the source isn't ideal.
+
+
+By the way, I don't think the current make system handles dependencies
+on headers correctly? e.g. if I modify umrapp.h, make rebuilds nothing.
+This is one of the things cmake gives you for free, though with a bit of
+work make can do it too.
+
+
+Yours sincerely,
+
+Bas Nieuwenhuizen
+
+
+
+
+
+On Sun, Feb 5, 2017, at 12:42, StDenis, Tom wrote:
+
+> Hi Edward,
+
+
+
+>=20
+
+
+
+> Well the patches apply and work but I'm not really sure what problem
+> it's meant to solve =F0=9F=98=8A.  Building previously was actually simpl=
+er with
+> "make" as opposed to "mkdir build && cd build && cmake .. && make".
+>=20
+
+
+
+> On a BSD system (where this wouldn't really work without the
+> corresponding debugfs entries) gmake could be used to build it
+> provided ncurses/pciaccess were around.
+>=20
+
+> If this legitimately makes it more stable to build on Linux systems
+> then I'm all for it.  Can anyone elaborate on where the simple make
+> system would fail?
+>=20
+
+> (I'm not saying NAK I'm simply asking for my own edification).
+
+>=20
+
+>=20
+
+> Thanks,
+
+> Tom
+
+>=20
+
+>=20
+
+>=20
+
+> *From:* Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org> *Sent:*
+> Saturday, February 4, 2017 23:59 *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> *Cc:* StDenis, Tom *Subject:* [RFC]: More robust build sys for UMR
+>=20=20
+
+>=20
+
+> Keeping with the tradition of changing the build system on initial
+> release, here we go again.. This follow series introduces the cmake
+> build system that is intended to be a little more robust across
+> various distros and presumably the BSD's also. The installation prefix
+> is configurable in the usual cmake way:  `cmake -
+> DCMAKE_INSTALL_PREFIX:PATH=3D/usr ..`
+>
+>  Please kindly review,
+>
+>  Edward O'Callaghan (4): [PATCH 1/4] cmake_modules: Add libpciaccess
+>  finder [PATCH 2/4] cmake: Initial build system [PATCH 3/4] README:
+>  minor update for cmake buildsys [PATCH 4/4] drop orginal Makefile &&
+>  stub bin/ directory
+>=20
+
+> _________________________________________________
+
+> amd-gfx mailing list
+
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+
+--_----------=_14863003405691791
+Content-Transfer-Encoding: 7bit
+Content-Type: multipart/related; boundary="_----------=_14863003405691790"
+
+This is a multi-part message in MIME format.
+
+--_----------=_14863003405691790
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/html; charset="utf-8"
+
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+</head>
+<body><div>Hi,<br></div>
+<div><br></div>
+<div>I think the current build system is a bit too naive though. On my dist=
+ro archlinux the libdrm headers are installed in /usr/include/libdrm, which=
+ causes the include to drm/drm.h in src/lib/query_drm.c to fail.<br></div>
+<div><br></div>
+<div>So if it is in /usr/include/drm on Ubuntu, we are going to need some a=
+utodetection to find the right include path. Autotools definitely sounds li=
+ke overkill to me, and the current build system is pretty simple indeed, bu=
+t needing to change the source isn't ideal.<br></div>
+<div><br></div>
+<div>By the way, I don't think the current make system handles dependencies=
+ on headers correctly? e.g. if I modify umrapp.h, make rebuilds nothing.&nb=
+sp; This is one of the things cmake gives you for free, though with a bit o=
+f work make can do it too.<br></div>
+<div><br></div>
+<div>Yours sincerely,<br></div>
+<div>Bas Nieuwenhuizen<br></div>
+<div><br></div>
+<div><br></div>
+<div>On Sun, Feb 5, 2017, at 12:42, StDenis, Tom wrote:<br></div>
+<blockquote type=3D"cite"><div style=3D"font-size:12pt;color:rgb(0, 0, 0);f=
+ont-family:Calibri,Arial,Helvetica,sans-serif;" dir=3D"ltr"><p style=3D"mar=
+gin-bottom: 0px; margin-top: 0px;">Hi Edward,<br></p><p style=3D"margin-bot=
+tom: 0px; margin-top: 0px;"><br></p><p style=3D"margin-bottom: 0px; margin-=
+top: 0px;">Well the patches apply and work but I'm not really sure what pro=
+blem it's meant to solve <img alt=3D"=F0=9F=98=8A" style=3D"vertical-align:=
+bottom;" src=3D"cid:ffd7d60f-8bdf-497d-86f8-6eb3d733ad74">. &nbsp;Building =
+previously was actually simpler with "make" as opposed to "mkdir build &amp=
+;&amp; cd build &amp;&amp; cmake .. &amp;&amp; make".<br></p><p style=3D"ma=
+rgin-bottom: 0px; margin-top: 0px;"><br></p><p style=3D"margin-bottom: 0px;=
+ margin-top: 0px;">On a BSD system (where this wouldn't really work without=
+ the corresponding debugfs entries) gmake could be used to build it provide=
+d ncurses/pciaccess were around.<br></p><div><br></div>
+<div>If this legitimately makes it more stable to build on Linux systems th=
+en I'm all for it. &nbsp;Can anyone elaborate on where the simple make syst=
+em would fail?<br></div>
+<div><br></div>
+<div><div>(I'm not saying NAK I'm simply asking for my own edification).<br=
+></div>
+<div> <br></div>
+<div><br></div>
+<div>Thanks,<br></div>
+<div><div>Tom<br></div>
+<div> <br></div>
+<div> <br></div>
+<div style=3D"color:rgb(0, 0, 0);"><div><div><hr style=3D"display:inline-bl=
+ock;width:98%;"><br></div>
+<div dir=3D"ltr"><div><span class=3D"colour" style=3D"color:rgb(0, 0, 0)"><=
+span class=3D"font" style=3D"font-family:Calibri,&quot; sans-serif&quot;"><=
+span class=3D"size" style=3D"font-size:11pt"><b>From:</b> Edward O'Callagha=
+n &lt;funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org&gt;<br> <b>Sent:</b> Saturday, February 4=
+, 2017 23:59<br> <b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br> <b>Cc:</b> St=
+Denis, Tom<br> <b>Subject:</b> [RFC]: More robust build sys for UMR</span><=
+/span></span> </div>
+<div>&nbsp;<br></div>
+</div>
+</div>
+<div><span class=3D"size" style=3D"font-size:small"><span class=3D"size" st=
+yle=3D"font-size:10pt"></span></span><br></div>
+<div><span class=3D"size" style=3D"font-size:small"><span class=3D"size" st=
+yle=3D"font-size:10pt">Keeping with the tradition of changing the build sys=
+tem on initial<br> release, here we go again.. This follow series introduce=
+s the cmake<br> build system that is intended to be a little more robust ac=
+ross<br> various distros and presumably the BSD's also. The installation<br=
+> prefix is configurable in the usual cmake way:<br> &nbsp;`cmake -DCMAKE_I=
+NSTALL_PREFIX:PATH=3D/usr ..`<br> <br> Please kindly review,<br> <br> Edwar=
+d O'Callaghan (4):<br> &nbsp;[PATCH 1/4] cmake_modules: Add libpciaccess fi=
+nder<br> &nbsp;[PATCH 2/4] cmake: Initial build system<br> &nbsp;[PATCH 3/4=
+] README: minor update for cmake buildsys<br> &nbsp;[PATCH 4/4] drop orgina=
+l Makefile &amp;&amp; stub bin/ directory</span></span></div>
+<div><span class=3D"size" style=3D"font-size:small"><span class=3D"size" st=
+yle=3D"font-size:10pt"></span></span><br></div>
+</div>
+</div>
+</div>
+</div>
+<div><u>_______________________________________________</u><br></div>
+<div>amd-gfx mailing list<br></div>
+<div><a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32mqWrfYKbYh0A@public.gmane.org=
+ktop.org</a><br></div>
+<div><a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
+ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br></div>
+</blockquote><div><br></div>
+</body>
+</html>
+
+--_----------=_14863003405691790
+Content-Disposition: attachment; filename*=utf-8''OutlookEmoji%2D%F0%9F%98%8A%2Epng
+Content-Id: <ffd7d60f-8bdf-497d-86f8-6eb3d733ad74>
 Content-Transfer-Encoding: base64
-
-PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
-dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyIgc3R5bGU9
-ImRpc3BsYXk6bm9uZTsiPjwhLS0gUCB7bWFyZ2luLXRvcDowO21hcmdpbi1ib3R0b206MDt9IC0t
-Pjwvc3R5bGU+DQo8L2hlYWQ+DQo8Ym9keSBkaXI9Imx0ciI+DQo8ZGl2IGlkPSJkaXZ0YWdkZWZh
-dWx0d3JhcHBlciIgc3R5bGU9ImZvbnQtc2l6ZToxMnB0O2NvbG9yOiMwMDAwMDA7Zm9udC1mYW1p
-bHk6Q2FsaWJyaSxBcmlhbCxIZWx2ZXRpY2Esc2Fucy1zZXJpZjsiIGRpcj0ibHRyIj4NCjxwPkhp
-IEVkd2FyZCw8L3A+DQo8cD48YnI+DQo8L3A+DQo8cD5XZWxsIHRoZSBwYXRjaGVzIGFwcGx5IGFu
-ZCB3b3JrIGJ1dCBJJ20gbm90IHJlYWxseSBzdXJlIHdoYXQgcHJvYmxlbSBpdCdzIG1lYW50IHRv
-IHNvbHZlDQo8aW1nIGNsYXNzPSJFbW9qaUluc2VydCIgaWQ9Ik9XQUVtb2ppMzQ2MTMzIiBhbHQ9
-IvCfmIoiIHN0eWxlPSJ2ZXJ0aWNhbC1hbGlnbjogYm90dG9tOyIgc3JjPSJjaWQ6ZmZkN2Q2MGYt
-OGJkZi00OTdkLTg2ZjgtNmViM2Q3MzNhZDc0Ij4uICZuYnNwO0J1aWxkaW5nIHByZXZpb3VzbHkg
-d2FzIGFjdHVhbGx5IHNpbXBsZXIgd2l0aCAmcXVvdDttYWtlJnF1b3Q7IGFzIG9wcG9zZWQgdG8g
-JnF1b3Q7bWtkaXIgYnVpbGQgJmFtcDsmYW1wOyBjZCBidWlsZCAmYW1wOyZhbXA7IGNtYWtlIC4u
-ICZhbXA7JmFtcDsgbWFrZSZxdW90Oy48L3A+DQo8cD48YnI+DQo8L3A+DQo8cD5PbiBhIEJTRCBz
-eXN0ZW0gKHdoZXJlIHRoaXMgd291bGRuJ3QgcmVhbGx5IHdvcmsgd2l0aG91dCB0aGUgY29ycmVz
-cG9uZGluZyBkZWJ1Z2ZzIGVudHJpZXMpIGdtYWtlIGNvdWxkIGJlIHVzZWQgdG8gYnVpbGQgaXQg
-cHJvdmlkZWQgbmN1cnNlcy9wY2lhY2Nlc3Mgd2VyZSBhcm91bmQuPC9wPg0KPGJyPg0KSWYgdGhp
-cyBsZWdpdGltYXRlbHkgbWFrZXMgaXQgbW9yZSBzdGFibGUgdG8gYnVpbGQgb24gTGludXggc3lz
-dGVtcyB0aGVuIEknbSBhbGwgZm9yIGl0LiAmbmJzcDtDYW4gYW55b25lIGVsYWJvcmF0ZSBvbiB3
-aGVyZSB0aGUgc2ltcGxlIG1ha2Ugc3lzdGVtIHdvdWxkIGZhaWw/DQo8ZGl2Pjxicj4NCjwvZGl2
-Pg0KPGRpdj4oSSdtIG5vdCBzYXlpbmcgTkFLIEknbSBzaW1wbHkgYXNraW5nIGZvciBteSBvd24g
-ZWRpZmljYXRpb24pLjxicj4NCjxkaXY+PGJyPg0KPC9kaXY+DQo8ZGl2PlRoYW5rcyw8L2Rpdj4N
-CjxkaXY+VG9tPGJyPg0KPGJyPg0KPGRpdiBzdHlsZT0iY29sb3I6IHJnYigwLCAwLCAwKTsiPg0K
-PGRpdj4NCjxociB0YWJpbmRleD0iLTEiIHN0eWxlPSJkaXNwbGF5OmlubGluZS1ibG9jazsgd2lk
-dGg6OTglIj4NCjxkaXYgaWQ9InhfZGl2UnBseUZ3ZE1zZyIgZGlyPSJsdHIiPjxmb250IGZhY2U9
-IkNhbGlicmksIHNhbnMtc2VyaWYiIGNvbG9yPSIjMDAwMDAwIiBzdHlsZT0iZm9udC1zaXplOjEx
-cHQiPjxiPkZyb206PC9iPiBFZHdhcmQgTydDYWxsYWdoYW4gJmx0O2Z1bmZ1bmN0b3JAZm9sa2xv
-cmUxOTg0Lm5ldCZndDs8YnI+DQo8Yj5TZW50OjwvYj4gU2F0dXJkYXksIEZlYnJ1YXJ5IDQsIDIw
-MTcgMjM6NTk8YnI+DQo8Yj5Ubzo8L2I+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPGJy
-Pg0KPGI+Q2M6PC9iPiBTdERlbmlzLCBUb208YnI+DQo8Yj5TdWJqZWN0OjwvYj4gW1JGQ106IE1v
-cmUgcm9idXN0IGJ1aWxkIHN5cyBmb3IgVU1SPC9mb250Pg0KPGRpdj4mbmJzcDs8L2Rpdj4NCjwv
-ZGl2Pg0KPC9kaXY+DQo8Zm9udCBzaXplPSIyIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwcHQ7
-Ij4NCjxkaXYgY2xhc3M9IlBsYWluVGV4dCI+S2VlcGluZyB3aXRoIHRoZSB0cmFkaXRpb24gb2Yg
-Y2hhbmdpbmcgdGhlIGJ1aWxkIHN5c3RlbSBvbiBpbml0aWFsPGJyPg0KcmVsZWFzZSwgaGVyZSB3
-ZSBnbyBhZ2Fpbi4uIFRoaXMgZm9sbG93IHNlcmllcyBpbnRyb2R1Y2VzIHRoZSBjbWFrZTxicj4N
-CmJ1aWxkIHN5c3RlbSB0aGF0IGlzIGludGVuZGVkIHRvIGJlIGEgbGl0dGxlIG1vcmUgcm9idXN0
-IGFjcm9zczxicj4NCnZhcmlvdXMgZGlzdHJvcyBhbmQgcHJlc3VtYWJseSB0aGUgQlNEJ3MgYWxz
-by4gVGhlIGluc3RhbGxhdGlvbjxicj4NCnByZWZpeCBpcyBjb25maWd1cmFibGUgaW4gdGhlIHVz
-dWFsIGNtYWtlIHdheTo8YnI+DQombmJzcDtgY21ha2UgLURDTUFLRV9JTlNUQUxMX1BSRUZJWDpQ
-QVRIPS91c3IgLi5gPGJyPg0KPGJyPg0KUGxlYXNlIGtpbmRseSByZXZpZXcsPGJyPg0KPGJyPg0K
-RWR3YXJkIE8nQ2FsbGFnaGFuICg0KTo8YnI+DQombmJzcDtbUEFUQ0ggMS80XSBjbWFrZV9tb2R1
-bGVzOiBBZGQgbGlicGNpYWNjZXNzIGZpbmRlcjxicj4NCiZuYnNwO1tQQVRDSCAyLzRdIGNtYWtl
-OiBJbml0aWFsIGJ1aWxkIHN5c3RlbTxicj4NCiZuYnNwO1tQQVRDSCAzLzRdIFJFQURNRTogbWlu
-b3IgdXBkYXRlIGZvciBjbWFrZSBidWlsZHN5czxicj4NCiZuYnNwO1tQQVRDSCA0LzRdIGRyb3Ag
-b3JnaW5hbCBNYWtlZmlsZSAmYW1wOyZhbXA7IHN0dWIgYmluLyBkaXJlY3Rvcnk8YnI+DQo8L2Rp
-dj4NCjwvc3Bhbj48L2ZvbnQ+PC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2JvZHk+
-DQo8L2h0bWw+DQo=
-
---_000_CY4PR12MB17682A4C6E095C68F9F29A44F7410CY4PR12MB1768namp_--
-
---_004_CY4PR12MB17682A4C6E095C68F9F29A44F7410CY4PR12MB1768namp_
 Content-Type: image/png; name="=?utf-8?B?T3V0bG9va0Vtb2ppLfCfmIoucG5n?="
-Content-Description: =?utf-8?B?T3V0bG9va0Vtb2ppLfCfmIoucG5n?=
-Content-Disposition: inline;
-	filename="=?utf-8?B?T3V0bG9va0Vtb2ppLfCfmIoucG5n?="; size=488;
-	creation-date="Sun, 05 Feb 2017 11:40:12 GMT";
-	modification-date="Sun, 05 Feb 2017 11:40:12 GMT"
-Content-ID: <ffd7d60f-8bdf-497d-86f8-6eb3d733ad74>
-Content-Transfer-Encoding: base64
 
-iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
-bWFnZVJlYWR5ccllPAAAAYpJREFUeNpi/P//PwO1ACM2wf9njBWAVD4QBwCxApLUAyDeAMQTGU3O
-PkDRA3QUIxaD+oFUAREOaQQa2IDTMKBB84FUAgk+WwA0MBFmGBOaixJIDKYEoD6465igBjkge+3C
-rW94TUCTr4eGMdxl8TCZxMYHDIZR1xk2HPiA1SCQOEgepA4J5CMbFgAPhM1vwfTFW9+xGgYTh6lD
-1s8IdKIAkH4PEz1w9jOYVpBiZ1CQZMMw7MHzXwwPnv0Esx2MeRESxmcYWYCUAbJiFAVYAMgCbJbA
-vPmAWjmACZqS4aHdOOs5wdgEBcWE5a8Y0HIGPAIOwETtjXkYJqIqxAAgeQM1ThTzkQ2biB5mC7a8
-xZ7kgeICvMzoYTsRJaMDY3U9chIBpaMHz34xxPsKgwMcFIsLgckB5KL+YllkgyYAg6oQJW9Ck8h+
-5NgFhd3GAx/humAGI2cGIHYEGvYBW0YHGTgf2YX4MjkQF4IMwlkEIeXVfByGwsqzAwTLMywGg7wN
-cvED9AIR3TCAAAMAqh+p+YMVeBQAAAAASUVORK5CYII=
+iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAGXRFWHRTb2Z0
+d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAYpJREFUeNpi/P//PwO1ACM2
+wf9njBWAVD4QBwCxApLUAyDeAMQTGU3OPkDRA3QUIxaD+oFUAREOaQQa2IDT
+MKBB84FUAgk+WwA0MBFmGBOaixJIDKYEoD6465igBjkge+3CrW94TUCTr4eG
+Mdxl8TCZxMYHDIZR1xk2HPiA1SCQOEgepA4J5CMbFgAPhM1vwfTFW9+xGgYT
+h6lD1s8IdKIAkH4PEz1w9jOYVpBiZ1CQZMMw7MHzXwwPnv0Esx2MeRESxmcY
+WYCUAbJiFAVYAMgCbJbAvPmAWjmACZqS4aHdOOs5wdgEBcWE5a8Y0HIGPAIO
+wETtjXkYJqIqxAAgeQM1ThTzkQ2biB5mC7a8xZ7kgeICvMzoYTsRJaMDY3U9
+chIBpaMHz34xxPsKgwMcFIsLgckB5KL+YllkgyYAg6oQJW9Ck8h+5NgFhd3G
+Ax/humAGI2cGIHYEGvYBW0YHGTgf2YX4MjkQF4IMwlkEIeXVfByGwsqzAwTL
+MywGg7wNcvED9AIR3TCAAAMAqh+p+YMVeBQAAAAASUVORK5CYII=
 
---_004_CY4PR12MB17682A4C6E095C68F9F29A44F7410CY4PR12MB1768namp_--
+--_----------=_14863003405691790--
 
---===============1695236632==
+
+--_----------=_14863003405691791--
+
+
+--===============1835141525==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -148,4 +273,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1695236632==--
+--===============1835141525==--
