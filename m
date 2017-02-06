@@ -1,16 +1,17 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: =?UTF-8?Q?Re:_=e7=ad=94=e5=a4=8d:_[PATCH_05/21]_drm/amdgpu:BUG_if_g?=
- =?UTF-8?Q?pu=5freste_and_asic=5freset_from_VF?=
-Date: Mon, 6 Feb 2017 12:07:08 +0900
-Message-ID: <fb82eeea-c305-3a96-b9c0-25a155a9fe8c@daenzer.net>
+From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: =?utf-8?B?562U5aSNOiDnrZTlpI06IFtQQVRDSCAwNS8yMV0gZHJtL2FtZGdwdTpCVUcg?=
+ =?utf-8?B?aWYgZ3B1X3Jlc3RlIGFuZCBhc2ljX3Jlc2V0IGZyb20gVkY=?=
+Date: Mon, 6 Feb 2017 03:08:51 +0000
+Message-ID: <DM5PR12MB16104EB8F63D333C8918A3DC84400@DM5PR12MB1610.namprd12.prod.outlook.com>
 References: <1486204499-4344-1-git-send-email-Monk.Liu@amd.com>
  <CY4PR12MB170174B63E76E5C9579972C0EB400@CY4PR12MB1701.namprd12.prod.outlook.com>
- <DM5PR12MB161064CEDD39A5236FB04F5B84400@DM5PR12MB1610.namprd12.prod.outlook.com>
+ <DM5PR12MB161064CEDD39A5236FB04F5B84400@DM5PR12MB1610.namprd12.prod.outlook.com>,
+ <fb82eeea-c305-3a96-b9c0-25a155a9fe8c@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1935288242=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM5PR12MB161064CEDD39A5236FB04F5B84400-2J9CzHegvk++jCVTvoAFKAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <fb82eeea-c305-3a96-b9c0-25a155a9fe8c-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Language: zh-CN
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,15 +22,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "Yu, Xiangliang" <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
+To: =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "Yu, Xiangliang" <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
 Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gMDYvMDIvMTcgMTE6MzkgQU0sIExpdSwgTW9uayB3cm90ZToKPiB5ZWFoLCB0aGVyZSBhcmUg
-MjEgcGF0Y2hlcyB0b3RhbGx5LCBidXQgbm8gbmVlZCB0byBleHBvc2UgYWxsIGluIG9uZSB0aW1l
-CgpUaGVuIHBsZWFzZSBlZGl0IHRoZSBudW1iZXJzIGluIHRoZSBtYWlsIHN1YmplY3RzIGFjY29y
-ZGluZ2x5IGluIHRoZQpmdXR1cmUuIDopCgoKLS0gCkVhcnRobGluZyBNaWNoZWwgRMOkbnplciAg
-ICAgICAgICAgICAgIHwgICAgICAgICAgICAgICBodHRwOi8vd3d3LmFtZC5jb20KTGlicmUgc29m
-dHdhcmUgZW50aHVzaWFzdCAgICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2
-ZWxvcGVyCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
-ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============1935288242==
+Content-Language: zh-CN
+Content-Type: multipart/alternative;
+	boundary="_000_DM5PR12MB16104EB8F63D333C8918A3DC84400DM5PR12MB1610namp_"
+
+--_000_DM5PR12MB16104EB8F63D333C8918A3DC84400DM5PR12MB1610namp_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+
+SSdsbCByZS1zZW5kIHRoZSBwYXRjaCBzZXJpYWxzIGxhdGVyLCBjb3VwbGUgcGF0Y2hlcyBvbmNl
+DQoNCg0KQlIgTW9uaw0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0K5Y+R5Lu2
+5Lq6OiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiDku6Po
+oaggTWljaGVsIETDpG56ZXIgPG1pY2hlbEBkYWVuemVyLm5ldD4NCuWPkemAgeaXtumXtDogMjAx
+N+W5tDLmnIg25pelIDExOjA3OjA4DQrmlLbku7bkuro6IExpdSwgTW9uazsgWXUsIFhpYW5nbGlh
+bmcNCuaKhOmAgTogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCuS4u+mimDogUmU6IOet
+lOWkjTogW1BBVENIIDA1LzIxXSBkcm0vYW1kZ3B1OkJVRyBpZiBncHVfcmVzdGUgYW5kIGFzaWNf
+cmVzZXQgZnJvbSBWRg0KDQpPbiAwNi8wMi8xNyAxMTozOSBBTSwgTGl1LCBNb25rIHdyb3RlOg0K
+PiB5ZWFoLCB0aGVyZSBhcmUgMjEgcGF0Y2hlcyB0b3RhbGx5LCBidXQgbm8gbmVlZCB0byBleHBv
+c2UgYWxsIGluIG9uZSB0aW1lDQoNClRoZW4gcGxlYXNlIGVkaXQgdGhlIG51bWJlcnMgaW4gdGhl
+IG1haWwgc3ViamVjdHMgYWNjb3JkaW5nbHkgaW4gdGhlDQpmdXR1cmUuIDopDQoNCg0KLS0NCkVh
+cnRobGluZyBNaWNoZWwgRMOkbnplciAgICAgICAgICAgICAgIHwgICAgICAgICAgICAgICBodHRw
+Oi8vd3d3LmFtZC5jb20NCkxpYnJlIHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAgICAgICAgfCAg
+ICAgICAgICAgICBNZXNhIGFuZCBYIGRldmVsb3Blcg0KX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18NCmFtZC1nZnggbWFpbGluZyBsaXN0DQphbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZw0KaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9hbWQtZ2Z4DQo=
+
+--_000_DM5PR12MB16104EB8F63D333C8918A3DC84400DM5PR12MB1610namp_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
+
+PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
+dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRvciIgY29udGVu
+dD0iTWljcm9zb2Z0IEV4Y2hhbmdlIFNlcnZlciI+DQo8IS0tIGNvbnZlcnRlZCBmcm9tIHRleHQg
+LS0+PHN0eWxlPjwhLS0gLkVtYWlsUXVvdGUgeyBtYXJnaW4tbGVmdDogMXB0OyBwYWRkaW5nLWxl
+ZnQ6IDRwdDsgYm9yZGVyLWxlZnQ6ICM4MDAwMDAgMnB4IHNvbGlkOyB9IC0tPjwvc3R5bGU+DQo8
+L2hlYWQ+DQo8Ym9keT4NCjxtZXRhIGNvbnRlbnQ9InRleHQvaHRtbDsgY2hhcnNldD1VVEYtOCI+
+DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiIHN0eWxlPSIiPg0KPCEtLQ0KcA0KCXttYXJnaW4tdG9w
+OjA7DQoJbWFyZ2luLWJvdHRvbTowfQ0KLS0+DQo8L3N0eWxlPg0KPGRpdiBkaXI9Imx0ciI+DQo8
+ZGl2IGlkPSJ4X2RpdnRhZ2RlZmF1bHR3cmFwcGVyIiBkaXI9Imx0ciIgc3R5bGU9ImZvbnQtc2l6
+ZToxMnB0OyBjb2xvcjojMDAwMDAwOyBmb250LWZhbWlseTpDYWxpYnJpLEFyaWFsLEhlbHZldGlj
+YSxzYW5zLXNlcmlmIj4NCjxwPkknbGwgcmUtc2VuZCB0aGUgcGF0Y2ggc2VyaWFscyBsYXRlciwg
+Y291cGxlIHBhdGNoZXMgb25jZTwvcD4NCjxwPjxicj4NCjwvcD4NCjxwPkJSIE1vbms8YnI+DQo8
+L3A+DQo8L2Rpdj4NCjxociB0YWJpbmRleD0iLTEiIHN0eWxlPSJkaXNwbGF5OmlubGluZS1ibG9j
+azsgd2lkdGg6OTglIj4NCjxkaXYgaWQ9InhfZGl2UnBseUZ3ZE1zZyIgZGlyPSJsdHIiPjxmb250
+IGZhY2U9IkNhbGlicmksIHNhbnMtc2VyaWYiIGNvbG9yPSIjMDAwMDAwIiBzdHlsZT0iZm9udC1z
+aXplOjExcHQiPjxiPuWPkeS7tuS6ujo8L2I+IGFtZC1nZnggJmx0O2FtZC1nZngtYm91bmNlc0Bs
+aXN0cy5mcmVlZGVza3RvcC5vcmcmZ3Q7IOS7o+ihqCBNaWNoZWwgRMOkbnplciAmbHQ7bWljaGVs
+QGRhZW56ZXIubmV0Jmd0Ozxicj4NCjxiPuWPkemAgeaXtumXtDo8L2I+IDIwMTflubQy5pyINuaX
+pSAxMTowNzowODxicj4NCjxiPuaUtuS7tuS6ujo8L2I+IExpdSwgTW9uazsgWXUsIFhpYW5nbGlh
+bmc8YnI+DQo8Yj7mioTpgIE6PC9iPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzxicj4N
+CjxiPuS4u+mimDo8L2I+IFJlOiDnrZTlpI06IFtQQVRDSCAwNS8yMV0gZHJtL2FtZGdwdTpCVUcg
+aWYgZ3B1X3Jlc3RlIGFuZCBhc2ljX3Jlc2V0IGZyb20gVkY8L2ZvbnQ+DQo8ZGl2PiZuYnNwOzwv
+ZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjxmb250IHNpemU9IjIiPjxzcGFuIHN0eWxlPSJmb250LXNp
+emU6MTBwdDsiPg0KPGRpdiBjbGFzcz0iUGxhaW5UZXh0Ij5PbiAwNi8wMi8xNyAxMTozOSBBTSwg
+TGl1LCBNb25rIHdyb3RlOjxicj4NCiZndDsgeWVhaCwgdGhlcmUgYXJlIDIxIHBhdGNoZXMgdG90
+YWxseSwgYnV0IG5vIG5lZWQgdG8gZXhwb3NlIGFsbCBpbiBvbmUgdGltZTxicj4NCjxicj4NClRo
+ZW4gcGxlYXNlIGVkaXQgdGhlIG51bWJlcnMgaW4gdGhlIG1haWwgc3ViamVjdHMgYWNjb3JkaW5n
+bHkgaW4gdGhlPGJyPg0KZnV0dXJlLiA6KTxicj4NCjxicj4NCjxicj4NCi0tIDxicj4NCkVhcnRo
+bGluZyBNaWNoZWwgRMOkbnplciZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB8Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7IDxhIGhyZWY9Imh0dHA6Ly93d3cuYW1kLmNvbSI+DQpodHRwOi8v
+d3d3LmFtZC5jb208L2E+PGJyPg0KTGlicmUgc29mdHdhcmUgZW50aHVzaWFzdCZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyB8Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IE1lc2EgYW5kIFggZGV2ZWxvcGVyPGJyPg0KX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX188YnI+DQphbWQtZ2Z4IG1haWxp
+bmcgbGlzdDxicj4NCmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPGJyPg0KPGEgaHJlZj0i
+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Ij5o
+dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng8L2E+
+PGJyPg0KPC9kaXY+DQo8L3NwYW4+PC9mb250Pg0KPC9ib2R5Pg0KPC9odG1sPg0K
+
+--_000_DM5PR12MB16104EB8F63D333C8918A3DC84400DM5PR12MB1610namp_--
+
+--===============1935288242==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1935288242==--
