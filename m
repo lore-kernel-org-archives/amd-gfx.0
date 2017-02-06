@@ -1,15 +1,16 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH 13/13] drm/amdgpu: new queue policy, take first 2 queues
- of each pipe
-Date: Mon, 6 Feb 2017 09:35:24 +0100
-Message-ID: <43d676af-fdb7-80ed-e5ef-c365d8938097@vodafone.de>
-References: <20170204045142.5596-1-andresx7@gmail.com>
- <20170204045142.5596-14-andresx7@gmail.com>
- <86138a88-e90f-3234-7109-67ca0c427071@folklore1984.net>
+From: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amdgpu/virt: schedule work to handle vm fault
+ for VF
+Date: Mon, 6 Feb 2017 16:36:01 +0800
+Message-ID: <58983571.9010009@amd.com>
+References: <1486364403-29374-1-git-send-email-Pixel.Ding@amd.com>
+ <MWHPR1201MB020685071A36546095A5A248B4400@MWHPR1201MB0206.namprd12.prod.outlook.com>
+ <B238C54C-4230-411A-890F-00FDDBED699B@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0942345808=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <86138a88-e90f-3234-7109-67ca0c427071-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+In-Reply-To: <B238C54C-4230-411A-890F-00FDDBED699B-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,194 +21,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>, Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, jay-gJmSnxjMpeIFV7jr3Ov9Ew@public.gmane.org, Felix.Kuehling-5C7GfCeVMHo@public.gmane.org, John.Bridgman-5C7GfCeVMHo@public.gmane.org
+To: "Ding, Pixel" <Pixel.Ding-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============0942345808==
-Content-Type: multipart/alternative;
- boundary="------------C892667A6C955CDE5E93275E"
-
-This is a multi-part message in MIME format.
---------------C892667A6C955CDE5E93275E
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Indeed a very nice set, only briefly looked over it and only found a 
-small issue on patch #2.
-
-Apart from that the set is Acked-by: Christian König 
-<christian.koenig-5C7GfCeVMHo@public.gmane.org>.
-
-Regards,
-Christian.
-
-Am 04.02.2017 um 13:08 schrieb Edward O'Callaghan:
-> This series is,
-> Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
->
-> On 02/04/2017 03:51 PM, Andres Rodriguez wrote:
->> Instead of taking the first pipe and givint the rest to kfd, take the
-> s/givint/giving/
->
->> first 2 queues of each pipe.
->>
->> Effectively, amdgpu and amdkfd own the same number of queues. But
->> because the queues are spread over multiple pipes the hardware will be
->> able to better handle concurrent compute workloads.
->>
->> amdgpu goes from 1 pipe to 4 pipes, i.e. from 1 compute threads to 4
->> amdkfd goes from 3 pipe to 4 pipes, i.e. from 3 compute threads to 4
->>
->> Signed-off-by: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 2 +-
->>   drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 2 +-
->>   2 files changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
->> index 2218b65..da28174 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
->> @@ -2810,7 +2810,7 @@ static void gfx_v7_0_compute_queue_acquire(struct amdgpu_device *adev)
->>   			break;
->>   
->>   		/* policy: amdgpu owns all queues in the first pipe */
->> -		if (mec == 0 && pipe == 0)
->> +		if (mec == 0 && queue < 2)
->>   			set_bit(i, adev->gfx.mec.queue_bitmap);
->>   	}
->>   
->> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
->> index 04b4448..0a16cab 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
->> @@ -1436,7 +1436,7 @@ static void gfx_v8_0_compute_queue_acquire(struct amdgpu_device *adev)
->>   			break;
->>   
->>   		/* policy: amdgpu owns all queues in the first pipe */
->> -		if (mec == 0 && pipe == 0)
->> +		if (mec == 0 && queue < 2)
->>   			set_bit(i, adev->gfx.mec.queue_bitmap);
->>   	}
->>   
->>
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
-
---------------C892667A6C955CDE5E93275E
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Indeed a very nice set, only briefly
-      looked over it and only found a small issue on patch #2.<br>
-      <br>
-      Apart from that the set is Acked-by: Christian König
-      <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>.<br>
-      <br>
-      Regards,<br>
-      Christian.<br>
-      <br>
-      Am 04.02.2017 um 13:08 schrieb Edward O'Callaghan:<br>
-    </div>
-    <blockquote
-      cite="mid:86138a88-e90f-3234-7109-67ca0c427071-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org"
-      type="cite">
-      <pre wrap="">This series is,
-Reviewed-by: Edward O'Callaghan <a class="moz-txt-link-rfc2396E" href="mailto:funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org">&lt;funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org&gt;</a>
-
-On 02/04/2017 03:51 PM, Andres Rodriguez wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="">Instead of taking the first pipe and givint the rest to kfd, take the
-</pre>
-      </blockquote>
-      <pre wrap="">
-s/givint/giving/
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="">first 2 queues of each pipe.
-
-Effectively, amdgpu and amdkfd own the same number of queues. But
-because the queues are spread over multiple pipes the hardware will be
-able to better handle concurrent compute workloads.
-
-amdgpu goes from 1 pipe to 4 pipes, i.e. from 1 compute threads to 4
-amdkfd goes from 3 pipe to 4 pipes, i.e. from 3 compute threads to 4
-
-Signed-off-by: Andres Rodriguez <a class="moz-txt-link-rfc2396E" href="mailto:andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">&lt;andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-index 2218b65..da28174 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-@@ -2810,7 +2810,7 @@ static void gfx_v7_0_compute_queue_acquire(struct amdgpu_device *adev)
- 			break;
- 
- 		/* policy: amdgpu owns all queues in the first pipe */
--		if (mec == 0 &amp;&amp; pipe == 0)
-+		if (mec == 0 &amp;&amp; queue &lt; 2)
- 			set_bit(i, adev-&gt;gfx.mec.queue_bitmap);
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-index 04b4448..0a16cab 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -1436,7 +1436,7 @@ static void gfx_v8_0_compute_queue_acquire(struct amdgpu_device *adev)
- 			break;
- 
- 		/* policy: amdgpu owns all queues in the first pipe */
--		if (mec == 0 &amp;&amp; pipe == 0)
-+		if (mec == 0 &amp;&amp; queue &lt; 2)
- 			set_bit(i, adev-&gt;gfx.mec.queue_bitmap);
- 	}
- 
-
-</pre>
-      </blockquote>
-      <pre wrap="">
-</pre>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------C892667A6C955CDE5E93275E--
-
---===============0942345808==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0942345808==--
+SGkgUGl4ZWwsCkkgZ290IHlvdXIgbWVhbiBqdXN0IG5vdywgc2luY2UgeW91ciBWRiBtdXN0IHVz
+ZSBLSVEgdG8gcmVhZC93cml0ZSAKcmVnaXN0ZXJzLCB3aGljaCB1c2UgZmVuY2Vfd2FpdCB0byB3
+YWl0IHJlYWRpbmcgcmVnaXN0ZXIgY29tcGxldGVkLgpUaGUgYWx0ZXJuYXRpdmUgd2F5IGlzIGlt
+cGxlbWVudGluZyBhIG5ldyBraXEgcmVhZGluZy93cml0aW5nIHJlZ2lzdGVyIAp3YXkgYnkgdXNp
+bmcgdWRlbGF5IGluc3RlYWQgb2YgZmVuY2Ugd2FpdCB3aGVuIHJlYWRpbmcvd3JpdGluZyByZWdp
+c3RlciAKaW4gaW50ZXJydXB0IGNvbnRleHQuCgpSZWdhcmRzLApEYXZpZCBaaG91CgpPbiAyMDE3
+5bm0MDLmnIgwNuaXpSAxNTo1NSwgRGluZywgUGl4ZWwgd3JvdGU6Cj4gVGhhbmtzIHlvdSBmb3Ig
+eW91ciBjb21tZW50cywgRGF2aWQuIEkgdG90YWxseSBhZ3JlZSBvbiB5b3VyIHBvaW50Lgo+Cj4g
+SG93ZXZlciwgVGhlIFZNIGZhdWx0IHN0YXR1cyByZWdpc3RlcnMgcmVjb3JkIHRoZSBsYXRlc3Qg
+Vk0gZmF1bHQgaW5mbyBubyBtYXR0ZXIgd2hlbiB0aGV54oCZcmUgY2hhbmdlZCwgdGhhdOKAmXMg
+d2hhdCB3ZSBjYXJlIGFib3V0IHNpbmNlIHdlIGRvbuKAmXQgaGFuZGxlIHRvbyBtdWNoIGZvciBW
+TSBmYXVsdCBldmVuIGluIGJhcmUgbWV0YWwgc3lzdGVtLgo+Cj4gT24gdGhlIG90aGVyIGhhbmQs
+IHdoYXQgZG8geW91IHRoaW5rIGlmIHdlIGluc2lzdCB0byBzbGVlcCBpbiB0aGUgaW50ZXJydXB0
+IGNvbnRleHQgYW5kIGxldCB0aGUgZHJpdmVyIHJ1bnMgaW50byBhIHNvZnR3YXJlIGJ1Zz8KPgo+
+IFRoZSBWTSByZWdpc3RlcnMgYXJlIHNoYXJlZCBhbW9uZyBhbGwgVkZzIGFuZCB3ZSBkb27igJl0
+IGhhdmUgYSBjb3B5IGZvciBlYWNoIGluIGhhcmR3YXJlLCBJIHRoaW5rIHRoZXJlJ3Mgbm8gb3Ro
+ZXIgd2F5IHRvIGFjY2VzcyB0aGVtIGluIHRoaXMgY2FzZS4gRG8geW91IGhhdmUgYW55IHN1Z2dl
+c3Rpb24/Cj4KPiDigJQKPiBTaW5jZXJlbHkgWW91cnMsCj4gUGl4ZWwKPgo+Cj4KPgo+Cj4KPgo+
+Cj4gT24gMDYvMDIvMjAxNywgMzozMyBQTSwgIlpob3UsIERhdmlkKENodW5NaW5nKSIgPERhdmlk
+MS5aaG91QGFtZC5jb20+IHdyb3RlOgo+Cj4+IElOSVRfV09SSygmd29yay0+YmFzZSwgZ21jX3Y4
+XzBfdm1fZmF1bHRfc2NoZWQpOwo+PiBIb3dldmVyIFZGIGlzIHVzZWQgb3Igbm90LCBzY2hlZHVs
+ZSB3b3JrIHNob3VsZG4ndCBoYW5kbGUgcmVnaXN0ZXJzIHJlYWRpbmcgZm9yIGludGVycnVwdCwg
+ZXNwZWNpYWxseSBmb3Igc3RhdHVzIHJlZ2lzdGVyLCB3aGljaCBjb3VsZCBoYXZlIGJlZW4gY2hh
+bmdlZCB3aGVuIHlvdSBoYW5kbGUgaXQgaW4gc2NoZWR1bGUgd29yayBhZnRlciBpbnRlcnJ1cHQu
+Cj4+Cj4+IFJlZ2FyZHMsCj4+IERhdmlkIFpob3UKPj4KPj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdl
+LS0tLS0KPj4gRnJvbTogYW1kLWdmeCBbbWFpbHRvOmFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVl
+ZGVza3RvcC5vcmddIE9uIEJlaGFsZiBPZiBQaXhlbCBEaW5nCj4+IFNlbnQ6IE1vbmRheSwgRmVi
+cnVhcnkgMDYsIDIwMTcgMzowMCBQTQo+PiBUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKPj4gQ2M6IERpbmcsIFBpeGVsIDxQaXhlbC5EaW5nQGFtZC5jb20+Cj4+IFN1YmplY3Q6IFtQ
+QVRDSCAyLzJdIGRybS9hbWRncHUvdmlydDogc2NoZWR1bGUgd29yayB0byBoYW5kbGUgdm0gZmF1
+bHQgZm9yIFZGCj4+Cj4+IFZGIHVzZXMgS0lRIHRvIGFjY2VzcyByZWdpc3RlcnMgdGhhdCBpbnZv
+a2luZyBmZW5jZV93YWl0IHRvIGdldCB0aGUgYWNjZXNzaW5nIGNvbXBsZXRlZC4gV2hlbiBWTSBm
+YXVsdCBvY2N1cnMsIHRoZSBkcml2ZXIgY2FuJ3Qgc2xlZXAgaW4gaW50ZXJydXB0IGNvbnRleHQu
+Cj4+Cj4+IEZvciBzb21lIHRlc3QgY2FzZXMsIFZNIGZhdWx0IGlzICdsZWdhbCcgYW5kIHNob3Vs
+ZG4ndCBjYXVzZSBkcml2ZXIgc29mdCBsb2NrdXAuCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IFBpeGVs
+IERpbmcgPFBpeGVsLkRpbmdAYW1kLmNvbT4KPj4gLS0tCj4+IGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2dtY192OF8wLmMgfCA0NiArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0t
+LQo+PiAxIGZpbGUgY2hhbmdlZCwgNDMgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkKPj4K
+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjhfMC5jCj4+IGluZGV4IDc2NjliMzIuLjc1
+YzkxM2YgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8w
+LmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y4XzAuYwo+PiBAQCAt
+MTIzMSw5ICsxMjMxLDkgQEAgc3RhdGljIGludCBnbWNfdjhfMF92bV9mYXVsdF9pbnRlcnJ1cHRf
+c3RhdGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4+IAlyZXR1cm4gMDsKPj4gfQo+Pgo+
+PiAtc3RhdGljIGludCBnbWNfdjhfMF9wcm9jZXNzX2ludGVycnVwdChzdHJ1Y3QgYW1kZ3B1X2Rl
+dmljZSAqYWRldiwKPj4gLQkJCQkgICAgICBzdHJ1Y3QgYW1kZ3B1X2lycV9zcmMgKnNvdXJjZSwK
+Pj4gLQkJCQkgICAgICBzdHJ1Y3QgYW1kZ3B1X2l2X2VudHJ5ICplbnRyeSkKPj4gK3N0YXRpYyBp
+bnQgZ21jX3Y4XzBfcHJvY2Vzc192bV9mYXVsdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwK
+Pj4gKwkJCQkgICAgIHN0cnVjdCBhbWRncHVfaXJxX3NyYyAqc291cmNlLAo+PiArCQkJCSAgICAg
+c3RydWN0IGFtZGdwdV9pdl9lbnRyeSAqZW50cnkpCj4+IHsKPj4gCXUzMiBhZGRyLCBzdGF0dXMs
+IG1jX2NsaWVudDsKPj4KPj4gQEAgLTEyNjIsNiArMTI2Miw0NiBAQCBzdGF0aWMgaW50IGdtY192
+OF8wX3Byb2Nlc3NfaW50ZXJydXB0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+PiAJcmV0
+dXJuIDA7Cj4+IH0KPj4KPj4gK3N0cnVjdCBnbWNfdm1fZmF1bHRfd29yayB7Cj4+ICsJc3RydWN0
+IHdvcmtfc3RydWN0ICAgICAgYmFzZTsKPj4gKwlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAgICAqYWRl
+djsKPj4gKwlzdHJ1Y3QgYW1kZ3B1X2lycV9zcmMgICAqc291cmNlOwo+PiArCXN0cnVjdCBhbWRn
+cHVfaXZfZW50cnkgICplbnRyeTsKPj4gK307Cj4+ICsKPj4gK3N0YXRpYyB2b2lkIGdtY192OF8w
+X3ZtX2ZhdWx0X3NjaGVkKHN0cnVjdCB3b3JrX3N0cnVjdCAqd29yaykgewo+PiArCXN0cnVjdCBn
+bWNfdm1fZmF1bHRfd29yayAqdm1fd29yayA9Cj4+ICsJCWNvbnRhaW5lcl9vZih3b3JrLCBzdHJ1
+Y3QgZ21jX3ZtX2ZhdWx0X3dvcmssIGJhc2UpOwo+PiArCXN0cnVjdCBhbWRncHVfZGV2aWNlICph
+ZGV2ID0gdm1fd29yay0+YWRldjsKPj4gKwlzdHJ1Y3QgYW1kZ3B1X2lycV9zcmMgKnNvdXJjZSA9
+IHZtX3dvcmstPnNvdXJjZTsKPj4gKwlzdHJ1Y3QgYW1kZ3B1X2l2X2VudHJ5ICplbnRyeSA9IHZt
+X3dvcmstPmVudHJ5Owo+PiArCj4+ICsJZ21jX3Y4XzBfcHJvY2Vzc192bV9mYXVsdChhZGV2LCBz
+b3VyY2UsIGVudHJ5KTsKPj4gKwo+PiArCWtmcmVlKHZtX3dvcmspOwo+PiArfQo+PiArCj4+ICtz
+dGF0aWMgaW50IGdtY192OF8wX3Byb2Nlc3NfaW50ZXJydXB0KHN0cnVjdCBhbWRncHVfZGV2aWNl
+ICphZGV2LAo+PiArCQkJCSAgICAgIHN0cnVjdCBhbWRncHVfaXJxX3NyYyAqc291cmNlLAo+PiAr
+CQkJCSAgICAgIHN0cnVjdCBhbWRncHVfaXZfZW50cnkgKmVudHJ5KSB7Cj4+ICsJc3RydWN0IGdt
+Y192bV9mYXVsdF93b3JrICp3b3JrID0gTlVMTDsKPj4gKwo+PiArCWlmIChhbWRncHVfc3Jpb3Zf
+dmYoYWRldikpIHsKPj4gKwkJd29yayA9IGttYWxsb2Moc2l6ZW9mKHN0cnVjdCBnbWNfdm1fZmF1
+bHRfd29yayksIEdGUF9BVE9NSUMpOwo+PiArCQlpZiAoIXdvcmspCj4+ICsJCQlyZXR1cm4gLUVO
+T01FTTsKPj4gKwkJSU5JVF9XT1JLKCZ3b3JrLT5iYXNlLCBnbWNfdjhfMF92bV9mYXVsdF9zY2hl
+ZCk7Cj4+ICsJCXdvcmstPmFkZXYgPSBhZGV2Owo+PiArCQl3b3JrLT5zb3VyY2UgPSBzb3VyY2U7
+Cj4+ICsJCXdvcmstPmVudHJ5ID0gZW50cnk7Cj4+ICsJCXJldHVybiBzY2hlZHVsZV93b3JrKCZ3
+b3JrLT5iYXNlKTsKPj4gKwl9Cj4+ICsKPj4gKwlyZXR1cm4gZ21jX3Y4XzBfcHJvY2Vzc192bV9m
+YXVsdChhZGV2LCBzb3VyY2UsIGVudHJ5KTsgfQo+PiArCj4+IHN0YXRpYyB2b2lkIGZpamlfdXBk
+YXRlX21jX21lZGl1bV9ncmFpbl9jbG9ja19nYXRpbmcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
+ZXYsCj4+IAkJCQkJCSAgICAgYm9vbCBlbmFibGUpCj4+IHsKPj4gLS0KPj4gMi43LjQKPj4KPj4g
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPj4gYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKPj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4gaHR0cHM6
+Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4CgpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
+bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
