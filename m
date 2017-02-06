@@ -1,13 +1,14 @@
 From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] Autodetect libdrm path (v2)
-Date: Mon, 6 Feb 2017 21:33:10 +0000
-Message-ID: <CY4PR12MB17689AEC15DEF9662A16DEA3F7400@CY4PR12MB1768.namprd12.prod.outlook.com>
+Date: Mon, 6 Feb 2017 22:39:52 +0000
+Message-ID: <CY4PR12MB1768AED537A0253EB70B1E4BF7400@CY4PR12MB1768.namprd12.prod.outlook.com>
 References: <20170205222447.19945-1-tom.stdenis@amd.com>,
- <CACvgo5230Use5sk8dm5jBbLqiJeSkgB6cDikz-N4omx-4Jgy9A@mail.gmail.com>
+ <CACvgo5230Use5sk8dm5jBbLqiJeSkgB6cDikz-N4omx-4Jgy9A@mail.gmail.com>,
+ <CY4PR12MB17689AEC15DEF9662A16DEA3F7400@CY4PR12MB1768.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2098824245=="
+Content-Type: multipart/mixed; boundary="===============0377858679=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CACvgo5230Use5sk8dm5jBbLqiJeSkgB6cDikz-N4omx-4Jgy9A-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <CY4PR12MB17689AEC15DEF9662A16DEA3F7400-rpdhrqHFk06yjjPBNVDk/QdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,219 +23,205 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: Emil Velikov <emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============2098824245==
+--===============0377858679==
 Content-Language: en-US
+Content-Type: multipart/related;
+	boundary="_004_CY4PR12MB1768AED537A0253EB70B1E4BF7400CY4PR12MB1768namp_";
+	type="multipart/alternative"
+
+--_004_CY4PR12MB1768AED537A0253EB70B1E4BF7400CY4PR12MB1768namp_
 Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB17689AEC15DEF9662A16DEA3F7400CY4PR12MB1768namp_"
+	boundary="_000_CY4PR12MB1768AED537A0253EB70B1E4BF7400CY4PR12MB1768namp_"
 
---_000_CY4PR12MB17689AEC15DEF9662A16DEA3F7400CY4PR12MB1768namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+--_000_CY4PR12MB1768AED537A0253EB70B1E4BF7400CY4PR12MB1768namp_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-I have to NAK that idea since we use umr on NPI work which doesn't necessar=
-ily have libdrm support.
+QXBwYXJlbnRseSBJIG1pc3NlZCB0aGUgYm90dG9tIG9mIHlvdXIgcmVwbHkgKGFsbCBvZiB0aGUg
+Y2xpZW50cyBJIGhhdmUgb3V0bG9vay9nbWFpbCBkbyB0b3AgcG9zdCBvbmx5IC4uLikgYXMgZm9y
+IHRoZSBjbWFrZSBjaGFuZ2VzLiBJJ20gZm9yIGl0IGlmIHlvdSB3YW50IHRvIHN1Ym1pdCBhIHBh
+dGNoLiAgSSBjYW4ndCBpbWFnaW5lIGEgbG90IG9mIGNyb3NzIGNvbXBpbGluZyB0aG91Z2ggc2lu
+Y2UgdXNlcnMgd2lsbCB0eXBpY2FsbHkgYmUgdXNpbmcgaXQgb24gdGhlIHBsYXRmb3JtIHRoZXkg
+YnVpbHQgaXQgZm9yLg0KDQoNCklyb25pY2FsbHksIEkgaGFkIHRoZSBwa2dfY2hlY2sgb3JpZ2lu
+YWxseSBidXQgd2FzIHRvbGQgdGhhdCdzIGEgZmF1eC1wYXMuDQoNCg0KVW5sZXNzIHRoaXMgaXMg
+YnJlYWtpbmcgZm9yIGFjdHVhbCB1c2VycyB0aG91Z2ggaXQncyBub3QgcmVhbGx5IGEgcHJpb3Jp
+dHkgdG8gYmlrZXNoZWQgdGhlIGJ1aWxkIHN5c3RlbSBvZiBhIDMwIGZpbGUgcHJvamVjdCB0aGF0
+IGlzIG1lYW50IHRvIHdvcmsgb25seSBvbiBkZXZlbG9wZXIgbWFjaGluZXMgd2hvIGFyZSBsaWtl
+bHkgYnVpbGRpbmcgZm9yIHRoZW1zZWx2ZXMgW/CfmIpdDQoNClRvbQ0KDQpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXw0KRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZz4gb24gYmVoYWxmIG9mIFN0RGVuaXMsIFRvbSA8VG9tLlN0RGVuaXNA
+YW1kLmNvbT4NClNlbnQ6IE1vbmRheSwgRmVicnVhcnkgNiwgMjAxNyAxNjozMw0KVG86IEVtaWwg
+VmVsaWtvdjsgVG9tIFN0IERlbmlzDQpDYzogYW1kLWdmeCBtYWlsaW5nIGxpc3QNClN1YmplY3Q6
+IFJlOiBbUEFUQ0hdIEF1dG9kZXRlY3QgbGliZHJtIHBhdGggKHYyKQ0KDQoNCkkgaGF2ZSB0byBO
+QUsgdGhhdCBpZGVhIHNpbmNlIHdlIHVzZSB1bXIgb24gTlBJIHdvcmsgd2hpY2ggZG9lc24ndCBu
+ZWNlc3NhcmlseSBoYXZlIGxpYmRybSBzdXBwb3J0Lg0KDQoNCkFsc28gdW1yIGNhbiByZWFkL3dy
+aXRlIHJlZ2lzdGVycyB2aWEgcGNpIGFjY2VzcyB3aXRob3V0IGFtZGdwdSBsb2FkZWQgKGhhbmR5
+IGlmIGFtZGdwdSBmYWlscyB0byBpbml0IHByb3Blcmx5KS4NCg0KVGhvdWdoIHlvdSBhcmUgcmln
+aHQgdGhhdCBsaWJkcm0gaXMgdGVjaG5pY2FsbHkgYSByZXF1aXJlbWVudCBhbmQgSSBzaG91bGQg
+YWRkIHRoYXQgdG8gdGhlIFJFQURNRS4NCg0KVG9tDQpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXw0KRnJvbTogRW1pbCBWZWxpa292IDxlbWlsLmwudmVsaWtvdkBnbWFpbC5jb20+DQpT
+ZW50OiBNb25kYXksIEZlYnJ1YXJ5IDYsIDIwMTcgMTU6MTgNClRvOiBUb20gU3QgRGVuaXMNCkNj
+OiBhbWQtZ2Z4IG1haWxpbmcgbGlzdDsgU3REZW5pcywgVG9tDQpTdWJqZWN0OiBSZTogW1BBVENI
+XSBBdXRvZGV0ZWN0IGxpYmRybSBwYXRoICh2MikNCg0KSGkgVG9tLA0KDQpPbiA1IEZlYnJ1YXJ5
+IDIwMTcgYXQgMjI6MjQsIFRvbSBTdCBEZW5pcyA8dHN0ZGVuaXM4MkBnbWFpbC5jb20+IHdyb3Rl
+Og0KPiAodjIpOiAgVXNlIGZpbmRMaWJEUk0gc2NyaXB0IGluc3RlYWQgb2YgZGlyZWN0bHkgZmlu
+ZGluZyBwYXRoDQo+DQpTaW5jZSB0aGUgcHJvamVjdCBhbHJlYWR5IGRlcGVuZHMgb24gbGliZHJt
+IHlvdSBtaWdodCB3YW50IHRvIHVzZSB0aGUNCmRybURldmljZTIgQVBJIGFuZCBkcm9wIHRoZSBp
+dGVyYXRpb24gb3ZlciBhbGwgUENJIGRldmljZXMNCihsaWJwY2lhY2Nlc3MgZGVwZW5kZW5jeSku
+DQpJZiB0aGUgZm9ybWVyIGlzIGxhY2tpbmcgc29tZXRoaW5nIGZlZWwgZnJlZSB0byBzdWdnZXN0
+L3NlbmQgcGF0Y2hlcyA7LSkNCg0KVGhlIGxpYmRybSByZXF1aXJlbWVudCB3YXMgbWlzc2luZyBs
+YXN0IHRpbWUgSSd2ZSBza2ltbWVkIHRocm91Z2ggdGhlIFJFQURNRS4NCg0KPiBTaWduZWQtb2Zm
+LWJ5OiBUb20gU3QgRGVuaXMgPHRvbS5zdGRlbmlzQGFtZC5jb20+DQo+IC0tLQ0KDQo+IC0tLSAv
+ZGV2L251bGwNCj4gKysrIGIvY21ha2VfbW9kdWxlcy9GaW5kTGliRFJNLmNtYWtlDQo+IEBAIC0w
+LDAgKzEsMzUgQEANCj4gKyMgVHJ5IHRvIGZpbmQgbGliZHJtDQo+ICsjDQo+ICsjIE9uY2UgZG9u
+ZSwgdGhpcyB3aWxsIGRlZmluZQ0KPiArIw0KPiArIyBMSUJEUk1fRk9VTkQNCj4gKyMgTElCRFJN
+X0lOQ0xVREVfRElSDQo+ICsjIExJQkRSTV9MSUJSQVJJRVMNCj4gKw0KPiArZmluZF9wYWNrYWdl
+KFBrZ0NvbmZpZykNCj4gKw0KPiArcGtnX2NoZWNrX21vZHVsZXMoUENfTElCRFJNIFFVSUVUIGxp
+YmRybSkNCllvdSByZWFsbHkgd2FudCBhIHZlcnNpb24gY2hlY2suDQoNCj4gKw0KPiArZmluZF9w
+YXRoKExJQkRSTV9JTkNMVURFX0RJUiBOQU1FUyBhbWRncHVfZHJtLmgNCj4gKyAgICBISU5UUw0K
+PiArICAgICR7UENfTElCRFJNX0lOQ0xVREVESVJ9DQo+ICsgICAgJHtQQ19MSUJEUk1fSU5DTFVE
+RV9ESVJTfQ0KPiArICAgIC91c3IvaW5jbHVkZQ0KPiArKQ0KPiArDQo+ICtmaW5kX2xpYnJhcnko
+TElCRFJNX0xJQlJBUlkgTkFNRVMgbGliZHJtX2FtZGdwdS5zby4xDQo+ICsgICAgSElOVFMNCj4g
+KyAgICAke1BDX0xJQkRSTV9MSUJESVJ9DQo+ICsgICAgJHtQQ19MSUJEUk1fTElCUkFSWV9ESVJT
+fQ0KPiArICAgIC91c3IvbGliNjQNCj4gKyAgICAvdXNyL2xpYg0KPiArKQ0KPiArDQpIZXJlIGlz
+IG9uZSBvZiB0aGUgdGhpbmdzIHdoaWNoIG1ha2VzIG1lIHJhZ2UgYWdhaW5zdCBjbWFrZSAtIG5v
+DQpwaWNraW5nIC91c3Ive2luY2x1ZGUsZm9vfSBpcyBfbm90XyB3aGF0IHlvdSB3YW50Lg0KDQpE
+dXJpbmcgY3Jvc3MtY29tcGlsYXRpb24gYXMgb25lIGlzIG1pc3NpbmcgdGhlIC5wYyBmaWxlLCB0
+aGUgc3lzdGVtDQpoZWFkZXJzL2xpYnJhcmllcyB3aWxsIGJlIHBpY2tlZC4gVGhpcyBpcyBob3Jy
+aWJseSB3cm9uZywgeWV0IHJhdGhlcg0KY29tbW9uIGluIGNtYWtlIHdvcmxkLg0KV2hhdCB5b3Ug
+cmVhbGx5IHdhbnQgaXMgYSBsb3ZlbHkgZXJyb3IgbWVzc2FnZSB0byB3YXJuIHRoZSB1c2VyIC0N
+CnMvT1BUSU9OQUwvUkVRVUlSRUQvIHdpbGwgZ2l2ZSB5b3UganVzdCB0aGF0Lg0KDQpBdCB3aGlj
+aCBwb2ludCwgY2hlY2tpbmcgZm9yIHRoZSBoZWFkZXIvbGlicmFyeSBpbiB0aGUgcGF0aHMgcHJv
+dmlkZWQNCmJ5IHRoZSAucGMgZmlsZSBpcyByZWR1bmRhbnQgYW5kIHRodXMgbmVhcmx5IGV2ZXJ5
+dGhpbmcgZWxzZSBpbiB0aGUNCmZpbGUgOy0pDQoNCg0KVEw7RHI6IEFsbCB5b3UgbmVlZCBpcyBw
+a2dfY2hlY2tfbW9kdWxlcyhQQ19MSUJEUk0gUkVRVUlSRUQgbGliZHJtPj1YWCkuDQoNClRoYW5r
+cw0KRW1pbA0K
 
+--_000_CY4PR12MB1768AED537A0253EB70B1E4BF7400CY4PR12MB1768namp_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Also umr can read/write registers via pci access without amdgpu loaded (han=
-dy if amdgpu fails to init properly).
+PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
+dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyIgc3R5bGU9
+ImRpc3BsYXk6bm9uZTsiPjwhLS0gUCB7bWFyZ2luLXRvcDowO21hcmdpbi1ib3R0b206MDt9IC0t
+Pjwvc3R5bGU+DQo8L2hlYWQ+DQo8Ym9keSBkaXI9Imx0ciI+DQo8ZGl2IGlkPSJkaXZ0YWdkZWZh
+dWx0d3JhcHBlciIgc3R5bGU9ImZvbnQtc2l6ZToxMnB0O2NvbG9yOiMwMDAwMDA7Zm9udC1mYW1p
+bHk6Q2FsaWJyaSxBcmlhbCxIZWx2ZXRpY2Esc2Fucy1zZXJpZjsiIGRpcj0ibHRyIj4NCjxwPkFw
+cGFyZW50bHkgSSBtaXNzZWQgdGhlIGJvdHRvbSBvZiB5b3VyIHJlcGx5IChhbGwgb2YgdGhlIGNs
+aWVudHMgSSBoYXZlIG91dGxvb2svZ21haWwgZG8gdG9wIHBvc3Qgb25seSAuLi4pIGFzIGZvciB0
+aGUgY21ha2UgY2hhbmdlcy4gSSdtIGZvciBpdCBpZiB5b3Ugd2FudCB0byBzdWJtaXQgYSBwYXRj
+aC4gJm5ic3A7SSBjYW4ndCBpbWFnaW5lIGEgbG90IG9mIGNyb3NzIGNvbXBpbGluZyB0aG91Z2gg
+c2luY2UgdXNlcnMgd2lsbCB0eXBpY2FsbHkgYmUNCiB1c2luZyBpdCBvbiB0aGUgcGxhdGZvcm0g
+dGhleSBidWlsdCBpdCBmb3IuICZuYnNwOzwvcD4NCjxwPjxicj4NCjwvcD4NCjxwPklyb25pY2Fs
+bHksIEkgaGFkIHRoZSBwa2dfY2hlY2sgb3JpZ2luYWxseSBidXQgd2FzIHRvbGQgdGhhdCdzIGEg
+ZmF1eC1wYXMuPC9wPg0KPHA+PGJyPg0KPC9wPg0KVW5sZXNzIHRoaXMgaXMgYnJlYWtpbmcgZm9y
+IGFjdHVhbCB1c2VycyB0aG91Z2ggaXQncyBub3QgcmVhbGx5IGEgcHJpb3JpdHkgdG8gYmlrZXNo
+ZWQgdGhlIGJ1aWxkIHN5c3RlbSBvZiBhIDMwIGZpbGUgcHJvamVjdCB0aGF0IGlzIG1lYW50IHRv
+IHdvcmsgb25seSBvbiBkZXZlbG9wZXIgbWFjaGluZXMgd2hvIGFyZSBsaWtlbHkgYnVpbGRpbmcg
+Zm9yJm5ic3A7dGhlbXNlbHZlcw0KPGltZyBjbGFzcz0iRW1vamlJbnNlcnQiIGlkPSJPV0FFbW9q
+aTkzNzExOSIgYWx0PSLwn5iKIiBzdHlsZT0idmVydGljYWwtYWxpZ246IGJvdHRvbTsiIHNyYz0i
+Y2lkOjE5ODc2MjVmLTM0YzQtNDIyOS1iMGMxLTZhZjYwNTNhZTZiZSI+DQo8ZGl2Pjxicj4NCjwv
+ZGl2Pg0KPGRpdj5Ub208YnI+DQo8YnI+DQo8ZGl2IHN0eWxlPSJjb2xvcjogcmdiKDAsIDAsIDAp
+OyI+DQo8aHIgdGFiaW5kZXg9Ii0xIiBzdHlsZT0iZGlzcGxheTppbmxpbmUtYmxvY2s7IHdpZHRo
+Ojk4JSI+DQo8ZGl2IGlkPSJkaXZScGx5RndkTXNnIiBkaXI9Imx0ciI+PGZvbnQgZmFjZT0iQ2Fs
+aWJyaSwgc2Fucy1zZXJpZiIgY29sb3I9IiMwMDAwMDAiIHN0eWxlPSJmb250LXNpemU6MTFwdCI+
+PGI+RnJvbTo8L2I+IGFtZC1nZnggJmx0O2FtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcmZ3Q7IG9uIGJlaGFsZiBvZiBTdERlbmlzLCBUb20gJmx0O1RvbS5TdERlbmlzQGFtZC5j
+b20mZ3Q7PGJyPg0KPGI+U2VudDo8L2I+IE1vbmRheSwgRmVicnVhcnkgNiwgMjAxNyAxNjozMzxi
+cj4NCjxiPlRvOjwvYj4gRW1pbCBWZWxpa292OyBUb20gU3QgRGVuaXM8YnI+DQo8Yj5DYzo8L2I+
+IGFtZC1nZnggbWFpbGluZyBsaXN0PGJyPg0KPGI+U3ViamVjdDo8L2I+IFJlOiBbUEFUQ0hdIEF1
+dG9kZXRlY3QgbGliZHJtIHBhdGggKHYyKTwvZm9udD4NCjxkaXY+Jm5ic3A7PC9kaXY+DQo8L2Rp
+dj4NCjxkaXY+DQo8ZGl2IGlkPSJkaXZ0YWdkZWZhdWx0d3JhcHBlciIgZGlyPSJsdHIiIHN0eWxl
+PSJmb250LXNpemU6MTJwdDsgY29sb3I6IzAwMDAwMDsgZm9udC1mYW1pbHk6Q2FsaWJyaSxBcmlh
+bCxIZWx2ZXRpY2Esc2Fucy1zZXJpZiI+DQo8cD5JIGhhdmUgdG8gTkFLIHRoYXQgaWRlYSBzaW5j
+ZSB3ZSB1c2UgdW1yIG9uIE5QSSB3b3JrIHdoaWNoIGRvZXNuJ3QgbmVjZXNzYXJpbHkgaGF2ZSBs
+aWJkcm0gc3VwcG9ydC48L3A+DQo8cD48YnI+DQo8L3A+DQo8cD5BbHNvIHVtciBjYW4gcmVhZC93
+cml0ZSByZWdpc3RlcnMgdmlhIHBjaSBhY2Nlc3Mgd2l0aG91dCBhbWRncHUgbG9hZGVkIChoYW5k
+eSBpZiBhbWRncHUgZmFpbHMgdG8gaW5pdCBwcm9wZXJseSkuJm5ic3A7PC9wPg0KPGJyPg0KVGhv
+dWdoIHlvdSBhcmUgcmlnaHQgdGhhdCBsaWJkcm0gaXMgdGVjaG5pY2FsbHkgYSByZXF1aXJlbWVu
+dCBhbmQgSSBzaG91bGQgYWRkIHRoYXQgdG8gdGhlIFJFQURNRS4NCjxkaXY+PGJyPg0KPC9kaXY+
+DQo8ZGl2PlRvbTxicj4NCjxkaXYgc3R5bGU9ImNvbG9yOnJnYigwLDAsMCkiPg0KPGRpdj4NCjxo
+ciB0YWJpbmRleD0iLTEiIHN0eWxlPSJkaXNwbGF5OmlubGluZS1ibG9jazsgd2lkdGg6OTglIj4N
+CjxkaXYgaWQ9InhfZGl2UnBseUZ3ZE1zZyIgZGlyPSJsdHIiPjxmb250IGZhY2U9IkNhbGlicmks
+IHNhbnMtc2VyaWYiIGNvbG9yPSIjMDAwMDAwIiBzdHlsZT0iZm9udC1zaXplOjExcHQiPjxiPkZy
+b206PC9iPiBFbWlsIFZlbGlrb3YgJmx0O2VtaWwubC52ZWxpa292QGdtYWlsLmNvbSZndDs8YnI+
+DQo8Yj5TZW50OjwvYj4gTW9uZGF5LCBGZWJydWFyeSA2LCAyMDE3IDE1OjE4PGJyPg0KPGI+VG86
+PC9iPiBUb20gU3QgRGVuaXM8YnI+DQo8Yj5DYzo8L2I+IGFtZC1nZnggbWFpbGluZyBsaXN0OyBT
+dERlbmlzLCBUb208YnI+DQo8Yj5TdWJqZWN0OjwvYj4gUmU6IFtQQVRDSF0gQXV0b2RldGVjdCBs
+aWJkcm0gcGF0aCAodjIpPC9mb250Pg0KPGRpdj4mbmJzcDs8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+
+DQo8Zm9udCBzaXplPSIyIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwcHQiPg0KPGRpdiBjbGFz
+cz0iUGxhaW5UZXh0Ij5IaSBUb20sPGJyPg0KPGJyPg0KT24gNSBGZWJydWFyeSAyMDE3IGF0IDIy
+OjI0LCBUb20gU3QgRGVuaXMgJmx0O3RzdGRlbmlzODJAZ21haWwuY29tJmd0OyB3cm90ZTo8YnI+
+DQomZ3Q7ICh2Mik6Jm5ic3A7IFVzZSBmaW5kTGliRFJNIHNjcmlwdCBpbnN0ZWFkIG9mIGRpcmVj
+dGx5IGZpbmRpbmcgcGF0aDxicj4NCiZndDs8YnI+DQpTaW5jZSB0aGUgcHJvamVjdCBhbHJlYWR5
+IGRlcGVuZHMgb24gbGliZHJtIHlvdSBtaWdodCB3YW50IHRvIHVzZSB0aGU8YnI+DQpkcm1EZXZp
+Y2UyIEFQSSBhbmQgZHJvcCB0aGUgaXRlcmF0aW9uIG92ZXIgYWxsIFBDSSBkZXZpY2VzPGJyPg0K
+KGxpYnBjaWFjY2VzcyBkZXBlbmRlbmN5KS48YnI+DQpJZiB0aGUgZm9ybWVyIGlzIGxhY2tpbmcg
+c29tZXRoaW5nIGZlZWwgZnJlZSB0byBzdWdnZXN0L3NlbmQgcGF0Y2hlcyA7LSk8YnI+DQo8YnI+
+DQpUaGUgbGliZHJtIHJlcXVpcmVtZW50IHdhcyBtaXNzaW5nIGxhc3QgdGltZSBJJ3ZlIHNraW1t
+ZWQgdGhyb3VnaCB0aGUgUkVBRE1FLjxicj4NCjxicj4NCiZndDsgU2lnbmVkLW9mZi1ieTogVG9t
+IFN0IERlbmlzICZsdDt0b20uc3RkZW5pc0BhbWQuY29tJmd0Ozxicj4NCiZndDsgLS0tPGJyPg0K
+PGJyPg0KJmd0OyAtLS0gL2Rldi9udWxsPGJyPg0KJmd0OyAmIzQzOyYjNDM7JiM0MzsgYi9jbWFr
+ZV9tb2R1bGVzL0ZpbmRMaWJEUk0uY21ha2U8YnI+DQomZ3Q7IEBAIC0wLDAgJiM0MzsxLDM1IEBA
+PGJyPg0KJmd0OyAmIzQzOyMgVHJ5IHRvIGZpbmQgbGliZHJtPGJyPg0KJmd0OyAmIzQzOyM8YnI+
+DQomZ3Q7ICYjNDM7IyBPbmNlIGRvbmUsIHRoaXMgd2lsbCBkZWZpbmU8YnI+DQomZ3Q7ICYjNDM7
+Izxicj4NCiZndDsgJiM0MzsjIExJQkRSTV9GT1VORDxicj4NCiZndDsgJiM0MzsjIExJQkRSTV9J
+TkNMVURFX0RJUjxicj4NCiZndDsgJiM0MzsjIExJQkRSTV9MSUJSQVJJRVM8YnI+DQomZ3Q7ICYj
+NDM7PGJyPg0KJmd0OyAmIzQzO2ZpbmRfcGFja2FnZShQa2dDb25maWcpPGJyPg0KJmd0OyAmIzQz
+Ozxicj4NCiZndDsgJiM0Mztwa2dfY2hlY2tfbW9kdWxlcyhQQ19MSUJEUk0gUVVJRVQgbGliZHJt
+KTxicj4NCllvdSByZWFsbHkgd2FudCBhIHZlcnNpb24gY2hlY2suPGJyPg0KPGJyPg0KJmd0OyAm
+IzQzOzxicj4NCiZndDsgJiM0MztmaW5kX3BhdGgoTElCRFJNX0lOQ0xVREVfRElSIE5BTUVTIGFt
+ZGdwdV9kcm0uaDxicj4NCiZndDsgJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsgSElOVFM8YnI+DQom
+Z3Q7ICYjNDM7Jm5ic3A7Jm5ic3A7Jm5ic3A7ICR7UENfTElCRFJNX0lOQ0xVREVESVJ9PGJyPg0K
+Jmd0OyAmIzQzOyZuYnNwOyZuYnNwOyZuYnNwOyAke1BDX0xJQkRSTV9JTkNMVURFX0RJUlN9PGJy
+Pg0KJmd0OyAmIzQzOyZuYnNwOyZuYnNwOyZuYnNwOyAvdXNyL2luY2x1ZGU8YnI+DQomZ3Q7ICYj
+NDM7KTxicj4NCiZndDsgJiM0Mzs8YnI+DQomZ3Q7ICYjNDM7ZmluZF9saWJyYXJ5KExJQkRSTV9M
+SUJSQVJZIE5BTUVTIGxpYmRybV9hbWRncHUuc28uMTxicj4NCiZndDsgJiM0MzsmbmJzcDsmbmJz
+cDsmbmJzcDsgSElOVFM8YnI+DQomZ3Q7ICYjNDM7Jm5ic3A7Jm5ic3A7Jm5ic3A7ICR7UENfTElC
+RFJNX0xJQkRJUn08YnI+DQomZ3Q7ICYjNDM7Jm5ic3A7Jm5ic3A7Jm5ic3A7ICR7UENfTElCRFJN
+X0xJQlJBUllfRElSU308YnI+DQomZ3Q7ICYjNDM7Jm5ic3A7Jm5ic3A7Jm5ic3A7IC91c3IvbGli
+NjQ8YnI+DQomZ3Q7ICYjNDM7Jm5ic3A7Jm5ic3A7Jm5ic3A7IC91c3IvbGliPGJyPg0KJmd0OyAm
+IzQzOyk8YnI+DQomZ3Q7ICYjNDM7PGJyPg0KSGVyZSBpcyBvbmUgb2YgdGhlIHRoaW5ncyB3aGlj
+aCBtYWtlcyBtZSByYWdlIGFnYWluc3QgY21ha2UgLSBubzxicj4NCnBpY2tpbmcgL3Vzci97aW5j
+bHVkZSxmb299IGlzIF9ub3RfIHdoYXQgeW91IHdhbnQuPGJyPg0KPGJyPg0KRHVyaW5nIGNyb3Nz
+LWNvbXBpbGF0aW9uIGFzIG9uZSBpcyBtaXNzaW5nIHRoZSAucGMgZmlsZSwgdGhlIHN5c3RlbTxi
+cj4NCmhlYWRlcnMvbGlicmFyaWVzIHdpbGwgYmUgcGlja2VkLiBUaGlzIGlzIGhvcnJpYmx5IHdy
+b25nLCB5ZXQgcmF0aGVyPGJyPg0KY29tbW9uIGluIGNtYWtlIHdvcmxkLjxicj4NCldoYXQgeW91
+IHJlYWxseSB3YW50IGlzIGEgbG92ZWx5IGVycm9yIG1lc3NhZ2UgdG8gd2FybiB0aGUgdXNlciAt
+PGJyPg0Kcy9PUFRJT05BTC9SRVFVSVJFRC8gd2lsbCBnaXZlIHlvdSBqdXN0IHRoYXQuPGJyPg0K
+PGJyPg0KQXQgd2hpY2ggcG9pbnQsIGNoZWNraW5nIGZvciB0aGUgaGVhZGVyL2xpYnJhcnkgaW4g
+dGhlIHBhdGhzIHByb3ZpZGVkPGJyPg0KYnkgdGhlIC5wYyBmaWxlIGlzIHJlZHVuZGFudCBhbmQg
+dGh1cyBuZWFybHkgZXZlcnl0aGluZyBlbHNlIGluIHRoZTxicj4NCmZpbGUgOy0pPGJyPg0KPGJy
+Pg0KPGJyPg0KVEw7RHI6IEFsbCB5b3UgbmVlZCBpcyBwa2dfY2hlY2tfbW9kdWxlcyhQQ19MSUJE
+Uk0gUkVRVUlSRUQgbGliZHJtJmd0Oz1YWCkuPGJyPg0KPGJyPg0KVGhhbmtzPGJyPg0KRW1pbDxi
+cj4NCjwvZGl2Pg0KPC9zcGFuPjwvZm9udD48L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4N
+CjwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjwvYm9keT4NCjwvaHRtbD4NCg==
 
-Though you are right that libdrm is technically a requirement and I should =
-add that to the README.
+--_000_CY4PR12MB1768AED537A0253EB70B1E4BF7400CY4PR12MB1768namp_--
 
-Tom
-________________________________
-From: Emil Velikov <emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Monday, February 6, 2017 15:18
-To: Tom St Denis
-Cc: amd-gfx mailing list; StDenis, Tom
-Subject: Re: [PATCH] Autodetect libdrm path (v2)
+--_004_CY4PR12MB1768AED537A0253EB70B1E4BF7400CY4PR12MB1768namp_
+Content-Type: image/png; name="=?utf-8?B?T3V0bG9va0Vtb2ppLfCfmIoucG5n?="
+Content-Description: =?utf-8?B?T3V0bG9va0Vtb2ppLfCfmIoucG5n?=
+Content-Disposition: inline;
+	filename="=?utf-8?B?T3V0bG9va0Vtb2ppLfCfmIoucG5n?="; size=488;
+	creation-date="Mon, 06 Feb 2017 22:39:51 GMT";
+	modification-date="Mon, 06 Feb 2017 22:39:51 GMT"
+Content-ID: <1987625f-34c4-4229-b0c1-6af6053ae6be>
+Content-Transfer-Encoding: base64
 
-Hi Tom,
+iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
+bWFnZVJlYWR5ccllPAAAAYpJREFUeNpi/P//PwO1ACM2wf9njBWAVD4QBwCxApLUAyDeAMQTGU3O
+PkDRA3QUIxaD+oFUAREOaQQa2IDTMKBB84FUAgk+WwA0MBFmGBOaixJIDKYEoD6465igBjkge+3C
+rW94TUCTr4eGMdxl8TCZxMYHDIZR1xk2HPiA1SCQOEgepA4J5CMbFgAPhM1vwfTFW9+xGgYTh6lD
+1s8IdKIAkH4PEz1w9jOYVpBiZ1CQZMMw7MHzXwwPnv0Esx2MeRESxmcYWYCUAbJiFAVYAMgCbJbA
+vPmAWjmACZqS4aHdOOs5wdgEBcWE5a8Y0HIGPAIOwETtjXkYJqIqxAAgeQM1ThTzkQ2biB5mC7a8
+xZ7kgeICvMzoYTsRJaMDY3U9chIBpaMHz34xxPsKgwMcFIsLgckB5KL+YllkgyYAg6oQJW9Ck8h+
+5NgFhd3GAx/humAGI2cGIHYEGvYBW0YHGTgf2YX4MjkQF4IMwlkEIeXVfByGwsqzAwTLMywGg7wN
+cvED9AIR3TCAAAMAqh+p+YMVeBQAAAAASUVORK5CYII=
 
-On 5 February 2017 at 22:24, Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
-> (v2):  Use findLibDRM script instead of directly finding path
->
-Since the project already depends on libdrm you might want to use the
-drmDevice2 API and drop the iteration over all PCI devices
-(libpciaccess dependency).
-If the former is lacking something feel free to suggest/send patches ;-)
+--_004_CY4PR12MB1768AED537A0253EB70B1E4BF7400CY4PR12MB1768namp_--
 
-The libdrm requirement was missing last time I've skimmed through the READM=
-E.
-
-> Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-> ---
-
-> --- /dev/null
-> +++ b/cmake_modules/FindLibDRM.cmake
-> @@ -0,0 +1,35 @@
-> +# Try to find libdrm
-> +#
-> +# Once done, this will define
-> +#
-> +# LIBDRM_FOUND
-> +# LIBDRM_INCLUDE_DIR
-> +# LIBDRM_LIBRARIES
-> +
-> +find_package(PkgConfig)
-> +
-> +pkg_check_modules(PC_LIBDRM QUIET libdrm)
-You really want a version check.
-
-> +
-> +find_path(LIBDRM_INCLUDE_DIR NAMES amdgpu_drm.h
-> +    HINTS
-> +    ${PC_LIBDRM_INCLUDEDIR}
-> +    ${PC_LIBDRM_INCLUDE_DIRS}
-> +    /usr/include
-> +)
-> +
-> +find_library(LIBDRM_LIBRARY NAMES libdrm_amdgpu.so.1
-> +    HINTS
-> +    ${PC_LIBDRM_LIBDIR}
-> +    ${PC_LIBDRM_LIBRARY_DIRS}
-> +    /usr/lib64
-> +    /usr/lib
-> +)
-> +
-Here is one of the things which makes me rage against cmake - no
-picking /usr/{include,foo} is _not_ what you want.
-
-During cross-compilation as one is missing the .pc file, the system
-headers/libraries will be picked. This is horribly wrong, yet rather
-common in cmake world.
-What you really want is a lovely error message to warn the user -
-s/OPTIONAL/REQUIRED/ will give you just that.
-
-At which point, checking for the header/library in the paths provided
-by the .pc file is redundant and thus nearly everything else in the
-file ;-)
-
-
-TL;Dr: All you need is pkg_check_modules(PC_LIBDRM REQUIRED libdrm>=3DXX).
-
-Thanks
-Emil
-
---_000_CY4PR12MB17689AEC15DEF9662A16DEA3F7400CY4PR12MB1768namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Arial,Helvetica,sans-serif;" dir=3D"ltr">
-<p>I have to NAK that idea since we use umr on NPI work which doesn't neces=
-sarily have libdrm support.</p>
-<p><br>
-</p>
-<p>Also umr can read/write registers via pci access without amdgpu loaded (=
-handy if amdgpu fails to init properly).&nbsp;</p>
-<br>
-Though you are right that libdrm is technically a requirement and I should =
-add that to the README.
-<div><br>
-</div>
-<div>Tom<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Emil Velikov &lt;em=
-il.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Sent:</b> Monday, February 6, 2017 15:18<br>
-<b>To:</b> Tom St Denis<br>
-<b>Cc:</b> amd-gfx mailing list; StDenis, Tom<br>
-<b>Subject:</b> Re: [PATCH] Autodetect libdrm path (v2)</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">Hi Tom,<br>
-<br>
-On 5 February 2017 at 22:24, Tom St Denis &lt;tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt; wrot=
-e:<br>
-&gt; (v2):&nbsp; Use findLibDRM script instead of directly finding path<br>
-&gt;<br>
-Since the project already depends on libdrm you might want to use the<br>
-drmDevice2 API and drop the iteration over all PCI devices<br>
-(libpciaccess dependency).<br>
-If the former is lacking something feel free to suggest/send patches ;-)<br=
->
-<br>
-The libdrm requirement was missing last time I've skimmed through the READM=
-E.<br>
-<br>
-&gt; Signed-off-by: Tom St Denis &lt;tom.stdenis-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; ---<br>
-<br>
-&gt; --- /dev/null<br>
-&gt; &#43;&#43;&#43; b/cmake_modules/FindLibDRM.cmake<br>
-&gt; @@ -0,0 &#43;1,35 @@<br>
-&gt; &#43;# Try to find libdrm<br>
-&gt; &#43;#<br>
-&gt; &#43;# Once done, this will define<br>
-&gt; &#43;#<br>
-&gt; &#43;# LIBDRM_FOUND<br>
-&gt; &#43;# LIBDRM_INCLUDE_DIR<br>
-&gt; &#43;# LIBDRM_LIBRARIES<br>
-&gt; &#43;<br>
-&gt; &#43;find_package(PkgConfig)<br>
-&gt; &#43;<br>
-&gt; &#43;pkg_check_modules(PC_LIBDRM QUIET libdrm)<br>
-You really want a version check.<br>
-<br>
-&gt; &#43;<br>
-&gt; &#43;find_path(LIBDRM_INCLUDE_DIR NAMES amdgpu_drm.h<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp; HINTS<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp; ${PC_LIBDRM_INCLUDEDIR}<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp; ${PC_LIBDRM_INCLUDE_DIRS}<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp; /usr/include<br>
-&gt; &#43;)<br>
-&gt; &#43;<br>
-&gt; &#43;find_library(LIBDRM_LIBRARY NAMES libdrm_amdgpu.so.1<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp; HINTS<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp; ${PC_LIBDRM_LIBDIR}<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp; ${PC_LIBDRM_LIBRARY_DIRS}<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp; /usr/lib64<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp; /usr/lib<br>
-&gt; &#43;)<br>
-&gt; &#43;<br>
-Here is one of the things which makes me rage against cmake - no<br>
-picking /usr/{include,foo} is _not_ what you want.<br>
-<br>
-During cross-compilation as one is missing the .pc file, the system<br>
-headers/libraries will be picked. This is horribly wrong, yet rather<br>
-common in cmake world.<br>
-What you really want is a lovely error message to warn the user -<br>
-s/OPTIONAL/REQUIRED/ will give you just that.<br>
-<br>
-At which point, checking for the header/library in the paths provided<br>
-by the .pc file is redundant and thus nearly everything else in the<br>
-file ;-)<br>
-<br>
-<br>
-TL;Dr: All you need is pkg_check_modules(PC_LIBDRM REQUIRED libdrm&gt;=3DXX=
-).<br>
-<br>
-Thanks<br>
-Emil<br>
-</div>
-</span></font></div>
-</div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB17689AEC15DEF9662A16DEA3F7400CY4PR12MB1768namp_--
-
---===============2098824245==
+--===============0377858679==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -244,4 +231,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============2098824245==--
+--===============0377858679==--
