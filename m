@@ -1,14 +1,15 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 1/2] drm/amd/display: fix array lenth error.
-Date: Mon, 6 Feb 2017 15:36:54 +0000
-Message-ID: <CY4PR12MB168712DD6B6D2BA7E7861CB7FB400@CY4PR12MB1687.namprd12.prod.outlook.com>
-References: <1486357719-7102-1-git-send-email-Rex.Zhu@amd.com>,
+Date: Mon, 6 Feb 2017 10:46:02 -0500
+Message-ID: <5fc86f11-dc59-b4a5-b8e8-874c4682295e@amd.com>
+References: <1486357719-7102-1-git-send-email-Rex.Zhu@amd.com>
  <d7898cb1-cf89-6672-dd92-9ae74b168edf@amd.com>
+ <CY4PR12MB168712DD6B6D2BA7E7861CB7FB400@CY4PR12MB1687.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0960274201=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <d7898cb1-cf89-6672-dd92-9ae74b168edf-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <CY4PR12MB168712DD6B6D2BA7E7861CB7FB400-rpdhrqHFk06Y0SjTqZDccQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,225 +20,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0960274201==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB168712DD6B6D2BA7E7861CB7FB400CY4PR12MB1687namp_"
-
---_000_CY4PR12MB168712DD6B6D2BA7E7861CB7FB400CY4PR12MB1687namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-seems reasonable.
-
-
-but i think need to check num_levels  can't be 0. in some case, there is on=
-ly one level of mclk, and higher than the max validation clocks.. and will =
-lead kernel panic.
-
-
-Best Regards
-
-Rex
-
-________________________________
-From: Wentland, Harry
-Sent: Monday, February 6, 2017 10:54:24 PM
-To: Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH 1/2] drm/amd/display: fix array lenth error.
-
-On 2017-02-06 12:08 AM, Rex Zhu wrote:
-> Change-Id: I09011c5e6d5493db7e3d9a7ff7ab8c871a8db862
-> Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c b=
-/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c
-> index 5af27aa..50576c6 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c
-> @@ -358,7 +358,7 @@ bool dm_pp_get_clock_levels_by_type(
->                                 * non-boosted one. */
->                                DRM_INFO("DM_PPLIB: reducing engine clock =
-level from %d to %d\n",
->                                                dc_clks->num_levels, i + 1=
-);
-> -                             dc_clks->num_levels =3D i;
-> +                             dc_clks->num_levels =3D i + 1;
-
-It seems to me the DRM_INFO print is wrong here, not the actual
-assignment. We're setting num_levels to the current index if the clocks
-for that index are higher than the max validation clocks, hence this
-index now should become num_levels.
-
->                                break;
->                        }
->                }
-> @@ -367,7 +367,7 @@ bool dm_pp_get_clock_levels_by_type(
->                        if (dc_clks->clocks_in_khz[i] > validation_clks.me=
-mory_max_clock) {
->                                DRM_INFO("DM_PPLIB: reducing memory clock =
-level from %d to %d\n",
->                                                dc_clks->num_levels, i + 1=
-);
-> -                             dc_clks->num_levels =3D i;
-> +                             dc_clks->num_levels =3D i + 1;
->                                break;
->                        }
->                }
->
-
-Same comment as above.
-
-Harry
-
---_000_CY4PR12MB168712DD6B6D2BA7E7861CB7FB400CY4PR12MB1687namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
-<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
-ding-left: 4pt; border-left: #800000 2px solid; } --></style>
-</head>
-<body>
-<meta content=3D"text/html; charset=3DUTF-8">
-<style type=3D"text/css" style=3D"">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-<div dir=3D"ltr">
-<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
-or:#000000; font-family:Calibri,Arial,Helvetica,sans-serif">
-<p>seems reasonable.</p>
-<p><br>
-</p>
-<p>but i think need to check&nbsp;<span style=3D"color:rgb(33,33,33); font-=
-size:13.3333px">num_levels &nbsp;can't be 0. in some case, there is only on=
-e level of mclk, and
-<span style=3D"color:rgb(33,33,33); font-size:13.3333px">higher than the ma=
-x validation clocks.. and will lead kernel panic.</span></span></p>
-<p><span style=3D"color:rgb(33,33,33); font-size:13.3333px"><span style=3D"=
-color:rgb(33,33,33); font-size:13.3333px"><br>
-</span></span></p>
-<p><span style=3D"color:rgb(33,33,33); font-size:13.3333px"><span style=3D"=
-color:rgb(33,33,33); font-size:13.3333px">Best Regards</span></span></p>
-<p><span style=3D"color:rgb(33,33,33); font-size:13.3333px"><span style=3D"=
-color:rgb(33,33,33); font-size:13.3333px">Rex</span></span></p>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Wentland, Harry<br>
-<b>Sent:</b> Monday, February 6, 2017 10:54:24 PM<br>
-<b>To:</b> Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: [PATCH 1/2] drm/amd/display: fix array lenth error.</fo=
-nt>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">On 2017-02-06 12:08 AM, Rex Zhu wrote:<br>
-&gt; Change-Id: I09011c5e6d5493db7e3d9a7ff7ab8c871a8db862<br>
-&gt; Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c | 4 &=
-#43;&#43;--<br>
-&gt;&nbsp; 1 file changed, 2 insertions(&#43;), 2 deletions(-)<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.=
-c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c<br>
-&gt; index 5af27aa..50576c6 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_serv=
-ices.c<br>
-&gt; @@ -358,7 &#43;358,7 @@ bool dm_pp_get_clock_levels_by_type(<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * non-boosted one. */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_INFO(&quot;DM_PPLIB: reducing =
-engine clock level from %d to %d\n&quot;,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dc_clks-&gt;n=
-um_levels, i &#43; 1);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; dc_clks-&gt;num_levels =3D i;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; dc_clks-&gt;num_levels =3D i &#43; 1;<br>
-<br>
-It seems to me the DRM_INFO print is wrong here, not the actual<br>
-assignment. We're setting num_levels to the current index if the clocks<br>
-for that index are higher than the max validation clocks, hence this<br>
-index now should become num_levels.<br>
-<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; }<br>
-&gt; @@ -367,7 &#43;367,7 @@ bool dm_pp_get_clock_levels_by_type(<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (dc_=
-clks-&gt;clocks_in_khz[i] &gt; validation_clks.memory_max_clock) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_INFO(&quot;DM_PPLIB: reducing =
-memory clock level from %d to %d\n&quot;,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dc_clks-&gt;n=
-um_levels, i &#43; 1);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; dc_clks-&gt;num_levels =3D i;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; dc_clks-&gt;num_levels =3D i &#43; 1;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; }<br>
-&gt; <br>
-<br>
-Same comment as above.<br>
-<br>
-Harry<br>
-</div>
-</span></font>
-</body>
-</html>
-
---_000_CY4PR12MB168712DD6B6D2BA7E7861CB7FB400CY4PR12MB1687namp_--
-
---===============0960274201==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0960274201==--
+VHJ1ZSwgd2Ugc2hvdWxkIHByb2JhYmx5IGFsd2F5cyBrZWVwIG9uZSBsZXZlbCBldmVuIGlmIGl0
+J3MgbGFyZ2VyIHRoYW4KbWF4X2Nsb2NrLCBidXQgb3V0cHV0IGEgYmlnIGZhdCB3YXJuaW5nIG1l
+c3NhZ2Ugd2hlbiB0aGF0IGhhcHBlbnMuCgpIYXJyeQoKT24gMjAxNy0wMi0wNiAxMDozNiBBTSwg
+Wmh1LCBSZXggd3JvdGU6Cj4gc2VlbXMgcmVhc29uYWJsZS4KPiAKPiAKPiBidXQgaSB0aGluayBu
+ZWVkIHRvIGNoZWNrIG51bV9sZXZlbHMgIGNhbid0IGJlIDAuIGluIHNvbWUgY2FzZSwgdGhlcmUg
+aXMKPiBvbmx5IG9uZSBsZXZlbCBvZiBtY2xrLCBhbmQgaGlnaGVyIHRoYW4gdGhlIG1heCB2YWxp
+ZGF0aW9uIGNsb2Nrcy4uIGFuZAo+IHdpbGwgbGVhZCBrZXJuZWwgcGFuaWMuCj4gCj4gCj4gQmVz
+dCBSZWdhcmRzCj4gCj4gUmV4Cj4gCj4gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4gKkZyb206KiBXZW50bGFu
+ZCwgSGFycnkKPiAqU2VudDoqIE1vbmRheSwgRmVicnVhcnkgNiwgMjAxNyAxMDo1NDoyNCBQTQo+
+ICpUbzoqIFpodSwgUmV4OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+ICpTdWJqZWN0
+OiogUmU6IFtQQVRDSCAxLzJdIGRybS9hbWQvZGlzcGxheTogZml4IGFycmF5IGxlbnRoIGVycm9y
+Lgo+ICAKPiBPbiAyMDE3LTAyLTA2IDEyOjA4IEFNLCBSZXggWmh1IHdyb3RlOgo+PiBDaGFuZ2Ut
+SWQ6IEkwOTAxMWM1ZTZkNTQ5M2RiN2UzZDlhN2ZmN2FiOGM4NzFhOGRiODYyCj4+IFNpZ25lZC1v
+ZmYtYnk6IFJleCBaaHUgPFJleC5aaHVAYW1kLmNvbT4KPj4gLS0tCj4+ICBkcml2ZXJzL2dwdS9k
+cm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9zZXJ2aWNlcy5jIHwgNCArKy0tCj4+
+ICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQo+PiAKPj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1
+X2RtX3NlcnZpY2VzLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2Ft
+ZGdwdV9kbV9zZXJ2aWNlcy5jCj4+IGluZGV4IDVhZjI3YWEuLjUwNTc2YzYgMTAwNjQ0Cj4+IC0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX3NlcnZp
+Y2VzLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRn
+cHVfZG1fc2VydmljZXMuYwo+PiBAQCAtMzU4LDcgKzM1OCw3IEBAIGJvb2wgZG1fcHBfZ2V0X2Ns
+b2NrX2xldmVsc19ieV90eXBlKAo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICog
+bm9uLWJvb3N0ZWQgb25lLiAqLwo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgRFJN
+X0lORk8oIkRNX1BQTElCOiByZWR1Y2luZyBlbmdpbmUgY2xvY2sgbGV2ZWwgZnJvbSAlZCB0byAl
+ZFxuIiwKPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBk
+Y19jbGtzLT5udW1fbGV2ZWxzLCBpICsgMSk7Cj4+IC0gICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIGRjX2Nsa3MtPm51bV9sZXZlbHMgPSBpOwo+PiArICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBkY19jbGtzLT5udW1fbGV2ZWxzID0gaSArIDE7Cj4gCj4gSXQgc2VlbXMgdG8gbWUgdGhl
+IERSTV9JTkZPIHByaW50IGlzIHdyb25nIGhlcmUsIG5vdCB0aGUgYWN0dWFsCj4gYXNzaWdubWVu
+dC4gV2UncmUgc2V0dGluZyBudW1fbGV2ZWxzIHRvIHRoZSBjdXJyZW50IGluZGV4IGlmIHRoZSBj
+bG9ja3MKPiBmb3IgdGhhdCBpbmRleCBhcmUgaGlnaGVyIHRoYW4gdGhlIG1heCB2YWxpZGF0aW9u
+IGNsb2NrcywgaGVuY2UgdGhpcwo+IGluZGV4IG5vdyBzaG91bGQgYmVjb21lIG51bV9sZXZlbHMu
+Cj4gCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBicmVhazsKPj4gICAgICAgICAg
+ICAgICAgICAgICAgICB9Cj4+ICAgICAgICAgICAgICAgIH0KPj4gQEAgLTM2Nyw3ICszNjcsNyBA
+QCBib29sIGRtX3BwX2dldF9jbG9ja19sZXZlbHNfYnlfdHlwZSgKPj4gICAgICAgICAgICAgICAg
+ICAgICAgICBpZiAoZGNfY2xrcy0+Y2xvY2tzX2luX2toeltpXSA+IHZhbGlkYXRpb25fY2xrcy5t
+ZW1vcnlfbWF4X2Nsb2NrKSB7Cj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBEUk1f
+SU5GTygiRE1fUFBMSUI6IHJlZHVjaW5nIG1lbW9yeSBjbG9jayBsZXZlbCBmcm9tICVkIHRvICVk
+XG4iLAo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRj
+X2Nsa3MtPm51bV9sZXZlbHMsIGkgKyAxKTsKPj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgZGNfY2xrcy0+bnVtX2xldmVscyA9IGk7Cj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIGRjX2Nsa3MtPm51bV9sZXZlbHMgPSBpICsgMTsKPj4gICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIGJyZWFrOwo+PiAgICAgICAgICAgICAgICAgICAgICAgIH0KPj4gICAgICAgICAg
+ICAgICAgfQo+PiAKPiAKPiBTYW1lIGNvbW1lbnQgYXMgYWJvdmUuCj4gCj4gSGFycnkKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
+IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
