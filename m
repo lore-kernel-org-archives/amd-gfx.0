@@ -1,8 +1,8 @@
 From: Pixel Ding <Pixel.Ding-5C7GfCeVMHo@public.gmane.org>
 Subject: [PATCH 1/2] drm/amdgpu/virt: refine handshake between guest and host
  by mailbox
-Date: Mon, 6 Feb 2017 15:09:48 +0800
-Message-ID: <1486364988-2826-1-git-send-email-Pixel.Ding@amd.com>
+Date: Mon, 6 Feb 2017 14:59:42 +0800
+Message-ID: <1486364382-28911-1-git-send-email-Pixel.Ding@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
