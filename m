@@ -1,68 +1,33 @@
-From: Emil Velikov <emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] Autodetect libdrm path (v2)
-Date: Tue, 7 Feb 2017 12:41:59 +0000
-Message-ID: <CACvgo52079fzZtjLkyU_NtRmEp+bbQYzFZCdQPZVD7wOPmBppA@mail.gmail.com>
-References: <20170205222447.19945-1-tom.stdenis@amd.com>
- <CACvgo5230Use5sk8dm5jBbLqiJeSkgB6cDikz-N4omx-4Jgy9A@mail.gmail.com>
- <CY4PR12MB17689AEC15DEF9662A16DEA3F7400@CY4PR12MB1768.namprd12.prod.outlook.com>
- <CY4PR12MB1768AED537A0253EB70B1E4BF7400@CY4PR12MB1768.namprd12.prod.outlook.com>
- <CACvgo537ciLvg=Q6enktu6ndMSEuSCM+RpmniJdgYNgZDQjUeQ@mail.gmail.com>
- <13f9479c-1a5c-8887-858e-dadf819a7140@amd.com>
+From: Dan Carpenter <dan.carpenter@oracle.com>
+Subject: [patch] drm/radeon: remove some dead code
+Date: Tue, 7 Feb 2017 16:16:04 +0300
+Message-ID: <20170207131604.GA27416@mwanda>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <13f9479c-1a5c-8887-858e-dadf819a7140-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Cc: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <kernel-janitors-owner@vger.kernel.org>
+Content-Disposition: inline
+Sender: kernel-janitors-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gNyBGZWJydWFyeSAyMDE3IGF0IDExOjMwLCBUb20gU3QgRGVuaXMgPHRvbS5zdGRlbmlzQGFt
-ZC5jb20+IHdyb3RlOgo+IE9uIDA3LzAyLzE3IDA2OjAyIEFNLCBFbWlsIFZlbGlrb3Ygd3JvdGU6
-Cj4+Cj4+IE9uIDYgRmVicnVhcnkgMjAxNyBhdCAyMjozOSwgU3REZW5pcywgVG9tIDxUb20uU3RE
-ZW5pc0BhbWQuY29tPiB3cm90ZToKPj4+Cj4+Pgo+Pj4gQXBwYXJlbnRseSBJIG1pc3NlZCB0aGUg
-Ym90dG9tIG9mIHlvdXIgcmVwbHkgKGFsbCBvZiB0aGUgY2xpZW50cyBJIGhhdmUKPj4+IG91dGxv
-b2svZ21haWwgZG8gdG9wIHBvc3Qgb25seSAuLi4pCj4+Cj4+IEJvdGggT3V0bG9vayBhbmQgR21h
-aWwgY2FuIGRvIGlubGluZSByZXBsaWVzIGFuZCBwbGFpbiB0ZXh0LiBUaGVyZQo+PiBtaWdodCBi
-ZSBzb21lIG1hZ2ljIHJlcXVpcmVkIGZvciB0aGUgZm9ybWVyIHRob3VnaCA6LVwKPj4gSSB3b3Vs
-ZCBraW5kbHkgc3VnZ2VzdCB1c2luZyBpbmxpbmUvdGV4dCB3aGVuIHBvc3NpYmxlLgo+Cj4KPiBZ
-b3UnbGwgYmUgcGxlYXNlZCB0byBub3RlIEkgZGlzY292ZXJlZCAoYXQgc29tZSBwb2ludCkgdGhh
-dCBBTUQgaGFzCj4gcmUtZW5hYmxlZCBpbWFwIHN1cHBvcnQgYW5kIEkgY2FuIG5vdyB1c2UgYSBt
-b3JlIHNlbnNpYmxlIGNsaWVudC4uLgo+Cj4gOi0pCj4KQW1hemluZyBuZXdzLCB0aGFuayB5b3Ug
-IQoKPj4+IElyb25pY2FsbHksIEkgaGFkIHRoZSBwa2dfY2hlY2sgb3JpZ2luYWxseSBidXQgd2Fz
-IHRvbGQgdGhhdCdzIGEKPj4+IGZhdXgtcGFzLgo+Pj4KPj4gSXQncyBhIGNvbW1vbiBtaXNjb25j
-ZXB0aW9uLCBpbmZsdWVuY2VkIGJ5IHRoZSBzaGVlciB2b2x1bWUgb2YgY29weS9wYXN0ZQo+PiA6
-LSkKPj4KPj4+Cj4+PiBVbmxlc3MgdGhpcyBpcyBicmVha2luZyBmb3IgYWN0dWFsIHVzZXJzIHRo
-b3VnaCBpdCdzIG5vdCByZWFsbHkgYQo+Pj4gcHJpb3JpdHkgdG8gYmlrZXNoZWQgdGhlIGJ1aWxk
-IHN5c3RlbSBvZiBhIDMwIGZpbGUgcHJvamVjdCB0aGF0IGlzIG1lYW50IHRvCj4+PiB3b3JrIG9u
-bHkgb24gZGV2ZWxvcGVyIG1hY2hpbmVzIHdobyBhcmUgbGlrZWx5IGJ1aWxkaW5nIGZvciB0aGVt
-c2VsdmVzCj4+Pgo+PiBVcC10byB5b3UgcmVhbGx5LiBGV0lXIHVzaW5nIGNtYWtlL2F1dG9jb25m
-L2V0Yy4gaXMgYSBodWdlIG92ZXJraWxsLgo+PiBUaGUgb3JpZ2luYWwgbWFrZWZpbGUgd2FzIG1p
-c3NpbmcgYSBmZXcgdGhpbmdzKiB3b3J0aCAxMC0yMCBsaW5lcyBvZgo+PiBjb2RlIHdoaWxlIGJl
-aW5nIG5vdGljZWFibHkgc21hbGxlciwgcXVpY2tlciBhbmQgZWFzaWVyIHRvIHJlYWQgOy0pCj4K
-Pgo+IFRvIGJlIGhvbmVzdCB1bmxlc3MgdGhlIGNtYWtlIHN5c3RlbSBnZXRzIGluIHRoZSB3YXkg
-SSdtIGhhcHB5IGlmIGl0IG1ha2VzCj4gb3RoZXJzIGhhcHB5LiAgSXQncyBub3QgZWFzeSB0byBz
-YXkgdGhlIHByb2plY3QgaXMgIm9wZW4iIGlmIHdlIE5BSyBhbnkgYW5kCj4gYWxsIGhhcm1sZXNz
-IGNvbW1pdHMgdGhhdCB0aGUgdXNlcnMgYWR2b2NhdGUgZm9yLgo+Cj4gVGhlIG9mZmljaWFsIHN0
-YW5jZSBmcm9tIEFNRCAoc3BlY2lmaWNhbGx5IHRoZSB0ZWFtIEkgd29yayBmb3IpIGlzIGlmIGNt
-YWtlCj4gZ2V0cyBpbiB0aGUgd2F5IG9mIEFNRCB3b3JrIHdlIHdpbGwgbnVrZSB0aGUgY21ha2Ug
-c3lzdGVtIGFuZCBnbyBiYWNrIHRvCj4gZ21ha2UgKHdpdGggcGtnLWNvbmZpZyBzaGVsbCBjYWxs
-cyB0byBnZXQgcGF0aHMpLgo+Cj4gUGVyc29uYWxseSBJJ20gbm90IGEgYmlnIGZhbiBvZiBvdmVy
-bHkgY29tcGxpY2F0ZWQgY29uZmlnL2J1aWxkIHN5c3RlbXMgYnV0Cj4gc2luY2UgSSBkb24ndCBk
-byBwYWNrYWdlIGJ1aWxkaW5nL2V0YyBmb3IgYSBsaXZpbmcgSSdsbCBkZWZlciB0byB0aGUKPiBv
-cGluaW9ucyBvZiBvdGhlcnMgd2l0aGluIHJlYXNvbi4KPgpCdGgsIHlvdSdyZSBub3QgbWlzc2lu
-ZyBhbnl0aGluZyBtdWNoIGJ5IG5vdCB0aW5rZXJpbmcgd2l0aAphdXRvY29uZi9jbWFrZS9ldGMu
-IEl0J3MganVzdCBhIGJpa2VzaGVkIGZlc3Qgd2l0aCBvdmVybHkgYmlhc2VkCnBlb3BsZSBvbiBl
-YWNoIHNpZGUgOy0pCgpUaGFua3MKRW1pbApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2FtZC1nZngK
+If "rdev->bios" is NULL then we don't need to free it.
+
+Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+
+diff --git a/drivers/gpu/drm/radeon/radeon_bios.c b/drivers/gpu/drm/radeon/radeon_bios.c
+index 00cfb5d2875f..04c0ed41374f 100644
+--- a/drivers/gpu/drm/radeon/radeon_bios.c
++++ b/drivers/gpu/drm/radeon/radeon_bios.c
+@@ -638,10 +638,8 @@ static bool radeon_acpi_vfct_bios(struct radeon_device *rdev)
+ 					     vhdr->ImageLength,
+ 					     GFP_KERNEL);
+ 
+-			if (!rdev->bios) {
+-				kfree(rdev->bios);
++			if (!rdev->bios)
+ 				return false;
+-			}
+ 			return true;
+ 		}
+ 	}
