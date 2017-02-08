@@ -1,19 +1,21 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: =?UTF-8?B?UmU6IOetlOWkjTog562U5aSNOiBbUEFUQ0hdIGRybS9hbWRncHU6Zml4?=
- =?UTF-8?Q?_amdgpu=5fsa=5fbo=5fnew_error?=
-Date: Wed, 8 Feb 2017 16:59:10 +0100
-Message-ID: <c275b812-8c58-0410-16ad-b038e9213fa1@vodafone.de>
+From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: =?utf-8?B?562U5aSNOiDnrZTlpI06IOetlOWkjTogW1BBVENIXSBkcm0vYW1kZ3B1OmZp?=
+ =?utf-8?B?eCBhbWRncHVfc2FfYm9fbmV3IGVycm9y?=
+Date: Wed, 8 Feb 2017 16:12:48 +0000
+Message-ID: <DM5PR12MB16103AE326FF504DA708F09284420@DM5PR12MB1610.namprd12.prod.outlook.com>
 References: <1486546917-1464-1-git-send-email-Monk.Liu@amd.com>
  <4ac7f30d-fde6-b1e3-e5de-fc518b180548@vodafone.de>
  <a2254528-29ca-44bb-8cb9-09fd428af241@daenzer.net>
  <DM5PR12MB161067C1383FC5829F4FCD8984420@DM5PR12MB1610.namprd12.prod.outlook.com>
  <c4776332-809a-da57-88a9-172b72743ede@vodafone.de>
  <99ba2b49-6409-0a47-1bc1-f873d69a58d8@daenzer.net>
- <DM5PR12MB1610D9A7A6D35390193ED57D84420@DM5PR12MB1610.namprd12.prod.outlook.com>
+ <DM5PR12MB1610D9A7A6D35390193ED57D84420@DM5PR12MB1610.namprd12.prod.outlook.com>,
+ <c275b812-8c58-0410-16ad-b038e9213fa1@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0414083546=="
+Content-Type: multipart/mixed; boundary="===============1340626626=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM5PR12MB1610D9A7A6D35390193ED57D84420-2J9CzHegvk++jCVTvoAFKAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <c275b812-8c58-0410-16ad-b038e9213fa1-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Content-Language: zh-CN
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -24,203 +26,167 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
 Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============0414083546==
+--===============1340626626==
+Content-Language: zh-CN
 Content-Type: multipart/alternative;
- boundary="------------FDB12EC997DDF0FFB0175A41"
+	boundary="_000_DM5PR12MB16103AE326FF504DA708F09284420DM5PR12MB1610namp_"
 
-This is a multi-part message in MIME format.
---------------FDB12EC997DDF0FFB0175A41
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+--_000_DM5PR12MB16103AE326FF504DA708F09284420DM5PR12MB1610namp_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Am 08.02.2017 um 16:53 schrieb Liu, Monk:
->
-> agreed, why not just use cpu to clear it ? is it because performance ?
->
+dGhhdCdzIGJlY2F1c2Ugc29tZSBjdXN0b21lciBtb2RpZmllZCBRRU1VIGFuZCB0cmFwIGVhY2gg
+VkYncyBtZW1vcnkgYWNjZXNzLCB3aGljaCBjb3N0IHRvbyBtdWNoIHRpbWUgaWYgdXNpbmcgQ1BV
+IGFjY2VzcyBGQiwNCg0KDQplbW1tLCBJIGd1ZXNzIHdlIGhhdmUgbm8gYmV0dGVyIGNob2ljZSBi
+eSBmYXIsICBkbyBhcyB5b3Ugc3VnZ2VzdGVkLA0KDQoNCnRvIGtpbGwgcmlzayB0aGUgbmVnYXRp
+dmUgZWZmZWN0IHRoYXQgd2UgbWF5IGhhdmUgbm8gY29uc29sZSBpZiBpYiB0ZXN0IGZhaWxlZCwg
+SSBzdWdnZXN0IHdlIGRvbid0IGJsb2NrIGRyaXZlciBwcm9jZWVkaW5nIGFmdGVyIGliIHRlc3Qg
+ZmFpbHVyZSBkZXRlY3RlZCAsIGRvYWJsZSA/DQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fDQrlj5Hku7bkuro6IENocmlzdGlhbiBLw7ZuaWcgPGRlYXRoc2ltcGxlQHZvZGFmb25l
+LmRlPg0K5Y+R6YCB5pe26Ze0OiAyMDE35bm0MuaciDjml6UgMjM6NTk6MTANCuaUtuS7tuS6ujog
+TGl1LCBNb25rOyBNaWNoZWwgRMOkbnplcg0K5oqE6YCBOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZw0K5Li76aKYOiBSZTog562U5aSNOiDnrZTlpI06IFtQQVRDSF0gZHJtL2FtZGdwdTpm
+aXggYW1kZ3B1X3NhX2JvX25ldyBlcnJvcg0KDQpBbSAwOC4wMi4yMDE3IHVtIDE2OjUzIHNjaHJp
+ZWIgTGl1LCBNb25rOg0KDQphZ3JlZWQsIHdoeSBub3QganVzdCB1c2UgY3B1IHRvIGNsZWFyIGl0
+ID8gaXMgaXQgYmVjYXVzZSBwZXJmb3JtYW5jZSA/DQoNClBpeGVsIERpbmcgcmVtb3ZlZCB0aGUg
+Q1BVIGNsZWFyIGJlY2F1c2UgIlRoZXJlJ3MgYSBmYWlsdXJlIGNhdXNlZCBieSB0aGlzIGlzIHRo
+YXQgaGFuZHNoYWtpbmcgZ2V0cyB0aW1lb3V0IG9mIFNSSU9WIHZpcnR1YWwgZnVuY3Rpb24uIg0K
+DQpJIGNhbiBvbmx5IGFzc3VtZSB0aGF0IHRoaXMgaXMgcmVhbGx5IGFkZGluZyB0byBtdWNoIGRl
+bGF5IGF0IGJvb3R1cC4NCg0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0K5Y+R
+5Lu25Lq6OiBNaWNoZWwgRMOkbnplciA8bWljaGVsQGRhZW56ZXIubmV0PjxtYWlsdG86bWljaGVs
+QGRhZW56ZXIubmV0Pg0K5Y+R6YCB5pe26Ze0OiAyMDE35bm0MuaciDjml6UgMjM6NTI6MDINCuaU
+tuS7tuS6ujogQ2hyaXN0aWFuIEvDtm5pZzsgTGl1LCBNb25rDQrmioTpgIE6IGFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnPG1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4N
+CuS4u+mimDogUmU6IOetlOWkjTogW1BBVENIXSBkcm0vYW1kZ3B1OmZpeCBhbWRncHVfc2FfYm9f
+bmV3IGVycm9yDQoNCk9uIDA5LzAyLzE3IDEyOjMwIEFNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3Rl
+Og0KPiBUaGUgSUIgdGVzdCBtYWtlIHRoZSBkZWNpc2lvbiBpZiB0aGUgaGFyZHdhcmUgaXMgd29y
+a2luZyBvciBub3QuDQo+DQo+IFNvIHRoZXkgc2hvdWxkIGJlIHRoZSBmaXJzdCBjb21tYW5kcyAo
+ZXhjZXB0IGZvciB0aGUgcmluZyB0ZXN0cykgd2Ugc2VuZA0KPiB0byB0aGUgaGFyZHdhcmUuDQo+
+DQo+IFdoZW4gd2UgYWxsb2NhdGUgdGhlIGZiIGJlZm9yZSB0aGUgdGVzdCB3ZSBzZW5kIHRoZSBj
+bGVhciBjb21tYW5kIHRvIHRoZQ0KPiBoYXJkd2FyZSB3aXRob3V0IGtub3dpbmcgaWYgdGhlIGhh
+cmR3YXJlIHJlYWxseSB3b3JrcyBvciBub3QuDQo+DQo+IE5vdCBhIGJpZyBpc3N1ZSwgYnV0IEkg
+dGhpbmsgdGhlIG9yZGVyIG1ha2VzIG1vcmUgc2Vuc2UgdGhhdCB3YXkuDQoNCkkganVzdCB3b25k
+ZXIgaWYgaXQncyB3b3J0aCBhbGwgdGhlIHRyb3VibGUsIGp1c3QgdG8gY2xlYXIgdGhlIGZiY29u
+DQpidWZmZXJbMF0sIGlmIHRoZSByZXN1bHQgaXMgdGhhdCB0aGUgY29uc29sZSBvdXRwdXQgaXMg
+ZGVsYXllZCwgcG9zc2libHkNCmluZGVmaW5pdGVseS4NCg0KQWN0dWFsbHkgdGhhdCBjaGFuZ2Ug
+aXMgcXVpdGUgYmVuZWZpY2lhbCBiZWNhdXNlIHRoZSBJQiB0ZXN0cyB3aGVyZSB1c3VhbGx5IHJl
+dmVhbGluZyBhbnkgcHJvYmxlbS4NCg0KTm90IDEwMCUgc3VyZSwgYnV0IHdoZW4gd2UgaW5pdGlh
+bGl6ZSB0aGUgZmIgbGF0ZXIgdGhhdCBtaWdodCBhY3R1YWxseSBhbGxvdyB1cyB0byBiZXR0ZXIg
+dHJhY2sgc3VjaCBwcm9ibGVtcyBkb3duLg0KDQpHb2luZyB0byBjaGVjayB0aGF0LA0KQ2hyaXN0
+aWFuLg0KDQoNClswXSBXZSBkb24ndCBoYXZlIGFueSBvdGhlciBoYXJkd2FyZSBhY2NlbGVyYXRp
+b24gZm9yIGZiY29uLCBzbyBpdHMgQk8NCmlzIG9ubHkgYWNjZXNzZWQgYnkgdGhlIENQVSBhbmQg
+ZGlzcGxheSBoYXJkd2FyZSBhZnRlciB0aGlzLCBhbmQgaGFzIHRvDQpiZSBwaW5uZWQgaW4gdGhl
+IENQVSB2aXNpYmxlIGFyZWEgb2YgVlJBTSBhdCBhbGwgdGltZXMgYW55d2F5Lg0KDQoNCi0tDQpF
+YXJ0aGxpbmcgTWljaGVsIETDpG56ZXIgICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAgaHR0
+cDovL3d3dy5hbWQuY29tDQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwg
+ICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXINCg0K
 
-Pixel Ding removed the CPU clear because "There's a failure caused by 
-this is that handshaking gets timeout of SRIOV virtual function."
+--_000_DM5PR12MB16103AE326FF504DA708F09284420DM5PR12MB1610namp_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-I can only assume that this is really adding to much delay at bootup.
+PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
+dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5IHRleHQ9IiMwMDAwMDAi
+IGJnY29sb3I9IiNGRkZGRkYiPg0KPHN0eWxlIHR5cGU9InRleHQvY3NzIiBzdHlsZT0iZGlzcGxh
+eTpub25lOyI+PCEtLSBQIHttYXJnaW4tdG9wOjA7bWFyZ2luLWJvdHRvbTowO30gLS0+PC9zdHls
+ZT4NCjxkaXYgaWQ9ImRpdnRhZ2RlZmF1bHR3cmFwcGVyIiBzdHlsZT0iZm9udC1zaXplOjEycHQ7
+Y29sb3I6IzAwMDAwMDtmb250LWZhbWlseTpDYWxpYnJpLEFyaWFsLEhlbHZldGljYSxzYW5zLXNl
+cmlmOyIgZGlyPSJsdHIiPg0KPHA+dGhhdCdzIGJlY2F1c2Ugc29tZSBjdXN0b21lciBtb2RpZmll
+ZCBRRU1VIGFuZCB0cmFwIGVhY2ggVkYncyBtZW1vcnkgYWNjZXNzLCB3aGljaCZuYnNwO2Nvc3Qg
+dG9vIG11Y2ggdGltZSBpZiB1c2luZyZuYnNwO0NQVSBhY2Nlc3MgRkIsPC9wPg0KPHA+PGJyPg0K
+PC9wPg0KPHA+ZW1tbSwgSSBndWVzcyB3ZSBoYXZlIG5vIGJldHRlciBjaG9pY2UgYnkgZmFyLCZu
+YnNwOyBkbyBhcyB5b3Ugc3VnZ2VzdGVkLCZuYnNwOyA8L3A+DQo8cD48YnI+DQo8L3A+DQo8cD50
+byBraWxsIHJpc2sgdGhlIG5lZ2F0aXZlIGVmZmVjdCB0aGF0IHdlIG1heSBoYXZlIG5vIGNvbnNv
+bGUgaWYgaWIgdGVzdCBmYWlsZWQsIEkgc3VnZ2VzdCB3ZSBkb24ndCBibG9jayBkcml2ZXIgcHJv
+Y2VlZGluZyBhZnRlciBpYiB0ZXN0IGZhaWx1cmUgZGV0ZWN0ZWQgLCBkb2FibGUgPzxicj4NCjwv
+cD4NCjwvZGl2Pg0KPGhyIHN0eWxlPSJkaXNwbGF5OmlubGluZS1ibG9jazt3aWR0aDo5OCUiIHRh
+YmluZGV4PSItMSI+DQo8ZGl2IGlkPSJkaXZScGx5RndkTXNnIiBkaXI9Imx0ciI+PGZvbnQgZmFj
+ZT0iQ2FsaWJyaSwgc2Fucy1zZXJpZiIgc3R5bGU9ImZvbnQtc2l6ZToxMXB0IiBjb2xvcj0iIzAw
+MDAwMCI+PGI+5Y+R5Lu25Lq6OjwvYj4gQ2hyaXN0aWFuIEvDtm5pZyAmbHQ7ZGVhdGhzaW1wbGVA
+dm9kYWZvbmUuZGUmZ3Q7PGJyPg0KPGI+5Y+R6YCB5pe26Ze0OjwvYj4gMjAxN+W5tDLmnIg45pel
+IDIzOjU5OjEwPGJyPg0KPGI+5pS25Lu25Lq6OjwvYj4gTGl1LCBNb25rOyBNaWNoZWwgRMOkbnpl
+cjxicj4NCjxiPuaKhOmAgTo8L2I+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPGJyPg0K
+PGI+5Li76aKYOjwvYj4gUmU6IOetlOWkjTog562U5aSNOiBbUEFUQ0hdIGRybS9hbWRncHU6Zml4
+IGFtZGdwdV9zYV9ib19uZXcgZXJyb3I8L2ZvbnQ+DQo8ZGl2PiZuYnNwOzwvZGl2Pg0KPC9kaXY+
+DQo8ZGl2Pg0KPGRpdiBjbGFzcz0ibW96LWNpdGUtcHJlZml4Ij5BbSAwOC4wMi4yMDE3IHVtIDE2
+OjUzIHNjaHJpZWIgTGl1LCBNb25rOjxicj4NCjwvZGl2Pg0KPGJsb2NrcXVvdGUgY2l0ZT0ibWlk
+OkRNNVBSMTJNQjE2MTBEOUE3QTZEMzUzOTAxOTNFRDU3RDg0NDIwQERNNVBSMTJNQjE2MTAubmFt
+cHJkMTIucHJvZC5vdXRsb29rLmNvbSIgdHlwZT0iY2l0ZSI+DQo8bWV0YSBuYW1lPSJHZW5lcmF0
+b3IiIGNvbnRlbnQ9Ik1pY3Jvc29mdCBFeGNoYW5nZSBTZXJ2ZXIiPg0KPCEtLSBjb252ZXJ0ZWQg
+ZnJvbSB0ZXh0IC0tPjxzdHlsZT48IS0tIC5FbWFpbFF1b3RlIHsgbWFyZ2luLWxlZnQ6IDFwdDsg
+cGFkZGluZy1sZWZ0OiA0cHQ7IGJvcmRlci1sZWZ0OiAjODAwMDAwIDJweCBzb2xpZDsgfSAtLT48
+L3N0eWxlPg0KPG1ldGEgY29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PVVURi04Ij4NCjxzdHls
+ZSB0eXBlPSJ0ZXh0L2NzcyIgc3R5bGU9IiI+DQo8IS0tDQpwDQoJe21hcmdpbi10b3A6MDsNCglt
+YXJnaW4tYm90dG9tOjB9DQotLT4NCjwvc3R5bGU+DQo8ZGl2IGRpcj0ibHRyIj4NCjxkaXYgaWQ9
+InhfZGl2dGFnZGVmYXVsdHdyYXBwZXIiIGRpcj0ibHRyIiBzdHlsZT0iZm9udC1zaXplOjEycHQ7
+IGNvbG9yOiMwMDAwMDA7DQogICAgICAgICAgZm9udC1mYW1pbHk6Q2FsaWJyaSxBcmlhbCxIZWx2
+ZXRpY2Esc2Fucy1zZXJpZiI+DQo8cD5hZ3JlZWQsIHdoeSBub3QganVzdCB1c2UgY3B1IHRvIGNs
+ZWFyIGl0ID8gaXMgaXQgYmVjYXVzZSBwZXJmb3JtYW5jZSA/PGJyPg0KPC9wPg0KPC9kaXY+DQo8
+L2Rpdj4NCjwvYmxvY2txdW90ZT4NCjxicj4NClBpeGVsIERpbmcgcmVtb3ZlZCB0aGUgQ1BVIGNs
+ZWFyIGJlY2F1c2UgJnF1b3Q7VGhlcmUncyBhIGZhaWx1cmUgY2F1c2VkIGJ5IHRoaXMgaXMgdGhh
+dCBoYW5kc2hha2luZyBnZXRzIHRpbWVvdXQgb2YgU1JJT1YgdmlydHVhbCBmdW5jdGlvbi4mcXVv
+dDs8YnI+DQo8YnI+DQpJIGNhbiBvbmx5IGFzc3VtZSB0aGF0IHRoaXMgaXMgcmVhbGx5IGFkZGlu
+ZyB0byBtdWNoIGRlbGF5IGF0IGJvb3R1cC48YnI+DQo8YnI+DQo8YmxvY2txdW90ZSBjaXRlPSJt
+aWQ6RE01UFIxMk1CMTYxMEQ5QTdBNkQzNTM5MDE5M0VENTdEODQ0MjBARE01UFIxMk1CMTYxMC5u
+YW1wcmQxMi5wcm9kLm91dGxvb2suY29tIiB0eXBlPSJjaXRlIj4NCjxkaXYgZGlyPSJsdHIiPg0K
+PGRpdiBpZD0ieF9kaXZ0YWdkZWZhdWx0d3JhcHBlciIgZGlyPSJsdHIiIHN0eWxlPSJmb250LXNp
+emU6MTJwdDsgY29sb3I6IzAwMDAwMDsNCiAgICAgICAgICBmb250LWZhbWlseTpDYWxpYnJpLEFy
+aWFsLEhlbHZldGljYSxzYW5zLXNlcmlmIj4NCjxwPjwvcD4NCjwvZGl2Pg0KPGhyIHRhYmluZGV4
+PSItMSIgc3R5bGU9ImRpc3BsYXk6aW5saW5lLWJsb2NrOyB3aWR0aDo5OCUiPg0KPGRpdiBpZD0i
+eF9kaXZScGx5RndkTXNnIiBkaXI9Imx0ciI+PGZvbnQgc3R5bGU9ImZvbnQtc2l6ZToxMXB0IiBj
+b2xvcj0iIzAwMDAwMCIgZmFjZT0iQ2FsaWJyaSwgc2Fucy1zZXJpZiI+PGI+5Y+R5Lu25Lq6Ojwv
+Yj4gTWljaGVsIETDpG56ZXINCjxhIGNsYXNzPSJtb3otdHh0LWxpbmstcmZjMjM5NkUiIGhyZWY9
+Im1haWx0bzptaWNoZWxAZGFlbnplci5uZXQiPiZsdDttaWNoZWxAZGFlbnplci5uZXQmZ3Q7PC9h
+Pjxicj4NCjxiPuWPkemAgeaXtumXtDo8L2I+IDIwMTflubQy5pyIOOaXpSAyMzo1MjowMjxicj4N
+CjxiPuaUtuS7tuS6ujo8L2I+IENocmlzdGlhbiBLw7ZuaWc7IExpdSwgTW9uazxicj4NCjxiPuaK
+hOmAgTo8L2I+IDxhIGNsYXNzPSJtb3otdHh0LWxpbmstYWJicmV2aWF0ZWQiIGhyZWY9Im1haWx0
+bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyI+DQphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZzwvYT48YnI+DQo8Yj7kuLvpopg6PC9iPiBSZTog562U5aSNOiBbUEFUQ0hdIGRybS9h
+bWRncHU6Zml4IGFtZGdwdV9zYV9ib19uZXcgZXJyb3I8L2ZvbnQ+DQo8ZGl2PiZuYnNwOzwvZGl2
+Pg0KPC9kaXY+DQo8L2Rpdj4NCjxmb250IHNpemU9IjIiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6
+MTBwdDsiPg0KPGRpdiBjbGFzcz0iUGxhaW5UZXh0Ij5PbiAwOS8wMi8xNyAxMjozMCBBTSwgQ2hy
+aXN0aWFuIEvDtm5pZyB3cm90ZTo8YnI+DQomZ3Q7IFRoZSBJQiB0ZXN0IG1ha2UgdGhlIGRlY2lz
+aW9uIGlmIHRoZSBoYXJkd2FyZSBpcyB3b3JraW5nIG9yIG5vdC48YnI+DQomZ3Q7IDxicj4NCiZn
+dDsgU28gdGhleSBzaG91bGQgYmUgdGhlIGZpcnN0IGNvbW1hbmRzIChleGNlcHQgZm9yIHRoZSBy
+aW5nIHRlc3RzKSB3ZSBzZW5kPGJyPg0KJmd0OyB0byB0aGUgaGFyZHdhcmUuPGJyPg0KJmd0OyA8
+YnI+DQomZ3Q7IFdoZW4gd2UgYWxsb2NhdGUgdGhlIGZiIGJlZm9yZSB0aGUgdGVzdCB3ZSBzZW5k
+IHRoZSBjbGVhciBjb21tYW5kIHRvIHRoZTxicj4NCiZndDsgaGFyZHdhcmUgd2l0aG91dCBrbm93
+aW5nIGlmIHRoZSBoYXJkd2FyZSByZWFsbHkgd29ya3Mgb3Igbm90Ljxicj4NCiZndDsgPGJyPg0K
+Jmd0OyBOb3QgYSBiaWcgaXNzdWUsIGJ1dCBJIHRoaW5rIHRoZSBvcmRlciBtYWtlcyBtb3JlIHNl
+bnNlIHRoYXQgd2F5Ljxicj4NCjxicj4NCkkganVzdCB3b25kZXIgaWYgaXQncyB3b3J0aCBhbGwg
+dGhlIHRyb3VibGUsIGp1c3QgdG8gY2xlYXIgdGhlIGZiY29uPGJyPg0KYnVmZmVyWzBdLCBpZiB0
+aGUgcmVzdWx0IGlzIHRoYXQgdGhlIGNvbnNvbGUgb3V0cHV0IGlzIGRlbGF5ZWQsIHBvc3NpYmx5
+PGJyPg0KaW5kZWZpbml0ZWx5Ljxicj4NCjwvZGl2Pg0KPC9zcGFuPjwvZm9udD48L2Jsb2NrcXVv
+dGU+DQo8YnI+DQpBY3R1YWxseSB0aGF0IGNoYW5nZSBpcyBxdWl0ZSBiZW5lZmljaWFsIGJlY2F1
+c2UgdGhlIElCIHRlc3RzIHdoZXJlIHVzdWFsbHkgcmV2ZWFsaW5nIGFueSBwcm9ibGVtLjxicj4N
+Cjxicj4NCk5vdCAxMDAlIHN1cmUsIGJ1dCB3aGVuIHdlIGluaXRpYWxpemUgdGhlIGZiIGxhdGVy
+IHRoYXQgbWlnaHQgYWN0dWFsbHkgYWxsb3cgdXMgdG8gYmV0dGVyIHRyYWNrIHN1Y2ggcHJvYmxl
+bXMgZG93bi48YnI+DQo8YnI+DQpHb2luZyB0byBjaGVjayB0aGF0LDxicj4NCkNocmlzdGlhbi48
+YnI+DQo8YnI+DQo8YmxvY2txdW90ZSBjaXRlPSJtaWQ6RE01UFIxMk1CMTYxMEQ5QTdBNkQzNTM5
+MDE5M0VENTdEODQ0MjBARE01UFIxMk1CMTYxMC5uYW1wcmQxMi5wcm9kLm91dGxvb2suY29tIiB0
+eXBlPSJjaXRlIj4NCjxmb250IHNpemU9IjIiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTBwdDsi
+Pg0KPGRpdiBjbGFzcz0iUGxhaW5UZXh0Ij48YnI+DQpbMF0gV2UgZG9uJ3QgaGF2ZSBhbnkgb3Ro
+ZXIgaGFyZHdhcmUgYWNjZWxlcmF0aW9uIGZvciBmYmNvbiwgc28gaXRzIEJPPGJyPg0KaXMgb25s
+eSBhY2Nlc3NlZCBieSB0aGUgQ1BVIGFuZCBkaXNwbGF5IGhhcmR3YXJlIGFmdGVyIHRoaXMsIGFu
+ZCBoYXMgdG88YnI+DQpiZSBwaW5uZWQgaW4gdGhlIENQVSB2aXNpYmxlIGFyZWEgb2YgVlJBTSBh
+dCBhbGwgdGltZXMgYW55d2F5Ljxicj4NCjxicj4NCjxicj4NCi0tIDxicj4NCkVhcnRobGluZyBN
+aWNoZWwgRMOkbnplciZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB8Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7IDxhIG1vei1kby1ub3Qtc2VuZD0idHJ1ZSIgaHJlZj0iaHR0cDovL3d3dy5h
+bWQuY29tIj4NCmh0dHA6Ly93d3cuYW1kLmNvbTwvYT48YnI+DQpMaWJyZSBzb2Z0d2FyZSBlbnRo
+dXNpYXN0Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHwmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgTWVzYSBhbmQgWCBkZXZlbG9w
+ZXI8YnI+DQo8L2Rpdj4NCjwvc3Bhbj48L2ZvbnQ+PC9ibG9ja3F1b3RlPg0KPHA+PGJyPg0KPC9w
+Pg0KPC9kaXY+DQo8L2JvZHk+DQo8L2h0bWw+DQo=
 
-> ------------------------------------------------------------------------
-> *发件人:* Michel Dänzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-> *发送时间:* 2017年2月8日 23:52:02
-> *收件人:* Christian König; Liu, Monk
-> *抄送:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> *主题:* Re: 答复: [PATCH] drm/amdgpu:fix amdgpu_sa_bo_new error
-> On 09/02/17 12:30 AM, Christian König wrote:
-> > The IB test make the decision if the hardware is working or not.
-> >
-> > So they should be the first commands (except for the ring tests) we send
-> > to the hardware.
-> >
-> > When we allocate the fb before the test we send the clear command to the
-> > hardware without knowing if the hardware really works or not.
-> >
-> > Not a big issue, but I think the order makes more sense that way.
->
-> I just wonder if it's worth all the trouble, just to clear the fbcon
-> buffer[0], if the result is that the console output is delayed, possibly
-> indefinitely.
+--_000_DM5PR12MB16103AE326FF504DA708F09284420DM5PR12MB1610namp_--
 
-Actually that change is quite beneficial because the IB tests where 
-usually revealing any problem.
-
-Not 100% sure, but when we initialize the fb later that might actually 
-allow us to better track such problems down.
-
-Going to check that,
-Christian.
-
->
-> [0] We don't have any other hardware acceleration for fbcon, so its BO
-> is only accessed by the CPU and display hardware after this, and has to
-> be pinned in the CPU visible area of VRAM at all times anyway.
->
->
-> -- 
-> Earthling Michel Dänzer               | http://www.amd.com 
-> <http://www.amd.com>
-> Libre software enthusiast             |             Mesa and X developer
-
-
-
---------------FDB12EC997DDF0FFB0175A41
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Am 08.02.2017 um 16:53 schrieb Liu,
-      Monk:<br>
-    </div>
-    <blockquote
-cite="mid:DM5PR12MB1610D9A7A6D35390193ED57D84420-2J9CzHegvk++jCVTvoAFKAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org"
-      type="cite">
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <meta name="Generator" content="Microsoft Exchange Server">
-      <!-- converted from text -->
-      <style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left: #800000 2px solid; } --></style>
-      <meta content="text/html; charset=UTF-8">
-      <style type="text/css" style="">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-      <div dir="ltr">
-        <div id="x_divtagdefaultwrapper" dir="ltr"
-          style="font-size:12pt; color:#000000;
-          font-family:Calibri,Arial,Helvetica,sans-serif">
-          <p>agreed, why not just use cpu to clear it ? is it because
-            performance ?<br>
-          </p>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-    Pixel Ding removed the CPU clear because "There's a failure caused
-    by this is that handshaking gets timeout of SRIOV virtual function."<br>
-    <br>
-    I can only assume that this is really adding to much delay at
-    bootup.<br>
-    <br>
-    <blockquote
-cite="mid:DM5PR12MB1610D9A7A6D35390193ED57D84420-2J9CzHegvk++jCVTvoAFKAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org"
-      type="cite">
-      <div dir="ltr">
-        <div id="x_divtagdefaultwrapper" dir="ltr"
-          style="font-size:12pt; color:#000000;
-          font-family:Calibri,Arial,Helvetica,sans-serif">
-          <p>
-          </p>
-        </div>
-        <hr tabindex="-1" style="display:inline-block; width:98%">
-        <div id="x_divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
-            color="#000000" face="Calibri, sans-serif"><b>发件人:</b>
-            Michel Dänzer <a class="moz-txt-link-rfc2396E" href="mailto:michel-otUistvHUpPR7s880joybQ@public.gmane.org">&lt;michel-otUistvHUpPR7s880joybQ@public.gmane.org&gt;</a><br>
-            <b>发送时间:</b> 2017年2月8日 23:52:02<br>
-            <b>收件人:</b> Christian König; Liu, Monk<br>
-            <b>抄送:</b> <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-            <b>主题:</b> Re: 答复: [PATCH] drm/amdgpu:fix amdgpu_sa_bo_new
-            error</font>
-          <div> </div>
-        </div>
-      </div>
-      <font size="2"><span style="font-size:10pt;">
-          <div class="PlainText">On 09/02/17 12:30 AM, Christian König
-            wrote:<br>
-            &gt; The IB test make the decision if the hardware is
-            working or not.<br>
-            &gt; <br>
-            &gt; So they should be the first commands (except for the
-            ring tests) we send<br>
-            &gt; to the hardware.<br>
-            &gt; <br>
-            &gt; When we allocate the fb before the test we send the
-            clear command to the<br>
-            &gt; hardware without knowing if the hardware really works
-            or not.<br>
-            &gt; <br>
-            &gt; Not a big issue, but I think the order makes more sense
-            that way.<br>
-            <br>
-            I just wonder if it's worth all the trouble, just to clear
-            the fbcon<br>
-            buffer[0], if the result is that the console output is
-            delayed, possibly<br>
-            indefinitely.<br>
-          </div>
-        </span></font></blockquote>
-    <br>
-    Actually that change is quite beneficial because the IB tests where
-    usually revealing any problem.<br>
-    <br>
-    Not 100% sure, but when we initialize the fb later that might
-    actually allow us to better track such problems down.<br>
-    <br>
-    Going to check that,<br>
-    Christian.<br>
-    <br>
-    <blockquote
-cite="mid:DM5PR12MB1610D9A7A6D35390193ED57D84420-2J9CzHegvk++jCVTvoAFKAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org"
-      type="cite"><font size="2"><span style="font-size:10pt;">
-          <div class="PlainText">
-            <br>
-            [0] We don't have any other hardware acceleration for fbcon,
-            so its BO<br>
-            is only accessed by the CPU and display hardware after this,
-            and has to<br>
-            be pinned in the CPU visible area of VRAM at all times
-            anyway.<br>
-            <br>
-            <br>
-            -- <br>
-            Earthling Michel Dänzer               |               <a
-              moz-do-not-send="true" href="http://www.amd.com">
-              http://www.amd.com</a><br>
-            Libre software enthusiast             |             Mesa and
-            X developer<br>
-          </div>
-        </span></font>
-    </blockquote>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------FDB12EC997DDF0FFB0175A41--
-
---===============0414083546==
+--===============1340626626==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -230,4 +196,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0414083546==--
+--===============1340626626==--
