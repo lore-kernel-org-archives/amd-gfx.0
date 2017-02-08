@@ -1,15 +1,10 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 02/11] drm/amdgpu:impl RREG32 no kiq version
-Date: Wed, 8 Feb 2017 16:37:08 +0000
-Message-ID: <BN6PR12MB16521D49B395DD6516791C66F7420@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <1486546019-31045-1-git-send-email-Monk.Liu@amd.com>
- <1486546019-31045-2-git-send-email-Monk.Liu@amd.com>
+From: Jeremy Newton <alexjnewt-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Staging kernel failing to build on 32bit
+Date: Wed, 8 Feb 2017 11:53:17 -0500
+Message-ID: <CAHOSEu8+cAB3O=uT3vA_6N=3f7kRynXTE3DHAKwSh21ZLLJGWA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0854191384=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1486546019-31045-2-git-send-email-Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,96 +15,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
-LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIE1vbmsg
-TGl1DQo+IFNlbnQ6IFdlZG5lc2RheSwgRmVicnVhcnkgMDgsIDIwMTcgNDoyNyBBTQ0KPiBUbzog
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gQ2M6IExpdSwgTW9uaw0KPiBTdWJqZWN0
-OiBbUEFUQ0ggMDIvMTFdIGRybS9hbWRncHU6aW1wbCBSUkVHMzIgbm8ga2lxIHZlcnNpb24NCj4g
-DQo+IHNvbWUgcmVnaXN0ZXJzIGFyZSBQRiAmIFZGIGNvcHksIGFuZCB3ZSBjYW4gc2FmZWx5IHVz
-ZQ0KPiBtbWlvIG1ldGhvZCB0byBhY2Nlc3MgdGhlbS4NCj4gDQo+IGFuZCBzb21ldGltZSB3ZSBh
-cmUgZm9yYmlkIHRvIHVzZSBraXEgdG8gYWNjZXNzIHJlZ2lzdGVycw0KPiBmb3IgZXhhbXBsZSBp
-biBJTlRSIGNvbnRleHQuDQo+IA0KPiB3ZSBuZWVkIGEgTUFDUk8gdGhhdCBhbHdheXMgZGlzYWJs
-ZSBLSVEgZm9yIHJlZ3MgYWNjZXNzaW5nDQo+IA0KPiBDaGFuZ2UtSWQ6IEllNmRjMzIzZGM4Njgy
-OWE0YTZjZWI3MDczYzI2OWIxMDZiNTM0YzRhDQo+IFNpZ25lZC1vZmYtYnk6IE1vbmsgTGl1IDxN
-b25rLkxpdUBhbWQuY29tPg0KDQpSZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIu
-ZGV1Y2hlckBhbWQuY29tPg0KDQo+IC0tLQ0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1LmggICAgICAgIHwgMjEgKysrKysrKysrKysrKystLS0tLS0tDQo+ICBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCAxMiArKysrKystLS0tLS0NCj4gIDIg
-ZmlsZXMgY2hhbmdlZCwgMjAgaW5zZXJ0aW9ucygrKSwgMTMgZGVsZXRpb25zKC0pDQo+IA0KPiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgNCj4gYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaA0KPiBpbmRleCA0MDJhODk1Li43NGJmZmNh
-OCAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgNCj4g
-KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgNCj4gQEAgLTE1MTAsOSAr
-MTUxMCw5IEBAIHZvaWQgYW1kZ3B1X2RldmljZV9maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlDQo+
-ICphZGV2KTsNCj4gIGludCBhbWRncHVfZ3B1X3dhaXRfZm9yX2lkbGUoc3RydWN0IGFtZGdwdV9k
-ZXZpY2UgKmFkZXYpOw0KPiANCj4gIHVpbnQzMl90IGFtZGdwdV9tbV9ycmVnKHN0cnVjdCBhbWRn
-cHVfZGV2aWNlICphZGV2LCB1aW50MzJfdCByZWcsDQo+IC0JCQlib29sIGFsd2F5c19pbmRpcmVj
-dCk7DQo+ICsJCQl1aW50MzJfdCBhY2NfZmxhZ3MpOw0KPiAgdm9pZCBhbWRncHVfbW1fd3JlZyhz
-dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdWludDMyX3QgcmVnLA0KPiB1aW50MzJfdCB2LA0K
-PiAtCQkgICAgYm9vbCBhbHdheXNfaW5kaXJlY3QpOw0KPiArCQkgICAgdWludDMyX3QgYWNjX2Zs
-YWdzKTsNCj4gIHUzMiBhbWRncHVfaW9fcnJlZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwg
-dTMyIHJlZyk7DQo+ICB2b2lkIGFtZGdwdV9pb193cmVnKHN0cnVjdCBhbWRncHVfZGV2aWNlICph
-ZGV2LCB1MzIgcmVnLCB1MzIgdik7DQo+IA0KPiBAQCAtMTUyMywxMSArMTUyMywxOCBAQCBib29s
-IGFtZGdwdV9kZXZpY2VfaGFzX2RjX3N1cHBvcnQoc3RydWN0DQo+IGFtZGdwdV9kZXZpY2UgKmFk
-ZXYpOw0KPiAgLyoNCj4gICAqIFJlZ2lzdGVycyByZWFkICYgd3JpdGUgZnVuY3Rpb25zLg0KPiAg
-ICovDQo+IC0jZGVmaW5lIFJSRUczMihyZWcpIGFtZGdwdV9tbV9ycmVnKGFkZXYsIChyZWcpLCBm
-YWxzZSkNCj4gLSNkZWZpbmUgUlJFRzMyX0lEWChyZWcpIGFtZGdwdV9tbV9ycmVnKGFkZXYsIChy
-ZWcpLCB0cnVlKQ0KPiAtI2RlZmluZSBEUkVHMzIocmVnKSBwcmludGsoS0VSTl9JTkZPICJSRUdJ
-U1RFUjogIiAjcmVnICIgOiAweCUwOFhcbiIsDQo+IGFtZGdwdV9tbV9ycmVnKGFkZXYsIChyZWcp
-LCBmYWxzZSkpDQo+IC0jZGVmaW5lIFdSRUczMihyZWcsIHYpIGFtZGdwdV9tbV93cmVnKGFkZXYs
-IChyZWcpLCAodiksIGZhbHNlKQ0KPiAtI2RlZmluZSBXUkVHMzJfSURYKHJlZywgdikgYW1kZ3B1
-X21tX3dyZWcoYWRldiwgKHJlZyksICh2KSwgdHJ1ZSkNCj4gKw0KPiArI2RlZmluZSBBTURHUFVf
-UkVHU19JRFggICAgICAgKDE8PDApDQo+ICsjZGVmaW5lIEFNREdQVV9SRUdTX05PX0tJUSAgICAo
-MTw8MSkNCj4gKw0KPiArI2RlZmluZSBSUkVHMzJfTk9fS0lRKHJlZykgYW1kZ3B1X21tX3JyZWco
-YWRldiwgKHJlZyksDQo+IEFNREdQVV9SRUdTX05PX0tJUSkNCj4gKyNkZWZpbmUgV1JFRzMyX05P
-X0tJUShyZWcsIHYpIGFtZGdwdV9tbV93cmVnKGFkZXYsIChyZWcpLCAodiksDQo+IEFNREdQVV9S
-RUdTX05PX0tJUSkNCj4gKw0KPiArI2RlZmluZSBSUkVHMzIocmVnKSBhbWRncHVfbW1fcnJlZyhh
-ZGV2LCAocmVnKSwgMCkNCj4gKyNkZWZpbmUgUlJFRzMyX0lEWChyZWcpIGFtZGdwdV9tbV9ycmVn
-KGFkZXYsIChyZWcpLA0KPiBBTURHUFVfUkVHU19JRFgpDQo+ICsjZGVmaW5lIERSRUczMihyZWcp
-IHByaW50ayhLRVJOX0lORk8gIlJFR0lTVEVSOiAiICNyZWcgIiA6IDB4JTA4WFxuIiwNCj4gYW1k
-Z3B1X21tX3JyZWcoYWRldiwgKHJlZyksIDApKQ0KPiArI2RlZmluZSBXUkVHMzIocmVnLCB2KSBh
-bWRncHVfbW1fd3JlZyhhZGV2LCAocmVnKSwgKHYpLCAwKQ0KPiArI2RlZmluZSBXUkVHMzJfSURY
-KHJlZywgdikgYW1kZ3B1X21tX3dyZWcoYWRldiwgKHJlZyksICh2KSwNCj4gQU1ER1BVX1JFR1Nf
-SURYKQ0KPiAgI2RlZmluZSBSRUdfU0VUKEZJRUxELCB2KSAoKCh2KSA8PCBGSUVMRCMjX1NISUZU
-KSAmIEZJRUxEIyNfTUFTSykNCj4gICNkZWZpbmUgUkVHX0dFVChGSUVMRCwgdikgKCgodikgPDwg
-RklFTEQjI19TSElGVCkgJiBGSUVMRCMjX01BU0spDQo+ICAjZGVmaW5lIFJSRUczMl9QQ0lFKHJl
-ZykgYWRldi0+cGNpZV9ycmVnKGFkZXYsIChyZWcpKQ0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jDQo+IGluZGV4IDM1MzQwODkuLjUyMTVmYzUgMTAwNjQ0
-DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYw0KPiAr
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4gQEAgLTkx
-LDE2ICs5MSwxNiBAQCBib29sIGFtZGdwdV9kZXZpY2VfaXNfcHgoc3RydWN0IGRybV9kZXZpY2Ug
-KmRldikNCj4gICAqIE1NSU8gcmVnaXN0ZXIgYWNjZXNzIGhlbHBlciBmdW5jdGlvbnMuDQo+ICAg
-Ki8NCj4gIHVpbnQzMl90IGFtZGdwdV9tbV9ycmVnKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-LCB1aW50MzJfdCByZWcsDQo+IC0JCQlib29sIGFsd2F5c19pbmRpcmVjdCkNCj4gKwkJCXVpbnQz
-Ml90IGFjY19mbGFncykNCj4gIHsNCj4gIAl1aW50MzJfdCByZXQ7DQo+IA0KPiAtCWlmIChhbWRn
-cHVfc3Jpb3ZfcnVudGltZShhZGV2KSkgew0KPiArCWlmICghKGFjY19mbGFncyAmIEFNREdQVV9S
-RUdTX05PX0tJUSkgJiYNCj4gYW1kZ3B1X3NyaW92X3J1bnRpbWUoYWRldikpIHsNCj4gIAkJQlVH
-X09OKGluX2ludGVycnVwdCgpKTsNCj4gIAkJcmV0dXJuIGFtZGdwdV92aXJ0X2tpcV9ycmVnKGFk
-ZXYsIHJlZyk7DQo+ICAJfQ0KPiANCj4gLQlpZiAoKHJlZyAqIDQpIDwgYWRldi0+cm1taW9fc2l6
-ZSAmJiAhYWx3YXlzX2luZGlyZWN0KQ0KPiArCWlmICgocmVnICogNCkgPCBhZGV2LT5ybW1pb19z
-aXplICYmICEoYWNjX2ZsYWdzICYNCj4gQU1ER1BVX1JFR1NfSURYKSkNCj4gIAkJcmV0ID0gcmVh
-ZGwoKCh2b2lkIF9faW9tZW0gKilhZGV2LT5ybW1pbykgKyAocmVnICogNCkpOw0KPiAgCWVsc2Ug
-ew0KPiAgCQl1bnNpZ25lZCBsb25nIGZsYWdzOw0KPiBAQCAtMTE1LDE2ICsxMTUsMTYgQEAgdWlu
-dDMyX3QgYW1kZ3B1X21tX3JyZWcoc3RydWN0IGFtZGdwdV9kZXZpY2UNCj4gKmFkZXYsIHVpbnQz
-Ml90IHJlZywNCj4gIH0NCj4gDQo+ICB2b2lkIGFtZGdwdV9tbV93cmVnKHN0cnVjdCBhbWRncHVf
-ZGV2aWNlICphZGV2LCB1aW50MzJfdCByZWcsDQo+IHVpbnQzMl90IHYsDQo+IC0JCSAgICBib29s
-IGFsd2F5c19pbmRpcmVjdCkNCj4gKwkJICAgIHVpbnQzMl90IGFjY19mbGFncykNCj4gIHsNCj4g
-IAl0cmFjZV9hbWRncHVfbW1fd3JlZyhhZGV2LT5wZGV2LT5kZXZpY2UsIHJlZywgdik7DQo+IA0K
-PiAtCWlmIChhbWRncHVfc3Jpb3ZfcnVudGltZShhZGV2KSkgew0KPiArCWlmICghKGFjY19mbGFn
-cyAmIEFNREdQVV9SRUdTX05PX0tJUSkgJiYNCj4gYW1kZ3B1X3NyaW92X3J1bnRpbWUoYWRldikp
-IHsNCj4gIAkJQlVHX09OKGluX2ludGVycnVwdCgpKTsNCj4gIAkJcmV0dXJuIGFtZGdwdV92aXJ0
-X2tpcV93cmVnKGFkZXYsIHJlZywgdik7DQo+ICAJfQ0KPiANCj4gLQlpZiAoKHJlZyAqIDQpIDwg
-YWRldi0+cm1taW9fc2l6ZSAmJiAhYWx3YXlzX2luZGlyZWN0KQ0KPiArCWlmICgocmVnICogNCkg
-PCBhZGV2LT5ybW1pb19zaXplICYmICEoYWNjX2ZsYWdzICYNCj4gQU1ER1BVX1JFR1NfSURYKSkN
-Cj4gIAkJd3JpdGVsKHYsICgodm9pZCBfX2lvbWVtICopYWRldi0+cm1taW8pICsgKHJlZyAqIDQp
-KTsNCj4gIAllbHNlIHsNCj4gIAkJdW5zaWduZWQgbG9uZyBmbGFnczsNCj4gLS0NCj4gMi43LjQN
-Cj4gDQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+
-IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+
-IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0K
+--===============0854191384==
+Content-Type: multipart/alternative; boundary=f403045dd960898a74054807b3b7
+
+--f403045dd960898a74054807b3b7
+Content-Type: text/plain; charset=UTF-8
+
+Hi,
+
+Heads up to whoever is using or developing for the following kernel branch:
+
+https://cgit.freedesktop.org/~agd5f/linux/tree/?h=amd-staging-4.9
+
+It seems like a recent commit has caused 32bit builds to fail. I haven't
+been able to look into it myself or do a bisect, but it seems like it was
+something committed between Jan 25th (d0c15b8) and Feb 2nd (99eb22d) caused
+it.
+
+Here's the error output:
+
+ERROR: "__udivdi3" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
+scripts/Makefile.modpost:91: recipe for target '__modpost' failed
+Makefile:1200: recipe for target 'modules' failed
+make[1]: *** [__modpost] Error 1
+make: *** [modules] Error 2
+
+After a quick glance, it seems similar to a previous kernel commit:
+https://cgit.freedesktop.org/~agd5f/linux/commit/?id=1f827f5138292a6124430cdd37bcb68f30c05467
+<https://cgit.freedesktop.org/~agd5f/linux/commit/?h=amd-staging-4.9&id=1f827f5138292a6124430cdd37bcb68f30c05467>
+
+just a shot in the dark, but it could be caused by this commit:
+https://cgit.freedesktop.org/~agd5f/linux/commit/?h=amd-staging-4.9&id=7adb2bbcdf7259533c5afc95c4a788b59bb59306
+
+As it's the only one I see with 64 bit division in it. As I said, shot in
+the dark here.
+
+Thanks!
+
+--f403045dd960898a74054807b3b7
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi,<div><br></div><div>Heads up to whoever is using or dev=
+eloping for the following kernel branch:<br><br><a href=3D"https://cgit.fre=
+edesktop.org/~agd5f/linux/tree/?h=3Damd-staging-4.9">https://cgit.freedeskt=
+op.org/~agd5f/linux/tree/?h=3Damd-staging-4.9</a><br><br>It seems like a re=
+cent commit has caused 32bit builds to fail. I haven&#39;t been able to loo=
+k into it myself or do a bisect, but it seems like it was something committ=
+ed between Jan 25th (d0c15b8) and Feb 2nd (99eb22d) caused it.</div><div><b=
+r>Here&#39;s the error output:</div><div><pre style=3D"color:rgb(0,0,0);wor=
+d-wrap:break-word;white-space:pre-wrap">ERROR: &quot;__udivdi3&quot; [drive=
+rs/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
+scripts/Makefile.modpost:91: recipe for target &#39;__modpost&#39; failed
+Makefile:1200: recipe for target &#39;modules&#39; failed
+make[1]: *** [__modpost] Error 1
+make: *** [modules] Error 2</pre></div><div>After a quick glance, it seems =
+similar to a previous kernel commit:=C2=A0<a href=3D"https://cgit.freedeskt=
+op.org/~agd5f/linux/commit/?h=3Damd-staging-4.9&amp;id=3D1f827f5138292a6124=
+430cdd37bcb68f30c05467">https://cgit.freedesktop.org/~agd5f/linux/commit/?i=
+d=3D1f827f5138292a6124430cdd37bcb68f30c05467</a><br><br>just a shot in the =
+dark, but it could be caused by this commit:</div><div><a href=3D"https://c=
+git.freedesktop.org/~agd5f/linux/commit/?h=3Damd-staging-4.9&amp;id=3D7adb2=
+bbcdf7259533c5afc95c4a788b59bb59306">https://cgit.freedesktop.org/~agd5f/li=
+nux/commit/?h=3Damd-staging-4.9&amp;id=3D7adb2bbcdf7259533c5afc95c4a788b59b=
+b59306</a></div><div><br></div><div>As it&#39;s the only one I see with 64 =
+bit division in it. As I said, shot in the dark here.</div><div><br></div><=
+div>Thanks!</div></div>
+
+--f403045dd960898a74054807b3b7--
+
+--===============0854191384==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0854191384==--
