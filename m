@@ -1,16 +1,19 @@
-From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: =?utf-8?B?562U5aSNOiBbUEFUQ0hdIGRybS9hbWRncHU6Zml4IGFtZGdwdV9zYV9ib19u?=
- =?utf-8?Q?ew_error?=
-Date: Wed, 8 Feb 2017 15:21:11 +0000
-Message-ID: <DM5PR12MB161067C1383FC5829F4FCD8984420@DM5PR12MB1610.namprd12.prod.outlook.com>
-References: <1486546917-1464-1-git-send-email-Monk.Liu@amd.com>
- <4ac7f30d-fde6-b1e3-e5de-fc518b180548@vodafone.de>,
- <a2254528-29ca-44bb-8cb9-09fd428af241@daenzer.net>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: =?UTF-8?B?UmU6IOetlOWkjTog562U5aSNOiBTUEFNIC8v562U5aSNOiBbUEFUQ0gg?=
+ =?UTF-8?Q?09/20]_drm/amdgpu:implement_SRIOV_gpu=5freset?=
+Date: Wed, 8 Feb 2017 16:27:09 +0100
+Message-ID: <aea90712-dc2f-5bd5-ea8b-52b8688a44c9@vodafone.de>
+References: <1486447878-20521-1-git-send-email-Monk.Liu@amd.com>
+ <1486447878-20521-9-git-send-email-Monk.Liu@amd.com>
+ <DM5PR12MB16109EC5F03088C1CFB58FE484430@DM5PR12MB1610.namprd12.prod.outlook.com>
+ <5dfe222d-9564-0835-f749-3ea5ef78c701@vodafone.de>
+ <DM5PR12MB1610E1ADF3A9172B1A418C7184420@DM5PR12MB1610.namprd12.prod.outlook.com>
+ <afe8b046-c0ba-586e-99c3-adef380cfd3f@vodafone.de>
+ <DM5PR12MB161095B3EBE0DCC3CEFCBB8A84420@DM5PR12MB1610.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0637138615=="
+Content-Type: multipart/mixed; boundary="===============1608081725=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <a2254528-29ca-44bb-8cb9-09fd428af241-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: zh-CN
+In-Reply-To: <DM5PR12MB161095B3EBE0DCC3CEFCBB8A84420-2J9CzHegvk++jCVTvoAFKAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,135 +24,929 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0637138615==
-Content-Language: zh-CN
+This is a multi-part message in MIME format.
+--===============1608081725==
 Content-Type: multipart/alternative;
-	boundary="_000_DM5PR12MB161067C1383FC5829F4FCD8984420DM5PR12MB1610namp_"
+ boundary="------------012BA9B53CE2446B239539F2"
 
---_000_DM5PR12MB161067C1383FC5829F4FCD8984420DM5PR12MB1610namp_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+This is a multi-part message in MIME format.
+--------------012BA9B53CE2446B239539F2
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-eWVhaCwgbWFrZSBzZW5zZQ0KDQpAQ2hyaXN0aWFuLCB3aHkgbW92ZSBmYmRldl9pbml0KCkgZnVy
-dGhlciBkb3duIGFmdGVyIGliIHRlc3QgPyBhbnkgY29uc2lkZXJhdGlvbiA/DQoNCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fDQrlj5Hku7bkuro6IE1pY2hlbCBEw6RuemVyIDxtaWNo
-ZWxAZGFlbnplci5uZXQ+DQrlj5HpgIHml7bpl7Q6IDIwMTflubQy5pyIOOaXpSAyMzoxOToyMw0K
-5pS25Lu25Lq6OiBDaHJpc3RpYW4gS8O2bmlnOyBMaXUsIE1vbmsNCuaKhOmAgTogYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcNCuS4u+mimDogUmU6IFtQQVRDSF0gZHJtL2FtZGdwdTpmaXgg
-YW1kZ3B1X3NhX2JvX25ldyBlcnJvcg0KDQpPbiAwOC8wMi8xNyAwNzo1MiBQTSwgQ2hyaXN0aWFu
-IEvDtm5pZyB3cm90ZToNCj4gQW0gMDguMDIuMjAxNyB1bSAxMDo0MSBzY2hyaWViIE1vbmsgTGl1
-Og0KPj4gaWJfcG9vbCBpbml0IHNob3VsZCBwcmlvciB0byBmYmRldl9pbml0LCBvdGhlcndpc2UN
-Cj4+IHRoZXJlIHdpbGwgYmUgZXJyb3IgZnJvbSBhbWRncHVfc2FfYm9fbmV3DQo+PiAoYW1kZ3B1
-X3NhLmM6MzIzKQ0KPj4NCj4+IGZiZGV2X2luaXQgd2lsbCBjYWxsIHR0bV92YWxpZGF0ZSB3aGlj
-aCBmdXJ0aGVyIGNhbGwNCj4+IGFtZGdwdV9zYV9ib19uZXcuDQo+Pg0KPj4gQ2hhbmdlLUlkOiBJ
-M2E5Njk1NzBkNDQzZjYxYTQ0ZjY3YjBkNzZiMzg3MWNhNWMzZWE4MQ0KPj4gU2lnbmVkLW9mZi1i
-eTogTW9uayBMaXUgPE1vbmsuTGl1QGFtZC5jb20+DQo+PiAtLS0NCj4+ICAgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIHwgNCArKy0tDQo+PiAgIDEgZmlsZSBjaGFu
-Z2VkLCAyIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pDQo+Pg0KPj4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYw0KPj4gYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4+IGluZGV4IGFmY2FlMTUuLjQx
-NjliYjEgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-ZGV2aWNlLmMNCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZp
-Y2UuYw0KPj4gQEAgLTE5MTgsMTQgKzE5MTgsMTQgQEAgaW50IGFtZGdwdV9kZXZpY2VfaW5pdChz
-dHJ1Y3QgYW1kZ3B1X2RldmljZQ0KPj4gKmFkZXYsDQo+PiAgICAgICAvKiBHZXQgYSBsb2cyIGZv
-ciBlYXN5IGRpdmlzaW9ucy4gKi8NCj4+ICAgICAgIGFkZXYtPm1tX3N0YXRzLmxvZzJfbWF4X01C
-cHMgPSBpbG9nMihtYXgoMXUsIG1heF9NQnBzKSk7DQo+PiAgIC0gICAgYW1kZ3B1X2ZiZGV2X2lu
-aXQoYWRldik7DQo+PiAtDQo+PiAgICAgICByID0gYW1kZ3B1X2liX3Bvb2xfaW5pdChhZGV2KTsN
-Cj4+ICAgICAgIGlmIChyKSB7DQo+PiAgICAgICAgICAgZGV2X2VycihhZGV2LT5kZXYsICJJQiBp
-bml0aWFsaXphdGlvbiBmYWlsZWQgKCVkKS5cbiIsIHIpOw0KPj4gICAgICAgICAgIGdvdG8gZmFp
-bGVkOw0KPj4gICAgICAgfQ0KPj4gICArICAgIGFtZGdwdV9mYmRldl9pbml0KGFkZXYpOw0KPj4g
-Kw0KPg0KPiBBcyBub3RlZCBpbnRlcm5hbGx5IGFzIHdlbGwsIHBsZWFzZSBtb3JlIHRoYXQgb25l
-IG1vcmUgZnVydGhlciBkb3duDQo+IGJlaGluZCB0aGUgY2FsbCB0byBhbWRncHVfaWJfcmluZ190
-ZXN0cygpLg0KDQpJZiBJIHVuZGVyc3RhbmQgY29ycmVjdGx5LCB0aGF0IGNvdWxkIHJlc3VsdCBp
-biBubyBjb25zb2xlIG91dHB1dCBpbiB0aGUNCndvcnN0IGNhc2UgaWYgdGhlcmUncyB0cm91Ymxl
-IHdpdGggdGhlIHJpbmcgJiBJQiB0ZXN0cz8gVGhhdCBkb2Vzbid0DQpzZWVtIHZlcnkgZ29vZC4N
-Cg0KDQotLQ0KRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAg
-ICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQ0KTGlicmUgc29mdHdhcmUgZW50aHVzaWFzdCAgICAg
-ICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2ZWxvcGVyDQo=
+> do you mean turn VM into s3 mode ?
+>
+> if so we not get that step, the S3 suspend/resume function is not 
+> supported by SRIOV vf case.
+>
+Then just try to unbind the fb and unload the module.
 
---_000_DM5PR12MB161067C1383FC5829F4FCD8984420DM5PR12MB1610namp_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+The idea of the suspend/resume callbacks are that they are only called 
+in pairs.
 
-PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
-dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRvciIgY29udGVu
-dD0iTWljcm9zb2Z0IEV4Y2hhbmdlIFNlcnZlciI+DQo8IS0tIGNvbnZlcnRlZCBmcm9tIHRleHQg
-LS0+PHN0eWxlPjwhLS0gLkVtYWlsUXVvdGUgeyBtYXJnaW4tbGVmdDogMXB0OyBwYWRkaW5nLWxl
-ZnQ6IDRwdDsgYm9yZGVyLWxlZnQ6ICM4MDAwMDAgMnB4IHNvbGlkOyB9IC0tPjwvc3R5bGU+DQo8
-L2hlYWQ+DQo8Ym9keT4NCjxtZXRhIGNvbnRlbnQ9InRleHQvaHRtbDsgY2hhcnNldD1VVEYtOCI+
-DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiIHN0eWxlPSIiPg0KPCEtLQ0KcA0KCXttYXJnaW4tdG9w
-OjA7DQoJbWFyZ2luLWJvdHRvbTowfQ0KLS0+DQo8L3N0eWxlPg0KPGRpdiBkaXI9Imx0ciI+DQo8
-ZGl2IGlkPSJ4X2RpdnRhZ2RlZmF1bHR3cmFwcGVyIiBkaXI9Imx0ciIgc3R5bGU9ImZvbnQtc2l6
-ZToxMnB0OyBjb2xvcjojMDAwMDAwOyBmb250LWZhbWlseTpDYWxpYnJpLEFyaWFsLEhlbHZldGlj
-YSxzYW5zLXNlcmlmIj4NCjxwPnllYWgsIG1ha2Ugc2Vuc2U8L3A+DQo8cD5AQ2hyaXN0aWFuLCB3
-aHkgbW92ZSBmYmRldl9pbml0KCkgZnVydGhlciBkb3duIGFmdGVyIGliIHRlc3QgPyBhbnkgY29u
-c2lkZXJhdGlvbiA/PGJyPg0KPC9wPg0KPC9kaXY+DQo8aHIgdGFiaW5kZXg9Ii0xIiBzdHlsZT0i
-ZGlzcGxheTppbmxpbmUtYmxvY2s7IHdpZHRoOjk4JSI+DQo8ZGl2IGlkPSJ4X2RpdlJwbHlGd2RN
-c2ciIGRpcj0ibHRyIj48Zm9udCBmYWNlPSJDYWxpYnJpLCBzYW5zLXNlcmlmIiBjb2xvcj0iIzAw
-MDAwMCIgc3R5bGU9ImZvbnQtc2l6ZToxMXB0Ij48Yj7lj5Hku7bkuro6PC9iPiBNaWNoZWwgRMOk
-bnplciAmbHQ7bWljaGVsQGRhZW56ZXIubmV0Jmd0Ozxicj4NCjxiPuWPkemAgeaXtumXtDo8L2I+
-IDIwMTflubQy5pyIOOaXpSAyMzoxOToyMzxicj4NCjxiPuaUtuS7tuS6ujo8L2I+IENocmlzdGlh
-biBLw7ZuaWc7IExpdSwgTW9uazxicj4NCjxiPuaKhOmAgTo8L2I+IGFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnPGJyPg0KPGI+5Li76aKYOjwvYj4gUmU6IFtQQVRDSF0gZHJtL2FtZGdwdTpm
-aXggYW1kZ3B1X3NhX2JvX25ldyBlcnJvcjwvZm9udD4NCjxkaXY+Jm5ic3A7PC9kaXY+DQo8L2Rp
-dj4NCjwvZGl2Pg0KPGZvbnQgc2l6ZT0iMiI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMHB0OyI+
-DQo8ZGl2IGNsYXNzPSJQbGFpblRleHQiPk9uIDA4LzAyLzE3IDA3OjUyIFBNLCBDaHJpc3RpYW4g
-S8O2bmlnIHdyb3RlOjxicj4NCiZndDsgQW0gMDguMDIuMjAxNyB1bSAxMDo0MSBzY2hyaWViIE1v
-bmsgTGl1Ojxicj4NCiZndDsmZ3Q7IGliX3Bvb2wgaW5pdCBzaG91bGQgcHJpb3IgdG8gZmJkZXZf
-aW5pdCwgb3RoZXJ3aXNlPGJyPg0KJmd0OyZndDsgdGhlcmUgd2lsbCBiZSBlcnJvciBmcm9tIGFt
-ZGdwdV9zYV9ib19uZXc8YnI+DQomZ3Q7Jmd0OyAoYW1kZ3B1X3NhLmM6MzIzKTxicj4NCiZndDsm
-Z3Q7PGJyPg0KJmd0OyZndDsgZmJkZXZfaW5pdCB3aWxsIGNhbGwgdHRtX3ZhbGlkYXRlIHdoaWNo
-IGZ1cnRoZXIgY2FsbDxicj4NCiZndDsmZ3Q7IGFtZGdwdV9zYV9ib19uZXcuPGJyPg0KJmd0OyZn
-dDs8YnI+DQomZ3Q7Jmd0OyBDaGFuZ2UtSWQ6IEkzYTk2OTU3MGQ0NDNmNjFhNDRmNjdiMGQ3NmIz
-ODcxY2E1YzNlYTgxPGJyPg0KJmd0OyZndDsgU2lnbmVkLW9mZi1ieTogTW9uayBMaXUgJmx0O01v
-bmsuTGl1QGFtZC5jb20mZ3Q7PGJyPg0KJmd0OyZndDsgLS0tPGJyPg0KJmd0OyZndDsmbmJzcDsm
-bmJzcDsgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIHwgNCAmIzQz
-OyYjNDM7LS08YnI+DQomZ3Q7Jmd0OyZuYnNwOyZuYnNwOyAxIGZpbGUgY2hhbmdlZCwgMiBpbnNl
-cnRpb25zKCYjNDM7KSwgMiBkZWxldGlvbnMoLSk8YnI+DQomZ3Q7Jmd0Ozxicj4NCiZndDsmZ3Q7
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmM8
-YnI+DQomZ3Q7Jmd0OyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2Uu
-Yzxicj4NCiZndDsmZ3Q7IGluZGV4IGFmY2FlMTUuLjQxNjliYjEgMTAwNjQ0PGJyPg0KJmd0OyZn
-dDsgLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jPGJyPg0K
-Jmd0OyZndDsgJiM0MzsmIzQzOyYjNDM7IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2RldmljZS5jPGJyPg0KJmd0OyZndDsgQEAgLTE5MTgsMTQgJiM0MzsxOTE4LDE0IEBAIGlu
-dCBhbWRncHVfZGV2aWNlX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2U8YnI+DQomZ3Q7Jmd0OyAq
-YWRldiw8YnI+DQomZ3Q7Jmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyAv
-KiBHZXQgYSBsb2cyIGZvciBlYXN5IGRpdmlzaW9ucy4gKi88YnI+DQomZ3Q7Jmd0OyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBhZGV2LSZndDttbV9zdGF0cy5sb2cyX21heF9N
-QnBzID0gaWxvZzIobWF4KDF1LCBtYXhfTUJwcykpOzxicj4NCiZndDsmZ3Q7Jm5ic3A7Jm5ic3A7
-IC0mbmJzcDsmbmJzcDsmbmJzcDsgYW1kZ3B1X2ZiZGV2X2luaXQoYWRldik7PGJyPg0KJmd0OyZn
-dDsgLTxicj4NCiZndDsmZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHIg
-PSBhbWRncHVfaWJfcG9vbF9pbml0KGFkZXYpOzxicj4NCiZndDsmZ3Q7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGlmIChyKSB7PGJyPg0KJmd0OyZndDsmbmJzcDsmbmJzcDsm
-bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgZGV2X2Vycihh
-ZGV2LSZndDtkZXYsICZxdW90O0lCIGluaXRpYWxpemF0aW9uIGZhaWxlZCAoJWQpLlxuJnF1b3Q7
-LCByKTs8YnI+DQomZ3Q7Jmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBnb3RvIGZhaWxlZDs8YnI+DQomZ3Q7Jmd0OyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB9PGJyPg0KJmd0OyZndDsmbmJzcDsmbmJzcDsg
-JiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsgYW1kZ3B1X2ZiZGV2X2luaXQoYWRldik7PGJyPg0KJmd0
-OyZndDsgJiM0Mzs8YnI+DQomZ3Q7IDxicj4NCiZndDsgQXMgbm90ZWQgaW50ZXJuYWxseSBhcyB3
-ZWxsLCBwbGVhc2UgbW9yZSB0aGF0IG9uZSBtb3JlIGZ1cnRoZXIgZG93bjxicj4NCiZndDsgYmVo
-aW5kIHRoZSBjYWxsIHRvIGFtZGdwdV9pYl9yaW5nX3Rlc3RzKCkuPGJyPg0KPGJyPg0KSWYgSSB1
-bmRlcnN0YW5kIGNvcnJlY3RseSwgdGhhdCBjb3VsZCByZXN1bHQgaW4gbm8gY29uc29sZSBvdXRw
-dXQgaW4gdGhlPGJyPg0Kd29yc3QgY2FzZSBpZiB0aGVyZSdzIHRyb3VibGUgd2l0aCB0aGUgcmlu
-ZyAmYW1wOyBJQiB0ZXN0cz8gVGhhdCBkb2Vzbid0PGJyPg0Kc2VlbSB2ZXJ5IGdvb2QuPGJyPg0K
-PGJyPg0KPGJyPg0KLS0gPGJyPg0KRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyJm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7IHwmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgPGEgaHJlZj0iaHR0
-cDovL3d3dy5hbWQuY29tIj4NCmh0dHA6Ly93d3cuYW1kLmNvbTwvYT48YnI+DQpMaWJyZSBzb2Z0
-d2FyZSBlbnRodXNpYXN0Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHwmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
-bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgTWVzYSBhbmQg
-WCBkZXZlbG9wZXI8YnI+DQo8L2Rpdj4NCjwvc3Bhbj48L2ZvbnQ+DQo8L2JvZHk+DQo8L2h0bWw+
-DQo=
+See suspend is supposed to unpin all BOs and backup all resources from 
+VRAM to GTT and preserve the general hardware state.
 
---_000_DM5PR12MB161067C1383FC5829F4FCD8984420DM5PR12MB1610namp_--
+Now what resume does is to reload BOs and restore the state previously 
+saved during the suspend backup.
 
---===============0637138615==
+If I understand you correct you really don't need all that reload and 
+restore dance. Instead what you need for the SRIOV case is just 
+reinitializing the hardware, isn't it?
+
+That this works is just pure coincident because we don't have 
+backup/restore function for the blocks enabled for SRIOV.
+
+Regards,
+Christian.
+
+Am 08.02.2017 um 16:17 schrieb Liu, Monk:
+>
+> wait a minutes ...
+>
+>
+> 》3. suspend the VM with glxgears running
+>
+>
+> do you mean turn VM into s3 mode ?
+>
+> if so we not get that step, the S3 suspend/resume function is not 
+> supported by SRIOV vf case.
+>
+>
+>
+>
+>
+> ------------------------------------------------------------------------
+> *发件人:* Christian König <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+> *发送时间:* 2017年2月8日 23:13:46
+> *收件人:* Liu, Monk; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> *主题:* Re: 答复: SPAM //答复: [PATCH 09/20] drm/amdgpu:implement SRIOV 
+> gpu_reset
+>> and like I said, this approach is correct and verified by hang test
+> Completely irrelevant.
+>
+> Please try the following:
+> 1. Trigger a hang
+> 2. Reset the GPU
+> 3. Suspend the VM with glxgears running
+> 4. Resume the VM
+>
+> I'm pretty sure that with your approach that either suspending or 
+> resuming the VM with an application running will just hang.
+>
+> Anyway even if all the code path you break here (UVD/VCE at minimum) 
+> are disabled in the SRIOV case it's still not a good idea completely 
+> breaking the design just to satisfy the SRIOV feature.
+>
+> So that is still a clear NAK on that. Please do as I told you and use 
+> the hw_init() callback instead, it is especially made for this use case.
+>
+> Regards,
+> Christian.
+>
+> Am 08.02.2017 um 15:57 schrieb Liu, Monk:
+>>
+>> 》As I wrote in the other thread as well calling amdgpu_resume() 
+>> without proper suspend will just mess up a whole bunch of internal 
+>> structures.
+>>
+>>
+>> please name at least one, I'll check and see how to improve
+>>
+>> and like I said, this approach is correct and verified by hang test, 
+>> if internal structures messed up I don't think the test will easy 
+>> pass. hw_init() just call resume per engine.
+>>
+>> you can take a deep look into sriov_gpu_reset and judge later
+>>
+>>
+>> ------------------------------------------------------------------------
+>> *发件人:* Christian König <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+>> *发送时间:* 2017年2月8日 18:49:57
+>> *收件人:* Liu, Monk; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> *主题:* Re: SPAM //答复: [PATCH 09/20] drm/amdgpu:implement SRIOV 
+>> gpu_reset
+>>> +       /* now we are okay to resume SMC/CP/SDMA */
+>>> +       amdgpu_resume_late(adev);
+>> As I wrote in the other thread as well calling amdgpu_resume() 
+>> without proper suspend will just mess up a whole bunch of internal 
+>> structures.
+>>
+>> So a clear NAK on that approach. If you don't need the hw stop which 
+>> amdgpu_suspend() does for SRIOV then please try to just use the 
+>> hw_init() callback and not the resume() callback.
+>>
+>> Regards,
+>> Christian.
+>>
+>> Am 07.02.2017 um 07:26 schrieb Liu, Monk:
+>>>
+>>> patch 1-8 are some fixes for sriov gpu reset feature
+>>>
+>>> patch 9 -20 are for sriov gpu reset
+>>>
+>>>
+>>> BR Monk
+>>>
+>>> ------------------------------------------------------------------------
+>>> *发件人:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> 代表 Monk Liu 
+>>> <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+>>> *发送时间:* 2017年2月7日 14:11:07
+>>> *收件人:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>>> *抄送:* Liu, Monk
+>>> *主题:* [PATCH 09/20] drm/amdgpu:implement SRIOV gpu_reset
+>>> Signed-off-by: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+>>> ---
+>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 158 
+>>> ++++++++++++++++++++++++++++-
+>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h   |   1 +
+>>>  2 files changed, 158 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> index e926f84..2b404ca 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> @@ -1604,6 +1604,53 @@ int amdgpu_suspend(struct amdgpu_device *adev)
+>>>          return 0;
+>>>  }
+>>>
+>>> +static int amdgpu_resume_early(struct amdgpu_device *adev)
+>>> +{
+>>> +       int i, r;
+>>> +
+>>> +       for (i = 0; i < adev->num_ip_blocks; i++) {
+>>> +               if (!adev->ip_blocks[i].status.valid)
+>>> +                       continue;
+>>> +
+>>> +               if (adev->ip_blocks[i].version->type == 
+>>> AMD_IP_BLOCK_TYPE_COMMON ||
+>>> + adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_GMC ||
+>>> + adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_IH)
+>>> +                       r = 
+>>> adev->ip_blocks[i].version->funcs->resume(adev);
+>>> +
+>>> +               if (r) {
+>>> +                       DRM_ERROR("resume of IP block <%s> failed %d\n",
+>>> + adev->ip_blocks[i].version->funcs->name, r);
+>>> +                       return r;
+>>> +               }
+>>> +       }
+>>> +
+>>> +       return 0;
+>>> +}
+>>> +
+>>> +static int amdgpu_resume_late(struct amdgpu_device *adev)
+>>> +{
+>>> +       int i, r;
+>>> +
+>>> +       for (i = 0; i < adev->num_ip_blocks; i++) {
+>>> +               if (!adev->ip_blocks[i].status.valid)
+>>> +                       continue;
+>>> +
+>>> +               if (adev->ip_blocks[i].version->type == 
+>>> AMD_IP_BLOCK_TYPE_COMMON ||
+>>> + adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_GMC ||
+>>> + adev->ip_blocks[i].version->type == AMD_IP_BLOCK_TYPE_IH )
+>>> +                       continue;
+>>> +
+>>> +               r = adev->ip_blocks[i].version->funcs->resume(adev);
+>>> +               if (r) {
+>>> +                       DRM_ERROR("resume of IP block <%s> failed %d\n",
+>>> + adev->ip_blocks[i].version->funcs->name, r);
+>>> +                       return r;
+>>> +               }
+>>> +       }
+>>> +
+>>> +       return 0;
+>>> +}
+>>> +
+>>>  static int amdgpu_resume(struct amdgpu_device *adev)
+>>>  {
+>>>          int i, r;
+>>> @@ -2343,6 +2390,115 @@ static int 
+>>> amdgpu_recover_vram_from_shadow(struct amdgpu_device *adev,
+>>>  }
+>>>
+>>>  /**
+>>> + * amdgpu_sriov_gpu_reset - reset the asic
+>>> + *
+>>> + * @adev: amdgpu device pointer
+>>> + * @voluntary: if this reset is requested by guest.
+>>> + *             (true means by guest and false means by HYPERVISOR )
+>>> + *
+>>> + * Attempt the reset the GPU if it has hung (all asics).
+>>> + * for SRIOV case.
+>>> + * Returns 0 for success or an error on failure.
+>>> + */
+>>> +int amdgpu_sriov_gpu_reset(struct amdgpu_device *adev, bool voluntary)
+>>> +{
+>>> +       int i, r = 0;
+>>> +       int resched;
+>>> +       struct amdgpu_bo *bo, *tmp;
+>>> +       struct amdgpu_ring *ring;
+>>> +       struct fence *fence = NULL, *next = NULL;
+>>> +
+>>> +       mutex_lock(&adev->virt.lock_reset);
+>>> +       atomic_inc(&adev->gpu_reset_counter);
+>>> +
+>>> +       /* block TTM */
+>>> +       resched = ttm_bo_lock_delayed_workqueue(&adev->mman.bdev);
+>>> +
+>>> +       /* block scheduler */
+>>> +       for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+>>> +               ring = adev->rings[i];
+>>> +
+>>> +               if (!ring || !ring->sched.thread)
+>>> +                       continue;
+>>> +
+>>> +               kthread_park(ring->sched.thread);
+>>> + amd_sched_hw_job_reset(&ring->sched);
+>>> +       }
+>>> +
+>>> +       /* after all hw jobs are reset, hw fence is meaningless, so 
+>>> force_completion */
+>>> +       amdgpu_fence_driver_force_completion(adev);
+>>> +
+>>> +       /* request to take full control of GPU before 
+>>> re-initialization  */
+>>> +       if (voluntary)
+>>> +               amdgpu_virt_reset_gpu(adev);
+>>> +       else
+>>> +               amdgpu_virt_request_full_gpu(adev, true);
+>>> +
+>>> +
+>>> +       /* Resume IP prior to SMC */
+>>> +       amdgpu_resume_early(adev);
+>>> +
+>>> +       /* we need recover gart prior to run SMC/CP/SDMA resume */
+>>> +       amdgpu_ttm_recover_gart(adev);
+>>> +
+>>> +       /* now we are okay to resume SMC/CP/SDMA */
+>>> +       amdgpu_resume_late(adev);
+>>
+>>
+>>> +
+>>> +       amdgpu_irq_gpu_reset_resume_helper(adev);
+>>> +
+>>> +       if (amdgpu_ib_ring_tests(adev))
+>>> +               dev_err(adev->dev, "[GPU_RESET] ib ring test failed 
+>>> (%d).\n", r);
+>>> +
+>>> +       /* rellease full control of GPU after ib test */
+>>> +       amdgpu_virt_release_full_gpu(adev, true);
+>>> +
+>>> +       DRM_INFO("recover vram bo from shadow\n");
+>>> +
+>>> +       ring = adev->mman.buffer_funcs_ring;
+>>> +       mutex_lock(&adev->shadow_list_lock);
+>>> +       list_for_each_entry_safe(bo, tmp, &adev->shadow_list, 
+>>> shadow_list) {
+>>> + amdgpu_recover_vram_from_shadow(adev, ring, bo, &next);
+>>> +               if (fence) {
+>>> +                       r = fence_wait(fence, false);
+>>> +                       if (r) {
+>>> +                               WARN(r, "recovery from shadow isn't 
+>>> completed\n");
+>>> +                               break;
+>>> +                       }
+>>> +               }
+>>> +
+>>> +               fence_put(fence);
+>>> +               fence = next;
+>>> +       }
+>>> + mutex_unlock(&adev->shadow_list_lock);
+>>> +
+>>> +       if (fence) {
+>>> +               r = fence_wait(fence, false);
+>>> +               if (r)
+>>> +                       WARN(r, "recovery from shadow isn't 
+>>> completed\n");
+>>> +       }
+>>> +       fence_put(fence);
+>>> +
+>>> +       for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+>>> +               struct amdgpu_ring *ring = adev->rings[i];
+>>> +               if (!ring || !ring->sched.thread)
+>>> +                       continue;
+>>> +
+>>> + amd_sched_job_recovery(&ring->sched);
+>>> + kthread_unpark(ring->sched.thread);
+>>> +       }
+>>> +
+>>> +       drm_helper_resume_force_mode(adev->ddev);
+>>> + ttm_bo_unlock_delayed_workqueue(&adev->mman.bdev, resched);
+>>> +       if (r) {
+>>> +               /* bad news, how to tell it to userspace ? */
+>>> +               dev_info(adev->dev, "GPU reset failed\n");
+>>> +       }
+>>> +
+>>> +       mutex_unlock(&adev->virt.lock_reset);
+>>> +       return r;
+>>> +}
+>>> +
+>>> +/**
+>>>   * amdgpu_gpu_reset - reset the asic
+>>>   *
+>>>   * @adev: amdgpu device pointer
+>>> @@ -2358,7 +2514,7 @@ int amdgpu_gpu_reset(struct amdgpu_device *adev)
+>>>          bool need_full_reset;
+>>>
+>>>          if (amdgpu_sriov_vf(adev))
+>>> -               return 0;
+>>> +               return amdgpu_sriov_gpu_reset(adev, true);
+>>>
+>>>          if (!amdgpu_check_soft_reset(adev)) {
+>>>                  DRM_INFO("No hardware hang detected. Did some 
+>>> blocks stall?\n");
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+>>> index 675e12c..73d24df 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+>>> @@ -89,5 +89,6 @@ void amdgpu_virt_kiq_wreg(struct amdgpu_device 
+>>> *adev, uint32_t reg, uint32_t v);
+>>>  int amdgpu_virt_request_full_gpu(struct amdgpu_device *adev, bool 
+>>> init);
+>>>  int amdgpu_virt_release_full_gpu(struct amdgpu_device *adev, bool 
+>>> init);
+>>>  int amdgpu_virt_reset_gpu(struct amdgpu_device *adev);
+>>> +int amdgpu_sriov_gpu_reset(struct amdgpu_device *adev, bool voluntary);
+>>>
+>>>  #endif
+>>> -- 
+>>> 2.7.4
+>>>
+>>> _______________________________________________
+>>> amd-gfx mailing list
+>>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>>>
+>>>
+>>> _______________________________________________
+>>> amd-gfx mailing list
+>>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>>
+>>
+>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+
+--------------012BA9B53CE2446B239539F2
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">
+      <blockquote type="cite">
+        <p>do you mean turn VM into s3 mode ?</p>
+        <p>if so we not get that step, the S3 suspend/resume function is
+          not supported by SRIOV vf case.</p>
+      </blockquote>
+      Then just try to unbind the fb and unload the module.<br>
+      <br>
+      The idea of the suspend/resume callbacks are that they are only
+      called in pairs.<br>
+      <br>
+      See suspend is supposed to unpin all BOs and backup all resources
+      from VRAM to GTT and preserve the general hardware state.<br>
+      <br>
+      Now what resume does is to reload BOs and restore the state
+      previously saved during the suspend backup.<br>
+      <br>
+      If I understand you correct you really don't need all that reload
+      and restore dance. Instead what you need for the SRIOV case is
+      just reinitializing the hardware, isn't it?<br>
+      <br>
+      That this works is just pure coincident because we don't have
+      backup/restore function for the blocks enabled for SRIOV.<br>
+      <br>
+      Regards,<br>
+      Christian.<br>
+      <br>
+      Am 08.02.2017 um 16:17 schrieb Liu, Monk:<br>
+    </div>
+    <blockquote
+cite="mid:DM5PR12MB161095B3EBE0DCC3CEFCBB8A84420-2J9CzHegvk++jCVTvoAFKAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org"
+      type="cite">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
+      <div id="divtagdefaultwrapper"
+style="font-size:12pt;color:#000000;font-family:Calibri,Arial,Helvetica,sans-serif;"
+        dir="ltr">
+        <p>wait a minutes ... </p>
+        <p><br>
+        </p>
+        <p>》3. suspend the VM with glxgears running </p>
+        <p><br>
+        </p>
+        <p>do you mean turn VM into s3 mode ?</p>
+        <p>if so we not get that step, the S3 suspend/resume function is
+          not supported by SRIOV vf case.</p>
+        <p><br>
+        </p>
+        <p><br>
+        </p>
+        <p><br>
+        </p>
+        <p><br>
+        </p>
+      </div>
+      <hr style="display:inline-block;width:98%" tabindex="-1">
+      <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
+          color="#000000" face="Calibri, sans-serif"><b>发件人:</b>
+          Christian König <a class="moz-txt-link-rfc2396E" href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">&lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;</a><br>
+          <b>发送时间:</b> 2017年2月8日 23:13:46<br>
+          <b>收件人:</b> Liu, Monk; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+          <b>主题:</b> Re: 答复: SPAM //答复: [PATCH 09/20]
+          drm/amdgpu:implement SRIOV gpu_reset</font>
+        <div> </div>
+      </div>
+      <div>
+        <div class="moz-cite-prefix">
+          <blockquote type="cite"><span>and like I said, this approach
+              is correct and verified by hang test</span></blockquote>
+          Completely irrelevant.<br>
+          <br>
+          Please try the following:<br>
+          1. Trigger a hang<br>
+          2. Reset the GPU<br>
+          3. Suspend the VM with glxgears running<br>
+          4. Resume the VM<br>
+          <br>
+          I'm pretty sure that with your approach that either suspending
+          or resuming the VM with an application running will just hang.<br>
+          <br>
+          Anyway even if all the code path you break here (UVD/VCE at
+          minimum) are disabled in the SRIOV case it's still not a good
+          idea completely breaking the design just to satisfy the SRIOV
+          feature.<br>
+          <br>
+          So that is still a clear NAK on that. Please do as I told you
+          and use the hw_init() callback instead, it is especially made
+          for this use case.<br>
+          <br>
+          Regards,<br>
+          Christian.<br>
+          <br>
+          Am 08.02.2017 um 15:57 schrieb Liu, Monk:<br>
+        </div>
+        <blockquote
+cite="mid:DM5PR12MB1610E1ADF3A9172B1A418C7184420-2J9CzHegvk++jCVTvoAFKAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org"
+          type="cite">
+          <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
+          <div id="divtagdefaultwrapper"
+style="font-size:12pt;color:#000000;font-family:Calibri,Arial,Helvetica,sans-serif;"
+            dir="ltr">
+            <p><span>》As I wrote in the other thread as well calling
+                amdgpu_resume() without proper suspend will just mess up
+                a whole bunch of internal structures.</span></p>
+            <div><span><br>
+              </span></div>
+            <div><span>please name at least one, I'll check and see how
+                to improve</span></div>
+            <div><span><br>
+              </span></div>
+            <div><span>and like I said, this approach is correct and
+                verified by hang test, if internal structures messed up
+                I don't think the test will easy pass.
+              </span><span>hw_init() just call resume per engine.</span></div>
+            <div><span><br>
+              </span></div>
+            <div><span>you can take a deep look into sriov_gpu_reset and
+                judge later </span></div>
+            <div><span><br>
+              </span></div>
+            <p><br>
+            </p>
+          </div>
+          <hr style="display:inline-block;width:98%" tabindex="-1">
+          <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
+              color="#000000" face="Calibri, sans-serif"><b>发件人:</b>
+              Christian König
+              <a moz-do-not-send="true" class="moz-txt-link-rfc2396E"
+                href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">&lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;</a><br>
+              <b>发送时间:</b> 2017年2月8日 18:49:57<br>
+              <b>收件人:</b> Liu, Monk; <a moz-do-not-send="true"
+                class="moz-txt-link-abbreviated"
+                href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
+                amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+              <b>主题:</b> Re: SPAM //答复: [PATCH 09/20]
+              drm/amdgpu:implement SRIOV gpu_reset</font>
+            <div> </div>
+          </div>
+          <div>
+            <div class="moz-cite-prefix">
+              <blockquote type="cite"><font size="2"><span
+                    style="font-size:10pt;">
+                    <div class="PlainText">+       /* now we are okay to
+                      resume SMC/CP/SDMA */<br>
+                      +       amdgpu_resume_late(adev);<br>
+                    </div>
+                  </span></font></blockquote>
+              As I wrote in the other thread as well calling
+              amdgpu_resume() without proper suspend will just mess up a
+              whole bunch of internal structures.<br>
+              <br>
+              So a clear NAK on that approach. If you don't need the hw
+              stop which amdgpu_suspend() does for SRIOV then please try
+              to just use the hw_init() callback and not the resume()
+              callback.<br>
+              <br>
+              Regards,<br>
+              Christian.<br>
+              <br>
+              Am 07.02.2017 um 07:26 schrieb Liu, Monk:<br>
+            </div>
+            <blockquote
+cite="mid:DM5PR12MB16109EC5F03088C1CFB58FE484430-2J9CzHegvk++jCVTvoAFKAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org"
+              type="cite">
+              <meta name="Generator" content="Microsoft Exchange Server">
+              <!-- converted from text -->
+              <style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left: #800000 2px solid; } --></style>
+              <meta content="text/html; charset=UTF-8">
+              <style type="text/css" style="">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+              <div dir="ltr">
+                <div id="x_divtagdefaultwrapper" dir="ltr"
+                  style="font-size:12pt; color:#000000;
+                  font-family:Calibri,Arial,Helvetica,sans-serif">
+                  <p>patch 1-8 are some fixes for sriov gpu reset
+                    feature</p>
+                  <p>patch 9 -20 are for sriov gpu reset</p>
+                  <p><br>
+                  </p>
+                  <p>BR Monk<br>
+                  </p>
+                </div>
+                <hr tabindex="-1" style="display:inline-block;
+                  width:98%">
+                <div id="x_divRplyFwdMsg" dir="ltr"><font
+                    style="font-size:11pt" color="#000000"
+                    face="Calibri, sans-serif"><b>发件人:</b> amd-gfx
+                    <a moz-do-not-send="true"
+                      class="moz-txt-link-rfc2396E"
+                      href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
+                      &lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a>
+                    代表 Monk Liu <a moz-do-not-send="true"
+                      class="moz-txt-link-rfc2396E"
+                      href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org">
+                      &lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+                    <b>发送时间:</b> 2017年2月7日 14:11:07<br>
+                    <b>收件人:</b> <a moz-do-not-send="true"
+                      class="moz-txt-link-abbreviated"
+                      href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
+                      amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                    <b>抄送:</b> Liu, Monk<br>
+                    <b>主题:</b> [PATCH 09/20] drm/amdgpu:implement SRIOV
+                    gpu_reset</font>
+                  <div> </div>
+                </div>
+              </div>
+              <font size="2"><span style="font-size:10pt;">
+                  <div class="PlainText">Signed-off-by: Monk Liu <a
+                      moz-do-not-send="true"
+                      class="moz-txt-link-rfc2396E"
+                      href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org">
+                      &lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+                    ---<br>
+                     drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 158
+                    ++++++++++++++++++++++++++++-<br>
+                     drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h   |   1 +<br>
+                     2 files changed, 158 insertions(+), 1 deletion(-)<br>
+                    <br>
+                    diff --git
+                    a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+                    b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+                    index e926f84..2b404ca 100644<br>
+                    --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+                    +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+                    @@ -1604,6 +1604,53 @@ int amdgpu_suspend(struct
+                    amdgpu_device *adev)<br>
+                             return 0;<br>
+                     }<br>
+                     <br>
+                    +static int amdgpu_resume_early(struct amdgpu_device
+                    *adev)<br>
+                    +{<br>
+                    +       int i, r;<br>
+                    +<br>
+                    +       for (i = 0; i &lt; adev-&gt;num_ip_blocks;
+                    i++) {<br>
+                    +               if
+                    (!adev-&gt;ip_blocks[i].status.valid)<br>
+                    +                       continue;<br>
+                    +<br>
+                    +               if
+                    (adev-&gt;ip_blocks[i].version-&gt;type ==
+                    AMD_IP_BLOCK_TYPE_COMMON ||<br>
+                    +                              
+                    adev-&gt;ip_blocks[i].version-&gt;type ==
+                    AMD_IP_BLOCK_TYPE_GMC ||<br>
+                    +                              
+                    adev-&gt;ip_blocks[i].version-&gt;type ==
+                    AMD_IP_BLOCK_TYPE_IH)<br>
+                    +                       r =
+                    adev-&gt;ip_blocks[i].version-&gt;funcs-&gt;resume(adev);<br>
+                    +<br>
+                    +               if (r) {<br>
+                    +                       DRM_ERROR("resume of IP
+                    block &lt;%s&gt; failed %d\n",<br>
+                    +                                
+                    adev-&gt;ip_blocks[i].version-&gt;funcs-&gt;name,
+                    r);<br>
+                    +                       return r;<br>
+                    +               }<br>
+                    +       }<br>
+                    +<br>
+                    +       return 0;<br>
+                    +}<br>
+                    +<br>
+                    +static int amdgpu_resume_late(struct amdgpu_device
+                    *adev)<br>
+                    +{<br>
+                    +       int i, r;<br>
+                    +<br>
+                    +       for (i = 0; i &lt; adev-&gt;num_ip_blocks;
+                    i++) {<br>
+                    +               if
+                    (!adev-&gt;ip_blocks[i].status.valid)<br>
+                    +                       continue;<br>
+                    +<br>
+                    +               if
+                    (adev-&gt;ip_blocks[i].version-&gt;type ==
+                    AMD_IP_BLOCK_TYPE_COMMON ||<br>
+                    +                              
+                    adev-&gt;ip_blocks[i].version-&gt;type ==
+                    AMD_IP_BLOCK_TYPE_GMC ||<br>
+                    +                              
+                    adev-&gt;ip_blocks[i].version-&gt;type ==
+                    AMD_IP_BLOCK_TYPE_IH )<br>
+                    +                       continue;<br>
+                    +<br>
+                    +               r =
+                    adev-&gt;ip_blocks[i].version-&gt;funcs-&gt;resume(adev);<br>
+                    +               if (r) {<br>
+                    +                       DRM_ERROR("resume of IP
+                    block &lt;%s&gt; failed %d\n",<br>
+                    +                                
+                    adev-&gt;ip_blocks[i].version-&gt;funcs-&gt;name,
+                    r);<br>
+                    +                       return r;<br>
+                    +               }<br>
+                    +       }<br>
+                    +<br>
+                    +       return 0;<br>
+                    +}<br>
+                    +<br>
+                     static int amdgpu_resume(struct amdgpu_device
+                    *adev)<br>
+                     {<br>
+                             int i, r;<br>
+                    @@ -2343,6 +2390,115 @@ static int
+                    amdgpu_recover_vram_from_shadow(struct amdgpu_device
+                    *adev,<br>
+                     }<br>
+                     <br>
+                     /**<br>
+                    + * amdgpu_sriov_gpu_reset - reset the asic<br>
+                    + *<br>
+                    + * @adev: amdgpu device pointer<br>
+                    + * @voluntary: if this reset is requested by guest.<br>
+                    + *             (true means by guest and false means
+                    by HYPERVISOR )<br>
+                    + *<br>
+                    + * Attempt the reset the GPU if it has hung (all
+                    asics).<br>
+                    + * for SRIOV case.<br>
+                    + * Returns 0 for success or an error on failure.<br>
+                    + */<br>
+                    +int amdgpu_sriov_gpu_reset(struct amdgpu_device
+                    *adev, bool voluntary)<br>
+                    +{<br>
+                    +       int i, r = 0;<br>
+                    +       int resched;<br>
+                    +       struct amdgpu_bo *bo, *tmp;<br>
+                    +       struct amdgpu_ring *ring;<br>
+                    +       struct fence *fence = NULL, *next = NULL;<br>
+                    +<br>
+                    +       mutex_lock(&amp;adev-&gt;virt.lock_reset);<br>
+                    +       atomic_inc(&amp;adev-&gt;gpu_reset_counter);<br>
+                    +<br>
+                    +       /* block TTM */<br>
+                    +       resched =
+                    ttm_bo_lock_delayed_workqueue(&amp;adev-&gt;mman.bdev);<br>
+                    +<br>
+                    +       /* block scheduler */<br>
+                    +       for (i = 0; i &lt; AMDGPU_MAX_RINGS; ++i) {<br>
+                    +               ring = adev-&gt;rings[i];<br>
+                    +<br>
+                    +               if (!ring || !ring-&gt;sched.thread)<br>
+                    +                       continue;<br>
+                    +<br>
+                    +               kthread_park(ring-&gt;sched.thread);<br>
+                    +              
+                    amd_sched_hw_job_reset(&amp;ring-&gt;sched);<br>
+                    +       }<br>
+                    +<br>
+                    +       /* after all hw jobs are reset, hw fence is
+                    meaningless, so force_completion */<br>
+                    +       amdgpu_fence_driver_force_completion(adev);<br>
+                    +<br>
+                    +       /* request to take full control of GPU
+                    before re-initialization  */<br>
+                    +       if (voluntary)<br>
+                    +               amdgpu_virt_reset_gpu(adev);<br>
+                    +       else<br>
+                    +               amdgpu_virt_request_full_gpu(adev,
+                    true);<br>
+                    +<br>
+                    +<br>
+                    +       /* Resume IP prior to SMC */<br>
+                    +       amdgpu_resume_early(adev);<br>
+                    +<br>
+                    +       /* we need recover gart prior to run
+                    SMC/CP/SDMA resume */<br>
+                    +       amdgpu_ttm_recover_gart(adev);<br>
+                    +<br>
+                    +       /* now we are okay to resume SMC/CP/SDMA */<br>
+                    +       amdgpu_resume_late(adev);<br>
+                  </div>
+                </span></font></blockquote>
+            <br>
+            <br>
+            <blockquote
+cite="mid:DM5PR12MB16109EC5F03088C1CFB58FE484430-2J9CzHegvk++jCVTvoAFKAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org"
+              type="cite">
+              <font size="2"><span style="font-size:10pt;">
+                  <div class="PlainText">+<br>
+                    +       amdgpu_irq_gpu_reset_resume_helper(adev);<br>
+                    +<br>
+                    +       if (amdgpu_ib_ring_tests(adev))<br>
+                    +               dev_err(adev-&gt;dev, "[GPU_RESET]
+                    ib ring test failed (%d).\n", r);<br>
+                    +<br>
+                    +       /* rellease full control of GPU after ib
+                    test */<br>
+                    +       amdgpu_virt_release_full_gpu(adev, true);<br>
+                    +<br>
+                    +       DRM_INFO("recover vram bo from shadow\n");<br>
+                    +<br>
+                    +       ring = adev-&gt;mman.buffer_funcs_ring;<br>
+                    +       mutex_lock(&amp;adev-&gt;shadow_list_lock);<br>
+                    +       list_for_each_entry_safe(bo, tmp,
+                    &amp;adev-&gt;shadow_list, shadow_list) {<br>
+                    +              
+                    amdgpu_recover_vram_from_shadow(adev, ring, bo,
+                    &amp;next);<br>
+                    +               if (fence) {<br>
+                    +                       r = fence_wait(fence,
+                    false);<br>
+                    +                       if (r) {<br>
+                    +                               WARN(r, "recovery
+                    from shadow isn't completed\n");<br>
+                    +                               break;<br>
+                    +                       }<br>
+                    +               }<br>
+                    +<br>
+                    +               fence_put(fence);<br>
+                    +               fence = next;<br>
+                    +       }<br>
+                    +      
+                    mutex_unlock(&amp;adev-&gt;shadow_list_lock);<br>
+                    +<br>
+                    +       if (fence) {<br>
+                    +               r = fence_wait(fence, false);<br>
+                    +               if (r)<br>
+                    +                       WARN(r, "recovery from
+                    shadow isn't completed\n");<br>
+                    +       }<br>
+                    +       fence_put(fence);<br>
+                    +<br>
+                    +       for (i = 0; i &lt; AMDGPU_MAX_RINGS; ++i) {<br>
+                    +               struct amdgpu_ring *ring =
+                    adev-&gt;rings[i];<br>
+                    +               if (!ring || !ring-&gt;sched.thread)<br>
+                    +                       continue;<br>
+                    +<br>
+                    +              
+                    amd_sched_job_recovery(&amp;ring-&gt;sched);<br>
+                    +              
+                    kthread_unpark(ring-&gt;sched.thread);<br>
+                    +       }<br>
+                    +<br>
+                    +       drm_helper_resume_force_mode(adev-&gt;ddev);<br>
+                    +      
+                    ttm_bo_unlock_delayed_workqueue(&amp;adev-&gt;mman.bdev,
+                    resched);<br>
+                    +       if (r) {<br>
+                    +               /* bad news, how to tell it to
+                    userspace ? */<br>
+                    +               dev_info(adev-&gt;dev, "GPU reset
+                    failed\n");<br>
+                    +       }<br>
+                    +<br>
+                    +       mutex_unlock(&amp;adev-&gt;virt.lock_reset);<br>
+                    +       return r;<br>
+                    +}<br>
+                    +<br>
+                    +/**<br>
+                      * amdgpu_gpu_reset - reset the asic<br>
+                      *<br>
+                      * @adev: amdgpu device pointer<br>
+                    @@ -2358,7 +2514,7 @@ int amdgpu_gpu_reset(struct
+                    amdgpu_device *adev)<br>
+                             bool need_full_reset;<br>
+                     <br>
+                             if (amdgpu_sriov_vf(adev))<br>
+                    -               return 0;<br>
+                    +               return amdgpu_sriov_gpu_reset(adev,
+                    true);<br>
+                     <br>
+                             if (!amdgpu_check_soft_reset(adev)) {<br>
+                                     DRM_INFO("No hardware hang
+                    detected. Did some blocks stall?\n");<br>
+                    diff --git
+                    a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+                    b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
+                    index 675e12c..73d24df 100644<br>
+                    --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
+                    +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h<br>
+                    @@ -89,5 +89,6 @@ void amdgpu_virt_kiq_wreg(struct
+                    amdgpu_device *adev, uint32_t reg, uint32_t v);<br>
+                     int amdgpu_virt_request_full_gpu(struct
+                    amdgpu_device *adev, bool init);<br>
+                     int amdgpu_virt_release_full_gpu(struct
+                    amdgpu_device *adev, bool init);<br>
+                     int amdgpu_virt_reset_gpu(struct amdgpu_device
+                    *adev);<br>
+                    +int amdgpu_sriov_gpu_reset(struct amdgpu_device
+                    *adev, bool voluntary);<br>
+                     <br>
+                     #endif<br>
+                    -- <br>
+                    2.7.4<br>
+                    <br>
+                    _______________________________________________<br>
+                    amd-gfx mailing list<br>
+                    <a moz-do-not-send="true"
+                      class="moz-txt-link-abbreviated"
+                      href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                    <a moz-do-not-send="true"
+                      href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+                  </div>
+                </span></font><br>
+              <fieldset class="mimeAttachmentHeader"></fieldset>
+              <br>
+              <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a moz-do-not-send="true" class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a moz-do-not-send="true" class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+            </blockquote>
+            <p><br>
+            </p>
+          </div>
+        </blockquote>
+        <p><br>
+        </p>
+      </div>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------012BA9B53CE2446B239539F2--
+
+--===============1608081725==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -159,4 +956,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0637138615==--
+--===============1608081725==--
