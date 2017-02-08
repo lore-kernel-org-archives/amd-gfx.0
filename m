@@ -1,19 +1,19 @@
-From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: =?utf-8?B?562U5aSNOiDnrZTlpI06IFtQQVRDSF0gZHJtL2FtZGdwdTpmaXggYW1kZ3B1?=
- =?utf-8?B?X3NhX2JvX25ldyBlcnJvcg==?=
-Date: Wed, 8 Feb 2017 15:53:32 +0000
-Message-ID: <DM5PR12MB1610D9A7A6D35390193ED57D84420@DM5PR12MB1610.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: =?UTF-8?B?UmU6IOetlOWkjTog562U5aSNOiBbUEFUQ0hdIGRybS9hbWRncHU6Zml4?=
+ =?UTF-8?Q?_amdgpu=5fsa=5fbo=5fnew_error?=
+Date: Wed, 8 Feb 2017 16:59:10 +0100
+Message-ID: <c275b812-8c58-0410-16ad-b038e9213fa1@vodafone.de>
 References: <1486546917-1464-1-git-send-email-Monk.Liu@amd.com>
  <4ac7f30d-fde6-b1e3-e5de-fc518b180548@vodafone.de>
  <a2254528-29ca-44bb-8cb9-09fd428af241@daenzer.net>
  <DM5PR12MB161067C1383FC5829F4FCD8984420@DM5PR12MB1610.namprd12.prod.outlook.com>
- <c4776332-809a-da57-88a9-172b72743ede@vodafone.de>,
+ <c4776332-809a-da57-88a9-172b72743ede@vodafone.de>
  <99ba2b49-6409-0a47-1bc1-f873d69a58d8@daenzer.net>
+ <DM5PR12MB1610D9A7A6D35390193ED57D84420@DM5PR12MB1610.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0358343464=="
+Content-Type: multipart/mixed; boundary="===============0414083546=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <99ba2b49-6409-0a47-1bc1-f873d69a58d8-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: zh-CN
+In-Reply-To: <DM5PR12MB1610D9A7A6D35390193ED57D84420-2J9CzHegvk++jCVTvoAFKAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -24,97 +24,203 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
 Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0358343464==
-Content-Language: zh-CN
+This is a multi-part message in MIME format.
+--===============0414083546==
 Content-Type: multipart/alternative;
-	boundary="_000_DM5PR12MB1610D9A7A6D35390193ED57D84420DM5PR12MB1610namp_"
+ boundary="------------FDB12EC997DDF0FFB0175A41"
 
---_000_DM5PR12MB1610D9A7A6D35390193ED57D84420DM5PR12MB1610namp_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+This is a multi-part message in MIME format.
+--------------FDB12EC997DDF0FFB0175A41
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-YWdyZWVkLCB3aHkgbm90IGp1c3QgdXNlIGNwdSB0byBjbGVhciBpdCA/IGlzIGl0IGJlY2F1c2Ug
-cGVyZm9ybWFuY2UgPw0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0K5Y+R5Lu2
-5Lq6OiBNaWNoZWwgRMOkbnplciA8bWljaGVsQGRhZW56ZXIubmV0Pg0K5Y+R6YCB5pe26Ze0OiAy
-MDE35bm0MuaciDjml6UgMjM6NTI6MDINCuaUtuS7tuS6ujogQ2hyaXN0aWFuIEvDtm5pZzsgTGl1
-LCBNb25rDQrmioTpgIE6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQrkuLvpopg6IFJl
-OiDnrZTlpI06IFtQQVRDSF0gZHJtL2FtZGdwdTpmaXggYW1kZ3B1X3NhX2JvX25ldyBlcnJvcg0K
-DQpPbiAwOS8wMi8xNyAxMjozMCBBTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToNCj4gVGhlIElC
-IHRlc3QgbWFrZSB0aGUgZGVjaXNpb24gaWYgdGhlIGhhcmR3YXJlIGlzIHdvcmtpbmcgb3Igbm90
-Lg0KPg0KPiBTbyB0aGV5IHNob3VsZCBiZSB0aGUgZmlyc3QgY29tbWFuZHMgKGV4Y2VwdCBmb3Ig
-dGhlIHJpbmcgdGVzdHMpIHdlIHNlbmQNCj4gdG8gdGhlIGhhcmR3YXJlLg0KPg0KPiBXaGVuIHdl
-IGFsbG9jYXRlIHRoZSBmYiBiZWZvcmUgdGhlIHRlc3Qgd2Ugc2VuZCB0aGUgY2xlYXIgY29tbWFu
-ZCB0byB0aGUNCj4gaGFyZHdhcmUgd2l0aG91dCBrbm93aW5nIGlmIHRoZSBoYXJkd2FyZSByZWFs
-bHkgd29ya3Mgb3Igbm90Lg0KPg0KPiBOb3QgYSBiaWcgaXNzdWUsIGJ1dCBJIHRoaW5rIHRoZSBv
-cmRlciBtYWtlcyBtb3JlIHNlbnNlIHRoYXQgd2F5Lg0KDQpJIGp1c3Qgd29uZGVyIGlmIGl0J3Mg
-d29ydGggYWxsIHRoZSB0cm91YmxlLCBqdXN0IHRvIGNsZWFyIHRoZSBmYmNvbg0KYnVmZmVyWzBd
-LCBpZiB0aGUgcmVzdWx0IGlzIHRoYXQgdGhlIGNvbnNvbGUgb3V0cHV0IGlzIGRlbGF5ZWQsIHBv
-c3NpYmx5DQppbmRlZmluaXRlbHkuDQoNClswXSBXZSBkb24ndCBoYXZlIGFueSBvdGhlciBoYXJk
-d2FyZSBhY2NlbGVyYXRpb24gZm9yIGZiY29uLCBzbyBpdHMgQk8NCmlzIG9ubHkgYWNjZXNzZWQg
-YnkgdGhlIENQVSBhbmQgZGlzcGxheSBoYXJkd2FyZSBhZnRlciB0aGlzLCBhbmQgaGFzIHRvDQpi
-ZSBwaW5uZWQgaW4gdGhlIENQVSB2aXNpYmxlIGFyZWEgb2YgVlJBTSBhdCBhbGwgdGltZXMgYW55
-d2F5Lg0KDQoNCi0tDQpFYXJ0aGxpbmcgTWljaGVsIETDpG56ZXIgICAgICAgICAgICAgICB8ICAg
-ICAgICAgICAgICAgaHR0cDovL3d3dy5hbWQuY29tDQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0
-ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXINCg==
+Am 08.02.2017 um 16:53 schrieb Liu, Monk:
+>
+> agreed, why not just use cpu to clear it ? is it because performance ?
+>
 
---_000_DM5PR12MB1610D9A7A6D35390193ED57D84420DM5PR12MB1610namp_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+Pixel Ding removed the CPU clear because "There's a failure caused by 
+this is that handshaking gets timeout of SRIOV virtual function."
 
-PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
-dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRvciIgY29udGVu
-dD0iTWljcm9zb2Z0IEV4Y2hhbmdlIFNlcnZlciI+DQo8IS0tIGNvbnZlcnRlZCBmcm9tIHRleHQg
-LS0+PHN0eWxlPjwhLS0gLkVtYWlsUXVvdGUgeyBtYXJnaW4tbGVmdDogMXB0OyBwYWRkaW5nLWxl
-ZnQ6IDRwdDsgYm9yZGVyLWxlZnQ6ICM4MDAwMDAgMnB4IHNvbGlkOyB9IC0tPjwvc3R5bGU+DQo8
-L2hlYWQ+DQo8Ym9keT4NCjxtZXRhIGNvbnRlbnQ9InRleHQvaHRtbDsgY2hhcnNldD1VVEYtOCI+
-DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiIHN0eWxlPSIiPg0KPCEtLQ0KcA0KCXttYXJnaW4tdG9w
-OjA7DQoJbWFyZ2luLWJvdHRvbTowfQ0KLS0+DQo8L3N0eWxlPg0KPGRpdiBkaXI9Imx0ciI+DQo8
-ZGl2IGlkPSJ4X2RpdnRhZ2RlZmF1bHR3cmFwcGVyIiBkaXI9Imx0ciIgc3R5bGU9ImZvbnQtc2l6
-ZToxMnB0OyBjb2xvcjojMDAwMDAwOyBmb250LWZhbWlseTpDYWxpYnJpLEFyaWFsLEhlbHZldGlj
-YSxzYW5zLXNlcmlmIj4NCjxwPmFncmVlZCwgd2h5IG5vdCBqdXN0IHVzZSBjcHUgdG8gY2xlYXIg
-aXQgPyBpcyBpdCBiZWNhdXNlIHBlcmZvcm1hbmNlID88YnI+DQo8L3A+DQo8L2Rpdj4NCjxociB0
-YWJpbmRleD0iLTEiIHN0eWxlPSJkaXNwbGF5OmlubGluZS1ibG9jazsgd2lkdGg6OTglIj4NCjxk
-aXYgaWQ9InhfZGl2UnBseUZ3ZE1zZyIgZGlyPSJsdHIiPjxmb250IGZhY2U9IkNhbGlicmksIHNh
-bnMtc2VyaWYiIGNvbG9yPSIjMDAwMDAwIiBzdHlsZT0iZm9udC1zaXplOjExcHQiPjxiPuWPkeS7
-tuS6ujo8L2I+IE1pY2hlbCBEw6RuemVyICZsdDttaWNoZWxAZGFlbnplci5uZXQmZ3Q7PGJyPg0K
-PGI+5Y+R6YCB5pe26Ze0OjwvYj4gMjAxN+W5tDLmnIg45pelIDIzOjUyOjAyPGJyPg0KPGI+5pS2
-5Lu25Lq6OjwvYj4gQ2hyaXN0aWFuIEvDtm5pZzsgTGl1LCBNb25rPGJyPg0KPGI+5oqE6YCBOjwv
-Yj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc8YnI+DQo8Yj7kuLvpopg6PC9iPiBSZTog
-562U5aSNOiBbUEFUQ0hdIGRybS9hbWRncHU6Zml4IGFtZGdwdV9zYV9ib19uZXcgZXJyb3I8L2Zv
-bnQ+DQo8ZGl2PiZuYnNwOzwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjxmb250IHNpemU9IjIiPjxz
-cGFuIHN0eWxlPSJmb250LXNpemU6MTBwdDsiPg0KPGRpdiBjbGFzcz0iUGxhaW5UZXh0Ij5PbiAw
-OS8wMi8xNyAxMjozMCBBTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZTo8YnI+DQomZ3Q7IFRoZSBJ
-QiB0ZXN0IG1ha2UgdGhlIGRlY2lzaW9uIGlmIHRoZSBoYXJkd2FyZSBpcyB3b3JraW5nIG9yIG5v
-dC48YnI+DQomZ3Q7IDxicj4NCiZndDsgU28gdGhleSBzaG91bGQgYmUgdGhlIGZpcnN0IGNvbW1h
-bmRzIChleGNlcHQgZm9yIHRoZSByaW5nIHRlc3RzKSB3ZSBzZW5kPGJyPg0KJmd0OyB0byB0aGUg
-aGFyZHdhcmUuPGJyPg0KJmd0OyA8YnI+DQomZ3Q7IFdoZW4gd2UgYWxsb2NhdGUgdGhlIGZiIGJl
-Zm9yZSB0aGUgdGVzdCB3ZSBzZW5kIHRoZSBjbGVhciBjb21tYW5kIHRvIHRoZTxicj4NCiZndDsg
-aGFyZHdhcmUgd2l0aG91dCBrbm93aW5nIGlmIHRoZSBoYXJkd2FyZSByZWFsbHkgd29ya3Mgb3Ig
-bm90Ljxicj4NCiZndDsgPGJyPg0KJmd0OyBOb3QgYSBiaWcgaXNzdWUsIGJ1dCBJIHRoaW5rIHRo
-ZSBvcmRlciBtYWtlcyBtb3JlIHNlbnNlIHRoYXQgd2F5Ljxicj4NCjxicj4NCkkganVzdCB3b25k
-ZXIgaWYgaXQncyB3b3J0aCBhbGwgdGhlIHRyb3VibGUsIGp1c3QgdG8gY2xlYXIgdGhlIGZiY29u
-PGJyPg0KYnVmZmVyWzBdLCBpZiB0aGUgcmVzdWx0IGlzIHRoYXQgdGhlIGNvbnNvbGUgb3V0cHV0
-IGlzIGRlbGF5ZWQsIHBvc3NpYmx5PGJyPg0KaW5kZWZpbml0ZWx5Ljxicj4NCjxicj4NClswXSBX
-ZSBkb24ndCBoYXZlIGFueSBvdGhlciBoYXJkd2FyZSBhY2NlbGVyYXRpb24gZm9yIGZiY29uLCBz
-byBpdHMgQk88YnI+DQppcyBvbmx5IGFjY2Vzc2VkIGJ5IHRoZSBDUFUgYW5kIGRpc3BsYXkgaGFy
-ZHdhcmUgYWZ0ZXIgdGhpcywgYW5kIGhhcyB0bzxicj4NCmJlIHBpbm5lZCBpbiB0aGUgQ1BVIHZp
-c2libGUgYXJlYSBvZiBWUkFNIGF0IGFsbCB0aW1lcyBhbnl3YXkuPGJyPg0KPGJyPg0KPGJyPg0K
-LS0gPGJyPg0KRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7IHwmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgPGEgaHJlZj0iaHR0cDovL3d3dy5hbWQu
-Y29tIj4NCmh0dHA6Ly93d3cuYW1kLmNvbTwvYT48YnI+DQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNp
-YXN0Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7IHwmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
-bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgTWVzYSBhbmQgWCBkZXZlbG9wZXI8
-YnI+DQo8L2Rpdj4NCjwvc3Bhbj48L2ZvbnQ+DQo8L2JvZHk+DQo8L2h0bWw+DQo=
+I can only assume that this is really adding to much delay at bootup.
 
---_000_DM5PR12MB1610D9A7A6D35390193ED57D84420DM5PR12MB1610namp_--
+> ------------------------------------------------------------------------
+> *发件人:* Michel Dänzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+> *发送时间:* 2017年2月8日 23:52:02
+> *收件人:* Christian König; Liu, Monk
+> *抄送:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> *主题:* Re: 答复: [PATCH] drm/amdgpu:fix amdgpu_sa_bo_new error
+> On 09/02/17 12:30 AM, Christian König wrote:
+> > The IB test make the decision if the hardware is working or not.
+> >
+> > So they should be the first commands (except for the ring tests) we send
+> > to the hardware.
+> >
+> > When we allocate the fb before the test we send the clear command to the
+> > hardware without knowing if the hardware really works or not.
+> >
+> > Not a big issue, but I think the order makes more sense that way.
+>
+> I just wonder if it's worth all the trouble, just to clear the fbcon
+> buffer[0], if the result is that the console output is delayed, possibly
+> indefinitely.
 
---===============0358343464==
+Actually that change is quite beneficial because the IB tests where 
+usually revealing any problem.
+
+Not 100% sure, but when we initialize the fb later that might actually 
+allow us to better track such problems down.
+
+Going to check that,
+Christian.
+
+>
+> [0] We don't have any other hardware acceleration for fbcon, so its BO
+> is only accessed by the CPU and display hardware after this, and has to
+> be pinned in the CPU visible area of VRAM at all times anyway.
+>
+>
+> -- 
+> Earthling Michel Dänzer               | http://www.amd.com 
+> <http://www.amd.com>
+> Libre software enthusiast             |             Mesa and X developer
+
+
+
+--------------FDB12EC997DDF0FFB0175A41
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Am 08.02.2017 um 16:53 schrieb Liu,
+      Monk:<br>
+    </div>
+    <blockquote
+cite="mid:DM5PR12MB1610D9A7A6D35390193ED57D84420-2J9CzHegvk++jCVTvoAFKAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org"
+      type="cite">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="Generator" content="Microsoft Exchange Server">
+      <!-- converted from text -->
+      <style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left: #800000 2px solid; } --></style>
+      <meta content="text/html; charset=UTF-8">
+      <style type="text/css" style="">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+      <div dir="ltr">
+        <div id="x_divtagdefaultwrapper" dir="ltr"
+          style="font-size:12pt; color:#000000;
+          font-family:Calibri,Arial,Helvetica,sans-serif">
+          <p>agreed, why not just use cpu to clear it ? is it because
+            performance ?<br>
+          </p>
+        </div>
+      </div>
+    </blockquote>
+    <br>
+    Pixel Ding removed the CPU clear because "There's a failure caused
+    by this is that handshaking gets timeout of SRIOV virtual function."<br>
+    <br>
+    I can only assume that this is really adding to much delay at
+    bootup.<br>
+    <br>
+    <blockquote
+cite="mid:DM5PR12MB1610D9A7A6D35390193ED57D84420-2J9CzHegvk++jCVTvoAFKAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org"
+      type="cite">
+      <div dir="ltr">
+        <div id="x_divtagdefaultwrapper" dir="ltr"
+          style="font-size:12pt; color:#000000;
+          font-family:Calibri,Arial,Helvetica,sans-serif">
+          <p>
+          </p>
+        </div>
+        <hr tabindex="-1" style="display:inline-block; width:98%">
+        <div id="x_divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
+            color="#000000" face="Calibri, sans-serif"><b>发件人:</b>
+            Michel Dänzer <a class="moz-txt-link-rfc2396E" href="mailto:michel-otUistvHUpPR7s880joybQ@public.gmane.org">&lt;michel-otUistvHUpPR7s880joybQ@public.gmane.org&gt;</a><br>
+            <b>发送时间:</b> 2017年2月8日 23:52:02<br>
+            <b>收件人:</b> Christian König; Liu, Monk<br>
+            <b>抄送:</b> <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+            <b>主题:</b> Re: 答复: [PATCH] drm/amdgpu:fix amdgpu_sa_bo_new
+            error</font>
+          <div> </div>
+        </div>
+      </div>
+      <font size="2"><span style="font-size:10pt;">
+          <div class="PlainText">On 09/02/17 12:30 AM, Christian König
+            wrote:<br>
+            &gt; The IB test make the decision if the hardware is
+            working or not.<br>
+            &gt; <br>
+            &gt; So they should be the first commands (except for the
+            ring tests) we send<br>
+            &gt; to the hardware.<br>
+            &gt; <br>
+            &gt; When we allocate the fb before the test we send the
+            clear command to the<br>
+            &gt; hardware without knowing if the hardware really works
+            or not.<br>
+            &gt; <br>
+            &gt; Not a big issue, but I think the order makes more sense
+            that way.<br>
+            <br>
+            I just wonder if it's worth all the trouble, just to clear
+            the fbcon<br>
+            buffer[0], if the result is that the console output is
+            delayed, possibly<br>
+            indefinitely.<br>
+          </div>
+        </span></font></blockquote>
+    <br>
+    Actually that change is quite beneficial because the IB tests where
+    usually revealing any problem.<br>
+    <br>
+    Not 100% sure, but when we initialize the fb later that might
+    actually allow us to better track such problems down.<br>
+    <br>
+    Going to check that,<br>
+    Christian.<br>
+    <br>
+    <blockquote
+cite="mid:DM5PR12MB1610D9A7A6D35390193ED57D84420-2J9CzHegvk++jCVTvoAFKAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org"
+      type="cite"><font size="2"><span style="font-size:10pt;">
+          <div class="PlainText">
+            <br>
+            [0] We don't have any other hardware acceleration for fbcon,
+            so its BO<br>
+            is only accessed by the CPU and display hardware after this,
+            and has to<br>
+            be pinned in the CPU visible area of VRAM at all times
+            anyway.<br>
+            <br>
+            <br>
+            -- <br>
+            Earthling Michel Dänzer               |               <a
+              moz-do-not-send="true" href="http://www.amd.com">
+              http://www.amd.com</a><br>
+            Libre software enthusiast             |             Mesa and
+            X developer<br>
+          </div>
+        </span></font>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------FDB12EC997DDF0FFB0175A41--
+
+--===============0414083546==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -124,4 +230,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0358343464==--
+--===============0414083546==--
