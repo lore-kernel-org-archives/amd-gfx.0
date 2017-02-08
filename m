@@ -1,13 +1,11 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH 01/11] drm/amdgpu:use MACRO like other places
-Date: Wed, 8 Feb 2017 18:34:22 +0900
-Message-ID: <fdc2dac2-13db-2e9d-3656-9ff3432eed40@daenzer.net>
-References: <1486546019-31045-1-git-send-email-Monk.Liu@amd.com>
+From: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu:fix amdgpu_sa_bo_new error
+Date: Wed, 8 Feb 2017 17:41:57 +0800
+Message-ID: <1486546917-1464-1-git-send-email-Monk.Liu@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1486546019-31045-1-git-send-email-Monk.Liu-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,17 +16,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
 
-T24gMDgvMDIvMTcgMDY6MjYgUE0sIE1vbmsgTGl1IHdyb3RlOgo+IAo+ICsJCQlXUkVHMzIodGVt
-cCArIGksCj4gKwkJCQkJdW5pcXVlX2luZGljZXNbaV0gJiAweDNGRkZGKTsKPiArCQkJV1JFRzMy
-KGRhdGEgKyBpLAo+ICsJCQkJCXVuaXF1ZV9pbmRpY2VzW2ldID4+IDIwKTsKClVzZSBhIHNpbmds
-ZSBsaW5lIGluIGJvdGggY2FzZXMgKG9yIGZpeCB0aGUgaW5kZW50YXRpb24gb2YgdGhlIHNlY29u
-ZApsaW5lcyB0byBhbGlnbiB3aXRoIHRoZSBvcGVuaW5nIHBhcmVucykuCgoKLS0gCkVhcnRobGlu
-ZyBNaWNoZWwgRMOkbnplciAgICAgICAgICAgICAgIHwgICAgICAgICAgICAgICBodHRwOi8vd3d3
-LmFtZC5jb20KTGlicmUgc29mdHdhcmUgZW50aHVzaWFzdCAgICAgICAgICAgICB8ICAgICAgICAg
-ICAgIE1lc2EgYW5kIFggZGV2ZWxvcGVyCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeAo=
+aWJfcG9vbCBpbml0IHNob3VsZCBwcmlvciB0byBmYmRldl9pbml0LCBvdGhlcndpc2UKdGhlcmUg
+d2lsbCBiZSBlcnJvciBmcm9tIGFtZGdwdV9zYV9ib19uZXcKKGFtZGdwdV9zYS5jOjMyMykKCmZi
+ZGV2X2luaXQgd2lsbCBjYWxsIHR0bV92YWxpZGF0ZSB3aGljaCBmdXJ0aGVyIGNhbGwKYW1kZ3B1
+X3NhX2JvX25ldy4KCkNoYW5nZS1JZDogSTNhOTY5NTcwZDQ0M2Y2MWE0NGY2N2IwZDc2YjM4NzFj
+YTVjM2VhODEKU2lnbmVkLW9mZi1ieTogTW9uayBMaXUgPE1vbmsuTGl1QGFtZC5jb20+Ci0tLQog
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIHwgNCArKy0tCiAxIGZp
+bGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwppbmRleCBhZmNhZTE1Li40MTY5YmIxIDEw
+MDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCkBAIC0xOTE4LDE0
+ICsxOTE4LDE0IEBAIGludCBhbWRncHVfZGV2aWNlX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
+KmFkZXYsCiAJLyogR2V0IGEgbG9nMiBmb3IgZWFzeSBkaXZpc2lvbnMuICovCiAJYWRldi0+bW1f
+c3RhdHMubG9nMl9tYXhfTUJwcyA9IGlsb2cyKG1heCgxdSwgbWF4X01CcHMpKTsKIAotCWFtZGdw
+dV9mYmRldl9pbml0KGFkZXYpOwotCiAJciA9IGFtZGdwdV9pYl9wb29sX2luaXQoYWRldik7CiAJ
+aWYgKHIpIHsKIAkJZGV2X2VycihhZGV2LT5kZXYsICJJQiBpbml0aWFsaXphdGlvbiBmYWlsZWQg
+KCVkKS5cbiIsIHIpOwogCQlnb3RvIGZhaWxlZDsKIAl9CiAKKwlhbWRncHVfZmJkZXZfaW5pdChh
+ZGV2KTsKKwogCXIgPSBhbWRncHVfaWJfcmluZ190ZXN0cyhhZGV2KTsKIAlpZiAocikKIAkJRFJN
+X0VSUk9SKCJpYiByaW5nIHRlc3QgZmFpbGVkICglZCkuXG4iLCByKTsKLS0gCjIuNy40CgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
+bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
