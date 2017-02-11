@@ -1,14 +1,12 @@
-From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] Add GPU_POWER sensors (v2)
-Date: Sat, 11 Feb 2017 12:38:10 -0500
-Message-ID: <21ec3955-921c-0965-7590-6d05e13b4541@amd.com>
-References: <20170211112651.26334-1-tom.stdenis@amd.com>
- <f88626cc-e492-4d8b-c65c-7522f785aae1@dev.carbon-project.org>
+From: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+Subject: Re: [UMR] Add GPU_POWER (v3) + refactored cleanup
+Date: Sat, 11 Feb 2017 19:57:14 +0100
+Message-ID: <3627d968-1817-5ca3-024e-1d91291680b5@dev.carbon-project.org>
+References: <20170211175223.2748-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1697240672=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <f88626cc-e492-4d8b-c65c-7522f785aae1-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+In-Reply-To: <20170211175223.2748-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,97 +17,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 
-T24gMDIvMTEvMjAxNyAwODoyOSBBTSwgS2FpIFdhc3NlcmLDpGNoIHdyb3RlOgo+IEhleSBUb20s
-Cj4gVG9tIFN0IERlbmlzIHdyb3RlIG9uIDExLjAyLjIwMTcgMTI6MjY6Cj4+IEFkZCB0aGUgYWJp
-bGl0eSB0byBzYW1wbGUgR1BVX1BPV0VSIHNlbnNvcnMuICBCZWNhdXNlCj4+IHRoZSBzZW5zb3Jz
-IGhhdmUgYSBoaWdoIGxhdGVuY3kgd2UgcmVhZCB0aGVtIGZyb20gYSBiYWNrZ3JvdW5kCj4+IHRo
-cmVhZCB3aGljaCBtZWFucyB3ZSd2ZSBhZGRlZCB0aGUgcmVxdWlyZW1lbnQgZm9yIHB0aHJlYWRz
-Lgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBUb20gU3QgRGVuaXMgPHRvbS5zdGRlbmlzQGFtZC5jb20+
-Cj4+Cj4+ICh2MikgQ2xlYW5lZCB1cCBDTWFrZSBhcm91bmQgcHRocmVhZHMKPj4gLS0tCj4+ICBD
-TWFrZUxpc3RzLnR4dCAgICAgICAgIHwgIDQgKysrCj4+ICBSRUFETUUgICAgICAgICAgICAgICAg
-IHwgIDYgKystLQo+PiAgc3JjL2FwcC90b3AuYyAgICAgICAgICB8IDg4ICsrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrLS0tLS0tLS0tCj4+ICBzcmMvbGliL0NNYWtlTGlz
-dHMudHh0IHwgIDEgKwo+PiAgc3JjL2xpYi9yZWFkX3NlbnNvci5jICB8IDM3ICsrKysrKysrKysr
-KysrKysrKysrKwo+PiAgc3JjL3Vtci5oICAgICAgICAgICAgICB8ICA1ICsrKwo+PiAgNiBmaWxl
-cyBjaGFuZ2VkLCAxMjMgaW5zZXJ0aW9ucygrKSwgMTggZGVsZXRpb25zKC0pCj4+ICBjcmVhdGUg
-bW9kZSAxMDA2NDQgc3JjL2xpYi9yZWFkX3NlbnNvci5jCj4+Cj4+IGRpZmYgLS1naXQgYS9DTWFr
-ZUxpc3RzLnR4dCBiL0NNYWtlTGlzdHMudHh0Cj4+IGluZGV4IGVmNzhjOTdhZDc2My4uOGQ4OTQ0
-NWMzOWUzIDEwMDY0NAo+PiAtLS0gYS9DTWFrZUxpc3RzLnR4dAo+PiArKysgYi9DTWFrZUxpc3Rz
-LnR4dAo+PiBAQCAtMTksNiArMTksOSBAQCBhZGRfZGVmaW5pdGlvbnMoLURVTVJfQlVJTERfUkVW
-PVwiJHtHSVRfUkVWfVwiKQo+PiAgIyBBZGQgbG9jYWwgcmVwb3NpdG9yeSBmb3IgRmluZFhYWC5j
-bWFrZSBtb2R1bGVzLgo+PiAgU0VUKENNQUtFX01PRFVMRV9QQVRIICIke0NNQUtFX1NPVVJDRV9E
-SVJ9L2NtYWtlX21vZHVsZXMvIiAke0NNQUtFX01PRFVMRV9QQVRIfSkKPj4KPj4gK3NldChDTUFL
-RV9USFJFQURfUFJFRkVSX1BUSFJFQUQgVFJVRSkKPj4gK2ZpbmRfcGFja2FnZShUaHJlYWRzIFJF
-UVVJUkVEKQo+PiArCj4+ICBmaW5kX3BhY2thZ2UoQ3Vyc2VzIFJFUVVJUkVEKQo+PiAgaW5jbHVk
-ZV9kaXJlY3Rvcmllcygke0NVUlNFU19JTkNMVURFX0RJUlN9KQo+Pgo+PiBAQCAtMzEsNiArMzQs
-NyBAQCBpbmNsdWRlX2RpcmVjdG9yaWVzKCR7TElCRFJNX0lOQ0xVREVfRElSfSkKPj4gIHNldChS
-RVFVSVJFRF9FWFRFUk5BTF9MSUJTCj4+ICAgICR7Q1VSU0VTX0xJQlJBUklFU30KPj4gICAgJHtQ
-Q0lBQ0NFU1NfTElCUkFSSUVTfQo+PiArICBUaHJlYWRzOjpUaHJlYWRzCj4+ICApCj4+Cj4+ICAj
-IEdsb2JhbCBzZXR0aW5nOiBidWlsZCBldmVyeXRoaW5nIHBvc2l0aW9uIGluZGVwZW5kZW50Cj4+
-IGRpZmYgLS1naXQgYS9SRUFETUUgYi9SRUFETUUKPj4gaW5kZXggMTNjZGFjNjYzZDIwLi44YThk
-ZTg0ODVhYzcgMTAwNjQ0Cj4+IC0tLSBhL1JFQURNRQo+PiArKysgYi9SRUFETUUKPj4gQEAgLTI4
-LDkgKzI4LDkgQEAgbWFpbGluZyBsaXN0IGF0Ogo+PiAgQnVpbGRpbmcKPj4gIC0tLS0tLS0tLQo+
-Pgo+PiAtVG8gYnVpbGQgdW1yIHlvdSB3aWxsIG5lZWQgcGNpYWNjZXNzLCBuY3Vyc2VzLCBhbmQg
-bGliZHJtIGhlYWRlcnMgYW5kCj4+IC1saWJyYXJpZXMuICBXaGljaCBhcmUgYXZhaWxhYmxlIGlu
-IGJvdGggRmVkb3JhIGFuZCBVYnVudHUgKGFzIHdlbGwgYXMKPj4gLW90aGVyIGRpc3RyaWJ1dGlv
-bnMpLiAgVG8gYnVpbGQgdW1yOgo+PiArVG8gYnVpbGQgdW1yIHlvdSB3aWxsIG5lZWQgcGNpYWNj
-ZXNzLCBuY3Vyc2VzLCBsaWJkcm0sIGFuZCBwdGhyZWFkCj4+ICtoZWFkZXJzIGFuZCBsaWJyYXJp
-ZXMuICBXaGljaCBhcmUgYXZhaWxhYmxlIGluIGJvdGggRmVkb3JhIGFuZCBVYnVudHUKPj4gKyhh
-cyB3ZWxsIGFzIG90aGVyIGRpc3RyaWJ1dGlvbnMpLiAgVG8gYnVpbGQgdW1yOgo+Cj4gbWF5YmUg
-anVzdCB3cml0ZSAibW9zdCBkaXN0cmlidXRpb25zIj8gU2luY2UgeW91J3JlIG5vdCBnaXZpbmcg
-cGFja2FnZSBuYW1lcyBJCj4gZG9uJ3QgcmVhbGx5IHNlZSBhIHBvaW50IGluIG5hbWluZyB0d28g
-ZGlzdHJpYnV0aW9ucywgZXNwZWNpYWxseSB3aGVyZSBvbmUgaXMKPiBqdXN0IGEgZGVyaXZhdGl2
-ZS4KCkkgY2FuIHVwZGF0ZSB0aGF0LiAgVG8gYmUgaG9uZXN0IEkgZG8gOTklIG9mIG15IHRlc3Rp
-bmcgd2l0aCBGZWRvcmEgYW5kIApVYnVudHUgaXMgdXNlZCBxdWl0ZSBhIGJpdCBhbW9uZ3N0IEFN
-RGVycy4KCgo+Cj4+ICAgICAgJCBta2RpciBidWlsZCAmJiBjZCBidWlsZC8gJiYgY21ha2UgLi4v
-Cj4+ICAgICAgJCBtYWtlCj4+IGRpZmYgLS1naXQgYS9zcmMvYXBwL3RvcC5jIGIvc3JjL2FwcC90
-b3AuYwo+PiBpbmRleCBiMDgxNTE1YTViNDAuLjYwZjYyOWQyNDdmMyAxMDA2NDQKPj4gLS0tIGEv
-c3JjL2FwcC90b3AuYwo+PiArKysgYi9zcmMvYXBwL3RvcC5jCj4+IEBAIC01NCw2ICs1NCw3IEBA
-IGVudW0gc2Vuc29yX21hcHMgewo+PiAgCVNFTlNPUl9JREVOVElUWT0wLCAvLyB4ID0geAo+PiAg
-CVNFTlNPUl9EMTAwMCwgICAgLy8geCA9IHgvMTAwMAo+PiAgCVNFTlNPUl9EMTAwLCAgICAvLyB4
-ID0geC8xMDAKPj4gKwlTRU5TT1JfV0FUVCwKPj4gIH07Cj4+Cj4+ICBlbnVtIHNlbnNvcl9wcmlu
-dCB7Cj4+IEBAIC02MSw2ICs2Miw3IEBAIGVudW0gc2Vuc29yX3ByaW50IHsKPj4gIAlTRU5TT1Jf
-TUhaLAo+PiAgCVNFTlNPUl9QRVJDRU5ULAo+PiAgCVNFTlNPUl9URU1QLAo+PiArCVNFTlNPUl9Q
-T1dFUiwKPj4gIH07Cj4+Cj4+ICBlbnVtIGRybV9wcmludCB7Cj4+IEBAIC0xNzEsMTkgKzE3Mywx
-NCBAQCBzdGF0aWMgc3RydWN0IHVtcl9iaXRmaWVsZCBzdGF0X3V2ZF9wZ2ZzbTdfYml0c1tdID0g
-ewo+PiAgc3RhdGljIHN0cnVjdCB1bXJfYml0ZmllbGQgc3RhdF9tY19odWJfYml0c1tdID0gewo+
-PiAgCSB7ICJPVVRTVEFORElOR19SRUFEIiwgMjU1LCAyNTUsICZ1bXJfYml0ZmllbGRfZGVmYXVs
-dCB9LAo+PiAgCSB7ICJPVVRTVEFORElOR19XUklURSIsIDI1NSwgMjU1LCAmdW1yX2JpdGZpZWxk
-X2RlZmF1bHQgfSwKPj4gLS8vCSB7ICJPVVRTVEFORElOR19BVE9NSUMiLCAyNTUsIDI1NSwgJnVt
-cl9iaXRmaWVsZF9kZWZhdWx0IH0sCj4+ICAJIHsgIk9VVFNUQU5ESU5HX0hVQl9SRFJFUSIsIDI1
-NSwgMjU1LCAmdW1yX2JpdGZpZWxkX2RlZmF1bHQgfSwKPj4gIAkgeyAiT1VUU1RBTkRJTkdfSFVC
-X1JEUkVUIiwgMjU1LCAyNTUsICZ1bXJfYml0ZmllbGRfZGVmYXVsdCB9LAo+PiAgCSB7ICJPVVRT
-VEFORElOR19IVUJfV1JSRVEiLCAyNTUsIDI1NSwgJnVtcl9iaXRmaWVsZF9kZWZhdWx0IH0sCj4+
-ICAJIHsgIk9VVFNUQU5ESU5HX0hVQl9XUlJFVCIsIDI1NSwgMjU1LCAmdW1yX2JpdGZpZWxkX2Rl
-ZmF1bHQgfSwKPj4gLS8vCSB7ICJPVVRTVEFORElOR19IVUJfQVRPTUlDX1JFUSIsIDI1NSwgMjU1
-LCAmdW1yX2JpdGZpZWxkX2RlZmF1bHQgfSwKPj4gLS8vCSB7ICJPVVRTVEFORElOR19IVUJfQVRP
-TUlDX1JFVCIsIDI1NSwgMjU1LCAmdW1yX2JpdGZpZWxkX2RlZmF1bHQgfSwKPj4gIAkgeyAiT1VU
-U1RBTkRJTkdfUlBCX1JFQUQiLCAyNTUsIDI1NSwgJnVtcl9iaXRmaWVsZF9kZWZhdWx0IH0sCj4+
-ICAJIHsgIk9VVFNUQU5ESU5HX1JQQl9XUklURSIsIDI1NSwgMjU1LCAmdW1yX2JpdGZpZWxkX2Rl
-ZmF1bHQgfSwKPj4gLS8vCSB7ICJPVVRTVEFORElOR19SUEJfQVRPTUlDIiwgMjU1LCAyNTUsICZ1
-bXJfYml0ZmllbGRfZGVmYXVsdCB9LAo+PiAgCSB7ICJPVVRTVEFORElOR19NQ0RfUkVBRCIsIDI1
-NSwgMjU1LCAmdW1yX2JpdGZpZWxkX2RlZmF1bHQgfSwKPj4gIAkgeyAiT1VUU1RBTkRJTkdfTUNE
-X1dSSVRFIiwgMjU1LCAyNTUsICZ1bXJfYml0ZmllbGRfZGVmYXVsdCB9LAo+PiAtLy8JIHsgIk9V
-VFNUQU5ESU5HX01DRF9BVE9NSUMiLCAyNTUsIDI1NSwgJnVtcl9iaXRmaWVsZF9kZWZhdWx0IH0s
-Cj4+ICAJIHsgTlVMTCwgMCwgMCwgTlVMTCB9LAo+PiAgfTsKPgo+IEkgd291bGQgYWdyZWUgd2l0
-aCBFZHdhcmQgYW5kIHJhdGhlciBoYXZlIHRoZXNlIGluIGEgc2VwYXJhdGUgY2xlYW4tdXAgcGF0
-Y2guCgpJdCdzIGludGVyZXN0aW5nIHRoYXQgeW91IG5vdGUgdGhpcy4KCj4gQ291bGQgeW91IHB1
-dCB0aGUgYXNzaWdubWVudCBhbmQgYnJlYWsgb24gdGhlaXIgb3duIGxpbmVzPyBXb3VsZCBpbmNy
-ZWFzZQo+IHJlYWRhYmlsaXR5IElNSE8uIEFsc28gbWF5YmUgYWRkIHNwYWNlcyBiZXR3ZWVuIHZh
-cmlhYmxlcywgb3BlcmF0b3JzIGFuZAo+IGNvbnN0YW50cz8gSSdtIGltYWdpbmluZyBzb21ldGhp
-bmcgbGlrZQoKQmVjYXVzZSBvZiB0aGlzLgoKSSdtIG5vdCBkaXNhZ3JlZWluZyB3aXRoIHlvdXIg
-Zm9ybWF0dGluZyBzdWdnZXN0aW9uIGl0IGp1c3Qgc2VlbXMgYXQgCnRoaXMgcG9pbnQgd2UncmUg
-YnVpbGRpbmcgYSBkZWx1eGUgYmlrZSBzaGVkLiAgSSBhbHJlYWR5IG93biBhIGJpa2Ugc2hlZCAK
-KHdoaWNoIG15IGRhdWdodGVyIGNhbGxzIGEgbWluaSBob3VzZSkgYW5kIGRvbid0IG5lZWQgYW5v
-dGhlci4gOi0pCgpJZiBJIHJldmVydCB0aGUgaHVuayBhYm91dCB0aGUgcmVtb3ZlZCBjb21tZW50
-IGxpbmVzIEkgY2Fubm90IGxvZ2ljYWxseSAKaW5jbHVkZSB5b3VyIGZvcm1hdHRpbmcgY2hhbmdl
-cyBzaW5jZSB0aGV5J3JlIG5vdCBtYXRlcmlhbCB0byB0aGUgCmZ1bmN0aW9uYWwgY2hhbmdlcyBp
-bnRyb2R1Y2VkIGJ5IHRoaXMgY29tbWl0LgkKCkEgcmVhc29uYWJsZSBjb21wcm9taXNlIGlzIHRv
-IHNwbGl0IHRoaXMgaW50byB0d28gcGF0Y2hlcyBvbmUgd2hpY2ggCmNsZWFucyB1cCBmb3JtYXR0
-aW5nIGZpcnN0IChhbmQgcmVtb3ZlcyB0aGUgY29tbWVudGVkIGxpbmVzKSBhbmQgdGhlIDJuZCAK
-d2hpY2ggaW50cm9kdWNlcyB0aGUgbmV3IHNlbnNvcnMuCgoKVG9tCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============1697240672==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature";
+ boundary="0V250mtBB9brAhUFs2d4gIqOV2HKh0hbV"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--0V250mtBB9brAhUFs2d4gIqOV2HKh0hbV
+Content-Type: multipart/mixed; boundary="LQtsxNvan9UtvHe5EcHoRJraPS6BEfkFQ";
+ protected-headers="v1"
+From: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+Message-ID: <3627d968-1817-5ca3-024e-1d91291680b5-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+Subject: Re: [UMR] Add GPU_POWER (v3) + refactored cleanup
+References: <20170211175223.2748-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20170211175223.2748-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+
+--LQtsxNvan9UtvHe5EcHoRJraPS6BEfkFQ
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Hey Tom,
+Tom St Denis wrote on 11.02.2017 18:52:
+> I split out the deletion of the unused bits in --top.
+
+thank you so much for bearing with me (and Edward, though I can't speak f=
+or him,
+obviously)! You can still have my R-b. ;-)
+
+Cheers,
+Kai
+
+
+--LQtsxNvan9UtvHe5EcHoRJraPS6BEfkFQ--
+
+--0V250mtBB9brAhUFs2d4gIqOV2HKh0hbV
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQGzBAEBCgAdFiEEBgCWzvPI5zPlthWHownXbOHeWdIFAlifXo4ACgkQownXbOHe
+WdIEfgwAsftd8T7FU6MbrM+ehRsngLe69XCaoNGjZ0AFYjkheVJfKOa4PKaAYdm+
+I5yZyREaeGWMXGPxVwV1ukhW2Leo/UfDF4GknH9fUpvDdjdLkNWzEAF9VuuajSE4
+Y4xZuvF2wPbISrgvsOeiauUw6viyRV2i4AbMFejKYICg/q/WCbimZ2/G5pbWv9V3
+H7LeqCZa0V4BiS4PPzd0EjFHr+Qo03ZRPzxubafIlp26tlmCkJOfMhis34BhUX3v
+K9u6QtT4imeyFOr0e2UJrYXmFNFLywY0E5nWDjr5iiMmaM9iXNTg84MzIzY1TSen
+vIjHDHWST/LxL8D4RBKGqlDAxs9bCCFi0635mTJblU04a0gFhsBZUCocgDFUf1na
+0KZyFVFA9TqfmJurbd2/kPwp4yTVKIRpvWm/n6fZKVqXJFNaUxZtASVpLIokBhp3
+E/0JevGHZqGf+a0cbRuQ+jRwHBU2Hg1/zxym1HwOaHDYI+zEcD9gJsbOM6fFY5Q/
+acnLioMe
+=TeqN
+-----END PGP SIGNATURE-----
+
+--0V250mtBB9brAhUFs2d4gIqOV2HKh0hbV--
+
+--===============1697240672==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1697240672==--
