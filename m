@@ -1,12 +1,14 @@
-From: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [UMR] Add GPU_POWER (v3) + refactored cleanup
-Date: Sat, 11 Feb 2017 19:57:14 +0100
-Message-ID: <3627d968-1817-5ca3-024e-1d91291680b5@dev.carbon-project.org>
+Date: Sat, 11 Feb 2017 14:05:02 -0500
+Message-ID: <2b15805a-3e56-71b7-0242-98e3db103add@amd.com>
 References: <20170211175223.2748-1-tom.stdenis@amd.com>
+ <3627d968-1817-5ca3-024e-1d91291680b5@dev.carbon-project.org>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1697240672=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170211175223.2748-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <3627d968-1817-5ca3-024e-1d91291680b5-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,75 +19,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+To: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1697240672==
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature";
- boundary="0V250mtBB9brAhUFs2d4gIqOV2HKh0hbV"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---0V250mtBB9brAhUFs2d4gIqOV2HKh0hbV
-Content-Type: multipart/mixed; boundary="LQtsxNvan9UtvHe5EcHoRJraPS6BEfkFQ";
- protected-headers="v1"
-From: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
-To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Message-ID: <3627d968-1817-5ca3-024e-1d91291680b5-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
-Subject: Re: [UMR] Add GPU_POWER (v3) + refactored cleanup
-References: <20170211175223.2748-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <20170211175223.2748-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-
---LQtsxNvan9UtvHe5EcHoRJraPS6BEfkFQ
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-Hey Tom,
-Tom St Denis wrote on 11.02.2017 18:52:
-> I split out the deletion of the unused bits in --top.
-
-thank you so much for bearing with me (and Edward, though I can't speak f=
-or him,
-obviously)! You can still have my R-b. ;-)
-
-Cheers,
-Kai
-
-
---LQtsxNvan9UtvHe5EcHoRJraPS6BEfkFQ--
-
---0V250mtBB9brAhUFs2d4gIqOV2HKh0hbV
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQGzBAEBCgAdFiEEBgCWzvPI5zPlthWHownXbOHeWdIFAlifXo4ACgkQownXbOHe
-WdIEfgwAsftd8T7FU6MbrM+ehRsngLe69XCaoNGjZ0AFYjkheVJfKOa4PKaAYdm+
-I5yZyREaeGWMXGPxVwV1ukhW2Leo/UfDF4GknH9fUpvDdjdLkNWzEAF9VuuajSE4
-Y4xZuvF2wPbISrgvsOeiauUw6viyRV2i4AbMFejKYICg/q/WCbimZ2/G5pbWv9V3
-H7LeqCZa0V4BiS4PPzd0EjFHr+Qo03ZRPzxubafIlp26tlmCkJOfMhis34BhUX3v
-K9u6QtT4imeyFOr0e2UJrYXmFNFLywY0E5nWDjr5iiMmaM9iXNTg84MzIzY1TSen
-vIjHDHWST/LxL8D4RBKGqlDAxs9bCCFi0635mTJblU04a0gFhsBZUCocgDFUf1na
-0KZyFVFA9TqfmJurbd2/kPwp4yTVKIRpvWm/n6fZKVqXJFNaUxZtASVpLIokBhp3
-E/0JevGHZqGf+a0cbRuQ+jRwHBU2Hg1/zxym1HwOaHDYI+zEcD9gJsbOM6fFY5Q/
-acnLioMe
-=TeqN
------END PGP SIGNATURE-----
-
---0V250mtBB9brAhUFs2d4gIqOV2HKh0hbV--
-
---===============1697240672==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1697240672==--
+T24gMDIvMTEvMjAxNyAwMTo1NyBQTSwgS2FpIFdhc3NlcmLDpGNoIHdyb3RlOgo+IEhleSBUb20s
+Cj4gVG9tIFN0IERlbmlzIHdyb3RlIG9uIDExLjAyLjIwMTcgMTg6NTI6Cj4+IEkgc3BsaXQgb3V0
+IHRoZSBkZWxldGlvbiBvZiB0aGUgdW51c2VkIGJpdHMgaW4gLS10b3AuCj4KPiB0aGFuayB5b3Ug
+c28gbXVjaCBmb3IgYmVhcmluZyB3aXRoIG1lIChhbmQgRWR3YXJkLCB0aG91Z2ggSSBjYW4ndCBz
+cGVhayBmb3IgaGltLAo+IG9idmlvdXNseSkhIFlvdSBjYW4gc3RpbGwgaGF2ZSBteSBSLWIuIDst
+KQo+Cj4gQ2hlZXJzLAo+IEthaQo+CgpObyB3b3JyaWVzLiAgSXQncyBubyBzZWNyZXQgSSdtIG5v
+IGZhbiBvZiBORkMgcmUtc3VibWl0cyBidXQgaGFyZCB0byBnZXQgCnVwc2V0IGluIHRoZSBmYWNl
+IG9mIGdlbnVpbmVseSBnb29kIGZlZWRiYWNrLiAgQW5kIGl0IGlzIGEgY29tbXVuaXR5IApwcm9q
+ZWN0IGluIHRoZSBsb25nIHJ1biBzbyBpdCdzIG5vdCBsaWtlIGNvbW11bml0eSBwdXNoYmFjay9m
+ZWVkYmFjayBpcyAKbm90IHdlbGNvbWVkIChteSBydW1ibGluZ3Mgbm90d2l0aHN0YW5kaW5nKS4K
+ClRoYW5rcyB0byB5b3UgYW5kIEVkd2FyZCBmb3IgdGhlIGZlZWRiYWNrLgoKSSd2ZSBwdXNoZWQg
+dGhlbSBvdXQuICBZb3UnbGwgbmVlZCBhIHN0YWdpbmcga2VybmVsIHRvIHVzZSBHUFVfUE9XRVIg
+Cih3aXRoIG15IGFuZCBFcmljJ3MgcGF0Y2hlcykgdG8gc2VlIGFueSBvZiB0aGlzIG9uIGEgVkkg
+ZEdQVS4KCkl0J3Mga2luZGEgaW50ZXJlc3RpbmcgdG8gc2VlIHRoZSBwb3dlciB1c2FnZSBncmFw
+aHMgKHVzaW5nIHVtcidzIC0tdG9wIAonbG9nZ2VyJyBtb2RlKSBjb21wYXJpbmcgUG9sYXJpczEw
+IGFuZCBmaWppIHdoaWxlIHJ1bm5pbmcgc2F5IAp1bmlnaW5lLWhlYXZlbi4gIEkgdGhpbmsgdGhl
+IHNlbnNvcnMgd2lsbCBoZWxwIGRlYnVnL29wdGltaXplIHBvd2VyIAp1c2FnZSBnb2luZyBmb3J3
+YXJkLgoKQ2hlZXJzLApUb20KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Cg==
