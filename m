@@ -1,8 +1,8 @@
 From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH v2] drm/amdgpu: expose amdgpu_sensors on pre-powerplay
  chips
-Date: Tue, 14 Feb 2017 13:07:54 -0500
-Message-ID: <67b3e5ba-5d2f-fec9-dc8a-5cb4d98982d5@amd.com>
+Date: Tue, 14 Feb 2017 13:08:06 -0500
+Message-ID: <987dfdbd-8d65-8339-cdef-10b865997fee@amd.com>
 References: <20170214002301.6686-1-samuel.pitoiset@gmail.com>
  <20170214150828.32314-1-samuel.pitoiset@gmail.com>
  <b97cf47b-1f0f-a9dc-4aeb-fa11a9a0f4d6@amd.com>
@@ -53,7 +53,7 @@ ZSB0aGUgVkZTIHNwaW5zIHRyeWluZyB0byByZWFkIGJ1dAo+IG5ldmVyIGZpbmlzaGVzLi4uCgpO
 ZXZlcm1pbmQsIHRoZSBpc3N1ZSBpcyB1bXIgcmVhZGluZyBVVkQgcmVnaXN0ZXJzIHdoZW4gZHBt
 PTAgb24gS1YuIApXaXRob3V0IHNhbXBsaW5nIFVWRCB0aGUgZXJyb3Igd29ya3MgcHJvcGVybHku
 CgpTbyBhZGQgdGhvc2UgdGhyZWUgbGluZXMgdG8geW91ciBwYXRjaCAoYW5kIHNpbWlsYXIgaW4g
-dGhlIGlvY3RsKSB5b3UgCnNob3VsZCBiZSBmaW5lLgoKQ2hlZXJzLApUbwpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+dGhlIGlvY3RsKSB5b3UgCnNob3VsZCBiZSBmaW5lLgoKQ2hlZXJzLApUb20KX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
