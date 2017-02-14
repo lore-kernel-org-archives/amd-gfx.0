@@ -1,10 +1,19 @@
-From: Kent Russell <kent.russell-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: Remove bo.priority compiler warning
-Date: Tue, 14 Feb 2017 13:03:45 -0500
-Message-ID: <daa4edb1-ace7-1640-6ae3-645126a64acc@amd.com>
+From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v2] drm/amdgpu: expose amdgpu_sensors on pre-powerplay
+ chips
+Date: Tue, 14 Feb 2017 13:07:54 -0500
+Message-ID: <67b3e5ba-5d2f-fec9-dc8a-5cb4d98982d5@amd.com>
+References: <20170214002301.6686-1-samuel.pitoiset@gmail.com>
+ <20170214150828.32314-1-samuel.pitoiset@gmail.com>
+ <b97cf47b-1f0f-a9dc-4aeb-fa11a9a0f4d6@amd.com>
+ <638559e3-6dab-107c-f483-562f6a298ab3@gmail.com>
+ <468a8aea-645c-037f-f78e-0d24a5b84a14@amd.com>
+ <2338bf9c-ab65-36c6-53ae-a15321189817@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="------------92DB19EDEC3BE4DB70CDF15D"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <2338bf9c-ab65-36c6-53ae-a15321189817-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,65 +26,34 @@ Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---------------92DB19EDEC3BE4DB70CDF15D
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-
-Addresses this compile warning:
-
-warning: comparison of distinct pointer types lacks a cast [enabled by 
-default]
-   bo->tbo.priority = min(bo->tbo.priority, TTM_MAX_BO_PRIORITY - 1);
-
-  Kent
-
-
---------------92DB19EDEC3BE4DB70CDF15D
-Content-Type: text/x-patch;
-	name="0001-drm-amdgpu-Remove-bo.priority-compiler-warning.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
-	filename="0001-drm-amdgpu-Remove-bo.priority-compiler-warning.patch"
-
->From 3da9f2d478c048c36a395f92a2bdb49fe04b831e Mon Sep 17 00:00:00 2001
-From: Kent Russell <kent.russell-5C7GfCeVMHo@public.gmane.org>
-Date: Tue, 14 Feb 2017 12:52:35 -0500
-Subject: [PATCH] drm/amdgpu: Remove bo.priority compiler warning
-
-bo->tbo.priority is an unsigned, so casting to int to address the
-warning shouldn't be an issue
-
-Change-Id: I1a379e08f43b4c5f85c88446dff473baa87562f9
-Signed-off-by: Kent Russell <kent.russell-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index 1c71bea..af6efb7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -420,7 +420,7 @@ int amdgpu_bo_create_restricted(struct amdgpu_device *adev,
- 	bo->tbo.priority = ilog2(bo->tbo.num_pages);
- 	if (kernel)
- 		bo->tbo.priority *= 2;
--	bo->tbo.priority = min(bo->tbo.priority, TTM_MAX_BO_PRIORITY - 1);
-+	bo->tbo.priority = min((int)bo->tbo.priority, TTM_MAX_BO_PRIORITY - 1);
- 
- 	if (flags & AMDGPU_GEM_CREATE_VRAM_CLEARED &&
- 	    bo->tbo.mem.placement & TTM_PL_FLAG_VRAM) {
--- 
-2.7.4
-
-
---------------92DB19EDEC3BE4DB70CDF15D
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---------------92DB19EDEC3BE4DB70CDF15D--
+T24gMTQvMDIvMTcgMTI6NTIgUE0sIFRvbSBTdCBEZW5pcyB3cm90ZToKPiBPbiAxNC8wMi8xNyAx
+MjoxNiBQTSwgVG9tIFN0IERlbmlzIHdyb3RlOgo+PiBPbiAxNC8wMi8xNyAxMjowMSBQTSwgU2Ft
+dWVsIFBpdG9pc2V0IHdyb3RlOgo+Pj4gTm8gd29ycmllcy4gSSB0aG91Z2h0IHRoYXQgY2hlY2sg
+d2FzIGVub3VnaC4gQW55d2F5LCB3cml0aW5nIGNvZGUKPj4+IHdpdGhvdXQgdGhlIGhhcmR3YXJl
+IHNob3VsZCBiZSBhdm9pZGVkLiA6KQo+Pj4KPj4+IENhbiB5b3UgdHJ5IHRoZSB0aGluZyBzdWdn
+ZXN0ZWQgYnkgQWxleD8gQmVjYXVzZSBJIHdpbGwgbmVlZCB0byBmaXggdXAKPj4+IHRoZSBEUk0g
+aW9jdGwgY29kZXBhdGggYXMgd2VsbC4KPj4KPj4gU3VyZSwgSSdtIGJ1aWxkaW5nIGEgbW9kdWxl
+IHdpdGggYSBhbWRncHVfZHBtIGNoZWNrIG5lYXIgdGhlIHRvcCBvZiB0aGUKPj4gZGVidWdmcyBy
+ZWFkIGZ1bmN0aW9uLgo+Cj4gSXQgc2VlbXMgcmV0dXJuaW5nIGFuIGVycm9yIGNvZGUgY2F1c2Vz
+IGl0IHRvIGRvICJiYWQgdGhpbmdzIiBvbiByZWFkCj4KPiBbcm9vdEBrYXZlcmkgbGludXhdIyBn
+aXQgZGlmZgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+ZGV2aWNlLmMKPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+
+IGluZGV4IDgwODIxYjQuLmQ2M2M0NDMgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2RldmljZS5jCj4gQEAgLTMxOTgsNiArMzE5OCw5IEBAIHN0YXRpYyBzc2l6ZV90
+IGFtZGdwdV9kZWJ1Z2ZzX3NlbnNvcl9yZWFkKHN0cnVjdAo+IGZpbGUgKmYsIGNoYXIgX191c2Vy
+ICpidWYsCj4gICAgICAgICBpZiAoc2l6ZSAmIDMgfHwgKnBvcyAmIDB4MykKPiAgICAgICAgICAg
+ICAgICAgcmV0dXJuIC1FSU5WQUw7Cj4KPiArICAgICAgIGlmIChhbWRncHVfZHBtID09IDApCj4g
+KyAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOwo+ICsKPiAgICAgICAgIC8qIGNvbnZlcnQg
+b2Zmc2V0IHRvIHNlbnNvciBudW1iZXIgKi8KPiAgICAgICAgIGlkeCA9ICpwb3MgPj4gMjsKPgo+
+IFRoYXQncyB3aGF0IEkgYXBwbGllZCBvbiB0b3Agb2YgU2FtdWVsJ3MgdGhyZWUgcGF0Y2hlcy4K
+Pgo+IFdpdGggRFBNIGVuYWJsZWQgaXQgd29ya3MgZmluZSBvYnZpb3VzbHksIHdpdGggaXQgZGlz
+YWJsZWQgdGhlIGVudGlyZQo+IHN5c3RlbSBoYW5ncy4gIEkgdGhpbmsgcHJvYmFibHkgYmVjYXVz
+ZSB0aGUgVkZTIHNwaW5zIHRyeWluZyB0byByZWFkIGJ1dAo+IG5ldmVyIGZpbmlzaGVzLi4uCgpO
+ZXZlcm1pbmQsIHRoZSBpc3N1ZSBpcyB1bXIgcmVhZGluZyBVVkQgcmVnaXN0ZXJzIHdoZW4gZHBt
+PTAgb24gS1YuIApXaXRob3V0IHNhbXBsaW5nIFVWRCB0aGUgZXJyb3Igd29ya3MgcHJvcGVybHku
+CgpTbyBhZGQgdGhvc2UgdGhyZWUgbGluZXMgdG8geW91ciBwYXRjaCAoYW5kIHNpbWlsYXIgaW4g
+dGhlIGlvY3RsKSB5b3UgCnNob3VsZCBiZSBmaW5lLgoKQ2hlZXJzLApUbwpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
