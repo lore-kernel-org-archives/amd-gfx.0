@@ -1,57 +1,33 @@
-From: =?UTF-8?q?Nicolai=20H=C3=A4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 1/2] drm/ttm: never add BO that failed to validate to the LRU
- list
-Date: Tue, 14 Feb 2017 10:18:44 +0100
-Message-ID: <20170214091845.1225-2-nhaehnle@gmail.com>
-References: <20170214091845.1225-1-nhaehnle@gmail.com>
+From: =?UTF-8?q?Nicolai=20H=C3=A4hnle?= <nhaehnle@gmail.com>
+Subject: [PATCH 0/2] drm/ttm, amdgpu: fix use-after-free in recent deadlock fix
+Date: Tue, 14 Feb 2017 10:18:43 +0100
+Message-ID: <20170214091845.1225-1-nhaehnle@gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170214091845.1225-1-nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Nicolai=20H=C3=A4hnle?= <nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Samuel Pitoiset <samuel.pitoiset-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogTmljb2xhaSBIw6RobmxlIDxuaWNvbGFpLmhhZWhubGVAYW1kLmNvbT4KCkZpeGVzIGEg
-cG90ZW50aWFsIHJhY2UgY29uZGl0aW9uIGluIGFtZGdwdSB0aGF0IGxvb2tzIGFzIGZvbGxvd3M6
-CgpUYXNrIDE6IGF0dGVtcHQgdHRtX2JvX2luaXQsIGJ1dCB0dG1fYm9fdmFsaWRhdGUgZmFpbHMK
-VGFzayAxOiBhZGQgQk8gdG8gZ2xvYmFsIGxpc3QgYW55d2F5ClRhc2sgMjogZ3JhYnMgaG9sZCBv
-ZiB0aGUgQk8sIHdhaXRzIG9uIGl0cyByZXNlcnZhdGlvbiBsb2NrClRhc2sgMTogcmVsZWFzZXMg
-aXRzIHJlZmVyZW5jZSBvZiB0aGUgQk87IG5ldmVyIGdpdmVzIHVwIHRoZQogICAgICAgIHJlc2Vy
-dmF0aW9uIGxvY2sKClRoZSBwYXRjaCAiZHJtL2FtZGdwdTogZml4IGEgcG90ZW50aWFsIGRlYWRs
-b2NrIGluCmFtZGdwdV9ib19jcmVhdGVfcmVzdHJpY3RlZCgpIiBhdHRlbXB0cyB0byBmaXggdGhh
-dCBieSByZWxlYXNpbmcKdGhlIHJlc2VydmF0aW9uIGxvY2sgaW4gYW1kZ3B1IGNvZGU7IHVuZm9y
-dHVuYXRlbHksIGl0IGludHJvZHVjZXMKYSB1c2UtYWZ0ZXItZnJlZSB3aGVuIHRoaXMgcmFjZSBf
-ZG9lc24ndF8gaGFwcGVuLgoKVGhpcyBwYXRjaCBzaG91bGQgZml4IHRoZSByYWNlIHByb3Blcmx5
-IGJ5IG5ldmVyIGFkZGluZyB0aGUgQk8KdG8gdGhlIGdsb2JhbCBsaXN0IGluIHRoZSBmaXJzdCBw
-bGFjZS4KCkNjOiBTYW11ZWwgUGl0b2lzZXQgPHNhbXVlbC5waXRvaXNldEBnbWFpbC5jb20+CkNj
-OiB6aG91Y20xIDxkYXZpZDEuemhvdUBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBOaWNvbGFpIEjD
-pGhubGUgPG5pY29sYWkuaGFlaG5sZUBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS90dG0v
-dHRtX2JvLmMgfCAxMiArKysrKysrLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCA3IGluc2VydGlvbnMo
-KyksIDUgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1f
-Ym8uYyBiL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMKaW5kZXggMjM5YTk1Ny4uNzZiZWU0
-MiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm8uYworKysgYi9kcml2ZXJz
-L2dwdS9kcm0vdHRtL3R0bV9iby5jCkBAIC0xMjE1LDE4ICsxMjE1LDIwIEBAIGludCB0dG1fYm9f
-aW5pdChzdHJ1Y3QgdHRtX2JvX2RldmljZSAqYmRldiwKIAlpZiAobGlrZWx5KCFyZXQpKQogCQly
-ZXQgPSB0dG1fYm9fdmFsaWRhdGUoYm8sIHBsYWNlbWVudCwgaW50ZXJydXB0aWJsZSwgZmFsc2Up
-OwogCi0JaWYgKCFyZXN2KSB7CisJaWYgKCFyZXN2KQogCQl0dG1fYm9fdW5yZXNlcnZlKGJvKTsK
-IAotCX0gZWxzZSBpZiAoIShiby0+bWVtLnBsYWNlbWVudCAmIFRUTV9QTF9GTEFHX05PX0VWSUNU
-KSkgeworCWlmICh1bmxpa2VseShyZXQpKSB7CisJCXR0bV9ib191bnJlZigmYm8pOworCQlyZXR1
-cm4gcmV0OworCX0KKworCWlmIChyZXN2ICYmICEoYm8tPm1lbS5wbGFjZW1lbnQgJiBUVE1fUExf
-RkxBR19OT19FVklDVCkpIHsKIAkJc3Bpbl9sb2NrKCZiby0+Z2xvYi0+bHJ1X2xvY2spOwogCQl0
-dG1fYm9fYWRkX3RvX2xydShibyk7CiAJCXNwaW5fdW5sb2NrKCZiby0+Z2xvYi0+bHJ1X2xvY2sp
-OwogCX0KIAotCWlmICh1bmxpa2VseShyZXQpKQotCQl0dG1fYm9fdW5yZWYoJmJvKTsKLQogCXJl
-dHVybiByZXQ7CiB9CiBFWFBPUlRfU1lNQk9MKHR0bV9ib19pbml0KTsKLS0gCjIuOS4zCgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
-bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+SGkgYWxsLAoKYmFzZWQgb24gbXkgY3VycmVudCB0aGVvcnkgb24gaG93IGEgZGVhZGxvY2sgY291
+bGQgaGFwcGVuIGluIHRoZQpidWZmZXIgYWxsb2NhdGlvbiBjb2RlLCB0aGVzZSB0d28gcGF0Y2hl
+cyBzaG91bGQgZml4IHRoZSBkZWFkbG9jawp3aXRob3V0IGhhdmluZyBhIHVzZS1hZnRlci1mcmVl
+LgoKSSdtIHN0aWxsIHdvcmtpbmcgb24gYSB3YXkgdG8gY2xlYW4gdXAgdGhlIHR0bV9ib19pbml0
+IHNlcXVlbmNlCm92ZXJhbGwsIGJ1dCBJJ20gc2VwYXJhdGluZyB0aGVzZSB0d28gb3V0IGZvciBh
+IGhvcGVmdWxseSBxdWljayBmaXgsCnNpbmNlIGluIG15IGJvb2sgdXNlLWFmdGVyLWZyZWVzIGFy
+ZSB3b3JzZSB0aGFuIGRlYWRsb2Nrcy4KClNhbXVlbCwgSSdkIHZlcnkgbXVjaCBhcHByZWNpYXRl
+IGlmIHlvdSBjb3VsZCBjaGVjayB0aGF0IHRoZQpkZWFkbG9ja3MgaW4gSGl0bWFuIHJlbWFpbiBm
+aXhlZCB3aXRoIHRoZXNlIHR3byBwYXRjaGVzLgoKVGhhbmtzLApOaWNvbGFpCgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBs
+aXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
