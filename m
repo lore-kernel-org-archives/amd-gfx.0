@@ -1,139 +1,148 @@
-From: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/3] drm/ttm: split BO structure initialization into a
- separate function
-Date: Wed, 15 Feb 2017 11:16:14 +0800
-Message-ID: <58A3C7FE.2080308@amd.com>
-References: <20170214103744.4133-1-nhaehnle@gmail.com>
+From: Arnd Bergmann <arnd@arndb.de>
+Subject: Re: next build: 208 builds: 3 failed, 205 passed, 5 errors, 23
+ warnings (next-20170215)
+Date: Wed, 15 Feb 2017 09:56:48 +0100
+Message-ID: <CAK8P3a3XSBzVoM02sdehxDmrX3qM5NFqTgz2s2hyCqE203VzOw@mail.gmail.com>
+References: <58a41194.828bdf0a.685a.3c15@mx.google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170214103744.4133-1-nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?B?Tmljb2xhaSBIw6Robmxl?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, =?UTF-8?B?Tmljb2xhaSBIw6Robmxl?= <nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+Return-path: <linux-mips-bounce@linux-mips.org>
+In-Reply-To: <58a41194.828bdf0a.685a.3c15@mx.google.com>
+Sender: linux-mips-bounce@linux-mips.org
+Errors-to: linux-mips-bounce@linux-mips.org
+List-help: <mailto:ecartis@linux-mips.org?Subject=help>
+List-unsubscribe: <mailto:ecartis@linux-mips.org?subject=unsubscribe%20linux-mips>
+List-software: Ecartis version 1.0.0
+List-subscribe: <mailto:ecartis@linux-mips.org?subject=subscribe%20linux-mips>
+List-owner: <mailto:ralf@linux-mips.org>
+List-post: <mailto:linux-mips@linux-mips.org>
+List-archive: <http://www.linux-mips.org/archives/linux-mips/>
+To: "kernelci.org bot" <bot@kernelci.org>
+Cc: kernel-build-reports@lists.linaro.org, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-CgpPbiAyMDE35bm0MDLmnIgxNOaXpSAxODozNywgTmljb2xhaSBIw6RobmxlIHdyb3RlOgo+IEZy
-b206IE5pY29sYWkgSMOkaG5sZSA8bmljb2xhaS5oYWVobmxlQGFtZC5jb20+Cj4KPiBBbGxvdyBj
-YWxsZXJzIHRvIG9wdCBvdXQgb2YgY2FsbGluZyB0dG1fYm9fdmFsaWRhdGUgaW1tZWRpYXRlbHku
-IFRoaXMKPiBhbGxvd3MgbW9yZSBmbGV4aWJpbGl0eSBpbiBob3cgbG9ja2luZyBvZiB0aGUgcmVz
-ZXJ2YXRpb24gb2JqZWN0IGlzCj4gZG9uZSwgd2hpY2ggaXMgbmVlZGVkIHRvIGZpeCBhIGxvY2tp
-bmcgYnVnIChkZXN0cm95IGxvY2tlZCBtdXRleCkKPiBpbiBhbWRncHUuCj4KPiBTaWduZWQtb2Zm
-LWJ5OiBOaWNvbGFpIEjDpGhubGUgPG5pY29sYWkuaGFlaG5sZUBhbWQuY29tPgo+IC0tLQo+ICAg
-ZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm8uYyB8IDYyICsrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrLS0tLS0tLS0tLS0tLS0tCj4gICBpbmNsdWRlL2RybS90dG0vdHRtX2JvX2FwaS5oIHwg
-NDUgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysKPiAgIDIgZmlsZXMgY2hhbmdlZCwg
-ODYgaW5zZXJ0aW9ucygrKSwgMjEgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL3R0bS90dG1fYm8uYyBiL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMKPiBp
-bmRleCA3NmJlZTQyLi5jZTRjMGY1IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS90dG0v
-dHRtX2JvLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jCj4gQEAgLTExMjAs
-NDEgKzExMjAsMzAgQEAgaW50IHR0bV9ib192YWxpZGF0ZShzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmpl
-Y3QgKmJvLAo+ICAgfQo+ICAgRVhQT1JUX1NZTUJPTCh0dG1fYm9fdmFsaWRhdGUpOwo+ICAgCj4g
-LWludCB0dG1fYm9faW5pdChzdHJ1Y3QgdHRtX2JvX2RldmljZSAqYmRldiwKPiAtCQlzdHJ1Y3Qg
-dHRtX2J1ZmZlcl9vYmplY3QgKmJvLAo+IC0JCXVuc2lnbmVkIGxvbmcgc2l6ZSwKPiAtCQllbnVt
-IHR0bV9ib190eXBlIHR5cGUsCj4gLQkJc3RydWN0IHR0bV9wbGFjZW1lbnQgKnBsYWNlbWVudCwK
-PiAtCQl1aW50MzJfdCBwYWdlX2FsaWdubWVudCwKPiAtCQlib29sIGludGVycnVwdGlibGUsCj4g
-LQkJc3RydWN0IGZpbGUgKnBlcnNpc3RlbnRfc3dhcF9zdG9yYWdlLAo+IC0JCXNpemVfdCBhY2Nf
-c2l6ZSwKPiAtCQlzdHJ1Y3Qgc2dfdGFibGUgKnNnLAo+IC0JCXN0cnVjdCByZXNlcnZhdGlvbl9v
-YmplY3QgKnJlc3YsCj4gLQkJdm9pZCAoKmRlc3Ryb3kpIChzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmpl
-Y3QgKikpCj4gK2ludCB0dG1fYm9faW5pdF90b3Aoc3RydWN0IHR0bV9ib19kZXZpY2UgKmJkZXYs
-Cj4gKwkJICAgIHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAqYm8sCj4gKwkJICAgIHVuc2lnbmVk
-IGxvbmcgc2l6ZSwKPiArCQkgICAgZW51bSB0dG1fYm9fdHlwZSB0eXBlLAo+ICsJCSAgICB1aW50
-MzJfdCBwYWdlX2FsaWdubWVudCwKPiArCQkgICAgc3RydWN0IGZpbGUgKnBlcnNpc3RlbnRfc3dh
-cF9zdG9yYWdlLAo+ICsJCSAgICBzaXplX3QgYWNjX3NpemUsCj4gKwkJICAgIHN0cnVjdCBzZ190
-YWJsZSAqc2csCj4gKwkJICAgIHN0cnVjdCByZXNlcnZhdGlvbl9vYmplY3QgKnJlc3YsCj4gKwkJ
-ICAgIHZvaWQgKCpkZXN0cm95KSAoc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICopKQo+ICAgewo+
-ICAgCWludCByZXQgPSAwOwo+ICAgCXVuc2lnbmVkIGxvbmcgbnVtX3BhZ2VzOwo+ICAgCXN0cnVj
-dCB0dG1fbWVtX2dsb2JhbCAqbWVtX2dsb2IgPSBiZGV2LT5nbG9iLT5tZW1fZ2xvYjsKPiAtCWJv
-b2wgbG9ja2VkOwo+ICAgCj4gICAJcmV0ID0gdHRtX21lbV9nbG9iYWxfYWxsb2MobWVtX2dsb2Is
-IGFjY19zaXplLCBmYWxzZSwgZmFsc2UpOwo+ICAgCWlmIChyZXQpIHsKPiAgIAkJcHJfZXJyKCJP
-dXQgb2Yga2VybmVsIG1lbW9yeVxuIik7Cj4gLQkJaWYgKGRlc3Ryb3kpCj4gLQkJCSgqZGVzdHJv
-eSkoYm8pOwo+IC0JCWVsc2UKPiAtCQkJa2ZyZWUoYm8pOwo+ICAgCQlyZXR1cm4gLUVOT01FTTsK
-PiAgIAl9Cj4gICAKPiAgIAludW1fcGFnZXMgPSAoc2l6ZSArIFBBR0VfU0laRSAtIDEpID4+IFBB
-R0VfU0hJRlQ7Cj4gICAJaWYgKG51bV9wYWdlcyA9PSAwKSB7Cj4gICAJCXByX2VycigiSWxsZWdh
-bCBidWZmZXIgb2JqZWN0IHNpemVcbiIpOwo+IC0JCWlmIChkZXN0cm95KQo+IC0JCQkoKmRlc3Ry
-b3kpKGJvKTsKPiAtCQllbHNlCj4gLQkJCWtmcmVlKGJvKTsKPiAgIAkJdHRtX21lbV9nbG9iYWxf
-ZnJlZShtZW1fZ2xvYiwgYWNjX3NpemUpOwo+ICAgCQlyZXR1cm4gLUVJTlZBTDsKPiAgIAl9Cj4g
-QEAgLTEyMDQsNiArMTE5MywzNyBAQCBpbnQgdHRtX2JvX2luaXQoc3RydWN0IHR0bV9ib19kZXZp
-Y2UgKmJkZXYsCj4gICAJCXJldCA9IGRybV92bWFfb2Zmc2V0X2FkZCgmYmRldi0+dm1hX21hbmFn
-ZXIsICZiby0+dm1hX25vZGUsCj4gICAJCQkJCSBiby0+bWVtLm51bV9wYWdlcyk7CmlmIChyZXQg
-JiYgIXJlc3YpLCB3ZSBzaG91bGQgY2FsbCAKcmVzZXJ2YXRpb25fb2JqZWN0X2ZpbmkoJmJvLT50
-dG1fcmVzdiksIHJpZ2h0PwoKPiAgIAo+ICsJcmV0dXJuIHJldDsKPiArfQo+ICtFWFBPUlRfU1lN
-Qk9MKHR0bV9ib19pbml0X3RvcCk7Cj4gKwo+ICtpbnQgdHRtX2JvX2luaXQoc3RydWN0IHR0bV9i
-b19kZXZpY2UgKmJkZXYsCj4gKwkJc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpibywKPiArCQl1
-bnNpZ25lZCBsb25nIHNpemUsCj4gKwkJZW51bSB0dG1fYm9fdHlwZSB0eXBlLAo+ICsJCXN0cnVj
-dCB0dG1fcGxhY2VtZW50ICpwbGFjZW1lbnQsCj4gKwkJdWludDMyX3QgcGFnZV9hbGlnbm1lbnQs
-Cj4gKwkJYm9vbCBpbnRlcnJ1cHRpYmxlLAo+ICsJCXN0cnVjdCBmaWxlICpwZXJzaXN0ZW50X3N3
-YXBfc3RvcmFnZSwKPiArCQlzaXplX3QgYWNjX3NpemUsCj4gKwkJc3RydWN0IHNnX3RhYmxlICpz
-ZywKPiArCQlzdHJ1Y3QgcmVzZXJ2YXRpb25fb2JqZWN0ICpyZXN2LAo+ICsJCXZvaWQgKCpkZXN0
-cm95KSAoc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICopKQo+ICt7Cj4gKwlib29sIGxvY2tlZDsK
-PiArCWludCByZXQ7Cj4gKwpDYW4gd2UgbG9jayByZXN2IGFueXdheSBiZWZvcmUgdHRtX2JvX2lu
-aXRfdG9wIGxpa2Ugd2hhdCB5b3UgZGlkIGluIApwYXRjaCAjMz8gaWYgeWVzLCBzZWVtcyB3ZSBk
-b24ndCBuZWVkIHBhdGNoIzMgYW55IG1vcmUsIHJpZ2h0PwoKCiAgICAgICAgIGlmICghcmVzdikg
-ewogICAgICAgICAgICAgICAgIGJvb2wgbG9ja2VkOwoKICAgICAgICAgICAgICAgICByZXNlcnZh
-dGlvbl9vYmplY3RfaW5pdCgmYm8tPnRiby50dG1fcmVzdik7CiAgICAgICAgICAgICAgICAgbG9j
-a2VkID0gd3dfbXV0ZXhfdHJ5bG9jaygmYm8tPnRiby50dG1fcmVzdi5sb2NrKTsKICAgICAgICAg
-ICAgICAgICBXQVJOX09OKCFsb2NrZWQpOwogICAgICAgICB9CiAgICAgICAgIHIgPSB0dG1fYm9f
-aW5pdF90b3AoJmFkZXYtPm1tYW4uYmRldiwgJmJvLT50Ym8sIHNpemUsIHR5cGUsCiAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgcGFnZV9hbGlnbiwgTlVMTCwKICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBhY2Nfc2l6ZSwgc2csIHJlc3YgPyByZXN2IDogJmJvLT50Ym8udHRtX3Jlc3Ys
-CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgJmFtZGdwdV90dG1fYm9fZGVzdHJveSk7CgoK
-UmVnYXJkcywKRGF2aWQgWmhvdQo+ICsJcmV0ID0gdHRtX2JvX2luaXRfdG9wKGJkZXYsIGJvLCBz
-aXplLCB0eXBlLCBwYWdlX2FsaWdubWVudCwKPiArCQkJICAgICAgcGVyc2lzdGVudF9zd2FwX3N0
-b3JhZ2UsIGFjY19zaXplLCBzZywgcmVzdiwKPiArCQkJICAgICAgZGVzdHJveSk7Cj4gKwlpZiAo
-cmV0KSB7Cj4gKwkJaWYgKGRlc3Ryb3kpCj4gKwkJCSgqZGVzdHJveSkoYm8pOwo+ICsJCWVsc2UK
-PiArCQkJa2ZyZWUoYm8pOwo+ICsJCXJldHVybiByZXQ7Cj4gKwl9Cj4gKwo+ICAgCS8qIHBhc3Nl
-ZCByZXNlcnZhdGlvbiBvYmplY3RzIHNob3VsZCBhbHJlYWR5IGJlIGxvY2tlZCwKPiAgIAkgKiBz
-aW5jZSBvdGhlcndpc2UgbG9ja2RlcCB3aWxsIGJlIGFuZ2VyZWQgaW4gcmFkZW9uLgo+ICAgCSAq
-Lwo+IGRpZmYgLS1naXQgYS9pbmNsdWRlL2RybS90dG0vdHRtX2JvX2FwaS5oIGIvaW5jbHVkZS9k
-cm0vdHRtL3R0bV9ib19hcGkuaAo+IGluZGV4IGYxOTU4OTkuLmQ0NGI4ZTQgMTAwNjQ0Cj4gLS0t
-IGEvaW5jbHVkZS9kcm0vdHRtL3R0bV9ib19hcGkuaAo+ICsrKyBiL2luY2x1ZGUvZHJtL3R0bS90
-dG1fYm9fYXBpLmgKPiBAQCAtNDUzLDYgKzQ1Myw1MSBAQCBzaXplX3QgdHRtX2JvX2RtYV9hY2Nf
-c2l6ZShzdHJ1Y3QgdHRtX2JvX2RldmljZSAqYmRldiwKPiAgIAkJCSAgIHVuc2lnbmVkIHN0cnVj
-dF9zaXplKTsKPiAgIAo+ICAgLyoqCj4gKyAqIHR0bV9ib19pbml0X3RvcAo+ICsgKgo+ICsgKiBA
-YmRldjogUG9pbnRlciB0byBhIHR0bV9ib19kZXZpY2Ugc3RydWN0Lgo+ICsgKiBAYm86IFBvaW50
-ZXIgdG8gYSB0dG1fYnVmZmVyX29iamVjdCB0byBiZSBpbml0aWFsaXplZC4KPiArICogQHNpemU6
-IFJlcXVlc3RlZCBzaXplIG9mIGJ1ZmZlciBvYmplY3QuCj4gKyAqIEB0eXBlOiBSZXF1ZXN0ZWQg
-dHlwZSBvZiBidWZmZXIgb2JqZWN0Lgo+ICsgKiBAZmxhZ3M6IEluaXRpYWwgcGxhY2VtZW50IGZs
-YWdzLgo+ICsgKiBAcGFnZV9hbGlnbm1lbnQ6IERhdGEgYWxpZ25tZW50IGluIHBhZ2VzLgo+ICsg
-KiBAcGVyc2lzdGVudF9zd2FwX3N0b3JhZ2U6IFVzdWFsbHkgdGhlIHN3YXAgc3RvcmFnZSBpcyBk
-ZWxldGVkIGZvciBidWZmZXJzCj4gKyAqIHBpbm5lZCBpbiBwaHlzaWNhbCBtZW1vcnkuIElmIHRo
-aXMgYmVoYXZpb3VyIGlzIG5vdCBkZXNpcmVkLCB0aGlzIG1lbWJlcgo+ICsgKiBob2xkcyBhIHBv
-aW50ZXIgdG8gYSBwZXJzaXN0ZW50IHNobWVtIG9iamVjdC4gVHlwaWNhbGx5LCB0aGlzIHdvdWxk
-Cj4gKyAqIHBvaW50IHRvIHRoZSBzaG1lbSBvYmplY3QgYmFja2luZyBhIEdFTSBvYmplY3QgaWYg
-VFRNIGlzIHVzZWQgdG8gYmFjayBhCj4gKyAqIEdFTSB1c2VyIGludGVyZmFjZS4KPiArICogQGFj
-Y19zaXplOiBBY2NvdW50ZWQgc2l6ZSBmb3IgdGhpcyBvYmplY3QuCj4gKyAqIEByZXN2OiBQb2lu
-dGVyIHRvIGEgcmVzZXJ2YXRpb25fb2JqZWN0LCBvciBOVUxMIHRvIGxldCB0dG0gYWxsb2NhdGUg
-b25lLgo+ICsgKiBAZGVzdHJveTogRGVzdHJveSBmdW5jdGlvbi4gVXNlIE5VTEwgZm9yIGtmcmVl
-KCkuCj4gKyAqCj4gKyAqIFRoaXMgZnVuY3Rpb24gaW5pdGlhbGl6ZXMgYSBwcmUtYWxsb2NhdGVk
-IHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdC4KPiArICogQXMgdGhpcyBvYmplY3QgbWF5IGJlIHBh
-cnQgb2YgYSBsYXJnZXIgc3RydWN0dXJlLCB0aGlzIGZ1bmN0aW9uLAo+ICsgKiB0b2dldGhlciB3
-aXRoIHRoZSBAZGVzdHJveSBmdW5jdGlvbiwKPiArICogZW5hYmxlcyBkcml2ZXItc3BlY2lmaWMg
-b2JqZWN0cyBkZXJpdmVkIGZyb20gYSB0dG1fYnVmZmVyX29iamVjdC4KPiArICoKPiArICogVW5s
-aWtlIHR0bV9ib19pbml0LCBAYm8gaXMgbm90IHZhbGlkYXRlZCwgYW5kIHdoZW4gYW4gZXJyb3Ig
-aXMgcmV0dXJuZWQsCj4gKyAqIHRoZSBjYWxsZXIgaXMgcmVzcG9uc2libGUgZm9yIGZyZWVpbmcg
-QGJvIChidXQgdGhlIHNldHVwIHBlcmZvcm1lZCBieQo+ICsgKiB0dG1fYm9faW5pdF90b3AgaXRz
-ZWxmIGlzIGNsZWFuZWQgdXApLgo+ICsgKgo+ICsgKiBPbiBzdWNjZXNzZnVsIHJldHVybiwgdGhl
-IG9iamVjdCBrcmVmIGFuZCBsaXN0X2tyZWYgYXJlIHNldCB0byAxLgo+ICsgKgo+ICsgKiBSZXR1
-cm5zCj4gKyAqIC1FTk9NRU06IE91dCBvZiBtZW1vcnkuCj4gKyAqIC1FSU5WQUw6IEludmFsaWQg
-YnVmZmVyIHNpemUuCj4gKyAqLwo+ICsKPiArZXh0ZXJuIGludCB0dG1fYm9faW5pdF90b3Aoc3Ry
-dWN0IHR0bV9ib19kZXZpY2UgKmJkZXYsCj4gKwkJCSAgIHN0cnVjdCB0dG1fYnVmZmVyX29iamVj
-dCAqYm8sCj4gKwkJCSAgIHVuc2lnbmVkIGxvbmcgc2l6ZSwKPiArCQkJICAgZW51bSB0dG1fYm9f
-dHlwZSB0eXBlLAo+ICsJCQkgICB1aW50MzJfdCBwYWdlX2FsaWdubWVudCwKPiArCQkJICAgc3Ry
-dWN0IGZpbGUgKnBlcnNpc3RlbnRfc3dhcF9zdG9yYWdlLAo+ICsJCQkgICBzaXplX3QgYWNjX3Np
-emUsCj4gKwkJCSAgIHN0cnVjdCBzZ190YWJsZSAqc2csCj4gKwkJCSAgIHN0cnVjdCByZXNlcnZh
-dGlvbl9vYmplY3QgKnJlc3YsCj4gKwkJCSAgIHZvaWQgKCpkZXN0cm95KSAoc3RydWN0IHR0bV9i
-dWZmZXJfb2JqZWN0ICopKTsKPiArCj4gKy8qKgo+ICAgICogdHRtX2JvX2luaXQKPiAgICAqCj4g
-ICAgKiBAYmRldjogUG9pbnRlciB0byBhIHR0bV9ib19kZXZpY2Ugc3RydWN0LgoKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
-c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Wed, Feb 15, 2017 at 9:30 AM, kernelci.org bot <bot@kernelci.org> wrote:
+> next build: 208 builds: 3 failed, 205 passed, 5 errors, 23 warnings
+
+> Errors and Warnings Detected:
+>
+> arm64: gcc version 5.3.1 20160412 (Linaro GCC 5.3-2016.05)
+> defconfig+CONFIG_KASAN=y 4 warnings
+> arm: gcc version 5.3.1 20160412 (Linaro GCC 5.3-2016.05)
+> allmodconfig 7 warnings
+> imx_v6_v7_defconfig 2 warnings
+> mips: gcc version 6.3.0 (GCC)
+> bcm47xx_defconfig 1 error
+> ip27_defconfig 2 errors
+> xway_defconfig 2 errors
+> x86: gcc version 4.8.4 (Ubuntu 4.8.4-2ubuntu1~14.04.1)
+> allmodconfig 5 warnings
+> allmodconfig+CONFIG_OF=n 5 warnings
+
+A couple of extra problems here that Olof's build bot didn't find (I
+replied on those
+already, won't duplicate those). In total, we seem to be nine patches short of
+a clean build now, which is the best we've had since kernelci added MIPS
+builds (we had a clean build for one day before that).
+
+> allmodconfig (arm) — PASS, 0 errors, 7 warnings, 0 section mismatches
+>
+> Warnings:
+> drivers/iio/adc/rcar-gyroadc.c:429:27: warning: 'num_channels' may be used
+> uninitialized in this function [-Wmaybe-uninitialized]
+> drivers/iio/adc/rcar-gyroadc.c:426:22: warning: 'sample_width' may be used
+> uninitialized in this function [-Wmaybe-uninitialized]
+> drivers/iio/adc/rcar-gyroadc.c:428:23: warning: 'channels' may be used
+> uninitialized in this function [-Wmaybe-uninitialized]
+> drivers/iio/adc/rcar-gyroadc.c:398:26: warning: 'adcmode' may be used
+> uninitialized in this function [-Wmaybe-uninitialized]
+> drivers/media/platform/coda/imx-vdoa.c:333:181: warning: passing argument 1
+> of '__platform_driver_register' discards 'const' qualifier from pointer
+> target type [-Wdiscarded-qualifiers]
+> drivers/media/platform/coda/imx-vdoa.c:333:625: warning: passing argument 1
+> of 'platform_driver_unregister' discards 'const' qualifier from pointer
+> target type [-Wdiscarded-qualifiers]
+
+Covered in my reply to Olof's build bot.
+
+> drivers/usb/gadget/udc/atmel_usba_udc.c:632:550: warning: 'ept_cfg' may be
+> used uninitialized in this function [-Wmaybe-uninitialized]
+
+My patch was acked, but not picked up by Felipe or Greg so far:
+
+https://www.spinics.net/lists/linux-usb/msg153162.html
+
+> allmodconfig (x86) — PASS, 0 errors, 5 warnings, 0 section mismatches
+>
+> Warnings:
+> lib/raid6/recov_avx512.c:387:2: warning: #warning "your version of binutils
+> lacks AVX512 support" [-Wcpp]
+
+long-standing problem on the kernelci.org x86 toolchain, the only
+solution is to update the build bot.
+
+> drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c:7263:2: warning: missing braces around
+> initializer [-Wmissing-braces]
+> drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c:7263:2: warning: (near initialization
+> for 'ce_payload.regular') [-Wmissing-braces]
+> drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c:7290:2: warning: missing braces around
+> initializer [-Wmissing-braces]
+> drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c:7290:2: warning: (near initialization
+> for 'de_payload.regular') [-Wmissing-braces]
+
+This only happens on old compilers. I sent a patch, no reply so far:
+
+https://patchwork.kernel.org/patch/9554695/
+
+> bcm47xx_defconfig (mips) — FAIL, 1 error, 0 warnings, 0 section mismatches
+>
+> Errors:
+> /home/buildslave/workspace/khilman-kbuilder/next/build-mips/../net/sched/sch_fq_codel.c:468:
+> undefined reference to `tcf_destroy_chain'
+
+I have not looked at this one yet, appears to be caused by commit
+cf1facda2f61 ("sched: move tcf_proto_destroy and tcf_destroy_chain
+helpers into cls_api")
+
+> defconfig+CONFIG_KASAN=y (arm64) — PASS, 0 errors, 4 warnings, 0 section
+> mismatches
+>
+> Warnings:
+> net/bridge/br_netlink.c:1339:1: warning: the frame size of 2544 bytes is
+> larger than 2048 bytes [-Wframe-larger-than=]
+> net/wireless/nl80211.c:1415:1: warning: the frame size of 2208 bytes is
+> larger than 2048 bytes [-Wframe-larger-than=]
+> net/wireless/nl80211.c:1904:1: warning: the frame size of 3840 bytes is
+> larger than 2048 bytes [-Wframe-larger-than=]
+> net/wireless/nl80211.c:4443:1: warning: the frame size of 2240 bytes is
+> larger than 2048 bytes [-Wframe-larger-than=]
+
+I have an experimental patch, still working on a better solution. This might
+take some more time, but it's been like this from the start with KASAN.
+
+> ip27_defconfig (mips) — FAIL, 2 errors, 0 warnings, 0 section mismatches
+>
+> Errors:
+> drivers/net/ethernet/qlogic/qlge/qlge_main.c:4819:1: error: insn does not
+> satisfy its constraints:
+> drivers/net/ethernet/qlogic/qlge/qlge_main.c:4819:1: internal compiler
+> error: in extract_constrain_insn, at recog.c:2190
+
+broken gcc release, apparently fixed in gcc-7 (can't reproduce here at least).
+I suggested a workaround, but got no reply so far:
+
+http://www.spinics.net/lists/mips/msg66465.html
+
+> xway_defconfig (mips) — FAIL, 2 errors, 0 warnings, 0 section mismatches
+>
+> Errors:
+> (.text+0x14e10): undefined reference to `physical_memsize'
+> (.text+0x14e14): undefined reference to `physical_memsize'
+
+Hauke already did a patch in December, but it has't made it into linux-mips
+so far:
+
+https://marc.info/?l=linux-mips&m=148612428414708&w=3
+
+     Arnd
