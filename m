@@ -1,217 +1,92 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: How to catch wild writes to system memory, and IOMMU errors
-Date: Wed, 15 Feb 2017 10:42:18 +0100
-Message-ID: <64bcb5c8-b44c-9880-353c-1ac61a5982a6@vodafone.de>
-References: <0f5edda6-e162-78a9-d065-6f53254f5fa1@gmail.com>
+From: Jiri Pirko <jiri@mellanox.com>
+Subject: Re: next build: 208 builds: 3 failed, 205 passed, 5 errors, 23
+ warnings (next-20170215)
+Date: Wed, 15 Feb 2017 10:50:02 +0100
+Message-ID: <20170215095002.GF1992@nanopsycho>
+References: <58a41194.828bdf0a.685a.3c15@mx.google.com>
+ <CAK8P3a3XSBzVoM02sdehxDmrX3qM5NFqTgz2s2hyCqE203VzOw@mail.gmail.com>
+ <20170215093807.GV24226@jhogan-linux.le.imgtec.org>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1241155923=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <0f5edda6-e162-78a9-d065-6f53254f5fa1-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
-This is a multi-part message in MIME format.
---===============1241155923==
-Content-Type: multipart/alternative;
- boundary="------------2DB39FD7F56AEBC3EE707773"
-
-This is a multi-part message in MIME format.
---------------2DB39FD7F56AEBC3EE707773
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Uff, well that's quite a problem you ran into here.
-
-IOMMU might not help here, cause when it would be the GPU we would have 
-made a mapping once and then the page in question is never unmapped (IIRC).
-
-To confirm if it is really the GPU writing those bytes I would add a 
-trace point to amdgpu_ttm_tt_populate() to see which pages the GPU got 
-assigned.
-
-If the page with the corruption is not in that list it is unlikely (but 
-not impossible) that the GPU is the one doing the corruption.
-
-Good luck,
-Christian.
-
-Am 14.02.2017 um 14:20 schrieb Nicolai Hähnle:
-> Hi all,
->
-> on an amd-staging-4.9 kernel with lock debugging and KASAN enabled, I 
-> am seeing a bug where I suspect that the GPU may be writing into 
-> system memory where it shouldn't.
->
-> I can reproduce errors fairly reliable by running a parallel piglit 
-> run on 8 cores with Tonga.
->
-> See exhibit1 and exhibit2 for two of the errors that were reported. As 
-> you can see, poison data of a dead object was overwritten.
->
-> If that was done by a use-after-free in kernel code, I would expect to 
-> see a KASAN error about it, but I don't. Furthermore, the pattern of 
-> overwritten values is quite unusual: single bytes, with 8 byte stride, 
-> many times all of them the same value. This is the kind of pattern 
-> that could fit GPU writes to an 8-bit texture.
->
-> See kasan-corrupted for another type of report that I've seen. This 
-> report looks like KASAN's internal data structures were corrupted, 
-> leading to a crash.
->
-> Needless to say, while I can reproduce those crashes fairly reliably, 
-> they are totally non-deterministic.
->
-> So the question is how to figure out where the bad memory writes happen.
->
-> I noticed that the IOMMU on the system was disabled by the BIOS, so I 
-> enabled it, in the hopes that that would catch bad GPU behavior.
->
-> Well, this leads to lots of IO_PAGE_FAULT message during the amdgpu 
-> module initialization (see dmesg-iommu). When running piglit, however, 
-> I get the same type of random memory corruption errors / crashes as 
-> before, and no IOMMU errors.
->
-> Any ideas on (a) what kind of tools could be helpful in tracking this 
-> problem down (if any...), and (b) where in the code the problem lies?
->
-> I suspect something's wrong with GART mappings when buffers are moved, 
-> but that's pretty vague...
->
-> Thanks,
-> Nicolai
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
-
---------------2DB39FD7F56AEBC3EE707773
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Uff, well that's quite a problem you
-      ran into here.<br>
-      <br>
-      IOMMU might not help here, cause when it would be the GPU we would
-      have made a mapping once and then the page in question is never
-      unmapped (IIRC).<br>
-      <br>
-      To confirm if it is really the GPU writing those bytes I would add
-      a trace point to amdgpu_ttm_tt_populate() to see which pages the
-      GPU got assigned.<br>
-      <br>
-      If the page with the corruption is not in that list it is unlikely
-      (but not impossible) that the GPU is the one doing the corruption.<br>
-      <br>
-      Good luck,<br>
-      Christian.<br>
-      <br>
-      Am 14.02.2017 um 14:20 schrieb Nicolai Hähnle:<br>
-    </div>
-    <blockquote
-      cite="mid:0f5edda6-e162-78a9-d065-6f53254f5fa1-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
-      type="cite">Hi all,
-      <br>
-      <br>
-      on an amd-staging-4.9 kernel with lock debugging and KASAN
-      enabled, I am seeing a bug where I suspect that the GPU may be
-      writing into system memory where it shouldn't.
-      <br>
-      <br>
-      I can reproduce errors fairly reliable by running a parallel
-      piglit run on 8 cores with Tonga.
-      <br>
-      <br>
-      See exhibit1 and exhibit2 for two of the errors that were
-      reported. As you can see, poison data of a dead object was
-      overwritten.
-      <br>
-      <br>
-      If that was done by a use-after-free in kernel code, I would
-      expect to see a KASAN error about it, but I don't. Furthermore,
-      the pattern of overwritten values is quite unusual: single bytes,
-      with 8 byte stride, many times all of them the same value. This is
-      the kind of pattern that could fit GPU writes to an 8-bit texture.
-      <br>
-      <br>
-      See kasan-corrupted for another type of report that I've seen.
-      This report looks like KASAN's internal data structures were
-      corrupted, leading to a crash.
-      <br>
-      <br>
-      Needless to say, while I can reproduce those crashes fairly
-      reliably, they are totally non-deterministic.
-      <br>
-      <br>
-      So the question is how to figure out where the bad memory writes
-      happen.
-      <br>
-      <br>
-      I noticed that the IOMMU on the system was disabled by the BIOS,
-      so I enabled it, in the hopes that that would catch bad GPU
-      behavior.
-      <br>
-      <br>
-      Well, this leads to lots of IO_PAGE_FAULT message during the
-      amdgpu module initialization (see dmesg-iommu). When running
-      piglit, however, I get the same type of random memory corruption
-      errors / crashes as before, and no IOMMU errors.
-      <br>
-      <br>
-      Any ideas on (a) what kind of tools could be helpful in tracking
-      this problem down (if any...), and (b) where in the code the
-      problem lies?
-      <br>
-      <br>
-      I suspect something's wrong with GART mappings when buffers are
-      moved, but that's pretty vague...
-      <br>
-      <br>
-      Thanks,
-      <br>
-      Nicolai
-      <br>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------2DB39FD7F56AEBC3EE707773--
-
---===============1241155923==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-mips-bounce@linux-mips.org>
 Content-Disposition: inline
+In-Reply-To: <20170215093807.GV24226@jhogan-linux.le.imgtec.org>
+Sender: linux-mips-bounce@linux-mips.org
+Errors-to: linux-mips-bounce@linux-mips.org
+List-help: <mailto:ecartis@linux-mips.org?Subject=help>
+List-unsubscribe: <mailto:ecartis@linux-mips.org?subject=unsubscribe%20linux-mips>
+List-software: Ecartis version 1.0.0
+List-subscribe: <mailto:ecartis@linux-mips.org?subject=subscribe%20linux-mips>
+List-owner: <mailto:ralf@linux-mips.org>
+List-post: <mailto:linux-mips@linux-mips.org>
+List-archive: <http://www.linux-mips.org/archives/linux-mips/>
+To: James Hogan <james.hogan@imgtec.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, "kernelci.org bot" <bot@kernelci.org>, kernel-build-reports@lists.linaro.org, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-mips@linux-mips.org, Ralf Baechle <ralf@linux-mips.org>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org, Hauke Mehrtens <hauke@hauke-m.de>, Jamal Hadi Salim <jhs@mojatatu.com>, "David S. Miller" <davem@davemloft.net>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Wed, Feb 15, 2017 at 10:38:07AM CET, james.hogan@imgtec.com wrote:
+>On Wed, Feb 15, 2017 at 09:56:48AM +0100, Arnd Bergmann wrote:
+>> On Wed, Feb 15, 2017 at 9:30 AM, kernelci.org bot <bot@kernelci.org> wrote:
+>> > bcm47xx_defconfig (mips) — FAIL, 1 error, 0 warnings, 0 section mismatches
+>> >
+>> > Errors:
+>> > /home/buildslave/workspace/khilman-kbuilder/next/build-mips/../net/sched/sch_fq_codel.c:468:
+>> > undefined reference to `tcf_destroy_chain'
+>> 
+>> I have not looked at this one yet, appears to be caused by commit
+>> cf1facda2f61 ("sched: move tcf_proto_destroy and tcf_destroy_chain
+>> helpers into cls_api")
+>
+>So effectively CONFIG_NET_SCH_FQ_CODEL (which bcm47xx_defconfig sets
+>=y), and just over half of the other packet schedulers now implicitly
+>depend on CONFIG_NET_CLS (which bcm47xx_defconfig doesn't set =y).
+>
+>Perhaps revert would be best since the change looks of questionable
+>value to me, as all the users of it are in sch_*.c anyway.
 
---===============1241155923==--
+Fixing this now.
+
+
+>
+>> > ip27_defconfig (mips) — FAIL, 2 errors, 0 warnings, 0 section mismatches
+>> >
+>> > Errors:
+>> > drivers/net/ethernet/qlogic/qlge/qlge_main.c:4819:1: error: insn does not
+>> > satisfy its constraints:
+>> > drivers/net/ethernet/qlogic/qlge/qlge_main.c:4819:1: internal compiler
+>> > error: in extract_constrain_insn, at recog.c:2190
+>> 
+>> broken gcc release, apparently fixed in gcc-7 (can't reproduce here at least).
+>> I suggested a workaround, but got no reply so far:
+>> 
+>> http://www.spinics.net/lists/mips/msg66465.html
+>
+>I'll look into that.
+>
+>> 
+>> > xway_defconfig (mips) — FAIL, 2 errors, 0 warnings, 0 section mismatches
+>> >
+>> > Errors:
+>> > (.text+0x14e10): undefined reference to `physical_memsize'
+>> > (.text+0x14e14): undefined reference to `physical_memsize'
+>> 
+>> Hauke already did a patch in December, but it has't made it into linux-mips
+>> so far:
+>> 
+>> https://marc.info/?l=linux-mips&m=148612428414708&w=3
+>
+>Hauke: you mentioned sending a new version of this patch. I'll apply the
+>original patch for now, as looking at the VPE loader, zero doesn't sound
+>entirely unreasonable:
+>
+>/*
+> * The sde-kit passes 'memsize' to __start in $a3, so set something
+> * here...  Or set $a3 to zero and define DFLT_STACK_SIZE and
+> * DFLT_HEAP_SIZE when you compile your program
+> */
+>mttgpr(6, v->ntcs);
+>mttgpr(7, physical_memsize);
+>
+>Cheers
+>James
