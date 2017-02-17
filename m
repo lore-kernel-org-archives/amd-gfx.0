@@ -1,64 +1,37 @@
-From: =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: refuse to reserve io mem for split VRAM
- buffers
-Date: Fri, 17 Feb 2017 11:42:06 +0100
-Message-ID: <d30282bd-c539-00b2-d7a8-d4467f93c230@gmail.com>
-References: <20170216225545.3515-1-nhaehnle@gmail.com>
- <CADnq5_OOcfke79Wkr37vD6Dgw7ySsTjEAoFCTpHZY-QPG4P6aQ@mail.gmail.com>
- <0aa5b052-a748-8cd2-8ba7-9efa7e9a769a@amd.com>
- <afdc021d-b768-4ec5-06d1-e783bf2d226d@vodafone.de>
+From: "Rafael J. Wysocki" <rafael-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+Subject: Re: [PATCH 00/35] treewide trivial patches converting pr_warning to pr_warn
+Date: Fri, 17 Feb 2017 13:27:00 +0100
+Message-ID: <CAJZ5v0gNcGtnXpE1n6LSq7ey+UDKx+oQfmTg0_PgFwzB0Dd_5A@mail.gmail.com>
+References: <cover.1487314666.git.joe@perches.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <afdc021d-b768-4ec5-06d1-e783bf2d226d-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=UTF-8
+Return-path: <devicetree-owner-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
+In-Reply-To: <cover.1487314666.git.joe-6d6DIl74uiNBDgjK7y7TUQ@public.gmane.org>
+Sender: devicetree-owner-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+To: Joe Perches <joe-6d6DIl74uiNBDgjK7y7TUQ@public.gmane.org>
+Cc: Alexander Shishkin <alexander.shishkin-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, Karol Herbst <karolherbst-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Pekka Paalanen <ppaalanen-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Richard Weinberger <richard-/L3Ra7n9ekc@public.gmane.org>, Fabio Estevam <fabio.estevam-3arQi8VN3Tc@public.gmane.org>, Linux Kernel Mailing List <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "linux-arm-kernel-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org" <linux-arm-kernel-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org>, linuxppc-dev <linuxppc-dev-uLR06cmDAlY/bJ5BZ2RsiQ@public.gmane.org>, tboot-devel-5NWGOfrQmneRv+LV9MX5uipxlwaOVQ5f@public.gmane.org, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, oprofile-list-TtF/mJH4Jtrk1uMJSBkQmQ@public.gmane.org, sfi-devel-yLnuTTp1/kvcsJTPyzm5gB2eb7JE58TQ@public.gmane.org, xen-devel-GuqFBffKawtpuQazS67q72D2FQJk+8+b@public.gmane.org, ACPI Devel Maling List <linux-acpi-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, drbd-dev-cunTk1MwBs8qoQakbn7OcQ@public.gmane.org, virtualization-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org, linux-crypto-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-ide-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, gigaset307x-common-5NWGOfrQmneRv+LV9MX5uv+2+P5yyue3@public.gmane.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMTcuMDIuMjAxNyAxMTowOCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBBbSAxNy4wMi4y
-MDE3IHVtIDAwOjIxIHNjaHJpZWIgTmljb2xhaSBIw6RobmxlOgo+PiBPbiAxNy4wMi4yMDE3IDAw
-OjAyLCBBbGV4IERldWNoZXIgd3JvdGU6Cj4+PiBPbiBUaHUsIEZlYiAxNiwgMjAxNyBhdCA1OjU1
-IFBNLCBOaWNvbGFpIEjDpGhubGUgPG5oYWVobmxlQGdtYWlsLmNvbT4KPj4+IHdyb3RlOgo+Pj4+
-IEZyb206IE5pY29sYWkgSMOkaG5sZSA8bmljb2xhaS5oYWVobmxlQGFtZC5jb20+Cj4+Pj4KPj4+
-PiBXaGVuIHRoZSBmYXN0IGJsaXQgcGF0aCBmYWlscyB3aGlsZSBhdHRlbXB0aW5nIHRvIG1vdmUg
-YSBidWZmZXIgZnJvbQo+Pj4+IFJBTQo+Pj4+IHRvIFZSQU0sIHdlIGZhbGwgYmFjayB0byBhIENQ
-VS1iYXNlZCBtZW1jcHkgdGhhdCBjYW5ub3QgaGFuZGxlIHNwbGl0Cj4+Pj4gVlJBTQo+Pj4+IGJ1
-ZmZlcnMuIEluc3RlYWQgb2YgY3Jhc2hpbmcsIHNpbXBseSBmYWlsIHRoZSBidWZmZXIgbW92ZS4K
-Pj4+Pgo+Pj4+IElkZWFsbHksIHdlIHdvdWxkIHRlYWNoIFRUTSBhYm91dCBzcGxpdCBidWZmZXJz
-IHNvIHRoYXQgdGhlIGZhbGxiYWNrCj4+Pj4gc3RpbGwKPj4+PiB3b3JrcyBpbiB0aGlzIGNhc2Us
-IGJ1dCB0aGF0IGlzIHF1aXRlIGludm9sdmVkLiBTbyBmb3Igbm93LCBhcHBseSB0aGUKPj4+PiBz
-aW1wbGVzdCBwb3NzaWJsZSBmaXguCj4+Pj4KPj4+PiBGaXhlczogNDAzNjFiYjE3MDRiICgiZHJt
-L2FtZGdwdTogYWRkIFZSQU0gbWFuYWdlciB2MiIpCj4+Pj4gU2lnbmVkLW9mZi1ieTogTmljb2xh
-aSBIw6RobmxlIDxuaWNvbGFpLmhhZWhubGVAYW1kLmNvbT4KPj4+Cj4+PiBQb3NzaWJseSBmaXhl
-cyB0aGlzIGJ1ZyByZXBvcnQ/Cj4+PiBodHRwczovL2J1Z3ppbGxhLmtlcm5lbC5vcmcvc2hvd19i
-dWcuY2dpP2lkPTE5NDU3OQo+Pgo+PiBJdCdzIHJlbGF0ZWQsIGJ1dCBJIHRoaW5rIHRoYXQgcmVw
-b3J0IGlzIGEgZmFsc2UgcG9zaXRpdmUuIEl0IGRvZXMKPj4gcG9pbnQgYXQgY29kZSB0aGF0IGlz
-IG5vdCB0b28gcHJldHR5LCB0aG91Z2guIEkndmUgY29tbWVudGVkIG9uIHRoYXQKPj4gYnVnIHJl
-cG9ydCBhcyB3ZWxsLgo+Pgo+PiBJbiBhbnkgY2FzZSwgdGhhdCBvdmVyZmxvdyBzaG91bGQgaW5k
-ZWVkIGhhcHBlbiB3aGVuZXZlciB0aGUgYnVnCj4+IGFkZHJlc3NlZCBieSB0aGlzIHBhdGNoIGhh
-cHBlbnMsIGJ1dCAoYSkgdGhpcyBwYXRjaCBkb2Vzbid0IGNoYW5nZQo+PiB0aGF0LCBhbmQgKGIp
-IEknbSBwcmV0dHkgc3VyZSB0aGF0IHRoZSBvdmVyZmxvdyByZXBvcnRlZCBieSBQYVggaXMKPj4g
-YmVuaWduLgo+Cj4gWWVzLCBhZ3JlZS4gVGhlIGJ1ZyByZXBvcnQgaXMgaW5kZWVkIGEgZmFsc2Ug
-cG9zaXRpdmUuCj4KPiBOaWNvbGFpIHdoYXQgZG8geW91IHRoaW5rIGFib3V0IHJlbW92aW5nIHRo
-ZSBvZmZzZXQgZnJvbSB0aGUgQk8KPiBzdHJ1Y3R1cmUgYW5kIG9ubHkgY2FsY3VsYXRlIGl0IG9u
-IGRlbWFuZD8KCkkgdGhpbmsgaXQncyBhIGdvb2QgaWRlYS4gVGhlcmUgYXJlIGxvdHMgb2YgdXNl
-cyBpbiBvdGhlciBkcml2ZXJzLCAKdGhvdWdoLCBzbyBhIGZpcnN0IHN0ZXAgd291bGQgYmUgYWRk
-aW5nIGEgaGVscGVyIGFuYWxvZ291cyB0byAKYW1kZ3B1X2JvX2dwdV9vZmZzZXQgaW4gdHRtX2Jv
-X2FwaS5oLgoKCj4+IFdlIG1heSBzdGlsbCBoYXZlIG90aGVyIGJ1Z3Mgd2l0aCBzcGxpdCBCT3Ms
-IHRob3VnaC4KPgo+IFllYWgsIGFncmVlIGFzIHdlbGwuIEkgd2FzIGFsc28gY29uc2lkZXJpbmcg
-ZGlzYWJsaW5nIHRoYXQgZmVhdHVyZSBieQo+IGRlZmF1bHQgZm9yIHRoZSBtb21lbnQgaWYgaXQg
-aGVscHMgd2l0aCB5b3VyIGNvcnJ1cHRpb24gYnVnLgoKR29vZCBwb2ludCwgSSdsbCBnaXZlIHRo
-YXQgYSB0cnkgYXMgd2VsbC4KCkNoZWVycywKTmljb2xhaQpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZngK
+On Fri, Feb 17, 2017 at 8:11 AM, Joe Perches <joe-6d6DIl74uiNBDgjK7y7TUQ@public.gmane.org> wrote:
+> There are ~4300 uses of pr_warn and ~250 uses of the older
+> pr_warning in the kernel source tree.
+>
+> Make the use of pr_warn consistent across all kernel files.
+>
+> This excludes all files in tools/ as there is a separate
+> define pr_warning for that directory tree and pr_warn is
+> not used in tools/.
+>
+> Done with 'sed s/\bpr_warning\b/pr_warn/' and some emacsing.
+
+Sorry about asking if that has been asked already.
+
+Wouldn't it be slightly less intrusive to simply redefined
+pr_warning() as a synonym for pr_warn()?
+
+Thanks,
+Rafael
+--
+To unsubscribe from this list: send the line "unsubscribe devicetree" in
+the body of a message to majordomo-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
