@@ -1,197 +1,66 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Subject: Re: [PATCH 17/35] drivers/gpu: Convert remaining uses of pr_warning
- to pr_warn
-Date: Fri, 17 Feb 2017 15:22:29 +0100
-Message-ID: <c78cbc49-9fd1-ae7c-3e8e-5fc3c76cd75f@amd.com>
-References: <cover.1487314666.git.joe@perches.com>
- <89288c2354690be744b72b27e39f317cb1c5310d.1487314667.git.joe@perches.com>
+From: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH umr] Add SENSOR for SI/CIK/KV systems.
+Date: Fri, 17 Feb 2017 14:26:44 -0500
+Message-ID: <20170217192644.4554-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-15"; format=flowed
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <89288c2354690be744b72b27e39f317cb1c5310d.1487314667.git.joe@perches.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Joe Perches <joe@perches.com>, linux-kernel@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 
-Am 17.02.2017 um 08:11 schrieb Joe Perches:
-> To enable eventual removal of pr_warning
->
-> This makes pr_warn use consistent for drivers/gpu
->
-> Prior to this patch, there were 15 uses of pr_warning and
-> 20 uses of pr_warn in drivers/gpu
->
-> Signed-off-by: Joe Perches <joe@perches.com>
-
-Acked-by: Christian König <christian.koenig@amd.com>.
-
-> ---
->   drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c     |  2 +-
->   drivers/gpu/drm/amd/powerplay/inc/pp_debug.h         |  2 +-
->   drivers/gpu/drm/amd/powerplay/smumgr/fiji_smc.c      |  4 ++--
->   drivers/gpu/drm/amd/powerplay/smumgr/iceland_smc.c   | 14 +++++++-------
->   drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smc.c |  4 ++--
->   drivers/gpu/drm/amd/powerplay/smumgr/tonga_smc.c     |  4 ++--
->   6 files changed, 15 insertions(+), 15 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-> index b1de9e8ccdbc..83266408634e 100644
-> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-> @@ -1535,7 +1535,7 @@ static int smu7_get_evv_voltages(struct pp_hwmgr *hwmgr)
->   					if (vddc >= 2000 || vddc == 0)
->   						return -EINVAL;
->   				} else {
-> -					pr_warning("failed to retrieving EVV voltage!\n");
-> +					pr_warn("failed to retrieving EVV voltage!\n");
->   					continue;
->   				}
->   
-> diff --git a/drivers/gpu/drm/amd/powerplay/inc/pp_debug.h b/drivers/gpu/drm/amd/powerplay/inc/pp_debug.h
-> index 072880130cfb..f3f9ebb631a5 100644
-> --- a/drivers/gpu/drm/amd/powerplay/inc/pp_debug.h
-> +++ b/drivers/gpu/drm/amd/powerplay/inc/pp_debug.h
-> @@ -37,7 +37,7 @@
->   #define PP_ASSERT_WITH_CODE(cond, msg, code)	\
->   	do {					\
->   		if (!(cond)) {			\
-> -			pr_warning("%s\n", msg);	\
-> +			pr_warn("%s\n", msg);	\
->   			code;			\
->   		}				\
->   	} while (0)
-> diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smc.c b/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smc.c
-> index 0f7a77b7312e..5450f5ef8e89 100644
-> --- a/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smc.c
-> +++ b/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smc.c
-> @@ -2131,7 +2131,7 @@ uint32_t fiji_get_offsetof(uint32_t type, uint32_t member)
->   			return offsetof(SMU73_Discrete_DpmTable, LowSclkInterruptThreshold);
->   		}
->   	}
-> -	pr_warning("can't get the offset of type %x member %x\n", type, member);
-> +	pr_warn("can't get the offset of type %x member %x\n", type, member);
->   	return 0;
->   }
->   
-> @@ -2156,7 +2156,7 @@ uint32_t fiji_get_mac_definition(uint32_t value)
->   		return SMU73_MAX_LEVELS_MVDD;
->   	}
->   
-> -	pr_warning("can't get the mac of %x\n", value);
-> +	pr_warn("can't get the mac of %x\n", value);
->   	return 0;
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smc.c b/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smc.c
-> index ad82161df831..51adf04ab4b3 100644
-> --- a/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smc.c
-> +++ b/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smc.c
-> @@ -122,7 +122,7 @@ static void iceland_initialize_power_tune_defaults(struct pp_hwmgr *hwmgr)
->   		break;
->   	default:
->   		smu_data->power_tune_defaults = &defaults_iceland;
-> -		pr_warning("Unknown V.I. Device ID.\n");
-> +		pr_warn("Unknown V.I. Device ID.\n");
->   		break;
->   	}
->   	return;
-> @@ -378,7 +378,7 @@ static int iceland_get_std_voltage_value_sidd(struct pp_hwmgr *hwmgr,
->   			return -EINVAL);
->   
->   	if (NULL == hwmgr->dyn_state.cac_leakage_table) {
-> -		pr_warning("CAC Leakage Table does not exist, using vddc.\n");
-> +		pr_warn("CAC Leakage Table does not exist, using vddc.\n");
->   		return 0;
->   	}
->   
-> @@ -394,7 +394,7 @@ static int iceland_get_std_voltage_value_sidd(struct pp_hwmgr *hwmgr,
->   				*lo = hwmgr->dyn_state.cac_leakage_table->entries[v_index].Vddc * VOLTAGE_SCALE;
->   				*hi = (uint16_t)(hwmgr->dyn_state.cac_leakage_table->entries[v_index].Leakage * VOLTAGE_SCALE);
->   			} else {
-> -				pr_warning("Index from SCLK/VDDC Dependency Table exceeds the CAC Leakage Table index, using maximum index from CAC table.\n");
-> +				pr_warn("Index from SCLK/VDDC Dependency Table exceeds the CAC Leakage Table index, using maximum index from CAC table.\n");
->   				*lo = hwmgr->dyn_state.cac_leakage_table->entries[hwmgr->dyn_state.cac_leakage_table->count - 1].Vddc * VOLTAGE_SCALE;
->   				*hi = (uint16_t)(hwmgr->dyn_state.cac_leakage_table->entries[hwmgr->dyn_state.cac_leakage_table->count - 1].Leakage * VOLTAGE_SCALE);
->   			}
-> @@ -414,7 +414,7 @@ static int iceland_get_std_voltage_value_sidd(struct pp_hwmgr *hwmgr,
->   					*lo = hwmgr->dyn_state.cac_leakage_table->entries[v_index].Vddc * VOLTAGE_SCALE;
->   					*hi = (uint16_t)(hwmgr->dyn_state.cac_leakage_table->entries[v_index].Leakage) * VOLTAGE_SCALE;
->   				} else {
-> -					pr_warning("Index from SCLK/VDDC Dependency Table exceeds the CAC Leakage Table index in second look up, using maximum index from CAC table.");
-> +					pr_warn("Index from SCLK/VDDC Dependency Table exceeds the CAC Leakage Table index in second look up, using maximum index from CAC table.");
->   					*lo = hwmgr->dyn_state.cac_leakage_table->entries[hwmgr->dyn_state.cac_leakage_table->count - 1].Vddc * VOLTAGE_SCALE;
->   					*hi = (uint16_t)(hwmgr->dyn_state.cac_leakage_table->entries[hwmgr->dyn_state.cac_leakage_table->count - 1].Leakage * VOLTAGE_SCALE);
->   				}
-> @@ -423,7 +423,7 @@ static int iceland_get_std_voltage_value_sidd(struct pp_hwmgr *hwmgr,
->   		}
->   
->   		if (!vol_found)
-> -			pr_warning("Unable to get std_vddc from SCLK/VDDC Dependency Table, using vddc.\n");
-> +			pr_warn("Unable to get std_vddc from SCLK/VDDC Dependency Table, using vddc.\n");
->   	}
->   
->   	return 0;
-> @@ -2146,7 +2146,7 @@ uint32_t iceland_get_offsetof(uint32_t type, uint32_t member)
->   			return offsetof(SMU71_Discrete_DpmTable, LowSclkInterruptThreshold);
->   		}
->   	}
-> -	pr_warning("can't get the offset of type %x member %x\n", type, member);
-> +	pr_warn("can't get the offset of type %x member %x\n", type, member);
->   	return 0;
->   }
->   
-> @@ -2169,7 +2169,7 @@ uint32_t iceland_get_mac_definition(uint32_t value)
->   		return SMU71_MAX_LEVELS_MVDD;
->   	}
->   
-> -	pr_warning("can't get the mac of %x\n", value);
-> +	pr_warn("can't get the mac of %x\n", value);
->   	return 0;
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smc.c b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smc.c
-> index 0e26900e459e..deec874d874f 100644
-> --- a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smc.c
-> +++ b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smc.c
-> @@ -2180,7 +2180,7 @@ uint32_t polaris10_get_offsetof(uint32_t type, uint32_t member)
->   			return offsetof(SMU74_Discrete_DpmTable, LowSclkInterruptThreshold);
->   		}
->   	}
-> -	pr_warning("can't get the offset of type %x member %x\n", type, member);
-> +	pr_warn("can't get the offset of type %x member %x\n", type, member);
->   	return 0;
->   }
->   
-> @@ -2207,7 +2207,7 @@ uint32_t polaris10_get_mac_definition(uint32_t value)
->   		return SMU7_UVD_MCLK_HANDSHAKE_DISABLE;
->   	}
->   
-> -	pr_warning("can't get the mac of %x\n", value);
-> +	pr_warn("can't get the mac of %x\n", value);
->   	return 0;
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smc.c b/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smc.c
-> index 331b0aba4a13..4d1439a498eb 100644
-> --- a/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smc.c
-> +++ b/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smc.c
-> @@ -2657,7 +2657,7 @@ uint32_t tonga_get_offsetof(uint32_t type, uint32_t member)
->   			return offsetof(SMU72_Discrete_DpmTable, LowSclkInterruptThreshold);
->   		}
->   	}
-> -	pr_warning("can't get the offset of type %x member %x\n", type, member);
-> +	pr_warn("can't get the offset of type %x member %x\n", type, member);
->   	return 0;
->   }
->   
-> @@ -2681,7 +2681,7 @@ uint32_t tonga_get_mac_definition(uint32_t value)
->   	case SMU_MAX_LEVELS_MVDD:
->   		return SMU72_MAX_LEVELS_MVDD;
->   	}
-> -	pr_warning("can't get the mac value %x\n", value);
-> +	pr_warn("can't get the mac value %x\n", value);
->   
->   	return 0;
->   }
+U2lnbmVkLW9mZi1ieTogVG9tIFN0IERlbmlzIDx0b20uc3RkZW5pc0BhbWQuY29tPgotLS0KIHNy
+Yy9hcHAvdG9wLmMgfCAzMCArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysKIDEgZmlsZSBj
+aGFuZ2VkLCAzMCBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvc3JjL2FwcC90b3AuYyBiL3Ny
+Yy9hcHAvdG9wLmMKaW5kZXggOTJhYjhhYjg1NGFmLi5jOTdhMGM5ZDkzYWIgMTAwNjQ0Ci0tLSBh
+L3NyYy9hcHAvdG9wLmMKKysrIGIvc3JjL2FwcC90b3AuYwpAQCAtMjMxLDYgKzIzMSwyNyBAQCBz
+dGF0aWMgc3RydWN0IHVtcl9iaXRmaWVsZCBzdGF0X3ZpX3NlbnNvcl9iaXRzW10gPSB7CiAJeyBO
+VUxMLCAwLCAwLCBOVUxMIH0sCiB9OwogCitzdGF0aWMgc3RydWN0IHVtcl9iaXRmaWVsZCBzdGF0
+X2Npa19zZW5zb3JfYml0c1tdID0geworCXsgIkdGWF9TQ0xLIiwgQU1ER1BVX1BQX1NFTlNPUl9H
+RlhfU0NMSywgU0VOU09SX0QxMDB8KFNFTlNPUl9NSFo8PDQpLCAmdW1yX2JpdGZpZWxkX2RlZmF1
+bHQgfSwKKwl7ICJHRlhfTUNMSyIsIEFNREdQVV9QUF9TRU5TT1JfR0ZYX01DTEssIFNFTlNPUl9E
+MTAwfChTRU5TT1JfTUhaPDw0KSwgJnVtcl9iaXRmaWVsZF9kZWZhdWx0IH0sCisJeyAiR1BVX0xP
+QUQiLCBBTURHUFVfUFBfU0VOU09SX0dQVV9MT0FELCBTRU5TT1JfUEVSQ0VOVDw8NCwgJnVtcl9i
+aXRmaWVsZF9kZWZhdWx0IH0sCisJeyAiR1BVX1RFTVAiLCBBTURHUFVfUFBfU0VOU09SX0dQVV9U
+RU1QLCBTRU5TT1JfRDEwMDB8KFNFTlNPUl9URU1QPDw0KSwgJnVtcl9iaXRmaWVsZF9kZWZhdWx0
+IH0sCisJeyBOVUxMLCAwLCAwLCBOVUxMIH0sCit9OworCitzdGF0aWMgc3RydWN0IHVtcl9iaXRm
+aWVsZCBzdGF0X2thdmVyaV9zZW5zb3JfYml0c1tdID0geworCXsgIkdGWF9TQ0xLIiwgQU1ER1BV
+X1BQX1NFTlNPUl9HRlhfU0NMSywgU0VOU09SX0QxMDB8KFNFTlNPUl9NSFo8PDQpLCAmdW1yX2Jp
+dGZpZWxkX2RlZmF1bHQgfSwKKwl7ICJHUFVfVEVNUCIsIEFNREdQVV9QUF9TRU5TT1JfR1BVX1RF
+TVAsIFNFTlNPUl9EMTAwMHwoU0VOU09SX1RFTVA8PDQpLCAmdW1yX2JpdGZpZWxkX2RlZmF1bHQg
+fSwKKwl7IE5VTEwsIDAsIDAsIE5VTEwgfSwKK307CisKK3N0YXRpYyBzdHJ1Y3QgdW1yX2JpdGZp
+ZWxkIHN0YXRfc2lfc2Vuc29yX2JpdHNbXSA9IHsKKwl7ICJHRlhfU0NMSyIsIEFNREdQVV9QUF9T
+RU5TT1JfR0ZYX1NDTEssIFNFTlNPUl9EMTAwfChTRU5TT1JfTUhaPDw0KSwgJnVtcl9iaXRmaWVs
+ZF9kZWZhdWx0IH0sCisJeyAiR0ZYX01DTEsiLCBBTURHUFVfUFBfU0VOU09SX0dGWF9NQ0xLLCBT
+RU5TT1JfRDEwMHwoU0VOU09SX01IWjw8NCksICZ1bXJfYml0ZmllbGRfZGVmYXVsdCB9LAorCXsg
+IkdQVV9URU1QIiwgQU1ER1BVX1BQX1NFTlNPUl9HUFVfVEVNUCwgU0VOU09SX0QxMDAwfChTRU5T
+T1JfVEVNUDw8NCksICZ1bXJfYml0ZmllbGRfZGVmYXVsdCB9LAorCXsgTlVMTCwgMCwgMCwgTlVM
+TCB9LAorfTsKKwogI2RlZmluZSBBTURHUFVfSU5GT19OVU1fQllURVNfTU9WRUQJCTB4MGYKICNk
+ZWZpbmUgQU1ER1BVX0lORk9fVlJBTV9VU0FHRQkJCTB4MTAKICNkZWZpbmUgQU1ER1BVX0lORk9f
+R1RUX1VTQUdFCQkJMHgxMQpAQCAtNzc0LDYgKzc5NSwxNSBAQCBzdGF0aWMgdm9pZCB0b3BfYnVp
+bGRfdmlfcHJvZ3JhbShzdHJ1Y3QgdW1yX2FzaWMgKmFzaWMpCiAJfSBlbHNlIGlmIChhc2ljLT5j
+b25maWcuZ2Z4LmZhbWlseSA9PSAxMzApIHsKIAkJLy8gVm9sY2FuaWMgSXNsYW5kcyBGYW1pbHkK
+IAkJRU5UUllfU0VOU09SKGkrKywgIkdGWF9TQ0xLIiwgJnN0YXRfdmlfc2Vuc29yX2JpdHNbMF0s
+ICZ0b3Bfb3B0aW9ucy52aS5zZW5zb3JzLCAiU2Vuc29ycyIpOworCX0gZWxzZSBpZiAoYXNpYy0+
+Y29uZmlnLmdmeC5mYW1pbHkgPT0gMTI1KSB7CisJCS8vIEZ1c2lvbgorCQlFTlRSWV9TRU5TT1Io
+aSsrLCAiR0ZYX1NDTEsiLCAmc3RhdF9rYXZlcmlfc2Vuc29yX2JpdHNbMF0sICZ0b3Bfb3B0aW9u
+cy52aS5zZW5zb3JzLCAiU2Vuc29ycyIpOworCX0gZWxzZSBpZiAoYXNpYy0+Y29uZmlnLmdmeC5m
+YW1pbHkgPT0gMTIwKSB7CisJCS8vIENJSworCQlFTlRSWV9TRU5TT1IoaSsrLCAiR0ZYX1NDTEsi
+LCAmc3RhdF9jaWtfc2Vuc29yX2JpdHNbMF0sICZ0b3Bfb3B0aW9ucy52aS5zZW5zb3JzLCAiU2Vu
+c29ycyIpOworCX0gZWxzZSBpZiAoYXNpYy0+Y29uZmlnLmdmeC5mYW1pbHkgPT0gMTEwKSB7CisJ
+CS8vIFNJCisJCUVOVFJZX1NFTlNPUihpKyssICJHRlhfU0NMSyIsICZzdGF0X3NpX3NlbnNvcl9i
+aXRzWzBdLCAmdG9wX29wdGlvbnMudmkuc2Vuc29ycywgIlNlbnNvcnMiKTsKIAl9CiAKIAkvLyBN
+b3JlIEdGWCBiaXRzCi0tIAoyLjExLjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+YW1kLWdmeAo=
