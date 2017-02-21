@@ -1,11 +1,12 @@
-From: Xiaojie Yuan <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: add HDMI audio support for si dce6
-Date: Tue, 21 Feb 2017 18:39:54 +0800
-Message-ID: <1487673594-1452-1-git-send-email-Xiaojie.Yuan@amd.com>
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: add HDMI audio support for si dce6
+Date: Tue, 21 Feb 2017 23:08:04 +1100
+Message-ID: <d2ba0088-cac6-7674-a6e7-d00d7f69b68c@folklore1984.net>
+References: <1487673594-1452-1-git-send-email-Xiaojie.Yuan@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1716203786=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1487673594-1452-1-git-send-email-Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,159 +17,304 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Xiaojie Yuan <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+To: Xiaojie Yuan <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-U2lnbmVkLW9mZi1ieTogWGlhb2ppZSBZdWFuIDxYaWFvamllLll1YW5AYW1kLmNvbT4KLS0tCiBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjZfMC5jIHwgMTMwICsrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKystLS0KIDEgZmlsZSBjaGFuZ2VkLCAxMjEgaW5zZXJ0aW9ucygrKSwg
-OSBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9k
-Y2VfdjZfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3Y2XzAuYwppbmRleCBj
-OTQwYmVjLi4xMzk4ZGI2IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9k
-Y2VfdjZfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92Nl8wLmMKQEAg
-LTE1MzEsMTIgKzE1MzEsNTggQEAgc3RhdGljIHZvaWQgZGNlX3Y2XzBfYXVkaW9fZmluaShzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAlhZGV2LT5tb2RlX2luZm8uYXVkaW8uZW5hYmxlZCA9
-IGZhbHNlOwogfQogCi0vKgotc3RhdGljIHZvaWQgZGNlX3Y2XzBfYWZtdF91cGRhdGVfQUNSKHN0
-cnVjdCBkcm1fZW5jb2RlciAqZW5jb2RlciwgdWludDMyX3QgY2xvY2spCitzdGF0aWMgdm9pZCBk
-Y2VfdjZfMF9hdWRpb19zZXRfdmJpX3BhY2tldChzdHJ1Y3QgZHJtX2VuY29kZXIgKmVuY29kZXIp
-CiB7Ci0JRFJNX0lORk8oInh4eHg6IGRjZV92Nl8wX2FmbXRfdXBkYXRlX0FDUi0tLW5vIGltcCEh
-ISEhXG4iKTsKKwlzdHJ1Y3QgZHJtX2RldmljZSAqZGV2ID0gZW5jb2Rlci0+ZGV2OworCXN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2ID0gZGV2LT5kZXZfcHJpdmF0ZTsKKwlzdHJ1Y3QgYW1kZ3B1
-X2VuY29kZXIgKmFtZGdwdV9lbmNvZGVyID0gdG9fYW1kZ3B1X2VuY29kZXIoZW5jb2Rlcik7CisJ
-c3RydWN0IGFtZGdwdV9lbmNvZGVyX2F0b21fZGlnICpkaWcgPSBhbWRncHVfZW5jb2Rlci0+ZW5j
-X3ByaXY7CisJdTMyIHRtcDsKKworCXRtcCA9IFJSRUczMihtbUhETUlfVkJJX1BBQ0tFVF9DT05U
-Uk9MICsgZGlnLT5hZm10LT5vZmZzZXQpOworCXRtcCA9IFJFR19TRVRfRklFTEQodG1wLCBIRE1J
-X1ZCSV9QQUNLRVRfQ09OVFJPTCwgSERNSV9OVUxMX1NFTkQsIDEpOworCXRtcCA9IFJFR19TRVRf
-RklFTEQodG1wLCBIRE1JX1ZCSV9QQUNLRVRfQ09OVFJPTCwgSERNSV9HQ19TRU5ELCAxKTsKKwl0
-bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwgSERNSV9WQklfUEFDS0VUX0NPTlRST0wsIEhETUlfR0Nf
-Q09OVCwgMSk7CisJV1JFRzMyKG1tSERNSV9WQklfUEFDS0VUX0NPTlRST0wgKyBkaWctPmFmbXQt
-Pm9mZnNldCwgdG1wKTsKK30KKworc3RhdGljIHZvaWQgZGNlX3Y2XzBfYXVkaW9fc2V0X2Fjcihz
-dHJ1Y3QgZHJtX2VuY29kZXIgKmVuY29kZXIsCisJCQkJICAgdWludDMyX3QgY2xvY2ssIGludCBi
-cGMpCit7CisJc3RydWN0IGRybV9kZXZpY2UgKmRldiA9IGVuY29kZXItPmRldjsKKwlzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqYWRldiA9IGRldi0+ZGV2X3ByaXZhdGU7CisJc3RydWN0IGFtZGdwdV9h
-Zm10X2FjciBhY3IgPSBhbWRncHVfYWZtdF9hY3IoY2xvY2spOworCXN0cnVjdCBhbWRncHVfZW5j
-b2RlciAqYW1kZ3B1X2VuY29kZXIgPSB0b19hbWRncHVfZW5jb2RlcihlbmNvZGVyKTsKKwlzdHJ1
-Y3QgYW1kZ3B1X2VuY29kZXJfYXRvbV9kaWcgKmRpZyA9IGFtZGdwdV9lbmNvZGVyLT5lbmNfcHJp
-djsKKwl1MzIgdG1wOworCisJdG1wID0gUlJFRzMyKG1tSERNSV9BQ1JfUEFDS0VUX0NPTlRST0wg
-KyBkaWctPmFmbXQtPm9mZnNldCk7CisJdG1wID0gUkVHX1NFVF9GSUVMRCh0bXAsIEhETUlfQUNS
-X1BBQ0tFVF9DT05UUk9MLCBIRE1JX0FDUl9BVVRPX1NFTkQsIDEpOworCXRtcCA9IFJFR19TRVRf
-RklFTEQodG1wLCBIRE1JX0FDUl9QQUNLRVRfQ09OVFJPTCwgSERNSV9BQ1JfU09VUkNFLAorCQkJ
-YnBjID4gOCA/IDAgOiAxKTsKKwlXUkVHMzIobW1IRE1JX0FDUl9QQUNLRVRfQ09OVFJPTCArIGRp
-Zy0+YWZtdC0+b2Zmc2V0LCB0bXApOworCisJdG1wID0gUlJFRzMyKG1tSERNSV9BQ1JfMzJfMCAr
-IGRpZy0+YWZtdC0+b2Zmc2V0KTsKKwl0bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwgSERNSV9BQ1Jf
-MzJfMCwgSERNSV9BQ1JfQ1RTXzMyLCBhY3IuY3RzXzMya2h6KTsKKwlXUkVHMzIobW1IRE1JX0FD
-Ul8zMl8wICsgZGlnLT5hZm10LT5vZmZzZXQsIHRtcCk7CisJdG1wID0gUlJFRzMyKG1tSERNSV9B
-Q1JfMzJfMSArIGRpZy0+YWZtdC0+b2Zmc2V0KTsKKwl0bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwg
-SERNSV9BQ1JfMzJfMSwgSERNSV9BQ1JfTl8zMiwgYWNyLm5fMzJraHopOworCVdSRUczMihtbUhE
-TUlfQUNSXzMyXzEgKyBkaWctPmFmbXQtPm9mZnNldCwgdG1wKTsKKworCXRtcCA9IFJSRUczMiht
-bUhETUlfQUNSXzQ0XzAgKyBkaWctPmFmbXQtPm9mZnNldCk7CisJdG1wID0gUkVHX1NFVF9GSUVM
-RCh0bXAsIEhETUlfQUNSXzQ0XzAsIEhETUlfQUNSX0NUU180NCwgYWNyLmN0c180NF8xa2h6KTsK
-KwlXUkVHMzIobW1IRE1JX0FDUl80NF8wICsgZGlnLT5hZm10LT5vZmZzZXQsIHRtcCk7CisJdG1w
-ID0gUlJFRzMyKG1tSERNSV9BQ1JfNDRfMSArIGRpZy0+YWZtdC0+b2Zmc2V0KTsKKwl0bXAgPSBS
-RUdfU0VUX0ZJRUxEKHRtcCwgSERNSV9BQ1JfNDRfMSwgSERNSV9BQ1JfTl80NCwgYWNyLm5fNDRf
-MWtoeik7CisJV1JFRzMyKG1tSERNSV9BQ1JfNDRfMSArIGRpZy0+YWZtdC0+b2Zmc2V0LCB0bXAp
-OworCisJdG1wID0gUlJFRzMyKG1tSERNSV9BQ1JfNDhfMCArIGRpZy0+YWZtdC0+b2Zmc2V0KTsK
-Kwl0bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwgSERNSV9BQ1JfNDhfMCwgSERNSV9BQ1JfQ1RTXzQ4
-LCBhY3IuY3RzXzQ4a2h6KTsKKwlXUkVHMzIobW1IRE1JX0FDUl80OF8wICsgZGlnLT5hZm10LT5v
-ZmZzZXQsIHRtcCk7CisJdG1wID0gUlJFRzMyKG1tSERNSV9BQ1JfNDhfMSArIGRpZy0+YWZtdC0+
-b2Zmc2V0KTsKKwl0bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwgSERNSV9BQ1JfNDhfMSwgSERNSV9B
-Q1JfTl80OCwgYWNyLm5fNDhraHopOworCVdSRUczMihtbUhETUlfQUNSXzQ4XzEgKyBkaWctPmFm
-bXQtPm9mZnNldCwgdG1wKTsKIH0KLSovCiAKIHN0YXRpYyB2b2lkIGRjZV92Nl8wX2FmbXRfdXBk
-YXRlX2F2aV9pbmZvZnJhbWUoc3RydWN0IGRybV9lbmNvZGVyICplbmNvZGVyLAogCQkJCQkgICAg
-ICAgc3RydWN0IGRybV9kaXNwbGF5X21vZGUgKm1vZGUpCkBAIC0xNTg1LDYgKzE2MzEsNyBAQCBz
-dGF0aWMgdm9pZCBkY2VfdjZfMF9hdWRpb19zZXRfZHRvKHN0cnVjdCBkcm1fZW5jb2RlciAqZW5j
-b2RlciwgdTMyIGNsb2NrKQogCXN0cnVjdCBkcm1fZGV2aWNlICpkZXYgPSBlbmNvZGVyLT5kZXY7
-CiAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBkZXYtPmRldl9wcml2YXRlOwogCXN0cnVj
-dCBhbWRncHVfY3J0YyAqYW1kZ3B1X2NydGMgPSB0b19hbWRncHVfY3J0YyhlbmNvZGVyLT5jcnRj
-KTsKKwlpbnQgZW0gPSBhbWRncHVfYXRvbWJpb3NfZW5jb2Rlcl9nZXRfZW5jb2Rlcl9tb2RlKGVu
-Y29kZXIpOwogCXUzMiB0bXA7CiAKIAkvKgpAQCAtMTU5NiwxMCArMTY0MywyMSBAQCBzdGF0aWMg
-dm9pZCBkY2VfdjZfMF9hdWRpb19zZXRfZHRvKHN0cnVjdCBkcm1fZW5jb2RlciAqZW5jb2Rlciwg
-dTMyIGNsb2NrKQogCXRtcCA9IFJSRUczMihtbURDQ0dfQVVESU9fRFRPX1NPVVJDRSk7CiAJdG1w
-ID0gUkVHX1NFVF9GSUVMRCh0bXAsIERDQ0dfQVVESU9fRFRPX1NPVVJDRSwKIAkJCURDQ0dfQVVE
-SU9fRFRPMF9TT1VSQ0VfU0VMLCBhbWRncHVfY3J0Yy0+Y3J0Y19pZCk7Ci0JdG1wID0gUkVHX1NF
-VF9GSUVMRCh0bXAsIERDQ0dfQVVESU9fRFRPX1NPVVJDRSwgRENDR19BVURJT19EVE9fU0VMLCAx
-KTsKKwlpZiAoZW0gPT0gQVRPTV9FTkNPREVSX01PREVfSERNSSkgeworCQl0bXAgPSBSRUdfU0VU
-X0ZJRUxEKHRtcCwgRENDR19BVURJT19EVE9fU09VUkNFLAorCQkJCURDQ0dfQVVESU9fRFRPX1NF
-TCwgMCk7CisJfSBlbHNlIGlmIChFTkNPREVSX01PREVfSVNfRFAoZW0pKSB7CisJCXRtcCA9IFJF
-R19TRVRfRklFTEQodG1wLCBEQ0NHX0FVRElPX0RUT19TT1VSQ0UsCisJCQkJRENDR19BVURJT19E
-VE9fU0VMLCAxKTsKKwl9CiAJV1JFRzMyKG1tRENDR19BVURJT19EVE9fU09VUkNFLCB0bXApOwot
-CVdSRUczMihtbURDQ0dfQVVESU9fRFRPMV9QSEFTRSwgMjQwMDApOwotCVdSRUczMihtbURDQ0df
-QVVESU9fRFRPMV9NT0RVTEUsIGNsb2NrKTsKKwlpZiAoZW0gPT0gQVRPTV9FTkNPREVSX01PREVf
-SERNSSkgeworCQlXUkVHMzIobW1EQ0NHX0FVRElPX0RUTzBfUEhBU0UsIDI0MDAwKTsKKwkJV1JF
-RzMyKG1tRENDR19BVURJT19EVE8wX01PRFVMRSwgY2xvY2spOworCX0gZWxzZSBpZiAoRU5DT0RF
-Ul9NT0RFX0lTX0RQKGVtKSkgeworCQlXUkVHMzIobW1EQ0NHX0FVRElPX0RUTzFfUEhBU0UsIDI0
-MDAwKTsKKwkJV1JFRzMyKG1tRENDR19BVURJT19EVE8xX01PRFVMRSwgY2xvY2spOworCX0KIH0K
-IAogc3RhdGljIHZvaWQgZGNlX3Y2XzBfc2V0X2F1ZGlvX3BhY2tldChzdHJ1Y3QgZHJtX2VuY29k
-ZXIgKmVuY29kZXIpCkBAIC0xNjU5LDYgKzE3MTcsNDMgQEAgc3RhdGljIHZvaWQgZGNlX3Y2XzBf
-YXVkaW9fc2V0X211dGUoc3RydWN0IGRybV9lbmNvZGVyICplbmNvZGVyLCBib29sIG11dGUpCiAJ
-V1JFRzMyKG1tSERNSV9HQyArIGRpZy0+YWZtdC0+b2Zmc2V0LCB0bXApOwogfQogCitzdGF0aWMg
-dm9pZCBkY2VfdjZfMF9hdWRpb19oZG1pX2VuYWJsZShzdHJ1Y3QgZHJtX2VuY29kZXIgKmVuY29k
-ZXIsIGJvb2wgZW5hYmxlKQoreworCXN0cnVjdCBkcm1fZGV2aWNlICpkZXYgPSBlbmNvZGVyLT5k
-ZXY7CisJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBkZXYtPmRldl9wcml2YXRlOworCXN0
-cnVjdCBhbWRncHVfZW5jb2RlciAqYW1kZ3B1X2VuY29kZXIgPSB0b19hbWRncHVfZW5jb2Rlcihl
-bmNvZGVyKTsKKwlzdHJ1Y3QgYW1kZ3B1X2VuY29kZXJfYXRvbV9kaWcgKmRpZyA9IGFtZGdwdV9l
-bmNvZGVyLT5lbmNfcHJpdjsKKwl1MzIgdG1wOworCisJaWYgKGVuYWJsZSkgeworCQl0bXAgPSBS
-UkVHMzIobW1IRE1JX0lORk9GUkFNRV9DT05UUk9MMCArIGRpZy0+YWZtdC0+b2Zmc2V0KTsKKwkJ
-dG1wID0gUkVHX1NFVF9GSUVMRCh0bXAsIEhETUlfSU5GT0ZSQU1FX0NPTlRST0wwLCBIRE1JX0FW
-SV9JTkZPX1NFTkQsIDEpOworCQl0bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwgSERNSV9JTkZPRlJB
-TUVfQ09OVFJPTDAsIEhETUlfQVZJX0lORk9fQ09OVCwgMSk7CisJCXRtcCA9IFJFR19TRVRfRklF
-TEQodG1wLCBIRE1JX0lORk9GUkFNRV9DT05UUk9MMCwgSERNSV9BVURJT19JTkZPX1NFTkQsIDEp
-OworCQl0bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwgSERNSV9JTkZPRlJBTUVfQ09OVFJPTDAsIEhE
-TUlfQVVESU9fSU5GT19DT05ULCAxKTsKKwkJV1JFRzMyKG1tSERNSV9JTkZPRlJBTUVfQ09OVFJP
-TDAgKyBkaWctPmFmbXQtPm9mZnNldCwgdG1wKTsKKworCQl0bXAgPSBSUkVHMzIobW1IRE1JX0lO
-Rk9GUkFNRV9DT05UUk9MMSArIGRpZy0+YWZtdC0+b2Zmc2V0KTsKKwkJdG1wID0gUkVHX1NFVF9G
-SUVMRCh0bXAsIEhETUlfSU5GT0ZSQU1FX0NPTlRST0wxLCBIRE1JX0FWSV9JTkZPX0xJTkUsIDIp
-OworCQlXUkVHMzIobW1IRE1JX0lORk9GUkFNRV9DT05UUk9MMSArIGRpZy0+YWZtdC0+b2Zmc2V0
-LCB0bXApOworCisJCXRtcCA9IFJSRUczMihtbUFGTVRfQVVESU9fUEFDS0VUX0NPTlRST0wgKyBk
-aWctPmFmbXQtPm9mZnNldCk7CisJCXRtcCA9IFJFR19TRVRfRklFTEQodG1wLCBBRk1UX0FVRElP
-X1BBQ0tFVF9DT05UUk9MLCBBRk1UX0FVRElPX1NBTVBMRV9TRU5ELCAxKTsKKwkJV1JFRzMyKG1t
-QUZNVF9BVURJT19QQUNLRVRfQ09OVFJPTCArIGRpZy0+YWZtdC0+b2Zmc2V0LCB0bXApOworCX0g
-ZWxzZSB7CisJCXRtcCA9IFJSRUczMihtbUhETUlfSU5GT0ZSQU1FX0NPTlRST0wwICsgZGlnLT5h
-Zm10LT5vZmZzZXQpOworCQl0bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwgSERNSV9JTkZPRlJBTUVf
-Q09OVFJPTDAsIEhETUlfQVZJX0lORk9fU0VORCwgMCk7CisJCXRtcCA9IFJFR19TRVRfRklFTEQo
-dG1wLCBIRE1JX0lORk9GUkFNRV9DT05UUk9MMCwgSERNSV9BVklfSU5GT19DT05ULCAwKTsKKwkJ
-dG1wID0gUkVHX1NFVF9GSUVMRCh0bXAsIEhETUlfSU5GT0ZSQU1FX0NPTlRST0wwLCBIRE1JX0FV
-RElPX0lORk9fU0VORCwgMCk7CisJCXRtcCA9IFJFR19TRVRfRklFTEQodG1wLCBIRE1JX0lORk9G
-UkFNRV9DT05UUk9MMCwgSERNSV9BVURJT19JTkZPX0NPTlQsIDApOworCQlXUkVHMzIobW1IRE1J
-X0lORk9GUkFNRV9DT05UUk9MMCArIGRpZy0+YWZtdC0+b2Zmc2V0LCB0bXApOworCisJCXRtcCA9
-IFJSRUczMihtbUFGTVRfQVVESU9fUEFDS0VUX0NPTlRST0wgKyBkaWctPmFmbXQtPm9mZnNldCk7
-CisJCXRtcCA9IFJFR19TRVRfRklFTEQodG1wLCBBRk1UX0FVRElPX1BBQ0tFVF9DT05UUk9MLCBB
-Rk1UX0FVRElPX1NBTVBMRV9TRU5ELCAwKTsKKwkJV1JFRzMyKG1tQUZNVF9BVURJT19QQUNLRVRf
-Q09OVFJPTCArIGRpZy0+YWZtdC0+b2Zmc2V0LCB0bXApOworCX0KK30KKwogc3RhdGljIHZvaWQg
-ZGNlX3Y2XzBfYXVkaW9fZHBfZW5hYmxlKHN0cnVjdCBkcm1fZW5jb2RlciAqZW5jb2RlciwgYm9v
-bCBlbmFibGUpCiB7CiAJc3RydWN0IGRybV9kZXZpY2UgKmRldiA9IGVuY29kZXItPmRldjsKQEAg
-LTE2OTYsNiArMTc5MSw4IEBAIHN0YXRpYyB2b2lkIGRjZV92Nl8wX2FmbXRfc2V0bW9kZShzdHJ1
-Y3QgZHJtX2VuY29kZXIgKmVuY29kZXIsCiAJc3RydWN0IGFtZGdwdV9lbmNvZGVyX2F0b21fZGln
-ICpkaWcgPSBhbWRncHVfZW5jb2Rlci0+ZW5jX3ByaXY7CiAJc3RydWN0IGRybV9jb25uZWN0b3Ig
-KmNvbm5lY3RvcjsKIAlzdHJ1Y3QgYW1kZ3B1X2Nvbm5lY3RvciAqYW1kZ3B1X2Nvbm5lY3RvciA9
-IE5VTEw7CisJaW50IGVtID0gYW1kZ3B1X2F0b21iaW9zX2VuY29kZXJfZ2V0X2VuY29kZXJfbW9k
-ZShlbmNvZGVyKTsKKwlpbnQgYnBjID0gODsKIAogCWlmICghZGlnIHx8ICFkaWctPmFmbXQpCiAJ
-CXJldHVybjsKQEAgLTE3MTksNiArMTgxNiwxMSBAQCBzdGF0aWMgdm9pZCBkY2VfdjZfMF9hZm10
-X3NldG1vZGUoc3RydWN0IGRybV9lbmNvZGVyICplbmNvZGVyLAogCWlmICghZGlnLT5hZm10LT5w
-aW4pCiAJCXJldHVybjsKIAorCWlmIChlbmNvZGVyLT5jcnRjKSB7CisJCXN0cnVjdCBhbWRncHVf
-Y3J0YyAqYW1kZ3B1X2NydGMgPSB0b19hbWRncHVfY3J0YyhlbmNvZGVyLT5jcnRjKTsKKwkJYnBj
-ID0gYW1kZ3B1X2NydGMtPmJwYzsKKwl9CisKIAkvKiBkaXNhYmxlIGF1ZGlvIGJlZm9yZSBzZXR0
-aW5nIHVwIGh3ICovCiAJZGNlX3Y2XzBfYXVkaW9fZW5hYmxlKGFkZXYsIGRpZy0+YWZtdC0+cGlu
-LCBmYWxzZSk7CiAKQEAgLTE3MjYsMTIgKzE4MjgsMjIgQEAgc3RhdGljIHZvaWQgZGNlX3Y2XzBf
-YWZtdF9zZXRtb2RlKHN0cnVjdCBkcm1fZW5jb2RlciAqZW5jb2RlciwKIAlkY2VfdjZfMF9hdWRp
-b193cml0ZV9zcGVha2VyX2FsbG9jYXRpb24oZW5jb2Rlcik7CiAJZGNlX3Y2XzBfYXVkaW9fd3Jp
-dGVfc2FkX3JlZ3MoZW5jb2Rlcik7CiAJZGNlX3Y2XzBfYXVkaW9fd3JpdGVfbGF0ZW5jeV9maWVs
-ZHMoZW5jb2RlciwgbW9kZSk7Ci0JZGNlX3Y2XzBfYXVkaW9fc2V0X2R0byhlbmNvZGVyLCBhZGV2
-LT5jbG9jay5kZWZhdWx0X2Rpc3BjbGsgKiAxMCk7CisJaWYgKGVtID09IEFUT01fRU5DT0RFUl9N
-T0RFX0hETUkpIHsKKwkJZGNlX3Y2XzBfYXVkaW9fc2V0X2R0byhlbmNvZGVyLCBtb2RlLT5jbG9j
-ayk7CisJCWRjZV92Nl8wX2F1ZGlvX3NldF92YmlfcGFja2V0KGVuY29kZXIpOworCQlkY2VfdjZf
-MF9hdWRpb19zZXRfYWNyKGVuY29kZXIsIG1vZGUtPmNsb2NrLCBicGMpOworCX0gZWxzZSBpZiAo
-RU5DT0RFUl9NT0RFX0lTX0RQKGVtKSkgeworCQlkY2VfdjZfMF9hdWRpb19zZXRfZHRvKGVuY29k
-ZXIsIGFkZXYtPmNsb2NrLmRlZmF1bHRfZGlzcGNsayAqIDEwKTsKKwl9CiAJZGNlX3Y2XzBfc2V0
-X2F1ZGlvX3BhY2tldChlbmNvZGVyKTsKIAlkY2VfdjZfMF9hZm10X2F1ZGlvX3NlbGVjdF9waW4o
-ZW5jb2Rlcik7CiAJZGNlX3Y2XzBfYWZtdF91cGRhdGVfYXZpX2luZm9mcmFtZShlbmNvZGVyLCBt
-b2RlKTsKIAlkY2VfdjZfMF9hdWRpb19zZXRfbXV0ZShlbmNvZGVyLCBmYWxzZSk7Ci0JZGNlX3Y2
-XzBfYXVkaW9fZHBfZW5hYmxlKGVuY29kZXIsIDEpOworCWlmIChlbSA9PSBBVE9NX0VOQ09ERVJf
-TU9ERV9IRE1JKSB7CisJCWRjZV92Nl8wX2F1ZGlvX2hkbWlfZW5hYmxlKGVuY29kZXIsIDEpOwor
-CX0gZWxzZSBpZiAoRU5DT0RFUl9NT0RFX0lTX0RQKGVtKSkgeworCQlkY2VfdjZfMF9hdWRpb19k
-cF9lbmFibGUoZW5jb2RlciwgMSk7CisJfQogCiAJLyogZW5hYmxlIGF1ZGlvIGFmdGVyIHNldHRp
-bmcgdXAgaHcgKi8KIAlkY2VfdjZfMF9hdWRpb19lbmFibGUoYWRldiwgZGlnLT5hZm10LT5waW4s
-IHRydWUpOwotLSAKMi43LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eAo=
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============1716203786==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="gv8nPD65lIArMvScsTSQnvehExiVrCapq"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--gv8nPD65lIArMvScsTSQnvehExiVrCapq
+Content-Type: multipart/mixed; boundary="MUN9VevhExTsc5C48PpT8gMCmLp6IsSXH";
+ protected-headers="v1"
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+To: Xiaojie Yuan <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Message-ID: <d2ba0088-cac6-7674-a6e7-d00d7f69b68c-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: add HDMI audio support for si dce6
+References: <1487673594-1452-1-git-send-email-Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1487673594-1452-1-git-send-email-Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+
+--MUN9VevhExTsc5C48PpT8gMCmLp6IsSXH
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+
+On 02/21/2017 09:39 PM, Xiaojie Yuan wrote:
+> Signed-off-by: Xiaojie Yuan <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c | 130 ++++++++++++++++++++++++++=
++++++---
+>  1 file changed, 121 insertions(+), 9 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/am=
+d/amdgpu/dce_v6_0.c
+> index c940bec..1398db6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> @@ -1531,12 +1531,58 @@ static void dce_v6_0_audio_fini(struct amdgpu_d=
+evice *adev)
+>  	adev->mode_info.audio.enabled =3D false;
+>  }
+> =20
+> -/*
+> -static void dce_v6_0_afmt_update_ACR(struct drm_encoder *encoder, uint=
+32_t clock)
+> +static void dce_v6_0_audio_set_vbi_packet(struct drm_encoder *encoder)=
+
+>  {
+> -	DRM_INFO("xxxx: dce_v6_0_afmt_update_ACR---no imp!!!!!\n");
+> +	struct drm_device *dev =3D encoder->dev;
+> +	struct amdgpu_device *adev =3D dev->dev_private;
+> +	struct amdgpu_encoder *amdgpu_encoder =3D to_amdgpu_encoder(encoder);=
+
+> +	struct amdgpu_encoder_atom_dig *dig =3D amdgpu_encoder->enc_priv;
+> +	u32 tmp;
+> +
+> +	tmp =3D RREG32(mmHDMI_VBI_PACKET_CONTROL + dig->afmt->offset);
+> +	tmp =3D REG_SET_FIELD(tmp, HDMI_VBI_PACKET_CONTROL, HDMI_NULL_SEND, 1=
+);
+> +	tmp =3D REG_SET_FIELD(tmp, HDMI_VBI_PACKET_CONTROL, HDMI_GC_SEND, 1);=
+
+> +	tmp =3D REG_SET_FIELD(tmp, HDMI_VBI_PACKET_CONTROL, HDMI_GC_CONT, 1);=
+
+> +	WREG32(mmHDMI_VBI_PACKET_CONTROL + dig->afmt->offset, tmp);
+> +}
+> +
+> +static void dce_v6_0_audio_set_acr(struct drm_encoder *encoder,
+> +				   uint32_t clock, int bpc)
+> +{
+> +	struct drm_device *dev =3D encoder->dev;
+> +	struct amdgpu_device *adev =3D dev->dev_private;
+> +	struct amdgpu_afmt_acr acr =3D amdgpu_afmt_acr(clock);
+> +	struct amdgpu_encoder *amdgpu_encoder =3D to_amdgpu_encoder(encoder);=
+
+> +	struct amdgpu_encoder_atom_dig *dig =3D amdgpu_encoder->enc_priv;
+> +	u32 tmp;
+> +
+> +	tmp =3D RREG32(mmHDMI_ACR_PACKET_CONTROL + dig->afmt->offset);
+> +	tmp =3D REG_SET_FIELD(tmp, HDMI_ACR_PACKET_CONTROL, HDMI_ACR_AUTO_SEN=
+D, 1);
+> +	tmp =3D REG_SET_FIELD(tmp, HDMI_ACR_PACKET_CONTROL, HDMI_ACR_SOURCE,
+> +			bpc > 8 ? 0 : 1);
+> +	WREG32(mmHDMI_ACR_PACKET_CONTROL + dig->afmt->offset, tmp);
+> +
+> +	tmp =3D RREG32(mmHDMI_ACR_32_0 + dig->afmt->offset);
+> +	tmp =3D REG_SET_FIELD(tmp, HDMI_ACR_32_0, HDMI_ACR_CTS_32, acr.cts_32=
+khz);
+> +	WREG32(mmHDMI_ACR_32_0 + dig->afmt->offset, tmp);
+> +	tmp =3D RREG32(mmHDMI_ACR_32_1 + dig->afmt->offset);
+> +	tmp =3D REG_SET_FIELD(tmp, HDMI_ACR_32_1, HDMI_ACR_N_32, acr.n_32khz)=
+;
+> +	WREG32(mmHDMI_ACR_32_1 + dig->afmt->offset, tmp);
+> +
+> +	tmp =3D RREG32(mmHDMI_ACR_44_0 + dig->afmt->offset);
+> +	tmp =3D REG_SET_FIELD(tmp, HDMI_ACR_44_0, HDMI_ACR_CTS_44, acr.cts_44=
+_1khz);
+> +	WREG32(mmHDMI_ACR_44_0 + dig->afmt->offset, tmp);
+> +	tmp =3D RREG32(mmHDMI_ACR_44_1 + dig->afmt->offset);
+> +	tmp =3D REG_SET_FIELD(tmp, HDMI_ACR_44_1, HDMI_ACR_N_44, acr.n_44_1kh=
+z);
+> +	WREG32(mmHDMI_ACR_44_1 + dig->afmt->offset, tmp);
+> +
+> +	tmp =3D RREG32(mmHDMI_ACR_48_0 + dig->afmt->offset);
+> +	tmp =3D REG_SET_FIELD(tmp, HDMI_ACR_48_0, HDMI_ACR_CTS_48, acr.cts_48=
+khz);
+> +	WREG32(mmHDMI_ACR_48_0 + dig->afmt->offset, tmp);
+> +	tmp =3D RREG32(mmHDMI_ACR_48_1 + dig->afmt->offset);
+> +	tmp =3D REG_SET_FIELD(tmp, HDMI_ACR_48_1, HDMI_ACR_N_48, acr.n_48khz)=
+;
+> +	WREG32(mmHDMI_ACR_48_1 + dig->afmt->offset, tmp);
+>  }
+> -*/
+> =20
+>  static void dce_v6_0_afmt_update_avi_infoframe(struct drm_encoder *enc=
+oder,
+>  					       struct drm_display_mode *mode)
+> @@ -1585,6 +1631,7 @@ static void dce_v6_0_audio_set_dto(struct drm_enc=
+oder *encoder, u32 clock)
+>  	struct drm_device *dev =3D encoder->dev;
+>  	struct amdgpu_device *adev =3D dev->dev_private;
+>  	struct amdgpu_crtc *amdgpu_crtc =3D to_amdgpu_crtc(encoder->crtc);
+> +	int em =3D amdgpu_atombios_encoder_get_encoder_mode(encoder);
+>  	u32 tmp;
+> =20
+>  	/*
+> @@ -1596,10 +1643,21 @@ static void dce_v6_0_audio_set_dto(struct drm_e=
+ncoder *encoder, u32 clock)
+>  	tmp =3D RREG32(mmDCCG_AUDIO_DTO_SOURCE);
+>  	tmp =3D REG_SET_FIELD(tmp, DCCG_AUDIO_DTO_SOURCE,
+>  			DCCG_AUDIO_DTO0_SOURCE_SEL, amdgpu_crtc->crtc_id);
+> -	tmp =3D REG_SET_FIELD(tmp, DCCG_AUDIO_DTO_SOURCE, DCCG_AUDIO_DTO_SEL,=
+ 1);
+> +	if (em =3D=3D ATOM_ENCODER_MODE_HDMI) {
+> +		tmp =3D REG_SET_FIELD(tmp, DCCG_AUDIO_DTO_SOURCE,
+> +				DCCG_AUDIO_DTO_SEL, 0);
+> +	} else if (ENCODER_MODE_IS_DP(em)) {
+> +		tmp =3D REG_SET_FIELD(tmp, DCCG_AUDIO_DTO_SOURCE,
+> +				DCCG_AUDIO_DTO_SEL, 1);
+> +	}
+>  	WREG32(mmDCCG_AUDIO_DTO_SOURCE, tmp);
+> -	WREG32(mmDCCG_AUDIO_DTO1_PHASE, 24000);
+> -	WREG32(mmDCCG_AUDIO_DTO1_MODULE, clock);
+> +	if (em =3D=3D ATOM_ENCODER_MODE_HDMI) {
+> +		WREG32(mmDCCG_AUDIO_DTO0_PHASE, 24000);
+> +		WREG32(mmDCCG_AUDIO_DTO0_MODULE, clock);
+> +	} else if (ENCODER_MODE_IS_DP(em)) {
+> +		WREG32(mmDCCG_AUDIO_DTO1_PHASE, 24000);
+> +		WREG32(mmDCCG_AUDIO_DTO1_MODULE, clock);
+> +	}
+>  }
+> =20
+>  static void dce_v6_0_set_audio_packet(struct drm_encoder *encoder)
+> @@ -1659,6 +1717,43 @@ static void dce_v6_0_audio_set_mute(struct drm_e=
+ncoder *encoder, bool mute)
+>  	WREG32(mmHDMI_GC + dig->afmt->offset, tmp);
+>  }
+> =20
+> +static void dce_v6_0_audio_hdmi_enable(struct drm_encoder *encoder, bo=
+ol enable)
+> +{
+> +	struct drm_device *dev =3D encoder->dev;
+> +	struct amdgpu_device *adev =3D dev->dev_private;
+> +	struct amdgpu_encoder *amdgpu_encoder =3D to_amdgpu_encoder(encoder);=
+
+> +	struct amdgpu_encoder_atom_dig *dig =3D amdgpu_encoder->enc_priv;
+> +	u32 tmp;
+> +
+> +	if (enable) {
+> +		tmp =3D RREG32(mmHDMI_INFOFRAME_CONTROL0 + dig->afmt->offset);
+> +		tmp =3D REG_SET_FIELD(tmp, HDMI_INFOFRAME_CONTROL0, HDMI_AVI_INFO_SE=
+ND, 1);
+> +		tmp =3D REG_SET_FIELD(tmp, HDMI_INFOFRAME_CONTROL0, HDMI_AVI_INFO_CO=
+NT, 1);
+> +		tmp =3D REG_SET_FIELD(tmp, HDMI_INFOFRAME_CONTROL0, HDMI_AUDIO_INFO_=
+SEND, 1);
+> +		tmp =3D REG_SET_FIELD(tmp, HDMI_INFOFRAME_CONTROL0, HDMI_AUDIO_INFO_=
+CONT, 1);
+> +		WREG32(mmHDMI_INFOFRAME_CONTROL0 + dig->afmt->offset, tmp);
+> +
+> +		tmp =3D RREG32(mmHDMI_INFOFRAME_CONTROL1 + dig->afmt->offset);
+> +		tmp =3D REG_SET_FIELD(tmp, HDMI_INFOFRAME_CONTROL1, HDMI_AVI_INFO_LI=
+NE, 2);
+> +		WREG32(mmHDMI_INFOFRAME_CONTROL1 + dig->afmt->offset, tmp);
+> +
+> +		tmp =3D RREG32(mmAFMT_AUDIO_PACKET_CONTROL + dig->afmt->offset);
+> +		tmp =3D REG_SET_FIELD(tmp, AFMT_AUDIO_PACKET_CONTROL, AFMT_AUDIO_SAM=
+PLE_SEND, 1);
+> +		WREG32(mmAFMT_AUDIO_PACKET_CONTROL + dig->afmt->offset, tmp);
+> +	} else {
+> +		tmp =3D RREG32(mmHDMI_INFOFRAME_CONTROL0 + dig->afmt->offset);
+> +		tmp =3D REG_SET_FIELD(tmp, HDMI_INFOFRAME_CONTROL0, HDMI_AVI_INFO_SE=
+ND, 0);
+> +		tmp =3D REG_SET_FIELD(tmp, HDMI_INFOFRAME_CONTROL0, HDMI_AVI_INFO_CO=
+NT, 0);
+> +		tmp =3D REG_SET_FIELD(tmp, HDMI_INFOFRAME_CONTROL0, HDMI_AUDIO_INFO_=
+SEND, 0);
+> +		tmp =3D REG_SET_FIELD(tmp, HDMI_INFOFRAME_CONTROL0, HDMI_AUDIO_INFO_=
+CONT, 0);
+> +		WREG32(mmHDMI_INFOFRAME_CONTROL0 + dig->afmt->offset, tmp);
+> +
+> +		tmp =3D RREG32(mmAFMT_AUDIO_PACKET_CONTROL + dig->afmt->offset);
+> +		tmp =3D REG_SET_FIELD(tmp, AFMT_AUDIO_PACKET_CONTROL, AFMT_AUDIO_SAM=
+PLE_SEND, 0);
+> +		WREG32(mmAFMT_AUDIO_PACKET_CONTROL + dig->afmt->offset, tmp);
+> +	}
+> +}
+> +
+>  static void dce_v6_0_audio_dp_enable(struct drm_encoder *encoder, bool=
+ enable)
+>  {
+>  	struct drm_device *dev =3D encoder->dev;
+> @@ -1696,6 +1791,8 @@ static void dce_v6_0_afmt_setmode(struct drm_enco=
+der *encoder,
+>  	struct amdgpu_encoder_atom_dig *dig =3D amdgpu_encoder->enc_priv;
+>  	struct drm_connector *connector;
+>  	struct amdgpu_connector *amdgpu_connector =3D NULL;
+> +	int em =3D amdgpu_atombios_encoder_get_encoder_mode(encoder);
+> +	int bpc =3D 8;
+> =20
+>  	if (!dig || !dig->afmt)
+>  		return;
+> @@ -1719,6 +1816,11 @@ static void dce_v6_0_afmt_setmode(struct drm_enc=
+oder *encoder,
+>  	if (!dig->afmt->pin)
+>  		return;
+> =20
+> +	if (encoder->crtc) {
+> +		struct amdgpu_crtc *amdgpu_crtc =3D to_amdgpu_crtc(encoder->crtc);
+> +		bpc =3D amdgpu_crtc->bpc;
+> +	}
+> +
+>  	/* disable audio before setting up hw */
+>  	dce_v6_0_audio_enable(adev, dig->afmt->pin, false);
+> =20
+> @@ -1726,12 +1828,22 @@ static void dce_v6_0_afmt_setmode(struct drm_en=
+coder *encoder,
+>  	dce_v6_0_audio_write_speaker_allocation(encoder);
+>  	dce_v6_0_audio_write_sad_regs(encoder);
+>  	dce_v6_0_audio_write_latency_fields(encoder, mode);
+> -	dce_v6_0_audio_set_dto(encoder, adev->clock.default_dispclk * 10);
+> +	if (em =3D=3D ATOM_ENCODER_MODE_HDMI) {
+> +		dce_v6_0_audio_set_dto(encoder, mode->clock);
+> +		dce_v6_0_audio_set_vbi_packet(encoder);
+> +		dce_v6_0_audio_set_acr(encoder, mode->clock, bpc);
+> +	} else if (ENCODER_MODE_IS_DP(em)) {
+> +		dce_v6_0_audio_set_dto(encoder, adev->clock.default_dispclk * 10);
+> +	}
+>  	dce_v6_0_set_audio_packet(encoder);
+>  	dce_v6_0_afmt_audio_select_pin(encoder);
+>  	dce_v6_0_afmt_update_avi_infoframe(encoder, mode);
+>  	dce_v6_0_audio_set_mute(encoder, false);
+> -	dce_v6_0_audio_dp_enable(encoder, 1);
+> +	if (em =3D=3D ATOM_ENCODER_MODE_HDMI) {
+> +		dce_v6_0_audio_hdmi_enable(encoder, 1);
+> +	} else if (ENCODER_MODE_IS_DP(em)) {
+> +		dce_v6_0_audio_dp_enable(encoder, 1);
+> +	}
+> =20
+>  	/* enable audio after setting up hw */
+>  	dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
+>=20
+
+
+--MUN9VevhExTsc5C48PpT8gMCmLp6IsSXH--
+
+--gv8nPD65lIArMvScsTSQnvehExiVrCapq
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJYrC2lAAoJEP4bvbfZuWjbdh8QAMvP93jzGAMWm0bwnzX1wOlQ
+SBrWQCNUnT0rBMybShO8jmgcGgF1rqaeErGPsxYv/CzgKMVRZxu+EIXQcD5hih3R
+gD79kgejX/yP/CJtGs+ayhCS3HWZC3122JD/YJhA2nXf6YGPyGi3I+1YGSp/ArvQ
+Hc9/njFduRFFa3geArTa6cUqiW6TsYmOzKNrJrTgRHbe9HC64HwfoqKvIctZR2kj
+hOLaAUP6TW57SpS19xpMWr/eg5BeKTwVmn4g9/3p//HCFsImgqDnCaMqO9fIPpUt
+ytYo5yYqWsKsVCLqdgK3UklgW/9pyz3rdUthnKsLY0G+QtL9iturUTxAUVmpYdy+
+lc7J6GhicHxmOR+wEEAbMsuxxZGbomMsIbsy7PaVrSyDBDhO0y7G3HOO/x81jWdk
+ksO1jDnXuL1sxtU6cDnzcOLoVlraGFScEH7iNFQrkn1dSLxNfPi8se6aAOrlWssd
+hI4kksCp5WTg+IifggGhQqg3XlOmTYiCB0NxNkgJgiBoAkwRx66nyKArYh+EJF+Q
+Xzkl9f5WpBKY2VQ3L5AlMG0hRypRZrXDl7VLraVOVMerC1c+Qe68UAPjshWEbjJg
+EDY3KCwucr4rya4YlzvKbvuQFbZ19CmOnThJZd9ELd2/wMdmj+CMsArCBrsRfGSV
+QQZAoDLyhH8szDuQSkSJ
+=hoij
+-----END PGP SIGNATURE-----
+
+--gv8nPD65lIArMvScsTSQnvehExiVrCapq--
+
+--===============1716203786==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1716203786==--
