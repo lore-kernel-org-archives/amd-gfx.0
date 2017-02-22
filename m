@@ -1,71 +1,37 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH v3 1/1] drm/amdgpu: export gfx config double offchip LDS
- buffers (v3)
-Date: Wed, 22 Feb 2017 18:20:36 +0100
-Message-ID: <CAAxE2A5CH4gsk0-+ZF=bAO9VxhUtbkdkzo=nfjURP5AWhLGS-A@mail.gmail.com>
-References: <1487559054-30974-1-git-send-email-Jerry.Zhang@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1487559054-30974-1-git-send-email-Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+From: Lyude <lyude@redhat.com>
+Subject: [PATCH] drm/radeon/dp_auxch: Ratelimit aux transfer debug messages
+Date: Wed, 22 Feb 2017 16:34:53 -0500
+Message-ID: <20170222213453.20972-1-lyude@redhat.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: xorg-driver-ati@lists.x.org
+Cc: Lyude <lyude@redhat.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gTW9uLCBGZWIgMjAsIDIwMTcgYXQgMzo1MCBBTSwgSnVud2VpIFpoYW5nIDxKZXJyeS5aaGFu
-Z0BhbWQuY29tPiB3cm90ZToKPiB2MjogbW92ZSB0aGUgY29uZmlnIHN0cnVjdCB0byBkcm1fYW1k
-Z3B1X2luZm9fZGV2aWNlCj4gdjM6IG1vdmUgdGhlIGNvbmZpZyBmZWF0dXJlIHRvIGFtZGdwdV9n
-Y2FfY29uZmlnCj4KPiBTaWduZWQtb2ZmLWJ5OiBKdW53ZWkgWmhhbmcgPEplcnJ5LlpoYW5nQGFt
-ZC5jb20+Cj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAgICB8
-ICAzICsrKwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMgfCAgMiAr
-Kwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjZfMC5jICAgfCAgNiArKysrKysK
-PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y3XzAuYyAgIHwgIDYgKysrKysrCj4g
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMgICB8IDE2ICsrKysrKysrKysr
-KysrKy0KPiAgaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmggICAgICAgICAgIHwgIDIgKysK
-PiAgNiBmaWxlcyBjaGFuZ2VkLCAzNCBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4KPiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAo+IGluZGV4IDdmMTQyMWYuLjljNTUyYTkgMTAw
-NjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPiArKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAo+IEBAIC04NTYsNiArODU2LDkgQEAg
-c3RydWN0IGFtZGdwdV9nY2FfY29uZmlnIHsKPiAgICAgICAgIHVpbnQzMl90IG1hY3JvdGlsZV9t
-b2RlX2FycmF5WzE2XTsKPgo+ICAgICAgICAgc3RydWN0IGFtZGdwdV9yYl9jb25maWcgcmJfY29u
-ZmlnW0FNREdQVV9HRlhfTUFYX1NFXVtBTURHUFVfR0ZYX01BWF9TSF9QRVJfU0VdOwo+ICsKPiAr
-ICAgICAgIC8qIGdmeCBjb25maWd1cmUgZmVhdHVyZSAqLwo+ICsgICAgICAgdWludDMyX3QgZG91
-YmxlX29mZmNoaXBfbGRzX2J1ZjsKPiAgfTsKPgo+ICBzdHJ1Y3QgYW1kZ3B1X2N1X2luZm8gewo+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMKPiBpbmRleCA2YjliZjBlLi5i
-Y2MxMzkwN2QgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2ttcy5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jCj4g
-QEAgLTU0NSw2ICs1NDUsOCBAQCBzdGF0aWMgaW50IGFtZGdwdV9pbmZvX2lvY3RsKHN0cnVjdCBk
-cm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsIHN0cnVjdCBkcm1fZmlsZQo+ICAgICAgICAgICAg
-ICAgICBkZXZfaW5mby52cmFtX3R5cGUgPSBhZGV2LT5tYy52cmFtX3R5cGU7Cj4gICAgICAgICAg
-ICAgICAgIGRldl9pbmZvLnZyYW1fYml0X3dpZHRoID0gYWRldi0+bWMudnJhbV93aWR0aDsKPiAg
-ICAgICAgICAgICAgICAgZGV2X2luZm8udmNlX2hhcnZlc3RfY29uZmlnID0gYWRldi0+dmNlLmhh
-cnZlc3RfY29uZmlnOwo+ICsgICAgICAgICAgICAgICBkZXZfaW5mby5nY19kb3VibGVfb2ZmY2hp
-cF9sZHNfYnVmID0KPiArICAgICAgICAgICAgICAgICAgICAgICBhZGV2LT5nZnguY29uZmlnLmRv
-dWJsZV9vZmZjaGlwX2xkc19idWY7Cj4KPiAgICAgICAgICAgICAgICAgcmV0dXJuIGNvcHlfdG9f
-dXNlcihvdXQsICZkZXZfaW5mbywKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBtaW4oKHNpemVfdClzaXplLCBzaXplb2YoZGV2X2luZm8pKSkgPyAtRUZBVUxUIDogMDsKPiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y2XzAuYyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92Nl8wLmMKPiBpbmRleCA3ODIxOTBkLi4xMzhlMTVh
-IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92Nl8wLmMKPiAr
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjZfMC5jCj4gQEAgLTE1NzksNiAr
-MTU3OSwxMSBAQCBzdGF0aWMgdm9pZCBnZnhfdjZfMF9zZXR1cF9zcGkoc3RydWN0IGFtZGdwdV9k
-ZXZpY2UgKmFkZXYpCj4gICAgICAgICBtdXRleF91bmxvY2soJmFkZXYtPmdyYm1faWR4X211dGV4
-KTsKPiAgfQo+Cj4gK3N0YXRpYyB2b2lkIGdmeF92Nl8wX2NvbmZpZ19pbml0KHN0cnVjdCBhbWRn
-cHVfZGV2aWNlICphZGV2KQo+ICt7Cj4gKyAgICAgICBhZGV2LT5nZnguY29uZmlnLmRvdWJsZV9v
-ZmZjaGlwX2xkc19idWYgPSAxOwoKSSdtIHByZXR0eSBzdXJlIEdGWDYgZG9lc24ndCBoYXZlIGRv
-dWJsZSBvZmZjaGlwIExEUyBidWZmZXJzLCBzbyB0aGlzCnNob3VsZCBiZSAwLgoKTWFyZWsKX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
-aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
-ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Aux transfers always fail with non-zero status flags when there's
+nothing connected on the port, so we don't usually need to see all of
+the debugging information from it. Also, we try reprobing a -lot-, so
+without ratelimiting most of the kernel log is filled up with messages
+from radeon_dp_aux_transfer_native.
+
+Signed-off-by: Lyude <lyude@redhat.com>
+---
+ drivers/gpu/drm/radeon/radeon_dp_auxch.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/radeon/radeon_dp_auxch.c b/drivers/gpu/drm/radeon/radeon_dp_auxch.c
+index 474a8a18..12eac4e 100644
+--- a/drivers/gpu/drm/radeon/radeon_dp_auxch.c
++++ b/drivers/gpu/drm/radeon/radeon_dp_auxch.c
+@@ -168,7 +168,8 @@ radeon_dp_aux_transfer_native(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg
+ 		goto done;
+ 	}
+ 	if (tmp & AUX_RX_ERROR_FLAGS) {
+-		DRM_DEBUG_KMS("dp_aux_ch flags not zero: %08x\n", tmp);
++		DRM_DEBUG_KMS_RATELIMITED("dp_aux_ch flags not zero: %08x\n",
++					  tmp);
+ 		ret = -EIO;
+ 		goto done;
+ 	}
+-- 
+2.9.3
