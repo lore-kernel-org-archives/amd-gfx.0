@@ -1,10 +1,10 @@
 From: Lyude <lyude@redhat.com>
-Subject: [PATCH] drm/radeon/dp_auxch: Ratelimit aux transfer debug messages
-Date: Wed, 22 Feb 2017 16:34:53 -0500
-Message-ID: <20170222213453.20972-1-lyude@redhat.com>
+Subject: [PATCH RESEND] drm/radeon/dp_auxch: Ratelimit aux transfer debug messages
+Date: Wed, 22 Feb 2017 16:37:16 -0500
+Message-ID: <20170222213717.21220-1-lyude@redhat.com>
 Return-path: <linux-kernel-owner@vger.kernel.org>
 Sender: linux-kernel-owner@vger.kernel.org
-To: xorg-driver-ati@lists.x.org
+To: xorg-driver-ati@lists.freedesktop.org
 Cc: Lyude <lyude@redhat.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
