@@ -1,12 +1,11 @@
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH umr] Simplify --scan and --list-regs syntax
-Date: Thu, 23 Feb 2017 09:47:14 +1100
-Message-ID: <2a6e09b7-e0eb-8a2e-a957-5884e82bbaf2@folklore1984.net>
-References: <20170222145528.1331-1-tom.stdenis@amd.com>
+From: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: trace amdgpu_job fence details
+Date: Wed, 22 Feb 2017 18:47:17 -0500
+Message-ID: <20170222234717.3854-1-andresx7@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0566251042=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170222145528.1331-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,171 +16,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: christian.koenig-5C7GfCeVMHo@public.gmane.org, Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0566251042==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="8OchjPGbJ7hmPWQl9lwPs35mjuiG7AT6a"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---8OchjPGbJ7hmPWQl9lwPs35mjuiG7AT6a
-Content-Type: multipart/mixed; boundary="m79lHvE1WdalqFLGcJfUasvKtM9GlbGln";
- protected-headers="v1"
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Message-ID: <2a6e09b7-e0eb-8a2e-a957-5884e82bbaf2-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH umr] Simplify --scan and --list-regs syntax
-References: <20170222145528.1331-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <20170222145528.1331-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-
---m79lHvE1WdalqFLGcJfUasvKtM9GlbGln
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-
-
-On 02/23/2017 01:55 AM, Tom St Denis wrote:
-> Now it supports the same syntax as --read/--write, you can specify any
-> of:
->=20
->     *.ipname
->     asicname.ipname
->     ipname
->=20
-> When using --scan and --list-regs now.  e.g.,
->=20
->     umr --scan carrizo.uvd6
-> or
->     umr --scan uvd6
->=20
-> Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-> ---
->  src/app/main.c | 39 +++++++++++++++++++++++++++++++++++----
->  1 file changed, 35 insertions(+), 4 deletions(-)
->=20
-> diff --git a/src/app/main.c b/src/app/main.c
-> index 5b1694654352..a905ff0359cf 100644
-> --- a/src/app/main.c
-> +++ b/src/app/main.c
-> @@ -47,6 +47,31 @@ static struct umr_asic *get_asic(void)
->  	return asic;
->  }
-> =20
-> +// returns blockname supports
-> +// asicname.blockname
-> +// *.blockname
-> +// blockname
-> +static char *get_block_name(struct umr_asic *asic, char *path)
-> +{
-> +	static char asicname[256], block[256], *dot;
-> +
-> +	memset(asicname, 0, sizeof asicname);
-> +	if ((dot =3D strstr(path, "."))) {
-> +		memset(block, 0, sizeof block);
-perhaps move this block zero'ing memset outside the branch above.
-
-with that,
-Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-
-> +		memcpy(asicname, path, (int)(dot - path));
-> +		strcpy(block, dot + 1);
-> +	} else {
-> +		strcpy(block, path);
-> +	}
-> +
-> +	if (asicname[0] && asicname[0] !=3D '*' && strcmp(asic->asicname, asi=
-cname)) {
-> +		printf("[ERROR]: Invalid asicname <%s>\n", asicname);
-> +		return NULL;
-> +	}
-> +	return block;
-> +}
-> +
-> +
->  static void parse_options(char *str)
->  {
->  	char option[64], *p;
-> @@ -96,7 +121,7 @@ int main(int argc, char **argv)
->  {
->  	int i, j, k, l;
->  	struct umr_asic *asic;
-> -	char *str, *str2, asicname[256], ipname[256], regname[256];
-> +	char *blockname, *str, *str2, asicname[256], ipname[256], regname[256=
-];
->  	struct timespec req;
-> =20
->  	memset(&options, 0, sizeof options);
-> @@ -162,8 +187,11 @@ int main(int argc, char **argv)
->  			if (i + 1 < argc) {
->  				if (!asic)
->  					asic =3D get_asic();
-> +				blockname =3D get_block_name(asic, argv[i+1]);
-> +				if (!blockname)
-> +					return EXIT_FAILURE;
->  				for (j =3D 0; j < asic->no_blocks; j++)
-> -					if (!strcmp(asic->blocks[j]->ipname, argv[i+1]))
-> +					if (!strcmp(asic->blocks[j]->ipname, blockname))
->  						for (k =3D 0; k < asic->blocks[j]->no_regs; k++) {
->  							printf("\t%s.%s.%s =3D> 0x%05lx\n", asic->asicname, asic->block=
-s[j]->ipname, asic->blocks[j]->regs[k].regname, (unsigned long)asic->bloc=
-ks[j]->regs[k].addr);
->  							if (options.bitfields) {
-> @@ -216,8 +244,11 @@ int main(int argc, char **argv)
->  			if (i + 1 < argc) {
->  				if (!asic)
->  					asic =3D get_asic();
-> -				if (!umr_scan_asic(asic, "", argv[i+1], ""))
-> -					umr_print_asic(asic, argv[i+1]);
-> +				blockname =3D get_block_name(asic, argv[i+1]);
-> +				if (!blockname)
-> +					return EXIT_FAILURE;
-> +				if (!umr_scan_asic(asic, "", blockname, ""))
-> +					umr_print_asic(asic, blockname);
->  				++i;
->  				options.need_scan =3D 0;
->  			} else {
->=20
-
-
---m79lHvE1WdalqFLGcJfUasvKtM9GlbGln--
-
---8OchjPGbJ7hmPWQl9lwPs35mjuiG7AT6a
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJYrhT2AAoJEP4bvbfZuWjbk2IP/jR1GPMnvRQcK0qncwu8HxoO
-yt1RagvTLhG1pzlo+o4lrqgG0iNpHxp5S/vvkjrIfbg2jkwIEvU+MP/8RKFOJTwW
-6SMm+jgySVwsu4oWhBf1cOCiY//tNR+5iAbaXWUt7WfWgKINv6acfpGHh3h4r8D1
-XG2+l1H7gAR32AGBdLwz/wE/vc8s0gdeLLVVEz/g8UauQfPutkBGKVYTVjXql2dE
-OTwh8MqRpAUGs6dkhsrFk1skK23BXnpTXh/VD0jIKNusfNI6xb+Cb7DNNHzyOGuG
-uqufogJHZNKtoXGIRc95GXHZl3nrE++/xppKDROrF+pEvd5FzecFVjG+KjjCfnzf
-ZWaYRybQBXpcsRezPN1dq+YI/xmj3ugQK9iGYQgri24y7QIOu10Lp4ZOmpzxQnEs
-+wz9UBHe0+sfIjewjPLF7wmxG0UHpph+tfwdUwZLUBY5r+6nHCcIBDWxIPB4cNKN
-u0ovDrN/4p85agWbs2u99nBBGP46R93ZlQb9mkMYEtqCXR9z5kAa+oIM79lLfEnR
-dfjF93MfhtwQIlcGF6bOROJBitVWjJvxSAy1dB0RbJ0XJBn7+APUNKEuNL336hom
-HiGO8S0j5iUfDSqyatEQjbM5G5LpvnjNfGHMoXAcxnXL6ztwZL9psGcNImgLxLxU
-bF7Xr3GfPbuClpCMHwMI
-=BxeA
------END PGP SIGNATURE-----
-
---8OchjPGbJ7hmPWQl9lwPs35mjuiG7AT6a--
-
---===============0566251042==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0566251042==--
+VGhpcyB0cmFjZSBpcyBpbnRlbmRlZCB0byBwcm92aWRlIHRoZSByZXF1aXJlZCBpbmZvcm1hdGlv
+biB0byBhc3NvY2lhdGUKdGhlIGNvbXBsZXRpb24gb2YgYW4gYW1kZ3B1X2pvYiB3aXRoIGl0cyBj
+b3JyZXNwb25kaW5nIGRtYV9mZW5jZV8qCnRyYWNlcG9pbnRzLgoKU2lnbmVkLW9mZi1ieTogQW5k
+cmVzIFJvZHJpZ3VleiA8YW5kcmVzeDdAZ21haWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9qb2IuYyAgIHwgIDIgKysKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV90cmFjZS5oIHwgMjIgKysrKysrKysrKysrKysrKysrKysrKwogMiBmaWxlcyBj
+aGFuZ2VkLCAyNCBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X2pvYi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2pvYi5jCmluZGV4IDg2YTEyNDIuLjg0YTA0ZTQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9qb2IuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfam9iLmMKQEAgLTE3Nyw2ICsxNzcsOCBAQCBzdGF0aWMgc3RydWN0IGRtYV9mZW5j
+ZSAqYW1kZ3B1X2pvYl9ydW4oc3RydWN0IGFtZF9zY2hlZF9qb2IgKnNjaGVkX2pvYikKIAkvKiBp
+ZiBncHUgcmVzZXQsIGh3IGZlbmNlIHdpbGwgYmUgcmVwbGFjZWQgaGVyZSAqLwogCWRtYV9mZW5j
+ZV9wdXQoam9iLT5mZW5jZSk7CiAJam9iLT5mZW5jZSA9IGRtYV9mZW5jZV9nZXQoZmVuY2UpOwor
+CXRyYWNlX2FtZGdwdV9qb2JfYXR0YWNoX2ZlbmNlKGpvYik7CisKIAlhbWRncHVfam9iX2ZyZWVf
+cmVzb3VyY2VzKGpvYik7CiAJcmV0dXJuIGZlbmNlOwogfQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNlLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfdHJhY2UuaAppbmRleCBhMThhZTFlLi4wYTYxZWQ5IDEwMDY0NAotLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHJhY2UuaAorKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHJhY2UuaApAQCAtMTQ3LDYgKzE0NywyOCBAQCBUUkFD
+RV9FVkVOVChhbWRncHVfc2NoZWRfcnVuX2pvYiwKIAkJICAgICAgX19lbnRyeS0+ZmVuY2UsIF9f
+ZW50cnktPnJpbmdfbmFtZSwgX19lbnRyeS0+bnVtX2licykKICk7CiAKK1RSQUNFX0VWRU5UKGFt
+ZGdwdV9qb2JfYXR0YWNoX2ZlbmNlLAorCSAgICBUUF9QUk9UTyhzdHJ1Y3QgYW1kZ3B1X2pvYiAq
+am9iKSwKKwkgICAgVFBfQVJHUyhqb2IpLAorCSAgICBUUF9TVFJVQ1RfX2VudHJ5KAorCQkJICAg
+ICBfX2ZpZWxkKHN0cnVjdCBhbWRncHVfZGV2aWNlICosIGFkZXYpCisJCQkgICAgIF9fZmllbGQo
+c3RydWN0IGFtZF9zY2hlZF9qb2IgKiwgc2NoZWRfam9iKQorCQkJICAgICBfX3N0cmluZyh0aW1l
+bGluZSwgam9iLT5mZW5jZS0+b3BzLT5nZXRfdGltZWxpbmVfbmFtZShqb2ItPmZlbmNlKSkKKwkJ
+CSAgICAgX19maWVsZCh1bnNpZ25lZCBpbnQsIGNvbnRleHQpCisJCQkgICAgIF9fZmllbGQodW5z
+aWduZWQgaW50LCBzZXFubykKKwkJCSAgICAgKSwKKworCSAgICBUUF9mYXN0X2Fzc2lnbigKKwkJ
+CSAgIF9fZW50cnktPmFkZXYgPSBqb2ItPmFkZXY7CisJCQkgICBfX2VudHJ5LT5zY2hlZF9qb2Ig
+PSAmam9iLT5iYXNlOworCQkJICAgX19hc3NpZ25fc3RyKHRpbWVsaW5lLCBqb2ItPmZlbmNlLT5v
+cHMtPmdldF90aW1lbGluZV9uYW1lKGpvYi0+ZmVuY2UpKQorCQkJICAgX19lbnRyeS0+Y29udGV4
+dCA9IGpvYi0+ZmVuY2UtPmNvbnRleHQ7CisJCQkgICBfX2VudHJ5LT5zZXFubyA9IGpvYi0+ZmVu
+Y2UtPnNlcW5vOworCQkJICAgKSwKKwkgICAgVFBfcHJpbnRrKCJhZGV2PSVwLCBzY2hlZF9qb2I9
+JXAsIHRpbWVsaW5lOiVzLCBjb250ZXh0OiV1LCBzZXFubzoldSIsCisJCSAgICAgIF9fZW50cnkt
+PmFkZXYsIF9fZW50cnktPnNjaGVkX2pvYiwKKwkJICAgICAgX19nZXRfc3RyKHRpbWVsaW5lKSwg
+X19lbnRyeS0+Y29udGV4dCwgX19lbnRyeS0+c2Vxbm8pCispOwogCiBUUkFDRV9FVkVOVChhbWRn
+cHVfdm1fZ3JhYl9pZCwKIAkgICAgVFBfUFJPVE8oc3RydWN0IGFtZGdwdV92bSAqdm0sIGludCBy
+aW5nLCBzdHJ1Y3QgYW1kZ3B1X2pvYiAqam9iKSwKLS0gCjIuOS4zCgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
