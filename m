@@ -1,15 +1,10 @@
-From: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: trace amdgpu_job fence details
-Date: Thu, 23 Feb 2017 15:48:24 -0500
-Message-ID: <54a7e402-1d21-5898-549a-7482e13df049@gmail.com>
-References: <20170222234717.3854-1-andresx7@gmail.com>
- <a1f29e6c-0a76-8805-710d-ec357b3d3eb3@amd.com>
- <62565e6f-40e5-fdbd-3c75-8b214bb82881@gmail.com>
+From: Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu/powerplay: enable LEDs on Fiji boards
+Date: Thu, 23 Feb 2017 22:50:07 +0000
+Message-ID: <CAPEhTTFFTS-K-FnhvB0ma7FJymfN2EYRw3U-U_-7y8y3L6RS_A@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0184860524=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <62565e6f-40e5-fdbd-3c75-8b214bb82881-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,78 +15,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Alexander Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Freedesktop - AMD-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-CgpPbiAyMDE3LTAyLTIzIDAyOjQ2IFBNLCBBbmRyZXMgUm9kcmlndWV6IHdyb3RlOgo+Cj4KPiBP
-biAyMDE3LTAyLTIzIDAzOjIwIEFNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiBBbSAyMy4w
-Mi4yMDE3IHVtIDAwOjQ3IHNjaHJpZWIgQW5kcmVzIFJvZHJpZ3VlejoKPj4+IFRoaXMgdHJhY2Ug
-aXMgaW50ZW5kZWQgdG8gcHJvdmlkZSB0aGUgcmVxdWlyZWQgaW5mb3JtYXRpb24gdG8gYXNzb2Np
-YXRlCj4+PiB0aGUgY29tcGxldGlvbiBvZiBhbiBhbWRncHVfam9iIHdpdGggaXRzIGNvcnJlc3Bv
-bmRpbmcgZG1hX2ZlbmNlXyoKPj4+IHRyYWNlcG9pbnRzLgo+Pj4KPj4+IFNpZ25lZC1vZmYtYnk6
-IEFuZHJlcyBSb2RyaWd1ZXogPGFuZHJlc3g3QGdtYWlsLmNvbT4KPj4+IC0tLQo+Pj4gICBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfam9iLmMgICB8ICAyICsrCj4+PiAgIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90cmFjZS5oIHwgMjIgKysrKysrKysrKysrKysr
-KysrKysrKwo+Pj4gICAyIGZpbGVzIGNoYW5nZWQsIDI0IGluc2VydGlvbnMoKykKPj4+Cj4+PiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2pvYi5jIAo+Pj4g
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfam9iLmMKPj4+IGluZGV4IDg2YTEy
-NDIuLjg0YTA0ZTQgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfam9iLmMKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9q
-b2IuYwo+Pj4gQEAgLTE3Nyw2ICsxNzcsOCBAQCBzdGF0aWMgc3RydWN0IGRtYV9mZW5jZSAqYW1k
-Z3B1X2pvYl9ydW4oc3RydWN0IAo+Pj4gYW1kX3NjaGVkX2pvYiAqc2NoZWRfam9iKQo+Pj4gICAg
-ICAgLyogaWYgZ3B1IHJlc2V0LCBodyBmZW5jZSB3aWxsIGJlIHJlcGxhY2VkIGhlcmUgKi8KPj4+
-ICAgICAgIGRtYV9mZW5jZV9wdXQoam9iLT5mZW5jZSk7Cj4+PiAgICAgICBqb2ItPmZlbmNlID0g
-ZG1hX2ZlbmNlX2dldChmZW5jZSk7Cj4+PiArICAgIHRyYWNlX2FtZGdwdV9qb2JfYXR0YWNoX2Zl
-bmNlKGpvYik7Cj4+PiArCj4+PiAgICAgICBhbWRncHVfam9iX2ZyZWVfcmVzb3VyY2VzKGpvYik7
-Cj4+PiAgICAgICByZXR1cm4gZmVuY2U7Cj4+PiAgIH0KPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHJhY2UuaCAKPj4+IGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNlLmgKPj4+IGluZGV4IGExOGFlMWUuLjBhNjFlZDkgMTAw
-NjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHJhY2UuaAo+
-Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNlLmgKPj4+IEBA
-IC0xNDcsNiArMTQ3LDI4IEBAIFRSQUNFX0VWRU5UKGFtZGdwdV9zY2hlZF9ydW5fam9iLAo+Pj4g
-ICAgICAgICAgICAgICAgIF9fZW50cnktPmZlbmNlLCBfX2VudHJ5LT5yaW5nX25hbWUsIF9fZW50
-cnktPm51bV9pYnMpCj4+PiAgICk7Cj4+PiAgICtUUkFDRV9FVkVOVChhbWRncHVfam9iX2F0dGFj
-aF9mZW5jZSwKPj4+ICsgICAgICAgIFRQX1BST1RPKHN0cnVjdCBhbWRncHVfam9iICpqb2IpLAo+
-Pj4gKyAgICAgICAgVFBfQVJHUyhqb2IpLAo+Pj4gKyAgICAgICAgVFBfU1RSVUNUX19lbnRyeSgK
-Pj4+ICsgICAgICAgICAgICAgICAgIF9fZmllbGQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKiwgYWRl
-dikKPj4+ICsgICAgICAgICAgICAgICAgIF9fZmllbGQoc3RydWN0IGFtZF9zY2hlZF9qb2IgKiwg
-c2NoZWRfam9iKQo+Pgo+PiBOZWl0aGVyIGFkZCBhZGV2IG5vciBzY2hlZF9qb2IgcG9pbnRlciB0
-byB5b3VyIHRyYWNlIHBvaW50Lgo+IFdvdWxkIGl0IGJlIG9rYXkgdGhlbiB0byBncmFiIGEgcmVm
-ZXJlbmNlIHRvIHRoZSBzY2hlZHVsZXIgZmVuY2UgaW4gCj4gYW1kZ3B1X2pvYl9ydW4gYW5kIHBy
-aW50IHRoZSBzY2hlZCBmZW5jZSBwb2ludGVyIGhlcmU/Cj4KPiBUaGF0IHdvdWxkIGdpdmUgdXMg
-ZW5vdWdoIGluZm8gdG8gY29ycmVsYXRlIG90aGVyIHRyYWNlIHBvaW50cyBsaWtlIAo+IGFtZGdw
-dV9jc19pb2N0bCBhb3IgYW1kZ3B1X3NjaGVkX3J1bl9qb2IgdG8gdGhlIHJlc3BlY3RpdmUgZG1h
-X2ZlbmNlIAo+IHRyYWNlcG9pbnRzLgo+Cj4KPj4KPj4gVGhlIGFkZXYgcG9pbnRlciBpcyBjb21w
-bGV0ZWx5IG1lYW5pbmdsZXNzIGluIHRoZSBsb2dzIGFuZCB0aGUgCj4+IHNjaGVkdWxlciBqb2Ig
-bWlnaHQgYWxyZWFkeSBiZSBmcmVlZCB3aGVuIHRoZSBwcmludGsgaXMgY2FsbGVkLgpIZXkgQ2hy
-aXN0aWFuLAoKSSB3YXMganVzdCBkb3VibGUgY2hlY2tpbmcgdGhlIGxpZmV0aW1lIG9mIHRoZSBz
-Y2hlZHVsZXIgam9iLCBhbmQgaXQgCnNob3VsZCBzdGlsbCBiZSB2YWxpZCBkdXJpbmcgYW1kZ3B1
-X2pvYl9ydW4uIFRoZSBsaWZldGltZSBvZiB0aGUgam9iIGlzIAp0aWVkIHRvIHRoZSBzY2hlZHVs
-ZXIgZmluaXNoZWQgZmVuY2Ugd2hpY2ggd29uJ3QgYmUgc2lnbmFsZWQgdW50aWwgCmFtZGdwdV9q
-b2JfcnVuIGZpbmlzaGVzIGV2ZW4gaWYgdGhlIEhXIGZlbmNlIGhhcyBzaWduYWxlZC4KClRoaXMg
-aXMgYXNzdW1pbmcgdGhhdCB0aGUgdHJhY2UgcHJpbnRrcyBhcmUgc3luY2hyb25vdXMuCgpTbyBJ
-IHRoaW5rIHByaW50aW5nIHRoZSBqb2IgYW5kIGRyb3BwaW5nIGFkZXYgc2hvdWxkIGJlIG9rYXkg
-aWYgdGhlIAphYm92ZSBob2xkcyB0cnVlLCB1bmxlc3MgSSdtIG1pc3Npbmcgc29tZXRoaW5nIGVs
-c2UuCgo+Pgo+PiBKdXN0IGNoZWNrZWQgdGhlIHNvdXJjZSBhbmQgYSBjb3VwbGUgb2Ygb3RoZXIg
-dHJhY2UgcG9pbnRzIGdldCB0aGlzIAo+PiBob3JyaWJsZSB3cm9uZyBhcyB3ZWxsLCBzbyB0aGF0
-IGlzbid0IHlvdXIgZmF1bHQuIEdvaW5nIHRvIHB1dCBpdCBvbiAKPj4gbXkgdG9kbyB0byBmaXgg
-dGhvc2UuCj4+Cj4+IFJlZ2FyZHMsCj4+IENocmlzdGlhbi4KPj4KPj4+ICsgICAgICAgICAgICAg
-ICAgIF9fc3RyaW5nKHRpbWVsaW5lLCAKPj4+IGpvYi0+ZmVuY2UtPm9wcy0+Z2V0X3RpbWVsaW5l
-X25hbWUoam9iLT5mZW5jZSkpCj4+PiArICAgICAgICAgICAgICAgICBfX2ZpZWxkKHVuc2lnbmVk
-IGludCwgY29udGV4dCkKPj4+ICsgICAgICAgICAgICAgICAgIF9fZmllbGQodW5zaWduZWQgaW50
-LCBzZXFubykKPj4+ICsgICAgICAgICAgICAgICAgICksCj4+PiArCj4+PiArICAgICAgICBUUF9m
-YXN0X2Fzc2lnbigKPj4+ICsgICAgICAgICAgICAgICBfX2VudHJ5LT5hZGV2ID0gam9iLT5hZGV2
-Owo+Pj4gKyAgICAgICAgICAgICAgIF9fZW50cnktPnNjaGVkX2pvYiA9ICZqb2ItPmJhc2U7Cj4+
-PiArICAgICAgICAgICAgICAgX19hc3NpZ25fc3RyKHRpbWVsaW5lLCAKPj4+IGpvYi0+ZmVuY2Ut
-Pm9wcy0+Z2V0X3RpbWVsaW5lX25hbWUoam9iLT5mZW5jZSkpCj4+PiArICAgICAgICAgICAgICAg
-X19lbnRyeS0+Y29udGV4dCA9IGpvYi0+ZmVuY2UtPmNvbnRleHQ7Cj4+PiArICAgICAgICAgICAg
-ICAgX19lbnRyeS0+c2Vxbm8gPSBqb2ItPmZlbmNlLT5zZXFubzsKPj4+ICsgICAgICAgICAgICAg
-ICApLAo+Pj4gKyAgICAgICAgVFBfcHJpbnRrKCJhZGV2PSVwLCBzY2hlZF9qb2I9JXAsIHRpbWVs
-aW5lOiVzLCBjb250ZXh0OiV1LCAKPj4+IHNlcW5vOiV1IiwKPj4+ICsgICAgICAgICAgICAgIF9f
-ZW50cnktPmFkZXYsIF9fZW50cnktPnNjaGVkX2pvYiwKPj4+ICsgICAgICAgICAgICAgIF9fZ2V0
-X3N0cih0aW1lbGluZSksIF9fZW50cnktPmNvbnRleHQsIF9fZW50cnktPnNlcW5vKQo+Pj4gKyk7
-Cj4+PiAgICAgVFJBQ0VfRVZFTlQoYW1kZ3B1X3ZtX2dyYWJfaWQsCj4+PiAgICAgICAgICAgVFBf
-UFJPVE8oc3RydWN0IGFtZGdwdV92bSAqdm0sIGludCByaW5nLCBzdHJ1Y3QgYW1kZ3B1X2pvYiAK
-Pj4+ICpqb2IpLAo+Pgo+Pgo+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-ZngK
+--===============0184860524==
+Content-Type: multipart/alternative; boundary=94eb2c1989eef48f2d05493a6fe3
+
+--94eb2c1989eef48f2d05493a6fe3
+Content-Type: text/plain; charset=UTF-8
+
+First, sorry for not replying directly as I should normally, but I'm not on
+my usual computer, so I can't. That being said...
+
+I may have my eyes in the same socket right now, but I think
+fiji_setup_dpm_led_config() always returns 0.
+
+> + if (mask)
+> + smum_send_msg_to_smc_with_parameter(hwmgr->smumgr,
+> +    PPSMC_MSG_LedConfig,
+> +    mask);
+> + return 0;
+> +}
+
+Even when "if (mask)" is true, whether
+smum_send_msg_to_smc_with_parameter() succeeds or not,
+fiji_setup_dpm_led_config() spits a 0 at the end.
+
+Thus,
+
+>* +	result = fiji_setup_dpm_led_config(hwmgr);
+*>* +	PP_ASSERT_WITH_CODE(0 == result,
+*>* +			    "Failed to setup dpm led config", return result);
+*
+
+will always lead to "result" being set to 0... Am I missing something?
+
+Alexandre Demers
+
+--94eb2c1989eef48f2d05493a6fe3
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>First, sorry for not replying directly as I should no=
+rmally, but I&#39;m not on my usual computer, so I can&#39;t. That being sa=
+id...</div><div><br></div>I may have my eyes in the same socket right now, =
+but I think fiji_setup_dpm_led_config() always returns 0.<div><br></div><di=
+v>&gt; +<span class=3D"Apple-tab-span" style=3D"white-space:pre">	</span>if=
+ (mask)<br></div><div><div>&gt; +<span class=3D"Apple-tab-span" style=3D"wh=
+ite-space:pre">		</span>smum_send_msg_to_smc_with_parameter(hwmgr-&gt;smumg=
+r,</div><div>&gt; +<span class=3D"Apple-tab-span" style=3D"white-space:pre"=
+>						</span> =C2=A0 =C2=A0PPSMC_MSG_LedConfig,</div><div>&gt; +<span clas=
+s=3D"Apple-tab-span" style=3D"white-space:pre">						</span> =C2=A0 =C2=A0m=
+ask);</div><div>&gt; +<span class=3D"Apple-tab-span" style=3D"white-space:p=
+re">	</span>return 0;</div><div>&gt; +}</div></div><div><br></div><div>Even=
+ when &quot;if (mask)&quot; is true, whether smum_send_msg_to_smc_with_para=
+meter() succeeds or not, fiji_setup_dpm_led_config() spits a 0 at the end.<=
+br></div><div><br></div><div>Thus,</div><div><pre style=3D"white-space:pre-=
+wrap">&gt;<i> +	result =3D fiji_setup_dpm_led_config(hwmgr);
+</i>&gt;<i> +	PP_ASSERT_WITH_CODE(0 =3D=3D result,
+</i>&gt;<i> +			    &quot;Failed to setup dpm led config&quot;, return resu=
+lt);
+</i></pre>will always lead to &quot;result&quot; being set to 0... Am I mis=
+sing something?</div><div><br></div><div>Alexandre Demers</div></div>
+
+--94eb2c1989eef48f2d05493a6fe3--
+
+--===============0184860524==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0184860524==--
