@@ -1,79 +1,52 @@
-From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/powerplay: enable LEDs on Fiji boards
-Date: Thu, 23 Feb 2017 21:12:04 +0800
-Message-ID: <20170223131203.GA10490@hr-amur2>
-References: <1487780555-17446-1-git-send-email-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/radeon/dp_auxch: Ratelimit aux transfer debug messages
+Date: Thu, 23 Feb 2017 09:34:26 -0500
+Message-ID: <CADnq5_PAk8kq=V7qF6bA1QvkAz_avUBSRkoHQBQgXr_dUBWHbQ@mail.gmail.com>
+References: <20170222213453.20972-1-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <1487780555-17446-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=UTF-8
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20170222213453.20972-1-lyude@redhat.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Lyude <lyude@redhat.com>
+Cc: xorg-driver-ati <xorg-driver-ati@lists.x.org>, David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gV2VkLCBGZWIgMjIsIDIwMTcgYXQgMTE6MjI6MzVBTSAtMDUwMCwgQWxleCBEZXVjaGVyIHdy
-b3RlOgo+IFRoaXMgZW5hYmxlcyB0aGUgTEVEcyB0aGF0IGxpZ2h0IHVwIGJhc2VkIG9uIERQTSBz
-dGF0ZXMKPiBvbiBzb21lIEZpamkgYm9hcmRzLgo+IAo+IGJ1ZzoKPiBodHRwczovL2J1Z3MuZnJl
-ZWRlc2t0b3Aub3JnL3Nob3dfYnVnLmNnaT9pZD05NzU5MAo+IAo+IFNpZ25lZC1vZmYtYnk6IEFs
-ZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KClJldmlld2VkLWJ5OiBIdWFu
-ZyBSdWkgPHJheS5odWFuZ0BhbWQuY29tPgoKPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9w
-b3dlcnBsYXkvaW5jL3NtdTdfcHBzbWMuaCAgfCAgMSArCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-cG93ZXJwbGF5L3NtdW1nci9maWppX3NtYy5jIHwgMzQgKysrKysrKysrKysrKysrKysrKysrKysr
-Kwo+ICAyIGZpbGVzIGNoYW5nZWQsIDM1IGluc2VydGlvbnMoKykKPiAKPiBkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdTdfcHBzbWMuaCBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9zbXU3X3Bwc21jLmgKPiBpbmRleCBmYmM1MDRjLi42
-MmYzNmJhIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9z
-bXU3X3Bwc21jLmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvc211
-N19wcHNtYy5oCj4gQEAgLTM3Nyw2ICszNzcsNyBAQCB0eXBlZGVmIHVpbnQxNl90IFBQU01DX1Jl
-c3VsdDsKPiAgI2RlZmluZSBQUFNNQ19NU0dfRGlzYWJsZUF2ZnMgICAgICAgICAgICAgICAgICgo
-dWludDE2X3QpIDB4MjZCKQo+ICAKPiAgI2RlZmluZSBQUFNNQ19NU0dfUGVyZm9ybUJ0YyAgICAg
-ICAgICAgICAgICAgICgodWludDE2X3QpIDB4MjZDKQo+ICsjZGVmaW5lIFBQU01DX01TR19MZWRD
-b25maWcgICAgICAgICAgICAgICAgICAgKCh1aW50MTZfdCkgMHgyNzQpCj4gICNkZWZpbmUgUFBT
-TUNfTVNHX1ZmdFRhYmxlSXNWYWxpZCAgICAgICAgICAgICAoKHVpbnQxNl90KSAweDI3NSkKPiAg
-I2RlZmluZSBQUFNNQ19NU0dfVXNlTmV3R1BJT1NjaGVtZSAgICAgICAgICAgICgodWludDE2X3Qp
-IDB4Mjc3KQo+ICAjZGVmaW5lIFBQU01DX01TR19HZXRFbmFibGVkUHNtICAgICAgICAgICAgICAg
-KCh1aW50MTZfdCkgMHg0MDApCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93
-ZXJwbGF5L3NtdW1nci9maWppX3NtYy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
-c211bWdyL2Zpamlfc21jLmMKPiBpbmRleCAwZjdhNzdiLi4xYTlhYjQzIDEwMDY0NAo+IC0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9maWppX3NtYy5jCj4gKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL2Zpamlfc21jLmMKPiBAQCAtMTcy
-MSw2ICsxNzIxLDM1IEBAIHN0YXRpYyBpbnQgZmlqaV9pbml0X2FyYl90YWJsZV9pbmRleChzdHJ1
-Y3QgcHBfc211bWdyICpzbXVtZ3IpCj4gIAkJCXNtdV9kYXRhLT5zbXU3X2RhdGEuYXJiX3RhYmxl
-X3N0YXJ0LCAgdG1wLCBTTUNfUkFNX0VORCk7Cj4gIH0KPiAgCj4gK3N0YXRpYyBpbnQgZmlqaV9z
-ZXR1cF9kcG1fbGVkX2NvbmZpZyhzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQo+ICt7Cj4gKwlwcF9h
-dG9tY3RybF92b2x0YWdlX3RhYmxlIHBhcmFtX2xlZF9kcG07Cj4gKwlpbnQgcmVzdWx0ID0gMDsK
-PiArCXUzMiBtYXNrID0gMDsKPiArCj4gKwlyZXN1bHQgPSBhdG9tY3RybF9nZXRfdm9sdGFnZV90
-YWJsZV92Myhod21nciwKPiArCQkJCQkgICAgICAgVk9MVEFHRV9UWVBFX0xFRERQTSwgVk9MVEFH
-RV9PQkpfR1BJT19MVVQsCj4gKwkJCQkJICAgICAgICZwYXJhbV9sZWRfZHBtKTsKPiArCWlmIChy
-ZXN1bHQgPT0gMCkgewo+ICsJCWludCBpLCBqOwo+ICsJCXUzMiB0bXAgPSBwYXJhbV9sZWRfZHBt
-Lm1hc2tfbG93Owo+ICsKPiArCQlmb3IgKGkgPSAwLCBqID0gMDsgaSA8IDMyOyBpKyspIHsKPiAr
-CQkJaWYgKHRtcCAmIDEpIHsKPiArCQkJCW1hc2sgfD0gKGkgPDwgKDggKiBqKSk7Cj4gKwkJCQlp
-ZiAoKytqID49IDMpCj4gKwkJCQkJYnJlYWs7Cj4gKwkJCX0KPiArCQkJdG1wID4+PSAxOwo+ICsJ
-CX0KPiArCX0KPiArCWlmIChtYXNrKQo+ICsJCXNtdW1fc2VuZF9tc2dfdG9fc21jX3dpdGhfcGFy
-YW1ldGVyKGh3bWdyLT5zbXVtZ3IsCj4gKwkJCQkJCSAgICBQUFNNQ19NU0dfTGVkQ29uZmlnLAo+
-ICsJCQkJCQkgICAgbWFzayk7Cj4gKwlyZXR1cm4gMDsKPiArfQo+ICsKPiAgLyoqCj4gICogSW5p
-dGlhbGl6ZXMgdGhlIFNNQyB0YWJsZSBhbmQgdXBsb2FkcyBpdAo+ICAqCj4gQEAgLTE5MzQsNiAr
-MTk2MywxMSBAQCBpbnQgZmlqaV9pbml0X3NtY190YWJsZShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdy
-KQo+ICAJcmVzdWx0ID0gZmlqaV9wb3B1bGF0ZV9wbV9mdXNlcyhod21ncik7Cj4gIAlQUF9BU1NF
-UlRfV0lUSF9DT0RFKDAgPT0gcmVzdWx0LAo+ICAJCQkiRmFpbGVkIHRvICBwb3B1bGF0ZSBQTSBm
-dXNlcyB0byBTTUMgbWVtb3J5ISIsIHJldHVybiByZXN1bHQpOwo+ICsKPiArCXJlc3VsdCA9IGZp
-amlfc2V0dXBfZHBtX2xlZF9jb25maWcoaHdtZ3IpOwo+ICsJUFBfQVNTRVJUX1dJVEhfQ09ERSgw
-ID09IHJlc3VsdCwKPiArCQkJICAgICJGYWlsZWQgdG8gc2V0dXAgZHBtIGxlZCBjb25maWciLCBy
-ZXR1cm4gcmVzdWx0KTsKPiArCj4gIAlyZXR1cm4gMDsKPiAgfQo+ICAKPiAtLSAKPiAyLjUuNQo+
-IAo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1k
-LWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
-bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Wed, Feb 22, 2017 at 4:34 PM, Lyude <lyude@redhat.com> wrote:
+> Aux transfers always fail with non-zero status flags when there's
+> nothing connected on the port, so we don't usually need to see all of
+> the debugging information from it. Also, we try reprobing a -lot-, so
+> without ratelimiting most of the kernel log is filled up with messages
+> from radeon_dp_aux_transfer_native.
+>
+> Signed-off-by: Lyude <lyude@redhat.com>
+
+Applied.  thanks!
+
+Alex
+
+> ---
+>  drivers/gpu/drm/radeon/radeon_dp_auxch.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/radeon_dp_auxch.c b/drivers/gpu/drm/radeon/radeon_dp_auxch.c
+> index 474a8a18..12eac4e 100644
+> --- a/drivers/gpu/drm/radeon/radeon_dp_auxch.c
+> +++ b/drivers/gpu/drm/radeon/radeon_dp_auxch.c
+> @@ -168,7 +168,8 @@ radeon_dp_aux_transfer_native(struct drm_dp_aux *aux, struct drm_dp_aux_msg *msg
+>                 goto done;
+>         }
+>         if (tmp & AUX_RX_ERROR_FLAGS) {
+> -               DRM_DEBUG_KMS("dp_aux_ch flags not zero: %08x\n", tmp);
+> +               DRM_DEBUG_KMS_RATELIMITED("dp_aux_ch flags not zero: %08x\n",
+> +                                         tmp);
+>                 ret = -EIO;
+>                 goto done;
+>         }
+> --
+> 2.9.3
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
