@@ -1,12 +1,16 @@
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: trace amdgpu_job fence details
-Date: Thu, 23 Feb 2017 10:49:41 +1100
-Message-ID: <6fd12a6c-4f50-8f32-2c53-a164969b9f09@folklore1984.net>
-References: <20170222234717.3854-1-andresx7@gmail.com>
+From: "Zhang, Jerry" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH v3 1/1] drm/amdgpu: export gfx config double offchip LDS
+ buffers (v3)
+Date: Thu, 23 Feb 2017 02:57:32 +0000
+Message-ID: <DM5PR12MB18180F2496AA56C686D83D99FF530@DM5PR12MB1818.namprd12.prod.outlook.com>
+References: <1487559054-30974-1-git-send-email-Jerry.Zhang@amd.com>
+ <CAAxE2A5CH4gsk0-+ZF=bAO9VxhUtbkdkzo=nfjURP5AWhLGS-A@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2046736117=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170222234717.3854-1-andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <CAAxE2A5CH4gsk0-+ZF=bAO9VxhUtbkdkzo=nfjURP5AWhLGS-A-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,136 +21,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: christian.koenig-5C7GfCeVMHo@public.gmane.org
+To: =?utf-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============2046736117==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="WvPsVLSouns37sTOL4jD2sJRgoqIUP0Dw"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---WvPsVLSouns37sTOL4jD2sJRgoqIUP0Dw
-Content-Type: multipart/mixed; boundary="onrp6b1Wh1COUDDjn663rXwGlIEal9Mo9";
- protected-headers="v1"
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: christian.koenig-5C7GfCeVMHo@public.gmane.org
-Message-ID: <6fd12a6c-4f50-8f32-2c53-a164969b9f09-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: trace amdgpu_job fence details
-References: <20170222234717.3854-1-andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-In-Reply-To: <20170222234717.3854-1-andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-
---onrp6b1Wh1COUDDjn663rXwGlIEal9Mo9
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-
-On 02/23/2017 10:47 AM, Andres Rodriguez wrote:
-> This trace is intended to provide the required information to associate=
-
-> the completion of an amdgpu_job with its corresponding dma_fence_*
-> tracepoints.
->=20
-> Signed-off-by: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c   |  2 ++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 22 ++++++++++++++++++++++
->  2 files changed, 24 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_job.c
-> index 86a1242..84a04e4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> @@ -177,6 +177,8 @@ static struct dma_fence *amdgpu_job_run(struct amd_=
-sched_job *sched_job)
->  	/* if gpu reset, hw fence will be replaced here */
->  	dma_fence_put(job->fence);
->  	job->fence =3D dma_fence_get(fence);
-> +	trace_amdgpu_job_attach_fence(job);
-> +
->  	amdgpu_job_free_resources(job);
->  	return fence;
->  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_trace.h
-> index a18ae1e..0a61ed9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
-> @@ -147,6 +147,28 @@ TRACE_EVENT(amdgpu_sched_run_job,
->  		      __entry->fence, __entry->ring_name, __entry->num_ibs)
->  );
-> =20
-> +TRACE_EVENT(amdgpu_job_attach_fence,
-> +	    TP_PROTO(struct amdgpu_job *job),
-> +	    TP_ARGS(job),
-> +	    TP_STRUCT__entry(
-> +			     __field(struct amdgpu_device *, adev)
-> +			     __field(struct amd_sched_job *, sched_job)
-> +			     __string(timeline, job->fence->ops->get_timeline_name(job->fen=
-ce))
-> +			     __field(unsigned int, context)
-> +			     __field(unsigned int, seqno)
-> +			     ),
-> +
-> +	    TP_fast_assign(
-> +			   __entry->adev =3D job->adev;
-> +			   __entry->sched_job =3D &job->base;
-> +			   __assign_str(timeline, job->fence->ops->get_timeline_name(job->f=
-ence))
-> +			   __entry->context =3D job->fence->context;
-> +			   __entry->seqno =3D job->fence->seqno;
-> +			   ),
-> +	    TP_printk("adev=3D%p, sched_job=3D%p, timeline:%s, context:%u, se=
-qno:%u",
-> +		      __entry->adev, __entry->sched_job,
-> +		      __get_str(timeline), __entry->context, __entry->seqno)
-> +);
-> =20
->  TRACE_EVENT(amdgpu_vm_grab_id,
->  	    TP_PROTO(struct amdgpu_vm *vm, int ring, struct amdgpu_job *job),=
-
->=20
-
-
---onrp6b1Wh1COUDDjn663rXwGlIEal9Mo9--
-
---WvPsVLSouns37sTOL4jD2sJRgoqIUP0Dw
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJYriOVAAoJEP4bvbfZuWjbd48QAJxchJGtAaiVG177INqByHO+
-DSMa0fbG4PyjaGi4/v8rNoGYrItRHLc1+Ugrv5G6ZZZFMzlbHnLgeZwcXSz3o2Tw
-Ag/8MsOkgDfWvIwtR5fHmkyNTR7D4peBjtpzXbPgDS7tXoE+0QhR08m6ZlBPhheV
-GTt+MUgGSvOFOjSdubu8Mw7Zd4Y12lvKUifrqqinneKi1oV1IeUZEA2gcql+nPTd
-VjIuWQlsQSxjq+XkyRGcua3axyRnmJlHwtvGDz4C2hkwF/uHPzxHJBD8AnIE/NSd
-Lrg+sPWSvmgn+fS3bVv9QATt+tX/+NqOXUczCYGYGpnPaJ15APFF0X8ld7dA90h0
-i9ZTkuEIX+e/bFKEAxpmSWD9HJG8oVHuWfsyc/qBfGqVES0Ck8Y2zxPUF2GSY7Ic
-hh0my/JUPyJQCuYoSCWHoNmaQdozGmy6PgakhqLWvuCfRdlGqXQEG82c4H7zHaip
-/7qHQr9Ske9c/g65r8Ek0ZivvxXGtXe10hNNzNRXfz0OWyLkCpG+oixtqMaSTFtl
-QaT52PfN8VcEhp/NQ15W7kxjzSUxLobmmZrS0+xcFniwjnXYAIJZdKjQHW0I8aG/
-UTMs6PbaSq8ZAbtd4NVEDa40eThrf67bOiE4wfsBrhm/b7jHzxEnKkqtH8DmBEDq
-Jy76yhevHos8m4HFyYtc
-=x2mX
------END PGP SIGNATURE-----
-
---WvPsVLSouns37sTOL4jD2sJRgoqIUP0Dw--
-
---===============2046736117==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============2046736117==--
+SGkgTWFyZWssDQoNClRoYW5rcyBtdWNoIGZvciB5b3VyIHJldmlldy4NCg0KSSB0aG91Z2h0IEkg
+Z290IHdyb25nIHJlZmVyZW5jZSBjb2RlIGZvciBTSS4NCkkgd2lsbCBmaXggaXQuLi4NCg0KUmVn
+YXJkcywNCkplcnJ5IChKdW53ZWkgWmhhbmcpDQoNCkxpbnV4IEJhc2UgR3JhcGhpY3MNClNSREMg
+U29mdHdhcmUgRGV2ZWxvcG1lbnQNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18NCg0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IE1hcmVrIE9sxaHD
+oWsgW21haWx0bzptYXJhZW9AZ21haWwuY29tXQ0KPiBTZW50OiBUaHVyc2RheSwgRmVicnVhcnkg
+MjMsIDIwMTcgMToyMQ0KPiBUbzogWmhhbmcsIEplcnJ5DQo+IENjOiBhbWQtZ2Z4IG1haWxpbmcg
+bGlzdA0KPiBTdWJqZWN0OiBSZTogW1BBVENIIHYzIDEvMV0gZHJtL2FtZGdwdTogZXhwb3J0IGdm
+eCBjb25maWcgZG91YmxlIG9mZmNoaXAgTERTDQo+IGJ1ZmZlcnMgKHYzKQ0KPiANCj4gT24gTW9u
+LCBGZWIgMjAsIDIwMTcgYXQgMzo1MCBBTSwgSnVud2VpIFpoYW5nIDxKZXJyeS5aaGFuZ0BhbWQu
+Y29tPiB3cm90ZToNCj4gPiB2MjogbW92ZSB0aGUgY29uZmlnIHN0cnVjdCB0byBkcm1fYW1kZ3B1
+X2luZm9fZGV2aWNlDQo+ID4gdjM6IG1vdmUgdGhlIGNvbmZpZyBmZWF0dXJlIHRvIGFtZGdwdV9n
+Y2FfY29uZmlnDQo+ID4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBKdW53ZWkgWmhhbmcgPEplcnJ5Llpo
+YW5nQGFtZC5jb20+DQo+ID4gLS0tDQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdS5oICAgICB8ICAzICsrKw0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfa21zLmMgfCAgMiArKw0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjZf
+MC5jICAgfCAgNiArKysrKysNCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y3
+XzAuYyAgIHwgIDYgKysrKysrDQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92
+OF8wLmMgICB8IDE2ICsrKysrKysrKysrKysrKy0NCj4gPiAgaW5jbHVkZS91YXBpL2RybS9hbWRn
+cHVfZHJtLmggICAgICAgICAgIHwgIDIgKysNCj4gPiAgNiBmaWxlcyBjaGFuZ2VkLCAzNCBpbnNl
+cnRpb25zKCspLCAxIGRlbGV0aW9uKC0pDQo+ID4NCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgNCj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdS5oDQo+ID4gaW5kZXggN2YxNDIxZi4uOWM1NTJhOSAxMDA2NDQNCj4gPiAtLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaA0KPiA+ICsrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oDQo+ID4gQEAgLTg1Niw2ICs4NTYsOSBAQCBzdHJ1
+Y3QgYW1kZ3B1X2djYV9jb25maWcgew0KPiA+ICAgICAgICAgdWludDMyX3QgbWFjcm90aWxlX21v
+ZGVfYXJyYXlbMTZdOw0KPiA+DQo+ID4gICAgICAgICBzdHJ1Y3QgYW1kZ3B1X3JiX2NvbmZpZw0K
+PiA+IHJiX2NvbmZpZ1tBTURHUFVfR0ZYX01BWF9TRV1bQU1ER1BVX0dGWF9NQVhfU0hfUEVSX1NF
+XTsNCj4gPiArDQo+ID4gKyAgICAgICAvKiBnZnggY29uZmlndXJlIGZlYXR1cmUgKi8NCj4gPiAr
+ICAgICAgIHVpbnQzMl90IGRvdWJsZV9vZmZjaGlwX2xkc19idWY7DQo+ID4gIH07DQo+ID4NCj4g
+PiAgc3RydWN0IGFtZGdwdV9jdV9pbmZvIHsNCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jDQo+ID4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfa21zLmMNCj4gPiBpbmRleCA2YjliZjBlLi5iY2MxMzkwN2QgMTAwNjQ0DQo+
+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jDQo+ID4gKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jDQo+ID4gQEAgLTU0NSw2
+ICs1NDUsOCBAQCBzdGF0aWMgaW50IGFtZGdwdV9pbmZvX2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNl
+ICpkZXYsDQo+IHZvaWQgKmRhdGEsIHN0cnVjdCBkcm1fZmlsZQ0KPiA+ICAgICAgICAgICAgICAg
+ICBkZXZfaW5mby52cmFtX3R5cGUgPSBhZGV2LT5tYy52cmFtX3R5cGU7DQo+ID4gICAgICAgICAg
+ICAgICAgIGRldl9pbmZvLnZyYW1fYml0X3dpZHRoID0gYWRldi0+bWMudnJhbV93aWR0aDsNCj4g
+PiAgICAgICAgICAgICAgICAgZGV2X2luZm8udmNlX2hhcnZlc3RfY29uZmlnID0NCj4gPiBhZGV2
+LT52Y2UuaGFydmVzdF9jb25maWc7DQo+ID4gKyAgICAgICAgICAgICAgIGRldl9pbmZvLmdjX2Rv
+dWJsZV9vZmZjaGlwX2xkc19idWYgPQ0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgIGFkZXYt
+PmdmeC5jb25maWcuZG91YmxlX29mZmNoaXBfbGRzX2J1ZjsNCj4gPg0KPiA+ICAgICAgICAgICAg
+ICAgICByZXR1cm4gY29weV90b191c2VyKG91dCwgJmRldl9pbmZvLA0KPiA+ICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIG1pbigoc2l6ZV90KXNpemUsDQo+ID4gc2l6ZW9mKGRl
+dl9pbmZvKSkpID8gLUVGQVVMVCA6IDA7IGRpZmYgLS1naXQNCj4gPiBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2dmeF92Nl8wLmMNCj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2dmeF92Nl8wLmMNCj4gPiBpbmRleCA3ODIxOTBkLi4xMzhlMTVhIDEwMDY0NA0KPiA+IC0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92Nl8wLmMNCj4gPiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjZfMC5jDQo+ID4gQEAgLTE1NzksNiArMTU3OSwxMSBA
+QCBzdGF0aWMgdm9pZCBnZnhfdjZfMF9zZXR1cF9zcGkoc3RydWN0DQo+IGFtZGdwdV9kZXZpY2Ug
+KmFkZXYpDQo+ID4gICAgICAgICBtdXRleF91bmxvY2soJmFkZXYtPmdyYm1faWR4X211dGV4KTsN
+Cj4gPiAgfQ0KPiA+DQo+ID4gK3N0YXRpYyB2b2lkIGdmeF92Nl8wX2NvbmZpZ19pbml0KHN0cnVj
+dCBhbWRncHVfZGV2aWNlICphZGV2KSB7DQo+ID4gKyAgICAgICBhZGV2LT5nZnguY29uZmlnLmRv
+dWJsZV9vZmZjaGlwX2xkc19idWYgPSAxOw0KPiANCj4gSSdtIHByZXR0eSBzdXJlIEdGWDYgZG9l
+c24ndCBoYXZlIGRvdWJsZSBvZmZjaGlwIExEUyBidWZmZXJzLCBzbyB0aGlzIHNob3VsZCBiZSAw
+Lg0KPiANCj4gTWFyZWsNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
