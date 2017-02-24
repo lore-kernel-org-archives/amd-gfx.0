@@ -1,16 +1,13 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu/powerplay: enable LEDs on Fiji boards
-Date: Fri, 24 Feb 2017 03:41:00 +0000
-Message-ID: <BN6PR12MB1652B5A660EF31FC69901351F7520@BN6PR12MB1652.namprd12.prod.outlook.com>
+From: Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu/powerplay: enable LEDs on Fiji boards
+Date: Fri, 24 Feb 2017 00:20:01 -0500
+Message-ID: <CAPEhTTFreTa-YMQf8-fRNR5SKyTsXn2uZiSDHQvjNDC7u=wsrg@mail.gmail.com>
 References: <CAPEhTTFFTS-K-FnhvB0ma7FJymfN2EYRw3U-U_-7y8y3L6RS_A@mail.gmail.com>
  <CADnq5_Np1DWnzvSaChca4rsQzX02_=HYcLTwuFVaLm51qageRA@mail.gmail.com>
- <be2c283c-9631-03f3-4eac-9fb040df88c6@folklore1984.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1391120348=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <be2c283c-9631-03f3-4eac-9fb040df88c6-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <CADnq5_Np1DWnzvSaChca4rsQzX02_=HYcLTwuFVaLm51qageRA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,46 +18,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: 'Edward O'Callaghan' <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Cc: Freedesktop - AMD-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
-LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIEVkd2Fy
-ZCBPJ0NhbGxhZ2hhbg0KPiBTZW50OiBUaHVyc2RheSwgRmVicnVhcnkgMjMsIDIwMTcgNzo1MSBQ
-TQ0KPiBUbzogQWxleCBEZXVjaGVyOyBBbGV4YW5kcmUgRGVtZXJzDQo+IENjOiBGcmVlZGVza3Rv
-cCAtIEFNRC1nZngNCj4gU3ViamVjdDogUmU6IFtQQVRDSF0gZHJtL2FtZGdwdS9wb3dlcnBsYXk6
-IGVuYWJsZSBMRURzIG9uIEZpamkgYm9hcmRzDQo+IA0KPiBIaSBndXlzLA0KPiANCj4gU2hvdWxk
-bid0IHRoaXMgaG9vayBpbnRvIHRoZSAibGVkIGZyYW1ld29yayIgb2YgdGhlIGtlcm5lbD8NCj4g
-DQo+IGh0dHBzOi8vd3d3Lmtlcm5lbC5vcmcvZG9jL0RvY3VtZW50YXRpb24vbGVkcy9sZWRzLWNs
-YXNzLnR4dA0KDQpUaGUgTEVEcyBhcmUgbm90IGRpcmVjdGx5IGNvbnRyb2xsYWJsZSBieSB0aGUg
-ZHJpdmVyLiAgVGhlIFNNVSBtaWNyb2NvbnRyb2xsZXIgYWN0dWFsbHkgY29udHJvbHMgdGhlbSAo
-aXQgbGlnaHRzIHRoZW0gdXAgaW4gYSBwYXR0ZXJuIGJhc2VkIG9uIGRwbSBzdGF0ZXMpLCB3ZSBq
-dXN0IHRlbGwgdGhlIFNNVSB0byBlbmFibGUgdGhlIGZ1bmN0aW9uYWxpdHkuDQoNCkFsZXgNCg0K
-PiANCj4gS2luZCBSZWdhcmRzLA0KPiBFZHdhcmQuDQo+IA0KPiBPbiAwMi8yNC8yMDE3IDEwOjAz
-IEFNLCBBbGV4IERldWNoZXIgd3JvdGU6DQo+ID4gT24gVGh1LCBGZWIgMjMsIDIwMTcgYXQgNTo1
-MCBQTSwgQWxleGFuZHJlIERlbWVycw0KPiA+IDxhbGV4YW5kcmUuZi5kZW1lcnNAZ21haWwuY29t
-PiB3cm90ZToNCj4gPj4gRmlyc3QsIHNvcnJ5IGZvciBub3QgcmVwbHlpbmcgZGlyZWN0bHkgYXMg
-SSBzaG91bGQgbm9ybWFsbHksIGJ1dCBJJ20gbm90IG9uDQo+ID4+IG15IHVzdWFsIGNvbXB1dGVy
-LCBzbyBJIGNhbid0LiBUaGF0IGJlaW5nIHNhaWQuLi4NCj4gPj4NCj4gPj4gSSBtYXkgaGF2ZSBt
-eSBleWVzIGluIHRoZSBzYW1lIHNvY2tldCByaWdodCBub3csIGJ1dCBJIHRoaW5rDQo+ID4+IGZp
-amlfc2V0dXBfZHBtX2xlZF9jb25maWcoKSBhbHdheXMgcmV0dXJucyAwLg0KPiA+Pg0KPiA+Pj4g
-KyBpZiAobWFzaykNCj4gPj4+ICsgc211bV9zZW5kX21zZ190b19zbWNfd2l0aF9wYXJhbWV0ZXIo
-aHdtZ3ItPnNtdW1nciwNCj4gPj4+ICsgICAgUFBTTUNfTVNHX0xlZENvbmZpZywNCj4gPj4+ICsg
-ICAgbWFzayk7DQo+ID4+PiArIHJldHVybiAwOw0KPiA+Pj4gK30NCj4gPj4NCj4gPj4gRXZlbiB3
-aGVuICJpZiAobWFzaykiIGlzIHRydWUsIHdoZXRoZXINCj4gc211bV9zZW5kX21zZ190b19zbWNf
-d2l0aF9wYXJhbWV0ZXIoKQ0KPiA+PiBzdWNjZWVkcyBvciBub3QsIGZpamlfc2V0dXBfZHBtX2xl
-ZF9jb25maWcoKSBzcGl0cyBhIDAgYXQgdGhlIGVuZC4NCj4gPj4NCj4gPj4gVGh1cywNCj4gPj4N
-Cj4gPj4+ICsgcmVzdWx0ID0gZmlqaV9zZXR1cF9kcG1fbGVkX2NvbmZpZyhod21ncik7DQo+ID4+
-PiArIFBQX0FTU0VSVF9XSVRIX0NPREUoMCA9PSByZXN1bHQsDQo+ID4+PiArICAgICJGYWlsZWQg
-dG8gc2V0dXAgZHBtIGxlZCBjb25maWciLCByZXR1cm4gcmVzdWx0KTsNCj4gPj4NCj4gPj4gd2ls
-bCBhbHdheXMgbGVhZCB0byAicmVzdWx0IiBiZWluZyBzZXQgdG8gMC4uLiBBbSBJIG1pc3Npbmcg
-c29tZXRoaW5nPw0KPiA+Pg0KPiA+DQo+ID4gWWVzLCB0aGF0IGZ1bmN0aW9uIGNhbid0IGZhaWwu
-ICBJIHN1cHBvc2Ugd2UgY291bGQganVzdCBtYWtlIGl0IGEgdm9pZA0KPiA+IGZ1bmN0aW9uLCBi
-dXQgSSB3YXMgZm9sbG93aW5nIHRoZSBzYW1lIHBhdHRlcm4gb2YgYWxsIHRoZSBvdGhlcg0KPiA+
-IGZ1bmN0aW9ucyBpbiB0aGF0IGZpbGUuDQo+ID4NCj4gPiBBbGV4DQo+ID4gX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4gPiBhbWQtZ2Z4IG1haWxpbmcg
-bGlzdA0KPiA+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+ID4gaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQo+ID4NCg0KX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1391120348==
+Content-Type: multipart/alternative; boundary=94eb2c1989eebabda305493fe187
+
+--94eb2c1989eebabda305493fe187
+Content-Type: text/plain; charset=UTF-8
+
+On Thursday, February 23, 2017, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+
+> On Thu, Feb 23, 2017 at 5:50 PM, Alexandre Demers
+> <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org <javascript:;>> wrote:
+> > First, sorry for not replying directly as I should normally, but I'm not
+> on
+> > my usual computer, so I can't. That being said...
+> >
+> > I may have my eyes in the same socket right now, but I think
+> > fiji_setup_dpm_led_config() always returns 0.
+> >
+> >> + if (mask)
+> >> + smum_send_msg_to_smc_with_parameter(hwmgr->smumgr,
+> >> +    PPSMC_MSG_LedConfig,
+> >> +    mask);
+> >> + return 0;
+> >> +}
+> >
+> > Even when "if (mask)" is true, whether smum_send_msg_to_smc_with_
+> parameter()
+> > succeeds or not, fiji_setup_dpm_led_config() spits a 0 at the end.
+> >
+> > Thus,
+> >
+> >> + result = fiji_setup_dpm_led_config(hwmgr);
+> >> + PP_ASSERT_WITH_CODE(0 == result,
+> >> +    "Failed to setup dpm led config", return result);
+> >
+> > will always lead to "result" being set to 0... Am I missing something?
+> >
+>
+> Yes, that function can't fail.  I suppose we could just make it a void
+> function, but I was following the same pattern of all the other
+> functions in that file.
+>
+> Alex
+>
+
+I see. Well, if there is no forseseeable change that would justify to
+return a different value, I would be tempted to go with the void. But
+either way, I'll live with it.
+
+Alexandre Demers
+
+--94eb2c1989eebabda305493fe187
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+On Thursday, February 23, 2017, Alex Deucher &lt;<a href=3D"mailto:alexdeuc=
+her-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br><blockquote class=3D=
+"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding=
+-left:1ex">On Thu, Feb 23, 2017 at 5:50 PM, Alexandre Demers<br>
+&lt;<a href=3D"javascript:;" onclick=3D"_e(event, &#39;cvml&#39;, &#39;alex=
+andre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&#39;)">alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:=
+<br>
+&gt; First, sorry for not replying directly as I should normally, but I&#39=
+;m not on<br>
+&gt; my usual computer, so I can&#39;t. That being said...<br>
+&gt;<br>
+&gt; I may have my eyes in the same socket right now, but I think<br>
+&gt; fiji_setup_dpm_led_config() always returns 0.<br>
+&gt;<br>
+&gt;&gt; + if (mask)<br>
+&gt;&gt; + smum_send_msg_to_smc_with_<wbr>parameter(hwmgr-&gt;smumgr,<br>
+&gt;&gt; +=C2=A0 =C2=A0 PPSMC_MSG_LedConfig,<br>
+&gt;&gt; +=C2=A0 =C2=A0 mask);<br>
+&gt;&gt; + return 0;<br>
+&gt;&gt; +}<br>
+&gt;<br>
+&gt; Even when &quot;if (mask)&quot; is true, whether smum_send_msg_to_smc_=
+with_<wbr>parameter()<br>
+&gt; succeeds or not, fiji_setup_dpm_led_config() spits a 0 at the end.<br>
+&gt;<br>
+&gt; Thus,<br>
+&gt;<br>
+&gt;&gt; + result =3D fiji_setup_dpm_led_config(<wbr>hwmgr);<br>
+&gt;&gt; + PP_ASSERT_WITH_CODE(0 =3D=3D result,<br>
+&gt;&gt; +=C2=A0 =C2=A0 &quot;Failed to setup dpm led config&quot;, return =
+result);<br>
+&gt;<br>
+&gt; will always lead to &quot;result&quot; being set to 0... Am I missing =
+something?<br>
+&gt;<br>
+<br>
+Yes, that function can&#39;t fail.=C2=A0 I suppose we could just make it a =
+void<br>
+function, but I was following the same pattern of all the other<br>
+functions in that file.<br>
+<br>
+Alex<br>
+</blockquote><div><br></div><div>I see. Well, if there is no forseseeable c=
+hange that would justify to return a different value, I would be tempted to=
+ go with the void. But either way, I&#39;ll live with it.</div><div><br></d=
+iv><div>Alexandre Demers</div>
+
+--94eb2c1989eebabda305493fe187--
+
+--===============1391120348==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1391120348==--
