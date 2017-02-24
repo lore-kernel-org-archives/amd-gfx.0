@@ -1,13 +1,16 @@
-From: Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/powerplay: enable LEDs on Fiji boards
-Date: Fri, 24 Feb 2017 00:20:01 -0500
-Message-ID: <CAPEhTTFreTa-YMQf8-fRNR5SKyTsXn2uZiSDHQvjNDC7u=wsrg@mail.gmail.com>
-References: <CAPEhTTFFTS-K-FnhvB0ma7FJymfN2EYRw3U-U_-7y8y3L6RS_A@mail.gmail.com>
- <CADnq5_Np1DWnzvSaChca4rsQzX02_=HYcLTwuFVaLm51qageRA@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: trace amdgpu_job fence details
+Date: Fri, 24 Feb 2017 09:13:35 +0100
+Message-ID: <acb2a074-0552-1dcb-9be9-30a958cf3970@amd.com>
+References: <20170222234717.3854-1-andresx7@gmail.com>
+ <a1f29e6c-0a76-8805-710d-ec357b3d3eb3@amd.com>
+ <62565e6f-40e5-fdbd-3c75-8b214bb82881@gmail.com>
+ <54a7e402-1d21-5898-549a-7482e13df049@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1391120348=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_Np1DWnzvSaChca4rsQzX02_=HYcLTwuFVaLm51qageRA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <54a7e402-1d21-5898-549a-7482e13df049-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,120 +21,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Freedesktop - AMD-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============1391120348==
-Content-Type: multipart/alternative; boundary=94eb2c1989eebabda305493fe187
-
---94eb2c1989eebabda305493fe187
-Content-Type: text/plain; charset=UTF-8
-
-On Thursday, February 23, 2017, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
-
-> On Thu, Feb 23, 2017 at 5:50 PM, Alexandre Demers
-> <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org <javascript:;>> wrote:
-> > First, sorry for not replying directly as I should normally, but I'm not
-> on
-> > my usual computer, so I can't. That being said...
-> >
-> > I may have my eyes in the same socket right now, but I think
-> > fiji_setup_dpm_led_config() always returns 0.
-> >
-> >> + if (mask)
-> >> + smum_send_msg_to_smc_with_parameter(hwmgr->smumgr,
-> >> +    PPSMC_MSG_LedConfig,
-> >> +    mask);
-> >> + return 0;
-> >> +}
-> >
-> > Even when "if (mask)" is true, whether smum_send_msg_to_smc_with_
-> parameter()
-> > succeeds or not, fiji_setup_dpm_led_config() spits a 0 at the end.
-> >
-> > Thus,
-> >
-> >> + result = fiji_setup_dpm_led_config(hwmgr);
-> >> + PP_ASSERT_WITH_CODE(0 == result,
-> >> +    "Failed to setup dpm led config", return result);
-> >
-> > will always lead to "result" being set to 0... Am I missing something?
-> >
->
-> Yes, that function can't fail.  I suppose we could just make it a void
-> function, but I was following the same pattern of all the other
-> functions in that file.
->
-> Alex
->
-
-I see. Well, if there is no forseseeable change that would justify to
-return a different value, I would be tempted to go with the void. But
-either way, I'll live with it.
-
-Alexandre Demers
-
---94eb2c1989eebabda305493fe187
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-On Thursday, February 23, 2017, Alex Deucher &lt;<a href=3D"mailto:alexdeuc=
-her-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br><blockquote class=3D=
-"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding=
--left:1ex">On Thu, Feb 23, 2017 at 5:50 PM, Alexandre Demers<br>
-&lt;<a href=3D"javascript:;" onclick=3D"_e(event, &#39;cvml&#39;, &#39;alex=
-andre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&#39;)">alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:=
-<br>
-&gt; First, sorry for not replying directly as I should normally, but I&#39=
-;m not on<br>
-&gt; my usual computer, so I can&#39;t. That being said...<br>
-&gt;<br>
-&gt; I may have my eyes in the same socket right now, but I think<br>
-&gt; fiji_setup_dpm_led_config() always returns 0.<br>
-&gt;<br>
-&gt;&gt; + if (mask)<br>
-&gt;&gt; + smum_send_msg_to_smc_with_<wbr>parameter(hwmgr-&gt;smumgr,<br>
-&gt;&gt; +=C2=A0 =C2=A0 PPSMC_MSG_LedConfig,<br>
-&gt;&gt; +=C2=A0 =C2=A0 mask);<br>
-&gt;&gt; + return 0;<br>
-&gt;&gt; +}<br>
-&gt;<br>
-&gt; Even when &quot;if (mask)&quot; is true, whether smum_send_msg_to_smc_=
-with_<wbr>parameter()<br>
-&gt; succeeds or not, fiji_setup_dpm_led_config() spits a 0 at the end.<br>
-&gt;<br>
-&gt; Thus,<br>
-&gt;<br>
-&gt;&gt; + result =3D fiji_setup_dpm_led_config(<wbr>hwmgr);<br>
-&gt;&gt; + PP_ASSERT_WITH_CODE(0 =3D=3D result,<br>
-&gt;&gt; +=C2=A0 =C2=A0 &quot;Failed to setup dpm led config&quot;, return =
-result);<br>
-&gt;<br>
-&gt; will always lead to &quot;result&quot; being set to 0... Am I missing =
-something?<br>
-&gt;<br>
-<br>
-Yes, that function can&#39;t fail.=C2=A0 I suppose we could just make it a =
-void<br>
-function, but I was following the same pattern of all the other<br>
-functions in that file.<br>
-<br>
-Alex<br>
-</blockquote><div><br></div><div>I see. Well, if there is no forseseeable c=
-hange that would justify to return a different value, I would be tempted to=
- go with the void. But either way, I&#39;ll live with it.</div><div><br></d=
-iv><div>Alexandre Demers</div>
-
---94eb2c1989eebabda305493fe187--
-
---===============1391120348==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1391120348==--
+QW0gMjMuMDIuMjAxNyB1bSAyMTo0OCBzY2hyaWViIEFuZHJlcyBSb2RyaWd1ZXo6Cj4KPgo+IE9u
+IDIwMTctMDItMjMgMDI6NDYgUE0sIEFuZHJlcyBSb2RyaWd1ZXogd3JvdGU6Cj4+Cj4+Cj4+IE9u
+IDIwMTctMDItMjMgMDM6MjAgQU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+PiBBbSAyMy4w
+Mi4yMDE3IHVtIDAwOjQ3IHNjaHJpZWIgQW5kcmVzIFJvZHJpZ3VlejoKPj4+PiBUaGlzIHRyYWNl
+IGlzIGludGVuZGVkIHRvIHByb3ZpZGUgdGhlIHJlcXVpcmVkIGluZm9ybWF0aW9uIHRvIAo+Pj4+
+IGFzc29jaWF0ZQo+Pj4+IHRoZSBjb21wbGV0aW9uIG9mIGFuIGFtZGdwdV9qb2Igd2l0aCBpdHMg
+Y29ycmVzcG9uZGluZyBkbWFfZmVuY2VfKgo+Pj4+IHRyYWNlcG9pbnRzLgo+Pj4+Cj4+Pj4gU2ln
+bmVkLW9mZi1ieTogQW5kcmVzIFJvZHJpZ3VleiA8YW5kcmVzeDdAZ21haWwuY29tPgo+Pj4+IC0t
+LQo+Pj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2pvYi5jICAgfCAgMiAr
+Kwo+Pj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNlLmggfCAyMiAK
+Pj4+PiArKysrKysrKysrKysrKysrKysrKysrCj4+Pj4gICAyIGZpbGVzIGNoYW5nZWQsIDI0IGlu
+c2VydGlvbnMoKykKPj4+Pgo+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfam9iLmMgCj4+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfam9iLmMKPj4+PiBpbmRleCA4NmExMjQyLi44NGEwNGU0IDEwMDY0NAo+Pj4+IC0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9qb2IuYwo+Pj4+ICsrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9qb2IuYwo+Pj4+IEBAIC0xNzcsNiArMTc3LDggQEAg
+c3RhdGljIHN0cnVjdCBkbWFfZmVuY2UgKmFtZGdwdV9qb2JfcnVuKHN0cnVjdCAKPj4+PiBhbWRf
+c2NoZWRfam9iICpzY2hlZF9qb2IpCj4+Pj4gICAgICAgLyogaWYgZ3B1IHJlc2V0LCBodyBmZW5j
+ZSB3aWxsIGJlIHJlcGxhY2VkIGhlcmUgKi8KPj4+PiAgICAgICBkbWFfZmVuY2VfcHV0KGpvYi0+
+ZmVuY2UpOwo+Pj4+ICAgICAgIGpvYi0+ZmVuY2UgPSBkbWFfZmVuY2VfZ2V0KGZlbmNlKTsKPj4+
+PiArICAgIHRyYWNlX2FtZGdwdV9qb2JfYXR0YWNoX2ZlbmNlKGpvYik7Cj4+Pj4gKwo+Pj4+ICAg
+ICAgIGFtZGdwdV9qb2JfZnJlZV9yZXNvdXJjZXMoam9iKTsKPj4+PiAgICAgICByZXR1cm4gZmVu
+Y2U7Cj4+Pj4gICB9Cj4+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV90cmFjZS5oIAo+Pj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3RyYWNlLmgKPj4+PiBpbmRleCBhMThhZTFlLi4wYTYxZWQ5IDEwMDY0NAo+Pj4+IC0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90cmFjZS5oCj4+Pj4gKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNlLmgKPj4+PiBAQCAtMTQ3LDYgKzE0Nywy
+OCBAQCBUUkFDRV9FVkVOVChhbWRncHVfc2NoZWRfcnVuX2pvYiwKPj4+PiAgICAgICAgICAgICAg
+ICAgX19lbnRyeS0+ZmVuY2UsIF9fZW50cnktPnJpbmdfbmFtZSwgX19lbnRyeS0+bnVtX2licykK
+Pj4+PiAgICk7Cj4+Pj4gICArVFJBQ0VfRVZFTlQoYW1kZ3B1X2pvYl9hdHRhY2hfZmVuY2UsCj4+
+Pj4gKyAgICAgICAgVFBfUFJPVE8oc3RydWN0IGFtZGdwdV9qb2IgKmpvYiksCj4+Pj4gKyAgICAg
+ICAgVFBfQVJHUyhqb2IpLAo+Pj4+ICsgICAgICAgIFRQX1NUUlVDVF9fZW50cnkoCj4+Pj4gKyAg
+ICAgICAgICAgICAgICAgX19maWVsZChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqLCBhZGV2KQo+Pj4+
+ICsgICAgICAgICAgICAgICAgIF9fZmllbGQoc3RydWN0IGFtZF9zY2hlZF9qb2IgKiwgc2NoZWRf
+am9iKQo+Pj4KPj4+IE5laXRoZXIgYWRkIGFkZXYgbm9yIHNjaGVkX2pvYiBwb2ludGVyIHRvIHlv
+dXIgdHJhY2UgcG9pbnQuCj4+IFdvdWxkIGl0IGJlIG9rYXkgdGhlbiB0byBncmFiIGEgcmVmZXJl
+bmNlIHRvIHRoZSBzY2hlZHVsZXIgZmVuY2UgaW4gCj4+IGFtZGdwdV9qb2JfcnVuIGFuZCBwcmlu
+dCB0aGUgc2NoZWQgZmVuY2UgcG9pbnRlciBoZXJlPwo+Pgo+PiBUaGF0IHdvdWxkIGdpdmUgdXMg
+ZW5vdWdoIGluZm8gdG8gY29ycmVsYXRlIG90aGVyIHRyYWNlIHBvaW50cyBsaWtlIAo+PiBhbWRn
+cHVfY3NfaW9jdGwgYW9yIGFtZGdwdV9zY2hlZF9ydW5fam9iIHRvIHRoZSByZXNwZWN0aXZlIGRt
+YV9mZW5jZSAKPj4gdHJhY2Vwb2ludHMuCj4+Cj4+Cj4+Pgo+Pj4gVGhlIGFkZXYgcG9pbnRlciBp
+cyBjb21wbGV0ZWx5IG1lYW5pbmdsZXNzIGluIHRoZSBsb2dzIGFuZCB0aGUgCj4+PiBzY2hlZHVs
+ZXIgam9iIG1pZ2h0IGFscmVhZHkgYmUgZnJlZWQgd2hlbiB0aGUgcHJpbnRrIGlzIGNhbGxlZC4K
+PiBIZXkgQ2hyaXN0aWFuLAo+Cj4gSSB3YXMganVzdCBkb3VibGUgY2hlY2tpbmcgdGhlIGxpZmV0
+aW1lIG9mIHRoZSBzY2hlZHVsZXIgam9iLCBhbmQgaXQgCj4gc2hvdWxkIHN0aWxsIGJlIHZhbGlk
+IGR1cmluZyBhbWRncHVfam9iX3J1bi4gVGhlIGxpZmV0aW1lIG9mIHRoZSBqb2IgCj4gaXMgdGll
+ZCB0byB0aGUgc2NoZWR1bGVyIGZpbmlzaGVkIGZlbmNlIHdoaWNoIHdvbid0IGJlIHNpZ25hbGVk
+IHVudGlsIAo+IGFtZGdwdV9qb2JfcnVuIGZpbmlzaGVzIGV2ZW4gaWYgdGhlIEhXIGZlbmNlIGhh
+cyBzaWduYWxlZC4KPgo+IFRoaXMgaXMgYXNzdW1pbmcgdGhhdCB0aGUgdHJhY2UgcHJpbnRrcyBh
+cmUgc3luY2hyb25vdXMuCgpUaGF0IGFzc3VtcHRpb24gaXMgaW5jb3JyZWN0LgoKVGhlIHBhcmFt
+ZXRlcnMgYXJlIHN0b3JlZCBvbiBhIHJpbmcgYnVmZmVyIHdoZW4gdGhlIHRyYWNlIHBvaW50IGlz
+IApleGVjdXRlZCwgYnV0IHRoZSBzdHJpbmcgaXMgY29tcG9zZWQgbGF0ZXIgb24gd2hlbiB5b3Ug
+cmVxdWVzdCB0aGUgdHJhY2UgCmNvbnRlbnQgZnJvbSB1c2Vyc3BhY2UuCgpBZGRpdGlvbmFsIHRv
+IHRoYXQgcHJpbnRpbmcgcG9pbnRlcnMgd2hpY2ggYXJlIGhlYXZpbHkgcmVhbGxvY2F0ZWQgaXMg
+YSAKYmFkIGlkZWEgYmVjYXVzZSBvbmNlIHRoZSBqb2IgaXMgZnJlZWQgdGhlIHBvaW50ZXIgd2ls
+bCBjZXJ0YWlubHkgYmUgCnJldXNlZCBmb3IgYW5vdGhlciBqb2IuCgpVc2luZyB0aGUgbnVtYmVy
+cyBmcm9tIHRoZSBzY2hlZHVsZXIgZmVuY2UgaXMgdGhlIHJpZ2h0IGFwcHJvYWNoIGhlcmUgCmFu
+ZCB5b3UgZG9uJ3QgZXZlbiBuZWVkIHRvIGdyYWIgYW5vdGhlciByZWZlcmVuY2UsIGp1c3Qgc2F2
+ZSB0aGUgY29udGV4dCAKYW5kIHNlcXVlbmNlIG51bWJlciBhcyBpZGVudGlmaWVyIGZvciB0aGUg
+am9iLgoKUmVnYXJkcywKQ2hyaXN0aWFuLgoKPgo+IFNvIEkgdGhpbmsgcHJpbnRpbmcgdGhlIGpv
+YiBhbmQgZHJvcHBpbmcgYWRldiBzaG91bGQgYmUgb2theSBpZiB0aGUgCj4gYWJvdmUgaG9sZHMg
+dHJ1ZSwgdW5sZXNzIEknbSBtaXNzaW5nIHNvbWV0aGluZyBlbHNlLgo+Cj4+Pgo+Pj4gSnVzdCBj
+aGVja2VkIHRoZSBzb3VyY2UgYW5kIGEgY291cGxlIG9mIG90aGVyIHRyYWNlIHBvaW50cyBnZXQg
+dGhpcyAKPj4+IGhvcnJpYmxlIHdyb25nIGFzIHdlbGwsIHNvIHRoYXQgaXNuJ3QgeW91ciBmYXVs
+dC4gR29pbmcgdG8gcHV0IGl0IG9uIAo+Pj4gbXkgdG9kbyB0byBmaXggdGhvc2UuCj4+Pgo+Pj4g
+UmVnYXJkcywKPj4+IENocmlzdGlhbi4KPj4+Cj4+Pj4gKyAgICAgICAgICAgICAgICAgX19zdHJp
+bmcodGltZWxpbmUsIAo+Pj4+IGpvYi0+ZmVuY2UtPm9wcy0+Z2V0X3RpbWVsaW5lX25hbWUoam9i
+LT5mZW5jZSkpCj4+Pj4gKyAgICAgICAgICAgICAgICAgX19maWVsZCh1bnNpZ25lZCBpbnQsIGNv
+bnRleHQpCj4+Pj4gKyAgICAgICAgICAgICAgICAgX19maWVsZCh1bnNpZ25lZCBpbnQsIHNlcW5v
+KQo+Pj4+ICsgICAgICAgICAgICAgICAgICksCj4+Pj4gKwo+Pj4+ICsgICAgICAgIFRQX2Zhc3Rf
+YXNzaWduKAo+Pj4+ICsgICAgICAgICAgICAgICBfX2VudHJ5LT5hZGV2ID0gam9iLT5hZGV2Owo+
+Pj4+ICsgICAgICAgICAgICAgICBfX2VudHJ5LT5zY2hlZF9qb2IgPSAmam9iLT5iYXNlOwo+Pj4+
+ICsgICAgICAgICAgICAgICBfX2Fzc2lnbl9zdHIodGltZWxpbmUsIAo+Pj4+IGpvYi0+ZmVuY2Ut
+Pm9wcy0+Z2V0X3RpbWVsaW5lX25hbWUoam9iLT5mZW5jZSkpCj4+Pj4gKyAgICAgICAgICAgICAg
+IF9fZW50cnktPmNvbnRleHQgPSBqb2ItPmZlbmNlLT5jb250ZXh0Owo+Pj4+ICsgICAgICAgICAg
+ICAgICBfX2VudHJ5LT5zZXFubyA9IGpvYi0+ZmVuY2UtPnNlcW5vOwo+Pj4+ICsgICAgICAgICAg
+ICAgICApLAo+Pj4+ICsgICAgICAgIFRQX3ByaW50aygiYWRldj0lcCwgc2NoZWRfam9iPSVwLCB0
+aW1lbGluZTolcywgY29udGV4dDoldSwgCj4+Pj4gc2Vxbm86JXUiLAo+Pj4+ICsgICAgICAgICAg
+ICAgIF9fZW50cnktPmFkZXYsIF9fZW50cnktPnNjaGVkX2pvYiwKPj4+PiArICAgICAgICAgICAg
+ICBfX2dldF9zdHIodGltZWxpbmUpLCBfX2VudHJ5LT5jb250ZXh0LCBfX2VudHJ5LT5zZXFubykK
+Pj4+PiArKTsKPj4+PiAgICAgVFJBQ0VfRVZFTlQoYW1kZ3B1X3ZtX2dyYWJfaWQsCj4+Pj4gICAg
+ICAgICAgIFRQX1BST1RPKHN0cnVjdCBhbWRncHVfdm0gKnZtLCBpbnQgcmluZywgc3RydWN0IAo+
+Pj4+IGFtZGdwdV9qb2IgKmpvYiksCj4+Pgo+Pj4KPj4KPgoKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9hbWQtZ2Z4Cg==
