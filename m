@@ -1,13 +1,16 @@
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/powerplay: enable LEDs on Fiji boards
-Date: Fri, 24 Feb 2017 11:51:27 +1100
-Message-ID: <be2c283c-9631-03f3-4eac-9fb040df88c6@folklore1984.net>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu/powerplay: enable LEDs on Fiji boards
+Date: Fri, 24 Feb 2017 03:41:00 +0000
+Message-ID: <BN6PR12MB1652B5A660EF31FC69901351F7520@BN6PR12MB1652.namprd12.prod.outlook.com>
 References: <CAPEhTTFFTS-K-FnhvB0ma7FJymfN2EYRw3U-U_-7y8y3L6RS_A@mail.gmail.com>
  <CADnq5_Np1DWnzvSaChca4rsQzX02_=HYcLTwuFVaLm51qageRA@mail.gmail.com>
+ <be2c283c-9631-03f3-4eac-9fb040df88c6@folklore1984.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0459571847=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_Np1DWnzvSaChca4rsQzX02_=HYcLTwuFVaLm51qageRA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <be2c283c-9631-03f3-4eac-9fb040df88c6-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,120 +21,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: 'Edward O'Callaghan' <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Cc: Freedesktop - AMD-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0459571847==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="LtbeRitfaRoXXn4IlTm4cdH2Khf5CeVrK"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---LtbeRitfaRoXXn4IlTm4cdH2Khf5CeVrK
-Content-Type: multipart/mixed; boundary="hAAa92LCQKL7RSjU6epSjKf3aAsW8pipO";
- protected-headers="v1"
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>,
- Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Freedesktop - AMD-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Message-ID: <be2c283c-9631-03f3-4eac-9fb040df88c6-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/powerplay: enable LEDs on Fiji boards
-References: <CAPEhTTFFTS-K-FnhvB0ma7FJymfN2EYRw3U-U_-7y8y3L6RS_A-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
- <CADnq5_Np1DWnzvSaChca4rsQzX02_=HYcLTwuFVaLm51qageRA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-In-Reply-To: <CADnq5_Np1DWnzvSaChca4rsQzX02_=HYcLTwuFVaLm51qageRA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-
---hAAa92LCQKL7RSjU6epSjKf3aAsW8pipO
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-Hi guys,
-
-Shouldn't this hook into the "led framework" of the kernel?
-
-https://www.kernel.org/doc/Documentation/leds/leds-class.txt
-
-Kind Regards,
-Edward.
-
-On 02/24/2017 10:03 AM, Alex Deucher wrote:
-> On Thu, Feb 23, 2017 at 5:50 PM, Alexandre Demers
-> <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
->> First, sorry for not replying directly as I should normally, but I'm n=
-ot on
->> my usual computer, so I can't. That being said...
->>
->> I may have my eyes in the same socket right now, but I think
->> fiji_setup_dpm_led_config() always returns 0.
->>
->>> + if (mask)
->>> + smum_send_msg_to_smc_with_parameter(hwmgr->smumgr,
->>> +    PPSMC_MSG_LedConfig,
->>> +    mask);
->>> + return 0;
->>> +}
->>
->> Even when "if (mask)" is true, whether smum_send_msg_to_smc_with_param=
-eter()
->> succeeds or not, fiji_setup_dpm_led_config() spits a 0 at the end.
->>
->> Thus,
->>
->>> + result =3D fiji_setup_dpm_led_config(hwmgr);
->>> + PP_ASSERT_WITH_CODE(0 =3D=3D result,
->>> +    "Failed to setup dpm led config", return result);
->>
->> will always lead to "result" being set to 0... Am I missing something?=
-
->>
->=20
-> Yes, that function can't fail.  I suppose we could just make it a void
-> function, but I was following the same pattern of all the other
-> functions in that file.
->=20
-> Alex
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->=20
-
-
---hAAa92LCQKL7RSjU6epSjKf3aAsW8pipO--
-
---LtbeRitfaRoXXn4IlTm4cdH2Khf5CeVrK
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJYr4OPAAoJEP4bvbfZuWjbg6wQALqBtfklDu3gqaLG+5ZpEwUj
-Js7y0hqCFhzWwP5jjg3InMRh8VXEc741FY5fm+zoHuV2pWr3lNzr0WZmN6ik6cax
-yYIu+XeQOOHnKxZF1w5YH2FrRXXKmO8a6jLiYgi90JBQqTGNht/gyKJ3fgP9In/h
-ED5XoL06r3cmtW0dC3LScSbjOtBW0vsYSLQUncAPmcD6xX6VBynfgYXPPsmqETde
-s70IMKkeyyjFejbCM4ilSOy3+1p9VK2rQREeXZZmava82hnGTVPDDic+J7v2RS0E
-NMtQLnbpqu3ggFPJSEI0mjCvsZkkZEiynQpwmRIOLcwkHhgdMYdNEKyn2eSOtwYz
-Aj02WEyHGbG5LJk/Dc7UwvMSkS37hpvyQNuNYEALy9cZh7DLp1Rs7ha6of4iG1tt
-l/F1E40rqmAiE+Hqq/RPnBlCpUhiuKwv+LqgxQFhv1pSgHsXa8qeIe6VPCUm7QWI
-4Exm9AGO2uXlscUfWnvdo6TNyGadS7mKBy/5vvXtX4fgEdWPyfWueBORr/Bvhmqf
-4ycZH2NtbJH9zO5jOzGFKX/I7XY/YN1O5igexfJyBwwtLmChTfy1CANJYE+WTJBW
-o2TQ9SHaDMhGhwVH5U06DmutNJ/sJvno4s51CdjSCFotfy7KZ6XfRaxAJBOB/uuN
-O3WnhoKnTRVJDjVMdr2i
-=D8yF
------END PGP SIGNATURE-----
-
---LtbeRitfaRoXXn4IlTm4cdH2Khf5CeVrK--
-
---===============0459571847==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0459571847==--
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
+LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIEVkd2Fy
+ZCBPJ0NhbGxhZ2hhbg0KPiBTZW50OiBUaHVyc2RheSwgRmVicnVhcnkgMjMsIDIwMTcgNzo1MSBQ
+TQ0KPiBUbzogQWxleCBEZXVjaGVyOyBBbGV4YW5kcmUgRGVtZXJzDQo+IENjOiBGcmVlZGVza3Rv
+cCAtIEFNRC1nZngNCj4gU3ViamVjdDogUmU6IFtQQVRDSF0gZHJtL2FtZGdwdS9wb3dlcnBsYXk6
+IGVuYWJsZSBMRURzIG9uIEZpamkgYm9hcmRzDQo+IA0KPiBIaSBndXlzLA0KPiANCj4gU2hvdWxk
+bid0IHRoaXMgaG9vayBpbnRvIHRoZSAibGVkIGZyYW1ld29yayIgb2YgdGhlIGtlcm5lbD8NCj4g
+DQo+IGh0dHBzOi8vd3d3Lmtlcm5lbC5vcmcvZG9jL0RvY3VtZW50YXRpb24vbGVkcy9sZWRzLWNs
+YXNzLnR4dA0KDQpUaGUgTEVEcyBhcmUgbm90IGRpcmVjdGx5IGNvbnRyb2xsYWJsZSBieSB0aGUg
+ZHJpdmVyLiAgVGhlIFNNVSBtaWNyb2NvbnRyb2xsZXIgYWN0dWFsbHkgY29udHJvbHMgdGhlbSAo
+aXQgbGlnaHRzIHRoZW0gdXAgaW4gYSBwYXR0ZXJuIGJhc2VkIG9uIGRwbSBzdGF0ZXMpLCB3ZSBq
+dXN0IHRlbGwgdGhlIFNNVSB0byBlbmFibGUgdGhlIGZ1bmN0aW9uYWxpdHkuDQoNCkFsZXgNCg0K
+PiANCj4gS2luZCBSZWdhcmRzLA0KPiBFZHdhcmQuDQo+IA0KPiBPbiAwMi8yNC8yMDE3IDEwOjAz
+IEFNLCBBbGV4IERldWNoZXIgd3JvdGU6DQo+ID4gT24gVGh1LCBGZWIgMjMsIDIwMTcgYXQgNTo1
+MCBQTSwgQWxleGFuZHJlIERlbWVycw0KPiA+IDxhbGV4YW5kcmUuZi5kZW1lcnNAZ21haWwuY29t
+PiB3cm90ZToNCj4gPj4gRmlyc3QsIHNvcnJ5IGZvciBub3QgcmVwbHlpbmcgZGlyZWN0bHkgYXMg
+SSBzaG91bGQgbm9ybWFsbHksIGJ1dCBJJ20gbm90IG9uDQo+ID4+IG15IHVzdWFsIGNvbXB1dGVy
+LCBzbyBJIGNhbid0LiBUaGF0IGJlaW5nIHNhaWQuLi4NCj4gPj4NCj4gPj4gSSBtYXkgaGF2ZSBt
+eSBleWVzIGluIHRoZSBzYW1lIHNvY2tldCByaWdodCBub3csIGJ1dCBJIHRoaW5rDQo+ID4+IGZp
+amlfc2V0dXBfZHBtX2xlZF9jb25maWcoKSBhbHdheXMgcmV0dXJucyAwLg0KPiA+Pg0KPiA+Pj4g
+KyBpZiAobWFzaykNCj4gPj4+ICsgc211bV9zZW5kX21zZ190b19zbWNfd2l0aF9wYXJhbWV0ZXIo
+aHdtZ3ItPnNtdW1nciwNCj4gPj4+ICsgICAgUFBTTUNfTVNHX0xlZENvbmZpZywNCj4gPj4+ICsg
+ICAgbWFzayk7DQo+ID4+PiArIHJldHVybiAwOw0KPiA+Pj4gK30NCj4gPj4NCj4gPj4gRXZlbiB3
+aGVuICJpZiAobWFzaykiIGlzIHRydWUsIHdoZXRoZXINCj4gc211bV9zZW5kX21zZ190b19zbWNf
+d2l0aF9wYXJhbWV0ZXIoKQ0KPiA+PiBzdWNjZWVkcyBvciBub3QsIGZpamlfc2V0dXBfZHBtX2xl
+ZF9jb25maWcoKSBzcGl0cyBhIDAgYXQgdGhlIGVuZC4NCj4gPj4NCj4gPj4gVGh1cywNCj4gPj4N
+Cj4gPj4+ICsgcmVzdWx0ID0gZmlqaV9zZXR1cF9kcG1fbGVkX2NvbmZpZyhod21ncik7DQo+ID4+
+PiArIFBQX0FTU0VSVF9XSVRIX0NPREUoMCA9PSByZXN1bHQsDQo+ID4+PiArICAgICJGYWlsZWQg
+dG8gc2V0dXAgZHBtIGxlZCBjb25maWciLCByZXR1cm4gcmVzdWx0KTsNCj4gPj4NCj4gPj4gd2ls
+bCBhbHdheXMgbGVhZCB0byAicmVzdWx0IiBiZWluZyBzZXQgdG8gMC4uLiBBbSBJIG1pc3Npbmcg
+c29tZXRoaW5nPw0KPiA+Pg0KPiA+DQo+ID4gWWVzLCB0aGF0IGZ1bmN0aW9uIGNhbid0IGZhaWwu
+ICBJIHN1cHBvc2Ugd2UgY291bGQganVzdCBtYWtlIGl0IGEgdm9pZA0KPiA+IGZ1bmN0aW9uLCBi
+dXQgSSB3YXMgZm9sbG93aW5nIHRoZSBzYW1lIHBhdHRlcm4gb2YgYWxsIHRoZSBvdGhlcg0KPiA+
+IGZ1bmN0aW9ucyBpbiB0aGF0IGZpbGUuDQo+ID4NCj4gPiBBbGV4DQo+ID4gX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4gPiBhbWQtZ2Z4IG1haWxpbmcg
+bGlzdA0KPiA+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+ID4gaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQo+ID4NCg0KX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
+IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
