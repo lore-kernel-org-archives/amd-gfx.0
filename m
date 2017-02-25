@@ -1,46 +1,72 @@
-From: Lukas Wunner <lukas@wunner.de>
-Subject: Re: [PATCH 1/5] PCI: Recognize Thunderbolt devices
-Date: Sat, 25 Feb 2017 08:40:03 +0100
-Message-ID: <20170225074003.GA905@wunner.de>
-References: <cover.1487938188.git.lukas@wunner.de>
- <c42a235e126f273e9b8712a7154f813f757db507.1487938188.git.lukas@wunner.de>
- <20170224221724.GA26430@bhelgaas-glaptop.roam.corp.google.com>
+From: "Qu, Jim" <Jim.Qu-5C7GfCeVMHo@public.gmane.org>
+Subject: CI asic S4 issue on ubuntu16.04.
+Date: Sat, 25 Feb 2017 05:45:39 +0000
+Message-ID: <CY4PR1201MB0087DAD32163DE096A22B77099550@CY4PR1201MB0087.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <platform-driver-x86-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20170224221724.GA26430@bhelgaas-glaptop.roam.corp.google.com>
-Sender: platform-driver-x86-owner@vger.kernel.org
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, Michael Jamet <michael.jamet@intel.com>, Mika Westerberg <mika.westerberg@linux.intel.com>, linux-pci@vger.kernel.org, Darren Hart <dvhart@infradead.org>, Andy Shevchenko <andy@infradead.org>, platform-driver-x86@vger.kernel.org, Ben Skeggs <bskeggs@redhat.com>, nouveau@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org, Peter Wu <peter@lekensteyn.nl>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: zh-CN
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Fri, Feb 24, 2017 at 04:17:24PM -0600, Bjorn Helgaas wrote:
-> On Fri, Feb 24, 2017 at 08:19:45PM +0100, Lukas Wunner wrote:
-> > --- a/include/linux/pci.h
-> > +++ b/include/linux/pci.h
-> > @@ -358,6 +358,7 @@ struct pci_dev {
-> >  	unsigned int	is_virtfn:1;
-> >  	unsigned int	reset_fn:1;
-> >  	unsigned int    is_hotplug_bridge:1;
-> > +	unsigned int	is_thunderbolt:1; /* Thunderbolt controller */
-> 
-> I'm not really keen on having this in the PCI core because the core
-> doesn't need this or even know what it means.
-> 
-> pci_find_next_ext_capability() is available to drivers, and if
-> Thunderbolt-connectedness is useful information to apple-gmux or GPU
-> drivers, it's fine with me if you want to use it there.  I just don't
-> see the benefit to having it in the core.
-
-The above contradicts your statement 3 days earlier:
-
-	"Assuming we need it, having it in struct pci_dev is fine.
-	 There's no point in looking up the VSEC capability more than once."
-	(http://www.spinics.net/lists/linux-pci/msg58532.html)
-
-Please explain.
-
-Thanks,
-
-Lukas
+SGkgQWxsOg0KDQpJIGFtIGludmVzdGlnYXRpbmcgYSBTNCBpc3N1ZSBvbiBDSSB3aGljaCBpZiBE
+QyBpcyBlbmFibGVkIC4gZHJpdmVyIHdpbGwgYmUgZmFpbGVkIGluIHRoZSBkcG0gZnVudGlvbnMu
+IChsb2cgYXMgYmVsbG93KSwgYnV0IGlmIERDIGlzIGRpc2FibGVkICwgZXZlcnl0aGluZyBnb2Vz
+IHdlbGwuDQpJIGFsc28gZm91bmQgdGhhdCBpZiBkcml2ZXIgc2VuZCBQUFNNQ19NU0dfTUNMS0RQ
+TV9GcmVlemVMZXZlbCBtZXNzYWdlIHRvIHNtYyBjb3VsZCBjYXVzZSBzbWMgaGFuZyB3aGVuIHNl
+dCBwb3dlciBzdGF0ZSBkdXJpbmcgUzQoZnJlZXplL3RoYXcpLiBTbyBpcyBpdCByZWFzb25hYmxl
+IHRvIGRpc2FibGUgbWNsayBzd2l0Y2gobWF5YmUgZG8gbm90IGZyZWV6ZS91bmZyZWV6ZSBhcmUg
+ZW5vdWdoKSBkdXJpbmcgUzQ/IGFwcHJlY2lhdGUgdG8gYW55IHN1Z2d1c3Rpb24uDQoNClsgICA0
+My44NTI1NjBdIFtkcm06Y2lfZHBtX3NldF9wb3dlcl9zdGF0ZSBbYW1kZ3B1XV0gKkVSUk9SKiBj
+aV9mcmVlemVfc2Nsa19tY2xrX2RwbSBmYWlsZWQNCi4uLi4uLi4uLi4uLg0KDQpbICAgNDQuNTMx
+OTM1XSBbZHJtOmNpX2RwbV9lbmFibGUgW2FtZGdwdV1dICpFUlJPUiogY2lfbm90aWZ5X3NtY19k
+aXNwbGF5X2NoYW5nZSBmYWlsZWQNClsgICA0NC41OTEwMjBdIGF0YTg6IFNBVEEgbGluayBkb3du
+IChTU3RhdHVzIDAgU0NvbnRyb2wgMzAwKQ0KWyAgIDQ0LjcwMDk1M10gW2RybTpnZnhfdjdfMF9y
+aW5nX3Rlc3RfcmluZyBbYW1kZ3B1XV0gKkVSUk9SKiBhbWRncHU6IHJpbmcgMCB0ZXN0IGZhaWxl
+ZCAoc2NyYXRjaCgweEMwNDApPTB4Q0FGRURFQUQpDQpbICAgNDQuNzExOTYxXSBbZHJtOmFtZGdw
+dV9yZXN1bWUgW2FtZGdwdV1dICpFUlJPUiogcmVzdW1lIG9mIElQIGJsb2NrIDxnZnhfdjdfMD4g
+ZmFpbGVkIC0yMg0KWyAgIDQ0LjcyMDgwMV0gW2RybTphbWRncHVfZGV2aWNlX3Jlc3VtZSBbYW1k
+Z3B1XV0gKkVSUk9SKiBhbWRncHVfcmVzdW1lIGZhaWxlZCAoLTIyKS4NClsgICA0NC43MjkxMjBd
+IFtkcm06YW1kZ3B1X2RldmljZV9yZXN1bWUgW2FtZGdwdV1dICpFUlJPUiogYW1kZ3B1X3Jlc3Vt
+ZSBmYWlsZWQgKC0yMikuDQpbICAgNDQuODk4OTYxXSBbZHJtOmFtZGdwdV9sYXRlX2luaXQgW2Ft
+ZGdwdV1dICpFUlJPUiogbGF0ZV9pbml0IG9mIElQIGJsb2NrIDxhbWRncHVfcG93ZXJwbGF5PiBm
+YWlsZWQgLTIyDQpbICAgNDQuOTA5MDA4XSBkcG1fcnVuX2NhbGxiYWNrKCk6IHBjaV9wbV90aGF3
+KzB4MC8weDkwIHJldHVybnMgLTIyDQouLi4uLi4uLi4uLi4uLi4uLi4NCmFtZGdwdV9wbW9wc19w
+b3dlcm9mZg0KWyAgIDQ3LjIzMTI2N10gZTEwMDBlOiBFRUUgVFggTFBJIFRJTUVSOiAwMDAwMDAx
+MQ0KWyAgIDQ3LjMxNjY0MF0gc2QgNDowOjA6MDogW3NkYV0gU3RvcHBpbmcgZGlzaw0KWyAgIDQ4
+LjMzMTY5OF0gW2RybTp2Y2VfdjJfMF9maXJtd2FyZV9sb2FkZWQgW2FtZGdwdV1dICpFUlJPUiog
+VkNFIG5vdCByZXNwb25kaW5nLCB0cnlpbmcgdG8gcmVzZXQgdGhlIEVDUFUhISENClsgICA0OS4z
+NTQwODFdIFtkcm06dmNlX3YyXzBfZmlybXdhcmVfbG9hZGVkIFthbWRncHVdXSAqRVJST1IqIFZD
+RSBub3QgcmVzcG9uZGluZywgdHJ5aW5nIHRvIHJlc2V0IHRoZSBFQ1BVISEhDQpbICAgNTAuMzc2
+NDUwXSBbZHJtOnZjZV92Ml8wX2Zpcm13YXJlX2xvYWRlZCBbYW1kZ3B1XV0gKkVSUk9SKiBWQ0Ug
+bm90IHJlc3BvbmRpbmcsIHRyeWluZyB0byByZXNldCB0aGUgRUNQVSEhIQ0KWyAgIDUxLjM5ODgx
+MF0gW2RybTp2Y2VfdjJfMF9maXJtd2FyZV9sb2FkZWQgW2FtZGdwdV1dICpFUlJPUiogVkNFIG5v
+dCByZXNwb25kaW5nLCB0cnlpbmcgdG8gcmVzZXQgdGhlIEVDUFUhISENClsgICA1Mi40MjExNDRd
+IFtkcm06dmNlX3YyXzBfZmlybXdhcmVfbG9hZGVkIFthbWRncHVdXSAqRVJST1IqIFZDRSBub3Qg
+cmVzcG9uZGluZywgdHJ5aW5nIHRvIHJlc2V0IHRoZSBFQ1BVISEhDQpbICAgNTMuNDQzNTQ0XSBb
+ZHJtOnZjZV92Ml8wX2Zpcm13YXJlX2xvYWRlZCBbYW1kZ3B1XV0gKkVSUk9SKiBWQ0Ugbm90IHJl
+c3BvbmRpbmcsIHRyeWluZyB0byByZXNldCB0aGUgRUNQVSEhIQ0KWyAgIDU0LjQ2Njg3NV0gW2Ry
+bTp2Y2VfdjJfMF9maXJtd2FyZV9sb2FkZWQgW2FtZGdwdV1dICpFUlJPUiogVkNFIG5vdCByZXNw
+b25kaW5nLCB0cnlpbmcgdG8gcmVzZXQgdGhlIEVDUFUhISENClsgICA1NS40ODk3OTddIFtkcm06
+dmNlX3YyXzBfZmlybXdhcmVfbG9hZGVkIFthbWRncHVdXSAqRVJST1IqIFZDRSBub3QgcmVzcG9u
+ZGluZywgdHJ5aW5nIHRvIHJlc2V0IHRoZSBFQ1BVISEhDQpbICAgNTYuNTEyMTQ2XSBbZHJtOnZj
+ZV92Ml8wX2Zpcm13YXJlX2xvYWRlZCBbYW1kZ3B1XV0gKkVSUk9SKiBWQ0Ugbm90IHJlc3BvbmRp
+bmcsIHRyeWluZyB0byByZXNldCB0aGUgRUNQVSEhIQ0KWyAgIDU3LjUzNDQ3MF0gW2RybTp2Y2Vf
+djJfMF9maXJtd2FyZV9sb2FkZWQgW2FtZGdwdV1dICpFUlJPUiogVkNFIG5vdCByZXNwb25kaW5n
+LCB0cnlpbmcgdG8gcmVzZXQgdGhlIEVDUFUhISENClsgICA1Ny43MDQ1NzddIFBNOiBoaWJlcm5h
+dGUgb2YgZGV2aWNlcyBjb21wbGV0ZSBhZnRlciAxMDU3NC4yMjkgbXNlY3MNClsgICA1Ny43MTEy
+OThdIFBNOiBsYXRlIGhpYmVybmF0ZSBvZiBkZXZpY2VzIGNvbXBsZXRlIGFmdGVyIDAuNDU3IG1z
+ZWNzDQoNClRoYW5rcw0KSmltUXUNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
+LWdmeAo=
