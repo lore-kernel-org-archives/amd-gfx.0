@@ -1,76 +1,50 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amdgpu: trace fence details in
- amdgpu_sched_run_job
-Date: Sat, 25 Feb 2017 10:39:57 +0100
-Message-ID: <dbc8d447-2423-9524-4e38-e4b87022e4db@vodafone.de>
-References: <20170224182058.5810-1-andresx7@gmail.com>
- <20170224182058.5810-3-andresx7@gmail.com>
+From: Bjorn Helgaas <helgaas@kernel.org>
+Subject: Re: [PATCH 1/5] PCI: Recognize Thunderbolt devices
+Date: Sat, 25 Feb 2017 08:44:46 -0600
+Message-ID: <20170225144446.GA27943@bhelgaas-glaptop.roam.corp.google.com>
+References: <cover.1487938188.git.lukas@wunner.de>
+ <c42a235e126f273e9b8712a7154f813f757db507.1487938188.git.lukas@wunner.de>
+ <20170224221724.GA26430@bhelgaas-glaptop.roam.corp.google.com>
+ <20170225074003.GA905@wunner.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170224182058.5810-3-andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: christian.koenig-5C7GfCeVMHo@public.gmane.org
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-pci-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20170225074003.GA905@wunner.de>
+Sender: linux-pci-owner@vger.kernel.org
+To: Lukas Wunner <lukas@wunner.de>
+Cc: dri-devel@lists.freedesktop.org, Michael Jamet <michael.jamet@intel.com>, Mika Westerberg <mika.westerberg@linux.intel.com>, linux-pci@vger.kernel.org, Darren Hart <dvhart@infradead.org>, Andy Shevchenko <andy@infradead.org>, platform-driver-x86@vger.kernel.org, Ben Skeggs <bskeggs@redhat.com>, nouveau@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org, Peter Wu <peter@lekensteyn.nl>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMjQuMDIuMjAxNyB1bSAxOToyMCBzY2hyaWViIEFuZHJlcyBSb2RyaWd1ZXo6Cj4gVGhpcyBp
-bmZvcm1hdGlvbiBpcyBpbnRlbmRlZCB0byBwcm92aWRlIHRoZSByZXF1aXJlZCBkYXRhIHRvIGFz
-c29jaWF0ZQo+IGFtZGdwdSB0cmFjZXBvaW50cyB3aXRoIHRoZWlyIGNvcnJlc3BvbmRpbmcgZG1h
-X2ZlbmNlXyogZXZlbnRzLgo+Cj4gU2lnbmVkLW9mZi1ieTogQW5kcmVzIFJvZHJpZ3VleiA8YW5k
-cmVzeDdAZ21haWwuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3RyYWNlLmggfCAxMSArKysrKysrKystLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDkgaW5zZXJ0
-aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfdHJhY2UuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV90cmFjZS5oCj4gaW5kZXggMDE2MjNkMS4uY2M5YTMxZCAxMDA2NDQKPiAtLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHJhY2UuaAo+ICsrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90cmFjZS5oCj4gQEAgLTEzMCw2ICsxMzAsOSBAQCBUUkFD
-RV9FVkVOVChhbWRncHVfc2NoZWRfcnVuX2pvYiwKPiAgIAkJCSAgICAgX19maWVsZChzdHJ1Y3Qg
-YW1kX3NjaGVkX2pvYiAqLCBzY2hlZF9qb2IpCj4gICAJCQkgICAgIF9fZmllbGQoc3RydWN0IGFt
-ZGdwdV9pYiAqLCBpYikKPiAgIAkJCSAgICAgX19maWVsZChzdHJ1Y3QgZG1hX2ZlbmNlICosIGZl
-bmNlKQo+ICsJCQkgICAgIF9fc3RyaW5nKHRpbWVsaW5lLCBqb2ItPmJhc2Uuc19mZW5jZS0+Zmlu
-aXNoZWQub3BzLT5nZXRfdGltZWxpbmVfbmFtZSgmam9iLT5iYXNlLnNfZmVuY2UtPmZpbmlzaGVk
-KSkKPiArCQkJICAgICBfX2ZpZWxkKHVuc2lnbmVkIGludCwgY29udGV4dCkKPiArCQkJICAgICBf
-X2ZpZWxkKHVuc2lnbmVkIGludCwgc2Vxbm8pCj4gICAJCQkgICAgIF9fZmllbGQoY2hhciAqLCBy
-aW5nX25hbWUpCj4gICAJCQkgICAgIF9fZmllbGQodTMyLCBudW1faWJzKQo+ICAgCQkJICAgICAp
-LAo+IEBAIC0xMzksMTIgKzE0MiwxNiBAQCBUUkFDRV9FVkVOVChhbWRncHVfc2NoZWRfcnVuX2pv
-YiwKPiAgIAkJCSAgIF9fZW50cnktPnNjaGVkX2pvYiA9ICZqb2ItPmJhc2U7Cj4gICAJCQkgICBf
-X2VudHJ5LT5pYiA9IGpvYi0+aWJzOwo+ICAgCQkJICAgX19lbnRyeS0+ZmVuY2UgPSAmam9iLT5i
-YXNlLnNfZmVuY2UtPmZpbmlzaGVkOwo+ICsJCQkgICBfX2Fzc2lnbl9zdHIodGltZWxpbmUsIGpv
-Yi0+YmFzZS5zX2ZlbmNlLT5maW5pc2hlZC5vcHMtPmdldF90aW1lbGluZV9uYW1lKCZqb2ItPmJh
-c2Uuc19mZW5jZS0+ZmluaXNoZWQpKQoKTm90IDEwMCUgc3VyZSwgYnV0IHdlIG1pZ2h0IGJlIGFi
-bGUgdG8gdXNlIGEgY2hhciAqIGZpZWxkIGhlcmUgaW5zdGVhZCAKb2YgdGhlIGV4dHJhIG92ZXJo
-ZWFkIG9mIGVtYmVkZGluZyBhIHN0cmluZywgdGhlIHRpbWVsaW5lIG5hbWVzIGFyZSAKbmV2ZXIg
-ZnJlZWQgSUlSQy4KCj4gKwkJCSAgIF9fZW50cnktPmNvbnRleHQgPSBqb2ItPmJhc2Uuc19mZW5j
-ZS0+ZmluaXNoZWQuY29udGV4dDsKPiArCQkJICAgX19lbnRyeS0+c2Vxbm8gPSBqb2ItPmJhc2Uu
-c19mZW5jZS0+ZmluaXNoZWQuc2Vxbm87Cj4gICAJCQkgICBfX2VudHJ5LT5yaW5nX25hbWUgPSBq
-b2ItPnJpbmctPm5hbWU7Cj4gICAJCQkgICBfX2VudHJ5LT5udW1faWJzID0gam9iLT5udW1faWJz
-Owo+ICAgCQkJICAgKSwKPiAtCSAgICBUUF9wcmludGsoImFkZXY9JXAsIHNjaGVkX2pvYj0lcCwg
-Zmlyc3QgaWI9JXAsIHNjaGVkIGZlbmNlPSVwLCByaW5nIG5hbWU9JXMsIG51bV9pYnM9JXUiLAo+
-ICsJICAgIFRQX3ByaW50aygiYWRldj0lcCwgc2NoZWRfam9iPSVwLCBmaXJzdCBpYj0lcCwgc2No
-ZWQgZmVuY2U9JXAsIHRpbWVsaW5lPSVzLCBjb250ZXh0PSV1LCBzZXFubz0ldSwgcmluZyBuYW1l
-PSVzLCBudW1faWJzPSV1IiwKCklmIHlvdSBoYXZlIHRpbWUgZm9yIGFub3RoZXIgcGF0Y2ggcGxl
-YXNlIGRyb3AgdGhlIHBpbnRlcnMgaGVyZSBhcyB3ZWxsLiAKU2NoZWR1bGVyIGpvYiwgSUJzIGFu
-ZCBmZW5jZSBhcmUgYWxsIGhlYXZpbHkgcmVhbGxvY2F0ZWQgKHNvbWV0aW1lcyBldmVuIAp3aXRo
-IGEgc2xhYiBhbGxvY2F0b3IpLiBTbyB0aGUgcG9pbnRlcnMgYXJlIGNvbXBsZXRlbHkgbWVhbmlu
-Z2xlc3MuIFRoZSAKYWRldiBwb2ludGVyIGlzIHN1cGVyc2VkZWQgYnkgdGhlIHRpbWVsaW5lIG5h
-bWUgYW5kIGNvbnRleHQgbnVtYmVycy4KCkFueXdheSB0aGF0IHNob3VsZCBiZSBkb25lIGluIGFu
-IGV4dHJhIHBhdGNoLCBzbyB0aGlzIG9uZSBpcyAKUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7Zu
-aWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4uCgpSZWdhcmRzLApDaHJpc3RpYW4uCgo+ICAg
-CQkgICAgICBfX2VudHJ5LT5hZGV2LCBfX2VudHJ5LT5zY2hlZF9qb2IsIF9fZW50cnktPmliLAo+
-IC0JCSAgICAgIF9fZW50cnktPmZlbmNlLCBfX2VudHJ5LT5yaW5nX25hbWUsIF9fZW50cnktPm51
-bV9pYnMpCj4gKwkJICAgICAgX19lbnRyeS0+ZmVuY2UsIF9fZ2V0X3N0cih0aW1lbGluZSksIF9f
-ZW50cnktPmNvbnRleHQsIF9fZW50cnktPnNlcW5vLAo+ICsJCSAgICAgIF9fZW50cnktPnJpbmdf
-bmFtZSwgX19lbnRyeS0+bnVtX2licykKPiAgICk7Cj4gICAKPiAgIAoKCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+On Sat, Feb 25, 2017 at 08:40:03AM +0100, Lukas Wunner wrote:
+> On Fri, Feb 24, 2017 at 04:17:24PM -0600, Bjorn Helgaas wrote:
+> > On Fri, Feb 24, 2017 at 08:19:45PM +0100, Lukas Wunner wrote:
+> > > --- a/include/linux/pci.h
+> > > +++ b/include/linux/pci.h
+> > > @@ -358,6 +358,7 @@ struct pci_dev {
+> > >  	unsigned int	is_virtfn:1;
+> > >  	unsigned int	reset_fn:1;
+> > >  	unsigned int    is_hotplug_bridge:1;
+> > > +	unsigned int	is_thunderbolt:1; /* Thunderbolt controller */
+> > 
+> > I'm not really keen on having this in the PCI core because the core
+> > doesn't need this or even know what it means.
+> > 
+> > pci_find_next_ext_capability() is available to drivers, and if
+> > Thunderbolt-connectedness is useful information to apple-gmux or GPU
+> > drivers, it's fine with me if you want to use it there.  I just don't
+> > see the benefit to having it in the core.
+> 
+> The above contradicts your statement 3 days earlier:
+> 
+> 	"Assuming we need it, having it in struct pci_dev is fine.
+> 	 There's no point in looking up the VSEC capability more than once."
+> 	(http://www.spinics.net/lists/linux-pci/msg58532.html)
+
+It's clear that none of the proposed uses is related to Thunderbolt as
+a technology, which is why I would suggest we don't need the flag.
+But in the interest of moving on, if you remove the changelog part
+about whitelisting Thunderbolt for runtime PM (since that's not part
+of this series), you can add my:
+
+Acked-by: Bjorn Helgaas <bhelgaas@google.com>
