@@ -1,13 +1,15 @@
 From: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Subject: Re: Add support for high priority scheduling in amdgpu
-Date: Wed, 1 Mar 2017 12:13:47 -0500
-Message-ID: <ddeb4a53-ec4f-9a87-9323-897c571b1634@gmail.com>
+Date: Wed, 1 Mar 2017 12:24:22 -0500
+Message-ID: <4c908b1f-fcb2-7d89-026a-76fd3f4f1f22@gmail.com>
 References: <1488320089-22035-1-git-send-email-andresx7@gmail.com>
  <25194b1a-4756-e1ad-f597-17063a14eb4c@vodafone.de>
+ <ddeb4a53-ec4f-9a87-9323-897c571b1634@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0239279643=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <25194b1a-4756-e1ad-f597-17063a14eb4c-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <ddeb4a53-ec4f-9a87-9323-897c571b1634-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,387 +22,123 @@ Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This is a multi-part message in MIME format.
---===============0239279643==
-Content-Type: multipart/alternative;
- boundary="------------586716D98F2902224FE48FDA"
-
-This is a multi-part message in MIME format.
---------------586716D98F2902224FE48FDA
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-
-On 3/1/2017 6:42 AM, Christian König wrote:
-> Patches #1-#14 are Acked-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>.
->
-> Patch #15:
->
-> Not sure if that is a good idea or not, need to take a closer look 
-> after digging through the rest.
->
-> In general the HW IP is just for the IOCTL API and not for internal 
-> use inside the driver.
-I'll drop this patch and use ring->funcs->type instead.
->
-> Patch #16:
->
-> Really nice :) I don't have time to look into it in detail, but you 
-> have one misconception I like to point out:
->> The queue manager maintains a per-file descriptor map of user ring ids
->> to amdgpu_ring pointers. Once a map is created it is permanent (this is
->> required to maintain FIFO execution guarantees for a ring).
-> Actually we don't have a FIFO execution guarantee per ring. We only 
-> have that per context.
-
-Agreed. I'm using pretty imprecise terminology here which can be 
-confusing. I wanted to be more precise than "context", because two 
-amdgpu_cs_request submissions to the same context but with a different 
-ring field can execute out of order.
-
-I think s/ring/context's ring/ should be enough to clarify here if you 
-think so as well.
-
->
-> E.g. commands from different context can execute at the same time and 
-> out of order.
->
-> Making this per file is ok for now, but you should keep in mind that 
-> we might want to change that sooner or later.
->
-> Patch #17 & #18 need to take a closer look when I have more time, but 
-> the comments from others sounded valid to me as well.
->
-> Patch #19: Raising and lowering the priority of a ring during command 
-> submission doesn't sound like a good idea to me.
-I'm not really sure what would be a better time than at command submission.
-
-If it was just SPI priorities we could have static partitioning of 
-rings, some high priority and some regular, etc. But that approach 
-reduces the number of rings
->
-> The way you currently have it implemented would also raise the 
-> priority of already running jobs on the same ring. Keep in mind that 
-> everything is pipelined here.
-That is actually intentional. If there is work already on the ring with 
-lower priority we don't want the high priority work to have to wait for 
-it to finish executing at regular priority. Therefore the work that has 
-already been commited to the ring inherits the higher priority level.
-
-I agree this isn't ideal, which is why the LRU ring mapping policy is 
-there to make sure this doesn't happen often.
->
-> Additional to that you can't have a fence callback in the job 
-> structure, cause the job structure is freed by the same fence as well. 
-> So it can happen that you access freed up memory (but only for a very 
-> short period of time).
-Any strong preference for either 1) refcounting the job structure, or 2) 
-allocating a new piece of memory to store the callback parameters?
-
-> Patches #20-#22 are Acked-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>.
->
-> Regards,
-> Christian.
->
-> Am 28.02.2017 um 23:14 schrieb Andres Rodriguez:
->> This patch series introduces a mechanism that allows users with 
->> sufficient
->> privileges to categorize their work as "high priority". A userspace 
->> app can
->> create a high priority amdgpu context, where any work submitted to 
->> this context
->> will receive preferential treatment over any other work.
->>
->> High priority contexts will be scheduled ahead of other contexts by 
->> the sw gpu
->> scheduler. This functionality is generic for all HW blocks.
->>
->> Optionally, a ring can implement a set_priority() function that allows
->> programming HW specific features to elevate a ring's priority.
->>
->> This patch series implements set_priority() for gfx8 compute rings. 
->> It takes
->> advantage of SPI scheduling and CU reservation to provide improved frame
->> latencies for high priority contexts.
->>
->> For compute + compute scenarios we get near perfect scheduling 
->> latency. E.g.
->> one high priority ComputeParticles + one low priority ComputeParticles:
->>      - High priority ComputeParticles: 2.0-2.6 ms/frame
->>      - Regular ComputeParticles: 35.2-68.5 ms/frame
->>
->> For compute + gfx scenarios the high priority compute application does
->> experience some latency variance. However, the variance has smaller 
->> bounds and
->> a smalled deviation then without high priority scheduling.
->>
->> Following is a graph of the frame time experienced by a high priority 
->> compute
->> app in 4 different scenarios to exemplify the compute + gfx latency 
->> variance:
->>      - ComputeParticles: this scenario invloves running the compute 
->> particles
->>        sample on its own.
->>      - +SSAO: Previous scenario with the addition of running the ssao 
->> sample
->>        application that clogs the GFX ring with constant work.
->>      - +SPI Priority: Previous scenario with the addition of SPI 
->> priority
->>        programming for compute rings.
->>      - +CU Reserve: Previous scenario with the addition of dynamic CU
->>        reservation for compute rings.
->>
->> Graph link:
->> https://plot.ly/~lostgoat/9/
->>
->> As seen above, high priority contexts for compute allow us to 
->> schedule work
->> with enhanced confidence of completion latency under high GPU loads. 
->> This
->> property will be important for VR reprojection workloads.
->>
->> Note: The first part of this series is a resend of "Change queue/pipe 
->> split
->> between amdkfd and amdgpu" with the following changes:
->>      - Fixed kfdtest on Kaveri due to shift overflow. Refer to: 
->> "drm/amdkfdallow
->>        split HQD on per-queue granularity v3"
->>      - Used Felix's suggestions for a simplified HQD programming 
->> sequence
->>      - Added a workaround for a Tonga HW bug during HQD programming
->>
->> This series is also available at:
->> https://github.com/lostgoat/linux/tree/wip-high-priority
->>
->> _______________________________________________
->> amd-gfx mailing list
->> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
->
-
-
---------------586716D98F2902224FE48FDA
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <p><br>
-    </p>
-    <br>
-    <div class="moz-cite-prefix">On 3/1/2017 6:42 AM, Christian König
-      wrote:<br>
-    </div>
-    <blockquote
-      cite="mid:25194b1a-4756-e1ad-f597-17063a14eb4c-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org"
-      type="cite">Patches #1-#14 are Acked-by: Christian König <a
-        class="moz-txt-link-rfc2396E"
-        href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>.
-      <br>
-      <br>
-      Patch #15: <br>
-      <br>
-      Not sure if that is a good idea or not, need to take a closer look
-      after digging through the rest. <br>
-      <br>
-      In general the HW IP is just for the IOCTL API and not for
-      internal use inside the driver. <br>
-    </blockquote>
-    I'll drop this patch and use ring-&gt;funcs-&gt;type instead.<br>
-    <blockquote
-      cite="mid:25194b1a-4756-e1ad-f597-17063a14eb4c-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org"
-      type="cite"> <br>
-      Patch #16: <br>
-      <br>
-      Really nice :) I don't have time to look into it in detail, but
-      you have one misconception I like to point out: <br>
-      <blockquote type="cite">The queue manager maintains a per-file
-        descriptor map of user ring ids <br>
-        to amdgpu_ring pointers. Once a map is created it is permanent
-        (this is <br>
-        required to maintain FIFO execution guarantees for a ring). <br>
-      </blockquote>
-      Actually we don't have a FIFO execution guarantee per ring. We
-      only have that per context. <br>
-    </blockquote>
-    <br>
-    Agreed. I'm using pretty imprecise terminology here which can be
-    confusing. I wanted to be more precise than "context", because two
-    amdgpu_cs_request submissions to the same context but with a
-    different ring field can execute out of order.<br>
-    <br>
-    I think s/ring/context's ring/ should be enough to clarify here if
-    you think so as well.<br>
-    <br>
-    <blockquote
-      cite="mid:25194b1a-4756-e1ad-f597-17063a14eb4c-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org"
-      type="cite"> <br>
-      E.g. commands from different context can execute at the same time
-      and out of order. <br>
-      <br>
-      Making this per file is ok for now, but you should keep in mind
-      that we might want to change that sooner or later. <br>
-      <br>
-      Patch #17 &amp; #18 need to take a closer look when I have more
-      time, but the comments from others sounded valid to me as well. <br>
-      <br>
-      Patch #19: Raising and lowering the priority of a ring during
-      command submission doesn't sound like a good idea to me. <br>
-    </blockquote>
-    I'm not really sure what would be a better time than at command
-    submission.<br>
-    <br>
-    If it was just SPI priorities we could have static partitioning of
-    rings, some high priority and some regular, etc. But that approach
-    reduces the number of rings<br>
-    <blockquote
-      cite="mid:25194b1a-4756-e1ad-f597-17063a14eb4c-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org"
-      type="cite"> <br>
-      The way you currently have it implemented would also raise the
-      priority of already running jobs on the same ring. Keep in mind
-      that everything is pipelined here. <br>
-    </blockquote>
-    That is actually intentional. If there is work already on the ring
-    with lower priority we don't want the high priority work to have to
-    wait for it to finish executing at regular priority. Therefore the
-    work that has already been commited to the ring inherits the higher
-    priority level.<br>
-    <br>
-    I agree this isn't ideal, which is why the LRU ring mapping policy
-    is there to make sure this doesn't happen often.<br>
-    <blockquote
-      cite="mid:25194b1a-4756-e1ad-f597-17063a14eb4c-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org"
-      type="cite"> <br>
-      Additional to that you can't have a fence callback in the job
-      structure, cause the job structure is freed by the same fence as
-      well. So it can happen that you access freed up memory (but only
-      for a very short period of time). <br>
-    </blockquote>
-    Any strong preference for either 1) refcounting the job structure,
-    or 2) allocating a new piece of memory to store the callback
-    parameters?<br>
-    <br>
-    <blockquote
-      cite="mid:25194b1a-4756-e1ad-f597-17063a14eb4c-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org"
-      type="cite"> Patches #20-#22 are Acked-by: Christian König <a
-        class="moz-txt-link-rfc2396E"
-        href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>.
-      <br>
-      <br>
-      Regards, <br>
-      Christian. <br>
-      <br>
-      Am 28.02.2017 um 23:14 schrieb Andres Rodriguez: <br>
-      <blockquote type="cite">This patch series introduces a mechanism
-        that allows users with sufficient <br>
-        privileges to categorize their work as "high priority". A
-        userspace app can <br>
-        create a high priority amdgpu context, where any work submitted
-        to this context <br>
-        will receive preferential treatment over any other work. <br>
-        <br>
-        High priority contexts will be scheduled ahead of other contexts
-        by the sw gpu <br>
-        scheduler. This functionality is generic for all HW blocks. <br>
-        <br>
-        Optionally, a ring can implement a set_priority() function that
-        allows <br>
-        programming HW specific features to elevate a ring's priority. <br>
-        <br>
-        This patch series implements set_priority() for gfx8 compute
-        rings. It takes <br>
-        advantage of SPI scheduling and CU reservation to provide
-        improved frame <br>
-        latencies for high priority contexts. <br>
-        <br>
-        For compute + compute scenarios we get near perfect scheduling
-        latency. E.g. <br>
-        one high priority ComputeParticles + one low priority
-        ComputeParticles: <br>
-             - High priority ComputeParticles: 2.0-2.6 ms/frame <br>
-             - Regular ComputeParticles: 35.2-68.5 ms/frame <br>
-        <br>
-        For compute + gfx scenarios the high priority compute
-        application does <br>
-        experience some latency variance. However, the variance has
-        smaller bounds and <br>
-        a smalled deviation then without high priority scheduling. <br>
-        <br>
-        Following is a graph of the frame time experienced by a high
-        priority compute <br>
-        app in 4 different scenarios to exemplify the compute + gfx
-        latency variance: <br>
-             - ComputeParticles: this scenario invloves running the
-        compute particles <br>
-               sample on its own. <br>
-             - +SSAO: Previous scenario with the addition of running the
-        ssao sample <br>
-               application that clogs the GFX ring with constant work. <br>
-             - +SPI Priority: Previous scenario with the addition of SPI
-        priority <br>
-               programming for compute rings. <br>
-             - +CU Reserve: Previous scenario with the addition of
-        dynamic CU <br>
-               reservation for compute rings. <br>
-        <br>
-        Graph link: <br>
-        <a class="moz-txt-link-freetext"
-          href="https://plot.ly/%7Elostgoat/9/">https://plot.ly/~lostgoat/9/</a>
-        <br>
-        <br>
-        As seen above, high priority contexts for compute allow us to
-        schedule work <br>
-        with enhanced confidence of completion latency under high GPU
-        loads. This <br>
-        property will be important for VR reprojection workloads. <br>
-        <br>
-        Note: The first part of this series is a resend of "Change
-        queue/pipe split <br>
-        between amdkfd and amdgpu" with the following changes: <br>
-             - Fixed kfdtest on Kaveri due to shift overflow. Refer to:
-        "drm/amdkfdallow <br>
-               split HQD on per-queue granularity v3" <br>
-             - Used Felix's suggestions for a simplified HQD programming
-        sequence <br>
-             - Added a workaround for a Tonga HW bug during HQD
-        programming <br>
-        <br>
-        This series is also available at: <br>
-        <a class="moz-txt-link-freetext"
-          href="https://github.com/lostgoat/linux/tree/wip-high-priority">https://github.com/lostgoat/linux/tree/wip-high-priority</a>
-        <br>
-        <br>
-        _______________________________________________ <br>
-        amd-gfx mailing list <br>
-        <a class="moz-txt-link-abbreviated"
-          href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-        <br>
-        <a class="moz-txt-link-freetext"
-          href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-        <br>
-      </blockquote>
-      <br>
-      <br>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------586716D98F2902224FE48FDA--
-
---===============0239279643==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0239279643==--
+CgpPbiAyMDE3LTAzLTAxIDEyOjEzIFBNLCBBbmRyZXMgUm9kcmlndWV6IHdyb3RlOgo+Cj4KPiBP
+biAzLzEvMjAxNyA2OjQyIEFNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiBQYXRjaGVzICMx
+LSMxNCBhcmUgQWNrZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1k
+LmNvbT4uCj4+Cj4+IFBhdGNoICMxNToKPj4KPj4gTm90IHN1cmUgaWYgdGhhdCBpcyBhIGdvb2Qg
+aWRlYSBvciBub3QsIG5lZWQgdG8gdGFrZSBhIGNsb3NlciBsb29rIAo+PiBhZnRlciBkaWdnaW5n
+IHRocm91Z2ggdGhlIHJlc3QuCj4+Cj4+IEluIGdlbmVyYWwgdGhlIEhXIElQIGlzIGp1c3QgZm9y
+IHRoZSBJT0NUTCBBUEkgYW5kIG5vdCBmb3IgaW50ZXJuYWwgCj4+IHVzZSBpbnNpZGUgdGhlIGRy
+aXZlci4KPiBJJ2xsIGRyb3AgdGhpcyBwYXRjaCBhbmQgdXNlIHJpbmctPmZ1bmNzLT50eXBlIGlu
+c3RlYWQuCj4+Cj4+IFBhdGNoICMxNjoKPj4KPj4gUmVhbGx5IG5pY2UgOikgSSBkb24ndCBoYXZl
+IHRpbWUgdG8gbG9vayBpbnRvIGl0IGluIGRldGFpbCwgYnV0IHlvdSAKPj4gaGF2ZSBvbmUgbWlz
+Y29uY2VwdGlvbiBJIGxpa2UgdG8gcG9pbnQgb3V0Ogo+Pj4gVGhlIHF1ZXVlIG1hbmFnZXIgbWFp
+bnRhaW5zIGEgcGVyLWZpbGUgZGVzY3JpcHRvciBtYXAgb2YgdXNlciByaW5nIGlkcwo+Pj4gdG8g
+YW1kZ3B1X3JpbmcgcG9pbnRlcnMuIE9uY2UgYSBtYXAgaXMgY3JlYXRlZCBpdCBpcyBwZXJtYW5l
+bnQgKHRoaXMgaXMKPj4+IHJlcXVpcmVkIHRvIG1haW50YWluIEZJRk8gZXhlY3V0aW9uIGd1YXJh
+bnRlZXMgZm9yIGEgcmluZykuCj4+IEFjdHVhbGx5IHdlIGRvbid0IGhhdmUgYSBGSUZPIGV4ZWN1
+dGlvbiBndWFyYW50ZWUgcGVyIHJpbmcuIFdlIG9ubHkgCj4+IGhhdmUgdGhhdCBwZXIgY29udGV4
+dC4KPgo+IEFncmVlZC4gSSdtIHVzaW5nIHByZXR0eSBpbXByZWNpc2UgdGVybWlub2xvZ3kgaGVy
+ZSB3aGljaCBjYW4gYmUgCj4gY29uZnVzaW5nLiBJIHdhbnRlZCB0byBiZSBtb3JlIHByZWNpc2Ug
+dGhhbiAiY29udGV4dCIsIGJlY2F1c2UgdHdvIAo+IGFtZGdwdV9jc19yZXF1ZXN0IHN1Ym1pc3Np
+b25zIHRvIHRoZSBzYW1lIGNvbnRleHQgYnV0IHdpdGggYSBkaWZmZXJlbnQgCj4gcmluZyBmaWVs
+ZCBjYW4gZXhlY3V0ZSBvdXQgb2Ygb3JkZXIuCj4KPiBJIHRoaW5rIHMvcmluZy9jb250ZXh0J3Mg
+cmluZy8gc2hvdWxkIGJlIGVub3VnaCB0byBjbGFyaWZ5IGhlcmUgaWYgeW91IAo+IHRoaW5rIHNv
+IGFzIHdlbGwuCj4KPj4KPj4gRS5nLiBjb21tYW5kcyBmcm9tIGRpZmZlcmVudCBjb250ZXh0IGNh
+biBleGVjdXRlIGF0IHRoZSBzYW1lIHRpbWUgYW5kIAo+PiBvdXQgb2Ygb3JkZXIuCj4+Cj4+IE1h
+a2luZyB0aGlzIHBlciBmaWxlIGlzIG9rIGZvciBub3csIGJ1dCB5b3Ugc2hvdWxkIGtlZXAgaW4g
+bWluZCB0aGF0IAo+PiB3ZSBtaWdodCB3YW50IHRvIGNoYW5nZSB0aGF0IHNvb25lciBvciBsYXRl
+ci4KPj4KPj4gUGF0Y2ggIzE3ICYgIzE4IG5lZWQgdG8gdGFrZSBhIGNsb3NlciBsb29rIHdoZW4g
+SSBoYXZlIG1vcmUgdGltZSwgYnV0IAo+PiB0aGUgY29tbWVudHMgZnJvbSBvdGhlcnMgc291bmRl
+ZCB2YWxpZCB0byBtZSBhcyB3ZWxsLgo+Pgo+PiBQYXRjaCAjMTk6IFJhaXNpbmcgYW5kIGxvd2Vy
+aW5nIHRoZSBwcmlvcml0eSBvZiBhIHJpbmcgZHVyaW5nIGNvbW1hbmQgCj4+IHN1Ym1pc3Npb24g
+ZG9lc24ndCBzb3VuZCBsaWtlIGEgZ29vZCBpZGVhIHRvIG1lLgo+IEknbSBub3QgcmVhbGx5IHN1
+cmUgd2hhdCB3b3VsZCBiZSBhIGJldHRlciB0aW1lIHRoYW4gYXQgY29tbWFuZCAKPiBzdWJtaXNz
+aW9uLgo+Cj4gSWYgaXQgd2FzIGp1c3QgU1BJIHByaW9yaXRpZXMgd2UgY291bGQgaGF2ZSBzdGF0
+aWMgcGFydGl0aW9uaW5nIG9mIAo+IHJpbmdzLCBzb21lIGhpZ2ggcHJpb3JpdHkgYW5kIHNvbWUg
+cmVndWxhciwgZXRjLiBCdXQgdGhhdCBhcHByb2FjaCAKPiByZWR1Y2VzIHRoZSBudW1iZXIgb2Yg
+cmluZ3MKU29ycnksIEkgZmluaXNoZWQgdHlwaW5nIHNvbWV0aGluZyBlbHNlIGFuZCBmb3Jnb3Qg
+dGhpcyBzZWN0aW9uIHdhcyAKaW5jb21wbGV0ZS4gRnVsbCByZXBseToKCkknbSBub3QgcmVhbGx5
+IHN1cmUgd2hhdCB3b3VsZCBiZSBhIGJldHRlciB0aW1lIHRoYW4gYXQgY29tbWFuZCBzdWJtaXNz
+aW9uLgoKSWYgaXQgd2FzIGp1c3QgU1BJIHByaW9yaXRpZXMgd2UgY291bGQgaGF2ZSBzdGF0aWMg
+cGFydGl0aW9uaW5nIG9mIApyaW5ncywgc29tZSBoaWdoIHByaW9yaXR5IGFuZCBzb21lIHJlZ3Vs
+YXIsIGV0Yy4gQnV0IHRoYXQgYXBwcm9hY2ggCnJlZHVjZXMgdGhlIG51bWJlciBvZiByaW5ncyBh
+dmFpbGFibGUuIEl0IHdvdWxkIGFsc28gcmVxdWlyZSBhIGNhbGxiYWNrIAphdCBjb21tYW5kIHN1
+Ym1pc3Npb24gdGltZSBmb3IgQ1UgcmVzZXJ2YXRpb24uCj4+Cj4+IFRoZSB3YXkgeW91IGN1cnJl
+bnRseSBoYXZlIGl0IGltcGxlbWVudGVkIHdvdWxkIGFsc28gcmFpc2UgdGhlIAo+PiBwcmlvcml0
+eSBvZiBhbHJlYWR5IHJ1bm5pbmcgam9icyBvbiB0aGUgc2FtZSByaW5nLiBLZWVwIGluIG1pbmQg
+dGhhdCAKPj4gZXZlcnl0aGluZyBpcyBwaXBlbGluZWQgaGVyZS4KPiBUaGF0IGlzIGFjdHVhbGx5
+IGludGVudGlvbmFsLiBJZiB0aGVyZSBpcyB3b3JrIGFscmVhZHkgb24gdGhlIHJpbmcgCj4gd2l0
+aCBsb3dlciBwcmlvcml0eSB3ZSBkb24ndCB3YW50IHRoZSBoaWdoIHByaW9yaXR5IHdvcmsgdG8g
+aGF2ZSB0byAKPiB3YWl0IGZvciBpdCB0byBmaW5pc2ggZXhlY3V0aW5nIGF0IHJlZ3VsYXIgcHJp
+b3JpdHkuIFRoZXJlZm9yZSB0aGUgCj4gd29yayB0aGF0IGhhcyBhbHJlYWR5IGJlZW4gY29tbWl0
+ZWQgdG8gdGhlIHJpbmcgaW5oZXJpdHMgdGhlIGhpZ2hlciAKPiBwcmlvcml0eSBsZXZlbC4KPgo+
+IEkgYWdyZWUgdGhpcyBpc24ndCBpZGVhbCwgd2hpY2ggaXMgd2h5IHRoZSBMUlUgcmluZyBtYXBw
+aW5nIHBvbGljeSBpcyAKPiB0aGVyZSB0byBtYWtlIHN1cmUgdGhpcyBkb2Vzbid0IGhhcHBlbiBv
+ZnRlbi4KPj4KPj4gQWRkaXRpb25hbCB0byB0aGF0IHlvdSBjYW4ndCBoYXZlIGEgZmVuY2UgY2Fs
+bGJhY2sgaW4gdGhlIGpvYiAKPj4gc3RydWN0dXJlLCBjYXVzZSB0aGUgam9iIHN0cnVjdHVyZSBp
+cyBmcmVlZCBieSB0aGUgc2FtZSBmZW5jZSBhcyAKPj4gd2VsbC4gU28gaXQgY2FuIGhhcHBlbiB0
+aGF0IHlvdSBhY2Nlc3MgZnJlZWQgdXAgbWVtb3J5IChidXQgb25seSBmb3IgCj4+IGEgdmVyeSBz
+aG9ydCBwZXJpb2Qgb2YgdGltZSkuCj4gQW55IHN0cm9uZyBwcmVmZXJlbmNlIGZvciBlaXRoZXIg
+MSkgcmVmY291bnRpbmcgdGhlIGpvYiBzdHJ1Y3R1cmUsIG9yIAo+IDIpIGFsbG9jYXRpbmcgYSBu
+ZXcgcGllY2Ugb2YgbWVtb3J5IHRvIHN0b3JlIHRoZSBjYWxsYmFjayBwYXJhbWV0ZXJzPwo+Cj4+
+IFBhdGNoZXMgIzIwLSMyMiBhcmUgQWNrZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgCj4+IDxjaHJp
+c3RpYW4ua29lbmlnQGFtZC5jb20+Lgo+Pgo+PiBSZWdhcmRzLAo+PiBDaHJpc3RpYW4uCj4+Cj4+
+IEFtIDI4LjAyLjIwMTcgdW0gMjM6MTQgc2NocmllYiBBbmRyZXMgUm9kcmlndWV6Ogo+Pj4gVGhp
+cyBwYXRjaCBzZXJpZXMgaW50cm9kdWNlcyBhIG1lY2hhbmlzbSB0aGF0IGFsbG93cyB1c2VycyB3
+aXRoIAo+Pj4gc3VmZmljaWVudAo+Pj4gcHJpdmlsZWdlcyB0byBjYXRlZ29yaXplIHRoZWlyIHdv
+cmsgYXMgImhpZ2ggcHJpb3JpdHkiLiBBIHVzZXJzcGFjZSAKPj4+IGFwcCBjYW4KPj4+IGNyZWF0
+ZSBhIGhpZ2ggcHJpb3JpdHkgYW1kZ3B1IGNvbnRleHQsIHdoZXJlIGFueSB3b3JrIHN1Ym1pdHRl
+ZCB0byAKPj4+IHRoaXMgY29udGV4dAo+Pj4gd2lsbCByZWNlaXZlIHByZWZlcmVudGlhbCB0cmVh
+dG1lbnQgb3ZlciBhbnkgb3RoZXIgd29yay4KPj4+Cj4+PiBIaWdoIHByaW9yaXR5IGNvbnRleHRz
+IHdpbGwgYmUgc2NoZWR1bGVkIGFoZWFkIG9mIG90aGVyIGNvbnRleHRzIGJ5IAo+Pj4gdGhlIHN3
+IGdwdQo+Pj4gc2NoZWR1bGVyLiBUaGlzIGZ1bmN0aW9uYWxpdHkgaXMgZ2VuZXJpYyBmb3IgYWxs
+IEhXIGJsb2Nrcy4KPj4+Cj4+PiBPcHRpb25hbGx5LCBhIHJpbmcgY2FuIGltcGxlbWVudCBhIHNl
+dF9wcmlvcml0eSgpIGZ1bmN0aW9uIHRoYXQgYWxsb3dzCj4+PiBwcm9ncmFtbWluZyBIVyBzcGVj
+aWZpYyBmZWF0dXJlcyB0byBlbGV2YXRlIGEgcmluZydzIHByaW9yaXR5Lgo+Pj4KPj4+IFRoaXMg
+cGF0Y2ggc2VyaWVzIGltcGxlbWVudHMgc2V0X3ByaW9yaXR5KCkgZm9yIGdmeDggY29tcHV0ZSBy
+aW5ncy4gCj4+PiBJdCB0YWtlcwo+Pj4gYWR2YW50YWdlIG9mIFNQSSBzY2hlZHVsaW5nIGFuZCBD
+VSByZXNlcnZhdGlvbiB0byBwcm92aWRlIGltcHJvdmVkIAo+Pj4gZnJhbWUKPj4+IGxhdGVuY2ll
+cyBmb3IgaGlnaCBwcmlvcml0eSBjb250ZXh0cy4KPj4+Cj4+PiBGb3IgY29tcHV0ZSArIGNvbXB1
+dGUgc2NlbmFyaW9zIHdlIGdldCBuZWFyIHBlcmZlY3Qgc2NoZWR1bGluZyAKPj4+IGxhdGVuY3ku
+IEUuZy4KPj4+IG9uZSBoaWdoIHByaW9yaXR5IENvbXB1dGVQYXJ0aWNsZXMgKyBvbmUgbG93IHBy
+aW9yaXR5IENvbXB1dGVQYXJ0aWNsZXM6Cj4+PiAgICAgIC0gSGlnaCBwcmlvcml0eSBDb21wdXRl
+UGFydGljbGVzOiAyLjAtMi42IG1zL2ZyYW1lCj4+PiAgICAgIC0gUmVndWxhciBDb21wdXRlUGFy
+dGljbGVzOiAzNS4yLTY4LjUgbXMvZnJhbWUKPj4+Cj4+PiBGb3IgY29tcHV0ZSArIGdmeCBzY2Vu
+YXJpb3MgdGhlIGhpZ2ggcHJpb3JpdHkgY29tcHV0ZSBhcHBsaWNhdGlvbiBkb2VzCj4+PiBleHBl
+cmllbmNlIHNvbWUgbGF0ZW5jeSB2YXJpYW5jZS4gSG93ZXZlciwgdGhlIHZhcmlhbmNlIGhhcyBz
+bWFsbGVyIAo+Pj4gYm91bmRzIGFuZAo+Pj4gYSBzbWFsbGVkIGRldmlhdGlvbiB0aGVuIHdpdGhv
+dXQgaGlnaCBwcmlvcml0eSBzY2hlZHVsaW5nLgo+Pj4KPj4+IEZvbGxvd2luZyBpcyBhIGdyYXBo
+IG9mIHRoZSBmcmFtZSB0aW1lIGV4cGVyaWVuY2VkIGJ5IGEgaGlnaCAKPj4+IHByaW9yaXR5IGNv
+bXB1dGUKPj4+IGFwcCBpbiA0IGRpZmZlcmVudCBzY2VuYXJpb3MgdG8gZXhlbXBsaWZ5IHRoZSBj
+b21wdXRlICsgZ2Z4IGxhdGVuY3kgCj4+PiB2YXJpYW5jZToKPj4+ICAgICAgLSBDb21wdXRlUGFy
+dGljbGVzOiB0aGlzIHNjZW5hcmlvIGludmxvdmVzIHJ1bm5pbmcgdGhlIGNvbXB1dGUgCj4+PiBw
+YXJ0aWNsZXMKPj4+ICAgICAgICBzYW1wbGUgb24gaXRzIG93bi4KPj4+ICAgICAgLSArU1NBTzog
+UHJldmlvdXMgc2NlbmFyaW8gd2l0aCB0aGUgYWRkaXRpb24gb2YgcnVubmluZyB0aGUgCj4+PiBz
+c2FvIHNhbXBsZQo+Pj4gICAgICAgIGFwcGxpY2F0aW9uIHRoYXQgY2xvZ3MgdGhlIEdGWCByaW5n
+IHdpdGggY29uc3RhbnQgd29yay4KPj4+ICAgICAgLSArU1BJIFByaW9yaXR5OiBQcmV2aW91cyBz
+Y2VuYXJpbyB3aXRoIHRoZSBhZGRpdGlvbiBvZiBTUEkgCj4+PiBwcmlvcml0eQo+Pj4gICAgICAg
+IHByb2dyYW1taW5nIGZvciBjb21wdXRlIHJpbmdzLgo+Pj4gICAgICAtICtDVSBSZXNlcnZlOiBQ
+cmV2aW91cyBzY2VuYXJpbyB3aXRoIHRoZSBhZGRpdGlvbiBvZiBkeW5hbWljIENVCj4+PiAgICAg
+ICAgcmVzZXJ2YXRpb24gZm9yIGNvbXB1dGUgcmluZ3MuCj4+Pgo+Pj4gR3JhcGggbGluazoKPj4+
+IGh0dHBzOi8vcGxvdC5seS9+bG9zdGdvYXQvOS8KPj4+Cj4+PiBBcyBzZWVuIGFib3ZlLCBoaWdo
+IHByaW9yaXR5IGNvbnRleHRzIGZvciBjb21wdXRlIGFsbG93IHVzIHRvIAo+Pj4gc2NoZWR1bGUg
+d29yawo+Pj4gd2l0aCBlbmhhbmNlZCBjb25maWRlbmNlIG9mIGNvbXBsZXRpb24gbGF0ZW5jeSB1
+bmRlciBoaWdoIEdQVSBsb2Fkcy4gCj4+PiBUaGlzCj4+PiBwcm9wZXJ0eSB3aWxsIGJlIGltcG9y
+dGFudCBmb3IgVlIgcmVwcm9qZWN0aW9uIHdvcmtsb2Fkcy4KPj4+Cj4+PiBOb3RlOiBUaGUgZmly
+c3QgcGFydCBvZiB0aGlzIHNlcmllcyBpcyBhIHJlc2VuZCBvZiAiQ2hhbmdlIAo+Pj4gcXVldWUv
+cGlwZSBzcGxpdAo+Pj4gYmV0d2VlbiBhbWRrZmQgYW5kIGFtZGdwdSIgd2l0aCB0aGUgZm9sbG93
+aW5nIGNoYW5nZXM6Cj4+PiAgICAgIC0gRml4ZWQga2ZkdGVzdCBvbiBLYXZlcmkgZHVlIHRvIHNo
+aWZ0IG92ZXJmbG93LiBSZWZlciB0bzogCj4+PiAiZHJtL2FtZGtmZGFsbG93Cj4+PiAgICAgICAg
+c3BsaXQgSFFEIG9uIHBlci1xdWV1ZSBncmFudWxhcml0eSB2MyIKPj4+ICAgICAgLSBVc2VkIEZl
+bGl4J3Mgc3VnZ2VzdGlvbnMgZm9yIGEgc2ltcGxpZmllZCBIUUQgcHJvZ3JhbW1pbmcgCj4+PiBz
+ZXF1ZW5jZQo+Pj4gICAgICAtIEFkZGVkIGEgd29ya2Fyb3VuZCBmb3IgYSBUb25nYSBIVyBidWcg
+ZHVyaW5nIEhRRCBwcm9ncmFtbWluZwo+Pj4KPj4+IFRoaXMgc2VyaWVzIGlzIGFsc28gYXZhaWxh
+YmxlIGF0Ogo+Pj4gaHR0cHM6Ly9naXRodWIuY29tL2xvc3Rnb2F0L2xpbnV4L3RyZWUvd2lwLWhp
+Z2gtcHJpb3JpdHkKPj4+Cj4+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwo+Pj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4+IGFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCj4+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2FtZC1nZngKPj4KPj4KPgo+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZngK
