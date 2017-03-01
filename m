@@ -1,13 +1,11 @@
 From: Jim Qu <Jim.Qu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 1/2] drm/amd/amdgpu: fix console deadlock if late init failed
-Date: Wed, 1 Mar 2017 17:35:38 +0800
-Message-ID: <1488360939-5030-2-git-send-email-Jim.Qu@amd.com>
-References: <1488360939-5030-1-git-send-email-Jim.Qu@amd.com>
+Subject: [PATCH 0/2]
+Date: Wed, 1 Mar 2017 17:35:37 +0800
+Message-ID: <1488360939-5030-1-git-send-email-Jim.Qu@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1488360939-5030-1-git-send-email-Jim.Qu-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,19 +19,14 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: Jim Qu <Jim.Qu-5C7GfCeVMHo@public.gmane.org>
 
-Q2hhbmdlLUlkOiBJYTkxNGZhYzA4M2ViYWIzOTYxN2RhZDA0NmQ0YmI5OGFiMWRkZjBhOApTaWdu
-ZWQtb2ZmLWJ5OiBKaW0gUXUgPEppbS5RdUBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8IDUgKysrKy0KIDEgZmlsZSBjaGFuZ2VkLCA0IGlu
-c2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfZGV2aWNlLmMKaW5kZXggYzA2NzlkMy4uNmVlZGEyNCAxMDA2NDQKLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwpAQCAtMjE4Niw4ICsyMTg2LDExIEBAIGludCBh
-bWRncHVfZGV2aWNlX3Jlc3VtZShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCBib29sIHJlc3VtZSwg
-Ym9vbCBmYmNvbikKIAl9CiAKIAlyID0gYW1kZ3B1X2xhdGVfaW5pdChhZGV2KTsKLQlpZiAocikK
-KwlpZiAocikgeworCQlpZiAoZmJjb24pCisJCQljb25zb2xlX3VubG9jaygpOwogCQlyZXR1cm4g
-cjsKKwl9CiAKIAkvKiBwaW4gY3Vyc29ycyAqLwogCWxpc3RfZm9yX2VhY2hfZW50cnkoY3J0Yywg
-JmRldi0+bW9kZV9jb25maWcuY3J0Y19saXN0LCBoZWFkKSB7Ci0tIAoxLjkuMQoKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
-c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+SmltIFF1ICgyKToKICBkcm0vYW1kL2FtZGdwdTogZml4IGNvbnNvbGUgZGVhZGxvY2sgaWYgbGF0
+ZSBpbml0IGZhaWxlZAogIGRybS9hbWQvYW1kZ3B1OiBhZGQgYXRvbWljIGhlbHBlciB0byBzdXNw
+ZW5kL3Jlc3VtZSBmdW5jdGlvbnMKCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUu
+aCAgICAgICAgfCAgIDEgKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rldmlj
+ZS5jIHwgMTgyICsrKysrKysrKysrKysrKysrLS0tLS0tLS0tLS0tCiBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfZmIuYyAgICAgfCAgIDcgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9tb2RlLmggICB8ICAgMiArLQogNCBmaWxlcyBjaGFuZ2VkLCAxMTUgaW5z
+ZXJ0aW9ucygrKSwgNzcgZGVsZXRpb25zKC0pCgotLSAKMS45LjEKCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
