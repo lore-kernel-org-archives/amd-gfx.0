@@ -1,18 +1,11 @@
-From: William Lewis <minutemaidpark-PkbjNfxxIARBDgjK7y7TUQ@public.gmane.org>
-Subject: Re: [PATCH 16/21] drm/amdgpu: implement lru amdgpu_queue_mgr policy
- for compute v3
-Date: Fri, 3 Mar 2017 16:38:00 +0000
-Message-ID: <BN6PR17MB0913C00705171B7DF3A390B7C82B0@BN6PR17MB0913.namprd17.prod.outlook.com>
-References: <20170302214448.4146-1-andresx7@gmail.com>
- <20170302214448.4146-17-andresx7@gmail.com>
- <6532497e-050d-42f2-808c-f398c4af2dc6@vodafone.de>
+From: =?UTF-8?q?Christian=20K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: disable HDP flushes on APUs
+Date: Fri,  3 Mar 2017 17:47:16 +0100
+Message-ID: <1488559636-1079-1-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <6532497e-050d-42f2-808c-f398c4af2dc6-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Content-Language: en-US
-Content-ID: <2A69C73111BB234CB8E9ED399BBCF6CB-D2/8MP7PhqWcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,18 +16,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-TWlub3Igc3BlbGxpbmcgbml0cGljay4NCj4+ICAgKy8qKg0KPj4gKyAqIGFtZGdwdV9yaW5nX2xy
-dV9nZXQgLSBnZXQgdGhlIGxlYXN0IHJlY2VudGx5IHVzZWQgcmluZyBmb3IgYSBIVyANCj4+IElQ
-IGJsb2NrDQo+PiArICoNCj4+ICsgKiBAYWRldjogYW1kZ3B1X2RldmljZSBwb2ludGVyDQo+PiAr
-ICogQHR5cGU6IGFtZGdwdV9yaW5nX3R5cGUgZW51bQ0KPj4gKyAqIEByaW5nOiBvdXRwdXQgcmlu
-Zw0KPj4gKyAqDQo+PiArICogUmV0cmVpdmUgdGhlIGFtZGdwdV9yaW5nIHN0cnVjdHVyZSBmb3Ig
-dGhlIGxlYXN0IHJlY2VudGx5IHVzZWQgDQo+PiByaW5nIG9mDQpzL1JldHJlaXZlL1JldHJpZXZl
-Lw0KPj4NCj4+ICsgKiBhIHNwZWNpZmljIElQIGJsb2NrIChhbGwgYXNpY3MpLg0KPj4gKyAqIFJl
-dHVybnMgMCBvbiBzdWNjZXNzLCBlcnJvciBvbiBmYWlsdXJlLg0KPj4gKyAqLw0KPj4gK2ludCBh
-bWRncHVfcmluZ19scnVfZ2V0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBpbnQgdHlwZSwN
-Cj4+ICsgICAgICAgICAgICBzdHJ1Y3QgYW1kZ3B1X3JpbmcgKipyaW5nKQ0KDQpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
-dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+RnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKV2UgY29t
+cGxldGVseSBieXBhc3MgdGhlIEhEUCBub3cuCgpTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2
+bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2liLmMgfCAxMiArKysrKysrKysrLS0KIDEgZmlsZSBjaGFuZ2VkLCAxMCBp
+bnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9pYi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2liLmMKaW5kZXggOTc2NzIyZi4uZmQ3NjMzZCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2liLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2liLmMKQEAgLTE3Miw3ICsxNzIsMTEgQEAgaW50IGFtZGdwdV9pYl9zY2hlZHVs
+ZShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHVuc2lnbmVkIG51bV9pYnMsCiAJCX0KIAl9CiAK
+LQlpZiAocmluZy0+ZnVuY3MtPmVtaXRfaGRwX2ZsdXNoKQorCWlmIChyaW5nLT5mdW5jcy0+ZW1p
+dF9oZHBfZmx1c2gKKyNpZmRlZiBDT05GSUdfWDg2XzY0CisJICAgICYmICEoYWRldi0+ZmxhZ3Mg
+JiBBTURfSVNfQVBVKQorI2VuZGlmCisJICAgKQogCQlhbWRncHVfcmluZ19lbWl0X2hkcF9mbHVz
+aChyaW5nKTsKIAogCXNraXBfcHJlYW1ibGUgPSByaW5nLT5jdXJyZW50X2N0eCA9PSBmZW5jZV9j
+dHg7CkBAIC0yMDIsNyArMjA2LDExIEBAIGludCBhbWRncHVfaWJfc2NoZWR1bGUoc3RydWN0IGFt
+ZGdwdV9yaW5nICpyaW5nLCB1bnNpZ25lZCBudW1faWJzLAogCQluZWVkX2N0eF9zd2l0Y2ggPSBm
+YWxzZTsKIAl9CiAKLQlpZiAocmluZy0+ZnVuY3MtPmVtaXRfaGRwX2ludmFsaWRhdGUpCisJaWYg
+KHJpbmctPmZ1bmNzLT5lbWl0X2hkcF9pbnZhbGlkYXRlCisjaWZkZWYgQ09ORklHX1g4Nl82NAor
+CSAgICAmJiAhKGFkZXYtPmZsYWdzICYgQU1EX0lTX0FQVSkKKyNlbmRpZgorCSAgICkKIAkJYW1k
+Z3B1X3JpbmdfZW1pdF9oZHBfaW52YWxpZGF0ZShyaW5nKTsKIAogCXIgPSBhbWRncHVfZmVuY2Vf
+ZW1pdChyaW5nLCBmKTsKLS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZngK
