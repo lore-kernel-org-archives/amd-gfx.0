@@ -1,83 +1,104 @@
-From: Lukas Wunner <lukas-JFq808J9C/izQB+pC5nmwQ@public.gmane.org>
-Subject: Re: [PATCH 1/5] PCI: Recognize Thunderbolt devices
-Date: Sat, 4 Mar 2017 12:14:46 +0100
-Message-ID: <20170304111446.GB3143@wunner.de>
-References: <cover.1487938188.git.lukas@wunner.de>
- <c42a235e126f273e9b8712a7154f813f757db507.1487938188.git.lukas@wunner.de>
- <20170224221724.GA26430@bhelgaas-glaptop.roam.corp.google.com>
+From: Jochen Rollwagen <joro-2013-zqRNUXuvxA0b1SvskN2V4Q@public.gmane.org>
+Subject: [PATCH xf86-video-ati] Fix build for XServer 1.13
+Date: Sun, 5 Mar 2017 11:38:47 +0100
+Message-ID: <58BBEAB7.60606@t-online.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <20170224221724.GA26430-1RhO1Y9PlrlHTL0Zs8A6p5iNqAH0jzoTYJqu5kTmcBRl57MIdRCFDg@public.gmane.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/nouveau>
-List-Post: <mailto:nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "Nouveau" <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Bjorn Helgaas <helgaas-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Michael Jamet <michael.jamet-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, linux-pci-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, platform-driver-x86-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Amir Levy <amir.jer.levy-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Bjorn Helgaas <bhelgaas-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>, Darren Hart <dvhart-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>, Mika Westerberg <mika.westerberg-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, Christian Koenig <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Andy Shevchenko <andy-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="------------020907070908080208080007"
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gRnJpLCBGZWIgMjQsIDIwMTcgYXQgMDQ6MTc6MjRQTSAtMDYwMCwgQmpvcm4gSGVsZ2FhcyB3
-cm90ZToKPiBPbiBGcmksIEZlYiAyNCwgMjAxNyBhdCAwODoxOTo0NVBNICswMTAwLCBMdWthcyBX
-dW5uZXIgd3JvdGU6Cj4gPiBEZXRlY3Qgb24gcHJvYmUgd2hldGhlciBhIFBDSSBkZXZpY2UgaXMg
-cGFydCBvZiBhIFRodW5kZXJib2x0IGNvbnRyb2xsZXIuClsuLi5dCj4gPiAqIElmIGFuIGV4dGVy
-bmFsIFRodW5kZXJib2x0IEdQVSBpcyBjb25uZWN0ZWQgdG8gYSBkdWFsIEdQVSBsYXB0b3AgKE1h
-Ywo+ID4gICBvciBub3QpLCB0aGF0IEdQVSBpcyBjdXJyZW50bHkgcmVnaXN0ZXJlZCB3aXRoIHZn
-YV9zd2l0Y2hlcm9vIGV2ZW4KPiA+ICAgdGhvdWdoIGl0IGNhbiBuZWl0aGVyIGRyaXZlIHRoZSBs
-YXB0b3AncyBwYW5lbCBub3IgYmUgcG93ZXJlZCBvZmYgYnkKPiA+ICAgdGhlIHBsYXRmb3JtLiAg
-VG8gdmdhX3N3aXRjaGVyb28gaXQgd2lsbCBhcHBlYXIgYXMgaWYgdHdvIGRpc2NyZXRlCj4gPiAg
-IEdQVXMgYXJlIHByZXNlbnQuICBBcyBhIHJlc3VsdCwgd2hlbiB0aGUgZXh0ZXJuYWwgR1BVIGlz
-IHJ1bnRpbWUKPiA+ICAgc3VzcGVuZGVkLCB2Z2Ffc3dpdGNoZXJvbyB3aWxsIGN1dCBwb3dlciB0
-byB0aGUgaW50ZXJuYWwgZGlzY3JldGUgR1BVCj4gPiAgIHdoaWNoIG1heSBub3QgYmUgcnVudGlt
-ZSBzdXNwZW5kZWQgYXQgYWxsIGF0IHRoaXMgbW9tZW50LiAgVGhlCj4gPiAgIHNvbHV0aW9uIGlz
-IHRvIG5vdCByZWdpc3RlciBleHRlcm5hbCBHUFVzIHdpdGggdmdhX3N3aXRjaGVyb28sIHdoaWNo
-Cj4gPiAgIG5lY2Vzc2l0YXRlcyBhIHdheSB0byByZWNvZ25pemUgaWYgdGhleSdyZSBvbiBhIFRo
-dW5kZXJib2x0IGRhaXN5Cj4gPiAgIGNoYWluLgo+IAo+IElmIEkgdW5kZXJzdGFuZCBjb3JyZWN0
-bHksIHZnYV9zd2l0Y2hlcm9vIG1hbmFnZXMgdHdvIEdQVXMgdGhhdCBoYXZlIGEKPiBzaW5nbGUg
-b3V0cHV0OiBlaXRoZXIgdGhlcmUncyBhIG11eCB0aGF0IGNvbm5lY3RzIG9uZSBHUFUgb3IgdGhl
-IG90aGVyCj4gdG8gdGhlIG91dHB1dCwgb3Igb25lIEdQVSBpcyBwZXJtYW5lbnRseSBjb25uZWN0
-ZWQgdG8gdGhlIG91dHB1dCBhbmQKPiB0aGUgb3RoZXIgZG9lcyBvZmZsaW5lIHJlbmRlcmluZy4K
-ClRoZXJlIGFyZSB0d28gYXNwZWN0cyB0byBoeWJyaWQgZ3JhcGhpY3MsIHN3aXRjaGluZyB0aGUg
-cGFuZWwgYmV0d2VlbgpHUFVzIGFuZCBwb3dlcmluZyBvZmYgdGhlIGRpc2NyZXRlIEdQVS4gIChT
-b21lIGxhcHRvcHMgY2FuIGFsc28gc3dpdGNoCmV4dGVybmFsIERQIHBvcnRzIGJldHdlZW4gR1BV
-cyBhbmQgc29tZSwgYXMgeW91IHNheSwgY2Fubm90IHN3aXRjaCB0aGUKcGFuZWwgYW5kIG9ubHkg
-dXNlIHRoZSBkaXNjcmV0ZSBHUFUgZm9yIHJlbmRlciBvZmZsb2FkaW5nLikKCgo+IFRvIHRoaXMg
-bm9uLUdQVSBwZXJzb24sIGl0IHNvdW5kcyBsaWtlIHRoZSBpbXBvcnRhbnQgcXVlc3Rpb24gaXMK
-PiB3aGV0aGVyIHR3byBHUFVzIGFyZSByZWxhdGVkIGluIHRoaXMgd2F5IChlaXRoZXIgdGhleSBm
-ZWVkIHRoZSBzYW1lCj4gbXV4LCBvciB0aGVyZSdzIHNvbWUgc3BlY2lhbCBvZmZsaW5lIHJlbmRl
-cmluZyBjb25uZWN0aW9uIGJldHdlZW4KPiB0aGVtKS4gIFRoYXQgc291bmRzIHVucmVsYXRlZCB0
-byB0aGUgcXVlc3Rpb24gb2YgaG93IHRoZSBHUFVzCj4gdGhlbXNlbHZlcyBhcmUgY29ubmVjdGVk
-IHRvIHRoZSBQQ0kgaGllcmFyY2h5LgoKVG8gdGhlIGJlc3Qgb2YgbXkga25vd2xlZGdlIHRoZXJl
-J3Mgbm8gZGVmaW5pdGUgd2F5IHRvIGRldGVybWluZSB3aGV0aGVyCnR3byBHUFVzIGFyZSBjb25u
-ZWN0ZWQgdG8gdGhlIHNhbWUgcGFuZWwgdmlhIGEgbXV4LgoKVGhlcmUgaXMgYWxzbyBubyBzdWNo
-IHRoaW5nIGFzIGEgc3BlY2lhbCByZW5kZXIgb2ZmbG9hZGluZyBjb25uZWN0aW9uOgpGcmFtZXMg
-YXJlIGNvbXB1dGVkIG9uIGEgZGlzY3JldGUgR1BVLCB0aGVuIGNvcGllZCBvdmVyIFBDSWUgaW50
-byB0aGUKZnJhbWVidWZmZXIgb2YgdGhlIGludGVncmF0ZWQgR1BVLiAgV2hldGhlciB0aGF0IGRp
-c2NyZXRlIEdQVSBpcwpvbi1ib2FyZCBvciBleHRlcm5hbGx5IGNvbm5lY3RlZCBpcyBjb21wbGV0
-ZWx5IHRyYW5zcGFyZW50IGFuZCBub3QKZGlzY2VybmlibGUgb3RoZXIgdGhhbiBieSBsb29raW5n
-IGF0IHRoZSBQQ0kgaGllcmFyY2h5LgoKVGhlIHNhbWUgaXNzdWUgZXhpc3RzIGZvciBIRCBBdWRp
-byBjb250cm9sbGVycyBpbnRlZ3JhdGVkIGludG8gbWFueQpkaXNjcmV0ZSBHUFVzOiAgVG8gdGhl
-IE9TIHRoZXNlIGxvb2sgbGlrZSBzZXBhcmF0ZSBQQ0kgZnVuY3Rpb25zCmFuZCBpbiBzb3VuZC9w
-Y2kvaGRhL2hkYV9pbnRlbC5jOmdldF9ib3VuZF92Z2EoKSB3ZSBsZXZlcmFnZSB0aGUgZmFjdAp0
-aGF0IHRoZSBHUFUgaXMgYWx3YXlzIGZ1bmN0aW9uIDAgYW5kIHRoZSBIRCBBdWRpbyBpcyBmdW5j
-dGlvbiAxIHRvCmRpc2NvdmVyIHRoZSBHUFUgY29ycmVzcG9uZGluZyB0byBhIHBhcnRpY3VsYXIg
-SEQgQXVkaW8gY29udHJvbGxlci4KU28gYWdhaW4gdGhhdCByZWxhdGlvbnNoaXAgaXMgZGVkdWNl
-ZCBmcm9tIHRoZSBQQ0kgaGllcmFyY2h5LgoKCj4gRnJvbSBhIHB1cmUgUENJIHBlcnNwZWN0aXZl
-LCBJIGFzc3VtZSBpdCB3b3VsZCBiZSBjb25jZWl2YWJsZSB0byBoYXZlCj4gdHdvIFRodW5kZXJi
-b2x0LWNvbm5lY3RlZCBHUFVzIGZlZWRpbmcgaW50byBhIG11eC4gIE9yIHRvIGhhdmUgYSBHUFUK
-PiAodW5yZWxhdGVkIHRvIHRoZSBtdXgpIGluIGEgbm9uLVRodW5kZXJib2x0IHBsdWdpbiBzbG90
-IG9yIGNvbm5lY3RlZAo+IGV4dGVybmFsbHkgdmlhIGEgbm9uLVRodW5kZXJib2x0IHN3aXRjaCBh
-bmQgYW4gaVBhc3MgY2FibGUuCgpUZWNobmljYWxseSBzdWNoIHByb2R1Y3RzIHdvdWxkIGJlIHBv
-c3NpYmxlLCBidXQgSSBiZWxpZXZlIHRoZXkgZG9uJ3QKZXhpc3QuICAoVW5saWtlIFRodW5kZXJi
-b2x0IGVHUFVzLCB3aGljaCBoYXZlIGJlZW4gb24gdGhlIG1hcmtldCBmb3IKYSBmZXcgeWVhcnMu
-KQoKVGhhbmtzLAoKTHVrYXMKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KTm91dmVhdSBtYWlsaW5nIGxpc3QKTm91dmVhdUBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9ub3V2ZWF1
-Cg==
+This is a multi-part message in MIME format.
+--------------020907070908080208080007
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Latest git build stops with the error message
+
+radeon_kms.c: In function 'RADEONWindowExposures_oneshot':
+radeon_kms.c:1644:45: error: expected expression before 'RegionPtr'
+      pScreen->WindowExposures(pWin, pRegion, RegionPtr pBSRegion);
+
+This patch fixes the build.
+---
+  src/radeon_kms.c |    2 +-
+  1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/radeon_kms.c b/src/radeon_kms.c
+index 572dfcc..7a561fa 100644
+--- a/src/radeon_kms.c
++++ b/src/radeon_kms.c
+@@ -1641,7 +1641,7 @@ static void 
+RADEONWindowExposures_oneshot(WindowPtr pWin, RegionPtr pRegion
+
+      pScreen->WindowExposures = info->WindowExposures;
+  #if XORG_VERSION_CURRENT < XORG_VERSION_NUMERIC(1,16,99,901,0)
+-    pScreen->WindowExposures(pWin, pRegion, RegionPtr pBSRegion);
++    pScreen->WindowExposures(pWin, pRegion, pBSRegion);
+  #else
+      pScreen->WindowExposures(pWin, pRegion);
+  #endif
+-- 
+1.7.9.5
+
+
+--------------020907070908080208080007
+Content-Type: text/x-patch;
+ name="0001-Fix-build-for-XServer-1.13.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename="0001-Fix-build-for-XServer-1.13.patch"
+
+>From 8246f1af42cd174501c95c0ba5c00908ace41de9 Mon Sep 17 00:00:00 2001
+From: Jochen Rollwagen <joro-2013-zqRNUXuvxA0b1SvskN2V4Q@public.gmane.org>
+Date: Sun, 5 Mar 2017 11:32:38 +0100
+Subject: [PATCH xf86-video-ati] Fix build for XServer 1.13
+
+Latest git build stops with the error message
+
+radeon_kms.c: In function 'RADEONWindowExposures_oneshot':
+radeon_kms.c:1644:45: error: expected expression before 'RegionPtr'
+     pScreen->WindowExposures(pWin, pRegion, RegionPtr pBSRegion);
+
+This patch fixes the build.
+---
+ src/radeon_kms.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/radeon_kms.c b/src/radeon_kms.c
+index 572dfcc..7a561fa 100644
+--- a/src/radeon_kms.c
++++ b/src/radeon_kms.c
+@@ -1641,7 +1641,7 @@ static void RADEONWindowExposures_oneshot(WindowPtr pWin, RegionPtr pRegion
+ 
+     pScreen->WindowExposures = info->WindowExposures;
+ #if XORG_VERSION_CURRENT < XORG_VERSION_NUMERIC(1,16,99,901,0)
+-    pScreen->WindowExposures(pWin, pRegion, RegionPtr pBSRegion);
++    pScreen->WindowExposures(pWin, pRegion, pBSRegion);
+ #else
+     pScreen->WindowExposures(pWin, pRegion);
+ #endif
+-- 
+1.7.9.5
+
+
+--------------020907070908080208080007
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--------------020907070908080208080007--
