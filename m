@@ -1,12 +1,13 @@
-From: David Binderman <dcb314-PkbjNfxxIARBDgjK7y7TUQ@public.gmane.org>
-Subject: linux-4.11-rc1/drivers/gpu/drm/amd/amdgpu/vi.c: 3 bugs
-Date: Mon, 6 Mar 2017 09:40:24 +0000
-Message-ID: <DB5PR08MB096711F1A243B7E14ADFB1349C2C0@DB5PR08MB0967.eurprd08.prod.outlook.com>
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: fix coding style and printing in
+ amdgpu_doorbell_init
+Date: Tue, 7 Mar 2017 01:28:25 +1100
+Message-ID: <1d07e4d7-9e91-f574-8fa0-8c47045907e7@folklore1984.net>
+References: <1488808441-25756-1-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0479500835=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-GB
+In-Reply-To: <1488808441-25756-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,20 +18,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "alexander.deucher-5C7GfCeVMHo@public.gmane.org" <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, "christian.koenig-5C7GfCeVMHo@public.gmane.org" <christian.koenig-5C7GfCeVMHo@public.gmane.org>, "airlied-cv59FeDIM0c@public.gmane.org" <airlied-cv59FeDIM0c@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-CkhlbGxvIHRoZXJlLAoxCgpbbGludXgtNC4xMS1yYzEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvdmkuYzoxMDQxXSAtPiBbbGludXgtNC4xMS1yYzEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvdmkuYzoxMDM3XTogKHN0eWxlKSBTYW1lIGV4cHJlc3Npb24gb24gYm90aCBzaWRlcyBvZiAn
-fCcuCgpNYXliZSB0aGUgbWFjcm8gQU1EX0NHX1NVUFBPUlRfR0ZYX01HTFMgaXMgdXNlZCB0d2lj
-ZSA/CgoyLgoKW2xpbnV4LTQuMTEtcmMxL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZpLmM6
-MTA3MF0gLT4gW2xpbnV4LTQuMTEtcmMxL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZpLmM6
-MTA2Nl06IChzdHlsZSkgU2FtZSBleHByZXNzaW9uIG9uIGJvdGggc2lkZXMgb2YgJ3wnLgoKRHVw
-bGljYXRlLgoKSW4gdGhlIHNhbWUgZmlsZToKCmxpbnV4LTQuMTEtcmMxL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L3ZpLmM6NzkyXTogKHN0eWxlKSBWYXJpYWJsZSAncicgaXMgYXNzaWduZWQg
-YSB2YWx1ZSB0aGF0IGlzIG5ldmVyIHVzZWQuCgpTb3VyY2UgY29kZSBpcwoKICAgIHIgPSB2aV9z
-ZXRfdXZkX2Nsb2NrKGFkZXYsIGRjbGssIGl4Q0dfRENMS19DTlRMLCBpeENHX0RDTEtfU1RBVFVT
-KTsKCiAgICByZXR1cm4gMDsKClJlZ2FyZHMKCkRhdmlkIEJpbmRlcm1hbgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0479500835==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="lV4f0L3wmhPkVAxDuiviVc6SLpQ7kmPW6"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--lV4f0L3wmhPkVAxDuiviVc6SLpQ7kmPW6
+Content-Type: multipart/mixed; boundary="icji8AMwrS6LhSFl3kO0B0RIKdwe0lDeI";
+ protected-headers="v1"
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>,
+ amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Message-ID: <1d07e4d7-9e91-f574-8fa0-8c47045907e7-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: fix coding style and printing in
+ amdgpu_doorbell_init
+References: <1488808441-25756-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <1488808441-25756-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+
+--icji8AMwrS6LhSFl3kO0B0RIKdwe0lDeI
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+
+On 03/07/2017 12:54 AM, Christian K=C3=B6nig wrote:
+> From: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+>=20
+> Based on commit "drm/radeon: remove useless and potentially wrong messa=
+ge".
+>=20
+> The size of the info printing is incorrect and the PCI subsystems print=
+s
+> the same info on boot anyway.
+>=20
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 9 ++++-----
+>  1 file changed, 4 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_device.c
+> index bf31aaf..fd03072 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -381,12 +381,11 @@ static int amdgpu_doorbell_init(struct amdgpu_dev=
+ice *adev)
+>  	if (adev->doorbell.num_doorbells =3D=3D 0)
+>  		return -EINVAL;
+> =20
+> -	adev->doorbell.ptr =3D ioremap(adev->doorbell.base, adev->doorbell.nu=
+m_doorbells * sizeof(u32));
+> -	if (adev->doorbell.ptr =3D=3D NULL) {
+> +	adev->doorbell.ptr =3D ioremap(adev->doorbell.base,
+> +				     adev->doorbell.num_doorbells *
+> +				     sizeof(u32));
+> +	if (adev->doorbell.ptr =3D=3D NULL)
+>  		return -ENOMEM;
+> -	}
+> -	DRM_INFO("doorbell mmio base: 0x%08X\n", (uint32_t)adev->doorbell.bas=
+e);
+> -	DRM_INFO("doorbell mmio size: %u\n", (unsigned)adev->doorbell.size);
+> =20
+>  	return 0;
+>  }
+>=20
+
+
+--icji8AMwrS6LhSFl3kO0B0RIKdwe0lDeI--
+
+--lV4f0L3wmhPkVAxDuiviVc6SLpQ7kmPW6
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJYvXINAAoJEP4bvbfZuWjbIJEP/16ypX34wG5QgQfBytB142q+
+HzUpGEWHCQqkDoDrG13au9/DgaVt6BjlHiPWzyCZFVuSXWKV2M2pXt/bh1wcsrEL
+cxCsAAAqJXAYU7R8jBWlL2ncz8rKrpKL2q2lMhAWlDaoqad47P+40LlvUCCRwaZt
+RGevMpKJUvn1I1PSpUGDMEU2RVAWlHWmtZW0KG2e/i16Fnzon38xf/Per4XI2nWR
+8Qlc59psB1433BJ8nvOpdby+uBNS85RL24giEpfaSL4kd1kvg5Ff89JXPHmsgwlo
+2RE0gHFuP/wJnSa2T5a7bxZgz7uKx8aa3zOlVx2aH3mqHDW3i0dfrrRijJr3l78D
+9Ekx9Aacb3c8BfqLp/H95hZ4/GEygF3XzmHsZenbunq2CWdp7KpWU+z2BZwI0Ec9
+7VUA/dA1IBUHzxLB22juROYUqPwzi8nQGQrenmG4+KTZBIThAbPCot/19Wxv3RyT
+1SyVS1qEmGpG4bO5KInBrByXXOtGiZ9AjSLABsDfhdG6MKhCtQ+EXGFvsyFiiM2u
+9YgWXCPb1D3hwVc9ba9k+RpNs0DTo/9klelJTWO/N+SReyNcGT18grBcaXsvCKOh
+ryUxuweTMoOr7oIVD91B3ztxMUFOLgaXQVql8yEBTthjBL4uSFskqsF/4PnprjsC
+eL2eyIM0YXtA6FQVAyjq
+=5eTA
+-----END PGP SIGNATURE-----
+
+--lV4f0L3wmhPkVAxDuiviVc6SLpQ7kmPW6--
+
+--===============0479500835==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0479500835==--
