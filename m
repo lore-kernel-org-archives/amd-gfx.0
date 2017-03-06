@@ -1,87 +1,46 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple@vodafone.de>
-Subject: Re: [PATCH 5/5] drm/amdgpu: resize VRAM BAR for CPU access
-Date: Mon, 6 Mar 2017 13:34:08 +0100
-Message-ID: <2fe5b055-5e8f-a7f5-a492-f65c80221190@vodafone.de>
-References: <1488800428-2854-1-git-send-email-deathsimple@vodafone.de>
- <1488800428-2854-5-git-send-email-deathsimple@vodafone.de>
- <CAHp75Ve8WyfNjrRq2jw_puqBUOAfWMBgVFdo--tdvQ4ta5tjzQ@mail.gmail.com>
+From: =?UTF-8?q?Christian=20K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: fix coding style and printing in
+ amdgpu_doorbell_init
+Date: Mon,  6 Mar 2017 14:54:01 +0100
+Message-ID: <1488808441-25756-1-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Return-path: <platform-driver-x86-owner@vger.kernel.org>
-In-Reply-To: <CAHp75Ve8WyfNjrRq2jw_puqBUOAfWMBgVFdo--tdvQ4ta5tjzQ@mail.gmail.com>
-Sender: platform-driver-x86-owner@vger.kernel.org
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, dri-devel@lists.freedesktop.org, Platform Driver <platform-driver-x86@vger.kernel.org>, amd-gfx@lists.freedesktop.org, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-Am 06.03.2017 um 13:06 schrieb Andy Shevchenko:
-> On Mon, Mar 6, 2017 at 1:40 PM, Christian König <deathsimple@vodafone.de> wrote:
->> From: Christian König <christian.koenig@amd.com>
->>
->> Try to resize BAR0 to let CPU access all of VRAM.
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> @@ -616,6 +616,35 @@ void amdgpu_gtt_location(struct amdgpu_device *adev, struct amdgpu_mc *mc)
->> +void amdgpu_resize_bar0(struct amdgpu_device *adev)
->> +{
->> +       u32 size = max(ilog2(adev->mc.real_vram_size - 1) + 1, 20) - 20;
-> Too complicated.
->
-> unsigned long = fls_long(real_vram_size | BIT(20));
-
-That would round down, not up. We got boards with 6GB VRAM as well and 
-then need a 8GB BAR.
-
-And the vram size won't fit into a long on 32bit systems. What I really 
-need is order_base_2 for 64bit values.
-
-But wait a second, thinking more about it we could do 
-"order_base_2((real_vram_size >> 20) | 1)".
-
-> And the result is not a size, right? It's a logarithm from size.
-
-Yeah, and subtracted by 20. Thought about a better wording as well, but 
-couldn't come up with something.
-
-"size" is just what the spec uses. How about rbar_size to note that it 
-is size as the meaning in the RBAR specification?
-
->
->> +       int r;
->> +
->> +       r = pci_resize_resource(adev->pdev, 0, size);
->> +
-> Redundant line.
->
->> +       if (r == -ENOTSUPP) {
->> +               /* The hardware don't support the extension. */
->> +               return;
->> +
->> +       } else if (r == -ENOSPC) {
->> +               DRM_INFO("Not enoigh PCI address space for a large BAR.");
->> +       } else if (r) {
->> +               DRM_ERROR("Problem resizing BAR0 (%d).", r);
->> +       }
->> +
->> +       /* Reinit the doorbell mapping, it is most likely moved as well */
->> +       amdgpu_doorbell_fini(adev);
->> +       BUG_ON(amdgpu_doorbell_init(adev));
-> No way to recover?!
-
-Nope, I actually thought about calling panic() here instead.
-
-If we hit this we have messed things so badly up that we can't access 
-the hardware any more, so no way to tell it to shut down or something 
-like this.
-
-Well, I could completely rewrite the call chain to signal modprobe that 
-loading the driver didn't worked at all. But that comes pretty near to 
-calling BUG_ON() as well.
-
-Thanks for the comments,
-Christian.
-
->
->> +}
->> +
+RnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKQmFzZWQg
+b24gY29tbWl0ICJkcm0vcmFkZW9uOiByZW1vdmUgdXNlbGVzcyBhbmQgcG90ZW50aWFsbHkgd3Jv
+bmcgbWVzc2FnZSIuCgpUaGUgc2l6ZSBvZiB0aGUgaW5mbyBwcmludGluZyBpcyBpbmNvcnJlY3Qg
+YW5kIHRoZSBQQ0kgc3Vic3lzdGVtcyBwcmludHMKdGhlIHNhbWUgaW5mbyBvbiBib290IGFueXdh
+eS4KClNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1k
+LmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCA5
+ICsrKystLS0tLQogMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMo
+LSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNl
+LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKaW5kZXggYmYz
+MWFhZi4uZmQwMzA3MiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2RldmljZS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZp
+Y2UuYwpAQCAtMzgxLDEyICszODEsMTEgQEAgc3RhdGljIGludCBhbWRncHVfZG9vcmJlbGxfaW5p
+dChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAlpZiAoYWRldi0+ZG9vcmJlbGwubnVtX2Rv
+b3JiZWxscyA9PSAwKQogCQlyZXR1cm4gLUVJTlZBTDsKIAotCWFkZXYtPmRvb3JiZWxsLnB0ciA9
+IGlvcmVtYXAoYWRldi0+ZG9vcmJlbGwuYmFzZSwgYWRldi0+ZG9vcmJlbGwubnVtX2Rvb3JiZWxs
+cyAqIHNpemVvZih1MzIpKTsKLQlpZiAoYWRldi0+ZG9vcmJlbGwucHRyID09IE5VTEwpIHsKKwlh
+ZGV2LT5kb29yYmVsbC5wdHIgPSBpb3JlbWFwKGFkZXYtPmRvb3JiZWxsLmJhc2UsCisJCQkJICAg
+ICBhZGV2LT5kb29yYmVsbC5udW1fZG9vcmJlbGxzICoKKwkJCQkgICAgIHNpemVvZih1MzIpKTsK
+KwlpZiAoYWRldi0+ZG9vcmJlbGwucHRyID09IE5VTEwpCiAJCXJldHVybiAtRU5PTUVNOwotCX0K
+LQlEUk1fSU5GTygiZG9vcmJlbGwgbW1pbyBiYXNlOiAweCUwOFhcbiIsICh1aW50MzJfdClhZGV2
+LT5kb29yYmVsbC5iYXNlKTsKLQlEUk1fSU5GTygiZG9vcmJlbGwgbW1pbyBzaXplOiAldVxuIiwg
+KHVuc2lnbmVkKWFkZXYtPmRvb3JiZWxsLnNpemUpOwogCiAJcmV0dXJuIDA7CiB9Ci0tIAoyLjcu
+NAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
