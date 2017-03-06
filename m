@@ -1,10 +1,13 @@
-From: Jochen Rollwagen <joro-2013-zqRNUXuvxA0b1SvskN2V4Q@public.gmane.org>
-Subject: [PATCH xf86-video-ati] Fix build for XServer 1.13
-Date: Sun, 5 Mar 2017 11:38:47 +0100
-Message-ID: <58BBEAB7.60606@t-online.de>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: [PATCH xf86-video-ati] Fix build for XServer 1.13
+Date: Mon, 6 Mar 2017 10:38:40 +0900
+Message-ID: <43317584-b22a-2460-6bb3-1b19ab510355@daenzer.net>
+References: <58BBEAB7.60606@t-online.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="------------020907070908080208080007"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <58BBEAB7.60606-zqRNUXuvxA0b1SvskN2V4Q@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -15,90 +18,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Jochen Rollwagen <joro-2013-zqRNUXuvxA0b1SvskN2V4Q@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This is a multi-part message in MIME format.
---------------020907070908080208080007
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-Latest git build stops with the error message
-
-radeon_kms.c: In function 'RADEONWindowExposures_oneshot':
-radeon_kms.c:1644:45: error: expected expression before 'RegionPtr'
-      pScreen->WindowExposures(pWin, pRegion, RegionPtr pBSRegion);
-
-This patch fixes the build.
----
-  src/radeon_kms.c |    2 +-
-  1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/src/radeon_kms.c b/src/radeon_kms.c
-index 572dfcc..7a561fa 100644
---- a/src/radeon_kms.c
-+++ b/src/radeon_kms.c
-@@ -1641,7 +1641,7 @@ static void 
-RADEONWindowExposures_oneshot(WindowPtr pWin, RegionPtr pRegion
-
-      pScreen->WindowExposures = info->WindowExposures;
-  #if XORG_VERSION_CURRENT < XORG_VERSION_NUMERIC(1,16,99,901,0)
--    pScreen->WindowExposures(pWin, pRegion, RegionPtr pBSRegion);
-+    pScreen->WindowExposures(pWin, pRegion, pBSRegion);
-  #else
-      pScreen->WindowExposures(pWin, pRegion);
-  #endif
--- 
-1.7.9.5
-
-
---------------020907070908080208080007
-Content-Type: text/x-patch;
- name="0001-Fix-build-for-XServer-1.13.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
- filename="0001-Fix-build-for-XServer-1.13.patch"
-
->From 8246f1af42cd174501c95c0ba5c00908ace41de9 Mon Sep 17 00:00:00 2001
-From: Jochen Rollwagen <joro-2013-zqRNUXuvxA0b1SvskN2V4Q@public.gmane.org>
-Date: Sun, 5 Mar 2017 11:32:38 +0100
-Subject: [PATCH xf86-video-ati] Fix build for XServer 1.13
-
-Latest git build stops with the error message
-
-radeon_kms.c: In function 'RADEONWindowExposures_oneshot':
-radeon_kms.c:1644:45: error: expected expression before 'RegionPtr'
-     pScreen->WindowExposures(pWin, pRegion, RegionPtr pBSRegion);
-
-This patch fixes the build.
----
- src/radeon_kms.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/src/radeon_kms.c b/src/radeon_kms.c
-index 572dfcc..7a561fa 100644
---- a/src/radeon_kms.c
-+++ b/src/radeon_kms.c
-@@ -1641,7 +1641,7 @@ static void RADEONWindowExposures_oneshot(WindowPtr pWin, RegionPtr pRegion
- 
-     pScreen->WindowExposures = info->WindowExposures;
- #if XORG_VERSION_CURRENT < XORG_VERSION_NUMERIC(1,16,99,901,0)
--    pScreen->WindowExposures(pWin, pRegion, RegionPtr pBSRegion);
-+    pScreen->WindowExposures(pWin, pRegion, pBSRegion);
- #else
-     pScreen->WindowExposures(pWin, pRegion);
- #endif
--- 
-1.7.9.5
-
-
---------------020907070908080208080007
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---------------020907070908080208080007--
+T24gMDUvMDMvMTcgMDc6MzggUE0sIEpvY2hlbiBSb2xsd2FnZW4gd3JvdGU6Cj4gTGF0ZXN0IGdp
+dCBidWlsZCBzdG9wcyB3aXRoIHRoZSBlcnJvciBtZXNzYWdlCj4gCj4gcmFkZW9uX2ttcy5jOiBJ
+biBmdW5jdGlvbiAnUkFERU9OV2luZG93RXhwb3N1cmVzX29uZXNob3QnOgo+IHJhZGVvbl9rbXMu
+YzoxNjQ0OjQ1OiBlcnJvcjogZXhwZWN0ZWQgZXhwcmVzc2lvbiBiZWZvcmUgJ1JlZ2lvblB0cicK
+PiAgICAgIHBTY3JlZW4tPldpbmRvd0V4cG9zdXJlcyhwV2luLCBwUmVnaW9uLCBSZWdpb25QdHIg
+cEJTUmVnaW9uKTsKPiAKPiBUaGlzIHBhdGNoIGZpeGVzIHRoZSBidWlsZC4KPiAtLS0KPiAgc3Jj
+L3JhZGVvbl9rbXMuYyB8ICAgIDIgKy0KPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCsp
+LCAxIGRlbGV0aW9uKC0pCj4gCj4gZGlmZiAtLWdpdCBhL3NyYy9yYWRlb25fa21zLmMgYi9zcmMv
+cmFkZW9uX2ttcy5jCj4gaW5kZXggNTcyZGZjYy4uN2E1NjFmYSAxMDA2NDQKPiAtLS0gYS9zcmMv
+cmFkZW9uX2ttcy5jCj4gKysrIGIvc3JjL3JhZGVvbl9rbXMuYwo+IEBAIC0xNjQxLDcgKzE2NDEs
+NyBAQCBzdGF0aWMgdm9pZAo+IFJBREVPTldpbmRvd0V4cG9zdXJlc19vbmVzaG90KFdpbmRvd1B0
+ciBwV2luLCBSZWdpb25QdHIgcFJlZ2lvbgo+IAo+ICAgICAgcFNjcmVlbi0+V2luZG93RXhwb3N1
+cmVzID0gaW5mby0+V2luZG93RXhwb3N1cmVzOwo+ICAjaWYgWE9SR19WRVJTSU9OX0NVUlJFTlQg
+PCBYT1JHX1ZFUlNJT05fTlVNRVJJQygxLDE2LDk5LDkwMSwwKQo+IC0gICAgcFNjcmVlbi0+V2lu
+ZG93RXhwb3N1cmVzKHBXaW4sIHBSZWdpb24sIFJlZ2lvblB0ciBwQlNSZWdpb24pOwo+ICsgICAg
+cFNjcmVlbi0+V2luZG93RXhwb3N1cmVzKHBXaW4sIHBSZWdpb24sIHBCU1JlZ2lvbik7Cj4gICNl
+bHNlCj4gICAgICBwU2NyZWVuLT5XaW5kb3dFeHBvc3VyZXMocFdpbiwgcFJlZ2lvbik7Cj4gICNl
+bmRpZgoKUmV2aWV3ZWQgYW5kIHB1c2hlZCwgdGhhbmtzIQoKClAuUy4gSW4gdGhlIGZ1dHVyZSwg
+cGxlYXNlIGFkZCB5b3VyIFNpZ25lZC1vZmYtYnkgdG8gcGF0Y2hlcyB5b3Ugd2FudCB0bwpiZSBh
+cHBsaWVkLgoKLS0gCkVhcnRobGluZyBNaWNoZWwgRMOkbnplciAgICAgICAgICAgICAgIHwgICAg
+ICAgICAgICAgICBodHRwOi8vd3d3LmFtZC5jb20KTGlicmUgc29mdHdhcmUgZW50aHVzaWFzdCAg
+ICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2ZWxvcGVyCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
+CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
