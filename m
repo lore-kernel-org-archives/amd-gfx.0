@@ -1,13 +1,12 @@
-From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 14/27] drm/amd/display: Simplify some DMCU waits
-Date: Wed, 8 Mar 2017 16:54:54 -0500
-Message-ID: <20170308215507.28079-15-harry.wentland@amd.com>
-References: <20170308215507.28079-1-harry.wentland@amd.com>
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH umr] Fix ring offset to dword instead of bytes
+Date: Thu, 9 Mar 2017 09:53:35 +1100
+Message-ID: <b199e65e-135e-bb82-2694-2d2ff778cbbf@folklore1984.net>
+References: <20170308163139.20015-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1531333110=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170308215507.28079-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20170308163139.20015-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,98 +17,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Amy Zhang <Amy.Zhang-5C7GfCeVMHo@public.gmane.org>
+To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 
-RnJvbTogQW15IFpoYW5nIDxBbXkuWmhhbmdAYW1kLmNvbT4KCkNoYW5nZS1JZDogSTNmYmZhYjVh
-NjE3YmVkNTZiYjUwMTNlODIwYjBlMzdjNTA3ZTBiZmUKU2lnbmVkLW9mZi1ieTogQW15IFpoYW5n
-IDxBbXkuWmhhbmdAYW1kLmNvbT4KQWNrZWQtYnk6IEhhcnJ5IFdlbnRsYW5kIDxIYXJyeS5XZW50
-bGFuZEBhbWQuY29tPgpSZXZpZXdlZC1ieTogVG9ueSBDaGVuZyA8VG9ueS5DaGVuZ0BhbWQuY29t
-PgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UvZGNlX2Nsb2Nrcy5jIHwg
-IDEgKwogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZS9kY2VfY2xvY2tzLmggfCAg
-MSAtCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9kbWN1LmMgICB8IDQ2
-ICsrKysrLS0tLS0tLS0tLS0tLS0tLS0tLS0KIDMgZmlsZXMgY2hhbmdlZCwgOSBpbnNlcnRpb25z
-KCspLCAzOSBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
-c3BsYXkvZGMvZGNlL2RjZV9jbG9ja3MuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9k
-Yy9kY2UvZGNlX2Nsb2Nrcy5jCmluZGV4IDNlM2VlZmVhM2U4Mi4uYWMxZmViYWZjYWE0IDEwMDY0
-NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9jbG9ja3MuYwor
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9jbG9ja3MuYwpAQCAt
-Mzg3LDYgKzM4Nyw3IEBAIHN0YXRpYyB2b2lkIGRjZTExMl9zZXRfY2xvY2soCiAJCQkJCUNMT0NL
-X1NPVVJDRV9DT01CT19ESVNQTEFZX1BMTDApOwogCiAJYnAtPmZ1bmNzLT5zZXRfZGNlX2Nsb2Nr
-KGJwLCAmZGNlX2Nsa19wYXJhbXMpOworCiB9CiAKIHN0YXRpYyB2b2lkIGRjZV9jbG9ja19yZWFk
-X2ludGVncmF0ZWRfaW5mbyhzdHJ1Y3QgZGNlX2Rpc3BfY2xrICpjbGtfZGNlKQpkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZS9kY2VfY2xvY2tzLmggYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9jbG9ja3MuaAppbmRleCA0YWQ2ZmU0
-YzI4NDEuLjAyMGFiOWQ1NDM0ZCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
-bGF5L2RjL2RjZS9kY2VfY2xvY2tzLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
-L2RjL2RjZS9kY2VfY2xvY2tzLmgKQEAgLTQ1LDcgKzQ1LDYgQEAKIAlDTEtfU0YoTUFTVEVSX0NP
-TU1fQ01EX1JFRywgTUFTVEVSX0NPTU1fQ01EX1JFR19CWVRFMCwgbWFza19zaCksIFwKIAlDTEtf
-U0YoTUFTVEVSX0NPTU1fQ05UTF9SRUcsIE1BU1RFUl9DT01NX0lOVEVSUlVQVCwgbWFza19zaCkK
-IAotCiAjZGVmaW5lIENMS19SRUdfRklFTERfTElTVCh0eXBlKSBcCiAJdHlwZSBEUFJFRkNMS19T
-UkNfU0VMOyBcCiAJdHlwZSBERU5USVNUX0RQUkVGQ0xLX1dESVZJREVSOyBcCmRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9kbWN1LmMgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9kbWN1LmMKaW5kZXggNDRlZWVlYjg4OGZl
-Li5kYTdmODZiNjFkZTQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9k
-Yy9kY2UvZGNlX2RtY3UuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNl
-L2RjZV9kbWN1LmMKQEAgLTU3LDE5ICs1NywxMyBAQCBib29sIGRjZV9kbWN1X2xvYWRfaXJhbShz
-dHJ1Y3QgZG1jdSAqZG1jdSwKIHsKIAlzdHJ1Y3QgZGNlX2RtY3UgKmRtY3VfZGNlID0gVE9fRENF
-X0RNQ1UoZG1jdSk7CiAJdW5zaWduZWQgaW50IGNvdW50ID0gMDsKLQl1aW50MzJfdCBzdGF0dXM7
-CiAKIAkvKiBFbmFibGUgd3JpdGUgYWNjZXNzIHRvIElSQU0gKi8KIAlSRUdfVVBEQVRFXzIoRE1D
-VV9SQU1fQUNDRVNTX0NUUkwsCiAJCQlJUkFNX0hPU1RfQUNDRVNTX0VOLCAxLAogCQkJSVJBTV9X
-Ul9BRERSX0FVVE9fSU5DLCAxKTsKIAotCWRvIHsKLQkJZG1fZGVsYXlfaW5fbWljcm9zZWNvbmRz
-KGRtY3UtPmN0eCwgMik7Ci0JCVJFR19HRVQoRENJX01FTV9QV1JfU1RBVFVTLCBETUNVX0lSQU1f
-TUVNX1BXUl9TVEFURSwgJnN0YXR1cyk7Ci0JCWNvdW50Kys7Ci0JfSB3aGlsZQotCSgoc3RhdHVz
-ICYgZG1jdV9kY2UtPmRtY3VfbWFzay0+RE1DVV9JUkFNX01FTV9QV1JfU1RBVEUpICYmIGNvdW50
-IDwgMTApOworCVJFR19XQUlUKERDSV9NRU1fUFdSX1NUQVRVUywgRE1DVV9JUkFNX01FTV9QV1Jf
-U1RBVEUsIDAsIDIsIDEwKTsKIAogCVJFR19XUklURShETUNVX0lSQU1fV1JfQ1RSTCwgc3RhcnRf
-b2Zmc2V0KTsKIApAQCAtODgsMjEgKzgyLDEyIEBAIHN0YXRpYyB2b2lkIGRjZV9nZXRfZG1jdV9w
-c3Jfc3RhdGUoc3RydWN0IGRtY3UgKmRtY3UsIHVpbnQzMl90ICpwc3Jfc3RhdGUpCiB7CiAJc3Ry
-dWN0IGRjZV9kbWN1ICpkbWN1X2RjZSA9IFRPX0RDRV9ETUNVKGRtY3UpOwogCi0JdWludDMyX3Qg
-Y291bnQgPSAwOwogCXVpbnQzMl90IHBzclN0YXRlT2Zmc2V0ID0gMHhmMDsKLQl1aW50MzJfdCB2
-YWx1ZSA9IC0xOwogCiAJLyogRW5hYmxlIHdyaXRlIGFjY2VzcyB0byBJUkFNICovCiAJUkVHX1VQ
-REFURShETUNVX1JBTV9BQ0NFU1NfQ1RSTCwgSVJBTV9IT1NUX0FDQ0VTU19FTiwgMSk7CiAKLQl3
-aGlsZSAoUkVHKERDSV9NRU1fUFdSX1NUQVRVUykgJiYgdmFsdWUgIT0gMCAmJiBjb3VudCsrIDwg
-MTApIHsKLQkJZG1fZGVsYXlfaW5fbWljcm9zZWNvbmRzKGRtY3UtPmN0eCwgMik7Ci0JCVJFR19H
-RVQoRENJX01FTV9QV1JfU1RBVFVTLCBETUNVX0lSQU1fTUVNX1BXUl9TVEFURSwgJnZhbHVlKTsK
-LQl9Ci0Jd2hpbGUgKFJFRyhETVVfTUVNX1BXUl9DTlRMKSAmJiB2YWx1ZSAhPSAwICYmIGNvdW50
-KysgPCAxMCkgewotCQlkbV9kZWxheV9pbl9taWNyb3NlY29uZHMoZG1jdS0+Y3R4LCAyKTsKLQkJ
-UkVHX0dFVChETVVfTUVNX1BXUl9DTlRMLCBETUNVX0lSQU1fTUVNX1BXUl9TVEFURSwgJnZhbHVl
-KTsKLQl9CisJUkVHX1dBSVQoRENJX01FTV9QV1JfU1RBVFVTLCBETUNVX0lSQU1fTUVNX1BXUl9T
-VEFURSwgMCwgMiwgMTApOwogCiAJLyogV3JpdGUgYWRkcmVzcyB0byBJUkFNX1JEX0FERFIgaW4g
-RE1DVV9JUkFNX1JEX0NUUkwgKi8KIAlSRUdfV1JJVEUoRE1DVV9JUkFNX1JEX0NUUkwsIHBzclN0
-YXRlT2Zmc2V0KTsKQEAgLTEyMiwyMSArMTA3LDEzIEBAIHN0YXRpYyB2b2lkIGRjZV9kbWN1X3Nl
-dF9wc3JfZW5hYmxlKHN0cnVjdCBkbWN1ICpkbWN1LCBib29sIGVuYWJsZSkKIAl1bnNpZ25lZCBp
-bnQgZG1jdV9tYXhfcmV0cnlfb25fd2FpdF9yZWdfcmVhZHkgPSA4MDE7CiAJdW5zaWduZWQgaW50
-IGRtY3Vfd2FpdF9yZWdfcmVhZHlfaW50ZXJ2YWwgPSAxMDA7CiAKLQl1bnNpZ25lZCBpbnQgcmVn
-VmFsdWU7Ci0KIAl1bnNpZ25lZCBpbnQgcmV0cnlDb3VudDsKIAl1aW50MzJfdCBwc3Jfc3RhdGUg
-PSAwOwogCiAJLyogd2FpdERNQ1VSZWFkeUZvckNtZCAqLwotCWRvIHsKLQkJZG1fZGVsYXlfaW5f
-bWljcm9zZWNvbmRzKGRtY3UtPmN0eCwKLQkJCQlkbWN1X3dhaXRfcmVnX3JlYWR5X2ludGVydmFs
-KTsKLQkJcmVnVmFsdWUgPSBSRUdfUkVBRChNQVNURVJfQ09NTV9DTlRMX1JFRyk7Ci0JCWRtY3Vf
-bWF4X3JldHJ5X29uX3dhaXRfcmVnX3JlYWR5LS07Ci0JfSB3aGlsZQotCS8qIGV4cGVjdGVkIHZh
-bHVlIGlzIDAsIGxvb3Agd2hpbGUgbm90IDAqLwotCSgoTUFTVEVSX0NPTU1fQ05UTF9SRUdfX01B
-U1RFUl9DT01NX0lOVEVSUlVQVF9NQVNLICYgcmVnVmFsdWUpICYmCi0JCWRtY3VfbWF4X3JldHJ5
-X29uX3dhaXRfcmVnX3JlYWR5ID4gMCk7CisJUkVHX1dBSVQoTUFTVEVSX0NPTU1fQ05UTF9SRUcs
-IE1BU1RFUl9DT01NX0lOVEVSUlVQVCwgMCwKKwkJCQlkbWN1X3dhaXRfcmVnX3JlYWR5X2ludGVy
-dmFsLAorCQkJCWRtY3VfbWF4X3JldHJ5X29uX3dhaXRfcmVnX3JlYWR5KTsKIAogCS8qIHNldERN
-Q1VQYXJhbV9DbWQgKi8KIAlpZiAoZW5hYmxlKQpAQCAtMTcwLDcgKzE0Nyw2IEBAIHN0YXRpYyB2
-b2lkIGRjZV9kbWN1X3NldHVwX3BzcihzdHJ1Y3QgZG1jdSAqZG1jdSwKIAogCXVuc2lnbmVkIGlu
-dCBkbWN1X21heF9yZXRyeV9vbl93YWl0X3JlZ19yZWFkeSA9IDgwMTsKIAl1bnNpZ25lZCBpbnQg
-ZG1jdV93YWl0X3JlZ19yZWFkeV9pbnRlcnZhbCA9IDEwMDsKLQl1bnNpZ25lZCBpbnQgcmVnVmFs
-dWU7CiAKIAl1bmlvbiBkY2VfZG1jdV9wc3JfY29uZmlnX2RhdGFfcmVnMSBtYXN0ZXJDbWREYXRh
-MTsKIAl1bmlvbiBkY2VfZG1jdV9wc3JfY29uZmlnX2RhdGFfcmVnMiBtYXN0ZXJDbWREYXRhMjsK
-QEAgLTIzMSwxNSArMjA3LDkgQEAgc3RhdGljIHZvaWQgZGNlX2RtY3Vfc2V0dXBfcHNyKHN0cnVj
-dCBkbWN1ICpkbWN1LAogCQlSRUdfVVBEQVRFKFNNVV9JTlRFUlJVUFRfQ09OVFJPTCwgRENfU01V
-X0lOVF9FTkFCTEUsIDEpOwogCiAJLyogd2FpdERNQ1VSZWFkeUZvckNtZCAqLwotCWRvIHsKLQkJ
-ZG1fZGVsYXlfaW5fbWljcm9zZWNvbmRzKGRtY3UtPmN0eCwKLQkJCQlkbWN1X3dhaXRfcmVnX3Jl
-YWR5X2ludGVydmFsKTsKLQkJcmVnVmFsdWUgPSBSRUdfUkVBRChNQVNURVJfQ09NTV9DTlRMX1JF
-Ryk7Ci0JCWRtY3VfbWF4X3JldHJ5X29uX3dhaXRfcmVnX3JlYWR5LS07Ci0JfSB3aGlsZQotCS8q
-IGV4cGVjdGVkIHZhbHVlIGlzIDAsIGxvb3Agd2hpbGUgbm90IDAqLwotCSgoTUFTVEVSX0NPTU1f
-Q05UTF9SRUdfX01BU1RFUl9DT01NX0lOVEVSUlVQVF9NQVNLICYgcmVnVmFsdWUpICYmCi0JCWRt
-Y3VfbWF4X3JldHJ5X29uX3dhaXRfcmVnX3JlYWR5ID4gMCk7CisJUkVHX1dBSVQoTUFTVEVSX0NP
-TU1fQ05UTF9SRUcsIE1BU1RFUl9DT01NX0lOVEVSUlVQVCwgMCwKKwkJCQkJZG1jdV93YWl0X3Jl
-Z19yZWFkeV9pbnRlcnZhbCwKKwkJCQkJZG1jdV9tYXhfcmV0cnlfb25fd2FpdF9yZWdfcmVhZHkp
-OwogCiAJLyogc2V0RE1DVVBhcmFtX1BTUkhvc3RDb25maWdEYXRhICovCiAJbWFzdGVyQ21kRGF0
-YTEudTMyQWxsID0gMDsKLS0gCjIuMTAuMgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4Cg==
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============1531333110==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="jh2aMSB6GbJCBf2jWJKot3KPQpaNg9JV4"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--jh2aMSB6GbJCBf2jWJKot3KPQpaNg9JV4
+Content-Type: multipart/mixed; boundary="uGMs1x8tcROwkAaDlje0EhDQspm7LD9c5";
+ protected-headers="v1"
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+Message-ID: <b199e65e-135e-bb82-2694-2d2ff778cbbf-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH umr] Fix ring offset to dword instead of bytes
+References: <20170308163139.20015-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20170308163139.20015-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+
+--uGMs1x8tcROwkAaDlje0EhDQspm7LD9c5
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Acked-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+
+On 03/09/2017 03:31 AM, Tom St Denis wrote:
+> This allows you to specify (say)
+>=20
+> -R gfx[16:32] to read words 16 through 32 which is
+> consistent with how the data is presented.
+>=20
+> This patch also correctly enables the PM4 decoder
+> when specifying a range of words.
+>=20
+> Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  src/app/ring_read.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>=20
+> diff --git a/src/app/ring_read.c b/src/app/ring_read.c
+> index 970310b9bf52..d6b3df58be4d 100644
+> --- a/src/app/ring_read.c
+> +++ b/src/app/ring_read.c
+> @@ -96,7 +96,10 @@ void umr_read_ring(struct umr_asic *asic, char *ring=
+path)
+>  		} else {
+>  			sscanf(from, "%"SCNu32, &start);
+>  			sscanf(to, "%"SCNu32, &end);
+> +			start *=3D 4;
+> +			end *=3D 4;
+>  			use_decoder =3D 1;
+> +			decoder.pm4.cur_opcode =3D 0xFFFFFFFF;
+>  		}
+>  	}
+>  	end %=3D ringsize;
+>=20
+
+
+--uGMs1x8tcROwkAaDlje0EhDQspm7LD9c5--
+
+--jh2aMSB6GbJCBf2jWJKot3KPQpaNg9JV4
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJYwItvAAoJEP4bvbfZuWjbHeIP/jhdCFu83hR6XwIzXQglbzxv
+KCUyc/CE0UQJaaLw1uZj1JSwxEc4sp02BpZV2zl6SqGdikJeGGcm3iskAVDeF8r1
+1h5ZyuSfBgTaz3/ycZYXXxB3ZwVUwMFMZXZuBKM0iez8ojxN1h3Q0bltJ0xxGuPk
+RxYYY0GH3qi7gnXT1CxOZrTZ6JRWsaKyJgHO82GdperaU6DYNwfAADGX+5LgBlWO
+6OYDFSlhN7xYHs5qaHsotjZb9cdz3Cb0zTkFb7fNL/T6k1zw5kxWHbEj5T93XXcM
+6GH1tRjCmHMX1fuDwOFigMiJ46Vdgt8p4MWG1Kkazv4t9AI8KOMh1WMRikLZASJJ
+A7imzq2AN9x/HDre280zDFrVHV7wVj4Tee9+HgTiZG7jsI1qyCMahiCc7dQlhxum
+iWD49GUUapnfMj6tF1T9zVIzTcetezyR7ZfGrVqvN8bis/tHRMY2gjP8T935c+AT
+CA+8oGRTogVfV66KZYLJfRCO6OqCJ8HGfx2YUh8U6INGYIlKM68nEACZFy+Y1sa1
+O3tlnIQF2euvPU1b3SX9t6INBp3L5zwXZ1zH5zJZ0oWcjFsFKIuMs0fiSI3QAuSD
+rcveQr1k+ioMRBoYz7Rs5Lk4N/+7QGEFCADO1tL7knwoF8SyrUbgF4runrecOX0j
+/FIF6iKYfEAmAmNFDi1u
+=djxt
+-----END PGP SIGNATURE-----
+
+--jh2aMSB6GbJCBf2jWJKot3KPQpaNg9JV4--
+
+--===============1531333110==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1531333110==--
