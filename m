@@ -1,18 +1,18 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Subject: Re: [PATCH 2/2] drm/amdgpu: trace fence details in
  amdgpu_sched_run_job
-Date: Wed, 8 Mar 2017 16:21:38 -0500
-Message-ID: <CADnq5_OfX=-wAkcRMh3+C-UmypR8p3JMy0hhV+-qFmqdJd+YxA@mail.gmail.com>
+Date: Wed, 8 Mar 2017 16:25:09 -0500
+Message-ID: <CAFQ_0eGjhxfmGGGgQEsK7yq1pWVs1JUjoKHwabfOKrC8MOXAJg@mail.gmail.com>
 References: <20170224182058.5810-1-andresx7@gmail.com>
  <20170224182058.5810-3-andresx7@gmail.com>
  <dbc8d447-2423-9524-4e38-e4b87022e4db@vodafone.de>
  <CAFQ_0eET-ydfJyFthnGOR-3-q9ZD8dev=C0eM1dfZHC8vpyXWQ@mail.gmail.com>
  <2044a656-bdd4-25b7-0710-48d4a8ed11f9@vodafone.de>
+ <CADnq5_OfX=-wAkcRMh3+C-UmypR8p3JMy0hhV+-qFmqdJd+YxA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0298554855=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <2044a656-bdd4-25b7-0710-48d4a8ed11f9-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <CADnq5_OfX=-wAkcRMh3+C-UmypR8p3JMy0hhV+-qFmqdJd+YxA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,95 +23,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Cc: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-SXMgdGhpcyBwYXRjaCByZWFkeSB0byBsYW5kIG9yIGlzIHRoZXJlIG1vcmUgd29yayByZXF1aXJl
-ZD8KClRoYW5rcywKCkFsZXgKCk9uIFN1biwgRmViIDI2LCAyMDE3IGF0IDU6NTQgQU0sIENocmlz
-dGlhbiBLw7ZuaWcKPGRlYXRoc2ltcGxlQHZvZGFmb25lLmRlPiB3cm90ZToKPiBBbSAyNS4wMi4y
-MDE3IHVtIDE4OjI4IHNjaHJpZWIgQW5kcmVzIFJvZHJpZ3VlejoKPgo+Cj4KPiBPbiBGZWIgMjUs
-IDIwMTcgNDo0MCBBTSwgIkNocmlzdGlhbiBLw7ZuaWciIDxkZWF0aHNpbXBsZUB2b2RhZm9uZS5k
-ZT4gd3JvdGU6Cj4KPiBBbSAyNC4wMi4yMDE3IHVtIDE5OjIwIHNjaHJpZWIgQW5kcmVzIFJvZHJp
-Z3VlejoKPj4KPj4gVGhpcyBpbmZvcm1hdGlvbiBpcyBpbnRlbmRlZCB0byBwcm92aWRlIHRoZSBy
-ZXF1aXJlZCBkYXRhIHRvIGFzc29jaWF0ZQo+PiBhbWRncHUgdHJhY2Vwb2ludHMgd2l0aCB0aGVp
-ciBjb3JyZXNwb25kaW5nIGRtYV9mZW5jZV8qIGV2ZW50cy4KPj4KPj4gU2lnbmVkLW9mZi1ieTog
-QW5kcmVzIFJvZHJpZ3VleiA8YW5kcmVzeDdAZ21haWwuY29tPgo+PiAtLS0KPj4gICBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHJhY2UuaCB8IDExICsrKysrKysrKy0tCj4+ICAg
-MSBmaWxlIGNoYW5nZWQsIDkgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPj4KPj4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90cmFjZS5oCj4+IGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNlLmgKPj4gaW5kZXggMDE2MjNk
-MS4uY2M5YTMxZCAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3RyYWNlLmgKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Ry
-YWNlLmgKPj4gQEAgLTEzMCw2ICsxMzAsOSBAQCBUUkFDRV9FVkVOVChhbWRncHVfc2NoZWRfcnVu
-X2pvYiwKPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfX2ZpZWxkKHN0cnVjdCBhbWRf
-c2NoZWRfam9iICosIHNjaGVkX2pvYikKPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBf
-X2ZpZWxkKHN0cnVjdCBhbWRncHVfaWIgKiwgaWIpCj4+ICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgX19maWVsZChzdHJ1Y3QgZG1hX2ZlbmNlICosIGZlbmNlKQo+PiArICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIF9fc3RyaW5nKHRpbWVsaW5lLAo+PiBqb2ItPmJhc2Uuc19mZW5jZS0+
-ZmluaXNoZWQub3BzLT5nZXRfdGltZWxpbmVfbmFtZSgmam9iLT5iYXNlLnNfZmVuY2UtPmZpbmlz
-aGVkKSkKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICBfX2ZpZWxkKHVuc2lnbmVkIGlu
-dCwgY29udGV4dCkKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICBfX2ZpZWxkKHVuc2ln
-bmVkIGludCwgc2Vxbm8pCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX19maWVsZChj
-aGFyICosIHJpbmdfbmFtZSkKPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfX2ZpZWxk
-KHUzMiwgbnVtX2licykKPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICApLAo+PiBAQCAt
-MTM5LDEyICsxNDIsMTYgQEAgVFJBQ0VfRVZFTlQoYW1kZ3B1X3NjaGVkX3J1bl9qb2IsCj4+ICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIF9fZW50cnktPnNjaGVkX2pvYiA9ICZqb2ItPmJhc2U7
-Cj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9fZW50cnktPmliID0gam9iLT5pYnM7Cj4+
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9fZW50cnktPmZlbmNlID0gJmpvYi0+YmFzZS5z
-X2ZlbmNlLT5maW5pc2hlZDsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgX19hc3NpZ25f
-c3RyKHRpbWVsaW5lLAo+PiBqb2ItPmJhc2Uuc19mZW5jZS0+ZmluaXNoZWQub3BzLT5nZXRfdGlt
-ZWxpbmVfbmFtZSgmam9iLT5iYXNlLnNfZmVuY2UtPmZpbmlzaGVkKSkKPgo+Cj4gTm90IDEwMCUg
-c3VyZSwgYnV0IHdlIG1pZ2h0IGJlIGFibGUgdG8gdXNlIGEgY2hhciAqIGZpZWxkIGhlcmUgaW5z
-dGVhZCBvZgo+IHRoZSBleHRyYSBvdmVyaGVhZCBvZiBlbWJlZGRpbmcgYSBzdHJpbmcsIHRoZSB0
-aW1lbGluZSBuYW1lcyBhcmUgbmV2ZXIgZnJlZWQKPiBJSVJDLgo+Cj4KPiBJJ2xsIGdpdmUgdGhp
-cyBhIHRyeS4KPgo+Cj4KPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgX19lbnRyeS0+Y29u
-dGV4dCA9Cj4+IGpvYi0+YmFzZS5zX2ZlbmNlLT5maW5pc2hlZC5jb250ZXh0Owo+PiArICAgICAg
-ICAgICAgICAgICAgICAgICAgICBfX2VudHJ5LT5zZXFubyA9Cj4+IGpvYi0+YmFzZS5zX2ZlbmNl
-LT5maW5pc2hlZC5zZXFubzsKPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgX19lbnRyeS0+
-cmluZ19uYW1lID0gam9iLT5yaW5nLT5uYW1lOwo+PiAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBfX2VudHJ5LT5udW1faWJzID0gam9iLT5udW1faWJzOwo+PiAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICApLAo+PiAtICAgICAgICAgICBUUF9wcmludGsoImFkZXY9JXAsIHNjaGVkX2pvYj0l
-cCwgZmlyc3QgaWI9JXAsIHNjaGVkIGZlbmNlPSVwLAo+PiByaW5nIG5hbWU9JXMsIG51bV9pYnM9
-JXUiLAo+PiArICAgICAgICAgICBUUF9wcmludGsoImFkZXY9JXAsIHNjaGVkX2pvYj0lcCwgZmly
-c3QgaWI9JXAsIHNjaGVkIGZlbmNlPSVwLAo+PiB0aW1lbGluZT0lcywgY29udGV4dD0ldSwgc2Vx
-bm89JXUsIHJpbmcgbmFtZT0lcywgbnVtX2licz0ldSIsCj4KPgo+IElmIHlvdSBoYXZlIHRpbWUg
-Zm9yIGFub3RoZXIgcGF0Y2ggcGxlYXNlIGRyb3AgdGhlIHBpbnRlcnMgaGVyZSBhcyB3ZWxsLgo+
-IFNjaGVkdWxlciBqb2IsIElCcyBhbmQgZmVuY2UgYXJlIGFsbCBoZWF2aWx5IHJlYWxsb2NhdGVk
-IChzb21ldGltZXMgZXZlbgo+IHdpdGggYSBzbGFiIGFsbG9jYXRvcikuIFNvIHRoZSBwb2ludGVy
-cyBhcmUgY29tcGxldGVseSBtZWFuaW5nbGVzcy4gVGhlIGFkZXYKPiBwb2ludGVyIGlzIHN1cGVy
-c2VkZWQgYnkgdGhlIHRpbWVsaW5lIG5hbWUgYW5kIGNvbnRleHQgbnVtYmVycy4KPgo+Cj4gVGhl
-IHBvaW50ZXJzIGRvIHByb3ZpZGUgc29tZSB1c2VmdWwgZGF0YS4gQnV0IHlvdSBuZWVkIHRvIG1h
-a2Ugc3VyZSB5b3UgcmVhZAo+IGl0IGluIGJldHdlZW4gYW4gYWxsb2NhdGlvbiBldmVudCBhbmQg
-YSBmZW5jZSBzaWduYWwgZXZlbnQuIEl0IGlzIGV4dHJlbWVseQo+IHRlcnJpYmxlIGZvciByZWFk
-aW5nIGZyb20gYSB0cmFjZSB0ZXh0IGZpbGUuCj4KPgo+IFllYWgsIHRoYXQncyB3aHkgSSB0cnkg
-dG8gYXZvaWQgdGhlbSBpbiB0aGUgdHJhY2UgZmlsZXMuCj4KPiBBZGRpdGlvbmFsIHRvIHRoYXQg
-dGhlIGFkZXYgcG9pbnRlciBpcyA4IGJ5dGVzIGFuZCBwcmV0dHkgbXVjaCBtZWFuaW5nbGVzcwo+
-IGluIHRoZSB0cmFjZSBmaWxlLCBidXQgdGhlIFBDSSBidXMgbnVtYmVyIGlzIG9ubHkgNCBieXRl
-cyBJSVJDIGFuZCByZWFsbHkKPiBlYXN5IHRvIHJlbGF0ZWQgdG8gb3RoZXIgbG9nIG1lc3NhZ2Vz
-Lgo+Cj4KPiBIb3cgZG8geW91IGZlZWwgYWJvdXQgaWYgd2UgcmVwbGFjZWQgdGhlIGpvYiBwb2lu
-dGVyIHdpdGggYSBqb2IgaWQsIGFuZAo+IHJlcGxhY2VkIHRoZSBmZW5jZSBwb2ludGVycyB3aXRo
-IHRoZSBmZW5jZSBkYXRhPwo+Cj4KPiBNb3N0bHkgc291bmRzIGxpa2UgYSBwbGFuIHRvIG1lLiBJ
-IHdvdWxkIGp1c3QgdHJ5IHRvIGdldCBhd2F5IGZyb20gdHJ5aW5nIHRvCj4gdXNlIHRoZSBqb2Ig
-dG8gaWRlbnRpZnkgYSBjb21tYW5kIHN1Ym1pc3Npb24uCj4KPiBJbnN0ZWFkIHVzZSB0aGUgc2No
-ZWR1bGVyIGZlbmNlIGZvciB0aGlzLiBUaGUgZGlmZmVyZW5jZSBpcyB0aGF0IHdlIGNyZWF0ZQo+
-IHRoZSBqb2Igc3RydWN0dXJlIGVhcmx5IGR1cmluZyBjb21tYW5kIHN1Ym1pc3Npb24sIGJ1dCB0
-aGUgc2NoZWR1bGVyIGZlbmNlCj4gb25seSB3aGVuIHRoZSBjb21tYW5kIHN1Ym1pc3Npb24gaXMg
-YWN0dWFsbHkgc3VjY2Vzc2Z1bGx5IGFuZCBub3QKPiBpbnRlcnJ1cHRlZCBieSBhIHNpZ25hbC4K
-Pgo+IFNvIGEgam9iIGlkIHdvdWxkIGNvbnRhaW4gYSBidW5jaCBvZiBudW1iZXJzIHdoaWNoIGFy
-ZSBuZXZlciBzdWJtaXR0ZWQuCj4gRXNwZWNpYWxseSBmb3IgdGhlIFggc2VydmVyIHRoYXQgaXMg
-dXN1YWxseSByYXRoZXIgYW5ub3lpbmcgaW4gdGhlIGxvZ3MuCj4KPiBSZWdhcmRzLAo+IENocmlz
-dGlhbi4KPgo+Cj4KPgo+IEFueXdheSB0aGF0IHNob3VsZCBiZSBkb25lIGluIGFuIGV4dHJhIHBh
-dGNoLCBzbyB0aGlzIG9uZSBpcyBSZXZpZXdlZC1ieToKPiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJp
-c3RpYW4ua29lbmlnQGFtZC5jb20+Lgo+Cj4gUmVnYXJkcywKPiBDaHJpc3RpYW4uCj4KPgo+PiAg
-ICAgICAgICAgICAgICAgICAgICAgX19lbnRyeS0+YWRldiwgX19lbnRyeS0+c2NoZWRfam9iLCBf
-X2VudHJ5LT5pYiwKPj4gLSAgICAgICAgICAgICAgICAgICAgIF9fZW50cnktPmZlbmNlLCBfX2Vu
-dHJ5LT5yaW5nX25hbWUsCj4+IF9fZW50cnktPm51bV9pYnMpCj4+ICsgICAgICAgICAgICAgICAg
-ICAgICBfX2VudHJ5LT5mZW5jZSwgX19nZXRfc3RyKHRpbWVsaW5lKSwKPj4gX19lbnRyeS0+Y29u
-dGV4dCwgX19lbnRyeS0+c2Vxbm8sCj4+ICsgICAgICAgICAgICAgICAgICAgICBfX2VudHJ5LT5y
-aW5nX25hbWUsIF9fZW50cnktPm51bV9pYnMpCj4+ICAgKTsKPj4KPgo+Cj4KPgo+Cj4KPiBfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFp
-bGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKPgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============0298554855==
+Content-Type: multipart/alternative; boundary=94eb2c03b718607725054a3ec3b0
+
+--94eb2c03b718607725054a3ec3b0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+I'm working on a follow-up that has Christian's extra requests to remove
+the job/fence pointers. But that is coming as a separate commit.
+
+Regards,
+Andres
+=E2=80=8B
+
+--94eb2c03b718607725054a3ec3b0
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div><div>I&#39;m working on a follow-up that has Christia=
+n&#39;s extra requests to remove the job/fence pointers. But that is coming=
+ as a separate commit.<br></div><div><br></div>Regards,<br></div>Andres<br>=
+<div><div>=E2=80=8B</div></div></div>
+
+--94eb2c03b718607725054a3ec3b0--
+
+--===============0298554855==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0298554855==--
