@@ -1,12 +1,13 @@
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH umr] Fix ring offset to dword instead of bytes
-Date: Thu, 9 Mar 2017 09:53:35 +1100
-Message-ID: <b199e65e-135e-bb82-2694-2d2ff778cbbf@folklore1984.net>
-References: <20170308163139.20015-1-tom.stdenis@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 2/2] drm/amdgpu: bump driver version for some new features
+Date: Wed,  8 Mar 2017 18:18:56 -0500
+Message-ID: <1489015136-7376-2-git-send-email-alexander.deucher@amd.com>
+References: <1489015136-7376-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1531333110=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170308163139.20015-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1489015136-7376-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,101 +18,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1531333110==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="jh2aMSB6GbJCBf2jWJKot3KPQpaNg9JV4"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---jh2aMSB6GbJCBf2jWJKot3KPQpaNg9JV4
-Content-Type: multipart/mixed; boundary="uGMs1x8tcROwkAaDlje0EhDQspm7LD9c5";
- protected-headers="v1"
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Message-ID: <b199e65e-135e-bb82-2694-2d2ff778cbbf-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH umr] Fix ring offset to dword instead of bytes
-References: <20170308163139.20015-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <20170308163139.20015-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-
---uGMs1x8tcROwkAaDlje0EhDQspm7LD9c5
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-Acked-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-
-On 03/09/2017 03:31 AM, Tom St Denis wrote:
-> This allows you to specify (say)
->=20
-> -R gfx[16:32] to read words 16 through 32 which is
-> consistent with how the data is presented.
->=20
-> This patch also correctly enables the PM4 decoder
-> when specifying a range of words.
->=20
-> Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-> ---
->  src/app/ring_read.c | 3 +++
->  1 file changed, 3 insertions(+)
->=20
-> diff --git a/src/app/ring_read.c b/src/app/ring_read.c
-> index 970310b9bf52..d6b3df58be4d 100644
-> --- a/src/app/ring_read.c
-> +++ b/src/app/ring_read.c
-> @@ -96,7 +96,10 @@ void umr_read_ring(struct umr_asic *asic, char *ring=
-path)
->  		} else {
->  			sscanf(from, "%"SCNu32, &start);
->  			sscanf(to, "%"SCNu32, &end);
-> +			start *=3D 4;
-> +			end *=3D 4;
->  			use_decoder =3D 1;
-> +			decoder.pm4.cur_opcode =3D 0xFFFFFFFF;
->  		}
->  	}
->  	end %=3D ringsize;
->=20
-
-
---uGMs1x8tcROwkAaDlje0EhDQspm7LD9c5--
-
---jh2aMSB6GbJCBf2jWJKot3KPQpaNg9JV4
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJYwItvAAoJEP4bvbfZuWjbHeIP/jhdCFu83hR6XwIzXQglbzxv
-KCUyc/CE0UQJaaLw1uZj1JSwxEc4sp02BpZV2zl6SqGdikJeGGcm3iskAVDeF8r1
-1h5ZyuSfBgTaz3/ycZYXXxB3ZwVUwMFMZXZuBKM0iez8ojxN1h3Q0bltJ0xxGuPk
-RxYYY0GH3qi7gnXT1CxOZrTZ6JRWsaKyJgHO82GdperaU6DYNwfAADGX+5LgBlWO
-6OYDFSlhN7xYHs5qaHsotjZb9cdz3Cb0zTkFb7fNL/T6k1zw5kxWHbEj5T93XXcM
-6GH1tRjCmHMX1fuDwOFigMiJ46Vdgt8p4MWG1Kkazv4t9AI8KOMh1WMRikLZASJJ
-A7imzq2AN9x/HDre280zDFrVHV7wVj4Tee9+HgTiZG7jsI1qyCMahiCc7dQlhxum
-iWD49GUUapnfMj6tF1T9zVIzTcetezyR7ZfGrVqvN8bis/tHRMY2gjP8T935c+AT
-CA+8oGRTogVfV66KZYLJfRCO6OqCJ8HGfx2YUh8U6INGYIlKM68nEACZFy+Y1sa1
-O3tlnIQF2euvPU1b3SX9t6INBp3L5zwXZ1zH5zJZ0oWcjFsFKIuMs0fiSI3QAuSD
-rcveQr1k+ioMRBoYz7Rs5Lk4N/+7QGEFCADO1tL7knwoF8SyrUbgF4runrecOX0j
-/FIF6iKYfEAmAmNFDi1u
-=djxt
------END PGP SIGNATURE-----
-
---jh2aMSB6GbJCBf2jWJKot3KPQpaNg9JV4--
-
---===============1531333110==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1531333110==--
+V2UgYWRkZWQgbmV3IGdlbSBpb2N0bCBmbGFncyBhbmQgdGhlIG5ldyBmZW5jZXMgaW9jdGwsIGJ1
+dCBmb3Jnb3QKdG8gYnVtcCB0aGUgdmVyc2lvbi4KClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hl
+ciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfZHJ2LmMgfCAzICsrLQogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygr
+KSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9kcnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwpp
+bmRleCA3NWZjMzc2Li5mN2FkYmFjIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfZHJ2LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2Rydi5jCkBAIC01OSw5ICs1OSwxMCBAQAogICogLSAzLjcuMCAtIEFkZCBzdXBwb3J0IGZvciBW
+Q0UgY2xvY2sgbGlzdCBwYWNrZXQKICAqIC0gMy44LjAgLSBBZGQgc3VwcG9ydCByYXN0ZXIgY29u
+ZmlnIGluaXQgaW4gdGhlIGtlcm5lbAogICogLSAzLjkuMCAtIEFkZCBzdXBwb3J0IGZvciBtZW1v
+cnkgcXVlcnkgaW5mbyBhYm91dCBWUkFNIGFuZCBHVFQuCisgKiAtIDMuMTAuMCAtIEFkZCBzdXBw
+b3J0IGZvciBuZXcgZmVuY2VzIGlvY3RsLCBuZXcgZ2VtIGlvY3RsIGZsYWdzCiAgKi8KICNkZWZp
+bmUgS01TX0RSSVZFUl9NQUpPUgkzCi0jZGVmaW5lIEtNU19EUklWRVJfTUlOT1IJOQorI2RlZmlu
+ZSBLTVNfRFJJVkVSX01JTk9SCTEwCiAjZGVmaW5lIEtNU19EUklWRVJfUEFUQ0hMRVZFTAkwCiAK
+IGludCBhbWRncHVfdnJhbV9saW1pdCA9IDA7Ci0tIAoyLjUuNQoKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
