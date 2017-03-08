@@ -1,12 +1,12 @@
 From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH umr] Add ability to read from virtual memory
-Date: Thu, 9 Mar 2017 10:36:03 +1100
-Message-ID: <cc07972c-1f57-5d87-0734-f4750e2a0159@folklore1984.net>
-References: <20170308190645.26317-1-tom.stdenis@amd.com>
+Subject: Re: [PATCH umr] PM4 packets list number of dwords not bytes
+Date: Thu, 9 Mar 2017 10:36:19 +1100
+Message-ID: <d3dea7a1-9aa7-0bd3-bf07-bd012d8d73fb@folklore1984.net>
+References: <20170308200353.28824-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0039852190=="
+Content-Type: multipart/mixed; boundary="===============1688090862=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170308190645.26317-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20170308200353.28824-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,115 +21,58 @@ To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-P
 Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0039852190==
+--===============1688090862==
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="hDWaRStnto731aPlpF92HOsxDtlGRu3Vo"
+ boundary="jmABr7QABdCOOr3J8o4UEKnVQVWvWLbov"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---hDWaRStnto731aPlpF92HOsxDtlGRu3Vo
-Content-Type: multipart/mixed; boundary="lnNRfDWMuCPVrddc2mpbgV7BeijBOvdEg";
+--jmABr7QABdCOOr3J8o4UEKnVQVWvWLbov
+Content-Type: multipart/mixed; boundary="G02hVef7lQhTmSISECEFIN4rsRbjFLb8b";
  protected-headers="v1"
 From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
 To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Message-ID: <cc07972c-1f57-5d87-0734-f4750e2a0159-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH umr] Add ability to read from virtual memory
-References: <20170308190645.26317-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <20170308190645.26317-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+Message-ID: <d3dea7a1-9aa7-0bd3-bf07-bd012d8d73fb-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH umr] PM4 packets list number of dwords not bytes
+References: <20170308200353.28824-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20170308200353.28824-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 
---lnNRfDWMuCPVrddc2mpbgV7BeijBOvdEg
+--G02hVef7lQhTmSISECEFIN4rsRbjFLb8b
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
 Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
 
-On 03/09/2017 06:06 AM, Tom St Denis wrote:
-> Updates the --vram command to add the ability to read from
-> one of the VM domains instead.
+On 03/09/2017 07:03 AM, Tom St Denis wrote:
+> When counting size of IBs count in dwords...
 >=20
 > Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 > ---
->  doc/umr.1      |  7 ++++---
->  src/app/main.c | 16 ++++++++++------
->  2 files changed, 14 insertions(+), 9 deletions(-)
+>  src/lib/ring_decode.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >=20
-> diff --git a/doc/umr.1 b/doc/umr.1
-> index a12dfb0a00ff..90be2d6316ce 100644
-> --- a/doc/umr.1
-> +++ b/doc/umr.1
-> @@ -85,9 +85,10 @@ invoking it very rapidly.  Unlike the wave count rea=
-ding in --top this command
->  will operate regardless of whether GFX PG is enabled or not.  Can use
->  .B bits
->  to decode the wave bitfields.
-> -.IP "--vram, -v <address> <size>"
-> -Read 'size' bytes (in decimal) from the address specified (in hexadeci=
-mal) from VRAM
-> -to stdout.  Can use 'use_pci' to directly access VRAM.
-> +.IP "--vram, -v [vmid@]<address> <size>"
-> +Read 'size' bytes (in hex) from the address specified (in hexadecimal)=
- from VRAM
-> +to stdout.  Optionally specify the VMID (in decimal) treating the addr=
-ess as a
-> +virtual address instead.  Can use 'use_pci' to directly access VRAM.
-> =20
->  .IP "--option, -O <string>[,<string>,...]"
->  Specify options to the tool.  Multiple options can be specified as com=
-ma
-> diff --git a/src/app/main.c b/src/app/main.c
-> index 99e014888571..e8f786b39743 100644
-> --- a/src/app/main.c
-> +++ b/src/app/main.c
-> @@ -320,16 +320,19 @@ int main(int argc, char **argv)
->  			if (i + 2 < argc) {
->  				unsigned char buf[256];
->  				uint64_t address;
-> -				uint32_t size, n;
-> +				uint32_t size, n, vmid;
-> =20
->  				if (!asic)
->  					asic =3D get_asic();
-> =20
-> -				sscanf(argv[i+1], "%"SCNx64, &address);
-> -				sscanf(argv[i+2], "%"SCNu32, &size);
-> +				if ((n =3D sscanf(argv[i+1], "%"SCNu32"@%"SCNx64, &vmid, &address)=
-) !=3D 2) {
-> +					sscanf(argv[i+1], "%"SCNx64, &address);
-> +					vmid =3D 0xFFFF;
-> +				}
-> +				sscanf(argv[i+2], "%"SCNx32, &size);
->  				while (size) {
->  					n =3D size > sizeof(buf) ? sizeof(buf) : size;
-> -					umr_read_vram(asic, 0xFFFF, address, n, buf);
-> +					umr_read_vram(asic, vmid, address, n, buf);
->  					fwrite(buf, 1, n, stdout);
->  					size -=3D n;
->  					address +=3D n;
-> @@ -383,8 +386,9 @@ int main(int argc, char **argv)
->  	"\n\t\toptions 'use_colour' to colourize output and 'use_pci' to impr=
-ove efficiency.\n"
->  "\n\t--waves, -wa\n\t\tPrint out information about any active CU waves=
-=2E  Can use '-O bits'"
->  	"\n\t\tto see decoding of various wave fields.\n"
-> -"\n\t--vram, -v <address> <size>"
-> -	"\n\t\tRead 'size' bytes (in decimal) from a given address (in hex) t=
-o stdout.\n"
-> +"\n\t--vram, -v [<vmid>@]<address> <size>"
-> +	"\n\t\tRead 'size' bytes (in hex) from a given address (in hex) to st=
-dout. Optionally"
-> +	"\n\t\tspecify the VMID (in decimal) treating the address as a virtua=
-l address instead.\n"
->  "\n\t--option -O <string>[,<string>,...]\n\t\tEnable various flags: ri=
-sky, bits, bitsfull, empty_log, follow, named, many,"
->  	"\n\t\tuse_pci, use_colour, read_smc, quiet.\n"
->  "\n\n", UMR_BUILD_VER, UMR_BUILD_REV);
+> diff --git a/src/lib/ring_decode.c b/src/lib/ring_decode.c
+> index 401d6caaa088..a991f5ffa237 100644
+> --- a/src/lib/ring_decode.c
+> +++ b/src/lib/ring_decode.c
+> @@ -334,7 +334,7 @@ static void print_decode_pm4_pkt3(struct umr_asic *=
+asic, struct umr_ring_decoder
+>  					decoder->pm4.next_ib_state.ib_addr_hi =3D BITS(ib, 0, 16);
+>  					break;
+>  				case 2: printf("IB_SIZE:%lu, VMID: %lu", BITS(ib, 0, 20), BITS(ib,=
+ 24, 32));
+> -					decoder->pm4.next_ib_state.ib_size =3D BITS(ib, 0, 20);
+> +					decoder->pm4.next_ib_state.ib_size =3D BITS(ib, 0, 20) * 4;
+>  					decoder->pm4.next_ib_state.ib_vmid =3D BITS(ib, 24, 32);
+>  					add_ib(decoder);
+>  					break;
 >=20
 
 
---lnNRfDWMuCPVrddc2mpbgV7BeijBOvdEg--
+--G02hVef7lQhTmSISECEFIN4rsRbjFLb8b--
 
---hDWaRStnto731aPlpF92HOsxDtlGRu3Vo
+--jmABr7QABdCOOr3J8o4UEKnVQVWvWLbov
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
@@ -137,24 +80,24 @@ Content-Disposition: attachment; filename="signature.asc"
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJYwJVkAAoJEP4bvbfZuWjbqM0QALh9dCLcEMZ9/+DW1raTzdxk
-0GD3Zi3ReAy/8IyyTpDQqjcBhUz0jE+J6fh1OVHhIOQJ1vMEAbdJboKJS1b7oOdY
-R3to5IJ4Svpn1G4lZ8i38qIwrm1OUwPjJdeqtbuQyB+v/HGtS9ppqbi8Cv8wcA8K
-NY/WwDW0ZHWhieqlfQdnVvssqQM0EFCDW8hDspWRuRQdNPuyBOf1cwSQ4fADJYgl
-2ycvqL3yKb5hc4p02KyGNmCIB3v3cYFBKi8wnCkapg0Av4h498zl0xajZNOiGfBp
-wvfAU1yn1VLhSA+kBM8sRA3qUnOLKeiDfUHeYVyebHZHNT7TyP/hSTRRR6kZ6Fbb
-lGDCdv1oEMxHwLlk8+9Z7UwbEdwfHlF1Rqn0WyLdQmtzWl84PNE5COg9bZe9Mix7
-LhN9plJmb4+VhfN12le70rYMtKjxmoy1uZlB03IhIStMvj9x18c1qlcuTfwxxo+J
-7PtoL5Rg8xVwXvJFnFznb73H+AwgNUfS7BW658JBzqiaQ1CGwT/eySmB3SZYWNnr
-7E4TyKIznWGKWWTPTFsXx7DLaCtktXNAAPqxuwNldhVRbWcwHajb6c9BOfpf4WBp
-Ah48znOvairjh2s5pnEAD024OPBr+jB22rNC+gh0+DpT1QjemFKVjhIInqfevDWQ
-0qu/yyzILpqA1xrK18xT
-=HRdw
+iQIcBAEBCAAGBQJYwJVzAAoJEP4bvbfZuWjb53oP/3G3ekEntXYcZ0mZZAWwVaE7
+zMFQD66k9cUBaRq74vHSSLf7Fu9R3zhqAZkG9rjDx4ZwHXPYB5qSaN6+wUxxXQ2D
+BerxX/O2mKwLcYcUsKiZnM+34Y5Sz4tfg6cQqWmJIa4/K8vRGOIkwJ+oKeKUj2sA
+aazRDUJkaTE/GnbaiE3lGsqNjnBdtO+OnRfmNL1J3bvq2rzjfPi3DwiCc5dhyuqs
+MeA3BCi3bvf6fdbbggaZeQjCQYA9HeoTo3VFu4KxQVa7ZRF+UZSXsL/xT++GMrd9
+6B4ONGBqb30OUIZ4yYDIOkwFO7OYXSuIV4VjNt506sWsBAhnx5hG1eLNmYGWtBPx
+hezYKxQRCFpApNEMlOEZpS2HSVBXo17Y52pXzXj4YYs5wr/zpW1b/YtB7dVgT4Zd
+KgYEubcEdfBAxDrlt53dMU/yMY9Yi5AT289273q9MxfuO5m53vUhMfWgwurp3xlJ
+5xy0y3VHGJydBcOEZ9DsdIPlxqR3iN33kuvCd3KWl0ChIq5b+y5961phlnw0CJXE
+HVP8nrd4048g7IctQ6Qno3GQI9XVhCuKgPuIDXrNXjUIYaVjBYOEy6Ap+Unkgryo
++V9p7fBUmMgjq5wLzjhwUoh00erxdaU7WT+ZmLNuk5Cfo8EKMmB14Rq1O1l5S2My
++h7+e00ywwIqFzgTnXqj
+=lX7j
 -----END PGP SIGNATURE-----
 
---hDWaRStnto731aPlpF92HOsxDtlGRu3Vo--
+--jmABr7QABdCOOr3J8o4UEKnVQVWvWLbov--
 
---===============0039852190==
+--===============1688090862==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -164,4 +107,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0039852190==--
+--===============1688090862==--
