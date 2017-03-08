@@ -1,12 +1,16 @@
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH umr] PM4 packets list number of dwords not bytes
-Date: Thu, 9 Mar 2017 10:36:19 +1100
-Message-ID: <d3dea7a1-9aa7-0bd3-bf07-bd012d8d73fb@folklore1984.net>
-References: <20170308200353.28824-1-tom.stdenis@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 2/2] drm/amdgpu: bump driver version for some new features
+Date: Wed, 8 Mar 2017 23:38:49 +0000
+Message-ID: <BN6PR12MB1652CF9F55F7DFCE8144BD74F72E0@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <1489015136-7376-1-git-send-email-alexander.deucher@amd.com>
+ <1489015136-7376-2-git-send-email-alexander.deucher@amd.com>
+ <3db84254-d173-78ad-f871-688a388d7248@folklore1984.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1688090862=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170308200353.28824-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <3db84254-d173-78ad-f871-688a388d7248-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,94 +21,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+To: 'Edward O'Callaghan' <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1688090862==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="jmABr7QABdCOOr3J8o4UEKnVQVWvWLbov"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---jmABr7QABdCOOr3J8o4UEKnVQVWvWLbov
-Content-Type: multipart/mixed; boundary="G02hVef7lQhTmSISECEFIN4rsRbjFLb8b";
- protected-headers="v1"
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Message-ID: <d3dea7a1-9aa7-0bd3-bf07-bd012d8d73fb-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH umr] PM4 packets list number of dwords not bytes
-References: <20170308200353.28824-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <20170308200353.28824-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-
---G02hVef7lQhTmSISECEFIN4rsRbjFLb8b
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-
-On 03/09/2017 07:03 AM, Tom St Denis wrote:
-> When counting size of IBs count in dwords...
->=20
-> Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-> ---
->  src/lib/ring_decode.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/src/lib/ring_decode.c b/src/lib/ring_decode.c
-> index 401d6caaa088..a991f5ffa237 100644
-> --- a/src/lib/ring_decode.c
-> +++ b/src/lib/ring_decode.c
-> @@ -334,7 +334,7 @@ static void print_decode_pm4_pkt3(struct umr_asic *=
-asic, struct umr_ring_decoder
->  					decoder->pm4.next_ib_state.ib_addr_hi =3D BITS(ib, 0, 16);
->  					break;
->  				case 2: printf("IB_SIZE:%lu, VMID: %lu", BITS(ib, 0, 20), BITS(ib,=
- 24, 32));
-> -					decoder->pm4.next_ib_state.ib_size =3D BITS(ib, 0, 20);
-> +					decoder->pm4.next_ib_state.ib_size =3D BITS(ib, 0, 20) * 4;
->  					decoder->pm4.next_ib_state.ib_vmid =3D BITS(ib, 24, 32);
->  					add_ib(decoder);
->  					break;
->=20
-
-
---G02hVef7lQhTmSISECEFIN4rsRbjFLb8b--
-
---jmABr7QABdCOOr3J8o4UEKnVQVWvWLbov
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJYwJVzAAoJEP4bvbfZuWjb53oP/3G3ekEntXYcZ0mZZAWwVaE7
-zMFQD66k9cUBaRq74vHSSLf7Fu9R3zhqAZkG9rjDx4ZwHXPYB5qSaN6+wUxxXQ2D
-BerxX/O2mKwLcYcUsKiZnM+34Y5Sz4tfg6cQqWmJIa4/K8vRGOIkwJ+oKeKUj2sA
-aazRDUJkaTE/GnbaiE3lGsqNjnBdtO+OnRfmNL1J3bvq2rzjfPi3DwiCc5dhyuqs
-MeA3BCi3bvf6fdbbggaZeQjCQYA9HeoTo3VFu4KxQVa7ZRF+UZSXsL/xT++GMrd9
-6B4ONGBqb30OUIZ4yYDIOkwFO7OYXSuIV4VjNt506sWsBAhnx5hG1eLNmYGWtBPx
-hezYKxQRCFpApNEMlOEZpS2HSVBXo17Y52pXzXj4YYs5wr/zpW1b/YtB7dVgT4Zd
-KgYEubcEdfBAxDrlt53dMU/yMY9Yi5AT289273q9MxfuO5m53vUhMfWgwurp3xlJ
-5xy0y3VHGJydBcOEZ9DsdIPlxqR3iN33kuvCd3KWl0ChIq5b+y5961phlnw0CJXE
-HVP8nrd4048g7IctQ6Qno3GQI9XVhCuKgPuIDXrNXjUIYaVjBYOEy6Ap+Unkgryo
-+V9p7fBUmMgjq5wLzjhwUoh00erxdaU7WT+ZmLNuk5Cfo8EKMmB14Rq1O1l5S2My
-+h7+e00ywwIqFzgTnXqj
-=lX7j
------END PGP SIGNATURE-----
-
---jmABr7QABdCOOr3J8o4UEKnVQVWvWLbov--
-
---===============1688090862==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1688090862==--
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBFZHdhcmQgTydDYWxsYWdoYW4g
+W21haWx0bzpmdW5mdW5jdG9yQGZvbGtsb3JlMTk4NC5uZXRdDQo+IFNlbnQ6IFdlZG5lc2RheSwg
+TWFyY2ggMDgsIDIwMTcgNjozNSBQTQ0KPiBUbzogQWxleCBEZXVjaGVyOyBhbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZw0KPiBDYzogRGV1Y2hlciwgQWxleGFuZGVyDQo+IFN1YmplY3Q6IFJl
+OiBbUEFUQ0ggMi8yXSBkcm0vYW1kZ3B1OiBidW1wIGRyaXZlciB2ZXJzaW9uIGZvciBzb21lIG5l
+dw0KPiBmZWF0dXJlcw0KPiANCj4gDQo+IA0KPiBPbiAwMy8wOS8yMDE3IDEwOjE4IEFNLCBBbGV4
+IERldWNoZXIgd3JvdGU6DQo+ID4gV2UgYWRkZWQgbmV3IGdlbSBpb2N0bCBmbGFncyBhbmQgdGhl
+IG5ldyBmZW5jZXMgaW9jdGwsIGJ1dCBmb3Jnb3QNCj4gPiB0byBidW1wIHRoZSB2ZXJzaW9uLg0K
+PiBSZXZpZXdlZC1ieTogRWR3YXJkIE8nQ2FsbGFnaGFuIDxmdW5mdW5jdG9yQGZvbGtsb3JlMTk4
+NC5uZXQ+DQo+IA0KPiBGb3JtIHdoaWNoIGNvbW1pdCBBbGV4PyBwZXJoYXBzIENDIHN0YWJsZT8N
+Cg0KVGhleSB3ZXJlIGJvdGggYWRkZWQgYSB3aGlsZSBhZ28uICBJJ20gbm90IHN1cmUgaG93IGZl
+YXNpYmxlIGl0IGlzIHRvIGNjIHN0YWJsZSBhcyB3ZSBtYXkgcnVuIGludG8gb3RoZXIgaW50ZXJp
+bSB2ZXJzaW9uIGJ1bXBzLiAgV2UgY2FuIHByb2JhYmx5IGZpZ3VyZSBvdXQgd2hpY2ggcHJldmlv
+dXMgdmVyc2lvbiBidW1wcyB3b3VsZCBjb3ZlciB1cywgYnV0IHRoZSB1c2Vyc3BhY2Ugc3R1ZmYg
+aGFzbuKAmXQgbGFuZGVkIHlldCBzbyB0aGlzIGlzIHByb2JhYmx5IGVhc2llci4NCg0KQWxleA0K
+DQo+IA0KPiA+DQo+ID4gU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1
+Y2hlckBhbWQuY29tPg0KPiA+IC0tLQ0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfZHJ2LmMgfCAzICsrLQ0KPiA+ICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCsp
+LCAxIGRlbGV0aW9uKC0pDQo+ID4NCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X2Rydi5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2Rydi5jDQo+ID4gaW5kZXggNzVmYzM3Ni4uZjdhZGJhYyAxMDA2NDQNCj4gPiAtLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMNCj4gPiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMNCj4gPiBAQCAtNTksOSArNTksMTAgQEAN
+Cj4gPiAgICogLSAzLjcuMCAtIEFkZCBzdXBwb3J0IGZvciBWQ0UgY2xvY2sgbGlzdCBwYWNrZXQN
+Cj4gPiAgICogLSAzLjguMCAtIEFkZCBzdXBwb3J0IHJhc3RlciBjb25maWcgaW5pdCBpbiB0aGUg
+a2VybmVsDQo+ID4gICAqIC0gMy45LjAgLSBBZGQgc3VwcG9ydCBmb3IgbWVtb3J5IHF1ZXJ5IGlu
+Zm8gYWJvdXQgVlJBTSBhbmQgR1RULg0KPiA+ICsgKiAtIDMuMTAuMCAtIEFkZCBzdXBwb3J0IGZv
+ciBuZXcgZmVuY2VzIGlvY3RsLCBuZXcgZ2VtIGlvY3RsIGZsYWdzDQo+ID4gICAqLw0KPiA+ICAj
+ZGVmaW5lIEtNU19EUklWRVJfTUFKT1IJMw0KPiA+IC0jZGVmaW5lIEtNU19EUklWRVJfTUlOT1IJ
+OQ0KPiA+ICsjZGVmaW5lIEtNU19EUklWRVJfTUlOT1IJMTANCj4gPiAgI2RlZmluZSBLTVNfRFJJ
+VkVSX1BBVENITEVWRUwJMA0KPiA+DQo+ID4gIGludCBhbWRncHVfdnJhbV9saW1pdCA9IDA7DQo+
+ID4NCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
+LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
+aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
