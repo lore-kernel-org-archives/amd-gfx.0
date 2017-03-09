@@ -1,17 +1,18 @@
-From: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: Shared semaphores for amdgpu
-Date: Thu, 9 Mar 2017 14:24:37 +1000
-Message-ID: <CAPM=9twMvVoKCCmQUVsB6uD18j1e9cNq9eNqviVFy6F8v7OdOg@mail.gmail.com>
+Date: Thu, 9 Mar 2017 15:00:22 +0800
+Message-ID: <58C0FD86.8040808@amd.com>
 References: <544E607D03B20249AA404517E498FC469A558B@exchange01.valvesoftware.com>
  <BN4PR12MB0787AE3A185BE4D6916CE42AEE600@BN4PR12MB0787.namprd12.prod.outlook.com>
  <a25fdfeb-be5d-2d23-d7b1-ef14891ba6d5@gmail.com>
  <CAPM=9txG2KEw7AH553uFtuvoGYFK1=kmkPRJEHuA=8fq_JcY=w@mail.gmail.com>
  <58B4D68E.5080606@amd.com>
  <CAPM=9tw3nbGe+gaOpoBZeXfmS5+C3R4eK=uT8AL3krL0PMR0LA@mail.gmail.com>
+ <CAPM=9twMvVoKCCmQUVsB6uD18j1e9cNq9eNqviVFy6F8v7OdOg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary=f403045f87327fc8d3054a449fd5
+Content-Type: multipart/mixed; boundary="------------040601090507040301020506"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAPM=9tw3nbGe+gaOpoBZeXfmS5+C3R4eK=uT8AL3krL0PMR0LA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <CAPM=9twMvVoKCCmQUVsB6uD18j1e9cNq9eNqviVFy6F8v7OdOg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,476 +23,1357 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+To: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Mao,
  David" <David.Mao-5C7GfCeVMHo@public.gmane.org>, Andres Rodriguez <andresr-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org>, Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Dave Airlie <airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "Cui,
  Flora" <Flora.Cui-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, Pierre-Loup Griffais <pgriffais-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org>
 
---f403045f87327fc8d3054a449fd5
-Content-Type: text/plain; charset=UTF-8
+--------------040601090507040301020506
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
 
-I've attached two patches for RFC at the moment, I haven't finished
-the userspace for these yet, but just wanted to get some
-ideas/feedback.
+Hi Dave,
 
-Dave.
+We have already completed implementation as the attached for both kernel 
+and libdrm. We discuss it on top of this.
 
-On 9 March 2017 at 13:52, Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
-> On 28 February 2017 at 11:46, zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org> wrote:
->> Hi Dave,
->>
->> The attached is our semaphore implementation, amdgpu_cs.c is drm file, the
->> others are kernel file.
->> Any suggestion?
-> Thanks,
->
-> I've built a tree with all these in it, and started looking into the interface.
->
-> I do wonder if we need the separate sem signal/wait interface, I think
-> we should just add
-> semaphore chunks to the CS interface.
->
-> I'm just playing around with this now.
+
+Thanks,
+David Zhou
+
+On 2017年03月09日 12:24, Dave Airlie wrote:
+> I've attached two patches for RFC at the moment, I haven't finished
+> the userspace for these yet, but just wanted to get some
+> ideas/feedback.
 >
 > Dave.
+>
+> On 9 March 2017 at 13:52, Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+>> On 28 February 2017 at 11:46, zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org> wrote:
+>>> Hi Dave,
+>>>
+>>> The attached is our semaphore implementation, amdgpu_cs.c is drm file, the
+>>> others are kernel file.
+>>> Any suggestion?
+>> Thanks,
+>>
+>> I've built a tree with all these in it, and started looking into the interface.
+>>
+>> I do wonder if we need the separate sem signal/wait interface, I think
+>> we should just add
+>> semaphore chunks to the CS interface.
+>>
+>> I'm just playing around with this now.
+>>
+>> Dave.
 
---f403045f87327fc8d3054a449fd5
-Content-Type: text/x-patch; charset=US-ASCII;
-	name="0001-amdgpu-cs-split-out-fence-dependency-checking.patch"
+
+--------------040601090507040301020506
+Content-Type: text/x-patch;
+	name="0001-drm-amdgpu-add-new-semaphore-object-in-kernel-side-V.patch"
+Content-Transfer-Encoding: 7bit
 Content-Disposition: attachment;
-	filename="0001-amdgpu-cs-split-out-fence-dependency-checking.patch"
-Content-Transfer-Encoding: base64
-X-Attachment-Id: f_j01w2lnw0
+	filename*0="0001-drm-amdgpu-add-new-semaphore-object-in-kernel-side-V.pa";
+	filename*1="tch"
 
-RnJvbSA2Njg1MmQzZTFkYzQyNDIxZWIxY2ZkOTY0MGMwNDNiYmE3MDkzMWFmIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBEYXZlIEFpcmxpZSA8YWlybGllZEByZWRoYXQuY29tPgpEYXRl
-OiBUaHUsIDkgTWFyIDIwMTcgMDM6NDU6NTIgKzAwMDAKU3ViamVjdDogW1BBVENIIDEvMl0gYW1k
-Z3B1L2NzOiBzcGxpdCBvdXQgZmVuY2UgZGVwZW5kZW5jeSBjaGVja2luZwoKLS0tCiBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYyB8IDg2ICsrKysrKysrKysrKysrKysrKyst
-LS0tLS0tLS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCA0OCBpbnNlcnRpb25zKCspLCAzOCBkZWxl
-dGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-Y3MuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCmluZGV4IGQyZDBm
-NjAuLmQ3MmI2ZTggMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9jcy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCkBAIC05
-NjEsNTYgKzk2MSw2NiBAQCBzdGF0aWMgaW50IGFtZGdwdV9jc19pYl9maWxsKHN0cnVjdCBhbWRn
-cHVfZGV2aWNlICphZGV2LAogCXJldHVybiAwOwogfQogCi1zdGF0aWMgaW50IGFtZGdwdV9jc19k
-ZXBlbmRlbmNpZXMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCi0JCQkJICBzdHJ1Y3QgYW1k
-Z3B1X2NzX3BhcnNlciAqcCkKK3N0YXRpYyBpbnQgYW1kZ3B1X3Byb2Nlc3NfZmVuY2VfZGVwKHN0
-cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAorCQkJCSAgICBzdHJ1Y3QgYW1kZ3B1X2NzX3BhcnNl
-ciAqcCwKKwkJCQkgICAgc3RydWN0IGFtZGdwdV9jc19jaHVuayAqY2h1bmspCiB7CiAJc3RydWN0
-IGFtZGdwdV9mcHJpdiAqZnByaXYgPSBwLT5maWxwLT5kcml2ZXJfcHJpdjsKLQlpbnQgaSwgaiwg
-cjsKLQotCWZvciAoaSA9IDA7IGkgPCBwLT5uY2h1bmtzOyArK2kpIHsKLQkJc3RydWN0IGRybV9h
-bWRncHVfY3NfY2h1bmtfZGVwICpkZXBzOwotCQlzdHJ1Y3QgYW1kZ3B1X2NzX2NodW5rICpjaHVu
-azsKLQkJdW5zaWduZWQgbnVtX2RlcHM7CisJdW5zaWduZWQgbnVtX2RlcHM7CisJaW50IGksIHI7
-CisJc3RydWN0IGRybV9hbWRncHVfY3NfY2h1bmtfZGVwICpkZXBzOwogCi0JCWNodW5rID0gJnAt
-PmNodW5rc1tpXTsKKwlkZXBzID0gKHN0cnVjdCBkcm1fYW1kZ3B1X2NzX2NodW5rX2RlcCAqKWNo
-dW5rLT5rZGF0YTsKKwludW1fZGVwcyA9IGNodW5rLT5sZW5ndGhfZHcgKiA0IC8KKwkJc2l6ZW9m
-KHN0cnVjdCBkcm1fYW1kZ3B1X2NzX2NodW5rX2RlcCk7CiAKLQkJaWYgKGNodW5rLT5jaHVua19p
-ZCAhPSBBTURHUFVfQ0hVTktfSURfREVQRU5ERU5DSUVTKQotCQkJY29udGludWU7CisJZm9yIChp
-ID0gMDsgaSA8IG51bV9kZXBzOyArK2kpIHsKKwkJc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nOwor
-CQlzdHJ1Y3QgYW1kZ3B1X2N0eCAqY3R4OworCQlzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZTsKIAot
-CQlkZXBzID0gKHN0cnVjdCBkcm1fYW1kZ3B1X2NzX2NodW5rX2RlcCAqKWNodW5rLT5rZGF0YTsK
-LQkJbnVtX2RlcHMgPSBjaHVuay0+bGVuZ3RoX2R3ICogNCAvCi0JCQlzaXplb2Yoc3RydWN0IGRy
-bV9hbWRncHVfY3NfY2h1bmtfZGVwKTsKKwkJciA9IGFtZGdwdV9jc19nZXRfcmluZyhhZGV2LCBk
-ZXBzW2ldLmlwX3R5cGUsCisJCQkJICAgICAgIGRlcHNbaV0uaXBfaW5zdGFuY2UsCisJCQkJICAg
-ICAgIGRlcHNbaV0ucmluZywgJnJpbmcpOworCQlpZiAocikKKwkJCXJldHVybiByOwogCi0JCWZv
-ciAoaiA9IDA7IGogPCBudW1fZGVwczsgKytqKSB7Ci0JCQlzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJp
-bmc7Ci0JCQlzdHJ1Y3QgYW1kZ3B1X2N0eCAqY3R4OwotCQkJc3RydWN0IGRtYV9mZW5jZSAqZmVu
-Y2U7CisJCWN0eCA9IGFtZGdwdV9jdHhfZ2V0KGZwcml2LCBkZXBzW2ldLmN0eF9pZCk7CisJCWlm
-IChjdHggPT0gTlVMTCkKKwkJCXJldHVybiAtRUlOVkFMOwogCi0JCQlyID0gYW1kZ3B1X2NzX2dl
-dF9yaW5nKGFkZXYsIGRlcHNbal0uaXBfdHlwZSwKLQkJCQkJICAgICAgIGRlcHNbal0uaXBfaW5z
-dGFuY2UsCi0JCQkJCSAgICAgICBkZXBzW2pdLnJpbmcsICZyaW5nKTsKKwkJZmVuY2UgPSBhbWRn
-cHVfY3R4X2dldF9mZW5jZShjdHgsIHJpbmcsCisJCQkJCSAgICAgZGVwc1tpXS5oYW5kbGUpOwor
-CQlpZiAoSVNfRVJSKGZlbmNlKSkgeworCQkJciA9IFBUUl9FUlIoZmVuY2UpOworCQkJYW1kZ3B1
-X2N0eF9wdXQoY3R4KTsKKwkJCXJldHVybiByOworCQl9IGVsc2UgaWYgKGZlbmNlKSB7CisJCQly
-ID0gYW1kZ3B1X3N5bmNfZmVuY2UoYWRldiwgJnAtPmpvYi0+c3luYywKKwkJCQkJICAgICAgZmVu
-Y2UpOworCQkJZG1hX2ZlbmNlX3B1dChmZW5jZSk7CisJCQlhbWRncHVfY3R4X3B1dChjdHgpOwog
-CQkJaWYgKHIpCiAJCQkJcmV0dXJuIHI7CisJCX0KKwl9CisJcmV0dXJuIDA7Cit9CiAKLQkJCWN0
-eCA9IGFtZGdwdV9jdHhfZ2V0KGZwcml2LCBkZXBzW2pdLmN0eF9pZCk7Ci0JCQlpZiAoY3R4ID09
-IE5VTEwpCi0JCQkJcmV0dXJuIC1FSU5WQUw7CitzdGF0aWMgaW50IGFtZGdwdV9jc19kZXBlbmRl
-bmNpZXMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCisJCQkJICBzdHJ1Y3QgYW1kZ3B1X2Nz
-X3BhcnNlciAqcCkKK3sKKwlpbnQgaSwgcjsKIAotCQkJZmVuY2UgPSBhbWRncHVfY3R4X2dldF9m
-ZW5jZShjdHgsIHJpbmcsCi0JCQkJCQkgICAgIGRlcHNbal0uaGFuZGxlKTsKLQkJCWlmIChJU19F
-UlIoZmVuY2UpKSB7Ci0JCQkJciA9IFBUUl9FUlIoZmVuY2UpOwotCQkJCWFtZGdwdV9jdHhfcHV0
-KGN0eCk7Ci0JCQkJcmV0dXJuIHI7CisJZm9yIChpID0gMDsgaSA8IHAtPm5jaHVua3M7ICsraSkg
-eworCQlzdHJ1Y3QgYW1kZ3B1X2NzX2NodW5rICpjaHVuazsKIAotCQkJfSBlbHNlIGlmIChmZW5j
-ZSkgewotCQkJCXIgPSBhbWRncHVfc3luY19mZW5jZShhZGV2LCAmcC0+am9iLT5zeW5jLAotCQkJ
-CQkJICAgICAgZmVuY2UpOwotCQkJCWRtYV9mZW5jZV9wdXQoZmVuY2UpOwotCQkJCWFtZGdwdV9j
-dHhfcHV0KGN0eCk7Ci0JCQkJaWYgKHIpCi0JCQkJCXJldHVybiByOwotCQkJfQorCQljaHVuayA9
-ICZwLT5jaHVua3NbaV07CisKKwkJaWYgKGNodW5rLT5jaHVua19pZCA9PSBBTURHUFVfQ0hVTktf
-SURfREVQRU5ERU5DSUVTKSB7CisJCQlyID0gYW1kZ3B1X3Byb2Nlc3NfZmVuY2VfZGVwKGFkZXYs
-IHAsIGNodW5rKTsKKwkJCWlmIChyKQorCQkJCXJldHVybiByOwogCQl9CiAJfQogCi0tIAoyLjcu
-NAoK
---f403045f87327fc8d3054a449fd5
-Content-Type: text/x-patch; charset=US-ASCII;
-	name="0002-RFC-drm-amdgpu-add-shared-semaphores-support.patch"
+>From 030ab323340d5557cd0ccf07d41f932b762745ac Mon Sep 17 00:00:00 2001
+From: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+Date: Fri, 23 Sep 2016 10:22:22 +0800
+Subject: [PATCH] drm/amdgpu: add new semaphore object in kernel side V3
+
+So that semaphore can be shared across porcess across devices.
+
+V2: add import/export
+V3: some bug fixes
+
+Signed-off-by: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org> (v1, v3)
+Signed-off-by: Flora Cui <Flora.Cui-5C7GfCeVMHo@public.gmane.org> (v2)
+Reviewed-by: Monk Liu <monk.liu-5C7GfCeVMHo@public.gmane.org> (v1)
+Acked-by: Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org> (v2)
+Reviewed-by: David Mao <David.Mao-5C7GfCeVMHo@public.gmane.org> (v3)
+
+Change-Id: I88e2168328d005a42b41eb7b0c60530a92126829
+---
+ drivers/gpu/drm/amd/amdgpu/Makefile     |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  13 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c  |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c |   6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c |  10 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sem.c | 444 ++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sem.h |  50 ++++
+ include/uapi/drm/amdgpu_drm.h           |  32 +++
+ 8 files changed, 555 insertions(+), 4 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_sem.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_sem.h
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index 8870e2e..0075287 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -30,7 +30,7 @@ amdgpu-y += amdgpu_device.o amdgpu_kms.o \
+ 	atombios_encoders.o amdgpu_sa.o atombios_i2c.o \
+ 	amdgpu_prime.o amdgpu_vm.o amdgpu_ib.o amdgpu_pll.o \
+ 	amdgpu_ucode.o amdgpu_bo_list.o amdgpu_ctx.o amdgpu_sync.o \
+-	amdgpu_gtt_mgr.o amdgpu_vram_mgr.o amdgpu_virt.o
++	amdgpu_gtt_mgr.o amdgpu_vram_mgr.o amdgpu_virt.o amdgpu_sem.o
+ 
+ # add asic specific block
+ amdgpu-$(CONFIG_DRM_AMDGPU_CIK)+= cik.o cik_ih.o kv_smc.o kv_dpm.o \
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 4435b36..d3b1593 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -56,6 +56,7 @@
+ #include "amdgpu_sync.h"
+ #include "amdgpu_ring.h"
+ #include "amdgpu_vm.h"
++#include "amdgpu_sem.h"
+ #include "amd_powerplay.h"
+ #include "amdgpu_dpm.h"
+ #include "amdgpu_acp.h"
+@@ -665,6 +666,8 @@ struct amdgpu_ctx_ring {
+ 	uint64_t		sequence;
+ 	struct fence		**fences;
+ 	struct amd_sched_entity	entity;
++	struct list_head	sem_list;
++	struct mutex            sem_lock;
+ };
+ 
+ struct amdgpu_ctx {
+@@ -708,6 +711,8 @@ struct amdgpu_fpriv {
+ 	struct mutex		bo_list_lock;
+ 	struct idr		bo_list_handles;
+ 	struct amdgpu_ctx_mgr	ctx_mgr;
++	spinlock_t		sem_handles_lock;
++	struct idr		sem_handles;
+ };
+ 
+ /*
+@@ -1243,6 +1248,14 @@ int amdgpu_gem_metadata_ioctl(struct drm_device *dev, void *data,
+ int amdgpu_freesync_ioctl(struct drm_device *dev, void *data,
+ 			    struct drm_file *filp);
+ 
++int amdgpu_sem_ioctl(struct drm_device *dev, void *data,
++		     struct drm_file *filp);
++
++int amdgpu_sem_add_cs(struct amdgpu_ctx *ctx, struct amdgpu_ring *ring,
++		      struct amdgpu_sync *sync);
++
++void amdgpu_sem_destroy(struct amdgpu_fpriv *fpriv, u32 handle);
++
+ /* VRAM scratch page for HDP bug, default vram page */
+ struct amdgpu_vram_scratch {
+ 	struct amdgpu_bo		*robj;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index aafe11e..92b1423 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1024,7 +1024,7 @@ static int amdgpu_cs_dependencies(struct amdgpu_device *adev,
+ 		}
+ 	}
+ 
+-	return 0;
++	return amdgpu_sem_add_cs(p->ctx, p->job->ring, &p->job->sync);
+ }
+ 
+ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+index 6d86eae..66cf23c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -42,6 +42,8 @@ static int amdgpu_ctx_init(struct amdgpu_device *adev, struct amdgpu_ctx *ctx)
+ 	for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+ 		ctx->rings[i].sequence = 1;
+ 		ctx->rings[i].fences = &ctx->fences[amdgpu_sched_jobs * i];
++		INIT_LIST_HEAD(&ctx->rings[i].sem_list);
++		mutex_init(&ctx->rings[i].sem_lock);
+ 	}
+ 
+ 	ctx->reset_counter = atomic_read(&adev->gpu_reset_counter);
+@@ -78,8 +80,10 @@ static void amdgpu_ctx_fini(struct amdgpu_ctx *ctx)
+ 		return;
+ 
+ 	for (i = 0; i < AMDGPU_MAX_RINGS; ++i)
+-		for (j = 0; j < amdgpu_sched_jobs; ++j)
++		for (j = 0; j < amdgpu_sched_jobs; ++j) {
+ 			fence_put(ctx->rings[i].fences[j]);
++			mutex_destroy(&ctx->rings[i].sem_lock);
++		}
+ 	kfree(ctx->fences);
+ 	ctx->fences = NULL;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index ee3720e..b973225 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -749,6 +749,8 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
+ 
+ 	mutex_init(&fpriv->bo_list_lock);
+ 	idr_init(&fpriv->bo_list_handles);
++	spin_lock_init(&fpriv->sem_handles_lock);
++	idr_init(&fpriv->sem_handles);
+ 
+ 	amdgpu_ctx_mgr_init(&fpriv->ctx_mgr);
+ 
+@@ -775,6 +777,7 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
+ 	struct amdgpu_device *adev = dev->dev_private;
+ 	struct amdgpu_fpriv *fpriv = file_priv->driver_priv;
+ 	struct amdgpu_bo_list *list;
++	struct amdgpu_sem *sem;
+ 	int handle;
+ 
+ 	if (!fpriv)
+@@ -803,6 +806,10 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
+ 	idr_destroy(&fpriv->bo_list_handles);
+ 	mutex_destroy(&fpriv->bo_list_lock);
+ 
++	idr_for_each_entry(&fpriv->sem_handles, sem, handle)
++		amdgpu_sem_destroy(fpriv, handle);
++	idr_destroy(&fpriv->sem_handles);
++
+ 	kfree(fpriv);
+ 	file_priv->driver_priv = NULL;
+ 
+@@ -984,7 +991,8 @@ int amdgpu_get_vblank_timestamp_kms(struct drm_device *dev, unsigned int pipe,
+ 	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_VA, amdgpu_gem_va_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_OP, amdgpu_gem_op_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_USERPTR, amdgpu_gem_userptr_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+-	DRM_IOCTL_DEF_DRV(AMDGPU_FREESYNC, amdgpu_freesync_ioctl, DRM_MASTER)
++	DRM_IOCTL_DEF_DRV(AMDGPU_FREESYNC, amdgpu_freesync_ioctl, DRM_MASTER),
++	DRM_IOCTL_DEF_DRV(AMDGPU_SEM, amdgpu_sem_ioctl, DRM_AUTH|DRM_UNLOCKED|DRM_RENDER_ALLOW),
+ };
+ const int amdgpu_max_kms_ioctl = ARRAY_SIZE(amdgpu_ioctls_kms);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sem.c
+new file mode 100644
+index 0000000..6681162
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sem.c
+@@ -0,0 +1,444 @@
++/*
++ * Copyright 2016 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ * Authors:
++ *    Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>
++ */
++#include <linux/file.h>
++#include <linux/fs.h>
++#include <linux/kernel.h>
++#include <linux/poll.h>
++#include <linux/seq_file.h>
++#include <linux/export.h>
++#include <linux/sched.h>
++#include <linux/slab.h>
++#include <linux/uaccess.h>
++#include <linux/anon_inodes.h>
++#include "amdgpu_sem.h"
++#include "amdgpu.h"
++#include <drm/drmP.h>
++
++static int amdgpu_sem_cring_add(struct amdgpu_fpriv *fpriv,
++				struct drm_amdgpu_sem_in *in,
++				struct amdgpu_sem *sem);
++
++static void amdgpu_sem_core_free(struct kref *kref)
++{
++	struct amdgpu_sem_core *core = container_of(
++		kref, struct amdgpu_sem_core, kref);
++
++	fence_put(core->fence);
++	mutex_destroy(&core->lock);
++	kfree(core);
++}
++
++static void amdgpu_sem_free(struct kref *kref)
++{
++	struct amdgpu_sem *sem = container_of(
++		kref, struct amdgpu_sem, kref);
++
++	list_del(&sem->list);
++	kref_put(&sem->base->kref, amdgpu_sem_core_free);
++	kfree(sem);
++}
++
++static inline void amdgpu_sem_get(struct amdgpu_sem *sem)
++{
++	if (sem)
++		kref_get(&sem->kref);
++}
++
++static inline void amdgpu_sem_put(struct amdgpu_sem *sem)
++{
++	if (sem)
++		kref_put(&sem->kref, amdgpu_sem_free);
++}
++
++static int amdgpu_sem_release(struct inode *inode, struct file *file)
++{
++	struct amdgpu_sem_core *core = file->private_data;
++
++	kref_put(&core->kref, amdgpu_sem_core_free);
++	return 0;
++}
++
++static unsigned int amdgpu_sem_poll(struct file *file, poll_table *wait)
++{
++	return 0;
++}
++
++static long amdgpu_sem_file_ioctl(struct file *file, unsigned int cmd,
++				   unsigned long arg)
++{
++	return 0;
++}
++
++static const struct file_operations amdgpu_sem_fops = {
++	.release = amdgpu_sem_release,
++	.poll = amdgpu_sem_poll,
++	.unlocked_ioctl = amdgpu_sem_file_ioctl,
++	.compat_ioctl = amdgpu_sem_file_ioctl,
++};
++
++
++static inline struct amdgpu_sem *amdgpu_sem_lookup(struct amdgpu_fpriv *fpriv, u32 handle)
++{
++	struct amdgpu_sem *sem;
++
++	spin_lock(&fpriv->sem_handles_lock);
++
++	/* Check if we currently have a reference on the object */
++	sem = idr_find(&fpriv->sem_handles, handle);
++	amdgpu_sem_get(sem);
++
++	spin_unlock(&fpriv->sem_handles_lock);
++
++	return sem;
++}
++
++static struct amdgpu_sem_core *amdgpu_sem_core_alloc(void)
++{
++	struct amdgpu_sem_core *core;
++
++	core = kzalloc(sizeof(*core), GFP_KERNEL);
++	if (!core)
++		return NULL;
++
++	kref_init(&core->kref);
++	mutex_init(&core->lock);
++	return core;
++}
++
++static struct amdgpu_sem *amdgpu_sem_alloc(void)
++{
++	struct amdgpu_sem *sem;
++
++	sem = kzalloc(sizeof(*sem), GFP_KERNEL);
++	if (!sem)
++		return NULL;
++
++	kref_init(&sem->kref);
++	INIT_LIST_HEAD(&sem->list);
++
++	return sem;
++}
++
++static int amdgpu_sem_create(struct amdgpu_fpriv *fpriv, u32 *handle)
++{
++	struct amdgpu_sem *sem;
++	struct amdgpu_sem_core *core;
++	int ret;
++
++	sem = amdgpu_sem_alloc();
++	core = amdgpu_sem_core_alloc();
++	if (!sem || !core) {
++		kfree(sem);
++		kfree(core);
++		return -ENOMEM;
++	}
++
++	sem->base = core;
++
++	idr_preload(GFP_KERNEL);
++	spin_lock(&fpriv->sem_handles_lock);
++
++	ret = idr_alloc(&fpriv->sem_handles, sem, 1, 0, GFP_NOWAIT);
++
++	spin_unlock(&fpriv->sem_handles_lock);
++	idr_preload_end();
++
++	if (ret < 0)
++		return ret;
++
++	*handle = ret;
++	return 0;
++}
++
++static int amdgpu_sem_signal(struct amdgpu_fpriv *fpriv,
++				u32 handle, struct fence *fence)
++{
++	struct amdgpu_sem *sem;
++	struct amdgpu_sem_core *core;
++
++	sem = amdgpu_sem_lookup(fpriv, handle);
++	if (!sem)
++		return -EINVAL;
++
++	core = sem->base;
++	mutex_lock(&core->lock);
++	fence_put(core->fence);
++	core->fence = fence_get(fence);
++	mutex_unlock(&core->lock);
++
++	amdgpu_sem_put(sem);
++	return 0;
++}
++
++static int amdgpu_sem_wait(struct amdgpu_fpriv *fpriv,
++			  struct drm_amdgpu_sem_in *in)
++{
++	struct amdgpu_sem *sem;
++	int ret;
++
++	sem = amdgpu_sem_lookup(fpriv, in->handle);
++	if (!sem)
++		return -EINVAL;
++
++	ret = amdgpu_sem_cring_add(fpriv, in, sem);
++	amdgpu_sem_put(sem);
++
++	return ret;
++}
++
++static int amdgpu_sem_import(struct amdgpu_fpriv *fpriv,
++				       int fd, u32 *handle)
++{
++	struct file *file = fget(fd);
++	struct amdgpu_sem *sem;
++	struct amdgpu_sem_core *core;
++	int ret;
++
++	if (!file)
++		return -EINVAL;
++
++	core = file->private_data;
++	if (!core) {
++		fput(file);
++		return -EINVAL;
++	}
++
++	kref_get(&core->kref);
++	sem = amdgpu_sem_alloc();
++	if (!sem) {
++		ret = -ENOMEM;
++		goto err_sem;
++	}
++
++	sem->base = core;
++
++	idr_preload(GFP_KERNEL);
++	spin_lock(&fpriv->sem_handles_lock);
++
++	ret = idr_alloc(&fpriv->sem_handles, sem, 1, 0, GFP_NOWAIT);
++
++	spin_unlock(&fpriv->sem_handles_lock);
++	idr_preload_end();
++
++	if (ret < 0)
++		goto err_out;
++
++	*handle = ret;
++	fput(file);
++	return 0;
++err_sem:
++	kref_put(&core->kref, amdgpu_sem_core_free);
++err_out:
++	amdgpu_sem_put(sem);
++	fput(file);
++	return ret;
++
++}
++
++static int amdgpu_sem_export(struct amdgpu_fpriv *fpriv,
++				       u32 handle, int *fd)
++{
++	struct amdgpu_sem *sem;
++	struct amdgpu_sem_core *core;
++	int ret;
++
++	sem = amdgpu_sem_lookup(fpriv, handle);
++	if (!sem)
++		return -EINVAL;
++
++	core = sem->base;
++	kref_get(&core->kref);
++	mutex_lock(&core->lock);
++	if (!core->file) {
++		core->file = anon_inode_getfile("sem_file",
++					       &amdgpu_sem_fops,
++					       core, 0);
++		if (IS_ERR(core->file)) {
++			mutex_unlock(&core->lock);
++			ret = -ENOMEM;
++			goto err_put_sem;
++		}
++	} else {
++		get_file(core->file);
++	}
++	mutex_unlock(&core->lock);
++
++	ret = get_unused_fd_flags(O_CLOEXEC);
++	if (ret < 0)
++		goto err_put_file;
++
++	fd_install(ret, core->file);
++
++	*fd = ret;
++	amdgpu_sem_put(sem);
++	return 0;
++
++err_put_file:
++	fput(core->file);
++err_put_sem:
++	kref_put(&core->kref, amdgpu_sem_core_free);
++	amdgpu_sem_put(sem);
++	return ret;
++}
++
++void amdgpu_sem_destroy(struct amdgpu_fpriv *fpriv, u32 handle)
++{
++	struct amdgpu_sem *sem = amdgpu_sem_lookup(fpriv, handle);
++	if (!sem)
++		return;
++
++	spin_lock(&fpriv->sem_handles_lock);
++	idr_remove(&fpriv->sem_handles, handle);
++	spin_unlock(&fpriv->sem_handles_lock);
++
++	kref_sub(&sem->kref, 2, amdgpu_sem_free);
++}
++
++static struct fence *amdgpu_sem_get_fence(struct amdgpu_fpriv *fpriv,
++					 struct drm_amdgpu_sem_in *in)
++{
++	struct amdgpu_ring *out_ring;
++	struct amdgpu_ctx *ctx;
++	struct fence *fence;
++	uint32_t ctx_id, ip_type, ip_instance, ring;
++	int r;
++
++	ctx_id = in->ctx_id;
++	ip_type = in->ip_type;
++	ip_instance = in->ip_instance;
++	ring = in->ring;
++	ctx = amdgpu_ctx_get(fpriv, ctx_id);
++	if (!ctx)
++		return NULL;
++	r = amdgpu_cs_get_ring(ctx->adev, ip_type, ip_instance, ring,
++			       &out_ring);
++	if (r) {
++		amdgpu_ctx_put(ctx);
++		return NULL;
++	}
++	/* get the last fence of this entity */
++	fence = amdgpu_ctx_get_fence(ctx, out_ring,
++				     in->seq ? in->seq :
++				     ctx->rings[out_ring->idx].sequence - 1);
++	amdgpu_ctx_put(ctx);
++
++	return fence;
++}
++
++static int amdgpu_sem_cring_add(struct amdgpu_fpriv *fpriv,
++				struct drm_amdgpu_sem_in *in,
++				struct amdgpu_sem *sem)
++{
++	struct amdgpu_ring *out_ring;
++	struct amdgpu_ctx *ctx;
++	uint32_t ctx_id, ip_type, ip_instance, ring;
++	int r;
++
++	ctx_id = in->ctx_id;
++	ip_type = in->ip_type;
++	ip_instance = in->ip_instance;
++	ring = in->ring;
++	ctx = amdgpu_ctx_get(fpriv, ctx_id);
++	if (!ctx)
++		return -EINVAL;
++	r = amdgpu_cs_get_ring(ctx->adev, ip_type, ip_instance, ring,
++			       &out_ring);
++	if (r)
++		goto err;
++	mutex_lock(&ctx->rings[out_ring->idx].sem_lock);
++	list_add(&sem->list, &ctx->rings[out_ring->idx].sem_list);
++	mutex_unlock(&ctx->rings[out_ring->idx].sem_lock);
++
++err:
++	amdgpu_ctx_put(ctx);
++	return r;
++}
++
++int amdgpu_sem_add_cs(struct amdgpu_ctx *ctx, struct amdgpu_ring *ring,
++		     struct amdgpu_sync *sync)
++{
++	struct amdgpu_sem *sem, *tmp;
++	int r = 0;
++
++	if (list_empty(&ctx->rings[ring->idx].sem_list))
++		return 0;
++
++	mutex_lock(&ctx->rings[ring->idx].sem_lock);
++	list_for_each_entry_safe(sem, tmp, &ctx->rings[ring->idx].sem_list,
++				 list) {
++		r = amdgpu_sync_fence(ctx->adev, sync, sem->base->fence);
++		if (r)
++			goto err;
++		mutex_lock(&sem->base->lock);
++		fence_put(sem->base->fence);
++		sem->base->fence = NULL;
++		mutex_unlock(&sem->base->lock);
++		list_del_init(&sem->list);
++	}
++err:
++	mutex_unlock(&ctx->rings[ring->idx].sem_lock);
++	return r;
++}
++
++int amdgpu_sem_ioctl(struct drm_device *dev, void *data,
++		     struct drm_file *filp)
++{
++	union drm_amdgpu_sem *args = data;
++	struct amdgpu_fpriv *fpriv = filp->driver_priv;
++	struct fence *fence;
++	int r = 0;
++
++	switch (args->in.op) {
++	case AMDGPU_SEM_OP_CREATE_SEM:
++		r = amdgpu_sem_create(fpriv, &args->out.handle);
++		break;
++	case AMDGPU_SEM_OP_WAIT_SEM:
++		r = amdgpu_sem_wait(fpriv, &args->in);
++		break;
++	case AMDGPU_SEM_OP_SIGNAL_SEM:
++		fence = amdgpu_sem_get_fence(fpriv, &args->in);
++		if (IS_ERR(fence)) {
++			r = PTR_ERR(fence);
++			return r;
++		}
++		r = amdgpu_sem_signal(fpriv, args->in.handle, fence);
++		fence_put(fence);
++		break;
++	case AMDGPU_SEM_OP_IMPORT_SEM:
++		r = amdgpu_sem_import(fpriv, args->in.handle, &args->out.handle);
++		break;
++	case AMDGPU_SEM_OP_EXPORT_SEM:
++		r = amdgpu_sem_export(fpriv, args->in.handle, &args->out.fd);
++		break;
++	case AMDGPU_SEM_OP_DESTROY_SEM:
++		amdgpu_sem_destroy(fpriv, args->in.handle);
++		break;
++	default:
++		r = -EINVAL;
++		break;
++	}
++
++	return r;
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sem.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sem.h
+new file mode 100644
+index 0000000..04296ca
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sem.h
+@@ -0,0 +1,50 @@
++/*
++ * Copyright 2016 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ * Authors: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>
++ *
++ */
++
++
++#ifndef _LINUX_AMDGPU_SEM_H
++#define _LINUX_AMDGPU_SEM_H
++
++#include <linux/types.h>
++#include <linux/kref.h>
++#include <linux/ktime.h>
++#include <linux/list.h>
++#include <linux/spinlock.h>
++#include <linux/fence.h>
++
++struct amdgpu_sem_core {
++	struct file		*file;
++	struct kref		kref;
++	struct fence            *fence;
++	struct mutex	lock;
++};
++
++struct amdgpu_sem {
++	struct amdgpu_sem_core	*base;
++	struct kref		kref;
++	struct list_head        list;
++};
++
++#endif /* _LINUX_AMDGPU_SEM_H */
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 49358e7..d17f431 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -53,6 +53,8 @@
+ #define DRM_AMDGPU_WAIT_FENCES		0x12
+ #define DRM_AMDGPU_FREESYNC	        0x14
+ 
++#define DRM_AMDGPU_SEM			0x5b
++
+ #define DRM_IOCTL_AMDGPU_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
+ #define DRM_IOCTL_AMDGPU_GEM_MMAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+ #define DRM_IOCTL_AMDGPU_CTX		DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_CTX, union drm_amdgpu_ctx)
+@@ -67,6 +69,7 @@
+ #define DRM_IOCTL_AMDGPU_GEM_USERPTR	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_USERPTR, struct drm_amdgpu_gem_userptr)
+ #define DRM_IOCTL_AMDGPU_WAIT_FENCES	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_WAIT_FENCES, union drm_amdgpu_wait_fences)
+ #define DRM_IOCTL_AMDGPU_FREESYNC	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_FREESYNC, struct drm_amdgpu_freesync)
++#define DRM_IOCTL_AMDGPU_SEM		DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_SEM, union drm_amdgpu_sem)
+ 
+ #define AMDGPU_GEM_DOMAIN_CPU		0x1
+ #define AMDGPU_GEM_DOMAIN_GTT		0x2
+@@ -192,6 +195,35 @@ struct drm_amdgpu_ctx_in {
+ 	union drm_amdgpu_ctx_out out;
+ };
+ 
++/* sem related */
++#define AMDGPU_SEM_OP_CREATE_SEM        1
++#define AMDGPU_SEM_OP_WAIT_SEM	        2
++#define AMDGPU_SEM_OP_SIGNAL_SEM        3
++#define AMDGPU_SEM_OP_DESTROY_SEM       4
++#define AMDGPU_SEM_OP_IMPORT_SEM	5
++#define AMDGPU_SEM_OP_EXPORT_SEM	6
++
++struct drm_amdgpu_sem_in {
++	/** AMDGPU_SEM_OP_* */
++	uint32_t	op;
++	uint32_t        handle;
++	uint32_t	ctx_id;
++	uint32_t        ip_type;
++	uint32_t        ip_instance;
++	uint32_t        ring;
++	uint64_t        seq;
++};
++
++union drm_amdgpu_sem_out {
++	int32_t         fd;
++	uint32_t	handle;
++};
++
++union drm_amdgpu_sem {
++	struct drm_amdgpu_sem_in in;
++	union drm_amdgpu_sem_out out;
++};
++
+ /*
+  * This is not a reliable API and you should expect it to fail for any
+  * number of reasons and have fallback path that do not use userptr to
+-- 
+1.9.1
+
+
+--------------040601090507040301020506
+Content-Type: text/x-patch;
+	name="0001-amdgpu-add-new-semaphore-support-v2.patch"
+Content-Transfer-Encoding: 7bit
 Content-Disposition: attachment;
-	filename="0002-RFC-drm-amdgpu-add-shared-semaphores-support.patch"
-Content-Transfer-Encoding: base64
-X-Attachment-Id: f_j01w2lp01
+	filename="0001-amdgpu-add-new-semaphore-support-v2.patch"
 
-RnJvbSBhNDE4MTRlOTZjY2JmYzc5MjliZTA1ZDMwZjIwNjFlNjY4YzViNGFmIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBEYXZlIEFpcmxpZSA8YWlybGllZEByZWRoYXQuY29tPgpEYXRl
-OiBXZWQsIDggTWFyIDIwMTcgMDM6NDI6NDUgKzAwMDAKU3ViamVjdDogW1BBVENIIDIvMl0gW1JG
-Q10gZHJtL2FtZGdwdTogYWRkIHNoYXJlZCBzZW1hcGhvcmVzIHN1cHBvcnQuCgpUaGlzIGlzIGJh
-c2VkIG9uIGNvZGUgcHJvdmlkZWQgYnkgQU1EIChDaHVubWluZyBaaG91KS4KCkkndmUgY2hhbmdl
-ZCB0aGUgY29kZSBzbyB0aGUgc2VtYXBob3JlIHdhaXRzL3NpZ25hbHMgYXJlCnBhc3NlZCBpbiBj
-cyBjaHVua3MgcmF0aGVyIHRoYW4gdmlhIHNlcGFyYXRlIGlvY3Rscy4KClRoaXMgY29kZSBpcyBm
-aW5pc2hlZCwgSSBqdXN0IHdhbnRlZCB0byBzaGlwIGl0IG91dCBlYXJseQppbiBjYXNlIGFueW9u
-ZSBzcG90cyBhIHByb2JsZW0sIEknbGwgZmluaXNoIG9mZiB0aGUgbGliZHJtCmFuZCByYWR2IGJp
-dHMgYW5kIHNlbmQgbW9yZSBsYXRlci4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9N
-YWtlZmlsZSAgICAgfCAgIDIgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5o
-ICAgICB8ICAxMyArKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMgIHwg
-IDcwICsrKysrKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHguYyB8ICAg
-MSArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMgfCAgIDggKwogZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3NlbS5jIHwgMzYwICsrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfc2Vt
-LmggfCAgNDkgKysrKysKIGluY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oICAgICAgICAgICB8
-ICAzMSArKysKIDggZmlsZXMgY2hhbmdlZCwgNTMyIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25z
-KC0pCiBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X3NlbS5jCiBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3NlbS5oCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvTWFrZWZp
-bGUgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9NYWtlZmlsZQppbmRleCAyODE0YWFkLi40
-MDRiY2JhIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9NYWtlZmlsZQor
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9NYWtlZmlsZQpAQCAtMjQsNyArMjQsNyBA
-QCBhbWRncHUteSArPSBhbWRncHVfZGV2aWNlLm8gYW1kZ3B1X2ttcy5vIFwKIAlhdG9tYmlvc19l
-bmNvZGVycy5vIGFtZGdwdV9zYS5vIGF0b21iaW9zX2kyYy5vIFwKIAlhbWRncHVfcHJpbWUubyBh
-bWRncHVfdm0ubyBhbWRncHVfaWIubyBhbWRncHVfcGxsLm8gXAogCWFtZGdwdV91Y29kZS5vIGFt
-ZGdwdV9ib19saXN0Lm8gYW1kZ3B1X2N0eC5vIGFtZGdwdV9zeW5jLm8gXAotCWFtZGdwdV9ndHRf
-bWdyLm8gYW1kZ3B1X3ZyYW1fbWdyLm8gYW1kZ3B1X3ZpcnQubworCWFtZGdwdV9ndHRfbWdyLm8g
-YW1kZ3B1X3ZyYW1fbWdyLm8gYW1kZ3B1X3ZpcnQubyBhbWRncHVfc2VtLm8KIAogIyBhZGQgYXNp
-YyBzcGVjaWZpYyBibG9jawogYW1kZ3B1LSQoQ09ORklHX0RSTV9BTURHUFVfQ0lLKSs9IGNpay5v
-IGNpa19paC5vIGt2X3NtYy5vIGt2X2RwbS5vIFwKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-LmgKaW5kZXggYzFiOTEzNS4uOGEwZjQyZiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1LmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-LmgKQEAgLTUzLDYgKzUzLDcgQEAKICNpbmNsdWRlICJhbWRncHVfdWNvZGUuaCIKICNpbmNsdWRl
-ICJhbWRncHVfdHRtLmgiCiAjaW5jbHVkZSAiYW1kZ3B1X2dkcy5oIgorI2luY2x1ZGUgImFtZGdw
-dV9zZW0uaCIKICNpbmNsdWRlICJhbWRncHVfc3luYy5oIgogI2luY2x1ZGUgImFtZGdwdV9yaW5n
-LmgiCiAjaW5jbHVkZSAiYW1kZ3B1X3ZtLmgiCkBAIC03MDIsNiArNzAzLDggQEAgc3RydWN0IGFt
-ZGdwdV9mcHJpdiB7CiAJc3RydWN0IG11dGV4CQlib19saXN0X2xvY2s7CiAJc3RydWN0IGlkcgkJ
-Ym9fbGlzdF9oYW5kbGVzOwogCXN0cnVjdCBhbWRncHVfY3R4X21ncgljdHhfbWdyOworCXNwaW5s
-b2NrX3QJCXNlbV9oYW5kbGVzX2xvY2s7CisJc3RydWN0IGlkcgkJc2VtX2hhbmRsZXM7CiB9Owog
-CiAvKgpAQCAtMTgxNCw1ICsxODE3LDE1IEBAIGFtZGdwdV9jc19maW5kX21hcHBpbmcoc3RydWN0
-IGFtZGdwdV9jc19wYXJzZXIgKnBhcnNlciwKIAkJICAgICAgIHVpbnQ2NF90IGFkZHIsIHN0cnVj
-dCBhbWRncHVfYm8gKipibyk7CiBpbnQgYW1kZ3B1X2NzX3N5c3ZtX2FjY2Vzc19yZXF1aXJlZChz
-dHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcGFyc2VyKTsKIAoraW50IGFtZGdwdV9zZW1faW9jdGwo
-c3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwKKwkJICAgICBzdHJ1Y3QgZHJtX2Zp
-bGUgKmZpbHApOworCitpbnQgYW1kZ3B1X3NlbV9sb29rdXBfYW5kX3NpZ25hbChzdHJ1Y3QgYW1k
-Z3B1X2Zwcml2ICpmcHJpdiwKKwkJCQkgdWludDMyX3QgaGFuZGxlLAorCQkJCSBzdHJ1Y3QgZG1h
-X2ZlbmNlICpmZW5jZSk7CitpbnQgYW1kZ3B1X3NlbV9sb29rdXBfYW5kX3N5bmMoc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYsCisJCQkgICAgICAgc3RydWN0IGFtZGdwdV9mcHJpdiAqZnByaXYs
-CisJCQkgICAgICAgc3RydWN0IGFtZGdwdV9zeW5jICpzeW5jLAorCQkJICAgICAgIHVpbnQzMl90
-IGhhbmRsZSk7CiAjaW5jbHVkZSAiYW1kZ3B1X29iamVjdC5oIgogI2VuZGlmCmRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCmluZGV4IGQ3MmI2ZTguLmI1NjFjNjEgMTAwNjQ0Ci0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCisrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCkBAIC0yMTcsNiArMjE3LDggQEAgaW50IGFt
-ZGdwdV9jc19wYXJzZXJfaW5pdChzdHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcCwgdm9pZCAqZGF0
-YSkKIAkJCWJyZWFrOwogCiAJCWNhc2UgQU1ER1BVX0NIVU5LX0lEX0RFUEVOREVOQ0lFUzoKKwkJ
-Y2FzZSBBTURHUFVfQ0hVTktfSURfU0VNX1dBSVQ6CisJCWNhc2UgQU1ER1BVX0NIVU5LX0lEX1NF
-TV9TSUdOQUw6CiAJCQlicmVhazsKIAogCQlkZWZhdWx0OgpAQCAtMTAwNyw2ICsxMDA5LDI4IEBA
-IHN0YXRpYyBpbnQgYW1kZ3B1X3Byb2Nlc3NfZmVuY2VfZGVwKHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICphZGV2LAogCXJldHVybiAwOwogfQogCitzdGF0aWMgaW50IGFtZGdwdV9wcm9jZXNzX3NlbV93
-YWl0X2RlcChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKKwkJCQkgICAgICAgc3RydWN0IGFt
-ZGdwdV9jc19wYXJzZXIgKnAsCisJCQkJICAgICAgIHN0cnVjdCBhbWRncHVfY3NfY2h1bmsgKmNo
-dW5rKQoreworCXN0cnVjdCBhbWRncHVfZnByaXYgKmZwcml2ID0gcC0+ZmlscC0+ZHJpdmVyX3By
-aXY7CisJdW5zaWduZWQgbnVtX2RlcHM7CisJaW50IGksIHI7CisJc3RydWN0IGRybV9hbWRncHVf
-Y3NfY2h1bmtfZGVwICpkZXBzOworCisJZGVwcyA9IChzdHJ1Y3QgZHJtX2FtZGdwdV9jc19jaHVu
-a19kZXAgKiljaHVuay0+a2RhdGE7CisJbnVtX2RlcHMgPSBjaHVuay0+bGVuZ3RoX2R3ICogNCAv
-CisJCXNpemVvZihzdHJ1Y3QgZHJtX2FtZGdwdV9jc19jaHVua19kZXApOworCisJZm9yIChpID0g
-MDsgaSA8IG51bV9kZXBzOyArK2kpIHsKKwkJciA9IGFtZGdwdV9zZW1fbG9va3VwX2FuZF9zeW5j
-KGFkZXYsIGZwcml2LCAmcC0+am9iLT5zeW5jLAorCQkJCQkgICAgICAgZGVwc1tpXS5oYW5kbGUp
-OworCQlpZiAocikKKwkJCXJldHVybiByOworCX0KKwlyZXR1cm4gMDsKK30KKwogc3RhdGljIGlu
-dCBhbWRncHVfY3NfZGVwZW5kZW5jaWVzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCQkJ
-CSAgc3RydWN0IGFtZGdwdV9jc19wYXJzZXIgKnApCiB7CkBAIC0xMDIxLDEyICsxMDQ1LDU2IEBA
-IHN0YXRpYyBpbnQgYW1kZ3B1X2NzX2RlcGVuZGVuY2llcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
-YWRldiwKIAkJCXIgPSBhbWRncHVfcHJvY2Vzc19mZW5jZV9kZXAoYWRldiwgcCwgY2h1bmspOwog
-CQkJaWYgKHIpCiAJCQkJcmV0dXJuIHI7CisJCX0gZWxzZSBpZiAoY2h1bmstPmNodW5rX2lkID09
-IEFNREdQVV9DSFVOS19JRF9TRU1fV0FJVCkgeworCQkJciA9IGFtZGdwdV9wcm9jZXNzX3NlbV93
-YWl0X2RlcChhZGV2LCBwLCBjaHVuayk7CisJCQlpZiAocikKKwkJCQlyZXR1cm4gcjsKIAkJfQog
-CX0KIAogCXJldHVybiAwOwogfQogCitzdGF0aWMgaW50IGFtZGdwdV9wcm9jZXNzX3NlbV9zaWdu
-YWxfZGVwKHN0cnVjdCBhbWRncHVfY3NfcGFyc2VyICpwLAorCQkJCQkgc3RydWN0IGFtZGdwdV9j
-c19jaHVuayAqY2h1bmssCisJCQkJCSBzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZSkKK3sKKwlzdHJ1
-Y3QgYW1kZ3B1X2Zwcml2ICpmcHJpdiA9IHAtPmZpbHAtPmRyaXZlcl9wcml2OworCXVuc2lnbmVk
-IG51bV9kZXBzOworCWludCBpLCByOworCXN0cnVjdCBkcm1fYW1kZ3B1X2NzX2NodW5rX2RlcCAq
-ZGVwczsKKworCWRlcHMgPSAoc3RydWN0IGRybV9hbWRncHVfY3NfY2h1bmtfZGVwICopY2h1bmst
-PmtkYXRhOworCW51bV9kZXBzID0gY2h1bmstPmxlbmd0aF9kdyAqIDQgLworCQlzaXplb2Yoc3Ry
-dWN0IGRybV9hbWRncHVfY3NfY2h1bmtfZGVwKTsKKworCWZvciAoaSA9IDA7IGkgPCBudW1fZGVw
-czsgKytpKSB7CisJCXIgPSBhbWRncHVfc2VtX2xvb2t1cF9hbmRfc2lnbmFsKGZwcml2LCBkZXBz
-W2ldLmhhbmRsZSwKKwkJCQkJCSBmZW5jZSk7CisJCWlmIChyKQorCQkJcmV0dXJuIHI7CisJfQor
-CXJldHVybiAwOworfQorCitzdGF0aWMgaW50IGFtZGdwdV9jc19wb3N0X2RlcGVuZGVuY2llcyhz
-dHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcCkKK3sKKwlpbnQgaSwgcjsKKworCWZvciAoaSA9IDA7
-IGkgPCBwLT5uY2h1bmtzOyArK2kpIHsKKwkJc3RydWN0IGFtZGdwdV9jc19jaHVuayAqY2h1bms7
-CisKKwkJY2h1bmsgPSAmcC0+Y2h1bmtzW2ldOworCisJCWlmIChjaHVuay0+Y2h1bmtfaWQgPT0g
-QU1ER1BVX0NIVU5LX0lEX1NFTV9TSUdOQUwpIHsKKwkJCXIgPSBhbWRncHVfcHJvY2Vzc19zZW1f
-c2lnbmFsX2RlcChwLCBjaHVuaywgcC0+ZmVuY2UpOworCQkJaWYgKHIpCisJCQkJcmV0dXJuIHI7
-CisJCX0KKwl9CisJcmV0dXJuIDA7Cit9CisKIHN0YXRpYyBpbnQgYW1kZ3B1X2NzX3N1Ym1pdChz
-dHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcCwKIAkJCSAgICB1bmlvbiBkcm1fYW1kZ3B1X2NzICpj
-cykKIHsKQEAgLTEwNTQsNyArMTEyMiw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2NzX3N1Ym1pdChz
-dHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcCwKIAl0cmFjZV9hbWRncHVfY3NfaW9jdGwoam9iKTsK
-IAlhbWRfc2NoZWRfZW50aXR5X3B1c2hfam9iKCZqb2ItPmJhc2UpOwogCi0JcmV0dXJuIDA7CisJ
-cmV0dXJuIGFtZGdwdV9jc19wb3N0X2RlcGVuZGVuY2llcyhwKTsKIH0KIAogaW50IGFtZGdwdV9j
-c19pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLCBzdHJ1Y3QgZHJtX2Zp
-bGUgKmZpbHApCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-Y3R4LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4LmMKaW5kZXggY2Yw
-NTAwNi4uNjdhNDE1NyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2N0eC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHguYwpA
-QCAtODYsNiArODYsNyBAQCBzdGF0aWMgdm9pZCBhbWRncHVfY3R4X2Zpbmkoc3RydWN0IGFtZGdw
-dV9jdHggKmN0eCkKIAlmb3IgKGkgPSAwOyBpIDwgYWRldi0+bnVtX3JpbmdzOyBpKyspCiAJCWFt
-ZF9zY2hlZF9lbnRpdHlfZmluaSgmYWRldi0+cmluZ3NbaV0tPnNjaGVkLAogCQkJCSAgICAgICZj
-dHgtPnJpbmdzW2ldLmVudGl0eSk7CisKIH0KIAogc3RhdGljIGludCBhbWRncHVfY3R4X2FsbG9j
-KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2ttcy5jCmluZGV4IDYxZDk0YzcuLjViM2UzYjQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfa21zLmMKQEAgLTY2NCw2ICs2NjQsOCBAQCBpbnQgYW1kZ3B1X2RyaXZlcl9v
-cGVuX2ttcyhzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbGVfcHJp
-dikKIAltdXRleF9pbml0KCZmcHJpdi0+Ym9fbGlzdF9sb2NrKTsKIAlpZHJfaW5pdCgmZnByaXYt
-PmJvX2xpc3RfaGFuZGxlcyk7CiAKKwlzcGluX2xvY2tfaW5pdCgmZnByaXYtPnNlbV9oYW5kbGVz
-X2xvY2spOworCWlkcl9pbml0KCZmcHJpdi0+c2VtX2hhbmRsZXMpOwogCWFtZGdwdV9jdHhfbWdy
-X2luaXQoJmZwcml2LT5jdHhfbWdyKTsKIAogCWZpbGVfcHJpdi0+ZHJpdmVyX3ByaXYgPSBmcHJp
-djsKQEAgLTY4OSw2ICs2OTEsNyBAQCB2b2lkIGFtZGdwdV9kcml2ZXJfcG9zdGNsb3NlX2ttcyhz
-dHJ1Y3QgZHJtX2RldmljZSAqZGV2LAogCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gZGV2
-LT5kZXZfcHJpdmF0ZTsKIAlzdHJ1Y3QgYW1kZ3B1X2Zwcml2ICpmcHJpdiA9IGZpbGVfcHJpdi0+
-ZHJpdmVyX3ByaXY7CiAJc3RydWN0IGFtZGdwdV9ib19saXN0ICpsaXN0OworCXN0cnVjdCBhbWRn
-cHVfc2VtICpzZW07CiAJaW50IGhhbmRsZTsKIAogCWlmICghZnByaXYpCkBAIC03MTEsOCArNzE0
-LDEyIEBAIHZvaWQgYW1kZ3B1X2RyaXZlcl9wb3N0Y2xvc2Vfa21zKHN0cnVjdCBkcm1fZGV2aWNl
-ICpkZXYsCiAKIAlpZHJfZm9yX2VhY2hfZW50cnkoJmZwcml2LT5ib19saXN0X2hhbmRsZXMsIGxp
-c3QsIGhhbmRsZSkKIAkJYW1kZ3B1X2JvX2xpc3RfZnJlZShsaXN0KTsKKwkKKy8vVE9ETwlpZHJf
-Zm9yX2VhY2hfZW50cnkoJmZwcml2LT5zZW1faGFuZGxlcywgc2VtLCBoYW5kbGUpCisvLwkJYW1k
-Z3B1X3NlbV9kZXN0cm95KGZwcml2LCBoYW5kbGUpOwogCiAJaWRyX2Rlc3Ryb3koJmZwcml2LT5i
-b19saXN0X2hhbmRsZXMpOworCWlkcl9kZXN0cm95KCZmcHJpdi0+c2VtX2hhbmRsZXMpOwogCW11
-dGV4X2Rlc3Ryb3koJmZwcml2LT5ib19saXN0X2xvY2spOwogCiAJa2ZyZWUoZnByaXYpOwpAQCAt
-ODk2LDYgKzkwMyw3IEBAIGNvbnN0IHN0cnVjdCBkcm1faW9jdGxfZGVzYyBhbWRncHVfaW9jdGxz
-X2ttc1tdID0gewogCURSTV9JT0NUTF9ERUZfRFJWKEFNREdQVV9HRU1fVkEsIGFtZGdwdV9nZW1f
-dmFfaW9jdGwsIERSTV9BVVRIfERSTV9SRU5ERVJfQUxMT1cpLAogCURSTV9JT0NUTF9ERUZfRFJW
-KEFNREdQVV9HRU1fT1AsIGFtZGdwdV9nZW1fb3BfaW9jdGwsIERSTV9BVVRIfERSTV9SRU5ERVJf
-QUxMT1cpLAogCURSTV9JT0NUTF9ERUZfRFJWKEFNREdQVV9HRU1fVVNFUlBUUiwgYW1kZ3B1X2dl
-bV91c2VycHRyX2lvY3RsLCBEUk1fQVVUSHxEUk1fUkVOREVSX0FMTE9XKSwKKwlEUk1fSU9DVExf
-REVGX0RSVihBTURHUFVfU0VNLCBhbWRncHVfc2VtX2lvY3RsLCBEUk1fQVVUSHxEUk1fUkVOREVS
-X0FMTE9XKSwKIH07CiBjb25zdCBpbnQgYW1kZ3B1X21heF9rbXNfaW9jdGwgPSBBUlJBWV9TSVpF
-KGFtZGdwdV9pb2N0bHNfa21zKTsKIApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X3NlbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Nl
-bS5jCm5ldyBmaWxlIG1vZGUgMTAwNjQ0CmluZGV4IDAwMDAwMDAuLmM3NTAyZjgKLS0tIC9kZXYv
-bnVsbAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfc2VtLmMKQEAgLTAs
-MCArMSwzNjAgQEAKKy8qCisgKiBDb3B5cmlnaHQgMjAxNiBBZHZhbmNlZCBNaWNybyBEZXZpY2Vz
-LCBJbmMuCisgKgorICogUGVybWlzc2lvbiBpcyBoZXJlYnkgZ3JhbnRlZCwgZnJlZSBvZiBjaGFy
-Z2UsIHRvIGFueSBwZXJzb24gb2J0YWluaW5nIGEKKyAqIGNvcHkgb2YgdGhpcyBzb2Z0d2FyZSBh
-bmQgYXNzb2NpYXRlZCBkb2N1bWVudGF0aW9uIGZpbGVzICh0aGUgIlNvZnR3YXJlIiksCisgKiB0
-byBkZWFsIGluIHRoZSBTb2Z0d2FyZSB3aXRob3V0IHJlc3RyaWN0aW9uLCBpbmNsdWRpbmcgd2l0
-aG91dCBsaW1pdGF0aW9uCisgKiB0aGUgcmlnaHRzIHRvIHVzZSwgY29weSwgbW9kaWZ5LCBtZXJn
-ZSwgcHVibGlzaCwgZGlzdHJpYnV0ZSwgc3VibGljZW5zZSwKKyAqIGFuZC9vciBzZWxsIGNvcGll
-cyBvZiB0aGUgU29mdHdhcmUsIGFuZCB0byBwZXJtaXQgcGVyc29ucyB0byB3aG9tIHRoZQorICog
-U29mdHdhcmUgaXMgZnVybmlzaGVkIHRvIGRvIHNvLCBzdWJqZWN0IHRvIHRoZSBmb2xsb3dpbmcg
-Y29uZGl0aW9uczoKKyAqCisgKiBUaGUgYWJvdmUgY29weXJpZ2h0IG5vdGljZSBhbmQgdGhpcyBw
-ZXJtaXNzaW9uIG5vdGljZSBzaGFsbCBiZSBpbmNsdWRlZCBpbgorICogYWxsIGNvcGllcyBvciBz
-dWJzdGFudGlhbCBwb3J0aW9ucyBvZiB0aGUgU29mdHdhcmUuCisgKgorICogVEhFIFNPRlRXQVJF
-IElTIFBST1ZJREVEICJBUyBJUyIsIFdJVEhPVVQgV0FSUkFOVFkgT0YgQU5ZIEtJTkQsIEVYUFJF
-U1MgT1IKKyAqIElNUExJRUQsIElOQ0xVRElORyBCVVQgTk9UIExJTUlURUQgVE8gVEhFIFdBUlJB
-TlRJRVMgT0YgTUVSQ0hBTlRBQklMSVRZLAorICogRklUTkVTUyBGT1IgQSBQQVJUSUNVTEFSIFBV
-UlBPU0UgQU5EIE5PTklORlJJTkdFTUVOVC4gIElOIE5PIEVWRU5UIFNIQUxMCisgKiBUSEUgQ09Q
-WVJJR0hUIEhPTERFUihTKSBPUiBBVVRIT1IoUykgQkUgTElBQkxFIEZPUiBBTlkgQ0xBSU0sIERB
-TUFHRVMgT1IKKyAqIE9USEVSIExJQUJJTElUWSwgV0hFVEhFUiBJTiBBTiBBQ1RJT04gT0YgQ09O
-VFJBQ1QsIFRPUlQgT1IgT1RIRVJXSVNFLAorICogQVJJU0lORyBGUk9NLCBPVVQgT0YgT1IgSU4g
-Q09OTkVDVElPTiBXSVRIIFRIRSBTT0ZUV0FSRSBPUiBUSEUgVVNFIE9SCisgKiBPVEhFUiBERUFM
-SU5HUyBJTiBUSEUgU09GVFdBUkUuCisgKgorICogQXV0aG9yczoKKyAqICAgIENodW5taW5nIFpo
-b3UgPGRhdmlkMS56aG91QGFtZC5jb20+CisgKi8KKyNpbmNsdWRlIDxsaW51eC9maWxlLmg+Cisj
-aW5jbHVkZSA8bGludXgvZnMuaD4KKyNpbmNsdWRlIDxsaW51eC9rZXJuZWwuaD4KKyNpbmNsdWRl
-IDxsaW51eC9wb2xsLmg+CisjaW5jbHVkZSA8bGludXgvc2VxX2ZpbGUuaD4KKyNpbmNsdWRlIDxs
-aW51eC9leHBvcnQuaD4KKyNpbmNsdWRlIDxsaW51eC9zY2hlZC5oPgorI2luY2x1ZGUgPGxpbnV4
-L3NsYWIuaD4KKyNpbmNsdWRlIDxsaW51eC91YWNjZXNzLmg+CisjaW5jbHVkZSA8bGludXgvYW5v
-bl9pbm9kZXMuaD4KKyNpbmNsdWRlICJhbWRncHVfc2VtLmgiCisjaW5jbHVkZSAiYW1kZ3B1Lmgi
-CisjaW5jbHVkZSA8ZHJtL2RybVAuaD4KKworc3RhdGljIHZvaWQgYW1kZ3B1X3NlbV9jb3JlX2Zy
-ZWUoc3RydWN0IGtyZWYgKmtyZWYpCit7CisJc3RydWN0IGFtZGdwdV9zZW1fY29yZSAqY29yZSA9
-IGNvbnRhaW5lcl9vZigKKwkJa3JlZiwgc3RydWN0IGFtZGdwdV9zZW1fY29yZSwga3JlZik7CisK
-KwlpZiAoY29yZS0+ZmlsZSkKKwkJZnB1dChjb3JlLT5maWxlKTsKKworCWRtYV9mZW5jZV9wdXQo
-Y29yZS0+ZmVuY2UpOworCW11dGV4X2Rlc3Ryb3koJmNvcmUtPmxvY2spOworCWtmcmVlKGNvcmUp
-OworfQorCitzdGF0aWMgdm9pZCBhbWRncHVfc2VtX2ZyZWUoc3RydWN0IGtyZWYgKmtyZWYpCit7
-CisJc3RydWN0IGFtZGdwdV9zZW0gKnNlbSA9IGNvbnRhaW5lcl9vZigKKwkJa3JlZiwgc3RydWN0
-IGFtZGdwdV9zZW0sIGtyZWYpOworCisJa3JlZl9wdXQoJnNlbS0+YmFzZS0+a3JlZiwgYW1kZ3B1
-X3NlbV9jb3JlX2ZyZWUpOworCWtmcmVlKHNlbSk7Cit9CisKK3N0YXRpYyBpbmxpbmUgdm9pZCBh
-bWRncHVfc2VtX2dldChzdHJ1Y3QgYW1kZ3B1X3NlbSAqc2VtKQoreworCWlmIChzZW0pCisJCWty
-ZWZfZ2V0KCZzZW0tPmtyZWYpOworfQorCitzdGF0aWMgaW5saW5lIHZvaWQgYW1kZ3B1X3NlbV9w
-dXQoc3RydWN0IGFtZGdwdV9zZW0gKnNlbSkKK3sKKwlpZiAoc2VtKQorCQlrcmVmX3B1dCgmc2Vt
-LT5rcmVmLCBhbWRncHVfc2VtX2ZyZWUpOworfQorCitzdGF0aWMgaW50IGFtZGdwdV9zZW1fcmVs
-ZWFzZShzdHJ1Y3QgaW5vZGUgKmlub2RlLCBzdHJ1Y3QgZmlsZSAqZmlsZSkKK3sKKwlzdHJ1Y3Qg
-YW1kZ3B1X3NlbV9jb3JlICpjb3JlID0gZmlsZS0+cHJpdmF0ZV9kYXRhOworCisJa3JlZl9wdXQo
-JmNvcmUtPmtyZWYsIGFtZGdwdV9zZW1fY29yZV9mcmVlKTsKKwlyZXR1cm4gMDsKK30KKworc3Rh
-dGljIHVuc2lnbmVkIGludCBhbWRncHVfc2VtX3BvbGwoc3RydWN0IGZpbGUgKmZpbGUsIHBvbGxf
-dGFibGUgKndhaXQpCit7CisJcmV0dXJuIDA7Cit9CisKK3N0YXRpYyBsb25nIGFtZGdwdV9zZW1f
-ZmlsZV9pb2N0bChzdHJ1Y3QgZmlsZSAqZmlsZSwgdW5zaWduZWQgaW50IGNtZCwKKwkJCQkgICB1
-bnNpZ25lZCBsb25nIGFyZykKK3sKKwlyZXR1cm4gMDsKK30KKworc3RhdGljIGNvbnN0IHN0cnVj
-dCBmaWxlX29wZXJhdGlvbnMgYW1kZ3B1X3NlbV9mb3BzID0geworCS5yZWxlYXNlID0gYW1kZ3B1
-X3NlbV9yZWxlYXNlLAorCS5wb2xsID0gYW1kZ3B1X3NlbV9wb2xsLAorCS51bmxvY2tlZF9pb2N0
-bCA9IGFtZGdwdV9zZW1fZmlsZV9pb2N0bCwKKwkuY29tcGF0X2lvY3RsID0gYW1kZ3B1X3NlbV9m
-aWxlX2lvY3RsLAorfTsKKworCitzdGF0aWMgaW5saW5lIHN0cnVjdCBhbWRncHVfc2VtICphbWRn
-cHVfc2VtX2xvb2t1cChzdHJ1Y3QgYW1kZ3B1X2Zwcml2ICpmcHJpdiwgdTMyIGhhbmRsZSkKK3sK
-KwlzdHJ1Y3QgYW1kZ3B1X3NlbSAqc2VtOworCisJc3Bpbl9sb2NrKCZmcHJpdi0+c2VtX2hhbmRs
-ZXNfbG9jayk7CisKKwkvKiBDaGVjayBpZiB3ZSBjdXJyZW50bHkgaGF2ZSBhIHJlZmVyZW5jZSBv
-biB0aGUgb2JqZWN0ICovCisJc2VtID0gaWRyX2ZpbmQoJmZwcml2LT5zZW1faGFuZGxlcywgaGFu
-ZGxlKTsKKwlhbWRncHVfc2VtX2dldChzZW0pOworCisJc3Bpbl91bmxvY2soJmZwcml2LT5zZW1f
-aGFuZGxlc19sb2NrKTsKKworCXJldHVybiBzZW07Cit9CisKK3N0YXRpYyBzdHJ1Y3QgYW1kZ3B1
-X3NlbV9jb3JlICphbWRncHVfc2VtX2NvcmVfYWxsb2Modm9pZCkKK3sKKwlzdHJ1Y3QgYW1kZ3B1
-X3NlbV9jb3JlICpjb3JlOworCisJY29yZSA9IGt6YWxsb2Moc2l6ZW9mKCpjb3JlKSwgR0ZQX0tF
-Uk5FTCk7CisJaWYgKCFjb3JlKQorCQlyZXR1cm4gTlVMTDsKKworCWtyZWZfaW5pdCgmY29yZS0+
-a3JlZik7CisJbXV0ZXhfaW5pdCgmY29yZS0+bG9jayk7CisJcmV0dXJuIGNvcmU7Cit9CisKK3N0
-YXRpYyBzdHJ1Y3QgYW1kZ3B1X3NlbSAqYW1kZ3B1X3NlbV9hbGxvYyh2b2lkKQoreworCXN0cnVj
-dCBhbWRncHVfc2VtICpzZW07CisKKwlzZW0gPSBremFsbG9jKHNpemVvZigqc2VtKSwgR0ZQX0tF
-Uk5FTCk7CisJaWYgKCFzZW0pCisJCXJldHVybiBOVUxMOworCisJa3JlZl9pbml0KCZzZW0tPmty
-ZWYpOworCisJcmV0dXJuIHNlbTsKK30KKworc3RhdGljIGludCBhbWRncHVfc2VtX2NyZWF0ZShz
-dHJ1Y3QgYW1kZ3B1X2Zwcml2ICpmcHJpdiwgdTMyICpoYW5kbGUpCit7CisJc3RydWN0IGFtZGdw
-dV9zZW0gKnNlbTsKKwlzdHJ1Y3QgYW1kZ3B1X3NlbV9jb3JlICpjb3JlOworCWludCByZXQ7CisK
-KwlzZW0gPSBhbWRncHVfc2VtX2FsbG9jKCk7CisJY29yZSA9IGFtZGdwdV9zZW1fY29yZV9hbGxv
-YygpOworCWlmICghc2VtIHx8ICFjb3JlKSB7CisJCWtmcmVlKHNlbSk7CisJCWtmcmVlKGNvcmUp
-OworCQlyZXR1cm4gLUVOT01FTTsKKwl9CisKKwlzZW0tPmJhc2UgPSBjb3JlOworCisJaWRyX3By
-ZWxvYWQoR0ZQX0tFUk5FTCk7CisJc3Bpbl9sb2NrKCZmcHJpdi0+c2VtX2hhbmRsZXNfbG9jayk7
-CisKKwlyZXQgPSBpZHJfYWxsb2MoJmZwcml2LT5zZW1faGFuZGxlcywgc2VtLCAxLCAwLCBHRlBf
-Tk9XQUlUKTsKKworCXNwaW5fdW5sb2NrKCZmcHJpdi0+c2VtX2hhbmRsZXNfbG9jayk7CisJaWRy
-X3ByZWxvYWRfZW5kKCk7CisKKwlpZiAocmV0IDwgMCkKKwkJcmV0dXJuIHJldDsKKworCSpoYW5k
-bGUgPSByZXQ7CisJcmV0dXJuIDA7Cit9CisKK3N0YXRpYyBpbnQgYW1kZ3B1X3NlbV9zaWduYWwo
-c3RydWN0IGFtZGdwdV9mcHJpdiAqZnByaXYsCisJCQkgICAgIHUzMiBoYW5kbGUsIHN0cnVjdCBk
-bWFfZmVuY2UgKmZlbmNlKQoreworCXN0cnVjdCBhbWRncHVfc2VtICpzZW07CisJc3RydWN0IGFt
-ZGdwdV9zZW1fY29yZSAqY29yZTsKKworCXNlbSA9IGFtZGdwdV9zZW1fbG9va3VwKGZwcml2LCBo
-YW5kbGUpOworCWlmICghc2VtKQorCQlyZXR1cm4gLUVJTlZBTDsKKworCWNvcmUgPSBzZW0tPmJh
-c2U7CisJbXV0ZXhfbG9jaygmY29yZS0+bG9jayk7CisJZG1hX2ZlbmNlX3B1dChjb3JlLT5mZW5j
-ZSk7CisJY29yZS0+ZmVuY2UgPSBkbWFfZmVuY2VfZ2V0KGZlbmNlKTsKKwltdXRleF91bmxvY2so
-JmNvcmUtPmxvY2spOworCisJYW1kZ3B1X3NlbV9wdXQoc2VtKTsKKwlyZXR1cm4gMDsKK30KKwor
-c3RhdGljIGludCBhbWRncHVfc2VtX2ltcG9ydChzdHJ1Y3QgYW1kZ3B1X2Zwcml2ICpmcHJpdiwK
-KwkJCQkgICAgICAgaW50IGZkLCB1MzIgKmhhbmRsZSkKK3sKKwlzdHJ1Y3QgZmlsZSAqZmlsZSA9
-IGZnZXQoZmQpOworCXN0cnVjdCBhbWRncHVfc2VtICpzZW07CisJc3RydWN0IGFtZGdwdV9zZW1f
-Y29yZSAqY29yZTsKKwlpbnQgcmV0OworCisJaWYgKCFmaWxlKQorCQlyZXR1cm4gLUVJTlZBTDsK
-KworCWNvcmUgPSBmaWxlLT5wcml2YXRlX2RhdGE7CisJaWYgKCFjb3JlKSB7CisJCWZwdXQoZmls
-ZSk7CisJCXJldHVybiAtRUlOVkFMOworCX0KKworCW11dGV4X2xvY2soJmNvcmUtPmxvY2spOwor
-CWtyZWZfZ2V0KCZjb3JlLT5rcmVmKTsKKwltdXRleF91bmxvY2soJmNvcmUtPmxvY2spOworCXNl
-bSA9IGFtZGdwdV9zZW1fYWxsb2MoKTsKKwlpZiAoIXNlbSkgeworCQlyZXQgPSAtRU5PTUVNOwor
-CQlnb3RvIGVycl9zZW07CisJfQorCisJc2VtLT5iYXNlID0gY29yZTsKKworCWlkcl9wcmVsb2Fk
-KEdGUF9LRVJORUwpOworCXNwaW5fbG9jaygmZnByaXYtPnNlbV9oYW5kbGVzX2xvY2spOworCisJ
-cmV0ID0gaWRyX2FsbG9jKCZmcHJpdi0+c2VtX2hhbmRsZXMsIHNlbSwgMSwgMCwgR0ZQX05PV0FJ
-VCk7CisKKwlzcGluX3VubG9jaygmZnByaXYtPnNlbV9oYW5kbGVzX2xvY2spOworCWlkcl9wcmVs
-b2FkX2VuZCgpOworCisJaWYgKHJldCA8IDApCisJCWdvdG8gZXJyX291dDsKKworCSpoYW5kbGUg
-PSByZXQ7CisJZnB1dChmaWxlKTsKKwlyZXR1cm4gMDsKK2Vycl9zZW06CisJa3JlZl9wdXQoJmNv
-cmUtPmtyZWYsIGFtZGdwdV9zZW1fY29yZV9mcmVlKTsKK2Vycl9vdXQ6CisJYW1kZ3B1X3NlbV9w
-dXQoc2VtKTsKKwlmcHV0KGZpbGUpOworCXJldHVybiByZXQ7CisKK30KKworc3RhdGljIGludCBh
-bWRncHVfc2VtX2V4cG9ydChzdHJ1Y3QgYW1kZ3B1X2Zwcml2ICpmcHJpdiwKKwkJCQkgICAgICAg
-dTMyIGhhbmRsZSwgaW50ICpmZCkKK3sKKwlzdHJ1Y3QgYW1kZ3B1X3NlbSAqc2VtOworCXN0cnVj
-dCBhbWRncHVfc2VtX2NvcmUgKmNvcmU7CisJaW50IHJldDsKKworCXNlbSA9IGFtZGdwdV9zZW1f
-bG9va3VwKGZwcml2LCBoYW5kbGUpOworCWlmICghc2VtKQorCQlyZXR1cm4gLUVJTlZBTDsKKwor
-CWNvcmUgPSBzZW0tPmJhc2U7CisJbXV0ZXhfbG9jaygmY29yZS0+bG9jayk7CisJaWYgKCFjb3Jl
-LT5maWxlKSB7CisJCWNvcmUtPmZpbGUgPSBhbm9uX2lub2RlX2dldGZpbGUoInNlbV9maWxlIiwK
-KwkJCQkJICAgICAgICZhbWRncHVfc2VtX2ZvcHMsCisJCQkJCSAgICAgICBjb3JlLCAwKTsKKwkJ
-aWYgKElTX0VSUihjb3JlLT5maWxlKSkgeworCQkJbXV0ZXhfdW5sb2NrKCZjb3JlLT5sb2NrKTsK
-KwkJCXJldCA9IC1FTk9NRU07CisJCQlnb3RvIGVycl9wdXRfc2VtOworCQl9CisJfQorCWtyZWZf
-Z2V0KCZjb3JlLT5rcmVmKTsKKwltdXRleF91bmxvY2soJmNvcmUtPmxvY2spOworCisJcmV0ID0g
-Z2V0X3VudXNlZF9mZF9mbGFncyhPX0NMT0VYRUMpOworCWlmIChyZXQgPCAwKQorCQlnb3RvIGVy
-cl9wdXRfZmlsZTsKKworCWZkX2luc3RhbGwocmV0LCBjb3JlLT5maWxlKTsKKworCSpmZCA9IHJl
-dDsKKwlhbWRncHVfc2VtX3B1dChzZW0pOworCXJldHVybiAwOworCitlcnJfcHV0X2ZpbGU6CisJ
-a3JlZl9wdXQoJmNvcmUtPmtyZWYsIGFtZGdwdV9zZW1fY29yZV9mcmVlKTsKKwlmcHV0KGNvcmUt
-PmZpbGUpOworZXJyX3B1dF9zZW06CisJYW1kZ3B1X3NlbV9wdXQoc2VtKTsKKwlyZXR1cm4gcmV0
-OworfQorCit2b2lkIGFtZGdwdV9zZW1fZGVzdHJveShzdHJ1Y3QgYW1kZ3B1X2Zwcml2ICpmcHJp
-diwgdTMyIGhhbmRsZSkKK3sKKwlzdHJ1Y3QgYW1kZ3B1X3NlbSAqc2VtID0gYW1kZ3B1X3NlbV9s
-b29rdXAoZnByaXYsIGhhbmRsZSk7CisJaWYgKCFzZW0pCisJCXJldHVybjsKKworCXNwaW5fbG9j
-aygmZnByaXYtPnNlbV9oYW5kbGVzX2xvY2spOworCWlkcl9yZW1vdmUoJmZwcml2LT5zZW1faGFu
-ZGxlcywgaGFuZGxlKTsKKwlzcGluX3VubG9jaygmZnByaXYtPnNlbV9oYW5kbGVzX2xvY2spOwor
-CWtyZWZfcHV0KCZzZW0tPmtyZWYsIGFtZGdwdV9zZW1fZnJlZSk7CisKKwlrcmVmX3B1dCgmc2Vt
-LT5rcmVmLCBhbWRncHVfc2VtX2ZyZWUpOworfQorCitpbnQgYW1kZ3B1X3NlbV9sb29rdXBfYW5k
-X3N5bmMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCisJCQkgICAgICAgc3RydWN0IGFtZGdw
-dV9mcHJpdiAqZnByaXYsCisJCQkgICAgICAgc3RydWN0IGFtZGdwdV9zeW5jICpzeW5jLAorCQkJ
-ICAgICAgIHVpbnQzMl90IGhhbmRsZSkKK3sKKwlpbnQgcjsKKwlzdHJ1Y3QgYW1kZ3B1X3NlbSAq
-c2VtOworCisJc2VtID0gYW1kZ3B1X3NlbV9sb29rdXAoZnByaXYsIGhhbmRsZSk7CisJaWYgKCFz
-ZW0pCisJCXJldHVybiAtRUlOVkFMOworCisJciA9IGFtZGdwdV9zeW5jX2ZlbmNlKGFkZXYsIHN5
-bmMsIHNlbS0+YmFzZS0+ZmVuY2UpOworCWlmIChyKQorCQlnb3RvIGVycjsKKwltdXRleF9sb2Nr
-KCZzZW0tPmJhc2UtPmxvY2spOworCWRtYV9mZW5jZV9wdXQoc2VtLT5iYXNlLT5mZW5jZSk7CisJ
-c2VtLT5iYXNlLT5mZW5jZSA9IE5VTEw7CisJbXV0ZXhfdW5sb2NrKCZzZW0tPmJhc2UtPmxvY2sp
-OworCitlcnI6CisJYW1kZ3B1X3NlbV9wdXQoc2VtKTsKKwlyZXR1cm4gcjsKKworfQorCitpbnQg
-YW1kZ3B1X3NlbV9sb29rdXBfYW5kX3NpZ25hbChzdHJ1Y3QgYW1kZ3B1X2Zwcml2ICpmcHJpdiwK
-KwkJCQkgdWludDMyX3QgaGFuZGxlLAorCQkJCSBzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZSkKK3sK
-KwlyZXR1cm4gYW1kZ3B1X3NlbV9zaWduYWwoZnByaXYsIGhhbmRsZSwgZmVuY2UpOworfQorCitp
-bnQgYW1kZ3B1X3NlbV9pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLAor
-CQkgICAgIHN0cnVjdCBkcm1fZmlsZSAqZmlscCkKK3sKKwl1bmlvbiBkcm1fYW1kZ3B1X3NlbSAq
-YXJncyA9IGRhdGE7CisJc3RydWN0IGFtZGdwdV9mcHJpdiAqZnByaXYgPSBmaWxwLT5kcml2ZXJf
-cHJpdjsKKwlpbnQgciA9IDA7CisKKwlzd2l0Y2ggKGFyZ3MtPmluLm9wKSB7CisJY2FzZSBBTURH
-UFVfU0VNX09QX0NSRUFURV9TRU06CisJCXIgPSBhbWRncHVfc2VtX2NyZWF0ZShmcHJpdiwgJmFy
-Z3MtPm91dC5oYW5kbGUpOworCQlicmVhazsKKwljYXNlIEFNREdQVV9TRU1fT1BfSU1QT1JUX1NF
-TToKKwkJciA9IGFtZGdwdV9zZW1faW1wb3J0KGZwcml2LCBhcmdzLT5pbi5oYW5kbGUsICZhcmdz
-LT5vdXQuaGFuZGxlKTsKKwkJYnJlYWs7CisJY2FzZSBBTURHUFVfU0VNX09QX0VYUE9SVF9TRU06
-CisJCXIgPSBhbWRncHVfc2VtX2V4cG9ydChmcHJpdiwgYXJncy0+aW4uaGFuZGxlLCAmYXJncy0+
-b3V0LmZkKTsKKwkJYnJlYWs7CisJY2FzZSBBTURHUFVfU0VNX09QX0RFU1RST1lfU0VNOgorCQlh
-bWRncHVfc2VtX2Rlc3Ryb3koZnByaXYsIGFyZ3MtPmluLmhhbmRsZSk7CisJCWJyZWFrOworCWRl
-ZmF1bHQ6CisJCXIgPSAtRUlOVkFMOworCQlicmVhazsKKwl9CisKKwlyZXR1cm4gcjsKK30KZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9zZW0uaCBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9zZW0uaApuZXcgZmlsZSBtb2RlIDEwMDY0NApp
-bmRleCAwMDAwMDAwLi5hNDQ1N2MyCi0tLSAvZGV2L251bGwKKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3NlbS5oCkBAIC0wLDAgKzEsNDkgQEAKKy8qCisgKiBDb3B5cmln
-aHQgMjAxNiBBZHZhbmNlZCBNaWNybyBEZXZpY2VzLCBJbmMuCisgKgorICogUGVybWlzc2lvbiBp
-cyBoZXJlYnkgZ3JhbnRlZCwgZnJlZSBvZiBjaGFyZ2UsIHRvIGFueSBwZXJzb24gb2J0YWluaW5n
-IGEKKyAqIGNvcHkgb2YgdGhpcyBzb2Z0d2FyZSBhbmQgYXNzb2NpYXRlZCBkb2N1bWVudGF0aW9u
-IGZpbGVzICh0aGUgIlNvZnR3YXJlIiksCisgKiB0byBkZWFsIGluIHRoZSBTb2Z0d2FyZSB3aXRo
-b3V0IHJlc3RyaWN0aW9uLCBpbmNsdWRpbmcgd2l0aG91dCBsaW1pdGF0aW9uCisgKiB0aGUgcmln
-aHRzIHRvIHVzZSwgY29weSwgbW9kaWZ5LCBtZXJnZSwgcHVibGlzaCwgZGlzdHJpYnV0ZSwgc3Vi
-bGljZW5zZSwKKyAqIGFuZC9vciBzZWxsIGNvcGllcyBvZiB0aGUgU29mdHdhcmUsIGFuZCB0byBw
-ZXJtaXQgcGVyc29ucyB0byB3aG9tIHRoZQorICogU29mdHdhcmUgaXMgZnVybmlzaGVkIHRvIGRv
-IHNvLCBzdWJqZWN0IHRvIHRoZSBmb2xsb3dpbmcgY29uZGl0aW9uczoKKyAqCisgKiBUaGUgYWJv
-dmUgY29weXJpZ2h0IG5vdGljZSBhbmQgdGhpcyBwZXJtaXNzaW9uIG5vdGljZSBzaGFsbCBiZSBp
-bmNsdWRlZCBpbgorICogYWxsIGNvcGllcyBvciBzdWJzdGFudGlhbCBwb3J0aW9ucyBvZiB0aGUg
-U29mdHdhcmUuCisgKgorICogVEhFIFNPRlRXQVJFIElTIFBST1ZJREVEICJBUyBJUyIsIFdJVEhP
-VVQgV0FSUkFOVFkgT0YgQU5ZIEtJTkQsIEVYUFJFU1MgT1IKKyAqIElNUExJRUQsIElOQ0xVRElO
-RyBCVVQgTk9UIExJTUlURUQgVE8gVEhFIFdBUlJBTlRJRVMgT0YgTUVSQ0hBTlRBQklMSVRZLAor
-ICogRklUTkVTUyBGT1IgQSBQQVJUSUNVTEFSIFBVUlBPU0UgQU5EIE5PTklORlJJTkdFTUVOVC4g
-IElOIE5PIEVWRU5UIFNIQUxMCisgKiBUSEUgQ09QWVJJR0hUIEhPTERFUihTKSBPUiBBVVRIT1Io
-UykgQkUgTElBQkxFIEZPUiBBTlkgQ0xBSU0sIERBTUFHRVMgT1IKKyAqIE9USEVSIExJQUJJTElU
-WSwgV0hFVEhFUiBJTiBBTiBBQ1RJT04gT0YgQ09OVFJBQ1QsIFRPUlQgT1IgT1RIRVJXSVNFLAor
-ICogQVJJU0lORyBGUk9NLCBPVVQgT0YgT1IgSU4gQ09OTkVDVElPTiBXSVRIIFRIRSBTT0ZUV0FS
-RSBPUiBUSEUgVVNFIE9SCisgKiBPVEhFUiBERUFMSU5HUyBJTiBUSEUgU09GVFdBUkUuCisgKgor
-ICogQXV0aG9yczogQ2h1bm1pbmcgWmhvdSA8ZGF2aWQxLnpob3VAYW1kLmNvbT4KKyAqCisgKi8K
-KworCisjaWZuZGVmIF9MSU5VWF9BTURHUFVfU0VNX0gKKyNkZWZpbmUgX0xJTlVYX0FNREdQVV9T
-RU1fSAorCisjaW5jbHVkZSA8bGludXgvdHlwZXMuaD4KKyNpbmNsdWRlIDxsaW51eC9rcmVmLmg+
-CisjaW5jbHVkZSA8bGludXgva3RpbWUuaD4KKyNpbmNsdWRlIDxsaW51eC9saXN0Lmg+CisjaW5j
-bHVkZSA8bGludXgvc3BpbmxvY2suaD4KKyNpbmNsdWRlIDxsaW51eC9kbWEtZmVuY2UuaD4KKwor
-c3RydWN0IGFtZGdwdV9zZW1fY29yZSB7CisJc3RydWN0IGZpbGUJCSpmaWxlOworCXN0cnVjdCBr
-cmVmCQlrcmVmOworCXN0cnVjdCBkbWFfZmVuY2UgICAgICAgICAgICAqZmVuY2U7CisJc3RydWN0
-IG11dGV4CWxvY2s7Cit9OworCitzdHJ1Y3QgYW1kZ3B1X3NlbSB7CisJc3RydWN0IGFtZGdwdV9z
-ZW1fY29yZQkqYmFzZTsKKwlzdHJ1Y3Qga3JlZgkJa3JlZjsKK307CisKKyNlbmRpZiAvKiBfTElO
-VVhfQU1ER1BVX1NFTV9IICovCmRpZmYgLS1naXQgYS9pbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9k
-cm0uaCBiL2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oCmluZGV4IDU3OTcyODMuLmQzZWNk
-YWYgMTAwNjQ0Ci0tLSBhL2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oCisrKyBiL2luY2x1
-ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oCkBAIC01MSw2ICs1MSw3IEBAIGV4dGVybiAiQyIgewog
-I2RlZmluZSBEUk1fQU1ER1BVX0dFTV9PUAkJMHgxMAogI2RlZmluZSBEUk1fQU1ER1BVX0dFTV9V
-U0VSUFRSCQkweDExCiAjZGVmaW5lIERSTV9BTURHUFVfV0FJVF9GRU5DRVMJCTB4MTIKKyNkZWZp
-bmUgRFJNX0FNREdQVV9TRU0gICAgICAgICAgICAgICAgICAweDEzCiAKICNkZWZpbmUgRFJNX0lP
-Q1RMX0FNREdQVV9HRU1fQ1JFQVRFCURSTV9JT1dSKERSTV9DT01NQU5EX0JBU0UgKyBEUk1fQU1E
-R1BVX0dFTV9DUkVBVEUsIHVuaW9uIGRybV9hbWRncHVfZ2VtX2NyZWF0ZSkKICNkZWZpbmUgRFJN
-X0lPQ1RMX0FNREdQVV9HRU1fTU1BUAlEUk1fSU9XUihEUk1fQ09NTUFORF9CQVNFICsgRFJNX0FN
-REdQVV9HRU1fTU1BUCwgdW5pb24gZHJtX2FtZGdwdV9nZW1fbW1hcCkKQEAgLTY1LDYgKzY2LDcg
-QEAgZXh0ZXJuICJDIiB7CiAjZGVmaW5lIERSTV9JT0NUTF9BTURHUFVfR0VNX09QCQlEUk1fSU9X
-UihEUk1fQ09NTUFORF9CQVNFICsgRFJNX0FNREdQVV9HRU1fT1AsIHN0cnVjdCBkcm1fYW1kZ3B1
-X2dlbV9vcCkKICNkZWZpbmUgRFJNX0lPQ1RMX0FNREdQVV9HRU1fVVNFUlBUUglEUk1fSU9XUihE
-Uk1fQ09NTUFORF9CQVNFICsgRFJNX0FNREdQVV9HRU1fVVNFUlBUUiwgc3RydWN0IGRybV9hbWRn
-cHVfZ2VtX3VzZXJwdHIpCiAjZGVmaW5lIERSTV9JT0NUTF9BTURHUFVfV0FJVF9GRU5DRVMJRFJN
-X0lPV1IoRFJNX0NPTU1BTkRfQkFTRSArIERSTV9BTURHUFVfV0FJVF9GRU5DRVMsIHVuaW9uIGRy
-bV9hbWRncHVfd2FpdF9mZW5jZXMpCisjZGVmaW5lIERSTV9JT0NUTF9BTURHUFVfU0VNCQlEUk1f
-SU9XUihEUk1fQ09NTUFORF9CQVNFICsgRFJNX0FNREdQVV9TRU0sIHVuaW9uIGRybV9hbWRncHVf
-c2VtKQogCiAjZGVmaW5lIEFNREdQVV9HRU1fRE9NQUlOX0NQVQkJMHgxCiAjZGVmaW5lIEFNREdQ
-VV9HRU1fRE9NQUlOX0dUVAkJMHgyCkBAIC0zMzUsNiArMzM3LDMzIEBAIHVuaW9uIGRybV9hbWRn
-cHVfd2FpdF9mZW5jZXMgewogCXN0cnVjdCBkcm1fYW1kZ3B1X3dhaXRfZmVuY2VzX291dCBvdXQ7
-CiB9OwogCisjZGVmaW5lIEFNREdQVV9TRU1fT1BfQ1JFQVRFX1NFTSAwCisvL2VmaW5lIEFNREdQ
-VV9TRU1fT1BfV0FJVF9TRU0gMQorLy9lZmluZSBBTURHUFVfU0VNX09QX1NJR05BTF9TRU0gMgor
-I2RlZmluZSBBTURHUFVfU0VNX09QX0lNUE9SVF9TRU0gMworI2RlZmluZSBBTURHUFVfU0VNX09Q
-X0VYUE9SVF9TRU0gNAorI2RlZmluZSBBTURHUFVfU0VNX09QX0RFU1RST1lfU0VNIDUKKworc3Ry
-dWN0IGRybV9hbWRncHVfc2VtX2luIHsKKwlfX3UzMiBjdHhfaWQ7CisJX191MzIgaXBfdHlwZTsK
-KwlfX3UzMiBpcF9pbnN0YW5jZTsKKwlfX3UzMiByaW5nOworCV9fdTMyIG9wOworCV9fdTMyIHNl
-cTsKKwlfX3UzMiBoYW5kbGU7Cit9OworCitzdHJ1Y3QgZHJtX2FtZGdwdV9zZW1fb3V0IHsJCisJ
-X191MzIgZmQ7CisJX191MzIgaGFuZGxlOworfTsKKwordW5pb24gZHJtX2FtZGdwdV9zZW0gewor
-CXN0cnVjdCBkcm1fYW1kZ3B1X3NlbV9pbiBpbjsKKwlzdHJ1Y3QgZHJtX2FtZGdwdV9zZW1fb3V0
-IG91dDsKK307CisKICNkZWZpbmUgQU1ER1BVX0dFTV9PUF9HRVRfR0VNX0NSRUFURV9JTkZPCTAK
-ICNkZWZpbmUgQU1ER1BVX0dFTV9PUF9TRVRfUExBQ0VNRU5UCQkxCiAKQEAgLTM5MCw2ICs0MTks
-OCBAQCBzdHJ1Y3QgZHJtX2FtZGdwdV9nZW1fdmEgewogI2RlZmluZSBBTURHUFVfQ0hVTktfSURf
-SUIJCTB4MDEKICNkZWZpbmUgQU1ER1BVX0NIVU5LX0lEX0ZFTkNFCQkweDAyCiAjZGVmaW5lIEFN
-REdQVV9DSFVOS19JRF9ERVBFTkRFTkNJRVMJMHgwMworI2RlZmluZSBBTURHUFVfQ0hVTktfSURf
-U0VNX1dBSVQgICAgICAgIDB4MDQKKyNkZWZpbmUgQU1ER1BVX0NIVU5LX0lEX1NFTV9TSUdOQUwg
-ICAgICAweDA1CiAKIHN0cnVjdCBkcm1fYW1kZ3B1X2NzX2NodW5rIHsKIAlfX3UzMgkJY2h1bmtf
-aWQ7Ci0tIAoyLjcuNAoK
---f403045f87327fc8d3054a449fd5
+>From ec6e6f599fe61537ed42b9953126691f904626d4 Mon Sep 17 00:00:00 2001
+From: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+Date: Thu, 22 Sep 2016 14:50:16 +0800
+Subject: [PATCH 1/2] amdgpu: add new semaphore support v2
+
+v2: add import/export functions.
+
+Change-Id: I74b61611e975d6f2de051e3f3c7ba63177308bdb
+Signed-off-by: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org> (v1)
+Reviewed-by: Monk Liu <monk.liu-5C7GfCeVMHo@public.gmane.org> (v1)
+Signed-off-by: Flora Cui <Flora.Cui-5C7GfCeVMHo@public.gmane.org> (v2)
+Acked-by: Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org> (v2)
+---
+ amdgpu/amdgpu.h          |  82 ++++++++++++++++++++++++++++-
+ amdgpu/amdgpu_cs.c       | 133 +++++++++++++++++++++++++++++++++++++++++++++++
+ include/drm/amdgpu_drm.h |  34 ++++++++++++
+ 3 files changed, 248 insertions(+), 1 deletion(-)
+
+diff --git a/amdgpu/amdgpu.h b/amdgpu/amdgpu.h
+index 941406e..eb75283 100644
+--- a/amdgpu/amdgpu.h
++++ b/amdgpu/amdgpu.h
+@@ -151,6 +151,12 @@ typedef struct amdgpu_ib *amdgpu_ib_handle;
+  */
+ typedef struct amdgpu_va *amdgpu_va_handle;
+ 
++/**
++ * Define handle for sem file
++ */
++typedef uint32_t amdgpu_sem_handle;
++
++
+ /*--------------------------------------------------------------------------*/
+ /* -------------------------- Structures ---------------------------------- */
+ /*--------------------------------------------------------------------------*/
+@@ -1336,6 +1342,80 @@ int amdgpu_va_range_alloc(enum amdgpu_gpu_va_range va_range_type,
+ */
+ int amdgpu_va_range_free(amdgpu_va_handle va_range_handle);
+ 
+-#endif /* #ifdef _amdgpu_h_ */
++/**
++ *  create sem
++ *
++ * \param   dev    - [in] Device handle. See #amdgpu_device_initialize()
++ * \param   sem	   - \c [out] sem handle
++ *
++ * \return   0 on success\n
++ *          <0 - Negative POSIX Error code
++ *
++*/
++int amdgpu_cs_create_sem(amdgpu_device_handle dev,
++			 amdgpu_sem_handle *sem);
++
++/**
++ *  signal sem
++ *
++ * \param   dev    - [in] Device handle. See #amdgpu_device_initialize()
++ * \param   context        - \c [in] GPU Context
++ * \param   ip_type        - \c [in] Hardware IP block type = AMDGPU_HW_IP_*
++ * \param   ip_instance    - \c [in] Index of the IP block of the same type
++ * \param   ring           - \c [in] Specify ring index of the IP
++ * \param   sem	   - \c [out] sem handle
++ *
++ * \return   0 on success\n
++ *          <0 - Negative POSIX Error code
++ *
++ */
++int amdgpu_cs_signal_sem(amdgpu_device_handle dev,
++			 amdgpu_context_handle ctx,
++			 uint32_t ip_type,
++			 uint32_t ip_instance,
++			 uint32_t ring,
++			 amdgpu_sem_handle sem);
++
++/**
++ *  wait sem
++ *
++ * \param   dev    - [in] Device handle. See #amdgpu_device_initialize()
++ * \param   context        - \c [in] GPU Context
++ * \param   ip_type        - \c [in] Hardware IP block type = AMDGPU_HW_IP_*
++ * \param   ip_instance    - \c [in] Index of the IP block of the same type
++ * \param   ring           - \c [in] Specify ring index of the IP
++ * \param   sem	   - \c [out] sem handle
++ *
++ * \return   0 on success\n
++ *          <0 - Negative POSIX Error code
++ *
++*/
++int amdgpu_cs_wait_sem(amdgpu_device_handle dev,
++		       amdgpu_context_handle ctx,
++		       uint32_t ip_type,
++		       uint32_t ip_instance,
++		       uint32_t ring,
++		       amdgpu_sem_handle sem);
++
++int amdgpu_cs_export_sem(amdgpu_device_handle dev,
++			  amdgpu_sem_handle sem,
++			  int *shared_handle);
+ 
++int amdgpu_cs_import_sem(amdgpu_device_handle dev,
++			  int shared_handle,
++			  amdgpu_sem_handle *sem);
+ 
++/**
++ *  destroy sem
++ *
++ * \param   dev    - [in] Device handle. See #amdgpu_device_initialize()
++ * \param   sem	   - \c [out] sem handle
++ *
++ * \return   0 on success\n
++ *          <0 - Negative POSIX Error code
++ *
++ */
++int amdgpu_cs_destroy_sem(amdgpu_device_handle dev,
++			  amdgpu_sem_handle sem);
++
++#endif /* #ifdef _amdgpu_h_ */
+diff --git a/amdgpu/amdgpu_cs.c b/amdgpu/amdgpu_cs.c
+index c8101b8..c8d8593 100644
+--- a/amdgpu/amdgpu_cs.c
++++ b/amdgpu/amdgpu_cs.c
+@@ -20,6 +20,9 @@
+  * OTHER DEALINGS IN THE SOFTWARE.
+  *
+ */
++
++#include <sys/stat.h>
++#include <unistd.h>
+ #include <stdlib.h>
+ #include <stdio.h>
+ #include <string.h>
+@@ -913,3 +916,133 @@ int amdgpu_cs_query_fence_status(struct amdgpu_cs_query_fence *fence,
+ 	return r;
+ }
+ 
++int amdgpu_cs_create_sem(amdgpu_device_handle dev,
++			 amdgpu_sem_handle *sem)
++{
++	union drm_amdgpu_sem args;
++	int r;
++
++	if (NULL == dev)
++		return -EINVAL;
++
++	/* Create the context */
++	memset(&args, 0, sizeof(args));
++	args.in.op = AMDGPU_SEM_OP_CREATE_SEM;
++	r = drmCommandWriteRead(dev->fd, DRM_AMDGPU_SEM, &args, sizeof(args));
++	if (r)
++		return r;
++
++	*sem = args.out.handle;
++
++	return 0;
++}
++
++int amdgpu_cs_signal_sem(amdgpu_device_handle dev,
++			 amdgpu_context_handle ctx,
++			 uint32_t ip_type,
++			 uint32_t ip_instance,
++			 uint32_t ring,
++			 amdgpu_sem_handle sem)
++{
++	union drm_amdgpu_sem args;
++
++	if (NULL == dev)
++		return -EINVAL;
++
++	/* Create the context */
++	memset(&args, 0, sizeof(args));
++	args.in.op = AMDGPU_SEM_OP_SIGNAL_SEM;
++	args.in.ctx_id = ctx->id;
++	args.in.ip_type = ip_type;
++	args.in.ip_instance = ip_instance;
++	args.in.ring = ring;
++	args.in.handle = sem;
++	return drmCommandWriteRead(dev->fd, DRM_AMDGPU_SEM, &args, sizeof(args));
++}
++
++int amdgpu_cs_wait_sem(amdgpu_device_handle dev,
++		       amdgpu_context_handle ctx,
++		       uint32_t ip_type,
++		       uint32_t ip_instance,
++		       uint32_t ring,
++		       amdgpu_sem_handle sem)
++{
++	union drm_amdgpu_sem args;
++
++	if (NULL == dev)
++		return -EINVAL;
++
++	/* Create the context */
++	memset(&args, 0, sizeof(args));
++	args.in.op = AMDGPU_SEM_OP_WAIT_SEM;
++	args.in.ctx_id = ctx->id;
++	args.in.ip_type = ip_type;
++	args.in.ip_instance = ip_instance;
++	args.in.ring = ring;
++	args.in.handle = sem;
++	args.in.seq = 0;
++	return drmCommandWriteRead(dev->fd, DRM_AMDGPU_SEM, &args, sizeof(args));
++}
++
++int amdgpu_cs_export_sem(amdgpu_device_handle dev,
++			  amdgpu_sem_handle sem,
++			  int *shared_handle)
++{
++	union drm_amdgpu_sem args;
++	int r;
++
++	if (NULL == dev)
++		return -EINVAL;
++
++	/* Create the context */
++	memset(&args, 0, sizeof(args));
++	args.in.op = AMDGPU_SEM_OP_EXPORT_SEM;
++	args.in.handle = sem;
++	r = drmCommandWriteRead(dev->fd, DRM_AMDGPU_SEM, &args, sizeof(args));
++	if (r)
++		return r;
++	*shared_handle = args.out.fd;
++	return 0;
++}
++
++int amdgpu_cs_import_sem(amdgpu_device_handle dev,
++			  int shared_handle,
++			  amdgpu_sem_handle *sem)
++{
++	union drm_amdgpu_sem args;
++	int r;
++
++	if (NULL == dev)
++		return -EINVAL;
++
++	/* Create the context */
++	memset(&args, 0, sizeof(args));
++	args.in.op = AMDGPU_SEM_OP_IMPORT_SEM;
++	args.in.handle = shared_handle;
++	r = drmCommandWriteRead(dev->fd, DRM_AMDGPU_SEM, &args, sizeof(args));
++	if (r)
++		return r;
++	*sem = args.out.handle;
++	return 0;
++}
++
++
++int amdgpu_cs_destroy_sem(amdgpu_device_handle dev,
++			  amdgpu_sem_handle sem)
++{
++	union drm_amdgpu_sem args;
++	int r;
++
++	if (NULL == dev)
++		return -EINVAL;
++
++	/* Create the context */
++	memset(&args, 0, sizeof(args));
++	args.in.op = AMDGPU_SEM_OP_DESTROY_SEM;
++	args.in.handle = sem;
++	r = drmCommandWriteRead(dev->fd, DRM_AMDGPU_SEM, &args, sizeof(args));
++	if (r)
++		return r;
++
++	return 0;
++}
+diff --git a/include/drm/amdgpu_drm.h b/include/drm/amdgpu_drm.h
+index 89a938a..ccd9033 100644
+--- a/include/drm/amdgpu_drm.h
++++ b/include/drm/amdgpu_drm.h
+@@ -46,6 +46,9 @@
+ #define DRM_AMDGPU_WAIT_CS		0x09
+ #define DRM_AMDGPU_GEM_OP		0x10
+ #define DRM_AMDGPU_GEM_USERPTR		0x11
++#define DRM_AMDGPU_WAIT_FENCES		0x12
++
++#define DRM_AMDGPU_SEM                  0x5b
+ 
+ #define DRM_IOCTL_AMDGPU_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
+ #define DRM_IOCTL_AMDGPU_GEM_MMAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+@@ -59,6 +62,8 @@
+ #define DRM_IOCTL_AMDGPU_WAIT_CS	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_WAIT_CS, union drm_amdgpu_wait_cs)
+ #define DRM_IOCTL_AMDGPU_GEM_OP		DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_OP, struct drm_amdgpu_gem_op)
+ #define DRM_IOCTL_AMDGPU_GEM_USERPTR	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_USERPTR, struct drm_amdgpu_gem_userptr)
++#define DRM_IOCTL_AMDGPU_WAIT_FENCES	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_WAIT_FENCES, union drm_amdgpu_wait_fences)
++#define DRM_IOCTL_AMDGPU_SEM            DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_SEM, union drm_amdgpu_sem)
+ 
+ #define AMDGPU_GEM_DOMAIN_CPU		0x1
+ #define AMDGPU_GEM_DOMAIN_GTT		0x2
+@@ -182,6 +187,35 @@ union drm_amdgpu_ctx {
+ 	union drm_amdgpu_ctx_out out;
+ };
+ 
++/* sync file related */
++#define AMDGPU_SEM_OP_CREATE_SEM       1
++#define AMDGPU_SEM_OP_WAIT_SEM         2
++#define AMDGPU_SEM_OP_SIGNAL_SEM       3
++#define AMDGPU_SEM_OP_DESTROY_SEM      4
++#define AMDGPU_SEM_OP_IMPORT_SEM       5
++#define AMDGPU_SEM_OP_EXPORT_SEM       6
++
++struct drm_amdgpu_sem_in {
++	/** AMDGPU_SEM_OP_* */
++	uint32_t        op;
++	uint32_t        handle;
++	uint32_t        ctx_id;
++	uint32_t        ip_type;
++	uint32_t        ip_instance;
++	uint32_t        ring;
++	uint64_t        seq;
++};
++
++union drm_amdgpu_sem_out {
++	int            fd;
++	uint32_t        handle;
++};
++
++union drm_amdgpu_sem {
++	struct drm_amdgpu_sem_in in;
++	union drm_amdgpu_sem_out out;
++};
++
+ /*
+  * This is not a reliable API and you should expect it to fail for any
+  * number of reasons and have fallback path that do not use userptr to
+-- 
+1.9.1
+
+
+--------------040601090507040301020506
+Content-Type: text/x-patch;
+	name="0002-test-case-for-export-import-sem.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="0002-test-case-for-export-import-sem.patch"
+
+>From 1d391323c06c03a90b1d349f8a8c79a29af8fc90 Mon Sep 17 00:00:00 2001
+From: David Mao <david.mao-5C7GfCeVMHo@public.gmane.org>
+Date: Mon, 23 Jan 2017 11:31:58 +0800
+Subject: [PATCH 2/2] test case for export/import sem
+
+Test covers basic functionality includes create/destroy/import/export/wait/signal
+
+Change-Id: I8a8d767e5ef1889f8ac214fef98befba83969d8d
+Signed-off-by: David Mao <david.mao-5C7GfCeVMHo@public.gmane.org>
+Signed-off-by: Flora Cui <Flora.Cui-5C7GfCeVMHo@public.gmane.org>
+Acked-by: Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+---
+ tests/amdgpu/basic_tests.c | 190 +++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 190 insertions(+)
+
+diff --git a/tests/amdgpu/basic_tests.c b/tests/amdgpu/basic_tests.c
+index 0083968..5a95ec9 100644
+--- a/tests/amdgpu/basic_tests.c
++++ b/tests/amdgpu/basic_tests.c
+@@ -214,6 +214,196 @@ static void amdgpu_command_submission_gfx(void)
+ 	CU_ASSERT_EQUAL(r, 0);
+ }
+ 
++static void amdgpu_semaphore_test(void)
++{
++	amdgpu_context_handle context_handle[2];
++	amdgpu_semaphore_handle sem;
++	amdgpu_bo_handle ib_result_handle[2];
++	void *ib_result_cpu[2];
++	uint64_t ib_result_mc_address[2];
++	struct amdgpu_cs_request ibs_request[2] = {0};
++	struct amdgpu_cs_ib_info ib_info[2] = {0};
++	struct amdgpu_cs_fence fence_status = {0};
++	uint32_t *ptr;
++	uint32_t expired;
++	amdgpu_bo_list_handle bo_list[2];
++	amdgpu_va_handle va_handle[2];
++	amdgpu_sem_handle sem_handle, sem_handle_import;
++	int fd;
++	int r, i;
++
++	r = amdgpu_cs_create_semaphore(&sem);
++	CU_ASSERT_EQUAL(r, 0);
++	for (i = 0; i < 2; i++) {
++		r = amdgpu_cs_ctx_create(device_handle, &context_handle[i]);
++		CU_ASSERT_EQUAL(r, 0);
++
++		r = amdgpu_bo_alloc_and_map(device_handle, 4096, 4096,
++					    AMDGPU_GEM_DOMAIN_GTT, 0,
++					    &ib_result_handle[i], &ib_result_cpu[i],
++					    &ib_result_mc_address[i], &va_handle[i]);
++		CU_ASSERT_EQUAL(r, 0);
++
++		r = amdgpu_get_bo_list(device_handle, ib_result_handle[i],
++				       NULL, &bo_list[i]);
++		CU_ASSERT_EQUAL(r, 0);
++	}
++
++	/* 1. same context different engine */
++	ptr = ib_result_cpu[0];
++	ptr[0] = SDMA_NOP;
++	ib_info[0].ib_mc_address = ib_result_mc_address[0];
++	ib_info[0].size = 1;
++
++	ibs_request[0].ip_type = AMDGPU_HW_IP_DMA;
++	ibs_request[0].number_of_ibs = 1;
++	ibs_request[0].ibs = &ib_info[0];
++	ibs_request[0].resources = bo_list[0];
++	ibs_request[0].fence_info.handle = NULL;
++	r = amdgpu_cs_submit(context_handle[0], 0,&ibs_request[0], 1);
++	CU_ASSERT_EQUAL(r, 0);
++	r = amdgpu_cs_signal_semaphore(context_handle[0], AMDGPU_HW_IP_DMA, 0, 0, sem);
++	CU_ASSERT_EQUAL(r, 0);
++
++	r = amdgpu_cs_wait_semaphore(context_handle[0], AMDGPU_HW_IP_GFX, 0, 0, sem);
++	CU_ASSERT_EQUAL(r, 0);
++	ptr = ib_result_cpu[1];
++	ptr[0] = GFX_COMPUTE_NOP;
++	ib_info[1].ib_mc_address = ib_result_mc_address[1];
++	ib_info[1].size = 1;
++
++	ibs_request[1].ip_type = AMDGPU_HW_IP_GFX;
++	ibs_request[1].number_of_ibs = 1;
++	ibs_request[1].ibs = &ib_info[1];
++	ibs_request[1].resources = bo_list[1];
++	ibs_request[1].fence_info.handle = NULL;
++
++	r = amdgpu_cs_submit(context_handle[0], 0,&ibs_request[1], 1);
++	CU_ASSERT_EQUAL(r, 0);
++
++	fence_status.context = context_handle[0];
++	fence_status.ip_type = AMDGPU_HW_IP_GFX;
++	fence_status.ip_instance = 0;
++	fence_status.fence = ibs_request[1].seq_no;
++	r = amdgpu_cs_query_fence_status(&fence_status,
++					 500000000, 0, &expired);
++	CU_ASSERT_EQUAL(r, 0);
++	CU_ASSERT_EQUAL(expired, true);
++
++	/* 2. same engine different context */
++	ptr = ib_result_cpu[0];
++	ptr[0] = GFX_COMPUTE_NOP;
++	ib_info[0].ib_mc_address = ib_result_mc_address[0];
++	ib_info[0].size = 1;
++
++	ibs_request[0].ip_type = AMDGPU_HW_IP_GFX;
++	ibs_request[0].number_of_ibs = 1;
++	ibs_request[0].ibs = &ib_info[0];
++	ibs_request[0].resources = bo_list[0];
++	ibs_request[0].fence_info.handle = NULL;
++	r = amdgpu_cs_submit(context_handle[0], 0,&ibs_request[0], 1);
++	CU_ASSERT_EQUAL(r, 0);
++	r = amdgpu_cs_signal_semaphore(context_handle[0], AMDGPU_HW_IP_GFX, 0, 0, sem);
++	CU_ASSERT_EQUAL(r, 0);
++
++	r = amdgpu_cs_wait_semaphore(context_handle[1], AMDGPU_HW_IP_GFX, 0, 0, sem);
++	CU_ASSERT_EQUAL(r, 0);
++	ptr = ib_result_cpu[1];
++	ptr[0] = GFX_COMPUTE_NOP;
++	ib_info[1].ib_mc_address = ib_result_mc_address[1];
++	ib_info[1].size = 1;
++
++	ibs_request[1].ip_type = AMDGPU_HW_IP_GFX;
++	ibs_request[1].number_of_ibs = 1;
++	ibs_request[1].ibs = &ib_info[1];
++	ibs_request[1].resources = bo_list[1];
++	ibs_request[1].fence_info.handle = NULL;
++	r = amdgpu_cs_submit(context_handle[1], 0,&ibs_request[1], 1);
++
++	CU_ASSERT_EQUAL(r, 0);
++
++	fence_status.context = context_handle[1];
++	fence_status.ip_type = AMDGPU_HW_IP_GFX;
++	fence_status.ip_instance = 0;
++	fence_status.fence = ibs_request[1].seq_no;
++	r = amdgpu_cs_query_fence_status(&fence_status,
++					 500000000, 0, &expired);
++	CU_ASSERT_EQUAL(r, 0);
++	CU_ASSERT_EQUAL(expired, true);
++
++	/* 3. export/import sem test */
++	r = amdgpu_cs_create_sem(device_handle, &sem_handle);
++	CU_ASSERT_EQUAL(r, 0);
++
++	ptr = ib_result_cpu[0];
++	ptr[0] = SDMA_NOP;
++	ib_info[0].ib_mc_address = ib_result_mc_address[0];
++	ib_info[0].size = 1;
++
++	ibs_request[0].ip_type = AMDGPU_HW_IP_DMA;
++	ibs_request[0].number_of_ibs = 1;
++	ibs_request[0].ibs = &ib_info[0];
++	ibs_request[0].resources = bo_list[0];
++	ibs_request[0].fence_info.handle = NULL;
++	r = amdgpu_cs_submit(context_handle[0], 0,&ibs_request[0], 1);
++	CU_ASSERT_EQUAL(r, 0);
++	r = amdgpu_cs_signal_sem(device_handle, context_handle[0], AMDGPU_HW_IP_DMA, 0, 0, sem_handle);
++	CU_ASSERT_EQUAL(r, 0);
++
++	// export the semaphore and import in different context to wait.
++	r = amdgpu_cs_export_sem(device_handle, sem_handle, &fd);
++	CU_ASSERT_EQUAL(r, 0);
++
++	r = amdgpu_cs_import_sem(device_handle, fd, &sem_handle_import);
++	CU_ASSERT_EQUAL(r, 0);
++	close(fd);
++	r = amdgpu_cs_destroy_sem(device_handle, sem_handle);
++	CU_ASSERT_EQUAL(r, 0);
++
++	r = amdgpu_cs_wait_sem(device_handle, context_handle[1], AMDGPU_HW_IP_GFX, 0, 0, sem_handle_import);
++	CU_ASSERT_EQUAL(r, 0);
++	ptr = ib_result_cpu[1];
++	ptr[0] = GFX_COMPUTE_NOP;
++	ib_info[1].ib_mc_address = ib_result_mc_address[1];
++	ib_info[1].size = 1;
++
++	ibs_request[1].ip_type = AMDGPU_HW_IP_GFX;
++	ibs_request[1].number_of_ibs = 1;
++	ibs_request[1].ibs = &ib_info[1];
++	ibs_request[1].resources = bo_list[1];
++	ibs_request[1].fence_info.handle = NULL;
++
++	r = amdgpu_cs_submit(context_handle[1], 0,&ibs_request[1], 1);
++	CU_ASSERT_EQUAL(r, 0);
++
++	fence_status.context = context_handle[1];
++	fence_status.ip_type = AMDGPU_HW_IP_GFX;
++	fence_status.ip_instance = 0;
++	fence_status.fence = ibs_request[1].seq_no;
++	r = amdgpu_cs_query_fence_status(&fence_status,
++					 500000000, 0, &expired);
++	CU_ASSERT_EQUAL(r, 0);
++	CU_ASSERT_EQUAL(expired, true);
++
++	r = amdgpu_cs_destroy_sem(device_handle, sem_handle_import);
++	CU_ASSERT_EQUAL(r, 0);
++
++	for (i = 0; i < 2; i++) {
++		r = amdgpu_bo_unmap_and_free(ib_result_handle[i], va_handle[i],
++					     ib_result_mc_address[i], 4096);
++		CU_ASSERT_EQUAL(r, 0);
++
++		r = amdgpu_bo_list_destroy(bo_list[i]);
++		CU_ASSERT_EQUAL(r, 0);
++
++		r = amdgpu_cs_ctx_free(context_handle[i]);
++		CU_ASSERT_EQUAL(r, 0);
++	}
++
++	r = amdgpu_cs_destroy_semaphore(sem);
++	CU_ASSERT_EQUAL(r, 0);
++}
++
+ static void amdgpu_command_submission_compute(void)
+ {
+ 	amdgpu_context_handle context_handle;
+-- 
+1.9.1
+
+
+--------------040601090507040301020506
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -501,4 +1383,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---f403045f87327fc8d3054a449fd5--
+--------------040601090507040301020506--
