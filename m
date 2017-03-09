@@ -1,13 +1,17 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 22/23] drm/amdgpu: add AMDGPU_HW_IP_UVD_ENC to info query
-Date: Wed,  8 Mar 2017 22:44:52 -0500
-Message-ID: <1489031093-4720-23-git-send-email-alexander.deucher@amd.com>
-References: <1489031093-4720-1-git-send-email-alexander.deucher@amd.com>
+From: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: Shared semaphores for amdgpu
+Date: Thu, 9 Mar 2017 13:52:06 +1000
+Message-ID: <CAPM=9tw3nbGe+gaOpoBZeXfmS5+C3R4eK=uT8AL3krL0PMR0LA@mail.gmail.com>
+References: <544E607D03B20249AA404517E498FC469A558B@exchange01.valvesoftware.com>
+ <BN4PR12MB0787AE3A185BE4D6916CE42AEE600@BN4PR12MB0787.namprd12.prod.outlook.com>
+ <a25fdfeb-be5d-2d23-d7b1-ef14891ba6d5@gmail.com>
+ <CAPM=9txG2KEw7AH553uFtuvoGYFK1=kmkPRJEHuA=8fq_JcY=w@mail.gmail.com>
+ <58B4D68E.5080606@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1489031093-4720-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <58B4D68E.5080606-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,32 +22,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>
+To: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Mao,
+ David" <David.Mao-5C7GfCeVMHo@public.gmane.org>, Andres Rodriguez <andresr-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org>, Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Dave Airlie <airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "Cui,
+ Flora" <Flora.Cui-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, Pierre-Loup Griffais <pgriffais-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org>
 
-RnJvbTogTGVvIExpdSA8bGVvLmxpdUBhbWQuY29tPgoKU2lnbmVkLW9mZi1ieTogTGVvIExpdSA8
-bGVvLmxpdUBhbWQuY29tPgpSZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1
-Y2hlckBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVj
-aGVyQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5j
-IHwgMTAgKysrKysrKysrKwogMSBmaWxlIGNoYW5nZWQsIDEwIGluc2VydGlvbnMoKykKCmRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMKaW5kZXggMDk2Mzg2NS4uNmI1OTZkYyAx
-MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jCisrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYwpAQCAtMzA5LDYgKzMwOSwx
-MyBAQCBzdGF0aWMgaW50IGFtZGdwdV9pbmZvX2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYs
-IHZvaWQgKmRhdGEsIHN0cnVjdCBkcm1fZmlsZQogCQkJaWJfc3RhcnRfYWxpZ25tZW50ID0gQU1E
-R1BVX0dQVV9QQUdFX1NJWkU7CiAJCQlpYl9zaXplX2FsaWdubWVudCA9IDE7CiAJCQlicmVhazsK
-KwkJY2FzZSBBTURHUFVfSFdfSVBfVVZEX0VOQzoKKwkJCXR5cGUgPSBBTURfSVBfQkxPQ0tfVFlQ
-RV9VVkQ7CisJCQlmb3IgKGkgPSAwOyBpIDwgYWRldi0+dXZkLm51bV9lbmNfcmluZ3M7IGkrKykK
-KwkJCQlyaW5nX21hc2sgfD0gKChhZGV2LT51dmQucmluZ19lbmNbaV0ucmVhZHkgPyAxIDogMCkg
-PDwgaSk7CisJCQlpYl9zdGFydF9hbGlnbm1lbnQgPSBBTURHUFVfR1BVX1BBR0VfU0laRTsKKwkJ
-CWliX3NpemVfYWxpZ25tZW50ID0gMTsKKwkJCWJyZWFrOwogCQlkZWZhdWx0OgogCQkJcmV0dXJu
-IC1FSU5WQUw7CiAJCX0KQEAgLTM0OCw2ICszNTUsOSBAQCBzdGF0aWMgaW50IGFtZGdwdV9pbmZv
-X2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsIHN0cnVjdCBkcm1fZmls
-ZQogCQljYXNlIEFNREdQVV9IV19JUF9WQ0U6CiAJCQl0eXBlID0gQU1EX0lQX0JMT0NLX1RZUEVf
-VkNFOwogCQkJYnJlYWs7CisJCWNhc2UgQU1ER1BVX0hXX0lQX1VWRF9FTkM6CisJCQl0eXBlID0g
-QU1EX0lQX0JMT0NLX1RZUEVfVVZEOworCQkJYnJlYWs7CiAJCWRlZmF1bHQ6CiAJCQlyZXR1cm4g
-LUVJTlZBTDsKIAkJfQotLSAKMi41LjUKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeAo=
+T24gMjggRmVicnVhcnkgMjAxNyBhdCAxMTo0NiwgemhvdWNtMSA8ZGF2aWQxLnpob3VAYW1kLmNv
+bT4gd3JvdGU6Cj4gSGkgRGF2ZSwKPgo+IFRoZSBhdHRhY2hlZCBpcyBvdXIgc2VtYXBob3JlIGlt
+cGxlbWVudGF0aW9uLCBhbWRncHVfY3MuYyBpcyBkcm0gZmlsZSwgdGhlCj4gb3RoZXJzIGFyZSBr
+ZXJuZWwgZmlsZS4KPiBBbnkgc3VnZ2VzdGlvbj8KVGhhbmtzLAoKSSd2ZSBidWlsdCBhIHRyZWUg
+d2l0aCBhbGwgdGhlc2UgaW4gaXQsIGFuZCBzdGFydGVkIGxvb2tpbmcgaW50byB0aGUgaW50ZXJm
+YWNlLgoKSSBkbyB3b25kZXIgaWYgd2UgbmVlZCB0aGUgc2VwYXJhdGUgc2VtIHNpZ25hbC93YWl0
+IGludGVyZmFjZSwgSSB0aGluawp3ZSBzaG91bGQganVzdCBhZGQKc2VtYXBob3JlIGNodW5rcyB0
+byB0aGUgQ1MgaW50ZXJmYWNlLgoKSSdtIGp1c3QgcGxheWluZyBhcm91bmQgd2l0aCB0aGlzIG5v
+dy4KCkRhdmUuCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
