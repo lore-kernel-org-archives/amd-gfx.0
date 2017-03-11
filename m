@@ -1,80 +1,38 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: add macro to retrieve timeline name v2
-Date: Sat, 11 Mar 2017 17:18:27 +0100
-Message-ID: <da25a542-b3a1-8594-fb4d-2cdf71b1de76@vodafone.de>
-References: <20170311155034.4110-1-andresx7@gmail.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170311155034.4110-1-andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+From: Umang Raghuvanshi <u@umangis.me>
+Subject: [PATCH] drm/radeon: Fix GPU lockups for the R7 M270
+Date: Sat, 11 Mar 2017 21:51:13 +0530
+Message-ID: <20170311162113.7497-1-u@umangis.me>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Umang Raghuvanshi <u@umangis.me>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMTEuMDMuMjAxNyB1bSAxNjo1MCBzY2hyaWViIEFuZHJlcyBSb2RyaWd1ZXo6Cj4gVGhpcyBo
-ZWxwcyBkZS1kdXBsaWNhdGUgYSBsb25nIGV4cHJlc3Npb24gYW5kIHJlbW92ZXMgb3Zlcmx5IGxv
-bmcgbGluZXMuCj4KPiB2MjogUmVuYW1lIG1hY3JvIGFuZCB1bmRlZiBpdAo+Cj4gU2lnbmVkLW9m
-Zi1ieTogQW5kcmVzIFJvZHJpZ3VleiA8YW5kcmVzeDdAZ21haWwuY29tPgoKUmV2aWV3ZWQtYnk6
-IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KCj4gLS0tCj4gICBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHJhY2UuaCB8IDEyICsrKysrKysrLS0t
-LQo+ICAgMSBmaWxlIGNoYW5nZWQsIDggaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMoLSkKPgo+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHJhY2UuaCBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90cmFjZS5oCj4gaW5kZXggODhlMTcw
-NC4uMDhjY2IzZCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfdHJhY2UuaAo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90cmFj
-ZS5oCj4gQEAgLTExLDYgKzExLDkgQEAKPiAgICNkZWZpbmUgVFJBQ0VfU1lTVEVNIGFtZGdwdQo+
-ICAgI2RlZmluZSBUUkFDRV9JTkNMVURFX0ZJTEUgYW1kZ3B1X3RyYWNlCj4gICAKPiArI2RlZmlu
-ZSBBTURHUFVfSk9CX0dFVF9USU1FTElORV9OQU1FKGpvYikgXAo+ICsJIGpvYi0+YmFzZS5zX2Zl
-bmNlLT5maW5pc2hlZC5vcHMtPmdldF90aW1lbGluZV9uYW1lKCZqb2ItPmJhc2Uuc19mZW5jZS0+
-ZmluaXNoZWQpCj4gKwo+ICAgVFJBQ0VfRVZFTlQoYW1kZ3B1X21tX3JyZWcsCj4gICAJICAgIFRQ
-X1BST1RPKHVuc2lnbmVkIGRpZCwgdWludDMyX3QgcmVnLCB1aW50MzJfdCB2YWx1ZSksCj4gICAJ
-ICAgIFRQX0FSR1MoZGlkLCByZWcsIHZhbHVlKSwKPiBAQCAtMTAyLDcgKzEwNSw3IEBAIFRSQUNF
-X0VWRU5UKGFtZGdwdV9jc19pb2N0bCwKPiAgIAkgICAgVFBfQVJHUyhqb2IpLAo+ICAgCSAgICBU
-UF9TVFJVQ1RfX2VudHJ5KAo+ICAgCQkJICAgICBfX2ZpZWxkKHVpbnQ2NF90LCBzY2hlZF9qb2Jf
-aWQpCj4gLQkJCSAgICAgX19zdHJpbmcodGltZWxpbmUsIGpvYi0+YmFzZS5zX2ZlbmNlLT5maW5p
-c2hlZC5vcHMtPmdldF90aW1lbGluZV9uYW1lKCZqb2ItPmJhc2Uuc19mZW5jZS0+ZmluaXNoZWQp
-KQo+ICsJCQkgICAgIF9fc3RyaW5nKHRpbWVsaW5lLCBBTURHUFVfSk9CX0dFVF9USU1FTElORV9O
-QU1FKGpvYikpCj4gICAJCQkgICAgIF9fZmllbGQodW5zaWduZWQgaW50LCBjb250ZXh0KQo+ICAg
-CQkJICAgICBfX2ZpZWxkKHVuc2lnbmVkIGludCwgc2Vxbm8pCj4gICAJCQkgICAgIF9fZmllbGQo
-c3RydWN0IGRtYV9mZW5jZSAqLCBmZW5jZSkKPiBAQCAtMTEyLDcgKzExNSw3IEBAIFRSQUNFX0VW
-RU5UKGFtZGdwdV9jc19pb2N0bCwKPiAgIAo+ICAgCSAgICBUUF9mYXN0X2Fzc2lnbigKPiAgIAkJ
-CSAgIF9fZW50cnktPnNjaGVkX2pvYl9pZCA9IGpvYi0+YmFzZS5pZDsKPiAtCQkJICAgX19hc3Np
-Z25fc3RyKHRpbWVsaW5lLCBqb2ItPmJhc2Uuc19mZW5jZS0+ZmluaXNoZWQub3BzLT5nZXRfdGlt
-ZWxpbmVfbmFtZSgmam9iLT5iYXNlLnNfZmVuY2UtPmZpbmlzaGVkKSkKPiArCQkJICAgX19hc3Np
-Z25fc3RyKHRpbWVsaW5lLCBBTURHUFVfSk9CX0dFVF9USU1FTElORV9OQU1FKGpvYikpCj4gICAJ
-CQkgICBfX2VudHJ5LT5jb250ZXh0ID0gam9iLT5iYXNlLnNfZmVuY2UtPmZpbmlzaGVkLmNvbnRl
-eHQ7Cj4gICAJCQkgICBfX2VudHJ5LT5zZXFubyA9IGpvYi0+YmFzZS5zX2ZlbmNlLT5maW5pc2hl
-ZC5zZXFubzsKPiAgIAkJCSAgIF9fZW50cnktPnJpbmdfbmFtZSA9IGpvYi0+cmluZy0+bmFtZTsK
-PiBAQCAtMTI4LDcgKzEzMSw3IEBAIFRSQUNFX0VWRU5UKGFtZGdwdV9zY2hlZF9ydW5fam9iLAo+
-ICAgCSAgICBUUF9BUkdTKGpvYiksCj4gICAJICAgIFRQX1NUUlVDVF9fZW50cnkoCj4gICAJCQkg
-ICAgIF9fZmllbGQodWludDY0X3QsIHNjaGVkX2pvYl9pZCkKPiAtCQkJICAgICBfX3N0cmluZyh0
-aW1lbGluZSwgam9iLT5iYXNlLnNfZmVuY2UtPmZpbmlzaGVkLm9wcy0+Z2V0X3RpbWVsaW5lX25h
-bWUoJmpvYi0+YmFzZS5zX2ZlbmNlLT5maW5pc2hlZCkpCj4gKwkJCSAgICAgX19zdHJpbmcodGlt
-ZWxpbmUsIEFNREdQVV9KT0JfR0VUX1RJTUVMSU5FX05BTUUoam9iKSkKPiAgIAkJCSAgICAgX19m
-aWVsZCh1bnNpZ25lZCBpbnQsIGNvbnRleHQpCj4gICAJCQkgICAgIF9fZmllbGQodW5zaWduZWQg
-aW50LCBzZXFubykKPiAgIAkJCSAgICAgX19maWVsZChjaGFyICosIHJpbmdfbmFtZSkKPiBAQCAt
-MTM3LDcgKzE0MCw3IEBAIFRSQUNFX0VWRU5UKGFtZGdwdV9zY2hlZF9ydW5fam9iLAo+ICAgCj4g
-ICAJICAgIFRQX2Zhc3RfYXNzaWduKAo+ICAgCQkJICAgX19lbnRyeS0+c2NoZWRfam9iX2lkID0g
-am9iLT5iYXNlLmlkOwo+IC0JCQkgICBfX2Fzc2lnbl9zdHIodGltZWxpbmUsIGpvYi0+YmFzZS5z
-X2ZlbmNlLT5maW5pc2hlZC5vcHMtPmdldF90aW1lbGluZV9uYW1lKCZqb2ItPmJhc2Uuc19mZW5j
-ZS0+ZmluaXNoZWQpKQo+ICsJCQkgICBfX2Fzc2lnbl9zdHIodGltZWxpbmUsIEFNREdQVV9KT0Jf
-R0VUX1RJTUVMSU5FX05BTUUoam9iKSkKPiAgIAkJCSAgIF9fZW50cnktPmNvbnRleHQgPSBqb2It
-PmJhc2Uuc19mZW5jZS0+ZmluaXNoZWQuY29udGV4dDsKPiAgIAkJCSAgIF9fZW50cnktPnNlcW5v
-ID0gam9iLT5iYXNlLnNfZmVuY2UtPmZpbmlzaGVkLnNlcW5vOwo+ICAgCQkJICAgX19lbnRyeS0+
-cmluZ19uYW1lID0gam9iLT5yaW5nLT5uYW1lOwo+IEBAIC0zNjUsNiArMzY4LDcgQEAgVFJBQ0Vf
-RVZFTlQoYW1kZ3B1X3R0bV9ib19tb3ZlLAo+ICAgCQkJX19lbnRyeS0+bmV3X3BsYWNlbWVudCwg
-X19lbnRyeS0+Ym9fc2l6ZSkKPiAgICk7Cj4gICAKPiArI3VuZGVmIEFNREdQVV9KT0JfR0VUX1RJ
-TUVMSU5FX05BTUUKPiAgICNlbmRpZgo+ICAgCj4gICAvKiBUaGlzIHBhcnQgbXVzdCBiZSBvdXRz
-aWRlIHByb3RlY3Rpb24gKi8KCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-ZngK
+Commit 3a69adfe5617 ("drm/radeon: drop oland quirks") removed
+quirks for Oland but also caused a regression where M270 GPUs
+would go into a lock-up when OpenGL intensive applications were used.
+This reverts the change only for the M270 and fixes the lock-ups.
+
+Signed-off-by: Umang Raghuvanshi <u@umangis.me>
+---
+ drivers/gpu/drm/radeon/si_dpm.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/gpu/drm/radeon/si_dpm.c b/drivers/gpu/drm/radeon/si_dpm.c
+index d12b8978142f..c2c129eef3c4 100644
+--- a/drivers/gpu/drm/radeon/si_dpm.c
++++ b/drivers/gpu/drm/radeon/si_dpm.c
+@@ -2984,6 +2984,11 @@ static void si_apply_state_adjust_rules(struct radeon_device *rdev,
+ 		    (rdev->pdev->device == 0x6667)) {
+ 			max_sclk = 75000;
+ 		}
++	} else if (rdev->family == CHIP_OLAND && rdev->pdev->device == 0x6604 &&
++		   rdev->pdev->revision == 0) {
++		// Fix max_sclk and max_mclk for the Radeon R7 M270
++		max_sclk = 75000;
++		max_mclk = 80000;
+ 	}
+ 
+ 	if (rps->vce_active) {
+-- 
+2.12.0
