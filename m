@@ -1,61 +1,54 @@
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Subject: Re: [PATCH 4/4] drm/amdgpu: resize VRAM BAR for CPU access
-Date: Mon, 13 Mar 2017 18:51:08 +0200
-Message-ID: <CAHp75VcSD+edusfZF8KWvCqoywPwJXdO_=9-RZdDpMF5dKtocQ@mail.gmail.com>
-References: <1489408896-25039-1-git-send-email-deathsimple@vodafone.de> <1489408896-25039-5-git-send-email-deathsimple@vodafone.de>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/radeon: Fix GPU lockups for the R7 M270
+Date: Mon, 13 Mar 2017 15:30:05 -0400
+Message-ID: <CADnq5_MUP3KSEWed47Ot617UwaGxvjuwdWjCDFmrb7_hDEXiLw@mail.gmail.com>
+References: <20170311162113.7497-1-u@umangis.me>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Return-path: <platform-driver-x86-owner@vger.kernel.org>
-In-Reply-To: <1489408896-25039-5-git-send-email-deathsimple@vodafone.de>
-Sender: platform-driver-x86-owner@vger.kernel.org
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple@vodafone.de>
-Cc: helgaas@kernel.org, "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, dri-devel@lists.freedesktop.org, Platform Driver <platform-driver-x86@vger.kernel.org>, amd-gfx@lists.freedesktop.org, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20170311162113.7497-1-u-fg9RStOClv1BDLzU/O5InQ@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Umang Raghuvanshi <u@umangis.me>
+Cc: David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-On Mon, Mar 13, 2017 at 2:41 PM, Christian K=C3=B6nig
-<deathsimple@vodafone.de> wrote:
-> From: Christian K=C3=B6nig <christian.koenig@amd.com>
->
-> Try to resize BAR0 to let CPU access all of VRAM.
-
-> +void amdgpu_resize_bar0(struct amdgpu_device *adev)
-> +{
-> +       u32 size =3D max(ilog2(adev->mc.real_vram_size - 1) + 1, 20) - 20=
-;
-> +       int r;
-> +
-> +       r =3D pci_resize_resource(adev->pdev, 0, size);
-
-> +
-
-Redundant.
-
-> +       if (r =3D=3D -ENOTSUPP) {
-> +               /* The hardware don't support the extension. */
-> +               return;
-
-> +
-
-Ditto.
-
-> +       } else if (r =3D=3D -ENOSPC) {
-
-Useless use of else. And thus of curly braces.
-
-> +               DRM_INFO("Not enoigh PCI address space for a large BAR.")=
-;
-> +       } else if (r) {
-> +               DRM_ERROR("Problem resizing BAR0 (%d).", r);
-> +       }
-> +
-> +       /* Reinit the doorbell mapping, it is most likely moved as well *=
-/
-> +       amdgpu_doorbell_fini(adev);
-
-> +       BUG_ON(amdgpu_doorbell_init(adev));
-
-Comment why it's used here.
---=20
-With Best Regards,
-Andy Shevchenko
+T24gU2F0LCBNYXIgMTEsIDIwMTcgYXQgMTE6MjEgQU0sIFVtYW5nIFJhZ2h1dmFuc2hpIDx1QHVt
+YW5naXMubWU+IHdyb3RlOgo+IENvbW1pdCAzYTY5YWRmZTU2MTcgKCJkcm0vcmFkZW9uOiBkcm9w
+IG9sYW5kIHF1aXJrcyIpIHJlbW92ZWQKPiBxdWlya3MgZm9yIE9sYW5kIGJ1dCBhbHNvIGNhdXNl
+ZCBhIHJlZ3Jlc3Npb24gd2hlcmUgTTI3MCBHUFVzCj4gd291bGQgZ28gaW50byBhIGxvY2stdXAg
+d2hlbiBPcGVuR0wgaW50ZW5zaXZlIGFwcGxpY2F0aW9ucyB3ZXJlIHVzZWQuCj4gVGhpcyByZXZl
+cnRzIHRoZSBjaGFuZ2Ugb25seSBmb3IgdGhlIE0yNzAgYW5kIGZpeGVzIHRoZSBsb2NrLXVwcy4K
+CkRvZXMgeW91ciBrZXJuZWwgaGF2ZSB0aGlzIHBhdGNoOgpodHRwczovL2dpdC5rZXJuZWwub3Jn
+L3B1Yi9zY20vbGludXgva2VybmVsL2dpdC90b3J2YWxkcy9saW51eC5naXQvY29tbWl0Lz9pZD1l
+ZjczNmQzOTRlODViMWJmMWZkNjViYTVlNTI1N2I4NWY2YzgyMzI1CgpBbGV4Cgo+Cj4gU2lnbmVk
+LW9mZi1ieTogVW1hbmcgUmFnaHV2YW5zaGkgPHVAdW1hbmdpcy5tZT4KPiAtLS0KPiAgZHJpdmVy
+cy9ncHUvZHJtL3JhZGVvbi9zaV9kcG0uYyB8IDUgKysrKysKPiAgMSBmaWxlIGNoYW5nZWQsIDUg
+aW5zZXJ0aW9ucygrKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vc2lf
+ZHBtLmMgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3NpX2RwbS5jCj4gaW5kZXggZDEyYjg5Nzgx
+NDJmLi5jMmMxMjllZWYzYzQgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9z
+aV9kcG0uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vc2lfZHBtLmMKPiBAQCAtMjk4
+NCw2ICsyOTg0LDExIEBAIHN0YXRpYyB2b2lkIHNpX2FwcGx5X3N0YXRlX2FkanVzdF9ydWxlcyhz
+dHJ1Y3QgcmFkZW9uX2RldmljZSAqcmRldiwKPiAgICAgICAgICAgICAgICAgICAgIChyZGV2LT5w
+ZGV2LT5kZXZpY2UgPT0gMHg2NjY3KSkgewo+ICAgICAgICAgICAgICAgICAgICAgICAgIG1heF9z
+Y2xrID0gNzUwMDA7Cj4gICAgICAgICAgICAgICAgIH0KPiArICAgICAgIH0gZWxzZSBpZiAocmRl
+di0+ZmFtaWx5ID09IENISVBfT0xBTkQgJiYgcmRldi0+cGRldi0+ZGV2aWNlID09IDB4NjYwNCAm
+Jgo+ICsgICAgICAgICAgICAgICAgICByZGV2LT5wZGV2LT5yZXZpc2lvbiA9PSAwKSB7Cj4gKyAg
+ICAgICAgICAgICAgIC8vIEZpeCBtYXhfc2NsayBhbmQgbWF4X21jbGsgZm9yIHRoZSBSYWRlb24g
+UjcgTTI3MAo+ICsgICAgICAgICAgICAgICBtYXhfc2NsayA9IDc1MDAwOwo+ICsgICAgICAgICAg
+ICAgICBtYXhfbWNsayA9IDgwMDAwOwo+ICAgICAgICAgfQo+Cj4gICAgICAgICBpZiAocnBzLT52
+Y2VfYWN0aXZlKSB7Cj4gLS0KPiAyLjEyLjAKPgo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KPiBkcmktZGV2ZWwgbWFpbGluZyBsaXN0Cj4gZHJpLWRl
+dmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeAo=
