@@ -1,57 +1,42 @@
-From: Umang Raghuvanshi <u@umangis.me>
-Subject: [PATCH 0/1] drm/radeon: Fix GPU lockups for the R7 M270
-Date: Mon, 13 Mar 2017 14:18:54 +0530
-Message-ID: <20170313084855.10851-1-u@umangis.me>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: David Airlie <airlied@linux.ie>
-Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Umang Raghuvanshi <u@umangis.me>
-List-Id: amd-gfx.lists.freedesktop.org
+From: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 2/3] drm/amd/powerplay: fix copy error in
+ smu7_clockpoweragting.c
+Date: Mon, 13 Mar 2017 16:51:21 +0800
+Message-ID: <1489395082-30583-2-git-send-email-Rex.Zhu@amd.com>
+References: <1489395082-30583-1-git-send-email-Rex.Zhu@amd.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1489395082-30583-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
-The AMD Radeon R7 M270 card's OpenGL functionality completely broke down in
-Linux kernel v4.10. Before v4.10, the card was incorrectly identified as a
-Radeon R7 M265 but worked perfectly (possibly due to the similarities between
-the two). It should also be noted that this issue is also present in Windows
-but is fixed by a vendor-specific driver by AMD which hasn't made its way to
-Linux yet.
-
-After bisecting between the v4.9 and v4.10 tags, I discovered that the commit
-3a69adfe5617 ("drm/radeon: drop oland quirks") was the culprit. Due to what I
-assume as lack of firmware support for the chip, the quirks which were
-addressed in the firmware never made it to the card resulting in this.
-
-Specifically, when an OpenGL app was run with DRI_PRIME=1, the GPU would stall
-and the kernel logs would fill up with messages like the following:
-
-"GPU lockup (current fence id 0x0000000010e5 last fence id 0x10ed on ring 0)"
-"ring 3 stalled for more than 40952msec"
-
-This issue would crop up everytime DRI_PRIME=1 was used and is present across
-various applications - everything from natively supported games to glxgears.
-When the aforementioned stall would happen, the screen would freeze and the
-only solution would be to restart the X server altogether.
-
-The attached commit reverts this change only for the M270 (the values for
-identifying it were obtained experimentally and checked across different PCs).
-It fixes the issue completely but I strongly believe that a firmware patch
-would be a *much* better solution.
-
-Should the need arise, I am willing to provide any additional information that
-would help fix this issue.
-
-Umang Raghuvanshi (1):
-  drm/radeon: Fix GPU lockups for the R7 M270
-
- drivers/gpu/drm/radeon/si_dpm.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
--- 
-2.12.0
-
--- 
-Cheers,
-Umang Raghuvanshi.
-
-P.S: This message was re-sent to all its original recipients because SendGrid
-decided to append HTML to it which blocked it from a couple of mailing lists.
-Sorry for the inconvenience.
+Q2hhbmdlLUlkOiBJMGU0MWZkYjJkZjc5NGRjYmU0YzUwOGU5YTcxZGQ2MDYxMjQzMDQ4MgpTaWdu
+ZWQtb2ZmLWJ5OiBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJt
+L2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19jbG9ja3Bvd2VyZ2F0aW5nLmMgfCAyICstCiAxIGZp
+bGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2Nsb2NrcG93ZXJnYXRpbmcu
+YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfY2xvY2twb3dlcmdh
+dGluZy5jCmluZGV4IDhjZjcxZjMuLjI2MWI4MjggMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfY2xvY2twb3dlcmdhdGluZy5jCisrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfY2xvY2twb3dlcmdhdGluZy5jCkBA
+IC0xNzgsNyArMTc4LDcgQEAgaW50IHNtdTdfcG93ZXJnYXRlX3ZjZShzdHJ1Y3QgcHBfaHdtZ3Ig
+Kmh3bWdyLCBib29sIGJnYXRlKQogCWlmIChiZ2F0ZSkgewogCQljZ3Nfc2V0X3Bvd2VyZ2F0aW5n
+X3N0YXRlKGh3bWdyLT5kZXZpY2UsCiAJCQkJCQlBTURfSVBfQkxPQ0tfVFlQRV9WQ0UsCi0JCQkJ
+CQlBTURfUEdfU1RBVEVfVU5HQVRFKTsKKwkJCQkJCUFNRF9QR19TVEFURV9HQVRFKTsKIAkJY2dz
+X3NldF9jbG9ja2dhdGluZ19zdGF0ZShod21nci0+ZGV2aWNlLAogCQkJCUFNRF9JUF9CTE9DS19U
+WVBFX1ZDRSwKIAkJCQlBTURfQ0dfU1RBVEVfR0FURSk7Ci0tIAoxLjkuMQoKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
