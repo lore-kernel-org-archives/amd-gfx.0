@@ -1,37 +1,44 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH 1/5] PCI: add resizeable BAR infrastructure v2
-Date: Mon, 13 Mar 2017 10:43:37 +0100
-Message-ID: <28e64c07-ac7f-5f1f-0b3d-0e487f8fdfd4@vodafone.de>
-References: <1488800428-2854-1-git-send-email-deathsimple@vodafone.de>
- <CAHp75Vet-gb_mXA2Uwdai+G2AeJ4p10eTjgmC2h5Gnmosd69WA@mail.gmail.com>
+From: =?UTF-8?q?Christian=20K=C3=B6nig?= <deathsimple@vodafone.de>
+Subject: Resizeable PCI BAR support V3
+Date: Mon, 13 Mar 2017 13:41:32 +0100
+Message-ID: <1489408896-25039-1-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAHp75Vet-gb_mXA2Uwdai+G2AeJ4p10eTjgmC2h5Gnmosd69WA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andy Shevchenko <andy.shevchenko-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "linux-pci-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-pci-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Platform Driver <platform-driver-x86-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: helgaas@kernel.org, linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMDYuMDMuMjAxNyB1bSAxMzoyMCBzY2hyaWViIEFuZHkgU2hldmNoZW5rbzoKPiBPbiBNb24s
-IE1hciA2LCAyMDE3IGF0IDE6NDAgUE0sIENocmlzdGlhbiBLw7ZuaWcgPGRlYXRoc2ltcGxlQHZv
-ZGFmb25lLmRlPiB3cm90ZToKPj4gKyAgICAgICBmb3IgKGkgPSAwOyBpIDwgbmJhcnM7ICsraSwg
-cG9zICs9IDgpIHsKPiA4IGlzIGRlZmluZWQgc29tZXdoZXJlIGluIHRoZSBzcGVjPyAoWWVzLCBJ
-IHVuZGVyc3RhbmQgdGhhdCBpcyBqdXN0IDY0Cj4gYml0cyBzaGlmdCkKClllcywgaXQgaXMgZGVm
-aW5lZCBpbiB0aGUgc3BlYywgc2VlICJGaWd1cmUgNy14MSBSZXNpemFibGUgQkFSIENhcGFiaWxp
-dHkiLgoKSXQganVzdCBkb2Vzbid0IGhhdmUgYSBuYW1lIG9yIHNvbWV0aGluZyBpZiB0aGF0J3Mg
-d2hhdCB5b3UgYXJlIGFza2luZyBmb3IuCgpJJ3ZlIGFkZHJlc3NlZCBhbGwgb3RoZXIgY29tbWVu
-dHMgaW4gY29kZSBhbmQgd2lsbCBzZW5kIG91dCB0aGUgbmV4dCAKdmVyc2lvbiBvZiB0aGUgcGF0
-Y2ggc2V0IHRvZGF5LgoKVGhhbmtzIGZvciB0aGUgY29tbWVudHMsCkNocmlzdGlhbi4KX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+SGkgQmpvcm4gYW5kIG90aGVycyBvbiB0aGUgbGlzdHMsCgppdCdzIG92ZXIgYSB5ZWFyIHRoYXQg
+SSBpbml0aWFsbHkgY2FtZSB1cCB3aXRoIHRoYXQsIGJ1dCBub3cgSQpmaW5hbGx5IGhhdmUgdGhl
+IHRpbWUgdG8gZmluaXNoIGl0IHVwLgoKVGhpcyBzZXQgb2YgcGF0Y2hlcyBhbGxvd3MgZGV2aWNl
+IGRyaXZlcnMgdG8gcmVzaXplIGFuZCBtb3N0IGxpa2VseSBhbHNvCnJlbG9jYXRlIHRoZSBQQ0kg
+QkFSIG9mIGRldmljZXMgdGhleSBtYW5hZ2UgdG8gYWxsb3cgdGhlIENQVSB0byBhY2Nlc3MKYWxs
+IG9mIHRoZSBkZXZpY2UgbG9jYWwgbWVtb3J5IGF0IG9uY2UuCgpUaGlzIGlzIHZlcnkgdXNlZnVs
+IGZvciBHRlggZGV2aWNlIGRyaXZlcnMgd2hlcmUgdGhlIGRlZmF1bHQgUENJIEJBUiBpcyBvbmx5
+CmFib3V0IDI1Nk1CIGluIHNpemUgZm9yIGNvbXBhdGliaWxpdHkgcmVhc29ucywgYnV0IHRoZSBk
+ZXZpY2UgZWFzaWx5IGhhdmUKbXVsdGlwbGUgZ2lnYWJ5dGUgb2YgbG9jYWwgbWVtb3J5LgoKQWRk
+aXRpb25hbCB0byB0aGUgcHVyZSByZXNpemUgZnVuY3Rpb25hbGl0eSB0aGlzIHNldCBhbHNvIGFk
+ZHMgYSBxdWlyayB0bwplbmFibGUgYSA2NGJpdCBiYXIgYWJvdmUgNEdCIG9uIEFNRCBGYW1pbHkg
+MTVoIENQVXMvQVBVcy4gRG9pbmcgc28gaXMKYWN0dWFsbHkgdHJpdmlhbCBhbmQgSSBwbGFuIHRv
+IGV4dGVuZCB0aGlzIHRvIGFsbCByZWNlbnQgQU1EIENQVXMvQVBVcy4KCk9wZW4gcXVlc3Rpb25z
+OgoKMS4gSXMgdGhpcyB0aGUgcmlnaHQgbG9jYXRpb24gdG8gaW1wbGVtZW50IHRoZSA2NGJpdCBC
+QVIgYWJvdmUgNEdCIGZvciBBTUQgQ1BVcz8KSSBndWVzcyB0aGF0IHRoaXMgbmVlZHMgYSBiaXQg
+bW9yZSBjbGVhbnVwLgoKMi4gQW55IGlkZWEgaG93IHRvIGJldHRlciBoYW5kbGUgaW50ZXJtZWRp
+YXRlIGJyaWRnZXM/IFJlcHJvZ3JhbW1pbmcgdGhlbSBpc24ndApwb3NzaWJsZSBhZnRlciBkcml2
+ZXJzIGFyZSBsb2FkZWQsIGJ1dCBhdCBsZWFzdCBmb3IgR0ZYIGRyaXZlcnMgd2UgbmVlZCB0byBs
+b2FkCnRoZW0gZmlyc3QgdG8ga25vdyBob3cgbGFyZ2Ugd2UgYWN0dWFsbHkgd2FudCBvdXIgQkFS
+IHRvIGJlIChhbmQgdG8ga2ljayBvdXIKdmVzYWZiL2VmaWZiKS4KClRoYW5rcyBpbiBhZHZhbmNl
+LApDaHJpc3RpYW4uCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2
+ZWwK
