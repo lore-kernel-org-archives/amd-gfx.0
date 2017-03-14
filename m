@@ -1,79 +1,47 @@
-From: Umang Raghuvanshi <u@umangis.me>
-Subject: Re: [PATCH] drm/radeon: Fix GPU lockups for the R7 M270
-Date: Tue, 14 Mar 2017 08:12:00 +0530
-Message-ID: <dcf05c1d-b672-7f49-8f22-68e30a6aae12@umangis.me>
-References: <20170311162113.7497-1-u@umangis.me>
- <CADnq5_MUP3KSEWed47Ot617UwaGxvjuwdWjCDFmrb7_hDEXiLw@mail.gmail.com>
+From: Dave Airlie <airlied@gmail.com>
+Subject: Re: [PATCH libdrm] libdrm/amdgpu: add interface for kernel semaphores
+Date: Tue, 14 Mar 2017 12:52:20 +1000
+Message-ID: <CAPM=9tzegdtiyEmbW+PqmVeQ+bXrNtrdKXuE3kB0dPMKnMir+Q@mail.gmail.com>
+References: <20170314005054.7487-1-airlied@gmail.com>
+ <20170314005054.7487-2-airlied@gmail.com>
+ <58C74ECE.3090703@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="AvBDLiRq1FlvPC6T2t9wKoIcdlj4nDcwx"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <CADnq5_MUP3KSEWed47Ot617UwaGxvjuwdWjCDFmrb7_hDEXiLw@mail.gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <58C74ECE.3090703@amd.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: zhoucm1 <david1.zhou@amd.com>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, "Mao,
+ David" <David.Mao@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---AvBDLiRq1FlvPC6T2t9wKoIcdlj4nDcwx
-Content-Type: multipart/mixed; boundary="dudtklv3V88vMJ4uVsJWBlrUieRKaWLus";
- protected-headers="v1"
-From: Umang Raghuvanshi <u@umangis.me>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>, amd-gfx list
- <amd-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>
-Message-ID: <dcf05c1d-b672-7f49-8f22-68e30a6aae12@umangis.me>
-Subject: Re: [PATCH] drm/radeon: Fix GPU lockups for the R7 M270
-References: <20170311162113.7497-1-u@umangis.me>
- <CADnq5_MUP3KSEWed47Ot617UwaGxvjuwdWjCDFmrb7_hDEXiLw@mail.gmail.com>
-In-Reply-To: <CADnq5_MUP3KSEWed47Ot617UwaGxvjuwdWjCDFmrb7_hDEXiLw@mail.gmail.com>
-
---dudtklv3V88vMJ4uVsJWBlrUieRKaWLus
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-
-
-On 03/14/2017 01:00 AM, Alex Deucher wrote:
-
-> Does your kernel have this patch:
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit=
-/?id=3Def736d394e85b1bf1fd65ba5e5257b85f6c82325
-
-Yes, my kernel has this patch (this issue first occurred in v4.10).
-
---=20
-Cheers,
-Umang Raghuvanshi.
-
-
---dudtklv3V88vMJ4uVsJWBlrUieRKaWLus--
-
---AvBDLiRq1FlvPC6T2t9wKoIcdlj4nDcwx
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEutgiak89t6LZ3k+4vAe2ilv7qqsFAljHWHkACgkQvAe2ilv7
-qqvfbRAAkbnHRXr68qDfPowKb9NtJgCi19+ncPsFoVhqS8QgC26+gwEimI9DZlLd
-RbHPLzEW9LVO9g91EH05y8tuuT7H8iEI5QEbqVKrXyumRJgHFAgqRY5p8XW6gsYm
-OZC+g6vvlcuf3ws8rr9JGwEURcs+S3sUIZSsSeGufflSiQANnJSXbIwXVmuFTpw3
-jcYiGWuugfzRNrRoOdZ5dSEs8yGFnxK9frktea3rqTS0FlSJu7B5QiyxTQv7XbCo
-AwcTwuCpl64VppRtlkcU1oD8eM81FYMq/CwB0ImMOnnBvUmfvWhfY+I+m7GasQcB
-4Jn1I0CMAIm4i1mekcoKU0T+4DN1TKPvVGCGzzarT9xZAzadto215AZvlQWl8Rzi
-UFtf+9rtKurIz9t2IPiT/oDPuTM5hC7oSzEy/1GFpQI0ycdMO2GkEesu9OH3CIXk
-UZsF41Z2RC2wsZaSHWtmBBgi6nwSep5QybYnVxzplOB3te5148U/sZ1sqp5PTJUD
-TGqVyMqVUrXjJWhsD1Fiqz3FdyGCoMu5CPTTM/lIqg+i98PrKoYzLRfAcz6iaNi/
-5yHZp8hMqeZKSbciUuvAegjxxHBKfO2y3iQTyso2DZ7kYVeScdVFluiC0g5Q/XLA
-Uie2rMfzfVlQxgY87/y8/XCD4H0nf1omPV4BpoGFdxh8THvBFOY=
-=mfj7
------END PGP SIGNATURE-----
-
---AvBDLiRq1FlvPC6T2t9wKoIcdlj4nDcwx--
+T24gMTQgTWFyY2ggMjAxNyBhdCAxMjowMCwgemhvdWNtMSA8ZGF2aWQxLnpob3VAYW1kLmNvbT4g
+d3JvdGU6Cj4gSGkgRGF2ZSwKPgo+IENvdWxkIHlvdSB0ZWxsIG1lIHdoeSB5b3UgY3JlYXRlIHlv
+dXIgbmV3IG9uZSBwYXRjaD8gSSByZW1lbWJlciBJIHNlbmQgb3V0Cj4gb3VyIHRoZSB3aG9sZSBp
+bXBsZW1lbnRhdGlvbiwgV2h5IG5vdCBkaXJlY3RseSByZXZpZXcgb3VyIHBhdGNoZXM/CgpUaGlz
+IGlzIHBhdGNoIHJldmlldywgSSdtIG5vdCBzdXJlIHdoYXQgeW91IGFyZSBleHBlY3RpbmcgaW4g
+dGVybXMgb2YKZGlyZWN0IHJldmlldy4KClRoZSBwYXRjaGVzIHlvdSBzZW50IG91dCB3ZXJlIHJl
+dmlld2VkIGJ5IENocmlzdGlhbiwgaGUgc3RhdGVkIGhlCnRoaW5rcyB0aGlzIHNob3VsZAp1c2Ug
+c3luY19maWxlLCBJIHdhcyBpbnRlcmVzdGVkIHRvIHNlZSBpZiB0aGlzIHdhcyBhY3R1YWxseSBw
+b3NzaWJsZSwKc28gSSBqdXN0IGFkYXB0ZWQKdGhlIHBhdGNoZXMgdG8gY2hlY2sgaWYgaXQgd2Fz
+IHBvc3NpYmxlIHRvIGF2b2lkIGFkZGluZyBhIGxvdCBvZiBhbWQKc3BlY2lmaWMgY29kZQpmb3Ig
+c29tZXRoaW5nIHRoYXQgaXNuJ3QgcmVxdWlyZWQgdG8gYmUuIEhlbmNlIHdoeSBJJ3ZlIHNlbnQg
+dGhpcyBhcwphbiByZmMsIGFzIEkgd2FudAp0byBzZWUgaWYgb3RoZXJzIHRoaW5rIHVzaW5nIHN5
+bmNfZmlsZSBpcyBhIGdvb2Qgb3IgYmFkIGlkZWEuIFdlIG1heQplbmQgdXAgZ29pbmcKYmFjayB0
+byB0aGUgbm9uLXN5bmNfZmlsZSBiYXNlZCBwYXRjaGVzIGlmIHRoaXMgcHJvdmVzIHRvIGJlIGEg
+YmFkCmlkZWEsIHNvIGZhciBpdApkb2Vzbid0IGxvb2sgbGlrZSBvbmUuCgpJIGFsc28gcmV2aWV3
+ZWQgdGhlIHBhdGNoZXMgYW5kIG5vdGVkIGl0IHNob3VsZG4ndCBhZGQgdGhlIHdhaXQvc2lnbmFs
+CmludGVyZmFjZXMsCnRoYXQgaXQgc2hvdWxkIHVzZSB0aGUgY2h1bmtzIG9uIGNvbW1hbmQgc3Vi
+bWlzc2lvbiwgc28gd2hpbGUgSSB3YXMgaW4KdGhlcmUgSSByZQp3cm90ZSB0aGF0IGFzIHdlbGwu
+CgpEYXZlLgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpk
+cmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
