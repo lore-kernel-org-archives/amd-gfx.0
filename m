@@ -1,16 +1,15 @@
-From: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 Subject: Re: [PATCH libdrm] libdrm/amdgpu: add interface for kernel semaphores
-Date: Tue, 14 Mar 2017 18:54:05 +0100
-Message-ID: <CAKMK7uFN3qZ28RHkhemDkw4waPmgbmohOZGpv9MexbUj-AD_8w@mail.gmail.com>
+Date: Tue, 14 Mar 2017 19:10:15 +0100
+Message-ID: <f0e9a77d-eb02-67f4-2c59-d536d12d8b3d@vodafone.de>
 References: <20170314005054.7487-1-airlied@gmail.com>
- <20170314005054.7487-2-airlied@gmail.com>
- <58C74ECE.3090703@amd.com>
+ <20170314005054.7487-2-airlied@gmail.com> <58C74ECE.3090703@amd.com>
  <CAPM=9tzegdtiyEmbW+PqmVeQ+bXrNtrdKXuE3kB0dPMKnMir+Q@mail.gmail.com>
  <58C763E0.1@amd.com> <20170314085456.rthxyeuffdz3ex4p@phenom.ffwll.local>
  <0d1620f3-c77b-d731-6a9a-8db9fca289cc@vodafone.de> <58C7C032.7060706@amd.com>
  <8dea3303-480d-c29a-22ec-42adf3dab4ce@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <8dea3303-480d-c29a-22ec-42adf3dab4ce-5C7GfCeVMHo@public.gmane.org>
@@ -24,19 +23,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Cc: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>, "Mao, David" <David.Mao-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+Cc: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Mao, David" <David.Mao-5C7GfCeVMHo@public.gmane.org>
 
-T24gVHVlLCBNYXIgMTQsIDIwMTcgYXQgNjo0NSBQTSwgSGFycnkgV2VudGxhbmQgPGhhcnJ5Lndl
-bnRsYW5kQGFtZC5jb20+IHdyb3RlOgo+Pj4gImludGVybmFsIHRlYW1zIHNpbXBseSBkbyBub3Qg
-aGF2ZSBkZXNpZ24gYXV0aG9yaXR5IG9uIHN0dWZmIGxpa2UgdGhhdCIKPj4+Cj4+PiBDYW4gSSBw
-cmludCB0aGF0IG9uIGEgdC1zaGlydCBhbmQgc3RhcnQgdG8gc2VsbCBpdD8KPj4KPj4gSSBndWVz
-cyB5b3UgY2Fubm90IGRyZXNzIGl0IHRvIGdvIHRvIG9mZmljZS4uOikKPj4KPgo+IEknZCB3ZWFy
-IGl0IHRvIHRoZSBvZmZpY2UuCj4KPiBodHRwczovL3d3dy5jdXN0b21pbmsuY29tL2xhYj9jaWQ9
-aGtwMC0wMGF5LTZ2amcKCkNhbiB3ZSBoYXZlIGEgcGljdHVyZSBvZiB0aGUgZW50aXJlIGFtZCB0
-ZWFtIHdlYXJpbmcgdGhlc2U/IDotKQoKQW55d2F5LCBJIGFwcHJvdmUuCi1EYW5pZWwKLS0gCkRh
-bmllbCBWZXR0ZXIKU29mdHdhcmUgRW5naW5lZXIsIEludGVsIENvcnBvcmF0aW9uCis0MSAoMCkg
-NzkgMzY1IDU3IDQ4IC0gaHR0cDovL2Jsb2cuZmZ3bGwuY2gKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4Cg==
+QW0gMTQuMDMuMjAxNyB1bSAxODo0NSBzY2hyaWViIEhhcnJ5IFdlbnRsYW5kOgo+IE9uIDIwMTct
+MDMtMTQgMDY6MDQgQU0sIHpob3VjbTEgd3JvdGU6Cj4+Cj4+Cj4+IE9uIDIwMTflubQwM+aciDE0
+5pelIDE3OjIwLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4gQW0gMTQuMDMuMjAxNyB1bSAw
+OTo1NCBzY2hyaWViIERhbmllbCBWZXR0ZXI6Cj4+Pj4gT24gVHVlLCBNYXIgMTQsIDIwMTcgYXQg
+MTE6MzA6NDBBTSArMDgwMCwgemhvdWNtMSB3cm90ZToKPj4+Pj4KPj4+Pj4gT24gMjAxN+W5tDAz
+5pyIMTTml6UgMTA6NTIsIERhdmUgQWlybGllIHdyb3RlOgo+Pj4+Pj4gT24gMTQgTWFyY2ggMjAx
+NyBhdCAxMjowMCwgemhvdWNtMSA8ZGF2aWQxLnpob3VAYW1kLmNvbT4gd3JvdGU6Cj4+Pj4+Pj4g
+SGkgRGF2ZSwKPj4+Pj4+Pgo+Pj4+Pj4+IENvdWxkIHlvdSB0ZWxsIG1lIHdoeSB5b3UgY3JlYXRl
+IHlvdXIgbmV3IG9uZSBwYXRjaD8gSSByZW1lbWJlciBJCj4+Pj4+Pj4gc2VuZCBvdXQKPj4+Pj4+
+PiBvdXIgdGhlIHdob2xlIGltcGxlbWVudGF0aW9uLCBXaHkgbm90IGRpcmVjdGx5IHJldmlldyBv
+dXIgcGF0Y2hlcz8KPj4+Pj4+IFRoaXMgaXMgcGF0Y2ggcmV2aWV3LCBJJ20gbm90IHN1cmUgd2hh
+dCB5b3UgYXJlIGV4cGVjdGluZyBpbiAKPj4+Pj4+IHRlcm1zIG9mCj4+Pj4+PiBkaXJlY3QgcmV2
+aWV3Lgo+Pj4+Pj4KPj4+Pj4+IFRoZSBwYXRjaGVzIHlvdSBzZW50IG91dCB3ZXJlIHJldmlld2Vk
+IGJ5IENocmlzdGlhbiwgaGUgc3RhdGVkIGhlCj4+Pj4+PiB0aGlua3MgdGhpcyBzaG91bGQKPj4+
+Pj4+IHVzZSBzeW5jX2ZpbGUsIEkgd2FzIGludGVyZXN0ZWQgdG8gc2VlIGlmIHRoaXMgd2FzIGFj
+dHVhbGx5IAo+Pj4+Pj4gcG9zc2libGUsCj4+Pj4+PiBzbyBJIGp1c3QgYWRhcHRlZAo+Pj4+Pj4g
+dGhlIHBhdGNoZXMgdG8gY2hlY2sgaWYgaXQgd2FzIHBvc3NpYmxlIHRvIGF2b2lkIGFkZGluZyBh
+IGxvdCBvZiBhbWQKPj4+Pj4+IHNwZWNpZmljIGNvZGUKPj4+Pj4+IGZvciBzb21ldGhpbmcgdGhh
+dCBpc24ndCByZXF1aXJlZCB0byBiZS4gSGVuY2Ugd2h5IEkndmUgc2VudCB0aGlzIGFzCj4+Pj4+
+PiBhbiByZmMsIGFzIEkgd2FudAo+Pj4+Pj4gdG8gc2VlIGlmIG90aGVycyB0aGluayB1c2luZyBz
+eW5jX2ZpbGUgaXMgYSBnb29kIG9yIGJhZCBpZGVhLiBXZSBtYXkKPj4+Pj4+IGVuZCB1cCBnb2lu
+Zwo+Pj4+Pj4gYmFjayB0byB0aGUgbm9uLXN5bmNfZmlsZSBiYXNlZCBwYXRjaGVzIGlmIHRoaXMg
+cHJvdmVzIHRvIGJlIGEgYmFkCj4+Pj4+PiBpZGVhLCBzbyBmYXIgaXQKPj4+Pj4+IGRvZXNuJ3Qg
+bG9vayBsaWtlIG9uZS4KPj4+Pj4+Cj4+Pj4+PiBJIGFsc28gcmV2aWV3ZWQgdGhlIHBhdGNoZXMg
+YW5kIG5vdGVkIGl0IHNob3VsZG4ndCBhZGQgdGhlIAo+Pj4+Pj4gd2FpdC9zaWduYWwKPj4+Pj4+
+IGludGVyZmFjZXMsCj4+Pj4+PiB0aGF0IGl0IHNob3VsZCB1c2UgdGhlIGNodW5rcyBvbiBjb21t
+YW5kIHN1Ym1pc3Npb24sIHNvIHdoaWxlIEkgCj4+Pj4+PiB3YXMgaW4KPj4+Pj4+IHRoZXJlIEkg
+cmUKPj4+Pj4+IHdyb3RlIHRoYXQgYXMgd2VsbC4KPj4+Pj4gWWVhaCwgdGhlbiBJJ20gb2sgd2l0
+aCB0aGlzLCBqdXN0IG91ciBpbnRlcm5hbCB0ZWFtIGhhcyB1c2VkIHRoaXMKPj4+Pj4gaW1wbGVt
+ZW50YXRpb24sIHRoZXkgZmluZCBzb21lIGdhcHMgYmV0d2VlbiB5b3VycyBhbmQgcHJldmlvdXMs
+IHRoZXkKPj4+Pj4gY291bGQKPj4+Pj4gbmVlZCB0byBjaGFuZ2UgdGhlaXIncyBhZ2FpbiwgdGhl
+eSBhcmUgYW5ub3lhbmNlIGZvciB0aGlzLgo+Pj4+IFRoaXMgaXMgd2h5IHlvdSBfbXVzdF8gZ2V0
+IGFueXRoaW5nIHlvdSdyZSBkb2luZyBkaXNjdXNzZWQgaW4gdXBzdHJlYW0KPj4+PiBmaXJzdC4g
+WW91ciBpbnRlcm5hbCB0ZWFtcyBzaW1wbHkgZG8gbm90IGhhdmUgZGVzaWduIGF1dGhvcml0eSBv
+biAKPj4+PiBzdHVmZgo+Pj4+IGxpa2UgdGhhdC4gQW5kIHllcyBpdCB0YWtlcyBmb3JldmVyIHRv
+IGdldCBmb3JtZXJseSBwcm9wcmlldGFyeQo+Pj4+IGludGVybmFsLW9ubHkgdGVhbXMgdG8gdW5k
+ZXJzdGFuZCB0aGlzLCBzcGVha2luZyBmcm9tIHllYXJzIG9mCj4+Pj4gZXhwZXJpZW5jZQo+Pj4+
+IGltcGxlbWVudCBhIHByb3BlciB1cHN0cmVhbS1kZXNpZ24tZmlyc3QgYXBwcm9hY2ggdG8gZmVh
+dHVyZSAKPj4+PiBkZXZlbG9wbWVudAo+Pj4+IGhlcmUgYXQgaW50ZWwuCj4+Pgo+Pj4gImludGVy
+bmFsIHRlYW1zIHNpbXBseSBkbyBub3QgaGF2ZSBkZXNpZ24gYXV0aG9yaXR5IG9uIHN0dWZmIGxp
+a2UgdGhhdCIKPj4+Cj4+PiBDYW4gSSBwcmludCB0aGF0IG9uIGEgdC1zaGlydCBhbmQgc3RhcnQg
+dG8gc2VsbCBpdD8KPj4gSSBndWVzcyB5b3UgY2Fubm90IGRyZXNzIGl0IHRvIGdvIHRvIG9mZmlj
+ZS4uOikKPj4KPgo+IEknZCB3ZWFyIGl0IHRvIHRoZSBvZmZpY2UuCj4KPiBodHRwczovL3d3dy5j
+dXN0b21pbmsuY29tL2xhYj9jaWQ9aGtwMC0wMGF5LTZ2amcKCkknbSBvbmx5IGF0IGFuIEFNRCBv
+ZmZpY2UgZXZlcnkgZmV3IHllYXJzLCBzbyB0aGF0J3MgcHJvYmFibHkgbm90IHdvcnRoIGl0LgoK
+QW55d2F5IGl0J3MgcmVhbGx5IHNvbWV0aGluZyB3ZSBzaG91bGQga2VlcCBpbiBtaW5kIGlmIHdl
+IHdhbnQgdG8gCnVwc3RyZWFtIHRoaW5ncy4KCkNocmlzdGlhbi4KCj4KPiBIYXJyeQo+Cj4+IERh
+dmlkIFpob3UKPj4+Cj4+PiBDaHJpc3RpYW4uCj4+Pgo+Pj4+IC1EYW5pZWwKPj4+Cj4+Pgo+Pgo+
+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+PiBhbWQt
+Z2Z4IG1haWxpbmcgbGlzdAo+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiBodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKCgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
+bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
