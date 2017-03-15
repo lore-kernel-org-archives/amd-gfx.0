@@ -1,42 +1,66 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-Subject: Re: Linux 4.11: Reported regressions as of Tuesday, 20176-03-14
-Date: Wed, 15 Mar 2017 10:59:42 +0900
-Message-ID: <a0495348-acd8-f28d-e144-80ac79dccc3b@daenzer.net>
-References: <5d399102-c648-7a87-1dff-f8b74c12ceaa@leemhuis.info>
+From: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 1/4] sync_file: add a mutex to protect fence and callback
+ members.
+Date: Wed, 15 Mar 2017 12:20:49 +1000
+Message-ID: <CAPM=9txJaWUZ75HNxc+-f+WbmM5X3FDWa35eqpko9P4UdFfovg@mail.gmail.com>
+References: <20170314005054.7487-1-airlied@gmail.com>
+ <20170314005054.7487-3-airlied@gmail.com>
+ <20170314084521.njkzr2fotknuafyj@phenom.ffwll.local>
+ <2cba21f6-731b-d112-f882-bef66a9b96c9@vodafone.de>
+ <20170314092909.GE2118@nuc-i3427.alporthouse.com>
+ <ab5b868c-f6db-761e-11c1-aa9a92c91aad@vodafone.de>
+ <CAPM=9twwjgBirFDenUmnorDdOZNiWHuzdBxawCiU7p9uS1o0_Q@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <5d399102-c648-7a87-1dff-f8b74c12ceaa@leemhuis.info>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Thorsten Leemhuis <regressions@leemhuis.info>
-Cc: amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CAPM=9twwjgBirFDenUmnorDdOZNiWHuzdBxawCiU7p9uS1o0_Q-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Cc: dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Chris Wilson <chris-Y6uKTt2uX1cEflXRtASbqLVCufUGDwFn@public.gmane.org>
 
-
-[ Moving this sub-thread to the amd-gfx mailing list ]
-
-On 14/03/17 07:02 PM, Thorsten Leemhuis wrote:
-> Hi! Find below my first regression report for Linux 4.11. It lists 9
-> regressions I'm currently aware of.
-
-[...]
-
-> Desc: DRM BUG while initializing cape verde (2nd card)
-> Repo: 2017-03-13 https://bugzilla.kernel.org/show_bug.cgi?id=194867
-> Stat: n/a 
-> Note: patch proposed by reporter
-
-I don't see any patch.
-
-Looks like the amdgpu driver has never fully initialized GDS support for
-SI family GPUs, and this now triggers the DRM_MM_BUG_ON which was added
-to drm_mm_init in 4.11.
-
-AMD folks, should this be addressed by fleshing out SI GDS support, or
-by completely disabling GDS initialization for SI?
-
-
--- 
-Earthling Michel Dänzer               |               http://www.amd.com
-Libre software enthusiast             |             Mesa and X developer
+T24gMTUgTWFyY2ggMjAxNyBhdCAxMDo0NywgRGF2ZSBBaXJsaWUgPGFpcmxpZWRAZ21haWwuY29t
+PiB3cm90ZToKPiBPbiAxNCBNYXJjaCAyMDE3IGF0IDE5OjMwLCBDaHJpc3RpYW4gS8O2bmlnIDxk
+ZWF0aHNpbXBsZUB2b2RhZm9uZS5kZT4gd3JvdGU6Cj4+IEFtIDE0LjAzLjIwMTcgdW0gMTA6Mjkg
+c2NocmllYiBDaHJpcyBXaWxzb246Cj4+Pgo+Pj4gT24gVHVlLCBNYXIgMTQsIDIwMTcgYXQgMTA6
+MTM6MzdBTSArMDEwMCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4+Pgo+Pj4+IEFtIDE0LjAz
+LjIwMTcgdW0gMDk6NDUgc2NocmllYiBEYW5pZWwgVmV0dGVyOgo+Pj4+Pgo+Pj4+PiBPbiBUdWUs
+IE1hciAxNCwgMjAxNyBhdCAxMDo1MDo1MUFNICsxMDAwLCBEYXZlIEFpcmxpZSB3cm90ZToKPj4+
+Pj4+Cj4+Pj4+PiBGcm9tOiBEYXZlIEFpcmxpZSA8YWlybGllZEByZWRoYXQuY29tPgo+Pj4+Pj4K
+Pj4+Pj4+IFRoaXMgaXNuJ3QgbmVlZGVkIGN1cnJlbnRseSwgYnV0IHRvIHJldXNlIHN5bmMgZmls
+ZSBmb3IgVnVsa2FuCj4+Pj4+PiBwZXJtYW5lbnQgc2hhcmVkIHNlbWFwaG9yZSBzZW1hbnRpY3Ms
+IHdlIG5lZWQgdG8gYmUgYWJsZSB0byBzd2FwCj4+Pj4+PiB0aGUgZmVuY2UgYmFja2luZyBhIHN5
+bmMgZmlsZS4gVGhpcyBwYXRjaCBhZGRzIGEgbXV0ZXggdG8gdGhlCj4+Pj4+PiBzeW5jIGZpbGUg
+YW5kIHVzZXMgdG8gcHJvdGVjdCBhY2Nlc3NlcyB0byB0aGUgZmVuY2UgYW5kIGNiIG1lbWJlcnMu
+Cj4+Pj4+Pgo+Pj4+Pj4gU2lnbmVkLW9mZi1ieTogRGF2ZSBBaXJsaWUgPGFpcmxpZWRAcmVkaGF0
+LmNvbT4KPj4+Pj4KPj4+Pj4gV2UndmUgZ29uZSB0byBwcmV0dHkgZ3JlYXQgbGVuZ3RocyB0byBy
+Y3UtcHJvdGVjdCBhbGwgdGhlIGZlbmNlIHN0dWZmLAo+Pj4+PiBzbwo+Pj4+PiB0aGF0IGEgcGVl
+ay1vbmx5IGlzIGVudGlyZWx5IGxvY2tsZXNzLiBDYW4gd2UgaGF6IHRoZSBzYW1lIGZvciB0aGlz
+IHBscz8KPj4+Pgo+Pj4+IFllcywganVzdCB3YW50ZWQgdG8gc3VnZ2VzdCB0aGUgc2FtZSB0aGlu
+Zy4KPj4+Pgo+Pj4+IEJhc2ljYWxseSB5b3UganVzdCBuZWVkIHRoZSBmb2xsb3dpbmcgdG8gcmV0
+cmlldmUgdGhlIGZlbmNlOgo+Pj4+Cj4+Pj4gd2hpbGUgKHN5bmNfZmlsZS0+ZmVuY2UgJiYgIShm
+ZW5jZSA9IGZlbmNlX2dldF9yY3Uoc3luY19maWxlLT5mZW5jZSkpOwo+Pj4KPj4+IFdlIGV2ZW4g
+aGF2ZSBhIGhlbHBlciBmb3IgdGhhdDoKPj4+Cj4+PiAgICAgICAgIGZlbmNlID0gZG1hX2ZlbmNl
+X2dldF9yY3Vfc2FmZSgmc3luY19maWxlLT5mZW5jZSk7Cj4+Pgo+Pj4gKFN0aWxsIGdvaW5nIHRv
+IHN1Z2dlc3QgdXNpbmcgYSByZXNlcnZhdGlvbl9vYmplY3QgcmF0aGVyIHRoYW4gYW4KPj4+IGV4
+Y2x1c2l2ZS1vbmx5IGltcGxlbWVudGF0aW9uLikKPj4KPj4KPj4gWWVhaCwgdGhvdWdodCBhYm91
+dCB0aGF0IGFzIHdlbGwuIEJ1dCB0aGUgcmVzZXJ2YXRpb24gb2JqZWN0IGRvZXNuJ3Qgc2VlbSB0
+bwo+PiBtYXRjaCB0aGUgcmVxdWlyZWQgdXNlcnNwYWNlIHNlbWFudGljLgo+Pgo+PiBFLmcuIHlv
+dSBhY3R1YWxseSBkb24ndCB3YW50IG1vcmUgdGhhbiBvbmUgZmVuY2UgaXQgaW4gYXMgZmFyIGFz
+IEkKPj4gdW5kZXJzdGFuZCBpdC4KPgo+IEkgZG9uJ3QgdGhpbmsgYSByZXNlcnZhdGlvbiBvYmpl
+Y3QgaXMgd2hhdCB0aGUgdnVsa2FuIHNlbWFudGljcyBhc2sgZm9yLgo+CgpJIHN1cHBvc2UgYSBy
+ZXNlcnZhdGlvbiBvYmplY3Qgd2l0aCBhIHNpbmdsZSBleGNsdXNpdmUgZmVuY2UgaXMgY2xvc2Ug
+ZW5vdWdoLApqdXN0IHdvdWxkbid0IHdhbnQgdG8gY3JlYXRlIG9uZSB3aXRoIG5vbi1leGNsdXNp
+dmUgZmVuY2VzIG9uIGl0LgoKRGF2ZS4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4Cg==
