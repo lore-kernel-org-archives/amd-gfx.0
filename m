@@ -1,60 +1,42 @@
-From: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [rfc] amdgpu/sync_file shared semaphores
-Date: Wed, 15 Mar 2017 11:09:39 +1000
-Message-ID: <CAPM=9txSFTkz0y5hamBA7U7fu+X8x_wHG+X3xtWvm2PY4aCwsw@mail.gmail.com>
-References: <20170314005054.7487-1-airlied@gmail.com>
- <20170314085313.qmnnofqa6e6ozmwk@phenom.ffwll.local>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Subject: Re: Linux 4.11: Reported regressions as of Tuesday, 20176-03-14
+Date: Wed, 15 Mar 2017 10:59:42 +0900
+Message-ID: <a0495348-acd8-f28d-e144-80ac79dccc3b@daenzer.net>
+References: <5d399102-c648-7a87-1dff-f8b74c12ceaa@leemhuis.info>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170314085313.qmnnofqa6e6ozmwk-dv86pmgwkMBes7Z6vYuT8azUEOm+Xw19@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
-Cc: dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <5d399102-c648-7a87-1dff-f8b74c12ceaa@leemhuis.info>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Thorsten Leemhuis <regressions@leemhuis.info>
+Cc: amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMTQgTWFyY2ggMjAxNyBhdCAxODo1MywgRGFuaWVsIFZldHRlciA8ZGFuaWVsQGZmd2xsLmNo
-PiB3cm90ZToKPiBPbiBUdWUsIE1hciAxNCwgMjAxNyBhdCAxMDo1MDo0OUFNICsxMDAwLCBEYXZl
-IEFpcmxpZSB3cm90ZToKPj4gVGhpcyBjb250YWlucyBvbmUgbGliZHJtIHBhdGNoIGFuZCA0IGtl
-cm5lbCBwYXRjaGVzLgo+Pgo+PiBUaGUgZ29hbCBpcyB0byBpbXBsZW1lbnQgdGhlIFZ1bGthbiBL
-SFJfZXh0ZXJuYWxfc2VtYXBob3JlX2ZkIGludGVyZmFjZQo+PiBmb3IgcGVybWFuZW50IHNlbWFw
-aG9yZSBiZWhhdmlvdXIgZm9yIHJhZHYuCj4+Cj4+IFRoaXMgY29kZSB0cmllcyB0byBlbmhhbmNl
-IHN5bmMgZmlsZSB0byBhZGQgdGhlIHJlcXVpcmVkIGJlaGF2aW91cgo+PiAod2hpY2ggaXMgbW9z
-dGx5IGJlaW5nIGFibGUgdG8gcmVwbGFjZSB0aGUgZmVuY2UgYmFja2luZyB0aGUgc3luYyBmaWxl
-KSwKPj4gaXQgYWxzbyBpbnRyb2R1Y2VzIG5ldyBBUEkgdG8gYW1kZ3B1IHRvIGNyZWF0ZS9kZXN0
-cm95L2V4cG9ydC9pbXBvcnQgdGhlCj4+IHN5bmNfZmlsZXMgd2hpY2ggd2Ugc3RvcmUgaW4gYW4g
-aWRyIHRoZXJlLCByYXRoZXIgdGhhbiBmZHMuCj4+Cj4+IFRoZXJlIGlzIGEgcG9zc2liaWxpdHkg
-d2Ugc2hvdWxkIHNoYXJlIHRoZSBhbWRncHVfc2VtIG9iamVjdCB0cmFja2luZwo+PiBjb2RlIGZv
-ciBvdGhlciBkcml2ZXJzLCBtYXliZSB3ZSBzaG91bGQgbW92ZSB0aGF0IHRvIHN5bmNfZmlsZSBh
-cyB3ZWxsLAo+PiBidXQgSSdtIG9wZW4gdG8gc3VnZ2VzdGlvbnMgZm9yIHdoZXRoZXIgdGhpcyBp
-cyBhIHVzZWZ1bCBhcHByb2FjaCBmb3IKPj4gb3RoZXIgZHJpdmVycy4KPgo+IFllYWgsIG1ha2Vz
-IHNlbnNlLiBJIGNvdWxkbid0IGdvb2dsZSB0aGUgc3BlYyBhbmQgZGlkbid0IGJvdGhlciB0byBm
-aWd1cmUKPiBvdXQgd2hlcmUgbXkgaW50ZWwga2hyb25vcyBsb2dpbiB3ZW50LCBzbyBkaWRuJ3Qg
-ZG91YmxlLWNoZWNrIHByZWNpc2UKPiBzZW1hbnRpY3MsIGp1c3QgZHJvcHBlZCBhIHF1ZXN0aW9u
-LiBGZXcgbW9yZSB0aGluZ3Mgb24gdGhlIGFjdHVhbAo+IHN5bmNfZmlsZSBzdHVmZiBpdHNlbGYu
-Cj4KPiBSZWFsbHkgYmlnIHdpc2ggaGVyZSBpcyBmb3Igc29tZSBpZ3RzIHVzaW5nIHRoZSBkZWJ1
-Zy90ZXN0aW5nIGZlbmNlIHN0dWZmCj4gd2UgaGF2ZSBpbiB2Z2VtIHNvIHRoYXQgd2UgY2FuIHZh
-bGlkYXRlIHRoZSBjb3JuZXItY2FzZXMgb2YgZmVuY2UKPiByZXBsYWNlbWVudCBhbmQgbWFrZSBz
-dXJlIG5vdGhpbmcgZmFsbHMgb3Zlci4gRXNwZWNpYWxseSB3aXRoIGFsbCB0aGUgcmN1Cj4gZGFu
-Y2luZyBzeW5jX2ZpbGUvZG1hX2ZlbmNlIGhhdmUgYmVjb21lIG5vbi10cml2YWwsIGV4aGF1c3Rp
-dmUgdGVzdGluZyBpcwo+IG5lZWRlZCBoZXJlIGltby4KCldlJ2QgaGF2ZSB0byBhZGQgdmdlbSBz
-cGVjaWZpYyBpbnRlcmZhY2VzIHRvIHRyaWdnZXIgdGhlIHJlcGxhY2VtZW50CnBhdGggdGhvdWdo
-LApzaW5jZSB0aGUgcmVwbGFjZW1lbnQgcGF0aCBpcyBvbmx5IGdvaW5nIHRvIGJlIHVzZWQgZm9y
-IHRoZSBzZW1hcGhvcmUgc2VtYXRpY3MuCgpTdWdnZXN0aW9ucyBvbiBob3cgdG8gdGVzdCBiZXR0
-ZXIgd2VsY29tZSEKCj4KPiBBbHNvLCBOVUxMIHN5bmNfZmlsZS0+ZmVuY2UgaXMgcHJvYmFibHkg
-d2hhdCB3ZSB3YW50IGZvciB0aGUgZnV0dXJlIGZlbmNlcwo+ICh3aGljaCBhbmRyb2lkIHdhbnRz
-IHRvIGtlZXAgdGlsZXJzIHdlbGwtZmVkIGJ5IGVzc2VudGlhbGx5IGxvb3BpbmcgdGhlCj4gZW50
-aXJlIHJlbmRlciBwaXBlbGluZSBvbiBpdHNlbGYpLCBzbyB0aGlzIGdvZXMgaW50byB0aGUgcmln
-aHQgZGlyZWN0aW9uCj4gZm9yIHN1cmUuIEkgdGhpbmssIGJ1dCBjb2ZmZWUga2lja2VkIGluIGFs
-cmVhZHkgOi0pCgpEYXZlLgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+
+[ Moving this sub-thread to the amd-gfx mailing list ]
+
+On 14/03/17 07:02 PM, Thorsten Leemhuis wrote:
+> Hi! Find below my first regression report for Linux 4.11. It lists 9
+> regressions I'm currently aware of.
+
+[...]
+
+> Desc: DRM BUG while initializing cape verde (2nd card)
+> Repo: 2017-03-13 https://bugzilla.kernel.org/show_bug.cgi?id=194867
+> Stat: n/a 
+> Note: patch proposed by reporter
+
+I don't see any patch.
+
+Looks like the amdgpu driver has never fully initialized GDS support for
+SI family GPUs, and this now triggers the DRM_MM_BUG_ON which was added
+to drm_mm_init in 4.11.
+
+AMD folks, should this be addressed by fleshing out SI GDS support, or
+by completely disabling GDS initialization for SI?
+
+
+-- 
+Earthling Michel Dänzer               |               http://www.amd.com
+Libre software enthusiast             |             Mesa and X developer
