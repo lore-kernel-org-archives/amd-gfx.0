@@ -1,14 +1,15 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 1/2] drm/amdgpu/gfx8: enable cp/rlc ints after we disable
  clockgating
-Date: Thu, 16 Mar 2017 12:24:24 -0400
-Message-ID: <CADnq5_OLYbf8mAfquxfLgSaPfSjRi0f-UQXQbOsAe+2kU1oQjg@mail.gmail.com>
+Date: Thu, 16 Mar 2017 12:26:09 -0400
+Message-ID: <13e57f0b-5082-e610-fcd4-3aff04899a9a@amd.com>
 References: <1489519966-14076-1-git-send-email-alexander.deucher@amd.com>
+ <CADnq5_OLYbf8mAfquxfLgSaPfSjRi0f-UQXQbOsAe+2kU1oQjg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1489519966-14076-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CADnq5_OLYbf8mAfquxfLgSaPfSjRi0f-UQXQbOsAe+2kU1oQjg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,28 +20,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gVHVlLCBNYXIgMTQsIDIwMTcgYXQgMzozMiBQTSwgQWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hl
-ckBnbWFpbC5jb20+IHdyb3RlOgo+IEV2ZW4gaWYgd2UgZGlzYWJsZSBjbG9ja2dhdGluZywgd2Ug
-c3RpbGwgbmVlZCB0byBtYWtlIHN1cmUgdGhlCj4gY3AvcmxjIGludGVycnVwdHMgYXJlIGVuYWJs
-ZWQgZm9yIHBvd2VyZ2F0aW5nIHdoaWNoIG1pZ2h0IHN0aWxsCj4gYmUgZW5hYmxlZC4KPgo+IFNp
-Z25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KCkFu
-eW9uZT8KCj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMgfCAy
-ICsrCj4gIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKykKPgo+IGRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvZ2Z4X3Y4XzAuYwo+IGluZGV4IGE1M2UzNmMuLmM5ZDk5MTMgMTAwNjQ0Cj4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYwo+ICsrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMKPiBAQCAtNjI1OCw2ICs2MjU4LDggQEAgc3Rh
-dGljIHZvaWQgZ2Z4X3Y4XzBfdXBkYXRlX2NvYXJzZV9ncmFpbl9jbG9ja19nYXRpbmcoc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYKPiAgICAgICAgICAgICAgICAgICAgICAgICAgIFJMQ19DR0NH
-X0NHTFNfQ1RSTF9fQ0dMU19FTl9NQVNLKTsKPiAgICAgICAgICAgICAgICAgaWYgKHRlbXAgIT0g
-ZGF0YSkKPiAgICAgICAgICAgICAgICAgICAgICAgICBXUkVHMzIobW1STENfQ0dDR19DR0xTX0NU
-UkwsIGRhdGEpOwo+ICsgICAgICAgICAgICAgICAvKiBlbmFibGUgaW50ZXJydXB0cyBhZ2FpbiBm
-b3IgUEcgKi8KPiArICAgICAgICAgICAgICAgZ2Z4X3Y4XzBfZW5hYmxlX2d1aV9pZGxlX2ludGVy
-cnVwdChhZGV2LCB0cnVlKTsKPiAgICAgICAgIH0KPgo+ICAgICAgICAgZ2Z4X3Y4XzBfd2FpdF9m
-b3JfcmxjX3NlcmRlcyhhZGV2KTsKPiAtLQo+IDIuNS41Cj4KX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4Cg==
+T24gMTYvMDMvMTcgMTI6MjQgUE0sIEFsZXggRGV1Y2hlciB3cm90ZToKPiBPbiBUdWUsIE1hciAx
+NCwgMjAxNyBhdCAzOjMyIFBNLCBBbGV4IERldWNoZXIgPGFsZXhkZXVjaGVyQGdtYWlsLmNvbT4g
+d3JvdGU6Cj4+IEV2ZW4gaWYgd2UgZGlzYWJsZSBjbG9ja2dhdGluZywgd2Ugc3RpbGwgbmVlZCB0
+byBtYWtlIHN1cmUgdGhlCj4+IGNwL3JsYyBpbnRlcnJ1cHRzIGFyZSBlbmFibGVkIGZvciBwb3dl
+cmdhdGluZyB3aGljaCBtaWdodCBzdGlsbAo+PiBiZSBlbmFibGVkLgo+Pgo+PiBTaWduZWQtb2Zm
+LWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cj4KPiBBbnlvbmU/
+CgpIYXZlbid0IGhhZCBhIGNoYW5jZSB0byB0cnkgaXQgb3V0IChvbmx5IG9uZSBkZXZlbCBib2Fy
+ZC4uLikuCgpJbiBwcmluY2lwbGUgdGhhdCBzaG91bGQgd29yayBwcm92aWRlZCB0aGlzIGlzIGNh
+bGxlZCB3aGVuIENHQ0cgaXMgZGlzYWJsZWQuCgpUb20KX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9hbWQtZ2Z4Cg==
