@@ -1,18 +1,10 @@
-From: "Zhang, Jerry" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 1/2] drm/amdgpu: insert partial mappings before and after
- directly
-Date: Thu, 16 Mar 2017 08:20:16 +0000
-Message-ID: <DM5PR12MB1818B05A407892D574CDC880FF260@DM5PR12MB1818.namprd12.prod.outlook.com>
-References: <1489635888-31293-1-git-send-email-Jerry.Zhang@amd.com>
- <e1b3592f-839e-691d-bc59-af2fb2efe5a8@vodafone.de>
- <DM5PR12MB1818975FC463941DFBB30ACDFF260@DM5PR12MB1818.namprd12.prod.outlook.com>
- <3846992f-589e-079c-c8e8-65bbd9a54805@vodafone.de>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: [ANNOUNCE] xf86-video-amdgpu 1.3.0
+Date: Thu, 16 Mar 2017 17:45:04 +0900
+Message-ID: <6f32285d-e12b-341f-4ef7-af1a1559ee37@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0950091459=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <3846992f-589e-079c-c8e8-65bbd9a54805-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,87 +15,173 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "xorg-announce-go0+a7rfsptAfugRpC6u6w@public.gmane.org" <xorg-announce-go0+a7rfsptAfugRpC6u6w@public.gmane.org>
+Cc: "xorg-go0+a7rfsptAfugRpC6u6w@public.gmane.org" <xorg-go0+a7rfsptAfugRpC6u6w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBDaHJpc3RpYW4gS8O2bmlnIFtt
-YWlsdG86ZGVhdGhzaW1wbGVAdm9kYWZvbmUuZGVdDQo+IFNlbnQ6IFRodXJzZGF5LCBNYXJjaCAx
-NiwgMjAxNyAxNTo1OQ0KPiBUbzogWmhhbmcsIEplcnJ5OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZw0KPiBTdWJqZWN0OiBSZTogW1BBVENIIDEvMl0gZHJtL2FtZGdwdTogaW5zZXJ0IHBh
-cnRpYWwgbWFwcGluZ3MgYmVmb3JlIGFuZCBhZnRlcg0KPiBkaXJlY3RseQ0KPiANCj4gQW0gMTYu
-MDMuMjAxNyB1bSAwODo0NiBzY2hyaWViIFpoYW5nLCBKZXJyeToNCj4gPj4gLS0tLS1PcmlnaW5h
-bCBNZXNzYWdlLS0tLS0NCj4gPj4gRnJvbTogQ2hyaXN0aWFuIEvDtm5pZyBbbWFpbHRvOmRlYXRo
-c2ltcGxlQHZvZGFmb25lLmRlXQ0KPiA+PiBTZW50OiBUaHVyc2RheSwgTWFyY2ggMTYsIDIwMTcg
-MTU6MzMNCj4gPj4gVG86IFpoYW5nLCBKZXJyeTsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcNCj4gPj4gU3ViamVjdDogUmU6IFtQQVRDSCAxLzJdIGRybS9hbWRncHU6IGluc2VydCBwYXJ0
-aWFsIG1hcHBpbmdzIGJlZm9yZQ0KPiA+PiBhbmQgYWZ0ZXIgZGlyZWN0bHkNCj4gPj4NCj4gPj4g
-QW0gMTYuMDMuMjAxNyB1bSAwNDo0NCBzY2hyaWViIEp1bndlaSBaaGFuZzoNCj4gPj4+IEN1cnJl
-bnRseSBpdCBtYXkgbWlzcyBvbmUgcGFnZSBiZWZvcmUgb3IgYWZ0ZXIgdGhlIHRhcmdldCBtYXBw
-aW5nDQo+ID4+IEkgZG9uJ3QgdGhpbmsgdGhhdCB0aGlzIHdpbGwgd29yayBjb3JyZWN0bHkuIFRo
-ZSBpbnRlcnZhbCB0cmVlIHN0aWxsDQo+ID4+IGNvbnRhaW5zIHRoZSBvbGQgbWFwcGluZyBhdCB0
-aGlzIHBvaW50IGFuZCBhcyBmYXIgYXMgSSBrbm93IGluc2VydGluZw0KPiA+PiBvdmVybGFwcGlu
-ZyBtYXBwaW5ncyBpcyBub3QgYWxsb3dlZCBoZXJlLg0KPiA+IEFoLCBJIG1pc3NlZCB0aGF0LCBz
-byB0aGlzIGluc2VydCBvcCBzaG91bGQgYmUgYWZ0ZXIgZnJlZSB1cC4NCj4gPiBJIHdpbGwgcmV2
-aXNlIHRoZSBwYXRjaA0KPiA+DQo+ID4+IEJ1dCB3aGF0IGRvIHlvdSBtZWFuIHdpdGggbWlzcyBv
-bmUgcGFnZSBiZWZvcmUgb3IgYWZ0ZXIgdGhlIHRhcmdldCBtYXBwaW5nPw0KPiA+IEkgZGlkIGEg
-dW5pdCB0ZXN0IHRvIHZlcmlmeSBpdCBhbmQgZm91bmQgdGhhdDoNCj4gPg0KPiA+IElmIHRoZSBi
-ZWZvcmUgbWFwcGluZyBpcyAxIHBhZ2Ugc2l6ZSwgc28gaXRzIHN0YXJ0IGFuZCBsYXN0IHdpbGwg
-YmUgc2FtZS4NCj4gPiBUaHVzIGJlbG93IGNvbmRpdGlvbiB3aWxsIGJlY29tZSBmYWxzZSB0aGVu
-IHRvIGZyZWUgdGhlIGJlZm9yZSBtYXBwaW5nLg0KPiA+ICAgICA+IGlmIChiZWZvcmUtPml0LnN0
-YXJ0ICE9IGJlZm9yZS0+aXQubGFzdCkgQnV0IGluIHRoaXMgY2FzZSwgd2UNCj4gPiBuZWVkIHRo
-ZSBiZWZvcmUgbWFwcGluZyBvZiAxIHBhZ2Ugc2l6ZS4NCj4gPiBTbyBkb2VzIGFmdGVyIG1hcHBp
-bmcuDQo+ID4NCj4gPiBlLmcuDQo+ID4gSW5pdGlhbGl6ZSBhIG1hcHBpbmc6IFswLCA4XSBwYWdl
-cyBzaXplLg0KPiA+IEEgcmVwbGFjZSBtYXBwaW5nOiBbMSwgMl0gcGFnZSBzaXplLg0KPiA+IEJl
-Zm9yZSBtYXBwaW5nIGlzIFswLCAxXSwgYmVmb3JlLml0LnN0YXJ0ID0gMCwgYmVmb3JlLml0ID0g
-MSAtIDEgPSAwLg0KPiA+DQo+ID4gQWRkaXRpb25hbGx5LCBpZiB3ZSBjcmVhdGUgYSBibyBhcyAx
-IHBhZ2Ugc2l6ZSwgdGhlIGNvcnJlc3BvbmRpbmcgbWFwcGluZyBhbHNvDQo+IGhhcyBzdGFydD09
-bGFzdCwgSSB0aGluay4NCj4gDQo+IFVwcywgdGhhdCdzIGluZGVlZCBub3QgY29ycmVjdC4NCj4g
-DQo+IFllYWggd2UgbmVlZCBhIGJldHRlciBjcml0ZXJpYSBpZiB3ZSBzaG91bGQgaW5zZXJ0IHRo
-ZSByYW5nZXMgb3Igbm90Lg0KDQpIb3cgYWJvdXQgY2hlY2sgdGhlIGluaXQgYmVmb3JlLT5saXN0
-IGFuZCBhZnRlci0+bGlzdCwgdGhlbiBjaGVjayBpZiB0aGUgbGlzdCBpcyBub3QgZW1wdHk/DQpP
-dGhlcndpc2UsIGl0IG1heSBhZGQgYSBib29sIGZsYWcgZm9yIGVhY2ggb2YgdGhlbSwgSSBkb24n
-dCBsaWtlIHRoYXQuDQoNCkkgaGF2ZSBzZW50IHRoZSBwYXRjaCBhcyB2Mi4NClBsZWFzZSBjaGVj
-ayBpdC4NClRoYW5rcy4NCg0KSmVycnkNCg0KPiANCj4gQ2hyaXN0aWFuLg0KPiANCj4gPg0KPiA+
-IEplcnJ5Lg0KPiA+DQo+ID4+IENocmlzdGlhbi4NCj4gPj4NCj4gPj4+IFNpZ25lZC1vZmYtYnk6
-IEp1bndlaSBaaGFuZyA8SmVycnkuWmhhbmdAYW1kLmNvbT4NCj4gPj4+IC0tLQ0KPiA+Pj4gICAg
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgfCAyNiArKysrKysrKy0tLS0t
-LS0tLS0tLS0tLS0NCj4gLS0NCj4gPj4+ICAgIDEgZmlsZSBjaGFuZ2VkLCA4IGluc2VydGlvbnMo
-KyksIDE4IGRlbGV0aW9ucygtKQ0KPiA+Pj4NCj4gPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0KPiA+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfdm0uYw0KPiA+Pj4gaW5kZXggZjdjMDJhOS4uNTExYzZjOSAxMDA2NDQN
-Cj4gPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jDQo+ID4+
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0KPiA+Pj4gQEAg
-LTE3NjcsNyArMTc2NywxMSBAQCBpbnQgYW1kZ3B1X3ZtX2JvX2NsZWFyX21hcHBpbmdzKHN0cnVj
-dA0KPiA+PiBhbWRncHVfZGV2aWNlICphZGV2LA0KPiA+Pj4gICAgCQkJYmVmb3JlLT5pdC5sYXN0
-ID0gc2FkZHIgLSAxOw0KPiA+Pj4gICAgCQkJYmVmb3JlLT5vZmZzZXQgPSB0bXAtPm9mZnNldDsN
-Cj4gPj4+ICAgIAkJCWJlZm9yZS0+ZmxhZ3MgPSB0bXAtPmZsYWdzOw0KPiA+Pj4gKw0KPiA+Pj4g
-ICAgCQkJbGlzdF9hZGQoJmJlZm9yZS0+bGlzdCwgJnRtcC0+bGlzdCk7DQo+ID4+PiArCQkJaW50
-ZXJ2YWxfdHJlZV9pbnNlcnQoJmJlZm9yZS0+aXQsICZ2bS0+dmEpOw0KPiA+Pj4gKwkJCWlmIChi
-ZWZvcmUtPmZsYWdzICYgQU1ER1BVX1BURV9QUlQpDQo+ID4+PiArCQkJCWFtZGdwdV92bV9wcnRf
-Z2V0KGFkZXYpOw0KPiA+Pj4gICAgCQl9DQo+ID4+Pg0KPiA+Pj4gICAgCQkvKiBSZW1lbWJlciBt
-YXBwaW5nIHNwbGl0IGF0IHRoZSBlbmQgKi8gQEAgLTE3NzcsNyArMTc4MSwxMQ0KPiA+PiBAQCBp
-bnQNCj4gPj4+IGFtZGdwdV92bV9ib19jbGVhcl9tYXBwaW5ncyhzdHJ1Y3QgYW1kZ3B1X2Rldmlj
-ZSAqYWRldiwNCj4gPj4+ICAgIAkJCWFmdGVyLT5vZmZzZXQgPSB0bXAtPm9mZnNldDsNCj4gPj4+
-ICAgIAkJCWFmdGVyLT5vZmZzZXQgKz0gYWZ0ZXItPml0LnN0YXJ0IC0gdG1wLT5pdC5zdGFydDsN
-Cj4gPj4+ICAgIAkJCWFmdGVyLT5mbGFncyA9IHRtcC0+ZmxhZ3M7DQo+ID4+PiArDQo+ID4+PiAg
-ICAJCQlsaXN0X2FkZCgmYWZ0ZXItPmxpc3QsICZ0bXAtPmxpc3QpOw0KPiA+Pj4gKwkJCWludGVy
-dmFsX3RyZWVfaW5zZXJ0KCZhZnRlci0+aXQsICZ2bS0+dmEpOw0KPiA+Pj4gKwkJCWlmIChhZnRl
-ci0+ZmxhZ3MgJiBBTURHUFVfUFRFX1BSVCkNCj4gPj4+ICsJCQkJYW1kZ3B1X3ZtX3BydF9nZXQo
-YWRldik7DQo+ID4+PiAgICAJCX0NCj4gPj4+DQo+ID4+PiAgICAJCWxpc3RfZGVsKCZ0bXAtPmxp
-c3QpOw0KPiA+Pj4gQEAgLTE3OTksMjQgKzE4MDcsNiBAQCBpbnQgYW1kZ3B1X3ZtX2JvX2NsZWFy
-X21hcHBpbmdzKHN0cnVjdA0KPiA+PiBhbWRncHVfZGV2aWNlICphZGV2LA0KPiA+Pj4gICAgCQl0
-cmFjZV9hbWRncHVfdm1fYm9fdW5tYXAoTlVMTCwgdG1wKTsNCj4gPj4+ICAgIAl9DQo+ID4+Pg0K
-PiA+Pj4gLQkvKiBJbnNlcnQgcGFydGlhbCBtYXBwaW5nIGJlZm9yZSB0aGUgcmFuZ2UqLw0KPiA+
-Pj4gLQlpZiAoYmVmb3JlLT5pdC5zdGFydCAhPSBiZWZvcmUtPml0Lmxhc3QpIHsNCj4gPj4+IC0J
-CWludGVydmFsX3RyZWVfaW5zZXJ0KCZiZWZvcmUtPml0LCAmdm0tPnZhKTsNCj4gPj4+IC0JCWlm
-IChiZWZvcmUtPmZsYWdzICYgQU1ER1BVX1BURV9QUlQpDQo+ID4+PiAtCQkJYW1kZ3B1X3ZtX3By
-dF9nZXQoYWRldik7DQo+ID4+PiAtCX0gZWxzZSB7DQo+ID4+PiAtCQlrZnJlZShiZWZvcmUpOw0K
-PiA+Pj4gLQl9DQo+ID4+PiAtDQo+ID4+PiAtCS8qIEluc2VydCBwYXJ0aWFsIG1hcHBpbmcgYWZ0
-ZXIgdGhlIHJhbmdlICovDQo+ID4+PiAtCWlmIChhZnRlci0+aXQuc3RhcnQgIT0gYWZ0ZXItPml0
-Lmxhc3QpIHsNCj4gPj4+IC0JCWludGVydmFsX3RyZWVfaW5zZXJ0KCZhZnRlci0+aXQsICZ2bS0+
-dmEpOw0KPiA+Pj4gLQkJaWYgKGFmdGVyLT5mbGFncyAmIEFNREdQVV9QVEVfUFJUKQ0KPiA+Pj4g
-LQkJCWFtZGdwdV92bV9wcnRfZ2V0KGFkZXYpOw0KPiA+Pj4gLQl9IGVsc2Ugew0KPiA+Pj4gLQkJ
-a2ZyZWUoYWZ0ZXIpOw0KPiA+Pj4gLQl9DQo+ID4+PiAtDQo+ID4+PiAgICAJcmV0dXJuIDA7DQo+
-ID4+PiAgICB9DQo+ID4+Pg0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-ZngK
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0950091459==
+Content-Type: multipart/signed; micalg=pgp-sha1;
+ protocol="application/pgp-signature";
+ boundary="K0cloSe9cT4kO5HtSJbWI9PHjDk7msrGc"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--K0cloSe9cT4kO5HtSJbWI9PHjDk7msrGc
+Content-Type: multipart/mixed; boundary="goew8OPtXEi00kVXgxfB0gr4lkF4xWA4f";
+ protected-headers="v1"
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+To: "xorg-announce-go0+a7rfsptAfugRpC6u6w@public.gmane.org" <xorg-announce-go0+a7rfsptAfugRpC6u6w@public.gmane.org>
+Cc: "xorg-go0+a7rfsptAfugRpC6u6w@public.gmane.org" <xorg-go0+a7rfsptAfugRpC6u6w@public.gmane.org>,
+ "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Message-ID: <6f32285d-e12b-341f-4ef7-af1a1559ee37-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: [ANNOUNCE] xf86-video-amdgpu 1.3.0
+
+--goew8OPtXEi00kVXgxfB0gr4lkF4xWA4f
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+
+I'm pleased to announce the 1.3.0 release of xf86-video-amdgpu, the Xorg
+driver for AMD Radeon GPUs supported by the amdgpu kernel driver.
+This release supports xserver versions 1.10-1.19.
+
+Highlights:
+
+* Allow TearFree to be toggled at runtime via an RandR output property
+  "TearFree". The xorg.conf option "TearFree" now controls the default
+  value of the output properties.
+* Use libdrm_amdgpu functionality to determine the GPU marketing name,
+  remove corresponding tables from this driver.
+* Use DRM render nodes for DRI3 clients when available.
+
+Plus many other improvements and fixes. Thanks to everybody who
+contributed to this release in any way!
+
+
+Emil Velikov (1):
+      autogen.sh: use quoted string variables
+
+Hans De Goede (1):
+      amdgpu_probe: Do not close server managed drm fds
+
+Jammy Zhou (1):
+      Use render node for DRI3 if available
+
+Michel D=C3=A4nzer (44):
+      Post-release version bump
+      Move struct amdgpu_gpu_info out of amdgpu_get_tile_config
+      Use family information from libdrm_amdgpu / kernel
+      Stop using generated amdgpu_device_match
+      Remove amdpciids.h
+      Stop using AMDGPUPciChipsets
+      Stop using AMDGPU(Unique)Chipsets
+      Remove generated header files
+      Use DRM_MODE_PAGE_FLIP_TARGET_ABSOLUTE/RELATIVE flags when availabl=
+e
+      Make libdrm >=3D 2.4.72 requirement explicit
+      Don't install Flush/EventCallback for GPU screens
+      Add amdgpu_is_gpu_screen helper
+      Take current scanout_id into account everywhere involved with TearF=
+ree
+      Fix amdgpu_scanout_extents_intersect for GPU screens
+      Call ValidateGC after ChangeClip in amdgpu_sync_scanout_pixmaps
+      Call amdgpu_drm_abort_entry on failure to flip to a scanout pixmap
+      Simplify drmmode_handle_uevents
+      Pass pitch from drmmode_crtc_scanout_allocate to drmmode_create_bo_=
+pixmap
+      Call drmmode_crtc_scanout_create in drmmode_crtc_shadow_allocate as=
+ well
+      Fold drmmode_crtc_scanout_allocate into drmmode_crtc_scanout_create=
+
+      Handle rotation in the driver also with Xorg 1.12-1.18
+      Fix flip event data leak if calloc or drmModeAddFB fails
+      Don't destroy current FB if drmModeAddFB fails
+      Factor out amdgpu_prime_dirty_to_crtc helper
+      Factor out drmmode_crtc_scanout_update helper
+      Allow toggling TearFree at runtime via output property
+      Use drmmode_crtc_scanout_free in drmmode_fini
+      present: Only call drmModeRmFB after setting modes for unflip
+      present: Wait for GPU idle before setting modes for unflip
+      present: Also flush before using a flip to unflip
+      present: Use async flip for unflip if possible
+      present: Flush before flipping
+      Call drmmode_set_desired_modes from a WindowExposures hook
+      Move DPMS check from amdgpu_scanout_do_update to amdgpu_scanout_fli=
+p
+      Don't call amdgpu_glamor_flush in drmmode_copy_fb
+      Don't use pScrn->is_gpu in AMDGPUCreateScreenResources_KMS
+      Use local implementation of RegionDuplicate for older xserver
+      Only define transform_region for XF86_CRTC_VERSION >=3D 4
+      glamor: Don't flush in BlockHandler with Xorg >=3D 1.19
+      Refactor amdgpu_kernel_close_fd helper
+      glamor: Use glamor_finish when available
+      Skip some initialization steps for GPU screens
+      Pass TRUE to drmmode_set_desired_modes the first time for GPU scree=
+ns
+      Bump version for 1.3.0 release
+
+Mihail Konev (1):
+      autogen: add default patch prefix
+
+Peter Hutterer (1):
+      autogen.sh: use exec instead of waiting for configure to finish
+
+jimqu (1):
+      udev_monitor_receive_device() will block when hotplug monitor
+
+git tag: xf86-video-amdgpu-1.3.0
+
+https://xorg.freedesktop.org/archive/individual/driver/xf86-video-amdgpu-=
+1.3.0.tar.bz2
+MD5:  e2ee9e16ffbd45ebda68a7ff638a04f2  xf86-video-amdgpu-1.3.0.tar.bz2
+SHA1: 7b89fe6e22e6739257c0f03c9f034c9c579a8bce  xf86-video-amdgpu-1.3.0.t=
+ar.bz2
+SHA256: c1630f228938be949273f72b29ae70822dde064ad79c3ccb14d55f427e3f4e70 =
+ xf86-video-amdgpu-1.3.0.tar.bz2
+PGP:  https://xorg.freedesktop.org/archive/individual/driver/xf86-video-a=
+mdgpu-1.3.0.tar.bz2.sig
+
+https://xorg.freedesktop.org/archive/individual/driver/xf86-video-amdgpu-=
+1.3.0.tar.gz
+MD5:  c0c3d95fb2865008f1347bf9f38c0f44  xf86-video-amdgpu-1.3.0.tar.gz
+SHA1: cc5766dd9a7851ef18f2718987777054f31e9cd2  xf86-video-amdgpu-1.3.0.t=
+ar.gz
+SHA256: 05f4a1bbd3a0653551cb9871a554ec4b84c35d00a8fb101f772fc154253eb1e0 =
+ xf86-video-amdgpu-1.3.0.tar.gz
+PGP:  https://xorg.freedesktop.org/archive/individual/driver/xf86-video-a=
+mdgpu-1.3.0.tar.gz.sig
+
+
+--=20
+Earthling Michel D=C3=A4nzer               |               http://www.amd=
+=2Ecom
+Libre software enthusiast             |             Mesa and X developer
+
+
+--goew8OPtXEi00kVXgxfB0gr4lkF4xWA4f--
+
+--K0cloSe9cT4kO5HtSJbWI9PHjDk7msrGc
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHEEARECADEWIQSwn681vpFFIZgJURRaga+OatuyAAUCWMpQlBMcbWljaGVsQGRh
+ZW56ZXIubmV0AAoJEFqBr45q27IAzFIAn1u98K0wZsQEPtqYo93YsxmZSk9KAJ9F
+cq4UC6jrfywbzw5lWihALK7+NQ==
+=xr7H
+-----END PGP SIGNATURE-----
+
+--K0cloSe9cT4kO5HtSJbWI9PHjDk7msrGc--
+
+--===============0950091459==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0950091459==--
