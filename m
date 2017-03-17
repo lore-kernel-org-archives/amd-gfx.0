@@ -1,12 +1,17 @@
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: bump version for PRT support
-Date: Fri, 17 Mar 2017 12:00:58 +1100
-Message-ID: <6bbea970-8810-7565-46e3-3fc5d79bebb3@folklore1984.net>
-References: <1489675595-8287-1-git-send-email-alexander.deucher@amd.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: [PATCH 1/4] amdgpu: add new VA operations CLEAR and REPLACE
+Date: Fri, 17 Mar 2017 10:27:42 +0900
+Message-ID: <50ced5b5-3841-8e7b-b1d4-0c6e4aef7e3b@daenzer.net>
+References: <1489636601-31486-1-git-send-email-Jerry.Zhang@amd.com>
+ <1489636601-31486-2-git-send-email-Jerry.Zhang@amd.com>
+ <DM5PR12MB18189A8887495F5EB83831FEFF260@DM5PR12MB1818.namprd12.prod.outlook.com>
+ <6c9dce66-bc31-cd9a-8ea5-c3a2439d1cc6@amd.com>
+ <DM5PR12MB1818F81AB6393F9A0C9E3D0EFF390@DM5PR12MB1818.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0205313578=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1489675595-8287-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <DM5PR12MB1818F81AB6393F9A0C9E3D0EFF390-2J9CzHegvk+QhrfEZJlvtAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,102 +22,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+To: "Zhang, Jerry" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0205313578==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="SrQmlq2Bts8MtEJsgU8BXgrP17TXbXhMx"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---SrQmlq2Bts8MtEJsgU8BXgrP17TXbXhMx
-Content-Type: multipart/mixed; boundary="OskNFCLQlLnmRAMW3iqTOcjiX48RKtt1i";
- protected-headers="v1"
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Message-ID: <6bbea970-8810-7565-46e3-3fc5d79bebb3-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: bump version for PRT support
-References: <1489675595-8287-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <1489675595-8287-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
---OskNFCLQlLnmRAMW3iqTOcjiX48RKtt1i
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-
-Alex, as a matter of procedure could you perhaps have the actual version
-bump as part of the final patch in a given series? This would mitigate
-the issue of forgetting to bump the version for a given relevant changese=
-t.
-
-Kindly,
-Edward.
-
-On 03/17/2017 01:46 AM, Alex Deucher wrote:
-> Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_drv.c
-> index c4dacd5..c75f48e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -62,9 +62,10 @@
->   * - 3.10.0 - Add support for new fences ioctl, new gem ioctl flags
->   * - 3.11.0 - Add support for sensor query info (clocks, temp, etc).
->   * - 3.12.0 - Add query for double offchip LDS buffers
-> + * - 3.13.0 - Add PRT support
->   */
->  #define KMS_DRIVER_MAJOR	3
-> -#define KMS_DRIVER_MINOR	12
-> +#define KMS_DRIVER_MINOR	13
->  #define KMS_DRIVER_PATCHLEVEL	0
-> =20
->  int amdgpu_vram_limit =3D 0;
->=20
-
-
---OskNFCLQlLnmRAMW3iqTOcjiX48RKtt1i--
-
---SrQmlq2Bts8MtEJsgU8BXgrP17TXbXhMx
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJYyzVOAAoJEP4bvbfZuWjbKsgP/iJSZVaklDz4tHwHXHbbVAnp
-IGnYRlu4CYffwDIdmhFrhTK5qAm011iYPQQxsSD2EERAP4lkxeIDfQLnoV9ABbNd
-ARnnSFGDo+ck+mvJZTthSLo2TwDqYfK9FHUUEb37ixLJe44dHqopf1SvsdACbJKu
-aWZcIz/7gfPOoclbQWVEPRICUIsP+mEbafpPAq15TqrU4RqIGNQmBYS+YDc6ICDz
-/Qvh0nYQhniJFxUF7F+bZzrkErvzDNDXCu3K5rMhiX6W+OqM07ZcqAup1p5z8gPf
-PXV9Q2JTkiHEEA1HBlWazvX+hq2DfzItHnaL64qZKoixYEzKlkJWcv+la70ou6BA
-41yfmhgzXY9j1RZYC/73cm9MEfXAP4UTxXTXBtXWIqfnO6Xie9uX15DnEdq3Fi2S
-2ZUeSNFzXnPxsIoDwQbrpJa3LUOo+ShAClXr5VoxHQnxImmCvDRqmnpe787yH+Pp
-WmYjBPCmco23biwtBWPYoQdCdwMMdBf2Wm5mLQGFeyfJ2DSHi8Ol1yaAv0bIzWuD
-4Vc9sxOlT4y7HKPVCoOtCDNXFBlCfXYFNwkcGqPhR6pBEHLmxa/TNLc4Go5WkRSA
-hYWmCCpVP1df+gXLbpdYB5KnPz4lusBMHBnfsBqZZROOVcf/s42UBu8/ohdRmumX
-KbjeZigWwy+9hvizB9x8
-=Olek
------END PGP SIGNATURE-----
-
---SrQmlq2Bts8MtEJsgU8BXgrP17TXbXhMx--
-
---===============0205313578==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0205313578==--
+T24gMTcvMDMvMTcgMDk6MTYgQU0sIFpoYW5nLCBKZXJyeSB3cm90ZToKPiAKPiBUaGFua3MgZm9y
+IHlvdXIgcmVtaW5kZXIuCj4gCj4gSSBhbHdheXMga2VlcCBpdCBpbiBtaW5kLgoKWy4uLl0KCj4g
+KkZyb206KktvZW5pZywgQ2hyaXN0aWFuCj4gCj4+IGZlbGwgZnJlZSB0byB1c2UgdGhpcyBwYXRj
+aCBpbnRlcm5hbGx5LCBidXQgdGhlIHVwc3RyZWFtIGNvcHkgb2YKPj4gaW5jbHVkZS9kcm0vYW1k
+Z3B1X2RybS5oIHNob3VsZCBiZSB1cGRhdGVkIHdoZW4gdGhlIGtlcm5lbCBjaGFuZ2UgbGFuZC4K
+Pj4gCj4+IEVtaWwgdXN1YWxseSBwb2ludHMgb3V0IGhvdyB0byBkbyB0aGlzIGNvcnJlY3RseSB3
+aGVuZXZlciB3ZSB0cnkgdG8gYWRkCj4+IGNoYW5nZXMgbWFudWFsbHkuCgpTZWUgaW5jbHVkZS9k
+cm0vUkVBRE1FIGluIHRoZSBsaWJkcm0gdHJlZS4KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6Ru
+emVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpMaWJy
+ZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQg
+WCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
