@@ -1,48 +1,42 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/amdgpu: add POLARIS12 PCI ID
-Date: Fri, 17 Mar 2017 11:10:01 -0400
-Message-ID: <CADnq5_M3BNhjvbDih5Qi1j=x1CirwTVmjRP8buPOAz+4n3HBCw@mail.gmail.com>
-References: <1489719755-7048-1-git-send-email-evan.quan@amd.com>
+From: Adam Jackson <ajax@nwnk.net>
+Subject: Re: [ANNOUNCE] xf86-video-ati 7.9.0
+Date: Fri, 17 Mar 2017 11:48:13 -0400
+Message-ID: <1489765693.17308.5.camel@nwnk.net>
+References: <be23f78f-8aa6-6dfb-dfcb-4615cf3e17c5@daenzer.net>
+ <af454805-edec-ab85-e9dd-318765ced0f9@gmail.com>
+ <1489688729.17308.3.camel@nwnk.net>
+ <CADnq5_MprN_dyuwLfd-=Ysj4wP35qQT8WsHYMVEZfcO5Rgneug@mail.gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1489719755-7048-1-git-send-email-evan.quan-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Return-path: <xorg-bounces@lists.x.org>
+In-Reply-To: <CADnq5_MprN_dyuwLfd-=Ysj4wP35qQT8WsHYMVEZfcO5Rgneug@mail.gmail.com>
+List-Unsubscribe: <https://lists.x.org/mailman/options/xorg>,
+ <mailto:xorg-request@lists.x.org?subject=unsubscribe>
+List-Archive: <https://lists.x.org/archives/xorg>
+List-Post: <mailto:xorg@lists.x.org>
+List-Help: <mailto:xorg-request@lists.x.org?subject=help>
+List-Subscribe: <https://lists.x.org/mailman/listinfo/xorg>,
+ <mailto:xorg-request@lists.x.org?subject=subscribe>
+Errors-To: xorg-bounces@lists.x.org
+Sender: "xorg" <xorg-bounces@lists.x.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Dave Airlie <airlied@redhat.com>, Michel =?ISO-8859-1?Q?D=E4nzer?= <michel@daenzer.net>, "xorg@lists.x.org" <xorg@lists.x.org>, poma <pomidorabelisima@gmail.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVGh1LCBNYXIgMTYsIDIwMTcgYXQgMTE6MDIgUE0sIEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFt
-ZC5jb20+IHdyb3RlOgo+IENoYW5nZS1JZDogSTczMGVlZDFiY2EwNDcyNTY5NmNkMDg2ZTljNmJh
-MWEzMWJhZmQ4YTcKPiBTaWduZWQtb2ZmLWJ5OiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQuY29t
-Pgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgfCAxICsK
-PiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspCj4KClJldmlld2VkLWJ5OiBBbGV4IERl
-dWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+CgoKPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2Rydi5jCj4gaW5kZXggZDdmMjg2ZC4uZDlmMDM2YiAxMDA2NDQKPiAtLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKPiArKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKPiBAQCAtNDQ5LDYgKzQ0OSw3IEBAIHN0
-YXRpYyBjb25zdCBzdHJ1Y3QgcGNpX2RldmljZV9pZCBwY2lpZGxpc3RbXSA9IHsKPiAgICAgICAg
-IHsweDEwMDIsIDB4Njk4NSwgUENJX0FOWV9JRCwgUENJX0FOWV9JRCwgMCwgMCwgQ0hJUF9QT0xB
-UklTMTJ9LAo+ICAgICAgICAgezB4MTAwMiwgMHg2OTg2LCBQQ0lfQU5ZX0lELCBQQ0lfQU5ZX0lE
-LCAwLCAwLCBDSElQX1BPTEFSSVMxMn0sCj4gICAgICAgICB7MHgxMDAyLCAweDY5ODcsIFBDSV9B
-TllfSUQsIFBDSV9BTllfSUQsIDAsIDAsIENISVBfUE9MQVJJUzEyfSwKPiArICAgICAgIHsweDEw
-MDIsIDB4Njk5NSwgUENJX0FOWV9JRCwgUENJX0FOWV9JRCwgMCwgMCwgQ0hJUF9QT0xBUklTMTJ9
-LAo+ICAgICAgICAgezB4MTAwMiwgMHg2OTlGLCBQQ0lfQU5ZX0lELCBQQ0lfQU5ZX0lELCAwLCAw
-LCBDSElQX1BPTEFSSVMxMn0sCj4gICAgICAgICAvKiBWZWdhIDEwICovCj4gICAgICAgICB7MHgx
-MDAyLCAweDY4NjAsIFBDSV9BTllfSUQsIFBDSV9BTllfSUQsIDAsIDAsIENISVBfVkVHQTEwfSwK
-PiAtLQo+IDIuNy40Cj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
-ZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
-LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
-aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+T24gVGh1LCAyMDE3LTAzLTE2IGF0IDE0OjM0IC0wNDAwLCBBbGV4IERldWNoZXIgd3JvdGU6Cj4g
+PiBPbiBUaHUsIE1hciAxNiwgMjAxNyBhdCAyOjI1IFBNLCBBZGFtIEphY2tzb24gPGFqYXhAbndu
+ay5uZXQ+IHdyb3RlOgo+ID4gTW9zdGx5IGEgaGFjayBmb3IgTENEcyB0aGF0IG9ubHkgY2xhaW0g
+b25lIHN1cHBvcnRlZCByZXNvbHV0aW9uIGFuZAo+ID4gZGVza3RvcCBlbnZpcm9ubWVudHMgdG9v
+IGNoaWNrZW4gdG8gbGV0IHlvdSBzZXQgYXJiaXRyYXJ5IG1vZGVzIGZyb20KPiA+IHRoZSBkaXNw
+bGF5IGNvbnRyb2wgcGFuZWwuIEFnYWluLCBub3QgcmVhbGx5IHRocmlsbGVkIHdpdGggdGhlCj4g
+PiBpbXBsZW1lbnRhdGlvbiBvZiBpdCwgbWlnaHQgYmUgYmV0dGVyIHNvbHZlZCBpbiBhbm90aGVy
+IHBsYWNlLgo+IAo+IERvIHlvdSBoYXZlIGEgc3BlY2lmaWMgdGVzdCBjYXNlIHRoaXMgZml4ZXM/
+wqDCoFRoZSBrZXJuZWwgZHJpdmVyIGFsd2F5cwo+IGFkZHMgdGhlIGNvbW1vbiBtb2RlcyB0byBM
+VkRTIGNvbm5lY3RvcnMsIHNvIHRoZXkgc2hvdWxkIGJlIHRoZXJlLgoKTWF5YmUgSSBkaWQgd2hl
+biBJIHdyb3RlIGl0PyBUaGUgcGF0Y2ggaXMgbGlrZSBlaWdodCB5ZWFycyBvbGQgdGhvdWdoLgpJ
+J2xsIGRyb3AgaXQgYW5kIHNlZSBpZiBhbnlvbmUgbm90aWNlcy4KCi0gYWpheApfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwp4b3JnQGxpc3RzLngub3JnOiBY
+Lk9yZyBzdXBwb3J0CkFyY2hpdmVzOiBodHRwOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL2FyY2hp
+dmVzL3hvcmcKSW5mbzogaHR0cHM6Ly9saXN0cy54Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hvcmcK
+WW91ciBzdWJzY3JpcHRpb24gYWRkcmVzczogJSh1c2VyX2FkZHJlc3Mpcw==
