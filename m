@@ -1,82 +1,49 @@
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
-Subject: Re: [PATCH] drm: add check for plane functions
-Date: Fri, 17 Mar 2017 13:08:43 +0200
-Message-ID: <20170317110843.GQ31595@intel.com>
-References: <1489737308-30713-1-git-send-email-shirish.s@amd.com>
- <20170317095647.GN31595@intel.com>
- <CAE=Z4VBsuzAPWSiy9NSXXFZfWEuSEi0miANhNmq5u0xR6M0BWw@mail.gmail.com>
+From: Daniel Drake <drake-6IF/jdPJHihWk0Htik3J/w@public.gmane.org>
+Subject: Re: amd-iommu: can't boot with amdgpu, AMD-Vi: Completion-Wait loop
+	timed out
+Date: Fri, 17 Mar 2017 06:15:58 -0600
+Message-ID: <CAD8Lp47zjJvqxY3TMMAhjz3OnLR52CtsQh_PQFPmsEW-xHfDwg@mail.gmail.com>
+References: <CAD8Lp457TE1CnJ-DHnB6NB2LWxgA5K5K57Q6L7XcSHeYNpvARQ@mail.gmail.com>
+	<CY4PR12MB16533C83151D6FCFC11ED457F7250@CY4PR12MB1653.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <CAE=Z4VBsuzAPWSiy9NSXXFZfWEuSEi0miANhNmq5u0xR6M0BWw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Shirish S <shirish.s12-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, shirish.s-5C7GfCeVMHo@public.gmane.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Return-path: <iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
+In-Reply-To: <CY4PR12MB16533C83151D6FCFC11ED457F7250-rpdhrqHFk06apTa93KjAaQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/iommu>,
+	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=unsubscribe>
+List-Archive: <http://lists.linuxfoundation.org/pipermail/iommu/>
+List-Post: <mailto:iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
+List-Help: <mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/iommu>,
+	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=subscribe>
+Sender: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
+Errors-To: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: Chris Chiu <chiu-6IF/jdPJHihWk0Htik3J/w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Nath, Arindam" <Arindam.Nath-5C7GfCeVMHo@public.gmane.org>, "iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org" <iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>, Linux Upstreaming Team <linux-6IF/jdPJHihWk0Htik3J/w@public.gmane.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gRnJpLCBNYXIgMTcsIDIwMTcgYXQgMDM6NDY6MzRQTSArMDUzMCwgU2hpcmlzaCBTIHdyb3Rl
-Ogo+IE9uIEZyaSwgTWFyIDE3LCAyMDE3IGF0IDM6MjYgUE0sIFZpbGxlIFN5cmrDpGzDpAo+IDx2
-aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4gd3JvdGU6Cj4gPiBPbiBGcmksIE1hciAxNywg
-MjAxNyBhdCAwMToyNTowOFBNICswNTMwLCBTaGlyaXNoIFMgd3JvdGU6Cj4gPj4gdXBkYXRlX3Bs
-YW5lKCkgYW5kIGRpc2FibGVfcGxhbmUoKSBmdW5jdGlvbnMKPiA+PiBhc3NvaWNpYXRlZCB3aXRo
-IHNldHRpbmcgcGxhbmUgYXJlIGNhbGxlZAo+ID4+IHdpdGhvdXQgYW55IGNoZWNrLCBjYXVzaW5n
-IGtlcm5lbCBwYW5pYy4KPiA+Cj4gPiBXaHkgYXJlIHlvdSByZWdpc3RlcmluZyBhIHBsYW5lIHdp
-dGhvdXQgdGhlIGZ1bmNzPwo+ID4KPiBCYXNpY2FsbHksIGVuYWJsaW5nIHBsYW5lcyBhbmQgbWFr
-aW5nIHRoZW0gZnVsbHkgZnVuY3Rpb25hbCBpcwo+IGdlbmVyYWxseSBhIDIgLXN0ZXAgcHJvY2Vz
-cywKPiBzbyBpIHN1Z2dlc3QgZm9yIG5ldyBkcml2ZXJzIHdhbnRpbmcgdG8gaW1wbGVtZW50L3Jl
-LWRlc2lnbiAgcGxhbmVzLAo+IHdvdWxkIGxpa2UgdG8gdGFwCj4gdGhlIGZsb3cgYXQgZW5hYmxp
-bmcobGlzdGluZyBjYXBzKSBhbmQgbGF0ZXIgYXQgZW5zdXJpbmcgaXQgd29ya3MuCgpJIGRvbid0
-IHRoaW5rIHRoZXJlJ3MgbXVjaCBwb2ludCBpbiBleHBvc2luZyBzb21ldGhpbmcgdGhhdApkb2Vz
-bid0IHdvcmsuIEFuZCBldmVuIGlmIHlvdSBkbywgeW91IGNvdWxkIGFsd2F5cyBqdXN0IHVzZQpz
-dHViIGZ1bmN0aW9ucy4KCj4gSSBub3RpY2VkIHRoYXQgdGhlcmUgaXMgYSB1bmRlcmx5aW5nIGFz
-c3VtcHRpb24gb25seSBmb3IKPiBwbGFuZS0+KGZ1bmNzKSBhcmUgaW1wbGVtZW50ZWQsIHdoZXJl
-YXMgZm9yCj4gb3RoZXIgZnVuY3Rpb24gZm9yIGNydGMvY29ubmVjdG9yL2VuY29kZXIgZnVuY3Rp
-b24gY2FsbHMgdGhlcmUgaXMgYQo+IHNhbml0eSBjaGVjayhvciBXQVJOX09OKSB0aHJvdWdoIG91
-dCB0aGUgZnJhbWV3b3JrLgo+IAo+IEkgYmVsaWV2ZSB0aGlzIGNoZWNrIHdvbnQgY2F1c2UgYW55
-IHBlcmZvcm1hbmNlL2Z1bmN0aW9uYWwgaW1wYWN0Lgo+IFBsZWFzZSBsZXQgbWUga25vdyBpZiBh
-bSBtaXNzaW5nIGFueXRoaW5nLgo+IEFuZCBmdXJ0aGVyIG1vcmUgaGVscCBkZXZlbG9wZXJzIHRv
-IGZvY3VzIG9uIGVuYWJsaW5nIHBsYW5lcyB2aWEKPiB2YXJpb3VzIHRlc3RzIHdpdGhvdXQgY2F1
-c2luZyByZWJvb3RzL3N5c3RlbSBoYW5ncy4KCkkgZG9uJ3QgcGFydGljdWxhcmx5IGxpa2UgYWRk
-aW5nIG1vcmUgdW5jb25kaXRpb25hbCBydW50aW1lIGNoZWNrcwp0aGF0IGp1c3QgdG8gcHJvdGVj
-dCBkZXZlbG9wZXJzIGZyb20gdGhlbXNlbHZlcy4gSWYgeW91IHJlYWxseQp0aGluayB0aGVyZSdz
-IHZhbHVlIGluIHRoZXNlLCB0aGVuIGF0IGxlYXN0IGFkZCB0aGUgY2hlY2tzIGludG8KdGhlIHBs
-YW5lIGluaXQgY29kZXBhdGggc28gdGhhdCBpdCdzIGEgb25lIHRpbWUgY29zdC4KClRoZSBzYW1l
-IGFwcHJvYWNoIGNvdWxkIGJlIHVzZWQgZm9yIGFsbCB0aGUgb3RoZXIgbm9uLW9wdGlvbmFsCmhv
-b2tzLiBPdGhlcndpc2UgdGhlIHNhbWUgV0FSTl9PTigpcyB3b3VsZCBoYXZlIHRvIGJlIHNwcmlu
-a2xlZAphbGwgb3ZlciB0aGUgcGxhY2UsIGFuZCB0aGVyZSdzIGFsd2F5cyB0aGUgcmlzayBvZiBt
-aXNzaW5nIGEgZmV3CmNvZGVwYXRocyB0aGF0IGNhbGwgYSBzcGVjaWZpYyBob29rLgoKPiA+Pgo+
-ID4+IFRoaXMgcGF0Y2ggYWRkcyB0aGUgcmVxdWlyZWQgY2hlY2sgdG8gYXZvaWQgaXQuCj4gPj4K
-PiA+PiBDaGFuZ2UtSWQ6IEkwZDY3OTI2MDhiMzNlNjc0YzIxNzM4OGFhNTdjNGI3ZDY4MGQ5YmM3
-Cj4gPj4gU2lnbmVkLW9mZi1ieTogU2hpcmlzaCBTIDxzaGlyaXNoLnNAYW1kLmNvbT4KPiA+PiAt
-LS0KPiA+PiAgZHJpdmVycy9ncHUvZHJtL2RybV9wbGFuZS5jIHwgNiArKysrKysKPiA+PiAgMSBm
-aWxlIGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygrKQo+ID4+Cj4gPj4gZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9kcm1fcGxhbmUuYyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fcGxhbmUuYwo+ID4+
-IGluZGV4IDI0OWMwYWUuLmY2NzVmOGIgMTAwNjQ0Cj4gPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2RybV9wbGFuZS5jCj4gPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9wbGFuZS5jCj4gPj4g
-QEAgLTQ1Niw2ICs0NTYsMTIgQEAgc3RhdGljIGludCBfX3NldHBsYW5lX2ludGVybmFsKHN0cnVj
-dCBkcm1fcGxhbmUgKnBsYW5lLAo+ID4+ICB7Cj4gPj4gICAgICAgaW50IHJldCA9IDA7Cj4gPj4K
-PiA+PiArICAgICBpZiAocGxhbmUtPmZ1bmNzLT5kaXNhYmxlX3BsYW5lID09IE5VTEwgfHwKPiA+
-PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwbGFuZS0+ZnVuY3MtPnVwZGF0ZV9wbGFu
-ZSA9PSBOVUxMKSB7Cj4gPj4gKyAgICAgICAgICAgICBEUk1fRVJST1IoInBsYW5lIGZ1bmNzIG5v
-dCBpbXBsZW1lbnRlZFxuIik7Cj4gPj4gKyAgICAgICAgICAgICByZXQgPSAtRVBFUk07Cj4gPj4g
-KyAgICAgICAgICAgICBnb3RvIG91dDsKPiA+PiArICAgICB9Cj4gPj4gICAgICAgLyogTm8gZmIg
-bWVhbnMgc2h1dCBpdCBkb3duICovCj4gPj4gICAgICAgaWYgKCFmYikgewo+ID4+ICAgICAgICAg
-ICAgICAgcGxhbmUtPm9sZF9mYiA9IHBsYW5lLT5mYjsKPiA+PiAtLQo+ID4+IDIuNy40Cj4gPj4K
-PiA+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+ID4+
-IGRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKPiA+PiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCj4gPj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9k
-cmktZGV2ZWwKPiA+Cj4gPiAtLQo+ID4gVmlsbGUgU3lyasOkbMOkCj4gPiBJbnRlbCBPVEMKCi0t
-IApWaWxsZSBTeXJqw6Rsw6QKSW50ZWwgT1RDCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYW1kLWdmeAo=
+Hi,
+
+On Mon, Mar 13, 2017 at 2:01 PM, Deucher, Alexander
+<Alexander.Deucher-5C7GfCeVMHo@public.gmane.org> wrote:
+> > We are unable to boot Acer Aspire E5-553G (AMD FX-9800P RADEON R7) nor
+> > Acer Aspire E5-523 with standard configurations because during boot
+> > the screen is flooded with the following error message over and over:
+> >
+> >   AMD-Vi: Completion-Wait loop timed out
+>
+> We ran into similar issues and bisected it to commit b1516a14657acf81a587e9a6e733a881625eee53.  I'm not too familiar with the IOMMU hardware to know if this is an iommu or display driver issue yet.
+
+We can confirm that reverting this commit solves the issue.
+
+Given that that commit is an optimization, but it has introduced a
+regression on multiple platforms, and has been like this for 8 months,
+it would be common practice to now revert this patch upstream until
+the regression is fixed. Could you please send a new patch to do this?
+
+Also, we would be happy to test any real solutions to this issue while
+we still have the affected units in hand.
+
+Thanks
+Daniel
