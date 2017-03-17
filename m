@@ -1,49 +1,40 @@
-From: Daniel Drake <drake-6IF/jdPJHihWk0Htik3J/w@public.gmane.org>
-Subject: Re: amd-iommu: can't boot with amdgpu, AMD-Vi: Completion-Wait loop
-	timed out
-Date: Fri, 17 Mar 2017 06:15:58 -0600
-Message-ID: <CAD8Lp47zjJvqxY3TMMAhjz3OnLR52CtsQh_PQFPmsEW-xHfDwg@mail.gmail.com>
-References: <CAD8Lp457TE1CnJ-DHnB6NB2LWxgA5K5K57Q6L7XcSHeYNpvARQ@mail.gmail.com>
-	<CY4PR12MB16533C83151D6FCFC11ED457F7250@CY4PR12MB1653.namprd12.prod.outlook.com>
+From: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH umr] Add missing Polaris12 DIDs
+Date: Fri, 17 Mar 2017 09:17:32 -0400
+Message-ID: <20170317131732.14716-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Return-path: <iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
-In-Reply-To: <CY4PR12MB16533C83151D6FCFC11ED457F7250-rpdhrqHFk06apTa93KjAaQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/iommu>,
-	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=unsubscribe>
-List-Archive: <http://lists.linuxfoundation.org/pipermail/iommu/>
-List-Post: <mailto:iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
-List-Help: <mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/iommu>,
-	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=subscribe>
-Sender: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
-Errors-To: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: Chris Chiu <chiu-6IF/jdPJHihWk0Htik3J/w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Nath, Arindam" <Arindam.Nath-5C7GfCeVMHo@public.gmane.org>, "iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org" <iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>, Linux Upstreaming Team <linux-6IF/jdPJHihWk0Htik3J/w@public.gmane.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 
-Hi,
-
-On Mon, Mar 13, 2017 at 2:01 PM, Deucher, Alexander
-<Alexander.Deucher-5C7GfCeVMHo@public.gmane.org> wrote:
-> > We are unable to boot Acer Aspire E5-553G (AMD FX-9800P RADEON R7) nor
-> > Acer Aspire E5-523 with standard configurations because during boot
-> > the screen is flooded with the following error message over and over:
-> >
-> >   AMD-Vi: Completion-Wait loop timed out
->
-> We ran into similar issues and bisected it to commit b1516a14657acf81a587e9a6e733a881625eee53.  I'm not too familiar with the IOMMU hardware to know if this is an iommu or display driver issue yet.
-
-We can confirm that reverting this commit solves the issue.
-
-Given that that commit is an optimization, but it has introduced a
-regression on multiple platforms, and has been like this for 8 months,
-it would be common practice to now revert this patch upstream until
-the regression is fixed. Could you please send a new patch to do this?
-
-Also, we would be happy to test any real solutions to this issue while
-we still have the affected units in hand.
-
-Thanks
-Daniel
+QW5kIGFsc28gcmVtb3ZlIGFuIGVycmFudCBvbmUuCgpTaWduZWQtb2ZmLWJ5OiBUb20gU3QgRGVu
+aXMgPHRvbS5zdGRlbmlzQGFtZC5jb20+Ci0tLQogc3JjL2xpYi9kaXNjb3Zlcl9ieV9kaWQuYyB8
+IDQgKysrLQogMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoK
+ZGlmZiAtLWdpdCBhL3NyYy9saWIvZGlzY292ZXJfYnlfZGlkLmMgYi9zcmMvbGliL2Rpc2NvdmVy
+X2J5X2RpZC5jCmluZGV4IDI3MWU4YWRjZTM1ZC4uMjg1MWViM2E4ZDg2IDEwMDY0NAotLS0gYS9z
+cmMvbGliL2Rpc2NvdmVyX2J5X2RpZC5jCisrKyBiL3NyYy9saWIvZGlzY292ZXJfYnlfZGlkLmMK
+QEAgLTE3MCwxMSArMTcwLDEzIEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgewogCXsgMHg2OTMwLCAm
+dW1yX2NyZWF0ZV90b25nYSAgfSwKIAl7IDB4NjkzOCwgJnVtcl9jcmVhdGVfdG9uZ2EgIH0sCiAJ
+eyAweDY5MzksICZ1bXJfY3JlYXRlX3RvbmdhICB9LAorCXsgMHg2OTgwLCAmdW1yX2NyZWF0ZV9w
+b2xhcmlzMTIgfSwKIAl7IDB4Njk4MSwgJnVtcl9jcmVhdGVfcG9sYXJpczEyIH0sCiAJeyAweDY5
+ODUsICZ1bXJfY3JlYXRlX3BvbGFyaXMxMiB9LAogCXsgMHg2OTg2LCAmdW1yX2NyZWF0ZV9wb2xh
+cmlzMTIgfSwKIAl7IDB4Njk4NywgJnVtcl9jcmVhdGVfcG9sYXJpczEyIH0sCi0JeyAweDY5OEYs
+ICZ1bXJfY3JlYXRlX3BvbGFyaXMxMiB9LAorCXsgMHg2OTk1LCAmdW1yX2NyZWF0ZV9wb2xhcmlz
+MTIgfSwKKwl7IDB4Njk5RiwgJnVtcl9jcmVhdGVfcG9sYXJpczEyIH0sCiAJeyAweDczMDAsICZ1
+bXJfY3JlYXRlX2ZpamkgICB9LAogCXsgMHg3MzBGLCAmdW1yX2NyZWF0ZV9maWppICAgfSwKIAl7
+IDB4OTgzMCwgJnVtcl9jcmVhdGVfa2FiaW5pIH0sCi0tIAoyLjEyLjAKCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
