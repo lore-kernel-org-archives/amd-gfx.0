@@ -1,13 +1,11 @@
 From: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 1/2] amdgpu: add new VA operations CLEAR and REPLACE
-Date: Fri, 17 Mar 2017 13:59:21 +0800
-Message-ID: <1489730362-31095-2-git-send-email-Jerry.Zhang@amd.com>
-References: <1489730362-31095-1-git-send-email-Jerry.Zhang@amd.com>
+Subject: [PATCH 0/2] *** [libdrm] add REPLACE and CLEAR for VA op ***
+Date: Fri, 17 Mar 2017 13:59:20 +0800
+Message-ID: <1489730362-31095-1-git-send-email-Jerry.Zhang@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1489730362-31095-1-git-send-email-Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,16 +19,11 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, christian.koenig-5C7GfCeVMHo@public.gmane.org, nicolai.haehnle-5C7GfCeVMHo@public.gmane.org
 
-U2lnbmVkLW9mZi1ieTogSnVud2VpIFpoYW5nIDxKZXJyeS5aaGFuZ0BhbWQuY29tPgotLS0KIGlu
-Y2x1ZGUvZHJtL2FtZGdwdV9kcm0uaCB8IDIgKysKIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlv
-bnMoKykKCmRpZmYgLS1naXQgYS9pbmNsdWRlL2RybS9hbWRncHVfZHJtLmggYi9pbmNsdWRlL2Ry
-bS9hbWRncHVfZHJtLmgKaW5kZXggNzAwMmRjNC4uYTczYjQwYSAxMDA2NDQKLS0tIGEvaW5jbHVk
-ZS9kcm0vYW1kZ3B1X2RybS5oCisrKyBiL2luY2x1ZGUvZHJtL2FtZGdwdV9kcm0uaApAQCAtNDEw
-LDYgKzQxMCw4IEBAIHN0cnVjdCBkcm1fYW1kZ3B1X2dlbV9vcCB7CiAKICNkZWZpbmUgQU1ER1BV
-X1ZBX09QX01BUAkJCTEKICNkZWZpbmUgQU1ER1BVX1ZBX09QX1VOTUFQCQkJMgorI2RlZmluZSBB
-TURHUFVfVkFfT1BfQ0xFQVIJCQkzCisjZGVmaW5lIEFNREdQVV9WQV9PUF9SRVBMQUNFCQkJNAog
-CiAvKiBEZWxheSB0aGUgcGFnZSB0YWJsZSB1cGRhdGUgdGlsbCB0aGUgbmV4dCBDUyAqLwogI2Rl
-ZmluZSBBTURHUFVfVk1fREVMQVlfVVBEQVRFCQkoMSA8PCAwKQotLSAKMS45LjEKCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
-aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+QmFzZWQgb24gbGF0ZXN0IFBSVCBzdXBwb3J0IGJ5IE5pY29sYWkKCkp1bndlaSBaaGFuZyAoMik6
+CiAgYW1kZ3B1OiBhZGQgbmV3IFZBIG9wZXJhdGlvbnMgQ0xFQVIgYW5kIFJFUExBQ0UKICBhbWRn
+cHU6IGFkZCBSRVBMQUNFIGFuZCBDTEVBUiBjaGVja2luZyBmb3IgVkEgb3AKCiBhbWRncHUvYW1k
+Z3B1X2JvLmMgICAgICAgfCA1ICsrKystCiBpbmNsdWRlL2RybS9hbWRncHVfZHJtLmggfCAyICsr
+CiAyIGZpbGVzIGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKLS0gCjEu
+OS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
+Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
