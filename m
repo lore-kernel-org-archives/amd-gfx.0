@@ -1,13 +1,15 @@
-From: Jan Ziak <0xe2.0x9a.0x9b-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 000/100] Add Vega10 Support
-Date: Mon, 20 Mar 2017 23:34:52 +0100
-Message-ID: <CAODFU0q8C=yW-rBhf-Tj7AT=OijGfRViajMQH59WVYzHmPU9LA@mail.gmail.com>
+Date: Mon, 20 Mar 2017 19:38:39 -0400
+Message-ID: <d1dc991e-8ae7-eae9-65bf-97c6319e8d17@amd.com>
 References: <CAODFU0pW=uyAa9Bdjbzv63cFaBMoF34+rW9xWDorAuMKHFsRUQ@mail.gmail.com>
  <CADnq5_ONBTDeGQC_3ApDBv+xa88r5ZvA0RHiZHbohYBZ48=F5g@mail.gmail.com>
+ <CAODFU0q8C=yW-rBhf-Tj7AT=OijGfRViajMQH59WVYzHmPU9LA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1445564585=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_ONBTDeGQC_3ApDBv+xa88r5ZvA0RHiZHbohYBZ48=F5g-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <CAODFU0q8C=yW-rBhf-Tj7AT=OijGfRViajMQH59WVYzHmPU9LA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,258 +20,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============1445564585==
-Content-Type: multipart/alternative; boundary=f40304353fa0fd601e054b3123a9
-
---f40304353fa0fd601e054b3123a9
-Content-Type: text/plain; charset=UTF-8
-
-On Mon, Mar 20, 2017 at 10:41 PM, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-wrote:
-
-> On Mon, Mar 20, 2017 at 5:36 PM, Jan Ziak <0xe2.0x9a.0x9b-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-> wrote:
-> > Hi
-> >
-> > https://cgit.freedesktop.org/~agd5f/linux/plain/drivers/gpu/
-> drm/amd/include/asic_reg/vega10/NBIO/nbio_6_1_sh_mask.
-> h?h=amd-staging-4.9&id=9555ef0ba926df25d9a637d0ea21bc0d231c21d2
-> >
-> > The file nbio_6_1_sh_mask.h is uncompressed. It consists from 133884
-> lines.
-> > Only generated C/C++ code will be able to utilize the content of such a
-> file
-> > efficiently. All hand-written codes combined will be able to utilize
-> about
-> > 1% of the file.
-> >
-> > Is there a reason why nbio_6_1_sh_mask.h is huge?
->
-> That IP block contains a lot of registers.  The idea is to open source
-> as much IP as possible to facilitate debugging, new features, etc.
->
-> Alex
->
-
-[This email contains long/wide lines and should be viewed on a sufficiently
-wide screen]
-
-For example if I open the file in vim and go to line 66952:
-
-#define DWC_E12MP_PHY_X4_NS_X4_1_LANE1_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT
-0x9
-
-Then abstracting away some of the digits used in the defined identifier and
-using egrep:
-
-$ egrep
-"\<DWC_E12MP_PHY_X._NS_X._._LANE._DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_.__DTB_SEL__SHIFT\>"
-nbio_6_1_sh_mask.h
-#define
-DWC_E12MP_PHY_X4_NS_X4_0_LANE0_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT
-                       0x9
-#define
-DWC_E12MP_PHY_X4_NS_X4_0_LANE1_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT
-                       0x9
-#define
-DWC_E12MP_PHY_X4_NS_X4_0_LANE2_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT
-                       0x9
-#define
-DWC_E12MP_PHY_X4_NS_X4_0_LANE3_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT
-                       0x9
-#define
-DWC_E12MP_PHY_X4_NS_X4_0_LANEX_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT
-                       0x9
-#define
-DWC_E12MP_PHY_X4_NS_X4_1_LANE0_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT
-                       0x9
-#define
-DWC_E12MP_PHY_X4_NS_X4_1_LANE1_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT
-                       0x9
-#define
-DWC_E12MP_PHY_X4_NS_X4_1_LANE2_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT
-                       0x9
-#define
-DWC_E12MP_PHY_X4_NS_X4_1_LANE3_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT
-                       0x9
-#define
-DWC_E12MP_PHY_X4_NS_X4_1_LANEX_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT
-                       0x9
-#define
-DWC_E12MP_PHY_X4_NS_X4_2_LANE0_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT
-                       0x9
-#define
-DWC_E12MP_PHY_X4_NS_X4_2_LANE1_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT
-                       0x9
-#define
-DWC_E12MP_PHY_X4_NS_X4_2_LANE2_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT
-                       0x9
-#define
-DWC_E12MP_PHY_X4_NS_X4_2_LANE3_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT
-                       0x9
-#define
-DWC_E12MP_PHY_X4_NS_X4_2_LANEX_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT
-                       0x9
-#define
-DWC_E12MP_PHY_X4_NS_X4_3_LANE0_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT
-                       0x9
-#define
-DWC_E12MP_PHY_X4_NS_X4_3_LANE1_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT
-                       0x9
-#define
-DWC_E12MP_PHY_X4_NS_X4_3_LANE2_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT
-                       0x9
-#define
-DWC_E12MP_PHY_X4_NS_X4_3_LANE3_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT
-                       0x9
-#define
-DWC_E12MP_PHY_X4_NS_X4_3_LANEX_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT
-                       0x9
-
-The egrep command produced 20 lines.
-
-Instead of the many #define directives, it is a possibility to define
-functions such as:
-
-int
-DWC_E12MP_PHY_Xa_NS_Xb_c_LANEd_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_e__DTB_SEL__SHIFT(int
-a, int b, int c, int d, int e) __attribute__((pure));
-
-I suppose the file nbio_6_1_sh_mask.h is the output of a tool (it is a
-generated file). It is an option to modify the tool to output C functions
-with proper input guards instead of #define directives.
-
-Jan
-
---f40304353fa0fd601e054b3123a9
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_extra"><div class=3D"gmail_quote">On M=
-on, Mar 20, 2017 at 10:41 PM, Alex Deucher <span dir=3D"ltr">&lt;<a href=3D=
-"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&=
-gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0px =
-0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><spa=
-n class=3D"gmail-">On Mon, Mar 20, 2017 at 5:36 PM, Jan Ziak &lt;<a href=3D=
-"mailto:0xe2.0x9a.0x9b-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">0xe2.0x9a.0x9b-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<b=
-r>
-&gt; Hi<br>
-&gt;<br>
-&gt; <a href=3D"https://cgit.freedesktop.org/~agd5f/linux/plain/drivers/gpu=
-/drm/amd/include/asic_reg/vega10/NBIO/nbio_6_1_sh_mask.h?h=3Damd-staging-4.=
-9&amp;id=3D9555ef0ba926df25d9a637d0ea21bc0d231c21d2" rel=3D"noreferrer" tar=
-get=3D"_blank">https://cgit.freedesktop.org/~<wbr>agd5f/linux/plain/drivers=
-/gpu/<wbr>drm/amd/include/asic_reg/<wbr>vega10/NBIO/nbio_6_1_sh_mask.<wbr>h=
-?h=3Damd-staging-4.9&amp;id=3D<wbr>9555ef0ba926df25d9a637d0ea21bc<wbr>0d231=
-c21d2</a><br>
-&gt;<br>
-&gt; The file nbio_6_1_sh_mask.h is uncompressed. It consists from 133884 l=
-ines.<br>
-&gt; Only generated C/C++ code will be able to utilize the content of such =
-a file<br>
-&gt; efficiently. All hand-written codes combined will be able to utilize a=
-bout<br>
-&gt; 1% of the file.<br>
-&gt;<br>
-&gt; Is there a reason why nbio_6_1_sh_mask.h is huge?<br>
-<br>
-</span>That IP block contains a lot of registers.=C2=A0 The idea is to open=
- source<br>
-as much IP as possible to facilitate debugging, new features, etc.<br>
-<span class=3D"gmail-HOEnZb"><font color=3D"#888888"><br>
-Alex<br>
-</font></span></blockquote></div><br></div><div class=3D"gmail_extra">[This=
- email contains long/wide lines and should be viewed on a sufficiently wide=
- screen]<br></div><div class=3D"gmail_extra"><br></div><div class=3D"gmail_=
-extra">For example if I open the file in vim and go to line 66952:</div><di=
-v class=3D"gmail_extra"><br></div><div class=3D"gmail_extra">#define=C2=A0D=
-WC_E12MP_PHY_X4_NS_X4_1_LANE1_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHI=
-FT 0x9<br></div><div class=3D"gmail_extra"><br></div><div class=3D"gmail_ex=
-tra">Then abstracting away some of the digits used in the defined identifie=
-r and using egrep:</div><div class=3D"gmail_extra"><br></div><div class=3D"=
-gmail_extra"><div class=3D"gmail_extra">$ egrep &quot;\&lt;DWC_E12MP_PHY_X.=
-_NS_X._._LANE._DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_.__DTB_SEL__SHIFT\&gt;&quot; n=
-bio_6_1_sh_mask.h=C2=A0</div><div class=3D"gmail_extra">#define DWC_E12MP_P=
-HY_X4_NS_X4_0_LANE0_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A00x9</div><div class=3D"gmail_extra">#define DWC_E12MP_PHY_X4_NS_X4_0_LAN=
-E1_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00x9</div><div cl=
-ass=3D"gmail_extra">#define DWC_E12MP_PHY_X4_NS_X4_0_LANE2_DIG_RX_VCOCAL_RX=
-_VCO_CAL_CTRL_1__DTB_SEL__SHIFT =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00x9</div><div class=3D"gmail_extra=
-">#define DWC_E12MP_PHY_X4_NS_X4_0_LANE3_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__D=
-TB_SEL__SHIFT =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A00x9</div><div class=3D"gmail_extra">#define DWC_E12=
-MP_PHY_X4_NS_X4_0_LANEX_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A00x9</div><div class=3D"gmail_extra">#define DWC_E12MP_PHY_X4_NS_X4_1_=
-LANE0_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00x9</div><div=
- class=3D"gmail_extra">#define DWC_E12MP_PHY_X4_NS_X4_1_LANE1_DIG_RX_VCOCAL=
-_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00x9</div><div class=3D"gmail_e=
-xtra">#define DWC_E12MP_PHY_X4_NS_X4_1_LANE2_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_=
-1__DTB_SEL__SHIFT =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A00x9</div><div class=3D"gmail_extra">#define DWC_=
-E12MP_PHY_X4_NS_X4_1_LANE3_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A00x9</div><div class=3D"gmail_extra">#define DWC_E12MP_PHY_X4_NS_X=
-4_1_LANEX_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00x9</div>=
-<div class=3D"gmail_extra">#define DWC_E12MP_PHY_X4_NS_X4_2_LANE0_DIG_RX_VC=
-OCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00x9</div><div class=3D"gmai=
-l_extra">#define DWC_E12MP_PHY_X4_NS_X4_2_LANE1_DIG_RX_VCOCAL_RX_VCO_CAL_CT=
-RL_1__DTB_SEL__SHIFT =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00x9</div><div class=3D"gmail_extra">#define =
-DWC_E12MP_PHY_X4_NS_X4_2_LANE2_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SH=
-IFT =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A00x9</div><div class=3D"gmail_extra">#define DWC_E12MP_PHY_X4_N=
-S_X4_2_LANE3_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00x9</d=
-iv><div class=3D"gmail_extra">#define DWC_E12MP_PHY_X4_NS_X4_2_LANEX_DIG_RX=
-_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00x9</div><div class=3D"=
-gmail_extra">#define DWC_E12MP_PHY_X4_NS_X4_3_LANE0_DIG_RX_VCOCAL_RX_VCO_CA=
-L_CTRL_1__DTB_SEL__SHIFT =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00x9</div><div class=3D"gmail_extra">#defi=
-ne DWC_E12MP_PHY_X4_NS_X4_3_LANE1_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL_=
-_SHIFT =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A00x9</div><div class=3D"gmail_extra">#define DWC_E12MP_PHY_=
-X4_NS_X4_3_LANE2_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00x=
-9</div><div class=3D"gmail_extra">#define DWC_E12MP_PHY_X4_NS_X4_3_LANE3_DI=
-G_RX_VCOCAL_RX_VCO_CAL_CTRL_1__DTB_SEL__SHIFT =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00x9</div><div class=
-=3D"gmail_extra">#define DWC_E12MP_PHY_X4_NS_X4_3_LANEX_DIG_RX_VCOCAL_RX_VC=
-O_CAL_CTRL_1__DTB_SEL__SHIFT =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00x9</div><div class=3D"gmail_extra"><=
-br></div><div class=3D"gmail_extra">The egrep command produced 20 lines.</d=
-iv><div class=3D"gmail_extra"><br></div><div class=3D"gmail_extra">Instead =
-of the many #define directives, it is a possibility to define functions suc=
-h as:</div><div class=3D"gmail_extra"><br></div><div class=3D"gmail_extra">=
-int DWC_E12MP_PHY_Xa_NS_Xb_c_LANEd_DIG_RX_VCOCAL_RX_VCO_CAL_CTRL_e__DTB_SEL=
-__SHIFT(int a, int b, int c, int d, int e) __attribute__((pure));</div><div=
- class=3D"gmail_extra"><br></div><div class=3D"gmail_extra">I suppose the f=
-ile nbio_6_1_sh_mask.h is the output of a tool (it is a generated file). It=
- is an option to modify the tool to output C functions with proper input gu=
-ards instead of #define directives.</div><div class=3D"gmail_extra"><br></d=
-iv><div class=3D"gmail_extra">Jan</div></div></div>
-
---f40304353fa0fd601e054b3123a9--
-
---===============1445564585==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1445564585==--
+T24gMDMvMjAvMjAxNyAwNjozNCBQTSwgSmFuIFppYWsgd3JvdGU6Cj4gT24gTW9uLCBNYXIgMjAs
+IDIwMTcgYXQgMTA6NDEgUE0sIEFsZXggRGV1Y2hlciA8YWxleGRldWNoZXJAZ21haWwuY29tCj4g
+PG1haWx0bzphbGV4ZGV1Y2hlckBnbWFpbC5jb20+PiB3cm90ZToKPgo+ICAgICBPbiBNb24sIE1h
+ciAyMCwgMjAxNyBhdCA1OjM2IFBNLCBKYW4gWmlhayA8MHhlMi4weDlhLjB4OWJAZ21haWwuY29t
+Cj4gICAgIDxtYWlsdG86MHhlMi4weDlhLjB4OWJAZ21haWwuY29tPj4gd3JvdGU6Cj4gICAgID4g
+SGkKPiAgICAgPgo+ICAgICA+IGh0dHBzOi8vY2dpdC5mcmVlZGVza3RvcC5vcmcvfmFnZDVmL2xp
+bnV4L3BsYWluL2RyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hc2ljX3JlZy92ZWdhMTAvTkJJ
+Ty9uYmlvXzZfMV9zaF9tYXNrLmg/aD1hbWQtc3RhZ2luZy00LjkmaWQ9OTU1NWVmMGJhOTI2ZGYy
+NWQ5YTYzN2QwZWEyMWJjMGQyMzFjMjFkMgo+ICAgICA8aHR0cHM6Ly9jZ2l0LmZyZWVkZXNrdG9w
+Lm9yZy9+YWdkNWYvbGludXgvcGxhaW4vZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2FzaWNf
+cmVnL3ZlZ2ExMC9OQklPL25iaW9fNl8xX3NoX21hc2suaD9oPWFtZC1zdGFnaW5nLTQuOSZpZD05
+NTU1ZWYwYmE5MjZkZjI1ZDlhNjM3ZDBlYTIxYmMwZDIzMWMyMWQyPgo+ICAgICA+Cj4gICAgID4g
+VGhlIGZpbGUgbmJpb182XzFfc2hfbWFzay5oIGlzIHVuY29tcHJlc3NlZC4gSXQgY29uc2lzdHMg
+ZnJvbSAxMzM4ODQgbGluZXMuCj4gICAgID4gT25seSBnZW5lcmF0ZWQgQy9DKysgY29kZSB3aWxs
+IGJlIGFibGUgdG8gdXRpbGl6ZSB0aGUgY29udGVudCBvZiBzdWNoIGEgZmlsZQo+ICAgICA+IGVm
+ZmljaWVudGx5LiBBbGwgaGFuZC13cml0dGVuIGNvZGVzIGNvbWJpbmVkIHdpbGwgYmUgYWJsZSB0
+byB1dGlsaXplIGFib3V0Cj4gICAgID4gMSUgb2YgdGhlIGZpbGUuCj4gICAgID4KPiAgICAgPiBJ
+cyB0aGVyZSBhIHJlYXNvbiB3aHkgbmJpb182XzFfc2hfbWFzay5oIGlzIGh1Z2U/Cj4KPiAgICAg
+VGhhdCBJUCBibG9jayBjb250YWlucyBhIGxvdCBvZiByZWdpc3RlcnMuICBUaGUgaWRlYSBpcyB0
+byBvcGVuIHNvdXJjZQo+ICAgICBhcyBtdWNoIElQIGFzIHBvc3NpYmxlIHRvIGZhY2lsaXRhdGUg
+ZGVidWdnaW5nLCBuZXcgZmVhdHVyZXMsIGV0Yy4KPgo+ICAgICBBbGV4Cj4KPgo+IFtUaGlzIGVt
+YWlsIGNvbnRhaW5zIGxvbmcvd2lkZSBsaW5lcyBhbmQgc2hvdWxkIGJlIHZpZXdlZCBvbiBhCj4g
+c3VmZmljaWVudGx5IHdpZGUgc2NyZWVuXQo+Cj4gRm9yIGV4YW1wbGUgaWYgSSBvcGVuIHRoZSBm
+aWxlIGluIHZpbSBhbmQgZ28gdG8gbGluZSA2Njk1MjoKPgo+ICNkZWZpbmUgRFdDX0UxMk1QX1BI
+WV9YNF9OU19YNF8xX0xBTkUxX0RJR19SWF9WQ09DQUxfUlhfVkNPX0NBTF9DVFJMXzFfX0RUQl9T
+RUxfX1NISUZUCj4gMHg5Cj4KPiBUaGVuIGFic3RyYWN0aW5nIGF3YXkgc29tZSBvZiB0aGUgZGln
+aXRzIHVzZWQgaW4gdGhlIGRlZmluZWQgaWRlbnRpZmllcgo+IGFuZCB1c2luZyBlZ3JlcDoKPgo+
+ICQgZWdyZXAKPiAiXDxEV0NfRTEyTVBfUEhZX1guX05TX1guXy5fTEFORS5fRElHX1JYX1ZDT0NB
+TF9SWF9WQ09fQ0FMX0NUUkxfLl9fRFRCX1NFTF9fU0hJRlRcPiIKPiBuYmlvXzZfMV9zaF9tYXNr
+LmgKPiAjZGVmaW5lCj4gRFdDX0UxMk1QX1BIWV9YNF9OU19YNF8wX0xBTkUwX0RJR19SWF9WQ09D
+QUxfUlhfVkNPX0NBTF9DVFJMXzFfX0RUQl9TRUxfX1NISUZUCj4gICAgICAgICAgICAgICAgICAg
+ICAgICAweDkKPiAjZGVmaW5lCj4gRFdDX0UxMk1QX1BIWV9YNF9OU19YNF8wX0xBTkUxX0RJR19S
+WF9WQ09DQUxfUlhfVkNPX0NBTF9DVFJMXzFfX0RUQl9TRUxfX1NISUZUCj4gICAgICAgICAgICAg
+ICAgICAgICAgICAweDkKPiAjZGVmaW5lCj4gRFdDX0UxMk1QX1BIWV9YNF9OU19YNF8wX0xBTkUy
+X0RJR19SWF9WQ09DQUxfUlhfVkNPX0NBTF9DVFJMXzFfX0RUQl9TRUxfX1NISUZUCj4gICAgICAg
+ICAgICAgICAgICAgICAgICAweDkKPiAjZGVmaW5lCj4gRFdDX0UxMk1QX1BIWV9YNF9OU19YNF8w
+X0xBTkUzX0RJR19SWF9WQ09DQUxfUlhfVkNPX0NBTF9DVFJMXzFfX0RUQl9TRUxfX1NISUZUCj4g
+ICAgICAgICAgICAgICAgICAgICAgICAweDkKPiAjZGVmaW5lCj4gRFdDX0UxMk1QX1BIWV9YNF9O
+U19YNF8wX0xBTkVYX0RJR19SWF9WQ09DQUxfUlhfVkNPX0NBTF9DVFJMXzFfX0RUQl9TRUxfX1NI
+SUZUCj4gICAgICAgICAgICAgICAgICAgICAgICAweDkKPiAjZGVmaW5lCj4gRFdDX0UxMk1QX1BI
+WV9YNF9OU19YNF8xX0xBTkUwX0RJR19SWF9WQ09DQUxfUlhfVkNPX0NBTF9DVFJMXzFfX0RUQl9T
+RUxfX1NISUZUCj4gICAgICAgICAgICAgICAgICAgICAgICAweDkKPiAjZGVmaW5lCj4gRFdDX0Ux
+Mk1QX1BIWV9YNF9OU19YNF8xX0xBTkUxX0RJR19SWF9WQ09DQUxfUlhfVkNPX0NBTF9DVFJMXzFf
+X0RUQl9TRUxfX1NISUZUCj4gICAgICAgICAgICAgICAgICAgICAgICAweDkKPiAjZGVmaW5lCj4g
+RFdDX0UxMk1QX1BIWV9YNF9OU19YNF8xX0xBTkUyX0RJR19SWF9WQ09DQUxfUlhfVkNPX0NBTF9D
+VFJMXzFfX0RUQl9TRUxfX1NISUZUCj4gICAgICAgICAgICAgICAgICAgICAgICAweDkKPiAjZGVm
+aW5lCj4gRFdDX0UxMk1QX1BIWV9YNF9OU19YNF8xX0xBTkUzX0RJR19SWF9WQ09DQUxfUlhfVkNP
+X0NBTF9DVFJMXzFfX0RUQl9TRUxfX1NISUZUCj4gICAgICAgICAgICAgICAgICAgICAgICAweDkK
+PiAjZGVmaW5lCj4gRFdDX0UxMk1QX1BIWV9YNF9OU19YNF8xX0xBTkVYX0RJR19SWF9WQ09DQUxf
+UlhfVkNPX0NBTF9DVFJMXzFfX0RUQl9TRUxfX1NISUZUCj4gICAgICAgICAgICAgICAgICAgICAg
+ICAweDkKPiAjZGVmaW5lCj4gRFdDX0UxMk1QX1BIWV9YNF9OU19YNF8yX0xBTkUwX0RJR19SWF9W
+Q09DQUxfUlhfVkNPX0NBTF9DVFJMXzFfX0RUQl9TRUxfX1NISUZUCj4gICAgICAgICAgICAgICAg
+ICAgICAgICAweDkKPiAjZGVmaW5lCj4gRFdDX0UxMk1QX1BIWV9YNF9OU19YNF8yX0xBTkUxX0RJ
+R19SWF9WQ09DQUxfUlhfVkNPX0NBTF9DVFJMXzFfX0RUQl9TRUxfX1NISUZUCj4gICAgICAgICAg
+ICAgICAgICAgICAgICAweDkKPiAjZGVmaW5lCj4gRFdDX0UxMk1QX1BIWV9YNF9OU19YNF8yX0xB
+TkUyX0RJR19SWF9WQ09DQUxfUlhfVkNPX0NBTF9DVFJMXzFfX0RUQl9TRUxfX1NISUZUCj4gICAg
+ICAgICAgICAgICAgICAgICAgICAweDkKPiAjZGVmaW5lCj4gRFdDX0UxMk1QX1BIWV9YNF9OU19Y
+NF8yX0xBTkUzX0RJR19SWF9WQ09DQUxfUlhfVkNPX0NBTF9DVFJMXzFfX0RUQl9TRUxfX1NISUZU
+Cj4gICAgICAgICAgICAgICAgICAgICAgICAweDkKPiAjZGVmaW5lCj4gRFdDX0UxMk1QX1BIWV9Y
+NF9OU19YNF8yX0xBTkVYX0RJR19SWF9WQ09DQUxfUlhfVkNPX0NBTF9DVFJMXzFfX0RUQl9TRUxf
+X1NISUZUCj4gICAgICAgICAgICAgICAgICAgICAgICAweDkKPiAjZGVmaW5lCj4gRFdDX0UxMk1Q
+X1BIWV9YNF9OU19YNF8zX0xBTkUwX0RJR19SWF9WQ09DQUxfUlhfVkNPX0NBTF9DVFJMXzFfX0RU
+Ql9TRUxfX1NISUZUCj4gICAgICAgICAgICAgICAgICAgICAgICAweDkKPiAjZGVmaW5lCj4gRFdD
+X0UxMk1QX1BIWV9YNF9OU19YNF8zX0xBTkUxX0RJR19SWF9WQ09DQUxfUlhfVkNPX0NBTF9DVFJM
+XzFfX0RUQl9TRUxfX1NISUZUCj4gICAgICAgICAgICAgICAgICAgICAgICAweDkKPiAjZGVmaW5l
+Cj4gRFdDX0UxMk1QX1BIWV9YNF9OU19YNF8zX0xBTkUyX0RJR19SWF9WQ09DQUxfUlhfVkNPX0NB
+TF9DVFJMXzFfX0RUQl9TRUxfX1NISUZUCj4gICAgICAgICAgICAgICAgICAgICAgICAweDkKPiAj
+ZGVmaW5lCj4gRFdDX0UxMk1QX1BIWV9YNF9OU19YNF8zX0xBTkUzX0RJR19SWF9WQ09DQUxfUlhf
+VkNPX0NBTF9DVFJMXzFfX0RUQl9TRUxfX1NISUZUCj4gICAgICAgICAgICAgICAgICAgICAgICAw
+eDkKPiAjZGVmaW5lCj4gRFdDX0UxMk1QX1BIWV9YNF9OU19YNF8zX0xBTkVYX0RJR19SWF9WQ09D
+QUxfUlhfVkNPX0NBTF9DVFJMXzFfX0RUQl9TRUxfX1NISUZUCj4gICAgICAgICAgICAgICAgICAg
+ICAgICAweDkKPgo+IFRoZSBlZ3JlcCBjb21tYW5kIHByb2R1Y2VkIDIwIGxpbmVzLgo+Cj4gSW5z
+dGVhZCBvZiB0aGUgbWFueSAjZGVmaW5lIGRpcmVjdGl2ZXMsIGl0IGlzIGEgcG9zc2liaWxpdHkg
+dG8gZGVmaW5lCj4gZnVuY3Rpb25zIHN1Y2ggYXM6Cj4KPiBpbnQKPiBEV0NfRTEyTVBfUEhZX1hh
+X05TX1hiX2NfTEFORWRfRElHX1JYX1ZDT0NBTF9SWF9WQ09fQ0FMX0NUUkxfZV9fRFRCX1NFTF9f
+U0hJRlQoaW50Cj4gYSwgaW50IGIsIGludCBjLCBpbnQgZCwgaW50IGUpIF9fYXR0cmlidXRlX18o
+KHB1cmUpKTsKPgo+IEkgc3VwcG9zZSB0aGUgZmlsZSBuYmlvXzZfMV9zaF9tYXNrLmggaXMgdGhl
+IG91dHB1dCBvZiBhIHRvb2wgKGl0IGlzIGEKPiBnZW5lcmF0ZWQgZmlsZSkuIEl0IGlzIGFuIG9w
+dGlvbiB0byBtb2RpZnkgdGhlIHRvb2wgdG8gb3V0cHV0IEMKPiBmdW5jdGlvbnMgd2l0aCBwcm9w
+ZXIgaW5wdXQgZ3VhcmRzIGluc3RlYWQgb2YgI2RlZmluZSBkaXJlY3RpdmVzLgoKVGhlIHJlZ2lz
+dGVycyBhcmUgZ2VuZXJhdGVkIGJ5IHRoZSBIVyB0ZWFtIGFuZCB0aGVuIGZpbHRlcmVkIGRvd24g
+dG8gCmJlY29tZSB3aGF0IHdlIHJlbGVhc2UgcHVibGljbHkuICBJdCBpcyBtYWNoaW5lIGdlbmVy
+YXRlZCB2ZXJ5IGxpa2VseSAKZnJvbSB0aGUgUlRMIHRoYXQgc3BlY2lmaWVzIHRoZSBoYXJkd2Fy
+ZSBpdHNlbGYuCgpHZW5lcmFsbHkgc3BlYWtpbmcgaWYgYSBjbGFzcyBvZiByZWdpc3RlcnMgc2hh
+cmUgbWFza3Mvb2Zmc2V0cyB0aGUgCmxvd2VzdCAoemVybyd0aCkgaXMgdXNlZCBpbiBwcm9ncmFt
+bWluZyBhbmQgb2Zmc2V0cyBhcmUgdXNlZCB3aGVuIApzZWxlY3RpbmcgdGhlIGNvcnJlY3QgTU1J
+TyBhZGRyZXNzIHRvIHVzZSBzcGVjaWZpYyBpbnN0YW5jZXMuCgpIYXZpbmcgdGhlc2UgZW51bWVy
+YXRlZCB0aG91Z2ggaXMgaGFuZHkgZm9yIHRvb2xzIGxpa2UgVU1SIHdoaWNoIHdvdWxkIApkZWNv
+ZGUgdG8gdGhlIGNvcnJlY3QgaW5zdGFuY2Ugb2YgdGhlIHJlZ2lzdGVyICh5b3UgY291bGQgZXZl
+biBzZWUgdGhhdCAKYnkgd2F0Y2hpbmcgdGhlIGxvZ3NjYW4gdmlhIHVtcikuICBTbyB3ZSBtYWtl
+IHVzZSBvZiB0aGVtIGZhaXJseSAKZWZmaWNpZW50bHkuICBVTVIgcmVhZHMgdGhlIGhlYWRlcnMg
+dG8gY3JlYXRlIHRoZSBhcnJheXMgb2YgCnJlZ2lzdGVycy9iaXRmaWVsZHMgd2hpY2ggaWYgdGhl
+eSB3ZXJlIGNvbXB1dGVkIGF0IHJ1bnRpbWUgKHZpYSBoZWxwZXIgCmZ1bmN0aW9ucykgd291bGQg
+YmUgaGFyZGVyIHRvIHBhcnNlIChhbmQgY291bGQgYW1vdW50IHRvIHRoZSBoYWx0aW5nIApwcm9i
+bGVtLi4uKS4KCldoYXQgaXMgaW4gdGhlIE5CSU8gaGVhZGVyIHRvZGF5IGlzIHdoYXQgd2FzIElQ
+IGNsZWFyZWQgYnV0IGluIHRoZW9yeSBpdCAKY291bGQgYmUgZmlsdGVyZWQgZG93biBtb3JlIHNp
+bXBseSB0byByZWR1Y2UgdGhlIHVudXNlZCBMT0NzIGluIGZ1dHVyZSAKa2VybmVscy4KClRoZXkg
+ZG9uJ3QgbWFrZSBmb3IgZ29vZCBiZWR0aW1lIHJlYWRpbmcgYnV0IGltaG8geW91J2QgcmF0aGVy
+IGhhdmUgbW9yZSAKaGVhZGVycyBub3QgbGVzcyA6LSkKClRvbQpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2FtZC1nZngK
