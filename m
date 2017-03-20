@@ -1,13 +1,10 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 098/100] drm/amdgpu: add mmsch structures
-Date: Mon, 20 Mar 2017 16:30:33 -0400
-Message-ID: <1490041835-11255-84-git-send-email-alexander.deucher@amd.com>
-References: <1490041835-11255-1-git-send-email-alexander.deucher@amd.com>
+From: Jan Ziak <0xe2.0x9a.0x9b-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 000/100] Add Vega10 Support
+Date: Mon, 20 Mar 2017 22:36:51 +0100
+Message-ID: <CAODFU0pW=uyAa9Bdjbzv63cFaBMoF34+rW9xWDorAuMKHFsRUQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0784631094=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1490041835-11255-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,72 +15,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Xiangliang Yu <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>, Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 
-RnJvbTogWGlhbmdsaWFuZyBZdSA8WGlhbmdsaWFuZy5ZdUBhbWQuY29tPgoKRm9yIE1NIFNSSU9W
-LCBuZWVkIHRvIHByZXBhcmUgTU0gdGFibGUgc2VuZCBzZW5kIGl0IHRvIE1NU0NIIHRvCmluaXRp
-YWwgVVZEICYgVkNFIGVuZ2luZS4gQ3JlYXRlIG5ldyBoZWFkZXIgZmlsZSBmb3IgdGhlIHN0cnVj
-dHVyZXMuCgpTaWduZWQtb2ZmLWJ5OiBYaWFuZ2xpYW5nIFl1IDxYaWFuZ2xpYW5nLll1QGFtZC5j
-b20+ClNpZ25lZC1vZmYtYnk6IE1vbmsgTGl1IDxNb25rLkxpdUBhbWQuY29tPgpSZXZpZXdlZC1i
-eTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgpBY2tlZC1ieTogQ2hy
-aXN0aWFuIEvDg8K2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6
-IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9tbXNjaF92MV8wLmggfCA4NyArKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysKIDEgZmlsZSBjaGFuZ2VkLCA4NyBpbnNlcnRpb25zKCspCiBjcmVhdGUgbW9k
-ZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbW1zY2hfdjFfMC5oCgpkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbW1zY2hfdjFfMC5oIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvbW1zY2hfdjFfMC5oCm5ldyBmaWxlIG1vZGUgMTAwNjQ0CmluZGV4
-IDAwMDAwMDAuLjVmMGZjOGIKLS0tIC9kZXYvbnVsbAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9tbXNjaF92MV8wLmgKQEAgLTAsMCArMSw4NyBAQAorLyoKKyAqIENvcHlyaWdodCAy
-MDE3IEFkdmFuY2VkIE1pY3JvIERldmljZXMsIEluYy4KKyAqCisgKiBQZXJtaXNzaW9uIGlzIGhl
-cmVieSBncmFudGVkLCBmcmVlIG9mIGNoYXJnZSwgdG8gYW55IHBlcnNvbiBvYnRhaW5pbmcgYQor
-ICogY29weSBvZiB0aGlzIHNvZnR3YXJlIGFuZCBhc3NvY2lhdGVkIGRvY3VtZW50YXRpb24gZmls
-ZXMgKHRoZSAiU29mdHdhcmUiKSwKKyAqIHRvIGRlYWwgaW4gdGhlIFNvZnR3YXJlIHdpdGhvdXQg
-cmVzdHJpY3Rpb24sIGluY2x1ZGluZyB3aXRob3V0IGxpbWl0YXRpb24KKyAqIHRoZSByaWdodHMg
-dG8gdXNlLCBjb3B5LCBtb2RpZnksIG1lcmdlLCBwdWJsaXNoLCBkaXN0cmlidXRlLCBzdWJsaWNl
-bnNlLAorICogYW5kL29yIHNlbGwgY29waWVzIG9mIHRoZSBTb2Z0d2FyZSwgYW5kIHRvIHBlcm1p
-dCBwZXJzb25zIHRvIHdob20gdGhlCisgKiBTb2Z0d2FyZSBpcyBmdXJuaXNoZWQgdG8gZG8gc28s
-IHN1YmplY3QgdG8gdGhlIGZvbGxvd2luZyBjb25kaXRpb25zOgorICoKKyAqIFRoZSBhYm92ZSBj
-b3B5cmlnaHQgbm90aWNlIGFuZCB0aGlzIHBlcm1pc3Npb24gbm90aWNlIHNoYWxsIGJlIGluY2x1
-ZGVkIGluCisgKiBhbGwgY29waWVzIG9yIHN1YnN0YW50aWFsIHBvcnRpb25zIG9mIHRoZSBTb2Z0
-d2FyZS4KKyAqCisgKiBUSEUgU09GVFdBUkUgSVMgUFJPVklERUQgIkFTIElTIiwgV0lUSE9VVCBX
-QVJSQU5UWSBPRiBBTlkgS0lORCwgRVhQUkVTUyBPUgorICogSU1QTElFRCwgSU5DTFVESU5HIEJV
-VCBOT1QgTElNSVRFRCBUTyBUSEUgV0FSUkFOVElFUyBPRiBNRVJDSEFOVEFCSUxJVFksCisgKiBG
-SVRORVNTIEZPUiBBIFBBUlRJQ1VMQVIgUFVSUE9TRSBBTkQgTk9OSU5GUklOR0VNRU5ULiAgSU4g
-Tk8gRVZFTlQgU0hBTEwKKyAqIFRIRSBDT1BZUklHSFQgSE9MREVSKFMpIE9SIEFVVEhPUihTKSBC
-RSBMSUFCTEUgRk9SIEFOWSBDTEFJTSwgREFNQUdFUyBPUgorICogT1RIRVIgTElBQklMSVRZLCBX
-SEVUSEVSIElOIEFOIEFDVElPTiBPRiBDT05UUkFDVCwgVE9SVCBPUiBPVEhFUldJU0UsCisgKiBB
-UklTSU5HIEZST00sIE9VVCBPRiBPUiBJTiBDT05ORUNUSU9OIFdJVEggVEhFIFNPRlRXQVJFIE9S
-IFRIRSBVU0UgT1IKKyAqIE9USEVSIERFQUxJTkdTIElOIFRIRSBTT0ZUV0FSRS4KKyAqCisgKi8K
-KworI2lmbmRlZiBfX01NU0NIX1YxXzBfSF9fCisjZGVmaW5lIF9fTU1TQ0hfVjFfMF9IX18KKwor
-I2RlZmluZSBNTVNDSF9WRVJTSU9OX01BSk9SCTEKKyNkZWZpbmUgTU1TQ0hfVkVSU0lPTl9NSU5P
-UgkwCisjZGVmaW5lIE1NU0NIX1ZFUlNJT04JKE1NU0NIX1ZFUlNJT05fTUFKT1IgPDwgMTYgfCBN
-TVNDSF9WRVJTSU9OX01JTk9SKQorCitlbnVtIG1tc2NoX3YxXzBfY29tbWFuZF90eXBlIHsKKwlN
-TVNDSF9DT01NQU5EX19ESVJFQ1RfUkVHX1dSSVRFID0gMCwKKwlNTVNDSF9DT01NQU5EX19ESVJF
-Q1RfUkVHX1BPTExJTkcgPSAyLAorCU1NU0NIX0NPTU1BTkRfX0RJUkVDVF9SRUdfUkVBRF9NT0RJ
-RllfV1JJVEUgPSAzLAorCU1NU0NIX0NPTU1BTkRfX0lORElSRUNUX1JFR19XUklURSA9IDgsCisJ
-TU1TQ0hfQ09NTUFORF9fRU5EID0gMHhmCit9OworCitzdHJ1Y3QgbW1zY2hfdjFfMF9pbml0X2hl
-YWRlciB7CisJdWludDMyX3QgdmVyc2lvbjsKKwl1aW50MzJfdCBoZWFkZXJfc2l6ZTsKKwl1aW50
-MzJfdCB2Y2VfaW5pdF9zdGF0dXM7CisJdWludDMyX3QgdXZkX2luaXRfc3RhdHVzOworCXVpbnQz
-Ml90IHZjZV90YWJsZV9vZmZzZXQ7CisJdWludDMyX3QgdmNlX3RhYmxlX3NpemU7CisJdWludDMy
-X3QgdXZkX3RhYmxlX29mZnNldDsKKwl1aW50MzJfdCB1dmRfdGFibGVfc2l6ZTsKK307CisKK3N0
-cnVjdCBtbXNjaF92MV8wX2NtZF9kaXJlY3RfcmVnX2hlYWRlciB7CisJdWludDMyX3QgcmVnX29m
-ZnNldCAgIDogMjg7CisJdWludDMyX3QgY29tbWFuZF90eXBlIDogNDsKK307CisKK3N0cnVjdCBt
-bXNjaF92MV8wX2NtZF9pbmRpcmVjdF9yZWdfaGVhZGVyIHsKKwl1aW50MzJfdCByZWdfb2Zmc2V0
-ICAgIDogMjA7CisJdWludDMyX3QgcmVnX2lkeF9zcGFjZSA6IDg7CisJdWludDMyX3QgY29tbWFu
-ZF90eXBlICA6IDQ7Cit9OworCitzdHJ1Y3QgbW1zY2hfdjFfMF9jbWRfZGlyZWN0X3dyaXRlIHsK
-KwlzdHJ1Y3QgbW1zY2hfdjFfMF9jbWRfZGlyZWN0X3JlZ19oZWFkZXIgY21kX2hlYWRlcjsKKwl1
-aW50MzJfdCByZWdfdmFsdWU7Cit9OworCitzdHJ1Y3QgbW1zY2hfdjFfMF9jbWRfZGlyZWN0X3Jl
-YWRfbW9kaWZ5X3dyaXRlIHsKKwlzdHJ1Y3QgbW1zY2hfdjFfMF9jbWRfZGlyZWN0X3JlZ19oZWFk
-ZXIgY21kX2hlYWRlcjsKKwl1aW50MzJfdCB3cml0ZV9kYXRhOworCXVpbnQzMl90IG1hc2tfdmFs
-dWU7Cit9OworCitzdHJ1Y3QgbW1zY2hfdjFfMF9jbWRfZGlyZWN0X3BvbGxpbmcgeworCXN0cnVj
-dCBtbXNjaF92MV8wX2NtZF9kaXJlY3RfcmVnX2hlYWRlciBjbWRfaGVhZGVyOworCXVpbnQzMl90
-IG1hc2tfdmFsdWU7CisJdWludDMyX3Qgd2FpdF92YWx1ZTsKK307CisKK3N0cnVjdCBtbXNjaF92
-MV8wX2NtZF9lbmQgeworCXN0cnVjdCBtbXNjaF92MV8wX2NtZF9kaXJlY3RfcmVnX2hlYWRlciBj
-bWRfaGVhZGVyOworfTsKKworc3RydWN0IG1tc2NoX3YxXzBfY21kX2luZGlyZWN0X3dyaXRlIHsK
-KwlzdHJ1Y3QgbW1zY2hfdjFfMF9jbWRfaW5kaXJlY3RfcmVnX2hlYWRlciBjbWRfaGVhZGVyOwor
-CXVpbnQzMl90IHJlZ192YWx1ZTsKK307CisKKyNlbmRpZgotLSAKMi41LjUKCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
-CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============0784631094==
+Content-Type: multipart/alternative; boundary=001a11407f7c888ba7054b30540d
+
+--001a11407f7c888ba7054b30540d
+Content-Type: text/plain; charset=UTF-8
+
+Hi
+
+https://cgit.freedesktop.org/~agd5f/linux/plain/drivers/gpu/drm/amd/include/asic_reg/vega10/NBIO/nbio_6_1_sh_mask.h?h=amd-staging-4.9&id=9555ef0ba926df25d9a637d0ea21bc0d231c21d2
+
+The file nbio_6_1_sh_mask.h is uncompressed. It consists from 133884 lines.
+Only generated C/C++ code will be able to utilize the content of such a
+file efficiently. All hand-written codes combined will be able to utilize
+about 1% of the file.
+
+Is there a reason why nbio_6_1_sh_mask.h is huge?
+
+Jan
+
+--001a11407f7c888ba7054b30540d
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi<div><br></div><div><div><a href=3D"https://cgit.freedes=
+ktop.org/~agd5f/linux/plain/drivers/gpu/drm/amd/include/asic_reg/vega10/NBI=
+O/nbio_6_1_sh_mask.h?h=3Damd-staging-4.9&amp;id=3D9555ef0ba926df25d9a637d0e=
+a21bc0d231c21d2">https://cgit.freedesktop.org/~agd5f/linux/plain/drivers/gp=
+u/drm/amd/include/asic_reg/vega10/NBIO/nbio_6_1_sh_mask.h?h=3Damd-staging-4=
+.9&amp;id=3D9555ef0ba926df25d9a637d0ea21bc0d231c21d2</a><br></div></div><di=
+v><br></div><div>The file nbio_6_1_sh_mask.h is uncompressed. It consists f=
+rom 133884 lines. Only generated C/C++ code will be able to utilize the con=
+tent of such a file efficiently. All hand-written codes combined will be ab=
+le to utilize about 1% of the file.</div><div><br></div><div>Is there a rea=
+son why nbio_6_1_sh_mask.h is huge?</div><div><br></div><div>Jan</div></div=
+>
+
+--001a11407f7c888ba7054b30540d--
+
+--===============0784631094==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0784631094==--
