@@ -1,60 +1,65 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: amd-iommu: can't boot with amdgpu, AMD-Vi: Completion-Wait loop
-	timed out
-Date: Tue, 21 Mar 2017 16:17:40 +0000
-Message-ID: <BN6PR12MB16528AF8E5577E9ACB483212F73D0@BN6PR12MB1652.namprd12.prod.outlook.com>
+From: "'joro-zLv9SwRftAIdnm+yROfE0A@public.gmane.org'" <joro-zLv9SwRftAIdnm+yROfE0A@public.gmane.org>
+Subject: Re: amd-iommu: can't boot with amdgpu, AMD-Vi: Completion-Wait loop
+ timed out
+Date: Tue, 21 Mar 2017 17:25:32 +0100
+Message-ID: <20170321162532.GG29659@8bytes.org>
 References: <CAD8Lp457TE1CnJ-DHnB6NB2LWxgA5K5K57Q6L7XcSHeYNpvARQ@mail.gmail.com>
-	<CY4PR12MB16533C83151D6FCFC11ED457F7250@CY4PR12MB1653.namprd12.prod.outlook.com>
-	<CAD8Lp47zjJvqxY3TMMAhjz3OnLR52CtsQh_PQFPmsEW-xHfDwg@mail.gmail.com>
-	<CADnq5_Oyfm-BzU9YV_QLjm6HxtMwnJcFkfYtjmCWpuah35TFvA@mail.gmail.com>
-	<20170321155725.GD29659@8bytes.org>
-	<BN6PR12MB16526DD4A3B60DB4E20B9907F73D0@BN6PR12MB1652.namprd12.prod.outlook.com>
-	<20170321161056.GE29659@8bytes.org>
+ <CY4PR12MB16533C83151D6FCFC11ED457F7250@CY4PR12MB1653.namprd12.prod.outlook.com>
+ <CAD8Lp47zjJvqxY3TMMAhjz3OnLR52CtsQh_PQFPmsEW-xHfDwg@mail.gmail.com>
+ <CADnq5_Oyfm-BzU9YV_QLjm6HxtMwnJcFkfYtjmCWpuah35TFvA@mail.gmail.com>
+ <20170321155725.GD29659@8bytes.org>
+ <BN6PR12MB16526DD4A3B60DB4E20B9907F73D0@BN6PR12MB1652.namprd12.prod.outlook.com>
+ <20170321161056.GE29659@8bytes.org>
+ <BN6PR12MB16528AF8E5577E9ACB483212F73D0@BN6PR12MB1652.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Return-path: <iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
-In-Reply-To: <20170321161056.GE29659-zLv9SwRftAIdnm+yROfE0A@public.gmane.org>
-Content-Language: en-US
-List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/iommu>,
-	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=unsubscribe>
-List-Archive: <http://lists.linuxfoundation.org/pipermail/iommu/>
-List-Post: <mailto:iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
-List-Help: <mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/iommu>,
-	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=subscribe>
-Sender: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
-Errors-To: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
-To: "'joro-zLv9SwRftAIdnm+yROfE0A@public.gmane.org'" <joro-zLv9SwRftAIdnm+yROfE0A@public.gmane.org>, "Bridgman, John" <John.Bridgman-5C7GfCeVMHo@public.gmane.org>
-Cc: Chris Chiu <chiu-6IF/jdPJHihWk0Htik3J/w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Drake <drake-6IF/jdPJHihWk0Htik3J/w@public.gmane.org>, "Nath, Arindam" <Arindam.Nath-5C7GfCeVMHo@public.gmane.org>, "iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org" <iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Linux Upstreaming Team <linux-6IF/jdPJHihWk0Htik3J/w@public.gmane.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Disposition: inline
+In-Reply-To: <BN6PR12MB16528AF8E5577E9ACB483212F73D0-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: "Bridgman, John" <John.Bridgman-5C7GfCeVMHo@public.gmane.org>, Chris Chiu <chiu-6IF/jdPJHihWk0Htik3J/w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Drake <drake-6IF/jdPJHihWk0Htik3J/w@public.gmane.org>, "Nath, Arindam" <Arindam.Nath-5C7GfCeVMHo@public.gmane.org>, "iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org" <iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>, "Suthikulpanit, Suravee" <Suravee.Suthikulpanit-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Linux Upstreaming Team <linux-6IF/jdPJHihWk0Htik3J/w@public.gmane.org>
 
-> -----Original Message-----
-> From: 'joro-zLv9SwRftAIdnm+yROfE0A@public.gmane.org' [mailto:joro-zLv9SwRftAIdnm+yROfE0A@public.gmane.org]
-> Sent: Tuesday, March 21, 2017 12:11 PM
-> To: Deucher, Alexander
-> Cc: Alex Deucher; Daniel Drake; Chris Chiu; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org;
-> Nath, Arindam; iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org; Suthikulpanit, Suravee;
-> Linux Upstreaming Team
-> Subject: Re: amd-iommu: can't boot with amdgpu, AMD-Vi: Completion-Wait
-> loop timed out
-> 
-> On Tue, Mar 21, 2017 at 04:01:53PM +0000, Deucher, Alexander wrote:
-> > It seems to only affect Stoney systems, but not others (Carrizo,
-> > Bristol, etc.).  Maybe we could just disable it on Stoney until we
-> > root cause it.
-> 
-> Completion-wait loop timeouts indicate something is seriously wrong. How
-> can I detect whether I am running on a 'Stoney' system?
-
-+ John
-
-I'm not sure if the iommu ids are different on stoney systems compared to Carrizo/Bristol systems.  The pci ids of the GPUs are different.  Stoney parts have 0x98E4 as the pci id for the GPU.
-
-> 
-> Other question, a shot into the dark, does the GPU on these systems have
-> ATS? Probably yes, as they are likely HSA compatible.
-
-Stoney is a small APU.  Kind of a mini Carrizo.  While it may claim to support ATS, I don't think it was ever validated on Stoney, only Carrizo/Bristol.
-
-Alex
+T24gVHVlLCBNYXIgMjEsIDIwMTcgYXQgMDQ6MTc6NDBQTSArMDAwMCwgRGV1Y2hlciwgQWxleGFu
+ZGVyIHdyb3RlOgo+ID4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPiA+IEZyb206ICdqb3Jv
+QDhieXRlcy5vcmcnIFttYWlsdG86am9yb0A4Ynl0ZXMub3JnXQo+ID4gU2VudDogVHVlc2RheSwg
+TWFyY2ggMjEsIDIwMTcgMTI6MTEgUE0KPiA+IFRvOiBEZXVjaGVyLCBBbGV4YW5kZXIKPiA+IENj
+OiBBbGV4IERldWNoZXI7IERhbmllbCBEcmFrZTsgQ2hyaXMgQ2hpdTsgYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmc7Cj4gPiBOYXRoLCBBcmluZGFtOyBpb21tdUBsaXN0cy5saW51eC1mb3Vu
+ZGF0aW9uLm9yZzsgU3V0aGlrdWxwYW5pdCwgU3VyYXZlZTsKPiA+IExpbnV4IFVwc3RyZWFtaW5n
+IFRlYW0KPiA+IFN1YmplY3Q6IFJlOiBhbWQtaW9tbXU6IGNhbid0IGJvb3Qgd2l0aCBhbWRncHUs
+IEFNRC1WaTogQ29tcGxldGlvbi1XYWl0Cj4gPiBsb29wIHRpbWVkIG91dAo+ID4gCj4gPiBPbiBU
+dWUsIE1hciAyMSwgMjAxNyBhdCAwNDowMTo1M1BNICswMDAwLCBEZXVjaGVyLCBBbGV4YW5kZXIg
+d3JvdGU6Cj4gPiA+IEl0IHNlZW1zIHRvIG9ubHkgYWZmZWN0IFN0b25leSBzeXN0ZW1zLCBidXQg
+bm90IG90aGVycyAoQ2Fycml6bywKPiA+ID4gQnJpc3RvbCwgZXRjLikuICBNYXliZSB3ZSBjb3Vs
+ZCBqdXN0IGRpc2FibGUgaXQgb24gU3RvbmV5IHVudGlsIHdlCj4gPiA+IHJvb3QgY2F1c2UgaXQu
+Cj4gPiAKPiA+IENvbXBsZXRpb24td2FpdCBsb29wIHRpbWVvdXRzIGluZGljYXRlIHNvbWV0aGlu
+ZyBpcyBzZXJpb3VzbHkgd3JvbmcuIEhvdwo+ID4gY2FuIEkgZGV0ZWN0IHdoZXRoZXIgSSBhbSBy
+dW5uaW5nIG9uIGEgJ1N0b25leScgc3lzdGVtPwo+IAo+ICsgSm9obgo+IAo+IEknbSBub3Qgc3Vy
+ZSBpZiB0aGUgaW9tbXUgaWRzIGFyZSBkaWZmZXJlbnQgb24gc3RvbmV5IHN5c3RlbXMgY29tcGFy
+ZWQgdG8gQ2Fycml6by9CcmlzdG9sIHN5c3RlbXMuICBUaGUgcGNpIGlkcyBvZiB0aGUgR1BVcyBh
+cmUgZGlmZmVyZW50LiAgU3RvbmV5IHBhcnRzIGhhdmUgMHg5OEU0IGFzIHRoZSBwY2kgaWQgZm9y
+IHRoZSBHUFUuCj4gCj4gPiAKPiA+IE90aGVyIHF1ZXN0aW9uLCBhIHNob3QgaW50byB0aGUgZGFy
+aywgZG9lcyB0aGUgR1BVIG9uIHRoZXNlIHN5c3RlbXMgaGF2ZQo+ID4gQVRTPyBQcm9iYWJseSB5
+ZXMsIGFzIHRoZXkgYXJlIGxpa2VseSBIU0EgY29tcGF0aWJsZS4KPiAKPiBTdG9uZXkgaXMgYSBz
+bWFsbCBBUFUuICBLaW5kIG9mIGEgbWluaSBDYXJyaXpvLiAgV2hpbGUgaXQgbWF5IGNsYWltIHRv
+IHN1cHBvcnQgQVRTLCBJIGRvbid0IHRoaW5rIGl0IHdhcyBldmVyIHZhbGlkYXRlZCBvbiBTdG9u
+ZXksIG9ubHkgQ2Fycml6by9CcmlzdG9sLgoKT2theSwgc28gbWF5YmUgQVRTIGlzIGJyb2tlbiBp
+biBzb21lIHdheSBvbiB0aGVzZSBjaGlwcy4gV2hlbiBxdWV1ZQpmbHVzaGVzIGhhcHBlbiBpdCB3
+aWxsIGFsc28gc2VuZCB0aGUgQVRTLWludmFsaWRhdGVzLCBhbmQgYSBxdWV1ZSBmbHVzaApjYW4g
+Y2F1c2UgYSBzdG9ybSBvZiB0aG9zZS4gVGhpcyBtYXkgYmUgdGhlIGlzc3VlLgoKSSBhbSBwcmVw
+YXJpbmcgYSBkZWJ1Zy1wYXRjaCB0aGF0IGRpc2FibGVzIEFUUyBmb3IgdGhlc2UgR1BVcyBzbyBz
+b21lb25lCndpdGggc3VjaCBhIGNoaXAgY2FuIHRlc3QgaXQuCgoKCUpvZXJnCgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
+dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
