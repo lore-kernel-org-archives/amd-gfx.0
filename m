@@ -1,14 +1,20 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [ANNOUNCE] xf86-video-amdgpu 1.3.0
-Date: Wed, 22 Mar 2017 19:01:02 +0900
-Message-ID: <6303148d-a781-8a44-f2e8-c37245c1a294@daenzer.net>
-References: <6f32285d-e12b-341f-4ef7-af1a1559ee37@daenzer.net>
- <d1b0b6a6-0c8e-d6ca-451a-1d25dab582d4@gmail.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH libdrm 2/7] amdgpu: update amdgpu_drm.h for Vega10
+Date: Wed, 22 Mar 2017 11:13:31 +0100
+Message-ID: <CAAxE2A6C5_tmhxmYOOULOFecrZqXkWH725T3Mc4GcuSt=FRaEw@mail.gmail.com>
+References: <1490126185-4482-1-git-send-email-maraeo@gmail.com>
+ <1490126185-4482-3-git-send-email-maraeo@gmail.com>
+ <539620eb-cb35-2760-ef61-91d0efbfe781@gmail.com>
+ <CAAxE2A7Z44x5S1xuuoWBa981gWAzNACyVN8bSq2v0WOE1CMd3w@mail.gmail.com>
+ <e7e5dca1-2e4d-4166-9660-1a6121e85722@daenzer.net>
+ <CAAxE2A6y-Y3MXxNB-PaYLB0953A7EeqbQ5dfZHz3_UROGLqcbg@mail.gmail.com>
+ <CAAxE2A4XJPUthuqfr9QonWpY3N11sWw5OjbZ0BLhKuBBC-bLhg@mail.gmail.com>
+ <CAAxE2A55sK5TfQQJ-M+P18DmWkWDAMM+THqD7r66Lm63JxrAow@mail.gmail.com>
+ <CAAxE2A7SHqXuYqCE2x4FnadKnFg6DKvQefSbfyA=zaR8GasQXQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1648103046=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <d1b0b6a6-0c8e-d6ca-451a-1d25dab582d4-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <CAAxE2A7SHqXuYqCE2x4FnadKnFg6DKvQefSbfyA=zaR8GasQXQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,38 +25,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andy Furniss <adf.lists-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: Nicolai Haehnle <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-ClsgRHJvcHBpbmcgdGhlIHhvcmcoLWFubm91bmNlKSBsaXN0cyBdCgpPbiAxNy8wMy8xNyAwNzox
-MiBQTSwgQW5keSBGdXJuaXNzIHdyb3RlOgo+IE1pY2hlbCBEw6RuemVyIHdyb3RlOgo+Pgo+PiBJ
-J20gcGxlYXNlZCB0byBhbm5vdW5jZSB0aGUgMS4zLjAgcmVsZWFzZSBvZiB4Zjg2LXZpZGVvLWFt
-ZGdwdSwKPiAKPj4gSGlnaGxpZ2h0czoKPj4KPj4gKiBBbGxvdyBUZWFyRnJlZSB0byBiZSB0b2dn
-bGVkIGF0IHJ1bnRpbWUgdmlhIGFuIFJhbmRSIG91dHB1dCBwcm9wZXJ0eQo+PiAgICJUZWFyRnJl
-ZSIuIFRoZSB4b3JnLmNvbmYgb3B0aW9uICJUZWFyRnJlZSIgbm93IGNvbnRyb2xzIHRoZSBkZWZh
-dWx0Cj4+ICAgdmFsdWUgb2YgdGhlIG91dHB1dCBwcm9wZXJ0aWVzLgo+IAo+IE5pY2UgZmVhdHVy
-ZS4KCkdsYWQgeW91IGxpa2UgaXQuIDopCgoKPiBNaW5vciBtYW4gcGFnZSBnbGl0Y2ggPSB0aGUg
-bGluZSBzdGFydGluZyB3aXRoICdvbicgaW4gdGhlCj4gcGF0Y2ggc25pcHBldCBiZWxvdyBkb2Vz
-bid0IHNob3cgdXAgd2hlbiB2aWV3ZWQgd2l0aCBtYW4gYW1kZ3B1Lgo+IAo+ICtTZXQgdGhlIGRl
-ZmF1bHQgdmFsdWUgb2YgdGhlIHBlci1vdXRwdXQgJ1RlYXJGcmVlJyBwcm9wZXJ0eSwgd2hpY2gK
-PiBjb250cm9scwo+ICt0ZWFyaW5nIHByZXZlbnRpb24gdXNpbmcgdGhlIGhhcmR3YXJlIHBhZ2Ug
-ZmxpcHBpbmcgbWVjaGFuaXNtLiBUZWFyRnJlZSBpcwo+ICtvbiBmb3IgYW55IENSVEMgYXNzb2Np
-YXRlZCB3aXRoIG9uZSBvciBtb3JlIG91dHB1dHMgd2l0aCBUZWFyRnJlZSBvbi4gVHdvCj4gK3Nl
-cGFyYXRlIHNjYW5vdXQgYnVmZmVycyBuZWVkIHRvIGJlIGFsbG9jYXRlZCBmb3IgZWFjaCBDUlRD
-IHdpdGggVGVhckZyZWUKPiArb24uIFdoaWxlIFRlYXJGcmVlIGlzIG9uIGZvciBhbnkgQ1JUQywg
-aXQgY3VycmVudGx5IHByZXZlbnRzIGNsaWVudHMKPiBmcm9tIHVzaW5nCj4gK0RSSSBwYWdlIGZs
-aXBwaW5nLiBJZiB0aGlzIG9wdGlvbiBpcyBzZXQsIHRoZSBkZWZhdWx0IHZhbHVlIG9mIHRoZQo+
-IHByb3BlcnR5IGlzCj4gKydvbicgb3IgJ29mZicgYWNjb3JkaW5nbHkuIElmIHRoaXMgb3B0aW9u
-IGlzbid0IHNldCwgdGhlIGRlZmF1bHQgdmFsdWUKPiBvZiB0aGUKPiArcHJvcGVydHkgaXMKPiAr
-LkIgYXV0bywKPiArd2hpY2ggbWVhbnMgdGhhdCBUZWFyRnJlZSBpcyBvbiBmb3Igb3V0cHV0cyB3
-aXRoIHJvdGF0aW9uIG9yIG90aGVyIFJhbmRSCj4gK3RyYW5zZm9ybXMsIGFuZCBmb3IgUmFuZFIg
-MS40IHNsYXZlIG91dHB1dHMsIG90aGVyd2lzZSBvZmYuCgpBaCEgVGhhbmtzLCBJIGhhZCBub3Rp
-Y2VkICJwcm9wZXJ0eSBpcyBwcm9wZXJ0eSBpcyIgaW4gdGhlIGdlbmVyYXRlZAptYW5wYWdlLCBi
-dXQgdG90YWxseSBtaXNzZWQgdGhhdCBhIHdob2xlIGxpbmUgd2FzIG1pc3NpbmcgaW4gYmV0d2Vl
-biEKCkZpeCBwb3N0ZWQgZm9yIHJldmlldzogaHR0cHM6Ly9wYXRjaHdvcmsuZnJlZWRlc2t0b3Au
-b3JnL3BhdGNoLzE0NTY0Ny8KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAg
-ICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpMaWJyZSBzb2Z0d2FyZSBl
-bnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIK
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
-bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============1648103046==
+Content-Type: multipart/alternative; boundary=94eb2c055d18342e13054b4f032b
+
+--94eb2c055d18342e13054b4f032b
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+On Mar 22, 2017 2:44 AM, "Michel D=C3=A4nzer" <michel-otUistvHUpPR7s880joybQ@public.gmane.org> wrote:
+
+On 22/03/17 06:46 AM, Marek Ol=C5=A1=C3=A1k wrote:
+> On Tue, Mar 21, 2017 at 10:27 PM, Nicolai H=C3=A4hnle <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org=
+>
+wrote:
+>> In the past, I was told off for patches that update this file without
+>> following the procedure described in include/drm/README. Tbh, that
+procedure
+>> causes some annoyances.
+>>
+>> Anyway, it's definitely useful to have the patch out on the mailing list
+in
+>> any case.
+>
+> Yeah, I know the correct process and I plan to ignore it this time if
+> I don't get too much backlash, because the alternative
+> (#ifdef/#define/#endif) is probably even worse.
+
+FWIW, only AMDGPU_TILING_SET/GET need #undef,
+AMDGPU_TILING_SWIZZLE_MODE_SHIFT/MASK and AMDGPU_FAMILY_AI can just be
+#defined directly, that way the preprocessor will warn if the
+definitions in libdrm and Mesa end up being inconsistent for some reason.
+
+
+The alternative is rushing out a libdrm release and making Mesa require
+that, right? That doesn't seem obviously better than a handful of
+temporary redundant defines in Mesa, hardly justification for bypassing
+the normal process.
+
+
+I need a libdrm release because of the 3rd patch. I can't allow Mesa to run
+without that.
+
+Marek
+
+
+
+--
+Earthling Michel D=C3=A4nzer               |               http://www.amd.c=
+om
+Libre software enthusiast             |             Mesa and X developer
+
+--94eb2c055d18342e13054b4f032b
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><br><div class=3D"gmail_extra"><br><div class=3D"gma=
+il_quote">On Mar 22, 2017 2:44 AM, &quot;Michel D=C3=A4nzer&quot; &lt;<a hr=
+ef=3D"mailto:michel-otUistvHUpPR7s880joybQ@public.gmane.org">michel-otUistvHUpPR7s880joybQ@public.gmane.org</a>&gt; wrote:<br type=
+=3D"attribution"><blockquote class=3D"quote" style=3D"margin:0 0 0 .8ex;bor=
+der-left:1px #ccc solid;padding-left:1ex"><div class=3D"elided-text">On 22/=
+03/17 06:46 AM, Marek Ol=C5=A1=C3=A1k wrote:<br>
+&gt; On Tue, Mar 21, 2017 at 10:27 PM, Nicolai H=C3=A4hnle &lt;<a href=3D"m=
+ailto:nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br>
+&gt;&gt; In the past, I was told off for patches that update this file with=
+out<br>
+&gt;&gt; following the procedure described in include/drm/README. Tbh, that=
+ procedure<br>
+&gt;&gt; causes some annoyances.<br>
+&gt;&gt;<br>
+&gt;&gt; Anyway, it&#39;s definitely useful to have the patch out on the ma=
+iling list in<br>
+&gt;&gt; any case.<br>
+&gt;<br>
+&gt; Yeah, I know the correct process and I plan to ignore it this time if<=
+br>
+&gt; I don&#39;t get too much backlash, because the alternative<br>
+&gt; (#ifdef/#define/#endif) is probably even worse.<br>
+<br>
+</div>FWIW, only AMDGPU_TILING_SET/GET need #undef,<br>
+AMDGPU_TILING_SWIZZLE_MODE_<wbr>SHIFT/MASK and AMDGPU_FAMILY_AI can just be=
+<br>
+#defined directly, that way the preprocessor will warn if the<br>
+definitions in libdrm and Mesa end up being inconsistent for some reason.<b=
+r>
+<br>
+<br>
+The alternative is rushing out a libdrm release and making Mesa require<br>
+that, right? That doesn&#39;t seem obviously better than a handful of<br>
+temporary redundant defines in Mesa, hardly justification for bypassing<br>
+the normal process.<br></blockquote></div></div></div><div dir=3D"auto"><br=
+></div><div dir=3D"auto">I need a libdrm release because of the 3rd patch. =
+I can&#39;t allow Mesa to run without that.</div><div dir=3D"auto"><br></di=
+v><div dir=3D"auto">Marek</div><div dir=3D"auto"><br></div><div dir=3D"auto=
+"><div class=3D"gmail_extra"><div class=3D"gmail_quote"><blockquote class=
+=3D"quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-le=
+ft:1ex">
+<font color=3D"#888888"><br>
+<br>
+--<br>
+Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=
+=3D"http://www.amd.com" rel=3D"noreferrer" target=3D"_blank">http://www.amd=
+.com</a><br>
+Libre software enthusiast=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Mesa and X developer<br>
+</font></blockquote></div><br></div></div></div>
+
+--94eb2c055d18342e13054b4f032b--
+
+--===============1648103046==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1648103046==--
