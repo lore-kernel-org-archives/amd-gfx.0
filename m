@@ -1,13 +1,25 @@
-From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 10/17] drm/amd/display: Fix the NULL pointer. (v2)
-Date: Wed, 22 Mar 2017 13:04:57 -0400
-Message-ID: <20170322170504.31481-11-harry.wentland@amd.com>
-References: <20170322170504.31481-1-harry.wentland@amd.com>
+From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: amd-iommu: can't boot with amdgpu, AMD-Vi: Completion-Wait loop
+ timed out
+Date: Wed, 22 Mar 2017 13:26:55 -0400
+Message-ID: <f07e0ac6-d706-5856-6f67-074e2ed77703@amd.com>
+References: <CAD8Lp457TE1CnJ-DHnB6NB2LWxgA5K5K57Q6L7XcSHeYNpvARQ@mail.gmail.com>
+ <CY4PR12MB16533C83151D6FCFC11ED457F7250@CY4PR12MB1653.namprd12.prod.outlook.com>
+ <CAD8Lp47zjJvqxY3TMMAhjz3OnLR52CtsQh_PQFPmsEW-xHfDwg@mail.gmail.com>
+ <CADnq5_Oyfm-BzU9YV_QLjm6HxtMwnJcFkfYtjmCWpuah35TFvA@mail.gmail.com>
+ <20170321155725.GD29659@8bytes.org>
+ <BN6PR12MB16526DD4A3B60DB4E20B9907F73D0@BN6PR12MB1652.namprd12.prod.outlook.com>
+ <20170321161056.GE29659@8bytes.org>
+ <BN6PR12MB16528AF8E5577E9ACB483212F73D0@BN6PR12MB1652.namprd12.prod.outlook.com>
+ <20170321162532.GG29659@8bytes.org>
+ <BN6PR12MB165268CA4C460215950409D5F73D0@BN6PR12MB1652.namprd12.prod.outlook.com>
+ <20170322112242.GK29659@8bytes.org>
+ <afecf448-c9fe-c481-0d0e-6dec0f459eeb@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170322170504.31481-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <afecf448-c9fe-c481-0d0e-6dec0f459eeb-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,36 +31,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
 
-RnJvbTogQW5kcmV5IEdyb2R6b3Zza3kgPEFuZHJleS5Hcm9kem92c2t5QGFtZC5jb20+CgpyZXQg
-dmFsdWUgaW4gYW1kZ3B1X2RtX2F0b21pY19jaGVjayB3YXMgbm90IHJlc3QgdG8gRUlOVkFMCmFm
-dGVyIGRybV9hdG9taWNfYWRkX2FmZmVjdGVkX3BsYW5lcyBhbmQgYnkgdGhpcyBtYWtpbmcKYW55
-IHN1YnNlcXVlbnQgdmFsaWRhdGlvbiBmYWlsdXJlIHBhc3Mgd2hlbiByZXR1cm5pbmcKdG8gYXRv
-bWljX2NoZWNrLgoKdjI6IEFkZCBXQVJOX09OIHByaW50IGZvciBkY19jb21taXRfc3RyZWFtcyBp
-bgphbWRncHVfZG1fYXRvbWljX2NvbW1pdF90YWlsIHNpbmNlIHRoaXMgc2hvdWxkIG5ldmVyCmZh
-aWwuCgpDaGFuZ2UtSWQ6IEliMTI2NTVjZjg4YWEzZTU2YzNmMWYxMTQ1NmNjNmNhMTFkYWFhMjZh
-ClNpZ25lZC1vZmYtYnk6IEFuZHJleSBHcm9kem92c2t5IDxBbmRyZXkuR3JvZHpvdnNreUBhbWQu
-Y29tPgpBY2tlZC1ieTogSGFycnkgV2VudGxhbmQgPEhhcnJ5LldlbnRsYW5kQGFtZC5jb20+ClJl
-dmlld2VkLWJ5OiBBbmRyZXkgR3JvZHpvdnNreSA8QW5kcmV5Lkdyb2R6b3Zza3lAYW1kLmNvbT4K
-LS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV90eXBl
-cy5jIHwgNCArKystCiAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9u
-KC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9h
-bWRncHVfZG1fdHlwZXMuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0v
-YW1kZ3B1X2RtX3R5cGVzLmMKaW5kZXggZWRlODk1NTE1ODAxLi4zNGRkYmUzMzFkZjIgMTAwNjQ0
-Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX3R5
-cGVzLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVf
-ZG1fdHlwZXMuYwpAQCAtMjU2Myw3ICsyNTYzLDcgQEAgdm9pZCBhbWRncHVfZG1fYXRvbWljX2Nv
-bW1pdF90YWlsKAogCX0KIAogCS8qIERDIGlzIG9wdGltaXplZCBub3QgdG8gZG8gYW55dGhpbmcg
-aWYgJ3N0cmVhbXMnIGRpZG4ndCBjaGFuZ2UuICovCi0JZGNfY29tbWl0X3N0cmVhbXMoZG0tPmRj
-LCBjb21taXRfc3RyZWFtcywgY29tbWl0X3N0cmVhbXNfY291bnQpOworCVdBUk5fT04oIWRjX2Nv
-bW1pdF9zdHJlYW1zKGRtLT5kYywgY29tbWl0X3N0cmVhbXMsIGNvbW1pdF9zdHJlYW1zX2NvdW50
-KSk7CiAKIAlsaXN0X2Zvcl9lYWNoX2VudHJ5KGNydGMsICZkZXYtPm1vZGVfY29uZmlnLmNydGNf
-bGlzdCwgaGVhZCkgewogCQlzdHJ1Y3QgYW1kZ3B1X2NydGMgKmFjcnRjID0gdG9fYW1kZ3B1X2Ny
-dGMoY3J0Yyk7CkBAIC0zMDI5LDYgKzMwMjksOCBAQCBpbnQgYW1kZ3B1X2RtX2F0b21pY19jaGVj
-ayhzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LAogCQlyZXQgPSBkcm1fYXRvbWljX2FkZF9hZmZlY3Rl
-ZF9wbGFuZXMoc3RhdGUsIGNydGMpOwogCQlpZiAocmV0KQogCQkJcmV0dXJuIHJldDsKKworCQly
-ZXQgPSAtRUlOVkFMOwogCX0KIAogCWZvciAoaSA9IDA7IGkgPCBzZXRfY291bnQ7IGkrKykgewot
-LSAKMi4xMS4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+T24gMjIvMDMvMTcgMDE6MTggUE0sIFRvbSBTdCBEZW5pcyB3cm90ZToKCj4gSSB0cmllZCB0aGlz
+IG91dCBidXQgc3RpbGwgZ290IGEgbG9ja3VwIGR1cmluZyBpbml0LiAgSSB0cmllZCBnZXR0aW5n
+IGEKPiBkbWVzZyBsb2cgYnV0IGl0IGxvY2tlZCB1cCBiZWZvcmUgaXQgb3V0cHV0dGVkIGFueXRo
+aW5nIG1vcmUgKGFmdGVyIHRoZQo+IGluaXQpLgoKbnZtLiAgRXZlbiB3aXRoIGlvbW11IGRpc2Fi
+bGVkIGl0IGZhaWxzIHRvIGJvb3QuICBTdG9uZXkgc3VwcG9ydCBkaWVzIApvY2Nhc2lvbmFsbHkg
+b24gc3RhZ2luZy00Ljkgc28gSSdsbCBoYXZlIHRvIGJpc2VjdCB0aGlzIGZpcnN0IGFuZCB0aGVu
+IApjaXJjbGUgYmFjayB0byB0aGlzIGlvbW11IHBhdGNoLgoKVG9tCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
