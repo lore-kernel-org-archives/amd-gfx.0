@@ -1,22 +1,14 @@
 From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH libdrm 2/7] amdgpu: update amdgpu_drm.h for Vega10
-Date: Thu, 23 Mar 2017 17:02:35 +0900
-Message-ID: <cb38ef74-6b13-8232-7283-4cb421d973c7@daenzer.net>
-References: <1490126185-4482-1-git-send-email-maraeo@gmail.com>
- <1490126185-4482-3-git-send-email-maraeo@gmail.com>
- <539620eb-cb35-2760-ef61-91d0efbfe781@gmail.com>
- <CAAxE2A7Z44x5S1xuuoWBa981gWAzNACyVN8bSq2v0WOE1CMd3w@mail.gmail.com>
- <e7e5dca1-2e4d-4166-9660-1a6121e85722@daenzer.net>
- <CAAxE2A6y-Y3MXxNB-PaYLB0953A7EeqbQ5dfZHz3_UROGLqcbg@mail.gmail.com>
- <CAAxE2A4XJPUthuqfr9QonWpY3N11sWw5OjbZ0BLhKuBBC-bLhg@mail.gmail.com>
- <CAAxE2A55sK5TfQQJ-M+P18DmWkWDAMM+THqD7r66Lm63JxrAow@mail.gmail.com>
- <CAAxE2A7SHqXuYqCE2x4FnadKnFg6DKvQefSbfyA=zaR8GasQXQ@mail.gmail.com>
- <CAAxE2A6C5_tmhxmYOOULOFecrZqXkWH725T3Mc4GcuSt=FRaEw@mail.gmail.com>
+Subject: Re: [PATCH] Revert "drm/radeon: Try evicting from CPU accessible to
+ inaccessible VRAM first"
+Date: Thu, 23 Mar 2017 17:10:09 +0900
+Message-ID: <c56f4a6a-a17d-b9b0-311e-7100df8c7cee@daenzer.net>
+References: <1490206797-15653-1-git-send-email-zmichaels@oblong.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAAxE2A6C5_tmhxmYOOULOFecrZqXkWH725T3Mc4GcuSt=FRaEw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <1490206797-15653-1-git-send-email-zmichaels-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -27,37 +19,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Nicolai Haehnle <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Zachary Michaels <zmichaels-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org>
+Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Julien Isorce <jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org>
 
-T24gMjIvMDMvMTcgMDc6MTMgUE0sIE1hcmVrIE9sxaHDoWsgd3JvdGU6Cj4gT24gTWFyIDIyLCAy
-MDE3IDI6NDQgQU0sICJNaWNoZWwgRMOkbnplciIgPG1pY2hlbEBkYWVuemVyLm5ldCAKPiA8bWFp
-bHRvOm1pY2hlbEBkYWVuemVyLm5ldD4+IHdyb3RlOgo+PiBPbiAyMi8wMy8xNyAwNjo0NiBBTSwg
-TWFyZWsgT2zFocOhayB3cm90ZToKPj4+IE9uIFR1ZSwgTWFyIDIxLCAyMDE3IGF0IDEwOjI3IFBN
-LCBOaWNvbGFpIEjDpGhubGUgCj4+PiA8bmhhZWhubGVAZ21haWwuY29tIDxtYWlsdG86bmhhZWhu
-bGVAZ21haWwuY29tPj4gd3JvdGU6Cj4+Pj4gSW4gdGhlIHBhc3QsIEkgd2FzIHRvbGQgb2ZmIGZv
-ciBwYXRjaGVzIHRoYXQgdXBkYXRlIHRoaXMgZmlsZQo+Pj4+IHdpdGhvdXQgZm9sbG93aW5nIHRo
-ZSBwcm9jZWR1cmUgZGVzY3JpYmVkIGluCj4+Pj4gaW5jbHVkZS9kcm0vUkVBRE1FLiBUYmgsIHRo
-YXQgcHJvY2VkdXJlIGNhdXNlcyBzb21lCj4+Pj4gYW5ub3lhbmNlcy4KPj4+PiAKPj4+PiBBbnl3
-YXksIGl0J3MgZGVmaW5pdGVseSB1c2VmdWwgdG8gaGF2ZSB0aGUgcGF0Y2ggb3V0IG9uIHRoZSAK
-Pj4+PiBtYWlsaW5nIGxpc3QgaW4gYW55IGNhc2UuCj4+PiAKPj4+IFllYWgsIEkga25vdyB0aGUg
-Y29ycmVjdCBwcm9jZXNzIGFuZCBJIHBsYW4gdG8gaWdub3JlIGl0IHRoaXMKPj4+IHRpbWUgaWYg
-SSBkb24ndCBnZXQgdG9vIG11Y2ggYmFja2xhc2gsIGJlY2F1c2UgdGhlIGFsdGVybmF0aXZlIAo+
-Pj4gKCNpZmRlZi8jZGVmaW5lLyNlbmRpZikgaXMgcHJvYmFibHkgZXZlbiB3b3JzZS4KPj4gCj4+
-IEZXSVcsIG9ubHkgQU1ER1BVX1RJTElOR19TRVQvR0VUIG5lZWQgI3VuZGVmLCAKPj4gQU1ER1BV
-X1RJTElOR19TV0laWkxFX01PREVfU0hJRlQvTUFTSyBhbmQgQU1ER1BVX0ZBTUlMWV9BSSBjYW4g
-anVzdAo+PiBiZSAjZGVmaW5lZCBkaXJlY3RseSwgdGhhdCB3YXkgdGhlIHByZXByb2Nlc3NvciB3
-aWxsIHdhcm4gaWYgdGhlIAo+PiBkZWZpbml0aW9ucyBpbiBsaWJkcm0gYW5kIE1lc2EgZW5kIHVw
-IGJlaW5nIGluY29uc2lzdGVudCBmb3Igc29tZSAKPj4gcmVhc29uLgo+PiAKPj4gCj4+IFRoZSBh
-bHRlcm5hdGl2ZSBpcyBydXNoaW5nIG91dCBhIGxpYmRybSByZWxlYXNlIGFuZCBtYWtpbmcgTWVz
-YQo+PiByZXF1aXJlIHRoYXQsIHJpZ2h0PyBUaGF0IGRvZXNuJ3Qgc2VlbSBvYnZpb3VzbHkgYmV0
-dGVyIHRoYW4gYQo+PiBoYW5kZnVsIG9mIHRlbXBvcmFyeSByZWR1bmRhbnQgZGVmaW5lcyBpbiBN
-ZXNhLCBoYXJkbHkKPj4ganVzdGlmaWNhdGlvbiBmb3IgYnlwYXNzaW5nIHRoZSBub3JtYWwgcHJv
-Y2Vzcy4KPiAKPiBJIG5lZWQgYSBsaWJkcm0gcmVsZWFzZSBiZWNhdXNlIG9mIHRoZSAzcmQgcGF0
-Y2guIEkgY2FuJ3QgYWxsb3cgTWVzYQo+IHRvIHJ1biB3aXRob3V0IHRoYXQuCgpHb3RjaGEsIHRo
-YW5rcyBmb3IgdGhlIGNsYXJpZmljYXRpb24uCgoKLS0gCkVhcnRobGluZyBNaWNoZWwgRMOkbnpl
-ciAgICAgICAgICAgICAgIHwgICAgICAgICAgICAgICBodHRwOi8vd3d3LmFtZC5jb20KTGlicmUg
-c29mdHdhcmUgZW50aHVzaWFzdCAgICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFgg
-ZGV2ZWxvcGVyCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+T24gMjMvMDMvMTcgMDM6MTkgQU0sIFphY2hhcnkgTWljaGFlbHMgd3JvdGU6Cj4gV2Ugd2VyZSBl
+eHBlcmllbmNpbmcgYW4gaW5maW5pdGUgbG9vcCBkdWUgdG8gVlJBTSBib3MgZ2V0dGluZyBhZGRl
+ZCBiYWNrCj4gdG8gdGhlIFZSQU0gbHJ1IG9uIGV2aWN0aW9uIHZpYSB0dG1fYm9fbWVtX2ZvcmNl
+X3NwYWNlLAoKQ2FuIHlvdSBzaGFyZSBtb3JlIGRldGFpbHMgYWJvdXQgd2hhdCBoYXBwZW5lZD8g
+SSBjYW4gaW1hZ2luZSB0aGF0Cm1vdmluZyBhIEJPIGZyb20gQ1BVIHZpc2libGUgdG8gQ1BVIGlu
+dmlzaWJsZSBWUkFNIHdvdWxkIHB1dCBpdCBiYWNrIG9uCnRoZSBMUlUsIGJ1dCBuZXh0IHRpbWUg
+YXJvdW5kIGl0IHNob3VsZG4ndCBoaXQgdGhpcyBjb2RlIGFueW1vcmUgYnV0IGdldApldmljdGVk
+IHRvIEdUVCBkaXJlY3RseS4KCldhcyB1c2Vyc3BhY2UgbWF5YmUgcGVyZm9ybWluZyBjb25jdXJy
+ZW50IENQVSBhY2Nlc3MgdG8gdGhlIEJPcyBpbiBxdWVzdGlvbj8KCgo+IGFuZCByZXZlcnRpbmcg
+dGhpcyBjb21taXQgc29sdmVzIHRoZSBwcm9ibGVtLgoKSSBob3BlIHdlIGNhbiBmaW5kIGEgYmV0
+dGVyIHNvbHV0aW9uLgoKCi0tIApFYXJ0aGxpbmcgTWljaGVsIETDpG56ZXIgICAgICAgICAgICAg
+ICB8ICAgICAgICAgICAgICAgaHR0cDovL3d3dy5hbWQuY29tCkxpYnJlIHNvZnR3YXJlIGVudGh1
+c2lhc3QgICAgICAgICAgICAgfCAgICAgICAgICAgICBNZXNhIGFuZCBYIGRldmVsb3BlcgoKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
+aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
