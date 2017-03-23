@@ -1,91 +1,316 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 8/8] drm/amdgpu/gfx8: store the eop gpu addr in the ring
- structure
-Date: Thu, 23 Mar 2017 11:55:08 -0400
-Message-ID: <1490284508-2453-8-git-send-email-alexander.deucher@amd.com>
-References: <1490284508-2453-1-git-send-email-alexander.deucher@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple@vodafone.de>
+Subject: Re: [PATCH 4/4] drm/amdgpu: resize VRAM BAR for CPU access
+Date: Thu, 23 Mar 2017 16:56:57 +0100
+Message-ID: <8be2c72c-78f4-bc80-5f47-e4b27efa3263@vodafone.de>
+References: <1489408896-25039-1-git-send-email-deathsimple@vodafone.de>
+ <1489408896-25039-5-git-send-email-deathsimple@vodafone.de>
+ <CAPyr0yLWiGzU5ihFcj_NmA2Vk2R7GsKqo2LK8o3Eu+Df9m7vhw@mail.gmail.com>
+ <6fac05e4-26ae-e959-9af6-cb68a04a1110@vodafone.de>
+ <MWHPR1201MB0206CA2E6DAC3B83ACA52ADBB4270@MWHPR1201MB0206.namprd12.prod.outlook.com>
+ <17c470c4-d406-b5ac-73d1-4dd5b83cfca8@vodafone.de>
+ <DM5PR12MB18188AF745E7FB6B021E6600FF260@DM5PR12MB1818.namprd12.prod.outlook.com>
+ <CADnq5_NzFTWEB8NXT6LM9U=JfexpbZxQCyja1VqZv+NYMCmJwQ@mail.gmail.com>
+ <DM5PR12MB1818E21F5F5456B2041B3817FF260@DM5PR12MB1818.namprd12.prod.outlook.com>
+ <MWHPR12MB115280D45EBF8E0647805BD7FE3F0@MWHPR12MB1152.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1490284508-2453-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 8bit
+Return-path: <platform-driver-x86-owner@vger.kernel.org>
+In-Reply-To: <MWHPR12MB115280D45EBF8E0647805BD7FE3F0@MWHPR12MB1152.namprd12.prod.outlook.com>
+Sender: platform-driver-x86-owner@vger.kernel.org
+To: "Sagalovitch, Serguei" <Serguei.Sagalovitch@amd.com>, "Zhang, Jerry" <Jerry.Zhang@amd.com>, Alex Deucher <alexdeucher@gmail.com>
+Cc: "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, Ayyappa Ch <ayyappa.ch.linux@gmail.com>, "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>, "helgaas@kernel.org" <helgaas@kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QXZvaWRzIHBhc3NpbmcgYXJvdW5kIGFkZGl0aW9uYWwgcGFyYW1ldGVycyBkdXJpbmcgc2V0dXAu
-CgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+
-Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3JpbmcuaCB8ICAxICsKIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMgICAgfCAxNCArKysrKystLS0tLS0t
-LQogMiBmaWxlcyBjaGFuZ2VkLCA3IGluc2VydGlvbnMoKyksIDggZGVsZXRpb25zKC0pCgpkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3JpbmcuaCBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yaW5nLmgKaW5kZXggOWY1N2VkYS4uODUzZTg3
-YSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3JpbmcuaAor
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5oCkBAIC0xNjgsNiAr
-MTY4LDcgQEAgc3RydWN0IGFtZGdwdV9yaW5nIHsKIAlzdHJ1Y3QgYW1kZ3B1X2JvCSptcWRfb2Jq
-OwogCXVpbnQ2NF90ICAgICAgICAgICAgICAgIG1xZF9ncHVfYWRkcjsKIAl2b2lkICAgICAgICAg
-ICAgICAgICAgICAqbXFkX3B0cjsKKwl1aW50NjRfdCAgICAgICAgICAgICAgICBlb3BfZ3B1X2Fk
-ZHI7CiAJdTMyCQkJZG9vcmJlbGxfaW5kZXg7CiAJYm9vbAkJCXVzZV9kb29yYmVsbDsKIAl1bnNp
-Z25lZAkJd3B0cl9vZmZzOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-Z2Z4X3Y4XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMKaW5kZXgg
-YmY2MDhjOC4uYTAyM2YyNyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-Z2Z4X3Y4XzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jCkBA
-IC0xMzc3LDYgKzEzNzcsNyBAQCBzdGF0aWMgaW50IGdmeF92OF8wX2tpcV9pbml0X3Jpbmcoc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJCQkJICBzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcs
-CiAJCQkJICBzdHJ1Y3QgYW1kZ3B1X2lycV9zcmMgKmlycSkKIHsKKwlzdHJ1Y3QgYW1kZ3B1X2tp
-cSAqa2lxID0gJmFkZXYtPmdmeC5raXE7CiAJaW50IHIgPSAwOwogCiAJciA9IGFtZGdwdV93Yl9n
-ZXQoYWRldiwgJmFkZXYtPnZpcnQucmVnX3ZhbF9vZmZzKTsKQEAgLTEzOTYsNiArMTM5Nyw3IEBA
-IHN0YXRpYyBpbnQgZ2Z4X3Y4XzBfa2lxX2luaXRfcmluZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
-YWRldiwKIAl9CiAKIAlyaW5nLT5xdWV1ZSA9IDA7CisJcmluZy0+ZW9wX2dwdV9hZGRyID0ga2lx
-LT5lb3BfZ3B1X2FkZHI7CiAJc3ByaW50ZihyaW5nLT5uYW1lLCAia2lxICVkLiVkLiVkIiwgcmlu
-Zy0+bWUsIHJpbmctPnBpcGUsIHJpbmctPnF1ZXVlKTsKIAlyID0gYW1kZ3B1X3JpbmdfaW5pdChh
-ZGV2LCByaW5nLCAxMDI0LAogCQkJICAgICBpcnEsIEFNREdQVV9DUF9LSVFfSVJRX0RSSVZFUjAp
-OwpAQCAtMjE1Myw2ICsyMTU1LDcgQEAgc3RhdGljIGludCBnZnhfdjhfMF9zd19pbml0KHZvaWQg
-KmhhbmRsZSkKIAkJcmluZy0+bWUgPSAxOyAvKiBmaXJzdCBNRUMgKi8KIAkJcmluZy0+cGlwZSA9
-IGkgLyA4OwogCQlyaW5nLT5xdWV1ZSA9IGkgJSA4OworCQlyaW5nLT5lb3BfZ3B1X2FkZHIgPSBh
-ZGV2LT5nZngubWVjLmhwZF9lb3BfZ3B1X2FkZHIgKyAoaSAqIE1FQ19IUERfU0laRSk7CiAJCXNw
-cmludGYocmluZy0+bmFtZSwgImNvbXBfJWQuJWQuJWQiLCByaW5nLT5tZSwgcmluZy0+cGlwZSwg
-cmluZy0+cXVldWUpOwogCQlpcnFfdHlwZSA9IEFNREdQVV9DUF9JUlFfQ09NUFVURV9NRUMxX1BJ
-UEUwX0VPUCArIHJpbmctPnBpcGU7CiAJCS8qIHR5cGUtMiBwYWNrZXRzIGFyZSBkZXByZWNhdGVk
-IG9uIE1FQywgdXNlIHR5cGUtMyBpbnN0ZWFkICovCkBAIC00NjY1LDggKzQ2NjgsNyBAQCBzdGF0
-aWMgdm9pZCBnZnhfdjhfMF9tYXBfcXVldWVfZW5hYmxlKHN0cnVjdCBhbWRncHVfcmluZyAqa2lx
-X3JpbmcsCiB9CiAKIHN0YXRpYyBpbnQgZ2Z4X3Y4XzBfbXFkX2luaXQoc3RydWN0IGFtZGdwdV9y
-aW5nICpyaW5nLAotCQkJICAgICBzdHJ1Y3QgdmlfbXFkICptcWQsCi0JCQkgICAgIHVpbnQ2NF90
-IGVvcF9ncHVfYWRkcikKKwkJCSAgICAgc3RydWN0IHZpX21xZCAqbXFkKQogewogCXN0cnVjdCBh
-bWRncHVfZGV2aWNlICphZGV2ID0gcmluZy0+YWRldjsKIAl1aW50NjRfdCBocWRfZ3B1X2FkZHIs
-IHdiX2dwdV9hZGRyLCBlb3BfYmFzZV9hZGRyOwpAQCAtNDY4MCw3ICs0NjgyLDcgQEAgc3RhdGlj
-IGludCBnZnhfdjhfMF9tcWRfaW5pdChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsCiAJbXFkLT5j
-b21wdXRlX3N0YXRpY190aHJlYWRfbWdtdF9zZTMgPSAweGZmZmZmZmZmOwogCW1xZC0+Y29tcHV0
-ZV9taXNjX3Jlc2VydmVkID0gMHgwMDAwMDAwMzsKIAotCWVvcF9iYXNlX2FkZHIgPSBlb3BfZ3B1
-X2FkZHIgPj4gODsKKwllb3BfYmFzZV9hZGRyID0gcmluZy0+ZW9wX2dwdV9hZGRyID4+IDg7CiAJ
-bXFkLT5jcF9ocWRfZW9wX2Jhc2VfYWRkcl9sbyA9IGVvcF9iYXNlX2FkZHI7CiAJbXFkLT5jcF9o
-cWRfZW9wX2Jhc2VfYWRkcl9oaSA9IHVwcGVyXzMyX2JpdHMoZW9wX2Jhc2VfYWRkcik7CiAKQEAg
-LTQ4NzksMTYgKzQ4ODEsMTIgQEAgc3RhdGljIGludCBnZnhfdjhfMF9raXFfaW5pdF9xdWV1ZShz
-dHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsCiB7CiAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYg
-PSByaW5nLT5hZGV2OwogCXN0cnVjdCBhbWRncHVfa2lxICpraXEgPSAmYWRldi0+Z2Z4LmtpcTsK
-LQl1aW50NjRfdCBlb3BfZ3B1X2FkZHI7CiAJYm9vbCBpc19raXEgPSAocmluZy0+ZnVuY3MtPnR5
-cGUgPT0gQU1ER1BVX1JJTkdfVFlQRV9LSVEpOwogCWludCBtcWRfaWR4ID0gQU1ER1BVX01BWF9D
-T01QVVRFX1JJTkdTOwogCiAJaWYgKGlzX2tpcSkgewotCQllb3BfZ3B1X2FkZHIgPSBraXEtPmVv
-cF9ncHVfYWRkcjsKIAkJZ2Z4X3Y4XzBfa2lxX3NldHRpbmcoJmtpcS0+cmluZyk7CiAJfSBlbHNl
-IHsKLQkJZW9wX2dwdV9hZGRyID0gYWRldi0+Z2Z4Lm1lYy5ocGRfZW9wX2dwdV9hZGRyICsKLQkJ
-CQkJcmluZy0+cXVldWUgKiBNRUNfSFBEX1NJWkU7CiAJCW1xZF9pZHggPSByaW5nIC0gJmFkZXYt
-PmdmeC5jb21wdXRlX3JpbmdbMF07CiAJfQogCkBAIC00ODk2LDcgKzQ4OTQsNyBAQCBzdGF0aWMg
-aW50IGdmeF92OF8wX2tpcV9pbml0X3F1ZXVlKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywKIAkJ
-bWVtc2V0KCh2b2lkICopbXFkLCAwLCBzaXplb2YoKm1xZCkpOwogCQltdXRleF9sb2NrKCZhZGV2
-LT5zcmJtX211dGV4KTsKIAkJdmlfc3JibV9zZWxlY3QoYWRldiwgcmluZy0+bWUsIHJpbmctPnBp
-cGUsIHJpbmctPnF1ZXVlLCAwKTsKLQkJZ2Z4X3Y4XzBfbXFkX2luaXQocmluZywgbXFkLCBlb3Bf
-Z3B1X2FkZHIpOworCQlnZnhfdjhfMF9tcWRfaW5pdChyaW5nLCBtcWQpOwogCQlpZiAoaXNfa2lx
-KQogCQkJZ2Z4X3Y4XzBfa2lxX2luaXRfcmVnaXN0ZXIocmluZywgbXFkKTsKIAkJdmlfc3JibV9z
-ZWxlY3QoYWRldiwgMCwgMCwgMCwgMCk7Ci0tIAoyLjUuNQoKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4Cg==
+> - Are we going to support resizing BAR when kernel
+> modesetting  is not enabled and we are running in console
+> under VBIOS control (VESA/VGA)?
+No, initial I've tried to resize the PCI BAR during probing without the 
+help of the driver at all. But the VESA/EFI/VBIOS don't seem to be able 
+to handle addresses above 4GB for some reason.
+
+So the approach is to let the driver kick the VESA/EFI drivers out and 
+then resize when we know that nobody is accessing the BAR.
+
+That's the only approach I've found without either blacklisting VESA/EFI 
+drivers or crashing the system during the resize.
+
+> - Should we restore PCI configuration if amdgpu
+> will be unloaded?
+Yeah, thought about the as well. I'm just not sure how to do it.
+
+There is a lot of stuff we need to save and reset when the driver 
+unloads for not much gain.
+
+> - In function amdgpu_resize_bar0():
+>    If resizing for "max" size failed should we try other
+> sizes? What do you think?
+Probably not worth it. If we get the BAR moved to a 64bit address we 
+should have enough address space in almost all cases, so setting it to 
+the maximum should succeed.
+
+But I think we could add another parameter to allow limiting the resized 
+size for all corner cases and for testing.
+
+Regards,
+Christian.
+
+Am 23.03.2017 um 15:30 schrieb Sagalovitch, Serguei:
+> Christian,
+>
+> - Are we going to support resizing BAR when kernel
+> modesetting  is not enabled and we are running in console
+> under VBIOS control (VESA/VGA)?
+>
+> - Should we restore PCI configuration if amdgpu
+> will be unloaded?
+>
+> - In function amdgpu_resize_bar0():
+>    If resizing for "max" size failed should we try other
+> sizes? What do you think?
+>
+>
+> Sincerely yours,
+> Serguei Sagalovitch
+>
+>
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Zhang, Jerry <Jerry.Zhang@amd.com>
+> Sent: March 15, 2017 10:41 PM
+> To: Alex Deucher
+> Cc: Zhou, David(ChunMing); Ayyappa Ch; linux-pci@vger.kernel.org; linux-kernel@vger.kernel.org; dri-devel@lists.freedesktop.org; platform-driver-x86@vger.kernel.org; Christian König; helgaas@kernel.org; amd-gfx@lists.freedesktop.org
+> Subject: RE: [PATCH 4/4] drm/amdgpu: resize VRAM BAR for CPU access
+>      
+> Thanks for your info.
+> I see.
+>
+> Regards,
+> Jerry (Junwei Zhang)
+>
+> Linux Base Graphics
+> SRDC Software Development
+> _____________________________________
+>
+>
+>> -----Original Message-----
+>> From: Alex Deucher [mailto:alexdeucher@gmail.com]
+>> Sent: Thursday, March 16, 2017 10:25
+>> To: Zhang, Jerry
+>> Cc: Christian König; Zhou, David(ChunMing); Ayyappa Ch; linux-
+>> pci@vger.kernel.org; linux-kernel@vger.kernel.org; dri-
+>> devel@lists.freedesktop.org; platform-driver-x86@vger.kernel.org;
+>> helgaas@kernel.org; amd-gfx@lists.freedesktop.org
+>> Subject: Re: [PATCH 4/4] drm/amdgpu: resize VRAM BAR for CPU access
+>>
+>> On Wed, Mar 15, 2017 at 10:19 PM, Zhang, Jerry <Jerry.Zhang@amd.com> wrote:
+>>>> -----Original Message-----
+>>>> From: dri-devel [mailto:dri-devel-bounces@lists.freedesktop.org] On
+>>>> Behalf Of Christian K?nig
+>>>> Sent: Wednesday, March 15, 2017 17:29
+>>>> To: Zhou, David(ChunMing); Ayyappa Ch
+>>>> Cc: linux-pci@vger.kernel.org; linux-kernel@vger.kernel.org; amd-
+>>>> gfx@lists.freedesktop.org; platform-driver-x86@vger.kernel.org;
+>>>> helgaas@kernel.org; dri-devel@lists.freedesktop.org
+>>>> Subject: Re: [PATCH 4/4] drm/amdgpu: resize VRAM BAR for CPU access
+>>>>
+>>>> Yes, exactly that.
+>>> (I'm not familiar with PCI too much.)
+>>> Is there any restrict for PCI device?
+>>> I'm concerning if any PCI couldn't support it on some motherboard.
+>> It depends on the PCI root bridge.  This patch set only implements support for
+>> AMD root bridges.  Intel and other vendors would need similar code.
+>>
+>> Alex
+>>
+>>>> Christian.
+>>>>
+>>>> Am 15.03.2017 um 09:25 schrieb Zhou, David(ChunMing):
+>>>>> Does that means we don't need invisible vram later?
+>>>>>
+>>>>> David
+>>>>>
+>>>>> -----Original Message-----
+>>>>> From: dri-devel [mailto:dri-devel-bounces@lists.freedesktop.org] On
+>>>>> Behalf Of Christian K?nig
+>>>>> Sent: Wednesday, March 15, 2017 3:38 PM
+>>>>> To: Ayyappa Ch <ayyappa.ch.linux@gmail.com>
+>>>>> Cc: linux-pci@vger.kernel.org; linux-kernel@vger.kernel.org;
+>>>>> amd-gfx@lists.freedesktop.org; platform-driver-x86@vger.kernel.org;
+>>>>> helgaas@kernel.org; dri-devel@lists.freedesktop.org
+>>>>> Subject: Re: [PATCH 4/4] drm/amdgpu: resize VRAM BAR for CPU access
+>>>>>
+>>>>> Carizzo is an APU and resizing BARs isn't needed nor supported there.
+>>>>> The CPU can access the full stolen VRAM directly on that hardware.
+>>>>>
+>>>>> As far as I know ASICs with support for this are Tonga, Fiji and all Polaris
+>> variants.
+>>>>> Christian.
+>>>>>
+>>>>> Am 15.03.2017 um 08:23 schrieb Ayyappa Ch:
+>>>>>> Is it possible on Carrizo asics? Or only supports on newer asics?
+>>>>>>
+>>>>>> On Mon, Mar 13, 2017 at 6:11 PM, Christian König
+>>>>>> <deathsimple@vodafone.de> wrote:
+>>>>>>> From: Christian König <christian.koenig@amd.com>
+>>>>>>>
+>>>>>>> Try to resize BAR0 to let CPU access all of VRAM.
+>>>>>>>
+>>>>>>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>>>>>>> ---
+>>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
+>>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 29
+>>>> +++++++++++++++++++++++++++++
+>>>>>>>      drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c      |  8 +++++---
+>>>>>>>      drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c      |  8 +++++---
+>>>>>>>      4 files changed, 40 insertions(+), 6 deletions(-)
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>>>> index 3b81ded..905ded9 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>>>> @@ -1719,6 +1719,7 @@ uint64_t amdgpu_ttm_tt_pte_flags(struct
+>>>> amdgpu_device *adev, struct ttm_tt *ttm,
+>>>>>>>                                      struct ttm_mem_reg *mem);
+>>>>>>>      void amdgpu_vram_location(struct amdgpu_device *adev, struct
+>>>> amdgpu_mc *mc, u64 base);
+>>>>>>>      void amdgpu_gtt_location(struct amdgpu_device *adev, struct
+>>>>>>> amdgpu_mc *mc);
+>>>>>>> +void amdgpu_resize_bar0(struct amdgpu_device *adev);
+>>>>>>>      void amdgpu_ttm_set_active_vram_size(struct amdgpu_device
+>>>>>>> *adev,
+>>>> u64 size);
+>>>>>>>      int amdgpu_ttm_init(struct amdgpu_device *adev);
+>>>>>>>      void amdgpu_ttm_fini(struct amdgpu_device *adev); diff --git
+>>>>>>> a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>>>> index 118f4e6..92955fe 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>>>> @@ -692,6 +692,35 @@ void amdgpu_gtt_location(struct
+>>>>>>> amdgpu_device
+>>>> *adev, struct amdgpu_mc *mc)
+>>>>>>>                             mc->gtt_size >> 20, mc->gtt_start, mc->gtt_end);
+>>>>>>>      }
+>>>>>>>
+>>>>>>> +/**
+>>>>>>> + * amdgpu_resize_bar0 - try to resize BAR0
+>>>>>>> + *
+>>>>>>> + * @adev: amdgpu_device pointer
+>>>>>>> + *
+>>>>>>> + * Try to resize BAR0 to make all VRAM CPU accessible.
+>>>>>>> + */
+>>>>>>> +void amdgpu_resize_bar0(struct amdgpu_device *adev) {
+>>>>>>> +       u32 size = max(ilog2(adev->mc.real_vram_size - 1) + 1, 20) - 20;
+>>>>>>> +       int r;
+>>>>>>> +
+>>>>>>> +       r = pci_resize_resource(adev->pdev, 0, size);
+>>>>>>> +
+>>>>>>> +       if (r == -ENOTSUPP) {
+>>>>>>> +               /* The hardware don't support the extension. */
+>>>>>>> +               return;
+>>>>>>> +
+>>>>>>> +       } else if (r == -ENOSPC) {
+>>>>>>> +               DRM_INFO("Not enoigh PCI address space for a large BAR.");
+>>>>>>> +       } else if (r) {
+>>>>>>> +               DRM_ERROR("Problem resizing BAR0 (%d).", r);
+>>>>>>> +       }
+>>>>>>> +
+>>>>>>> +       /* Reinit the doorbell mapping, it is most likely moved as well */
+>>>>>>> +       amdgpu_doorbell_fini(adev);
+>>>>>>> +       BUG_ON(amdgpu_doorbell_init(adev));
+>>>>>>> +}
+>>>>>>> +
+>>>>>>>      /*
+>>>>>>>       * GPU helpers function.
+>>>>>>>       */
+>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+>>>>>>> b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+>>>>>>> index dc9b6d6..36a7aa5 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+>>>>>>> @@ -367,13 +367,15 @@ static int gmc_v7_0_mc_init(struct
+>>>>>>> amdgpu_device
+>>>> *adev)
+>>>>>>>                     break;
+>>>>>>>             }
+>>>>>>>             adev->mc.vram_width = numchan * chansize;
+>>>>>>> -       /* Could aper size report 0 ? */
+>>>>>>> -       adev->mc.aper_base = pci_resource_start(adev->pdev, 0);
+>>>>>>> -       adev->mc.aper_size = pci_resource_len(adev->pdev, 0);
+>>>>>>>             /* size in MB on si */
+>>>>>>>             adev->mc.mc_vram_size = RREG32(mmCONFIG_MEMSIZE) *
+>>>>>>> 1024ULL *
+>>>> 1024ULL;
+>>>>>>>             adev->mc.real_vram_size = RREG32(mmCONFIG_MEMSIZE) *
+>>>>>>> 1024ULL
+>>>>>>> * 1024ULL;
+>>>>>>>
+>>>>>>> +       if (!(adev->flags & AMD_IS_APU))
+>>>>>>> +               amdgpu_resize_bar0(adev);
+>>>>>>> +       adev->mc.aper_base = pci_resource_start(adev->pdev, 0);
+>>>>>>> +       adev->mc.aper_size = pci_resource_len(adev->pdev, 0);
+>>>>>>> +
+>>>>>>>      #ifdef CONFIG_X86_64
+>>>>>>>             if (adev->flags & AMD_IS_APU) {
+>>>>>>>                     adev->mc.aper_base =
+>>>>>>> ((u64)RREG32(mmMC_VM_FB_OFFSET)) << 22; diff --git
+>>>>>>> a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+>>>>>>> b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+>>>>>>> index c087b00..7761ad3 100644
+>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+>>>>>>> @@ -459,13 +459,15 @@ static int gmc_v8_0_mc_init(struct
+>>>>>>> amdgpu_device
+>>>> *adev)
+>>>>>>>                     break;
+>>>>>>>             }
+>>>>>>>             adev->mc.vram_width = numchan * chansize;
+>>>>>>> -       /* Could aper size report 0 ? */
+>>>>>>> -       adev->mc.aper_base = pci_resource_start(adev->pdev, 0);
+>>>>>>> -       adev->mc.aper_size = pci_resource_len(adev->pdev, 0);
+>>>>>>>             /* size in MB on si */
+>>>>>>>             adev->mc.mc_vram_size = RREG32(mmCONFIG_MEMSIZE) *
+>>>>>>> 1024ULL *
+>>>> 1024ULL;
+>>>>>>>             adev->mc.real_vram_size = RREG32(mmCONFIG_MEMSIZE) *
+>>>>>>> 1024ULL
+>>>>>>> * 1024ULL;
+>>>>>>>
+>>>>>>> +       if (!(adev->flags & AMD_IS_APU))
+>>>>>>> +               amdgpu_resize_bar0(adev);
+>>>>>>> +       adev->mc.aper_base = pci_resource_start(adev->pdev, 0);
+>>>>>>> +       adev->mc.aper_size = pci_resource_len(adev->pdev, 0);
+>>>>>>> +
+>>>>>>>      #ifdef CONFIG_X86_64
+>>>>>>>             if (adev->flags & AMD_IS_APU) {
+>>>>>>>                     adev->mc.aper_base =
+>>>>>>> ((u64)RREG32(mmMC_VM_FB_OFFSET)) << 22;
+>>>>>>> --
+>>>>>>> 2.7.4
+>>>>>>>
+>>>>>>> _______________________________________________
+>>>>>>> dri-devel mailing list
+>>>>>>> dri-devel@lists.freedesktop.org
+>>>>>>> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+>>>>> _______________________________________________
+>>>>> dri-devel mailing list
+>>>>> dri-devel@lists.freedesktop.org
+>>>>> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+>>>>> _______________________________________________
+>>>>> amd-gfx mailing list
+>>>>> amd-gfx@lists.freedesktop.org
+>>>>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>>>>
+>>>> _______________________________________________
+>>>> dri-devel mailing list
+>>>> dri-devel@lists.freedesktop.org
+>>>> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+>>> _______________________________________________
+>>> amd-gfx mailing list
+>>> amd-gfx@lists.freedesktop.org
+>>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>      
