@@ -1,316 +1,267 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple@vodafone.de>
-Subject: Re: [PATCH 4/4] drm/amdgpu: resize VRAM BAR for CPU access
-Date: Thu, 23 Mar 2017 16:56:57 +0100
-Message-ID: <8be2c72c-78f4-bc80-5f47-e4b27efa3263@vodafone.de>
-References: <1489408896-25039-1-git-send-email-deathsimple@vodafone.de>
- <1489408896-25039-5-git-send-email-deathsimple@vodafone.de>
- <CAPyr0yLWiGzU5ihFcj_NmA2Vk2R7GsKqo2LK8o3Eu+Df9m7vhw@mail.gmail.com>
- <6fac05e4-26ae-e959-9af6-cb68a04a1110@vodafone.de>
- <MWHPR1201MB0206CA2E6DAC3B83ACA52ADBB4270@MWHPR1201MB0206.namprd12.prod.outlook.com>
- <17c470c4-d406-b5ac-73d1-4dd5b83cfca8@vodafone.de>
- <DM5PR12MB18188AF745E7FB6B021E6600FF260@DM5PR12MB1818.namprd12.prod.outlook.com>
- <CADnq5_NzFTWEB8NXT6LM9U=JfexpbZxQCyja1VqZv+NYMCmJwQ@mail.gmail.com>
- <DM5PR12MB1818E21F5F5456B2041B3817FF260@DM5PR12MB1818.namprd12.prod.outlook.com>
- <MWHPR12MB115280D45EBF8E0647805BD7FE3F0@MWHPR12MB1152.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH] Revert "drm/radeon: Try evicting from CPU accessible to
+ inaccessible VRAM first"
+Date: Thu, 23 Mar 2017 17:05:27 +0100
+Message-ID: <d476dcba-048d-ad4b-b080-49e31e6fb25b@vodafone.de>
+References: <1490206797-15653-1-git-send-email-zmichaels@oblong.com>
+ <c56f4a6a-a17d-b9b0-311e-7100df8c7cee@daenzer.net>
+ <CAOfP2NDoHof0UhQbz53N9WW8jLH3yC_e+ESrTbdd9Ldb6RYg=Q@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 8bit
-Return-path: <platform-driver-x86-owner@vger.kernel.org>
-In-Reply-To: <MWHPR12MB115280D45EBF8E0647805BD7FE3F0@MWHPR12MB1152.namprd12.prod.outlook.com>
-Sender: platform-driver-x86-owner@vger.kernel.org
-To: "Sagalovitch, Serguei" <Serguei.Sagalovitch@amd.com>, "Zhang, Jerry" <Jerry.Zhang@amd.com>, Alex Deucher <alexdeucher@gmail.com>
-Cc: "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, Ayyappa Ch <ayyappa.ch.linux@gmail.com>, "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>, "helgaas@kernel.org" <helgaas@kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0890243744=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CAOfP2NDoHof0UhQbz53N9WW8jLH3yC_e+ESrTbdd9Ldb6RYg=Q@mail.gmail.com>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Zachary Michaels <zmichaels-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Julien Isorce <jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org>
 
-> - Are we going to support resizing BAR when kernel
-> modesetting  is not enabled and we are running in console
-> under VBIOS control (VESA/VGA)?
-No, initial I've tried to resize the PCI BAR during probing without the 
-help of the driver at all. But the VESA/EFI/VBIOS don't seem to be able 
-to handle addresses above 4GB for some reason.
+This is a multi-part message in MIME format.
+--===============0890243744==
+Content-Type: multipart/alternative;
+ boundary="------------8640DDB2470F0614B0A2E787"
 
-So the approach is to let the driver kick the VESA/EFI drivers out and 
-then resize when we know that nobody is accessing the BAR.
+This is a multi-part message in MIME format.
+--------------8640DDB2470F0614B0A2E787
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-That's the only approach I've found without either blacklisting VESA/EFI 
-drivers or crashing the system during the resize.
+> Understood -- I thought you might not want to take this patch, but I 
+> went ahead and sent it out because Christian requested it, and it 
+> seems like he doesn't think VRAM bos should ever evict back to VRAM at 
+> all?
+No, I've requested reverting the patch for now because it causes an 
+obviously and rather severe problem. If you guys can quickly find how to 
+fix it feel free to use that instead.
 
-> - Should we restore PCI configuration if amdgpu
-> will be unloaded?
-Yeah, thought about the as well. I'm just not sure how to do it.
+> Is my understanding of the original commit correct in that it tries to 
+> rewrite the eviction placements of CPU accessible bos so that they are 
+> either size zero (fpfn and lpfn = start of inaccessible VRAM) or they 
+> are in inaccessible VRAM (fpfn = start of inaccessible VRAM and lpfn = 0)?
+That for example could work as well, but see below.
 
-There is a lot of stuff we need to save and reset when the driver 
-unloads for not much gain.
+> if these sorts of evictions are desirable, would it make more sense to 
+> treat CPU inaccessible/accessible VRAM as distinct entities with their 
+> own lrus?
+Actually I'm pretty sure that it isn't desirable. See the evict function 
+doesn't know if we try to evict BOs because we need CPU accessible VRAM 
+or if we just run out of VRAM.
 
-> - In function amdgpu_resize_bar0():
->    If resizing for "max" size failed should we try other
-> sizes? What do you think?
-Probably not worth it. If we get the BAR moved to a 64bit address we 
-should have enough address space in almost all cases, so setting it to 
-the maximum should succeed.
-
-But I think we could add another parameter to allow limiting the resized 
-size for all corner cases and for testing.
+This code only makes sense when we need to move different BOs into the 
+CPU accessible part round robin because they are accessed by the CPU, 
+but then it is actually better to move them to GTT sooner or later.
 
 Regards,
 Christian.
 
-Am 23.03.2017 um 15:30 schrieb Sagalovitch, Serguei:
-> Christian,
+Am 23.03.2017 um 16:31 schrieb Zachary Michaels:
 >
-> - Are we going to support resizing BAR when kernel
-> modesetting  is not enabled and we are running in console
-> under VBIOS control (VESA/VGA)?
->
-> - Should we restore PCI configuration if amdgpu
-> will be unloaded?
->
-> - In function amdgpu_resize_bar0():
->    If resizing for "max" size failed should we try other
-> sizes? What do you think?
+>     Was userspace maybe performing concurrent CPU access to the BOs in
+>     question?
 >
 >
-> Sincerely yours,
-> Serguei Sagalovitch
+> As far as I know Julien has demonstrated that this is not the case.
+>
+>     I hope we can find a better solution.
 >
 >
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Zhang, Jerry <Jerry.Zhang@amd.com>
-> Sent: March 15, 2017 10:41 PM
-> To: Alex Deucher
-> Cc: Zhou, David(ChunMing); Ayyappa Ch; linux-pci@vger.kernel.org; linux-kernel@vger.kernel.org; dri-devel@lists.freedesktop.org; platform-driver-x86@vger.kernel.org; Christian König; helgaas@kernel.org; amd-gfx@lists.freedesktop.org
-> Subject: RE: [PATCH 4/4] drm/amdgpu: resize VRAM BAR for CPU access
->      
-> Thanks for your info.
-> I see.
+> Understood -- I thought you might not want to take this patch, but I 
+> went ahead and sent it out because Christian requested it, and it 
+> seems like he doesn't think VRAM bos should ever evict back to VRAM at 
+> all?
 >
-> Regards,
-> Jerry (Junwei Zhang)
+> Is my understanding of the original commit correct in that it tries to 
+> rewrite the eviction placements of CPU accessible bos so that they are 
+> either size zero (fpfn and lpfn = start of inaccessible VRAM) or they 
+> are in inaccessible VRAM (fpfn = start of inaccessible VRAM and lpfn = 0)?
 >
-> Linux Base Graphics
-> SRDC Software Development
-> _____________________________________
+> In this case, to me it seems that the simplest fix would be to iterate 
+> using i to rewrite all the VRAM placements instead of just the first 
+> one (rbo->placements[i] instead of rbo->placements[0]). In the case 
+> where RADEON_GEM_NO_CPU_ACCESS is set, the second placement will be in 
+> CPU accessible VRAM, and that doesn't seem correct to me as there is 
+> no longer any sort of ordering for evictions. (Unfortunately I'm not 
+> currently in a position to test whether this fixes our issue.) Sorry, 
+> I meant to make a note of this originally.
+>
+> Also, I don't claim to understand this code well enough, but I wonder: 
+> if these sorts of evictions are desirable, would it make more sense to 
+> treat CPU inaccessible/accessible VRAM as distinct entities with their 
+> own lrus?
+>
+> I should also note that we are experiencing another issue where the 
+> kernel locks up in similar circumstances. As Julien noted, we get no 
+> output, and the watchdogs don't seem to work. It may be the case that 
+> Xorg and our process are calling ttm_bo_mem_force_space concurrently, 
+> but I don't think we have enough information yet to say for 
+> sure. Reverting this commit does not fix that issue. I have some small 
+> amount of evidence indicating that bos flagged for CPU access are 
+> getting placed in CPU inaccessible memory. Could that cause this sort 
+> of kernel lockup?
+>
+> Thanks for your help.
 >
 >
->> -----Original Message-----
->> From: Alex Deucher [mailto:alexdeucher@gmail.com]
->> Sent: Thursday, March 16, 2017 10:25
->> To: Zhang, Jerry
->> Cc: Christian König; Zhou, David(ChunMing); Ayyappa Ch; linux-
->> pci@vger.kernel.org; linux-kernel@vger.kernel.org; dri-
->> devel@lists.freedesktop.org; platform-driver-x86@vger.kernel.org;
->> helgaas@kernel.org; amd-gfx@lists.freedesktop.org
->> Subject: Re: [PATCH 4/4] drm/amdgpu: resize VRAM BAR for CPU access
->>
->> On Wed, Mar 15, 2017 at 10:19 PM, Zhang, Jerry <Jerry.Zhang@amd.com> wrote:
->>>> -----Original Message-----
->>>> From: dri-devel [mailto:dri-devel-bounces@lists.freedesktop.org] On
->>>> Behalf Of Christian K?nig
->>>> Sent: Wednesday, March 15, 2017 17:29
->>>> To: Zhou, David(ChunMing); Ayyappa Ch
->>>> Cc: linux-pci@vger.kernel.org; linux-kernel@vger.kernel.org; amd-
->>>> gfx@lists.freedesktop.org; platform-driver-x86@vger.kernel.org;
->>>> helgaas@kernel.org; dri-devel@lists.freedesktop.org
->>>> Subject: Re: [PATCH 4/4] drm/amdgpu: resize VRAM BAR for CPU access
->>>>
->>>> Yes, exactly that.
->>> (I'm not familiar with PCI too much.)
->>> Is there any restrict for PCI device?
->>> I'm concerning if any PCI couldn't support it on some motherboard.
->> It depends on the PCI root bridge.  This patch set only implements support for
->> AMD root bridges.  Intel and other vendors would need similar code.
->>
->> Alex
->>
->>>> Christian.
->>>>
->>>> Am 15.03.2017 um 09:25 schrieb Zhou, David(ChunMing):
->>>>> Does that means we don't need invisible vram later?
->>>>>
->>>>> David
->>>>>
->>>>> -----Original Message-----
->>>>> From: dri-devel [mailto:dri-devel-bounces@lists.freedesktop.org] On
->>>>> Behalf Of Christian K?nig
->>>>> Sent: Wednesday, March 15, 2017 3:38 PM
->>>>> To: Ayyappa Ch <ayyappa.ch.linux@gmail.com>
->>>>> Cc: linux-pci@vger.kernel.org; linux-kernel@vger.kernel.org;
->>>>> amd-gfx@lists.freedesktop.org; platform-driver-x86@vger.kernel.org;
->>>>> helgaas@kernel.org; dri-devel@lists.freedesktop.org
->>>>> Subject: Re: [PATCH 4/4] drm/amdgpu: resize VRAM BAR for CPU access
->>>>>
->>>>> Carizzo is an APU and resizing BARs isn't needed nor supported there.
->>>>> The CPU can access the full stolen VRAM directly on that hardware.
->>>>>
->>>>> As far as I know ASICs with support for this are Tonga, Fiji and all Polaris
->> variants.
->>>>> Christian.
->>>>>
->>>>> Am 15.03.2017 um 08:23 schrieb Ayyappa Ch:
->>>>>> Is it possible on Carrizo asics? Or only supports on newer asics?
->>>>>>
->>>>>> On Mon, Mar 13, 2017 at 6:11 PM, Christian König
->>>>>> <deathsimple@vodafone.de> wrote:
->>>>>>> From: Christian König <christian.koenig@amd.com>
->>>>>>>
->>>>>>> Try to resize BAR0 to let CPU access all of VRAM.
->>>>>>>
->>>>>>> Signed-off-by: Christian König <christian.koenig@amd.com>
->>>>>>> ---
->>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
->>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 29
->>>> +++++++++++++++++++++++++++++
->>>>>>>      drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c      |  8 +++++---
->>>>>>>      drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c      |  8 +++++---
->>>>>>>      4 files changed, 40 insertions(+), 6 deletions(-)
->>>>>>>
->>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>>>>>> index 3b81ded..905ded9 100644
->>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
->>>>>>> @@ -1719,6 +1719,7 @@ uint64_t amdgpu_ttm_tt_pte_flags(struct
->>>> amdgpu_device *adev, struct ttm_tt *ttm,
->>>>>>>                                      struct ttm_mem_reg *mem);
->>>>>>>      void amdgpu_vram_location(struct amdgpu_device *adev, struct
->>>> amdgpu_mc *mc, u64 base);
->>>>>>>      void amdgpu_gtt_location(struct amdgpu_device *adev, struct
->>>>>>> amdgpu_mc *mc);
->>>>>>> +void amdgpu_resize_bar0(struct amdgpu_device *adev);
->>>>>>>      void amdgpu_ttm_set_active_vram_size(struct amdgpu_device
->>>>>>> *adev,
->>>> u64 size);
->>>>>>>      int amdgpu_ttm_init(struct amdgpu_device *adev);
->>>>>>>      void amdgpu_ttm_fini(struct amdgpu_device *adev); diff --git
->>>>>>> a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>>>> index 118f4e6..92955fe 100644
->>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>>>>> @@ -692,6 +692,35 @@ void amdgpu_gtt_location(struct
->>>>>>> amdgpu_device
->>>> *adev, struct amdgpu_mc *mc)
->>>>>>>                             mc->gtt_size >> 20, mc->gtt_start, mc->gtt_end);
->>>>>>>      }
->>>>>>>
->>>>>>> +/**
->>>>>>> + * amdgpu_resize_bar0 - try to resize BAR0
->>>>>>> + *
->>>>>>> + * @adev: amdgpu_device pointer
->>>>>>> + *
->>>>>>> + * Try to resize BAR0 to make all VRAM CPU accessible.
->>>>>>> + */
->>>>>>> +void amdgpu_resize_bar0(struct amdgpu_device *adev) {
->>>>>>> +       u32 size = max(ilog2(adev->mc.real_vram_size - 1) + 1, 20) - 20;
->>>>>>> +       int r;
->>>>>>> +
->>>>>>> +       r = pci_resize_resource(adev->pdev, 0, size);
->>>>>>> +
->>>>>>> +       if (r == -ENOTSUPP) {
->>>>>>> +               /* The hardware don't support the extension. */
->>>>>>> +               return;
->>>>>>> +
->>>>>>> +       } else if (r == -ENOSPC) {
->>>>>>> +               DRM_INFO("Not enoigh PCI address space for a large BAR.");
->>>>>>> +       } else if (r) {
->>>>>>> +               DRM_ERROR("Problem resizing BAR0 (%d).", r);
->>>>>>> +       }
->>>>>>> +
->>>>>>> +       /* Reinit the doorbell mapping, it is most likely moved as well */
->>>>>>> +       amdgpu_doorbell_fini(adev);
->>>>>>> +       BUG_ON(amdgpu_doorbell_init(adev));
->>>>>>> +}
->>>>>>> +
->>>>>>>      /*
->>>>>>>       * GPU helpers function.
->>>>>>>       */
->>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
->>>>>>> b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
->>>>>>> index dc9b6d6..36a7aa5 100644
->>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
->>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
->>>>>>> @@ -367,13 +367,15 @@ static int gmc_v7_0_mc_init(struct
->>>>>>> amdgpu_device
->>>> *adev)
->>>>>>>                     break;
->>>>>>>             }
->>>>>>>             adev->mc.vram_width = numchan * chansize;
->>>>>>> -       /* Could aper size report 0 ? */
->>>>>>> -       adev->mc.aper_base = pci_resource_start(adev->pdev, 0);
->>>>>>> -       adev->mc.aper_size = pci_resource_len(adev->pdev, 0);
->>>>>>>             /* size in MB on si */
->>>>>>>             adev->mc.mc_vram_size = RREG32(mmCONFIG_MEMSIZE) *
->>>>>>> 1024ULL *
->>>> 1024ULL;
->>>>>>>             adev->mc.real_vram_size = RREG32(mmCONFIG_MEMSIZE) *
->>>>>>> 1024ULL
->>>>>>> * 1024ULL;
->>>>>>>
->>>>>>> +       if (!(adev->flags & AMD_IS_APU))
->>>>>>> +               amdgpu_resize_bar0(adev);
->>>>>>> +       adev->mc.aper_base = pci_resource_start(adev->pdev, 0);
->>>>>>> +       adev->mc.aper_size = pci_resource_len(adev->pdev, 0);
->>>>>>> +
->>>>>>>      #ifdef CONFIG_X86_64
->>>>>>>             if (adev->flags & AMD_IS_APU) {
->>>>>>>                     adev->mc.aper_base =
->>>>>>> ((u64)RREG32(mmMC_VM_FB_OFFSET)) << 22; diff --git
->>>>>>> a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
->>>>>>> b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
->>>>>>> index c087b00..7761ad3 100644
->>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
->>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
->>>>>>> @@ -459,13 +459,15 @@ static int gmc_v8_0_mc_init(struct
->>>>>>> amdgpu_device
->>>> *adev)
->>>>>>>                     break;
->>>>>>>             }
->>>>>>>             adev->mc.vram_width = numchan * chansize;
->>>>>>> -       /* Could aper size report 0 ? */
->>>>>>> -       adev->mc.aper_base = pci_resource_start(adev->pdev, 0);
->>>>>>> -       adev->mc.aper_size = pci_resource_len(adev->pdev, 0);
->>>>>>>             /* size in MB on si */
->>>>>>>             adev->mc.mc_vram_size = RREG32(mmCONFIG_MEMSIZE) *
->>>>>>> 1024ULL *
->>>> 1024ULL;
->>>>>>>             adev->mc.real_vram_size = RREG32(mmCONFIG_MEMSIZE) *
->>>>>>> 1024ULL
->>>>>>> * 1024ULL;
->>>>>>>
->>>>>>> +       if (!(adev->flags & AMD_IS_APU))
->>>>>>> +               amdgpu_resize_bar0(adev);
->>>>>>> +       adev->mc.aper_base = pci_resource_start(adev->pdev, 0);
->>>>>>> +       adev->mc.aper_size = pci_resource_len(adev->pdev, 0);
->>>>>>> +
->>>>>>>      #ifdef CONFIG_X86_64
->>>>>>>             if (adev->flags & AMD_IS_APU) {
->>>>>>>                     adev->mc.aper_base =
->>>>>>> ((u64)RREG32(mmMC_VM_FB_OFFSET)) << 22;
->>>>>>> --
->>>>>>> 2.7.4
->>>>>>>
->>>>>>> _______________________________________________
->>>>>>> dri-devel mailing list
->>>>>>> dri-devel@lists.freedesktop.org
->>>>>>> https://lists.freedesktop.org/mailman/listinfo/dri-devel
->>>>> _______________________________________________
->>>>> dri-devel mailing list
->>>>> dri-devel@lists.freedesktop.org
->>>>> https://lists.freedesktop.org/mailman/listinfo/dri-devel
->>>>> _______________________________________________
->>>>> amd-gfx mailing list
->>>>> amd-gfx@lists.freedesktop.org
->>>>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>>>
->>>> _______________________________________________
->>>> dri-devel mailing list
->>>> dri-devel@lists.freedesktop.org
->>>> https://lists.freedesktop.org/mailman/listinfo/dri-devel
->>> _______________________________________________
->>> amd-gfx mailing list
->>> amd-gfx@lists.freedesktop.org
->>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 > _______________________________________________
 > amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->      
+
+
+
+--------------8640DDB2470F0614B0A2E787
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">
+      <blockquote type="cite">Understood -- I thought you might not want
+        to take this patch, but I went ahead and sent it out because
+        Christian requested it, and it seems like he doesn't think VRAM
+        bos should ever evict back to VRAM at all?</blockquote>
+      No, I've requested reverting the patch for now because it causes
+      an obviously and rather severe problem. If you guys can quickly
+      find how to fix it feel free to use that instead.<br>
+      <br>
+      <blockquote type="cite">
+        <div>Is my understanding of the original commit correct in that
+          it tries to rewrite the eviction placements of CPU accessible
+          bos so that they are either size zero (fpfn and lpfn = start
+          of inaccessible VRAM) or they are in inaccessible VRAM (fpfn =
+          start of inaccessible VRAM and lpfn = 0)?</div>
+      </blockquote>
+      That for example could work as well, but see below.<br>
+      <br>
+      <blockquote type="cite">
+        <div>if these sorts of evictions are desirable, would it make
+          more sense to treat CPU inaccessible/accessible VRAM as
+          distinct entities with their own lrus?</div>
+      </blockquote>
+      Actually I'm pretty sure that it isn't desirable. See the evict
+      function doesn't know if we try to evict BOs because we need CPU
+      accessible VRAM or if we just run out of VRAM.<br>
+      <br>
+      This code only makes sense when we need to move different BOs into
+      the CPU accessible part round robin because they are accessed by
+      the CPU, but then it is actually better to move them to GTT sooner
+      or later.<br>
+      <br>
+      Regards,<br>
+      Christian.<br>
+      <br>
+      Am 23.03.2017 um 16:31 schrieb Zachary Michaels:<br>
+    </div>
+    <blockquote
+cite="mid:CAOfP2NDoHof0UhQbz53N9WW8jLH3yC_e+ESrTbdd9Ldb6RYg=Q@mail.gmail.com"
+      type="cite">
+      <div dir="ltr">
+        <div class="gmail_extra">
+          <div class="gmail_quote">
+            <blockquote class="gmail_quote" style="margin:0px 0px 0px
+              0.8ex;border-left:1px solid
+              rgb(204,204,204);padding-left:1ex">Was userspace maybe
+              performing concurrent CPU access to the BOs in question?</blockquote>
+            <div><br>
+            </div>
+            <div>As far as I know Julien has demonstrated that this is
+              not the case.Â </div>
+            <div>Â </div>
+            <blockquote class="gmail_quote" style="margin:0px 0px 0px
+              0.8ex;border-left:1px solid
+              rgb(204,204,204);padding-left:1ex">I hope we can find a
+              better solution.</blockquote>
+            <div><br>
+            </div>
+            <div>
+              <div>Understood -- I thought you might not want to take
+                this patch, but I went ahead and sent it out because
+                Christian requested it, and it seems like he doesn't
+                think VRAM bos should ever evict back to VRAM at all?</div>
+              <div><br>
+              </div>
+              <div>Is my understanding of the original commit correct in
+                that it tries to rewrite the eviction placements of CPU
+                accessible bos so that they are either size zero (fpfn
+                and lpfn = start of inaccessible VRAM) or they are in
+                inaccessible VRAM (fpfn = start of inaccessible VRAM and
+                lpfn = 0)?</div>
+              <div><br>
+              </div>
+              <div>In this case, to me it seems that the simplest fix
+                would be to iterate using i to rewrite all the VRAM
+                placements instead of just the first one
+                (rbo-&gt;placements[i] instead of
+                rbo-&gt;placements[0]). In the case whereÂ <span
+                  style="font-size:12.8px">RADEON_GEM_NO_CPU_ACCESS is
+                  set, the second placement will be in CPU accessible
+                  VRAM, and that doesn't seem correct to me as there is
+                  no longer any sort of ordering for evictions.</span>Â (Unfortunately
+                I'm not currently in a position to test whether this
+                fixes our issue.) Sorry, I meant to make a note of this
+                originally.</div>
+              <div><br>
+              </div>
+              <div>Also, I don't claim to understand this code well
+                enough, but I wonder: if these sorts of evictions are
+                desirable, would it make more sense to treat CPU
+                inaccessible/accessible VRAM as distinct entities with
+                their own lrus?</div>
+              <div><br>
+              </div>
+              <div>I should also note that we are experiencing another
+                issue where the kernel locks up in similar
+                circumstances. As Julien noted, we get no output, and
+                the watchdogs don't seem to work. It may be the case
+                that Xorg and our process are calling
+                ttm_bo_mem_force_space concurrently, but I don't think
+                we have enough information yet to say for
+                sure.Â Reverting this commit does not fix that issue.Â I
+                have some small amount of evidence indicating that bos
+                flagged for CPU access are getting placed in CPU
+                inaccessible memory. Could that cause this sort of
+                kernel lockup?</div>
+            </div>
+            <div><br>
+            </div>
+            <div>Thanks for your help.</div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------8640DDB2470F0614B0A2E787--
+
+--===============0890243744==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0890243744==--
