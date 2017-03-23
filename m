@@ -1,15 +1,13 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH] Revert "drm/radeon: Try evicting from CPU accessible to
- inaccessible VRAM first"
-Date: Thu, 23 Mar 2017 17:05:27 +0100
-Message-ID: <d476dcba-048d-ad4b-b080-49e31e6fb25b@vodafone.de>
-References: <1490206797-15653-1-git-send-email-zmichaels@oblong.com>
- <c56f4a6a-a17d-b9b0-311e-7100df8c7cee@daenzer.net>
- <CAOfP2NDoHof0UhQbz53N9WW8jLH3yC_e+ESrTbdd9Ldb6RYg=Q@mail.gmail.com>
+Subject: Re: [PATCH 1/8] drm/amdgpu/gfx8: whitespace cleanup
+Date: Thu, 23 Mar 2017 17:07:23 +0100
+Message-ID: <68eca7ce-6ae2-a5c2-d236-1537eb9ceaef@vodafone.de>
+References: <1490284508-2453-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0890243744=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAOfP2NDoHof0UhQbz53N9WW8jLH3yC_e+ESrTbdd9Ldb6RYg=Q@mail.gmail.com>
+In-Reply-To: <1490284508-2453-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,248 +18,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Zachary Michaels <zmichaels-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Julien Isorce <jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============0890243744==
-Content-Type: multipart/alternative;
- boundary="------------8640DDB2470F0614B0A2E787"
-
-This is a multi-part message in MIME format.
---------------8640DDB2470F0614B0A2E787
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-> Understood -- I thought you might not want to take this patch, but I 
-> went ahead and sent it out because Christian requested it, and it 
-> seems like he doesn't think VRAM bos should ever evict back to VRAM at 
-> all?
-No, I've requested reverting the patch for now because it causes an 
-obviously and rather severe problem. If you guys can quickly find how to 
-fix it feel free to use that instead.
-
-> Is my understanding of the original commit correct in that it tries to 
-> rewrite the eviction placements of CPU accessible bos so that they are 
-> either size zero (fpfn and lpfn = start of inaccessible VRAM) or they 
-> are in inaccessible VRAM (fpfn = start of inaccessible VRAM and lpfn = 0)?
-That for example could work as well, but see below.
-
-> if these sorts of evictions are desirable, would it make more sense to 
-> treat CPU inaccessible/accessible VRAM as distinct entities with their 
-> own lrus?
-Actually I'm pretty sure that it isn't desirable. See the evict function 
-doesn't know if we try to evict BOs because we need CPU accessible VRAM 
-or if we just run out of VRAM.
-
-This code only makes sense when we need to move different BOs into the 
-CPU accessible part round robin because they are accessed by the CPU, 
-but then it is actually better to move them to GTT sooner or later.
-
-Regards,
-Christian.
-
-Am 23.03.2017 um 16:31 schrieb Zachary Michaels:
->
->     Was userspace maybe performing concurrent CPU access to the BOs in
->     question?
->
->
-> As far as I know Julien has demonstrated that this is not the case.
->
->     I hope we can find a better solution.
->
->
-> Understood -- I thought you might not want to take this patch, but I 
-> went ahead and sent it out because Christian requested it, and it 
-> seems like he doesn't think VRAM bos should ever evict back to VRAM at 
-> all?
->
-> Is my understanding of the original commit correct in that it tries to 
-> rewrite the eviction placements of CPU accessible bos so that they are 
-> either size zero (fpfn and lpfn = start of inaccessible VRAM) or they 
-> are in inaccessible VRAM (fpfn = start of inaccessible VRAM and lpfn = 0)?
->
-> In this case, to me it seems that the simplest fix would be to iterate 
-> using i to rewrite all the VRAM placements instead of just the first 
-> one (rbo->placements[i] instead of rbo->placements[0]). In the case 
-> where RADEON_GEM_NO_CPU_ACCESS is set, the second placement will be in 
-> CPU accessible VRAM, and that doesn't seem correct to me as there is 
-> no longer any sort of ordering for evictions. (Unfortunately I'm not 
-> currently in a position to test whether this fixes our issue.) Sorry, 
-> I meant to make a note of this originally.
->
-> Also, I don't claim to understand this code well enough, but I wonder: 
-> if these sorts of evictions are desirable, would it make more sense to 
-> treat CPU inaccessible/accessible VRAM as distinct entities with their 
-> own lrus?
->
-> I should also note that we are experiencing another issue where the 
-> kernel locks up in similar circumstances. As Julien noted, we get no 
-> output, and the watchdogs don't seem to work. It may be the case that 
-> Xorg and our process are calling ttm_bo_mem_force_space concurrently, 
-> but I don't think we have enough information yet to say for 
-> sure. Reverting this commit does not fix that issue. I have some small 
-> amount of evidence indicating that bos flagged for CPU access are 
-> getting placed in CPU inaccessible memory. Could that cause this sort 
-> of kernel lockup?
->
-> Thanks for your help.
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
-
---------------8640DDB2470F0614B0A2E787
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">
-      <blockquote type="cite">Understood -- I thought you might not want
-        to take this patch, but I went ahead and sent it out because
-        Christian requested it, and it seems like he doesn't think VRAM
-        bos should ever evict back to VRAM at all?</blockquote>
-      No, I've requested reverting the patch for now because it causes
-      an obviously and rather severe problem. If you guys can quickly
-      find how to fix it feel free to use that instead.<br>
-      <br>
-      <blockquote type="cite">
-        <div>Is my understanding of the original commit correct in that
-          it tries to rewrite the eviction placements of CPU accessible
-          bos so that they are either size zero (fpfn and lpfn = start
-          of inaccessible VRAM) or they are in inaccessible VRAM (fpfn =
-          start of inaccessible VRAM and lpfn = 0)?</div>
-      </blockquote>
-      That for example could work as well, but see below.<br>
-      <br>
-      <blockquote type="cite">
-        <div>if these sorts of evictions are desirable, would it make
-          more sense to treat CPU inaccessible/accessible VRAM as
-          distinct entities with their own lrus?</div>
-      </blockquote>
-      Actually I'm pretty sure that it isn't desirable. See the evict
-      function doesn't know if we try to evict BOs because we need CPU
-      accessible VRAM or if we just run out of VRAM.<br>
-      <br>
-      This code only makes sense when we need to move different BOs into
-      the CPU accessible part round robin because they are accessed by
-      the CPU, but then it is actually better to move them to GTT sooner
-      or later.<br>
-      <br>
-      Regards,<br>
-      Christian.<br>
-      <br>
-      Am 23.03.2017 um 16:31 schrieb Zachary Michaels:<br>
-    </div>
-    <blockquote
-cite="mid:CAOfP2NDoHof0UhQbz53N9WW8jLH3yC_e+ESrTbdd9Ldb6RYg=Q@mail.gmail.com"
-      type="cite">
-      <div dir="ltr">
-        <div class="gmail_extra">
-          <div class="gmail_quote">
-            <blockquote class="gmail_quote" style="margin:0px 0px 0px
-              0.8ex;border-left:1px solid
-              rgb(204,204,204);padding-left:1ex">Was userspace maybe
-              performing concurrent CPU access to the BOs in question?</blockquote>
-            <div><br>
-            </div>
-            <div>As far as I know Julien has demonstrated that this is
-              not the case. </div>
-            <div> </div>
-            <blockquote class="gmail_quote" style="margin:0px 0px 0px
-              0.8ex;border-left:1px solid
-              rgb(204,204,204);padding-left:1ex">I hope we can find a
-              better solution.</blockquote>
-            <div><br>
-            </div>
-            <div>
-              <div>Understood -- I thought you might not want to take
-                this patch, but I went ahead and sent it out because
-                Christian requested it, and it seems like he doesn't
-                think VRAM bos should ever evict back to VRAM at all?</div>
-              <div><br>
-              </div>
-              <div>Is my understanding of the original commit correct in
-                that it tries to rewrite the eviction placements of CPU
-                accessible bos so that they are either size zero (fpfn
-                and lpfn = start of inaccessible VRAM) or they are in
-                inaccessible VRAM (fpfn = start of inaccessible VRAM and
-                lpfn = 0)?</div>
-              <div><br>
-              </div>
-              <div>In this case, to me it seems that the simplest fix
-                would be to iterate using i to rewrite all the VRAM
-                placements instead of just the first one
-                (rbo-&gt;placements[i] instead of
-                rbo-&gt;placements[0]). In the case where <span
-                  style="font-size:12.8px">RADEON_GEM_NO_CPU_ACCESS is
-                  set, the second placement will be in CPU accessible
-                  VRAM, and that doesn't seem correct to me as there is
-                  no longer any sort of ordering for evictions.</span> (Unfortunately
-                I'm not currently in a position to test whether this
-                fixes our issue.) Sorry, I meant to make a note of this
-                originally.</div>
-              <div><br>
-              </div>
-              <div>Also, I don't claim to understand this code well
-                enough, but I wonder: if these sorts of evictions are
-                desirable, would it make more sense to treat CPU
-                inaccessible/accessible VRAM as distinct entities with
-                their own lrus?</div>
-              <div><br>
-              </div>
-              <div>I should also note that we are experiencing another
-                issue where the kernel locks up in similar
-                circumstances. As Julien noted, we get no output, and
-                the watchdogs don't seem to work. It may be the case
-                that Xorg and our process are calling
-                ttm_bo_mem_force_space concurrently, but I don't think
-                we have enough information yet to say for
-                sure. Reverting this commit does not fix that issue. I
-                have some small amount of evidence indicating that bos
-                flagged for CPU access are getting placed in CPU
-                inaccessible memory. Could that cause this sort of
-                kernel lockup?</div>
-            </div>
-            <div><br>
-            </div>
-            <div>Thanks for your help.</div>
-          </div>
-        </div>
-      </div>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------8640DDB2470F0614B0A2E787--
-
---===============0890243744==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0890243744==--
+QW0gMjMuMDMuMjAxNyB1bSAxNjo1NSBzY2hyaWViIEFsZXggRGV1Y2hlcjoKPiBTaWduZWQtb2Zm
+LWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+CgpSZXZpZXdlZC1i
+eTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPiBmb3IgdGhlIHdo
+b2xlIHNldC4KCj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5j
+IHwgMTEgKysrKystLS0tLS0KPiAgIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDYg
+ZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+Z2Z4X3Y4XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMKPiBpbmRl
+eCAwZmY3NzZlLi5jYzQ5NDVmIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2dmeF92OF8wLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhf
+MC5jCj4gQEAgLTcwODUsOCArNzA4NSw4IEBAIHN0YXRpYyBpbnQgZ2Z4X3Y4XzBfY29tcHV0ZV9t
+cWRfc29mdF9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICAgCXJpbmcgPSAmYWRl
+di0+Z2Z4LmtpcS5yaW5nOwo+ICAgCWlmICghcmluZy0+bXFkX29iaikgewo+ICAgCQlyID0gYW1k
+Z3B1X2JvX2NyZWF0ZV9rZXJuZWwoYWRldiwgc2l6ZW9mKHN0cnVjdCB2aV9tcWQpLCBQQUdFX1NJ
+WkUsCj4gLQkJCQkJCUFNREdQVV9HRU1fRE9NQUlOX0dUVCwgJnJpbmctPm1xZF9vYmosCj4gLQkJ
+CQkJCSZyaW5nLT5tcWRfZ3B1X2FkZHIsICZyaW5nLT5tcWRfcHRyKTsKPiArCQkJCQkgICAgQU1E
+R1BVX0dFTV9ET01BSU5fR1RULCAmcmluZy0+bXFkX29iaiwKPiArCQkJCQkgICAgJnJpbmctPm1x
+ZF9ncHVfYWRkciwgJnJpbmctPm1xZF9wdHIpOwo+ICAgCQlpZiAocikgewo+ICAgCQkJZGV2X3dh
+cm4oYWRldi0+ZGV2LCAiZmFpbGVkIHRvIGNyZWF0ZSByaW5nIG1xZCBvYiAoJWQpIiwgcik7Cj4g
+ICAJCQlyZXR1cm4gcjsKPiBAQCAtNzA5OSwxMyArNzA5OSwxMiBAQCBzdGF0aWMgaW50IGdmeF92
+OF8wX2NvbXB1dGVfbXFkX3NvZnRfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAg
+IAl9Cj4gICAKPiAgIAkvKiBjcmVhdGUgTVFEIGZvciBlYWNoIEtDUSAqLwo+IC0JZm9yIChpID0g
+MDsgaSA8IGFkZXYtPmdmeC5udW1fY29tcHV0ZV9yaW5nczsgaSsrKQo+IC0Jewo+ICsJZm9yIChp
+ID0gMDsgaSA8IGFkZXYtPmdmeC5udW1fY29tcHV0ZV9yaW5nczsgaSsrKSB7Cj4gICAJCXJpbmcg
+PSAmYWRldi0+Z2Z4LmNvbXB1dGVfcmluZ1tpXTsKPiAgIAkJaWYgKCFyaW5nLT5tcWRfb2JqKSB7
+Cj4gICAJCQlyID0gYW1kZ3B1X2JvX2NyZWF0ZV9rZXJuZWwoYWRldiwgc2l6ZW9mKHN0cnVjdCB2
+aV9tcWQpLCBQQUdFX1NJWkUsCj4gLQkJCQkJCQlBTURHUFVfR0VNX0RPTUFJTl9HVFQsICZyaW5n
+LT5tcWRfb2JqLAo+IC0JCQkJCQkJJnJpbmctPm1xZF9ncHVfYWRkciwgJnJpbmctPm1xZF9wdHIp
+Owo+ICsJCQkJCQkgICAgQU1ER1BVX0dFTV9ET01BSU5fR1RULCAmcmluZy0+bXFkX29iaiwKPiAr
+CQkJCQkJICAgICZyaW5nLT5tcWRfZ3B1X2FkZHIsICZyaW5nLT5tcWRfcHRyKTsKPiAgIAkJCWlm
+IChyKSB7Cj4gICAJCQkJZGV2X3dhcm4oYWRldi0+ZGV2LCAiZmFpbGVkIHRvIGNyZWF0ZSByaW5n
+IG1xZCBvYiAoJWQpIiwgcik7Cj4gICAJCQkJcmV0dXJuIHI7CgoKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
