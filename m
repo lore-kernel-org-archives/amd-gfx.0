@@ -1,128 +1,51 @@
-From: Zachary Michaels <zmichaels@oblong.com>
-Subject: Re: [PATCH] Revert "drm/radeon: Try evicting from CPU accessible to
- inaccessible VRAM first"
-Date: Thu, 23 Mar 2017 08:31:01 -0700
-Message-ID: <CAOfP2NDoHof0UhQbz53N9WW8jLH3yC_e+ESrTbdd9Ldb6RYg=Q@mail.gmail.com>
-References: <1490206797-15653-1-git-send-email-zmichaels@oblong.com>
- <c56f4a6a-a17d-b9b0-311e-7100df8c7cee@daenzer.net>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 1/8] drm/amdgpu/gfx8: whitespace cleanup
+Date: Thu, 23 Mar 2017 11:55:01 -0400
+Message-ID: <1490284508-2453-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0271376360=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <c56f4a6a-a17d-b9b0-311e-7100df8c7cee@daenzer.net>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Julien Isorce <jisorce@oblong.com>
-List-Id: amd-gfx.lists.freedesktop.org
-
---===============0271376360==
-Content-Type: multipart/alternative; boundary=94eb2c0b6b9088e801054b67904f
-
---94eb2c0b6b9088e801054b67904f
-Content-Type: text/plain; charset=UTF-8
-
->
-> Was userspace maybe performing concurrent CPU access to the BOs in
-> question?
-
-
-As far as I know Julien has demonstrated that this is not the case.
-
-
-> I hope we can find a better solution.
-
-
-Understood -- I thought you might not want to take this patch, but I went
-ahead and sent it out because Christian requested it, and it seems like he
-doesn't think VRAM bos should ever evict back to VRAM at all?
-
-Is my understanding of the original commit correct in that it tries to
-rewrite the eviction placements of CPU accessible bos so that they are
-either size zero (fpfn and lpfn = start of inaccessible VRAM) or they are
-in inaccessible VRAM (fpfn = start of inaccessible VRAM and lpfn = 0)?
-
-In this case, to me it seems that the simplest fix would be to iterate
-using i to rewrite all the VRAM placements instead of just the first one
-(rbo->placements[i] instead of rbo->placements[0]). In the case where
-RADEON_GEM_NO_CPU_ACCESS
-is set, the second placement will be in CPU accessible VRAM, and that
-doesn't seem correct to me as there is no longer any sort of ordering for
-evictions. (Unfortunately I'm not currently in a position to test whether
-this fixes our issue.) Sorry, I meant to make a note of this originally.
-
-Also, I don't claim to understand this code well enough, but I wonder: if
-these sorts of evictions are desirable, would it make more sense to treat
-CPU inaccessible/accessible VRAM as distinct entities with their own lrus?
-
-I should also note that we are experiencing another issue where the kernel
-locks up in similar circumstances. As Julien noted, we get no output, and
-the watchdogs don't seem to work. It may be the case that Xorg and our
-process are calling ttm_bo_mem_force_space concurrently, but I don't think
-we have enough information yet to say for sure. Reverting this commit does
-not fix that issue. I have some small amount of evidence indicating that
-bos flagged for CPU access are getting placed in CPU inaccessible memory.
-Could that cause this sort of kernel lockup?
-
-Thanks for your help.
-
---94eb2c0b6b9088e801054b67904f
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_extra"><div class=3D"gmail_quote"><blo=
-ckquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left=
-:1px solid rgb(204,204,204);padding-left:1ex">Was userspace maybe performin=
-g concurrent CPU access to the BOs in question?</blockquote><div><br></div>=
-<div>As far as I know Julien has demonstrated that this is not the case.=C2=
-=A0</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin=
-:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"=
->I hope we can find a better solution.</blockquote><div><br></div><div><div=
->Understood -- I thought you might not want to take this patch, but I went =
-ahead and sent it out because Christian requested it, and it seems like he =
-doesn&#39;t think VRAM bos should ever evict back to VRAM at all?</div><div=
-><br></div><div>Is my understanding of the original commit correct in that =
-it tries to rewrite the eviction placements of CPU accessible bos so that t=
-hey are either size zero (fpfn and lpfn =3D start of inaccessible VRAM) or =
-they are in inaccessible VRAM (fpfn =3D start of inaccessible VRAM and lpfn=
- =3D 0)?</div><div><br></div><div>In this case, to me it seems that the sim=
-plest fix would be to iterate using i to rewrite all the VRAM placements in=
-stead of just the first one (rbo-&gt;placements[i] instead of rbo-&gt;place=
-ments[0]). In the case where=C2=A0<span style=3D"font-size:12.8px">RADEON_G=
-EM_NO_CPU_ACCESS is set, the second placement will be in CPU accessible VRA=
-M, and that doesn&#39;t seem correct to me as there is no longer any sort o=
-f ordering for evictions.</span>=C2=A0(Unfortunately I&#39;m not currently =
-in a position to test whether this fixes our issue.) Sorry, I meant to make=
- a note of this originally.</div><div><br></div><div>Also, I don&#39;t clai=
-m to understand this code well enough, but I wonder: if these sorts of evic=
-tions are desirable, would it make more sense to treat CPU inaccessible/acc=
-essible VRAM as distinct entities with their own lrus?</div><div><br></div>=
-<div>I should also note that we are experiencing another issue where the ke=
-rnel locks up in similar circumstances. As Julien noted, we get no output, =
-and the watchdogs don&#39;t seem to work. It may be the case that Xorg and =
-our process are calling ttm_bo_mem_force_space concurrently, but I don&#39;=
-t think we have enough information yet to say for sure.=C2=A0Reverting this=
- commit does not fix that issue.=C2=A0I have some small amount of evidence =
-indicating that bos flagged for CPU access are getting placed in CPU inacce=
-ssible memory. Could that cause this sort of kernel lockup?</div></div><div=
-><br></div><div>Thanks for your help.</div></div></div></div>
-
---94eb2c0b6b9088e801054b67904f--
-
---===============0271376360==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
-
---===============0271376360==--
+U2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgot
+LS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMgfCAxMSArKysrKy0tLS0t
+LQogMSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMoLSkKCmRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYwppbmRleCAwZmY3NzZlLi5jYzQ5NDVmIDEwMDY0
+NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jCisrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMKQEAgLTcwODUsOCArNzA4NSw4IEBAIHN0
+YXRpYyBpbnQgZ2Z4X3Y4XzBfY29tcHV0ZV9tcWRfc29mdF9pbml0KHN0cnVjdCBhbWRncHVfZGV2
+aWNlICphZGV2KQogCXJpbmcgPSAmYWRldi0+Z2Z4LmtpcS5yaW5nOwogCWlmICghcmluZy0+bXFk
+X29iaikgewogCQlyID0gYW1kZ3B1X2JvX2NyZWF0ZV9rZXJuZWwoYWRldiwgc2l6ZW9mKHN0cnVj
+dCB2aV9tcWQpLCBQQUdFX1NJWkUsCi0JCQkJCQlBTURHUFVfR0VNX0RPTUFJTl9HVFQsICZyaW5n
+LT5tcWRfb2JqLAotCQkJCQkJJnJpbmctPm1xZF9ncHVfYWRkciwgJnJpbmctPm1xZF9wdHIpOwor
+CQkJCQkgICAgQU1ER1BVX0dFTV9ET01BSU5fR1RULCAmcmluZy0+bXFkX29iaiwKKwkJCQkJICAg
+ICZyaW5nLT5tcWRfZ3B1X2FkZHIsICZyaW5nLT5tcWRfcHRyKTsKIAkJaWYgKHIpIHsKIAkJCWRl
+dl93YXJuKGFkZXYtPmRldiwgImZhaWxlZCB0byBjcmVhdGUgcmluZyBtcWQgb2IgKCVkKSIsIHIp
+OwogCQkJcmV0dXJuIHI7CkBAIC03MDk5LDEzICs3MDk5LDEyIEBAIHN0YXRpYyBpbnQgZ2Z4X3Y4
+XzBfY29tcHV0ZV9tcWRfc29mdF9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCX0K
+IAogCS8qIGNyZWF0ZSBNUUQgZm9yIGVhY2ggS0NRICovCi0JZm9yIChpID0gMDsgaSA8IGFkZXYt
+PmdmeC5udW1fY29tcHV0ZV9yaW5nczsgaSsrKQotCXsKKwlmb3IgKGkgPSAwOyBpIDwgYWRldi0+
+Z2Z4Lm51bV9jb21wdXRlX3JpbmdzOyBpKyspIHsKIAkJcmluZyA9ICZhZGV2LT5nZnguY29tcHV0
+ZV9yaW5nW2ldOwogCQlpZiAoIXJpbmctPm1xZF9vYmopIHsKIAkJCXIgPSBhbWRncHVfYm9fY3Jl
+YXRlX2tlcm5lbChhZGV2LCBzaXplb2Yoc3RydWN0IHZpX21xZCksIFBBR0VfU0laRSwKLQkJCQkJ
+CQlBTURHUFVfR0VNX0RPTUFJTl9HVFQsICZyaW5nLT5tcWRfb2JqLAotCQkJCQkJCSZyaW5nLT5t
+cWRfZ3B1X2FkZHIsICZyaW5nLT5tcWRfcHRyKTsKKwkJCQkJCSAgICBBTURHUFVfR0VNX0RPTUFJ
+Tl9HVFQsICZyaW5nLT5tcWRfb2JqLAorCQkJCQkJICAgICZyaW5nLT5tcWRfZ3B1X2FkZHIsICZy
+aW5nLT5tcWRfcHRyKTsKIAkJCWlmIChyKSB7CiAJCQkJZGV2X3dhcm4oYWRldi0+ZGV2LCAiZmFp
+bGVkIHRvIGNyZWF0ZSByaW5nIG1xZCBvYiAoJWQpIiwgcik7CiAJCQkJcmV0dXJuIHI7Ci0tIAoy
+LjUuNQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
+LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
+aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
