@@ -1,48 +1,73 @@
-From: =?UTF-8?q?Christian=20K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: [PATCH 2/2] drm/amdgpu: sanitize soc15_allowed_read_registers
-Date: Fri, 24 Mar 2017 16:09:17 +0100
-Message-ID: <1490368157-1951-2-git-send-email-deathsimple@vodafone.de>
-References: <1490368157-1951-1-git-send-email-deathsimple@vodafone.de>
+From: Bjorn Helgaas <helgaas@kernel.org>
+Subject: Re: [PATCH 1/4] PCI: add resizeable BAR infrastructure v3
+Date: Fri, 24 Mar 2017 10:28:53 -0500
+Message-ID: <20170324152853.GD25380@bhelgaas-glaptop.roam.corp.google.com>
+References: <1489408896-25039-1-git-send-email-deathsimple@vodafone.de>
+ <1489408896-25039-2-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1490368157-1951-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Return-path: <platform-driver-x86-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <1489408896-25039-2-git-send-email-deathsimple@vodafone.de>
+Sender: platform-driver-x86-owner@vger.kernel.org
+To: Christian =?iso-8859-1?Q?K=F6nig?= <deathsimple@vodafone.de>
+Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKRGlzYWxs
-b3cgbW1DQ19SQl9CQUNLRU5EX0RJU0FCTEUsIHJlYWRpbmcgaXQgY2FuIGNhdXNlIEdSQk0gcHJv
-YmxlbXMgYW5kIHRoZQpzYW1lIGluZm8gaXMgYXZhaWxhYmxlIGNhY2hlZCBhcyBlbmFibGVkX3Ji
-X3BpcGVzX21hc2suCgpBbHNvIHJlbW92ZSBkdXBsaWNhdGUgbW1DUF9DUEZfQlVTWV9TVEFULgoK
-U2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29t
-PgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMgfCAyIC0tCiAxIGZpbGUg
-Y2hhbmdlZCwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9zb2MxNS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYwppbmRl
-eCA3ZTU0ZDlkYy4uYmUwZDQ3ZiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvc29jMTUuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jCkBAIC0y
-OTYsMTEgKzI5Niw5IEBAIHN0YXRpYyBzdHJ1Y3QgYW1kZ3B1X2FsbG93ZWRfcmVnaXN0ZXJfZW50
-cnkgc29jMTVfYWxsb3dlZF9yZWFkX3JlZ2lzdGVyc1tdID0gewogCXsgU09DMTVfUkVHX09GRlNF
-VChHQywgMCwgbW1DUF9DUEZfQlVTWV9TVEFUKSwgZmFsc2V9LAogCXsgU09DMTVfUkVHX09GRlNF
-VChHQywgMCwgbW1DUF9DUEZfU1RBTExFRF9TVEFUMSksIGZhbHNlfSwKIAl7IFNPQzE1X1JFR19P
-RkZTRVQoR0MsIDAsIG1tQ1BfQ1BGX1NUQVRVUyksIGZhbHNlfSwKLQl7IFNPQzE1X1JFR19PRkZT
-RVQoR0MsIDAsIG1tQ1BfQ1BGX0JVU1lfU1RBVCksIGZhbHNlfSwKIAl7IFNPQzE1X1JFR19PRkZT
-RVQoR0MsIDAsIG1tQ1BfQ1BDX1NUQUxMRURfU1RBVDEpLCBmYWxzZX0sCiAJeyBTT0MxNV9SRUdf
-T0ZGU0VUKEdDLCAwLCBtbUNQX0NQQ19TVEFUVVMpLCBmYWxzZX0sCiAJeyBTT0MxNV9SRUdfT0ZG
-U0VUKEdDLCAwLCBtbUdCX0FERFJfQ09ORklHKSwgZmFsc2V9LAotCXsgU09DMTVfUkVHX09GRlNF
-VChHQywgMCwgbW1DQ19SQl9CQUNLRU5EX0RJU0FCTEUpLCBmYWxzZSwgdHJ1ZX0sCiAJeyBTT0Mx
-NV9SRUdfT0ZGU0VUKEdDLCAwLCBtbUdDX1VTRVJfUkJfQkFDS0VORF9ESVNBQkxFKSwgZmFsc2Us
-IHRydWV9LAogCXsgU09DMTVfUkVHX09GRlNFVChHQywgMCwgbW1HQl9CQUNLRU5EX01BUCksIGZh
-bHNlLCBmYWxzZX0sCiB9OwotLSAKMi41LjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYW1kLWdmeAo=
+On Mon, Mar 13, 2017 at 01:41:33PM +0100, Christian König wrote:
+> From: Christian König <christian.koenig@amd.com>
+> 
+> Just the defines and helper functions to read the possible sizes of a BAR and
+> update it's size.
+
+s/it's/its/
+
+> See https://pcisig.com/sites/default/files/specification_documents/ECN_Resizable-BAR_24Apr2008.pdf.
+
+It's good to have the public ECN that anybody can read, but we should
+also have a reference to the full spec that incorporates it, e.g.,
+PCIe r3.1, sec 7.22.
+
+> --- a/include/linux/pci.h
+> +++ b/include/linux/pci.h
+> @@ -1946,6 +1946,9 @@ void pci_request_acs(void);
+>  bool pci_acs_enabled(struct pci_dev *pdev, u16 acs_flags);
+>  bool pci_acs_path_enabled(struct pci_dev *start,
+>  			  struct pci_dev *end, u16 acs_flags);
+> +u32 pci_rbar_get_possible_sizes(struct pci_dev *pdev, int bar);
+> +int pci_rbar_get_current_size(struct pci_dev *pdev, int bar);
+> +int pci_rbar_set_size(struct pci_dev *pdev, int bar, int size);
+
+These should be declared in drivers/pci/pci.h unless they're needed
+outside drivers/pci.  I hope they aren't needed outside, because
+they're not safe to use after the PCI core has claimed resources.
+
+>  #define PCI_VPD_LRDT			0x80	/* Large Resource Data Type */
+>  #define PCI_VPD_LRDT_ID(x)		((x) | PCI_VPD_LRDT)
+> diff --git a/include/uapi/linux/pci_regs.h b/include/uapi/linux/pci_regs.h
+> index e5a2e68..6de29d6 100644
+> --- a/include/uapi/linux/pci_regs.h
+> +++ b/include/uapi/linux/pci_regs.h
+> @@ -932,9 +932,16 @@
+>  #define PCI_SATA_SIZEOF_LONG	16
+>  
+>  /* Resizable BARs */
+> +#define PCI_REBAR_CAP		4	/* capability register */
+> +#define  PCI_REBAR_CTRL_SIZES_MASK	(0xFFFFF << 4)	/* mask for sizes */
+> +#define  PCI_REBAR_CTRL_SIZES_SHIFT	4	/* shift for sizes */
+>  #define PCI_REBAR_CTRL		8	/* control register */
+> +#define  PCI_REBAR_CTRL_BAR_IDX_MASK	(7 << 0)	/* mask for bar index */
+> +#define  PCI_REBAR_CTRL_BAR_IDX_SHIFT	0	/* shift for bar index */
+>  #define  PCI_REBAR_CTRL_NBAR_MASK	(7 << 5)	/* mask for # bars */
+>  #define  PCI_REBAR_CTRL_NBAR_SHIFT	5	/* shift for # bars */
+> +#define  PCI_REBAR_CTRL_BAR_SIZE_MASK	(0x1F << 8)	/* mask for bar size */
+> +#define  PCI_REBAR_CTRL_BAR_SIZE_SHIFT	8	/* shift for bar size */
+
+s/bar/BAR/ several places above
+
+>  /* Dynamic Power Allocation */
+>  #define PCI_DPA_CAP		4	/* capability register */
+> -- 
+> 2.7.4
+> 
