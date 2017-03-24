@@ -1,147 +1,73 @@
-From: Julien Isorce <julien.isorce@gmail.com>
-Subject: Re: [PATCH] Revert "drm/radeon: Try evicting from CPU accessible to
- inaccessible VRAM first"
-Date: Fri, 24 Mar 2017 18:59:03 +0000
-Message-ID: <CAHWPjbXf1Js+gVWUKSKsereimmi3nduKsn3qEVC3YC=4dqNCzw@mail.gmail.com>
-References: <1490206797-15653-1-git-send-email-zmichaels@oblong.com>
- <c56f4a6a-a17d-b9b0-311e-7100df8c7cee@daenzer.net>
- <CAGCDoEGuMVnv6rA-y5XDbc6hiNWiTg6nt4e4u2dZObeY8roKXA@mail.gmail.com>
- <8020e778-c9c8-e67b-428a-436f2f1c0d7b@daenzer.net>
- <CAHWPjbXbAo8CVSJDK1GzN=M4pMobMw9XVQVfVeGVM4H=n36vuQ@mail.gmail.com>
- <219c6e11-09d9-d2aa-a04d-20074b4a409b@daenzer.net>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amdgpu: sanitize soc15_allowed_read_registers
+Date: Fri, 24 Mar 2017 19:59:09 +0100
+Message-ID: <cb07ce64-7b76-3dcc-b3e7-1960834ff8d2@vodafone.de>
+References: <1490368157-1951-1-git-send-email-deathsimple@vodafone.de>
+ <1490368157-1951-2-git-send-email-deathsimple@vodafone.de>
+ <CADnq5_N9Tm9Cf-Bzbmyy3A8koPwtLpM7r+x89jsxKUDiuxifig@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1067479865=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <219c6e11-09d9-d2aa-a04d-20074b4a409b@daenzer.net>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
-Cc: dri-devel@lists.freedesktop.org, Zachary Michaels <zmichaels@oblong.com>, Julien Isorce <jisorce@oblong.com>, amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
-
---===============1067479865==
-Content-Type: multipart/alternative; boundary=001a11c01bca626368054b7e96d3
-
---001a11c01bca626368054b7e96d3
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-Hi Michel,
-
-I double checked and you are right, the change 0 -> i works.
-
-Cheers
-Julien
-
-On 24 March 2017 at 09:59, Michel D=C3=A4nzer <michel@daenzer.net> wrote:
-
-> On 24/03/17 06:50 PM, Julien Isorce wrote:
-> > Hi Michel,
-> >
-> > (Just for other readers my reply has been delayed on the mailing lists
-> > and should have been on second position)
->
-> It is on https://patchwork.freedesktop.org/patch/145731/ , did you mean
-> something else?
->
-> The delay was because you weren't subscribed to the amd-gfx mailing list
-> yet, so your post went through the moderation queue.
->
->
-> > I will have a go with that change and let you know. I do not remember i=
-f
-> > I tried it for this soft lockup. But for sure it does not solve the har=
-d
-> > lockup that Zach also mentioned at the end of his reply.
->
-> I'll follow up to his post about that.
->
->
-> > But in general, isn't "radeon_lockup_timeout" supposed to detect this
-> > situation ?
->
-> No, it's for detecting GPU hangs, whereas this is a CPU "hang" (infinite
-> loop).
->
->
-> --
-> Earthling Michel D=C3=A4nzer               |               http://www.amd=
-.com
-> Libre software enthusiast             |             Mesa and X developer
->
-
---001a11c01bca626368054b7e96d3
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi Michel,<div><br></div><div>I double checked and you are=
- right, the change 0 -&gt; i works.=C2=A0</div><div><br></div><div>Cheers</=
-div><div>Julien</div></div><div class=3D"gmail_extra"><br><div class=3D"gma=
-il_quote">On 24 March 2017 at 09:59, Michel D=C3=A4nzer <span dir=3D"ltr">&=
-lt;<a href=3D"mailto:michel@daenzer.net" target=3D"_blank">michel@daenzer.n=
-et</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"marg=
-in:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><span class=3D""=
->On 24/03/17 06:50 PM, Julien Isorce wrote:<br>
-&gt; Hi Michel,<br>
-&gt;<br>
-</span><span class=3D"">&gt; (Just for other readers my reply has been dela=
-yed on the mailing lists<br>
-&gt; and should have been on second position)<br>
-<br>
-</span>It is on <a href=3D"https://patchwork.freedesktop.org/patch/145731/"=
- rel=3D"noreferrer" target=3D"_blank">https://patchwork.freedesktop.<wbr>or=
-g/patch/145731/</a> , did you mean<br>
-something else?<br>
-<br>
-The delay was because you weren&#39;t subscribed to the amd-gfx mailing lis=
-t<br>
-yet, so your post went through the moderation queue.<br>
-<span class=3D""><br>
-<br>
-&gt; I will have a go with that change and let you know. I do not remember =
-if<br>
-&gt; I tried it for this soft lockup. But for sure it does not solve the ha=
-rd<br>
-&gt; lockup that Zach also mentioned at the end of his reply.<br>
-<br>
-</span>I&#39;ll follow up to his post about that.<br>
-<span class=3D""><br>
-<br>
-&gt; But in general, isn&#39;t &quot;radeon_lockup_timeout&quot; supposed t=
-o detect this<br>
-&gt; situation ?<br>
-<br>
-</span>No, it&#39;s for detecting GPU hangs, whereas this is a CPU &quot;ha=
-ng&quot; (infinite<br>
-loop).<br>
-<div class=3D"HOEnZb"><div class=3D"h5"><br>
-<br>
---<br>
-Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=
-=3D"http://www.amd.com" rel=3D"noreferrer" target=3D"_blank">http://www.amd=
-.com</a><br>
-Libre software enthusiast=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Mesa and X developer<br>
-</div></div></blockquote></div><br></div>
-
---001a11c01bca626368054b7e96d3--
-
---===============1067479865==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CADnq5_N9Tm9Cf-Bzbmyy3A8koPwtLpM7r+x89jsxKUDiuxifig-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
-
---===============1067479865==--
+QW0gMjQuMDMuMjAxNyB1bSAxOTozOCBzY2hyaWViIEFsZXggRGV1Y2hlcjoKPiBPbiBGcmksIE1h
+ciAyNCwgMjAxNyBhdCAxMTowOSBBTSwgQ2hyaXN0aWFuIEvDtm5pZwo+IDxkZWF0aHNpbXBsZUB2
+b2RhZm9uZS5kZT4gd3JvdGU6Cj4+IEZyb206IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5r
+b2VuaWdAYW1kLmNvbT4KPj4KPj4gRGlzYWxsb3cgbW1DQ19SQl9CQUNLRU5EX0RJU0FCTEUsIHJl
+YWRpbmcgaXQgY2FuIGNhdXNlIEdSQk0gcHJvYmxlbXMgYW5kIHRoZQo+PiBzYW1lIGluZm8gaXMg
+YXZhaWxhYmxlIGNhY2hlZCBhcyBlbmFibGVkX3JiX3BpcGVzX21hc2suCj4gTkFDSy4gIFdlIG5l
+ZWQgdG8gaW1wbGVtZW50IHRoZSBjYWNoaW5nIGFueXdheSBmb3Igc3ItaW92LiAgV2UgY2FuCj4g
+anVzdCBwb3J0IHRoZSBjYWNoZSBjaGFuZ2VzIG92ZXIgZnJvbSBWSS4gIEhhdmUgeW91IHN0YXJ0
+ZWQgbG9va2luZyBhdAo+IHRoYXQgeWV0PwoKWWVhaCwgaGFkIHRoYXQgaGFsdmUgd2F5IGltcGxl
+bWVudGVkIGFuZCB0aGVuIHJlYWxpemVkIHRoYXQgdGhlIApyZWdpc3RlcnMgYXJlbid0IHVzZWQg
+YnkgdXNlcnNwYWNlIGFueSBtb3JlLgoKVGhlIG9ubHkgdXNlciB3YXMgYWRkcmxpYiBhbmQgZXZl
+biB0aGVyZSBpdCBhY3R1YWxseSBsb29rcyBpbmNvcnJlY3QgdG8gbWUuCgpLZW4gYWxyZWFkeSBo
+YWQgdGhhdCBtb3N0bHkgZml4ZWQgaW4gbGliZHJtLCBidXQgc29tZWhvdyBtaXNzZWQgdGhhdCAK
+b25lLiBHb2luZyB0byBzZW5kIG91dCBsaWJkcm0gY2hhbmdlcyB0byBub3QgcmVhZCBmcm9tIGl0
+IGFzIHdlbGwuCgpBZGRpdGlvbmFsIHRvIHRoYXQgaXQgaXMgY29tcGxldGVseSBwb2ludGxlc3Mg
+dG8gcmVhZCB0aGUgcmVnaXN0ZXIgYWdhaW4gCndoZW4gdGhlIGluZm8gcXVlcnkgYWxyZWFkeSBo
+YXMgZXZlcnl0aGluZyBmcm9tIGl0IGFueXdheS4KCkNocmlzdGlhbi4KCj4KPiBBbGV4Cj4KPj4g
+QWxzbyByZW1vdmUgZHVwbGljYXRlIG1tQ1BfQ1BGX0JVU1lfU1RBVC4KPj4KPj4gU2lnbmVkLW9m
+Zi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+PiAtLS0K
+Pj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jIHwgMiAtLQo+PiAgIDEgZmls
+ZSBjaGFuZ2VkLCAyIGRlbGV0aW9ucygtKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvc29jMTUuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1
+LmMKPj4gaW5kZXggN2U1NGQ5ZGMuLmJlMGQ0N2YgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvc29jMTUuYwo+PiBAQCAtMjk2LDExICsyOTYsOSBAQCBzdGF0aWMgc3RydWN0IGFtZGdwdV9h
+bGxvd2VkX3JlZ2lzdGVyX2VudHJ5IHNvYzE1X2FsbG93ZWRfcmVhZF9yZWdpc3RlcnNbXSA9IHsK
+Pj4gICAgICAgICAgeyBTT0MxNV9SRUdfT0ZGU0VUKEdDLCAwLCBtbUNQX0NQRl9CVVNZX1NUQVQp
+LCBmYWxzZX0sCj4+ICAgICAgICAgIHsgU09DMTVfUkVHX09GRlNFVChHQywgMCwgbW1DUF9DUEZf
+U1RBTExFRF9TVEFUMSksIGZhbHNlfSwKPj4gICAgICAgICAgeyBTT0MxNV9SRUdfT0ZGU0VUKEdD
+LCAwLCBtbUNQX0NQRl9TVEFUVVMpLCBmYWxzZX0sCj4+IC0gICAgICAgeyBTT0MxNV9SRUdfT0ZG
+U0VUKEdDLCAwLCBtbUNQX0NQRl9CVVNZX1NUQVQpLCBmYWxzZX0sCj4+ICAgICAgICAgIHsgU09D
+MTVfUkVHX09GRlNFVChHQywgMCwgbW1DUF9DUENfU1RBTExFRF9TVEFUMSksIGZhbHNlfSwKPj4g
+ICAgICAgICAgeyBTT0MxNV9SRUdfT0ZGU0VUKEdDLCAwLCBtbUNQX0NQQ19TVEFUVVMpLCBmYWxz
+ZX0sCj4+ICAgICAgICAgIHsgU09DMTVfUkVHX09GRlNFVChHQywgMCwgbW1HQl9BRERSX0NPTkZJ
+RyksIGZhbHNlfSwKPj4gLSAgICAgICB7IFNPQzE1X1JFR19PRkZTRVQoR0MsIDAsIG1tQ0NfUkJf
+QkFDS0VORF9ESVNBQkxFKSwgZmFsc2UsIHRydWV9LAo+PiAgICAgICAgICB7IFNPQzE1X1JFR19P
+RkZTRVQoR0MsIDAsIG1tR0NfVVNFUl9SQl9CQUNLRU5EX0RJU0FCTEUpLCBmYWxzZSwgdHJ1ZX0s
+Cj4+ICAgICAgICAgIHsgU09DMTVfUkVHX09GRlNFVChHQywgMCwgbW1HQl9CQUNLRU5EX01BUCks
+IGZhbHNlLCBmYWxzZX0sCj4+ICAgfTsKPj4gLS0KPj4gMi41LjAKPj4KPj4gX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPj4gYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKPj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4gaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cj4gX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4CgoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9hbWQtZ2Z4Cg==
