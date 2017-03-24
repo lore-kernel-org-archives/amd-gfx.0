@@ -1,59 +1,147 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amdgpu: sanitize soc15_allowed_read_registers
-Date: Fri, 24 Mar 2017 14:38:07 -0400
-Message-ID: <CADnq5_N9Tm9Cf-Bzbmyy3A8koPwtLpM7r+x89jsxKUDiuxifig@mail.gmail.com>
-References: <1490368157-1951-1-git-send-email-deathsimple@vodafone.de>
- <1490368157-1951-2-git-send-email-deathsimple@vodafone.de>
+From: Julien Isorce <julien.isorce@gmail.com>
+Subject: Re: [PATCH] Revert "drm/radeon: Try evicting from CPU accessible to
+ inaccessible VRAM first"
+Date: Fri, 24 Mar 2017 18:59:03 +0000
+Message-ID: <CAHWPjbXf1Js+gVWUKSKsereimmi3nduKsn3qEVC3YC=4dqNCzw@mail.gmail.com>
+References: <1490206797-15653-1-git-send-email-zmichaels@oblong.com>
+ <c56f4a6a-a17d-b9b0-311e-7100df8c7cee@daenzer.net>
+ <CAGCDoEGuMVnv6rA-y5XDbc6hiNWiTg6nt4e4u2dZObeY8roKXA@mail.gmail.com>
+ <8020e778-c9c8-e67b-428a-436f2f1c0d7b@daenzer.net>
+ <CAHWPjbXbAo8CVSJDK1GzN=M4pMobMw9XVQVfVeGVM4H=n36vuQ@mail.gmail.com>
+ <219c6e11-09d9-d2aa-a04d-20074b4a409b@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1490368157-1951-2-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: multipart/mixed; boundary="===============1067479865=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <219c6e11-09d9-d2aa-a04d-20074b4a409b@daenzer.net>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
+Cc: dri-devel@lists.freedesktop.org, Zachary Michaels <zmichaels@oblong.com>, Julien Isorce <jisorce@oblong.com>, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gRnJpLCBNYXIgMjQsIDIwMTcgYXQgMTE6MDkgQU0sIENocmlzdGlhbiBLw7ZuaWcKPGRlYXRo
-c2ltcGxlQHZvZGFmb25lLmRlPiB3cm90ZToKPiBGcm9tOiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJp
-c3RpYW4ua29lbmlnQGFtZC5jb20+Cj4KPiBEaXNhbGxvdyBtbUNDX1JCX0JBQ0tFTkRfRElTQUJM
-RSwgcmVhZGluZyBpdCBjYW4gY2F1c2UgR1JCTSBwcm9ibGVtcyBhbmQgdGhlCj4gc2FtZSBpbmZv
-IGlzIGF2YWlsYWJsZSBjYWNoZWQgYXMgZW5hYmxlZF9yYl9waXBlc19tYXNrLgoKTkFDSy4gIFdl
-IG5lZWQgdG8gaW1wbGVtZW50IHRoZSBjYWNoaW5nIGFueXdheSBmb3Igc3ItaW92LiAgV2UgY2Fu
-Cmp1c3QgcG9ydCB0aGUgY2FjaGUgY2hhbmdlcyBvdmVyIGZyb20gVkkuICBIYXZlIHlvdSBzdGFy
-dGVkIGxvb2tpbmcgYXQKdGhhdCB5ZXQ/CgpBbGV4Cgo+Cj4gQWxzbyByZW1vdmUgZHVwbGljYXRl
-IG1tQ1BfQ1BGX0JVU1lfU1RBVC4KPgo+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcg
-PGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvc29jMTUuYyB8IDIgLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDIgZGVsZXRpb25zKC0pCj4K
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMKPiBpbmRleCA3ZTU0ZDlkYy4uYmUwZDQ3ZiAx
-MDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jCj4gKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYwo+IEBAIC0yOTYsMTEgKzI5Niw5IEBA
-IHN0YXRpYyBzdHJ1Y3QgYW1kZ3B1X2FsbG93ZWRfcmVnaXN0ZXJfZW50cnkgc29jMTVfYWxsb3dl
-ZF9yZWFkX3JlZ2lzdGVyc1tdID0gewo+ICAgICAgICAgeyBTT0MxNV9SRUdfT0ZGU0VUKEdDLCAw
-LCBtbUNQX0NQRl9CVVNZX1NUQVQpLCBmYWxzZX0sCj4gICAgICAgICB7IFNPQzE1X1JFR19PRkZT
-RVQoR0MsIDAsIG1tQ1BfQ1BGX1NUQUxMRURfU1RBVDEpLCBmYWxzZX0sCj4gICAgICAgICB7IFNP
-QzE1X1JFR19PRkZTRVQoR0MsIDAsIG1tQ1BfQ1BGX1NUQVRVUyksIGZhbHNlfSwKPiAtICAgICAg
-IHsgU09DMTVfUkVHX09GRlNFVChHQywgMCwgbW1DUF9DUEZfQlVTWV9TVEFUKSwgZmFsc2V9LAo+
-ICAgICAgICAgeyBTT0MxNV9SRUdfT0ZGU0VUKEdDLCAwLCBtbUNQX0NQQ19TVEFMTEVEX1NUQVQx
-KSwgZmFsc2V9LAo+ICAgICAgICAgeyBTT0MxNV9SRUdfT0ZGU0VUKEdDLCAwLCBtbUNQX0NQQ19T
-VEFUVVMpLCBmYWxzZX0sCj4gICAgICAgICB7IFNPQzE1X1JFR19PRkZTRVQoR0MsIDAsIG1tR0Jf
-QUREUl9DT05GSUcpLCBmYWxzZX0sCj4gLSAgICAgICB7IFNPQzE1X1JFR19PRkZTRVQoR0MsIDAs
-IG1tQ0NfUkJfQkFDS0VORF9ESVNBQkxFKSwgZmFsc2UsIHRydWV9LAo+ICAgICAgICAgeyBTT0Mx
-NV9SRUdfT0ZGU0VUKEdDLCAwLCBtbUdDX1VTRVJfUkJfQkFDS0VORF9ESVNBQkxFKSwgZmFsc2Us
-IHRydWV9LAo+ICAgICAgICAgeyBTT0MxNV9SRUdfT0ZGU0VUKEdDLCAwLCBtbUdCX0JBQ0tFTkRf
-TUFQKSwgZmFsc2UsIGZhbHNlfSwKPiAgfTsKPiAtLQo+IDIuNS4wCj4KPiBfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0
-Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1067479865==
+Content-Type: multipart/alternative; boundary=001a11c01bca626368054b7e96d3
+
+--001a11c01bca626368054b7e96d3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Hi Michel,
+
+I double checked and you are right, the change 0 -> i works.
+
+Cheers
+Julien
+
+On 24 March 2017 at 09:59, Michel D=C3=A4nzer <michel@daenzer.net> wrote:
+
+> On 24/03/17 06:50 PM, Julien Isorce wrote:
+> > Hi Michel,
+> >
+> > (Just for other readers my reply has been delayed on the mailing lists
+> > and should have been on second position)
+>
+> It is on https://patchwork.freedesktop.org/patch/145731/ , did you mean
+> something else?
+>
+> The delay was because you weren't subscribed to the amd-gfx mailing list
+> yet, so your post went through the moderation queue.
+>
+>
+> > I will have a go with that change and let you know. I do not remember i=
+f
+> > I tried it for this soft lockup. But for sure it does not solve the har=
+d
+> > lockup that Zach also mentioned at the end of his reply.
+>
+> I'll follow up to his post about that.
+>
+>
+> > But in general, isn't "radeon_lockup_timeout" supposed to detect this
+> > situation ?
+>
+> No, it's for detecting GPU hangs, whereas this is a CPU "hang" (infinite
+> loop).
+>
+>
+> --
+> Earthling Michel D=C3=A4nzer               |               http://www.amd=
+.com
+> Libre software enthusiast             |             Mesa and X developer
+>
+
+--001a11c01bca626368054b7e96d3
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi Michel,<div><br></div><div>I double checked and you are=
+ right, the change 0 -&gt; i works.=C2=A0</div><div><br></div><div>Cheers</=
+div><div>Julien</div></div><div class=3D"gmail_extra"><br><div class=3D"gma=
+il_quote">On 24 March 2017 at 09:59, Michel D=C3=A4nzer <span dir=3D"ltr">&=
+lt;<a href=3D"mailto:michel@daenzer.net" target=3D"_blank">michel@daenzer.n=
+et</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"marg=
+in:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><span class=3D""=
+>On 24/03/17 06:50 PM, Julien Isorce wrote:<br>
+&gt; Hi Michel,<br>
+&gt;<br>
+</span><span class=3D"">&gt; (Just for other readers my reply has been dela=
+yed on the mailing lists<br>
+&gt; and should have been on second position)<br>
+<br>
+</span>It is on <a href=3D"https://patchwork.freedesktop.org/patch/145731/"=
+ rel=3D"noreferrer" target=3D"_blank">https://patchwork.freedesktop.<wbr>or=
+g/patch/145731/</a> , did you mean<br>
+something else?<br>
+<br>
+The delay was because you weren&#39;t subscribed to the amd-gfx mailing lis=
+t<br>
+yet, so your post went through the moderation queue.<br>
+<span class=3D""><br>
+<br>
+&gt; I will have a go with that change and let you know. I do not remember =
+if<br>
+&gt; I tried it for this soft lockup. But for sure it does not solve the ha=
+rd<br>
+&gt; lockup that Zach also mentioned at the end of his reply.<br>
+<br>
+</span>I&#39;ll follow up to his post about that.<br>
+<span class=3D""><br>
+<br>
+&gt; But in general, isn&#39;t &quot;radeon_lockup_timeout&quot; supposed t=
+o detect this<br>
+&gt; situation ?<br>
+<br>
+</span>No, it&#39;s for detecting GPU hangs, whereas this is a CPU &quot;ha=
+ng&quot; (infinite<br>
+loop).<br>
+<div class=3D"HOEnZb"><div class=3D"h5"><br>
+<br>
+--<br>
+Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=
+=3D"http://www.amd.com" rel=3D"noreferrer" target=3D"_blank">http://www.amd=
+.com</a><br>
+Libre software enthusiast=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Mesa and X developer<br>
+</div></div></blockquote></div><br></div>
+
+--001a11c01bca626368054b7e96d3--
+
+--===============1067479865==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--===============1067479865==--
