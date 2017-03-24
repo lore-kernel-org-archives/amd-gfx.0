@@ -1,12 +1,12 @@
 From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH 0/6] drm/amdgpu: add get clockgating functions for new asic
-Date: Fri, 24 Mar 2017 23:57:31 +1100
-Message-ID: <2a2b481e-9e78-9161-15bf-bb67f15426b6@folklore1984.net>
-References: <1490334466-17596-1-git-send-email-ray.huang@amd.com>
+Subject: Re: [PATCH umr] Add program memory dump to wave status.
+Date: Sat, 25 Mar 2017 00:00:01 +1100
+Message-ID: <a9059ebe-a562-e30d-e12b-9bfb7d78320c@folklore1984.net>
+References: <20170321141122.15451-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2062924450=="
+Content-Type: multipart/mixed; boundary="===============0555460636=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1490334466-17596-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20170321141122.15451-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,69 +17,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: Alvin Huan <alvin.huan-5C7GfCeVMHo@public.gmane.org>
+To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============2062924450==
+--===============0555460636==
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="X6mccTXteDHOC3MecDRNrRVhcwtpiKFds"
+ boundary="gqG7nOK3HAhOc9pF6Efrdo2JK9Wli8CtE"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---X6mccTXteDHOC3MecDRNrRVhcwtpiKFds
-Content-Type: multipart/mixed; boundary="PvBL5v4GdQSEFTe4ukTg0Bes9Wsqq0TqG";
+--gqG7nOK3HAhOc9pF6Efrdo2JK9Wli8CtE
+Content-Type: multipart/mixed; boundary="1E4EdaNapFNkLBhXaCN1wIQSiop3Xkfn9";
  protected-headers="v1"
 From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org,
- Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: Alvin Huan <alvin.huan-5C7GfCeVMHo@public.gmane.org>
-Message-ID: <2a2b481e-9e78-9161-15bf-bb67f15426b6-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH 0/6] drm/amdgpu: add get clockgating functions for new
- asic
-References: <1490334466-17596-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <1490334466-17596-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
+To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+Message-ID: <a9059ebe-a562-e30d-e12b-9bfb7d78320c-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH umr] Add program memory dump to wave status.
+References: <20170321141122.15451-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20170321141122.15451-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 
---PvBL5v4GdQSEFTe4ukTg0Bes9Wsqq0TqG
+--1E4EdaNapFNkLBhXaCN1wIQSiop3Xkfn9
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-This series is,
 Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
 
-On 03/24/2017 04:47 PM, Huang Rui wrote:
-> Hi all,
+On 03/22/2017 01:11 AM, Tom St Denis wrote:
+> It will display the leading 4 words up to
+> the current PC value and then 4 words after.
 >=20
-> This patch set adds get_clockgating functions, after that, we can use
-> debugfs pm to check the dynamic clockgating status.
+> Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  src/app/print_waves.c | 44 +++++++++++++++++++++++++++++++++----------=
+-
+>  1 file changed, 33 insertions(+), 11 deletions(-)
 >=20
-> Thanks,
-> Rui
->=20
-> Huang Rui (6):
->   drm/amdgpu: add get_clockgating callback for gfx v9
->   drm/amdgpu: add get_clockgating callback for nbio v6.1
->   drm/amdgpu: add get_clockgating callback for soc15
->   drm/amdgpu: add get_clockgating for sdma v4
->   drm/amdgpu: add get_clockgating callback for mmhub v1
->   drm/amdgpu: fix to remove HDP MGCG on soc15
->=20
->  drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c  |  6 +++++
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 43 +++++++++++++++++++++++++=
-++++++++
->  drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c | 17 +++++++++++++
->  drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c  | 15 ++++++++++++
->  drivers/gpu/drm/amd/amdgpu/nbio_v6_1.h  |  1 +
->  drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c  | 17 +++++++++++++
->  drivers/gpu/drm/amd/amdgpu/soc15.c      | 35 +++++++++++++++++++++++++=
-+-
->  7 files changed, 133 insertions(+), 1 deletion(-)
+> diff --git a/src/app/print_waves.c b/src/app/print_waves.c
+> index f0eeeba43a99..e3662983d8d1 100644
+> --- a/src/app/print_waves.c
+> +++ b/src/app/print_waves.c
+> @@ -35,7 +35,8 @@
+> =20
+>  void umr_print_waves(struct umr_asic *asic)
+>  {
+> -	uint32_t x, se, sh, cu, simd, wave, sgprs[1024], shift;
+> +	uint32_t x, se, sh, cu, simd, wave, sgprs[1024], shift, opcodes[8];
+> +	uint64_t pgm_addr;
+>  	struct umr_wave_status ws;
+>  	int first =3D 1, col =3D 0;
+> =20
+> @@ -74,17 +75,24 @@ void umr_print_waves(struct umr_asic *asic)
+>  (unsigned long)ws.hw_id.value, (unsigned long)ws.gpr_alloc.value, (uns=
+igned long)ws.lds_alloc.value, (unsigned long)ws.trapsts.value, (unsigned=
+ long)ws.ib_sts.value,
+>  (unsigned long)ws.tba_hi, (unsigned long)ws.tba_lo, (unsigned long)ws.=
+tma_hi, (unsigned long)ws.tma_lo, (unsigned long)ws.ib_dbg0, (unsigned lo=
+ng)ws.m0
+>  );
+> -					for (x =3D 0; x < ((ws.gpr_alloc.sgpr_size + 1) << shift); x +=3D=
+ 4)
+> -						printf(">SGPRS[%u..%u] =3D { %08lx, %08lx, %08lx, %08lx }\n",
+> -							(unsigned)((ws.gpr_alloc.sgpr_base << shift) + x),
+> -							(unsigned)((ws.gpr_alloc.sgpr_base << shift) + x + 3),
+> -							(unsigned long)sgprs[x],
+> -							(unsigned long)sgprs[x+1],
+> -							(unsigned long)sgprs[x+2],
+> -							(unsigned long)sgprs[x+3]);
+> -					}
+> +						for (x =3D 0; x < ((ws.gpr_alloc.sgpr_size + 1) << shift); x +=3D=
+ 4)
+> +							printf(">SGPRS[%u..%u] =3D { %08lx, %08lx, %08lx, %08lx }\n",
+> +								(unsigned)((ws.gpr_alloc.sgpr_base << shift) + x),
+> +								(unsigned)((ws.gpr_alloc.sgpr_base << shift) + x + 3),
+> +								(unsigned long)sgprs[x],
+> +								(unsigned long)sgprs[x+1],
+> +								(unsigned long)sgprs[x+2],
+> +								(unsigned long)sgprs[x+3]);
+> =20
+> -					if (options.bitfields) {
+> +						pgm_addr =3D (((uint64_t)ws.pc_hi << 32) | ws.pc_lo) - (sizeof(o=
+pcodes)/2);
+> +						umr_read_vram(asic, ws.hw_id.vm_id, pgm_addr, sizeof(opcodes), o=
+pcodes);
+> +						for (x =3D 0; x < sizeof(opcodes)/4; x++) {
+> +							printf(">pgm[%lu@%llx] =3D %08lx\n",
+> +								(unsigned long)ws.hw_id.vm_id,
+> +								(unsigned long long)(pgm_addr + 4 * x),
+> +								(unsigned long)opcodes[x]);
+> +						}
+> +					} else {
+>  						first =3D 0;
+>  						printf("\n------------------------------------------------------=
+\nse%u.sh%u.cu%u.simd%u.wave%u\n",
+>  						(unsigned)se, (unsigned)sh, (unsigned)cu, (unsigned)ws.hw_id.sim=
+d_id, (unsigned)ws.hw_id.wave_id);
+> @@ -156,6 +164,20 @@ void umr_print_waves(struct umr_asic *asic)
+>  								(unsigned long)sgprs[x+2],
+>  								(unsigned long)sgprs[x+3]);
+> =20
+> +						printf("\n\nPGM_MEM:\n");
+> +						pgm_addr =3D (((uint64_t)ws.pc_hi << 32) | ws.pc_lo) - (sizeof(o=
+pcodes)/2);
+> +						umr_read_vram(asic, ws.hw_id.vm_id, pgm_addr, sizeof(opcodes), o=
+pcodes);
+> +						for (x =3D 0; x < sizeof(opcodes)/4; x++) {
+> +							if (x =3D=3D (sizeof(opcodes)/8))
+> +								printf("*\t");
+> +							else
+> +								printf("\t");
+> +							printf("pgm[%lu@%llx] =3D %08lx\n",
+> +								(unsigned long)ws.hw_id.vm_id,
+> +								(unsigned long long)(pgm_addr + 4 * x),
+> +								(unsigned long)opcodes[x]);
+> +						}
+> +
+>  						Hv("LDS_ALLOC", ws.lds_alloc.value);
+>  						PP(lds_alloc, lds_base);
+>  						PP(lds_alloc, lds_size);
 >=20
 
 
---PvBL5v4GdQSEFTe4ukTg0Bes9Wsqq0TqG--
+--1E4EdaNapFNkLBhXaCN1wIQSiop3Xkfn9--
 
---X6mccTXteDHOC3MecDRNrRVhcwtpiKFds
+--gqG7nOK3HAhOc9pF6Efrdo2JK9Wli8CtE
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
@@ -87,24 +149,24 @@ Content-Disposition: attachment; filename="signature.asc"
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJY1Re7AAoJEP4bvbfZuWjbrrgP+wR6JMhle4jNyU96nMledvXY
-NWX+4UxNaR9XHOxEbNGTV27MYGGexT79BQpMjAJxzjjTElfdrxkb7t+WVkLlXYCI
-oLwX50MUKp0mv+2Ni96XONln7wRDUDPdmBW+00Tf3sgh0nN+DMY9u/5bRPRlGKc+
-FlKcM6KkT06z2AFVtGrhPvkpvTrvDkIObvR7Bcun6Vwef7mse/V1J9xtc8tHu0Ww
-BFXP2aZn1ZOko9LmzITdbb+f/tuL3Qw2tTOnWNUq+PGroJia1kNkO9P3Zxi7GHln
-zjzJLdfyIgHe3XnynfnzuDKjcAvHUMtk60E6zpwL41/I/me4Lgrb/tmyjGjCj5Jp
-DLORxOMeTf+pNf0y0x1cOl6wv/0k0EQN/XJtqcjcth4uOOdt7OgIox3nk8ahCKqE
-It2PrKYbebULBQcbOlGWMNAT7TnSovRLrp2APMy9SNKsfGZqiMJrKNutkXNh76zT
-SzP0XQ1UZ+TpgdvEFLVqAYQz/f7F50mIzLO4kKQnqjseRITqaO89wlnFU+3naMJa
-g6Q3wRkhWPdrsnbyBI7rYHzDf4onn34QgBojSaaPvRjAKtAM4qc0br2Dz3F5UsDG
-AecujdfL1Yz31Bzcx3HV4CLtVXNbkq+xEL+pN/dtgtJHEnUPlDJNxoxGF48IkKnu
-ewkUgPRSFKuyJLwG1kKq
-=XJhN
+iQIcBAEBCAAGBQJY1RhRAAoJEP4bvbfZuWjbvNcQAK2X+/ykuD4BEbcfrn8mctzo
+WtWs0FXkrA+G7uNgFP+iwKzuQYw3ZRh8odTuXUZQV9oYYrm6DfnlkB5EFe6RD0fi
+PlEyUrAhpNR2w+QXjKi3QJ/Rfc/SaMLDCSElsz0hKQ/Cqk8hwO5+7Jfu9qFrQXjG
+hqaC+Vd/s7hEuP/INkIvN9CboJ+cBHV81YJHs6P1f3s/MJvRVyUOpDrm2cil+vCB
+sqMY82TzQ0PDXu3nCPYuyxNvyk5TyrmUGLgAW2LNIjMe0p/thdGINCtoVV0pnGHx
+k1phvWnh6tDEzZDZ/iHu2koN1xoOvk/unXk9LqxQKDKluKlCNAJIIHuit+WeTf0j
+kN9ZQogNecOgbn1uZQml3d543ySGEBGm67ZU6n7XdaiJkOEORxYnRGnich4+J9O5
+HiTJsB374oSM3H2nZTY93g6ZvuQeVfDS9wgjZOuXiRfMqvAves5/cIp/+emVFTQp
+zQrOmibN1+dSRZcr0ZQLkUUrvECiAFw6YMdbuopqYBPiorUHnrypODuDGDFPr31d
++afu8o8sP+ZpmAp1tpmg8KARnHnKPa6RLaU88pwZV+E3GBWR0kTi913Ar+X/bOiV
+97w35MomoS5vlUnHrmJnxhrvJTTkbIYhszaaRWhIIe3jQjVerN+xRKoAcv94Ew+A
+M4bZ1JjlGRV/WO7xhYmK
+=U5fo
 -----END PGP SIGNATURE-----
 
---X6mccTXteDHOC3MecDRNrRVhcwtpiKFds--
+--gqG7nOK3HAhOc9pF6Efrdo2JK9Wli8CtE--
 
---===============2062924450==
+--===============0555460636==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -114,4 +176,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============2062924450==--
+--===============0555460636==--
