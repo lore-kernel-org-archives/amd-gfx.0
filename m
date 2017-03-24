@@ -1,113 +1,74 @@
-From: Bjorn Helgaas <helgaas@kernel.org>
-Subject: Re: [PATCH 3/4] x86/PCI: Enable a 64bit BAR on AMD Family 15h
- (Models 30h-3fh) Processors
-Date: Fri, 24 Mar 2017 10:47:44 -0500
-Message-ID: <20170324154744.GE25380@bhelgaas-glaptop.roam.corp.google.com>
-References: <1489408896-25039-1-git-send-email-deathsimple@vodafone.de>
- <1489408896-25039-4-git-send-email-deathsimple@vodafone.de>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Plan: BO move throttling for visible VRAM evictions
+Date: Fri, 24 Mar 2017 17:33:59 +0100
+Message-ID: <CAAxE2A4ap8BoOEg1tOF+Ec1vBfZRSANOebikYBaHUfXokY7EwA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-pci-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <1489408896-25039-4-git-send-email-deathsimple@vodafone.de>
-Sender: linux-pci-owner@vger.kernel.org
-To: Christian =?iso-8859-1?Q?K=F6nig?= <deathsimple@vodafone.de>
-Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Mon, Mar 13, 2017 at 01:41:35PM +0100, Christian König wrote:
-> From: Christian König <christian.koenig@amd.com>
-> 
-> Most BIOS don't enable this because of compatibility reasons.
-
-Can you give any more details here?  Without more hints, it's hard to
-know whether any of the compatibility reasons might apply to Linux as
-well.
-
-> Manually enable a 64bit BAR of 64GB size so that we have
-> enough room for PCI devices.
-
->From the context, I'm guessing this is enabling a new 64GB window
-through the PCI host bridge?  That might be documented as a "BAR", but
-it's not anything the Linux PCI core would recognize as a BAR.
-
-I think the specs would envision this being done via an ACPI _SRS
-method on the PNP0A03 host bridge device.  That would be a more
-generic path that would work on any host bridge.  Did you explore that
-possibility?  I would prefer to avoid adding device-specific code if
-that's possible.
-
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-> ---
->  arch/x86/pci/fixup.c | 53 ++++++++++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 53 insertions(+)
-> 
-> diff --git a/arch/x86/pci/fixup.c b/arch/x86/pci/fixup.c
-> index 6d52b94..bff5242 100644
-> --- a/arch/x86/pci/fixup.c
-> +++ b/arch/x86/pci/fixup.c
-> @@ -571,3 +571,56 @@ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x2fc0, pci_invalid_bar);
->  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x6f60, pci_invalid_bar);
->  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x6fa0, pci_invalid_bar);
->  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x6fc0, pci_invalid_bar);
-> +
-> +static void pci_amd_enable_64bit_bar(struct pci_dev *dev)
-> +{
-> +	const uint64_t size = 64ULL * 1024 * 1024 * 1024;
-> +	uint32_t base, limit, high;
-> +	struct resource *res;
-> +	unsigned i;
-> +	int r;
-> +
-> +	for (i = 0; i < 8; ++i) {
-> +
-> +		pci_read_config_dword(dev, 0x80 + i * 0x8, &base);
-> +		pci_read_config_dword(dev, 0x180 + i * 0x4, &high);
-> +
-> +		/* Is this slot free? */
-> +		if ((base & 0x3) == 0x0)
-> +			break;
-> +
-> +		base >>= 8;
-> +		base |= high << 24;
-> +
-> +		/* Abort if a slot already configures a 64bit BAR. */
-> +		if (base > 0x10000)
-> +			return;
-> +
-> +	}
-> +
-> +	if (i == 8)
-> +		return;
-> +
-> +	res = kzalloc(sizeof(*res), GFP_KERNEL);
-> +	res->flags = IORESOURCE_MEM | IORESOURCE_PREFETCH | IORESOURCE_MEM_64 |
-> +		IORESOURCE_WINDOW;
-> +	res->name = dev->bus->name;
-> +	r = allocate_resource(&iomem_resource, res, size, 0x100000000,
-> +			      0xfd00000000, size, NULL, NULL);
-> +	if (r) {
-> +		kfree(res);
-> +		return;
-> +	}
-> +
-> +	base = ((res->start >> 8) & 0xffffff00) | 0x3;
-> +	limit = ((res->end + 1) >> 8) & 0xffffff00;
-> +	high = ((res->start >> 40) & 0xff) |
-> +		((((res->end + 1) >> 40) & 0xff) << 16);
-> +
-> +	pci_write_config_dword(dev, 0x180 + i * 0x4, high);
-> +	pci_write_config_dword(dev, 0x84 + i * 0x8, limit);
-> +	pci_write_config_dword(dev, 0x80 + i * 0x8, base);
-> +
-> +	pci_bus_add_resource(dev->bus, res, 0);
-
-We would need some sort of printk here to explain how this new window
-magically appeared.
-
-> +}
-> +DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_AMD, 0x141b, pci_amd_enable_64bit_bar);
-> -- 
-> 2.7.4
-> 
+SGksCgpJJ20gc2hhcmluZyB0aGlzIGlkZWEgaGVyZSwgYmVjYXVzZSBpdCdzIHNvbWV0aGluZyB0
+aGF0IGhhcyBiZWVuCmRlY3JlYXNpbmcgb3VyIHBlcmZvcm1hbmNlIGEgbG90IHJlY2VudGx5LCBm
+b3IgZXhhbXBsZToKaHR0cDovL29wZW5iZW5jaG1hcmtpbmcub3JnL3Byb3NwZWN0LzE3MDMwMTEt
+UkktUkFERU9ORElSMDYvN2I3NjY4Y2ZjMTA5ZDFjM2RjMjdlODcxYzhhZWE3MWNhMTNmMjNmYQoK
+SSB0aGluayB0aGUgcHJvYmxlbSB0aGVyZSBpcyB0aGF0IE1lc2EgZ2l0IHN0YXJ0ZWQgdXBsb2Fk
+aW5nCmRlc2NyaXB0b3JzIGFuZCB1bmlmb3JtcyB0byBWUkFNLCB3aGljaCBoZWxwcyB3aGVuIFRD
+IEwyIGhhcyBhIGxvdwpoaXQvbWlzcyByYXRpbywgYnV0IHRoZSBwZXJmb3JtYW5jZSBjYW4gcmFu
+ZG9tbHkgZHJvcCBieSBhbiBvcmRlciBvZgptYWduaXR1ZGUuIEkndmUgaGVhcmQgcnVtb3VycyB0
+aGF0IGtlcm5lbCA0LjExIGhhcyBhbiBpbXByb3ZlZAphbGxvY2F0b3IgdGhhdCBzaG91bGQgcGVy
+Zm9ybSBiZXR0ZXIsIGJ1dCB0aGUgc2l0dWF0aW9uIGlzIHN0aWxsIGZhcgpmcm9tIGlkZWFsLgoK
+QU1EIENQVXMgYW5kIEFQVXMgd2lsbCBob3BlZnVsbHkgc3VmZmVyIGxlc3MsIGJlY2F1c2Ugd2Ug
+Y2FuIHJlc2l6ZQp0aGUgdmlzaWJsZSBWUkFNIHdpdGggdGhlIGhlbHAgb2Ygb3VyIENQVSBodyBz
+cGVjcywgYnV0IEludGVsIENQVXMKd2lsbCByZW1haW4gbGltaXRlZCB0byAyNTYgTUIuIFRoZSBm
+b2xsb3dpbmcgcGxhbiBkZXNjcmliZXMgaG93IHRvIGRvCnRocm90dGxpbmcgZm9yIHZpc2libGUg
+VlJBTSBldmljdGlvbnMuCgoKMSkgVGhlb3J5CgpJbml0aWFsbHksIHRoZSBkcml2ZXIgZG9lc24n
+dCBjYXJlIGFib3V0IHdoZXJlIGJ1ZmZlcnMgYXJlIGluIFZSQU0sCmJlY2F1c2UgVlJBTSBidWZm
+ZXJzIGFyZSBvbmx5IG1vdmVkIHRvIHZpc2libGUgVlJBTSBvbiBDUFUgcGFnZSBmYXVsdHMKKHdo
+ZW4gdGhlIENQVSB0b3VjaGVzIHRoZSBidWZmZXIgbWVtb3J5IGJ1dCB0aGUgbWVtb3J5IGlzIGlu
+IHRoZQppbnZpc2libGUgcGFydCBvZiBWUkFNKS4gV2hlbiBpdCBoYXBwZW5zLAphbWRncHVfYm9f
+ZmF1bHRfcmVzZXJ2ZV9ub3RpZnkgaXMgY2FsbGVkLCB3aGljaCBtb3ZlcyB0aGUgYnVmZmVyIHRv
+CnZpc2libGUgVlJBTSwgYW5kIHRoZSBhcHAgY29udGludWVzLiBhbWRncHVfYm9fZmF1bHRfcmVz
+ZXJ2ZV9ub3RpZnkKYWxzbyBtYXJrcyB0aGUgYnVmZmVyIGFzIGNvbnRpZ3VvdXMsIHdoaWNoIG1h
+a2VzIG1lbW9yeSBmcmFnbWVudGF0aW9uCndvcnNlLgoKSSB2ZXJpZmllZCB0aGlzIHdpdGggRGlS
+VCBSYWxseSB3aGVyZSBhbWRncHVfYm9fZmF1bHRfcmVzZXJ2ZV9ub3RpZnkKd2FzIG11Y2ggaGln
+aGVyIGluIGEgQ1BVIHByb2ZpbGVyIHRoYW4gYW55dGhpbmcgZWxzZSBpbiB0aGUga2VybmVsLgoK
+CjIpIE1vbml0b3JpbmcgdmlhIEdhbGxpdW0gSFVECgpXZSBuZWVkIHRvIGV4cG9zZSAyIGtlcm5l
+bCBjb3VudGVycyB2aWEgdGhlIElORk8gaW9jdGwgYW5kIGRpc3BsYXkKdGhvc2UgdmlhIEdhbGxp
+dW0gSFVEOgotIFRoZSBudW1iZXIgb2YgVlJBTSBDUFUgcGFnZSBmYXVsdHMuICh0aGUgbnVtYmVy
+IG9mIGNhbGxzIHRvCmFtZGdwdV9ib19mYXVsdF9yZXNlcnZlX25vdGlmeSkuCi0gVGhlIG51bWJl
+ciBvZiBieXRlcyBtb3ZlZCBieSB0dG1fYm9fdmFsaWRhdGUgaW5zaWRlCmFtZGdwdV9ib19mYXVs
+dF9yZXNlcnZlX25vdGlmeS4KClRoaXMgd2lsbCBoZWxwIHVzIG9ic2VydmUgd2hhdCBleGFjdGx5
+IGlzIGhhcHBlbmluZyBhbmQgZmluZS10dW5lIHRoZQp0aHJvdHRsaW5nIHdoZW4gaXQncyBkb25l
+LgoKCjMpIFNvbHV0aW9uCgphKSBXaGVuIGFtZGdwdV9ib19mYXVsdF9yZXNlcnZlX25vdGlmeSBp
+cyBjYWxsZWQsIHJlY29yZCB0aGUgZmFjdC4KKGFtZGdwdV9ibzo6aGFkX2NwdV9wYWdlX2ZhdWx0
+ID0gdHJ1ZSkKCmIpIE1vbml0b3IgdGhlIE1CL3MgcmF0ZSBhdCB3aGljaCBidWZmZXJzIGFyZSBt
+b3ZlZCBieQphbWRncHVfYm9fZmF1bHRfcmVzZXJ2ZV9ub3RpZnkuIElmIHdlIGdldCBhYm92ZSBh
+IHNwZWNpZmljIHRocmVzaG9sZCwKZG9uJ3QgbW92ZSB0aGUgYnVmZmVyIHRvIHZpc2libGUgVlJB
+TS4gTW92ZSBpdCB0byBHVFQgaW5zdGVhZC4gTm90ZQp0aGF0IG1vdmluZyB0byBHVFQgY2FuIGJl
+IGNoZWFwZXIsIGJlY2F1c2UgbW92aW5nIHRvIHZpc2libGUgVlJBTSBpcwpsaWtlbHkgdG8gZXZp
+Y3QgYSBsb3Qgb2YgYnVmZmVycyB0aGVyZSBhbmQgdW5tYXAgdGhlbSBmcm9tIHRoZSBDUFUsCmJ1
+dCBtb3ZpbmcgdG8gR1RUIHNob3VsZG4ndCBldmljdCBvciB1bm1hcCBhbnl0aGluZy4KCmMpIFdo
+ZW4gd2UgZ2V0IGludG8gdGhlIENTIGlvY3RsIGFuZCBhIGJ1ZmZlciBoYXMgaGFkX2NwdV9wYWdl
+X2ZhdWx0LAppdCBjYW4gYmUgbW92ZWQgdG8gVlJBTSBpZjoKLSB0aGUgR1RULT5WUkFNIG1vdmUg
+cmF0ZSBpcyBsb3cgZW5vdWdoIHRvIGFsbG93IGl0ICh0aGlzIGlzIHRoZQpleGlzdGluZyB0aHJv
+dHRsaW5nIG1lY2hhbmlzbSkKLSB0aGUgdmlzaWJsZSBWUkFNIG1vdmUgcmF0ZSBpcyBsb3cgZW5v
+dWdoIHRoYXQgd2Ugd2lsbCBiZSBPSyB3aXRoCmFub3RoZXIgQ1BVIHBhZ2UgZmF1bHQgaWYgaXQg
+aGFwcGVucy4KCmQpIFRoZSBzb2x1dGlvbiBjYW4gYmUgZmluZS10dW5lZCB3aXRoIHRoZSBoZWxw
+IG9mIEdhbGxpdW0gSFVEIHRvIGdldAp0aGUgYmVzdCBwZXJmb3JtYW5jZSB1bmRlciB2YXJpb3Vz
+IHNjZW5hcmlvcy4gVGhlIGN1cnJlbnQgdGhyb3R0bGluZwptZWNoYW5pc20gY2FuIHNlcnZlIGFz
+IGFuIGluc3BpcmF0aW9uLgoKClRoYXQncyBpdC4gRmVlbCBmcmVlIHRvIGNvbW1lbnQuIEkgdGhp
+bmsgdGhpcyBpcyBvdXIgYmlnZ2VzdApwZXJmb3JtYW5jZSBib3R0bGVuZWNrIGF0IHRoZSBtb21l
+bnQuCgpNYXJlawpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
