@@ -1,16 +1,12 @@
-From: William Lewis <minutemaidpark-PkbjNfxxIARBDgjK7y7TUQ@public.gmane.org>
-Subject: Re: [PATCH 3/6] drm/amdgpu: add get_clockgating callback for soc15
-Date: Fri, 24 Mar 2017 12:49:30 +0000
-Message-ID: <BN6PR17MB0913AF3EA0DFBEF520344BF7C83E0@BN6PR17MB0913.namprd17.prod.outlook.com>
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH 0/6] drm/amdgpu: add get clockgating functions for new asic
+Date: Fri, 24 Mar 2017 23:57:31 +1100
+Message-ID: <2a2b481e-9e78-9161-15bf-bb67f15426b6@folklore1984.net>
 References: <1490334466-17596-1-git-send-email-ray.huang@amd.com>
- <1490334466-17596-4-git-send-email-ray.huang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2062924450=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1490334466-17596-4-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <FEA0A35FE143BE4FA3655E1C9DA68C74-D2/8MP7PhqWcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+In-Reply-To: <1490334466-17596-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,64 +17,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: Alvin Huan <alvin.huan-5C7GfCeVMHo@public.gmane.org>
 
-DQoNCk9uIDAzLzI0LzE3IDAwOjQ3LCBIdWFuZyBSdWkgd3JvdGU6DQo+IFNpZ25lZC1vZmYtYnk6
-IEh1YW5nIFJ1aSA8cmF5Lmh1YW5nQGFtZC5jb20+DQo+IC0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jIHwgIDMgKysrDQo+ICAgZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvc29jMTUuYyAgICAgfCAzNCArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrDQo+ICAgMiBmaWxlcyBjaGFuZ2VkLCAzNyBpbnNlcnRpb25zKCspDQo+DQo+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jDQo+IGluZGV4IDc0M2E4NTIuLmZlZjg5YzAgMTAw
-NjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jDQo+ICsr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jDQo+IEBAIC01NSw3ICs1
-NSwxMCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGNnX2ZsYWdfbmFtZSBjbG9ja3NbXSA9IHsNCj4g
-ICAJe0FNRF9DR19TVVBQT1JUX1ZDRV9NR0NHLCAiVmlkZW8gQ29tcHJlc3Npb24gRW5naW5lIE1l
-ZGl1bSBHcmFpbiBDbG9jayBHYXRpbmcifSwNCj4gICAJe0FNRF9DR19TVVBQT1JUX0hEUF9MUywg
-Ikhvc3QgRGF0YSBQYXRoIExpZ2h0IFNsZWVwIn0sDQo+ICAgCXtBTURfQ0dfU1VQUE9SVF9IRFBf
-TUdDRywgIkhvc3QgRGF0YSBQYXRoIE1lZGl1bSBHcmFpbiBDbG9jayBHYXRpbmcifSwNCj4gKwl7
-QU1EX0NHX1NVUFBPUlRfRFJNX01HQ0csICJEaWdpdGFsIFJpZ2h0IE1hbmFnbWVudCBNZWRpdW0g
-R3JhaW4gQ2xvY2sgR2F0aW5nIn0sDQo+ICsJe0FNRF9DR19TVVBQT1JUX0RSTV9MUywgIkRpZ2l0
-YWwgUmlnaHQgTWFuYWdtZW50IExpZ2h0IFNsZWVwIn0sDQpzL01hbmFnbWVudC9NYW5hZ2VtZW50
-Lw0KPiAgIAl7QU1EX0NHX1NVUFBPUlRfUk9NX01HQ0csICJSb20gTWVkaXVtIEdyYWluIENsb2Nr
-IEdhdGluZyJ9LA0KPiArCXtBTURfQ0dfU1VQUE9SVF9ERl9NR0NHLCAiRGF0YSBGYWJyaWMgTWVk
-aXVtIEdyYWluIENsb2NrIEdhdGluZyJ9LA0KPiAgIAl7MCwgTlVMTH0sDQo+ICAgfTsNCj4gICAN
-Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jDQo+IGluZGV4IGUzN2MxZmYuLmRkNzA5ODQg
-MTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMNCj4gKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYw0KPiBAQCAtNzgyLDYgKzc4Miwz
-OSBAQCBzdGF0aWMgaW50IHNvYzE1X2NvbW1vbl9zZXRfY2xvY2tnYXRpbmdfc3RhdGUodm9pZCAq
-aGFuZGxlLA0KPiAgIAlyZXR1cm4gMDsNCj4gICB9DQo+ICAgDQo+ICtzdGF0aWMgdm9pZCBzb2Mx
-NV9jb21tb25fZ2V0X2Nsb2NrZ2F0aW5nX3N0YXRlKHZvaWQgKmhhbmRsZSwgdTMyICpmbGFncykN
-Cj4gK3sNCj4gKwlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IChzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSAqKWhhbmRsZTsNCj4gKwlpbnQgZGF0YTsNCj4gKw0KPiArCW5iaW9fdjZfMV9nZXRfY2xv
-Y2tnYXRpbmdfc3RhdGUoYWRldiwgZmxhZ3MpOw0KPiArDQo+ICsJLyogQU1EX0NHX1NVUFBPUlRf
-SERQX0xTICovDQo+ICsJZGF0YSA9IFJSRUczMihTT0MxNV9SRUdfT0ZGU0VUKEhEUCwgMCwgbW1I
-RFBfTUVNX1BPV0VSX0xTKSk7DQo+ICsJaWYgKGRhdGEgJiBIRFBfTUVNX1BPV0VSX0xTX19MU19F
-TkFCTEVfTUFTSykNCj4gKwkJKmZsYWdzIHw9IEFNRF9DR19TVVBQT1JUX0hEUF9MUzsNCj4gKw0K
-PiArCS8qIEFNRF9DR19TVVBQT1JUX0RSTV9NR0NHICovDQo+ICsJZGF0YSA9IFJSRUczMihTT0Mx
-NV9SRUdfT0ZGU0VUKE1QMCwgMCwgbW1NUDBfU01OX0NHVFRfRFJNX0NMS19DVFJMMCkpOw0KPiAr
-CWlmICghKGRhdGEgJiBNUDBfU01OX0NHVFRfRFJNX0NMS19DVFJMMF9fU09GVF9PVkVSUklERTBf
-TUFTSykpDQo+ICsJCSpmbGFncyB8PSBBTURfQ0dfU1VQUE9SVF9EUk1fTUdDRzsNCj4gKw0KPiAr
-CS8qIEFNRF9DR19TVVBQT1JUX0RSTV9MUyAqLw0KPiArCWRhdGEgPSBSUkVHMzIoU09DMTVfUkVH
-X09GRlNFVChNUDAsIDAsIG1tTVAwX1NNTl9EUk1fTElHSFRfU0xFRVBfQ1RSTCkpOw0KPiArCWlm
-IChkYXRhICYgTVAwX1NNTl9EUk1fTElHSFRfU0xFRVBfQ1RSTF9fTUVNX0xJR0hUX1NMRUVQX0VO
-X01BU0spDQo+ICsJCSpmbGFncyB8PSBBTURfQ0dfU1VQUE9SVF9EUk1fTFM7DQo+ICsNCj4gKwkv
-KiBBTURfQ0dfU1VQUE9SVF9ST01fTUdDRyAqLw0KPiArCWRhdGEgPSBSUkVHMzIoU09DMTVfUkVH
-X09GRlNFVChTTVVJTywgMCwgbW1DR1RUX1JPTV9DTEtfQ1RSTDApKTsNCj4gKwlpZiAoIShkYXRh
-ICYgQ0dUVF9ST01fQ0xLX0NUUkwwX19TT0ZUX09WRVJSSURFMF9NQVNLKSkNCj4gKwkJKmZsYWdz
-IHw9IEFNRF9DR19TVVBQT1JUX1JPTV9NR0NHOw0KPiArDQo+ICsJLyogQU1EX0NHX1NVUFBPUlRf
-REZfTUdDRyAqLw0KPiArCWRhdGEgPSBSUkVHMzIoU09DMTVfUkVHX09GRlNFVChERiwgMCwgbW1E
-Rl9QSUVfQU9OMF9EZkdsb2JhbENsa0dhdGVyKSk7DQo+ICsJaWYgKGRhdGEgJiBERl9NR0NHX0VO
-QUJMRV8xNV9DWUNMRV9ERUxBWSkNCj4gKwkJKmZsYWdzIHw9IEFNRF9DR19TVVBQT1JUX0RGX01H
-Q0c7DQo+ICt9DQo+ICsNCj4gICBzdGF0aWMgaW50IHNvYzE1X2NvbW1vbl9zZXRfcG93ZXJnYXRp
-bmdfc3RhdGUodm9pZCAqaGFuZGxlLA0KPiAgIAkJCQkJICAgIGVudW0gYW1kX3Bvd2VyZ2F0aW5n
-X3N0YXRlIHN0YXRlKQ0KPiAgIHsNCj4gQEAgLTgwNCw0ICs4MzcsNSBAQCBjb25zdCBzdHJ1Y3Qg
-YW1kX2lwX2Z1bmNzIHNvYzE1X2NvbW1vbl9pcF9mdW5jcyA9IHsNCj4gICAJLnNvZnRfcmVzZXQg
-PSBzb2MxNV9jb21tb25fc29mdF9yZXNldCwNCj4gICAJLnNldF9jbG9ja2dhdGluZ19zdGF0ZSA9
-IHNvYzE1X2NvbW1vbl9zZXRfY2xvY2tnYXRpbmdfc3RhdGUsDQo+ICAgCS5zZXRfcG93ZXJnYXRp
-bmdfc3RhdGUgPSBzb2MxNV9jb21tb25fc2V0X3Bvd2VyZ2F0aW5nX3N0YXRlLA0KPiArCS5nZXRf
-Y2xvY2tnYXRpbmdfc3RhdGU9IHNvYzE1X2NvbW1vbl9nZXRfY2xvY2tnYXRpbmdfc3RhdGUsDQo+
-ICAgfTsNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============2062924450==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="X6mccTXteDHOC3MecDRNrRVhcwtpiKFds"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--X6mccTXteDHOC3MecDRNrRVhcwtpiKFds
+Content-Type: multipart/mixed; boundary="PvBL5v4GdQSEFTe4ukTg0Bes9Wsqq0TqG";
+ protected-headers="v1"
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org,
+ Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: Alvin Huan <alvin.huan-5C7GfCeVMHo@public.gmane.org>
+Message-ID: <2a2b481e-9e78-9161-15bf-bb67f15426b6-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH 0/6] drm/amdgpu: add get clockgating functions for new
+ asic
+References: <1490334466-17596-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1490334466-17596-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
+
+--PvBL5v4GdQSEFTe4ukTg0Bes9Wsqq0TqG
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+This series is,
+Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+
+On 03/24/2017 04:47 PM, Huang Rui wrote:
+> Hi all,
+>=20
+> This patch set adds get_clockgating functions, after that, we can use
+> debugfs pm to check the dynamic clockgating status.
+>=20
+> Thanks,
+> Rui
+>=20
+> Huang Rui (6):
+>   drm/amdgpu: add get_clockgating callback for gfx v9
+>   drm/amdgpu: add get_clockgating callback for nbio v6.1
+>   drm/amdgpu: add get_clockgating callback for soc15
+>   drm/amdgpu: add get_clockgating for sdma v4
+>   drm/amdgpu: add get_clockgating callback for mmhub v1
+>   drm/amdgpu: fix to remove HDP MGCG on soc15
+>=20
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c  |  6 +++++
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 43 +++++++++++++++++++++++++=
+++++++++
+>  drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c | 17 +++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c  | 15 ++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/nbio_v6_1.h  |  1 +
+>  drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c  | 17 +++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/soc15.c      | 35 +++++++++++++++++++++++++=
++-
+>  7 files changed, 133 insertions(+), 1 deletion(-)
+>=20
+
+
+--PvBL5v4GdQSEFTe4ukTg0Bes9Wsqq0TqG--
+
+--X6mccTXteDHOC3MecDRNrRVhcwtpiKFds
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJY1Re7AAoJEP4bvbfZuWjbrrgP+wR6JMhle4jNyU96nMledvXY
+NWX+4UxNaR9XHOxEbNGTV27MYGGexT79BQpMjAJxzjjTElfdrxkb7t+WVkLlXYCI
+oLwX50MUKp0mv+2Ni96XONln7wRDUDPdmBW+00Tf3sgh0nN+DMY9u/5bRPRlGKc+
+FlKcM6KkT06z2AFVtGrhPvkpvTrvDkIObvR7Bcun6Vwef7mse/V1J9xtc8tHu0Ww
+BFXP2aZn1ZOko9LmzITdbb+f/tuL3Qw2tTOnWNUq+PGroJia1kNkO9P3Zxi7GHln
+zjzJLdfyIgHe3XnynfnzuDKjcAvHUMtk60E6zpwL41/I/me4Lgrb/tmyjGjCj5Jp
+DLORxOMeTf+pNf0y0x1cOl6wv/0k0EQN/XJtqcjcth4uOOdt7OgIox3nk8ahCKqE
+It2PrKYbebULBQcbOlGWMNAT7TnSovRLrp2APMy9SNKsfGZqiMJrKNutkXNh76zT
+SzP0XQ1UZ+TpgdvEFLVqAYQz/f7F50mIzLO4kKQnqjseRITqaO89wlnFU+3naMJa
+g6Q3wRkhWPdrsnbyBI7rYHzDf4onn34QgBojSaaPvRjAKtAM4qc0br2Dz3F5UsDG
+AecujdfL1Yz31Bzcx3HV4CLtVXNbkq+xEL+pN/dtgtJHEnUPlDJNxoxGF48IkKnu
+ewkUgPRSFKuyJLwG1kKq
+=XJhN
+-----END PGP SIGNATURE-----
+
+--X6mccTXteDHOC3MecDRNrRVhcwtpiKFds--
+
+--===============2062924450==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============2062924450==--
