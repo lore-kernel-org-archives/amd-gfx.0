@@ -1,98 +1,85 @@
-From: Shirish S <shirish.s12-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 2/2] drm/amd/display: update plane functionalities
-Date: Mon, 27 Mar 2017 16:41:39 +0530
-Message-ID: <1490613099-11662-2-git-send-email-shirish.s@amd.com>
-References: <1490613099-11662-1-git-send-email-shirish.s@amd.com>
+From: Daniel Drake <drake-6IF/jdPJHihWk0Htik3J/w@public.gmane.org>
+Subject: Re: amd-iommu: can't boot with amdgpu, AMD-Vi: Completion-Wait loop
+	timed out
+Date: Mon, 27 Mar 2017 06:23:09 -0600
+Message-ID: <CAD8Lp46gi-n0_3ct=dFDUL3hQnUkuOMnLH-CVY3yefQHJ63u5Q@mail.gmail.com>
+References: <CAD8Lp457TE1CnJ-DHnB6NB2LWxgA5K5K57Q6L7XcSHeYNpvARQ@mail.gmail.com>
+	<CY4PR12MB16533C83151D6FCFC11ED457F7250@CY4PR12MB1653.namprd12.prod.outlook.com>
+	<CAD8Lp47zjJvqxY3TMMAhjz3OnLR52CtsQh_PQFPmsEW-xHfDwg@mail.gmail.com>
+	<CADnq5_Oyfm-BzU9YV_QLjm6HxtMwnJcFkfYtjmCWpuah35TFvA@mail.gmail.com>
+	<20170321155725.GD29659@8bytes.org>
+	<BN6PR12MB16526DD4A3B60DB4E20B9907F73D0@BN6PR12MB1652.namprd12.prod.outlook.com>
+	<20170321161056.GE29659@8bytes.org>
+	<BN6PR12MB16528AF8E5577E9ACB483212F73D0@BN6PR12MB1652.namprd12.prod.outlook.com>
+	<20170321162532.GG29659@8bytes.org>
+	<BN6PR12MB165268CA4C460215950409D5F73D0@BN6PR12MB1652.namprd12.prod.outlook.com>
+	<20170322112242.GK29659@8bytes.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1490613099-11662-1-git-send-email-shirish.s-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Harry.Wentland-5C7GfCeVMHo@public.gmane.org, shirish.s-5C7GfCeVMHo@public.gmane.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Return-path: <iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
+In-Reply-To: <20170322112242.GK29659-zLv9SwRftAIdnm+yROfE0A@public.gmane.org>
+List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/iommu>,
+	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=unsubscribe>
+List-Archive: <http://lists.linuxfoundation.org/pipermail/iommu/>
+List-Post: <mailto:iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
+List-Help: <mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/iommu>,
+	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=subscribe>
+Sender: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
+Errors-To: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
+To: "joro-zLv9SwRftAIdnm+yROfE0A@public.gmane.org" <joro-zLv9SwRftAIdnm+yROfE0A@public.gmane.org>
+Cc: "Bridgman, John" <John.Bridgman-5C7GfCeVMHo@public.gmane.org>, Chris Chiu <chiu-6IF/jdPJHihWk0Htik3J/w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Nath, Arindam" <Arindam.Nath-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org" <iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Linux Upstreaming Team <linux-6IF/jdPJHihWk0Htik3J/w@public.gmane.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-VGhpcyBwYXRjaCBpbnRyb2R1Y2VzIGFtZGdwdV9kcm1fcGxhbmVfc3RhdGUKc3RydWN0dXJlLCB3
-aGljaCBzdWJjbGFzc2VzIGRybV9wbGFuZV9zdGF0ZSBhbmQKaG9sZHMgZGF0YSBzdWl0YWJsZSBm
-b3IgY29uZmlndXJpbmcgaGFyZHdhcmUuCgpJdCBzd2l0Y2hlcyByZXNldCgpLCBhdG9taWNfZHVw
-bGljYXRlX3N0YXRlKCkKJiBhdG9taWNfZGVzdHJveV9zdGF0ZSgpIGZ1bmN0aW9ucyB0byBuZXcg
-aW50ZXJuYWwKaW1wbGVtZW50YXRpb24sIGVhcmxpZXIgdGhleSB3ZXJlIHBvaW50aW5nIHRvCmRy
-bSBjb3JlIGZ1bmN0aW9ucy4KClRFU1RTKE9uIENocm9taXVtIE9TIG9uIFN0b25leSBPbmx5KQoq
-IEJ1aWxkcyB3aXRob3V0IGNvbXBpbGF0aW9uIGVycm9ycy4KKiAncGxhbmVfdGVzdCcgcGFzc2Vz
-IGZvciBYUjI0IGZvcm1hdAogIGJhc2VkIE92ZXJsYXkgcGxhbmUuCiogQ2hyb21pdW0gT1MgdWkg
-Y29tZXMgdXAuCgpTaWduZWQtb2ZmLWJ5OiBTaGlyaXNoIFMgPHNoaXJpc2guc0BhbWQuY29tPgpS
-ZXZpZXdlZC1ieTogSGFycnkgV2VudGxhbmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5jb20+Ci0tLQog
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21vZGUuaCAgICAgICAgICAgfCAxMyAr
-KysrKysKIC4uLi9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV90eXBlcy5jICAg
-IHwgNTMgKysrKysrKysrKysrKysrKysrKystLQogMiBmaWxlcyBjaGFuZ2VkLCA2MyBpbnNlcnRp
-b25zKCspLCAzIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9tb2RlLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-bW9kZS5oCmluZGV4IGRhM2IxMjUuLjdmMmQyODIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9tb2RlLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X21vZGUuaApAQCAtNTYsNiArNTYsNyBAQCBzdHJ1Y3QgYW1kZ3B1X2hwZDsKICNk
-ZWZpbmUgdG9fYW1kZ3B1X2Nvbm5lY3Rvcih4KSBjb250YWluZXJfb2YoeCwgc3RydWN0IGFtZGdw
-dV9jb25uZWN0b3IsIGJhc2UpCiAjZGVmaW5lIHRvX2FtZGdwdV9lbmNvZGVyKHgpIGNvbnRhaW5l
-cl9vZih4LCBzdHJ1Y3QgYW1kZ3B1X2VuY29kZXIsIGJhc2UpCiAjZGVmaW5lIHRvX2FtZGdwdV9m
-cmFtZWJ1ZmZlcih4KSBjb250YWluZXJfb2YoeCwgc3RydWN0IGFtZGdwdV9mcmFtZWJ1ZmZlciwg
-YmFzZSkKKyNkZWZpbmUgdG9fYW1kZ3B1X3BsYW5lKHgpCWNvbnRhaW5lcl9vZih4LCBzdHJ1Y3Qg
-YW1kZ3B1X3BsYW5lLCBiYXNlKQogCiAjZGVmaW5lIEFNREdQVV9NQVhfSFBEX1BJTlMgNgogI2Rl
-ZmluZSBBTURHUFVfTUFYX0NSVENTIDYKQEAgLTQ1NSw2ICs0NTYsMTggQEAgc3RydWN0IGFtZGdw
-dV9jcnRjIHsKIAlzdHJ1Y3QgZHJtX3BlbmRpbmdfdmJsYW5rX2V2ZW50ICpldmVudDsKIH07CiAK
-K3N0cnVjdCBhbWRncHVfcGxhbmVfc3RhdGUgeworCXN0cnVjdCBkcm1fcGxhbmVfc3RhdGUgYmFz
-ZTsKKwl1bnNpZ25lZCBpbnQgaF9yYXRpbzsKKwl1bnNpZ25lZCBpbnQgdl9yYXRpbzsKK307CisK
-K3N0YXRpYyBpbmxpbmUgc3RydWN0IGFtZGdwdV9wbGFuZV9zdGF0ZSAqCit0b19hbWRncHVfcGxh
-bmVfc3RhdGUoc3RydWN0IGRybV9wbGFuZV9zdGF0ZSAqc3RhdGUpCit7CisJcmV0dXJuIGNvbnRh
-aW5lcl9vZihzdGF0ZSwgc3RydWN0IGFtZGdwdV9wbGFuZV9zdGF0ZSwgYmFzZSk7Cit9CisKIHN0
-cnVjdCBhbWRncHVfcGxhbmUgewogCXN0cnVjdCBkcm1fcGxhbmUgYmFzZTsKIAllbnVtIGRybV9w
-bGFuZV90eXBlIHBsYW5lX3R5cGU7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
-c3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV90eXBlcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9k
-aXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fdHlwZXMuYwppbmRleCBiMzVhYWFlLi5iNjk0Yzdi
-IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdw
-dV9kbV90eXBlcy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0v
-YW1kZ3B1X2RtX3R5cGVzLmMKQEAgLTE2MTEsMTAgKzE2MTEsNTcgQEAgY29uc3Qgc3RydWN0IGRy
-bV9lbmNvZGVyX2hlbHBlcl9mdW5jcyBhbWRncHVfZG1fZW5jb2Rlcl9oZWxwZXJfZnVuY3MgPSB7
-CiAJLmF0b21pY19jaGVjayA9IGRtX2VuY29kZXJfaGVscGVyX2F0b21pY19jaGVjawogfTsKIAor
-c3RhdGljIHZvaWQgZG1fZHJtX3BsYW5lX3Jlc2V0KHN0cnVjdCBkcm1fcGxhbmUgKnBsYW5lKQor
-eworCXN0cnVjdCBhbWRncHVfcGxhbmVfc3RhdGUgKmFtZGdwdV9zdGF0ZTsKKworCWlmIChwbGFu
-ZS0+c3RhdGUpIHsKKwkJYW1kZ3B1X3N0YXRlID0gdG9fYW1kZ3B1X3BsYW5lX3N0YXRlKHBsYW5l
-LT5zdGF0ZSk7CisJCWlmIChhbWRncHVfc3RhdGUtPmJhc2UuZmIpCisJCQlkcm1fZnJhbWVidWZm
-ZXJfdW5yZWZlcmVuY2UoYW1kZ3B1X3N0YXRlLT5iYXNlLmZiKTsKKwkJa2ZyZWUoYW1kZ3B1X3N0
-YXRlKTsKKwkJcGxhbmUtPnN0YXRlID0gTlVMTDsKKwl9CisKKwlhbWRncHVfc3RhdGUgPSBremFs
-bG9jKHNpemVvZigqYW1kZ3B1X3N0YXRlKSwgR0ZQX0tFUk5FTCk7CisJaWYgKGFtZGdwdV9zdGF0
-ZSkgeworCQlwbGFuZS0+c3RhdGUgPSAmYW1kZ3B1X3N0YXRlLT5iYXNlOworCQlwbGFuZS0+c3Rh
-dGUtPnBsYW5lID0gcGxhbmU7CisJfQorfQorCitzdGF0aWMgc3RydWN0IGRybV9wbGFuZV9zdGF0
-ZSAqCitkbV9kcm1fcGxhbmVfZHVwbGljYXRlX3N0YXRlKHN0cnVjdCBkcm1fcGxhbmUgKnBsYW5l
-KQoreworCXN0cnVjdCBhbWRncHVfcGxhbmVfc3RhdGUgKmFtZGdwdV9zdGF0ZTsKKwlzdHJ1Y3Qg
-YW1kZ3B1X3BsYW5lX3N0YXRlICpjb3B5OworCisJYW1kZ3B1X3N0YXRlID0gdG9fYW1kZ3B1X3Bs
-YW5lX3N0YXRlKHBsYW5lLT5zdGF0ZSk7CisJY29weSA9IGt6YWxsb2Moc2l6ZW9mKCphbWRncHVf
-c3RhdGUpLCBHRlBfS0VSTkVMKTsKKwlpZiAoIWNvcHkpCisJCXJldHVybiBOVUxMOworCisJX19k
-cm1fYXRvbWljX2hlbHBlcl9wbGFuZV9kdXBsaWNhdGVfc3RhdGUocGxhbmUsICZjb3B5LT5iYXNl
-KTsKKwlyZXR1cm4gJmNvcHktPmJhc2U7Cit9CisKK3N0YXRpYyB2b2lkIGRtX2RybV9wbGFuZV9k
-ZXN0cm95X3N0YXRlKHN0cnVjdCBkcm1fcGxhbmUgKnBsYW5lLAorCQkJCQkgICBzdHJ1Y3QgZHJt
-X3BsYW5lX3N0YXRlICpvbGRfc3RhdGUpCit7CisJc3RydWN0IGFtZGdwdV9wbGFuZV9zdGF0ZSAq
-b2xkX2FtZGdwdV9zdGF0ZSA9CisJCQkJCXRvX2FtZGdwdV9wbGFuZV9zdGF0ZShvbGRfc3RhdGUp
-OworCV9fZHJtX2F0b21pY19oZWxwZXJfcGxhbmVfZGVzdHJveV9zdGF0ZShvbGRfc3RhdGUpOwor
-CWtmcmVlKG9sZF9hbWRncHVfc3RhdGUpOworfQorCiBzdGF0aWMgY29uc3Qgc3RydWN0IGRybV9w
-bGFuZV9mdW5jcyBkbV9wbGFuZV9mdW5jcyA9IHsKLQkucmVzZXQgPSBkcm1fYXRvbWljX2hlbHBl
-cl9wbGFuZV9yZXNldCwKLQkuYXRvbWljX2R1cGxpY2F0ZV9zdGF0ZSA9IGRybV9hdG9taWNfaGVs
-cGVyX3BsYW5lX2R1cGxpY2F0ZV9zdGF0ZSwKLQkuYXRvbWljX2Rlc3Ryb3lfc3RhdGUgPSBkcm1f
-YXRvbWljX2hlbHBlcl9wbGFuZV9kZXN0cm95X3N0YXRlCisJLnVwZGF0ZV9wbGFuZQk9IGRybV9h
-dG9taWNfaGVscGVyX3VwZGF0ZV9wbGFuZSwKKwkuZGlzYWJsZV9wbGFuZQk9IGRybV9hdG9taWNf
-aGVscGVyX2Rpc2FibGVfcGxhbmUsCisJLmRlc3Ryb3kJPSBkcm1fcGxhbmVfY2xlYW51cCwKKwku
-c2V0X3Byb3BlcnR5CT0gZHJtX2F0b21pY19oZWxwZXJfcGxhbmVfc2V0X3Byb3BlcnR5LAorCS5y
-ZXNldCA9IGRtX2RybV9wbGFuZV9yZXNldCwKKwkuYXRvbWljX2R1cGxpY2F0ZV9zdGF0ZSA9IGRt
-X2RybV9wbGFuZV9kdXBsaWNhdGVfc3RhdGUsCisJLmF0b21pY19kZXN0cm95X3N0YXRlID0gZG1f
-ZHJtX3BsYW5lX2Rlc3Ryb3lfc3RhdGUsCiB9OwogCiBzdGF0aWMgaW50IGRtX3BsYW5lX2hlbHBl
-cl9wcmVwYXJlX2ZiKAotLSAKMi43LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeAo=
+Hi Joerg,
+
+Thanks for looking into this. We confirm that this workaround avoids
+the iommu log spam and that amdgpu appears to be working fine with it.
+
+Daniel
+
+
+On Wed, Mar 22, 2017 at 5:22 AM, joro-zLv9SwRftAIdnm+yROfE0A@public.gmane.org <joro-zLv9SwRftAIdnm+yROfE0A@public.gmane.org> wrote:
+> On Tue, Mar 21, 2017 at 04:30:55PM +0000, Deucher, Alexander wrote:
+>> > I am preparing a debug-patch that disables ATS for these GPUs so someone
+>> > with such a chip can test it.
+>>
+>> Thanks Joerg.
+>
+> Here is a debug patch, using the hard hammer of disabling the use of ATS
+> completly in the AMD IOMMU driver. If it fixes the issue I am going to
+> write a more upstreamable version.
+>
+> But for now, please test if this fixes the issue.
+>
+> Thanks,
+>
+>         Joerg
+>
+> diff --git a/drivers/iommu/amd_iommu.c b/drivers/iommu/amd_iommu.c
+> index 98940d1..f019aa6 100644
+> --- a/drivers/iommu/amd_iommu.c
+> +++ b/drivers/iommu/amd_iommu.c
+> @@ -467,7 +467,7 @@ static int iommu_init_device(struct device *dev)
+>                 struct amd_iommu *iommu;
+>
+>                 iommu = amd_iommu_rlookup_table[dev_data->devid];
+> -               dev_data->iommu_v2 = iommu->is_iommu_v2;
+> +               dev_data->iommu_v2 = false;
+>         }
+>
+>         dev->archdata.iommu = dev_data;
+> diff --git a/drivers/iommu/amd_iommu_init.c b/drivers/iommu/amd_iommu_init.c
+> index 6130278..41d0e64 100644
+> --- a/drivers/iommu/amd_iommu_init.c
+> +++ b/drivers/iommu/amd_iommu_init.c
+> @@ -171,7 +171,7 @@ int amd_iommus_present;
+>
+>  /* IOMMUs have a non-present cache? */
+>  bool amd_iommu_np_cache __read_mostly;
+> -bool amd_iommu_iotlb_sup __read_mostly = true;
+> +bool amd_iommu_iotlb_sup __read_mostly = false;
+>
+>  u32 amd_iommu_max_pasid __read_mostly = ~0;
+>
