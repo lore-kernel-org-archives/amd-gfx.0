@@ -1,15 +1,14 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/radeon: Override fpfn for all VRAM placements in
+From: Zachary Michaels <zmichaels-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org>
+Subject: Re: [PATCH] drm/radeon: Override fpfn for all VRAM placements in
  radeon_evict_flags
-Date: Mon, 27 Mar 2017 16:31:35 +0000
-Message-ID: <BN6PR12MB1652FC393B798C350E818D4BF7330@BN6PR12MB1652.namprd12.prod.outlook.com>
+Date: Mon, 27 Mar 2017 09:38:57 -0700
+Message-ID: <CAOfP2NAx=ynrON5NHz0TKBuFns3UyecOWvjxLriuoy0jJ3swPw@mail.gmail.com>
 References: <20170327005843.2009-1-michel@daenzer.net>
+ <9485c238-d562-c363-f108-0c736af440eb@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1977746167=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170327005843.2009-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <9485c238-d562-c363-f108-0c736af440eb-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,50 +19,179 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?J01pY2hlbCBEw6RuemVyJw==?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Zachary Michaels <zmichaels-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org>, Julien Isorce <jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, Julien Isorce <jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
-LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIE1pY2hl
-bCBEw6RuemVyDQo+IFNlbnQ6IFN1bmRheSwgTWFyY2ggMjYsIDIwMTcgODo1OSBQTQ0KPiBUbzog
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gQ2M6IFphY2hhcnkgTWljaGFlbHM7IEp1
-bGllbiBJc29yY2UNCj4gU3ViamVjdDogW1BBVENIXSBkcm0vcmFkZW9uOiBPdmVycmlkZSBmcGZu
-IGZvciBhbGwgVlJBTSBwbGFjZW1lbnRzIGluDQo+IHJhZGVvbl9ldmljdF9mbGFncw0KPiANCj4g
-RnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+DQo+IA0KPiBXZSB3
-ZXJlIGFjY2lkZW50YWxseSBvbmx5IG92ZXJyaWRpbmcgdGhlIGZpcnN0IFZSQU0gcGxhY2VtZW50
-LiBGb3IgQk9zDQo+IHdpdGggdGhlIFJBREVPTl9HRU1fTk9fQ1BVX0FDQ0VTUyBmbGFnIHNldCwN
-Cj4gcmFkZW9uX3R0bV9wbGFjZW1lbnRfZnJvbV9kb21haW4gY3JlYXRlcyBhIHNlY29uZCBWUkFN
-IHBsYWNtZW50DQo+IHdpdGgNCj4gZnBmbiA9PSAwLiBJZiBWUkFNIGlzIGFsbW9zdCBmdWxsLCB0
-aGUgZmlyc3QgVlJBTSBwbGFjZW1lbnQgd2l0aA0KPiBmcGZuID4gMCBtYXkgbm90IHdvcmssIGJ1
-dCB0aGUgc2Vjb25kIG9uZSB3aXRoIGZwZm4gPT0gMCBhbHdheXMgd2lsbA0KPiAodGhlIEJPJ3Mg
-Y3VycmVudCBsb2NhdGlvbiB0cml2aWFsbHkgc2F0aXNmaWVzIGl0KS4gQmVjYXVzZSAibW92aW5n
-Ig0KPiB0aGUgQk8gdG8gaXRzIGN1cnJlbnQgbG9jYXRpb24gcHV0cyBpdCBiYWNrIG9uIHRoZSBM
-UlUgbGlzdCwgdGhpcw0KPiByZXN1bHRzIGluIGFuIGluZmluaXRlIGxvb3AuDQo+IA0KPiBGaXhl
-czogMmE4NWFlZGQxMTdjICgiZHJtL3JhZGVvbjogVHJ5IGV2aWN0aW5nIGZyb20gQ1BVIGFjY2Vz
-c2libGUgdG8NCj4gICAgICAgICAgICAgICAgICAgICAgIGluYWNjZXNzaWJsZSBWUkFNIGZpcnN0
-IikNCj4gUmVwb3J0ZWQtYnk6IFphY2hhcnkgTWljaGFlbHMgPHptaWNoYWVsc0BvYmxvbmcuY29t
-Pg0KPiBSZXBvcnRlZC1hbmQtVGVzdGVkLWJ5OiBKdWxpZW4gSXNvcmNlIDxqaXNvcmNlQG9ibG9u
-Zy5jb20+DQo+IFNpZ25lZC1vZmYtYnk6IE1pY2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBh
-bWQuY29tPg0KDQpSZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBh
-bWQuY29tPg0KDQo+IC0tLQ0KPiAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fdHRtLmMg
-fCA0ICsrLS0NCj4gIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25z
-KC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fdHRt
-LmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl90dG0uYw0KPiBpbmRleCA1Yzdj
-ZjY0NGJhMWQuLjM3ZDY4Y2QxZjI3MiAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3Jh
-ZGVvbi9yYWRlb25fdHRtLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25f
-dHRtLmMNCj4gQEAgLTIxMyw4ICsyMTMsOCBAQCBzdGF0aWMgdm9pZCByYWRlb25fZXZpY3RfZmxh
-Z3Moc3RydWN0DQo+IHR0bV9idWZmZXJfb2JqZWN0ICpibywNCj4gIAkJCXJiby0+cGxhY2VtZW50
-Lm51bV9idXN5X3BsYWNlbWVudCA9IDA7DQo+ICAJCQlmb3IgKGkgPSAwOyBpIDwgcmJvLT5wbGFj
-ZW1lbnQubnVtX3BsYWNlbWVudDsgaSsrKSB7DQo+ICAJCQkJaWYgKHJiby0+cGxhY2VtZW50c1tp
-XS5mbGFncyAmDQo+IFRUTV9QTF9GTEFHX1ZSQU0pIHsNCj4gLQkJCQkJaWYgKHJiby0+cGxhY2Vt
-ZW50c1swXS5mcGZuIDwgZnBmbikNCj4gLQkJCQkJCXJiby0+cGxhY2VtZW50c1swXS5mcGZuID0N
-Cj4gZnBmbjsNCj4gKwkJCQkJaWYgKHJiby0+cGxhY2VtZW50c1tpXS5mcGZuIDwgZnBmbikNCj4g
-KwkJCQkJCXJiby0+cGxhY2VtZW50c1tpXS5mcGZuID0NCj4gZnBmbjsNCj4gIAkJCQl9IGVsc2Ug
-ew0KPiAgCQkJCQlyYm8tPnBsYWNlbWVudC5idXN5X3BsYWNlbWVudCA9DQo+ICAJCQkJCQkmcmJv
-LT5wbGFjZW1lbnRzW2ldOw0KPiAtLQ0KPiAyLjExLjANCj4gDQo+IF9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+
-IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1977746167==
+Content-Type: multipart/alternative; boundary=001a114660e0d423af054bb8fadc
+
+--001a114660e0d423af054bb8fadc
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Thanks for the help and the quick turnaround!
+
+On Sun, Mar 26, 2017 at 11:36 PM, Christian K=C3=B6nig <deathsimple@vodafon=
+e.de>
+wrote:
+
+> Am 27.03.2017 um 02:58 schrieb Michel D=C3=A4nzer:
+>
+>> From: Michel D=C3=A4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
+>>
+>> We were accidentally only overriding the first VRAM placement. For BOs
+>> with the RADEON_GEM_NO_CPU_ACCESS flag set,
+>> radeon_ttm_placement_from_domain creates a second VRAM placment with
+>> fpfn =3D=3D 0. If VRAM is almost full, the first VRAM placement with
+>> fpfn > 0 may not work, but the second one with fpfn =3D=3D 0 always will
+>> (the BO's current location trivially satisfies it). Because "moving"
+>> the BO to its current location puts it back on the LRU list, this
+>> results in an infinite loop.
+>>
+>> Fixes: 2a85aedd117c ("drm/radeon: Try evicting from CPU accessible to
+>>                        inaccessible VRAM first")
+>> Reported-by: Zachary Michaels <zmichaels-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org>
+>> Reported-and-Tested-by: Julien Isorce <jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org>
+>> Signed-off-by: Michel D=C3=A4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
+>>
+>
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+>
+>
+> ---
+>>   drivers/gpu/drm/radeon/radeon_ttm.c | 4 ++--
+>>   1 file changed, 2 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c
+>> b/drivers/gpu/drm/radeon/radeon_ttm.c
+>> index 5c7cf644ba1d..37d68cd1f272 100644
+>> --- a/drivers/gpu/drm/radeon/radeon_ttm.c
+>> +++ b/drivers/gpu/drm/radeon/radeon_ttm.c
+>> @@ -213,8 +213,8 @@ static void radeon_evict_flags(struct
+>> ttm_buffer_object *bo,
+>>                         rbo->placement.num_busy_placement =3D 0;
+>>                         for (i =3D 0; i < rbo->placement.num_placement;
+>> i++) {
+>>                                 if (rbo->placements[i].flags &
+>> TTM_PL_FLAG_VRAM) {
+>> -                                       if (rbo->placements[0].fpfn <
+>> fpfn)
+>> -                                               rbo->placements[0].fpfn =
+=3D
+>> fpfn;
+>> +                                       if (rbo->placements[i].fpfn <
+>> fpfn)
+>> +                                               rbo->placements[i].fpfn =
+=3D
+>> fpfn;
+>>                                 } else {
+>>                                         rbo->placement.busy_placement =
+=3D
+>>                                                 &rbo->placements[i];
+>>
+>
+>
+>
+
+--001a114660e0d423af054bb8fadc
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Thanks for the help and the quick turnaround!<br><div clas=
+s=3D"gmail_extra"><br><div class=3D"gmail_quote">On Sun, Mar 26, 2017 at 11=
+:36 PM, Christian K=C3=B6nig <span dir=3D"ltr">&lt;<a href=3D"mailto:deaths=
+imple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org" target=3D"_blank">deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org</a>&gt;</span>=
+ wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bor=
+der-left:1px #ccc solid;padding-left:1ex"><span class=3D"">Am 27.03.2017 um=
+ 02:58 schrieb Michel D=C3=A4nzer:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+From: Michel D=C3=A4nzer &lt;<a href=3D"mailto:michel.daenzer-5C7GfCeVMHo@public.gmane.org" targ=
+et=3D"_blank">michel.daenzer-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+<br>
+We were accidentally only overriding the first VRAM placement. For BOs<br>
+with the RADEON_GEM_NO_CPU_ACCESS flag set,<br>
+radeon_ttm_placement_from_doma<wbr>in creates a second VRAM placment with<b=
+r>
+fpfn =3D=3D 0. If VRAM is almost full, the first VRAM placement with<br>
+fpfn &gt; 0 may not work, but the second one with fpfn =3D=3D 0 always will=
+<br>
+(the BO&#39;s current location trivially satisfies it). Because &quot;movin=
+g&quot;<br>
+the BO to its current location puts it back on the LRU list, this<br>
+results in an infinite loop.<br>
+<br>
+Fixes: 2a85aedd117c (&quot;drm/radeon: Try evicting from CPU accessible to<=
+br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0inaccessible VRAM first&quot;)<br>
+Reported-by: Zachary Michaels &lt;<a href=3D"mailto:zmichaels-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org" t=
+arget=3D"_blank">zmichaels-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org</a>&gt;<br>
+Reported-and-Tested-by: Julien Isorce &lt;<a href=3D"mailto:jisorce@oblong.=
+com" target=3D"_blank">jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org</a>&gt;<br>
+Signed-off-by: Michel D=C3=A4nzer &lt;<a href=3D"mailto:michel.daenzer@amd.=
+com" target=3D"_blank">michel.daenzer-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+</blockquote>
+<br></span>
+Reviewed-by: Christian K=C3=B6nig &lt;<a href=3D"mailto:christian.koenig@am=
+d.com" target=3D"_blank">christian.koenig-5C7GfCeVMHo@public.gmane.org</a>&gt;<div class=3D"HOEn=
+Zb"><div class=3D"h5"><br>
+<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+---<br>
+=C2=A0 drivers/gpu/drm/radeon/radeon_<wbr>ttm.c | 4 ++--<br>
+=C2=A0 1 file changed, 2 insertions(+), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/radeon/radeo<wbr>n_ttm.c b/drivers/gpu/drm/rad=
+eon/radeo<wbr>n_ttm.c<br>
+index 5c7cf644ba1d..37d68cd1f272 100644<br>
+--- a/drivers/gpu/drm/radeon/radeo<wbr>n_ttm.c<br>
++++ b/drivers/gpu/drm/radeon/radeo<wbr>n_ttm.c<br>
+@@ -213,8 +213,8 @@ static void radeon_evict_flags(struct ttm_buffer_object=
+ *bo,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 rbo-&gt;placement.num_busy_placem<wbr>ent =3D 0;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 for (i =3D 0; i &lt; rbo-&gt;placement.num_placement; i++) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (rbo-&gt;placements[i].flags &amp=
+; TTM_PL_FLAG_VRAM) {<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (rbo-&=
+gt;placements[0].fpfn &lt; fpfn)<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0rbo-&gt;placements[0].fpfn =3D fpfn;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (rbo-&=
+gt;placements[i].fpfn &lt; fpfn)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0rbo-&gt;placements[i].fpfn =3D fpfn;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 } else {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 rbo-&gt;=
+placement.busy_placement =3D<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 &amp;rbo-&gt;placements[i];<br>
+</blockquote>
+<br>
+<br>
+</div></div></blockquote></div><br></div></div>
+
+--001a114660e0d423af054bb8fadc--
+
+--===============1977746167==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1977746167==--
