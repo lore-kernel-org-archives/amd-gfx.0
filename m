@@ -1,15 +1,14 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: Plan: BO move throttling for visible VRAM evictions
-Date: Mon, 27 Mar 2017 11:29:42 +0200
-Message-ID: <a675c878-f191-a6fc-72f3-fd07062c8737@vodafone.de>
-References: <CAAxE2A4ap8BoOEg1tOF+Ec1vBfZRSANOebikYBaHUfXokY7EwA@mail.gmail.com>
- <ba8058ce-805b-3e52-095a-01806673344f@daenzer.net>
- <MWHPR1201MB0206FD6ABB9A0029624E4AF6B4330@MWHPR1201MB0206.namprd12.prod.outlook.com>
+From: Julien Isorce <julien.isorce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/radeon: Override fpfn for all VRAM placements in
+ radeon_evict_flags
+Date: Mon, 27 Mar 2017 10:33:32 +0100
+Message-ID: <CAHWPjbXtsgnbdFw1W0JPzVUDdtvUDmp+9_UFMicwCTGOedcZLw@mail.gmail.com>
+References: <20170327005843.2009-1-michel@daenzer.net>
+ <9485c238-d562-c363-f108-0c736af440eb@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1162202587=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MWHPR1201MB0206FD6ABB9A0029624E4AF6B4330-3iK1xFAIwjrUF/YbdlDdgWrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
+In-Reply-To: <9485c238-d562-c363-f108-0c736af440eb-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,83 +19,196 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, Zachary Michaels <zmichaels-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org>, Julien Isorce <jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gQVBVcyBJJ3ZlIGFscmVhZHkgZW5hYmxlZCB1c2luZyBkaXJlY3QgYWNjZXNzIHRvIHRoZSBz
-dG9sZW4gcGFydHMgb2YgCnN5c3RlbSBtZW1vcnkuCgpTbyB0aGVyZSB3b24ndCBiZSBhbnkgZXZp
-Y3Rpb24gYW55IG1vcmUgYmVjYXVzZSBvZiBwYWdlIGZhdWx0cyBvbiBBUFVzLgoKUmVnYXJkcywK
-Q2hyaXN0aWFuLgoKQW0gMjcuMDMuMjAxNyB1bSAwOTo1MyBzY2hyaWViIFpob3UsIERhdmlkKENo
-dW5NaW5nKToKPiBGb3IgQVBVIHNwZWNpYWwgY2FzZSwgY2FuIHdlIHByZXZlbnQgZXZpY3Rpb24g
-aGFwcGVuaW5nIGJldHdlZW4gVlJBTSA8LS0tLT4gR1RUPwo+Cj4gUmVnYXJkcywKPiBEYXZpZCBa
-aG91Cj4KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+IEZyb206IGFtZC1nZnggW21haWx0
-bzphbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnXSBPbiBCZWhhbGYgT2YgTWlj
-aGVsIEQ/bnplcgo+IFNlbnQ6IE1vbmRheSwgTWFyY2ggMjcsIDIwMTcgMzozNiBQTQo+IFRvOiBN
-YXJlayBPbMWhw6FrIDxtYXJhZW9AZ21haWwuY29tPgo+IENjOiBhbWQtZ2Z4IG1haWxpbmcgbGlz
-dCA8YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+Cj4gU3ViamVjdDogUmU6IFBsYW46IEJP
-IG1vdmUgdGhyb3R0bGluZyBmb3IgdmlzaWJsZSBWUkFNIGV2aWN0aW9ucwo+Cj4gT24gMjUvMDMv
-MTcgMDE6MzMgQU0sIE1hcmVrIE9sxaHDoWsgd3JvdGU6Cj4+IEhpLAo+Pgo+PiBJJ20gc2hhcmlu
-ZyB0aGlzIGlkZWEgaGVyZSwgYmVjYXVzZSBpdCdzIHNvbWV0aGluZyB0aGF0IGhhcyBiZWVuCj4+
-IGRlY3JlYXNpbmcgb3VyIHBlcmZvcm1hbmNlIGEgbG90IHJlY2VudGx5LCBmb3IgZXhhbXBsZToK
-Pj4gaHR0cDovL29wZW5iZW5jaG1hcmtpbmcub3JnL3Byb3NwZWN0LzE3MDMwMTEtUkktUkFERU9O
-RElSMDYvN2I3NjY4Y2ZjMQo+PiAwOWQxYzNkYzI3ZTg3MWM4YWVhNzFjYTEzZjIzZmEKPj4KPj4g
-SSB0aGluayB0aGUgcHJvYmxlbSB0aGVyZSBpcyB0aGF0IE1lc2EgZ2l0IHN0YXJ0ZWQgdXBsb2Fk
-aW5nCj4+IGRlc2NyaXB0b3JzIGFuZCB1bmlmb3JtcyB0byBWUkFNLCB3aGljaCBoZWxwcyB3aGVu
-IFRDIEwyIGhhcyBhIGxvdwo+PiBoaXQvbWlzcyByYXRpbywgYnV0IHRoZSBwZXJmb3JtYW5jZSBj
-YW4gcmFuZG9tbHkgZHJvcCBieSBhbiBvcmRlciBvZgo+PiBtYWduaXR1ZGUuIEkndmUgaGVhcmQg
-cnVtb3VycyB0aGF0IGtlcm5lbCA0LjExIGhhcyBhbiBpbXByb3ZlZAo+PiBhbGxvY2F0b3IgdGhh
-dCBzaG91bGQgcGVyZm9ybSBiZXR0ZXIsIGJ1dCB0aGUgc2l0dWF0aW9uIGlzIHN0aWxsIGZhcgo+
-PiBmcm9tIGlkZWFsLgo+Pgo+PiBBTUQgQ1BVcyBhbmQgQVBVcyB3aWxsIGhvcGVmdWxseSBzdWZm
-ZXIgbGVzcywgYmVjYXVzZSB3ZSBjYW4gcmVzaXplCj4+IHRoZSB2aXNpYmxlIFZSQU0gd2l0aCB0
-aGUgaGVscCBvZiBvdXIgQ1BVIGh3IHNwZWNzLCBidXQgSW50ZWwgQ1BVcwo+PiB3aWxsIHJlbWFp
-biBsaW1pdGVkIHRvIDI1NiBNQi4gVGhlIGZvbGxvd2luZyBwbGFuIGRlc2NyaWJlcyBob3cgdG8g
-ZG8KPj4gdGhyb3R0bGluZyBmb3IgdmlzaWJsZSBWUkFNIGV2aWN0aW9ucy4KPj4KPj4KPj4gMSkg
-VGhlb3J5Cj4+Cj4+IEluaXRpYWxseSwgdGhlIGRyaXZlciBkb2Vzbid0IGNhcmUgYWJvdXQgd2hl
-cmUgYnVmZmVycyBhcmUgaW4gVlJBTSwKPj4gYmVjYXVzZSBWUkFNIGJ1ZmZlcnMgYXJlIG9ubHkg
-bW92ZWQgdG8gdmlzaWJsZSBWUkFNIG9uIENQVSBwYWdlIGZhdWx0cwo+PiAod2hlbiB0aGUgQ1BV
-IHRvdWNoZXMgdGhlIGJ1ZmZlciBtZW1vcnkgYnV0IHRoZSBtZW1vcnkgaXMgaW4gdGhlCj4+IGlu
-dmlzaWJsZSBwYXJ0IG9mIFZSQU0pLiBXaGVuIGl0IGhhcHBlbnMsCj4+IGFtZGdwdV9ib19mYXVs
-dF9yZXNlcnZlX25vdGlmeSBpcyBjYWxsZWQsIHdoaWNoIG1vdmVzIHRoZSBidWZmZXIgdG8KPj4g
-dmlzaWJsZSBWUkFNLCBhbmQgdGhlIGFwcCBjb250aW51ZXMuIGFtZGdwdV9ib19mYXVsdF9yZXNl
-cnZlX25vdGlmeQo+PiBhbHNvIG1hcmtzIHRoZSBidWZmZXIgYXMgY29udGlndW91cywgd2hpY2gg
-bWFrZXMgbWVtb3J5IGZyYWdtZW50YXRpb24KPj4gd29yc2UuCj4+Cj4+IEkgdmVyaWZpZWQgdGhp
-cyB3aXRoIERpUlQgUmFsbHkgd2hlcmUgYW1kZ3B1X2JvX2ZhdWx0X3Jlc2VydmVfbm90aWZ5Cj4+
-IHdhcyBtdWNoIGhpZ2hlciBpbiBhIENQVSBwcm9maWxlciB0aGFuIGFueXRoaW5nIGVsc2UgaW4g
-dGhlIGtlcm5lbC4KPj4KPj4KPj4gMikgTW9uaXRvcmluZyB2aWEgR2FsbGl1bSBIVUQKPj4KPj4g
-V2UgbmVlZCB0byBleHBvc2UgMiBrZXJuZWwgY291bnRlcnMgdmlhIHRoZSBJTkZPIGlvY3RsIGFu
-ZCBkaXNwbGF5Cj4+IHRob3NlIHZpYSBHYWxsaXVtIEhVRDoKPj4gLSBUaGUgbnVtYmVyIG9mIFZS
-QU0gQ1BVIHBhZ2UgZmF1bHRzLiAodGhlIG51bWJlciBvZiBjYWxscyB0bwo+PiBhbWRncHVfYm9f
-ZmF1bHRfcmVzZXJ2ZV9ub3RpZnkpLgo+PiAtIFRoZSBudW1iZXIgb2YgYnl0ZXMgbW92ZWQgYnkg
-dHRtX2JvX3ZhbGlkYXRlIGluc2lkZQo+PiBhbWRncHVfYm9fZmF1bHRfcmVzZXJ2ZV9ub3RpZnku
-Cj4+Cj4+IFRoaXMgd2lsbCBoZWxwIHVzIG9ic2VydmUgd2hhdCBleGFjdGx5IGlzIGhhcHBlbmlu
-ZyBhbmQgZmluZS10dW5lIHRoZQo+PiB0aHJvdHRsaW5nIHdoZW4gaXQncyBkb25lLgo+Pgo+Pgo+
-PiAzKSBTb2x1dGlvbgo+Pgo+PiBhKSBXaGVuIGFtZGdwdV9ib19mYXVsdF9yZXNlcnZlX25vdGlm
-eSBpcyBjYWxsZWQsIHJlY29yZCB0aGUgZmFjdC4KPj4gKGFtZGdwdV9ibzo6aGFkX2NwdV9wYWdl
-X2ZhdWx0ID0gdHJ1ZSkKPj4KPj4gYikgTW9uaXRvciB0aGUgTUIvcyByYXRlIGF0IHdoaWNoIGJ1
-ZmZlcnMgYXJlIG1vdmVkIGJ5Cj4+IGFtZGdwdV9ib19mYXVsdF9yZXNlcnZlX25vdGlmeS4gSWYg
-d2UgZ2V0IGFib3ZlIGEgc3BlY2lmaWMgdGhyZXNob2xkLAo+PiBkb24ndCBtb3ZlIHRoZSBidWZm
-ZXIgdG8gdmlzaWJsZSBWUkFNLiBNb3ZlIGl0IHRvIEdUVCBpbnN0ZWFkLiBOb3RlCj4+IHRoYXQg
-bW92aW5nIHRvIEdUVCBjYW4gYmUgY2hlYXBlciwgYmVjYXVzZSBtb3ZpbmcgdG8gdmlzaWJsZSBW
-UkFNIGlzCj4+IGxpa2VseSB0byBldmljdCBhIGxvdCBvZiBidWZmZXJzIHRoZXJlIGFuZCB1bm1h
-cCB0aGVtIGZyb20gdGhlIENQVSwKPiBGV0lXLCB0aGlzIGNhbiBiZSBhdm9pZGVkIGJ5IG9ubHkg
-c2V0dGluZyBHVFQgaW4gYnVzeV9wbGFjZW1lbnQuIFRoZW4gVFRNIHdpbGwgb25seSBtb3ZlIHRo
-ZSBCTyB0byB2aXNpYmxlIFZSQU0gaWYgdGhhdCBjYW4gYmUgZG9uZSB3aXRob3V0IGV2aWN0aW5n
-IGFueXRoaW5nIGZyb20gdGhlcmUuCj4KPgo+PiBidXQgbW92aW5nIHRvIEdUVCBzaG91bGRuJ3Qg
-ZXZpY3Qgb3IgdW5tYXAgYW55dGhpbmcuCj4+Cj4+IGMpIFdoZW4gd2UgZ2V0IGludG8gdGhlIENT
-IGlvY3RsIGFuZCBhIGJ1ZmZlciBoYXMgaGFkX2NwdV9wYWdlX2ZhdWx0LAo+PiBpdCBjYW4gYmUg
-bW92ZWQgdG8gVlJBTSBpZjoKPj4gLSB0aGUgR1RULT5WUkFNIG1vdmUgcmF0ZSBpcyBsb3cgZW5v
-dWdoIHRvIGFsbG93IGl0ICh0aGlzIGlzIHRoZQo+PiBleGlzdGluZyB0aHJvdHRsaW5nIG1lY2hh
-bmlzbSkKPj4gLSB0aGUgdmlzaWJsZSBWUkFNIG1vdmUgcmF0ZSBpcyBsb3cgZW5vdWdoIHRoYXQg
-d2Ugd2lsbCBiZSBPSyB3aXRoCj4+IGFub3RoZXIgQ1BVIHBhZ2UgZmF1bHQgaWYgaXQgaGFwcGVu
-cy4KPiBTb21lIG90aGVyIGlkZWFzIHRoYXQgbWlnaHQgYmUgd29ydGggdHJ5aW5nOgo+Cj4gRXZp
-Y3RpbmcgQk9zIHRvIEdUVCBpbnN0ZWFkIG9mIG1vdmluZyB0aGVtIHRvIENQVSBhY2Nlc3NpYmxl
-IFZSQU0gaW4gcHJpbmNpcGxlIGluIHNvbWUgY2FzZXMgKGUuZy4gZm9yIGFsbCBCT3MgZXhjZXB0
-IHRob3NlIHdpdGgKPiBBTURHUFVfR0VNX0NSRUFURV9DUFVfQUNDRVNTX1JFUVVJUkVEKSBvciBl
-dmVuIGFsd2F5cy4KPgo+IEltcGxlbWVudGluZyBldmljdGlvbiBmcm9tIENQVSB2aXNpYmxlIHRv
-IENQVSBpbnZpc2libGUgVlJBTSwgc2ltaWxhciB0byBob3cgaXQncyBkb25lIGluIHJhZGVvbi4g
-Tm90ZSB0aGF0IHRoZXJlJ3MgcG90ZW50aWFsIGZvciB1c2Vyc3BhY2UgdHJpZ2dlcmluZyBhbiBp
-bmZpbml0ZSBsb29wIGluIHRoZSBrZXJuZWwgaW4gY2FzZXMgd2hlcmUgQk9zIGFyZSBtb3ZlZCBi
-YWNrIGZyb20gaW52aXNpYmxlIHRvIHZpc2libGUgVlJBTSBvbiBwYWdlIGZhdWx0cy4KPgo+Cgpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============1162202587==
+Content-Type: multipart/alternative; boundary=001a114dbd706dd7b4054bb309e9
+
+--001a114dbd706dd7b4054bb309e9
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Hi Michel,
+
+Great ! Would you mind to just add a note to mention that the infinite loop
+actually happens in ttm_bo_mem_force_space ? Thx!
+
+Cheers
+Julien
+
+On 27 March 2017 at 07:36, Christian K=C3=B6nig <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org> w=
+rote:
+
+> Am 27.03.2017 um 02:58 schrieb Michel D=C3=A4nzer:
+>
+>> From: Michel D=C3=A4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
+>>
+>> We were accidentally only overriding the first VRAM placement. For BOs
+>> with the RADEON_GEM_NO_CPU_ACCESS flag set,
+>> radeon_ttm_placement_from_domain creates a second VRAM placment with
+>> fpfn =3D=3D 0. If VRAM is almost full, the first VRAM placement with
+>> fpfn > 0 may not work, but the second one with fpfn =3D=3D 0 always will
+>> (the BO's current location trivially satisfies it). Because "moving"
+>> the BO to its current location puts it back on the LRU list, this
+>> results in an infinite loop.
+>>
+>> Fixes: 2a85aedd117c ("drm/radeon: Try evicting from CPU accessible to
+>>                        inaccessible VRAM first")
+>> Reported-by: Zachary Michaels <zmichaels-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org>
+>> Reported-and-Tested-by: Julien Isorce <jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org>
+>> Signed-off-by: Michel D=C3=A4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
+>>
+>
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+>
+> ---
+>>   drivers/gpu/drm/radeon/radeon_ttm.c | 4 ++--
+>>   1 file changed, 2 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c
+>> b/drivers/gpu/drm/radeon/radeon_ttm.c
+>> index 5c7cf644ba1d..37d68cd1f272 100644
+>> --- a/drivers/gpu/drm/radeon/radeon_ttm.c
+>> +++ b/drivers/gpu/drm/radeon/radeon_ttm.c
+>> @@ -213,8 +213,8 @@ static void radeon_evict_flags(struct
+>> ttm_buffer_object *bo,
+>>                         rbo->placement.num_busy_placement =3D 0;
+>>                         for (i =3D 0; i < rbo->placement.num_placement;
+>> i++) {
+>>                                 if (rbo->placements[i].flags &
+>> TTM_PL_FLAG_VRAM) {
+>> -                                       if (rbo->placements[0].fpfn <
+>> fpfn)
+>> -                                               rbo->placements[0].fpfn =
+=3D
+>> fpfn;
+>> +                                       if (rbo->placements[i].fpfn <
+>> fpfn)
+>> +                                               rbo->placements[i].fpfn =
+=3D
+>> fpfn;
+>>                                 } else {
+>>                                         rbo->placement.busy_placement =
+=3D
+>>                                                 &rbo->placements[i];
+>>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+
+--001a114dbd706dd7b4054bb309e9
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi Michel,<div><br></div><div>Great ! Would you mind to ju=
+st add a note to mention that the infinite loop actually happens in=C2=A0tt=
+m_bo_mem_force_space ? Thx!</div><div><br></div><div>Cheers</div><div>Julie=
+n</div></div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On 2=
+7 March 2017 at 07:36, Christian K=C3=B6nig <span dir=3D"ltr">&lt;<a href=
+=3D"mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org" target=3D"_blank">deathsimple@vodafone.=
+de</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"marg=
+in:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><span class=3D""=
+>Am 27.03.2017 um 02:58 schrieb Michel D=C3=A4nzer:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+From: Michel D=C3=A4nzer &lt;<a href=3D"mailto:michel.daenzer-5C7GfCeVMHo@public.gmane.org" targ=
+et=3D"_blank">michel.daenzer-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+<br>
+We were accidentally only overriding the first VRAM placement. For BOs<br>
+with the RADEON_GEM_NO_CPU_ACCESS flag set,<br>
+radeon_ttm_placement_from_doma<wbr>in creates a second VRAM placment with<b=
+r>
+fpfn =3D=3D 0. If VRAM is almost full, the first VRAM placement with<br>
+fpfn &gt; 0 may not work, but the second one with fpfn =3D=3D 0 always will=
+<br>
+(the BO&#39;s current location trivially satisfies it). Because &quot;movin=
+g&quot;<br>
+the BO to its current location puts it back on the LRU list, this<br>
+results in an infinite loop.<br>
+<br>
+Fixes: 2a85aedd117c (&quot;drm/radeon: Try evicting from CPU accessible to<=
+br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0inaccessible VRAM first&quot;)<br>
+Reported-by: Zachary Michaels &lt;<a href=3D"mailto:zmichaels-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org" t=
+arget=3D"_blank">zmichaels-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org</a>&gt;<br>
+Reported-and-Tested-by: Julien Isorce &lt;<a href=3D"mailto:jisorce@oblong.=
+com" target=3D"_blank">jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org</a>&gt;<br>
+Signed-off-by: Michel D=C3=A4nzer &lt;<a href=3D"mailto:michel.daenzer@amd.=
+com" target=3D"_blank">michel.daenzer-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+</blockquote>
+<br></span>
+Reviewed-by: Christian K=C3=B6nig &lt;<a href=3D"mailto:christian.koenig@am=
+d.com" target=3D"_blank">christian.koenig-5C7GfCeVMHo@public.gmane.org</a>&gt;<span class=3D"im =
+HOEnZb"><br>
+<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+---<br>
+=C2=A0 drivers/gpu/drm/radeon/radeon_<wbr>ttm.c | 4 ++--<br>
+=C2=A0 1 file changed, 2 insertions(+), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/radeon/radeo<wbr>n_ttm.c b/drivers/gpu/drm/rad=
+eon/radeo<wbr>n_ttm.c<br>
+index 5c7cf644ba1d..37d68cd1f272 100644<br>
+--- a/drivers/gpu/drm/radeon/radeo<wbr>n_ttm.c<br>
++++ b/drivers/gpu/drm/radeon/radeo<wbr>n_ttm.c<br>
+@@ -213,8 +213,8 @@ static void radeon_evict_flags(struct ttm_buffer_object=
+ *bo,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 rbo-&gt;placement.num_busy_placem<wbr>ent =3D 0;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 for (i =3D 0; i &lt; rbo-&gt;placement.num_placement; i++) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (rbo-&gt;placements[i].flags &amp=
+; TTM_PL_FLAG_VRAM) {<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (rbo-&=
+gt;placements[0].fpfn &lt; fpfn)<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0rbo-&gt;placements[0].fpfn =3D fpfn;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (rbo-&=
+gt;placements[i].fpfn &lt; fpfn)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0rbo-&gt;placements[i].fpfn =3D fpfn;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 } else {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 rbo-&gt;=
+placement.busy_placement =3D<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 &amp;rbo-&gt;placements[i];<br>
+</blockquote>
+<br>
+<br></span><div class=3D"HOEnZb"><div class=3D"h5">
+______________________________<wbr>_________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
+lists.freedesktop.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer" target=3D"_blank">https://lists.freedesktop.org/<wbr>mailman/lis=
+tinfo/amd-gfx</a><br>
+</div></div></blockquote></div><br></div>
+
+--001a114dbd706dd7b4054bb309e9--
+
+--===============1162202587==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1162202587==--
