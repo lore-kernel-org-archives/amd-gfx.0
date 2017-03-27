@@ -1,12 +1,12 @@
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH umr] Add family text for family 141
-Date: Mon, 27 Mar 2017 10:34:41 +1100
-Message-ID: <7f1aeae8-9457-8a50-d075-428880afa9a3@folklore1984.net>
-References: <20170324140834.13558-1-tom.stdenis@amd.com>
+From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: [PATCH] drm/radeon: Override fpfn for all VRAM placements in
+ radeon_evict_flags
+Date: Mon, 27 Mar 2017 09:58:43 +0900
+Message-ID: <20170327005843.2009-1-michel@daenzer.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1184897102=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170324140834.13558-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,89 +17,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Zachary Michaels <zmichaels-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org>, Julien Isorce <jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1184897102==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="IquBGWWSJO9GGxSvojv9dqhbMRKidvreN"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---IquBGWWSJO9GGxSvojv9dqhbMRKidvreN
-Content-Type: multipart/mixed; boundary="rQAohqSLwcKDWresEX73HnqeeLhdHXpBc";
- protected-headers="v1"
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Message-ID: <7f1aeae8-9457-8a50-d075-428880afa9a3-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH umr] Add family text for family 141
-References: <20170324140834.13558-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <20170324140834.13558-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-
---rQAohqSLwcKDWresEX73HnqeeLhdHXpBc
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-
-On 03/25/2017 01:08 AM, Tom St Denis wrote:
-> Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-> ---
->  src/app/print_config.c | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/src/app/print_config.c b/src/app/print_config.c
-> index 6dbe0d42b8dc..e295302ab7a3 100644
-> --- a/src/app/print_config.c
-> +++ b/src/app/print_config.c
-> @@ -91,6 +91,7 @@ static const struct {
->  	{ "Kaveri", 125 },
->  	{ "Volcanic Islands", 130 },
->  	{ "Carrizo", 135 },
-> +	{ "Arctic Islands", 141 },
->  	{ NULL, 0 },
->  };
-> =20
->=20
-
-
---rQAohqSLwcKDWresEX73HnqeeLhdHXpBc--
-
---IquBGWWSJO9GGxSvojv9dqhbMRKidvreN
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJY2FARAAoJEP4bvbfZuWjbwDYQALc84nf8vULaZSqq/OduX+Xr
-6g7wkD0lTNONsVkLzNHHPKU8EZPbIPz5UHmSCOiBH0IWxRQdPJKvFNNa88yCG0uq
-kCQlnU/t36plxfYyjFHzg/24I9QlawKYFkVAr93TI9GYWjFjxO/l7Dsy6QWmUNPP
-g8uU9CgsgMDyoyUSSE+suvlMaqdwhnWn446IWMmTHnhCSMilHKK5nbpRxzwta8OK
-KQRkD1mBvnpN4C6B3zAXW+PvzGxONdFq7H+NfLqxB+Lj+AFdbv7W0SCX4bVvZMPf
-Tk+QZb7IpnUC91cTgpVW3r/9dWy1jfOY6ttS4bDGdWwXT1HhAxQnEREvR8kXolla
-wAQV2yCl35GBfvKVZu+z/5fdCcn3WQF54iJeQTOf/4N+oJir8lDGTic6B6g/MK8g
-pJLQOuKRaDlAzK7269bMjJfJ/OHqQopx8CnzXSxqLgS4s+L1KZpcb6I8mQFYtuOX
-YplGm+PHur20t8Qak7lzU0RJKkKmxvTVS/+IzMp/9Bz2w88XIuHLNHWYxm48sLTN
-CG6A4FSAXk2pubeSVJl7B92hzjg39K0+mOd51cNaoaU30NmeVd24qo9YAjF0JGng
-1GnU7IDEsaYdBqbp0+hgNafpk8GWmixAcbiLPVoZXBFDAYZbI/Y3Z/lP/LtcAIOG
-zrTNs56Y1+iWeAzJSj5Q
-=+dn3
------END PGP SIGNATURE-----
-
---IquBGWWSJO9GGxSvojv9dqhbMRKidvreN--
-
---===============1184897102==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1184897102==--
+RnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+CgpXZSB3ZXJlIGFj
+Y2lkZW50YWxseSBvbmx5IG92ZXJyaWRpbmcgdGhlIGZpcnN0IFZSQU0gcGxhY2VtZW50LiBGb3Ig
+Qk9zCndpdGggdGhlIFJBREVPTl9HRU1fTk9fQ1BVX0FDQ0VTUyBmbGFnIHNldCwKcmFkZW9uX3R0
+bV9wbGFjZW1lbnRfZnJvbV9kb21haW4gY3JlYXRlcyBhIHNlY29uZCBWUkFNIHBsYWNtZW50IHdp
+dGgKZnBmbiA9PSAwLiBJZiBWUkFNIGlzIGFsbW9zdCBmdWxsLCB0aGUgZmlyc3QgVlJBTSBwbGFj
+ZW1lbnQgd2l0aApmcGZuID4gMCBtYXkgbm90IHdvcmssIGJ1dCB0aGUgc2Vjb25kIG9uZSB3aXRo
+IGZwZm4gPT0gMCBhbHdheXMgd2lsbAoodGhlIEJPJ3MgY3VycmVudCBsb2NhdGlvbiB0cml2aWFs
+bHkgc2F0aXNmaWVzIGl0KS4gQmVjYXVzZSAibW92aW5nIgp0aGUgQk8gdG8gaXRzIGN1cnJlbnQg
+bG9jYXRpb24gcHV0cyBpdCBiYWNrIG9uIHRoZSBMUlUgbGlzdCwgdGhpcwpyZXN1bHRzIGluIGFu
+IGluZmluaXRlIGxvb3AuCgpGaXhlczogMmE4NWFlZGQxMTdjICgiZHJtL3JhZGVvbjogVHJ5IGV2
+aWN0aW5nIGZyb20gQ1BVIGFjY2Vzc2libGUgdG8KICAgICAgICAgICAgICAgICAgICAgIGluYWNj
+ZXNzaWJsZSBWUkFNIGZpcnN0IikKUmVwb3J0ZWQtYnk6IFphY2hhcnkgTWljaGFlbHMgPHptaWNo
+YWVsc0BvYmxvbmcuY29tPgpSZXBvcnRlZC1hbmQtVGVzdGVkLWJ5OiBKdWxpZW4gSXNvcmNlIDxq
+aXNvcmNlQG9ibG9uZy5jb20+ClNpZ25lZC1vZmYtYnk6IE1pY2hlbCBEw6RuemVyIDxtaWNoZWwu
+ZGFlbnplckBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX3R0bS5j
+IHwgNCArKy0tCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygt
+KQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX3R0bS5jIGIvZHJp
+dmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fdHRtLmMKaW5kZXggNWM3Y2Y2NDRiYTFkLi4zN2Q2
+OGNkMWYyNzIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX3R0bS5j
+CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX3R0bS5jCkBAIC0yMTMsOCArMjEz
+LDggQEAgc3RhdGljIHZvaWQgcmFkZW9uX2V2aWN0X2ZsYWdzKHN0cnVjdCB0dG1fYnVmZmVyX29i
+amVjdCAqYm8sCiAJCQlyYm8tPnBsYWNlbWVudC5udW1fYnVzeV9wbGFjZW1lbnQgPSAwOwogCQkJ
+Zm9yIChpID0gMDsgaSA8IHJiby0+cGxhY2VtZW50Lm51bV9wbGFjZW1lbnQ7IGkrKykgewogCQkJ
+CWlmIChyYm8tPnBsYWNlbWVudHNbaV0uZmxhZ3MgJiBUVE1fUExfRkxBR19WUkFNKSB7Ci0JCQkJ
+CWlmIChyYm8tPnBsYWNlbWVudHNbMF0uZnBmbiA8IGZwZm4pCi0JCQkJCQlyYm8tPnBsYWNlbWVu
+dHNbMF0uZnBmbiA9IGZwZm47CisJCQkJCWlmIChyYm8tPnBsYWNlbWVudHNbaV0uZnBmbiA8IGZw
+Zm4pCisJCQkJCQlyYm8tPnBsYWNlbWVudHNbaV0uZnBmbiA9IGZwZm47CiAJCQkJfSBlbHNlIHsK
+IAkJCQkJcmJvLT5wbGFjZW1lbnQuYnVzeV9wbGFjZW1lbnQgPQogCQkJCQkJJnJiby0+cGxhY2Vt
+ZW50c1tpXTsKLS0gCjIuMTEuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
+Z2Z4Cg==
