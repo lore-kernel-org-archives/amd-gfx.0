@@ -1,54 +1,39 @@
-From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: [PATCH] drm/radeon: Override fpfn for all VRAM placements in
- radeon_evict_flags
-Date: Mon, 27 Mar 2017 09:58:43 +0900
-Message-ID: <20170327005843.2009-1-michel@daenzer.net>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Subject: Re: [PATCH] Revert "drm/radeon: Try evicting from CPU accessible to
+ inaccessible VRAM first"
+Date: Mon, 27 Mar 2017 09:59:19 +0900
+Message-ID: <1565fdaf-d8f4-29a8-6287-a91aac8b3698@daenzer.net>
+References: <1490206797-15653-1-git-send-email-zmichaels@oblong.com>
+ <c56f4a6a-a17d-b9b0-311e-7100df8c7cee@daenzer.net>
+ <CAGCDoEGuMVnv6rA-y5XDbc6hiNWiTg6nt4e4u2dZObeY8roKXA@mail.gmail.com>
+ <8020e778-c9c8-e67b-428a-436f2f1c0d7b@daenzer.net>
+ <CAHWPjbXbAo8CVSJDK1GzN=M4pMobMw9XVQVfVeGVM4H=n36vuQ@mail.gmail.com>
+ <219c6e11-09d9-d2aa-a04d-20074b4a409b@daenzer.net>
+ <CAHWPjbXf1Js+gVWUKSKsereimmi3nduKsn3qEVC3YC=4dqNCzw@mail.gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Zachary Michaels <zmichaels-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org>, Julien Isorce <jisorce-bXq66PvbRDbQT0dZR+AlfA@public.gmane.org>
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <CAHWPjbXf1Js+gVWUKSKsereimmi3nduKsn3qEVC3YC=4dqNCzw@mail.gmail.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Julien Isorce <julien.isorce@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Zachary Michaels <zmichaels@oblong.com>, Julien Isorce <jisorce@oblong.com>, dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+CgpXZSB3ZXJlIGFj
-Y2lkZW50YWxseSBvbmx5IG92ZXJyaWRpbmcgdGhlIGZpcnN0IFZSQU0gcGxhY2VtZW50LiBGb3Ig
-Qk9zCndpdGggdGhlIFJBREVPTl9HRU1fTk9fQ1BVX0FDQ0VTUyBmbGFnIHNldCwKcmFkZW9uX3R0
-bV9wbGFjZW1lbnRfZnJvbV9kb21haW4gY3JlYXRlcyBhIHNlY29uZCBWUkFNIHBsYWNtZW50IHdp
-dGgKZnBmbiA9PSAwLiBJZiBWUkFNIGlzIGFsbW9zdCBmdWxsLCB0aGUgZmlyc3QgVlJBTSBwbGFj
-ZW1lbnQgd2l0aApmcGZuID4gMCBtYXkgbm90IHdvcmssIGJ1dCB0aGUgc2Vjb25kIG9uZSB3aXRo
-IGZwZm4gPT0gMCBhbHdheXMgd2lsbAoodGhlIEJPJ3MgY3VycmVudCBsb2NhdGlvbiB0cml2aWFs
-bHkgc2F0aXNmaWVzIGl0KS4gQmVjYXVzZSAibW92aW5nIgp0aGUgQk8gdG8gaXRzIGN1cnJlbnQg
-bG9jYXRpb24gcHV0cyBpdCBiYWNrIG9uIHRoZSBMUlUgbGlzdCwgdGhpcwpyZXN1bHRzIGluIGFu
-IGluZmluaXRlIGxvb3AuCgpGaXhlczogMmE4NWFlZGQxMTdjICgiZHJtL3JhZGVvbjogVHJ5IGV2
-aWN0aW5nIGZyb20gQ1BVIGFjY2Vzc2libGUgdG8KICAgICAgICAgICAgICAgICAgICAgIGluYWNj
-ZXNzaWJsZSBWUkFNIGZpcnN0IikKUmVwb3J0ZWQtYnk6IFphY2hhcnkgTWljaGFlbHMgPHptaWNo
-YWVsc0BvYmxvbmcuY29tPgpSZXBvcnRlZC1hbmQtVGVzdGVkLWJ5OiBKdWxpZW4gSXNvcmNlIDxq
-aXNvcmNlQG9ibG9uZy5jb20+ClNpZ25lZC1vZmYtYnk6IE1pY2hlbCBEw6RuemVyIDxtaWNoZWwu
-ZGFlbnplckBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX3R0bS5j
-IHwgNCArKy0tCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygt
-KQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX3R0bS5jIGIvZHJp
-dmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fdHRtLmMKaW5kZXggNWM3Y2Y2NDRiYTFkLi4zN2Q2
-OGNkMWYyNzIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX3R0bS5j
-CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX3R0bS5jCkBAIC0yMTMsOCArMjEz
-LDggQEAgc3RhdGljIHZvaWQgcmFkZW9uX2V2aWN0X2ZsYWdzKHN0cnVjdCB0dG1fYnVmZmVyX29i
-amVjdCAqYm8sCiAJCQlyYm8tPnBsYWNlbWVudC5udW1fYnVzeV9wbGFjZW1lbnQgPSAwOwogCQkJ
-Zm9yIChpID0gMDsgaSA8IHJiby0+cGxhY2VtZW50Lm51bV9wbGFjZW1lbnQ7IGkrKykgewogCQkJ
-CWlmIChyYm8tPnBsYWNlbWVudHNbaV0uZmxhZ3MgJiBUVE1fUExfRkxBR19WUkFNKSB7Ci0JCQkJ
-CWlmIChyYm8tPnBsYWNlbWVudHNbMF0uZnBmbiA8IGZwZm4pCi0JCQkJCQlyYm8tPnBsYWNlbWVu
-dHNbMF0uZnBmbiA9IGZwZm47CisJCQkJCWlmIChyYm8tPnBsYWNlbWVudHNbaV0uZnBmbiA8IGZw
-Zm4pCisJCQkJCQlyYm8tPnBsYWNlbWVudHNbaV0uZnBmbiA9IGZwZm47CiAJCQkJfSBlbHNlIHsK
-IAkJCQkJcmJvLT5wbGFjZW1lbnQuYnVzeV9wbGFjZW1lbnQgPQogCQkJCQkJJnJiby0+cGxhY2Vt
-ZW50c1tpXTsKLS0gCjIuMTEuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
-Z2Z4Cg==
+T24gMjUvMDMvMTcgMDM6NTkgQU0sIEp1bGllbiBJc29yY2Ugd3JvdGU6Cj4gSGkgTWljaGVsLAo+
+IAo+IEkgZG91YmxlIGNoZWNrZWQgYW5kIHlvdSBhcmUgcmlnaHQsIHRoZSBjaGFuZ2UgMCAtPiBp
+IHdvcmtzLiAKClRoYW5rcyBmb3IgdGVzdGluZywgZml4IHN1Ym1pdHRlZCBmb3IgcmV2aWV3LgoK
+Ci0tIApFYXJ0aGxpbmcgTWljaGVsIETDpG56ZXIgICAgICAgICAgICAgICB8ICAgICAgICAgICAg
+ICAgaHR0cDovL3d3dy5hbWQuY29tCkxpYnJlIHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAgICAg
+ICAgfCAgICAgICAgICAgICBNZXNhIGFuZCBYIGRldmVsb3BlcgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1k
+ZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
