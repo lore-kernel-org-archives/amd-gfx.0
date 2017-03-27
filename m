@@ -1,13 +1,11 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: Plan: BO move throttling for visible VRAM evictions
-Date: Mon, 27 Mar 2017 12:29:17 +0200
-Message-ID: <CAAxE2A5OCfgu4k-GzNFhGSkgn21jEJoQysdZ6QbdxZaGwPnrEA@mail.gmail.com>
-References: <CAAxE2A4ap8BoOEg1tOF+Ec1vBfZRSANOebikYBaHUfXokY7EwA@mail.gmail.com>
- <ba8058ce-805b-3e52-095a-01806673344f@daenzer.net>
+From: Shirish S <shirish.s12-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 1/2] drm/amd/display: decouple per-crtc-plane model
+Date: Mon, 27 Mar 2017 16:41:38 +0530
+Message-ID: <1490613099-11662-1-git-send-email-shirish.s@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0082125125=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <ba8058ce-805b-3e52-095a-01806673344f-otUistvHUpPR7s880joybQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,260 +16,264 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Harry.Wentland-5C7GfCeVMHo@public.gmane.org, shirish.s-5C7GfCeVMHo@public.gmane.org
 
---===============0082125125==
-Content-Type: multipart/alternative; boundary=94eb2c055d18d70199054bb3d0d1
-
---94eb2c055d18d70199054bb3d0d1
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-On Mar 27, 2017 9:35 AM, "Michel D=C3=A4nzer" <michel-otUistvHUpPR7s880joybQ@public.gmane.org> wrote:
-
-On 25/03/17 01:33 AM, Marek Ol=C5=A1=C3=A1k wrote:
-> Hi,
->
-> I'm sharing this idea here, because it's something that has been
-> decreasing our performance a lot recently, for example:
-> http://openbenchmarking.org/prospect/1703011-RI-RADEONDIR06/
-7b7668cfc109d1c3dc27e871c8aea71ca13f23fa
->
-> I think the problem there is that Mesa git started uploading
-> descriptors and uniforms to VRAM, which helps when TC L2 has a low
-> hit/miss ratio, but the performance can randomly drop by an order of
-> magnitude. I've heard rumours that kernel 4.11 has an improved
-> allocator that should perform better, but the situation is still far
-> from ideal.
->
-> AMD CPUs and APUs will hopefully suffer less, because we can resize
-> the visible VRAM with the help of our CPU hw specs, but Intel CPUs
-> will remain limited to 256 MB. The following plan describes how to do
-> throttling for visible VRAM evictions.
->
->
-> 1) Theory
->
-> Initially, the driver doesn't care about where buffers are in VRAM,
-> because VRAM buffers are only moved to visible VRAM on CPU page faults
-> (when the CPU touches the buffer memory but the memory is in the
-> invisible part of VRAM). When it happens,
-> amdgpu_bo_fault_reserve_notify is called, which moves the buffer to
-> visible VRAM, and the app continues. amdgpu_bo_fault_reserve_notify
-> also marks the buffer as contiguous, which makes memory fragmentation
-> worse.
->
-> I verified this with DiRT Rally where amdgpu_bo_fault_reserve_notify
-> was much higher in a CPU profiler than anything else in the kernel.
->
->
-> 2) Monitoring via Gallium HUD
->
-> We need to expose 2 kernel counters via the INFO ioctl and display
-> those via Gallium HUD:
-> - The number of VRAM CPU page faults. (the number of calls to
-> amdgpu_bo_fault_reserve_notify).
-> - The number of bytes moved by ttm_bo_validate inside
-> amdgpu_bo_fault_reserve_notify.
->
-> This will help us observe what exactly is happening and fine-tune the
-> throttling when it's done.
->
->
-> 3) Solution
->
-> a) When amdgpu_bo_fault_reserve_notify is called, record the fact.
-> (amdgpu_bo::had_cpu_page_fault =3D true)
->
-> b) Monitor the MB/s rate at which buffers are moved by
-> amdgpu_bo_fault_reserve_notify. If we get above a specific threshold,
-> don't move the buffer to visible VRAM. Move it to GTT instead. Note
-> that moving to GTT can be cheaper, because moving to visible VRAM is
-> likely to evict a lot of buffers there and unmap them from the CPU,
-
-FWIW, this can be avoided by only setting GTT in busy_placement. Then
-TTM will only move the BO to visible VRAM if that can be done without
-evicting anything from there.
-
-
-> but moving to GTT shouldn't evict or unmap anything.
->
-> c) When we get into the CS ioctl and a buffer has had_cpu_page_fault,
-> it can be moved to VRAM if:
-> - the GTT->VRAM move rate is low enough to allow it (this is the
-> existing throttling mechanism)
-> - the visible VRAM move rate is low enough that we will be OK with
-> another CPU page fault if it happens.
-
-Some other ideas that might be worth trying:
-
-Evicting BOs to GTT instead of moving them to CPU accessible VRAM in
-principle in some cases (e.g. for all BOs except those with
-AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED) or even always.
-
-
-I've tried this and it made things even worse.
-
-Marek
-
-
-Implementing eviction from CPU visible to CPU invisible VRAM, similar to
-how it's done in radeon. Note that there's potential for userspace
-triggering an infinite loop in the kernel in cases where BOs are moved
-back from invisible to visible VRAM on page faults.
-
-
---
-Earthling Michel D=C3=A4nzer               |               http://www.amd.c=
-om
-Libre software enthusiast             |             Mesa and X developer
-
---94eb2c055d18d70199054bb3d0d1
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div><br><div class=3D"gmail_extra"><br><div class=3D"gma=
-il_quote">On Mar 27, 2017 9:35 AM, &quot;Michel D=C3=A4nzer&quot; &lt;<a hr=
-ef=3D"mailto:michel-otUistvHUpPR7s880joybQ@public.gmane.org">michel-otUistvHUpPR7s880joybQ@public.gmane.org</a>&gt; wrote:<br type=
-=3D"attribution"><blockquote class=3D"quote" style=3D"margin:0 0 0 .8ex;bor=
-der-left:1px #ccc solid;padding-left:1ex"><div class=3D"elided-text">On 25/=
-03/17 01:33 AM, Marek Ol=C5=A1=C3=A1k wrote:<br>
-&gt; Hi,<br>
-&gt;<br>
-&gt; I&#39;m sharing this idea here, because it&#39;s something that has be=
-en<br>
-&gt; decreasing our performance a lot recently, for example:<br>
-&gt; <a href=3D"http://openbenchmarking.org/prospect/1703011-RI-RADEONDIR06=
-/7b7668cfc109d1c3dc27e871c8aea71ca13f23fa" rel=3D"noreferrer" target=3D"_bl=
-ank">http://openbenchmarking.org/<wbr>prospect/1703011-RI-<wbr>RADEONDIR06/=
-<wbr>7b7668cfc109d1c3dc27e871c8aea7<wbr>1ca13f23fa</a><br>
-&gt;<br>
-&gt; I think the problem there is that Mesa git started uploading<br>
-&gt; descriptors and uniforms to VRAM, which helps when TC L2 has a low<br>
-&gt; hit/miss ratio, but the performance can randomly drop by an order of<b=
-r>
-&gt; magnitude. I&#39;ve heard rumours that kernel 4.11 has an improved<br>
-&gt; allocator that should perform better, but the situation is still far<b=
-r>
-&gt; from ideal.<br>
-&gt;<br>
-&gt; AMD CPUs and APUs will hopefully suffer less, because we can resize<br=
->
-&gt; the visible VRAM with the help of our CPU hw specs, but Intel CPUs<br>
-&gt; will remain limited to 256 MB. The following plan describes how to do<=
-br>
-&gt; throttling for visible VRAM evictions.<br>
-&gt;<br>
-&gt;<br>
-&gt; 1) Theory<br>
-&gt;<br>
-&gt; Initially, the driver doesn&#39;t care about where buffers are in VRAM=
-,<br>
-&gt; because VRAM buffers are only moved to visible VRAM on CPU page faults=
-<br>
-&gt; (when the CPU touches the buffer memory but the memory is in the<br>
-&gt; invisible part of VRAM). When it happens,<br>
-&gt; amdgpu_bo_fault_reserve_notify is called, which moves the buffer to<br=
->
-&gt; visible VRAM, and the app continues. amdgpu_bo_fault_reserve_notify<br=
->
-&gt; also marks the buffer as contiguous, which makes memory fragmentation<=
-br>
-&gt; worse.<br>
-&gt;<br>
-&gt; I verified this with DiRT Rally where amdgpu_bo_fault_reserve_notify<b=
-r>
-&gt; was much higher in a CPU profiler than anything else in the kernel.<br=
->
-&gt;<br>
-&gt;<br>
-&gt; 2) Monitoring via Gallium HUD<br>
-&gt;<br>
-&gt; We need to expose 2 kernel counters via the INFO ioctl and display<br>
-&gt; those via Gallium HUD:<br>
-&gt; - The number of VRAM CPU page faults. (the number of calls to<br>
-&gt; amdgpu_bo_fault_reserve_<wbr>notify).<br>
-&gt; - The number of bytes moved by ttm_bo_validate inside<br>
-&gt; amdgpu_bo_fault_reserve_<wbr>notify.<br>
-&gt;<br>
-&gt; This will help us observe what exactly is happening and fine-tune the<=
-br>
-&gt; throttling when it&#39;s done.<br>
-&gt;<br>
-&gt;<br>
-&gt; 3) Solution<br>
-&gt;<br>
-&gt; a) When amdgpu_bo_fault_reserve_notify is called, record the fact.<br>
-&gt; (amdgpu_bo::had_cpu_page_fault =3D true)<br>
-&gt;<br>
-&gt; b) Monitor the MB/s rate at which buffers are moved by<br>
-&gt; amdgpu_bo_fault_reserve_<wbr>notify. If we get above a specific thresh=
-old,<br>
-&gt; don&#39;t move the buffer to visible VRAM. Move it to GTT instead. Not=
-e<br>
-&gt; that moving to GTT can be cheaper, because moving to visible VRAM is<b=
-r>
-&gt; likely to evict a lot of buffers there and unmap them from the CPU,<br=
->
-<br>
-</div>FWIW, this can be avoided by only setting GTT in busy_placement. Then=
-<br>
-TTM will only move the BO to visible VRAM if that can be done without<br>
-evicting anything from there.<br>
-<div class=3D"quoted-text"><br>
-<br>
-&gt; but moving to GTT shouldn&#39;t evict or unmap anything.<br>
-&gt;<br>
-&gt; c) When we get into the CS ioctl and a buffer has had_cpu_page_fault,<=
-br>
-&gt; it can be moved to VRAM if:<br>
-&gt; - the GTT-&gt;VRAM move rate is low enough to allow it (this is the<br=
->
-&gt; existing throttling mechanism)<br>
-&gt; - the visible VRAM move rate is low enough that we will be OK with<br>
-&gt; another CPU page fault if it happens.<br>
-<br>
-</div>Some other ideas that might be worth trying:<br>
-<br>
-Evicting BOs to GTT instead of moving them to CPU accessible VRAM in<br>
-principle in some cases (e.g. for all BOs except those with<br>
-AMDGPU_GEM_CREATE_CPU_ACCESS_<wbr>REQUIRED) or even always.<br></blockquote=
-></div></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">I&#39;ve t=
-ried this and it made things even worse.</div><div dir=3D"auto"><br></div><=
-div dir=3D"auto">Marek</div><div dir=3D"auto"><br></div><div dir=3D"auto"><=
-div class=3D"gmail_extra"><div class=3D"gmail_quote"><blockquote class=3D"q=
-uote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1e=
-x">
-<br>
-Implementing eviction from CPU visible to CPU invisible VRAM, similar to<br=
->
-how it&#39;s done in radeon. Note that there&#39;s potential for userspace<=
-br>
-triggering an infinite loop in the kernel in cases where BOs are moved<br>
-back from invisible to visible VRAM on page faults.<br>
-<font color=3D"#888888"><br>
-<br>
---<br>
-Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=
-=3D"http://www.amd.com" rel=3D"noreferrer" target=3D"_blank">http://www.amd=
-.com</a><br>
-Libre software enthusiast=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Mesa and X developer<br>
-<br>
-</font></blockquote></div><br></div></div></div>
-
---94eb2c055d18d70199054bb3d0d1--
-
---===============0082125125==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0082125125==--
+Q3VycmVudCBkZXNpZ24gaGFzIHBlci1jcnRjLXBsYW5lIG1vZGVsLgpBcyBhIHJlc3VsdCwgZm9y
+IGFzaWMncyB0aGF0IHN1cHBvcnQgdW5kZXJsYXksCmFyZSB1bmFibGUgdG8gZXhwb3NlIGl0IHRv
+IHVzZXIgc3BhY2UgZm9yIG1vZGVzZXR0aW5nLgoKVG8gZW5hYmxlIHRoaXMsIHRoZSBkcm0gZHJp
+dmVyIGludGlhbGlzYXRpb24gbm93IHJ1bnMKZm9yIG51bWJlciBvZiBzdXJmYWNlcyBpbnN0ZWFk
+IG9mIHN0cmVhbS9jcnRjLgoKVGhpcyBwYXRjaCBwbHVtYnMgc3VyZmFjZSBjYXBhYmlsaXRpZXMg
+dG8gZHJtIGZyYW1ld29yawpzbyB0aGF0IGl0IGNhbiBiZSBlZmZlY3RpdmVseSB1c2VkIGJ5IHVz
+ZXIgc3BhY2UuCgpUZXN0czogKE9uIENocm9taXVtIE9TIGZvciBTdG9uZXkgT25seSkKKiAnbW9k
+ZXRlc3QgLXAnICBub3cgc2hvd3MgYWRkaXRpb25hbCBwbGFuZQogIHdpdGggWVVWIGNhcGFiaWxp
+dGllcyBpbiBjYXNlIG9mIENaIGFuZCBTVC4KKiAncGxhbmVfdGVzdCcgZmFpbHMgd2l0aCBiZWxv
+dyBlcnJvcjoKICBbZHJtOmFtZGdwdV9kbV9jb25uZWN0b3JfYXRvbWljX3NldF9wcm9wZXJ0eSBb
+YW1kZ3B1XV0gKkVSUk9SKiBVbnN1cHBvcnRlZCBzY3JlZW4gZGVwdGggMAogIGFzIHRoZXIgaXMg
+bm8gc3VwcG9ydCBmb3IgWVVZVgoqIENoZWNrZWQgbXVsdGltb25pdG9yIGRpc3BsYXkgd29ya3Mg
+ZmluZQoKU2lnbmVkLW9mZi1ieTogU2hpcmlzaCBTIDxzaGlyaXNoLnNAYW1kLmNvbT4KUmV2aWV3
+ZWQtYnk6IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPgotLS0KIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9tb2RlLmggICAgICAgICAgIHwgIDggKysrCiBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jICB8IDY3ICsr
+KysrKysrKysrKysrLS0tLS0KIC4uLi9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9k
+bV90eXBlcy5jICAgIHwgNzUgKysrKysrKysrKysrKysrLS0tLS0tLQogLi4uL2RybS9hbWQvZGlz
+cGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX3R5cGVzLmggICAgfCAgNSArLQogZHJpdmVycy9ncHUv
+ZHJtL2FtZC9kaXNwbGF5L2RjL2RjLmggICAgICAgICAgICAgICAgfCAgMSArCiAuLi4vZHJtL2Ft
+ZC9kaXNwbGF5L2RjL2RjZTEwMC9kY2UxMDBfcmVzb3VyY2UuYyAgICB8ICAyICsKIC4uLi9kcm0v
+YW1kL2Rpc3BsYXkvZGMvZGNlMTEwL2RjZTExMF9yZXNvdXJjZS5jICAgIHwgIDIgKwogLi4uL2Ry
+bS9hbWQvZGlzcGxheS9kYy9kY2UxMTIvZGNlMTEyX3Jlc291cmNlLmMgICAgfCAgMiArCiAuLi4v
+ZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTEyMC9kY2UxMjBfcmVzb3VyY2UuYyAgICB8ICAyICsKIC4u
+Li9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTgwL2RjZTgwX3Jlc291cmNlLmMgIHwgIDIgKwog
+MTAgZmlsZXMgY2hhbmdlZCwgMTI3IGluc2VydGlvbnMoKyksIDM5IGRlbGV0aW9ucygtKQoKZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9tb2RlLmggYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfbW9kZS5oCmluZGV4IDMxNDg0MTIuLmRhM2Ix
+MjUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9tb2RlLmgK
+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21vZGUuaApAQCAtNTksNiAr
+NTksNyBAQCBzdHJ1Y3QgYW1kZ3B1X2hwZDsKIAogI2RlZmluZSBBTURHUFVfTUFYX0hQRF9QSU5T
+IDYKICNkZWZpbmUgQU1ER1BVX01BWF9DUlRDUyA2CisjZGVmaW5lIEFNREdQVV9NQVhfUExBTkVT
+IDYKICNkZWZpbmUgQU1ER1BVX01BWF9BRk1UX0JMT0NLUyA5CiAKIGVudW0gYW1kZ3B1X3JteF90
+eXBlIHsKQEAgLTMzOCw2ICszMzksNyBAQCBzdHJ1Y3QgYW1kZ3B1X21vZGVfaW5mbyB7CiAJc3Ry
+dWN0IGNhcmRfaW5mbyAqYXRvbV9jYXJkX2luZm87CiAJYm9vbCBtb2RlX2NvbmZpZ19pbml0aWFs
+aXplZDsKIAlzdHJ1Y3QgYW1kZ3B1X2NydGMgKmNydGNzW0FNREdQVV9NQVhfQ1JUQ1NdOworCXN0
+cnVjdCBhbWRncHVfcGxhbmUgKnBsYW5lc1tBTURHUFVfTUFYX1BMQU5FU107CiAJc3RydWN0IGFt
+ZGdwdV9hZm10ICphZm10W0FNREdQVV9NQVhfQUZNVF9CTE9DS1NdOwogCS8qIERWSS1JIHByb3Bl
+cnRpZXMgKi8KIAlzdHJ1Y3QgZHJtX3Byb3BlcnR5ICpjb2hlcmVudF9tb2RlX3Byb3BlcnR5OwpA
+QCAtMzcxLDYgKzM3Myw3IEBAIHN0cnVjdCBhbWRncHVfbW9kZV9pbmZvIHsKIAlpbnQJCQludW1f
+ZGlnOyAvKiBudW1iZXIgb2YgZGlnIGJsb2NrcyAqLwogCWludAkJCWRpc3BfcHJpb3JpdHk7CiAJ
+Y29uc3Qgc3RydWN0IGFtZGdwdV9kaXNwbGF5X2Z1bmNzICpmdW5jczsKKwllbnVtIGRybV9wbGFu
+ZV90eXBlICpwbGFuZV90eXBlOwogfTsKIAogI2RlZmluZSBBTURHUFVfTUFYX0JMX0xFVkVMIDB4
+RkYKQEAgLTQ1Miw2ICs0NTUsMTEgQEAgc3RydWN0IGFtZGdwdV9jcnRjIHsKIAlzdHJ1Y3QgZHJt
+X3BlbmRpbmdfdmJsYW5rX2V2ZW50ICpldmVudDsKIH07CiAKK3N0cnVjdCBhbWRncHVfcGxhbmUg
+eworCXN0cnVjdCBkcm1fcGxhbmUgYmFzZTsKKwllbnVtIGRybV9wbGFuZV90eXBlIHBsYW5lX3R5
+cGU7Cit9OworCiBzdHJ1Y3QgYW1kZ3B1X2VuY29kZXJfYXRvbV9kaWcgewogCWJvb2wgbGlua2I7
+CiAJLyogYXRvbSBkaWcgKi8KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
+eS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1k
+Z3B1X2RtL2FtZGdwdV9kbS5jCmluZGV4IGRmN2YwOGIuLmFkYTUyMjAgMTAwNjQ0Ci0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwpAQCAtNTUsNiAr
+NTUsMjggQEAKIAogI2luY2x1ZGUgIm1vZHVsZXMvaW5jL21vZF9mcmVlc3luYy5oIgogCitzdGF0
+aWMgZW51bSBkcm1fcGxhbmVfdHlwZSBkbV9zdXJmYWNlc190eXBlX2RlZmF1bHRbQU1ER1BVX01B
+WF9QTEFORVNdID0geworCURSTV9QTEFORV9UWVBFX1BSSU1BUlksCisJRFJNX1BMQU5FX1RZUEVf
+UFJJTUFSWSwKKwlEUk1fUExBTkVfVFlQRV9QUklNQVJZLAorCURSTV9QTEFORV9UWVBFX1BSSU1B
+UlksCisJRFJNX1BMQU5FX1RZUEVfUFJJTUFSWSwKKwlEUk1fUExBTkVfVFlQRV9QUklNQVJZLAor
+fTsKKworc3RhdGljIGVudW0gZHJtX3BsYW5lX3R5cGUgZG1fc3VyZmFjZXNfdHlwZV9jYXJpenpv
+W0FNREdQVV9NQVhfUExBTkVTXSA9IHsKKwlEUk1fUExBTkVfVFlQRV9QUklNQVJZLAorCURSTV9Q
+TEFORV9UWVBFX1BSSU1BUlksCisJRFJNX1BMQU5FX1RZUEVfUFJJTUFSWSwKKwlEUk1fUExBTkVf
+VFlQRV9PVkVSTEFZLC8qIFlVViBDYXBhYmxlIFVuZGVybGF5ICovCit9OworCitzdGF0aWMgZW51
+bSBkcm1fcGxhbmVfdHlwZSBkbV9zdXJmYWNlc190eXBlX3N0b25leVtBTURHUFVfTUFYX1BMQU5F
+U10gPSB7CisJRFJNX1BMQU5FX1RZUEVfUFJJTUFSWSwKKwlEUk1fUExBTkVfVFlQRV9QUklNQVJZ
+LAorCURSTV9QTEFORV9UWVBFX09WRVJMQVksIC8qIFlVViBDYXBhYmxlIFVuZGVybGF5ICovCit9
+OworCiAvKgogICogZG1fdmJsYW5rX2dldF9jb3VudGVyCiAgKgpAQCAtMTA1OCwzMCArMTA4MCwz
+NCBAQCBpbnQgYW1kZ3B1X2RtX2luaXRpYWxpemVfZHJtX2RldmljZShzdHJ1Y3QgYW1kZ3B1X2Rl
+dmljZSAqYWRldikKIAl1aW50MzJfdCBpOwogCXN0cnVjdCBhbWRncHVfY29ubmVjdG9yICphY29u
+bmVjdG9yOwogCXN0cnVjdCBhbWRncHVfZW5jb2RlciAqYWVuY29kZXI7Ci0Jc3RydWN0IGFtZGdw
+dV9jcnRjICphY3J0YzsKKwlzdHJ1Y3QgYW1kZ3B1X21vZGVfaW5mbyAqbW9kZV9pbmZvID0gJmFk
+ZXYtPm1vZGVfaW5mbzsKIAl1aW50MzJfdCBsaW5rX2NudDsKIAogCWxpbmtfY250ID0gZG0tPmRj
+LT5jYXBzLm1heF9saW5rczsKLQogCWlmIChhbWRncHVfZG1fbW9kZV9jb25maWdfaW5pdChkbS0+
+YWRldikpIHsKIAkJRFJNX0VSUk9SKCJETTogRmFpbGVkIHRvIGluaXRpYWxpemUgbW9kZSBjb25m
+aWdcbiIpOwotCQlyZXR1cm4gLTE7CisJCWdvdG8gZmFpbDsKIAl9CiAKLQlmb3IgKGkgPSAwOyBp
+IDwgZG0tPmRjLT5jYXBzLm1heF9zdHJlYW1zOyBpKyspIHsKLQkJYWNydGMgPSBremFsbG9jKHNp
+emVvZihzdHJ1Y3QgYW1kZ3B1X2NydGMpLCBHRlBfS0VSTkVMKTsKLQkJaWYgKCFhY3J0YykKLQkJ
+CWdvdG8gZmFpbDsKKwlmb3IgKGkgPSAwOyBpIDwgZG0tPmRjLT5jYXBzLm1heF9zdXJmYWNlczsg
+aSsrKSB7CisJCW1vZGVfaW5mby0+cGxhbmVzW2ldID0ga3phbGxvYyhzaXplb2Yoc3RydWN0IGFt
+ZGdwdV9wbGFuZSksCisJCQkJCQkJCSBHRlBfS0VSTkVMKTsKKwkJaWYgKCFtb2RlX2luZm8tPnBs
+YW5lc1tpXSkgeworCQkJRFJNX0VSUk9SKCJLTVM6IEZhaWxlZCB0byBhbGxvY2F0ZSBzdXJmYWNl
+XG4iKTsKKwkJCWdvdG8gZmFpbF9mcmVlX3BsYW5lczsKKwkJfQorCQltb2RlX2luZm8tPnBsYW5l
+c1tpXS0+cGxhbmVfdHlwZSA9IG1vZGVfaW5mby0+cGxhbmVfdHlwZVtpXTsKKwkJaWYgKGFtZGdw
+dV9kbV9wbGFuZV9pbml0KGRtLCBtb2RlX2luZm8tPnBsYW5lc1tpXSwgMSkpIHsKKwkJCURSTV9F
+UlJPUigiS01TOiBGYWlsZWQgdG8gaW5pdGlhbGl6ZSBwbGFuZVxuIik7CisJCQlnb3RvIGZhaWxf
+ZnJlZV9wbGFuZXM7CisJCX0KKwl9CiAKLQkJaWYgKGFtZGdwdV9kbV9jcnRjX2luaXQoCi0JCQlk
+bSwKLQkJCWFjcnRjLAotCQkJaSkpIHsKKwlmb3IgKGkgPSAwOyBpIDwgZG0tPmRjLT5jYXBzLm1h
+eF9zdHJlYW1zOyBpKyspCisJCWlmIChhbWRncHVfZG1fY3J0Y19pbml0KGRtLCAmbW9kZV9pbmZv
+LT5wbGFuZXNbaV0tPmJhc2UsIGkpKSB7CiAJCQlEUk1fRVJST1IoIktNUzogRmFpbGVkIHRvIGlu
+aXRpYWxpemUgY3J0Y1xuIik7Ci0JCQlrZnJlZShhY3J0Yyk7Ci0JCQlnb3RvIGZhaWw7CisJCQln
+b3RvIGZhaWxfZnJlZV9wbGFuZXM7CiAJCX0KLQl9CiAKIAlkbS0+ZGlzcGxheV9pbmRleGVzX251
+bSA9IGRtLT5kYy0+Y2Fwcy5tYXhfc3RyZWFtczsKIApAQCAtMTEzMiwxMiArMTE1OCwxMiBAQCBp
+bnQgYW1kZ3B1X2RtX2luaXRpYWxpemVfZHJtX2RldmljZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
+YWRldikKIAljYXNlIENISVBfVkVHQTEwOgogCQlpZiAoZGNlMTEwX3JlZ2lzdGVyX2lycV9oYW5k
+bGVycyhkbS0+YWRldikpIHsKIAkJCURSTV9FUlJPUigiRE06IEZhaWxlZCB0byBpbml0aWFsaXpl
+IElSUVxuIik7Ci0JCQlyZXR1cm4gLTE7CisJCQlnb3RvIGZhaWxfZnJlZV9lbmNvZGVyOwogCQl9
+CiAJCWJyZWFrOwogCWRlZmF1bHQ6CiAJCURSTV9FUlJPUigiVXN1cHBvcnRlZCBBU0lDIHR5cGU6
+IDB4JVhcbiIsIGFkZXYtPmFzaWNfdHlwZSk7Ci0JCXJldHVybiAtMTsKKwkJZ290byBmYWlsX2Zy
+ZWVfZW5jb2RlcjsKIAl9CiAKIAlkcm1fbW9kZV9jb25maWdfcmVzZXQoZG0tPmRkZXYpOwpAQCAt
+MTE0Nyw2ICsxMTczLDkgQEAgaW50IGFtZGdwdV9kbV9pbml0aWFsaXplX2RybV9kZXZpY2Uoc3Ry
+dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAJa2ZyZWUoYWVuY29kZXIpOwogZmFpbF9mcmVlX2Nv
+bm5lY3RvcjoKIAlrZnJlZShhY29ubmVjdG9yKTsKK2ZhaWxfZnJlZV9wbGFuZXM6CisJZm9yIChp
+ID0gMDsgaSA8IGRtLT5kYy0+Y2Fwcy5tYXhfc3VyZmFjZXM7IGkrKykKKwkJa2ZyZWUobW9kZV9p
+bmZvLT5wbGFuZXNbaV0pOwogZmFpbDoKIAlyZXR1cm4gLTE7CiB9CkBAIC0xNTM4LDYgKzE1Njcs
+NyBAQCBzdGF0aWMgaW50IGRtX2Vhcmx5X2luaXQodm9pZCAqaGFuZGxlKQogCQlhZGV2LT5tb2Rl
+X2luZm8ubnVtX2NydGMgPSA2OwogCQlhZGV2LT5tb2RlX2luZm8ubnVtX2hwZCA9IDY7CiAJCWFk
+ZXYtPm1vZGVfaW5mby5udW1fZGlnID0gNjsKKwkJYWRldi0+bW9kZV9pbmZvLnBsYW5lX3R5cGUg
+PSBkbV9zdXJmYWNlc190eXBlX2RlZmF1bHQ7CiAjaWZkZWYgQ09ORklHX0RSTV9BTURHUFVfQ0lL
+CiAJCWlmIChhZGV2LT5tb2RlX2luZm8uZnVuY3MgPT0gTlVMTCkKIAkJCWFkZXYtPm1vZGVfaW5m
+by5mdW5jcyA9ICZkbV9kY2VfdjhfMF9kaXNwbGF5X2Z1bmNzOwpAQCAtMTU0OCw2ICsxNTc4LDcg
+QEAgc3RhdGljIGludCBkbV9lYXJseV9pbml0KHZvaWQgKmhhbmRsZSkKIAkJYWRldi0+bW9kZV9p
+bmZvLm51bV9jcnRjID0gNjsKIAkJYWRldi0+bW9kZV9pbmZvLm51bV9ocGQgPSA2OwogCQlhZGV2
+LT5tb2RlX2luZm8ubnVtX2RpZyA9IDc7CisJCWFkZXYtPm1vZGVfaW5mby5wbGFuZV90eXBlID0g
+ZG1fc3VyZmFjZXNfdHlwZV9kZWZhdWx0OwogCQlpZiAoYWRldi0+bW9kZV9pbmZvLmZ1bmNzID09
+IE5VTEwpCiAJCQlhZGV2LT5tb2RlX2luZm8uZnVuY3MgPSAmZG1fZGNlX3YxMF8wX2Rpc3BsYXlf
+ZnVuY3M7CiAJCWJyZWFrOwpAQCAtMTU1NSw2ICsxNTg2LDcgQEAgc3RhdGljIGludCBkbV9lYXJs
+eV9pbml0KHZvaWQgKmhhbmRsZSkKIAkJYWRldi0+bW9kZV9pbmZvLm51bV9jcnRjID0gMzsKIAkJ
+YWRldi0+bW9kZV9pbmZvLm51bV9ocGQgPSA2OwogCQlhZGV2LT5tb2RlX2luZm8ubnVtX2RpZyA9
+IDk7CisJCWFkZXYtPm1vZGVfaW5mby5wbGFuZV90eXBlID0gZG1fc3VyZmFjZXNfdHlwZV9jYXJp
+enpvOwogCQlpZiAoYWRldi0+bW9kZV9pbmZvLmZ1bmNzID09IE5VTEwpCiAJCQlhZGV2LT5tb2Rl
+X2luZm8uZnVuY3MgPSAmZG1fZGNlX3YxMV8wX2Rpc3BsYXlfZnVuY3M7CiAJCWJyZWFrOwpAQCAt
+MTU2Miw2ICsxNTk0LDcgQEAgc3RhdGljIGludCBkbV9lYXJseV9pbml0KHZvaWQgKmhhbmRsZSkK
+IAkJYWRldi0+bW9kZV9pbmZvLm51bV9jcnRjID0gMjsKIAkJYWRldi0+bW9kZV9pbmZvLm51bV9o
+cGQgPSA2OwogCQlhZGV2LT5tb2RlX2luZm8ubnVtX2RpZyA9IDk7CisJCWFkZXYtPm1vZGVfaW5m
+by5wbGFuZV90eXBlID0gZG1fc3VyZmFjZXNfdHlwZV9zdG9uZXk7CiAJCWlmIChhZGV2LT5tb2Rl
+X2luZm8uZnVuY3MgPT0gTlVMTCkKIAkJCWFkZXYtPm1vZGVfaW5mby5mdW5jcyA9ICZkbV9kY2Vf
+djExXzBfZGlzcGxheV9mdW5jczsKIAkJYnJlYWs7CkBAIC0xNTcwLDYgKzE2MDMsNyBAQCBzdGF0
+aWMgaW50IGRtX2Vhcmx5X2luaXQodm9pZCAqaGFuZGxlKQogCQlhZGV2LT5tb2RlX2luZm8ubnVt
+X2NydGMgPSA1OwogCQlhZGV2LT5tb2RlX2luZm8ubnVtX2hwZCA9IDU7CiAJCWFkZXYtPm1vZGVf
+aW5mby5udW1fZGlnID0gNTsKKwkJYWRldi0+bW9kZV9pbmZvLnBsYW5lX3R5cGUgPSBkbV9zdXJm
+YWNlc190eXBlX2RlZmF1bHQ7CiAJCWlmIChhZGV2LT5tb2RlX2luZm8uZnVuY3MgPT0gTlVMTCkK
+IAkJCWFkZXYtPm1vZGVfaW5mby5mdW5jcyA9ICZkbV9kY2VfdjExXzBfZGlzcGxheV9mdW5jczsK
+IAkJYnJlYWs7CkBAIC0xNTc3LDYgKzE2MTEsNyBAQCBzdGF0aWMgaW50IGRtX2Vhcmx5X2luaXQo
+dm9pZCAqaGFuZGxlKQogCQlhZGV2LT5tb2RlX2luZm8ubnVtX2NydGMgPSA2OwogCQlhZGV2LT5t
+b2RlX2luZm8ubnVtX2hwZCA9IDY7CiAJCWFkZXYtPm1vZGVfaW5mby5udW1fZGlnID0gNjsKKwkJ
+YWRldi0+bW9kZV9pbmZvLnBsYW5lX3R5cGUgPSBkbV9zdXJmYWNlc190eXBlX2RlZmF1bHQ7CiAJ
+CWlmIChhZGV2LT5tb2RlX2luZm8uZnVuY3MgPT0gTlVMTCkKIAkJCWFkZXYtPm1vZGVfaW5mby5m
+dW5jcyA9ICZkbV9kY2VfdjExXzBfZGlzcGxheV9mdW5jczsKIAkJYnJlYWs7CmRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV90eXBlcy5j
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fdHlwZXMu
+YwppbmRleCA5MjlhNGM4Li5iMzVhYWFlIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV90eXBlcy5jCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX3R5cGVzLmMKQEAgLTE2MDUsNiArMTYw
+NSw4IEBAIHN0YXRpYyBpbnQgZG1fZW5jb2Rlcl9oZWxwZXJfYXRvbWljX2NoZWNrKAogfQogCiBj
+b25zdCBzdHJ1Y3QgZHJtX2VuY29kZXJfaGVscGVyX2Z1bmNzIGFtZGdwdV9kbV9lbmNvZGVyX2hl
+bHBlcl9mdW5jcyA9IHsKKwkudXBkYXRlX3BsYW5lICAgPSBkcm1fYXRvbWljX2hlbHBlcl91cGRh
+dGVfcGxhbmUsCisJLmRpc2FibGVfcGxhbmUgID0gZHJtX2F0b21pY19oZWxwZXJfZGlzYWJsZV9w
+bGFuZSwKIAkuZGlzYWJsZSA9IGRtX2VuY29kZXJfaGVscGVyX2Rpc2FibGUsCiAJLmF0b21pY19j
+aGVjayA9IGRtX2VuY29kZXJfaGVscGVyX2F0b21pY19jaGVjawogfTsKQEAgLTE3NDEsMzcgKzE3
+NDMsNjcgQEAgc3RhdGljIHVpbnQzMl90IHJnYl9mb3JtYXRzW10gPSB7CiAJRFJNX0ZPUk1BVF9B
+QkdSMjEwMTAxMCwKIH07CiAKLWludCBhbWRncHVfZG1fY3J0Y19pbml0KHN0cnVjdCBhbWRncHVf
+ZGlzcGxheV9tYW5hZ2VyICpkbSwKLQkJCXN0cnVjdCBhbWRncHVfY3J0YyAqYWNydGMsCi0JCQl1
+aW50MzJfdCBjcnRjX2luZGV4KQorc3RhdGljIHVpbnQzMl90IHl1dl9mb3JtYXRzW10gPSB7CisJ
+RFJNX0ZPUk1BVF9ZVVlWLAorCURSTV9GT1JNQVRfWVZZVSwKKwlEUk1fRk9STUFUX1VZVlksCisJ
+RFJNX0ZPUk1BVF9WWVVZLAorfTsKKworaW50IGFtZGdwdV9kbV9wbGFuZV9pbml0KHN0cnVjdCBh
+bWRncHVfZGlzcGxheV9tYW5hZ2VyICpkbSwKKwkJCXN0cnVjdCBhbWRncHVfcGxhbmUgKmFwbGFu
+ZSwKKwkJCXVuc2lnbmVkIGxvbmcgcG9zc2libGVfY3J0Y3MpCiB7Ci0JaW50IHJlcyA9IC1FTk9N
+RU07CisJaW50IHJlcyA9IC1FUEVSTTsKIAotCXN0cnVjdCBkcm1fcGxhbmUgKnByaW1hcnlfcGxh
+bmUgPQotCQlremFsbG9jKHNpemVvZigqcHJpbWFyeV9wbGFuZSksIEdGUF9LRVJORUwpOworCXN3
+aXRjaCAoYXBsYW5lLT5wbGFuZV90eXBlKSB7CisJY2FzZSBEUk1fUExBTkVfVFlQRV9QUklNQVJZ
+OgorCQlhcGxhbmUtPmJhc2UuZm9ybWF0X2RlZmF1bHQgPSB0cnVlOwogCi0JaWYgKCFwcmltYXJ5
+X3BsYW5lKQotCQlnb3RvIGZhaWxfcGxhbmU7CisJCXJlcyA9IGRybV91bml2ZXJzYWxfcGxhbmVf
+aW5pdCgKKwkJCQlkbS0+YWRldi0+ZGRldiwKKwkJCQkmYXBsYW5lLT5iYXNlLAorCQkJCXBvc3Np
+YmxlX2NydGNzLAorCQkJCSZkbV9wbGFuZV9mdW5jcywKKwkJCQlyZ2JfZm9ybWF0cywKKwkJCQlB
+UlJBWV9TSVpFKHJnYl9mb3JtYXRzKSwKKwkJCQlhcGxhbmUtPnBsYW5lX3R5cGUsIE5VTEwpOwor
+CQlicmVhazsKKwljYXNlIERSTV9QTEFORV9UWVBFX09WRVJMQVk6CisJCXJlcyA9IGRybV91bml2
+ZXJzYWxfcGxhbmVfaW5pdCgKKwkJCQlkbS0+YWRldi0+ZGRldiwKKwkJCQkmYXBsYW5lLT5iYXNl
+LAorCQkJCXBvc3NpYmxlX2NydGNzLAorCQkJCSZkbV9wbGFuZV9mdW5jcywKKwkJCQl5dXZfZm9y
+bWF0cywKKwkJCQlBUlJBWV9TSVpFKHl1dl9mb3JtYXRzKSwKKwkJCQlhcGxhbmUtPnBsYW5lX3R5
+cGUsIE5VTEwpOworCQlicmVhazsKKwljYXNlIERSTV9QTEFORV9UWVBFX0NVUlNPUjoKKwkJRFJN
+X0VSUk9SKCJLTVM6IEN1cnNvciBwbGFuZSBub3QgaW1wbGVtZW50ZWQuIik7CisJCWJyZWFrOwor
+CX0KIAotCXByaW1hcnlfcGxhbmUtPmZvcm1hdF9kZWZhdWx0ID0gdHJ1ZTsKKwlkcm1fcGxhbmVf
+aGVscGVyX2FkZCgmYXBsYW5lLT5iYXNlLCAmZG1fcGxhbmVfaGVscGVyX2Z1bmNzKTsKIAotCXJl
+cyA9IGRybV91bml2ZXJzYWxfcGxhbmVfaW5pdCgKLQkJZG0tPmFkZXYtPmRkZXYsCi0JCXByaW1h
+cnlfcGxhbmUsCi0JCTAsCi0JCSZkbV9wbGFuZV9mdW5jcywKLQkJcmdiX2Zvcm1hdHMsCi0JCUFS
+UkFZX1NJWkUocmdiX2Zvcm1hdHMpLAotCQlEUk1fUExBTkVfVFlQRV9QUklNQVJZLCBOVUxMKTsK
+KwlyZXR1cm4gcmVzOworfQogCi0JcHJpbWFyeV9wbGFuZS0+Y3J0YyA9ICZhY3J0Yy0+YmFzZTsK
+K2ludCBhbWRncHVfZG1fY3J0Y19pbml0KHN0cnVjdCBhbWRncHVfZGlzcGxheV9tYW5hZ2VyICpk
+bSwKKwkJCXN0cnVjdCBkcm1fcGxhbmUgKnBsYW5lLAorCQkJdWludDMyX3QgY3J0Y19pbmRleCkK
+K3sKKwlzdHJ1Y3QgYW1kZ3B1X2NydGMgKmFjcnRjOworCWludCByZXMgPSAtRU5PTUVNOwogCi0J
+ZHJtX3BsYW5lX2hlbHBlcl9hZGQocHJpbWFyeV9wbGFuZSwgJmRtX3BsYW5lX2hlbHBlcl9mdW5j
+cyk7CisJYWNydGMgPSBremFsbG9jKHNpemVvZihzdHJ1Y3QgYW1kZ3B1X2NydGMpLCBHRlBfS0VS
+TkVMKTsKKwlpZiAoIWFjcnRjKQorCQlnb3RvIGZhaWw7CiAKIAlyZXMgPSBkcm1fY3J0Y19pbml0
+X3dpdGhfcGxhbmVzKAogCQkJZG0tPmRkZXYsCiAJCQkmYWNydGMtPmJhc2UsCi0JCQlwcmltYXJ5
+X3BsYW5lLAorCQkJcGxhbmUsCiAJCQlOVUxMLAogCQkJJmFtZGdwdV9kbV9jcnRjX2Z1bmNzLCBO
+VUxMKTsKIApAQCAtMTc5MSw4ICsxODIzLDcgQEAgaW50IGFtZGdwdV9kbV9jcnRjX2luaXQoc3Ry
+dWN0IGFtZGdwdV9kaXNwbGF5X21hbmFnZXIgKmRtLAogCiAJcmV0dXJuIDA7CiBmYWlsOgotCWtm
+cmVlKHByaW1hcnlfcGxhbmUpOwotZmFpbF9wbGFuZToKKwlrZnJlZShhY3J0Yyk7CiAJYWNydGMt
+PmNydGNfaWQgPSAtMTsKIAlyZXR1cm4gcmVzOwogfQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fdHlwZXMuaCBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX3R5cGVzLmgKaW5kZXggMWJiZWI4
+Ny4uYWI2ZDUxZCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdw
+dV9kbS9hbWRncHVfZG1fdHlwZXMuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
+YW1kZ3B1X2RtL2FtZGdwdV9kbV90eXBlcy5oCkBAIC0zNCw4ICszNCwxMSBAQCBzdHJ1Y3QgZGNf
+dmFsaWRhdGlvbl9zZXQ7CiBzdHJ1Y3QgZGNfc3VyZmFjZTsKIAogLypUT0RPIEpvZGFuIEhlcnNl
+biB1c2UgdGhlIG9uZSBpbiBhbWRncHVfZG0qLworaW50IGFtZGdwdV9kbV9wbGFuZV9pbml0KHN0
+cnVjdCBhbWRncHVfZGlzcGxheV9tYW5hZ2VyICpkbSwKKwkJCXN0cnVjdCBhbWRncHVfcGxhbmUg
+KmFwbGFuZSwKKwkJCXVuc2lnbmVkIGxvbmcgcG9zc2libGVfY3J0Y3MpOwogaW50IGFtZGdwdV9k
+bV9jcnRjX2luaXQoc3RydWN0IGFtZGdwdV9kaXNwbGF5X21hbmFnZXIgKmRtLAotCQkJc3RydWN0
+IGFtZGdwdV9jcnRjICphbWRncHVfY3J0YywKKwkJCXN0cnVjdCBkcm1fcGxhbmUgKnBsYW5lLAog
+CQkJdWludDMyX3QgbGlua19pbmRleCk7CiBpbnQgYW1kZ3B1X2RtX2Nvbm5lY3Rvcl9pbml0KHN0
+cnVjdCBhbWRncHVfZGlzcGxheV9tYW5hZ2VyICpkbSwKIAkJCXN0cnVjdCBhbWRncHVfY29ubmVj
+dG9yICphbWRncHVfY29ubmVjdG9yLApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9k
+aXNwbGF5L2RjL2RjLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGMuaAppbmRl
+eCA4YjAzM2JhLi5hYTJlYzcxIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
+YXkvZGMvZGMuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGMuaApAQCAt
+NDUsNiArNDUsNyBAQCBzdHJ1Y3QgZGNfY2FwcyB7CiAJdWludDMyX3QgbWF4X2xpbmtzOwogCXVp
+bnQzMl90IG1heF9hdWRpb3M7CiAJdWludDMyX3QgbWF4X3NsYXZlX3BsYW5lczsKKwl1aW50MzJf
+dCBtYXhfc3VyZmFjZXM7CiAJdWludDMyX3QgbWF4X2Rvd25zY2FsZV9yYXRpbzsKIAl1aW50MzJf
+dCBpMmNfc3BlZWRfaW5fa2h6OwogCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
+c3BsYXkvZGMvZGNlMTAwL2RjZTEwMF9yZXNvdXJjZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9k
+aXNwbGF5L2RjL2RjZTEwMC9kY2UxMDBfcmVzb3VyY2UuYwppbmRleCBiNmY3N2Y4Li5kMTY4NWRm
+IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlMTAwL2RjZTEw
+MF9yZXNvdXJjZS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMDAv
+ZGNlMTAwX3Jlc291cmNlLmMKQEAgLTEwMzUsNiArMTAzNSw4IEBAIHN0YXRpYyBib29sIGNvbnN0
+cnVjdCgKIAkJfQogCX0KIAorCWRjLT5wdWJsaWMuY2Fwcy5tYXhfc3VyZmFjZXMgPSAgcG9vbC0+
+YmFzZS5waXBlX2NvdW50OworCiAJaWYgKCFyZXNvdXJjZV9jb25zdHJ1Y3QobnVtX3ZpcnR1YWxf
+bGlua3MsIGRjLCAmcG9vbC0+YmFzZSwKIAkJCSZyZXNfY3JlYXRlX2Z1bmNzKSkKIAkJZ290byBy
+ZXNfY3JlYXRlX2ZhaWw7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
+ZGMvZGNlMTEwL2RjZTExMF9yZXNvdXJjZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
+L2RjL2RjZTExMC9kY2UxMTBfcmVzb3VyY2UuYwppbmRleCBlMzAwMjAzLi4wNjVhMjk4IDEwMDY0
+NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlMTEwL2RjZTExMF9yZXNv
+dXJjZS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMTAvZGNlMTEw
+X3Jlc291cmNlLmMKQEAgLTE0NTUsNiArMTQ1NSw4IEBAIHN0YXRpYyBib29sIGNvbnN0cnVjdCgK
+IAlpZiAoIWRjZTExMF9od19zZXF1ZW5jZXJfY29uc3RydWN0KGRjKSkKIAkJZ290byByZXNfY3Jl
+YXRlX2ZhaWw7CiAKKwlkYy0+cHVibGljLmNhcHMubWF4X3N1cmZhY2VzID0gIHBvb2wtPmJhc2Uu
+cGlwZV9jb3VudDsKKwogCWJ3X2NhbGNzX2luaXQoJmRjLT5id19kY2VpcCwgJmRjLT5id192Ymlv
+cywgZGMtPmN0eC0+YXNpY19pZCk7CiAKIAlid19jYWxjc19kYXRhX3VwZGF0ZV9mcm9tX3BwbGli
+KGRjKTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMTIv
+ZGNlMTEyX3Jlc291cmNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlMTEy
+L2RjZTExMl9yZXNvdXJjZS5jCmluZGV4IDMyYWExYjUuLmVjZTNlYzcgMTAwNjQ0Ci0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMTIvZGNlMTEyX3Jlc291cmNlLmMKKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTExMi9kY2UxMTJfcmVzb3VyY2Uu
+YwpAQCAtMTQwOSw2ICsxNDA5LDggQEAgc3RhdGljIGJvb2wgY29uc3RydWN0KAogCQkJICAmcmVz
+X2NyZWF0ZV9mdW5jcykpCiAJCWdvdG8gcmVzX2NyZWF0ZV9mYWlsOwogCisJZGMtPnB1YmxpYy5j
+YXBzLm1heF9zdXJmYWNlcyA9ICBwb29sLT5iYXNlLnBpcGVfY291bnQ7CisKIAkvKiBDcmVhdGUg
+aGFyZHdhcmUgc2VxdWVuY2VyICovCiAJaWYgKCFkY2UxMTJfaHdfc2VxdWVuY2VyX2NvbnN0cnVj
+dChkYykpCiAJCWdvdG8gcmVzX2NyZWF0ZV9mYWlsOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTEyMC9kY2UxMjBfcmVzb3VyY2UuYyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMjAvZGNlMTIwX3Jlc291cmNlLmMKaW5kZXggZWZhNTg4
+OC4uZjY3N2E3NyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Rj
+ZTEyMC9kY2UxMjBfcmVzb3VyY2UuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
+ZGMvZGNlMTIwL2RjZTEyMF9yZXNvdXJjZS5jCkBAIC0xMDYwLDYgKzEwNjAsOCBAQCBzdGF0aWMg
+Ym9vbCBjb25zdHJ1Y3QoCiAJaWYgKCFkY2UxMjBfaHdfc2VxdWVuY2VyX2NyZWF0ZShkYykpCiAJ
+CWdvdG8gY29udHJvbGxlcl9jcmVhdGVfZmFpbDsKIAorCWRjLT5wdWJsaWMuY2Fwcy5tYXhfc3Vy
+ZmFjZXMgPSAgcG9vbC0+YmFzZS5waXBlX2NvdW50OworCiAJYndfY2FsY3NfaW5pdCgmZGMtPmJ3
+X2RjZWlwLCAmZGMtPmJ3X3ZiaW9zLCBkYy0+Y3R4LT5hc2ljX2lkKTsKIAogCWJ3X2NhbGNzX2Rh
+dGFfdXBkYXRlX2Zyb21fcHBsaWIoZGMpOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9kaXNwbGF5L2RjL2RjZTgwL2RjZTgwX3Jlc291cmNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2Rpc3BsYXkvZGMvZGNlODAvZGNlODBfcmVzb3VyY2UuYwppbmRleCBhM2U4MTgyLi43NTJlMGU3
+IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlODAvZGNlODBf
+cmVzb3VyY2UuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlODAvZGNl
+ODBfcmVzb3VyY2UuYwpAQCAtMTA0Myw2ICsxMDQzLDggQEAgc3RhdGljIGJvb2wgY29uc3RydWN0
+KAogCQl9CiAJfQogCisJZGMtPnB1YmxpYy5jYXBzLm1heF9zdXJmYWNlcyA9ICBwb29sLT5iYXNl
+LnBpcGVfY291bnQ7CisKIAlpZiAoIXJlc291cmNlX2NvbnN0cnVjdChudW1fdmlydHVhbF9saW5r
+cywgZGMsICZwb29sLT5iYXNlLAogCQkJJnJlc19jcmVhdGVfZnVuY3MpKQogCQlnb3RvIHJlc19j
+cmVhdGVfZmFpbDsKLS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZngK
