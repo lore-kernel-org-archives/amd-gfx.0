@@ -1,110 +1,116 @@
-From: "Nath, Arindam" <Arindam.Nath-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] iommu/amd: flush IOTLB for specific domains only
-Date: Mon, 27 Mar 2017 12:27:04 +0000
-Message-ID: <MWHPR12MB1518A1EC9038DC2A94E280F09C330@MWHPR12MB1518.namprd12.prod.outlook.com>
-References: <20170322112242.GK29659@8bytes.org>
-	<1490595427-11979-1-git-send-email-arindam.nath@amd.com>
-	<CAD8Lp46RjsUJEvCR5qVY6p8za5H9iDGTAyJMDd1zO7gbgBvqfA@mail.gmail.com>
+From: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH umr] read all sensors in a thread
+Date: Mon, 27 Mar 2017 09:41:04 -0400
+Message-ID: <20170327134104.21708-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Return-path: <iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
-In-Reply-To: <CAD8Lp46RjsUJEvCR5qVY6p8za5H9iDGTAyJMDd1zO7gbgBvqfA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
-List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/iommu>,
-	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=unsubscribe>
-List-Archive: <http://lists.linuxfoundation.org/pipermail/iommu/>
-List-Post: <mailto:iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
-List-Help: <mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/iommu>,
-	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=subscribe>
-Sender: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
-Errors-To: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
-To: Daniel Drake <drake-6IF/jdPJHihWk0Htik3J/w@public.gmane.org>
-Cc: "Bridgman, John" <John.Bridgman-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org" <iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Linux Upstreaming Team <linux-6IF/jdPJHihWk0Htik3J/w@public.gmane.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 
->-----Original Message-----
->From: Daniel Drake [mailto:drake-6IF/jdPJHihWk0Htik3J/w@public.gmane.org]
->Sent: Monday, March 27, 2017 5:56 PM
->To: Nath, Arindam
->Cc: joro-zLv9SwRftAIdnm+yROfE0A@public.gmane.org; Deucher, Alexander; Bridgman, John; amd-
->gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org; Suthikulpanit,
->Suravee; Linux Upstreaming Team
->Subject: Re: [PATCH] iommu/amd: flush IOTLB for specific domains only
->
->Hi Arindam,
->
->You CC'd me on this - does this mean that it is a fix for the issue
->described in the thread "amd-iommu: can't boot with amdgpu, AMD-Vi:
->Completion-Wait loop timed out" ?
-
-Yes Daniel, please test this patch to confirm if the issue gets resolved.
-
-Thanks,
-Arindam
-
->
->Thanks
->Daniel
->
->
->On Mon, Mar 27, 2017 at 12:17 AM,  <arindam.nath-5C7GfCeVMHo@public.gmane.org> wrote:
->> From: Arindam Nath <arindam.nath-5C7GfCeVMHo@public.gmane.org>
->>
->> The idea behind flush queues is to defer the IOTLB flushing
->> for domains for which the mappings are no longer valid. We
->> add such domains in queue_add(), and when the queue size
->> reaches FLUSH_QUEUE_SIZE, we perform __queue_flush().
->>
->> Since we have already taken lock before __queue_flush()
->> is called, we need to make sure the IOTLB flushing is
->> performed as quickly as possible.
->>
->> In the current implementation, we perform IOTLB flushing
->> for all domains irrespective of which ones were actually
->> added in the flush queue initially. This can be quite
->> expensive especially for domains for which unmapping is
->> not required at this point of time.
->>
->> This patch makes use of domain information in
->> 'struct flush_queue_entry' to make sure we only flush
->> IOTLBs for domains who need it, skipping others.
->>
->> Signed-off-by: Arindam Nath <arindam.nath-5C7GfCeVMHo@public.gmane.org>
->> ---
->>  drivers/iommu/amd_iommu.c | 15 ++++++++-------
->>  1 file changed, 8 insertions(+), 7 deletions(-)
->>
->> diff --git a/drivers/iommu/amd_iommu.c b/drivers/iommu/amd_iommu.c
->> index 98940d1..6a9a048 100644
->> --- a/drivers/iommu/amd_iommu.c
->> +++ b/drivers/iommu/amd_iommu.c
->> @@ -2227,15 +2227,16 @@ static struct iommu_group
->*amd_iommu_device_group(struct device *dev)
->>
->>  static void __queue_flush(struct flush_queue *queue)
->>  {
->> -       struct protection_domain *domain;
->> -       unsigned long flags;
->>         int idx;
->>
->> -       /* First flush TLB of all known domains */
->> -       spin_lock_irqsave(&amd_iommu_pd_lock, flags);
->> -       list_for_each_entry(domain, &amd_iommu_pd_list, list)
->> -               domain_flush_tlb(domain);
->> -       spin_unlock_irqrestore(&amd_iommu_pd_lock, flags);
->> +       /* First flush TLB of all domains which were added to flush queue */
->> +       for (idx = 0; idx < queue->next; ++idx) {
->> +               struct flush_queue_entry *entry;
->> +
->> +               entry = queue->entries + idx;
->> +
->> +               domain_flush_tlb(&entry->dma_dom->domain);
->> +       }
->>
->>         /* Wait until flushes have completed */
->>         domain_flush_complete(NULL);
->> --
->> 1.9.1
->>
+RXZlbnR1YWxseSB0aGUgR1BVX1BPV0VSIHNlbnNvciB3aWxsIGJlIHJhdGVkIGF0IGFyb3VuZAo1
+MEh6IGJ1dCB0aGF0J3Mgc3RpbGwgdG9vIHNsb3cgdG8gcmVhZCBmcm9tIHRoZSBtYWluIGxvb3Ag
+b2YKdW1yJ3MgLS10b3Agc28gd2UgbW92ZSBhbGwgc2Vuc29yIG9wZXJhdGlvbnMgdG8gYSB0aHJl
+YWQuCgpTaWduZWQtb2ZmLWJ5OiBUb20gU3QgRGVuaXMgPHRvbS5zdGRlbmlzQGFtZC5jb20+Ci0t
+LQogc3JjL2FwcC90b3AuYyB8IDExMCArKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgNTUgaW5zZXJ0aW9ucygr
+KSwgNTUgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvc3JjL2FwcC90b3AuYyBiL3NyYy9hcHAv
+dG9wLmMKaW5kZXggNzRhZTVkZmJiOThhLi5kZWRhZDkzZjAyOWMgMTAwNjQ0Ci0tLSBhL3NyYy9h
+cHAvdG9wLmMKKysrIGIvc3JjL2FwcC90b3AuYwpAQCAtMjc5LDE3ICsyNzksMzUgQEAgc3RhdGlj
+IHN0cnVjdCB1bXJfYml0ZmllbGQgc3RhdF9kcm1fYml0c1tdID0gewogc3RhdGljIEZJTEUgKmxv
+Z2ZpbGUgPSBOVUxMOwogCiBzdGF0aWMgdm9sYXRpbGUgaW50IHNlbnNvcl90aHJlYWRfcXVpdCA9
+IDA7Ci1zdGF0aWMgdWludDMyX3QgZ3B1X3Bvd2VyX2RhdGFbNF07Ci1zdGF0aWMgdm9pZCAqdmlf
+c2Vuc29yX3RocmVhZCh2b2lkICpkYXRhKQorc3RhdGljIHZvbGF0aWxlIHVpbnQzMl90IGdwdV9w
+b3dlcl9kYXRhWzMyXTsKK3N0YXRpYyB2b2xhdGlsZSBzdHJ1Y3QgdW1yX2JpdGZpZWxkICpzZW5z
+b3JfYml0cyA9IE5VTEw7CitzdGF0aWMgdm9pZCAqZ3B1X3NlbnNvcl90aHJlYWQodm9pZCAqZGF0
+YSkKIHsKIAlzdHJ1Y3QgdW1yX2FzaWMgYXNpYyA9ICooKHN0cnVjdCB1bXJfYXNpYyopZGF0YSk7
+Ci0JaW50IHNpemUgPSBzaXplb2YoZ3B1X3Bvd2VyX2RhdGEpOworCWludCBzaXplLCByZW0sIG9m
+ZiwgeDsKIAljaGFyIGZuYW1lWzEyOF07CiAKIAlzbnByaW50ZihmbmFtZSwgc2l6ZW9mKGZuYW1l
+KS0xLCAiL3N5cy9rZXJuZWwvZGVidWcvZHJpLyVkL2FtZGdwdV9zZW5zb3JzIiwgYXNpYy5pbnN0
+YW5jZSk7CiAJYXNpYy5mZC5zZW5zb3JzID0gb3BlbihmbmFtZSwgT19SRFdSKTsKLQl3aGlsZSAo
+IXNlbnNvcl90aHJlYWRfcXVpdCkKLQkJdW1yX3JlYWRfc2Vuc29yKCZhc2ljLCBBTURHUFVfUFBf
+U0VOU09SX0dQVV9QT1dFUiwgZ3B1X3Bvd2VyX2RhdGEsICZzaXplKTsKKwl3aGlsZSAoIXNlbnNv
+cl90aHJlYWRfcXVpdCkgeworCQlyZW0gPSBzaXplb2YgZ3B1X3Bvd2VyX2RhdGE7CisJCW9mZiA9
+IDA7CisJCWZvciAoeCA9IDA7IHNlbnNvcl9iaXRzW3hdLnJlZ25hbWU7ICkgeworCQkJc3dpdGNo
+IChzZW5zb3JfYml0c1t4XS5zdGFydCkgeworCQkJCWNhc2UgQU1ER1BVX1BQX1NFTlNPUl9HUFVf
+UE9XRVI6CisJCQkJCXNpemUgPSAxNjsKKwkJCQkJYnJlYWs7CisJCQkJZGVmYXVsdDoKKwkJCQkJ
+c2l6ZSA9IDQ7CisJCQkJCWJyZWFrOworCQkJfQorCQkJaWYgKHNpemUgPCByZW0pCisJCQkJdW1y
+X3JlYWRfc2Vuc29yKCZhc2ljLCBzZW5zb3JfYml0c1t4XS5zdGFydCwgKHVpbnQzMl90KikmZ3B1
+X3Bvd2VyX2RhdGFbb2ZmXSwgJnNpemUpOworCQkJb2ZmICs9IHNpemUgLyA0OworCQkJcmVtIC09
+IHNpemU7CisJCQl4ICAgKz0gc2l6ZSAvIDQ7CisJCX0KKwl9CiAJY2xvc2UoYXNpYy5mZC5zZW5z
+b3JzKTsKIAlyZXR1cm4gTlVMTDsKIH0KQEAgLTUzNiw4ICs1NTQsOCBAQCBzdGF0aWMgdm9pZCBw
+YXJzZV9iaXRzKHN0cnVjdCB1bXJfYXNpYyAqYXNpYywgdWludDMyX3QgYWRkciwgc3RydWN0IHVt
+cl9iaXRmaWVsZAogCiBzdGF0aWMgdm9pZCBwYXJzZV9zZW5zb3JzKHN0cnVjdCB1bXJfYXNpYyAq
+YXNpYywgdWludDMyX3QgYWRkciwgc3RydWN0IHVtcl9iaXRmaWVsZCAqYml0cywgdWludDY0X3Qg
+KmNvdW50cywgdWludDMyX3QgKm1hc2ssIHVpbnQzMl90ICpjbXAsIHVpbnQ2NF90IGFkZHJfbWFz
+aykKIHsKLQlpbnQgaiwgc2l6ZSwgeDsKLQl1aW50MzJfdCB2YWx1ZVsxNl07CisJaW50IGosIHg7
+CisJdWludDMyX3QgdmFsdWU7CiAKIAkodm9pZClhZGRyOwogCSh2b2lkKW1hc2s7CkBAIC01NDcs
+NDIgKzU2NSwyOSBAQCBzdGF0aWMgdm9pZCBwYXJzZV9zZW5zb3JzKHN0cnVjdCB1bXJfYXNpYyAq
+YXNpYywgdWludDMyX3QgYWRkciwgc3RydWN0IHVtcl9iaXRmaQogCWlmIChhc2ljLT5mZC5zZW5z
+b3JzIDwgMCkKIAkJcmV0dXJuOwogCi0JZm9yIChqID0gMDsgYml0c1tqXS5yZWduYW1lOyApIHsK
+LQkJc2l6ZSA9IDQ7Ci0JCWlmIChiaXRzW2pdLnN0YXJ0ID09IEFNREdQVV9QUF9TRU5TT1JfR1BV
+X1BPV0VSIHx8ICF1bXJfcmVhZF9zZW5zb3IoYXNpYywgYml0c1tqXS5zdGFydCwgJnZhbHVlWzBd
+LCAmc2l6ZSkpIHsKLQkJCXggPSAwOwotCQkJaWYgKGJpdHNbal0uc3RhcnQgPT0gQU1ER1BVX1BQ
+X1NFTlNPUl9HUFVfUE9XRVIpIHsKLQkJCQlzaXplID0gNCAqIHNpemVvZih1aW50MzJfdCk7Ci0J
+CQkJbWVtY3B5KHZhbHVlLCBncHVfcG93ZXJfZGF0YSwgc2l6ZSk7Ci0JCQl9Ci0KLQkJCXdoaWxl
+IChzaXplKSB7Ci0JCQkJc3dpdGNoIChiaXRzW2pdLnN0b3AgJiAweDBGKSB7Ci0JCQkJCWNhc2Ug
+U0VOU09SX0lERU5USVRZOgotCQkJCQkJY291bnRzW2pdID0gdmFsdWVbeF07Ci0JCQkJCQlicmVh
+azsKLQkJCQkJY2FzZSBTRU5TT1JfRDEwMDA6Ci0JCQkJCQljb3VudHNbal0gPSB2YWx1ZVt4XSAv
+IDEwMDA7Ci0JCQkJCQlicmVhazsKLQkJCQkJY2FzZSBTRU5TT1JfRDEwMDoKLQkJCQkJCWNvdW50
+c1tqXSA9IHZhbHVlW3hdIC8gMTAwOwotCQkJCQkJYnJlYWs7Ci0JCQkJCWNhc2UgU0VOU09SX1dB
+VFQ6Ci0JCQkJCQljb3VudHNbal0gPSAoKHZhbHVlW3hdID4+IDgpICogMTAwMCk7Ci0JCQkJCQlp
+ZiAoKHZhbHVlW3hdICYgMHhGRikgPCAxMDApCi0JCQkJCQkJY291bnRzW2pdICs9ICh2YWx1ZVt4
+XSAmIDB4RkYpICogMTA7Ci0JCQkJCQllbHNlCi0JCQkJCQkJY291bnRzW2pdICs9IHZhbHVlW3hd
+OwotCQkJCQkJY291bnRzW2pdIC89IDEwOyAvLyBjb252ZXJ0IHRvIGNlbnRpd2F0dHMgc2luY2Ug
+d2UgZG9uJ3QgbmVlZCAzIGRpZ2l0cyBvZiBleGNlc3MgcHJlY2lzaW9uCi0JCQkJCQlicmVhazsK
+LQkJCQl9Ci0JCQkJc2l6ZSAtPSA0OwotCQkJCSsrajsKLQkJCQkrK3g7Ci0JCQl9Ci0JCX0gZWxz
+ZSB7Ci0JCQkrK2o7CisJZm9yICh4ID0gaiA9IDA7IGJpdHNbal0ucmVnbmFtZTsgKSB7CisJCXZh
+bHVlID0gZ3B1X3Bvd2VyX2RhdGFbeF07CisJCXN3aXRjaCAoYml0c1tqXS5zdG9wICYgMHgwRikg
+eworCQkJY2FzZSBTRU5TT1JfSURFTlRJVFk6CisJCQkJY291bnRzW2pdID0gdmFsdWU7CisJCQkJ
+YnJlYWs7CisJCQljYXNlIFNFTlNPUl9EMTAwMDoKKwkJCQljb3VudHNbal0gPSB2YWx1ZSAvIDEw
+MDA7CisJCQkJYnJlYWs7CisJCQljYXNlIFNFTlNPUl9EMTAwOgorCQkJCWNvdW50c1tqXSA9IHZh
+bHVlIC8gMTAwOworCQkJCWJyZWFrOworCQkJY2FzZSBTRU5TT1JfV0FUVDoKKwkJCQljb3VudHNb
+al0gPSAoKHZhbHVlID4+IDgpICogMTAwMCk7CisJCQkJaWYgKCh2YWx1ZSAmIDB4RkYpIDwgMTAw
+KQorCQkJCQljb3VudHNbal0gKz0gKHZhbHVlICYgMHhGRikgKiAxMDsKKwkJCQllbHNlCisJCQkJ
+CWNvdW50c1tqXSArPSB2YWx1ZTsKKwkJCQljb3VudHNbal0gLz0gMTA7IC8vIGNvbnZlcnQgdG8g
+Y2VudGl3YXR0cyBzaW5jZSB3ZSBkb24ndCBuZWVkIDMgZGlnaXRzIG9mIGV4Y2VzcyBwcmVjaXNp
+b24KKwkJCQlicmVhazsKIAkJfQorCQkrK2o7CisJCSsreDsKIAl9CiB9CiAKQEAgLTgwNSw2ICs4
+MTAsNyBAQCBzdGF0aWMgdm9pZCB0b3BfYnVpbGRfdmlfcHJvZ3JhbShzdHJ1Y3QgdW1yX2FzaWMg
+KmFzaWMpCiAJCS8vIFNJCiAJCUVOVFJZX1NFTlNPUihpKyssICJHRlhfU0NMSyIsICZzdGF0X3Np
+X3NlbnNvcl9iaXRzWzBdLCAmdG9wX29wdGlvbnMudmkuc2Vuc29ycywgIlNlbnNvcnMiKTsKIAl9
+CisJc2Vuc29yX2JpdHMgPSBzdGF0X2NvdW50ZXJzW2ktMV0uYml0czsKIAogCS8vIE1vcmUgR0ZY
+IGJpdHMKIAlFTlRSWShpKyssICJtbVRBX1NUQVRVUyIsICZzdGF0X3RhX2JpdHNbMF0sICZ0b3Bf
+b3B0aW9ucy52aS50YSwgIlRBIik7CkBAIC04OTksNyArOTA1LDcgQEAgc3RhdGljIHZvaWQgdG9n
+Z2xlX2xvZ2dlcih2b2lkKQogCiB2b2lkIHVtcl90b3Aoc3RydWN0IHVtcl9hc2ljICphc2ljKQog
+ewotCWludCBpLCBqLCBrLCB1c2VfdGhyZWFkOworCWludCBpLCBqLCBrOwogCXN0cnVjdCB0aW1l
+c3BlYyByZXE7CiAJdWludDMyX3QgcmVwOwogCXRpbWVfdCB0dDsKQEAgLTkyNywxNSArOTMzLDEx
+IEBAIHZvaWQgdW1yX3RvcChzdHJ1Y3QgdW1yX2FzaWMgKmFzaWMpCiAJCQlncmFiX2JpdHMoc3Rh
+dF9jb3VudGVyc1tpXS5uYW1lLCBhc2ljLCBzdGF0X2NvdW50ZXJzW2ldLmJpdHMsICZzdGF0X2Nv
+dW50ZXJzW2ldLmFkZHIpOwogCiAJc2Vuc29yX3RocmVhZF9xdWl0ID0gMDsKLQl1c2VfdGhyZWFk
+ID0gMDsKIAotCS8vIHN0YXJ0IHRocmVhZCB0byBncmFiIHNlbnNvciBkYXRhIGZvciBWSQotCWlm
+IChhc2ljLT5mYW1pbHkgPT0gRkFNSUxZX1ZJKSB7Ci0JCWlmIChwdGhyZWFkX2NyZWF0ZSgmc2Vu
+c29yX3RocmVhZCwgTlVMTCwgdmlfc2Vuc29yX3RocmVhZCwgYXNpYykpIHsKLQkJCWZwcmludGYo
+c3RkZXJyLCAiW0VSUk9SXSBDYW5ub3QgY3JlYXRlIHZpX3NlbnNvcl90aHJlYWRcbiIpOwotCQkJ
+cmV0dXJuOwotCQl9Ci0JCXVzZV90aHJlYWQgPSAxOworCS8vIHN0YXJ0IHRocmVhZCB0byBncmFi
+IHNlbnNvciBkYXRhCisJaWYgKHB0aHJlYWRfY3JlYXRlKCZzZW5zb3JfdGhyZWFkLCBOVUxMLCBn
+cHVfc2Vuc29yX3RocmVhZCwgYXNpYykpIHsKKwkJZnByaW50ZihzdGRlcnIsICJbRVJST1JdIENh
+bm5vdCBjcmVhdGUgZ3B1X3NlbnNvcl90aHJlYWRcbiIpOworCQlyZXR1cm47CiAJfQogCiAJaW5p
+dHNjcigpOwpAQCAtMTA2OCw4ICsxMDcwLDYgQEAgdm9pZCB1bXJfdG9wKHN0cnVjdCB1bXJfYXNp
+YyAqYXNpYykKIAl9CiAJZW5kd2luKCk7CiAKLQlpZiAodXNlX3RocmVhZCkgewotCQlzZW5zb3Jf
+dGhyZWFkX3F1aXQgPSAxOwotCQlwdGhyZWFkX2pvaW4oc2Vuc29yX3RocmVhZCwgTlVMTCk7Ci0J
+fQorCXNlbnNvcl90aHJlYWRfcXVpdCA9IDE7CisJcHRocmVhZF9qb2luKHNlbnNvcl90aHJlYWQs
+IE5VTEwpOwogfQotLSAKMi4xMi4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZngK
