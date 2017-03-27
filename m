@@ -1,16 +1,13 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Subject: Re: Plan: BO move throttling for visible VRAM evictions
-Date: Mon, 27 Mar 2017 11:55:34 +0200
-Message-ID: <f9850969-e4ff-f9f2-ed18-53cd2bb031f3@vodafone.de>
+Date: Mon, 27 Mar 2017 12:29:17 +0200
+Message-ID: <CAAxE2A5OCfgu4k-GzNFhGSkgn21jEJoQysdZ6QbdxZaGwPnrEA@mail.gmail.com>
 References: <CAAxE2A4ap8BoOEg1tOF+Ec1vBfZRSANOebikYBaHUfXokY7EwA@mail.gmail.com>
  <ba8058ce-805b-3e52-095a-01806673344f@daenzer.net>
- <MWHPR1201MB0206FD6ABB9A0029624E4AF6B4330@MWHPR1201MB0206.namprd12.prod.outlook.com>
- <a675c878-f191-a6fc-72f3-fd07062c8737@vodafone.de> <58D8DD01.8050901@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0082125125=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <58D8DD01.8050901-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <ba8058ce-805b-3e52-095a-01806673344f-otUistvHUpPR7s880joybQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,107 +18,260 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
 Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QW0gMjcuMDMuMjAxNyB1bSAxMTozNiBzY2hyaWViIHpob3VjbTE6Cj4KPgo+IE9uIDIwMTflubQw
-M+aciDI35pelIDE3OjI5LCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiBPbiBBUFVzIEkndmUg
-YWxyZWFkeSBlbmFibGVkIHVzaW5nIGRpcmVjdCBhY2Nlc3MgdG8gdGhlIHN0b2xlbiBwYXJ0cyAK
-Pj4gb2Ygc3lzdGVtIG1lbW9yeS4KPiBUaGFua3MsIGNvdWxkIHlvdSBwb2ludCBtZSBvdXQgd2hl
-cmUgaXMgZG9pbmcgdGhpcz8KClNlZSBoZXJlIGdtY192N18wX21jX2luaXQoKToKPiAgICAgICAg
-IC8qIENvdWxkIGFwZXIgc2l6ZSByZXBvcnQgMCA/ICovCj4gICAgICAgICBhZGV2LT5tYy5hcGVy
-X2Jhc2UgPSBwY2lfcmVzb3VyY2Vfc3RhcnQoYWRldi0+cGRldiwgMCk7Cj4gICAgICAgICBhZGV2
-LT5tYy5hcGVyX3NpemUgPSBwY2lfcmVzb3VyY2VfbGVuKGFkZXYtPnBkZXYsIDApOwo+ICAgICAg
-ICAgLyogc2l6ZSBpbiBNQiBvbiBzaSAqLwo+ICAgICAgICAgYWRldi0+bWMubWNfdnJhbV9zaXpl
-ID0gUlJFRzMyKG1tQ09ORklHX01FTVNJWkUpICogMTAyNFVMTCAqIAo+IDEwMjRVTEw7Cj4gICAg
-ICAgICBhZGV2LT5tYy5yZWFsX3ZyYW1fc2l6ZSA9IFJSRUczMihtbUNPTkZJR19NRU1TSVpFKSAq
-IDEwMjRVTEwgKiAKPiAxMDI0VUxMOwo+Cj4gI2lmZGVmIENPTkZJR19YODZfNjQKPiAgICAgICAg
-IGlmIChhZGV2LT5mbGFncyAmIEFNRF9JU19BUFUpIHsKPiAgICAgICAgICAgICAgICAgYWRldi0+
-bWMuYXBlcl9iYXNlID0gKCh1NjQpUlJFRzMyKG1tTUNfVk1fRkJfT0ZGU0VUKSkgCj4gPDwgMjI7
-Cj4gICAgICAgICAgICAgICAgIGFkZXYtPm1jLmFwZXJfc2l6ZSA9IGFkZXYtPm1jLnJlYWxfdnJh
-bV9zaXplOwo+ICAgICAgICAgfQo+ICNlbmRpZgo+CldlIHVzZSB0aGUgcmVhbCBwaHlzaWNhbCBh
-ZGRyZXNzIGFuZCBzaXplIGFzIGFwZXJ0dXJlIG9uIEFQVXMuCgpTaW1pbGFyIGNvZGUgaXMgaW4g
-Z21jX3Y4XzBfbWNfaW5pdCgpLgoKUmVnYXJkcywKQ2hyaXN0aWFuLgoKPgo+IFJlZ2FyZHMsCj4g
-RGF2aWQgWmhvdQo+Pgo+PiBTbyB0aGVyZSB3b24ndCBiZSBhbnkgZXZpY3Rpb24gYW55IG1vcmUg
-YmVjYXVzZSBvZiBwYWdlIGZhdWx0cyBvbiBBUFVzLgo+Pgo+PiBSZWdhcmRzLAo+PiBDaHJpc3Rp
-YW4uCj4+Cj4+IEFtIDI3LjAzLjIwMTcgdW0gMDk6NTMgc2NocmllYiBaaG91LCBEYXZpZChDaHVu
-TWluZyk6Cj4+PiBGb3IgQVBVIHNwZWNpYWwgY2FzZSwgY2FuIHdlIHByZXZlbnQgZXZpY3Rpb24g
-aGFwcGVuaW5nIGJldHdlZW4gVlJBTSAKPj4+IDwtLS0tPiBHVFQ/Cj4+Pgo+Pj4gUmVnYXJkcywK
-Pj4+IERhdmlkIFpob3UKPj4+Cj4+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+Pj4gRnJv
-bTogYW1kLWdmeCBbbWFpbHRvOmFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmdd
-IE9uIAo+Pj4gQmVoYWxmIE9mIE1pY2hlbCBEP256ZXIKPj4+IFNlbnQ6IE1vbmRheSwgTWFyY2gg
-MjcsIDIwMTcgMzozNiBQTQo+Pj4gVG86IE1hcmVrIE9sxaHDoWsgPG1hcmFlb0BnbWFpbC5jb20+
-Cj4+PiBDYzogYW1kLWdmeCBtYWlsaW5nIGxpc3QgPGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnPgo+Pj4gU3ViamVjdDogUmU6IFBsYW46IEJPIG1vdmUgdGhyb3R0bGluZyBmb3IgdmlzaWJs
-ZSBWUkFNIGV2aWN0aW9ucwo+Pj4KPj4+IE9uIDI1LzAzLzE3IDAxOjMzIEFNLCBNYXJlayBPbMWh
-w6FrIHdyb3RlOgo+Pj4+IEhpLAo+Pj4+Cj4+Pj4gSSdtIHNoYXJpbmcgdGhpcyBpZGVhIGhlcmUs
-IGJlY2F1c2UgaXQncyBzb21ldGhpbmcgdGhhdCBoYXMgYmVlbgo+Pj4+IGRlY3JlYXNpbmcgb3Vy
-IHBlcmZvcm1hbmNlIGEgbG90IHJlY2VudGx5LCBmb3IgZXhhbXBsZToKPj4+PiBodHRwOi8vb3Bl
-bmJlbmNobWFya2luZy5vcmcvcHJvc3BlY3QvMTcwMzAxMS1SSS1SQURFT05ESVIwNi83Yjc2Njhj
-ZmMxCj4+Pj4gMDlkMWMzZGMyN2U4NzFjOGFlYTcxY2ExM2YyM2ZhCj4+Pj4KPj4+PiBJIHRoaW5r
-IHRoZSBwcm9ibGVtIHRoZXJlIGlzIHRoYXQgTWVzYSBnaXQgc3RhcnRlZCB1cGxvYWRpbmcKPj4+
-PiBkZXNjcmlwdG9ycyBhbmQgdW5pZm9ybXMgdG8gVlJBTSwgd2hpY2ggaGVscHMgd2hlbiBUQyBM
-MiBoYXMgYSBsb3cKPj4+PiBoaXQvbWlzcyByYXRpbywgYnV0IHRoZSBwZXJmb3JtYW5jZSBjYW4g
-cmFuZG9tbHkgZHJvcCBieSBhbiBvcmRlciBvZgo+Pj4+IG1hZ25pdHVkZS4gSSd2ZSBoZWFyZCBy
-dW1vdXJzIHRoYXQga2VybmVsIDQuMTEgaGFzIGFuIGltcHJvdmVkCj4+Pj4gYWxsb2NhdG9yIHRo
-YXQgc2hvdWxkIHBlcmZvcm0gYmV0dGVyLCBidXQgdGhlIHNpdHVhdGlvbiBpcyBzdGlsbCBmYXIK
-Pj4+PiBmcm9tIGlkZWFsLgo+Pj4+Cj4+Pj4gQU1EIENQVXMgYW5kIEFQVXMgd2lsbCBob3BlZnVs
-bHkgc3VmZmVyIGxlc3MsIGJlY2F1c2Ugd2UgY2FuIHJlc2l6ZQo+Pj4+IHRoZSB2aXNpYmxlIFZS
-QU0gd2l0aCB0aGUgaGVscCBvZiBvdXIgQ1BVIGh3IHNwZWNzLCBidXQgSW50ZWwgQ1BVcwo+Pj4+
-IHdpbGwgcmVtYWluIGxpbWl0ZWQgdG8gMjU2IE1CLiBUaGUgZm9sbG93aW5nIHBsYW4gZGVzY3Jp
-YmVzIGhvdyB0byBkbwo+Pj4+IHRocm90dGxpbmcgZm9yIHZpc2libGUgVlJBTSBldmljdGlvbnMu
-Cj4+Pj4KPj4+Pgo+Pj4+IDEpIFRoZW9yeQo+Pj4+Cj4+Pj4gSW5pdGlhbGx5LCB0aGUgZHJpdmVy
-IGRvZXNuJ3QgY2FyZSBhYm91dCB3aGVyZSBidWZmZXJzIGFyZSBpbiBWUkFNLAo+Pj4+IGJlY2F1
-c2UgVlJBTSBidWZmZXJzIGFyZSBvbmx5IG1vdmVkIHRvIHZpc2libGUgVlJBTSBvbiBDUFUgcGFn
-ZSBmYXVsdHMKPj4+PiAod2hlbiB0aGUgQ1BVIHRvdWNoZXMgdGhlIGJ1ZmZlciBtZW1vcnkgYnV0
-IHRoZSBtZW1vcnkgaXMgaW4gdGhlCj4+Pj4gaW52aXNpYmxlIHBhcnQgb2YgVlJBTSkuIFdoZW4g
-aXQgaGFwcGVucywKPj4+PiBhbWRncHVfYm9fZmF1bHRfcmVzZXJ2ZV9ub3RpZnkgaXMgY2FsbGVk
-LCB3aGljaCBtb3ZlcyB0aGUgYnVmZmVyIHRvCj4+Pj4gdmlzaWJsZSBWUkFNLCBhbmQgdGhlIGFw
-cCBjb250aW51ZXMuIGFtZGdwdV9ib19mYXVsdF9yZXNlcnZlX25vdGlmeQo+Pj4+IGFsc28gbWFy
-a3MgdGhlIGJ1ZmZlciBhcyBjb250aWd1b3VzLCB3aGljaCBtYWtlcyBtZW1vcnkgZnJhZ21lbnRh
-dGlvbgo+Pj4+IHdvcnNlLgo+Pj4+Cj4+Pj4gSSB2ZXJpZmllZCB0aGlzIHdpdGggRGlSVCBSYWxs
-eSB3aGVyZSBhbWRncHVfYm9fZmF1bHRfcmVzZXJ2ZV9ub3RpZnkKPj4+PiB3YXMgbXVjaCBoaWdo
-ZXIgaW4gYSBDUFUgcHJvZmlsZXIgdGhhbiBhbnl0aGluZyBlbHNlIGluIHRoZSBrZXJuZWwuCj4+
-Pj4KPj4+Pgo+Pj4+IDIpIE1vbml0b3JpbmcgdmlhIEdhbGxpdW0gSFVECj4+Pj4KPj4+PiBXZSBu
-ZWVkIHRvIGV4cG9zZSAyIGtlcm5lbCBjb3VudGVycyB2aWEgdGhlIElORk8gaW9jdGwgYW5kIGRp
-c3BsYXkKPj4+PiB0aG9zZSB2aWEgR2FsbGl1bSBIVUQ6Cj4+Pj4gLSBUaGUgbnVtYmVyIG9mIFZS
-QU0gQ1BVIHBhZ2UgZmF1bHRzLiAodGhlIG51bWJlciBvZiBjYWxscyB0bwo+Pj4+IGFtZGdwdV9i
-b19mYXVsdF9yZXNlcnZlX25vdGlmeSkuCj4+Pj4gLSBUaGUgbnVtYmVyIG9mIGJ5dGVzIG1vdmVk
-IGJ5IHR0bV9ib192YWxpZGF0ZSBpbnNpZGUKPj4+PiBhbWRncHVfYm9fZmF1bHRfcmVzZXJ2ZV9u
-b3RpZnkuCj4+Pj4KPj4+PiBUaGlzIHdpbGwgaGVscCB1cyBvYnNlcnZlIHdoYXQgZXhhY3RseSBp
-cyBoYXBwZW5pbmcgYW5kIGZpbmUtdHVuZSB0aGUKPj4+PiB0aHJvdHRsaW5nIHdoZW4gaXQncyBk
-b25lLgo+Pj4+Cj4+Pj4KPj4+PiAzKSBTb2x1dGlvbgo+Pj4+Cj4+Pj4gYSkgV2hlbiBhbWRncHVf
-Ym9fZmF1bHRfcmVzZXJ2ZV9ub3RpZnkgaXMgY2FsbGVkLCByZWNvcmQgdGhlIGZhY3QuCj4+Pj4g
-KGFtZGdwdV9ibzo6aGFkX2NwdV9wYWdlX2ZhdWx0ID0gdHJ1ZSkKPj4+Pgo+Pj4+IGIpIE1vbml0
-b3IgdGhlIE1CL3MgcmF0ZSBhdCB3aGljaCBidWZmZXJzIGFyZSBtb3ZlZCBieQo+Pj4+IGFtZGdw
-dV9ib19mYXVsdF9yZXNlcnZlX25vdGlmeS4gSWYgd2UgZ2V0IGFib3ZlIGEgc3BlY2lmaWMgdGhy
-ZXNob2xkLAo+Pj4+IGRvbid0IG1vdmUgdGhlIGJ1ZmZlciB0byB2aXNpYmxlIFZSQU0uIE1vdmUg
-aXQgdG8gR1RUIGluc3RlYWQuIE5vdGUKPj4+PiB0aGF0IG1vdmluZyB0byBHVFQgY2FuIGJlIGNo
-ZWFwZXIsIGJlY2F1c2UgbW92aW5nIHRvIHZpc2libGUgVlJBTSBpcwo+Pj4+IGxpa2VseSB0byBl
-dmljdCBhIGxvdCBvZiBidWZmZXJzIHRoZXJlIGFuZCB1bm1hcCB0aGVtIGZyb20gdGhlIENQVSwK
-Pj4+IEZXSVcsIHRoaXMgY2FuIGJlIGF2b2lkZWQgYnkgb25seSBzZXR0aW5nIEdUVCBpbiBidXN5
-X3BsYWNlbWVudC4gCj4+PiBUaGVuIFRUTSB3aWxsIG9ubHkgbW92ZSB0aGUgQk8gdG8gdmlzaWJs
-ZSBWUkFNIGlmIHRoYXQgY2FuIGJlIGRvbmUgCj4+PiB3aXRob3V0IGV2aWN0aW5nIGFueXRoaW5n
-IGZyb20gdGhlcmUuCj4+Pgo+Pj4KPj4+PiBidXQgbW92aW5nIHRvIEdUVCBzaG91bGRuJ3QgZXZp
-Y3Qgb3IgdW5tYXAgYW55dGhpbmcuCj4+Pj4KPj4+PiBjKSBXaGVuIHdlIGdldCBpbnRvIHRoZSBD
-UyBpb2N0bCBhbmQgYSBidWZmZXIgaGFzIGhhZF9jcHVfcGFnZV9mYXVsdCwKPj4+PiBpdCBjYW4g
-YmUgbW92ZWQgdG8gVlJBTSBpZjoKPj4+PiAtIHRoZSBHVFQtPlZSQU0gbW92ZSByYXRlIGlzIGxv
-dyBlbm91Z2ggdG8gYWxsb3cgaXQgKHRoaXMgaXMgdGhlCj4+Pj4gZXhpc3RpbmcgdGhyb3R0bGlu
-ZyBtZWNoYW5pc20pCj4+Pj4gLSB0aGUgdmlzaWJsZSBWUkFNIG1vdmUgcmF0ZSBpcyBsb3cgZW5v
-dWdoIHRoYXQgd2Ugd2lsbCBiZSBPSyB3aXRoCj4+Pj4gYW5vdGhlciBDUFUgcGFnZSBmYXVsdCBp
-ZiBpdCBoYXBwZW5zLgo+Pj4gU29tZSBvdGhlciBpZGVhcyB0aGF0IG1pZ2h0IGJlIHdvcnRoIHRy
-eWluZzoKPj4+Cj4+PiBFdmljdGluZyBCT3MgdG8gR1RUIGluc3RlYWQgb2YgbW92aW5nIHRoZW0g
-dG8gQ1BVIGFjY2Vzc2libGUgVlJBTSBpbiAKPj4+IHByaW5jaXBsZSBpbiBzb21lIGNhc2VzIChl
-LmcuIGZvciBhbGwgQk9zIGV4Y2VwdCB0aG9zZSB3aXRoCj4+PiBBTURHUFVfR0VNX0NSRUFURV9D
-UFVfQUNDRVNTX1JFUVVJUkVEKSBvciBldmVuIGFsd2F5cy4KPj4+Cj4+PiBJbXBsZW1lbnRpbmcg
-ZXZpY3Rpb24gZnJvbSBDUFUgdmlzaWJsZSB0byBDUFUgaW52aXNpYmxlIFZSQU0sIAo+Pj4gc2lt
-aWxhciB0byBob3cgaXQncyBkb25lIGluIHJhZGVvbi4gTm90ZSB0aGF0IHRoZXJlJ3MgcG90ZW50
-aWFsIGZvciAKPj4+IHVzZXJzcGFjZSB0cmlnZ2VyaW5nIGFuIGluZmluaXRlIGxvb3AgaW4gdGhl
-IGtlcm5lbCBpbiBjYXNlcyB3aGVyZSAKPj4+IEJPcyBhcmUgbW92ZWQgYmFjayBmcm9tIGludmlz
-aWJsZSB0byB2aXNpYmxlIFZSQU0gb24gcGFnZSBmYXVsdHMuCj4+Pgo+Pj4KPj4KPgo+IF9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWls
-aW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAoKCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============0082125125==
+Content-Type: multipart/alternative; boundary=94eb2c055d18d70199054bb3d0d1
+
+--94eb2c055d18d70199054bb3d0d1
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+On Mar 27, 2017 9:35 AM, "Michel D=C3=A4nzer" <michel-otUistvHUpPR7s880joybQ@public.gmane.org> wrote:
+
+On 25/03/17 01:33 AM, Marek Ol=C5=A1=C3=A1k wrote:
+> Hi,
+>
+> I'm sharing this idea here, because it's something that has been
+> decreasing our performance a lot recently, for example:
+> http://openbenchmarking.org/prospect/1703011-RI-RADEONDIR06/
+7b7668cfc109d1c3dc27e871c8aea71ca13f23fa
+>
+> I think the problem there is that Mesa git started uploading
+> descriptors and uniforms to VRAM, which helps when TC L2 has a low
+> hit/miss ratio, but the performance can randomly drop by an order of
+> magnitude. I've heard rumours that kernel 4.11 has an improved
+> allocator that should perform better, but the situation is still far
+> from ideal.
+>
+> AMD CPUs and APUs will hopefully suffer less, because we can resize
+> the visible VRAM with the help of our CPU hw specs, but Intel CPUs
+> will remain limited to 256 MB. The following plan describes how to do
+> throttling for visible VRAM evictions.
+>
+>
+> 1) Theory
+>
+> Initially, the driver doesn't care about where buffers are in VRAM,
+> because VRAM buffers are only moved to visible VRAM on CPU page faults
+> (when the CPU touches the buffer memory but the memory is in the
+> invisible part of VRAM). When it happens,
+> amdgpu_bo_fault_reserve_notify is called, which moves the buffer to
+> visible VRAM, and the app continues. amdgpu_bo_fault_reserve_notify
+> also marks the buffer as contiguous, which makes memory fragmentation
+> worse.
+>
+> I verified this with DiRT Rally where amdgpu_bo_fault_reserve_notify
+> was much higher in a CPU profiler than anything else in the kernel.
+>
+>
+> 2) Monitoring via Gallium HUD
+>
+> We need to expose 2 kernel counters via the INFO ioctl and display
+> those via Gallium HUD:
+> - The number of VRAM CPU page faults. (the number of calls to
+> amdgpu_bo_fault_reserve_notify).
+> - The number of bytes moved by ttm_bo_validate inside
+> amdgpu_bo_fault_reserve_notify.
+>
+> This will help us observe what exactly is happening and fine-tune the
+> throttling when it's done.
+>
+>
+> 3) Solution
+>
+> a) When amdgpu_bo_fault_reserve_notify is called, record the fact.
+> (amdgpu_bo::had_cpu_page_fault =3D true)
+>
+> b) Monitor the MB/s rate at which buffers are moved by
+> amdgpu_bo_fault_reserve_notify. If we get above a specific threshold,
+> don't move the buffer to visible VRAM. Move it to GTT instead. Note
+> that moving to GTT can be cheaper, because moving to visible VRAM is
+> likely to evict a lot of buffers there and unmap them from the CPU,
+
+FWIW, this can be avoided by only setting GTT in busy_placement. Then
+TTM will only move the BO to visible VRAM if that can be done without
+evicting anything from there.
+
+
+> but moving to GTT shouldn't evict or unmap anything.
+>
+> c) When we get into the CS ioctl and a buffer has had_cpu_page_fault,
+> it can be moved to VRAM if:
+> - the GTT->VRAM move rate is low enough to allow it (this is the
+> existing throttling mechanism)
+> - the visible VRAM move rate is low enough that we will be OK with
+> another CPU page fault if it happens.
+
+Some other ideas that might be worth trying:
+
+Evicting BOs to GTT instead of moving them to CPU accessible VRAM in
+principle in some cases (e.g. for all BOs except those with
+AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED) or even always.
+
+
+I've tried this and it made things even worse.
+
+Marek
+
+
+Implementing eviction from CPU visible to CPU invisible VRAM, similar to
+how it's done in radeon. Note that there's potential for userspace
+triggering an infinite loop in the kernel in cases where BOs are moved
+back from invisible to visible VRAM on page faults.
+
+
+--
+Earthling Michel D=C3=A4nzer               |               http://www.amd.c=
+om
+Libre software enthusiast             |             Mesa and X developer
+
+--94eb2c055d18d70199054bb3d0d1
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><br><div class=3D"gmail_extra"><br><div class=3D"gma=
+il_quote">On Mar 27, 2017 9:35 AM, &quot;Michel D=C3=A4nzer&quot; &lt;<a hr=
+ef=3D"mailto:michel-otUistvHUpPR7s880joybQ@public.gmane.org">michel-otUistvHUpPR7s880joybQ@public.gmane.org</a>&gt; wrote:<br type=
+=3D"attribution"><blockquote class=3D"quote" style=3D"margin:0 0 0 .8ex;bor=
+der-left:1px #ccc solid;padding-left:1ex"><div class=3D"elided-text">On 25/=
+03/17 01:33 AM, Marek Ol=C5=A1=C3=A1k wrote:<br>
+&gt; Hi,<br>
+&gt;<br>
+&gt; I&#39;m sharing this idea here, because it&#39;s something that has be=
+en<br>
+&gt; decreasing our performance a lot recently, for example:<br>
+&gt; <a href=3D"http://openbenchmarking.org/prospect/1703011-RI-RADEONDIR06=
+/7b7668cfc109d1c3dc27e871c8aea71ca13f23fa" rel=3D"noreferrer" target=3D"_bl=
+ank">http://openbenchmarking.org/<wbr>prospect/1703011-RI-<wbr>RADEONDIR06/=
+<wbr>7b7668cfc109d1c3dc27e871c8aea7<wbr>1ca13f23fa</a><br>
+&gt;<br>
+&gt; I think the problem there is that Mesa git started uploading<br>
+&gt; descriptors and uniforms to VRAM, which helps when TC L2 has a low<br>
+&gt; hit/miss ratio, but the performance can randomly drop by an order of<b=
+r>
+&gt; magnitude. I&#39;ve heard rumours that kernel 4.11 has an improved<br>
+&gt; allocator that should perform better, but the situation is still far<b=
+r>
+&gt; from ideal.<br>
+&gt;<br>
+&gt; AMD CPUs and APUs will hopefully suffer less, because we can resize<br=
+>
+&gt; the visible VRAM with the help of our CPU hw specs, but Intel CPUs<br>
+&gt; will remain limited to 256 MB. The following plan describes how to do<=
+br>
+&gt; throttling for visible VRAM evictions.<br>
+&gt;<br>
+&gt;<br>
+&gt; 1) Theory<br>
+&gt;<br>
+&gt; Initially, the driver doesn&#39;t care about where buffers are in VRAM=
+,<br>
+&gt; because VRAM buffers are only moved to visible VRAM on CPU page faults=
+<br>
+&gt; (when the CPU touches the buffer memory but the memory is in the<br>
+&gt; invisible part of VRAM). When it happens,<br>
+&gt; amdgpu_bo_fault_reserve_notify is called, which moves the buffer to<br=
+>
+&gt; visible VRAM, and the app continues. amdgpu_bo_fault_reserve_notify<br=
+>
+&gt; also marks the buffer as contiguous, which makes memory fragmentation<=
+br>
+&gt; worse.<br>
+&gt;<br>
+&gt; I verified this with DiRT Rally where amdgpu_bo_fault_reserve_notify<b=
+r>
+&gt; was much higher in a CPU profiler than anything else in the kernel.<br=
+>
+&gt;<br>
+&gt;<br>
+&gt; 2) Monitoring via Gallium HUD<br>
+&gt;<br>
+&gt; We need to expose 2 kernel counters via the INFO ioctl and display<br>
+&gt; those via Gallium HUD:<br>
+&gt; - The number of VRAM CPU page faults. (the number of calls to<br>
+&gt; amdgpu_bo_fault_reserve_<wbr>notify).<br>
+&gt; - The number of bytes moved by ttm_bo_validate inside<br>
+&gt; amdgpu_bo_fault_reserve_<wbr>notify.<br>
+&gt;<br>
+&gt; This will help us observe what exactly is happening and fine-tune the<=
+br>
+&gt; throttling when it&#39;s done.<br>
+&gt;<br>
+&gt;<br>
+&gt; 3) Solution<br>
+&gt;<br>
+&gt; a) When amdgpu_bo_fault_reserve_notify is called, record the fact.<br>
+&gt; (amdgpu_bo::had_cpu_page_fault =3D true)<br>
+&gt;<br>
+&gt; b) Monitor the MB/s rate at which buffers are moved by<br>
+&gt; amdgpu_bo_fault_reserve_<wbr>notify. If we get above a specific thresh=
+old,<br>
+&gt; don&#39;t move the buffer to visible VRAM. Move it to GTT instead. Not=
+e<br>
+&gt; that moving to GTT can be cheaper, because moving to visible VRAM is<b=
+r>
+&gt; likely to evict a lot of buffers there and unmap them from the CPU,<br=
+>
+<br>
+</div>FWIW, this can be avoided by only setting GTT in busy_placement. Then=
+<br>
+TTM will only move the BO to visible VRAM if that can be done without<br>
+evicting anything from there.<br>
+<div class=3D"quoted-text"><br>
+<br>
+&gt; but moving to GTT shouldn&#39;t evict or unmap anything.<br>
+&gt;<br>
+&gt; c) When we get into the CS ioctl and a buffer has had_cpu_page_fault,<=
+br>
+&gt; it can be moved to VRAM if:<br>
+&gt; - the GTT-&gt;VRAM move rate is low enough to allow it (this is the<br=
+>
+&gt; existing throttling mechanism)<br>
+&gt; - the visible VRAM move rate is low enough that we will be OK with<br>
+&gt; another CPU page fault if it happens.<br>
+<br>
+</div>Some other ideas that might be worth trying:<br>
+<br>
+Evicting BOs to GTT instead of moving them to CPU accessible VRAM in<br>
+principle in some cases (e.g. for all BOs except those with<br>
+AMDGPU_GEM_CREATE_CPU_ACCESS_<wbr>REQUIRED) or even always.<br></blockquote=
+></div></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">I&#39;ve t=
+ried this and it made things even worse.</div><div dir=3D"auto"><br></div><=
+div dir=3D"auto">Marek</div><div dir=3D"auto"><br></div><div dir=3D"auto"><=
+div class=3D"gmail_extra"><div class=3D"gmail_quote"><blockquote class=3D"q=
+uote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1e=
+x">
+<br>
+Implementing eviction from CPU visible to CPU invisible VRAM, similar to<br=
+>
+how it&#39;s done in radeon. Note that there&#39;s potential for userspace<=
+br>
+triggering an infinite loop in the kernel in cases where BOs are moved<br>
+back from invisible to visible VRAM on page faults.<br>
+<font color=3D"#888888"><br>
+<br>
+--<br>
+Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=
+=3D"http://www.amd.com" rel=3D"noreferrer" target=3D"_blank">http://www.amd=
+.com</a><br>
+Libre software enthusiast=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Mesa and X developer<br>
+<br>
+</font></blockquote></div><br></div></div></div>
+
+--94eb2c055d18d70199054bb3d0d1--
+
+--===============0082125125==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0082125125==--
