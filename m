@@ -1,14 +1,19 @@
-From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: fix memory leak in psp
-Date: Tue, 28 Mar 2017 18:31:59 +0800
-Message-ID: <20170328103158.GB940@hr-amur2>
-References: <1490692569-15452-1-git-send-email-Qingqing.Wang@amd.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: Plan: BO move throttling for visible VRAM evictions
+Date: Tue, 28 Mar 2017 12:47:35 +0200
+Message-ID: <CAAxE2A7h_6irJjsQWiw3goufALF1muj+R541w=-=j0KTT3131A@mail.gmail.com>
+References: <CAAxE2A4ap8BoOEg1tOF+Ec1vBfZRSANOebikYBaHUfXokY7EwA@mail.gmail.com>
+ <ba8058ce-805b-3e52-095a-01806673344f@daenzer.net>
+ <MWHPR1201MB0206FD6ABB9A0029624E4AF6B4330@MWHPR1201MB0206.namprd12.prod.outlook.com>
+ <441ea5b9-d37d-140d-e029-26a7c3ae58cb@daenzer.net> <58D9DD8D.4000803@amd.com>
+ <10958b11-6d28-228a-5142-2c5edadb70ef@daenzer.net>
+ <f7ee08e8-46ca-8146-f3a3-d28080e5267f@vodafone.de>
+ <bb6d20b3-06d1-3f7d-f782-ae18d66d4423@daenzer.net>
+ <efb4f99c-c0b9-56ab-d73c-a03a7e136d66@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2060940931=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <1490692569-15452-1-git-send-email-Qingqing.Wang-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <efb4f99c-c0b9-56ab-d73c-a03a7e136d66-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,43 +24,169 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Ken Wang <Qingqing.Wang-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Cc: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gVHVlLCBNYXIgMjgsIDIwMTcgYXQgMDU6MTY6MDlQTSArMDgwMCwgS2VuIFdhbmcgd3JvdGU6
-Cj4gQ2hhbmdlLUlkOiBJNmJlYTI0N2Y0MWVhNDA1ZDExYzFkNzVjYTk3Yjc4OWY2OTcwYjE5MQo+
-IFNpZ25lZC1vZmYtYnk6IEtlbiBXYW5nIDxRaW5ncWluZy5XYW5nQGFtZC5jb20+CgpSZXZpZXdl
-ZC1ieTogSHVhbmcgUnVpIDxyYXkuaHVhbmdAYW1kLmNvbT4KCj4gLS0tCj4gIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wc3AuYyB8IDEyICsrKysrKysrKystLQo+ICAxIGZpbGUg
-Y2hhbmdlZCwgMTAgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5jIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5jCj4gaW5kZXggODlkMWQyZi4uNDczMTAxNWYgMTAw
-NjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5jCj4gKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5jCj4gQEAgLTEzMiw2ICsx
-MzIsMTAgQEAgcHNwX2NtZF9zdWJtaXRfYnVmKHN0cnVjdCBwc3BfY29udGV4dCAqcHNwLAo+ICAJ
-CW1zbGVlcCgxKTsKPiAgCX07Cj4gIAo+ICsJYW1kZ3B1X2JvX2ZyZWVfa2VybmVsKCZjbWRfYnVm
-X2JvLAo+ICsJCQkgICAgICAmY21kX2J1Zl9tY19hZGRyLAo+ICsJCQkgICAgICAodm9pZCAqKikm
-Y21kX2J1Zl9tZW0pOwo+ICsKPiAgCXJldHVybiByZXQ7Cj4gIH0KPiAgCj4gQEAgLTE3NCw2ICsx
-NzgsOCBAQCBzdGF0aWMgaW50IHBzcF90bXJfaW5pdChzdHJ1Y3QgcHNwX2NvbnRleHQgKnBzcCkK
-PiAgCWlmIChyZXQpCj4gIAkJZ290byBmYWlsZWRfbWVtOwo+ICAKPiArCWtmcmVlKGNtZCk7Cj4g
-Kwo+ICAJcmV0dXJuIDA7Cj4gIAo+ICBmYWlsZWRfbWVtOgo+IEBAIC0yNDEsNiArMjQ3LDcgQEAg
-c3RhdGljIGludCBwc3BfYXNkX2xvYWQoc3RydWN0IHBzcF9jb250ZXh0ICpwc3ApCj4gIAo+ICAJ
-YW1kZ3B1X2JvX2ZyZWVfa2VybmVsKCZhc2RfYm8sICZhc2RfbWNfYWRkciwgJmFzZF9idWYpOwo+
-ICAJYW1kZ3B1X2JvX2ZyZWVfa2VybmVsKCZhc2Rfc2hhcmVkX2JvLCAmYXNkX3NoYXJlZF9tY19h
-ZGRyLCAmYXNkX3NoYXJlZF9idWYpOwo+ICsJa2ZyZWUoY21kKTsKPiAgCj4gIAlyZXR1cm4gMDsK
-PiAgCj4gQEAgLTI4OSwxMSArMjk2LDExIEBAIHN0YXRpYyBpbnQgcHNwX2xvYWRfZncoc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gIAo+ICAJcmV0ID0gcHNwX3Rtcl9pbml0KHBzcCk7Cj4g
-IAlpZiAocmV0KQo+IC0JCWdvdG8gZmFpbGVkOwo+ICsJCWdvdG8gZmFpbGVkX21lbTsKPiAgCj4g
-IAlyZXQgPSBwc3BfYXNkX2xvYWQocHNwKTsKPiAgCWlmIChyZXQpCj4gLQkJZ290byBmYWlsZWQ7
-Cj4gKwkJZ290byBmYWlsZWRfbWVtOwo+ICAKPiAgCWZvciAoaSA9IDA7IGkgPCBhZGV2LT5maXJt
-d2FyZS5tYXhfdWNvZGVzOyBpKyspIHsKPiAgCQl1Y29kZSA9ICZhZGV2LT5maXJtd2FyZS51Y29k
-ZVtpXTsKPiBAQCAtMzIyLDYgKzMyOSw3IEBAIHN0YXRpYyBpbnQgcHNwX2xvYWRfZncoc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gIAo+ICAJYW1kZ3B1X2JvX2ZyZWVfa2VybmVsKCZwc3At
-PmZlbmNlX2J1Zl9ibywKPiAgCQkJICAgICAgJnBzcC0+ZmVuY2VfYnVmX21jX2FkZHIsICZwc3At
-PmZlbmNlX2J1Zik7Cj4gKwlrZnJlZShjbWQpOwo+ICAKPiAgCXJldHVybiAwOwo+ICAKPiAtLSAK
-PiAyLjcuNAo+IAo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-Zwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
-IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============2060940931==
+Content-Type: multipart/alternative; boundary=001a11447c2e232048054bc8303a
+
+--001a11447c2e232048054bc8303a
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+On Mar 28, 2017 10:41 AM, "Christian K=C3=B6nig" <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org> =
+wrote:
+
+Am 28.03.2017 um 10:35 schrieb Michel D=C3=A4nzer:
+
+> On 28/03/17 05:29 PM, Christian K=C3=B6nig wrote:
+>
+>> Am 28.03.2017 um 08:00 schrieb Michel D=C3=A4nzer:
+>>
+>>> On 28/03/17 12:50 PM, zhoucm1 wrote:
+>>>
+>>>> On 2017=E5=B9=B403=E6=9C=8828=E6=97=A5 10:40, Michel D=C3=A4nzer wrote=
+:
+>>>>
+>>>>> On 27/03/17 04:53 PM, Zhou, David(ChunMing) wrote:
+>>>>>
+>>>>>> For APU special case, can we prevent eviction happening between VRAM
+>>>>>> <----> GTT?
+>>>>>>
+>>>>> We can, if we can close the performance gap between VRAM and GTT. We
+>>>>> measured around 30% gap a while ago, though right now I'm only
+>>>>> measuring
+>>>>> ~5%, but the test system has slower RAM now (still dual channel
+>>>>> though).
+>>>>>
+>>>> My impression VRAM and GTT have no much difference for APU case, if I'=
+m
+>>>> wrong, pls correct me.
+>>>>
+>>> The Mesa patch below makes radeonsi use mostly GTT instead of mostly
+>>> VRAM, and slows down Unigine Valley by about 5% on my desktop Kaveri.
+>>> You can try it for yourself.
+>>>
+>> Additional to that you still need the stolen VRAM on APUs for page
+>> tables and DCE.
+>>
+>> So we need to keep the eviction from VRAM to GTT enabled, but what we
+>> don't do is swapping them back in because Marek added the GTT flags on
+>> APUs as extra domain to look into.
+>>
+> As long as there's a performance gap between VRAM and GTT, this means
+> that performance of long-running apps (e.g. Xorg or the compositor) will
+> degrade over time, or after e.g. a suspend-resume cycle.
+>
+> OTOH, if we can close the gap, we can stop trying to put most BOs in
+> VRAM in the first place with APUs.
+>
+
+Yeah, John and I are already working on this (but mostly for GFX9).
+
+The difference is that VRAM allocations are mostly contiguously, while GTT
+allocations are scattered. So you got more TLB pressure with GTT.
+
+
+Another aspect is that GART has smaller pages, so the translation cache has
+to fetch more of the page directory and also the cache is finite, meaning
+that it can be thrashed more easily with small pages.
+
+Marek
+
+
+
+Christian.
+
+--001a11447c2e232048054bc8303a
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><br><div class=3D"gmail_extra"><br><div class=3D"gma=
+il_quote">On Mar 28, 2017 10:41 AM, &quot;Christian K=C3=B6nig&quot; &lt;<a=
+ href=3D"mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org</a>&gt; wr=
+ote:<br type=3D"attribution"><blockquote class=3D"quote" style=3D"margin:0 =
+0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div class=3D"elided-=
+text">Am 28.03.2017 um 10:35 schrieb Michel D=C3=A4nzer:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+On 28/03/17 05:29 PM, Christian K=C3=B6nig wrote:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+Am 28.03.2017 um 08:00 schrieb Michel D=C3=A4nzer:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+On 28/03/17 12:50 PM, zhoucm1 wrote:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+On 2017=E5=B9=B403=E6=9C=8828=E6=97=A5 10:40, Michel D=C3=A4nzer wrote:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+On 27/03/17 04:53 PM, Zhou, David(ChunMing) wrote:<br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+For APU special case, can we prevent eviction happening between VRAM<br>
+&lt;----&gt; GTT?<br>
+</blockquote>
+We can, if we can close the performance gap between VRAM and GTT. We<br>
+measured around 30% gap a while ago, though right now I&#39;m only<br>
+measuring<br>
+~5%, but the test system has slower RAM now (still dual channel<br>
+though).<br>
+</blockquote>
+My impression VRAM and GTT have no much difference for APU case, if I&#39;m=
+<br>
+wrong, pls correct me.<br>
+</blockquote>
+The Mesa patch below makes radeonsi use mostly GTT instead of mostly<br>
+VRAM, and slows down Unigine Valley by about 5% on my desktop Kaveri.<br>
+You can try it for yourself.<br>
+</blockquote>
+Additional to that you still need the stolen VRAM on APUs for page<br>
+tables and DCE.<br>
+<br>
+So we need to keep the eviction from VRAM to GTT enabled, but what we<br>
+don&#39;t do is swapping them back in because Marek added the GTT flags on<=
+br>
+APUs as extra domain to look into.<br>
+</blockquote>
+As long as there&#39;s a performance gap between VRAM and GTT, this means<b=
+r>
+that performance of long-running apps (e.g. Xorg or the compositor) will<br=
+>
+degrade over time, or after e.g. a suspend-resume cycle.<br>
+<br>
+OTOH, if we can close the gap, we can stop trying to put most BOs in<br>
+VRAM in the first place with APUs.<br>
+</blockquote>
+<br></div>
+Yeah, John and I are already working on this (but mostly for GFX9).<br>
+<br>
+The difference is that VRAM allocations are mostly contiguously, while GTT =
+allocations are scattered. So you got more TLB pressure with GTT.</blockquo=
+te></div></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">Another =
+aspect is that GART has smaller pages, so the translation cache has to fetc=
+h more of the page directory and also the cache is finite, meaning that it =
+can be thrashed more easily with small pages.</div><div dir=3D"auto"><br></=
+div><div dir=3D"auto">Marek</div><div dir=3D"auto"><br></div><div dir=3D"au=
+to"><div class=3D"gmail_extra"><div class=3D"gmail_quote"><blockquote class=
+=3D"quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-le=
+ft:1ex"><font color=3D"#888888"><br>
+<br>
+Christian.<br>
+<br>
+</font></blockquote></div><br></div></div></div>
+
+--001a11447c2e232048054bc8303a--
+
+--===============2060940931==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============2060940931==--
