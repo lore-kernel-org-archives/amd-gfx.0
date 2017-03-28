@@ -1,13 +1,15 @@
-From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Improve Vega10 VM fault handling
-Date: Tue, 28 Mar 2017 14:10:23 -0400
-Message-ID: <e518dba8-03c1-5b8f-99a1-e0f7f5254c2f@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: Improve Vega10 VM fault handling
+Date: Tue, 28 Mar 2017 18:37:56 +0000
+Message-ID: <BN6PR12MB1652CBB8976C3AE74495C534F7320@BN6PR12MB1652.namprd12.prod.outlook.com>
 References: <1490653526-30073-1-git-send-email-Felix.Kuehling@amd.com>
- <58D9BB23.4070009@amd.com>
+ <58D9BB23.4070009@amd.com> <e518dba8-03c1-5b8f-99a1-e0f7f5254c2f@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="------------19EEF6BC419C35C4604B7755"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <58D9BB23.4070009-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <e518dba8-03c1-5b8f-99a1-e0f7f5254c2f-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,196 +20,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Zhang, Jerry" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---------------19EEF6BC419C35C4604B7755
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-
-
-On 17-03-27 09:23 PM, Zhang, Jerry (Junwei) wrote:
->
->
-> On 03/28/2017 06:25 AM, Felix Kuehling wrote:
->> Register AMDGPU_IH_CLIENTID_UTCL2 as a source of VM faults. Clean
->> up the VM fault message format and use rate-limiting similar to
->> other ASICs.
->>
->> Signed-off-by: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
->
-> May be better to split it into 2 patches
-> Reviewed-by: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-
-I had to rebase my patch and had to resolve a conflict with an SRIOV
-change that just landed. So I split it into two commits while I was at
-it. Please review the attached patches.
-
-Thanks,
-  Felix
-
-
->
->> ---
->>   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 19 +++++++++++++------
->>   1 file changed, 13 insertions(+), 6 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
->> b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
->> index 232c208..9831025 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
->> @@ -145,12 +145,17 @@ static int gmc_v9_0_process_interrupt(struct
->> amdgpu_device *adev,
->>           WREG32_P(gfxhub->vm_l2_pro_fault_cntl, 1, ~1);
->>       }
->>
->> -    DRM_ERROR("[%s]VMC page fault (src_id:%u ring:%u vm_id:%u
->> pas_id:%u) "
->> -          "at page 0x%016llx from %d\n"
->> -          "VM_L2_PROTECTION_FAULT_STATUS:0x%08X\n",
->> -          entry->vm_id_src ? "mmhub" : "gfxhub",
->> -          entry->src_id, entry->ring_id, entry->vm_id, entry->pas_id,
->> -          addr, entry->client_id, status);
->> +    if (printk_ratelimit()) {
->> +        dev_err(adev->dev,
->> +            "[%s] VMC page fault (src_id:%u ring:%u vm_id:%u
->> pas_id:%u)\n",
->> +            entry->vm_id_src ? "mmhub" : "gfxhub",
->> +            entry->src_id, entry->ring_id, entry->vm_id,
->> +            entry->pas_id);
->> +        dev_err(adev->dev, "  at page 0x%016llx from %d\n",
->> +            addr, entry->client_id);
->> +        dev_err(adev->dev, "VM_L2_PROTECTION_FAULT_STATUS:0x%08X\n",
->> +            status);
->> +    }
->>
->>       return 0;
->>   }
->> @@ -539,6 +544,8 @@ static int gmc_v9_0_sw_init(void *handle)
->>       /* This interrupt is VMC page fault.*/
->>       r = amdgpu_irq_add_id(adev, AMDGPU_IH_CLIENTID_VMC, 0,
->>                   &adev->mc.vm_fault);
->> +    r = amdgpu_irq_add_id(adev, AMDGPU_IH_CLIENTID_UTCL2, 0,
->> +                &adev->mc.vm_fault);
->>
->>       if (r)
->>           return r;
->>
-
-
---------------19EEF6BC419C35C4604B7755
-Content-Type: text/x-patch;
-	name="0001-drm-amdgpu-Register-UTCL2-as-a-source-of-VM-faults.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
-	filename*0="0001-drm-amdgpu-Register-UTCL2-as-a-source-of-VM-faults.patc";
-	filename*1="h"
-
->From 9690de839e9ee7f6fc31cd777ffde8770858edb0 Mon Sep 17 00:00:00 2001
-From: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Date: Tue, 28 Mar 2017 13:41:11 -0400
-Subject: [PATCH 1/2] drm/amdgpu: Register UTCL2 as a source of VM faults
-
-Signed-off-by: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 87bea71..981d3d9 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -556,6 +556,8 @@ static int gmc_v9_0_sw_init(void *handle)
- 	/* This interrupt is VMC page fault.*/
- 	r = amdgpu_irq_add_id(adev, AMDGPU_IH_CLIENTID_VMC, 0,
- 				&adev->mc.vm_fault);
-+	r = amdgpu_irq_add_id(adev, AMDGPU_IH_CLIENTID_UTCL2, 0,
-+				&adev->mc.vm_fault);
- 
- 	if (r)
- 		return r;
--- 
-1.9.1
-
-
---------------19EEF6BC419C35C4604B7755
-Content-Type: text/x-patch;
-	name="0002-drm-amdgpu-Clean-up-GFX-9-VM-fault-messages.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
-	filename="0002-drm-amdgpu-Clean-up-GFX-9-VM-fault-messages.patch"
-
->From 9d47433ae1e799cacab2b002c75fcda41543beed Mon Sep 17 00:00:00 2001
-From: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Date: Tue, 28 Mar 2017 13:42:31 -0400
-Subject: [PATCH 2/2] drm/amdgpu: Clean up GFX 9 VM fault messages
-
-Clean up the VM fault message format and use rate-limiting similar
-to other ASICs.
-
-Signed-off-by: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 27 ++++++++++++++-------------
- 1 file changed, 14 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 981d3d9..1e4734d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -131,7 +131,7 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
- {
- 	struct amdgpu_vmhub *gfxhub = &adev->vmhub[AMDGPU_GFXHUB];
- 	struct amdgpu_vmhub *mmhub = &adev->vmhub[AMDGPU_MMHUB];
--	uint32_t status;
-+	uint32_t status = 0;
- 	u64 addr;
- 
- 	addr = (u64)entry->src_data[0] << 12;
-@@ -145,19 +145,20 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
- 			status = RREG32(gfxhub->vm_l2_pro_fault_status);
- 			WREG32_P(gfxhub->vm_l2_pro_fault_cntl, 1, ~1);
- 		}
-+	}
- 
--		DRM_ERROR("[%s]VMC page fault (src_id:%u ring:%u vm_id:%u pas_id:%u) "
--		  "at page 0x%016llx from %d\n"
--		  "VM_L2_PROTECTION_FAULT_STATUS:0x%08X\n",
--		  entry->vm_id_src ? "mmhub" : "gfxhub",
--		  entry->src_id, entry->ring_id, entry->vm_id, entry->pas_id,
--		  addr, entry->client_id, status);
--	} else {
--		DRM_ERROR("[%s]VMC page fault (src_id:%u ring:%u vm_id:%u pas_id:%u) "
--		  "at page 0x%016llx from %d\n",
--		  entry->vm_id_src ? "mmhub" : "gfxhub",
--		  entry->src_id, entry->ring_id, entry->vm_id, entry->pas_id,
--		  addr, entry->client_id);
-+	if (printk_ratelimit()) {
-+		dev_err(adev->dev,
-+			"[%s] VMC page fault (src_id:%u ring:%u vm_id:%u pas_id:%u)\n",
-+			entry->vm_id_src ? "mmhub" : "gfxhub",
-+			entry->src_id, entry->ring_id, entry->vm_id,
-+			entry->pas_id);
-+		dev_err(adev->dev, "  at page 0x%016llx from %d\n",
-+			addr, entry->client_id);
-+		if (!amdgpu_sriov_vf(adev))
-+			dev_err(adev->dev,
-+				"VM_L2_PROTECTION_FAULT_STATUS:0x%08X\n",
-+				status);
- 	}
- 
- 	return 0;
--- 
-1.9.1
-
-
---------------19EEF6BC419C35C4604B7755
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---------------19EEF6BC419C35C4604B7755--
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
+LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIEZlbGl4
+IEt1ZWhsaW5nDQo+IFNlbnQ6IFR1ZXNkYXksIE1hcmNoIDI4LCAyMDE3IDI6MTAgUE0NCj4gVG86
+IFpoYW5nLCBKZXJyeTsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gU3ViamVjdDog
+UmU6IFtQQVRDSF0gZHJtL2FtZGdwdTogSW1wcm92ZSBWZWdhMTAgVk0gZmF1bHQgaGFuZGxpbmcN
+Cj4gDQo+IA0KPiBPbiAxNy0wMy0yNyAwOToyMyBQTSwgWmhhbmcsIEplcnJ5IChKdW53ZWkpIHdy
+b3RlOg0KPiA+DQo+ID4NCj4gPiBPbiAwMy8yOC8yMDE3IDA2OjI1IEFNLCBGZWxpeCBLdWVobGlu
+ZyB3cm90ZToNCj4gPj4gUmVnaXN0ZXIgQU1ER1BVX0lIX0NMSUVOVElEX1VUQ0wyIGFzIGEgc291
+cmNlIG9mIFZNIGZhdWx0cy4gQ2xlYW4NCj4gPj4gdXAgdGhlIFZNIGZhdWx0IG1lc3NhZ2UgZm9y
+bWF0IGFuZCB1c2UgcmF0ZS1saW1pdGluZyBzaW1pbGFyIHRvDQo+ID4+IG90aGVyIEFTSUNzLg0K
+PiA+Pg0KPiA+PiBTaWduZWQtb2ZmLWJ5OiBGZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdA
+YW1kLmNvbT4NCj4gPg0KPiA+IE1heSBiZSBiZXR0ZXIgdG8gc3BsaXQgaXQgaW50byAyIHBhdGNo
+ZXMNCj4gPiBSZXZpZXdlZC1ieTogSnVud2VpIFpoYW5nIDxKZXJyeS5aaGFuZ0BhbWQuY29tPg0K
+PiANCj4gSSBoYWQgdG8gcmViYXNlIG15IHBhdGNoIGFuZCBoYWQgdG8gcmVzb2x2ZSBhIGNvbmZs
+aWN0IHdpdGggYW4gU1JJT1YNCj4gY2hhbmdlIHRoYXQganVzdCBsYW5kZWQuIFNvIEkgc3BsaXQg
+aXQgaW50byB0d28gY29tbWl0cyB3aGlsZSBJIHdhcyBhdA0KPiBpdC4gUGxlYXNlIHJldmlldyB0
+aGUgYXR0YWNoZWQgcGF0Y2hlcy4NCg0KUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFu
+ZGVyLmRldWNoZXJAYW1kLmNvbT4NCg0KPiANCj4gVGhhbmtzLA0KPiAgIEZlbGl4DQo+IA0KPiAN
+Cj4gPg0KPiA+PiAtLS0NCj4gPj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlf
+MC5jIHwgMTkgKysrKysrKysrKysrKy0tLS0tLQ0KPiA+PiAgIDEgZmlsZSBjaGFuZ2VkLCAxMyBp
+bnNlcnRpb25zKCspLCA2IGRlbGV0aW9ucygtKQ0KPiA+Pg0KPiA+PiBkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYw0KPiA+PiBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2dtY192OV8wLmMNCj4gPj4gaW5kZXggMjMyYzIwOC4uOTgzMTAyNSAxMDA2
+NDQNCj4gPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYw0KPiA+
+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jDQo+ID4+IEBAIC0x
+NDUsMTIgKzE0NSwxNyBAQCBzdGF0aWMgaW50IGdtY192OV8wX3Byb2Nlc3NfaW50ZXJydXB0KHN0
+cnVjdA0KPiA+PiBhbWRncHVfZGV2aWNlICphZGV2LA0KPiA+PiAgICAgICAgICAgV1JFRzMyX1Ao
+Z2Z4aHViLT52bV9sMl9wcm9fZmF1bHRfY250bCwgMSwgfjEpOw0KPiA+PiAgICAgICB9DQo+ID4+
+DQo+ID4+IC0gICAgRFJNX0VSUk9SKCJbJXNdVk1DIHBhZ2UgZmF1bHQgKHNyY19pZDoldSByaW5n
+OiV1IHZtX2lkOiV1DQo+ID4+IHBhc19pZDoldSkgIg0KPiA+PiAtICAgICAgICAgICJhdCBwYWdl
+IDB4JTAxNmxseCBmcm9tICVkXG4iDQo+ID4+IC0gICAgICAgICAgIlZNX0wyX1BST1RFQ1RJT05f
+RkFVTFRfU1RBVFVTOjB4JTA4WFxuIiwNCj4gPj4gLSAgICAgICAgICBlbnRyeS0+dm1faWRfc3Jj
+ID8gIm1taHViIiA6ICJnZnhodWIiLA0KPiA+PiAtICAgICAgICAgIGVudHJ5LT5zcmNfaWQsIGVu
+dHJ5LT5yaW5nX2lkLCBlbnRyeS0+dm1faWQsIGVudHJ5LT5wYXNfaWQsDQo+ID4+IC0gICAgICAg
+ICAgYWRkciwgZW50cnktPmNsaWVudF9pZCwgc3RhdHVzKTsNCj4gPj4gKyAgICBpZiAocHJpbnRr
+X3JhdGVsaW1pdCgpKSB7DQo+ID4+ICsgICAgICAgIGRldl9lcnIoYWRldi0+ZGV2LA0KPiA+PiAr
+ICAgICAgICAgICAgIlslc10gVk1DIHBhZ2UgZmF1bHQgKHNyY19pZDoldSByaW5nOiV1IHZtX2lk
+OiV1DQo+ID4+IHBhc19pZDoldSlcbiIsDQo+ID4+ICsgICAgICAgICAgICBlbnRyeS0+dm1faWRf
+c3JjID8gIm1taHViIiA6ICJnZnhodWIiLA0KPiA+PiArICAgICAgICAgICAgZW50cnktPnNyY19p
+ZCwgZW50cnktPnJpbmdfaWQsIGVudHJ5LT52bV9pZCwNCj4gPj4gKyAgICAgICAgICAgIGVudHJ5
+LT5wYXNfaWQpOw0KPiA+PiArICAgICAgICBkZXZfZXJyKGFkZXYtPmRldiwgIiAgYXQgcGFnZSAw
+eCUwMTZsbHggZnJvbSAlZFxuIiwNCj4gPj4gKyAgICAgICAgICAgIGFkZHIsIGVudHJ5LT5jbGll
+bnRfaWQpOw0KPiA+PiArICAgICAgICBkZXZfZXJyKGFkZXYtPmRldiwNCj4gIlZNX0wyX1BST1RF
+Q1RJT05fRkFVTFRfU1RBVFVTOjB4JTA4WFxuIiwNCj4gPj4gKyAgICAgICAgICAgIHN0YXR1cyk7
+DQo+ID4+ICsgICAgfQ0KPiA+Pg0KPiA+PiAgICAgICByZXR1cm4gMDsNCj4gPj4gICB9DQo+ID4+
+IEBAIC01MzksNiArNTQ0LDggQEAgc3RhdGljIGludCBnbWNfdjlfMF9zd19pbml0KHZvaWQgKmhh
+bmRsZSkNCj4gPj4gICAgICAgLyogVGhpcyBpbnRlcnJ1cHQgaXMgVk1DIHBhZ2UgZmF1bHQuKi8N
+Cj4gPj4gICAgICAgciA9IGFtZGdwdV9pcnFfYWRkX2lkKGFkZXYsIEFNREdQVV9JSF9DTElFTlRJ
+RF9WTUMsIDAsDQo+ID4+ICAgICAgICAgICAgICAgICAgICZhZGV2LT5tYy52bV9mYXVsdCk7DQo+
+ID4+ICsgICAgciA9IGFtZGdwdV9pcnFfYWRkX2lkKGFkZXYsIEFNREdQVV9JSF9DTElFTlRJRF9V
+VENMMiwgMCwNCj4gPj4gKyAgICAgICAgICAgICAgICAmYWRldi0+bWMudm1fZmF1bHQpOw0KPiA+
+Pg0KPiA+PiAgICAgICBpZiAocikNCj4gPj4gICAgICAgICAgIHJldHVybiByOw0KPiA+Pg0KDQpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
