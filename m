@@ -1,16 +1,12 @@
 From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH v2] drm/amdgpu: Fail fb creation from imported dma-bufs.
- (v2)
-Date: Wed, 29 Mar 2017 17:51:11 -0400
-Message-ID: <CADnq5_Mi8pJk_BVpASvneWSz7wR_PS+8C4uskYMPvKsMrQE6JA@mail.gmail.com>
-References: <20170329002720.11445-4-raof@ubuntu.com>
- <20170329040211.18844-1-raof@ubuntu.com>
- <2b175dd8-abeb-b3e7-d783-355607a48fda@daenzer.net>
+Subject: Re: drivers/gpu/drm/radeon/r100.c:3303]: (style) Redundant condition
+Date: Wed, 29 Mar 2017 18:09:49 -0400
+Message-ID: <CADnq5_MBC2ZEC4kUWU4Q_wz1Nzz3mtyZE9wibh6ZpFRaX9jM8g@mail.gmail.com>
+References: <HE1PR0801MB1865D31CD715BAE301A5143C9C330@HE1PR0801MB1865.eurprd08.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary=94eb2c19ac20cd0ba3054be5d53f
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <2b175dd8-abeb-b3e7-d783-355607a48fda-otUistvHUpPR7s880joybQ@public.gmane.org>
+In-Reply-To: <HE1PR0801MB1865D31CD715BAE301A5143C9C330-TrivKwPZaC6VEZXSXRKha0dOKmgb957onBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,42 +17,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Christopher James Halse Rogers <raof-GeWIH/nMZzLQT0dZR+AlfA@public.gmane.org>, Christopher James Halse Rogers <christopher.halse.rogers-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: David Binderman <dcb314-PkbjNfxxIARBDgjK7y7TUQ@public.gmane.org>
+Cc: "airlied-cv59FeDIM0c@public.gmane.org" <airlied-cv59FeDIM0c@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "alexander.deucher-5C7GfCeVMHo@public.gmane.org" <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, "christian.koenig-5C7GfCeVMHo@public.gmane.org" <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-T24gV2VkLCBNYXIgMjksIDIwMTcgYXQgMjowNyBBTSwgTWljaGVsIETDpG56ZXIgPG1pY2hlbEBk
-YWVuemVyLm5ldD4gd3JvdGU6Cj4gT24gMjkvMDMvMTcgMDE6MDIgUE0sIHJhb2ZAdWJ1bnR1LmNv
-bSB3cm90ZToKPj4gRnJvbTogQ2hyaXN0b3BoZXIgSmFtZXMgSGFsc2UgUm9nZXJzIDxjaHJpc3Rv
-cGhlci5oYWxzZS5yb2dlcnNAY2Fub25pY2FsLmNvbT4KPj4KPj4gQW55IHVzZSBvZiB0aGUgZnJh
-bWVidWZmZXIgd2lsbCBtaWdyYXRlIGl0IHRvIFZSQU0sIHdoaWNoIGlzIG5vdCBzZW5zaWJsZSBm
-b3IKPj4gYW4gaW1wb3J0ZWQgZG1hLWJ1Zi4KPj4KPj4gdjI6IFVzZSBEUk1fREVCVUdfS01TIHRv
-IHByZXZlbnQgdXNlcnNwYWNlIGFjY2lkZW50YWxseSBzcGFtbWluZyBkbWVzZy4KPj4KPj4gU2ln
-bmVkLW9mZi1ieTogQ2hyaXN0b3BoZXIgSmFtZXMgSGFsc2UgUm9nZXJzIDxjaHJpc3RvcGhlci5o
-YWxzZS5yb2dlcnNAY2Fub25pY2FsLmNvbT4KPj4gQ0M6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCj4+IC0tLQo+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3Bs
-YXkuYyB8IDYgKysrKysrCj4+ICAxIGZpbGUgY2hhbmdlZCwgNiBpbnNlcnRpb25zKCspCj4+Cj4+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5j
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXkuYwo+PiBpbmRleCAz
-OWZjMzg4ZjIyMmEuLjJmMmU5YjVjOGE2YSAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXkuYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfZGlzcGxheS5jCj4+IEBAIC02MTIsNiArNjEyLDEyIEBAIGFtZGdwdV91
-c2VyX2ZyYW1lYnVmZmVyX2NyZWF0ZShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LAo+PiAgICAgICAg
-ICAgICAgIHJldHVybiBFUlJfUFRSKC1FTk9FTlQpOwo+PiAgICAgICB9Cj4+Cj4+ICsgICAgIC8q
-IEhhbmRsZSBpcyBpbXBvcnRlZCBkbWEtYnVmLCBzbyBjYW5ub3QgYmUgbWlncmF0ZWQgdG8gVlJB
-TSBmb3Igc2Nhbm91dCAqLwo+PiArICAgICBpZiAob2JqLT5pbXBvcnRfYXR0YWNoKSB7Cj4+ICsg
-ICAgICAgICAgICAgRFJNX0RFQlVHX0tNUygiQ2Fubm90IGNyZWF0ZSBmcmFtZWJ1ZmZlciBmcm9t
-IGltcG9ydGVkIGRtYV9idWZcbiIpOwo+PiArICAgICAgICAgICAgIHJldHVybiBFUlJfUFRSKC1F
-SU5WQUwpOwo+PiArICAgICB9Cj4+ICsKPj4gICAgICAgYW1kZ3B1X2ZiID0ga3phbGxvYyhzaXpl
-b2YoKmFtZGdwdV9mYiksIEdGUF9LRVJORUwpOwo+PiAgICAgICBpZiAoYW1kZ3B1X2ZiID09IE5V
-TEwpIHsKPj4gICAgICAgICAgICAgICBkcm1fZ2VtX29iamVjdF91bnJlZmVyZW5jZV91bmxvY2tl
-ZChvYmopOwo+Pgo+Cj4gVGhpcyBwYXRjaCBhbmQgdjIgb2YgcGF0Y2ggNSBhcmUKPgo+IFJldmll
-d2VkLWJ5OiBNaWNoZWwgRMOkbnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4KCkFwcGxpZWQg
-dGhlc2UgdHdvLiAgVGhhbmtzIQoKQWxleAoKPgo+Cj4gLS0KPiBFYXJ0aGxpbmcgTWljaGVsIETD
-pG56ZXIgICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAgaHR0cDovL3d3dy5hbWQuY29tCj4g
-TGlicmUgc29mdHdhcmUgZW50aHVzaWFzdCAgICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2Eg
-YW5kIFggZGV2ZWxvcGVyCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
-ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--94eb2c19ac20cd0ba3054be5d53f
+Content-Type: text/plain; charset=UTF-8
+
+On Mon, Mar 27, 2017 at 6:07 AM, David Binderman <dcb314-PkbjNfxxIARBDgjK7y7TUQ@public.gmane.org> wrote:
+>
+> Hello there,
+>
+> linux-4.11-rc4/drivers/gpu/drm/radeon/r100.c:3303]: (style) Redundant condition: If 'EXPR == 11', the comparison 'EXPR <= 12' is always true.
+>
+> Source code is
+>
+>     } else if (rdev->family == CHIP_RV350 ||
+>            rdev->family <= CHIP_RV380) {
+>
+
+Fixed in the attached patch.
+
+
+> Also in the same file:
+>
+> [drivers/gpu/drm/radeon/r100.c:2550]: (style) Variable 'tmp' is assigned a value
+>  that is never used.
+> [drivers/gpu/drm/radeon/r100.c:2875]: (style) Variable 'tmp' is assigned a value
+>  that is never used.
+
+These are intended.  The registers are read back to to post the previous write.
+
+Alex
+
+--94eb2c19ac20cd0ba3054be5d53f
+Content-Type: text/x-diff; charset=US-ASCII;
+	name="0001-drm-radeon-fix-typo-in-bandwidth-calculation.patch"
+Content-Disposition: attachment;
+	filename="0001-drm-radeon-fix-typo-in-bandwidth-calculation.patch"
+Content-Transfer-Encoding: base64
+X-Attachment-Id: f_j0vix39s0
+
+RnJvbSBiYzAyYmU1NmVmYTRjMTQ3NjIyYzY5Y2ZjMjc3MmI5YTExNmFiNWY5IE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5j
+b20+CkRhdGU6IFdlZCwgMjkgTWFyIDIwMTcgMTg6MDM6MjcgLTA0MDAKU3ViamVjdDogW1BBVENI
+XSBkcm0vcmFkZW9uOiBmaXggdHlwbyBpbiBiYW5kd2lkdGggY2FsY3VsYXRpb24KClRoZSBSVjN4
+eCBzZXR0aW5ncyB3ZXJlIGdldHRpbmcgYXBwbGllZCB0byBhbGwgb2xkZXIgYXNpY3MKcmF0aGVy
+IHRoYW4ganVzdCBSVjN4eC4KClJlcG9ydGVkLWJ5OiBEYXZpZCBCaW5kZXJtYW4gPGRjYjMxNEBo
+b3RtYWlsLmNvbT4KU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hl
+ckBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcjEwMC5jIHwgMiArLQogMSBm
+aWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yMTAwLmMgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3Ix
+MDAuYwppbmRleCBlMzM5OTMxLi44MzQ0OTQ1IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+cmFkZW9uL3IxMDAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3IxMDAuYwpAQCAtMzMw
+MSw3ICszMzAxLDcgQEAgdm9pZCByMTAwX2JhbmR3aWR0aF91cGRhdGUoc3RydWN0IHJhZGVvbl9k
+ZXZpY2UgKnJkZXYpCiAJCW1lbV90cnAgPSAoKHRlbXAgPj4gOCkgJiAweDcpICsgMTsKIAkJbWVt
+X3RyYXMgPSAoKHRlbXAgPj4gMTEpICYgMHhmKSArIDQ7CiAJfSBlbHNlIGlmIChyZGV2LT5mYW1p
+bHkgPT0gQ0hJUF9SVjM1MCB8fAotCQkgICByZGV2LT5mYW1pbHkgPD0gQ0hJUF9SVjM4MCkgewor
+CQkgICByZGV2LT5mYW1pbHkgPT0gQ0hJUF9SVjM4MCkgewogCQkvKiBydjN4MCAqLwogCQltZW1f
+dHJjZCA9ICh0ZW1wICYgMHg3KSArIDM7CiAJCW1lbV90cnAgPSAoKHRlbXAgPj4gOCkgJiAweDcp
+ICsgMzsKLS0gCjIuNS41Cgo=
+--94eb2c19ac20cd0ba3054be5d53f
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--94eb2c19ac20cd0ba3054be5d53f--
