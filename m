@@ -1,16 +1,14 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 3/3] drm/amdgpu: Fix multi-level page table bugs for large
- BOs
-Date: Wed, 29 Mar 2017 03:24:50 +0000
-Message-ID: <DM5PR1201MB0235AB2363725D0D8320265292350@DM5PR1201MB0235.namprd12.prod.outlook.com>
-References: <1490749231-16157-1-git-send-email-Felix.Kuehling@amd.com>
- <1490749231-16157-4-git-send-email-Felix.Kuehling@amd.com>,
- <58DB21CB.4090800@amd.com>
+From: Christopher James Halse Rogers <christopher.halse.rogers-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+Subject: Re: [PATCH 3/6] drm/amdgpu: Fail fb creation from imported dma-bufs.
+Date: Wed, 29 Mar 2017 03:41:43 +0000
+Message-ID: <CAPMmPExAf+SyBNaTRFC286xxiH+Vv4rheyBfhko=L+nn9oSYhg@mail.gmail.com>
+References: <20170329002720.11445-1-raof@ubuntu.com>
+ <20170329002720.11445-4-raof@ubuntu.com>
+ <4a950f45-3ad5-2d63-c434-0474e8cfda37@daenzer.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0071841744=="
+Content-Type: multipart/mixed; boundary="===============0420585641=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <58DB21CB.4090800-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <4a950f45-3ad5-2d63-c434-0474e8cfda37-otUistvHUpPR7s880joybQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,447 +19,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhang, Jerry" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Russell,
- Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, raof-GeWIH/nMZzLQT0dZR+AlfA@public.gmane.org
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============0071841744==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM5PR1201MB0235AB2363725D0D8320265292350DM5PR1201MB0235_"
+--===============0420585641==
+Content-Type: multipart/alternative; boundary=f403045d9ab27f0a6a054bd65b99
 
---_000_DM5PR1201MB0235AB2363725D0D8320265292350DM5PR1201MB0235_
-Content-Type: text/plain; charset="us-ascii"
+--f403045d9ab27f0a6a054bd65b99
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Jerry,
+On Wed, 29 Mar 2017 at 13:04 Michel D=C3=A4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org> wrote:
 
-Let me clarify my understanding of the problem and the intention of the fix=
-.
-
-Address range per page: 4KB
-Address range per PT (level 3): 2MB
-Address range per PD (level 2): 1GB
-Address range per PD (level 1): 512GB
-Address range per PD (level 0): 256TB
-
-Imagine for example a mapping that spans multiple level 2 page directories.=
- Say from 0.5GB to 2.5GB.
-
-At level 0:
-from =3D 0
-to =3D 0
-
-At level 1:
-from =3D 0
-to =3D 2
-
-So for level 2 amdgpu_vm_alloc_levels gets called 3 times (pt_idx =3D [0..2=
-]). Without my change, it gets called with the same saddr and eaddr 3 times=
-. So it calculates the same "from" and "to" each time:
-from =3D 256 % 512 =3D 256
-to =3D 767 % 512 =3D 255
-
-Obviously that doesn't work. What we really want is this (from..to in level=
- 2 when called for pt_idx values from level 1):
-
-For pt_idx=3D0 we want to fill the second half of the level 2 page director=
-y with page tables:
-from =3D 256
-to =3D 511
-
-For pt_idx=3D1 we need to fill the entire level 2 page directories with pag=
-e tables:
-from =3D 0
-to =3D 511
-
-For pt_idx=3D2 we want to fill the first half of the level 2 page directory=
- with page tables:
-from =3D 0
-to =3D 255
-
-This creates a contiguous range of page tables across the three level 2 pag=
-e directories that are spanned by the allocation. My change achieves that.
-
-I think you're right, there are some extra high bits in saddr and eaddr, bu=
-t they get discarded by the modulo-division in the next recursion level. Fo=
-r added clarity the modulo division (or masking of high bits) could be move=
-d up to the caller.
-
-Regards,
-  Felix
-
-
---
-F e l i x   K u e h l i n g
-SMTS Software Development Engineer | Vertical Workstation/Compute
-1 Commerce Valley Dr. East, Markham, ON L3T 7X6 Canada
-(O) +1(289)695-1597
-   _     _   _   _____   _____
-  / \   | \ / | |  _  \  \ _  |
- / A \  | \M/ | | |D) )  /|_| |
-/_/ \_\ |_| |_| |_____/ |__/ \|   facebook.com/AMD | amd.com
-________________________________
-From: Zhang, Jerry
-Sent: Tuesday, March 28, 2017 10:54:03 PM
-To: Kuehling, Felix; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Koenig, Christian; Zhou=
-, David(ChunMing)
-Cc: Deucher, Alexander; Russell, Kent
-Subject: Re: [PATCH 3/3] drm/amdgpu: Fix multi-level page table bugs for la=
-rge BOs
-
-On 03/29/2017 09:00 AM, Felix Kuehling wrote:
-> Fix the start/end address calculation for address ranges that span
-> multiple page directories in amdgpu_vm_alloc_levels.
+> On 29/03/17 09:27 AM, raof-GeWIH/nMZzLQT0dZR+AlfA@public.gmane.org wrote:
+> > From: Christopher James Halse Rogers <
+> christopher.halse.rogers-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+> >
+> > Any use of the framebuffer will migrate it to VRAM, which is not
+> sensible for
+> > an imported dma-buf.
+> >
+> > Signed-off-by: Christopher James Halse Rogers <
+> christopher.halse.rogers-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+> > CC: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 6 ++++++
+> >  1 file changed, 6 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> > index 39fc388f222a..e7c3cc5b7d62 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> > @@ -612,6 +612,12 @@ amdgpu_user_framebuffer_create(struct drm_device
+> *dev,
+> >               return ERR_PTR(-ENOENT);
+> >       }
+> >
+> > +     /* Handle is imported dma-buf, so cannot be migrated to VRAM for
+> scanout */
 >
-> Add WARN_ONs if page tables aren't found. Otherwise the page table
-> update would just fail silently.
->
-> Signed-off-by: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 13 ++++++++++---
->   1 file changed, 10 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_vm.c
-> index 818747f..44aa039 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -278,6 +278,8 @@ static int amdgpu_vm_alloc_levels(struct amdgpu_devic=
-e *adev,
->        from =3D (saddr >> shift) % amdgpu_vm_num_entries(adev, level);
->        to =3D (eaddr >> shift) % amdgpu_vm_num_entries(adev, level);
->
-> +     WARN_ON(from > to);
-> +
->        if (to > parent->last_entry_used)
->                parent->last_entry_used =3D to;
->
-> @@ -312,8 +314,11 @@ static int amdgpu_vm_alloc_levels(struct amdgpu_devi=
-ce *adev,
->                }
->
->                if (level < adev->vm_manager.num_level) {
-> -                     r =3D amdgpu_vm_alloc_levels(adev, vm, entry, saddr=
-,
-> -                                                eaddr, level);
-> +                     uint64_t sub_saddr =3D (pt_idx =3D=3D from) ? saddr=
- : 0;
-> +                     uint64_t sub_eaddr =3D (pt_idx =3D=3D to) ? eaddr :
-> +                             ((1 << shift) - 1);
-> +                     r =3D amdgpu_vm_alloc_levels(adev, vm, entry, sub_s=
-addr,
-> +                                                sub_eaddr, level);
-
-Do you mean to create a full sub-pt if pt_idx !=3D from and !=3D to?
-I didn't catch it up clear.
-
-In my perspective, we may need to clear the saddr and eaddr upper level bit
-before going on to allocate the next level PT.
-Otherwise, the number of next PT entry will be incorrect, more than num_ent=
-ries
-as the upper level PT number calculated in.
-
-e.g.
-there is a address contains
-PD + PT1 + PT2 + PT3
-
-for the first round, we could get correct "from" and "to" address with righ=
-t
-"shift"(3 blocks), then walk over the address space in PD range.
-
-Then for the 2nd round, we cannot get the expected "from" and "to" address =
-with
-"shift"(2 blocks), as it walks over the address space in PD + PT1 range.
-While we'd like it's in range PT1 indeed.
-
-The fault way goes on with later round.
-
-Perhaps, that's the root cause about the issue you face.
-
-Jerry.
-
->                        if (r)
->                                return r;
->                }
-> @@ -957,9 +962,11 @@ static struct amdgpu_bo *amdgpu_vm_get_pt(struct amd=
-gpu_pte_update_params *p,
->                entry =3D &entry->entries[idx];
->        }
->
-> -     if (level)
-> +     if (WARN_ON(level))
->                return NULL;
->
-> +     WARN_ON(!entry->bo);
-> +
->        return entry->bo;
->   }
->
+> Newer APUs support scanout from GTT, though they still impose some
+> restrictions which will probably not be satisfied in general by BOs
+> imported from other drivers. So this is probably okay for now.
 >
 
---_000_DM5PR1201MB0235AB2363725D0D8320265292350DM5PR1201MB0235_
-Content-Type: text/html; charset="us-ascii"
+As far as I can tell amdgpu unconditionally migrates to VRAM when trying to
+scanout at the moment. When that changes, so can this check :).
+
+
+
+> > +     if (obj->import_attach) {
+> > +             dev_err(&dev->pdev->dev, "Cannot create framebuffer from
+> imported dma_buf\n");
+>
+> This should probably be something like DRM_DEBUG, so userspace can't
+> spam dmesg by default. Same for patch 5.
+>
+> Ta. v2 incoming.
+
+--f403045d9ab27f0a6a054bd65b99
+Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
-<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
-ding-left: 4pt; border-left: #800000 2px solid; } --></style>
-</head>
-<body>
-<meta content=3D"text/html; charset=3DUTF-8">
-<style type=3D"text/css" style=3D"">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-<div dir=3D"ltr">
-<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
-or:#000000; font-family:Calibri,Arial,Helvetica,sans-serif">
-<p></p>
-<div>Hi Jerry,<br>
-<br>
-Let me clarify my understanding of the problem and the intention of the fix=
-.<br>
-<br>
-Address range per page: 4KB<br>
-Address range per PT (level 3): 2MB<br>
-Address range per PD (level 2): 1GB<br>
-Address range per PD (level 1): 512GB<br>
-Address range per PD (level 0): 256TB<br>
-<br>
-Imagine for example a mapping that spans multiple level 2 page directories.=
- Say from 0.5GB to 2.5GB.<br>
-<br>
-At level 0:<br>
-from =3D 0<br>
-to =3D 0<br>
-<br>
-At level 1:<br>
-from =3D 0<br>
-to =3D 2<br>
-<br>
-So for level 2 amdgpu_vm_alloc_levels gets called 3 times (pt_idx =3D [0..2=
-]). Without my change, it gets called with the same saddr and eaddr 3 times=
-. So it calculates the same &quot;from&quot; and &quot;to&quot; each time:<=
-br>
-from =3D 256 % 512 =3D 256<br>
-to =3D 767 % 512 =3D 255<br>
-<br>
-Obviously that doesn't work. What we really want is this (from..to in level=
- 2 when called for pt_idx values from level 1):<br>
-<br>
-For pt_idx=3D0 we want to fill the second half of the level 2 page director=
-y with page tables:<br>
-from =3D 256<br>
-to =3D 511<br>
-<br>
-For pt_idx=3D1 we need to fill the entire level 2 page directories with pag=
-e tables:<br>
-from =3D 0<br>
-to =3D 511<br>
-<br>
-For pt_idx=3D2 we want to fill the first half of the level 2 page directory=
- with page tables:<br>
-from =3D 0<br>
-to =3D 255<br>
-<br>
-This creates a contiguous range of page tables across the three level 2 pag=
-e directories that are spanned by the allocation. My change achieves that.<=
-br>
-<br>
-I think you're right, there are some extra high bits in saddr and eaddr, bu=
-t they get discarded by the modulo-division in the next recursion level. Fo=
-r added clarity the modulo division (or masking of high bits) could be move=
-d up to the caller.<br>
-<br>
-Regards,<br>
-&nbsp; Felix<br>
-</div>
-<p></p>
-<p><br>
-</p>
-<div id=3D"x_Signature">
-<div style=3D"font-family:Tahoma; font-size:13px">
-<div style=3D"font-family:Tahoma; font-size:13px">
-<div style=3D"font-family:Tahoma; font-size:13px">
-<div style=3D"font-family:Tahoma; font-size:13px">
-<div style=3D"font-family:Tahoma; font-size:13px"><font size=3D"2" face=3D"=
-Courier New"></font>
-<div align=3D"left">
-<div>
-<div class=3D"x_BodyFragment"><font size=3D"2" face=3D"Courier New">
-<div class=3D"x_PlainText"><font size=3D"2"><span style=3D"font-size:10pt">=
---<br>
-F e l i x&nbsp;&nbsp; K u e h l i n g<br>
-SMTS Software Development Engineer | Vertical Workstation/Compute<br>
-1 Commerce Valley Dr. East, Markham, ON L3T 7X6 Canada<br>
-(O) &#43;1(289)695-1597<br>
-&nbsp;&nbsp; _&nbsp;&nbsp;&nbsp;&nbsp; _&nbsp;&nbsp; _&nbsp;&nbsp; _____&nb=
-sp;&nbsp; _____<br>
-&nbsp; / \&nbsp;&nbsp; | \ / | |&nbsp; _&nbsp; \&nbsp; \ _&nbsp; |<br>
-&nbsp;/ A \&nbsp; | \M/ | | |D) )&nbsp; /|_| |<br>
-/_/ \_\ |_| |_| |_____/ |__/ \|&nbsp;&nbsp; facebook.com/AMD | amd.com</spa=
-n></font><br>
-</div>
-</font></div>
-</div>
-</div>
-<font size=3D"2" face=3D"Courier New"></font></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Zhang, Jerry<br>
-<b>Sent:</b> Tuesday, March 28, 2017 10:54:03 PM<br>
-<b>To:</b> Kuehling, Felix; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Koenig, Christia=
-n; Zhou, David(ChunMing)<br>
-<b>Cc:</b> Deucher, Alexander; Russell, Kent<br>
-<b>Subject:</b> Re: [PATCH 3/3] drm/amdgpu: Fix multi-level page table bugs=
- for large BOs</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">On 03/29/2017 09:00 AM, Felix Kuehling wrote:<br>
-&gt; Fix the start/end address calculation for address ranges that span<br>
-&gt; multiple page directories in amdgpu_vm_alloc_levels.<br>
-&gt;<br>
-&gt; Add WARN_ONs if page tables aren't found. Otherwise the page table<br>
-&gt; update would just fail silently.<br>
-&gt;<br>
-&gt; Signed-off-by: Felix Kuehling &lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; ---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 13 &#43;&#43;&#43=
-;&#43;&#43;&#43;&#43;&#43;&#43;&#43;---<br>
-&gt;&nbsp;&nbsp; 1 file changed, 10 insertions(&#43;), 3 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_vm.c<br>
-&gt; index 818747f..44aa039 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-&gt; @@ -278,6 &#43;278,8 @@ static int amdgpu_vm_alloc_levels(struct amdgp=
-u_device *adev,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from =3D (saddr &gt;&gt; shi=
-ft) % amdgpu_vm_num_entries(adev, level);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; to =3D (eaddr &gt;&gt; shift=
-) % amdgpu_vm_num_entries(adev, level);<br>
-&gt;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WARN_ON(from &gt; to);<br>
-&gt; &#43;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (to &gt; parent-&gt;last_=
-entry_used)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; parent-&gt;last_entry_used =3D to;<br>
-&gt;<br>
-&gt; @@ -312,8 &#43;314,11 @@ static int amdgpu_vm_alloc_levels(struct amdg=
-pu_device *adev,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; }<br>
-&gt;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (level &lt; adev-&gt;vm_manager.num_level) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_vm_alloc_l=
-evels(adev, vm, entry, saddr,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; eaddr, leve=
-l);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t sub_saddr =
-=3D (pt_idx =3D=3D from) ? saddr : 0;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t sub_eaddr =
-=3D (pt_idx =3D=3D to) ? eaddr :<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; ((1 &lt;&lt; shift) - 1);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_vm_all=
-oc_levels(adev, vm, entry, sub_saddr,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sub_ead=
-dr, level);<br>
-<br>
-Do you mean to create a full sub-pt if pt_idx !=3D from and !=3D to?<br>
-I didn't catch it up clear.<br>
-<br>
-In my perspective, we may need to clear the saddr and eaddr upper level bit=
- <br>
-before going on to allocate the next level PT.<br>
-Otherwise, the number of next PT entry will be incorrect, more than num_ent=
-ries <br>
-as the upper level PT number calculated in.<br>
-<br>
-e.g.<br>
-there is a address contains<br>
-PD &#43; PT1 &#43; PT2 &#43; PT3<br>
-<br>
-for the first round, we could get correct &quot;from&quot; and &quot;to&quo=
-t; address with right <br>
-&quot;shift&quot;(3 blocks), then walk over the address space in PD range.<=
-br>
-<br>
-Then for the 2nd round, we cannot get the expected &quot;from&quot; and &qu=
-ot;to&quot; address with <br>
-&quot;shift&quot;(2 blocks), as it walks over the address space in PD &#43;=
- PT1 range.<br>
-While we'd like it's in range PT1 indeed.<br>
-<br>
-The fault way goes on with later round.<br>
-<br>
-Perhaps, that's the root cause about the issue you face.<br>
-<br>
-Jerry.<br>
-<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<=
-br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; }<br>
-&gt; @@ -957,9 &#43;962,11 @@ static struct amdgpu_bo *amdgpu_vm_get_pt(str=
-uct amdgpu_pte_update_params *p,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; entry =3D &amp;entry-&gt;entries[idx];<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (level)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (WARN_ON(level))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; return NULL;<br>
-&gt;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WARN_ON(!entry-&gt;bo);<br>
-&gt; &#43;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return entry-&gt;bo;<br>
-&gt;&nbsp;&nbsp; }<br>
-&gt;<br>
-&gt;<br>
-</div>
-</span></font>
-</body>
-</html>
+<div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr">On Wed, 29 Mar=
+ 2017 at 13:04 Michel D=C3=A4nzer &lt;<a href=3D"mailto:michel-otUistvHUpPR7s880joybQ@public.gmane.org"=
+>michel-otUistvHUpPR7s880joybQ@public.gmane.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quot=
+e" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">=
+On 29/03/17 09:27 AM, <a href=3D"mailto:raof-GeWIH/nMZzLQT0dZR+AlfA@public.gmane.org" class=3D"gmail_msg=
+" target=3D"_blank">raof-GeWIH/nMZzLQT0dZR+AlfA@public.gmane.org</a> wrote:<br class=3D"gmail_msg">
+&gt; From: Christopher James Halse Rogers &lt;<a href=3D"mailto:christopher=
+.halse.rogers-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org" class=3D"gmail_msg" target=3D"_blank">christop=
+her.halse.rogers-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org</a>&gt;<br class=3D"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+&gt; Any use of the framebuffer will migrate it to VRAM, which is not sensi=
+ble for<br class=3D"gmail_msg">
+&gt; an imported dma-buf.<br class=3D"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+&gt; Signed-off-by: Christopher James Halse Rogers &lt;<a href=3D"mailto:ch=
+ristopher.halse.rogers-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org" class=3D"gmail_msg" target=3D"_blank"=
+>christopher.halse.rogers-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org</a>&gt;<br class=3D"gmail_msg">
+&gt; CC: <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" class=3D"gmail_ms=
+g" target=3D"_blank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br class=3D"gmail_ms=
+g">
+&gt; ---<br class=3D"gmail_msg">
+&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 6 ++++++<br class=
+=3D"gmail_msg">
+&gt;=C2=A0 1 file changed, 6 insertions(+)<br class=3D"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_display.c<br class=3D"gmail_msg">
+&gt; index 39fc388f222a..e7c3cc5b7d62 100644<br class=3D"gmail_msg">
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c<br class=3D"gmail_ms=
+g">
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c<br class=3D"gmail_ms=
+g">
+&gt; @@ -612,6 +612,12 @@ amdgpu_user_framebuffer_create(struct drm_device =
+*dev,<br class=3D"gmail_msg">
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return ERR_PTR(-=
+ENOENT);<br class=3D"gmail_msg">
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br class=3D"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+&gt; +=C2=A0 =C2=A0 =C2=A0/* Handle is imported dma-buf, so cannot be migra=
+ted to VRAM for scanout */<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+Newer APUs support scanout from GTT, though they still impose some<br class=
+=3D"gmail_msg">
+restrictions which will probably not be satisfied in general by BOs<br clas=
+s=3D"gmail_msg">
+imported from other drivers. So this is probably okay for now.<br class=3D"=
+gmail_msg"></blockquote><div><br></div><div>As far as I can tell amdgpu unc=
+onditionally migrates to VRAM when trying to scanout at the moment. When th=
+at changes, so can this check :).<br></div><div><br>=C2=A0</div><blockquote=
+ class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc soli=
+d;padding-left:1ex">
+&gt; +=C2=A0 =C2=A0 =C2=A0if (obj-&gt;import_attach) {<br class=3D"gmail_ms=
+g">
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dev_err(&amp;dev-&gt;=
+pdev-&gt;dev, &quot;Cannot create framebuffer from imported dma_buf\n&quot;=
+);<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+This should probably be something like DRM_DEBUG, so userspace can&#39;t<br=
+ class=3D"gmail_msg">
+spam dmesg by default. Same for patch 5.<br class=3D"gmail_msg">
+<br class=3D"gmail_msg"></blockquote>Ta. v2 incoming.<br></div></div>
 
---_000_DM5PR1201MB0235AB2363725D0D8320265292350DM5PR1201MB0235_--
+--f403045d9ab27f0a6a054bd65b99--
 
---===============0071841744==
+--===============0420585641==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -471,4 +156,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0071841744==--
+--===============0420585641==--
