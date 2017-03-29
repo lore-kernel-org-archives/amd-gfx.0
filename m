@@ -1,42 +1,54 @@
-From: Jan Burgmeier <jan.burgmeier@unicon-software.com>
-Subject: [PATCH] Fix IB va_start+ib_bytes range check on 32Bit systems
-Date: Wed, 29 Mar 2017 11:18:39 +0200
-Message-ID: <20170329091839.5246-2-jan.burgmeier@unicon-software.com>
-References: <20170329091839.5246-1-jan.burgmeier@unicon-software.com>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20170329091839.5246-1-jan.burgmeier@unicon-software.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: airlied@linux.ie
-List-Id: amd-gfx.lists.freedesktop.org
+From: Xiangliang Yu <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/2] drm/amdgpu/psp: add check sOS sign
+Date: Wed, 29 Mar 2017 17:26:47 +0800
+Message-ID: <1490779607-24341-1-git-send-email-Xiangliang.Yu@amd.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Xiangliang Yu <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
 
-Signed-off-by: Jan Burgmeier <jan.burgmeier@unicon-software.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 99424cb8020b..583d22974e14 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -908,6 +908,7 @@ static int amdgpu_cs_ib_fill(struct amdgpu_device *adev,
- 			struct amdgpu_bo *aobj = NULL;
- 			uint64_t offset;
- 			uint8_t *kptr;
-+			uint64_t it_last;
- 
- 			m = amdgpu_cs_find_mapping(parser, chunk_ib->va_start,
- 						   &aobj);
-@@ -916,8 +917,9 @@ static int amdgpu_cs_ib_fill(struct amdgpu_device *adev,
- 				return -EINVAL;
- 			}
- 
-+			it_last = m->it.last;
- 			if ((chunk_ib->va_start + chunk_ib->ib_bytes) >
--			    (m->it.last + 1) * AMDGPU_GPU_PAGE_SIZE) {
-+			    (it_last + 1) * AMDGPU_GPU_PAGE_SIZE) {
- 				DRM_ERROR("IB va_start+ib_bytes is invalid\n");
- 				return -EINVAL;
- 			}
--- 
-2.11.0
+Q29uZmlybSBpZiBzeXMgZHJpdmVyIGFuZCBzT1MgYXJlIGFscmVhZHkgYmVlbiBsb2FkZWQgdGhy
+b3VnaCBzT1MKc2lnbiByZWdpc3Rlciwgc2tpcCBsb2FkaW5nIHN5cyBkcml2ZXIgYW5kIHNPUyBp
+ZiBmaW5kaW5nIHRoZSBzaWduLgoKU2lnbmVkLW9mZi1ieTogWGlhbmdsaWFuZyBZdSA8WGlhbmds
+aWFuZy5ZdUBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92M18x
+LmMgfCAxOCArKysrKysrKysrKysrKysrLS0KIDEgZmlsZSBjaGFuZ2VkLCAxNiBpbnNlcnRpb25z
+KCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L3BzcF92M18xLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfdjNfMS5jCmlu
+ZGV4IDQ5YzM4NDQuLjUxOTFjNDUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L3BzcF92M18xLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX3YzXzEu
+YwpAQCAtMTcwLDcgKzE3MCwxNCBAQCBpbnQgcHNwX3YzXzFfYm9vdGxvYWRlcl9sb2FkX3N5c2Ry
+dihzdHJ1Y3QgcHNwX2NvbnRleHQgKnBzcCkKIAl2b2lkICpwc3Bfc3lzZHJ2X3ZpcnQgPSBOVUxM
+OwogCXVpbnQ2NF90IHBzcF9zeXNkcnZfbWVtOwogCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
+ID0gcHNwLT5hZGV2OwotCXVpbnQzMl90IHNpemU7CisJdWludDMyX3Qgc2l6ZSwgc29sX3JlZzsK
+KworCS8qIENoZWNrIHNPUyBzaWduIG9mIGxpZmUgcmVnaXN0ZXIgdG8gY29uZmlybSBzeXMgZHJp
+dmVyIGFuZCBzT1MKKwkgKiBhcmUgYWxyZWFkeSBiZWVuIGxvYWRlZC4KKwkgKi8KKwlzb2xfcmVn
+ID0gUlJFRzMyKFNPQzE1X1JFR19PRkZTRVQoTVAwLCAwLCBtbU1QMF9TTU5fQzJQTVNHXzgxKSk7
+CisJaWYgKHNvbF9yZWcpCisJCXJldHVybiAwOwogCiAJLyogV2FpdCBmb3IgYm9vdGxvYWRlciB0
+byBzaWduaWZ5IHRoYXQgaXMgcmVhZHkgaGF2aW5nIGJpdCAzMSBvZiBDMlBNU0dfMzUgc2V0IHRv
+IDEgKi8KIAlyZXQgPSBwc3Bfd2FpdF9mb3IocHNwLCBTT0MxNV9SRUdfT0ZGU0VUKE1QMCwgMCwg
+bW1NUDBfU01OX0MyUE1TR18zNSksCkBAIC0yMjIsNyArMjI5LDE0IEBAIGludCBwc3BfdjNfMV9i
+b290bG9hZGVyX2xvYWRfc29zKHN0cnVjdCBwc3BfY29udGV4dCAqcHNwKQogCXZvaWQgKnBzcF9z
+b3NfdmlydCA9IE5VTEw7CiAJdWludDY0X3QgcHNwX3Nvc19tZW07CiAJc3RydWN0IGFtZGdwdV9k
+ZXZpY2UgKmFkZXYgPSBwc3AtPmFkZXY7Ci0JdWludDMyX3Qgc2l6ZTsKKwl1aW50MzJfdCBzaXpl
+LCBzb2xfcmVnOworCisJLyogQ2hlY2sgc09TIHNpZ24gb2YgbGlmZSByZWdpc3RlciB0byBjb25m
+aXJtIHN5cyBkcml2ZXIgYW5kIHNPUworCSAqIGFyZSBhbHJlYWR5IGJlZW4gbG9hZGVkLgorCSAq
+LworCXNvbF9yZWcgPSBSUkVHMzIoU09DMTVfUkVHX09GRlNFVChNUDAsIDAsIG1tTVAwX1NNTl9D
+MlBNU0dfODEpKTsKKwlpZiAoc29sX3JlZykKKwkJcmV0dXJuIDA7CiAKIAkvKiBXYWl0IGZvciBi
+b290bG9hZGVyIHRvIHNpZ25pZnkgdGhhdCBpcyByZWFkeSBoYXZpbmcgYml0IDMxIG9mIEMyUE1T
+R18zNSBzZXQgdG8gMSAqLwogCXJldCA9IHBzcF93YWl0X2Zvcihwc3AsIFNPQzE1X1JFR19PRkZT
+RVQoTVAwLCAwLCBtbU1QMF9TTU5fQzJQTVNHXzM1KSwKLS0gCjIuNy40CgpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
