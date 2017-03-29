@@ -1,12 +1,14 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: drivers/gpu/drm/radeon/r100.c:3303]: (style) Redundant condition
-Date: Wed, 29 Mar 2017 18:09:49 -0400
-Message-ID: <CADnq5_MBC2ZEC4kUWU4Q_wz1Nzz3mtyZE9wibh6ZpFRaX9jM8g@mail.gmail.com>
-References: <HE1PR0801MB1865D31CD715BAE301A5143C9C330@HE1PR0801MB1865.eurprd08.prod.outlook.com>
+From: "Panariti, David" <David.Panariti-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [pull] radeon drm-fixes-4.11
+Date: Wed, 29 Mar 2017 17:53:14 +0000
+Message-ID: <BN6PR12MB188938545C79E285E160FC3795350@BN6PR12MB1889.namprd12.prod.outlook.com>
+References: <1490806487-12994-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary=94eb2c19ac20cd0ba3054be5d53f
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <HE1PR0801MB1865D31CD715BAE301A5143C9C330-TrivKwPZaC6VEZXSXRKha0dOKmgb957onBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
+In-Reply-To: <1490806487-12994-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,73 +19,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: David Binderman <dcb314-PkbjNfxxIARBDgjK7y7TUQ@public.gmane.org>
-Cc: "airlied-cv59FeDIM0c@public.gmane.org" <airlied-cv59FeDIM0c@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "alexander.deucher-5C7GfCeVMHo@public.gmane.org" <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, "christian.koenig-5C7GfCeVMHo@public.gmane.org" <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
---94eb2c19ac20cd0ba3054be5d53f
-Content-Type: text/plain; charset=UTF-8
-
-On Mon, Mar 27, 2017 at 6:07 AM, David Binderman <dcb314-PkbjNfxxIARBDgjK7y7TUQ@public.gmane.org> wrote:
->
-> Hello there,
->
-> linux-4.11-rc4/drivers/gpu/drm/radeon/r100.c:3303]: (style) Redundant condition: If 'EXPR == 11', the comparison 'EXPR <= 12' is always true.
->
-> Source code is
->
->     } else if (rdev->family == CHIP_RV350 ||
->            rdev->family <= CHIP_RV380) {
->
-
-Fixed in the attached patch.
-
-
-> Also in the same file:
->
-> [drivers/gpu/drm/radeon/r100.c:2550]: (style) Variable 'tmp' is assigned a value
->  that is never used.
-> [drivers/gpu/drm/radeon/r100.c:2875]: (style) Variable 'tmp' is assigned a value
->  that is never used.
-
-These are intended.  The registers are read back to to post the previous write.
-
-Alex
-
---94eb2c19ac20cd0ba3054be5d53f
-Content-Type: text/x-diff; charset=US-ASCII;
-	name="0001-drm-radeon-fix-typo-in-bandwidth-calculation.patch"
-Content-Disposition: attachment;
-	filename="0001-drm-radeon-fix-typo-in-bandwidth-calculation.patch"
-Content-Transfer-Encoding: base64
-X-Attachment-Id: f_j0vix39s0
-
-RnJvbSBiYzAyYmU1NmVmYTRjMTQ3NjIyYzY5Y2ZjMjc3MmI5YTExNmFiNWY5IE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5j
-b20+CkRhdGU6IFdlZCwgMjkgTWFyIDIwMTcgMTg6MDM6MjcgLTA0MDAKU3ViamVjdDogW1BBVENI
-XSBkcm0vcmFkZW9uOiBmaXggdHlwbyBpbiBiYW5kd2lkdGggY2FsY3VsYXRpb24KClRoZSBSVjN4
-eCBzZXR0aW5ncyB3ZXJlIGdldHRpbmcgYXBwbGllZCB0byBhbGwgb2xkZXIgYXNpY3MKcmF0aGVy
-IHRoYW4ganVzdCBSVjN4eC4KClJlcG9ydGVkLWJ5OiBEYXZpZCBCaW5kZXJtYW4gPGRjYjMxNEBo
-b3RtYWlsLmNvbT4KU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hl
-ckBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcjEwMC5jIHwgMiArLQogMSBm
-aWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yMTAwLmMgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3Ix
-MDAuYwppbmRleCBlMzM5OTMxLi44MzQ0OTQ1IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-cmFkZW9uL3IxMDAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3IxMDAuYwpAQCAtMzMw
-MSw3ICszMzAxLDcgQEAgdm9pZCByMTAwX2JhbmR3aWR0aF91cGRhdGUoc3RydWN0IHJhZGVvbl9k
-ZXZpY2UgKnJkZXYpCiAJCW1lbV90cnAgPSAoKHRlbXAgPj4gOCkgJiAweDcpICsgMTsKIAkJbWVt
-X3RyYXMgPSAoKHRlbXAgPj4gMTEpICYgMHhmKSArIDQ7CiAJfSBlbHNlIGlmIChyZGV2LT5mYW1p
-bHkgPT0gQ0hJUF9SVjM1MCB8fAotCQkgICByZGV2LT5mYW1pbHkgPD0gQ0hJUF9SVjM4MCkgewor
-CQkgICByZGV2LT5mYW1pbHkgPT0gQ0hJUF9SVjM4MCkgewogCQkvKiBydjN4MCAqLwogCQltZW1f
-dHJjZCA9ICh0ZW1wICYgMHg3KSArIDM7CiAJCW1lbV90cnAgPSAoKHRlbXAgPj4gOCkgJiAweDcp
-ICsgMzsKLS0gCjIuNS41Cgo=
---94eb2c19ac20cd0ba3054be5d53f
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---94eb2c19ac20cd0ba3054be5d53f--
+SGksDQoNCkknbSBzdGlsbCBuZXcgdG8gdGhpcyBzdHVmZi4NCklzIHRoaXMgaW5mb3JtYXRpb25h
+bCBvciBzb21lIGFjdGlvbiBpdGVtcz8NCg0KdGhhbmtzLA0KZGF2ZXANCg0KPiAtLS0tLU9yaWdp
+bmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1kLWdmeC1ib3VuY2Vz
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIEFsZXggRGV1Y2hlcg0KPiBT
+ZW50OiBXZWRuZXNkYXksIE1hcmNoIDI5LCAyMDE3IDEyOjU1IFBNDQo+IFRvOiBhbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZzsgZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsNCj4g
+YWlybGllZEBnbWFpbC5jb20NCj4gQ2M6IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRl
+dWNoZXJAYW1kLmNvbT4NCj4gU3ViamVjdDogW3B1bGxdIHJhZGVvbiBkcm0tZml4ZXMtNC4xMQ0K
+PiANCj4gSGkgRGF2ZSwNCj4gDQo+IE9uZSBzbWFsbCBmaXggZm9yIHJhZGVvbi4NCj4gDQo+IFRo
+ZSBmb2xsb3dpbmcgY2hhbmdlcyBzaW5jZSBjb21taXQNCj4gZDY0YTA0NzIwYjBlNjRjMWNkMDcy
+NmEzYTI3YjM2MDgyMmZiZWUyMjoNCj4gDQo+ICAgTWVyZ2UgYnJhbmNoICdkcm0tZml4ZXMtNC4x
+MScgb2YgZ2l0Oi8vcGVvcGxlLmZyZWVkZXNrdG9wLm9yZy9+YWdkNWYvbGludXgNCj4gaW50byBk
+cm0tZml4ZXMgKDIwMTctMDMtMjQgMTE6MDU6MDYgKzEwMDApDQo+IA0KPiBhcmUgYXZhaWxhYmxl
+IGluIHRoZSBnaXQgcmVwb3NpdG9yeSBhdDoNCj4gDQo+ICAgZ2l0Oi8vcGVvcGxlLmZyZWVkZXNr
+dG9wLm9yZy9+YWdkNWYvbGludXggZHJtLWZpeGVzLTQuMTENCj4gDQo+IGZvciB5b3UgdG8gZmV0
+Y2ggY2hhbmdlcyB1cCB0bw0KPiBjZTRiNGYyMjhlNTEyMTliMGI3OTU4OGNhZjczMjI1YjA4YjVi
+Nzc5Og0KPiANCj4gICBkcm0vcmFkZW9uOiBPdmVycmlkZSBmcGZuIGZvciBhbGwgVlJBTSBwbGFj
+ZW1lbnRzIGluIHJhZGVvbl9ldmljdF9mbGFncw0KPiAoMjAxNy0wMy0yNyAxNjoxNzozMCAtMDQw
+MCkNCj4gDQo+IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0NCj4gTWljaGVsIETDpG56ZXIgKDEpOg0KPiAgICAgICBkcm0vcmFk
+ZW9uOiBPdmVycmlkZSBmcGZuIGZvciBhbGwgVlJBTSBwbGFjZW1lbnRzIGluIHJhZGVvbl9ldmlj
+dF9mbGFncw0KPiANCj4gIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX3R0bS5jIHwgNCAr
+Ky0tDQo+ICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQ0K
+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBhbWQt
+Z2Z4IG1haWxpbmcgbGlzdA0KPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
+ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
