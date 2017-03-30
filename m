@@ -1,38 +1,40 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH 3/3] drm/amdgpu: do not block gpu resume when cp ring test
- failed.
-Date: Thu, 30 Mar 2017 18:24:42 +0900
-Message-ID: <5ed63c06-4049-7f77-6253-3f4f01d6ee35@daenzer.net>
-References: <MWHPR12MB1694422BE19A18B45E985734FB340@MWHPR12MB1694.namprd12.prod.outlook.com>
+From: Colin King <colin.king@canonical.com>
+Subject: [PATCH] drm/amdgpu/virt: fix spelling mistake: "hypervior" ->
+ "hypervisor"
+Date: Thu, 30 Mar 2017 10:46:22 +0100
+Message-ID: <20170330094622.19214-1-colin.king@canonical.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MWHPR12MB1694422BE19A18B45E985734FB340-Gy0DoCVfaSW4WA4dJ5YXGAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Monk Liu <Monk.Liu@amd.com>, Xiangliang Yu <Xiangliang.Yu@amd.com>, shaoyunl <Shaoyun.Liu@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMzAvMDMvMTcgMDM6NDUgUE0sIFpodSwgUmV4IHdyb3RlOgo+IFllcywgd2UgdHJpZWQgdG8g
-Zml4IGl0LiBpdCBpcyBhIHRpbWluZyBpc3N1ZS4KPiBCdXQgaXQgd2FzIG5vdCBhIGNyaXRpY2Fs
-IGVycm9yLiBTbyBubyBuZWVkIHRvIGJsb2NrIGdwdSByZXN1bWUuCj4gCj4gSW4gZmFjdCwgV2Ug
-b25seSByZXR1cm4gZXJyb3Igd2hlbiB0aGUgbGFzdCByaW5nIHRlc3QgZmFpbGVkIGluIHRoZSBv
-cmlnaW5hbCBsb2dpYyAKClRoYXQgbWFrZXMgc29tZSBzZW5zZSB0byBtZSwgYnV0IGF0IGxlYXN0
-IHRoZSBjb21taXQgbG9nIHdvdWxkIG5lZWQgdG8KYmUgY2hhbmdlZCBub3QgdG8gdGFsayBhYm91
-dCB0aGUgS0lRIHJlbGF0ZWQgcmFuZG9tIGZhaWx1cmVzIGJ1dCBqdXN0CmFib3V0IHRoYXQgZ2Z4
-X3Y4XzBfa2lxX3Jlc3VtZSB3b3VsZCBvbmx5IHJldHVybiBmYWlsdXJlIGlmIHRoZSBsYXN0CnJp
-bmcgdGVzdCBmYWlsZWQgYW55d2F5LgoKCi0tIApFYXJ0aGxpbmcgTWljaGVsIETDpG56ZXIgICAg
-ICAgICAgICAgICB8ICAgICAgICAgICAgICAgaHR0cDovL3d3dy5hbWQuY29tCkxpYnJlIHNvZnR3
-YXJlIGVudGh1c2lhc3QgICAgICAgICAgICAgfCAgICAgICAgICAgICBNZXNhIGFuZCBYIGRldmVs
-b3BlcgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
-Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+RnJvbTogQ29saW4gSWFuIEtpbmcgPGNvbGluLmtpbmdAY2Fub25pY2FsLmNvbT4KCnRyaXZpYWwg
+Zml4IHRvIHNwZWxsaW5nIG1pc3Rha2UgaW4gRFJNX0VSUk9SIGVycm9yIG1lc3NhZ2UKClNpZ25l
+ZC1vZmYtYnk6IENvbGluIElhbiBLaW5nIDxjb2xpbi5raW5nQGNhbm9uaWNhbC5jb20+Ci0tLQog
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbXhncHVfdmkuYyB8IDIgKy0KIDEgZmlsZSBjaGFu
+Z2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L214Z3B1X3ZpLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9teGdwdV92aS5jCmluZGV4IGQyNjIyYjZmNDlmYS4uOTRhZjc1ZmM2MzIxIDEwMDY0NAotLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9teGdwdV92aS5jCisrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L214Z3B1X3ZpLmMKQEAgLTQ4Nyw3ICs0ODcsNyBAQCBzdGF0aWMgdm9p
+ZCB4Z3B1X3ZpX21haWxib3hfZmxyX3dvcmsoc3RydWN0IHdvcmtfc3RydWN0ICp3b3JrKQogCiAJ
+ciA9IHhncHVfdmlfcG9sbF9tc2coYWRldiwgSURIX0ZMUl9OT1RJRklDQVRJT05fQ01QTCk7CiAJ
+aWYgKHIpCi0JCURSTV9FUlJPUigiZmFpbGVkIHRvIGdldCBmbHIgY21wbCBtc2cgZnJvbSBoeXBl
+cnZpb3IuXG4iKTsKKwkJRFJNX0VSUk9SKCJmYWlsZWQgdG8gZ2V0IGZsciBjbXBsIG1zZyBmcm9t
+IGh5cGVydmlzb3IuXG4iKTsKIAogCS8qIFRPRE86IG5lZWQgdG8gcmVzdG9yZSBnZnggc3RhdGVz
+ICovCiB9Ci0tIAoyLjExLjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ry
+aS1kZXZlbAo=
