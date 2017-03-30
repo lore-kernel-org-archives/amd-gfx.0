@@ -1,64 +1,112 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-Subject: Re: [PATCH] Fix IB va_start+ib_bytes range check on 32Bit systems
-Date: Thu, 30 Mar 2017 10:41:51 +0900
-Message-ID: <07c31b2e-5dfa-0e6b-2961-44c1bdf47fe1@daenzer.net>
-References: <20170329091839.5246-1-jan.burgmeier@unicon-software.com>
- <20170329091839.5246-2-jan.burgmeier@unicon-software.com>
- <6dc2814c-c32b-220a-daa7-da530d13f20d@vodafone.de>
- <26c98d79-025c-bdf6-4bbe-bfd083cb6720@daenzer.net>
- <af21de45-36ce-2351-7704-7e26d8212e3f@vodafone.de>
+From: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Fix multi-level page table bugs for large
+ BOs v3
+Date: Thu, 30 Mar 2017 09:59:39 +0800
+Message-ID: <58DC668B.3050407@amd.com>
+References: <1490808171-21714-1-git-send-email-Felix.Kuehling@amd.com>
+ <3beac896-9cb5-de7f-a94e-2a0f4621b537@amd.com>
+ <7ea76115-90cc-3153-a410-d39bc291f697@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <af21de45-36ce-2351-7704-7e26d8212e3f@vodafone.de>
-Sender: linux-kernel-owner@vger.kernel.org
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple@vodafone.de>, Jan Burgmeier <jan.burgmeier@unicon-software.com>
-Cc: airlied@linux.ie, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <7ea76115-90cc-3153-a410-d39bc291f697-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>, =?ISO-8859-15?Q?Christian_?= =?ISO-8859-15?Q?K=F6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, David1.Zhou-5C7GfCeVMHo@public.gmane.org
+Cc: michel-otUistvHUpPR7s880joybQ@public.gmane.org
 
-On 30/03/17 12:18 AM, Christian König wrote:
-> Am 29.03.2017 um 16:54 schrieb Michel Dänzer:
->> On 29/03/17 10:22 PM, Christian König wrote:
->>> Am 29.03.2017 um 11:18 schrieb Jan Burgmeier:
->>>> Signed-off-by: Jan Burgmeier <jan.burgmeier@unicon-software.com>
->>>> ---
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 4 +++-
->>>>    1 file changed, 3 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>>> index 99424cb8020b..583d22974e14 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->>>> @@ -908,6 +908,7 @@ static int amdgpu_cs_ib_fill(struct amdgpu_device
->>>> *adev,
->>>>                struct amdgpu_bo *aobj = NULL;
->>>>                uint64_t offset;
->>>>                uint8_t *kptr;
->>>> +            uint64_t it_last;
->>>>                  m = amdgpu_cs_find_mapping(parser, chunk_ib->va_start,
->>>>                               &aobj);
->>>> @@ -916,8 +917,9 @@ static int amdgpu_cs_ib_fill(struct amdgpu_device
->>>> *adev,
->>>>                    return -EINVAL;
->>>>                }
->>>>    +            it_last = m->it.last;
->>>>                if ((chunk_ib->va_start + chunk_ib->ib_bytes) >
->>>> -                (m->it.last + 1) * AMDGPU_GPU_PAGE_SIZE) {
->>>> +                (it_last + 1) * AMDGPU_GPU_PAGE_SIZE) {
->>> Nice catch, but just adding a u64 case should do here as well. E.g:
->>>
->>> if ((chunk_ib->va_start + chunk_ib->ib_bytes) >
->>>      (u64)(m->it.last + 1) * AMDGPU_GPU_PAGE_SIZE) {
->> That won't work correctly if m->it.last == 0xffffffff ? Or is that not
->> possible?
-> Hui, why? is it.last signed?
-
-No. If m->it.last == 0xffffffff, (m->it.last + 1) == 0, the u64 cast
-won't change that. I thought that would be bad, but maybe not?
-
-
--- 
-Earthling Michel Dänzer               |               http://www.amd.com
-Libre software enthusiast             |             Mesa and X developer
+T24gMDMvMzAvMjAxNyAwMjowNyBBTSwgRmVsaXggS3VlaGxpbmcgd3JvdGU6Cj4gT24gMTctMDMt
+MjkgMDE6NDAgUE0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+IEFtIDI5LjAzLjIwMTcgdW0g
+MTk6MjIgc2NocmllYiBGZWxpeCBLdWVobGluZzoKPj4+IEZpeCB0aGUgc3RhcnQvZW5kIGFkZHJl
+c3MgY2FsY3VsYXRpb24gZm9yIGFkZHJlc3MgcmFuZ2VzIHRoYXQgc3Bhbgo+Pj4gbXVsdGlwbGUg
+cGFnZSBkaXJlY3RvcmllcyBpbiBhbWRncHVfdm1fYWxsb2NfbGV2ZWxzLgo+Pj4KPj4+IEFkZCBl
+cnJvciBtZXNzYWdlcyBpZiBwYWdlIHRhYmxlcyBhcmVuJ3QgZm91bmQuIE90aGVyd2lzZSB0aGUg
+cGFnZQo+Pj4gdGFibGUgdXBkYXRlIHdvdWxkIGp1c3QgZmFpbCBzaWxlbnRseS4KPj4+Cj4+PiB2
+MjoKPj4+ICAgICogQ2hhbmdlIFdBUk5fT04gdG8gV0FSTl9PTl9PTkNFCj4+PiAgICAqIE1vdmUg
+bWFza2luZyBvZiBoaWdoIGFkZHJlc3MgYml0cyB0byBjYWxsZXIKPj4+ICAgICogQWRkIHJhbmdl
+LWNoZWNrIGZvciAiZnJvbSIgYW5kICJ0byIKPj4+IHYzOgo+Pj4gICAgKiBSZXBsYWNlIFdBUk5f
+T05fT05DRSBpbiBnZXRfcHQgd2l0aCBwcl9lcnIgaW4gY2FsbGVyCj4+Pgo+Pj4gU2lnbmVkLW9m
+Zi1ieTogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+Cj4+Cj4+IE1obSwg
+SSBzdGlsbCBkb24ndCBsaWtlIHRoYXQgd2UgbW9kaWZ5IHNhZGRyL2VhZGRyIGhlcmUgYmVjYXVz
+ZSBJCj4+IHdhbnRlZCB0byByZXNvbHZlIHRoZSByZWN1cnNpb24gc29vbmVyIG9yIGxhdGVyLgo+
+Pgo+PiBCdXQgYW55d2F5IHRoYXQgaXMgd29yayBmb3IgYSBmdXR1cmUgcGF0Y2gsIHRoaXMgb25l
+IGlzIFJldmlld2VkLWJ5Ogo+PiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFt
+ZC5jb20+Lgo+Cj4gVGhhbmsgeW91LCBJIGFwcHJlY2lhdGUgaXQuIEkgcmVhbGl6ZSBpdCdzIHBy
+b2JhYmx5IG5vdCBwZXJmZWN0LiBCdXQgSSdtCj4ganVzdCBsb29raW5nIGF0IHRoZSBpbnRlbnRp
+b24gb2YgdGhlIG9yaWdpbmFsIGNvZGUgYW5kIHRyeWluZyB0byBtYWtlIGl0Cj4gd29yayBjb3Jy
+ZWN0bHkgZm9yIEtGRCBzbyB3ZSBjYW4gY29udGludWUgaW50ZWdyYXRpbmcgYW1kZ3B1IGNoYW5n
+ZXMKPiAoYW5kIGltcG9ydGFudCBmaXhlcywgc3VjaCBhcyBWTSBmYXVsdCBoYW5kbGluZykgaW50
+byB0aGUgS0ZEIGJyYW5jaC4KPiBUaGF0J3MgYWxzbyB3aHkgSSdtIGEgYml0IGluIGEgcnVzaC4g
+VGhpcyB3YXMgYWN0dWFsbHkgYmxvY2tpbmcgS0ZELgoKQW55d2F5LCBsZXQncyBtYWtlIGl0IHdv
+cmsgZm9yIGFsbCBvZiB1cy4KSXQgd2lsbCBiZWNvbWUgYmV0dGVyIGluIGNvZGluZywgSSBiZWxp
+ZXZlLiA6KQoKUmV2aWV3ZWQtYnk6IEp1bndlaSBaaGFuZyA8SmVycnkuWmhhbmdAYW1kLmNvbT4K
+Cj4KPiBXZSB0YWtlIGEgZGlmZmVyZW50IGFwcHJvYWNoIGZyb20gaHlicmlkLiBXZSBkbyBhIG5p
+Z2h0bHkgZ2l0LW1lcmdlIGZyb20KPiBhbWQtc3RhZ2luZy00LjkgYW5kIHJ1bm5pbmcgaXQgdGhy
+b3VnaCBvdXIgYXV0b21hdGVkIHByZS1zdWJtaXNzaW9uCj4gdGVzdHMuIElmIHRoZSBtZXJnZSBk
+b2Vzbid0IGhhdmUgY29uZmxpY3RzIHRoYXQgcHJvY2VzcyBpcyBjb21wbGV0ZWx5Cj4gYXV0b21h
+dGVkIChleGNlcHQgZm9yIHNvbWVvbmUgcHJlc3NpbmcgdGhlIFN1Ym1pdCBidXR0b24gaW4gdGhl
+IGVuZCkuIElmCj4gdGhlIHRlc3RpbmcgZmFpbHMsIHdlIGhhdmUgdG8gYmxvY2sgaW50ZWdyYXRp
+b25zIHVudGlsIHRoZSBwcm9ibGVtIGlzCj4gZml4ZWQgdXBzdHJlYW0uIFNvIEknbSBmaXhpbmcg
+dGhlIHByb2JsZW0gdXBzdHJlYW0uIDspCj4KPiBSZWdhcmRzLAo+ICAgIEZlbGl4Cj4KPj4KPj4g
+UmVnYXJkcywKPj4gQ2hyaXN0aWFuLgo+Pgo+Pj4gLS0tCj4+PiAgICBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfdm0uYyB8IDI0ICsrKysrKysrKysrKysrKysrKy0tLS0tLQo+Pj4g
+ICAgMSBmaWxlIGNoYW5nZWQsIDE4IGluc2VydGlvbnMoKyksIDYgZGVsZXRpb25zKC0pCj4+Pgo+
+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4+
+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4+PiBpbmRleCA4MTg3
+NDdmLi5jMTFkMTVlIDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X3ZtLmMKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92
+bS5jCj4+PiBAQCAtMjc1LDEzICsyNzUsMTggQEAgc3RhdGljIGludCBhbWRncHVfdm1fYWxsb2Nf
+bGV2ZWxzKHN0cnVjdAo+Pj4gYW1kZ3B1X2RldmljZSAqYWRldiwKPj4+ICAgICAgICAgICAgbWVt
+c2V0KHBhcmVudC0+ZW50cmllcywgMCAsIHNpemVvZihzdHJ1Y3QgYW1kZ3B1X3ZtX3B0KSk7Cj4+
+PiAgICAgICAgfQo+Pj4gICAgLSAgICBmcm9tID0gKHNhZGRyID4+IHNoaWZ0KSAlIGFtZGdwdV92
+bV9udW1fZW50cmllcyhhZGV2LCBsZXZlbCk7Cj4+PiAtICAgIHRvID0gKGVhZGRyID4+IHNoaWZ0
+KSAlIGFtZGdwdV92bV9udW1fZW50cmllcyhhZGV2LCBsZXZlbCk7Cj4+PiArICAgIGZyb20gPSBz
+YWRkciA+PiBzaGlmdDsKPj4+ICsgICAgdG8gPSBlYWRkciA+PiBzaGlmdDsKPj4+ICsgICAgaWYg
+KGZyb20gPj0gYW1kZ3B1X3ZtX251bV9lbnRyaWVzKGFkZXYsIGxldmVsKSB8fAo+Pj4gKyAgICAg
+ICAgdG8gPj0gYW1kZ3B1X3ZtX251bV9lbnRyaWVzKGFkZXYsIGxldmVsKSkKPj4+ICsgICAgICAg
+IHJldHVybiAtRUlOVkFMOwo+Pj4gICAgICAgICAgaWYgKHRvID4gcGFyZW50LT5sYXN0X2VudHJ5
+X3VzZWQpCj4+PiAgICAgICAgICAgIHBhcmVudC0+bGFzdF9lbnRyeV91c2VkID0gdG87Cj4+PiAg
+ICAgICAgICArK2xldmVsOwo+Pj4gKyAgICBzYWRkciA9IHNhZGRyICYgKCgxIDw8IHNoaWZ0KSAt
+IDEpOwo+Pj4gKyAgICBlYWRkciA9IGVhZGRyICYgKCgxIDw8IHNoaWZ0KSAtIDEpOwo+Pj4gICAg
+ICAgICAgLyogd2FsayBvdmVyIHRoZSBhZGRyZXNzIHNwYWNlIGFuZCBhbGxvY2F0ZSB0aGUgcGFn
+ZSB0YWJsZXMgKi8KPj4+ICAgICAgICBmb3IgKHB0X2lkeCA9IGZyb207IHB0X2lkeCA8PSB0bzsg
+KytwdF9pZHgpIHsKPj4+IEBAIC0zMTIsOCArMzE3LDExIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3Zt
+X2FsbG9jX2xldmVscyhzdHJ1Y3QKPj4+IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4+PiAgICAgICAg
+ICAgIH0KPj4+ICAgICAgICAgICAgICBpZiAobGV2ZWwgPCBhZGV2LT52bV9tYW5hZ2VyLm51bV9s
+ZXZlbCkgewo+Pj4gLSAgICAgICAgICAgIHIgPSBhbWRncHVfdm1fYWxsb2NfbGV2ZWxzKGFkZXYs
+IHZtLCBlbnRyeSwgc2FkZHIsCj4+PiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgZWFkZHIs
+IGxldmVsKTsKPj4+ICsgICAgICAgICAgICB1aW50NjRfdCBzdWJfc2FkZHIgPSAocHRfaWR4ID09
+IGZyb20pID8gc2FkZHIgOiAwOwo+Pj4gKyAgICAgICAgICAgIHVpbnQ2NF90IHN1Yl9lYWRkciA9
+IChwdF9pZHggPT0gdG8pID8gZWFkZHIgOgo+Pj4gKyAgICAgICAgICAgICAgICAoKDEgPDwgc2hp
+ZnQpIC0gMSk7Cj4+PiArICAgICAgICAgICAgciA9IGFtZGdwdV92bV9hbGxvY19sZXZlbHMoYWRl
+diwgdm0sIGVudHJ5LCBzdWJfc2FkZHIsCj4+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAg
+c3ViX2VhZGRyLCBsZXZlbCk7Cj4+PiAgICAgICAgICAgICAgICBpZiAocikKPj4+ICAgICAgICAg
+ICAgICAgICAgICByZXR1cm4gcjsKPj4+ICAgICAgICAgICAgfQo+Pj4gQEAgLTk5MCw4ICs5OTgs
+MTAgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X3ZtX3VwZGF0ZV9wdGVzKHN0cnVjdAo+Pj4gYW1kZ3B1
+X3B0ZV91cGRhdGVfcGFyYW1zICpwYXJhbXMsCj4+PiAgICAgICAgLyogaW5pdGlhbGl6ZSB0aGUg
+dmFyaWFibGVzICovCj4+PiAgICAgICAgYWRkciA9IHN0YXJ0Owo+Pj4gICAgICAgIHB0ID0gYW1k
+Z3B1X3ZtX2dldF9wdChwYXJhbXMsIGFkZHIpOwo+Pj4gLSAgICBpZiAoIXB0KQo+Pj4gKyAgICBp
+ZiAoIXB0KSB7Cj4+PiArICAgICAgICBwcl9lcnIoIlBUIG5vdCBmb3VuZCwgYWJvcnRpbmcgdXBk
+YXRlX3B0ZXNcbiIpOwo+Pj4gICAgICAgICAgICByZXR1cm47Cj4+PiArICAgIH0KPj4+ICAgICAg
+ICAgIGlmIChwYXJhbXMtPnNoYWRvdykgewo+Pj4gICAgICAgICAgICBpZiAoIXB0LT5zaGFkb3cp
+Cj4+PiBAQCAtMTAxNSw4ICsxMDI1LDEwIEBAIHN0YXRpYyB2b2lkIGFtZGdwdV92bV91cGRhdGVf
+cHRlcyhzdHJ1Y3QKPj4+IGFtZGdwdV9wdGVfdXBkYXRlX3BhcmFtcyAqcGFyYW1zLAo+Pj4gICAg
+ICAgIC8qIHdhbGsgb3ZlciB0aGUgYWRkcmVzcyBzcGFjZSBhbmQgdXBkYXRlIHRoZSBwYWdlIHRh
+YmxlcyAqLwo+Pj4gICAgICAgIHdoaWxlIChhZGRyIDwgZW5kKSB7Cj4+PiAgICAgICAgICAgIHB0
+ID0gYW1kZ3B1X3ZtX2dldF9wdChwYXJhbXMsIGFkZHIpOwo+Pj4gLSAgICAgICAgaWYgKCFwdCkK
+Pj4+ICsgICAgICAgIGlmICghcHQpIHsKPj4+ICsgICAgICAgICAgICBwcl9lcnIoIlBUIG5vdCBm
+b3VuZCwgYWJvcnRpbmcgdXBkYXRlX3B0ZXNcbiIpOwo+Pj4gICAgICAgICAgICAgICAgcmV0dXJu
+Owo+Pj4gKyAgICAgICAgfQo+Pj4gICAgICAgICAgICAgIGlmIChwYXJhbXMtPnNoYWRvdykgewo+
+Pj4gICAgICAgICAgICAgICAgaWYgKCFwdC0+c2hhZG93KQo+Pgo+Pgo+Cl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
