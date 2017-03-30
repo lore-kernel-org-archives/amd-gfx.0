@@ -1,14 +1,13 @@
 From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-Subject: Re: [PATCH 2/6] drm/ttm: add io_mem_pfn callback
-Date: Thu, 30 Mar 2017 15:39:58 +0900
-Message-ID: <7bf467a3-b518-8b9c-1f97-a38511256fd5@daenzer.net>
+Subject: Re: CPU mapping of split VRAM buffers
+Date: Thu, 30 Mar 2017 15:42:26 +0900
+Message-ID: <debb5664-093b-8d8a-e238-e75a2bb48784@daenzer.net>
 References: <1490792146-2218-1-git-send-email-deathsimple@vodafone.de>
- <1490792146-2218-3-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <1490792146-2218-3-git-send-email-deathsimple@vodafone.de>
+In-Reply-To: <1490792146-2218-1-git-send-email-deathsimple@vodafone.de>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
 List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
@@ -22,14 +21,16 @@ To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple@vodafone.de>
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjkvMDMvMTcgMDk6NTUgUE0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4gRnJvbTogQ2hy
-aXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+IAo+IFRoaXMgYWxsb3dz
-IHRoZSBkcml2ZXIgdG8gaGFuZGxlIGlvX21lbSBtYXBwaW5ncyBvbiB0aGVpciBvd24uCj4gCj4g
-U2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29t
-PgoKUmV2aWV3ZWQtYnk6IE1pY2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQuY29tPgoK
-Ci0tIApFYXJ0aGxpbmcgTWljaGVsIETDpG56ZXIgICAgICAgICAgICAgICB8ICAgICAgICAgICAg
-ICAgaHR0cDovL3d3dy5hbWQuY29tCkxpYnJlIHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAgICAg
-ICAgfCAgICAgICAgICAgICBNZXNhIGFuZCBYIGRldmVsb3BlcgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1k
-ZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
+T24gMjkvMDMvMTcgMDk6NTUgUE0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4gSGkgZ3V5cywK
+PiAKPiB0aGlzIHNldCBpbXBsZW1lbnRzIENQVSBtYXBwaW5nIG9mIHNwbGl0IFZSQU0gYnVmZmVy
+cyBhbmQgY291bGQKPiBoZWxwIHdpdGggc29tZSBwZXJmb3JtYW5jZSBpc3N1ZXMgcmVnYXJkaW5n
+IHRoaXMuCj4gCj4gUGxlYXNlIHJldmlldyBhbmQvb3IgY29tbWVudCwKClBhdGNoZXMgNSAmIDYg
+bG9vayBtb3N0bHkgZ29vZCB0byBtZSwgYnV0IEkgZG9uJ3QgZnVsbHkgdW5kZXJzdGFuZCBhbGwK
+Y2hhbmdlcyBpbiB0aGVyZSwgc28gSSBvbmx5IGZlZWwgY29tZm9ydGFibGUgZ2l2aW5nCgpBY2tl
+ZC1ieTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+Cgpmb3IgdGhlbS4K
+CgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAg
+ICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAg
+ICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmkt
+ZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
