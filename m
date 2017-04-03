@@ -1,13 +1,15 @@
-From: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH v2] drm/amdgpu: Read vram width from integrated system
  info table
-Date: Mon, 3 Apr 2017 17:20:23 +0200
-Message-ID: <8623a5d4-1e10-fc46-aaa2-0777b500c3a2@dev.carbon-project.org>
+Date: Mon, 3 Apr 2017 11:29:14 -0400
+Message-ID: <5002b8b3-e3da-fac1-a800-5c24eb94572e@amd.com>
 References: <20170403150107.13253-1-harry.wentland@amd.com>
+ <8623a5d4-1e10-fc46-aaa2-0777b500c3a2@dev.carbon-project.org>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0973836569=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170403150107.13253-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <8623a5d4-1e10-fc46-aaa2-0777b500c3a2-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,376 +20,164 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0973836569==
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature";
- boundary="4Jh0w8xo4VD56woRqUIesBHsmujIH1Bab"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---4Jh0w8xo4VD56woRqUIesBHsmujIH1Bab
-Content-Type: multipart/mixed; boundary="gaQPS6WfFJ8rwilucrRkXCjMsGDI8SXUV";
- protected-headers="v1"
-From: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
-To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>,
- amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Message-ID: <8623a5d4-1e10-fc46-aaa2-0777b500c3a2-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
-Subject: Re: [PATCH v2] drm/amdgpu: Read vram width from integrated system
- info table
-References: <20170403150107.13253-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <20170403150107.13253-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
-
---gaQPS6WfFJ8rwilucrRkXCjMsGDI8SXUV
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-Dear Harry,
-Harry Wentland wrote on 03.04.2017 17:01:
-> On KB, KV, CZ we should read the vram width from integrated system
-> table, if we can. The NOOFCHAN in MC_SHARED_CHMAP is not accurate.
->=20
-> With this change we can enable two 4k displays on CZ again. This use
-> case was broken sometime in January when we started looking at
-> vram_width for bandwidth calculations instead of hardcoding this value.=
-
->=20
-> v2:
->   Return 0 if integrated system info table is not available.
->=20
-> Tested-by: Roman Li <roman.li-5C7GfCeVMHo@public.gmane.org>
-> Signed-off-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c | 29 ++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h |  2 +
->  drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c        | 87 +++++++++++++++-----=
---------
->  drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c        | 87 +++++++++++++++-----=
---------
->  4 files changed, 123 insertions(+), 82 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_atombios.c
-> index f52b1bf3d3d9..ad4329922f79 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-> @@ -754,6 +754,35 @@ union igp_info {
->  	struct _ATOM_INTEGRATED_SYSTEM_INFO_V1_9 info_9;
->  };
-> =20
-> +/*
-> + * Return vram width from integrated system info table, if available,
-> + * or 0 if not.
-> + */
-> +int amdgpu_atombios_get_vram_width(struct amdgpu_device *adev)
-> +{
-> +	struct amdgpu_mode_info *mode_info =3D &adev->mode_info;
-> +	int index =3D GetIndexIntoMasterTable(DATA, IntegratedSystemInfo);
-> +	u16 data_offset, size;
-> +	union igp_info *igp_info;
-> +	u8 frev, crev;
-> +
-> +	/* get any igp specific overrides */
-> +	if (amdgpu_atom_parse_data_header(mode_info->atom_context, index, &si=
-ze,
-> +				   &frev, &crev, &data_offset)) {
-> +		igp_info =3D (union igp_info *)
-> +			(mode_info->atom_context->bios + data_offset);
-> +		switch (crev) {
-> +		case 8:
-> +		case 9:
-> +			return igp_info->info_8.ucUMAChannelNumber * 64;
-> +		default:
-> +			return 0;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->  static void amdgpu_atombios_get_igp_ss_overrides(struct amdgpu_device =
-*adev,
->  						 struct amdgpu_atom_ss *ss,
->  						 int id)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_atombios.h
-> index 4e0f488487f3..38d0fe32e5cd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.h
-> @@ -148,6 +148,8 @@ int amdgpu_atombios_get_clock_info(struct amdgpu_de=
-vice *adev);
-> =20
->  int amdgpu_atombios_get_gfx_info(struct amdgpu_device *adev);
-> =20
-> +int amdgpu_atombios_get_vram_width(struct amdgpu_device *adev);
-> +
->  bool amdgpu_atombios_get_asic_ss_info(struct amdgpu_device *adev,
->  				      struct amdgpu_atom_ss *ss,
->  				      int id, u32 clock);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/am=
-d/amdgpu/gmc_v7_0.c
-> index 0c0a6015cca5..78643a1baa5c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-> @@ -37,6 +37,8 @@
->  #include "oss/oss_2_0_d.h"
->  #include "oss/oss_2_0_sh_mask.h"
-> =20
-> +#include "amdgpu_atombios.h"
-> +
->  static void gmc_v7_0_set_gart_funcs(struct amdgpu_device *adev);
->  static void gmc_v7_0_set_irq_funcs(struct amdgpu_device *adev);
->  static int gmc_v7_0_wait_for_idle(void *handle);
-> @@ -325,48 +327,51 @@ static void gmc_v7_0_mc_program(struct amdgpu_dev=
-ice *adev)
->   */
->  static int gmc_v7_0_mc_init(struct amdgpu_device *adev)
->  {
-> -	u32 tmp;
-> -	int chansize, numchan;
-> -
-> -	/* Get VRAM informations */
-> -	tmp =3D RREG32(mmMC_ARB_RAMCFG);
-> -	if (REG_GET_FIELD(tmp, MC_ARB_RAMCFG, CHANSIZE)) {
-> -		chansize =3D 64;
-> -	} else {
-> -		chansize =3D 32;
-> -	}
-> -	tmp =3D RREG32(mmMC_SHARED_CHMAP);
-> -	switch (REG_GET_FIELD(tmp, MC_SHARED_CHMAP, NOOFCHAN)) {
-> -	case 0:
-> -	default:
-> -		numchan =3D 1;
-> -		break;
-> -	case 1:
-> -		numchan =3D 2;
-> -		break;
-> -	case 2:
-> -		numchan =3D 4;
-> -		break;
-> -	case 3:
-> -		numchan =3D 8;
-> -		break;
-> -	case 4:
-> -		numchan =3D 3;
-> -		break;
-> -	case 5:
-> -		numchan =3D 6;
-> -		break;
-> -	case 6:
-> -		numchan =3D 10;
-> -		break;
-> -	case 7:
-> -		numchan =3D 12;
-> -		break;
-> -	case 8:
-> -		numchan =3D 16;
-> -		break;
-> +	adev->mc.vram_width =3D amdgpu_atombios_get_vram_width(adev);
-> +	if (!adev->mc.vram_width) {
-> +		u32 tmp;
-> +		int chansize, numchan;
-> +
-> +		/* Get VRAM informations */
-> +		tmp =3D RREG32(mmMC_ARB_RAMCFG);
-> +		if (REG_GET_FIELD(tmp, MC_ARB_RAMCFG, CHANSIZE)) {
-> +			chansize =3D 64;
-> +		} else {
-> +			chansize =3D 32;
-> +		}
-> +		tmp =3D RREG32(mmMC_SHARED_CHMAP);
-> +		switch (REG_GET_FIELD(tmp, MC_SHARED_CHMAP, NOOFCHAN)) {
-> +		case 0:
-> +		default:
-> +			numchan =3D 1;
-> +			break;
-> +		case 1:
-> +			numchan =3D 2;
-> +			break;
-> +		case 2:
-> +			numchan =3D 4;
-> +			break;
-> +		case 3:
-> +			numchan =3D 8;
-> +			break;
-> +		case 4:
-> +			numchan =3D 3;
-> +			break;
-> +		case 5:
-> +			numchan =3D 6;
-> +			break;
-> +		case 6:
-> +			numchan =3D 10;
-> +			break;
-> +		case 7:
-> +			numchan =3D 12;
-> +			break;
-> +		case 8:
-> +			numchan =3D 16;
-> +			break;
-> +		}
-> +		adev->mc.vram_width =3D numchan * chansize;
->  	}
-> -	adev->mc.vram_width =3D numchan * chansize;
->  	/* Could aper size report 0 ? */
->  	adev->mc.aper_base =3D pci_resource_start(adev->pdev, 0);
->  	adev->mc.aper_size =3D pci_resource_len(adev->pdev, 0);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/am=
-d/amdgpu/gmc_v8_0.c
-> index d19d1c5e2847..42b2f357a799 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-> @@ -38,6 +38,8 @@
->  #include "vid.h"
->  #include "vi.h"
-> =20
-> +#include "amdgpu_atombios.h"
-> +
-> =20
->  static void gmc_v8_0_set_gart_funcs(struct amdgpu_device *adev);
->  static void gmc_v8_0_set_irq_funcs(struct amdgpu_device *adev);
-> @@ -487,48 +489,51 @@ static void gmc_v8_0_mc_program(struct amdgpu_dev=
-ice *adev)
->   */
->  static int gmc_v8_0_mc_init(struct amdgpu_device *adev)
->  {
-> -	u32 tmp;
-> -	int chansize, numchan;
-> -
-> -	/* Get VRAM informations */
-> -	tmp =3D RREG32(mmMC_ARB_RAMCFG);
-> -	if (REG_GET_FIELD(tmp, MC_ARB_RAMCFG, CHANSIZE)) {
-> -		chansize =3D 64;
-> -	} else {
-> -		chansize =3D 32;
-> -	}
-> -	tmp =3D RREG32(mmMC_SHARED_CHMAP);
-> -	switch (REG_GET_FIELD(tmp, MC_SHARED_CHMAP, NOOFCHAN)) {
-> -	case 0:
-> -	default:
-> -		numchan =3D 1;
-> -		break;
-> -	case 1:
-> -		numchan =3D 2;
-> -		break;
-> -	case 2:
-> -		numchan =3D 4;
-> -		break;
-> -	case 3:
-> -		numchan =3D 8;
-> -		break;
-> -	case 4:
-> -		numchan =3D 3;
-> -		break;
-> -	case 5:
-> -		numchan =3D 6;
-> -		break;
-> -	case 6:
-> -		numchan =3D 10;
-> -		break;
-> -	case 7:
-> -		numchan =3D 12;
-> -		break;
-> -	case 8:
-> -		numchan =3D 16;
-> -		break;
-> +	adev->mc.vram_width =3D amdgpu_atombios_get_vram_width(adev);
-> +	if (!adev->mc.vram_width) {
-> +		u32 tmp;
-> +		int chansize, numchan;
-> +
-> +		/* Get VRAM informations */
-> +		tmp =3D RREG32(mmMC_ARB_RAMCFG);
-> +		if (REG_GET_FIELD(tmp, MC_ARB_RAMCFG, CHANSIZE)) {
-> +			chansize =3D 64;
-> +		} else {
-> +			chansize =3D 32;
-> +		}
-> +		tmp =3D RREG32(mmMC_SHARED_CHMAP);
-> +		switch (REG_GET_FIELD(tmp, MC_SHARED_CHMAP, NOOFCHAN)) {
-> +		case 0:
-> +		default:
-> +			numchan =3D 1;
-> +			break;
-> +		case 1:
-> +			numchan =3D 2;
-> +			break;
-> +		case 2:
-> +			numchan =3D 4;
-> +			break;
-> +		case 3:
-> +			numchan =3D 8;
-> +			break;
-> +		case 4:
-> +			numchan =3D 3;
-> +			break;
-> +		case 5:
-> +			numchan =3D 6;
-> +			break;
-> +		case 6:
-> +			numchan =3D 10;
-> +			break;
-> +		case 7:
-> +			numchan =3D 12;
-> +			break;
-> +		case 8:
-> +			numchan =3D 16;
-> +			break;
-> +		}
-> +		adev->mc.vram_width =3D numchan * chansize;
-
-I might miss something subtle here, but after reading this a couple of ti=
-mes,
-I've convinced myself this is exactly the same switch statement as in
-gmc_v7_0_mc_init() above, right? If so: why not move that part to common =
-code as
-well?
-
-Cheers,
-Kai
-
-
->  	}
-> -	adev->mc.vram_width =3D numchan * chansize;
->  	/* Could aper size report 0 ? */
->  	adev->mc.aper_base =3D pci_resource_start(adev->pdev, 0);
->  	adev->mc.aper_size =3D pci_resource_len(adev->pdev, 0);
-
-
-
---gaQPS6WfFJ8rwilucrRkXCjMsGDI8SXUV--
-
---4Jh0w8xo4VD56woRqUIesBHsmujIH1Bab
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQGzBAEBCgAdFiEEBgCWzvPI5zPlthWHownXbOHeWdIFAljiaEAACgkQownXbOHe
-WdLceQv/ftXrxJohtenOa0IIktXhW3RAqUHYAv7oVpEht2pmm39EjDqOF0Yuy1mY
-FHlK9AHZoJdbBuYENat5KhSx7+hXgLbgfWQAjVJbMy29JA/kCygABgp6a7LYl/An
-pgDbf2LQAMNlWj7Jc7yAgmDJlJwn1l+HO81DWOVxNV6ON0r0qxLU/+AiOmIhkalg
-RdDKruOPqC8tQsepCpw4JmQqAok+NpH8rtUVLcwwBFYAOT0jAfQ1K/8dxKX6qWNr
-bdTqLSdoLcEz54dOhS5eAvglmkEW+8d/tGCdXJqCNuziKv8N1sZVa/tSS2opC/K0
-QqLpL1fNgv/OEOS+V3UWv1b1oENYADuNFxy3tDbZV9yhcnY27e3oDD5mx0/PGBmi
-qXBiUJ34dipBo7jO23rwuZwKUKaR7clCblG3iouATYtBku1OISv4LZNgyVWiobR0
-WR3NHksHOApo2u4o4p7zVF9/OR306GovLxOFkLc2Soj3uDYj17YK5/H/pz059rrY
-1zj5aa/6
-=kYUh
------END PGP SIGNATURE-----
-
---4Jh0w8xo4VD56woRqUIesBHsmujIH1Bab--
-
---===============0973836569==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
+T24gMjAxNy0wNC0wMyAxMToyMCBBTSwgS2FpIFdhc3NlcmLDpGNoIHdyb3RlOgo+IERlYXIgSGFy
+cnksCj4gSGFycnkgV2VudGxhbmQgd3JvdGUgb24gMDMuMDQuMjAxNyAxNzowMToKPj4gT24gS0Is
+IEtWLCBDWiB3ZSBzaG91bGQgcmVhZCB0aGUgdnJhbSB3aWR0aCBmcm9tIGludGVncmF0ZWQgc3lz
+dGVtCj4+IHRhYmxlLCBpZiB3ZSBjYW4uIFRoZSBOT09GQ0hBTiBpbiBNQ19TSEFSRURfQ0hNQVAg
+aXMgbm90IGFjY3VyYXRlLgo+Pgo+PiBXaXRoIHRoaXMgY2hhbmdlIHdlIGNhbiBlbmFibGUgdHdv
+IDRrIGRpc3BsYXlzIG9uIENaIGFnYWluLiBUaGlzIHVzZQo+PiBjYXNlIHdhcyBicm9rZW4gc29t
+ZXRpbWUgaW4gSmFudWFyeSB3aGVuIHdlIHN0YXJ0ZWQgbG9va2luZyBhdAo+PiB2cmFtX3dpZHRo
+IGZvciBiYW5kd2lkdGggY2FsY3VsYXRpb25zIGluc3RlYWQgb2YgaGFyZGNvZGluZyB0aGlzIHZh
+bHVlLgo+Pgo+PiB2MjoKPj4gICBSZXR1cm4gMCBpZiBpbnRlZ3JhdGVkIHN5c3RlbSBpbmZvIHRh
+YmxlIGlzIG5vdCBhdmFpbGFibGUuCj4+Cj4+IFRlc3RlZC1ieTogUm9tYW4gTGkgPHJvbWFuLmxp
+QGFtZC5jb20+Cj4+IFNpZ25lZC1vZmYtYnk6IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFu
+ZEBhbWQuY29tPgo+PiAtLS0KPj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9h
+dG9tYmlvcy5jIHwgMjkgKysrKysrKysrKwo+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2F0b21iaW9zLmggfCAgMiArCj4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
+bWNfdjdfMC5jICAgICAgICB8IDg3ICsrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0KPj4gIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMgICAgICAgIHwgODcgKysrKysrKysr
+KysrKysrLS0tLS0tLS0tLS0tLQo+PiAgNCBmaWxlcyBjaGFuZ2VkLCAxMjMgaW5zZXJ0aW9ucygr
+KSwgODIgZGVsZXRpb25zKC0pCj4+Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfYXRvbWJpb3MuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9hdG9tYmlvcy5jCj4+IGluZGV4IGY1MmIxYmYzZDNkOS4uYWQ0MzI5OTIyZjc5IDEwMDY0
+NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYXRvbWJpb3MuYwo+
+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYXRvbWJpb3MuYwo+PiBA
+QCAtNzU0LDYgKzc1NCwzNSBAQCB1bmlvbiBpZ3BfaW5mbyB7Cj4+ICAJc3RydWN0IF9BVE9NX0lO
+VEVHUkFURURfU1lTVEVNX0lORk9fVjFfOSBpbmZvXzk7Cj4+ICB9Owo+Pgo+PiArLyoKPj4gKyAq
+IFJldHVybiB2cmFtIHdpZHRoIGZyb20gaW50ZWdyYXRlZCBzeXN0ZW0gaW5mbyB0YWJsZSwgaWYg
+YXZhaWxhYmxlLAo+PiArICogb3IgMCBpZiBub3QuCj4+ICsgKi8KPj4gK2ludCBhbWRncHVfYXRv
+bWJpb3NfZ2V0X3ZyYW1fd2lkdGgoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4+ICt7Cj4+
+ICsJc3RydWN0IGFtZGdwdV9tb2RlX2luZm8gKm1vZGVfaW5mbyA9ICZhZGV2LT5tb2RlX2luZm87
+Cj4+ICsJaW50IGluZGV4ID0gR2V0SW5kZXhJbnRvTWFzdGVyVGFibGUoREFUQSwgSW50ZWdyYXRl
+ZFN5c3RlbUluZm8pOwo+PiArCXUxNiBkYXRhX29mZnNldCwgc2l6ZTsKPj4gKwl1bmlvbiBpZ3Bf
+aW5mbyAqaWdwX2luZm87Cj4+ICsJdTggZnJldiwgY3JldjsKPj4gKwo+PiArCS8qIGdldCBhbnkg
+aWdwIHNwZWNpZmljIG92ZXJyaWRlcyAqLwo+PiArCWlmIChhbWRncHVfYXRvbV9wYXJzZV9kYXRh
+X2hlYWRlcihtb2RlX2luZm8tPmF0b21fY29udGV4dCwgaW5kZXgsICZzaXplLAo+PiArCQkJCSAg
+ICZmcmV2LCAmY3JldiwgJmRhdGFfb2Zmc2V0KSkgewo+PiArCQlpZ3BfaW5mbyA9ICh1bmlvbiBp
+Z3BfaW5mbyAqKQo+PiArCQkJKG1vZGVfaW5mby0+YXRvbV9jb250ZXh0LT5iaW9zICsgZGF0YV9v
+ZmZzZXQpOwo+PiArCQlzd2l0Y2ggKGNyZXYpIHsKPj4gKwkJY2FzZSA4Ogo+PiArCQljYXNlIDk6
+Cj4+ICsJCQlyZXR1cm4gaWdwX2luZm8tPmluZm9fOC51Y1VNQUNoYW5uZWxOdW1iZXIgKiA2NDsK
+Pj4gKwkJZGVmYXVsdDoKPj4gKwkJCXJldHVybiAwOwo+PiArCQl9Cj4+ICsJfQo+PiArCj4+ICsJ
+cmV0dXJuIDA7Cj4+ICt9Cj4+ICsKPj4gIHN0YXRpYyB2b2lkIGFtZGdwdV9hdG9tYmlvc19nZXRf
+aWdwX3NzX292ZXJyaWRlcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4gIAkJCQkJCSBz
+dHJ1Y3QgYW1kZ3B1X2F0b21fc3MgKnNzLAo+PiAgCQkJCQkJIGludCBpZCkKPj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hdG9tYmlvcy5oIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2F0b21iaW9zLmgKPj4gaW5kZXggNGUwZjQ4ODQ4
+N2YzLi4zOGQwZmUzMmU1Y2QgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9hdG9tYmlvcy5oCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9hdG9tYmlvcy5oCj4+IEBAIC0xNDgsNiArMTQ4LDggQEAgaW50IGFtZGdwdV9hdG9t
+Ymlvc19nZXRfY2xvY2tfaW5mbyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7Cj4+Cj4+ICBp
+bnQgYW1kZ3B1X2F0b21iaW9zX2dldF9nZnhfaW5mbyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
+dik7Cj4+Cj4+ICtpbnQgYW1kZ3B1X2F0b21iaW9zX2dldF92cmFtX3dpZHRoKHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2KTsKPj4gKwo+PiAgYm9vbCBhbWRncHVfYXRvbWJpb3NfZ2V0X2FzaWNf
+c3NfaW5mbyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4gIAkJCQkgICAgICBzdHJ1Y3Qg
+YW1kZ3B1X2F0b21fc3MgKnNzLAo+PiAgCQkJCSAgICAgIGludCBpZCwgdTMyIGNsb2NrKTsKPj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192N18wLmMgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjdfMC5jCj4+IGluZGV4IDBjMGE2MDE1Y2NhNS4u
+Nzg2NDNhMWJhYTVjIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
+bWNfdjdfMC5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192N18wLmMK
+Pj4gQEAgLTM3LDYgKzM3LDggQEAKPj4gICNpbmNsdWRlICJvc3Mvb3NzXzJfMF9kLmgiCj4+ICAj
+aW5jbHVkZSAib3NzL29zc18yXzBfc2hfbWFzay5oIgo+Pgo+PiArI2luY2x1ZGUgImFtZGdwdV9h
+dG9tYmlvcy5oIgo+PiArCj4+ICBzdGF0aWMgdm9pZCBnbWNfdjdfMF9zZXRfZ2FydF9mdW5jcyhz
+dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7Cj4+ICBzdGF0aWMgdm9pZCBnbWNfdjdfMF9zZXRf
+aXJxX2Z1bmNzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKPj4gIHN0YXRpYyBpbnQgZ21j
+X3Y3XzBfd2FpdF9mb3JfaWRsZSh2b2lkICpoYW5kbGUpOwo+PiBAQCAtMzI1LDQ4ICszMjcsNTEg
+QEAgc3RhdGljIHZvaWQgZ21jX3Y3XzBfbWNfcHJvZ3JhbShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
+YWRldikKPj4gICAqLwo+PiAgc3RhdGljIGludCBnbWNfdjdfMF9tY19pbml0KHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2KQo+PiAgewo+PiAtCXUzMiB0bXA7Cj4+IC0JaW50IGNoYW5zaXplLCBu
+dW1jaGFuOwo+PiAtCj4+IC0JLyogR2V0IFZSQU0gaW5mb3JtYXRpb25zICovCj4+IC0JdG1wID0g
+UlJFRzMyKG1tTUNfQVJCX1JBTUNGRyk7Cj4+IC0JaWYgKFJFR19HRVRfRklFTEQodG1wLCBNQ19B
+UkJfUkFNQ0ZHLCBDSEFOU0laRSkpIHsKPj4gLQkJY2hhbnNpemUgPSA2NDsKPj4gLQl9IGVsc2Ug
+ewo+PiAtCQljaGFuc2l6ZSA9IDMyOwo+PiAtCX0KPj4gLQl0bXAgPSBSUkVHMzIobW1NQ19TSEFS
+RURfQ0hNQVApOwo+PiAtCXN3aXRjaCAoUkVHX0dFVF9GSUVMRCh0bXAsIE1DX1NIQVJFRF9DSE1B
+UCwgTk9PRkNIQU4pKSB7Cj4+IC0JY2FzZSAwOgo+PiAtCWRlZmF1bHQ6Cj4+IC0JCW51bWNoYW4g
+PSAxOwo+PiAtCQlicmVhazsKPj4gLQljYXNlIDE6Cj4+IC0JCW51bWNoYW4gPSAyOwo+PiAtCQli
+cmVhazsKPj4gLQljYXNlIDI6Cj4+IC0JCW51bWNoYW4gPSA0Owo+PiAtCQlicmVhazsKPj4gLQlj
+YXNlIDM6Cj4+IC0JCW51bWNoYW4gPSA4Owo+PiAtCQlicmVhazsKPj4gLQljYXNlIDQ6Cj4+IC0J
+CW51bWNoYW4gPSAzOwo+PiAtCQlicmVhazsKPj4gLQljYXNlIDU6Cj4+IC0JCW51bWNoYW4gPSA2
+Owo+PiAtCQlicmVhazsKPj4gLQljYXNlIDY6Cj4+IC0JCW51bWNoYW4gPSAxMDsKPj4gLQkJYnJl
+YWs7Cj4+IC0JY2FzZSA3Ogo+PiAtCQludW1jaGFuID0gMTI7Cj4+IC0JCWJyZWFrOwo+PiAtCWNh
+c2UgODoKPj4gLQkJbnVtY2hhbiA9IDE2Owo+PiAtCQlicmVhazsKPj4gKwlhZGV2LT5tYy52cmFt
+X3dpZHRoID0gYW1kZ3B1X2F0b21iaW9zX2dldF92cmFtX3dpZHRoKGFkZXYpOwo+PiArCWlmICgh
+YWRldi0+bWMudnJhbV93aWR0aCkgewo+PiArCQl1MzIgdG1wOwo+PiArCQlpbnQgY2hhbnNpemUs
+IG51bWNoYW47Cj4+ICsKPj4gKwkJLyogR2V0IFZSQU0gaW5mb3JtYXRpb25zICovCj4+ICsJCXRt
+cCA9IFJSRUczMihtbU1DX0FSQl9SQU1DRkcpOwo+PiArCQlpZiAoUkVHX0dFVF9GSUVMRCh0bXAs
+IE1DX0FSQl9SQU1DRkcsIENIQU5TSVpFKSkgewo+PiArCQkJY2hhbnNpemUgPSA2NDsKPj4gKwkJ
+fSBlbHNlIHsKPj4gKwkJCWNoYW5zaXplID0gMzI7Cj4+ICsJCX0KPj4gKwkJdG1wID0gUlJFRzMy
+KG1tTUNfU0hBUkVEX0NITUFQKTsKPj4gKwkJc3dpdGNoIChSRUdfR0VUX0ZJRUxEKHRtcCwgTUNf
+U0hBUkVEX0NITUFQLCBOT09GQ0hBTikpIHsKPj4gKwkJY2FzZSAwOgo+PiArCQlkZWZhdWx0Ogo+
+PiArCQkJbnVtY2hhbiA9IDE7Cj4+ICsJCQlicmVhazsKPj4gKwkJY2FzZSAxOgo+PiArCQkJbnVt
+Y2hhbiA9IDI7Cj4+ICsJCQlicmVhazsKPj4gKwkJY2FzZSAyOgo+PiArCQkJbnVtY2hhbiA9IDQ7
+Cj4+ICsJCQlicmVhazsKPj4gKwkJY2FzZSAzOgo+PiArCQkJbnVtY2hhbiA9IDg7Cj4+ICsJCQli
+cmVhazsKPj4gKwkJY2FzZSA0Ogo+PiArCQkJbnVtY2hhbiA9IDM7Cj4+ICsJCQlicmVhazsKPj4g
+KwkJY2FzZSA1Ogo+PiArCQkJbnVtY2hhbiA9IDY7Cj4+ICsJCQlicmVhazsKPj4gKwkJY2FzZSA2
+Ogo+PiArCQkJbnVtY2hhbiA9IDEwOwo+PiArCQkJYnJlYWs7Cj4+ICsJCWNhc2UgNzoKPj4gKwkJ
+CW51bWNoYW4gPSAxMjsKPj4gKwkJCWJyZWFrOwo+PiArCQljYXNlIDg6Cj4+ICsJCQludW1jaGFu
+ID0gMTY7Cj4+ICsJCQlicmVhazsKPj4gKwkJfQo+PiArCQlhZGV2LT5tYy52cmFtX3dpZHRoID0g
+bnVtY2hhbiAqIGNoYW5zaXplOwo+PiAgCX0KPj4gLQlhZGV2LT5tYy52cmFtX3dpZHRoID0gbnVt
+Y2hhbiAqIGNoYW5zaXplOwo+PiAgCS8qIENvdWxkIGFwZXIgc2l6ZSByZXBvcnQgMCA/ICovCj4+
+ICAJYWRldi0+bWMuYXBlcl9iYXNlID0gcGNpX3Jlc291cmNlX3N0YXJ0KGFkZXYtPnBkZXYsIDAp
+Owo+PiAgCWFkZXYtPm1jLmFwZXJfc2l6ZSA9IHBjaV9yZXNvdXJjZV9sZW4oYWRldi0+cGRldiwg
+MCk7Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjhfMC5j
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y4XzAuYwo+PiBpbmRleCBkMTlkMWM1
+ZTI4NDcuLjQyYjJmMzU3YTc5OSAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvZ21jX3Y4XzAuYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNf
+djhfMC5jCj4+IEBAIC0zOCw2ICszOCw4IEBACj4+ICAjaW5jbHVkZSAidmlkLmgiCj4+ICAjaW5j
+bHVkZSAidmkuaCIKPj4KPj4gKyNpbmNsdWRlICJhbWRncHVfYXRvbWJpb3MuaCIKPj4gKwo+Pgo+
+PiAgc3RhdGljIHZvaWQgZ21jX3Y4XzBfc2V0X2dhcnRfZnVuY3Moc3RydWN0IGFtZGdwdV9kZXZp
+Y2UgKmFkZXYpOwo+PiAgc3RhdGljIHZvaWQgZ21jX3Y4XzBfc2V0X2lycV9mdW5jcyhzdHJ1Y3Qg
+YW1kZ3B1X2RldmljZSAqYWRldik7Cj4+IEBAIC00ODcsNDggKzQ4OSw1MSBAQCBzdGF0aWMgdm9p
+ZCBnbWNfdjhfMF9tY19wcm9ncmFtKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+PiAgICov
+Cj4+ICBzdGF0aWMgaW50IGdtY192OF8wX21jX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
+ZXYpCj4+ICB7Cj4+IC0JdTMyIHRtcDsKPj4gLQlpbnQgY2hhbnNpemUsIG51bWNoYW47Cj4+IC0K
+Pj4gLQkvKiBHZXQgVlJBTSBpbmZvcm1hdGlvbnMgKi8KPj4gLQl0bXAgPSBSUkVHMzIobW1NQ19B
+UkJfUkFNQ0ZHKTsKPj4gLQlpZiAoUkVHX0dFVF9GSUVMRCh0bXAsIE1DX0FSQl9SQU1DRkcsIENI
+QU5TSVpFKSkgewo+PiAtCQljaGFuc2l6ZSA9IDY0Owo+PiAtCX0gZWxzZSB7Cj4+IC0JCWNoYW5z
+aXplID0gMzI7Cj4+IC0JfQo+PiAtCXRtcCA9IFJSRUczMihtbU1DX1NIQVJFRF9DSE1BUCk7Cj4+
+IC0Jc3dpdGNoIChSRUdfR0VUX0ZJRUxEKHRtcCwgTUNfU0hBUkVEX0NITUFQLCBOT09GQ0hBTikp
+IHsKPj4gLQljYXNlIDA6Cj4+IC0JZGVmYXVsdDoKPj4gLQkJbnVtY2hhbiA9IDE7Cj4+IC0JCWJy
+ZWFrOwo+PiAtCWNhc2UgMToKPj4gLQkJbnVtY2hhbiA9IDI7Cj4+IC0JCWJyZWFrOwo+PiAtCWNh
+c2UgMjoKPj4gLQkJbnVtY2hhbiA9IDQ7Cj4+IC0JCWJyZWFrOwo+PiAtCWNhc2UgMzoKPj4gLQkJ
+bnVtY2hhbiA9IDg7Cj4+IC0JCWJyZWFrOwo+PiAtCWNhc2UgNDoKPj4gLQkJbnVtY2hhbiA9IDM7
+Cj4+IC0JCWJyZWFrOwo+PiAtCWNhc2UgNToKPj4gLQkJbnVtY2hhbiA9IDY7Cj4+IC0JCWJyZWFr
+Owo+PiAtCWNhc2UgNjoKPj4gLQkJbnVtY2hhbiA9IDEwOwo+PiAtCQlicmVhazsKPj4gLQljYXNl
+IDc6Cj4+IC0JCW51bWNoYW4gPSAxMjsKPj4gLQkJYnJlYWs7Cj4+IC0JY2FzZSA4Ogo+PiAtCQlu
+dW1jaGFuID0gMTY7Cj4+IC0JCWJyZWFrOwo+PiArCWFkZXYtPm1jLnZyYW1fd2lkdGggPSBhbWRn
+cHVfYXRvbWJpb3NfZ2V0X3ZyYW1fd2lkdGgoYWRldik7Cj4+ICsJaWYgKCFhZGV2LT5tYy52cmFt
+X3dpZHRoKSB7Cj4+ICsJCXUzMiB0bXA7Cj4+ICsJCWludCBjaGFuc2l6ZSwgbnVtY2hhbjsKPj4g
+Kwo+PiArCQkvKiBHZXQgVlJBTSBpbmZvcm1hdGlvbnMgKi8KPj4gKwkJdG1wID0gUlJFRzMyKG1t
+TUNfQVJCX1JBTUNGRyk7Cj4+ICsJCWlmIChSRUdfR0VUX0ZJRUxEKHRtcCwgTUNfQVJCX1JBTUNG
+RywgQ0hBTlNJWkUpKSB7Cj4+ICsJCQljaGFuc2l6ZSA9IDY0Owo+PiArCQl9IGVsc2Ugewo+PiAr
+CQkJY2hhbnNpemUgPSAzMjsKPj4gKwkJfQo+PiArCQl0bXAgPSBSUkVHMzIobW1NQ19TSEFSRURf
+Q0hNQVApOwo+PiArCQlzd2l0Y2ggKFJFR19HRVRfRklFTEQodG1wLCBNQ19TSEFSRURfQ0hNQVAs
+IE5PT0ZDSEFOKSkgewo+PiArCQljYXNlIDA6Cj4+ICsJCWRlZmF1bHQ6Cj4+ICsJCQludW1jaGFu
+ID0gMTsKPj4gKwkJCWJyZWFrOwo+PiArCQljYXNlIDE6Cj4+ICsJCQludW1jaGFuID0gMjsKPj4g
+KwkJCWJyZWFrOwo+PiArCQljYXNlIDI6Cj4+ICsJCQludW1jaGFuID0gNDsKPj4gKwkJCWJyZWFr
+Owo+PiArCQljYXNlIDM6Cj4+ICsJCQludW1jaGFuID0gODsKPj4gKwkJCWJyZWFrOwo+PiArCQlj
+YXNlIDQ6Cj4+ICsJCQludW1jaGFuID0gMzsKPj4gKwkJCWJyZWFrOwo+PiArCQljYXNlIDU6Cj4+
+ICsJCQludW1jaGFuID0gNjsKPj4gKwkJCWJyZWFrOwo+PiArCQljYXNlIDY6Cj4+ICsJCQludW1j
+aGFuID0gMTA7Cj4+ICsJCQlicmVhazsKPj4gKwkJY2FzZSA3Ogo+PiArCQkJbnVtY2hhbiA9IDEy
+Owo+PiArCQkJYnJlYWs7Cj4+ICsJCWNhc2UgODoKPj4gKwkJCW51bWNoYW4gPSAxNjsKPj4gKwkJ
+CWJyZWFrOwo+PiArCQl9Cj4+ICsJCWFkZXYtPm1jLnZyYW1fd2lkdGggPSBudW1jaGFuICogY2hh
+bnNpemU7Cj4KPiBJIG1pZ2h0IG1pc3Mgc29tZXRoaW5nIHN1YnRsZSBoZXJlLCBidXQgYWZ0ZXIg
+cmVhZGluZyB0aGlzIGEgY291cGxlIG9mIHRpbWVzLAo+IEkndmUgY29udmluY2VkIG15c2VsZiB0
+aGlzIGlzIGV4YWN0bHkgdGhlIHNhbWUgc3dpdGNoIHN0YXRlbWVudCBhcyBpbgo+IGdtY192N18w
+X21jX2luaXQoKSBhYm92ZSwgcmlnaHQ/IElmIHNvOiB3aHkgbm90IG1vdmUgdGhhdCBwYXJ0IHRv
+IGNvbW1vbiBjb2RlIGFzCj4gd2VsbD8KPgoKTXkgcGF0Y2ggaXNuJ3QgYWRkaW5nIChvciByZW1v
+dmluZykgYW55IGR1cGxpY2F0aW9uLCBqdXN0IHdyYXBwaW5nIHRoZSAKd2hvbGUgdGhpbmcgaW4g
+YSBjYWxsIHRvIGF0b21iaW9zLgoKSSdkIHJhdGhlciBub3QgY2hhbmdlIHRoZSBkZXNpZ24gb2Yg
+dGhlIEdNQyBjb21wb25lbnQgd2l0aCB0aGlzIHBhdGNoLiAKSXQgY291bGQgdmVyeSB3ZWxsIGhh
+dmUgYmVlbiBhIGRlc2lnbiBkZWNpc2lvbnMgdG8gaGF2ZSB0aGlzIApkdXBsaWNhdGlvbiwgaW4g
+cGFydCBiZWNhdXNlIG9mIHRoZSByZWdpc3RlciBhY2Nlc3MuIG1tTUNfQVJCX1JBTUNGRyAKY291
+bGQgYmUgZGVmaW5lZCBkaWZmZXJlbnRseSBmb3IgdjcgYW5kIHY4LiBUaGUgZGlmZmVyZW50IGRl
+ZmluZXMgYXJlIApwdWxsZWQgaW4gdGhyb3VnaCBkaWZmZXJlbnQgcmVnaXN0ZXIgaGVhZGVyIGlu
+Y2x1ZGVzLCBnbWNfN18xX2QuaCB2cyAKZ21jL2dtY184XzFfZC5oLgoKSGFycnkKCj4gQ2hlZXJz
+LAo+IEthaQo+Cj4KPj4gIAl9Cj4+IC0JYWRldi0+bWMudnJhbV93aWR0aCA9IG51bWNoYW4gKiBj
+aGFuc2l6ZTsKPj4gIAkvKiBDb3VsZCBhcGVyIHNpemUgcmVwb3J0IDAgPyAqLwo+PiAgCWFkZXYt
+Pm1jLmFwZXJfYmFzZSA9IHBjaV9yZXNvdXJjZV9zdGFydChhZGV2LT5wZGV2LCAwKTsKPj4gIAlh
+ZGV2LT5tYy5hcGVyX3NpemUgPSBwY2lfcmVzb3VyY2VfbGVuKGFkZXYtPnBkZXYsIDApOwo+Cj4K
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0973836569==--
