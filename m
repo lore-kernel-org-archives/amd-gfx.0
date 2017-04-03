@@ -1,57 +1,121 @@
-From: =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nhaehnle@gmail.com>
-Subject: Re: [PATCH 3/6] drm/ttm: add TTM_PL_FLAG_CONTIGUOUS v2
-Date: Mon, 3 Apr 2017 18:27:43 +0200
-Message-ID: <841e2332-8c69-0be7-a2ad-9f504ae31e6a@gmail.com>
-References: <1490953652-3703-1-git-send-email-deathsimple@vodafone.de>
- <1490953652-3703-3-git-send-email-deathsimple@vodafone.de>
+From: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+Subject: Re: [PATCH v2] drm/amdgpu: Read vram width from integrated system
+ info table
+Date: Mon, 3 Apr 2017 18:29:55 +0200
+Message-ID: <7039d294-d6af-76dd-e129-854013ab4947@dev.carbon-project.org>
+References: <20170403150107.13253-1-harry.wentland@amd.com>
+ <8623a5d4-1e10-fc46-aaa2-0777b500c3a2@dev.carbon-project.org>
+ <BN6PR12MB1652CE82ACBFD409F3829D35F7080@BN6PR12MB1652.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <1490953652-3703-3-git-send-email-deathsimple@vodafone.de>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple@vodafone.de>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0365421981=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <BN6PR12MB1652CE82ACBFD409F3829D35F7080-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gMzEuMDMuMjAxNyAxMTo0NywgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBGcm9tOiBDaHJp
-c3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4KPiBUaGlzIGFsbG93cyBk
-cml2ZXJzIHRvIHNwZWNpZnkgaWYgdGhleSBuZWVkIGEgY29udGlndW91cyBhbGxvY2F0aW9uIG9y
-IG5vdC4KPgo+IHYyOiB1c2Ugc3BhY2UgaW5zdGVhZCBvZiB0YWIKPgo+IFNpZ25lZC1vZmYtYnk6
-IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KClBhdGNoZXMgMS0z
-OgoKUmV2aWV3ZWQtYnk6IE5pY29sYWkgSMOkaG5sZSA8bmljb2xhaS5oYWVobmxlQGFtZC5jb20+
-CgpQYXRjaCA0OgoKQWNrZWQtYnk6IE5pY29sYWkgSMOkaG5sZSA8bmljb2xhaS5oYWVobmxlQGFt
-ZC5jb20+CgoKPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm8uYyAgICB8IDQgKysr
-LQo+ICBpbmNsdWRlL2RybS90dG0vdHRtX3BsYWNlbWVudC5oIHwgMSArCj4gIDIgZmlsZXMgY2hh
-bmdlZCwgNCBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL3R0bS90dG1fYm8uYyBiL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMK
-PiBpbmRleCAzNDhiMTdlLi5kYTM3Y2RmIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS90
-dG0vdHRtX2JvLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jCj4gQEAgLTEw
-NjIsNyArMTA2Miw5IEBAIHN0YXRpYyBib29sIHR0bV9ib19wbGFjZXNfY29tcGF0KGNvbnN0IHN0
-cnVjdCB0dG1fcGxhY2UgKnBsYWNlcywKPgo+ICAJCSpuZXdfZmxhZ3MgPSBoZWFwLT5mbGFnczsK
-PiAgCQlpZiAoKCpuZXdfZmxhZ3MgJiBtZW0tPnBsYWNlbWVudCAmIFRUTV9QTF9NQVNLX0NBQ0hJ
-TkcpICYmCj4gLQkJICAgICgqbmV3X2ZsYWdzICYgbWVtLT5wbGFjZW1lbnQgJiBUVE1fUExfTUFT
-S19NRU0pKQo+ICsJCSAgICAoKm5ld19mbGFncyAmIG1lbS0+cGxhY2VtZW50ICYgVFRNX1BMX01B
-U0tfTUVNKSAmJgo+ICsJCSAgICAoISgqbmV3X2ZsYWdzICYgVFRNX1BMX0ZMQUdfQ09OVElHVU9V
-UykgfHwKPiArCQkgICAgIChtZW0tPnBsYWNlbWVudCAmIFRUTV9QTF9GTEFHX0NPTlRJR1VPVVMp
-KSkKPiAgCQkJcmV0dXJuIHRydWU7Cj4gIAl9Cj4gIAlyZXR1cm4gZmFsc2U7Cj4gZGlmZiAtLWdp
-dCBhL2luY2x1ZGUvZHJtL3R0bS90dG1fcGxhY2VtZW50LmggYi9pbmNsdWRlL2RybS90dG0vdHRt
-X3BsYWNlbWVudC5oCj4gaW5kZXggOTMyYmUwYy4uZTg4YThlMyAxMDA2NDQKPiAtLS0gYS9pbmNs
-dWRlL2RybS90dG0vdHRtX3BsYWNlbWVudC5oCj4gKysrIGIvaW5jbHVkZS9kcm0vdHRtL3R0bV9w
-bGFjZW1lbnQuaAo+IEBAIC02Myw2ICs2Myw3IEBACj4gICNkZWZpbmUgVFRNX1BMX0ZMQUdfQ0FD
-SEVEICAgICAgKDEgPDwgMTYpCj4gICNkZWZpbmUgVFRNX1BMX0ZMQUdfVU5DQUNIRUQgICAgKDEg
-PDwgMTcpCj4gICNkZWZpbmUgVFRNX1BMX0ZMQUdfV0MgICAgICAgICAgKDEgPDwgMTgpCj4gKyNk
-ZWZpbmUgVFRNX1BMX0ZMQUdfQ09OVElHVU9VUyAgKDEgPDwgMTkpCj4gICNkZWZpbmUgVFRNX1BM
-X0ZMQUdfTk9fRVZJQ1QgICAgKDEgPDwgMjEpCj4gICNkZWZpbmUgVFRNX1BMX0ZMQUdfVE9QRE9X
-TiAgICAgKDEgPDwgMjIpCj4KPgoKCi0tIApMZXJuZSwgd2llIGRpZSBXZWx0IHdpcmtsaWNoIGlz
-dCwKQWJlciB2ZXJnaXNzIG5pZW1hbHMsIHdpZSBzaWUgc2VpbiBzb2xsdGUuCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxp
-c3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0365421981==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature";
+ boundary="x0jCxmDQiBNwScoMoq7FpkEnJLrAfudR2"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--x0jCxmDQiBNwScoMoq7FpkEnJLrAfudR2
+Content-Type: multipart/mixed; boundary="jRN3a90PxTJcTOPLUAJPqAFqpKK9DUpNu";
+ protected-headers="v1"
+From: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>,
+ Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>,
+ amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Message-ID: <7039d294-d6af-76dd-e129-854013ab4947-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+Subject: Re: [PATCH v2] drm/amdgpu: Read vram width from integrated system
+ info table
+References: <20170403150107.13253-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
+ <8623a5d4-1e10-fc46-aaa2-0777b500c3a2-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+ <BN6PR12MB1652CE82ACBFD409F3829D35F7080-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <BN6PR12MB1652CE82ACBFD409F3829D35F7080-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+
+--jRN3a90PxTJcTOPLUAJPqAFqpKK9DUpNu
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Deucher, Alexander wrote on 03.04.2017 17:43:
+>> -----Original Message-----
+>> From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf=
+
+>> Of Kai Wasserb=C3=A4ch
+>> Sent: Monday, April 03, 2017 11:20 AM
+>> To: Wentland, Harry; amd-gfx list
+>> Subject: Re: [PATCH v2] drm/amdgpu: Read vram width from integrated
+>> system info table
+>>
+>> [...]
+>>
+>> I might miss something subtle here, but after reading this a couple of=
+ times,
+>> I've convinced myself this is exactly the same switch statement as in
+>> gmc_v7_0_mc_init() above, right? If so: why not move that part to comm=
+on
+>> code as
+>> well?
+>=20
+> The register offsets and bitfields may change across different IP revis=
+ions.  The actual switch statement itself could be common I guess (minus =
+the registers), but I'm not sure if it's worth the effort.
+
+Thanks to both of you for the explanation. Since everything was named exa=
+ctly
+the same I assumed the definitions for the registers matched as well. Sti=
+ll if
+large chunks of code are common helpers might still be nice and reduce th=
+e
+overall LOCs. Anyway, that's obviously your decision.
+
+Cheers,
+Kai
+
+
+--jRN3a90PxTJcTOPLUAJPqAFqpKK9DUpNu--
+
+--x0jCxmDQiBNwScoMoq7FpkEnJLrAfudR2
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQGzBAEBCgAdFiEEBgCWzvPI5zPlthWHownXbOHeWdIFAljieIQACgkQownXbOHe
+WdLI3Av/ffCgCZ7qz1hxY7oo5fxkYg6xXR2QBe6eIp+caOjwubLShprOObkcLFLJ
+HoLt8N28EQWySvbfMS3wzWiW1W29XARBID625K/KnuLLunOc5UOC5GwrYxpCexGq
+0jIInfJBZv9vV1Ua0Dk33oVFUDwDasjmlR59iPmZFUTN6KdGT9Jd+U+6jgdYNZ3H
+T/Vb1d0QVSmgkPaF0fY132BEkfOAuVyuVl6ZIM6MZXKUaPJQkzk01NGlTkXIIH7C
+Z+VyUlG31iXol0vr4taPhmHmeIXGxWjQexafMifZX06B53KgXacuJty6f6txnOdL
+3V37mBlYnYjv+9m5IOLRlwh+Q3iCkhGWqbBy1ZqX98anVAku9ndSevGq54c0YZLy
+Inan6G+zAAfKjMoUy5Ua9PxGYLHsMmAyweFBHKhqLk4m8SSVwikpBPv4YiHKtAan
+O06VsAB8sSXVYXw96Dykjqp2yNDaTZdp0Gm53d3wTJ0TH2+DCuEsglgeBc38bg00
+TwOgUZkO
+=x48L
+-----END PGP SIGNATURE-----
+
+--x0jCxmDQiBNwScoMoq7FpkEnJLrAfudR2--
+
+--===============0365421981==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0365421981==--
