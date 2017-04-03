@@ -1,56 +1,44 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix a NULL deref in amdgpu_vm_add_prt_cb()
-Date: Mon, 3 Apr 2017 16:36:59 -0400
-Message-ID: <CADnq5_ML1S6h+EBntBkNeGVWYO9f9cL=ZpSCQHd2kTzV2VdVDg@mail.gmail.com>
-References: <20170403184139.GA12398@mwanda> <10afeb82-a698-5684-0303-5c9a3895d99f@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu/soc15: Fix static checker warnings
+Date: Mon,  3 Apr 2017 16:58:41 -0400
+Message-ID: <1491253121-28851-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Return-path: <kernel-janitors-owner@vger.kernel.org>
-In-Reply-To: <10afeb82-a698-5684-0303-5c9a3895d99f@amd.com>
-Sender: kernel-janitors-owner@vger.kernel.org
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: Dan Carpenter <dan.carpenter@oracle.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, kernel-janitors@vger.kernel.org, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Junwei Zhang <Jerry.Zhang@amd.com>, Edward O'Callaghan <funfunctor@folklore1984.net>, Alex Xie <AlexBin.Xie@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-On Mon, Apr 3, 2017 at 2:53 PM, Harry Wentland <harry.wentland@amd.com> wrote:
-> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
->
-> Harry
->
-
-Applied.  thanks!
-
-Alex
-
->
-> On 2017-04-03 02:41 PM, Dan Carpenter wrote:
->>
->> We accidentally dereference "cb" if the kmalloc() fails.
->>
->> Fixes: 451bc8eb8fe6 ("drm/amdgpu: fix PRT teardown on VM fini v3")
->> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> index 0235d7933efd..45a1bcfc41f7 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> @@ -1518,7 +1518,7 @@ static void amdgpu_vm_add_prt_cb(struct
->> amdgpu_device *adev,
->>                 if (fence)
->>                         dma_fence_wait(fence, false);
->>
->> -               amdgpu_vm_prt_put(cb->adev);
->> +               amdgpu_vm_prt_put(adev);
->>         } else {
->>                 cb->adev = adev;
->>                 if (!fence || dma_fence_add_callback(fence, &cb->cb,
->> _______________________________________________
->> dri-devel mailing list
->> dri-devel@lists.freedesktop.org
->> https://lists.freedesktop.org/mailman/listinfo/dri-devel
->>
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+dmVnYTEwIGlzIHRoZSBvbmx5IHNvYzE1IGFzaWMgYXQgdGhlIG1vbWVudCBzbyB0aGVzZQp3YXJu
+aW5ncyBhcmUgaW52YWxpZCwgYnV0IGFkZCBhIGRlZmF1bHQgY2FzZSB0byBzaWxlbmNlCnRoZSB3
+YXJuaW5ncy4KCkZpeGVzOiAyMjBhYjliZDFjY2Y6ICJkcm0vYW1kZ3B1OiBzb2MxNSBlbmFibGUg
+KHYzKSIKUmVwb3J0ZWQtYnk6IERhbiBDYXJwZW50ZXIgPGRhbi5jYXJwZW50ZXJAb3JhY2xlLmNv
+bT4KU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29t
+PgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMgfCA0ICsrKysKIDEgZmls
+ZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9zb2MxNS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYwpp
+bmRleCBiYjE0YTQ1Li43NThmYWNkIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9zb2MxNS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMKQEAg
+LTEwNiw2ICsxMDYsOCBAQCBzdGF0aWMgdTMyIHNvYzE1X3BjaWVfcnJlZyhzdHJ1Y3QgYW1kZ3B1
+X2RldmljZSAqYWRldiwgdTMyIHJlZykKIAogCWlmIChhZGV2LT5hc2ljX3R5cGUgPT0gQ0hJUF9W
+RUdBMTApCiAJCW5iaW9fcGNpZV9pZCA9ICZuYmlvX3Y2XzFfcGNpZV9pbmRleF9kYXRhOworCWVs
+c2UKKwkJQlVHKCk7CiAKIAlhZGRyZXNzID0gbmJpb19wY2llX2lkLT5pbmRleF9vZmZzZXQ7CiAJ
+ZGF0YSA9IG5iaW9fcGNpZV9pZC0+ZGF0YV9vZmZzZXQ7CkBAIC0xMjUsNiArMTI3LDggQEAgc3Rh
+dGljIHZvaWQgc29jMTVfcGNpZV93cmVnKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1MzIg
+cmVnLCB1MzIgdikKIAogCWlmIChhZGV2LT5hc2ljX3R5cGUgPT0gQ0hJUF9WRUdBMTApCiAJCW5i
+aW9fcGNpZV9pZCA9ICZuYmlvX3Y2XzFfcGNpZV9pbmRleF9kYXRhOworCWVsc2UKKwkJQlVHKCk7
+CiAKIAlhZGRyZXNzID0gbmJpb19wY2llX2lkLT5pbmRleF9vZmZzZXQ7CiAJZGF0YSA9IG5iaW9f
+cGNpZV9pZC0+ZGF0YV9vZmZzZXQ7Ci0tIAoyLjUuNQoKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9hbWQtZ2Z4Cg==
