@@ -1,16 +1,12 @@
 From: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
-Subject: Re: [bug report] drm/amdgpu: soc15 enable (v3)
-Date: Mon, 3 Apr 2017 22:35:14 +0300
-Message-ID: <20170403193514.GC4470@mwanda>
-References: <20170403185354.GA2885@mwanda>
- <CADnq5_OUXQUFG7kvg_FuLd+Pz0wy9q3gFEe68cm6C7ozpbaZzg@mail.gmail.com>
- <20170403192919.GB4470@mwanda>
+Subject: [bug report] drm/amd/powerplay: add Vega10 powerplay support (v5)
+Date: Mon, 3 Apr 2017 22:38:31 +0300
+Message-ID: <20170403193831.GA4692@mwanda>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Content-Disposition: inline
-In-Reply-To: <20170403192919.GB4470@mwanda>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,11 +17,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Ken Wang <Qingqing.Wang-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-SWYgd2UgYWRkZWQgYW46CgoJCWVsc2UKCQkJQlVHKCk7Cgp0aGF0IHdvdWxkIHNpbGVuY2UgdGhl
-IHdhcm5pbmcuCgoKcmVnYXJkcywKZGFuIGNhcnBlbnRlcgpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZngK
+SGVsbG8gRXJpYyBIdWFuZywKClRoZSBwYXRjaCBmODNhOTk5MTY0OGI6ICJkcm0vYW1kL3Bvd2Vy
+cGxheTogYWRkIFZlZ2ExMCBwb3dlcnBsYXkKc3VwcG9ydCAodjUpIiBmcm9tIE1hciA2LCAyMDE3
+LCBsZWFkcyB0byB0aGUgZm9sbG93aW5nIHN0YXRpYyBjaGVja2VyCndhcm5pbmc6CgoJZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9wcm9jZXNzcHB0
+YWJsZXMuYzo0MzYgZ2V0X2dmeGNsa192b2x0YWdlX2RlcGVuZGVuY3lfdGFibGUoKQoJd2Fybjog
+bWFzayBhbmQgc2hpZnQgdG8gemVybwoKZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vcG93
+ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9wcm9jZXNzcHB0YWJsZXMuYwogICA0MjggIAogICA0MjkgICAg
+ICAgICAgZm9yIChpID0gMDsgaSA8IGNsa190YWJsZS0+Y291bnQ7IGkrKykgewogICA0MzAgICAg
+ICAgICAgICAgICAgICBjbGtfdGFibGUtPmVudHJpZXNbaV0udmRkSW5kID0KICAgNDMxICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNsa19kZXBfdGFibGUtPmVudHJpZXNbaV0udWNW
+ZGRJbmQ7CiAgIDQzMiAgICAgICAgICAgICAgICAgIGNsa190YWJsZS0+ZW50cmllc1tpXS5jbGsg
+PQogICA0MzMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbGUzMl90b19jcHUoY2xr
+X2RlcF90YWJsZS0+ZW50cmllc1tpXS51bENsayk7CiAgIDQzNCAgICAgICAgICAgICAgICAgIGNs
+a190YWJsZS0+ZW50cmllc1tpXS5ja3NfZW5hYmxlID0KICAgNDM1ICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICgoKGNsa19kZXBfdGFibGUtPmVudHJpZXNbaV0udXNDS1NWT2Zmc2V0
+YW5kRGlzYWJsZSAmIDB4ODApCiAgIDQzNiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgPj4gMTUpID09IDApID8gMSA6IDA7CgpXZSBhd2F5cyBzZXQgLmNr
+c19lbmFibGUgdG8gdHJ1ZSBiZWNhdXNlIDB4ODAgPj4gMTUgaXMgemVyby4KCiAgIDQzNyAgICAg
+ICAgICAgICAgICAgIGNsa190YWJsZS0+ZW50cmllc1tpXS5ja3Nfdm9mZnNldCA9CiAgIDQzOCAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoY2xrX2RlcF90YWJsZS0+ZW50cmllc1tp
+XS51c0NLU1ZPZmZzZXRhbmREaXNhYmxlICYgMHg3Rik7CiAgIDQzOSAgICAgICAgICAgICAgICAg
+IGNsa190YWJsZS0+ZW50cmllc1tpXS5zY2xrX29mZnNldCA9CiAgIDQ0MCAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBjbGtfZGVwX3RhYmxlLT5lbnRyaWVzW2ldLnVzQVZGU09mZnNl
+dDsKICAgNDQxICAgICAgICAgIH0KICAgNDQyICAKCnJlZ2FyZHMsCmRhbiBjYXJwZW50ZXIKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
+aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
