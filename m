@@ -1,121 +1,107 @@
-From: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
-Subject: Re: [PATCH v2] drm/amdgpu: Read vram width from integrated system
- info table
-Date: Mon, 3 Apr 2017 18:29:55 +0200
-Message-ID: <7039d294-d6af-76dd-e129-854013ab4947@dev.carbon-project.org>
-References: <20170403150107.13253-1-harry.wentland@amd.com>
- <8623a5d4-1e10-fc46-aaa2-0777b500c3a2@dev.carbon-project.org>
- <BN6PR12MB1652CE82ACBFD409F3829D35F7080@BN6PR12MB1652.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple@vodafone.de>
+Subject: Re: [PATCH 7/7 v2] drm/radeon: Refuse to migrate a prime BO to VRAM.
+ (v2)
+Date: Mon, 3 Apr 2017 18:00:17 +0200
+Message-ID: <c9417139-b930-040b-c186-e99b8ecc3474@vodafone.de>
+References: <20170329002720.11445-7-raof@ubuntu.com>
+ <20170403033523.22639-1-raof@ubuntu.com>
+ <20170403033523.22639-2-raof@ubuntu.com>
+ <4fe38f82-c9d5-c212-fa05-08c2b4684c4e@vodafone.de>
+ <CADnq5_OFk+Z+5sW7wyVt1UwpKdpmc88PJ-1mLNfPiDqaNq+ADA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0365421981=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB1652CE82ACBFD409F3829D35F7080-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0365421981==
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature";
- boundary="x0jCxmDQiBNwScoMoq7FpkEnJLrAfudR2"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---x0jCxmDQiBNwScoMoq7FpkEnJLrAfudR2
-Content-Type: multipart/mixed; boundary="jRN3a90PxTJcTOPLUAJPqAFqpKK9DUpNu";
- protected-headers="v1"
-From: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>,
- Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>,
- amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Message-ID: <7039d294-d6af-76dd-e129-854013ab4947-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
-Subject: Re: [PATCH v2] drm/amdgpu: Read vram width from integrated system
- info table
-References: <20170403150107.13253-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
- <8623a5d4-1e10-fc46-aaa2-0777b500c3a2-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
- <BN6PR12MB1652CE82ACBFD409F3829D35F7080-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-In-Reply-To: <BN6PR12MB1652CE82ACBFD409F3829D35F7080-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-
---jRN3a90PxTJcTOPLUAJPqAFqpKK9DUpNu
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-Deucher, Alexander wrote on 03.04.2017 17:43:
->> -----Original Message-----
->> From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf=
-
->> Of Kai Wasserb=C3=A4ch
->> Sent: Monday, April 03, 2017 11:20 AM
->> To: Wentland, Harry; amd-gfx list
->> Subject: Re: [PATCH v2] drm/amdgpu: Read vram width from integrated
->> system info table
->>
->> [...]
->>
->> I might miss something subtle here, but after reading this a couple of=
- times,
->> I've convinced myself this is exactly the same switch statement as in
->> gmc_v7_0_mc_init() above, right? If so: why not move that part to comm=
-on
->> code as
->> well?
->=20
-> The register offsets and bitfields may change across different IP revis=
-ions.  The actual switch statement itself could be common I guess (minus =
-the registers), but I'm not sure if it's worth the effort.
-
-Thanks to both of you for the explanation. Since everything was named exa=
-ctly
-the same I assumed the definitions for the registers matched as well. Sti=
-ll if
-large chunks of code are common helpers might still be nice and reduce th=
-e
-overall LOCs. Anyway, that's obviously your decision.
-
-Cheers,
-Kai
-
-
---jRN3a90PxTJcTOPLUAJPqAFqpKK9DUpNu--
-
---x0jCxmDQiBNwScoMoq7FpkEnJLrAfudR2
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQGzBAEBCgAdFiEEBgCWzvPI5zPlthWHownXbOHeWdIFAljieIQACgkQownXbOHe
-WdLI3Av/ffCgCZ7qz1hxY7oo5fxkYg6xXR2QBe6eIp+caOjwubLShprOObkcLFLJ
-HoLt8N28EQWySvbfMS3wzWiW1W29XARBID625K/KnuLLunOc5UOC5GwrYxpCexGq
-0jIInfJBZv9vV1Ua0Dk33oVFUDwDasjmlR59iPmZFUTN6KdGT9Jd+U+6jgdYNZ3H
-T/Vb1d0QVSmgkPaF0fY132BEkfOAuVyuVl6ZIM6MZXKUaPJQkzk01NGlTkXIIH7C
-Z+VyUlG31iXol0vr4taPhmHmeIXGxWjQexafMifZX06B53KgXacuJty6f6txnOdL
-3V37mBlYnYjv+9m5IOLRlwh+Q3iCkhGWqbBy1ZqX98anVAku9ndSevGq54c0YZLy
-Inan6G+zAAfKjMoUy5Ua9PxGYLHsMmAyweFBHKhqLk4m8SSVwikpBPv4YiHKtAan
-O06VsAB8sSXVYXw96Dykjqp2yNDaTZdp0Gm53d3wTJ0TH2+DCuEsglgeBc38bg00
-TwOgUZkO
-=x48L
------END PGP SIGNATURE-----
-
---x0jCxmDQiBNwScoMoq7FpkEnJLrAfudR2--
-
---===============0365421981==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <CADnq5_OFk+Z+5sW7wyVt1UwpKdpmc88PJ-1mLNfPiDqaNq+ADA@mail.gmail.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Christopher James Halse Rogers <raof@ubuntu.com>, Christopher James Halse Rogers <christopher.halse.rogers@canonical.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0365421981==--
+QW0gMDMuMDQuMjAxNyB1bSAxNzo1MSBzY2hyaWViIEFsZXggRGV1Y2hlcjoKPiBPbiBNb24sIEFw
+ciAzLCAyMDE3IGF0IDQ6MjQgQU0sIENocmlzdGlhbiBLw7ZuaWcgPGRlYXRoc2ltcGxlQHZvZGFm
+b25lLmRlPiB3cm90ZToKPj4gQW0gMDMuMDQuMjAxNyB1bSAwNTozNSBzY2hyaWViIHJhb2ZAdWJ1
+bnR1LmNvbToKPj4+IEZyb206IENocmlzdG9waGVyIEphbWVzIEhhbHNlIFJvZ2Vycwo+Pj4gPGNo
+cmlzdG9waGVyLmhhbHNlLnJvZ2Vyc0BjYW5vbmljYWwuY29tPgo+Pj4KPj4+IEJPcyBzaGFyZWQg
+dmlhIGRtYS1idWYsIGVpdGhlciBpbXBvcnRlZCBvciBleHBvcnRlZCwgY2Fubm90IHNlbnNpYmx5
+IGJlCj4+PiBtaWdyYXRlZCB0byBWUkFNCj4+PiB3aXRob3V0IGJyZWFraW5nIHRoZSBkbWEtYnVm
+IHNoYXJpbmcuIFJlZnVzZSB1c2Vyc3BhY2UgcmVxdWVzdHMgdG8gbWlncmF0ZQo+Pj4gdG8gVlJB
+TSwKPj4+IGVuc3VyZSBzdWNoIEJPcyBhcmUgbm90IG1pZ3JhdGVkIGR1cmluZyBjb21tYW5kIHN1
+Ym1pc3Npb24sIGFuZCByZWZ1c2UgdG8KPj4+IHBpbiB0aGVtCj4+PiB0byBWUkFNLgo+Pj4KPj4+
+IHYyOiBEb24ndCBwaW4gQk9zIGluIEdUVC4gSW5zdGVhZCwgcmVmdXNlIHRvIG1pZ3JhdGUgQk9z
+IHRvIFZSQU0uCj4+Pgo+Pj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0b3BoZXIgSmFtZXMgSGFsc2Ug
+Um9nZXJzCj4+PiA8Y2hyaXN0b3BoZXIuaGFsc2Uucm9nZXJzQGNhbm9uaWNhbC5jb20+Cj4+Cj4+
+IFBhdGNoZXMgIzQsICM2IGFuZCB0aGlzIG9uZSAoIzcpIGFyZSBSZXZpZXdlZC1ieTogQ2hyaXN0
+aWFuIEvDtm5pZwo+PiA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPi4KPiBXaWxsIHRoaXMgY2F1
+c2UgYW55IGlzc3VlcyB3aXRoIHNlbGYgc2hhcmluZz8gIEUuZy4sIHRoZSBzdGFuZGFyZCB1c2UK
+PiBjYXNlIHdpdGggYSBzaW5nbGUgR1BVIGFuZCBEUkkzPwoKTm8sIHRoZSBjb2RlIGZyb20gYW1k
+Z3B1IHRvIGNvdW50IHRoZSBudW1iZXIgb2YgdGltZXMgd2UgcmVhbGx5IHNoYXJlZCBhIApCTyB3
+aXRoIHNvbWVib2R5IHdhcyBwb3J0ZWQgb3ZlciB0byByYWRlb24gYXMgZmFyIGFzIEkgY2FuIHNl
+ZS4KClNvIHRoYXQgc2hvdWxkIHdvcmsgZmluZSwgYnV0IEkgaGF2ZW4ndCBkb3VibGUgY2hlY2tl
+ZCBvciB0ZXN0ZWQgaXQuCgpDaHJpc3RpYW4uCgo+Cj4gQWxleAo+Cj4+Cj4+PiAtLS0KPj4+ICAg
+IGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2NzLmMgICAgIHwgMTAgKysrKysrKysrKwo+
+Pj4gICAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZ2VtLmMgICAgfCAgNCArKysrCj4+
+PiAgICBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9vYmplY3QuYyB8ICA1ICsrKysrCj4+
+PiAgICAzIGZpbGVzIGNoYW5nZWQsIDE5IGluc2VydGlvbnMoKykKPj4+Cj4+PiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fY3MuYwo+Pj4gYi9kcml2ZXJzL2dwdS9k
+cm0vcmFkZW9uL3JhZGVvbl9jcy5jCj4+PiBpbmRleCBhODQ0MmY3MTk2ZDYuLmRmNmI1OGMwODU0
+NCAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2NzLmMKPj4+
+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2NzLmMKPj4+IEBAIC0xNjQsNiAr
+MTY0LDE2IEBAIHN0YXRpYyBpbnQgcmFkZW9uX2NzX3BhcnNlcl9yZWxvY3Moc3RydWN0Cj4+PiBy
+YWRlb25fY3NfcGFyc2VyICpwKQo+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgIHAtPnJlbG9j
+c1tpXS5hbGxvd2VkX2RvbWFpbnMgPSBkb21haW47Cj4+PiAgICAgICAgICAgICAgICAgIH0KPj4+
+ICAgICsgICAgICAgICAgICAgLyogT2JqZWN0cyBzaGFyZWQgYXMgZG1hLWJ1ZnMgY2Fubm90IGJl
+IG1vdmVkIHRvIFZSQU0gKi8KPj4+ICsgICAgICAgICAgICAgICBpZiAocC0+cmVsb2NzW2ldLnJv
+YmotPnByaW1lX3NoYXJlZF9jb3VudCkgewo+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgcC0+
+cmVsb2NzW2ldLmFsbG93ZWRfZG9tYWlucyAmPQo+Pj4gflJBREVPTl9HRU1fRE9NQUlOX1ZSQU07
+Cj4+PiArICAgICAgICAgICAgICAgICAgICAgICBpZiAoIXAtPnJlbG9jc1tpXS5hbGxvd2VkX2Rv
+bWFpbnMpIHsKPj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgRFJNX0VSUk9SKCJC
+TyBhc3NvY2lhdGVkIHdpdGggZG1hLWJ1Zgo+Pj4gY2Fubm90ICIKPj4+ICsgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICJiZSBtb3ZlZCB0byBWUkFNXG4iKTsKPj4+ICsg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7Cj4+PiArICAgICAg
+ICAgICAgICAgICAgICAgICB9Cj4+PiArICAgICAgICAgICAgICAgfQo+Pj4gKwo+Pj4gICAgICAg
+ICAgICAgICAgICBwLT5yZWxvY3NbaV0udHYuYm8gPSAmcC0+cmVsb2NzW2ldLnJvYmotPnRibzsK
+Pj4+ICAgICAgICAgICAgICAgICAgcC0+cmVsb2NzW2ldLnR2LnNoYXJlZCA9ICFyLT53cml0ZV9k
+b21haW47Cj4+PiAgICBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25f
+Z2VtLmMKPj4+IGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZ2VtLmMKPj4+IGluZGV4
+IDk2NjgzZjViMmIxYi4uMDY3ZWE3ZDc2NThhIDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL3JhZGVvbi9yYWRlb25fZ2VtLmMKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24v
+cmFkZW9uX2dlbS5jCj4+PiBAQCAtMTIwLDYgKzEyMCwxMCBAQCBzdGF0aWMgaW50IHJhZGVvbl9n
+ZW1fc2V0X2RvbWFpbihzdHJ1Y3QKPj4+IGRybV9nZW1fb2JqZWN0ICpnb2JqLAo+Pj4gICAgICAg
+ICAgICAgICAgICAgICAgICAgIHJldHVybiByOwo+Pj4gICAgICAgICAgICAgICAgICB9Cj4+PiAg
+ICAgICAgICB9Cj4+PiArICAgICAgIGlmIChkb21haW4gPT0gUkFERU9OX0dFTV9ET01BSU5fVlJB
+TSAmJiByb2JqLT5wcmltZV9zaGFyZWRfY291bnQpCj4+PiB7Cj4+PiArICAgICAgICAgICAgICAg
+LyogQSBCTyB0aGF0IGlzIGFzc29jaWF0ZWQgd2l0aCBhIGRtYS1idWYgY2Fubm90IGJlCj4+PiBz
+ZW5zaWJseSBtaWdyYXRlZCB0byBWUkFNICovCj4+PiArICAgICAgICAgICAgICAgcmV0dXJuIC1F
+SU5WQUw7Cj4+PiArICAgICAgIH0KPj4+ICAgICAgICAgIHJldHVybiAwOwo+Pj4gICAgfQo+Pj4g
+ICAgZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX29iamVjdC5jCj4+
+PiBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX29iamVjdC5jCj4+PiBpbmRleCA3NGIy
+NzYwNjBjMjAuLmJlYzJlYzA1NmRlNCAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9y
+YWRlb24vcmFkZW9uX29iamVjdC5jCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3Jh
+ZGVvbl9vYmplY3QuYwo+Pj4gQEAgLTM1Miw2ICszNTIsMTEgQEAgaW50IHJhZGVvbl9ib19waW5f
+cmVzdHJpY3RlZChzdHJ1Y3QgcmFkZW9uX2JvICpibywKPj4+IHUzMiBkb21haW4sIHU2NCBtYXhf
+b2Zmc2V0LAo+Pj4gICAgICAgICAgICAgICAgICByZXR1cm4gMDsKPj4+ICAgICAgICAgIH0KPj4+
+ICsgICAgICAgaWYgKGJvLT5wcmltZV9zaGFyZWRfY291bnQgJiYgZG9tYWluID09IFJBREVPTl9H
+RU1fRE9NQUlOX1ZSQU0pIHsKPj4+ICsgICAgICAgICAgICAgICAvKiBBIEJPIHNoYXJlZCBhcyBh
+IGRtYS1idWYgY2Fubm90IGJlIHNlbnNpYmx5IG1pZ3JhdGVkIHRvCj4+PiBWUkFNICovCj4+PiAr
+ICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7Cj4+PiArICAgICAgIH0KPj4+ICsKPj4+ICAg
+ICAgICAgIHJhZGVvbl90dG1fcGxhY2VtZW50X2Zyb21fZG9tYWluKGJvLCBkb21haW4pOwo+Pj4g
+ICAgICAgICAgZm9yIChpID0gMDsgaSA8IGJvLT5wbGFjZW1lbnQubnVtX3BsYWNlbWVudDsgaSsr
+KSB7Cj4+PiAgICAgICAgICAgICAgICAgIC8qIGZvcmNlIHRvIHBpbiBpbnRvIHZpc2libGUgdmlk
+ZW8gcmFtICovCj4+Cj4+Cj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCj4+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeAo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+Zwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eAoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1k
+ZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
