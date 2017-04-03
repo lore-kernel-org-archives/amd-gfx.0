@@ -1,42 +1,37 @@
-From: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
-Subject: [PATCH 1/2] drm/amd/powerplay: fix pp_dpm_get_current_power_state()
-Date: Mon, 3 Apr 2017 21:41:47 +0300
-Message-ID: <20170403184147.GA22462@mwanda>
+From: Dan Carpenter <dan.carpenter@oracle.com>
+Subject: [PATCH] drm/amdgpu: Fix a NULL deref in amdgpu_vm_add_prt_cb()
+Date: Mon, 3 Apr 2017 21:41:39 +0300
+Message-ID: <20170403184139.GA12398@mwanda>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
 Content-Disposition: inline
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Eric Huang <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>, Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: kernel-janitors@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Junwei Zhang <Jerry.Zhang@amd.com>, Edward O'Callaghan <funfunctor@folklore1984.net>, Alex Xie <AlexBin.Xie@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-VGhpcyBzd2l0Y2ggc3RhdGVtZW50IGlzIG1pc3NpbmcgYnJlYWtzLgoKRml4ZXM6IDJhNTA3MTA1
-NmU2YSAoImRybS9hbWQvcG93ZXJwbGF5OiBhZGQgZ2xvYmFsIFBvd2VyUGxheSBtdXRleC4iKQpT
-aWduZWQtb2ZmLWJ5OiBEYW4gQ2FycGVudGVyIDxkYW4uY2FycGVudGVyQG9yYWNsZS5jb20+Cgpk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kX3Bvd2VycGxheS5j
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kX3Bvd2VycGxheS5jCmluZGV4IGRm
-ZDRmZTZmMDU3OC4uMjYwYjczMmJlN2MzIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L3Bvd2VycGxheS9hbWRfcG93ZXJwbGF5LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
-cnBsYXkvYW1kX3Bvd2VycGxheS5jCkBAIC01MzksMTAgKzUzOSwxMyBAQCBzdGF0aWMgZW51bSBh
-bWRfcG1fc3RhdGVfdHlwZSBwcF9kcG1fZ2V0X2N1cnJlbnRfcG93ZXJfc3RhdGUodm9pZCAqaGFu
-ZGxlKQogCXN3aXRjaCAoc3RhdGUtPmNsYXNzaWZpY2F0aW9uLnVpX2xhYmVsKSB7CiAJY2FzZSBQ
-UF9TdGF0ZVVJTGFiZWxfQmF0dGVyeToKIAkJcG1fdHlwZSA9IFBPV0VSX1NUQVRFX1RZUEVfQkFU
-VEVSWTsKKwkJYnJlYWs7CiAJY2FzZSBQUF9TdGF0ZVVJTGFiZWxfQmFsYW5jZWQ6CiAJCXBtX3R5
-cGUgPSBQT1dFUl9TVEFURV9UWVBFX0JBTEFOQ0VEOworCQlicmVhazsKIAljYXNlIFBQX1N0YXRl
-VUlMYWJlbF9QZXJmb3JtYW5jZToKIAkJcG1fdHlwZSA9IFBPV0VSX1NUQVRFX1RZUEVfUEVSRk9S
-TUFOQ0U7CisJCWJyZWFrOwogCWRlZmF1bHQ6CiAJCWlmIChzdGF0ZS0+Y2xhc3NpZmljYXRpb24u
-ZmxhZ3MgJiBQUF9TdGF0ZUNsYXNzaWZpY2F0aW9uRmxhZ19Cb290KQogCQkJcG1fdHlwZSA9IFBP
-V0VSX1NUQVRFX1RZUEVfSU5URVJOQUxfQk9PVDsKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4Cg==
+V2UgYWNjaWRlbnRhbGx5IGRlcmVmZXJlbmNlICJjYiIgaWYgdGhlIGttYWxsb2MoKSBmYWlscy4K
+CkZpeGVzOiA0NTFiYzhlYjhmZTYgKCJkcm0vYW1kZ3B1OiBmaXggUFJUIHRlYXJkb3duIG9uIFZN
+IGZpbmkgdjMiKQpTaWduZWQtb2ZmLWJ5OiBEYW4gQ2FycGVudGVyIDxkYW4uY2FycGVudGVyQG9y
+YWNsZS5jb20+CgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3ZtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwppbmRleCAwMjM1
+ZDc5MzNlZmQuLjQ1YTFiY2ZjNDFmNyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X3ZtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3ZtLmMKQEAgLTE1MTgsNyArMTUxOCw3IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV92bV9hZGRfcHJ0
+X2NiKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCQlpZiAoZmVuY2UpCiAJCQlkbWFfZmVu
+Y2Vfd2FpdChmZW5jZSwgZmFsc2UpOwogCi0JCWFtZGdwdV92bV9wcnRfcHV0KGNiLT5hZGV2KTsK
+KwkJYW1kZ3B1X3ZtX3BydF9wdXQoYWRldik7CiAJfSBlbHNlIHsKIAkJY2ItPmFkZXYgPSBhZGV2
+OwogCQlpZiAoIWZlbmNlIHx8IGRtYV9mZW5jZV9hZGRfY2FsbGJhY2soZmVuY2UsICZjYi0+Y2Is
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZl
+bCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
