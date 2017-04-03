@@ -1,37 +1,45 @@
 From: Dan Carpenter <dan.carpenter@oracle.com>
-Subject: [PATCH] drm/amdgpu: Fix a NULL deref in amdgpu_vm_add_prt_cb()
-Date: Mon, 3 Apr 2017 21:41:39 +0300
-Message-ID: <20170403184139.GA12398@mwanda>
+Subject: [PATCH 2/2] drm/amd/powerplay: fix a couple locking issues
+Date: Mon, 3 Apr 2017 21:42:42 +0300
+Message-ID: <20170403184242.GB22462@mwanda>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <kernel-janitors-owner@vger.kernel.org>
 Content-Disposition: inline
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: kernel-janitors@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Junwei Zhang <Jerry.Zhang@amd.com>, Edward O'Callaghan <funfunctor@folklore1984.net>, Alex Xie <AlexBin.Xie@amd.com>
+Sender: kernel-janitors-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Rex Zhu <Rex.Zhu@amd.com>, Eric Huang <JinHuiEric.Huang@amd.com>, Tom St Denis <tom.stdenis@amd.com>, Huang Rui <ray.huang@amd.com>, Monk Liu <Monk.Liu@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-V2UgYWNjaWRlbnRhbGx5IGRlcmVmZXJlbmNlICJjYiIgaWYgdGhlIGttYWxsb2MoKSBmYWlscy4K
-CkZpeGVzOiA0NTFiYzhlYjhmZTYgKCJkcm0vYW1kZ3B1OiBmaXggUFJUIHRlYXJkb3duIG9uIFZN
-IGZpbmkgdjMiKQpTaWduZWQtb2ZmLWJ5OiBEYW4gQ2FycGVudGVyIDxkYW4uY2FycGVudGVyQG9y
-YWNsZS5jb20+CgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X3ZtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwppbmRleCAwMjM1
-ZDc5MzNlZmQuLjQ1YTFiY2ZjNDFmNyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X3ZtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X3ZtLmMKQEAgLTE1MTgsNyArMTUxOCw3IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV92bV9hZGRfcHJ0
-X2NiKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCQlpZiAoZmVuY2UpCiAJCQlkbWFfZmVu
-Y2Vfd2FpdChmZW5jZSwgZmFsc2UpOwogCi0JCWFtZGdwdV92bV9wcnRfcHV0KGNiLT5hZGV2KTsK
-KwkJYW1kZ3B1X3ZtX3BydF9wdXQoYWRldik7CiAJfSBlbHNlIHsKIAkJY2ItPmFkZXYgPSBhZGV2
-OwogCQlpZiAoIWZlbmNlIHx8IGRtYV9mZW5jZV9hZGRfY2FsbGJhY2soZmVuY2UsICZjYi0+Y2Is
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZl
-bCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
+We should return unlock on the error path in pp_dpm_dispatch_tasks()
+and there is a double lock bug in pp_dpm_set_sclk_od().
+
+Fixes: 2a5071056e6a ("drm/amd/powerplay: add global PowerPlay mutex.")
+Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+
+diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+index 260b732be7c3..e59b5627d543 100644
+--- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
++++ b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+@@ -493,8 +493,10 @@ static int pp_dpm_dispatch_tasks(void *handle, enum amd_pp_event event_id,
+ 	{
+ 		enum amd_pm_state_type  ps;
+ 
+-		if (input == NULL)
+-			return -EINVAL;
++		if (input == NULL) {
++			ret = -EINVAL;
++			break;
++		}
+ 		ps = *(unsigned long *)input;
+ 
+ 		data.requested_ui_label = power_state_convert(ps);
+@@ -897,7 +899,7 @@ static int pp_dpm_set_sclk_od(void *handle, uint32_t value)
+ 
+ 	mutex_lock(&pp_handle->pp_lock);
+ 	ret = hwmgr->hwmgr_func->set_sclk_od(hwmgr, value);
+-	mutex_lock(&pp_handle->pp_lock);
++	mutex_unlock(&pp_handle->pp_lock);
+ 	return ret;
+ }
+ 
