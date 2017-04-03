@@ -1,54 +1,56 @@
 From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH 2/2] drm/amd/powerplay: fix a couple locking issues
-Date: Mon, 3 Apr 2017 16:33:03 -0400
-Message-ID: <CADnq5_MBCPEqt-apH8qbBT4B7xDxDqzDzmFtNqXTrTPh70-Uiw@mail.gmail.com>
-References: <20170403184242.GB22462@mwanda>
+Subject: Re: [PATCH] drm/amdgpu: Fix a NULL deref in amdgpu_vm_add_prt_cb()
+Date: Mon, 3 Apr 2017 16:36:59 -0400
+Message-ID: <CADnq5_ML1S6h+EBntBkNeGVWYO9f9cL=ZpSCQHd2kTzV2VdVDg@mail.gmail.com>
+References: <20170403184139.GA12398@mwanda> <10afeb82-a698-5684-0303-5c9a3895d99f@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20170403184242.GB22462@mwanda>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Dan Carpenter <dan.carpenter@oracle.com>
-Cc: Tom St Denis <tom.stdenis@amd.com>, kernel-janitors@vger.kernel.org, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Eric Huang <JinHuiEric.Huang@amd.com>, Huang Rui <ray.huang@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, Rex Zhu <Rex.Zhu@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, Monk Liu <Monk.Liu@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Return-path: <kernel-janitors-owner@vger.kernel.org>
+In-Reply-To: <10afeb82-a698-5684-0303-5c9a3895d99f@amd.com>
+Sender: kernel-janitors-owner@vger.kernel.org
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: Dan Carpenter <dan.carpenter@oracle.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, kernel-janitors@vger.kernel.org, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Junwei Zhang <Jerry.Zhang@amd.com>, Edward O'Callaghan <funfunctor@folklore1984.net>, Alex Xie <AlexBin.Xie@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gTW9uLCBBcHIgMywgMjAxNyBhdCAyOjQyIFBNLCBEYW4gQ2FycGVudGVyIDxkYW4uY2FycGVu
-dGVyQG9yYWNsZS5jb20+IHdyb3RlOgo+IFdlIHNob3VsZCByZXR1cm4gdW5sb2NrIG9uIHRoZSBl
-cnJvciBwYXRoIGluIHBwX2RwbV9kaXNwYXRjaF90YXNrcygpCj4gYW5kIHRoZXJlIGlzIGEgZG91
-YmxlIGxvY2sgYnVnIGluIHBwX2RwbV9zZXRfc2Nsa19vZCgpLgo+Cj4gRml4ZXM6IDJhNTA3MTA1
-NmU2YSAoImRybS9hbWQvcG93ZXJwbGF5OiBhZGQgZ2xvYmFsIFBvd2VyUGxheSBtdXRleC4iKQo+
-IFNpZ25lZC1vZmYtYnk6IERhbiBDYXJwZW50ZXIgPGRhbi5jYXJwZW50ZXJAb3JhY2xlLmNvbT4K
-CkFwcGxpZWQuIHRoYW5rcyEKCkFsZXgKCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9wb3dlcnBsYXkvYW1kX3Bvd2VycGxheS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
-cnBsYXkvYW1kX3Bvd2VycGxheS5jCj4gaW5kZXggMjYwYjczMmJlN2MzLi5lNTliNTYyN2Q1NDMg
-MTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kX3Bvd2VycGxh
-eS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kX3Bvd2VycGxheS5j
-Cj4gQEAgLTQ5Myw4ICs0OTMsMTAgQEAgc3RhdGljIGludCBwcF9kcG1fZGlzcGF0Y2hfdGFza3Mo
-dm9pZCAqaGFuZGxlLCBlbnVtIGFtZF9wcF9ldmVudCBldmVudF9pZCwKPiAgICAgICAgIHsKPiAg
-ICAgICAgICAgICAgICAgZW51bSBhbWRfcG1fc3RhdGVfdHlwZSAgcHM7Cj4KPiAtICAgICAgICAg
-ICAgICAgaWYgKGlucHV0ID09IE5VTEwpCj4gLSAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJu
-IC1FSU5WQUw7Cj4gKyAgICAgICAgICAgICAgIGlmIChpbnB1dCA9PSBOVUxMKSB7Cj4gKyAgICAg
-ICAgICAgICAgICAgICAgICAgcmV0ID0gLUVJTlZBTDsKPiArICAgICAgICAgICAgICAgICAgICAg
-ICBicmVhazsKPiArICAgICAgICAgICAgICAgfQo+ICAgICAgICAgICAgICAgICBwcyA9ICoodW5z
-aWduZWQgbG9uZyAqKWlucHV0Owo+Cj4gICAgICAgICAgICAgICAgIGRhdGEucmVxdWVzdGVkX3Vp
-X2xhYmVsID0gcG93ZXJfc3RhdGVfY29udmVydChwcyk7Cj4gQEAgLTg5Nyw3ICs4OTksNyBAQCBz
-dGF0aWMgaW50IHBwX2RwbV9zZXRfc2Nsa19vZCh2b2lkICpoYW5kbGUsIHVpbnQzMl90IHZhbHVl
-KQo+Cj4gICAgICAgICBtdXRleF9sb2NrKCZwcF9oYW5kbGUtPnBwX2xvY2spOwo+ICAgICAgICAg
-cmV0ID0gaHdtZ3ItPmh3bWdyX2Z1bmMtPnNldF9zY2xrX29kKGh3bWdyLCB2YWx1ZSk7Cj4gLSAg
-ICAgICBtdXRleF9sb2NrKCZwcF9oYW5kbGUtPnBwX2xvY2spOwo+ICsgICAgICAgbXV0ZXhfdW5s
-b2NrKCZwcF9oYW5kbGUtPnBwX2xvY2spOwo+ICAgICAgICAgcmV0dXJuIHJldDsKPiAgfQo+Cj4g
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBkcmktZGV2
-ZWwgbWFpbGluZyBsaXN0Cj4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWls
-aW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
+On Mon, Apr 3, 2017 at 2:53 PM, Harry Wentland <harry.wentland@amd.com> wrote:
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+>
+> Harry
+>
+
+Applied.  thanks!
+
+Alex
+
+>
+> On 2017-04-03 02:41 PM, Dan Carpenter wrote:
+>>
+>> We accidentally dereference "cb" if the kmalloc() fails.
+>>
+>> Fixes: 451bc8eb8fe6 ("drm/amdgpu: fix PRT teardown on VM fini v3")
+>> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> index 0235d7933efd..45a1bcfc41f7 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> @@ -1518,7 +1518,7 @@ static void amdgpu_vm_add_prt_cb(struct
+>> amdgpu_device *adev,
+>>                 if (fence)
+>>                         dma_fence_wait(fence, false);
+>>
+>> -               amdgpu_vm_prt_put(cb->adev);
+>> +               amdgpu_vm_prt_put(adev);
+>>         } else {
+>>                 cb->adev = adev;
+>>                 if (!fence || dma_fence_add_callback(fence, &cb->cb,
+>> _______________________________________________
+>> dri-devel mailing list
+>> dri-devel@lists.freedesktop.org
+>> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+>>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
