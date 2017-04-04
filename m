@@ -1,15 +1,18 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH 8/8] drm/amdgpu: cleanup VMHUB bit definitions
-Date: Tue, 4 Apr 2017 09:31:24 +0200
-Message-ID: <0d7279a3-3b88-ec67-7ad4-62f79f67c96a@vodafone.de>
-References: <1491223199-28892-1-git-send-email-deathsimple@vodafone.de>
- <1491223199-28892-8-git-send-email-deathsimple@vodafone.de>
- <CADnq5_M+jYQU6Utw8OrLeFurwsnw=5Y1EdgwXGnhBDrqtszhcQ@mail.gmail.com>
+From: Christopher James Halse Rogers <christopher.halse.rogers-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+Subject: Re: [PATCH 7/7 v2] drm/radeon: Refuse to migrate a prime BO to VRAM.
+ (v2)
+Date: Tue, 04 Apr 2017 08:03:05 +0000
+Message-ID: <CAPMmPEzA=0Ucux4QLjZv+55Fd=8v=BquFhCGH6PS4BpoFLak8g@mail.gmail.com>
+References: <20170329002720.11445-7-raof@ubuntu.com>
+ <20170403033523.22639-1-raof@ubuntu.com>
+ <20170403033523.22639-2-raof@ubuntu.com>
+ <4fe38f82-c9d5-c212-fa05-08c2b4684c4e@vodafone.de>
+ <CADnq5_OFk+Z+5sW7wyVt1UwpKdpmc88PJ-1mLNfPiDqaNq+ADA@mail.gmail.com>
+ <c9417139-b930-040b-c186-e99b8ecc3474@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0881929291=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_M+jYQU6Utw8OrLeFurwsnw=5Y1EdgwXGnhBDrqtszhcQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <c9417139-b930-040b-c186-e99b8ecc3474-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,321 +23,378 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Christopher James Halse Rogers <raof-GeWIH/nMZzLQT0dZR+AlfA@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QW0gMDMuMDQuMjAxNyB1bSAyMTozMSBzY2hyaWViIEFsZXggRGV1Y2hlcjoKPiBPbiBNb24sIEFw
-ciAzLCAyMDE3IGF0IDg6MzkgQU0sIENocmlzdGlhbiBLw7ZuaWcgPGRlYXRoc2ltcGxlQHZvZGFm
-b25lLmRlPiB3cm90ZToKPj4gRnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5p
-Z0BhbWQuY29tPgo+Pgo+PiBUaGUgdHdvIGh1YnMgYXJlIGp1c3QgaW5zdGFuY2VzIG9mIHRoZSBz
-YW1lIGhhcmR3YXJlLAo+PiBzbyB0aGUgcmVnaXN0ZXIgYml0cyBhcmUgaWRlbnRpY2FsLgo+IFJl
-bW92aW5nIGdldF92bV9wcm90ZWN0aW9uX2JpdHMgbWFrZXMgc2Vuc2Ugc2luY2UgdGhvc2UgYXJl
-IGxpbWl0ZWQgdG8KPiB0aGUgZ21jIG1vZHVsZS4gIEknZCBwcmVmZXIgdG8ga2VlcCBnZXRfaW52
-YWxpZGF0aW9uX3JlcSBzaW5jZSB0aGF0Cj4gcHJvdGVjdHMgdGhlIGlwIG1vZHVsZXMgZnJvbSBh
-IGRpcmVjdCBkZXBlbmRlbmN5IG9uIGdtYzkuICBXZSdkIGVuZCB1cAo+IHJlaW1wbGVtZW50aW5n
-IHRoaXMgd2hlbiB3ZSBjb21lIHRvIGFuIGlwIG1vZHVsZSB0aGF0IGVuZHMgdXAgYmVpbmcKPiB1
-c2VkIG9uIGEgY2hpcCB3aXRoIGEgbmV3ZXIgZ21jLiAgQWxzbyBzZWVtcyBjbGVhbmVyIHRoaXMg
-d2F5IGluIG15Cj4gb3Bpbmlvbi4KCkluIHRoaXMgY2FzZSBsZXQncyBtb3ZlIHRoZSBjYWxsYmFj
-ayBpbnRvIHRoZSBtYy9nYXJ0IGZ1bmN0aW9uIHBvaW50ZXJzLgoKVGhlIGNydXggaXMgdGhhdCB3
-ZSBuZWVkIHRvIGNoYW5nZSB0aG9zZSBzZXR0aW5ncyB3aGVuIHdlIGltcHJvdmUgdGhlIFZNIApm
-bHVzaGluZywgYW5kIEkgcmVhbGx5IGRvbid0IHdhbnQgdG8gZG8gYWxsIGNoYW5nZXMgdHdpY2Uu
-CgpDaHJpc3RpYW4uCgo+Cj4gQWxleAo+Cj4+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7Zu
-aWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPj4gLS0tCj4+ICAgZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1LmggICAgICB8ICAyIC0tCj4+ICAgZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvZ2Z4X3Y5XzAuYyAgICB8ICAzICsrLQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2dmeGh1Yl92MV8wLmMgfCAzMyAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMgICAgfCAzMyArKysr
-KysrKysrKysrKysrKysrKysrKysrKystLS0tLQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2dtY192OV8wLmggICAgfCAgMiArKwo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L21taHViX3YxXzAuYyAgfCAzMyAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+PiAg
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjRfMC5jICAgfCAgMyArKy0KPj4gICBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjdfMC5jICAgIHwgIDUgKysrLS0KPj4gICBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y2VfdjRfMC5jICAgIHwgIDMgKystCj4+ICAgOSBm
-aWxlcyBjaGFuZ2VkLCAzOSBpbnNlcnRpb25zKCspLCA3OCBkZWxldGlvbnMoLSkKPj4KPj4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPj4gaW5kZXggY2M0M2ZlZS4uZjZmNmRjYiAxMDA2
-NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPj4gKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPj4gQEAgLTU3Miw4ICs1NzIsNiBA
-QCBzdHJ1Y3QgYW1kZ3B1X3ZtaHViIHsKPj4gICAgICAgICAgdWludDMyX3QgICAgICAgIHZtX2Nv
-bnRleHQwX2NudGw7Cj4+ICAgICAgICAgIHVpbnQzMl90ICAgICAgICB2bV9sMl9wcm9fZmF1bHRf
-c3RhdHVzOwo+PiAgICAgICAgICB1aW50MzJfdCAgICAgICAgdm1fbDJfcHJvX2ZhdWx0X2NudGw7
-Cj4+IC0gICAgICAgdWludDMyX3QgICAgICAgICgqZ2V0X2ludmFsaWRhdGVfcmVxKSh1bnNpZ25l
-ZCBpbnQgdm1faWQpOwo+PiAtICAgICAgIHVpbnQzMl90ICAgICAgICAoKmdldF92bV9wcm90ZWN0
-aW9uX2JpdHMpKHZvaWQpOwo+PiAgIH07Cj4+Cj4+ICAgLyoKPj4gZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9nZnhfdjlfMC5jCj4+IGluZGV4IGM4YTFjNGUuLjRhZTVhYzAgMTAwNjQ0Cj4+IC0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKPj4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwo+PiBAQCAtMzYsNiArMzYsNyBAQAo+PiAgICNp
-bmNsdWRlICJzb2MxNV9jb21tb24uaCIKPj4gICAjaW5jbHVkZSAiY2xlYXJzdGF0ZV9nZng5Lmgi
-Cj4+ICAgI2luY2x1ZGUgInY5X3N0cnVjdHMuaCIKPj4gKyNpbmNsdWRlICJnbWNfdjlfMC5oIgo+
-Pgo+PiAgICNkZWZpbmUgR0ZYOV9OVU1fR0ZYX1JJTkdTICAgICAxCj4+ICAgI2RlZmluZSBHRlg5
-X05VTV9DT01QVVRFX1JJTkdTIDgKPj4gQEAgLTMxNDgsNiArMzE0OSw3IEBAIHN0YXRpYyB2b2lk
-IGdmeF92OV8wX3JpbmdfZW1pdF92bV9mbHVzaChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsCj4+
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdW5zaWduZWQgdm1faWQs
-IHVpbnQ2NF90IHBkX2FkZHIpCj4+ICAgewo+PiAgICAgICAgICBpbnQgdXNlcGZwID0gKHJpbmct
-PmZ1bmNzLT50eXBlID09IEFNREdQVV9SSU5HX1RZUEVfR0ZYKTsKPj4gKyAgICAgICB1aW50MzJf
-dCByZXEgPSBnbWNfdjlfMF9nZXRfaW52YWxpZGF0ZV9yZXEodm1faWQpOwo+PiAgICAgICAgICB1
-bnNpZ25lZCBlbmcgPSByaW5nLT5pZHg7Cj4+ICAgICAgICAgIHVuc2lnbmVkIGk7Cj4+Cj4+IEBA
-IC0zMTU3LDcgKzMxNTksNiBAQCBzdGF0aWMgdm9pZCBnZnhfdjlfMF9yaW5nX2VtaXRfdm1fZmx1
-c2goc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLAo+Pgo+PiAgICAgICAgICBmb3IgKGkgPSAwOyBp
-IDwgQU1ER1BVX01BWF9WTUhVQlM7ICsraSkgewo+PiAgICAgICAgICAgICAgICAgIHN0cnVjdCBh
-bWRncHVfdm1odWIgKmh1YiA9ICZyaW5nLT5hZGV2LT52bWh1YltpXTsKPj4gLSAgICAgICAgICAg
-ICAgIHVpbnQzMl90IHJlcSA9IGh1Yi0+Z2V0X2ludmFsaWRhdGVfcmVxKHZtX2lkKTsKPj4KPj4g
-ICAgICAgICAgICAgICAgICBnZnhfdjlfMF93cml0ZV9kYXRhX3RvX3JlZyhyaW5nLCB1c2VwZnAs
-IHRydWUsCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaHVi
-LT5jdHgwX3B0Yl9hZGRyX2xvMzIKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2dmeGh1Yl92MV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhodWJf
-djFfMC5jCj4+IGluZGV4IGRkNDg2MzcuLjBhYmIxMjggMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2dmeGh1Yl92MV8wLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvZ2Z4aHViX3YxXzAuYwo+PiBAQCAtMjk5LDM2ICsyOTksNiBAQCB2b2lkIGdm
-eGh1Yl92MV8wX3NldF9mYXVsdF9lbmFibGVfZGVmYXVsdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
-YWRldiwKPj4gICAgICAgICAgV1JFRzMyKFNPQzE1X1JFR19PRkZTRVQoR0MsIDAsIG1tVk1fTDJf
-UFJPVEVDVElPTl9GQVVMVF9DTlRMKSwgdG1wKTsKPj4gICB9Cj4+Cj4+IC1zdGF0aWMgdWludDMy
-X3QgZ2Z4aHViX3YxXzBfZ2V0X2ludmFsaWRhdGVfcmVxKHVuc2lnbmVkIGludCB2bV9pZCkKPj4g
-LXsKPj4gLSAgICAgICB1MzIgcmVxID0gMDsKPj4gLQo+PiAtICAgICAgIC8qIGludmFsaWRhdGUg
-dXNpbmcgbGVnYWN5IG1vZGUgb24gdm1faWQqLwo+PiAtICAgICAgIHJlcSA9IFJFR19TRVRfRklF
-TEQocmVxLCBWTV9JTlZBTElEQVRFX0VORzBfUkVRLAo+PiAtICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgUEVSX1ZNSURfSU5WQUxJREFURV9SRVEsIDEgPDwgdm1faWQpOwo+PiAtICAgICAgIHJl
-cSA9IFJFR19TRVRfRklFTEQocmVxLCBWTV9JTlZBTElEQVRFX0VORzBfUkVRLCBGTFVTSF9UWVBF
-LCAwKTsKPj4gLSAgICAgICByZXEgPSBSRUdfU0VUX0ZJRUxEKHJlcSwgVk1fSU5WQUxJREFURV9F
-TkcwX1JFUSwgSU5WQUxJREFURV9MMl9QVEVTLCAxKTsKPj4gLSAgICAgICByZXEgPSBSRUdfU0VU
-X0ZJRUxEKHJlcSwgVk1fSU5WQUxJREFURV9FTkcwX1JFUSwgSU5WQUxJREFURV9MMl9QREUwLCAx
-KTsKPj4gLSAgICAgICByZXEgPSBSRUdfU0VUX0ZJRUxEKHJlcSwgVk1fSU5WQUxJREFURV9FTkcw
-X1JFUSwgSU5WQUxJREFURV9MMl9QREUxLCAxKTsKPj4gLSAgICAgICByZXEgPSBSRUdfU0VUX0ZJ
-RUxEKHJlcSwgVk1fSU5WQUxJREFURV9FTkcwX1JFUSwgSU5WQUxJREFURV9MMl9QREUyLCAxKTsK
-Pj4gLSAgICAgICByZXEgPSBSRUdfU0VUX0ZJRUxEKHJlcSwgVk1fSU5WQUxJREFURV9FTkcwX1JF
-USwgSU5WQUxJREFURV9MMV9QVEVTLCAxKTsKPj4gLSAgICAgICByZXEgPSBSRUdfU0VUX0ZJRUxE
-KHJlcSwgVk1fSU5WQUxJREFURV9FTkcwX1JFUSwKPj4gLSAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIENMRUFSX1BST1RFQ1RJT05fRkFVTFRfU1RBVFVTX0FERFIsIDApOwo+PiAtCj4+IC0gICAg
-ICAgcmV0dXJuIHJlcTsKPj4gLX0KPj4gLQo+PiAtc3RhdGljIHVpbnQzMl90IGdmeGh1Yl92MV8w
-X2dldF92bV9wcm90ZWN0aW9uX2JpdHModm9pZCkKPj4gLXsKPj4gLSAgICAgICByZXR1cm4gKFZN
-X0NPTlRFWFQxX0NOVExfX1JBTkdFX1BST1RFQ1RJT05fRkFVTFRfRU5BQkxFX0lOVEVSUlVQVF9N
-QVNLIHwKPj4gLSAgICAgICAgICAgICAgICAgICBWTV9DT05URVhUMV9DTlRMX19EVU1NWV9QQUdF
-X1BST1RFQ1RJT05fRkFVTFRfRU5BQkxFX0lOVEVSUlVQVF9NQVNLIHwKPj4gLSAgICAgICAgICAg
-ICAgICAgICBWTV9DT05URVhUMV9DTlRMX19QREUwX1BST1RFQ1RJT05fRkFVTFRfRU5BQkxFX0lO
-VEVSUlVQVF9NQVNLIHwKPj4gLSAgICAgICAgICAgICAgICAgICBWTV9DT05URVhUMV9DTlRMX19W
-QUxJRF9QUk9URUNUSU9OX0ZBVUxUX0VOQUJMRV9JTlRFUlJVUFRfTUFTSyB8Cj4+IC0gICAgICAg
-ICAgICAgICAgICAgVk1fQ09OVEVYVDFfQ05UTF9fUkVBRF9QUk9URUNUSU9OX0ZBVUxUX0VOQUJM
-RV9JTlRFUlJVUFRfTUFTSyB8Cj4+IC0gICAgICAgICAgICAgICAgICAgVk1fQ09OVEVYVDFfQ05U
-TF9fV1JJVEVfUFJPVEVDVElPTl9GQVVMVF9FTkFCTEVfSU5URVJSVVBUX01BU0sgfAo+PiAtICAg
-ICAgICAgICAgICAgICAgIFZNX0NPTlRFWFQxX0NOVExfX0VYRUNVVEVfUFJPVEVDVElPTl9GQVVM
-VF9FTkFCTEVfSU5URVJSVVBUX01BU0spOwo+PiAtfQo+PiAtCj4+ICAgc3RhdGljIGludCBnZnho
-dWJfdjFfMF9lYXJseV9pbml0KHZvaWQgKmhhbmRsZSkKPj4gICB7Cj4+ICAgICAgICAgIHJldHVy
-biAwOwo+PiBAQCAtMzYxLDkgKzMzMSw2IEBAIHN0YXRpYyBpbnQgZ2Z4aHViX3YxXzBfc3dfaW5p
-dCh2b2lkICpoYW5kbGUpCj4+ICAgICAgICAgIGh1Yi0+dm1fbDJfcHJvX2ZhdWx0X2NudGwgPQo+
-PiAgICAgICAgICAgICAgICAgIFNPQzE1X1JFR19PRkZTRVQoR0MsIDAsIG1tVk1fTDJfUFJPVEVD
-VElPTl9GQVVMVF9DTlRMKTsKPj4KPj4gLSAgICAgICBodWItPmdldF9pbnZhbGlkYXRlX3JlcSA9
-IGdmeGh1Yl92MV8wX2dldF9pbnZhbGlkYXRlX3JlcTsKPj4gLSAgICAgICBodWItPmdldF92bV9w
-cm90ZWN0aW9uX2JpdHMgPSBnZnhodWJfdjFfMF9nZXRfdm1fcHJvdGVjdGlvbl9iaXRzOwo+PiAt
-Cj4+ICAgICAgICAgIHJldHVybiAwOwo+PiAgIH0KPj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9nbWNfdjlfMC5jCj4+IGluZGV4IDI2OGNlZGIuLjQzYjQyOWUgMTAwNjQ0Cj4+IC0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMKPj4gKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYwo+PiBAQCAtNzUsMTEgKzc1LDE4IEBAIHN0YXRpYyBp
-bnQgZ21jX3Y5XzBfdm1fZmF1bHRfaW50ZXJydXB0X3N0YXRlKHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICphZGV2LAo+PiAgICAgICAgICBzdHJ1Y3QgYW1kZ3B1X3ZtaHViICpodWI7Cj4+ICAgICAgICAg
-IHUzMiB0bXAsIHJlZywgYml0cywgaTsKPj4KPj4gKyAgICAgICBiaXRzID0gVk1fQ09OVEVYVDFf
-Q05UTF9fUkFOR0VfUFJPVEVDVElPTl9GQVVMVF9FTkFCTEVfSU5URVJSVVBUX01BU0sgfAo+PiAr
-ICAgICAgICAgICAgICAgVk1fQ09OVEVYVDFfQ05UTF9fRFVNTVlfUEFHRV9QUk9URUNUSU9OX0ZB
-VUxUX0VOQUJMRV9JTlRFUlJVUFRfTUFTSyB8Cj4+ICsgICAgICAgICAgICAgICBWTV9DT05URVhU
-MV9DTlRMX19QREUwX1BST1RFQ1RJT05fRkFVTFRfRU5BQkxFX0lOVEVSUlVQVF9NQVNLIHwKPj4g
-KyAgICAgICAgICAgICAgIFZNX0NPTlRFWFQxX0NOVExfX1ZBTElEX1BST1RFQ1RJT05fRkFVTFRf
-RU5BQkxFX0lOVEVSUlVQVF9NQVNLIHwKPj4gKyAgICAgICAgICAgICAgIFZNX0NPTlRFWFQxX0NO
-VExfX1JFQURfUFJPVEVDVElPTl9GQVVMVF9FTkFCTEVfSU5URVJSVVBUX01BU0sgfAo+PiArICAg
-ICAgICAgICAgICAgVk1fQ09OVEVYVDFfQ05UTF9fV1JJVEVfUFJPVEVDVElPTl9GQVVMVF9FTkFC
-TEVfSU5URVJSVVBUX01BU0sgfAo+PiArICAgICAgICAgICAgICAgVk1fQ09OVEVYVDFfQ05UTF9f
-RVhFQ1VURV9QUk9URUNUSU9OX0ZBVUxUX0VOQUJMRV9JTlRFUlJVUFRfTUFTSzsKPj4gKwo+PiAg
-ICAgICAgICBzd2l0Y2ggKHN0YXRlKSB7Cj4+ICAgICAgICAgIGNhc2UgQU1ER1BVX0lSUV9TVEFU
-RV9ESVNBQkxFOgo+PiAgICAgICAgICAgICAgICAgIC8qIE1NIEhVQiAqLwo+PiAgICAgICAgICAg
-ICAgICAgIGh1YiA9ICZhZGV2LT52bWh1YltBTURHUFVfTU1IVUJdOwo+PiAtICAgICAgICAgICAg
-ICAgYml0cyA9IGh1Yi0+Z2V0X3ZtX3Byb3RlY3Rpb25fYml0cygpOwo+PiAgICAgICAgICAgICAg
-ICAgIGZvciAoaSA9IDA7IGk8IDE2OyBpKyspIHsKPj4gICAgICAgICAgICAgICAgICAgICAgICAg
-IHJlZyA9IGh1Yi0+dm1fY29udGV4dDBfY250bCArIGk7Cj4+ICAgICAgICAgICAgICAgICAgICAg
-ICAgICB0bXAgPSBSUkVHMzIocmVnKTsKPj4gQEAgLTg5LDcgKzk2LDYgQEAgc3RhdGljIGludCBn
-bWNfdjlfMF92bV9mYXVsdF9pbnRlcnJ1cHRfc3RhdGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
-ZXYsCj4+Cj4+ICAgICAgICAgICAgICAgICAgLyogR0ZYIEhVQiAqLwo+PiAgICAgICAgICAgICAg
-ICAgIGh1YiA9ICZhZGV2LT52bWh1YltBTURHUFVfR0ZYSFVCXTsKPj4gLSAgICAgICAgICAgICAg
-IGJpdHMgPSBodWItPmdldF92bV9wcm90ZWN0aW9uX2JpdHMoKTsKPj4gICAgICAgICAgICAgICAg
-ICBmb3IgKGkgPSAwOyBpIDwgMTY7IGkrKykgewo+PiAgICAgICAgICAgICAgICAgICAgICAgICAg
-cmVnID0gaHViLT52bV9jb250ZXh0MF9jbnRsICsgaTsKPj4gICAgICAgICAgICAgICAgICAgICAg
-ICAgIHRtcCA9IFJSRUczMihyZWcpOwo+PiBAQCAtMTAwLDcgKzEwNiw2IEBAIHN0YXRpYyBpbnQg
-Z21jX3Y5XzBfdm1fZmF1bHRfaW50ZXJydXB0X3N0YXRlKHN0cnVjdCBhbWRncHVfZGV2aWNlICph
-ZGV2LAo+PiAgICAgICAgICBjYXNlIEFNREdQVV9JUlFfU1RBVEVfRU5BQkxFOgo+PiAgICAgICAg
-ICAgICAgICAgIC8qIE1NIEhVQiAqLwo+PiAgICAgICAgICAgICAgICAgIGh1YiA9ICZhZGV2LT52
-bWh1YltBTURHUFVfTU1IVUJdOwo+PiAtICAgICAgICAgICAgICAgYml0cyA9IGh1Yi0+Z2V0X3Zt
-X3Byb3RlY3Rpb25fYml0cygpOwo+PiAgICAgICAgICAgICAgICAgIGZvciAoaSA9IDA7IGk8IDE2
-OyBpKyspIHsKPj4gICAgICAgICAgICAgICAgICAgICAgICAgIHJlZyA9IGh1Yi0+dm1fY29udGV4
-dDBfY250bCArIGk7Cj4+ICAgICAgICAgICAgICAgICAgICAgICAgICB0bXAgPSBSUkVHMzIocmVn
-KTsKPj4gQEAgLTExMCw3ICsxMTUsNiBAQCBzdGF0aWMgaW50IGdtY192OV8wX3ZtX2ZhdWx0X2lu
-dGVycnVwdF9zdGF0ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4KPj4gICAgICAgICAg
-ICAgICAgICAvKiBHRlggSFVCICovCj4+ICAgICAgICAgICAgICAgICAgaHViID0gJmFkZXYtPnZt
-aHViW0FNREdQVV9HRlhIVUJdOwo+PiAtICAgICAgICAgICAgICAgYml0cyA9IGh1Yi0+Z2V0X3Zt
-X3Byb3RlY3Rpb25fYml0cygpOwo+PiAgICAgICAgICAgICAgICAgIGZvciAoaSA9IDA7IGkgPCAx
-NjsgaSsrKSB7Cj4+ICAgICAgICAgICAgICAgICAgICAgICAgICByZWcgPSBodWItPnZtX2NvbnRl
-eHQwX2NudGwgKyBpOwo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgdG1wID0gUlJFRzMyKHJl
-Zyk7Cj4+IEBAIC0xNjksNiArMTczLDI1IEBAIHN0YXRpYyB2b2lkIGdtY192OV8wX3NldF9pcnFf
-ZnVuY3Moc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4+ICAgICAgICAgIGFkZXYtPm1jLnZt
-X2ZhdWx0LmZ1bmNzID0gJmdtY192OV8wX2lycV9mdW5jczsKPj4gICB9Cj4+Cj4+ICt1aW50MzJf
-dCBnbWNfdjlfMF9nZXRfaW52YWxpZGF0ZV9yZXEodW5zaWduZWQgaW50IHZtX2lkKQo+PiArewo+
-PiArICAgICAgIHUzMiByZXEgPSAwOwo+PiArCj4+ICsgICAgICAgLyogaW52YWxpZGF0ZSB1c2lu
-ZyBsZWdhY3kgbW9kZSBvbiB2bV9pZCovCj4+ICsgICAgICAgcmVxID0gUkVHX1NFVF9GSUVMRChy
-ZXEsIFZNX0lOVkFMSURBVEVfRU5HMF9SRVEsCj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBQRVJfVk1JRF9JTlZBTElEQVRFX1JFUSwgMSA8PCB2bV9pZCk7Cj4+ICsgICAgICAgcmVxID0g
-UkVHX1NFVF9GSUVMRChyZXEsIFZNX0lOVkFMSURBVEVfRU5HMF9SRVEsIEZMVVNIX1RZUEUsIDAp
-Owo+PiArICAgICAgIHJlcSA9IFJFR19TRVRfRklFTEQocmVxLCBWTV9JTlZBTElEQVRFX0VORzBf
-UkVRLCBJTlZBTElEQVRFX0wyX1BURVMsIDEpOwo+PiArICAgICAgIHJlcSA9IFJFR19TRVRfRklF
-TEQocmVxLCBWTV9JTlZBTElEQVRFX0VORzBfUkVRLCBJTlZBTElEQVRFX0wyX1BERTAsIDEpOwo+
-PiArICAgICAgIHJlcSA9IFJFR19TRVRfRklFTEQocmVxLCBWTV9JTlZBTElEQVRFX0VORzBfUkVR
-LCBJTlZBTElEQVRFX0wyX1BERTEsIDEpOwo+PiArICAgICAgIHJlcSA9IFJFR19TRVRfRklFTEQo
-cmVxLCBWTV9JTlZBTElEQVRFX0VORzBfUkVRLCBJTlZBTElEQVRFX0wyX1BERTIsIDEpOwo+PiAr
-ICAgICAgIHJlcSA9IFJFR19TRVRfRklFTEQocmVxLCBWTV9JTlZBTElEQVRFX0VORzBfUkVRLCBJ
-TlZBTElEQVRFX0wxX1BURVMsIDEpOwo+PiArICAgICAgIHJlcSA9IFJFR19TRVRfRklFTEQocmVx
-LCBWTV9JTlZBTElEQVRFX0VORzBfUkVRLAo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAg
-Q0xFQVJfUFJPVEVDVElPTl9GQVVMVF9TVEFUVVNfQUREUiwgMCk7Cj4+ICsKPj4gKyAgICAgICBy
-ZXR1cm4gcmVxOwo+PiArfQo+PiArCj4+ICAgLyoKPj4gICAgKiBHQVJUCj4+ICAgICogVk1JRCAw
-IGlzIHRoZSBwaHlzaWNhbCBHUFUgYWRkcmVzc2VzIGFzIHVzZWQgYnkgdGhlIGtlcm5lbC4KPj4g
-QEAgLTE5OCw3ICsyMjEsNyBAQCBzdGF0aWMgdm9pZCBnbWNfdjlfMF9nYXJ0X2ZsdXNoX2dwdV90
-bGIoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4+Cj4+ICAgICAgICAgIGZvciAoaSA9IDA7
-IGkgPCBBTURHUFVfTUFYX1ZNSFVCUzsgKytpKSB7Cj4+ICAgICAgICAgICAgICAgICAgc3RydWN0
-IGFtZGdwdV92bWh1YiAqaHViID0gJmFkZXYtPnZtaHViW2ldOwo+PiAtICAgICAgICAgICAgICAg
-dTMyIHRtcCA9IGh1Yi0+Z2V0X2ludmFsaWRhdGVfcmVxKHZtaWQpOwo+PiArICAgICAgICAgICAg
-ICAgdTMyIHRtcCA9IGdtY192OV8wX2dldF9pbnZhbGlkYXRlX3JlcSh2bWlkKTsKPj4KPj4gICAg
-ICAgICAgICAgICAgICBXUkVHMzJfTk9fS0lRKGh1Yi0+dm1faW52X2VuZzBfcmVxICsgZW5nLCB0
-bXApOwo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5
-XzAuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmgKPj4gaW5kZXggYjAz
-MGNhNS4uZWEwNDZhOCAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-Z21jX3Y5XzAuaAo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5o
-Cj4+IEBAIC0yNyw0ICsyNyw2IEBACj4+ICAgZXh0ZXJuIGNvbnN0IHN0cnVjdCBhbWRfaXBfZnVu
-Y3MgZ21jX3Y5XzBfaXBfZnVuY3M7Cj4+ICAgZXh0ZXJuIGNvbnN0IHN0cnVjdCBhbWRncHVfaXBf
-YmxvY2tfdmVyc2lvbiBnbWNfdjlfMF9pcF9ibG9jazsKPj4KPj4gK3VpbnQzMl90IGdtY192OV8w
-X2dldF9pbnZhbGlkYXRlX3JlcSh1bnNpZ25lZCBpbnQgdm1faWQpOwo+PiArCj4+ICAgI2VuZGlm
-Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9tbWh1Yl92MV8wLmMg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9tbWh1Yl92MV8wLmMKPj4gaW5kZXggYzFkYzhj
-NC4uNmNkMWM1NSAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbW1o
-dWJfdjFfMC5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L21taHViX3YxXzAu
-Ywo+PiBAQCAtMzE3LDM2ICszMTcsNiBAQCB2b2lkIG1taHViX3YxXzBfc2V0X2ZhdWx0X2VuYWJs
-ZV9kZWZhdWx0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBib29sIHZhbHVlKQo+PiAgICAg
-ICAgICBXUkVHMzIoU09DMTVfUkVHX09GRlNFVChNTUhVQiwgMCwgbW1WTV9MMl9QUk9URUNUSU9O
-X0ZBVUxUX0NOVEwpLCB0bXApOwo+PiAgIH0KPj4KPj4gLXN0YXRpYyB1aW50MzJfdCBtbWh1Yl92
-MV8wX2dldF9pbnZhbGlkYXRlX3JlcSh1bnNpZ25lZCBpbnQgdm1faWQpCj4+IC17Cj4+IC0gICAg
-ICAgdTMyIHJlcSA9IDA7Cj4+IC0KPj4gLSAgICAgICAvKiBpbnZhbGlkYXRlIHVzaW5nIGxlZ2Fj
-eSBtb2RlIG9uIHZtX2lkKi8KPj4gLSAgICAgICByZXEgPSBSRUdfU0VUX0ZJRUxEKHJlcSwgVk1f
-SU5WQUxJREFURV9FTkcwX1JFUSwKPj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgIFBFUl9W
-TUlEX0lOVkFMSURBVEVfUkVRLCAxIDw8IHZtX2lkKTsKPj4gLSAgICAgICByZXEgPSBSRUdfU0VU
-X0ZJRUxEKHJlcSwgVk1fSU5WQUxJREFURV9FTkcwX1JFUSwgRkxVU0hfVFlQRSwgMCk7Cj4+IC0g
-ICAgICAgcmVxID0gUkVHX1NFVF9GSUVMRChyZXEsIFZNX0lOVkFMSURBVEVfRU5HMF9SRVEsIElO
-VkFMSURBVEVfTDJfUFRFUywgMSk7Cj4+IC0gICAgICAgcmVxID0gUkVHX1NFVF9GSUVMRChyZXEs
-IFZNX0lOVkFMSURBVEVfRU5HMF9SRVEsIElOVkFMSURBVEVfTDJfUERFMCwgMSk7Cj4+IC0gICAg
-ICAgcmVxID0gUkVHX1NFVF9GSUVMRChyZXEsIFZNX0lOVkFMSURBVEVfRU5HMF9SRVEsIElOVkFM
-SURBVEVfTDJfUERFMSwgMSk7Cj4+IC0gICAgICAgcmVxID0gUkVHX1NFVF9GSUVMRChyZXEsIFZN
-X0lOVkFMSURBVEVfRU5HMF9SRVEsIElOVkFMSURBVEVfTDJfUERFMiwgMSk7Cj4+IC0gICAgICAg
-cmVxID0gUkVHX1NFVF9GSUVMRChyZXEsIFZNX0lOVkFMSURBVEVfRU5HMF9SRVEsIElOVkFMSURB
-VEVfTDFfUFRFUywgMSk7Cj4+IC0gICAgICAgcmVxID0gUkVHX1NFVF9GSUVMRChyZXEsIFZNX0lO
-VkFMSURBVEVfRU5HMF9SRVEsCj4+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICBDTEVBUl9Q
-Uk9URUNUSU9OX0ZBVUxUX1NUQVRVU19BRERSLCAwKTsKPj4gLQo+PiAtICAgICAgIHJldHVybiBy
-ZXE7Cj4+IC19Cj4+IC0KPj4gLXN0YXRpYyB1aW50MzJfdCBtbWh1Yl92MV8wX2dldF92bV9wcm90
-ZWN0aW9uX2JpdHModm9pZCkKPj4gLXsKPj4gLSAgICAgICByZXR1cm4gKFZNX0NPTlRFWFQxX0NO
-VExfX1JBTkdFX1BST1RFQ1RJT05fRkFVTFRfRU5BQkxFX0lOVEVSUlVQVF9NQVNLIHwKPj4gLSAg
-ICAgICAgICAgICAgICAgICBWTV9DT05URVhUMV9DTlRMX19EVU1NWV9QQUdFX1BST1RFQ1RJT05f
-RkFVTFRfRU5BQkxFX0lOVEVSUlVQVF9NQVNLIHwKPj4gLSAgICAgICAgICAgICAgICAgICBWTV9D
-T05URVhUMV9DTlRMX19QREUwX1BST1RFQ1RJT05fRkFVTFRfRU5BQkxFX0lOVEVSUlVQVF9NQVNL
-IHwKPj4gLSAgICAgICAgICAgICAgICAgICBWTV9DT05URVhUMV9DTlRMX19WQUxJRF9QUk9URUNU
-SU9OX0ZBVUxUX0VOQUJMRV9JTlRFUlJVUFRfTUFTSyB8Cj4+IC0gICAgICAgICAgICAgICAgICAg
-Vk1fQ09OVEVYVDFfQ05UTF9fUkVBRF9QUk9URUNUSU9OX0ZBVUxUX0VOQUJMRV9JTlRFUlJVUFRf
-TUFTSyB8Cj4+IC0gICAgICAgICAgICAgICAgICAgVk1fQ09OVEVYVDFfQ05UTF9fV1JJVEVfUFJP
-VEVDVElPTl9GQVVMVF9FTkFCTEVfSU5URVJSVVBUX01BU0sgfAo+PiAtICAgICAgICAgICAgICAg
-ICAgIFZNX0NPTlRFWFQxX0NOVExfX0VYRUNVVEVfUFJPVEVDVElPTl9GQVVMVF9FTkFCTEVfSU5U
-RVJSVVBUX01BU0spOwo+PiAtfQo+PiAtCj4+ICAgc3RhdGljIGludCBtbWh1Yl92MV8wX2Vhcmx5
-X2luaXQodm9pZCAqaGFuZGxlKQo+PiAgIHsKPj4gICAgICAgICAgcmV0dXJuIDA7Cj4+IEBAIC0z
-NzksOSArMzQ5LDYgQEAgc3RhdGljIGludCBtbWh1Yl92MV8wX3N3X2luaXQodm9pZCAqaGFuZGxl
-KQo+PiAgICAgICAgICBodWItPnZtX2wyX3Byb19mYXVsdF9jbnRsID0KPj4gICAgICAgICAgICAg
-ICAgICBTT0MxNV9SRUdfT0ZGU0VUKE1NSFVCLCAwLCBtbVZNX0wyX1BST1RFQ1RJT05fRkFVTFRf
-Q05UTCk7Cj4+Cj4+IC0gICAgICAgaHViLT5nZXRfaW52YWxpZGF0ZV9yZXEgPSBtbWh1Yl92MV8w
-X2dldF9pbnZhbGlkYXRlX3JlcTsKPj4gLSAgICAgICBodWItPmdldF92bV9wcm90ZWN0aW9uX2Jp
-dHMgPSBtbWh1Yl92MV8wX2dldF92bV9wcm90ZWN0aW9uX2JpdHM7Cj4+IC0KPj4gICAgICAgICAg
-cmV0dXJuIDA7Cj4+ICAgfQo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvc2RtYV92NF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y0XzAu
-Ywo+PiBpbmRleCA2Y2ZiMTAwLi5lMzBlYTI2IDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9zZG1hX3Y0XzAuYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9zZG1hX3Y0XzAuYwo+PiBAQCAtMzksNiArMzksNyBAQAo+PiAgICNpbmNsdWRlICJzb2Mx
-NV9jb21tb24uaCIKPj4gICAjaW5jbHVkZSAic29jMTUuaCIKPj4gICAjaW5jbHVkZSAidmVnYTEw
-X3NkbWFfcGt0X29wZW4uaCIKPj4gKyNpbmNsdWRlICJnbWNfdjlfMC5oIgo+Pgo+PiAgIE1PRFVM
-RV9GSVJNV0FSRSgiYW1kZ3B1L3ZlZ2ExMF9zZG1hLmJpbiIpOwo+PiAgIE1PRFVMRV9GSVJNV0FS
-RSgiYW1kZ3B1L3ZlZ2ExMF9zZG1hMS5iaW4iKTsKPj4gQEAgLTEwMzksNiArMTA0MCw3IEBAIHN0
-YXRpYyB2b2lkIHNkbWFfdjRfMF9yaW5nX2VtaXRfcGlwZWxpbmVfc3luYyhzdHJ1Y3QgYW1kZ3B1
-X3JpbmcgKnJpbmcpCj4+ICAgc3RhdGljIHZvaWQgc2RtYV92NF8wX3JpbmdfZW1pdF92bV9mbHVz
-aChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHVuc2lnbmVkIHZtX2lkLCB1aW50NjRfdCBwZF9hZGRyKQo+PiAgIHsK
-Pj4gKyAgICAgICB1aW50MzJfdCByZXEgPSBnbWNfdjlfMF9nZXRfaW52YWxpZGF0ZV9yZXEodm1f
-aWQpOwo+PiAgICAgICAgICB1bnNpZ25lZCBlbmcgPSByaW5nLT5pZHg7Cj4+ICAgICAgICAgIHVu
-c2lnbmVkIGk7Cj4+Cj4+IEBAIC0xMDQ4LDcgKzEwNTAsNiBAQCBzdGF0aWMgdm9pZCBzZG1hX3Y0
-XzBfcmluZ19lbWl0X3ZtX2ZsdXNoKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywKPj4KPj4gICAg
-ICAgICAgZm9yIChpID0gMDsgaSA8IEFNREdQVV9NQVhfVk1IVUJTOyArK2kpIHsKPj4gICAgICAg
-ICAgICAgICAgICBzdHJ1Y3QgYW1kZ3B1X3ZtaHViICpodWIgPSAmcmluZy0+YWRldi0+dm1odWJb
-aV07Cj4+IC0gICAgICAgICAgICAgICB1aW50MzJfdCByZXEgPSBodWItPmdldF9pbnZhbGlkYXRl
-X3JlcSh2bV9pZCk7Cj4+Cj4+ICAgICAgICAgICAgICAgICAgYW1kZ3B1X3Jpbmdfd3JpdGUocmlu
-ZywgU0RNQV9QS1RfSEVBREVSX09QKFNETUFfT1BfU1JCTV9XUklURSkgfAo+PiAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIFNETUFfUEtUX1NSQk1fV1JJVEVfSEVBREVSX0JZVEVf
-RU4oMHhmKSk7Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRf
-djdfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdXZkX3Y3XzAuYwo+PiBpbmRleCAz
-NDU3NTQ2Li41OTNiMDRiIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS91dmRfdjdfMC5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3V2ZF92N18w
-LmMKPj4gQEAgLTI3LDYgKzI3LDcgQEAKPj4gICAjaW5jbHVkZSAiYW1kZ3B1X3V2ZC5oIgo+PiAg
-ICNpbmNsdWRlICJzb2MxNWQuaCIKPj4gICAjaW5jbHVkZSAic29jMTVfY29tbW9uLmgiCj4+ICsj
-aW5jbHVkZSAiZ21jX3Y5XzAuaCIKPj4KPj4gICAjaW5jbHVkZSAidmVnYTEwL3NvYzE1aXAuaCIK
-Pj4gICAjaW5jbHVkZSAidmVnYTEwL1VWRC91dmRfN18wX29mZnNldC5oIgo+PiBAQCAtMTA0NSw2
-ICsxMDQ2LDcgQEAgc3RhdGljIHZvaWQgdXZkX3Y3XzBfdm1fcmVnX3dhaXQoc3RydWN0IGFtZGdw
-dV9yaW5nICpyaW5nLAo+PiAgIHN0YXRpYyB2b2lkIHV2ZF92N18wX3JpbmdfZW1pdF92bV9mbHVz
-aChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgdW5zaWduZWQgdm1faWQsIHVpbnQ2NF90IHBkX2FkZHIpCj4+ICAgewo+
-PiArICAgICAgIHVpbnQzMl90IHJlcSA9IGdtY192OV8wX2dldF9pbnZhbGlkYXRlX3JlcSh2bV9p
-ZCk7Cj4+ICAgICAgICAgIHVpbnQzMl90IGRhdGEwLCBkYXRhMSwgbWFzazsKPj4gICAgICAgICAg
-dW5zaWduZWQgZW5nID0gcmluZy0+aWR4Owo+PiAgICAgICAgICB1bnNpZ25lZCBpOwo+PiBAQCAt
-MTA1NSw3ICsxMDU3LDYgQEAgc3RhdGljIHZvaWQgdXZkX3Y3XzBfcmluZ19lbWl0X3ZtX2ZsdXNo
-KHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywKPj4KPj4gICAgICAgICAgZm9yIChpID0gMDsgaSA8
-IEFNREdQVV9NQVhfVk1IVUJTOyArK2kpIHsKPj4gICAgICAgICAgICAgICAgICBzdHJ1Y3QgYW1k
-Z3B1X3ZtaHViICpodWIgPSAmcmluZy0+YWRldi0+dm1odWJbaV07Cj4+IC0gICAgICAgICAgICAg
-ICB1aW50MzJfdCByZXEgPSBodWItPmdldF9pbnZhbGlkYXRlX3JlcSh2bV9pZCk7Cj4+Cj4+ICAg
-ICAgICAgICAgICAgICAgZGF0YTAgPSAoaHViLT5jdHgwX3B0Yl9hZGRyX2hpMzIgKyB2bV9pZCAq
-IDIpIDw8IDI7Cj4+ICAgICAgICAgICAgICAgICAgZGF0YTEgPSB1cHBlcl8zMl9iaXRzKHBkX2Fk
-ZHIpOwo+PiBAQCAtMTA5MSw2ICsxMDkyLDcgQEAgc3RhdGljIHZvaWQgdXZkX3Y3XzBfZW5jX3Jp
-bmdfaW5zZXJ0X2VuZChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpCj4+ICAgc3RhdGljIHZvaWQg
-dXZkX3Y3XzBfZW5jX3JpbmdfZW1pdF92bV9mbHVzaChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcs
-Cj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgdW5zaWduZWQgaW50IHZtX2lkLCB1aW50NjRf
-dCBwZF9hZGRyKQo+PiAgIHsKPj4gKyAgICAgICB1aW50MzJfdCByZXEgPSBnbWNfdjlfMF9nZXRf
-aW52YWxpZGF0ZV9yZXEodm1faWQpOwo+PiAgICAgICAgICB1bnNpZ25lZCBlbmcgPSByaW5nLT5p
-ZHg7Cj4+ICAgICAgICAgIHVuc2lnbmVkIGk7Cj4+Cj4+IEBAIC0xMTAwLDcgKzExMDIsNiBAQCBz
-dGF0aWMgdm9pZCB1dmRfdjdfMF9lbmNfcmluZ19lbWl0X3ZtX2ZsdXNoKHN0cnVjdCBhbWRncHVf
-cmluZyAqcmluZywKPj4KPj4gICAgICAgICAgZm9yIChpID0gMDsgaSA8IEFNREdQVV9NQVhfVk1I
-VUJTOyArK2kpIHsKPj4gICAgICAgICAgICAgICAgICBzdHJ1Y3QgYW1kZ3B1X3ZtaHViICpodWIg
-PSAmcmluZy0+YWRldi0+dm1odWJbaV07Cj4+IC0gICAgICAgICAgICAgICB1aW50MzJfdCByZXEg
-PSBodWItPmdldF9pbnZhbGlkYXRlX3JlcSh2bV9pZCk7Cj4+Cj4+ICAgICAgICAgICAgICAgICAg
-YW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgSEVWQ19FTkNfQ01EX1JFR19XUklURSk7Cj4+ICAgICAg
-ICAgICAgICAgICAgYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywKPj4gZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92NF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS92Y2VfdjRfMC5jCj4+IGluZGV4IGFkNWZkOTguLjljNWNlOTEgMTAwNjQ0Cj4+IC0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92NF8wLmMKPj4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvdmNlX3Y0XzAuYwo+PiBAQCAtMzEsNiArMzEsNyBAQAo+PiAgICNp
-bmNsdWRlICJzb2MxNWQuaCIKPj4gICAjaW5jbHVkZSAic29jMTVfY29tbW9uLmgiCj4+ICAgI2lu
-Y2x1ZGUgIm1tc2NoX3YxXzAuaCIKPj4gKyNpbmNsdWRlICJnbWNfdjlfMC5oIgo+Pgo+PiAgICNp
-bmNsdWRlICJ2ZWdhMTAvc29jMTVpcC5oIgo+PiAgICNpbmNsdWRlICJ2ZWdhMTAvVkNFL3ZjZV80
-XzBfb2Zmc2V0LmgiCj4+IEBAIC05ODUsNiArOTg2LDcgQEAgc3RhdGljIHZvaWQgdmNlX3Y0XzBf
-cmluZ19pbnNlcnRfZW5kKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZykKPj4gICBzdGF0aWMgdm9p
-ZCB2Y2VfdjRfMF9lbWl0X3ZtX2ZsdXNoKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywKPj4gICAg
-ICAgICAgICAgICAgICAgICAgICAgICB1bnNpZ25lZCBpbnQgdm1faWQsIHVpbnQ2NF90IHBkX2Fk
-ZHIpCj4+ICAgewo+PiArICAgICAgIHVpbnQzMl90IHJlcSA9IGdtY192OV8wX2dldF9pbnZhbGlk
-YXRlX3JlcSh2bV9pZCk7Cj4+ICAgICAgICAgIHVuc2lnbmVkIGVuZyA9IHJpbmctPmlkeDsKPj4g
-ICAgICAgICAgdW5zaWduZWQgaTsKPj4KPj4gQEAgLTk5NCw3ICs5OTYsNiBAQCBzdGF0aWMgdm9p
-ZCB2Y2VfdjRfMF9lbWl0X3ZtX2ZsdXNoKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywKPj4KPj4g
-ICAgICAgICAgZm9yIChpID0gMDsgaSA8IEFNREdQVV9NQVhfVk1IVUJTOyArK2kpIHsKPj4gICAg
-ICAgICAgICAgICAgICBzdHJ1Y3QgYW1kZ3B1X3ZtaHViICpodWIgPSAmcmluZy0+YWRldi0+dm1o
-dWJbaV07Cj4+IC0gICAgICAgICAgICAgICB1aW50MzJfdCByZXEgPSBodWItPmdldF9pbnZhbGlk
-YXRlX3JlcSh2bV9pZCk7Cj4+Cj4+ICAgICAgICAgICAgICAgICAgYW1kZ3B1X3Jpbmdfd3JpdGUo
-cmluZywgVkNFX0NNRF9SRUdfV1JJVEUpOwo+PiAgICAgICAgICAgICAgICAgIGFtZGdwdV9yaW5n
-X3dyaXRlKHJpbmcsCj4+IC0tCj4+IDIuNS4wCj4+Cj4+IF9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCj4+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+IGFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYW1kLWdmeAo=
+--===============0881929291==
+Content-Type: multipart/alternative; boundary=001a114315ee4395f0054c52b5f9
+
+--001a114315ee4395f0054c52b5f9
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+I also haven't tested it on hardware (all my hardware seems to be supported
+by amdgpu), but the only times we touch prime_shared_count are:
+1) It's set to 1 in radeon_gem_prime_import_sg_table. This shouldn't be
+called in the self-import case (and isn't, as far as I can tell), and
+2) It's incremented in radeon_gem_prime_pin, right after the bo is pinned
+to GTT, so cannot be migrated to VRAM anyway (unless there's an unmatched
+radeon_bo_unpin call somewhere else?).
+
+On Tue, 4 Apr 2017 at 02:30 Christian K=C3=B6nig <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org> =
+wrote:
+
+> Am 03.04.2017 um 17:51 schrieb Alex Deucher:
+> > On Mon, Apr 3, 2017 at 4:24 AM, Christian K=C3=B6nig <deathsimple@vodaf=
+one.de>
+> wrote:
+> >> Am 03.04.2017 um 05:35 schrieb raof-GeWIH/nMZzLQT0dZR+AlfA@public.gmane.org:
+> >>> From: Christopher James Halse Rogers
+> >>> <christopher.halse.rogers-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+> >>>
+> >>> BOs shared via dma-buf, either imported or exported, cannot sensibly =
+be
+> >>> migrated to VRAM
+> >>> without breaking the dma-buf sharing. Refuse userspace requests to
+> migrate
+> >>> to VRAM,
+> >>> ensure such BOs are not migrated during command submission, and refus=
+e
+> to
+> >>> pin them
+> >>> to VRAM.
+> >>>
+> >>> v2: Don't pin BOs in GTT. Instead, refuse to migrate BOs to VRAM.
+> >>>
+> >>> Signed-off-by: Christopher James Halse Rogers
+> >>> <christopher.halse.rogers-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+> >>
+> >> Patches #4, #6 and this one (#7) are Reviewed-by: Christian K=C3=B6nig
+> >> <christian.koenig-5C7GfCeVMHo@public.gmane.org>.
+> > Will this cause any issues with self sharing?  E.g., the standard use
+> > case with a single GPU and DRI3?
+>
+> No, the code from amdgpu to count the number of times we really shared a
+> BO with somebody was ported over to radeon as far as I can see.
+>
+> So that should work fine, but I haven't double checked or tested it.
+>
+> Christian.
+>
+> >
+> > Alex
+> >
+> >>
+> >>> ---
+> >>>    drivers/gpu/drm/radeon/radeon_cs.c     | 10 ++++++++++
+> >>>    drivers/gpu/drm/radeon/radeon_gem.c    |  4 ++++
+> >>>    drivers/gpu/drm/radeon/radeon_object.c |  5 +++++
+> >>>    3 files changed, 19 insertions(+)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/radeon/radeon_cs.c
+> >>> b/drivers/gpu/drm/radeon/radeon_cs.c
+> >>> index a8442f7196d6..df6b58c08544 100644
+> >>> --- a/drivers/gpu/drm/radeon/radeon_cs.c
+> >>> +++ b/drivers/gpu/drm/radeon/radeon_cs.c
+> >>> @@ -164,6 +164,16 @@ static int radeon_cs_parser_relocs(struct
+> >>> radeon_cs_parser *p)
+> >>>                          p->relocs[i].allowed_domains =3D domain;
+> >>>                  }
+> >>>    +             /* Objects shared as dma-bufs cannot be moved to VRA=
+M
+> */
+> >>> +               if (p->relocs[i].robj->prime_shared_count) {
+> >>> +                       p->relocs[i].allowed_domains &=3D
+> >>> ~RADEON_GEM_DOMAIN_VRAM;
+> >>> +                       if (!p->relocs[i].allowed_domains) {
+> >>> +                               DRM_ERROR("BO associated with dma-buf
+> >>> cannot "
+> >>> +                                         "be moved to VRAM\n");
+> >>> +                               return -EINVAL;
+> >>> +                       }
+> >>> +               }
+> >>> +
+> >>>                  p->relocs[i].tv.bo =3D &p->relocs[i].robj->tbo;
+> >>>                  p->relocs[i].tv.shared =3D !r->write_domain;
+> >>>    diff --git a/drivers/gpu/drm/radeon/radeon_gem.c
+> >>> b/drivers/gpu/drm/radeon/radeon_gem.c
+> >>> index 96683f5b2b1b..067ea7d7658a 100644
+> >>> --- a/drivers/gpu/drm/radeon/radeon_gem.c
+> >>> +++ b/drivers/gpu/drm/radeon/radeon_gem.c
+> >>> @@ -120,6 +120,10 @@ static int radeon_gem_set_domain(struct
+> >>> drm_gem_object *gobj,
+> >>>                          return r;
+> >>>                  }
+> >>>          }
+> >>> +       if (domain =3D=3D RADEON_GEM_DOMAIN_VRAM &&
+> robj->prime_shared_count)
+> >>> {
+> >>> +               /* A BO that is associated with a dma-buf cannot be
+> >>> sensibly migrated to VRAM */
+> >>> +               return -EINVAL;
+> >>> +       }
+> >>>          return 0;
+> >>>    }
+> >>>    diff --git a/drivers/gpu/drm/radeon/radeon_object.c
+> >>> b/drivers/gpu/drm/radeon/radeon_object.c
+> >>> index 74b276060c20..bec2ec056de4 100644
+> >>> --- a/drivers/gpu/drm/radeon/radeon_object.c
+> >>> +++ b/drivers/gpu/drm/radeon/radeon_object.c
+> >>> @@ -352,6 +352,11 @@ int radeon_bo_pin_restricted(struct radeon_bo *b=
+o,
+> >>> u32 domain, u64 max_offset,
+> >>>                  return 0;
+> >>>          }
+> >>> +       if (bo->prime_shared_count && domain =3D=3D
+> RADEON_GEM_DOMAIN_VRAM) {
+> >>> +               /* A BO shared as a dma-buf cannot be sensibly
+> migrated to
+> >>> VRAM */
+> >>> +               return -EINVAL;
+> >>> +       }
+> >>> +
+> >>>          radeon_ttm_placement_from_domain(bo, domain);
+> >>>          for (i =3D 0; i < bo->placement.num_placement; i++) {
+> >>>                  /* force to pin into visible video ram */
+> >>
+> >>
+> >> _______________________________________________
+> >> amd-gfx mailing list
+> >> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> >> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> > _______________________________________________
+> > amd-gfx mailing list
+> > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+>
+>
+
+--001a114315ee4395f0054c52b5f9
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div><div>I also haven&#39;t tested it on hardware (all my=
+ hardware seems to be supported by amdgpu), but the only times we touch pri=
+me_shared_count are:<br></div>1) It&#39;s set to 1 in radeon_gem_prime_impo=
+rt_sg_table. This shouldn&#39;t be called in the self-import case (and isn&=
+#39;t, as far as I can tell), and<br></div>2) It&#39;s incremented in radeo=
+n_gem_prime_pin, right after the bo is pinned to GTT, so cannot be migrated=
+ to VRAM anyway (unless there&#39;s an unmatched radeon_bo_unpin call somew=
+here else?).<br></div><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Tu=
+e, 4 Apr 2017 at 02:30 Christian K=C3=B6nig &lt;<a href=3D"mailto:deathsimp=
+le-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org</a>&gt; wrote:<br></div><blockquote=
+ class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc soli=
+d;padding-left:1ex">Am 03.04.2017 um 17:51 schrieb Alex Deucher:<br class=
+=3D"gmail_msg">
+&gt; On Mon, Apr 3, 2017 at 4:24 AM, Christian K=C3=B6nig &lt;<a href=3D"ma=
+ilto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org" class=3D"gmail_msg" target=3D"_blank">deathsi=
+mple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org</a>&gt; wrote:<br class=3D"gmail_msg">
+&gt;&gt; Am 03.04.2017 um 05:35 schrieb <a href=3D"mailto:raof-GeWIH/nMZzLQT0dZR+AlfA@public.gmane.org" =
+class=3D"gmail_msg" target=3D"_blank">raof-GeWIH/nMZzLQT0dZR+AlfA@public.gmane.org</a>:<br class=3D"gmai=
+l_msg">
+&gt;&gt;&gt; From: Christopher James Halse Rogers<br class=3D"gmail_msg">
+&gt;&gt;&gt; &lt;<a href=3D"mailto:christopher.halse.rogers-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org" =
+class=3D"gmail_msg" target=3D"_blank">christopher.halse.rogers-Z7WLFzj8eWPnSPmRt5Z81g@public.gmane.org=
+m</a>&gt;<br class=3D"gmail_msg">
+&gt;&gt;&gt;<br class=3D"gmail_msg">
+&gt;&gt;&gt; BOs shared via dma-buf, either imported or exported, cannot se=
+nsibly be<br class=3D"gmail_msg">
+&gt;&gt;&gt; migrated to VRAM<br class=3D"gmail_msg">
+&gt;&gt;&gt; without breaking the dma-buf sharing. Refuse userspace request=
+s to migrate<br class=3D"gmail_msg">
+&gt;&gt;&gt; to VRAM,<br class=3D"gmail_msg">
+&gt;&gt;&gt; ensure such BOs are not migrated during command submission, an=
+d refuse to<br class=3D"gmail_msg">
+&gt;&gt;&gt; pin them<br class=3D"gmail_msg">
+&gt;&gt;&gt; to VRAM.<br class=3D"gmail_msg">
+&gt;&gt;&gt;<br class=3D"gmail_msg">
+&gt;&gt;&gt; v2: Don&#39;t pin BOs in GTT. Instead, refuse to migrate BOs t=
+o VRAM.<br class=3D"gmail_msg">
+&gt;&gt;&gt;<br class=3D"gmail_msg">
+&gt;&gt;&gt; Signed-off-by: Christopher James Halse Rogers<br class=3D"gmai=
+l_msg">
+&gt;&gt;&gt; &lt;<a href=3D"mailto:christopher.halse.rogers-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org" =
+class=3D"gmail_msg" target=3D"_blank">christopher.halse.rogers-Z7WLFzj8eWPnSPmRt5Z81g@public.gmane.org=
+m</a>&gt;<br class=3D"gmail_msg">
+&gt;&gt;<br class=3D"gmail_msg">
+&gt;&gt; Patches #4, #6 and this one (#7) are Reviewed-by: Christian K=C3=
+=B6nig<br class=3D"gmail_msg">
+&gt;&gt; &lt;<a href=3D"mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org" class=3D"gmail_msg=
+" target=3D"_blank">christian.koenig-5C7GfCeVMHo@public.gmane.org</a>&gt;.<br class=3D"gmail_msg=
+">
+&gt; Will this cause any issues with self sharing?=C2=A0 E.g., the standard=
+ use<br class=3D"gmail_msg">
+&gt; case with a single GPU and DRI3?<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+No, the code from amdgpu to count the number of times we really shared a<br=
+ class=3D"gmail_msg">
+BO with somebody was ported over to radeon as far as I can see.<br class=3D=
+"gmail_msg">
+<br class=3D"gmail_msg">
+So that should work fine, but I haven&#39;t double checked or tested it.<br=
+ class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+Christian.<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+&gt; Alex<br class=3D"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+&gt;&gt;<br class=3D"gmail_msg">
+&gt;&gt;&gt; ---<br class=3D"gmail_msg">
+&gt;&gt;&gt;=C2=A0 =C2=A0 drivers/gpu/drm/radeon/radeon_cs.c=C2=A0 =C2=A0 =
+=C2=A0| 10 ++++++++++<br class=3D"gmail_msg">
+&gt;&gt;&gt;=C2=A0 =C2=A0 drivers/gpu/drm/radeon/radeon_gem.c=C2=A0 =C2=A0 =
+|=C2=A0 4 ++++<br class=3D"gmail_msg">
+&gt;&gt;&gt;=C2=A0 =C2=A0 drivers/gpu/drm/radeon/radeon_object.c |=C2=A0 5 =
++++++<br class=3D"gmail_msg">
+&gt;&gt;&gt;=C2=A0 =C2=A0 3 files changed, 19 insertions(+)<br class=3D"gma=
+il_msg">
+&gt;&gt;&gt;<br class=3D"gmail_msg">
+&gt;&gt;&gt; diff --git a/drivers/gpu/drm/radeon/radeon_cs.c<br class=3D"gm=
+ail_msg">
+&gt;&gt;&gt; b/drivers/gpu/drm/radeon/radeon_cs.c<br class=3D"gmail_msg">
+&gt;&gt;&gt; index a8442f7196d6..df6b58c08544 100644<br class=3D"gmail_msg"=
+>
+&gt;&gt;&gt; --- a/drivers/gpu/drm/radeon/radeon_cs.c<br class=3D"gmail_msg=
+">
+&gt;&gt;&gt; +++ b/drivers/gpu/drm/radeon/radeon_cs.c<br class=3D"gmail_msg=
+">
+&gt;&gt;&gt; @@ -164,6 +164,16 @@ static int radeon_cs_parser_relocs(struct=
+<br class=3D"gmail_msg">
+&gt;&gt;&gt; radeon_cs_parser *p)<br class=3D"gmail_msg">
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 p-&gt;relocs[i].allowed_domains =3D domain;<br =
+class=3D"gmail_msg">
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+}<br class=3D"gmail_msg">
+&gt;&gt;&gt;=C2=A0 =C2=A0 +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+/* Objects shared as dma-bufs cannot be moved to VRAM */<br class=3D"gmail_=
+msg">
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (p-=
+&gt;relocs[i].robj-&gt;prime_shared_count) {<br class=3D"gmail_msg">
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0p-&gt;relocs[i].allowed_domains &amp;=3D<br class=
+=3D"gmail_msg">
+&gt;&gt;&gt; ~RADEON_GEM_DOMAIN_VRAM;<br class=3D"gmail_msg">
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0if (!p-&gt;relocs[i].allowed_domains) {<br class=3D=
+"gmail_msg">
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0DRM_ERROR(&quot;BO asso=
+ciated with dma-buf<br class=3D"gmail_msg">
+&gt;&gt;&gt; cannot &quot;<br class=3D"gmail_msg">
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0&quot;be moved to VRAM\n&quot;);<br class=3D"gmail_msg">
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL;<br clas=
+s=3D"gmail_msg">
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0}<br class=3D"gmail_msg">
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br c=
+lass=3D"gmail_msg">
+&gt;&gt;&gt; +<br class=3D"gmail_msg">
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+p-&gt;relocs[i].<a href=3D"http://tv.bo" rel=3D"noreferrer" class=3D"gmail_=
+msg" target=3D"_blank">tv.bo</a> =3D &amp;p-&gt;relocs[i].robj-&gt;tbo;<br =
+class=3D"gmail_msg">
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+p-&gt;relocs[i].tv.shared =3D !r-&gt;write_domain;<br class=3D"gmail_msg">
+&gt;&gt;&gt;=C2=A0 =C2=A0 diff --git a/drivers/gpu/drm/radeon/radeon_gem.c<=
+br class=3D"gmail_msg">
+&gt;&gt;&gt; b/drivers/gpu/drm/radeon/radeon_gem.c<br class=3D"gmail_msg">
+&gt;&gt;&gt; index 96683f5b2b1b..067ea7d7658a 100644<br class=3D"gmail_msg"=
+>
+&gt;&gt;&gt; --- a/drivers/gpu/drm/radeon/radeon_gem.c<br class=3D"gmail_ms=
+g">
+&gt;&gt;&gt; +++ b/drivers/gpu/drm/radeon/radeon_gem.c<br class=3D"gmail_ms=
+g">
+&gt;&gt;&gt; @@ -120,6 +120,10 @@ static int radeon_gem_set_domain(struct<b=
+r class=3D"gmail_msg">
+&gt;&gt;&gt; drm_gem_object *gobj,<br class=3D"gmail_msg">
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 return r;<br class=3D"gmail_msg">
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+}<br class=3D"gmail_msg">
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br class=3D"gmail_msg">
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (domain =3D=3D RADEON_GEM_DOMAI=
+N_VRAM &amp;&amp; robj-&gt;prime_shared_count)<br class=3D"gmail_msg">
+&gt;&gt;&gt; {<br class=3D"gmail_msg">
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* A B=
+O that is associated with a dma-buf cannot be<br class=3D"gmail_msg">
+&gt;&gt;&gt; sensibly migrated to VRAM */<br class=3D"gmail_msg">
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return=
+ -EINVAL;<br class=3D"gmail_msg">
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br class=3D"gmail_msg">
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return 0;<br class=3D"gmail_=
+msg">
+&gt;&gt;&gt;=C2=A0 =C2=A0 }<br class=3D"gmail_msg">
+&gt;&gt;&gt;=C2=A0 =C2=A0 diff --git a/drivers/gpu/drm/radeon/radeon_object=
+.c<br class=3D"gmail_msg">
+&gt;&gt;&gt; b/drivers/gpu/drm/radeon/radeon_object.c<br class=3D"gmail_msg=
+">
+&gt;&gt;&gt; index 74b276060c20..bec2ec056de4 100644<br class=3D"gmail_msg"=
+>
+&gt;&gt;&gt; --- a/drivers/gpu/drm/radeon/radeon_object.c<br class=3D"gmail=
+_msg">
+&gt;&gt;&gt; +++ b/drivers/gpu/drm/radeon/radeon_object.c<br class=3D"gmail=
+_msg">
+&gt;&gt;&gt; @@ -352,6 +352,11 @@ int radeon_bo_pin_restricted(struct radeo=
+n_bo *bo,<br class=3D"gmail_msg">
+&gt;&gt;&gt; u32 domain, u64 max_offset,<br class=3D"gmail_msg">
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+return 0;<br class=3D"gmail_msg">
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br class=3D"gmail_msg">
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (bo-&gt;prime_shared_count &amp=
+;&amp; domain =3D=3D RADEON_GEM_DOMAIN_VRAM) {<br class=3D"gmail_msg">
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* A B=
+O shared as a dma-buf cannot be sensibly migrated to<br class=3D"gmail_msg"=
+>
+&gt;&gt;&gt; VRAM */<br class=3D"gmail_msg">
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return=
+ -EINVAL;<br class=3D"gmail_msg">
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br class=3D"gmail_msg">
+&gt;&gt;&gt; +<br class=3D"gmail_msg">
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 radeon_ttm_placement_from_do=
+main(bo, domain);<br class=3D"gmail_msg">
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 for (i =3D 0; i &lt; bo-&gt;=
+placement.num_placement; i++) {<br class=3D"gmail_msg">
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+/* force to pin into visible video ram */<br class=3D"gmail_msg">
+&gt;&gt;<br class=3D"gmail_msg">
+&gt;&gt;<br class=3D"gmail_msg">
+&gt;&gt; _______________________________________________<br class=3D"gmail_=
+msg">
+&gt;&gt; amd-gfx mailing list<br class=3D"gmail_msg">
+&gt;&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" class=3D"gmail_ms=
+g" target=3D"_blank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br class=3D"gmail_ms=
+g">
+&gt;&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx"=
+ rel=3D"noreferrer" class=3D"gmail_msg" target=3D"_blank">https://lists.fre=
+edesktop.org/mailman/listinfo/amd-gfx</a><br class=3D"gmail_msg">
+&gt; _______________________________________________<br class=3D"gmail_msg"=
+>
+&gt; amd-gfx mailing list<br class=3D"gmail_msg">
+&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" class=3D"gmail_msg" t=
+arget=3D"_blank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br class=3D"gmail_msg">
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=
+=3D"noreferrer" class=3D"gmail_msg" target=3D"_blank">https://lists.freedes=
+ktop.org/mailman/listinfo/amd-gfx</a><br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+</blockquote></div>
+
+--001a114315ee4395f0054c52b5f9--
+
+--===============0881929291==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0881929291==--
