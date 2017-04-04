@@ -1,16 +1,15 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [RFC] Revert "drm/amdgpu/gfx8: Fix SET_RESOURCES packet"
-Date: Tue, 4 Apr 2017 19:46:45 +0000
-Message-ID: <BN6PR12MB1652D90B12B8A60F1F725AC0F70B0@BN6PR12MB1652.namprd12.prod.outlook.com>
+From: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [RFC] Revert "drm/amdgpu/gfx8: Fix SET_RESOURCES packet"
+Date: Tue, 04 Apr 2017 19:59:28 +0000
+Message-ID: <CAAzXoR+TJHk1Eo_h0HJGg-KGfON-uLWE7e27Q-95PXyBY3zcOw@mail.gmail.com>
 References: <20170403202534.3311-1-andresx7@gmail.com>
  <3ae98951-f12f-3860-e10a-00e0be2b9e84@amd.com>
  <d4fbb81c-be3a-c54a-6d56-17dc4ae27895@gmail.com>
+ <BN6PR12MB1652D90B12B8A60F1F725AC0F70B0@BN6PR12MB1652.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1097058541=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <d4fbb81c-be3a-c54a-6d56-17dc4ae27895-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <BN6PR12MB1652D90B12B8A60F1F725AC0F70B0-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,63 +20,262 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: 'Andres Rodriguez' <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
-LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIEFuZHJl
-cyBSb2RyaWd1ZXoNCj4gU2VudDogVHVlc2RheSwgQXByaWwgMDQsIDIwMTcgMzozOSBQTQ0KPiBU
-bzogU3REZW5pcywgVG9tOyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBTdWJqZWN0
-OiBSZTogW1JGQ10gUmV2ZXJ0ICJkcm0vYW1kZ3B1L2dmeDg6IEZpeCBTRVRfUkVTT1VSQ0VTIHBh
-Y2tldCINCj4gDQo+IA0KPiANCj4gT24gMjAxNy0wNC0wNCAwODoyNyBBTSwgVG9tIFN0IERlbmlz
-IHdyb3RlOg0KPiA+IE9uIDAzLzA0LzE3IDA0OjI1IFBNLCBBbmRyZXMgUm9kcmlndWV6IHdyb3Rl
-Og0KPiA+PiBDb21taXQgZTU3OWY1NiByZXN1bHRzIGluIGEgS0NRIGluaXRpYWxpemF0aW9uIGVy
-cm9yIGZvciBwb2xhcmlzMTANCj4gPj4gY2FyZHMuIFByb3ZpZGluZyB0aGUgZnVsbCBTRVRfUkVT
-T1VSQ0VTIHBhY2tldCBpbnN0ZWFkIG9mIHRoZSB0cnVuY2F0ZWQNCj4gPj4gdmVyc2lvbiBmaXhl
-cyB0aGUgcHJvYmxlbS4NCj4gPj4NCj4gPj4gSSB0aGluayB0aGlzIHBhdGNoIG1heSBoYXZlIGJl
-ZW4gb25lIG9mIHRoZSBzdGFicyBhdCBmaXhpbmcgdGhlIEtDUQ0KPiA+PiBzdXNwZW5kL3Jlc3Vt
-ZSBlcnJvcnMuIEkgKnRoaW5rKiBpdCBtYXkgbm8gbG9uZ2VyIGJlIG5lZWRlZCBpZiB0aGF0IGlz
-DQo+ID4+IHRoZSBjYXNlLg0KPiA+Pg0KPiA+PiBTZW5kaW5nIHRoaXMgbW9zdGx5IGFzIGFuIEZZ
-SSB0byBnZXQgdGhlIHBhdGNoIHJlbW92ZWQgZnJvbSB0aGUgNC4xMi13aXANCj4gPj4NCj4gPj4g
-VGhpcyByZXZlcnRzIGNvbW1pdCBlNTc5ZjU2NGMzMzNhN2VhZGRmN2UxMmIxYjg0MTQ0MTBjMzZl
-ODBmLg0KPiA+PiAtLS0NCj4gPj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8w
-LmMgfCA2ICsrKysrLQ0KPiA+PiAgMSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKSwgMSBk
-ZWxldGlvbigtKQ0KPiA+Pg0KPiA+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvZ2Z4X3Y4XzAuYw0KPiA+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92
-OF8wLmMNCj4gPj4gaW5kZXggMmQ4ZDdiYi4uNGMzYmY1MSAxMDA2NDQNCj4gPj4gLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYw0KPiA+PiArKysgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jDQo+ID4+IEBAIC00NjQ3LDEwICs0NjQ3LDE0IEBA
-IHN0YXRpYyBpbnQgZ2Z4X3Y4XzBfa2lxX2tjcV9lbmFibGUoc3RydWN0DQo+ID4+IGFtZGdwdV9k
-ZXZpY2UgKmFkZXYpDQo+ID4+ICAgICAgICAgIHJldHVybiByOw0KPiA+PiAgICAgIH0NCj4gPj4g
-ICAgICAvKiBzZXQgcmVzb3VyY2VzICovDQo+ID4+IC0gICAgYW1kZ3B1X3Jpbmdfd3JpdGUoa2lx
-X3JpbmcsIFBBQ0tFVDMoUEFDS0VUM19TRVRfUkVTT1VSQ0VTLCAyKSk7DQo+ID4+ICsgICAgYW1k
-Z3B1X3Jpbmdfd3JpdGUoa2lxX3JpbmcsIFBBQ0tFVDMoUEFDS0VUM19TRVRfUkVTT1VSQ0VTLA0K
-PiA2KSk7DQo+ID4+ICAgICAgYW1kZ3B1X3Jpbmdfd3JpdGUoa2lxX3JpbmcsIDApOyAgICAvKiB2
-bWlkX21hc2s6MCBxdWV1ZV90eXBlOjANCj4gPj4gKEtJUSkgKi8NCj4gPj4gICAgICBhbWRncHVf
-cmluZ193cml0ZShraXFfcmluZywgMHgwMDAwMDBGRik7ICAgIC8qIHF1ZXVlIG1hc2sgbG8gKi8N
-Cj4gPj4gICAgICBhbWRncHVfcmluZ193cml0ZShraXFfcmluZywgMCk7ICAgIC8qIHF1ZXVlIG1h
-c2sgaGkgKi8NCj4gPj4gKyAgICBhbWRncHVfcmluZ193cml0ZShraXFfcmluZywgMCk7ICAgIC8q
-IGd3cyBtYXNrIGxvICovDQo+ID4+ICsgICAgYW1kZ3B1X3Jpbmdfd3JpdGUoa2lxX3JpbmcsIDAp
-OyAgICAvKiBnd3MgbWFzayBoaSAqLw0KPiA+PiArICAgIGFtZGdwdV9yaW5nX3dyaXRlKGtpcV9y
-aW5nLCAwKTsgICAgLyogb2FjIG1hc2sgKi8NCj4gPj4gKyAgICBhbWRncHVfcmluZ193cml0ZShr
-aXFfcmluZywgMCk7ICAgIC8qIGdkcyBoZWFwIGJhc2U6MCwgZ2RzIGhlYXANCj4gPj4gc2l6ZTow
-ICovDQo+ID4+ICAgICAgZm9yIChpID0gMDsgaSA8IGFkZXYtPmdmeC5udW1fY29tcHV0ZV9yaW5n
-czsgaSsrKSB7DQo+ID4+ICAgICAgICAgIHN0cnVjdCBhbWRncHVfcmluZyAqcmluZyA9ICZhZGV2
-LT5nZnguY29tcHV0ZV9yaW5nW2ldOw0KPiA+PiAgICAgICAgICB1aW50NjRfdCBtcWRfYWRkciA9
-IGFtZGdwdV9ib19ncHVfb2Zmc2V0KHJpbmctPm1xZF9vYmopOw0KPiA+Pg0KPiA+DQo+ID4gVGhp
-cyBmaXhlcyBpbml0IGlzc3VlcyB3aXRoIG15IHBvbGFyaXMgYm9hcmQgYnV0IHRoZXJlJ3Mgc3Rp
-bGwgYSBjbG9jaw0KPiA+IHByb2JsZW0gKENQIGlzIHBlZ2dlZCBhdCAxMDAlIGFzIHJlYWQgYnkg
-dW1yKSByZXN1bHRpbmcgaW4gdGhlIEdQVSBjbG9jaw0KPiA+IHN0YXlpbmcgYXQgMTIwME1IeiB0
-aGUgZW50aXJlIHRpbWUuDQo+ID4NCj4gDQo+IFllYWggSSBzZW50IHRoaXMgb3V0IGJlY2F1c2Ug
-SSB3YXMgaGF2aW5nIEtDUSBpbml0IGlzc3VlcyBvbiBteQ0KPiBwb2xhcmlzMTAgY2FyZC4gSG93
-ZXZlciwgSSdtIG5vdCBzZWVpbmcgdGhlIENQIHBlZ2dlZCBhdCAxMDAlIGFzIHlvdQ0KPiBtZW50
-aW9uZWQuIEV2ZXJ5dGhpbmcgc2l0dGluZyBxdWlldGx5IGF0IDAlIGhlcmUuDQoNCldoaWNoIGZp
-cm13YXJlIGFyZSB5b3UgdXNpbmc/DQoNCkFsZXgNCg0KPiANCj4gDQo+ID4gVG9tDQo+ID4gX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4gPiBhbWQtZ2Z4
-IG1haWxpbmcgbGlzdA0KPiA+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+ID4gaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQo+IF9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+IGFtZC1nZngg
-bWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IGh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
-c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1097058541==
+Content-Type: multipart/alternative; boundary=94eb2c1cd53c4b96fd054c5cb767
+
+--94eb2c1cd53c4b96fd054c5cb767
+Content-Type: text/plain; charset=UTF-8
+
+I'm using the latest from all open (our internal FC24 repo).  I'll fetch
+the exact later with "umr -c".
+
+Tom
+
+On Tue, Apr 4, 2017 at 3:48 PM Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+wrote:
+
+> > -----Original Message-----
+> > From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf
+> > Of Andres Rodriguez
+> > Sent: Tuesday, April 04, 2017 3:39 PM
+> > To: StDenis, Tom; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> > Subject: Re: [RFC] Revert "drm/amdgpu/gfx8: Fix SET_RESOURCES packet"
+> >
+> >
+> >
+> > On 2017-04-04 08:27 AM, Tom St Denis wrote:
+> > > On 03/04/17 04:25 PM, Andres Rodriguez wrote:
+> > >> Commit e579f56 results in a KCQ initialization error for polaris10
+> > >> cards. Providing the full SET_RESOURCES packet instead of the
+> truncated
+> > >> version fixes the problem.
+> > >>
+> > >> I think this patch may have been one of the stabs at fixing the KCQ
+> > >> suspend/resume errors. I *think* it may no longer be needed if that is
+> > >> the case.
+> > >>
+> > >> Sending this mostly as an FYI to get the patch removed from the
+> 4.12-wip
+> > >>
+> > >> This reverts commit e579f564c333a7eaddf7e12b1b8414410c36e80f.
+> > >> ---
+> > >>  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 6 +++++-
+> > >>  1 file changed, 5 insertions(+), 1 deletion(-)
+> > >>
+> > >> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> > >> b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> > >> index 2d8d7bb..4c3bf51 100644
+> > >> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> > >> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> > >> @@ -4647,10 +4647,14 @@ static int gfx_v8_0_kiq_kcq_enable(struct
+> > >> amdgpu_device *adev)
+> > >>          return r;
+> > >>      }
+> > >>      /* set resources */
+> > >> -    amdgpu_ring_write(kiq_ring, PACKET3(PACKET3_SET_RESOURCES, 2));
+> > >> +    amdgpu_ring_write(kiq_ring, PACKET3(PACKET3_SET_RESOURCES,
+> > 6));
+> > >>      amdgpu_ring_write(kiq_ring, 0);    /* vmid_mask:0 queue_type:0
+> > >> (KIQ) */
+> > >>      amdgpu_ring_write(kiq_ring, 0x000000FF);    /* queue mask lo */
+> > >>      amdgpu_ring_write(kiq_ring, 0);    /* queue mask hi */
+> > >> +    amdgpu_ring_write(kiq_ring, 0);    /* gws mask lo */
+> > >> +    amdgpu_ring_write(kiq_ring, 0);    /* gws mask hi */
+> > >> +    amdgpu_ring_write(kiq_ring, 0);    /* oac mask */
+> > >> +    amdgpu_ring_write(kiq_ring, 0);    /* gds heap base:0, gds heap
+> > >> size:0 */
+> > >>      for (i = 0; i < adev->gfx.num_compute_rings; i++) {
+> > >>          struct amdgpu_ring *ring = &adev->gfx.compute_ring[i];
+> > >>          uint64_t mqd_addr = amdgpu_bo_gpu_offset(ring->mqd_obj);
+> > >>
+> > >
+> > > This fixes init issues with my polaris board but there's still a clock
+> > > problem (CP is pegged at 100% as read by umr) resulting in the GPU
+> clock
+> > > staying at 1200MHz the entire time.
+> > >
+> >
+> > Yeah I sent this out because I was having KCQ init issues on my
+> > polaris10 card. However, I'm not seeing the CP pegged at 100% as you
+> > mentioned. Everything sitting quietly at 0% here.
+>
+> Which firmware are you using?
+>
+> Alex
+>
+> >
+> >
+> > > Tom
+> > > _______________________________________________
+> > > amd-gfx mailing list
+> > > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> > > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> > _______________________________________________
+> > amd-gfx mailing list
+> > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+
+--94eb2c1cd53c4b96fd054c5cb767
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">I&#39;m using the latest from all open (our internal FC24 =
+repo).=C2=A0 I&#39;ll fetch the exact later with &quot;umr -c&quot;.<div><b=
+r></div><div>Tom</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr"=
+>On Tue, Apr 4, 2017 at 3:48 PM Deucher, Alexander &lt;<a href=3D"mailto:Al=
+exander.Deucher-5C7GfCeVMHo@public.gmane.org">Alexander.Deucher-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<br></div>=
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">&gt; -----Original Message-----<br class=3D"=
+gmail_msg">
+&gt; From: amd-gfx [mailto:<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
+top.org" class=3D"gmail_msg" target=3D"_blank">amd-gfx-bounces-PD4FTy7X32lMiVNPc3mojA@public.gmane.org=
+sktop.org</a>] On Behalf<br class=3D"gmail_msg">
+&gt; Of Andres Rodriguez<br class=3D"gmail_msg">
+&gt; Sent: Tuesday, April 04, 2017 3:39 PM<br class=3D"gmail_msg">
+&gt; To: StDenis, Tom; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" cla=
+ss=3D"gmail_msg" target=3D"_blank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br cla=
+ss=3D"gmail_msg">
+&gt; Subject: Re: [RFC] Revert &quot;drm/amdgpu/gfx8: Fix SET_RESOURCES pac=
+ket&quot;<br class=3D"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+&gt; On 2017-04-04 08:27 AM, Tom St Denis wrote:<br class=3D"gmail_msg">
+&gt; &gt; On 03/04/17 04:25 PM, Andres Rodriguez wrote:<br class=3D"gmail_m=
+sg">
+&gt; &gt;&gt; Commit e579f56 results in a KCQ initialization error for pola=
+ris10<br class=3D"gmail_msg">
+&gt; &gt;&gt; cards. Providing the full SET_RESOURCES packet instead of the=
+ truncated<br class=3D"gmail_msg">
+&gt; &gt;&gt; version fixes the problem.<br class=3D"gmail_msg">
+&gt; &gt;&gt;<br class=3D"gmail_msg">
+&gt; &gt;&gt; I think this patch may have been one of the stabs at fixing t=
+he KCQ<br class=3D"gmail_msg">
+&gt; &gt;&gt; suspend/resume errors. I *think* it may no longer be needed i=
+f that is<br class=3D"gmail_msg">
+&gt; &gt;&gt; the case.<br class=3D"gmail_msg">
+&gt; &gt;&gt;<br class=3D"gmail_msg">
+&gt; &gt;&gt; Sending this mostly as an FYI to get the patch removed from t=
+he 4.12-wip<br class=3D"gmail_msg">
+&gt; &gt;&gt;<br class=3D"gmail_msg">
+&gt; &gt;&gt; This reverts commit e579f564c333a7eaddf7e12b1b8414410c36e80f.=
+<br class=3D"gmail_msg">
+&gt; &gt;&gt; ---<br class=3D"gmail_msg">
+&gt; &gt;&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 6 +++++-<br cla=
+ss=3D"gmail_msg">
+&gt; &gt;&gt;=C2=A0 1 file changed, 5 insertions(+), 1 deletion(-)<br class=
+=3D"gmail_msg">
+&gt; &gt;&gt;<br class=3D"gmail_msg">
+&gt; &gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br class=
+=3D"gmail_msg">
+&gt; &gt;&gt; b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br class=3D"gmail_msg=
+">
+&gt; &gt;&gt; index 2d8d7bb..4c3bf51 100644<br class=3D"gmail_msg">
+&gt; &gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br class=3D"gmail=
+_msg">
+&gt; &gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br class=3D"gmail=
+_msg">
+&gt; &gt;&gt; @@ -4647,10 +4647,14 @@ static int gfx_v8_0_kiq_kcq_enable(st=
+ruct<br class=3D"gmail_msg">
+&gt; &gt;&gt; amdgpu_device *adev)<br class=3D"gmail_msg">
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return r;<br class=3D"gmail=
+_msg">
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 }<br class=3D"gmail_msg">
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 /* set resources */<br class=3D"gmail_msg=
+">
+&gt; &gt;&gt; -=C2=A0 =C2=A0 amdgpu_ring_write(kiq_ring, PACKET3(PACKET3_SE=
+T_RESOURCES, 2));<br class=3D"gmail_msg">
+&gt; &gt;&gt; +=C2=A0 =C2=A0 amdgpu_ring_write(kiq_ring, PACKET3(PACKET3_SE=
+T_RESOURCES,<br class=3D"gmail_msg">
+&gt; 6));<br class=3D"gmail_msg">
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 amdgpu_ring_write(kiq_ring, 0);=C2=A0 =C2=
+=A0 /* vmid_mask:0 queue_type:0<br class=3D"gmail_msg">
+&gt; &gt;&gt; (KIQ) */<br class=3D"gmail_msg">
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 amdgpu_ring_write(kiq_ring, 0x000000FF);=
+=C2=A0 =C2=A0 /* queue mask lo */<br class=3D"gmail_msg">
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 amdgpu_ring_write(kiq_ring, 0);=C2=A0 =C2=
+=A0 /* queue mask hi */<br class=3D"gmail_msg">
+&gt; &gt;&gt; +=C2=A0 =C2=A0 amdgpu_ring_write(kiq_ring, 0);=C2=A0 =C2=A0 /=
+* gws mask lo */<br class=3D"gmail_msg">
+&gt; &gt;&gt; +=C2=A0 =C2=A0 amdgpu_ring_write(kiq_ring, 0);=C2=A0 =C2=A0 /=
+* gws mask hi */<br class=3D"gmail_msg">
+&gt; &gt;&gt; +=C2=A0 =C2=A0 amdgpu_ring_write(kiq_ring, 0);=C2=A0 =C2=A0 /=
+* oac mask */<br class=3D"gmail_msg">
+&gt; &gt;&gt; +=C2=A0 =C2=A0 amdgpu_ring_write(kiq_ring, 0);=C2=A0 =C2=A0 /=
+* gds heap base:0, gds heap<br class=3D"gmail_msg">
+&gt; &gt;&gt; size:0 */<br class=3D"gmail_msg">
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 for (i =3D 0; i &lt; adev-&gt;gfx.num_com=
+pute_rings; i++) {<br class=3D"gmail_msg">
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct amdgpu_ring *ring =
+=3D &amp;adev-&gt;gfx.compute_ring[i];<br class=3D"gmail_msg">
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 uint64_t mqd_addr =3D amdgp=
+u_bo_gpu_offset(ring-&gt;mqd_obj);<br class=3D"gmail_msg">
+&gt; &gt;&gt;<br class=3D"gmail_msg">
+&gt; &gt;<br class=3D"gmail_msg">
+&gt; &gt; This fixes init issues with my polaris board but there&#39;s stil=
+l a clock<br class=3D"gmail_msg">
+&gt; &gt; problem (CP is pegged at 100% as read by umr) resulting in the GP=
+U clock<br class=3D"gmail_msg">
+&gt; &gt; staying at 1200MHz the entire time.<br class=3D"gmail_msg">
+&gt; &gt;<br class=3D"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+&gt; Yeah I sent this out because I was having KCQ init issues on my<br cla=
+ss=3D"gmail_msg">
+&gt; polaris10 card. However, I&#39;m not seeing the CP pegged at 100% as y=
+ou<br class=3D"gmail_msg">
+&gt; mentioned. Everything sitting quietly at 0% here.<br class=3D"gmail_ms=
+g">
+<br class=3D"gmail_msg">
+Which firmware are you using?<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+Alex<br class=3D"gmail_msg">
+<br class=3D"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+&gt;<br class=3D"gmail_msg">
+&gt; &gt; Tom<br class=3D"gmail_msg">
+&gt; &gt; _______________________________________________<br class=3D"gmail=
+_msg">
+&gt; &gt; amd-gfx mailing list<br class=3D"gmail_msg">
+&gt; &gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" class=3D"gmail_m=
+sg" target=3D"_blank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br class=3D"gmail_m=
+sg">
+&gt; &gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx=
+" rel=3D"noreferrer" class=3D"gmail_msg" target=3D"_blank">https://lists.fr=
+eedesktop.org/mailman/listinfo/amd-gfx</a><br class=3D"gmail_msg">
+&gt; _______________________________________________<br class=3D"gmail_msg"=
+>
+&gt; amd-gfx mailing list<br class=3D"gmail_msg">
+&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" class=3D"gmail_msg" t=
+arget=3D"_blank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br class=3D"gmail_msg">
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=
+=3D"noreferrer" class=3D"gmail_msg" target=3D"_blank">https://lists.freedes=
+ktop.org/mailman/listinfo/amd-gfx</a><br class=3D"gmail_msg">
+_______________________________________________<br class=3D"gmail_msg">
+amd-gfx mailing list<br class=3D"gmail_msg">
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" class=3D"gmail_msg" target=
+=3D"_blank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br class=3D"gmail_msg">
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer" class=3D"gmail_msg" target=3D"_blank">https://lists.freedesktop.=
+org/mailman/listinfo/amd-gfx</a><br class=3D"gmail_msg">
+</blockquote></div>
+
+--94eb2c1cd53c4b96fd054c5cb767--
+
+--===============1097058541==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1097058541==--
