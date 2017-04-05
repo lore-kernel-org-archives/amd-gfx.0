@@ -1,67 +1,52 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH 01/10] drm/amd/amdgpu: cleanup gfx_v9_0_init_queue()
-Date: Wed, 5 Apr 2017 16:15:25 +0200
-Message-ID: <a78ee9e1-11eb-7702-ad13-188d9827cf0b@vodafone.de>
-References: <20170405132610.26075-1-tom.stdenis@amd.com>
+From: "Nath, Arindam" <Arindam.Nath-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] iommu/amd: flush IOTLB for specific domains only
+Date: Wed, 5 Apr 2017 15:01:40 +0000
+Message-ID: <MWHPR12MB15183AFF01D7D74109CC62FF9C0A0@MWHPR12MB1518.namprd12.prod.outlook.com>
+References: <20170322112242.GK29659@8bytes.org>
+	<1490595427-11979-1-git-send-email-arindam.nath@amd.com>
+	<CAD8Lp46RjsUJEvCR5qVY6p8za5H9iDGTAyJMDd1zO7gbgBvqfA@mail.gmail.com>
+	<MWHPR12MB15186B0A864F247BFBEF8EAD9C340@MWHPR12MB1518.namprd12.prod.outlook.com>
+	<CAD8Lp47VQ0X0ydsGMrpTu-y4LAXfg9N7+Mzb0hDWDsKc2P-kQg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170405132610.26075-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Return-path: <iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
+In-Reply-To: <CAD8Lp47VQ0X0ydsGMrpTu-y4LAXfg9N7+Mzb0hDWDsKc2P-kQg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
+List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/iommu>,
+	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=unsubscribe>
+List-Archive: <http://lists.linuxfoundation.org/pipermail/iommu/>
+List-Post: <mailto:iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
+List-Help: <mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/iommu>,
+	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=subscribe>
+Sender: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
+Errors-To: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
+To: Daniel Drake <drake-6IF/jdPJHihWk0Htik3J/w@public.gmane.org>
+Cc: "Bridgman, John" <John.Bridgman-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org" <iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Linux Upstreaming Team <linux-6IF/jdPJHihWk0Htik3J/w@public.gmane.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMDUuMDQuMjAxNyB1bSAxNToyNiBzY2hyaWViIFRvbSBTdCBEZW5pczoKPiBJbnRyb2R1Y2Ug
-V1JFRzMyX0ZJRUxEMTUgbWFjcm8gZm9yIFNPQzE1IGFyY2hpdGVjdHVyZXMuCj4KPiBTaWduZWQt
-b2ZmLWJ5OiBUb20gU3QgRGVuaXMgPHRvbS5zdGRlbmlzQGFtZC5jb20+CgpSZXZpZXdlZC1ieTog
-Q2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKPiAtLS0KPiAgIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAgfCAgMyArKysKPiAgIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMgfCAxMSArKystLS0tLS0tLQo+ICAgMiBmaWxl
-cyBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKyksIDggZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHUuaAo+IGluZGV4IGQwYTM5ODdiMjIxYS4uMDRjODQzMzJjYzU4IDEw
-MDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4gKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPiBAQCAtMTcxOSw2ICsxNzE5LDkg
-QEAgYm9vbCBhbWRncHVfZGV2aWNlX2hhc19kY19zdXBwb3J0KHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICphZGV2KTsKPiAgICNkZWZpbmUgV1JFRzMyX0ZJRUxEX09GRlNFVChyZWcsIG9mZnNldCwgZmll
-bGQsIHZhbCkJXAo+ICAgCVdSRUczMihtbSMjcmVnICsgb2Zmc2V0LCAoUlJFRzMyKG1tIyNyZWcg
-KyBvZmZzZXQpICYgflJFR19GSUVMRF9NQVNLKHJlZywgZmllbGQpKSB8ICh2YWwpIDw8IFJFR19G
-SUVMRF9TSElGVChyZWcsIGZpZWxkKSkKPiAgIAo+ICsjZGVmaW5lIFdSRUczMl9GSUVMRDE1KGlw
-LCBpZHgsIHJlZywgZmllbGQsIHZhbCkJXAo+ICsJV1JFRzMyKFNPQzE1X1JFR19PRkZTRVQoaXAs
-IGlkeCwgbW0jI3JlZyksIChSUkVHMzIoU09DMTVfUkVHX09GRlNFVChpcCwgaWR4LCBtbSMjcmVn
-KSkgJiB+UkVHX0ZJRUxEX01BU0socmVnLCBmaWVsZCkpIHwgKHZhbCkgPDwgUkVHX0ZJRUxEX1NI
-SUZUKHJlZywgZmllbGQpKQo+ICsKPiAgIC8qCj4gICAgKiBCSU9TIGhlbHBlcnMuCj4gICAgKi8K
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKPiBpbmRleCBhOTY3ODc5NTI0YmMu
-LjM4ODg3NDNiYzg2OCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
-ZnhfdjlfMC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwo+
-IEBAIC0zOTc1LDkgKzM5NzUsNyBAQCBzdGF0aWMgaW50IGdmeF92OV8wX2luaXRfcXVldWUoc3Ry
-dWN0IGFtZGdwdV9yaW5nICpyaW5nKQo+ICAgCQkJICAgICAgIHJpbmctPnBpcGUsCj4gICAJCQkg
-ICAgICAgcmluZy0+cXVldWUsIDApOwo+ICAgCS8qIGRpc2FibGUgd3B0ciBwb2xsaW5nICovCj4g
-LQl0bXAgPSBSUkVHMzIoU09DMTVfUkVHX09GRlNFVChHQywgMCwgbW1DUF9QUV9XUFRSX1BPTExf
-Q05UTCkpOwo+IC0JdG1wID0gUkVHX1NFVF9GSUVMRCh0bXAsIENQX1BRX1dQVFJfUE9MTF9DTlRM
-LCBFTiwgMCk7Cj4gLQlXUkVHMzIoU09DMTVfUkVHX09GRlNFVChHQywgMCwgbW1DUF9QUV9XUFRS
-X1BPTExfQ05UTCksIHRtcCk7Cj4gKwlXUkVHMzJfRklFTEQxNShHQywgMCwgQ1BfUFFfV1BUUl9Q
-T0xMX0NOVEwsIEVOLCAwKTsKPiAgIAo+ICAgCS8qIHdyaXRlIHRoZSBFT1AgYWRkciAqLwo+ICAg
-CUJVR19PTihyaW5nLT5tZSAhPSAxIHx8IHJpbmctPnBpcGUgIT0gMCk7IC8qIGNhbid0IGhhbmRs
-ZSBvdGhlciBjYXNlcyBlb3AgYWRkcmVzcyAqLwo+IEBAIC00MTIxLDExICs0MTE5LDggQEAgc3Rh
-dGljIGludCBnZnhfdjlfMF9pbml0X3F1ZXVlKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZykKPiAg
-IAlhbWRncHVfYm9fa3VubWFwKHJpbmctPm1xZF9vYmopOwo+ICAgCWFtZGdwdV9ib191bnJlc2Vy
-dmUocmluZy0+bXFkX29iaik7Cj4gICAKPiAtCWlmICh1c2VfZG9vcmJlbGwpIHsKPiAtCQl0bXAg
-PSBSUkVHMzIoU09DMTVfUkVHX09GRlNFVChHQywgMCwgbW1DUF9QUV9TVEFUVVMpKTsKPiAtCQl0
-bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwgQ1BfUFFfU1RBVFVTLCBET09SQkVMTF9FTkFCTEUsIDEp
-Owo+IC0JCVdSRUczMihTT0MxNV9SRUdfT0ZGU0VUKEdDLCAwLCBtbUNQX1BRX1NUQVRVUyksIHRt
-cCk7Cj4gLQl9Cj4gKwlpZiAodXNlX2Rvb3JiZWxsKQo+ICsJCVdSRUczMl9GSUVMRDE1KEdDLCAw
-LCBDUF9QUV9TVEFUVVMsIERPT1JCRUxMX0VOQUJMRSwgMSk7Cj4gICAKPiAgIAlyZXR1cm4gMDsK
-PiAgIH0KCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
-bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+>-----Original Message-----
+>From: Daniel Drake [mailto:drake-6IF/jdPJHihWk0Htik3J/w@public.gmane.org]
+>Sent: Thursday, March 30, 2017 7:15 PM
+>To: Nath, Arindam
+>Cc: joro-zLv9SwRftAIdnm+yROfE0A@public.gmane.org; Deucher, Alexander; Bridgman, John; amd-
+>gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org; Suthikulpanit,
+>Suravee; Linux Upstreaming Team
+>Subject: Re: [PATCH] iommu/amd: flush IOTLB for specific domains only
+>
+>On Thu, Mar 30, 2017 at 12:23 AM, Nath, Arindam <Arindam.Nath-5C7GfCeVMHo@public.gmane.org>
+>wrote:
+>> Daniel, did you get chance to test this patch?
+>
+>Not yet. Should we test it alone or alongside "PCI: Blacklist AMD
+>Stoney GPU devices for ATS"?
+
+Daniel, any luck with this patch?
+
+Thanks,
+Arindam
+
+>
+>Thanks
+>Daniel
