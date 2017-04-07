@@ -1,12 +1,15 @@
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH umr] Add AI sensors to --top
-Date: Sat, 8 Apr 2017 00:17:06 +1000
-Message-ID: <9eaa3cf7-0c1d-98be-8e33-3e66df5ed969@folklore1984.net>
-References: <20170407104745.17519-1-tom.stdenis@amd.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH libdrm v2] amdgpu: allow to query GPU sensor related
+ information
+Date: Fri, 7 Apr 2017 16:21:36 +0200
+Message-ID: <CAAxE2A43Q6k6K7aO9bKwLDr+4sYiMvwzzCdN0nB9L6pbiqsO8w@mail.gmail.com>
+References: <20170404083746.984-1-samuel.pitoiset@gmail.com>
+ <20170404143456.27466-1-samuel.pitoiset@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0510377769=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170407104745.17519-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20170404143456.27466-1-samuel.pitoiset-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,116 +20,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Samuel Pitoiset <samuel.pitoiset-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0510377769==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="h1Tp78wJnJ4h4O9gJ3LgkkATA8KiFTo0K"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---h1Tp78wJnJ4h4O9gJ3LgkkATA8KiFTo0K
-Content-Type: multipart/mixed; boundary="KsI8bdT0b5otcTo6WN8Wu0r8NVM5DlNmC";
- protected-headers="v1"
-From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-To: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Message-ID: <9eaa3cf7-0c1d-98be-8e33-3e66df5ed969-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-Subject: Re: [PATCH umr] Add AI sensors to --top
-References: <20170407104745.17519-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <20170407104745.17519-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-
---KsI8bdT0b5otcTo6WN8Wu0r8NVM5DlNmC
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
-
-On 04/07/2017 08:47 PM, Tom St Denis wrote:
-> Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-> ---
->  src/app/top.c | 14 +++++++++++++-
->  1 file changed, 13 insertions(+), 1 deletion(-)
->=20
-> diff --git a/src/app/top.c b/src/app/top.c
-> index b8a91e317ba5..96e33ff2e1da 100644
-> --- a/src/app/top.c
-> +++ b/src/app/top.c
-> @@ -252,6 +252,15 @@ static struct umr_bitfield stat_si_sensor_bits[] =3D=
- {
->  	{ NULL, 0, 0, NULL },
->  };
-> =20
-> +static struct umr_bitfield stat_ai_sensor_bits[] =3D {
-> +	{ "GFX_SCLK", AMDGPU_PP_SENSOR_GFX_SCLK, SENSOR_D100|(SENSOR_MHZ<<4),=
- &umr_bitfield_default },
-> +	{ "GFX_MCLK", AMDGPU_PP_SENSOR_GFX_MCLK, SENSOR_D100|(SENSOR_MHZ<<4),=
- &umr_bitfield_default },
-> +	{ "GPU_LOAD", AMDGPU_PP_SENSOR_GPU_LOAD, SENSOR_PERCENT<<4, &umr_bitf=
-ield_default },
-> +	{ "GPU_TEMP", AMDGPU_PP_SENSOR_GPU_TEMP, SENSOR_D1000|(SENSOR_TEMP<<4=
-), &umr_bitfield_default },
-> +	{ NULL, 0, 0, NULL },
-> +};
-> +
-> +
->  #define AMDGPU_INFO_NUM_BYTES_MOVED		0x0f
->  #define AMDGPU_INFO_VRAM_USAGE			0x10
->  #define AMDGPU_INFO_GTT_USAGE			0x11
-> @@ -794,7 +803,10 @@ static void top_build_vi_program(struct umr_asic *=
-asic)
->  		ENTRY(i++, "mmRLC_GPM_STAT", &stat_rlc_gpm_bits[0], &top_options.vi.=
-gfxpwr, "GFX PWR");
-> =20
->  	// sensors
-> -	if (asic->config.gfx.family =3D=3D 135) {
-> +	if (asic->config.gfx.family =3D=3D 141) {
-> +		// Arctic Island Family
-> +		ENTRY_SENSOR(i++, "GFX_SCLK", &stat_ai_sensor_bits[0], &top_options.=
-vi.sensors, "Sensors");
-> +	} else if (asic->config.gfx.family =3D=3D 135) {
->  		// Carrizo/Stoney family
->  		ENTRY_SENSOR(i++, "GFX_SCLK", &stat_carrizo_sensor_bits[0], &top_opt=
-ions.vi.sensors, "Sensors");
->  	} else if (asic->config.gfx.family =3D=3D 130) {
->=20
-
-
---KsI8bdT0b5otcTo6WN8Wu0r8NVM5DlNmC--
-
---h1Tp78wJnJ4h4O9gJ3LgkkATA8KiFTo0K
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJY559mAAoJEP4bvbfZuWjbJ2sP/2GVqScWB7g0IA+Gl2SzZZ6s
-9frva21q2biMwiIMt70sGOKU6+/iTapV95PZ7grhxkzPiEHx34lqttuy+FATHzNJ
-DnH8VsKXw4e4Q7ORNVptMtlQ5NGlFqXbL7BgLA2tGMTdSnpZb9+P2Ypv8DOMfdLZ
-iGPA08VJeiYEinLiNQUM31w6Q6KuaYsZ4IHqhzQ2PJ18NalwGdJ6rKWU6wnaplHt
-iphw8MpkulpGBg47plsl5q21IDQKq+o8gPFrUsd1q6mrNUNO4Des2zCxGqavJjkq
-FnSkoxI6wLMll7Xh5hNW2zzqedxC2yTrvGbNr00DuSUwHk5+rJbGG6PO7dpeNZ/m
-4wt4zK/5hhcjPFr6bFwWC8zXvCWMj2YyTm396KH1R8nsm3yzgITHthv+c8iVkID5
-bvRJlF26fAno50nnkqjaXLYnBaU29aqt2gLy7QU/qHV83x3n7+wmOmf8QsO9ca4Y
-U5+PppmBoRv+11kh7IjrNvCy/ovwCifmgZ6EZGPr9xRd1MOG9CEQDEcP2EAPMbh/
-QCuVlne2nwNkE/UXEfjwoRb1WGWb85HkArExTHWD/ot0WV9sA45UMTQtPimQY50z
-Z/3xRdlnWCOn6uQXvg0Uwiq/6Dg2dASEUT/9oqEPbEzNZXAaj8cubC4nPSIyAVpW
-lFoYUBaLv0O4LhCAVWZA
-=dWT7
------END PGP SIGNATURE-----
-
---h1Tp78wJnJ4h4O9gJ3LgkkATA8KiFTo0K--
-
---===============0510377769==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0510377769==--
+UmV2aWV3ZWQtYnk6IE1hcmVrIE9sxaHDoWsgPG1hcmVrLm9sc2FrQGFtZC5jb20+CgpNYXJlawoK
+T24gVHVlLCBBcHIgNCwgMjAxNyBhdCA0OjM0IFBNLCBTYW11ZWwgUGl0b2lzZXQKPHNhbXVlbC5w
+aXRvaXNldEBnbWFpbC5jb20+IHdyb3RlOgo+IFRoaXMgZXhwb3NlcyBhbWRncHVfcXVlcnlfc2Vu
+c29yX2luZm8oKS4KPgo+IHYyOiAtIGFkZCBhbWRncHVfcXVlcnlfc2Vuc29yX2luZm8oKSB0byB0
+aGUgc3ltYm9scyBsaXN0Cj4KPiBTaWduZWQtb2ZmLWJ5OiBTYW11ZWwgUGl0b2lzZXQgPHNhbXVl
+bC5waXRvaXNldEBnbWFpbC5jb20+Cj4gLS0tCj4gIGFtZGdwdS9hbWRncHUtc3ltYm9sLWNoZWNr
+IHwgIDEgKwo+ICBhbWRncHUvYW1kZ3B1LmggICAgICAgICAgICB8IDE4ICsrKysrKysrKysrKysr
+KysrKwo+ICBhbWRncHUvYW1kZ3B1X2dwdV9pbmZvLmMgICB8IDE1ICsrKysrKysrKysrKysrKwo+
+ICAzIGZpbGVzIGNoYW5nZWQsIDM0IGluc2VydGlvbnMoKykKPgo+IGRpZmYgLS1naXQgYS9hbWRn
+cHUvYW1kZ3B1LXN5bWJvbC1jaGVjayBiL2FtZGdwdS9hbWRncHUtc3ltYm9sLWNoZWNrCj4gaW5k
+ZXggOGUwNjQ3NGQuLjRkMWFlNjVjIDEwMDc1NQo+IC0tLSBhL2FtZGdwdS9hbWRncHUtc3ltYm9s
+LWNoZWNrCj4gKysrIGIvYW1kZ3B1L2FtZGdwdS1zeW1ib2wtY2hlY2sKPiBAQCAtNDYsNiArNDYs
+NyBAQCBhbWRncHVfcXVlcnlfaGVhcF9pbmZvCj4gIGFtZGdwdV9xdWVyeV9od19pcF9jb3VudAo+
+ICBhbWRncHVfcXVlcnlfaHdfaXBfaW5mbwo+ICBhbWRncHVfcXVlcnlfaW5mbwo+ICthbWRncHVf
+cXVlcnlfc2Vuc29yX2luZm8KPiAgYW1kZ3B1X3JlYWRfbW1fcmVnaXN0ZXJzCj4gIGFtZGdwdV92
+YV9yYW5nZV9hbGxvYwo+ICBhbWRncHVfdmFfcmFuZ2VfZnJlZQo+IGRpZmYgLS1naXQgYS9hbWRn
+cHUvYW1kZ3B1LmggYi9hbWRncHUvYW1kZ3B1LmgKPiBpbmRleCA2YjJkZWQ4My4uNTU4ODRiMjQg
+MTAwNjQ0Cj4gLS0tIGEvYW1kZ3B1L2FtZGdwdS5oCj4gKysrIGIvYW1kZ3B1L2FtZGdwdS5oCj4g
+QEAgLTEwNTksNiArMTA1OSwyNCBAQCBpbnQgYW1kZ3B1X3F1ZXJ5X2dkc19pbmZvKGFtZGdwdV9k
+ZXZpY2VfaGFuZGxlIGRldiwKPiAgICAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3QgYW1kZ3B1
+X2dkc19yZXNvdXJjZV9pbmZvICpnZHNfaW5mbyk7Cj4KPiAgLyoqCj4gKyAqIFF1ZXJ5IGluZm9y
+bWF0aW9uIGFib3V0IHNlbnNvci4KPiArICoKPiArICogVGhlIHJldHVybiBzaXplIGlzIHF1ZXJ5
+LXNwZWNpZmljIGFuZCBkZXBlbmRzIG9uIHRoZSAic2Vuc29yX3R5cGUiCj4gKyAqIHBhcmFtZXRl
+ci4gTm8gbW9yZSB0aGFuICJzaXplIiBieXRlcyBpcyByZXR1cm5lZC4KPiArICoKPiArICogXHBh
+cmFtICAgZGV2ICAgICAgICAgLSBcYyBbaW5dIERldmljZSBoYW5kbGUuIFNlZSAjYW1kZ3B1X2Rl
+dmljZV9pbml0aWFsaXplKCkKPiArICogXHBhcmFtICAgc2Vuc29yX3R5cGUgLSBcYyBbaW5dIEFN
+REdQVV9JTkZPX1NFTlNPUl8qCj4gKyAqIFxwYXJhbSAgIHNpemUgICAgICAgIC0gXGMgW2luXSBT
+aXplIG9mIHRoZSByZXR1cm5lZCB2YWx1ZS4KPiArICogXHBhcmFtICAgdmFsdWUgICAgICAgLSBc
+YyBbb3V0XSBQb2ludGVyIHRvIHRoZSByZXR1cm4gdmFsdWUuCj4gKyAqCj4gKyAqIFxyZXR1cm4g
+ICAwIG9uIHN1Y2Nlc3Ncbgo+ICsgKiAgICAgICAgICA8MCAtIE5lZ2F0aXZlIFBPU0lYIEVycm9y
+IGNvZGUKPiArICoKPiArKi8KPiAraW50IGFtZGdwdV9xdWVyeV9zZW5zb3JfaW5mbyhhbWRncHVf
+ZGV2aWNlX2hhbmRsZSBkZXYsIHVuc2lnbmVkIHNlbnNvcl90eXBlLAo+ICsgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgdW5zaWduZWQgc2l6ZSwgdm9pZCAqdmFsdWUpOwo+ICsKPiArLyoqCj4g
+ICAqIFJlYWQgYSBzZXQgb2YgY29uc2VjdXRpdmUgbWVtb3J5LW1hcHBlZCByZWdpc3RlcnMuCj4g
+ICAqIE5vdCBhbGwgcmVnaXN0ZXJzIGFyZSBhbGxvd2VkIHRvIGJlIHJlYWQgYnkgdXNlcnNwYWNl
+Lgo+ICAgKgo+IGRpZmYgLS1naXQgYS9hbWRncHUvYW1kZ3B1X2dwdV9pbmZvLmMgYi9hbWRncHUv
+YW1kZ3B1X2dwdV9pbmZvLmMKPiBpbmRleCBjNWY1ZjZmNC4uZjRiOTRjOWUgMTAwNjQ0Cj4gLS0t
+IGEvYW1kZ3B1L2FtZGdwdV9ncHVfaW5mby5jCj4gKysrIGIvYW1kZ3B1L2FtZGdwdV9ncHVfaW5m
+by5jCj4gQEAgLTMxOCwzICszMTgsMTggQEAgaW50IGFtZGdwdV9xdWVyeV9nZHNfaW5mbyhhbWRn
+cHVfZGV2aWNlX2hhbmRsZSBkZXYsCj4KPiAgICAgICAgIHJldHVybiAwOwo+ICB9Cj4gKwo+ICtp
+bnQgYW1kZ3B1X3F1ZXJ5X3NlbnNvcl9pbmZvKGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldiwgdW5z
+aWduZWQgc2Vuc29yX3R5cGUsCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICB1bnNpZ25l
+ZCBzaXplLCB2b2lkICp2YWx1ZSkKPiArewo+ICsgICAgICAgc3RydWN0IGRybV9hbWRncHVfaW5m
+byByZXF1ZXN0Owo+ICsKPiArICAgICAgIG1lbXNldCgmcmVxdWVzdCwgMCwgc2l6ZW9mKHJlcXVl
+c3QpKTsKPiArICAgICAgIHJlcXVlc3QucmV0dXJuX3BvaW50ZXIgPSAodWludHB0cl90KXZhbHVl
+Owo+ICsgICAgICAgcmVxdWVzdC5yZXR1cm5fc2l6ZSA9IHNpemU7Cj4gKyAgICAgICByZXF1ZXN0
+LnF1ZXJ5ID0gQU1ER1BVX0lORk9fU0VOU09SOwo+ICsgICAgICAgcmVxdWVzdC5zZW5zb3JfaW5m
+by50eXBlID0gc2Vuc29yX3R5cGU7Cj4gKwo+ICsgICAgICAgcmV0dXJuIGRybUNvbW1hbmRXcml0
+ZShkZXYtPmZkLCBEUk1fQU1ER1BVX0lORk8sICZyZXF1ZXN0LAo+ICsgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBzaXplb2Yoc3RydWN0IGRybV9hbWRncHVfaW5mbykpOwo+ICt9Cj4gLS0K
+PiAyLjEyLjIKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+Zwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
+IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
+LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
