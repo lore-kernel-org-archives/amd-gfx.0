@@ -1,15 +1,16 @@
-From: Pekka Paalanen <ppaalanen@gmail.com>
-Subject: Re: [RfC PATCH] drm: fourcc byteorder: brings header file comments
- in line with reality.
-Date: Mon, 10 Apr 2017 18:09:41 +0300
-Message-ID: <20170410180941.43922e25@eldfell>
+From: Ilia Mirkin <imirkin@alum.mit.edu>
+Subject: Re: [RfC PATCH] drm: fourcc byteorder: brings header file comments in
+ line with reality.
+Date: Mon, 10 Apr 2017 12:10:14 -0400
+Message-ID: <CAKb7UvhbgSGwx-2EsrQrHmghzYqO9AhRQ10bDWKfdcXHc3fJeQ@mail.gmail.com>
 References: <20170410101202.19229-1-kraxel@redhat.com>
  <20170410161214.305f5daf@eldfell>
- <1491833847.30990.77.camel@redhat.com>
+ <1491833847.30990.77.camel@redhat.com> <20170410180941.43922e25@eldfell>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0821860127=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <1491833847.30990.77.camel@redhat.com>
+In-Reply-To: <20170410180941.43922e25@eldfell>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
 List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
@@ -19,97 +20,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Gerd Hoffmann <kraxel@redhat.com>
-Cc: Daniel Vetter <daniel.vetter@intel.com>, amd-gfx@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org
+To: Pekka Paalanen <ppaalanen@gmail.com>
+Cc: Daniel Vetter <daniel.vetter@intel.com>, amd-gfx@lists.freedesktop.org, Gerd Hoffmann <kraxel@redhat.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, open list <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
---===============0821860127==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/bjYfGNPG_KAQNF17zErGaKm"; protocol="application/pgp-signature"
-
---Sig_/bjYfGNPG_KAQNF17zErGaKm
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, 10 Apr 2017 16:17:27 +0200
-Gerd Hoffmann <kraxel@redhat.com> wrote:
-
->   Hi,
->=20
-> > which software have you used as representative of "reality"? =20
->=20
-> ppc64 (big endian) virtual machine, running with qemu stdvga & bochs-drm
-> driver.  Xorg with modesetting driver uses DRM_FORMAT_XRGB8888 (one and
-> only format supported by bochs-drm), and we have to interpret that in
-> bigendian byte order on the host side to get a correct display.
-
-I wonder if that is just an oversight from trying to match OpenGL
-formats to DRM formats. It's full of gotcha's.
-
-Did you try with GLAMOR? Do you see a difference with and without
-GLAMOR? Hmm, but you have no GPU support, so GLAMOR would be through a
-Mesa software renderer? I think I heard someone say something about
-Mesa software on BE...
-
-But even if this actually is a valid example of software we must keep
-working as is, well, ouch. But if I cannot show that your fix breaks
-anything, then I suppose you win. Your proposal would certainly solve
-the dilemma we have with wl_shm formats in Wayland.
-
-I also wonder if a real BE machine could have different results than
-the virtual machine.
-
-
-Thanks,
-pq
-
-> Didn't try wayland.  Can do, but will take a while.  Don't have a
-> wayland-capable guest install at hand, and installing one takes a while
-> because I don't have a physical pseries and emulation is slooooww.
->=20
-> > To solve that problem, we would like to know if anything existing would
-> > break for each possible solution, but no developers using BE have really
-> > turned up. =20
->=20
-> That is part of the problem.
-> And even ppc is moving to little endian these days ...
->=20
-> cheers,
->   Gerd
->=20
-
-
---Sig_/bjYfGNPG_KAQNF17zErGaKm
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAljroDUACgkQI1/ltBGq
-qqcj5RAAgaKuoCK1RxpVHnnpY86K0remWR86i3ujYpQz03MJdgm9muLqPexyrM3v
-e5VnbhvgNTy/OaRofrwfUfKd91d3/ZQ1yZUDkuxaYUq0mpCCm9QiRFbalZSIcRlu
-YyozO2nJOV4vQNYbxwN0YC84QRAOHw2zR0p3RWNKLVirGZUi950FxX6aCPQY7hGv
-4kca+wBc4TRuKs4sJ3E3Lnf+/VXarxVTVQEIpQCWUxpyQN+aqrZh+1dYLVsaA/u3
-YLsodADC3Yxrjt5fUHRn1AmVk794oqb1iRYei4HGAp3/mb8CLFuJdaUD5AIKkRb9
-pELmO0F18P5gw541f9KMybJVdYJkoG5EX62VxaMq+nAu1hRk3FmQXtAODY0PQb6D
-fdz8GZxl+oEioI5ENBv1j7OepYu+4pg70lW8uRa7NqEBAxgl1unQR9hya3BBtAFZ
-Lm8NYCZx4hURIsuyWHIHu+Rp9obpVMWqPxig0x3thE9CuA7qpvnvrBjVDgRI3/+a
-/EqNCR94mfcjVUdQloGdAc+wKt4oLhhZ1KKPpyA9ceFxPlhwsjQh17bWmbXx3AQ0
-GOf4aEq6MGaSVZU4uLp+oSXWiMaoYq68Dr8Xv09cy5Iyvy3fROdba96ldwP4lOK2
-DqcwexLx6W4UXVAdR4Cjh0g1g2I58WcWuKJnvoNvLd2/RMEDTCA=
-=ATb3
------END PGP SIGNATURE-----
-
---Sig_/bjYfGNPG_KAQNF17zErGaKm--
-
---===============0821860127==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
-
---===============0821860127==--
+T24gTW9uLCBBcHIgMTAsIDIwMTcgYXQgMTE6MDkgQU0sIFBla2thIFBhYWxhbmVuIDxwcGFhbGFu
+ZW5AZ21haWwuY29tPiB3cm90ZToKPiBPbiBNb24sIDEwIEFwciAyMDE3IDE2OjE3OjI3ICswMjAw
+Cj4gR2VyZCBIb2ZmbWFubiA8a3JheGVsQHJlZGhhdC5jb20+IHdyb3RlOgo+Cj4+ICAgSGksCj4+
+Cj4+ID4gd2hpY2ggc29mdHdhcmUgaGF2ZSB5b3UgdXNlZCBhcyByZXByZXNlbnRhdGl2ZSBvZiAi
+cmVhbGl0eSI/Cj4+Cj4+IHBwYzY0IChiaWcgZW5kaWFuKSB2aXJ0dWFsIG1hY2hpbmUsIHJ1bm5p
+bmcgd2l0aCBxZW11IHN0ZHZnYSAmIGJvY2hzLWRybQo+PiBkcml2ZXIuICBYb3JnIHdpdGggbW9k
+ZXNldHRpbmcgZHJpdmVyIHVzZXMgRFJNX0ZPUk1BVF9YUkdCODg4OCAob25lIGFuZAo+PiBvbmx5
+IGZvcm1hdCBzdXBwb3J0ZWQgYnkgYm9jaHMtZHJtKSwgYW5kIHdlIGhhdmUgdG8gaW50ZXJwcmV0
+IHRoYXQgaW4KPj4gYmlnZW5kaWFuIGJ5dGUgb3JkZXIgb24gdGhlIGhvc3Qgc2lkZSB0byBnZXQg
+YSBjb3JyZWN0IGRpc3BsYXkuCj4KPiBJIHdvbmRlciBpZiB0aGF0IGlzIGp1c3QgYW4gb3ZlcnNp
+Z2h0IGZyb20gdHJ5aW5nIHRvIG1hdGNoIE9wZW5HTAo+IGZvcm1hdHMgdG8gRFJNIGZvcm1hdHMu
+IEl0J3MgZnVsbCBvZiBnb3RjaGEncy4KPgo+IERpZCB5b3UgdHJ5IHdpdGggR0xBTU9SPyBEbyB5
+b3Ugc2VlIGEgZGlmZmVyZW5jZSB3aXRoIGFuZCB3aXRob3V0Cj4gR0xBTU9SPyBIbW0sIGJ1dCB5
+b3UgaGF2ZSBubyBHUFUgc3VwcG9ydCwgc28gR0xBTU9SIHdvdWxkIGJlIHRocm91Z2ggYQo+IE1l
+c2Egc29mdHdhcmUgcmVuZGVyZXI/IEkgdGhpbmsgSSBoZWFyZCBzb21lb25lIHNheSBzb21ldGhp
+bmcgYWJvdXQKPiBNZXNhIHNvZnR3YXJlIG9uIEJFLi4uCj4KPiBCdXQgZXZlbiBpZiB0aGlzIGFj
+dHVhbGx5IGlzIGEgdmFsaWQgZXhhbXBsZSBvZiBzb2Z0d2FyZSB3ZSBtdXN0IGtlZXAKPiB3b3Jr
+aW5nIGFzIGlzLCB3ZWxsLCBvdWNoLiBCdXQgaWYgSSBjYW5ub3Qgc2hvdyB0aGF0IHlvdXIgZml4
+IGJyZWFrcwo+IGFueXRoaW5nLCB0aGVuIEkgc3VwcG9zZSB5b3Ugd2luLiBZb3VyIHByb3Bvc2Fs
+IHdvdWxkIGNlcnRhaW5seSBzb2x2ZQo+IHRoZSBkaWxlbW1hIHdlIGhhdmUgd2l0aCB3bF9zaG0g
+Zm9ybWF0cyBpbiBXYXlsYW5kLgo+Cj4gSSBhbHNvIHdvbmRlciBpZiBhIHJlYWwgQkUgbWFjaGlu
+ZSBjb3VsZCBoYXZlIGRpZmZlcmVudCByZXN1bHRzIHRoYW4KPiB0aGUgdmlydHVhbCBtYWNoaW5l
+LgoKSSBoYXZlIGEgUFBDIEc1IHdpdGggYW4gQUdQIEdlRm9yY2UgRlggNTIwMCB0aGF0IEkgY2Fu
+IHRlc3QgdGhpbmdzIG9uLAppZiBuZWNlc3NhcnkuIChJIGdvdCBpdCBzcGVjaWZpY2FsbHkgZm9y
+IHRoaXMgcHVycG9zZSwgYXMgdGhlIHBlb3BsZQp3aG8gdXNlIHRoaXMgdHlwZSBvZiBodyBkYWls
+eSB0ZW5kIHRvIHBlcmZvcm0gdXBkYXRlcyByYXJlbHkuLi4gaW4gbm8Kc21hbGwgcGFydCBkdWUg
+dG8gdGhlIGZhY3QgdGhhdCB1cGRhdGVzIHRlbmQgdG8gYnJlYWsgdGhlIEhXLikKCkp1c3QgbGV0
+IGtub3cgd2hhdCB5b3UgbmVlZCB0ZXN0ZWQsIEkgc2hvdWxkIGJlIGFibGUgdG8gdHVybiBpdCBh
+cm91bmQKd2l0aGluIGEgY291cGxlIG9mIGRheXMuCgpDaGVlcnMsCgogIC1pbGlhCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5n
+IGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
