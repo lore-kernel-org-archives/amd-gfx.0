@@ -1,77 +1,115 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 3/3] drm/amdgpu: fix to clear ASIC INIT COMPLETE bit on
- resuming phase
-Date: Mon, 10 Apr 2017 14:55:13 +0000
-Message-ID: <BN6PR12MB165291CCA455A3C0E9D933E3F7010@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <1491817071-17014-1-git-send-email-ray.huang@amd.com>
- <1491817071-17014-3-git-send-email-ray.huang@amd.com>
+From: Pekka Paalanen <ppaalanen@gmail.com>
+Subject: Re: [RfC PATCH] drm: fourcc byteorder: brings header file comments
+ in line with reality.
+Date: Mon, 10 Apr 2017 18:09:41 +0300
+Message-ID: <20170410180941.43922e25@eldfell>
+References: <20170410101202.19229-1-kraxel@redhat.com>
+ <20170410161214.305f5daf@eldfell>
+ <1491833847.30990.77.camel@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1491817071-17014-3-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
+Content-Type: multipart/mixed; boundary="===============0821860127=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <1491833847.30990.77.camel@redhat.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Gerd Hoffmann <kraxel@redhat.com>
+Cc: Daniel Vetter <daniel.vetter@intel.com>, amd-gfx@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
-LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIEh1YW5n
-IFJ1aQ0KPiBTZW50OiBNb25kYXksIEFwcmlsIDEwLCAyMDE3IDU6MzggQU0NCj4gVG86IGFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBEZXVjaGVyLCBBbGV4YW5kZXINCj4gQ2M6IEh1YW5n
-LCBSYXkNCj4gU3ViamVjdDogW1BBVENIIDMvM10gZHJtL2FtZGdwdTogZml4IHRvIGNsZWFyIEFT
-SUMgSU5JVCBDT01QTEVURSBiaXQgb24NCj4gcmVzdW1pbmcgcGhhc2UNCj4gDQo+IEFTSUNfSU5J
-VF9DT01QTEVURSBiaXQgbXVzdCBiZSBjbGVhcmVkIGR1cmluZyBTMyByZXN1bWluZyBwaGFzZSwN
-Cj4gYmVjYXVzZSBWQklPUyB3aWxsIGNoZWNrIHRoZSBiaXQgdG8gZGVjaWRlIGlmIGV4ZWN1dGUg
-QVNJQ19Jbml0DQo+IHBvc3RpbmcgdmlhIGtlcm5lbCBkcml2ZXIuDQo+IA0KPiBTaWduZWQtb2Zm
-LWJ5OiBIdWFuZyBSdWkgPHJheS5odWFuZ0BhbWQuY29tPg0KDQpTZXJpZXMgaXM6DQpSZXZpZXdl
-ZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0KDQo+IC0tLQ0K
-PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2F0b21iaW9zLmMgICAgIHwgNSAr
-KysrLQ0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2F0b21maXJtd2FyZS5j
-IHwgNiArKysrKy0NCj4gIDIgZmlsZXMgY2hhbmdlZCwgOSBpbnNlcnRpb25zKCspLCAyIGRlbGV0
-aW9ucygtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9hdG9tYmlvcy5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2F0
-b21iaW9zLmMNCj4gaW5kZXggYWQ0MzI5OS4uYjBkZDcyYTggMTAwNjQ0DQo+IC0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hdG9tYmlvcy5jDQo+ICsrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hdG9tYmlvcy5jDQo+IEBAIC0xNzI3LDggKzE3Mjcs
-MTEgQEAgdm9pZA0KPiBhbWRncHVfYXRvbWJpb3Nfc2NyYXRjaF9yZWdzX3Jlc3RvcmUoc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+ICB7DQo+ICAJaW50IGk7DQo+IA0KPiAtCWZvciAoaSA9
-IDA7IGkgPCBBTURHUFVfQklPU19OVU1fU0NSQVRDSDsgaSsrKQ0KPiArCWZvciAoaSA9IDA7IGkg
-PCBBTURHUFVfQklPU19OVU1fU0NSQVRDSDsgaSsrKSB7DQo+ICsJCWlmIChpID09IDcpDQo+ICsJ
-CQlhZGV2LT5iaW9zX3NjcmF0Y2hbaV0gJj0NCj4gfkFUT01fUzdfQVNJQ19JTklUX0NPTVBMRVRF
-X01BU0s7DQo+ICAJCVdSRUczMihtbUJJT1NfU0NSQVRDSF8wICsgaSwgYWRldi0+Ymlvc19zY3Jh
-dGNoW2ldKTsNCj4gKwl9DQo+ICB9DQo+IA0KPiAgdm9pZCBhbWRncHVfYXRvbWJpb3Nfc2NyYXRj
-aF9yZWdzX2VuZ2luZV9odW5nKHN0cnVjdCBhbWRncHVfZGV2aWNlDQo+ICphZGV2LA0KPiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2F0b21maXJtd2FyZS5j
-DQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2F0b21maXJtd2FyZS5jDQo+
-IGluZGV4IDRiOWFiZDYuLmM3ZTI4YmYgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9hdG9tZmlybXdhcmUuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfYXRvbWZpcm13YXJlLmMNCj4gQEAgLTI2LDYgKzI2LDcgQEANCj4g
-ICNpbmNsdWRlICJhdG9tZmlybXdhcmUuaCINCj4gICNpbmNsdWRlICJhbWRncHVfYXRvbWZpcm13
-YXJlLmgiDQo+ICAjaW5jbHVkZSAiYXRvbS5oIg0KPiArI2luY2x1ZGUgImF0b21iaW9zLmgiDQo+
-IA0KPiAgI2RlZmluZSBnZXRfaW5kZXhfaW50b19tYXN0ZXJfdGFibGUobWFzdGVyX3RhYmxlLCB0
-YWJsZV9uYW1lKQ0KPiAob2Zmc2V0b2Yoc3RydWN0IG1hc3Rlcl90YWJsZSwgdGFibGVfbmFtZSkg
-LyBzaXplb2YodWludDE2X3QpKQ0KPiANCj4gQEAgLTc3LDggKzc4LDExIEBAIHZvaWQNCj4gYW1k
-Z3B1X2F0b21maXJtd2FyZV9zY3JhdGNoX3JlZ3NfcmVzdG9yZShzdHJ1Y3QgYW1kZ3B1X2Rldmlj
-ZQ0KPiAqYWRldikNCj4gIHsNCj4gIAlpbnQgaTsNCj4gDQo+IC0JZm9yIChpID0gMDsgaSA8IEFN
-REdQVV9CSU9TX05VTV9TQ1JBVENIOyBpKyspDQo+ICsJZm9yIChpID0gMDsgaSA8IEFNREdQVV9C
-SU9TX05VTV9TQ1JBVENIOyBpKyspIHsNCj4gKwkJaWYgKGkgPT0gNykNCj4gKwkJCWFkZXYtPmJp
-b3Nfc2NyYXRjaFtpXSAmPQ0KPiB+QVRPTV9TN19BU0lDX0lOSVRfQ09NUExFVEVfTUFTSzsNCj4g
-IAkJV1JFRzMyKGFkZXYtPmJpb3Nfc2NyYXRjaF9yZWdfb2Zmc2V0ICsgaSwgYWRldi0NCj4gPmJp
-b3Nfc2NyYXRjaFtpXSk7DQo+ICsJfQ0KPiAgfQ0KPiANCj4gIGludCBhbWRncHVfYXRvbWZpcm13
-YXJlX2FsbG9jYXRlX2ZiX3NjcmF0Y2goc3RydWN0IGFtZGdwdV9kZXZpY2UNCj4gKmFkZXYpDQo+
-IC0tDQo+IDIuNy40DQo+IA0KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXw0KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPiBhbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZw0KPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============0821860127==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/bjYfGNPG_KAQNF17zErGaKm"; protocol="application/pgp-signature"
+
+--Sig_/bjYfGNPG_KAQNF17zErGaKm
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, 10 Apr 2017 16:17:27 +0200
+Gerd Hoffmann <kraxel@redhat.com> wrote:
+
+>   Hi,
+>=20
+> > which software have you used as representative of "reality"? =20
+>=20
+> ppc64 (big endian) virtual machine, running with qemu stdvga & bochs-drm
+> driver.  Xorg with modesetting driver uses DRM_FORMAT_XRGB8888 (one and
+> only format supported by bochs-drm), and we have to interpret that in
+> bigendian byte order on the host side to get a correct display.
+
+I wonder if that is just an oversight from trying to match OpenGL
+formats to DRM formats. It's full of gotcha's.
+
+Did you try with GLAMOR? Do you see a difference with and without
+GLAMOR? Hmm, but you have no GPU support, so GLAMOR would be through a
+Mesa software renderer? I think I heard someone say something about
+Mesa software on BE...
+
+But even if this actually is a valid example of software we must keep
+working as is, well, ouch. But if I cannot show that your fix breaks
+anything, then I suppose you win. Your proposal would certainly solve
+the dilemma we have with wl_shm formats in Wayland.
+
+I also wonder if a real BE machine could have different results than
+the virtual machine.
+
+
+Thanks,
+pq
+
+> Didn't try wayland.  Can do, but will take a while.  Don't have a
+> wayland-capable guest install at hand, and installing one takes a while
+> because I don't have a physical pseries and emulation is slooooww.
+>=20
+> > To solve that problem, we would like to know if anything existing would
+> > break for each possible solution, but no developers using BE have really
+> > turned up. =20
+>=20
+> That is part of the problem.
+> And even ppc is moving to little endian these days ...
+>=20
+> cheers,
+>   Gerd
+>=20
+
+
+--Sig_/bjYfGNPG_KAQNF17zErGaKm
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAljroDUACgkQI1/ltBGq
+qqcj5RAAgaKuoCK1RxpVHnnpY86K0remWR86i3ujYpQz03MJdgm9muLqPexyrM3v
+e5VnbhvgNTy/OaRofrwfUfKd91d3/ZQ1yZUDkuxaYUq0mpCCm9QiRFbalZSIcRlu
+YyozO2nJOV4vQNYbxwN0YC84QRAOHw2zR0p3RWNKLVirGZUi950FxX6aCPQY7hGv
+4kca+wBc4TRuKs4sJ3E3Lnf+/VXarxVTVQEIpQCWUxpyQN+aqrZh+1dYLVsaA/u3
+YLsodADC3Yxrjt5fUHRn1AmVk794oqb1iRYei4HGAp3/mb8CLFuJdaUD5AIKkRb9
+pELmO0F18P5gw541f9KMybJVdYJkoG5EX62VxaMq+nAu1hRk3FmQXtAODY0PQb6D
+fdz8GZxl+oEioI5ENBv1j7OepYu+4pg70lW8uRa7NqEBAxgl1unQR9hya3BBtAFZ
+Lm8NYCZx4hURIsuyWHIHu+Rp9obpVMWqPxig0x3thE9CuA7qpvnvrBjVDgRI3/+a
+/EqNCR94mfcjVUdQloGdAc+wKt4oLhhZ1KKPpyA9ceFxPlhwsjQh17bWmbXx3AQ0
+GOf4aEq6MGaSVZU4uLp+oSXWiMaoYq68Dr8Xv09cy5Iyvy3fROdba96ldwP4lOK2
+DqcwexLx6W4UXVAdR4Cjh0g1g2I58WcWuKJnvoNvLd2/RMEDTCA=
+=ATb3
+-----END PGP SIGNATURE-----
+
+--Sig_/bjYfGNPG_KAQNF17zErGaKm--
+
+--===============0821860127==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--===============0821860127==--
