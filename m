@@ -1,123 +1,182 @@
-From: Grazvydas Ignotas <notasas-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 3/3] drm/amdgpu: fix to clear ASIC INIT COMPLETE bit on
- resuming phase
-Date: Mon, 10 Apr 2017 15:09:17 +0300
-Message-ID: <CANOLnOOcnUitqWAWjtTEa0U69pEj5mFMMJZSHrKz5S_TQEcoDA@mail.gmail.com>
-References: <1491817071-17014-1-git-send-email-ray.huang@amd.com>
- <1491817071-17014-3-git-send-email-ray.huang@amd.com>
+From: Pekka Paalanen <ppaalanen@gmail.com>
+Subject: Re: [RfC PATCH] drm: fourcc byteorder: brings header file comments
+ in line with reality.
+Date: Mon, 10 Apr 2017 16:12:14 +0300
+Message-ID: <20170410161214.305f5daf@eldfell>
+References: <20170410101202.19229-1-kraxel@redhat.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2021951249=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1491817071-17014-3-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: multipart/mixed; boundary="===============0098430354=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20170410101202.19229-1-kraxel@redhat.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Gerd Hoffmann <kraxel@redhat.com>
+Cc: Daniel Vetter <daniel.vetter@intel.com>, amd-gfx@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
---===============2021951249==
-Content-Type: multipart/alternative; boundary=001a11373aca36e679054cced8e3
+--===============0098430354==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/9jdcclavL1zJmOW8lVvMsJf"; protocol="application/pgp-signature"
 
---001a11373aca36e679054cced8e3
+--Sig_/9jdcclavL1zJmOW8lVvMsJf
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Apr 10, 2017 at 12:37 PM, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org> wrote:
+On Mon, 10 Apr 2017 12:12:01 +0200
+Gerd Hoffmann <kraxel@redhat.com> wrote:
 
-> ASIC_INIT_COMPLETE bit must be cleared during S3 resuming phase,
-> because VBIOS will check the bit to decide if execute ASIC_Init
-> posting via kernel driver.
->
-> Signed-off-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+> Ok, this is really a kickstart for a discussion.  While working on
+> graphics support for virtual machines on ppc64 (which exists in both
+> little and big endian variants) I've figured the comments in the header
+> file don't match reality.  They are not considered little endian (as
+> suggested by the comments) but in practice are used as native endian.
+>=20
+> So, go update the comments.
+>=20
+> This patch switches all 32bpp / 8 bpc formats over to native endian.
+> Those used/supported by ppc64 virtual machines (virtio-gpu/bochs-drm
+> drivers).
+>=20
+> Given that DRM_FORMAT_BIG_ENDIAN isn't used anywhere in the codebase
+> I suspect this problem applies to more formats.  When looking at
+> drm_mode_legacy_fb_format it seems *all* RGB formats are actually
+> native endian not little endian.
+>=20
+> Dunno where we stand in terms of YCbCr.
+>=20
+> Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+> Cc: Daniel Vetter <daniel.vetter@intel.com>
+> Cc: amd-gfx@lists.freedesktop.org
+> Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c     | 5 ++++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c | 6 +++++-
->  2 files changed, 9 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-> index ad43299..b0dd72a8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-> @@ -1727,8 +1727,11 @@ void amdgpu_atombios_scratch_regs_restore(struct
-> amdgpu_device *adev)
->  {
->         int i;
->
-> -       for (i =3D 0; i < AMDGPU_BIOS_NUM_SCRATCH; i++)
-> +       for (i =3D 0; i < AMDGPU_BIOS_NUM_SCRATCH; i++) {
-> +               if (i =3D=3D 7)
-> +                       adev->bios_scratch[i] &=3D
-> ~ATOM_S7_ASIC_INIT_COMPLETE_MASK;
->
+>  include/uapi/drm/drm_fourcc.h | 16 ++++++++--------
+>  1 file changed, 8 insertions(+), 8 deletions(-)
 
-Maybe move this line before the loop?
-A comment may also be useful so that somebody doesn't delete the code again
-in future.
+Hi,
 
-Gra=C5=BEvydas
+which software have you used as representative of "reality"?
 
---001a11373aca36e679054cced8e3
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+I worry is that there is potential to have endianess bugs in every
+layer of the graphics stack: driver, Mesa, display servers,
+compositors, toolkits, and applications. What's worse, two wrongs might
+sometimes make a right - incorrectly swapping twice gives you what you
+expected in the first place.
 
-<div dir=3D"ltr"><div class=3D"gmail_extra"><div class=3D"gmail_quote">On M=
-on, Apr 10, 2017 at 12:37 PM, Huang Rui <span dir=3D"ltr">&lt;<a href=3D"ma=
-ilto:ray.huang-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">ray.huang-5C7GfCeVMHo@public.gmane.org</a>&gt;</span> =
-wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8=
-ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">ASIC_INIT_COMPL=
-ETE bit must be cleared during S3 resuming phase,<br>
-because VBIOS will check the bit to decide if execute ASIC_Init<br>
-posting via kernel driver.<br>
-<br>
-Signed-off-by: Huang Rui &lt;<a href=3D"mailto:ray.huang-5C7GfCeVMHo@public.gmane.org">ray.huang=
-@amd.com</a>&gt;<br>
----<br>
-=C2=A0drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_atombios.c=C2=A0 =C2=A0 =C2=A0=
-| 5 ++++-<br>
-=C2=A0drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_atomfirmware.c | 6 +++++-<br>
-=C2=A02 files changed, 9 insertions(+), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_atombios.c b/drivers/gp=
-u/drm/amd/amdgpu/<wbr>amdgpu_atombios.c<br>
-index ad43299..b0dd72a8 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_atombios.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_atombios.c<br>
-@@ -1727,8 +1727,11 @@ void amdgpu_atombios_scratch_regs_<wbr>restore(struc=
-t amdgpu_device *adev)<br>
-=C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 int i;<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; AMDGPU_BIOS_NUM_SCRATCH; i=
-++)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; AMDGPU_BIOS_NUM_SCRATCH; i=
-++) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (i =3D=3D 7)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0adev-&gt;bios_scratch[i] &amp;=3D ~ATOM_S7_ASIC_INIT_COMPLETE_<wb=
-r>MASK;<br></blockquote><div><br></div><div>Maybe move this line before the=
- loop?<br></div><div>A comment may also be useful so that somebody doesn&#3=
-9;t delete the code again in future.<br><br><div><div class=3D"gmail_signat=
-ure">Gra=C5=BEvydas<br></div></div>
-</div><br></div><br></div></div>
+We just had a detailed review to get a new pixel format
+definitions list in Weston right for LE vs. BE and Pixman vs. DRM vs.
+OpenGL. We took the DRM definition literally to be always described in
+LE regardless of machine endianess:
+https://cgit.freedesktop.org/wayland/weston/commit/?id=3D903721a6215f474787=
+b5daf02761fbcb1d3a0bb5
 
---001a11373aca36e679054cced8e3--
+We also have this fun problem in Wayland:
+https://lists.freedesktop.org/archives/wayland-devel/2017-March/033492.html
 
---===============2021951249==
+To solve that problem, we would like to know if anything existing would
+break for each possible solution, but no developers using BE have really
+turned up.
+
+We have known for a long time that at least Weston is likely broken on
+BE wrt. pixel formats.
+
+We also have a bug for Mesa EGL/Wayland:
+https://bugs.freedesktop.org/show_bug.cgi?id=3D99638
+
+> diff --git a/include/uapi/drm/drm_fourcc.h b/include/uapi/drm/drm_fourcc.h
+> index 995c8f9..a7fc81d 100644
+> --- a/include/uapi/drm/drm_fourcc.h
+> +++ b/include/uapi/drm/drm_fourcc.h
+> @@ -85,15 +85,15 @@ extern "C" {
+>  #define DRM_FORMAT_BGR888	fourcc_code('B', 'G', '2', '4') /* [23:0] B:G:=
+R little endian */
+> =20
+>  /* 32 bpp RGB */
+> -#define DRM_FORMAT_XRGB8888	fourcc_code('X', 'R', '2', '4') /* [31:0] x:=
+R:G:B 8:8:8:8 little endian */
+> -#define DRM_FORMAT_XBGR8888	fourcc_code('X', 'B', '2', '4') /* [31:0] x:=
+B:G:R 8:8:8:8 little endian */
+> -#define DRM_FORMAT_RGBX8888	fourcc_code('R', 'X', '2', '4') /* [31:0] R:=
+G:B:x 8:8:8:8 little endian */
+> -#define DRM_FORMAT_BGRX8888	fourcc_code('B', 'X', '2', '4') /* [31:0] B:=
+G:R:x 8:8:8:8 little endian */
+> +#define DRM_FORMAT_XRGB8888	fourcc_code('X', 'R', '2', '4') /* [31:0] x:=
+R:G:B 8:8:8:8 native endian */
+> +#define DRM_FORMAT_XBGR8888	fourcc_code('X', 'B', '2', '4') /* [31:0] x:=
+B:G:R 8:8:8:8 native endian */
+> +#define DRM_FORMAT_RGBX8888	fourcc_code('R', 'X', '2', '4') /* [31:0] R:=
+G:B:x 8:8:8:8 native endian */
+> +#define DRM_FORMAT_BGRX8888	fourcc_code('B', 'X', '2', '4') /* [31:0] B:=
+G:R:x 8:8:8:8 native endian */
+> =20
+> -#define DRM_FORMAT_ARGB8888	fourcc_code('A', 'R', '2', '4') /* [31:0] A:=
+R:G:B 8:8:8:8 little endian */
+> -#define DRM_FORMAT_ABGR8888	fourcc_code('A', 'B', '2', '4') /* [31:0] A:=
+B:G:R 8:8:8:8 little endian */
+> -#define DRM_FORMAT_RGBA8888	fourcc_code('R', 'A', '2', '4') /* [31:0] R:=
+G:B:A 8:8:8:8 little endian */
+> -#define DRM_FORMAT_BGRA8888	fourcc_code('B', 'A', '2', '4') /* [31:0] B:=
+G:R:A 8:8:8:8 little endian */
+> +#define DRM_FORMAT_ARGB8888	fourcc_code('A', 'R', '2', '4') /* [31:0] A:=
+R:G:B 8:8:8:8 native endian */
+> +#define DRM_FORMAT_ABGR8888	fourcc_code('A', 'B', '2', '4') /* [31:0] A:=
+B:G:R 8:8:8:8 native endian */
+> +#define DRM_FORMAT_RGBA8888	fourcc_code('R', 'A', '2', '4') /* [31:0] R:=
+G:B:A 8:8:8:8 native endian */
+> +#define DRM_FORMAT_BGRA8888	fourcc_code('B', 'A', '2', '4') /* [31:0] B:=
+G:R:A 8:8:8:8 native endian */
+> =20
+>  #define DRM_FORMAT_XRGB2101010	fourcc_code('X', 'R', '3', '0') /* [31:0]=
+ x:R:G:B 2:10:10:10 little endian */
+>  #define DRM_FORMAT_XBGR2101010	fourcc_code('X', 'B', '3', '0') /* [31:0]=
+ x:B:G:R 2:10:10:10 little endian */
+
+These format definitions are directly referenced by Wayland protocol
+extension for dmabufs and Mesa (wl_drm), and they have been copied into
+the Wayland core protocol for wl_shm. Changing their definition would
+be... awkward.
+
+
+Thanks,
+pq
+
+--Sig_/9jdcclavL1zJmOW8lVvMsJf
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAljrhK4ACgkQI1/ltBGq
+qqcb9RAAkRA8w847/fsE/Z3JmYR0e11J9lC8of+132+EYBZf1i9xneNBilcOp027
+D92Cf7C9+4v6uhLKzYYlQrYnDmgDZv1qRcsxDXhaBL3WE2hHyqaILtwlKqxQ8SQS
+CUFokrOcFxM5vuTVyymhAdPC8XwayCAg4vrt8ejxOfsMvdpBpWbihJRIkzTeSh//
+JkNH1vfqgJ4ksf9+t7VKHeSQz54uCJhrASYCvlO4rh5E2xXD4yZ2jKKVAxo0wTvV
+ufQlUMizbzxySdybfsXTapdi6/b9p5w5TGD9ok3/Jh4X0MFpgrAHozNfaA0tdbrN
+BAvnZvT69d07AZhPS+KLzMKUgT2tGohTEX6aSGV2De+NQO+BvsP17k05PlWI2dn0
+sRjMv049Ng66enRtim9UPhEqm9+foNJuvuaif9kQzgrHvAITso7UVBuWD4l6KpWc
+s5WzkQrz+5xPD8c4Zm5WIeoKqjMbu6Pua4xgCaR5+2/GGRxdz0G3Lp82/jRos8Ym
+fXR+8mi3ljjngMlGwXLkxCMk3XOZ3aYd09fhOCxkM03ZHZJfJj4pu+DBiLagZ+fX
+qsXjdwkA8nl0VW3Wcu33VVW1LdZkTPx88ZJIRjh29y4Ye9R6q02hNu3i1TwMstvU
+CGtaJJ7bGq/B1CtCSCibLdQQRrnI1uwVhqN19z8dbK/otlDoZ3s=
+=VjC6
+-----END PGP SIGNATURE-----
+
+--Sig_/9jdcclavL1zJmOW8lVvMsJf--
+
+--===============0098430354==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
 Content-Disposition: inline
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
 
---===============2021951249==--
+--===============0098430354==--
