@@ -1,15 +1,14 @@
-From: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
-Subject: Re: [RfC PATCH] drm: fourcc byteorder: brings header file comments
- in line with reality.
-Date: Mon, 10 Apr 2017 14:02:12 +0200
-Message-ID: <20170410120212.3igweieunldjcjuy@phenom.ffwll.local>
-References: <20170410101202.19229-1-kraxel@redhat.com>
+From: Grazvydas Ignotas <notasas-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 3/3] drm/amdgpu: fix to clear ASIC INIT COMPLETE bit on
+ resuming phase
+Date: Mon, 10 Apr 2017 15:09:17 +0300
+Message-ID: <CANOLnOOcnUitqWAWjtTEa0U69pEj5mFMMJZSHrKz5S_TQEcoDA@mail.gmail.com>
+References: <1491817071-17014-1-git-send-email-ray.huang@amd.com>
+ <1491817071-17014-3-git-send-email-ray.huang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2021951249=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <20170410101202.19229-1-kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+In-Reply-To: <1491817071-17014-3-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,79 +19,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Cc: Daniel Vetter <daniel.vetter-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, open list <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gTW9uLCBBcHIgMTAsIDIwMTcgYXQgMTI6MTI6MDFQTSArMDIwMCwgR2VyZCBIb2ZmbWFubiB3
-cm90ZToKPiBPaywgdGhpcyBpcyByZWFsbHkgYSBraWNrc3RhcnQgZm9yIGEgZGlzY3Vzc2lvbi4g
-IFdoaWxlIHdvcmtpbmcgb24KPiBncmFwaGljcyBzdXBwb3J0IGZvciB2aXJ0dWFsIG1hY2hpbmVz
-IG9uIHBwYzY0ICh3aGljaCBleGlzdHMgaW4gYm90aAo+IGxpdHRsZSBhbmQgYmlnIGVuZGlhbiB2
-YXJpYW50cykgSSd2ZSBmaWd1cmVkIHRoZSBjb21tZW50cyBpbiB0aGUgaGVhZGVyCj4gZmlsZSBk
-b24ndCBtYXRjaCByZWFsaXR5LiAgVGhleSBhcmUgbm90IGNvbnNpZGVyZWQgbGl0dGxlIGVuZGlh
-biAoYXMKPiBzdWdnZXN0ZWQgYnkgdGhlIGNvbW1lbnRzKSBidXQgaW4gcHJhY3RpY2UgYXJlIHVz
-ZWQgYXMgbmF0aXZlIGVuZGlhbi4KPiAKPiBTbywgZ28gdXBkYXRlIHRoZSBjb21tZW50cy4KPiAK
-PiBUaGlzIHBhdGNoIHN3aXRjaGVzIGFsbCAzMmJwcCAvIDggYnBjIGZvcm1hdHMgb3ZlciB0byBu
-YXRpdmUgZW5kaWFuLgo+IFRob3NlIHVzZWQvc3VwcG9ydGVkIGJ5IHBwYzY0IHZpcnR1YWwgbWFj
-aGluZXMgKHZpcnRpby1ncHUvYm9jaHMtZHJtCj4gZHJpdmVycykuCj4gCj4gR2l2ZW4gdGhhdCBE
-Uk1fRk9STUFUX0JJR19FTkRJQU4gaXNuJ3QgdXNlZCBhbnl3aGVyZSBpbiB0aGUgY29kZWJhc2UK
-PiBJIHN1c3BlY3QgdGhpcyBwcm9ibGVtIGFwcGxpZXMgdG8gbW9yZSBmb3JtYXRzLiAgV2hlbiBs
-b29raW5nIGF0Cj4gZHJtX21vZGVfbGVnYWN5X2ZiX2Zvcm1hdCBpdCBzZWVtcyAqYWxsKiBSR0Ig
-Zm9ybWF0cyBhcmUgYWN0dWFsbHkKPiBuYXRpdmUgZW5kaWFuIG5vdCBsaXR0bGUgZW5kaWFuLgo+
-IAo+IER1bm5vIHdoZXJlIHdlIHN0YW5kIGluIHRlcm1zIG9mIFlDYkNyLgo+IAo+IENjOiBWaWxs
-ZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGludXguaW50ZWwuY29tPgo+IENjOiBEYW5pZWwg
-VmV0dGVyIDxkYW5pZWwudmV0dGVyQGludGVsLmNvbT4KPiBDYzogYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKPiBTaWduZWQtb2ZmLWJ5OiBHZXJkIEhvZmZtYW5uIDxrcmF4ZWxAcmVkaGF0
-LmNvbT4KCkkgdGhpbmsgd2Ugc2hvdWxkIGdvIGFsbC1pbiBvbiB0aGlzIGFuZCBlc3NlbnRpYWxs
-eSByZW1vdmUgdGhlIF9CSUdfRU5ESUFOCnN0dWZmLiBCdXQgaW4gdGhlIGVuZCB0aGlzIGlzIHRv
-IGJlIGRlY2lkZWQgYmUgdGhlIHBlb3BsZSB3aG8gY2FyZSBhYm91dApiaWcgZW5kaWFuLCBhZmFp
-ayB0aGF0J3Mgb25seSB5b3UgKGZvciB0aGUgcGlsZSBvZiB2aXJ0IGRyaXZlcnMgd2UgaGF2ZSkK
-YW5kIGFtZGdwdS9yYWRlb24uCi1EYW5pZWwKCj4gLS0tCj4gIGluY2x1ZGUvdWFwaS9kcm0vZHJt
-X2ZvdXJjYy5oIHwgMTYgKysrKysrKystLS0tLS0tLQo+ICAxIGZpbGUgY2hhbmdlZCwgOCBpbnNl
-cnRpb25zKCspLCA4IGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9pbmNsdWRlL3VhcGkv
-ZHJtL2RybV9mb3VyY2MuaCBiL2luY2x1ZGUvdWFwaS9kcm0vZHJtX2ZvdXJjYy5oCj4gaW5kZXgg
-OTk1YzhmOS4uYTdmYzgxZCAxMDA2NDQKPiAtLS0gYS9pbmNsdWRlL3VhcGkvZHJtL2RybV9mb3Vy
-Y2MuaAo+ICsrKyBiL2luY2x1ZGUvdWFwaS9kcm0vZHJtX2ZvdXJjYy5oCj4gQEAgLTg1LDE1ICs4
-NSwxNSBAQCBleHRlcm4gIkMiIHsKPiAgI2RlZmluZSBEUk1fRk9STUFUX0JHUjg4OAlmb3VyY2Nf
-Y29kZSgnQicsICdHJywgJzInLCAnNCcpIC8qIFsyMzowXSBCOkc6UiBsaXR0bGUgZW5kaWFuICov
-Cj4gIAo+ICAvKiAzMiBicHAgUkdCICovCj4gLSNkZWZpbmUgRFJNX0ZPUk1BVF9YUkdCODg4OAlm
-b3VyY2NfY29kZSgnWCcsICdSJywgJzInLCAnNCcpIC8qIFszMTowXSB4OlI6RzpCIDg6ODo4Ojgg
-bGl0dGxlIGVuZGlhbiAqLwo+IC0jZGVmaW5lIERSTV9GT1JNQVRfWEJHUjg4ODgJZm91cmNjX2Nv
-ZGUoJ1gnLCAnQicsICcyJywgJzQnKSAvKiBbMzE6MF0geDpCOkc6UiA4Ojg6ODo4IGxpdHRsZSBl
-bmRpYW4gKi8KPiAtI2RlZmluZSBEUk1fRk9STUFUX1JHQlg4ODg4CWZvdXJjY19jb2RlKCdSJywg
-J1gnLCAnMicsICc0JykgLyogWzMxOjBdIFI6RzpCOnggODo4Ojg6OCBsaXR0bGUgZW5kaWFuICov
-Cj4gLSNkZWZpbmUgRFJNX0ZPUk1BVF9CR1JYODg4OAlmb3VyY2NfY29kZSgnQicsICdYJywgJzIn
-LCAnNCcpIC8qIFszMTowXSBCOkc6Ujp4IDg6ODo4OjggbGl0dGxlIGVuZGlhbiAqLwo+ICsjZGVm
-aW5lIERSTV9GT1JNQVRfWFJHQjg4ODgJZm91cmNjX2NvZGUoJ1gnLCAnUicsICcyJywgJzQnKSAv
-KiBbMzE6MF0geDpSOkc6QiA4Ojg6ODo4IG5hdGl2ZSBlbmRpYW4gKi8KPiArI2RlZmluZSBEUk1f
-Rk9STUFUX1hCR1I4ODg4CWZvdXJjY19jb2RlKCdYJywgJ0InLCAnMicsICc0JykgLyogWzMxOjBd
-IHg6QjpHOlIgODo4Ojg6OCBuYXRpdmUgZW5kaWFuICovCj4gKyNkZWZpbmUgRFJNX0ZPUk1BVF9S
-R0JYODg4OAlmb3VyY2NfY29kZSgnUicsICdYJywgJzInLCAnNCcpIC8qIFszMTowXSBSOkc6Qjp4
-IDg6ODo4OjggbmF0aXZlIGVuZGlhbiAqLwo+ICsjZGVmaW5lIERSTV9GT1JNQVRfQkdSWDg4ODgJ
-Zm91cmNjX2NvZGUoJ0InLCAnWCcsICcyJywgJzQnKSAvKiBbMzE6MF0gQjpHOlI6eCA4Ojg6ODo4
-IG5hdGl2ZSBlbmRpYW4gKi8KPiAgCj4gLSNkZWZpbmUgRFJNX0ZPUk1BVF9BUkdCODg4OAlmb3Vy
-Y2NfY29kZSgnQScsICdSJywgJzInLCAnNCcpIC8qIFszMTowXSBBOlI6RzpCIDg6ODo4OjggbGl0
-dGxlIGVuZGlhbiAqLwo+IC0jZGVmaW5lIERSTV9GT1JNQVRfQUJHUjg4ODgJZm91cmNjX2NvZGUo
-J0EnLCAnQicsICcyJywgJzQnKSAvKiBbMzE6MF0gQTpCOkc6UiA4Ojg6ODo4IGxpdHRsZSBlbmRp
-YW4gKi8KPiAtI2RlZmluZSBEUk1fRk9STUFUX1JHQkE4ODg4CWZvdXJjY19jb2RlKCdSJywgJ0En
-LCAnMicsICc0JykgLyogWzMxOjBdIFI6RzpCOkEgODo4Ojg6OCBsaXR0bGUgZW5kaWFuICovCj4g
-LSNkZWZpbmUgRFJNX0ZPUk1BVF9CR1JBODg4OAlmb3VyY2NfY29kZSgnQicsICdBJywgJzInLCAn
-NCcpIC8qIFszMTowXSBCOkc6UjpBIDg6ODo4OjggbGl0dGxlIGVuZGlhbiAqLwo+ICsjZGVmaW5l
-IERSTV9GT1JNQVRfQVJHQjg4ODgJZm91cmNjX2NvZGUoJ0EnLCAnUicsICcyJywgJzQnKSAvKiBb
-MzE6MF0gQTpSOkc6QiA4Ojg6ODo4IG5hdGl2ZSBlbmRpYW4gKi8KPiArI2RlZmluZSBEUk1fRk9S
-TUFUX0FCR1I4ODg4CWZvdXJjY19jb2RlKCdBJywgJ0InLCAnMicsICc0JykgLyogWzMxOjBdIEE6
-QjpHOlIgODo4Ojg6OCBuYXRpdmUgZW5kaWFuICovCj4gKyNkZWZpbmUgRFJNX0ZPUk1BVF9SR0JB
-ODg4OAlmb3VyY2NfY29kZSgnUicsICdBJywgJzInLCAnNCcpIC8qIFszMTowXSBSOkc6QjpBIDg6
-ODo4OjggbmF0aXZlIGVuZGlhbiAqLwo+ICsjZGVmaW5lIERSTV9GT1JNQVRfQkdSQTg4ODgJZm91
-cmNjX2NvZGUoJ0InLCAnQScsICcyJywgJzQnKSAvKiBbMzE6MF0gQjpHOlI6QSA4Ojg6ODo4IG5h
-dGl2ZSBlbmRpYW4gKi8KPiAgCj4gICNkZWZpbmUgRFJNX0ZPUk1BVF9YUkdCMjEwMTAxMAlmb3Vy
-Y2NfY29kZSgnWCcsICdSJywgJzMnLCAnMCcpIC8qIFszMTowXSB4OlI6RzpCIDI6MTA6MTA6MTAg
-bGl0dGxlIGVuZGlhbiAqLwo+ICAjZGVmaW5lIERSTV9GT1JNQVRfWEJHUjIxMDEwMTAJZm91cmNj
-X2NvZGUoJ1gnLCAnQicsICczJywgJzAnKSAvKiBbMzE6MF0geDpCOkc6UiAyOjEwOjEwOjEwIGxp
-dHRsZSBlbmRpYW4gKi8KPiAtLSAKPiAyLjkuMwo+IAo+IF9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCj4gZHJpLWRldmVsIG1haWxpbmcgbGlzdAo+IGRyaS1k
-ZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAoKLS0gCkRhbmllbCBWZXR0ZXIKU29mdHdhcmUg
-RW5naW5lZXIsIEludGVsIENvcnBvcmF0aW9uCmh0dHA6Ly9ibG9nLmZmd2xsLmNoCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
-aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============2021951249==
+Content-Type: multipart/alternative; boundary=001a11373aca36e679054cced8e3
+
+--001a11373aca36e679054cced8e3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, Apr 10, 2017 at 12:37 PM, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org> wrote:
+
+> ASIC_INIT_COMPLETE bit must be cleared during S3 resuming phase,
+> because VBIOS will check the bit to decide if execute ASIC_Init
+> posting via kernel driver.
+>
+> Signed-off-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c     | 5 ++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c | 6 +++++-
+>  2 files changed, 9 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+> index ad43299..b0dd72a8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
+> @@ -1727,8 +1727,11 @@ void amdgpu_atombios_scratch_regs_restore(struct
+> amdgpu_device *adev)
+>  {
+>         int i;
+>
+> -       for (i =3D 0; i < AMDGPU_BIOS_NUM_SCRATCH; i++)
+> +       for (i =3D 0; i < AMDGPU_BIOS_NUM_SCRATCH; i++) {
+> +               if (i =3D=3D 7)
+> +                       adev->bios_scratch[i] &=3D
+> ~ATOM_S7_ASIC_INIT_COMPLETE_MASK;
+>
+
+Maybe move this line before the loop?
+A comment may also be useful so that somebody doesn't delete the code again
+in future.
+
+Gra=C5=BEvydas
+
+--001a11373aca36e679054cced8e3
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_extra"><div class=3D"gmail_quote">On M=
+on, Apr 10, 2017 at 12:37 PM, Huang Rui <span dir=3D"ltr">&lt;<a href=3D"ma=
+ilto:ray.huang-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">ray.huang-5C7GfCeVMHo@public.gmane.org</a>&gt;</span> =
+wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8=
+ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">ASIC_INIT_COMPL=
+ETE bit must be cleared during S3 resuming phase,<br>
+because VBIOS will check the bit to decide if execute ASIC_Init<br>
+posting via kernel driver.<br>
+<br>
+Signed-off-by: Huang Rui &lt;<a href=3D"mailto:ray.huang-5C7GfCeVMHo@public.gmane.org">ray.huang=
+@amd.com</a>&gt;<br>
+---<br>
+=C2=A0drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_atombios.c=C2=A0 =C2=A0 =C2=A0=
+| 5 ++++-<br>
+=C2=A0drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_atomfirmware.c | 6 +++++-<br>
+=C2=A02 files changed, 9 insertions(+), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_atombios.c b/drivers/gp=
+u/drm/amd/amdgpu/<wbr>amdgpu_atombios.c<br>
+index ad43299..b0dd72a8 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_atombios.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_atombios.c<br>
+@@ -1727,8 +1727,11 @@ void amdgpu_atombios_scratch_regs_<wbr>restore(struc=
+t amdgpu_device *adev)<br>
+=C2=A0{<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 int i;<br>
+<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; AMDGPU_BIOS_NUM_SCRATCH; i=
+++)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; AMDGPU_BIOS_NUM_SCRATCH; i=
+++) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (i =3D=3D 7)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0adev-&gt;bios_scratch[i] &amp;=3D ~ATOM_S7_ASIC_INIT_COMPLETE_<wb=
+r>MASK;<br></blockquote><div><br></div><div>Maybe move this line before the=
+ loop?<br></div><div>A comment may also be useful so that somebody doesn&#3=
+9;t delete the code again in future.<br><br><div><div class=3D"gmail_signat=
+ure">Gra=C5=BEvydas<br></div></div>
+</div><br></div><br></div></div>
+
+--001a11373aca36e679054cced8e3--
+
+--===============2021951249==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============2021951249==--
