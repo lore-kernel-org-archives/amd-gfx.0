@@ -1,11 +1,13 @@
 From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: [PATCH xf86-video-amdgpu] Set correct DRM event context version
-Date: Mon, 10 Apr 2017 17:37:50 +0900
-Message-ID: <20170410083751.19692-1-michel@daenzer.net>
+Subject: [PATCH xf86-video-ati] Set correct DRM event context version
+Date: Mon, 10 Apr 2017 17:37:51 +0900
+Message-ID: <20170410083751.19692-2-michel@daenzer.net>
+References: <20170410083751.19692-1-michel@daenzer.net>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20170410083751.19692-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -33,14 +35,14 @@ ODEwZTk2ZDg0MTczYTUyZDYyODg2MzgwMmE3OGQ4MikKClNpZ25lZC1vZmYtYnk6IE1pY2hlbCBE
 w6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQuY29tPgotLS0KIHNyYy9kcm1tb2RlX2Rpc3BsYXku
 YyB8IDIgKy0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQoK
 ZGlmZiAtLWdpdCBhL3NyYy9kcm1tb2RlX2Rpc3BsYXkuYyBiL3NyYy9kcm1tb2RlX2Rpc3BsYXku
-YwppbmRleCAyY2RlYTkwYWQuLmY1OGQyOGYxYSAxMDA2NDQKLS0tIGEvc3JjL2RybW1vZGVfZGlz
-cGxheS5jCisrKyBiL3NyYy9kcm1tb2RlX2Rpc3BsYXkuYwpAQCAtMjM2Miw3ICsyMzYyLDcgQEAg
+YwppbmRleCBhYjExNTgzYTYuLjk5MTFjMGE2YSAxMDA2NDQKLS0tIGEvc3JjL2RybW1vZGVfZGlz
+cGxheS5jCisrKyBiL3NyYy9kcm1tb2RlX2Rpc3BsYXkuYwpAQCAtMjUzOCw3ICsyNTM4LDcgQEAg
 Qm9vbCBkcm1tb2RlX3ByZV9pbml0KFNjcm5JbmZvUHRyIHBTY3JuLCBkcm1tb2RlX3B0ciBkcm1t
 b2RlLCBpbnQgY3BwKQogCiAJeGY4NkluaXRpYWxDb25maWd1cmF0aW9uKHBTY3JuLCBUUlVFKTsK
 IAotCWRybW1vZGUtPmV2ZW50X2NvbnRleHQudmVyc2lvbiA9IERSTV9FVkVOVF9DT05URVhUX1ZF
 UlNJT047CisJZHJtbW9kZS0+ZXZlbnRfY29udGV4dC52ZXJzaW9uID0gMjsKIAlkcm1tb2RlLT5l
-dmVudF9jb250ZXh0LnZibGFua19oYW5kbGVyID0gYW1kZ3B1X2RybV9xdWV1ZV9oYW5kbGVyOwog
-CWRybW1vZGUtPmV2ZW50X2NvbnRleHQucGFnZV9mbGlwX2hhbmRsZXIgPSBhbWRncHVfZHJtX3F1
+dmVudF9jb250ZXh0LnZibGFua19oYW5kbGVyID0gcmFkZW9uX2RybV9xdWV1ZV9oYW5kbGVyOwog
+CWRybW1vZGUtPmV2ZW50X2NvbnRleHQucGFnZV9mbGlwX2hhbmRsZXIgPSByYWRlb25fZHJtX3F1
 ZXVlX2hhbmRsZXI7CiAKLS0gCjIuMTEuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
 X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
 ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
