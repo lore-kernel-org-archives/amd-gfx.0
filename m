@@ -1,18 +1,15 @@
-From: Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Subject: Re: [RfC PATCH] drm: fourcc byteorder: brings header file comments
- in line with reality.
-Date: Tue, 11 Apr 2017 13:23:53 +0200
-Message-ID: <1491909833.30990.93.camel@redhat.com>
-References: <20170410101202.19229-1-kraxel@redhat.com>
- <20170410161214.305f5daf@eldfell> <1491833847.30990.77.camel@redhat.com>
- <20170410180941.43922e25@eldfell>
- <CAKb7UvhbgSGwx-2EsrQrHmghzYqO9AhRQ10bDWKfdcXHc3fJeQ@mail.gmail.com>
- <20170411103101.0497fe08@eldfell>
+From: Chris Wilson <chris-Y6uKTt2uX1cEflXRtASbqLVCufUGDwFn@public.gmane.org>
+Subject: Re: [PATCH 8/8] amdgpu: use sync file for shared semaphores (v2.1)
+Date: Tue, 11 Apr 2017 13:42:17 +0100
+Message-ID: <20170411124217.GC7895@nuc-i3427.alporthouse.com>
+References: <20170411032220.21101-1-airlied@gmail.com>
+ <20170411032220.21101-9-airlied@gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170411103101.0497fe08@eldfell>
+Content-Disposition: inline
+In-Reply-To: <20170411032220.21101-9-airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,22 +20,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Pekka Paalanen <ppaalanen-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Daniel Vetter <daniel.vetter-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Ilia Mirkin <imirkin-FrUbXkNCsVf2fBVCVOL8/A@public.gmane.org>, open list <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
+To: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Jason Ekstrand <jason.ekstrand-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-ICBIaSwKCj4gPiBKdXN0IGxldCBrbm93IHdoYXQgeW91IG5lZWQgdGVzdGVkLCBJIHNob3VsZCBi
-ZSBhYmxlIHRvIHR1cm4gaXQgYXJvdW5kCj4gPiB3aXRoaW4gYSBjb3VwbGUgb2YgZGF5cy4KPiAK
-PiBUaGF0J3MgcGFydCBvZiBteSBwcm9ibGVtLiBJIGRvbid0IHJlYWxseSBrbm93IHdoYXQgc2hv
-dWxkIGJlIHRlc3RlZC4KPiBXaGF0IGRvIHBlb3BsZSBkbyB3aXRoIHRoZWlyIEJFIG1hY2hpbmVz
-IHRoYXQgd2Ugc2hvdWxkIGF2b2lkIGJyZWFraW5nPwoKRm9yIHRoZSB2aXJ0dWFsIG1hY2hpbmUg
-dXNlIGNhc2UgdGhlIGJhciBpcyBwcmV0dHkgbG93LCBpdCdzIG1vc3RseQphYm91dCBhIGdyYXBo
-aWNhbCBzZXJ2ZXIgY29uc29sZS4gIEFuYWNvbmRhIGluc3RhbGxlci4gIEdub21lIGRlc2t0b3AK
-d2l0aCBicm93c2VyIGFuZCBzdGFuZGFyZCB4b3JnICh4dGVybSkgKyBndGsgYXBwcy4gIE5vIGhl
-YXZ5IE9wZW5HTApzdHVmZi4gIE5vIGhhcmR3YXJlIGFjY2VsZXJhdGlvbiwgc28gaWYgb3Blbmds
-IGlzIHVzZWQgdGhlbiBpdCdsbCBiZQpsbHZtcGlwZS4KClJpZ2h0IG5vdyBYb3JnIGlzIGltcG9y
-dGFudC4gIE5vdCBzdXJlIHdoZW5ldmVyIHdheWxhbmQgZXZlciB3aWxsIGJlLApwb3NzaWJseSB0
-aGUgcHBjNjQgLT4gcHBjNjRsZSBzd2l0Y2ggZ29lcyBmYXN0ZXIgdGhhbiB0aGUgeG9yZyAtPgp3
-YXlsYW5kIHN3aXRjaC4KCmNoZWVycywKICBHZXJkCgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2FtZC1nZngK
+T24gVHVlLCBBcHIgMTEsIDIwMTcgYXQgMDE6MjI6MjBQTSArMTAwMCwgRGF2ZSBBaXJsaWUgd3Jv
+dGU6Cj4gK3N0YXRpYyBpbnQgYW1kZ3B1X3NlbV9sb29rdXBfYW5kX3N5bmMoc3RydWN0IGFtZGdw
+dV9jc19wYXJzZXIgKnAsCj4gKwkJCQkgICAgICB1aW50MzJfdCBoYW5kbGUpCj4gK3sKPiArCWlu
+dCByOwo+ICsJc3RydWN0IGRtYV9mZW5jZSAqb2xkX2ZlbmNlOwo+ICsKPiArCXIgPSBkcm1fc3lu
+Y29ial9zd2FwX2ZlbmNlcyhwLT5maWxwLCBoYW5kbGUsIE5VTEwsICZvbGRfZmVuY2UpOwo+ICsJ
+aWYgKHIpCj4gKwkJcmV0dXJuIHI7CgpJJ20gYSBiaXQgcHV6emxlZCBvdmVyIHRoaXMgaW50ZXJm
+YWNlIGFzIHRoaXMgbWVhbnMgdGhhdCBhbGwKaW4tc2VtYXBob3JlcyBhcmUgbm90IHJldXNhYmxl
+LiBUaGF0IHNlZW1zIGEgYml0IG9kZCBhcyBpdCBtZWFucwp1c2Vyc3BhY2UgY2FuJ3QgdXNlIHRo
+ZSByZXN1bHRzIGZyb20gb25lIGVuZ2luZSBvbiB0d28rIHBhcmFsbGVsCmVuZ2luZXMuIFNlYXJj
+aGluZyBrcm9ub3MgZm9yIFZrU2VtYXBob3JlCmh0dHBzOi8vd3d3Lmtocm9ub3Mub3JnL3JlZ2lz
+dHJ5L3Z1bGthbi9zcGVjcy8xLjAvbWFuL2h0bWwvVmtTZW1hcGhvcmUuaHRtbAppc24ndCBlbmxp
+Z2h0ZW5pbmcuLi4KLUNocmlzCgotLSAKQ2hyaXMgV2lsc29uLCBJbnRlbCBPcGVuIFNvdXJjZSBU
+ZWNobm9sb2d5IENlbnRyZQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
