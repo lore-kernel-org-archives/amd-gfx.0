@@ -1,82 +1,123 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 8/8] drm/amdgpu: trace vm hub during flush as well v2
-Date: Tue, 11 Apr 2017 10:44:47 -0400
-Message-ID: <CADnq5_M25wt2rLAUNQxE86r_pbCny4f=0mNUyHnpfhEbyaEC_g@mail.gmail.com>
-References: <1491900260-10001-1-git-send-email-deathsimple@vodafone.de>
- <1491900260-10001-8-git-send-email-deathsimple@vodafone.de>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple@vodafone.de>
+Subject: Re: [PATCH 2/4] PCI: add functionality for resizing resources v2
+Date: Tue, 11 Apr 2017 17:37:04 +0200
+Message-ID: <70ea3ef3-10a6-01f1-125c-dbf89e87b1d0@vodafone.de>
+References: <1489408896-25039-1-git-send-email-deathsimple@vodafone.de>
+ <1489408896-25039-3-git-send-email-deathsimple@vodafone.de>
+ <20170324213445.GF25380@bhelgaas-glaptop.roam.corp.google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1491900260-10001-8-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-pci-owner@vger.kernel.org>
+In-Reply-To: <20170324213445.GF25380@bhelgaas-glaptop.roam.corp.google.com>
+Sender: linux-pci-owner@vger.kernel.org
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVHVlLCBBcHIgMTEsIDIwMTcgYXQgNDo0NCBBTSwgQ2hyaXN0aWFuIEvDtm5pZwo8ZGVhdGhz
-aW1wbGVAdm9kYWZvbmUuZGU+IHdyb3RlOgo+IEZyb206IENocmlzdGlhbiBLw7ZuaWcgPGNocmlz
-dGlhbi5rb2VuaWdAYW1kLmNvbT4KPgo+IFRyYWNlIG9uIHdoaWNoIGh1YiB3ZSBhcmUgZG9pbmcg
-dGhlIGZsdXNoLgo+Cj4gdjI6IGZpeCB0eXBvIGluIGNvbW1pdCBtZXNzYWdlCj4KPiBTaWduZWQt
-b2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+CgpSZXZp
-ZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgoKPiAtLS0K
-PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNlLmggfCAyMCArKysrKysr
-KysrKystLS0tLS0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyAg
-ICB8ICAyICstCj4gIDIgZmlsZXMgY2hhbmdlZCwgMTMgaW5zZXJ0aW9ucygrKSwgOSBkZWxldGlv
-bnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-dHJhY2UuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90cmFjZS5oCj4gaW5k
-ZXggNjAzMjE2MS4uZjk1YTM4NiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfdHJhY2UuaAo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV90cmFjZS5oCj4gQEAgLTMzNCwyMSArMzM0LDI1IEBAIFRSQUNFX0VWRU5UKGFtZGdwdV92
-bV9jb3B5X3B0ZXMsCj4gICk7Cj4KPiAgVFJBQ0VfRVZFTlQoYW1kZ3B1X3ZtX2ZsdXNoLAo+IC0g
-ICAgICAgICAgIFRQX1BST1RPKHVpbnQ2NF90IHBkX2FkZHIsIHVuc2lnbmVkIHJpbmcsIHVuc2ln
-bmVkIGlkKSwKPiAtICAgICAgICAgICBUUF9BUkdTKHBkX2FkZHIsIHJpbmcsIGlkKSwKPiArICAg
-ICAgICAgICBUUF9QUk9UTyhzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHVuc2lnbmVkIHZtX2lk
-LAo+ICsgICAgICAgICAgICAgICAgICAgIHVpbnQ2NF90IHBkX2FkZHIpLAo+ICsgICAgICAgICAg
-IFRQX0FSR1MocmluZywgdm1faWQsIHBkX2FkZHIpLAo+ICAgICAgICAgICAgIFRQX1NUUlVDVF9f
-ZW50cnkoCj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICBfX2ZpZWxkKHU2NCwgcGRfYWRk
-cikKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF9fZmllbGQodTMyLCByaW5nKQo+IC0g
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgX19maWVsZCh1MzIsIGlkKQo+ICsgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgX19maWVsZCh1MzIsIHZtX2lkKQo+ICsgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgX19maWVsZCh1MzIsIHZtX2h1YikKPiArICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIF9fZmllbGQodTY0LCBwZF9hZGRyKQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgKSwKPgo+ICAgICAgICAgICAgIFRQX2Zhc3RfYXNzaWduKAo+ICsgICAgICAgICAgICAgICAg
-ICAgICAgICAgIF9fZW50cnktPnJpbmcgPSByaW5nLT5pZHg7Cj4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgICAgX19lbnRyeS0+dm1faWQgPSB2bV9pZDsKPiArICAgICAgICAgICAgICAgICAgICAg
-ICAgICBfX2VudHJ5LT52bV9odWIgPSByaW5nLT5mdW5jcy0+dm1odWI7Cj4gICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgX19lbnRyeS0+cGRfYWRkciA9IHBkX2FkZHI7Cj4gLSAgICAgICAgICAg
-ICAgICAgICAgICAgICAgX19lbnRyeS0+cmluZyA9IHJpbmc7Cj4gLSAgICAgICAgICAgICAgICAg
-ICAgICAgICAgX19lbnRyeS0+aWQgPSBpZDsKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAp
-LAo+IC0gICAgICAgICAgIFRQX3ByaW50aygicmluZz0ldSwgaWQ9JXUsIHBkX2FkZHI9JTAxMEx4
-IiwKPiAtICAgICAgICAgICAgICAgICAgICAgX19lbnRyeS0+cmluZywgX19lbnRyeS0+aWQsIF9f
-ZW50cnktPnBkX2FkZHIpCj4gKyAgICAgICAgICAgVFBfcHJpbnRrKCJyaW5nPSV1LCBpZD0ldSwg
-aHViPSV1LCBwZF9hZGRyPSUwMTBMeCIsCj4gKyAgICAgICAgICAgICAgICAgICAgIF9fZW50cnkt
-PnJpbmcsIF9fZW50cnktPnZtX2lkLAo+ICsgICAgICAgICAgICAgICAgICAgICBfX2VudHJ5LT52
-bV9odWIsX19lbnRyeS0+cGRfYWRkcikKPiAgKTsKPgo+ICBUUkFDRV9FVkVOVChhbWRncHVfYm9f
-bGlzdF9zZXQsCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV92bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPiBpbmRleCA0
-OTQ2NDVlLi45MDE3YjUxIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV92bS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zt
-LmMKPiBAQCAtNjIxLDcgKzYyMSw3IEBAIGludCBhbWRncHVfdm1fZmx1c2goc3RydWN0IGFtZGdw
-dV9yaW5nICpyaW5nLCBzdHJ1Y3QgYW1kZ3B1X2pvYiAqam9iKQo+ICAgICAgICAgICAgICAgICB1
-NjQgcGRfYWRkciA9IGFtZGdwdV92bV9hZGp1c3RfbWNfYWRkcihhZGV2LCBqb2ItPnZtX3BkX2Fk
-ZHIpOwo+ICAgICAgICAgICAgICAgICBzdHJ1Y3QgZmVuY2UgKmZlbmNlOwo+Cj4gLSAgICAgICAg
-ICAgICAgIHRyYWNlX2FtZGdwdV92bV9mbHVzaChwZF9hZGRyLCByaW5nLT5pZHgsIGpvYi0+dm1f
-aWQpOwo+ICsgICAgICAgICAgICAgICB0cmFjZV9hbWRncHVfdm1fZmx1c2gocmluZywgam9iLT52
-bV9pZCwgcGRfYWRkcik7Cj4gICAgICAgICAgICAgICAgIGFtZGdwdV9yaW5nX2VtaXRfdm1fZmx1
-c2gocmluZywgam9iLT52bV9pZCwgcGRfYWRkcik7Cj4KPiAgICAgICAgICAgICAgICAgciA9IGFt
-ZGdwdV9mZW5jZV9lbWl0KHJpbmcsICZmZW5jZSk7Cj4gLS0KPiAyLjUuMAo+Cj4gX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcg
-bGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVl
-ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vYW1kLWdmeAo=
+Hi Bjorn,
+
+first of all sorry for the delay, had been busy with other stuff in the 
+last few weeks.
+
+Am 24.03.2017 um 22:34 schrieb Bjorn Helgaas:
+>> +			release_child_resources(res);
+> Doesn't this recursively release *all* child resources?  There could
+> be BARs from several devices, or even windows of downstream bridges,
+> inside this window.  The drivers of those other devices aren't
+> expecting things to change here.
+
+Yes, the original idea was that the driver calling this knows that the 
+BARs will be changed for the bridge it belongs to.
+
+But you're right. I've changed it in the way that our device driver will 
+release all resource first and then call the function to resize its BAR.
+
+The function will return an error in the next version of the patch if 
+the bridge BAR which needs to be moved for this is still used by child 
+resources.
+
+>> +int pci_resize_resource(struct pci_dev *dev, int resno, int size)
+>> +{
+>> +	struct resource *res = dev->resource + resno;
+>> +	u32 sizes = pci_rbar_get_possible_sizes(dev, resno);
+>> +	int old = pci_rbar_get_current_size(dev, resno);
+>> +	u64 bytes = 1ULL << (size + 20);
+>> +	int ret = 0;
+> I think we should fail the request if the device is enabled, i.e., if
+> the PCI_COMMAND_MEMORY bit is set.  We can't safely change the BAR
+> while memory decoding is enabled.
+>
+> I know there's code in pci_std_update_resource() that turns off
+> PCI_COMMAND_MEMORY, but I think that's a mistake: I think it should
+> fail when asked to update an enabled BAR the same way
+> pci_iov_update_resource() does.
+>
+> I'm not sure why you call pci_reenable_device() below, but I think I
+> would rather have the driver do something like this:
+>
+>    pci_disable_device(dev);
+>    pci_resize_resource(dev, 0, size);
+>    pci_enable_device(dev);
+>
+> That way it's very clear to the driver that it must re-read all BARs
+> after resizing this one.
+
+I've tried it, but this actually doesn't seem to work.
+
+At least on the board I've tried pci_disable_device() doesn't clear the 
+PCI_COMMAND_MEMORY bit, it just clears the master bit.
+
+Additional to that the power management reference counting 
+pci_disable_device() and pci_enable_device() doesn't look like what I 
+want for this functionality.
+
+How about the driver needs to disabled memory decoding itself before 
+trying to resize anything?
+
+>> +	if (!sizes)
+>> +		return -ENOTSUPP;
+>> +
+>> +	if (!(sizes & (1 << size)))
+>> +		return -EINVAL;
+>> +
+>> +	if (old < 0)
+>> +		return old;
+>> +
+>> +	/* Make sure the resource isn't assigned before making it larger. */
+>> +	if (resource_size(res) < bytes && res->parent) {
+>> +		release_resource(res);
+>> +		res->end = resource_size(res) - 1;
+>> +		res->start = 0;
+>> +		if (resno < PCI_BRIDGE_RESOURCES)
+>> +			pci_update_resource(dev, resno);
+> Why do we need to write this zero to the BAR?  If PCI_COMMAND_MEMORY
+> is set, I think this is dangerous, and if it's not set, I think it's
+> unnecessary.
+>
+> I think we should set the IORESOURCE_UNSET bit to indicate that the
+> resource does not have an address assigned to it.  It should get
+> cleared later anyway, but having IORESOURCE_UNSET will make any debug
+> messages emitted while reassigning resources make more sense.
+
+Makes sense, changed.
+
+>> +	return 0;
+>> +
+>> +error_resize:
+>> +	pci_rbar_set_size(dev, resno, old);
+>> +	res->end = res->start + (1ULL << (old + 20)) - 1;
+>> +
+>> +error_reassign:
+>> +	pci_assign_unassigned_bus_resources(dev->bus);
+>> +	pci_setup_bridge(dev->bus);
+> Could this bridge-related recovery code go inside
+> pci_reassign_bridge_resources()?
+
+No, we need to restore the original size of the resource before trying 
+the recovery code when something goes wrong.
+
+I will address all other comments in the next version of the patch as well.
+
+Regards,
+Christian.
