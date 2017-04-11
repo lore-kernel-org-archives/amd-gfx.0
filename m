@@ -1,12 +1,17 @@
-From: Xiangliang Yu <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 1/3] drm/amdgpu/vce4: update VCE initialization sequence for
- SRIOV
-Date: Tue, 11 Apr 2017 15:30:57 +0800
-Message-ID: <1491895857-5984-1-git-send-email-Xiangliang.Yu@amd.com>
+From: Pekka Paalanen <ppaalanen-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [RfC PATCH] drm: fourcc byteorder: brings header file comments
+ in line with reality.
+Date: Tue, 11 Apr 2017 10:31:01 +0300
+Message-ID: <20170411103101.0497fe08@eldfell>
+References: <20170410101202.19229-1-kraxel@redhat.com>
+ <20170410161214.305f5daf@eldfell>
+ <1491833847.30990.77.camel@redhat.com>
+ <20170410180941.43922e25@eldfell>
+ <CAKb7UvhbgSGwx-2EsrQrHmghzYqO9AhRQ10bDWKfdcXHc3fJeQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0549231857=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CAKb7UvhbgSGwx-2EsrQrHmghzYqO9AhRQ10bDWKfdcXHc3fJeQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,47 +22,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Frank Min <Frank.Min-5C7GfCeVMHo@public.gmane.org>, Xiangliang Yu <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
+To: Ilia Mirkin <imirkin-FrUbXkNCsVf2fBVCVOL8/A@public.gmane.org>
+Cc: Daniel Vetter <daniel.vetter-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, open list <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
 
-VXBkYXRlIHRoZSBpbml0aWFsaXphdGlvbiBzZXF1ZW5jZSBvZiBWQ0UgdG8gbWFrZSBWQ0Ugd29y
-ay4KClNpZ25lZC1vZmYtYnk6IEZyYW5rIE1pbiA8RnJhbmsuTWluQGFtZC5jb20+Ci0tLQogZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNlX3Y0XzAuYyB8IDkgKystLS0tLS0tCiAxIGZpbGUg
-Y2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCA3IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92NF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS92Y2VfdjRfMC5jCmluZGV4IDhkZGU4M2YuLmQzNDQ4ZDAgMTAwNjQ0Ci0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92NF8wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvdmNlX3Y0XzAuYwpAQCAtMjgwLDE4ICsyODAsMTEgQEAgc3RhdGljIGludCB2
-Y2VfdjRfMF9zcmlvdl9zdGFydChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAkJaW5pdF90
-YWJsZSArPSBoZWFkZXItPnZjZV90YWJsZV9vZmZzZXQ7CiAKIAkJcmluZyA9ICZhZGV2LT52Y2Uu
-cmluZ1swXTsKLQkJSU5TRVJUX0RJUkVDVF9XVChTT0MxNV9SRUdfT0ZGU0VUKFZDRSwgMCwgbW1W
-Q0VfUkJfUlBUUiksIHJpbmctPndwdHIpOwotCQlJTlNFUlRfRElSRUNUX1dUKFNPQzE1X1JFR19P
-RkZTRVQoVkNFLCAwLCBtbVZDRV9SQl9XUFRSKSwgcmluZy0+d3B0cik7CiAJCUlOU0VSVF9ESVJF
-Q1RfV1QoU09DMTVfUkVHX09GRlNFVChWQ0UsIDAsIG1tVkNFX1JCX0JBU0VfTE8pLCBsb3dlcl8z
-Ml9iaXRzKHJpbmctPmdwdV9hZGRyKSk7CiAJCUlOU0VSVF9ESVJFQ1RfV1QoU09DMTVfUkVHX09G
-RlNFVChWQ0UsIDAsIG1tVkNFX1JCX0JBU0VfSEkpLCB1cHBlcl8zMl9iaXRzKHJpbmctPmdwdV9h
-ZGRyKSk7CiAJCUlOU0VSVF9ESVJFQ1RfV1QoU09DMTVfUkVHX09GRlNFVChWQ0UsIDAsIG1tVkNF
-X1JCX1NJWkUpLCByaW5nLT5yaW5nX3NpemUgLyA0KTsKIAogCQkvKiBCRUdJTkcgT0YgTUNfUkVT
-VU1FICovCi0JCUlOU0VSVF9ESVJFQ1RfUkRfTU9EX1dUKFNPQzE1X1JFR19PRkZTRVQoVkNFLCAw
-LCBtbVZDRV9DTE9DS19HQVRJTkdfQSksIH4oMSA8PCAxNiksIDApOwotCQlJTlNFUlRfRElSRUNU
-X1JEX01PRF9XVChTT0MxNV9SRUdfT0ZGU0VUKFZDRSwgMCwgbW1WQ0VfVUVOQ19DTE9DS19HQVRJ
-TkcpLCB+MHhGRjlGRjAwMCwgMHgxRkYwMDApOwotCQlJTlNFUlRfRElSRUNUX1JEX01PRF9XVChT
-T0MxNV9SRUdfT0ZGU0VUKFZDRSwgMCwgbW1WQ0VfVUVOQ19SRUdfQ0xPQ0tfR0FUSU5HKSwgfjB4
-M0YsIDB4M0YpOwotCQlJTlNFUlRfRElSRUNUX1dUKFNPQzE1X1JFR19PRkZTRVQoVkNFLCAwLCBt
-bVZDRV9DTE9DS19HQVRJTkdfQiksIDB4MUZGKTsKLQogCQlJTlNFUlRfRElSRUNUX1dUKFNPQzE1
-X1JFR19PRkZTRVQoVkNFLCAwLCBtbVZDRV9MTUlfQ1RSTCksIDB4Mzk4MDAwKTsKIAkJSU5TRVJU
-X0RJUkVDVF9SRF9NT0RfV1QoU09DMTVfUkVHX09GRlNFVChWQ0UsIDAsIG1tVkNFX0xNSV9DQUNI
-RV9DVFJMKSwgfjB4MSwgMCk7CiAJCUlOU0VSVF9ESVJFQ1RfV1QoU09DMTVfUkVHX09GRlNFVChW
-Q0UsIDAsIG1tVkNFX0xNSV9TV0FQX0NOVEwpLCAwKTsKQEAgLTMyMiw2ICszMTUsOCBAQCBzdGF0
-aWMgaW50IHZjZV92NF8wX3NyaW92X3N0YXJ0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQog
-CQkJCTB4ZmZmZmZmZmYsIFZDRV9TWVNfSU5UX0VOX19WQ0VfU1lTX0lOVF9UUkFQX0lOVEVSUlVQ
-VF9FTl9NQVNLKTsKIAogCQkvKiBlbmQgb2YgTUNfUkVTVU1FICovCisJCUlOU0VSVF9ESVJFQ1Rf
-UkRfTU9EX1dUKFNPQzE1X1JFR19PRkZTRVQoVkNFLCAwLCBtbVZDRV9TVEFUVVMpLAorCQkJCVZD
-RV9TVEFUVVNfX0pPQl9CVVNZX01BU0ssIH5WQ0VfU1RBVFVTX19KT0JfQlVTWV9NQVNLKTsKIAkJ
-SU5TRVJUX0RJUkVDVF9SRF9NT0RfV1QoU09DMTVfUkVHX09GRlNFVChWQ0UsIDAsIG1tVkNFX1ZD
-UFVfQ05UTCksCiAJCQkJfjB4MjAwMDAxLCBWQ0VfVkNQVV9DTlRMX19DTEtfRU5fTUFTSyk7CiAJ
-CUlOU0VSVF9ESVJFQ1RfUkRfTU9EX1dUKFNPQzE1X1JFR19PRkZTRVQoVkNFLCAwLCBtbVZDRV9T
-T0ZUX1JFU0VUKSwKLS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
-ZC1nZngK
+--===============0549231857==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/AGXd/3dVDU64kRRgy0u5uok"; protocol="application/pgp-signature"
+
+--Sig_/AGXd/3dVDU64kRRgy0u5uok
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, 10 Apr 2017 12:10:14 -0400
+Ilia Mirkin <imirkin-FrUbXkNCsVf2fBVCVOL8/A@public.gmane.org> wrote:
+
+> On Mon, Apr 10, 2017 at 11:09 AM, Pekka Paalanen <ppaalanen-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wr=
+ote:
+
+> > I also wonder if a real BE machine could have different results than
+> > the virtual machine. =20
+>=20
+> I have a PPC G5 with an AGP GeForce FX 5200 that I can test things on,
+> if necessary. (I got it specifically for this purpose, as the people
+> who use this type of hw daily tend to perform updates rarely... in no
+> small part due to the fact that updates tend to break the HW.)
+>=20
+> Just let know what you need tested, I should be able to turn it around
+> within a couple of days.
+
+That's part of my problem. I don't really know what should be tested.
+What do people do with their BE machines that we should avoid breaking?
+
+I suppose correlating with what Gerd was testing would be nice, i.e.
+does X.org with modesetting look right with and without GLAMOR? Maybe
+you also want to throw in xf86-video-nouveau for comparison.
+
+As to what apps to test those with... Gerd? I presume anything that does
+*not* use OpenGL, since we have doubts of Mesa's correctness on BE,
+right? So maybe some of the traditional ancient X11 apps? xterm with
+colours?
+
+However, I totally agree with Alex that someone with a BE machine
+should review the whole stack before we could be confident with anything.
+
+
+Thanks,
+pq
+
+--Sig_/AGXd/3dVDU64kRRgy0u5uok
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAljshjUACgkQI1/ltBGq
+qqd4fxAAoR8FANAGOx8K40e4NU05ZkDUhRoGMMKGE1lla7s30rCCAkE5TAMXJVIr
+5AYJ52RWYOq4Z1WWfANjRce9iS2f2aRUOQx9Y8BlHYLBdf6xoL7lfhDA6zGc/OiC
+kAXcpvGDGFyNrXxfByaW7gYcNUNPHCHNMkUivk6dHTQ+NbwtPqjbC32ITurVHQ7i
+81WUObpQMn3pk33xei++4lQ4DRsV0YPGxYLkebnIQxtTK6AyICqiq+qX8PJCplvm
+sktZ4krio5lScaOqpxkNammaRAS2xznVNObXGMkBOzk1+2XWKnN7U60Z04h/SMJc
+PkIcoZ9jaiZdK3Nz4terdFhMRUBYeuJhhsdnF53wIcxRZSC+0JwzHd0885LQe/je
+yyPl//O9AvHtllcwQwAT9exxhlOioBo5raldGhUi+L44qruY57GGDVf2NenA2WG9
+KwphDtQbAoYYlT27rx2aEbpuc6xt2pJ+Y62AYx7tkCmQm2GB1+YvtF7HI8Vnl8wj
+Vy+wUgU+IZmisZf3orDtk9pG5Tpv3RYgZknTlPTpt8HM0fn8Kf1GIrvjYwqTjMEc
+MlZ92FwVNgjF9OsHM5n/NzqZmGO9sJCWJvryDBjApGs+LI+X3LHDrHrNZEqZSgSa
+PRI72nEtTcjBb5ywNdmqWJ7yIrI4F9ToqTztVcxIUNTNByRvtTM=
+=R/r6
+-----END PGP SIGNATURE-----
+
+--Sig_/AGXd/3dVDU64kRRgy0u5uok--
+
+--===============0549231857==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0549231857==--
