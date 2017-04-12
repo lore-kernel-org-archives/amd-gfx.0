@@ -1,100 +1,76 @@
-From: Bjorn Helgaas <helgaas@kernel.org>
-Subject: Re: [PATCH 3/4] x86/PCI: Enable a 64bit BAR on AMD Family 15h
- (Models 30h-3fh) Processors
-Date: Wed, 12 Apr 2017 11:55:30 -0500
-Message-ID: <20170412165530.GE25197@bhelgaas-glaptop.roam.corp.google.com>
-References: <1489408896-25039-1-git-send-email-deathsimple@vodafone.de>
- <1489408896-25039-4-git-send-email-deathsimple@vodafone.de>
- <20170324154744.GE25380@bhelgaas-glaptop.roam.corp.google.com>
- <a1ac66f3-3c3f-e9c6-82c9-6e9ca5715b67@vodafone.de>
+From: "Panariti, David" <David.Panariti-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: Add kernel parameter to manage memory error
+ handling.
+Date: Wed, 12 Apr 2017 17:38:49 +0000
+Message-ID: <BN6PR12MB18898DA508BFDD2C2D8740ED95030@BN6PR12MB1889.namprd12.prod.outlook.com>
+References: <BN6PR12MB188991D153B36BE3C9D514DD95000@BN6PR12MB1889.namprd12.prod.outlook.com>
+ <5f70b178-1832-2914-a2cc-6d84202f1926@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Return-path: <platform-driver-x86-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <a1ac66f3-3c3f-e9c6-82c9-6e9ca5715b67@vodafone.de>
-Sender: platform-driver-x86-owner@vger.kernel.org
-To: Christian =?iso-8859-1?Q?K=F6nig?= <deathsimple@vodafone.de>
-Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <5f70b178-1832-2914-a2cc-6d84202f1926-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, gpudriverdevsupport <gpudriverdevsupport-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Tue, Apr 11, 2017 at 05:48:25PM +0200, Christian König wrote:
-> Am 24.03.2017 um 16:47 schrieb Bjorn Helgaas:
-> >On Mon, Mar 13, 2017 at 01:41:35PM +0100, Christian König wrote:
-> >>From: Christian König <christian.koenig@amd.com>
-> >>
-> >>Most BIOS don't enable this because of compatibility reasons.
-> >Can you give any more details here?  Without more hints, it's hard to
-> >know whether any of the compatibility reasons might apply to Linux as
-> >well.
-> 
-> Unfortunately not, I could try to ask a few more people at AMD if
-> they know the background.
-> 
-> I was told that there are a few boards which offers that as a BIOS
-> option, but so far I haven't found any (and I have quite a few
-> here).
-> 
-> My best guess is that older windows versions have a problem with that.
-> 
-> >>Manually enable a 64bit BAR of 64GB size so that we have
-> >>enough room for PCI devices.
-> > From the context, I'm guessing this is enabling a new 64GB window
-> >through the PCI host bridge?
-> 
-> Yes, exactly. Sorry for the confusion.
-> 
-> >That might be documented as a "BAR", but
-> >it's not anything the Linux PCI core would recognize as a BAR.
-> 
-> At least the AMD NB documentation calls this the host BARs. But I'm
-> perfectly fine with any terminology.
-> 
-> How about calling it host bridge window instead?
-
-That works for me.
-
-> >I think the specs would envision this being done via an ACPI _SRS
-> >method on the PNP0A03 host bridge device.  That would be a more
-> >generic path that would work on any host bridge.  Did you explore that
-> >possibility?  I would prefer to avoid adding device-specific code if
-> >that's possible.
-> 
-> I've checked quite a few boards, but none of them actually
-> implements it this way.
-> 
-> M$ is working on a new ACPI table to enable this vendor neutral, but
-> I guess that will still take a while.
-> 
-> I want to support this for all AMD CPU released in the past 5 years
-> or so, so we are going to deal with a bunch of older boards as well.
-
-I've never seen _SRS for host bridges either.  I'm curious about what
-sort of new table will be proposed.  It seems like the existing ACPI
-resource framework could manage it, but I certainly don't know all the
-issues.
-
-> >>+	pci_bus_add_resource(dev->bus, res, 0);
-> >We would need some sort of printk here to explain how this new window
-> >magically appeared.
-> 
-> Good point, consider this done.
-> 
-> But is this actually the right place of doing it? Or would you
-> prefer something to be added to the probing code?
-> 
-> I think those fixups are applied a bit later, aren't they?
-
-Logically, this should be done before we enumerate the PCI devices
-below the host bridge, so a PCI device fixup is not the ideal place
-for it, but it might be the most practical.
-
-I could imagine some sort of quirk like the ones in
-drivers/pnp/quirks.c that could add the window to the host bridge _CRS
-and program the bridge to open it.  But the PCI host bridges aren't
-handled through the path that applies those fixups, and it would be
-messy to identify your bridges (you currently use PCI vendor/device
-IDs, which are only available after enumerating the device).  So this
-doesn't seem like a viable strategy.
-
-Bjorn
+DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogTWljaGVsIETDpG56ZXIg
+W21haWx0bzptaWNoZWxAZGFlbnplci5uZXRdDQo+IFNlbnQ6IFR1ZXNkYXksIEFwcmlsIDExLCAy
+MDE3IDEwOjEyIFBNDQo+IFRvOiBQYW5hcml0aSwgRGF2aWQgPERhdmlkLlBhbmFyaXRpQGFtZC5j
+b20+DQo+IENjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBTdWJqZWN0OiBSZTog
+W1BBVENIXSBkcm0vYW1kZ3B1OiBBZGQga2VybmVsIHBhcmFtZXRlciB0byBtYW5hZ2UNCj4gbWVt
+b3J5IGVycm9yIGhhbmRsaW5nLg0KPiANCj4gDQo+IEhpIERhdmUsDQo+IA0KPiANCj4gUGxlYXNl
+IHNlbmQgcGF0Y2hlcyBpbmxpbmUgaW5zdGVhZCBvZiBhcyBhdHRhY2htZW50cywgaWRlYWxseSB1
+c2luZyBnaXQgc2VuZC0NCj4gZW1haWwuDQo+IA0KPiANCj4gPiBAQCAtMjEyLDYgKzIxMyw5IEBA
+IG1vZHVsZV9wYXJhbV9uYW1lZChjZ19tYXNrLA0KPiBhbWRncHVfY2dfbWFzaywgdWludCwNCj4g
+PiAwNDQ0KTsgIE1PRFVMRV9QQVJNX0RFU0MocGdfbWFzaywgIlBvd2VyZ2F0aW5nIGZsYWdzIG1h
+c2sgKDAgPQ0KPiBkaXNhYmxlDQo+ID4gcG93ZXIgZ2F0aW5nKSIpOyAgbW9kdWxlX3BhcmFtX25h
+bWVkKHBnX21hc2ssIGFtZGdwdV9wZ19tYXNrLA0KPiB1aW50LA0KPiA+IDA0NDQpOw0KPiA+DQo+
+ID4gK01PRFVMRV9QQVJNX0RFU0MoZWNjX21hc2ssICJFQ0MvRURDIGZsYWdzIG1hc2sgKDAgPSBk
+aXNhYmxlDQo+ID4gK0VDQy9FREMpIik7DQo+IA0KPiAiMCA9IGRpc2FibGUgRUNDL0VEQyIgaW1w
+bGllcyB0aGF0IHRoZXkncmUgZW5hYmxlZCBieSBkZWZhdWx0PyBXYXMgdGhhdA0KPiBhbHJlYWR5
+IHRoZSBjYXNlIGJlZm9yZSB0aGlzIHBhdGNoPw0KDQpbZGF2ZXBdIFllcyBpdCB3YXMsIGFuZCB0
+aGVyZSB3YXMgYWN0dWFsbHkgYSBwcm9ibGVtIGluIHNvbWUgY2FzZXMgd2hlcmUgdGhlIENaIHdv
+dWxkIGhhbmcgd2hpY2ggaXMgd2h5IEkgYWRkZWQgdGhlIHBhcmFtLg0KSSB3YXMgd29uZGVyaW5n
+IGlmIGl0IHdvdWxkIGJlIGJldHRlciB0byBkZWZhdWx0IHRvIHRoZW0gYmVpbmcgb2ZmLCBidXQg
+SSB3YXNuJ3Qgc3VyZSBob3cgaW1wb3J0YW50IG1haW50YWluaW5nIG9yaWdpbmFsIGJlaGF2aW9y
+IGlzIGNvbnNpZGVyZWQuDQpBY3R1YWxseSwgdGhlcmUgYXJlIHNvbWUgYnVncyBpbiB0aGUgd29y
+a2Fyb3VuZCBmdW5jdGlvbiBhcyBpdCBpcywgc28gaXQgcmVhbGx5IHNob3VsZCBkZWZhdWx0IHRv
+IG9mZi4NCkkgZGlkIHNvbWUgd29yayBpbXBsZW1lbnRpbmcgRURDIGZvciBWaWxhcyBpbiByZXNl
+YXJjaCwgYnV0IGl0IHdhcyBzaWRlIHRyYWNrZWQgZm9yIGEgd2hpbGUuDQpJIGZpeGVkIHVwIHRo
+ZSB3b3JrYXJvdW5kLCBidXQgaXQgcmVhbGx5IG1ha2VzIG5vIHNlbnNlIHRvIHVzZSBpdCBhdCBh
+bGwgdW50aWwgdGhlIHJlc3Qgb2YgdGhlIEVEQyBjb2RlIGlzIGluIHBsYWNlLCBhbmQgaXNuJ3Qg
+Y3VycmVudGx5IHNjaGVkdWxlZCB0byBoYXBwZW4uDQpHaXZlbiB0aGF0LCBJIGFjdHVhbGx5IHRo
+aW5rIGl0IHdvdWxkIGJlIGJlc3QgdG8gcmVtb3ZlIHRoZSB3b3JrYXJvdW5kIGFuZCBsZWF2ZSBF
+REMgZGlzYWJsZWQgdW50aWwgKGlmKSBpdCBpcyBzY2hlZHVsZWQgdG8gYmUgY29tcGxldGVkLg0K
+DQo+IA0KPiANCj4gPiBAQCAtMTY2NCw2ICsxNjY0LDI0IEBAIHN0YXRpYyBpbnQNCj4gZ2Z4X3Y4
+XzBfZG9fZWRjX2dwcl93b3JrYXJvdW5kcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCj4g
+PiAgCWlmIChhZGV2LT5hc2ljX3R5cGUgIT0gQ0hJUF9DQVJSSVpPKQ0KPiA+ICAJCXJldHVybiAw
+Ow0KPiA+DQo+ID4gKwlEUk1fSU5GTygiZ2Z4X3Y4XzBfZG9fZWRjX2dwcl93b3JrYXJvdW5kcygp
+OiBlY2NfZmxhZ3M6DQo+IDB4JTA4eFxuIiwNCj4gPiArCQkgYWRldi0+ZWNjX2ZsYWdzKTsNCj4g
+PiArDQo+ID4gKwkvKg0KPiA+ICsJICogQ2hlY2sgaWYgRURDIGhhcyBiZWVuIHJlcXVlc3RlZC4N
+Cj4gPiArCSAqIEZvciBDYXJyaXpvLCBFREMgaXMgdGhlIGJlc3Qvc2FmZXN0IG1vZGUgV1JUIGVy
+cm9yIGhhbmRsaW5nLg0KPiA+ICsJICovDQo+ID4gKwlpZiAoIShhZGV2LT5lY2NfZmxhZ3MNCj4g
+PiArCSAgICAgICYgKEFNRF9FQ0NfU1VQUE9SVF9CRVNUIHwgQU1EX0VDQ19TVVBQT1JUX0VEQykp
+KSB7DQo+ID4gKwkJRFJNX0lORk8oImdmeF92OF8wX2RvX2VkY19ncHJfd29ya2Fyb3VuZHMoKTog
+Ig0KPiA+ICsJCQkgInNraXBwaW5nIHdvcmthcm91bmRzIGFuZCBub3QgZW5hYmxpbmcgRURDLlxu
+Iik7DQo+ID4gKw0KPiA+ICsJCXJldHVybiAwOw0KPiA+ICsJfQ0KPiA+ICsNCj4gPiArCURSTV9J
+TkZPKCJnZnhfdjhfMF9kb19lZGNfZ3ByX3dvcmthcm91bmRzKCk6ICINCj4gPiArCQkgInJ1bm5p
+bmcgd29ya2Fyb3VuZHMgYW5kIGVuYWJsaW5nIEVEQy5cbiIpOw0KPiANCj4gVGhlc2UgRFJNX0lO
+Rk9zIGFyZSB0b28gY2hhdHR5LCBtYXliZSBtYWtlIHRoZW0gZS5nLg0KPiBEUk1fREVCVUdfRFJJ
+VkVSLg0KPiANCj4gDQo+IC0tDQo+IEVhcnRobGluZyBNaWNoZWwgRMOkbnplciAgICAgICAgICAg
+ICAgIHwgICAgICAgICAgICAgICBodHRwOi8vd3d3LmFtZC5jb20NCj4gTGlicmUgc29mdHdhcmUg
+ZW50aHVzaWFzdCAgICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2ZWxvcGVy
+DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
+IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
+LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
