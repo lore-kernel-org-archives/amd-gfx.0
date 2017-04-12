@@ -1,14 +1,17 @@
-From: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] Add support for high priority scheduling in amdgpu v8
-Date: Wed, 12 Apr 2017 14:29:24 -0400
-Message-ID: <f2337d37-12ce-e867-d9a2-f101c78b52e2@gmail.com>
-References: <20170406062139.3335-1-andresx7@gmail.com>
- <65647f25-dfd4-a831-6808-cfb25f40d1c8@amd.com>
+From: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 5/8] sync_file: add support for a semaphore object
+Date: Thu, 13 Apr 2017 05:05:27 +1000
+Message-ID: <CAPM=9tyiKAH-T2rxwcqxc=LWZ8o_5TyxV3GVhy_JKZv3PZQsCw@mail.gmail.com>
+References: <20170411032220.21101-1-airlied@gmail.com>
+ <20170411032220.21101-6-airlied@gmail.com>
+ <20170411075057.GA2724@nuc-i3427.alporthouse.com>
+ <CAPM=9tzgNoSXPoZfJbRcoRmGZL9gENo+TTZCbauMjB7mwayZxw@mail.gmail.com>
+ <20170412103116.GL4250@nuc-i3427.alporthouse.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <65647f25-dfd4-a831-6808-cfb25f40d1c8-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20170412103116.GL4250-aII6DKEyn0pWYbfKqPwjAkR8Iwp7RQ6xAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,28 +22,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Chris Wilson <chris-Y6uKTt2uX1cEflXRtASbqLVCufUGDwFn@public.gmane.org>, Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-VGhhbmtzIGZvciB0aGUgY29tbWVudHMuIEknbGwgZ2V0IHRoZXNlIGFuZCBBbGV4J3MgY29tbWVu
-dHMgYWRkcmVzc2VkIAphbmQgcmUtc2VuZCB0aGUgc2VyaWVzIG91dC4KClJlZ2FyZHMsCkFuZHJl
-cwoKT24gMjAxNy0wNC0xMSAwNjozMSBQTSwgRmVsaXggS3VlaGxpbmcgd3JvdGU6Cj4gSSByZXBs
-aWVkIHRvIHBhdGNoIDUgd2l0aCBhbiBvYnNlcnZhdGlvbi4gQnV0IEkgdGhpbmsgdGhhdCBjb2Rl
-IHdhcwo+IGJyb2tlbiBiZWZvcmUgeW91ciBjaGFuZ2UuCj4KPiBUaGUgb3JkZXIgb2YgcGF0Y2hl
-cyA3IGFuZCA4IHNob3VsZCBiZSByZXZlcnNlZC4gT3RoZXJ3aXNlIHlvdSBicmVhawo+IHJhZGVv
-biBiZWZvcmUgeW91IGZpeCBpdC4KPgo+IFNlZSBteSBjb21tZW50cyBvbiBwYXRjaCA5LCAxNSBh
-bmQgMTYgaW4gc2VwYXJhdGUgZW1haWxzLiBXaXRoIHRob3NlCj4gY29tbWVudHMgYWRkcmVzc2Vk
-Ogo+Cj4gMS00LCAxMCwgMTMtMTQgYXJlIEFja2VkLWJ5OiBGZWxpeCBLdWVobGluZyA8RmVsaXgu
-S3VlaGxpbmdAYW1kLmNvbT4KPiA1LTksIDExLTEyLCAxNS0xNiBhcmUgUmV2aWV3ZWQtYnk6IEZl
-bGl4IEt1ZWhsaW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPgo+Cj4gUmVnYXJkcywKPiAgIEZl
-bGl4Cj4KPiBPbiAxNy0wNC0wNiAwMjoyMSBBTSwgQW5kcmVzIFJvZHJpZ3VleiB3cm90ZToKPj4g
-SW5jbHVkZXMgZml4ZXMgZm9yIEFsZXgncyBjb21tZW50cyBvbiB2Ny4KPj4KPj4gQWxzbyBpbmNs
-dWRlcyBhIG5ldyBwYXRjaCB0byBkZWFsIHdpdGggYW4gaXNzdWUgd2UgZGlzY3Vzc2VkIG9uICNy
-YWRlb246Cj4+IFtQQVRDSCAxNS8yNl0gZHJtL2FtZGdwdTogYXZvaWQgS0lRIGNsYXNoaW5nIHdp
-dGggY29tcHV0ZSBvciBLRkQKPj4KPj4gUGF0Y2hlcyBtaXNzaW5nIHJldmlldy9hY2s6Cj4+IDEw
-Cj4+IDE0Cj4+IDE1Cj4+IDE4Cj4+IDIwCj4+IDIxCj4+IDIzCj4+IDI0Cj4+Cj4+IF9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+IGFtZC1nZnggbWFpbGlu
-ZyBsaXN0Cj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+IGh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+Cl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+Pj4KPj4gTm90IHN1cmUgd2hhdCB0aGUgYmVzdCBzZW1hbnRpY3MgYXJlIHRoZXJlLCBhbnkgb3Bp
+bmlvbnMgb24gYmFycmluZwo+PiB3YWtldXBzL3BvbGxpbmcgb24gc2VtYXBob3JlIHN5bmNfZmls
+ZXMsIGFuZCBqdXN0IHB1bnRpbmcgdGhpcwo+PiB1bnRpbCB3ZSBuZWVkIGl0Lgo+Cj4gSSB0aGlu
+ayBnZXR0aW5nIGl0IHJpZ2h0IG5vdyB3aWxsIG1ha2Ugd3JpdGluZyBzd19zeW5jLWVzcXVlIChp
+LmUuIGNwdSkKPiB0ZXN0cyBlYXNpZXIgYW5kIG1vcmUgY29tcGxldGUuCgpJIGp1c3QgZG9uJ3Qg
+aGF2ZSBhbnkgdXNlIGNhc2UgZm9yIGl0LCBzbyB3ZSB3b3VsZCBiZSB3cml0aW5nIGNvZGUgdG8K
+d3JpdGUgdGVzdHMgZm9yIGl0LgoKVGhhdCBkb2Vzbid0IHNlZW0gc21hcnQuCgpJZiB0aGVyZSBp
+cyBhIGZ1dHVyZSBub24tdGVzdGluZyB1c2UgY2FzZSwgdGhlIEFQSSBpcyBleHByZXNzaXZlCmVu
+b3VnaCBmb3Igc29tZW9uZQp0byBhZGQgYSBmbGFnIG9yIG5ldyBzeW5jIG9iaiB0byBhbGxvdyBw
+b2xsaW5nIGFuZCB0byBhZGQgc3VwcG9ydCBpbiBhCm5pY2UgZWFzaWx5CmRpZ2VzdGlibGUgcGF0
+Y2guCgpEYXZlLgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
