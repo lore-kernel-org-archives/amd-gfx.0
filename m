@@ -1,13 +1,15 @@
-From: Dennis Schridde <dennis.schridde-axtXthT+lymYbFdUjOg7S7NAH6kLmebB@public.gmane.org>
-Subject: Re: AMDGPU without display output
-Date: Thu, 13 Apr 2017 17:20:22 +0200
-Message-ID: <6870657.eATv821s2Z@c07060>
-References: <2259850.ejp6DaCL9T@c07060>
- <BN6PR12MB165282CADA64ADF35AD09EF4F7020@BN6PR12MB1652.namprd12.prod.outlook.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: amdgpu 0000:84:00.0: gpu post error! \\ Fatal error during GPU
+ init
+Date: Thu, 13 Apr 2017 15:30:45 +0000
+Message-ID: <BN6PR12MB1652EBEDA7927456A065C8CAF7020@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <6570445.DKuzpyIqJk@c07060>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0399800168=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB165282CADA64ADF35AD09EF4F7020-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <6570445.DKuzpyIqJk@c07060>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,49 +20,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+To: 'Dennis Schridde' <dennis.schridde-axtXthT+lymYbFdUjOg7S7NAH6kLmebB@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0399800168==
-Content-Type: multipart/signed; boundary="nextPart6628375.cs1RlVOYTg"; micalg="pgp-sha256"; protocol="application/pgp-signature"
-
---nextPart6628375.cs1RlVOYTg
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-
-Thanks, Alex!
---nextPart6628375.cs1RlVOYTg
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQG0BAABCAAGBQJY75c2AAoJENS5dBsVnRQdzKYMvA1/FfZfuXoy5YVmM/klQA/4
-THBxvnheS2ocQUCitoNoe0HT5lg1ZHLBtHgxkmafImaKBPqtJDwl74o2iP00GQKr
-EQZks54liDS1hhj603chhugEPBRMnhiKr6rdQkI91LsYROwfz6LqfjNF0YaoTdxV
-jVjnAz8fClhKUj/fX6j5G8rzTVWCai3zQFN9gJDG+zhQQCYXv3IxoMj8OSN2tfqC
-OizlaUYfNvelBrewGEbKfAgVScA2vZ0wgnGEkbXiaa8g/SNuJBCAfqTgcS/6fgqx
-UWi/+GfhozOYwqnvZQGje3ZgFsTrz5+SecObmMQeuB7Ps7rnpIGNTe0mDmggnT72
-jQXmRqg2sCxpa0szzWVNcH0uFEyWxj/Yt8RcGjrspLZBXvb7XXXWvpnUUTZsmiyD
-g86zy/5oRh2ah1eUN8IoNBDPmTVqqEzWFk9dn0qKoY5X/8QiDEsORSlibeMYcFzk
-ROZL5LZQ1Fqji7mQ+JMeInxIuydb/zMmLbzkT83QvIbLr/9zGWx3Rpj1j84nviMs
-iOZI1FuQ9A==
-=2HrE
------END PGP SIGNATURE-----
-
---nextPart6628375.cs1RlVOYTg--
-
-
---===============0399800168==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0399800168==--
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+IEZyb206IGFtZC1nZnggW21haWx0bzphbWQt
+Z2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnXSBPbiBCZWhhbGYKPiBPZiBEZW5uaXMg
+U2NocmlkZGUKPiBTZW50OiBUaHVyc2RheSwgQXByaWwgMTMsIDIwMTcgMTA6MTggQU0KPiBUbzog
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBTdWJqZWN0OiBhbWRncHUgMDAwMDo4NDow
+MC4wOiBncHUgcG9zdCBlcnJvciEgXFwgRmF0YWwgZXJyb3IgZHVyaW5nIEdQVSBpbml0Cj4gCj4g
+SGVsbG8hCj4gCj4gSSBhbSB0cnlpbmcgdG8gdXNlIGFuIEFNRCBGaXJlUHJvIFM3MTUwWDIgd2l0
+aCB0aGUgQU1ER1BVIGRyaXZlciBvZiBhCj4gTGludXgKPiA0LjEwLjkga2VybmVsIChDb3JlT1Mg
+Q29udGFpbmVyIExpbnV4KSBhbmQgbGludXgtZmlybXdhcmUKPiBlMzlmMGUzZTY4OTdhZDg2NWIz
+NzA0ZjYxMjE4YWU4M2Y5OGE4NWRhLCBidXQgSSBydW4gaW50byB0aGUgZm9sbG93aW5nCj4gZXJy
+b3IKPiBhZnRlciB0aGUgYW1kZ3B1IG1vZHVsZSBpcyBiZWluZyBsb2FkZWQ6Cj4gCj4gWyAgIDE3
+LjY5Mjc0Nl0gYW1kZ3B1IDAwMDA6ODQ6MDAuMDogZW5hYmxpbmcgZGV2aWNlICgwMDAwIC0+IDAw
+MDMpCj4gWyAgIDE3LjY5Mjk0MF0gW2RybV0gaW5pdGlhbGl6aW5nIGtlcm5lbCBtb2Rlc2V0dGlu
+ZyAoVE9OR0EgMHgxMDAyOjB4NjkyOQo+IDB4MTAwMjoweDAzMzQgMHgwMCkuCj4gWyAgIDE3LjY5
+Mjk2M10gW2RybV0gcmVnaXN0ZXIgbW1pbyBiYXNlOiAweEQwMTAwMDAwCj4gWyAgIDE3LjY5Mjk2
+NF0gW2RybV0gcmVnaXN0ZXIgbW1pbyBzaXplOiAyNjIxNDQKPiBbICAgMTcuNjkyOTcwXSBbZHJt
+XSBkb29yYmVsbCBtbWlvIGJhc2U6IDB4RjAwMDAwMDAKPiBbICAgMTcuNjkyOTcxXSBbZHJtXSBk
+b29yYmVsbCBtbWlvIHNpemU6IDIwOTcxNTIKPiBbICAgMTcuNjkyOTgwXSBbZHJtXSBwcm9iaW5n
+IGdlbiAyIGNhcHMgZm9yIGRldmljZSAxMGI1Ojg3NDcgPSA4Nzk2MTAzLzEwZQo+IFsgICAxNy42
+OTI5ODFdIFtkcm1dIHByb2JpbmcgbWx3IGZvciBkZXZpY2UgMTBiNTo4NzQ3ID0gODc5NjEwMwo+
+IFsgICAxNy42OTI5OTJdIFtkcm1dIFZDRSBlbmFibGVkIGluIHBoeXNpY2FsIG1vZGUKPiBbICAg
+MTguNjQ4MTMyXSBBVE9NIEJJT1M6IEM3NjMwMQo+IFsgICAxOC42NTE3NThdIFtkcm1dIEdQVSBw
+b3N0aW5nIG5vdy4uLgo+IFsgICAyMy42NjE1MTNdIFtkcm06YW1kZ3B1X2Nvbm5lY3Rvcl9hZGQg
+W2FtZGdwdV1dICpFUlJPUiogYXRvbWJpb3MKPiBzdHVjayBpbgo+IGxvb3AgZm9yIG1vcmUgdGhh
+biA1c2VjcyBhYm9ydGluZwo+IFsgICAyMy42NzMxNTVdIFtkcm06YW1kZ3B1X2Nvbm5lY3Rvcl9h
+ZGQgW2FtZGdwdV1dICpFUlJPUiogYXRvbWJpb3MKPiBzdHVjawo+IGV4ZWN1dGluZyBGMjUwIChs
+ZW4gMzM0LCBXUyA0LCBQUyAwKSBAIDB4RjM2NQo+IFsgICAyMy42ODU0NTNdIFtkcm06YW1kZ3B1
+X2Nvbm5lY3Rvcl9hZGQgW2FtZGdwdV1dICpFUlJPUiogYXRvbWJpb3MKPiBzdHVjawo+IGV4ZWN1
+dGluZyBEQjM0IChsZW4gMzI0LCBXUyA0LCBQUyAwKSBAIDB4REMyQwo+IFsgICAyMy42OTc4MTZd
+IFtkcm06YW1kZ3B1X2Nvbm5lY3Rvcl9hZGQgW2FtZGdwdV1dICpFUlJPUiogYXRvbWJpb3MKPiBz
+dHVjawo+IGV4ZWN1dGluZyBCQ0RFIChsZW4gMjU0LCBXUyAwLCBQUyA0KSBAIDB4QkRCNAo+IFsg
+ICAyMy43MTAxMzddIFtkcm06YW1kZ3B1X2Nvbm5lY3Rvcl9hZGQgW2FtZGdwdV1dICpFUlJPUiog
+YXRvbWJpb3MKPiBzdHVjawo+IGV4ZWN1dGluZyBCODMyIChsZW4gMTQzLCBXUyAwLCBQUyA4KSBA
+IDB4QjhBOQo+IFsgICAyMy43MjI0NTFdIGFtZGdwdSAwMDAwOjg0OjAwLjA6IGdwdSBwb3N0IGVy
+cm9yIQo+IFsgICAyMy43Mjc5NTBdIGFtZGdwdSAwMDAwOjg0OjAwLjA6IEZhdGFsIGVycm9yIGR1
+cmluZyBHUFUgaW5pdAoKUG9zdGluZyB0aGUgR1BVIGlzIGZhaWxpbmcuICBUaGUgaXMgdGhlIGlu
+aXRpYWwgYmFzaWMgYXNpYyBzZXR1cCB0aGF0IGlzIHJlcXVpcmVkIGJlZm9yZSBhbnl0aGluZyBl
+bHNlIGNhbiBoYXBwZW4uICBUaGVyZSBzZWVtIHRvIGJlIHRpbWVvdXRzIHdhaXRpbmcgZm9yIHNv
+bWUgcmVnaXN0ZXIgc3RhdGVzLiAgSXMgdGhlcmUgYW55dGhpbmcgc3BlY2lhbCBhYm91dCB5b3Vy
+IHNldHVwPyAgQ2FuIHlvdSB0cnkgYSB2YW5pbGxhIGtlcm5lbD8KCkFsZXgKCj4gWyAgIDIzLjcz
+NDU5NF0gW2RybV0gYW1kZ3B1OiBmaW5pc2hpbmcgZGV2aWNlLgo+IFsgICAyMy43Mzk1OTJdIC0t
+LS0tLS0tLS0tLVsgY3V0IGhlcmUgXS0tLS0tLS0tLS0tLQo+IC4uLgo+IFsgICAyNC4wOTY2MDhd
+IC0tLVsgZW5kIHRyYWNlIDg4YzhjYjM1YjMyZTNiODggXS0tLQo+IFsgICAyNC4xMDIwODZdIEJV
+RzogdW5hYmxlIHRvIGhhbmRsZSBrZXJuZWwgTlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlIGF0Cj4g
+MDAwMDAwMDAwMDAwMDAxOAo+IFsgICAyNC4xMTE0MzhdIElQOiBfX3d3X211dGV4X2xvY2srMHgy
+NC8weGEwCj4gWyAgIDI0LjExNjIyMl0gUEdEIDAKPiBbICAgMjQuMTE2MjIzXQo+IFsgICAyNC4x
+MjA3MzddIE9vcHM6IDAwMDIgWyMxXSBTTVAKPiAuLi4KPiAKPiBQbGVhc2UgZmluZCBhIGZ1bGwg
+bG9nIGF0dGFjaGVkLgo+IAo+IE15IGtlcm5lbCBjb25maWd1cmF0aW9uIGlzIGF2YWlsYWJsZSBh
+dDoKPiAgaHR0cHM6Ly9naXRodWIuY29tL3VyemRzL2NvcmVvcy1vdmVybGF5L2Jsb2IvaHBjX3N1
+cHBvcnQvc3lzLQo+IGtlcm5lbC9jb3Jlb3MtbW9kdWxlcy9maWxlcy97Y29tbW9uY29uZmlnLTQu
+MTAsYW1kNjRfZGVmY29uZmlnLTQuMTB9Cj4gUGxlYXNlIHJlZmVyIHRvIHRoZSB0aGUgY29tbWl0
+IGxvZyBvZiB0aGUgImhwY19zdXBwb3J0IiBicmFuY2ggZm9yIG15Cj4gY2hhbmdlcwo+IGNvbXBh
+cmVkIHRvIHRoZSBDb3JlT1MgQ0wgc3RvY2sgY29uZmlnLgo+IAo+IEkgd291bGQgYmUgdmVyeSBn
+bGFkIGlmIHlvdSBjb3VsZCBoZWxwIG1lIGluIGRlYnVnZ2luZyB0aGUgaXNzdWUgYW5kIGdldHRp
+bmcKPiB0aGUgR1BVIHJ1bm5pbmcuCj4gCj4gVGhhbmtzLAo+IERlbm5pcwpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
