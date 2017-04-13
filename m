@@ -1,19 +1,11 @@
-From: Pekka Paalanen <ppaalanen-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [RfC PATCH] drm: fourcc byteorder: brings header file comments
- in line with reality.
-Date: Thu, 13 Apr 2017 10:44:38 +0300
-Message-ID: <20170413104438.7775a28c@eldfell>
-References: <20170410101202.19229-1-kraxel@redhat.com>
- <20170410161214.305f5daf@eldfell>
- <1491833847.30990.77.camel@redhat.com>
- <20170410180941.43922e25@eldfell>
- <CAKb7UvhbgSGwx-2EsrQrHmghzYqO9AhRQ10bDWKfdcXHc3fJeQ@mail.gmail.com>
- <20170411103101.0497fe08@eldfell>
- <1491909833.30990.93.camel@redhat.com>
+From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: fix dead lock if any ip block resume failed in s3
+Date: Thu, 13 Apr 2017 16:12:26 +0800
+Message-ID: <1492071146-12042-1-git-send-email-ray.huang@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1423717520=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1491909833.30990.93.camel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -24,92 +16,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Cc: Daniel Vetter <daniel.vetter-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Ilia Mirkin <imirkin-FrUbXkNCsVf2fBVCVOL8/A@public.gmane.org>, open list <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: Ken Wang <Qingqing.Wang-5C7GfCeVMHo@public.gmane.org>, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
---===============1423717520==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/VlVKg/=g6TWHU8SOXzOk9Jo"; protocol="application/pgp-signature"
-
---Sig_/VlVKg/=g6TWHU8SOXzOk9Jo
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, 11 Apr 2017 13:23:53 +0200
-Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org> wrote:
-
->   Hi,
->=20
-> > > Just let know what you need tested, I should be able to turn it around
-> > > within a couple of days. =20
-> >=20
-> > That's part of my problem. I don't really know what should be tested.
-> > What do people do with their BE machines that we should avoid breaking?=
- =20
->=20
-> For the virtual machine use case the bar is pretty low, it's mostly
-> about a graphical server console.  Anaconda installer.  Gnome desktop
-> with browser and standard xorg (xterm) + gtk apps.  No heavy OpenGL
-> stuff.  No hardware acceleration, so if opengl is used then it'll be
-> llvmpipe.
->=20
-> Right now Xorg is important.  Not sure whenever wayland ever will be,
-> possibly the ppc64 -> ppc64le switch goes faster than the xorg ->
-> wayland switch.
-
-Hi,
-
-IMHO you can ignore Wayland for now I suppose, I just wanted to point
-out that we have similar problems there and whatever you do with the
-DRM format codes will affect things on Wayland too.
-
-Once you get things hashed out on an X.org based stack, we can look
-what it means for Wayland software.
-
-After all, BE users are scarce and allegedly favouring old software to
-avoid breakage; Wayland is new, and Wayland compositors still "rare",
-so the intersection of people using both BE and Wayland and relying on
-it to work is... minuscule? insignificant?
-
-I don't mean to belittle people that use Wayland on BE, but by that one
-bug report EGL is and probably has been broken, and it's unclear if
-anything has ever worked.
-
-
-Thanks,
-pq
-
---Sig_/VlVKg/=g6TWHU8SOXzOk9Jo
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAljvLGYACgkQI1/ltBGq
-qqem8hAApPz46GfiiceXJchrlij5cFY2KaAEBH+qEIQvP48igrNKQ1xRPtX/95fe
-QmjhoDOeLIzXLAsxWU2h0m6pEpU1Y1NQolRFijHqmWcqU7hVfDCpZCj//MSvk2Q+
-T0aqY7RtfRn8rruJB1MqXdmYyRg5mKpPv4zyqZd5q4Rf4NxPb2/G6htFOA9DHSQR
-utPNqW3W6hUXwNnjnxh6UTvKfpylx5HmOYX0v7gqCa2doiNm1aV9LZMyk3pjKpDl
-NnXO8xt6X7R7wAx3JonWuUQOE6MPpKshlZBi7GTKu9NiPh8wyPWh+u8zOALCdTIy
-3dL/sZwNA41lmaXKj/pEtOF3sJJ6f/YeFr1SRDasZwQ/F2D2pAYqmJwe6b3o7k+Z
-UTCw6yabzfB1CIlVXbmiEumeLDojTay/LmPIs90+EiKomPTFnP/oUk5riuCUm7lb
-2iY0erj/n31uBDLR4a+74gd4IFJEJnmmk/pHWQEAgvMx8r9yVwJrtDR3G+7C8iyy
-OU9lyXH5dakBBzPtRzmHziVSHB8FXc8UC+Qn2qY1prlsDVkdxWYVxp6bKcxgwDgD
-r3nNU57F5f4R0YYK+pexQOxNGP6+Yg+BcMeliQEI2kG5q5DMg7NG4vyjEEQZmcOa
-IRC2tQbKRm+PlxP7g0Hub0FrhnHyXPJE/CpX7PJ8C+13i3X2wUw=
-=enD7
------END PGP SIGNATURE-----
-
---Sig_/VlVKg/=g6TWHU8SOXzOk9Jo--
-
---===============1423717520==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1423717520==--
+RHJpdmVyIG11c3QgZnJlZSB0aGUgY29uc29sZSBsb2NrIHdoZXRoZXIgZHJpdmVyIHJlc3VtaW5n
+IHN1Y2Nlc3NmdWwKb3Igbm90LiAgT3RoZXJ3aXNlLCBmYl9jb25zb2xlIHdpbGwgYmUgYWx3YXlz
+IHdhaXRpbmcgZm9yIHRoZSBsb2NrIGFuZAp0aGVuIGNhdXNlIHN5c3RlbSBzdHVjay4KClsgIDI0
+NC40MDU1NDFdIElORk86IHRhc2sga3dvcmtlci8wOjA6NCBibG9ja2VkIGZvciBtb3JlIHRoYW4g
+MTIwIHNlY29uZHMuClsgIDI0NC40MDU1NDNdICAgICAgIFRhaW50ZWQ6IEcgICAgICAgICAgIE9F
+ICAgNC45LjAtY3VzdG9tICMxClsgIDI0NC40MDU1NDRdICJlY2hvIDAgPiAvcHJvYy9zeXMva2Vy
+bmVsL2h1bmdfdGFza190aW1lb3V0X3NlY3MiIGRpc2FibGVzIHRoaXMgbWVzc2FnZS4KWyAgMjQ0
+LjQwNTU0MV0gSU5GTzogdGFzayBrd29ya2VyLzA6MDo0IGJsb2NrZWQgZm9yIG1vcmUgdGhhbiAx
+MjAgc2Vjb25kcy4KWyAgMjQ0LjQwNTU0M10gICAgICAgVGFpbnRlZDogRyAgICAgICAgICAgT0Ug
+ICA0LjkuMC1jdXN0b20gIzEKWyAgMjQ0LjQwNTU0NF0gImVjaG8gMCA+IC9wcm9jL3N5cy9rZXJu
+ZWwvaHVuZ190YXNrX3RpbWVvdXRfc2VjcyIgZGlzYWJsZXMgdGhpcyBtZXNzYWdlLgpbICAyNDQu
+NDA1NTUwXSBrd29ya2VyLzA6MCAgICAgRCAgICAwICAgICA0ICAgICAgMiAweDAwMDgwMDAwClsg
+IDI0NC40MDU1NTldIFdvcmtxdWV1ZTogZXZlbnRzIGNvbnNvbGVfY2FsbGJhY2sKWyAgMjQ0LjQw
+NTU2NF0gIGZmZmY4ODA0NWEyY2ZjMDAgMDAwMDAwMDAwMDAwMDAwMCBmZmZmODgwNDYyYjc1OTQw
+IGZmZmZmZmZmODFjMGU1MDAKWyAgMjQ0LjQwNTU2OF0gIGZmZmY4ODA0NzY0MTkyODAgZmZmZmM5
+MDAwMThmN2M5MCBmZmZmZmZmZjgxN2RjZjYyIDAwMDAwMDAwMDAwMDAwM2MKWyAgMjQ0LjQwNTU3
+Ml0gIDAwMDAwMDAxMDAwMDAwMDAgMDAwMDAwMDAwMDAwMDAwMiBmZmZmODgwNDYyYjc1OTQwIGZm
+ZmY4ODA0NjJiNzU5NDAKWyAgMjQ0LjQwNTU3M10gQ2FsbCBUcmFjZToKWyAgMjQ0LjQwNTU4MF0g
+IFs8ZmZmZmZmZmY4MTdkY2Y2Mj5dID8gX19zY2hlZHVsZSsweDIyMi8weDZhMApbICAyNDQuNDA1
+NTg0XSAgWzxmZmZmZmZmZjgxN2RkNDE2Pl0gc2NoZWR1bGUrMHgzNi8weDgwClsgIDI0NC40MDU1
+ODhdICBbPGZmZmZmZmZmODE3ZTA0MWM+XSBzY2hlZHVsZV90aW1lb3V0KzB4MWZjLzB4MzkwClsg
+IDI0NC40MDU1OTJdICBbPGZmZmZmZmZmODE3ZGYxYjQ+XSBfX2Rvd25fY29tbW9uKzB4YTUvMHhm
+OApbICAyNDQuNDA1NTk4XSAgWzxmZmZmZmZmZjgxMGIyY2E4Pl0gPyBwdXRfcHJldl9lbnRpdHkr
+MHg0OC8weDcxMApbICAyNDQuNDA1NjAxXSAgWzxmZmZmZmZmZjgxN2RmMjI0Pl0gX19kb3duKzB4
+MWQvMHgxZgpbICAyNDQuNDA1NjA2XSAgWzxmZmZmZmZmZjgxMGM3MWExPl0gZG93bisweDQxLzB4
+NTAKWyAgMjQ0LjQwNTYxMV0gIFs8ZmZmZmZmZmY4MTBkMzgwYT5dIGNvbnNvbGVfbG9jaysweDFh
+LzB4NDAKWyAgMjQ0LjQwNTYxNF0gIFs8ZmZmZmZmZmY4MTRlM2MwMz5dIGNvbnNvbGVfY2FsbGJh
+Y2srMHgxMy8weDE2MApbICAyNDQuNDA1NjE3XSAgWzxmZmZmZmZmZjgxN2RjZjZhPl0gPyBfX3Nj
+aGVkdWxlKzB4MjJhLzB4NmEwClsgIDI0NC40MDU2MjNdICBbPGZmZmZmZmZmODEwOTU0ZTM+XSBw
+cm9jZXNzX29uZV93b3JrKzB4MTUzLzB4M2YwClsgIDI0NC40MDU2MjhdICBbPGZmZmZmZmZmODEw
+OTVjYWI+XSB3b3JrZXJfdGhyZWFkKzB4MTJiLzB4NGIwClsgIDI0NC40MDU2MzNdICBbPGZmZmZm
+ZmZmODEwOTViODA+XSA/IHJlc2N1ZXJfdGhyZWFkKzB4MzUwLzB4MzUwClsgIDI0NC40MDU2Mzdd
+ICBbPGZmZmZmZmZmODEwOWI0NzM+XSBrdGhyZWFkKzB4ZDMvMHhmMApbICAyNDQuNDA1NjQxXSAg
+WzxmZmZmZmZmZjgxMDliM2EwPl0gPyBrdGhyZWFkX3BhcmsrMHg2MC8weDYwClsgIDI0NC40MDU2
+NDVdICBbPGZmZmZmZmZmODEwOWIzYTA+XSA/IGt0aHJlYWRfcGFyaysweDYwLzB4NjAKWyAgMjQ0
+LjQwNTY0OV0gIFs8ZmZmZmZmZmY4MTdlMWVlNT5dIHJldF9mcm9tX2ZvcmsrMHgyNS8weDMwCgpT
+aWduZWQtb2ZmLWJ5OiBIdWFuZyBSdWkgPHJheS5odWFuZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8IDI4ICsrKysrKysrKysrKy0tLS0t
+LS0tLS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCAxMiBpbnNlcnRpb25zKCspLCAxNiBkZWxldGlv
+bnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2
+aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKaW5kZXgg
+YmQzYTBkNS4uYWJiNGRjYyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2RldmljZS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
+ZXZpY2UuYwpAQCAtMjI4MCw3ICsyMjgwLDcgQEAgaW50IGFtZGdwdV9kZXZpY2VfcmVzdW1lKHN0
+cnVjdCBkcm1fZGV2aWNlICpkZXYsIGJvb2wgcmVzdW1lLCBib29sIGZiY29uKQogCXN0cnVjdCBk
+cm1fY29ubmVjdG9yICpjb25uZWN0b3I7CiAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBk
+ZXYtPmRldl9wcml2YXRlOwogCXN0cnVjdCBkcm1fY3J0YyAqY3J0YzsKLQlpbnQgcjsKKwlpbnQg
+ciA9IDA7CiAKIAlpZiAoZGV2LT5zd2l0Y2hfcG93ZXJfc3RhdGUgPT0gRFJNX1NXSVRDSF9QT1dF
+Ul9PRkYpCiAJCXJldHVybiAwOwpAQCAtMjI5MiwxMSArMjI5Miw4IEBAIGludCBhbWRncHVfZGV2
+aWNlX3Jlc3VtZShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCBib29sIHJlc3VtZSwgYm9vbCBmYmNv
+bikKIAkJcGNpX3NldF9wb3dlcl9zdGF0ZShkZXYtPnBkZXYsIFBDSV9EMCk7CiAJCXBjaV9yZXN0
+b3JlX3N0YXRlKGRldi0+cGRldik7CiAJCXIgPSBwY2lfZW5hYmxlX2RldmljZShkZXYtPnBkZXYp
+OwotCQlpZiAocikgewotCQkJaWYgKGZiY29uKQotCQkJCWNvbnNvbGVfdW5sb2NrKCk7Ci0JCQly
+ZXR1cm4gcjsKLQkJfQorCQlpZiAocikKKwkJCWdvdG8gdW5sb2NrOwogCX0KIAlpZiAoYWRldi0+
+aXNfYXRvbV9mdykKIAkJYW1kZ3B1X2F0b21maXJtd2FyZV9zY3JhdGNoX3JlZ3NfcmVzdG9yZShh
+ZGV2KTsKQEAgLTIzMTMsNyArMjMxMCw3IEBAIGludCBhbWRncHVfZGV2aWNlX3Jlc3VtZShzdHJ1
+Y3QgZHJtX2RldmljZSAqZGV2LCBib29sIHJlc3VtZSwgYm9vbCBmYmNvbikKIAlyID0gYW1kZ3B1
+X3Jlc3VtZShhZGV2KTsKIAlpZiAocikgewogCQlEUk1fRVJST1IoImFtZGdwdV9yZXN1bWUgZmFp
+bGVkICglZCkuXG4iLCByKTsKLQkJcmV0dXJuIHI7CisJCWdvdG8gdW5sb2NrOwogCX0KIAlhbWRn
+cHVfZmVuY2VfZHJpdmVyX3Jlc3VtZShhZGV2KTsKIApAQCAtMjMyNCwxMSArMjMyMSw4IEBAIGlu
+dCBhbWRncHVfZGV2aWNlX3Jlc3VtZShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCBib29sIHJlc3Vt
+ZSwgYm9vbCBmYmNvbikKIAl9CiAKIAlyID0gYW1kZ3B1X2xhdGVfaW5pdChhZGV2KTsKLQlpZiAo
+cikgewotCQlpZiAoZmJjb24pCi0JCQljb25zb2xlX3VubG9jaygpOwotCQlyZXR1cm4gcjsKLQl9
+CisJaWYgKHIpCisJCWdvdG8gdW5sb2NrOwogCiAJLyogcGluIGN1cnNvcnMgKi8KIAlsaXN0X2Zv
+cl9lYWNoX2VudHJ5KGNydGMsICZkZXYtPm1vZGVfY29uZmlnLmNydGNfbGlzdCwgaGVhZCkgewpA
+QCAtMjM0OSw3ICsyMzQzLDcgQEAgaW50IGFtZGdwdV9kZXZpY2VfcmVzdW1lKHN0cnVjdCBkcm1f
+ZGV2aWNlICpkZXYsIGJvb2wgcmVzdW1lLCBib29sIGZiY29uKQogCX0KIAlyID0gYW1kZ3B1X2Ft
+ZGtmZF9yZXN1bWUoYWRldik7CiAJaWYgKHIpCi0JCXJldHVybiByOworCQlnb3RvIHVubG9jazsK
+IAogCS8qIGJsYXQgdGhlIG1vZGUgYmFjayBpbiAqLwogCWlmIChmYmNvbikgewpAQCAtMjM5Niwx
+MiArMjM5MCwxNCBAQCBpbnQgYW1kZ3B1X2RldmljZV9yZXN1bWUoc3RydWN0IGRybV9kZXZpY2Ug
+KmRldiwgYm9vbCByZXN1bWUsIGJvb2wgZmJjb24pCiAJZGV2LT5kZXYtPnBvd2VyLmRpc2FibGVf
+ZGVwdGgtLTsKICNlbmRpZgogCi0JaWYgKGZiY29uKSB7CisJaWYgKGZiY29uKQogCQlhbWRncHVf
+ZmJkZXZfc2V0X3N1c3BlbmQoYWRldiwgMCk7CisKK3VubG9jazoKKwlpZiAoZmJjb24pCiAJCWNv
+bnNvbGVfdW5sb2NrKCk7Ci0JfQogCi0JcmV0dXJuIDA7CisJcmV0dXJuIHI7CiB9CiAKIHN0YXRp
+YyBib29sIGFtZGdwdV9jaGVja19zb2Z0X3Jlc2V0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
+KQotLSAKMi43LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
