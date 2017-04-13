@@ -1,14 +1,13 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: AMDGPU without display output
-Date: Thu, 13 Apr 2017 15:15:19 +0000
-Message-ID: <BN6PR12MB165282CADA64ADF35AD09EF4F7020@BN6PR12MB1652.namprd12.prod.outlook.com>
+From: Dennis Schridde <dennis.schridde-axtXthT+lymYbFdUjOg7S7NAH6kLmebB@public.gmane.org>
+Subject: Re: AMDGPU without display output
+Date: Thu, 13 Apr 2017 17:20:22 +0200
+Message-ID: <6870657.eATv821s2Z@c07060>
 References: <2259850.ejp6DaCL9T@c07060>
+ <BN6PR12MB165282CADA64ADF35AD09EF4F7020@BN6PR12MB1652.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0399800168=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <2259850.ejp6DaCL9T@c07060>
-Content-Language: en-US
+In-Reply-To: <BN6PR12MB165282CADA64ADF35AD09EF4F7020-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,43 +18,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: 'Dennis Schridde' <dennis.schridde-axtXthT+lymYbFdUjOg7S7NAH6kLmebB@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+IEZyb206IGFtZC1nZnggW21haWx0bzphbWQt
-Z2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnXSBPbiBCZWhhbGYKPiBPZiBEZW5uaXMg
-U2NocmlkZGUKPiBTZW50OiBUaHVyc2RheSwgQXByaWwgMTMsIDIwMTcgMTA6MzIgQU0KPiBUbzog
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBTdWJqZWN0OiBBTURHUFUgd2l0aG91dCBk
-aXNwbGF5IG91dHB1dAo+IAo+IEhlbGxvIGFnYWluIQo+IAo+IEkgYW0gdHJ5aW5nIHRvIHVzZSBh
-IEFNRCBGaXJlUHJvIFM3MTUwWDIgd2l0aCB0aGUgQU1ER1BVIGRyaXZlciBvZiBhIExpbnV4Cj4g
-NC4xMC45IGtlcm5lbCAoQ29yZU9TIENvbnRhaW5lciBMaW51eCkgYW5kIGxpbnV4LWZpcm13YXJl
-Cj4gZTM5ZjBlM2U2ODk3YWQ4NjViMzcwNGY2MTIxOGFlODNmOThhODVkYS4KPiAKPiBTaW5jZSB0
-aGUgY2FyZCBoYXMgbm8gZGlzcGxheSBvdXRwdXQgYW5kIEkgd2FudCB0byBydW4gcmVtb3RlIGFw
-cGxpY2F0aW9ucwo+IG9ubHksIEkgd291bGQgbGlrZSB0byBwcmV2ZW50IGFueSBpbnRlcmZlcmVu
-Y2Ugd2l0aCBtb2RlIHNldHRpbmcgYW5kIHRoZQo+IGtlcm5lbCBjb25zb2xlLiBUaHVzIEkgc2V0
-ICJub21vZGVzZXQiIG9uIHRoZSBrZXJuZWwgY29tbWFuZCBsaW5lIHRvCj4gcHJldmVudAo+IHRo
-ZSBrZXJuZWwgZnJvbSB0cnlpbmcgdG8gaW5pdGlhbGlzZSBhbnl0aGluZyBidXQgdGhlIHJlbmRl
-cmluZyBmdW5jdGlvbnMgb2YKPiB0aGUgY2FyZC4gSG93ZXZlciwgdGhpcyBsZWFkcyB0byBmb2xs
-b3dpbmcgZXJyb3IgbWVzc2FnZToKPiAKPiBbZHJtOmluaXRfbW9kdWxlIFthbWRncHVdXSAqRVJS
-T1IqIFZHQUNPTiBkaXNhYmxlcyBhbWRncHUga2VybmVsCj4gbW9kZXNldHRpbmcuCj4gCj4gVGhl
-IHJlc3VsdCBpcyB0aGF0IHRoZSBBTURHUFUgbW9kdWxlIGNhbiBub3QgYmUgbG9hZGVkLgoKbm9t
-b2Rlc2V0IHByZXZlbnRzIHRoZSBkcml2ZXIgZnJvbSBsb2FkaW5nLiAgSXQncyBhIHdheSB0byBk
-aXNhYmxlIHRoZSBLTVMgYWx0b2dldGhlci4KCj4gCj4gSXMgdGhpcyBnZW5lcmFsbHkgdGhlIHJp
-Z2h0IGFwcHJvYWNoIHRvIHVzZSB0aGlzIGRyaXZlciBmb3IgcmVuZGVyaW5nIHdpdGhvdXQKPiBk
-aXNwbGF5IG91dHB1dCwgb3IgY2FuIEkgc2FmZWx5IGxlYXZlIEtNUyBlbmFibGVkIGFuZCBpdCB3
-aWxsIG5vdCBpbnRlcmZlcmUKPiB3aXRoIG15IGFwcGxpY2F0aW9uJ3MgWCBzZXJ2ZXJzIGFuZCB0
-aGUgT3BlbkdMIGFwcGxpY2F0aW9ucyBydW5uaW5nIG9uCj4gdGhlbT8KPiAKClRoZSBkcml2ZXIg
-b25seSBleHBvc2VzIGRpc3BsYXkgY29ubmVjdG9ycyB3aGVuIHRoZXkgZXhpc3QuCgo+IEFzc3Vt
-aW5nIEkgaGF2ZSB0byBkaXNhYmxlIEtNUywgaG93IHdvdWxkIEkgZ2V0IHBhc3QgdGhpcyBlcnJv
-ciwgaS5lLiB0bwo+IGluaXRpYWxpc2UgdGhlIGNhcmQncyByZW5kZXJpbmcgZnVuY3Rpb25zLCBi
-dXQgc2tpcHBpbmcgaW5pdGlhbGlzYXRpb24gb2YgdGhlCj4gb3V0cHV0IHBhcnQgb2YgdGhlIGRy
-aXZlcj8KPiAKCllvdSBkb24ndCBoYXZlIGRpc2FibGUgS01TLiAgdGhlcmUgaXMgbm8gd2F5IHRv
-LiAgVGhlIGRyaXZlciB3aWxsIGV4cG9zZSB0aGUgaHcgdGhhdCBleGlzdHMgb24gdGhlIGNhcmQu
-ICBJZiB0aGVyZSBhcmUgbm90IGRpc3BsYXkgY29ubmVjdG9ycywgbm9uZSB3aWxsIGJlIGV4cG9z
-ZWQuICBJdCdzIHVwIHRvIHRoZSB1c2VyIHRvIGNvbmZpZ3VyZSBYIHRvIHVzZSBvciBub3QgdXNl
-IHNwZWNpZmljIGNhcmRzLgoKPiBHZW5lcmFsbHkgYXNraW5nOiBIb3cgZG8gcGVvcGxlIHVzZSB0
-aGlzIGNhcmQgZm9yIEdQR1BVIGNvbXB1dGUgKGkuZS4KPiBoZWFkbGVzcykgdGFza3M/IElzIHRo
-ZXJlIHNvbWUgZG9jdW1lbnRhdGlvbiB3aGF0IEkgbmVlZCB0byBwYXkgYXR0ZW50aW9uCj4gdG8/
-CgpJdCBzaG91bGQganVzdCB3b3JrIGFzIGxvbmcgYXMgdGhlIGRyaXZlciBpcyBsb2FkZWQuCgpB
-bGV4CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
-Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============0399800168==
+Content-Type: multipart/signed; boundary="nextPart6628375.cs1RlVOYTg"; micalg="pgp-sha256"; protocol="application/pgp-signature"
+
+--nextPart6628375.cs1RlVOYTg
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+
+Thanks, Alex!
+--nextPart6628375.cs1RlVOYTg
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQG0BAABCAAGBQJY75c2AAoJENS5dBsVnRQdzKYMvA1/FfZfuXoy5YVmM/klQA/4
+THBxvnheS2ocQUCitoNoe0HT5lg1ZHLBtHgxkmafImaKBPqtJDwl74o2iP00GQKr
+EQZks54liDS1hhj603chhugEPBRMnhiKr6rdQkI91LsYROwfz6LqfjNF0YaoTdxV
+jVjnAz8fClhKUj/fX6j5G8rzTVWCai3zQFN9gJDG+zhQQCYXv3IxoMj8OSN2tfqC
+OizlaUYfNvelBrewGEbKfAgVScA2vZ0wgnGEkbXiaa8g/SNuJBCAfqTgcS/6fgqx
+UWi/+GfhozOYwqnvZQGje3ZgFsTrz5+SecObmMQeuB7Ps7rnpIGNTe0mDmggnT72
+jQXmRqg2sCxpa0szzWVNcH0uFEyWxj/Yt8RcGjrspLZBXvb7XXXWvpnUUTZsmiyD
+g86zy/5oRh2ah1eUN8IoNBDPmTVqqEzWFk9dn0qKoY5X/8QiDEsORSlibeMYcFzk
+ROZL5LZQ1Fqji7mQ+JMeInxIuydb/zMmLbzkT83QvIbLr/9zGWx3Rpj1j84nviMs
+iOZI1FuQ9A==
+=2HrE
+-----END PGP SIGNATURE-----
+
+--nextPart6628375.cs1RlVOYTg--
+
+
+--===============0399800168==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0399800168==--
