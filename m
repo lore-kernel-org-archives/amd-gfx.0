@@ -1,13 +1,12 @@
 From: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH split] Improve pipe split between amdgpu and amdkfd
-Date: Thu, 13 Apr 2017 17:39:58 -0400
-Message-ID: <ba3b9070-0a7d-d2a6-fd9c-e39a14be85c9@gmail.com>
-References: <20170413213542.18802-1-andresx7@gmail.com>
+Subject: [PATCH split 2/3] LRU map compute/SDMA user ring ids to kernel ring
+ ids
+Date: Thu, 13 Apr 2017 18:04:30 -0400
+Message-ID: <20170413220436.21555-1-andresx7@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170413213542.18802-1-andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,23 +17,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
 
-Rm9yZ290IHRvIG1lbnRpb246CiAgICogUmUtb3JkZXJlZCBzb21lIHBhdGNoZXMgYXMgc3VnZ2Vz
-dGVkIGJ5IEZlbGl4CiAgICogSW5jbHVkZWQgImRybTogRml4IGdldF9wcm9wZXJ0eSBsb2dpYyBm
-dW1ibGUiIGR1cmluZyB0ZXN0aW5nLCAKb3RoZXJ3aXNlIHRoZSBzeXN0ZW0gYm9vdHMgdG8gYSBi
-bGFjayBzY3JlZW4uCgpSZWdhcmRzLApBbmRyZXMKCk9uIDIwMTctMDQtMTMgMDU6MzUgUE0sIEFu
-ZHJlcyBSb2RyaWd1ZXogd3JvdGU6Cj4gVGhpcyBpcyBhIHNwbGl0IG9mIHBhdGNoZXMgdGhhdCBh
-cmUgcmVhZHkgdG8gbGFuZCBmcm9tIHRoZSBzZXJpZXM6Cj4gQWRkIHN1cHBvcnQgZm9yIGhpZ2gg
-cHJpb3JpdHkgc2NoZWR1bGluZyBpbiBhbWRncHUgdjgKPgo+IEkndmUgaW5jbHVkZWQgRmVsaXgg
-YW5kIEFsZXgncyBmZWVkYmFjayBmcm9tIHRoZSB0aHJlYWQgYWJvdmUuIFRoaXMgaW5jbHVkZXM6
-Cj4gICogU2VwYXJhdGUgTUVDX0hQRF9TSVpFIHJlbmFtZSBpbnRvIGEgc2VwYXJhdGUgcGF0Y2gg
-KHBhdGNoIDAxKQo+ICAqIEFkZGVkIGEgcGF0Y2ggdG8gZml4IHRoZSBrZ2RfaHFkX2xvYWQgYnVn
-IEZlbGl4IHBvaW50ZWQgb3V0IChwYXRjaCAwNikKPiAgKiBGaXhlcyBmb3IgdmFyaW91cyBvZmYt
-Ynktb25lIGVycm9ycwo+ICAqIFVzZSBnZnhfdjhfMF9kZWFjdGl2YXRlX2hxZAo+Cj4gT25seSBj
-b21tZW50IEkgZGlkbid0IGFkZHJlc3Mgd2FzIGNoYW5naW5nIHRoZSBxdWV1ZSBhbGxvY2F0aW9u
-IHBvbGljeSBmb3IKPiBnZng5IChzaW1pbGFyIHRvIGdmeDcvOCkuIFNlZSBpbmxpbmUgcmVwbHkg
-aW4gdGhhdCB0aHJlYWQgZm9yIG1vcmUgZGV0YWlscwo+IG9uIHdoeSB0aGlzIHdhcyBza2lwcGVk
-Lgo+Cj4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
-LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
-aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+U2Vjb25kIHBhcnQgb2YgdGhlIHNwbGl0IG9mIHRoZSBzZXJpZXM6CkFkZCBzdXBwb3J0IGZvciBo
+aWdoIHByaW9yaXR5IHNjaGVkdWxpbmcgaW4gYW1kZ3B1IHY4CgpUaGVzZSBwYXRjaGVzIHNob3Vs
+ZCBiZSBjbG9zZSB0byBiZWluZyBnb29kIGVub3VnaCB0byBsYW5kLgoKVGhlIGZpcnN0IHR3byBw
+YXRjaGVzIGFyZSBzaW1wbGUgZml4ZXMgSSd2ZSBwb3J0ZWQgZnJvbSB0aGUgUk9DbSBicmFuY2gu
+IFRoZXNlCnN0aWxsIG5lZWQgcmV2aWV3LgoKSSd2ZSBmaXhlZCBhbGwgb2YgQ2hyaXN0aWFuJ3Mg
+Y29tbWVudHMgZm9yIHBhdGNoIDA0Ogpkcm0vYW1kZ3B1OiBpbXBsZW1lbnQgbHJ1IGFtZGdwdV9x
+dWV1ZV9tZ3IgcG9saWN5IGZvciBjb21wdXRlIHY0CgoKCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeAo=
