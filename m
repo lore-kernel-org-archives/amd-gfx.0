@@ -1,17 +1,18 @@
-From: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Subject: Re: [PATCH 09/17] drm/amdgpu: take ownership of per-pipe
  configuration v2
-Date: Sun, 16 Apr 2017 08:25:29 +0300
-Message-ID: <CAFCwf12mXeEHd9pb9L84wibaKC0zrvO6dHggQ-ePP7odN=oj6A@mail.gmail.com>
+Date: Sun, 16 Apr 2017 10:51:08 -0400
+Message-ID: <CAFQ_0eFrYi6fkUCiNpRexZcipftbgvf+g14wX4WYv-3=FtfV=w@mail.gmail.com>
 References: <20170413213542.18802-1-andresx7@gmail.com>
  <20170413213542.18802-10-andresx7@gmail.com>
  <CAFCwf12haVgYLxxcqMqTd-GX7KjxtZXD1Stuqj87HAP32TdvXQ@mail.gmail.com>
  <CAFQ_0eED3HxUN8Sz0buefckSmVWvMwBD0mFk_GA1XeLABdsTnw@mail.gmail.com>
+ <CAFCwf12mXeEHd9pb9L84wibaKC0zrvO6dHggQ-ePP7odN=oj6A@mail.gmail.com>
+ <CAFQ_0eE1O+SS_ucS-8Rjqm3S4aDjZq1r0OfzZhTKE=9Z12xMZQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0310658629=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAFQ_0eED3HxUN8Sz0buefckSmVWvMwBD0mFk_GA1XeLABdsTnw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <CAFQ_0eE1O+SS_ucS-8Rjqm3S4aDjZq1r0OfzZhTKE=9Z12xMZQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,38 +23,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-SGV5IEFuZHJlcywKClllcywgdGhhdCBwYXRjaCBpbmRlZWQgZml4ZWQgdGhlIGJsYWNrIHNjcmVl
-biBvbiBBbGV4J3MgNC4xMi13aXAsIGJ1dAppdCBzdGlsbCB3b3VsZG4ndCBib290IHdpdGggeW91
-ciBlbnRpcmUgcGF0Y2gtc2V0LiBJdCB3b3VsZCBib290IG9ubHkKd2l0aCBwYXRjaGVzIDEtOC4K
-CkknbGwgdHJ5IHRvIGdldCBhIFVTQi10by1zZXJpYWwgZG9uZ2xlIHNvIEkgY291bGQgdHJ5IGR1
-bXAga2VybmVsCm1lc3NhZ2VzIGR1cmluZyBib290IGJ1dCBpdCB3aWxsIHByb2JhYmx5IHRha2Ug
-c29tZSB0aW1lLgoKT2RlZAoKT24gU3VuLCBBcHIgMTYsIDIwMTcgYXQgMzoxMiBBTSwgQW5kcmVz
-IFJvZHJpZ3VleiA8YW5kcmVzeDdAZ21haWwuY29tPiB3cm90ZToKPiBIZXkgT2RlZCwKPgo+IEkn
-dmUgaGFkIHByb2JsZW1zIHdpdGggNC4xMi13aXAgb24gaXRzIG93bi4gSnVzdCB3YW50ZWQgdG8g
-Y29uZmlybSBpZgo+IHlvdSBwaWNrZWQgdXAgdGhpcyBmaXggZm9yIGEgYnVnIGluIGRybS1uZXh0
-Ogo+ICJkcm06IEZpeCBnZXRfcHJvcGVydHkgbG9naWMgZnVtYmxlIgo+Cj4gUmVnYXJkcywKPiBB
-bmRyZXMKPgo+IE9uIFNhdCwgQXByIDE1LCAyMDE3IGF0IDg6MzcgQU0sIE9kZWQgR2FiYmF5IDxv
-ZGVkLmdhYmJheUBnbWFpbC5jb20+IHdyb3RlOgo+PiBPbiBGcmksIEFwciAxNCwgMjAxNyBhdCAx
-MjozNSBBTSwgQW5kcmVzIFJvZHJpZ3VleiA8YW5kcmVzeDdAZ21haWwuY29tPiB3cm90ZToKPj4+
-IE1ha2UgYW1kZ3B1IHRoZSBvd25lciBvZiBhbGwgcGVyLXBpcGUgc3RhdGUgb2YgdGhlIEhRRHMu
-Cj4+Pgo+Pj4gVGhpcyBjaGFuZ2Ugd2lsbCBhbGxvdyB1cyB0byBzcGxpdCB0aGUgcXVldWVzIGJl
-dHdlZW4ga2ZkIGFuZCBhbWRncHUKPj4+IHdpdGggYSBxdWV1ZSBncmFudWxhcml0eSBpbnN0ZWFk
-IG9mIHBpcGUgZ3JhbnVsYXJpdHkuCj4+Pgo+Pj4gVGhpcyBwYXRjaCBmaXhlcyBrZmQgYWxsb2Nh
-dGluZyBhbiBIRFBfRU9QIHJlZ2lvbiBmb3IgaXRzIDMgcGlwZXMgd2hpY2gKPj4+IGdvZXMgdW51
-c2VkLgo+Pj4KPj4+IHYyOiBzdXBwb3J0IGZvciBnZng5Cj4+Pgo+Pj4gUmV2aWV3ZWQtYnk6IEVk
-d2FyZCBPJ0NhbGxhZ2hhbiA8ZnVuZnVuY3RvckBmb2xrbG9yZTE5ODQubmV0Pgo+Pj4gUmV2aWV3
-ZWQtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPgo+Pj4gQWNrZWQt
-Ynk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPj4+IFNpZ25l
-ZC1vZmYtYnk6IEFuZHJlcyBSb2RyaWd1ZXogPGFuZHJlc3g3QGdtYWlsLmNvbT4KPj4KPj4gSGkg
-QW5kcmVzLAo+PiBGWUksIHdpdGggeW91ciBwYXRjaHNldCByZWJhc2VkIG9uIGFsZXgncyBkcm0t
-bmV4dC00LjEyLXdpcCwgbXkgS2F2ZXJpCj4+IG1hY2hpbmUgd29uJ3QgYm9vdCB0aGUgT1MgKFVi
-dW50dSAxNi4wNCkuCj4+IEkgYmlzZWN0ZWQgeW91ciBwYXRjaC1zZXQgYW5kIHRoZSBmaXJzdCBi
-YWQgcGF0Y2ggaXMgdGhpcyBvbmUuCj4+Cj4+IFVuZm9ydHVuYXRlbHksIEkgZG9uJ3QgaGF2ZSB0
-aGUgbWVhbnMgdG8gZHVtcCBrZXJuZWwgY3Jhc2hlcyBiZWZvcmUKPj4gdGhlIHN5c3RlbSBib290
-cy4KPj4KPj4gVGh4LAo+PiBPZGVkCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
-LWdmeAo=
+--===============0310658629==
+Content-Type: multipart/alternative; boundary=001a1141e8d01ee20d054d49ce3c
+
+--001a1141e8d01ee20d054d49ce3c
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Thanks for the info.
+
+I'll test it as well on Monday.
+
+Regards,
+Andres
+
+On Apr 16, 2017 1:26 AM, "Oded Gabbay" <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+
+Hey Andres,
+
+Yes, that patch indeed fixed the black screen on Alex's 4.12-wip, but
+it still wouldn't boot with your entire patch-set. It would boot only
+with patches 1-8.
+
+I'll try to get a USB-to-serial dongle so I could try dump kernel
+messages during boot but it will probably take some time.
+
+Oded
+
+On Sun, Apr 16, 2017 at 3:12 AM, Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+wrote:
+> Hey Oded,
+>
+> I've had problems with 4.12-wip on its own. Just wanted to confirm if
+> you picked up this fix for a bug in drm-next:
+> "drm: Fix get_property logic fumble"
+>
+> Regards,
+> Andres
+>
+> On Sat, Apr 15, 2017 at 8:37 AM, Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+wrote:
+>> On Fri, Apr 14, 2017 at 12:35 AM, Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+wrote:
+>>> Make amdgpu the owner of all per-pipe state of the HQDs.
+>>>
+>>> This change will allow us to split the queues between kfd and amdgpu
+>>> with a queue granularity instead of pipe granularity.
+>>>
+>>> This patch fixes kfd allocating an HDP_EOP region for its 3 pipes which
+>>> goes unused.
+>>>
+>>> v2: support for gfx9
+>>>
+>>> Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+>>> Reviewed-by: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+>>> Acked-by: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+>>> Signed-off-by: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+>>
+>> Hi Andres,
+>> FYI, with your patchset rebased on alex's drm-next-4.12-wip, my Kaveri
+>> machine won't boot the OS (Ubuntu 16.04).
+>> I bisected your patch-set and the first bad patch is this one.
+>>
+>> Unfortunately, I don't have the means to dump kernel crashes before
+>> the system boots.
+>>
+>> Thx,
+>> Oded
+
+--001a1141e8d01ee20d054d49ce3c
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto">Thanks for the info.<div dir=3D"auto"><br></div><div dir=
+=3D"auto">I&#39;ll test it as well on Monday.</div><div dir=3D"auto"><div d=
+ir=3D"auto"><br></div><div dir=3D"auto">Regards,</div><div dir=3D"auto">And=
+res</div></div></div><div class=3D"gmail_extra"><br><div class=3D"gmail_quo=
+te">On Apr 16, 2017 1:26 AM, &quot;Oded Gabbay&quot; &lt;<a href=3D"mailto:=
+oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br type=3D"attr=
+ibution"><blockquote class=3D"quote" style=3D"margin:0 0 0 .8ex;border-left=
+:1px #ccc solid;padding-left:1ex">Hey Andres,<br>
+<br>
+Yes, that patch indeed fixed the black screen on Alex&#39;s 4.12-wip, but<b=
+r>
+it still wouldn&#39;t boot with your entire patch-set. It would boot only<b=
+r>
+with patches 1-8.<br>
+<br>
+I&#39;ll try to get a USB-to-serial dongle so I could try dump kernel<br>
+messages during boot but it will probably take some time.<br>
+<font color=3D"#888888"><br>
+Oded<br>
+</font><div class=3D"elided-text"><br>
+On Sun, Apr 16, 2017 at 3:12 AM, Andres Rodriguez &lt;<a href=3D"mailto:and=
+resx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br>
+&gt; Hey Oded,<br>
+&gt;<br>
+&gt; I&#39;ve had problems with 4.12-wip on its own. Just wanted to confirm=
+ if<br>
+&gt; you picked up this fix for a bug in drm-next:<br>
+&gt; &quot;drm: Fix get_property logic fumble&quot;<br>
+&gt;<br>
+&gt; Regards,<br>
+&gt; Andres<br>
+&gt;<br>
+&gt; On Sat, Apr 15, 2017 at 8:37 AM, Oded Gabbay &lt;<a href=3D"mailto:ode=
+d.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br>
+&gt;&gt; On Fri, Apr 14, 2017 at 12:35 AM, Andres Rodriguez &lt;<a href=3D"=
+mailto:andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br>
+&gt;&gt;&gt; Make amdgpu the owner of all per-pipe state of the HQDs.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; This change will allow us to split the queues between kfd and =
+amdgpu<br>
+&gt;&gt;&gt; with a queue granularity instead of pipe granularity.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; This patch fixes kfd allocating an HDP_EOP region for its 3 pi=
+pes which<br>
+&gt;&gt;&gt; goes unused.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; v2: support for gfx9<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Reviewed-by: Edward O&#39;Callaghan &lt;<a href=3D"mailto:funf=
+unctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org">funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org</a>&gt;<br>
+&gt;&gt;&gt; Reviewed-by: Felix Kuehling &lt;<a href=3D"mailto:Felix.Kuehli=
+ng-5C7GfCeVMHo@public.gmane.org">Felix.Kuehling-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+&gt;&gt;&gt; Acked-by: Christian K=C3=B6nig &lt;<a href=3D"mailto:christian=
+.koenig-5C7GfCeVMHo@public.gmane.org">christian.koenig-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+&gt;&gt;&gt; Signed-off-by: Andres Rodriguez &lt;<a href=3D"mailto:andresx7=
+@gmail.com">andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; Hi Andres,<br>
+&gt;&gt; FYI, with your patchset rebased on alex&#39;s drm-next-4.12-wip, m=
+y Kaveri<br>
+&gt;&gt; machine won&#39;t boot the OS (Ubuntu 16.04).<br>
+&gt;&gt; I bisected your patch-set and the first bad patch is this one.<br>
+&gt;&gt;<br>
+&gt;&gt; Unfortunately, I don&#39;t have the means to dump kernel crashes b=
+efore<br>
+&gt;&gt; the system boots.<br>
+&gt;&gt;<br>
+&gt;&gt; Thx,<br>
+&gt;&gt; Oded<br>
+</div></blockquote></div><br></div>
+
+--001a1141e8d01ee20d054d49ce3c--
+
+--===============0310658629==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0310658629==--
