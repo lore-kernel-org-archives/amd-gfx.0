@@ -1,74 +1,102 @@
-From: Ilia Mirkin <imirkin@alum.mit.edu>
-Subject: Re: [RfC PATCH] drm: fourcc byteorder: brings header file comments in
- line with reality.
-Date: Mon, 17 Apr 2017 02:43:44 -0400
-Message-ID: <CAKb7UvgVD3Uf79noXMOcBjJYeeF6st21R3JBNvT-VVSNb8EH+Q@mail.gmail.com>
-References: <20170410101202.19229-1-kraxel@redhat.com> <20170410161214.305f5daf@eldfell>
- <1491833847.30990.77.camel@redhat.com> <20170410180941.43922e25@eldfell>
- <CAKb7UvhbgSGwx-2EsrQrHmghzYqO9AhRQ10bDWKfdcXHc3fJeQ@mail.gmail.com>
- <20170411103101.0497fe08@eldfell> <CAKb7UviNeLJAHtBQt2NgbEMOSz1sYneiB7i0CUDOBQRt=8OqNw@mail.gmail.com>
+From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] amdgpu:fix incorrect use on the remap_mutex
+Date: Mon, 17 Apr 2017 06:15:48 +0000
+Message-ID: <DM5PR12MB1610218713CEFD162C7ADFF684060@DM5PR12MB1610.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <CAKb7UviNeLJAHtBQt2NgbEMOSz1sYneiB7i0CUDOBQRt=8OqNw@mail.gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Pekka Paalanen <ppaalanen@gmail.com>
-Cc: Gerd Hoffmann <kraxel@redhat.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, open list <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel.vetter@intel.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: zh-CN
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Tue, Apr 11, 2017 at 10:18 AM, Ilia Mirkin <imirkin@alum.mit.edu> wrote:
->> However, I totally agree with Alex that someone with a BE machine
->> should review the whole stack before we could be confident with anything=
-.
->
-> Here's what I'm confident about: xf86-video-nouveau worked just fine
-> on top of kernel 4.3 on an AGP GeForce FX 5200 (with AGPGART turned
-> off because ... well ... uninorth). fbcon/fbdev accel worked,
-> xf86-video-nouveau's 2d accel worked, and simple demos (ala glxgears)
-> worked after I fixed up mesa and nv30 driver items in version ... 11.1
-> it seems. As I recall it had gotten all broken in 10.0 or so by Adam
-> Jackson in the name of making llvmpipe work on BE, declaring all other
-> drivers broken, with various fixes by Michel D=C3=A4nzer to get it back t=
-o
-> working over the years.
->
-> Anyone "fixing" the stack has to maintain that level of functioning
-> through their various fixing.
->
-> I will double-check that the above still works with the latest
-> kernel/xorg/xf86-video-nouveau/mesa and report back (hopefully by this
-> weekend). If there are any patches you'd like me to test, now's the
-> time to ask -- getting the box up and running is the hard part,
-> booting up an extra kernel -- easy.
-
-OK, so I revived my PowerMac7,3 G5 setup (PPC64 BE, NV34 GPU). Booted
-it with an upstream 4.11-rc7 kernel, loaded up the nouveau kernel
-module (which is included in that kernel), updated X to 1.19.2 and
-mesa to 17.0.3. Everything works fine. Specifically:
-
-fbcon on top of fbdev provided by nouveau -- colors are fine
-glxgears hw-accelerated by mesa on top of xf86-video-nouveau using
-DRI2 -- colors are fine
-glxgears softpipe-accelerated by mesa on top of xf86-video-nouveau --
-colors are fine
-glxgears softpipe-accelerated by mesa on top of xf86-video-modesetting
--- colors are fine
-xterm on top of xf86-video-nouveau -- colors are fine
-xterm on top of xf86-video-modesetting -- colors are fine
-
-I couldn't test anything with GLAMOR since GLAMOR requires GL 2.1 or
-higher, whereas nouveau's NV3x acceleration only provides GL 1.5 (due
-to lacking NPOT and a handful of other things).
-
-The modetest utility did have trouble with AR24 and I'm pretty sure
-the XR24 pattern was off too. However I wouldn't be surprised if the
-modetest utility itself had endian issues in the pattern generation
-logic. (Seems to be the case, based on a quick glance at the
-tests/util/format.c logic and how it's used in pattern.c.)
-
-So in short, I think the current definitions of format are fine.
-
-Cheers,
-
-  -ilia
+W1BBVENIXSBhbWRncHU6Zml4IGluY29ycmVjdCB1c2Ugb24gdGhlIHJlbWFwX211dGV4Cgp0aGlz
+IHBhdGNoIGZpeGVkIGEgbXVsdGktdGhyZWFkIHJhY2UgaXNzdWUgYnkgZXhwYW5kIHRoZSBwcm90
+ZWN0aW9uIHJhbmdlIG9mIHJlbWFwX211dGV4IHRvIHRoZSB3aG9sZSBMSVNUIHdhbGsgdGhyb3Vn
+aCwgYnkgdGhpcyBmaXggdGhlIENUUyB0ZXN0OgoiZEVRUC1WSy5hcGkub2JqZWN0X21hbmFnZW1l
+bnQubXVsdGl0aHJlYWRlZF9wZXJfdGhyZWFkX2RldmljZS5kZXZpY2VfbWVtb3J5X3NtYWwiCmNh
+biBhbHdheXMgcGFzcyBub3csClByZXZpb3VzbHkgaXQgaGFzIDEvMTUgY2hhbmNlIHRvIGZhaWwg
+d2l0aCBhIGhpZ2ggcGVyZm9ybWFuY2UgSTcgQ1BVIHVuZGVyIHZpcnR1YWxpemF0aW9uIGVudnJp
+b25tZW50LgoKQ2hhbmdlLUlkOiBJZjg4YjlkMzVlNzlmZTFjYjZlYjBlMzJjNjgwYmM0OTk2Yzc5
+MTViYwpTaWduZWQtb2ZmLWJ5OiBNb25rIExpdSA8TW9uay5MaXVAYW1kLmNvbT4KLS0tCiBhbWRn
+cHUvYW1kZ3B1X2JvLmMgICAgfCAyOSArKysrKysrKysrKysrKysrKystLS0tLS0tLS0tLQogYW1k
+Z3B1L2FtZGdwdV92YW1nci5jIHwgIDUgKysrLS0KIDIgZmlsZXMgY2hhbmdlZCwgMjEgaW5zZXJ0
+aW9ucygrKSwgMTMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvYW1kZ3B1L2FtZGdwdV9iby5j
+IGIvYW1kZ3B1L2FtZGdwdV9iby5jIGluZGV4IDMzY2I3MDUuLjg5NjA3MjggMTAwNjQ0Ci0tLSBh
+L2FtZGdwdS9hbWRncHVfYm8uYworKysgYi9hbWRncHUvYW1kZ3B1X2JvLmMKQEAgLTk4OSw2ICs5
+ODksOCBAQCBpbnQgYW1kZ3B1X2JvX3ZhX29wX3JlZmNvdW50ZWQoYW1kZ3B1X2RldmljZV9oYW5k
+bGUgZGV2LAogCQkJcmV0dXJuIC1FSU5WQUw7CiAJfQogCisJcHRocmVhZF9tdXRleF9sb2NrKCZk
+ZXYtPnJlbWFwX211dGV4KTsKKwogCS8qIGZpbmQgdGhlIHByZXZpb3VzIG1hcHBlZCB2YSBvYmpl
+Y3QgYW5kIGl0cyBibyBhbmQgdW5tYXAgaXQqLwogCWlmIChvcHMgPT0gQU1ER1BVX1ZBX09QX01B
+UCkgewogCQlMSVNUX0ZPUl9FQUNIX0VOVFJZKHZhaGFuZGxlLCAmZGV2LT5yZW1hcF9saXN0LCBs
+aXN0KSB7IEBAIC05OTgsMTUgKzEwMDAsMTUgQEAgaW50IGFtZGdwdV9ib192YV9vcF9yZWZjb3Vu
+dGVkKGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldiwKIAkJCQkvKiB0aGUgb3ZlcmxhcCB2YSBtYXBw
+aW5nIHdoaWNoIG5lZWQgdG8gYmUgdW5tYXBwZWQgZmlyc3QgKi8KIAkJCQl2YW8gPSB2YWhhbmRs
+ZTsKIAkJCQlyID0gYW1kZ3B1X2JvX3ZhX29wKHZhby0+Ym8sIHZhby0+b2Zmc2V0LCB2YW8tPnNp
+emUsIHZhby0+YWRkcmVzcywgZmxhZ3MsIEFNREdQVV9WQV9PUF9VTk1BUCk7Ci0JCQkJaWYgKHIp
+CisJCQkJaWYgKHIpIHsKKwkJCQkJcHRocmVhZF9tdXRleF91bmxvY2soJmRldi0+cmVtYXBfbXV0
+ZXgpOwogCQkJCQlyZXR1cm4gLUVJTlZBTDsKKwkJCQl9CiAKIAkJCQkvKiBKdXN0IGRyb3AgdGhl
+IHJlZmVyZW5jZS4gKi8KIAkJCQlhbWRncHVfYm9fcmVmZXJlbmNlKCZ2YW8tPmJvLCBOVUxMKTsK
+IAkJCQkvKiByZW1vdmUgdGhlIHJlbWFwIGZyb20gbGlzdCAqLwotCQkJCXB0aHJlYWRfbXV0ZXhf
+bG9jaygmZGV2LT5yZW1hcF9tdXRleCk7CiAJCQkJbGlzdF9kZWwoJnZhby0+bGlzdCk7Ci0JCQkJ
+cHRocmVhZF9tdXRleF91bmxvY2soJmRldi0+cmVtYXBfbXV0ZXgpOwogCQkJCWZyZWUodmFvKTsK
+IAkJCX0KIAkJfQpAQCAtMTAyMSwxMiArMTAyMywxOCBAQCBpbnQgYW1kZ3B1X2JvX3ZhX29wX3Jl
+ZmNvdW50ZWQoYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2LAogCQkJfQogCQl9CiAJCWlmICh2YW8p
+IHsKLQkJCWlmIChibyAmJiAoYm8gIT0gdmFvLT5ibykpCisJCQlpZiAoYm8gJiYgKGJvICE9IHZh
+by0+Ym8pKSB7CisJCQkJcHRocmVhZF9tdXRleF91bmxvY2soJmRldi0+cmVtYXBfbXV0ZXgpOwog
+CQkJCXJldHVybiAtRUlOVkFMOwotCQl9IGVsc2UKKwkJCX0KKwkJfSBlbHNlIHsKKwkJCXB0aHJl
+YWRfbXV0ZXhfdW5sb2NrKCZkZXYtPnJlbWFwX211dGV4KTsKIAkJCXJldHVybiAtRUlOVkFMOwot
+CX0gZWxzZQorCQl9CisJfSBlbHNlIHsKKwkJcHRocmVhZF9tdXRleF91bmxvY2soJmRldi0+cmVt
+YXBfbXV0ZXgpOwogCQlyZXR1cm4gLUVJTlZBTDsKKwl9CiAKIAkvKiB3ZSBvbmx5IGFsbG93IG51
+bGwgYm8gZm9yIHVubWFwIG9wZXJhdGlvbiAqLwogCWlmICghYm8pCkBAIC0xMDM5LDI2ICsxMDQ3
+LDI1IEBAIGludCBhbWRncHVfYm9fdmFfb3BfcmVmY291bnRlZChhbWRncHVfZGV2aWNlX2hhbmRs
+ZSBkZXYsCiAJCQkvKiBKdXN0IGRyb3AgdGhlIHJlZmVyZW5jZS4gKi8KIAkJCWFtZGdwdV9ib19y
+ZWZlcmVuY2UoJmJvLCBOVUxMKTsKIAkJCS8qIHJlbW92ZSB0aGUgcmVtYXAgZnJvbSBsaXN0ICov
+Ci0JCQlwdGhyZWFkX211dGV4X2xvY2soJmRldi0+cmVtYXBfbXV0ZXgpOwogCQkJbGlzdF9kZWwo
+JnZhby0+bGlzdCk7Ci0JCQlwdGhyZWFkX211dGV4X3VubG9jaygmZGV2LT5yZW1hcF9tdXRleCk7
+CiAJCQlmcmVlKHZhbyk7CiAJCX0gZWxzZSBpZiAob3BzID09IEFNREdQVV9WQV9PUF9NQVApIHsK
+IAkJCS8qIGJ1bXAgdGhlIHJlZmNvdW50IG9mIGJvISAqLwogCQkJYXRvbWljX2luYygmYm8tPnJl
+ZmNvdW50KTsKIAkJCS8qIGFkZCB0aGUgcmVtYXAgdG8gbGlzdCBhbmQgdmFvIHNob3VsZCBiZSBO
+VUxMIGZvciBtYXAgKi8KIAkJCXZhbyA9IChzdHJ1Y3QgYW1kZ3B1X3ZhX3JlbWFwKiljYWxsb2Mo
+MSwgc2l6ZW9mKHN0cnVjdCBhbWRncHVfdmFfcmVtYXApKTsKLQkJCWlmICghdmFvKQorCQkJaWYg
+KCF2YW8pIHsKKwkJCQlwdGhyZWFkX211dGV4X3VubG9jaygmZGV2LT5yZW1hcF9tdXRleCk7CiAJ
+CQkJcmV0dXJuIC1FTk9NRU07CisJCQl9CiAJCQl2YW8tPmFkZHJlc3MgPSBhZGRyOwogCQkJdmFv
+LT5zaXplID0gc2l6ZTsKIAkJCXZhby0+b2Zmc2V0ID0gb2Zmc2V0OwogCQkJdmFvLT5ibyA9IGJv
+OwotCQkJcHRocmVhZF9tdXRleF9sb2NrKCZkZXYtPnJlbWFwX211dGV4KTsKIAkJCWxpc3RfYWRk
+KCZ2YW8tPmxpc3QsICZkZXYtPnJlbWFwX2xpc3QpOwotCQkJcHRocmVhZF9tdXRleF91bmxvY2so
+JmRldi0+cmVtYXBfbXV0ZXgpOwogCQl9CiAJfQorCXB0aHJlYWRfbXV0ZXhfdW5sb2NrKCZkZXYt
+PnJlbWFwX211dGV4KTsKIAlyZXR1cm4gcjsKIH0KIApkaWZmIC0tZ2l0IGEvYW1kZ3B1L2FtZGdw
+dV92YW1nci5jIGIvYW1kZ3B1L2FtZGdwdV92YW1nci5jIGluZGV4IGIzZjUzOTcuLmM1YTdmNDEg
+MTAwNjQ0Ci0tLSBhL2FtZGdwdS9hbWRncHVfdmFtZ3IuYworKysgYi9hbWRncHUvYW1kZ3B1X3Zh
+bWdyLmMKQEAgLTMyLDYgKzMyLDcgQEAKICNpbmNsdWRlICJhbWRncHVfZHJtLmgiCiAjaW5jbHVk
+ZSAiYW1kZ3B1X2ludGVybmFsLmgiCiAjaW5jbHVkZSAidXRpbF9tYXRoLmgiCisjaW5jbHVkZSAi
+c3RkaW8uaCIKIAogLyogRGV2aWNlcyBzaGFyZSBTVk0gcmFuZ2UuIFNvIGEgZ2xvYmFsIFNWTSBW
+QU0gbWFuYWdlciBpcyBuZWVkZWQuICovICBzdGF0aWMgc3RydWN0IGFtZGdwdV9ib192YV9tZ3Ig
+dmFtZ3Jfc3ZtOyBAQCAtNDg4LDYgKzQ4OSw3IEBAIGludCBhbWRncHVfdmFfcmFuZ2VfZnJlZShh
+bWRncHVfdmFfaGFuZGxlIHZhX3JhbmdlX2hhbmRsZSkKIAlhZGRyZXNzID0gdmFfcmFuZ2VfaGFu
+ZGxlLT5hZGRyZXNzOwogCXNpemUgICAgPSB2YV9yYW5nZV9oYW5kbGUtPnNpemU7CiAKKwlwdGhy
+ZWFkX211dGV4X2xvY2soJmRldi0+cmVtYXBfbXV0ZXgpOwogCS8qIGNsZWFuIHVwIHByZXZpb3Vz
+IG1hcHBpbmcgaWYgaXQgaXMgdXNlZCBmb3IgdmlydHVhbCBhbGxvY2F0aW9uICovCiAJTElTVF9G
+T1JfRUFDSF9FTlRSWSh2YWhhbmRsZSwgJmRldi0+cmVtYXBfbGlzdCwgbGlzdCkgewogCQkvKiBj
+aGVjayB3aGV0aGVyIHRoZSByZW1hcCBsaXN0IGFscmFlZHkgaGF2ZSB2YSB0aGF0IG92ZXJsYXAg
+d2l0aCBjdXJyZW50IHJlcXVlc3QgKi8gQEAgLTUwMCwxMiArNTAyLDExIEBAIGludCBhbWRncHVf
+dmFfcmFuZ2VfZnJlZShhbWRncHVfdmFfaGFuZGxlIHZhX3JhbmdlX2hhbmRsZSkKIAkJCS8qIEp1
+c3QgZHJvcCB0aGUgcmVmZXJlbmNlLiAqLwogCQkJYW1kZ3B1X2JvX3JlZmVyZW5jZSgmdmFoYW5k
+bGUtPmJvLCBOVUxMKTsKIAkJCS8qIHJlbW92ZSB0aGUgcmVtYXAgZnJvbSBsaXN0ICovCi0JCQlw
+dGhyZWFkX211dGV4X2xvY2soJmRldi0+cmVtYXBfbXV0ZXgpOwogCQkJbGlzdF9kZWwoJnZhaGFu
+ZGxlLT5saXN0KTsKLQkJCXB0aHJlYWRfbXV0ZXhfdW5sb2NrKCZkZXYtPnJlbWFwX211dGV4KTsK
+IAkJCWZyZWUodmFoYW5kbGUpOwogCQl9CiAJfQorCXB0aHJlYWRfbXV0ZXhfdW5sb2NrKCZkZXYt
+PnJlbWFwX211dGV4KTsKIAogCWFtZGdwdV92YW1ncl9mcmVlX3ZhKHZhX3JhbmdlX2hhbmRsZS0+
+dmFtZ3IsCiAJCQl2YV9yYW5nZV9oYW5kbGUtPmFkZHJlc3MsCi0tCjIuNy40CgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
+dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
