@@ -1,13 +1,13 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/powerplay: delete dead functions in vega10.
-Date: Mon, 17 Apr 2017 14:09:47 +0000
-Message-ID: <BN6PR12MB1652F331A90A4614F5D407F4F7060@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <1492435366-30492-1-git-send-email-Rex.Zhu@amd.com>
+From: "Xie, AlexBin" <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] dmr/amdgpu: Fix wrongly unref of BO
+Date: Mon, 17 Apr 2017 14:54:33 +0000
+Message-ID: <MWHPR1201MB0045DE55E81D0FF5CE76671FF2060@MWHPR1201MB0045.namprd12.prod.outlook.com>
+References: <1492119298-8526-1-git-send-email-AlexBin.Xie@amd.com>,
+ <58F0495D.60607@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0054493491=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1492435366-30492-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <58F0495D.60607-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,83 +19,219 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+To: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
-LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIFJleCBa
-aHUNCj4gU2VudDogTW9uZGF5LCBBcHJpbCAxNywgMjAxNyA5OjIzIEFNDQo+IFRvOiBhbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBDYzogWmh1LCBSZXgNCj4gU3ViamVjdDogW1BBVENI
-XSBkcm0vYW1kL3Bvd2VycGxheTogZGVsZXRlIGRlYWQgZnVuY3Rpb25zIGluIHZlZ2ExMC4NCj4g
-DQo+IFZlZ2ExMCBkb2VzIG5vdCBzdXBwb3J0IEFWRlMgQlRDLCByZW1vdmUgZnVuY3Rpb24uDQo+
-IA0KPiBDaGFuZ2UtSWQ6IElmOWU3ODQ1ZTU4MWUwZTMwNjJmZWJjYTJjODE2MjBjYTZiYTI2MDE2
-DQoNCk1pc3NpbmcgeW91ciBzaWduZWQtb2ZmLWJ5LiAgV2l0aCB0aGF0IGZpeGVkOg0KUmV2aWV3
-ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbQ0KDQo+IC0tLQ0K
-PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdyLmMgfCAz
-MCArKy0tLS0tLS0tLS0tDQo+IC0tLS0tLS0tLQ0KPiAgLi4uL2dwdS9kcm0vYW1kL3Bvd2VycGxh
-eS9zbXVtZ3IvdmVnYTEwX3NtdW1nci5jICAgfCAgOSAtLS0tLS0tDQo+ICAuLi4vZ3B1L2RybS9h
-bWQvcG93ZXJwbGF5L3NtdW1nci92ZWdhMTBfc211bWdyLmggICB8ICAxIC0NCj4gIDMgZmlsZXMg
-Y2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAzOCBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfaHdtZ3IuYw0K
-PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9od21nci5jDQo+
-IGluZGV4IDU2MWI4MzcuLjNlMTFhYmUgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9od21nci5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9od21nci5jDQo+IEBAIC0yNDExLDM1ICsyNDEx
-LDkgQEAgc3RhdGljIGludCB2ZWdhMTBfaW5pdF9zbWNfdGFibGUoc3RydWN0IHBwX2h3bWdyDQo+
-ICpod21ncikNCj4gIAlQUF9BU1NFUlRfV0lUSF9DT0RFKCFyZXN1bHQsDQo+ICAJCQkiRmFpbGVk
-IHRvIHVwbG9hZCBQUHRhYmxlISIsIHJldHVybiByZXN1bHQpOw0KPiANCj4gLQlpZiAoZGF0YS0+
-c211X2ZlYXR1cmVzW0dOTERfQVZGU10uc3VwcG9ydGVkKSB7DQo+IC0JCXVpbnQzMl90IGZlYXR1
-cmVzX2VuYWJsZWQ7DQo+IC0JCXJlc3VsdCA9IHZlZ2ExMF9nZXRfc21jX2ZlYXR1cmVzKGh3bWdy
-LT5zbXVtZ3IsDQo+ICZmZWF0dXJlc19lbmFibGVkKTsNCj4gLQkJUFBfQVNTRVJUX1dJVEhfQ09E
-RSghcmVzdWx0LA0KPiAtCQkJCSJGYWlsZWQgdG8gUmV0cmlldmUgRW5hYmxlZCBGZWF0dXJlcyEi
-LA0KPiAtCQkJCXJldHVybiByZXN1bHQpOw0KPiAtCQlpZiAoIShmZWF0dXJlc19lbmFibGVkICYg
-KDEgPDwgRkVBVFVSRV9BVkZTX0JJVCkpKSB7DQo+IC0JCQlyZXN1bHQgPSB2ZWdhMTBfcGVyZm9y
-bV9idGMoaHdtZ3ItPnNtdW1ncik7DQo+IC0JCQlQUF9BU1NFUlRfV0lUSF9DT0RFKCFyZXN1bHQs
-DQo+IC0JCQkJCSJGYWlsZWQgdG8gUGVyZm9ybSBCVEMhIiwNCj4gKwlyZXN1bHQgPSB2ZWdhMTBf
-YXZmc19lbmFibGUoaHdtZ3IsIHRydWUpOw0KPiArCVBQX0FTU0VSVF9XSVRIX0NPREUoIXJlc3Vs
-dCwgIkF0dGVtcHQgdG8gZW5hYmxlIEFWRlMgZmVhdHVyZQ0KPiBGYWlsZWQhIiwNCj4gIAkJCQkJ
-cmV0dXJuIHJlc3VsdCk7DQo+IC0JCQlyZXN1bHQgPSB2ZWdhMTBfYXZmc19lbmFibGUoaHdtZ3Is
-IHRydWUpOw0KPiAtCQkJUFBfQVNTRVJUX1dJVEhfQ09ERSghcmVzdWx0LA0KPiAtCQkJCQkiQXR0
-ZW1wdCB0byBlbmFibGUgQVZGUyBmZWF0dXJlDQo+IEZhaWxlZCEiLA0KPiAtCQkJCQlyZXR1cm4g
-cmVzdWx0KTsNCj4gLQkJCXJlc3VsdCA9IHZlZ2ExMF9zYXZlX3ZmdF90YWJsZShod21nci0+c211
-bWdyLA0KPiAtCQkJCQkodWludDhfdCAqKSYoZGF0YS0NCj4gPnNtY19zdGF0ZV90YWJsZS5hdmZz
-X3RhYmxlKSk7DQo+IC0JCQlQUF9BU1NFUlRfV0lUSF9DT0RFKCFyZXN1bHQsDQo+IC0JCQkJCSJB
-dHRlbXB0IHRvIHNhdmUgVkZUIHRhYmxlIEZhaWxlZCEiLA0KPiAtCQkJCQlyZXR1cm4gcmVzdWx0
-KTsNCj4gLQkJfSBlbHNlIHsNCj4gLQkJCWRhdGEtPnNtdV9mZWF0dXJlc1tHTkxEX0FWRlNdLmVu
-YWJsZWQgPSB0cnVlOw0KPiAtCQkJcmVzdWx0ID0gdmVnYTEwX3Jlc3RvcmVfdmZ0X3RhYmxlKGh3
-bWdyLT5zbXVtZ3IsDQo+IC0JCQkJCSh1aW50OF90ICopJihkYXRhLQ0KPiA+c21jX3N0YXRlX3Rh
-YmxlLmF2ZnNfdGFibGUpKTsNCj4gLQkJCVBQX0FTU0VSVF9XSVRIX0NPREUoIXJlc3VsdCwNCj4g
-LQkJCQkJIkF0dGVtcHQgdG8gcmVzdG9yZSBWRlQgdGFibGUNCj4gRmFpbGVkISIsDQo+IC0JCQkJ
-CXJldHVybiByZXN1bHQ7KTsNCj4gLQkJfQ0KPiAtCX0NCj4gDQo+ICAJcmV0dXJuIDA7DQo+ICB9
-DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvdmVn
-YTEwX3NtdW1nci5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3Zl
-Z2ExMF9zbXVtZ3IuYw0KPiBpbmRleCAyNjg1ZjAyLi43YTM2YTc0IDEwMDY0NA0KPiAtLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvdmVnYTEwX3NtdW1nci5jDQo+ICsr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci92ZWdhMTBfc211bWdyLmMN
-Cj4gQEAgLTI5OSwxNSArMjk5LDYgQEAgaW50IHZlZ2ExMF9jb3B5X3RhYmxlX3RvX3NtYyhzdHJ1
-Y3QgcHBfc211bWdyDQo+ICpzbXVtZ3IsDQo+ICAJcmV0dXJuIDA7DQo+ICB9DQo+IA0KPiAtaW50
-IHZlZ2ExMF9wZXJmb3JtX2J0YyhzdHJ1Y3QgcHBfc211bWdyICpzbXVtZ3IpDQo+IC17DQo+IC0N
-Cj4gCVBQX0FTU0VSVF9XSVRIX0NPREUoIXZlZ2ExMF9zZW5kX21zZ190b19zbWNfd2l0aF9wYXJh
-bWUNCj4gdGVyKA0KPiAtCQkJc211bWdyLCBQUFNNQ19NU0dfUnVuQnRjLCAwKSwNCj4gLQkJCSJB
-dHRlbXB0IHRvIHJ1biBEQyBCVEMgRmFpbGVkISIsDQo+IC0JCQlyZXR1cm4gLTEpOw0KPiAtCXJl
-dHVybiAwOw0KPiAtfQ0KPiAtDQo+ICBpbnQgdmVnYTEwX3NhdmVfdmZ0X3RhYmxlKHN0cnVjdCBw
-cF9zbXVtZ3IgKnNtdW1nciwgdWludDhfdA0KPiAqYXZmc190YWJsZSkNCj4gIHsNCj4gIAlQUF9B
-U1NFUlRfV0lUSF9DT0RFKGF2ZnNfdGFibGUsDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvdmVnYTEwX3NtdW1nci5oDQo+IGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3ZlZ2ExMF9zbXVtZ3IuaA0KPiBpbmRleCBhZDA1MDIx
-Li43MWU5YjY0IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9z
-bXVtZ3IvdmVnYTEwX3NtdW1nci5oDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJw
-bGF5L3NtdW1nci92ZWdhMTBfc211bWdyLmgNCj4gQEAgLTYyLDcgKzYyLDYgQEAgaW50IHZlZ2Ex
-MF9nZXRfc21jX2ZlYXR1cmVzKHN0cnVjdCBwcF9zbXVtZ3INCj4gKnNtdW1nciwNCj4gIAkJdWlu
-dDMyX3QgKmZlYXR1cmVzX2VuYWJsZWQpOw0KPiAgaW50IHZlZ2ExMF9zYXZlX3ZmdF90YWJsZShz
-dHJ1Y3QgcHBfc211bWdyICpzbXVtZ3IsIHVpbnQ4X3QNCj4gKmF2ZnNfdGFibGUpOw0KPiAgaW50
-IHZlZ2ExMF9yZXN0b3JlX3ZmdF90YWJsZShzdHJ1Y3QgcHBfc211bWdyICpzbXVtZ3IsIHVpbnQ4
-X3QNCj4gKmF2ZnNfdGFibGUpOw0KPiAtaW50IHZlZ2ExMF9wZXJmb3JtX2J0YyhzdHJ1Y3QgcHBf
-c211bWdyICpzbXVtZ3IpOw0KPiANCj4gIGludCB2ZWdhMTBfc2V0X3Rvb2xzX2FkZHJlc3Moc3Ry
-dWN0IHBwX3NtdW1nciAqc211bWdyKTsNCj4gDQo+IC0tDQo+IDEuOS4xDQo+IA0KPiBfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBhbWQtZ2Z4IG1haWxp
-bmcgbGlzdA0KPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============0054493491==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MWHPR1201MB0045DE55E81D0FF5CE76671FF2060MWHPR1201MB0045_"
+
+--_000_MWHPR1201MB0045DE55E81D0FF5CE76671FF2060MWHPR1201MB0045_
+Content-Type: text/plain; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
+
+Hi David,
+
+
+Thanks for the comments. However, please have look at amdgpu_bo_reserve def=
+inition.
+
+static inline int amdgpu_bo_reserve(struct amdgpu_bo *bo, bool no_intr)
+
+
+When we call this function like the following:
+
+         r =3D amdgpu_bo_reserve(adev->vram_scratch.robj, false);
+The false means interruptible.
+
+
+On the other hand,  when amdgpu_bo_reserve function return error, why do we=
+ unref BO without kunmap and unpin the BO? This is wrong implementation whe=
+n amdgpu_bo_reserve return any error.
+
+
+Thanks,
+Alex Bin Xie
+
+________________________________
+From: Zhou, David(ChunMing)
+Sent: Friday, April 14, 2017 12:00 AM
+To: Xie, AlexBin; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH] dmr/amdgpu: Fix wrongly unref of BO
+
+
+
+On 2017=1B$BG/=1B(B04=1B$B7n=1B(B14=1B$BF|=1B(B 05:34, Alex Xie wrote:
+> According to comment of amdgpu_bo_reserve, amdgpu_bo_reserve
+> can return with -ERESTARTSYS. When this function was interrupted
+> by a signal, BO should not be unref. Otherwise the BO might be
+> released while is kmapped and pinned, or BO MIGHT be deref
+> multiple times, etc.
+         r =3D amdgpu_bo_reserve(adev->vram_scratch.robj, false);
+we have specified interruptible to false, so -ERESTARTSYS isn't possible
+here.
+
+Thanks,
+David Zhou
+>
+> Change-Id: If76071a768950a0d3ad9d5da7fcae04881807621
+> Signed-off-by: Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index 53996e3..1dcc2d1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -355,8 +355,8 @@ static void amdgpu_vram_scratch_fini(struct amdgpu_de=
+vice *adev)
+>                amdgpu_bo_kunmap(adev->vram_scratch.robj);
+>                amdgpu_bo_unpin(adev->vram_scratch.robj);
+>                amdgpu_bo_unreserve(adev->vram_scratch.robj);
+> +             amdgpu_bo_unref(&adev->vram_scratch.robj);
+>        }
+> -     amdgpu_bo_unref(&adev->vram_scratch.robj);
+>   }
+>
+>   /**
+
+
+--_000_MWHPR1201MB0045DE55E81D0FF5CE76671FF2060MWHPR1201MB0045_
+Content-Type: text/html; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-2022-=
+jp">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Arial,Helvetica,sans-serif;" dir=3D"ltr">
+<p>Hi David,</p>
+<p><br>
+</p>
+<p>Thanks for the comments. However, please have look at <span style=3D"fon=
+t-family: Calibri, Arial, Helvetica, sans-serif, EmojiFont, &quot;Apple Col=
+or Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &quot;Segoe UI =
+Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols; font-size: 16px;">
+amdgpu_bo_reserve</span> definition.</p>
+<p><span>static inline int amdgpu_bo_reserve(struct amdgpu_bo *bo, bool no_=
+intr)</span><br>
+</p>
+<p><span><br>
+</span></p>
+<p><span>When we call this function like the following:</span></p>
+<p><span><span style=3D"font-family: Calibri, Arial, Helvetica, sans-serif,=
+ EmojiFont, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, Noto=
+ColorEmoji, &quot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSy=
+mbols; font-size: 13.3333px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;r =3D amdgp=
+u_bo_reserve(adev-&gt;vram_scratch.robj,
+ false);</span><br style=3D"font-family: Calibri, Arial, Helvetica, sans-se=
+rif, EmojiFont, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, =
+NotoColorEmoji, &quot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, Emo=
+jiSymbols; font-size: 13.3333px;">
+</span><span style=3D"font-size: 12pt;">The false means <span>interruptible=
+</span>.</span><span><br>
+</span></p>
+<p><span style=3D"font-size: 12pt;"><br>
+</span></p>
+<p><span style=3D"font-size: 12pt;">On the other hand, &nbsp;when&nbsp;<spa=
+n style=3D"font-family: Calibri, Arial, Helvetica, sans-serif, EmojiFont, &=
+quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &=
+quot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols; font-s=
+ize: 13.3333px;">amdgpu_bo_reserve
+ function return error, why do we unref BO without kunmap and unpin the BO?=
+ This is wrong implementation&nbsp;when&nbsp;<span style=3D"font-family: Ca=
+libri, Arial, Helvetica, sans-serif, EmojiFont, &quot;Apple Color Emoji&quo=
+t;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &quot;Segoe UI Symbol&quot;=
+, &quot;Android Emoji&quot;, EmojiSymbols; font-size: 13.3333px;">amdgpu_bo=
+_reserve
+ return any error.</span></span></span></p>
+<p><br>
+</p>
+Thanks,
+<div>Alex Bin Xie<br>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Zhou, David(ChunMin=
+g)<br>
+<b>Sent:</b> Friday, April 14, 2017 12:00 AM<br>
+<b>To:</b> Xie, AlexBin; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH] dmr/amdgpu: Fix wrongly unref of BO</font>
+<div>&nbsp;</div>
+</div>
+</div>
+<font size=3D"2"><span style=3D"font-size:10pt;">
+<div class=3D"PlainText"><br>
+<br>
+On 2017=1B$BG/=1B(B04=1B$B7n=1B(B14=1B$BF|=1B(B 05:34, Alex Xie wrote:<br>
+&gt; According to comment of amdgpu_bo_reserve, amdgpu_bo_reserve<br>
+&gt; can return with -ERESTARTSYS. When this function was interrupted<br>
+&gt; by a signal, BO should not be unref. Otherwise the BO might be<br>
+&gt; released while is kmapped and pinned, or BO MIGHT be deref<br>
+&gt; multiple times, etc.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_reserve(ad=
+ev-&gt;vram_scratch.robj, false);<br>
+we have specified interruptible to false, so -ERESTARTSYS isn't possible <b=
+r>
+here.<br>
+<br>
+Thanks,<br>
+David Zhou<br>
+&gt;<br>
+&gt; Change-Id: If76071a768950a0d3ad9d5da7fcae04881807621<br>
+&gt; Signed-off-by: Alex Xie &lt;AlexBin.Xie-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 &#43;-<br>
+&gt;&nbsp;&nbsp; 1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_device.c<br>
+&gt; index 53996e3..1dcc2d1 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&gt; @@ -355,8 &#43;355,8 @@ static void amdgpu_vram_scratch_fini(struct am=
+dgpu_device *adev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_bo_kunmap(adev-&gt;vram_scratch.robj);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(adev-&gt;vram_scratch.robj);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_bo_unreserve(adev-&gt;vram_scratch.robj);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; amdgpu_bo_unref(&amp;adev-&gt;vram_scratch.robj);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_unref(&amp;adev-&gt;vram_scratch.r=
+obj);<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; /**<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_MWHPR1201MB0045DE55E81D0FF5CE76671FF2060MWHPR1201MB0045_--
+
+--===============0054493491==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0054493491==--
