@@ -1,72 +1,74 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: Plan: BO move throttling for visible VRAM evictions
-Date: Mon, 17 Apr 2017 00:58:23 +0200
-Message-ID: <CAAxE2A5g7tJG+94XxPr-mdGXkeL1GPMNMaYgc7ATEk7pxsiXfA@mail.gmail.com>
-References: <CAAxE2A4ap8BoOEg1tOF+Ec1vBfZRSANOebikYBaHUfXokY7EwA@mail.gmail.com>
- <9220eda1-5176-36cd-e6b3-801c3e4f759a@daenzer.net>
- <78989271-9812-f891-3a00-0d5b39a06b7c@daenzer.net>
- <CAAxE2A60hubc8jbZkO101sxqVZKR8iub=GsfRovj17+P2zKDKQ@mail.gmail.com>
- <aee1e2b7-dd00-e24b-bcfc-e2299e31908b@daenzer.net>
+From: Ilia Mirkin <imirkin@alum.mit.edu>
+Subject: Re: [RfC PATCH] drm: fourcc byteorder: brings header file comments in
+ line with reality.
+Date: Mon, 17 Apr 2017 02:43:44 -0400
+Message-ID: <CAKb7UvgVD3Uf79noXMOcBjJYeeF6st21R3JBNvT-VVSNb8EH+Q@mail.gmail.com>
+References: <20170410101202.19229-1-kraxel@redhat.com> <20170410161214.305f5daf@eldfell>
+ <1491833847.30990.77.camel@redhat.com> <20170410180941.43922e25@eldfell>
+ <CAKb7UvhbgSGwx-2EsrQrHmghzYqO9AhRQ10bDWKfdcXHc3fJeQ@mail.gmail.com>
+ <20170411103101.0497fe08@eldfell> <CAKb7UviNeLJAHtBQt2NgbEMOSz1sYneiB7i0CUDOBQRt=8OqNw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <aee1e2b7-dd00-e24b-bcfc-e2299e31908b-otUistvHUpPR7s880joybQ@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <CAKb7UviNeLJAHtBQt2NgbEMOSz1sYneiB7i0CUDOBQRt=8OqNw@mail.gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Pekka Paalanen <ppaalanen@gmail.com>
+Cc: Gerd Hoffmann <kraxel@redhat.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, open list <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel.vetter@intel.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gRnJpLCBBcHIgMTQsIDIwMTcgYXQgMTI6MTQgUE0sIE1pY2hlbCBEw6RuemVyIDxtaWNoZWxA
-ZGFlbnplci5uZXQ+IHdyb3RlOgo+IE9uIDA0LzA0LzE3IDA1OjExIEFNLCBNYXJlayBPbMWhw6Fr
-IHdyb3RlOgo+PiBPbiBGcmksIE1hciAzMSwgMjAxNyBhdCA1OjI0IEFNLCBNaWNoZWwgRMOkbnpl
-ciA8bWljaGVsQGRhZW56ZXIubmV0PiB3cm90ZToKPj4+IE9uIDMwLzAzLzE3IDA3OjAzIFBNLCBN
-aWNoZWwgRMOkbnplciB3cm90ZToKPj4+PiBPbiAyNS8wMy8xNyAwMTozMyBBTSwgTWFyZWsgT2zF
-ocOhayB3cm90ZToKPj4+Pj4gSGksCj4+Pj4+Cj4+Pj4+IEknbSBzaGFyaW5nIHRoaXMgaWRlYSBo
-ZXJlLCBiZWNhdXNlIGl0J3Mgc29tZXRoaW5nIHRoYXQgaGFzIGJlZW4KPj4+Pj4gZGVjcmVhc2lu
-ZyBvdXIgcGVyZm9ybWFuY2UgYSBsb3QgcmVjZW50bHksIGZvciBleGFtcGxlOgo+Pj4+PiBodHRw
-Oi8vb3BlbmJlbmNobWFya2luZy5vcmcvcHJvc3BlY3QvMTcwMzAxMS1SSS1SQURFT05ESVIwNi83
-Yjc2NjhjZmMxMDlkMWMzZGMyN2U4NzFjOGFlYTcxY2ExM2YyM2ZhCj4+Pj4KPj4+PiBUaGUgYXR0
-YWNoZWQgcHJvb2Ytb2YtY29uY2VwdCBwYXRjaCAob24gdG9wIG9mIENocmlzdGlhbidzICJDUFUg
-bWFwcGluZwo+Pj4+IG9mIHNwbGl0IFZSQU0gYnVmZmVycyIgc2VyaWVzLCBwb3J0ZWQgZnJvbSBy
-YWRlb24pIHJlc3VsdHMgaW4gMTQ1LjA1IGZwcwo+Pj4+IG9uIG15IFRvbmdhLgo+Pj4KPj4+IEkg
-Z2V0IHRoZSBzYW1lIHJlc3VsdCB3aXRob3V0IG15IG9yIENocmlzdGlhbidzIHBhdGNoZXMgdGhv
-dWdoLCB3aXRoCj4+PiA0LjExIGJhc2VkIERSTSBvciBhbWQtc3RhZ2luZy00LjkuIFNvIEkgZ3Vl
-c3MgSSBqdXN0IGNhbid0IHJlcHJvZHVjZSB0aGUKPj4+IHByb2JsZW0gd2l0aCB0aGlzIHRlc3Qu
-IEFyZSB0aGVyZSBhbnkgb3RoZXIgdGVzdHMgZm9yIGl0Pwo+Pgo+PiBJdCdzIHJhbmRvbS4gU29t
-ZXRpbWVzIHRoZSBiZW5jaG1hcmsgcnVucyBPSywgb3RoZXIgdGltZXMgaXQncyBzbG93Lgo+PiBZ
-b3UgY2FuIGVhc2lseSBzZWUgdGhlIGRpZmZlcmVuY2UgYnV0IG9ic2VydmluZyBob3cgc21vb3Ro
-IGl0IGlzLiBUaGUKPj4gdmlzaWJsZSBWUkFNIGV2aWN0aW9ucyByZXN1bHQgaW4gY29uc3RhbnQg
-MTAwLTIwMG1zIHN0YWxscyBidXQgbm90Cj4+IGV2ZXJ5IGZyYW1lLCB3aGljaCBmZWVscyBsaWtl
-IHRoZSBmcmFtZSByYXRlIGlzIG11Y2ggbG93ZXIgdGhhbiBpdAo+PiBhY3R1YWxseSBpcy4KPj4K
-Pj4gTWFrZSBzdXJlIHlvdXIgZ3JhcGhpY3MgZGV0YWlscyBhcmUgbWF4ZWQgb3V0LiBUaGUgYmVz
-dCBzY29yZSBJIGNhbgo+PiBnZXQgd2l0aCBteSByaWcgaXMgNzAgZnBzLiAoRmlqaSAmIENvcmUg
-aTUgMzU3MCkKPgo+IEknbSBnZXR0aW5nIGFyb3VuZCA1My01NCBmcHMgYXQgVWx0cmEgd2l0aCBU
-b25nYSwgYm90aCB3aXRoIE1lc2EgMTMuMC42Cj4gYW5kIEdpdC4KPgo+IEhhdmUgeW91IHRyaWVk
-IGlmIENocmlzdGlhbidzIHBhdGNoZXMgZm9yIENQVSBhY2Nlc3MgdG8gc3BsaXQgVlJBTQo+IGJ1
-ZmZlcnMgaGVscD8gSSBjYW4gaW1hZ2luZSB0aGF0IGZvcmNpbmcgY29udGlndW91cyBWUkFNIGJ1
-ZmZlcnMgZm9yIENQVQo+IGFjY2VzcyBjb3VsZCBjYXVzZSBsb3RzIG9mIG90aGVyIEJPcyB0byBi
-ZSB1bm5lY2Vzc2FyaWx5IGV2aWN0ZWQgZnJvbQo+IFZSQU0sIGlmIGF0IGxlYXN0IG9uZSBvZiB0
-aGVpciBmcmFnbWVudHMgaGFwcGVucyB0byBiZSBpbiB0aGUgQ1BVCj4gdmlzaWJsZSBwYXJ0IG9m
-IFZSQU0uCgpJJ3ZlIGZpbmFsbHkgdGVzdGVkIGxhdGVzdCBhbWQtc3RhZ2luZy00LjkgYW5kIEkn
-bSB2ZXJ5IHBsZWFzZWQuIEZvcgp0aGUgZmlyc3QgdGltZSwgdGhlIERldXMgRXggYmVuY2htYXJr
-IGhhcyBhbG1vc3Qgbm8gaGljY3Vwcy4gSSd2ZQpuZXZlciBzZWVuIGl0IHNvIHNtb290aC4gQXQg
-b25lIHBvaW50LCB0aGUgTUIvcyBCTyBtb3ZlIHJhdGUgaW5jcmVhc2UKdG8gMjAwTUIvcywgc3Rh
-eWVkIHRoZXJlIGZvciBhIGNvdXBsZSBvZiBzZWNvbmRzLCBhbmQgdGhlbiBpdCBkcm9wcGVkCnRv
-IDAgYWdhaW4uIFRoZSBmcmFtZSByYXRlIHdhcyBPSy1pc2gsIHNvIEkgZ3Vlc3MgdGhlIG1vdmVz
-IGRpZG4ndApoYXBwZW4gYWxsIGF0IG9uY2UuIEkgYWxzbyB0ZXN0ZWQgRGlSVCBSYWxseSBhbmQg
-SSBoYXZlbid0IGJlZW4gYWJsZQp0byByZXByb2R1Y2UgdGhlIGxvdyBGUFMgd2l0aCB0aGUgY29u
-c2lzdGVudGx5LWhpZ2ggQk8gbW92ZSByYXRlIHRoYXQKSSBzYXcgc2V2ZXJhbCBtb250aHMgYWdv
-LgoKV2UgY291bGQgZG8gc29tZSBtb3ZlIHRocm90dGxpbmcgdGhlcmUgZm9yIHN1cmUsIGJ1dCBp
-dCdzIG11Y2ggYmV0dGVyCnRoYW4gaXQgZXZlciB3YXMuCgpNYXJlawpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Tue, Apr 11, 2017 at 10:18 AM, Ilia Mirkin <imirkin@alum.mit.edu> wrote:
+>> However, I totally agree with Alex that someone with a BE machine
+>> should review the whole stack before we could be confident with anything=
+.
+>
+> Here's what I'm confident about: xf86-video-nouveau worked just fine
+> on top of kernel 4.3 on an AGP GeForce FX 5200 (with AGPGART turned
+> off because ... well ... uninorth). fbcon/fbdev accel worked,
+> xf86-video-nouveau's 2d accel worked, and simple demos (ala glxgears)
+> worked after I fixed up mesa and nv30 driver items in version ... 11.1
+> it seems. As I recall it had gotten all broken in 10.0 or so by Adam
+> Jackson in the name of making llvmpipe work on BE, declaring all other
+> drivers broken, with various fixes by Michel D=C3=A4nzer to get it back t=
+o
+> working over the years.
+>
+> Anyone "fixing" the stack has to maintain that level of functioning
+> through their various fixing.
+>
+> I will double-check that the above still works with the latest
+> kernel/xorg/xf86-video-nouveau/mesa and report back (hopefully by this
+> weekend). If there are any patches you'd like me to test, now's the
+> time to ask -- getting the box up and running is the hard part,
+> booting up an extra kernel -- easy.
+
+OK, so I revived my PowerMac7,3 G5 setup (PPC64 BE, NV34 GPU). Booted
+it with an upstream 4.11-rc7 kernel, loaded up the nouveau kernel
+module (which is included in that kernel), updated X to 1.19.2 and
+mesa to 17.0.3. Everything works fine. Specifically:
+
+fbcon on top of fbdev provided by nouveau -- colors are fine
+glxgears hw-accelerated by mesa on top of xf86-video-nouveau using
+DRI2 -- colors are fine
+glxgears softpipe-accelerated by mesa on top of xf86-video-nouveau --
+colors are fine
+glxgears softpipe-accelerated by mesa on top of xf86-video-modesetting
+-- colors are fine
+xterm on top of xf86-video-nouveau -- colors are fine
+xterm on top of xf86-video-modesetting -- colors are fine
+
+I couldn't test anything with GLAMOR since GLAMOR requires GL 2.1 or
+higher, whereas nouveau's NV3x acceleration only provides GL 1.5 (due
+to lacking NPOT and a handful of other things).
+
+The modetest utility did have trouble with AR24 and I'm pretty sure
+the XR24 pattern was off too. However I wouldn't be surprised if the
+modetest utility itself had endian issues in the pattern generation
+logic. (Seems to be the case, based on a quick glance at the
+tests/util/format.c logic and how it's used in pattern.c.)
+
+So in short, I think the current definitions of format are fine.
+
+Cheers,
+
+  -ilia
