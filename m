@@ -1,8 +1,8 @@
 From: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 Subject: [PATCH 1/3] drm/amdgpu: Remove redundant itermediate return val in
  sdma_v4_0.c
-Date: Mon, 17 Apr 2017 20:04:36 +0800
-Message-ID: <1492430678-21759-1-git-send-email-Rex.Zhu@amd.com>
+Date: Mon, 17 Apr 2017 20:05:27 +0800
+Message-ID: <1492430729-21807-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
