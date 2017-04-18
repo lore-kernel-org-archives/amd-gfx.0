@@ -1,19 +1,14 @@
-From: Pekka Paalanen <ppaalanen-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [RfC PATCH] drm: fourcc byteorder: brings header file comments
- in line with reality.
-Date: Tue, 18 Apr 2017 17:01:34 +0300
-Message-ID: <20170418170134.0a60d340@eldfell>
-References: <20170410101202.19229-1-kraxel@redhat.com>
- <20170410161214.305f5daf@eldfell>
- <1491833847.30990.77.camel@redhat.com>
- <20170410180941.43922e25@eldfell>
- <1492509617.27392.19.camel@redhat.com>
- <20170418141827.11634103@eldfell>
- <1492522793.27392.55.camel@redhat.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: fix memory clock can't switch on CI.
+Date: Tue, 18 Apr 2017 14:02:39 +0000
+Message-ID: <BN6PR12MB1652C6B93E107D3C1FA0FE0AF7190@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <1492515307-5979-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1247657281=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1492522793.27392.55.camel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+In-Reply-To: <1492515307-5979-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -24,111 +19,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Cc: Daniel Vetter <daniel.vetter-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Ilia Mirkin <imirkin-FrUbXkNCsVf2fBVCVOL8/A@public.gmane.org>, open list <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
---===============1247657281==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/UaswdG81tB=TtNOlZHYMFWS"; protocol="application/pgp-signature"
-
---Sig_/UaswdG81tB=TtNOlZHYMFWS
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, 18 Apr 2017 15:39:53 +0200
-Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org> wrote:
-
->   Hi,
->=20
-> > > Historical note:  RHEL-6.9 (gnome 2) works fine.  Not of much interest
-> > > here, it drives the qemu stdvga with offb, not bochs-drm. =20
-> >=20
-> > I suppose this proves the virtual machine itself is correct about
-> > framebuffer endianess? Except you are running it on a little-endian
-> > host machine I presume... =20
->=20
-> Yes, little endian host, qemu interprets the framebuffer as
-> PIXMAN_b8g8r8x8.  Which should be correct for a xrgb bigendian
-> framebuffer as pixman formats are native endian.
-
-Right. Very nice if we can trust the virtual machine at least getting
-things right, gives some chance for people to test anything. Except...
-that's a question of what kind of hardware the virtual machine
-emulates. The display device defines what endianess it uses on
-framebuffers, not the CPU, right?
-
-> > > More interesting:  RHEL-7.3 (gnome 3.14) works fine too.  kernel 3.10,
-> > > but drm drivers updated to roughly 4.6 level.  Runs bochs-drm.  mesa
-> > > 11.2.2.  glamour not used.
-> > >=20
-> > > Most recent:  Fedora 25 (gnome 3.22) looks mostly ok, but there are
-> > > rendering glitches, for example in the gnome activities screen (the o=
-ne
-> > > you get when you press the windows key).  kernel 4.10, mesa 13.0.4.
-> > > glamor not used, but I think gnome-shell uses opengl (via llvmpipe) f=
-or
-> > > compositing. =20
-> >=20
-> > I believe glitches are irrelevant for this topic, what we are
-> > interested in is if the colors are right or byte-swapped (also mind
-> > alpha/blue etc. swaps). =20
->=20
-> Well, I mean color glitches.  But it isn't consistent.  As if some
-> operations operate with the correct byteorder and some don't.
-> alpha/blue being swapped is a problem in some areas.
->=20
-> https://www.kraxel.org/tmp/
-
-Ooh, yeah, that's definitely bonkers.
-
-Maybe the 100% blue things are supposed to be a transparent blended
-overlays, like highlights.
-
-The icons look somehow... not completely right to me. Somehow washed
-out?
-
-Opaque gray shades are hard to tell right from wrong.
-
-gnome-terminal and the wallpaper look right, but those might be the
-only things.
-
-Having a compositing manager complicates things.
-
-
-Thanks,
-pq
-
---Sig_/UaswdG81tB=TtNOlZHYMFWS
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAlj2HD4ACgkQI1/ltBGq
-qqeAMQ//QC6YNcMihtNrPooWZqGsAhMeO3AxXC3RXZtAsgwKfvBrxzI2Rx8Y5o3B
-CP3gWiCC7P5aOaBL9Xd9QspuYF7iLSlcbIH01FMjm2HmTQOkqf6I9eZ/AGsy4Csn
-RrnQ2nPPa8mvAcyejSARUsg/v6b2XbzzBGVLali7JkA3P0eT2crDsg1x0DxusY8g
-FNRyuNwqSZyyTUNC3vZO4EXF2Z6Zw33hFeVJClSelfCiSk4sp9sXyLY86tWfGALx
-FXI6/3d4rcXcSYUpsjZXua39q2vi41PIWmFsfLQM29TozCF8fpH/1clYlgtvFlnV
-uW5SRMqSOZr7zGJXvx6HqwwiJknbtJPFtg1GPX5SbjpvBG9PfKyrhB5TMK8NPuTr
-+lKcMNhihCfmHTJ3AmRvT12IMbi2AaF5s93tnoMOhucY6Bj7g9/qWm3azBpQ23Xa
-FoVcmFNhPj/CG2zKoVgXikDWQvKnD0DzOmgf+L++YfOJ9odAA7HznI/HyZAqLJAX
-3NoX9azD2zb99wfboe8LfrlcK8KkrX0UUD4bcpeFMyo+ax5KGEknx4nonbqTKdl2
-oVs2HRwPk7b3kBZxMt6laQhAuaeKssGg094dXJFTOrBDVMi28amX6pXkQ337Env8
-4dGHE2e6xug20r4OgY9Tylzl0dXZW5Xj+8JK7sZT9ukkln2V/P8=
-=fpfx
------END PGP SIGNATURE-----
-
---Sig_/UaswdG81tB=TtNOlZHYMFWS--
-
---===============1247657281==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1247657281==--
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
+LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIFJleCBa
+aHUNCj4gU2VudDogVHVlc2RheSwgQXByaWwgMTgsIDIwMTcgNzozNSBBTQ0KPiBUbzogYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gQ2M6IFpodSwgUmV4DQo+IFN1YmplY3Q6IFtQQVRD
+SF0gZHJtL2FtZGdwdTogZml4IG1lbW9yeSBjbG9jayBjYW4ndCBzd2l0Y2ggb24gQ0kuDQo+IA0K
+PiBpZiB3ZSBlbmFibGUgdXZkIGRwbSBkdXJpbmcgYm9vdCB0aW1lLA0KPiBtY2xrIHdpbGwgYmUg
+Zml4ZWQgaW4gdGhlIGluaXRpYWxseSBlbmFibGVkIGxldmVsDQo+IGZvciBhY3Rpdml0eS4gSW4g
+cGVyZm9ybWFuY2UgbGV2ZWwsIG90aGVyIGxlZXZlbHMNCj4gY2FuJ3QgYmUgZW5hYmxlZCBieSBz
+ZW5kIHRoZSBtYXNrIHRvIFNNQy4NCj4gc28gc2V0IGFsbCBtY2xrIGxldmVscyBlbmFibGVkLg0K
+PiANCj4gQ2hhbmdlLUlkOiBJZDVjNzk1MzE3NDEyYTgwMTM2NjZmYTQzMjQyNmQyNzEzYTI3YTJm
+OA0KPiBTaWduZWQtb2ZmLWJ5OiBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+DQoNClJldmlld2Vk
+LWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQoNCj4gLS0tDQo+
+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaV9kcG0uYyB8IDMgKy0tDQo+ICAxIGZpbGUg
+Y2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDIgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvY2lfZHBtLmMNCj4gYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9jaV9kcG0uYw0KPiBpbmRleCAxMWNjZGE4Li5hNmRkYTM0IDEwMDY0NA0K
+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaV9kcG0uYw0KPiArKysgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaV9kcG0uYw0KPiBAQCAtMzAzNiw2ICszMDM2LDcgQEAg
+c3RhdGljIGludCBjaV9wb3B1bGF0ZV9zaW5nbGVfbWVtb3J5X2xldmVsKHN0cnVjdA0KPiBhbWRn
+cHVfZGV2aWNlICphZGV2LA0KPiAgCQkJCQkJICAgICAgbWVtb3J5X2Nsb2NrLA0KPiAgCQkJCQkJ
+ICAgICAgJm1lbW9yeV9sZXZlbC0NCj4gPk1pblZkZGNQaGFzZXMpOw0KPiANCj4gKwltZW1vcnlf
+bGV2ZWwtPkVuYWJsZWRGb3JBY3Rpdml0eSA9IDE7DQo+ICAJbWVtb3J5X2xldmVsLT5FbmFibGVk
+Rm9yVGhyb3R0bGUgPSAxOw0KPiAgCW1lbW9yeV9sZXZlbC0+VXBIID0gMDsNCj4gIAltZW1vcnlf
+bGV2ZWwtPkRvd25IID0gMTAwOw0KPiBAQCAtMzQ2OCw4ICszNDY5LDYgQEAgc3RhdGljIGludCBj
+aV9wb3B1bGF0ZV9hbGxfbWVtb3J5X2xldmVscyhzdHJ1Y3QNCj4gYW1kZ3B1X2RldmljZSAqYWRl
+dikNCj4gIAkJCXJldHVybiByZXQ7DQo+ICAJfQ0KPiANCj4gLQlwaS0+c21jX3N0YXRlX3RhYmxl
+Lk1lbW9yeUxldmVsWzBdLkVuYWJsZWRGb3JBY3Rpdml0eSA9IDE7DQo+IC0NCj4gIAlpZiAoKGRw
+bV90YWJsZS0+bWNsa190YWJsZS5jb3VudCA+PSAyKSAmJg0KPiAgCSAgICAoKGFkZXYtPnBkZXYt
+PmRldmljZSA9PSAweDY3QjApIHx8IChhZGV2LT5wZGV2LT5kZXZpY2UgPT0NCj4gMHg2N0IxKSkp
+IHsNCj4gIAkJcGktPnNtY19zdGF0ZV90YWJsZS5NZW1vcnlMZXZlbFsxXS5NaW5WZGRjID0NCj4g
+LS0NCj4gMS45LjENCj4gDQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fDQo+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnDQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
