@@ -1,12 +1,16 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amdgpu/gfx9: Switch baremetal to use KIQ for compute ring
- management. (v4)
-Date: Tue, 18 Apr 2017 12:19:37 -0400
-Message-ID: <1492532377-15753-1-git-send-email-alexander.deucher@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 12/12] drm/amdgpu/gfx9: Switch baremetal to use KIQ for
+ compute ring management. (v3)
+Date: Tue, 18 Apr 2017 16:20:03 +0000
+Message-ID: <BN6PR12MB1652C49F0735A34CF03F7642F7190@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <1492466447-27614-1-git-send-email-alexander.deucher@amd.com>,
+ <1492466447-27614-13-git-send-email-alexander.deucher@amd.com>
+ <CY4PR12MB16871760AD05B696AD9F3E0CFB190@CY4PR12MB1687.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2054418137=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CY4PR12MB16871760AD05B696AD9F3E0CFB190-rpdhrqHFk06Y0SjTqZDccQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,284 +21,1606 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-S0lRIGlzIHRoZSBLZXJuZWwgSW50ZXJmYWNlIFF1ZXVlIGZvciBtYW5hZ2luZyB0aGUgTUVDLiAg
-UmF0aGVyIHRoYW4gc2V0dGluZwp1cCByaW5ncyB2aWEgZGlyZWN0IE1NSU8gb2YgcmluZyByZWdp
-c3RlcnMsIHRoZSByaW5ncyBhcmUgY29uZmlndXJlZCB2aWEKc3BlY2lhbCBwYWNrZXRzIHNlbnQg
-dG8gdGhlIEtJUS4gIFRoZSBhbGxvd3MgdGhlIE1FQyB0byBiZXR0ZXIgbWFuYWdlIHNoYXJlZApy
-ZXNvdXJjZXMgYW5kIGNlcnRhaW4gcG93ZXIgZXZlbnRzLiBJdCBhbHNvIHJlZHVjZXMgdGhlIGNv
-ZGUgcGF0aHMgaW4gdGhlCmRyaXZlciB0byBzdXBwb3J0IGFuZCBpcyByZXF1aXJlZCBmb3IgTUVD
-IHBvd2VyZ2F0aW5nLgoKdjI6IGRyb3AgZ2Z4X3Y5XzBfY3BfY29tcHV0ZV9maW5pKCkgYXMgd2Vs
-bAp2MzogcmViYXNlIG9uIGxhdGVzdCBjaGFuZ2VzIGRlcml2ZWQgZnJvbSBnZng4LCBhZGQgdW5t
-YXAgcXVldWVzIG9uCmh3X2ZpbmkKdjQ6IGZpeCBjb3B5L3Bhc3RlIHR5cG8gaW4gZXJyb3IgbWVz
-c2FnZSAoUmV4KQoKU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hl
-ckBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMgfCAz
-NzQgKysrKysrKystLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDgx
-IGluc2VydGlvbnMoKyksIDI5MyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-Z2Z4X3Y5XzAuYwppbmRleCBmODZhN2Y2Li41MTQ3NjdlIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2dmeF92OV8wLmMKQEAgLTExMTMsMjMgKzExMTMsMjEgQEAgc3RhdGljIGludCBnZnhfdjlf
-MF9zd19pbml0KHZvaWQgKmhhbmRsZSkKIAkJCXJldHVybiByOwogCX0KIAotCWlmIChhbWRncHVf
-c3Jpb3ZfdmYoYWRldikpIHsKLQkJciA9IGdmeF92OV8wX2tpcV9pbml0KGFkZXYpOwotCQlpZiAo
-cikgewotCQkJRFJNX0VSUk9SKCJGYWlsZWQgdG8gaW5pdCBLSVEgQk9zIVxuIik7Ci0JCQlyZXR1
-cm4gcjsKLQkJfQorCXIgPSBnZnhfdjlfMF9raXFfaW5pdChhZGV2KTsKKwlpZiAocikgeworCQlE
-Uk1fRVJST1IoIkZhaWxlZCB0byBpbml0IEtJUSBCT3MhXG4iKTsKKwkJcmV0dXJuIHI7CisJfQog
-Ci0JCWtpcSA9ICZhZGV2LT5nZngua2lxOwotCQlyID0gZ2Z4X3Y5XzBfa2lxX2luaXRfcmluZyhh
-ZGV2LCAma2lxLT5yaW5nLCAma2lxLT5pcnEpOwotCQlpZiAocikKLQkJCXJldHVybiByOworCWtp
-cSA9ICZhZGV2LT5nZngua2lxOworCXIgPSBnZnhfdjlfMF9raXFfaW5pdF9yaW5nKGFkZXYsICZr
-aXEtPnJpbmcsICZraXEtPmlycSk7CisJaWYgKHIpCisJCXJldHVybiByOwogCi0JCS8qIGNyZWF0
-ZSBNUUQgZm9yIGFsbCBjb21wdXRlIHF1ZXVlcyBhcyB3ZWwgYXMgS0lRIGZvciBTUklPViBjYXNl
-ICovCi0JCXIgPSBnZnhfdjlfMF9jb21wdXRlX21xZF9zd19pbml0KGFkZXYpOwotCQlpZiAocikK
-LQkJCXJldHVybiByOwotCX0KKwkvKiBjcmVhdGUgTVFEIGZvciBhbGwgY29tcHV0ZSBxdWV1ZXMg
-YXMgd2VsIGFzIEtJUSBmb3IgU1JJT1YgY2FzZSAqLworCXIgPSBnZnhfdjlfMF9jb21wdXRlX21x
-ZF9zd19pbml0KGFkZXYpOworCWlmIChyKQorCQlyZXR1cm4gcjsKIAogCS8qIHJlc2VydmUgR0RT
-LCBHV1MgYW5kIE9BIHJlc291cmNlIGZvciBnZnggKi8KIAlyID0gYW1kZ3B1X2JvX2NyZWF0ZV9r
-ZXJuZWwoYWRldiwgYWRldi0+Z2RzLm1lbS5nZnhfcGFydGl0aW9uX3NpemUsCkBAIC0xMTc2LDEx
-ICsxMTc0LDkgQEAgc3RhdGljIGludCBnZnhfdjlfMF9zd19maW5pKHZvaWQgKmhhbmRsZSkKIAlm
-b3IgKGkgPSAwOyBpIDwgYWRldi0+Z2Z4Lm51bV9jb21wdXRlX3JpbmdzOyBpKyspCiAJCWFtZGdw
-dV9yaW5nX2ZpbmkoJmFkZXYtPmdmeC5jb21wdXRlX3JpbmdbaV0pOwogCi0JaWYgKGFtZGdwdV9z
-cmlvdl92ZihhZGV2KSkgewotCQlnZnhfdjlfMF9jb21wdXRlX21xZF9zd19maW5pKGFkZXYpOwot
-CQlnZnhfdjlfMF9raXFfZnJlZV9yaW5nKCZhZGV2LT5nZngua2lxLnJpbmcsICZhZGV2LT5nZngu
-a2lxLmlycSk7Ci0JCWdmeF92OV8wX2tpcV9maW5pKGFkZXYpOwotCX0KKwlnZnhfdjlfMF9jb21w
-dXRlX21xZF9zd19maW5pKGFkZXYpOworCWdmeF92OV8wX2tpcV9mcmVlX3JpbmcoJmFkZXYtPmdm
-eC5raXEucmluZywgJmFkZXYtPmdmeC5raXEuaXJxKTsKKwlnZnhfdjlfMF9raXFfZmluaShhZGV2
-KTsKIAogCWdmeF92OV8wX21lY19maW5pKGFkZXYpOwogCWdmeF92OV8wX25nZ19maW5pKGFkZXYp
-OwpAQCAtMTczNiwxMyArMTczMiw2IEBAIHN0YXRpYyB2b2lkIGdmeF92OV8wX2NwX2NvbXB1dGVf
-ZW5hYmxlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBib29sIGVuYWJsZSkKIAl1ZGVsYXko
-NTApOwogfQogCi1zdGF0aWMgaW50IGdmeF92OV8wX2NwX2NvbXB1dGVfc3RhcnQoc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYpCi17Ci0JZ2Z4X3Y5XzBfY3BfY29tcHV0ZV9lbmFibGUoYWRldiwg
-dHJ1ZSk7Ci0KLQlyZXR1cm4gMDsKLX0KLQogc3RhdGljIGludCBnZnhfdjlfMF9jcF9jb21wdXRl
-X2xvYWRfbWljcm9jb2RlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogewogCWNvbnN0IHN0
-cnVjdCBnZnhfZmlybXdhcmVfaGVhZGVyX3YxXzAgKm1lY19oZHI7CkBAIC0xNzg1LDQ1ICsxNzc0
-LDYgQEAgc3RhdGljIGludCBnZnhfdjlfMF9jcF9jb21wdXRlX2xvYWRfbWljcm9jb2RlKHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2KQogCXJldHVybiAwOwogfQogCi1zdGF0aWMgdm9pZCBnZnhf
-djlfMF9jcF9jb21wdXRlX2Zpbmkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCi17Ci0JaW50
-IGksIHI7Ci0KLQlmb3IgKGkgPSAwOyBpIDwgYWRldi0+Z2Z4Lm51bV9jb21wdXRlX3JpbmdzOyBp
-KyspIHsKLQkJc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nID0gJmFkZXYtPmdmeC5jb21wdXRlX3Jp
-bmdbaV07Ci0KLQkJaWYgKHJpbmctPm1xZF9vYmopIHsKLQkJCXIgPSBhbWRncHVfYm9fcmVzZXJ2
-ZShyaW5nLT5tcWRfb2JqLCBmYWxzZSk7Ci0JCQlpZiAodW5saWtlbHkociAhPSAwKSkKLQkJCQlk
-ZXZfd2FybihhZGV2LT5kZXYsICIoJWQpIHJlc2VydmUgTVFEIGJvIGZhaWxlZFxuIiwgcik7Ci0K
-LQkJCWFtZGdwdV9ib191bnBpbihyaW5nLT5tcWRfb2JqKTsKLQkJCWFtZGdwdV9ib191bnJlc2Vy
-dmUocmluZy0+bXFkX29iaik7Ci0KLQkJCWFtZGdwdV9ib191bnJlZigmcmluZy0+bXFkX29iaik7
-Ci0JCQlyaW5nLT5tcWRfb2JqID0gTlVMTDsKLQkJfQotCX0KLX0KLQotc3RhdGljIGludCBnZnhf
-djlfMF9pbml0X3F1ZXVlKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZyk7Ci0KLXN0YXRpYyBpbnQg
-Z2Z4X3Y5XzBfY3BfY29tcHV0ZV9yZXN1bWUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCi17
-Ci0JaW50IGksIHI7Ci0JZm9yIChpID0gMDsgaSA8IGFkZXYtPmdmeC5udW1fY29tcHV0ZV9yaW5n
-czsgaSsrKSB7Ci0JCXN0cnVjdCBhbWRncHVfcmluZyAqcmluZyA9ICZhZGV2LT5nZnguY29tcHV0
-ZV9yaW5nW2ldOwotCQlpZiAoZ2Z4X3Y5XzBfaW5pdF9xdWV1ZShyaW5nKSkKLQkJCWRldl93YXJu
-KGFkZXYtPmRldiwgImNvbXB1dGUgcXVldWUgJWQgaW5pdCBmYWlsZWQhXG4iLCBpKTsKLQl9Ci0K
-LQlyID0gZ2Z4X3Y5XzBfY3BfY29tcHV0ZV9zdGFydChhZGV2KTsKLQlpZiAocikKLQkJcmV0dXJu
-IHI7Ci0KLQlyZXR1cm4gMDsKLX0KLQogLyogS0lRIGZ1bmN0aW9ucyAqLwogc3RhdGljIHZvaWQg
-Z2Z4X3Y5XzBfa2lxX3NldHRpbmcoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKQogewpAQCAtMTkx
-NCw2ICsxODY0LDU2IEBAIHN0YXRpYyBpbnQgZ2Z4X3Y5XzBfa2lxX2tjcV9lbmFibGUoc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAJcmV0dXJuIHI7CiB9CiAKK3N0YXRpYyBpbnQgZ2Z4X3Y5
-XzBfa2lxX2tjcV9kaXNhYmxlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQoreworCXN0cnVj
-dCBhbWRncHVfcmluZyAqa2lxX3JpbmcgPSAmYWRldi0+Z2Z4LmtpcS5yaW5nOworCXVpbnQzMl90
-IHNjcmF0Y2gsIHRtcCA9IDA7CisJaW50IHIsIGk7CisKKwlyID0gYW1kZ3B1X2dmeF9zY3JhdGNo
-X2dldChhZGV2LCAmc2NyYXRjaCk7CisJaWYgKHIpIHsKKwkJRFJNX0VSUk9SKCJGYWlsZWQgdG8g
-Z2V0IHNjcmF0Y2ggcmVnICglZCkuXG4iLCByKTsKKwkJcmV0dXJuIHI7CisJfQorCVdSRUczMihz
-Y3JhdGNoLCAweENBRkVERUFEKTsKKworCXIgPSBhbWRncHVfcmluZ19hbGxvYyhraXFfcmluZywg
-NiArIDMpOworCWlmIChyKSB7CisJCURSTV9FUlJPUigiRmFpbGVkIHRvIGxvY2sgS0lRICglZCku
-XG4iLCByKTsKKwkJYW1kZ3B1X2dmeF9zY3JhdGNoX2ZyZWUoYWRldiwgc2NyYXRjaCk7CisJCXJl
-dHVybiByOworCX0KKwkvKiB1bm1hcCBxdWV1ZXMgKi8KKwlhbWRncHVfcmluZ193cml0ZShraXFf
-cmluZywgUEFDS0VUMyhQQUNLRVQzX1VOTUFQX1FVRVVFUywgNCkpOworCWFtZGdwdV9yaW5nX3dy
-aXRlKGtpcV9yaW5nLAorCQkJICBQQUNLRVQzX1VOTUFQX1FVRVVFU19BQ1RJT04oMSl8IC8qIFJF
-U0VUX1FVRVVFUyAqLworCQkJICBQQUNLRVQzX1VOTUFQX1FVRVVFU19RVUVVRV9TRUwoMikpOyAv
-KiBzZWxlY3QgYWxsIHF1ZXVlcyAqLworCWFtZGdwdV9yaW5nX3dyaXRlKGtpcV9yaW5nLCAwKTsK
-KwlhbWRncHVfcmluZ193cml0ZShraXFfcmluZywgMCk7CisJYW1kZ3B1X3Jpbmdfd3JpdGUoa2lx
-X3JpbmcsIDApOworCWFtZGdwdV9yaW5nX3dyaXRlKGtpcV9yaW5nLCAwKTsKKwkvKiB3cml0ZSB0
-byBzY3JhdGNoIGZvciBjb21wbGV0aW9uICovCisJYW1kZ3B1X3Jpbmdfd3JpdGUoa2lxX3Jpbmcs
-IFBBQ0tFVDMoUEFDS0VUM19TRVRfVUNPTkZJR19SRUcsIDEpKTsKKwlhbWRncHVfcmluZ193cml0
-ZShraXFfcmluZywgKHNjcmF0Y2ggLSBQQUNLRVQzX1NFVF9VQ09ORklHX1JFR19TVEFSVCkpOwor
-CWFtZGdwdV9yaW5nX3dyaXRlKGtpcV9yaW5nLCAweERFQURCRUVGKTsKKwlhbWRncHVfcmluZ19j
-b21taXQoa2lxX3JpbmcpOworCisJZm9yIChpID0gMDsgaSA8IGFkZXYtPnVzZWNfdGltZW91dDsg
-aSsrKSB7CisJCXRtcCA9IFJSRUczMihzY3JhdGNoKTsKKwkJaWYgKHRtcCA9PSAweERFQURCRUVG
-KQorCQkJYnJlYWs7CisJCURSTV9VREVMQVkoMSk7CisJfQorCWlmIChpID49IGFkZXYtPnVzZWNf
-dGltZW91dCkgeworCQlEUk1fRVJST1IoIktDUSBkaXNhYmxlIGZhaWxlZCAoc2NyYXRjaCgweCUw
-NFgpPTB4JTA4WClcbiIsCisJCQkgIHNjcmF0Y2gsIHRtcCk7CisJCXIgPSAtRUlOVkFMOworCX0K
-KwlhbWRncHVfZ2Z4X3NjcmF0Y2hfZnJlZShhZGV2LCBzY3JhdGNoKTsKKworCXJldHVybiByOwor
-fQorCiBzdGF0aWMgaW50IGdmeF92OV8wX21xZF9pbml0KHN0cnVjdCBhbWRncHVfcmluZyAqcmlu
-ZykKIHsKIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IHJpbmctPmFkZXY7CkBAIC0yMTk0
-LDcgKzIxOTQsNyBAQCBzdGF0aWMgaW50IGdmeF92OV8wX2tjcV9pbml0X3F1ZXVlKHN0cnVjdCBh
-bWRncHVfcmluZyAqcmluZykKIAlzdHJ1Y3QgdjlfbXFkICptcWQgPSByaW5nLT5tcWRfcHRyOwog
-CWludCBtcWRfaWR4ID0gcmluZyAtICZhZGV2LT5nZnguY29tcHV0ZV9yaW5nWzBdOwogCi0JaWYg
-KCFhZGV2LT5nZnguaW5fcmVzZXQpIHsKKwlpZiAoIWFkZXYtPmdmeC5pbl9yZXNldCAmJiAhYWRl
-di0+Z2Z4LmluX3N1c3BlbmQpIHsKIAkJbWVtc2V0KCh2b2lkICopbXFkLCAwLCBzaXplb2YoKm1x
-ZCkpOwogCQltdXRleF9sb2NrKCZhZGV2LT5zcmJtX211dGV4KTsKIAkJc29jMTVfZ3JibV9zZWxl
-Y3QoYWRldiwgcmluZy0+bWUsIHJpbmctPnBpcGUsIHJpbmctPnF1ZXVlLCAwKTsKQEAgLTIyODUs
-MTAgKzIyODUsNyBAQCBzdGF0aWMgaW50IGdmeF92OV8wX2NwX3Jlc3VtZShzdHJ1Y3QgYW1kZ3B1
-X2RldmljZSAqYWRldikKIAlpZiAocikKIAkJcmV0dXJuIHI7CiAKLQlpZiAoYW1kZ3B1X3NyaW92
-X3ZmKGFkZXYpKQotCQlyID0gZ2Z4X3Y5XzBfa2lxX3Jlc3VtZShhZGV2KTsKLQllbHNlCi0JCXIg
-PSBnZnhfdjlfMF9jcF9jb21wdXRlX3Jlc3VtZShhZGV2KTsKKwlyID0gZ2Z4X3Y5XzBfa2lxX3Jl
-c3VtZShhZGV2KTsKIAlpZiAocikKIAkJcmV0dXJuIHI7CiAKQEAgLTIyOTgsNiArMjI5NSwxMyBA
-QCBzdGF0aWMgaW50IGdmeF92OV8wX2NwX3Jlc3VtZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-dikKIAkJcmluZy0+cmVhZHkgPSBmYWxzZTsKIAkJcmV0dXJuIHI7CiAJfQorCisJcmluZyA9ICZh
-ZGV2LT5nZngua2lxLnJpbmc7CisJcmluZy0+cmVhZHkgPSB0cnVlOworCXIgPSBhbWRncHVfcmlu
-Z190ZXN0X3JpbmcocmluZyk7CisJaWYgKHIpCisJCXJpbmctPnJlYWR5ID0gZmFsc2U7CisKIAlm
-b3IgKGkgPSAwOyBpIDwgYWRldi0+Z2Z4Lm51bV9jb21wdXRlX3JpbmdzOyBpKyspIHsKIAkJcmlu
-ZyA9ICZhZGV2LT5nZnguY29tcHV0ZV9yaW5nW2ldOwogCkBAIC0yMzA3LDE0ICsyMzExLDYgQEAg
-c3RhdGljIGludCBnZnhfdjlfMF9jcF9yZXN1bWUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYp
-CiAJCQlyaW5nLT5yZWFkeSA9IGZhbHNlOwogCX0KIAotCWlmIChhbWRncHVfc3Jpb3ZfdmYoYWRl
-dikpIHsKLQkJcmluZyA9ICZhZGV2LT5nZngua2lxLnJpbmc7Ci0JCXJpbmctPnJlYWR5ID0gdHJ1
-ZTsKLQkJciA9IGFtZGdwdV9yaW5nX3Rlc3RfcmluZyhyaW5nKTsKLQkJaWYgKHIpCi0JCQlyaW5n
-LT5yZWFkeSA9IGZhbHNlOwotCX0KLQogCWdmeF92OV8wX2VuYWJsZV9ndWlfaWRsZV9pbnRlcnJ1
-cHQoYWRldiwgdHJ1ZSk7CiAKIAlyZXR1cm4gMDsKQEAgLTIzNjAsOSArMjM1Niw5IEBAIHN0YXRp
-YyBpbnQgZ2Z4X3Y5XzBfaHdfZmluaSh2b2lkICpoYW5kbGUpCiAJCXByX2RlYnVnKCJGb3IgU1JJ
-T1YgY2xpZW50LCBzaG91bGRuJ3QgZG8gYW55dGhpbmcuXG4iKTsKIAkJcmV0dXJuIDA7CiAJfQor
-CWdmeF92OV8wX2tpcV9rY3FfZGlzYWJsZShhZGV2KTsKIAlnZnhfdjlfMF9jcF9lbmFibGUoYWRl
-diwgZmFsc2UpOwogCWdmeF92OV8wX3JsY19zdG9wKGFkZXYpOwotCWdmeF92OV8wX2NwX2NvbXB1
-dGVfZmluaShhZGV2KTsKIAogCXJldHVybiAwOwogfQpAQCAtMjM3MSwxNCArMjM2NywxOCBAQCBz
-dGF0aWMgaW50IGdmeF92OV8wX3N1c3BlbmQodm9pZCAqaGFuZGxlKQogewogCXN0cnVjdCBhbWRn
-cHVfZGV2aWNlICphZGV2ID0gKHN0cnVjdCBhbWRncHVfZGV2aWNlICopaGFuZGxlOwogCisJYWRl
-di0+Z2Z4LmluX3N1c3BlbmQgPSB0cnVlOwogCXJldHVybiBnZnhfdjlfMF9od19maW5pKGFkZXYp
-OwogfQogCiBzdGF0aWMgaW50IGdmeF92OV8wX3Jlc3VtZSh2b2lkICpoYW5kbGUpCiB7CiAJc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSAoc3RydWN0IGFtZGdwdV9kZXZpY2UgKiloYW5kbGU7
-CisJaW50IHI7CiAKLQlyZXR1cm4gZ2Z4X3Y5XzBfaHdfaW5pdChhZGV2KTsKKwlyID0gZ2Z4X3Y5
-XzBfaHdfaW5pdChhZGV2KTsKKwlhZGV2LT5nZnguaW5fc3VzcGVuZCA9IGZhbHNlOworCXJldHVy
-biByOwogfQogCiBzdGF0aWMgYm9vbCBnZnhfdjlfMF9pc19pZGxlKHZvaWQgKmhhbmRsZSkKQEAg
-LTM3NTMsMjE4ICszNzUzLDYgQEAgc3RhdGljIGludCBnZnhfdjlfMF9nZXRfY3VfaW5mbyhzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAlyZXR1cm4gMDsKIH0KIAotc3RhdGljIGludCBnZnhf
-djlfMF9pbml0X3F1ZXVlKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZykKLXsKLQlpbnQgciwgajsK
-LQl1MzIgdG1wOwotCWJvb2wgdXNlX2Rvb3JiZWxsID0gdHJ1ZTsKLQl1NjQgaHFkX2dwdV9hZGRy
-OwotCXU2NCBtcWRfZ3B1X2FkZHI7Ci0JdTY0IGVvcF9ncHVfYWRkcjsKLQl1NjQgd2JfZ3B1X2Fk
-ZHI7Ci0JdTMyICpidWY7Ci0Jc3RydWN0IHY5X21xZCAqbXFkOwotCXN0cnVjdCBhbWRncHVfZGV2
-aWNlICphZGV2OwotCi0JYWRldiA9IHJpbmctPmFkZXY7Ci0JaWYgKHJpbmctPm1xZF9vYmogPT0g
-TlVMTCkgewotCQlyID0gYW1kZ3B1X2JvX2NyZWF0ZShhZGV2LAotCQkJCXNpemVvZihzdHJ1Y3Qg
-djlfbXFkKSwKLQkJCQlQQUdFX1NJWkUsdHJ1ZSwKLQkJCQlBTURHUFVfR0VNX0RPTUFJTl9HVFQs
-IDAsIE5VTEwsCi0JCQkJTlVMTCwgJnJpbmctPm1xZF9vYmopOwotCQlpZiAocikgewotCQkJZGV2
-X3dhcm4oYWRldi0+ZGV2LCAiKCVkKSBjcmVhdGUgTVFEIGJvIGZhaWxlZFxuIiwgcik7Ci0JCQly
-ZXR1cm4gcjsKLQkJfQotCX0KLQotCXIgPSBhbWRncHVfYm9fcmVzZXJ2ZShyaW5nLT5tcWRfb2Jq
-LCBmYWxzZSk7Ci0JaWYgKHVubGlrZWx5KHIgIT0gMCkpIHsKLQkJZ2Z4X3Y5XzBfY3BfY29tcHV0
-ZV9maW5pKGFkZXYpOwotCQlyZXR1cm4gcjsKLQl9Ci0KLQlyID0gYW1kZ3B1X2JvX3BpbihyaW5n
-LT5tcWRfb2JqLCBBTURHUFVfR0VNX0RPTUFJTl9HVFQsCi0JCQkJICAmbXFkX2dwdV9hZGRyKTsK
-LQlpZiAocikgewotCQlkZXZfd2FybihhZGV2LT5kZXYsICIoJWQpIHBpbiBNUUQgYm8gZmFpbGVk
-XG4iLCByKTsKLQkJZ2Z4X3Y5XzBfY3BfY29tcHV0ZV9maW5pKGFkZXYpOwotCQlyZXR1cm4gcjsK
-LQl9Ci0JciA9IGFtZGdwdV9ib19rbWFwKHJpbmctPm1xZF9vYmosICh2b2lkICoqKSZidWYpOwot
-CWlmIChyKSB7Ci0JCWRldl93YXJuKGFkZXYtPmRldiwgIiglZCkgbWFwIE1RRCBibyBmYWlsZWRc
-biIsIHIpOwotCQlnZnhfdjlfMF9jcF9jb21wdXRlX2ZpbmkoYWRldik7Ci0JCXJldHVybiByOwot
-CX0KLQotCS8qIGluaXQgdGhlIG1xZCBzdHJ1Y3QgKi8KLQltZW1zZXQoYnVmLCAwLCBzaXplb2Yo
-c3RydWN0IHY5X21xZCkpOwotCi0JbXFkID0gKHN0cnVjdCB2OV9tcWQgKilidWY7Ci0JbXFkLT5o
-ZWFkZXIgPSAweEMwMzEwODAwOwotCW1xZC0+Y29tcHV0ZV9waXBlbGluZXN0YXRfZW5hYmxlID0g
-MHgwMDAwMDAwMTsKLQltcWQtPmNvbXB1dGVfc3RhdGljX3RocmVhZF9tZ210X3NlMCA9IDB4ZmZm
-ZmZmZmY7Ci0JbXFkLT5jb21wdXRlX3N0YXRpY190aHJlYWRfbWdtdF9zZTEgPSAweGZmZmZmZmZm
-OwotCW1xZC0+Y29tcHV0ZV9zdGF0aWNfdGhyZWFkX21nbXRfc2UyID0gMHhmZmZmZmZmZjsKLQlt
-cWQtPmNvbXB1dGVfc3RhdGljX3RocmVhZF9tZ210X3NlMyA9IDB4ZmZmZmZmZmY7Ci0JbXFkLT5j
-b21wdXRlX21pc2NfcmVzZXJ2ZWQgPSAweDAwMDAwMDAzOwotCW11dGV4X2xvY2soJmFkZXYtPnNy
-Ym1fbXV0ZXgpOwotCXNvYzE1X2dyYm1fc2VsZWN0KGFkZXYsIHJpbmctPm1lLAotCQkJICAgICAg
-IHJpbmctPnBpcGUsCi0JCQkgICAgICAgcmluZy0+cXVldWUsIDApOwotCS8qIGRpc2FibGUgd3B0
-ciBwb2xsaW5nICovCi0JV1JFRzMyX0ZJRUxEMTUoR0MsIDAsIENQX1BRX1dQVFJfUE9MTF9DTlRM
-LCBFTiwgMCk7Ci0KLQkvKiB3cml0ZSB0aGUgRU9QIGFkZHIgKi8KLQlCVUdfT04ocmluZy0+bWUg
-IT0gMSB8fCByaW5nLT5waXBlICE9IDApOyAvKiBjYW4ndCBoYW5kbGUgb3RoZXIgY2FzZXMgZW9w
-IGFkZHJlc3MgKi8KLQllb3BfZ3B1X2FkZHIgPSBhZGV2LT5nZngubWVjLmhwZF9lb3BfZ3B1X2Fk
-ZHIgKyAocmluZy0+cXVldWUgKiBNRUNfSFBEX1NJWkUpOwotCWVvcF9ncHVfYWRkciA+Pj0gODsK
-LQotCVdSRUczMl9TT0MxNShHQywgMCwgbW1DUF9IUURfRU9QX0JBU0VfQUREUiwgbG93ZXJfMzJf
-Yml0cyhlb3BfZ3B1X2FkZHIpKTsKLQlXUkVHMzJfU09DMTUoR0MsIDAsIG1tQ1BfSFFEX0VPUF9C
-QVNFX0FERFJfSEksIHVwcGVyXzMyX2JpdHMoZW9wX2dwdV9hZGRyKSk7Ci0JbXFkLT5jcF9ocWRf
-ZW9wX2Jhc2VfYWRkcl9sbyA9IGxvd2VyXzMyX2JpdHMoZW9wX2dwdV9hZGRyKTsKLQltcWQtPmNw
-X2hxZF9lb3BfYmFzZV9hZGRyX2hpID0gdXBwZXJfMzJfYml0cyhlb3BfZ3B1X2FkZHIpOwotCi0J
-Lyogc2V0IHRoZSBFT1Agc2l6ZSwgcmVnaXN0ZXIgdmFsdWUgaXMgMl4oRU9QX1NJWkUrMSkgZHdv
-cmRzICovCi0JdG1wID0gUlJFRzMyX1NPQzE1KEdDLCAwLCBtbUNQX0hRRF9FT1BfQ09OVFJPTCk7
-Ci0JdG1wID0gUkVHX1NFVF9GSUVMRCh0bXAsIENQX0hRRF9FT1BfQ09OVFJPTCwgRU9QX1NJWkUs
-Ci0JCQkJICAgIChvcmRlcl9iYXNlXzIoTUVDX0hQRF9TSVpFIC8gNCkgLSAxKSk7Ci0JV1JFRzMy
-X1NPQzE1KEdDLCAwLCBtbUNQX0hRRF9FT1BfQ09OVFJPTCwgdG1wKTsKLQotCS8qIGVuYWJsZSBk
-b29yYmVsbD8gKi8KLQl0bXAgPSBSUkVHMzJfU09DMTUoR0MsIDAsIG1tQ1BfSFFEX1BRX0RPT1JC
-RUxMX0NPTlRST0wpOwotCWlmICh1c2VfZG9vcmJlbGwpCi0JCXRtcCA9IFJFR19TRVRfRklFTEQo
-dG1wLCBDUF9IUURfUFFfRE9PUkJFTExfQ09OVFJPTCwgRE9PUkJFTExfRU4sIDEpOwotCWVsc2UK
-LQkJdG1wID0gUkVHX1NFVF9GSUVMRCh0bXAsIENQX0hRRF9QUV9ET09SQkVMTF9DT05UUk9MLCBE
-T09SQkVMTF9FTiwgMCk7Ci0KLQlXUkVHMzJfU09DMTUoR0MsIDAsIG1tQ1BfSFFEX1BRX0RPT1JC
-RUxMX0NPTlRST0wsIHRtcCk7Ci0JbXFkLT5jcF9ocWRfcHFfZG9vcmJlbGxfY29udHJvbCA9IHRt
-cDsKLQotCS8qIGRpc2FibGUgdGhlIHF1ZXVlIGlmIGl0J3MgYWN0aXZlICovCi0JcmluZy0+d3B0
-ciA9IDA7Ci0JbXFkLT5jcF9ocWRfZGVxdWV1ZV9yZXF1ZXN0ID0gMDsKLQltcWQtPmNwX2hxZF9w
-cV9ycHRyID0gMDsKLQltcWQtPmNwX2hxZF9wcV93cHRyX2xvID0gMDsKLQltcWQtPmNwX2hxZF9w
-cV93cHRyX2hpID0gMDsKLQlpZiAoUlJFRzMyX1NPQzE1KEdDLCAwLCBtbUNQX0hRRF9BQ1RJVkUp
-ICYgMSkgewotCQlXUkVHMzJfU09DMTUoR0MsIDAsIG1tQ1BfSFFEX0RFUVVFVUVfUkVRVUVTVCwg
-MSk7Ci0JCWZvciAoaiA9IDA7IGogPCBhZGV2LT51c2VjX3RpbWVvdXQ7IGorKykgewotCQkJaWYg
-KCEoUlJFRzMyX1NPQzE1KEdDLCAwLCBtbUNQX0hRRF9BQ1RJVkUpICYgMSkpCi0JCQkJYnJlYWs7
-Ci0JCQl1ZGVsYXkoMSk7Ci0JCX0KLQkJV1JFRzMyX1NPQzE1KEdDLCAwLCBtbUNQX0hRRF9ERVFV
-RVVFX1JFUVVFU1QsIG1xZC0+Y3BfaHFkX2RlcXVldWVfcmVxdWVzdCk7Ci0JCVdSRUczMl9TT0Mx
-NShHQywgMCwgbW1DUF9IUURfUFFfUlBUUiwgbXFkLT5jcF9ocWRfcHFfcnB0cik7Ci0JCVdSRUcz
-Ml9TT0MxNShHQywgMCwgbW1DUF9IUURfUFFfV1BUUl9MTywgbXFkLT5jcF9ocWRfcHFfd3B0cl9s
-byk7Ci0JCVdSRUczMl9TT0MxNShHQywgMCwgbW1DUF9IUURfUFFfV1BUUl9ISSwgbXFkLT5jcF9o
-cWRfcHFfd3B0cl9oaSk7Ci0JfQotCi0JLyogc2V0IHRoZSBwb2ludGVyIHRvIHRoZSBNUUQgKi8K
-LQltcWQtPmNwX21xZF9iYXNlX2FkZHJfbG8gPSBtcWRfZ3B1X2FkZHIgJiAweGZmZmZmZmZjOwot
-CW1xZC0+Y3BfbXFkX2Jhc2VfYWRkcl9oaSA9IHVwcGVyXzMyX2JpdHMobXFkX2dwdV9hZGRyKTsK
-LQlXUkVHMzJfU09DMTUoR0MsIDAsIG1tQ1BfTVFEX0JBU0VfQUREUiwgbXFkLT5jcF9tcWRfYmFz
-ZV9hZGRyX2xvKTsKLQlXUkVHMzJfU09DMTUoR0MsIDAsIG1tQ1BfTVFEX0JBU0VfQUREUl9ISSwg
-bXFkLT5jcF9tcWRfYmFzZV9hZGRyX2hpKTsKLQotCS8qIHNldCBNUUQgdm1pZCB0byAwICovCi0J
-dG1wID0gUlJFRzMyX1NPQzE1KEdDLCAwLCBtbUNQX01RRF9DT05UUk9MKTsKLQl0bXAgPSBSRUdf
-U0VUX0ZJRUxEKHRtcCwgQ1BfTVFEX0NPTlRST0wsIFZNSUQsIDApOwotCVdSRUczMl9TT0MxNShH
-QywgMCwgbW1DUF9NUURfQ09OVFJPTCwgdG1wKTsKLQltcWQtPmNwX21xZF9jb250cm9sID0gdG1w
-OwotCi0JLyogc2V0IHRoZSBwb2ludGVyIHRvIHRoZSBIUUQsIHRoaXMgaXMgc2ltaWxhciBDUF9S
-QjBfQkFTRS9fSEkgKi8KLQlocWRfZ3B1X2FkZHIgPSByaW5nLT5ncHVfYWRkciA+PiA4OwotCW1x
-ZC0+Y3BfaHFkX3BxX2Jhc2VfbG8gPSBocWRfZ3B1X2FkZHI7Ci0JbXFkLT5jcF9ocWRfcHFfYmFz
-ZV9oaSA9IHVwcGVyXzMyX2JpdHMoaHFkX2dwdV9hZGRyKTsKLQlXUkVHMzJfU09DMTUoR0MsIDAs
-IG1tQ1BfSFFEX1BRX0JBU0UsIG1xZC0+Y3BfaHFkX3BxX2Jhc2VfbG8pOwotCVdSRUczMl9TT0Mx
-NShHQywgMCwgbW1DUF9IUURfUFFfQkFTRV9ISSwgbXFkLT5jcF9ocWRfcHFfYmFzZV9oaSk7Ci0K
-LQkvKiBzZXQgdXAgdGhlIEhRRCwgdGhpcyBpcyBzaW1pbGFyIHRvIENQX1JCMF9DTlRMICovCi0J
-dG1wID0gUlJFRzMyX1NPQzE1KEdDLCAwLCBtbUNQX0hRRF9QUV9DT05UUk9MKTsKLQl0bXAgPSBS
-RUdfU0VUX0ZJRUxEKHRtcCwgQ1BfSFFEX1BRX0NPTlRST0wsIFFVRVVFX1NJWkUsCi0JCShvcmRl
-cl9iYXNlXzIocmluZy0+cmluZ19zaXplIC8gNCkgLSAxKSk7Ci0JdG1wID0gUkVHX1NFVF9GSUVM
-RCh0bXAsIENQX0hRRF9QUV9DT05UUk9MLCBSUFRSX0JMT0NLX1NJWkUsCi0JCSgob3JkZXJfYmFz
-ZV8yKEFNREdQVV9HUFVfUEFHRV9TSVpFIC8gNCkgLSAxKSA8PCA4KSk7Ci0jaWZkZWYgX19CSUdf
-RU5ESUFOCi0JdG1wID0gUkVHX1NFVF9GSUVMRCh0bXAsIENQX0hRRF9QUV9DT05UUk9MLCBFTkRJ
-QU5fU1dBUCwgMSk7Ci0jZW5kaWYKLQl0bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwgQ1BfSFFEX1BR
-X0NPTlRST0wsIFVOT1JEX0RJU1BBVENILCAwKTsKLQl0bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwg
-Q1BfSFFEX1BRX0NPTlRST0wsIFJPUV9QUV9JQl9GTElQLCAwKTsKLQl0bXAgPSBSRUdfU0VUX0ZJ
-RUxEKHRtcCwgQ1BfSFFEX1BRX0NPTlRST0wsIFBSSVZfU1RBVEUsIDEpOwotCXRtcCA9IFJFR19T
-RVRfRklFTEQodG1wLCBDUF9IUURfUFFfQ09OVFJPTCwgS01EX1FVRVVFLCAxKTsKLQlXUkVHMzJf
-U09DMTUoR0MsIDAsIG1tQ1BfSFFEX1BRX0NPTlRST0wsIHRtcCk7Ci0JbXFkLT5jcF9ocWRfcHFf
-Y29udHJvbCA9IHRtcDsKLQotCS8qIHNldCB0aGUgd2IgYWRkcmVzcyB3ZXRoZXIgaXQncyBlbmFi
-bGVkIG9yIG5vdCAqLwotCXdiX2dwdV9hZGRyID0gYWRldi0+d2IuZ3B1X2FkZHIgKyAocmluZy0+
-cnB0cl9vZmZzICogNCk7Ci0JbXFkLT5jcF9ocWRfcHFfcnB0cl9yZXBvcnRfYWRkcl9sbyA9IHdi
-X2dwdV9hZGRyICYgMHhmZmZmZmZmYzsKLQltcWQtPmNwX2hxZF9wcV9ycHRyX3JlcG9ydF9hZGRy
-X2hpID0KLQl1cHBlcl8zMl9iaXRzKHdiX2dwdV9hZGRyKSAmIDB4ZmZmZjsKLQlXUkVHMzJfU09D
-MTUoR0MsIDAsIG1tQ1BfSFFEX1BRX1JQVFJfUkVQT1JUX0FERFIsCi0JCW1xZC0+Y3BfaHFkX3Bx
-X3JwdHJfcmVwb3J0X2FkZHJfbG8pOwotCVdSRUczMl9TT0MxNShHQywgMCwgbW1DUF9IUURfUFFf
-UlBUUl9SRVBPUlRfQUREUl9ISSwKLQkJbXFkLT5jcF9ocWRfcHFfcnB0cl9yZXBvcnRfYWRkcl9o
-aSk7Ci0KLQkvKiBvbmx5IHVzZWQgaWYgQ1BfUFFfV1BUUl9QT0xMX0NOVEwuQ1BfUFFfV1BUUl9Q
-T0xMX0NOVExfX0VOX01BU0s9MSAqLwotCXdiX2dwdV9hZGRyID0gYWRldi0+d2IuZ3B1X2FkZHIg
-KyAocmluZy0+d3B0cl9vZmZzICogNCk7Ci0JbXFkLT5jcF9ocWRfcHFfd3B0cl9wb2xsX2FkZHJf
-bG8gPSB3Yl9ncHVfYWRkciAmIDB4ZmZmZmZmZmM7Ci0JbXFkLT5jcF9ocWRfcHFfd3B0cl9wb2xs
-X2FkZHJfaGkgPSB1cHBlcl8zMl9iaXRzKHdiX2dwdV9hZGRyKSAmIDB4ZmZmZjsKLQlXUkVHMzJf
-U09DMTUoR0MsIDAsIG1tQ1BfSFFEX1BRX1dQVFJfUE9MTF9BRERSLAotCQltcWQtPmNwX2hxZF9w
-cV93cHRyX3BvbGxfYWRkcl9sbyk7Ci0JV1JFRzMyX1NPQzE1KEdDLCAwLCBtbUNQX0hRRF9QUV9X
-UFRSX1BPTExfQUREUl9ISSwKLQkJbXFkLT5jcF9ocWRfcHFfd3B0cl9wb2xsX2FkZHJfaGkpOwot
-Ci0JLyogZW5hYmxlIHRoZSBkb29yYmVsbCBpZiByZXF1ZXN0ZWQgKi8KLQlpZiAodXNlX2Rvb3Ji
-ZWxsKSB7Ci0JCVdSRUczMl9TT0MxNShHQywgMCwgbW1DUF9NRUNfRE9PUkJFTExfUkFOR0VfTE9X
-RVIsCi0JCQkoQU1ER1BVX0RPT1JCRUxMNjRfS0lRICogMikgPDwgMik7Ci0JCVdSRUczMl9TT0Mx
-NShHQywgMCwgbW1DUF9NRUNfRE9PUkJFTExfUkFOR0VfVVBQRVIsCi0JCQkoQU1ER1BVX0RPT1JC
-RUxMNjRfTUVDX1JJTkc3ICogMikgPDwgMik7Ci0JCXRtcCA9IFJSRUczMl9TT0MxNShHQywgMCwg
-bW1DUF9IUURfUFFfRE9PUkJFTExfQ09OVFJPTCk7Ci0JCXRtcCA9IFJFR19TRVRfRklFTEQodG1w
-LCBDUF9IUURfUFFfRE9PUkJFTExfQ09OVFJPTCwKLQkJCURPT1JCRUxMX09GRlNFVCwgcmluZy0+
-ZG9vcmJlbGxfaW5kZXgpOwotCQl0bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwgQ1BfSFFEX1BRX0RP
-T1JCRUxMX0NPTlRST0wsIERPT1JCRUxMX0VOLCAxKTsKLQkJdG1wID0gUkVHX1NFVF9GSUVMRCh0
-bXAsIENQX0hRRF9QUV9ET09SQkVMTF9DT05UUk9MLCBET09SQkVMTF9TT1VSQ0UsIDApOwotCQl0
-bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwgQ1BfSFFEX1BRX0RPT1JCRUxMX0NPTlRST0wsIERPT1JC
-RUxMX0hJVCwgMCk7Ci0JCW1xZC0+Y3BfaHFkX3BxX2Rvb3JiZWxsX2NvbnRyb2wgPSB0bXA7Ci0K
-LQl9IGVsc2UgewotCQltcWQtPmNwX2hxZF9wcV9kb29yYmVsbF9jb250cm9sID0gMDsKLQl9Ci0J
-V1JFRzMyX1NPQzE1KEdDLCAwLCBtbUNQX0hRRF9QUV9ET09SQkVMTF9DT05UUk9MLAotCQltcWQt
-PmNwX2hxZF9wcV9kb29yYmVsbF9jb250cm9sKTsKLQotCS8qIHJlc2V0IHJlYWQgYW5kIHdyaXRl
-IHBvaW50ZXJzLCBzaW1pbGFyIHRvIENQX1JCMF9XUFRSL19SUFRSICovCi0JV1JFRzMyX1NPQzE1
-KEdDLCAwLCBtbUNQX0hRRF9QUV9XUFRSX0xPLCBtcWQtPmNwX2hxZF9wcV93cHRyX2xvKTsKLQlX
-UkVHMzJfU09DMTUoR0MsIDAsIG1tQ1BfSFFEX1BRX1dQVFJfSEksIG1xZC0+Y3BfaHFkX3BxX3dw
-dHJfaGkpOwotCi0JLyogc2V0IHRoZSB2bWlkIGZvciB0aGUgcXVldWUgKi8KLQltcWQtPmNwX2hx
-ZF92bWlkID0gMDsKLQlXUkVHMzJfU09DMTUoR0MsIDAsIG1tQ1BfSFFEX1ZNSUQsIG1xZC0+Y3Bf
-aHFkX3ZtaWQpOwotCi0JdG1wID0gUlJFRzMyX1NPQzE1KEdDLCAwLCBtbUNQX0hRRF9QRVJTSVNU
-RU5UX1NUQVRFKTsKLQl0bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwgQ1BfSFFEX1BFUlNJU1RFTlRf
-U1RBVEUsIFBSRUxPQURfU0laRSwgMHg1Myk7Ci0JV1JFRzMyX1NPQzE1KEdDLCAwLCBtbUNQX0hR
-RF9QRVJTSVNURU5UX1NUQVRFLCB0bXApOwotCW1xZC0+Y3BfaHFkX3BlcnNpc3RlbnRfc3RhdGUg
-PSB0bXA7Ci0KLQkvKiBhY3RpdmF0ZSB0aGUgcXVldWUgKi8KLQltcWQtPmNwX2hxZF9hY3RpdmUg
-PSAxOwotCVdSRUczMl9TT0MxNShHQywgMCwgbW1DUF9IUURfQUNUSVZFLCBtcWQtPmNwX2hxZF9h
-Y3RpdmUpOwotCi0Jc29jMTVfZ3JibV9zZWxlY3QoYWRldiwgMCwgMCwgMCwgMCk7Ci0JbXV0ZXhf
-dW5sb2NrKCZhZGV2LT5zcmJtX211dGV4KTsKLQotCWFtZGdwdV9ib19rdW5tYXAocmluZy0+bXFk
-X29iaik7Ci0JYW1kZ3B1X2JvX3VucmVzZXJ2ZShyaW5nLT5tcWRfb2JqKTsKLQotCWlmICh1c2Vf
-ZG9vcmJlbGwpCi0JCVdSRUczMl9GSUVMRDE1KEdDLCAwLCBDUF9QUV9TVEFUVVMsIERPT1JCRUxM
-X0VOQUJMRSwgMSk7Ci0KLQlyZXR1cm4gMDsKLX0KLQogY29uc3Qgc3RydWN0IGFtZGdwdV9pcF9i
-bG9ja192ZXJzaW9uIGdmeF92OV8wX2lwX2Jsb2NrID0KIHsKIAkudHlwZSA9IEFNRF9JUF9CTE9D
-S19UWVBFX0dGWCwKLS0gCjIuNS41CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
-ZC1nZngK
+--===============2054418137==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1652C49F0735A34CF03F7642F7190BN6PR12MB1652namp_"
+
+--_000_BN6PR12MB1652C49F0735A34CF03F7642F7190BN6PR12MB1652namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Thanks.  Updated patch sent out.
+
+Alex
+
+From: Zhu, Rex
+Sent: Tuesday, April 18, 2017 2:11 AM
+To: Alex Deucher; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Deucher, Alexander
+Subject: Re: [PATCH 12/12] drm/amdgpu/gfx9: Switch baremetal to use KIQ for=
+ compute ring management. (v3)
+
+
++static int gfx_v9_0_kiq_kcq_disable(struct amdgpu_device *adev)
+
+...............
+
++               DRM_ERROR("KCQ enable failed (scratch(0x%04X)=3D0x%08X)\n",
+
+
+
+should be disable here.
+
+
+
+Best Regards
+
+Rex
+
+
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> on behalf of Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<m=
+ailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>
+Sent: Tuesday, April 18, 2017 6:00:47 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Deucher, Alexander
+Subject: [PATCH 12/12] drm/amdgpu/gfx9: Switch baremetal to use KIQ for com=
+pute ring management. (v3)
+
+KIQ is the Kernel Interface Queue for managing the MEC.  Rather than settin=
+g
+up rings via direct MMIO of ring registers, the rings are configured via
+special packets sent to the KIQ.  The allows the MEC to better manage share=
+d
+resources and certain power events. It also reduces the code paths in the
+driver to support and is required for MEC powergating.
+
+v2: drop gfx_v9_0_cp_compute_fini() as well
+v3: rebase on latest changes derived from gfx8, add unmap queues on
+hw_fini
+
+Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org<mailto:alexander.deu=
+cher-5C7GfCeVMHo@public.gmane.org>>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 374 ++++++++----------------------=
+----
+ 1 file changed, 81 insertions(+), 293 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v9_0.c
+index f86a7f6..ef7a3ee 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -1113,23 +1113,21 @@ static int gfx_v9_0_sw_init(void *handle)
+                         return r;
+         }
+
+-       if (amdgpu_sriov_vf(adev)) {
+-               r =3D gfx_v9_0_kiq_init(adev);
+-               if (r) {
+-                       DRM_ERROR("Failed to init KIQ BOs!\n");
+-                       return r;
+-               }
++       r =3D gfx_v9_0_kiq_init(adev);
++       if (r) {
++               DRM_ERROR("Failed to init KIQ BOs!\n");
++               return r;
++       }
+
+-               kiq =3D &adev->gfx.kiq;
+-               r =3D gfx_v9_0_kiq_init_ring(adev, &kiq->ring, &kiq->irq);
+-               if (r)
+-                       return r;
++       kiq =3D &adev->gfx.kiq;
++       r =3D gfx_v9_0_kiq_init_ring(adev, &kiq->ring, &kiq->irq);
++       if (r)
++               return r;
+
+-               /* create MQD for all compute queues as wel as KIQ for SRIO=
+V case */
+-               r =3D gfx_v9_0_compute_mqd_sw_init(adev);
+-               if (r)
+-                       return r;
+-       }
++       /* create MQD for all compute queues as wel as KIQ for SRIOV case *=
+/
++       r =3D gfx_v9_0_compute_mqd_sw_init(adev);
++       if (r)
++               return r;
+
+         /* reserve GDS, GWS and OA resource for gfx */
+         r =3D amdgpu_bo_create_kernel(adev, adev->gds.mem.gfx_partition_si=
+ze,
+@@ -1176,11 +1174,9 @@ static int gfx_v9_0_sw_fini(void *handle)
+         for (i =3D 0; i < adev->gfx.num_compute_rings; i++)
+                 amdgpu_ring_fini(&adev->gfx.compute_ring[i]);
+
+-       if (amdgpu_sriov_vf(adev)) {
+-               gfx_v9_0_compute_mqd_sw_fini(adev);
+-               gfx_v9_0_kiq_free_ring(&adev->gfx.kiq.ring, &adev->gfx.kiq.=
+irq);
+-               gfx_v9_0_kiq_fini(adev);
+-       }
++       gfx_v9_0_compute_mqd_sw_fini(adev);
++       gfx_v9_0_kiq_free_ring(&adev->gfx.kiq.ring, &adev->gfx.kiq.irq);
++       gfx_v9_0_kiq_fini(adev);
+
+         gfx_v9_0_mec_fini(adev);
+         gfx_v9_0_ngg_fini(adev);
+@@ -1736,13 +1732,6 @@ static void gfx_v9_0_cp_compute_enable(struct amdgpu=
+_device *adev, bool enable)
+         udelay(50);
+ }
+
+-static int gfx_v9_0_cp_compute_start(struct amdgpu_device *adev)
+-{
+-       gfx_v9_0_cp_compute_enable(adev, true);
+-
+-       return 0;
+-}
+-
+ static int gfx_v9_0_cp_compute_load_microcode(struct amdgpu_device *adev)
+ {
+         const struct gfx_firmware_header_v1_0 *mec_hdr;
+@@ -1785,45 +1774,6 @@ static int gfx_v9_0_cp_compute_load_microcode(struct=
+ amdgpu_device *adev)
+         return 0;
+ }
+
+-static void gfx_v9_0_cp_compute_fini(struct amdgpu_device *adev)
+-{
+-       int i, r;
+-
+-       for (i =3D 0; i < adev->gfx.num_compute_rings; i++) {
+-               struct amdgpu_ring *ring =3D &adev->gfx.compute_ring[i];
+-
+-               if (ring->mqd_obj) {
+-                       r =3D amdgpu_bo_reserve(ring->mqd_obj, false);
+-                       if (unlikely(r !=3D 0))
+-                               dev_warn(adev->dev, "(%d) reserve MQD bo fa=
+iled\n", r);
+-
+-                       amdgpu_bo_unpin(ring->mqd_obj);
+-                       amdgpu_bo_unreserve(ring->mqd_obj);
+-
+-                       amdgpu_bo_unref(&ring->mqd_obj);
+-                       ring->mqd_obj =3D NULL;
+-               }
+-       }
+-}
+-
+-static int gfx_v9_0_init_queue(struct amdgpu_ring *ring);
+-
+-static int gfx_v9_0_cp_compute_resume(struct amdgpu_device *adev)
+-{
+-       int i, r;
+-       for (i =3D 0; i < adev->gfx.num_compute_rings; i++) {
+-               struct amdgpu_ring *ring =3D &adev->gfx.compute_ring[i];
+-               if (gfx_v9_0_init_queue(ring))
+-                       dev_warn(adev->dev, "compute queue %d init failed!\=
+n", i);
+-       }
+-
+-       r =3D gfx_v9_0_cp_compute_start(adev);
+-       if (r)
+-               return r;
+-
+-       return 0;
+-}
+-
+ /* KIQ functions */
+ static void gfx_v9_0_kiq_setting(struct amdgpu_ring *ring)
+ {
+@@ -1914,6 +1864,56 @@ static int gfx_v9_0_kiq_kcq_enable(struct amdgpu_dev=
+ice *adev)
+         return r;
+ }
+
++static int gfx_v9_0_kiq_kcq_disable(struct amdgpu_device *adev)
++{
++       struct amdgpu_ring *kiq_ring =3D &adev->gfx.kiq.ring;
++       uint32_t scratch, tmp =3D 0;
++       int r, i;
++
++       r =3D amdgpu_gfx_scratch_get(adev, &scratch);
++       if (r) {
++               DRM_ERROR("Failed to get scratch reg (%d).\n", r);
++               return r;
++       }
++       WREG32(scratch, 0xCAFEDEAD);
++
++       r =3D amdgpu_ring_alloc(kiq_ring, 6 + 3);
++       if (r) {
++               DRM_ERROR("Failed to lock KIQ (%d).\n", r);
++               amdgpu_gfx_scratch_free(adev, scratch);
++               return r;
++       }
++       /* unmap queues */
++       amdgpu_ring_write(kiq_ring, PACKET3(PACKET3_UNMAP_QUEUES, 4));
++       amdgpu_ring_write(kiq_ring,
++                         PACKET3_UNMAP_QUEUES_ACTION(1)| /* RESET_QUEUES *=
+/
++                         PACKET3_UNMAP_QUEUES_QUEUE_SEL(2)); /* select all=
+ queues */
++       amdgpu_ring_write(kiq_ring, 0);
++       amdgpu_ring_write(kiq_ring, 0);
++       amdgpu_ring_write(kiq_ring, 0);
++       amdgpu_ring_write(kiq_ring, 0);
++       /* write to scratch for completion */
++       amdgpu_ring_write(kiq_ring, PACKET3(PACKET3_SET_UCONFIG_REG, 1));
++       amdgpu_ring_write(kiq_ring, (scratch - PACKET3_SET_UCONFIG_REG_STAR=
+T));
++       amdgpu_ring_write(kiq_ring, 0xDEADBEEF);
++       amdgpu_ring_commit(kiq_ring);
++
++       for (i =3D 0; i < adev->usec_timeout; i++) {
++               tmp =3D RREG32(scratch);
++               if (tmp =3D=3D 0xDEADBEEF)
++                       break;
++               DRM_UDELAY(1);
++       }
++       if (i >=3D adev->usec_timeout) {
++               DRM_ERROR("KCQ enable failed (scratch(0x%04X)=3D0x%08X)\n",
++                         scratch, tmp);
++               r =3D -EINVAL;
++       }
++       amdgpu_gfx_scratch_free(adev, scratch);
++
++       return r;
++}
++
+ static int gfx_v9_0_mqd_init(struct amdgpu_ring *ring)
+ {
+         struct amdgpu_device *adev =3D ring->adev;
+@@ -2194,7 +2194,7 @@ static int gfx_v9_0_kcq_init_queue(struct amdgpu_ring=
+ *ring)
+         struct v9_mqd *mqd =3D ring->mqd_ptr;
+         int mqd_idx =3D ring - &adev->gfx.compute_ring[0];
+
+-       if (!adev->gfx.in_reset) {
++       if (!adev->gfx.in_reset && !adev->gfx.in_suspend) {
+                 memset((void *)mqd, 0, sizeof(*mqd));
+                 mutex_lock(&adev->srbm_mutex);
+                 soc15_grbm_select(adev, ring->me, ring->pipe, ring->queue,=
+ 0);
+@@ -2285,10 +2285,7 @@ static int gfx_v9_0_cp_resume(struct amdgpu_device *=
+adev)
+         if (r)
+                 return r;
+
+-       if (amdgpu_sriov_vf(adev))
+-               r =3D gfx_v9_0_kiq_resume(adev);
+-       else
+-               r =3D gfx_v9_0_cp_compute_resume(adev);
++       r =3D gfx_v9_0_kiq_resume(adev);
+         if (r)
+                 return r;
+
+@@ -2298,6 +2295,13 @@ static int gfx_v9_0_cp_resume(struct amdgpu_device *=
+adev)
+                 ring->ready =3D false;
+                 return r;
+         }
++
++       ring =3D &adev->gfx.kiq.ring;
++       ring->ready =3D true;
++       r =3D amdgpu_ring_test_ring(ring);
++       if (r)
++               ring->ready =3D false;
++
+         for (i =3D 0; i < adev->gfx.num_compute_rings; i++) {
+                 ring =3D &adev->gfx.compute_ring[i];
+
+@@ -2307,14 +2311,6 @@ static int gfx_v9_0_cp_resume(struct amdgpu_device *=
+adev)
+                         ring->ready =3D false;
+         }
+
+-       if (amdgpu_sriov_vf(adev)) {
+-               ring =3D &adev->gfx.kiq.ring;
+-               ring->ready =3D true;
+-               r =3D amdgpu_ring_test_ring(ring);
+-               if (r)
+-                       ring->ready =3D false;
+-       }
+-
+         gfx_v9_0_enable_gui_idle_interrupt(adev, true);
+
+         return 0;
+@@ -2360,9 +2356,9 @@ static int gfx_v9_0_hw_fini(void *handle)
+                 pr_debug("For SRIOV client, shouldn't do anything.\n");
+                 return 0;
+         }
++       gfx_v9_0_kiq_kcq_disable(adev);
+         gfx_v9_0_cp_enable(adev, false);
+         gfx_v9_0_rlc_stop(adev);
+-       gfx_v9_0_cp_compute_fini(adev);
+
+         return 0;
+ }
+@@ -2371,14 +2367,18 @@ static int gfx_v9_0_suspend(void *handle)
+ {
+         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
+
++       adev->gfx.in_suspend =3D true;
+         return gfx_v9_0_hw_fini(adev);
+ }
+
+ static int gfx_v9_0_resume(void *handle)
+ {
+         struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
++       int r;
+
+-       return gfx_v9_0_hw_init(adev);
++       r =3D gfx_v9_0_hw_init(adev);
++       adev->gfx.in_suspend =3D false;
++       return r;
+ }
+
+ static bool gfx_v9_0_is_idle(void *handle)
+@@ -3753,218 +3753,6 @@ static int gfx_v9_0_get_cu_info(struct amdgpu_devic=
+e *adev,
+         return 0;
+ }
+
+-static int gfx_v9_0_init_queue(struct amdgpu_ring *ring)
+-{
+-       int r, j;
+-       u32 tmp;
+-       bool use_doorbell =3D true;
+-       u64 hqd_gpu_addr;
+-       u64 mqd_gpu_addr;
+-       u64 eop_gpu_addr;
+-       u64 wb_gpu_addr;
+-       u32 *buf;
+-       struct v9_mqd *mqd;
+-       struct amdgpu_device *adev;
+-
+-       adev =3D ring->adev;
+-       if (ring->mqd_obj =3D=3D NULL) {
+-               r =3D amdgpu_bo_create(adev,
+-                               sizeof(struct v9_mqd),
+-                               PAGE_SIZE,true,
+-                               AMDGPU_GEM_DOMAIN_GTT, 0, NULL,
+-                               NULL, &ring->mqd_obj);
+-               if (r) {
+-                       dev_warn(adev->dev, "(%d) create MQD bo failed\n", =
+r);
+-                       return r;
+-               }
+-       }
+-
+-       r =3D amdgpu_bo_reserve(ring->mqd_obj, false);
+-       if (unlikely(r !=3D 0)) {
+-               gfx_v9_0_cp_compute_fini(adev);
+-               return r;
+-       }
+-
+-       r =3D amdgpu_bo_pin(ring->mqd_obj, AMDGPU_GEM_DOMAIN_GTT,
+-                                 &mqd_gpu_addr);
+-       if (r) {
+-               dev_warn(adev->dev, "(%d) pin MQD bo failed\n", r);
+-               gfx_v9_0_cp_compute_fini(adev);
+-               return r;
+-       }
+-       r =3D amdgpu_bo_kmap(ring->mqd_obj, (void **)&buf);
+-       if (r) {
+-               dev_warn(adev->dev, "(%d) map MQD bo failed\n", r);
+-               gfx_v9_0_cp_compute_fini(adev);
+-               return r;
+-       }
+-
+-       /* init the mqd struct */
+-       memset(buf, 0, sizeof(struct v9_mqd));
+-
+-       mqd =3D (struct v9_mqd *)buf;
+-       mqd->header =3D 0xC0310800;
+-       mqd->compute_pipelinestat_enable =3D 0x00000001;
+-       mqd->compute_static_thread_mgmt_se0 =3D 0xffffffff;
+-       mqd->compute_static_thread_mgmt_se1 =3D 0xffffffff;
+-       mqd->compute_static_thread_mgmt_se2 =3D 0xffffffff;
+-       mqd->compute_static_thread_mgmt_se3 =3D 0xffffffff;
+-       mqd->compute_misc_reserved =3D 0x00000003;
+-       mutex_lock(&adev->srbm_mutex);
+-       soc15_grbm_select(adev, ring->me,
+-                              ring->pipe,
+-                              ring->queue, 0);
+-       /* disable wptr polling */
+-       WREG32_FIELD15(GC, 0, CP_PQ_WPTR_POLL_CNTL, EN, 0);
+-
+-       /* write the EOP addr */
+-       BUG_ON(ring->me !=3D 1 || ring->pipe !=3D 0); /* can't handle other=
+ cases eop address */
+-       eop_gpu_addr =3D adev->gfx.mec.hpd_eop_gpu_addr + (ring->queue * ME=
+C_HPD_SIZE);
+-       eop_gpu_addr >>=3D 8;
+-
+-       WREG32_SOC15(GC, 0, mmCP_HQD_EOP_BASE_ADDR, lower_32_bits(eop_gpu_a=
+ddr));
+-       WREG32_SOC15(GC, 0, mmCP_HQD_EOP_BASE_ADDR_HI, upper_32_bits(eop_gp=
+u_addr));
+-       mqd->cp_hqd_eop_base_addr_lo =3D lower_32_bits(eop_gpu_addr);
+-       mqd->cp_hqd_eop_base_addr_hi =3D upper_32_bits(eop_gpu_addr);
+-
+-       /* set the EOP size, register value is 2^(EOP_SIZE+1) dwords */
+-       tmp =3D RREG32_SOC15(GC, 0, mmCP_HQD_EOP_CONTROL);
+-       tmp =3D REG_SET_FIELD(tmp, CP_HQD_EOP_CONTROL, EOP_SIZE,
+-                                   (order_base_2(MEC_HPD_SIZE / 4) - 1));
+-       WREG32_SOC15(GC, 0, mmCP_HQD_EOP_CONTROL, tmp);
+-
+-       /* enable doorbell? */
+-       tmp =3D RREG32_SOC15(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL);
+-       if (use_doorbell)
+-               tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL, DOOR=
+BELL_EN, 1);
+-       else
+-               tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL, DOOR=
+BELL_EN, 0);
+-
+-       WREG32_SOC15(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL, tmp);
+-       mqd->cp_hqd_pq_doorbell_control =3D tmp;
+-
+-       /* disable the queue if it's active */
+-       ring->wptr =3D 0;
+-       mqd->cp_hqd_dequeue_request =3D 0;
+-       mqd->cp_hqd_pq_rptr =3D 0;
+-       mqd->cp_hqd_pq_wptr_lo =3D 0;
+-       mqd->cp_hqd_pq_wptr_hi =3D 0;
+-       if (RREG32_SOC15(GC, 0, mmCP_HQD_ACTIVE) & 1) {
+-               WREG32_SOC15(GC, 0, mmCP_HQD_DEQUEUE_REQUEST, 1);
+-               for (j =3D 0; j < adev->usec_timeout; j++) {
+-                       if (!(RREG32_SOC15(GC, 0, mmCP_HQD_ACTIVE) & 1))
+-                               break;
+-                       udelay(1);
+-               }
+-               WREG32_SOC15(GC, 0, mmCP_HQD_DEQUEUE_REQUEST, mqd->cp_hqd_d=
+equeue_request);
+-               WREG32_SOC15(GC, 0, mmCP_HQD_PQ_RPTR, mqd->cp_hqd_pq_rptr);
+-               WREG32_SOC15(GC, 0, mmCP_HQD_PQ_WPTR_LO, mqd->cp_hqd_pq_wpt=
+r_lo);
+-               WREG32_SOC15(GC, 0, mmCP_HQD_PQ_WPTR_HI, mqd->cp_hqd_pq_wpt=
+r_hi);
+-       }
+-
+-       /* set the pointer to the MQD */
+-       mqd->cp_mqd_base_addr_lo =3D mqd_gpu_addr & 0xfffffffc;
+-       mqd->cp_mqd_base_addr_hi =3D upper_32_bits(mqd_gpu_addr);
+-       WREG32_SOC15(GC, 0, mmCP_MQD_BASE_ADDR, mqd->cp_mqd_base_addr_lo);
+-       WREG32_SOC15(GC, 0, mmCP_MQD_BASE_ADDR_HI, mqd->cp_mqd_base_addr_hi=
+);
+-
+-       /* set MQD vmid to 0 */
+-       tmp =3D RREG32_SOC15(GC, 0, mmCP_MQD_CONTROL);
+-       tmp =3D REG_SET_FIELD(tmp, CP_MQD_CONTROL, VMID, 0);
+-       WREG32_SOC15(GC, 0, mmCP_MQD_CONTROL, tmp);
+-       mqd->cp_mqd_control =3D tmp;
+-
+-       /* set the pointer to the HQD, this is similar CP_RB0_BASE/_HI */
+-       hqd_gpu_addr =3D ring->gpu_addr >> 8;
+-       mqd->cp_hqd_pq_base_lo =3D hqd_gpu_addr;
+-       mqd->cp_hqd_pq_base_hi =3D upper_32_bits(hqd_gpu_addr);
+-       WREG32_SOC15(GC, 0, mmCP_HQD_PQ_BASE, mqd->cp_hqd_pq_base_lo);
+-       WREG32_SOC15(GC, 0, mmCP_HQD_PQ_BASE_HI, mqd->cp_hqd_pq_base_hi);
+-
+-       /* set up the HQD, this is similar to CP_RB0_CNTL */
+-       tmp =3D RREG32_SOC15(GC, 0, mmCP_HQD_PQ_CONTROL);
+-       tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, QUEUE_SIZE,
+-               (order_base_2(ring->ring_size / 4) - 1));
+-       tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, RPTR_BLOCK_SIZE,
+-               ((order_base_2(AMDGPU_GPU_PAGE_SIZE / 4) - 1) << 8));
+-#ifdef __BIG_ENDIAN
+-       tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, ENDIAN_SWAP, 1);
+-#endif
+-       tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, UNORD_DISPATCH, 0);
+-       tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, ROQ_PQ_IB_FLIP, 0);
+-       tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, PRIV_STATE, 1);
+-       tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_CONTROL, KMD_QUEUE, 1);
+-       WREG32_SOC15(GC, 0, mmCP_HQD_PQ_CONTROL, tmp);
+-       mqd->cp_hqd_pq_control =3D tmp;
+-
+-       /* set the wb address wether it's enabled or not */
+-       wb_gpu_addr =3D adev->wb.gpu_addr + (ring->rptr_offs * 4);
+-       mqd->cp_hqd_pq_rptr_report_addr_lo =3D wb_gpu_addr & 0xfffffffc;
+-       mqd->cp_hqd_pq_rptr_report_addr_hi =3D
+-       upper_32_bits(wb_gpu_addr) & 0xffff;
+-       WREG32_SOC15(GC, 0, mmCP_HQD_PQ_RPTR_REPORT_ADDR,
+-               mqd->cp_hqd_pq_rptr_report_addr_lo);
+-       WREG32_SOC15(GC, 0, mmCP_HQD_PQ_RPTR_REPORT_ADDR_HI,
+-               mqd->cp_hqd_pq_rptr_report_addr_hi);
+-
+-       /* only used if CP_PQ_WPTR_POLL_CNTL.CP_PQ_WPTR_POLL_CNTL__EN_MASK=
+=3D1 */
+-       wb_gpu_addr =3D adev->wb.gpu_addr + (ring->wptr_offs * 4);
+-       mqd->cp_hqd_pq_wptr_poll_addr_lo =3D wb_gpu_addr & 0xfffffffc;
+-       mqd->cp_hqd_pq_wptr_poll_addr_hi =3D upper_32_bits(wb_gpu_addr) & 0=
+xffff;
+-       WREG32_SOC15(GC, 0, mmCP_HQD_PQ_WPTR_POLL_ADDR,
+-               mqd->cp_hqd_pq_wptr_poll_addr_lo);
+-       WREG32_SOC15(GC, 0, mmCP_HQD_PQ_WPTR_POLL_ADDR_HI,
+-               mqd->cp_hqd_pq_wptr_poll_addr_hi);
+-
+-       /* enable the doorbell if requested */
+-       if (use_doorbell) {
+-               WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_LOWER,
+-                       (AMDGPU_DOORBELL64_KIQ * 2) << 2);
+-               WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_UPPER,
+-                       (AMDGPU_DOORBELL64_MEC_RING7 * 2) << 2);
+-               tmp =3D RREG32_SOC15(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL);
+-               tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,
+-                       DOORBELL_OFFSET, ring->doorbell_index);
+-               tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL, DOOR=
+BELL_EN, 1);
+-               tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL, DOOR=
+BELL_SOURCE, 0);
+-               tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL, DOOR=
+BELL_HIT, 0);
+-               mqd->cp_hqd_pq_doorbell_control =3D tmp;
+-
+-       } else {
+-               mqd->cp_hqd_pq_doorbell_control =3D 0;
+-       }
+-       WREG32_SOC15(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL,
+-               mqd->cp_hqd_pq_doorbell_control);
+-
+-       /* reset read and write pointers, similar to CP_RB0_WPTR/_RPTR */
+-       WREG32_SOC15(GC, 0, mmCP_HQD_PQ_WPTR_LO, mqd->cp_hqd_pq_wptr_lo);
+-       WREG32_SOC15(GC, 0, mmCP_HQD_PQ_WPTR_HI, mqd->cp_hqd_pq_wptr_hi);
+-
+-       /* set the vmid for the queue */
+-       mqd->cp_hqd_vmid =3D 0;
+-       WREG32_SOC15(GC, 0, mmCP_HQD_VMID, mqd->cp_hqd_vmid);
+-
+-       tmp =3D RREG32_SOC15(GC, 0, mmCP_HQD_PERSISTENT_STATE);
+-       tmp =3D REG_SET_FIELD(tmp, CP_HQD_PERSISTENT_STATE, PRELOAD_SIZE, 0=
+x53);
+-       WREG32_SOC15(GC, 0, mmCP_HQD_PERSISTENT_STATE, tmp);
+-       mqd->cp_hqd_persistent_state =3D tmp;
+-
+-       /* activate the queue */
+-       mqd->cp_hqd_active =3D 1;
+-       WREG32_SOC15(GC, 0, mmCP_HQD_ACTIVE, mqd->cp_hqd_active);
+-
+-       soc15_grbm_select(adev, 0, 0, 0, 0);
+-       mutex_unlock(&adev->srbm_mutex);
+-
+-       amdgpu_bo_kunmap(ring->mqd_obj);
+-       amdgpu_bo_unreserve(ring->mqd_obj);
+-
+-       if (use_doorbell)
+-               WREG32_FIELD15(GC, 0, CP_PQ_STATUS, DOORBELL_ENABLE, 1);
+-
+-       return 0;
+-}
+-
+ const struct amdgpu_ip_block_version gfx_v9_0_ip_block =3D
+ {
+         .type =3D AMD_IP_BLOCK_TYPE_GFX,
+--
+2.5.5
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB1652C49F0735A34CF03F7642F7190BN6PR12MB1652namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 14 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p
+	{mso-style-priority:99;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-priority:99;
+	mso-style-link:"Balloon Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:"Tahoma","sans-serif";}
+p.emailquote, li.emailquote, div.emailquote
+	{mso-style-name:emailquote;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:1.0pt;
+	margin-bottom:.0001pt;
+	border:none;
+	padding:0in;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+span.BalloonTextChar
+	{mso-style-name:"Balloon Text Char";
+	mso-style-priority:99;
+	mso-style-link:"Balloon Text";
+	font-family:"Tahoma","sans-serif";}
+span.EmailStyle21
+	{mso-style-type:personal-reply;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Thanks.&nbsp; Updated pat=
+ch sent out.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
+/p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Alex<o:p></o:p></span></p=
+>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
+/p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
+;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span style=3D"font-s=
+ize:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> Zhu, Rex
+<br>
+<b>Sent:</b> Tuesday, April 18, 2017 2:11 AM<br>
+<b>To:</b> Alex Deucher; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Deucher, Alexander<br>
+<b>Subject:</b> Re: [PATCH 12/12] drm/amdgpu/gfx9: Switch baremetal to use =
+KIQ for compute ring management. (v3)<o:p></o:p></span></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div id=3D"x_divRplyFwdMsg">
+<p><span style=3D"font-size:10.0pt;font-family:&quot;Calibri&quot;,&quot;sa=
+ns-serif&quot;;color:black">&#43;static int gfx_v9_0_kiq_kcq_disable(struct=
+ amdgpu_device *adev)</span><span style=3D"font-family:&quot;Calibri&quot;,=
+&quot;sans-serif&quot;;color:black"><o:p></o:p></span></p>
+<p><span style=3D"font-size:10.0pt;font-family:&quot;Calibri&quot;,&quot;sa=
+ns-serif&quot;;color:black">...............</span><span style=3D"font-famil=
+y:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black"><o:p></o:p></span=
+></p>
+<p><span style=3D"font-size:10.0pt;font-family:&quot;Calibri&quot;,&quot;sa=
+ns-serif&quot;;color:black">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;KCQ
+</span><span style=3D"font-size:10.0pt;font-family:&quot;Calibri&quot;,&quo=
+t;sans-serif&quot;;color:#D05C12">enable</span><span style=3D"font-size:10.=
+0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black"> fa=
+iled (scratch(0x%04X)=3D0x%08X)\n&quot;,</span><span style=3D"font-family:&=
+quot;Calibri&quot;,&quot;sans-serif&quot;;color:black"><o:p></o:p></span></=
+p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black"><o:p>&nbsp;</o:p></span></p>
+<p><span style=3D"font-size:10.0pt;font-family:&quot;Calibri&quot;,&quot;sa=
+ns-serif&quot;;color:black">should be disable here.</span><span style=3D"fo=
+nt-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:black"><o:p></o:=
+p></span></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black"><o:p>&nbsp;</o:p></span></p>
+<p><span style=3D"font-size:10.0pt;font-family:&quot;Calibri&quot;,&quot;sa=
+ns-serif&quot;;color:black">Best Regards</span><span style=3D"font-family:&=
+quot;Calibri&quot;,&quot;sans-serif&quot;;color:black"><o:p></o:p></span></=
+p>
+<p><span style=3D"font-size:10.0pt;font-family:&quot;Calibri&quot;,&quot;sa=
+ns-serif&quot;;color:black">Rex</span><span style=3D"font-family:&quot;Cali=
+bri&quot;,&quot;sans-serif&quot;;color:black"><o:p></o:p></span></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
+lor:black"><o:p>&nbsp;</o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"x_divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
+;Calibri&quot;,&quot;sans-serif&quot;;color:black">From:</span></b><span st=
+yle=3D"font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&qu=
+ot;;color:black"> amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
+esktop.org">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt;
+ on behalf of Alex Deucher &lt;<a href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">ale=
+xdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
+<b>Sent:</b> Tuesday, April 18, 2017 6:00:47 AM<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
+reedesktop.org</a><br>
+<b>Cc:</b> Deucher, Alexander<br>
+<b>Subject:</b> [PATCH 12/12] drm/amdgpu/gfx9: Switch baremetal to use KIQ =
+for compute ring management. (v3)</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt">KIQ is the Kernel I=
+nterface Queue for managing the MEC.&nbsp; Rather than setting<br>
+up rings via direct MMIO of ring registers, the rings are configured via<br=
+>
+special packets sent to the KIQ.&nbsp; The allows the MEC to better manage =
+shared<br>
+resources and certain power events. It also reduces the code paths in the<b=
+r>
+driver to support and is required for MEC powergating.<br>
+<br>
+v2: drop gfx_v9_0_cp_compute_fini() as well<br>
+v3: rebase on latest changes derived from gfx8, add unmap queues on<br>
+hw_fini<br>
+<br>
+Signed-off-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org=
+">alexander.deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 374 &#43;&#43;&#43;&#43;&#43;=
+&#43;&#43;&#43;--------------------------<br>
+&nbsp;1 file changed, 81 insertions(&#43;), 293 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v9_0.c<br>
+index f86a7f6..ef7a3ee 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
+@@ -1113,23 &#43;1113,21 @@ static int gfx_v9_0_sw_init(void *handle)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
+n r;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev)) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; r =3D gfx_v9_0_kiq_init(adev);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (r) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;=
+Failed to init KIQ BOs!\n&quot;);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D gfx_v9_0_kiq_init(adev);<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; DRM_ERROR(&quot;Failed to init KIQ BOs!\n&quot;);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return r;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; kiq =3D &amp;adev-&gt;gfx.kiq;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; r =3D gfx_v9_0_kiq_init_ring(adev, &amp;kiq-&gt;ring, &amp;kiq-&=
+gt;irq);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (r)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kiq =3D &amp;adev-&gt;gfx.kiq;<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D gfx_v9_0_kiq_init_ring(adev=
+, &amp;kiq-&gt;ring, &amp;kiq-&gt;irq);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return r;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; /* create MQD for all compute queues as wel as KIQ for SRIOV cas=
+e */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; r =3D gfx_v9_0_compute_mqd_sw_init(adev);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (r)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* create MQD for all compute que=
+ues as wel as KIQ for SRIOV case */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D gfx_v9_0_compute_mqd_sw_ini=
+t(adev);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return r;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* reserve GDS, GWS and OA=
+ resource for gfx */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_create_ker=
+nel(adev, adev-&gt;gds.mem.gfx_partition_size,<br>
+@@ -1176,11 &#43;1174,9 @@ static int gfx_v9_0_sw_fini(void *handle)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; adev-=
+&gt;gfx.num_compute_rings; i&#43;&#43;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; amdgpu_ring_fini(&amp;adev-&gt;gfx.compute_ring[i]);<=
+br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev)) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; gfx_v9_0_compute_mqd_sw_fini(adev);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; gfx_v9_0_kiq_free_ring(&amp;adev-&gt;gfx.kiq.ring, &amp;adev-&gt=
+;gfx.kiq.irq);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; gfx_v9_0_kiq_fini(adev);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx_v9_0_compute_mqd_sw_fini(adev=
+);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx_v9_0_kiq_free_ring(&amp;adev-=
+&gt;gfx.kiq.ring, &amp;adev-&gt;gfx.kiq.irq);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx_v9_0_kiq_fini(adev);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx_v9_0_mec_fini(adev);<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx_v9_0_ngg_fini(adev);<b=
+r>
+@@ -1736,13 &#43;1732,6 @@ static void gfx_v9_0_cp_compute_enable(struct am=
+dgpu_device *adev, bool enable)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; udelay(50);<br>
+&nbsp;}<br>
+&nbsp;<br>
+-static int gfx_v9_0_cp_compute_start(struct amdgpu_device *adev)<br>
+-{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx_v9_0_cp_compute_enable(adev, true=
+);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+-}<br>
+-<br>
+&nbsp;static int gfx_v9_0_cp_compute_load_microcode(struct amdgpu_device *a=
+dev)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct gfx_firmware_=
+header_v1_0 *mec_hdr;<br>
+@@ -1785,45 &#43;1774,6 @@ static int gfx_v9_0_cp_compute_load_microcode(st=
+ruct amdgpu_device *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+&nbsp;<br>
+-static void gfx_v9_0_cp_compute_fini(struct amdgpu_device *adev)<br>
+-{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i, r;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; adev-&gt;gfx.num=
+_compute_rings; i&#43;&#43;) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; struct amdgpu_ring *ring =3D &amp;adev-&gt;gfx.compute_ring[i];<=
+br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (ring-&gt;mqd_obj) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_=
+reserve(ring-&gt;mqd_obj, false);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (unlikely(r !=
+=3D 0))<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_warn(adev-&gt;dev, &quot;(%d) reserve M=
+QD bo failed\n&quot;, r);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(=
+ring-&gt;mqd_obj);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_unrese=
+rve(ring-&gt;mqd_obj);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_unref(=
+&amp;ring-&gt;mqd_obj);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ring-&gt;mqd_obj=
+ =3D NULL;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; }<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+-}<br>
+-<br>
+-static int gfx_v9_0_init_queue(struct amdgpu_ring *ring);<br>
+-<br>
+-static int gfx_v9_0_cp_compute_resume(struct amdgpu_device *adev)<br>
+-{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i, r;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; adev-&gt;gfx.num=
+_compute_rings; i&#43;&#43;) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; struct amdgpu_ring *ring =3D &amp;adev-&gt;gfx.compute_ring[i];<=
+br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (gfx_v9_0_init_queue(ring))<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_warn(adev-&g=
+t;dev, &quot;compute queue %d init failed!\n&quot;, i);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D gfx_v9_0_cp_compute_start(adev)=
+;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return r;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+-}<br>
+-<br>
+&nbsp;/* KIQ functions */<br>
+&nbsp;static void gfx_v9_0_kiq_setting(struct amdgpu_ring *ring)<br>
+&nbsp;{<br>
+@@ -1914,6 &#43;1864,56 @@ static int gfx_v9_0_kiq_kcq_enable(struct amdgpu=
+_device *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&nbsp;}<br>
+&nbsp;<br>
+&#43;static int gfx_v9_0_kiq_kcq_disable(struct amdgpu_device *adev)<br>
+&#43;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ring *kiq_ring =3D =
+&amp;adev-&gt;gfx.kiq.ring;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t scratch, tmp =3D 0;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r, i;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_gfx_scratch_get(adev=
+, &amp;scratch);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; DRM_ERROR(&quot;Failed to get scratch reg (%d).\n&quot;, r);=
+<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return r;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(scratch, 0xCAFEDEAD);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_ring_alloc(kiq_ring,=
+ 6 &#43; 3);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; DRM_ERROR(&quot;Failed to lock KIQ (%d).\n&quot;, r);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; amdgpu_gfx_scratch_free(adev, scratch);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return r;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* unmap queues */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(kiq_ring, PACKE=
+T3(PACKET3_UNMAP_QUEUES, 4));<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(kiq_ring,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+PACKET3_UNMAP_QUEUES_ACTION(1)| /* RESET_QUEUES */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+PACKET3_UNMAP_QUEUES_QUEUE_SEL(2)); /* select all queues */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(kiq_ring, 0);<b=
+r>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(kiq_ring, 0);<b=
+r>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(kiq_ring, 0);<b=
+r>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(kiq_ring, 0);<b=
+r>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* write to scratch for completio=
+n */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(kiq_ring, PACKE=
+T3(PACKET3_SET_UCONFIG_REG, 1));<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(kiq_ring, (scra=
+tch - PACKET3_SET_UCONFIG_REG_START));<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(kiq_ring, 0xDEA=
+DBEEF);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_commit(kiq_ring);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; adev-&gt;use=
+c_timeout; i&#43;&#43;) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; tmp =3D RREG32(scratch);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (tmp =3D=3D 0xDEADBEEF)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; DRM_UDELAY(1);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (i &gt;=3D adev-&gt;usec_timeo=
+ut) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; DRM_ERROR(&quot;KCQ enable failed (scratch(0x%04X)=3D0x%08X)=
+\n&quot;,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+scratch, tmp);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; r =3D -EINVAL;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_gfx_scratch_free(adev, scr=
+atch);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&#43;}<br>
+&#43;<br>
+&nbsp;static int gfx_v9_0_mqd_init(struct amdgpu_ring *ring)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D ring-&gt;adev;<br>
+@@ -2194,7 &#43;2194,7 @@ static int gfx_v9_0_kcq_init_queue(struct amdgpu_=
+ring *ring)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct v9_mqd *mqd =3D rin=
+g-&gt;mqd_ptr;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int mqd_idx =3D ring - &am=
+p;adev-&gt;gfx.compute_ring[0];<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;gfx.in_reset) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;gfx.in_reset &amp;&=
+amp; !adev-&gt;gfx.in_suspend) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; memset((void *)mqd, 0, sizeof(*mqd));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;adev-&gt;srbm_mutex);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; soc15_grbm_select(adev, ring-&gt;me, ring-&gt;pipe, r=
+ing-&gt;queue, 0);<br>
+@@ -2285,10 &#43;2285,7 @@ static int gfx_v9_0_cp_resume(struct amdgpu_devi=
+ce *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return r;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; r =3D gfx_v9_0_kiq_resume(adev);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; r =3D gfx_v9_0_cp_compute_resume(adev);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D gfx_v9_0_kiq_resume(adev);<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return r;<br>
+&nbsp;<br>
+@@ -2298,6 &#43;2295,13 @@ static int gfx_v9_0_cp_resume(struct amdgpu_devi=
+ce *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; ring-&gt;ready =3D false;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return r;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ring =3D &amp;adev-&gt;gfx.kiq.ri=
+ng;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ring-&gt;ready =3D true;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_ring_test_ring(ring)=
+;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; ring-&gt;ready =3D false;<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; adev-=
+&gt;gfx.num_compute_rings; i&#43;&#43;) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; ring =3D &amp;adev-&gt;gfx.compute_ring[i];<br>
+&nbsp;<br>
+@@ -2307,14 &#43;2311,6 @@ static int gfx_v9_0_cp_resume(struct amdgpu_devi=
+ce *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ring-=
+&gt;ready =3D false;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev)) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ring =3D &amp;adev-&gt;gfx.kiq.ring;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ring-&gt;ready =3D true;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; r =3D amdgpu_ring_test_ring(ring);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (r)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ring-&gt;ready =
+=3D false;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx_v9_0_enable_gui_idle_i=
+nterrupt(adev, true);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+@@ -2360,9 &#43;2356,9 @@ static int gfx_v9_0_hw_fini(void *handle)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;For SRIOV client, shouldn't do anythin=
+g.\n&quot;);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx_v9_0_kiq_kcq_disable(adev);<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx_v9_0_cp_enable(adev, f=
+alse);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx_v9_0_rlc_stop(adev);<b=
+r>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx_v9_0_cp_compute_fini(adev);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+@@ -2371,14 &#43;2367,18 @@ static int gfx_v9_0_suspend(void *handle)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D (struct amdgpu_device *)handle;<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.in_suspend =3D true;=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return gfx_v9_0_hw_fini(ad=
+ev);<br>
+&nbsp;}<br>
+&nbsp;<br>
+&nbsp;static int gfx_v9_0_resume(void *handle)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D (struct amdgpu_device *)handle;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return gfx_v9_0_hw_init(adev);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D gfx_v9_0_hw_init(adev);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.in_suspend =3D false=
+;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&nbsp;}<br>
+&nbsp;<br>
+&nbsp;static bool gfx_v9_0_is_idle(void *handle)<br>
+@@ -3753,218 &#43;3753,6 @@ static int gfx_v9_0_get_cu_info(struct amdgpu_d=
+evice *adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+&nbsp;<br>
+-static int gfx_v9_0_init_queue(struct amdgpu_ring *ring)<br>
+-{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r, j;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 tmp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool use_doorbell =3D true;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 hqd_gpu_addr;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 mqd_gpu_addr;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 eop_gpu_addr;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 wb_gpu_addr;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 *buf;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct v9_mqd *mqd;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev =3D ring-&gt;adev;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ring-&gt;mqd_obj =3D=3D NULL) {<b=
+r>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; r =3D amdgpu_bo_create(adev,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sizeof(struct v9_mqd),<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PAGE_SIZE,true,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_GEM_DOMAIN_GTT, 0, NULL,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NULL, &amp;ring-&gt;mqd_obj);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (r) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_warn(adev-&g=
+t;dev, &quot;(%d) create MQD bo failed\n&quot;, r);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; }<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_reserve(ring-&gt;mqd_=
+obj, false);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0)) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; gfx_v9_0_cp_compute_fini(adev);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return r;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_pin(ring-&gt;mqd_obj,=
+ AMDGPU_GEM_DOMAIN_GTT,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;mqd_gpu_addr);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; dev_warn(adev-&gt;dev, &quot;(%d) pin MQD bo failed\n&quot;, r);=
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; gfx_v9_0_cp_compute_fini(adev);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return r;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_kmap(ring-&gt;mqd_obj=
+, (void **)&amp;buf);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; dev_warn(adev-&gt;dev, &quot;(%d) map MQD bo failed\n&quot;, r);=
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; gfx_v9_0_cp_compute_fini(adev);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return r;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* init the mqd struct */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memset(buf, 0, sizeof(struct v9_mqd))=
+;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd =3D (struct v9_mqd *)buf;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;header =3D 0xC0310800;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;compute_pipelinestat_enable =
+=3D 0x00000001;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;compute_static_thread_mgmt_se=
+0 =3D 0xffffffff;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;compute_static_thread_mgmt_se=
+1 =3D 0xffffffff;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;compute_static_thread_mgmt_se=
+2 =3D 0xffffffff;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;compute_static_thread_mgmt_se=
+3 =3D 0xffffffff;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;compute_misc_reserved =3D 0x0=
+0000003;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;adev-&gt;srbm_mutex);=
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; soc15_grbm_select(adev, ring-&gt;me,<=
+br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; ring-&gt;pipe,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; ring-&gt;queue, 0);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* disable wptr polling */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_FIELD15(GC, 0, CP_PQ_WPTR_POLL=
+_CNTL, EN, 0);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* write the EOP addr */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUG_ON(ring-&gt;me !=3D 1 || ring-&gt=
+;pipe !=3D 0); /* can't handle other cases eop address */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; eop_gpu_addr =3D adev-&gt;gfx.mec.hpd=
+_eop_gpu_addr &#43; (ring-&gt;queue * MEC_HPD_SIZE);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; eop_gpu_addr &gt;&gt;=3D 8;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmCP_HQD_EOP_BASE=
+_ADDR, lower_32_bits(eop_gpu_addr));<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmCP_HQD_EOP_BASE=
+_ADDR_HI, upper_32_bits(eop_gpu_addr));<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;cp_hqd_eop_base_addr_lo =3D l=
+ower_32_bits(eop_gpu_addr);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;cp_hqd_eop_base_addr_hi =3D u=
+pper_32_bits(eop_gpu_addr);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* set the EOP size, register value i=
+s 2^(EOP_SIZE&#43;1) dwords */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32_SOC15(GC, 0, mmCP_HQD_=
+EOP_CONTROL);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, CP_HQD_EOP=
+_CONTROL, EOP_SIZE,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (order_base_2(MEC_H=
+PD_SIZE / 4) - 1));<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmCP_HQD_EOP_CONT=
+ROL, tmp);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* enable doorbell? */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32_SOC15(GC, 0, mmCP_HQD_=
+PQ_DOORBELL_CONTROL);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (use_doorbell)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL, DOORBELL_=
+EN, 1);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL, DOORBELL_=
+EN, 0);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmCP_HQD_PQ_DOORB=
+ELL_CONTROL, tmp);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;cp_hqd_pq_doorbell_control =
+=3D tmp;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* disable the queue if it's active *=
+/<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ring-&gt;wptr =3D 0;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;cp_hqd_dequeue_request =3D 0;=
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;cp_hqd_pq_rptr =3D 0;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;cp_hqd_pq_wptr_lo =3D 0;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;cp_hqd_pq_wptr_hi =3D 0;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (RREG32_SOC15(GC, 0, mmCP_HQD_ACTI=
+VE) &amp; 1) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; WREG32_SOC15(GC, 0, mmCP_HQD_DEQUEUE_REQUEST, 1);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; for (j =3D 0; j &lt; adev-&gt;usec_timeout; j&#43;&#43;) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(RREG32_SOC=
+15(GC, 0, mmCP_HQD_ACTIVE) &amp; 1))<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; udelay(1);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; }<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; WREG32_SOC15(GC, 0, mmCP_HQD_DEQUEUE_REQUEST, mqd-&gt;cp_hqd_deq=
+ueue_request);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; WREG32_SOC15(GC, 0, mmCP_HQD_PQ_RPTR, mqd-&gt;cp_hqd_pq_rptr);<b=
+r>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; WREG32_SOC15(GC, 0, mmCP_HQD_PQ_WPTR_LO, mqd-&gt;cp_hqd_pq_wptr_=
+lo);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; WREG32_SOC15(GC, 0, mmCP_HQD_PQ_WPTR_HI, mqd-&gt;cp_hqd_pq_wptr_=
+hi);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* set the pointer to the MQD */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;cp_mqd_base_addr_lo =3D mqd_g=
+pu_addr &amp; 0xfffffffc;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;cp_mqd_base_addr_hi =3D upper=
+_32_bits(mqd_gpu_addr);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmCP_MQD_BASE_ADD=
+R, mqd-&gt;cp_mqd_base_addr_lo);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmCP_MQD_BASE_ADD=
+R_HI, mqd-&gt;cp_mqd_base_addr_hi);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* set MQD vmid to 0 */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32_SOC15(GC, 0, mmCP_MQD_=
+CONTROL);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, CP_MQD_CON=
+TROL, VMID, 0);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmCP_MQD_CONTROL,=
+ tmp);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;cp_mqd_control =3D tmp;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* set the pointer to the HQD, this i=
+s similar CP_RB0_BASE/_HI */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hqd_gpu_addr =3D ring-&gt;gpu_addr &g=
+t;&gt; 8;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;cp_hqd_pq_base_lo =3D hqd_gpu=
+_addr;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;cp_hqd_pq_base_hi =3D upper_3=
+2_bits(hqd_gpu_addr);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmCP_HQD_PQ_BASE,=
+ mqd-&gt;cp_hqd_pq_base_lo);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmCP_HQD_PQ_BASE_=
+HI, mqd-&gt;cp_hqd_pq_base_hi);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* set up the HQD, this is similar to=
+ CP_RB0_CNTL */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32_SOC15(GC, 0, mmCP_HQD_=
+PQ_CONTROL);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_=
+CONTROL, QUEUE_SIZE,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; (order_base_2(ring-&gt;ring_size / 4) - 1));<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_=
+CONTROL, RPTR_BLOCK_SIZE,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ((order_base_2(AMDGPU_GPU_PAGE_SIZE / 4) - 1) &lt;&lt; 8));<br>
+-#ifdef __BIG_ENDIAN<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_=
+CONTROL, ENDIAN_SWAP, 1);<br>
+-#endif<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_=
+CONTROL, UNORD_DISPATCH, 0);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_=
+CONTROL, ROQ_PQ_IB_FLIP, 0);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_=
+CONTROL, PRIV_STATE, 1);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_=
+CONTROL, KMD_QUEUE, 1);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmCP_HQD_PQ_CONTR=
+OL, tmp);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;cp_hqd_pq_control =3D tmp;<br=
+>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* set the wb address wether it's ena=
+bled or not */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wb_gpu_addr =3D adev-&gt;wb.gpu_addr =
+&#43; (ring-&gt;rptr_offs * 4);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;cp_hqd_pq_rptr_report_addr_lo=
+ =3D wb_gpu_addr &amp; 0xfffffffc;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;cp_hqd_pq_rptr_report_addr_hi=
+ =3D<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; upper_32_bits(wb_gpu_addr) &amp; 0xff=
+ff;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmCP_HQD_PQ_RPTR_=
+REPORT_ADDR,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; mqd-&gt;cp_hqd_pq_rptr_report_addr_lo);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmCP_HQD_PQ_RPTR_=
+REPORT_ADDR_HI,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; mqd-&gt;cp_hqd_pq_rptr_report_addr_hi);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* only used if CP_PQ_WPTR_POLL_CNTL.=
+CP_PQ_WPTR_POLL_CNTL__EN_MASK=3D1 */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wb_gpu_addr =3D adev-&gt;wb.gpu_addr =
+&#43; (ring-&gt;wptr_offs * 4);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;cp_hqd_pq_wptr_poll_addr_lo =
+=3D wb_gpu_addr &amp; 0xfffffffc;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;cp_hqd_pq_wptr_poll_addr_hi =
+=3D upper_32_bits(wb_gpu_addr) &amp; 0xffff;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmCP_HQD_PQ_WPTR_=
+POLL_ADDR,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; mqd-&gt;cp_hqd_pq_wptr_poll_addr_lo);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmCP_HQD_PQ_WPTR_=
+POLL_ADDR_HI,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; mqd-&gt;cp_hqd_pq_wptr_poll_addr_hi);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* enable the doorbell if requested *=
+/<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (use_doorbell) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_LOWER,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (AMDGPU_DOORBELL=
+64_KIQ * 2) &lt;&lt; 2);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; WREG32_SOC15(GC, 0, mmCP_MEC_DOORBELL_RANGE_UPPER,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (AMDGPU_DOORBELL=
+64_MEC_RING7 * 2) &lt;&lt; 2);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; tmp =3D RREG32_SOC15(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DOORBELL_OFFSET,=
+ ring-&gt;doorbell_index);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL, DOORBELL_=
+EN, 1);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL, DOORBELL_=
+SOURCE, 0);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, CP_HQD_PQ_DOORBELL_CONTROL, DOORBELL_=
+HIT, 0);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; mqd-&gt;cp_hqd_pq_doorbell_control =3D tmp;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; mqd-&gt;cp_hqd_pq_doorbell_control =3D 0;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmCP_HQD_PQ_DOORB=
+ELL_CONTROL,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; mqd-&gt;cp_hqd_pq_doorbell_control);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* reset read and write pointers, sim=
+ilar to CP_RB0_WPTR/_RPTR */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmCP_HQD_PQ_WPTR_=
+LO, mqd-&gt;cp_hqd_pq_wptr_lo);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmCP_HQD_PQ_WPTR_=
+HI, mqd-&gt;cp_hqd_pq_wptr_hi);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* set the vmid for the queue */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;cp_hqd_vmid =3D 0;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmCP_HQD_VMID, mq=
+d-&gt;cp_hqd_vmid);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32_SOC15(GC, 0, mmCP_HQD_=
+PERSISTENT_STATE);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, CP_HQD_PER=
+SISTENT_STATE, PRELOAD_SIZE, 0x53);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmCP_HQD_PERSISTE=
+NT_STATE, tmp);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;cp_hqd_persistent_state =3D t=
+mp;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* activate the queue */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;cp_hqd_active =3D 1;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmCP_HQD_ACTIVE, =
+mqd-&gt;cp_hqd_active);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; soc15_grbm_select(adev, 0, 0, 0, 0);<=
+br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;adev-&gt;srbm_mutex=
+);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_kunmap(ring-&gt;mqd_obj);<b=
+r>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_unreserve(ring-&gt;mqd_obj)=
+;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (use_doorbell)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; WREG32_FIELD15(GC, 0, CP_PQ_STATUS, DOORBELL_ENABLE, 1);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+-}<br>
+-<br>
+&nbsp;const struct amdgpu_ip_block_version gfx_v9_0_ip_block =3D<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .type =3D AMD_IP_BLOCK_TYP=
+E_GFX,<br>
+-- <br>
+2.5.5<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></span></p>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BN6PR12MB1652C49F0735A34CF03F7642F7190BN6PR12MB1652namp_--
+
+--===============2054418137==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============2054418137==--
