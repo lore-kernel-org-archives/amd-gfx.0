@@ -1,15 +1,14 @@
-From: Dennis Schridde <dennis.schridde-axtXthT+lymYbFdUjOg7S7NAH6kLmebB@public.gmane.org>
-Subject: Re: amdgpu 0000:84:00.0: gpu post error! \\ Fatal error during GPU
- init
-Date: Tue, 18 Apr 2017 14:27:26 +0200
-Message-ID: <16054053.I0I8DtKEcm@c07060>
-References: <6570445.DKuzpyIqJk@c07060>
- <BN6PR12MB1652EBEDA7927456A065C8CAF7020@BN6PR12MB1652.namprd12.prod.outlook.com>
- <2718321.4rFqy0DFN7@c07060>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: Fix module unload hang by KIQ on Vega10
+Date: Tue, 18 Apr 2017 13:33:58 +0000
+Message-ID: <BN6PR12MB16520E5F38D00D46AAE77A5CF7190@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <1492481623-23177-1-git-send-email-trigger.huang@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1603198408=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <2718321.4rFqy0DFN7@c07060>
+In-Reply-To: <1492481623-23177-1-git-send-email-trigger.huang-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,101 +19,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Huang, Trigger" <Trigger.Huang-5C7GfCeVMHo@public.gmane.org>
 
---===============1603198408==
-Content-Type: multipart/signed; boundary="nextPart5242374.g2rn6WpYVm"; micalg="pgp-sha256"; protocol="application/pgp-signature"
-
---nextPart5242374.g2rn6WpYVm
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-
-Hello Alex et al.!
-
-On Donnerstag, 13. April 2017 22:16:50 CEST Dennis Schridde wrote:
-> On Donnerstag, 13. April 2017 17:30:45 CEST Deucher, Alexander wrote:
-> > > [   17.692746] amdgpu 0000:84:00.0: enabling device (0000 -> 0003)
-> > > [   17.692940] [drm] initializing kernel modesetting (TONGA
-> > > 0x1002:0x6929
-> > > 0x1002:0x0334 0x00).
-> > > [   17.692963] [drm] register mmio base: 0xD0100000
-> > > [   17.692964] [drm] register mmio size: 262144
-> > > [   17.692970] [drm] doorbell mmio base: 0xF0000000
-> > > [   17.692971] [drm] doorbell mmio size: 2097152
-> > > [   17.692980] [drm] probing gen 2 caps for device 10b5:8747 =
-> > > 8796103/10e
-> > > [   17.692981] [drm] probing mlw for device 10b5:8747 = 8796103
-> > > [   17.692992] [drm] VCE enabled in physical mode
-> > > [   18.648132] ATOM BIOS: C76301
-> > > [   18.651758] [drm] GPU posting now...
-> > > [   23.661513] [drm:amdgpu_connector_add [amdgpu]] *ERROR* atombios
-> > > stuck in
-> > > loop for more than 5secs aborting
-> > > [   23.673155] [drm:amdgpu_connector_add [amdgpu]] *ERROR* atombios
-> > > stuck
-> > > executing F250 (len 334, WS 4, PS 0) @ 0xF365
-> > > [   23.685453] [drm:amdgpu_connector_add [amdgpu]] *ERROR* atombios
-> > > stuck
-> > > executing DB34 (len 324, WS 4, PS 0) @ 0xDC2C
-> > > [   23.697816] [drm:amdgpu_connector_add [amdgpu]] *ERROR* atombios
-> > > stuck
-> > > executing BCDE (len 254, WS 0, PS 4) @ 0xBDB4
-> > > [   23.710137] [drm:amdgpu_connector_add [amdgpu]] *ERROR* atombios
-> > > stuck
-> > > executing B832 (len 143, WS 0, PS 8) @ 0xB8A9
-> > > [   23.722451] amdgpu 0000:84:00.0: gpu post error!
-> > > [   23.727950] amdgpu 0000:84:00.0: Fatal error during GPU init
-> > 
-> > Posting the GPU is failing.  The is the initial basic asic setup that is
-> > required before anything else can happen.  There seem to be timeouts
-> > waiting for some register states.  Is there anything special about your
-> > setup?  Can you try a vanilla kernel?
-> 
-> I don't think there is anything special. At least not that I am aware of.
-> Dell R730xd with one AMD FirePro S7150X2 and 2 Mellanox ConnectX-4 Dual
-> Port cards. Apart from the modifications shown in the commit log, I made no
-> changes to the CoreOS Container Linux 1381 development version. The kernel
-> is now unpatched, stock 4.10.9. Please find the logs of the unpatched /
-> vanilla kernel attached.
-
-Is this information enough / what you had in mind? How can I aid in debugging 
-this further? Are there some command line flags I shall pass to the kernel or 
-configuration flags I shall set?
-
---Dennis
---nextPart5242374.g2rn6WpYVm
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQG0BAABCAAGBQJY9gYuAAoJENS5dBsVnRQdB4UMwINxrww12meSU4u6FLJ+rMqf
-Nsm5Zp8crYNTHcmd91Xxds+PLSr9Eq7H9pcSE8QtowY+Xs1p3wVBKgQklaAn0uf8
-UudnWLk5MfL+LHy4x1db0jlddPpfRhCTCBGA97W6VMCZdlGew69hLoRutqwMihJA
-tmGT4FkXW6PJRFvw7kVxHCbjG++1EplvBvtIaWtXTHjQ1mPPsvdjp7DTWJ+T+KkW
-L2firoo/XI9XIJwHe6fseoANBy0GTITWYhqSOgNJljRA4IDAeb9cq1MdbE87WyUL
-cI8RIrakErS73Zz6KbY/YdBJKaKwf2LnVkn4kImYgKivyxbhykYUxrC2g7zMqyF6
-grvVONK2HzfZsQODlG91nP1HqQG+K2qjuTjNA5ikhUlwR/WBolKcSDNahBYauGUM
-tyl18Wn5hPwGpx5QATwe8hwTf/FpmT9EnXrGrVxcmocp+BocjtIgGdWy79w3R6hq
-yuBsutyfdwslH3pw2pOjxNWQDYoOpEiY10YgBo0Ru2j6BWZQO+uwONjDX1x7Jg1e
-ZSwXaXvm4g==
-=hUBf
------END PGP SIGNATURE-----
-
---nextPart5242374.g2rn6WpYVm--
-
-
---===============1603198408==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1603198408==--
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
+LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIFRyaWdn
+ZXIgSHVhbmcNCj4gU2VudDogTW9uZGF5LCBBcHJpbCAxNywgMjAxNyAxMDoxNCBQTQ0KPiBUbzog
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gQ2M6IEh1YW5nLCBUcmlnZ2VyDQo+IFN1
+YmplY3Q6IFtQQVRDSF0gZHJtL2FtZGdwdTogRml4IG1vZHVsZSB1bmxvYWQgaGFuZyBieSBLSVEg
+b24gVmVnYTEwDQo+IA0KPiBBcHBseSBjb21taXQgNGU2ODNjYjI2NDRmICgiZHJtL2FtZGdwdTog
+Rml4IG1vZHVsZSB1bmxvYWQgaGFuZyBieQ0KPiBLSVEgSVJRIHNldCIpdG8gdmVnYTEwDQo+IA0K
+PiBTaWduZWQtb2ZmLWJ5OiBUcmlnZ2VyIEh1YW5nIDx0cmlnZ2VyLmh1YW5nQGFtZC5jb20+DQoN
+ClJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQoN
+Cj4gLS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jIHwgMTAgKysr
+Ky0tLS0tLQ0KPiAgMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMo
+LSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlf
+MC5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYw0KPiBpbmRleCBm
+NmIyMzI5Li5iN2IyZWQ4IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9nZnhfdjlfMC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8w
+LmMNCj4gQEAgLTYzMSw3ICs2MzEsNiBAQCBzdGF0aWMgaW50IGdmeF92OV8wX2tpcV9pbml0X3Jp
+bmcoc3RydWN0DQo+IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+ICAJCXJpbmctPnBpcGUgPSAxOw0K
+PiAgCX0NCj4gDQo+IC0JaXJxLT5kYXRhID0gcmluZzsNCj4gIAlyaW5nLT5xdWV1ZSA9IDA7DQo+
+ICAJcmluZy0+ZW9wX2dwdV9hZGRyID0ga2lxLT5lb3BfZ3B1X2FkZHI7DQo+ICAJc3ByaW50Zihy
+aW5nLT5uYW1lLCAia2lxICVkLiVkLiVkIiwgcmluZy0+bWUsIHJpbmctPnBpcGUsIHJpbmctDQo+
+ID5xdWV1ZSk7DQo+IEBAIC02NDcsNyArNjQ2LDYgQEAgc3RhdGljIHZvaWQgZ2Z4X3Y5XzBfa2lx
+X2ZyZWVfcmluZyhzdHJ1Y3QNCj4gYW1kZ3B1X3JpbmcgKnJpbmcsDQo+ICB7DQo+ICAJYW1kZ3B1
+X3diX2ZyZWUocmluZy0+YWRldiwgcmluZy0+YWRldi0+dmlydC5yZWdfdmFsX29mZnMpOw0KPiAg
+CWFtZGdwdV9yaW5nX2ZpbmkocmluZyk7DQo+IC0JaXJxLT5kYXRhID0gTlVMTDsNCj4gIH0NCj4g
+DQo+ICAvKiBjcmVhdGUgTVFEIGZvciBlYWNoIGNvbXB1dGUgcXVldWUgKi8NCj4gQEAgLTMzNjcs
+OSArMzM2NSw5IEBAIHN0YXRpYyBpbnQgZ2Z4X3Y5XzBfa2lxX3NldF9pbnRlcnJ1cHRfc3RhdGUo
+c3RydWN0DQo+IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+ICAJCQkJCSAgICBlbnVtIGFtZGdwdV9p
+bnRlcnJ1cHRfc3RhdGUNCj4gc3RhdGUpDQo+ICB7DQo+ICAJdWludDMyX3QgdG1wLCB0YXJnZXQ7
+DQo+IC0Jc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nID0gKHN0cnVjdCBhbWRncHVfcmluZyAqKXNy
+Yy0+ZGF0YTsNCj4gKwlzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcgPSAmKGFkZXYtPmdmeC5raXEu
+cmluZyk7DQo+IA0KPiAtCUJVR19PTighcmluZyB8fCAocmluZy0+ZnVuY3MtPnR5cGUgIT0NCj4g
+QU1ER1BVX1JJTkdfVFlQRV9LSVEpKTsNCj4gKwlCVUdfT04ocmluZy0+ZnVuY3MtPnR5cGUgIT0g
+QU1ER1BVX1JJTkdfVFlQRV9LSVEpOw0KPiANCj4gIAlpZiAocmluZy0+bWUgPT0gMSkNCj4gIAkJ
+dGFyZ2V0ID0gU09DMTVfUkVHX09GRlNFVChHQywgMCwNCj4gbW1DUF9NRTFfUElQRTBfSU5UX0NO
+VEwpOw0KPiBAQCAtMzQxMyw5ICszNDExLDkgQEAgc3RhdGljIGludCBnZnhfdjlfMF9raXFfaXJx
+KHN0cnVjdCBhbWRncHVfZGV2aWNlDQo+ICphZGV2LA0KPiAgCQkJICAgIHN0cnVjdCBhbWRncHVf
+aXZfZW50cnkgKmVudHJ5KQ0KPiAgew0KPiAgCXU4IG1lX2lkLCBwaXBlX2lkLCBxdWV1ZV9pZDsN
+Cj4gLQlzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcgPSAoc3RydWN0IGFtZGdwdV9yaW5nICopc291
+cmNlLT5kYXRhOw0KPiArCXN0cnVjdCBhbWRncHVfcmluZyAqcmluZyA9ICYoYWRldi0+Z2Z4Lmtp
+cS5yaW5nKTsNCj4gDQo+IC0JQlVHX09OKCFyaW5nIHx8IChyaW5nLT5mdW5jcy0+dHlwZSAhPQ0K
+PiBBTURHUFVfUklOR19UWVBFX0tJUSkpOw0KPiArCUJVR19PTihyaW5nLT5mdW5jcy0+dHlwZSAh
+PSBBTURHUFVfUklOR19UWVBFX0tJUSk7DQo+IA0KPiAgCW1lX2lkID0gKGVudHJ5LT5yaW5nX2lk
+ICYgMHgwYykgPj4gMjsNCj4gIAlwaXBlX2lkID0gKGVudHJ5LT5yaW5nX2lkICYgMHgwMykgPj4g
+MDsNCj4gLS0NCj4gMi43LjQNCj4gDQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fDQo+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnDQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Cg==
