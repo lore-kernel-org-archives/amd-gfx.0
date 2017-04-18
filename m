@@ -1,14 +1,11 @@
-From: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] dmr/amdgpu: Fix wrongly unref of BO
-Date: Tue, 18 Apr 2017 10:38:12 +0800
-Message-ID: <58F57C14.20403@amd.com>
-References: <1492119298-8526-1-git-send-email-AlexBin.Xie@amd.com>,
- <58F0495D.60607@amd.com>
- <MWHPR1201MB0045DE55E81D0FF5CE76671FF2060@MWHPR1201MB0045.namprd12.prod.outlook.com>
+From: Trigger Huang <trigger.huang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: Fix module unload hang by KIQ on Vega10
+Date: Mon, 17 Apr 2017 22:13:43 -0400
+Message-ID: <1492481623-23177-1-git-send-email-trigger.huang@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0804674271=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MWHPR1201MB0045DE55E81D0FF5CE76671FF2060-3iK1xFAIwjq45V35fqe+hGrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,280 +16,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Xie, AlexBin" <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Trigger Huang <trigger.huang-5C7GfCeVMHo@public.gmane.org>
 
---===============0804674271==
-Content-Type: multipart/alternative;
-	boundary="------------010902090200070709060705"
-
---------------010902090200070709060705
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-
-On 2017年04月17日 22:54, Xie, AlexBin wrote:
->
-> Hi David,
->
->
-> Thanks for the comments. However, please have look at 
-> amdgpu_bo_reserve definition.
->
-> static inline int amdgpu_bo_reserve(struct amdgpu_bo *bo, bool no_intr)
->
-Ah, this is a wired wrapper for ttm_bo_reserve.
-
->
-> When we call this function like the following:
->
->          r = amdgpu_bo_reserve(adev->vram_scratch.robj, false);
-> The false means interruptible.
->
->
-> On the other hand,  when amdgpu_bo_reserve function return error, why 
-> do we unref BO without kunmap and unpin the BO? This is wrong 
-> implementation when amdgpu_bo_reserve return any error.
->
-Yeah, I see your mean, it's in driver un-loading, How about changing to 
-no interruptible? Your patch will make a memleak if bo_reserve fails, 
-but it seems not matter. I have no strong preference.
-
-Regards,
-David Zhou
->
->
-> Thanks,
-> Alex Bin Xie
->
-> ------------------------------------------------------------------------
-> *From:* Zhou, David(ChunMing)
-> *Sent:* Friday, April 14, 2017 12:00 AM
-> *To:* Xie, AlexBin; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> *Subject:* Re: [PATCH] dmr/amdgpu: Fix wrongly unref of BO
->
->
-> On 2017年04月14日 05:34, Alex Xie wrote:
-> > According to comment of amdgpu_bo_reserve, amdgpu_bo_reserve
-> > can return with -ERESTARTSYS. When this function was interrupted
-> > by a signal, BO should not be unref. Otherwise the BO might be
-> > released while is kmapped and pinned, or BO MIGHT be deref
-> > multiple times, etc.
->          r = amdgpu_bo_reserve(adev->vram_scratch.robj, false);
-> we have specified interruptible to false, so -ERESTARTSYS isn't possible
-> here.
->
-> Thanks,
-> David Zhou
-> >
-> > Change-Id: If76071a768950a0d3ad9d5da7fcae04881807621
-> > Signed-off-by: Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
-> >   1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > index 53996e3..1dcc2d1 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > @@ -355,8 +355,8 @@ static void amdgpu_vram_scratch_fini(struct 
-> amdgpu_device *adev)
-> > amdgpu_bo_kunmap(adev->vram_scratch.robj);
-> > amdgpu_bo_unpin(adev->vram_scratch.robj);
-> > amdgpu_bo_unreserve(adev->vram_scratch.robj);
-> > + amdgpu_bo_unref(&adev->vram_scratch.robj);
-> >        }
-> > - amdgpu_bo_unref(&adev->vram_scratch.robj);
-> >   }
-> >
-> >   /**
->
-
-
---------------010902090200070709060705
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <br>
-    <br>
-    <div class="moz-cite-prefix">On 2017年04月17日 22:54, Xie, AlexBin
-      wrote:<br>
-    </div>
-    <blockquote
-cite="mid:MWHPR1201MB0045DE55E81D0FF5CE76671FF2060-3iK1xFAIwjq45V35fqe+hGrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org"
-      type="cite">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
-      <div id="divtagdefaultwrapper"
-style="font-size:12pt;color:#000000;font-family:Calibri,Arial,Helvetica,sans-serif;"
-        dir="ltr">
-        <p>Hi David,</p>
-        <p><br>
-        </p>
-        <p>Thanks for the comments. However, please have look at <span
-            style="font-family: Calibri, Arial, Helvetica, sans-serif,
-            EmojiFont, &quot;Apple Color Emoji&quot;, &quot;Segoe UI
-            Emoji&quot;, NotoColorEmoji, &quot;Segoe UI Symbol&quot;,
-            &quot;Android Emoji&quot;, EmojiSymbols; font-size: 16px;">
-            amdgpu_bo_reserve</span> definition.</p>
-        <p><span>static inline int amdgpu_bo_reserve(struct amdgpu_bo
-            *bo, bool no_intr)</span><br>
-        </p>
-      </div>
-    </blockquote>
-    Ah, this is a wired wrapper for ttm_bo_reserve.<br>
-    <br>
-    <blockquote
-cite="mid:MWHPR1201MB0045DE55E81D0FF5CE76671FF2060-3iK1xFAIwjq45V35fqe+hGrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org"
-      type="cite">
-      <div id="divtagdefaultwrapper"
-style="font-size:12pt;color:#000000;font-family:Calibri,Arial,Helvetica,sans-serif;"
-        dir="ltr">
-        <p>
-        </p>
-        <p><span><br>
-          </span></p>
-        <p><span>When we call this function like the following:</span></p>
-        <p><span><span style="font-family: Calibri, Arial, Helvetica,
-              sans-serif, EmojiFont, &quot;Apple Color Emoji&quot;,
-              &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &quot;Segoe UI
-              Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;
-              font-size: 13.3333px;">         r =
-              amdgpu_bo_reserve(adev-&gt;vram_scratch.robj, false);</span><br
-              style="font-family: Calibri, Arial, Helvetica, sans-serif,
-              EmojiFont, &quot;Apple Color Emoji&quot;, &quot;Segoe UI
-              Emoji&quot;, NotoColorEmoji, &quot;Segoe UI Symbol&quot;,
-              &quot;Android Emoji&quot;, EmojiSymbols; font-size:
-              13.3333px;">
-          </span><span style="font-size: 12pt;">The false means <span>interruptible</span>.</span><span><br>
-          </span></p>
-        <p><span style="font-size: 12pt;"><br>
-          </span></p>
-        <p><span style="font-size: 12pt;">On the other hand,  when <span
-              style="font-family: Calibri, Arial, Helvetica, sans-serif,
-              EmojiFont, &quot;Apple Color Emoji&quot;, &quot;Segoe UI
-              Emoji&quot;, NotoColorEmoji, &quot;Segoe UI Symbol&quot;,
-              &quot;Android Emoji&quot;, EmojiSymbols; font-size:
-              13.3333px;">amdgpu_bo_reserve function return error, why
-              do we unref BO without kunmap and unpin the BO? This is
-              wrong implementation when <span style="font-family:
-                Calibri, Arial, Helvetica, sans-serif, EmojiFont,
-                &quot;Apple Color Emoji&quot;, &quot;Segoe UI
-                Emoji&quot;, NotoColorEmoji, &quot;Segoe UI
-                Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;
-                font-size: 13.3333px;">amdgpu_bo_reserve return any
-                error.</span></span></span></p>
-      </div>
-    </blockquote>
-    Yeah, I see your mean, it's in driver un-loading, How about changing
-    to no interruptible? Your patch will make a memleak if bo_reserve
-    fails, but it seems not matter. I have no strong preference.<br>
-    <br>
-    Regards,<br>
-    David Zhou<br>
-    <blockquote
-cite="mid:MWHPR1201MB0045DE55E81D0FF5CE76671FF2060-3iK1xFAIwjq45V35fqe+hGrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org"
-      type="cite">
-      <div id="divtagdefaultwrapper"
-style="font-size:12pt;color:#000000;font-family:Calibri,Arial,Helvetica,sans-serif;"
-        dir="ltr">
-        <p><br>
-        </p>
-        Thanks,
-        <div>Alex Bin Xie<br>
-          <br>
-          <div style="color: rgb(0, 0, 0);">
-            <div>
-              <hr tabindex="-1" style="display:inline-block; width:98%">
-              <div id="x_divRplyFwdMsg" dir="ltr"><font
-                  style="font-size:11pt" face="Calibri, sans-serif"
-                  color="#000000"><b>From:</b> Zhou, David(ChunMing)<br>
-                  <b>Sent:</b> Friday, April 14, 2017 12:00 AM<br>
-                  <b>To:</b> Xie, AlexBin; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                  <b>Subject:</b> Re: [PATCH] dmr/amdgpu: Fix wrongly
-                  unref of BO</font>
-                <div> </div>
-              </div>
-            </div>
-            <font size="2"><span style="font-size:10pt;">
-                <div class="PlainText"><br>
-                  <br>
-                  On 2017年04月14日 05:34, Alex Xie wrote:<br>
-                  &gt; According to comment of amdgpu_bo_reserve,
-                  amdgpu_bo_reserve<br>
-                  &gt; can return with -ERESTARTSYS. When this function
-                  was interrupted<br>
-                  &gt; by a signal, BO should not be unref. Otherwise
-                  the BO might be<br>
-                  &gt; released while is kmapped and pinned, or BO MIGHT
-                  be deref<br>
-                  &gt; multiple times, etc.<br>
-                           r =
-                  amdgpu_bo_reserve(adev-&gt;vram_scratch.robj, false);<br>
-                  we have specified interruptible to false, so
-                  -ERESTARTSYS isn't possible <br>
-                  here.<br>
-                  <br>
-                  Thanks,<br>
-                  David Zhou<br>
-                  &gt;<br>
-                  &gt; Change-Id:
-                  If76071a768950a0d3ad9d5da7fcae04881807621<br>
-                  &gt; Signed-off-by: Alex Xie
-                  <a class="moz-txt-link-rfc2396E" href="mailto:AlexBin.Xie-5C7GfCeVMHo@public.gmane.org">&lt;AlexBin.Xie-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-                  &gt; ---<br>
-                  &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2
-                  +-<br>
-                  &gt;   1 file changed, 1 insertion(+), 1 deletion(-)<br>
-                  &gt;<br>
-                  &gt; diff --git
-                  a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-                  b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-                  &gt; index 53996e3..1dcc2d1 100644<br>
-                  &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-                  &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-                  &gt; @@ -355,8 +355,8 @@ static void
-                  amdgpu_vram_scratch_fini(struct amdgpu_device *adev)<br>
-                  &gt;               
-                  amdgpu_bo_kunmap(adev-&gt;vram_scratch.robj);<br>
-                  &gt;               
-                  amdgpu_bo_unpin(adev-&gt;vram_scratch.robj);<br>
-                  &gt;               
-                  amdgpu_bo_unreserve(adev-&gt;vram_scratch.robj);<br>
-                  &gt; +            
-                  amdgpu_bo_unref(&amp;adev-&gt;vram_scratch.robj);<br>
-                  &gt;        }<br>
-                  &gt; -    
-                  amdgpu_bo_unref(&amp;adev-&gt;vram_scratch.robj);<br>
-                  &gt;   }<br>
-                  &gt;   <br>
-                  &gt;   /**<br>
-                  <br>
-                </div>
-              </span></font></div>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------010902090200070709060705--
-
---===============0804674271==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0804674271==--
+QXBwbHkgY29tbWl0IDRlNjgzY2IyNjQ0ZiAoImRybS9hbWRncHU6IEZpeCBtb2R1bGUgdW5sb2Fk
+IGhhbmcgYnkKS0lRIElSUSBzZXQiKXRvIHZlZ2ExMAoKU2lnbmVkLW9mZi1ieTogVHJpZ2dlciBI
+dWFuZyA8dHJpZ2dlci5odWFuZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2dmeF92OV8wLmMgfCAxMCArKysrLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRp
+b25zKCspLCA2IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2dmeF92OV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5j
+CmluZGV4IGY2YjIzMjkuLmI3YjJlZDggMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2dmeF92OV8wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5
+XzAuYwpAQCAtNjMxLDcgKzYzMSw2IEBAIHN0YXRpYyBpbnQgZ2Z4X3Y5XzBfa2lxX2luaXRfcmlu
+ZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAkJcmluZy0+cGlwZSA9IDE7CiAJfQogCi0J
+aXJxLT5kYXRhID0gcmluZzsKIAlyaW5nLT5xdWV1ZSA9IDA7CiAJcmluZy0+ZW9wX2dwdV9hZGRy
+ID0ga2lxLT5lb3BfZ3B1X2FkZHI7CiAJc3ByaW50ZihyaW5nLT5uYW1lLCAia2lxICVkLiVkLiVk
+IiwgcmluZy0+bWUsIHJpbmctPnBpcGUsIHJpbmctPnF1ZXVlKTsKQEAgLTY0Nyw3ICs2NDYsNiBA
+QCBzdGF0aWMgdm9pZCBnZnhfdjlfMF9raXFfZnJlZV9yaW5nKHN0cnVjdCBhbWRncHVfcmluZyAq
+cmluZywKIHsKIAlhbWRncHVfd2JfZnJlZShyaW5nLT5hZGV2LCByaW5nLT5hZGV2LT52aXJ0LnJl
+Z192YWxfb2Zmcyk7CiAJYW1kZ3B1X3JpbmdfZmluaShyaW5nKTsKLQlpcnEtPmRhdGEgPSBOVUxM
+OwogfQogCiAvKiBjcmVhdGUgTVFEIGZvciBlYWNoIGNvbXB1dGUgcXVldWUgKi8KQEAgLTMzNjcs
+OSArMzM2NSw5IEBAIHN0YXRpYyBpbnQgZ2Z4X3Y5XzBfa2lxX3NldF9pbnRlcnJ1cHRfc3RhdGUo
+c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJCQkJCSAgICBlbnVtIGFtZGdwdV9pbnRlcnJ1
+cHRfc3RhdGUgc3RhdGUpCiB7CiAJdWludDMyX3QgdG1wLCB0YXJnZXQ7Ci0Jc3RydWN0IGFtZGdw
+dV9yaW5nICpyaW5nID0gKHN0cnVjdCBhbWRncHVfcmluZyAqKXNyYy0+ZGF0YTsKKwlzdHJ1Y3Qg
+YW1kZ3B1X3JpbmcgKnJpbmcgPSAmKGFkZXYtPmdmeC5raXEucmluZyk7CiAKLQlCVUdfT04oIXJp
+bmcgfHwgKHJpbmctPmZ1bmNzLT50eXBlICE9IEFNREdQVV9SSU5HX1RZUEVfS0lRKSk7CisJQlVH
+X09OKHJpbmctPmZ1bmNzLT50eXBlICE9IEFNREdQVV9SSU5HX1RZUEVfS0lRKTsKIAogCWlmIChy
+aW5nLT5tZSA9PSAxKQogCQl0YXJnZXQgPSBTT0MxNV9SRUdfT0ZGU0VUKEdDLCAwLCBtbUNQX01F
+MV9QSVBFMF9JTlRfQ05UTCk7CkBAIC0zNDEzLDkgKzM0MTEsOSBAQCBzdGF0aWMgaW50IGdmeF92
+OV8wX2tpcV9pcnEoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJCQkgICAgc3RydWN0IGFt
+ZGdwdV9pdl9lbnRyeSAqZW50cnkpCiB7CiAJdTggbWVfaWQsIHBpcGVfaWQsIHF1ZXVlX2lkOwot
+CXN0cnVjdCBhbWRncHVfcmluZyAqcmluZyA9IChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKilzb3VyY2Ut
+PmRhdGE7CisJc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nID0gJihhZGV2LT5nZngua2lxLnJpbmcp
+OwogCi0JQlVHX09OKCFyaW5nIHx8IChyaW5nLT5mdW5jcy0+dHlwZSAhPSBBTURHUFVfUklOR19U
+WVBFX0tJUSkpOworCUJVR19PTihyaW5nLT5mdW5jcy0+dHlwZSAhPSBBTURHUFVfUklOR19UWVBF
+X0tJUSk7CiAKIAltZV9pZCA9IChlbnRyeS0+cmluZ19pZCAmIDB4MGMpID4+IDI7CiAJcGlwZV9p
+ZCA9IChlbnRyeS0+cmluZ19pZCAmIDB4MDMpID4+IDA7Ci0tIAoyLjcuNAoKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
