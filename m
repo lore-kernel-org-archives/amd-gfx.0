@@ -1,11 +1,13 @@
-From: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: fix memory clock can't switch on CI.
-Date: Tue, 18 Apr 2017 19:35:07 +0800
-Message-ID: <1492515307-5979-1-git-send-email-Rex.Zhu@amd.com>
+From: Dennis Schridde <dennis.schridde-axtXthT+lymYbFdUjOg7S7NAH6kLmebB@public.gmane.org>
+Subject: Re: AMDGPU without display output
+Date: Tue, 18 Apr 2017 14:25:18 +0200
+Message-ID: <2000813.UM9hCpDLC0@c07060>
+References: <2259850.ejp6DaCL9T@c07060> <6870657.eATv821s2Z@c07060>
+ <DM5PR12MB1739D59ACC914AE04D4A35E38F050@DM5PR12MB1739.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0687123204=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <DM5PR12MB1739D59ACC914AE04D4A35E38F050-2J9CzHegvk/RSyQDjr89dQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,30 +19,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Yu,
+ Qiang" <Qiang.Yu-5C7GfCeVMHo@public.gmane.org>
 
-aWYgd2UgZW5hYmxlIHV2ZCBkcG0gZHVyaW5nIGJvb3QgdGltZSwKbWNsayB3aWxsIGJlIGZpeGVk
-IGluIHRoZSBpbml0aWFsbHkgZW5hYmxlZCBsZXZlbApmb3IgYWN0aXZpdHkuIEluIHBlcmZvcm1h
-bmNlIGxldmVsLCBvdGhlciBsZWV2ZWxzCmNhbid0IGJlIGVuYWJsZWQgYnkgc2VuZCB0aGUgbWFz
-ayB0byBTTUMuCnNvIHNldCBhbGwgbWNsayBsZXZlbHMgZW5hYmxlZC4KCkNoYW5nZS1JZDogSWQ1
-Yzc5NTMxNzQxMmE4MDEzNjY2ZmE0MzI0MjZkMjcxM2EyN2EyZjgKU2lnbmVkLW9mZi1ieTogUmV4
-IFpodSA8UmV4LlpodUBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Np
-X2RwbS5jIHwgMyArLS0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMiBkZWxldGlv
-bnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaV9kcG0uYyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2NpX2RwbS5jCmluZGV4IDExY2NkYTguLmE2ZGRh
-MzQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2NpX2RwbS5jCisrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2NpX2RwbS5jCkBAIC0zMDM2LDYgKzMwMzYsNyBA
-QCBzdGF0aWMgaW50IGNpX3BvcHVsYXRlX3NpbmdsZV9tZW1vcnlfbGV2ZWwoc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmFkZXYsCiAJCQkJCQkgICAgICBtZW1vcnlfY2xvY2ssCiAJCQkJCQkgICAgICAm
-bWVtb3J5X2xldmVsLT5NaW5WZGRjUGhhc2VzKTsKIAorCW1lbW9yeV9sZXZlbC0+RW5hYmxlZEZv
-ckFjdGl2aXR5ID0gMTsKIAltZW1vcnlfbGV2ZWwtPkVuYWJsZWRGb3JUaHJvdHRsZSA9IDE7CiAJ
-bWVtb3J5X2xldmVsLT5VcEggPSAwOwogCW1lbW9yeV9sZXZlbC0+RG93bkggPSAxMDA7CkBAIC0z
-NDY4LDggKzM0NjksNiBAQCBzdGF0aWMgaW50IGNpX3BvcHVsYXRlX2FsbF9tZW1vcnlfbGV2ZWxz
-KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCQkJcmV0dXJuIHJldDsKIAl9CiAKLQlwaS0+
-c21jX3N0YXRlX3RhYmxlLk1lbW9yeUxldmVsWzBdLkVuYWJsZWRGb3JBY3Rpdml0eSA9IDE7Ci0K
-IAlpZiAoKGRwbV90YWJsZS0+bWNsa190YWJsZS5jb3VudCA+PSAyKSAmJgogCSAgICAoKGFkZXYt
-PnBkZXYtPmRldmljZSA9PSAweDY3QjApIHx8IChhZGV2LT5wZGV2LT5kZXZpY2UgPT0gMHg2N0Ix
-KSkpIHsKIAkJcGktPnNtY19zdGF0ZV90YWJsZS5NZW1vcnlMZXZlbFsxXS5NaW5WZGRjID0KLS0g
-CjEuOS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
-bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============0687123204==
+Content-Type: multipart/signed; boundary="nextPart2052818.CD4Fa64u2R"; micalg="pgp-sha256"; protocol="application/pgp-signature"
+
+--nextPart2052818.CD4Fa64u2R
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+
+On Freitag, 14. April 2017 03:50:30 CEST Yu, Qiang wrote:
+> PS. If you want to use X11/OGL on this no display output card, just add an
+> option to the amdgpu kernel module "virtual_display=all" which will fake a
+> display output so that the xserver can start with amdgpu DDX successfully.
+> You can use remote desktop apps like VNC to view the X screen.
+
+Thanks a lot for that information! This will likely simplify several things, 
+once we solve the "Fatal error during GPU init" (see my other email).
+
+--Dennis
+--nextPart2052818.CD4Fa64u2R
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQG0BAABCAAGBQJY9gWuAAoJENS5dBsVnRQdLNsMv2CKpkQEKxYjcRe+ZqbX4iFR
+2mebmb/mAQb4kR/j/rUrPlCSc8TyUcYRgZ0e06QLQ6wMHKoqvtWPZmMQNIn9W1fg
+nXgKEi7YwYrzeSdnvkMl4lR7hLZeM5cTE6CN3uSr9UFORB/z3/qKNyrdLRnXwO/Q
+m3Zx/80yNZ6BCurGETVk0vol6uUVMh47olwrtw+IntebtFFmlp8meAg+xQ8jZ/3R
+sBiZaXrqb1QMWfpH3f5skUu+OOw5IgsQzszy2qxfzgowt6ObFOLjhvmbWDHBljAt
+yIv223R0+MTdU4Ampy75hTSaUemwpxplhZKGdynQ7WHw30GYXMxmuIYoUKSSDJRI
+qqcWcJgAItdFiYdt00CgoKuAQHk4gn4qFxpNFvBKh+b7pRBp5HrBArf5g1boWEA8
+hP0Hou2Tl/7om3g58FV+zC6yXy8ie796vfvLfgmbWADFVL5C0oYMpqDU/6poMo63
+qOFOHpcngFhE7JRh00eWNeJ8F4FoO5/63FkELIGCTYnZtgeOJ4tnkNFTXoJEWxQC
+hanlrwqGxQ==
+=yXIp
+-----END PGP SIGNATURE-----
+
+--nextPart2052818.CD4Fa64u2R--
+
+
+--===============0687123204==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0687123204==--
