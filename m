@@ -1,13 +1,16 @@
-From: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 18/18] DO NOT SUBMIT: drm_next fixup
-Date: Tue, 18 Apr 2017 23:04:42 -0400
-Message-ID: <CAFQ_0eG=Mk6Rz_RyV83pW6MPM+0=tDDn3duWTTDoFnEZtFPbtA@mail.gmail.com>
-References: <20170419023546.3084-1-andresx7@gmail.com>
- <20170419023546.3084-19-andresx7@gmail.com>
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH libdrm 1/2] amdgpu: add the interface of waiting multiple
+ fences
+Date: Wed, 19 Apr 2017 13:17:05 +1000
+Message-ID: <cb5f475f-37ae-46ec-a5fe-9a0af205723c@folklore1984.net>
+References: <20170413144756.30734-1-nhaehnle@gmail.com>
+ <20170413144756.30734-2-nhaehnle@gmail.com>
+ <025d8078-e9e7-a958-02f9-d221e26960b8@folklore1984.net>
+ <519b14a3-a81f-e86e-2174-48ccdd029846@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0830831616=="
+Content-Type: multipart/mixed; boundary="===============0484537962=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170419023546.3084-19-andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <519b14a3-a81f-e86e-2174-48ccdd029846-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,185 +21,224 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>, "monk . liu" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
 
---===============0830831616==
-Content-Type: multipart/alternative; boundary=f403045cf5bc3a4554054d7c4968
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0484537962==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="IhMA3gfhS2whlhHWqPL72gebEQ7gOKwpv"
 
---f403045cf5bc3a4554054d7c4968
-Content-Type: text/plain; charset=UTF-8
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--IhMA3gfhS2whlhHWqPL72gebEQ7gOKwpv
+Content-Type: multipart/mixed; boundary="GbtPwTjOLK3mDL8J8QHhUMjqrewvPc1Ri";
+ protected-headers="v1"
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+To: =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>,
+ amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, "monk . liu" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>,
+ =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>
+Message-ID: <cb5f475f-37ae-46ec-a5fe-9a0af205723c-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH libdrm 1/2] amdgpu: add the interface of waiting multiple
+ fences
+References: <20170413144756.30734-1-nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+ <20170413144756.30734-2-nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+ <025d8078-e9e7-a958-02f9-d221e26960b8-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+ <519b14a3-a81f-e86e-2174-48ccdd029846-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <519b14a3-a81f-e86e-2174-48ccdd029846-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 
-Ooops, please ignore this patch. It was just for local testing.
-
-Regards,
-Andres
-
-On Apr 18, 2017 10:36 PM, "Andres Rodriguez" <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
-
-> ---
->  drivers/gpu/drm/drm_property.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/drm_property.c b/drivers/gpu/drm/drm_
-> property.c
-> index 3feef06..3e88fa2 100644
-> --- a/drivers/gpu/drm/drm_property.c
-> +++ b/drivers/gpu/drm/drm_property.c
-> @@ -459,41 +459,41 @@ int drm_mode_getproperty_ioctl(struct drm_device
-> *dev,
->         out_resp->flags = property->flags;
->
->         value_count = property->num_values;
->         values_ptr = u64_to_user_ptr(out_resp->values_ptr);
->
->         for (i = 0; i < value_count; i++) {
->                 if (i < out_resp->count_values &&
->                     put_user(property->values[i], values_ptr + i)) {
->                         return -EFAULT;
->                 }
->         }
->         out_resp->count_values = value_count;
->
->         copied = 0;
->         enum_ptr = u64_to_user_ptr(out_resp->enum_blob_ptr);
->
->         if (drm_property_type_is(property, DRM_MODE_PROP_ENUM) ||
->             drm_property_type_is(property, DRM_MODE_PROP_BITMASK)) {
->                 list_for_each_entry(prop_enum, &property->enum_list, head)
-> {
->                         enum_count++;
-> -                       if (out_resp->count_enum_blobs <= enum_count)
-> +                       if (out_resp->count_enum_blobs < enum_count)
->                                 continue;
->
->                         if (copy_to_user(&enum_ptr[copied].value,
->                                          &prop_enum->value,
-> sizeof(uint64_t)))
->                                 return -EFAULT;
->
->                         if (copy_to_user(&enum_ptr[copied].name,
->                                          &prop_enum->name,
-> DRM_PROP_NAME_LEN))
->                                 return -EFAULT;
->                         copied++;
->                 }
->                 out_resp->count_enum_blobs = enum_count;
->         }
->
->         /*
->          * NOTE: The idea seems to have been to use this to read all the
-> blob
->          * property values. But nothing ever added them to the
-> corresponding
->          * list, userspace always used the special-purpose get_blob ioctl
-> to
->          * read the value for a blob property. It also doesn't make a lot
-> of
->          * sense to return values here when everything else is just
-> metadata for
-> --
-> 2.9.3
->
->
-
---f403045cf5bc3a4554054d7c4968
-Content-Type: text/html; charset=UTF-8
+--GbtPwTjOLK3mDL8J8QHhUMjqrewvPc1Ri
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"auto">Ooops, please ignore this patch. It was just for local te=
-sting.<div dir=3D"auto"><br></div><div dir=3D"auto">Regards,</div><div dir=
-=3D"auto">Andres=C2=A0</div></div><div class=3D"gmail_extra"><br><div class=
-=3D"gmail_quote">On Apr 18, 2017 10:36 PM, &quot;Andres Rodriguez&quot; &lt=
-;<a href=3D"mailto:andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br=
- type=3D"attribution"><blockquote class=3D"gmail_quote" style=3D"margin:0 0=
- 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">---<br>
-=C2=A0drivers/gpu/drm/drm_property.c | 2 +-<br>
-=C2=A01 file changed, 1 insertion(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/drm_<wbr>property.c b/drivers/gpu/drm/drm_<wbr=
->property.c<br>
-index 3feef06..3e88fa2 100644<br>
---- a/drivers/gpu/drm/drm_<wbr>property.c<br>
-+++ b/drivers/gpu/drm/drm_<wbr>property.c<br>
-@@ -459,41 +459,41 @@ int drm_mode_getproperty_ioctl(<wbr>struct drm_device=
- *dev,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 out_resp-&gt;flags =3D property-&gt;flags;<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 value_count =3D property-&gt;num_values;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 values_ptr =3D u64_to_user_ptr(out_resp-&gt;<wb=
-r>values_ptr);<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 for (i =3D 0; i &lt; value_count; i++) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (i &lt; out_resp=
--&gt;count_values &amp;&amp;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 put_u=
-ser(property-&gt;values[i], values_ptr + i)) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 return -EFAULT;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 out_resp-&gt;count_values =3D value_count;<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 copied =3D 0;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 enum_ptr =3D u64_to_user_ptr(out_resp-&gt;<wbr>=
-enum_blob_ptr);<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (drm_property_type_is(<wbr>property, DRM_MOD=
-E_PROP_ENUM) ||<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 drm_property_type_is(property, DR=
-M_MODE_PROP_BITMASK)) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 list_for_each_entry=
-(prop_enum, &amp;property-&gt;enum_list, head) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 enum_count++;<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0if (out_resp-&gt;count_enum_blobs &lt;=3D enum_count)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0if (out_resp-&gt;count_enum_blobs &lt; enum_count)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 continue;<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 if (copy_to_user(&amp;enum_ptr[<wbr>copied].value,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&a=
-mp;prop_enum-&gt;value, sizeof(uint64_t)))<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return -EFAULT;<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 if (copy_to_user(&amp;enum_ptr[<wbr>copied].name,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&a=
-mp;prop_enum-&gt;name, DRM_PROP_NAME_LEN))<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return -EFAULT;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 copied++;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 out_resp-&gt;count_=
-enum_blobs =3D enum_count;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 /*<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* NOTE: The idea seems to have been to us=
-e this to read all the blob<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* property values. But nothing ever added=
- them to the corresponding<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* list, userspace always used the special=
--purpose get_blob ioctl to<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* read the value for a blob property. It =
-also doesn&#39;t make a lot of<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* sense to return values here when everyt=
-hing else is just metadata for<br>
---<br>
-2.9.3<br>
-<br>
-</blockquote></div></div>
 
---f403045cf5bc3a4554054d7c4968--
 
---===============0830831616==
+On 04/19/2017 04:28 AM, Nicolai H=C3=A4hnle wrote:
+> On 18.04.2017 17:47, Edward O'Callaghan wrote:
+>> On 04/14/2017 12:47 AM, Nicolai H=C3=A4hnle wrote:
+>>> From: Nicolai H=C3=A4hnle <nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>
+>>>
+>>> Signed-off-by: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+>>> [v2: allow returning the first signaled fence index]
+>>> Signed-off-by: monk.liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+>>> [v3:
+>>>  - cleanup *status setting
+>>>  - fix amdgpu symbols check]
+>>> Signed-off-by: Nicolai H=C3=A4hnle <nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>
+>>> Reviewed-by: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org> (v1)
+>>> Reviewed-by: Jammy Zhou <Jammy.Zhou-5C7GfCeVMHo@public.gmane.org> (v1)
+>>> ---
+>>>  amdgpu/amdgpu-symbol-check |  1 +
+>>>  amdgpu/amdgpu.h            | 23 ++++++++++++++
+>>>  amdgpu/amdgpu_cs.c         | 74
+>>> ++++++++++++++++++++++++++++++++++++++++++++++
+>>>  3 files changed, 98 insertions(+)
+>>>
+> [snip]
+>>> +static int amdgpu_ioctl_wait_fences(struct amdgpu_cs_fence *fences,
+>>> +                    uint32_t fence_count,
+>>> +                    bool wait_all,
+>>> +                    uint64_t timeout_ns,
+>>> +                    uint32_t *status,
+>>> +                    uint32_t *first)
+>>> +{
+>>> +    struct drm_amdgpu_fence *drm_fences;
+>>> +    amdgpu_device_handle dev =3D fences[0].context->dev;
+>>> +    union drm_amdgpu_wait_fences args;
+>>> +    int r;
+>>> +    uint32_t i;
+>>> +
+>>> +    drm_fences =3D alloca(sizeof(struct drm_amdgpu_fence) * fence_co=
+unt);
+>>> +    for (i =3D 0; i < fence_count; i++) {
+>>> +        drm_fences[i].ctx_id =3D fences[i].context->id;
+>>> +        drm_fences[i].ip_type =3D fences[i].ip_type;
+>>> +        drm_fences[i].ip_instance =3D fences[i].ip_instance;
+>>> +        drm_fences[i].ring =3D fences[i].ring;
+>>> +        drm_fences[i].seq_no =3D fences[i].fence;
+>>> +    }
+>>> +
+>>> +    memset(&args, 0, sizeof(args));
+>>> +    args.in.fences =3D (uint64_t)(uintptr_t)drm_fences;
+>>> +    args.in.fence_count =3D fence_count;
+>>> +    args.in.wait_all =3D wait_all;
+>>> +    args.in.timeout_ns =3D amdgpu_cs_calculate_timeout(timeout_ns);
+>>> +
+>>> +    r =3D drmIoctl(dev->fd, DRM_IOCTL_AMDGPU_WAIT_FENCES, &args);
+>>> +    if (r)
+>>> +        return -errno;
+>>
+>> Hi Nicolai,
+>>
+>> you will leak drm_fences here on the error branch.
+>=20
+> It's an alloca, so it's automatically freed when the function returns.
+>=20
+>=20
+>>> +
+>>> +    *status =3D args.out.status;
+>>> +
+>>> +    if (first)
+>>> +        *first =3D args.out.first_signaled;
+>>> +
+>>> +    return 0;
+>>> +}
+>>> +
+>>> +int amdgpu_cs_wait_fences(struct amdgpu_cs_fence *fences,
+>>> +              uint32_t fence_count,
+>>> +              bool wait_all,
+>>> +              uint64_t timeout_ns,
+>>> +              uint32_t *status,
+>>> +              uint32_t *first)
+>>> +{
+>>> +    uint32_t i;
+>>> +    int r;
+>>
+>> no need for a intermediate ret, just return amdgpu_ioctl_wait_fences()=
+
+>> directly?
+>=20
+> Good point, I'll change that before I push.
+>=20
+>=20
+>>> +
+>>> +    /* Sanity check */
+>>> +    if (NULL =3D=3D fences)
+>>> +        return -EINVAL;
+>>> +    if (NULL =3D=3D status)
+>>> +        return -EINVAL;
+>>> +    if (fence_count <=3D 0)
+>>> +        return -EINVAL;
+>>
+>> may as well combine these branches?
+>>
+>> if (!fences || !status || !fence_count)
+>>     return -EINVAL;
+>>
+>> as fence_count is unsigned.
+>=20
+> Yeah, that makes some sense, but I decided to keep the separate
+> if-statements because other functions are written like this as well.
+
+Its not completely consistent actually, I sent in a patch last night to
+fix the rest.
+
+Cheers,
+Edward.
+
+>=20
+> Thanks,
+> Nicolai
+>=20
+>=20
+>=20
+>>
+>> Kind Regards,
+>> Edward.
+>>
+>>> +    for (i =3D 0; i < fence_count; i++) {
+>>> +        if (NULL =3D=3D fences[i].context)
+>>> +            return -EINVAL;
+>>> +        if (fences[i].ip_type >=3D AMDGPU_HW_IP_NUM)
+>>> +            return -EINVAL;
+>>> +        if (fences[i].ring >=3D AMDGPU_CS_MAX_RINGS)
+>>> +            return -EINVAL;
+>>> +    }
+>>> +
+>>> +    *status =3D 0;
+>>> +
+>>> +    r =3D amdgpu_ioctl_wait_fences(fences, fence_count, wait_all,
+>>> timeout_ns,
+>>> +                     status, first);
+>>> +
+>>> +    return r;
+>>> +}
+>>> +
+>>>  int amdgpu_cs_create_semaphore(amdgpu_semaphore_handle *sem)
+>>>  {
+>>>      struct amdgpu_semaphore *gpu_semaphore;
+>>>
+>>>      if (NULL =3D=3D sem)
+>>>          return -EINVAL;
+>>>
+>>>      gpu_semaphore =3D calloc(1, sizeof(struct amdgpu_semaphore));
+>>>      if (NULL =3D=3D gpu_semaphore)
+>>>          return -ENOMEM;
+>>>
+>>
+>=20
+>=20
+
+
+--GbtPwTjOLK3mDL8J8QHhUMjqrewvPc1Ri--
+
+--IhMA3gfhS2whlhHWqPL72gebEQ7gOKwpv
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJY9taxAAoJEP4bvbfZuWjbIzIP/1p0oNr+7Vme+qsnsRtUq6/E
+zwW4a223yROTc2k+e+JI51cJ/UjVcIjSENi0/IUfPhKFvCuf8vmzx5gu97ROIUtQ
+jbjwp0HL8+4e26/38WpV+54KB10pqC5cJzZ50ANfwSB8bYXVjBI4lsIbqxbcSbIV
+QbReHEjS+P67KpRSxVNQWaQVDAj+hLtslZ03jmBsau+hEqcNe9iEl+YY9Iix8IS6
+OFgNdsKVlwArX004dQSEUH7fWFRO4WUgOaeXEhXk4ePC3oLwcZEXOQRcG80pcKMq
+63JodDX3vLEwJKueNKgWmHpvgvXneO/kcNF0/40tIxnvEVANDlzz5w6FBRAP5TV5
+RdI8tcyeEevL35Ej6XevS44WXtyghXlfv3grXF3Bth8njDv42nWgZiOKY3rhmvyC
+/u4EIT8DaSvGuufY8GMTPkzFH/biRay0sVokA42R45bQpOZldQ7NFh3AUBdaWo5o
+lEP//UmWgHEUTzRlIXtapTbZk2Qgk5ZDMpcchz9cxvO6ilVx74i3gqOn7mbE9nSj
+TUVu2SkQvFLbLQ6KO9oKJSERd4mzpbZ8fQoFmy+5tEVKlx0Oh8W9+kOr4RIerd7F
+EpIBvmqOesSOSw/B62YYB4kwXLUFWfgGxcjgWnD9VDJRps8kvbhbJDY9M09HVjHd
+2kQRFpDDOzKgEFO9dpWj
+=2CCG
+-----END PGP SIGNATURE-----
+
+--IhMA3gfhS2whlhHWqPL72gebEQ7gOKwpv--
+
+--===============0484537962==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -206,4 +248,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0830831616==--
+--===============0484537962==--
