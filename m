@@ -1,14 +1,19 @@
-From: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 3/3] drm/amdgpu: move gtt usage statistic to gtt mgr
-Date: Wed, 19 Apr 2017 13:54:30 +0800
-Message-ID: <58F6FB96.5040303@amd.com>
-References: <1492573810-21127-1-git-send-email-David1.Zhou@amd.com>
- <1492573810-21127-3-git-send-email-David1.Zhou@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH] dmr/amdgpu: Fix wrongly unref of BO
+Date: Wed, 19 Apr 2017 08:35:24 +0200
+Message-ID: <4509f79a-ffd5-eb40-117c-84ea02cbf5cd@vodafone.de>
+References: <1492119298-8526-1-git-send-email-AlexBin.Xie@amd.com>
+ <58F0495D.60607@amd.com>
+ <MWHPR1201MB0045DE55E81D0FF5CE76671FF2060@MWHPR1201MB0045.namprd12.prod.outlook.com>
+ <58F57C14.20403@amd.com>
+ <MWHPR1201MB00452889FF2C7FDC55630B4BF2190@MWHPR1201MB0045.namprd12.prod.outlook.com>
+ <7807726d-7318-b72f-1a14-2b37a73988bf@vodafone.de>
+ <MWHPR1201MB00451DFD2A06BBA3CD6F928EF2190@MWHPR1201MB0045.namprd12.prod.outlook.com>
+ <MWHPR1201MB004553768BCAC951D28A347AF2190@MWHPR1201MB0045.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1341015909=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1492573810-21127-3-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <MWHPR1201MB004553768BCAC951D28A347AF2190-3iK1xFAIwjq45V35fqe+hGrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,73 +24,741 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Christian.Koenig-5C7GfCeVMHo@public.gmane.org
+To: "Xie, AlexBin" <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gMDQvMTkvMjAxNyAxMTo1MCBBTSwgQ2h1bm1pbmcgWmhvdSB3cm90ZToKPiBDaGFuZ2UtSWQ6
-IElmZWE0MmM4YWUyMjA2MTQzZDdlMjJiMzVlZWE1MzdiYTllOTI4ZmU4Cj4gU2lnbmVkLW9mZi1i
-eTogQ2h1bm1pbmcgWmhvdSA8RGF2aWQxLlpob3VAYW1kLmNvbT4KPiAtLS0KPiAgIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9ndHRfbWdyLmMgfCAxMyArKysrKysrKysrLS0tCj4g
-ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMgIHwgIDYgLS0tLS0t
-Cj4gICAyIGZpbGVzIGNoYW5nZWQsIDEwIGluc2VydGlvbnMoKyksIDkgZGVsZXRpb25zKC0pCj4K
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2d0dF9tZ3Iu
-YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9ndHRfbWdyLmMKPiBpbmRleCA4
-NWRlMTQ1Li5kYjdiYmRlIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9ndHRfbWdyLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfZ3R0X21nci5jCj4gQEAgLTk3LDYgKzk3LDcgQEAgaW50IGFtZGdwdV9ndHRfbWdyX2FsbG9j
-KHN0cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFuLAo+ICAgewo+ICAgCXN0cnVjdCBhbWRn
-cHVfZ3R0X21nciAqbWdyID0gbWFuLT5wcml2Owo+ICAgCXN0cnVjdCBkcm1fbW1fbm9kZSAqbm9k
-ZSA9IG1lbS0+bW1fbm9kZTsKPiArCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gYW1kZ3B1
-X3R0bV9hZGV2KG1hbi0+YmRldik7Cj4gICAJZW51bSBkcm1fbW1fc2VhcmNoX2ZsYWdzIHNmbGFn
-cyA9IERSTV9NTV9TRUFSQ0hfQkVTVDsKPiAgIAllbnVtIGRybV9tbV9hbGxvY2F0b3JfZmxhZ3Mg
-YWZsYWdzID0gRFJNX01NX0NSRUFURV9ERUZBVUxUOwo+ICAgCXVuc2lnbmVkIGxvbmcgZnBmbiwg
-bHBmbjsKPiBAQCAtMTI0LDggKzEyNSwxMCBAQCBpbnQgYW1kZ3B1X2d0dF9tZ3JfYWxsb2Moc3Ry
-dWN0IHR0bV9tZW1fdHlwZV9tYW5hZ2VyICptYW4sCj4gICAJciA9IGRybV9tbV9pbnNlcnRfbm9k
-ZV9pbl9yYW5nZV9nZW5lcmljKCZtZ3ItPm1tLCBub2RlLCBtZW0tPm51bV9wYWdlcywKPiAgIAkJ
-CQkJCW1lbS0+cGFnZV9hbGlnbm1lbnQsIDAsCj4gICAJCQkJCQlmcGZuLCBscGZuLCBzZmxhZ3Ms
-IGFmbGFncyk7Cj4gLQlpZiAoIXIpCj4gKwlpZiAoIXIpIHsKPiAgIAkJbWdyLT5hdmFpbGFibGUg
-LT0gbWVtLT5udW1fcGFnZXM7Cj4gKwkJYXRvbWljNjRfYWRkKG1lbS0+c2l6ZSwgJmFkZXYtPmd0
-dF91c2FnZSk7Cj4gKwl9Cj4gICAJc3Bpbl91bmxvY2soJm1nci0+bG9jayk7Cj4KPiAgIAlpZiAo
-IXIpIHsKPiBAQCAtMTQwLDEwICsxNDMsMTIgQEAgaW50IGFtZGdwdV9ndHRfbWdyX2FsbG9jKHN0
-cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFuLAo+Cj4gICB2b2lkIGFtZGdwdV9ndHRfbWdy
-X3ByaW50KHN0cnVjdCBzZXFfZmlsZSAqbSwgc3RydWN0IHR0bV9tZW1fdHlwZV9tYW5hZ2VyICpt
-YW4pCj4gICB7Cj4gKwlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGFtZGdwdV90dG1fYWRl
-dihtYW4tPmJkZXYpOwo+ICAgCXN0cnVjdCBhbWRncHVfZ3R0X21nciAqbWdyID0gbWFuLT5wcml2
-Owo+Cj4gLQlzZXFfcHJpbnRmKG0sICJtYW4gc2l6ZTolbGx1IHBhZ2VzLCBndHQgYXZhaWxhYmxl
-OiVsbHUgcGFnZXNcbiIsCj4gLQkJICAgbWFuLT5zaXplLAltZ3ItPmF2YWlsYWJsZSk7Cj4gKwlz
-ZXFfcHJpbnRmKG0sICJtYW4gc2l6ZTolbGx1IHBhZ2VzLCBndHQgYXZhaWxhYmxlOiVsbHUgcGFn
-ZXMsIHVzYWdlOiVsbHVNQlxuIiwKPiArCQkgICBtYW4tPnNpemUsCW1nci0+YXZhaWxhYmxlLAo+
-ICsJCSAgICh1NjQpYXRvbWljNjRfcmVhZCgmYWRldi0+Z3R0X3VzYWdlKSA+PiAyMCk7Cj4gICB9
-Cj4gICAvKioKPiAgICAqIGFtZGdwdV9ndHRfbWdyX25ldyAtIGFsbG9jYXRlIGEgbmV3IG5vZGUK
-PiBAQCAtMjE0LDYgKzIxOSw3IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9ndHRfbWdyX2RlbChzdHJ1
-Y3QgdHRtX21lbV90eXBlX21hbmFnZXIgKm1hbiwKPiAgIHsKPiAgIAlzdHJ1Y3QgYW1kZ3B1X2d0
-dF9tZ3IgKm1nciA9IG1hbi0+cHJpdjsKPiAgIAlzdHJ1Y3QgZHJtX21tX25vZGUgKm5vZGUgPSBt
-ZW0tPm1tX25vZGU7Cj4gKwlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGFtZGdwdV90dG1f
-YWRldihtYW4tPmJkZXYpOwo+Cj4gICAJaWYgKCFub2RlKQo+ICAgCQlyZXR1cm47Cj4gQEAgLTIy
-Miw2ICsyMjgsNyBAQCBzdGF0aWMgdm9pZCBhbWRncHVfZ3R0X21ncl9kZWwoc3RydWN0IHR0bV9t
-ZW1fdHlwZV9tYW5hZ2VyICptYW4sCj4gICAJaWYgKG5vZGUtPnN0YXJ0ICE9IEFNREdQVV9CT19J
-TlZBTElEX09GRlNFVCkgewo+ICAgCQlkcm1fbW1fcmVtb3ZlX25vZGUobm9kZSk7Cj4gICAJCW1n
-ci0+YXZhaWxhYmxlICs9IG1lbS0+bnVtX3BhZ2VzOwo+ICsJCWF0b21pYzY0X3N1YihtZW0tPnNp
-emUsICZhZGV2LT5ndHRfdXNhZ2UpOwo+ICAgCX0KPiAgIAlzcGluX3VubG9jaygmbWdyLT5sb2Nr
-KTsKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2Jq
-ZWN0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMKPiBpbmRl
-eCAzY2RlMWM5Li4yMjQ5ZWI2IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9vYmplY3QuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9vYmplY3QuYwo+IEBAIC02MSw5ICs2MSw2IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV91cGRh
-dGVfbWVtb3J5X3VzYWdlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+Cj4gICAJaWYgKG5l
-d19tZW0pIHsKPiAgIAkJc3dpdGNoIChuZXdfbWVtLT5tZW1fdHlwZSkgewo+IC0JCWNhc2UgVFRN
-X1BMX1RUOgo+IC0JCQlhdG9taWM2NF9hZGQobmV3X21lbS0+c2l6ZSwgJmFkZXYtPmd0dF91c2Fn
-ZSk7Cj4gLQkJCWJyZWFrOwoKSU1PLCB3ZSBtYXkgc3RpbGwgbmVlZCB0aGlzLCBzaW5jZSBpdCdz
-IHVwZGF0ZWQgd2hlbiBibyBtb3Zlcy4KRm9yIGluc3RhbmNlLCBWUkFNIGJvIHRvIEdUVCwgaXQg
-cmVxdWlyZXMgdG8gdXBkYXRlIGd0dF91c2FnZSBhcyB3ZWxsLgoKPiAgIAkJY2FzZSBUVE1fUExf
-VlJBTToKPiAgIAkJCWF0b21pYzY0X2FkZChuZXdfbWVtLT5zaXplLCAmYWRldi0+dnJhbV91c2Fn
-ZSk7Cj4gICAJCQl2aXNfc2l6ZSA9IGFtZGdwdV9nZXRfdmlzX3BhcnRfc2l6ZShhZGV2LCBuZXdf
-bWVtKTsKPiBAQCAtODAsOSArNzcsNiBAQCBzdGF0aWMgdm9pZCBhbWRncHVfdXBkYXRlX21lbW9y
-eV91c2FnZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPgo+ICAgCWlmIChvbGRfbWVtKSB7
-Cj4gICAJCXN3aXRjaCAob2xkX21lbS0+bWVtX3R5cGUpIHsKPiAtCQljYXNlIFRUTV9QTF9UVDoK
-PiAtCQkJYXRvbWljNjRfc3ViKG9sZF9tZW0tPnNpemUsICZhZGV2LT5ndHRfdXNhZ2UpOwo+IC0J
-CQlicmVhazsKClNhbWUgY29tbWVudCBhcyBhYm92ZS4KCkplcnJ5Cj4gICAJCWNhc2UgVFRNX1BM
-X1ZSQU06Cj4gICAJCQlhdG9taWM2NF9zdWIob2xkX21lbS0+c2l6ZSwgJmFkZXYtPnZyYW1fdXNh
-Z2UpOwo+ICAgCQkJdmlzX3NpemUgPSBhbWRncHVfZ2V0X3Zpc19wYXJ0X3NpemUoYWRldiwgb2xk
-X21lbSk7Cj4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+This is a multi-part message in MIME format.
+--===============1341015909==
+Content-Type: multipart/alternative;
+ boundary="------------599BDE3587F16101E331FDD0"
+
+This is a multi-part message in MIME format.
+--------------599BDE3587F16101E331FDD0
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Hi AlexBin,
+
+the answer is ttm_bo_kunmap isn't called at all and yes in the case of 
+an iomap we leak the address space reserved.
+
+But that is completely harmless on a 64bit system compared to leaking 
+the memory backing the address space.
+
+Using amdgpu_bo_free_kernel() instead of openly coding it here is 
+probably a good idea.
+
+Additional to that it's probably a good idea to set the no_intr flag 
+when reserving kernel BOs. It is impossible to receive a signal during 
+module load/unload, but it's probably better to document that in the 
+code as well.
+
+Regards,
+Christian.
+
+Am 18.04.2017 um 20:54 schrieb Xie, AlexBin:
+> Hi Christian,
+>
+> Have you found how/where/when? When you said "mapping will just be 
+> released a bit later on", you must know the answer.
+>
+> It is difficult to prove something does not exist. Anyway, I will give 
+> it a try to prove such "later on" does not exist.
+>
+> Function ttm_bo_kunmap is the only function to unmap. To prove this, 
+> search ttm_bo_map_iomap, only ttm_bo_kunmap use this enum to correctly 
+> kunmap.
+>
+> Function ttm_bo_kunmap is not called by ttm itself. This is a hint 
+> that all TTM delay delete mechanism or unref mechanism will NOT kunmap 
+> BO later on.
+>
+> Function ttm_bo_kunmap is called by AMDGPU function amdgpu_bo_kunmap 
+> and amdgpu_gem_prime_vunmap.
+>
+> Search AMDGPU for amdgpu_bo_kunmap. All matches do not kunmap for 
+> scratch VRAM BO. amdgpu_bo_free_kernel is a suspect but the answer is 
+> still NO.
+>
+> So all possibilities are searched. Did I miss anything?
+>
+> Thanks,
+> Alex Bin Xie
+>
+> ------------------------------------------------------------------------
+> *From:* Xie, AlexBin
+> *Sent:* Tuesday, April 18, 2017 2:04:33 PM
+> *To:* Christian König; Zhou, David(ChunMing); 
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> *Subject:* Re: [PATCH] dmr/amdgpu: Fix wrongly unref of BO
+>
+> Hi Christian,
+>
+>
+> Would you point out where/when will kunmap happen for this BO when 
+> release? It must be somewhere in some function calls.
+>
+>
+> I checked before I asked for review. But I did not see such obvious 
+> kunmap function call.
+>
+>
+> If so, there should be a comment in function amdgpu_vram_scratch_fini 
+> to avoid future confusion.
+>
+>
+> Thanks,
+> Alex Bin Xie
+> ------------------------------------------------------------------------
+> *From:* Christian König <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+> *Sent:* Tuesday, April 18, 2017 1:46 PM
+> *To:* Xie, AlexBin; Zhou, David(ChunMing); amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> *Subject:* Re: [PATCH] dmr/amdgpu: Fix wrongly unref of BO
+> Hi AlexBin,
+>
+> No, David is right. This is a very common coding pattern in the kernel 
+> module.
+>
+> Freeing up a BO while there still exists a kernel mapping is perfectly 
+> ok, the mapping will just be released a bit later on.
+>
+> So this code is actually perfectly ok and just an optimization, but 
+> your patch breaks it and creates a memory leak.
+>
+> Regards,
+> Christian.
+>
+> Am 18.04.2017 um 17:17 schrieb Xie, AlexBin:
+>>
+>> Hi David,
+>>
+>>
+>> When amdgpu_bo_reserve return errors, we cannot release the BO. This 
+>> is not a memory leak. General speaking, memory leak is unnoticed and 
+>> unintentional.
+>>
+>>
+>> The caller of function amdgpu_vram_scratch_fini ignores the return 
+>> error value...
+>>
+>>
+>> The "memory leak" is not caused by my patch. It is caused because 
+>> reserving BO fails.
+>>
+>>
+>> This patch only aim to make function amdgpu_vram_scratch_fini behave 
+>> correctly.
+>>
+>>
+>> To follow up, we can add a warning message when amdgpu_bo_reserve 
+>> error happens in a different patch.
+>>
+>>
+>> If function call amdgpu_bo_reserve is changed to uninterruptible, 
+>> this changes driver behaviour. Without a substantial issue, I would 
+>> be cautious for such a change.
+>>
+>>
+>> Thanks,
+>>
+>> Alex Bin Xie
+>>
+>>
+>> ------------------------------------------------------------------------
+>> *From:* Zhou, David(ChunMing)
+>> *Sent:* Monday, April 17, 2017 10:38 PM
+>> *To:* Xie, AlexBin; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> *Subject:* Re: [PATCH] dmr/amdgpu: Fix wrongly unref of BO
+>>
+>>
+>> On 2017年04月17日 22:54, Xie, AlexBin wrote:
+>>>
+>>> Hi David,
+>>>
+>>>
+>>> Thanks for the comments. However, please have look at 
+>>> amdgpu_bo_reserve definition.
+>>>
+>>> static inline int amdgpu_bo_reserve(struct amdgpu_bo *bo, bool no_intr)
+>>>
+>> Ah, this is a wired wrapper for ttm_bo_reserve.
+>>
+>>>
+>>> When we call this function like the following:
+>>>
+>>>          r = amdgpu_bo_reserve(adev->vram_scratch.robj, false);
+>>> The false means interruptible.
+>>>
+>>>
+>>> On the other hand,  when amdgpu_bo_reserve function return error, 
+>>> why do we unref BO without kunmap and unpin the BO? This is wrong 
+>>> implementation when amdgpu_bo_reserve return any error.
+>>>
+>> Yeah, I see your mean, it's in driver un-loading, How about changing 
+>> to no interruptible? Your patch will make a memleak if bo_reserve 
+>> fails, but it seems not matter. I have no strong preference.
+>>
+>> Regards,
+>> David Zhou
+>>>
+>>>
+>>> Thanks,
+>>> Alex Bin Xie
+>>>
+>>> ------------------------------------------------------------------------
+>>> *From:* Zhou, David(ChunMing)
+>>> *Sent:* Friday, April 14, 2017 12:00 AM
+>>> *To:* Xie, AlexBin; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>>> *Subject:* Re: [PATCH] dmr/amdgpu: Fix wrongly unref of BO
+>>>
+>>>
+>>> On 2017年04月14日 05:34, Alex Xie wrote:
+>>> > According to comment of amdgpu_bo_reserve, amdgpu_bo_reserve
+>>> > can return with -ERESTARTSYS. When this function was interrupted
+>>> > by a signal, BO should not be unref. Otherwise the BO might be
+>>> > released while is kmapped and pinned, or BO MIGHT be deref
+>>> > multiple times, etc.
+>>>          r = amdgpu_bo_reserve(adev->vram_scratch.robj, false);
+>>> we have specified interruptible to false, so -ERESTARTSYS isn't 
+>>> possible
+>>> here.
+>>>
+>>> Thanks,
+>>> David Zhou
+>>> >
+>>> > Change-Id: If76071a768950a0d3ad9d5da7fcae04881807621
+>>> > Signed-off-by: Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
+>>> > ---
+>>> > drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
+>>> >   1 file changed, 1 insertion(+), 1 deletion(-)
+>>> >
+>>> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> > index 53996e3..1dcc2d1 100644
+>>> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>> > @@ -355,8 +355,8 @@ static void amdgpu_vram_scratch_fini(struct 
+>>> amdgpu_device *adev)
+>>> > amdgpu_bo_kunmap(adev->vram_scratch.robj);
+>>> > amdgpu_bo_unpin(adev->vram_scratch.robj);
+>>> > amdgpu_bo_unreserve(adev->vram_scratch.robj);
+>>> > + amdgpu_bo_unref(&adev->vram_scratch.robj);
+>>> >        }
+>>> > - amdgpu_bo_unref(&adev->vram_scratch.robj);
+>>> >   }
+>>> >
+>>> >   /**
+>>>
+>>
+>>
+>>
+>> _______________________________________________
+>> amd-gfx mailing list
+>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+
+--------------599BDE3587F16101E331FDD0
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Hi AlexBin,<br>
+      <br>
+      the answer is ttm_bo_kunmap isn't called at all and yes in the
+      case of an iomap we leak the address space reserved.<br>
+      <br>
+      But that is completely harmless on a 64bit system compared to
+      leaking the memory backing the address space.<br>
+      <br>
+      Using <span style="font-family: Calibri, Arial, Helvetica,
+        sans-serif, EmojiFont, &quot;Apple Color Emoji&quot;,
+        &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &quot;Segoe UI
+        Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;
+        font-size: 16px;"><span>amdgpu_bo_free_kernel() instead of
+          openly coding it here is probably a good idea.<br>
+          <br>
+          Additional to that it's probably a good idea to set the
+          no_intr flag when reserving kernel BOs. It is impossible to
+          receive a signal during module load/unload, but it's probably
+          better to document that in the code as well.<br>
+          <br>
+          Regards,<br>
+          Christian.<br>
+        </span></span><br>
+      Am 18.04.2017 um 20:54 schrieb Xie, AlexBin:<br>
+    </div>
+    <blockquote
+cite="mid:MWHPR1201MB004553768BCAC951D28A347AF2190-3iK1xFAIwjq45V35fqe+hGrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org"
+      type="cite">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
+      <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
+      <div id="divtagdefaultwrapper"
+style="font-size:12pt;color:#000000;font-family:Calibri,Arial,Helvetica,sans-serif;"
+        dir="ltr">
+        Hi Christian,
+        <div><br>
+        </div>
+        <div>Have you found how/where/when? When you said "<span
+            style="font-family: Calibri, Arial, Helvetica, sans-serif;
+            font-size: 16px;">mapping will just</span><span
+            style="font-family: Calibri, Arial, Helvetica, sans-serif;
+            font-size: 16px;"> be released a bit later on", you must
+            know the answer. </span></div>
+        <div><br>
+        </div>
+        <div>It is difficult to prove something does not exist. Anyway,
+          I will give it a try to prove such "later on" does not exist.</div>
+        <div><br>
+        </div>
+        <div><span>Function ttm_bo_kunmap is the only function to unmap.
+            To prove this, search <span>ttm_bo_map_iomap, only <span
+                style="font-family: Calibri, Arial, Helvetica,
+                sans-serif, EmojiFont, &quot;Apple Color Emoji&quot;,
+                &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &quot;Segoe
+                UI Symbol&quot;, &quot;Android Emoji&quot;,
+                EmojiSymbols; font-size: 16px;">ttm_bo_kunmap use this
+                enum to correctly kunmap.</span></span></span><br>
+        </div>
+        <div><span><span><span style="font-family: Calibri, Arial,
+                Helvetica, sans-serif, EmojiFont, &quot;Apple Color
+                Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji,
+                &quot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;,
+                EmojiSymbols; font-size: 16px;"><br>
+              </span></span></span></div>
+        <div><span><span><span style="font-family: Calibri, Arial,
+                Helvetica, sans-serif, EmojiFont, &quot;Apple Color
+                Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji,
+                &quot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;,
+                EmojiSymbols; font-size: 16px;"><span>Function ttm_bo_kunmap
+                  is not called by ttm itself. This is a hint that all
+                  TTM delay delete mechanism or unref mechanism will NOT
+                  kunmap BO later on.</span><br>
+              </span></span></span></div>
+        <div><span><span><span style="font-family: Calibri, Arial,
+                Helvetica, sans-serif, EmojiFont, &quot;Apple Color
+                Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji,
+                &quot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;,
+                EmojiSymbols; font-size: 16px;"><span><br>
+                </span></span></span></span></div>
+        <div><span><span><span style="font-family: Calibri, Arial,
+                Helvetica, sans-serif, EmojiFont, &quot;Apple Color
+                Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji,
+                &quot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;,
+                EmojiSymbols; font-size: 16px;"><span><span
+                    style="font-family: Calibri, Arial, Helvetica,
+                    sans-serif, EmojiFont, &quot;Apple Color
+                    Emoji&quot;, &quot;Segoe UI Emoji&quot;,
+                    NotoColorEmoji, &quot;Segoe UI Symbol&quot;,
+                    &quot;Android Emoji&quot;, EmojiSymbols; font-size:
+                    16px;">Function </span><span style="font-family:
+                    Calibri, Arial, Helvetica, sans-serif, EmojiFont,
+                    &quot;Apple Color Emoji&quot;, &quot;Segoe UI
+                    Emoji&quot;, NotoColorEmoji, &quot;Segoe UI
+                    Symbol&quot;, &quot;Android Emoji&quot;,
+                    EmojiSymbols; font-size: 16px;">ttm_bo_kunmap is
+                    called by AMDGPU function <span>amdgpu_bo_kunmap
+                      and <span>amdgpu_gem_prime_vunmap.</span></span></span><br>
+                </span></span></span></span></div>
+        <div><br>
+        </div>
+        <div>Search AMDGPU for <span style="font-family: Calibri, Arial,
+            Helvetica, sans-serif, EmojiFont, &quot;Apple Color
+            Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji,
+            &quot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;,
+            EmojiSymbols; font-size: 16px;">amdgpu_bo_kunmap.
+            All matches do not kunmap for scratch VRAM BO.  <span>amdgpu_bo_free_kernel
+              is a suspect but the answer is still NO.</span></span></div>
+        <div><span style="font-family: Calibri, Arial, Helvetica,
+            sans-serif, EmojiFont, &quot;Apple Color Emoji&quot;,
+            &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &quot;Segoe UI
+            Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;
+            font-size: 16px;"><span><br>
+            </span></span></div>
+        <div><span style="font-family: Calibri, Arial, Helvetica,
+            sans-serif, EmojiFont, &quot;Apple Color Emoji&quot;,
+            &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &quot;Segoe UI
+            Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;
+            font-size: 16px;"><span>So all possibilities are searched.
+              Did I miss anything?</span></span></div>
+        <div><span style="font-family: Calibri, Arial, Helvetica,
+            sans-serif, EmojiFont, &quot;Apple Color Emoji&quot;,
+            &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &quot;Segoe UI
+            Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;
+            font-size: 16px;"><span><br>
+            </span></span></div>
+        <div>Thanks,</div>
+        <div>Alex Bin Xie</div>
+        <div><br>
+        </div>
+      </div>
+      <hr style="display:inline-block;width:98%" tabindex="-1">
+      <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
+          color="#000000" face="Calibri, sans-serif"><b>From:</b> Xie,
+          AlexBin<br>
+          <b>Sent:</b> Tuesday, April 18, 2017 2:04:33 PM<br>
+          <b>To:</b> Christian König; Zhou, David(ChunMing);
+          <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+          <b>Subject:</b> Re: [PATCH] dmr/amdgpu: Fix wrongly unref of
+          BO</font>
+        <div> </div>
+      </div>
+      <div>
+        <div id="divtagdefaultwrapper"
+style="font-size:12pt;color:#000000;font-family:Calibri,Arial,Helvetica,sans-serif;"
+          dir="ltr">
+          <p>Hi Christian,</p>
+          <p><br>
+          </p>
+          <p>Would you point out where/when will kunmap happen for this
+            BO when release? <span style="font-size: 12pt;">It must be
+              somewhere </span><span style="font-size: 12pt;"></span><span
+              style="font-size: 12pt;">in some function calls</span><span
+              style="font-size: 12pt;">.</span></p>
+          <p><span style="font-size: 12pt;"><br>
+            </span></p>
+          <p><span style="font-size: 12pt;">I checked before I asked for
+              review. But I did not see such obvious kunmap function
+              call.</span></p>
+          <p><span style="font-size: 12pt;"><br>
+            </span></p>
+          <p><span style="font-size: 12pt;">If so, there should be a
+              comment in function <span>amdgpu_vram_scratch_fini </span>to
+              avoid future confusion.</span></p>
+          <br>
+          Thanks,
+          <div>Alex Bin Xie<br>
+            <div style="color: rgb(0, 0, 0);">
+              <hr tabindex="-1" style="display:inline-block; width:98%">
+              <div id="divRplyFwdMsg" dir="ltr"><font
+                  style="font-size:11pt" color="#000000" face="Calibri,
+                  sans-serif"><b>From:</b> Christian König
+                  <a class="moz-txt-link-rfc2396E" href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">&lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;</a><br>
+                  <b>Sent:</b> Tuesday, April 18, 2017 1:46 PM<br>
+                  <b>To:</b> Xie, AlexBin; Zhou, David(ChunMing);
+                  <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                  <b>Subject:</b> Re: [PATCH] dmr/amdgpu: Fix wrongly
+                  unref of BO</font>
+                <div> </div>
+              </div>
+              <div>
+                <div class="moz-cite-prefix">Hi AlexBin,<br>
+                  <br>
+                  No, David is right. This is a very common coding
+                  pattern in the kernel module.<br>
+                  <br>
+                  Freeing up a BO while there still exists a kernel
+                  mapping is perfectly ok, the mapping will just be
+                  released a bit later on.<br>
+                  <br>
+                  So this code is actually perfectly ok and just an
+                  optimization, but your patch breaks it and creates a
+                  memory leak.<br>
+                  <br>
+                  Regards,<br>
+                  Christian.<br>
+                  <br>
+                  Am 18.04.2017 um 17:17 schrieb Xie, AlexBin:<br>
+                </div>
+                <blockquote type="cite">
+                  <div id="divtagdefaultwrapper" dir="ltr"
+                    style="font-size:12pt; color:#000000;
+                    font-family:Calibri,Arial,Helvetica,sans-serif">
+                    <p>Hi David,</p>
+                    <p><br>
+                    </p>
+                    <p>When <span style="font-size:12pt;
+                        font-family:Calibri,Arial,Helvetica,sans-serif">amdgpu_bo_reserve
+                        return errors, we cannot release the BO. This is
+                        not a memory leak. General speaking, memory leak
+                        is unnoticed and unintentional.</span></p>
+                    <p><span style="font-size:12pt;
+                        font-family:Calibri,Arial,Helvetica,sans-serif"><br>
+                      </span></p>
+                    <p><span style="font-size:12pt;
+                        font-family:Calibri,Arial,Helvetica,sans-serif">The
+                        caller of function <span>amdgpu_vram_scratch_fini
+                          ignores the return error value...</span></span></p>
+                    <p><span style="font-size:12pt;
+                        font-family:Calibri,Arial,Helvetica,sans-serif"><span><br>
+                        </span></span></p>
+                    <p><span style="font-size:12pt;
+                        font-family:Calibri,Arial,Helvetica,sans-serif"><span>The
+                          "memory leak" is not caused by my patch. It is
+                          caused because reserving BO fails.</span></span></p>
+                    <p><span
+                        style="font-family:Calibri,Arial,Helvetica,sans-serif;
+                        font-size:12pt"><br>
+                      </span></p>
+                    <p><span style="font-size:12pt;
+                        font-family:Calibri,Arial,Helvetica,sans-serif"><span></span></span><span
+style="font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12pt">This patch
+                        only aim to make function </span><span
+                        style="font-family:Calibri,Arial,Helvetica,sans-serif;
+                        font-size:12pt">amdgpu_vram_scratch_fini behave
+                        correctly.</span></p>
+                    <p><span style="font-size:12pt;
+                        font-family:Calibri,Arial,Helvetica,sans-serif"><span><br>
+                        </span></span></p>
+                    <p><span style="font-size:12pt;
+                        font-family:Calibri,Arial,Helvetica,sans-serif"><span>To
+                          follow up, we can add a warning message when
+                          <span
+                            style="font-family:Calibri,Arial,Helvetica,sans-serif;
+                            font-size:16px">amdgpu_bo_reserve</span>
+                          error happens in a different patch.</span></span></p>
+                    <p><span style="font-size:12pt;
+                        font-family:Calibri,Arial,Helvetica,sans-serif"><span><br>
+                        </span></span></p>
+                    <p><span style="font-size:12pt;
+                        font-family:Calibri,Arial,Helvetica,sans-serif">If
+                        function call </span><span
+                        style="font-family:Calibri,Arial,Helvetica,sans-serif;
+                        font-size:12pt">amdgpu_bo_reserve is changed to
+                        uninterruptible, this changes driver behaviour.
+                        Without a substantial issue, I would be cautious
+                        for such a change.</span></p>
+                    <p><span style="font-size:12pt;
+                        font-family:Calibri,Arial,Helvetica,sans-serif"><br>
+                      </span></p>
+                    <p>Thanks,</p>
+                    <p>Alex Bin Xie</p>
+                    <br>
+                    <div style="color:rgb(0,0,0)">
+                      <hr tabindex="-1" style="display:inline-block;
+                        width:98%">
+                      <div id="divRplyFwdMsg" dir="ltr"><font
+                          style="font-size:11pt" color="#000000"
+                          face="Calibri, sans-serif"><b>From:</b> Zhou,
+                          David(ChunMing)<br>
+                          <b>Sent:</b> Monday, April 17, 2017 10:38 PM<br>
+                          <b>To:</b> Xie, AlexBin; <a
+                            moz-do-not-send="true"
+                            class="moz-txt-link-abbreviated"
+                            href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
+                            amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                          <b>Subject:</b> Re: [PATCH] dmr/amdgpu: Fix
+                          wrongly unref of BO</font>
+                        <div> </div>
+                      </div>
+                      <div><br>
+                        <br>
+                        <div class="moz-cite-prefix">On 2017年04月17日
+                          22:54, Xie, AlexBin wrote:<br>
+                        </div>
+                        <blockquote type="cite">
+                          <div id="divtagdefaultwrapper" dir="ltr"
+                            style="font-size:12pt; color:#000000;
+                            font-family:Calibri,Arial,Helvetica,sans-serif">
+                            <p>Hi David,</p>
+                            <p><br>
+                            </p>
+                            <p>Thanks for the comments. However, please
+                              have look at <span style="">amdgpu_bo_reserve</span>
+                              definition.</p>
+                            <p><span>static inline int
+                                amdgpu_bo_reserve(struct amdgpu_bo *bo,
+                                bool no_intr)</span><br>
+                            </p>
+                          </div>
+                        </blockquote>
+                        Ah, this is a wired wrapper for ttm_bo_reserve.<br>
+                        <br>
+                        <blockquote type="cite">
+                          <div id="divtagdefaultwrapper" dir="ltr"
+                            style="font-size:12pt; color:#000000;
+                            font-family:Calibri,Arial,Helvetica,sans-serif">
+                            <p><span><br>
+                              </span></p>
+                            <p><span>When we call this function like the
+                                following:</span></p>
+                            <p><span><span style="">         r =
+                                  amdgpu_bo_reserve(adev-&gt;vram_scratch.robj,
+                                  false);</span><br style="">
+                              </span><span style="font-size:12pt">The
+                                false means <span>interruptible</span>.</span><span><br>
+                              </span></p>
+                            <p><span style="font-size:12pt"><br>
+                              </span></p>
+                            <p><span style="font-size:12pt">On the other
+                                hand,  when <span style="">amdgpu_bo_reserve
+                                  function return error, why do we unref
+                                  BO without kunmap and unpin the BO?
+                                  This is wrong implementation when <span
+                                    style="">amdgpu_bo_reserve return
+                                    any error.</span></span></span></p>
+                          </div>
+                        </blockquote>
+                        Yeah, I see your mean, it's in driver
+                        un-loading, How about changing to no
+                        interruptible? Your patch will make a memleak if
+                        bo_reserve fails, but it seems not matter. I
+                        have no strong preference.<br>
+                        <br>
+                        Regards,<br>
+                        David Zhou<br>
+                        <blockquote type="cite">
+                          <div id="divtagdefaultwrapper" dir="ltr"
+                            style="font-size:12pt; color:#000000;
+                            font-family:Calibri,Arial,Helvetica,sans-serif">
+                            <p><br>
+                            </p>
+                            Thanks,
+                            <div>Alex Bin Xie<br>
+                              <br>
+                              <div style="color:rgb(0,0,0)">
+                                <div>
+                                  <hr tabindex="-1"
+                                    style="display:inline-block;
+                                    width:98%">
+                                  <div id="x_divRplyFwdMsg" dir="ltr"><font
+                                      style="font-size:11pt"
+                                      color="#000000" face="Calibri,
+                                      sans-serif"><b>From:</b> Zhou,
+                                      David(ChunMing)<br>
+                                      <b>Sent:</b> Friday, April 14,
+                                      2017 12:00 AM<br>
+                                      <b>To:</b> Xie, AlexBin; <a
+                                        moz-do-not-send="true"
+                                        class="moz-txt-link-abbreviated"
+href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
+                                        amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                                      <b>Subject:</b> Re: [PATCH]
+                                      dmr/amdgpu: Fix wrongly unref of
+                                      BO</font>
+                                    <div> </div>
+                                  </div>
+                                </div>
+                                <font size="2"><span
+                                    style="font-size:10pt">
+                                    <div class="PlainText"><br>
+                                      <br>
+                                      On 2017年04月14日 05:34, Alex Xie
+                                      wrote:<br>
+                                      &gt; According to comment of
+                                      amdgpu_bo_reserve,
+                                      amdgpu_bo_reserve<br>
+                                      &gt; can return with -ERESTARTSYS.
+                                      When this function was interrupted<br>
+                                      &gt; by a signal, BO should not be
+                                      unref. Otherwise the BO might be<br>
+                                      &gt; released while is kmapped and
+                                      pinned, or BO MIGHT be deref<br>
+                                      &gt; multiple times, etc.<br>
+                                               r =
+                                      amdgpu_bo_reserve(adev-&gt;vram_scratch.robj,
+                                      false);<br>
+                                      we have specified interruptible to
+                                      false, so -ERESTARTSYS isn't
+                                      possible <br>
+                                      here.<br>
+                                      <br>
+                                      Thanks,<br>
+                                      David Zhou<br>
+                                      &gt;<br>
+                                      &gt; Change-Id:
+                                      If76071a768950a0d3ad9d5da7fcae04881807621<br>
+                                      &gt; Signed-off-by: Alex Xie <a
+                                        moz-do-not-send="true"
+                                        class="moz-txt-link-rfc2396E"
+                                        href="mailto:AlexBin.Xie-5C7GfCeVMHo@public.gmane.org">
+                                        &lt;AlexBin.Xie-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+                                      &gt; ---<br>
+                                      &gt;  
+                                      drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+                                      | 2 +-<br>
+                                      &gt;   1 file changed, 1
+                                      insertion(+), 1 deletion(-)<br>
+                                      &gt;<br>
+                                      &gt; diff --git
+                                      a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+                                      &gt; index 53996e3..1dcc2d1 100644<br>
+                                      &gt; ---
+                                      a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+                                      &gt; +++
+                                      b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+                                      &gt; @@ -355,8 +355,8 @@ static
+                                      void
+                                      amdgpu_vram_scratch_fini(struct
+                                      amdgpu_device *adev)<br>
+                                      &gt;               
+                                      amdgpu_bo_kunmap(adev-&gt;vram_scratch.robj);<br>
+                                      &gt;               
+                                      amdgpu_bo_unpin(adev-&gt;vram_scratch.robj);<br>
+                                      &gt;               
+                                      amdgpu_bo_unreserve(adev-&gt;vram_scratch.robj);<br>
+                                      &gt; +            
+                                      amdgpu_bo_unref(&amp;adev-&gt;vram_scratch.robj);<br>
+                                      &gt;        }<br>
+                                      &gt; -    
+                                      amdgpu_bo_unref(&amp;adev-&gt;vram_scratch.robj);<br>
+                                      &gt;   }<br>
+                                      &gt;   <br>
+                                      &gt;   /**<br>
+                                      <br>
+                                    </div>
+                                  </span></font></div>
+                            </div>
+                          </div>
+                        </blockquote>
+                        <br>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <fieldset class="mimeAttachmentHeader"></fieldset>
+                  <br>
+                  <pre>_______________________________________________
+amd-gfx mailing list
+<a moz-do-not-send="true" class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a moz-do-not-send="true" class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+                </blockquote>
+                <p><br>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------599BDE3587F16101E331FDD0--
+
+--===============1341015909==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1341015909==--
