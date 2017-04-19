@@ -1,14 +1,25 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH 1/3] drm/amdgpu: fix gtt mgr available statistics
-Date: Wed, 19 Apr 2017 08:59:17 +0200
-Message-ID: <55d01312-8b28-98d1-fef1-3f74d7ade20c@vodafone.de>
-References: <1492573810-21127-1-git-send-email-David1.Zhou@amd.com>
- <cb40837d-7734-35cb-7983-80c9c2a3943a@amd.com> <58F70923.5060705@amd.com>
+From: Pekka Paalanen <ppaalanen-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [RfC PATCH] drm: fourcc byteorder: brings header file comments
+ in line with reality.
+Date: Wed, 19 Apr 2017 10:09:56 +0300
+Message-ID: <20170419100956.78e4a7ab@eldfell>
+References: <20170410101202.19229-1-kraxel@redhat.com>
+ <20170410161214.305f5daf@eldfell>
+ <1491833847.30990.77.camel@redhat.com>
+ <20170410180941.43922e25@eldfell>
+ <CAKb7UvhbgSGwx-2EsrQrHmghzYqO9AhRQ10bDWKfdcXHc3fJeQ@mail.gmail.com>
+ <20170411103101.0497fe08@eldfell>
+ <CAKb7UviNeLJAHtBQt2NgbEMOSz1sYneiB7i0CUDOBQRt=8OqNw@mail.gmail.com>
+ <CAKb7UvgVD3Uf79noXMOcBjJYeeF6st21R3JBNvT-VVSNb8EH+Q@mail.gmail.com>
+ <e94bde35-d3f5-fa98-cc64-6d48b37ec21f@daenzer.net>
+ <CAKb7UviAoSh6F1v9kCThayVwnWKKi+w1KDLTHHGsLeS95o+Pjg@mail.gmail.com>
+ <fe944ecc-3ca4-26d8-77bc-873a53dcbb3f@daenzer.net>
+ <1492510440.27392.27.camel@redhat.com>
+ <4230c093-6a8a-76d6-dce8-f9b2300fa70f@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1772626679=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <58F70923.5060705-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <4230c093-6a8a-76d6-dce8-f9b2300fa70f-otUistvHUpPR7s880joybQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,69 +30,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Michel =?UTF-8?B?RMOkbnplcg==?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: Daniel Vetter <daniel.vetter-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, open list <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
 
-QW0gMTkuMDQuMjAxNyB1bSAwODo1MiBzY2hyaWViIHpob3VjbTE6Cj4KPgo+IE9uIDIwMTflubQw
-NOaciDE55pelIDE0OjM4LCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiBBbSAxOS4wNC4yMDE3
-IHVtIDA1OjUwIHNjaHJpZWIgQ2h1bm1pbmcgWmhvdToKPj4+IGd0dF9tZ3JfYWxsb2MgaXMgY2Fs
-bGVkIGJ5IG1hbnkgcGxhY2VzIGluIGxvY2FsIGRyaXZlciwgd2hpbGUKPj4+IGd0dF9tZ3JfbmV3
-IGlzIGNhbGxlZCBieSBnZXRfbm9kZSBpbiB0dG0uCj4+Cj4+IE5BSywgdGhhdCBjYW4gbGVhZCB0
-byBvdmVyIGFsbG9jYXRpbmcgdGhlIGFkZHJlc3Mgc3BhY2UgYW5kIHdlIGNhbid0IAo+PiBoYW5k
-bGUgdGhhdCBkdXJpbmcgc3VzcGVuZC9yZXN1bWUuCj4gSSBkaWRuJ3QgZ2V0IHlvdXIgbWVhbiBo
-ZXJlLgo+Cj4gRGVzY3JpYmUgaXQgZmlyc3QgZnJvbSBteSBzaWRlLCBJIGZvdW5kIHRoaXMgaXNz
-dWUgb24gQVBVIGxpa2UgCj4gY2Fycml6bywgdnJhbSBpcyBsaXR0bGUsIHNvIGd0dCBpcyB1c2Vk
-IG11Y2ggbW9yZSwgd2UgYWx3YXlzIGZvdW5kIHRoZSAKPiBndHQgY2Fubm90IGJlIHVzZWQgZW5k
-IHVwIGFuZCByZXN1bHRzIGluIEdhbWUgZmFpbGVkIHRvIGFsbG9jYXRlIAo+IG1lbW9yeSwgYnV0
-IGZyb20gZHVtcGluZyBtbSBob2xlIHRhYmxlLCB0aGVyZSBhcmUgbWFueSBmcmVlIGhvbGUgYW5k
-IAo+IG1lbW9yeS4KCkluIHRoaXMgY2FzZSB5b3UgbmVlZCB0byBpbmNyZWFzZSB0aGUgZ2FydHNp
-emUgcGFyYW1ldGVyIHRvIHRoZSBrZXJuZWwgCm1vZHVsZS4gV2hhdCBpcyB0aGUgZGVmYXVsdCBz
-aXplIGNob3NlbiBmb3IgdGhpcz8gTWF5YmUgd2UgbmVlZCB0byAKYWRqdXN0IHRoYXQgZGVmYXVs
-dC4KCj4gVGhlIHJvb3QgY2F1c2UgaXMgbWdyLT5hdmFpbGFibGUgc3RhdGlzdGljIGlzIGluY29y
-cmVjdCwgd2hpY2ggZG9lc24ndCAKPiBtYXRjaCBkdW1wIG1tIHRhYmxlLgoKVGhhdCdzIGFjdHVh
-bGx5IGNvcnJlY3QuIFdlIGRvbid0IG1hcCBhbGwgQk9zIGluIHRoZSBHQVJUIGRvbWFpbiBpbnRv
-IAp0aGUgYWN0dWFsIEdBUlQgdGFibGUgdG8gYXZvaWQgYWxsIHRoZSB0YWJsZSBvcGVyYXRpb25z
-LgoKPiBJIHRoaW5rIG1nci0+YXZhaWxhYmxlIHNob3VsZCBvbmx5IGJlIGNoYW5nZWQgd2hlbiBp
-bnNlcnQvZnJlZSBub2RlLgoKTm8sIG9uIHN1c3BlbmQvcmVzdW1lIHdlIG5lZWQgdG8gYmUgYWJs
-ZSB0byBhZGQgYWxsIEJPcyBpbnRvIHRoZSBHQVJUIAp0YWJsZS4gU28gd2l0aCB5b3VyIGNoYW5n
-ZSBzdXNwZW5kL3Jlc3VtZSBjYW4gcG90ZW50aWFsbHkgZmFpbC4KClJlZ2FyZHMsCkNocmlzdGlh
-bi4KCj4KPgo+IFJlZ2FyZHMsCj4gRGF2aWQgWmhvdQo+Pgo+PiBSZWdhcmRzLAo+PiBDaHJpc3Rp
-YW4uCj4+Cj4+Pgo+Pj4gQ2hhbmdlLUlkOiBJYTVhMThhM2I1MzFhMDFhZDdkNDdmNDBlMDhmNzc4
-ZTdiOTRjMDQ4YQo+Pj4gU2lnbmVkLW9mZi1ieTogQ2h1bm1pbmcgWmhvdSA8RGF2aWQxLlpob3VA
-YW1kLmNvbT4KPj4+IC0tLQo+Pj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-Z3R0X21nci5jIHwgMTEgKysrKystLS0tLS0KPj4+ICAgMSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0
-aW9ucygrKSwgNiBkZWxldGlvbnMoLSkKPj4+Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2d0dF9tZ3IuYyAKPj4+IGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2d0dF9tZ3IuYwo+Pj4gaW5kZXggNjlhYjJlZS4uOGE5NTBhNSAxMDA2
-NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9ndHRfbWdyLmMK
-Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9ndHRfbWdyLmMKPj4+
-IEBAIC0xMjQsNiArMTI0LDggQEAgaW50IGFtZGdwdV9ndHRfbWdyX2FsbG9jKHN0cnVjdCAKPj4+
-IHR0bV9tZW1fdHlwZV9tYW5hZ2VyICptYW4sCj4+PiAgICAgICByID0gZHJtX21tX2luc2VydF9u
-b2RlX2luX3JhbmdlX2dlbmVyaWMoJm1nci0+bW0sIG5vZGUsIAo+Pj4gbWVtLT5udW1fcGFnZXMs
-Cj4+PiAgICAgICAgICAgICAgICAgICAgICAgICAgIG1lbS0+cGFnZV9hbGlnbm1lbnQsIDAsCj4+
-PiAgICAgICAgICAgICAgICAgICAgICAgICAgIGZwZm4sIGxwZm4sIHNmbGFncywgYWZsYWdzKTsK
-Pj4+ICsgICAgaWYgKCFyKQo+Pj4gKyAgICAgICAgbWdyLT5hdmFpbGFibGUgLT0gbWVtLT5udW1f
-cGFnZXM7Cj4+PiAgICAgICBzcGluX3VubG9jaygmbWdyLT5sb2NrKTsKPj4+ICAgICAgICAgaWYg
-KCFyKSB7Cj4+PiBAQCAtMTYwLDcgKzE2Miw2IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2d0dF9tZ3Jf
-bmV3KHN0cnVjdCAKPj4+IHR0bV9tZW1fdHlwZV9tYW5hZ2VyICptYW4sCj4+PiAgICAgICAgICAg
-c3Bpbl91bmxvY2soJm1nci0+bG9jayk7Cj4+PiAgICAgICAgICAgcmV0dXJuIDA7Cj4+PiAgICAg
-ICB9Cj4+PiAtICAgIG1nci0+YXZhaWxhYmxlIC09IG1lbS0+bnVtX3BhZ2VzOwo+Pj4gICAgICAg
-c3Bpbl91bmxvY2soJm1nci0+bG9jayk7Cj4+PiAgICAgICAgIG5vZGUgPSBremFsbG9jKHNpemVv
-Zigqbm9kZSksIEdGUF9LRVJORUwpOwo+Pj4gQEAgLTE4Nyw5ICsxODgsNiBAQCBzdGF0aWMgaW50
-IGFtZGdwdV9ndHRfbWdyX25ldyhzdHJ1Y3QgCj4+PiB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFu
-LAo+Pj4gICAgICAgICByZXR1cm4gMDsKPj4+ICAgZXJyX291dDoKPj4+IC0gICAgc3Bpbl9sb2Nr
-KCZtZ3ItPmxvY2spOwo+Pj4gLSAgICBtZ3ItPmF2YWlsYWJsZSArPSBtZW0tPm51bV9wYWdlczsK
-Pj4+IC0gICAgc3Bpbl91bmxvY2soJm1nci0+bG9jayk7Cj4+PiAgICAgICAgIHJldHVybiByOwo+
-Pj4gICB9Cj4+PiBAQCAtMjE0LDkgKzIxMiwxMCBAQCBzdGF0aWMgdm9pZCBhbWRncHVfZ3R0X21n
-cl9kZWwoc3RydWN0IAo+Pj4gdHRtX21lbV90eXBlX21hbmFnZXIgKm1hbiwKPj4+ICAgICAgICAg
-ICByZXR1cm47Cj4+PiAgICAgICAgIHNwaW5fbG9jaygmbWdyLT5sb2NrKTsKPj4+IC0gICAgaWYg
-KG5vZGUtPnN0YXJ0ICE9IEFNREdQVV9CT19JTlZBTElEX09GRlNFVCkKPj4+ICsgICAgaWYgKG5v
-ZGUtPnN0YXJ0ICE9IEFNREdQVV9CT19JTlZBTElEX09GRlNFVCkgewo+Pj4gICAgICAgICAgIGRy
-bV9tbV9yZW1vdmVfbm9kZShub2RlKTsKPj4+IC0gICAgbWdyLT5hdmFpbGFibGUgKz0gbWVtLT5u
-dW1fcGFnZXM7Cj4+PiArICAgICAgICBtZ3ItPmF2YWlsYWJsZSArPSBtZW0tPm51bV9wYWdlczsK
-Pj4+ICsgICAgfQo+Pj4gICAgICAgc3Bpbl91bmxvY2soJm1nci0+bG9jayk7Cj4+PiAgICAgICAg
-IGtmcmVlKG5vZGUpOwo+Pgo+Pgo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4CgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1772626679==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/eMDPd5Br83l0AbWqfiiudJG"; protocol="application/pgp-signature"
+
+--Sig_/eMDPd5Br83l0AbWqfiiudJG
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, 19 Apr 2017 10:01:47 +0900
+Michel D=C3=A4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org> wrote:
+
+> On 18/04/17 07:14 PM, Gerd Hoffmann wrote:
+> >   Hi,
+> >  =20
+> >>> Quite true that this proves nothing. However one should note that
+> >>> fbcon -> fbdev works, =20
+> >>
+> >> BTW, this supports Gerd's patch, since the KMS fbdev emulation code us=
+es
+> >> e.g. DRM_FORMAT_XRGB8888 for depth/bpp 24/32, and the fbdev API uses
+> >> native endian packed colour values. =20
+> >=20
+> > Same is true for DRM_IOCTL_MODE_ADDFB, with depth/bpp 24/32 you'll get
+> > DRM_FORMAT_XRGB8888 (only DRM_IOCTL_MODE_ADDFB2 allows userspace specify
+> > fourcc formats directly). =20
+>=20
+> Right, and since all major Xorg drivers use DRM_IOCTL_MODE_ADDFB,
+> they're effectively using DRM_FORMAT_XRGB8888 as native endianness as wel=
+l.
+
+I sincerely hope this doesn't actually force us into a place where we
+have XRGB8888 (and ARGB8888?) as native-endian, but the other format
+codes - since being used explicitly - must be kept as little-endian
+because they were used like that honouring the documentation we have
+atm. It's starting to resemble the wl_shm format codes problem we have
+on Wayland for BE.
+
+Has this now turned into a question of what the kernel drivers do
+with the DRM pixel format codes?
+
+Hmm, I suppose that has been the question all along... userspace uses
+whatever formats that look right, new kernel drivers come along and fix
+themselves to work with whatever userspace uses? And the people who get
+it wrong are the ones who only ever test on LE and trust the docs...
+
+
+Thanks,
+pq
+
+--Sig_/eMDPd5Br83l0AbWqfiiudJG
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAlj3DUQACgkQI1/ltBGq
+qqdd1hAAqFwLsQ3oxyLk6Xa5Rxt9ruZpZb8Jk9DGA/VhEveweTlY8tGF6d60spP/
+R8LYdMqZhZVcub4WZ1oHpUPiIQYCYPyKk5OogTnyAs8W60qhTMM0Emu6ejHz5uXD
+I0msLQ6h6cmeZOBTAIvkx2UNMoz/A6m+ORvvBJKuxUF65b1hEVfu3ae11m8JO+r6
+Irj+HhnMNgrcDNhjR+E2dnc9d+hyeDDLycXLJe03W3KAI134Tq9B1RiDyILGGcET
+0jbSMWR2dhdnbt//VNsn/NeWDI07uYQ7gkpUTQIohxFU2jvn0wbolhVlt+WpNxpG
+MA5jwAxutHH1tHDg1GFzGU16hXpy4K63Ln9mlR3VQ3PcZl1HTwNqNBmQdQZ/zUUS
+5IKcy06XmG8qJ3437RhOCU07Fjf94fVMeayFM4K7LYPJQB/YJTZlHMgNudlsFZPw
+Ir3dPYSXLdhhnkhowXQDO2yI+JIjiJdumhi3GzDegdv6YFMqvpeD0ZMFgcTheIPA
+2LB/WqIphWEebsqx+g200+fcEQzncmznhT0h46BKdB0/tBtnSW/baVLDBb1dEtkU
+01R2vjV//GV+qoyU7WrMrrZl2zWm5hm2UVxcRo7gKc791hKXUhL11F4KSR6mxd4J
+cz/rLRzgWE5JSzALOSevLuPXLJOb9L1KW75c+p58Aug6FwgSVtA=
+=m/d/
+-----END PGP SIGNATURE-----
+
+--Sig_/eMDPd5Br83l0AbWqfiiudJG--
+
+--===============1772626679==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1772626679==--
