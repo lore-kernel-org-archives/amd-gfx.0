@@ -1,13 +1,13 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH V3] drm/amdgpu: PRT support for gfx9 (v3)
-Date: Thu, 20 Apr 2017 11:16:28 +0200
-Message-ID: <2e1fa268-4251-ae14-ae0b-df0565777a8b@vodafone.de>
-References: <1492671301-23509-1-git-send-email-Jerry.Zhang@amd.com>
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/powerplay: add error message to remind user
+ updating firmware
+Date: Thu, 20 Apr 2017 20:09:27 +1000
+Message-ID: <7d3eee1c-7362-2af0-d5bf-764c6e765ee1@folklore1984.net>
+References: <1492673633-21017-1-git-send-email-ray.huang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1018224836=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1492671301-23509-1-git-send-email-Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1492673633-21017-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,38 +18,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, christian.koenig-5C7GfCeVMHo@public.gmane.org
+To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Evan Quan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
 
-QW0gMjAuMDQuMjAxNyB1bSAwODo1NSBzY2hyaWViIEp1bndlaSBaaGFuZzoKPiBGcm9tOiAiWmhh
-bmcsIEplcnJ5IiA8SmVycnkuWmhhbmdAYW1kLmNvbT4KPgo+IHYyOiB1bmlmeSBQUlQgYml0IGZv
-ciBhbGwgQVNJQ3MKPiB2MzogbW92ZSBQUlQgZmxhZyBjaGVja2luZyBpbiBhbWRncHVfdm1fYm9f
-c3BsaXRfbWFwcGluZygpCj4KPiBTaWduZWQtb2ZmLWJ5OiBKdW53ZWkgWmhhbmcgPEplcnJ5Llpo
-YW5nQGFtZC5jb20+Cj4gQWNrZWQtYnk6IERhdmlkIFpob3UgPGRhdmlkMS56aG91QGFtZC5jb20+
-CgpSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29t
-PgoKPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIHwgNiAr
-KysrKysKPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oIHwgMyArKy0K
-PiAgIDIgZmlsZXMgY2hhbmdlZCwgOCBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4KPiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwo+IGluZGV4IDMwNzU0ZWYuLmQzNjNh
-OWUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMK
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwo+IEBAIC0xMTQz
-LDYgKzExNDMsMTIgQEAgc3RhdGljIGludCBhbWRncHVfdm1fYm9fc3BsaXRfbWFwcGluZyhzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAgIAlmbGFncyAmPSB+QU1ER1BVX1BURV9NVFlQRV9N
-QVNLOwo+ICAgCWZsYWdzIHw9IChtYXBwaW5nLT5mbGFncyAmIEFNREdQVV9QVEVfTVRZUEVfTUFT
-Syk7Cj4gICAKPiArCWlmICgobWFwcGluZy0+ZmxhZ3MgJiBBTURHUFVfUFRFX1BSVCkgJiYKPiAr
-CSAgICAoYWRldi0+YXNpY190eXBlID49IENISVBfVkVHQTEwKSkgewo+ICsJCWZsYWdzIHw9IEFN
-REdQVV9QVEVfUFJUOwo+ICsJCWZsYWdzICY9IH5BTURHUFVfUFRFX1ZBTElEOwo+ICsJfQo+ICsK
-PiAgIAl0cmFjZV9hbWRncHVfdm1fYm9fdXBkYXRlKG1hcHBpbmcpOwo+ICAgCj4gICAJcGZuID0g
-bWFwcGluZy0+b2Zmc2V0ID4+IFBBR0VfU0hJRlQ7Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3ZtLmgKPiBpbmRleCA0OTA0NzQwLi42YzY3MGQ1IDEwMDY0NAo+IC0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oCj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmgKPiBAQCAtNjUsNyArNjUsOCBAQAo+ICAgCj4gICAjZGVm
-aW5lIEFNREdQVV9QVEVfRlJBRyh4KQkoKHggJiAweDFmVUxMKSA8PCA3KQo+ICAgCj4gLSNkZWZp
-bmUgQU1ER1BVX1BURV9QUlQJCSgxVUxMIDw8IDYzKQo+ICsvKiBUSUxFRCBmb3IgVkVHQTEwLCBy
-ZXNlcnZlZCBmb3Igb2xkZXIgQVNJQ3MgICovCj4gKyNkZWZpbmUgQU1ER1BVX1BURV9QUlQJCSgx
-VUxMIDw8IDUxKQo+ICAgCj4gICAvKiBWRUdBMTAgb25seSAqLwo+ICAgI2RlZmluZSBBTURHUFVf
-UFRFX01UWVBFKGEpICAgICgodWludDY0X3QpYSA8PCA1NykKCgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============1018224836==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="fjVgGiwSxKSJ4xw9BSaadSscjvmBFcXlD"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--fjVgGiwSxKSJ4xw9BSaadSscjvmBFcXlD
+Content-Type: multipart/mixed; boundary="xaApJpAqK6JTCSGB58OgkBnvDuCpGGWIn";
+ protected-headers="v1"
+From: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Evan Quan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Message-ID: <7d3eee1c-7362-2af0-d5bf-764c6e765ee1-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/powerplay: add error message to remind user
+ updating firmware
+References: <1492673633-21017-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1492673633-21017-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
+
+--xaApJpAqK6JTCSGB58OgkBnvDuCpGGWIn
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>
+
+On 04/20/2017 05:33 PM, Huang Rui wrote:
+> Signed-off-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/powerplay/smumgr/vega10_smumgr.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/vega10_smumgr.c b/dri=
+vers/gpu/drm/amd/powerplay/smumgr/vega10_smumgr.c
+> index 2685f02..b3f3af2 100644
+> --- a/drivers/gpu/drm/amd/powerplay/smumgr/vega10_smumgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/smumgr/vega10_smumgr.c
+> @@ -378,8 +378,11 @@ static int vega10_verify_smc_interface(struct pp_s=
+mumgr *smumgr)
+>  			"Attempt to read SMC IF Version Number Failed!",
+>  			return -1);
+> =20
+> -	if (smc_driver_if_version !=3D SMU9_DRIVER_IF_VERSION)
+> -		return -1;
+> +	if (smc_driver_if_version !=3D SMU9_DRIVER_IF_VERSION) {
+> +		pr_err("Your firmware(0x%x) doesn't match SMU9_DRIVER_IF_VERSION(0x%=
+x). Please update your firmware!\n",
+> +		       smc_driver_if_version, SMU9_DRIVER_IF_VERSION);
+> +		return -EINVAL;
+> +	}
+> =20
+>  	return 0;
+>  }
+>=20
+
+
+--xaApJpAqK6JTCSGB58OgkBnvDuCpGGWIn--
+
+--fjVgGiwSxKSJ4xw9BSaadSscjvmBFcXlD
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJY+IjaAAoJEP4bvbfZuWjbdiAP/Ah84VdJHMkuvvHgMS/tqf5k
+TJ+ooFwKgo688YIngG10w7t1DcyH+HT3IC4cS3RA+8mizh6AHeqCC8cB4M4eJPCm
+imnXOtuAB8spFecD8uq9gRJptwKTaxAExbENxI3ZjmYLkHMiL3Vu9zU0oHNQ5O1t
+kLXbMpFHwHBLxqzXFDSLHixllsnRYnX7cltNUtPKTLKGhyqw146+mIzbjMmNxOKZ
+yusS9iZ2X4yYupiAPgvflZEI8uUp8be1kHbEtb4sQmkBJq+qyo3hZ86wBz4hdOC3
+9CXkW8SAezscqhWoYj5XhWoLHwglsg32zA87eGw+MbCG1e968pUaoZx2rBVrLT14
+sl70I3PIxgJtR0CcjSLPKLUVKMmXpzsgJ6vc/pimjglI4pGx7gg8spy1Q/Udx/++
+ti4HEYoz0pykJv0wry2zMwB0drH/opcvRAuf2Xoh12BR0+I94wn6fzTYbh8piWGb
+7hHDL8YaVNE0pxqYC4MDX15RtIVmlWSUs6TKdWnf/DGam09iRaBuXzCx6J5HO978
+vjHpdBP/M1F2IEns2PFcDRE6oqGv/uqhF117iW+IwG4wWUUwSQCrS7uk1HoMZb3Q
+7Dcl6i0mHuFZtQs/PB51PNn2+YuKxxSMWcr14rR/tcjrKZu1ja+wXSn7pB3VVo0m
+iQB4ZH5/yoXY0eLjthGX
+=RnHF
+-----END PGP SIGNATURE-----
+
+--fjVgGiwSxKSJ4xw9BSaadSscjvmBFcXlD--
+
+--===============1018224836==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1018224836==--
