@@ -1,75 +1,74 @@
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Subject: Re: [PATCH] drm: fourcc byteorder: brings header file comments in
  line with reality.
-Date: Fri, 21 Apr 2017 14:49:13 +0300
-Message-ID: <20170421114913.GK30290@intel.com>
+Date: Fri, 21 Apr 2017 14:02:37 +0200
+Message-ID: <e6857fd8-102f-4d40-2d4d-9e26085a0efb@amd.com>
 References: <20170421075825.6307-1-kraxel@redhat.com>
- <20170421092530.GE30290@intel.com>
- <1492768218.25675.33.camel@redhat.com>
- <20170421110804.GH30290@intel.com>
- <20170421144018.411861d6@eldfell>
+ <20170421092530.GE30290@intel.com> <1492768218.25675.33.camel@redhat.com>
+ <20170421110804.GH30290@intel.com> <20170421144018.411861d6@eldfell>
+ <20170421114913.GK30290@intel.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-Content-Disposition: inline
-In-Reply-To: <20170421144018.411861d6@eldfell>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Pekka Paalanen <ppaalanen@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Michel =?iso-8859-1?Q?D=E4nzer?= <michel@daenzer.net>, open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org, Gerd Hoffmann <kraxel@redhat.com>, Daniel Vetter <daniel.vetter@intel.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20170421114913.GK30290@intel.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, Pekka Paalanen <ppaalanen@gmail.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, amd-gfx@lists.freedesktop.org, David Airlie <airlied@linux.ie>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>, open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org, Sean Paul <seanpaul@chromium.org>, Gerd Hoffmann <kraxel@redhat.com>, Alex Deucher <alexdeucher@gmail.com>, Daniel Vetter <daniel.vetter@intel.com>, Ilia Mirkin <imirkin@alum.mit.edu>
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gRnJpLCBBcHIgMjEsIDIwMTcgYXQgMDI6NDA6MThQTSArMDMwMCwgUGVra2EgUGFhbGFuZW4g
-d3JvdGU6Cj4gT24gRnJpLCAyMSBBcHIgMjAxNyAxNDowODowNCArMDMwMAo+IFZpbGxlIFN5cmrD
-pGzDpCA8dmlsbGUuc3lyamFsYUBsaW51eC5pbnRlbC5jb20+IHdyb3RlOgo+IAo+ID4gT24gRnJp
-LCBBcHIgMjEsIDIwMTcgYXQgMTE6NTA6MThBTSArMDIwMCwgR2VyZCBIb2ZmbWFubiB3cm90ZToK
-PiA+ID4gT24gRnIsIDIwMTctMDQtMjEgYXQgMTI6MjUgKzAzMDAsIFZpbGxlIFN5cmrDpGzDpCB3
-cm90ZTogIAo+ID4gPiA+IE9uIEZyaSwgQXByIDIxLCAyMDE3IGF0IDA5OjU4OjI0QU0gKzAyMDAs
-IEdlcmQgSG9mZm1hbm4gd3JvdGU6ICAKPiA+ID4gPiA+IFdoaWxlIHdvcmtpbmcgb24gZ3JhcGhp
-Y3Mgc3VwcG9ydCBmb3IgdmlydHVhbCBtYWNoaW5lcyBvbiBwcGM2NCAod2hpY2gKPiA+ID4gPiA+
-IGV4aXN0cyBpbiBib3RoIGxpdHRsZSBhbmQgYmlnIGVuZGlhbiB2YXJpYW50cykgSSd2ZSBmaWd1
-cmVkIHRoZSBjb21tZW50cwo+ID4gPiA+ID4gZm9yIHZhcmlvdXMgZHJtIGZvdXJjYyBmb3JtYXRz
-IGluIHRoZSBoZWFkZXIgZmlsZSBkb24ndCBtYXRjaCByZWFsaXR5Lgo+ID4gPiA+ID4gCj4gPiA+
-ID4gPiBDb21tZW50cyBzYXlzIHRoZSBSR0IgZm9ybWF0cyBhcmUgbGl0dGxlIGVuZGlhbiwgYnV0
-IGluIHByYWN0aWNlIHRoZXkKPiA+ID4gPiA+IGFyZSBuYXRpdmUgZW5kaWFuLiAgTG9vayBhdCB0
-aGUgZHJtX21vZGVfbGVnYWN5X2ZiX2Zvcm1hdCgpIGhlbHBlci4gIEl0Cj4gPiA+ID4gPiBtYXBz
-IC0tIGZvciBleGFtcGxlIC0tIGJwcC9kZXB0aCAzMi8yNCB0byBEUk1fRk9STUFUX1hSR0I4ODg4
-LCBubyBtYXR0ZXIKPiA+ID4gPiA+IHdoZW5ldmVyIHRoZSBtYWNoaW5lIGlzIGxpdHRsZSBlbmRp
-YW4gb3IgYmlnIGVuZGlhbi4gIFRoZSB1c2VycyBvZiB0aGlzCj4gPiA+ID4gPiBmdW5jdGlvbiAo
-ZmJkZXYgZW11bGF0aW9uLCBEUk1fSU9DVExfTU9ERV9BRERGQikgZXhwZWN0IHRoZSBmcmFtZWJ1
-ZmZlcgo+ID4gPiA+ID4gaXMgbmF0aXZlIGVuZGlhbiwgbm90IGxpdHRsZSBlbmRpYW4uICBNb3N0
-IHVzZXJzcGFjZSBhbHNvIG9wZXJhdGVzIG9uCj4gPiA+ID4gPiBuYXRpdmUgZW5kaWFuIG9ubHku
-ICAKPiA+ID4gPiAKPiA+ID4gPiBJJ20gbm90IGEgZmFuIG9mICJuYXRpdmUiLiBOYXRpdmUgdG8g
-d2hhdD8gIkNQVSIgb3IgImhvc3QiIGlzIHdoYXQgSSdkCj4gPiA+ID4gY2FsbCBpdC4gIAo+ID4g
-PiAKPiA+ID4gbmF0aXZlID09IHdoYXRldmVyIHRoZSBjcHUgaXMgdXNpbmcuCj4gPiA+IAo+ID4g
-PiBJIHBlcnNvbmFsbHkgZmluZCAibmF0aXZlIiBtb3JlIGludHVpdGl2ZSwgYnV0IGF0IHRoZSBl
-bmQgb2YgdGhlIGRheSBJCj4gPiA+IGRvbid0IG1pbmQgbXVjaC4gIElmIHBlb3BsZSBwcmVmZXIg
-Imhvc3QiIG92ZXIgIm5hdGl2ZSIgSSdsbCBjaGFuZ2UgaXQuICAKPiA+IAo+ID4gIm5hdGl2ZSIg
-dG8gbWUgZmVlbHMgbW9yZSBsaWtlICJuYXRpdmUgdG8gdGhlIEdQVSIgc2luY2UgdGhlc2UgdGhp
-bmdzCj4gPiByZWFsbHkgYXJlIHRpZWQgdG8gdGhlIEdQVSBub3QgdGhlIENQVS4gVGhhdCdzIGFs
-c28gd2h5IEkgd2VudCB3aXRoIHRoZQo+ID4gZXhwbGljaXQgZW5kaWFubmVzcyBvcmlnaW5hbGx5
-IHNvIHRoYXQgdGhlIGRyaXZlciBjb3VsZCBwcm9wZXJseSBkZWNsYXJlCj4gPiB3aGF0IHRoZSBH
-UFUgc3VwcG9ydHMuCj4gCj4gSGksCj4gCj4geWVhaCwgb25lIHNob3VsZCByZWFsbHkgYmUgZXhw
-bGljaXQgb24gd2hpY2ggY29tcG9uZW50J3MgZW5kaWFuZXNzIGRvZXMKPiAibmF0aXZlIiByZWZl
-ciB0by4gSSBqdXN0IGNhbid0IGltYWdpbmUgIkdQVSBuYXRpdmUiIHRvIGV2ZXIgYmUgYW4KPiBv
-cHRpb24sIGJlY2F1c2UgdGhlbiB1c2Vyc3BhY2UgbmVlZHMgYSB3YXkgdG8gZGlzY292ZXIgd2hh
-dCB0aGUKPiBHUFUgZW5kaWFuZXNzIGlzLAoKSXQgaGFzIHRvIGtub3cgdGhhdC4gSG93IGVsc2Ug
-d291bGQgaXQga25vdyBob3cgdG8gd3JpdGUgdGhlIGJ5dGVzIGludG8KbWVtb3J5IGluIHRoZSBy
-aWdodCBvcmRlciBmb3IgdGhlIEdQVSB0byBjb25zdW1lLCBvciByZWFkIHRoZSBzdHVmZiB0aGUK
-R1BVIHByb2R1Y2VkPwoKPiBhbmQgSSBiZWxpZXZlIHRoYXQgd291bGQgb25seSBkZWVwZW4gdGhl
-IHN3YW1wLCBub3QKPiBkcmFpbiBpdCwgYmVjYXVzZSBzdWRkZW5seSB5b3UgbmVlZCB0d28gZW51
-bXMgdG8gZGVzY3JpYmUgb25lIGZvcm1hdC4KPiAKPiBWaWxsZSwgd29yZGluZyBhc2lkZSwgd2hh
-dCBkbyB0aGluayBhYm91dCBjaGFuZ2luZyB0aGUgZW5kaWFuZXNzCj4gZGVmaW5pdGlvbj8gSXMg
-aXQgZ29pbmcgaW4gdGhlIHJpZ2h0IGRpcmVjdGlvbj8KCkkgZG9uJ3QgdGhpbmsgc28sIGJ1dCBJ
-IGd1ZXNzIEknbSBpbiB0aGUgbWlub3JpdHkuCgotLSAKVmlsbGUgU3lyasOkbMOkCkludGVsIE9U
-QwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2
-ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
-aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
+Am 21.04.2017 um 13:49 schrieb Ville Syrjälä:
+> On Fri, Apr 21, 2017 at 02:40:18PM +0300, Pekka Paalanen wrote:
+>> On Fri, 21 Apr 2017 14:08:04 +0300
+>> Ville Syrjälä <ville.syrjala@linux.intel.com> wrote:
+>>
+>>> On Fri, Apr 21, 2017 at 11:50:18AM +0200, Gerd Hoffmann wrote:
+>>>> On Fr, 2017-04-21 at 12:25 +0300, Ville Syrjälä wrote:
+>>>>> On Fri, Apr 21, 2017 at 09:58:24AM +0200, Gerd Hoffmann wrote:
+>>>>>> While working on graphics support for virtual machines on ppc64 (which
+>>>>>> exists in both little and big endian variants) I've figured the comments
+>>>>>> for various drm fourcc formats in the header file don't match reality.
+>>>>>>
+>>>>>> Comments says the RGB formats are little endian, but in practice they
+>>>>>> are native endian.  Look at the drm_mode_legacy_fb_format() helper.  It
+>>>>>> maps -- for example -- bpp/depth 32/24 to DRM_FORMAT_XRGB8888, no matter
+>>>>>> whenever the machine is little endian or big endian.  The users of this
+>>>>>> function (fbdev emulation, DRM_IOCTL_MODE_ADDFB) expect the framebuffer
+>>>>>> is native endian, not little endian.  Most userspace also operates on
+>>>>>> native endian only.
+>>>>> I'm not a fan of "native". Native to what? "CPU" or "host" is what I'd
+>>>>> call it.
+>>>> native == whatever the cpu is using.
+>>>>
+>>>> I personally find "native" more intuitive, but at the end of the day I
+>>>> don't mind much.  If people prefer "host" over "native" I'll change it.
+>>> "native" to me feels more like "native to the GPU" since these things
+>>> really are tied to the GPU not the CPU. That's also why I went with the
+>>> explicit endianness originally so that the driver could properly declare
+>>> what the GPU supports.
+>> Hi,
+>>
+>> yeah, one should really be explicit on which component's endianess does
+>> "native" refer to. I just can't imagine "GPU native" to ever be an
+>> option, because then userspace needs a way to discover what the
+>> GPU endianess is,
+> It has to know that. How else would it know how to write the bytes into
+> memory in the right order for the GPU to consume, or read the stuff the
+> GPU produced?
+>
+>> and I believe that would only deepen the swamp, not
+>> drain it, because suddenly you need two enums to describe one format.
+>>
+>> Ville, wording aside, what do think about changing the endianess
+>> definition? Is it going in the right direction?
+> I don't think so, but I guess I'm in the minority.
+I don't think your are in the minority. At least I would clearly say 
+those formats should be in a fixed byte order and don't care about the 
+CPU in the system.
+
+What I need from the driver side is a consistent description of how the 
+bytes in memory map to my hardware. What CPU is in use in the system is 
+completely irrelevant for that.
+
+Regards,
+Christian.
