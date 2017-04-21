@@ -1,29 +1,29 @@
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
 Subject: Re: [PATCH] drm: fourcc byteorder: brings header file comments in
  line with reality.
-Date: Fri, 21 Apr 2017 14:05:56 +0300
-Message-ID: <20170421110556.GG30290@intel.com>
+Date: Fri, 21 Apr 2017 14:08:04 +0300
+Message-ID: <20170421110804.GH30290@intel.com>
 References: <20170421075825.6307-1-kraxel@redhat.com>
  <20170421092530.GE30290@intel.com>
  <1492768218.25675.33.camel@redhat.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
 Content-Disposition: inline
-In-Reply-To: <1492768218.25675.33.camel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Cc: Jani Nikula <jani.nikula-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Michel =?iso-8859-1?Q?D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, open list <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Pekka Paalanen <ppaalanen-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Sean Paul <seanpaul-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Daniel Vetter <daniel.vetter-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Ilia Mirkin <imirkin-FrUbXkNCsVf2fBVCVOL8/A@public.gmane.org>
+In-Reply-To: <1492768218.25675.33.camel@redhat.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Gerd Hoffmann <kraxel@redhat.com>
+Cc: Michel =?iso-8859-1?Q?D=E4nzer?= <michel@daenzer.net>, open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel.vetter@intel.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
 T24gRnJpLCBBcHIgMjEsIDIwMTcgYXQgMTE6NTA6MThBTSArMDIwMCwgR2VyZCBIb2ZmbWFubiB3
 cm90ZToKPiBPbiBGciwgMjAxNy0wNC0yMSBhdCAxMjoyNSArMDMwMCwgVmlsbGUgU3lyasOkbMOk
@@ -46,13 +46,11 @@ dD8gIkNQVSIgb3IgImhvc3QiIGlzIHdoYXQgSSdkCj4gPiBjYWxsIGl0Lgo+IAo+IG5hdGl2ZSA9
 PSB3aGF0ZXZlciB0aGUgY3B1IGlzIHVzaW5nLgo+IAo+IEkgcGVyc29uYWxseSBmaW5kICJuYXRp
 dmUiIG1vcmUgaW50dWl0aXZlLCBidXQgYXQgdGhlIGVuZCBvZiB0aGUgZGF5IEkKPiBkb24ndCBt
 aW5kIG11Y2guICBJZiBwZW9wbGUgcHJlZmVyICJob3N0IiBvdmVyICJuYXRpdmUiIEknbGwgY2hh
-bmdlIGl0Lgo+IAo+ID4gQW5kIHdoYXQgYWJvdXQgdGhlIG14aWVkIGVuZGlhbiBjYXNlPyBBcmUg
-eW91IGp1c3QgZ29pbmcgdG8gcHJldGVuZCBpdAo+ID4gZG9lc24ndCBleGlzdCBvciB3aGF0Pwo+
-IAo+IFdoYXQgZXhhY3RseSBkbyB5b3UgbWVhbiB3aXRoICJtaXhlZCBlbmRpYW4iPyAgVGhlIHBv
-d2VycGMgY2FzZSwgd2hlcmUKPiBrZXJuZWwgKyB1c2Vyc3BhY2UgY2FuIHJ1biBpbiBlaXRoZXIg
-YmlnIG9yIGxpdHRsZSBlbmRpYW4gbW9kZT8gIE9yCj4gc29tZXRoaW5nIGVsc2U/CgpCaWcgZW5k
-aWFuIENQVSBhbmQgbGl0dGxlIGVuZGlhbiBHUFUuIEkgdGhpbmsgdGhhdCBzaG91bGQgYmUgdGhl
-IG1vc3QKY29tbW9uIGNhc2UgdGhlc2UgZGF5cy4KCi0tIApWaWxsZSBTeXJqw6Rsw6QKSW50ZWwg
-T1RDCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
-ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+bmdlIGl0LgoKIm5hdGl2ZSIgdG8gbWUgZmVlbHMgbW9yZSBsaWtlICJuYXRpdmUgdG8gdGhlIEdQ
+VSIgc2luY2UgdGhlc2UgdGhpbmdzCnJlYWxseSBhcmUgdGllZCB0byB0aGUgR1BVIG5vdCB0aGUg
+Q1BVLiBUaGF0J3MgYWxzbyB3aHkgSSB3ZW50IHdpdGggdGhlCmV4cGxpY2l0IGVuZGlhbm5lc3Mg
+b3JpZ2luYWxseSBzbyB0aGF0IHRoZSBkcml2ZXIgY291bGQgcHJvcGVybHkgZGVjbGFyZQp3aGF0
+IHRoZSBHUFUgc3VwcG9ydHMuCgotLSAKVmlsbGUgU3lyasOkbMOkCkludGVsIE9UQwpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGlu
+ZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
