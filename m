@@ -1,57 +1,160 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Subject: Re: [PATCH] drm: fourcc byteorder: brings header file comments in
- line with reality.
-Date: Fri, 21 Apr 2017 13:42:23 +0200
-Message-ID: <f1b0ae60-b20e-ad52-7fbf-32f2c045f5fc@amd.com>
-References: <20170421075825.6307-1-kraxel@redhat.com>
- <20170421092530.GE30290@intel.com> <1492768218.25675.33.camel@redhat.com>
- <20170421110804.GH30290@intel.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH 3/3] drm/amdgpu: fix gpu reset issue
+Date: Fri, 21 Apr 2017 13:47:24 +0200
+Message-ID: <eeb3931b-ef67-8645-a3bc-bc7f3db4002e@vodafone.de>
+References: <1492758490-12631-1-git-send-email-Hongbo.He@amd.com>
+ <ef2c40cd-bb55-5921-9318-e0147f1b4719@vodafone.de>
+ <MWHPR1201MB01272142B19FFEB9EAD281F3FD1A0@MWHPR1201MB0127.namprd12.prod.outlook.com>
+ <05b9d783-75ab-9924-6881-472540fc77d1@vodafone.de>
+ <MWHPR1201MB0127A593761702A7A179855EFD1A0@MWHPR1201MB0127.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20170421110804.GH30290@intel.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, Gerd Hoffmann <kraxel@redhat.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, David Airlie <airlied@linux.ie>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>, open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org, Pekka Paalanen <ppaalanen@gmail.com>, Sean Paul <seanpaul@chromium.org>, amd-gfx@lists.freedesktop.org, Alex Deucher <alexdeucher@gmail.com>, Daniel Vetter <daniel.vetter@intel.com>, Ilia Mirkin <imirkin@alum.mit.edu>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <MWHPR1201MB0127A593761702A7A179855EFD1A0-3iK1xFAIwjq9imrIu4W8xGrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "He, Hongbo" <Hongbo.He-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
 
-Am 21.04.2017 um 13:08 schrieb Ville Syrjälä:
-> On Fri, Apr 21, 2017 at 11:50:18AM +0200, Gerd Hoffmann wrote:
->> On Fr, 2017-04-21 at 12:25 +0300, Ville Syrjälä wrote:
->>> On Fri, Apr 21, 2017 at 09:58:24AM +0200, Gerd Hoffmann wrote:
->>>> While working on graphics support for virtual machines on ppc64 (which
->>>> exists in both little and big endian variants) I've figured the comments
->>>> for various drm fourcc formats in the header file don't match reality.
->>>>
->>>> Comments says the RGB formats are little endian, but in practice they
->>>> are native endian.  Look at the drm_mode_legacy_fb_format() helper.  It
->>>> maps -- for example -- bpp/depth 32/24 to DRM_FORMAT_XRGB8888, no matter
->>>> whenever the machine is little endian or big endian.  The users of this
->>>> function (fbdev emulation, DRM_IOCTL_MODE_ADDFB) expect the framebuffer
->>>> is native endian, not little endian.  Most userspace also operates on
->>>> native endian only.
->>> I'm not a fan of "native". Native to what? "CPU" or "host" is what I'd
->>> call it.
->> native == whatever the cpu is using.
->>
->> I personally find "native" more intuitive, but at the end of the day I
->> don't mind much.  If people prefer "host" over "native" I'll change it.
-> "native" to me feels more like "native to the GPU" since these things
-> really are tied to the GPU not the CPU. That's also why I went with the
-> explicit endianness originally so that the driver could properly declare
-> what the GPU supports.
-And to be honest I would really prefer to stick with that approach for 
-exactly that reason.
-
-The proposed change would require that drivers have different code path 
-for different CPU byte order. Those code path tend to be not tested very 
-well and are additional complexity we probably don't want inside the driver.
-
-My personal opinion is that formats in drm_fourcc.h should be 
-independent of the CPU byte order and the function 
-drm_mode_legacy_fb_format() and drivers depending on that incorrect 
-assumption be fixed instead.
-
-Regards,
-Christian.
+U2VlIGFtZGdwdV9ncHVfcmVzZXQoKToKCj4gICAgICAgICAvKiBibG9jayBzY2hlZHVsZXIgKi8K
+PiAgICAgICAgIGZvciAoaSA9IDA7IGkgPCBBTURHUFVfTUFYX1JJTkdTOyArK2kpIHsKPiAgICAg
+ICAgICAgICAgICAgc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nID0gYWRldi0+cmluZ3NbaV07Cj4K
+PiAgICAgICAgICAgICAgICAgaWYgKCFyaW5nKQo+ICAgICAgICAgICAgICAgICAgICAgICAgIGNv
+bnRpbnVlOwo+ICAgICAgICAgICAgICAgICBrdGhyZWFkX3BhcmsocmluZy0+c2NoZWQudGhyZWFk
+KTsKPiAgICAgICAgICAgICAgICAgYW1kX3NjaGVkX2h3X2pvYl9yZXNldCgmcmluZy0+c2NoZWQp
+Owo+ICAgICAgICAgfQoKYW5kCgo+ICAgICAgICAgICAgICAgICBmb3IgKGkgPSAwOyBpIDwgQU1E
+R1BVX01BWF9SSU5HUzsgKytpKSB7Cj4gICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IGFt
+ZGdwdV9yaW5nICpyaW5nID0gYWRldi0+cmluZ3NbaV07Cj4gICAgICAgICAgICAgICAgICAgICAg
+ICAgaWYgKCFyaW5nKQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29udGludWU7
+Cj4KPiBhbWRfc2NoZWRfam9iX3JlY292ZXJ5KCZyaW5nLT5zY2hlZCk7Cj4gICAgICAgICAgICAg
+ICAgICAgICAgICAga3RocmVhZF91bnBhcmsocmluZy0+c2NoZWQudGhyZWFkKTsKPiAgICAgICAg
+ICAgICAgICAgfQoKUmVnYXJkcywKQ2hyaXN0aWFuLgoKQW0gMjEuMDQuMjAxNyB1bSAxMTo1NCBz
+Y2hyaWViIEhlLCBIb25nYm86Cj4+IER1cmluZyBHUFUgcmVzZXQsIElPQ1RMIHN0aWxsICBzdWJt
+aXQgY29tbWFuZCB0byBHUFUuCj4gTm8gaXQgd29uJ3QuIFdlIGRpc2FibGUgdGhlIEdQVSBzY2hl
+ZHVsZXIgZHVyaW5nIEdQVSByZXNldCwgc28gdGhhdCBpc24ndCBhbiBpc3N1ZS4KPiAgICAgICAg
+ICAgIENvdWxkIHlvdSBwb2ludCBvdXQgdGhlIHJlbGF0ZWQgY29kZT8gVGhhbmtzLgo+Cj4KPiBU
+aGFua3MKPiBSb2dlcihIb25nYm8uSGUpCj4KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+
+IEZyb206IENocmlzdGlhbiBLw7ZuaWcgW21haWx0bzpkZWF0aHNpbXBsZUB2b2RhZm9uZS5kZV0K
+PiBTZW50OiBGcmlkYXksIEFwcmlsIDIxLCAyMDE3IDU6MTYgUE0KPiBUbzogSGUsIEhvbmdibzsg
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBDYzogWmhvdSwgRGF2aWQoQ2h1bk1pbmcp
+Cj4gU3ViamVjdDogUmU6IFtQQVRDSCAzLzNdIGRybS9hbWRncHU6IGZpeCBncHUgcmVzZXQgaXNz
+dWUKPgo+PiBEdXJpbmcgR1BVIHJlc2V0LCBJT0NUTCBzdGlsbCAgc3VibWl0IGNvbW1hbmQgdG8g
+R1BVLgo+IE5vIGl0IHdvbid0LiBXZSBkaXNhYmxlIHRoZSBHUFUgc2NoZWR1bGVyIGR1cmluZyBH
+UFUgcmVzZXQsIHNvIHRoYXQgaXNuJ3QgYW4gaXNzdWUuCj4KPiBEbyB5b3UgaGF2ZSBhIGNvbmNy
+ZXRlIHByb2JsZW0gKGUuZy4gZG1lc2c/KSB5b3UgcmFuIGludG8/Cj4KPiBSZWdhcmRzLAo+IENo
+cmlzdGlhbi4KPgo+IEFtIDIxLjA0LjIwMTcgdW0gMTE6MDAgc2NocmllYiBIZSwgSG9uZ2JvOgo+
+PiBIaSBDaHJpc3RpYW46Cj4+Cj4+IER1cmluZyBHUFUgcmVzZXQsIElPQ1RMIHN0aWxsICBzdWJt
+aXQgY29tbWFuZCB0byBHUFUuCj4+IFRoYXQgd2lsbCByZXN1bHQgaW4gbG90cyBvZiBzdHJhbmdl
+IHByb2JsZW1zIHdoZW4gd2UgdGVzdCB0aGlzIGZlYXR1cmUuCj4+Cj4+IEkgaGF2ZSBubyBiZXR0
+ZXIgaWRlYSB0byBoYW5kbGUgdGhpcyBjYXNlLiBBdCB0aGF0IHRpbWUsIEkgaGF2ZSB0cmllZCB3
+aXRoIHJldHVybiBlcnJvciBkaXJlY3RseSByYXRoZXIgdGhhbiB3YWl0aW5nIEdQVSByZXNldCBj
+b21wbGV0aW9uLgo+PiBCdXQgdGhhdCBkb2Vzbid0IHdvcmsgYW5kIGl0IGxlYWQgdG8gb3RoZXIg
+cHJvYmxlbXMuCj4+Cj4+IFRoYW5rcwo+PiBSb2dlcihIb25nYm8uSGUpCj4+Cj4+IC0tLS0tT3Jp
+Z2luYWwgTWVzc2FnZS0tLS0tCj4+IEZyb206IENocmlzdGlhbiBLw7ZuaWcgW21haWx0bzpkZWF0
+aHNpbXBsZUB2b2RhZm9uZS5kZV0KPj4gU2VudDogRnJpZGF5LCBBcHJpbCAyMSwgMjAxNyA0OjI3
+IFBNCj4+IFRvOiBIZSwgSG9uZ2JvOyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiBD
+YzogWmhvdSwgRGF2aWQoQ2h1bk1pbmcpCj4+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggMy8zXSBkcm0v
+YW1kZ3B1OiBmaXggZ3B1IHJlc2V0IGlzc3VlCj4+Cj4+IE5BSywgdGhhdCBpcyBleGFjdGx5IHdo
+YXQgd2Ugd2FudGVkIHRvIGF2b2lkLgo+Pgo+PiBXZSB1c2VkIHRvIGhhdmUgYW4gZXhjbHVzaXZl
+IGxvY2sgZm9yIHRoaXMgYW5kIGl0IGNhdXNlIGEgd2hvbGUgYnVuY2ggb2YgcHJvYmxlbXMuCj4+
+Cj4+IFBsZWFzZSBlbGFib3JhdGUgd2h5IHRoYXQgc2hvdWxkIGJlIG5lY2Vzc2FyeS4KPj4KPj4g
+UmVnYXJkcywKPj4gQ2hyaXN0aWFuLgo+Pgo+PiBBbSAyMS4wNC4yMDE3IHVtIDA5OjA4IHNjaHJp
+ZWIgUm9nZXIuSGU6Cj4+PiBDaGFuZ2UtSWQ6IEliNzdkMzNhMDlmMzQ4ZWJmMmUzYTlkNzg2MTQx
+MWY0Yjk1MWViZjdjCj4+PiBTaWduZWQtb2ZmLWJ5OiBSb2dlci5IZSA8SG9uZ2JvLkhlQGFtZC5j
+b20+Cj4+PiAtLS0KPj4+ICAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCAg
+ICAgICAgfCAgNiArKysrKysKPj4+ICAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZGV2aWNlLmMgfCAxNiArKysrKysrKysrKysrKystCj4+PiAgICAgZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jICAgIHwgIDQgKysrKwo+Pj4gICAgIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pb2MzMi5jICB8ICA3ICsrKysrKy0KPj4+ICAgICA0IGZp
+bGVzIGNoYW5nZWQsIDMxIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4+Pgo+Pj4gZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+PiBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+PiBpbmRleCA3MTM2NGY1Li5hYjBmZmE4
+IDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPj4+
+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+PiBAQCAtMTUyNiw2
+ICsxNTI2LDcgQEAgc3RydWN0IGFtZGdwdV9kZXZpY2Ugewo+Pj4gICAgIAlhdG9taWM2NF90CQkJ
+bnVtX2J5dGVzX21vdmVkOwo+Pj4gICAgIAlhdG9taWM2NF90CQkJbnVtX2V2aWN0aW9uczsKPj4+
+ICAgICAJYXRvbWljX3QJCQlncHVfcmVzZXRfY291bnRlcjsKPj4+ICsJYXRvbWljX3QJCQlncHVf
+cmVzZXRfc3RhdGU7Cj4+PiAgICAgCj4+PiAgICAgCS8qIGRhdGEgZm9yIGJ1ZmZlciBtaWdyYXRp
+b24gdGhyb3R0bGluZyAqLwo+Pj4gICAgIAlzdHJ1Y3Qgewo+Pj4gQEAgLTE4NTEsNiArMTg1Miwx
+MSBAQCBhbWRncHVfZ2V0X3NkbWFfaW5zdGFuY2Uoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKQo+
+Pj4gICAgICNkZWZpbmUgYW1kZ3B1X3BzcF9jaGVja19md19sb2FkaW5nX3N0YXR1cyhhZGV2LCBp
+KQo+Pj4gKGFkZXYpLT5maXJtd2FyZS5mdW5jcy0+Y2hlY2tfZndfbG9hZGluZ19zdGF0dXMoKGFk
+ZXYpLCAoaSkpCj4+PiAgICAgCj4+PiAgICAgLyogQ29tbW9uIGZ1bmN0aW9ucyAqLwo+Pj4gK3N0
+YXRpYyBpbmxpbmUgaW50IGFtZGdwdV9kZXZpY2VfaXNfcmVzZXQoc3RydWN0IGFtZGdwdV9kZXZp
+Y2UgKmFkZXYpCj4+PiArewo+Pj4gKwlyZXR1cm4gYXRvbWljX3JlYWQoJmFkZXYtPmdwdV9yZXNl
+dF9zdGF0ZSk7Cj4+PiArfQo+Pj4gKwo+Pj4gICAgIGludCBhbWRncHVfZ3B1X3Jlc2V0KHN0cnVj
+dCBhbWRncHVfZGV2aWNlICphZGV2KTsKPj4+ICAgICBib29sIGFtZGdwdV9uZWVkX2JhY2t1cChz
+dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7Cj4+PiAgICAgdm9pZCBhbWRncHVfcGNpX2NvbmZp
+Z19yZXNldChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7IGRpZmYKPj4+IC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4+PiBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+Pj4gaW5kZXggZjg4MjQ5Ni4uMGZiNDcx
+NiAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZp
+Y2UuYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5j
+Cj4+PiBAQCAtMTg5NCw2ICsxODk0LDcgQEAgaW50IGFtZGdwdV9kZXZpY2VfaW5pdChzdHJ1Y3Qg
+YW1kZ3B1X2RldmljZSAqYWRldiwKPj4+ICAgICAJbXV0ZXhfaW5pdCgmYWRldi0+Z3JibV9pZHhf
+bXV0ZXgpOwo+Pj4gICAgIAltdXRleF9pbml0KCZhZGV2LT5tbl9sb2NrKTsKPj4+ICAgICAJaGFz
+aF9pbml0KGFkZXYtPm1uX2hhc2gpOwo+Pj4gKwlhdG9taWNfc2V0KCZhZGV2LT5ncHVfcmVzZXRf
+c3RhdGUsIDApOwo+Pj4gICAgIAo+Pj4gICAgIAlhbWRncHVfY2hlY2tfYXJndW1lbnRzKGFkZXYp
+Owo+Pj4gICAgIAo+Pj4gQEAgLTI2NTUsNiArMjY1NiwxOCBAQCBpbnQgYW1kZ3B1X3NyaW92X2dw
+dV9yZXNldChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgYm9vbCB2b2x1bnRhcnkpCj4+PiAg
+ICAgfQo+Pj4gICAgIAo+Pj4gICAgIC8qKgo+Pj4gKyAqIGFtZGdwdV9kZXZpY2Vfc2V0X3Jlc2V0
+X3N0YXRlIC0gc2V0IGdwdSByZXNldCBzdGF0ZQo+Pj4gKyAqCj4+PiArICogQGFkZXY6IGFtZGdw
+dSBkZXZpY2UgcG9pbnRlcgo+Pj4gKyAqIEBzdGF0ZTogdHJ1ZSB3aGVuIHN0YXJ0IHRvIHJlc2V0
+IGdwdTsgZmFsc2U6IHJlc2V0IGRvbmUgICovCj4+PiArc3RhdGljIGlubGluZSB2b2lkIGFtZGdw
+dV9kZXZpY2Vfc2V0X3Jlc2V0X3N0YXRlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+Pj4g
+KwkJCQkJCQlib29sIHN0YXRlKQo+Pj4gK3sKPj4+ICsJYXRvbWljX3NldCgmYWRldi0+Z3B1X3Jl
+c2V0X3N0YXRlLCBzdGF0ZSk7IH0KPj4+ICsKPj4+ICsvKioKPj4+ICAgICAgKiBhbWRncHVfZ3B1
+X3Jlc2V0IC0gcmVzZXQgdGhlIGFzaWMKPj4+ICAgICAgKgo+Pj4gICAgICAqIEBhZGV2OiBhbWRn
+cHUgZGV2aWNlIHBvaW50ZXIKPj4+IEBAIC0yNjc4LDcgKzI2OTEsNyBAQCBpbnQgYW1kZ3B1X2dw
+dV9yZXNldChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPj4+ICAgICAJfQo+Pj4gICAgIAo+
+Pj4gICAgIAlhdG9taWNfaW5jKCZhZGV2LT5ncHVfcmVzZXRfY291bnRlcik7Cj4+PiAtCj4+PiAr
+CWFtZGdwdV9kZXZpY2Vfc2V0X3Jlc2V0X3N0YXRlKGFkZXYsIHRydWUpOwo+Pj4gICAgIAkvKiBi
+bG9jayBUVE0gKi8KPj4+ICAgICAJcmVzY2hlZCA9IHR0bV9ib19sb2NrX2RlbGF5ZWRfd29ya3F1
+ZXVlKCZhZGV2LT5tbWFuLmJkZXYpOwo+Pj4gICAgIAkvKiBzdG9yZSBtb2Rlc2V0dGluZyAqLwo+
+Pj4gQEAgLTI4MTEsNiArMjgyNCw3IEBAIGludCBhbWRncHVfZ3B1X3Jlc2V0KHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2KQo+Pj4gICAgIAkJZGV2X2luZm8oYWRldi0+ZGV2LCAiR1BVIHJlc2V0
+IGZhaWxlZFxuIik7Cj4+PiAgICAgCX0KPj4+ICAgICAKPj4+ICsJYW1kZ3B1X2RldmljZV9zZXRf
+cmVzZXRfc3RhdGUoYWRldiwgZmFsc2UpOwo+Pj4gICAgIAlyZXR1cm4gcjsKPj4+ICAgICB9Cj4+
+PiAgICAgCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2Rydi5jCj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwo+Pj4g
+aW5kZXggZWFkMDBkNy4uOGNjMTRhZiAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2Rydi5jCj4+PiBAQCAtNjc5LDExICs2NzksMTUgQEAgbG9uZyBhbWRncHVfZHJt
+X2lvY3RsKHN0cnVjdCBmaWxlICpmaWxwLAo+Pj4gICAgIAlzdHJ1Y3QgZHJtX2ZpbGUgKmZpbGVf
+cHJpdiA9IGZpbHAtPnByaXZhdGVfZGF0YTsKPj4+ICAgICAJc3RydWN0IGRybV9kZXZpY2UgKmRl
+djsKPj4+ICAgICAJbG9uZyByZXQ7Cj4+PiArCj4+PiAgICAgCWRldiA9IGZpbGVfcHJpdi0+bWlu
+b3ItPmRldjsKPj4+ICAgICAJcmV0ID0gcG1fcnVudGltZV9nZXRfc3luYyhkZXYtPmRldik7Cj4+
+PiAgICAgCWlmIChyZXQgPCAwKQo+Pj4gICAgIAkJcmV0dXJuIHJldDsKPj4+ICAgICAKPj4+ICsJ
+d2hpbGUgKGFtZGdwdV9kZXZpY2VfaXNfcmVzZXQoZGV2LT5kZXZfcHJpdmF0ZSkpCj4+PiArCQlt
+c2xlZXAoMTAwKTsKPj4+ICsKPj4+ICAgICAJcmV0ID0gZHJtX2lvY3RsKGZpbHAsIGNtZCwgYXJn
+KTsKPj4+ICAgICAKPj4+ICAgICAJcG1fcnVudGltZV9tYXJrX2xhc3RfYnVzeShkZXYtPmRldik7
+Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2lvYzMy
+LmMKPj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2lvYzMyLmMKPj4+IGlu
+ZGV4IDI2NDgyOTEuLjIyYjgwNTkgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfaW9jMzIuYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2lvYzMyLmMKPj4+IEBAIC0zNiwxMCArMzYsMTUgQEAKPj4+ICAgICBsb25nIGFt
+ZGdwdV9rbXNfY29tcGF0X2lvY3RsKHN0cnVjdCBmaWxlICpmaWxwLCB1bnNpZ25lZCBpbnQgY21k
+LCB1bnNpZ25lZCBsb25nIGFyZykKPj4+ICAgICB7Cj4+PiAgICAgCXVuc2lnbmVkIGludCBuciA9
+IERSTV9JT0NUTF9OUihjbWQpOwo+Pj4gKwlzdHJ1Y3QgZHJtX2ZpbGUgKmZpbGVfcHJpdiA9IGZp
+bHAtPnByaXZhdGVfZGF0YTsKPj4+ICsJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBmaWxl
+X3ByaXYtPm1pbm9yLT5kZXYtPmRldl9wcml2YXRlOwo+Pj4gICAgIAlpbnQgcmV0Owo+Pj4gICAg
+IAo+Pj4gLQlpZiAobnIgPCBEUk1fQ09NTUFORF9CQVNFKQo+Pj4gKwlpZiAobnIgPCBEUk1fQ09N
+TUFORF9CQVNFKSB7Cj4+PiArCQl3aGlsZSAoYW1kZ3B1X2RldmljZV9pc19yZXNldChhZGV2KSkK
+Pj4+ICsJCQltc2xlZXAoMTAwKTsKPj4+ICAgICAJCXJldHVybiBkcm1fY29tcGF0X2lvY3RsKGZp
+bHAsIGNtZCwgYXJnKTsKPj4+ICsJfQo+Pj4gICAgIAo+Pj4gICAgIAlyZXQgPSBhbWRncHVfZHJt
+X2lvY3RsKGZpbHAsIGNtZCwgYXJnKTsKPj4+ICAgICAKPiBfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZngK
