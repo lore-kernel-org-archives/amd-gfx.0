@@ -1,10 +1,9 @@
 From: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: fix no-vmid job
-Date: Fri, 21 Apr 2017 18:00:03 +0800
-Message-ID: <1492768803-28927-1-git-send-email-David1.Zhou@amd.com>
+Subject: [PATCH 0/5] *** Dedicated vmid per process ***
+Date: Fri, 21 Apr 2017 18:05:37 +0800
+Message-ID: <1492769142-31180-1-git-send-email-David1.Zhou@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1210251448=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,24 +18,52 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
 
-WyAgMTMyLjAzNjY1OF0gYW1kZ3B1IDAwMDA6MjI6MDAuMDogVk0gSUIgd2l0aG91dCBJRApbICAx
-MzIuMDM2NzA5XSBbZHJtOmFtZGdwdV9qb2JfcnVuIFthbWRncHVdXSAqRVJST1IqIEVycm9yIHNj
-aGVkdWxpbmcgSUJzICgtMjIpClsgIDEzMi4wMzY3NTVdIFtkcm06YW1kX3NjaGVkX21haW4gW2Ft
-ZGdwdV1dICpFUlJPUiogRmFpbGVkIHRvIHJ1biBqb2IhCgpyb290IGNhdXNlIGlzIGZlbmNlIGlz
-IHNpZ25hbGVkIGR1cmluZyBzeW5jIHRyYW5zZmVyLgoKQ2hhbmdlLUlkOiBJNjE5M2UzMDA1ZmVm
-MzhhNDVkZmNiOTg1ZjExZTczMDIyZjI1YmU1OQpTaWduZWQtb2ZmLWJ5OiBDaHVubWluZyBaaG91
-IDxEYXZpZDEuWmhvdUBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9qb2IuYyB8IDIgKy0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxl
-dGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9q
-b2IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9qb2IuYwppbmRleCAzN2Qz
-ZjMxLi42OTBlZjNkIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfam9iLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2pvYi5jCkBA
-IC0xMzksNyArMTM5LDcgQEAgc3RhdGljIHN0cnVjdCBmZW5jZSAqYW1kZ3B1X2pvYl9kZXBlbmRl
-bmN5KHN0cnVjdCBhbWRfc2NoZWRfam9iICpzY2hlZF9qb2IpCiAKIAlzdHJ1Y3QgZmVuY2UgKmZl
-bmNlID0gYW1kZ3B1X3N5bmNfZ2V0X2ZlbmNlKCZqb2ItPnN5bmMpOwogCi0JaWYgKGZlbmNlID09
-IE5VTEwgJiYgdm0gJiYgIWpvYi0+dm1faWQpIHsKKwl3aGlsZSAoZmVuY2UgPT0gTlVMTCAmJiB2
-bSAmJiAham9iLT52bV9pZCkgewogCQlzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcgPSBqb2ItPnJp
-bmc7CiAJCWludCByOwogCi0tIAoxLjkuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4Cg==
+--===============1210251448==
+Content-Type: text/plain; charset="all"
+Content-Transfer-Encoding: 8bit
+
+The current kernel implementation, which grabs the idle VMID from pool when emitting the job may:
+
+    The back-to-back submission from one process could use different VMID.
+    The submission to different queues from single process could use different VMID
+
+It works well in most case but cannot work for the SQ thread trace capture.
+
+The VMID for the submission that set the {SQTT}_BASE, which refers to the address of the trace buffer, is stored in shader engine.
+
+If the profiling application have to use different VMIDs to submit IBs in its life cycle:
+
+    Some trace is not captured since it actually uses different VMID to submit jobs.
+    Some part of captured trace may come from different application since they are accidentally uses the owner’s VMID to submit jobs.
+
+
+ChunmingrZhour(5):
+  drm/amdgpu: handle flags when context alloc
+  drm/amdgpu: add dedicated vmid field in vm struct
+  drm/amdgpu: add context flagn for dedicated vmid reqest
+  drm/amdgpu: implement grab dedicated vmid
+  drm/amdgpu: add limitation for dedicated vm number
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c    |  14 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c     | 137 ++++++++++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h     |   6 ++
+ include/uapi/drm/amdgpu_drm.h              |   3 +
+ 6 files changed, 158 insertions(+), 4 deletions(-)
+
+-- 
+1.9.1
+
+
+--===============1210251448==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1210251448==--
