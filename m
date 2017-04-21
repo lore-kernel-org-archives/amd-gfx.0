@@ -1,10 +1,13 @@
 From: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 0/5] *** Dedicated vmid per process ***
-Date: Fri, 21 Apr 2017 18:05:37 +0800
-Message-ID: <1492769142-31180-1-git-send-email-David1.Zhou@amd.com>
+Subject: [PATCH 1/5] drm/amdgpu: handle flags when context alloc
+Date: Fri, 21 Apr 2017 18:05:38 +0800
+Message-ID: <1492769142-31180-2-git-send-email-David1.Zhou@amd.com>
+References: <1492769142-31180-1-git-send-email-David1.Zhou@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1210251448=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1492769142-31180-1-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,52 +21,31 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
 
---===============1210251448==
-Content-Type: text/plain; charset="all"
-Content-Transfer-Encoding: 8bit
-
-The current kernel implementation, which grabs the idle VMID from pool when emitting the job may:
-
-    The back-to-back submission from one process could use different VMID.
-    The submission to different queues from single process could use different VMID
-
-It works well in most case but cannot work for the SQ thread trace capture.
-
-The VMID for the submission that set the {SQTT}_BASE, which refers to the address of the trace buffer, is stored in shader engine.
-
-If the profiling application have to use different VMIDs to submit IBs in its life cycle:
-
-    Some trace is not captured since it actually uses different VMID to submit jobs.
-    Some part of captured trace may come from different application since they are accidentally uses the owner’s VMID to submit jobs.
-
-
-ChunmingrZhour(5):
-  drm/amdgpu: handle flags when context alloc
-  drm/amdgpu: add dedicated vmid field in vm struct
-  drm/amdgpu: add context flagn for dedicated vmid reqest
-  drm/amdgpu: implement grab dedicated vmid
-  drm/amdgpu: add limitation for dedicated vm number
-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c    |  14 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c     | 137 ++++++++++++++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h     |   6 ++
- include/uapi/drm/amdgpu_drm.h              |   3 +
- 6 files changed, 158 insertions(+), 4 deletions(-)
-
--- 
-1.9.1
-
-
---===============1210251448==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1210251448==--
+Q2hhbmdlLUlkOiBJNjUyZDg5MjAwYzM4YTIzOGZmNTAwOTIxMDdmYTFlZTMxMzE3NzI4YQpTaWdu
+ZWQtb2ZmLWJ5OiBDaHVubWluZyBaaG91IDxEYXZpZDEuWmhvdUBhbWQuY29tPgotLS0KIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHguYyB8IDkgKysrKysrLS0tCiAxIGZpbGUg
+Y2hhbmdlZCwgNiBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHguYyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9jdHguYwppbmRleCBmZjIwZTExLi5jMmIyODk2IDEwMDY0NAotLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4LmMKKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0eC5jCkBAIC0xMDMsMTIgKzEwMywxNCBAQCBzdGF0
+aWMgdm9pZCBhbWRncHVfY3R4X2Zpbmkoc3RydWN0IGFtZGdwdV9jdHggKmN0eCkKIAogc3RhdGlj
+IGludCBhbWRncHVfY3R4X2FsbG9jKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCQkJICAg
+IHN0cnVjdCBhbWRncHVfZnByaXYgKmZwcml2LAotCQkJICAgIHVpbnQzMl90ICppZCkKKwkJCSAg
+ICB1aW50MzJfdCAqaWQsIHVpbnQzMl90IGZsYWdzKQogewogCXN0cnVjdCBhbWRncHVfY3R4X21n
+ciAqbWdyID0gJmZwcml2LT5jdHhfbWdyOwogCXN0cnVjdCBhbWRncHVfY3R4ICpjdHg7CiAJaW50
+IHI7CiAKKwlpZiAoZmxhZ3MpCisJCXJldHVybiAtRUlOVkFMOwogCWN0eCA9IGttYWxsb2Moc2l6
+ZW9mKCpjdHgpLCBHRlBfS0VSTkVMKTsKIAlpZiAoIWN0eCkKIAkJcmV0dXJuIC1FTk9NRU07CkBA
+IC0xOTksNyArMjAxLDcgQEAgaW50IGFtZGdwdV9jdHhfaW9jdGwoc3RydWN0IGRybV9kZXZpY2Ug
+KmRldiwgdm9pZCAqZGF0YSwKIAkJICAgICBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbHApCiB7CiAJaW50
+IHI7Ci0JdWludDMyX3QgaWQ7CisJdWludDMyX3QgaWQsIGZsYWdzOwogCiAJdW5pb24gZHJtX2Ft
+ZGdwdV9jdHggKmFyZ3MgPSBkYXRhOwogCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gZGV2
+LT5kZXZfcHJpdmF0ZTsKQEAgLTIxMCw3ICsyMTIsOCBAQCBpbnQgYW1kZ3B1X2N0eF9pb2N0bChz
+dHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLAogCiAJc3dpdGNoIChhcmdzLT5pbi5v
+cCkgewogCWNhc2UgQU1ER1BVX0NUWF9PUF9BTExPQ19DVFg6Ci0JCXIgPSBhbWRncHVfY3R4X2Fs
+bG9jKGFkZXYsIGZwcml2LCAmaWQpOworCQlmbGFncyA9IGFyZ3MtPmluLmZsYWdzOworCQlyID0g
+YW1kZ3B1X2N0eF9hbGxvYyhhZGV2LCBmcHJpdiwgJmlkLCBmbGFncyk7CiAJCWFyZ3MtPm91dC5h
+bGxvYy5jdHhfaWQgPSBpZDsKIAkJYnJlYWs7CiAJY2FzZSBBTURHUFVfQ1RYX09QX0ZSRUVfQ1RY
+OgotLSAKMS45LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
