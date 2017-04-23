@@ -1,66 +1,48 @@
-From: Gerd Hoffmann <kraxel@redhat.com>
-Subject: Re: [PATCH] drm: fourcc byteorder: brings header file comments in
- line with reality.
-Date: Sat, 22 Apr 2017 23:59:25 +0200
-Message-ID: <1492898365.25675.77.camel@redhat.com>
-References: <20170421075825.6307-1-kraxel@redhat.com>
- <20170421092530.GE30290@intel.com> <1492768218.25675.33.camel@redhat.com>
- <20170421110804.GH30290@intel.com>
- <f1b0ae60-b20e-ad52-7fbf-32f2c045f5fc@amd.com>
- <1492780323.25675.45.camel@redhat.com>
- <1492791271.25675.57.camel@redhat.com> <20170422100522.GS30290@intel.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20170422100522.GS30290@intel.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Ville =?ISO-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-Cc: amd-gfx@lists.freedesktop.org, Michel =?ISO-8859-1?Q?D=E4nzer?= <michel@daenzer.net>, open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org, Daniel Vetter <daniel.vetter@intel.com>, Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+From: Pan Bian <bianpan201603@163.com>
+Subject: [PATCH 1/1] drm/radeon: check return value of radeon_ring_lock
+Date: Sun, 23 Apr 2017 21:36:43 +0800
+Message-ID: <1492954603-16489-1-git-send-email-bianpan201603@163.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Pan Bian <bianpan2016@163.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-ICBIaSwKCj4gPiBJIGd1ZXNzIHRoYXQgbWFrZXMgY2hhbmdpbmcgZHJtX21vZGVfbGVnYWN5X2Zi
-X2Zvcm1hdCArIGRyaXZlcnMgYQo+ID4gcmVhc29uYWJsZSBvcHRpb24gLi4uCj4gCj4gWWVhaCwg
-SSBjYW1lIHRvIHRoZSBzYW1lIGNvbmNsdXNpb24gYWZ0ZXIgY2hhdHRpbmcgd2l0aCBzb21lCj4g
-Zm9sa3Mgb24gaXJjLgo+IAo+IFNvIG15IGN1cnJlbnQgaWRlYSBpcyB0aGF0IHdlIGNoYW5nZSBh
-bnkgZHJpdmVyIHRoYXQgd2FudHMgdG8gZm9sbG93IHRoZQo+IENQVSBlbmRpYW5uZXNzIHRvIGRl
-Y2xhcmUgc3VwcG9ydCBmb3IgYmlnIGVuZGlhbiBmb3JtYXRzIGlmIHRoZSBDUFUgaXMKPiBiaWcg
-ZW5kaWFuLiBQcmVzdW1hYmx5IHRoZXNlIGFyZSBtb3N0bHkgdGhlIHZpcnR1YWwgR1BVIGRyaXZl
-cnMuCgpBZ3JlZS4gIEVhc3kuCgo+IEFkZGl0b25hbGx5IHdlJ2xsIG1ha2UgdGhlIG1hcHBpbmcg
-cGVyZm9ybWVkIGJ5IGRybV9tb2RlX2xlZ2FjeV9mYl9mb3JtYXQoKQo+IGRyaXZlciBjb250cm9s
-bGVkLgoKSSBkb24ndCB0aGluayB0aGlzIGlzIHVzZWZ1bC4gIElNTyBkcm1fbW9kZV9sZWdhY3lf
-ZmJfZm9ybWF0IHNob3VsZApyZXR1cm4gaG9zdCBlbmRpYW4gZm9ybWF0cyB1bmNvbmRpdGlvbmFs
-bHkuCgo+IFRoYXQgd2F5IGRyaXZlcnMgdGhhdCBnb3QgY2hhbmdlZCB0byBmb2xsb3cgQ1BVCj4g
-ZW5kaWFubmVzcyBjYW4gcmV0dXJuIGEgZnJhbWVidWZmZXIgdGhhdCBtYXRjaGVzIENQVSBlbmRp
-YW5uZXNzLiBBbmQKPiBkcml2ZXJzIHRoYXQgZXhwZWN0IHRoZSBHUFUgZW5kaWFubmVzcyB0byBu
-b3QgZGVwZW5kIG9uIHRoZSBDUFUKPiBlbmRpYW5uZXNzIHdpbGwga2VlcCB3b3JraW5nIGFzIHRo
-ZXkgZG8gbm93LiBUaGUgZG93bnNpZGUgaXMgdGhhdCB1c2Vycwo+IG9mIHRoZSBsZWdhY3kgYWRk
-ZmIgaW9jdGwgd2lsbCBuZWVkIHRvIG1hZ2ljYWxseSBrbm93IHdoaWNoIGVuZGlhbm5lc3MKPiB0
-aGV5IHdpbGwgZ2V0LCBidXQgdGhhdCBpcyBhcHBhcmVudGx5IGFscmVhZHkgdGhlIGNhc2UuCgpF
-eGlzdGluZyB1c2Vyc3BhY2UgZXhwZWN0cyBob3N0IGVuZGlhbiwgYW5kIElNTyB3ZSBzaG91bGQg
-bWFpbnRhaW4gdGhhdApiZWhhdmlvci4KCj4gQW5kIHVzZXJzIG9mCj4gYWRkZmIyIHdpbGwga2Vl
-cCBvbiBzcGVjaWZ5aW5nIHRoZSBlbmRpYW5uZXNzIGV4cGxpY2l0bHkgd2l0aAo+IERSTV9GT1JN
-QVRfQklHX0VORElBTiB2cy4gMC4KCkknZCBkcm9wIERSTV9GT1JNQVRfQklHX0VORElBTi4KCkF0
-IGxlYXN0IGZvciB0aGUgdmlydCBkcml2ZXJzIGl0IGRvZXNuJ3QgYnV5IHVzIGFueXRoaW5nLiAg
-VGhleSBzdXBwb3J0CjMyYnBwIC8gOCBicGMgZm9ybWF0cyBvbmx5WzFdLCBhbmQgZm9yIHRob3Nl
-IEkgY2FuIHNwZWNpZnkgdGhlCmJ5dGVzd2FwcGVkIGZvcm1hdCB2ZXJzaW9uIHdpdGhvdXQgYSBi
-aWdlbmRpYW4gZmxhZyBiZWNhdXNlIHdlIGhhdmUKZm91cmNjcyBmb3IgZXZlcnl0aGluZyB3ZSBu
-ZWVkLgoKClRoZXJlIGlzIGEgV0lQIHBhdGNoIHNlcmllcyBhdApodHRwczovL3d3dy5rcmF4ZWwu
-b3JnL2NnaXQvbGludXgvbG9nLz9oPWRybS1ieXRlb3JkZXIKCk5lZWRzIG1vcmUgdGVzdGluZyBh
-bmQgYmV0dGVyIGNvbW1pdCBtZXNzYWdlcy4gIC9tZSBwbGFucyB0byBwb2xpc2ggJgpwb3N0IG5l
-eHQgd2VlaywgYnV0IGZlZWwgZnJlZSB0byBsb29rIGFuZCBjb21tZW50LgoKY2hlZXJzLAogIEdl
-cmQKClsxXSBFdmVyeXRoaW5nIGVsc2UgaXMgYSBQSVRBIHRvIGRlYWwgd2l0aCBvbiB0aGUgaG9z
-dCBzaWRlIGJlY2F1c2UKICAgIEkgY2FuJ3Qgb2ZmbG9hZCB0aGF0IHRvIHBpeG1hbi4gIFRoZXJl
-IGlzIG5vIHN1cHBvcnQgZm9yCiAgICBQSVhNQU5fcjVnNmI1IG9yIFBJWE1BTl94MmIxMGcxMHIx
-MCBpbiBub24taG9zdCBieXRlIG9yZGVyLgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vZHJpLWRldmVsCg==
+From: Pan Bian <bianpan2016@163.com>
+
+Function radeon_ring_lock() returns an errno on failure, and its return
+value should be validated. However, in functions r420_cp_errata_init()
+and r420_cp_errata_fini(), its return value is not checked. This patch
+adds the checks.
+
+Signed-off-by: Pan Bian <bianpan2016@163.com>
+---
+ drivers/gpu/drm/radeon/r420.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/r420.c b/drivers/gpu/drm/radeon/r420.c
+index 2828605..a8c2b37 100644
+--- a/drivers/gpu/drm/radeon/r420.c
++++ b/drivers/gpu/drm/radeon/r420.c
+@@ -215,7 +215,8 @@ static void r420_cp_errata_init(struct radeon_device *rdev)
+ 	 * of the CP init, apparently.
+ 	 */
+ 	radeon_scratch_get(rdev, &rdev->config.r300.resync_scratch);
+-	radeon_ring_lock(rdev, ring, 8);
++	if (radeon_ring_lock(rdev, ring, 8))
++		return;
+ 	radeon_ring_write(ring, PACKET0(R300_CP_RESYNC_ADDR, 1));
+ 	radeon_ring_write(ring, rdev->config.r300.resync_scratch);
+ 	radeon_ring_write(ring, 0xDEADBEEF);
+@@ -229,7 +230,8 @@ static void r420_cp_errata_fini(struct radeon_device *rdev)
+ 	/* Catch the RESYNC we dispatched all the way back,
+ 	 * at the very beginning of the CP init.
+ 	 */
+-	radeon_ring_lock(rdev, ring, 8);
++	if (radeon_ring_lock(rdev, ring, 8))
++		return;
+ 	radeon_ring_write(ring, PACKET0(R300_RB3D_DSTCACHE_CTLSTAT, 0));
+ 	radeon_ring_write(ring, R300_RB3D_DC_FINISH);
+ 	radeon_ring_unlock_commit(rdev, ring, false);
+-- 
+1.9.1
