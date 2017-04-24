@@ -1,9 +1,10 @@
-From: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 0/6] *** Dedicated vmid per process v2 ***
-Date: Mon, 24 Apr 2017 13:57:34 +0800
-Message-ID: <1493013460-13344-1-git-send-email-David1.Zhou@amd.com>
+From: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: fix trace error for amdgpu_vm_bo_unmap
+Date: Mon, 24 Apr 2017 14:15:47 +0800
+Message-ID: <1493014547-1626-1-git-send-email-Jerry.Zhang@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1161348576=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -16,64 +17,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+Cc: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
 
---===============1161348576==
-Content-Type: text/plain; charset="all"
-Content-Transfer-Encoding: 8bit
-
-The current kernel implementation, which grabs the idle VMID from pool when emitting the job may:
-
-    The back-to-back submission from one process could use different VMID.
-    The submission to different queues from single process could use different VMID
-
-It works well in most case but cannot work for the SQ thread trace capture.
-
-The VMID for the submission that set the {SQTT}_BASE, which refers to the address of the trace buffer, is stored in shader engine.
-
-If the profiling application have to use different VMIDs to submit IBs in its life cycle:
-
-    Some trace is not captured since it actually uses different VMID to submit jobs.
-    Some part of captured trace may come from different application since they are accidentally uses the owner’s VMID to submit jobs.
-
-V2:
-1. address Christian's comments:
-	a. drop context flags for tag process, instead, add vm ioctl.
-	b. change order of patches.
-	c. sync waiting only when vm flush needs.
-
-2. address Alex's comments;
-	bump module version
-
-Chunming Zhou (6):
-  drm/amdgpu: add vm ioctl
-  drm/amdgpu: add dedicated vmid field in vm struct
-  drm/amdgpu: reserve vmid by vm ioctl
-  drm/amdgpu: add limitation for dedicated vm number v2
-  drm/amdgpu: implement grab dedicated vmid V2
-  drm/amdgpu: bump module verion for reserved vmid
-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |   3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c     | 159 ++++++++++++++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h     |   5 +
- include/uapi/drm/amdgpu_drm.h              |  20 ++++
- 7 files changed, 188 insertions(+), 2 deletions(-)
-
--- 
-1.9.1
-
-
---===============1161348576==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1161348576==--
+U2lnbmVkLW9mZi1ieTogSnVud2VpIFpoYW5nIDxKZXJyeS5aaGFuZ0BhbWQuY29tPgotLS0KIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90cmFjZS5oIHwgMiArLQogMSBmaWxlIGNo
+YW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNlLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfdHJhY2UuaAppbmRleCBmMzhlNWUyLi44Njc2ZWZmIDEwMDY0NAotLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHJhY2UuaAorKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHJhY2UuaApAQCAtMjQ5LDcgKzI0OSw3IEBACiAJ
+CQkgICAgICksCiAKIAkgICAgVFBfZmFzdF9hc3NpZ24oCi0JCQkgICBfX2VudHJ5LT5ibyA9IGJv
+X3ZhLT5ibzsKKwkJCSAgIF9fZW50cnktPmJvID0gYm9fdmEgPyBib192YS0+Ym8gOiBOVUxMOwog
+CQkJICAgX19lbnRyeS0+c3RhcnQgPSBtYXBwaW5nLT5pdC5zdGFydDsKIAkJCSAgIF9fZW50cnkt
+Pmxhc3QgPSBtYXBwaW5nLT5pdC5sYXN0OwogCQkJICAgX19lbnRyeS0+b2Zmc2V0ID0gbWFwcGlu
+Zy0+b2Zmc2V0OwotLSAKMS45LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
+LWdmeAo=
