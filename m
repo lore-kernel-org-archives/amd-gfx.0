@@ -1,43 +1,55 @@
-From: Pan Bian <bianpan201603@163.com>
-Subject: [PATCH 1/1] drm/radeon: check return value of radeon_fence_emit
-Date: Mon, 24 Apr 2017 16:45:51 +0800
-Message-ID: <1493023551-12003-1-git-send-email-bianpan201603@163.com>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Pan Bian <bianpan2016@163.com>
-List-Id: amd-gfx.lists.freedesktop.org
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH] Improve pipe split between amdgpu and amdkfd v4
+Date: Mon, 24 Apr 2017 10:49:03 +0200
+Message-ID: <4cd44854-5ae0-0f94-8f2b-0ab0f736d857@vodafone.de>
+References: <20170421200242.3072-1-andresx7@gmail.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20170421200242.3072-1-andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-From: Pan Bian <bianpan2016@163.com>
-
-Function radeon_fence_emit() returns -ENOMEM if there is no enough
-memory. And in this case, function radeon_ring_unlock_undo() rather than
-function radeon_ring_unlock_commit() should be called. However, in
-function radeon_test_create_and_emit_fence(), the return value of
-radeon_fence_emit() is ignored. This patch adds the check.
-
-Signed-off-by: Pan Bian <bianpan2016@163.com>
----
- drivers/gpu/drm/radeon/radeon_test.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/radeon/radeon_test.c b/drivers/gpu/drm/radeon/radeon_test.c
-index 79181816..623768e 100644
---- a/drivers/gpu/drm/radeon/radeon_test.c
-+++ b/drivers/gpu/drm/radeon/radeon_test.c
-@@ -298,7 +298,12 @@ static int radeon_test_create_and_emit_fence(struct radeon_device *rdev,
- 			DRM_ERROR("Failed to lock ring A %d\n", ring->idx);
- 			return r;
- 		}
--		radeon_fence_emit(rdev, fence, ring->idx);
-+		r = radeon_fence_emit(rdev, fence, ring->idx);
-+		if (r) {
-+			DRM_ERROR("Failed to emit fence\n");
-+			radeon_ring_unlock_undo(rdev, ring);
-+			return r;
-+		}
- 		radeon_ring_unlock_commit(rdev, ring, false);
- 	}
- 	return 0;
--- 
-1.9.1
+SWYgeW91IGFzayBtZSB0aGF0IHNldCBvZiBwYXRjaGVzIGFuZCB5b3VyIG90aGVyIHdvcmsgYXJl
+IG1vcmUgdGhhbiAKcmVhZHkgdG8gbGFuZC4KCkkgYWR2aXNlIHRvIHJlYmFzZSBvbiB0byBvZiBh
+bGV4IGFtZC1zdGFnaW5nLTQuOSBicmFuY2ggZm9yIHRoYXQsIHRoYXQncyAKd2hlcmUgbW9zdCBv
+ZiBvdXIgaW50ZXJuYWwgZGV2ZWxvcG1lbnQgb2YgYmFzZWQgb24uCgpXZSBhcmUgZ29pbmcgdG8g
+bW92ZSB0byBkcm0tbmV4dCBiYXNlZCBkZXZlbG9wbWVudCBtb2RlbCBzb29uZXIgb3IgCmxhdGVy
+LCBidXQgdGhhdCB3aWxsIHN0aWxsIHRha2UgYSB3aGlsZS4KClJlZ2FyZHMsCkNocmlzdGlhbi4K
+CkFtIDIxLjA0LjIwMTcgdW0gMjI6MDIgc2NocmllYiBBbmRyZXMgUm9kcmlndWV6Ogo+IFY0IHVw
+ZGF0ZXM6Cj4gICAqIFJlYmFzZWQgb250byBsYXRlc3QgNC4xMi13aXAgKGJhMTZkNmMpLCBzaW5j
+ZSBJIGdvdCB0ZXN0IHJlcG9ydHMgdGhhdCB0aGUKPiAgICAgcGF0Y2ggc2VyaWVzIGZhaWxlZCB0
+byBhcHBseQo+Cj4gVjMgdXBkYXRlczoKPiAgICogRml4ZWQga2ZkIHNldCByZXNvdXJjZXMgZ3Jh
+YmJpbmcgTUVDMSBxdWV1ZXMKPiAgICoga2ZkdGVzdCBub3cgcGFzc2VzIG9uIEthdmVyaSB3aXRo
+IHRoZSBhbWRncHUgb3IgcmFkZW9uIGRyaXZlcgo+Cj4gVjIgdXBkYXRlczoKPiAgICogRml4ZWQg
+d3JvbmcgSFBEIG9mZnNldCBpbiBjb21wdXRlX3BpcGVfaW5pdCBmb3IgZ2Z4Nwo+ICAgKiBGaXhl
+ZCBjb21wdXRlX3BpcGVfaW5pdCB1c2luZyB3cm9uZyBNRSBmb3IgZ2Z4Nwo+Cj4KPiBUaGlzIGlz
+IGEgc3BsaXQgb2YgcGF0Y2hlcyB0aGF0IGFyZSByZWFkeSB0byBsYW5kIGZyb20gdGhlIHNlcmll
+czoKPiBBZGQgc3VwcG9ydCBmb3IgaGlnaCBwcmlvcml0eSBzY2hlZHVsaW5nIGluIGFtZGdwdSB2
+OAo+Cj4gSSd2ZSBpbmNsdWRlZCBGZWxpeCBhbmQgQWxleCdzIGZlZWRiYWNrIGZyb20gdGhlIHRo
+cmVhZCBhYm92ZS4gVGhpcyBpbmNsdWRlczoKPiAgICogU2VwYXJhdGUgTUVDX0hQRF9TSVpFIHJl
+bmFtZSBpbnRvIGEgc2VwYXJhdGUgcGF0Y2ggKHBhdGNoIDAxKQo+ICAgKiBBZGRlZCBhIHBhdGNo
+IHRvIGZpeCB0aGUga2dkX2hxZF9sb2FkIGJ1ZyBGZWxpeCBwb2ludGVkIG91dCAocGF0Y2ggMDYp
+Cj4gICAqIEZpeGVzIGZvciB2YXJpb3VzIG9mZi1ieS1vbmUgZXJyb3JzCj4gICAqIFVzZSBnZnhf
+djhfMF9kZWFjdGl2YXRlX2hxZAo+Cj4gT25seSBjb21tZW50IEkgZGlkbid0IGFkZHJlc3Mgd2Fz
+IGNoYW5naW5nIHRoZSBxdWV1ZSBhbGxvY2F0aW9uIHBvbGljeSBmb3IKPiBnZng5IChzaW1pbGFy
+IHRvIGdmeDcvOCkuIFNlZSBpbmxpbmUgcmVwbHkgaW4gdGhhdCB0aHJlYWQgZm9yIG1vcmUgZGV0
+YWlscwo+IG9uIHdoeSB0aGlzIHdhcyBza2lwcGVkLgo+Cj4KPiBTZXJpZXMgYXZhaWxhYmxlIGlu
+IHRoZSB3aXAtcXVldWUtcG9saWN5LXY0IGJyYW5jaCBhdDoKPiBnaXRAZ2l0aHViLmNvbTpsb3N0
+Z29hdC9saW51eC5naXQKPiBPcjoKPiBodHRwczovL2dpdGh1Yi5jb20vbG9zdGdvYXQvbGludXgu
+Z2l0Cj4KPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+Cj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+
+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAoK
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
+bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
