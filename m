@@ -1,54 +1,62 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-Subject: Re: [PATCH 0/6] drm: tackle byteorder issues, take two
-Date: Mon, 24 Apr 2017 16:54:25 +0900
-Message-ID: <f6555947-598f-0dfe-b15d-cda291778e8e@daenzer.net>
-References: <20170424062532.26722-1-kraxel@redhat.com>
- <484f319e-c2b7-adc8-4ecf-537803cc2eee@daenzer.net>
- <1493019360.19018.21.camel@redhat.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <1493019360.19018.21.camel@redhat.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Gerd Hoffmann <kraxel@redhat.com>
-Cc: Daniel Vetter <daniel.vetter@intel.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+From: Pan Bian <bianpan201603@163.com>
+Subject: [PATCH 1/1] drm/radeon: check return value of radeon_ring_lock
+Date: Mon, 24 Apr 2017 16:38:05 +0800
+Message-ID: <1493023085-11901-1-git-send-email-bianpan201603@163.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Pan Bian <bianpan2016@163.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjQvMDQvMTcgMDQ6MzYgUE0sIEdlcmQgSG9mZm1hbm4gd3JvdGU6Cj4gCj4+PiAgIGRybTog
-Zm91cmNjIGJ5dGVvcmRlcjogYWRkIERSTV9GT1JNQVRfQ1BVXyoKPj4+ICAgZHJtOiBmb3VyY2Mg
-Ynl0ZW9yZGVyOiBhZGQgYmlnZW5kaWFuIHN1cHBvcnQgdG8KPj4+ICAgICBkcm1fbW9kZV9sZWdh
-Y3lfZmJfZm9ybWF0Cj4+Cj4+IEFzIEkgZXhwbGFpbmVkIGluIG15IGxhc3QgZm9sbG93dXAgaW4g
-dGhlICJbUEFUQ0hdIGRybTogZm91cmNjCj4+IGJ5dGVvcmRlcjogYnJpbmdzIGhlYWRlciBmaWxl
-IGNvbW1lbnRzIGluIGxpbmUgd2l0aCByZWFsaXR5LiIgdGhyZWFkLAo+PiB0aGUgbWFwcGluZyBi
-ZXR3ZWVuIEdQVSBhbmQgQ1BVIGZvcm1hdHMgaGFzIHRvIGJlIHByb3ZpZGVkIGJ5IHRoZQo+PiBk
-cml2ZXIsIGl0IGNhbm5vdCBiZSBkb25lIHN0YXRpY2FsbHkuCj4gCj4gV2VsbCwgdGhlIGRybSBm
-b3VyY2MgY29kZXMgcmVwcmVzZW50IHRoZSBjcHUgdmlldyAoaS5lLiB3aGF0IHVzZXJzcGFjZQo+
-IHdpbGwgZmlsbCB0aGUgQURERkIyLWNyZWF0ZWQgZnJhbWVidWZmZXJzIHdpdGgpLgoKVmlsbGUg
-aXMgYWRhbWFudCB0aGF0IHRoZXkgcmVwcmVzZW50IHRoZSBHUFUgdmlldy4gVGhpcyBuZWVkcyB0
-byBiZQpyZXNvbHZlZCBvbmUgd2F5IG9yIHRoZSBvdGhlci4KCgo+IFRoZSBncHUgdmlldyBjYW4g
-Y2VydGFpbmx5IGRpZmZlciBmcm9tIHRoYXQuICBJbXBsZW1lbnRpbmcgdGhpcyBpcyB1cAo+IHRv
-IHRoZSBkcml2ZXIgSU1PLgo+IAo+IFdoZW4gcnVubmluZyBvbiBkdW1iIGZyYW1lYnVmZmVycyB1
-c2Vyc3BhY2UgZG9lc24ndCBuZWVkIHRvIGtub3cgd2hhdAo+IHRoZSBncHUgdmlldyBpcy4KPiAK
-PiBXaGVuIHJ1bm5pbmcgaW4gb3BlbmdsIG1vZGUgdGhlcmUgd2lsbCBiZSBhIGhhcmR3YXJlLXNw
-ZWNpZmljIG1lc2EKPiBkcml2ZXIgaW4gdXNlcnNwYWNlLCB3aGljaCB3aWxsIGVpdGhlciBrbm93
-IHdoYXQgdGhlIGdwdSB2aWV3IGlzIChmb3IKPiBleGFtcGxlIGJlY2F1c2UgdGhlcmUgaXMgb25s
-eSBvbmUgd2F5IHRvIGltcGxlbWVudCB0aGlzIGluIGhhcmR3YXJlKSBvcgo+IGl0IGNhbiB1c2Ug
-aGFyZHdhcmUtc3BlY2lmaWMgaW9jdGxzIHRvIGFzayB0aGUga2VybmVsIGRyaXZlciB3aGF0IHRo
-ZQo+IGdwdSB2aWV3IGlzLgoKTm90IHN1cmUgdGhpcyBjYW4gYmUgaGlkZGVuIGluIHRoZSBPcGVu
-R0wgZHJpdmVyLiBIb3cgd291bGQgZS5nLiBhCldheWxhbmQgY29tcG9zaXRvciBvciB0aGUgWG9y
-ZyBtb2Rlc2V0dGluZyBkcml2ZXIga25vdyB3aGljaCBPcGVuR0wKZm9ybWF0IGNvcnJlc3BvbmRz
-IHRvIGEgZ2l2ZW4gRFJNX0ZPUk1BVD8KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAg
-ICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpMaWJyZSBzb2Z0
-d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZl
-bG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJp
-LWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+From: Pan Bian <bianpan2016@163.com>
+
+Function radeon_ring_lock() returns an errno on failure, and its return
+value should be validated. However, in functions r420_cp_errata_init()
+and r420_cp_errata_fini(), its return value is not checked. This patch
+adds the checks.
+
+Signed-off-by: Pan Bian <bianpan2016@163.com>
+---
+ drivers/gpu/drm/radeon/r420.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/r420.c b/drivers/gpu/drm/radeon/r420.c
+index 2828605..391c764 100644
+--- a/drivers/gpu/drm/radeon/r420.c
++++ b/drivers/gpu/drm/radeon/r420.c
+@@ -206,6 +206,7 @@ static void r420_clock_resume(struct radeon_device *rdev)
+ 
+ static void r420_cp_errata_init(struct radeon_device *rdev)
+ {
++	int r;
+ 	struct radeon_ring *ring = &rdev->ring[RADEON_RING_TYPE_GFX_INDEX];
+ 
+ 	/* RV410 and R420 can lock up if CP DMA to host memory happens
+@@ -215,7 +216,8 @@ static void r420_cp_errata_init(struct radeon_device *rdev)
+ 	 * of the CP init, apparently.
+ 	 */
+ 	radeon_scratch_get(rdev, &rdev->config.r300.resync_scratch);
+-	radeon_ring_lock(rdev, ring, 8);
++	r = radeon_ring_lock(rdev, ring, 8);
++	WARN_ON(r);
+ 	radeon_ring_write(ring, PACKET0(R300_CP_RESYNC_ADDR, 1));
+ 	radeon_ring_write(ring, rdev->config.r300.resync_scratch);
+ 	radeon_ring_write(ring, 0xDEADBEEF);
+@@ -224,12 +226,14 @@ static void r420_cp_errata_init(struct radeon_device *rdev)
+ 
+ static void r420_cp_errata_fini(struct radeon_device *rdev)
+ {
++	int r;
+ 	struct radeon_ring *ring = &rdev->ring[RADEON_RING_TYPE_GFX_INDEX];
+ 
+ 	/* Catch the RESYNC we dispatched all the way back,
+ 	 * at the very beginning of the CP init.
+ 	 */
+-	radeon_ring_lock(rdev, ring, 8);
++	r = radeon_ring_lock(rdev, ring, 8);
++	WARN_ON(r);
+ 	radeon_ring_write(ring, PACKET0(R300_RB3D_DSTCACHE_CTLSTAT, 0));
+ 	radeon_ring_write(ring, R300_RB3D_DC_FINISH);
+ 	radeon_ring_unlock_commit(rdev, ring, false);
+-- 
+1.9.1
