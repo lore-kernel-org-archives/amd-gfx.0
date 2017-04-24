@@ -1,7 +1,8 @@
 From: Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Subject: [PATCH 2/6] drm: fourcc byteorder: add DRM_FORMAT_CPU_*
-Date: Mon, 24 Apr 2017 08:25:28 +0200
-Message-ID: <20170424062532.26722-3-kraxel@redhat.com>
+Subject: [PATCH 4/6] drm: fourcc byteorder: adapt bochs-drm to
+ drm_mode_legacy_fb_format update
+Date: Mon, 24 Apr 2017 08:25:30 +0200
+Message-ID: <20170424062532.26722-5-kraxel@redhat.com>
 References: <20170424062532.26722-1-kraxel@redhat.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
@@ -19,25 +20,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Jani Nikula <jani.nikula-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, open list <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Pekka Paalanen <ppaalanen-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Sean Paul <seanpaul-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Daniel Vetter <daniel.vetter-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Ilia Mirkin <imirkin-FrUbXkNCsVf2fBVCVOL8/A@public.gmane.org>, Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Cc: Jani Nikula <jani.nikula-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, open list <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, "open list:DRM DRIVER FOR BOCHS VIRTUAL GPU" <virtualization-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>, Pekka Paalanen <ppaalanen-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Sean Paul <seanpaul-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Daniel Vetter <daniel.vetter-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Ilia Mirkin <imirkin-FrUbXkNCsVf2fBVCVOL8/A@public.gmane.org>, Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
 
-QWRkIGZvdXJjYyB2YXJpYW50cyBpbiBjcHUgYnl0ZSBvcmRlci4gIFdpdGggdGhlc2UgYXQgaGFu
-ZCB3ZSBkb24ndApuZWVkICNpZmRlZnMgaW4gZHJpdmVycyB3YW50IHN1cHBvcnQgZnJhbWVidWZm
-ZXJzIGluIGNwdSBlbmRpYW5lc3MuCgpTaWduZWQtb2ZmLWJ5OiBHZXJkIEhvZmZtYW5uIDxrcmF4
-ZWxAcmVkaGF0LmNvbT4KLS0tCiBpbmNsdWRlL2RybS9kcm1fZm91cmNjLmggfCAxMiArKysrKysr
-KysrKysKIDEgZmlsZSBjaGFuZ2VkLCAxMiBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvaW5j
-bHVkZS9kcm0vZHJtX2ZvdXJjYy5oIGIvaW5jbHVkZS9kcm0vZHJtX2ZvdXJjYy5oCmluZGV4IDY5
-NDJlODRiNmUuLmNhZTA1MTUzZTggMTAwNjQ0Ci0tLSBhL2luY2x1ZGUvZHJtL2RybV9mb3VyY2Mu
-aAorKysgYi9pbmNsdWRlL2RybS9kcm1fZm91cmNjLmgKQEAgLTI1LDYgKzI1LDE4IEBACiAjaW5j
-bHVkZSA8bGludXgvdHlwZXMuaD4KICNpbmNsdWRlIDx1YXBpL2RybS9kcm1fZm91cmNjLmg+CiAK
-Ky8qCisgKiBEUk0gZm9ybWF0cyBhcmUgbGl0dGxlIGVuZGlhbi4gIGRlZmluZSBjcHUgZW5kaWFu
-IHZhcmlhbnRzIGhlcmUsIHRvCisgKiByZWR1Y2UgdGhlICNpZmRlZnMgbmVlZGVkIGluIGRyaXZl
-cnMuCisgKi8KKyNpZmRlZiBfX0JJR19FTkRJQU4KKyMgZGVmaW5lIERSTV9GT1JNQVRfQ1BVX1hS
-R0I4ODg4IERSTV9GT1JNQVRfQkdSWDg4ODgKKyMgZGVmaW5lIERSTV9GT1JNQVRfQ1BVX0FSR0I4
-ODg4IERSTV9GT1JNQVRfQkdSQTg4ODgKKyNlbHNlCisjIGRlZmluZSBEUk1fRk9STUFUX0NQVV9Y
-UkdCODg4OCBEUk1fRk9STUFUX1hSR0I4ODg4CisjIGRlZmluZSBEUk1fRk9STUFUX0NQVV9BUkdC
-ODg4OCBEUk1fRk9STUFUX0FSR0I4ODg4CisjZW5kaWYKKwogc3RydWN0IGRybV9kZXZpY2U7CiBz
-dHJ1Y3QgZHJtX21vZGVfZmJfY21kMjsKIAotLSAKMi45LjMKCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vYW1kLWdmeAo=
+U2lnbmVkLW9mZi1ieTogR2VyZCBIb2ZmbWFubiA8a3JheGVsQHJlZGhhdC5jb20+Ci0tLQogZHJp
+dmVycy9ncHUvZHJtL2JvY2hzL2JvY2hzX21tLmMgfCAyICstCiAxIGZpbGUgY2hhbmdlZCwgMSBp
+bnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+Ym9jaHMvYm9jaHNfbW0uYyBiL2RyaXZlcnMvZ3B1L2RybS9ib2Nocy9ib2Noc19tbS5jCmluZGV4
+IDg1Nzc1NWFjMmQuLjc4MWQzNWJkZmYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9ib2No
+cy9ib2Noc19tbS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9ib2Nocy9ib2Noc19tbS5jCkBAIC01
+MDgsNyArNTA4LDcgQEAgYm9jaHNfdXNlcl9mcmFtZWJ1ZmZlcl9jcmVhdGUoc3RydWN0IGRybV9k
+ZXZpY2UgKmRldiwKIAkgICAgICAgKG1vZGVfY21kLT5waXhlbF9mb3JtYXQgPj4gMTYpICYgMHhm
+ZiwKIAkgICAgICAgKG1vZGVfY21kLT5waXhlbF9mb3JtYXQgPj4gMjQpICYgMHhmZik7CiAKLQlp
+ZiAobW9kZV9jbWQtPnBpeGVsX2Zvcm1hdCAhPSBEUk1fRk9STUFUX1hSR0I4ODg4KQorCWlmICht
+b2RlX2NtZC0+cGl4ZWxfZm9ybWF0ICE9IERSTV9GT1JNQVRfQ1BVX1hSR0I4ODg4KQogCQlyZXR1
+cm4gRVJSX1BUUigtRU5PRU5UKTsKIAogCW9iaiA9IGRybV9nZW1fb2JqZWN0X2xvb2t1cChmaWxw
+LCBtb2RlX2NtZC0+aGFuZGxlc1swXSk7Ci0tIAoyLjkuMwoKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9hbWQtZ2Z4Cg==
