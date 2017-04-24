@@ -1,69 +1,50 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Subject: Re: [PATCH 1/1] drm/radeon: check return value of radeon_ring_lock
-Date: Mon, 24 Apr 2017 11:08:02 +0200
-Message-ID: <569d0101-6caf-9354-4e7f-51ebfef5dce6@amd.com>
-References: <1493023085-11901-1-git-send-email-bianpan201603@163.com>
+Subject: Re: [PATCH 1/1] drm/radeon: check return value of radeon_fence_emit
+Date: Mon, 24 Apr 2017 11:08:39 +0200
+Message-ID: <a50e28c1-40ce-947f-21bf-1d9f32449adf@amd.com>
+References: <1493023551-12003-1-git-send-email-bianpan201603@163.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-15"; format=flowed
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <1493023085-11901-1-git-send-email-bianpan201603@163.com>
-Sender: linux-kernel-owner@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <1493023551-12003-1-git-send-email-bianpan201603@163.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 To: Pan Bian <bianpan201603@163.com>, Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@linux.ie>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Pan Bian <bianpan2016@163.com>
+Cc: Pan Bian <bianpan2016@163.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-Am 24.04.2017 um 10:38 schrieb Pan Bian:
-> From: Pan Bian <bianpan2016@163.com>
->
-> Function radeon_ring_lock() returns an errno on failure, and its return
-> value should be validated. However, in functions r420_cp_errata_init()
-> and r420_cp_errata_fini(), its return value is not checked. This patch
-> adds the checks.
->
-> Signed-off-by: Pan Bian <bianpan2016@163.com>
-
-Reviewed-by: Christian König <christian.koenig@amd.com>
-
-> ---
->   drivers/gpu/drm/radeon/r420.c | 8 ++++++--
->   1 file changed, 6 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/r420.c b/drivers/gpu/drm/radeon/r420.c
-> index 2828605..391c764 100644
-> --- a/drivers/gpu/drm/radeon/r420.c
-> +++ b/drivers/gpu/drm/radeon/r420.c
-> @@ -206,6 +206,7 @@ static void r420_clock_resume(struct radeon_device *rdev)
->   
->   static void r420_cp_errata_init(struct radeon_device *rdev)
->   {
-> +	int r;
->   	struct radeon_ring *ring = &rdev->ring[RADEON_RING_TYPE_GFX_INDEX];
->   
->   	/* RV410 and R420 can lock up if CP DMA to host memory happens
-> @@ -215,7 +216,8 @@ static void r420_cp_errata_init(struct radeon_device *rdev)
->   	 * of the CP init, apparently.
->   	 */
->   	radeon_scratch_get(rdev, &rdev->config.r300.resync_scratch);
-> -	radeon_ring_lock(rdev, ring, 8);
-> +	r = radeon_ring_lock(rdev, ring, 8);
-> +	WARN_ON(r);
->   	radeon_ring_write(ring, PACKET0(R300_CP_RESYNC_ADDR, 1));
->   	radeon_ring_write(ring, rdev->config.r300.resync_scratch);
->   	radeon_ring_write(ring, 0xDEADBEEF);
-> @@ -224,12 +226,14 @@ static void r420_cp_errata_init(struct radeon_device *rdev)
->   
->   static void r420_cp_errata_fini(struct radeon_device *rdev)
->   {
-> +	int r;
->   	struct radeon_ring *ring = &rdev->ring[RADEON_RING_TYPE_GFX_INDEX];
->   
->   	/* Catch the RESYNC we dispatched all the way back,
->   	 * at the very beginning of the CP init.
->   	 */
-> -	radeon_ring_lock(rdev, ring, 8);
-> +	r = radeon_ring_lock(rdev, ring, 8);
-> +	WARN_ON(r);
->   	radeon_ring_write(ring, PACKET0(R300_RB3D_DSTCACHE_CTLSTAT, 0));
->   	radeon_ring_write(ring, R300_RB3D_DC_FINISH);
->   	radeon_ring_unlock_commit(rdev, ring, false);
+QW0gMjQuMDQuMjAxNyB1bSAxMDo0NSBzY2hyaWViIFBhbiBCaWFuOgo+IEZyb206IFBhbiBCaWFu
+IDxiaWFucGFuMjAxNkAxNjMuY29tPgo+Cj4gRnVuY3Rpb24gcmFkZW9uX2ZlbmNlX2VtaXQoKSBy
+ZXR1cm5zIC1FTk9NRU0gaWYgdGhlcmUgaXMgbm8gZW5vdWdoCj4gbWVtb3J5LiBBbmQgaW4gdGhp
+cyBjYXNlLCBmdW5jdGlvbiByYWRlb25fcmluZ191bmxvY2tfdW5kbygpIHJhdGhlciB0aGFuCj4g
+ZnVuY3Rpb24gcmFkZW9uX3JpbmdfdW5sb2NrX2NvbW1pdCgpIHNob3VsZCBiZSBjYWxsZWQuIEhv
+d2V2ZXIsIGluCj4gZnVuY3Rpb24gcmFkZW9uX3Rlc3RfY3JlYXRlX2FuZF9lbWl0X2ZlbmNlKCks
+IHRoZSByZXR1cm4gdmFsdWUgb2YKPiByYWRlb25fZmVuY2VfZW1pdCgpIGlzIGlnbm9yZWQuIFRo
+aXMgcGF0Y2ggYWRkcyB0aGUgY2hlY2suCj4KPiBTaWduZWQtb2ZmLWJ5OiBQYW4gQmlhbiA8Ymlh
+bnBhbjIwMTZAMTYzLmNvbT4KClJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3Rp
+YW4ua29lbmlnQGFtZC5jb20+Cgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRl
+b25fdGVzdC5jIHwgNyArKysrKystCj4gICAxIGZpbGUgY2hhbmdlZCwgNiBpbnNlcnRpb25zKCsp
+LCAxIGRlbGV0aW9uKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9y
+YWRlb25fdGVzdC5jIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fdGVzdC5jCj4gaW5k
+ZXggNzkxODE4MTYuLjYyMzc2OGUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3JhZGVv
+bi9yYWRlb25fdGVzdC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fdGVz
+dC5jCj4gQEAgLTI5OCw3ICsyOTgsMTIgQEAgc3RhdGljIGludCByYWRlb25fdGVzdF9jcmVhdGVf
+YW5kX2VtaXRfZmVuY2Uoc3RydWN0IHJhZGVvbl9kZXZpY2UgKnJkZXYsCj4gICAJCQlEUk1fRVJS
+T1IoIkZhaWxlZCB0byBsb2NrIHJpbmcgQSAlZFxuIiwgcmluZy0+aWR4KTsKPiAgIAkJCXJldHVy
+biByOwo+ICAgCQl9Cj4gLQkJcmFkZW9uX2ZlbmNlX2VtaXQocmRldiwgZmVuY2UsIHJpbmctPmlk
+eCk7Cj4gKwkJciA9IHJhZGVvbl9mZW5jZV9lbWl0KHJkZXYsIGZlbmNlLCByaW5nLT5pZHgpOwo+
+ICsJCWlmIChyKSB7Cj4gKwkJCURSTV9FUlJPUigiRmFpbGVkIHRvIGVtaXQgZmVuY2VcbiIpOwo+
+ICsJCQlyYWRlb25fcmluZ191bmxvY2tfdW5kbyhyZGV2LCByaW5nKTsKPiArCQkJcmV0dXJuIHI7
+Cj4gKwkJfQo+ICAgCQlyYWRlb25fcmluZ191bmxvY2tfY29tbWl0KHJkZXYsIHJpbmcsIGZhbHNl
+KTsKPiAgIAl9Cj4gICAJcmV0dXJuIDA7CgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vZHJpLWRldmVsCg==
