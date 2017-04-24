@@ -1,51 +1,74 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-Subject: Re: [PATCH] drm: fourcc byteorder: brings header file comments in
- line with reality.
-Date: Mon, 24 Apr 2017 15:33:07 +0900
-Message-ID: <bab292a6-f33a-3fe5-be7e-a9750e3ab789@daenzer.net>
-References: <20170421075825.6307-1-kraxel@redhat.com>
- <CAKb7Uvgx2_O8y+HWGv8TEv0BqpXrLL5SdAt2d3gh6g69U6F=Sw@mail.gmail.com>
- <20170421165907.GQ30290@intel.com>
- <CAKb7Uvj4stAYmZ-BOVBXugAiyfPOmEnT3i1w+Ywu2BhyBpS-1w@mail.gmail.com>
- <20170422095056.GR30290@intel.com>
- <CAKb7UviirFVnut-6k6nO2-dspyzdu0AdZQ1CV8sAKAJkqAc3oA@mail.gmail.com>
- <CAKb7Uvig0J2rg=yJT4g8OuqR9RW4x2TzK-DA_zs_Qc_up4dACQ@mail.gmail.com>
- <CAKb7UviwPFPW3sa1hfaiOg+uE4UUUkFO045CqKhiE-CdM-mB8g@mail.gmail.com>
+From: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: extend vm flags to 64-bit in tracepoint
+Date: Mon, 24 Apr 2017 14:43:40 +0800
+Message-ID: <1493016220-2645-1-git-send-email-Jerry.Zhang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <CAKb7UviwPFPW3sa1hfaiOg+uE4UUUkFO045CqKhiE-CdM-mB8g@mail.gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Ilia Mirkin <imirkin@alum.mit.edu>, =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: amd-gfx@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, Gerd Hoffmann <kraxel@redhat.com>, Daniel Vetter <daniel.vetter@intel.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
 
-On 23/04/17 04:24 AM, Ilia Mirkin wrote:
-> 
-> fbdev also creates fb's that expect cpu endianness, as disabling the
-> byteswap logic caused a green fbcon terminal to show up. (So at least
-> something somewhere in the fbcon -> nouveau's fbdev emulation pipeline
-> is expecting cpu endianness. This happens both with nouveau's fbdev
-> accel logic and without.)
-
-In theory, there's FB_FOREIGN_ENDIAN for that. But in practice it's
-probably useless because little if any userspace even checks for it, let
-alone handles it correctly.
-
-
-> So I think the current situation, at least wrt pre-nv50 nouveau, is
-> that XRGB/ARGB8888 are "special", since they are the only things
-> exposed by drm_crtc_init. I believe those definitions should be
-> updated to note that they're cpu-endian-specific (or another way of
-> phrasing it more diplomatically is that they're array formats rather
-> than packed formats).
-
-That would be incorrect. :) The memory layout of 8-bit-per-component
-array formats doesn't depend on endianness, that of packed formats does.
-(DRM_FORMAT_*8 as currently defined are thus effectively array formats)
-
-
--- 
-Earthling Michel Dänzer               |               http://www.amd.com
-Libre software enthusiast             |             Mesa and X developer
+U2lnbmVkLW9mZi1ieTogSnVud2VpIFpoYW5nIDxKZXJyeS5aaGFuZ0BhbWQuY29tPgotLS0KIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90cmFjZS5oIHwgMTggKysrKysrKysrLS0t
+LS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgOSBpbnNlcnRpb25zKCspLCA5IGRlbGV0aW9ucygtKQoK
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90cmFjZS5oIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNlLmgKaW5kZXggODY3NmVmZi4u
+OTk4ZmY0ZCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Ry
+YWNlLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNlLmgKQEAg
+LTIyMSw3ICsyMjEsNyBAQAogCQkJICAgICBfX2ZpZWxkKGxvbmcsIHN0YXJ0KQogCQkJICAgICBf
+X2ZpZWxkKGxvbmcsIGxhc3QpCiAJCQkgICAgIF9fZmllbGQodTY0LCBvZmZzZXQpCi0JCQkgICAg
+IF9fZmllbGQodTMyLCBmbGFncykKKwkJCSAgICAgX19maWVsZCh1NjQsIGZsYWdzKQogCQkJICAg
+ICApLAogCiAJICAgIFRQX2Zhc3RfYXNzaWduKApAQCAtMjMxLDcgKzIzMSw3IEBACiAJCQkgICBf
+X2VudHJ5LT5vZmZzZXQgPSBtYXBwaW5nLT5vZmZzZXQ7CiAJCQkgICBfX2VudHJ5LT5mbGFncyA9
+IG1hcHBpbmctPmZsYWdzOwogCQkJICAgKSwKLQkgICAgVFBfcHJpbnRrKCJibz0lcCwgc3RhcnQ9
+JWx4LCBsYXN0PSVseCwgb2Zmc2V0PSUwMTBsbHgsIGZsYWdzPSUwOHgiLAorCSAgICBUUF9wcmlu
+dGsoImJvPSVwLCBzdGFydD0lbHgsIGxhc3Q9JWx4LCBvZmZzZXQ9JTAxMGxseCwgZmxhZ3M9JTAx
+MGxseCIsCiAJCSAgICAgIF9fZW50cnktPmJvLCBfX2VudHJ5LT5zdGFydCwgX19lbnRyeS0+bGFz
+dCwKIAkJICAgICAgX19lbnRyeS0+b2Zmc2V0LCBfX2VudHJ5LT5mbGFncykKICk7CkBAIC0yNDUs
+NyArMjQ1LDcgQEAKIAkJCSAgICAgX19maWVsZChsb25nLCBzdGFydCkKIAkJCSAgICAgX19maWVs
+ZChsb25nLCBsYXN0KQogCQkJICAgICBfX2ZpZWxkKHU2NCwgb2Zmc2V0KQotCQkJICAgICBfX2Zp
+ZWxkKHUzMiwgZmxhZ3MpCisJCQkgICAgIF9fZmllbGQodTY0LCBmbGFncykKIAkJCSAgICAgKSwK
+IAogCSAgICBUUF9mYXN0X2Fzc2lnbigKQEAgLTI1NSw3ICsyNTUsNyBAQAogCQkJICAgX19lbnRy
+eS0+b2Zmc2V0ID0gbWFwcGluZy0+b2Zmc2V0OwogCQkJICAgX19lbnRyeS0+ZmxhZ3MgPSBtYXBw
+aW5nLT5mbGFnczsKIAkJCSAgICksCi0JICAgIFRQX3ByaW50aygiYm89JXAsIHN0YXJ0PSVseCwg
+bGFzdD0lbHgsIG9mZnNldD0lMDEwbGx4LCBmbGFncz0lMDh4IiwKKwkgICAgVFBfcHJpbnRrKCJi
+bz0lcCwgc3RhcnQ9JWx4LCBsYXN0PSVseCwgb2Zmc2V0PSUwMTBsbHgsIGZsYWdzPSUwMTBsbHgi
+LAogCQkgICAgICBfX2VudHJ5LT5ibywgX19lbnRyeS0+c3RhcnQsIF9fZW50cnktPmxhc3QsCiAJ
+CSAgICAgIF9fZW50cnktPm9mZnNldCwgX19lbnRyeS0+ZmxhZ3MpCiApOwpAQCAtMjY2LDcgKzI2
+Niw3IEBACiAJICAgIFRQX1NUUlVDVF9fZW50cnkoCiAJCQkgICAgIF9fZmllbGQodTY0LCBzb2Zm
+c2V0KQogCQkJICAgICBfX2ZpZWxkKHU2NCwgZW9mZnNldCkKLQkJCSAgICAgX19maWVsZCh1MzIs
+IGZsYWdzKQorCQkJICAgICBfX2ZpZWxkKHU2NCwgZmxhZ3MpCiAJCQkgICAgICksCiAKIAkgICAg
+VFBfZmFzdF9hc3NpZ24oCkBAIC0yNzQsNyArMjc0LDcgQEAKIAkJCSAgIF9fZW50cnktPmVvZmZz
+ZXQgPSBtYXBwaW5nLT5pdC5sYXN0ICsgMTsKIAkJCSAgIF9fZW50cnktPmZsYWdzID0gbWFwcGlu
+Zy0+ZmxhZ3M7CiAJCQkgICApLAotCSAgICBUUF9wcmludGsoInNvZmZzPSUwMTBsbHgsIGVvZmZz
+PSUwMTBsbHgsIGZsYWdzPSUwOHgiLAorCSAgICBUUF9wcmludGsoInNvZmZzPSUwMTBsbHgsIGVv
+ZmZzPSUwMTBsbHgsIGZsYWdzPSUwMTBsbHgiLAogCQkgICAgICBfX2VudHJ5LT5zb2Zmc2V0LCBf
+X2VudHJ5LT5lb2Zmc2V0LCBfX2VudHJ5LT5mbGFncykKICk7CiAKQEAgLTI5MCwxNCArMjkwLDE0
+IEBACiAKIFRSQUNFX0VWRU5UKGFtZGdwdV92bV9zZXRfcHRlcywKIAkgICAgVFBfUFJPVE8odWlu
+dDY0X3QgcGUsIHVpbnQ2NF90IGFkZHIsIHVuc2lnbmVkIGNvdW50LAotCQkgICAgIHVpbnQzMl90
+IGluY3IsIHVpbnQzMl90IGZsYWdzKSwKKwkJICAgICB1aW50MzJfdCBpbmNyLCB1aW50NjRfdCBm
+bGFncyksCiAJICAgIFRQX0FSR1MocGUsIGFkZHIsIGNvdW50LCBpbmNyLCBmbGFncyksCiAJICAg
+IFRQX1NUUlVDVF9fZW50cnkoCiAJCQkgICAgIF9fZmllbGQodTY0LCBwZSkKIAkJCSAgICAgX19m
+aWVsZCh1NjQsIGFkZHIpCiAJCQkgICAgIF9fZmllbGQodTMyLCBjb3VudCkKIAkJCSAgICAgX19m
+aWVsZCh1MzIsIGluY3IpCi0JCQkgICAgIF9fZmllbGQodTMyLCBmbGFncykKKwkJCSAgICAgX19m
+aWVsZCh1NjQsIGZsYWdzKQogCQkJICAgICApLAogCiAJICAgIFRQX2Zhc3RfYXNzaWduKApAQCAt
+MzA3LDcgKzMwNyw3IEBACiAJCQkgICBfX2VudHJ5LT5pbmNyID0gaW5jcjsKIAkJCSAgIF9fZW50
+cnktPmZsYWdzID0gZmxhZ3M7CiAJCQkgICApLAotCSAgICBUUF9wcmludGsoInBlPSUwMTBMeCwg
+YWRkcj0lMDEwTHgsIGluY3I9JXUsIGZsYWdzPSUwOHgsIGNvdW50PSV1IiwKKwkgICAgVFBfcHJp
+bnRrKCJwZT0lMDEwTHgsIGFkZHI9JTAxMEx4LCBpbmNyPSV1LCBmbGFncz0lMDEwTHgsIGNvdW50
+PSV1IiwKIAkJICAgICAgX19lbnRyeS0+cGUsIF9fZW50cnktPmFkZHIsIF9fZW50cnktPmluY3Is
+CiAJCSAgICAgIF9fZW50cnktPmZsYWdzLCBfX2VudHJ5LT5jb3VudCkKICk7Ci0tIAoxLjkuMQoK
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
