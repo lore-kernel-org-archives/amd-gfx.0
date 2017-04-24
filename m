@@ -1,101 +1,69 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: extend vm flags to 64-bit in tracepoint
-Date: Mon, 24 Apr 2017 10:56:02 +0200
-Message-ID: <8d18068b-37a3-4a1b-b86d-6d9fcb171699@vodafone.de>
-References: <1493016220-2645-1-git-send-email-Jerry.Zhang@amd.com>
- <87ebb269-c73d-1ab5-5004-aaf1f8bf9514@vodafone.de>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Subject: Re: [PATCH 1/1] drm/radeon: check return value of radeon_ring_lock
+Date: Mon, 24 Apr 2017 11:08:02 +0200
+Message-ID: <569d0101-6caf-9354-4e7f-51ebfef5dce6@amd.com>
+References: <1493023085-11901-1-git-send-email-bianpan201603@163.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <87ebb269-c73d-1ab5-5004-aaf1f8bf9514-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset="iso-8859-15"; format=flowed
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <1493023085-11901-1-git-send-email-bianpan201603@163.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Pan Bian <bianpan201603@163.com>, Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@linux.ie>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Pan Bian <bianpan2016@163.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMjQuMDQuMjAxNyB1bSAxMDo1NSBzY2hyaWViIENocmlzdGlhbiBLw7ZuaWc6Cj4gQW0gMjQu
-MDQuMjAxNyB1bSAwODo0MyBzY2hyaWViIEp1bndlaSBaaGFuZzoKPj4gU2lnbmVkLW9mZi1ieTog
-SnVud2VpIFpoYW5nIDxKZXJyeS5aaGFuZ0BhbWQuY29tPgo+PiAtLS0KPj4gICBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHJhY2UuaCB8IDE4ICsrKysrKysrKy0tLS0tLS0tLQo+
-PiAgIDEgZmlsZSBjaGFuZ2VkLCA5IGluc2VydGlvbnMoKyksIDkgZGVsZXRpb25zKC0pCj4+Cj4+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHJhY2UuaCAK
-Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHJhY2UuaAo+PiBpbmRleCA4
-Njc2ZWZmLi45OThmZjRkIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfdHJhY2UuaAo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfdHJhY2UuaAo+PiBAQCAtMjIxLDcgKzIyMSw3IEBACj4+ICAgICAgICAgICAgICAgICAgICBf
-X2ZpZWxkKGxvbmcsIHN0YXJ0KQo+PiAgICAgICAgICAgICAgICAgICAgX19maWVsZChsb25nLCBs
-YXN0KQo+PiAgICAgICAgICAgICAgICAgICAgX19maWVsZCh1NjQsIG9mZnNldCkKPj4gLSAgICAg
-ICAgICAgICAgICAgX19maWVsZCh1MzIsIGZsYWdzKQo+PiArICAgICAgICAgICAgICAgICBfX2Zp
-ZWxkKHU2NCwgZmxhZ3MpCj4+ICAgICAgICAgICAgICAgICAgICApLAo+PiAgICAgICAgICAgICBU
-UF9mYXN0X2Fzc2lnbigKPj4gQEAgLTIzMSw3ICsyMzEsNyBAQAo+PiAgICAgICAgICAgICAgICAg
-IF9fZW50cnktPm9mZnNldCA9IG1hcHBpbmctPm9mZnNldDsKPj4gICAgICAgICAgICAgICAgICBf
-X2VudHJ5LT5mbGFncyA9IG1hcHBpbmctPmZsYWdzOwo+PiAgICAgICAgICAgICAgICAgICksCj4+
-IC0gICAgICAgIFRQX3ByaW50aygiYm89JXAsIHN0YXJ0PSVseCwgbGFzdD0lbHgsIG9mZnNldD0l
-MDEwbGx4LCAKPj4gZmxhZ3M9JTA4eCIsCj4+ICsgICAgICAgIFRQX3ByaW50aygiYm89JXAsIHN0
-YXJ0PSVseCwgbGFzdD0lbHgsIG9mZnNldD0lMDEwbGx4LCAKPj4gZmxhZ3M9JTAxMGxseCIsCj4K
-PiBUaGUgZnVsbCA2NGJpdCBmbGFncyBuZWVkIHRvIGJlIHByaW50ZWQgd2l0aCAlMDE2bGx4Lgo+
-Cj4gV2Ugb25seSB1c2UgJTAxMGxseCBmb3IgdGhlIDQwYml0IGFkZHJlc3NlcyBhbmQgZXZlbiB0
-aGF0IG5lZWRzIHRvIGJlIAo+IGV4dGVuZGVkIHRvICUwNDhsbHggZm9yIFZlZ2ExMC4KClVwcywg
-aGl0IHNlbmQgdG8gZWFybHkuIFRoYXQgc2hvdWxkIHJlYWQgIm5lZWRzIHRvIGJlIGV4dGVuZGVk
-IHRvIAolMDEybGx4IGZvciBWZWdhMTAgYmVjYXVzZSBpdCBoYXMgNDhiaXQgYWRkcmVzc2VzIi4K
-CkNocmlzdGlhbi4KCj4KPiBXaXRoIHRoYXQgZml4ZWQgdGhlIHBhdGNoIGlzIFJldmlld2VkLWJ5
-OiBDaHJpc3RpYW4gS8O2bmlnIAo+IDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4KPiBSZWdh
-cmRzLAo+IENocmlzdGlhbi4KPgo+PiAgICAgICAgICAgICAgICAgX19lbnRyeS0+Ym8sIF9fZW50
-cnktPnN0YXJ0LCBfX2VudHJ5LT5sYXN0LAo+PiAgICAgICAgICAgICAgICAgX19lbnRyeS0+b2Zm
-c2V0LCBfX2VudHJ5LT5mbGFncykKPj4gICApOwo+PiBAQCAtMjQ1LDcgKzI0NSw3IEBACj4+ICAg
-ICAgICAgICAgICAgICAgICBfX2ZpZWxkKGxvbmcsIHN0YXJ0KQo+PiAgICAgICAgICAgICAgICAg
-ICAgX19maWVsZChsb25nLCBsYXN0KQo+PiAgICAgICAgICAgICAgICAgICAgX19maWVsZCh1NjQs
-IG9mZnNldCkKPj4gLSAgICAgICAgICAgICAgICAgX19maWVsZCh1MzIsIGZsYWdzKQo+PiArICAg
-ICAgICAgICAgICAgICBfX2ZpZWxkKHU2NCwgZmxhZ3MpCj4+ICAgICAgICAgICAgICAgICAgICAp
-LAo+PiAgICAgICAgICAgICBUUF9mYXN0X2Fzc2lnbigKPj4gQEAgLTI1NSw3ICsyNTUsNyBAQAo+
-PiAgICAgICAgICAgICAgICAgIF9fZW50cnktPm9mZnNldCA9IG1hcHBpbmctPm9mZnNldDsKPj4g
-ICAgICAgICAgICAgICAgICBfX2VudHJ5LT5mbGFncyA9IG1hcHBpbmctPmZsYWdzOwo+PiAgICAg
-ICAgICAgICAgICAgICksCj4+IC0gICAgICAgIFRQX3ByaW50aygiYm89JXAsIHN0YXJ0PSVseCwg
-bGFzdD0lbHgsIG9mZnNldD0lMDEwbGx4LCAKPj4gZmxhZ3M9JTA4eCIsCj4+ICsgICAgICAgIFRQ
-X3ByaW50aygiYm89JXAsIHN0YXJ0PSVseCwgbGFzdD0lbHgsIG9mZnNldD0lMDEwbGx4LCAKPj4g
-ZmxhZ3M9JTAxMGxseCIsCj4+ICAgICAgICAgICAgICAgICBfX2VudHJ5LT5ibywgX19lbnRyeS0+
-c3RhcnQsIF9fZW50cnktPmxhc3QsCj4+ICAgICAgICAgICAgICAgICBfX2VudHJ5LT5vZmZzZXQs
-IF9fZW50cnktPmZsYWdzKQo+PiAgICk7Cj4+IEBAIC0yNjYsNyArMjY2LDcgQEAKPj4gICAgICAg
-ICAgIFRQX1NUUlVDVF9fZW50cnkoCj4+ICAgICAgICAgICAgICAgICAgICBfX2ZpZWxkKHU2NCwg
-c29mZnNldCkKPj4gICAgICAgICAgICAgICAgICAgIF9fZmllbGQodTY0LCBlb2Zmc2V0KQo+PiAt
-ICAgICAgICAgICAgICAgICBfX2ZpZWxkKHUzMiwgZmxhZ3MpCj4+ICsgICAgICAgICAgICAgICAg
-IF9fZmllbGQodTY0LCBmbGFncykKPj4gICAgICAgICAgICAgICAgICAgICksCj4+ICAgICAgICAg
-ICAgIFRQX2Zhc3RfYXNzaWduKAo+PiBAQCAtMjc0LDcgKzI3NCw3IEBACj4+ICAgICAgICAgICAg
-ICAgICAgX19lbnRyeS0+ZW9mZnNldCA9IG1hcHBpbmctPml0Lmxhc3QgKyAxOwo+PiAgICAgICAg
-ICAgICAgICAgIF9fZW50cnktPmZsYWdzID0gbWFwcGluZy0+ZmxhZ3M7Cj4+ICAgICAgICAgICAg
-ICAgICAgKSwKPj4gLSAgICAgICAgVFBfcHJpbnRrKCJzb2Zmcz0lMDEwbGx4LCBlb2Zmcz0lMDEw
-bGx4LCBmbGFncz0lMDh4IiwKPj4gKyAgICAgICAgVFBfcHJpbnRrKCJzb2Zmcz0lMDEwbGx4LCBl
-b2Zmcz0lMDEwbGx4LCBmbGFncz0lMDEwbGx4IiwKPj4gICAgICAgICAgICAgICAgIF9fZW50cnkt
-PnNvZmZzZXQsIF9fZW50cnktPmVvZmZzZXQsIF9fZW50cnktPmZsYWdzKQo+PiAgICk7Cj4+ICAg
-QEAgLTI5MCwxNCArMjkwLDE0IEBACj4+ICAgICBUUkFDRV9FVkVOVChhbWRncHVfdm1fc2V0X3B0
-ZXMsCj4+ICAgICAgICAgICBUUF9QUk9UTyh1aW50NjRfdCBwZSwgdWludDY0X3QgYWRkciwgdW5z
-aWduZWQgY291bnQsCj4+IC0gICAgICAgICAgICAgdWludDMyX3QgaW5jciwgdWludDMyX3QgZmxh
-Z3MpLAo+PiArICAgICAgICAgICAgIHVpbnQzMl90IGluY3IsIHVpbnQ2NF90IGZsYWdzKSwKPj4g
-ICAgICAgICAgIFRQX0FSR1MocGUsIGFkZHIsIGNvdW50LCBpbmNyLCBmbGFncyksCj4+ICAgICAg
-ICAgICBUUF9TVFJVQ1RfX2VudHJ5KAo+PiAgICAgICAgICAgICAgICAgICAgX19maWVsZCh1NjQs
-IHBlKQo+PiAgICAgICAgICAgICAgICAgICAgX19maWVsZCh1NjQsIGFkZHIpCj4+ICAgICAgICAg
-ICAgICAgICAgICBfX2ZpZWxkKHUzMiwgY291bnQpCj4+ICAgICAgICAgICAgICAgICAgICBfX2Zp
-ZWxkKHUzMiwgaW5jcikKPj4gLSAgICAgICAgICAgICAgICAgX19maWVsZCh1MzIsIGZsYWdzKQo+
-PiArICAgICAgICAgICAgICAgICBfX2ZpZWxkKHU2NCwgZmxhZ3MpCj4+ICAgICAgICAgICAgICAg
-ICAgICApLAo+PiAgICAgICAgICAgICBUUF9mYXN0X2Fzc2lnbigKPj4gQEAgLTMwNyw3ICszMDcs
-NyBAQAo+PiAgICAgICAgICAgICAgICAgIF9fZW50cnktPmluY3IgPSBpbmNyOwo+PiAgICAgICAg
-ICAgICAgICAgIF9fZW50cnktPmZsYWdzID0gZmxhZ3M7Cj4+ICAgICAgICAgICAgICAgICAgKSwK
-Pj4gLSAgICAgICAgVFBfcHJpbnRrKCJwZT0lMDEwTHgsIGFkZHI9JTAxMEx4LCBpbmNyPSV1LCBm
-bGFncz0lMDh4LCAKPj4gY291bnQ9JXUiLAo+PiArICAgICAgICBUUF9wcmludGsoInBlPSUwMTBM
-eCwgYWRkcj0lMDEwTHgsIGluY3I9JXUsIGZsYWdzPSUwMTBMeCwgCj4+IGNvdW50PSV1IiwKPj4g
-ICAgICAgICAgICAgICAgIF9fZW50cnktPnBlLCBfX2VudHJ5LT5hZGRyLCBfX2VudHJ5LT5pbmNy
-LAo+PiAgICAgICAgICAgICAgICAgX19lbnRyeS0+ZmxhZ3MsIF9fZW50cnktPmNvdW50KQo+PiAg
-ICk7Cj4KPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-Cj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+
-IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAoK
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
-bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+Am 24.04.2017 um 10:38 schrieb Pan Bian:
+> From: Pan Bian <bianpan2016@163.com>
+>
+> Function radeon_ring_lock() returns an errno on failure, and its return
+> value should be validated. However, in functions r420_cp_errata_init()
+> and r420_cp_errata_fini(), its return value is not checked. This patch
+> adds the checks.
+>
+> Signed-off-by: Pan Bian <bianpan2016@163.com>
+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+
+> ---
+>   drivers/gpu/drm/radeon/r420.c | 8 ++++++--
+>   1 file changed, 6 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/r420.c b/drivers/gpu/drm/radeon/r420.c
+> index 2828605..391c764 100644
+> --- a/drivers/gpu/drm/radeon/r420.c
+> +++ b/drivers/gpu/drm/radeon/r420.c
+> @@ -206,6 +206,7 @@ static void r420_clock_resume(struct radeon_device *rdev)
+>   
+>   static void r420_cp_errata_init(struct radeon_device *rdev)
+>   {
+> +	int r;
+>   	struct radeon_ring *ring = &rdev->ring[RADEON_RING_TYPE_GFX_INDEX];
+>   
+>   	/* RV410 and R420 can lock up if CP DMA to host memory happens
+> @@ -215,7 +216,8 @@ static void r420_cp_errata_init(struct radeon_device *rdev)
+>   	 * of the CP init, apparently.
+>   	 */
+>   	radeon_scratch_get(rdev, &rdev->config.r300.resync_scratch);
+> -	radeon_ring_lock(rdev, ring, 8);
+> +	r = radeon_ring_lock(rdev, ring, 8);
+> +	WARN_ON(r);
+>   	radeon_ring_write(ring, PACKET0(R300_CP_RESYNC_ADDR, 1));
+>   	radeon_ring_write(ring, rdev->config.r300.resync_scratch);
+>   	radeon_ring_write(ring, 0xDEADBEEF);
+> @@ -224,12 +226,14 @@ static void r420_cp_errata_init(struct radeon_device *rdev)
+>   
+>   static void r420_cp_errata_fini(struct radeon_device *rdev)
+>   {
+> +	int r;
+>   	struct radeon_ring *ring = &rdev->ring[RADEON_RING_TYPE_GFX_INDEX];
+>   
+>   	/* Catch the RESYNC we dispatched all the way back,
+>   	 * at the very beginning of the CP init.
+>   	 */
+> -	radeon_ring_lock(rdev, ring, 8);
+> +	r = radeon_ring_lock(rdev, ring, 8);
+> +	WARN_ON(r);
+>   	radeon_ring_write(ring, PACKET0(R300_RB3D_DSTCACHE_CTLSTAT, 0));
+>   	radeon_ring_write(ring, R300_RB3D_DC_FINISH);
+>   	radeon_ring_unlock_commit(rdev, ring, false);
