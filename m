@@ -1,70 +1,74 @@
-From: Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Subject: [PATCH 5/6] drm: fourcc byteorder: adapt virtio to
- drm_mode_legacy_fb_format update
-Date: Mon, 24 Apr 2017 08:25:31 +0200
-Message-ID: <20170424062532.26722-6-kraxel@redhat.com>
+From: Gerd Hoffmann <kraxel@redhat.com>
+Subject: [PATCH 6/6] drm: fourcc byteorder: virtio restrict to XRGB8888
+Date: Mon, 24 Apr 2017 08:25:32 +0200
+Message-ID: <20170424062532.26722-7-kraxel@redhat.com>
 References: <20170424062532.26722-1-kraxel@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170424062532.26722-1-kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Jani Nikula <jani.nikula-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, open list <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, "open list:VIRTIO GPU DRIVER" <virtualization-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>, Pekka Paalanen <ppaalanen-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Sean Paul <seanpaul-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Daniel Vetter <daniel.vetter-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Ilia Mirkin <imirkin-FrUbXkNCsVf2fBVCVOL8/A@public.gmane.org>, Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Return-path: <virtualization-bounces@lists.linux-foundation.org>
+In-Reply-To: <20170424062532.26722-1-kraxel@redhat.com>
+List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/virtualization>,
+	<mailto:virtualization-request@lists.linux-foundation.org?subject=unsubscribe>
+List-Archive: <http://lists.linuxfoundation.org/pipermail/virtualization/>
+List-Post: <mailto:virtualization@lists.linux-foundation.org>
+List-Help: <mailto:virtualization-request@lists.linux-foundation.org?subject=help>
+List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/virtualization>,
+	<mailto:virtualization-request@lists.linux-foundation.org?subject=subscribe>
+Sender: virtualization-bounces@lists.linux-foundation.org
+Errors-To: virtualization-bounces@lists.linux-foundation.org
+To: dri-devel@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, David Airlie <airlied@linux.ie>, =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel@daenzer.net>, open list <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, "open list:VIRTIO GPU DRIVER" <virtualization@lists.linux-foundation.org>, Pekka Paalanen <ppaalanen@gmail.com>, Sean Paul <seanpaul@chromium.org>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, Alex Deucher <alexdeucher@gmail.com>, Daniel Vetter <daniel.vetter@intel.com>, Ilia Mirkin <imirkin@alum.mit.edu>
+List-Id: amd-gfx.lists.freedesktop.org
 
-U2lnbmVkLW9mZi1ieTogR2VyZCBIb2ZmbWFubiA8a3JheGVsQHJlZGhhdC5jb20+Ci0tLQogZHJp
-dmVycy9ncHUvZHJtL3ZpcnRpby92aXJ0Z3B1X2dlbS5jICAgfCAgMiArLQogZHJpdmVycy9ncHUv
-ZHJtL3ZpcnRpby92aXJ0Z3B1X3BsYW5lLmMgfCAzMSAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tCiAyIGZpbGVzIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAzMiBkZWxldGlvbnMoLSkK
-CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdmlydGlvL3ZpcnRncHVfZ2VtLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vdmlydGlvL3ZpcnRncHVfZ2VtLmMKaW5kZXggY2MwMjVkOGZiZS4uNGYyYzJk
-YzczMSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3ZpcnRpby92aXJ0Z3B1X2dlbS5jCisr
-KyBiL2RyaXZlcnMvZ3B1L2RybS92aXJ0aW8vdmlydGdwdV9nZW0uYwpAQCAtOTksNyArOTksNyBA
-QCBpbnQgdmlydGlvX2dwdV9tb2RlX2R1bWJfY3JlYXRlKHN0cnVjdCBkcm1fZmlsZSAqZmlsZV9w
-cml2LAogCWlmIChyZXQpCiAJCWdvdG8gZmFpbDsKIAotCWZvcm1hdCA9IHZpcnRpb19ncHVfdHJh
-bnNsYXRlX2Zvcm1hdChEUk1fRk9STUFUX1hSR0I4ODg4KTsKKwlmb3JtYXQgPSB2aXJ0aW9fZ3B1
-X3RyYW5zbGF0ZV9mb3JtYXQoRFJNX0ZPUk1BVF9DUFVfWFJHQjg4ODgpOwogCXZpcnRpb19ncHVf
-cmVzb3VyY2VfaWRfZ2V0KHZnZGV2LCAmcmVzaWQpOwogCXZpcnRpb19ncHVfY21kX2NyZWF0ZV9y
-ZXNvdXJjZSh2Z2RldiwgcmVzaWQsIGZvcm1hdCwKIAkJCQkgICAgICAgYXJncy0+d2lkdGgsIGFy
-Z3MtPmhlaWdodCk7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdmlydGlvL3ZpcnRncHVf
-cGxhbmUuYyBiL2RyaXZlcnMvZ3B1L2RybS92aXJ0aW8vdmlydGdwdV9wbGFuZS5jCmluZGV4IGFk
-Y2RiZDBhYmUuLmY0MGZmYzlhNzAgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS92aXJ0aW8v
-dmlydGdwdV9wbGFuZS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS92aXJ0aW8vdmlydGdwdV9wbGFu
-ZS5jCkBAIC0zOSwxMSArMzksNyBAQCBzdGF0aWMgY29uc3QgdWludDMyX3QgdmlydGlvX2dwdV9m
-b3JtYXRzW10gPSB7CiB9OwogCiBzdGF0aWMgY29uc3QgdWludDMyX3QgdmlydGlvX2dwdV9jdXJz
-b3JfZm9ybWF0c1tdID0gewotI2lmZGVmIF9fQklHX0VORElBTgotCURSTV9GT1JNQVRfQkdSQTg4
-ODgsCi0jZWxzZQogCURSTV9GT1JNQVRfQVJHQjg4ODgsCi0jZW5kaWYKIH07CiAKIHVpbnQzMl90
-IHZpcnRpb19ncHVfdHJhbnNsYXRlX2Zvcm1hdCh1aW50MzJfdCBkcm1fZm91cmNjKQpAQCAtNTEs
-MzIgKzQ3LDYgQEAgdWludDMyX3QgdmlydGlvX2dwdV90cmFuc2xhdGVfZm9ybWF0KHVpbnQzMl90
-IGRybV9mb3VyY2MpCiAJdWludDMyX3QgZm9ybWF0OwogCiAJc3dpdGNoIChkcm1fZm91cmNjKSB7
-Ci0jaWZkZWYgX19CSUdfRU5ESUFOCi0JY2FzZSBEUk1fRk9STUFUX1hSR0I4ODg4OgotCQlmb3Jt
-YXQgPSBWSVJUSU9fR1BVX0ZPUk1BVF9YOFI4RzhCOF9VTk9STTsKLQkJYnJlYWs7Ci0JY2FzZSBE
-Uk1fRk9STUFUX0FSR0I4ODg4OgotCQlmb3JtYXQgPSBWSVJUSU9fR1BVX0ZPUk1BVF9BOFI4RzhC
-OF9VTk9STTsKLQkJYnJlYWs7Ci0JY2FzZSBEUk1fRk9STUFUX0JHUlg4ODg4OgotCQlmb3JtYXQg
-PSBWSVJUSU9fR1BVX0ZPUk1BVF9COEc4UjhYOF9VTk9STTsKLQkJYnJlYWs7Ci0JY2FzZSBEUk1f
-Rk9STUFUX0JHUkE4ODg4OgotCQlmb3JtYXQgPSBWSVJUSU9fR1BVX0ZPUk1BVF9COEc4UjhBOF9V
-Tk9STTsKLQkJYnJlYWs7Ci0JY2FzZSBEUk1fRk9STUFUX1JHQlg4ODg4OgotCQlmb3JtYXQgPSBW
-SVJUSU9fR1BVX0ZPUk1BVF9SOEc4QjhYOF9VTk9STTsKLQkJYnJlYWs7Ci0JY2FzZSBEUk1fRk9S
-TUFUX1JHQkE4ODg4OgotCQlmb3JtYXQgPSBWSVJUSU9fR1BVX0ZPUk1BVF9SOEc4QjhBOF9VTk9S
-TTsKLQkJYnJlYWs7Ci0JY2FzZSBEUk1fRk9STUFUX1hCR1I4ODg4OgotCQlmb3JtYXQgPSBWSVJU
-SU9fR1BVX0ZPUk1BVF9YOEI4RzhSOF9VTk9STTsKLQkJYnJlYWs7Ci0JY2FzZSBEUk1fRk9STUFU
-X0FCR1I4ODg4OgotCQlmb3JtYXQgPSBWSVJUSU9fR1BVX0ZPUk1BVF9BOEI4RzhSOF9VTk9STTsK
-LQkJYnJlYWs7Ci0jZWxzZQogCWNhc2UgRFJNX0ZPUk1BVF9YUkdCODg4ODoKIAkJZm9ybWF0ID0g
-VklSVElPX0dQVV9GT1JNQVRfQjhHOFI4WDhfVU5PUk07CiAJCWJyZWFrOwpAQCAtMTAxLDcgKzcx
-LDYgQEAgdWludDMyX3QgdmlydGlvX2dwdV90cmFuc2xhdGVfZm9ybWF0KHVpbnQzMl90IGRybV9m
-b3VyY2MpCiAJY2FzZSBEUk1fRk9STUFUX0FCR1I4ODg4OgogCQlmb3JtYXQgPSBWSVJUSU9fR1BV
-X0ZPUk1BVF9SOEc4QjhBOF9VTk9STTsKIAkJYnJlYWs7Ci0jZW5kaWYKIAlkZWZhdWx0OgogCQkv
-KgogCQkgKiBUaGlzIHNob3VsZCBub3QgaGFwcGVuLCB3ZSBoYW5kbGUgZXZlcnl0aGluZyBsaXN0
-ZWQKLS0gCjIuOS4zCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+While wading through the code I've noticed we have a little issue in
+virtio:  We attach a format to the bo when it is created
+(DRM_IOCTL_MODE_CREATE_DUMB), not when we map it as framebuffer
+(DRM_IOCTL_MODE_ADDFB).
+
+Easy way out:  support a single format only.
+
+Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+---
+ drivers/gpu/drm/virtio/virtgpu_gem.c   | 5 ++++-
+ drivers/gpu/drm/virtio/virtgpu_plane.c | 9 +--------
+ 2 files changed, 5 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/gpu/drm/virtio/virtgpu_gem.c b/drivers/gpu/drm/virtio/virtgpu_gem.c
+index 4f2c2dc731..b09e5e5ae4 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_gem.c
++++ b/drivers/gpu/drm/virtio/virtgpu_gem.c
+@@ -90,7 +90,10 @@ int virtio_gpu_mode_dumb_create(struct drm_file *file_priv,
+ 	uint32_t resid;
+ 	uint32_t format;
+ 
+-	pitch = args->width * ((args->bpp + 1) / 8);
++	if (args->bpp != 32)
++		return -EINVAL;
++
++	pitch = args->width * 4;
+ 	args->size = pitch * args->height;
+ 	args->size = ALIGN(args->size, PAGE_SIZE);
+ 
+diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
+index f40ffc9a70..3a4498a223 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_plane.c
++++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
+@@ -28,14 +28,7 @@
+ #include <drm/drm_atomic_helper.h>
+ 
+ static const uint32_t virtio_gpu_formats[] = {
+-	DRM_FORMAT_XRGB8888,
+-	DRM_FORMAT_ARGB8888,
+-	DRM_FORMAT_BGRX8888,
+-	DRM_FORMAT_BGRA8888,
+-	DRM_FORMAT_RGBX8888,
+-	DRM_FORMAT_RGBA8888,
+-	DRM_FORMAT_XBGR8888,
+-	DRM_FORMAT_ABGR8888,
++	DRM_FORMAT_CPU_XRGB8888,
+ };
+ 
+ static const uint32_t virtio_gpu_cursor_formats[] = {
+-- 
+2.9.3
