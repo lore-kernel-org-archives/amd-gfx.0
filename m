@@ -1,74 +1,51 @@
-From: Gerd Hoffmann <kraxel@redhat.com>
-Subject: [PATCH 6/6] drm: fourcc byteorder: virtio restrict to XRGB8888
-Date: Mon, 24 Apr 2017 08:25:32 +0200
-Message-ID: <20170424062532.26722-7-kraxel@redhat.com>
-References: <20170424062532.26722-1-kraxel@redhat.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Subject: Re: [PATCH] drm: fourcc byteorder: brings header file comments in
+ line with reality.
+Date: Mon, 24 Apr 2017 15:33:07 +0900
+Message-ID: <bab292a6-f33a-3fe5-be7e-a9750e3ab789@daenzer.net>
+References: <20170421075825.6307-1-kraxel@redhat.com>
+ <CAKb7Uvgx2_O8y+HWGv8TEv0BqpXrLL5SdAt2d3gh6g69U6F=Sw@mail.gmail.com>
+ <20170421165907.GQ30290@intel.com>
+ <CAKb7Uvj4stAYmZ-BOVBXugAiyfPOmEnT3i1w+Ywu2BhyBpS-1w@mail.gmail.com>
+ <20170422095056.GR30290@intel.com>
+ <CAKb7UviirFVnut-6k6nO2-dspyzdu0AdZQ1CV8sAKAJkqAc3oA@mail.gmail.com>
+ <CAKb7Uvig0J2rg=yJT4g8OuqR9RW4x2TzK-DA_zs_Qc_up4dACQ@mail.gmail.com>
+ <CAKb7UviwPFPW3sa1hfaiOg+uE4UUUkFO045CqKhiE-CdM-mB8g@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Return-path: <virtualization-bounces@lists.linux-foundation.org>
-In-Reply-To: <20170424062532.26722-1-kraxel@redhat.com>
-List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/virtualization>,
-	<mailto:virtualization-request@lists.linux-foundation.org?subject=unsubscribe>
-List-Archive: <http://lists.linuxfoundation.org/pipermail/virtualization/>
-List-Post: <mailto:virtualization@lists.linux-foundation.org>
-List-Help: <mailto:virtualization-request@lists.linux-foundation.org?subject=help>
-List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/virtualization>,
-	<mailto:virtualization-request@lists.linux-foundation.org?subject=subscribe>
-Sender: virtualization-bounces@lists.linux-foundation.org
-Errors-To: virtualization-bounces@lists.linux-foundation.org
-To: dri-devel@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, David Airlie <airlied@linux.ie>, =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel@daenzer.net>, open list <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, "open list:VIRTIO GPU DRIVER" <virtualization@lists.linux-foundation.org>, Pekka Paalanen <ppaalanen@gmail.com>, Sean Paul <seanpaul@chromium.org>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, Alex Deucher <alexdeucher@gmail.com>, Daniel Vetter <daniel.vetter@intel.com>, Ilia Mirkin <imirkin@alum.mit.edu>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <CAKb7UviwPFPW3sa1hfaiOg+uE4UUUkFO045CqKhiE-CdM-mB8g@mail.gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Ilia Mirkin <imirkin@alum.mit.edu>, =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: amd-gfx@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, Gerd Hoffmann <kraxel@redhat.com>, Daniel Vetter <daniel.vetter@intel.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-While wading through the code I've noticed we have a little issue in
-virtio:  We attach a format to the bo when it is created
-(DRM_IOCTL_MODE_CREATE_DUMB), not when we map it as framebuffer
-(DRM_IOCTL_MODE_ADDFB).
+On 23/04/17 04:24 AM, Ilia Mirkin wrote:
+> 
+> fbdev also creates fb's that expect cpu endianness, as disabling the
+> byteswap logic caused a green fbcon terminal to show up. (So at least
+> something somewhere in the fbcon -> nouveau's fbdev emulation pipeline
+> is expecting cpu endianness. This happens both with nouveau's fbdev
+> accel logic and without.)
 
-Easy way out:  support a single format only.
+In theory, there's FB_FOREIGN_ENDIAN for that. But in practice it's
+probably useless because little if any userspace even checks for it, let
+alone handles it correctly.
 
-Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
----
- drivers/gpu/drm/virtio/virtgpu_gem.c   | 5 ++++-
- drivers/gpu/drm/virtio/virtgpu_plane.c | 9 +--------
- 2 files changed, 5 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_gem.c b/drivers/gpu/drm/virtio/virtgpu_gem.c
-index 4f2c2dc731..b09e5e5ae4 100644
---- a/drivers/gpu/drm/virtio/virtgpu_gem.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_gem.c
-@@ -90,7 +90,10 @@ int virtio_gpu_mode_dumb_create(struct drm_file *file_priv,
- 	uint32_t resid;
- 	uint32_t format;
- 
--	pitch = args->width * ((args->bpp + 1) / 8);
-+	if (args->bpp != 32)
-+		return -EINVAL;
-+
-+	pitch = args->width * 4;
- 	args->size = pitch * args->height;
- 	args->size = ALIGN(args->size, PAGE_SIZE);
- 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
-index f40ffc9a70..3a4498a223 100644
---- a/drivers/gpu/drm/virtio/virtgpu_plane.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
-@@ -28,14 +28,7 @@
- #include <drm/drm_atomic_helper.h>
- 
- static const uint32_t virtio_gpu_formats[] = {
--	DRM_FORMAT_XRGB8888,
--	DRM_FORMAT_ARGB8888,
--	DRM_FORMAT_BGRX8888,
--	DRM_FORMAT_BGRA8888,
--	DRM_FORMAT_RGBX8888,
--	DRM_FORMAT_RGBA8888,
--	DRM_FORMAT_XBGR8888,
--	DRM_FORMAT_ABGR8888,
-+	DRM_FORMAT_CPU_XRGB8888,
- };
- 
- static const uint32_t virtio_gpu_cursor_formats[] = {
+> So I think the current situation, at least wrt pre-nv50 nouveau, is
+> that XRGB/ARGB8888 are "special", since they are the only things
+> exposed by drm_crtc_init. I believe those definitions should be
+> updated to note that they're cpu-endian-specific (or another way of
+> phrasing it more diplomatically is that they're array formats rather
+> than packed formats).
+
+That would be incorrect. :) The memory layout of 8-bit-per-component
+array formats doesn't depend on endianness, that of packed formats does.
+(DRM_FORMAT_*8 as currently defined are thus effectively array formats)
+
+
 -- 
-2.9.3
+Earthling Michel Dänzer               |               http://www.amd.com
+Libre software enthusiast             |             Mesa and X developer
