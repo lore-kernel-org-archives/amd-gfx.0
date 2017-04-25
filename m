@@ -1,50 +1,67 @@
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-Subject: Re: [PATCH 3/6] drm: fourcc byteorder: add bigendian support to
- drm_mode_legacy_fb_format
-Date: Tue, 25 Apr 2017 12:52:59 +0300
-Message-ID: <20170425095259.GK30290@intel.com>
-References: <20170424062532.26722-1-kraxel@redhat.com>
- <20170424062532.26722-4-kraxel@redhat.com>
- <3b872a56-80b5-0c44-712f-a9517489eb24@daenzer.net>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH 0/6] *** Dedicated vmid per process v2 ***
+Date: Tue, 25 Apr 2017 12:02:25 +0200
+Message-ID: <5d87ce22-adba-5d23-4e63-1b2effe97fa4@vodafone.de>
+References: <1493013460-13344-1-git-send-email-David1.Zhou@amd.com>
+ <58FF11E7.6040607@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <3b872a56-80b5-0c44-712f-a9517489eb24@daenzer.net>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Michel =?iso-8859-1?Q?D=E4nzer?= <michel@daenzer.net>
-Cc: Gerd Hoffmann <kraxel@redhat.com>, Daniel Vetter <daniel.vetter@intel.com>, amd-gfx@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <58FF11E7.6040607-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Tue, Apr 25, 2017 at 12:18:52PM +0900, Michel Dänzer wrote:
-> On 24/04/17 03:25 PM, Gerd Hoffmann wrote:
-> > Return correct fourcc codes on bigendian.  Drivers must be adapted to
-> > this change.
-> > 
-> > Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-> 
-> Just to reiterate, this won't work for the radeon driver, which programs
-> the GPU to use (effectively, per the current definition that these are
-> little endian GPU formats) DRM_FORMAT_XRGB8888 with pre-R600 and
-> DRM_FORMAT_BGRX8888 with >= R600.
-> 
-> 
-> > +#ifdef __BIG_ENDIAN
-> > +	switch (bpp) {
-> > +	case 8:
-> > +		fmt = DRM_FORMAT_C8;
-> > +		break;
-> > +	case 24:
-> > +		fmt = DRM_FORMAT_BGR888;
-> > +		break;
-> 
-> BTW, endianness as a concept cannot apply to 8 or 24 bpp formats.
-
-To 8bpp no, but it can easily apply to 24bpp. Same was as it applies to
-16bpp. Neither matches the word size of the CPU or anything like that
-but still the bytes have to stored in memory in some order.
-
--- 
-Ville Syrjälä
-Intel OTC
+T24gbXkgVE9ETyBsaXN0LCBidXQgYmVoaW5kIGFib3V0IHR3byBvciB0aHJlZSBvdGhlciBpdGVt
+cyBJIG5lZWQgdG8gCnRhY2tsZSBmaXJzdC4KCkNocmlzdGlhbi4KCkFtIDI1LjA0LjIwMTcgdW0g
+MTE6MDcgc2NocmllYiB6aG91Y20xOgo+IHBpbmcuLi4gYW55b25lIGNhbiBnaXZlIHRoZSByZXZp
+ZXc/Cj4KPiBUaGFua3MsCj4gRGF2aWQgWmhvdQo+Cj4gT24gMjAxN+W5tDA05pyIMjTml6UgMTM6
+NTcsIENodW5taW5nIFpob3Ugd3JvdGU6Cj4+IFRoZSBjdXJyZW50IGtlcm5lbCBpbXBsZW1lbnRh
+dGlvbiwgd2hpY2ggZ3JhYnMgdGhlIGlkbGUgVk1JRCBmcm9tIAo+PiBwb29sIHdoZW4gZW1pdHRp
+bmcgdGhlIGpvYiBtYXk6Cj4+Cj4+ICAgICAgVGhlIGJhY2stdG8tYmFjayBzdWJtaXNzaW9uIGZy
+b20gb25lIHByb2Nlc3MgY291bGQgdXNlIGRpZmZlcmVudCAKPj4gVk1JRC4KPj4gICAgICBUaGUg
+c3VibWlzc2lvbiB0byBkaWZmZXJlbnQgcXVldWVzIGZyb20gc2luZ2xlIHByb2Nlc3MgY291bGQg
+dXNlIAo+PiBkaWZmZXJlbnQgVk1JRAo+Pgo+PiBJdCB3b3JrcyB3ZWxsIGluIG1vc3QgY2FzZSBi
+dXQgY2Fubm90IHdvcmsgZm9yIHRoZSBTUSB0aHJlYWQgdHJhY2UgCj4+IGNhcHR1cmUuCj4+Cj4+
+IFRoZSBWTUlEIGZvciB0aGUgc3VibWlzc2lvbiB0aGF0IHNldCB0aGUge1NRVFR9X0JBU0UsIHdo
+aWNoIHJlZmVycyB0byAKPj4gdGhlIGFkZHJlc3Mgb2YgdGhlIHRyYWNlIGJ1ZmZlciwgaXMgc3Rv
+cmVkIGluIHNoYWRlciBlbmdpbmUuCj4+Cj4+IElmIHRoZSBwcm9maWxpbmcgYXBwbGljYXRpb24g
+aGF2ZSB0byB1c2UgZGlmZmVyZW50IFZNSURzIHRvIHN1Ym1pdCAKPj4gSUJzIGluIGl0cyBsaWZl
+IGN5Y2xlOgo+Pgo+PiAgICAgIFNvbWUgdHJhY2UgaXMgbm90IGNhcHR1cmVkIHNpbmNlIGl0IGFj
+dHVhbGx5IHVzZXMgZGlmZmVyZW50IFZNSUQgCj4+IHRvIHN1Ym1pdCBqb2JzLgo+PiAgICAgIFNv
+bWUgcGFydCBvZiBjYXB0dXJlZCB0cmFjZSBtYXkgY29tZSBmcm9tIGRpZmZlcmVudCBhcHBsaWNh
+dGlvbiAKPj4gc2luY2UgdGhleSBhcmUgYWNjaWRlbnRhbGx5IHVzZXMgdGhlIG93bmVy4oCZcyBW
+TUlEIHRvIHN1Ym1pdCBqb2JzLgo+Pgo+PiBWMjoKPj4gMS4gYWRkcmVzcyBDaHJpc3RpYW4ncyBj
+b21tZW50czoKPj4gICAgIGEuIGRyb3AgY29udGV4dCBmbGFncyBmb3IgdGFnIHByb2Nlc3MsIGlu
+c3RlYWQsIGFkZCB2bSBpb2N0bC4KPj4gICAgIGIuIGNoYW5nZSBvcmRlciBvZiBwYXRjaGVzLgo+
+PiAgICAgYy4gc3luYyB3YWl0aW5nIG9ubHkgd2hlbiB2bSBmbHVzaCBuZWVkcy4KPj4KPj4gMi4g
+YWRkcmVzcyBBbGV4J3MgY29tbWVudHM7Cj4+ICAgICBidW1wIG1vZHVsZSB2ZXJzaW9uCj4+Cj4+
+IENodW5taW5nIFpob3UgKDYpOgo+PiAgICBkcm0vYW1kZ3B1OiBhZGQgdm0gaW9jdGwKPj4gICAg
+ZHJtL2FtZGdwdTogYWRkIGRlZGljYXRlZCB2bWlkIGZpZWxkIGluIHZtIHN0cnVjdAo+PiAgICBk
+cm0vYW1kZ3B1OiByZXNlcnZlIHZtaWQgYnkgdm0gaW9jdGwKPj4gICAgZHJtL2FtZGdwdTogYWRk
+IGxpbWl0YXRpb24gZm9yIGRlZGljYXRlZCB2bSBudW1iZXIgdjIKPj4gICAgZHJtL2FtZGdwdTog
+aW1wbGVtZW50IGdyYWIgZGVkaWNhdGVkIHZtaWQgVjIKPj4gICAgZHJtL2FtZGdwdTogYnVtcCBt
+b2R1bGUgdmVyaW9uIGZvciByZXNlcnZlZCB2bWlkCj4+Cj4+ICAgZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1LmggICAgICAgIHwgICAxICsKPj4gICBkcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCAgIDEgKwo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9kcnYuYyAgICB8ICAgMyArLQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9rbXMuYyAgICB8ICAgMSArCj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X3ZtLmMgICAgIHwgMTU5IAo+PiArKysrKysrKysrKysrKysrKysrKysrKysr
+KysrLQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oICAgICB8ICAg
+NSArCj4+ICAgaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmggICAgICAgICAgICAgIHwgIDIw
+ICsrKysKPj4gICA3IGZpbGVzIGNoYW5nZWQsIDE4OCBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9u
+cygtKQo+Pgo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+CgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
