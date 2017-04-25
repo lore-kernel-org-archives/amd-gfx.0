@@ -1,77 +1,44 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple@vodafone.de>
-Subject: Re: [PATCH 3/4] x86/PCI: Enable a 64bit BAR on AMD Family 15h (Models
- 30h-3fh) Processors
-Date: Tue, 25 Apr 2017 15:01:35 +0200
-Message-ID: <de846814-5884-69a5-3eb6-fec5c5c6896d@vodafone.de>
-References: <1489408896-25039-1-git-send-email-deathsimple@vodafone.de>
- <1489408896-25039-4-git-send-email-deathsimple@vodafone.de>
- <20170324154744.GE25380@bhelgaas-glaptop.roam.corp.google.com>
- <a1ac66f3-3c3f-e9c6-82c9-6e9ca5715b67@vodafone.de>
- <20170412165530.GE25197@bhelgaas-glaptop.roam.corp.google.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 1/2] drm/amdgpu: fix gpu reset crash
+Date: Tue, 25 Apr 2017 13:34:41 +0000
+Message-ID: <BN6PR12MB1652CAFE2B4D576733D2EBA3F71E0@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <1493026850-29604-1-git-send-email-David1.Zhou@amd.com>
+ <a43a71f9-b8b1-4ff3-3532-d13bdd539761@vodafone.de> <58FEB257.2010002@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-Return-path: <platform-driver-x86-owner@vger.kernel.org>
-In-Reply-To: <20170412165530.GE25197@bhelgaas-glaptop.roam.corp.google.com>
-Sender: platform-driver-x86-owner@vger.kernel.org
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <58FEB257.2010002-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Am 12.04.2017 um 18:55 schrieb Bjorn Helgaas:
-> [SNIP]
->>> I think the specs would envision this being done via an ACPI _SRS
->>> method on the PNP0A03 host bridge device.  That would be a more
->>> generic path that would work on any host bridge.  Did you explore that
->>> possibility?  I would prefer to avoid adding device-specific code if
->>> that's possible.
->> I've checked quite a few boards, but none of them actually
->> implements it this way.
->>
->> M$ is working on a new ACPI table to enable this vendor neutral, but
->> I guess that will still take a while.
->>
->> I want to support this for all AMD CPU released in the past 5 years
->> or so, so we are going to deal with a bunch of older boards as well.
-> I've never seen _SRS for host bridges either.  I'm curious about what
-> sort of new table will be proposed.  It seems like the existing ACPI
-> resource framework could manage it, but I certainly don't know all the
-> issues.
-
-No idea either since I'm not involved into that. My job is to get it 
-working on the existing hw generations and that alone is enough work :)
-
-My best guess is that MS is going to either make _SRS on the host bridge 
-or a pre-configured 64bit window mandatory for the BIOS.
-
->>>> +	pci_bus_add_resource(dev->bus, res, 0);
->>> We would need some sort of printk here to explain how this new window
->>> magically appeared.
->> Good point, consider this done.
->>
->> But is this actually the right place of doing it? Or would you
->> prefer something to be added to the probing code?
->>
->> I think those fixups are applied a bit later, aren't they?
-> Logically, this should be done before we enumerate the PCI devices
-> below the host bridge, so a PCI device fixup is not the ideal place
-> for it, but it might be the most practical.
-
-Since the modification must be done on a device connected to the root 
-bus I run into quite a chicken and egg problem if I try to do it before 
-the enumeration.
-
-> I could imagine some sort of quirk like the ones in
-> drivers/pnp/quirks.c that could add the window to the host bridge _CRS
-> and program the bridge to open it.  But the PCI host bridges aren't
-> handled through the path that applies those fixups, and it would be
-> messy to identify your bridges (you currently use PCI vendor/device
-> IDs, which are only available after enumerating the device).  So this
-> doesn't seem like a viable strategy.
-
-I've tried that, but gave up rather quickly. Looks like the current 
-approach indeed work find even with "pci=realloc", so I'm going to stick 
-with that.
-
-Regards,
-Christian.
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
+LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIHpob3Vj
+bTENCj4gU2VudDogTW9uZGF5LCBBcHJpbCAyNCwgMjAxNyAxMDoyMCBQTQ0KPiBUbzogQ2hyaXN0
+aWFuIEvDtm5pZzsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gU3ViamVjdDogUmU6
+IFtQQVRDSCAxLzJdIGRybS9hbWRncHU6IGZpeCBncHUgcmVzZXQgY3Jhc2gNCj4gDQo+IA0KPiAN
+Cj4gT24gMjAxN+W5tDA05pyIMjTml6UgMTc6NDcsIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6DQo+
+ID4+IFRoZSByb290IGNhdXNlIGlzIHNvbWUgcmluZyBkb2Vzbid0IGhhdmUgc2NoZWR1bGVyLCBs
+aWtlIEtJUSByaW5nDQo+ID4+DQo+ID4+IENoYW5nZS1JZDogSTQyMGU4NGFkZDljZGQ5YTdmZDFm
+OTkyMWI4YTVkMGFmYTNkZDIwNTgNCj4gPj4gU2lnbmVkLW9mZi1ieTogQ2h1bm1pbmcgWmhvdSA8
+RGF2aWQxLlpob3VAYW1kLmNvbT4NCj4gPg0KPiA+IFJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2
+bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+IGZvciBib3RoLg0KPiBJIGZvcmdvdCB0byBh
+ZGQgUkIgd2hlbiBwdXNoaW5nIHBhdGNoZXMsIEhvdyBjYW4gSSBhZGQgaXQgYWdhaW4/DQoNCkkn
+bGwgYWRkIGl0IGJlZm9yZSBzZW5kaW5nIHVwc3RyZWFtLg0KDQpBbGV4DQoNCj4gDQo+IFNvcnJ5
+IGZvciB0aGF0Lg0KPiBEYXZpZCBaaG91DQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fDQo+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnDQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
+Z2Z4Cg==
