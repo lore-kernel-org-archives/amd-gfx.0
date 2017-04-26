@@ -1,14 +1,10 @@
-From: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [rfc] drm sync objects (search for spock)
-Date: Wed, 26 Apr 2017 19:57:46 +1000
-Message-ID: <CAPM=9tz_S1Y87PxFTw_+SM2f+g9hUvFviKtb9xR=2xLpSCjEAA@mail.gmail.com>
-References: <20170426032833.1455-1-airlied@gmail.com>
- <373f3919-2f52-44c0-89b9-0c10b7b7bed4@vodafone.de>
+From: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 0/6 v3] *** Dedicated vmid per process v3 ***
+Date: Wed, 26 Apr 2017 19:10:33 +0800
+Message-ID: <1493205039-3721-1-git-send-email-David1.Zhou@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1902091677=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <373f3919-2f52-44c0-89b9-0c10b7b7bed4-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,42 +15,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
 
-T24gMjYgQXByaWwgMjAxNyBhdCAxODo0NSwgQ2hyaXN0aWFuIEvDtm5pZyA8ZGVhdGhzaW1wbGVA
-dm9kYWZvbmUuZGU+IHdyb3RlOgo+IEFtIDI2LjA0LjIwMTcgdW0gMDU6Mjggc2NocmllYiBEYXZl
-IEFpcmxpZToKPj4KPj4gT2theSBJJ3ZlIGdvbmUgYXJvdW5kIHRoZSBzdW4gd2l0aCB0aGVzZSBh
-IGZldyB0aW1lcywgYW5kCj4+IHByZXR0eSBtdWNoIGltcGxlbWVudGVkIHdoYXQgSSBzYWlkIGxh
-c3Qgd2Vlay4KPj4KPj4gVGhpcyBpcyBwcmV0dHkgbXVjaCBhIGNvbXBsZXRlIHJldmFtcC4KPj4K
-Pj4gMS4gc3luYyBvYmplY3RzIGFyZSBzZWxmIGNvbnRhaW5lZCBkcm0gb2JqZWN0cywgdGhleQo+
-PiBoYXZlIGEgZmlsZSByZWZlcmVuY2Ugc28gY2FuIGJlIHBhc3NlZCBiZXR3ZWVuIHByb2Nlc3Nl
-cy4KPj4KPj4gMi4gQWRkZWQgYSBzeW5jIG9iamVjdCB3YWl0IGludGVyZmFjZSBtb2RlbGxlZCBv
-biB0aGUgdnVsa2FuCj4+IGZlbmNlIHdhaXRpbmcgQVBJLgo+Pgo+PiAzLiBzeW5jX2ZpbGUgaW50
-ZXJhY3Rpb24gaXMgZXhwbGljaXRseSBkaWZmZXJlbnQgdGhhbgo+PiBvcGFxdWUgZmQgcGFzc2lu
-ZywgeW91IGltcG9ydCBhIHN5bmMgZmlsZSBzdGF0ZSBpbnRvIGFuCj4+IGV4aXN0aW5nIHN5bmNv
-YmosIG9yIGNyZWF0ZSBhIG5ldyBzeW5jX2ZpbGUgZnJvbSBhbgo+PiBleGlzdGluZyBzeW5jb2Jq
-LiBUaGlzIG1lYW5zIG5vIHRvdWNoaW5nIHRoZSBzeW5jIGZpbGUgY29kZQo+PiBhdCBhbGwuIFxv
-Lwo+Cj4KPiBEb2Vzbid0IHRoYXQgYnJlYWsgdGhlIFZ1bGthbiByZXF1aXJlbWVudCB0aGF0IGlm
-IGEgc3luY19vYmogaXMgZXhwb3J0ZWQgdG8KPiBhbiBmZCBhbmQgaW1wb3J0ZWQgb24gdGhlIG90
-aGVyIHNpZGUgd2UgZ2V0IHRoZSBzYW1lIHN5bmNfb2JqIGFnYWluPwo+Cj4gSW4gb3RoZXIgd29y
-ZHMgdGhlIGZkIGlzIGV4cG9ydGVkIGFuZCBpbXBvcnRlZCBvbmx5IG9uY2UgYW5kIHRoZSBleHBl
-Y3RhdGlvbgo+IGlzIHRoYXQgd2UgZmVuY2UgY29udGFpbmluZyBpdCB3aWxsIGNoYW5nZSBvbiBl
-YWNoIHNpZ25hbGluZyBvcGVyYXRpb24uCj4KPiBBcyBmYXIgYXMgSSBjYW4gc2VlIHdpdGggdGhl
-IGN1cnJlbnQgaW1wbGVtZW50YXRpb24geW91IGdldCB0d28gc3luY19vYmplY3RzCj4gb24gaW4g
-dGhlIGV4cG9ydGluZyBwcm9jZXNzIGFuZCBvbmUgaW4gdGhlIGltcG9ydGluZyBvbmUuCgpBcmUg
-eW91IHRhbGtpbmcgYWJvdXQgdXNpbmcgc3luY19maWxlIGludGVyb3AgZm9yIHZ1bGthbiwgdGhl
-biB5ZXMKdGhhdCB3b3VsZCBiZSB3cm9uZy4KCkJ1dCB0aGF0IGlzbid0IGhvdyB0aGlzIHdvcmtz
-LCBzZWUgMS4gYWJvdmUgdGhlIHN5bmMgb2JqIGhhcyBhIDE6MQptYXBwaW5nIHdpdGggYW4Kb3Bh
-cXVlIGZkIChub24tc3luY19maWxlKSB0aGF0IGlzIG9ubHkgdXNlZCBmb3IgaW50ZXJwcm9jZXNz
-IHBhc3NpbmcKb2YgdGhlIHN5bmNvYmouCgpZb3UgY2FuIGludGVyb3BlcmF0ZSB3aXRoIHN5bmNf
-ZmlsZXMgYnkgaW1wb3J0aW5nL2V4cG9ydGluZyB0aGUKc3luY29iaiBmZW5jZSBpbnRvCmFuZCBv
-dXQgb2YgdGhlbSBidXQgdGhhdCBhcmVuJ3QgbWVhbnQgZm9yIHBhc3NpbmcgdGhlIGZkcyBhcm91
-bmQsIG1vcmUKZm9yIHdoZXJlIHlvdQpnZXQgYSBzeW5jX2ZpbGUgZmQgZnJvbSBzb21ld2hlcmUg
-ZWxzZSBhbmQgeW91IHdhbnQgdG8gdXNlIGl0IGFuZCB2aWNlLXZlcnNhLgoKSSdkIGxpa2UgdG8g
-bW92ZSBhbnkgZHJtIEFQSXMgYXdheSBmcm9tIHN5bmNfZmlsZSB0byBhdm9pZCB0aGUgZmQgd2Fz
-dGFnZXMsIEknZAphbHNvIGxpa2UgdG8gbW92ZSB0aGUgZHJpdmVyIHNwZWNpZmljIGZlbmNlcyB0
-byBzeW5jb2JqIHdoZXJlIEkgY2FuLgoKRGF2ZS4KX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4Cg==
+--===============1902091677==
+Content-Type: text/plain; charset="all"
+Content-Transfer-Encoding: 8bit
+
+*** BLURB HERE ***
+The current kernel implementation, which grabs the idle VMID from pool when emitting the job may:
+
+    The back-to-back submission from one process could use different VMID.
+    The submission to different queues from single process could use different VMID
+
+It works well in most case but cannot work for the SQ thread trace capture.
+
+The VMID for the submission that set the {SQTT}_BASE, which refers to the address of the trace buffer, is stored in shader engine.
+
+If the profiling application have to use different VMIDs to submit IBs in its life cycle:
+
+    Some trace is not captured since it actually uses different VMID to submit jobs.
+    Some part of captured trace may come from different application since they are accidentally uses the owner’s VMID to submit jobs.
+
+V2:
+1. address Christian's comments:
+	a. drop context flags for tag process, instead, add vm ioctl.
+	b. change order of patches.
+	c. sync waiting only when vm flush needs.
+
+2. address Alex's comments;
+	bump module version
+
+V3:
+  address Jerry and Christian's comments.
+  and only reserve gfxhub vmid
+
+
+Chunming Zhou (6):
+  drm/amdgpu: add vm ioctl
+  drm/amdgpu: add dedicated vmid field in vm struct
+  drm/amdgpu: reserve/unreserve vmid by vm ioctl v3
+  drm/amdgpu: add limitation for dedicated vm number v3
+  drm/amdgpu: implement grab dedicated vmid V2
+  drm/amdgpu: bump module verion for reserved vmid
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 148 +++++++++++++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  |   6 ++
+ include/uapi/drm/amdgpu_drm.h           |  22 +++++
+ 5 files changed, 178 insertions(+), 2 deletions(-)
+
+-- 
+1.9.1
+
+
+--===============1902091677==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1902091677==--
