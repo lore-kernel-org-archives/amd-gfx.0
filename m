@@ -1,10 +1,13 @@
 From: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 0/6 v3] *** Dedicated vmid per process v3 ***
-Date: Wed, 26 Apr 2017 19:10:33 +0800
-Message-ID: <1493205039-3721-1-git-send-email-David1.Zhou@amd.com>
+Subject: [PATCH 1/6] drm/amdgpu: add vm ioctl
+Date: Wed, 26 Apr 2017 19:10:34 +0800
+Message-ID: <1493205039-3721-2-git-send-email-David1.Zhou@amd.com>
+References: <1493205039-3721-1-git-send-email-David1.Zhou@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1902091677=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1493205039-3721-1-git-send-email-David1.Zhou-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,66 +21,77 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
 
---===============1902091677==
-Content-Type: text/plain; charset="all"
-Content-Transfer-Encoding: 8bit
-
-*** BLURB HERE ***
-The current kernel implementation, which grabs the idle VMID from pool when emitting the job may:
-
-    The back-to-back submission from one process could use different VMID.
-    The submission to different queues from single process could use different VMID
-
-It works well in most case but cannot work for the SQ thread trace capture.
-
-The VMID for the submission that set the {SQTT}_BASE, which refers to the address of the trace buffer, is stored in shader engine.
-
-If the profiling application have to use different VMIDs to submit IBs in its life cycle:
-
-    Some trace is not captured since it actually uses different VMID to submit jobs.
-    Some part of captured trace may come from different application since they are accidentally uses the owner’s VMID to submit jobs.
-
-V2:
-1. address Christian's comments:
-	a. drop context flags for tag process, instead, add vm ioctl.
-	b. change order of patches.
-	c. sync waiting only when vm flush needs.
-
-2. address Alex's comments;
-	bump module version
-
-V3:
-  address Jerry and Christian's comments.
-  and only reserve gfxhub vmid
-
-
-Chunming Zhou (6):
-  drm/amdgpu: add vm ioctl
-  drm/amdgpu: add dedicated vmid field in vm struct
-  drm/amdgpu: reserve/unreserve vmid by vm ioctl v3
-  drm/amdgpu: add limitation for dedicated vm number v3
-  drm/amdgpu: implement grab dedicated vmid V2
-  drm/amdgpu: bump module verion for reserved vmid
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |   3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  | 148 +++++++++++++++++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h  |   6 ++
- include/uapi/drm/amdgpu_drm.h           |  22 +++++
- 5 files changed, 178 insertions(+), 2 deletions(-)
-
--- 
-1.9.1
-
-
---===============1902091677==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1902091677==--
+SXQgd2lsbCBiZSB1c2VkIGZvciByZXNlcnZpbmcgdm1pZC4KCkNoYW5nZS1JZDogSWI3MTY5ZWE5
+OTk2OTBjOGU4MmQwZGNiY2NkZDJkOTc3NjBjMDI3MGEKU2lnbmVkLW9mZi1ieTogQ2h1bm1pbmcg
+WmhvdSA8RGF2aWQxLlpob3VAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfa21zLmMgfCAgMSArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+dm0uYyAgfCAxOCArKysrKysrKysrKysrKysrKysKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV92bS5oICB8ICAxICsKIGluY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oICAgICAg
+ICAgICB8IDIyICsrKysrKysrKysrKysrKysrKysrKysKIDQgZmlsZXMgY2hhbmdlZCwgNDIgaW5z
+ZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9rbXMuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYwppbmRleCAw
+NTJlNmE1Li44ZWEzM2M4IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfa21zLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5j
+CkBAIC0xMDYyLDYgKzEwNjIsNyBAQCBpbnQgYW1kZ3B1X2dldF92YmxhbmtfdGltZXN0YW1wX2tt
+cyhzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB1bnNpZ25lZCBpbnQgcGlwZSwKIGNvbnN0IHN0cnVj
+dCBkcm1faW9jdGxfZGVzYyBhbWRncHVfaW9jdGxzX2ttc1tdID0gewogCURSTV9JT0NUTF9ERUZf
+RFJWKEFNREdQVV9HRU1fQ1JFQVRFLCBhbWRncHVfZ2VtX2NyZWF0ZV9pb2N0bCwgRFJNX0FVVEh8
+RFJNX1JFTkRFUl9BTExPVyksCiAJRFJNX0lPQ1RMX0RFRl9EUlYoQU1ER1BVX0NUWCwgYW1kZ3B1
+X2N0eF9pb2N0bCwgRFJNX0FVVEh8RFJNX1JFTkRFUl9BTExPVyksCisJRFJNX0lPQ1RMX0RFRl9E
+UlYoQU1ER1BVX1ZNLCBhbWRncHVfdm1faW9jdGwsIERSTV9BVVRIfERSTV9SRU5ERVJfQUxMT1cp
+LAogCURSTV9JT0NUTF9ERUZfRFJWKEFNREdQVV9CT19MSVNULCBhbWRncHVfYm9fbGlzdF9pb2N0
+bCwgRFJNX0FVVEh8RFJNX1JFTkRFUl9BTExPVyksCiAJLyogS01TICovCiAJRFJNX0lPQ1RMX0RF
+Rl9EUlYoQU1ER1BVX0dFTV9NTUFQLCBhbWRncHVfZ2VtX21tYXBfaW9jdGwsIERSTV9BVVRIfERS
+TV9SRU5ERVJfQUxMT1cpLApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X3ZtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwppbmRl
+eCBhOGNkMjNiLi44Njk4MTc3IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfdm0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0u
+YwpAQCAtMjM3OSwzICsyMzc5LDIxIEBAIHZvaWQgYW1kZ3B1X3ZtX21hbmFnZXJfZmluaShzdHJ1
+Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAkJfQogCX0KIH0KKworaW50IGFtZGdwdV92bV9pb2N0
+bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLCBzdHJ1Y3QgZHJtX2ZpbGUgKmZp
+bHApCit7CisJdW5pb24gZHJtX2FtZGdwdV92bSAqYXJncyA9IGRhdGE7CisJc3RydWN0IGFtZGdw
+dV9kZXZpY2UgKmFkZXYgPSBkZXYtPmRldl9wcml2YXRlOworCXN0cnVjdCBhbWRncHVfZnByaXYg
+KmZwcml2ID0gZmlscC0+ZHJpdmVyX3ByaXY7CisKKwlzd2l0Y2ggKGFyZ3MtPmluLm9wKSB7CisJ
+Y2FzZSBBTURHUFVfVk1fT1BfUkVTRVJWRV9WTUlEOgorCWNhc2UgQU1ER1BVX1ZNX09QX1VOUkVT
+RVJWRV9WTUlEOgorCQlyZXR1cm4gLUVJTlZBTDsKKwkJYnJlYWs7CisJZGVmYXVsdDoKKwkJcmV0
+dXJuIC1FSU5WQUw7CisJfQorCisJcmV0dXJuIDA7Cit9CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV92bS5oCmluZGV4IDhlYmEyZDMuLjE2ZTBhYWEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV92bS5oCkBAIC0yNDgsNSArMjQ4LDYgQEAgaW50IGFtZGdwdV92bV9ib19j
+bGVhcl9tYXBwaW5ncyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIHZvaWQgYW1kZ3B1X3Zt
+X2JvX3JtdihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAkJICAgICAgc3RydWN0IGFtZGdw
+dV9ib192YSAqYm9fdmEpOwogdm9pZCBhbWRncHVfdm1fYWRqdXN0X3NpemUoc3RydWN0IGFtZGdw
+dV9kZXZpY2UgKmFkZXYsIHVpbnQ2NF90IHZtX3NpemUpOworaW50IGFtZGdwdV92bV9pb2N0bChz
+dHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLCBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbHAp
+OwogCiAjZW5kaWYKZGlmZiAtLWdpdCBhL2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oIGIv
+aW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmgKaW5kZXggYjk4YjM3MS4uMWM5NTc3NSAxMDA2
+NDQKLS0tIGEvaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmgKKysrIGIvaW5jbHVkZS91YXBp
+L2RybS9hbWRncHVfZHJtLmgKQEAgLTUxLDYgKzUxLDcgQEAKICNkZWZpbmUgRFJNX0FNREdQVV9H
+RU1fT1AJCTB4MTAKICNkZWZpbmUgRFJNX0FNREdQVV9HRU1fVVNFUlBUUgkJMHgxMQogI2RlZmlu
+ZSBEUk1fQU1ER1BVX1dBSVRfRkVOQ0VTCQkweDEyCisjZGVmaW5lIERSTV9BTURHUFVfVk0JCQkw
+eDEzCiAKIC8qIGh5YnJpZCBzcGVjaWZpYyBpb2N0bHMgKi8KICNkZWZpbmUgRFJNX0FNREdQVV9T
+RU0JCQkweDViCkBAIC03MSw2ICs3Miw3IEBACiAjZGVmaW5lIERSTV9JT0NUTF9BTURHUFVfR0VN
+X09QCQlEUk1fSU9XUihEUk1fQ09NTUFORF9CQVNFICsgRFJNX0FNREdQVV9HRU1fT1AsIHN0cnVj
+dCBkcm1fYW1kZ3B1X2dlbV9vcCkKICNkZWZpbmUgRFJNX0lPQ1RMX0FNREdQVV9HRU1fVVNFUlBU
+UglEUk1fSU9XUihEUk1fQ09NTUFORF9CQVNFICsgRFJNX0FNREdQVV9HRU1fVVNFUlBUUiwgc3Ry
+dWN0IGRybV9hbWRncHVfZ2VtX3VzZXJwdHIpCiAjZGVmaW5lIERSTV9JT0NUTF9BTURHUFVfV0FJ
+VF9GRU5DRVMJRFJNX0lPV1IoRFJNX0NPTU1BTkRfQkFTRSArIERSTV9BTURHUFVfV0FJVF9GRU5D
+RVMsIHVuaW9uIGRybV9hbWRncHVfd2FpdF9mZW5jZXMpCisjZGVmaW5lIERSTV9JT0NUTF9BTURH
+UFVfVk0JCURSTV9JT1dSKERSTV9DT01NQU5EX0JBU0UgKyBEUk1fQU1ER1BVX1ZNLCB1bmlvbiBk
+cm1fYW1kZ3B1X3ZtKQogCiAvKiBoeWJyaWQgc3BlY2lmaWMgaW9jdGxzICovCiAjZGVmaW5lIERS
+TV9JT0NUTF9BTURHUFVfR0VNX0RHTUEJRFJNX0lPV1IoRFJNX0NPTU1BTkRfQkFTRSArIERSTV9B
+TURHUFVfR0VNX0RHTUEsIHN0cnVjdCBkcm1fYW1kZ3B1X2dlbV9kZ21hKQpAQCAtMjEyLDYgKzIx
+NCwyNiBAQCBzdHJ1Y3QgZHJtX2FtZGdwdV9jdHhfaW4gewogCXVuaW9uIGRybV9hbWRncHVfY3R4
+X291dCBvdXQ7CiB9OwogCisvKiB2bSBpb2N0bCAqLworI2RlZmluZSBBTURHUFVfVk1fT1BfUkVT
+RVJWRV9WTUlECTEKKyNkZWZpbmUgQU1ER1BVX1ZNX09QX1VOUkVTRVJWRV9WTUlECTIKKworc3Ry
+dWN0IGRybV9hbWRncHVfdm1faW4geworCS8qKiBBTURHUFVfVk1fT1BfKiAqLworCV9fdTMyCW9w
+OworCV9fdTMyCWZsYWdzOworfTsKKworc3RydWN0IGRybV9hbWRncHVfdm1fb3V0IHsKKwkvKiog
+Rm9yIGZ1dHVyZSB1c2UsIG5vIGZsYWdzIGRlZmluZWQgc28gZmFyICovCisJX191NjQJZmxhZ3M7
+Cit9OworCit1bmlvbiBkcm1fYW1kZ3B1X3ZtIHsKKwlzdHJ1Y3QgZHJtX2FtZGdwdV92bV9pbiBp
+bjsKKwlzdHJ1Y3QgZHJtX2FtZGdwdV92bV9vdXQgb3V0OworfTsKKwogLyogc2VtIHJlbGF0ZWQg
+Ki8KICNkZWZpbmUgQU1ER1BVX1NFTV9PUF9DUkVBVEVfU0VNICAgICAgICAxCiAjZGVmaW5lIEFN
+REdQVV9TRU1fT1BfV0FJVF9TRU0JICAgICAgICAyCi0tIAoxLjkuMQoKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
