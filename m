@@ -1,46 +1,74 @@
-From: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: fix deadlock of reservation between cs and gpu
- reset
-Date: Thu, 27 Apr 2017 15:20:17 +0800
-Message-ID: <1493277617-14966-1-git-send-email-David1.Zhou@amd.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Subject: Re: [PATCH 3/6] drm: fourcc byteorder: add bigendian support to
+ drm_mode_legacy_fb_format
+Date: Thu, 27 Apr 2017 16:02:58 +0900
+Message-ID: <668bc373-1614-a095-6085-15c040f322b8@daenzer.net>
+References: <20170424062532.26722-1-kraxel@redhat.com>
+ <20170424062532.26722-4-kraxel@redhat.com>
+ <3b872a56-80b5-0c44-712f-a9517489eb24@daenzer.net>
+ <1493185990.23739.7.camel@redhat.com>
+ <8f91cc58-16dc-5899-66b6-06d430a18801@daenzer.net>
+ <1493208671.23739.19.camel@redhat.com>
+ <6bd62182-0de5-a8a7-78c3-029fc73ecc91@daenzer.net>
+ <1493275550.31995.31.camel@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Monk.Liu-5C7GfCeVMHo@public.gmane.org
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <1493275550.31995.31.camel@redhat.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Gerd Hoffmann <kraxel@redhat.com>
+Cc: Daniel Vetter <daniel.vetter@intel.com>, amd-gfx@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-dGhlIGNhc2UgY291bGQgaGFwcGVuIHdoZW4gZ3B1IHJlc2V0OgoxLiB3aGVuIGdwdSByZXNldCwg
-Y3MgY2FuIGJlIGNvbnRpbnVlIHVudGlsIHN3IHF1ZXVlIGlzIGZ1bGwsIHRoZW4gcHVzaCBqb2Ig
-d2lsbCB3YWl0IHdpdGggaG9sZGluZyBwZCByZXNlcnZhdGlvbi4KMi4gZ3B1X3Jlc2V0IHJvdXRp
-bmUgd2lsbCBhbHNvIG5lZWQgcGQgcmVzZXJ2YXRpb24gdG8gcmVzdG9yZSBwYWdlIHRhYmxlIGZy
-b20gdGhlaXIgc2hhZG93LgozLiBjcyBpcyB3YWl0aW5nIGZvciBncHVfcmVzZXQgY29tcGxldGUs
-IGJ1dCBncHUgcmVzZXQgaXMgd2FpdGluZyBmb3IgY3MgcmVsZWFzZXMgcmVzZXJ2YXRpb24uCgpD
-aGFuZ2UtSWQ6IEkwZjY2ZDA0YjJiZWYzNDMzMDM1MTA5NjIzYzhhNWM1OTkyYzg0MjAyClNpZ25l
-ZC1vZmYtYnk6IENodW5taW5nIFpob3UgPERhdmlkMS5aaG91QGFtZC5jb20+Ci0tLQogZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMgfCAzICsrLQogMSBmaWxlIGNoYW5nZWQs
-IDIgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X2NzLmMKaW5kZXggOWVkYjFhNC4uOGM2ZDAzNiAxMDA2NDQKLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2NzLmMKQEAgLTEwNzYsNyArMTA3Niw2IEBAIHN0YXRpYyBpbnQgYW1kZ3B1
-X2NzX3N1Ym1pdChzdHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcCwKIAlhbWRncHVfam9iX2ZyZWVf
-cmVzb3VyY2VzKGpvYik7CiAKIAl0cmFjZV9hbWRncHVfY3NfaW9jdGwoam9iKTsKLQlhbWRfc2No
-ZWRfZW50aXR5X3B1c2hfam9iKCZqb2ItPmJhc2UpOwogCiAJcmV0dXJuIDA7CiB9CkBAIC0xMTMy
-LDYgKzExMzEsOCBAQCBpbnQgYW1kZ3B1X2NzX2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYs
-IHZvaWQgKmRhdGEsIHN0cnVjdCBkcm1fZmlsZSAqZmlscCkKIAogb3V0OgogCWFtZGdwdV9jc19w
-YXJzZXJfZmluaSgmcGFyc2VyLCByLCByZXNlcnZlZF9idWZmZXJzKTsKKwlpZiAoIXIpCisJCWFt
-ZF9zY2hlZF9lbnRpdHlfcHVzaF9qb2IoJnBhcnNlci5qb2ItPmJhc2UpOwogCXJldHVybiByOwog
-fQogCi0tIAoxLjkuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On 27/04/17 03:45 PM, Gerd Hoffmann wrote:
+>   Hi,
+> 
+>>> That is done using the RADEON_TILING_SWAP_{16,32}BIT flag mentioned in
+>>> another thread?
+>>
+>> Right.
+>>
+>>
+>>> What about dumb bos?  You've mentioned the swap flag isn't used for
+>>> those.  Which implies they are in little endian byte order (both gpu and
+>>> cpu view).
+>>
+>> Right, AFAICT from looking at the code.
+> 
+> Ok.
+> 
+> And I also don't see an easy way to make them big endian (cpu view)
+> using swapping with the existing drm interfaces, given we apply a format
+> when we put the bo into use as framebuffer, not when creating it.  So
+> userspace can: (1) create dumb bo, (2) map bo, (3) write something bo,
+> (4) create fb + attach to crtc.  And at (3) we don't know the format
+> yet, so we can't configure swapping accordingly.
+> 
+> So just not using the swapping indeed looks like the only sensible
+> option.  Which in turn implies there is no BGRA8888 support for dumb
+> bos.  Hmm, I can see the problem.  Userspace expectation appears to be
+> that ADDFB configures a native endian framebuffer, which the driver
+> simply can't do on bigendian.
+
+... with pre-R600 GPUs.
+
+
+> So, what can/should the driver do here?  Throw errors for ADDFB and
+> force userspace to use ADDFB2?  From a design point of view the best
+> option, but in the other hand I suspect that could break the xorg radeon
+> driver ...
+
+Yes, it would.
+
+One thing we could do is provide a way for userspace to query the
+effective format(s) as seen by the GPU and/or CPU.
+
+It might also make sense for the radeon driver to set the
+RADEON_TILING_SWAP_{16,32}BIT flags for dumb BOs. I wonder about the
+status of apps using dumb BOs directly wrt this discussion.
+
+
+-- 
+Earthling Michel Dänzer               |               http://www.amd.com
+Libre software enthusiast             |             Mesa and X developer
