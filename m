@@ -1,20 +1,14 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH] drm: Harmonize CIK ASIC support in radeon and amdgpu (v2)
-Date: Thu, 27 Apr 2017 11:09:32 +0200
-Message-ID: <cda15938-d4f9-8f6c-2afb-fb08d1e9d5c4@vodafone.de>
-References: <1491866474-1016-1-git-send-email-Felix.Kuehling@amd.com>
- <ac35e641-6fd9-a5d1-c4d9-35e71fa9eb08@daenzer.net>
- <cbcc54ec-c86f-f0eb-715e-f66790b5f964@amd.com>
- <340a5310-e6d1-5e09-81aa-d7106bcdca02@daenzer.net>
- <dedfed15-00b3-83ff-aca7-f4dffff8cc09@amd.com>
- <4bd2c7cf-a555-6cee-a863-b56ee824f9ad@daenzer.net>
- <f2f87cd4-c6c5-7c62-3035-d2f1584d7f00@amd.com>
- <cebca833-9e3f-86c5-8100-feca6ea590e5@daenzer.net>
- <588f3a43-3f29-e733-1ffd-154878303f0f@amd.com>
+From: "Yu, Xiangliang" <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: Enable chained IB MCBP support
+Date: Thu, 27 Apr 2017 07:52:00 +0000
+Message-ID: <BY2PR1201MB09358ADE1AAFBE0C471E13C4EB100@BY2PR1201MB0935.namprd12.prod.outlook.com>
+References: <1493277503-14294-1-git-send-email-trigger.huang@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1037976333=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <588f3a43-3f29-e733-1ffd-154878303f0f-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1493277503-14294-1-git-send-email-trigger.huang-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -25,200 +19,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "Huang, Trigger" <Trigger.Huang-5C7GfCeVMHo@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============1037976333==
-Content-Type: multipart/alternative;
- boundary="------------3A75A7DB60281DB695C3CDD0"
-
-This is a multi-part message in MIME format.
---------------3A75A7DB60281DB695C3CDD0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Am 26.04.2017 um 22:15 schrieb Felix Kuehling:
-> On 17-04-25 02:28 AM, Michel Dänzer wrote:
->> On 22/04/17 02:05 AM, Felix Kuehling wrote:
->>> __setup doesn't work in modules.
->> Right. We could build something like
->> drivers/video/fbdev/core/fb_cmdline.c:video_setup() into the kernel to
->> handle this, but it's a bit ugly, which is one reason why I was leaning
->> towards:
->>
->>
->>> s8250_options is only compiled if the driver is not a module.
->> That doesn't prevent us from using __module_param_call directly, does it?
->>
->> Although, that still doesn't work as I envision if only one driver's
->> option is set e.g. in /etc/modprobe.d/*.conf .
->>
->>
->> So, I'm starting to think we need a shared module for this, which
->> provides one or multiple module parameters to choose which driver to use
->> for CIK/SI[0], and provides the result to the amdgpu/radeon drivers.
->> That might make things easier for amdgpu-pro / other standalone amdgpu
->> versions in the long run as well, as they could add files to
->> /etc/modprobe.d/ choosing themselves by default, without having to
->> blacklist radeon.
->>
->> What do you guys think?
-> Hi Michel,
->
-> You said in an earlier email that it doesn't have to be convenient. With
-> that in mind, I went back to a minimalistic solution that doesn't need
-> any additional Kconfig options and only uses two module parameters (one
-> in radeon, one in amdgpu).
->
-> I'm attaching my WIP patches for reference (currently based on
-> amd-kfd-staging). For an official review I'd rebase them on
-> amd-staging-4.9, remove the #if-0-ed hack that didn't work out, and add
-> the same for SI.
->
-> Can everyone can agree that this is good enough?
-
-It's certainly good enough for me.
-
-With the disabled dummy code removed feel free to stick a Reviewed-by: 
-Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org> at those patches.
-
-Regards,
-Christian.
-
->
-> Regards,
->    Felix
->
->>
->> [0] or possibly even more fine-grained in the future
->>
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
-
---------------3A75A7DB60281DB695C3CDD0
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Am 26.04.2017 um 22:15 schrieb Felix
-      Kuehling:<br>
-    </div>
-    <blockquote cite="mid:588f3a43-3f29-e733-1ffd-154878303f0f-5C7GfCeVMHo@public.gmane.org"
-      type="cite">
-      <pre wrap="">On 17-04-25 02:28 AM, Michel Dänzer wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="">On 22/04/17 02:05 AM, Felix Kuehling wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="">__setup doesn't work in modules.
-</pre>
-        </blockquote>
-        <pre wrap="">Right. We could build something like
-drivers/video/fbdev/core/fb_cmdline.c:video_setup() into the kernel to
-handle this, but it's a bit ugly, which is one reason why I was leaning
-towards:
-
-
-</pre>
-        <blockquote type="cite">
-          <pre wrap="">s8250_options is only compiled if the driver is not a module.
-</pre>
-        </blockquote>
-        <pre wrap="">That doesn't prevent us from using __module_param_call directly, does it?
-
-Although, that still doesn't work as I envision if only one driver's
-option is set e.g. in /etc/modprobe.d/*.conf .
-
-
-So, I'm starting to think we need a shared module for this, which
-provides one or multiple module parameters to choose which driver to use
-for CIK/SI[0], and provides the result to the amdgpu/radeon drivers.
-That might make things easier for amdgpu-pro / other standalone amdgpu
-versions in the long run as well, as they could add files to
-/etc/modprobe.d/ choosing themselves by default, without having to
-blacklist radeon.
-
-What do you guys think?
-</pre>
-      </blockquote>
-      <pre wrap="">
-Hi Michel,
-
-You said in an earlier email that it doesn't have to be convenient. With
-that in mind, I went back to a minimalistic solution that doesn't need
-any additional Kconfig options and only uses two module parameters (one
-in radeon, one in amdgpu).
-
-I'm attaching my WIP patches for reference (currently based on
-amd-kfd-staging). For an official review I'd rebase them on
-amd-staging-4.9, remove the #if-0-ed hack that didn't work out, and add
-the same for SI.
-
-Can everyone can agree that this is good enough?</pre>
-    </blockquote>
-    <br>
-    It's certainly good enough for me.<br>
-    <br>
-    With the disabled dummy code removed feel free to stick a
-    Reviewed-by: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a> at
-    those patches.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <blockquote cite="mid:588f3a43-3f29-e733-1ffd-154878303f0f-5C7GfCeVMHo@public.gmane.org"
-      type="cite">
-      <pre wrap="">
-
-Regards,
-  Felix
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="">
-
-[0] or possibly even more fine-grained in the future
-
-</pre>
-      </blockquote>
-      <pre wrap="">
-</pre>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------3A75A7DB60281DB695C3CDD0--
-
---===============1037976333==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1037976333==--
+UmV2aWV3ZWQtYnk6IFhpYW5nbGlhbmcgWXUgPFhpYW5nbGlhbmcuWXVAYW1kLmNvbT4KCgpUaGFu
+a3MhClhpYW5nbGlhbmcgWXUKCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPiBGcm9tOiBU
+cmlnZ2VyIEh1YW5nIFttYWlsdG86dHJpZ2dlci5odWFuZ0BhbWQuY29tXQo+IFNlbnQ6IFRodXJz
+ZGF5LCBBcHJpbCAyNywgMjAxNyAzOjE4IFBNCj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnCj4gQ2M6IExpdSwgTW9uayA8TW9uay5MaXVAYW1kLmNvbT47IFl1LCBYaWFuZ2xpYW5n
+Cj4gPFhpYW5nbGlhbmcuWXVAYW1kLmNvbT47IEh1YW5nLCBUcmlnZ2VyIDxUcmlnZ2VyLkh1YW5n
+QGFtZC5jb20+Cj4gU3ViamVjdDogW1BBVENIXSBkcm0vYW1kZ3B1OiBFbmFibGUgY2hhaW5lZCBJ
+QiBNQ0JQIHN1cHBvcnQKPiAKPiBTdXBwb3J0IGZvciBNQ0JQL1ZpcnR1YWxpemF0aW9uIGluIGNv
+bWJpbmF0aW9uIHdpdGggY2hhaW5lZCBJQnMgaXMgZm9ybWFsCj4gcmVsZWFzZWQgb24gZmlybXdh
+cmUgZmVhdHVyZSB2ZXJzaW9uICM0Ni4gU28gZW5hYmxlIGl0IGFjY29yZGluZyB0byBmaXJtd2Fy
+ZQo+IGZlYXR1cmUgdmVyc2lvbiwgb3RoZXJ3aXNlLCB3b3JsZCBzd2l0Y2ggd2lsbCBoYW5nLgo+
+IAo+IFNpZ25lZC1vZmYtYnk6IFRyaWdnZXIgSHVhbmcgPHRyaWdnZXIuaHVhbmdAYW1kLmNvbT4K
+PiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYyB8IDE3ICsrKysr
+KysrKysrLS0tLS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAxMSBpbnNlcnRpb25zKCspLCA2IGRlbGV0
+aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhf
+djhfMC5jCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jCj4gaW5kZXgg
+MmZmNWYxOS4uOWE4YzA0MiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9nZnhfdjhfMC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAu
+Ywo+IEBAIC05NDEsMTIgKzk0MSw2IEBAIHN0YXRpYyBpbnQgZ2Z4X3Y4XzBfaW5pdF9taWNyb2Nv
+ZGUoc3RydWN0Cj4gYW1kZ3B1X2RldmljZSAqYWRldikKPiAgCWNwX2hkciA9IChjb25zdCBzdHJ1
+Y3QgZ2Z4X2Zpcm13YXJlX2hlYWRlcl92MV8wICopYWRldi0KPiA+Z2Z4Lm1lX2Z3LT5kYXRhOwo+
+ICAJYWRldi0+Z2Z4Lm1lX2Z3X3ZlcnNpb24gPSBsZTMyX3RvX2NwdShjcF9oZHItCj4gPmhlYWRl
+ci51Y29kZV92ZXJzaW9uKTsKPiAKPiAtCS8qIGNoYWluIGliIHVjb2RlIGlzbid0IGZvcm1hbCBy
+ZWxlYXNlZCwganVzdCBkaXNhYmxlIGl0IGJ5IGZhcgo+IC0JICogVE9ETzogd2hlbiB1Y29kIHJl
+YWR5IHdlIHNob3VsZCB1c2UgdWNvZGUgdmVyc2lvbiB0byBqdWRnZSBpZgo+IC0JICogY2hhaW4t
+aWIgc3VwcG9ydCBvciBub3QuCj4gLQkgKi8KPiAtCWFkZXYtPnZpcnQuY2hhaW5lZF9pYl9zdXBw
+b3J0ID0gZmFsc2U7Cj4gLQo+ICAJYWRldi0+Z2Z4Lm1lX2ZlYXR1cmVfdmVyc2lvbiA9IGxlMzJf
+dG9fY3B1KGNwX2hkci0KPiA+dWNvZGVfZmVhdHVyZV92ZXJzaW9uKTsKPiAKPiAgCXNucHJpbnRm
+KGZ3X25hbWUsIHNpemVvZihmd19uYW1lKSwgImFtZGdwdS8lc19jZS5iaW4iLAo+IGNoaXBfbmFt
+ZSk7IEBAIC05NjAsNiArOTU0LDE3IEBAIHN0YXRpYyBpbnQKPiBnZnhfdjhfMF9pbml0X21pY3Jv
+Y29kZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAgCWFkZXYtPmdmeC5jZV9md192ZXJz
+aW9uID0gbGUzMl90b19jcHUoY3BfaGRyLQo+ID5oZWFkZXIudWNvZGVfdmVyc2lvbik7Cj4gIAlh
+ZGV2LT5nZnguY2VfZmVhdHVyZV92ZXJzaW9uID0gbGUzMl90b19jcHUoY3BfaGRyLQo+ID51Y29k
+ZV9mZWF0dXJlX3ZlcnNpb24pOwo+IAo+ICsJLyoKPiArCSAqIFN1cHBvcnQgZm9yIE1DQlAvVmly
+dHVhbGl6YXRpb24gaW4gY29tYmluYXRpb24gd2l0aCBjaGFpbmVkIElCcyBpcwo+ICsJICogZm9y
+bWFsIHJlbGVhc2VkIG9uIGZlYXR1cmUgdmVyc2lvbiAjNDYKPiArCSAqLwo+ICsJaWYgKGFkZXYt
+PmdmeC5jZV9mZWF0dXJlX3ZlcnNpb24gPj0gNDYgJiYKPiArCSAgICBhZGV2LT5nZngucGZwX2Zl
+YXR1cmVfdmVyc2lvbiA+PSA0Nikgewo+ICsJCWFkZXYtPnZpcnQuY2hhaW5lZF9pYl9zdXBwb3J0
+ID0gdHJ1ZTsKPiArCQlEUk1fSU5GTygiQ2hhaW5lZCBJQiBzdXBwb3J0IGVuYWJsZWQhXG4iKTsK
+PiArCX0gZWxzZQo+ICsJCWFkZXYtPnZpcnQuY2hhaW5lZF9pYl9zdXBwb3J0ID0gZmFsc2U7Cj4g
+Kwo+ICAJc25wcmludGYoZndfbmFtZSwgc2l6ZW9mKGZ3X25hbWUpLCAiYW1kZ3B1LyVzX3JsYy5i
+aW4iLAo+IGNoaXBfbmFtZSk7Cj4gIAllcnIgPSByZXF1ZXN0X2Zpcm13YXJlKCZhZGV2LT5nZngu
+cmxjX2Z3LCBmd19uYW1lLCBhZGV2LT5kZXYpOwo+ICAJaWYgKGVycikKPiAtLQo+IDIuNy40Cgpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
