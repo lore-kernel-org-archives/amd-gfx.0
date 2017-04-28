@@ -1,13 +1,11 @@
-From: "Wang, Ken" <Ken.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: add cu info wave_front_size
-Date: Fri, 28 Apr 2017 03:20:23 +0000
-Message-ID: <CY4PR12MB1831304F8CE5E84033D19A768C130@CY4PR12MB1831.namprd12.prod.outlook.com>
-References: <1493349046-23232-1-git-send-email-Jerry.Zhang@amd.com>
+From: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/3] drm/amd/powerplay: add disable_smc_ctf callback in hwmgr.
+Date: Fri, 28 Apr 2017 13:20:10 +0800
+Message-ID: <1493356812-6570-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0485768357=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1493349046-23232-1-git-send-email-Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,129 +16,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhang, Jerry" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-
---===============0485768357==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB1831304F8CE5E84033D19A768C130CY4PR12MB1831namp_"
-
---_000_CY4PR12MB1831304F8CE5E84033D19A768C130CY4PR12MB1831namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Ken Wang <Qingqing.Wang-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-Sent: Friday, April 28, 2017 11:10:46 AM
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Deucher, Alexander; Wang, Ken; Zhang, Jerry
-Subject: [PATCH] drm/amdgpu: add cu info wave_front_size
+Cc: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
-missed that for gfx v9 info export
-
-Signed-off-by: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
-pu/amdgpu.h
-index 503010a..e330009 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -986,6 +986,7 @@ struct amdgpu_gfx_config {
- struct amdgpu_cu_info {
-         uint32_t number; /* total active CU number */
-         uint32_t ao_cu_mask;
-+       uint32_t wave_front_size;
-         uint32_t bitmap[4][4];
- };
-
---
-1.9.1
-
-
---_000_CY4PR12MB1831304F8CE5E84033D19A768C130CY4PR12MB1831namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
-<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
-ding-left: 4pt; border-left: #800000 2px solid; } --></style>
-</head>
-<body>
-<meta content=3D"text/html; charset=3DUTF-8">
-<style type=3D"text/css" style=3D"">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-<div dir=3D"ltr">
-<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
-or:#000000; font-family:Calibri,Arial,Helvetica,sans-serif">
-<p>Reviewed-by: Ken Wang &lt;Qingqing.Wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Junwei Zhang &lt;Je=
-rry.Zhang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Friday, April 28, 2017 11:10:46 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Deucher, Alexander; Wang, Ken; Zhang, Jerry<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: add cu info wave_front_size</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">missed that for gfx v9 info export<br>
-<br>
-Signed-off-by: Junwei Zhang &lt;Jerry.Zhang-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu.h | 1 &#43;<br>
-&nbsp;1 file changed, 1 insertion(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
-pu/amdgpu.h<br>
-index 503010a..e330009 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-@@ -986,6 &#43;986,7 @@ struct amdgpu_gfx_config {<br>
-&nbsp;struct amdgpu_cu_info {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t number; /* total =
-active CU number */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t ao_cu_mask;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t wave_front_size;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t bitmap[4][4];<br>
-&nbsp;};<br>
-&nbsp;<br>
--- <br>
-1.9.1<br>
-<br>
-</div>
-</span></font>
-</body>
-</html>
-
---_000_CY4PR12MB1831304F8CE5E84033D19A768C130CY4PR12MB1831namp_--
-
---===============0485768357==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0485768357==--
+ZXhwb3J0IGRpc2FibGVzbWNjdGYgdG8gZXZlbnRtZ3IuCm5lZWQgdG8gZGlzYWJsZSB0ZW1wZXJh
+dHVyZSBhbGVydCB3aGVuIHMzL3M0LgpvdGhlcndpc2UsIHdoZW4gcmVzdW1lIGJhY2ssZW5hYmxl
+IHRlbXBlcmF0dXJlCmFsZXJ0IHdpbGwgZmFpbC4KCkNoYW5nZS1JZDogSTZiYmM4NWIwZmMzODll
+NDQyYTQ0YWQ0ZDBkYjNkYjMzNDJmZjU5NTUKU2lnbmVkLW9mZi1ieTogUmV4IFpodSA8UmV4Llpo
+dUBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2hhcmR3
+YXJlbWFuYWdlci5jIHwgMTAgKysrKysrKysrKwogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
+YXkvaHdtZ3Ivc211N19od21nci5jICAgICAgfCAgMSArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bv
+d2VycGxheS9pbmMvaGFyZHdhcmVtYW5hZ2VyLmggICB8ICAyICstCiBkcml2ZXJzL2dwdS9kcm0v
+YW1kL3Bvd2VycGxheS9pbmMvaHdtZ3IuaCAgICAgICAgICAgICB8ICAxICsKIDQgZmlsZXMgY2hh
+bmdlZCwgMTMgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2hhcmR3YXJlbWFuYWdlci5jIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvaGFyZHdhcmVtYW5hZ2VyLmMKaW5kZXggMjNi
+YmEyYy4uZmNjNzIyZSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
+aHdtZ3IvaGFyZHdhcmVtYW5hZ2VyLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
+YXkvaHdtZ3IvaGFyZHdhcmVtYW5hZ2VyLmMKQEAgLTUwMSwzICs1MDEsMTMgQEAgaW50IHBobV9n
+ZXRfbWF4X2hpZ2hfY2xvY2tzKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIHN0cnVjdCBhbWRfcHBf
+c2ltcGxlX2Nsb2NrX2kKIAogCXJldHVybiBod21nci0+aHdtZ3JfZnVuYy0+Z2V0X21heF9oaWdo
+X2Nsb2Nrcyhod21nciwgY2xvY2tzKTsKIH0KKworaW50IHBobV9kaXNhYmxlX3NtY19maXJtd2Fy
+ZV9jdGYoc3RydWN0IHBwX2h3bWdyICpod21ncikKK3sKKwlQSE1fRlVOQ19DSEVDSyhod21ncik7
+CisKKwlpZiAoaHdtZ3ItPmh3bWdyX2Z1bmMtPmRpc2FibGVfc21jX2Zpcm13YXJlX2N0ZiA9PSBO
+VUxMKQorCQlyZXR1cm4gLUVJTlZBTDsKKworCXJldHVybiBod21nci0+aHdtZ3JfZnVuYy0+ZGlz
+YWJsZV9zbWNfZmlybXdhcmVfY3RmKGh3bWdyKTsKK30KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYwppbmRleCA4ZjY2M2FiLi40YWQ4NDUzIDEw
+MDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdy
+LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5j
+CkBAIC00Njk1LDYgKzQ2OTUsNyBAQCBzdGF0aWMgaW50IHNtdTdfYXZmc19jb250cm9sKHN0cnVj
+dCBwcF9od21nciAqaHdtZ3IsIGJvb2wgZW5hYmxlKQogCS5yZWxlYXNlX2Zpcm13YXJlID0gc211
+N19yZWxlYXNlX2Zpcm13YXJlLAogCS5zZXRfcG93ZXJfcHJvZmlsZV9zdGF0ZSA9IHNtdTdfc2V0
+X3Bvd2VyX3Byb2ZpbGVfc3RhdGUsCiAJLmF2ZnNfY29udHJvbCA9IHNtdTdfYXZmc19jb250cm9s
+LAorCS5kaXNhYmxlX3NtY19maXJtd2FyZV9jdGYgPSBzbXU3X3RoZXJtYWxfZGlzYWJsZV9hbGVy
+dCwKIH07CiAKIHVpbnQ4X3Qgc211N19nZXRfc2xlZXBfZGl2aWRlcl9pZF9mcm9tX2Nsb2NrKHVp
+bnQzMl90IGNsb2NrLApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
+aW5jL2hhcmR3YXJlbWFuYWdlci5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5j
+L2hhcmR3YXJlbWFuYWdlci5oCmluZGV4IGVlNThlNGMuLjllYTNkNzMgMTAwNjQ0Ci0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9oYXJkd2FyZW1hbmFnZXIuaAorKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvaGFyZHdhcmVtYW5hZ2VyLmgKQEAgLTQz
+MSw2ICs0MzEsNiBAQCBleHRlcm4gaW50IHBobV9kaXNwbGF5X2Nsb2NrX3ZvbHRhZ2VfcmVxdWVz
+dChzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLAogCQlzdHJ1Y3QgcHBfZGlzcGxheV9jbG9ja19yZXF1
+ZXN0ICpjbG9jayk7CiAKIGV4dGVybiBpbnQgcGhtX2dldF9tYXhfaGlnaF9jbG9ja3Moc3RydWN0
+IHBwX2h3bWdyICpod21nciwgc3RydWN0IGFtZF9wcF9zaW1wbGVfY2xvY2tfaW5mbyAqY2xvY2tz
+KTsKLQorZXh0ZXJuIGludCBwaG1fZGlzYWJsZV9zbWNfZmlybXdhcmVfY3RmKHN0cnVjdCBwcF9o
+d21nciAqaHdtZ3IpOwogI2VuZGlmIC8qIF9IQVJEV0FSRV9NQU5BR0VSX0hfICovCiAKZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9od21nci5oIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2h3bWdyLmgKaW5kZXggMzIwMjI1ZC4uOThkMzhj
+MyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2h3bWdyLmgK
+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2h3bWdyLmgKQEAgLTM3Myw2
+ICszNzMsNyBAQCBzdHJ1Y3QgcHBfaHdtZ3JfZnVuYyB7CiAJaW50ICgqc2V0X3Bvd2VyX3Byb2Zp
+bGVfc3RhdGUpKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsCiAJCQlzdHJ1Y3QgYW1kX3BwX3Byb2Zp
+bGUgKnJlcXVlc3QpOwogCWludCAoKmF2ZnNfY29udHJvbCkoc3RydWN0IHBwX2h3bWdyICpod21n
+ciwgYm9vbCBlbmFibGUpOworCWludCAoKmRpc2FibGVfc21jX2Zpcm13YXJlX2N0Zikoc3RydWN0
+IHBwX2h3bWdyICpod21ncik7CiB9OwogCiBzdHJ1Y3QgcHBfdGFibGVfZnVuYyB7Ci0tIAoxLjku
+MQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
