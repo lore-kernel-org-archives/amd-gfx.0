@@ -1,11 +1,14 @@
-From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH umr] Add 'no_kernel' option
-Date: Fri, 28 Apr 2017 07:44:50 -0400
-Message-ID: <20170428114450.24905-1-tom.stdenis@amd.com>
+From: "Xie, AlexBin" <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Make amdgpu_bo_reserve use uninterruptible
+ waits for cleanup
+Date: Fri, 28 Apr 2017 14:12:52 +0000
+Message-ID: <MWHPR1201MB0045C097101B0EDA13F28BD9F2130@MWHPR1201MB0045.namprd12.prod.outlook.com>
+References: <mailman.1551.1493369856.21890.amd-gfx@lists.freedesktop.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1572300442=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <mailman.1551.1493369856.21890.amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,369 +19,1423 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-VGhpcyBmbGFnIGFsbG93cyB1bXIgdG8gcGVyZm9ybSBzb21lIG9wZXJhdGlvbnMgaXQgd291bGQg
-bm9ybWFsbHkKbmVlZCB0aGUga2VybmVsIGZvciBpbiB1c2Vyc3BhY2UuICBUaGlzIGlzIHVzZWZ1
-bCBpZiB0aGUga2VybmVsIGRyaXZlcgppcyBtaXNiZWhhdmluZy4gIERvbid0IHVzZSB0aGlzIG9u
-IGEgaGVhbHRoeSBzeXN0ZW0gYXMgaXQgY291bGQgaW52b2tlCnJhY2UgY29uZGl0aW9ucy4KClRo
-aXMgZmxhZyBlbmFibGVzIHVzZXJsYW5kIGFjdGl2aXRpZXMgc3VjaCBhcwoKLSByZWFkaW5nL3dy
-aXRpbmcgTU1JTyByZWdpc3RlcnMgKHdpdGggYmFuayBzZWxlY3Rpb24pCi0gcmVhZGluZyB3YXZl
-IHN0YXR1cyBhbmQgU0dQUiByZWdpc3RlcnMKClNpZ25lZC1vZmYtYnk6IFRvbSBTdCBEZW5pcyA8
-dG9tLnN0ZGVuaXNAYW1kLmNvbT4KLS0tCiBkb2MvdW1yLjEgICAgICAgICAgICAgfCAgNSArKysK
-IHNyYy9hcHAvbWFpbi5jICAgICAgICB8ICA1ICsrLQogc3JjL2FwcC9zY2FuLmMgICAgICAgIHwg
-IDYgKysrLQogc3JjL2FwcC9zZXRfYml0LmMgICAgIHwgIDQgKysrCiBzcmMvYXBwL3NldF9yZWcu
-YyAgICAgfCAgNCArKysKIHNyYy9saWIvZGlzY292ZXIuYyAgICB8IDQ5ICsrKysrKysrKysrKysr
-KysrLS0tLS0tLS0tLQogc3JjL2xpYi9tbWlvLmMgICAgICAgIHwgNTcgKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrLQogc3JjL2xpYi9yZWFkX3NncHIuYyAgIHwgNTggKysrKysrKysrKysr
-KysrKysrKysrKysrKy0tLS0tLS0KIHNyYy9saWIvd2F2ZV9zdGF0dXMuYyB8IDkyICsrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLQogc3JjL3Vtci5oICAg
-ICAgICAgICAgIHwgMjMgKysrKysrKysrKystLQogMTAgZmlsZXMgY2hhbmdlZCwgMjUyIGluc2Vy
-dGlvbnMoKyksIDUxIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RvYy91bXIuMSBiL2RvYy91
-bXIuMQppbmRleCA5MGJlMmQ2MzE2Y2UuLjUwY2UwMzMzMGI1YyAxMDA2NDQKLS0tIGEvZG9jL3Vt
-ci4xCisrKyBiL2RvYy91bXIuMQpAQCAtMTM4LDYgKzEzOCwxMSBAQCBzZXBhcmF0ZWQgc3RyaW5n
-cy4KICAgICAgRW5hYmxlIGNvbG91ciBvdXRwdXQgZm9yIC0tdG9wIGNvbW1hbmQsIHNjYWxlcyBm
-cm9tIGJsdWUsIGdyZWVuLCB5ZWxsb3csIHRvIHJlZC4gIEFsc28KICAgICAgYWNjZXB0ZWQgaXMg
-J3VzZV9jb2xvcicuCiAKKy5CIG5vX2tlcm5lbAorICAgICBEaXNhYmxlIHVzaW5nIGtlcm5lbCBm
-aWxlcyB0byBhY2Nlc3MgdGhlIGRldmljZS4gIEltcGxpZXMgJyd1c2VfcGNpJycuICBUaGlzIGlz
-IG1lYW50IHRvCisgICAgIGJlIHVzZWQgb25seSBpZiB0aGUgS01EIGlzIGh1bmcgb3Igb3RoZXJ3
-aXNlIG5vdCB3b3JraW5nIGNvcnJlY3RseS4gIFVzaW5nIGl0IG9uIGxpdmUgc3lzdGVtcworICAg
-ICBtYXkgcmVzdWx0IGluIHJhY2UgY29uZGl0aW9ucy4KKwogLlNIICJOb3RlcyIKIAogLSBUaGUg
-IldhdmVzIiBmaWVsZCBpbiB0aGUgRFJNIHNlY3Rpb24gb2YgLS10b3Agb25seSB3b3JrcyBpZiBH
-RlggUEcgaGFzIGJlZW4gZGlzYWJsZWQuICBPdGhlcndpc2UsCmRpZmYgLS1naXQgYS9zcmMvYXBw
-L21haW4uYyBiL3NyYy9hcHAvbWFpbi5jCmluZGV4IDk2YTc5MGNiZWM3Yy4uMWQ5ZWY5ZWRjZWI4
-IDEwMDY0NAotLS0gYS9zcmMvYXBwL21haW4uYworKysgYi9zcmMvYXBwL21haW4uYwpAQCAtMTA5
-LDYgKzEwOSw5IEBAIHN0YXRpYyB2b2lkIHBhcnNlX29wdGlvbnMoY2hhciAqc3RyKQogCQkJb3B0
-aW9ucy5xdWlldCA9IDE7CiAJCX0gZWxzZSBpZiAoIXN0cmNtcChvcHRpb24sICJmb2xsb3dfaWIi
-KSkgewogCQkJb3B0aW9ucy5mb2xsb3dfaWIgPSAxOworCQl9IGVsc2UgaWYgKCFzdHJjbXAob3B0
-aW9uLCAibm9fa2VybmVsIikpIHsKKwkJCW9wdGlvbnMubm9fa2VybmVsID0gMTsKKwkJCW9wdGlv
-bnMudXNlX3BjaSA9IDE7CiAJCX0gZWxzZSB7CiAJCQlwcmludGYoImVycm9yOiBVbmtub3duIG9w
-dGlvbiBbJXNdXG4iLCBvcHRpb24pOwogCQkJZXhpdChFWElUX0ZBSUxVUkUpOwpAQCAtNDEzLDcg
-KzQxNiw3IEBAIGludCBtYWluKGludCBhcmdjLCBjaGFyICoqYXJndikKIAkiXG5cdFx0UmVhZCAn
-c2l6ZScgYnl0ZXMgKGluIGhleCkgZnJvbSBhIGdpdmVuIGFkZHJlc3MgKGluIGhleCkgdG8gc3Rk
-b3V0LiBPcHRpb25hbGx5IgogCSJcblx0XHRzcGVjaWZ5IHRoZSBWTUlEIChpbiBkZWNpbWFsKSB0
-cmVhdGluZyB0aGUgYWRkcmVzcyBhcyBhIHZpcnR1YWwgYWRkcmVzcyBpbnN0ZWFkLlxuIgogIlxu
-XHQtLW9wdGlvbiAtTyA8c3RyaW5nPlssPHN0cmluZz4sLi4uXVxuXHRcdEVuYWJsZSB2YXJpb3Vz
-IGZsYWdzOiByaXNreSwgYml0cywgYml0c2Z1bGwsIGVtcHR5X2xvZywgZm9sbG93LCBuYW1lZCwg
-bWFueSwiCi0JIlxuXHRcdHVzZV9wY2ksIHVzZV9jb2xvdXIsIHJlYWRfc21jLCBxdWlldC5cbiIK
-KwkiXG5cdFx0dXNlX3BjaSwgdXNlX2NvbG91ciwgcmVhZF9zbWMsIHF1aWV0LCBub19rZXJuZWwu
-XG4iCiAiXG5cbiIsIFVNUl9CVUlMRF9WRVIsIFVNUl9CVUlMRF9SRVYpOwogCQkJZXhpdChFWElU
-X1NVQ0NFU1MpOwogCQl9IGVsc2UgewpkaWZmIC0tZ2l0IGEvc3JjL2FwcC9zY2FuLmMgYi9zcmMv
-YXBwL3NjYW4uYwppbmRleCBlOTFmYmQ0NjQ5YzguLjMzMjA1MDlmOGJlMiAxMDA2NDQKLS0tIGEv
-c3JjL2FwcC9zY2FuLmMKKysrIGIvc3JjL2FwcC9zY2FuLmMKQEAgLTg4LDcgKzg4LDExIEBAIGlu
-dCB1bXJfc2Nhbl9hc2ljKHN0cnVjdCB1bXJfYXNpYyAqYXNpYywgY2hhciAqYXNpY25hbWUsIGNo
-YXIgKmlwbmFtZSwgY2hhciAqcmVnCiAJCQkJCQkJCWdvdG8gZXJyb3I7CiAJCQkJCQkJfQogCQkJ
-CQkJfSBlbHNlIGlmIChhc2ljLT5ibG9ja3NbaV0tPnJlZ3Nbal0udHlwZSA9PSBSRUdfTU1JTykg
-ewotCQkJCQkJCWFzaWMtPmJsb2Nrc1tpXS0+cmVnc1tqXS52YWx1ZSA9IGFzaWMtPnBjaS5tZW1b
-YXNpYy0+YmxvY2tzW2ldLT5yZWdzW2pdLmFkZHJdOworCQkJCQkJCWlmIChvcHRpb25zLnVzZV9i
-YW5rICYmIG9wdGlvbnMubm9fa2VybmVsKQorCQkJCQkJCQl1bXJfZ3JibV9zZWxlY3RfaW5kZXgo
-YXNpYywgb3B0aW9ucy5zZV9iYW5rLCBvcHRpb25zLnNoX2JhbmssIG9wdGlvbnMuaW5zdGFuY2Vf
-YmFuayk7CisJCQkJCQkJYXNpYy0+YmxvY2tzW2ldLT5yZWdzW2pdLnZhbHVlID0gdW1yX3JlYWRf
-cmVnKGFzaWMsIGFzaWMtPmJsb2Nrc1tpXS0+cmVnc1tqXS5hZGRyICogNCk7CisJCQkJCQkJaWYg
-KG9wdGlvbnMudXNlX2JhbmsgJiYgb3B0aW9ucy5ub19rZXJuZWwpCisJCQkJCQkJCXVtcl9ncmJt
-X3NlbGVjdF9pbmRleChhc2ljLCAweEZGRkZGRkZGLCAweEZGRkZGRkZGLCAweEZGRkZGRkZGKTsK
-IAkJCQkJCX0KIAkJCQkJCWlmIChyZWduYW1lWzBdKSB7CiAJCQkJCQkJaWYgKG9wdGlvbnMubmFt
-ZWQpCmRpZmYgLS1naXQgYS9zcmMvYXBwL3NldF9iaXQuYyBiL3NyYy9hcHAvc2V0X2JpdC5jCmlu
-ZGV4IGJlZDdlZTg1OGI2YS4uNDlmNmM0NzUwYjhhIDEwMDY0NAotLS0gYS9zcmMvYXBwL3NldF9i
-aXQuYworKysgYi9zcmMvYXBwL3NldF9iaXQuYwpAQCAtOTYsOSArOTYsMTMgQEAgaW50IHVtcl9z
-ZXRfcmVnaXN0ZXJfYml0KHN0cnVjdCB1bXJfYXNpYyAqYXNpYywgY2hhciAqcmVncGF0aCwgY2hh
-ciAqcmVndmFsdWUpCiAJCQkJCQkJCQkJfQogCQkJCQkJCQkJfQogCQkJCQkJCQl9IGVsc2UgaWYg
-KGFzaWMtPmJsb2Nrc1tpXS0+cmVnc1tqXS50eXBlID09IFJFR19NTUlPKSB7CisJCQkJCQkJCQlp
-ZiAob3B0aW9ucy51c2VfYmFuayAmJiBvcHRpb25zLm5vX2tlcm5lbCkKKwkJCQkJCQkJCQl1bXJf
-Z3JibV9zZWxlY3RfaW5kZXgoYXNpYywgb3B0aW9ucy5zZV9iYW5rLCBvcHRpb25zLnNoX2Jhbmss
-IG9wdGlvbnMuaW5zdGFuY2VfYmFuayk7CiAJCQkJCQkJCQljb3B5ID0gYXNpYy0+cGNpLm1lbVth
-c2ljLT5ibG9ja3NbaV0tPnJlZ3Nbal0uYWRkcl0gJiB+bWFzazsKIAkJCQkJCQkJCWNvcHkgfD0g
-KHZhbHVlIDw8IGFzaWMtPmJsb2Nrc1tpXS0+cmVnc1tqXS5iaXRzW2tdLnN0YXJ0KSAmIG1hc2s7
-CiAJCQkJCQkJCQlhc2ljLT5wY2kubWVtW2FzaWMtPmJsb2Nrc1tpXS0+cmVnc1tqXS5hZGRyXSA9
-IGNvcHk7CisJCQkJCQkJCQlpZiAob3B0aW9ucy51c2VfYmFuayAmJiBvcHRpb25zLm5vX2tlcm5l
-bCkKKwkJCQkJCQkJCQl1bXJfZ3JibV9zZWxlY3RfaW5kZXgoYXNpYywgMHhGRkZGRkZGRiwgMHhG
-RkZGRkZGRiwgMHhGRkZGRkZGRik7CiAJCQkJCQkJCQlpZiAoIW9wdGlvbnMucXVpZXQpIHByaW50
-ZigiJXMgPD0gMHglMDhseFxuIiwgcmVncGF0aCwgKHVuc2lnbmVkIGxvbmcpY29weSk7CiAJCQkJ
-CQkJCX0KIAkJCQkJCQkJcmV0dXJuIDA7CmRpZmYgLS1naXQgYS9zcmMvYXBwL3NldF9yZWcuYyBi
-L3NyYy9hcHAvc2V0X3JlZy5jCmluZGV4IGVkOGY3MDhlOTc3Zi4uYWNjODIyOGNmNDIxIDEwMDY0
-NAotLS0gYS9zcmMvYXBwL3NldF9yZWcuYworKysgYi9zcmMvYXBwL3NldF9yZWcuYwpAQCAtODQs
-NyArODQsMTEgQEAgaW50IHVtcl9zZXRfcmVnaXN0ZXIoc3RydWN0IHVtcl9hc2ljICphc2ljLCBj
-aGFyICpyZWdwYXRoLCBjaGFyICpyZWd2YWx1ZSkKIAkJCQkJCQkJfQogCQkJCQkJCX0KIAkJCQkJ
-CX0gZWxzZSBpZiAoYXNpYy0+YmxvY2tzW2ldLT5yZWdzW2pdLnR5cGUgPT0gUkVHX01NSU8pIHsK
-KwkJCQkJCQlpZiAob3B0aW9ucy51c2VfYmFuayAmJiBvcHRpb25zLm5vX2tlcm5lbCkKKwkJCQkJ
-CQkJdW1yX2dyYm1fc2VsZWN0X2luZGV4KGFzaWMsIG9wdGlvbnMuc2VfYmFuaywgb3B0aW9ucy5z
-aF9iYW5rLCBvcHRpb25zLmluc3RhbmNlX2JhbmspOwogCQkJCQkJCWFzaWMtPnBjaS5tZW1bYXNp
-Yy0+YmxvY2tzW2ldLT5yZWdzW2pdLmFkZHJdID0gdmFsdWU7CisJCQkJCQkJaWYgKG9wdGlvbnMu
-dXNlX2JhbmsgJiYgb3B0aW9ucy5ub19rZXJuZWwpCisJCQkJCQkJCXVtcl9ncmJtX3NlbGVjdF9p
-bmRleChhc2ljLCAweEZGRkZGRkZGLCAweEZGRkZGRkZGLCAweEZGRkZGRkZGKTsKIAkJCQkJCX0K
-IAkJCQkJCXJldHVybiAwOwogCQkJCQl9CmRpZmYgLS1naXQgYS9zcmMvbGliL2Rpc2NvdmVyLmMg
-Yi9zcmMvbGliL2Rpc2NvdmVyLmMKaW5kZXggYzljMmY3NGE0ODE4Li41YTZkN2U0N2IwYzIgMTAw
-NjQ0Ci0tLSBhL3NyYy9saWIvZGlzY292ZXIuYworKysgYi9zcmMvbGliL2Rpc2NvdmVyLmMKQEAg
-LTExMSwyNCArMTExLDM3IEBAIHN0cnVjdCB1bXJfYXNpYyAqdW1yX2Rpc2NvdmVyX2FzaWMoc3Ry
-dWN0IHVtcl9vcHRpb25zICpvcHRpb25zKQogCiAJaWYgKGFzaWMpIHsKIAkJbWVtY3B5KCZhc2lj
-LT5vcHRpb25zLCBvcHRpb25zLCBzaXplb2YoKm9wdGlvbnMpKTsKLQkJc25wcmludGYoZm5hbWUs
-IHNpemVvZihmbmFtZSktMSwgIi9zeXMva2VybmVsL2RlYnVnL2RyaS8lZC9hbWRncHVfcmVncyIs
-IGFzaWMtPmluc3RhbmNlKTsKLQkJYXNpYy0+ZmQubW1pbyA9IG9wZW4oZm5hbWUsIE9fUkRXUik7
-Ci0JCXNucHJpbnRmKGZuYW1lLCBzaXplb2YoZm5hbWUpLTEsICIvc3lzL2tlcm5lbC9kZWJ1Zy9k
-cmkvJWQvYW1kZ3B1X3JlZ3NfZGlkdCIsIGFzaWMtPmluc3RhbmNlKTsKLQkJYXNpYy0+ZmQuZGlk
-dCA9IG9wZW4oZm5hbWUsIE9fUkRXUik7Ci0JCXNucHJpbnRmKGZuYW1lLCBzaXplb2YoZm5hbWUp
-LTEsICIvc3lzL2tlcm5lbC9kZWJ1Zy9kcmkvJWQvYW1kZ3B1X3JlZ3NfcGNpZSIsIGFzaWMtPmlu
-c3RhbmNlKTsKLQkJYXNpYy0+ZmQucGNpZSA9IG9wZW4oZm5hbWUsIE9fUkRXUik7Ci0JCXNucHJp
-bnRmKGZuYW1lLCBzaXplb2YoZm5hbWUpLTEsICIvc3lzL2tlcm5lbC9kZWJ1Zy9kcmkvJWQvYW1k
-Z3B1X3JlZ3Nfc21jIiwgYXNpYy0+aW5zdGFuY2UpOwotCQlhc2ljLT5mZC5zbWMgPSBvcGVuKGZu
-YW1lLCBPX1JEV1IpOwotCQlzbnByaW50ZihmbmFtZSwgc2l6ZW9mKGZuYW1lKS0xLCAiL3N5cy9r
-ZXJuZWwvZGVidWcvZHJpLyVkL2FtZGdwdV9zZW5zb3JzIiwgYXNpYy0+aW5zdGFuY2UpOwotCQlh
-c2ljLT5mZC5zZW5zb3JzID0gb3BlbihmbmFtZSwgT19SRFdSKTsKLQkJc25wcmludGYoZm5hbWUs
-IHNpemVvZihmbmFtZSktMSwgIi9zeXMva2VybmVsL2RlYnVnL2RyaS8lZC9hbWRncHVfd2F2ZSIs
-IGFzaWMtPmluc3RhbmNlKTsKLQkJYXNpYy0+ZmQud2F2ZSA9IG9wZW4oZm5hbWUsIE9fUkRXUik7
-Ci0JCXNucHJpbnRmKGZuYW1lLCBzaXplb2YoZm5hbWUpLTEsICIvc3lzL2tlcm5lbC9kZWJ1Zy9k
-cmkvJWQvYW1kZ3B1X3ZyYW0iLCBhc2ljLT5pbnN0YW5jZSk7Ci0JCWFzaWMtPmZkLnZyYW0gPSBv
-cGVuKGZuYW1lLCBPX1JEV1IpOwotCQlzbnByaW50ZihmbmFtZSwgc2l6ZW9mKGZuYW1lKS0xLCAi
-L3N5cy9rZXJuZWwvZGVidWcvZHJpLyVkL2FtZGdwdV9ncHIiLCBhc2ljLT5pbnN0YW5jZSk7Ci0J
-CWFzaWMtPmZkLmdwciA9IG9wZW4oZm5hbWUsIE9fUkRXUik7Ci0JCWFzaWMtPmZkLmRybSA9IC0x
-OyAvLyBkZWZhdWx0IHRvIGNsb3NlZAotCQkvLyBpZiBhcHBlbmRpbmcgdG8gdGhlIGZkIGxpc3Qg
-cmVtZW1iZXIgdG8gdXBkYXRlIGNsb3NlX2FzaWMoKSBhbmQgZGlzY292ZXJfYnlfZGlkKCkuLi4K
-KwkJaWYgKCFhc2ljLT5vcHRpb25zLm5vX2tlcm5lbCkgeworCQkJc25wcmludGYoZm5hbWUsIHNp
-emVvZihmbmFtZSktMSwgIi9zeXMva2VybmVsL2RlYnVnL2RyaS8lZC9hbWRncHVfcmVncyIsIGFz
-aWMtPmluc3RhbmNlKTsKKwkJCWFzaWMtPmZkLm1taW8gPSBvcGVuKGZuYW1lLCBPX1JEV1IpOwor
-CQkJc25wcmludGYoZm5hbWUsIHNpemVvZihmbmFtZSktMSwgIi9zeXMva2VybmVsL2RlYnVnL2Ry
-aS8lZC9hbWRncHVfcmVnc19kaWR0IiwgYXNpYy0+aW5zdGFuY2UpOworCQkJYXNpYy0+ZmQuZGlk
-dCA9IG9wZW4oZm5hbWUsIE9fUkRXUik7CisJCQlzbnByaW50ZihmbmFtZSwgc2l6ZW9mKGZuYW1l
-KS0xLCAiL3N5cy9rZXJuZWwvZGVidWcvZHJpLyVkL2FtZGdwdV9yZWdzX3BjaWUiLCBhc2ljLT5p
-bnN0YW5jZSk7CisJCQlhc2ljLT5mZC5wY2llID0gb3BlbihmbmFtZSwgT19SRFdSKTsKKwkJCXNu
-cHJpbnRmKGZuYW1lLCBzaXplb2YoZm5hbWUpLTEsICIvc3lzL2tlcm5lbC9kZWJ1Zy9kcmkvJWQv
-YW1kZ3B1X3JlZ3Nfc21jIiwgYXNpYy0+aW5zdGFuY2UpOworCQkJYXNpYy0+ZmQuc21jID0gb3Bl
-bihmbmFtZSwgT19SRFdSKTsKKwkJCXNucHJpbnRmKGZuYW1lLCBzaXplb2YoZm5hbWUpLTEsICIv
-c3lzL2tlcm5lbC9kZWJ1Zy9kcmkvJWQvYW1kZ3B1X3NlbnNvcnMiLCBhc2ljLT5pbnN0YW5jZSk7
-CisJCQlhc2ljLT5mZC5zZW5zb3JzID0gb3BlbihmbmFtZSwgT19SRFdSKTsKKwkJCXNucHJpbnRm
-KGZuYW1lLCBzaXplb2YoZm5hbWUpLTEsICIvc3lzL2tlcm5lbC9kZWJ1Zy9kcmkvJWQvYW1kZ3B1
-X3dhdmUiLCBhc2ljLT5pbnN0YW5jZSk7CisJCQlhc2ljLT5mZC53YXZlID0gb3BlbihmbmFtZSwg
-T19SRFdSKTsKKwkJCXNucHJpbnRmKGZuYW1lLCBzaXplb2YoZm5hbWUpLTEsICIvc3lzL2tlcm5l
-bC9kZWJ1Zy9kcmkvJWQvYW1kZ3B1X3ZyYW0iLCBhc2ljLT5pbnN0YW5jZSk7CisJCQlhc2ljLT5m
-ZC52cmFtID0gb3BlbihmbmFtZSwgT19SRFdSKTsKKwkJCXNucHJpbnRmKGZuYW1lLCBzaXplb2Yo
-Zm5hbWUpLTEsICIvc3lzL2tlcm5lbC9kZWJ1Zy9kcmkvJWQvYW1kZ3B1X2dwciIsIGFzaWMtPmlu
-c3RhbmNlKTsKKwkJCWFzaWMtPmZkLmdwciA9IG9wZW4oZm5hbWUsIE9fUkRXUik7CisJCQlhc2lj
-LT5mZC5kcm0gPSAtMTsgLy8gZGVmYXVsdCB0byBjbG9zZWQKKwkJCS8vIGlmIGFwcGVuZGluZyB0
-byB0aGUgZmQgbGlzdCByZW1lbWJlciB0byB1cGRhdGUgY2xvc2VfYXNpYygpIGFuZCBkaXNjb3Zl
-cl9ieV9kaWQoKS4uLgorCQl9IGVsc2UgeworCQkJLy8gbm8gZmlsZXMgb3BlbiEKKwkJCWFzaWMt
-PmZkLm1taW8gPSAtMTsKKwkJCWFzaWMtPmZkLmRpZHQgPSAtMTsKKwkJCWFzaWMtPmZkLnBjaWUg
-PSAtMTsKKwkJCWFzaWMtPmZkLnNtYyA9IC0xOworCQkJYXNpYy0+ZmQuc2Vuc29ycyA9IC0xOwor
-CQkJYXNpYy0+ZmQud2F2ZSA9IC0xOworCQkJYXNpYy0+ZmQudnJhbSA9IC0xOworCQkJYXNpYy0+
-ZmQuZ3ByID0gLTE7CisJCQlhc2ljLT5mZC5kcm0gPSAtMTsKKwkJfQogCiAJCWlmIChvcHRpb25z
-LT51c2VfcGNpKSB7CiAJCQkvLyBpbml0IFBDSSBtYXBwaW5nCmRpZmYgLS1naXQgYS9zcmMvbGli
-L21taW8uYyBiL3NyYy9saWIvbW1pby5jCmluZGV4IDVkN2NkZDMxOTFhMS4uY2E4MTI4MTdlMDE4
-IDEwMDY0NAotLS0gYS9zcmMvbGliL21taW8uYworKysgYi9zcmMvbGliL21taW8uYwpAQCAtODUs
-OSArODUsNjQgQEAgdWludDMyX3QgdW1yX2JpdHNsaWNlX3JlZyhzdHJ1Y3QgdW1yX2FzaWMgKmFz
-aWMsIHN0cnVjdCB1bXJfcmVnICpyZWcsIGNoYXIgKmJpdG4KIAlyZXR1cm4gMDsKIH0KIAordWlu
-dDMyX3QgdW1yX2JpdHNsaWNlX2NvbXBvc2VfdmFsdWUoc3RydWN0IHVtcl9hc2ljICphc2ljLCBz
-dHJ1Y3QgdW1yX3JlZyAqcmVnLCBjaGFyICpiaXRuYW1lLCB1aW50MzJfdCByZWd2YWx1ZSkKK3sK
-KwlpbnQgaTsKKwlmb3IgKGkgPSAwOyBpIDwgcmVnLT5ub19iaXRzOyBpKyspIHsKKwkJaWYgKCFz
-dHJjbXAoYml0bmFtZSwgcmVnLT5iaXRzW2ldLnJlZ25hbWUpKSB7CisJCQlyZWd2YWx1ZSAmPSAo
-MVVMIDw8IChyZWctPmJpdHNbaV0uc3RvcCAtIHJlZy0+Yml0c1tpXS5zdGFydCArIDEpKSAtIDE7
-CisJCQlyZWd2YWx1ZSA8PD0gcmVnLT5iaXRzW2ldLnN0YXJ0OworCQkJcmV0dXJuIHJlZ3ZhbHVl
-OworCQl9CisJfQorCWZwcmludGYoc3RkZXJyLCAiQlVHOiBCaXRmaWVsZCBbJXNdIG5vdCBmb3Vu
-ZCBpbiByZWcgWyVzXSBvbiBhc2ljIFslc11cbiIsIGJpdG5hbWUsIHJlZy0+cmVnbmFtZSwgYXNp
-Yy0+YXNpY25hbWUpOworCXJldHVybiAwOworfQorCiB1aW50MzJfdCB1bXJfYml0c2xpY2VfcmVn
-X2J5X25hbWUoc3RydWN0IHVtcl9hc2ljICphc2ljLCBjaGFyICpyZWduYW1lLCBjaGFyICpiaXRu
-YW1lLCB1aW50MzJfdCByZWd2YWx1ZSkKIHsKIAlzdHJ1Y3QgdW1yX3JlZyAqcmVnOwogCXJlZyA9
-IHVtcl9maW5kX3JlZ19kYXRhKGFzaWMsIHJlZ25hbWUpOwotCXJldHVybiB1bXJfYml0c2xpY2Vf
-cmVnKGFzaWMsIHJlZywgYml0bmFtZSwgcmVndmFsdWUpOworCWlmIChyZWcpCisJCXJldHVybiB1
-bXJfYml0c2xpY2VfcmVnKGFzaWMsIHJlZywgYml0bmFtZSwgcmVndmFsdWUpOworCWVsc2UKKwkJ
-cmV0dXJuIDA7Cit9CisKK3VpbnQzMl90IHVtcl9iaXRzbGljZV9jb21wb3NlX3ZhbHVlX2J5X25h
-bWUoc3RydWN0IHVtcl9hc2ljICphc2ljLCBjaGFyICpyZWduYW1lLCBjaGFyICpiaXRuYW1lLCB1
-aW50MzJfdCByZWd2YWx1ZSkKK3sKKwlzdHJ1Y3QgdW1yX3JlZyAqcmVnOworCXJlZyA9IHVtcl9m
-aW5kX3JlZ19kYXRhKGFzaWMsIHJlZ25hbWUpOworCWlmIChyZWcpCisJCXJldHVybiB1bXJfYml0
-c2xpY2VfY29tcG9zZV92YWx1ZShhc2ljLCByZWcsIGJpdG5hbWUsIHJlZ3ZhbHVlKTsKKwllbHNl
-CisJCXJldHVybiAwOworfQorCitpbnQgdW1yX2dyYm1fc2VsZWN0X2luZGV4KHN0cnVjdCB1bXJf
-YXNpYyAqYXNpYywgdWludDMyX3Qgc2UsIHVpbnQzMl90IHNoLCB1aW50MzJfdCBpbnN0YW5jZSkK
-K3sKKwlzdHJ1Y3QgdW1yX3JlZyAqZ3JibV9pZHg7CisJdWludDMyX3QgZGF0YSA9IDA7CisKKwln
-cmJtX2lkeCA9IHVtcl9maW5kX3JlZ19kYXRhKGFzaWMsICJtbUdSQk1fR0ZYX0lOREVYIik7CisJ
-aWYgKGdyYm1faWR4KSB7CisJCWlmIChpbnN0YW5jZSA9PSAweEZGRkZGRkZGKSB7CisJCQlkYXRh
-IHw9IHVtcl9iaXRzbGljZV9jb21wb3NlX3ZhbHVlKGFzaWMsIGdyYm1faWR4LCAiSU5TVEFOQ0Vf
-QlJPQURDQVNUX1dSSVRFUyIsIDEpOworCQl9IGVsc2UgeworCQkJZGF0YSB8PSB1bXJfYml0c2xp
-Y2VfY29tcG9zZV92YWx1ZShhc2ljLCBncmJtX2lkeCwgIklOU1RBTkNFX0lOREVYIiwgaW5zdGFu
-Y2UpOworCQl9CisJCWlmIChzZSA9PSAweEZGRkZGRkZGKSB7CisJCQlkYXRhIHw9IHVtcl9iaXRz
-bGljZV9jb21wb3NlX3ZhbHVlKGFzaWMsIGdyYm1faWR4LCAiU0VfQlJPQURDQVNUX1dSSVRFUyIs
-IDEpOworCQl9IGVsc2UgeworCQkJZGF0YSB8PSB1bXJfYml0c2xpY2VfY29tcG9zZV92YWx1ZShh
-c2ljLCBncmJtX2lkeCwgIlNFX0lOREVYIiwgaW5zdGFuY2UpOworCQl9CisJCWlmIChzaCA9PSAw
-eEZGRkZGRkZGKSB7CisJCQlkYXRhIHw9IHVtcl9iaXRzbGljZV9jb21wb3NlX3ZhbHVlKGFzaWMs
-IGdyYm1faWR4LCAiU0hfQlJPQURDQVNUX1dSSVRFUyIsIDEpOworCQl9IGVsc2UgeworCQkJZGF0
-YSB8PSB1bXJfYml0c2xpY2VfY29tcG9zZV92YWx1ZShhc2ljLCBncmJtX2lkeCwgIlNIX0lOREVY
-IiwgaW5zdGFuY2UpOworCQl9CisJCXJldHVybiB1bXJfd3JpdGVfcmVnKGFzaWMsIGdyYm1faWR4
-LT5hZGRyICogNCwgZGF0YSk7CisJfSBlbHNlIHsKKwkJcmV0dXJuIC0xOworCX0KIH0KZGlmZiAt
-LWdpdCBhL3NyYy9saWIvcmVhZF9zZ3ByLmMgYi9zcmMvbGliL3JlYWRfc2dwci5jCmluZGV4IGYx
-Mjk4M2VkY2IwNC4uOGY3OTkxNzViN2ZmIDEwMDY0NAotLS0gYS9zcmMvbGliL3JlYWRfc2dwci5j
-CisrKyBiL3NyYy9saWIvcmVhZF9zZ3ByLmMKQEAgLTI0LDYgKzI0LDMzIEBACiAgKi8KICNpbmNs
-dWRlICJ1bXIuaCIKIAorc3RhdGljIHZvaWQgd2F2ZV9yZWFkX3JlZ3NfdmlhX21taW8oc3RydWN0
-IHVtcl9hc2ljICphc2ljLCB1aW50MzJfdCBzaW1kLAorCQkJICAgdWludDMyX3Qgd2F2ZSwgdWlu
-dDMyX3QgdGhyZWFkLAorCQkJICAgdWludDMyX3QgcmVnbm8sIHVpbnQzMl90IG51bSwgdWludDMy
-X3QgKm91dCkKK3sKKwlzdHJ1Y3QgdW1yX3JlZyAqaW5kX2luZGV4LCAqaW5kX2RhdGE7CisJdWlu
-dDMyX3QgZGF0YTsKKworCWluZF9pbmRleCA9IHVtcl9maW5kX3JlZ19kYXRhKGFzaWMsICJtbVNR
-X0lORF9JTkRFWCIpOworCWluZF9kYXRhICA9IHVtcl9maW5kX3JlZ19kYXRhKGFzaWMsICJtbVNR
-X0lORF9EQVRBIik7CisKKwlpZiAoaW5kX2luZGV4ICYmIGluZF9kYXRhKSB7CisJCWRhdGEgPSB1
-bXJfYml0c2xpY2VfY29tcG9zZV92YWx1ZShhc2ljLCBpbmRfaW5kZXgsICJXQVZFX0lEIiwgd2F2
-ZSk7CisJCWRhdGEgfD0gdW1yX2JpdHNsaWNlX2NvbXBvc2VfdmFsdWUoYXNpYywgaW5kX2luZGV4
-LCAiU0lNRF9JRCIsIHNpbWQpOworCQlkYXRhIHw9IHVtcl9iaXRzbGljZV9jb21wb3NlX3ZhbHVl
-KGFzaWMsIGluZF9pbmRleCwgIklOREVYIiwgcmVnbm8pOworCQlkYXRhIHw9IHVtcl9iaXRzbGlj
-ZV9jb21wb3NlX3ZhbHVlKGFzaWMsIGluZF9pbmRleCwgIlRIUkVBRF9JRCIsIHRocmVhZCk7CisJ
-CWRhdGEgfD0gdW1yX2JpdHNsaWNlX2NvbXBvc2VfdmFsdWUoYXNpYywgaW5kX2luZGV4LCAiRk9S
-Q0VfUkVBRCIsIDEpOworCQlkYXRhIHw9IHVtcl9iaXRzbGljZV9jb21wb3NlX3ZhbHVlKGFzaWMs
-IGluZF9pbmRleCwgIkFVVE9fSU5DUiIsIDEpOworCQl1bXJfd3JpdGVfcmVnKGFzaWMsIGluZF9p
-bmRleC0+YWRkciAqIDQsIGRhdGEpOworCQl3aGlsZSAobnVtLS0pCisJCQkqKG91dCsrKSA9IHVt
-cl9yZWFkX3JlZyhhc2ljLCBpbmRfZGF0YS0+YWRkciAqIDQpOworCX0gZWxzZSB7CisJCWZwcmlu
-dGYoc3RkZXJyLCAiW0JVR10gVGhlIHJlcXVpcmVkIFNRX0lORF97SU5ERVgsREFUQX0gcmVnaXN0
-ZXJzIGFyZSBub3QgZm91bmQgb24gdGhlIGFzaWMgPCVzPlxuIiwgYXNpYy0+YXNpY25hbWUpOwor
-CQlyZXR1cm47CisJfQorfQorCisKIGludCB1bXJfcmVhZF9zZ3BycyhzdHJ1Y3QgdW1yX2FzaWMg
-KmFzaWMsIHN0cnVjdCB1bXJfd2F2ZV9zdGF0dXMgKndzLCB1aW50MzJfdCAqZHN0KQogewogCXVp
-bnQ2NF90IGFkZHIsIHNoaWZ0OwpAQCAtMzMsMTYgKzYwLDIzIEBAIGludCB1bXJfcmVhZF9zZ3By
-cyhzdHJ1Y3QgdW1yX2FzaWMgKmFzaWMsIHN0cnVjdCB1bXJfd2F2ZV9zdGF0dXMgKndzLCB1aW50
-MzJfdCAqCiAJZWxzZQogCQlzaGlmdCA9IDQ7ICAvLyBvbiBWSSBhbGxvY2F0aW9ucyBhcmUgaW4g
-MTYtZHdvcmQgYmxvY2tzCiAKLQlhZGRyID0KLQkJKDFVTEwgPDwgNjApICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICB8IC8vIHJlYWRpbmcgU0dQUnMKLQkJKCh1aW50NjRfdCl3cy0+Z3ByX2Fs
-bG9jLnNncHJfYmFzZSA8PCBzaGlmdCkgfCAvLyBzdGFydGluZyBhZGRyZXNzIHRvIHJlYWQgZnJv
-bQotCQkoKHVpbnQ2NF90KXdzLT5od19pZC5zZV9pZCA8PCAxMikgICAgICAgIHwKLQkJKCh1aW50
-NjRfdCl3cy0+aHdfaWQuc2hfaWQgPDwgMjApICAgICAgICB8Ci0JCSgodWludDY0X3Qpd3MtPmh3
-X2lkLmN1X2lkIDw8IDI4KSAgICAgICAgfAotCQkoKHVpbnQ2NF90KXdzLT5od19pZC53YXZlX2lk
-IDw8IDM2KSAgICAgIHwKLQkJKCh1aW50NjRfdCl3cy0+aHdfaWQuc2ltZF9pZCA8PCA0NCkgICAg
-ICB8Ci0JCSgwVUxMIDw8IDUyKTsgLy8gdGhyZWFkX2lkCi0KLQlsc2Vlayhhc2ljLT5mZC5ncHIs
-IGFkZHIsIFNFRUtfU0VUKTsKLQlyZXR1cm4gcmVhZChhc2ljLT5mZC5ncHIsIGRzdCwgNCAqICgo
-d3MtPmdwcl9hbGxvYy5zZ3ByX3NpemUgKyAxKSA8PCBzaGlmdCkpOworCWlmICghYXNpYy0+b3B0
-aW9ucy5ub19rZXJuZWwpIHsKKwkJYWRkciA9CisJCQkoMVVMTCA8PCA2MCkgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHwgLy8gcmVhZGluZyBTR1BScworCQkJKCh1aW50NjRfdCl3cy0+Z3By
-X2FsbG9jLnNncHJfYmFzZSA8PCBzaGlmdCkgfCAvLyBzdGFydGluZyBhZGRyZXNzIHRvIHJlYWQg
-ZnJvbQorCQkJKCh1aW50NjRfdCl3cy0+aHdfaWQuc2VfaWQgPDwgMTIpICAgICAgICB8CisJCQko
-KHVpbnQ2NF90KXdzLT5od19pZC5zaF9pZCA8PCAyMCkgICAgICAgIHwKKwkJCSgodWludDY0X3Qp
-d3MtPmh3X2lkLmN1X2lkIDw8IDI4KSAgICAgICAgfAorCQkJKCh1aW50NjRfdCl3cy0+aHdfaWQu
-d2F2ZV9pZCA8PCAzNikgICAgICB8CisJCQkoKHVpbnQ2NF90KXdzLT5od19pZC5zaW1kX2lkIDw8
-IDQ0KSAgICAgIHwKKwkJCSgwVUxMIDw8IDUyKTsgLy8gdGhyZWFkX2lkCisKKwkJbHNlZWsoYXNp
-Yy0+ZmQuZ3ByLCBhZGRyLCBTRUVLX1NFVCk7CisJCXJldHVybiByZWFkKGFzaWMtPmZkLmdwciwg
-ZHN0LCA0ICogKCh3cy0+Z3ByX2FsbG9jLnNncHJfc2l6ZSArIDEpIDw8IHNoaWZ0KSk7CisJfSBl
-bHNlIHsKKwkJdW1yX2dyYm1fc2VsZWN0X2luZGV4KGFzaWMsIHdzLT5od19pZC5zZV9pZCwgd3Mt
-Pmh3X2lkLnNoX2lkLCB3cy0+aHdfaWQuY3VfaWQpOworCQl3YXZlX3JlYWRfcmVnc192aWFfbW1p
-byhhc2ljLCB3cy0+aHdfaWQuc2ltZF9pZCwgd3MtPmh3X2lkLndhdmVfaWQsIHdzLT5ncHJfYWxs
-b2Muc2dwcl9iYXNlIDw8IHNoaWZ0LCAwLCAod3MtPmdwcl9hbGxvYy5zZ3ByX3NpemUgKyAxKSA8
-PCBzaGlmdCwgZHN0KTsKKwkJdW1yX2dyYm1fc2VsZWN0X2luZGV4KGFzaWMsIDB4RkZGRkZGRkYs
-IDB4RkZGRkZGRkYsIDB4RkZGRkZGRkYpOworCQlyZXR1cm4gMDsKKwl9CiB9CmRpZmYgLS1naXQg
-YS9zcmMvbGliL3dhdmVfc3RhdHVzLmMgYi9zcmMvbGliL3dhdmVfc3RhdHVzLmMKaW5kZXggNjk1
-YTFiYjgzNmQxLi4yMmY5MmMyY2FhZDUgMTAwNjQ0Ci0tLSBhL3NyYy9saWIvd2F2ZV9zdGF0dXMu
-YworKysgYi9zcmMvbGliL3dhdmVfc3RhdHVzLmMKQEAgLTQ5LDIwICs0OSw3NSBAQCBzdGF0aWMg
-aW50IHVtcl9nZXRfd2F2ZV9zcV9pbmZvX3ZpKHN0cnVjdCB1bXJfYXNpYyAqYXNpYywgdW5zaWdu
-ZWQgc2UsIHVuc2lnbmVkCiAJcmV0dXJuIDA7CiB9CiAKK3N0YXRpYyB1aW50MzJfdCB3YXZlX3Jl
-YWRfaW5kKHN0cnVjdCB1bXJfYXNpYyAqYXNpYywgdWludDMyX3Qgc2ltZCwgdWludDMyX3Qgd2F2
-ZSwgdWludDMyX3QgYWRkcmVzcykKK3sKKwlzdHJ1Y3QgdW1yX3JlZyAqaW5kX2luZGV4LCAqaW5k
-X2RhdGE7CisJdWludDMyX3QgZGF0YTsKKworCWluZF9pbmRleCA9IHVtcl9maW5kX3JlZ19kYXRh
-KGFzaWMsICJtbVNRX0lORF9JTkRFWCIpOworCWluZF9kYXRhICA9IHVtcl9maW5kX3JlZ19kYXRh
-KGFzaWMsICJtbVNRX0lORF9EQVRBIik7CisKKwlpZiAoaW5kX2luZGV4ICYmIGluZF9kYXRhKSB7
-CisJCWRhdGEgPSB1bXJfYml0c2xpY2VfY29tcG9zZV92YWx1ZShhc2ljLCBpbmRfaW5kZXgsICJX
-QVZFX0lEIiwgd2F2ZSk7CisJCWRhdGEgfD0gdW1yX2JpdHNsaWNlX2NvbXBvc2VfdmFsdWUoYXNp
-YywgaW5kX2luZGV4LCAiU0lNRF9JRCIsIHNpbWQpOworCQlkYXRhIHw9IHVtcl9iaXRzbGljZV9j
-b21wb3NlX3ZhbHVlKGFzaWMsIGluZF9pbmRleCwgIklOREVYIiwgYWRkcmVzcyk7CisJCWRhdGEg
-fD0gdW1yX2JpdHNsaWNlX2NvbXBvc2VfdmFsdWUoYXNpYywgaW5kX2luZGV4LCAiRk9SQ0VfUkVB
-RCIsIDEpOworCQl1bXJfd3JpdGVfcmVnKGFzaWMsIGluZF9pbmRleC0+YWRkciAqIDQsIGRhdGEp
-OworCQlyZXR1cm4gdW1yX3JlYWRfcmVnKGFzaWMsIGluZF9kYXRhLT5hZGRyICogNCk7CisJfSBl
-bHNlIHsKKwkJZnByaW50ZihzdGRlcnIsICJbQlVHXSBUaGUgcmVxdWlyZWQgU1FfSU5EX3tJTkRF
-WCxEQVRBfSByZWdpc3RlcnMgYXJlIG5vdCBmb3VuZCBvbiB0aGUgYXNpYyA8JXM+XG4iLCBhc2lj
-LT5hc2ljbmFtZSk7CisJCXJldHVybiAtMTsKKwl9Cit9CisKKworc3RhdGljIGludCByZWFkX3dh
-dmVfc3RhdHVzX3ZpYV9tbWlvKHN0cnVjdCB1bXJfYXNpYyAqYXNpYywgdWludDMyX3Qgc2ltZCwg
-dWludDMyX3Qgd2F2ZSwgdWludDMyX3QgKmRzdCwgaW50ICpub19maWVsZHMpCit7CisJLyogdHlw
-ZSAwLzEgd2F2ZSBkYXRhICovCisJZHN0Wygqbm9fZmllbGRzKSsrXSA9IChhc2ljLT5mYW1pbHkg
-PD0gRkFNSUxZX1ZJKSA/IDAgOiAxOworCWRzdFsoKm5vX2ZpZWxkcykrK10gPSB3YXZlX3JlYWRf
-aW5kKGFzaWMsIHNpbWQsIHdhdmUsIHVtcl9maW5kX3JlZ19kYXRhKGFzaWMsICJpeFNRX1dBVkVf
-U1RBVFVTIiktPmFkZHIpOworCWRzdFsoKm5vX2ZpZWxkcykrK10gPSB3YXZlX3JlYWRfaW5kKGFz
-aWMsIHNpbWQsIHdhdmUsIHVtcl9maW5kX3JlZ19kYXRhKGFzaWMsICJpeFNRX1dBVkVfUENfTE8i
-KS0+YWRkcik7CisJZHN0Wygqbm9fZmllbGRzKSsrXSA9IHdhdmVfcmVhZF9pbmQoYXNpYywgc2lt
-ZCwgd2F2ZSwgdW1yX2ZpbmRfcmVnX2RhdGEoYXNpYywgIml4U1FfV0FWRV9QQ19ISSIpLT5hZGRy
-KTsKKwlkc3RbKCpub19maWVsZHMpKytdID0gd2F2ZV9yZWFkX2luZChhc2ljLCBzaW1kLCB3YXZl
-LCB1bXJfZmluZF9yZWdfZGF0YShhc2ljLCAiaXhTUV9XQVZFX0VYRUNfTE8iKS0+YWRkcik7CisJ
-ZHN0Wygqbm9fZmllbGRzKSsrXSA9IHdhdmVfcmVhZF9pbmQoYXNpYywgc2ltZCwgd2F2ZSwgdW1y
-X2ZpbmRfcmVnX2RhdGEoYXNpYywgIml4U1FfV0FWRV9FWEVDX0hJIiktPmFkZHIpOworCWRzdFso
-Km5vX2ZpZWxkcykrK10gPSB3YXZlX3JlYWRfaW5kKGFzaWMsIHNpbWQsIHdhdmUsIHVtcl9maW5k
-X3JlZ19kYXRhKGFzaWMsICJpeFNRX1dBVkVfSFdfSUQiKS0+YWRkcik7CisJZHN0Wygqbm9fZmll
-bGRzKSsrXSA9IHdhdmVfcmVhZF9pbmQoYXNpYywgc2ltZCwgd2F2ZSwgdW1yX2ZpbmRfcmVnX2Rh
-dGEoYXNpYywgIml4U1FfV0FWRV9JTlNUX0RXMCIpLT5hZGRyKTsKKwlkc3RbKCpub19maWVsZHMp
-KytdID0gd2F2ZV9yZWFkX2luZChhc2ljLCBzaW1kLCB3YXZlLCB1bXJfZmluZF9yZWdfZGF0YShh
-c2ljLCAiaXhTUV9XQVZFX0lOU1RfRFcxIiktPmFkZHIpOworCWRzdFsoKm5vX2ZpZWxkcykrK10g
-PSB3YXZlX3JlYWRfaW5kKGFzaWMsIHNpbWQsIHdhdmUsIHVtcl9maW5kX3JlZ19kYXRhKGFzaWMs
-ICJpeFNRX1dBVkVfR1BSX0FMTE9DIiktPmFkZHIpOworCWRzdFsoKm5vX2ZpZWxkcykrK10gPSB3
-YXZlX3JlYWRfaW5kKGFzaWMsIHNpbWQsIHdhdmUsIHVtcl9maW5kX3JlZ19kYXRhKGFzaWMsICJp
-eFNRX1dBVkVfTERTX0FMTE9DIiktPmFkZHIpOworCWRzdFsoKm5vX2ZpZWxkcykrK10gPSB3YXZl
-X3JlYWRfaW5kKGFzaWMsIHNpbWQsIHdhdmUsIHVtcl9maW5kX3JlZ19kYXRhKGFzaWMsICJpeFNR
-X1dBVkVfVFJBUFNUUyIpLT5hZGRyKTsKKwlkc3RbKCpub19maWVsZHMpKytdID0gd2F2ZV9yZWFk
-X2luZChhc2ljLCBzaW1kLCB3YXZlLCB1bXJfZmluZF9yZWdfZGF0YShhc2ljLCAiaXhTUV9XQVZF
-X0lCX1NUUyIpLT5hZGRyKTsKKwlpZiAoYXNpYy0+ZmFtaWx5IDw9IEZBTUlMWV9WSSkgeworCQlk
-c3RbKCpub19maWVsZHMpKytdID0gd2F2ZV9yZWFkX2luZChhc2ljLCBzaW1kLCB3YXZlLCB1bXJf
-ZmluZF9yZWdfZGF0YShhc2ljLCAiaXhTUV9XQVZFX1RCQV9MTyIpLT5hZGRyKTsKKwkJZHN0Wygq
-bm9fZmllbGRzKSsrXSA9IHdhdmVfcmVhZF9pbmQoYXNpYywgc2ltZCwgd2F2ZSwgdW1yX2ZpbmRf
-cmVnX2RhdGEoYXNpYywgIml4U1FfV0FWRV9UQkFfSEkiKS0+YWRkcik7CisJCWRzdFsoKm5vX2Zp
-ZWxkcykrK10gPSB3YXZlX3JlYWRfaW5kKGFzaWMsIHNpbWQsIHdhdmUsIHVtcl9maW5kX3JlZ19k
-YXRhKGFzaWMsICJpeFNRX1dBVkVfVE1BX0xPIiktPmFkZHIpOworCQlkc3RbKCpub19maWVsZHMp
-KytdID0gd2F2ZV9yZWFkX2luZChhc2ljLCBzaW1kLCB3YXZlLCB1bXJfZmluZF9yZWdfZGF0YShh
-c2ljLCAiaXhTUV9XQVZFX1RNQV9ISSIpLT5hZGRyKTsKKwl9CisJZHN0Wygqbm9fZmllbGRzKSsr
-XSA9IHdhdmVfcmVhZF9pbmQoYXNpYywgc2ltZCwgd2F2ZSwgdW1yX2ZpbmRfcmVnX2RhdGEoYXNp
-YywgIml4U1FfV0FWRV9JQl9EQkcwIiktPmFkZHIpOworCWRzdFsoKm5vX2ZpZWxkcykrK10gPSB3
-YXZlX3JlYWRfaW5kKGFzaWMsIHNpbWQsIHdhdmUsIHVtcl9maW5kX3JlZ19kYXRhKGFzaWMsICJp
-eFNRX1dBVkVfTTAiKS0+YWRkcik7CisKKwlyZXR1cm4gMDsKK30KKwogc3RhdGljIGludCB1bXJf
-Z2V0X3dhdmVfc3RhdHVzX3ZpKHN0cnVjdCB1bXJfYXNpYyAqYXNpYywgdW5zaWduZWQgc2UsIHVu
-c2lnbmVkIHNoLCB1bnNpZ25lZCBjdSwgdW5zaWduZWQgc2ltZCwgdW5zaWduZWQgd2F2ZSwgc3Ry
-dWN0IHVtcl93YXZlX3N0YXR1cyAqd3MpCiB7CiAJdWludDMyX3QgeCwgdmFsdWUsIGJ1ZlszMl07
-CiAKIAltZW1zZXQoYnVmLCAwLCBzaXplb2YgYnVmKTsKIAotCWxzZWVrKGFzaWMtPmZkLndhdmUs
-Ci0JCTAgfAotCQkoKHVpbnQ2NF90KXNlIDw8IDcpIHwKLQkJKCh1aW50NjRfdClzaCA8PCAxNSkg
-fAotCQkoKHVpbnQ2NF90KWN1IDw8IDIzKSB8Ci0JCSgodWludDY0X3Qpd2F2ZSA8PCAzMSkgfAot
-CQkoKHVpbnQ2NF90KXNpbWQgPDwgMzcpLCBTRUVLX1NFVCk7Ci0JcmVhZChhc2ljLT5mZC53YXZl
-LCAmYnVmLCAzMio0KTsKKwlpZiAoIWFzaWMtPm9wdGlvbnMubm9fa2VybmVsKSB7CisJCWxzZWVr
-KGFzaWMtPmZkLndhdmUsCisJCQkwIHwKKwkJCSgodWludDY0X3Qpc2UgPDwgNykgfAorCQkJKCh1
-aW50NjRfdClzaCA8PCAxNSkgfAorCQkJKCh1aW50NjRfdCljdSA8PCAyMykgfAorCQkJKCh1aW50
-NjRfdCl3YXZlIDw8IDMxKSB8CisJCQkoKHVpbnQ2NF90KXNpbWQgPDwgMzcpLCBTRUVLX1NFVCk7
-CisJCXJlYWQoYXNpYy0+ZmQud2F2ZSwgJmJ1ZiwgMzIqNCk7CisJfSBlbHNlIHsKKwkJaW50IG4g
-PSAwOworCQlyZWFkX3dhdmVfc3RhdHVzX3ZpYV9tbWlvKGFzaWMsIHNpbWQsIHdhdmUsICZidWZb
-MF0sICZuKTsKKwl9CiAKIAlpZiAoYnVmWzBdICE9IDApIHsKIAkJZnByaW50ZihzdGRlcnIsICJX
-YXMgZXhwZWN0aW5nIHR5cGUgMCB3YXZlIGRhdGEgb24gYSBDWi9WSSBwYXJ0IVxuIik7CkBAIC0x
-NTIsMTQgKzIwNywxOSBAQCBzdGF0aWMgaW50IHVtcl9nZXRfd2F2ZV9zdGF0dXNfbmV4dChzdHJ1
-Y3QgdW1yX2FzaWMgKmFzaWMsIHVuc2lnbmVkIHNlLCB1bnNpZ25lZAogCiAJbWVtc2V0KGJ1Ziwg
-MCwgc2l6ZW9mIGJ1Zik7CiAKLQlsc2Vlayhhc2ljLT5mZC53YXZlLAotCQkwIHwKLQkJKCh1aW50
-NjRfdClzZSA8PCA3KSB8Ci0JCSgodWludDY0X3Qpc2ggPDwgMTUpIHwKLQkJKCh1aW50NjRfdClj
-dSA8PCAyMykgfAotCQkoKHVpbnQ2NF90KXdhdmUgPDwgMzEpIHwKLQkJKCh1aW50NjRfdClzaW1k
-IDw8IDM3KSwgU0VFS19TRVQpOwotCXJlYWQoYXNpYy0+ZmQud2F2ZSwgJmJ1ZiwgMzIqNCk7CisJ
-aWYgKCFhc2ljLT5vcHRpb25zLm5vX2tlcm5lbCkgeworCQlsc2Vlayhhc2ljLT5mZC53YXZlLAor
-CQkJMCB8CisJCQkoKHVpbnQ2NF90KXNlIDw8IDcpIHwKKwkJCSgodWludDY0X3Qpc2ggPDwgMTUp
-IHwKKwkJCSgodWludDY0X3QpY3UgPDwgMjMpIHwKKwkJCSgodWludDY0X3Qpd2F2ZSA8PCAzMSkg
-fAorCQkJKCh1aW50NjRfdClzaW1kIDw8IDM3KSwgU0VFS19TRVQpOworCQlyZWFkKGFzaWMtPmZk
-LndhdmUsICZidWYsIDMyKjQpOworCX0gZWxzZSB7CisJCWludCBuID0gMDsKKwkJcmVhZF93YXZl
-X3N0YXR1c192aWFfbW1pbyhhc2ljLCBzaW1kLCB3YXZlLCAmYnVmWzBdLCAmbik7CisJfQogCiAJ
-aWYgKGJ1ZlswXSAhPSAxKSB7CiAJCWZwcmludGYoc3RkZXJyLCAiV2FzIGV4cGVjdGluZyB0eXBl
-IDEgd2F2ZSBkYXRhIG9uIGEgRkFNSUxZX0FJIHBhcnQhXG4iKTsKZGlmZiAtLWdpdCBhL3NyYy91
-bXIuaCBiL3NyYy91bXIuaAppbmRleCAyN2QwMDE1ZDE3YTMuLmIwYjhmY2I0Y2M3MiAxMDA2NDQK
-LS0tIGEvc3JjL3Vtci5oCisrKyBiL3NyYy91bXIuaApAQCAtMTcxLDcgKzE3MSw4IEBAIHN0cnVj
-dCB1bXJfb3B0aW9ucyB7CiAJICAgIHVzZV9jb2xvdXIsCiAJICAgIHJlYWRfc21jLAogCSAgICBx
-dWlldCwKLQkgICAgZm9sbG93X2liOworCSAgICBmb2xsb3dfaWIsCisJICAgIG5vX2tlcm5lbDsK
-IAl1bnNpZ25lZAogCSAgICBpbnN0YW5jZV9iYW5rLAogCSAgICBzZV9iYW5rLApAQCAtNDUzLDE1
-ICs0NTQsMzMgQEAgaW50IHVtcl9yZWFkX3NncHJzKHN0cnVjdCB1bXJfYXNpYyAqYXNpYywgc3Ry
-dWN0IHVtcl93YXZlX3N0YXR1cyAqd3MsIHVpbnQzMl90ICoKIGludCB1bXJfcmVhZF9zZW5zb3Io
-c3RydWN0IHVtcl9hc2ljICphc2ljLCBpbnQgc2Vuc29yLCB2b2lkICpkc3QsIGludCAqc2l6ZSk7
-CiAKIC8qIG1taW8gaGVscGVycyAqLworLy8gaW5pdCB0aGUgbW1pbyBsb29rdXAgdGFibGUKK2lu
-dCB1bXJfY3JlYXRlX21taW9fYWNjZWwoc3RydWN0IHVtcl9hc2ljICphc2ljKTsKKworLy8gZmlu
-ZCB0aGUgd29yZCBhZGRyZXNzIG9mIGEgcmVnaXN0ZXIKIHVpbnQzMl90IHVtcl9maW5kX3JlZyhz
-dHJ1Y3QgdW1yX2FzaWMgKmFzaWMsIGNoYXIgKnJlZ25hbWUpOworCisvLyBmaW5kIHRoZSByZWdp
-c3RlciBkYXRhIGZvciBhIHJlZ2lzdGVyCiBzdHJ1Y3QgdW1yX3JlZyAqdW1yX2ZpbmRfcmVnX2Rh
-dGEoc3RydWN0IHVtcl9hc2ljICphc2ljLCBjaGFyICpyZWduYW1lKTsKKworLy8gcmVhZC93cml0
-ZSBhIDMyLWJpdCByZWdpc3RlciBnaXZlbiBhIEJZVEUgYWRkcmVzcwogdWludDMyX3QgdW1yX3Jl
-YWRfcmVnKHN0cnVjdCB1bXJfYXNpYyAqYXNpYywgdWludDY0X3QgYWRkcik7CiBpbnQgdW1yX3dy
-aXRlX3JlZyhzdHJ1Y3QgdW1yX2FzaWMgKmFzaWMsIHVpbnQ2NF90IGFkZHIsIHVpbnQzMl90IHZh
-bHVlKTsKKworLy8gcmVhZC93cml0ZSBhIHJlZ2lzdGVyIGdpdmVuIGEgbmFtZQogdWludDMyX3Qg
-dW1yX3JlYWRfcmVnX2J5X25hbWUoc3RydWN0IHVtcl9hc2ljICphc2ljLCBjaGFyICpuYW1lKTsK
-IGludCB1bXJfd3JpdGVfcmVnX2J5X25hbWUoc3RydWN0IHVtcl9hc2ljICphc2ljLCBjaGFyICpu
-YW1lLCB1aW50MzJfdCB2YWx1ZSk7CisKKy8vIHNsaWNlIGEgZnVsbCByZWdpc3RlciBpbnRvIGJp
-dHMgKHNoaWZ0ZWQgaW50byBMU0IpCiB1aW50MzJfdCB1bXJfYml0c2xpY2VfcmVnKHN0cnVjdCB1
-bXJfYXNpYyAqYXNpYywgc3RydWN0IHVtcl9yZWcgKnJlZywgY2hhciAqYml0bmFtZSwgdWludDMy
-X3QgcmVndmFsdWUpOwogdWludDMyX3QgdW1yX2JpdHNsaWNlX3JlZ19ieV9uYW1lKHN0cnVjdCB1
-bXJfYXNpYyAqYXNpYywgY2hhciAqcmVnbmFtZSwgY2hhciAqYml0bmFtZSwgdWludDMyX3QgcmVn
-dmFsdWUpOwotaW50IHVtcl9jcmVhdGVfbW1pb19hY2NlbChzdHJ1Y3QgdW1yX2FzaWMgKmFzaWMp
-OworCisvLyBjb21wb3NlIGEgMzItYml0IHJlZ2lzdGVyIHdpdGggYSB2YWx1ZSBhbmQgYSBiaXRm
-aWVsZAordWludDMyX3QgdW1yX2JpdHNsaWNlX2NvbXBvc2VfdmFsdWUoc3RydWN0IHVtcl9hc2lj
-ICphc2ljLCBzdHJ1Y3QgdW1yX3JlZyAqcmVnLCBjaGFyICpiaXRuYW1lLCB1aW50MzJfdCByZWd2
-YWx1ZSk7Cit1aW50MzJfdCB1bXJfYml0c2xpY2VfY29tcG9zZV92YWx1ZV9ieV9uYW1lKHN0cnVj
-dCB1bXJfYXNpYyAqYXNpYywgY2hhciAqcmVnLCBjaGFyICpiaXRuYW1lLCB1aW50MzJfdCByZWd2
-YWx1ZSk7CisKKy8vIHNlbGVjdCBhIEdSQk1fR0ZYX0lEWAoraW50IHVtcl9ncmJtX3NlbGVjdF9p
-bmRleChzdHJ1Y3QgdW1yX2FzaWMgKmFzaWMsIHVpbnQzMl90IHNlLCB1aW50MzJfdCBzaCwgdWlu
-dDMyX3QgaW5zdGFuY2UpOwogCiAvKiBJQi9yaW5nIGRlY29kaW5nL2R1bXBpbmcvZXRjICovCiB2
-b2lkIHVtcl9wcmludF9kZWNvZGUoc3RydWN0IHVtcl9hc2ljICphc2ljLCBzdHJ1Y3QgdW1yX3Jp
-bmdfZGVjb2RlciAqZGVjb2RlciwgdWludDMyX3QgaWIpOwotLSAKMi4xMi4wCgpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
-dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============1572300442==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MWHPR1201MB0045C097101B0EDA13F28BD9F2130MWHPR1201MB0045_"
+
+--_000_MWHPR1201MB0045C097101B0EDA13F28BD9F2130MWHPR1201MB0045_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Am 28.04.2017 um 10:47 schrieb Michel D=E4nzer:
+> From: Michel D=E4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
+>
+> Some of these paths probably cannot be interrupted by a signal anyway.
+> Those that can would fail to clean up things if they actually got
+> interrupted.
+>
+> Signed-off-by: Michel D=E4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
+
+Reviewed-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+
+Alex X: Just a reminder: amdgpu_unpin_work_func is called by work queue.
+Signal is blocked already. un-interruptible waiting might slow thing down v=
+ery slightly.
+
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_display.c |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c      |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c    |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c     |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c   |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c      |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/dce_v10_0.c      |  6 +++---
+>   drivers/gpu/drm/amd/amdgpu/dce_v11_0.c      |  6 +++---
+>   drivers/gpu/drm/amd/amdgpu/dce_v6_0.c       |  6 +++---
+>   drivers/gpu/drm/amd/amdgpu/dce_v8_0.c       |  6 +++---
+>   drivers/gpu/drm/amd/amdgpu/dce_virtual.c    |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c       |  6 +++---
+>   drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c       | 10 +++++-----
+>   drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c       |  8 ++++----
+>   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c       |  8 ++++----
+>   16 files changed, 36 insertions(+), 36 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_display.c
+> index 771a6aae58d6..af64448a565c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> @@ -123,7 +123,7 @@ static void amdgpu_unpin_work_func(struct work_struct=
+ *__work)
+>        int r;
+>
+>        /* unpin of the old buffer */
+> -     r =3D amdgpu_bo_reserve(work->old_abo, false);
+> +     r =3D amdgpu_bo_reserve(work->old_abo, true);
+>        if (likely(r =3D=3D 0)) {
+>                r =3D amdgpu_bo_unpin(work->old_abo);
+>                if (unlikely(r !=3D 0)) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_fb.c
+> index 9dea2f661f1d..e869e60994ce 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
+> @@ -113,7 +113,7 @@ static void amdgpufb_destroy_pinned_object(struct drm=
+_gem_object *gobj)
+>        struct amdgpu_bo *abo =3D gem_to_amdgpu_bo(gobj);
+>        int ret;
+>
+> -     ret =3D amdgpu_bo_reserve(abo, false);
+> +     ret =3D amdgpu_bo_reserve(abo, true);
+>        if (likely(ret =3D=3D 0)) {
+>                amdgpu_bo_kunmap(abo);
+>                amdgpu_bo_unpin(abo);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_gart.c
+> index 6d691abe889c..e7406ce7093c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
+> @@ -183,7 +183,7 @@ void amdgpu_gart_table_vram_unpin(struct amdgpu_devic=
+e *adev)
+>        if (adev->gart.robj =3D=3D NULL) {
+>                return;
+>        }
+> -     r =3D amdgpu_bo_reserve(adev->gart.robj, false);
+> +     r =3D amdgpu_bo_reserve(adev->gart.robj, true);
+>        if (likely(r =3D=3D 0)) {
+>                amdgpu_bo_kunmap(adev->gart.robj);
+>                amdgpu_bo_unpin(adev->gart.robj);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_kms.c
+> index ec5b1bc0e428..d40b8ac745cd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -819,7 +819,7 @@ void amdgpu_driver_postclose_kms(struct drm_device *d=
+ev,
+>
+>        if (amdgpu_sriov_vf(adev)) {
+>                /* TODO: how to handle reserve failure */
+> -             BUG_ON(amdgpu_bo_reserve(adev->virt.csa_obj, false));
+> +             BUG_ON(amdgpu_bo_reserve(adev->virt.csa_obj, true));
+>                amdgpu_vm_bo_rmv(adev, fpriv->vm.csa_bo_va);
+>                fpriv->vm.csa_bo_va =3D NULL;
+>                amdgpu_bo_unreserve(adev->virt.csa_obj);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_prime.c
+> index 3826d5aea0a6..6bdc866570ab 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
+> @@ -113,7 +113,7 @@ void amdgpu_gem_prime_unpin(struct drm_gem_object *ob=
+j)
+>        struct amdgpu_bo *bo =3D gem_to_amdgpu_bo(obj);
+>        int ret =3D 0;
+>
+> -     ret =3D amdgpu_bo_reserve(bo, false);
+> +     ret =3D amdgpu_bo_reserve(bo, true);
+>        if (unlikely(ret !=3D 0))
+>                return;
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_sa.c
+> index 7b56d9988aba..de4ebcf4ac2c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c
+> @@ -130,7 +130,7 @@ int amdgpu_sa_bo_manager_suspend(struct amdgpu_device=
+ *adev,
+>                return -EINVAL;
+>        }
+>
+> -     r =3D amdgpu_bo_reserve(sa_manager->bo, false);
+> +     r =3D amdgpu_bo_reserve(sa_manager->bo, true);
+>        if (!r) {
+>                amdgpu_bo_kunmap(sa_manager->bo);
+>                amdgpu_bo_unpin(sa_manager->bo);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ttm.c
+> index 58873cf027e8..11c6c4494e0a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -1198,7 +1198,7 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
+>                return;
+>        amdgpu_ttm_debugfs_fini(adev);
+>        if (adev->stollen_vga_memory) {
+> -             r =3D amdgpu_bo_reserve(adev->stollen_vga_memory, false);
+> +             r =3D amdgpu_bo_reserve(adev->stollen_vga_memory, true);
+>                if (r =3D=3D 0) {
+>                        amdgpu_bo_unpin(adev->stollen_vga_memory);
+>                        amdgpu_bo_unreserve(adev->stollen_vga_memory);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd=
+/amdgpu/dce_v10_0.c
+> index 7d86ba42efc9..d618f92ae46c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+> @@ -2231,7 +2231,7 @@ static int dce_v10_0_crtc_do_set_base(struct drm_cr=
+tc *crtc,
+>        if (!atomic && fb && fb !=3D crtc->primary->fb) {
+>                amdgpu_fb =3D to_amdgpu_framebuffer(fb);
+>                abo =3D gem_to_amdgpu_bo(amdgpu_fb->obj);
+> -             r =3D amdgpu_bo_reserve(abo, false);
+> +             r =3D amdgpu_bo_reserve(abo, true);
+>                if (unlikely(r !=3D 0))
+>                        return r;
+>                amdgpu_bo_unpin(abo);
+> @@ -2590,7 +2590,7 @@ static int dce_v10_0_crtc_cursor_set2(struct drm_cr=
+tc *crtc,
+>   unpin:
+>        if (amdgpu_crtc->cursor_bo) {
+>                struct amdgpu_bo *aobj =3D gem_to_amdgpu_bo(amdgpu_crtc->c=
+ursor_bo);
+> -             ret =3D amdgpu_bo_reserve(aobj, false);
+> +             ret =3D amdgpu_bo_reserve(aobj, true);
+>                if (likely(ret =3D=3D 0)) {
+>                        amdgpu_bo_unpin(aobj);
+>                        amdgpu_bo_unreserve(aobj);
+> @@ -2720,7 +2720,7 @@ static void dce_v10_0_crtc_disable(struct drm_crtc =
+*crtc)
+>
+>                amdgpu_fb =3D to_amdgpu_framebuffer(crtc->primary->fb);
+>                abo =3D gem_to_amdgpu_bo(amdgpu_fb->obj);
+> -             r =3D amdgpu_bo_reserve(abo, false);
+> +             r =3D amdgpu_bo_reserve(abo, true);
+>                if (unlikely(r))
+>                        DRM_ERROR("failed to reserve abo before unpin\n");
+>                else {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/dce_v11_0.c
+> index 3d82181baffe..ea634158ae7a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+> @@ -2215,7 +2215,7 @@ static int dce_v11_0_crtc_do_set_base(struct drm_cr=
+tc *crtc,
+>        if (!atomic && fb && fb !=3D crtc->primary->fb) {
+>                amdgpu_fb =3D to_amdgpu_framebuffer(fb);
+>                abo =3D gem_to_amdgpu_bo(amdgpu_fb->obj);
+> -             r =3D amdgpu_bo_reserve(abo, false);
+> +             r =3D amdgpu_bo_reserve(abo, true);
+>                if (unlikely(r !=3D 0))
+>                        return r;
+>                amdgpu_bo_unpin(abo);
+> @@ -2610,7 +2610,7 @@ static int dce_v11_0_crtc_cursor_set2(struct drm_cr=
+tc *crtc,
+>   unpin:
+>        if (amdgpu_crtc->cursor_bo) {
+>                struct amdgpu_bo *aobj =3D gem_to_amdgpu_bo(amdgpu_crtc->c=
+ursor_bo);
+> -             ret =3D amdgpu_bo_reserve(aobj, false);
+> +             ret =3D amdgpu_bo_reserve(aobj, true);
+>                if (likely(ret =3D=3D 0)) {
+>                        amdgpu_bo_unpin(aobj);
+>                        amdgpu_bo_unreserve(aobj);
+> @@ -2740,7 +2740,7 @@ static void dce_v11_0_crtc_disable(struct drm_crtc =
+*crtc)
+>
+>                amdgpu_fb =3D to_amdgpu_framebuffer(crtc->primary->fb);
+>                abo =3D gem_to_amdgpu_bo(amdgpu_fb->obj);
+> -             r =3D amdgpu_bo_reserve(abo, false);
+> +             r =3D amdgpu_bo_reserve(abo, true);
+>                if (unlikely(r))
+>                        DRM_ERROR("failed to reserve abo before unpin\n");
+>                else {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/=
+amdgpu/dce_v6_0.c
+> index 59f6993af0b6..d68c1eabd0ce 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+> @@ -2150,7 +2150,7 @@ static int dce_v6_0_crtc_do_set_base(struct drm_crt=
+c *crtc,
+>        if (!atomic && fb && fb !=3D crtc->primary->fb) {
+>                amdgpu_fb =3D to_amdgpu_framebuffer(fb);
+>                abo =3D gem_to_amdgpu_bo(amdgpu_fb->obj);
+> -             r =3D amdgpu_bo_reserve(abo, false);
+> +             r =3D amdgpu_bo_reserve(abo, true);
+>                if (unlikely(r !=3D 0))
+>                        return r;
+>                amdgpu_bo_unpin(abo);
+> @@ -2467,7 +2467,7 @@ static int dce_v6_0_crtc_cursor_set2(struct drm_crt=
+c *crtc,
+>   unpin:
+>        if (amdgpu_crtc->cursor_bo) {
+>                struct amdgpu_bo *aobj =3D gem_to_amdgpu_bo(amdgpu_crtc->c=
+ursor_bo);
+> -             ret =3D amdgpu_bo_reserve(aobj, false);
+> +             ret =3D amdgpu_bo_reserve(aobj, true);
+>                if (likely(ret =3D=3D 0)) {
+>                        amdgpu_bo_unpin(aobj);
+>                        amdgpu_bo_unreserve(aobj);
+> @@ -2592,7 +2592,7 @@ static void dce_v6_0_crtc_disable(struct drm_crtc *=
+crtc)
+>
+>                amdgpu_fb =3D to_amdgpu_framebuffer(crtc->primary->fb);
+>                abo =3D gem_to_amdgpu_bo(amdgpu_fb->obj);
+> -             r =3D amdgpu_bo_reserve(abo, false);
+> +             r =3D amdgpu_bo_reserve(abo, true);
+>                if (unlikely(r))
+>                        DRM_ERROR("failed to reserve abo before unpin\n");
+>                else {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/=
+amdgpu/dce_v8_0.c
+> index 1629ff9c3949..1e6c40e32cfd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+> @@ -2090,7 +2090,7 @@ static int dce_v8_0_crtc_do_set_base(struct drm_crt=
+c *crtc,
+>        if (!atomic && fb && fb !=3D crtc->primary->fb) {
+>                amdgpu_fb =3D to_amdgpu_framebuffer(fb);
+>                abo =3D gem_to_amdgpu_bo(amdgpu_fb->obj);
+> -             r =3D amdgpu_bo_reserve(abo, false);
+> +             r =3D amdgpu_bo_reserve(abo, true);
+>                if (unlikely(r !=3D 0))
+>                        return r;
+>                amdgpu_bo_unpin(abo);
+> @@ -2441,7 +2441,7 @@ static int dce_v8_0_crtc_cursor_set2(struct drm_crt=
+c *crtc,
+>   unpin:
+>        if (amdgpu_crtc->cursor_bo) {
+>                struct amdgpu_bo *aobj =3D gem_to_amdgpu_bo(amdgpu_crtc->c=
+ursor_bo);
+> -             ret =3D amdgpu_bo_reserve(aobj, false);
+> +             ret =3D amdgpu_bo_reserve(aobj, true);
+>                if (likely(ret =3D=3D 0)) {
+>                        amdgpu_bo_unpin(aobj);
+>                        amdgpu_bo_unreserve(aobj);
+> @@ -2571,7 +2571,7 @@ static void dce_v8_0_crtc_disable(struct drm_crtc *=
+crtc)
+>
+>                amdgpu_fb =3D to_amdgpu_framebuffer(crtc->primary->fb);
+>                abo =3D gem_to_amdgpu_bo(amdgpu_fb->obj);
+> -             r =3D amdgpu_bo_reserve(abo, false);
+> +             r =3D amdgpu_bo_reserve(abo, true);
+>                if (unlikely(r))
+>                        DRM_ERROR("failed to reserve abo before unpin\n");
+>                else {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c b/drivers/gpu/drm/a=
+md/amdgpu/dce_virtual.c
+> index 8bb9cfde508d..084518301f4b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
+> @@ -247,7 +247,7 @@ static void dce_virtual_crtc_disable(struct drm_crtc =
+*crtc)
+>
+>                amdgpu_fb =3D to_amdgpu_framebuffer(crtc->primary->fb);
+>                abo =3D gem_to_amdgpu_bo(amdgpu_fb->obj);
+> -             r =3D amdgpu_bo_reserve(abo, false);
+> +             r =3D amdgpu_bo_reserve(abo, true);
+>                if (unlikely(r))
+>                        DRM_ERROR("failed to reserve abo before unpin\n");
+>                else {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v6_0.c
+> index 25c3703f838b..03d2a0a2e523 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+> @@ -2437,7 +2437,7 @@ static void gfx_v6_0_rlc_fini(struct amdgpu_device =
+*adev)
+>        int r;
+>
+>        if (adev->gfx.rlc.save_restore_obj) {
+> -             r =3D amdgpu_bo_reserve(adev->gfx.rlc.save_restore_obj, fal=
+se);
+> +             r =3D amdgpu_bo_reserve(adev->gfx.rlc.save_restore_obj, tru=
+e);
+>                if (unlikely(r !=3D 0))
+>                        dev_warn(adev->dev, "(%d) reserve RLC sr bo failed=
+\n", r);
+>                amdgpu_bo_unpin(adev->gfx.rlc.save_restore_obj);
+> @@ -2448,7 +2448,7 @@ static void gfx_v6_0_rlc_fini(struct amdgpu_device =
+*adev)
+>        }
+>
+>        if (adev->gfx.rlc.clear_state_obj) {
+> -             r =3D amdgpu_bo_reserve(adev->gfx.rlc.clear_state_obj, fals=
+e);
+> +             r =3D amdgpu_bo_reserve(adev->gfx.rlc.clear_state_obj, true=
+);
+>                if (unlikely(r !=3D 0))
+>                        dev_warn(adev->dev, "(%d) reserve RLC c bo failed\=
+n", r);
+>                amdgpu_bo_unpin(adev->gfx.rlc.clear_state_obj);
+> @@ -2459,7 +2459,7 @@ static void gfx_v6_0_rlc_fini(struct amdgpu_device =
+*adev)
+>        }
+>
+>        if (adev->gfx.rlc.cp_table_obj) {
+> -             r =3D amdgpu_bo_reserve(adev->gfx.rlc.cp_table_obj, false);
+> +             r =3D amdgpu_bo_reserve(adev->gfx.rlc.cp_table_obj, true);
+>                if (unlikely(r !=3D 0))
+>                        dev_warn(adev->dev, "(%d) reserve RLC cp table bo =
+failed\n", r);
+>                amdgpu_bo_unpin(adev->gfx.rlc.cp_table_obj);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v7_0.c
+> index 75cca54fa216..b2df8e814abb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> @@ -2792,7 +2792,7 @@ static void gfx_v7_0_cp_compute_fini(struct amdgpu_=
+device *adev)
+>                struct amdgpu_ring *ring =3D &adev->gfx.compute_ring[i];
+>
+>                if (ring->mqd_obj) {
+> -                     r =3D amdgpu_bo_reserve(ring->mqd_obj, false);
+> +                     r =3D amdgpu_bo_reserve(ring->mqd_obj, true);
+>                        if (unlikely(r !=3D 0))
+>                                dev_warn(adev->dev, "(%d) reserve MQD bo f=
+ailed\n", r);
+>
+> @@ -2810,7 +2810,7 @@ static void gfx_v7_0_mec_fini(struct amdgpu_device =
+*adev)
+>        int r;
+>
+>        if (adev->gfx.mec.hpd_eop_obj) {
+> -             r =3D amdgpu_bo_reserve(adev->gfx.mec.hpd_eop_obj, false);
+> +             r =3D amdgpu_bo_reserve(adev->gfx.mec.hpd_eop_obj, true);
+>                if (unlikely(r !=3D 0))
+>                        dev_warn(adev->dev, "(%d) reserve HPD EOP bo faile=
+d\n", r);
+>                amdgpu_bo_unpin(adev->gfx.mec.hpd_eop_obj);
+> @@ -3359,7 +3359,7 @@ static void gfx_v7_0_rlc_fini(struct amdgpu_device =
+*adev)
+>
+>        /* save restore block */
+>        if (adev->gfx.rlc.save_restore_obj) {
+> -             r =3D amdgpu_bo_reserve(adev->gfx.rlc.save_restore_obj, fal=
+se);
+> +             r =3D amdgpu_bo_reserve(adev->gfx.rlc.save_restore_obj, tru=
+e);
+>                if (unlikely(r !=3D 0))
+>                        dev_warn(adev->dev, "(%d) reserve RLC sr bo failed=
+\n", r);
+>                amdgpu_bo_unpin(adev->gfx.rlc.save_restore_obj);
+> @@ -3371,7 +3371,7 @@ static void gfx_v7_0_rlc_fini(struct amdgpu_device =
+*adev)
+>
+>        /* clear state block */
+>        if (adev->gfx.rlc.clear_state_obj) {
+> -             r =3D amdgpu_bo_reserve(adev->gfx.rlc.clear_state_obj, fals=
+e);
+> +             r =3D amdgpu_bo_reserve(adev->gfx.rlc.clear_state_obj, true=
+);
+>                if (unlikely(r !=3D 0))
+>                        dev_warn(adev->dev, "(%d) reserve RLC c bo failed\=
+n", r);
+>                amdgpu_bo_unpin(adev->gfx.rlc.clear_state_obj);
+> @@ -3383,7 +3383,7 @@ static void gfx_v7_0_rlc_fini(struct amdgpu_device =
+*adev)
+>
+>        /* clear state block */
+>        if (adev->gfx.rlc.cp_table_obj) {
+> -             r =3D amdgpu_bo_reserve(adev->gfx.rlc.cp_table_obj, false);
+> +             r =3D amdgpu_bo_reserve(adev->gfx.rlc.cp_table_obj, true);
+>                if (unlikely(r !=3D 0))
+>                        dev_warn(adev->dev, "(%d) reserve RLC cp table bo =
+failed\n", r);
+>                amdgpu_bo_unpin(adev->gfx.rlc.cp_table_obj);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v8_0.c
+> index 2a5b20920ea6..ac64e01c6938 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> @@ -1244,7 +1244,7 @@ static void gfx_v8_0_rlc_fini(struct amdgpu_device =
+*adev)
+>
+>        /* clear state block */
+>        if (adev->gfx.rlc.clear_state_obj) {
+> -             r =3D amdgpu_bo_reserve(adev->gfx.rlc.clear_state_obj, fals=
+e);
+> +             r =3D amdgpu_bo_reserve(adev->gfx.rlc.clear_state_obj, true=
+);
+>                if (unlikely(r !=3D 0))
+>                        dev_warn(adev->dev, "(%d) reserve RLC cbs bo faile=
+d\n", r);
+>                amdgpu_bo_unpin(adev->gfx.rlc.clear_state_obj);
+> @@ -1255,7 +1255,7 @@ static void gfx_v8_0_rlc_fini(struct amdgpu_device =
+*adev)
+>
+>        /* jump table block */
+>        if (adev->gfx.rlc.cp_table_obj) {
+> -             r =3D amdgpu_bo_reserve(adev->gfx.rlc.cp_table_obj, false);
+> +             r =3D amdgpu_bo_reserve(adev->gfx.rlc.cp_table_obj, true);
+>                if (unlikely(r !=3D 0))
+>                        dev_warn(adev->dev, "(%d) reserve RLC cp table bo =
+failed\n", r);
+>                amdgpu_bo_unpin(adev->gfx.rlc.cp_table_obj);
+> @@ -1368,7 +1368,7 @@ static void gfx_v8_0_mec_fini(struct amdgpu_device =
+*adev)
+>        int r;
+>
+>        if (adev->gfx.mec.hpd_eop_obj) {
+> -             r =3D amdgpu_bo_reserve(adev->gfx.mec.hpd_eop_obj, false);
+> +             r =3D amdgpu_bo_reserve(adev->gfx.mec.hpd_eop_obj, true);
+>                if (unlikely(r !=3D 0))
+>                        dev_warn(adev->dev, "(%d) reserve HPD EOP bo faile=
+d\n", r);
+>                amdgpu_bo_unpin(adev->gfx.mec.hpd_eop_obj);
+> @@ -1496,7 +1496,7 @@ static int gfx_v8_0_kiq_init(struct amdgpu_device *=
+adev)
+>
+>        memset(hpd, 0, MEC_HPD_SIZE);
+>
+> -     r =3D amdgpu_bo_reserve(kiq->eop_obj, false);
+> +     r =3D amdgpu_bo_reserve(kiq->eop_obj, true);
+>        if (unlikely(r !=3D 0))
+>                dev_warn(adev->dev, "(%d) reserve kiq eop bo failed\n", r)=
+;
+>        amdgpu_bo_kunmap(kiq->eop_obj);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/=
+amdgpu/gfx_v9_0.c
+> index 5249bc7964fb..08daa3fd687b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -453,7 +453,7 @@ static void gfx_v9_0_mec_fini(struct amdgpu_device *a=
+dev)
+>        int r;
+>
+>        if (adev->gfx.mec.hpd_eop_obj) {
+> -             r =3D amdgpu_bo_reserve(adev->gfx.mec.hpd_eop_obj, false);
+> +             r =3D amdgpu_bo_reserve(adev->gfx.mec.hpd_eop_obj, true);
+>                if (unlikely(r !=3D 0))
+>                        dev_warn(adev->dev, "(%d) reserve HPD EOP bo faile=
+d\n", r);
+>                amdgpu_bo_unpin(adev->gfx.mec.hpd_eop_obj);
+> @@ -463,7 +463,7 @@ static void gfx_v9_0_mec_fini(struct amdgpu_device *a=
+dev)
+>                adev->gfx.mec.hpd_eop_obj =3D NULL;
+>        }
+>        if (adev->gfx.mec.mec_fw_obj) {
+> -             r =3D amdgpu_bo_reserve(adev->gfx.mec.mec_fw_obj, false);
+> +             r =3D amdgpu_bo_reserve(adev->gfx.mec.mec_fw_obj, true);
+>                if (unlikely(r !=3D 0))
+>                        dev_warn(adev->dev, "(%d) reserve mec firmware bo =
+failed\n", r);
+>                amdgpu_bo_unpin(adev->gfx.mec.mec_fw_obj);
+> @@ -599,7 +599,7 @@ static int gfx_v9_0_kiq_init(struct amdgpu_device *ad=
+ev)
+>
+>        memset(hpd, 0, MEC_HPD_SIZE);
+>
+> -     r =3D amdgpu_bo_reserve(kiq->eop_obj, false);
+> +     r =3D amdgpu_bo_reserve(kiq->eop_obj, true);
+>        if (unlikely(r !=3D 0))
+>                dev_warn(adev->dev, "(%d) reserve kiq eop bo failed\n", r)=
+;
+>        amdgpu_bo_kunmap(kiq->eop_obj);
+> @@ -1786,7 +1786,7 @@ static void gfx_v9_0_cp_compute_fini(struct amdgpu_=
+device *adev)
+>                struct amdgpu_ring *ring =3D &adev->gfx.compute_ring[i];
+>
+>                if (ring->mqd_obj) {
+> -                     r =3D amdgpu_bo_reserve(ring->mqd_obj, false);
+> +                     r =3D amdgpu_bo_reserve(ring->mqd_obj, true);
+>                        if (unlikely(r !=3D 0))
+>                                dev_warn(adev->dev, "(%d) reserve MQD bo f=
+ailed\n", r);
+>
+
+
+
+
+------------------------------
+
+Subject: Digest Footer
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+amd-gfx Info Page - freedesktop.org<https://lists.freedesktop.org/mailman/l=
+istinfo/amd-gfx>
+lists.freedesktop.org
+Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
+orm. Use of all freedesktop.org lists is subject to our Code of ...
+
+
+
+
+------------------------------
+
+End of amd-gfx Digest, Vol 11, Issue 407
+****************************************
+
+--_000_MWHPR1201MB0045C097101B0EDA13F28BD9F2130MWHPR1201MB0045_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Arial,Helvetica,sans-serif;" dir=3D"ltr">
+<div style=3D"color: rgb(0, 0, 0);"><font size=3D"2"><span style=3D"font-si=
+ze:10pt;">
+<div class=3D"PlainText">Am 28.04.2017 um 10:47 schrieb Michel D=E4nzer:<br=
+>
+&gt; From: Michel D=E4nzer &lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt;<br>
+&gt; Some of these paths probably cannot be interrupted by a signal anyway.=
+<br>
+&gt; Those that can would fail to clean up things if they actually got<br>
+&gt; interrupted.<br>
+&gt;<br>
+&gt; Signed-off-by: Michel D=E4nzer &lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+Reviewed-by: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+<span>Alex X: Just a reminder: amdgpu_unpin_work_func</span> is called by w=
+ork queue.
+<br>
+Signal is blocked already. un-interruptible waiting might slow thing down v=
+ery slightly.<br>
+<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_display.c |&nbsp; 2 &#43=
+;-<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; |&nbsp; 2 &#43;-<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c&nbsp;&nbsp;&nbsp;=
+ |&nbsp; 2 &#43;-<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c&nbsp;&nbsp;&nbsp;&=
+nbsp; |&nbsp; 2 &#43;-<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c&nbsp;&nbsp; |&nb=
+sp; 2 &#43;-<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; |&nbsp; 2 &#43;-<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c&nbsp;&nbsp;&nbsp;&=
+nbsp; |&nbsp; 2 &#43;-<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/dce_v10_0.c&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; |&nbsp; 6 &#43;&#43;&#43;---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/dce_v11_0.c&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; |&nbsp; 6 &#43;&#43;&#43;---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/dce_v6_0.c&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; |&nbsp; 6 &#43;&#43;&#43;---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/dce_v8_0.c&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; |&nbsp; 6 &#43;&#43;&#43;---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/dce_virtual.c&nbsp;&nbsp;&nbsp;=
+ |&nbsp; 2 &#43;-<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; |&nbsp; 6 &#43;&#43;&#43;---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; | 10 &#43;&#43;&#43;&#43;&#43;-----<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; |&nbsp; 8 &#43;&#43;&#43;&#43;----<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; |&nbsp; 8 &#43;&#43;&#43;&#43;----<br>
+&gt;&nbsp;&nbsp; 16 files changed, 36 insertions(&#43;), 36 deletions(-)<br=
+>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_display.c<br>
+&gt; index 771a6aae58d6..af64448a565c 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c<br>
+&gt; @@ -123,7 &#43;123,7 @@ static void amdgpu_unpin_work_func(struct work=
+_struct *__work)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* unpin of the old buffer *=
+/<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_reserve(work-&gt;old_abo, fa=
+lse);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_reserve(work-&gt;old_abo=
+, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (likely(r =3D=3D 0)) {<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_unpin(work-&gt;old_abo);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0)) {<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_fb.c<br>
+&gt; index 9dea2f661f1d..e869e60994ce 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c<br>
+&gt; @@ -113,7 &#43;113,7 @@ static void amdgpufb_destroy_pinned_object(str=
+uct drm_gem_object *gobj)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo *abo =3D ge=
+m_to_amdgpu_bo(gobj);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_bo_reserve(abo, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_bo_reserve(abo, true);<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (likely(ret =3D=3D 0)) {<=
+br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_bo_kunmap(abo);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(abo);<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_gart.c<br>
+&gt; index 6d691abe889c..e7406ce7093c 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c<br>
+&gt; @@ -183,7 &#43;183,7 @@ void amdgpu_gart_table_vram_unpin(struct amdgp=
+u_device *adev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gart.robj =3D=
+=3D NULL) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;gart.robj, =
+false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;gart.ro=
+bj, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (likely(r =3D=3D 0)) {<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_bo_kunmap(adev-&gt;gart.robj);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(adev-&gt;gart.robj);<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_kms.c<br>
+&gt; index ec5b1bc0e428..d40b8ac745cd 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+&gt; @@ -819,7 &#43;819,7 @@ void amdgpu_driver_postclose_kms(struct drm_de=
+vice *dev,<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev)) {=
+<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; /* TODO: how to handle reserve failure */<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; BUG_ON(amdgpu_bo_reserve(adev-&gt;virt.csa_obj, false));<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; BUG_ON(amdgpu_bo_reserve(adev-&gt;virt.csa_obj, true));<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_vm_bo_rmv(adev, fpriv-&gt;vm.csa_bo_va);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; fpriv-&gt;vm.csa_bo_va =3D NULL;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_bo_unreserve(adev-&gt;virt.csa_obj);<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_prime.c<br>
+&gt; index 3826d5aea0a6..6bdc866570ab 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c<br>
+&gt; @@ -113,7 &#43;113,7 @@ void amdgpu_gem_prime_unpin(struct drm_gem_obj=
+ect *obj)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo *bo =3D gem=
+_to_amdgpu_bo(obj);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_bo_reserve(bo, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_bo_reserve(bo, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (unlikely(ret !=3D 0))<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_sa.c<br>
+&gt; index 7b56d9988aba..de4ebcf4ac2c 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c<br>
+&gt; @@ -130,7 &#43;130,7 @@ int amdgpu_sa_bo_manager_suspend(struct amdgpu=
+_device *adev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_reserve(sa_manager-&gt;bo, f=
+alse);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_reserve(sa_manager-&gt;b=
+o, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!r) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_bo_kunmap(sa_manager-&gt;bo);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(sa_manager-&gt;bo);<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_ttm.c<br>
+&gt; index 58873cf027e8..11c6c4494e0a 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
+&gt; @@ -1198,7 &#43;1198,7 @@ void amdgpu_ttm_fini(struct amdgpu_device *a=
+dev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ttm_debugfs_fini(adev=
+);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;stollen_vga_mem=
+ory) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D amdgpu_bo_reserve(adev-&gt;stollen_vga_memory, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;stollen_vga_memory, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (r =3D=3D 0) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
+bo_unpin(adev-&gt;stollen_vga_memory);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
+bo_unreserve(adev-&gt;stollen_vga_memory);<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/=
+amd/amdgpu/dce_v10_0.c<br>
+&gt; index 7d86ba42efc9..d618f92ae46c 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c<br>
+&gt; @@ -2231,7 &#43;2231,7 @@ static int dce_v10_0_crtc_do_set_base(struct=
+ drm_crtc *crtc,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!atomic &amp;&amp; fb &a=
+mp;&amp; fb !=3D crtc-&gt;primary-&gt;fb) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_fb =3D to_amdgpu_framebuffer(fb);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; abo =3D gem_to_amdgpu_bo(amdgpu_fb-&gt;obj);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D amdgpu_bo_reserve(abo, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; r =3D amdgpu_bo_reserve(abo, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
+r;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(abo);<br>
+&gt; @@ -2590,7 &#43;2590,7 @@ static int dce_v10_0_crtc_cursor_set2(struct=
+ drm_crtc *crtc,<br>
+&gt;&nbsp;&nbsp; unpin:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_crtc-&gt;cursor_b=
+o) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; struct amdgpu_bo *aobj =3D gem_to_amdgpu_bo(amdgpu_crtc=
+-&gt;cursor_bo);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; ret =3D amdgpu_bo_reserve(aobj, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; ret =3D amdgpu_bo_reserve(aobj, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (likely(ret =3D=3D 0)) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
+bo_unpin(aobj);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
+bo_unreserve(aobj);<br>
+&gt; @@ -2720,7 &#43;2720,7 @@ static void dce_v10_0_crtc_disable(struct dr=
+m_crtc *crtc)<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_fb =3D to_amdgpu_framebuffer(crtc-&gt;primary-&g=
+t;fb);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; abo =3D gem_to_amdgpu_bo(amdgpu_fb-&gt;obj);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D amdgpu_bo_reserve(abo, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; r =3D amdgpu_bo_reserve(abo, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (unlikely(r))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERR=
+OR(&quot;failed to reserve abo before unpin\n&quot;);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; else {<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/=
+amd/amdgpu/dce_v11_0.c<br>
+&gt; index 3d82181baffe..ea634158ae7a 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c<br>
+&gt; @@ -2215,7 &#43;2215,7 @@ static int dce_v11_0_crtc_do_set_base(struct=
+ drm_crtc *crtc,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!atomic &amp;&amp; fb &a=
+mp;&amp; fb !=3D crtc-&gt;primary-&gt;fb) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_fb =3D to_amdgpu_framebuffer(fb);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; abo =3D gem_to_amdgpu_bo(amdgpu_fb-&gt;obj);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D amdgpu_bo_reserve(abo, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; r =3D amdgpu_bo_reserve(abo, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
+r;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(abo);<br>
+&gt; @@ -2610,7 &#43;2610,7 @@ static int dce_v11_0_crtc_cursor_set2(struct=
+ drm_crtc *crtc,<br>
+&gt;&nbsp;&nbsp; unpin:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_crtc-&gt;cursor_b=
+o) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; struct amdgpu_bo *aobj =3D gem_to_amdgpu_bo(amdgpu_crtc=
+-&gt;cursor_bo);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; ret =3D amdgpu_bo_reserve(aobj, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; ret =3D amdgpu_bo_reserve(aobj, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (likely(ret =3D=3D 0)) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
+bo_unpin(aobj);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
+bo_unreserve(aobj);<br>
+&gt; @@ -2740,7 &#43;2740,7 @@ static void dce_v11_0_crtc_disable(struct dr=
+m_crtc *crtc)<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_fb =3D to_amdgpu_framebuffer(crtc-&gt;primary-&g=
+t;fb);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; abo =3D gem_to_amdgpu_bo(amdgpu_fb-&gt;obj);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D amdgpu_bo_reserve(abo, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; r =3D amdgpu_bo_reserve(abo, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (unlikely(r))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERR=
+OR(&quot;failed to reserve abo before unpin\n&quot;);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; else {<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/a=
+md/amdgpu/dce_v6_0.c<br>
+&gt; index 59f6993af0b6..d68c1eabd0ce 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c<br>
+&gt; @@ -2150,7 &#43;2150,7 @@ static int dce_v6_0_crtc_do_set_base(struct =
+drm_crtc *crtc,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!atomic &amp;&amp; fb &a=
+mp;&amp; fb !=3D crtc-&gt;primary-&gt;fb) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_fb =3D to_amdgpu_framebuffer(fb);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; abo =3D gem_to_amdgpu_bo(amdgpu_fb-&gt;obj);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D amdgpu_bo_reserve(abo, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; r =3D amdgpu_bo_reserve(abo, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
+r;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(abo);<br>
+&gt; @@ -2467,7 &#43;2467,7 @@ static int dce_v6_0_crtc_cursor_set2(struct =
+drm_crtc *crtc,<br>
+&gt;&nbsp;&nbsp; unpin:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_crtc-&gt;cursor_b=
+o) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; struct amdgpu_bo *aobj =3D gem_to_amdgpu_bo(amdgpu_crtc=
+-&gt;cursor_bo);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; ret =3D amdgpu_bo_reserve(aobj, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; ret =3D amdgpu_bo_reserve(aobj, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (likely(ret =3D=3D 0)) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
+bo_unpin(aobj);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
+bo_unreserve(aobj);<br>
+&gt; @@ -2592,7 &#43;2592,7 @@ static void dce_v6_0_crtc_disable(struct drm=
+_crtc *crtc)<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_fb =3D to_amdgpu_framebuffer(crtc-&gt;primary-&g=
+t;fb);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; abo =3D gem_to_amdgpu_bo(amdgpu_fb-&gt;obj);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D amdgpu_bo_reserve(abo, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; r =3D amdgpu_bo_reserve(abo, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (unlikely(r))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERR=
+OR(&quot;failed to reserve abo before unpin\n&quot;);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; else {<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/a=
+md/amdgpu/dce_v8_0.c<br>
+&gt; index 1629ff9c3949..1e6c40e32cfd 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c<br>
+&gt; @@ -2090,7 &#43;2090,7 @@ static int dce_v8_0_crtc_do_set_base(struct =
+drm_crtc *crtc,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!atomic &amp;&amp; fb &a=
+mp;&amp; fb !=3D crtc-&gt;primary-&gt;fb) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_fb =3D to_amdgpu_framebuffer(fb);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; abo =3D gem_to_amdgpu_bo(amdgpu_fb-&gt;obj);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D amdgpu_bo_reserve(abo, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; r =3D amdgpu_bo_reserve(abo, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
+r;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(abo);<br>
+&gt; @@ -2441,7 &#43;2441,7 @@ static int dce_v8_0_crtc_cursor_set2(struct =
+drm_crtc *crtc,<br>
+&gt;&nbsp;&nbsp; unpin:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_crtc-&gt;cursor_b=
+o) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; struct amdgpu_bo *aobj =3D gem_to_amdgpu_bo(amdgpu_crtc=
+-&gt;cursor_bo);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; ret =3D amdgpu_bo_reserve(aobj, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; ret =3D amdgpu_bo_reserve(aobj, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (likely(ret =3D=3D 0)) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
+bo_unpin(aobj);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
+bo_unreserve(aobj);<br>
+&gt; @@ -2571,7 &#43;2571,7 @@ static void dce_v8_0_crtc_disable(struct drm=
+_crtc *crtc)<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_fb =3D to_amdgpu_framebuffer(crtc-&gt;primary-&g=
+t;fb);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; abo =3D gem_to_amdgpu_bo(amdgpu_fb-&gt;obj);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D amdgpu_bo_reserve(abo, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; r =3D amdgpu_bo_reserve(abo, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (unlikely(r))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERR=
+OR(&quot;failed to reserve abo before unpin\n&quot;);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; else {<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c b/drivers/gpu/dr=
+m/amd/amdgpu/dce_virtual.c<br>
+&gt; index 8bb9cfde508d..084518301f4b 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c<br>
+&gt; @@ -247,7 &#43;247,7 @@ static void dce_virtual_crtc_disable(struct dr=
+m_crtc *crtc)<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_fb =3D to_amdgpu_framebuffer(crtc-&gt;primary-&g=
+t;fb);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; abo =3D gem_to_amdgpu_bo(amdgpu_fb-&gt;obj);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D amdgpu_bo_reserve(abo, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; r =3D amdgpu_bo_reserve(abo, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (unlikely(r))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERR=
+OR(&quot;failed to reserve abo before unpin\n&quot;);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; else {<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gfx_v6_0.c<br>
+&gt; index 25c3703f838b..03d2a0a2e523 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c<br>
+&gt; @@ -2437,7 &#43;2437,7 @@ static void gfx_v6_0_rlc_fini(struct amdgpu_=
+device *adev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.rlc.save_re=
+store_obj) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.save_restore_obj, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.save_restore_obj, true);<b=
+r>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_war=
+n(adev-&gt;dev, &quot;(%d) reserve RLC sr bo failed\n&quot;, r);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(adev-&gt;gfx.rlc.save_restore_obj);<br>
+&gt; @@ -2448,7 &#43;2448,7 @@ static void gfx_v6_0_rlc_fini(struct amdgpu_=
+device *adev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.rlc.clear_s=
+tate_obj) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.clear_state_obj, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.clear_state_obj, true);<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_war=
+n(adev-&gt;dev, &quot;(%d) reserve RLC c bo failed\n&quot;, r);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(adev-&gt;gfx.rlc.clear_state_obj);<br>
+&gt; @@ -2459,7 &#43;2459,7 @@ static void gfx_v6_0_rlc_fini(struct amdgpu_=
+device *adev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.rlc.cp_tabl=
+e_obj) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.cp_table_obj, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.cp_table_obj, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_war=
+n(adev-&gt;dev, &quot;(%d) reserve RLC cp table bo failed\n&quot;, r);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(adev-&gt;gfx.rlc.cp_table_obj);<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gfx_v7_0.c<br>
+&gt; index 75cca54fa216..b2df8e814abb 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c<br>
+&gt; @@ -2792,7 &#43;2792,7 @@ static void gfx_v7_0_cp_compute_fini(struct =
+amdgpu_device *adev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; struct amdgpu_ring *ring =3D &amp;adev-&gt;gfx.compute_=
+ring[i];<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (ring-&gt;mqd_obj) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_reserve=
+(ring-&gt;mqd_obj, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_res=
+erve(ring-&gt;mqd_obj, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (unl=
+ikely(r !=3D 0))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_warn(adev-&gt;dev, &quot;(%d) =
+reserve MQD bo failed\n&quot;, r);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; @@ -2810,7 &#43;2810,7 @@ static void gfx_v7_0_mec_fini(struct amdgpu_=
+device *adev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.mec.hpd_eop=
+_obj) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.mec.hpd_eop_obj, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.mec.hpd_eop_obj, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_war=
+n(adev-&gt;dev, &quot;(%d) reserve HPD EOP bo failed\n&quot;, r);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(adev-&gt;gfx.mec.hpd_eop_obj);<br>
+&gt; @@ -3359,7 &#43;3359,7 @@ static void gfx_v7_0_rlc_fini(struct amdgpu_=
+device *adev)<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* save restore block */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.rlc.save_re=
+store_obj) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.save_restore_obj, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.save_restore_obj, true);<b=
+r>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_war=
+n(adev-&gt;dev, &quot;(%d) reserve RLC sr bo failed\n&quot;, r);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(adev-&gt;gfx.rlc.save_restore_obj);<br>
+&gt; @@ -3371,7 &#43;3371,7 @@ static void gfx_v7_0_rlc_fini(struct amdgpu_=
+device *adev)<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* clear state block */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.rlc.clear_s=
+tate_obj) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.clear_state_obj, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.clear_state_obj, true);<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_war=
+n(adev-&gt;dev, &quot;(%d) reserve RLC c bo failed\n&quot;, r);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(adev-&gt;gfx.rlc.clear_state_obj);<br>
+&gt; @@ -3383,7 &#43;3383,7 @@ static void gfx_v7_0_rlc_fini(struct amdgpu_=
+device *adev)<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* clear state block */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.rlc.cp_tabl=
+e_obj) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.cp_table_obj, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.cp_table_obj, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_war=
+n(adev-&gt;dev, &quot;(%d) reserve RLC cp table bo failed\n&quot;, r);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(adev-&gt;gfx.rlc.cp_table_obj);<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gfx_v8_0.c<br>
+&gt; index 2a5b20920ea6..ac64e01c6938 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
+&gt; @@ -1244,7 &#43;1244,7 @@ static void gfx_v8_0_rlc_fini(struct amdgpu_=
+device *adev)<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* clear state block */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.rlc.clear_s=
+tate_obj) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.clear_state_obj, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.clear_state_obj, true);<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_war=
+n(adev-&gt;dev, &quot;(%d) reserve RLC cbs bo failed\n&quot;, r);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(adev-&gt;gfx.rlc.clear_state_obj);<br>
+&gt; @@ -1255,7 &#43;1255,7 @@ static void gfx_v8_0_rlc_fini(struct amdgpu_=
+device *adev)<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* jump table block */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.rlc.cp_tabl=
+e_obj) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.cp_table_obj, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.cp_table_obj, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_war=
+n(adev-&gt;dev, &quot;(%d) reserve RLC cp table bo failed\n&quot;, r);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(adev-&gt;gfx.rlc.cp_table_obj);<br>
+&gt; @@ -1368,7 &#43;1368,7 @@ static void gfx_v8_0_mec_fini(struct amdgpu_=
+device *adev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.mec.hpd_eop=
+_obj) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.mec.hpd_eop_obj, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.mec.hpd_eop_obj, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_war=
+n(adev-&gt;dev, &quot;(%d) reserve HPD EOP bo failed\n&quot;, r);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(adev-&gt;gfx.mec.hpd_eop_obj);<br>
+&gt; @@ -1496,7 &#43;1496,7 @@ static int gfx_v8_0_kiq_init(struct amdgpu_d=
+evice *adev)<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memset(hpd, 0, MEC_HPD_SIZE)=
+;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_reserve(kiq-&gt;eop_obj, fal=
+se);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_reserve(kiq-&gt;eop_obj,=
+ true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; dev_warn(adev-&gt;dev, &quot;(%d) reserve kiq eop bo fa=
+iled\n&quot;, r);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_kunmap(kiq-&gt;eop=
+_obj);<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gfx_v9_0.c<br>
+&gt; index 5249bc7964fb..08daa3fd687b 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
+&gt; @@ -453,7 &#43;453,7 @@ static void gfx_v9_0_mec_fini(struct amdgpu_de=
+vice *adev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.mec.hpd_eop=
+_obj) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.mec.hpd_eop_obj, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.mec.hpd_eop_obj, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_war=
+n(adev-&gt;dev, &quot;(%d) reserve HPD EOP bo failed\n&quot;, r);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(adev-&gt;gfx.mec.hpd_eop_obj);<br>
+&gt; @@ -463,7 &#43;463,7 @@ static void gfx_v9_0_mec_fini(struct amdgpu_de=
+vice *adev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.mec.hpd_eop_obj =3D NULL;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.mec.mec_fw_=
+obj) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.mec.mec_fw_obj, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.mec.mec_fw_obj, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_war=
+n(adev-&gt;dev, &quot;(%d) reserve mec firmware bo failed\n&quot;, r);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(adev-&gt;gfx.mec.mec_fw_obj);<br>
+&gt; @@ -599,7 &#43;599,7 @@ static int gfx_v9_0_kiq_init(struct amdgpu_dev=
+ice *adev)<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memset(hpd, 0, MEC_HPD_SIZE)=
+;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_reserve(kiq-&gt;eop_obj, fal=
+se);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_reserve(kiq-&gt;eop_obj,=
+ true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; dev_warn(adev-&gt;dev, &quot;(%d) reserve kiq eop bo fa=
+iled\n&quot;, r);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_kunmap(kiq-&gt;eop=
+_obj);<br>
+&gt; @@ -1786,7 &#43;1786,7 @@ static void gfx_v9_0_cp_compute_fini(struct =
+amdgpu_device *adev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; struct amdgpu_ring *ring =3D &amp;adev-&gt;gfx.compute_=
+ring[i];<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (ring-&gt;mqd_obj) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_reserve=
+(ring-&gt;mqd_obj, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_res=
+erve(ring-&gt;mqd_obj, true);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (unl=
+ikely(r !=3D 0))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_warn(adev-&gt;dev, &quot;(%d) =
+reserve MQD bo failed\n&quot;, r);<br>
+&gt;&nbsp;&nbsp; <br>
+<br>
+<br>
+<br>
+<br>
+------------------------------<br>
+<br>
+Subject: Digest Footer<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
+lnk274699" previewremoved=3D"true">https://lists.freedesktop.org/mailman/li=
+stinfo/amd-gfx</a>
+<div id=3D"LPBorder_GT_14933885618700.08564324282660418" style=3D"margin-bo=
+ttom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
+<table id=3D"LPContainer_14933885618660.31851255213751084" style=3D"width: =
+90%; background-color: rgb(255, 255, 255); position: relative; overflow: au=
+to; padding-top: 20px; padding-bottom: 20px; margin-top: 20px; border-top: =
+1px dotted rgb(200, 200, 200); border-bottom: 1px dotted rgb(200, 200, 200)=
+;" role=3D"presentation" cellspacing=3D"0">
+<tbody>
+<tr style=3D"border-spacing: 0px;" valign=3D"top">
+<td id=3D"TextCell_14933885618670.7018199738421703" style=3D"vertical-align=
+: top; position: relative; padding: 0px; display: table-cell;" colspan=3D"2=
+">
+<div id=3D"LPRemovePreviewContainer_14933885618670.43477942816972304"></div=
+>
+<div id=3D"LPTitle_14933885618670.025317354189944186" style=3D"top: 0px; co=
+lor: rgb(0, 120, 215); font-weight: 400; font-size: 21px; font-family: &quo=
+t;wf_segoe-ui_light&quot;,&quot;Segoe UI Light&quot;,&quot;Segoe WP Light&q=
+uot;,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif; lin=
+e-height: 21px;">
+<a id=3D"LPUrlAnchor_14933885618680.4105438607817886" style=3D"text-decorat=
+ion: none;" href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx"=
+ target=3D"_blank">amd-gfx Info Page - freedesktop.org</a></div>
+<div id=3D"LPMetadata_14933885618680.7841659128532912" style=3D"margin: 10p=
+x 0px 16px; color: rgb(102, 102, 102); font-weight: 400; font-family: &quot=
+;wf_segoe-ui_normal&quot;,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,=
+Arial,sans-serif; font-size: 14px; line-height: 14px;">
+lists.freedesktop.org</div>
+<div id=3D"LPDescription_14933885618690.9239757500057303" style=3D"display:=
+ block; color: rgb(102, 102, 102); font-weight: 400; font-family: &quot;wf_=
+segoe-ui_normal&quot;,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Aria=
+l,sans-serif; font-size: 14px; line-height: 20px; max-height: 100px; overfl=
+ow: hidden;">
+Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
+orm. Use of all freedesktop.org lists is subject to our Code of ...</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br>
+<br>
+<br>
+------------------------------<br>
+<br>
+End of amd-gfx Digest, Vol 11, Issue 407<br>
+****************************************<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_MWHPR1201MB0045C097101B0EDA13F28BD9F2130MWHPR1201MB0045_--
+
+--===============1572300442==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1572300442==--
