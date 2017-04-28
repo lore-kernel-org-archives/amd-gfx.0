@@ -1,13 +1,13 @@
-From: "Xie, AlexBin" <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Make amdgpu_bo_reserve use uninterruptible
- waits for cleanup
-Date: Fri, 28 Apr 2017 14:12:52 +0000
-Message-ID: <MWHPR1201MB0045C097101B0EDA13F28BD9F2130@MWHPR1201MB0045.namprd12.prod.outlook.com>
-References: <mailman.1551.1493369856.21890.amd-gfx@lists.freedesktop.org>
+From: "Panariti, David" <David.Panariti-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: CZ EDC param and support
+Date: Fri, 28 Apr 2017 14:18:11 +0000
+Message-ID: <BN6PR12MB1889C8C94B10AA6E3DF6BD6495130@BN6PR12MB1889.namprd12.prod.outlook.com>
+References: <BN6PR12MB1889CED9632BAE0144E8AE1795100@BN6PR12MB1889.namprd12.prod.outlook.com>
+ <40321e5a-36c5-6e07-8176-bcd596e7e982@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1572300442=="
+Content-Type: multipart/mixed; boundary="===============0841706889=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <mailman.1551.1493369856.21890.amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <40321e5a-36c5-6e07-8176-bcd596e7e982-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,1416 +19,1772 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, gpudriverdevsupport <gpudriverdevsupport-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1572300442==
+--===============0841706889==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MWHPR1201MB0045C097101B0EDA13F28BD9F2130MWHPR1201MB0045_"
+	boundary="_000_BN6PR12MB1889C8C94B10AA6E3DF6BD6495130BN6PR12MB1889namp_"
 
---_000_MWHPR1201MB0045C097101B0EDA13F28BD9F2130MWHPR1201MB0045_
-Content-Type: text/plain; charset="iso-8859-1"
+--_000_BN6PR12MB1889C8C94B10AA6E3DF6BD6495130BN6PR12MB1889namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-Am 28.04.2017 um 10:47 schrieb Michel D=E4nzer:
-> From: Michel D=E4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
->
-> Some of these paths probably cannot be interrupted by a signal anyway.
-> Those that can would fail to clean up things if they actually got
-> interrupted.
->
-> Signed-off-by: Michel D=E4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
+Actually, the attachment was an oversight.
+It's easier for me to attach, open the attachment and then delete the attac=
+hment.
+I got only 2/3 this time.
+I've gotten a comment that inline patches are preferred.
 
-Reviewed-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Sorry for the inconvenience.
 
-Alex X: Just a reminder: amdgpu_unpin_work_func is called by work queue.
-Signal is blocked already. un-interruptible waiting might slow thing down v=
-ery slightly.
+davep
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_display.c |  2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c      |  2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c    |  2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c     |  2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c   |  2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c      |  2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     |  2 +-
->   drivers/gpu/drm/amd/amdgpu/dce_v10_0.c      |  6 +++---
->   drivers/gpu/drm/amd/amdgpu/dce_v11_0.c      |  6 +++---
->   drivers/gpu/drm/amd/amdgpu/dce_v6_0.c       |  6 +++---
->   drivers/gpu/drm/amd/amdgpu/dce_v8_0.c       |  6 +++---
->   drivers/gpu/drm/amd/amdgpu/dce_virtual.c    |  2 +-
->   drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c       |  6 +++---
->   drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c       | 10 +++++-----
->   drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c       |  8 ++++----
->   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c       |  8 ++++----
->   16 files changed, 36 insertions(+), 36 deletions(-)
+From: Koenig, Christian
+Sent: Friday, April 28, 2017 4:06 AM
+To: Panariti, David <David.Panariti-5C7GfCeVMHo@public.gmane.org>; gpudriverdevsupport <gpudrive=
+rdevsupport-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: CZ EDC param and support
+
+You somehow messed up the attachment.
+
+Instead of individual files everything is squashed together as all-edc.patc=
+h.
+
+Please fix that otherwise proper review won't be possible.
+
+Christian.
+
+Am 28.04.2017 um 00:13 schrieb Panariti, David:
+The changes in the workarounds function use DRM_INFO rather than DRM_DEBUG =
+because CZs with EDC are often used in embedded environments and any info c=
+an be useful especially in the case of an intermittent problem.
+
+>From e1ce383592c275b58ad95bd80b5479af8c1f9dae Mon Sep 17 00:00:00 2001
+From: David Panariti <David.Panariti-5C7GfCeVMHo@public.gmane.org><mailto:David.Panariti-5C7GfCeVMHo@public.gmane.org=
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_display.c
-> index 771a6aae58d6..af64448a565c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> @@ -123,7 +123,7 @@ static void amdgpu_unpin_work_func(struct work_struct=
- *__work)
->        int r;
->
->        /* unpin of the old buffer */
-> -     r =3D amdgpu_bo_reserve(work->old_abo, false);
-> +     r =3D amdgpu_bo_reserve(work->old_abo, true);
->        if (likely(r =3D=3D 0)) {
->                r =3D amdgpu_bo_unpin(work->old_abo);
->                if (unlikely(r !=3D 0)) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_fb.c
-> index 9dea2f661f1d..e869e60994ce 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-> @@ -113,7 +113,7 @@ static void amdgpufb_destroy_pinned_object(struct drm=
-_gem_object *gobj)
->        struct amdgpu_bo *abo =3D gem_to_amdgpu_bo(gobj);
->        int ret;
->
-> -     ret =3D amdgpu_bo_reserve(abo, false);
-> +     ret =3D amdgpu_bo_reserve(abo, true);
->        if (likely(ret =3D=3D 0)) {
->                amdgpu_bo_kunmap(abo);
->                amdgpu_bo_unpin(abo);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_gart.c
-> index 6d691abe889c..e7406ce7093c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-> @@ -183,7 +183,7 @@ void amdgpu_gart_table_vram_unpin(struct amdgpu_devic=
-e *adev)
->        if (adev->gart.robj =3D=3D NULL) {
->                return;
->        }
-> -     r =3D amdgpu_bo_reserve(adev->gart.robj, false);
-> +     r =3D amdgpu_bo_reserve(adev->gart.robj, true);
->        if (likely(r =3D=3D 0)) {
->                amdgpu_bo_kunmap(adev->gart.robj);
->                amdgpu_bo_unpin(adev->gart.robj);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_kms.c
-> index ec5b1bc0e428..d40b8ac745cd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -819,7 +819,7 @@ void amdgpu_driver_postclose_kms(struct drm_device *d=
-ev,
->
->        if (amdgpu_sriov_vf(adev)) {
->                /* TODO: how to handle reserve failure */
-> -             BUG_ON(amdgpu_bo_reserve(adev->virt.csa_obj, false));
-> +             BUG_ON(amdgpu_bo_reserve(adev->virt.csa_obj, true));
->                amdgpu_vm_bo_rmv(adev, fpriv->vm.csa_bo_va);
->                fpriv->vm.csa_bo_va =3D NULL;
->                amdgpu_bo_unreserve(adev->virt.csa_obj);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_prime.c
-> index 3826d5aea0a6..6bdc866570ab 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
-> @@ -113,7 +113,7 @@ void amdgpu_gem_prime_unpin(struct drm_gem_object *ob=
-j)
->        struct amdgpu_bo *bo =3D gem_to_amdgpu_bo(obj);
->        int ret =3D 0;
->
-> -     ret =3D amdgpu_bo_reserve(bo, false);
-> +     ret =3D amdgpu_bo_reserve(bo, true);
->        if (unlikely(ret !=3D 0))
->                return;
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_sa.c
-> index 7b56d9988aba..de4ebcf4ac2c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c
-> @@ -130,7 +130,7 @@ int amdgpu_sa_bo_manager_suspend(struct amdgpu_device=
- *adev,
->                return -EINVAL;
->        }
->
-> -     r =3D amdgpu_bo_reserve(sa_manager->bo, false);
-> +     r =3D amdgpu_bo_reserve(sa_manager->bo, true);
->        if (!r) {
->                amdgpu_bo_kunmap(sa_manager->bo);
->                amdgpu_bo_unpin(sa_manager->bo);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ttm.c
-> index 58873cf027e8..11c6c4494e0a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -1198,7 +1198,7 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
->                return;
->        amdgpu_ttm_debugfs_fini(adev);
->        if (adev->stollen_vga_memory) {
-> -             r =3D amdgpu_bo_reserve(adev->stollen_vga_memory, false);
-> +             r =3D amdgpu_bo_reserve(adev->stollen_vga_memory, true);
->                if (r =3D=3D 0) {
->                        amdgpu_bo_unpin(adev->stollen_vga_memory);
->                        amdgpu_bo_unreserve(adev->stollen_vga_memory);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd=
-/amdgpu/dce_v10_0.c
-> index 7d86ba42efc9..d618f92ae46c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> @@ -2231,7 +2231,7 @@ static int dce_v10_0_crtc_do_set_base(struct drm_cr=
-tc *crtc,
->        if (!atomic && fb && fb !=3D crtc->primary->fb) {
->                amdgpu_fb =3D to_amdgpu_framebuffer(fb);
->                abo =3D gem_to_amdgpu_bo(amdgpu_fb->obj);
-> -             r =3D amdgpu_bo_reserve(abo, false);
-> +             r =3D amdgpu_bo_reserve(abo, true);
->                if (unlikely(r !=3D 0))
->                        return r;
->                amdgpu_bo_unpin(abo);
-> @@ -2590,7 +2590,7 @@ static int dce_v10_0_crtc_cursor_set2(struct drm_cr=
-tc *crtc,
->   unpin:
->        if (amdgpu_crtc->cursor_bo) {
->                struct amdgpu_bo *aobj =3D gem_to_amdgpu_bo(amdgpu_crtc->c=
-ursor_bo);
-> -             ret =3D amdgpu_bo_reserve(aobj, false);
-> +             ret =3D amdgpu_bo_reserve(aobj, true);
->                if (likely(ret =3D=3D 0)) {
->                        amdgpu_bo_unpin(aobj);
->                        amdgpu_bo_unreserve(aobj);
-> @@ -2720,7 +2720,7 @@ static void dce_v10_0_crtc_disable(struct drm_crtc =
-*crtc)
->
->                amdgpu_fb =3D to_amdgpu_framebuffer(crtc->primary->fb);
->                abo =3D gem_to_amdgpu_bo(amdgpu_fb->obj);
-> -             r =3D amdgpu_bo_reserve(abo, false);
-> +             r =3D amdgpu_bo_reserve(abo, true);
->                if (unlikely(r))
->                        DRM_ERROR("failed to reserve abo before unpin\n");
->                else {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/dce_v11_0.c
-> index 3d82181baffe..ea634158ae7a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-> @@ -2215,7 +2215,7 @@ static int dce_v11_0_crtc_do_set_base(struct drm_cr=
-tc *crtc,
->        if (!atomic && fb && fb !=3D crtc->primary->fb) {
->                amdgpu_fb =3D to_amdgpu_framebuffer(fb);
->                abo =3D gem_to_amdgpu_bo(amdgpu_fb->obj);
-> -             r =3D amdgpu_bo_reserve(abo, false);
-> +             r =3D amdgpu_bo_reserve(abo, true);
->                if (unlikely(r !=3D 0))
->                        return r;
->                amdgpu_bo_unpin(abo);
-> @@ -2610,7 +2610,7 @@ static int dce_v11_0_crtc_cursor_set2(struct drm_cr=
-tc *crtc,
->   unpin:
->        if (amdgpu_crtc->cursor_bo) {
->                struct amdgpu_bo *aobj =3D gem_to_amdgpu_bo(amdgpu_crtc->c=
-ursor_bo);
-> -             ret =3D amdgpu_bo_reserve(aobj, false);
-> +             ret =3D amdgpu_bo_reserve(aobj, true);
->                if (likely(ret =3D=3D 0)) {
->                        amdgpu_bo_unpin(aobj);
->                        amdgpu_bo_unreserve(aobj);
-> @@ -2740,7 +2740,7 @@ static void dce_v11_0_crtc_disable(struct drm_crtc =
-*crtc)
->
->                amdgpu_fb =3D to_amdgpu_framebuffer(crtc->primary->fb);
->                abo =3D gem_to_amdgpu_bo(amdgpu_fb->obj);
-> -             r =3D amdgpu_bo_reserve(abo, false);
-> +             r =3D amdgpu_bo_reserve(abo, true);
->                if (unlikely(r))
->                        DRM_ERROR("failed to reserve abo before unpin\n");
->                else {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/=
-amdgpu/dce_v6_0.c
-> index 59f6993af0b6..d68c1eabd0ce 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> @@ -2150,7 +2150,7 @@ static int dce_v6_0_crtc_do_set_base(struct drm_crt=
-c *crtc,
->        if (!atomic && fb && fb !=3D crtc->primary->fb) {
->                amdgpu_fb =3D to_amdgpu_framebuffer(fb);
->                abo =3D gem_to_amdgpu_bo(amdgpu_fb->obj);
-> -             r =3D amdgpu_bo_reserve(abo, false);
-> +             r =3D amdgpu_bo_reserve(abo, true);
->                if (unlikely(r !=3D 0))
->                        return r;
->                amdgpu_bo_unpin(abo);
-> @@ -2467,7 +2467,7 @@ static int dce_v6_0_crtc_cursor_set2(struct drm_crt=
-c *crtc,
->   unpin:
->        if (amdgpu_crtc->cursor_bo) {
->                struct amdgpu_bo *aobj =3D gem_to_amdgpu_bo(amdgpu_crtc->c=
-ursor_bo);
-> -             ret =3D amdgpu_bo_reserve(aobj, false);
-> +             ret =3D amdgpu_bo_reserve(aobj, true);
->                if (likely(ret =3D=3D 0)) {
->                        amdgpu_bo_unpin(aobj);
->                        amdgpu_bo_unreserve(aobj);
-> @@ -2592,7 +2592,7 @@ static void dce_v6_0_crtc_disable(struct drm_crtc *=
-crtc)
->
->                amdgpu_fb =3D to_amdgpu_framebuffer(crtc->primary->fb);
->                abo =3D gem_to_amdgpu_bo(amdgpu_fb->obj);
-> -             r =3D amdgpu_bo_reserve(abo, false);
-> +             r =3D amdgpu_bo_reserve(abo, true);
->                if (unlikely(r))
->                        DRM_ERROR("failed to reserve abo before unpin\n");
->                else {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/=
-amdgpu/dce_v8_0.c
-> index 1629ff9c3949..1e6c40e32cfd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> @@ -2090,7 +2090,7 @@ static int dce_v8_0_crtc_do_set_base(struct drm_crt=
-c *crtc,
->        if (!atomic && fb && fb !=3D crtc->primary->fb) {
->                amdgpu_fb =3D to_amdgpu_framebuffer(fb);
->                abo =3D gem_to_amdgpu_bo(amdgpu_fb->obj);
-> -             r =3D amdgpu_bo_reserve(abo, false);
-> +             r =3D amdgpu_bo_reserve(abo, true);
->                if (unlikely(r !=3D 0))
->                        return r;
->                amdgpu_bo_unpin(abo);
-> @@ -2441,7 +2441,7 @@ static int dce_v8_0_crtc_cursor_set2(struct drm_crt=
-c *crtc,
->   unpin:
->        if (amdgpu_crtc->cursor_bo) {
->                struct amdgpu_bo *aobj =3D gem_to_amdgpu_bo(amdgpu_crtc->c=
-ursor_bo);
-> -             ret =3D amdgpu_bo_reserve(aobj, false);
-> +             ret =3D amdgpu_bo_reserve(aobj, true);
->                if (likely(ret =3D=3D 0)) {
->                        amdgpu_bo_unpin(aobj);
->                        amdgpu_bo_unreserve(aobj);
-> @@ -2571,7 +2571,7 @@ static void dce_v8_0_crtc_disable(struct drm_crtc *=
-crtc)
->
->                amdgpu_fb =3D to_amdgpu_framebuffer(crtc->primary->fb);
->                abo =3D gem_to_amdgpu_bo(amdgpu_fb->obj);
-> -             r =3D amdgpu_bo_reserve(abo, false);
-> +             r =3D amdgpu_bo_reserve(abo, true);
->                if (unlikely(r))
->                        DRM_ERROR("failed to reserve abo before unpin\n");
->                else {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c b/drivers/gpu/drm/a=
-md/amdgpu/dce_virtual.c
-> index 8bb9cfde508d..084518301f4b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
-> @@ -247,7 +247,7 @@ static void dce_virtual_crtc_disable(struct drm_crtc =
-*crtc)
->
->                amdgpu_fb =3D to_amdgpu_framebuffer(crtc->primary->fb);
->                abo =3D gem_to_amdgpu_bo(amdgpu_fb->obj);
-> -             r =3D amdgpu_bo_reserve(abo, false);
-> +             r =3D amdgpu_bo_reserve(abo, true);
->                if (unlikely(r))
->                        DRM_ERROR("failed to reserve abo before unpin\n");
->                else {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v6_0.c
-> index 25c3703f838b..03d2a0a2e523 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-> @@ -2437,7 +2437,7 @@ static void gfx_v6_0_rlc_fini(struct amdgpu_device =
-*adev)
->        int r;
->
->        if (adev->gfx.rlc.save_restore_obj) {
-> -             r =3D amdgpu_bo_reserve(adev->gfx.rlc.save_restore_obj, fal=
-se);
-> +             r =3D amdgpu_bo_reserve(adev->gfx.rlc.save_restore_obj, tru=
-e);
->                if (unlikely(r !=3D 0))
->                        dev_warn(adev->dev, "(%d) reserve RLC sr bo failed=
-\n", r);
->                amdgpu_bo_unpin(adev->gfx.rlc.save_restore_obj);
-> @@ -2448,7 +2448,7 @@ static void gfx_v6_0_rlc_fini(struct amdgpu_device =
-*adev)
->        }
->
->        if (adev->gfx.rlc.clear_state_obj) {
-> -             r =3D amdgpu_bo_reserve(adev->gfx.rlc.clear_state_obj, fals=
-e);
-> +             r =3D amdgpu_bo_reserve(adev->gfx.rlc.clear_state_obj, true=
-);
->                if (unlikely(r !=3D 0))
->                        dev_warn(adev->dev, "(%d) reserve RLC c bo failed\=
-n", r);
->                amdgpu_bo_unpin(adev->gfx.rlc.clear_state_obj);
-> @@ -2459,7 +2459,7 @@ static void gfx_v6_0_rlc_fini(struct amdgpu_device =
-*adev)
->        }
->
->        if (adev->gfx.rlc.cp_table_obj) {
-> -             r =3D amdgpu_bo_reserve(adev->gfx.rlc.cp_table_obj, false);
-> +             r =3D amdgpu_bo_reserve(adev->gfx.rlc.cp_table_obj, true);
->                if (unlikely(r !=3D 0))
->                        dev_warn(adev->dev, "(%d) reserve RLC cp table bo =
-failed\n", r);
->                amdgpu_bo_unpin(adev->gfx.rlc.cp_table_obj);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v7_0.c
-> index 75cca54fa216..b2df8e814abb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> @@ -2792,7 +2792,7 @@ static void gfx_v7_0_cp_compute_fini(struct amdgpu_=
-device *adev)
->                struct amdgpu_ring *ring =3D &adev->gfx.compute_ring[i];
->
->                if (ring->mqd_obj) {
-> -                     r =3D amdgpu_bo_reserve(ring->mqd_obj, false);
-> +                     r =3D amdgpu_bo_reserve(ring->mqd_obj, true);
->                        if (unlikely(r !=3D 0))
->                                dev_warn(adev->dev, "(%d) reserve MQD bo f=
-ailed\n", r);
->
-> @@ -2810,7 +2810,7 @@ static void gfx_v7_0_mec_fini(struct amdgpu_device =
-*adev)
->        int r;
->
->        if (adev->gfx.mec.hpd_eop_obj) {
-> -             r =3D amdgpu_bo_reserve(adev->gfx.mec.hpd_eop_obj, false);
-> +             r =3D amdgpu_bo_reserve(adev->gfx.mec.hpd_eop_obj, true);
->                if (unlikely(r !=3D 0))
->                        dev_warn(adev->dev, "(%d) reserve HPD EOP bo faile=
-d\n", r);
->                amdgpu_bo_unpin(adev->gfx.mec.hpd_eop_obj);
-> @@ -3359,7 +3359,7 @@ static void gfx_v7_0_rlc_fini(struct amdgpu_device =
-*adev)
->
->        /* save restore block */
->        if (adev->gfx.rlc.save_restore_obj) {
-> -             r =3D amdgpu_bo_reserve(adev->gfx.rlc.save_restore_obj, fal=
-se);
-> +             r =3D amdgpu_bo_reserve(adev->gfx.rlc.save_restore_obj, tru=
-e);
->                if (unlikely(r !=3D 0))
->                        dev_warn(adev->dev, "(%d) reserve RLC sr bo failed=
-\n", r);
->                amdgpu_bo_unpin(adev->gfx.rlc.save_restore_obj);
-> @@ -3371,7 +3371,7 @@ static void gfx_v7_0_rlc_fini(struct amdgpu_device =
-*adev)
->
->        /* clear state block */
->        if (adev->gfx.rlc.clear_state_obj) {
-> -             r =3D amdgpu_bo_reserve(adev->gfx.rlc.clear_state_obj, fals=
-e);
-> +             r =3D amdgpu_bo_reserve(adev->gfx.rlc.clear_state_obj, true=
-);
->                if (unlikely(r !=3D 0))
->                        dev_warn(adev->dev, "(%d) reserve RLC c bo failed\=
-n", r);
->                amdgpu_bo_unpin(adev->gfx.rlc.clear_state_obj);
-> @@ -3383,7 +3383,7 @@ static void gfx_v7_0_rlc_fini(struct amdgpu_device =
-*adev)
->
->        /* clear state block */
->        if (adev->gfx.rlc.cp_table_obj) {
-> -             r =3D amdgpu_bo_reserve(adev->gfx.rlc.cp_table_obj, false);
-> +             r =3D amdgpu_bo_reserve(adev->gfx.rlc.cp_table_obj, true);
->                if (unlikely(r !=3D 0))
->                        dev_warn(adev->dev, "(%d) reserve RLC cp table bo =
-failed\n", r);
->                amdgpu_bo_unpin(adev->gfx.rlc.cp_table_obj);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v8_0.c
-> index 2a5b20920ea6..ac64e01c6938 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> @@ -1244,7 +1244,7 @@ static void gfx_v8_0_rlc_fini(struct amdgpu_device =
-*adev)
->
->        /* clear state block */
->        if (adev->gfx.rlc.clear_state_obj) {
-> -             r =3D amdgpu_bo_reserve(adev->gfx.rlc.clear_state_obj, fals=
-e);
-> +             r =3D amdgpu_bo_reserve(adev->gfx.rlc.clear_state_obj, true=
-);
->                if (unlikely(r !=3D 0))
->                        dev_warn(adev->dev, "(%d) reserve RLC cbs bo faile=
-d\n", r);
->                amdgpu_bo_unpin(adev->gfx.rlc.clear_state_obj);
-> @@ -1255,7 +1255,7 @@ static void gfx_v8_0_rlc_fini(struct amdgpu_device =
-*adev)
->
->        /* jump table block */
->        if (adev->gfx.rlc.cp_table_obj) {
-> -             r =3D amdgpu_bo_reserve(adev->gfx.rlc.cp_table_obj, false);
-> +             r =3D amdgpu_bo_reserve(adev->gfx.rlc.cp_table_obj, true);
->                if (unlikely(r !=3D 0))
->                        dev_warn(adev->dev, "(%d) reserve RLC cp table bo =
-failed\n", r);
->                amdgpu_bo_unpin(adev->gfx.rlc.cp_table_obj);
-> @@ -1368,7 +1368,7 @@ static void gfx_v8_0_mec_fini(struct amdgpu_device =
-*adev)
->        int r;
->
->        if (adev->gfx.mec.hpd_eop_obj) {
-> -             r =3D amdgpu_bo_reserve(adev->gfx.mec.hpd_eop_obj, false);
-> +             r =3D amdgpu_bo_reserve(adev->gfx.mec.hpd_eop_obj, true);
->                if (unlikely(r !=3D 0))
->                        dev_warn(adev->dev, "(%d) reserve HPD EOP bo faile=
-d\n", r);
->                amdgpu_bo_unpin(adev->gfx.mec.hpd_eop_obj);
-> @@ -1496,7 +1496,7 @@ static int gfx_v8_0_kiq_init(struct amdgpu_device *=
-adev)
->
->        memset(hpd, 0, MEC_HPD_SIZE);
->
-> -     r =3D amdgpu_bo_reserve(kiq->eop_obj, false);
-> +     r =3D amdgpu_bo_reserve(kiq->eop_obj, true);
->        if (unlikely(r !=3D 0))
->                dev_warn(adev->dev, "(%d) reserve kiq eop bo failed\n", r)=
-;
->        amdgpu_bo_kunmap(kiq->eop_obj);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/=
-amdgpu/gfx_v9_0.c
-> index 5249bc7964fb..08daa3fd687b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -453,7 +453,7 @@ static void gfx_v9_0_mec_fini(struct amdgpu_device *a=
+Date: Fri, 14 Apr 2017 13:41:52 -0400
+Subject: [PATCH 1/3] drm/amdgpu: Moved gfx_v8_0_select_se_sh() in lieu of
+re-redundant prototype.
+
+Will be needed for the rest of the EDC workarounds patch.
+
+Change-Id: Ie586ab38a69e98a91c6cb5747e285ce8bfdd1c86
+Signed-off-by: David Panariti <David.Panariti-5C7GfCeVMHo@public.gmane.org><mailto:David.Panarit=
+i@amd.com>
+---
+drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 46 +++++++++++++++++---------------=
+---
+1 file changed, 23 insertions(+), 23 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v8_0.c
+index 2ff5f19..27b57cb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -1500,6 +1500,29 @@ static int gfx_v8_0_kiq_init(struct amdgpu_device *a=
 dev)
->        int r;
+               return 0;
+}
++static void gfx_v8_0_select_se_sh(struct amdgpu_device *adev,
++                                                               u32 se_num,=
+ u32 sh_num, u32 instance)
++{
++             u32 data;
++
++             if (instance =3D=3D 0xffffffff)
++                             data =3D REG_SET_FIELD(0, GRBM_GFX_INDEX, INS=
+TANCE_BROADCAST_WRITES, 1);
++             else
++                             data =3D REG_SET_FIELD(0, GRBM_GFX_INDEX, INS=
+TANCE_INDEX, instance);
++
++             if (se_num =3D=3D 0xffffffff)
++                             data =3D REG_SET_FIELD(data, GRBM_GFX_INDEX, =
+SE_BROADCAST_WRITES, 1);
++             else
++                             data =3D REG_SET_FIELD(data, GRBM_GFX_INDEX, =
+SE_INDEX, se_num);
++
++             if (sh_num =3D=3D 0xffffffff)
++                             data =3D REG_SET_FIELD(data, GRBM_GFX_INDEX, =
+SH_BROADCAST_WRITES, 1);
++             else
++                             data =3D REG_SET_FIELD(data, GRBM_GFX_INDEX, =
+SH_INDEX, sh_num);
++
++             WREG32(mmGRBM_GFX_INDEX, data);
++}
++
+static const u32 vgpr_init_compute_shader[] =3D
+{
+               0x7e000209, 0x7e020208,
+@@ -3556,29 +3579,6 @@ static void gfx_v8_0_tiling_mode_table_init(struct a=
+mdgpu_device *adev)
+               }
+}
+-static void gfx_v8_0_select_se_sh(struct amdgpu_device *adev,
+-                                                                u32 se_num=
+, u32 sh_num, u32 instance)
+-{
+-              u32 data;
+-
+-              if (instance =3D=3D 0xffffffff)
+-                              data =3D REG_SET_FIELD(0, GRBM_GFX_INDEX, IN=
+STANCE_BROADCAST_WRITES, 1);
+-              else
+-                              data =3D REG_SET_FIELD(0, GRBM_GFX_INDEX, IN=
+STANCE_INDEX, instance);
+-
+-              if (se_num =3D=3D 0xffffffff)
+-                              data =3D REG_SET_FIELD(data, GRBM_GFX_INDEX,=
+ SE_BROADCAST_WRITES, 1);
+-              else
+-                              data =3D REG_SET_FIELD(data, GRBM_GFX_INDEX,=
+ SE_INDEX, se_num);
+-
+-              if (sh_num =3D=3D 0xffffffff)
+-                              data =3D REG_SET_FIELD(data, GRBM_GFX_INDEX,=
+ SH_BROADCAST_WRITES, 1);
+-              else
+-                              data =3D REG_SET_FIELD(data, GRBM_GFX_INDEX,=
+ SH_INDEX, sh_num);
+-
+-              WREG32(mmGRBM_GFX_INDEX, data);
+-}
+-
+static u32 gfx_v8_0_create_bitmask(u32 bit_width)
+{
+               return (u32)((1ULL << bit_width) - 1);
+--
+2.7.4
+
+
+>From 38fac8cab73dbc07e0ee7599b52106bc09dd32ea Mon Sep 17 00:00:00 2001
+From: David Panariti <David.Panariti-5C7GfCeVMHo@public.gmane.org><mailto:David.Panariti-5C7GfCeVMHo@public.gmane.org=
 >
->        if (adev->gfx.mec.hpd_eop_obj) {
-> -             r =3D amdgpu_bo_reserve(adev->gfx.mec.hpd_eop_obj, false);
-> +             r =3D amdgpu_bo_reserve(adev->gfx.mec.hpd_eop_obj, true);
->                if (unlikely(r !=3D 0))
->                        dev_warn(adev->dev, "(%d) reserve HPD EOP bo faile=
-d\n", r);
->                amdgpu_bo_unpin(adev->gfx.mec.hpd_eop_obj);
-> @@ -463,7 +463,7 @@ static void gfx_v9_0_mec_fini(struct amdgpu_device *a=
-dev)
->                adev->gfx.mec.hpd_eop_obj =3D NULL;
->        }
->        if (adev->gfx.mec.mec_fw_obj) {
-> -             r =3D amdgpu_bo_reserve(adev->gfx.mec.mec_fw_obj, false);
-> +             r =3D amdgpu_bo_reserve(adev->gfx.mec.mec_fw_obj, true);
->                if (unlikely(r !=3D 0))
->                        dev_warn(adev->dev, "(%d) reserve mec firmware bo =
-failed\n", r);
->                amdgpu_bo_unpin(adev->gfx.mec.mec_fw_obj);
-> @@ -599,7 +599,7 @@ static int gfx_v9_0_kiq_init(struct amdgpu_device *ad=
-ev)
->
->        memset(hpd, 0, MEC_HPD_SIZE);
->
-> -     r =3D amdgpu_bo_reserve(kiq->eop_obj, false);
-> +     r =3D amdgpu_bo_reserve(kiq->eop_obj, true);
->        if (unlikely(r !=3D 0))
->                dev_warn(adev->dev, "(%d) reserve kiq eop bo failed\n", r)=
+Date: Mon, 24 Apr 2017 11:05:45 -0400
+Subject: [PATCH 2/3] drm/amdgpu: Complete Carrizo EDC (Error Detection and
+Correction) workarounds.
+
+The workarounds are unconditionally performed on CZs with EDC enabled.
+EDC detects uncorrected ECC errors and uses data poisoning to prevent
+corrupted compute results from being used (read).
+EDC enabled CZs are often used in embedded environments.
+
+Change-Id: I84c261785329beeb797f11efbe0ec35790f2996c
+Signed-off-by: David Panariti <David.Panariti-5C7GfCeVMHo@public.gmane.org><mailto:David.Panarit=
+i@amd.com>
+---
+drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 148 ++++++++++++++++++++++++-------=
+---
+1 file changed, 106 insertions(+), 42 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v8_0.c
+index 27b57cb..2f5bf5f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -1645,35 +1645,92 @@ static const u32 sgpr2_init_regs[] =3D
+               mmCOMPUTE_USER_DATA_9, 0xedcedc09,
+};
+-static const u32 sec_ded_counter_registers[] =3D
+-{
+-              mmCPC_EDC_ATC_CNT,
+-              mmCPC_EDC_SCRATCH_CNT,
+-              mmCPC_EDC_UCODE_CNT,
+-              mmCPF_EDC_ATC_CNT,
+-              mmCPF_EDC_ROQ_CNT,
+-              mmCPF_EDC_TAG_CNT,
+-              mmCPG_EDC_ATC_CNT,
+-              mmCPG_EDC_DMA_CNT,
+-              mmCPG_EDC_TAG_CNT,
+-              mmDC_EDC_CSINVOC_CNT,
+-              mmDC_EDC_RESTORE_CNT,
+-              mmDC_EDC_STATE_CNT,
+-              mmGDS_EDC_CNT,
+-              mmGDS_EDC_GRBM_CNT,
+-              mmGDS_EDC_OA_DED,
+-              mmSPI_EDC_CNT,
+-              mmSQC_ATC_EDC_GATCL1_CNT,
+-              mmSQC_EDC_CNT,
+-              mmSQ_EDC_DED_CNT,
+-              mmSQ_EDC_INFO,
+-              mmSQ_EDC_SEC_CNT,
+-              mmTCC_EDC_CNT,
+-              mmTCP_ATC_EDC_GATCL1_CNT,
+-              mmTCP_EDC_CNT,
+-              mmTD_EDC_CNT
++struct reg32_counter_name_map {
++             uint32_t rnmap_addr;   /* Counter register address */
++             const char *rnmap_name;           /* Name of the counter */
++             size_t rnmap_num_instances;  /* Number of block instances */
+};
++#define DEF_mmREG32_NAME_MAP_ELEMENT(reg, num_instances) {             \
++             .rnmap_addr =3D mm##reg,                                     =
+                                      \
++             .rnmap_name =3D #reg,                                        =
+                            \
++             .rnmap_num_instances =3D num_instances                       =
+                     \
++}
++
++/* See GRBM_GFX_INDEX, et. al. registers. */
++static const struct reg32_counter_name_map sec_ded_counter_registers[] =3D=
+ {
++             DEF_mmREG32_NAME_MAP_ELEMENT(SQC_EDC_CNT, 2),
++             DEF_mmREG32_NAME_MAP_ELEMENT(SQC_ATC_EDC_GATCL1_CNT, 2),
++
++             DEF_mmREG32_NAME_MAP_ELEMENT(SQ_EDC_SEC_CNT, 8),
++             DEF_mmREG32_NAME_MAP_ELEMENT(SQ_EDC_DED_CNT, 8),
++             DEF_mmREG32_NAME_MAP_ELEMENT(TCP_EDC_CNT, 8),
++             DEF_mmREG32_NAME_MAP_ELEMENT(TCP_ATC_EDC_GATCL1_CNT, 8),
++             DEF_mmREG32_NAME_MAP_ELEMENT(TD_EDC_CNT, 8),
++
++             DEF_mmREG32_NAME_MAP_ELEMENT(TCC_EDC_CNT, 4),
++
++             DEF_mmREG32_NAME_MAP_ELEMENT(CPC_EDC_ATC_CNT, 1),
++             DEF_mmREG32_NAME_MAP_ELEMENT(CPC_EDC_SCRATCH_CNT, 1),
++             DEF_mmREG32_NAME_MAP_ELEMENT(CPC_EDC_UCODE_CNT, 1),
++             DEF_mmREG32_NAME_MAP_ELEMENT(CPF_EDC_ATC_CNT, 1),
++             DEF_mmREG32_NAME_MAP_ELEMENT(CPF_EDC_ROQ_CNT, 1),
++             DEF_mmREG32_NAME_MAP_ELEMENT(CPF_EDC_TAG_CNT, 1),
++             DEF_mmREG32_NAME_MAP_ELEMENT(CPG_EDC_ATC_CNT, 1),
++             DEF_mmREG32_NAME_MAP_ELEMENT(CPG_EDC_DMA_CNT, 1),
++             DEF_mmREG32_NAME_MAP_ELEMENT(CPG_EDC_TAG_CNT, 1),
++             DEF_mmREG32_NAME_MAP_ELEMENT(DC_EDC_CSINVOC_CNT, 1),
++             DEF_mmREG32_NAME_MAP_ELEMENT(DC_EDC_STATE_CNT, 1),
++             DEF_mmREG32_NAME_MAP_ELEMENT(DC_EDC_RESTORE_CNT, 1),
++             DEF_mmREG32_NAME_MAP_ELEMENT(GDS_EDC_CNT, 1),
++             DEF_mmREG32_NAME_MAP_ELEMENT(GDS_EDC_GRBM_CNT, 1),
++             DEF_mmREG32_NAME_MAP_ELEMENT(SPI_EDC_CNT, 1),
++};
++
++static int gfx_v8_0_edc_clear_counters(struct amdgpu_device *adev)
++{
++             int ci, se, sh, i;
++             uint32_t count;
++             int r =3D 0;
++
++             mutex_lock(&adev->grbm_idx_mutex);
++
++             for (ci =3D 0; ci < ARRAY_SIZE(sec_ded_counter_registers); ++=
+ci) {
++                             const struct reg32_counter_name_map *cp =3D
++                                             sec_ded_counter_registers + c=
+i;
++                             const char *name =3D cp->rnmap_name;
++
++                             for (se =3D 0; se < adev->gfx.config.max_shad=
+er_engines; ++se) {
++                                             for (sh =3D 0; sh < adev->gfx=
+.config.max_sh_per_se; ++sh) {
++                                                             for (i =3D 0;=
+ i < cp->rnmap_num_instances; ++i) {
++                                                                          =
+   gfx_v8_0_select_se_sh(adev, se, sh, i);
++                                                                          =
+   count =3D RREG32(cp->rnmap_addr);
++                                                                          =
+   count =3D RREG32(cp->rnmap_addr);
++                                                                          =
+   if (count !=3D 0) {
++                                                                          =
+                   /*
++                                                                          =
+                   * Workaround failed.
++                                                                          =
+                   * If people are interested
++                                                                          =
+                   * in EDC at all, they will
++                                                                          =
+                   * want to know which
++                                                                          =
+                   * counters had problems.
++                                                                          =
+                   */
++                                                                          =
+                   DRM_WARN("EDC counter %s is 0x%08x, but should be 0\n.",
++                                                                          =
+                                   name, count);
++                                                                          =
+                   r =3D -EINVAL;
++                                                                          =
+                   goto ret;
++                                                                          =
+   }
++                                                             }
++                                             }
++                             }
++             }
++
++ret:
++             gfx_v8_0_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xfffffff=
+f);
++             mutex_unlock(&adev->grbm_idx_mutex);
++
++             return r;
++}
++
+static int gfx_v8_0_do_edc_gpr_workarounds(struct amdgpu_device *adev)
+{
+               struct amdgpu_ring *ring =3D &adev->gfx.compute_ring[0];
+@@ -1681,18 +1738,36 @@ static int gfx_v8_0_do_edc_gpr_workarounds(struct a=
+mdgpu_device *adev)
+               struct fence *f =3D NULL;
+               int r, i;
+               u32 tmp;
++             u32 dis_bit;
+               unsigned total_size, vgpr_offset, sgpr_offset;
+               u64 gpu_addr;
+-              /* only supported on CZ */
+-              if (adev->asic_type !=3D CHIP_CARRIZO)
++             if (adev->asic_type !=3D CHIP_CARRIZO) {
++                             /* EDC is only supported on CZ */
++                             return 0;
++             }
++
++        DRM_INFO("Detected Carrizo.\n");
++
++             tmp =3D RREG32(mmCC_GC_EDC_CONFIG);
++             dis_bit =3D REG_GET_FIELD(tmp, CC_GC_EDC_CONFIG, DIS_EDC);
++             if (dis_bit) {
++                             /* On Carrizo, EDC may be disabled by a fuse.=
+ */
++                             DRM_INFO("EDC hardware is disabled, GC_EDC_CO=
+NFIG: 0x%08x.\n",
++                                             tmp);
+                               return 0;
++             }
+                /* bail if the compute ring is not ready */
+               if (!ring->ready)
+                               return 0;
+-              tmp =3D RREG32(mmGB_EDC_MODE);
++             DRM_INFO("Applying EDC workarounds.\n");
++
++             /*
++             * Interested parties can enable EDC using debugfs register re=
+ads and
++             * writes.
++             */
+               WREG32(mmGB_EDC_MODE, 0);
+                total_size =3D
+@@ -1817,18 +1892,7 @@ static int gfx_v8_0_do_edc_gpr_workarounds(struct am=
+dgpu_device *adev)
+                               goto fail;
+               }
+-              tmp =3D REG_SET_FIELD(tmp, GB_EDC_MODE, DED_MODE, 2);
+-              tmp =3D REG_SET_FIELD(tmp, GB_EDC_MODE, PROP_FED, 1);
+-              WREG32(mmGB_EDC_MODE, tmp);
+-
+-              tmp =3D RREG32(mmCC_GC_EDC_CONFIG);
+-              tmp =3D REG_SET_FIELD(tmp, CC_GC_EDC_CONFIG, DIS_EDC, 0) | 1=
 ;
->        amdgpu_bo_kunmap(kiq->eop_obj);
-> @@ -1786,7 +1786,7 @@ static void gfx_v9_0_cp_compute_fini(struct amdgpu_=
+-              WREG32(mmCC_GC_EDC_CONFIG, tmp);
+-
+-
+-              /* read back registers to clear the counters */
+-              for (i =3D 0; i < ARRAY_SIZE(sec_ded_counter_registers); i++=
+)
+-                              RREG32(sec_ded_counter_registers[i]);
++             gfx_v8_0_edc_clear_counters(adev);
+ fail:
+               amdgpu_ib_free(adev, &ib, NULL);
+--
+2.7.4
+
+
+>From ec4803205582c1011f5ced1ead70ee244268b4b8 Mon Sep 17 00:00:00 2001
+From: David Panariti <David.Panariti-5C7GfCeVMHo@public.gmane.org><mailto:David.Panariti-5C7GfCeVMHo@public.gmane.org=
+>
+Date: Wed, 26 Apr 2017 10:13:06 -0400
+Subject: [PATCH 3/3] drm/amdgpu: Add kernel parameter to control use of
+ECC/EDC.
+
+Allow various kinds of memory integrity methods (e.g. ECC/EDC) to be enable=
+d
+or disabled.  By default, all features are disabled.
+
+EDC is Error Detection and Correction.  It can detect ECC errors and do 0 o=
+r
+more of: count SEC (single error corrected) and DED (double error detected,
+i.e. uncorrected ECC error), halt the affected block, interrupt the CPU.
+Currently, only counting errors is supported.
+
+Signed-off-by: David Panariti <David.Panariti-5C7GfCeVMHo@public.gmane.org><mailto:David.Panarit=
+i@amd.com>
+---
+drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  1 +
+drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c  |  4 ++++
+drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c    | 34 +++++++++++++++++++++++++++--=
+---
+drivers/gpu/drm/amd/include/amd_shared.h | 14 +++++++++++++
+4 files changed, 48 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
+pu/amdgpu.h
+index 4a16e3c..0322392 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -111,6 +111,7 @@ extern int amdgpu_prim_buf_per_se;
+extern int amdgpu_pos_buf_per_se;
+extern int amdgpu_cntl_sb_buf_per_se;
+extern int amdgpu_param_buf_per_se;
++extern unsigned amdgpu_ecc_flags;
+ #define AMDGPU_DEFAULT_GTT_SIZE_MB                      3072ULL /* 3GB by =
+default */
+#define AMDGPU_WAIT_IDLE_TIMEOUT_IN_MS                   3000
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_drv.c
+index ead00d7..00e16ac 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -110,6 +110,7 @@ int amdgpu_prim_buf_per_se =3D 0;
+int amdgpu_pos_buf_per_se =3D 0;
+int amdgpu_cntl_sb_buf_per_se =3D 0;
+int amdgpu_param_buf_per_se =3D 0;
++unsigned amdgpu_ecc_flags =3D 0;
+ MODULE_PARM_DESC(vramlimit, "Restrict VRAM for testing, in megabytes");
+module_param_named(vramlimit, amdgpu_vram_limit, int, 0600);
+@@ -235,6 +236,9 @@ module_param_named(cntl_sb_buf_per_se, amdgpu_cntl_sb_b=
+uf_per_se, int, 0444);
+MODULE_PARM_DESC(param_buf_per_se, "the size of Off-Chip Pramater Cache per=
+ Shader Engine (default depending on gfx)");
+module_param_named(param_buf_per_se, amdgpu_param_buf_per_se, int, 0444);
++MODULE_PARM_DESC(ecc_flags, "ECC/EDC enable flags (0 =3D disable ECC/EDC (=
+default))");
++module_param_named(ecc_flags, amdgpu_ecc_flags, uint, 0444);
++
+ static const struct pci_device_id pciidlist[] =3D {
+#ifdef  CONFIG_DRM_AMDGPU_SI
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v8_0.c
+index 2f5bf5f..05cab7e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -1708,7 +1708,7 @@ static int gfx_v8_0_edc_clear_counters(struct amdgpu_=
 device *adev)
->                struct amdgpu_ring *ring =3D &adev->gfx.compute_ring[i];
->
->                if (ring->mqd_obj) {
-> -                     r =3D amdgpu_bo_reserve(ring->mqd_obj, false);
-> +                     r =3D amdgpu_bo_reserve(ring->mqd_obj, true);
->                        if (unlikely(r !=3D 0))
->                                dev_warn(adev->dev, "(%d) reserve MQD bo f=
-ailed\n", r);
->
+                                                                           =
+    count =3D RREG32(cp->rnmap_addr);
+                                                                           =
+    if (count !=3D 0) {
+                                                                           =
+                    /*
+-                                                                          =
+                    * Workaround failed.
++                                                                          =
+                   * EDC workaround failed.
+                                                                           =
+                     * If people are interested
+                                                                           =
+                     * in EDC at all, they will
+                                                                           =
+                     * want to know which
+@@ -1747,14 +1747,24 @@ static int gfx_v8_0_do_edc_gpr_workarounds(struct a=
+mdgpu_device *adev)
+                               return 0;
+               }
+-        DRM_INFO("Detected Carrizo.\n");
++             DRM_INFO("Detected Carrizo.\n");
+                tmp =3D RREG32(mmCC_GC_EDC_CONFIG);
+               dis_bit =3D REG_GET_FIELD(tmp, CC_GC_EDC_CONFIG, DIS_EDC);
+               if (dis_bit) {
+-                              /* On Carrizo, EDC may be disabled by a fuse=
+. */
+-                              DRM_INFO("EDC hardware is disabled, GC_EDC_C=
+ONFIG: 0x%08x.\n",
+-                                              tmp);
++                             /* On Carrizo, EDC may be disabled permanentl=
+y by a fuse. */
++                             DRM_INFO("Carrizo EDC hardware is disabled, G=
+C_EDC_CONFIG: 0x%08x.\n",
++                                             tmp);
++                             return 0;
++             }
++
++             /*
++             * Check if EDC has been requested by a kernel parameter.
++             * For Carrizo, EDC is the best/safest mode WRT error handling=
+.
++             */
++             if (!(amdgpu_ecc_flags
++                   & (AMD_ECC_SUPPORT_BEST | AMD_ECC_SUPPORT_EDC))) {
++                             DRM_INFO("EDC support has not been requested.=
+\n");
+                               return 0;
+               }
+@@ -1892,6 +1902,20 @@ static int gfx_v8_0_do_edc_gpr_workarounds(struct am=
+dgpu_device *adev)
+                               goto fail;
+               }
++             /* 00 - GB_EDC_DED_MODE_LOG: Count DED errors but do not halt=
+ */
++             tmp =3D REG_SET_FIELD(tmp, GB_EDC_MODE, DED_MODE, 0);
++             /* Do not propagate the errors to the next block. */
++             tmp =3D REG_SET_FIELD(tmp, GB_EDC_MODE, PROP_FED, 0);
++             WREG32(mmGB_EDC_MODE, tmp);
++
++             tmp =3D RREG32(mmCC_GC_EDC_CONFIG);
++
++             /*
++             * Clear EDC_DISABLE bit so the counters are available.
++             */
++             tmp =3D REG_SET_FIELD(tmp, CC_GC_EDC_CONFIG, DIS_EDC, 0);
++             WREG32(mmCC_GC_EDC_CONFIG, tmp);
++
+               gfx_v8_0_edc_clear_counters(adev);
+ fail:
+diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd=
+/include/amd_shared.h
+index 2ccf44e..c4fd013 100644
+--- a/drivers/gpu/drm/amd/include/amd_shared.h
++++ b/drivers/gpu/drm/amd/include/amd_shared.h
+@@ -179,6 +179,20 @@ struct amd_pp_profile {
+#define AMD_PG_SUPPORT_GFX_QUICK_MG                                (1 << 11=
+)
+#define AMD_PG_SUPPORT_GFX_PIPELINE                     (1 << 12)
++/*
++ * ECC flags
++ * Allows the user to choose what kind of error detection/correction is us=
+ed.
++ * Currently, EDC is supported on Carrizo.
++ *
++ * The AMD_ECC_SUPPORT_BEST bit is used to allow a user to have the driver
++ * set what it thinks is best/safest mode.  This may not be the same as th=
+e
++ * default, depending on the GPU and the application.
++ * Using a single bit makes it easy to request the best support without
++ * needing to know all currently supported modes.
++ */
++#define AMD_ECC_SUPPORT_BEST                                     (1 << 0)
++#define AMD_ECC_SUPPORT_EDC                                       (1 << 1)
++
+enum amd_pm_state_type {
+               /* not used for dpm */
+               POWER_STATE_TYPE_DEFAULT,
+--
+2.7.4
 
 
 
 
-------------------------------
-
-Subject: Digest Footer
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-amd-gfx Info Page - freedesktop.org<https://lists.freedesktop.org/mailman/l=
-istinfo/amd-gfx>
-lists.freedesktop.org
-Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
-orm. Use of all freedesktop.org lists is subject to our Code of ...
-
-
-
-
-------------------------------
-
-End of amd-gfx Digest, Vol 11, Issue 407
-****************************************
-
---_000_MWHPR1201MB0045C097101B0EDA13F28BD9F2130MWHPR1201MB0045_
-Content-Type: text/html; charset="iso-8859-1"
+--_000_BN6PR12MB1889C8C94B10AA6E3DF6BD6495130BN6PR12MB1889namp_
+Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	color:black;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+p
+	{mso-style-priority:99;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;
+	color:black;}
+span.EmailStyle17
+	{mso-style-type:personal;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.EmailStyle19
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:#1F497D;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
 </head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Arial,Helvetica,sans-serif;" dir=3D"ltr">
-<div style=3D"color: rgb(0, 0, 0);"><font size=3D"2"><span style=3D"font-si=
-ze:10pt;">
-<div class=3D"PlainText">Am 28.04.2017 um 10:47 schrieb Michel D=E4nzer:<br=
->
-&gt; From: Michel D=E4nzer &lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt;<br>
-&gt; Some of these paths probably cannot be interrupted by a signal anyway.=
+<body bgcolor=3D"white" lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D">Actually, the attachme=
+nt was an oversight.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D">It&#8217;s easier for =
+me to attach, open the attachment and then delete the attachment.<o:p></o:p=
+></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D">I got only 2/3 this ti=
+me.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D">I&#8217;ve gotten a co=
+mment that inline patches are preferred.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D"><o:p>&nbsp;</o:p></spa=
+n></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D">Sorry for the inconven=
+ience.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D"><o:p>&nbsp;</o:p></spa=
+n></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D">davep<o:p></o:p></span=
+></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D"><o:p>&nbsp;</o:p></spa=
+n></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"color:windowtext">From:</span></b>=
+<span style=3D"color:windowtext"> Koenig, Christian
 <br>
-&gt; Those that can would fail to clean up things if they actually got<br>
-&gt; interrupted.<br>
-&gt;<br>
-&gt; Signed-off-by: Michel D=E4nzer &lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
-Reviewed-by: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
-<span>Alex X: Just a reminder: amdgpu_unpin_work_func</span> is called by w=
-ork queue.
-<br>
-Signal is blocked already. un-interruptible waiting might slow thing down v=
-ery slightly.<br>
-<br>
-&gt; ---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_display.c |&nbsp; 2 &#43=
-;-<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; |&nbsp; 2 &#43;-<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c&nbsp;&nbsp;&nbsp;=
- |&nbsp; 2 &#43;-<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c&nbsp;&nbsp;&nbsp;&=
-nbsp; |&nbsp; 2 &#43;-<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c&nbsp;&nbsp; |&nb=
-sp; 2 &#43;-<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; |&nbsp; 2 &#43;-<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c&nbsp;&nbsp;&nbsp;&=
-nbsp; |&nbsp; 2 &#43;-<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/dce_v10_0.c&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; |&nbsp; 6 &#43;&#43;&#43;---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/dce_v11_0.c&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; |&nbsp; 6 &#43;&#43;&#43;---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/dce_v6_0.c&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; |&nbsp; 6 &#43;&#43;&#43;---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/dce_v8_0.c&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; |&nbsp; 6 &#43;&#43;&#43;---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/dce_virtual.c&nbsp;&nbsp;&nbsp;=
- |&nbsp; 2 &#43;-<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; |&nbsp; 6 &#43;&#43;&#43;---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; | 10 &#43;&#43;&#43;&#43;&#43;-----<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; |&nbsp; 8 &#43;&#43;&#43;&#43;----<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; |&nbsp; 8 &#43;&#43;&#43;&#43;----<br>
-&gt;&nbsp;&nbsp; 16 files changed, 36 insertions(&#43;), 36 deletions(-)<br=
->
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_display.c<br>
-&gt; index 771a6aae58d6..af64448a565c 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c<br>
-&gt; @@ -123,7 &#43;123,7 @@ static void amdgpu_unpin_work_func(struct work=
-_struct *__work)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* unpin of the old buffer *=
-/<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_reserve(work-&gt;old_abo, fa=
-lse);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_reserve(work-&gt;old_abo=
-, true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (likely(r =3D=3D 0)) {<br=
->
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_unpin(work-&gt;old_abo);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0)) {<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_fb.c<br>
-&gt; index 9dea2f661f1d..e869e60994ce 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c<br>
-&gt; @@ -113,7 &#43;113,7 @@ static void amdgpufb_destroy_pinned_object(str=
-uct drm_gem_object *gobj)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo *abo =3D ge=
-m_to_amdgpu_bo(gobj);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_bo_reserve(abo, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_bo_reserve(abo, true);<br=
->
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (likely(ret =3D=3D 0)) {<=
-br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_bo_kunmap(abo);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(abo);<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_gart.c<br>
-&gt; index 6d691abe889c..e7406ce7093c 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c<br>
-&gt; @@ -183,7 &#43;183,7 @@ void amdgpu_gart_table_vram_unpin(struct amdgp=
-u_device *adev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gart.robj =3D=
-=3D NULL) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; return;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;gart.robj, =
-false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;gart.ro=
-bj, true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (likely(r =3D=3D 0)) {<br=
->
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_bo_kunmap(adev-&gt;gart.robj);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(adev-&gt;gart.robj);<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_kms.c<br>
-&gt; index ec5b1bc0e428..d40b8ac745cd 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
-&gt; @@ -819,7 &#43;819,7 @@ void amdgpu_driver_postclose_kms(struct drm_de=
-vice *dev,<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev)) {=
-<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; /* TODO: how to handle reserve failure */<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; BUG_ON(amdgpu_bo_reserve(adev-&gt;virt.csa_obj, false));<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; BUG_ON(amdgpu_bo_reserve(adev-&gt;virt.csa_obj, true));<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_vm_bo_rmv(adev, fpriv-&gt;vm.csa_bo_va);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; fpriv-&gt;vm.csa_bo_va =3D NULL;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_bo_unreserve(adev-&gt;virt.csa_obj);<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_prime.c<br>
-&gt; index 3826d5aea0a6..6bdc866570ab 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c<br>
-&gt; @@ -113,7 &#43;113,7 @@ void amdgpu_gem_prime_unpin(struct drm_gem_obj=
-ect *obj)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo *bo =3D gem=
-_to_amdgpu_bo(obj);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_bo_reserve(bo, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_bo_reserve(bo, true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (unlikely(ret !=3D 0))<br=
->
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; return;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_sa.c<br>
-&gt; index 7b56d9988aba..de4ebcf4ac2c 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c<br>
-&gt; @@ -130,7 &#43;130,7 @@ int amdgpu_sa_bo_manager_suspend(struct amdgpu=
-_device *adev,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_reserve(sa_manager-&gt;bo, f=
-alse);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_reserve(sa_manager-&gt;b=
-o, true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!r) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_bo_kunmap(sa_manager-&gt;bo);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(sa_manager-&gt;bo);<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_ttm.c<br>
-&gt; index 58873cf027e8..11c6c4494e0a 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
-&gt; @@ -1198,7 &#43;1198,7 @@ void amdgpu_ttm_fini(struct amdgpu_device *a=
-dev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; return;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ttm_debugfs_fini(adev=
-);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;stollen_vga_mem=
-ory) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; r =3D amdgpu_bo_reserve(adev-&gt;stollen_vga_memory, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;stollen_vga_memory, true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (r =3D=3D 0) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
-bo_unpin(adev-&gt;stollen_vga_memory);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
-bo_unreserve(adev-&gt;stollen_vga_memory);<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/=
-amd/amdgpu/dce_v10_0.c<br>
-&gt; index 7d86ba42efc9..d618f92ae46c 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c<br>
-&gt; @@ -2231,7 &#43;2231,7 @@ static int dce_v10_0_crtc_do_set_base(struct=
- drm_crtc *crtc,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!atomic &amp;&amp; fb &a=
-mp;&amp; fb !=3D crtc-&gt;primary-&gt;fb) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_fb =3D to_amdgpu_framebuffer(fb);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; abo =3D gem_to_amdgpu_bo(amdgpu_fb-&gt;obj);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; r =3D amdgpu_bo_reserve(abo, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; r =3D amdgpu_bo_reserve(abo, true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
-r;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(abo);<br>
-&gt; @@ -2590,7 &#43;2590,7 @@ static int dce_v10_0_crtc_cursor_set2(struct=
- drm_crtc *crtc,<br>
-&gt;&nbsp;&nbsp; unpin:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_crtc-&gt;cursor_b=
-o) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; struct amdgpu_bo *aobj =3D gem_to_amdgpu_bo(amdgpu_crtc=
--&gt;cursor_bo);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; ret =3D amdgpu_bo_reserve(aobj, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; ret =3D amdgpu_bo_reserve(aobj, true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (likely(ret =3D=3D 0)) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
-bo_unpin(aobj);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
-bo_unreserve(aobj);<br>
-&gt; @@ -2720,7 &#43;2720,7 @@ static void dce_v10_0_crtc_disable(struct dr=
-m_crtc *crtc)<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_fb =3D to_amdgpu_framebuffer(crtc-&gt;primary-&g=
-t;fb);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; abo =3D gem_to_amdgpu_bo(amdgpu_fb-&gt;obj);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; r =3D amdgpu_bo_reserve(abo, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; r =3D amdgpu_bo_reserve(abo, true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (unlikely(r))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERR=
-OR(&quot;failed to reserve abo before unpin\n&quot;);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; else {<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/=
-amd/amdgpu/dce_v11_0.c<br>
-&gt; index 3d82181baffe..ea634158ae7a 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c<br>
-&gt; @@ -2215,7 &#43;2215,7 @@ static int dce_v11_0_crtc_do_set_base(struct=
- drm_crtc *crtc,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!atomic &amp;&amp; fb &a=
-mp;&amp; fb !=3D crtc-&gt;primary-&gt;fb) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_fb =3D to_amdgpu_framebuffer(fb);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; abo =3D gem_to_amdgpu_bo(amdgpu_fb-&gt;obj);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; r =3D amdgpu_bo_reserve(abo, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; r =3D amdgpu_bo_reserve(abo, true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
-r;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(abo);<br>
-&gt; @@ -2610,7 &#43;2610,7 @@ static int dce_v11_0_crtc_cursor_set2(struct=
- drm_crtc *crtc,<br>
-&gt;&nbsp;&nbsp; unpin:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_crtc-&gt;cursor_b=
-o) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; struct amdgpu_bo *aobj =3D gem_to_amdgpu_bo(amdgpu_crtc=
--&gt;cursor_bo);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; ret =3D amdgpu_bo_reserve(aobj, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; ret =3D amdgpu_bo_reserve(aobj, true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (likely(ret =3D=3D 0)) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
-bo_unpin(aobj);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
-bo_unreserve(aobj);<br>
-&gt; @@ -2740,7 &#43;2740,7 @@ static void dce_v11_0_crtc_disable(struct dr=
-m_crtc *crtc)<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_fb =3D to_amdgpu_framebuffer(crtc-&gt;primary-&g=
-t;fb);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; abo =3D gem_to_amdgpu_bo(amdgpu_fb-&gt;obj);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; r =3D amdgpu_bo_reserve(abo, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; r =3D amdgpu_bo_reserve(abo, true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (unlikely(r))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERR=
-OR(&quot;failed to reserve abo before unpin\n&quot;);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; else {<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/a=
-md/amdgpu/dce_v6_0.c<br>
-&gt; index 59f6993af0b6..d68c1eabd0ce 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c<br>
-&gt; @@ -2150,7 &#43;2150,7 @@ static int dce_v6_0_crtc_do_set_base(struct =
-drm_crtc *crtc,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!atomic &amp;&amp; fb &a=
-mp;&amp; fb !=3D crtc-&gt;primary-&gt;fb) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_fb =3D to_amdgpu_framebuffer(fb);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; abo =3D gem_to_amdgpu_bo(amdgpu_fb-&gt;obj);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; r =3D amdgpu_bo_reserve(abo, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; r =3D amdgpu_bo_reserve(abo, true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
-r;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(abo);<br>
-&gt; @@ -2467,7 &#43;2467,7 @@ static int dce_v6_0_crtc_cursor_set2(struct =
-drm_crtc *crtc,<br>
-&gt;&nbsp;&nbsp; unpin:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_crtc-&gt;cursor_b=
-o) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; struct amdgpu_bo *aobj =3D gem_to_amdgpu_bo(amdgpu_crtc=
--&gt;cursor_bo);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; ret =3D amdgpu_bo_reserve(aobj, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; ret =3D amdgpu_bo_reserve(aobj, true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (likely(ret =3D=3D 0)) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
-bo_unpin(aobj);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
-bo_unreserve(aobj);<br>
-&gt; @@ -2592,7 &#43;2592,7 @@ static void dce_v6_0_crtc_disable(struct drm=
-_crtc *crtc)<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_fb =3D to_amdgpu_framebuffer(crtc-&gt;primary-&g=
-t;fb);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; abo =3D gem_to_amdgpu_bo(amdgpu_fb-&gt;obj);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; r =3D amdgpu_bo_reserve(abo, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; r =3D amdgpu_bo_reserve(abo, true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (unlikely(r))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERR=
-OR(&quot;failed to reserve abo before unpin\n&quot;);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; else {<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/a=
-md/amdgpu/dce_v8_0.c<br>
-&gt; index 1629ff9c3949..1e6c40e32cfd 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c<br>
-&gt; @@ -2090,7 &#43;2090,7 @@ static int dce_v8_0_crtc_do_set_base(struct =
-drm_crtc *crtc,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!atomic &amp;&amp; fb &a=
-mp;&amp; fb !=3D crtc-&gt;primary-&gt;fb) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_fb =3D to_amdgpu_framebuffer(fb);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; abo =3D gem_to_amdgpu_bo(amdgpu_fb-&gt;obj);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; r =3D amdgpu_bo_reserve(abo, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; r =3D amdgpu_bo_reserve(abo, true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
-r;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(abo);<br>
-&gt; @@ -2441,7 &#43;2441,7 @@ static int dce_v8_0_crtc_cursor_set2(struct =
-drm_crtc *crtc,<br>
-&gt;&nbsp;&nbsp; unpin:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_crtc-&gt;cursor_b=
-o) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; struct amdgpu_bo *aobj =3D gem_to_amdgpu_bo(amdgpu_crtc=
--&gt;cursor_bo);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; ret =3D amdgpu_bo_reserve(aobj, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; ret =3D amdgpu_bo_reserve(aobj, true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (likely(ret =3D=3D 0)) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
-bo_unpin(aobj);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
-bo_unreserve(aobj);<br>
-&gt; @@ -2571,7 &#43;2571,7 @@ static void dce_v8_0_crtc_disable(struct drm=
-_crtc *crtc)<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_fb =3D to_amdgpu_framebuffer(crtc-&gt;primary-&g=
-t;fb);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; abo =3D gem_to_amdgpu_bo(amdgpu_fb-&gt;obj);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; r =3D amdgpu_bo_reserve(abo, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; r =3D amdgpu_bo_reserve(abo, true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (unlikely(r))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERR=
-OR(&quot;failed to reserve abo before unpin\n&quot;);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; else {<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c b/drivers/gpu/dr=
-m/amd/amdgpu/dce_virtual.c<br>
-&gt; index 8bb9cfde508d..084518301f4b 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c<br>
-&gt; @@ -247,7 &#43;247,7 @@ static void dce_virtual_crtc_disable(struct dr=
-m_crtc *crtc)<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_fb =3D to_amdgpu_framebuffer(crtc-&gt;primary-&g=
-t;fb);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; abo =3D gem_to_amdgpu_bo(amdgpu_fb-&gt;obj);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; r =3D amdgpu_bo_reserve(abo, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; r =3D amdgpu_bo_reserve(abo, true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (unlikely(r))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERR=
-OR(&quot;failed to reserve abo before unpin\n&quot;);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; else {<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/a=
-md/amdgpu/gfx_v6_0.c<br>
-&gt; index 25c3703f838b..03d2a0a2e523 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c<br>
-&gt; @@ -2437,7 &#43;2437,7 @@ static void gfx_v6_0_rlc_fini(struct amdgpu_=
-device *adev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.rlc.save_re=
-store_obj) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.save_restore_obj, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.save_restore_obj, true);<b=
-r>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_war=
-n(adev-&gt;dev, &quot;(%d) reserve RLC sr bo failed\n&quot;, r);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(adev-&gt;gfx.rlc.save_restore_obj);<br>
-&gt; @@ -2448,7 &#43;2448,7 @@ static void gfx_v6_0_rlc_fini(struct amdgpu_=
-device *adev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.rlc.clear_s=
-tate_obj) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.clear_state_obj, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.clear_state_obj, true);<br=
->
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_war=
-n(adev-&gt;dev, &quot;(%d) reserve RLC c bo failed\n&quot;, r);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(adev-&gt;gfx.rlc.clear_state_obj);<br>
-&gt; @@ -2459,7 &#43;2459,7 @@ static void gfx_v6_0_rlc_fini(struct amdgpu_=
-device *adev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.rlc.cp_tabl=
-e_obj) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.cp_table_obj, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.cp_table_obj, true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_war=
-n(adev-&gt;dev, &quot;(%d) reserve RLC cp table bo failed\n&quot;, r);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(adev-&gt;gfx.rlc.cp_table_obj);<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/a=
-md/amdgpu/gfx_v7_0.c<br>
-&gt; index 75cca54fa216..b2df8e814abb 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c<br>
-&gt; @@ -2792,7 &#43;2792,7 @@ static void gfx_v7_0_cp_compute_fini(struct =
-amdgpu_device *adev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; struct amdgpu_ring *ring =3D &amp;adev-&gt;gfx.compute_=
-ring[i];<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (ring-&gt;mqd_obj) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_reserve=
-(ring-&gt;mqd_obj, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_res=
-erve(ring-&gt;mqd_obj, true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (unl=
-ikely(r !=3D 0))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_warn(adev-&gt;dev, &quot;(%d) =
-reserve MQD bo failed\n&quot;, r);<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; @@ -2810,7 &#43;2810,7 @@ static void gfx_v7_0_mec_fini(struct amdgpu_=
-device *adev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.mec.hpd_eop=
-_obj) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.mec.hpd_eop_obj, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.mec.hpd_eop_obj, true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_war=
-n(adev-&gt;dev, &quot;(%d) reserve HPD EOP bo failed\n&quot;, r);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(adev-&gt;gfx.mec.hpd_eop_obj);<br>
-&gt; @@ -3359,7 &#43;3359,7 @@ static void gfx_v7_0_rlc_fini(struct amdgpu_=
-device *adev)<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* save restore block */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.rlc.save_re=
-store_obj) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.save_restore_obj, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.save_restore_obj, true);<b=
-r>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_war=
-n(adev-&gt;dev, &quot;(%d) reserve RLC sr bo failed\n&quot;, r);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(adev-&gt;gfx.rlc.save_restore_obj);<br>
-&gt; @@ -3371,7 &#43;3371,7 @@ static void gfx_v7_0_rlc_fini(struct amdgpu_=
-device *adev)<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* clear state block */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.rlc.clear_s=
-tate_obj) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.clear_state_obj, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.clear_state_obj, true);<br=
->
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_war=
-n(adev-&gt;dev, &quot;(%d) reserve RLC c bo failed\n&quot;, r);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(adev-&gt;gfx.rlc.clear_state_obj);<br>
-&gt; @@ -3383,7 &#43;3383,7 @@ static void gfx_v7_0_rlc_fini(struct amdgpu_=
-device *adev)<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* clear state block */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.rlc.cp_tabl=
-e_obj) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.cp_table_obj, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.cp_table_obj, true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_war=
-n(adev-&gt;dev, &quot;(%d) reserve RLC cp table bo failed\n&quot;, r);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(adev-&gt;gfx.rlc.cp_table_obj);<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/a=
-md/amdgpu/gfx_v8_0.c<br>
-&gt; index 2a5b20920ea6..ac64e01c6938 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
-&gt; @@ -1244,7 &#43;1244,7 @@ static void gfx_v8_0_rlc_fini(struct amdgpu_=
-device *adev)<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* clear state block */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.rlc.clear_s=
-tate_obj) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.clear_state_obj, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.clear_state_obj, true);<br=
->
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_war=
-n(adev-&gt;dev, &quot;(%d) reserve RLC cbs bo failed\n&quot;, r);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(adev-&gt;gfx.rlc.clear_state_obj);<br>
-&gt; @@ -1255,7 &#43;1255,7 @@ static void gfx_v8_0_rlc_fini(struct amdgpu_=
-device *adev)<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* jump table block */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.rlc.cp_tabl=
-e_obj) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.cp_table_obj, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.rlc.cp_table_obj, true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_war=
-n(adev-&gt;dev, &quot;(%d) reserve RLC cp table bo failed\n&quot;, r);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(adev-&gt;gfx.rlc.cp_table_obj);<br>
-&gt; @@ -1368,7 &#43;1368,7 @@ static void gfx_v8_0_mec_fini(struct amdgpu_=
-device *adev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.mec.hpd_eop=
-_obj) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.mec.hpd_eop_obj, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.mec.hpd_eop_obj, true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_war=
-n(adev-&gt;dev, &quot;(%d) reserve HPD EOP bo failed\n&quot;, r);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(adev-&gt;gfx.mec.hpd_eop_obj);<br>
-&gt; @@ -1496,7 &#43;1496,7 @@ static int gfx_v8_0_kiq_init(struct amdgpu_d=
-evice *adev)<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memset(hpd, 0, MEC_HPD_SIZE)=
-;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_reserve(kiq-&gt;eop_obj, fal=
-se);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_reserve(kiq-&gt;eop_obj,=
- true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; dev_warn(adev-&gt;dev, &quot;(%d) reserve kiq eop bo fa=
-iled\n&quot;, r);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_kunmap(kiq-&gt;eop=
-_obj);<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/a=
-md/amdgpu/gfx_v9_0.c<br>
-&gt; index 5249bc7964fb..08daa3fd687b 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
-&gt; @@ -453,7 &#43;453,7 @@ static void gfx_v9_0_mec_fini(struct amdgpu_de=
-vice *adev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.mec.hpd_eop=
-_obj) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.mec.hpd_eop_obj, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.mec.hpd_eop_obj, true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_war=
-n(adev-&gt;dev, &quot;(%d) reserve HPD EOP bo failed\n&quot;, r);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(adev-&gt;gfx.mec.hpd_eop_obj);<br>
-&gt; @@ -463,7 &#43;463,7 @@ static void gfx_v9_0_mec_fini(struct amdgpu_de=
-vice *adev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.mec.hpd_eop_obj =3D NULL;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;gfx.mec.mec_fw_=
-obj) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.mec.mec_fw_obj, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; r =3D amdgpu_bo_reserve(adev-&gt;gfx.mec.mec_fw_obj, true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_war=
-n(adev-&gt;dev, &quot;(%d) reserve mec firmware bo failed\n&quot;, r);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(adev-&gt;gfx.mec.mec_fw_obj);<br>
-&gt; @@ -599,7 &#43;599,7 @@ static int gfx_v9_0_kiq_init(struct amdgpu_dev=
-ice *adev)<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memset(hpd, 0, MEC_HPD_SIZE)=
-;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_reserve(kiq-&gt;eop_obj, fal=
-se);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_reserve(kiq-&gt;eop_obj,=
- true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (unlikely(r !=3D 0))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; dev_warn(adev-&gt;dev, &quot;(%d) reserve kiq eop bo fa=
-iled\n&quot;, r);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_kunmap(kiq-&gt;eop=
-_obj);<br>
-&gt; @@ -1786,7 &#43;1786,7 @@ static void gfx_v9_0_cp_compute_fini(struct =
-amdgpu_device *adev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; struct amdgpu_ring *ring =3D &amp;adev-&gt;gfx.compute_=
-ring[i];<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (ring-&gt;mqd_obj) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_reserve=
-(ring-&gt;mqd_obj, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_res=
-erve(ring-&gt;mqd_obj, true);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (unl=
-ikely(r !=3D 0))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_warn(adev-&gt;dev, &quot;(%d) =
-reserve MQD bo failed\n&quot;, r);<br>
-&gt;&nbsp;&nbsp; <br>
-<br>
-<br>
-<br>
-<br>
-------------------------------<br>
-<br>
-Subject: Digest Footer<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk274699" previewremoved=3D"true">https://lists.freedesktop.org/mailman/li=
-stinfo/amd-gfx</a>
-<div id=3D"LPBorder_GT_14933885618700.08564324282660418" style=3D"margin-bo=
-ttom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
-<table id=3D"LPContainer_14933885618660.31851255213751084" style=3D"width: =
-90%; background-color: rgb(255, 255, 255); position: relative; overflow: au=
-to; padding-top: 20px; padding-bottom: 20px; margin-top: 20px; border-top: =
-1px dotted rgb(200, 200, 200); border-bottom: 1px dotted rgb(200, 200, 200)=
-;" role=3D"presentation" cellspacing=3D"0">
-<tbody>
-<tr style=3D"border-spacing: 0px;" valign=3D"top">
-<td id=3D"TextCell_14933885618670.7018199738421703" style=3D"vertical-align=
-: top; position: relative; padding: 0px; display: table-cell;" colspan=3D"2=
-">
-<div id=3D"LPRemovePreviewContainer_14933885618670.43477942816972304"></div=
->
-<div id=3D"LPTitle_14933885618670.025317354189944186" style=3D"top: 0px; co=
-lor: rgb(0, 120, 215); font-weight: 400; font-size: 21px; font-family: &quo=
-t;wf_segoe-ui_light&quot;,&quot;Segoe UI Light&quot;,&quot;Segoe WP Light&q=
-uot;,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif; lin=
-e-height: 21px;">
-<a id=3D"LPUrlAnchor_14933885618680.4105438607817886" style=3D"text-decorat=
-ion: none;" href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx"=
- target=3D"_blank">amd-gfx Info Page - freedesktop.org</a></div>
-<div id=3D"LPMetadata_14933885618680.7841659128532912" style=3D"margin: 10p=
-x 0px 16px; color: rgb(102, 102, 102); font-weight: 400; font-family: &quot=
-;wf_segoe-ui_normal&quot;,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,=
-Arial,sans-serif; font-size: 14px; line-height: 14px;">
-lists.freedesktop.org</div>
-<div id=3D"LPDescription_14933885618690.9239757500057303" style=3D"display:=
- block; color: rgb(102, 102, 102); font-weight: 400; font-family: &quot;wf_=
-segoe-ui_normal&quot;,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Aria=
-l,sans-serif; font-size: 14px; line-height: 20px; max-height: 100px; overfl=
-ow: hidden;">
-Subscribing to amd-gfx: Subscribe to amd-gfx by filling out the following f=
-orm. Use of all freedesktop.org lists is subject to our Code of ...</div>
-</td>
-</tr>
-</tbody>
-</table>
+<b>Sent:</b> Friday, April 28, 2017 4:06 AM<br>
+<b>To:</b> Panariti, David &lt;David.Panariti-5C7GfCeVMHo@public.gmane.org&gt;; gpudriverdevsupp=
+ort &lt;gpudriverdevsupport-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: CZ EDC param and support<o:p></o:p></span></p>
 </div>
-<br>
-<br>
-<br>
-------------------------------<br>
-<br>
-End of amd-gfx Digest, Vol 11, Issue 407<br>
-****************************************<br>
 </div>
-</span></font></div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal">You somehow messed up the attachment.<br>
+<br>
+Instead of individual files everything is squashed together as all-edc.patc=
+h.<br>
+<br>
+Please fix that otherwise proper review won't be possible.<br>
+<br>
+Christian.<br>
+<br>
+Am 28.04.2017 um 00:13 schrieb Panariti, David:<span style=3D"font-size:12.=
+0pt"><o:p></o:p></span></p>
+</div>
+<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<p class=3D"MsoNormal">The changes in the workarounds function use DRM_INFO=
+ rather than DRM_DEBUG because CZs with EDC are often used in embedded envi=
+ronments and any info can be useful especially in the case of an intermitte=
+nt problem.<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">From e1ce383592c275b58ad95bd80b5479af8c1f9dae Mon Se=
+p 17 00:00:00 2001<o:p></o:p></p>
+<p class=3D"MsoNormal">From: David Panariti <a href=3D"mailto:David.Panarit=
+i@amd.com">
+&lt;David.Panariti-5C7GfCeVMHo@public.gmane.org&gt;</a><o:p></o:p></p>
+<p class=3D"MsoNormal">Date: Fri, 14 Apr 2017 13:41:52 -0400<o:p></o:p></p>
+<p class=3D"MsoNormal">Subject: [PATCH 1/3] drm/amdgpu: Moved gfx_v8_0_sele=
+ct_se_sh() in lieu of<o:p></o:p></p>
+<p class=3D"MsoNormal">re-redundant prototype.<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">Will be needed for the rest of the EDC workarounds p=
+atch.<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">Change-Id: Ie586ab38a69e98a91c6cb5747e285ce8bfdd1c86=
+<o:p></o:p></p>
+<p class=3D"MsoNormal">Signed-off-by: David Panariti <a href=3D"mailto:Davi=
+d.Panariti-5C7GfCeVMHo@public.gmane.org">
+&lt;David.Panariti-5C7GfCeVMHo@public.gmane.org&gt;</a><o:p></o:p></p>
+<p class=3D"MsoNormal">---<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 46 &#43;&#43=
+;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43=
+;------------------<o:p></o:p></p>
+<p class=3D"MsoNormal">1 file changed, 23 insertions(&#43;), 23 deletions(-=
+)<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b=
+/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<o:p></o:p></p>
+<p class=3D"MsoNormal">index 2ff5f19..27b57cb 100644<o:p></o:p></p>
+<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<o:p></o:=
+p></p>
+<p class=3D"MsoNormal">&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v8_=
+0.c<o:p></o:p></p>
+<p class=3D"MsoNormal">@@ -1500,6 &#43;1500,29 @@ static int gfx_v8_0_kiq_i=
+nit(struct amdgpu_device *adev)<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<o:p></o:p></p>
+<p class=3D"MsoNormal">}<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;static void gfx_v8_0_select_se_sh(struct amdgpu=
+_device *adev,<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; &nbsp; u32 se_num, u32 sh_num, u32 instance)<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;{<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; u32 data;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; if (instance =3D=3D 0xffffffff)<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data =3D REG_SET_FIELD(0, GR=
+BM_GFX_INDEX, INSTANCE_BROADCAST_WRITES, 1);<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; else<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data =3D REG_SET_FIELD(0, GR=
+BM_GFX_INDEX, INSTANCE_INDEX, instance);<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; if (se_num =3D=3D 0xffffffff)<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data =3D REG_SET_FIELD(data,=
+ GRBM_GFX_INDEX, SE_BROADCAST_WRITES, 1);<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; else<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data =3D REG_SET_FIELD(data,=
+ GRBM_GFX_INDEX, SE_INDEX, se_num);<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; if (sh_num =3D=3D 0xffffffff)<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data =3D REG_SET_FIELD(data,=
+ GRBM_GFX_INDEX, SH_BROADCAST_WRITES, 1);<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; else<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data =3D REG_SET_FIELD(data,=
+ GRBM_GFX_INDEX, SH_INDEX, sh_num);<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmGRBM_GFX_INDEX, data);<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;}<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">static const u32 vgpr_init_compute_shader[] =3D<o:p>=
+</o:p></p>
+<p class=3D"MsoNormal">{<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x7e000209, 0x7e020208,<o:p></o:p></p>
+<p class=3D"MsoNormal">@@ -3556,29 &#43;3579,6 @@ static void gfx_v8_0_tili=
+ng_mode_table_init(struct amdgpu_device *adev)<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal">}<o:p></o:p></p>
+<p class=3D"MsoNormal">-static void gfx_v8_0_select_se_sh(struct amdgpu_dev=
+ice *adev,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; &nbsp; u32 se_num, u32 sh_num, u32 instance)<o:p></o:p></p>
+<p class=3D"MsoNormal">-{<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; u32 data;<o:p></o:p></p>
+<p class=3D"MsoNormal">-<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; if (instance =3D=3D 0xffffffff)<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data =3D REG_SET_FIELD(0, =
+GRBM_GFX_INDEX, INSTANCE_BROADCAST_WRITES, 1);<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; else<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data =3D REG_SET_FIELD(0, =
+GRBM_GFX_INDEX, INSTANCE_INDEX, instance);<o:p></o:p></p>
+<p class=3D"MsoNormal">-<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; if (se_num =3D=3D 0xffffffff)<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data =3D REG_SET_FIELD(dat=
+a, GRBM_GFX_INDEX, SE_BROADCAST_WRITES, 1);<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; else<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data =3D REG_SET_FIELD(dat=
+a, GRBM_GFX_INDEX, SE_INDEX, se_num);<o:p></o:p></p>
+<p class=3D"MsoNormal">-<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; if (sh_num =3D=3D 0xffffffff)<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data =3D REG_SET_FIELD(dat=
+a, GRBM_GFX_INDEX, SH_BROADCAST_WRITES, 1);<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; else<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data =3D REG_SET_FIELD(dat=
+a, GRBM_GFX_INDEX, SH_INDEX, sh_num);<o:p></o:p></p>
+<p class=3D"MsoNormal">-<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmGRBM_GFX_INDEX, data);<o:p></o:p></p>
+<p class=3D"MsoNormal">-}<o:p></o:p></p>
+<p class=3D"MsoNormal">-<o:p></o:p></p>
+<p class=3D"MsoNormal">static u32 gfx_v8_0_create_bitmask(u32 bit_width)<o:=
+p></o:p></p>
+<p class=3D"MsoNormal">{<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (u32)((1ULL &lt;&lt; bit_width) - 1=
+);<o:p></o:p></p>
+<p class=3D"MsoNormal">-- <o:p></o:p></p>
+<p class=3D"MsoNormal">2.7.4<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">From 38fac8cab73dbc07e0ee7599b52106bc09dd32ea Mon Se=
+p 17 00:00:00 2001<o:p></o:p></p>
+<p class=3D"MsoNormal">From: David Panariti <a href=3D"mailto:David.Panarit=
+i@amd.com">
+&lt;David.Panariti-5C7GfCeVMHo@public.gmane.org&gt;</a><o:p></o:p></p>
+<p class=3D"MsoNormal">Date: Mon, 24 Apr 2017 11:05:45 -0400<o:p></o:p></p>
+<p class=3D"MsoNormal">Subject: [PATCH 2/3] drm/amdgpu: Complete Carrizo ED=
+C (Error Detection and<o:p></o:p></p>
+<p class=3D"MsoNormal">Correction) workarounds.<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">The workarounds are unconditionally performed on CZs=
+ with EDC enabled.<o:p></o:p></p>
+<p class=3D"MsoNormal">EDC detects uncorrected ECC errors and uses data poi=
+soning to prevent<o:p></o:p></p>
+<p class=3D"MsoNormal">corrupted compute results from being used (read).<o:=
+p></o:p></p>
+<p class=3D"MsoNormal">EDC enabled CZs are often used in embedded environme=
+nts.<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">Change-Id: I84c261785329beeb797f11efbe0ec35790f2996c=
+<o:p></o:p></p>
+<p class=3D"MsoNormal">Signed-off-by: David Panariti <a href=3D"mailto:Davi=
+d.Panariti-5C7GfCeVMHo@public.gmane.org">
+&lt;David.Panariti-5C7GfCeVMHo@public.gmane.org&gt;</a><o:p></o:p></p>
+<p class=3D"MsoNormal">---<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 148 &#43;&#4=
+3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#4=
+3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;----------<o:p></o:p></p>
+<p class=3D"MsoNormal">1 file changed, 106 insertions(&#43;), 42 deletions(=
+-)<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b=
+/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<o:p></o:p></p>
+<p class=3D"MsoNormal">index 27b57cb..2f5bf5f 100644<o:p></o:p></p>
+<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<o:p></o:=
+p></p>
+<p class=3D"MsoNormal">&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v8_=
+0.c<o:p></o:p></p>
+<p class=3D"MsoNormal">@@ -1645,35 &#43;1645,92 @@ static const u32 sgpr2_i=
+nit_regs[] =3D<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmCOMPUTE_USER_DATA_9, 0xedcedc09,<o:p></o=
+:p></p>
+<p class=3D"MsoNormal">};<o:p></o:p></p>
+<p class=3D"MsoNormal">-static const u32 sec_ded_counter_registers[] =3D<o:=
+p></o:p></p>
+<p class=3D"MsoNormal">-{<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; mmCPC_EDC_ATC_CNT,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; mmCPC_EDC_SCRATCH_CNT,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; mmCPC_EDC_UCODE_CNT,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; mmCPF_EDC_ATC_CNT,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; mmCPF_EDC_ROQ_CNT,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; mmCPF_EDC_TAG_CNT,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; mmCPG_EDC_ATC_CNT,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; mmCPG_EDC_DMA_CNT,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; mmCPG_EDC_TAG_CNT,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; mmDC_EDC_CSINVOC_CNT,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; mmDC_EDC_RESTORE_CNT,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; mmDC_EDC_STATE_CNT,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; mmGDS_EDC_CNT,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; mmGDS_EDC_GRBM_CNT,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; mmGDS_EDC_OA_DED,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; mmSPI_EDC_CNT,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; mmSQC_ATC_EDC_GATCL1_CNT,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; mmSQC_EDC_CNT,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; mmSQ_EDC_DED_CNT,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; mmSQ_EDC_INFO,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; mmSQ_EDC_SEC_CNT,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; mmTCC_EDC_CNT,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; mmTCP_ATC_EDC_GATCL1_CNT,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; mmTCP_EDC_CNT,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; mmTD_EDC_CNT<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;struct reg32_counter_name_map {<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t rnmap_addr;&nbsp;&nbsp; /* Counter regis=
+ter address */<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; const char *rnmap_name;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Name of the counter */<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; size_t rnmap_num_instances;&nbsp; /* Number of bl=
+ock instances */<o:p></o:p></p>
+<p class=3D"MsoNormal">};<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;#define DEF_mmREG32_NAME_MAP_ELEMENT(reg, num_i=
+nstances) {&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; \<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; .rnmap_addr =3D mm##reg,&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; .rnmap_name =3D #reg,&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+\<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; .rnmap_num_instances =3D num_instances&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; \<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;}<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;/* See GRBM_GFX_INDEX, et. al. registers. */<o:=
+p></o:p></p>
+<p class=3D"MsoNormal">&#43;static const struct reg32_counter_name_map sec_=
+ded_counter_registers[] =3D {<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; DEF_mmREG32_NAME_MAP_ELEMENT(SQC_EDC_CNT, 2),<o:p=
+></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; DEF_mmREG32_NAME_MAP_ELEMENT(SQC_ATC_EDC_GATCL1_C=
+NT, 2),<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; DEF_mmREG32_NAME_MAP_ELEMENT(SQ_EDC_SEC_CNT, 8),<=
+o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; DEF_mmREG32_NAME_MAP_ELEMENT(SQ_EDC_DED_CNT, 8),<=
+o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; DEF_mmREG32_NAME_MAP_ELEMENT(TCP_EDC_CNT, 8),<o:p=
+></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; DEF_mmREG32_NAME_MAP_ELEMENT(TCP_ATC_EDC_GATCL1_C=
+NT, 8),<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; DEF_mmREG32_NAME_MAP_ELEMENT(TD_EDC_CNT, 8),<o:p>=
+</o:p></p>
+<p class=3D"MsoNormal">&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; DEF_mmREG32_NAME_MAP_ELEMENT(TCC_EDC_CNT, 4),<o:p=
+></o:p></p>
+<p class=3D"MsoNormal">&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; DEF_mmREG32_NAME_MAP_ELEMENT(CPC_EDC_ATC_CNT, 1),=
+<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; DEF_mmREG32_NAME_MAP_ELEMENT(CPC_EDC_SCRATCH_CNT,=
+ 1),<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; DEF_mmREG32_NAME_MAP_ELEMENT(CPC_EDC_UCODE_CNT, 1=
+),<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; DEF_mmREG32_NAME_MAP_ELEMENT(CPF_EDC_ATC_CNT, 1),=
+<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; DEF_mmREG32_NAME_MAP_ELEMENT(CPF_EDC_ROQ_CNT, 1),=
+<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; DEF_mmREG32_NAME_MAP_ELEMENT(CPF_EDC_TAG_CNT, 1),=
+<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; DEF_mmREG32_NAME_MAP_ELEMENT(CPG_EDC_ATC_CNT, 1),=
+<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; DEF_mmREG32_NAME_MAP_ELEMENT(CPG_EDC_DMA_CNT, 1),=
+<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; DEF_mmREG32_NAME_MAP_ELEMENT(CPG_EDC_TAG_CNT, 1),=
+<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; DEF_mmREG32_NAME_MAP_ELEMENT(DC_EDC_CSINVOC_CNT, =
+1),<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; DEF_mmREG32_NAME_MAP_ELEMENT(DC_EDC_STATE_CNT, 1)=
+,<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; DEF_mmREG32_NAME_MAP_ELEMENT(DC_EDC_RESTORE_CNT, =
+1),<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; DEF_mmREG32_NAME_MAP_ELEMENT(GDS_EDC_CNT, 1),<o:p=
+></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; DEF_mmREG32_NAME_MAP_ELEMENT(GDS_EDC_GRBM_CNT, 1)=
+,<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; DEF_mmREG32_NAME_MAP_ELEMENT(SPI_EDC_CNT, 1),<o:p=
+></o:p></p>
+<p class=3D"MsoNormal">&#43;};<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;static int gfx_v8_0_edc_clear_counters(struct a=
+mdgpu_device *adev)<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;{<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; int ci, se, sh, i;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t count;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; int r =3D 0;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;adev-&gt;grbm_idx_mutex);<o:p></o=
+:p></p>
+<p class=3D"MsoNormal">&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; for (ci =3D 0; ci &lt; ARRAY_SIZE(sec_ded_counter=
+_registers); &#43;&#43;ci) {<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct reg32_counter_n=
+ame_map *cp =3D<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sec_ded=
+_counter_registers &#43; ci;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const char *name =3D cp-&gt;=
+rnmap_name;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (se =3D 0; se &lt; adev-=
+&gt;gfx.config.max_shader_engines; &#43;&#43;se) {<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (sh=
+ =3D 0; sh &lt; adev-&gt;gfx.config.max_sh_per_se; &#43;&#43;sh) {<o:p></o:=
+p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; for (i =3D 0; i &lt; cp-&gt;rnmap_num_instances; &#43;&#43;i)=
+ {<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx_v8_0_select_se_sh(adev, se, sh, i);<=
+o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; count =3D RREG32(cp-&gt;rnmap_addr);<o:p=
+></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; count =3D RREG32(cp-&gt;rnmap_addr);<o:p=
+></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (count !=3D 0) {<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Workaround failed=
+.<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * If people are int=
+erested<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * in EDC at all, th=
+ey will<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * want to know whic=
+h<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * counters had prob=
+lems.<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_WARN(&quot;EDC =
+counter %s is 0x%08x, but should be 0\n.&quot;,<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; name, count);<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D -EINVAL;<o:p>=
+</o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto ret;<o:p></o:p=
+></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p><=
+/o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;ret:<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; gfx_v8_0_select_se_sh(adev, 0xffffffff, 0xfffffff=
+f, 0xffffffff);<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;adev-&gt;grbm_idx_mutex);<o:p><=
+/o:p></p>
+<p class=3D"MsoNormal">&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; return r;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;}<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">static int gfx_v8_0_do_edc_gpr_workarounds(struct am=
+dgpu_device *adev)<o:p></o:p></p>
+<p class=3D"MsoNormal">{<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ring *ring =3D &amp;adev-&gt=
+;gfx.compute_ring[0];<o:p></o:p></p>
+<p class=3D"MsoNormal">@@ -1681,18 &#43;1738,36 @@ static int gfx_v8_0_do_e=
+dc_gpr_workarounds(struct amdgpu_device *adev)<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct fence *f =3D NULL;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r, i;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 tmp;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; u32 dis_bit;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned total_size, vgpr_offset, sgpr_off=
+set;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 gpu_addr;<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; /* only supported on CZ */<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;asic_type !=3D CHIP_CARRIZO)<o:p><=
+/o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;asic_type !=3D CHIP_CARRIZO) {<o:p><=
+/o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* EDC is only supported on =
+CZ */<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_=
+INFO(&quot;Detected Carrizo.\n&quot;);<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32(mmCC_GC_EDC_CONFIG);<o:p></o:p></p=
+>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; dis_bit =3D REG_GET_FIELD(tmp, CC_GC_EDC_CONFIG, =
+DIS_EDC);<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; if (dis_bit) {<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* On Carrizo, EDC may be di=
+sabled by a fuse. */<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_INFO(&quot;EDC hardware =
+is disabled, GC_EDC_CONFIG: 0x%08x.\n&quot;,<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp);<o=
+:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<o:p></o:p><=
+/p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* bail if the compute ring is not r=
+eady */<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!ring-&gt;ready)<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<o:p></o:p><=
+/p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32(mmGB_EDC_MODE);<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; DRM_INFO(&quot;Applying EDC workarounds.\n&quot;)=
+;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; /*<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; * Interested parties can enable EDC using debugfs=
+ register reads and<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; * writes.<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; */<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmGB_EDC_MODE, 0);<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; total_size =3D<o:p></o:p></p>
+<p class=3D"MsoNormal">@@ -1817,18 &#43;1892,7 @@ static int gfx_v8_0_do_ed=
+c_gpr_workarounds(struct amdgpu_device *adev)<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto fail;<o:p></o:p>=
+</p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, GB_EDC_MODE, DED_MOD=
+E, 2);<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, GB_EDC_MODE, PROP_FE=
+D, 1);<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmGB_EDC_MODE, tmp);<o:p></o:p></p>
+<p class=3D"MsoNormal">-<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32(mmCC_GC_EDC_CONFIG);<o:p></o:p><=
+/p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, CC_GC_EDC_CONFIG, DI=
+S_EDC, 0) | 1;<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmCC_GC_EDC_CONFIG, tmp);<o:p></o:p></p>
+<p class=3D"MsoNormal">-<o:p></o:p></p>
+<p class=3D"MsoNormal">-<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; /* read back registers to clear the counters */=
+<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; ARRAY_SIZE(sec_ded_counter=
+_registers); i&#43;&#43;)<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RREG32(sec_ded_counter_reg=
+isters[i]);<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; gfx_v8_0_edc_clear_counters(adev);<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;fail:<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ib_free(adev, &amp;ib, NULL);<o:p><=
+/o:p></p>
+<p class=3D"MsoNormal">-- <o:p></o:p></p>
+<p class=3D"MsoNormal">2.7.4<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">From ec4803205582c1011f5ced1ead70ee244268b4b8 Mon Se=
+p 17 00:00:00 2001<o:p></o:p></p>
+<p class=3D"MsoNormal">From: David Panariti <a href=3D"mailto:David.Panarit=
+i@amd.com">
+&lt;David.Panariti-5C7GfCeVMHo@public.gmane.org&gt;</a><o:p></o:p></p>
+<p class=3D"MsoNormal">Date: Wed, 26 Apr 2017 10:13:06 -0400<o:p></o:p></p>
+<p class=3D"MsoNormal">Subject: [PATCH 3/3] drm/amdgpu: Add kernel paramete=
+r to control use of<o:p></o:p></p>
+<p class=3D"MsoNormal">ECC/EDC.<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">Allow various kinds of memory integrity methods (e.g=
+. ECC/EDC) to be enabled<o:p></o:p></p>
+<p class=3D"MsoNormal">or disabled.&nbsp; By default, all features are disa=
+bled.<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">EDC is Error Detection and Correction.&nbsp; It can =
+detect ECC errors and do 0 or<o:p></o:p></p>
+<p class=3D"MsoNormal">more of: count SEC (single error corrected) and DED =
+(double error detected,<o:p></o:p></p>
+<p class=3D"MsoNormal">i.e. uncorrected ECC error), halt the affected block=
+, interrupt the CPU.<o:p></o:p></p>
+<p class=3D"MsoNormal">Currently, only counting errors is supported.<o:p></=
+o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">Signed-off-by: David Panariti <a href=3D"mailto:Davi=
+d.Panariti-5C7GfCeVMHo@public.gmane.org">
+&lt;David.Panariti-5C7GfCeVMHo@public.gmane.org&gt;</a><o:p></o:p></p>
+<p class=3D"MsoNormal">---<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; |&nbsp; 1 &#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c&nbsp; |&nbsp=
+; 4 &#43;&#43;&#43;&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c&nbsp;&nbsp;&nb=
+sp; | 34 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
+#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;-----<=
+o:p></o:p></p>
+<p class=3D"MsoNormal">drivers/gpu/drm/amd/include/amd_shared.h | 14 &#43;&=
+#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">4 files changed, 48 insertions(&#43;), 5 deletions(-=
+)<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/d=
+rivers/gpu/drm/amd/amdgpu/amdgpu.h<o:p></o:p></p>
+<p class=3D"MsoNormal">index 4a16e3c..0322392 100644<o:p></o:p></p>
+<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<o:p></o:p>=
+</p>
+<p class=3D"MsoNormal">&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu.=
+h<o:p></o:p></p>
+<p class=3D"MsoNormal">@@ -111,6 &#43;111,7 @@ extern int amdgpu_prim_buf_p=
+er_se;<o:p></o:p></p>
+<p class=3D"MsoNormal">extern int amdgpu_pos_buf_per_se;<o:p></o:p></p>
+<p class=3D"MsoNormal">extern int amdgpu_cntl_sb_buf_per_se;<o:p></o:p></p>
+<p class=3D"MsoNormal">extern int amdgpu_param_buf_per_se;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;extern unsigned amdgpu_ecc_flags;<o:p></o:p></p=
+>
+<p class=3D"MsoNormal">&nbsp;#define AMDGPU_DEFAULT_GTT_SIZE_MB&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3072ULL /* 3GB by default */<o:p></=
+o:p></p>
+<p class=3D"MsoNormal">#define AMDGPU_WAIT_IDLE_TIMEOUT_IN_MS&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; 3000<o:p></o:p></p>
+<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c=
+ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<o:p></o:p></p>
+<p class=3D"MsoNormal">index ead00d7..00e16ac 100644<o:p></o:p></p>
+<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<o:p></=
+o:p></p>
+<p class=3D"MsoNormal">&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_=
+drv.c<o:p></o:p></p>
+<p class=3D"MsoNormal">@@ -110,6 &#43;110,7 @@ int amdgpu_prim_buf_per_se =
+=3D 0;<o:p></o:p></p>
+<p class=3D"MsoNormal">int amdgpu_pos_buf_per_se =3D 0;<o:p></o:p></p>
+<p class=3D"MsoNormal">int amdgpu_cntl_sb_buf_per_se =3D 0;<o:p></o:p></p>
+<p class=3D"MsoNormal">int amdgpu_param_buf_per_se =3D 0;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;unsigned amdgpu_ecc_flags =3D 0;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;MODULE_PARM_DESC(vramlimit, &quot;Restrict VRA=
+M for testing, in megabytes&quot;);<o:p></o:p></p>
+<p class=3D"MsoNormal">module_param_named(vramlimit, amdgpu_vram_limit, int=
+, 0600);<o:p></o:p></p>
+<p class=3D"MsoNormal">@@ -235,6 &#43;236,9 @@ module_param_named(cntl_sb_b=
+uf_per_se, amdgpu_cntl_sb_buf_per_se, int, 0444);<o:p></o:p></p>
+<p class=3D"MsoNormal">MODULE_PARM_DESC(param_buf_per_se, &quot;the size of=
+ Off-Chip Pramater Cache per Shader Engine (default depending on gfx)&quot;=
+);<o:p></o:p></p>
+<p class=3D"MsoNormal">module_param_named(param_buf_per_se, amdgpu_param_bu=
+f_per_se, int, 0444);<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;MODULE_PARM_DESC(ecc_flags, &quot;ECC/EDC enabl=
+e flags (0 =3D disable ECC/EDC (default))&quot;);<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;module_param_named(ecc_flags, amdgpu_ecc_flags,=
+ uint, 0444);<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;static const struct pci_device_id pciidlist[] =
+=3D {<o:p></o:p></p>
+<p class=3D"MsoNormal">#ifdef&nbsp; CONFIG_DRM_AMDGPU_SI<o:p></o:p></p>
+<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b=
+/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<o:p></o:p></p>
+<p class=3D"MsoNormal">index 2f5bf5f..05cab7e 100644<o:p></o:p></p>
+<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<o:p></o:=
+p></p>
+<p class=3D"MsoNormal">&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v8_=
+0.c<o:p></o:p></p>
+<p class=3D"MsoNormal">@@ -1708,7 &#43;1708,7 @@ static int gfx_v8_0_edc_cl=
+ear_counters(struct amdgpu_device *adev)<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; count =3D RREG32(cp-&gt;rnmap_add=
+r);<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (count !=3D 0) {<o:p></o:p></p=
+>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<o:p></o:p=
+></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Workaround fail=
+ed.<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * EDC workaround fa=
+iled.<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;* If p=
+eople are interested<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;* in E=
+DC at all, they will<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;* want=
+ to know which<o:p></o:p></p>
+<p class=3D"MsoNormal">@@ -1747,14 &#43;1747,24 @@ static int gfx_v8_0_do_e=
+dc_gpr_workarounds(struct amdgpu_device *adev)<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<o:p></o:p><=
+/p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_INFO=
+(&quot;Detected Carrizo.\n&quot;);<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; DRM_INFO(&quot;Detected Carrizo.\n&quot;);<o:p></=
+o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32(mmCC_GC_EDC_CONFIG);<=
+o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dis_bit =3D REG_GET_FIELD(tmp, CC_GC_EDC_C=
+ONFIG, DIS_EDC);<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (dis_bit) {<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* On Carrizo, EDC may be =
+disabled by a fuse. */<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_INFO(&quot;EDC hardwar=
+e is disabled, GC_EDC_CONFIG: 0x%08x.\n&quot;,<o:p></o:p></p>
+<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp);=
+<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* On Carrizo, EDC may be di=
+sabled permanently by a fuse. */<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_INFO(&quot;Carrizo EDC h=
+ardware is disabled, GC_EDC_CONFIG: 0x%08x.\n&quot;,<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp);<o=
+:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; /*<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; * Check if EDC has been requested by a kernel par=
+ameter.<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; * For Carrizo, EDC is the best/safest mode WRT er=
+ror handling.<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; */<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; if (!(amdgpu_ecc_flags<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp; (AMD_ECC_SUP=
+PORT_BEST | AMD_ECC_SUPPORT_EDC))) {<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_INFO(&quot;EDC support h=
+as not been requested.\n&quot;);<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<o:p></o:p><=
+/p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal">@@ -1892,6 &#43;1902,20 @@ static int gfx_v8_0_do_ed=
+c_gpr_workarounds(struct amdgpu_device *adev)<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto fail;<o:p></o:p>=
+</p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; /* 00 - GB_EDC_DED_MODE_LOG: Count DED errors but=
+ do not halt */<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, GB_EDC_MODE, DED_MODE,=
+ 0);<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; /* Do not propagate the errors to the next block.=
+ */<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, GB_EDC_MODE, PROP_FED,=
+ 0);<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmGB_EDC_MODE, tmp);<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32(mmCC_GC_EDC_CONFIG);<o:p></o:p></p=
+>
+<p class=3D"MsoNormal">&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; /*<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; * Clear EDC_DISABLE bit so the counters are avail=
+able.<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; */<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, CC_GC_EDC_CONFIG, DIS_=
+EDC, 0);<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmCC_GC_EDC_CONFIG, tmp);<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx_v8_0_edc_clear_counters(adev);<o:p></o=
+:p></p>
+<p class=3D"MsoNormal">&nbsp;fail:<o:p></o:p></p>
+<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/include/amd_shared.=
+h b/drivers/gpu/drm/amd/include/amd_shared.h<o:p></o:p></p>
+<p class=3D"MsoNormal">index 2ccf44e..c4fd013 100644<o:p></o:p></p>
+<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/include/amd_shared.h<o:p><=
+/o:p></p>
+<p class=3D"MsoNormal">&#43;&#43;&#43; b/drivers/gpu/drm/amd/include/amd_sh=
+ared.h<o:p></o:p></p>
+<p class=3D"MsoNormal">@@ -179,6 &#43;179,20 @@ struct amd_pp_profile {<o:p=
+></o:p></p>
+<p class=3D"MsoNormal">#define AMD_PG_SUPPORT_GFX_QUICK_MG&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; (1 &lt;&lt; 11)<o:p></o:p></p>
+<p class=3D"MsoNormal">#define AMD_PG_SUPPORT_GFX_PIPELINE&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; (1 &lt;&lt; 12)<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;/*<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43; * ECC flags<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43; * Allows the user to choose what kind of error=
+ detection/correction is used.<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43; * Currently, EDC is supported on Carrizo.<o:p>=
+</o:p></p>
+<p class=3D"MsoNormal">&#43; *<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43; * The AMD_ECC_SUPPORT_BEST bit is used to allo=
+w a user to have the driver<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43; * set what it thinks is best/safest mode.&nbsp=
+; This may not be the same as the<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43; * default, depending on the GPU and the applic=
+ation.<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43; * Using a single bit makes it easy to request =
+the best support without<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43; * needing to know all currently supported mode=
+s.<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43; */<o:p></o:p></p>
+<p class=3D"MsoNormal">&#43;#define AMD_ECC_SUPPORT_BEST&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1 &lt;&lt; 0)<o:p></o:p></=
+p>
+<p class=3D"MsoNormal">&#43;#define AMD_ECC_SUPPORT_EDC&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1 &lt;&lt; 1)<o=
+:p></o:p></p>
+<p class=3D"MsoNormal">&#43;<o:p></o:p></p>
+<p class=3D"MsoNormal">enum amd_pm_state_type {<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* not used for dpm */<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; POWER_STATE_TYPE_DEFAULT,<o:p></o:p></p>
+<p class=3D"MsoNormal">-- <o:p></o:p></p>
+<p class=3D"MsoNormal">2.7.4<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</blockquote>
+<p><o:p>&nbsp;</o:p></p>
+</div>
 </div>
 </body>
 </html>
 
---_000_MWHPR1201MB0045C097101B0EDA13F28BD9F2130MWHPR1201MB0045_--
+--_000_BN6PR12MB1889C8C94B10AA6E3DF6BD6495130BN6PR12MB1889namp_--
 
---===============1572300442==
+--===============0841706889==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -1438,4 +1794,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1572300442==--
+--===============0841706889==--
