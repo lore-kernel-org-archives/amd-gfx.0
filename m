@@ -1,15 +1,13 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: fix deadlock of reservation between cs and
- gpu reset v2
-Date: Fri, 28 Apr 2017 10:15:25 +0200
-Message-ID: <a8fe5428-756b-9fb8-a7ba-52ea9058f90c@vodafone.de>
-References: <1493347534-8201-1-git-send-email-David1.Zhou@amd.com>
- <DM5PR12MB181832DC8E8A41338E5748F4FF130@DM5PR12MB1818.namprd12.prod.outlook.com>
+Subject: Re: [PATCH] drm/amdgpu: add cu info wave_front_size
+Date: Fri, 28 Apr 2017 10:20:53 +0200
+Message-ID: <766cb2d2-8f0a-87e5-030a-da1c39de0821@vodafone.de>
+References: <1493349046-23232-1-git-send-email-Jerry.Zhang@amd.com>
+ <CY4PR12MB1831304F8CE5E84033D19A768C130@CY4PR12MB1831.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2121176453=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM5PR12MB181832DC8E8A41338E5748F4FF130-2J9CzHegvk+QhrfEZJlvtAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <CY4PR12MB1831304F8CE5E84033D19A768C130-rpdhrqHFk04smaNQB2LitgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,62 +18,180 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhang, Jerry" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Wang, Ken" <Ken.Wang-5C7GfCeVMHo@public.gmane.org>, "Zhang, Jerry" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
-SW5kZWVkLCBidXQgYWZ0ZXIgYSBiaXQgb2YgdGhpbmtpbmcgSSd2ZSBmb3VuZCBhbm90aGVyIHBy
-b2JsZW0gd2l0aCB0aGF0IApwYXRjaC4KCldoZW4gdHdvIHRocmVhZHMgYXJlIHB1c2hpbmcgam9i
-cyBpbnRvIHRoZSBzYW1lIHNjaGVkdWxlciBjb250ZXh0IHdlIApkb24ndCBndWFyYW50ZWUgY29y
-cmVjdCBleGVjdXRpb24gb3JkZXIgYW55IG1vcmUhCgpCZWZvcmUgdGhhdCBwYXRjaCBpdCB3YXMg
-aGFuZGxlZCBieSB0aGUgZXhjbHVzaXZlbmVzcyB3ZSBoYWQgYmVjYXVzZSBvZiAKcmVzZXJ2aW5n
-IHRoZSBWTSBwYWdlIHRhYmxlcywgYnV0IG5vdyBub3RoaW5nIHByZXZlbnRzIHVzIGZyb20gY2Fs
-bGluZyAKYW1kX3NjaGVkX2VudGl0eV9wdXNoX2pvYigpIGluIG5vbmRldGVybWluaXN0aWMgb3Jk
-ZXIuCgpJbiBvdGhlciB3b3JkcyB3ZSBuZWVkIGFuIGFkZGl0aW9uYWwgbG9jayBpbiBhbWRncHVf
-Y3R4X3Jpbmcgb3IgCnNvbWV0aGluZyBsaWtlIHRoYXQuCgpSZWdhcmRzLApDaHJpc3RpYW4uCgpB
-bSAyOC4wNC4yMDE3IHVtIDA0OjUxIHNjaHJpZWIgWmhhbmcsIEplcnJ5Ogo+IE5pY2UgY2F0Y2gh
-Cj4gUmV2aWV3ZWQtYnk6IEp1bndlaSBaaGFuZyA8SmVycnkuWmhhbmdAYW1kLmNvbT4KPgo+IFJl
-Z2FyZHMsCj4gSmVycnkgKEp1bndlaSBaaGFuZykKPgo+IExpbnV4IEJhc2UgR3JhcGhpY3MKPiBT
-UkRDIFNvZnR3YXJlIERldmVsb3BtZW50Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwo+Cj4KPj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPj4gRnJvbTogYW1kLWdm
-eCBbbWFpbHRvOmFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmddIE9uIEJlaGFs
-ZiBPZgo+PiBDaHVubWluZyBaaG91Cj4+IFNlbnQ6IEZyaWRheSwgQXByaWwgMjgsIDIwMTcgMTA6
-NDYKPj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+IENjOiBaaG91LCBEYXZp
-ZChDaHVuTWluZykKPj4gU3ViamVjdDogW1BBVENIXSBkcm0vYW1kZ3B1OiBmaXggZGVhZGxvY2sg
-b2YgcmVzZXJ2YXRpb24gYmV0d2VlbiBjcyBhbmQgZ3B1Cj4+IHJlc2V0IHYyCj4+Cj4+IHRoZSBj
-YXNlIGNvdWxkIGhhcHBlbiB3aGVuIGdwdSByZXNldDoKPj4gMS4gd2hlbiBncHUgcmVzZXQsIGNz
-IGNhbiBiZSBjb250aW51ZSB1bnRpbCBzdyBxdWV1ZSBpcyBmdWxsLCB0aGVuIHB1c2ggam9iIHdp
-bGwKPj4gd2FpdCB3aXRoIGhvbGRpbmcgcGQgcmVzZXJ2YXRpb24uCj4+IDIuIGdwdV9yZXNldCBy
-b3V0aW5lIHdpbGwgYWxzbyBuZWVkIHBkIHJlc2VydmF0aW9uIHRvIHJlc3RvcmUgcGFnZSB0YWJs
-ZSBmcm9tCj4+IHRoZWlyIHNoYWRvdy4KPj4gMy4gY3MgaXMgd2FpdGluZyBmb3IgZ3B1X3Jlc2V0
-IGNvbXBsZXRlLCBidXQgZ3B1IHJlc2V0IGlzIHdhaXRpbmcgZm9yIGNzIHJlbGVhc2VzCj4+IHJl
-c2VydmF0aW9uLgo+Pgo+PiB2MjogaGFuZGxlIGFtZGdwdV9jc19zdWJtaXQgZXJyb3IgcGF0aC4K
-Pj4KPj4gQ2hhbmdlLUlkOiBJMGY2NmQwNGIyYmVmMzQzMzAzNTEwOTYyM2M4YTVjNTk5MmM4NDIw
-Mgo+PiBTaWduZWQtb2ZmLWJ5OiBDaHVubWluZyBaaG91IDxEYXZpZDEuWmhvdUBhbWQuY29tPgo+
-PiBSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29t
-Pgo+PiBSZXZpZXdlZC1ieTogSnVud2VpIFpoYW5nIDxKZXJyeS5aaGFuZ0BhbWQuY29tPgo+PiBS
-ZXZpZXdlZC1ieTogTW9uayBMaXUgPG1vbmsubGl1QGFtZC5jb20+Cj4+IC0tLQo+PiAgIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jIHwgNCArKysrCj4+ICAgMSBmaWxlIGNo
-YW5nZWQsIDQgaW5zZXJ0aW9ucygrKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfY3MuYwo+PiBpbmRleCAyNjE2OGRmLi42OTlmNWZlIDEwMDY0NAo+PiAtLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYwo+PiArKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYwo+PiBAQCAtMTA3NCw2ICsxMDc0LDcgQEAgc3RhdGlj
-IGludCBhbWRncHVfY3Nfc3VibWl0KHN0cnVjdCBhbWRncHVfY3NfcGFyc2VyCj4+ICpwLAo+PiAg
-IAljcy0+b3V0LmhhbmRsZSA9IGFtZGdwdV9jdHhfYWRkX2ZlbmNlKHAtPmN0eCwgcmluZywgcC0+
-ZmVuY2UpOwo+PiAgIAlqb2ItPnVmX3NlcXVlbmNlID0gY3MtPm91dC5oYW5kbGU7Cj4+ICAgCWFt
-ZGdwdV9qb2JfZnJlZV9yZXNvdXJjZXMoam9iKTsKPj4gKwlhbWRncHVfY3NfcGFyc2VyX2Zpbmko
-cCwgMCwgdHJ1ZSk7Cj4+Cj4+ICAgCXRyYWNlX2FtZGdwdV9jc19pb2N0bChqb2IpOwo+PiAgIAlh
-bWRfc2NoZWRfZW50aXR5X3B1c2hfam9iKCZqb2ItPmJhc2UpOwo+PiBAQCAtMTEyOSw3ICsxMTMw
-LDEwIEBAIGludCBhbWRncHVfY3NfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZAo+
-PiAqZGF0YSwgc3RydWN0IGRybV9maWxlICpmaWxwKQo+PiAgIAkJZ290byBvdXQ7Cj4+Cj4+ICAg
-CXIgPSBhbWRncHVfY3Nfc3VibWl0KCZwYXJzZXIsIGNzKTsKPj4gKwlpZiAocikKPj4gKwkJZ290
-byBvdXQ7Cj4+Cj4+ICsJcmV0dXJuIDA7Cj4+ICAgb3V0Ogo+PiAgIAlhbWRncHVfY3NfcGFyc2Vy
-X2ZpbmkoJnBhcnNlciwgciwgcmVzZXJ2ZWRfYnVmZmVycyk7Cj4+ICAgCXJldHVybiByOwo+PiAt
-LQo+PiAxLjkuMQo+Pgo+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwo+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwo+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2FtZC1nZngKPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-Xwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
-CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
-IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is a multi-part message in MIME format.
+--===============2121176453==
+Content-Type: multipart/alternative;
+ boundary="------------265D5B80AC6BF75A353FAD18"
+
+This is a multi-part message in MIME format.
+--------------265D5B80AC6BF75A353FAD18
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Do I get it right that the branch doesn't compile without that?
+
+If yes please add a comment in the commit message so that Alex has a 
+chance of squashing this into the original one during upstreaming.
+
+Either way the patch is Reviewed-by: Christian König 
+<christian.koenig-5C7GfCeVMHo@public.gmane.org> as well.
+
+Regards,
+Christian.
+
+Am 28.04.2017 um 05:20 schrieb Wang, Ken:
+>
+> Reviewed-by: Ken Wang <Qingqing.Wang-5C7GfCeVMHo@public.gmane.org>
+>
+> ------------------------------------------------------------------------
+> *From:* Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+> *Sent:* Friday, April 28, 2017 11:10:46 AM
+> *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> *Cc:* Deucher, Alexander; Wang, Ken; Zhang, Jerry
+> *Subject:* [PATCH] drm/amdgpu: add cu info wave_front_size
+> missed that for gfx v9 info export
+>
+> Signed-off-by: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 503010a..e330009 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -986,6 +986,7 @@ struct amdgpu_gfx_config {
+>  struct amdgpu_cu_info {
+>          uint32_t number; /* total active CU number */
+>          uint32_t ao_cu_mask;
+> +       uint32_t wave_front_size;
+>          uint32_t bitmap[4][4];
+>  };
+>
+> -- 
+> 1.9.1
+>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+
+--------------265D5B80AC6BF75A353FAD18
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Do I get it right that the branch
+      doesn't compile without that?<br>
+      <br>
+      If yes please add a comment in the commit message so that Alex has
+      a chance of squashing this into the original one during
+      upstreaming.<br>
+      <br>
+      Either way the patch is Reviewed-by: Christian König
+      <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a> as well.<br>
+      <br>
+      Regards,<br>
+      Christian.<br>
+      <br>
+      Am 28.04.2017 um 05:20 schrieb Wang, Ken:<br>
+    </div>
+    <blockquote
+cite="mid:CY4PR12MB1831304F8CE5E84033D19A768C130-rpdhrqHFk04smaNQB2LitgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org"
+      type="cite">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="Generator" content="Microsoft Exchange Server">
+      <!-- converted from text -->
+      <style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left: #800000 2px solid; } --></style>
+      <meta content="text/html; charset=UTF-8">
+      <style type="text/css" style="">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+      <div dir="ltr">
+        <div id="x_divtagdefaultwrapper" dir="ltr"
+          style="font-size:12pt; color:#000000;
+          font-family:Calibri,Arial,Helvetica,sans-serif">
+          <p>Reviewed-by: Ken Wang <a class="moz-txt-link-rfc2396E" href="mailto:Qingqing.Wang-5C7GfCeVMHo@public.gmane.org">&lt;Qingqing.Wang-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+          </p>
+        </div>
+        <hr tabindex="-1" style="display:inline-block; width:98%">
+        <div id="x_divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
+            color="#000000" face="Calibri, sans-serif"><b>From:</b>
+            Junwei Zhang <a class="moz-txt-link-rfc2396E" href="mailto:Jerry.Zhang-5C7GfCeVMHo@public.gmane.org">&lt;Jerry.Zhang-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+            <b>Sent:</b> Friday, April 28, 2017 11:10:46 AM<br>
+            <b>To:</b> <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+            <b>Cc:</b> Deucher, Alexander; Wang, Ken; Zhang, Jerry<br>
+            <b>Subject:</b> [PATCH] drm/amdgpu: add cu info
+            wave_front_size</font>
+          <div> </div>
+        </div>
+      </div>
+      <font size="2"><span style="font-size:10pt;">
+          <div class="PlainText">missed that for gfx v9 info export<br>
+            <br>
+            Signed-off-by: Junwei Zhang <a class="moz-txt-link-rfc2396E" href="mailto:Jerry.Zhang-5C7GfCeVMHo@public.gmane.org">&lt;Jerry.Zhang-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+            ---<br>
+             drivers/gpu/drm/amd/amdgpu/amdgpu.h | 1 +<br>
+             1 file changed, 1 insertion(+)<br>
+            <br>
+            diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+            b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+            index 503010a..e330009 100644<br>
+            --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+            +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+            @@ -986,6 +986,7 @@ struct amdgpu_gfx_config {<br>
+             struct amdgpu_cu_info {<br>
+                     uint32_t number; /* total active CU number */<br>
+                     uint32_t ao_cu_mask;<br>
+            +       uint32_t wave_front_size;<br>
+                     uint32_t bitmap[4][4];<br>
+             };<br>
+             <br>
+            -- <br>
+            1.9.1<br>
+            <br>
+          </div>
+        </span></font>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------265D5B80AC6BF75A353FAD18--
+
+--===============2121176453==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============2121176453==--
