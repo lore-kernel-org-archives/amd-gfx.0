@@ -1,16 +1,11 @@
-From: "Xie, AlexBin" <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Make amdgpu_bo_reserve use uninterruptible
- waits for cleanup
-Date: Mon, 1 May 2017 00:13:52 +0000
-Message-ID: <MWHPR1201MB004532EF4E87E5503BEAC217F2140@MWHPR1201MB0045.namprd12.prod.outlook.com>
-References: <mailman.1551.1493369856.21890.amd-gfx@lists.freedesktop.org>
- <MWHPR1201MB0045C097101B0EDA13F28BD9F2130@MWHPR1201MB0045.namprd12.prod.outlook.com>,
- <73b82af4-7903-512e-fe61-f05ebf18381f@daenzer.net>
+From: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/6] drm/amdgpu:fix cannot receive rcv/ack irq bug
+Date: Mon, 1 May 2017 14:34:34 +0800
+Message-ID: <1493620480-22002-1-git-send-email-Monk.Liu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1982835665=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <73b82af4-7903-512e-fe61-f05ebf18381f-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,122 +16,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?iso-8859-1?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
 
---===============1982835665==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MWHPR1201MB004532EF4E87E5503BEAC217F2140MWHPR1201MB0045_"
-
---_000_MWHPR1201MB004532EF4E87E5503BEAC217F2140MWHPR1201MB0045_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-On 28/04/17 11:12 PM, Xie, AlexBin wrote:
-
->> Am 28.04.2017 um 10:47 schrieb Michel D=E4nzer:
->>> From: Michel D=E4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
->>>
->>> Some of these paths probably cannot be interrupted by a signal anyway.
->>> Those that can would fail to clean up things if they actually got
->>> interrupted.
->>>
->>> Signed-off-by: Michel D=E4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
->>
->> Reviewed-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
->
-> Alex X: Just a reminder: amdgpu_unpin_work_func is called by work queue.
-> Signal is blocked already. un-interruptible waiting might slow thing
-> down very slightly.
-
-How so?
-
-Alex X: I said "might". If you think it is not slower, it is fine for me.
-My real concern is that the signals are blocked for work queue already. We =
-don't need this change to avoid unnecessary risk.
-In theory, I am not against this change.
-
---
-Earthling Michel D=E4nzer               |               http://www.amd.com
-Libre software enthusiast             |             Mesa and X developer
-
---_000_MWHPR1201MB004532EF4E87E5503BEAC217F2140MWHPR1201MB0045_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Arial,Helvetica,sans-serif;" dir=3D"ltr">
-<p><span style=3D"font-size: 10pt;">On 28/04/17 11:12 PM, Xie, AlexBin wrot=
-e:</span><br>
-</p>
-<div style=3D"color: rgb(0, 0, 0);"><font size=3D"2"><span style=3D"font-si=
-ze:10pt;">
-<div class=3D"PlainText">&gt;&gt; Am 28.04.2017 um 10:47 schrieb Michel D=
-=E4nzer:<br>
-&gt;&gt;&gt; From: Michel D=E4nzer &lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; Some of these paths probably cannot be interrupted by a signal=
- anyway.<br>
-&gt;&gt;&gt; Those that can would fail to clean up things if they actually =
-got<br>
-&gt;&gt;&gt; interrupted.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; Signed-off-by: Michel D=E4nzer &lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&gt;<=
-br>
-&gt;&gt; <br>
-&gt;&gt; Reviewed-by: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br=
->
-&gt; <br>
-&gt; Alex X: Just a reminder: amdgpu_unpin_work_func is called by work queu=
-e.<br>
-&gt; Signal is blocked already. un-interruptible waiting might slow thing<b=
-r>
-&gt; down very slightly.<br>
-<br>
-How so?<br>
-<br>
-Alex X: I said &quot;might&quot;. If you think it is not slower, it is fine=
- for me.</div>
-<div class=3D"PlainText">My real concern is that the signals are blocked fo=
-r work queue already. We don't need this change to avoid unnecessary risk.<=
-/div>
-<div class=3D"PlainText">In theory,&nbsp;I am not&nbsp;against this change.=
-</div>
-<div class=3D"PlainText"><br>
--- <br>
-Earthling Michel D=E4nzer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href=3D"http://www.amd.com=
-" id=3D"LPlnk108541" previewremoved=3D"true">
-http://www.amd.com</a><br>
-Libre software enthusiast&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; Mesa and X developer<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_MWHPR1201MB004532EF4E87E5503BEAC217F2140MWHPR1201MB0045_--
-
---===============1982835665==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1982835665==--
+Q2hhbmdlLUlkOiBJZTg2NzJlMGM5MzU4ZDk1NDI4MTBjZTA1YzgyMmQ5MzY3MjQ5YmJkNwpTaWdu
+ZWQtb2ZmLWJ5OiBNb25rIExpdSA8TW9uay5MaXVAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9teGdwdV9haS5jIHwgNCArKy0tCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNl
+cnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L214Z3B1X2FpLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9teGdwdV9h
+aS5jCmluZGV4IDE0OTMzMDEuLjcxMmYzNmUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L214Z3B1X2FpLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbXhn
+cHVfYWkuYwpAQCAtMjk2LDExICsyOTYsMTEgQEAgaW50IHhncHVfYWlfbWFpbGJveF9hZGRfaXJx
+X2lkKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogewogCWludCByOwogCi0JciA9IGFtZGdw
+dV9pcnFfYWRkX2lkKGFkZXYsIEFNREdQVV9JSF9DTElFTlRJRF9MRUdBQ1ksIDEzNSwgJmFkZXYt
+PnZpcnQucmN2X2lycSk7CisJciA9IGFtZGdwdV9pcnFfYWRkX2lkKGFkZXYsIEFNREdQVV9JSF9D
+TElFTlRJRF9CSUYsIDEzNSwgJmFkZXYtPnZpcnQucmN2X2lycSk7CiAJaWYgKHIpCiAJCXJldHVy
+biByOwogCi0JciA9IGFtZGdwdV9pcnFfYWRkX2lkKGFkZXYsIEFNREdQVV9JSF9DTElFTlRJRF9M
+RUdBQ1ksIDEzOCwgJmFkZXYtPnZpcnQuYWNrX2lycSk7CisJciA9IGFtZGdwdV9pcnFfYWRkX2lk
+KGFkZXYsIEFNREdQVV9JSF9DTElFTlRJRF9CSUYsIDEzOCwgJmFkZXYtPnZpcnQuYWNrX2lycSk7
+CiAJaWYgKHIpIHsKIAkJYW1kZ3B1X2lycV9wdXQoYWRldiwgJmFkZXYtPnZpcnQucmN2X2lycSwg
+MCk7CiAJCXJldHVybiByOwotLSAKMi43LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeAo=
