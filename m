@@ -1,17 +1,15 @@
-From: "Xie, AlexBin" <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Make amdgpu_bo_reserve use uninterruptible
- waits for cleanup
-Date: Tue, 2 May 2017 14:35:49 +0000
-Message-ID: <MWHPR1201MB0045EC1F62D7FDABDC976CC3F2170@MWHPR1201MB0045.namprd12.prod.outlook.com>
-References: <mailman.1551.1493369856.21890.amd-gfx@lists.freedesktop.org>
- <MWHPR1201MB0045C097101B0EDA13F28BD9F2130@MWHPR1201MB0045.namprd12.prod.outlook.com>
- <73b82af4-7903-512e-fe61-f05ebf18381f@daenzer.net>
- <MWHPR1201MB004532EF4E87E5503BEAC217F2140@MWHPR1201MB0045.namprd12.prod.outlook.com>,
- <064b2ea6-1b57-0c4d-0818-6eb017887e55@vodafone.de>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 07/12] drm/amdgpu/gfx9: wait for completion in KIQ init
+Date: Tue, 2 May 2017 14:49:50 +0000
+Message-ID: <BN6PR12MB165294D51E45CE2D5B145114F7170@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <1493677742-29764-1-git-send-email-alexander.deucher@amd.com>
+ <1493677742-29764-8-git-send-email-alexander.deucher@amd.com>
+ <DM5PR12MB16109B2F5D10EFAE90102B8484170@DM5PR12MB1610.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1914385262=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <064b2ea6-1b57-0c4d-0818-6eb017887e55-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <DM5PR12MB16109B2F5D10EFAE90102B8484170-2J9CzHegvk++jCVTvoAFKAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -23,221 +21,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?iso-8859-1?Q?Christian_K=F6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, =?iso-8859-1?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1914385262==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MWHPR1201MB0045EC1F62D7FDABDC976CC3F2170MWHPR1201MB0045_"
-
---_000_MWHPR1201MB0045EC1F62D7FDABDC976CC3F2170MWHPR1201MB0045_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-I just realised that there are some stress test that sends huge amount of s=
-ignals. I used those tests in the pass 2 years...
-
-
--Alex Bin
-
-________________________________
-From: Christian K=F6nig <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Sent: Monday, May 1, 2017 10:28 AM
-To: Xie, AlexBin; Michel D=E4nzer
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH] drm/amdgpu: Make amdgpu_bo_reserve use uninterruptible=
- waits for cleanup
-
-Am 01.05.2017 um 02:13 schrieb Xie, AlexBin:
-
-On 28/04/17 11:12 PM, Xie, AlexBin wrote:
-
->> Am 28.04.2017 um 10:47 schrieb Michel D=E4nzer:
->>> From: Michel D=E4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org><mailto:michel.daenzer@am=
-d.com>
->>>
->>> Some of these paths probably cannot be interrupted by a signal anyway.
->>> Those that can would fail to clean up things if they actually got
->>> interrupted.
->>>
->>> Signed-off-by: Michel D=E4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org><mailto:michel.d=
-aenzer-5C7GfCeVMHo@public.gmane.org>
->>
->> Reviewed-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org><mailto:christi=
-an.koenig-5C7GfCeVMHo@public.gmane.org>
->
-> Alex X: Just a reminder: amdgpu_unpin_work_func is called by work queue.
-> Signal is blocked already. un-interruptible waiting might slow thing
-> down very slightly.
-
-How so?
-
-Alex X: I said "might". If you think it is not slower, it is fine for me.
-My real concern is that the signals are blocked for work queue already. We =
-don't need this change to avoid unnecessary risk.
-In theory, I am not against this change.
-
-I have to agree with that. For waits from work queues it is usually best to=
- implicitly use un-interruptible waits for documentation purposes.
-
-In other words even when we are sure that the code can't receive a signal w=
-e should write it conservatively.
-
-Christian.
-
-
---
-Earthling Michel D=E4nzer               |               http://www.amd.com
-Libre software enthusiast             |             Mesa and X developer
-
-
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
-
---_000_MWHPR1201MB0045EC1F62D7FDABDC976CC3F2170MWHPR1201MB0045_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Arial,Helvetica,sans-serif;" dir=3D"ltr">
-<p>I just realised that&nbsp;there are&nbsp;some&nbsp;stress test that send=
-s huge amount of signals. I used those tests in the pass 2 years...</p>
-<p><br>
-</p>
-<p><span style=3D"font-size: 12pt;">-Alex Bin</span><br>
-</p>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Christian K=F6nig &lt=
-;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;<br>
-<b>Sent:</b> Monday, May 1, 2017 10:28 AM<br>
-<b>To:</b> Xie, AlexBin; Michel D=E4nzer<br>
-<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: Make amdgpu_bo_reserve use uninterr=
-uptible waits for cleanup</font>
-<div>&nbsp;</div>
-</div>
-<div>
-<div class=3D"moz-cite-prefix">Am 01.05.2017 um 02:13 schrieb Xie, AlexBin:=
-<br>
-</div>
-<blockquote type=3D"cite">
-<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; color=
-:#000000; font-family:Calibri,Arial,Helvetica,sans-serif">
-<p><span style=3D"font-size:10pt">On 28/04/17 11:12 PM, Xie, AlexBin wrote:=
-</span><br>
-</p>
-<div style=3D"color:rgb(0,0,0)"><font size=3D"2"><span style=3D"font-size:1=
-0pt">
-<div class=3D"PlainText">&gt;&gt; Am 28.04.2017 um 10:47 schrieb Michel D=
-=E4nzer:<br>
-&gt;&gt;&gt; From: Michel D=E4nzer <a class=3D"moz-txt-link-rfc2396E" href=
-=3D"mailto:michel.daenzer-5C7GfCeVMHo@public.gmane.org">
-&lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; Some of these paths probably cannot be interrupted by a signal=
- anyway.<br>
-&gt;&gt;&gt; Those that can would fail to clean up things if they actually =
-got<br>
-&gt;&gt;&gt; interrupted.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; Signed-off-by: Michel D=E4nzer <a class=3D"moz-txt-link-rfc239=
-6E" href=3D"mailto:michel.daenzer-5C7GfCeVMHo@public.gmane.org">
-&lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-&gt;&gt; <br>
-&gt;&gt; Reviewed-by: Christian K=F6nig <a class=3D"moz-txt-link-rfc2396E" =
-href=3D"mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">
-&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-&gt; <br>
-&gt; Alex X: Just a reminder: amdgpu_unpin_work_func is called by work queu=
-e.<br>
-&gt; Signal is blocked already. un-interruptible waiting might slow thing<b=
-r>
-&gt; down very slightly.<br>
-<br>
-How so?<br>
-<br>
-Alex X: I said &quot;might&quot;. If you think it is not slower, it is fine=
- for me.</div>
-<div class=3D"PlainText">My real concern is that the signals are blocked fo=
-r work queue already. We don't need this change to avoid unnecessary risk.<=
-/div>
-<div class=3D"PlainText">In theory,&nbsp;I am not&nbsp;against this change.=
-</div>
-</span></font></div>
-</div>
-</blockquote>
-<br>
-I have to agree with that. For waits from work queues it is usually best to=
- implicitly use un-interruptible waits for documentation purposes.<br>
-<br>
-In other words even when we are sure that the code can't receive a signal w=
-e should write it conservatively.<br>
-<br>
-Christian.<br>
-<br>
-<blockquote type=3D"cite">
-<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; color=
-:#000000; font-family:Calibri,Arial,Helvetica,sans-serif">
-<div style=3D"color:rgb(0,0,0)"><font size=3D"2"><span style=3D"font-size:1=
-0pt">
-<div class=3D"PlainText"><br>
--- <br>
-Earthling Michel D=E4nzer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href=3D"http://www.amd.com=
-" id=3D"LPlnk108541" previewremoved=3D"true">
-http://www.amd.com</a><br>
-Libre software enthusiast&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; Mesa and X developer<br>
-</div>
-</span></font></div>
-</div>
-<br>
-<fieldset class=3D"mimeAttachmentHeader"></fieldset> <br>
-<pre>_______________________________________________=0A=
-amd-gfx mailing list=0A=
-<a class=3D"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
-top.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>=0A=
-<a class=3D"moz-txt-link-freetext" href=3D"https://lists.freedesktop.org/ma=
-ilman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-=
-gfx</a>=0A=
-</pre>
-</blockquote>
-<p><br>
-</p>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_MWHPR1201MB0045EC1F62D7FDABDC976CC3F2170MWHPR1201MB0045_--
-
---===============1914385262==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1914385262==--
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBMaXUsIE1vbmsNCj4gU2VudDog
+VHVlc2RheSwgTWF5IDAyLCAyMDE3IDQ6MzIgQU0NCj4gVG86IEFsZXggRGV1Y2hlcjsgYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gQ2M6IERldWNoZXIsIEFsZXhhbmRlcg0KPiBTdWJq
+ZWN0OiBSRTogW1BBVENIIDA3LzEyXSBkcm0vYW1kZ3B1L2dmeDk6IHdhaXQgZm9yIGNvbXBsZXRp
+b24gaW4gS0lRIGluaXQNCj4gDQo+IFJldmlld2VkLWJ5OiBtb25rIGxpdSA8bW9uay5saXVAYW1k
+LmNvbT4NCj4gDQo+IEJ1dCB3aHkgd2UgbmVlZCB0byBkbyB0aGlzID8gIGV2ZW4ga2lxIGhhc24n
+dCB5ZXQgZmluaXNoZWQgTUFQX1FVRVVFUywgd2UNCj4gY2FuIHN0aWxsIHB1dCByaW5nIHRlc3Qg
+cGFja2FnZSB0byBLQ1EsDQo+IEFuZCBLQ1Egd2lsbCBiZWdpbiB0byB3b3JrIGFmdGVyIHRoZSBN
+QVBfUVVFVUVTIGZpbmlzaGVkIC4uLi4NCg0KSSB3YXMgY29uY2VybmVkIHRoZSBkb29yYmVsbCB0
+byBraWNrIG9mZiB0aGUgcmluZyB0ZXN0LCBldGMuIHdvdWxkIGdldCBzaWxlbnRseSBpZ25vcmVk
+IGlmIHRoZSBLQ1EgaGFkIG5vdCB5ZXQgYmVlbiBpbml0aWFsaXplZCBieSB0aGUgS0lRLg0KDQpB
+bGV4DQoNCj4gDQo+IEJSIE1vbmsNCj4gDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+
+IEZyb206IGFtZC1nZnggW21haWx0bzphbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnXSBPbiBCZWhhbGYNCj4gT2YgQWxleCBEZXVjaGVyDQo+IFNlbnQ6IFR1ZXNkYXksIE1heSAw
+MiwgMjAxNyA2OjI5IEFNDQo+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBD
+YzogRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPg0KPiBTdWJq
+ZWN0OiBbUEFUQ0ggMDcvMTJdIGRybS9hbWRncHUvZ2Z4OTogd2FpdCBmb3IgY29tcGxldGlvbiBp
+biBLSVEgaW5pdA0KPiANCj4gV2UgbmVlZCB0byBtYWtlIHN1cmUgdGhlIHZhcmlvdXMgaW5pdCBz
+ZXF1ZW5jZXMgc3VibWl0dGVkIHRvIEtJUSBjb21wbGV0ZQ0KPiBiZWZvcmUgdGVzdGluZyB0aGUg
+cmluZ3MuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVj
+aGVyQGFtZC5jb20+DQo+IC0tLQ0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5
+XzAuYyB8IDg5DQo+ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKystLS0tDQo+ICAxIGZp
+bGUgY2hhbmdlZCwgNzkgaW5zZXJ0aW9ucygrKSwgMTAgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYw0KPiBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMNCj4gaW5kZXggZDliOWZiOC4uY2EzMDcy
+NiAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYw0K
+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jDQo+IEBAIC0xODEx
+LDkgKzE4MTEsMjYgQEAgc3RhdGljIHZvaWQgZ2Z4X3Y5XzBfa2lxX3NldHRpbmcoc3RydWN0DQo+
+IGFtZGdwdV9yaW5nICpyaW5nKQ0KPiAgCVdSRUczMl9TT0MxNShHQywgMCwgbW1STENfQ1BfU0NI
+RURVTEVSUywgdG1wKTsgIH0NCj4gDQo+IC1zdGF0aWMgdm9pZCBnZnhfdjlfMF9raXFfZW5hYmxl
+KHN0cnVjdCBhbWRncHVfcmluZyAqcmluZykNCj4gK3N0YXRpYyBpbnQgZ2Z4X3Y5XzBfa2lxX2Vu
+YWJsZShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpDQo+ICB7DQo+IC0JYW1kZ3B1X3JpbmdfYWxs
+b2MocmluZywgOCk7DQo+ICsJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSByaW5nLT5hZGV2
+Ow0KPiArCXVpbnQzMl90IHNjcmF0Y2gsIHRtcCA9IDA7DQo+ICsJaW50IHIsIGk7DQo+ICsNCj4g
+KwlyID0gYW1kZ3B1X2dmeF9zY3JhdGNoX2dldChhZGV2LCAmc2NyYXRjaCk7DQo+ICsJaWYgKHIp
+IHsNCj4gKwkJRFJNX0VSUk9SKCJGYWlsZWQgdG8gZ2V0IHNjcmF0Y2ggcmVnICglZCkuXG4iLCBy
+KTsNCj4gKwkJcmV0dXJuIHI7DQo+ICsJfQ0KPiArCVdSRUczMihzY3JhdGNoLCAweENBRkVERUFE
+KTsNCj4gKw0KPiArCXIgPSBhbWRncHVfcmluZ19hbGxvYyhyaW5nLCA4KTsNCj4gKwlpZiAocikg
+ew0KPiArCQlEUk1fRVJST1IoIkZhaWxlZCB0byBsb2NrIEtJUSAoJWQpLlxuIiwgcik7DQo+ICsJ
+CWFtZGdwdV9nZnhfc2NyYXRjaF9mcmVlKGFkZXYsIHNjcmF0Y2gpOw0KPiArCQlyZXR1cm4gcjsN
+Cj4gKwl9DQo+ICsJYW1kZ3B1X3JpbmdfYWxsb2MocmluZywgMTEpOw0KPiAgCS8qIHNldCByZXNv
+dXJjZXMgKi8NCj4gIAlhbWRncHVfcmluZ193cml0ZShyaW5nLCBQQUNLRVQzKFBBQ0tFVDNfU0VU
+X1JFU09VUkNFUywgNikpOw0KPiAgCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsDQo+IFBBQ0tFVDNf
+U0VUX1JFU09VUkNFU19WTUlEX01BU0soMCkgfCBAQCAtMTgyNCwxOSArMTg0MSw1MiBAQA0KPiBz
+dGF0aWMgdm9pZCBnZnhfdjlfMF9raXFfZW5hYmxlKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZykN
+Cj4gIAlhbWRncHVfcmluZ193cml0ZShyaW5nLCAwKTsJLyogZ3dzIG1hc2sgaGkgKi8NCj4gIAlh
+bWRncHVfcmluZ193cml0ZShyaW5nLCAwKTsJLyogb2FjIG1hc2sgKi8NCj4gIAlhbWRncHVfcmlu
+Z193cml0ZShyaW5nLCAwKTsJLyogZ2RzIGhlYXAgYmFzZTowLCBnZHMgaGVhcCBzaXplOjANCj4g
+Ki8NCj4gKwkvKiB3cml0ZSB0byBzY3JhdGNoIGZvciBjb21wbGV0aW9uICovDQo+ICsJYW1kZ3B1
+X3Jpbmdfd3JpdGUocmluZywgUEFDS0VUMyhQQUNLRVQzX1NFVF9VQ09ORklHX1JFRywNCj4gMSkp
+Ow0KPiArCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIChzY3JhdGNoIC0NCj4gUEFDS0VUM19TRVRf
+VUNPTkZJR19SRUdfU1RBUlQpKTsNCj4gKwlhbWRncHVfcmluZ193cml0ZShyaW5nLCAweERFQURC
+RUVGKTsNCj4gIAlhbWRncHVfcmluZ19jb21taXQocmluZyk7DQo+IC0JdWRlbGF5KDUwKTsNCj4g
+Kw0KPiArCWZvciAoaSA9IDA7IGkgPCBhZGV2LT51c2VjX3RpbWVvdXQ7IGkrKykgew0KPiArCQl0
+bXAgPSBSUkVHMzIoc2NyYXRjaCk7DQo+ICsJCWlmICh0bXAgPT0gMHhERUFEQkVFRikNCj4gKwkJ
+CWJyZWFrOw0KPiArCQlEUk1fVURFTEFZKDEpOw0KPiArCX0NCj4gKwlpZiAoaSA+PSBhZGV2LT51
+c2VjX3RpbWVvdXQpIHsNCj4gKwkJRFJNX0VSUk9SKCJLSVEgZW5hYmxlIGZhaWxlZA0KPiAoc2Ny
+YXRjaCgweCUwNFgpPTB4JTA4WClcbiIsDQo+ICsJCQkgIHNjcmF0Y2gsIHRtcCk7DQo+ICsJCXIg
+PSAtRUlOVkFMOw0KPiArCX0NCj4gKwlhbWRncHVfZ2Z4X3NjcmF0Y2hfZnJlZShhZGV2LCBzY3Jh
+dGNoKTsNCj4gKw0KPiArCXJldHVybiByOw0KPiAgfQ0KPiANCj4gLXN0YXRpYyB2b2lkIGdmeF92
+OV8wX21hcF9xdWV1ZV9lbmFibGUoc3RydWN0IGFtZGdwdV9yaW5nICpraXFfcmluZywNCj4gLQkJ
+CQkgICBzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpDQo+ICtzdGF0aWMgaW50IGdmeF92OV8wX21h
+cF9xdWV1ZV9lbmFibGUoc3RydWN0IGFtZGdwdV9yaW5nICpraXFfcmluZywNCj4gKwkJCQkgICAg
+IHN0cnVjdCBhbWRncHVfcmluZyAqcmluZykNCj4gIHsNCj4gIAlzdHJ1Y3QgYW1kZ3B1X2Rldmlj
+ZSAqYWRldiA9IGtpcV9yaW5nLT5hZGV2Ow0KPiAgCXVpbnQ2NF90IG1xZF9hZGRyLCB3cHRyX2Fk
+ZHI7DQo+ICsJdWludDMyX3Qgc2NyYXRjaCwgdG1wID0gMDsNCj4gKwlpbnQgciwgaTsNCj4gKw0K
+PiArCXIgPSBhbWRncHVfZ2Z4X3NjcmF0Y2hfZ2V0KGFkZXYsICZzY3JhdGNoKTsNCj4gKwlpZiAo
+cikgew0KPiArCQlEUk1fRVJST1IoIkZhaWxlZCB0byBnZXQgc2NyYXRjaCByZWcgKCVkKS5cbiIs
+IHIpOw0KPiArCQlyZXR1cm4gcjsNCj4gKwl9DQo+ICsJV1JFRzMyKHNjcmF0Y2gsIDB4Q0FGRURF
+QUQpOw0KPiArDQo+ICsJciA9IGFtZGdwdV9yaW5nX2FsbG9jKGtpcV9yaW5nLCAxMCk7DQo+ICsJ
+aWYgKHIpIHsNCj4gKwkJRFJNX0VSUk9SKCJGYWlsZWQgdG8gbG9jayBLSVEgKCVkKS5cbiIsIHIp
+Ow0KPiArCQlhbWRncHVfZ2Z4X3NjcmF0Y2hfZnJlZShhZGV2LCBzY3JhdGNoKTsNCj4gKwkJcmV0
+dXJuIHI7DQo+ICsJfQ0KPiANCj4gIAltcWRfYWRkciA9IGFtZGdwdV9ib19ncHVfb2Zmc2V0KHJp
+bmctPm1xZF9vYmopOw0KPiAgCXdwdHJfYWRkciA9IGFkZXYtPndiLmdwdV9hZGRyICsgKHJpbmct
+PndwdHJfb2ZmcyAqIDQpOw0KPiAtCWFtZGdwdV9yaW5nX2FsbG9jKGtpcV9yaW5nLCA4KTsNCj4g
+DQo+ICAJYW1kZ3B1X3Jpbmdfd3JpdGUoa2lxX3JpbmcsIFBBQ0tFVDMoUEFDS0VUM19NQVBfUVVF
+VUVTLCA1KSk7DQo+ICAJLyogUV9zZWw6MCwgdm1pZDowLCB2aWRtZW06IDEsIGVuZ2luZTowLCBu
+dW1fUToxKi8gQEAgLTE4NTUsOA0KPiArMTkwNSwyNiBAQCBzdGF0aWMgdm9pZCBnZnhfdjlfMF9t
+YXBfcXVldWVfZW5hYmxlKHN0cnVjdCBhbWRncHVfcmluZw0KPiAqa2lxX3JpbmcsDQo+ICAJYW1k
+Z3B1X3Jpbmdfd3JpdGUoa2lxX3JpbmcsIHVwcGVyXzMyX2JpdHMobXFkX2FkZHIpKTsNCj4gIAlh
+bWRncHVfcmluZ193cml0ZShraXFfcmluZywgbG93ZXJfMzJfYml0cyh3cHRyX2FkZHIpKTsNCj4g
+IAlhbWRncHVfcmluZ193cml0ZShraXFfcmluZywgdXBwZXJfMzJfYml0cyh3cHRyX2FkZHIpKTsN
+Cj4gKwkvKiB3cml0ZSB0byBzY3JhdGNoIGZvciBjb21wbGV0aW9uICovDQo+ICsJYW1kZ3B1X3Jp
+bmdfd3JpdGUoa2lxX3JpbmcsDQo+IFBBQ0tFVDMoUEFDS0VUM19TRVRfVUNPTkZJR19SRUcsIDEp
+KTsNCj4gKwlhbWRncHVfcmluZ193cml0ZShraXFfcmluZywgKHNjcmF0Y2ggLQ0KPiBQQUNLRVQz
+X1NFVF9VQ09ORklHX1JFR19TVEFSVCkpOw0KPiArCWFtZGdwdV9yaW5nX3dyaXRlKGtpcV9yaW5n
+LCAweERFQURCRUVGKTsNCj4gIAlhbWRncHVfcmluZ19jb21taXQoa2lxX3JpbmcpOw0KPiAtCXVk
+ZWxheSg1MCk7DQo+ICsNCj4gKwlmb3IgKGkgPSAwOyBpIDwgYWRldi0+dXNlY190aW1lb3V0OyBp
+KyspIHsNCj4gKwkJdG1wID0gUlJFRzMyKHNjcmF0Y2gpOw0KPiArCQlpZiAodG1wID09IDB4REVB
+REJFRUYpDQo+ICsJCQlicmVhazsNCj4gKwkJRFJNX1VERUxBWSgxKTsNCj4gKwl9DQo+ICsJaWYg
+KGkgPj0gYWRldi0+dXNlY190aW1lb3V0KSB7DQo+ICsJCURSTV9FUlJPUigiS0NRIGVuYWJsZSBm
+YWlsZWQNCj4gKHNjcmF0Y2goMHglMDRYKT0weCUwOFgpXG4iLA0KPiArCQkJICBzY3JhdGNoLCB0
+bXApOw0KPiArCQlyID0gLUVJTlZBTDsNCj4gKwl9DQo+ICsJYW1kZ3B1X2dmeF9zY3JhdGNoX2Zy
+ZWUoYWRldiwgc2NyYXRjaCk7DQo+ICsNCj4gKwlyZXR1cm4gcjsNCj4gIH0NCj4gDQo+ICBzdGF0
+aWMgaW50IGdmeF92OV8wX21xZF9pbml0KHN0cnVjdCBhbWRncHVfcmluZyAqcmluZykgQEAgLTIx
+MDIsNiArMjE3MCw3DQo+IEBAIHN0YXRpYyBpbnQgZ2Z4X3Y5XzBfa2lxX2luaXRfcXVldWUoc3Ry
+dWN0IGFtZGdwdV9yaW5nICpyaW5nKQ0KPiAgCXN0cnVjdCB2OV9tcWQgKm1xZCA9IHJpbmctPm1x
+ZF9wdHI7DQo+ICAJYm9vbCBpc19raXEgPSAocmluZy0+ZnVuY3MtPnR5cGUgPT0gQU1ER1BVX1JJ
+TkdfVFlQRV9LSVEpOw0KPiAgCWludCBtcWRfaWR4ID0gQU1ER1BVX01BWF9DT01QVVRFX1JJTkdT
+Ow0KPiArCWludCByOw0KPiANCj4gIAlpZiAoaXNfa2lxKSB7DQo+ICAJCWdmeF92OV8wX2tpcV9z
+ZXR0aW5nKCZraXEtPnJpbmcpOw0KPiBAQCAtMjE0MCwxMSArMjIwOSwxMSBAQCBzdGF0aWMgaW50
+IGdmeF92OV8wX2tpcV9pbml0X3F1ZXVlKHN0cnVjdA0KPiBhbWRncHVfcmluZyAqcmluZykNCj4g
+IAl9DQo+IA0KPiAgCWlmIChpc19raXEpDQo+IC0JCWdmeF92OV8wX2tpcV9lbmFibGUocmluZyk7
+DQo+ICsJCXIgPSBnZnhfdjlfMF9raXFfZW5hYmxlKHJpbmcpOw0KPiAgCWVsc2UNCj4gLQkJZ2Z4
+X3Y5XzBfbWFwX3F1ZXVlX2VuYWJsZSgma2lxLT5yaW5nLCByaW5nKTsNCj4gKwkJciA9IGdmeF92
+OV8wX21hcF9xdWV1ZV9lbmFibGUoJmtpcS0+cmluZywgcmluZyk7DQo+IA0KPiAtCXJldHVybiAw
+Ow0KPiArCXJldHVybiByOw0KPiAgfQ0KPiANCj4gIHN0YXRpYyBpbnQgZ2Z4X3Y5XzBfa2lxX3Jl
+c3VtZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCj4gLS0NCj4gMi41LjUNCj4gDQo+IF9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+IGFtZC1nZngg
+bWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IGh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
