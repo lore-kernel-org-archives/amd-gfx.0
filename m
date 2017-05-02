@@ -1,44 +1,43 @@
-From: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/powerplay: set fan target temperature by msg on
- vega10.
-Date: Tue, 2 May 2017 17:49:48 +0800
-Message-ID: <1493718588-16322-1-git-send-email-Rex.Zhu@amd.com>
+From: Gerd Hoffmann <kraxel@redhat.com>
+Subject: [PATCH 2/3] drm: fourcc byteorder: add DRM_FORMAT_CPU_*
+Date: Tue,  2 May 2017 15:34:03 +0200
+Message-ID: <20170502133404.15354-3-kraxel@redhat.com>
+References: <20170502133404.15354-1-kraxel@redhat.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20170502133404.15354-1-kraxel@redhat.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: dri-devel@lists.freedesktop.org
+Cc: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel@daenzer.net>, open list <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel.vetter@intel.com>, Gerd Hoffmann <kraxel@redhat.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-U01VIG5vdCBzdXBwb3J0IEZhblRhcmdldFRlbXBlcmF0dXJlIGluIHBwdGFibGUsCnNvIHNlbmQg
-bXNnIGluc3RhbmQuCgpDaGFuZ2UtSWQ6IElkYzljZWM5NWZiOGQ0ZjE0NzlmNzI3Yzg2OTNjMTE4
-NmQyOGI1NDM1ClNpZ25lZC1vZmYtYnk6IFJleCBaaHUgPFJleC5aaHVAYW1kLmNvbT4KLS0tCiBk
-cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfdGhlcm1hbC5jIHwgNSAr
-KysrKwogMSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF90aGVybWFsLmMgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfdGhlcm1hbC5jCmluZGV4IDcwNjJl
-YzguLjVkYTg4YmEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3
-bWdyL3ZlZ2ExMF90aGVybWFsLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
-aHdtZ3IvdmVnYTEwX3RoZXJtYWwuYwpAQCAtNTYxLDYgKzU2MSwxMSBAQCBpbnQgdGZfdmVnYTEw
-X3RoZXJtYWxfc2V0dXBfZmFuX3RhYmxlKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsCiAJCQlhZHZh
-bmNlRmFuQ29udHJvbFBhcmFtZXRlcnMudWxNaW5GYW5TQ0xLQWNvdXN0aWNMaW1pdCk7CiAJdGFi
-bGUtPkZhblRhcmdldFRlbXBlcmF0dXJlID0gaHdtZ3ItPnRoZXJtYWxfY29udHJvbGxlci4KIAkJ
-CWFkdmFuY2VGYW5Db250cm9sUGFyYW1ldGVycy51c1RNYXg7CisKKwlzbXVtX3NlbmRfbXNnX3Rv
-X3NtY193aXRoX3BhcmFtZXRlcihod21nci0+c211bWdyLAorCQkJCVBQU01DX01TR19TZXRGYW5U
-ZW1wZXJhdHVyZVRhcmdldCwKKwkJCQkodWludDMyX3QpdGFibGUtPkZhblRhcmdldFRlbXBlcmF0
-dXJlKTsKKwogCXRhYmxlLT5GYW5Qd21NaW4gPSBod21nci0+dGhlcm1hbF9jb250cm9sbGVyLgog
-CQkJYWR2YW5jZUZhbkNvbnRyb2xQYXJhbWV0ZXJzLnVzUFdNTWluICogMjU1IC8gMTAwOwogCXRh
-YmxlLT5GYW5UYXJnZXRHZnhjbGsgPSAodWludDE2X3QpKGh3bWdyLT50aGVybWFsX2NvbnRyb2xs
-ZXIuCi0tIAoxLjkuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+QWRkIGZvdXJjYyB2YXJpYW50cyBpbiBjcHUgYnl0ZSBvcmRlci4gIFdpdGggdGhlc2UgYXQgaGFu
+ZCB3ZSBkb24ndApuZWVkICNpZmRlZnMgaW4gZHJpdmVycyB3YW50IHN1cHBvcnQgZnJhbWVidWZm
+ZXJzIGluIGNwdSBlbmRpYW5lc3MuCgpTaWduZWQtb2ZmLWJ5OiBHZXJkIEhvZmZtYW5uIDxrcmF4
+ZWxAcmVkaGF0LmNvbT4KLS0tCiBpbmNsdWRlL2RybS9kcm1fZm91cmNjLmggfCAxMiArKysrKysr
+KysrKysKIDEgZmlsZSBjaGFuZ2VkLCAxMiBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvaW5j
+bHVkZS9kcm0vZHJtX2ZvdXJjYy5oIGIvaW5jbHVkZS9kcm0vZHJtX2ZvdXJjYy5oCmluZGV4IDY5
+NDJlODRiNmUuLmNhZTA1MTUzZTggMTAwNjQ0Ci0tLSBhL2luY2x1ZGUvZHJtL2RybV9mb3VyY2Mu
+aAorKysgYi9pbmNsdWRlL2RybS9kcm1fZm91cmNjLmgKQEAgLTI1LDYgKzI1LDE4IEBACiAjaW5j
+bHVkZSA8bGludXgvdHlwZXMuaD4KICNpbmNsdWRlIDx1YXBpL2RybS9kcm1fZm91cmNjLmg+CiAK
+Ky8qCisgKiBEUk0gZm9ybWF0cyBhcmUgbGl0dGxlIGVuZGlhbi4gIGRlZmluZSBjcHUgZW5kaWFu
+IHZhcmlhbnRzIGhlcmUsIHRvCisgKiByZWR1Y2UgdGhlICNpZmRlZnMgbmVlZGVkIGluIGRyaXZl
+cnMuCisgKi8KKyNpZmRlZiBfX0JJR19FTkRJQU4KKyMgZGVmaW5lIERSTV9GT1JNQVRfQ1BVX1hS
+R0I4ODg4IERSTV9GT1JNQVRfQkdSWDg4ODgKKyMgZGVmaW5lIERSTV9GT1JNQVRfQ1BVX0FSR0I4
+ODg4IERSTV9GT1JNQVRfQkdSQTg4ODgKKyNlbHNlCisjIGRlZmluZSBEUk1fRk9STUFUX0NQVV9Y
+UkdCODg4OCBEUk1fRk9STUFUX1hSR0I4ODg4CisjIGRlZmluZSBEUk1fRk9STUFUX0NQVV9BUkdC
+ODg4OCBEUk1fRk9STUFUX0FSR0I4ODg4CisjZW5kaWYKKwogc3RydWN0IGRybV9kZXZpY2U7CiBz
+dHJ1Y3QgZHJtX21vZGVfZmJfY21kMjsKIAotLSAKMi45LjMKCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRl
+dmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
