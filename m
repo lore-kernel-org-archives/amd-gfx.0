@@ -1,61 +1,34 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amdgpu/gfx: drop max_gs_waves_per_vgt
-Date: Tue,  2 May 2017 15:50:51 -0400
-Message-ID: <1493754651-14245-1-git-send-email-alexander.deucher@amd.com>
+From: SF Markus Elfring <elfring@users.sourceforge.net>
+Subject: [PATCH 0/3] GPU-DRM-Radeon: Fine-tuning for three function
+ implementations
+Date: Tue, 2 May 2017 22:04:31 +0200
+Message-ID: <74d2df52-f509-e6d2-5b35-e25b7cbd1fbe@users.sourceforge.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <kernel-janitors-owner@vger.kernel.org>
+Content-Language: en-GB
+Sender: kernel-janitors-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>
+Cc: LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-V2UgYWxyZWFkeSBoYXZlIHRoaXMgaW5mbzogbWF4X2dzX3RocmVhZHMuICBEcm9wIHRoZSBkdXBs
-aWNhdGUuCgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFt
-ZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggICAgIHwgMSAt
-CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMgfCAyICstCiBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jICAgfCAxIC0KIDMgZmlsZXMgY2hhbmdlZCwg
-MSBpbnNlcnRpb24oKyksIDMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHUuaAppbmRleCAwZWU0ZDg3Li5lN2ZlNjQ5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHUuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHUuaApAQCAtOTcyLDcgKzk3Miw2IEBAIHN0cnVjdCBhbWRncHVfZ2Z4X2NvbmZpZyB7CiAJdW5z
-aWduZWQgbnVtX3JiczsKIAl1bnNpZ25lZCBnc192Z3RfdGFibGVfZGVwdGg7CiAJdW5zaWduZWQg
-Z3NfcHJpbV9idWZmZXJfZGVwdGg7Ci0JdW5zaWduZWQgbWF4X2dzX3dhdmVzX3Blcl92Z3Q7CiAK
-IAl1aW50MzJfdCB0aWxlX21vZGVfYXJyYXlbMzJdOwogCXVpbnQzMl90IG1hY3JvdGlsZV9tb2Rl
-X2FycmF5WzE2XTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9rbXMuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYwppbmRleCBk
-NDBiOGFjLi44ZDdlNGQ0IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfa21zLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5j
-CkBAIC01NjAsNyArNTYwLDcgQEAgc3RhdGljIGludCBhbWRncHVfaW5mb19pb2N0bChzdHJ1Y3Qg
-ZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLCBzdHJ1Y3QgZHJtX2ZpbGUKIAkJZGV2X2luZm8u
-bnVtX3RjY19ibG9ja3MgPSBhZGV2LT5nZnguY29uZmlnLm1heF90ZXh0dXJlX2NoYW5uZWxfY2Fj
-aGVzOwogCQlkZXZfaW5mby5nc192Z3RfdGFibGVfZGVwdGggPSBhZGV2LT5nZnguY29uZmlnLmdz
-X3ZndF90YWJsZV9kZXB0aDsKIAkJZGV2X2luZm8uZ3NfcHJpbV9idWZmZXJfZGVwdGggPSBhZGV2
-LT5nZnguY29uZmlnLmdzX3ByaW1fYnVmZmVyX2RlcHRoOwotCQlkZXZfaW5mby5tYXhfZ3Nfd2F2
-ZXNfcGVyX3ZndCA9IGFkZXYtPmdmeC5jb25maWcubWF4X2dzX3dhdmVzX3Blcl92Z3Q7CisJCWRl
-dl9pbmZvLm1heF9nc193YXZlc19wZXJfdmd0ID0gYWRldi0+Z2Z4LmNvbmZpZy5tYXhfZ3NfdGhy
-ZWFkczsKIAogCQlyZXR1cm4gY29weV90b191c2VyKG91dCwgJmRldl9pbmZvLAogCQkJCSAgICBt
-aW4oKHNpemVfdClzaXplLCBzaXplb2YoZGV2X2luZm8pKSkgPyAtRUZBVUxUIDogMDsKZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCmluZGV4IDJiMmEyYzIuLjhiMjgxZGYgMTAwNjQ0
-Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwpAQCAtNzk2LDcgKzc5Niw2IEBAIHN0YXRp
-YyB2b2lkIGdmeF92OV8wX2dwdV9lYXJseV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-KQogCQlhZGV2LT5nZnguY29uZmlnLnNjX2Vhcmx5el90aWxlX2ZpZm9fc2l6ZSA9IDB4NEMwOwog
-CQlhZGV2LT5nZnguY29uZmlnLmdzX3ZndF90YWJsZV9kZXB0aCA9IDMyOwogCQlhZGV2LT5nZngu
-Y29uZmlnLmdzX3ByaW1fYnVmZmVyX2RlcHRoID0gMTc5MjsKLQkJYWRldi0+Z2Z4LmNvbmZpZy5t
-YXhfZ3Nfd2F2ZXNfcGVyX3ZndCA9IDMyOwogCQlnYl9hZGRyX2NvbmZpZyA9IFZFR0ExMF9HQl9B
-RERSX0NPTkZJR19HT0xERU47CiAJCWJyZWFrOwogCWRlZmF1bHQ6Ci0tIAoyLjUuNQoKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+From: Markus Elfring <elfring@users.sourceforge.net>
+Date: Tue, 2 May 2017 22:00:02 +0200
+
+Three update suggestions were taken into account
+from static source code analysis.
+
+Markus Elfring (3):
+  Use seq_putc() in radeon_sa_bo_dump_debug_info()
+  Use seq_puts() in radeon_debugfs_pm_info()
+  Use seq_puts() in r100_debugfs_cp_csq_fifo()
+
+ drivers/gpu/drm/radeon/r100.c      | 6 +++---
+ drivers/gpu/drm/radeon/radeon_pm.c | 5 +++--
+ drivers/gpu/drm/radeon/radeon_sa.c | 9 +++------
+ 3 files changed, 9 insertions(+), 11 deletions(-)
+
+-- 
+2.12.2
+
