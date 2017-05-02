@@ -1,8 +1,8 @@
 From: SF Markus Elfring <elfring@users.sourceforge.net>
-Subject: [PATCH 1/3] GPU-DRM-Radeon: Use seq_putc() in
- radeon_sa_bo_dump_debug_info()
-Date: Tue, 2 May 2017 22:06:35 +0200
-Message-ID: <a3bf9b46-ca44-d9b3-d0de-bf580fbf265b@users.sourceforge.net>
+Subject: [PATCH 2/3] GPU-DRM-Radeon: Use seq_puts() in
+ radeon_debugfs_pm_info()
+Date: Tue, 2 May 2017 22:08:10 +0200
+Message-ID: <85bb0532-b548-b3cc-4482-ce7a161c7d32@users.sourceforge.net>
 References: <74d2df52-f509-e6d2-5b35-e25b7cbd1fbe@users.sourceforge.net>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=utf-8
@@ -16,44 +16,39 @@ Cc: LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
 From: Markus Elfring <elfring@users.sourceforge.net>
-Date: Tue, 2 May 2017 21:35:48 +0200
+Date: Tue, 2 May 2017 21:50:14 +0200
 
-A few single characters should be put into a sequence.
-Thus use the corresponding function "seq_putc".
+Two strings which did not contain data format specifications should be put
+into a sequence. Thus use the corresponding function "seq_puts".
 
 This issue was detected by using the Coccinelle software.
 
 Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
 ---
- drivers/gpu/drm/radeon/radeon_sa.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/radeon/radeon_pm.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_sa.c b/drivers/gpu/drm/radeon/radeon_sa.c
-index 197b157b73d0..67bc3618798d 100644
---- a/drivers/gpu/drm/radeon/radeon_sa.c
-+++ b/drivers/gpu/drm/radeon/radeon_sa.c
-@@ -406,18 +406,15 @@ void radeon_sa_bo_dump_debug_info(struct radeon_sa_manager *sa_manager,
- 	list_for_each_entry(i, &sa_manager->olist, olist) {
- 		uint64_t soffset = i->soffset + sa_manager->gpu_addr;
- 		uint64_t eoffset = i->eoffset + sa_manager->gpu_addr;
--		if (&i->olist == sa_manager->hole) {
--			seq_printf(m, ">");
--		} else {
--			seq_printf(m, " ");
--		}
-+
-+		seq_putc(m, (&i->olist == sa_manager->hole) ? '>' : ' ');
- 		seq_printf(m, "[0x%010llx 0x%010llx] size %8lld",
- 			   soffset, eoffset, eoffset - soffset);
- 		if (i->fence) {
- 			seq_printf(m, " protected by 0x%016llx on ring %d",
- 				   i->fence->seq, i->fence->ring);
- 		}
--		seq_printf(m, "\n");
-+		seq_putc(m, '\n');
- 	}
- 	spin_unlock(&sa_manager->wq.lock);
- }
+diff --git a/drivers/gpu/drm/radeon/radeon_pm.c b/drivers/gpu/drm/radeon/radeon_pm.c
+index 326ad068c15a..f84ddcc426c1 100644
+--- a/drivers/gpu/drm/radeon/radeon_pm.c
++++ b/drivers/gpu/drm/radeon/radeon_pm.c
+@@ -1869,13 +1869,14 @@ static int radeon_debugfs_pm_info(struct seq_file *m, void *data)
+ 
+ 	if  ((rdev->flags & RADEON_IS_PX) &&
+ 	     (ddev->switch_power_state != DRM_SWITCH_POWER_ON)) {
+-		seq_printf(m, "PX asic powered off\n");
++		seq_puts(m, "PX asic powered off\n");
+ 	} else if (rdev->pm.dpm_enabled) {
+ 		mutex_lock(&rdev->pm.mutex);
+ 		if (rdev->asic->dpm.debugfs_print_current_performance_level)
+ 			radeon_dpm_debugfs_print_current_performance_level(rdev, m);
+ 		else
+-			seq_printf(m, "Debugfs support not implemented for this asic\n");
++			seq_puts(m,
++				 "Debugfs support not implemented for this asic\n");
+ 		mutex_unlock(&rdev->pm.mutex);
+ 	} else {
+ 		seq_printf(m, "default engine clock: %u0 kHz\n", rdev->pm.default_sclk);
 -- 
 2.12.2
 
