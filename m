@@ -1,54 +1,56 @@
 From: SF Markus Elfring <elfring@users.sourceforge.net>
-Subject: [PATCH 2/3] GPU-DRM-Radeon: Use seq_puts() in
- radeon_debugfs_pm_info()
-Date: Tue, 2 May 2017 22:08:10 +0200
-Message-ID: <85bb0532-b548-b3cc-4482-ce7a161c7d32@users.sourceforge.net>
+Subject: [PATCH 3/3] GPU-DRM-Radeon: Use seq_puts() in
+ r100_debugfs_cp_csq_fifo()
+Date: Tue, 2 May 2017 22:10:07 +0200
+Message-ID: <c80a0c58-2da4-2531-fdd6-677c7a9638cb@users.sourceforge.net>
 References: <74d2df52-f509-e6d2-5b35-e25b7cbd1fbe@users.sourceforge.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Return-path: <kernel-janitors-owner@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
 In-Reply-To: <74d2df52-f509-e6d2-5b35-e25b7cbd1fbe@users.sourceforge.net>
 Content-Language: en-GB
-Sender: kernel-janitors-owner@vger.kernel.org
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>
-Cc: LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org
+Cc: kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-From: Markus Elfring <elfring@users.sourceforge.net>
-Date: Tue, 2 May 2017 21:50:14 +0200
-
-Two strings which did not contain data format specifications should be put
-into a sequence. Thus use the corresponding function "seq_puts".
-
-This issue was detected by using the Coccinelle software.
-
-Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
----
- drivers/gpu/drm/radeon/radeon_pm.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/radeon/radeon_pm.c b/drivers/gpu/drm/radeon/radeon_pm.c
-index 326ad068c15a..f84ddcc426c1 100644
---- a/drivers/gpu/drm/radeon/radeon_pm.c
-+++ b/drivers/gpu/drm/radeon/radeon_pm.c
-@@ -1869,13 +1869,14 @@ static int radeon_debugfs_pm_info(struct seq_file *m, void *data)
- 
- 	if  ((rdev->flags & RADEON_IS_PX) &&
- 	     (ddev->switch_power_state != DRM_SWITCH_POWER_ON)) {
--		seq_printf(m, "PX asic powered off\n");
-+		seq_puts(m, "PX asic powered off\n");
- 	} else if (rdev->pm.dpm_enabled) {
- 		mutex_lock(&rdev->pm.mutex);
- 		if (rdev->asic->dpm.debugfs_print_current_performance_level)
- 			radeon_dpm_debugfs_print_current_performance_level(rdev, m);
- 		else
--			seq_printf(m, "Debugfs support not implemented for this asic\n");
-+			seq_puts(m,
-+				 "Debugfs support not implemented for this asic\n");
- 		mutex_unlock(&rdev->pm.mutex);
- 	} else {
- 		seq_printf(m, "default engine clock: %u0 kHz\n", rdev->pm.default_sclk);
--- 
-2.12.2
-
+RnJvbTogTWFya3VzIEVsZnJpbmcgPGVsZnJpbmdAdXNlcnMuc291cmNlZm9yZ2UubmV0PgpEYXRl
+OiBUdWUsIDIgTWF5IDIwMTcgMjE6NTQ6NDkgKzAyMDAKClN0cmluZ3Mgd2hpY2ggZGlkIG5vdCBj
+b250YWluIGRhdGEgZm9ybWF0IHNwZWNpZmljYXRpb25zIHNob3VsZCBiZSBwdXQKaW50byBhIHNl
+cXVlbmNlLiBUaHVzIHVzZSB0aGUgY29ycmVzcG9uZGluZyBmdW5jdGlvbiAic2VxX3B1dHMiLgoK
+VGhpcyBpc3N1ZSB3YXMgZGV0ZWN0ZWQgYnkgdXNpbmcgdGhlIENvY2NpbmVsbGUgc29mdHdhcmUu
+CgpTaWduZWQtb2ZmLWJ5OiBNYXJrdXMgRWxmcmluZyA8ZWxmcmluZ0B1c2Vycy5zb3VyY2Vmb3Jn
+ZS5uZXQ+Ci0tLQogZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yMTAwLmMgfCA2ICsrKy0tLQogMSBm
+aWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3IxMDAuYyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24v
+cjEwMC5jCmluZGV4IGMzMWU2NjBlMzVkYi4uMDliODg3MzhhYTA3IDEwMDY0NAotLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vcmFkZW9uL3IxMDAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3Ix
+MDAuYwpAQCAtMjk5MiwxOSArMjk5MiwxOSBAQCBzdGF0aWMgaW50IHIxMDBfZGVidWdmc19jcF9j
+c3FfZmlmbyhzdHJ1Y3Qgc2VxX2ZpbGUgKm0sIHZvaWQgKmRhdGEpCiAJc2VxX3ByaW50ZihtLCAi
+SW5kaXJlY3QyIHdwdHIgJXVcbiIsIGliMl93cHRyKTsKIAkvKiBGSVhNRTogMCwgMTI4LCA2NDAg
+ZGVwZW5kcyBvbiBmaWZvIHNldHVwIHNlZSBjcF9pbml0X2ttcwogCSAqIDEyOCA9IGluZGlyZWN0
+MV9zdGFydCAqIDggJiA2NDAgPSBpbmRpcmVjdDJfc3RhcnQgKiA4ICovCi0Jc2VxX3ByaW50Ziht
+LCAiUmluZyBmaWZvOlxuIik7CisJc2VxX3B1dHMobSwgIlJpbmcgZmlmbzpcbiIpOwogCWZvciAo
+aSA9IDA7IGkgPCAyNTY7IGkrKykgewogCQlXUkVHMzIoUkFERU9OX0NQX0NTUV9BRERSLCBpIDw8
+IDIpOwogCQl0bXAgPSBSUkVHMzIoUkFERU9OX0NQX0NTUV9EQVRBKTsKIAkJc2VxX3ByaW50Ziht
+LCAicmZpZm9bJTA0ZF09MHglMDhYXG4iLCBpLCB0bXApOwogCX0KLQlzZXFfcHJpbnRmKG0sICJJ
+bmRpcmVjdDEgZmlmbzpcbiIpOworCXNlcV9wdXRzKG0sICJJbmRpcmVjdDEgZmlmbzpcbiIpOwog
+CWZvciAoaSA9IDI1NjsgaSA8PSA1MTI7IGkrKykgewogCQlXUkVHMzIoUkFERU9OX0NQX0NTUV9B
+RERSLCBpIDw8IDIpOwogCQl0bXAgPSBSUkVHMzIoUkFERU9OX0NQX0NTUV9EQVRBKTsKIAkJc2Vx
+X3ByaW50ZihtLCAiaWIxZmlmb1slMDRkXT0weCUwOFhcbiIsIGksIHRtcCk7CiAJfQotCXNlcV9w
+cmludGYobSwgIkluZGlyZWN0MiBmaWZvOlxuIik7CisJc2VxX3B1dHMobSwgIkluZGlyZWN0MiBm
+aWZvOlxuIik7CiAJZm9yIChpID0gNjQwOyBpIDwgaWIxX3dwdHI7IGkrKykgewogCQlXUkVHMzIo
+UkFERU9OX0NQX0NTUV9BRERSLCBpIDw8IDIpOwogCQl0bXAgPSBSUkVHMzIoUkFERU9OX0NQX0NT
+UV9EQVRBKTsKLS0gCjIuMTIuMgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+ZHJpLWRldmVsCg==
