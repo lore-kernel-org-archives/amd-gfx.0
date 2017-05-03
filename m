@@ -1,69 +1,37 @@
-From: =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/gfx: drop max_gs_waves_per_vgt
-Date: Wed, 3 May 2017 14:41:59 +0200
-Message-ID: <f45601ff-9070-6992-0d53-a27a0745ac4d@gmail.com>
-References: <1493754651-14245-1-git-send-email-alexander.deucher@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Subject: Re: [PATCH 0/3] GPU-DRM-Radeon: Fine-tuning for three function
+ implementations
+Date: Wed, 3 May 2017 14:46:41 +0200
+Message-ID: <799fb921-f620-9054-680d-90b14e4c517c@amd.com>
+References: <74d2df52-f509-e6d2-5b35-e25b7cbd1fbe@users.sourceforge.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1493754651-14245-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+Return-path: <kernel-janitors-owner@vger.kernel.org>
+In-Reply-To: <74d2df52-f509-e6d2-5b35-e25b7cbd1fbe@users.sourceforge.net>
+Sender: kernel-janitors-owner@vger.kernel.org
+To: SF Markus Elfring <elfring@users.sourceforge.net>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@linux.ie>
+Cc: LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMDIuMDUuMjAxNyAyMTo1MCwgQWxleCBEZXVjaGVyIHdyb3RlOgo+IFdlIGFscmVhZHkgaGF2
-ZSB0aGlzIGluZm86IG1heF9nc190aHJlYWRzLiAgRHJvcCB0aGUgZHVwbGljYXRlLgoKbWF4X2dz
-X3dhdmVzX3Blcl92Z3Qgc2VlbXMgdG8gYmUgdGhlIGJldHRlciBuYW1lIGZvciB0aGlzIG51bWJl
-ciB0aG91Z2guIApUaHJlYWRzIGlzIHVzdWFsbHkgd2hhdCB3ZSBjYWxsIGFuIGl0ZW0sIG9mIHdo
-aWNoIGVhY2ggd2F2ZSBoYXMgNjQuCgpDaGVlcnMsCk5pY29sYWkKCj4KPiBTaWduZWQtb2ZmLWJ5
-OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cj4gLS0tCj4gIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAgICB8IDEgLQo+ICBkcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMgfCAyICstCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2dmeF92OV8wLmMgICB8IDEgLQo+ICAzIGZpbGVzIGNoYW5nZWQsIDEgaW5zZXJ0aW9u
-KCspLCAzIGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPiBp
-bmRleCAwZWU0ZDg3Li5lN2ZlNjQ5IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdS5oCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-LmgKPiBAQCAtOTcyLDcgKzk3Miw2IEBAIHN0cnVjdCBhbWRncHVfZ2Z4X2NvbmZpZyB7Cj4gIAl1
-bnNpZ25lZCBudW1fcmJzOwo+ICAJdW5zaWduZWQgZ3Nfdmd0X3RhYmxlX2RlcHRoOwo+ICAJdW5z
-aWduZWQgZ3NfcHJpbV9idWZmZXJfZGVwdGg7Cj4gLQl1bnNpZ25lZCBtYXhfZ3Nfd2F2ZXNfcGVy
-X3ZndDsKPgo+ICAJdWludDMyX3QgdGlsZV9tb2RlX2FycmF5WzMyXTsKPiAgCXVpbnQzMl90IG1h
-Y3JvdGlsZV9tb2RlX2FycmF5WzE2XTsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2ttcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2ttcy5jCj4gaW5kZXggZDQwYjhhYy4uOGQ3ZTRkNCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfa21zLmMKPiBAQCAtNTYwLDcgKzU2MCw3IEBAIHN0YXRpYyBpbnQgYW1k
-Z3B1X2luZm9faW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwgc3RydWN0
-IGRybV9maWxlCj4gIAkJZGV2X2luZm8ubnVtX3RjY19ibG9ja3MgPSBhZGV2LT5nZnguY29uZmln
-Lm1heF90ZXh0dXJlX2NoYW5uZWxfY2FjaGVzOwo+ICAJCWRldl9pbmZvLmdzX3ZndF90YWJsZV9k
-ZXB0aCA9IGFkZXYtPmdmeC5jb25maWcuZ3Nfdmd0X3RhYmxlX2RlcHRoOwo+ICAJCWRldl9pbmZv
-LmdzX3ByaW1fYnVmZmVyX2RlcHRoID0gYWRldi0+Z2Z4LmNvbmZpZy5nc19wcmltX2J1ZmZlcl9k
-ZXB0aDsKPiAtCQlkZXZfaW5mby5tYXhfZ3Nfd2F2ZXNfcGVyX3ZndCA9IGFkZXYtPmdmeC5jb25m
-aWcubWF4X2dzX3dhdmVzX3Blcl92Z3Q7Cj4gKwkJZGV2X2luZm8ubWF4X2dzX3dhdmVzX3Blcl92
-Z3QgPSBhZGV2LT5nZnguY29uZmlnLm1heF9nc190aHJlYWRzOwo+Cj4gIAkJcmV0dXJuIGNvcHlf
-dG9fdXNlcihvdXQsICZkZXZfaW5mbywKPiAgCQkJCSAgICBtaW4oKHNpemVfdClzaXplLCBzaXpl
-b2YoZGV2X2luZm8pKSkgPyAtRUZBVUxUIDogMDsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dm
-eF92OV8wLmMKPiBpbmRleCAyYjJhMmMyLi44YjI4MWRmIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9nZnhfdjlfMC5jCj4gQEAgLTc5Niw3ICs3OTYsNiBAQCBzdGF0aWMgdm9pZCBnZnhf
-djlfMF9ncHVfZWFybHlfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAgCQlhZGV2
-LT5nZnguY29uZmlnLnNjX2Vhcmx5el90aWxlX2ZpZm9fc2l6ZSA9IDB4NEMwOwo+ICAJCWFkZXYt
-PmdmeC5jb25maWcuZ3Nfdmd0X3RhYmxlX2RlcHRoID0gMzI7Cj4gIAkJYWRldi0+Z2Z4LmNvbmZp
-Zy5nc19wcmltX2J1ZmZlcl9kZXB0aCA9IDE3OTI7Cj4gLQkJYWRldi0+Z2Z4LmNvbmZpZy5tYXhf
-Z3Nfd2F2ZXNfcGVyX3ZndCA9IDMyOwo+ICAJCWdiX2FkZHJfY29uZmlnID0gVkVHQTEwX0dCX0FE
-RFJfQ09ORklHX0dPTERFTjsKPiAgCQlicmVhazsKPiAgCWRlZmF1bHQ6Cj4KCgotLSAKTGVybmUs
-IHdpZSBkaWUgV2VsdCB3aXJrbGljaCBpc3QsCkFiZXIgdmVyZ2lzcyBuaWVtYWxzLCB3aWUgc2ll
-IHNlaW4gc29sbHRlLgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+Am 02.05.2017 um 22:04 schrieb SF Markus Elfring:
+> From: Markus Elfring <elfring@users.sourceforge.net>
+> Date: Tue, 2 May 2017 22:00:02 +0200
+>
+> Three update suggestions were taken into account
+> from static source code analysis.
+>
+> Markus Elfring (3):
+>    Use seq_putc() in radeon_sa_bo_dump_debug_info()
+>    Use seq_puts() in radeon_debugfs_pm_info()
+>    Use seq_puts() in r100_debugfs_cp_csq_fifo()
+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+
+>
+>   drivers/gpu/drm/radeon/r100.c      | 6 +++---
+>   drivers/gpu/drm/radeon/radeon_pm.c | 5 +++--
+>   drivers/gpu/drm/radeon/radeon_sa.c | 9 +++------
+>   3 files changed, 9 insertions(+), 11 deletions(-)
+>
+
