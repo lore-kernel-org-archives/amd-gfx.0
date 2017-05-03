@@ -1,18 +1,20 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 Subject: Re: [PATCH 1/5] drm/amdgpu:keep ctx alive till all job finished
-Date: Wed, 3 May 2017 11:18:38 +0200
-Message-ID: <eb637720-5c9a-636b-237e-228b499ff3bb@vodafone.de>
+Date: Wed, 3 May 2017 11:23:05 +0200
+Message-ID: <ae8920e7-3ea2-0c10-fe4d-b608abc4e49b@vodafone.de>
 References: <1493623371-32614-1-git-send-email-Monk.Liu@amd.com>
  <1493623371-32614-2-git-send-email-Monk.Liu@amd.com>
  <a4605d10-b1f7-7fee-63c9-829d612c63aa@vodafone.de>
  <DM5PR12MB16102746DB02DBE8ED69DA9C84160@DM5PR12MB1610.namprd12.prod.outlook.com>
- <059fe927-90c8-0cf3-336c-56818d9277f0@vodafone.de>
- <DM5PR12MB1610E867F75FA922A874D74884160@DM5PR12MB1610.namprd12.prod.outlook.com>
+ <DM5PR12MB16107F8A55F3EF0B1C834FC384160@DM5PR12MB1610.namprd12.prod.outlook.com>
+ <MWHPR1201MB020601F998809FC8F0527723B4160@MWHPR1201MB0206.namprd12.prod.outlook.com>
+ <DM5PR12MB161082763FA0163FF22E1C1F84160@DM5PR12MB1610.namprd12.prod.outlook.com>
+ <59098580.6090204@amd.com> <ba31391d-1f42-705b-5c94-bfd7bd1a194f@vodafone.de>
+ <DM5PR12MB1610875E9D1BC9E967BE119A84160@DM5PR12MB1610.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0051176650=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM5PR12MB1610E867F75FA922A874D74884160-2J9CzHegvk++jCVTvoAFKAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <DM5PR12MB1610875E9D1BC9E967BE119A84160-2J9CzHegvk++jCVTvoAFKAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,210 +25,1027 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Pj4gSSdtIGFmcmFpZCBub3Q6ICBDU0EgaXMgZ29uZSB3aXRoIHRoZSBWTSwgYW5kIFZNIGlzIGdv
-bmUgYWZ0ZXIgYXBwIGNsb3NlIG91ciBGRCwgSSBkb24ndCBzZWUgYW1kZ3B1X3ZtX2ZpbmkoKSBp
-cyBkZXBlbmRlZCBvbiBjb250ZXh0IGxpdmluZyBvciBub3QgLi4uCgpTZWUgdGhlIHRlYXJkb3du
-IG9yZGVyIGluIGFtZGdwdV9kcml2ZXJfcG9zdGNsb3NlX2ttcygpOgo+IGFtZGdwdV9jdHhfbWdy
-X2ZpbmkoJmZwcml2LT5jdHhfbWdyKTsKPgo+ICAgICAgICAgYW1kZ3B1X3V2ZF9mcmVlX2hhbmRs
-ZXMoYWRldiwgZmlsZV9wcml2KTsKPiAgICAgICAgIGFtZGdwdV92Y2VfZnJlZV9oYW5kbGVzKGFk
-ZXYsIGZpbGVfcHJpdik7Cj4KPiAgICAgICAgIGFtZGdwdV92bV9ib19ybXYoYWRldiwgZnByaXYt
-PnBydF92YSk7Cj4KPiAgICAgICAgIGlmIChhbWRncHVfc3Jpb3ZfdmYoYWRldikpIHsKPiAgICAg
-ICAgICAgICAgICAgLyogVE9ETzogaG93IHRvIGhhbmRsZSByZXNlcnZlIGZhaWx1cmUgKi8KPiAg
-ICAgICAgICAgICAgICAgQlVHX09OKGFtZGdwdV9ib19yZXNlcnZlKGFkZXYtPnZpcnQuY3NhX29i
-aiwgZmFsc2UpKTsKPiAgICAgICAgICAgICAgICAgYW1kZ3B1X3ZtX2JvX3JtdihhZGV2LCBmcHJp
-di0+dm0uY3NhX2JvX3ZhKTsKPiAgICAgICAgICAgICAgICAgZnByaXYtPnZtLmNzYV9ib192YSA9
-IE5VTEw7Cj4gICAgICAgICAgICAgICAgIGFtZGdwdV9ib191bnJlc2VydmUoYWRldi0+dmlydC5j
-c2Ffb2JqKTsKPiAgICAgICAgIH0KPgo+ICAgICAgICAgYW1kZ3B1X3ZtX2ZpbmkoYWRldiwgJmZw
-cml2LT52bSk7CgphbWRncHVfY3R4X21ncl9maW5pKCkgd2FpdHMgZm9yIHNjaGVkdWxpbmcgdG8g
-ZmluaXNoIGFuZCByZWxlYXNlcyBhbGwgCmNvbnRleHRzIG9mIHRoZSBjdXJyZW50IGZkLgoKSWYg
-d2UgZG9uJ3QgcmVsZWFzZSB0aGUgY29udGV4dCBoZXJlIGJlY2F1c2Ugc29tZSBqb2JzIGFyZSBz
-dGlsbCAKZXhlY3V0ZWQgd2UgbmVlZCB0byBrZWVwIHRoZSBVVkQgYW5kIFZDRSBoYW5kbGUsIHRo
-ZSBQUlQgVkFzLCB0aGUgQ1NBIAphbmQgZXZlbiB0aGUgd2hvbGUgVk0gc3RydWN0dXJlIGFsaXZl
-LgoKPiBJJ2xsIHNlZSBpZiBkbWFfZmVuY2UgY291bGQgc29sdmUgbXkgaXNzdWUsIGJ1dCBJIHdp
-c2ggeW91IGNhbiBnaXZlIG1lIHlvdXIgZGV0YWlsIGlkZWEKUGxlYXNlIHRha2UgYSBsb29rIGF0
-IERhdmlkJ3MgaWRlYSBvZiB1c2luZyB0aGUgZmVuY2VfY29udGV4dCB0byBmaW5kIAp3aGljaCBq
-b2JzIGFuZCBlbnRpdHkgdG8gc2tpcCwgdGhhdCBpcyBldmVuIGJldHRlciB0aGFuIG1pbmUgYWJv
-dXQgdGhlIApmZW5jZSBzdGF0dXMgYW5kIHNob3VsZCBiZSB0cml2aWFsIHRvIGltcGxlbWVudCBi
-ZWNhdXNlIGFsbCB0aGUgZGF0YSBpcyAKYWxyZWFkeSBwcmVzZW50IHdlIGp1c3QgbmVlZCB0byB1
-c2UgaXQuCgpSZWdhcmRzLApDaHJpc3RpYW4uCgpBbSAwMy4wNS4yMDE3IHVtIDExOjA4IHNjaHJp
-ZWIgTGl1LCBNb25rOgo+IDEsTXkgaWRlYSBpcyB0aGF0IHVzZXJzcGFjZSBzaG91bGQgcmF0aGVy
-IGdhdGhlciB0aGUgZmVlZGJhY2sgZHVyaW5nIHRoZSBuZXh0IGNvbW1hbmQgc3VibWlzc2lvbi4g
-VGhpcyBoYXMgdGhlIGFkdmFudGFnZSB0aGF0IHlvdSBkb24ndCBuZWVkIHRvIGtlZXAgdXNlcnNw
-YWNlIGFsaXZlIHRpbGwgYWxsIGpvYnMgYXJlIGRvbmUuCj4KPj4gTm8sIHdlIG5lZWQgdG8gY2xl
-YW4gdGhlIGh3IHJpbmcgKGNoZXJyeS1waWNrIG91dCBndWlsdHkgZW50aXRpZXMnIGpvYiBpbiBh
-bGwgcmluZ3MpIGFmdGVyIGdwdSByZXNldCwgYW5kIHdlIG5lZWQgZmFja2x5IHNpZ25hbCBhbGwg
-c2NoZWRfZmVuY2UgaW4gdGhlIGd1aXR5IGVudGl0eSBhcyB3ZWxsLCBhbmQgd2UgbmVlZCBtYXJr
-IGNvbnRleHQgYXMgZ3VpbHR5IHNvIHRoZSBuZXh0IElPQ1RMIG9uIGl0IHdpbGwgcmV0dXJuIC1F
-Tk9ERVYuCj4+IEkgZG9uJ3QgdW5kZXJzdGFuZCBob3cgeW91ciBpZGVhIGNhbiBzb2x2ZSBteSBy
-ZXF1ZXN0IC4uLgo+IDIsWW91IG5lZWQgdG8ga2VlcCBxdWl0ZSBhIGJ1bmNoIG9mIHN0dWZmIGFs
-aXZlIChWTSwgQ1NBKSB3aGVuIHlvdSBkb24ndCB0ZWFyIGRvd24gdGhlIGN0eCBpbW1lZGlhdGVs
-eS4KPgo+PiBJJ20gYWZyYWlkIG5vdDogIENTQSBpcyBnb25lIHdpdGggdGhlIFZNLCBhbmQgVk0g
-aXMgZ29uZSBhZnRlciBhcHAgY2xvc2Ugb3VyIEZELCBJIGRvbid0IHNlZSBhbWRncHVfdm1fZmlu
-aSgpIGlzIGRlcGVuZGVkIG9uIGNvbnRleHQgbGl2aW5nIG9yIG5vdCAuLi4KPiAzLCBzdHJ1Y3Qg
-ZmVuY2Ugd2FzIHJlbmFtZWQgdG8gc3RydWN0IGRtYV9mZW5jZSBvbiBuZXdlciBrZXJuZWxzIGFu
-ZCBhIHN0YXR1cyBmaWVsZCBhZGRlZCB0byBleGFjdGx5IHRoaXMgcHVycG9zZS4KPgo+IFRoZSBJ
-bnRlbCBndXlzIGRpZCB0aGlzIGJlY2F1c2UgdGhleSByYW4gaW50byB0aGUgZXhhY3RseSBzYW1l
-IHByb2JsZW0uCj4KPj4gSSdsbCBzZWUgaWYgZG1hX2ZlbmNlIGNvdWxkIHNvbHZlIG15IGlzc3Vl
-LCBidXQgSSB3aXNoIHlvdSBjYW4gZ2l2ZSBtZSB5b3VyIGRldGFpbCBpZGVhCj4KPiBCUiBNb25r
-Cj4KPgo+Cj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPiBGcm9tOiBDaHJpc3RpYW4gS8O2
-bmlnIFttYWlsdG86ZGVhdGhzaW1wbGVAdm9kYWZvbmUuZGVdCj4gU2VudDogV2VkbmVzZGF5LCBN
-YXkgMDMsIDIwMTcgNDo1OSBQTQo+IFRvOiBMaXUsIE1vbmsgPE1vbmsuTGl1QGFtZC5jb20+OyBh
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggMS81XSBk
-cm0vYW1kZ3B1OmtlZXAgY3R4IGFsaXZlIHRpbGwgYWxsIGpvYiBmaW5pc2hlZAo+Cj4+IDEsIFRo
-aXMgaXMgbmVjZXNzYXJ5IG90aGVyd2lzZSBob3cgY2FuIEkgYWNjZXNzIGVudGl0eSBwb2ludGVy
-IGFmdGVyIGEKPj4gam9iIHRpbWVkb3V0Cj4gTm8gdGhhdCBpc24ndCBuZWNlc3NhcnkuCj4KPiBU
-aGUgcHJvYmxlbSB3aXRoIHlvdXIgaWRlYSBpcyB0aGF0IHlvdSB3YW50IHRvIGFjdGl2ZWx5IHB1
-c2ggdGhlIGZlZWRiYWNrL3N0YXR1cyBmcm9tIHRoZSBqb2IgZXhlY3V0aW9uIGJhY2sgdG8gdXNl
-cnNwYWNlIHdoZW4gYW4gZXJyb3IKPiAodGltZW91dCkgaGFwcGVucy4KPgo+IE15IGlkZWEgaXMg
-dGhhdCB1c2Vyc3BhY2Ugc2hvdWxkIHJhdGhlciBnYXRoZXIgdGhlIGZlZWRiYWNrIGR1cmluZyB0
-aGUgbmV4dCBjb21tYW5kIHN1Ym1pc3Npb24uIFRoaXMgaGFzIHRoZSBhZHZhbnRhZ2UgdGhhdCB5
-b3UgZG9uJ3QgbmVlZCB0byBrZWVwIHVzZXJzcGFjZSBhbGl2ZSB0aWxsIGFsbCBqb2JzIGFyZSBk
-b25lLgo+Cj4+ICAgICwgYW5kIHdoeSBpdCBpcyBkYW5nZXJvdXMgPwo+IFlvdSBuZWVkIHRvIGtl
-ZXAgcXVpdGUgYSBidW5jaCBvZiBzdHVmZiBhbGl2ZSAoVk0sIENTQSkgd2hlbiB5b3UgZG9uJ3Qg
-dGVhciBkb3duIHRoZSBjdHggaW1tZWRpYXRlbHkuCj4KPiBXZSBjb3VsZCBzcGxpdCBjdHggdGVh
-ciBkb3duIGludG8gZnJlZWluZyB0aGUgcmVzb3VyY2VzIGFuZCBmcmVlaW5nIHRoZSBzdHJ1Y3R1
-cmUsIGJ1dCBJIHRoaW5rIGp1c3QgZ2F0aGVyaW5nIHRoZSBpbmZvcm1hdGlvbiBuZWVkZWQgb24g
-Q1MgaXMgZWFzaWVyIHRvIGRvLgo+Cj4+IDIsIHdoYXQncyB0aGUgc3RhdHVzIGZpZWxkIGluIHRo
-ZSBmZW5jZXMgeW91IHdlcmUgcmVmZXJyaW5nIHRvID8gSQo+PiBuZWVkIHRvIGp1ZGdlIGlmIGl0
-IGNvdWxkIHNhdGlzZnkgbXkgcmVxdWlyZW1lbnQKPiBzdHJ1Y3QgZmVuY2Ugd2FzIHJlbmFtZWQg
-dG8gc3RydWN0IGRtYV9mZW5jZSBvbiBuZXdlciBrZXJuZWxzIGFuZCBhIHN0YXR1cyBmaWVsZCBh
-ZGRlZCB0byBleGFjdGx5IHRoaXMgcHVycG9zZS4KPgo+IFRoZSBJbnRlbCBndXlzIGRpZCB0aGlz
-IGJlY2F1c2UgdGhleSByYW4gaW50byB0aGUgZXhhY3RseSBzYW1lIHByb2JsZW0uCj4KPiBSZWdh
-cmRzLAo+IENocmlzdGlhbi4KPgo+IEFtIDAzLjA1LjIwMTcgdW0gMDU6MzAgc2NocmllYiBMaXUs
-IE1vbms6Cj4+IDEsIFRoaXMgaXMgbmVjZXNzYXJ5IG90aGVyd2lzZSBob3cgY2FuIEkgYWNjZXNz
-IGVudGl0eSBwb2ludGVyIGFmdGVyIGEgam9iIHRpbWVkb3V0ICwgYW5kIHdoeSBpdCBpcyBkYW5n
-ZXJvdXMgPwo+PiAyLCB3aGF0J3MgdGhlIHN0YXR1cyBmaWVsZCBpbiB0aGUgZmVuY2VzIHlvdSB3
-ZXJlIHJlZmVycmluZyB0byA/IEkKPj4gbmVlZCB0byBqdWRnZSBpZiBpdCBjb3VsZCBzYXRpc2Z5
-IG15IHJlcXVpcmVtZW50Cj4+Cj4+Cj4+Cj4+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tCj4+
-IEZyb206IENocmlzdGlhbiBLw7ZuaWcgW21haWx0bzpkZWF0aHNpbXBsZUB2b2RhZm9uZS5kZV0K
-Pj4gU2VudDogTW9uZGF5LCBNYXkgMDEsIDIwMTcgMTA6NDggUE0KPj4gVG86IExpdSwgTW9uayA8
-TW9uay5MaXVAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+IFN1Ympl
-Y3Q6IFJlOiBbUEFUQ0ggMS81XSBkcm0vYW1kZ3B1OmtlZXAgY3R4IGFsaXZlIHRpbGwgYWxsIGpv
-Ygo+PiBmaW5pc2hlZAo+Pgo+PiBBbSAwMS4wNS4yMDE3IHVtIDA5OjIyIHNjaHJpZWIgTW9uayBM
-aXU6Cj4+PiBmb3IgVERSIGd1aWx0eSBjb250ZXh0IGZlYXR1cmUsIHdlIG5lZWQgYWNjZXNzIGN0
-eC9zX2VudGl0eSBmaWVsZAo+Pj4gbWVtYmVyIHRocm91Z2ggc2NoZWQgam9iIHBvaW50ZXIsc28g
-Y3R4IG11c3Qga2VlcCBhbGl2ZSB0aWxsIGFsbCBqb2IKPj4+IGZyb20gaXQgc2lnbmFsZWQuCj4+
-IE5BSywgdGhhdCBpcyB1bm5lY2Vzc2FyeSBhbmQgcXVpdGUgZGFuZ2Vyb3VzLgo+Pgo+PiBJbnN0
-ZWFkIHdlIGhhdmUgdGhlIGRlc2lnbmVkIHN0YXR1cyBmaWVsZCBpbiB0aGUgZmVuY2VzIHdoaWNo
-IHNob3VsZCBiZSBjaGVja2VkIGZvciB0aGF0Lgo+Pgo+PiBSZWdhcmRzLAo+PiBDaHJpc3RpYW4u
-Cj4+Cj4+PiBDaGFuZ2UtSWQ6IEliODdlOTUwMmY3YTVjOGMwNTRjN2U1Njk1NmQ3ZjdhZDc1OTk4
-ZTQzCj4+PiBTaWduZWQtb2ZmLWJ5OiBNb25rIExpdSA8TW9uay5MaXVAYW1kLmNvbT4KPj4+IC0t
-LQo+Pj4gICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAgICAgICAgICB8
-IDYgKysrKystCj4+PiAgICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMg
-ICAgICAgIHwgMiArLQo+Pj4gICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9j
-dHguYyAgICAgICB8IDkgKysrKysrKysrCj4+PiAgICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X2pvYi5jICAgICAgIHwgOSArKysrKysrLS0KPj4+ICAgICBkcml2ZXJzL2dwdS9k
-cm0vYW1kL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMgfCA2IC0tLS0tLQo+Pj4gICAgIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvc2NoZWR1bGVyL2dwdV9zY2hlZHVsZXIuaCB8IDEgKwo+Pj4gICAgIDYg
-ZmlsZXMgY2hhbmdlZCwgMjMgaW5zZXJ0aW9ucygrKSwgMTAgZGVsZXRpb25zKC0pCj4+Pgo+Pj4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+PiBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+PiBpbmRleCBlMzMwMDA5Li44ZTAz
-MWQ2IDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgK
-Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+PiBAQCAtNzYw
-LDEwICs3NjAsMTIgQEAgc3RydWN0IGFtZGdwdV9pYiB7Cj4+PiAgICAgCXVpbnQzMl90CQkJZmxh
-Z3M7Cj4+PiAgICAgfTsKPj4+ICAgICAKPj4+ICtzdHJ1Y3QgYW1kZ3B1X2N0eDsKPj4+ICsKPj4+
-ICAgICBleHRlcm4gY29uc3Qgc3RydWN0IGFtZF9zY2hlZF9iYWNrZW5kX29wcyBhbWRncHVfc2No
-ZWRfb3BzOwo+Pj4gICAgIAo+Pj4gICAgIGludCBhbWRncHVfam9iX2FsbG9jKHN0cnVjdCBhbWRn
-cHVfZGV2aWNlICphZGV2LCB1bnNpZ25lZCBudW1faWJzLAo+Pj4gLQkJICAgICBzdHJ1Y3QgYW1k
-Z3B1X2pvYiAqKmpvYiwgc3RydWN0IGFtZGdwdV92bSAqdm0pOwo+Pj4gKwkJICAgICBzdHJ1Y3Qg
-YW1kZ3B1X2pvYiAqKmpvYiwgc3RydWN0IGFtZGdwdV92bSAqdm0sIHN0cnVjdAo+Pj4gK2FtZGdw
-dV9jdHggKmN0eCk7Cj4+PiAgICAgaW50IGFtZGdwdV9qb2JfYWxsb2Nfd2l0aF9pYihzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqYWRldiwgdW5zaWduZWQgc2l6ZSwKPj4+ICAgICAJCQkgICAgIHN0cnVj
-dCBhbWRncHVfam9iICoqam9iKTsKPj4+ICAgICAKPj4+IEBAIC04MDIsNiArODA0LDcgQEAgc3Ry
-dWN0IGFtZGdwdV9jdHhfbWdyIHsKPj4+ICAgICAKPj4+ICAgICBzdHJ1Y3QgYW1kZ3B1X2N0eCAq
-YW1kZ3B1X2N0eF9nZXQoc3RydWN0IGFtZGdwdV9mcHJpdiAqZnByaXYsIHVpbnQzMl90IGlkKTsK
-Pj4+ICAgICBpbnQgYW1kZ3B1X2N0eF9wdXQoc3RydWN0IGFtZGdwdV9jdHggKmN0eCk7Cj4+PiAr
-c3RydWN0IGFtZGdwdV9jdHggKmFtZGdwdV9jdHhfa3JlZl9nZXQoc3RydWN0IGFtZGdwdV9jdHgg
-KmN0eCk7Cj4+PiAgICAgCj4+PiAgICAgdWludDY0X3QgYW1kZ3B1X2N0eF9hZGRfZmVuY2Uoc3Ry
-dWN0IGFtZGdwdV9jdHggKmN0eCwgc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLAo+Pj4gICAgIAkJ
-CSAgICAgIHN0cnVjdCBmZW5jZSAqZmVuY2UpOwo+Pj4gQEAgLTExMjksNiArMTEzMiw3IEBAIHN0
-cnVjdCBhbWRncHVfam9iIHsKPj4+ICAgICAJc3RydWN0IGFtZGdwdV9zeW5jCXN5bmM7Cj4+PiAg
-ICAgCXN0cnVjdCBhbWRncHVfaWIJKmliczsKPj4+ICAgICAJc3RydWN0IGZlbmNlCQkqZmVuY2U7
-IC8qIHRoZSBodyBmZW5jZSAqLwo+Pj4gKwlzdHJ1Y3QgYW1kZ3B1X2N0eCAqY3R4Owo+Pj4gICAg
-IAl1aW50MzJfdAkJcHJlYW1ibGVfc3RhdHVzOwo+Pj4gICAgIAl1aW50MzJfdAkJbnVtX2liczsK
-Pj4+ICAgICAJdm9pZAkJCSpvd25lcjsKPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfY3MuYwo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfY3MuYwo+Pj4gaW5kZXggNjk5ZjVmZS4uMjY3ZmI2NSAxMDA2NDQKPj4+IC0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCj4+PiArKysgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYwo+Pj4gQEAgLTIzNCw3ICsyMzQsNyBAQCBpbnQg
-YW1kZ3B1X2NzX3BhcnNlcl9pbml0KHN0cnVjdCBhbWRncHVfY3NfcGFyc2VyICpwLCB2b2lkICpk
-YXRhKQo+Pj4gICAgIAkJfQo+Pj4gICAgIAl9Cj4+PiAgICAgCj4+PiAtCXJldCA9IGFtZGdwdV9q
-b2JfYWxsb2MocC0+YWRldiwgbnVtX2licywgJnAtPmpvYiwgdm0pOwo+Pj4gKwlyZXQgPSBhbWRn
-cHVfam9iX2FsbG9jKHAtPmFkZXYsIG51bV9pYnMsICZwLT5qb2IsIHZtLCBwLT5jdHgpOwo+Pj4g
-ICAgIAlpZiAocmV0KQo+Pj4gICAgIAkJZ290byBmcmVlX2FsbF9rZGF0YTsKPj4+ICAgICAKPj4+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4LmMKPj4+
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0eC5jCj4+PiBpbmRleCBiNGJi
-YmIzLi44MTQzOGFmIDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X2N0eC5jCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-Y3R4LmMKPj4+IEBAIC0yNSw2ICsyNSwxMyBAQAo+Pj4gICAgICNpbmNsdWRlIDxkcm0vZHJtUC5o
-Pgo+Pj4gICAgICNpbmNsdWRlICJhbWRncHUuaCIKPj4+ICAgICAKPj4+ICtzdHJ1Y3QgYW1kZ3B1
-X2N0eCAqYW1kZ3B1X2N0eF9rcmVmX2dldChzdHJ1Y3QgYW1kZ3B1X2N0eCAqY3R4KSB7Cj4+PiAr
-CWlmIChjdHgpCj4+PiArCQlrcmVmX2dldCgmY3R4LT5yZWZjb3VudCk7Cj4+PiArCXJldHVybiBj
-dHg7Cj4+PiArfQo+Pj4gKwo+Pj4gICAgIHN0YXRpYyBpbnQgYW1kZ3B1X2N0eF9pbml0KHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1X2N0eCAqY3R4KQo+Pj4gICAgIHsK
-Pj4+ICAgICAJdW5zaWduZWQgaSwgajsKPj4+IEBAIC01Niw2ICs2Myw4IEBAIHN0YXRpYyBpbnQg
-YW1kZ3B1X2N0eF9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1
-X2N0eCAqY3R4KQo+Pj4gICAgIAkJCQkJICBycSwgYW1kZ3B1X3NjaGVkX2pvYnMpOwo+Pj4gICAg
-IAkJaWYgKHIpCj4+PiAgICAgCQkJZ290byBmYWlsZWQ7Cj4+PiArCj4+PiArCQljdHgtPnJpbmdz
-W2ldLmVudGl0eS5wdHJfZ3VpbHR5ID0gJmN0eC0+Z3VpbHR5OyAvKiBrZXJuZWwgZW50aXR5Cj4+
-PiArZG9lc24ndCBoYXZlIHB0cl9ndWlsdHkgKi8KPj4+ICAgICAJfQo+Pj4gICAgIAo+Pj4gICAg
-IAlyZXR1cm4gMDsKPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfam9iLmMKPj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2pvYi5j
-Cj4+PiBpbmRleCA2OTBlZjNkLi4yMDhkYTExIDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2pvYi5jCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfam9iLmMKPj4+IEBAIC00MCw3ICs0MCw3IEBAIHN0YXRpYyB2b2lkIGFt
-ZGdwdV9qb2JfdGltZWRvdXQoc3RydWN0IGFtZF9zY2hlZF9qb2IgKnNfam9iKQo+Pj4gICAgIH0K
-Pj4+ICAgICAKPj4+ICAgICBpbnQgYW1kZ3B1X2pvYl9hbGxvYyhzdHJ1Y3QgYW1kZ3B1X2Rldmlj
-ZSAqYWRldiwgdW5zaWduZWQgbnVtX2licywKPj4+IC0JCSAgICAgc3RydWN0IGFtZGdwdV9qb2Ig
-Kipqb2IsIHN0cnVjdCBhbWRncHVfdm0gKnZtKQo+Pj4gKwkJICAgICBzdHJ1Y3QgYW1kZ3B1X2pv
-YiAqKmpvYiwgc3RydWN0IGFtZGdwdV92bSAqdm0sIHN0cnVjdAo+Pj4gK2FtZGdwdV9jdHggKmN0
-eCkKPj4+ICAgICB7Cj4+PiAgICAgCXNpemVfdCBzaXplID0gc2l6ZW9mKHN0cnVjdCBhbWRncHVf
-am9iKTsKPj4+ICAgICAKPj4+IEBAIC01Nyw2ICs1Nyw3IEBAIGludCBhbWRncHVfam9iX2FsbG9j
-KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1bnNpZ25lZCBudW1faWJzLAo+Pj4gICAgIAko
-KmpvYiktPnZtID0gdm07Cj4+PiAgICAgCSgqam9iKS0+aWJzID0gKHZvaWQgKikmKCpqb2IpWzFd
-Owo+Pj4gICAgIAkoKmpvYiktPm51bV9pYnMgPSBudW1faWJzOwo+Pj4gKwkoKmpvYiktPmN0eCA9
-IGFtZGdwdV9jdHhfa3JlZl9nZXQoY3R4KTsKPj4+ICAgICAKPj4+ICAgICAJYW1kZ3B1X3N5bmNf
-Y3JlYXRlKCYoKmpvYiktPnN5bmMpOwo+Pj4gICAgIAo+Pj4gQEAgLTY4LDcgKzY5LDcgQEAgaW50
-IGFtZGdwdV9qb2JfYWxsb2Nfd2l0aF9pYihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdW5z
-aWduZWQgc2l6ZSwKPj4+ICAgICB7Cj4+PiAgICAgCWludCByOwo+Pj4gICAgIAo+Pj4gLQlyID0g
-YW1kZ3B1X2pvYl9hbGxvYyhhZGV2LCAxLCBqb2IsIE5VTEwpOwo+Pj4gKwlyID0gYW1kZ3B1X2pv
-Yl9hbGxvYyhhZGV2LCAxLCBqb2IsIE5VTEwsIE5VTEwpOwo+Pj4gICAgIAlpZiAocikKPj4+ICAg
-ICAJCXJldHVybiByOwo+Pj4gICAgIAo+Pj4gQEAgLTk0LDYgKzk1LDEwIEBAIHZvaWQgYW1kZ3B1
-X2pvYl9mcmVlX3Jlc291cmNlcyhzdHJ1Y3QgYW1kZ3B1X2pvYiAqam9iKQo+Pj4gICAgIHN0YXRp
-YyB2b2lkIGFtZGdwdV9qb2JfZnJlZV9jYihzdHJ1Y3QgYW1kX3NjaGVkX2pvYiAqc19qb2IpCj4+
-PiAgICAgewo+Pj4gICAgIAlzdHJ1Y3QgYW1kZ3B1X2pvYiAqam9iID0gY29udGFpbmVyX29mKHNf
-am9iLCBzdHJ1Y3QgYW1kZ3B1X2pvYiwKPj4+IGJhc2UpOwo+Pj4gKwlzdHJ1Y3QgYW1kZ3B1X2N0
-eCAqY3R4ID0gam9iLT5jdHg7Cj4+PiArCj4+PiArCWlmIChjdHgpCj4+PiArCQlhbWRncHVfY3R4
-X3B1dChjdHgpOwo+Pj4gICAgIAo+Pj4gICAgIAlmZW5jZV9wdXQoam9iLT5mZW5jZSk7Cj4+PiAg
-ICAgCWFtZGdwdV9zeW5jX2ZyZWUoJmpvYi0+c3luYyk7Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxlci5jCj4+PiBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvc2NoZWR1bGVyL2dwdV9zY2hlZHVsZXIuYwo+Pj4gaW5kZXggNmY0ZTMxZi4uOTEw
-MGNhOCAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvc2NoZWR1bGVyL2dwdV9z
-Y2hlZHVsZXIuYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9zY2hlZHVsZXIvZ3B1X3Nj
-aGVkdWxlci5jCj4+PiBAQCAtMjA4LDEyICsyMDgsNiBAQCB2b2lkIGFtZF9zY2hlZF9lbnRpdHlf
-ZmluaShzdHJ1Y3QgYW1kX2dwdV9zY2hlZHVsZXIgKnNjaGVkLAo+Pj4gICAgIAlpZiAoIWFtZF9z
-Y2hlZF9lbnRpdHlfaXNfaW5pdGlhbGl6ZWQoc2NoZWQsIGVudGl0eSkpCj4+PiAgICAgCQlyZXR1
-cm47Cj4+PiAgICAgCj4+PiAtCS8qKgo+Pj4gLQkgKiBUaGUgY2xpZW50IHdpbGwgbm90IHF1ZXVl
-IG1vcmUgSUJzIGR1cmluZyB0aGlzIGZpbmksIGNvbnN1bWUgZXhpc3RpbmcKPj4+IC0JICogcXVl
-dWVkIElCcwo+Pj4gLQkqLwo+Pj4gLQl3YWl0X2V2ZW50KHNjaGVkLT5qb2Jfc2NoZWR1bGVkLCBh
-bWRfc2NoZWRfZW50aXR5X2lzX2lkbGUoZW50aXR5KSk7Cj4+PiAtCj4+PiAgICAgCWFtZF9zY2hl
-ZF9ycV9yZW1vdmVfZW50aXR5KHJxLCBlbnRpdHkpOwo+Pj4gICAgIAlrZmlmb19mcmVlKCZlbnRp
-dHktPmpvYl9xdWV1ZSk7Cj4+PiAgICAgfQo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvc2NoZWR1bGVyL2dwdV9zY2hlZHVsZXIuaAo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmgKPj4+IGluZGV4IDhjYjQxZDMuLmNjYmJjYjAgMTAw
-NjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVy
-LmgKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvc2NoZWR1bGVyL2dwdV9zY2hlZHVsZXIu
-aAo+Pj4gQEAgLTQ5LDYgKzQ5LDcgQEAgc3RydWN0IGFtZF9zY2hlZF9lbnRpdHkgewo+Pj4gICAg
-IAo+Pj4gICAgIAlzdHJ1Y3QgZmVuY2UJCQkqZGVwZW5kZW5jeTsKPj4+ICAgICAJc3RydWN0IGZl
-bmNlX2NiCQkJY2I7Cj4+PiArCWJvb2wgKnB0cl9ndWlsdHk7Cj4+PiAgICAgfTsKPj4+ICAgICAK
-Pj4+ICAgICAvKioKPj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KPj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKPj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4Cj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-Xwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
-CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
-IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is a multi-part message in MIME format.
+--===============0051176650==
+Content-Type: multipart/alternative;
+ boundary="------------6EC5E333178BC2606F56DD02"
+
+This is a multi-part message in MIME format.
+--------------6EC5E333178BC2606F56DD02
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+> Please give me some detail approach on dma_fence, thanks !
+>
+I think the idea of using the fence_context is even better than using 
+the fence_status. It is already present for a while and filtering the 
+jobs/entities by it needs something like 10 lines of code.
+
+The fence status is new and only available on newer kernels (we would 
+need to rebase to amd-staging-4.11).
+
+I will try to dig up later today the how the Intel guys solved that problem.
+
+Christian.
+
+Am 03.05.2017 um 11:14 schrieb Liu, Monk:
+>
+> I thought of that for the first place as well, that keep an ID and 
+> parsing the ID with every job not signaled to see if the job
+>
+> Belongs to something guilty , But keep ctx alive is more simple so I 
+> choose this way.
+>
+> But I admit it is doable as well,  and I want to compare this method 
+> and the dma_fence status filed you mentioned,
+>
+> Please give me some detail approach on dma_fence, thanks !
+>
+> BR Monk
+>
+> *From:*Christian König [mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org]
+> *Sent:* Wednesday, May 03, 2017 5:12 PM
+> *To:* Zhou, David(ChunMing) <David1.Zhou-5C7GfCeVMHo@public.gmane.org>; Liu, Monk 
+> <Monk.Liu-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> *Subject:* Re: [PATCH 1/5] drm/amdgpu:keep ctx alive till all job finished
+>
+>     > 1) fence_context have chance to incorrectly represent the context
+>     behind it, because the number can be used up and will wrapped
+>     around from beginning
+>
+>     No, fence_context is unique in global in kernel.
+>
+> Yeah, I would go with that as well.
+>
+> You note the fence_context of the job which caused the trouble.
+>
+> Then take a look at all jobs on the recovery list and remove the ones 
+> with the same fence_context number.
+>
+> Then take a look at all entities on the runlist and remove the one 
+> with the same fence_context number. If it is already freed you won't 
+> find any, but that shouldn't be a problem.
+>
+> This way you effectively can prevent other jobs from the same context 
+> from running and the context query can simply check if the entity is 
+> still on the runlist to figure out if it was guilty or not.
+>
+> Regards,
+> Christian.
+>
+> Am 03.05.2017 um 09:23 schrieb zhoucm1:
+>
+>     On 2017年05月03日 14:02, Liu, Monk wrote:
+>
+>         You can add ctx as filed of job, but not get reference of it,
+>         when you try to use ctx, just check if ctx == NULL.
+>         > that doesn't work at all... job->ctx will always be non-NULL
+>         after it is initialized, you just refer to a wild pointer
+>         after CTX released
+>
+>     job->ctx is a **ctx, which could resolve your this concern.
+>
+>
+>
+>         Another stupid method:
+>         Use idr_for_each_entry(..job->vm->ctx_mgr...) and compare the
+>         job->fence->fence_context with
+>         ctx->ring[].entity->fence_context. if not found, then ctx is
+>         freed, otherwise you can do your things for this ctx.
+>         > 1) fence_context have chance to incorrectly represent the
+>         context behind it, because the number can be used up and will
+>         wrapped around from beginning
+>
+>     No, fence_context is unique in global in kernel.
+>
+>     Regards,
+>     David Zhou
+>
+>            2) why not just keep CTX alive, which is much simple than
+>         this method
+>
+>         BR
+>
+>         -----Original Message-----
+>         From: Zhou, David(ChunMing)
+>         Sent: Wednesday, May 03, 2017 12:54 PM
+>         To: Liu, Monk <Monk.Liu-5C7GfCeVMHo@public.gmane.org> <mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org>;
+>         Liu, Monk <Monk.Liu-5C7GfCeVMHo@public.gmane.org> <mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org>;
+>         Christian König <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+>         <mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>;
+>         amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>         <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+>         Subject: RE: [PATCH 1/5] drm/amdgpu:keep ctx alive till all
+>         job finished
+>
+>         You can add ctx as filed of job, but not get reference of it,
+>         when you try to use ctx, just check if ctx == NULL.
+>
+>         Another stupid method:
+>         Use idr_for_each_entry(..job->vm->ctx_mgr...) and compare the
+>         job->fence->fence_context with
+>         ctx->ring[].entity->fence_context. if not found, then ctx is
+>         freed, otherwise you can do your things for this ctx.
+>
+>         Regards,
+>         David Zhou
+>
+>         -----Original Message-----
+>         From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org]
+>         On Behalf Of Liu, Monk
+>         Sent: Wednesday, May 03, 2017 11:57 AM
+>         To: Liu, Monk <Monk.Liu-5C7GfCeVMHo@public.gmane.org> <mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org>;
+>         Christian König <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+>         <mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>;
+>         amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>         <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+>         Subject: RE: [PATCH 1/5] drm/amdgpu:keep ctx alive till all
+>         job finished
+>
+>         @Christian,
+>
+>         The thing is I need mark all entities behind this timeout job
+>         as guilty, so I use a member in entity named "ptr_guilty", to
+>         point to The member in amdgpu_ctx named "guilty", that way
+>         read *entity->ptr_guilty can get you if this entity is
+>         "invalid", and set *entity->ptr_guilty Can let you set all
+>         entities belongs to the context as "invalid".
+>
+>         Above logic is to guarantee we can kick out all guilty
+>         entities in entity kfifo, and also block all IOCTL with a ctx
+>         handle point to this guilty context, And we only recovery
+>         other jobs/entities/context after scheduler unparked
+>
+>         If you reject the patch to keep ctx alive till all jobs
+>         signaled, please give me a solution to satisfy above logic
+>
+>         BR Monk
+>
+>         -----Original Message-----
+>         From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org]
+>         On Behalf Of Liu, Monk
+>         Sent: Wednesday, May 03, 2017 11:31 AM
+>         To: Christian König <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+>         <mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>;
+>         amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>         <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+>         Subject: RE: [PATCH 1/5] drm/amdgpu:keep ctx alive till all
+>         job finished
+>
+>         1, This is necessary otherwise how can I access entity pointer
+>         after a job timedout , and why it is dangerous ?
+>         2, what's the status field in the fences you were referring to
+>         ? I need to judge if it could satisfy my requirement
+>
+>
+>
+>         -----Original Message-----
+>         From: Christian König [mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org]
+>         Sent: Monday, May 01, 2017 10:48 PM
+>         To: Liu, Monk <Monk.Liu-5C7GfCeVMHo@public.gmane.org> <mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org>;
+>         amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>         <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+>         Subject: Re: [PATCH 1/5] drm/amdgpu:keep ctx alive till all
+>         job finished
+>
+>         Am 01.05.2017 um 09:22 schrieb Monk Liu:
+>         > for TDR guilty context feature, we need access ctx/s_entity
+>         field
+>         > member through sched job pointer,so ctx must keep alive till
+>         all job
+>         > from it signaled.
+>
+>         NAK, that is unnecessary and quite dangerous.
+>
+>         Instead we have the designed status field in the fences which
+>         should be checked for that.
+>
+>         Regards,
+>         Christian.
+>
+>         >
+>         > Change-Id: Ib87e9502f7a5c8c054c7e56956d7f7ad75998e43
+>         > Signed-off-by: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+>         <mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+>         > ---
+>         >   drivers/gpu/drm/amd/amdgpu/amdgpu.h           | 6 +++++-
+>         >   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        | 2 +-
+>         >   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c       | 9 +++++++++
+>         >   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c       | 9 +++++++--
+>         >   drivers/gpu/drm/amd/scheduler/gpu_scheduler.c | 6 ------
+>         >   drivers/gpu/drm/amd/scheduler/gpu_scheduler.h | 1 +
+>         >   6 files changed, 23 insertions(+), 10 deletions(-)
+>         >
+>         > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>         > b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>         > index e330009..8e031d6 100644
+>         > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>         > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>         > @@ -760,10 +760,12 @@ struct amdgpu_ib {
+>         >        uint32_t                        flags;
+>         >   };
+>         >
+>         > +struct amdgpu_ctx;
+>         > +
+>         >   extern const struct amd_sched_backend_ops amdgpu_sched_ops;
+>         >
+>         >   int amdgpu_job_alloc(struct amdgpu_device *adev, unsigned
+>         num_ibs,
+>         > -                  struct amdgpu_job **job, struct amdgpu_vm
+>         *vm);
+>         > +                  struct amdgpu_job **job, struct amdgpu_vm
+>         *vm, struct
+>         > +amdgpu_ctx *ctx);
+>         >   int amdgpu_job_alloc_with_ib(struct amdgpu_device *adev,
+>         unsigned size,
+>         >                             struct amdgpu_job **job);
+>         >
+>         > @@ -802,6 +804,7 @@ struct amdgpu_ctx_mgr {
+>         >
+>         >   struct amdgpu_ctx *amdgpu_ctx_get(struct amdgpu_fpriv
+>         *fpriv, uint32_t id);
+>         >   int amdgpu_ctx_put(struct amdgpu_ctx *ctx);
+>         > +struct amdgpu_ctx *amdgpu_ctx_kref_get(struct amdgpu_ctx *ctx);
+>         >
+>         >   uint64_t amdgpu_ctx_add_fence(struct amdgpu_ctx *ctx,
+>         struct amdgpu_ring *ring,
+>         >                              struct fence *fence);
+>         > @@ -1129,6 +1132,7 @@ struct amdgpu_job {
+>         >        struct amdgpu_sync      sync;
+>         >        struct amdgpu_ib        *ibs;
+>         >        struct fence            *fence; /* the hw fence */
+>         > +     struct amdgpu_ctx *ctx;
+>         >        uint32_t                preamble_status;
+>         >        uint32_t                num_ibs;
+>         >        void                    *owner;
+>         > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>         > b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>         > index 699f5fe..267fb65 100644
+>         > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>         > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+>         > @@ -234,7 +234,7 @@ int amdgpu_cs_parser_init(struct
+>         amdgpu_cs_parser *p, void *data)
+>         >                }
+>         >        }
+>         >
+>         > -     ret = amdgpu_job_alloc(p->adev, num_ibs, &p->job, vm);
+>         > +     ret = amdgpu_job_alloc(p->adev, num_ibs, &p->job, vm,
+>         p->ctx);
+>         >        if (ret)
+>         >                goto free_all_kdata;
+>         >
+>         > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+>         > b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+>         > index b4bbbb3..81438af 100644
+>         > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+>         > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+>         > @@ -25,6 +25,13 @@
+>         >   #include <drm/drmP.h>
+>         >   #include "amdgpu.h"
+>         >
+>         > +struct amdgpu_ctx *amdgpu_ctx_kref_get(struct amdgpu_ctx
+>         *ctx) {
+>         > +     if (ctx)
+>         > +             kref_get(&ctx->refcount);
+>         > +     return ctx;
+>         > +}
+>         > +
+>         >   static int amdgpu_ctx_init(struct amdgpu_device *adev,
+>         struct amdgpu_ctx *ctx)
+>         >   {
+>         >        unsigned i, j;
+>         > @@ -56,6 +63,8 @@ static int amdgpu_ctx_init(struct
+>         amdgpu_device *adev, struct amdgpu_ctx *ctx)
+>         >                                          rq, amdgpu_sched_jobs);
+>         >                if (r)
+>         >                        goto failed;
+>         > +
+>         > +             ctx->rings[i].entity.ptr_guilty =
+>         &ctx->guilty; /* kernel entity
+>         > +doesn't have ptr_guilty */
+>         >        }
+>         >
+>         >        return 0;
+>         > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+>         > b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+>         > index 690ef3d..208da11 100644
+>         > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+>         > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+>         > @@ -40,7 +40,7 @@ static void amdgpu_job_timedout(struct
+>         amd_sched_job *s_job)
+>         >   }
+>         >
+>         >   int amdgpu_job_alloc(struct amdgpu_device *adev, unsigned
+>         num_ibs,
+>         > -                  struct amdgpu_job **job, struct amdgpu_vm
+>         *vm)
+>         > +                  struct amdgpu_job **job, struct amdgpu_vm
+>         *vm, struct
+>         > +amdgpu_ctx *ctx)
+>         >   {
+>         >        size_t size = sizeof(struct amdgpu_job);
+>         >
+>         > @@ -57,6 +57,7 @@ int amdgpu_job_alloc(struct amdgpu_device
+>         *adev, unsigned num_ibs,
+>         >        (*job)->vm = vm;
+>         >        (*job)->ibs = (void *)&(*job)[1];
+>         >        (*job)->num_ibs = num_ibs;
+>         > +     (*job)->ctx = amdgpu_ctx_kref_get(ctx);
+>         >
+>         >        amdgpu_sync_create(&(*job)->sync);
+>         >
+>         > @@ -68,7 +69,7 @@ int amdgpu_job_alloc_with_ib(struct
+>         amdgpu_device *adev, unsigned size,
+>         >   {
+>         >        int r;
+>         >
+>         > -     r = amdgpu_job_alloc(adev, 1, job, NULL);
+>         > +     r = amdgpu_job_alloc(adev, 1, job, NULL, NULL);
+>         >        if (r)
+>         >                return r;
+>         >
+>         > @@ -94,6 +95,10 @@ void amdgpu_job_free_resources(struct
+>         amdgpu_job *job)
+>         >   static void amdgpu_job_free_cb(struct amd_sched_job *s_job)
+>         >   {
+>         >        struct amdgpu_job *job = container_of(s_job, struct
+>         amdgpu_job,
+>         > base);
+>         > +     struct amdgpu_ctx *ctx = job->ctx;
+>         > +
+>         > +     if (ctx)
+>         > +             amdgpu_ctx_put(ctx);
+>         >
+>         >        fence_put(job->fence);
+>         >        amdgpu_sync_free(&job->sync);
+>         > diff --git a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.c
+>         > b/drivers/gpu/drm/amd/scheduler/gpu_scheduler.c
+>         > index 6f4e31f..9100ca8 100644
+>         > --- a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.c
+>         > +++ b/drivers/gpu/drm/amd/scheduler/gpu_scheduler.c
+>         > @@ -208,12 +208,6 @@ void amd_sched_entity_fini(struct
+>         amd_gpu_scheduler *sched,
+>         >        if (!amd_sched_entity_is_initialized(sched, entity))
+>         >                return;
+>         >
+>         > -     /**
+>         > -      * The client will not queue more IBs during this
+>         fini, consume existing
+>         > -      * queued IBs
+>         > -     */
+>         > -     wait_event(sched->job_scheduled,
+>         amd_sched_entity_is_idle(entity));
+>         > -
+>         >        amd_sched_rq_remove_entity(rq, entity);
+>         >        kfifo_free(&entity->job_queue);
+>         >   }
+>         > diff --git a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h
+>         > b/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h
+>         > index 8cb41d3..ccbbcb0 100644
+>         > --- a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h
+>         > +++ b/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h
+>         > @@ -49,6 +49,7 @@ struct amd_sched_entity {
+>         >
+>         >        struct fence *dependency;
+>         >        struct fence_cb                 cb;
+>         > +     bool *ptr_guilty;
+>         >   };
+>         >
+>         >   /**
+>
+>
+>         _______________________________________________
+>         amd-gfx mailing list
+>         amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>         <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+>         https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>         _______________________________________________
+>         amd-gfx mailing list
+>         amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>         <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+>         https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+
+
+--------------6EC5E333178BC2606F56DD02
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">
+      <blockquote type="cite">
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D">Please
+            give me some detail approach on dma_fence, thanks !<o:p></o:p></span></p>
+        <span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D"><o:p></o:p></span></blockquote>
+      I think the idea of using the fence_context is even better than
+      using the fence_status. It is already present for a while and
+      filtering the jobs/entities by it needs something like 10 lines of
+      code.<br>
+      <br>
+      The fence status is new and only available on newer kernels (we
+      would need to rebase to amd-staging-4.11).<br>
+      <br>
+      I will try to dig up later today the how the Intel guys solved
+      that problem.<br>
+      <br>
+      Christian.<br>
+      <br>
+      Am 03.05.2017 um 11:14 schrieb Liu, Monk:<br>
+    </div>
+    <blockquote
+cite="mid:DM5PR12MB1610875E9D1BC9E967BE119A84160-2J9CzHegvk++jCVTvoAFKAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org"
+      type="cite">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="Generator" content="Microsoft Word 15 (filtered
+        medium)">
+      <style><!--
+/* Font Definitions */
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;
+	color:black;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p
+	{mso-style-priority:99;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;
+	color:black;}
+p.emailquote, li.emailquote, div.emailquote
+	{mso-style-name:emailquote;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:1.0pt;
+	border:none;
+	padding:0in;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;
+	color:black;}
+span.EmailStyle19
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:#1F497D;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext="edit" spidmax="1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext="edit">
+<o:idmap v:ext="edit" data="1" />
+</o:shapelayout></xml><![endif]-->
+      <div class="WordSection1">
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D">I
+            thought of that for the first place as well, that keep an ID
+            and parsing the ID with every job not signaled to see if the
+            job
+            <o:p></o:p></span></p>
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D">Belongs
+            to something guilty , But keep ctx alive is more simple so I
+            choose this way.<o:p></o:p></span></p>
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D"><o:p> </o:p></span></p>
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D">But
+            I admit it is doable as well,  and I want to compare this
+            method and the dma_fence status filed you mentioned,<o:p></o:p></span></p>
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D"><o:p> </o:p></span></p>
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D">Please
+            give me some detail approach on dma_fence, thanks !<o:p></o:p></span></p>
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D"><o:p> </o:p></span></p>
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D">BR
+            Monk<o:p></o:p></span></p>
+        <p class="MsoNormal"><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:#1F497D"><o:p> </o:p></span></p>
+        <div>
+          <div style="border:none;border-top:solid #E1E1E1
+            1.0pt;padding:3.0pt 0in 0in 0in">
+            <p class="MsoNormal"><b><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:windowtext">From:</span></b><span
+style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:windowtext">
+                Christian König [<a class="moz-txt-link-freetext" href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org</a>]
+                <br>
+                <b>Sent:</b> Wednesday, May 03, 2017 5:12 PM<br>
+                <b>To:</b> Zhou, David(ChunMing)
+                <a class="moz-txt-link-rfc2396E" href="mailto:David1.Zhou-5C7GfCeVMHo@public.gmane.org">&lt;David1.Zhou-5C7GfCeVMHo@public.gmane.org&gt;</a>; Liu, Monk
+                <a class="moz-txt-link-rfc2396E" href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org">&lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;</a>; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                <b>Subject:</b> Re: [PATCH 1/5] drm/amdgpu:keep ctx
+                alive till all job finished<o:p></o:p></span></p>
+          </div>
+        </div>
+        <p class="MsoNormal"><o:p> </o:p></p>
+        <div>
+          <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
+            <div>
+              <p class="MsoNormal"><span style="font-size:10.0pt">&gt;
+                  1) fence_context have chance to incorrectly represent
+                  the context behind it, because the number can be used
+                  up and will wrapped around from beginning
+                  <o:p></o:p></span></p>
+            </div>
+            <p class="MsoNormal"><span style="font-size:10.0pt">No,
+                fence_context is unique in global in kernel.</span><o:p></o:p></p>
+          </blockquote>
+          <p class="MsoNormal">Yeah, I would go with that as well.<br>
+            <br>
+            You note the fence_context of the job which caused the
+            trouble.<br>
+            <br>
+            Then take a look at all jobs on the recovery list and remove
+            the ones with the same fence_context number.<br>
+            <br>
+            Then take a look at all entities on the runlist and remove
+            the one with the same fence_context number. If it is already
+            freed you won't find any, but that shouldn't be a problem.<br>
+            <br>
+            This way you effectively can prevent other jobs from the
+            same context from running and the context query can simply
+            check if the entity is still on the runlist to figure out if
+            it was guilty or not.<br>
+            <br>
+            Regards,<br>
+            Christian.<br>
+            <br>
+            Am 03.05.2017 um 09:23 schrieb zhoucm1:<o:p></o:p></p>
+        </div>
+        <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
+          <p class="MsoNormal" style="margin-bottom:12.0pt"><o:p> </o:p></p>
+          <div>
+            <p class="MsoNormal">On 2017<span style="font-family:SimSun"
+                lang="ZH-CN">年</span>05<span style="font-family:SimSun"
+                lang="ZH-CN">月</span>03<span style="font-family:SimSun"
+                lang="ZH-CN">日</span> 14:02, Liu, Monk wrote:<o:p></o:p></p>
+          </div>
+          <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
+            <div>
+              <p class="MsoNormal"><span style="font-size:10.0pt">You
+                  can add ctx as filed of job, but not get reference of
+                  it, when you try to use ctx, just check if ctx ==
+                  NULL.<br>
+                  &gt; that doesn't work at all... job-&gt;ctx will
+                  always be non-NULL after it is initialized, you just
+                  refer to a wild pointer after CTX released
+                  <o:p></o:p></span></p>
+            </div>
+          </blockquote>
+          <p class="MsoNormal"><span style="font-size:10.0pt">job-&gt;ctx
+              is a **ctx, which could resolve your this concern.<br>
+              <br>
+              <br>
+            </span><o:p></o:p></p>
+          <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
+            <div>
+              <p class="MsoNormal"><span style="font-size:10.0pt"><br>
+                  Another stupid method:<br>
+                  Use idr_for_each_entry(..job-&gt;vm-&gt;ctx_mgr...)
+                  and compare the job-&gt;fence-&gt;fence_context with
+                  ctx-&gt;ring[].entity-&gt;fence_context. if not found,
+                  then ctx is freed, otherwise you can do your things
+                  for this ctx.<br>
+                  &gt; 1) fence_context have chance to incorrectly
+                  represent the context behind it, because the number
+                  can be used up and will wrapped around from beginning
+                  <o:p></o:p></span></p>
+            </div>
+          </blockquote>
+          <p class="MsoNormal"><span style="font-size:10.0pt">No,
+              fence_context is unique in global in kernel.<br>
+              <br>
+              Regards,<br>
+              David Zhou<br>
+              <br>
+            </span><o:p></o:p></p>
+          <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
+            <div>
+              <p class="MsoNormal"><span style="font-size:10.0pt">   2)
+                  why not just keep CTX alive, which is much simple than
+                  this method
+                  <br>
+                  <br>
+                  BR<br>
+                  <br>
+                  -----Original Message-----<br>
+                  From: Zhou, David(ChunMing) <br>
+                  Sent: Wednesday, May 03, 2017 12:54 PM<br>
+                  To: Liu, Monk <a moz-do-not-send="true"
+                    href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org">&lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;</a>;
+                  Liu, Monk
+                  <a moz-do-not-send="true"
+                    href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org">&lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;</a>;
+                  Christian König <a moz-do-not-send="true"
+                    href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">
+                    &lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;</a>; <a
+                    moz-do-not-send="true"
+                    href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                  Subject: RE: [PATCH 1/5] drm/amdgpu:keep ctx alive
+                  till all job finished<br>
+                  <br>
+                  You can add ctx as filed of job, but not get reference
+                  of it, when you try to use ctx, just check if ctx ==
+                  NULL.
+                  <br>
+                  <br>
+                  Another stupid method:<br>
+                  Use idr_for_each_entry(..job-&gt;vm-&gt;ctx_mgr...)
+                  and compare the job-&gt;fence-&gt;fence_context with
+                  ctx-&gt;ring[].entity-&gt;fence_context. if not found,
+                  then ctx is freed, otherwise you can do your things
+                  for this ctx.<br>
+                  <br>
+                  Regards,<br>
+                  David Zhou<br>
+                  <br>
+                  -----Original Message-----<br>
+                  From: amd-gfx [<a moz-do-not-send="true"
+                    href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>]
+                  On Behalf Of Liu, Monk<br>
+                  Sent: Wednesday, May 03, 2017 11:57 AM<br>
+                  To: Liu, Monk <a moz-do-not-send="true"
+                    href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org">&lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;</a>;
+                  Christian König
+                  <a moz-do-not-send="true"
+                    href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">&lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;</a>;
+                  <a moz-do-not-send="true"
+                    href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
+                    amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                  Subject: RE: [PATCH 1/5] drm/amdgpu:keep ctx alive
+                  till all job finished<br>
+                  <br>
+                  @Christian,<br>
+                  <br>
+                  The thing is I need mark all entities behind this
+                  timeout job as guilty, so I use a member in entity
+                  named "ptr_guilty", to point to The member in
+                  amdgpu_ctx named "guilty", that way read
+                  *entity-&gt;ptr_guilty can get you if this entity is
+                  "invalid", and set *entity-&gt;ptr_guilty Can let you
+                  set all entities belongs to the context as "invalid".<br>
+                  <br>
+                  Above logic is to guarantee we can kick out all guilty
+                  entities in entity kfifo, and also block all IOCTL
+                  with a ctx handle point to this guilty context, And we
+                  only recovery other jobs/entities/context after
+                  scheduler unparked
+                  <br>
+                  <br>
+                  If you reject the patch to keep ctx alive till all
+                  jobs signaled, please give me a solution to satisfy
+                  above logic
+                  <br>
+                  <br>
+                  BR Monk<br>
+                  <br>
+                  -----Original Message-----<br>
+                  From: amd-gfx [<a moz-do-not-send="true"
+                    href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>]
+                  On Behalf Of Liu, Monk<br>
+                  Sent: Wednesday, May 03, 2017 11:31 AM<br>
+                  To: Christian König <a moz-do-not-send="true"
+                    href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">&lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;</a>;
+                  <a moz-do-not-send="true"
+                    href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                  Subject: RE: [PATCH 1/5] drm/amdgpu:keep ctx alive
+                  till all job finished<br>
+                  <br>
+                  1, This is necessary otherwise how can I access entity
+                  pointer after a job timedout , and why it is dangerous
+                  ?<br>
+                  2, what's the status field in the fences you were
+                  referring to ? I need to judge if it could satisfy my
+                  requirement
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  -----Original Message-----<br>
+                  From: Christian König [<a moz-do-not-send="true"
+                    href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org</a>]<br>
+                  Sent: Monday, May 01, 2017 10:48 PM<br>
+                  To: Liu, Monk <a moz-do-not-send="true"
+                    href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org">&lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;</a>;
+                  <a moz-do-not-send="true"
+                    href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
+                    amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                  Subject: Re: [PATCH 1/5] drm/amdgpu:keep ctx alive
+                  till all job finished<br>
+                  <br>
+                  Am 01.05.2017 um 09:22 schrieb Monk Liu:<br>
+                  &gt; for TDR guilty context feature, we need access
+                  ctx/s_entity field <br>
+                  &gt; member through sched job pointer,so ctx must keep
+                  alive till all job <br>
+                  &gt; from it signaled.<br>
+                  <br>
+                  NAK, that is unnecessary and quite dangerous.<br>
+                  <br>
+                  Instead we have the designed status field in the
+                  fences which should be checked for that.<br>
+                  <br>
+                  Regards,<br>
+                  Christian.<br>
+                  <br>
+                  &gt;<br>
+                  &gt; Change-Id:
+                  Ib87e9502f7a5c8c054c7e56956d7f7ad75998e43<br>
+                  &gt; Signed-off-by: Monk Liu <a
+                    moz-do-not-send="true"
+                    href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org">&lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+                  &gt; ---<br>
+                  &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu.h           |
+                  6 +++++-<br>
+                  &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |
+                  2 +-<br>
+                  &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c       |
+                  9 +++++++++<br>
+                  &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c       |
+                  9 +++++++--<br>
+                  &gt;   drivers/gpu/drm/amd/scheduler/gpu_scheduler.c |
+                  6 ------<br>
+                  &gt;   drivers/gpu/drm/amd/scheduler/gpu_scheduler.h |
+                  1 +<br>
+                  &gt;   6 files changed, 23 insertions(+), 10
+                  deletions(-)<br>
+                  &gt;<br>
+                  &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+                  &gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+                  &gt; index e330009..8e031d6 100644<br>
+                  &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+                  &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+                  &gt; @@ -760,10 +760,12 @@ struct amdgpu_ib {<br>
+                  &gt;        uint32_t                        flags;<br>
+                  &gt;   };<br>
+                  &gt;   <br>
+                  &gt; +struct amdgpu_ctx;<br>
+                  &gt; +<br>
+                  &gt;   extern const struct amd_sched_backend_ops
+                  amdgpu_sched_ops;<br>
+                  &gt;   <br>
+                  &gt;   int amdgpu_job_alloc(struct amdgpu_device
+                  *adev, unsigned num_ibs,<br>
+                  &gt; -                  struct amdgpu_job **job,
+                  struct amdgpu_vm *vm);<br>
+                  &gt; +                  struct amdgpu_job **job,
+                  struct amdgpu_vm *vm, struct <br>
+                  &gt; +amdgpu_ctx *ctx);<br>
+                  &gt;   int amdgpu_job_alloc_with_ib(struct
+                  amdgpu_device *adev, unsigned size,<br>
+                  &gt;                             struct amdgpu_job
+                  **job);<br>
+                  &gt;   <br>
+                  &gt; @@ -802,6 +804,7 @@ struct amdgpu_ctx_mgr {<br>
+                  &gt;   <br>
+                  &gt;   struct amdgpu_ctx *amdgpu_ctx_get(struct
+                  amdgpu_fpriv *fpriv, uint32_t id);<br>
+                  &gt;   int amdgpu_ctx_put(struct amdgpu_ctx *ctx);<br>
+                  &gt; +struct amdgpu_ctx *amdgpu_ctx_kref_get(struct
+                  amdgpu_ctx *ctx);<br>
+                  &gt;   <br>
+                  &gt;   uint64_t amdgpu_ctx_add_fence(struct amdgpu_ctx
+                  *ctx, struct amdgpu_ring *ring,<br>
+                  &gt;                              struct fence
+                  *fence);<br>
+                  &gt; @@ -1129,6 +1132,7 @@ struct amdgpu_job {<br>
+                  &gt;        struct amdgpu_sync      sync;<br>
+                  &gt;        struct amdgpu_ib        *ibs;<br>
+                  &gt;        struct fence            *fence; /* the hw
+                  fence */<br>
+                  &gt; +     struct amdgpu_ctx *ctx;<br>
+                  &gt;        uint32_t                preamble_status;<br>
+                  &gt;        uint32_t                num_ibs;<br>
+                  &gt;        void                    *owner;<br>
+                  &gt; diff --git
+                  a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
+                  &gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
+                  &gt; index 699f5fe..267fb65 100644<br>
+                  &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
+                  &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
+                  &gt; @@ -234,7 +234,7 @@ int
+                  amdgpu_cs_parser_init(struct amdgpu_cs_parser *p, void
+                  *data)<br>
+                  &gt;                }<br>
+                  &gt;        }<br>
+                  &gt;   <br>
+                  &gt; -     ret = amdgpu_job_alloc(p-&gt;adev, num_ibs,
+                  &amp;p-&gt;job, vm);<br>
+                  &gt; +     ret = amdgpu_job_alloc(p-&gt;adev, num_ibs,
+                  &amp;p-&gt;job, vm, p-&gt;ctx);<br>
+                  &gt;        if (ret)<br>
+                  &gt;                goto free_all_kdata;<br>
+                  &gt;   <br>
+                  &gt; diff --git
+                  a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c<br>
+                  &gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c<br>
+                  &gt; index b4bbbb3..81438af 100644<br>
+                  &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c<br>
+                  &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c<br>
+                  &gt; @@ -25,6 +25,13 @@<br>
+                  &gt;   #include &lt;drm/drmP.h&gt;<br>
+                  &gt;   #include "amdgpu.h"<br>
+                  &gt;   <br>
+                  &gt; +struct amdgpu_ctx *amdgpu_ctx_kref_get(struct
+                  amdgpu_ctx *ctx) {<br>
+                  &gt; +     if (ctx)<br>
+                  &gt; +             kref_get(&amp;ctx-&gt;refcount);<br>
+                  &gt; +     return ctx;<br>
+                  &gt; +}<br>
+                  &gt; +<br>
+                  &gt;   static int amdgpu_ctx_init(struct amdgpu_device
+                  *adev, struct amdgpu_ctx *ctx)<br>
+                  &gt;   {<br>
+                  &gt;        unsigned i, j;<br>
+                  &gt; @@ -56,6 +63,8 @@ static int
+                  amdgpu_ctx_init(struct amdgpu_device *adev, struct
+                  amdgpu_ctx *ctx)<br>
+                  &gt;                                          rq,
+                  amdgpu_sched_jobs);<br>
+                  &gt;                if (r)<br>
+                  &gt;                        goto failed;<br>
+                  &gt; +<br>
+                  &gt; +             ctx-&gt;rings[i].entity.ptr_guilty
+                  = &amp;ctx-&gt;guilty; /* kernel entity <br>
+                  &gt; +doesn't have ptr_guilty */<br>
+                  &gt;        }<br>
+                  &gt;   <br>
+                  &gt;        return 0;<br>
+                  &gt; diff --git
+                  a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c<br>
+                  &gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c<br>
+                  &gt; index 690ef3d..208da11 100644<br>
+                  &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c<br>
+                  &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c<br>
+                  &gt; @@ -40,7 +40,7 @@ static void
+                  amdgpu_job_timedout(struct amd_sched_job *s_job)<br>
+                  &gt;   }<br>
+                  &gt;   <br>
+                  &gt;   int amdgpu_job_alloc(struct amdgpu_device
+                  *adev, unsigned num_ibs,<br>
+                  &gt; -                  struct amdgpu_job **job,
+                  struct amdgpu_vm *vm)<br>
+                  &gt; +                  struct amdgpu_job **job,
+                  struct amdgpu_vm *vm, struct <br>
+                  &gt; +amdgpu_ctx *ctx)<br>
+                  &gt;   {<br>
+                  &gt;        size_t size = sizeof(struct amdgpu_job);<br>
+                  &gt;   <br>
+                  &gt; @@ -57,6 +57,7 @@ int amdgpu_job_alloc(struct
+                  amdgpu_device *adev, unsigned num_ibs,<br>
+                  &gt;        (*job)-&gt;vm = vm;<br>
+                  &gt;        (*job)-&gt;ibs = (void *)&amp;(*job)[1];<br>
+                  &gt;        (*job)-&gt;num_ibs = num_ibs;<br>
+                  &gt; +     (*job)-&gt;ctx = amdgpu_ctx_kref_get(ctx);<br>
+                  &gt;   <br>
+                  &gt;        amdgpu_sync_create(&amp;(*job)-&gt;sync);<br>
+                  &gt;   <br>
+                  &gt; @@ -68,7 +69,7 @@ int
+                  amdgpu_job_alloc_with_ib(struct amdgpu_device *adev,
+                  unsigned size,<br>
+                  &gt;   {<br>
+                  &gt;        int r;<br>
+                  &gt;   <br>
+                  &gt; -     r = amdgpu_job_alloc(adev, 1, job, NULL);<br>
+                  &gt; +     r = amdgpu_job_alloc(adev, 1, job, NULL,
+                  NULL);<br>
+                  &gt;        if (r)<br>
+                  &gt;                return r;<br>
+                  &gt;   <br>
+                  &gt; @@ -94,6 +95,10 @@ void
+                  amdgpu_job_free_resources(struct amdgpu_job *job)<br>
+                  &gt;   static void amdgpu_job_free_cb(struct
+                  amd_sched_job *s_job)<br>
+                  &gt;   {<br>
+                  &gt;        struct amdgpu_job *job =
+                  container_of(s_job, struct amdgpu_job, <br>
+                  &gt; base);<br>
+                  &gt; +     struct amdgpu_ctx *ctx = job-&gt;ctx;<br>
+                  &gt; +<br>
+                  &gt; +     if (ctx)<br>
+                  &gt; +             amdgpu_ctx_put(ctx);<br>
+                  &gt;   <br>
+                  &gt;        fence_put(job-&gt;fence);<br>
+                  &gt;        amdgpu_sync_free(&amp;job-&gt;sync);<br>
+                  &gt; diff --git
+                  a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.c<br>
+                  &gt; b/drivers/gpu/drm/amd/scheduler/gpu_scheduler.c<br>
+                  &gt; index 6f4e31f..9100ca8 100644<br>
+                  &gt; ---
+                  a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.c<br>
+                  &gt; +++
+                  b/drivers/gpu/drm/amd/scheduler/gpu_scheduler.c<br>
+                  &gt; @@ -208,12 +208,6 @@ void
+                  amd_sched_entity_fini(struct amd_gpu_scheduler *sched,<br>
+                  &gt;        if
+                  (!amd_sched_entity_is_initialized(sched, entity))<br>
+                  &gt;                return;<br>
+                  &gt;   <br>
+                  &gt; -     /**<br>
+                  &gt; -      * The client will not queue more IBs
+                  during this fini, consume existing<br>
+                  &gt; -      * queued IBs<br>
+                  &gt; -     */<br>
+                  &gt; -     wait_event(sched-&gt;job_scheduled,
+                  amd_sched_entity_is_idle(entity));<br>
+                  &gt; -<br>
+                  &gt;        amd_sched_rq_remove_entity(rq, entity);<br>
+                  &gt;        kfifo_free(&amp;entity-&gt;job_queue);<br>
+                  &gt;   }<br>
+                  &gt; diff --git
+                  a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h<br>
+                  &gt; b/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h<br>
+                  &gt; index 8cb41d3..ccbbcb0 100644<br>
+                  &gt; ---
+                  a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h<br>
+                  &gt; +++
+                  b/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h<br>
+                  &gt; @@ -49,6 +49,7 @@ struct amd_sched_entity {<br>
+                  &gt;   <br>
+                  &gt;        struct fence                   
+                  *dependency;<br>
+                  &gt;        struct fence_cb                 cb;<br>
+                  &gt; +     bool *ptr_guilty;<br>
+                  &gt;   };<br>
+                  &gt;   <br>
+                  &gt;   /**<br>
+                  <br>
+                  <br>
+                  _______________________________________________<br>
+                  amd-gfx mailing list<br>
+                  <a moz-do-not-send="true"
+                    href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                  <a moz-do-not-send="true"
+                    href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+                  _______________________________________________<br>
+                  amd-gfx mailing list<br>
+                  <a moz-do-not-send="true"
+                    href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                  <a moz-do-not-send="true"
+                    href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></span></p>
+            </div>
+          </blockquote>
+          <p class="MsoNormal"><o:p> </o:p></p>
+        </blockquote>
+        <p><o:p> </o:p></p>
+      </div>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------6EC5E333178BC2606F56DD02--
+
+--===============0051176650==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0051176650==--
