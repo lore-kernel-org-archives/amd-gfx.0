@@ -1,11 +1,12 @@
-From: "Wang, Ken" <Ken.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/powerplay: disable engine spread spectrum feature
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amd/powerplay: disable engine spread spectrum feature
  on Vega10.
-Date: Thu, 4 May 2017 03:48:09 +0000
-Message-ID: <CY4PR12MB18311EE21407E41C898526C28CEA0@CY4PR12MB1831.namprd12.prod.outlook.com>
+Date: Thu, 4 May 2017 03:52:39 +0000
+Message-ID: <BN6PR12MB1652983528821CCAC052B401F7EA0@BN6PR12MB1652.namprd12.prod.outlook.com>
 References: <1493868804-794-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1180301838=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <1493868804-794-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
@@ -19,175 +20,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
---===============1180301838==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB18311EE21407E41C898526C28CEA0CY4PR12MB1831namp_"
-
---_000_CY4PR12MB18311EE21407E41C898526C28CEA0CY4PR12MB1831namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Ken Wang <Qingqing.Wang-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
-<Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Sent: Thursday, May 4, 2017 11:33:24 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Zhu, Rex
-Subject: [PATCH] drm/amd/powerplay: disable engine spread spectrum feature =
-on Vega10.
-
-Vega10 atomfirmware do not have ASIC_InternalSS_Info table
-so disable this feature by default in driver.
-
-Change-Id: I2ef2c668fb41fc6c6f448c7c0f1812baf8e7b375
-Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/g=
-pu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-index 8baa890..e24e54c 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-@@ -1535,7 +1535,11 @@ static int vega10_populate_single_gfx_level(struct p=
-p_hwmgr *hwmgr,
-         current_gfxclk_level->FbMult =3D
-                         cpu_to_le32(dividers.ulPll_fb_mult);
-         /* Spread FB Multiplier bit: bit 0:8 int, bit 31:16 frac */
--       current_gfxclk_level->SsOn =3D dividers.ucPll_ss_enable;
-+       if (phm_cap_enabled(hwmgr->platform_descriptor.platformCaps,
-+                               PHM_PlatformCaps_EngineSpreadSpectrumSuppor=
-t))
-+               current_gfxclk_level->SsOn =3D dividers.ucPll_ss_enable;
-+       else
-+               current_gfxclk_level->SsOn =3D 0;
-         current_gfxclk_level->SsFbMult =3D
-                         cpu_to_le32(dividers.ulPll_ss_fbsmult);
-         current_gfxclk_level->SsSlewFrac =3D
---
-1.9.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_CY4PR12MB18311EE21407E41C898526C28CEA0CY4PR12MB1831namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
-<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
-ding-left: 4pt; border-left: #800000 2px solid; } --></style>
-</head>
-<body>
-<meta content=3D"text/html; charset=3DUTF-8">
-<style type=3D"text/css" style=3D"">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-<div dir=3D"ltr">
-<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
-or:#000000; font-family:Calibri,Arial,Helvetica,sans-serif">
-<p>Reviewed-by: Ken Wang &lt;Qingqing.Wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org=
-&gt;<br>
-<b>Sent:</b> Thursday, May 4, 2017 11:33:24 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Zhu, Rex<br>
-<b>Subject:</b> [PATCH] drm/amd/powerplay: disable engine spread spectrum f=
-eature on Vega10.</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">Vega10 atomfirmware do not have ASIC_InternalSS_In=
-fo table<br>
-so disable this feature by default in driver.<br>
-<br>
-Change-Id: I2ef2c668fb41fc6c6f448c7c0f1812baf8e7b375<br>
-Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 6 &#43;&#43;&#43=
-;&#43;&#43;-<br>
-&nbsp;1 file changed, 5 insertions(&#43;), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/g=
-pu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-index 8baa890..e24e54c 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-@@ -1535,7 &#43;1535,11 @@ static int vega10_populate_single_gfx_level(stru=
-ct pp_hwmgr *hwmgr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; current_gfxclk_level-&gt;F=
-bMult =3D<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cpu_t=
-o_le32(dividers.ulPll_fb_mult);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Spread FB Multiplier bi=
-t: bit 0:8 int, bit 31:16 frac */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; current_gfxclk_level-&gt;SsOn =3D div=
-iders.ucPll_ss_enable;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (phm_cap_enabled(hwmgr-&gt;pla=
-tform_descriptor.platformCaps,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PHM_PlatformCaps_EngineSpreadSpectrumSu=
-pport))<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; current_gfxclk_level-&gt;SsOn =3D dividers.ucPll_ss_enable;<=
-br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; current_gfxclk_level-&gt;SsOn =3D 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; current_gfxclk_level-&gt;S=
-sFbMult =3D<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cpu_t=
-o_le32(dividers.ulPll_ss_fbsmult);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; current_gfxclk_level-&gt;S=
-sSlewFrac =3D<br>
--- <br>
-1.9.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font>
-</body>
-</html>
-
---_000_CY4PR12MB18311EE21407E41C898526C28CEA0CY4PR12MB1831namp_--
-
---===============1180301838==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1180301838==--
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
+LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIFJleCBa
+aHUNCj4gU2VudDogV2VkbmVzZGF5LCBNYXkgMDMsIDIwMTcgMTE6MzMgUE0NCj4gVG86IGFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IENjOiBaaHUsIFJleA0KPiBTdWJqZWN0OiBbUEFU
+Q0hdIGRybS9hbWQvcG93ZXJwbGF5OiBkaXNhYmxlIGVuZ2luZSBzcHJlYWQgc3BlY3RydW0NCj4g
+ZmVhdHVyZSBvbiBWZWdhMTAuDQo+IA0KPiBWZWdhMTAgYXRvbWZpcm13YXJlIGRvIG5vdCBoYXZl
+IEFTSUNfSW50ZXJuYWxTU19JbmZvIHRhYmxlDQo+IHNvIGRpc2FibGUgdGhpcyBmZWF0dXJlIGJ5
+IGRlZmF1bHQgaW4gZHJpdmVyLg0KPiANCj4gQ2hhbmdlLUlkOiBJMmVmMmM2NjhmYjQxZmM2YzZm
+NDQ4YzdjMGYxODEyYmFmOGU3YjM3NQ0KPiBTaWduZWQtb2ZmLWJ5OiBSZXggWmh1IDxSZXguWmh1
+QGFtZC5jb20+DQoNClJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVy
+QGFtZC5jb20+DQoNCj4gLS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21n
+ci92ZWdhMTBfaHdtZ3IuYyB8IDYgKysrKystDQo+ICAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRp
+b25zKCspLCAxIGRlbGV0aW9uKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdyLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfaHdtZ3IuYw0KPiBpbmRleCA4YmFhODkwLi5lMjRl
+NTRjIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92
+ZWdhMTBfaHdtZ3IuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21n
+ci92ZWdhMTBfaHdtZ3IuYw0KPiBAQCAtMTUzNSw3ICsxNTM1LDExIEBAIHN0YXRpYyBpbnQgdmVn
+YTEwX3BvcHVsYXRlX3NpbmdsZV9nZnhfbGV2ZWwoc3RydWN0DQo+IHBwX2h3bWdyICpod21nciwN
+Cj4gIAljdXJyZW50X2dmeGNsa19sZXZlbC0+RmJNdWx0ID0NCj4gIAkJCWNwdV90b19sZTMyKGRp
+dmlkZXJzLnVsUGxsX2ZiX211bHQpOw0KPiAgCS8qIFNwcmVhZCBGQiBNdWx0aXBsaWVyIGJpdDog
+Yml0IDA6OCBpbnQsIGJpdCAzMToxNiBmcmFjICovDQo+IC0JY3VycmVudF9nZnhjbGtfbGV2ZWwt
+PlNzT24gPSBkaXZpZGVycy51Y1BsbF9zc19lbmFibGU7DQo+ICsJaWYgKHBobV9jYXBfZW5hYmxl
+ZChod21nci0+cGxhdGZvcm1fZGVzY3JpcHRvci5wbGF0Zm9ybUNhcHMsDQo+ICsNCj4gCVBITV9Q
+bGF0Zm9ybUNhcHNfRW5naW5lU3ByZWFkU3BlY3RydW1TdXBwb3J0KSkNCj4gKwkJY3VycmVudF9n
+ZnhjbGtfbGV2ZWwtPlNzT24gPSBkaXZpZGVycy51Y1BsbF9zc19lbmFibGU7DQo+ICsJZWxzZQ0K
+PiArCQljdXJyZW50X2dmeGNsa19sZXZlbC0+U3NPbiA9IDA7DQo+ICAJY3VycmVudF9nZnhjbGtf
+bGV2ZWwtPlNzRmJNdWx0ID0NCj4gIAkJCWNwdV90b19sZTMyKGRpdmlkZXJzLnVsUGxsX3NzX2Zi
+c211bHQpOw0KPiAgCWN1cnJlbnRfZ2Z4Y2xrX2xldmVsLT5Tc1NsZXdGcmFjID0NCj4gLS0NCj4g
+MS45LjENCj4gDQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fDQo+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnDQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
+LWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
+LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
+aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
