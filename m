@@ -1,68 +1,78 @@
-From: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 5/5] drm/amd/powerplay: add manual/auto fan control mode
- switch on vega10.
-Date: Thu, 4 May 2017 20:03:00 +0800
-Message-ID: <1493899380-5587-5-git-send-email-Rex.Zhu@amd.com>
-References: <1493899380-5587-1-git-send-email-Rex.Zhu@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1493899380-5587-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+From: Nikola Pajkovsky <npajkovsky@suse.cz>
+Subject: [PATCH] drm/amd/amdgpu: get rid of else branch
+Date: Thu,  4 May 2017 14:52:38 +0200
+Message-ID: <5a3557799269f0c74694a10a5ee6a6427e2a4290.1493902309.git.npajkovsky@suse.cz>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: linux-kernel@vger.kernel.org
+Cc: Nikola Pajkovsky <npajkovsky@suse.cz>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-U2lnbmVkLW9mZi1ieTogUmV4IFpodSA8UmV4LlpodUBhbWQuY29tPgoKQ2hhbmdlLUlkOiBJM2Qz
-ZTA2ZTJjYjUwM2Q1M2VjNTc2MTJiMTg2NmE4M2Q0NDhiNWI2MAotLS0KIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9od21nci5jIHwgMjMgKysrKysrKysrKysrKy0t
-LS0tLS0tLQogLi4uL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfdGhlcm1hbC5o
-ICAgfCAgMSArCiAyIGZpbGVzIGNoYW5nZWQsIDE1IGluc2VydGlvbnMoKyksIDkgZGVsZXRpb25z
-KC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVn
-YTEwX2h3bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBf
-aHdtZ3IuYwppbmRleCA4NWE2YzEyLi5mNWVlMzExIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfaHdtZ3IuYworKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfaHdtZ3IuYwpAQCAtMzkyMSwyMiArMzkyMSwy
-NyBAQCBzdGF0aWMgaW50IHZlZ2ExMF9kcG1fZm9yY2VfZHBtX2xldmVsKHN0cnVjdCBwcF9od21n
-ciAqaHdtZ3IsCiAKIHN0YXRpYyBpbnQgdmVnYTEwX3NldF9mYW5fY29udHJvbF9tb2RlKHN0cnVj
-dCBwcF9od21nciAqaHdtZ3IsIHVpbnQzMl90IG1vZGUpCiB7Ci0JaWYgKG1vZGUpIHsKLQkJLyog
-c3RvcCBhdXRvLW1hbmFnZSAqLwotCQlpZiAocGhtX2NhcF9lbmFibGVkKGh3bWdyLT5wbGF0Zm9y
-bV9kZXNjcmlwdG9yLnBsYXRmb3JtQ2FwcywKKwlpbnQgcmVzdWx0OworCisJaWYgKHBobV9jYXBf
-ZW5hYmxlZChod21nci0+cGxhdGZvcm1fZGVzY3JpcHRvci5wbGF0Zm9ybUNhcHMsCiAJCQkJUEhN
-X1BsYXRmb3JtQ2Fwc19NaWNyb2NvZGVGYW5Db250cm9sKSkKLQkJCXZlZ2ExMF9mYW5fY3RybF9z
-dG9wX3NtY19mYW5fY29udHJvbChod21ncik7Ci0JCXZlZ2ExMF9mYW5fY3RybF9zZXRfc3RhdGlj
-X21vZGUoaHdtZ3IsIG1vZGUpOwotCX0gZWxzZQotCQkvKiByZXN0YXJ0IGF1dG8tbWFuYWdlICov
-Ci0JCXZlZ2ExMF9mYW5fY3RybF9yZXNldF9mYW5fc3BlZWRfdG9fZGVmYXVsdChod21ncik7CisJ
-CXZlZ2ExMF9mYW5fY3RybF9zdG9wX3NtY19mYW5fY29udHJvbChod21ncik7CiAKLQlyZXR1cm4g
-MDsKKwlpZiAobW9kZSkgeworCQlyZXN1bHQgPSB2ZWdhMTBfZmFuX2N0cmxfc2V0X3N0YXRpY19t
-b2RlKGh3bWdyLCBtb2RlKTsKKwkJaWYgKCFyZXN1bHQpCisJCQlyZXN1bHQgPSB2ZWdhMTBfZmFu
-X2N0cmxfc3RhcnRfc21jX2Zhbl9jb250cm9sKGh3bWdyKTsKKwl9CisJcmV0dXJuIHJlc3VsdDsK
-IH0KIAogc3RhdGljIGludCB2ZWdhMTBfZ2V0X2Zhbl9jb250cm9sX21vZGUoc3RydWN0IHBwX2h3
-bWdyICpod21ncikKIHsKIAl1aW50MzJfdCByZWc7CisJc3RydWN0IHZlZ2ExMF9od21nciAqZGF0
-YSA9IChzdHJ1Y3QgdmVnYTEwX2h3bWdyICopKGh3bWdyLT5iYWNrZW5kKTsKKworCWlmIChkYXRh
-LT5zbXVfZmVhdHVyZXNbR05MRF9GQU5fQ09OVFJPTF0uZW5hYmxlZCA9PSBmYWxzZSkKKwkJcmV0
-dXJuIDA7CiAKIAlpZiAoaHdtZ3ItPmZhbl9jdHJsX2lzX2luX2RlZmF1bHRfbW9kZSkgewogCQly
-ZXR1cm4gaHdtZ3ItPmZhbl9jdHJsX2RlZmF1bHRfbW9kZTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF90aGVybWFsLmggYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfdGhlcm1hbC5oCmluZGV4IDcwYzFkMjIu
-Ljc3NmYzYTIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdy
-L3ZlZ2ExMF90aGVybWFsLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdt
-Z3IvdmVnYTEwX3RoZXJtYWwuaApAQCAtNzksNiArNzksNyBAQCBleHRlcm4gaW50IHZlZ2ExMF9m
-YW5fY3RybF9nZXRfZmFuX3NwZWVkX3JwbShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLAogZXh0ZXJu
-IGludCB2ZWdhMTBfZmFuX2N0cmxfc3RvcF9zbWNfZmFuX2NvbnRyb2woc3RydWN0IHBwX2h3bWdy
-ICpod21ncik7CiBleHRlcm4gdWludDMyX3Qgc211N19nZXRfeGNsayhzdHJ1Y3QgcHBfaHdtZ3Ig
-Kmh3bWdyKTsKIGV4dGVybiBpbnQgdmVnYTEwX3RoZXJtYWxfZGlzYWJsZV9hbGVydChzdHJ1Y3Qg
-cHBfaHdtZ3IgKmh3bWdyKTsKK2ludCB2ZWdhMTBfZmFuX2N0cmxfc3RhcnRfc21jX2Zhbl9jb250
-cm9sKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpOwogCiAjZW5kaWYKIAotLSAKMS45LjEKCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
-ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+else branch is pointless if it's right at the end of function and use
+unlikely() on err path.
+
+Signed-off-by: Nikola Pajkovsky <npajkovsky@suse.cz>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h | 45 +++++++++++++++++++------------------
+ 1 file changed, 23 insertions(+), 22 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index c1b913541739..8ab250d4761a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1594,30 +1594,31 @@ static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring, void *sr
+ 	unsigned occupied, chunk1, chunk2;
+ 	void *dst;
+ 
+-	if (ring->count_dw < count_dw) {
++	if (unlikely(ring->count_dw < count_dw)) {
+ 		DRM_ERROR("amdgpu: writing more dwords to the ring than expected!\n");
+-	} else {
+-		occupied = ring->wptr & ring->ptr_mask;
+-		dst = (void *)&ring->ring[occupied];
+-		chunk1 = ring->ptr_mask + 1 - occupied;
+-		chunk1 = (chunk1 >= count_dw) ? count_dw: chunk1;
+-		chunk2 = count_dw - chunk1;
+-		chunk1 <<= 2;
+-		chunk2 <<= 2;
+-
+-		if (chunk1)
+-			memcpy(dst, src, chunk1);
+-
+-		if (chunk2) {
+-			src += chunk1;
+-			dst = (void *)ring->ring;
+-			memcpy(dst, src, chunk2);
+-		}
+-
+-		ring->wptr += count_dw;
+-		ring->wptr &= ring->ptr_mask;
+-		ring->count_dw -= count_dw;
++		return;
+ 	}
++
++	occupied = ring->wptr & ring->ptr_mask;
++	dst = (void *)&ring->ring[occupied];
++	chunk1 = ring->ptr_mask + 1 - occupied;
++	chunk1 = (chunk1 >= count_dw) ? count_dw: chunk1;
++	chunk2 = count_dw - chunk1;
++	chunk1 <<= 2;
++	chunk2 <<= 2;
++
++	if (chunk1)
++		memcpy(dst, src, chunk1);
++
++	if (chunk2) {
++		src += chunk1;
++		dst = (void *)ring->ring;
++		memcpy(dst, src, chunk2);
++	}
++
++	ring->wptr += count_dw;
++	ring->wptr &= ring->ptr_mask;
++	ring->count_dw -= count_dw;
+ }
+ 
+ static inline struct amdgpu_sdma_instance *
+-- 
+2.12.2
