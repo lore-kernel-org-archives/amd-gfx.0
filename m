@@ -1,78 +1,58 @@
 From: Nikola Pajkovsky <npajkovsky@suse.cz>
-Subject: [PATCH] drm/amd/amdgpu: get rid of else branch
-Date: Thu,  4 May 2017 14:52:38 +0200
-Message-ID: <5a3557799269f0c74694a10a5ee6a6427e2a4290.1493902309.git.npajkovsky@suse.cz>
+Subject: Re: [RFC] drm/amd/amdgpu: get rid of else branch
+Date: Thu, 04 May 2017 14:57:26 +0200
+Message-ID: <87efw47pah.fsf@suse.cz>
+References: <c9e022e344770c861714615c6386d1821e2fa0a5.1493307341.git.npajkovsky@suse.cz>
+        <6ce3044b-9473-94eb-e54c-e8e856f1c88f@amd.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8BIT
 Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <6ce3044b-9473-94eb-e54c-e8e856f1c88f@amd.com> ("Christian
+        =?utf-8?Q?K=C3=B6nig=22's?= message of "Fri, 28 Apr 2017 10:30:49 +0200")
 Sender: linux-kernel-owner@vger.kernel.org
-To: linux-kernel@vger.kernel.org
-Cc: Nikola Pajkovsky <npajkovsky@suse.cz>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+To: Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-kernel@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-else branch is pointless if it's right at the end of function and use
-unlikely() on err path.
+Christian König <christian.koenig@amd.com> writes:
 
-Signed-off-by: Nikola Pajkovsky <npajkovsky@suse.cz>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h | 45 +++++++++++++++++++------------------
- 1 file changed, 23 insertions(+), 22 deletions(-)
+> Am 27.04.2017 um 18:17 schrieb Nikola Pajkovsky:
+>> This is super simple elimination of else branch and I should
+>> probably even use unlikely in
+>>
+>>   	if (ring->count_dw < count_dw) {
+>>
+>> However, amdgpu_ring_write() has similar if condition, but does not
+>> return after DRM_ERROR and it looks suspicious. On error, we still
+>> adding v to ring and keeping count_dw-- below zero.
+>>
+>> 	if (ring->count_dw <= 0)
+>> 		DRM_ERROR("amdgpu: writing more dwords to the ring than expected!\n");
+>> 	ring->ring[ring->wptr++] = v;
+>> 	ring->wptr &= ring->ptr_mask;
+>> 	ring->count_dw--;
+>>
+>> I can obviously be totaly wrong. Hmm?
+>
+> That's just choosing the lesser evil.
+>
+> When we write more DW to the ring than expected it is possible (but
+> not likely) that we override stuff on the ring buffer which is still
+> executed by the command processor leading to a possible CP crash.
+>
+> But when we completely drop the write the commands in the ring buffer
+> will certainly be invalid and so the CP will certainly crash sooner or
+> later.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index c1b913541739..8ab250d4761a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1594,30 +1594,31 @@ static inline void amdgpu_ring_write_multiple(struct amdgpu_ring *ring, void *sr
- 	unsigned occupied, chunk1, chunk2;
- 	void *dst;
- 
--	if (ring->count_dw < count_dw) {
-+	if (unlikely(ring->count_dw < count_dw)) {
- 		DRM_ERROR("amdgpu: writing more dwords to the ring than expected!\n");
--	} else {
--		occupied = ring->wptr & ring->ptr_mask;
--		dst = (void *)&ring->ring[occupied];
--		chunk1 = ring->ptr_mask + 1 - occupied;
--		chunk1 = (chunk1 >= count_dw) ? count_dw: chunk1;
--		chunk2 = count_dw - chunk1;
--		chunk1 <<= 2;
--		chunk2 <<= 2;
--
--		if (chunk1)
--			memcpy(dst, src, chunk1);
--
--		if (chunk2) {
--			src += chunk1;
--			dst = (void *)ring->ring;
--			memcpy(dst, src, chunk2);
--		}
--
--		ring->wptr += count_dw;
--		ring->wptr &= ring->ptr_mask;
--		ring->count_dw -= count_dw;
-+		return;
- 	}
-+
-+	occupied = ring->wptr & ring->ptr_mask;
-+	dst = (void *)&ring->ring[occupied];
-+	chunk1 = ring->ptr_mask + 1 - occupied;
-+	chunk1 = (chunk1 >= count_dw) ? count_dw: chunk1;
-+	chunk2 = count_dw - chunk1;
-+	chunk1 <<= 2;
-+	chunk2 <<= 2;
-+
-+	if (chunk1)
-+		memcpy(dst, src, chunk1);
-+
-+	if (chunk2) {
-+		src += chunk1;
-+		dst = (void *)ring->ring;
-+		memcpy(dst, src, chunk2);
-+	}
-+
-+	ring->wptr += count_dw;
-+	ring->wptr &= ring->ptr_mask;
-+	ring->count_dw -= count_dw;
- }
- 
- static inline struct amdgpu_sdma_instance *
+Instead of choosing the lesser evil, is there good way to design ring
+buffer right way?
+
+> Please add the unlikely() as well and then send out the patch with a
+> signed-of-by line and I will be happy to push it into our upstream
+> branch.
+
+Proper patch has been sent.
+
 -- 
-2.12.2
+Nikola
