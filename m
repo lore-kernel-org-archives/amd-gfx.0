@@ -1,175 +1,68 @@
-From: Guenter Roeck <linux@roeck-us.net>
-Subject: [PATCH] drm/amdgpu: Use less generic enum definitions
-Date: Wed,  3 May 2017 23:49:18 -0700
-Message-ID: <1493880558-445-1-git-send-email-linux@roeck-us.net>
+From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 2/6] drm/amdgpu: reset GDW, GWS and OA software copy to
+ update them
+Date: Thu, 4 May 2017 07:28:24 +0000
+Message-ID: <DM5PR12MB1610683638F53030A9648FED84EA0@DM5PR12MB1610.namprd12.prod.outlook.com>
+References: <1493879668-26947-1-git-send-email-Xiangliang.Yu@amd.com>
+ <1493879668-26947-2-git-send-email-Xiangliang.Yu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Guenter Roeck <linux@roeck-us.net>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1493879668-26947-2-git-send-email-Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: zh-CN
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Ding, Pixel" <Pixel.Ding-5C7GfCeVMHo@public.gmane.org>, "Yu,
+ Xiangliang" <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
 
-alpha:allmodconfig fails to build as follows.
-
-drivers/gpu/drm/amd/amdgpu/amdgpu.h:1006:2: error:
-	expected identifier before '(' token
-drivers/gpu/drm/amd/amdgpu/amdgpu.h:1011:28: error:
-	'NGG_BUF_MAX' undeclared here
-
-The problem is not really the enum definition of NGG_BUF_MAX but PARAM,
-which happens to be defined differently for alpha and a couple of other
-architectures.
-
-Use less generic defines for NGG enums to solve the problem.
-
-Fixes: bce23e00f3369 ("drm/amdgpu: add NGG parameters")
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
----
-Another option would be to blacklist all affected architectures.
-AFAICS that would currently be alpha, m32r, and sh.
-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  8 ++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c |  8 ++++----
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 28 ++++++++++++++--------------
- 3 files changed, 22 insertions(+), 22 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 6a8129949333..40f1195136a8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1000,10 +1000,10 @@ struct amdgpu_ngg_buf {
- };
- 
- enum {
--	PRIM = 0,
--	POS,
--	CNTL,
--	PARAM,
-+	NGG_PRIM = 0,
-+	NGG_POS,
-+	NGG_CNTL,
-+	NGG_PARAM,
- 	NGG_BUF_MAX
- };
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 832be632478f..4abf2e924cd5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -545,10 +545,10 @@ static int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file
- 			adev->gfx.config.double_offchip_lds_buf;
- 
- 		if (amdgpu_ngg) {
--			dev_info.prim_buf_gpu_addr = adev->gfx.ngg.buf[PRIM].gpu_addr;
--			dev_info.pos_buf_gpu_addr = adev->gfx.ngg.buf[POS].gpu_addr;
--			dev_info.cntl_sb_buf_gpu_addr = adev->gfx.ngg.buf[CNTL].gpu_addr;
--			dev_info.param_buf_gpu_addr = adev->gfx.ngg.buf[PARAM].gpu_addr;
-+			dev_info.prim_buf_gpu_addr = adev->gfx.ngg.buf[NGG_PRIM].gpu_addr;
-+			dev_info.pos_buf_gpu_addr = adev->gfx.ngg.buf[NGG_POS].gpu_addr;
-+			dev_info.cntl_sb_buf_gpu_addr = adev->gfx.ngg.buf[NGG_CNTL].gpu_addr;
-+			dev_info.param_buf_gpu_addr = adev->gfx.ngg.buf[NGG_PARAM].gpu_addr;
- 		}
- 
- 		return copy_to_user(out, &dev_info,
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index a447b70841c9..a95e79dd3e3e 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -888,7 +888,7 @@ static int gfx_v9_0_ngg_init(struct amdgpu_device *adev)
- 	adev->gfx.ngg.gds_reserve_addr += adev->gds.mem.gfx_partition_size;
- 
- 	/* Primitive Buffer */
--	r = gfx_v9_0_ngg_create_buf(adev, &adev->gfx.ngg.buf[PRIM],
-+	r = gfx_v9_0_ngg_create_buf(adev, &adev->gfx.ngg.buf[NGG_PRIM],
- 				    amdgpu_prim_buf_per_se,
- 				    64 * 1024);
- 	if (r) {
-@@ -897,7 +897,7 @@ static int gfx_v9_0_ngg_init(struct amdgpu_device *adev)
- 	}
- 
- 	/* Position Buffer */
--	r = gfx_v9_0_ngg_create_buf(adev, &adev->gfx.ngg.buf[POS],
-+	r = gfx_v9_0_ngg_create_buf(adev, &adev->gfx.ngg.buf[NGG_POS],
- 				    amdgpu_pos_buf_per_se,
- 				    256 * 1024);
- 	if (r) {
-@@ -906,7 +906,7 @@ static int gfx_v9_0_ngg_init(struct amdgpu_device *adev)
- 	}
- 
- 	/* Control Sideband */
--	r = gfx_v9_0_ngg_create_buf(adev, &adev->gfx.ngg.buf[CNTL],
-+	r = gfx_v9_0_ngg_create_buf(adev, &adev->gfx.ngg.buf[NGG_CNTL],
- 				    amdgpu_cntl_sb_buf_per_se,
- 				    256);
- 	if (r) {
-@@ -918,7 +918,7 @@ static int gfx_v9_0_ngg_init(struct amdgpu_device *adev)
- 	if (amdgpu_param_buf_per_se <= 0)
- 		goto out;
- 
--	r = gfx_v9_0_ngg_create_buf(adev, &adev->gfx.ngg.buf[PARAM],
-+	r = gfx_v9_0_ngg_create_buf(adev, &adev->gfx.ngg.buf[NGG_PARAM],
- 				    amdgpu_param_buf_per_se,
- 				    512 * 1024);
- 	if (r) {
-@@ -947,45 +947,45 @@ static int gfx_v9_0_ngg_en(struct amdgpu_device *adev)
- 
- 	/* Program buffer size */
- 	data = 0;
--	size = adev->gfx.ngg.buf[PRIM].size / 256;
-+	size = adev->gfx.ngg.buf[NGG_PRIM].size / 256;
- 	data = REG_SET_FIELD(data, WD_BUF_RESOURCE_1, INDEX_BUF_SIZE, size);
- 
--	size = adev->gfx.ngg.buf[POS].size / 256;
-+	size = adev->gfx.ngg.buf[NGG_POS].size / 256;
- 	data = REG_SET_FIELD(data, WD_BUF_RESOURCE_1, POS_BUF_SIZE, size);
- 
- 	WREG32(SOC15_REG_OFFSET(GC, 0, mmWD_BUF_RESOURCE_1), data);
- 
- 	data = 0;
--	size = adev->gfx.ngg.buf[CNTL].size / 256;
-+	size = adev->gfx.ngg.buf[NGG_CNTL].size / 256;
- 	data = REG_SET_FIELD(data, WD_BUF_RESOURCE_2, CNTL_SB_BUF_SIZE, size);
- 
--	size = adev->gfx.ngg.buf[PARAM].size / 1024;
-+	size = adev->gfx.ngg.buf[NGG_PARAM].size / 1024;
- 	data = REG_SET_FIELD(data, WD_BUF_RESOURCE_2, PARAM_BUF_SIZE, size);
- 
- 	WREG32(SOC15_REG_OFFSET(GC, 0, mmWD_BUF_RESOURCE_2), data);
- 
- 	/* Program buffer base address */
--	base = lower_32_bits(adev->gfx.ngg.buf[PRIM].gpu_addr);
-+	base = lower_32_bits(adev->gfx.ngg.buf[NGG_PRIM].gpu_addr);
- 	data = REG_SET_FIELD(0, WD_INDEX_BUF_BASE, BASE, base);
- 	WREG32(SOC15_REG_OFFSET(GC, 0, mmWD_INDEX_BUF_BASE), data);
- 
--	base = upper_32_bits(adev->gfx.ngg.buf[PRIM].gpu_addr);
-+	base = upper_32_bits(adev->gfx.ngg.buf[NGG_PRIM].gpu_addr);
- 	data = REG_SET_FIELD(0, WD_INDEX_BUF_BASE_HI, BASE_HI, base);
- 	WREG32(SOC15_REG_OFFSET(GC, 0, mmWD_INDEX_BUF_BASE_HI), data);
- 
--	base = lower_32_bits(adev->gfx.ngg.buf[POS].gpu_addr);
-+	base = lower_32_bits(adev->gfx.ngg.buf[NGG_POS].gpu_addr);
- 	data = REG_SET_FIELD(0, WD_POS_BUF_BASE, BASE, base);
- 	WREG32(SOC15_REG_OFFSET(GC, 0, mmWD_POS_BUF_BASE), data);
- 
--	base = upper_32_bits(adev->gfx.ngg.buf[POS].gpu_addr);
-+	base = upper_32_bits(adev->gfx.ngg.buf[NGG_POS].gpu_addr);
- 	data = REG_SET_FIELD(0, WD_POS_BUF_BASE_HI, BASE_HI, base);
- 	WREG32(SOC15_REG_OFFSET(GC, 0, mmWD_POS_BUF_BASE_HI), data);
- 
--	base = lower_32_bits(adev->gfx.ngg.buf[CNTL].gpu_addr);
-+	base = lower_32_bits(adev->gfx.ngg.buf[NGG_CNTL].gpu_addr);
- 	data = REG_SET_FIELD(0, WD_CNTL_SB_BUF_BASE, BASE, base);
- 	WREG32(SOC15_REG_OFFSET(GC, 0, mmWD_CNTL_SB_BUF_BASE), data);
- 
--	base = upper_32_bits(adev->gfx.ngg.buf[CNTL].gpu_addr);
-+	base = upper_32_bits(adev->gfx.ngg.buf[NGG_CNTL].gpu_addr);
- 	data = REG_SET_FIELD(0, WD_CNTL_SB_BUF_BASE_HI, BASE_HI, base);
- 	WREG32(SOC15_REG_OFFSET(GC, 0, mmWD_CNTL_SB_BUF_BASE_HI), data);
- 
--- 
-2.7.4
+TkFLLCB0aGlzIHBhdGNoIGlzIG5vdCBuZWVkZWQgY3VycmVudGx5DQoNCjEsIEJlY2F1c2UgVERS
+IGZlYXR1cmUgaXMgc3RpbGwgdW5kZXJnb2luZywgc28gYWxsIHBhdGNoZXMgcmVsYXRlZCB3aXRo
+IFREUiBzaG91bGQgcGVuZGluZyBub3cNCjIsIEkgZG9uJ3QgdGhpbmsgdGhpcyBpcyBuZWVkZWQs
+IEBQaXhlbCBjYW4geW91IGdldCB0aGUgbGF0ZXN0IGFtZC1zdGFnaW5nLTQuOSBkcml2ZXIgYW5k
+IHRyeSBpdCwgc2VlIGlmIHRoZSAidm0gZmF1bHQiIGR1cGxpY2F0ZWQgd2l0aG91dCB0aGlzIHBh
+dGNoPyAgQmVjYXVzZSBJIHJlbWVtYmVyIG5vIHN1Y2ggaXNzdWUgSW4gc3RhZ2luZyBkcml2ZXIg
+DQoNCkJSIE1vbmsNCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IGFtZC1nZngg
+W21haWx0bzphbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnXSBPbiBCZWhhbGYg
+T2YgWGlhbmdsaWFuZyBZdQ0KU2VudDogVGh1cnNkYXksIE1heSAwNCwgMjAxNyAyOjM0IFBNDQpU
+bzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCkNjOiBEaW5nLCBQaXhlbCA8UGl4ZWwu
+RGluZ0BhbWQuY29tPjsgWXUsIFhpYW5nbGlhbmcgPFhpYW5nbGlhbmcuWXVAYW1kLmNvbT4NClN1
+YmplY3Q6IFtQQVRDSCAyLzZdIGRybS9hbWRncHU6IHJlc2V0IEdEVywgR1dTIGFuZCBPQSBzb2Z0
+d2FyZSBjb3B5IHRvIHVwZGF0ZSB0aGVtDQoNCkZyb206IFBpeGVsIERpbmcgPFBpeGVsLkRpbmdA
+YW1kLmNvbT4NCg0KUmVzZXQgR0RXLCBHV1MgYW5kIE9BIHdoZW4gU1JJT1YgZG8gcmVzZXQuDQoN
+ClNpZ25lZC1vZmYtYnk6IFBpeGVsIERpbmcgPFBpeGVsLkRpbmdAYW1kLmNvbT4NClNpZ25lZC1v
+ZmYtYnk6IFhpYW5nbGlhbmcgWXUgPFhpYW5nbGlhbmcuWXVAYW1kLmNvbT4NCi0tLQ0KIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8IDEwICsrKysrKysrKy0NCiAx
+IGZpbGUgY2hhbmdlZCwgOSBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pDQoNCmRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCmluZGV4IGFlZjIwMTkuLmYxMTI0
+MWQgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNl
+LmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYw0KQEAg
+LTI1MzgsNyArMjUzOCw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3JlY292ZXJfdnJhbV9mcm9tX3No
+YWRvdyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCiAgKi8NCiBpbnQgYW1kZ3B1X3NyaW92
+X2dwdV9yZXNldChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgYm9vbCB2b2x1bnRhcnkpICB7
+DQotCWludCBpLCByID0gMDsNCisJaW50IGksIGosIHIgPSAwOw0KIAlpbnQgcmVzY2hlZDsNCiAJ
+c3RydWN0IGFtZGdwdV9ibyAqYm8sICp0bXA7DQogCXN0cnVjdCBhbWRncHVfcmluZyAqcmluZzsN
+CkBAIC0yNjE2LDYgKzI2MTYsMTQgQEAgaW50IGFtZGdwdV9zcmlvdl9ncHVfcmVzZXQoc3RydWN0
+IGFtZGdwdV9kZXZpY2UgKmFkZXYsIGJvb2wgdm9sdW50YXJ5KQ0KIAl9DQogCWZlbmNlX3B1dChm
+ZW5jZSk7DQogDQorCWZvciAoaSA9IDA7IGkgPCBBTURHUFVfTUFYX1ZNSFVCUzsgaSsrKSB7DQor
+CQlzdHJ1Y3QgYW1kZ3B1X3ZtX2lkX21hbmFnZXIgKmlkX21nciA9DQorCQkJJmFkZXYtPnZtX21h
+bmFnZXIuaWRfbWdyW2ldOw0KKw0KKwkJZm9yIChqID0gMTsgaiA8IGlkX21nci0+bnVtX2lkczsg
+aisrKQ0KKwkJCWFtZGdwdV92bV9yZXNldF9pZChhZGV2LCBpLCBqKTsNCisJfQ0KKw0KIAlmb3Ig
+KGkgPSAwOyBpIDwgQU1ER1BVX01BWF9SSU5HUzsgKytpKSB7DQogCQlzdHJ1Y3QgYW1kZ3B1X3Jp
+bmcgKnJpbmcgPSBhZGV2LT5yaW5nc1tpXTsNCiAJCWlmICghcmluZyB8fCAhcmluZy0+c2NoZWQu
+dGhyZWFkKQ0KLS0NCjIuNy40DQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fDQphbWQtZ2Z4IG1haWxpbmcgbGlzdA0KYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcNCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+YW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
+Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
