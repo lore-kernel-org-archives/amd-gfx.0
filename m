@@ -1,48 +1,175 @@
-From: Xiangliang Yu <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 6/6] drm/amdgpu: clean doorbell after sending init table to
- mmsch
-Date: Thu, 4 May 2017 14:37:33 +0800
-Message-ID: <1493879853-27106-1-git-send-email-Xiangliang.Yu@amd.com>
+From: Guenter Roeck <linux@roeck-us.net>
+Subject: [PATCH] drm/amdgpu: Use less generic enum definitions
+Date: Wed,  3 May 2017 23:49:18 -0700
+Message-ID: <1493880558-445-1-git-send-email-linux@roeck-us.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Xiangliang Yu <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>, Frank Min <Frank.Min-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Guenter Roeck <linux@roeck-us.net>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogRnJhbmsgTWluIDxGcmFuay5NaW5AYW1kLmNvbT4KCkFjY29yZGluZyB0byBIVyBkZXNp
-Z24sIG5lZWQgdG8gY2xlYW4gZG9vcmJlbGwgYWZ0ZXIgc2V0dXAgTU1TQ0gKdGFibGUuCgpTaWdu
-ZWQtb2ZmLWJ5OiBGcmFuayBNaW4gPEZyYW5rLk1pbkBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBY
-aWFuZ2xpYW5nIFl1IDxYaWFuZ2xpYW5nLll1QGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvdXZkX3Y3XzAuYyB8IDEgKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-dmNlX3Y0XzAuYyB8IDEgKwogMiBmaWxlcyBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKykKCmRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjdfMC5jIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvdXZkX3Y3XzAuYwppbmRleCA2ZTkzNTlkLi44YWYyOTIxIDEwMDY0
-NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjdfMC5jCisrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3V2ZF92N18wLmMKQEAgLTY5Niw2ICs2OTYsNyBAQCBzdGF0
-aWMgaW50IHV2ZF92N18wX21tc2NoX3N0YXJ0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAog
-CQlkZXZfZXJyKGFkZXYtPmRldiwgImZhaWxlZCB0byBpbml0IE1NU0NILCBtbVZDRV9NTVNDSF9W
-Rl9NQUlMQk9YX1JFU1AgPSAleFxuIiwgZGF0YSk7CiAJCXJldHVybiAtRUJVU1k7CiAJfQorCVdE
-T09SQkVMTDMyKGFkZXYtPnV2ZC5yaW5nX2VuY1swXS5kb29yYmVsbF9pbmRleCwgMCk7CiAKIAly
-ZXR1cm4gMDsKIH0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92
-NF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y2VfdjRfMC5jCmluZGV4IDY2MWY4
-ODMuLjlmNzNjYzEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92
-NF8wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNlX3Y0XzAuYwpAQCAtMTkw
-LDYgKzE5MCw3IEBAIHN0YXRpYyBpbnQgdmNlX3Y0XzBfbW1zY2hfc3RhcnQoc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmFkZXYsCiAJCWRldl9lcnIoYWRldi0+ZGV2LCAiZmFpbGVkIHRvIGluaXQgTU1T
-Q0gsIG1tVkNFX01NU0NIX1ZGX01BSUxCT1hfUkVTUCA9ICV4XG4iLCBkYXRhKTsKIAkJcmV0dXJu
-IC1FQlVTWTsKIAl9CisJV0RPT1JCRUxMMzIoYWRldi0+dmNlLnJpbmdbMF0uZG9vcmJlbGxfaW5k
-ZXgsIDApOwogCiAJcmV0dXJuIDA7CiB9Ci0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4Cg==
+alpha:allmodconfig fails to build as follows.
+
+drivers/gpu/drm/amd/amdgpu/amdgpu.h:1006:2: error:
+	expected identifier before '(' token
+drivers/gpu/drm/amd/amdgpu/amdgpu.h:1011:28: error:
+	'NGG_BUF_MAX' undeclared here
+
+The problem is not really the enum definition of NGG_BUF_MAX but PARAM,
+which happens to be defined differently for alpha and a couple of other
+architectures.
+
+Use less generic defines for NGG enums to solve the problem.
+
+Fixes: bce23e00f3369 ("drm/amdgpu: add NGG parameters")
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+---
+Another option would be to blacklist all affected architectures.
+AFAICS that would currently be alpha, m32r, and sh.
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  8 ++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c |  8 ++++----
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 28 ++++++++++++++--------------
+ 3 files changed, 22 insertions(+), 22 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 6a8129949333..40f1195136a8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1000,10 +1000,10 @@ struct amdgpu_ngg_buf {
+ };
+ 
+ enum {
+-	PRIM = 0,
+-	POS,
+-	CNTL,
+-	PARAM,
++	NGG_PRIM = 0,
++	NGG_POS,
++	NGG_CNTL,
++	NGG_PARAM,
+ 	NGG_BUF_MAX
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index 832be632478f..4abf2e924cd5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -545,10 +545,10 @@ static int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file
+ 			adev->gfx.config.double_offchip_lds_buf;
+ 
+ 		if (amdgpu_ngg) {
+-			dev_info.prim_buf_gpu_addr = adev->gfx.ngg.buf[PRIM].gpu_addr;
+-			dev_info.pos_buf_gpu_addr = adev->gfx.ngg.buf[POS].gpu_addr;
+-			dev_info.cntl_sb_buf_gpu_addr = adev->gfx.ngg.buf[CNTL].gpu_addr;
+-			dev_info.param_buf_gpu_addr = adev->gfx.ngg.buf[PARAM].gpu_addr;
++			dev_info.prim_buf_gpu_addr = adev->gfx.ngg.buf[NGG_PRIM].gpu_addr;
++			dev_info.pos_buf_gpu_addr = adev->gfx.ngg.buf[NGG_POS].gpu_addr;
++			dev_info.cntl_sb_buf_gpu_addr = adev->gfx.ngg.buf[NGG_CNTL].gpu_addr;
++			dev_info.param_buf_gpu_addr = adev->gfx.ngg.buf[NGG_PARAM].gpu_addr;
+ 		}
+ 
+ 		return copy_to_user(out, &dev_info,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index a447b70841c9..a95e79dd3e3e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -888,7 +888,7 @@ static int gfx_v9_0_ngg_init(struct amdgpu_device *adev)
+ 	adev->gfx.ngg.gds_reserve_addr += adev->gds.mem.gfx_partition_size;
+ 
+ 	/* Primitive Buffer */
+-	r = gfx_v9_0_ngg_create_buf(adev, &adev->gfx.ngg.buf[PRIM],
++	r = gfx_v9_0_ngg_create_buf(adev, &adev->gfx.ngg.buf[NGG_PRIM],
+ 				    amdgpu_prim_buf_per_se,
+ 				    64 * 1024);
+ 	if (r) {
+@@ -897,7 +897,7 @@ static int gfx_v9_0_ngg_init(struct amdgpu_device *adev)
+ 	}
+ 
+ 	/* Position Buffer */
+-	r = gfx_v9_0_ngg_create_buf(adev, &adev->gfx.ngg.buf[POS],
++	r = gfx_v9_0_ngg_create_buf(adev, &adev->gfx.ngg.buf[NGG_POS],
+ 				    amdgpu_pos_buf_per_se,
+ 				    256 * 1024);
+ 	if (r) {
+@@ -906,7 +906,7 @@ static int gfx_v9_0_ngg_init(struct amdgpu_device *adev)
+ 	}
+ 
+ 	/* Control Sideband */
+-	r = gfx_v9_0_ngg_create_buf(adev, &adev->gfx.ngg.buf[CNTL],
++	r = gfx_v9_0_ngg_create_buf(adev, &adev->gfx.ngg.buf[NGG_CNTL],
+ 				    amdgpu_cntl_sb_buf_per_se,
+ 				    256);
+ 	if (r) {
+@@ -918,7 +918,7 @@ static int gfx_v9_0_ngg_init(struct amdgpu_device *adev)
+ 	if (amdgpu_param_buf_per_se <= 0)
+ 		goto out;
+ 
+-	r = gfx_v9_0_ngg_create_buf(adev, &adev->gfx.ngg.buf[PARAM],
++	r = gfx_v9_0_ngg_create_buf(adev, &adev->gfx.ngg.buf[NGG_PARAM],
+ 				    amdgpu_param_buf_per_se,
+ 				    512 * 1024);
+ 	if (r) {
+@@ -947,45 +947,45 @@ static int gfx_v9_0_ngg_en(struct amdgpu_device *adev)
+ 
+ 	/* Program buffer size */
+ 	data = 0;
+-	size = adev->gfx.ngg.buf[PRIM].size / 256;
++	size = adev->gfx.ngg.buf[NGG_PRIM].size / 256;
+ 	data = REG_SET_FIELD(data, WD_BUF_RESOURCE_1, INDEX_BUF_SIZE, size);
+ 
+-	size = adev->gfx.ngg.buf[POS].size / 256;
++	size = adev->gfx.ngg.buf[NGG_POS].size / 256;
+ 	data = REG_SET_FIELD(data, WD_BUF_RESOURCE_1, POS_BUF_SIZE, size);
+ 
+ 	WREG32(SOC15_REG_OFFSET(GC, 0, mmWD_BUF_RESOURCE_1), data);
+ 
+ 	data = 0;
+-	size = adev->gfx.ngg.buf[CNTL].size / 256;
++	size = adev->gfx.ngg.buf[NGG_CNTL].size / 256;
+ 	data = REG_SET_FIELD(data, WD_BUF_RESOURCE_2, CNTL_SB_BUF_SIZE, size);
+ 
+-	size = adev->gfx.ngg.buf[PARAM].size / 1024;
++	size = adev->gfx.ngg.buf[NGG_PARAM].size / 1024;
+ 	data = REG_SET_FIELD(data, WD_BUF_RESOURCE_2, PARAM_BUF_SIZE, size);
+ 
+ 	WREG32(SOC15_REG_OFFSET(GC, 0, mmWD_BUF_RESOURCE_2), data);
+ 
+ 	/* Program buffer base address */
+-	base = lower_32_bits(adev->gfx.ngg.buf[PRIM].gpu_addr);
++	base = lower_32_bits(adev->gfx.ngg.buf[NGG_PRIM].gpu_addr);
+ 	data = REG_SET_FIELD(0, WD_INDEX_BUF_BASE, BASE, base);
+ 	WREG32(SOC15_REG_OFFSET(GC, 0, mmWD_INDEX_BUF_BASE), data);
+ 
+-	base = upper_32_bits(adev->gfx.ngg.buf[PRIM].gpu_addr);
++	base = upper_32_bits(adev->gfx.ngg.buf[NGG_PRIM].gpu_addr);
+ 	data = REG_SET_FIELD(0, WD_INDEX_BUF_BASE_HI, BASE_HI, base);
+ 	WREG32(SOC15_REG_OFFSET(GC, 0, mmWD_INDEX_BUF_BASE_HI), data);
+ 
+-	base = lower_32_bits(adev->gfx.ngg.buf[POS].gpu_addr);
++	base = lower_32_bits(adev->gfx.ngg.buf[NGG_POS].gpu_addr);
+ 	data = REG_SET_FIELD(0, WD_POS_BUF_BASE, BASE, base);
+ 	WREG32(SOC15_REG_OFFSET(GC, 0, mmWD_POS_BUF_BASE), data);
+ 
+-	base = upper_32_bits(adev->gfx.ngg.buf[POS].gpu_addr);
++	base = upper_32_bits(adev->gfx.ngg.buf[NGG_POS].gpu_addr);
+ 	data = REG_SET_FIELD(0, WD_POS_BUF_BASE_HI, BASE_HI, base);
+ 	WREG32(SOC15_REG_OFFSET(GC, 0, mmWD_POS_BUF_BASE_HI), data);
+ 
+-	base = lower_32_bits(adev->gfx.ngg.buf[CNTL].gpu_addr);
++	base = lower_32_bits(adev->gfx.ngg.buf[NGG_CNTL].gpu_addr);
+ 	data = REG_SET_FIELD(0, WD_CNTL_SB_BUF_BASE, BASE, base);
+ 	WREG32(SOC15_REG_OFFSET(GC, 0, mmWD_CNTL_SB_BUF_BASE), data);
+ 
+-	base = upper_32_bits(adev->gfx.ngg.buf[CNTL].gpu_addr);
++	base = upper_32_bits(adev->gfx.ngg.buf[NGG_CNTL].gpu_addr);
+ 	data = REG_SET_FIELD(0, WD_CNTL_SB_BUF_BASE_HI, BASE_HI, base);
+ 	WREG32(SOC15_REG_OFFSET(GC, 0, mmWD_CNTL_SB_BUF_BASE_HI), data);
+ 
+-- 
+2.7.4
