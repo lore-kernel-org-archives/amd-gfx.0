@@ -1,58 +1,63 @@
-From: Nikola Pajkovsky <npajkovsky@suse.cz>
-Subject: Re: [RFC] drm/amd/amdgpu: get rid of else branch
-Date: Thu, 04 May 2017 14:57:26 +0200
-Message-ID: <87efw47pah.fsf@suse.cz>
-References: <c9e022e344770c861714615c6386d1821e2fa0a5.1493307341.git.npajkovsky@suse.cz>
-        <6ce3044b-9473-94eb-e54c-e8e856f1c88f@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/amdgpu: get rid of else branch
+Date: Thu, 4 May 2017 15:14:36 +0200
+Message-ID: <6e2bf24d-ece1-7afa-2b33-fecd0eea7550@amd.com>
+References: <5a3557799269f0c74694a10a5ee6a6427e2a4290.1493902309.git.npajkovsky@suse.cz>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8BIT
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <6ce3044b-9473-94eb-e54c-e8e856f1c88f@amd.com> ("Christian
-        =?utf-8?Q?K=C3=B6nig=22's?= message of "Fri, 28 Apr 2017 10:30:49 +0200")
-Sender: linux-kernel-owner@vger.kernel.org
-To: Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: linux-kernel@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <5a3557799269f0c74694a10a5ee6a6427e2a4290.1493902309.git.npajkovsky-AlSwsSmVLrQ@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Nikola Pajkovsky <npajkovsky-AlSwsSmVLrQ@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-Christian König <christian.koenig@amd.com> writes:
-
-> Am 27.04.2017 um 18:17 schrieb Nikola Pajkovsky:
->> This is super simple elimination of else branch and I should
->> probably even use unlikely in
->>
->>   	if (ring->count_dw < count_dw) {
->>
->> However, amdgpu_ring_write() has similar if condition, but does not
->> return after DRM_ERROR and it looks suspicious. On error, we still
->> adding v to ring and keeping count_dw-- below zero.
->>
->> 	if (ring->count_dw <= 0)
->> 		DRM_ERROR("amdgpu: writing more dwords to the ring than expected!\n");
->> 	ring->ring[ring->wptr++] = v;
->> 	ring->wptr &= ring->ptr_mask;
->> 	ring->count_dw--;
->>
->> I can obviously be totaly wrong. Hmm?
->
-> That's just choosing the lesser evil.
->
-> When we write more DW to the ring than expected it is possible (but
-> not likely) that we override stuff on the ring buffer which is still
-> executed by the command processor leading to a possible CP crash.
->
-> But when we completely drop the write the commands in the ring buffer
-> will certainly be invalid and so the CP will certainly crash sooner or
-> later.
-
-Instead of choosing the lesser evil, is there good way to design ring
-buffer right way?
-
-> Please add the unlikely() as well and then send out the patch with a
-> signed-of-by line and I will be happy to push it into our upstream
-> branch.
-
-Proper patch has been sent.
-
--- 
-Nikola
+QW0gMDQuMDUuMjAxNyB1bSAxNDo1MiBzY2hyaWViIE5pa29sYSBQYWprb3Zza3k6Cj4gZWxzZSBi
+cmFuY2ggaXMgcG9pbnRsZXNzIGlmIGl0J3MgcmlnaHQgYXQgdGhlIGVuZCBvZiBmdW5jdGlvbiBh
+bmQgdXNlCj4gdW5saWtlbHkoKSBvbiBlcnIgcGF0aC4KPgo+IFNpZ25lZC1vZmYtYnk6IE5pa29s
+YSBQYWprb3Zza3kgPG5wYWprb3Zza3lAc3VzZS5jej4KClJldmlld2VkLWJ5OiBDaHJpc3RpYW4g
+S8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cgo+IC0tLQo+ICAgZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggfCA0NSArKysrKysrKysrKysrKysrKysrLS0tLS0tLS0t
+LS0tLS0tLS0tCj4gICAxIGZpbGUgY2hhbmdlZCwgMjMgaW5zZXJ0aW9ucygrKSwgMjIgZGVsZXRp
+b25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAo+IGluZGV4IGMxYjkxMzU0
+MTczOS4uOGFiMjUwZDQ3NjFhIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdS5oCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgK
+PiBAQCAtMTU5NCwzMCArMTU5NCwzMSBAQCBzdGF0aWMgaW5saW5lIHZvaWQgYW1kZ3B1X3Jpbmdf
+d3JpdGVfbXVsdGlwbGUoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCB2b2lkICpzcgo+ICAgCXVu
+c2lnbmVkIG9jY3VwaWVkLCBjaHVuazEsIGNodW5rMjsKPiAgIAl2b2lkICpkc3Q7Cj4gICAKPiAt
+CWlmIChyaW5nLT5jb3VudF9kdyA8IGNvdW50X2R3KSB7Cj4gKwlpZiAodW5saWtlbHkocmluZy0+
+Y291bnRfZHcgPCBjb3VudF9kdykpIHsKPiAgIAkJRFJNX0VSUk9SKCJhbWRncHU6IHdyaXRpbmcg
+bW9yZSBkd29yZHMgdG8gdGhlIHJpbmcgdGhhbiBleHBlY3RlZCFcbiIpOwo+IC0JfSBlbHNlIHsK
+PiAtCQlvY2N1cGllZCA9IHJpbmctPndwdHIgJiByaW5nLT5wdHJfbWFzazsKPiAtCQlkc3QgPSAo
+dm9pZCAqKSZyaW5nLT5yaW5nW29jY3VwaWVkXTsKPiAtCQljaHVuazEgPSByaW5nLT5wdHJfbWFz
+ayArIDEgLSBvY2N1cGllZDsKPiAtCQljaHVuazEgPSAoY2h1bmsxID49IGNvdW50X2R3KSA/IGNv
+dW50X2R3OiBjaHVuazE7Cj4gLQkJY2h1bmsyID0gY291bnRfZHcgLSBjaHVuazE7Cj4gLQkJY2h1
+bmsxIDw8PSAyOwo+IC0JCWNodW5rMiA8PD0gMjsKPiAtCj4gLQkJaWYgKGNodW5rMSkKPiAtCQkJ
+bWVtY3B5KGRzdCwgc3JjLCBjaHVuazEpOwo+IC0KPiAtCQlpZiAoY2h1bmsyKSB7Cj4gLQkJCXNy
+YyArPSBjaHVuazE7Cj4gLQkJCWRzdCA9ICh2b2lkICopcmluZy0+cmluZzsKPiAtCQkJbWVtY3B5
+KGRzdCwgc3JjLCBjaHVuazIpOwo+IC0JCX0KPiAtCj4gLQkJcmluZy0+d3B0ciArPSBjb3VudF9k
+dzsKPiAtCQlyaW5nLT53cHRyICY9IHJpbmctPnB0cl9tYXNrOwo+IC0JCXJpbmctPmNvdW50X2R3
+IC09IGNvdW50X2R3Owo+ICsJCXJldHVybjsKPiAgIAl9Cj4gKwo+ICsJb2NjdXBpZWQgPSByaW5n
+LT53cHRyICYgcmluZy0+cHRyX21hc2s7Cj4gKwlkc3QgPSAodm9pZCAqKSZyaW5nLT5yaW5nW29j
+Y3VwaWVkXTsKPiArCWNodW5rMSA9IHJpbmctPnB0cl9tYXNrICsgMSAtIG9jY3VwaWVkOwo+ICsJ
+Y2h1bmsxID0gKGNodW5rMSA+PSBjb3VudF9kdykgPyBjb3VudF9kdzogY2h1bmsxOwo+ICsJY2h1
+bmsyID0gY291bnRfZHcgLSBjaHVuazE7Cj4gKwljaHVuazEgPDw9IDI7Cj4gKwljaHVuazIgPDw9
+IDI7Cj4gKwo+ICsJaWYgKGNodW5rMSkKPiArCQltZW1jcHkoZHN0LCBzcmMsIGNodW5rMSk7Cj4g
+Kwo+ICsJaWYgKGNodW5rMikgewo+ICsJCXNyYyArPSBjaHVuazE7Cj4gKwkJZHN0ID0gKHZvaWQg
+KilyaW5nLT5yaW5nOwo+ICsJCW1lbWNweShkc3QsIHNyYywgY2h1bmsyKTsKPiArCX0KPiArCj4g
+KwlyaW5nLT53cHRyICs9IGNvdW50X2R3Owo+ICsJcmluZy0+d3B0ciAmPSByaW5nLT5wdHJfbWFz
+azsKPiArCXJpbmctPmNvdW50X2R3IC09IGNvdW50X2R3Owo+ICAgfQo+ICAgCj4gICBzdGF0aWMg
+aW5saW5lIHN0cnVjdCBhbWRncHVfc2RtYV9pbnN0YW5jZSAqCgoKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
