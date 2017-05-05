@@ -1,14 +1,14 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: fix ring0 failed on firepro card
-Date: Fri, 5 May 2017 14:06:36 +0200
-Message-ID: <096eed26-98f7-d99a-df6e-47d187f2ad7b@vodafone.de>
-References: <1493966737-14621-1-git-send-email-David1.Zhou@amd.com>
- <MWHPR1201MB0127C917F4B4A02CF4B4318BFDEB0@MWHPR1201MB0127.namprd12.prod.outlook.com>
+From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: Fw: [PATCH 2/5] drm/amdgpu: refine pwm1_enable call back functions.
+Date: Fri, 5 May 2017 12:42:57 +0000
+Message-ID: <CY4PR12MB1687EE2BE8CF419165628D47FBEB0@CY4PR12MB1687.namprd12.prod.outlook.com>
+References: <1493978213-19943-1-git-send-email-Rex.Zhu@amd.com>,
+ <1493978213-19943-2-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1713283277=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MWHPR1201MB0127C917F4B4A02CF4B4318BFDEB0-3iK1xFAIwjq9imrIu4W8xGrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
+In-Reply-To: <1493978213-19943-2-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,83 +19,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "He, Hongbo" <Hongbo.He-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
-V2Ugc2hvdWxkIHJlYWxseSBpbXByb3ZlIHRoZSBvcmRlciBpbiB3aGljaCBibG9ja3MgYXJlIGhh
-bmRsZWQuCgpIYXZpbmcgYWxsIHRoaXMgc3BlY2lhbCBvcmRlciBoYW5kbGluZyBpbiBhbWRncHVf
-ZGV2aWNlLmMgYW5kIGZvciBTUklPViAKaXMgcmVhbGx5IG5vdCBhIGdvb2QgaWRlYS4KCkFueXdh
-eSwgcGF0Y2ggaXMgQWNrZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdA
-YW1kLmNvbT4gCmZvciBub3cuCgpSZWdhcmRzLApDaHJpc3RpYW4uCgpBbSAwNS4wNS4yMDE3IHVt
-IDA5OjQ2IHNjaHJpZWIgSGUsIEhvbmdibzoKPiBMb29rcyBmaW5lIHRvIG1lLCBSZXZpZXdlZC1i
-eTogUm9nZXIuSGUgPEhvbmdiby5IZUBhbWQuY29tPgo+Cj4gQlRXLCAgSSBoYXZlIG5vdGljZWQg
-IFNSSU9WIGhhcyBtb3JlIElQIHJlc3VtZSBpbiBmaXJzdCBwaGFzZSwgbWF5YmUgYWxzbyBuZWVk
-ZWQgZm9yIGJhcmUgbWV0YWwgZm9yIG90aGVyIEFTSUMuCj4KPiBUaGFua3MKPiBSb2dlcihIb25n
-Ym8uSGUpCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPiBGcm9tOiBhbWQtZ2Z4IFttYWls
-dG86YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmIE9mIENo
-dW5taW5nIFpob3UKPiBTZW50OiBGcmlkYXksIE1heSAwNSwgMjAxNyAyOjQ2IFBNCj4gVG86IGFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gQ2M6IFpob3UsIERhdmlkKENodW5NaW5nKQo+
-IFN1YmplY3Q6IFtQQVRDSCAxLzJdIGRybS9hbWRncHU6IGZpeCByaW5nMCBmYWlsZWQgb24gZmly
-ZXBybyBjYXJkCj4KPiB0aGUgcm9vdCBjYXVzZSBpcyB2cmFtIGNvbnRlbnQgaXMgbG9zdCBjb21w
-bGV0ZWx5IGFmdGVyIHBjaSByZXNldC4KPgo+IENoYW5nZS1JZDogSTAxMmNlYTk4NDcwMjg5NDQx
-MGIwZjA1MTQ5ZmQwMTdiYjYyYjYyNGMKPiBTaWduZWQtb2ZmLWJ5OiBDaHVubWluZyBaaG91IDxE
-YXZpZDEuWmhvdUBhbWQuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X2RldmljZS5jIHwgNTcgKysrKysrKysrKysrKysrKysrKysrKysrKystLS0tCj4gICAx
-IGZpbGUgY2hhbmdlZCwgNTAgaW5zZXJ0aW9ucygrKSwgNyBkZWxldGlvbnMoLSkKPgo+IGRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPiBpbmRleCA4YTc1MzI3Li5i
-NDRlY2RiIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
-ZXZpY2UuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2Uu
-Ywo+IEBAIC0xNzg3LDEzICsxNzg3LDQwIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3NyaW92X3JlaW5p
-dF9sYXRlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICAgCXJldHVybiAwOwo+ICAgfQo+
-ICAgCj4gLXN0YXRpYyBpbnQgYW1kZ3B1X3Jlc3VtZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-dikKPiArc3RhdGljIGludCBhbWRncHVfcmVzdW1lX3BoYXNlMShzdHJ1Y3QgYW1kZ3B1X2Rldmlj
-ZSAqYWRldikKPiAgIHsKPiAgIAlpbnQgaSwgcjsKPiAgIAo+ICAgCWZvciAoaSA9IDA7IGkgPCBh
-ZGV2LT5udW1faXBfYmxvY2tzOyBpKyspIHsKPiAgIAkJaWYgKCFhZGV2LT5pcF9ibG9ja3NbaV0u
-c3RhdHVzLnZhbGlkKQo+ICAgCQkJY29udGludWU7Cj4gKwkJaWYgKGFkZXYtPmlwX2Jsb2Nrc1tp
-XS52ZXJzaW9uLT50eXBlID09IEFNRF9JUF9CTE9DS19UWVBFX0NPTU1PTiB8fAo+ICsJCQkJYWRl
-di0+aXBfYmxvY2tzW2ldLnZlcnNpb24tPnR5cGUgPT0gQU1EX0lQX0JMT0NLX1RZUEVfR01DIHx8
-Cj4gKwkJCQlhZGV2LT5pcF9ibG9ja3NbaV0udmVyc2lvbi0+dHlwZSA9PQo+ICsJCQkJQU1EX0lQ
-X0JMT0NLX1RZUEVfSUgpIHsKPiArCQkJciA9IGFkZXYtPmlwX2Jsb2Nrc1tpXS52ZXJzaW9uLT5m
-dW5jcy0+cmVzdW1lKGFkZXYpOwo+ICsJCQlpZiAocikgewo+ICsJCQkJRFJNX0VSUk9SKCJyZXN1
-bWUgb2YgSVAgYmxvY2sgPCVzPiBmYWlsZWQgJWRcbiIsCj4gKwkJCQkJICBhZGV2LT5pcF9ibG9j
-a3NbaV0udmVyc2lvbi0+ZnVuY3MtPm5hbWUsIHIpOwo+ICsJCQkJcmV0dXJuIHI7Cj4gKwkJCX0K
-PiArCQl9Cj4gKwl9Cj4gKwo+ICsJcmV0dXJuIDA7Cj4gK30KPiArCj4gK3N0YXRpYyBpbnQgYW1k
-Z3B1X3Jlc3VtZV9waGFzZTIoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpIHsKPiArCWludCBp
-LCByOwo+ICsKPiArCWZvciAoaSA9IDA7IGkgPCBhZGV2LT5udW1faXBfYmxvY2tzOyBpKyspIHsK
-PiArCQlpZiAoIWFkZXYtPmlwX2Jsb2Nrc1tpXS5zdGF0dXMudmFsaWQpCj4gKwkJCWNvbnRpbnVl
-Owo+ICsJCWlmIChhZGV2LT5pcF9ibG9ja3NbaV0udmVyc2lvbi0+dHlwZSA9PSBBTURfSVBfQkxP
-Q0tfVFlQRV9DT01NT04gfHwKPiArCQkJCWFkZXYtPmlwX2Jsb2Nrc1tpXS52ZXJzaW9uLT50eXBl
-ID09IEFNRF9JUF9CTE9DS19UWVBFX0dNQyB8fAo+ICsJCQkJYWRldi0+aXBfYmxvY2tzW2ldLnZl
-cnNpb24tPnR5cGUgPT0gQU1EX0lQX0JMT0NLX1RZUEVfSUggKQo+ICsJCQljb250aW51ZTsKPiAg
-IAkJciA9IGFkZXYtPmlwX2Jsb2Nrc1tpXS52ZXJzaW9uLT5mdW5jcy0+cmVzdW1lKGFkZXYpOwo+
-ICAgCQlpZiAocikgewo+ICAgCQkJRFJNX0VSUk9SKCJyZXN1bWUgb2YgSVAgYmxvY2sgPCVzPiBm
-YWlsZWQgJWRcbiIsIEBAIC0xODA1LDYgKzE4MzIsMTggQEAgc3RhdGljIGludCBhbWRncHVfcmVz
-dW1lKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICAgCXJldHVybiAwOwo+ICAgfQo+ICAg
-Cj4gK3N0YXRpYyBpbnQgYW1kZ3B1X3Jlc3VtZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikg
-ewo+ICsJaW50IHI7Cj4gKwo+ICsJciA9IGFtZGdwdV9yZXN1bWVfcGhhc2UxKGFkZXYpOwo+ICsJ
-aWYgKHIpCj4gKwkJcmV0dXJuIHI7Cj4gKwlyID0gYW1kZ3B1X3Jlc3VtZV9waGFzZTIoYWRldik7
-Cj4gKwo+ICsJcmV0dXJuIHI7Cj4gK30KPiArCj4gICBzdGF0aWMgdm9pZCBhbWRncHVfZGV2aWNl
-X2RldGVjdF9zcmlvdl9iaW9zKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KSAgewo+ICAgCWlm
-IChhZGV2LT5pc19hdG9tX2Z3KSB7Cj4gQEAgLTI3MzAsMTYgKzI3NjksMjAgQEAgaW50IGFtZGdw
-dV9ncHVfcmVzZXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gICAKPiAgIAkJaWYgKCFy
-KSB7Cj4gICAJCQlkZXZfaW5mbyhhZGV2LT5kZXYsICJHUFUgcmVzZXQgc3VjY2VlZGVkLCB0cnlp
-bmcgdG8gcmVzdW1lXG4iKTsKPiAtCQkJciA9IGFtZGdwdV9yZXN1bWUoYWRldik7Cj4gKwkJCXIg
-PSBhbWRncHVfcmVzdW1lX3BoYXNlMShhZGV2KTsKPiArCQkJaWYgKHIpCj4gKwkJCQlnb3RvIG91
-dDsKPiArCQkJciA9IGFtZGdwdV90dG1fcmVjb3Zlcl9nYXJ0KGFkZXYpOwo+ICsJCQlpZiAocikK
-PiArCQkJCWdvdG8gb3V0Owo+ICsJCQlyID0gYW1kZ3B1X3Jlc3VtZV9waGFzZTIoYWRldik7Cj4g
-KwkJCWlmIChyKQo+ICsJCQkJZ290byBvdXQ7Cj4gICAJCX0KPiAgIAl9Cj4gK291dDoKPiAgIAlp
-ZiAoIXIpIHsKPiAgIAkJYW1kZ3B1X2lycV9ncHVfcmVzZXRfcmVzdW1lX2hlbHBlcihhZGV2KTsK
-PiAtCQlpZiAobmVlZF9mdWxsX3Jlc2V0ICYmIGFtZGdwdV9uZWVkX2JhY2t1cChhZGV2KSkgewo+
-IC0JCQlyID0gYW1kZ3B1X3R0bV9yZWNvdmVyX2dhcnQoYWRldik7Cj4gLQkJCWlmIChyKQo+IC0J
-CQkJRFJNX0VSUk9SKCJnYXJ0IHJlY292ZXJ5IGZhaWxlZCEhIVxuIik7Cj4gLQkJfQo+ICAgCQly
-ID0gYW1kZ3B1X2liX3JpbmdfdGVzdHMoYWRldik7Cj4gICAJCWlmIChyKSB7Cj4gICAJCQlkZXZf
-ZXJyKGFkZXYtPmRldiwgImliIHJpbmcgdGVzdCBmYWlsZWQgKCVkKS5cbiIsIHIpOwo+IC0tCj4g
-MS45LjEKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-Cj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+
-IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+
-IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAoKCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
-aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============1713283277==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB1687EE2BE8CF419165628D47FBEB0CY4PR12MB1687namp_"
+
+--_000_CY4PR12MB1687EE2BE8CF419165628D47FBEB0CY4PR12MB1687namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+
+Change-Id: Ie5fe90762f75497fab68b913874956bbeab11e72
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 12 ++----------
+ 1 file changed, 2 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
+mdgpu/amdgpu_pm.c
+index e00ed19..1d9d571 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+@@ -867,8 +867,7 @@ static ssize_t amdgpu_hwmon_get_pwm1_enable(struct devi=
+ce *dev,
+
+         pwm_mode =3D amdgpu_dpm_get_fan_control_mode(adev);
+
+-       /* never 0 (full-speed), fuse or smc-controlled always */
+-       return sprintf(buf, "%i\n", pwm_mode =3D=3D FDO_PWM_MODE_STATIC ? 1=
+ : 2);
++       return sprintf(buf, "%i\n", pwm_mode);
+ }
+
+ static ssize_t amdgpu_hwmon_set_pwm1_enable(struct device *dev,
+@@ -887,14 +886,7 @@ static ssize_t amdgpu_hwmon_set_pwm1_enable(struct dev=
+ice *dev,
+         if (err)
+                 return err;
+
+-       switch (value) {
+-       case 1: /* manual, percent-based */
+-               amdgpu_dpm_set_fan_control_mode(adev, FDO_PWM_MODE_STATIC);
+-               break;
+-       default: /* disable */
+-               amdgpu_dpm_set_fan_control_mode(adev, 0);
+-               break;
+-       }
++       amdgpu_dpm_set_fan_control_mode(adev, value);
+
+         return count;
+ }
+--
+1.9.1
+
+
+--_000_CY4PR12MB1687EE2BE8CF419165628D47FBEB0CY4PR12MB1687namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Arial,Helvetica,sans-serif;" dir=3D"ltr">
+<p><br>
+</p>
+<div style=3D"color: rgb(0, 0, 0);">
+<div>
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr">
+<div></div>
+</div>
+</div>
+<font size=3D"2"><span style=3D"font-size:10pt;">
+<div class=3D"PlainText">Change-Id: Ie5fe90762f75497fab68b913874956bbeab11e=
+72<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 12 &#43;&#43;----------<br>
+&nbsp;1 file changed, 2 insertions(&#43;), 10 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
+mdgpu/amdgpu_pm.c<br>
+index e00ed19..1d9d571 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
+@@ -867,8 &#43;867,7 @@ static ssize_t amdgpu_hwmon_get_pwm1_enable(struct =
+device *dev,<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pwm_mode =3D amdgpu_dpm_ge=
+t_fan_control_mode(adev);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* never 0 (full-speed), fuse or smc-=
+controlled always */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return sprintf(buf, &quot;%i\n&quot;,=
+ pwm_mode =3D=3D FDO_PWM_MODE_STATIC ? 1 : 2);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return sprintf(buf, &quot;%i\n&qu=
+ot;, pwm_mode);<br>
+&nbsp;}<br>
+&nbsp;<br>
+&nbsp;static ssize_t amdgpu_hwmon_set_pwm1_enable(struct device *dev,<br>
+@@ -887,14 &#43;886,7 @@ static ssize_t amdgpu_hwmon_set_pwm1_enable(struct=
+ device *dev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (err)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return err;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (value) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 1: /* manual, percent-based */<b=
+r>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_dpm_set_fan_control_mode(adev, FDO_PWM_MODE_STATIC);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; break;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default: /* disable */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_dpm_set_fan_control_mode(adev, 0);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; break;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_dpm_set_fan_control_mode(a=
+dev, value);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return count;<br>
+&nbsp;}<br>
+-- <br>
+1.9.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_CY4PR12MB1687EE2BE8CF419165628D47FBEB0CY4PR12MB1687namp_--
+
+--===============1713283277==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1713283277==--
