@@ -1,13 +1,14 @@
 From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: Fw: [PATCH 2/5] drm/amdgpu: refine pwm1_enable call back functions.
-Date: Fri, 5 May 2017 12:42:57 +0000
-Message-ID: <CY4PR12MB1687EE2BE8CF419165628D47FBEB0@CY4PR12MB1687.namprd12.prod.outlook.com>
+Subject: Fw: [PATCH 5/5] drm/amd/powerplay: refine pwm1_enable callback
+ functions on CI.
+Date: Fri, 5 May 2017 12:43:04 +0000
+Message-ID: <CY4PR12MB16874EC46858BE7390DB5D6FFBEB0@CY4PR12MB1687.namprd12.prod.outlook.com>
 References: <1493978213-19943-1-git-send-email-Rex.Zhu@amd.com>,
- <1493978213-19943-2-git-send-email-Rex.Zhu@amd.com>
+ <1493978213-19943-5-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1713283277=="
+Content-Type: multipart/mixed; boundary="===============0849771791=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1493978213-19943-2-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1493978213-19943-5-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,60 +23,81 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Cc: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
---===============1713283277==
+--===============0849771791==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB1687EE2BE8CF419165628D47FBEB0CY4PR12MB1687namp_"
+	boundary="_000_CY4PR12MB16874EC46858BE7390DB5D6FFBEB0CY4PR12MB1687namp_"
 
---_000_CY4PR12MB1687EE2BE8CF419165628D47FBEB0CY4PR12MB1687namp_
+--_000_CY4PR12MB16874EC46858BE7390DB5D6FFBEB0CY4PR12MB1687namp_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
 
-Change-Id: Ie5fe90762f75497fab68b913874956bbeab11e72
+Change-Id: Ieb05cfa95e4072357e18f631ab71780de0688008
+Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 12 ++----------
- 1 file changed, 2 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/ci_dpm.c | 27 +++++++++++++++------------
+ 1 file changed, 15 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_pm.c
-index e00ed19..1d9d571 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-@@ -867,8 +867,7 @@ static ssize_t amdgpu_hwmon_get_pwm1_enable(struct devi=
-ce *dev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/ci_dpm.c b/drivers/gpu/drm/amd/amdg=
+pu/ci_dpm.c
+index a6dda34..6dc1410 100644
+--- a/drivers/gpu/drm/amd/amdgpu/ci_dpm.c
++++ b/drivers/gpu/drm/amd/amdgpu/ci_dpm.c
+@@ -1267,30 +1267,33 @@ static int ci_dpm_set_fan_speed_percent(struct amdg=
+pu_device *adev,
 
-         pwm_mode =3D amdgpu_dpm_get_fan_control_mode(adev);
-
--       /* never 0 (full-speed), fuse or smc-controlled always */
--       return sprintf(buf, "%i\n", pwm_mode =3D=3D FDO_PWM_MODE_STATIC ? 1=
- : 2);
-+       return sprintf(buf, "%i\n", pwm_mode);
+ static void ci_dpm_set_fan_control_mode(struct amdgpu_device *adev, u32 mo=
+de)
+ {
+-       if (mode) {
+-               /* stop auto-manage */
++       switch (mode) {
++       case AMD_FAN_CTRL_NONE:
+                 if (adev->pm.dpm.fan.ucode_fan_control)
+                         ci_fan_ctrl_stop_smc_fan_control(adev);
+-               ci_fan_ctrl_set_static_mode(adev, mode);
+-       } else {
+-               /* restart auto-manage */
++               ci_dpm_set_fan_speed_percent(adev, 100);
++               break;
++       case AMD_FAN_CTRL_MANUAL:
++               if (adev->pm.dpm.fan.ucode_fan_control)
++                       ci_fan_ctrl_stop_smc_fan_control(adev);
++               break;
++       case AMD_FAN_CTRL_AUTO:
+                 if (adev->pm.dpm.fan.ucode_fan_control)
+                         ci_thermal_start_smc_fan_control(adev);
+-               else
+-                       ci_fan_ctrl_set_default_mode(adev);
++               break;
++       default:
++               break;
+         }
  }
 
- static ssize_t amdgpu_hwmon_set_pwm1_enable(struct device *dev,
-@@ -887,14 +886,7 @@ static ssize_t amdgpu_hwmon_set_pwm1_enable(struct dev=
-ice *dev,
-         if (err)
-                 return err;
+ static u32 ci_dpm_get_fan_control_mode(struct amdgpu_device *adev)
+ {
+         struct ci_power_info *pi =3D ci_get_pi(adev);
+-       u32 tmp;
 
--       switch (value) {
--       case 1: /* manual, percent-based */
--               amdgpu_dpm_set_fan_control_mode(adev, FDO_PWM_MODE_STATIC);
--               break;
--       default: /* disable */
--               amdgpu_dpm_set_fan_control_mode(adev, 0);
--               break;
--       }
-+       amdgpu_dpm_set_fan_control_mode(adev, value);
-
-         return count;
+         if (pi->fan_is_controlled_by_smc)
+-               return 0;
+-
+-       tmp =3D RREG32_SMC(ixCG_FDO_CTRL2) & CG_FDO_CTRL2__FDO_PWM_MODE_MAS=
+K;
+-       return (tmp >> CG_FDO_CTRL2__FDO_PWM_MODE__SHIFT);
++               return AMD_FAN_CTRL_AUTO;
++       else
++               return AMD_FAN_CTRL_MANUAL;
  }
+
+ #if 0
 --
 1.9.1
 
 
---_000_CY4PR12MB1687EE2BE8CF419165628D47FBEB0CY4PR12MB1687namp_
+--_000_CY4PR12MB16874EC46858BE7390DB5D6FFBEB0CY4PR12MB1687namp_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -98,56 +120,95 @@ n-bottom:0;} --></style>
 </div>
 </div>
 <font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">Change-Id: Ie5fe90762f75497fab68b913874956bbeab11e=
-72<br>
+<div class=3D"PlainText">Change-Id: Ieb05cfa95e4072357e18f631ab71780de06880=
+08<br>
+Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
 ---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 12 &#43;&#43;----------<br>
-&nbsp;1 file changed, 2 insertions(&#43;), 10 deletions(-)<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/ci_dpm.c | 27 &#43;&#43;&#43;&#43;&#43;&#4=
+3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;------------<br>
+&nbsp;1 file changed, 15 insertions(&#43;), 12 deletions(-)<br>
 <br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_pm.c<br>
-index e00ed19..1d9d571 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
-@@ -867,8 &#43;867,7 @@ static ssize_t amdgpu_hwmon_get_pwm1_enable(struct =
-device *dev,<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/ci_dpm.c b/drivers/gpu/drm/amd/amdg=
+pu/ci_dpm.c<br>
+index a6dda34..6dc1410 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/ci_dpm.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/ci_dpm.c<br>
+@@ -1267,30 &#43;1267,33 @@ static int ci_dpm_set_fan_speed_percent(struct =
+amdgpu_device *adev,<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pwm_mode =3D amdgpu_dpm_ge=
-t_fan_control_mode(adev);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* never 0 (full-speed), fuse or smc-=
-controlled always */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return sprintf(buf, &quot;%i\n&quot;,=
- pwm_mode =3D=3D FDO_PWM_MODE_STATIC ? 1 : 2);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return sprintf(buf, &quot;%i\n&qu=
-ot;, pwm_mode);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static ssize_t amdgpu_hwmon_set_pwm1_enable(struct device *dev,<br>
-@@ -887,14 &#43;886,7 @@ static ssize_t amdgpu_hwmon_set_pwm1_enable(struct=
- device *dev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (err)<br>
+&nbsp;static void ci_dpm_set_fan_control_mode(struct amdgpu_device *adev, u=
+32 mode)<br>
+&nbsp;{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (mode) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; /* stop auto-manage */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (mode) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMD_FAN_CTRL_NONE:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return err;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (value) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 1: /* manual, percent-based */<b=
-r>
+sp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.dpm.fan.ucode_fan_control)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ci_fa=
+n_ctrl_stop_smc_fan_control(adev);<br>
 -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_dpm_set_fan_control_mode(adev, FDO_PWM_MODE_STATIC);<br>
+bsp;&nbsp; ci_fan_ctrl_set_static_mode(adev, mode);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
 -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; break;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default: /* disable */<br>
+bsp;&nbsp; /* restart auto-manage */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; ci_dpm_set_fan_speed_percent(adev, 100);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; break;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMD_FAN_CTRL_MANUAL:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (adev-&gt;pm.dpm.fan.ucode_fan_control)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ci_fan_ctrl_=
+stop_smc_fan_control(adev);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; break;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMD_FAN_CTRL_AUTO:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.dpm.fan.ucode_fan_control)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ci_th=
+ermal_start_smc_fan_control(adev);<br>
 -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_dpm_set_fan_control_mode(adev, 0);<br>
+bsp;&nbsp; else<br>
 -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; break;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_dpm_set_fan_control_mode(a=
-dev, value);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return count;<br>
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ci_fan_ctrl_set_=
+default_mode(adev);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; break;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
 &nbsp;}<br>
+&nbsp;<br>
+&nbsp;static u32 ci_dpm_get_fan_control_mode(struct amdgpu_device *adev)<br=
+>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct ci_power_info *pi =
+=3D ci_get_pi(adev);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 tmp;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (pi-&gt;fan_is_controll=
+ed_by_smc)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return 0;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32_SMC(ixCG_FDO_CTRL2) &a=
+mp; CG_FDO_CTRL2__FDO_PWM_MODE_MASK;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (tmp &gt;&gt; CG_FDO_CTRL2__FD=
+O_PWM_MODE__SHIFT);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return AMD_FAN_CTRL_AUTO;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return AMD_FAN_CTRL_MANUAL;<br>
+&nbsp;}<br>
+&nbsp;<br>
+&nbsp;#if 0<br>
 -- <br>
 1.9.1<br>
 <br>
@@ -157,9 +218,9 @@ dev, value);<br>
 </body>
 </html>
 
---_000_CY4PR12MB1687EE2BE8CF419165628D47FBEB0CY4PR12MB1687namp_--
+--_000_CY4PR12MB16874EC46858BE7390DB5D6FFBEB0CY4PR12MB1687namp_--
 
---===============1713283277==
+--===============0849771791==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -169,4 +230,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1713283277==--
+--===============0849771791==--
