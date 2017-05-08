@@ -1,77 +1,58 @@
-From: "Gustavo A. R. Silva" <garsilva@embeddedor.com>
-Subject: [PATCH] gpu: drm: amd: amdgpu: remove dead code
-Date: Mon, 8 May 2017 11:41:13 -0500
-Message-ID: <20170508164113.GA9196@embeddedgus>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: fix errors in comments.
+Date: Mon, 8 May 2017 17:13:13 +0000
+Message-ID: <BN6PR12MB16524C82D106A7B8B086E044F7EE0@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <1494257533-11422-1-git-send-email-AlexBin.Xie@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Tom St Denis <tom.stdenis@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Monk Liu <Monk.Liu@amd.com>, Huang Rui <ray.huang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <garsilva@embeddedor.com>, Peter Senna Tschudin <peter.senna@gmail.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1494257533-11422-1-git-send-email-AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Xie, AlexBin" <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
 
-Local variable use_doorbell is assigned to a constant value and it is never
-updated again. Remove this variable and the dead code it guards.
-
-Addresses-Coverity-ID: 1401837
-Signed-off-by: Gustavo A. R. Silva <garsilva@embeddedor.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 20 ++++++--------------
- 1 file changed, 6 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-index 1f93545..27ea28f 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-@@ -2936,7 +2936,6 @@ static int gfx_v7_0_cp_compute_resume(struct amdgpu_device *adev)
- {
- 	int r, i, j;
- 	u32 tmp;
--	bool use_doorbell = true;
- 	u64 hqd_gpu_addr;
- 	u64 mqd_gpu_addr;
- 	u64 eop_gpu_addr;
-@@ -3034,10 +3033,7 @@ static int gfx_v7_0_cp_compute_resume(struct amdgpu_device *adev)
- 		/* enable doorbell? */
- 		mqd->queue_state.cp_hqd_pq_doorbell_control =
- 			RREG32(mmCP_HQD_PQ_DOORBELL_CONTROL);
--		if (use_doorbell)
--			mqd->queue_state.cp_hqd_pq_doorbell_control |= CP_HQD_PQ_DOORBELL_CONTROL__DOORBELL_EN_MASK;
--		else
--			mqd->queue_state.cp_hqd_pq_doorbell_control &= ~CP_HQD_PQ_DOORBELL_CONTROL__DOORBELL_EN_MASK;
-+		mqd->queue_state.cp_hqd_pq_doorbell_control |= CP_HQD_PQ_DOORBELL_CONTROL__DOORBELL_EN_MASK;
- 		WREG32(mmCP_HQD_PQ_DOORBELL_CONTROL,
- 		       mqd->queue_state.cp_hqd_pq_doorbell_control);
- 
-@@ -3116,23 +3112,19 @@ static int gfx_v7_0_cp_compute_resume(struct amdgpu_device *adev)
- 		       mqd->queue_state.cp_hqd_pq_rptr_report_addr_hi);
- 
- 		/* enable the doorbell if requested */
--		if (use_doorbell) {
--			mqd->queue_state.cp_hqd_pq_doorbell_control =
-+		mqd->queue_state.cp_hqd_pq_doorbell_control =
- 				RREG32(mmCP_HQD_PQ_DOORBELL_CONTROL);
--			mqd->queue_state.cp_hqd_pq_doorbell_control &=
-+		mqd->queue_state.cp_hqd_pq_doorbell_control &=
- 				~CP_HQD_PQ_DOORBELL_CONTROL__DOORBELL_OFFSET_MASK;
--			mqd->queue_state.cp_hqd_pq_doorbell_control |=
-+		mqd->queue_state.cp_hqd_pq_doorbell_control |=
- 				(ring->doorbell_index <<
- 				 CP_HQD_PQ_DOORBELL_CONTROL__DOORBELL_OFFSET__SHIFT);
--			mqd->queue_state.cp_hqd_pq_doorbell_control |=
-+		mqd->queue_state.cp_hqd_pq_doorbell_control |=
- 				CP_HQD_PQ_DOORBELL_CONTROL__DOORBELL_EN_MASK;
--			mqd->queue_state.cp_hqd_pq_doorbell_control &=
-+		mqd->queue_state.cp_hqd_pq_doorbell_control &=
- 				~(CP_HQD_PQ_DOORBELL_CONTROL__DOORBELL_SOURCE_MASK |
- 				CP_HQD_PQ_DOORBELL_CONTROL__DOORBELL_HIT_MASK);
- 
--		} else {
--			mqd->queue_state.cp_hqd_pq_doorbell_control = 0;
--		}
- 		WREG32(mmCP_HQD_PQ_DOORBELL_CONTROL,
- 		       mqd->queue_state.cp_hqd_pq_doorbell_control);
- 
--- 
-2.5.0
+DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogYW1kLWdmeCBbbWFpbHRv
+OmFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmddIE9uIEJlaGFsZg0KPiBPZiBB
+bGV4IFhpZQ0KPiBTZW50OiBNb25kYXksIE1heSAwOCwgMjAxNyAxMTozMiBBTQ0KPiBUbzogYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gQ2M6IFhpZSwgQWxleEJpbg0KPiBTdWJqZWN0
+OiBbUEFUQ0hdIGRybS9hbWRncHU6IGZpeCBlcnJvcnMgaW4gY29tbWVudHMuDQo+IA0KPiBTaWdu
+ZWQtb2ZmLWJ5OiBBbGV4IFhpZSA8QWxleEJpbi5YaWVAYW1kLmNvbT4NCg0KUmV2aWV3ZWQtYnk6
+IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4NCg0KPiAtLS0NCj4gIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8IDcgKysrLS0tLQ0KPiAg
+MSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMoLSkNCj4gDQo+IGRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4g
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4gaW5kZXggNjZi
+YjYwZS4uYWFiMzIwNiAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2RldmljZS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9kZXZpY2UuYw0KPiBAQCAtNDc5LDkgKzQ3OSw4IEBAIHZvaWQgYW1kZ3B1X2Rvb3JiZWxsX2dl
+dF9rZmRfaW5mbyhzdHJ1Y3QNCj4gYW1kZ3B1X2RldmljZSAqYWRldiwNCj4gDQo+ICAvKg0KPiAg
+ICogYW1kZ3B1X3diXyooKQ0KPiAtICogV3JpdGViYWNrIGlzIHRoZSB0aGUgbWV0aG9kIGJ5IHdo
+aWNoIHRoZSB0aGUgR1BVIHVwZGF0ZXMgc3BlY2lhbCBwYWdlcw0KPiAtICogaW4gbWVtb3J5IHdp
+dGggdGhlIHN0YXR1cyBvZiBjZXJ0YWluIEdQVSBldmVudHMgKGZlbmNlcywgcmluZyBwb2ludGVy
+cywNCj4gLSAqIGV0Yy4pLg0KPiArICogV3JpdGViYWNrIGlzIHRoZSBtZXRob2QgYnkgd2hpY2gg
+R1BVIHVwZGF0ZXMgc3BlY2lhbCBwYWdlcyBpbiBtZW1vcnkNCj4gKyAqIHdpdGggdGhlIHN0YXR1
+cyBvZiBjZXJ0YWluIEdQVSBldmVudHMgKGZlbmNlcywgcmluZyBwb2ludGVycyxldGMuKS4NCj4g
+ICAqLw0KPiANCj4gIC8qKg0KPiBAQCAtNTA3LDcgKzUwNiw3IEBAIHN0YXRpYyB2b2lkIGFtZGdw
+dV93Yl9maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlDQo+ICphZGV2KQ0KPiAgICoNCj4gICAqIEBh
+ZGV2OiBhbWRncHVfZGV2aWNlIHBvaW50ZXINCj4gICAqDQo+IC0gKiBEaXNhYmxlcyBXcml0ZWJh
+Y2sgYW5kIGZyZWVzIHRoZSBXcml0ZWJhY2sgbWVtb3J5IChhbGwgYXNpY3MpLg0KPiArICogSW5p
+dGlhbGl6ZSB3cml0ZWJhY2sgYW5kIGFsbG9jYXRlcyB3cml0ZWJhY2sgbWVtb3J5IChhbGwgYXNp
+Y3MpLg0KPiAgICogVXNlZCBhdCBkcml2ZXIgc3RhcnR1cC4NCj4gICAqIFJldHVybnMgMCBvbiBz
+dWNjZXNzIG9yIGFuIC1lcnJvciBvbiBmYWlsdXJlLg0KPiAgICovDQo+IC0tDQo+IDIuNy40DQo+
+IA0KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBh
+bWQtZ2Z4IG1haWxpbmcgbGlzdA0KPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBo
+dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
+bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
