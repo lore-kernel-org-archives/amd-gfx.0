@@ -1,125 +1,77 @@
-From: =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/gfx6: flush caches after IB with the correct
- vmid
-Date: Mon, 8 May 2017 18:13:54 +0200
-Message-ID: <ee600edc-d985-aa9c-1bce-3302e7903984@gmail.com>
-References: <20170508093025.9558-1-nhaehnle@gmail.com>
+From: "Gustavo A. R. Silva" <garsilva@embeddedor.com>
+Subject: [PATCH] gpu: drm: amd: amdgpu: remove dead code
+Date: Mon, 8 May 2017 11:41:13 -0500
+Message-ID: <20170508164113.GA9196@embeddedgus>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170508093025.9558-1-nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: =?UTF-8?Q?Nicolai_H=c3=a4hnle?= <nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Tom St Denis <tom.stdenis@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Monk Liu <Monk.Liu@amd.com>, Huang Rui <ray.huang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <garsilva@embeddedor.com>, Peter Senna Tschudin <peter.senna@gmail.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-VW5mb3J0dW5hdGVseSwgZnVydGhlciB0ZXN0aW5nIHNob3dzIHRoYXQgdGhpcyBkb2Vzbid0IGFj
-dHVhbGx5IGZpeCB0aGUgCnByb2JsZW0uIEZXSVcsIHRoYXQgdGVzdCBydW5zIHZlcnkgcmVsaWFi
-bHkgb24gU0kgd2l0aCB0aGUgcmFkZW9uIGRybSwgCmJ1dCB3aXRoIHRoZSBhbWRncHUgZHJtIGl0
-IGZhaWxzLiBWSSBpcyBmaW5lIG9uIGFtZGdwdSwgd2hpY2ggaXMgd2h5IEkgCndhcyBzZW50IGRv
-d24gdGhpcyByb2FkLgoKQW55d2F5LCBiYWNrIHRvIHRyeWluZyB0byBmaWd1cmUgdGhpcyBvdXQg
-Oi8KCkNoZWVycywKTmljb2xhaQoKT24gMDguMDUuMjAxNyAxMTozMCwgTmljb2xhaSBIw6Robmxl
-IHdyb3RlOgo+IEZyb206IE5pY29sYWkgSMOkaG5sZSA8bmljb2xhaS5oYWVobmxlQGFtZC5jb20+
-Cj4KPiBCcmluZyB0aGUgY29kZSBpbiBsaW5lIHdpdGggd2hhdCB0aGUgcmFkZW9uIG1vZHVsZSBk
-b2VzLgo+Cj4gV2l0aG91dCB0aGlzIGNoYW5nZSwgdGhlIGZlbmNlIGZvbGxvd2luZyB0aGUgSUIg
-bWF5IGJlIHNpZ25hbGxlZAo+IHRvIHRoZSBDUFUgZXZlbiB0aG91Z2ggc29tZSBkYXRhIHdyaXR0
-ZW4gYnkgc2hhZGVycyBtYXkgbm90IGhhdmUKPiBiZWVuIHdyaXR0ZW4gYmFjayB5ZXQuCj4KPiBU
-aGlzIGNoYW5nZSBmaXhlcyB0aGUgT3BlbkdMIENUUyB0ZXN0Cj4gR0w0NS1DVFMuZ3RmMzIuR0wz
-VGVzdHMucGFja2VkX3BpeGVscy5wYWNrZWRfcGl4ZWxzX3BibyBvbiBWZXJkZS4KPgo+IFNpZ25l
-ZC1vZmYtYnk6IE5pY29sYWkgSMOkaG5sZSA8bmljb2xhaS5oYWVobmxlQGFtZC5jb20+Cj4gLS0K
-PiBTbywgSSdtIG5vdCB0b28gZmFtaWxpYXIgd2l0aCB0aGUgZGV0YWlscyBvZiB0aGVzZSBzeW5j
-cywgYnV0IHRoZSByYWRlb24KPiBtb2R1bGUgZWZmZWN0aXZlbHkgZG9lczoKPgo+IC0gSUIKPiAt
-IFNVUkZBQ0VfU1lOQyAodm1faWQgb2YgSUIpCj4gLSBTVVJGQUNFX1NZTkMgKHZtX2lkID09IDAp
-Cj4gLSBFVkVOVF9XUklURV9FT1AgKGtlcm5lbCBmZW5jZSkKPgo+IFdoaWxlIGFtZGdwdSBub3cg
-ZG9lcyAod2l0aCB0aGlzIGNoYW5nZSk6Cj4KPiAtIElCCj4gLSBTVVJGQUNFX1NZTkMgKHZtX2lk
-IG9mIElCKSA8LS0gdGhpcyB3YXMgbWlzc2luZwo+IC0gU1VSRkFDRV9TWU5DICh2bV9pZCA9PSAw
-KQo+IC0gRVZFTlRfV1JJVEVfRU9QIChrZXJuZWwgZmVuY2UpCj4gLSBTVVJGQUNFX1NZTkMgKHZt
-X2lkID09IDApCj4gLSBFVkVOVF9XUklURV9FT1AgKHVzZXIgZmVuY2UpCj4KPiBJdCBzZWVtcyBs
-aWtlIGF0IGxlYXN0IHRoZSBzZWNvbmQgU1VSRkFDRV9TWU5DICh2bV9pZCA9PSAwKSBzaG91bGQg
-YmUKPiByZWR1bmRhbnQsIHNvIHRoZSBxdWVzdGlvbiBpcyB3aGV0aGVyIHRoZSBTVVJGQUNFX1NZ
-TkMgKHZtX2lkID09IDApCj4gc2hvdWxkIGJlIHJlYXJyYW5nZWQgc29tZWhvdywgcGVyaGFwcyBh
-bHNvIGFkZGVkIHRvIHRoZSBJQiBlbWlzc2lvbi4KPiBCdXQgZm9yIGJldHRlciBiaXNlY3RhYmls
-aXR5LCB0aGF0IHNob3VsZCBwcm9iYWJseSBiZSBhIHNlcGFyYXRlCj4gY2hhbmdlLgo+Cj4gQ2hl
-ZXJzLAo+IE5pY29sYWkKPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y2
-XzAuYyB8IDE5ICsrKysrKysrKysrKysrKysrLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDE3IGluc2Vy
-dGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvZ2Z4X3Y2XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92
-Nl8wLmMKPiBpbmRleCAwM2QyYTBhLi5jNGY0NDRkIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2dmeF92Nl8wLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9nZnhfdjZfMC5jCj4gQEAgLTE5MjIsMjAgKzE5MjIsMzUgQEAgc3RhdGljIHZvaWQgZ2Z4
-X3Y2XzBfcmluZ19lbWl0X2liKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywKPiAgCWNvbnRyb2wg
-fD0gaWItPmxlbmd0aF9kdyB8ICh2bV9pZCA8PCAyNCk7Cj4KPiAgCWFtZGdwdV9yaW5nX3dyaXRl
-KHJpbmcsIGhlYWRlcik7Cj4gIAlhbWRncHVfcmluZ193cml0ZShyaW5nLAo+ICAjaWZkZWYgX19C
-SUdfRU5ESUFOCj4gIAkJCSAgKDIgPDwgMCkgfAo+ICAjZW5kaWYKPiAgCQkJICAoaWItPmdwdV9h
-ZGRyICYgMHhGRkZGRkZGQykpOwo+ICAJYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgdXBwZXJfMzJf
-Yml0cyhpYi0+Z3B1X2FkZHIpICYgMHhGRkZGKTsKPiAgCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcs
-IGNvbnRyb2wpOwo+ICsKPiArCWlmICghKGliLT5mbGFncyAmIEFNREdQVV9JQl9GTEFHX0NFKSkg
-ewo+ICsJCS8qIGZsdXNoIHJlYWQgY2FjaGUgb3ZlciBnYXJ0IGZvciB0aGlzIHZtaWQgKi8KPiAr
-CQlhbWRncHVfcmluZ193cml0ZShyaW5nLCBQQUNLRVQzKFBBQ0tFVDNfU0VUX0NPTkZJR19SRUcs
-IDEpKTsKPiArCQlhbWRncHVfcmluZ193cml0ZShyaW5nLCAobW1DUF9DT0hFUl9DTlRMMiAtIFBB
-Q0tFVDNfU0VUX0NPTkZJR19SRUdfU1RBUlQpKTsKPiArCQlhbWRncHVfcmluZ193cml0ZShyaW5n
-LCB2bV9pZCk7Cj4gKwkJYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgUEFDS0VUMyhQQUNLRVQzX1NV
-UkZBQ0VfU1lOQywgMykpOwo+ICsJCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIFBBQ0tFVDNfVENM
-MV9BQ1RJT05fRU5BIHwKPiArCQkJCSAgUEFDS0VUM19UQ19BQ1RJT05fRU5BIHwKPiArCQkJCSAg
-UEFDS0VUM19TSF9LQ0FDSEVfQUNUSU9OX0VOQSB8Cj4gKwkJCQkgIFBBQ0tFVDNfU0hfSUNBQ0hF
-X0FDVElPTl9FTkEpOwo+ICsJCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIDB4RkZGRkZGRkYpOwo+
-ICsJCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIDApOwo+ICsJCWFtZGdwdV9yaW5nX3dyaXRlKHJp
-bmcsIDEwKTsgLyogcG9sbCBpbnRlcnZhbCAqLwo+ICsJfQo+ICB9Cj4KPiAgLyoqCj4gICAqIGdm
-eF92Nl8wX3JpbmdfdGVzdF9pYiAtIGJhc2ljIHJpbmcgSUIgdGVzdAo+ICAgKgo+ICAgKiBAcmlu
-ZzogYW1kZ3B1X3Jpbmcgc3RydWN0dXJlIGhvbGRpbmcgcmluZyBpbmZvcm1hdGlvbgo+ICAgKgo+
-ICAgKiBBbGxvY2F0ZSBhbiBJQiBhbmQgZXhlY3V0ZSBpdCBvbiB0aGUgZ2Z4IHJpbmcgKFNJKS4K
-PiAgICogUHJvdmlkZXMgYSBiYXNpYyBnZnggcmluZyB0ZXN0IHRvIHZlcmlmeSB0aGF0IElCcyBh
-cmUgd29ya2luZy4KPiAgICogUmV0dXJucyAwIG9uIHN1Y2Nlc3MsIGVycm9yIG9uIGZhaWx1cmUu
-Cj4gQEAgLTM2MzEsMjEgKzM2NDYsMjEgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRncHVfcmlu
-Z19mdW5jcyBnZnhfdjZfMF9yaW5nX2Z1bmNzX2dmeCA9IHsKPiAgCS5nZXRfcnB0ciA9IGdmeF92
-Nl8wX3JpbmdfZ2V0X3JwdHIsCj4gIAkuZ2V0X3dwdHIgPSBnZnhfdjZfMF9yaW5nX2dldF93cHRy
-LAo+ICAJLnNldF93cHRyID0gZ2Z4X3Y2XzBfcmluZ19zZXRfd3B0cl9nZngsCj4gIAkuZW1pdF9m
-cmFtZV9zaXplID0KPiAgCQk1ICsgLyogZ2Z4X3Y2XzBfcmluZ19lbWl0X2hkcF9mbHVzaCAqLwo+
-ICAJCTUgKyAvKiBnZnhfdjZfMF9yaW5nX2VtaXRfaGRwX2ludmFsaWRhdGUgKi8KPiAgCQkxNCAr
-IDE0ICsgMTQgKyAvKiBnZnhfdjZfMF9yaW5nX2VtaXRfZmVuY2UgeDMgZm9yIHVzZXIgZmVuY2Us
-IHZtIGZlbmNlICovCj4gIAkJNyArIDQgKyAvKiBnZnhfdjZfMF9yaW5nX2VtaXRfcGlwZWxpbmVf
-c3luYyAqLwo+ICAJCTE3ICsgNiArIC8qIGdmeF92Nl8wX3JpbmdfZW1pdF92bV9mbHVzaCAqLwo+
-ICAJCTMgKyAyLCAvKiBnZnhfdjZfcmluZ19lbWl0X2NudHhjbnRsIGluY2x1ZGluZyB2Z3QgZmx1
-c2ggKi8KPiAtCS5lbWl0X2liX3NpemUgPSA2LCAvKiBnZnhfdjZfMF9yaW5nX2VtaXRfaWIgKi8K
-PiArCS5lbWl0X2liX3NpemUgPSA2ICsgOCwgLyogZ2Z4X3Y2XzBfcmluZ19lbWl0X2liICovCj4g
-IAkuZW1pdF9pYiA9IGdmeF92Nl8wX3JpbmdfZW1pdF9pYiwKPiAgCS5lbWl0X2ZlbmNlID0gZ2Z4
-X3Y2XzBfcmluZ19lbWl0X2ZlbmNlLAo+ICAJLmVtaXRfcGlwZWxpbmVfc3luYyA9IGdmeF92Nl8w
-X3JpbmdfZW1pdF9waXBlbGluZV9zeW5jLAo+ICAJLmVtaXRfdm1fZmx1c2ggPSBnZnhfdjZfMF9y
-aW5nX2VtaXRfdm1fZmx1c2gsCj4gIAkuZW1pdF9oZHBfZmx1c2ggPSBnZnhfdjZfMF9yaW5nX2Vt
-aXRfaGRwX2ZsdXNoLAo+ICAJLmVtaXRfaGRwX2ludmFsaWRhdGUgPSBnZnhfdjZfMF9yaW5nX2Vt
-aXRfaGRwX2ludmFsaWRhdGUsCj4gIAkudGVzdF9yaW5nID0gZ2Z4X3Y2XzBfcmluZ190ZXN0X3Jp
-bmcsCj4gIAkudGVzdF9pYiA9IGdmeF92Nl8wX3JpbmdfdGVzdF9pYiwKPiAgCS5pbnNlcnRfbm9w
-ID0gYW1kZ3B1X3JpbmdfaW5zZXJ0X25vcCwKPiAgCS5lbWl0X2NudHhjbnRsID0gZ2Z4X3Y2X3Jp
-bmdfZW1pdF9jbnR4Y250bCwKPiBAQCAtMzY1NywyMSArMzY3MiwyMSBAQCBzdGF0aWMgY29uc3Qg
-c3RydWN0IGFtZGdwdV9yaW5nX2Z1bmNzIGdmeF92Nl8wX3JpbmdfZnVuY3NfY29tcHV0ZSA9IHsK
-PiAgCS5ub3AgPSAweDgwMDAwMDAwLAo+ICAJLmdldF9ycHRyID0gZ2Z4X3Y2XzBfcmluZ19nZXRf
-cnB0ciwKPiAgCS5nZXRfd3B0ciA9IGdmeF92Nl8wX3JpbmdfZ2V0X3dwdHIsCj4gIAkuc2V0X3dw
-dHIgPSBnZnhfdjZfMF9yaW5nX3NldF93cHRyX2NvbXB1dGUsCj4gIAkuZW1pdF9mcmFtZV9zaXpl
-ID0KPiAgCQk1ICsgLyogZ2Z4X3Y2XzBfcmluZ19lbWl0X2hkcF9mbHVzaCAqLwo+ICAJCTUgKyAv
-KiBnZnhfdjZfMF9yaW5nX2VtaXRfaGRwX2ludmFsaWRhdGUgKi8KPiAgCQk3ICsgLyogZ2Z4X3Y2
-XzBfcmluZ19lbWl0X3BpcGVsaW5lX3N5bmMgKi8KPiAgCQkxNyArIC8qIGdmeF92Nl8wX3Jpbmdf
-ZW1pdF92bV9mbHVzaCAqLwo+ICAJCTE0ICsgMTQgKyAxNCwgLyogZ2Z4X3Y2XzBfcmluZ19lbWl0
-X2ZlbmNlIHgzIGZvciB1c2VyIGZlbmNlLCB2bSBmZW5jZSAqLwo+IC0JLmVtaXRfaWJfc2l6ZSA9
-IDYsIC8qIGdmeF92Nl8wX3JpbmdfZW1pdF9pYiAqLwo+ICsJLmVtaXRfaWJfc2l6ZSA9IDYgKyA4
-LCAvKiBnZnhfdjZfMF9yaW5nX2VtaXRfaWIgKi8KPiAgCS5lbWl0X2liID0gZ2Z4X3Y2XzBfcmlu
-Z19lbWl0X2liLAo+ICAJLmVtaXRfZmVuY2UgPSBnZnhfdjZfMF9yaW5nX2VtaXRfZmVuY2UsCj4g
-IAkuZW1pdF9waXBlbGluZV9zeW5jID0gZ2Z4X3Y2XzBfcmluZ19lbWl0X3BpcGVsaW5lX3N5bmMs
-Cj4gIAkuZW1pdF92bV9mbHVzaCA9IGdmeF92Nl8wX3JpbmdfZW1pdF92bV9mbHVzaCwKPiAgCS5l
-bWl0X2hkcF9mbHVzaCA9IGdmeF92Nl8wX3JpbmdfZW1pdF9oZHBfZmx1c2gsCj4gIAkuZW1pdF9o
-ZHBfaW52YWxpZGF0ZSA9IGdmeF92Nl8wX3JpbmdfZW1pdF9oZHBfaW52YWxpZGF0ZSwKPiAgCS50
-ZXN0X3JpbmcgPSBnZnhfdjZfMF9yaW5nX3Rlc3RfcmluZywKPiAgCS50ZXN0X2liID0gZ2Z4X3Y2
-XzBfcmluZ190ZXN0X2liLAo+ICAJLmluc2VydF9ub3AgPSBhbWRncHVfcmluZ19pbnNlcnRfbm9w
-LAo+ICB9Owo+CgoKLS0gCkxlcm5lLCB3aWUgZGllIFdlbHQgd2lya2xpY2ggaXN0LApBYmVyIHZl
-cmdpc3MgbmllbWFscywgd2llIHNpZSBzZWluIHNvbGx0ZS4KX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Local variable use_doorbell is assigned to a constant value and it is never
+updated again. Remove this variable and the dead code it guards.
+
+Addresses-Coverity-ID: 1401837
+Signed-off-by: Gustavo A. R. Silva <garsilva@embeddedor.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 20 ++++++--------------
+ 1 file changed, 6 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+index 1f93545..27ea28f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+@@ -2936,7 +2936,6 @@ static int gfx_v7_0_cp_compute_resume(struct amdgpu_device *adev)
+ {
+ 	int r, i, j;
+ 	u32 tmp;
+-	bool use_doorbell = true;
+ 	u64 hqd_gpu_addr;
+ 	u64 mqd_gpu_addr;
+ 	u64 eop_gpu_addr;
+@@ -3034,10 +3033,7 @@ static int gfx_v7_0_cp_compute_resume(struct amdgpu_device *adev)
+ 		/* enable doorbell? */
+ 		mqd->queue_state.cp_hqd_pq_doorbell_control =
+ 			RREG32(mmCP_HQD_PQ_DOORBELL_CONTROL);
+-		if (use_doorbell)
+-			mqd->queue_state.cp_hqd_pq_doorbell_control |= CP_HQD_PQ_DOORBELL_CONTROL__DOORBELL_EN_MASK;
+-		else
+-			mqd->queue_state.cp_hqd_pq_doorbell_control &= ~CP_HQD_PQ_DOORBELL_CONTROL__DOORBELL_EN_MASK;
++		mqd->queue_state.cp_hqd_pq_doorbell_control |= CP_HQD_PQ_DOORBELL_CONTROL__DOORBELL_EN_MASK;
+ 		WREG32(mmCP_HQD_PQ_DOORBELL_CONTROL,
+ 		       mqd->queue_state.cp_hqd_pq_doorbell_control);
+ 
+@@ -3116,23 +3112,19 @@ static int gfx_v7_0_cp_compute_resume(struct amdgpu_device *adev)
+ 		       mqd->queue_state.cp_hqd_pq_rptr_report_addr_hi);
+ 
+ 		/* enable the doorbell if requested */
+-		if (use_doorbell) {
+-			mqd->queue_state.cp_hqd_pq_doorbell_control =
++		mqd->queue_state.cp_hqd_pq_doorbell_control =
+ 				RREG32(mmCP_HQD_PQ_DOORBELL_CONTROL);
+-			mqd->queue_state.cp_hqd_pq_doorbell_control &=
++		mqd->queue_state.cp_hqd_pq_doorbell_control &=
+ 				~CP_HQD_PQ_DOORBELL_CONTROL__DOORBELL_OFFSET_MASK;
+-			mqd->queue_state.cp_hqd_pq_doorbell_control |=
++		mqd->queue_state.cp_hqd_pq_doorbell_control |=
+ 				(ring->doorbell_index <<
+ 				 CP_HQD_PQ_DOORBELL_CONTROL__DOORBELL_OFFSET__SHIFT);
+-			mqd->queue_state.cp_hqd_pq_doorbell_control |=
++		mqd->queue_state.cp_hqd_pq_doorbell_control |=
+ 				CP_HQD_PQ_DOORBELL_CONTROL__DOORBELL_EN_MASK;
+-			mqd->queue_state.cp_hqd_pq_doorbell_control &=
++		mqd->queue_state.cp_hqd_pq_doorbell_control &=
+ 				~(CP_HQD_PQ_DOORBELL_CONTROL__DOORBELL_SOURCE_MASK |
+ 				CP_HQD_PQ_DOORBELL_CONTROL__DOORBELL_HIT_MASK);
+ 
+-		} else {
+-			mqd->queue_state.cp_hqd_pq_doorbell_control = 0;
+-		}
+ 		WREG32(mmCP_HQD_PQ_DOORBELL_CONTROL,
+ 		       mqd->queue_state.cp_hqd_pq_doorbell_control);
+ 
+-- 
+2.5.0
