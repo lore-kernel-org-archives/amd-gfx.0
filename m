@@ -1,18 +1,14 @@
-From: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 4/8] drm/amdgpu: convert kiq ring_mutex to a spinlock
-Date: Tue, 9 May 2017 00:03:35 -0400
-Message-ID: <168690f6-3fdc-83b8-bc27-8c087792a971@gmail.com>
-References: <20170505171015.4672-1-andresx7@gmail.com>
- <20170505171015.4672-5-andresx7@gmail.com>
- <DM5PR12MB1610B5F2D27E49A2F756B59184EE0@DM5PR12MB1610.namprd12.prod.outlook.com>
- <DM5PR12MB1610D5D12607A122B53395E284EE0@DM5PR12MB1610.namprd12.prod.outlook.com>
- <544E607D03B20249AA404517E498FC469FE655@exchange01.valvesoftware.com>
- <DM5PR12MB16109893E9AD4A0CC4583DE284EF0@DM5PR12MB1610.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 4/4] drm/amdgpu/SRIOV:implement guilty job TDR (V2)
+Date: Tue, 9 May 2017 09:48:34 +0200
+Message-ID: <034faac0-870e-b751-2a4e-3663dd80bbb6@amd.com>
+References: <DM5PR12MB1610CE50CEC9AB4A30B1164F84EE0@DM5PR12MB1610.namprd12.prod.outlook.com>
+ <d6d293a4-4529-ffb1-394f-8fb0cc2a384d@vodafone.de>
+ <DM5PR12MB1610CE19C4173C5764CACFA984EF0@DM5PR12MB1610.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0839500436=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM5PR12MB16109893E9AD4A0CC4583DE284EF0-2J9CzHegvk++jCVTvoAFKAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <DM5PR12MB1610CE19C4173C5764CACFA984EF0-2J9CzHegvk++jCVTvoAFKAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,132 +19,1045 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, Andres Rodriguez <andresr-38hxoXRICFZx67MzidHQgQC/G2K4zDHf@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-CgpPbiAyMDE3LTA1LTA4IDExOjUxIFBNLCBMaXUsIE1vbmsgd3JvdGU6Cj4+IENhbiB5b3UgZXhw
-bGFpbiB5b3VyIHJlYXNvbmluZyBiZWhpbmQgeW91ciBjdXJyZW50IHBvc2l0aW9uIHRoYXQgdGhl
-IEtJUSBzaG91bGRuJ3QgYmUgdXNlZCBieSBiYXJlbWV0YWwgYW1kZ3B1Pwo+Cj4gW01MXSBJIGRp
-ZG4ndCBtZWFuIEtJUSBzaG91bGRuJ3QgbGV2ZXJhZ2VkIGJ5IGJhcmUtbWV0YWwsIGluc3RlYWQg
-aG93IGl0IGlzIHVzZWQgYnkgYmFyZS1tZXRhbCBpcyBub25lIG9mIG15IGludGVyZXN0IC4uLgo+
-IEkgbWVhbiBpdCBiZXR0ZXIgbm90IGJlIHVzZWQgdW5kZXIgU1ItSU9WIGNhc2UgYnkgb3RoZXIg
-Y2xpZW50IGV4Y2VwdCBvcmlnaW5hbCB0d28gKFJMQ1YsIHJlZ2lzdGVyIGFjY2VzcyBpbiBLTUQp
-Cj4gSSBhc3N1bWUgeW91IHRyeSB0byB1c2Uga2lxIGZvciBLRkQgdW5kZXIgU1JJT1YgY2FzZSwg
-cmlnaHQgPyBDYW4geW91IGVsYWJvcmF0ZSB3aGF0IGtpbmQgb2Ygam9icyB5b3UgYXJlIGdvaW5n
-IHRvIHN1Ym1pdCB0byBraXEgZm9yIGtmZD8gIEkgYWxyZWFkeSBnZXQgb25lIHRoYXQgeW91IHdh
-bnQgdG8gd3JpdGUgcmVnaXN0ZXIgaW4gSU5UUiBjb250ZXh0IC4KPgoKVGhpcyBpcyBub3QgZm9y
-IEtGRC4KClRoaXMgaXMgdG8gZW5hYmxlIGhpZ2ggcHJpb3JpdHkgcXVldWVzIGZvciB2dWxrYW4g
-YXBwbGljYXRpb25zLiBUaGVzZSAKaGlnaCBwcmlvcml0eSBxdWV1ZXMgYXJlIHVzZWQgYnkgdnVs
-a2FuIGJhc2VkIFZSIGNvbXBvc2l0b3JzIHRvIGVuYWJsZSAKbG93IGxhdGVuY3kgZnJhbWUgcmVw
-cm9qZWN0aW9uLgoKVGhlcmUgYXJlIGNlcnRhaW4gcmVzb3VyY2VzIHRoYXQgYXJlIHJlc2VydmVk
-IGJ5IHRoZSBoaWdoIHByaW9yaXR5IApxdWV1ZSwgYW5kIHRoZXNlIHJlc2VydmF0aW9ucyBuZWVk
-IHRvIGJlIGRyb3BwZWQgYXMgc29vbiBhcyBwb3NzaWJsZSB0byAKYWxsb3cgR0ZYIChvciBvdGhl
-ciBxdWV1ZXMpIHRvIHVzZSB0aGVzZSByZXNvdXJjZXMgYWdhaW4gd2l0aCBtaW5pbWFsIAppbXBh
-Y3QuIFRoaXMgaXMgd2h5IHRoZSByZXNvdXJjZSByZWxlYXNlIGlzIHBlcmZvcm1lZCBpbiB0aGUg
-SVJRLgoKUmVnYXJkcywKQW5kcmVzCgo+IFRIQU5LUyAmIEJSCj4KPiAtLS0tLU9yaWdpbmFsIE1l
-c3NhZ2UtLS0tLQo+IEZyb206IEFuZHJlcyBSb2RyaWd1ZXogW21haWx0bzphbmRyZXNyQHZhbHZl
-c29mdHdhcmUuY29tXQo+IFNlbnQ6IE1vbmRheSwgTWF5IDA4LCAyMDE3IDExOjQyIFBNCj4gVG86
-IExpdSwgTW9uayA8TW9uay5MaXVAYW1kLmNvbT47IEFuZHJlcyBSb2RyaWd1ZXogPGFuZHJlc3g3
-QGdtYWlsLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gU3ViamVjdDogUkU6
-IFtQQVRDSCA0LzhdIGRybS9hbWRncHU6IGNvbnZlcnQga2lxIHJpbmdfbXV0ZXggdG8gYSBzcGlu
-bG9jawo+Cj4KPgo+IE9uIDIwMTctMDUtMDggMDI6MDggQU0sIExpdSwgTW9uayB3cm90ZToKPj4g
-QW5kcmVzCj4+Cj4+IFNvbWUgcHJldmlvdXMgcGF0Y2hlcyBsaWtlIG1vdmUgS0lRIG11dGV4LWxv
-Y2sgZnJvbSBhbWRncHVfdmlydCB0bwo+PiBjb21tb24gcGxhY2UganVtcGVkIG15IE5BSywgYnV0
-IGZyb20gdGVjaG5pcXVlIHBlcnNwZWN0aXZlIGl0J3Mgbm8KPj4gbWF0dGVyIGFueXdheSwgQnV0
-IHRoaXMgcGF0Y2ggYW5kIHRoZSBmb2xsb3dpbmcgcGF0Y2hlcyBhcmUgZ28gdG8gYQo+PiBkZWFk
-IGVuZCwKPj4KPj4gMSwgRG9uJ3QgdXNlIEtJUSB0byBhY2Nlc3MgcmVnaXN0ZXIgaW5zaWRlIElO
-VFIgY29udGV4dCAuLi4KPgo+IFRoaXMgaXMgZXhwbGFpbmVkIGJlbG93Lgo+Cj4+IDIsIERvbid0
-IHN1Ym1pdCBDUC9odyBibG9ja2luZyBqb2JzIG9uIEtJUSBzaW5jZSB0aGV5IHdpbGwgcHJldmVu
-dAo+PiB3b3JsZCBzd2l0Y2gsCj4KPiBPbmx5IFdSSVRFX0RBVEEgcGFja2V0cyBhcmUgYmVpbmcg
-c3VibWl0dGVkLiBUaGVyZSBpcyBubyBibG9ja2luZyB3b3JrIHRoYXQgd291bGQgcHJldmVudCBh
-IHdvcmxkc3dpdGNoLgo+Cj4+Cj4+IEJlc2lkZXMsIHdoeSBub3QgdXNlIE1FQzIgUElQRTEgcXVl
-dWUxIHRvIHNlcnZlIHlvdXIgcHVycG9zZSA/ICBpZiB5b3UgaW5zaXN0IHRvIGRvIGFib3ZlIHRo
-aW5ncyBpbiBLSVE/Cj4+IEFueSByZWFzb24geW91IG11c3QgdXNlIEtJUSA/Cj4KPiBIYXZpbmcg
-YSBzZXBhcmF0ZSBLSVEgZm9yIGJhcmUtbWV0YWwgYW1kZ3B1IGFuZCB2aXJ0dWFsaXplZCBhbWRn
-cHUgc291bmRzIGdvb2QgYXQgZmFjZS12YWx1ZS4gSG93ZXZlciwgSSdtIG5vdCBzdXJlIGlmIGl0
-IHdvdWxkIGludHJvZHVjZSBzdWJ0bGUgc3luY2hyb25pemF0aW9uIGJ1Z3MgaWYgYm90aCBwaXBl
-cyBhdHRlbXB0IHRvIHRvdWNoIHRoZSBzYW1lIEhXIHJlc291cmNlcyBzaW11bHRhbmVvdXNseS4K
-Pgo+IENhbiB5b3UgZXhwbGFpbiB5b3VyIHJlYXNvbmluZyBiZWhpbmQgeW91ciBjdXJyZW50IHBv
-c2l0aW9uIHRoYXQgdGhlIEtJUSBzaG91bGRuJ3QgYmUgdXNlZCBieSBiYXJlbWV0YWwgYW1kZ3B1
-Pwo+Cj4+Cj4+Cj4+IEJSCj4+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tCj4+IEZyb206IGFt
-ZC1nZnggW21haWx0bzphbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnXSBPbiBC
-ZWhhbGYKPj4gT2YgTGl1LCBNb25rCj4+IFNlbnQ6IE1vbmRheSwgTWF5IDA4LCAyMDE3IDE6NTkg
-UE0KPj4gVG86IEFuZHJlcyBSb2RyaWd1ZXogPGFuZHJlc3g3QGdtYWlsLmNvbT47Cj4+IGFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+IFN1YmplY3Q6IFJFOiBbUEFUQ0ggNC84XSBkcm0v
-YW1kZ3B1OiBjb252ZXJ0IGtpcSByaW5nX211dGV4IHRvIGEKPj4gc3BpbmxvY2sKPj4KPj4gQ2xl
-YXJseSBOQUsKPj4KPj4gCW11dGV4X2xvY2soJmtpcS0+cmluZ19tdXRleCk7Cj4+IAlhbWRncHVf
-cmluZ19hbGxvYyhyaW5nLCAzMik7Cj4+IAlhbWRncHVfcmluZ19lbWl0X3JyZWcocmluZywgcmVn
-KTsKPj4gCWFtZGdwdV9mZW5jZV9lbWl0KHJpbmcsICZmKTsKPj4gCWFtZGdwdV9yaW5nX2NvbW1p
-dChyaW5nKTsKPj4gCW11dGV4X3VubG9jaygma2lxLT5yaW5nX211dGV4KTsKPj4KPj4KPj4gYmUg
-YXdhcmUgdGhhdCBhbWRncHVfZmVuY2VfZW1pdCgpIGludHJvZHVjZXMgZmVuY2Vfd2FpdCgpIG9w
-ZXJhdGlvbiwKPgo+IFBsZWFzZSBzZWUgdGhlIGZvbGxvd2luZyBwYXRjaDoKPiBbUEFUQ0ggNi84
-XSBkcm0vYW1kZ3B1OiBhZGQgbWFjcm8gZm9yIGFzeW5jaHJvbm91cyBLSVEgcmVnaXN0ZXIgd3Jp
-dGVzCj4KPiBUaGlzIGlzIHdoeSB0aGlzIHBhdGNoIGlzIGRlc2NyaWJlZCBhcyAic3RlcCBvbmUi
-Cj4KPj4gc3Bpbl9sb2NrIGlzIGZvcmJpZGRlbiBhbmQgd2h5IHlvdSB3YW50IHRvIHVzZSBzcGlu
-bG9jayBpbnN0ZWFkIG9mCj4+IG11dGV4LCBwbGVhc2UgZ2l2ZSB0aGUgZXhwbGFuYXRpb24KPgo+
-IEkgZG9uJ3QgdW5kZXJzdGFuZCB3aGF0IHlvdSBtZWFuIGJ5IHNwaW5fbG9jayBiZWluZyBmb3Ji
-aWRkZW4uIFRoZSBzcGluX2xvY2sgaXMgYSBzdGFuZGFyZCBrZXJuZWwgY29uc3RydWN0IHNwZWNp
-ZmljYWxseSBkZXNpZ25lZCB0byBhZGRyZXNzIG11dHVhbCBleGNsdXNpb24gaW4gY29udGV4dHMg
-dGhhdCBkaXNhbGxvdyBzbGVlcGluZy4gVGhhdCBpcyBleGFjdGx5IHdoYXQgd2UgYXJlIHRyeWlu
-ZyB0byBkbyBoZXJlLCBhcyBkZXNjcmliZWQgaW4gdGhlIGNvbW1pdCBtZXNzYWdlLgo+Cj4gUmVn
-YXJkcywKPiBBbmRyZXMKPgo+Pgo+PiBCUiBNb25rCj4+Cj4+IC0tLS0tT3JpZ2luYWwgTWVzc2Fn
-ZS0tLS0tCj4+IEZyb206IGFtZC1nZnggW21haWx0bzphbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnXSBPbiBCZWhhbGYKPj4gT2YgQW5kcmVzIFJvZHJpZ3Vlego+PiBTZW50OiBT
-YXR1cmRheSwgTWF5IDA2LCAyMDE3IDE6MTAgQU0KPj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCj4+IENjOiBhbmRyZXN4N0BnbWFpbC5jb20KPj4gU3ViamVjdDogW1BBVENIIDQv
-OF0gZHJtL2FtZGdwdTogY29udmVydCBraXEgcmluZ19tdXRleCB0byBhIHNwaW5sb2NrCj4+Cj4+
-IEZpcnN0IHN0ZXAgdG93YXJkcyBlbmFibGluZyBraXEgcmVnaXN0ZXIgb3BlcmF0aW9ucyBmcm9t
-IGFuIGludGVycnVwdAo+PiBoYW5kbGVyCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IEFuZHJlcyBSb2Ry
-aWd1ZXogPGFuZHJlc3g3QGdtYWlsLmNvbT4KPj4gLS0tCj4+ICBkcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHUuaCAgICAgICAgfCAgMiArLQo+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2RldmljZS5jIHwgMTAgKysrKystLS0tLQo+PiAgMiBmaWxlcyBjaGFuZ2Vk
-LCA2IGluc2VydGlvbnMoKyksIDYgZGVsZXRpb25zKC0pCj4+Cj4+IGRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAo+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdS5oCj4+IGluZGV4IDQ5NmFkNjYuLjFkOTg3ZTMgMTAwNjQ0Cj4+IC0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+ICsrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+IEBAIC05NDEsNyArOTQxLDcgQEAgc3RydWN0IGFt
-ZGdwdV9raXEgewo+PiAgCXN0cnVjdCBhbWRncHVfcmluZwlyaW5nOwo+PiAgCXN0cnVjdCBhbWRn
-cHVfaXJxX3NyYwlpcnE7Cj4+ICAJdWludDMyX3QJCXJlZ192YWxfb2ZmczsKPj4gLQlzdHJ1Y3Qg
-bXV0ZXgJCXJpbmdfbXV0ZXg7Cj4+ICsJc3BpbmxvY2tfdAkJcmluZ19sb2NrOwo+PiAgfTsKPj4K
-Pj4gIC8qCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-ZGV2aWNlLmMKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMK
-Pj4gaW5kZXggZWYzYTQ2ZC4uY2UyMmYwNCAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+PiBAQCAtMTY5LDEyICsxNjksMTIgQEAgdWludDMyX3Qg
-YW1kZ3B1X2tpcV9ycmVnKHN0cnVjdCBhbWRncHVfZGV2aWNlCj4+ICphZGV2LCB1aW50MzJfdCBy
-ZWcpCj4+Cj4+ICAJQlVHX09OKCFyaW5nLT5mdW5jcy0+ZW1pdF9ycmVnKTsKPj4KPj4gLQltdXRl
-eF9sb2NrKCZraXEtPnJpbmdfbXV0ZXgpOwo+PiArCXNwaW5fbG9jaygma2lxLT5yaW5nX2xvY2sp
-Owo+PiAgCWFtZGdwdV9yaW5nX2FsbG9jKHJpbmcsIDMyKTsKPj4gIAlhbWRncHVfcmluZ19lbWl0
-X3JyZWcocmluZywgcmVnKTsKPj4gIAlhbWRncHVfZmVuY2VfZW1pdChyaW5nLCAmZik7Cj4+ICAJ
-YW1kZ3B1X3JpbmdfY29tbWl0KHJpbmcpOwo+PiAtCW11dGV4X3VubG9jaygma2lxLT5yaW5nX211
-dGV4KTsKPj4gKwlzcGluX3VubG9jaygma2lxLT5yaW5nX2xvY2spOwo+Pgo+PiAgCXIgPSBkbWFf
-ZmVuY2Vfd2FpdChmLCBmYWxzZSk7Cj4+ICAJaWYgKHIpCj4+IEBAIC0xOTUsMTIgKzE5NSwxMiBA
-QCB2b2lkIGFtZGdwdV9raXFfd3JlZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4gdWlu
-dDMyX3QgcmVnLCB1aW50MzJfdCB2KQo+Pgo+PiAgCUJVR19PTighcmluZy0+ZnVuY3MtPmVtaXRf
-d3JlZyk7Cj4+Cj4+IC0JbXV0ZXhfbG9jaygma2lxLT5yaW5nX211dGV4KTsKPj4gKwlzcGluX2xv
-Y2soJmtpcS0+cmluZ19sb2NrKTsKPj4gIAlhbWRncHVfcmluZ19hbGxvYyhyaW5nLCAzMik7Cj4+
-ICAJYW1kZ3B1X3JpbmdfZW1pdF93cmVnKHJpbmcsIHJlZywgdik7Cj4+ICAJYW1kZ3B1X2ZlbmNl
-X2VtaXQocmluZywgJmYpOwo+PiAgCWFtZGdwdV9yaW5nX2NvbW1pdChyaW5nKTsKPj4gLQltdXRl
-eF91bmxvY2soJmtpcS0+cmluZ19tdXRleCk7Cj4+ICsJc3Bpbl91bmxvY2soJmtpcS0+cmluZ19s
-b2NrKTsKPj4KPj4gIAlyID0gZG1hX2ZlbmNlX3dhaXQoZiwgZmFsc2UpOwo+PiAgCWlmIChyKQo+
-PiBAQCAtMTkwMyw3ICsxOTAzLDYgQEAgaW50IGFtZGdwdV9kZXZpY2VfaW5pdChzdHJ1Y3QgYW1k
-Z3B1X2RldmljZSAqYWRldiwKPj4gIAltdXRleF9pbml0KCZhZGV2LT5maXJtd2FyZS5tdXRleCk7
-Cj4+ICAJbXV0ZXhfaW5pdCgmYWRldi0+cG0ubXV0ZXgpOwo+PiAgCW11dGV4X2luaXQoJmFkZXYt
-PmdmeC5ncHVfY2xvY2tfbXV0ZXgpOwo+PiAtCW11dGV4X2luaXQoJmFkZXYtPmdmeC5raXEucmlu
-Z19tdXRleCk7Cj4+ICAJbXV0ZXhfaW5pdCgmYWRldi0+c3JibV9tdXRleCk7Cj4+ICAJbXV0ZXhf
-aW5pdCgmYWRldi0+Z3JibV9pZHhfbXV0ZXgpOwo+PiAgCW11dGV4X2luaXQoJmFkZXYtPm1uX2xv
-Y2spOwo+PiBAQCAtMTkyMSw2ICsxOTIwLDcgQEAgaW50IGFtZGdwdV9kZXZpY2VfaW5pdChzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4gIAlzcGluX2xvY2tfaW5pdCgmYWRldi0+Z2NfY2Fj
-X2lkeF9sb2NrKTsKPj4gIAlzcGluX2xvY2tfaW5pdCgmYWRldi0+YXVkaW9fZW5kcHRfaWR4X2xv
-Y2spOwo+PiAgCXNwaW5fbG9ja19pbml0KCZhZGV2LT5tbV9zdGF0cy5sb2NrKTsKPj4gKwlzcGlu
-X2xvY2tfaW5pdCgmYWRldi0+Z2Z4LmtpcS5yaW5nX2xvY2spOwo+Pgo+PiAgCUlOSVRfTElTVF9I
-RUFEKCZhZGV2LT5zaGFkb3dfbGlzdCk7Cj4+ICAJbXV0ZXhfaW5pdCgmYWRldi0+c2hhZG93X2xp
-c3RfbG9jayk7Cj4+IC0tCj4+IDIuOS4zCj4+Cj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCj4+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+IGFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwo+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+PiBhbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwo+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZngKPj4KPgo+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeAo=
+--===============0839500436==
+Content-Type: multipart/alternative;
+	boundary="------------360C05E31E12B96B2E70979A"
+
+--------------360C05E31E12B96B2E70979A
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+
+> [ML] Really not necessary, we have spin_lock to protect the 
+> mirror-list, nothing will be messed up ...
+You are missing that it is entirely possible that the job will complete 
+while we are trying to kick it out.
+
+> [ML] why don't touch hardware fence at all ?  the original/bare-metal 
+> gpu reset also signal all ring's hardware fence first, I just follow 
+> the original logic ...
+> Scheduler fence will be auto signaled after hw fence signaled, any 
+> problem with that ? what's the concern ?
+The hardware runs async to the CPU which tries to reset it, so we need 
+to be careful in which order things are done.
+
+> [ML] No I don't think so, the kickout must be prior to the 
+> hw_job_reset, otherwise the scheduler fence callback will be removed 
+> and you need manually install it later , which is not correct:
+> For the guity job, we just kick it out before job reset, in job_reset 
+> we only reset other innocent jobs( and unbind the scheduler fence 
+> callback for them), after hw fence
+> Forcely set to drv_seq, all hw fence are signaled (this is the way of 
+> original logic, I didn't change that).  When go to sched_recovery(), 
+> it will recover all innocent job and hook
+> The scheduler fence with new hw fence.  That way only the guilty job 
+> is dropped forever.
+Again same problem here.
+
+To be absolutely sure that everything works as expected we need to do it 
+in the following order:
+
+1. Stop the scheduler from feeding more jobs to the hardware when a jobs 
+completes.
+
+2. Then call hw_job_reset to remove the connection between job and 
+hardware fence.
+
+3. Test if job is now completed. It is entirely possible that the job 
+completed while we started the work to reset the hardware.
+
+Removing the connection between the hardware fence and the job is the 
+deadline, if the job completes after that it is lost.
+
+4. Check the karma and kick out the job if we found it guilty.
+
+5. Get the whole stuff working again, e.g. reset the hardware, restart 
+the scheduler etc...
+
+Regards,
+Christian.
+
+Am 09.05.2017 um 04:45 schrieb Liu, Monk:
+> >
+> > -     /* block scheduler */
+> > -     for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+> > -             ring = adev->rings[i];
+> > +     /* we start from the ring trigger GPU hang */
+> > +     j = job ? job->ring->idx : 0;
+> > +
+> > +     if (job)
+> > +             if (amd_sched_invalidate_job(&job->base, 
+> amdgpu_job_hang_limit))
+> > + amd_sched_job_kickout(&job->base);
+>
+> Well that looks like the wrong order to me. We should probably stop 
+> the scheduler before trying to mess anything with the job.
+>
+> [ML] Really not necessary, we have spin_lock to protect the 
+> mirror-list, nothing will be messed up ...
+>
+>
+> >
+> > +void amdgpu_fence_driver_force_completion_ring(struct amdgpu_ring
+> > +*ring) {
+> > +     if (ring)
+> > +             amdgpu_fence_write(ring, ring->fence_drv.sync_seq); }
+> > +
+>
+> The coding style is completely off.
+>
+> [ML] I don't know why at email side it looks wrong coding style, but 
+> I'm sure it is correct at my side, check here:
+> void amdgpu_fence_driver_force_completion_ring(struct amdgpu_ring *ring)
+> {
+>         if (ring)
+>                 amdgpu_fence_write(ring, ring->fence_drv.sync_seq);
+> }
+>
+> Additional to that I don't think that this is a good idea. We should 
+> probably rather just signal all scheduler fences instead and don't 
+> touch the hardware fence at all.
+>
+> [ML] why don't touch hardware fence at all ?  the original/bare-metal 
+> gpu reset also signal all ring's hardware fence first, I just follow 
+> the original logic ...
+> Scheduler fence will be auto signaled after hw fence signaled, any 
+> problem with that ? what's the concern ?
+>
+>
+> > -     for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+> > -             struct amdgpu_ring *ring = adev->rings[i];
+> > +     for (i = j; i < j + AMDGPU_MAX_RINGS; ++i) {
+> > +             ring = adev->rings[i % AMDGPU_MAX_RINGS];
+> >                if (!ring || !ring->sched.thread)
+> >                        continue;
+> >
+> > +             if (job && j != i) {
+> > + kthread_unpark(ring->sched.thread);
+> > +                     continue;
+> > +             }
+> > +
+>
+> Please split up that patch a bit further. E.g. first the handling to 
+> only hw_job_reset the ring in question, then the kickout handling.
+>
+> [ML] No I don't think so, the kickout must be prior to the 
+> hw_job_reset, otherwise the scheduler fence callback will be removed 
+> and you need manually install it later , which is not correct:
+> For the guity job, we just kick it out before job reset, in job_reset 
+> we only reset other innocent jobs( and unbind the scheduler fence 
+> callback for them), after hw fence
+> Forcely set to drv_seq, all hw fence are signaled (this is the way of 
+> original logic, I didn't change that).  When go to sched_recovery(), 
+> it will recover all innocent job and hook
+> The scheduler fence with new hw fence.  That way only the guilty job 
+> is dropped forever.
+>
+> -----Original Message-----
+> From: Christian König [mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org]
+> Sent: Monday, May 08, 2017 9:12 PM
+> To: Liu, Monk <Monk.Liu-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> Cc: Koenig, Christian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+> Subject: Re: [PATCH 4/4] drm/amdgpu/SRIOV:implement guilty job TDR (V2)
+>
+> Am 08.05.2017 um 09:01 schrieb Liu, Monk:
+> > @Christian
+> >
+> > This one is changed to guilty job scheme accordingly with your
+> > response
+> >
+> > BR Monk
+> >
+> > -----Original Message-----
+> > From: Monk Liu [mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org]
+> > Sent: Monday, May 08, 2017 3:00 PM
+> > To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> > Cc: Liu, Monk <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+> > Subject: [PATCH] drm/amdgpu/SRIOV:implement guilty job TDR (V2)
+> >
+> > 1,TDR will kickout guilty job if it hang exceed the threshold of the 
+> given one from kernel paramter "job_hang_limit", that way a bad 
+> command stream will not infinitly cause GPU hang.
+> >
+> > by default this threshold is 1 so a job will be kicked out after it 
+> hang.
+> >
+> > 2,if a job timeout TDR routine will not reset all sched/ring, 
+> instead if will only reset on the givn one which is indicated by @job 
+> of amdgpu_sriov_gpu_reset, that way we don't need to reset and recover 
+> each sched/ring if we already know which job cause GPU hang.
+> >
+> > 3,unblock sriov_gpu_reset for AI family.
+> > 4,don't init entity for KIQ
+> >
+> > TODO:
+> > when a job is considered as guilty, we should mark some flag in its 
+> fence status flag, and let UMD side aware that this fence signaling is 
+> not due to job complete but job hang.
+> >
+> > Change-Id: I7b89c19a3de93249db570d0a80522176b1525a09
+> > Signed-off-by: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c       |  4 +++
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 36 
+> ++++++++++++++++++++-------
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  4 +++
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c     |  6 +++++
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h      |  1 +
+> >   drivers/gpu/drm/amd/scheduler/gpu_scheduler.c | 11 +++++++-  
+> drivers/gpu/drm/amd/scheduler/gpu_scheduler.h |  7 ++++++
+> >   8 files changed, 60 insertions(+), 10 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > index 90a69bf..93bcea2 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > @@ -111,6 +111,7 @@ extern int amdgpu_prim_buf_per_se; extern int
+> > amdgpu_pos_buf_per_se;  extern int amdgpu_cntl_sb_buf_per_se;  extern
+> > int amdgpu_param_buf_per_se;
+> > +extern int amdgpu_job_hang_limit;
+> >
+> >   #define AMDGPU_DEFAULT_GTT_SIZE_MB          3072ULL /* 3GB by 
+> default */
+> >   #define AMDGPU_WAIT_IDLE_TIMEOUT_IN_MS 3000
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+> > index b4bbbb3..23afc58 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+> > @@ -52,6 +52,10 @@ static int amdgpu_ctx_init(struct amdgpu_device 
+> *adev, struct amdgpu_ctx *ctx)
+> >                struct amd_sched_rq *rq;
+> >
+> >                rq = &ring->sched.sched_rq[AMD_SCHED_PRIORITY_NORMAL];
+> > +
+> > +             if (ring == &adev->gfx.kiq.ring)
+> > +                     continue;
+> > +
+>
+> That looks like a bug fix and should probably go into a separate patch.
+>
+> >                r = amd_sched_entity_init(&ring->sched, 
+> &ctx->rings[i].entity,
+> >                                          rq, amdgpu_sched_jobs);
+> >                if (r)
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > index 0e5f314..f3990fe 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > @@ -2537,7 +2537,7 @@ static int 
+> amdgpu_recover_vram_from_shadow(struct amdgpu_device *adev,
+> >    */
+> >   int amdgpu_sriov_gpu_reset(struct amdgpu_device *adev, struct 
+> amdgpu_job *job)  {
+> > -     int i, r = 0;
+> > +     int i, j, r = 0;
+> >        int resched;
+> >        struct amdgpu_bo *bo, *tmp;
+> >        struct amdgpu_ring *ring;
+> > @@ -2550,19 +2550,30 @@ int amdgpu_sriov_gpu_reset(struct 
+> amdgpu_device *adev, struct amdgpu_job *job)
+> >        /* block TTM */
+> >        resched = ttm_bo_lock_delayed_workqueue(&adev->mman.bdev);
+> >
+> > -     /* block scheduler */
+> > -     for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+> > -             ring = adev->rings[i];
+> > +     /* we start from the ring trigger GPU hang */
+> > +     j = job ? job->ring->idx : 0;
+> > +
+> > +     if (job)
+> > +             if (amd_sched_invalidate_job(&job->base, 
+> amdgpu_job_hang_limit))
+> > + amd_sched_job_kickout(&job->base);
+>
+> Well that looks like the wrong order to me. We should probably stop 
+> the scheduler before trying to mess anything with the job.
+>
+> >
+> > +     /* block scheduler */
+> > +     for (i = j; i < j + AMDGPU_MAX_RINGS; ++i) {
+> > +             ring = adev->rings[i % AMDGPU_MAX_RINGS];
+> >                if (!ring || !ring->sched.thread)
+> >                        continue;
+> >
+> >                kthread_park(ring->sched.thread);
+> > +
+> > +             if (job && j != i)
+> > +                     continue;
+> > +
+> > +             /* only do job_reset on the hang ring if @job not NULL */
+> > amd_sched_hw_job_reset(&ring->sched);
+> > -     }
+> >
+> > -     /* after all hw jobs are reset, hw fence is meaningless, so 
+> force_completion */
+> > -     amdgpu_fence_driver_force_completion(adev);
+> > +             /* after all hw jobs are reset, hw fence is 
+> meaningless, so force_completion */
+> > + amdgpu_fence_driver_force_completion_ring(ring);
+> > +     }
+> >
+> >        /* request to take full control of GPU before 
+> re-initialization  */
+> >        if (job)
+> > @@ -2615,11 +2626,16 @@ int amdgpu_sriov_gpu_reset(struct 
+> amdgpu_device *adev, struct amdgpu_job *job)
+> >        }
+> >        fence_put(fence);
+> >
+> > -     for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+> > -             struct amdgpu_ring *ring = adev->rings[i];
+> > +     for (i = j; i < j + AMDGPU_MAX_RINGS; ++i) {
+> > +             ring = adev->rings[i % AMDGPU_MAX_RINGS];
+> >                if (!ring || !ring->sched.thread)
+> >                        continue;
+> >
+> > +             if (job && j != i) {
+> > + kthread_unpark(ring->sched.thread);
+> > +                     continue;
+> > +             }
+> > +
+>
+> Please split up that patch a bit further. E.g. first the handling to 
+> only hw_job_reset the ring in question, then the kickout handling.
+>
+> > amd_sched_job_recovery(&ring->sched);
+> >                kthread_unpark(ring->sched.thread);
+> >        }
+> > @@ -2629,6 +2645,8 @@ int amdgpu_sriov_gpu_reset(struct 
+> amdgpu_device *adev, struct amdgpu_job *job)
+> >        if (r) {
+> >                /* bad news, how to tell it to userspace ? */
+> >                dev_info(adev->dev, "GPU reset failed\n");
+> > +     } else {
+> > +             dev_info(adev->dev, "GPU reset successed!\n");
+> >        }
+> >
+> >        adev->gfx.in_reset = false;
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > index 416908a..fd3691a8 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > @@ -112,6 +112,7 @@ int amdgpu_prim_buf_per_se = 0; int
+> > amdgpu_pos_buf_per_se = 0;  int amdgpu_cntl_sb_buf_per_se = 0;  int
+> > amdgpu_param_buf_per_se = 0;
+> > +int amdgpu_job_hang_limit = 0;
+> >
+> >   MODULE_PARM_DESC(vramlimit, "Restrict VRAM for testing, in
+> > megabytes");  module_param_named(vramlimit, amdgpu_vram_limit, int,
+> > 0600); @@ -237,6 +238,9 @@ module_param_named(cntl_sb_buf_per_se,
+> > amdgpu_cntl_sb_buf_per_se, int, 0444);
+> > MODULE_PARM_DESC(param_buf_per_se, "the size of Off-Chip Pramater
+> > Cache per Shader Engine (default depending on gfx)");
+> > module_param_named(param_buf_per_se, amdgpu_param_buf_per_se, int,
+> > 0444);
+> >
+> > +MODULE_PARM_DESC(job_hang_limit, "how much time allow a job hang and
+> > +not drop it (default 0)"); module_param_named(job_hang_limit,
+> > +amdgpu_job_hang_limit, int ,0444);
+> > +
+> >
+> >   static const struct pci_device_id pciidlist[] = { #ifdef
+> > CONFIG_DRM_AMDGPU_SI diff --git
+> > a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > index d7523d1..8de3bd3 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > @@ -541,6 +541,12 @@ void 
+> amdgpu_fence_driver_force_completion(struct amdgpu_device *adev)
+> >        }
+> >   }
+> >
+> > +void amdgpu_fence_driver_force_completion_ring(struct amdgpu_ring
+> > +*ring) {
+> > +     if (ring)
+> > +             amdgpu_fence_write(ring, ring->fence_drv.sync_seq); }
+> > +
+>
+> The coding style is completely off.
+>
+> Additional to that I don't think that this is a good idea. We should 
+> probably rather just signal all scheduler fences instead and don't 
+> touch the hardware fence at all.
+>
+> >   /*
+> >    * Common fence implementation
+> >    */
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > index 981ef08..03e88c6 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> > @@ -76,6 +76,7 @@ struct amdgpu_fence_driver {  int
+> > amdgpu_fence_driver_init(struct amdgpu_device *adev); void
+> > amdgpu_fence_driver_fini(struct amdgpu_device *adev); void
+> > amdgpu_fence_driver_force_completion(struct amdgpu_device *adev);
+> > +void amdgpu_fence_driver_force_completion_ring(struct amdgpu_ring
+> > +*ring);
+> >
+> >   int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring,
+> >                                  unsigned num_hw_submission);
+> > diff --git a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.c
+> > b/drivers/gpu/drm/amd/scheduler/gpu_scheduler.c
+> > index 6f4e31f..4e97e6d 100644
+> > --- a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.c
+> > +++ b/drivers/gpu/drm/amd/scheduler/gpu_scheduler.c
+> > @@ -390,9 +390,18 @@ void amd_sched_hw_job_reset(struct 
+> amd_gpu_scheduler *sched)
+> > &s_job->s_fence->cb)) {
+> > fence_put(s_job->s_fence->parent);
+> >                        s_job->s_fence->parent = NULL;
+> > + atomic_dec(&sched->hw_rq_count);
+> >                }
+> >        }
+> > -     atomic_set(&sched->hw_rq_count, 0);
+> > +     spin_unlock(&sched->job_list_lock);
+> > +}
+> > +
+> > +void amd_sched_job_kickout(struct amd_sched_job *s_job) {
+> > +     struct amd_gpu_scheduler *sched = s_job->sched;
+> > +
+> > +     spin_lock(&sched->job_list_lock);
+> > +     list_del_init(&s_job->node);
+> >        spin_unlock(&sched->job_list_lock);
+> >   }
+> >
+> > diff --git a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h
+> > b/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h
+> > index 8cb41d3..59694f3 100644
+> > --- a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h
+> > +++ b/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h
+> > @@ -81,6 +81,7 @@ struct amd_sched_job {
+> >        struct list_head                node;
+> >        struct delayed_work             work_tdr;
+> >        uint64_t                        id;
+> > +     atomic_t karma;
+> >   };
+> >
+> >   extern const struct fence_ops amd_sched_fence_ops_scheduled; @@ 
+> -96,6 +97,11 @@ static inline struct amd_sched_fence 
+> *to_amd_sched_fence(struct fence *f)
+> >        return NULL;
+> >   }
+> >
+> > +static inline bool amd_sched_invalidate_job(struct amd_sched_job
+> > +*s_job, int threshold) {
+> > +     return (s_job && atomic_inc_return(&s_job->karma) > threshold); }
+> > +
+>
+> Again coding style is completely off.
+>
+> Christian.
+>
+> >   /**
+> >    * Define the backend operations called by the scheduler,
+> >    * these functions should be implemented in driver side @@ -158,4 
+> +164,5 @@ int amd_sched_job_init(struct amd_sched_job *job,
+> >                       void *owner);
+> >   void amd_sched_hw_job_reset(struct amd_gpu_scheduler *sched);  void
+> > amd_sched_job_recovery(struct amd_gpu_scheduler *sched);
+> > +void amd_sched_job_kickout(struct amd_sched_job *s_job);
+> >   #endif
+> > --
+> > 2.7.4
+> >
+> > _______________________________________________
+> > amd-gfx mailing list
+> > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+>
+
+
+--------------360C05E31E12B96B2E70979A
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">
+      <blockquote type="cite"><font size="2"><span
+            style="font-size:10pt;">[ML] Really not necessary, we have
+            spin_lock to protect the mirror-list, nothing will be messed
+            up ...<br>
+          </span></font></blockquote>
+      You are missing that it is entirely possible that the job will
+      complete while we are trying to kick it out.<br>
+      <br>
+      <blockquote type="cite"><font size="2"><span
+            style="font-size:10pt;">[ML] why don't touch hardware fence
+            at all ?  the original/bare-metal gpu reset also signal all
+            ring's hardware fence first, I just follow the original
+            logic ...<br>
+            Scheduler fence will be auto signaled after hw fence
+            signaled, any problem with that ? what's the concern ?</span></font></blockquote>
+      The hardware runs async to the CPU which tries to reset it, so we
+      need to be careful in which order things are done.<br>
+      <br>
+      <blockquote type="cite"><font size="2"><span
+            style="font-size:10pt;">
+            [ML] No I don't think so, the kickout must be prior to the
+            hw_job_reset, otherwise the scheduler fence callback will be
+            removed and you need manually install it later , which is
+            not correct:<br>
+            For the guity job, we just kick it out before job reset, in
+            job_reset we only reset other innocent jobs( and unbind the
+            scheduler fence callback for them), after hw fence<br>
+            Forcely set to drv_seq, all hw fence are signaled (this is
+            the way of original logic, I didn't change that).  When go
+            to sched_recovery(), it will recover all innocent job and
+            hook<br>
+            The scheduler fence with new hw fence.  That way only the
+            guilty job is dropped forever.<br>
+          </span></font></blockquote>
+      Again same problem here.<br>
+      <br>
+      To be absolutely sure that everything works as expected we need to
+      do it in the following order:<br>
+      <br>
+      1. Stop the scheduler from feeding more jobs to the hardware when
+      a jobs completes.<br>
+      <br>
+      2. Then call hw_job_reset to remove the connection between job and
+      hardware fence.<br>
+      <br>
+      3. Test if job is now completed. It is entirely possible that the
+      job completed while we started the work to reset the hardware.<br>
+      <br>
+      Removing the connection between the hardware fence and the job is
+      the deadline, if the job completes after that it is lost.<br>
+      <br>
+      4. Check the karma and kick out the job if we found it guilty.<br>
+      <br>
+      5. Get the whole stuff working again, e.g. reset the hardware,
+      restart the scheduler etc...<br>
+      <br>
+      Regards,<br>
+      Christian.<br>
+      <br>
+      Am 09.05.2017 um 04:45 schrieb Liu, Monk:<br>
+    </div>
+    <blockquote
+cite="mid:DM5PR12MB1610CE19C4173C5764CACFA984EF0-2J9CzHegvk++jCVTvoAFKAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org"
+      type="cite">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="Generator" content="Microsoft Exchange Server">
+      <!-- converted from text -->
+      <style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left: #800000 2px solid; } --></style>
+      <font size="2"><span style="font-size:10pt;">
+          <div class="PlainText">&gt;   <br>
+            &gt; -     /* block scheduler */<br>
+            &gt; -     for (i = 0; i &lt; AMDGPU_MAX_RINGS; ++i) {<br>
+            &gt; -             ring = adev-&gt;rings[i];<br>
+            &gt; +     /* we start from the ring trigger GPU hang */<br>
+            &gt; +     j = job ? job-&gt;ring-&gt;idx : 0;<br>
+            &gt; +<br>
+            &gt; +     if (job)<br>
+            &gt; +             if
+            (amd_sched_invalidate_job(&amp;job-&gt;base,
+            amdgpu_job_hang_limit))<br>
+            &gt; +                    
+            amd_sched_job_kickout(&amp;job-&gt;base);<br>
+            <br>
+            Well that looks like the wrong order to me. We should
+            probably stop the scheduler before trying to mess anything
+            with the job.<br>
+            <br>
+            [ML] Really not necessary, we have spin_lock to protect the
+            mirror-list, nothing will be messed up ...<br>
+            <br>
+            <br>
+            &gt;   <br>
+            &gt; +void amdgpu_fence_driver_force_completion_ring(struct
+            amdgpu_ring<br>
+            &gt; +*ring) {<br>
+            &gt; +     if (ring)<br>
+            &gt; +             amdgpu_fence_write(ring,
+            ring-&gt;fence_drv.sync_seq); }<br>
+            &gt; +<br>
+            <br>
+            The coding style is completely off.<br>
+            <br>
+            [ML] I don't know why at email side it looks wrong coding
+            style, but I'm sure it is correct at my side, check here:<br>
+            void amdgpu_fence_driver_force_completion_ring(struct
+            amdgpu_ring *ring)<br>
+            {<br>
+                    if (ring)<br>
+                            amdgpu_fence_write(ring,
+            ring-&gt;fence_drv.sync_seq);<br>
+            }<br>
+            <br>
+            Additional to that I don't think that this is a good idea.
+            We should probably rather just signal all scheduler fences
+            instead and don't touch the hardware fence at all.<br>
+            <br>
+            [ML] why don't touch hardware fence at all ?  the
+            original/bare-metal gpu reset also signal all ring's
+            hardware fence first, I just follow the original logic ...<br>
+            Scheduler fence will be auto signaled after hw fence
+            signaled, any problem with that ? what's the concern ?<br>
+            <br>
+            <br>
+            &gt; -     for (i = 0; i &lt; AMDGPU_MAX_RINGS; ++i) {<br>
+            &gt; -             struct amdgpu_ring *ring =
+            adev-&gt;rings[i];<br>
+            &gt; +     for (i = j; i &lt; j + AMDGPU_MAX_RINGS; ++i) {<br>
+            &gt; +             ring = adev-&gt;rings[i %
+            AMDGPU_MAX_RINGS];<br>
+            &gt;                if (!ring || !ring-&gt;sched.thread)<br>
+            &gt;                        continue;<br>
+            &gt;   <br>
+            &gt; +             if (job &amp;&amp; j != i) {<br>
+            &gt; +                    
+            kthread_unpark(ring-&gt;sched.thread);<br>
+            &gt; +                     continue;<br>
+            &gt; +             }<br>
+            &gt; +<br>
+            <br>
+            Please split up that patch a bit further. E.g. first the
+            handling to only hw_job_reset the ring in question, then the
+            kickout handling.<br>
+            <br>
+            [ML] No I don't think so, the kickout must be prior to the
+            hw_job_reset, otherwise the scheduler fence callback will be
+            removed and you need manually install it later , which is
+            not correct:<br>
+            For the guity job, we just kick it out before job reset, in
+            job_reset we only reset other innocent jobs( and unbind the
+            scheduler fence callback for them), after hw fence<br>
+            Forcely set to drv_seq, all hw fence are signaled (this is
+            the way of original logic, I didn't change that).  When go
+            to sched_recovery(), it will recover all innocent job and
+            hook<br>
+            The scheduler fence with new hw fence.  That way only the
+            guilty job is dropped forever.<br>
+            <br>
+            -----Original Message-----<br>
+            From: Christian König [<a moz-do-not-send="true"
+              href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org</a>]
+            <br>
+            Sent: Monday, May 08, 2017 9:12 PM<br>
+            To: Liu, Monk <a class="moz-txt-link-rfc2396E" href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org">&lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;</a>;
+            <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+            Cc: Koenig, Christian <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org">&lt;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+            Subject: Re: [PATCH 4/4] drm/amdgpu/SRIOV:implement guilty
+            job TDR (V2)<br>
+            <br>
+            Am 08.05.2017 um 09:01 schrieb Liu, Monk:<br>
+            &gt; @Christian<br>
+            &gt;<br>
+            &gt; This one is changed to guilty job scheme accordingly
+            with your <br>
+            &gt; response<br>
+            &gt;<br>
+            &gt; BR Monk<br>
+            &gt;<br>
+            &gt; -----Original Message-----<br>
+            &gt; From: Monk Liu [<a moz-do-not-send="true"
+              href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org">mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org</a>]<br>
+            &gt; Sent: Monday, May 08, 2017 3:00 PM<br>
+            &gt; To: <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+            &gt; Cc: Liu, Monk <a class="moz-txt-link-rfc2396E" href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org">&lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+            &gt; Subject: [PATCH] drm/amdgpu/SRIOV:implement guilty job
+            TDR (V2)<br>
+            &gt;<br>
+            &gt; 1,TDR will kickout guilty job if it hang exceed the
+            threshold of the given one from kernel paramter
+            "job_hang_limit", that way a bad command stream will not
+            infinitly cause GPU hang.<br>
+            &gt;<br>
+            &gt; by default this threshold is 1 so a job will be kicked
+            out after it hang.<br>
+            &gt;<br>
+            &gt; 2,if a job timeout TDR routine will not reset all
+            sched/ring, instead if will only reset on the givn one which
+            is indicated by @job of amdgpu_sriov_gpu_reset, that way we
+            don't need to reset and recover each sched/ring if we
+            already know which job cause GPU hang.<br>
+            &gt;<br>
+            &gt; 3,unblock sriov_gpu_reset for AI family.<br>
+            &gt; 4,don't init entity for KIQ<br>
+            &gt;<br>
+            &gt; TODO:<br>
+            &gt; when a job is considered as guilty, we should mark some
+            flag in its fence status flag, and let UMD side aware that
+            this fence signaling is not due to job complete but job
+            hang.<br>
+            &gt;<br>
+            &gt; Change-Id: I7b89c19a3de93249db570d0a80522176b1525a09<br>
+            &gt; Signed-off-by: Monk Liu <a class="moz-txt-link-rfc2396E" href="mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org">&lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+            &gt; ---<br>
+            &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +<br>
+            &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c       |  4
+            +++<br>
+            &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 36
+            ++++++++++++++++++++-------<br>
+            &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  4
+            +++<br>
+            &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c     |  6
+            +++++<br>
+            &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h      |  1 +<br>
+            &gt;   drivers/gpu/drm/amd/scheduler/gpu_scheduler.c | 11
+            +++++++-  drivers/gpu/drm/amd/scheduler/gpu_scheduler.h |  7
+            ++++++<br>
+            &gt;   8 files changed, 60 insertions(+), 10 deletions(-)<br>
+            &gt;<br>
+            &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h <br>
+            &gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+            &gt; index 90a69bf..93bcea2 100644<br>
+            &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+            &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+            &gt; @@ -111,6 +111,7 @@ extern int amdgpu_prim_buf_per_se; 
+            extern int <br>
+            &gt; amdgpu_pos_buf_per_se;  extern int
+            amdgpu_cntl_sb_buf_per_se;  extern <br>
+            &gt; int amdgpu_param_buf_per_se;<br>
+            &gt; +extern int amdgpu_job_hang_limit;<br>
+            &gt;   <br>
+            &gt;   #define AMDGPU_DEFAULT_GTT_SIZE_MB          3072ULL
+            /* 3GB by default */<br>
+            &gt;   #define AMDGPU_WAIT_IDLE_TIMEOUT_IN_MS             
+            3000<br>
+            &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c <br>
+            &gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c<br>
+            &gt; index b4bbbb3..23afc58 100644<br>
+            &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c<br>
+            &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c<br>
+            &gt; @@ -52,6 +52,10 @@ static int amdgpu_ctx_init(struct
+            amdgpu_device *adev, struct amdgpu_ctx *ctx)<br>
+            &gt;                struct amd_sched_rq *rq;<br>
+            &gt;   <br>
+            &gt;                rq =
+            &amp;ring-&gt;sched.sched_rq[AMD_SCHED_PRIORITY_NORMAL];<br>
+            &gt; +<br>
+            &gt; +             if (ring == &amp;adev-&gt;gfx.kiq.ring)<br>
+            &gt; +                     continue;<br>
+            &gt; +<br>
+            <br>
+            That looks like a bug fix and should probably go into a
+            separate patch.<br>
+            <br>
+            &gt;                r =
+            amd_sched_entity_init(&amp;ring-&gt;sched,
+            &amp;ctx-&gt;rings[i].entity,<br>
+            &gt;                                          rq,
+            amdgpu_sched_jobs);<br>
+            &gt;                if (r)<br>
+            &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+            <br>
+            &gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+            &gt; index 0e5f314..f3990fe 100644<br>
+            &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+            &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+            &gt; @@ -2537,7 +2537,7 @@ static int
+            amdgpu_recover_vram_from_shadow(struct amdgpu_device *adev,<br>
+            &gt;    */<br>
+            &gt;   int amdgpu_sriov_gpu_reset(struct amdgpu_device
+            *adev, struct amdgpu_job *job)  {<br>
+            &gt; -     int i, r = 0;<br>
+            &gt; +     int i, j, r = 0;<br>
+            &gt;        int resched;<br>
+            &gt;        struct amdgpu_bo *bo, *tmp;<br>
+            &gt;        struct amdgpu_ring *ring;<br>
+            &gt; @@ -2550,19 +2550,30 @@ int
+            amdgpu_sriov_gpu_reset(struct amdgpu_device *adev, struct
+            amdgpu_job *job)<br>
+            &gt;        /* block TTM */<br>
+            &gt;        resched =
+            ttm_bo_lock_delayed_workqueue(&amp;adev-&gt;mman.bdev);<br>
+            &gt;   <br>
+            &gt; -     /* block scheduler */<br>
+            &gt; -     for (i = 0; i &lt; AMDGPU_MAX_RINGS; ++i) {<br>
+            &gt; -             ring = adev-&gt;rings[i];<br>
+            &gt; +     /* we start from the ring trigger GPU hang */<br>
+            &gt; +     j = job ? job-&gt;ring-&gt;idx : 0;<br>
+            &gt; +<br>
+            &gt; +     if (job)<br>
+            &gt; +             if
+            (amd_sched_invalidate_job(&amp;job-&gt;base,
+            amdgpu_job_hang_limit))<br>
+            &gt; +                    
+            amd_sched_job_kickout(&amp;job-&gt;base);<br>
+            <br>
+            Well that looks like the wrong order to me. We should
+            probably stop the scheduler before trying to mess anything
+            with the job.<br>
+            <br>
+            &gt;   <br>
+            &gt; +     /* block scheduler */<br>
+            &gt; +     for (i = j; i &lt; j + AMDGPU_MAX_RINGS; ++i) {<br>
+            &gt; +             ring = adev-&gt;rings[i %
+            AMDGPU_MAX_RINGS];<br>
+            &gt;                if (!ring || !ring-&gt;sched.thread)<br>
+            &gt;                        continue;<br>
+            &gt;   <br>
+            &gt;                kthread_park(ring-&gt;sched.thread);<br>
+            &gt; +<br>
+            &gt; +             if (job &amp;&amp; j != i)<br>
+            &gt; +                     continue;<br>
+            &gt; +<br>
+            &gt; +             /* only do job_reset on the hang ring if
+            @job not NULL */<br>
+            &gt;               
+            amd_sched_hw_job_reset(&amp;ring-&gt;sched);<br>
+            &gt; -     }<br>
+            &gt;   <br>
+            &gt; -     /* after all hw jobs are reset, hw fence is
+            meaningless, so force_completion */<br>
+            &gt; -     amdgpu_fence_driver_force_completion(adev);<br>
+            &gt; +             /* after all hw jobs are reset, hw fence
+            is meaningless, so force_completion */<br>
+            &gt; +            
+            amdgpu_fence_driver_force_completion_ring(ring);<br>
+            &gt; +     }<br>
+            &gt;   <br>
+            &gt;        /* request to take full control of GPU before
+            re-initialization  */<br>
+            &gt;        if (job)<br>
+            &gt; @@ -2615,11 +2626,16 @@ int
+            amdgpu_sriov_gpu_reset(struct amdgpu_device *adev, struct
+            amdgpu_job *job)<br>
+            &gt;        }<br>
+            &gt;        fence_put(fence);<br>
+            &gt;   <br>
+            &gt; -     for (i = 0; i &lt; AMDGPU_MAX_RINGS; ++i) {<br>
+            &gt; -             struct amdgpu_ring *ring =
+            adev-&gt;rings[i];<br>
+            &gt; +     for (i = j; i &lt; j + AMDGPU_MAX_RINGS; ++i) {<br>
+            &gt; +             ring = adev-&gt;rings[i %
+            AMDGPU_MAX_RINGS];<br>
+            &gt;                if (!ring || !ring-&gt;sched.thread)<br>
+            &gt;                        continue;<br>
+            &gt;   <br>
+            &gt; +             if (job &amp;&amp; j != i) {<br>
+            &gt; +                    
+            kthread_unpark(ring-&gt;sched.thread);<br>
+            &gt; +                     continue;<br>
+            &gt; +             }<br>
+            &gt; +<br>
+            <br>
+            Please split up that patch a bit further. E.g. first the
+            handling to only hw_job_reset the ring in question, then the
+            kickout handling.<br>
+            <br>
+            &gt;               
+            amd_sched_job_recovery(&amp;ring-&gt;sched);<br>
+            &gt;                kthread_unpark(ring-&gt;sched.thread);<br>
+            &gt;        }<br>
+            &gt; @@ -2629,6 +2645,8 @@ int amdgpu_sriov_gpu_reset(struct
+            amdgpu_device *adev, struct amdgpu_job *job)<br>
+            &gt;        if (r) {<br>
+            &gt;                /* bad news, how to tell it to userspace
+            ? */<br>
+            &gt;                dev_info(adev-&gt;dev, "GPU reset
+            failed\n");<br>
+            &gt; +     } else {<br>
+            &gt; +             dev_info(adev-&gt;dev, "GPU reset
+            successed!\n");<br>
+            &gt;        }<br>
+            &gt;   <br>
+            &gt;        adev-&gt;gfx.in_reset = false;<br>
+            &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c <br>
+            &gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+            &gt; index 416908a..fd3691a8 100644<br>
+            &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+            &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+            &gt; @@ -112,6 +112,7 @@ int amdgpu_prim_buf_per_se = 0; 
+            int <br>
+            &gt; amdgpu_pos_buf_per_se = 0;  int
+            amdgpu_cntl_sb_buf_per_se = 0;  int <br>
+            &gt; amdgpu_param_buf_per_se = 0;<br>
+            &gt; +int amdgpu_job_hang_limit = 0;<br>
+            &gt;   <br>
+            &gt;   MODULE_PARM_DESC(vramlimit, "Restrict VRAM for
+            testing, in <br>
+            &gt; megabytes");  module_param_named(vramlimit,
+            amdgpu_vram_limit, int, <br>
+            &gt; 0600); @@ -237,6 +238,9 @@
+            module_param_named(cntl_sb_buf_per_se, <br>
+            &gt; amdgpu_cntl_sb_buf_per_se, int, 0444);  <br>
+            &gt; MODULE_PARM_DESC(param_buf_per_se, "the size of
+            Off-Chip Pramater <br>
+            &gt; Cache per Shader Engine (default depending on gfx)"); 
+            <br>
+            &gt; module_param_named(param_buf_per_se,
+            amdgpu_param_buf_per_se, int, <br>
+            &gt; 0444);<br>
+            &gt;   <br>
+            &gt; +MODULE_PARM_DESC(job_hang_limit, "how much time allow
+            a job hang and <br>
+            &gt; +not drop it (default 0)");
+            module_param_named(job_hang_limit,<br>
+            &gt; +amdgpu_job_hang_limit, int ,0444);<br>
+            &gt; +<br>
+            &gt;   <br>
+            &gt;   static const struct pci_device_id pciidlist[] = { 
+            #ifdef  <br>
+            &gt; CONFIG_DRM_AMDGPU_SI diff --git <br>
+            &gt; a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c <br>
+            &gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c<br>
+            &gt; index d7523d1..8de3bd3 100644<br>
+            &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c<br>
+            &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c<br>
+            &gt; @@ -541,6 +541,12 @@ void
+            amdgpu_fence_driver_force_completion(struct amdgpu_device
+            *adev)<br>
+            &gt;        }<br>
+            &gt;   }<br>
+            &gt;   <br>
+            &gt; +void amdgpu_fence_driver_force_completion_ring(struct
+            amdgpu_ring<br>
+            &gt; +*ring) {<br>
+            &gt; +     if (ring)<br>
+            &gt; +             amdgpu_fence_write(ring,
+            ring-&gt;fence_drv.sync_seq); }<br>
+            &gt; +<br>
+            <br>
+            The coding style is completely off.<br>
+            <br>
+            Additional to that I don't think that this is a good idea.
+            We should probably rather just signal all scheduler fences
+            instead and don't touch the hardware fence at all.<br>
+            <br>
+            &gt;   /*<br>
+            &gt;    * Common fence implementation<br>
+            &gt;    */<br>
+            &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h <br>
+            &gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h<br>
+            &gt; index 981ef08..03e88c6 100644<br>
+            &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h<br>
+            &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h<br>
+            &gt; @@ -76,6 +76,7 @@ struct amdgpu_fence_driver {  int <br>
+            &gt; amdgpu_fence_driver_init(struct amdgpu_device *adev); 
+            void <br>
+            &gt; amdgpu_fence_driver_fini(struct amdgpu_device *adev); 
+            void <br>
+            &gt; amdgpu_fence_driver_force_completion(struct
+            amdgpu_device *adev);<br>
+            &gt; +void amdgpu_fence_driver_force_completion_ring(struct
+            amdgpu_ring <br>
+            &gt; +*ring);<br>
+            &gt;   <br>
+            &gt;   int amdgpu_fence_driver_init_ring(struct amdgpu_ring
+            *ring,<br>
+            &gt;                                  unsigned
+            num_hw_submission);<br>
+            &gt; diff --git
+            a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.c <br>
+            &gt; b/drivers/gpu/drm/amd/scheduler/gpu_scheduler.c<br>
+            &gt; index 6f4e31f..4e97e6d 100644<br>
+            &gt; --- a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.c<br>
+            &gt; +++ b/drivers/gpu/drm/amd/scheduler/gpu_scheduler.c<br>
+            &gt; @@ -390,9 +390,18 @@ void amd_sched_hw_job_reset(struct
+            amd_gpu_scheduler *sched)<br>
+            &gt;                                         
+            &amp;s_job-&gt;s_fence-&gt;cb)) {<br>
+            &gt;                       
+            fence_put(s_job-&gt;s_fence-&gt;parent);<br>
+            &gt;                        s_job-&gt;s_fence-&gt;parent =
+            NULL;<br>
+            &gt; +                    
+            atomic_dec(&amp;sched-&gt;hw_rq_count);<br>
+            &gt;                }<br>
+            &gt;        }<br>
+            &gt; -     atomic_set(&amp;sched-&gt;hw_rq_count, 0);<br>
+            &gt; +     spin_unlock(&amp;sched-&gt;job_list_lock);<br>
+            &gt; +}<br>
+            &gt; +<br>
+            &gt; +void amd_sched_job_kickout(struct amd_sched_job
+            *s_job) {<br>
+            &gt; +     struct amd_gpu_scheduler *sched =
+            s_job-&gt;sched;<br>
+            &gt; +<br>
+            &gt; +     spin_lock(&amp;sched-&gt;job_list_lock);<br>
+            &gt; +     list_del_init(&amp;s_job-&gt;node);<br>
+            &gt;        spin_unlock(&amp;sched-&gt;job_list_lock);<br>
+            &gt;   }<br>
+            &gt;   <br>
+            &gt; diff --git
+            a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h <br>
+            &gt; b/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h<br>
+            &gt; index 8cb41d3..59694f3 100644<br>
+            &gt; --- a/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h<br>
+            &gt; +++ b/drivers/gpu/drm/amd/scheduler/gpu_scheduler.h<br>
+            &gt; @@ -81,6 +81,7 @@ struct amd_sched_job {<br>
+            &gt;        struct list_head                node;<br>
+            &gt;        struct delayed_work             work_tdr;<br>
+            &gt;        uint64_t                        id;<br>
+            &gt; +     atomic_t karma;<br>
+            &gt;   };<br>
+            &gt;   <br>
+            &gt;   extern const struct fence_ops
+            amd_sched_fence_ops_scheduled; @@ -96,6 +97,11 @@ static
+            inline struct amd_sched_fence *to_amd_sched_fence(struct
+            fence *f)<br>
+            &gt;        return NULL;<br>
+            &gt;   }<br>
+            &gt;   <br>
+            &gt; +static inline bool amd_sched_invalidate_job(struct
+            amd_sched_job <br>
+            &gt; +*s_job, int threshold) {<br>
+            &gt; +     return (s_job &amp;&amp;
+            atomic_inc_return(&amp;s_job-&gt;karma) &gt; threshold); }<br>
+            &gt; +<br>
+            <br>
+            Again coding style is completely off.<br>
+            <br>
+            Christian.<br>
+            <br>
+            &gt;   /**<br>
+            &gt;    * Define the backend operations called by the
+            scheduler,<br>
+            &gt;    * these functions should be implemented in driver
+            side @@ -158,4 +164,5 @@ int amd_sched_job_init(struct
+            amd_sched_job *job,<br>
+            &gt;                       void *owner);<br>
+            &gt;   void amd_sched_hw_job_reset(struct amd_gpu_scheduler
+            *sched);  void <br>
+            &gt; amd_sched_job_recovery(struct amd_gpu_scheduler
+            *sched);<br>
+            &gt; +void amd_sched_job_kickout(struct amd_sched_job
+            *s_job);<br>
+            &gt;   #endif<br>
+            &gt; --<br>
+            &gt; 2.7.4<br>
+            &gt;<br>
+            &gt; _______________________________________________<br>
+            &gt; amd-gfx mailing list<br>
+            &gt; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+            &gt; <a moz-do-not-send="true"
+              href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+            <br>
+            <br>
+          </div>
+        </span></font>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------360C05E31E12B96B2E70979A--
+
+--===============0839500436==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0839500436==--
