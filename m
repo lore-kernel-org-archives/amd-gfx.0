@@ -1,51 +1,38 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH xf86-video-amdgpu] Don't enable DRI3 without glamor
-Date: Wed, 10 May 2017 16:10:55 +0000
-Message-ID: <BN6PR12MB165211F37AECD8CCF6A5E79AF7EC0@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <20170510094838.7952-1-michel@daenzer.net>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: [PATCH libdrm 1/3] amdgpu: add raven family id
+Date: Wed, 10 May 2017 13:50:29 -0400
+Message-ID: <1494438631-16747-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170510094838.7952-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?J01pY2hlbCBEw6RuemVyJw==?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
-LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIE1pY2hl
-bCBEw6RuemVyDQo+IFNlbnQ6IFdlZG5lc2RheSwgTWF5IDEwLCAyMDE3IDU6NDkgQU0NCj4gVG86
-IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IFN1YmplY3Q6IFtQQVRDSCB4Zjg2LXZp
-ZGVvLWFtZGdwdV0gRG9uJ3QgZW5hYmxlIERSSTMgd2l0aG91dCBnbGFtb3INCj4gDQo+IEZyb206
-IE1pY2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQuY29tPg0KPiANCj4gQ2FuJ3Qgd29y
-ayBjdXJyZW50bHkuIEZpeGVzIGNyYXNoIHdoZW4gdHJ5aW5nIHRvIHJ1biBhIERSSTMgY2xpZW50
-IHdoZW4NCj4gZ2xhbW9yIGlzbid0IGVuYWJsZWQuDQo+IA0KPiBCdWd6aWxsYTogaHR0cHM6Ly9i
-dWdzLmZyZWVkZXNrdG9wLm9yZy8xMDA5NjgNCj4gU2lnbmVkLW9mZi1ieTogTWljaGVsIETDpG56
-ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+DQoNClJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIg
-PGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQoNCj4gLS0tDQo+ICBzcmMvYW1kZ3B1X2ttcy5j
-IHwgNSArKysrLQ0KPiAgMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlv
-bigtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL3NyYy9hbWRncHVfa21zLmMgYi9zcmMvYW1kZ3B1X2tt
-cy5jDQo+IGluZGV4IDAxODJjYmUwYS4uNGRmODFmOTkzIDEwMDY0NA0KPiAtLS0gYS9zcmMvYW1k
-Z3B1X2ttcy5jDQo+ICsrKyBiL3NyYy9hbWRncHVfa21zLmMNCj4gQEAgLTE3NDEsNyArMTc0MSwx
-MCBAQCBCb29sDQo+IEFNREdQVVNjcmVlbkluaXRfS01TKFNDUkVFTl9JTklUX0FSR1NfREVDTCkN
-Cj4gICNlbmRpZg0KPiANCj4gIAlpZiAoIWFtZGdwdV9pc19ncHVfc2NyZWVuKHBTY3JlZW4pKSB7
-DQo+IC0JCXZhbHVlID0geG9yZ0dldFZlcnNpb24oKSA+PQ0KPiBYT1JHX1ZFUlNJT05fTlVNRVJJ
-QygxLDE4LDMsMCwwKTsNCj4gKwkJaWYgKHhvcmdHZXRWZXJzaW9uKCkgPj0NCj4gWE9SR19WRVJT
-SU9OX05VTUVSSUMoMSwxOCwzLDAsMCkpDQo+ICsJCQl2YWx1ZSA9IGluZm8tPnVzZV9nbGFtb3I7
-DQo+ICsJCWVsc2UNCj4gKwkJCXZhbHVlID0gRkFMU0U7DQo+ICAJCWZyb20gPSBYX0RFRkFVTFQ7
-DQo+IA0KPiAgCQlpZiAoaW5mby0+dXNlX2dsYW1vcikgew0KPiAtLQ0KPiAyLjExLjANCj4gDQo+
-IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+IGFtZC1n
-ZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IGh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+RnJvbTogSGF3a2luZyBaaGFuZyA8SGF3a2luZy5aaGFuZ0BhbWQuY29tPgoKU2lnbmVkLW9mZi1i
+eTogSGF3a2luZyBaaGFuZyA8SGF3a2luZy5aaGFuZ0BhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBD
+aHVubWluZyBaaG91IDxEYXZpZDEuWmhvdUBhbWQuY29tPgpSZXZpZXdlZC1ieTogSnVud2VpIFpo
+YW5nIDxKZXJyeS5aaGFuZ0BhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFs
+ZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Ci0tLQogaW5jbHVkZS9kcm0vYW1kZ3B1X2RybS5oIHwg
+MSArCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykKCmRpZmYgLS1naXQgYS9pbmNsdWRl
+L2RybS9hbWRncHVfZHJtLmggYi9pbmNsdWRlL2RybS9hbWRncHVfZHJtLmgKaW5kZXggNTE2YTlm
+Mi4uMGRlNGNmNiAxMDA2NDQKLS0tIGEvaW5jbHVkZS9kcm0vYW1kZ3B1X2RybS5oCisrKyBiL2lu
+Y2x1ZGUvZHJtL2FtZGdwdV9kcm0uaApAQCAtODE2LDYgKzgxNiw3IEBAIHN0cnVjdCBkcm1fYW1k
+Z3B1X2luZm9fdmNlX2Nsb2NrX3RhYmxlIHsKICNkZWZpbmUgQU1ER1BVX0ZBTUlMWV9WSQkJCTEz
+MCAvKiBJY2VsYW5kLCBUb25nYSAqLwogI2RlZmluZSBBTURHUFVfRkFNSUxZX0NaCQkJMTM1IC8q
+IENhcnJpem8sIFN0b25leSAqLwogI2RlZmluZSBBTURHUFVfRkFNSUxZX0FJCQkJMTQxIC8qIFZl
+Z2ExMCAqLworI2RlZmluZSBBTURHUFVfRkFNSUxZX1JWCQkJMTQyIC8qIFJhdmVuICovCiAKICNp
+ZiBkZWZpbmVkKF9fY3BsdXNwbHVzKQogfQotLSAKMi41LjUKCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRl
+dmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
