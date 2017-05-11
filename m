@@ -1,13 +1,12 @@
-From: "Li, Samuel" <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 1/1] amdgpu: move asic id table to a separate file
-Date: Thu, 11 May 2017 16:03:59 +0000
-Message-ID: <CY1PR1201MB1033853A085F9718AA675C3AF5ED0@CY1PR1201MB1033.namprd12.prod.outlook.com>
+From: "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/1] amdgpu: move asic id table to a separate file
+Date: Thu, 11 May 2017 10:51:00 +0000
+Message-ID: <BY2PR1201MB0968501917152E7FF9C1B19D89ED0@BY2PR1201MB0968.namprd12.prod.outlook.com>
 References: <1494449815-10162-1-git-send-email-Samuel.Li@amd.com>
- <BY2PR1201MB0968501917152E7FF9C1B19D89ED0@BY2PR1201MB0968.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1223004684=="
+Content-Type: multipart/mixed; boundary="===============0656594655=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BY2PR1201MB0968501917152E7FF9C1B19D89ED0-O28G1zQ8oGnHEywBZCNHpGrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
+In-Reply-To: <1494449815-10162-1-git-send-email-Samuel.Li-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,29 +18,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Li, Samuel" <Samuel.Li-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1223004684==
+--===============0656594655==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_CY1PR1201MB1033853A085F9718AA675C3AF5ED0CY1PR1201MB1033_"
+	boundary="_000_BY2PR1201MB0968501917152E7FF9C1B19D89ED0BY2PR1201MB0968_"
 
---_000_CY1PR1201MB1033853A085F9718AA675C3AF5ED0CY1PR1201MB1033_
-Content-Type: text/plain; charset="us-ascii"
+--_000_BY2PR1201MB0968501917152E7FF9C1B19D89ED0BY2PR1201MB0968_
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-Good catch!
-
-Sam
-
-From: Yuan, Xiaojie
-Sent: Thursday, May 11, 2017 6:51 AM
-To: Li, Samuel <Samuel.Li-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH 1/1] amdgpu: move asic id table to a separate file
-
-
 Hi Samuel,
-
 
 
 Here's an off-by-one error:
@@ -49,11 +37,9 @@ Here's an off-by-one error:
 +                       id =3D asic_id_table + table_size -1;
 
 
-
 should be:
 
 +                       id =3D asic_id_table + table_size;
-
 
 
 Regards,
@@ -63,14 +49,14 @@ Xiaojie
 ________________________________
 From: Li, Samuel
 Sent: Thursday, May 11, 2017 4:56:55 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: Yuan, Xiaojie; Li, Samuel
 Subject: [PATCH 1/1] amdgpu: move asic id table to a separate file
 
-From: Xiaojie Yuan <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org<mailto:Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>>
+From: Xiaojie Yuan <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
 
 Change-Id: I12216da14910f5e2b0970bc1fafc2a20b0ef1ba9
-Signed-off-by: Samuel Li <Samuel.Li-5C7GfCeVMHo@public.gmane.org<mailto:Samuel.Li-5C7GfCeVMHo@public.gmane.org>>
+Signed-off-by: Samuel Li <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
 ---
  amdgpu/Makefile.am       |   2 +
  amdgpu/Makefile.sources  |   2 +-
@@ -114,7 +100,7 @@ index 0000000..d50e21a
 +++ b/amdgpu/amdgpu_asic_id.c
 @@ -0,0 +1,198 @@
 +/*
-+ * Copyright (c) 2017 Advanced Micro Devices, Inc.
++ * Copyright =A9 2017 Advanced Micro Devices, Inc.
 + * All Rights Reserved.
 + *
 + * Permission is hereby granted, free of charge, to any person obtaining a
@@ -330,7 +316,7 @@ index 3e7d736..0000000
 +++ /dev/null
 @@ -1,165 +0,0 @@
 -/*
-- * Copyright (c) 2016 Advanced Micro Devices, Inc.
+- * Copyright =A9 2016 Advanced Micro Devices, Inc.
 - * All Rights Reserved.
 - *
 - * Permission is hereby granted, free of charge, to any person obtaining a
@@ -619,166 +605,72 @@ ize);
 --
 2.7.4
 
---_000_CY1PR1201MB1033853A085F9718AA675C3AF5ED0CY1PR1201MB1033_
-Content-Type: text/html; charset="us-ascii"
+
+--_000_BY2PR1201MB0968501917152E7FF9C1B19D89ED0BY2PR1201MB0968_
+Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
+<html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@SimSun";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-p
-	{mso-style-priority:99;
-	margin:0in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;}
-p.emailquote, li.emailquote, div.emailquote
-	{mso-style-name:emailquote;
-	margin-top:0in;
-	margin-right:0in;
-	margin-bottom:0in;
-	margin-left:1.0pt;
-	margin-bottom:.0001pt;
-	border:none;
-	padding:0in;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;}
-span.EmailStyle19
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:#2F5496;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
+<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
+ding-left: 4pt; border-left: #800000 2px solid; } --></style>
 </head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#2F5496">Good catch!<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#2F5496"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#2F5496">Sam<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#2F5496"><o:p>&nbsp;</o:p></span></p>
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
-;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11.0pt;=
-font-family:&quot;Calibri&quot;,sans-serif"> Yuan, Xiaojie
-<br>
-<b>Sent:</b> Thursday, May 11, 2017 6:51 AM<br>
-<b>To:</b> Li, Samuel &lt;Samuel.Li-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org<br>
-<b>Subject:</b> Re: [PATCH 1/1] amdgpu: move asic id table to a separate fi=
-le<o:p></o:p></span></p>
+<body>
+<meta content=3D"text/html; charset=3DUTF-8">
+<style type=3D"text/css" style=3D"">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div dir=3D"ltr">
+<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
+or:#000000; font-family:Calibri,Arial,Helvetica,sans-serif">
+<p>Hi Samuel,</p>
+<p><br>
+</p>
+<p><span style=3D"font-size:12pt">Here's an off-by-one error</span><span st=
+yle=3D"font-size:12pt">:</span></p>
+<p><font size=3D"2"><span style=3D"font-size:12pt">&#43;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id =3D asic_id_table &#43; table_siz=
+e -1;</span></font></p>
+<p><br>
+</p>
+<p><span style=3D"font-size:12pt">should be:</span></p>
+<p><font size=3D"2"><span style=3D"font-size:12pt">&#43;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id =3D asic_id_table &#43; table_siz=
+e;</span></font></p>
+<p><font size=3D"2"><span style=3D"font-size:12pt"><br>
+</span></font></p>
+<p><font size=3D"2"><span style=3D"font-size:12pt">Regards,</span></font></=
+p>
+<p><font size=3D"2"><span style=3D"font-size:12pt">Xiaojie</span></font><br=
+>
+</p>
 </div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<div id=3D"x_divtagdefaultwrapper">
-<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black">H=
-i Samuel,<o:p></o:p></span></p>
-<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black"><=
-o:p>&nbsp;</o:p></span></p>
-<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black">H=
-ere's an off-by-one error:<o:p></o:p></span></p>
-<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black">&=
-#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id =3D asic_i=
-d_table &#43; table_size -1;<o:p></o:p></span></p>
-<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black"><=
-o:p>&nbsp;</o:p></span></p>
-<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black">s=
-hould be:<o:p></o:p></span></p>
-<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black">&=
-#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id =3D asic_i=
-d_table &#43; table_size;<o:p></o:p></span></p>
-<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black"><=
-o:p>&nbsp;</o:p></span></p>
-<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black">R=
-egards,<o:p></o:p></span></p>
-<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black">X=
-iaojie<o:p></o:p></span></p>
-</div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"x_divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
-;Calibri&quot;,sans-serif;color:black">From:</span></b><span style=3D"font-=
-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black"> Li, Sa=
-muel<br>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Li, Samuel<br>
 <b>Sent:</b> Thursday, May 11, 2017 4:56:55 AM<br>
-<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
-reedesktop.org</a><br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
 <b>Cc:</b> Yuan, Xiaojie; Li, Samuel<br>
 <b>Subject:</b> [PATCH 1/1] amdgpu: move asic id table to a separate file</=
-span> <o:p>
-</o:p></p>
-<div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+font>
+<div>&nbsp;</div>
 </div>
 </div>
-</div>
-<div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span style=3D"font-s=
-ize:10.0pt">From: Xiaojie Yuan &lt;<a href=3D"mailto:Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org">=
-Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+<font size=3D"2"><span style=3D"font-size:10pt;">
+<div class=3D"PlainText">From: Xiaojie Yuan &lt;Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org&gt;<br=
+>
 <br>
 Change-Id: I12216da14910f5e2b0970bc1fafc2a20b0ef1ba9<br>
-Signed-off-by: Samuel Li &lt;<a href=3D"mailto:Samuel.Li-5C7GfCeVMHo@public.gmane.org">Samuel.Li=
-@amd.com</a>&gt;<br>
+Signed-off-by: Samuel Li &lt;Samuel.Li-5C7GfCeVMHo@public.gmane.org&gt;<br>
 ---<br>
 &nbsp;amdgpu/Makefile.am&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; =
 2 &#43;<br>
@@ -830,7 +722,7 @@ index 0000000..d50e21a<br>
 &#43;&#43;&#43; b/amdgpu/amdgpu_asic_id.c<br>
 @@ -0,0 &#43;1,198 @@<br>
 &#43;/*<br>
-&#43; * Copyright &copy; 2017 Advanced Micro Devices, Inc.<br>
+&#43; * Copyright =A9 2017 Advanced Micro Devices, Inc.<br>
 &#43; * All Rights Reserved.<br>
 &#43; *<br>
 &#43; * Permission is hereby granted, free of charge, to any person obtaini=
@@ -1153,7 +1045,7 @@ index 3e7d736..0000000<br>
 &#43;&#43;&#43; /dev/null<br>
 @@ -1,165 &#43;0,0 @@<br>
 -/*<br>
-- * Copyright &copy; 2016 Advanced Micro Devices, Inc.<br>
+- * Copyright =A9 2016 Advanced Micro Devices, Inc.<br>
 - * All Rights Reserved.<br>
 - *<br>
 - * Permission is hereby granted, free of charge, to any person obtaining a=
@@ -1681,15 +1573,16 @@ uint64_t size,<br>
 &nbsp;drm_private uint64_t amdgpu_cs_calculate_timeout(uint64_t timeout);<b=
 r>
 -- <br>
-2.7.4<o:p></o:p></span></p>
+2.7.4<br>
+<br>
 </div>
-</div>
+</span></font>
 </body>
 </html>
 
---_000_CY1PR1201MB1033853A085F9718AA675C3AF5ED0CY1PR1201MB1033_--
+--_000_BY2PR1201MB0968501917152E7FF9C1B19D89ED0BY2PR1201MB0968_--
 
---===============1223004684==
+--===============0656594655==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -1699,4 +1592,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1223004684==--
+--===============0656594655==--
