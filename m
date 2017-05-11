@@ -1,16 +1,14 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH v2 2/2] drm/amdgpu: export test ring debugfs interface
-Date: Thu, 11 May 2017 16:25:31 +0200
-Message-ID: <53254cce-6931-e877-085e-50ed30d92241@amd.com>
-References: <1494481373-2237-1-git-send-email-ray.huang@amd.com>
- <1494481373-2237-2-git-send-email-ray.huang@amd.com>
- <999c2a33-3205-b287-7d22-dfeb4344b3a0@vodafone.de>
- <20170511073556.GA25561@hr-amur2>
+From: "Li, Samuel" <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 1/1] amdgpu: move asic id table to a separate file
+Date: Thu, 11 May 2017 16:03:59 +0000
+Message-ID: <CY1PR1201MB1033853A085F9718AA675C3AF5ED0@CY1PR1201MB1033.namprd12.prod.outlook.com>
+References: <1494449815-10162-1-git-send-email-Samuel.Li@amd.com>
+ <BY2PR1201MB0968501917152E7FF9C1B19D89ED0@BY2PR1201MB0968.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1223004684=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170511073556.GA25561@hr-amur2>
+In-Reply-To: <BY2PR1201MB0968501917152E7FF9C1B19D89ED0-O28G1zQ8oGnHEywBZCNHpGrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,65 +19,1684 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Zhou,
- David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "Wang, Ken" <Ken.Wang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Huan,
- Alvin" <Alvin.Huan-5C7GfCeVMHo@public.gmane.org>
+To: "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QW0gMTEuMDUuMjAxNyB1bSAwOTozNSBzY2hyaWViIEh1YW5nIFJ1aToKPiBPbiBUaHUsIE1heSAx
-MSwgMjAxNyBhdCAwMjo0MTo1NlBNICswODAwLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiBB
-bSAxMS4wNS4yMDE3IHVtIDA3OjQyIHNjaHJpZWIgSHVhbmcgUnVpOgo+Pj4gU2lnbmVkLW9mZi1i
-eTogSHVhbmcgUnVpIDxyYXkuaHVhbmdAYW1kLmNvbT4KPj4+IC0tLQo+Pj4KPj4+IFYxIC0+IFYy
-Ogo+Pj4gLSBwYXJrIHRoZSBzY2hlZHVsZXIgdGhyZWFkIGZvciBlYWNoIHJpbmcgdG8gYXZvaWQg
-Y29uZmxpY3Qgd2l0aCBjb21tYW5kcwo+PiBmcm9tCj4+PiAgICAgYWN0aXZlIGFwcHMuCj4+Pgo+
-Pj4gLS0tCj4+PiAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMg
-fCA1MAo+PiArKysrKysrKysrKysrKysrKysrKysrKysrKysrLS0KPj4+ICAgIDEgZmlsZSBjaGFu
-Z2VkLCA0OCBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQo+Pj4KPj4+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kCj4+IC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4+PiBpbmRleCAxOWFjMTk2Li4w
-NGE2M2I1IDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2RldmljZS5jCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2
-aWNlLmMKPj4+IEBAIC0zNjQzLDE0ICszNjQzLDYwIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2RlYnVn
-ZnNfdGVzdF9pYihzdHJ1Y3Qgc2VxX2ZpbGUgKm0sCj4+IHZvaWQgKmRhdGEpCj4+PiAgICAgICAg
-IHJldHVybiAwOwo+Pj4gICAgfQo+Pj4gICAKPj4+ICtzdGF0aWMgaW50IGFtZGdwdV9yaW5nX3Rl
-c3RzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+Pj4gK3sKPj4+ICsgICAgIHVuc2lnbmVk
-IGk7Cj4+PiArICAgICBpbnQgciA9IDA7Cj4+PiArCj4+PiArICAgICBmb3IgKGkgPSAwOyBpIDwg
-QU1ER1BVX01BWF9SSU5HUzsgKytpKSB7Cj4+PiArICAgICAgICAgICAgIHN0cnVjdCBhbWRncHVf
-cmluZyAqcmluZyA9IGFkZXYtPnJpbmdzW2ldOwo+Pj4gKwo+Pj4gKyAgICAgICAgICAgICBpZiAo
-IXJpbmcgfHwgIXJpbmctPnJlYWR5IHx8ICFyaW5nLT5zY2hlZC50aHJlYWQpCj4+PiArICAgICAg
-ICAgICAgICAgICAgICAgY29udGludWU7Cj4+PiArCj4+PiArICAgICAgICAgICAgIC8qIGhvbGQg
-b24gdGhlIHNjaGVkdWxlciAqLwo+Pj4gKyAgICAgICAgICAgICBrdGhyZWFkX3BhcmsocmluZy0+
-c2NoZWQudGhyZWFkKTsKPj4+ICsKPj4+ICsgICAgICAgICAgICAgciA9IGFtZGdwdV9yaW5nX3Rl
-c3RfcmluZyhyaW5nKTsKPj4+ICsgICAgICAgICAgICAgaWYgKHIpIHsKPj4+ICsgICAgICAgICAg
-ICAgICAgICAgICByaW5nLT5yZWFkeSA9IGZhbHNlOwo+PiBEb24ndCBtZXNzIHdpdGggdGhlIHJl
-YWR5IGZsYWcgaGVyZS4KPj4KPj4+ICsgICAgICAgICAgICAgICAgICAgICBEUk1fRVJST1IoImFt
-ZGdwdTogZmFpbGVkIHRvIHRlc3QgcmluZyAlZCAoJWQpLlxuIiwKPj4+ICsgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgaSwgcik7Cj4+PiArICAgICAgICAgICAgIH0KPj4+ICsKPj4+ICsg
-ICAgICAgICAgICAgLyogZ28gb24gdGhlIHNjaGVkdWxlciAqLwo+Pj4gKyAgICAgICAgICAgICBr
-dGhyZWFkX3VucGFyayhyaW5nLT5zY2hlZC50aHJlYWQpOwo+Pj4gKyAgICAgfQo+Pj4gKwo+Pj4g
-KyAgICAgcmV0dXJuIHI7Cj4+PiArfQo+Pj4gKwo+Pj4gK3N0YXRpYyBpbnQgYW1kZ3B1X2RlYnVn
-ZnNfdGVzdF9yaW5nKHN0cnVjdCBzZXFfZmlsZSAqbSwgdm9pZCAqZGF0YSkKPj4+ICt7Cj4+PiAr
-ICAgICBzdHJ1Y3QgZHJtX2luZm9fbm9kZSAqbm9kZSA9IChzdHJ1Y3QgZHJtX2luZm9fbm9kZSAq
-KSBtLT5wcml2YXRlOwo+Pj4gKyAgICAgc3RydWN0IGRybV9kZXZpY2UgKmRldiA9IG5vZGUtPm1p
-bm9yLT5kZXY7Cj4+PiArICAgICBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGRldi0+ZGV2
-X3ByaXZhdGU7Cj4+PiArICAgICBpbnQgciA9IDA7Cj4+PiArCj4+PiArICAgICBzZXFfcHJpbnRm
-KG0sICJydW4gcmluZyB0ZXN0OlxuIik7Cj4+PiArICAgICByID0gYW1kZ3B1X3JpbmdfdGVzdHMo
-YWRldik7Cj4+IFdoeSBhIHNlcGFyYXRlIGZ1bmN0aW9uIGZvciB0aGlzPwo+Pgo+IEkgdGhpbmsg
-aXQgbWlnaHQgYmUgcmUtdXNlZCBieSBvdGhlciBzaWRlIGluIGZ1dHVyZS4KCldlbGwgaW4gdGhp
-cyBjYXNlIHdlIHNob3VsZCBjcmVhdGUgdGhlIGZ1bmN0aW9uIHdoZW4gd2UgYWN0dWFsbHkgdXNl
-IGl0IAphbmQgbm90IGp1c3QgYmVjYXVzZSBhIHBvc3NpYmxlIHVzZSBzb21lIHRpbWVzIGluIHRo
-ZSBmdXR1cmUuCgo+PiBBZGRpdGlvbmFsIHRvIHRoYXQgSSBhZ3JlZSB3aXRoIERhdmUgdGhhdCB3
-aGVuIHdlIGhhdmUgdGhlIElCIHRlc3QgdGhlCj4+IHJpbmcgdGVzdCBpcyBub3QgbmVjZXNzYXJ5
-IGFueSBtb3JlLgo+Pgo+PiBXZSBqdXN0IGRvIHRoaXMgb24gYm9vdC9yZXN1bWUgc2VwYXJhdGVs
-eSB0byBiZSBhYmxlIHRvIG5hcnJvdyBkb3duCj4+IHByb2JsZW1zIGZhc3RlciB3aGVuIHdlIHNl
-ZSBpbiB0aGUgbG9ncyB0aGF0IG9uZSBmYWlscyBidXQgdGhlIG90aGVyCj4+IHN1Y2NlZWRzLgo+
-Pgo+IFllYWgsIHlvdSBrbm93LCB3ZSBvbmx5IHdhbnQgdG8gZXhwb3NlIGliIHRlc3Qgb3JpZ25h
-bGx5LiBXaGVuIEkgd3JpdGUgdGhhdAo+IGNvZGVzLCBJIGZvdW5kIHRoZSByaW5nIHRlc3RzIGFy
-ZSBhbHNvIGFibGUgdG8gcmUtdXNlIHRoZSBkZWJ1Z2ZzIGxpc3QuIDopCj4KPiBJcyB0aGVyZSBh
-bnl0aGluZyB0aGF0IG1pZ2h0IGJyZWFrIHRoZSByaW5nIGF0IHJ1bnRpbWU/IElmIG5vdCwgSSBj
-YW4gZHJvcAo+IHRoaXMgcGF0Y2guCgpZZWFoLCB0aGUgcmluZyB0ZXN0cyBtZXNzZXMgd2l0aCB0
-aGUgcmVhZHkgZmxhZ3MsIHNvIEkgd291bGQgcmF0aGVyIGRyb3AgCnRoaXMgcGF0Y2guCgpDaHJp
-c3RpYW4uCgo+Cj4gVGhhbmtzLAo+IFJ1aQoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYW1kLWdmeAo=
+--===============1223004684==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY1PR1201MB1033853A085F9718AA675C3AF5ED0CY1PR1201MB1033_"
+
+--_000_CY1PR1201MB1033853A085F9718AA675C3AF5ED0CY1PR1201MB1033_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Good catch!
+
+Sam
+
+From: Yuan, Xiaojie
+Sent: Thursday, May 11, 2017 6:51 AM
+To: Li, Samuel <Samuel.Li-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH 1/1] amdgpu: move asic id table to a separate file
+
+
+Hi Samuel,
+
+
+
+Here's an off-by-one error:
+
++                       id =3D asic_id_table + table_size -1;
+
+
+
+should be:
+
++                       id =3D asic_id_table + table_size;
+
+
+
+Regards,
+
+Xiaojie
+
+________________________________
+From: Li, Samuel
+Sent: Thursday, May 11, 2017 4:56:55 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Yuan, Xiaojie; Li, Samuel
+Subject: [PATCH 1/1] amdgpu: move asic id table to a separate file
+
+From: Xiaojie Yuan <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org<mailto:Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>>
+
+Change-Id: I12216da14910f5e2b0970bc1fafc2a20b0ef1ba9
+Signed-off-by: Samuel Li <Samuel.Li-5C7GfCeVMHo@public.gmane.org<mailto:Samuel.Li-5C7GfCeVMHo@public.gmane.org>>
+---
+ amdgpu/Makefile.am       |   2 +
+ amdgpu/Makefile.sources  |   2 +-
+ amdgpu/amdgpu_asic_id.c  | 198 +++++++++++++++++++++++++++++++++++++++++++=
+++++
+ amdgpu/amdgpu_asic_id.h  | 165 ---------------------------------------
+ amdgpu/amdgpu_device.c   |  28 +++++--
+ amdgpu/amdgpu_internal.h |  10 +++
+ 6 files changed, 232 insertions(+), 173 deletions(-)
+ create mode 100644 amdgpu/amdgpu_asic_id.c
+ delete mode 100644 amdgpu/amdgpu_asic_id.h
+
+diff --git a/amdgpu/Makefile.am b/amdgpu/Makefile.am
+index cf7bc1b..ecf9e82 100644
+--- a/amdgpu/Makefile.am
++++ b/amdgpu/Makefile.am
+@@ -30,6 +30,8 @@ AM_CFLAGS =3D \
+         $(PTHREADSTUBS_CFLAGS) \
+         -I$(top_srcdir)/include/drm
+
++AM_CPPFLAGS =3D -DAMDGPU_ASIC_ID_TABLE=3D\"${datadir}/libdrm/amdgpu.ids\"
++
+ libdrm_amdgpu_la_LTLIBRARIES =3D libdrm_amdgpu.la
+ libdrm_amdgpu_ladir =3D $(libdir)
+ libdrm_amdgpu_la_LDFLAGS =3D -version-number 1:0:0 -no-undefined
+diff --git a/amdgpu/Makefile.sources b/amdgpu/Makefile.sources
+index 487b9e0..bc3abaa 100644
+--- a/amdgpu/Makefile.sources
++++ b/amdgpu/Makefile.sources
+@@ -1,5 +1,5 @@
+ LIBDRM_AMDGPU_FILES :=3D \
+-       amdgpu_asic_id.h \
++       amdgpu_asic_id.c \
+         amdgpu_bo.c \
+         amdgpu_cs.c \
+         amdgpu_device.c \
+diff --git a/amdgpu/amdgpu_asic_id.c b/amdgpu/amdgpu_asic_id.c
+new file mode 100644
+index 0000000..d50e21a
+--- /dev/null
++++ b/amdgpu/amdgpu_asic_id.c
+@@ -0,0 +1,198 @@
++/*
++ * Copyright (c) 2017 Advanced Micro Devices, Inc.
++ * All Rights Reserved.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software=
+"),
++ * to deal in the Software without restriction, including without limitati=
+on
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense=
+,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included=
+ in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS=
+ OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY=
+,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHAL=
+L
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES O=
+R
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++
++#ifdef HAVE_CONFIG_H
++#include "config.h"
++#endif
++
++#include <stdio.h>
++#include <stdlib.h>
++#include <stdint.h>
++#include <string.h>
++#include <unistd.h>
++#include <errno.h>
++
++#include "amdgpu_drm.h"
++#include "amdgpu_internal.h"
++
++static int parse_one_line(const char *line, struct amdgpu_asic_id *id)
++{
++       char *buf;
++       char *s_did;
++       char *s_rid;
++       char *s_name;
++       char *endptr;
++       int r =3D 0;
++
++       buf =3D strdup(line);
++       if (!buf)
++               return -ENOMEM;
++
++       /* ignore empty line and commented line */
++       if (strlen(line) =3D=3D 0 || line[0] =3D=3D '#') {
++               r =3D -EAGAIN;
++               goto out;
++       }
++
++       /* device id */
++       s_did =3D strtok(buf, ",");
++       if (!s_did) {
++               r =3D -EINVAL;
++               goto out;
++       }
++
++       id->did =3D strtol(s_did, &endptr, 16);
++       if (*endptr) {
++               r =3D -EINVAL;
++               goto out;
++       }
++
++       /* revision id */
++       s_rid =3D strtok(NULL, ",");
++       if (!s_rid) {
++               r =3D -EINVAL;
++               goto out;
++       }
++
++       id->rid =3D strtol(s_rid, &endptr, 16);
++       if (*endptr) {
++               r =3D -EINVAL;
++               goto out;
++       }
++
++       /* marketing name */
++       s_name =3D strtok(NULL, ",");
++       if (!s_name) {
++               r =3D -EINVAL;
++               goto out;
++       }
++
++       id->marketing_name =3D strdup(s_name);
++       if (id->marketing_name =3D=3D NULL) {
++               r =3D -EINVAL;
++               goto out;
++       }
++
++out:
++       free(buf);
++
++       return r;
++}
++
++int amdgpu_parse_asic_ids(struct amdgpu_asic_id **p_asic_id_table)
++{
++       struct amdgpu_asic_id *asic_id_table;
++       struct amdgpu_asic_id *id;
++       FILE *fp;
++       char *line =3D NULL;
++       size_t len;
++       ssize_t n;
++       int line_num =3D 1;
++       size_t table_size =3D 0;
++       size_t table_max_size =3D 256;
++       int r =3D 0;
++
++       fp =3D fopen(AMDGPU_ASIC_ID_TABLE, "r");
++       if (!fp) {
++               fprintf(stderr, "%s: %s\n", AMDGPU_ASIC_ID_TABLE,
++                               strerror(errno));
++               return -EINVAL;
++       }
++
++       asic_id_table =3D calloc(table_max_size, sizeof(struct amdgpu_asic_=
+id));
++       if (!asic_id_table) {
++               r =3D -ENOMEM;
++               goto close;
++       }
++
++       /* 1st line is file version */
++       if ((n =3D getline(&line, &len, fp)) !=3D -1) {
++               /* trim trailing newline */
++               if (line[n - 1] =3D=3D '\n')
++                       line[n - 1] =3D '\0';
++               printf("%s version: %s\n", AMDGPU_ASIC_ID_TABLE, line);
++       } else {
++               goto free;
++       }
++
++       while ((n =3D getline(&line, &len, fp)) !=3D -1) {
++               id =3D asic_id_table + table_size;
++
++               /* trim trailing newline */
++               if (line[n - 1] =3D=3D '\n')
++                       line[n - 1] =3D '\0';
++
++               /*
++                * parse one line, its format looks like:
++                * 6617,C7,AMD Radeon R7 240 Series
++                */
++               r =3D parse_one_line(line, id);
++               if (r) {
++                       if (r =3D=3D -EAGAIN) {
++                               line_num++;
++                               continue;
++                       }
++                       fprintf(stderr, "Invalid format: %s: line %d: %s\n"=
+,
++                                       AMDGPU_ASIC_ID_TABLE, line_num, lin=
+e);
++                       goto free;
++               }
++
++               line_num++;
++               table_size++;
++
++               if (table_size >=3D table_max_size) {
++                       /* double table size */
++                       table_max_size *=3D 2;
++                       asic_id_table =3D realloc(asic_id_table, table_max_=
+size *
++                                       sizeof(struct amdgpu_asic_id));
++                       if (!asic_id_table) {
++                               r =3D -ENOMEM;
++                               goto free;
++                       }
++               }
++       }
++
++       /* end of table */
++       id =3D asic_id_table + table_size;
++       memset(id, 0, sizeof(struct amdgpu_asic_id));
++
++free:
++       free(line);
++
++       if (r && asic_id_table) {
++               while (table_size--) {
++                       id =3D asic_id_table + table_size -1;
++                       if (id->marketing_name !=3D  NULL)
++                               free(id->marketing_name);
++               }
++               free(asic_id_table);
++               asic_id_table =3D NULL;
++       }
++close:
++       fclose(fp);
++
++       *p_asic_id_table =3D asic_id_table;
++
++       return r;
++}
+diff --git a/amdgpu/amdgpu_asic_id.h b/amdgpu/amdgpu_asic_id.h
+deleted file mode 100644
+index 3e7d736..0000000
+--- a/amdgpu/amdgpu_asic_id.h
++++ /dev/null
+@@ -1,165 +0,0 @@
+-/*
+- * Copyright (c) 2016 Advanced Micro Devices, Inc.
+- * All Rights Reserved.
+- *
+- * Permission is hereby granted, free of charge, to any person obtaining a
+- * copy of this software and associated documentation files (the "Software=
+"),
+- * to deal in the Software without restriction, including without limitati=
+on
+- * the rights to use, copy, modify, merge, publish, distribute, sublicense=
+,
+- * and/or sell copies of the Software, and to permit persons to whom the
+- * Software is furnished to do so, subject to the following conditions:
+- *
+- * The above copyright notice and this permission notice shall be included=
+ in
+- * all copies or substantial portions of the Software.
+- *
+- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS=
+ OR
+- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY=
+,
+- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHAL=
+L
+- * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES O=
+R
+- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- * OTHER DEALINGS IN THE SOFTWARE.
+- *
+- */
+-
+-#ifndef __AMDGPU_ASIC_ID_H__
+-#define __AMDGPU_ASIC_ID_H__
+-
+-static struct amdgpu_asic_id_table_t {
+-       uint32_t did;
+-       uint32_t rid;
+-       const char *marketing_name;
+-} const amdgpu_asic_id_table [] =3D {
+-       {0x6600,        0x0,    "AMD Radeon HD 8600/8700M"},
+-       {0x6600,        0x81,   "AMD Radeon R7 M370"},
+-       {0x6601,        0x0,    "AMD Radeon HD 8500M/8700M"},
+-       {0x6604,        0x0,    "AMD Radeon R7 M265 Series"},
+-       {0x6604,        0x81,   "AMD Radeon R7 M350"},
+-       {0x6605,        0x0,    "AMD Radeon R7 M260 Series"},
+-       {0x6605,        0x81,   "AMD Radeon R7 M340"},
+-       {0x6606,        0x0,    "AMD Radeon HD 8790M"},
+-       {0x6607,        0x0,    "AMD Radeon HD8530M"},
+-       {0x6608,        0x0,    "AMD FirePro W2100"},
+-       {0x6610,        0x0,    "AMD Radeon HD 8600 Series"},
+-       {0x6610,        0x81,   "AMD Radeon R7 350"},
+-       {0x6610,        0x83,   "AMD Radeon R5 340"},
+-       {0x6611,        0x0,    "AMD Radeon HD 8500 Series"},
+-       {0x6613,        0x0,    "AMD Radeon HD 8500 series"},
+-       {0x6617,        0xC7,   "AMD Radeon R7 240 Series"},
+-       {0x6640,        0x0,    "AMD Radeon HD 8950"},
+-       {0x6640,        0x80,   "AMD Radeon R9 M380"},
+-       {0x6646,        0x0,    "AMD Radeon R9 M280X"},
+-       {0x6646,        0x80,   "AMD Radeon R9 M470X"},
+-       {0x6647,        0x0,    "AMD Radeon R9 M270X"},
+-       {0x6647,        0x80,   "AMD Radeon R9 M380"},
+-       {0x6649,        0x0,    "AMD FirePro W5100"},
+-       {0x6658,        0x0,    "AMD Radeon R7 200 Series"},
+-       {0x665C,        0x0,    "AMD Radeon HD 7700 Series"},
+-       {0x665D,        0x0,    "AMD Radeon R7 200 Series"},
+-       {0x665F,        0x81,   "AMD Radeon R7 300 Series"},
+-       {0x6660,        0x0,    "AMD Radeon HD 8600M Series"},
+-       {0x6660,        0x81,   "AMD Radeon R5 M335"},
+-       {0x6660,        0x83,   "AMD Radeon R5 M330"},
+-       {0x6663,        0x0,    "AMD Radeon HD 8500M Series"},
+-       {0x6663,        0x83,   "AMD Radeon R5 M320"},
+-       {0x6664,        0x0,    "AMD Radeon R5 M200 Series"},
+-       {0x6665,        0x0,    "AMD Radeon R5 M200 Series"},
+-       {0x6665,        0x83,   "AMD Radeon R5 M320"},
+-       {0x6667,        0x0,    "AMD Radeon R5 M200 Series"},
+-       {0x666F,        0x0,    "AMD Radeon HD 8500M"},
+-       {0x6780,        0x0,    "ATI FirePro V (FireGL V) Graphics Adapter"=
+},
+-       {0x678A,        0x0,    "ATI FirePro V (FireGL V) Graphics Adapter"=
+},
+-       {0x6798,        0x0,    "AMD Radeon HD 7900 Series"},
+-       {0x679A,        0x0,    "AMD Radeon HD 7900 Series"},
+-       {0x679B,        0x0,    "AMD Radeon HD 7900 Series"},
+-       {0x679E,        0x0,    "AMD Radeon HD 7800 Series"},
+-       {0x67A0,        0x0,    "HAWAII XTGL (67A0)"},
+-       {0x67A1,        0x0,    "HAWAII GL40 (67A1)"},
+-       {0x67B0,        0x0,    "AMD Radeon R9 200 Series"},
+-       {0x67B0,        0x80,   "AMD Radeon R9 390 Series"},
+-       {0x67B1,        0x0,    "AMD Radeon R9 200 Series"},
+-       {0x67B1,        0x80,   "AMD Radeon R9 390 Series"},
+-       {0x67B9,        0x0,    "AMD Radeon R9 200 Series"},
+-       {0x67DF,        0xC4,   "AMD Radeon RX 480 Graphics"},
+-       {0x67DF,        0xC5,   "AMD Radeon RX 470 Graphics"},
+-       {0x67DF,        0xC7,   "AMD Radeon RX 480 Graphics"},
+-       {0x67DF,        0xCF,   "AMD Radeon RX 470 Graphics"},
+-       {0x67C4,        0x00,   "AMD Radeon Pro WX 7100 Graphics"},
+-       {0x67C7,        0x00,   "AMD Radeon Pro WX 5100 Graphics"},
+-       {0x67C0,        0x00,   "AMD Radeon Pro WX 7100 Graphics"},
+-       {0x67E0,        0x00,   "AMD Radeon Pro WX Series Graphics"},
+-       {0x67E3,        0x00,   "AMD Radeon Pro WX 4100 Graphics"},
+-       {0x67E8,        0x00,   "AMD Radeon Pro WX Series Graphics"},
+-       {0x67E8,        0x01,   "AMD Radeon Pro WX Series Graphics"},
+-       {0x67E8,        0x80,   "AMD Radeon E9260 Graphics"},
+-       {0x67EB,        0x00,   "AMD Radeon Pro WX Series Graphics"},
+-       {0x67EF,        0xC0,   "AMD Radeon RX Graphics"},
+-       {0x67EF,        0xC1,   "AMD Radeon RX 460 Graphics"},
+-       {0x67EF,        0xC5,   "AMD Radeon RX 460 Graphics"},
+-       {0x67EF,        0xC7,   "AMD Radeon RX Graphics"},
+-       {0x67EF,        0xCF,   "AMD Radeon RX 460 Graphics"},
+-       {0x67EF,        0xEF,   "AMD Radeon RX Graphics"},
+-       {0x67FF,        0xC0,   "AMD Radeon RX Graphics"},
+-       {0x67FF,        0xC1,   "AMD Radeon RX Graphics"},
+-       {0x6800,        0x0,    "AMD Radeon HD 7970M"},
+-       {0x6801,        0x0,    "AMD Radeon(TM) HD8970M"},
+-       {0x6808,        0x0,    "ATI FirePro V(FireGL V) Graphics Adapter"}=
+,
+-       {0x6809,        0x0,    "ATI FirePro V(FireGL V) Graphics Adapter"}=
+,
+-       {0x6810,        0x0,    "AMD Radeon(TM) HD 8800 Series"},
+-       {0x6810,        0x81,   "AMD Radeon R7 370 Series"},
+-       {0x6811,        0x0,    "AMD Radeon(TM) HD8800 Series"},
+-       {0x6811,        0x81,   "AMD Radeon R7 300 Series"},
+-       {0x6818,        0x0,    "AMD Radeon HD 7800 Series"},
+-       {0x6819,        0x0,    "AMD Radeon HD 7800 Series"},
+-       {0x6820,        0x0,    "AMD Radeon HD 8800M Series"},
+-       {0x6820,        0x81,   "AMD Radeon R9 M375"},
+-       {0x6820,        0x83,   "AMD Radeon R9 M375X"},
+-       {0x6821,        0x0,    "AMD Radeon HD 8800M Series"},
+-       {0x6821,        0x87,   "AMD Radeon R7 M380"},
+-       {0x6821,        0x83,   "AMD Radeon R9 M370X"},
+-       {0x6822,        0x0,    "AMD Radeon E8860"},
+-       {0x6823,        0x0,    "AMD Radeon HD 8800M Series"},
+-       {0x6825,        0x0,    "AMD Radeon HD 7800M Series"},
+-       {0x6827,        0x0,    "AMD Radeon HD 7800M Series"},
+-       {0x6828,        0x0,    "ATI FirePro V(FireGL V) Graphics Adapter"}=
+,
+-       {0x682B,        0x0,    "AMD Radeon HD 8800M Series"},
+-       {0x682B,        0x87,   "AMD Radeon R9 M360"},
+-       {0x682C,        0x0,    "AMD FirePro W4100"},
+-       {0x682D,        0x0,    "AMD Radeon HD 7700M Series"},
+-       {0x682F,        0x0,    "AMD Radeon HD 7700M Series"},
+-       {0x6835,        0x0,    "AMD Radeon R7 Series / HD 9000 Series"},
+-       {0x6837,        0x0,    "AMD Radeon HD7700 Series"},
+-       {0x683D,        0x0,    "AMD Radeon HD 7700 Series"},
+-       {0x683F,        0x0,    "AMD Radeon HD 7700 Series"},
+-       {0x6900,        0x0,    "AMD Radeon R7 M260"},
+-       {0x6900,        0x81,   "AMD Radeon R7 M360"},
+-       {0x6900,        0x83,   "AMD Radeon R7 M340"},
+-       {0x6901,        0x0,    "AMD Radeon R5 M255"},
+-       {0x6907,        0x0,    "AMD Radeon R5 M255"},
+-       {0x6907,        0x87,   "AMD Radeon R5 M315"},
+-       {0x6920,        0x0,    "AMD Radeon R9 M395X"},
+-       {0x6920,        0x1,    "AMD Radeon R9 M390X"},
+-       {0x6921,        0x0,    "AMD Radeon R9 M295X"},
+-       {0x6929,        0x0,    "AMD FirePro S7150"},
+-       {0x692B,        0x0,    "AMD FirePro W7100"},
+-       {0x6938,        0x0,    "AMD Radeon R9 200 Series"},
+-       {0x6938,        0xF0,   "AMD Radeon R9 200 Series"},
+-       {0x6938,        0xF1,   "AMD Radeon R9 380 Series"},
+-       {0x6939,        0xF0,   "AMD Radeon R9 200 Series"},
+-       {0x6939,        0x0,    "AMD Radeon R9 200 Series"},
+-       {0x6939,        0xF1,   "AMD Radeon R9 380 Series"},
+-       {0x7300,        0xC8,   "AMD Radeon R9 Fury Series"},
+-       {0x7300,        0xCB,   "AMD Radeon R9 Fury Series"},
+-       {0x7300,        0xCA,   "AMD Radeon R9 Fury Series"},
+-       {0x9874,        0xC4,   "AMD Radeon R7 Graphics"},
+-       {0x9874,        0xC5,   "AMD Radeon R6 Graphics"},
+-       {0x9874,        0xC6,   "AMD Radeon R6 Graphics"},
+-       {0x9874,        0xC7,   "AMD Radeon R5 Graphics"},
+-       {0x9874,        0x81,   "AMD Radeon R6 Graphics"},
+-       {0x9874,        0x87,   "AMD Radeon R5 Graphics"},
+-       {0x9874,        0x85,   "AMD Radeon R6 Graphics"},
+-       {0x9874,        0x84,   "AMD Radeon R7 Graphics"},
+-
+-       {0x0000,        0x0,    "\0"},
+-};
+-#endif
+diff --git a/amdgpu/amdgpu_device.c b/amdgpu/amdgpu_device.c
+index f473d2d..9d08744 100644
+--- a/amdgpu/amdgpu_device.c
++++ b/amdgpu/amdgpu_device.c
+@@ -44,7 +44,6 @@
+ #include "amdgpu_internal.h"
+ #include "util_hash_table.h"
+ #include "util_math.h"
+-#include "amdgpu_asic_id.h"
+
+ #define PTR_TO_UINT(x) ((unsigned)((intptr_t)(x)))
+ #define UINT_TO_PTR(x) ((void *)((intptr_t)(x)))
+@@ -131,6 +130,7 @@ static int amdgpu_get_auth(int fd, int *auth)
+
+ static void amdgpu_device_free_internal(amdgpu_device_handle dev)
+ {
++       const struct amdgpu_asic_id *id;
+         amdgpu_vamgr_deinit(&dev->vamgr_32);
+         amdgpu_vamgr_deinit(&dev->vamgr);
+         util_hash_table_destroy(dev->bo_flink_names);
+@@ -140,6 +140,13 @@ static void amdgpu_device_free_internal(amdgpu_device_=
+handle dev)
+         close(dev->fd);
+         if ((dev->flink_fd >=3D 0) && (dev->fd !=3D dev->flink_fd))
+                 close(dev->flink_fd);
++       if (dev->asic_ids) {
++               for (id =3D dev->asic_ids; id->did; id++) {
++                       if (id->marketing_name !=3D  NULL)
++                               free(id->marketing_name);
++               }
++               free(dev->asic_ids);
++       }
+         free(dev);
+ }
+
+@@ -267,6 +274,11 @@ int amdgpu_device_initialize(int fd,
+         amdgpu_vamgr_init(&dev->vamgr_32, start, max,
+                           dev->dev_info.virtual_address_alignment);
+
++       r =3D amdgpu_parse_asic_ids(&dev->asic_ids);
++       if (r)
++               fprintf(stderr, "%s: Can not parse asic ids, 0x%x.",
++                       __func__, r);
++
+         *major_version =3D dev->major_version;
+         *minor_version =3D dev->minor_version;
+         *device_handle =3D dev;
+@@ -297,13 +309,15 @@ int amdgpu_device_deinitialize(amdgpu_device_handle d=
+ev)
+
+ const char *amdgpu_get_marketing_name(amdgpu_device_handle dev)
+ {
+-       const struct amdgpu_asic_id_table_t *t =3D amdgpu_asic_id_table;
++       const struct amdgpu_asic_id *id;
++
++       if (!dev->asic_ids)
++               return NULL;
+
+-       while (t->did) {
+-               if ((t->did =3D=3D dev->info.asic_id) &&
+-                   (t->rid =3D=3D dev->info.pci_rev_id))
+-                       return t->marketing_name;
+-               t++;
++       for (id =3D dev->asic_ids; id->did; id++) {
++               if ((id->did =3D=3D dev->info.asic_id) &&
++                               (id->rid =3D=3D dev->info.pci_rev_id))
++                       return id->marketing_name;
+         }
+
+         return NULL;
+diff --git a/amdgpu/amdgpu_internal.h b/amdgpu/amdgpu_internal.h
+index cf119a5..9d11bea 100644
+--- a/amdgpu/amdgpu_internal.h
++++ b/amdgpu/amdgpu_internal.h
+@@ -69,6 +69,12 @@ struct amdgpu_va {
+         struct amdgpu_bo_va_mgr *vamgr;
+ };
+
++struct amdgpu_asic_id {
++    uint32_t did;
++    uint32_t rid;
++       char *marketing_name;
++};
++
+ struct amdgpu_device {
+         atomic_t refcount;
+         int fd;
+@@ -76,6 +82,8 @@ struct amdgpu_device {
+         unsigned major_version;
+         unsigned minor_version;
+
++       /** Lookup table of asic device id, revision id and marketing name =
+*/
++       struct amdgpu_asic_id *asic_ids;
+         /** List of buffer handles. Protected by bo_table_mutex. */
+         struct util_hash_table *bo_handles;
+         /** List of buffer GEM flink names. Protected by bo_table_mutex. *=
+/
+@@ -149,6 +157,8 @@ amdgpu_vamgr_find_va(struct amdgpu_bo_va_mgr *mgr, uint=
+64_t size,
+ drm_private void
+ amdgpu_vamgr_free_va(struct amdgpu_bo_va_mgr *mgr, uint64_t va, uint64_t s=
+ize);
+
++drm_private int amdgpu_parse_asic_ids(struct amdgpu_asic_id **asic_ids);
++
+ drm_private int amdgpu_query_gpu_info_init(amdgpu_device_handle dev);
+
+ drm_private uint64_t amdgpu_cs_calculate_timeout(uint64_t timeout);
+--
+2.7.4
+
+--_000_CY1PR1201MB1033853A085F9718AA675C3AF5ED0CY1PR1201MB1033_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+p
+	{mso-style-priority:99;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;}
+p.emailquote, li.emailquote, div.emailquote
+	{mso-style-name:emailquote;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:1.0pt;
+	margin-bottom:.0001pt;
+	border:none;
+	padding:0in;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;}
+span.EmailStyle19
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:#2F5496;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#2F5496">Good catch!<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#2F5496"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#2F5496">Sam<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#2F5496"><o:p>&nbsp;</o:p></span></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
+;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11.0pt;=
+font-family:&quot;Calibri&quot;,sans-serif"> Yuan, Xiaojie
+<br>
+<b>Sent:</b> Thursday, May 11, 2017 6:51 AM<br>
+<b>To:</b> Li, Samuel &lt;Samuel.Li-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org<br>
+<b>Subject:</b> Re: [PATCH 1/1] amdgpu: move asic id table to a separate fi=
+le<o:p></o:p></span></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div id=3D"x_divtagdefaultwrapper">
+<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black">H=
+i Samuel,<o:p></o:p></span></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black"><=
+o:p>&nbsp;</o:p></span></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black">H=
+ere's an off-by-one error:<o:p></o:p></span></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black">&=
+#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id =3D asic_i=
+d_table &#43; table_size -1;<o:p></o:p></span></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black"><=
+o:p>&nbsp;</o:p></span></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black">s=
+hould be:<o:p></o:p></span></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black">&=
+#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id =3D asic_i=
+d_table &#43; table_size;<o:p></o:p></span></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black"><=
+o:p>&nbsp;</o:p></span></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black">R=
+egards,<o:p></o:p></span></p>
+<p><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black">X=
+iaojie<o:p></o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"x_divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
+;Calibri&quot;,sans-serif;color:black">From:</span></b><span style=3D"font-=
+size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black"> Li, Sa=
+muel<br>
+<b>Sent:</b> Thursday, May 11, 2017 4:56:55 AM<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
+reedesktop.org</a><br>
+<b>Cc:</b> Yuan, Xiaojie; Li, Samuel<br>
+<b>Subject:</b> [PATCH 1/1] amdgpu: move asic id table to a separate file</=
+span> <o:p>
+</o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+</div>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span style=3D"font-s=
+ize:10.0pt">From: Xiaojie Yuan &lt;<a href=3D"mailto:Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org">=
+Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+<br>
+Change-Id: I12216da14910f5e2b0970bc1fafc2a20b0ef1ba9<br>
+Signed-off-by: Samuel Li &lt;<a href=3D"mailto:Samuel.Li-5C7GfCeVMHo@public.gmane.org">Samuel.Li=
+@amd.com</a>&gt;<br>
+---<br>
+&nbsp;amdgpu/Makefile.am&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; =
+2 &#43;<br>
+&nbsp;amdgpu/Makefile.sources&nbsp; |&nbsp;&nbsp; 2 &#43;-<br>
+&nbsp;amdgpu/amdgpu_asic_id.c&nbsp; | 198 &#43;&#43;&#43;&#43;&#43;&#43;&#4=
+3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#4=
+3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#4=
+3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&nbsp;amdgpu/amdgpu_asic_id.h&nbsp; | 165 ---------------------------------=
+------<br>
+&nbsp;amdgpu/amdgpu_device.c&nbsp;&nbsp; |&nbsp; 28 &#43;&#43;&#43;&#43;&#4=
+3;--<br>
+&nbsp;amdgpu/amdgpu_internal.h |&nbsp; 10 &#43;&#43;&#43;<br>
+&nbsp;6 files changed, 232 insertions(&#43;), 173 deletions(-)<br>
+&nbsp;create mode 100644 amdgpu/amdgpu_asic_id.c<br>
+&nbsp;delete mode 100644 amdgpu/amdgpu_asic_id.h<br>
+<br>
+diff --git a/amdgpu/Makefile.am b/amdgpu/Makefile.am<br>
+index cf7bc1b..ecf9e82 100644<br>
+--- a/amdgpu/Makefile.am<br>
+&#43;&#43;&#43; b/amdgpu/Makefile.am<br>
+@@ -30,6 &#43;30,8 @@ AM_CFLAGS =3D \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $(PTHREADSTUBS_CFLAGS) \<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -I$(top_srcdir)/include/dr=
+m<br>
+&nbsp;<br>
+&#43;AM_CPPFLAGS =3D -DAMDGPU_ASIC_ID_TABLE=3D\&quot;${datadir}/libdrm/amdg=
+pu.ids\&quot;<br>
+&#43;<br>
+&nbsp;libdrm_amdgpu_la_LTLIBRARIES =3D libdrm_amdgpu.la<br>
+&nbsp;libdrm_amdgpu_ladir =3D $(libdir)<br>
+&nbsp;libdrm_amdgpu_la_LDFLAGS =3D -version-number 1:0:0 -no-undefined<br>
+diff --git a/amdgpu/Makefile.sources b/amdgpu/Makefile.sources<br>
+index 487b9e0..bc3abaa 100644<br>
+--- a/amdgpu/Makefile.sources<br>
+&#43;&#43;&#43; b/amdgpu/Makefile.sources<br>
+@@ -1,5 &#43;1,5 @@<br>
+&nbsp;LIBDRM_AMDGPU_FILES :=3D \<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_asic_id.h \<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_asic_id.c \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo.c \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_cs.c \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device.c \<br>
+diff --git a/amdgpu/amdgpu_asic_id.c b/amdgpu/amdgpu_asic_id.c<br>
+new file mode 100644<br>
+index 0000000..d50e21a<br>
+--- /dev/null<br>
+&#43;&#43;&#43; b/amdgpu/amdgpu_asic_id.c<br>
+@@ -0,0 &#43;1,198 @@<br>
+&#43;/*<br>
+&#43; * Copyright &copy; 2017 Advanced Micro Devices, Inc.<br>
+&#43; * All Rights Reserved.<br>
+&#43; *<br>
+&#43; * Permission is hereby granted, free of charge, to any person obtaini=
+ng a<br>
+&#43; * copy of this software and associated documentation files (the &quot=
+;Software&quot;),<br>
+&#43; * to deal in the Software without restriction, including without limi=
+tation<br>
+&#43; * the rights to use, copy, modify, merge, publish, distribute, sublic=
+ense,<br>
+&#43; * and/or sell copies of the Software, and to permit persons to whom t=
+he<br>
+&#43; * Software is furnished to do so, subject to the following conditions=
+:<br>
+&#43; *<br>
+&#43; * The above copyright notice and this permission notice shall be incl=
+uded in<br>
+&#43; * all copies or substantial portions of the Software.<br>
+&#43; *<br>
+&#43; * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY=
+ KIND, EXPRESS OR<br>
+&#43; * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABI=
+LITY,<br>
+&#43; * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.&nbsp; IN NO E=
+VENT SHALL<br>
+&#43; * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAG=
+ES OR<br>
+&#43; * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWIS=
+E,<br>
+&#43; * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE =
+OR<br>
+&#43; * OTHER DEALINGS IN THE SOFTWARE.<br>
+&#43; *<br>
+&#43; */<br>
+&#43;<br>
+&#43;#ifdef HAVE_CONFIG_H<br>
+&#43;#include &quot;config.h&quot;<br>
+&#43;#endif<br>
+&#43;<br>
+&#43;#include &lt;stdio.h&gt;<br>
+&#43;#include &lt;stdlib.h&gt;<br>
+&#43;#include &lt;stdint.h&gt;<br>
+&#43;#include &lt;string.h&gt;<br>
+&#43;#include &lt;unistd.h&gt;<br>
+&#43;#include &lt;errno.h&gt;<br>
+&#43;<br>
+&#43;#include &quot;amdgpu_drm.h&quot;<br>
+&#43;#include &quot;amdgpu_internal.h&quot;<br>
+&#43;<br>
+&#43;static int parse_one_line(const char *line, struct amdgpu_asic_id *id)=
+<br>
+&#43;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char *buf;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char *s_did;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char *s_rid;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char *s_name;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char *endptr;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r =3D 0;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; buf =3D strdup(line);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!buf)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -ENOMEM;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* ignore empty line and commente=
+d line */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (strlen(line) =3D=3D 0 || line=
+[0] =3D=3D '#') {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; r =3D -EAGAIN;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; goto out;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* device id */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; s_did =3D strtok(buf, &quot;,&quo=
+t;);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!s_did) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; r =3D -EINVAL;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; goto out;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id-&gt;did =3D strtol(s_did, &amp=
+;endptr, 16);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (*endptr) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; r =3D -EINVAL;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; goto out;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* revision id */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; s_rid =3D strtok(NULL, &quot;,&qu=
+ot;);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!s_rid) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; r =3D -EINVAL;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; goto out;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id-&gt;rid =3D strtol(s_rid, &amp=
+;endptr, 16);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (*endptr) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; r =3D -EINVAL;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; goto out;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* marketing name */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; s_name =3D strtok(NULL, &quot;,&q=
+uot;);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!s_name) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; r =3D -EINVAL;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; goto out;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id-&gt;marketing_name =3D strdup(=
+s_name);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (id-&gt;marketing_name =3D=3D =
+NULL) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; r =3D -EINVAL;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; goto out;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;out:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; free(buf);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&#43;}<br>
+&#43;<br>
+&#43;int amdgpu_parse_asic_ids(struct amdgpu_asic_id **p_asic_id_table)<br>
+&#43;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_asic_id *asic_id_ta=
+ble;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_asic_id *id;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FILE *fp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char *line =3D NULL;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size_t len;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ssize_t n;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int line_num =3D 1;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size_t table_size =3D 0;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size_t table_max_size =3D 256;<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r =3D 0;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fp =3D fopen(AMDGPU_ASIC_ID_TABLE=
+, &quot;r&quot;);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!fp) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; fprintf(stderr, &quot;%s: %s\n&quot;, AMDGPU_ASIC_ID_TABLE,<=
+br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; strerror(errno));<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EINVAL;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; asic_id_table =3D calloc(table_ma=
+x_size, sizeof(struct amdgpu_asic_id));<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!asic_id_table) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; r =3D -ENOMEM;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; goto close;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* 1st line is file version */<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((n =3D getline(&amp;line, &am=
+p;len, fp)) !=3D -1) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; /* trim trailing newline */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (line[n - 1] =3D=3D '\n')<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; line[n - 1] =
+=3D '\0';<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; printf(&quot;%s version: %s\n&quot;, AMDGPU_ASIC_ID_TABLE, l=
+ine);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; goto free;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while ((n =3D getline(&amp;line, =
+&amp;len, fp)) !=3D -1) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; id =3D asic_id_table &#43; table_size;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; /* trim trailing newline */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (line[n - 1] =3D=3D '\n')<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; line[n - 1] =
+=3D '\0';<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; /*<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; * parse one line, its format looks like:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; * 6617,C7,AMD Radeon R7 240 Series<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; r =3D parse_one_line(line, id);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (r) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r =3D=3D=
+ -EAGAIN) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; line_num&#43;&#43;;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fprintf(stde=
+rr, &quot;Invalid format: %s: line %d: %s\n&quot;,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; AMDGPU_ASIC_ID_TABLE, line_num, line);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto free;<b=
+r>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; line_num&#43;&#43;;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; table_size&#43;&#43;;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (table_size &gt;=3D table_max_size) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* double ta=
+ble size */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; table_max_si=
+ze *=3D 2;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; asic_id_tabl=
+e =3D realloc(asic_id_table, table_max_size *<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; sizeof(struct amdgpu_asic_id));<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!asic_id=
+_table) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D -ENOMEM;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto free;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* end of table */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id =3D asic_id_table &#43; table_=
+size;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memset(id, 0, sizeof(struct amdgp=
+u_asic_id));<br>
+&#43;<br>
+&#43;free:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; free(line);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r &amp;&amp; asic_id_table) {=
+<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; while (table_size--) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; id =3D asic_=
+id_table &#43; table_size -1;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (id-&gt;m=
+arketing_name !=3D&nbsp; NULL)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; free(id-&gt;marketing_name);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; free(asic_id_table);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; asic_id_table =3D NULL;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;close:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fclose(fp);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *p_asic_id_table =3D asic_id_tabl=
+e;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&#43;}<br>
+diff --git a/amdgpu/amdgpu_asic_id.h b/amdgpu/amdgpu_asic_id.h<br>
+deleted file mode 100644<br>
+index 3e7d736..0000000<br>
+--- a/amdgpu/amdgpu_asic_id.h<br>
+&#43;&#43;&#43; /dev/null<br>
+@@ -1,165 &#43;0,0 @@<br>
+-/*<br>
+- * Copyright &copy; 2016 Advanced Micro Devices, Inc.<br>
+- * All Rights Reserved.<br>
+- *<br>
+- * Permission is hereby granted, free of charge, to any person obtaining a=
+<br>
+- * copy of this software and associated documentation files (the &quot;Sof=
+tware&quot;),<br>
+- * to deal in the Software without restriction, including without limitati=
+on<br>
+- * the rights to use, copy, modify, merge, publish, distribute, sublicense=
+,<br>
+- * and/or sell copies of the Software, and to permit persons to whom the<b=
+r>
+- * Software is furnished to do so, subject to the following conditions:<br=
+>
+- *<br>
+- * The above copyright notice and this permission notice shall be included=
+ in<br>
+- * all copies or substantial portions of the Software.<br>
+- *<br>
+- * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIN=
+D, EXPRESS OR<br>
+- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY=
+,<br>
+- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.&nbsp; IN NO EVENT=
+ SHALL<br>
+- * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES O=
+R<br>
+- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,<b=
+r>
+- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR<b=
+r>
+- * OTHER DEALINGS IN THE SOFTWARE.<br>
+- *<br>
+- */<br>
+-<br>
+-#ifndef __AMDGPU_ASIC_ID_H__<br>
+-#define __AMDGPU_ASIC_ID_H__<br>
+-<br>
+-static struct amdgpu_asic_id_table_t {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t did;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t rid;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const char *marketing_name;<br>
+-} const amdgpu_asic_id_table [] =3D {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6600,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD 8600/8700M&quot;},=
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6600,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x81,&nbsp;&nbsp; &quot;AMD Radeon R7 M370&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6601,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD 8500M/8700M&quot;}=
+,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6604,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon R7 M265 Series&quot;}=
+,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6604,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x81,&nbsp;&nbsp; &quot;AMD Radeon R7 M350&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6605,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon R7 M260 Series&quot;}=
+,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6605,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x81,&nbsp;&nbsp; &quot;AMD Radeon R7 M340&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6606,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD 8790M&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6607,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD8530M&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6608,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD FirePro W2100&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6610,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD 8600 Series&quot;}=
+,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6610,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x81,&nbsp;&nbsp; &quot;AMD Radeon R7 350&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6610,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x83,&nbsp;&nbsp; &quot;AMD Radeon R5 340&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6611,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD 8500 Series&quot;}=
+,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6613,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD 8500 series&quot;}=
+,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6617,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0xC7,&nbsp;&nbsp; &quot;AMD Radeon R7 240 Series&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6640,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD 8950&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6640,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x80,&nbsp;&nbsp; &quot;AMD Radeon R9 M380&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6646,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon R9 M280X&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6646,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x80,&nbsp;&nbsp; &quot;AMD Radeon R9 M470X&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6647,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon R9 M270X&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6647,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x80,&nbsp;&nbsp; &quot;AMD Radeon R9 M380&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6649,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD FirePro W5100&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6658,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon R7 200 Series&quot;},=
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x665C,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD 7700 Series&quot;}=
+,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x665D,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon R7 200 Series&quot;},=
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x665F,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x81,&nbsp;&nbsp; &quot;AMD Radeon R7 300 Series&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6660,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD 8600M Series&quot;=
+},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6660,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x81,&nbsp;&nbsp; &quot;AMD Radeon R5 M335&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6660,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x83,&nbsp;&nbsp; &quot;AMD Radeon R5 M330&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6663,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD 8500M Series&quot;=
+},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6663,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x83,&nbsp;&nbsp; &quot;AMD Radeon R5 M320&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6664,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon R5 M200 Series&quot;}=
+,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6665,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon R5 M200 Series&quot;}=
+,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6665,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x83,&nbsp;&nbsp; &quot;AMD Radeon R5 M320&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6667,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon R5 M200 Series&quot;}=
+,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x666F,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD 8500M&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6780,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;ATI FirePro V (FireGL V) Graphic=
+s Adapter&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x678A,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;ATI FirePro V (FireGL V) Graphic=
+s Adapter&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6798,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD 7900 Series&quot;}=
+,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x679A,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD 7900 Series&quot;}=
+,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x679B,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD 7900 Series&quot;}=
+,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x679E,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD 7800 Series&quot;}=
+,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x67A0,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;HAWAII XTGL (67A0)&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x67A1,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;HAWAII GL40 (67A1)&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x67B0,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon R9 200 Series&quot;},=
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x67B0,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x80,&nbsp;&nbsp; &quot;AMD Radeon R9 390 Series&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x67B1,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon R9 200 Series&quot;},=
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x67B1,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x80,&nbsp;&nbsp; &quot;AMD Radeon R9 390 Series&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x67B9,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon R9 200 Series&quot;},=
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x67DF,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0xC4,&nbsp;&nbsp; &quot;AMD Radeon RX 480 Graphics&quot;},<br=
+>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x67DF,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0xC5,&nbsp;&nbsp; &quot;AMD Radeon RX 470 Graphics&quot;},<br=
+>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x67DF,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0xC7,&nbsp;&nbsp; &quot;AMD Radeon RX 480 Graphics&quot;},<br=
+>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x67DF,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0xCF,&nbsp;&nbsp; &quot;AMD Radeon RX 470 Graphics&quot;},<br=
+>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x67C4,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x00,&nbsp;&nbsp; &quot;AMD Radeon Pro WX 7100 Graphics&quot;=
+},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x67C7,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x00,&nbsp;&nbsp; &quot;AMD Radeon Pro WX 5100 Graphics&quot;=
+},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x67C0,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x00,&nbsp;&nbsp; &quot;AMD Radeon Pro WX 7100 Graphics&quot;=
+},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x67E0,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x00,&nbsp;&nbsp; &quot;AMD Radeon Pro WX Series Graphics&quo=
+t;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x67E3,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x00,&nbsp;&nbsp; &quot;AMD Radeon Pro WX 4100 Graphics&quot;=
+},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x67E8,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x00,&nbsp;&nbsp; &quot;AMD Radeon Pro WX Series Graphics&quo=
+t;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x67E8,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x01,&nbsp;&nbsp; &quot;AMD Radeon Pro WX Series Graphics&quo=
+t;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x67E8,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x80,&nbsp;&nbsp; &quot;AMD Radeon E9260 Graphics&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x67EB,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x00,&nbsp;&nbsp; &quot;AMD Radeon Pro WX Series Graphics&quo=
+t;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x67EF,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0xC0,&nbsp;&nbsp; &quot;AMD Radeon RX Graphics&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x67EF,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0xC1,&nbsp;&nbsp; &quot;AMD Radeon RX 460 Graphics&quot;},<br=
+>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x67EF,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0xC5,&nbsp;&nbsp; &quot;AMD Radeon RX 460 Graphics&quot;},<br=
+>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x67EF,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0xC7,&nbsp;&nbsp; &quot;AMD Radeon RX Graphics&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x67EF,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0xCF,&nbsp;&nbsp; &quot;AMD Radeon RX 460 Graphics&quot;},<br=
+>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x67EF,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0xEF,&nbsp;&nbsp; &quot;AMD Radeon RX Graphics&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x67FF,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0xC0,&nbsp;&nbsp; &quot;AMD Radeon RX Graphics&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x67FF,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0xC1,&nbsp;&nbsp; &quot;AMD Radeon RX Graphics&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6800,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD 7970M&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6801,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon(TM) HD8970M&quot;},<b=
+r>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6808,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;ATI FirePro V(FireGL V) Graphics=
+ Adapter&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6809,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;ATI FirePro V(FireGL V) Graphics=
+ Adapter&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6810,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon(TM) HD 8800 Series&qu=
+ot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6810,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x81,&nbsp;&nbsp; &quot;AMD Radeon R7 370 Series&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6811,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon(TM) HD8800 Series&quo=
+t;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6811,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x81,&nbsp;&nbsp; &quot;AMD Radeon R7 300 Series&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6818,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD 7800 Series&quot;}=
+,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6819,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD 7800 Series&quot;}=
+,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6820,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD 8800M Series&quot;=
+},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6820,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x81,&nbsp;&nbsp; &quot;AMD Radeon R9 M375&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6820,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x83,&nbsp;&nbsp; &quot;AMD Radeon R9 M375X&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6821,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD 8800M Series&quot;=
+},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6821,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x87,&nbsp;&nbsp; &quot;AMD Radeon R7 M380&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6821,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x83,&nbsp;&nbsp; &quot;AMD Radeon R9 M370X&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6822,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon E8860&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6823,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD 8800M Series&quot;=
+},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6825,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD 7800M Series&quot;=
+},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6827,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD 7800M Series&quot;=
+},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6828,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;ATI FirePro V(FireGL V) Graphics=
+ Adapter&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x682B,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD 8800M Series&quot;=
+},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x682B,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x87,&nbsp;&nbsp; &quot;AMD Radeon R9 M360&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x682C,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD FirePro W4100&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x682D,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD 7700M Series&quot;=
+},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x682F,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD 7700M Series&quot;=
+},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6835,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon R7 Series / HD 9000 S=
+eries&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6837,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD7700 Series&quot;},=
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x683D,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD 7700 Series&quot;}=
+,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x683F,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon HD 7700 Series&quot;}=
+,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6900,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon R7 M260&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6900,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x81,&nbsp;&nbsp; &quot;AMD Radeon R7 M360&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6900,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x83,&nbsp;&nbsp; &quot;AMD Radeon R7 M340&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6901,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon R5 M255&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6907,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon R5 M255&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6907,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x87,&nbsp;&nbsp; &quot;AMD Radeon R5 M315&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6920,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon R9 M395X&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6920,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x1,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon R9 M390X&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6921,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon R9 M295X&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6929,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD FirePro S7150&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x692B,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD FirePro W7100&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6938,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon R9 200 Series&quot;},=
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6938,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0xF0,&nbsp;&nbsp; &quot;AMD Radeon R9 200 Series&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6938,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0xF1,&nbsp;&nbsp; &quot;AMD Radeon R9 380 Series&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6939,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0xF0,&nbsp;&nbsp; &quot;AMD Radeon R9 200 Series&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6939,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;AMD Radeon R9 200 Series&quot;},=
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x6939,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0xF1,&nbsp;&nbsp; &quot;AMD Radeon R9 380 Series&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x7300,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0xC8,&nbsp;&nbsp; &quot;AMD Radeon R9 Fury Series&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x7300,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0xCB,&nbsp;&nbsp; &quot;AMD Radeon R9 Fury Series&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x7300,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0xCA,&nbsp;&nbsp; &quot;AMD Radeon R9 Fury Series&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x9874,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0xC4,&nbsp;&nbsp; &quot;AMD Radeon R7 Graphics&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x9874,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0xC5,&nbsp;&nbsp; &quot;AMD Radeon R6 Graphics&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x9874,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0xC6,&nbsp;&nbsp; &quot;AMD Radeon R6 Graphics&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x9874,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0xC7,&nbsp;&nbsp; &quot;AMD Radeon R5 Graphics&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x9874,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x81,&nbsp;&nbsp; &quot;AMD Radeon R6 Graphics&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x9874,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x87,&nbsp;&nbsp; &quot;AMD Radeon R5 Graphics&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x9874,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x85,&nbsp;&nbsp; &quot;AMD Radeon R6 Graphics&quot;},<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x9874,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x84,&nbsp;&nbsp; &quot;AMD Radeon R7 Graphics&quot;},<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0x0000,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; 0x0,&nbsp;&nbsp;&nbsp; &quot;\0&quot;},<br>
+-};<br>
+-#endif<br>
+diff --git a/amdgpu/amdgpu_device.c b/amdgpu/amdgpu_device.c<br>
+index f473d2d..9d08744 100644<br>
+--- a/amdgpu/amdgpu_device.c<br>
+&#43;&#43;&#43; b/amdgpu/amdgpu_device.c<br>
+@@ -44,7 &#43;44,6 @@<br>
+&nbsp;#include &quot;amdgpu_internal.h&quot;<br>
+&nbsp;#include &quot;util_hash_table.h&quot;<br>
+&nbsp;#include &quot;util_math.h&quot;<br>
+-#include &quot;amdgpu_asic_id.h&quot;<br>
+&nbsp;<br>
+&nbsp;#define PTR_TO_UINT(x) ((unsigned)((intptr_t)(x)))<br>
+&nbsp;#define UINT_TO_PTR(x) ((void *)((intptr_t)(x)))<br>
+@@ -131,6 &#43;130,7 @@ static int amdgpu_get_auth(int fd, int *auth)<br>
+&nbsp;<br>
+&nbsp;static void amdgpu_device_free_internal(amdgpu_device_handle dev)<br>
+&nbsp;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct amdgpu_asic_id *id;<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_vamgr_deinit(&amp;d=
+ev-&gt;vamgr_32);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_vamgr_deinit(&amp;d=
+ev-&gt;vamgr);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; util_hash_table_destroy(de=
+v-&gt;bo_flink_names);<br>
+@@ -140,6 &#43;140,13 @@ static void amdgpu_device_free_internal(amdgpu_dev=
+ice_handle dev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; close(dev-&gt;fd);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((dev-&gt;flink_fd &gt;=
+=3D 0) &amp;&amp; (dev-&gt;fd !=3D dev-&gt;flink_fd))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; close(dev-&gt;flink_fd);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (dev-&gt;asic_ids) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; for (id =3D dev-&gt;asic_ids; id-&gt;did; id&#43;&#43;) {<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (id-&gt;m=
+arketing_name !=3D&nbsp; NULL)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; free(id-&gt;marketing_name);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; free(dev-&gt;asic_ids);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; free(dev);<br>
+&nbsp;}<br>
+&nbsp;<br>
+@@ -267,6 &#43;274,11 @@ int amdgpu_device_initialize(int fd,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_vamgr_init(&amp;dev=
+-&gt;vamgr_32, start, max,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; dev-&gt;dev_info.virtual_address_alignment);<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_parse_asic_ids(&amp;=
+dev-&gt;asic_ids);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; fprintf(stderr, &quot;%s: Can not parse asic ids, 0x%x.&quot=
+;,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __func__, r)=
+;<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *major_version =3D dev-&gt=
+;major_version;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *minor_version =3D dev-&gt=
+;minor_version;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *device_handle =3D dev;<br=
+>
+@@ -297,13 &#43;309,15 @@ int amdgpu_device_deinitialize(amdgpu_device_hand=
+le dev)<br>
+&nbsp;<br>
+&nbsp;const char *amdgpu_get_marketing_name(amdgpu_device_handle dev)<br>
+&nbsp;{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct amdgpu_asic_id_table_t *=
+t =3D amdgpu_asic_id_table;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct amdgpu_asic_id *id;<=
+br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!dev-&gt;asic_ids)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return NULL;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (t-&gt;did) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if ((t-&gt;did =3D=3D dev-&gt;info.asic_id) &amp;&amp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (t-&gt;rid =3D=3D dev-&gt;info.pci_rev_i=
+d))<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return t-&gt;mar=
+keting_name;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; t&#43;&#43;;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (id =3D dev-&gt;asic_ids; id-=
+&gt;did; id&#43;&#43;) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if ((id-&gt;did =3D=3D dev-&gt;info.asic_id) &amp;&amp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (id-&gt;rid =3D=3D dev-&gt;info.pci_rev=
+_id))<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return id-&g=
+t;marketing_name;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return NULL;<br>
+diff --git a/amdgpu/amdgpu_internal.h b/amdgpu/amdgpu_internal.h<br>
+index cf119a5..9d11bea 100644<br>
+--- a/amdgpu/amdgpu_internal.h<br>
+&#43;&#43;&#43; b/amdgpu/amdgpu_internal.h<br>
+@@ -69,6 &#43;69,12 @@ struct amdgpu_va {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo_va_mgr *v=
+amgr;<br>
+&nbsp;};<br>
+&nbsp;<br>
+&#43;struct amdgpu_asic_id {<br>
+&#43;&nbsp;&nbsp;&nbsp; uint32_t did;<br>
+&#43;&nbsp;&nbsp;&nbsp; uint32_t rid;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char *marketing_name;<br>
+&#43;};<br>
+&#43;<br>
+&nbsp;struct amdgpu_device {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic_t refcount;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int fd;<br>
+@@ -76,6 &#43;82,8 @@ struct amdgpu_device {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned major_version;<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned minor_version;<br=
+>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /** Lookup table of asic device i=
+d, revision id and marketing name */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_asic_id *asic_ids;<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /** List of buffer handles=
+. Protected by bo_table_mutex. */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct util_hash_table *bo=
+_handles;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /** List of buffer GEM fli=
+nk names. Protected by bo_table_mutex. */<br>
+@@ -149,6 &#43;157,8 @@ amdgpu_vamgr_find_va(struct amdgpu_bo_va_mgr *mgr, =
+uint64_t size,<br>
+&nbsp;drm_private void<br>
+&nbsp;amdgpu_vamgr_free_va(struct amdgpu_bo_va_mgr *mgr, uint64_t va, uint6=
+4_t size);<br>
+&nbsp;<br>
+&#43;drm_private int amdgpu_parse_asic_ids(struct amdgpu_asic_id **asic_ids=
+);<br>
+&#43;<br>
+&nbsp;drm_private int amdgpu_query_gpu_info_init(amdgpu_device_handle dev);=
+<br>
+&nbsp;<br>
+&nbsp;drm_private uint64_t amdgpu_cs_calculate_timeout(uint64_t timeout);<b=
+r>
+-- <br>
+2.7.4<o:p></o:p></span></p>
+</div>
+</div>
+</body>
+</html>
+
+--_000_CY1PR1201MB1033853A085F9718AA675C3AF5ED0CY1PR1201MB1033_--
+
+--===============1223004684==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1223004684==--
