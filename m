@@ -1,13 +1,13 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: correct wptr initialization for sdma
-Date: Fri, 12 May 2017 10:29:32 +0200
-Message-ID: <19f87c61-b6bc-8d9a-9801-931fce2dcf6e@amd.com>
-References: <1494577314-25796-1-git-send-email-yttao@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: Support for amdgpu VM update via CPU on large-bar systems
+Date: Fri, 12 May 2017 10:33:23 +0200
+Message-ID: <21e206ed-8d60-450f-6d23-e01c68c5ad73@vodafone.de>
+References: <DM3PR1201MB10382F282D646D630708246D8CEF0@DM3PR1201MB1038.namprd12.prod.outlook.com>
+ <5915717A.3000209@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0193098486=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1494577314-25796-1-git-send-email-yttao-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <5915717A.3000209-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,30 +18,150 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Yintian Tao <yttao-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>, "Kasiviswanathan, Harish" <Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QW0gMTIuMDUuMjAxNyB1bSAxMDoyMSBzY2hyaWViIFlpbnRpYW4gVGFvOgo+IElmIGRvb3JiZWxs
-IGlzIHVzZWQgZm9yIHdwdHIgdXBkYXRlLCB3ZSBhbHNvIG5lZWQgdG8gdXNlIGl0Cj4gdG8gaW5p
-dGlhbGl6ZSB3cHRyIHRvIDAuCj4KPiBDaGFuZ2UtSWQ6IEllYjMxYTY3MjZhOWFjOGQ0NWU1MWYw
-MzcwZWY1Zjc3ZGM1ZWM3YzA2Cj4gU2lnbmVkLW9mZi1ieTogWWludGlhbiBUYW8gPHl0dGFvQGFt
-ZC5jb20+Cj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3YzXzAuYyB8
-IDMgKystCj4gICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0p
-Cj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92M18wLmMg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3YzXzAuYwo+IGluZGV4IGNmZDk2OGUu
-LmExNTRmYWYgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92
-M18wLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3YzXzAuYwo+IEBA
-IC02NDMsOCArNjQzLDkgQEAgc3RhdGljIGludCBzZG1hX3YzXzBfZ2Z4X3Jlc3VtZShzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqYWRldikKPiAgIAkJV1JFRzMyKG1tU0RNQTBfR0ZYX1JCX0NOVEwgKyBz
-ZG1hX29mZnNldHNbaV0sIHJiX2NudGwpOwo+ICAgCj4gICAJCS8qIEluaXRpYWxpemUgdGhlIHJp
-bmcgYnVmZmVyJ3MgcmVhZCBhbmQgd3JpdGUgcG9pbnRlcnMgKi8KPiArCQlyaW5nLT53cHRyID0g
-MDsKCkEgYml0IGJlbG93IHRoaXMgY29kZSBvbiBsaW5lIDY2MiByaW5nLT53cHRyIGlzIHNldCB0
-byB6ZXJvIGFzIHdlbGwgYW5kIAptbVNETUEwX0dGWF9SQl9XUFRSIHdyaXR0ZW4gb25jZSBtb3Jl
-LgoKUGxlYXNlIGFsc28gZml4IHRoaXMgYXMgd2VsbC4KClJlZ2FyZHMsCkNocmlzdGlhbi4KCj4g
-ICAJCVdSRUczMihtbVNETUEwX0dGWF9SQl9SUFRSICsgc2RtYV9vZmZzZXRzW2ldLCAwKTsKPiAt
-CQlXUkVHMzIobW1TRE1BMF9HRlhfUkJfV1BUUiArIHNkbWFfb2Zmc2V0c1tpXSwgMCk7Cj4gKwkJ
-c2RtYV92M18wX3Jpbmdfc2V0X3dwdHIocmluZyk7Cj4gICAJCVdSRUczMihtbVNETUEwX0dGWF9J
-Ql9SUFRSICsgc2RtYV9vZmZzZXRzW2ldLCAwKTsKPiAgIAkJV1JFRzMyKG1tU0RNQTBfR0ZYX0lC
-X09GRlNFVCArIHNkbWFfb2Zmc2V0c1tpXSwgMCk7Cj4gICAKCgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is a multi-part message in MIME format.
+--===============0193098486==
+Content-Type: multipart/alternative;
+ boundary="------------9BFD58E4976EA57BC426C137"
+
+This is a multi-part message in MIME format.
+--------------9BFD58E4976EA57BC426C137
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Am 12.05.2017 um 10:25 schrieb zhoucm1:
+>
+> On 2017年05月10日 05:47, Kasiviswanathan, Harish wrote:
+>> Hi,
+>>
+>> Please review the patch set that supports amdgpu VM update via CPU. This feature provides improved performance for compute (HSA) where mapping / unmapping is carried out (by Kernel) independent of command submissions (done directly by user space). This version doesn't support shadow copy of VM page tables for CPU based update.
+> I think your improved performance is from less waiting for cs, 
+> generally, SDMA engine updating page table is faster than CPU, 
+> otherwise we don't need sdma for updating PT.
+> So whether your this improvement proves we have some redundant sync 
+> when mapping / unmapping, if yes, we should fix that, then not sure if 
+> CPU method is need or not.
+
+The problem is that the KFD is designed synchronously for page table 
+updates. In other words they need to wait for the update to finish and 
+that takes time.
+
+Apart from that your comment is absolutely correct, we found that the 
+SDMA is sometimes much faster to do the update than the CPU.
+
+Regards,
+Christian.
+
+>
+> Regards,
+> David Zhou
+>> Best Regards,
+>> Harish
+>>
+>>
+>>
+>> _______________________________________________
+>> amd-gfx mailing list
+>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+
+--------------9BFD58E4976EA57BC426C137
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Am 12.05.2017 um 10:25 schrieb zhoucm1:<br>
+    </div>
+    <blockquote cite="mid:5915717A.3000209-5C7GfCeVMHo@public.gmane.org" type="cite">
+      <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+      <br>
+      <div class="moz-cite-prefix">On 2017年05月10日 05:47,
+        Kasiviswanathan, Harish wrote:<br>
+      </div>
+      <blockquote
+cite="mid:DM3PR1201MB10382F282D646D630708246D8CEF0-BBcFnVpqZhWjUUTFdQAMQmrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org"
+        type="cite">
+        <pre wrap="">Hi,
+
+Please review the patch set that supports amdgpu VM update via CPU. This feature provides improved performance for compute (HSA) where mapping / unmapping is carried out (by Kernel) independent of command submissions (done directly by user space). This version doesn't support shadow copy of VM page tables for CPU based update.</pre>
+      </blockquote>
+      I think your improved performance is from less waiting for cs,
+      generally, SDMA engine updating page table is faster than CPU,
+      otherwise we don't need sdma for updating PT.<br>
+      So whether your this improvement proves we have some redundant
+      sync when mapping / unmapping, if yes, we should fix that, then
+      not sure if CPU method is need or not.<br>
+    </blockquote>
+    <br>
+    The problem is that the KFD is designed synchronously for page table
+    updates. In other words they need to wait for the update to finish
+    and that takes time.<br>
+    <br>
+    Apart from that your comment is absolutely correct, we found that
+    the SDMA is sometimes much faster to do the update than the CPU.<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <blockquote cite="mid:5915717A.3000209-5C7GfCeVMHo@public.gmane.org" type="cite"> <br>
+      Regards,<br>
+      David Zhou<br>
+      <blockquote
+cite="mid:DM3PR1201MB10382F282D646D630708246D8CEF0-BBcFnVpqZhWjUUTFdQAMQmrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org"
+        type="cite">
+        <pre wrap="">
+Best Regards,
+Harish
+
+</pre>
+        <br>
+        <fieldset class="mimeAttachmentHeader"></fieldset>
+        <br>
+        <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a moz-do-not-send="true" class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a moz-do-not-send="true" class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+      </blockquote>
+      <br>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------9BFD58E4976EA57BC426C137--
+
+--===============0193098486==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0193098486==--
