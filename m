@@ -1,14 +1,15 @@
-From: =?UTF-8?Q?Nils_Wallm=C3=A9nius?= <nils.wallmenius-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 3/4] drm/amd/powerplay/smu7: add vblank check for mclk
- switching
-Date: Fri, 12 May 2017 09:52:19 +0200
-Message-ID: <CA+nq7Ds1vf8W_DLaZ3aLVSqYstZ8sqFLKFVEOv4-0O67vzNEkA@mail.gmail.com>
-References: <1494525521-20864-1-git-send-email-alexander.deucher@amd.com>
- <1494525521-20864-3-git-send-email-alexander.deucher@amd.com>
+From: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+Subject: Re: [PATCH 3/5] drm/syncobj: add sync_file interaction.
+Date: Fri, 12 May 2017 10:01:16 +0200
+Message-ID: <20170512080116.px65b7vtvgbnfh4t@phenom.ffwll.local>
+References: <20170512003457.24936-1-airlied@gmail.com>
+ <20170512003457.24936-4-airlied@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0637678384=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1494525521-20864-3-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Disposition: inline
+In-Reply-To: <20170512003457.24936-4-airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,284 +20,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============0637678384==
-Content-Type: multipart/alternative; boundary="94eb2c196cf421e2e2054f4efc96"
-
---94eb2c196cf421e2e2054f4efc96
-Content-Type: text/plain; charset="UTF-8"
-
-Hi Alex,
-
-Comment below
-
-Den 11 maj 2017 7:59 em skrev "Alex Deucher" <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>:
-
-Check to make sure the vblank period is long enough to support
-mclk switching.
-
-bug: https://bugs.freedesktop.org/show_bug.cgi?id=96868
-
-Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 31
-+++++++++++++++++++++---
- 1 file changed, 27 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-index a74a3db..d745065 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-@@ -2655,6 +2655,28 @@ static int smu7_get_power_state_size(struct pp_hwmgr
-*hwmgr)
-        return sizeof(struct smu7_power_state);
- }
-
-+static int smu7_vblank_too_short(struct pp_hwmgr *hwmgr,
-+                                uint32_t vblank_time_us)
-+{
-+       struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-+       uint32_t switch_limit_us = data->is_memory_gddr5 ? 450 : 150;
-
-
-This assignment is overwritten below.
-
-BR
-Nils
-
-+
-+       switch (hwmgr->chip_id) {
-+       case CHIP_POLARIS10:
-+       case CHIP_POLARIS11:
-+       case CHIP_POLARIS12:
-+               switch_limit_us = data->is_memory_gddr5 ? 190 : 150;
-+               break;
-+       default:
-+               switch_limit_us = data->is_memory_gddr5 ? 450 : 150;
-+               break;
-+       }
-+
-+       if (vblank_time_us < switch_limit_us)
-+               return true;
-+       else
-+               return false;
-+}
-
- static int smu7_apply_state_adjust_rules(struct pp_hwmgr *hwmgr,
-                                struct pp_power_state *request_ps,
-@@ -2669,6 +2691,7 @@ static int smu7_apply_state_adjust_rules(struct
-pp_hwmgr *hwmgr,
-        bool disable_mclk_switching;
-        bool disable_mclk_switching_for_frame_lock;
-        struct cgs_display_info info = {0};
-+       struct cgs_mode_info mode_info = {0};
-        const struct phm_clock_and_voltage_limits *max_limits;
-        uint32_t i;
-        struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
-@@ -2677,6 +2700,7 @@ static int smu7_apply_state_adjust_rules(struct
-pp_hwmgr *hwmgr,
-        int32_t count;
-        int32_t stable_pstate_sclk = 0, stable_pstate_mclk = 0;
-
-+       info.mode_info = &mode_info;
-        data->battery_state = (PP_StateUILabel_Battery ==
-                        request_ps->classification.ui_label);
-
-@@ -2703,8 +2727,6 @@ static int smu7_apply_state_adjust_rules(struct
-pp_hwmgr *hwmgr,
-
-        cgs_get_active_displays_info(hwmgr->device, &info);
-
--       /*TO DO result = PHM_CheckVBlankTime(hwmgr, &vblankTooShort);*/
--
-        minimum_clocks.engineClock = hwmgr->display_config.min_
-core_set_clock;
-        minimum_clocks.memoryClock = hwmgr->display_config.min_mem_
-set_clock;
-
-@@ -2769,8 +2791,9 @@ static int smu7_apply_state_adjust_rules(struct
-pp_hwmgr *hwmgr,
-                                    PHM_PlatformCaps_
-DisableMclkSwitchingForFrameLock);
-
-
--       disable_mclk_switching = (1 < info.display_count) ||
--                                   disable_mclk_switching_for_frame_lock;
-+       disable_mclk_switching = ((1 < info.display_count) ||
-+                                 disable_mclk_switching_for_frame_lock ||
-+                                 smu7_vblank_too_short(hwmgr,
-mode_info.vblank_time_us));
-
-        sclk = smu7_ps->performance_levels[0].engine_clock;
-        mclk = smu7_ps->performance_levels[0].memory_clock;
---
-2.5.5
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---94eb2c196cf421e2e2054f4efc96
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div>Hi Alex,</div><div dir=3D"auto"><br></div><div dir=
-=3D"auto">Comment below<br><div class=3D"gmail_extra" dir=3D"auto"><br><div=
- class=3D"gmail_quote">Den 11 maj 2017 7:59 em skrev &quot;Alex Deucher&quo=
-t; &lt;<a href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&g=
-t;:<br type=3D"attribution"><blockquote class=3D"quote" style=3D"margin:0 0=
- 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Check to make sure the=
- vblank period is long enough to support<br>
-mclk switching.<br>
-<br>
-bug: <a href=3D"https://bugs.freedesktop.org/show_bug.cgi?id=3D96868" rel=
-=3D"noreferrer" target=3D"_blank">https://bugs.freedesktop.org/<wbr>show_bu=
-g.cgi?id=3D96868</a><br>
-<br>
-Signed-off-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org=
-">alexander.deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
----<br>
-=C2=A0drivers/gpu/drm/amd/powerplay/<wbr>hwmgr/smu7_hwmgr.c | 31 ++++++++++=
-+++++++++++---<br>
-=C2=A01 file changed, 27 insertions(+), 4 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/<wbr>powerplay/hwmgr/smu7_hwmgr.c b/driver=
-s/gpu/drm/amd/<wbr>powerplay/hwmgr/smu7_hwmgr.c<br>
-index a74a3db..d745065 100644<br>
---- a/drivers/gpu/drm/amd/<wbr>powerplay/hwmgr/smu7_hwmgr.c<br>
-+++ b/drivers/gpu/drm/amd/<wbr>powerplay/hwmgr/smu7_hwmgr.c<br>
-@@ -2655,6 +2655,28 @@ static int smu7_get_power_state_size(<wbr>struct pp_=
-hwmgr *hwmgr)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 return sizeof(struct smu7_power_state);<br>
-=C2=A0}<br>
-<br>
-+static int smu7_vblank_too_short(struct pp_hwmgr *hwmgr,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 uint32_t vblank_time_us)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0struct smu7_hwmgr *data =3D (struct smu7_hwmgr =
-*)(hwmgr-&gt;backend);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t switch_limit_us =3D data-&gt;is_memory=
-_gddr5 ? 450 : 150;<br></blockquote></div></div></div><div dir=3D"auto"><br=
-></div><div dir=3D"auto">This assignment is overwritten below.</div><div di=
-r=3D"auto"><br></div><div dir=3D"auto">BR</div><div dir=3D"auto">Nils</div>=
-<div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_extra" di=
-r=3D"auto"><div class=3D"gmail_quote"><blockquote class=3D"quote" style=3D"=
-margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0switch (hwmgr-&gt;chip_id) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0case CHIP_POLARIS10:<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0case CHIP_POLARIS11:<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0case CHIP_POLARIS12:<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0switch_limit_us =3D=
- data-&gt;is_memory_gddr5 ? 190 : 150;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0default:<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0switch_limit_us =3D=
- data-&gt;is_memory_gddr5 ? 450 : 150;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (vblank_time_us &lt; switch_limit_us)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return true;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0else<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return false;<br>
-+}<br>
-<br>
-=C2=A0static int smu7_apply_state_adjust_rules(<wbr>struct pp_hwmgr *hwmgr,=
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct pp_power_state *request_ps,<b=
-r>
-@@ -2669,6 +2691,7 @@ static int smu7_apply_state_adjust_rules(<wbr>struct =
-pp_hwmgr *hwmgr,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 bool disable_mclk_switching;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 bool disable_mclk_switching_for_<wbr>frame_lock=
-;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct cgs_display_info info =3D {0};<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0struct cgs_mode_info mode_info =3D {0};<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 const struct phm_clock_and_voltage_limits *max_=
-limits;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 uint32_t i;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct smu7_hwmgr *data =3D (struct smu7_hwmgr =
-*)(hwmgr-&gt;backend);<br>
-@@ -2677,6 +2700,7 @@ static int smu7_apply_state_adjust_rules(<wbr>struct =
-pp_hwmgr *hwmgr,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 int32_t count;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 int32_t stable_pstate_sclk =3D 0, stable_pstate=
-_mclk =3D 0;<br>
-<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0info.mode_info =3D &amp;mode_info;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 data-&gt;battery_state =3D (PP_StateUILabel_Bat=
-tery =3D=3D<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 request_ps-&gt;classification.ui_<wbr>label);<br>
-<br>
-@@ -2703,8 +2727,6 @@ static int smu7_apply_state_adjust_rules(<wbr>struct =
-pp_hwmgr *hwmgr,<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 cgs_get_active_displays_info(<wbr>hwmgr-&gt;dev=
-ice, &amp;info);<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0/*TO DO result =3D PHM_CheckVBlankTime(hwmgr, &=
-amp;vblankTooShort);*/<br>
--<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 minimum_clocks.engineClock =3D hwmgr-&gt;displa=
-y_config.min_<wbr>core_set_clock;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 minimum_clocks.memoryClock =3D hwmgr-&gt;displa=
-y_config.min_mem_<wbr>set_clock;<br>
-<br>
-@@ -2769,8 +2791,9 @@ static int smu7_apply_state_adjust_rules(<wbr>struct =
-pp_hwmgr *hwmgr,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 PHM_PlatformCaps_<wbr>=
-DisableMclkSwitchingForFrameLo<wbr>ck);<br>
-<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0disable_mclk_switching =3D (1 &lt; info.display=
-_count) ||<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0disable_mclk_switching_=
-for_<wbr>frame_lock;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0disable_mclk_switching =3D ((1 &lt; info.displa=
-y_count) ||<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0disable_mclk_switching_for_<wb=
-r>frame_lock ||<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0smu7_vblank_too_short(hwmgr, m=
-ode_info.vblank_time_us));<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 sclk =3D smu7_ps-&gt;performance_levels[0]<wbr>=
-.engine_clock;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 mclk =3D smu7_ps-&gt;performance_levels[0]<wbr>=
-.memory_clock;<br>
-<font color=3D"#888888">--<br>
-2.5.5<br>
-<br>
-______________________________<wbr>_________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
-oreferrer" target=3D"_blank">https://lists.freedesktop.org/<wbr>mailman/lis=
-tinfo/amd-gfx</a><br>
-</font></blockquote></div><br></div></div></div>
-
---94eb2c196cf421e2e2054f4efc96--
-
---===============0637678384==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0637678384==--
+T24gRnJpLCBNYXkgMTIsIDIwMTcgYXQgMTA6MzQ6NTVBTSArMTAwMCwgRGF2ZSBBaXJsaWUgd3Jv
+dGU6Cj4gRnJvbTogRGF2ZSBBaXJsaWUgPGFpcmxpZWRAcmVkaGF0LmNvbT4KPiAKPiBUaGlzIGlu
+dGVyZmFjZSBhbGxvd3MgaW1wb3J0aW5nIHRoZSBmZW5jZSBmcm9tIGEgc3luY19maWxlIGludG8K
+PiBhbiBleGlzdGluZyBkcm0gc3luYyBvYmplY3QsIG9yIGV4cG9ydGluZyB0aGUgZmVuY2UgYXR0
+YWNoZWQgdG8KPiBhbiBleGlzdGluZyBkcm0gc3luYyBvYmplY3QgaW50byBhIG5ldyBzeW5jIGZp
+bGUgb2JqZWN0Lgo+IAo+IFRoaXMgc2hvdWxkIG9ubHkgYmUgdXNlZCB0byBpbnRlcmFjdCB3aXRo
+IHN5bmMgZmlsZXMgd2hlcmUgbmVjZXNzYXJ5Lgo+IAo+IFNpZ25lZC1vZmYtYnk6IERhdmUgQWly
+bGllIDxhaXJsaWVkQHJlZGhhdC5jb20+CgpBIGJ1bmNoIG9mIG5pdHMgYXJvdW5kIGlvY3RsIHZh
+bGlkYXRpb24gYW5kIHN0dWZmLiBsZ3RtIG90aGVyd2lzZSwgYWNrCndpdGggdGhvc2UgYWRkcmVz
+c2VkLgotRGFuaWVsCgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vZHJtX3N5bmNvYmouYyB8IDU2
+ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysKPiAgaW5jbHVkZS91
+YXBpL2RybS9kcm0uaCAgICAgICAgfCAgNiArKystLQo+ICAyIGZpbGVzIGNoYW5nZWQsIDYwIGlu
+c2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9kcm1fc3luY29iai5jIGIvZHJpdmVycy9ncHUvZHJtL2RybV9zeW5jb2JqLmMKPiBpbmRl
+eCA5YThjNjkwLi42OWVmMjBhIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fc3lu
+Y29iai5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9zeW5jb2JqLmMKPiBAQCAtNTIsNiAr
+NTIsNyBAQAo+ICAjaW5jbHVkZSA8bGludXgvZmlsZS5oPgo+ICAjaW5jbHVkZSA8bGludXgvZnMu
+aD4KPiAgI2luY2x1ZGUgPGxpbnV4L2Fub25faW5vZGVzLmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9z
+eW5jX2ZpbGUuaD4KPiAgCj4gICNpbmNsdWRlICJkcm1faW50ZXJuYWwuaCIKPiAgI2luY2x1ZGUg
+PGRybS9kcm1fc3luY29iai5oPgo+IEBAIC0yOTAsNiArMjkxLDQ4IEBAIHN0YXRpYyBpbnQgZHJt
+X3N5bmNvYmpfZmRfdG9faGFuZGxlKHN0cnVjdCBkcm1fZmlsZSAqZmlsZV9wcml2YXRlLAo+ICAJ
+cmV0dXJuIDA7Cj4gIH0KPiAgCj4gK2ludCBkcm1fc3luY29ial9pbXBvcnRfc3luY19maWxlX2Zl
+bmNlKHN0cnVjdCBkcm1fZmlsZSAqZmlsZV9wcml2YXRlLAo+ICsJCQkJICAgICAgIGludCBmZCwg
+aW50IGhhbmRsZSkKPiArewo+ICsJc3RydWN0IGRtYV9mZW5jZSAqZmVuY2UgPSBzeW5jX2ZpbGVf
+Z2V0X2ZlbmNlKGZkKTsKPiArCWlmICghZmVuY2UpCj4gKwkJcmV0dXJuIC1FSU5WQUw7Cj4gKwo+
+ICsJcmV0dXJuIGRybV9zeW5jb2JqX3JlcGxhY2VfZmVuY2UoZmlsZV9wcml2YXRlLCBoYW5kbGUs
+IGZlbmNlKTsKPiArfQo+ICsKPiAraW50IGRybV9zeW5jb2JqX2V4cG9ydF9zeW5jX2ZpbGUoc3Ry
+dWN0IGRybV9maWxlICpmaWxlX3ByaXZhdGUsCj4gKwkJCQkgaW50IGhhbmRsZSwgaW50ICpwX2Zk
+KQo+ICt7Cj4gKwlpbnQgcmV0Owo+ICsJc3RydWN0IGRtYV9mZW5jZSAqZmVuY2U7Cj4gKwlzdHJ1
+Y3Qgc3luY19maWxlICpzeW5jX2ZpbGU7Cj4gKwlpbnQgZmQgPSBnZXRfdW51c2VkX2ZkX2ZsYWdz
+KE9fQ0xPRVhFQyk7CgpJIGd1ZXNzIHRoZSBpZGVhIHdhcyB0byB1c2UgYXJncy0+ZmRfZmxhZ3Mg
+aGVyZT8KCj4gKwo+ICsJaWYgKGZkIDwgMCkKPiArCQlyZXR1cm4gZmQ7Cj4gKwo+ICsJcmV0ID0g
+ZHJtX3N5bmNvYmpfZmVuY2VfZ2V0KGZpbGVfcHJpdmF0ZSwgaGFuZGxlLCAmZmVuY2UpOwo+ICsJ
+aWYgKHJldCkKPiArCQlnb3RvIGVycl9wdXRfZmQ7Cj4gKwo+ICsJc3luY19maWxlID0gc3luY19m
+aWxlX2NyZWF0ZShmZW5jZSk7Cj4gKwlpZiAoIXN5bmNfZmlsZSkgewo+ICsJCXJldCA9IC1FSU5W
+QUw7Cj4gKwkJZ290byBlcnJfZmVuY2VfcHV0Owo+ICsJfQo+ICsKPiArCWZkX2luc3RhbGwoZmQs
+IHN5bmNfZmlsZS0+ZmlsZSk7Cj4gKwo+ICsJZG1hX2ZlbmNlX3B1dChmZW5jZSk7Cj4gKwkqcF9m
+ZCA9IGZkOwo+ICsJcmV0dXJuIDA7Cj4gK2Vycl9mZW5jZV9wdXQ6Cj4gKwlkbWFfZmVuY2VfcHV0
+KGZlbmNlKTsKPiArZXJyX3B1dF9mZDoKPiArCXB1dF91bnVzZWRfZmQoZmQpOwo+ICsJcmV0dXJu
+IHJldDsKPiArfQo+ICAvKioKPiAgICogZHJtX3N5bmNvYmpfb3BlbiAtIGluaXRhbGl6ZXMgc3lu
+Y29iaiBmaWxlLXByaXZhdGUgc3RydWN0dXJlcyBhdCBkZXZub2RlIG9wZW4gdGltZQo+ICAgKiBA
+ZGV2OiBkcm1fZGV2aWNlIHdoaWNoIGlzIGJlaW5nIG9wZW5lZCBieSB1c2Vyc3BhY2UKPiBAQCAt
+MzcyLDYgKzQxNSwxMiBAQCBkcm1fc3luY29ial9oYW5kbGVfdG9fZmRfaW9jdGwoc3RydWN0IGRy
+bV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwKPiAgCWlmICghZHJtX2NvcmVfY2hlY2tfZmVhdHVy
+ZShkZXYsIERSSVZFUl9TWU5DT0JKKSkKPiAgCQlyZXR1cm4gLUVOT0RFVjsKPiAgCj4gKwlpZiAo
+YXJncy0+ZmxhZ3MgJiBEUk1fU1lOQ09CSl9IQU5ETEVfVE9fRkRfRkxBR1NfRVhQT1JUX0ZFTkNF
+X1NZTkNfRklMRSkKPiArCQlyZXR1cm4gZHJtX3N5bmNvYmpfZXhwb3J0X3N5bmNfZmlsZShmaWxl
+X3ByaXZhdGUsIGFyZ3MtPmhhbmRsZSwKPiArCQkJCQkJICAgICZhcmdzLT5mZCk7CgpDaGVja3Mg
+bGlrZSBpbiB0aGUgd2FpdCBpb2N0bCB0aGF0IG5vIG90aGVyIGZsYWdzIGFyZSBzZXQgaXMgbWlz
+c2luZyBpbgpib3RoIGNhbGxiYWNrcy4KCj4gKwllbHNlIGlmIChhcmdzLT5mbGFncykKPiArCQly
+ZXR1cm4gLUVJTlZBTDsKPiArCj4gIAlyZXR1cm4gZHJtX3N5bmNvYmpfaGFuZGxlX3RvX2ZkKGZp
+bGVfcHJpdmF0ZSwgYXJncy0+aGFuZGxlLAo+ICAJCQkJCSZhcmdzLT5mZCk7Cj4gIH0KPiBAQCAt
+Mzg1LDYgKzQzNCwxMyBAQCBkcm1fc3luY29ial9mZF90b19oYW5kbGVfaW9jdGwoc3RydWN0IGRy
+bV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwKPiAgCWlmICghZHJtX2NvcmVfY2hlY2tfZmVhdHVy
+ZShkZXYsIERSSVZFUl9TWU5DT0JKKSkKPiAgCQlyZXR1cm4gLUVOT0RFVjsKPiAgCj4gKwlpZiAo
+YXJncy0+ZmxhZ3MgJiBEUk1fU1lOQ09CSl9GRF9UT19IQU5ETEVfRkxBR1NfSU1QT1JUX1NZTkNf
+RklMRV9GRU5DRSkKPiArCQlyZXR1cm4gZHJtX3N5bmNvYmpfaW1wb3J0X3N5bmNfZmlsZV9mZW5j
+ZShmaWxlX3ByaXZhdGUsCj4gKwkJCQkJCQkgIGFyZ3MtPmZkLAo+ICsJCQkJCQkJICBhcmdzLT5o
+YW5kbGUpOwo+ICsJZWxzZSBpZiAoYXJncy0+ZmxhZ3MpCj4gKwkJcmV0dXJuIC1FSU5WQUw7Cj4g
+Kwo+ICAJcmV0dXJuIGRybV9zeW5jb2JqX2ZkX3RvX2hhbmRsZShmaWxlX3ByaXZhdGUsIGFyZ3Mt
+PmZkLAo+ICAJCQkJCSZhcmdzLT5oYW5kbGUpOwo+ICB9Cj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUv
+dWFwaS9kcm0vZHJtLmggYi9pbmNsdWRlL3VhcGkvZHJtL2RybS5oCj4gaW5kZXggZGI5ZTM1ZS4u
+ZDBlMDVmNCAxMDA2NDQKPiAtLS0gYS9pbmNsdWRlL3VhcGkvZHJtL2RybS5oCj4gKysrIGIvaW5j
+bHVkZS91YXBpL2RybS9kcm0uaAo+IEBAIC03MDcsMTMgKzcwNywxNSBAQCBzdHJ1Y3QgZHJtX3N5
+bmNvYmpfZGVzdHJveSB7Cj4gIAlfX3UzMiBwYWQ7Cj4gIH07Cj4gIAo+ICsjZGVmaW5lIERSTV9T
+WU5DT0JKX0ZEX1RPX0hBTkRMRV9GTEFHU19JTVBPUlRfU1lOQ19GSUxFX0ZFTkNFICgxIDw8IDAp
+Cj4gKyNkZWZpbmUgRFJNX1NZTkNPQkpfSEFORExFX1RPX0ZEX0ZMQUdTX0VYUE9SVF9GRU5DRV9T
+WU5DX0ZJTEUgKDEgPDwgMCkKPiAgc3RydWN0IGRybV9zeW5jb2JqX2hhbmRsZSB7Cj4gIAlfX3Uz
+MiBoYW5kbGU7Cj4gIAkvKiogRmxhZ3MuLiBvbmx5IGFwcGxpY2FibGUgZm9yIGhhbmRsZS0+ZmQg
+Ki8KPiAtCV9fdTMyIGZsYWdzOwo+ICsJX191MzIgZmRfZmxhZ3M7Cj4gIAo+ICAJX19zMzIgZmQ7
+Cj4gLQlfX3UzMiBwYWQ7Cj4gKwlfX3UzMiBmbGFnczsKCnMvcGFkL2ZkX2ZsYWdzLyBpbnN0ZWFk
+IG9mIHRoZSBzaHVmZmxlIHlvdSd2ZSBkb25lIGhlcmUgSSBwcmVzdW1lPwoKQWxzbyBJIGRpZG4n
+dCBzcG90IGFueSBmZF9mbGFncyB2YWxpZGF0aW9uIGFueXdoZXJlLgoKPiAgfTsKPiAgCj4gIC8q
+IHRpbWVvdXRfbnMgaXMgcmVsYXRpdmUgdGltZW91dCBpbiBuYW5vc2Vjb25kcyAqLwo+IC0tIAo+
+IDIuOS4zCj4gCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KPiBkcmktZGV2ZWwgbWFpbGluZyBsaXN0Cj4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJp
+LWRldmVsCgotLSAKRGFuaWVsIFZldHRlcgpTb2Z0d2FyZSBFbmdpbmVlciwgSW50ZWwgQ29ycG9y
+YXRpb24KaHR0cDovL2Jsb2cuZmZ3bGwuY2gKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cg==
