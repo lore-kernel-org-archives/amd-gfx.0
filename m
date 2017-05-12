@@ -1,13 +1,14 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: properly byteswap gpu_info firmware
-Date: Fri, 12 May 2017 09:42:33 +0200
-Message-ID: <f9cbdce6-1ffa-032e-f875-78e0aab779e1@vodafone.de>
-References: <1494544256-31858-1-git-send-email-alexander.deucher@amd.com>
+From: =?UTF-8?Q?Nils_Wallm=C3=A9nius?= <nils.wallmenius-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 1/4] drm/amdgpu/ci: disable mclk switching for high
+ refresh rates
+Date: Fri, 12 May 2017 09:49:17 +0200
+Message-ID: <CA+nq7DtJjexTWohBmnBpsRyjsp70RjvUu5ZWG1hdu11-eHEgag@mail.gmail.com>
+References: <1494525521-20864-1-git-send-email-alexander.deucher@amd.com>
+ <CA+nq7DsJ=Bd4_yM=0xsv4a3MB2dyyVF_UfJE1h5Y4980cdF2nw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0272438054=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1494544256-31858-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CA+nq7DsJ=Bd4_yM=0xsv4a3MB2dyyVF_UfJE1h5Y4980cdF2nw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,53 +19,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-QW0gMTIuMDUuMjAxNyB1bSAwMToxMCBzY2hyaWViIEFsZXggRGV1Y2hlcjoKPiBJdCdzIHN0b3Jl
-ZCBpbiBMRSBmb3JtYXQuCj4KPiBTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRl
-ci5kZXVjaGVyQGFtZC5jb20+CgpSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0
-aWFuLmtvZW5pZ0BhbWQuY29tPgoKPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9kZXZpY2UuYyB8IDIyICsrKysrKysrKysrLS0tLS0tLS0tLS0KPiAgIDEgZmlsZSBj
-aGFuZ2VkLCAxMSBpbnNlcnRpb25zKCspLCAxMSBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPiBpbmRleCBkOTVkNGM5Li44YTViYjQy
-IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2Uu
-Ywo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+IEBA
-IC0xNDU5LDE5ICsxNDU5LDE5IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2RldmljZV9wYXJzZV9ncHVf
-aW5mb19mdyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAgIAkJCShjb25zdCBzdHJ1Y3Qg
-Z3B1X2luZm9fZmlybXdhcmVfdjFfMCAqKShmdy0+ZGF0YSArCj4gICAJCQkJCQkJCWxlMzJfdG9f
-Y3B1KGhkci0+aGVhZGVyLnVjb2RlX2FycmF5X29mZnNldF9ieXRlcykpOwo+ICAgCj4gLQkJYWRl
-di0+Z2Z4LmNvbmZpZy5tYXhfc2hhZGVyX2VuZ2luZXMgPSBncHVfaW5mb19mdy0+Z2NfbnVtX3Nl
-Owo+IC0JCWFkZXYtPmdmeC5jb25maWcubWF4X2N1X3Blcl9zaCA9IGdwdV9pbmZvX2Z3LT5nY19u
-dW1fY3VfcGVyX3NoOwo+IC0JCWFkZXYtPmdmeC5jb25maWcubWF4X3NoX3Blcl9zZSA9IGdwdV9p
-bmZvX2Z3LT5nY19udW1fc2hfcGVyX3NlOwo+IC0JCWFkZXYtPmdmeC5jb25maWcubWF4X2JhY2tl
-bmRzX3Blcl9zZSA9IGdwdV9pbmZvX2Z3LT5nY19udW1fcmJfcGVyX3NlOwo+ICsJCWFkZXYtPmdm
-eC5jb25maWcubWF4X3NoYWRlcl9lbmdpbmVzID0gbGUzMl90b19jcHUoZ3B1X2luZm9fZnctPmdj
-X251bV9zZSk7Cj4gKwkJYWRldi0+Z2Z4LmNvbmZpZy5tYXhfY3VfcGVyX3NoID0gbGUzMl90b19j
-cHUoZ3B1X2luZm9fZnctPmdjX251bV9jdV9wZXJfc2gpOwo+ICsJCWFkZXYtPmdmeC5jb25maWcu
-bWF4X3NoX3Blcl9zZSA9IGxlMzJfdG9fY3B1KGdwdV9pbmZvX2Z3LT5nY19udW1fc2hfcGVyX3Nl
-KTsKPiArCQlhZGV2LT5nZnguY29uZmlnLm1heF9iYWNrZW5kc19wZXJfc2UgPSBsZTMyX3RvX2Nw
-dShncHVfaW5mb19mdy0+Z2NfbnVtX3JiX3Blcl9zZSk7Cj4gICAJCWFkZXYtPmdmeC5jb25maWcu
-bWF4X3RleHR1cmVfY2hhbm5lbF9jYWNoZXMgPQo+IC0JCQlncHVfaW5mb19mdy0+Z2NfbnVtX3Rj
-Y3M7Cj4gLQkJYWRldi0+Z2Z4LmNvbmZpZy5tYXhfZ3BycyA9IGdwdV9pbmZvX2Z3LT5nY19udW1f
-Z3ByczsKPiAtCQlhZGV2LT5nZnguY29uZmlnLm1heF9nc190aHJlYWRzID0gZ3B1X2luZm9fZnct
-PmdjX251bV9tYXhfZ3NfdGhkczsKPiAtCQlhZGV2LT5nZnguY29uZmlnLmdzX3ZndF90YWJsZV9k
-ZXB0aCA9IGdwdV9pbmZvX2Z3LT5nY19nc190YWJsZV9kZXB0aDsKPiAtCQlhZGV2LT5nZnguY29u
-ZmlnLmdzX3ByaW1fYnVmZmVyX2RlcHRoID0gZ3B1X2luZm9fZnctPmdjX2dzcHJpbV9idWZmX2Rl
-cHRoOwo+ICsJCQlsZTMyX3RvX2NwdShncHVfaW5mb19mdy0+Z2NfbnVtX3RjY3MpOwo+ICsJCWFk
-ZXYtPmdmeC5jb25maWcubWF4X2dwcnMgPSBsZTMyX3RvX2NwdShncHVfaW5mb19mdy0+Z2NfbnVt
-X2dwcnMpOwo+ICsJCWFkZXYtPmdmeC5jb25maWcubWF4X2dzX3RocmVhZHMgPSBsZTMyX3RvX2Nw
-dShncHVfaW5mb19mdy0+Z2NfbnVtX21heF9nc190aGRzKTsKPiArCQlhZGV2LT5nZnguY29uZmln
-LmdzX3ZndF90YWJsZV9kZXB0aCA9IGxlMzJfdG9fY3B1KGdwdV9pbmZvX2Z3LT5nY19nc190YWJs
-ZV9kZXB0aCk7Cj4gKwkJYWRldi0+Z2Z4LmNvbmZpZy5nc19wcmltX2J1ZmZlcl9kZXB0aCA9IGxl
-MzJfdG9fY3B1KGdwdV9pbmZvX2Z3LT5nY19nc3ByaW1fYnVmZl9kZXB0aCk7Cj4gICAJCWFkZXYt
-PmdmeC5jb25maWcuZG91YmxlX29mZmNoaXBfbGRzX2J1ZiA9Cj4gLQkJCWdwdV9pbmZvX2Z3LT5n
-Y19kb3VibGVfb2ZmY2hpcF9sZHNfYnVmZmVyOwo+IC0JCWFkZXYtPmdmeC5jdV9pbmZvLndhdmVf
-ZnJvbnRfc2l6ZSA9IGdwdV9pbmZvX2Z3LT5nY193YXZlX3NpemU7Cj4gKwkJCWxlMzJfdG9fY3B1
-KGdwdV9pbmZvX2Z3LT5nY19kb3VibGVfb2ZmY2hpcF9sZHNfYnVmZmVyKTsKPiArCQlhZGV2LT5n
-ZnguY3VfaW5mby53YXZlX2Zyb250X3NpemUgPSBsZTMyX3RvX2NwdShncHVfaW5mb19mdy0+Z2Nf
-d2F2ZV9zaXplKTsKPiAgIAkJYnJlYWs7Cj4gICAJfQo+ICAgCWRlZmF1bHQ6CgoKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
-c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============0272438054==
+Content-Type: multipart/alternative; boundary="94eb2c1cd1f24caec1054f4ef11a"
+
+--94eb2c1cd1f24caec1054f4ef11a
+Content-Type: text/plain; charset="UTF-8"
+
+Hi, Alex
+
+Shouldn't the function return true when the refresh rate > 120? If so, same
+comment on patch 2.
+
+BR
+Nils
+
+
+Den 11 maj 2017 7:59 em skrev "Alex Deucher" <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>:
+
+Even if the vblank period would allow it, it still seems to
+be problematic on some cards.
+
+bug: https://bugs.freedesktop.org/show_bug.cgi?id=96868
+
+Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/ci_dpm.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/ci_dpm.c
+b/drivers/gpu/drm/amd/amdgpu/ci_dpm.c
+index 6dc1410..eb5d03b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/ci_dpm.c
++++ b/drivers/gpu/drm/amd/amdgpu/ci_dpm.c
+@@ -906,6 +906,12 @@ static bool ci_dpm_vblank_too_short(struct
+amdgpu_device *adev)
+        u32 vblank_time = amdgpu_dpm_get_vblank_time(adev);
+        u32 switch_limit = adev->mc.vram_type == AMDGPU_VRAM_TYPE_GDDR5 ?
+450 : 300;
+
++       /* disable mclk switching if the refresh is >120Hz, even if the
++        * blanking period would allow it
++        */
++       if (amdgpu_dpm_get_vrefresh(adev) > 120)
++               return false;
++
+        if (vblank_time < switch_limit)
+                return true;
+        else
+--
+2.5.5
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--94eb2c1cd1f24caec1054f4ef11a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div>Hi, Alex<div dir=3D"auto"><br></div><div dir=3D"auto=
+">Shouldn&#39;t the function return true when the refresh rate &gt; 120? If=
+ so, same comment on patch 2.</div><div dir=3D"auto"><br></div><div dir=3D"=
+auto">BR</div><div dir=3D"auto">Nils</div><br><div class=3D"gmail_extra"><b=
+r><div class=3D"gmail_quote">Den 11 maj 2017 7:59 em skrev &quot;Alex Deuch=
+er&quot; &lt;<a href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org=
+</a>&gt;:<br type=3D"attribution"><blockquote class=3D"quote" style=3D"marg=
+in:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">Even if the vbla=
+nk period would allow it, it still seems to<br>
+be problematic on some cards.<br>
+<br>
+bug: <a href=3D"https://bugs.freedesktop.org/show_bug.cgi?id=3D96868" rel=
+=3D"noreferrer" target=3D"_blank">https://bugs.freedesktop.org/<wbr>show_bu=
+g.cgi?id=3D96868</a><br>
+<br>
+Signed-off-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org=
+">alexander.deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+---<br>
+=C2=A0drivers/gpu/drm/amd/amdgpu/ci_<wbr>dpm.c | 6 ++++++<br>
+=C2=A01 file changed, 6 insertions(+)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/<wbr>ci_dpm.c b/drivers/gpu/drm/amd=
+/amdgpu/<wbr>ci_dpm.c<br>
+index 6dc1410..eb5d03b 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/<wbr>ci_dpm.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/<wbr>ci_dpm.c<br>
+@@ -906,6 +906,12 @@ static bool ci_dpm_vblank_too_short(struct amdgpu_devi=
+ce *adev)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 u32 vblank_time =3D amdgpu_dpm_get_vblank_time(=
+<wbr>adev);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 u32 switch_limit =3D adev-&gt;mc.vram_type =3D=
+=3D AMDGPU_VRAM_TYPE_GDDR5 ? 450 : 300;<br>
+<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0/* disable mclk switching if the refresh is &gt=
+;120Hz, even if the<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * blanking period would allow it<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (amdgpu_dpm_get_vrefresh(adev) &gt; 120)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return false;<br>
++<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (vblank_time &lt; switch_limit)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return true;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 else<br>
+<font color=3D"#888888">--<br>
+2.5.5<br>
+<br>
+______________________________<wbr>_________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer" target=3D"_blank">https://lists.freedesktop.org/<wbr>mailman/lis=
+tinfo/amd-gfx</a><br>
+</font></blockquote></div><br></div></div></div>
+
+--94eb2c1cd1f24caec1054f4ef11a--
+
+--===============0272438054==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0272438054==--
