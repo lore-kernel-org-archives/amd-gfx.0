@@ -1,167 +1,142 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: Support for amdgpu VM update via CPU on large-bar systems
-Date: Fri, 12 May 2017 10:33:23 +0200
-Message-ID: <21e206ed-8d60-450f-6d23-e01c68c5ad73@vodafone.de>
-References: <DM3PR1201MB10382F282D646D630708246D8CEF0@DM3PR1201MB1038.namprd12.prod.outlook.com>
- <5915717A.3000209@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple@vodafone.de>
+Subject: Re: [PATCH 5/5] amdgpu: use drm sync objects for shared semaphores
+ (v4)
+Date: Fri, 12 May 2017 10:39:29 +0200
+Message-ID: <bafe9756-bfed-5f0b-23e0-201d5074c3a2@vodafone.de>
+References: <20170512003457.24936-1-airlied@gmail.com>
+ <20170512003457.24936-6-airlied@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0193098486=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <5915717A.3000209-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>, "Kasiviswanathan, Harish" <Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
-This is a multi-part message in MIME format.
---===============0193098486==
-Content-Type: multipart/alternative;
- boundary="------------9BFD58E4976EA57BC426C137"
-
-This is a multi-part message in MIME format.
---------------9BFD58E4976EA57BC426C137
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Am 12.05.2017 um 10:25 schrieb zhoucm1:
->
-> On 2017年05月10日 05:47, Kasiviswanathan, Harish wrote:
->> Hi,
->>
->> Please review the patch set that supports amdgpu VM update via CPU. This feature provides improved performance for compute (HSA) where mapping / unmapping is carried out (by Kernel) independent of command submissions (done directly by user space). This version doesn't support shadow copy of VM page tables for CPU based update.
-> I think your improved performance is from less waiting for cs, 
-> generally, SDMA engine updating page table is faster than CPU, 
-> otherwise we don't need sdma for updating PT.
-> So whether your this improvement proves we have some redundant sync 
-> when mapping / unmapping, if yes, we should fix that, then not sure if 
-> CPU method is need or not.
-
-The problem is that the KFD is designed synchronously for page table 
-updates. In other words they need to wait for the update to finish and 
-that takes time.
-
-Apart from that your comment is absolutely correct, we found that the 
-SDMA is sometimes much faster to do the update than the CPU.
-
-Regards,
-Christian.
-
->
-> Regards,
-> David Zhou
->> Best Regards,
->> Harish
->>
->>
->>
->> _______________________________________________
->> amd-gfx mailing list
->> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
-
---------------9BFD58E4976EA57BC426C137
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Am 12.05.2017 um 10:25 schrieb zhoucm1:<br>
-    </div>
-    <blockquote cite="mid:5915717A.3000209-5C7GfCeVMHo@public.gmane.org" type="cite">
-      <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-      <br>
-      <div class="moz-cite-prefix">On 2017年05月10日 05:47,
-        Kasiviswanathan, Harish wrote:<br>
-      </div>
-      <blockquote
-cite="mid:DM3PR1201MB10382F282D646D630708246D8CEF0-BBcFnVpqZhWjUUTFdQAMQmrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org"
-        type="cite">
-        <pre wrap="">Hi,
-
-Please review the patch set that supports amdgpu VM update via CPU. This feature provides improved performance for compute (HSA) where mapping / unmapping is carried out (by Kernel) independent of command submissions (done directly by user space). This version doesn't support shadow copy of VM page tables for CPU based update.</pre>
-      </blockquote>
-      I think your improved performance is from less waiting for cs,
-      generally, SDMA engine updating page table is faster than CPU,
-      otherwise we don't need sdma for updating PT.<br>
-      So whether your this improvement proves we have some redundant
-      sync when mapping / unmapping, if yes, we should fix that, then
-      not sure if CPU method is need or not.<br>
-    </blockquote>
-    <br>
-    The problem is that the KFD is designed synchronously for page table
-    updates. In other words they need to wait for the update to finish
-    and that takes time.<br>
-    <br>
-    Apart from that your comment is absolutely correct, we found that
-    the SDMA is sometimes much faster to do the update than the CPU.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <blockquote cite="mid:5915717A.3000209-5C7GfCeVMHo@public.gmane.org" type="cite"> <br>
-      Regards,<br>
-      David Zhou<br>
-      <blockquote
-cite="mid:DM3PR1201MB10382F282D646D630708246D8CEF0-BBcFnVpqZhWjUUTFdQAMQmrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org"
-        type="cite">
-        <pre wrap="">
-Best Regards,
-Harish
-
-</pre>
-        <br>
-        <fieldset class="mimeAttachmentHeader"></fieldset>
-        <br>
-        <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a moz-do-not-send="true" class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a moz-do-not-send="true" class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-      </blockquote>
-      <br>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------9BFD58E4976EA57BC426C137--
-
---===============0193098486==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20170512003457.24936-6-airlied@gmail.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Dave Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0193098486==--
+QW0gMTIuMDUuMjAxNyB1bSAwMjozNCBzY2hyaWViIERhdmUgQWlybGllOgo+IEZyb206IERhdmUg
+QWlybGllIDxhaXJsaWVkQHJlZGhhdC5jb20+Cj4KPiBUaGlzIGNyZWF0ZXMgYSBuZXcgY29tbWFu
+ZCBzdWJtaXNzaW9uIGNodW5rIGZvciBhbWRncHUKPiB0byBhZGQgaW4gYW5kIG91dCBzeW5jIG9i
+amVjdHMgYXJvdW5kIHRoZSBzdWJtaXNzaW9uLgo+Cj4gU3luYyBvYmplY3RzIGFyZSBtYW5hZ2Vk
+IHZpYSB0aGUgZHJtIHN5bmNvYmogaW9jdGxzLgo+Cj4gVGhlIGNvbW1hbmQgc3VibWlzc2lvbiBp
+bnRlcmZhY2UgaXMgZW5oYW5jZWQgd2l0aCB0d28gbmV3Cj4gY2h1bmtzLCBvbmUgZm9yIHN5bmNv
+YmogcHJlIHN1Ym1pc3Npb24gZGVwZW5kZW5jaWVzLAo+IGFuZCBvbmUgZm9yIHBvc3Qgc3VibWlz
+c2lvbiBzeW5jIG9iaiBzaWduYWxsaW5nLAo+IGFuZCBqdXN0IHRha2VzIGEgbGlzdCBvZiBoYW5k
+bGVzIGZvciBlYWNoLgo+Cj4gVGhpcyBpcyBiYXNlZCBvbiB3b3JrIG9yaWdpbmFsbHkgZG9uZSBi
+eSBEYXZpZCBaaG91IGF0IEFNRCwKPiB3aXRoIGlucHV0IGZyb20gQ2hyaXN0aWFuIEtvbmlnIG9u
+IHdoYXQgdGhpbmdzIHNob3VsZCBsb29rIGxpa2UuCj4KPiBJbiB0aGVvcnkgVmtGZW5jZXMgY291
+bGQgYmUgYmFja2VkIHdpdGggc3luYyBvYmplY3RzIGFuZAo+IGp1c3QgZ2V0IHBhc3NlZCBpbnRv
+IHRoZSBjcyBhcyBzeW5jb2JqIGhhbmRsZXMgYXMgd2VsbC4KPgo+IE5PVEU6IHRoaXMgaW50ZXJm
+YWNlIGFkZGl0aW9uIG5lZWRzIGEgdmVyc2lvbiBidW1wIHRvIGV4cG9zZQo+IGl0IHRvIHVzZXJz
+cGFjZS4KPgo+IHYxLjE6IGtlZXAgZmlsZSByZWZlcmVuY2Ugb24gaW1wb3J0Lgo+IHYyOiBtb3Zl
+IHRvIHVzaW5nIHN5bmNvYmpzCj4gdjIuMTogY2hhbmdlIHNvbWUgQVBJcyB0byBqdXN0IHVzZSBw
+IHBvaW50ZXIuCj4gdjM6IG1ha2UgbW9yZSByb2J1c3QgYWdhaW5zdCBDUyBmYWlsdXJlcywgd2Ug
+bm93IGFkZCB0aGUKPiB3YWl0IHNlbXMgYnV0IG9ubHkgcmVtb3ZlIHRoZW0gb25jZSB0aGUgQ1Mg
+am9iIGhhcyBiZWVuCj4gc3VibWl0dGVkLgo+IHY0OiByZXdyaXRlIG5hbWVzIG9mIEFQSSBhbmQg
+YmFzZSBvbiBuZXcgc3luY29iaiBjb2RlLgo+Cj4gU2lnbmVkLW9mZi1ieTogRGF2ZSBBaXJsaWUg
+PGFpcmxpZWRAcmVkaGF0LmNvbT4KPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9jcy5jICB8IDgxICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrLQo+ICAg
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jIHwgIDIgKy0KPiAgIGluY2x1
+ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oICAgICAgICAgICB8ICA2ICsrKwo+ICAgMyBmaWxlcyBj
+aGFuZ2VkLCA4NyBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMKPiBpbmRleCBkZjI1YjMyLi5lODZjODMyIDEwMDY0NAo+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCj4gKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMKPiBAQCAtMjcsNiArMjcsNyBAQAo+
+ICAgI2luY2x1ZGUgPGxpbnV4L3BhZ2VtYXAuaD4KPiAgICNpbmNsdWRlIDxkcm0vZHJtUC5oPgo+
+ICAgI2luY2x1ZGUgPGRybS9hbWRncHVfZHJtLmg+Cj4gKyNpbmNsdWRlIDxkcm0vZHJtX3N5bmNv
+YmouaD4KPiAgICNpbmNsdWRlICJhbWRncHUuaCIKPiAgICNpbmNsdWRlICJhbWRncHVfdHJhY2Uu
+aCIKPiAgIAo+IEBAIC0yMTcsNiArMjE4LDggQEAgaW50IGFtZGdwdV9jc19wYXJzZXJfaW5pdChz
+dHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcCwgdm9pZCAqZGF0YSkKPiAgIAkJCWJyZWFrOwo+ICAg
+Cj4gICAJCWNhc2UgQU1ER1BVX0NIVU5LX0lEX0RFUEVOREVOQ0lFUzoKPiArCQljYXNlIEFNREdQ
+VV9DSFVOS19JRF9TWU5DT0JKX0lOOgo+ICsJCWNhc2UgQU1ER1BVX0NIVU5LX0lEX1NZTkNPQkpf
+T1VUOgo+ICAgCQkJYnJlYWs7Cj4gICAKPiAgIAkJZGVmYXVsdDoKPiBAQCAtMTAwOCw2ICsxMDEx
+LDQwIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3Byb2Nlc3NfZmVuY2VfZGVwKHN0cnVjdCBhbWRncHVf
+Y3NfcGFyc2VyICpwLAo+ICAgCXJldHVybiAwOwo+ICAgfQo+ICAgCj4gK3N0YXRpYyBpbnQgYW1k
+Z3B1X3N5bmNvYmpfbG9va3VwX2FuZF9hZGRfdG9fc3luYyhzdHJ1Y3QgYW1kZ3B1X2NzX3BhcnNl
+ciAqcCwKPiArCQkJCQkJIHVpbnQzMl90IGhhbmRsZSkKPiArewo+ICsJaW50IHI7Cj4gKwlzdHJ1
+Y3QgZG1hX2ZlbmNlICpmZW5jZTsKPiArCXIgPSBkcm1fc3luY29ial9mZW5jZV9nZXQocC0+Zmls
+cCwgaGFuZGxlLCAmZmVuY2UpOwo+ICsJaWYgKHIpCj4gKwkJcmV0dXJuIHI7Cj4gKwo+ICsJciA9
+IGFtZGdwdV9zeW5jX2ZlbmNlKHAtPmFkZXYsICZwLT5qb2ItPnN5bmMsIGZlbmNlKTsKPiArCWRt
+YV9mZW5jZV9wdXQoZmVuY2UpOwo+ICsKPiArCXJldHVybiByOwo+ICt9Cj4gKwo+ICtzdGF0aWMg
+aW50IGFtZGdwdV9wcm9jZXNzX3N5bmNvYmpfaW5fZGVwKHN0cnVjdCBhbWRncHVfY3NfcGFyc2Vy
+ICpwLAo+ICsJCQkJCSBzdHJ1Y3QgYW1kZ3B1X2NzX2NodW5rICpjaHVuaykKPiArewo+ICsJdW5z
+aWduZWQgbnVtX2RlcHM7Cj4gKwlpbnQgaSwgcjsKPiArCXN0cnVjdCBkcm1fYW1kZ3B1X2NzX2No
+dW5rX3NlbSAqZGVwczsKPiArCj4gKwlkZXBzID0gKHN0cnVjdCBkcm1fYW1kZ3B1X2NzX2NodW5r
+X3NlbSAqKWNodW5rLT5rZGF0YTsKPiArCW51bV9kZXBzID0gY2h1bmstPmxlbmd0aF9kdyAqIDQg
+Lwo+ICsJCXNpemVvZihzdHJ1Y3QgZHJtX2FtZGdwdV9jc19jaHVua19zZW0pOwo+ICsKPiArCWZv
+ciAoaSA9IDA7IGkgPCBudW1fZGVwczsgKytpKSB7Cj4gKwkJciA9IGFtZGdwdV9zeW5jb2JqX2xv
+b2t1cF9hbmRfYWRkX3RvX3N5bmMocCwgZGVwc1tpXS5oYW5kbGUpOwo+ICsJCWlmIChyKQo+ICsJ
+CQlyZXR1cm4gcjsKPiArCX0KPiArCXJldHVybiAwOwo+ICt9Cj4gKwo+ICAgc3RhdGljIGludCBh
+bWRncHVfY3NfZGVwZW5kZW5jaWVzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+ICAgCQkJ
+CSAgc3RydWN0IGFtZGdwdV9jc19wYXJzZXIgKnApCj4gICB7Cj4gQEAgLTEwMjIsMTIgKzEwNTks
+NTQgQEAgc3RhdGljIGludCBhbWRncHVfY3NfZGVwZW5kZW5jaWVzKHN0cnVjdCBhbWRncHVfZGV2
+aWNlICphZGV2LAo+ICAgCQkJciA9IGFtZGdwdV9wcm9jZXNzX2ZlbmNlX2RlcChwLCBjaHVuayk7
+Cj4gICAJCQlpZiAocikKPiAgIAkJCQlyZXR1cm4gcjsKPiArCQl9IGVsc2UgaWYgKGNodW5rLT5j
+aHVua19pZCA9PSBBTURHUFVfQ0hVTktfSURfU1lOQ09CSl9JTikgewo+ICsJCQlyID0gYW1kZ3B1
+X3Byb2Nlc3Nfc3luY29ial9pbl9kZXAocCwgY2h1bmspOwo+ICsJCQlpZiAocikKPiArCQkJCXJl
+dHVybiByOwo+ICAgCQl9Cj4gICAJfQo+ICAgCj4gICAJcmV0dXJuIDA7Cj4gICB9Cj4gICAKPiAr
+c3RhdGljIGludCBhbWRncHVfcHJvY2Vzc19zeW5jb2JqX291dF9kZXAoc3RydWN0IGFtZGdwdV9j
+c19wYXJzZXIgKnAsCj4gKwkJCQkJICBzdHJ1Y3QgYW1kZ3B1X2NzX2NodW5rICpjaHVuaykKPiAr
+ewo+ICsJdW5zaWduZWQgbnVtX2RlcHM7Cj4gKwlpbnQgaSwgcjsKPiArCXN0cnVjdCBkcm1fYW1k
+Z3B1X2NzX2NodW5rX3NlbSAqZGVwczsKPiArCj4gKwlkZXBzID0gKHN0cnVjdCBkcm1fYW1kZ3B1
+X2NzX2NodW5rX3NlbSAqKWNodW5rLT5rZGF0YTsKPiArCW51bV9kZXBzID0gY2h1bmstPmxlbmd0
+aF9kdyAqIDQgLwo+ICsJCXNpemVvZihzdHJ1Y3QgZHJtX2FtZGdwdV9jc19jaHVua19zZW0pOwo+
+ICsKPiArCWZvciAoaSA9IDA7IGkgPCBudW1fZGVwczsgKytpKSB7Cj4gKwkJciA9IGRybV9zeW5j
+b2JqX3JlcGxhY2VfZmVuY2UocC0+ZmlscCwgZGVwc1tpXS5oYW5kbGUsCj4gKwkJCQkJICAgICAg
+cC0+ZmVuY2UpOwo+ICsJCWlmIChyKQo+ICsJCQlyZXR1cm4gcjsKPiArCX0KPiArCXJldHVybiAw
+Owo+ICt9Cj4gKwo+ICtzdGF0aWMgaW50IGFtZGdwdV9jc19wb3N0X2RlcGVuZGVuY2llcyhzdHJ1
+Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcCkKPiArewo+ICsJaW50IGksIHI7Cj4gKwo+ICsJZm9yIChp
+ID0gMDsgaSA8IHAtPm5jaHVua3M7ICsraSkgewo+ICsJCXN0cnVjdCBhbWRncHVfY3NfY2h1bmsg
+KmNodW5rOwo+ICsKPiArCQljaHVuayA9ICZwLT5jaHVua3NbaV07Cj4gKwo+ICsJCWlmIChjaHVu
+ay0+Y2h1bmtfaWQgPT0gQU1ER1BVX0NIVU5LX0lEX1NZTkNPQkpfT1VUKSB7Cj4gKwkJCXIgPSBh
+bWRncHVfcHJvY2Vzc19zeW5jb2JqX291dF9kZXAocCwgY2h1bmspOwo+ICsJCQlpZiAocikKPiAr
+CQkJCXJldHVybiByOwo+ICsJCX0KPiArCX0KPiArCXJldHVybiAwOwo+ICt9Cj4gKwo+ICAgc3Rh
+dGljIGludCBhbWRncHVfY3Nfc3VibWl0KHN0cnVjdCBhbWRncHVfY3NfcGFyc2VyICpwLAo+ICAg
+CQkJICAgIHVuaW9uIGRybV9hbWRncHVfY3MgKmNzKQo+ICAgewo+IEBAIC0xMDU1LDcgKzExMzQs
+NyBAQCBzdGF0aWMgaW50IGFtZGdwdV9jc19zdWJtaXQoc3RydWN0IGFtZGdwdV9jc19wYXJzZXIg
+KnAsCj4gICAJdHJhY2VfYW1kZ3B1X2NzX2lvY3RsKGpvYik7Cj4gICAJYW1kX3NjaGVkX2VudGl0
+eV9wdXNoX2pvYigmam9iLT5iYXNlKTsKPiAgIAo+IC0JcmV0dXJuIDA7Cj4gKwlyZXR1cm4gYW1k
+Z3B1X2NzX3Bvc3RfZGVwZW5kZW5jaWVzKHApOwoKV2hlbiB1c2Vyc3BhY2UgcHJvdmlkZWQgYW4g
+aW52YWxpZCBvdXQgc3luYyBoYW5kbGUgd2UgcmV0dXJuIGFuIGVycm9yIApoZXJlLCBidXQgdGhl
+IGpvYiB3b3VsZCBoYXZlIGJlZW4gcHVzaGVkIHRvIHRoZSBoYXJkd2FyZSBhbHJlYWR5LgoKQmV0
+dGVyIG1vdmUgdGhpcyBiZWZvcmUgYW1kX3NjaGVkX2VudGl0eV9wdXNoX2pvYigpIGFuZCBhYm9y
+dCBncmFjZWZ1bGx5IAp3aGVuIHRoaXMgaGFwcGVucy4KCkFwYXJ0IGZyb20gdGhhdCB0aGUgcGF0
+Y2ggbG9va3MgZ29vZCB0byBtZSwKQ2hyaXN0aWFuLgoKPiAgIH0KPiAgIAo+ICAgaW50IGFtZGdw
+dV9jc19pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLCBzdHJ1Y3QgZHJt
+X2ZpbGUgKmZpbHApCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9kcnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwo+IGlu
+ZGV4IGI3NmNkNjkuLmU5NTk1MWUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2Rydi5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2Rydi5jCj4gQEAgLTY4Myw3ICs2ODMsNyBAQCBzdGF0aWMgc3RydWN0IGRybV9kcml2ZXIg
+a21zX2RyaXZlciA9IHsKPiAgIAkuZHJpdmVyX2ZlYXR1cmVzID0KPiAgIAkgICAgRFJJVkVSX1VT
+RV9BR1AgfAo+ICAgCSAgICBEUklWRVJfSEFWRV9JUlEgfCBEUklWRVJfSVJRX1NIQVJFRCB8IERS
+SVZFUl9HRU0gfAo+IC0JICAgIERSSVZFUl9QUklNRSB8IERSSVZFUl9SRU5ERVIgfCBEUklWRVJf
+TU9ERVNFVCwKPiArCSAgICBEUklWRVJfUFJJTUUgfCBEUklWRVJfUkVOREVSIHwgRFJJVkVSX01P
+REVTRVQgfCBEUklWRVJfU1lOQ09CSiwKPiAgIAkubG9hZCA9IGFtZGdwdV9kcml2ZXJfbG9hZF9r
+bXMsCj4gICAJLm9wZW4gPSBhbWRncHVfZHJpdmVyX29wZW5fa21zLAo+ICAgCS5wcmVjbG9zZSA9
+IGFtZGdwdV9kcml2ZXJfcHJlY2xvc2Vfa21zLAo+IGRpZmYgLS1naXQgYS9pbmNsdWRlL3VhcGkv
+ZHJtL2FtZGdwdV9kcm0uaCBiL2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oCj4gaW5kZXgg
+NTc5NzI4My4uOTg4MWUyNyAxMDA2NDQKPiAtLS0gYS9pbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9k
+cm0uaAo+ICsrKyBiL2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oCj4gQEAgLTM5MCw2ICsz
+OTAsOCBAQCBzdHJ1Y3QgZHJtX2FtZGdwdV9nZW1fdmEgewo+ICAgI2RlZmluZSBBTURHUFVfQ0hV
+TktfSURfSUIJCTB4MDEKPiAgICNkZWZpbmUgQU1ER1BVX0NIVU5LX0lEX0ZFTkNFCQkweDAyCj4g
+ICAjZGVmaW5lIEFNREdQVV9DSFVOS19JRF9ERVBFTkRFTkNJRVMJMHgwMwo+ICsjZGVmaW5lIEFN
+REdQVV9DSFVOS19JRF9TWU5DT0JKX0lOICAgICAgMHgwNAo+ICsjZGVmaW5lIEFNREdQVV9DSFVO
+S19JRF9TWU5DT0JKX09VVCAgICAgMHgwNQo+ICAgCj4gICBzdHJ1Y3QgZHJtX2FtZGdwdV9jc19j
+aHVuayB7Cj4gICAJX191MzIJCWNodW5rX2lkOwo+IEBAIC00NTQsNiArNDU2LDEwIEBAIHN0cnVj
+dCBkcm1fYW1kZ3B1X2NzX2NodW5rX2ZlbmNlIHsKPiAgIAlfX3UzMiBvZmZzZXQ7Cj4gICB9Owo+
+ICAgCj4gK3N0cnVjdCBkcm1fYW1kZ3B1X2NzX2NodW5rX3NlbSB7Cj4gKwlfX3UzMiBoYW5kbGU7
+Cj4gK307Cj4gKwo+ICAgc3RydWN0IGRybV9hbWRncHVfY3NfY2h1bmtfZGF0YSB7Cj4gICAJdW5p
+b24gewo+ICAgCQlzdHJ1Y3QgZHJtX2FtZGdwdV9jc19jaHVua19pYgkJaWJfZGF0YTsKCgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFp
+bGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
