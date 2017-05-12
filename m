@@ -1,120 +1,71 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Subject: Re: [PATCH] drm/radeon: Unbreak HPD handling for r600+
-Date: Fri, 12 May 2017 08:56:38 +0200
-Message-ID: <70de5a62-1afa-b13b-d0d1-c3415ddbc788@amd.com>
-References: <20170511233112.15962-1-lyude@redhat.com>
+From: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: fix sem list soft lockup issue
+Date: Fri, 12 May 2017 06:58:09 +0000
+Message-ID: <MWHPR1201MB020661D4CCC6C44DFDAA4F80B4E20@MWHPR1201MB0206.namprd12.prod.outlook.com>
+References: <1494572026-26441-1-git-send-email-Jerry.Zhang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-15"; format=flowed
-Content-Transfer-Encoding: 8bit
-Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <20170511233112.15962-1-lyude@redhat.com>
-Sender: stable-owner@vger.kernel.org
-To: Lyude <lyude@redhat.com>, amd-gfx@lists.freedesktop.org
-Cc: stable@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1494572026-26441-1-git-send-email-Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Zhang, Jerry" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
 
-Am 12.05.2017 um 01:31 schrieb Lyude:
-> We end up reading the interrupt register for HPD5, and then writing it
-> to HPD6 which on systems without anything using HPD5 results in
-> permanently disabling hotplug on one of the display outputs after the
-> first time we acknowledge a hotplug interrupt from the GPU.
->
-> This code is really bad. But for now, let's just fix this. I will
-> hopefully have a large patch series to refactor all of this soon.
->
-> Signed-off-by: Lyude <lyude@redhat.com>
-> Cc: stable@vger.kernel.org
-
-Really nice catch! And yes I agree the copy&pasted code in HPD handling 
-always scared me as well.
-
-Patch is Reviewed-by: Christian König <christian.koenig@amd.com>.
-
-Christian.
-
-> ---
->   drivers/gpu/drm/radeon/cik.c       | 4 ++--
->   drivers/gpu/drm/radeon/evergreen.c | 4 ++--
->   drivers/gpu/drm/radeon/r600.c      | 2 +-
->   drivers/gpu/drm/radeon/si.c        | 4 ++--
->   4 files changed, 7 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/cik.c b/drivers/gpu/drm/radeon/cik.c
-> index 53710dd..cfc917c 100644
-> --- a/drivers/gpu/drm/radeon/cik.c
-> +++ b/drivers/gpu/drm/radeon/cik.c
-> @@ -7401,7 +7401,7 @@ static inline void cik_irq_ack(struct radeon_device *rdev)
->   		WREG32(DC_HPD5_INT_CONTROL, tmp);
->   	}
->   	if (rdev->irq.stat_regs.cik.disp_int_cont5 & DC_HPD6_INTERRUPT) {
-> -		tmp = RREG32(DC_HPD5_INT_CONTROL);
-> +		tmp = RREG32(DC_HPD6_INT_CONTROL);
->   		tmp |= DC_HPDx_INT_ACK;
->   		WREG32(DC_HPD6_INT_CONTROL, tmp);
->   	}
-> @@ -7431,7 +7431,7 @@ static inline void cik_irq_ack(struct radeon_device *rdev)
->   		WREG32(DC_HPD5_INT_CONTROL, tmp);
->   	}
->   	if (rdev->irq.stat_regs.cik.disp_int_cont5 & DC_HPD6_RX_INTERRUPT) {
-> -		tmp = RREG32(DC_HPD5_INT_CONTROL);
-> +		tmp = RREG32(DC_HPD6_INT_CONTROL);
->   		tmp |= DC_HPDx_RX_INT_ACK;
->   		WREG32(DC_HPD6_INT_CONTROL, tmp);
->   	}
-> diff --git a/drivers/gpu/drm/radeon/evergreen.c b/drivers/gpu/drm/radeon/evergreen.c
-> index d1b1e0c..c48d19e 100644
-> --- a/drivers/gpu/drm/radeon/evergreen.c
-> +++ b/drivers/gpu/drm/radeon/evergreen.c
-> @@ -4933,7 +4933,7 @@ static void evergreen_irq_ack(struct radeon_device *rdev)
->   		WREG32(DC_HPD5_INT_CONTROL, tmp);
->   	}
->   	if (rdev->irq.stat_regs.evergreen.disp_int_cont5 & DC_HPD6_INTERRUPT) {
-> -		tmp = RREG32(DC_HPD5_INT_CONTROL);
-> +		tmp = RREG32(DC_HPD6_INT_CONTROL);
->   		tmp |= DC_HPDx_INT_ACK;
->   		WREG32(DC_HPD6_INT_CONTROL, tmp);
->   	}
-> @@ -4964,7 +4964,7 @@ static void evergreen_irq_ack(struct radeon_device *rdev)
->   		WREG32(DC_HPD5_INT_CONTROL, tmp);
->   	}
->   	if (rdev->irq.stat_regs.evergreen.disp_int_cont5 & DC_HPD6_RX_INTERRUPT) {
-> -		tmp = RREG32(DC_HPD5_INT_CONTROL);
-> +		tmp = RREG32(DC_HPD6_INT_CONTROL);
->   		tmp |= DC_HPDx_RX_INT_ACK;
->   		WREG32(DC_HPD6_INT_CONTROL, tmp);
->   	}
-> diff --git a/drivers/gpu/drm/radeon/r600.c b/drivers/gpu/drm/radeon/r600.c
-> index 0a08517..e06e2d8 100644
-> --- a/drivers/gpu/drm/radeon/r600.c
-> +++ b/drivers/gpu/drm/radeon/r600.c
-> @@ -3988,7 +3988,7 @@ static void r600_irq_ack(struct radeon_device *rdev)
->   			WREG32(DC_HPD5_INT_CONTROL, tmp);
->   		}
->   		if (rdev->irq.stat_regs.r600.disp_int_cont2 & DC_HPD6_INTERRUPT) {
-> -			tmp = RREG32(DC_HPD5_INT_CONTROL);
-> +			tmp = RREG32(DC_HPD6_INT_CONTROL);
->   			tmp |= DC_HPDx_INT_ACK;
->   			WREG32(DC_HPD6_INT_CONTROL, tmp);
->   		}
-> diff --git a/drivers/gpu/drm/radeon/si.c b/drivers/gpu/drm/radeon/si.c
-> index 528e5a4..bfeb774 100644
-> --- a/drivers/gpu/drm/radeon/si.c
-> +++ b/drivers/gpu/drm/radeon/si.c
-> @@ -6330,7 +6330,7 @@ static inline void si_irq_ack(struct radeon_device *rdev)
->   		WREG32(DC_HPD5_INT_CONTROL, tmp);
->   	}
->   	if (rdev->irq.stat_regs.evergreen.disp_int_cont5 & DC_HPD6_INTERRUPT) {
-> -		tmp = RREG32(DC_HPD5_INT_CONTROL);
-> +		tmp = RREG32(DC_HPD6_INT_CONTROL);
->   		tmp |= DC_HPDx_INT_ACK;
->   		WREG32(DC_HPD6_INT_CONTROL, tmp);
->   	}
-> @@ -6361,7 +6361,7 @@ static inline void si_irq_ack(struct radeon_device *rdev)
->   		WREG32(DC_HPD5_INT_CONTROL, tmp);
->   	}
->   	if (rdev->irq.stat_regs.evergreen.disp_int_cont5 & DC_HPD6_RX_INTERRUPT) {
-> -		tmp = RREG32(DC_HPD5_INT_CONTROL);
-> +		tmp = RREG32(DC_HPD6_INT_CONTROL);
->   		tmp |= DC_HPDx_RX_INT_ACK;
->   		WREG32(DC_HPD6_INT_CONTROL, tmp);
->   	}
+VGhpcyBpcyBpbnRlcm5hbCBvbmx5IHBhdGNoLCBwbGVhc2Ugc2VuZCB0byBpbnRlcm5hbCBtYWls
+IGxpc3QuDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBhbWQtZ2Z4IFttYWls
+dG86YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmIE9mIEp1
+bndlaSBaaGFuZw0KU2VudDogRnJpZGF5LCBNYXkgMTIsIDIwMTcgMjo1NCBQTQ0KVG86IGFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpDYzogWmhhbmcsIEplcnJ5IDxKZXJyeS5aaGFuZ0Bh
+bWQuY29tPg0KU3ViamVjdDogW1BBVENIXSBkcm0vYW1kZ3B1OiBmaXggc2VtIGxpc3Qgc29mdCBs
+b2NrdXAgaXNzdWUNCg0Kc2VtIHNob3VsZCBiZSBkZWxldGUgZnJvbSB0aGUgcHJldmlvdXMgc2Vt
+IGxpc3QgdGhlbiBhZGQgdG8gdGhlIG5ldyBzZW0gbGlzdC4NCg0KSWYgYWRkaW5nIHNlbSB0byB0
+aGUgbGlzdCB3aGljaCBpcyBzYW1lIGFzIHByZXZpb3VzIG9uZSwgaXQgd2lsbCBjYXVzZSBlbmRs
+ZXNzIGxvb3Agd2hlbiB0cmF2ZXJzZXMgdGhlIHNlbSBsaXN0Lg0KDQpbICAyNjQuMTMzODc4XSBO
+TUkgd2F0Y2hkb2c6IEJVRzogc29mdCBsb2NrdXAgLSBDUFUjNSBzdHVjayBmb3IgMjJzIQ0KLi4u
+DQpbICAyNjQuMTMzOTI4XSB0YXNrOiBmZmZmYTIxNmZmYmZiZDAwIHRhc2suc3RhY2s6IGZmZmZh
+MjE2ZjQyMjAwMDAgWyAgMjY0LjEzMzkyOV0gUklQOiAwMDEwOls8ZmZmZmZmZmZjMDU4NDUyMz5d
+ICBbPGZmZmZmZmZmYzA1ODQ1MjM+XQ0KYW1kZ3B1X3NlbV9wdXQrMHgxMy8weDMwIFthbWRncHVd
+DQpbICAyNjQuMTMzOTgzXSBSU1A6IDAwMTg6ZmZmZmEyMTZmNDIyM2NiMCAgRUZMQUdTOiAwMDIw
+MDI4Ng0KDQpTaWduZWQtb2ZmLWJ5OiBKdW53ZWkgWmhhbmcgPEplcnJ5LlpoYW5nQGFtZC5jb20+
+DQotLS0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4LmMgfCA0ICsrKy0g
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9zZW0uYyB8IDEgKw0KIDIgZmlsZXMg
+Y2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pDQoNCmRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4LmMgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfY3R4LmMNCmluZGV4IGZmMjBlMTEuLmFhYzQzYzggMTAwNjQ0DQot
+LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4LmMNCisrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHguYw0KQEAgLTg0LDggKzg0LDEwIEBAIHN0
+YXRpYyB2b2lkIGFtZGdwdV9jdHhfZmluaShzdHJ1Y3QgYW1kZ3B1X2N0eCAqY3R4KQ0KIA0KIAkJ
+bXV0ZXhfbG9jaygmY3R4LT5yaW5nc1tpXS5zZW1fbG9jayk7DQogCQkvKiByZWxlYXNlIGFsbCB0
+aGUgcmVzZXQgaW5zZXJ0ZWQgU0VNIGhlcmUgKi8NCi0JCWxpc3RfZm9yX2VhY2hfZW50cnlfc2Fm
+ZShzZW0sIHRtcCwgJmN0eC0+cmluZ3NbaV0uc2VtX2xpc3QsIGxpc3QpDQorCQlsaXN0X2Zvcl9l
+YWNoX2VudHJ5X3NhZmUoc2VtLCB0bXAsICZjdHgtPnJpbmdzW2ldLnNlbV9saXN0LCBsaXN0KSB7
+DQorCQkJbGlzdF9kZWxfaW5pdCgmc2VtLT5saXN0KTsNCiAJCQlhbWRncHVfc2VtX3B1dChzZW0p
+Ow0KKwkJfQ0KIA0KIAkJbXV0ZXhfdW5sb2NrKCZjdHgtPnJpbmdzW2ldLnNlbV9sb2NrKTsNCiAJ
+CW11dGV4X2Rlc3Ryb3koJmN0eC0+cmluZ3NbaV0uc2VtX2xvY2spOw0KZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9zZW0uYyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9zZW0uYw0KaW5kZXggMDMwMmVhNi4uYTcxNDlhYyAxMDA2NDQNCi0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9zZW0uYw0KKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3NlbS5jDQpAQCAtMzcxLDYgKzM3MSw3IEBAIHN0
+YXRpYyBpbnQgYW1kZ3B1X3NlbV9jcmluZ19hZGQoc3RydWN0IGFtZGdwdV9mcHJpdiAqZnByaXYs
+DQogCWlmIChyKQ0KIAkJZ290byBlcnI7DQogCW11dGV4X2xvY2soJmN0eC0+cmluZ3Nbb3V0X3Jp
+bmctPmlkeF0uc2VtX2xvY2spOw0KKwlsaXN0X2RlbF9pbml0KCZzZW0tPmxpc3QpOw0KIAlsaXN0
+X2FkZCgmc2VtLT5saXN0LCAmY3R4LT5yaW5nc1tvdXRfcmluZy0+aWR4XS5zZW1fbGlzdCk7DQog
+CW11dGV4X3VubG9jaygmY3R4LT5yaW5nc1tvdXRfcmluZy0+aWR4XS5zZW1fbG9jayk7DQogCWFt
+ZGdwdV9zZW1fZ2V0KHNlbSk7DQotLQ0KMS45LjENCg0KX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18NCmFtZC1nZnggbWFpbGluZyBsaXN0DQphbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZw0KaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9hbWQtZ2Z4DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
+ZngK
