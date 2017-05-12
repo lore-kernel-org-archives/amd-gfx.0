@@ -1,58 +1,120 @@
-From: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: fix sem list soft lockup issue
-Date: Fri, 12 May 2017 14:53:46 +0800
-Message-ID: <1494572026-26441-1-git-send-email-Jerry.Zhang@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Subject: Re: [PATCH] drm/radeon: Unbreak HPD handling for r600+
+Date: Fri, 12 May 2017 08:56:38 +0200
+Message-ID: <70de5a62-1afa-b13b-d0d1-c3415ddbc788@amd.com>
+References: <20170511233112.15962-1-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="iso-8859-15"; format=flowed
+Content-Transfer-Encoding: 8bit
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20170511233112.15962-1-lyude@redhat.com>
+Sender: stable-owner@vger.kernel.org
+To: Lyude <lyude@redhat.com>, amd-gfx@lists.freedesktop.org
+Cc: stable@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-c2VtIHNob3VsZCBiZSBkZWxldGUgZnJvbSB0aGUgcHJldmlvdXMgc2VtIGxpc3QKdGhlbiBhZGQg
-dG8gdGhlIG5ldyBzZW0gbGlzdC4KCklmIGFkZGluZyBzZW0gdG8gdGhlIGxpc3Qgd2hpY2ggaXMg
-c2FtZSBhcyBwcmV2aW91cyBvbmUsCml0IHdpbGwgY2F1c2UgZW5kbGVzcyBsb29wIHdoZW4gdHJh
-dmVyc2VzIHRoZSBzZW0gbGlzdC4KClsgIDI2NC4xMzM4NzhdIE5NSSB3YXRjaGRvZzogQlVHOiBz
-b2Z0IGxvY2t1cCAtIENQVSM1IHN0dWNrIGZvciAyMnMhCi4uLgpbICAyNjQuMTMzOTI4XSB0YXNr
-OiBmZmZmYTIxNmZmYmZiZDAwIHRhc2suc3RhY2s6IGZmZmZhMjE2ZjQyMjAwMDAKWyAgMjY0LjEz
-MzkyOV0gUklQOiAwMDEwOls8ZmZmZmZmZmZjMDU4NDUyMz5dICBbPGZmZmZmZmZmYzA1ODQ1MjM+
-XQphbWRncHVfc2VtX3B1dCsweDEzLzB4MzAgW2FtZGdwdV0KWyAgMjY0LjEzMzk4M10gUlNQOiAw
-MDE4OmZmZmZhMjE2ZjQyMjNjYjAgIEVGTEFHUzogMDAyMDAyODYKClNpZ25lZC1vZmYtYnk6IEp1
-bndlaSBaaGFuZyA8SmVycnkuWmhhbmdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfY3R4LmMgfCA0ICsrKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9zZW0uYyB8IDEgKwogMiBmaWxlcyBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDEg
-ZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfY3R4LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4LmMKaW5kZXgg
-ZmYyMGUxMS4uYWFjNDNjOCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X2N0eC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHgu
-YwpAQCAtODQsOCArODQsMTAgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X2N0eF9maW5pKHN0cnVjdCBh
-bWRncHVfY3R4ICpjdHgpCiAKIAkJbXV0ZXhfbG9jaygmY3R4LT5yaW5nc1tpXS5zZW1fbG9jayk7
-CiAJCS8qIHJlbGVhc2UgYWxsIHRoZSByZXNldCBpbnNlcnRlZCBTRU0gaGVyZSAqLwotCQlsaXN0
-X2Zvcl9lYWNoX2VudHJ5X3NhZmUoc2VtLCB0bXAsICZjdHgtPnJpbmdzW2ldLnNlbV9saXN0LCBs
-aXN0KQorCQlsaXN0X2Zvcl9lYWNoX2VudHJ5X3NhZmUoc2VtLCB0bXAsICZjdHgtPnJpbmdzW2ld
-LnNlbV9saXN0LCBsaXN0KSB7CisJCQlsaXN0X2RlbF9pbml0KCZzZW0tPmxpc3QpOwogCQkJYW1k
-Z3B1X3NlbV9wdXQoc2VtKTsKKwkJfQogCiAJCW11dGV4X3VubG9jaygmY3R4LT5yaW5nc1tpXS5z
-ZW1fbG9jayk7CiAJCW11dGV4X2Rlc3Ryb3koJmN0eC0+cmluZ3NbaV0uc2VtX2xvY2spOwpkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3NlbS5jIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3NlbS5jCmluZGV4IDAzMDJlYTYuLmE3MTQ5YWMg
-MTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9zZW0uYworKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfc2VtLmMKQEAgLTM3MSw2ICszNzEs
-NyBAQCBzdGF0aWMgaW50IGFtZGdwdV9zZW1fY3JpbmdfYWRkKHN0cnVjdCBhbWRncHVfZnByaXYg
-KmZwcml2LAogCWlmIChyKQogCQlnb3RvIGVycjsKIAltdXRleF9sb2NrKCZjdHgtPnJpbmdzW291
-dF9yaW5nLT5pZHhdLnNlbV9sb2NrKTsKKwlsaXN0X2RlbF9pbml0KCZzZW0tPmxpc3QpOwogCWxp
-c3RfYWRkKCZzZW0tPmxpc3QsICZjdHgtPnJpbmdzW291dF9yaW5nLT5pZHhdLnNlbV9saXN0KTsK
-IAltdXRleF91bmxvY2soJmN0eC0+cmluZ3Nbb3V0X3JpbmctPmlkeF0uc2VtX2xvY2spOwogCWFt
-ZGdwdV9zZW1fZ2V0KHNlbSk7Ci0tIAoxLjkuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4Cg==
+Am 12.05.2017 um 01:31 schrieb Lyude:
+> We end up reading the interrupt register for HPD5, and then writing it
+> to HPD6 which on systems without anything using HPD5 results in
+> permanently disabling hotplug on one of the display outputs after the
+> first time we acknowledge a hotplug interrupt from the GPU.
+>
+> This code is really bad. But for now, let's just fix this. I will
+> hopefully have a large patch series to refactor all of this soon.
+>
+> Signed-off-by: Lyude <lyude@redhat.com>
+> Cc: stable@vger.kernel.org
+
+Really nice catch! And yes I agree the copy&pasted code in HPD handling 
+always scared me as well.
+
+Patch is Reviewed-by: Christian König <christian.koenig@amd.com>.
+
+Christian.
+
+> ---
+>   drivers/gpu/drm/radeon/cik.c       | 4 ++--
+>   drivers/gpu/drm/radeon/evergreen.c | 4 ++--
+>   drivers/gpu/drm/radeon/r600.c      | 2 +-
+>   drivers/gpu/drm/radeon/si.c        | 4 ++--
+>   4 files changed, 7 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/cik.c b/drivers/gpu/drm/radeon/cik.c
+> index 53710dd..cfc917c 100644
+> --- a/drivers/gpu/drm/radeon/cik.c
+> +++ b/drivers/gpu/drm/radeon/cik.c
+> @@ -7401,7 +7401,7 @@ static inline void cik_irq_ack(struct radeon_device *rdev)
+>   		WREG32(DC_HPD5_INT_CONTROL, tmp);
+>   	}
+>   	if (rdev->irq.stat_regs.cik.disp_int_cont5 & DC_HPD6_INTERRUPT) {
+> -		tmp = RREG32(DC_HPD5_INT_CONTROL);
+> +		tmp = RREG32(DC_HPD6_INT_CONTROL);
+>   		tmp |= DC_HPDx_INT_ACK;
+>   		WREG32(DC_HPD6_INT_CONTROL, tmp);
+>   	}
+> @@ -7431,7 +7431,7 @@ static inline void cik_irq_ack(struct radeon_device *rdev)
+>   		WREG32(DC_HPD5_INT_CONTROL, tmp);
+>   	}
+>   	if (rdev->irq.stat_regs.cik.disp_int_cont5 & DC_HPD6_RX_INTERRUPT) {
+> -		tmp = RREG32(DC_HPD5_INT_CONTROL);
+> +		tmp = RREG32(DC_HPD6_INT_CONTROL);
+>   		tmp |= DC_HPDx_RX_INT_ACK;
+>   		WREG32(DC_HPD6_INT_CONTROL, tmp);
+>   	}
+> diff --git a/drivers/gpu/drm/radeon/evergreen.c b/drivers/gpu/drm/radeon/evergreen.c
+> index d1b1e0c..c48d19e 100644
+> --- a/drivers/gpu/drm/radeon/evergreen.c
+> +++ b/drivers/gpu/drm/radeon/evergreen.c
+> @@ -4933,7 +4933,7 @@ static void evergreen_irq_ack(struct radeon_device *rdev)
+>   		WREG32(DC_HPD5_INT_CONTROL, tmp);
+>   	}
+>   	if (rdev->irq.stat_regs.evergreen.disp_int_cont5 & DC_HPD6_INTERRUPT) {
+> -		tmp = RREG32(DC_HPD5_INT_CONTROL);
+> +		tmp = RREG32(DC_HPD6_INT_CONTROL);
+>   		tmp |= DC_HPDx_INT_ACK;
+>   		WREG32(DC_HPD6_INT_CONTROL, tmp);
+>   	}
+> @@ -4964,7 +4964,7 @@ static void evergreen_irq_ack(struct radeon_device *rdev)
+>   		WREG32(DC_HPD5_INT_CONTROL, tmp);
+>   	}
+>   	if (rdev->irq.stat_regs.evergreen.disp_int_cont5 & DC_HPD6_RX_INTERRUPT) {
+> -		tmp = RREG32(DC_HPD5_INT_CONTROL);
+> +		tmp = RREG32(DC_HPD6_INT_CONTROL);
+>   		tmp |= DC_HPDx_RX_INT_ACK;
+>   		WREG32(DC_HPD6_INT_CONTROL, tmp);
+>   	}
+> diff --git a/drivers/gpu/drm/radeon/r600.c b/drivers/gpu/drm/radeon/r600.c
+> index 0a08517..e06e2d8 100644
+> --- a/drivers/gpu/drm/radeon/r600.c
+> +++ b/drivers/gpu/drm/radeon/r600.c
+> @@ -3988,7 +3988,7 @@ static void r600_irq_ack(struct radeon_device *rdev)
+>   			WREG32(DC_HPD5_INT_CONTROL, tmp);
+>   		}
+>   		if (rdev->irq.stat_regs.r600.disp_int_cont2 & DC_HPD6_INTERRUPT) {
+> -			tmp = RREG32(DC_HPD5_INT_CONTROL);
+> +			tmp = RREG32(DC_HPD6_INT_CONTROL);
+>   			tmp |= DC_HPDx_INT_ACK;
+>   			WREG32(DC_HPD6_INT_CONTROL, tmp);
+>   		}
+> diff --git a/drivers/gpu/drm/radeon/si.c b/drivers/gpu/drm/radeon/si.c
+> index 528e5a4..bfeb774 100644
+> --- a/drivers/gpu/drm/radeon/si.c
+> +++ b/drivers/gpu/drm/radeon/si.c
+> @@ -6330,7 +6330,7 @@ static inline void si_irq_ack(struct radeon_device *rdev)
+>   		WREG32(DC_HPD5_INT_CONTROL, tmp);
+>   	}
+>   	if (rdev->irq.stat_regs.evergreen.disp_int_cont5 & DC_HPD6_INTERRUPT) {
+> -		tmp = RREG32(DC_HPD5_INT_CONTROL);
+> +		tmp = RREG32(DC_HPD6_INT_CONTROL);
+>   		tmp |= DC_HPDx_INT_ACK;
+>   		WREG32(DC_HPD6_INT_CONTROL, tmp);
+>   	}
+> @@ -6361,7 +6361,7 @@ static inline void si_irq_ack(struct radeon_device *rdev)
+>   		WREG32(DC_HPD5_INT_CONTROL, tmp);
+>   	}
+>   	if (rdev->irq.stat_regs.evergreen.disp_int_cont5 & DC_HPD6_RX_INTERRUPT) {
+> -		tmp = RREG32(DC_HPD5_INT_CONTROL);
+> +		tmp = RREG32(DC_HPD6_INT_CONTROL);
+>   		tmp |= DC_HPDx_RX_INT_ACK;
+>   		WREG32(DC_HPD6_INT_CONTROL, tmp);
+>   	}
