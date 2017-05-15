@@ -1,11 +1,13 @@
-From: "Xie, AlexBin" <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
 Subject: Re: [PATCH libdrm] amdgpu: add missing extern "C" headers
-Date: Mon, 15 May 2017 01:10:25 +0000
-Message-ID: <MWHPR1201MB0045E9D90A0D03FCCFBF7BC1F2E10@MWHPR1201MB0045.namprd12.prod.outlook.com>
+Date: Mon, 15 May 2017 11:09:38 +0900
+Message-ID: <5a6edb32-1899-697c-156b-ddeaeaa67147@daenzer.net>
+References: <MWHPR1201MB0045E9D90A0D03FCCFBF7BC1F2E10@MWHPR1201MB0045.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0405282747=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <MWHPR1201MB0045E9D90A0D03FCCFBF7BC1F2E10-3iK1xFAIwjq45V35fqe+hGrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,175 +18,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Haehnle,
- Nicolai" <Nicolai.Haehnle-5C7GfCeVMHo@public.gmane.org>
+To: "Xie, AlexBin" <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>, "Haehnle, Nicolai" <Nicolai.Haehnle-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0405282747==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MWHPR1201MB0045E9D90A0D03FCCFBF7BC1F2E10MWHPR1201MB0045_"
-
---_000_MWHPR1201MB0045E9D90A0D03FCCFBF7BC1F2E10MWHPR1201MB0045_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
- amdgpu/amdgpu.h | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/amdgpu/amdgpu.h b/amdgpu/amdgpu.h
-index fdea905..1901fa8 100644
---- a/amdgpu/amdgpu.h
-+++ b/amdgpu/amdgpu.h
-@@ -30,20 +30,24 @@
-  * User wanted to use libdrm_amdgpu functionality must include
-  * this file.
-  *
-  */
- #ifndef _AMDGPU_H_
- #define _AMDGPU_H_
-
- #include <stdint.h>
- #include <stdbool.h>
-
-+#ifdef __cplusplus
-+extern "C" {
-+#endif
-+
- struct drm_amdgpu_info_hw_ip;
-
- /*------------------------------------------------------------------------=
---*/
- /* --------------------------- Defines -----------------------------------=
-- */
- /*------------------------------------------------------------------------=
---*/
-
- /**
-  * Define max. number of Command Buffers (IB) which could be sent to the s=
-ingle
-  * hardware IP to accommodate CE/DE requirements
-  *
-@@ -1317,11 +1321,15 @@ int amdgpu_cs_destroy_semaphore(amdgpu_semaphore_ha=
-ndle sem);
- /**
-  *  Get the ASIC marketing name
-  *
-  * \param   dev         - \c [in] Device handle. See #amdgpu_device_initia=
-lize()
-  *
-  * \return  the constant string of the marketing name
-  *          "NULL" means the ASIC is not found
- */
- const char *amdgpu_get_marketing_name(amdgpu_device_handle dev);
-
-+#ifdef __cplusplus
-+}
-+#endif
-+
- #endif /* #ifdef _AMDGPU_H_ */
---
-2.9.3
-
-
-Reviewed by: Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
-
-
-
---_000_MWHPR1201MB0045E9D90A0D03FCCFBF7BC1F2E10MWHPR1201MB0045_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Arial,Helvetica,sans-serif;" dir=3D"ltr">
-<p><font size=3D"2"><span style=3D"font-size:10pt;">&nbsp;amdgpu/amdgpu.h |=
- 8 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
-&nbsp;1 file changed, 8 insertions(&#43;)<br>
-<br>
-diff --git a/amdgpu/amdgpu.h b/amdgpu/amdgpu.h<br>
-index fdea905..1901fa8 100644<br>
---- a/amdgpu/amdgpu.h<br>
-&#43;&#43;&#43; b/amdgpu/amdgpu.h<br>
-@@ -30,20 &#43;30,24 @@<br>
-&nbsp; * User wanted to use libdrm_amdgpu functionality must include<br>
-&nbsp; * this file.<br>
-&nbsp; *<br>
-&nbsp; */<br>
-&nbsp;#ifndef _AMDGPU_H_<br>
-&nbsp;#define _AMDGPU_H_<br>
-&nbsp;<br>
-&nbsp;#include &lt;stdint.h&gt;<br>
-&nbsp;#include &lt;stdbool.h&gt;<br>
-&nbsp;<br>
-&#43;#ifdef __cplusplus<br>
-&#43;extern &quot;C&quot; {<br>
-&#43;#endif<br>
-&#43;<br>
-&nbsp;struct drm_amdgpu_info_hw_ip;<br>
-&nbsp;<br>
-&nbsp;/*-------------------------------------------------------------------=
--------*/<br>
-&nbsp;/* --------------------------- Defines ------------------------------=
------- */<br>
-&nbsp;/*-------------------------------------------------------------------=
--------*/<br>
-&nbsp;<br>
-&nbsp;/**<br>
-&nbsp; * Define max. number of Command Buffers (IB) which could be sent to =
-the single<br>
-&nbsp; * hardware IP to accommodate CE/DE requirements<br>
-&nbsp; *<br>
-@@ -1317,11 &#43;1321,15 @@ int amdgpu_cs_destroy_semaphore(amdgpu_semaphor=
-e_handle sem);<br>
-&nbsp;/**<br>
-&nbsp; *&nbsp; Get the ASIC marketing name<br>
-&nbsp; *<br>
-&nbsp; * \param&nbsp;&nbsp; dev&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; - \c [in] Device handle. See #amdgpu_device_initialize()<br>
-&nbsp; *<br>
-&nbsp; * \return&nbsp; the constant string of the marketing name<br>
-&nbsp; *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;NULL&q=
-uot; means the ASIC is not found<br>
-&nbsp;*/<br>
-&nbsp;const char *amdgpu_get_marketing_name(amdgpu_device_handle dev);<br>
-&nbsp;<br>
-&#43;#ifdef __cplusplus<br>
-&#43;}<br>
-&#43;#endif<br>
-&#43;<br>
-&nbsp;#endif /* #ifdef _AMDGPU_H_ */<br>
--- <br>
-2.9.3</span></font></p>
-<div style=3D"color: rgb(0, 0, 0);"><font size=3D"2"><span style=3D"font-si=
-ze:10pt;">
-<div class=3D"PlainText"><br>
-<br>
-<span>Reviewed by: Alex Xie &lt;AlexBin.Xie-5C7GfCeVMHo@public.gmane.org&gt;</span><br>
-<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_MWHPR1201MB0045E9D90A0D03FCCFBF7BC1F2E10MWHPR1201MB0045_--
-
---===============0405282747==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0405282747==--
+T24gMTUvMDUvMTcgMTA6MTAgQU0sIFhpZSwgQWxleEJpbiB3cm90ZToKPiAgYW1kZ3B1L2FtZGdw
+dS5oIHwgOCArKysrKysrKwo+ICAxIGZpbGUgY2hhbmdlZCwgOCBpbnNlcnRpb25zKCspCgpUaGlz
+IGhlYWRlciBpcyBzeW5jaHJvbml6ZWQgd2l0aCB0aGUga2VybmVsLCBzZWUgaW5jbHVkZS9kcm0v
+UkVBRE1FLgoKCkJUVywgZG9uJ3Qgc2VuZCBwYXRjaGVzIGZvciByZXZpZXcgYXMgSFRNTC4gSWRl
+YWxseSB1c2UgZ2l0IHNlbmQtZW1haWwuCgoKLS0gCkVhcnRobGluZyBNaWNoZWwgRMOkbnplciAg
+ICAgICAgICAgICAgIHwgICAgICAgICAgICAgICBodHRwOi8vd3d3LmFtZC5jb20KTGlicmUgc29m
+dHdhcmUgZW50aHVzaWFzdCAgICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2
+ZWxvcGVyCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
+ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
