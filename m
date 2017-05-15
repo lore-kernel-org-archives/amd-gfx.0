@@ -1,12 +1,10 @@
 From: "Xie, AlexBin" <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH libdrm] amdgpu: add missing extern "C" headers
-Date: Mon, 15 May 2017 01:06:46 +0000
-Message-ID: <MWHPR1201MB0045EF5693B74C28F9021B36F2E10@MWHPR1201MB0045.namprd12.prod.outlook.com>
-References: <mailman.39.1494763203.10449.amd-gfx@lists.freedesktop.org>
+Date: Mon, 15 May 2017 01:10:25 +0000
+Message-ID: <MWHPR1201MB0045E9D90A0D03FCCFBF7BC1F2E10@MWHPR1201MB0045.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0573504181=="
+Content-Type: multipart/mixed; boundary="===============0405282747=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <mailman.39.1494763203.10449.amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,12 +19,12 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Haehnle,
  Nicolai" <Nicolai.Haehnle-5C7GfCeVMHo@public.gmane.org>
 
---===============0573504181==
+--===============0405282747==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MWHPR1201MB0045EF5693B74C28F9021B36F2E10MWHPR1201MB0045_"
+	boundary="_000_MWHPR1201MB0045E9D90A0D03FCCFBF7BC1F2E10MWHPR1201MB0045_"
 
---_000_MWHPR1201MB0045EF5693B74C28F9021B36F2E10MWHPR1201MB0045_
+--_000_MWHPR1201MB0045E9D90A0D03FCCFBF7BC1F2E10MWHPR1201MB0045_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -92,7 +90,7 @@ Reviewed by: Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
 
 
 
---_000_MWHPR1201MB0045EF5693B74C28F9021B36F2E10MWHPR1201MB0045_
+--_000_MWHPR1201MB0045E9D90A0D03FCCFBF7BC1F2E10MWHPR1201MB0045_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -177,9 +175,9 @@ ze:10pt;">
 </body>
 </html>
 
---_000_MWHPR1201MB0045EF5693B74C28F9021B36F2E10MWHPR1201MB0045_--
+--_000_MWHPR1201MB0045E9D90A0D03FCCFBF7BC1F2E10MWHPR1201MB0045_--
 
---===============0573504181==
+--===============0405282747==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -189,4 +187,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0573504181==--
+--===============0405282747==--
