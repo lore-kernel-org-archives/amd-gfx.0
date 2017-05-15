@@ -1,16 +1,13 @@
-From: Grazvydas Ignotas <notasas-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH libdrm v2 1/1] amdgpu: move asic id table to a separate
- file
-Date: Sun, 14 May 2017 20:46:16 +0300
-Message-ID: <CANOLnOPSDqu0GZ4eSv4NMEM8DA55D3iC7HqJmszExJuQW-e61Q@mail.gmail.com>
-References: <1494537556-15154-1-git-send-email-Samuel.Li@amd.com>
- <CANOLnOM4yRiw2ZBKrpNadXoRFvzsJMytL=eimQ0EDa=6mdOpmw@mail.gmail.com>
- <CY1PR1201MB1033666236033F4F6B42B9FBF5E20@CY1PR1201MB1033.namprd12.prod.outlook.com>
+From: "Xie, AlexBin" <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH libdrm] amdgpu: add missing extern "C" headers
+Date: Mon, 15 May 2017 01:06:46 +0000
+Message-ID: <MWHPR1201MB0045EF5693B74C28F9021B36F2E10@MWHPR1201MB0045.namprd12.prod.outlook.com>
+References: <mailman.39.1494763203.10449.amd-gfx@lists.freedesktop.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0573504181=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CY1PR1201MB1033666236033F4F6B42B9FBF5E20-JBJ/M6OpXY+2VhmsawAdvGrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
+In-Reply-To: <mailman.39.1494763203.10449.amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,141 +18,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Li, Samuel" <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Yuan,
- Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Haehnle,
+ Nicolai" <Nicolai.Haehnle-5C7GfCeVMHo@public.gmane.org>
 
-T24gU2F0LCBNYXkgMTMsIDIwMTcgYXQgMTI6NTAgQU0sIExpLCBTYW11ZWwgPFNhbXVlbC5MaUBh
-bWQuY29tPiB3cm90ZToKPj4gSWYgeW91IGFkZCB0aGlzIGhlcmUsIHlvdSBzaG91bGQgYWRkIHRo
-ZSBpZHMgZmlsZSBpdHNlbGYgYW5kIG1ha2UgbGliZHJtIGluc3RhbGwgaXQgdG9vLi4uCj4gPyBI
-ZXJlIHRoZSBpZHMgZmlsZSBpcyBzZXBhcmF0ZSBmcm9tIGxpYmRybS4gSXQgaXMgcGFzc2VkIGR1
-cmluZyBjb21waWxhdGlvbiBzbyB0aGF0IGxpYmRybSBrbm93cyB3aGVyZSB0byBnZXQgaXQuCgpP
-SyB0aGVuLCBob3cgd2lsbCB1c2VycyB0aGF0IGNvbXBpbGUgdGhlIE9TUyBzdGFjayBrbm93IHdo
-ZXJlIHRvIGdldAp0aGF0IGZpbGUgKG9yIHRoYXQgdGhleSBuZWVkIHNvbWUgbmV3IGZpbGUgYXQg
-YWxsKSBhZnRlciB5b3VyIHBhdGNoIGlzCmFwcGxpZWQ/Cgo+Pj4gKyAgICAgICAgICAgICAgIHBy
-aW50ZigiJXMgdmVyc2lvbjogJXNcbiIsIEFNREdQVV9BU0lDX0lEX1RBQkxFLCAgbGluZSk7Cj4+
-ZGVidWcgbGVmdG92ZXI/Cj4gVGhpcyBpcyB0byBwcmludCBvdXQgdGhlIGlkcyBmaWxlIHZlcnNp
-b24uCgpMaWJyYXJpZXMgY2FuJ3QgcHJpbnQgdG8gc3Rkb3V0IGFzIGl0IHdpbGwgYnJlYWsgYWxs
-IHByb2dyYW1zIHRoYXQKcGFyc2UgdGhlIG91dHB1dCwgYXBpdHJhY2UgaXMgb25lIHN1Y2ggZXhh
-bXBsZS4KCj4KPiBUaGFua3MsCj4gU2FtCj4KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+
-IEZyb206IEdyYXp2eWRhcyBJZ25vdGFzIFttYWlsdG86bm90YXNhc0BnbWFpbC5jb21dCj4gU2Vu
-dDogRnJpZGF5LCBNYXkgMTIsIDIwMTcgODoxNiBBTQo+IFRvOiBMaSwgU2FtdWVsIDxTYW11ZWwu
-TGlAYW1kLmNvbT4KPiBDYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IFl1YW4sIFhp
-YW9qaWUgPFhpYW9qaWUuWXVhbkBhbWQuY29tPgo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggbGliZHJt
-IHYyIDEvMV0gYW1kZ3B1OiBtb3ZlIGFzaWMgaWQgdGFibGUgdG8gYSBzZXBhcmF0ZSBmaWxlCj4K
-PiBPbiBGcmksIE1heSAxMiwgMjAxNyBhdCAxMjoxOSBBTSwgU2FtdWVsIExpIDxTYW11ZWwuTGlA
-YW1kLmNvbT4gd3JvdGU6Cj4+IEZyb206IFhpYW9qaWUgWXVhbiA8WGlhb2ppZS5ZdWFuQGFtZC5j
-b20+Cj4+Cj4+IHYyOiBmaXggYW4gb2ZmIGJ5IG9uZSBlcnJvciBhbmQgbGVhZGluZyB3aGl0ZSBz
-cGFjZXMKPj4KPj4gQ2hhbmdlLUlkOiBJMTIyMTZkYTE0OTEwZjVlMmIwOTcwYmMxZmFmYzJhMjBi
-MGVmMWJhOQo+PiBSZXZpZXdlZC1ieTogSnVud2VpIFpoYW5nIDxKZXJyeS5aaGFuZ0BhbWQuY29t
-Pgo+PiBTaWduZWQtb2ZmLWJ5OiBTYW11ZWwgTGkgPFNhbXVlbC5MaUBhbWQuY29tPgo+PiAtLS0K
-Pj4gIGFtZGdwdS9NYWtlZmlsZS5hbSAgICAgICB8ICAgMiArCj4+ICBhbWRncHUvTWFrZWZpbGUu
-c291cmNlcyAgfCAgIDIgKy0KPj4gIGFtZGdwdS9hbWRncHVfYXNpY19pZC5jICB8IDE5OAo+PiAr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKwo+PiAgYW1kZ3B1
-L2FtZGdwdV9hc2ljX2lkLmggIHwgMTY1IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLQo+PiAgYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyAgIHwgIDI4ICsrKysrLS0KPj4gIGFt
-ZGdwdS9hbWRncHVfaW50ZXJuYWwuaCB8ICAxMCArKysKPj4gIDYgZmlsZXMgY2hhbmdlZCwgMjMy
-IGluc2VydGlvbnMoKyksIDE3MyBkZWxldGlvbnMoLSkgIGNyZWF0ZSBtb2RlCj4+IDEwMDY0NCBh
-bWRncHUvYW1kZ3B1X2FzaWNfaWQuYyAgZGVsZXRlIG1vZGUgMTAwNjQ0Cj4+IGFtZGdwdS9hbWRn
-cHVfYXNpY19pZC5oCj4+Cj4+IGRpZmYgLS1naXQgYS9hbWRncHUvTWFrZWZpbGUuYW0gYi9hbWRn
-cHUvTWFrZWZpbGUuYW0gaW5kZXgKPj4gY2Y3YmMxYi4uZWNmOWU4MiAxMDA2NDQKPj4gLS0tIGEv
-YW1kZ3B1L01ha2VmaWxlLmFtCj4+ICsrKyBiL2FtZGdwdS9NYWtlZmlsZS5hbQo+PiBAQCAtMzAs
-NiArMzAsOCBAQCBBTV9DRkxBR1MgPSBcCj4+ICAgICAgICAgJChQVEhSRUFEU1RVQlNfQ0ZMQUdT
-KSBcCj4+ICAgICAgICAgLUkkKHRvcF9zcmNkaXIpL2luY2x1ZGUvZHJtCj4+Cj4+ICtBTV9DUFBG
-TEFHUyA9IC1EQU1ER1BVX0FTSUNfSURfVEFCTEU9XCIke2RhdGFkaXJ9L2xpYmRybS9hbWRncHUu
-aWRzXCIKPgo+IElmIHlvdSBhZGQgdGhpcyBoZXJlLCB5b3Ugc2hvdWxkIGFkZCB0aGUgaWRzIGZp
-bGUgaXRzZWxmIGFuZCBtYWtlIGxpYmRybSBpbnN0YWxsIGl0IHRvby4uLgo+Cj4+ICsKPj4gIGxp
-YmRybV9hbWRncHVfbGFfTFRMSUJSQVJJRVMgPSBsaWJkcm1fYW1kZ3B1LmxhICBsaWJkcm1fYW1k
-Z3B1X2xhZGlyCj4+ID0gJChsaWJkaXIpICBsaWJkcm1fYW1kZ3B1X2xhX0xERkxBR1MgPSAtdmVy
-c2lvbi1udW1iZXIgMTowOjAKPj4gLW5vLXVuZGVmaW5lZCBkaWZmIC0tZ2l0IGEvYW1kZ3B1L01h
-a2VmaWxlLnNvdXJjZXMKPj4gYi9hbWRncHUvTWFrZWZpbGUuc291cmNlcyBpbmRleCA0ODdiOWUw
-Li5iYzNhYmFhIDEwMDY0NAo+PiAtLS0gYS9hbWRncHUvTWFrZWZpbGUuc291cmNlcwo+PiArKysg
-Yi9hbWRncHUvTWFrZWZpbGUuc291cmNlcwo+PiBAQCAtMSw1ICsxLDUgQEAKPj4gIExJQkRSTV9B
-TURHUFVfRklMRVMgOj0gXAo+PiAtICAgICAgIGFtZGdwdV9hc2ljX2lkLmggXAo+PiArICAgICAg
-IGFtZGdwdV9hc2ljX2lkLmMgXAo+PiAgICAgICAgIGFtZGdwdV9iby5jIFwKPj4gICAgICAgICBh
-bWRncHVfY3MuYyBcCj4+ICAgICAgICAgYW1kZ3B1X2RldmljZS5jIFwKPj4gZGlmZiAtLWdpdCBh
-L2FtZGdwdS9hbWRncHVfYXNpY19pZC5jIGIvYW1kZ3B1L2FtZGdwdV9hc2ljX2lkLmMgbmV3Cj4+
-IGZpbGUgbW9kZSAxMDA2NDQgaW5kZXggMDAwMDAwMC4uMDY3ZjM4Ywo+PiAtLS0gL2Rldi9udWxs
-Cj4+ICsrKyBiL2FtZGdwdS9hbWRncHVfYXNpY19pZC5jCj4+IEBAIC0wLDAgKzEsMTk4IEBACj4+
-ICsvKgo+PiArICogQ29weXJpZ2h0IMKpIDIwMTcgQWR2YW5jZWQgTWljcm8gRGV2aWNlcywgSW5j
-Lgo+PiArICogQWxsIFJpZ2h0cyBSZXNlcnZlZC4KPj4gKyAqCj4+ICsgKiBQZXJtaXNzaW9uIGlz
-IGhlcmVieSBncmFudGVkLCBmcmVlIG9mIGNoYXJnZSwgdG8gYW55IHBlcnNvbgo+PiArb2J0YWlu
-aW5nIGEKPj4gKyAqIGNvcHkgb2YgdGhpcyBzb2Z0d2FyZSBhbmQgYXNzb2NpYXRlZCBkb2N1bWVu
-dGF0aW9uIGZpbGVzICh0aGUKPj4gKyJTb2Z0d2FyZSIpLAo+PiArICogdG8gZGVhbCBpbiB0aGUg
-U29mdHdhcmUgd2l0aG91dCByZXN0cmljdGlvbiwgaW5jbHVkaW5nIHdpdGhvdXQKPj4gK2xpbWl0
-YXRpb24KPj4gKyAqIHRoZSByaWdodHMgdG8gdXNlLCBjb3B5LCBtb2RpZnksIG1lcmdlLCBwdWJs
-aXNoLCBkaXN0cmlidXRlLAo+PiArc3VibGljZW5zZSwKPj4gKyAqIGFuZC9vciBzZWxsIGNvcGll
-cyBvZiB0aGUgU29mdHdhcmUsIGFuZCB0byBwZXJtaXQgcGVyc29ucyB0byB3aG9tCj4+ICt0aGUK
-Pj4gKyAqIFNvZnR3YXJlIGlzIGZ1cm5pc2hlZCB0byBkbyBzbywgc3ViamVjdCB0byB0aGUgZm9s
-bG93aW5nIGNvbmRpdGlvbnM6Cj4+ICsgKgo+PiArICogVGhlIGFib3ZlIGNvcHlyaWdodCBub3Rp
-Y2UgYW5kIHRoaXMgcGVybWlzc2lvbiBub3RpY2Ugc2hhbGwgYmUKPj4gK2luY2x1ZGVkIGluCj4+
-ICsgKiBhbGwgY29waWVzIG9yIHN1YnN0YW50aWFsIHBvcnRpb25zIG9mIHRoZSBTb2Z0d2FyZS4K
-Pj4gKyAqCj4+ICsgKiBUSEUgU09GVFdBUkUgSVMgUFJPVklERUQgIkFTIElTIiwgV0lUSE9VVCBX
-QVJSQU5UWSBPRiBBTlkgS0lORCwKPj4gK0VYUFJFU1MgT1IKPj4gKyAqIElNUExJRUQsIElOQ0xV
-RElORyBCVVQgTk9UIExJTUlURUQgVE8gVEhFIFdBUlJBTlRJRVMgT0YKPj4gK01FUkNIQU5UQUJJ
-TElUWSwKPj4gKyAqIEZJVE5FU1MgRk9SIEEgUEFSVElDVUxBUiBQVVJQT1NFIEFORCBOT05JTkZS
-SU5HRU1FTlQuICBJTiBOTyBFVkVOVAo+PiArU0hBTEwKPj4gKyAqIFRIRSBDT1BZUklHSFQgSE9M
-REVSKFMpIE9SIEFVVEhPUihTKSBCRSBMSUFCTEUgRk9SIEFOWSBDTEFJTSwKPj4gK0RBTUFHRVMg
-T1IKPj4gKyAqIE9USEVSIExJQUJJTElUWSwgV0hFVEhFUiBJTiBBTiBBQ1RJT04gT0YgQ09OVFJB
-Q1QsIFRPUlQgT1IKPj4gK09USEVSV0lTRSwKPj4gKyAqIEFSSVNJTkcgRlJPTSwgT1VUIE9GIE9S
-IElOIENPTk5FQ1RJT04gV0lUSCBUSEUgU09GVFdBUkUgT1IgVEhFIFVTRQo+PiArT1IKPj4gKyAq
-IE9USEVSIERFQUxJTkdTIElOIFRIRSBTT0ZUV0FSRS4KPj4gKyAqCj4+ICsgKi8KPj4gKwo+PiAr
-I2lmZGVmIEhBVkVfQ09ORklHX0gKPj4gKyNpbmNsdWRlICJjb25maWcuaCIKPj4gKyNlbmRpZgo+
-PiArCj4+ICsjaW5jbHVkZSA8c3RkaW8uaD4KPj4gKyNpbmNsdWRlIDxzdGRsaWIuaD4KPj4gKyNp
-bmNsdWRlIDxzdGRpbnQuaD4KPj4gKyNpbmNsdWRlIDxzdHJpbmcuaD4KPj4gKyNpbmNsdWRlIDx1
-bmlzdGQuaD4KPj4gKyNpbmNsdWRlIDxlcnJuby5oPgo+PiArCj4+ICsjaW5jbHVkZSAiYW1kZ3B1
-X2RybS5oIgo+PiArI2luY2x1ZGUgImFtZGdwdV9pbnRlcm5hbC5oIgo+PiArCj4+ICtzdGF0aWMg
-aW50IHBhcnNlX29uZV9saW5lKGNvbnN0IGNoYXIgKmxpbmUsIHN0cnVjdCBhbWRncHVfYXNpY19p
-ZAo+PiArKmlkKSB7Cj4+ICsgICAgICAgY2hhciAqYnVmOwo+PiArICAgICAgIGNoYXIgKnNfZGlk
-Owo+PiArICAgICAgIGNoYXIgKnNfcmlkOwo+PiArICAgICAgIGNoYXIgKnNfbmFtZTsKPj4gKyAg
-ICAgICBjaGFyICplbmRwdHI7Cj4+ICsgICAgICAgaW50IHIgPSAwOwo+PiArCj4+ICsgICAgICAg
-YnVmID0gc3RyZHVwKGxpbmUpOwo+PiArICAgICAgIGlmICghYnVmKQo+PiArICAgICAgICAgICAg
-ICAgcmV0dXJuIC1FTk9NRU07Cj4+ICsKPj4gKyAgICAgICAvKiBpZ25vcmUgZW1wdHkgbGluZSBh
-bmQgY29tbWVudGVkIGxpbmUgKi8KPj4gKyAgICAgICBpZiAoc3RybGVuKGxpbmUpID09IDAgfHwg
-bGluZVswXSA9PSAnIycpIHsKPj4gKyAgICAgICAgICAgICAgIHIgPSAtRUFHQUlOOwo+PiArICAg
-ICAgICAgICAgICAgZ290byBvdXQ7Cj4+ICsgICAgICAgfQo+PiArCj4+ICsgICAgICAgLyogZGV2
-aWNlIGlkICovCj4+ICsgICAgICAgc19kaWQgPSBzdHJ0b2soYnVmLCAiLCIpOwo+Cj4gWW91IGNh
-bid0IHVzZSBzdHJ0b2soKSBpbiBhIGxpYnJhcnkuIEFueSBvdGhlciB0aHJlYWQgbWF5IGNhbGwK
-PiBzdHJ0b2soKSBhbnl0aW1lIHRvbyBhbmQgc2NyZXcgeW91IHVwLgo+Cj4+ICsgICAgICAgaWYg
-KCFzX2RpZCkgewo+PiArICAgICAgICAgICAgICAgciA9IC1FSU5WQUw7Cj4+ICsgICAgICAgICAg
-ICAgICBnb3RvIG91dDsKPj4gKyAgICAgICB9Cj4+ICsKPj4gKyAgICAgICBpZC0+ZGlkID0gc3Ry
-dG9sKHNfZGlkLCAmZW5kcHRyLCAxNik7Cj4+ICsgICAgICAgaWYgKCplbmRwdHIpIHsKPj4gKyAg
-ICAgICAgICAgICAgIHIgPSAtRUlOVkFMOwo+PiArICAgICAgICAgICAgICAgZ290byBvdXQ7Cj4+
-ICsgICAgICAgfQo+PiArCj4+ICsgICAgICAgLyogcmV2aXNpb24gaWQgKi8KPj4gKyAgICAgICBz
-X3JpZCA9IHN0cnRvayhOVUxMLCAiLCIpOwo+PiArICAgICAgIGlmICghc19yaWQpIHsKPj4gKyAg
-ICAgICAgICAgICAgIHIgPSAtRUlOVkFMOwo+PiArICAgICAgICAgICAgICAgZ290byBvdXQ7Cj4+
-ICsgICAgICAgfQo+PiArCj4+ICsgICAgICAgaWQtPnJpZCA9IHN0cnRvbChzX3JpZCwgJmVuZHB0
-ciwgMTYpOwo+PiArICAgICAgIGlmICgqZW5kcHRyKSB7Cj4+ICsgICAgICAgICAgICAgICByID0g
-LUVJTlZBTDsKPj4gKyAgICAgICAgICAgICAgIGdvdG8gb3V0Owo+PiArICAgICAgIH0KPj4gKwo+
-PiArICAgICAgIC8qIG1hcmtldGluZyBuYW1lICovCj4+ICsgICAgICAgc19uYW1lID0gc3RydG9r
-KE5VTEwsICIsIik7Cj4+ICsgICAgICAgaWYgKCFzX25hbWUpIHsKPj4gKyAgICAgICAgICAgICAg
-IHIgPSAtRUlOVkFMOwo+PiArICAgICAgICAgICAgICAgZ290byBvdXQ7Cj4+ICsgICAgICAgfQo+
-PiArCj4+ICsgICAgICAgaWQtPm1hcmtldGluZ19uYW1lID0gc3RyZHVwKHNfbmFtZSk7Cj4+ICsg
-ICAgICAgaWYgKGlkLT5tYXJrZXRpbmdfbmFtZSA9PSBOVUxMKSB7Cj4+ICsgICAgICAgICAgICAg
-ICByID0gLUVJTlZBTDsKPj4gKyAgICAgICAgICAgICAgIGdvdG8gb3V0Owo+PiArICAgICAgIH0K
-Pj4gKwo+PiArb3V0Ogo+PiArICAgICAgIGZyZWUoYnVmKTsKPj4gKwo+PiArICAgICAgIHJldHVy
-biByOwo+PiArfQo+PiArCj4+ICtpbnQgYW1kZ3B1X3BhcnNlX2FzaWNfaWRzKHN0cnVjdCBhbWRn
-cHVfYXNpY19pZCAqKnBfYXNpY19pZF90YWJsZSkgewo+PiArICAgICAgIHN0cnVjdCBhbWRncHVf
-YXNpY19pZCAqYXNpY19pZF90YWJsZTsKPj4gKyAgICAgICBzdHJ1Y3QgYW1kZ3B1X2FzaWNfaWQg
-KmlkOwo+PiArICAgICAgIEZJTEUgKmZwOwo+PiArICAgICAgIGNoYXIgKmxpbmUgPSBOVUxMOwo+
-PiArICAgICAgIHNpemVfdCBsZW47Cj4KPiBUaGUgbWFucGFnZSBzYXlzIGxlbiBtdXN0IGJlIDAg
-YmVmb3JlIHRoZSBmaXJzdCBnZXRsaW5lKCkgY2FsbC4KPgo+PiArICAgICAgIHNzaXplX3QgbjsK
-Pj4gKyAgICAgICBpbnQgbGluZV9udW0gPSAxOwo+PiArICAgICAgIHNpemVfdCB0YWJsZV9zaXpl
-ID0gMDsKPj4gKyAgICAgICBzaXplX3QgdGFibGVfbWF4X3NpemUgPSAyNTY7Cj4+ICsgICAgICAg
-aW50IHIgPSAwOwo+PiArCj4+ICsgICAgICAgZnAgPSBmb3BlbihBTURHUFVfQVNJQ19JRF9UQUJM
-RSwgInIiKTsKPj4gKyAgICAgICBpZiAoIWZwKSB7Cj4+ICsgICAgICAgICAgICAgICBmcHJpbnRm
-KHN0ZGVyciwgIiVzOiAlc1xuIiwgQU1ER1BVX0FTSUNfSURfVEFCTEUsCj4+ICsgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgc3RyZXJyb3IoZXJybm8pKTsKPj4gKyAgICAgICAgICAgICAg
-IHJldHVybiAtRUlOVkFMOwo+PiArICAgICAgIH0KPj4gKwo+PiArICAgICAgIGFzaWNfaWRfdGFi
-bGUgPSBjYWxsb2ModGFibGVfbWF4X3NpemUsIHNpemVvZihzdHJ1Y3QgYW1kZ3B1X2FzaWNfaWQp
-KTsKPj4gKyAgICAgICBpZiAoIWFzaWNfaWRfdGFibGUpIHsKPj4gKyAgICAgICAgICAgICAgIHIg
-PSAtRU5PTUVNOwo+PiArICAgICAgICAgICAgICAgZ290byBjbG9zZTsKPj4gKyAgICAgICB9Cj4+
-ICsKPj4gKyAgICAgICAvKiAxc3QgbGluZSBpcyBmaWxlIHZlcnNpb24gKi8KPj4gKyAgICAgICBp
-ZiAoKG4gPSBnZXRsaW5lKCZsaW5lLCAmbGVuLCBmcCkpICE9IC0xKSB7Cj4+ICsgICAgICAgICAg
-ICAgICAvKiB0cmltIHRyYWlsaW5nIG5ld2xpbmUgKi8KPj4gKyAgICAgICAgICAgICAgIGlmIChs
-aW5lW24gLSAxXSA9PSAnXG4nKQo+PiArICAgICAgICAgICAgICAgICAgICAgICBsaW5lW24gLSAx
-XSA9ICdcMCc7Cj4+ICsgICAgICAgICAgICAgICBwcmludGYoIiVzIHZlcnNpb246ICVzXG4iLCBB
-TURHUFVfQVNJQ19JRF9UQUJMRSwKPj4gKyBsaW5lKTsKPgo+IGRlYnVnIGxlZnRvdmVyPwo+Cj4g
-R3Jhxb52eWRhcwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============0573504181==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MWHPR1201MB0045EF5693B74C28F9021B36F2E10MWHPR1201MB0045_"
+
+--_000_MWHPR1201MB0045EF5693B74C28F9021B36F2E10MWHPR1201MB0045_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+ amdgpu/amdgpu.h | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/amdgpu/amdgpu.h b/amdgpu/amdgpu.h
+index fdea905..1901fa8 100644
+--- a/amdgpu/amdgpu.h
++++ b/amdgpu/amdgpu.h
+@@ -30,20 +30,24 @@
+  * User wanted to use libdrm_amdgpu functionality must include
+  * this file.
+  *
+  */
+ #ifndef _AMDGPU_H_
+ #define _AMDGPU_H_
+
+ #include <stdint.h>
+ #include <stdbool.h>
+
++#ifdef __cplusplus
++extern "C" {
++#endif
++
+ struct drm_amdgpu_info_hw_ip;
+
+ /*------------------------------------------------------------------------=
+--*/
+ /* --------------------------- Defines -----------------------------------=
+- */
+ /*------------------------------------------------------------------------=
+--*/
+
+ /**
+  * Define max. number of Command Buffers (IB) which could be sent to the s=
+ingle
+  * hardware IP to accommodate CE/DE requirements
+  *
+@@ -1317,11 +1321,15 @@ int amdgpu_cs_destroy_semaphore(amdgpu_semaphore_ha=
+ndle sem);
+ /**
+  *  Get the ASIC marketing name
+  *
+  * \param   dev         - \c [in] Device handle. See #amdgpu_device_initia=
+lize()
+  *
+  * \return  the constant string of the marketing name
+  *          "NULL" means the ASIC is not found
+ */
+ const char *amdgpu_get_marketing_name(amdgpu_device_handle dev);
+
++#ifdef __cplusplus
++}
++#endif
++
+ #endif /* #ifdef _AMDGPU_H_ */
+--
+2.9.3
+
+
+Reviewed by: Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
+
+
+
+--_000_MWHPR1201MB0045EF5693B74C28F9021B36F2E10MWHPR1201MB0045_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Arial,Helvetica,sans-serif;" dir=3D"ltr">
+<p><font size=3D"2"><span style=3D"font-size:10pt;">&nbsp;amdgpu/amdgpu.h |=
+ 8 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&nbsp;1 file changed, 8 insertions(&#43;)<br>
+<br>
+diff --git a/amdgpu/amdgpu.h b/amdgpu/amdgpu.h<br>
+index fdea905..1901fa8 100644<br>
+--- a/amdgpu/amdgpu.h<br>
+&#43;&#43;&#43; b/amdgpu/amdgpu.h<br>
+@@ -30,20 &#43;30,24 @@<br>
+&nbsp; * User wanted to use libdrm_amdgpu functionality must include<br>
+&nbsp; * this file.<br>
+&nbsp; *<br>
+&nbsp; */<br>
+&nbsp;#ifndef _AMDGPU_H_<br>
+&nbsp;#define _AMDGPU_H_<br>
+&nbsp;<br>
+&nbsp;#include &lt;stdint.h&gt;<br>
+&nbsp;#include &lt;stdbool.h&gt;<br>
+&nbsp;<br>
+&#43;#ifdef __cplusplus<br>
+&#43;extern &quot;C&quot; {<br>
+&#43;#endif<br>
+&#43;<br>
+&nbsp;struct drm_amdgpu_info_hw_ip;<br>
+&nbsp;<br>
+&nbsp;/*-------------------------------------------------------------------=
+-------*/<br>
+&nbsp;/* --------------------------- Defines ------------------------------=
+------ */<br>
+&nbsp;/*-------------------------------------------------------------------=
+-------*/<br>
+&nbsp;<br>
+&nbsp;/**<br>
+&nbsp; * Define max. number of Command Buffers (IB) which could be sent to =
+the single<br>
+&nbsp; * hardware IP to accommodate CE/DE requirements<br>
+&nbsp; *<br>
+@@ -1317,11 &#43;1321,15 @@ int amdgpu_cs_destroy_semaphore(amdgpu_semaphor=
+e_handle sem);<br>
+&nbsp;/**<br>
+&nbsp; *&nbsp; Get the ASIC marketing name<br>
+&nbsp; *<br>
+&nbsp; * \param&nbsp;&nbsp; dev&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; - \c [in] Device handle. See #amdgpu_device_initialize()<br>
+&nbsp; *<br>
+&nbsp; * \return&nbsp; the constant string of the marketing name<br>
+&nbsp; *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;NULL&q=
+uot; means the ASIC is not found<br>
+&nbsp;*/<br>
+&nbsp;const char *amdgpu_get_marketing_name(amdgpu_device_handle dev);<br>
+&nbsp;<br>
+&#43;#ifdef __cplusplus<br>
+&#43;}<br>
+&#43;#endif<br>
+&#43;<br>
+&nbsp;#endif /* #ifdef _AMDGPU_H_ */<br>
+-- <br>
+2.9.3</span></font></p>
+<div style=3D"color: rgb(0, 0, 0);"><font size=3D"2"><span style=3D"font-si=
+ze:10pt;">
+<div class=3D"PlainText"><br>
+<br>
+<span>Reviewed by: Alex Xie &lt;AlexBin.Xie-5C7GfCeVMHo@public.gmane.org&gt;</span><br>
+<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_MWHPR1201MB0045EF5693B74C28F9021B36F2E10MWHPR1201MB0045_--
+
+--===============0573504181==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0573504181==--
