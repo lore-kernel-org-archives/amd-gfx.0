@@ -1,20 +1,14 @@
-From: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: Plan: BO move throttling for visible VRAM evictions
-Date: Mon, 15 May 2017 12:37:16 +0800
-Message-ID: <5919307C.4020704@amd.com>
-References: <CAAxE2A4ap8BoOEg1tOF+Ec1vBfZRSANOebikYBaHUfXokY7EwA@mail.gmail.com>
- <9220eda1-5176-36cd-e6b3-801c3e4f759a@daenzer.net>
- <78989271-9812-f891-3a00-0d5b39a06b7c@daenzer.net>
- <CAAxE2A60hubc8jbZkO101sxqVZKR8iub=GsfRovj17+P2zKDKQ@mail.gmail.com>
- <aee1e2b7-dd00-e24b-bcfc-e2299e31908b@daenzer.net>
- <CAAxE2A5g7tJG+94XxPr-mdGXkeL1GPMNMaYgc7ATEk7pxsiXfA@mail.gmail.com>
- <c343b89c-318f-d3af-d02e-4e6843c422f6@daenzer.net>
- <CAAxE2A5_tiOEvLVegNvkuvYrFcsU52H6EfCff3faKBZwPfbuYQ@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH libdrm] amdgpu: add missing extern "C" headers
+Date: Mon, 15 May 2017 08:47:50 +0200
+Message-ID: <a3fb72d3-df0b-dbe6-0e1e-368cac7c865d@vodafone.de>
+References: <MWHPR1201MB0045E9D90A0D03FCCFBF7BC1F2E10@MWHPR1201MB0045.namprd12.prod.outlook.com>
+ <5a6edb32-1899-697c-156b-ddeaeaa67147@daenzer.net>
+ <MWHPR1201MB00458FBE22404D8AF12A043EF2E10@MWHPR1201MB0045.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0066027022=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAAxE2A5_tiOEvLVegNvkuvYrFcsU52H6EfCff3faKBZwPfbuYQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <MWHPR1201MB00458FBE22404D8AF12A043EF2E10-3iK1xFAIwjq45V35fqe+hGrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -25,76 +19,187 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?UTF-8?B?TWljaGU=?= =?UTF-8?B?bCBEw6RuemVy?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Xie, AlexBin" <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "Haehnle, Nicolai" <Nicolai.Haehnle-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-CgpPbiAyMDE35bm0MDXmnIgxNOaXpSAwNTozMSwgTWFyZWsgT2zFocOhayB3cm90ZToKPiBPbiBN
-b24sIEFwciAxNywgMjAxNyBhdCAxMTo1NSBBTSwgTWljaGVsIETDpG56ZXIgPG1pY2hlbEBkYWVu
-emVyLm5ldD4gd3JvdGU6Cj4+IE9uIDE3LzA0LzE3IDA3OjU4IEFNLCBNYXJlayBPbMWhw6FrIHdy
-b3RlOgo+Pj4gT24gRnJpLCBBcHIgMTQsIDIwMTcgYXQgMTI6MTQgUE0sIE1pY2hlbCBEw6RuemVy
-IDxtaWNoZWxAZGFlbnplci5uZXQ+IHdyb3RlOgo+Pj4+IE9uIDA0LzA0LzE3IDA1OjExIEFNLCBN
-YXJlayBPbMWhw6FrIHdyb3RlOgo+Pj4+PiBPbiBGcmksIE1hciAzMSwgMjAxNyBhdCA1OjI0IEFN
-LCBNaWNoZWwgRMOkbnplciA8bWljaGVsQGRhZW56ZXIubmV0PiB3cm90ZToKPj4+Pj4+IE9uIDMw
-LzAzLzE3IDA3OjAzIFBNLCBNaWNoZWwgRMOkbnplciB3cm90ZToKPj4+Pj4+PiBPbiAyNS8wMy8x
-NyAwMTozMyBBTSwgTWFyZWsgT2zFocOhayB3cm90ZToKPj4+Pj4+Pj4gSGksCj4+Pj4+Pj4+Cj4+
-Pj4+Pj4+IEknbSBzaGFyaW5nIHRoaXMgaWRlYSBoZXJlLCBiZWNhdXNlIGl0J3Mgc29tZXRoaW5n
-IHRoYXQgaGFzIGJlZW4KPj4+Pj4+Pj4gZGVjcmVhc2luZyBvdXIgcGVyZm9ybWFuY2UgYSBsb3Qg
-cmVjZW50bHksIGZvciBleGFtcGxlOgo+Pj4+Pj4+PiBodHRwOi8vb3BlbmJlbmNobWFya2luZy5v
-cmcvcHJvc3BlY3QvMTcwMzAxMS1SSS1SQURFT05ESVIwNi83Yjc2NjhjZmMxMDlkMWMzZGMyN2U4
-NzFjOGFlYTcxY2ExM2YyM2ZhCj4+Pj4+Pj4gVGhlIGF0dGFjaGVkIHByb29mLW9mLWNvbmNlcHQg
-cGF0Y2ggKG9uIHRvcCBvZiBDaHJpc3RpYW4ncyAiQ1BVIG1hcHBpbmcKPj4+Pj4+PiBvZiBzcGxp
-dCBWUkFNIGJ1ZmZlcnMiIHNlcmllcywgcG9ydGVkIGZyb20gcmFkZW9uKSByZXN1bHRzIGluIDE0
-NS4wNSBmcHMKPj4+Pj4+PiBvbiBteSBUb25nYS4KPj4+Pj4+IEkgZ2V0IHRoZSBzYW1lIHJlc3Vs
-dCB3aXRob3V0IG15IG9yIENocmlzdGlhbidzIHBhdGNoZXMgdGhvdWdoLCB3aXRoCj4+Pj4+PiA0
-LjExIGJhc2VkIERSTSBvciBhbWQtc3RhZ2luZy00LjkuIFNvIEkgZ3Vlc3MgSSBqdXN0IGNhbid0
-IHJlcHJvZHVjZSB0aGUKPj4+Pj4+IHByb2JsZW0gd2l0aCB0aGlzIHRlc3QuIEFyZSB0aGVyZSBh
-bnkgb3RoZXIgdGVzdHMgZm9yIGl0Pwo+Pj4+PiBJdCdzIHJhbmRvbS4gU29tZXRpbWVzIHRoZSBi
-ZW5jaG1hcmsgcnVucyBPSywgb3RoZXIgdGltZXMgaXQncyBzbG93Lgo+Pj4+PiBZb3UgY2FuIGVh
-c2lseSBzZWUgdGhlIGRpZmZlcmVuY2UgYnV0IG9ic2VydmluZyBob3cgc21vb3RoIGl0IGlzLiBU
-aGUKPj4+Pj4gdmlzaWJsZSBWUkFNIGV2aWN0aW9ucyByZXN1bHQgaW4gY29uc3RhbnQgMTAwLTIw
-MG1zIHN0YWxscyBidXQgbm90Cj4+Pj4+IGV2ZXJ5IGZyYW1lLCB3aGljaCBmZWVscyBsaWtlIHRo
-ZSBmcmFtZSByYXRlIGlzIG11Y2ggbG93ZXIgdGhhbiBpdAo+Pj4+PiBhY3R1YWxseSBpcy4KPj4+
-Pj4KPj4+Pj4gTWFrZSBzdXJlIHlvdXIgZ3JhcGhpY3MgZGV0YWlscyBhcmUgbWF4ZWQgb3V0LiBU
-aGUgYmVzdCBzY29yZSBJIGNhbgo+Pj4+PiBnZXQgd2l0aCBteSByaWcgaXMgNzAgZnBzLiAoRmlq
-aSAmIENvcmUgaTUgMzU3MCkKPj4+PiBJJ20gZ2V0dGluZyBhcm91bmQgNTMtNTQgZnBzIGF0IFVs
-dHJhIHdpdGggVG9uZ2EsIGJvdGggd2l0aCBNZXNhIDEzLjAuNgo+Pj4+IGFuZCBHaXQuCj4+Pj4K
-Pj4+PiBIYXZlIHlvdSB0cmllZCBpZiBDaHJpc3RpYW4ncyBwYXRjaGVzIGZvciBDUFUgYWNjZXNz
-IHRvIHNwbGl0IFZSQU0KPj4+PiBidWZmZXJzIGhlbHA/IEkgY2FuIGltYWdpbmUgdGhhdCBmb3Jj
-aW5nIGNvbnRpZ3VvdXMgVlJBTSBidWZmZXJzIGZvciBDUFUKPj4+PiBhY2Nlc3MgY291bGQgY2F1
-c2UgbG90cyBvZiBvdGhlciBCT3MgdG8gYmUgdW5uZWNlc3NhcmlseSBldmljdGVkIGZyb20KPj4+
-PiBWUkFNLCBpZiBhdCBsZWFzdCBvbmUgb2YgdGhlaXIgZnJhZ21lbnRzIGhhcHBlbnMgdG8gYmUg
-aW4gdGhlIENQVQo+Pj4+IHZpc2libGUgcGFydCBvZiBWUkFNLgo+Pj4gSSd2ZSBmaW5hbGx5IHRl
-c3RlZCBsYXRlc3QgYW1kLXN0YWdpbmctNC45IGFuZCBJJ20gdmVyeSBwbGVhc2VkLiBGb3IKPj4+
-IHRoZSBmaXJzdCB0aW1lLCB0aGUgRGV1cyBFeCBiZW5jaG1hcmsgaGFzIGFsbW9zdCBubyBoaWNj
-dXBzLiBJJ3ZlCj4+PiBuZXZlciBzZWVuIGl0IHNvIHNtb290aC4gQXQgb25lIHBvaW50LCB0aGUg
-TUIvcyBCTyBtb3ZlIHJhdGUgaW5jcmVhc2UKPj4+IHRvIDIwME1CL3MsIHN0YXllZCB0aGVyZSBm
-b3IgYSBjb3VwbGUgb2Ygc2Vjb25kcywgYW5kIHRoZW4gaXQgZHJvcHBlZAo+Pj4gdG8gMCBhZ2Fp
-bi4gVGhlIGZyYW1lIHJhdGUgd2FzIE9LLWlzaCwgc28gSSBndWVzcyB0aGUgbW92ZXMgZGlkbid0
-Cj4+PiBoYXBwZW4gYWxsIGF0IG9uY2UuIEkgYWxzbyB0ZXN0ZWQgRGlSVCBSYWxseSBhbmQgSSBo
-YXZlbid0IGJlZW4gYWJsZQo+Pj4gdG8gcmVwcm9kdWNlIHRoZSBsb3cgRlBTIHdpdGggdGhlIGNv
-bnNpc3RlbnRseS1oaWdoIEJPIG1vdmUgcmF0ZSB0aGF0Cj4+PiBJIHNhdyBzZXZlcmFsIG1vbnRo
-cyBhZ28uCj4+Pgo+Pj4gV2UgY291bGQgZG8gc29tZSBtb3ZlIHRocm90dGxpbmcgdGhlcmUgZm9y
-IHN1cmUsIGJ1dCBpdCdzIG11Y2ggYmV0dGVyCj4+PiB0aGFuIGl0IGV2ZXIgd2FzLgo+PiBUaGF0
-J3MgZ3JlYXQgdG8gaGVhci4gSWYgeW91IGdldCBhIGNoYW5jZSwgaXQgd291bGQgYmUgaW50ZXJl
-c3RpbmcgaWYKPj4gdGhlIGF0dGFjaGVkIHVwZGF0ZWQgcGF0Y2ggaW1wcm92ZXMgdGhpbmdzIGV2
-ZW4gbW9yZSBmb3IgeW91LiAoVGhlIHBhdGNoCj4+IEkgYXR0YWNoZWQgcHJldmlvdXNseSBjb3Vs
-ZG4ndCB3b3JrIGFzIGludGVuZGVkLCB0aGlzIG9uZSBhdCBsZWFzdCBtaWdodCA6KQo+IEZyb2dn
-aW5nMTAxIG9uIElSQyBub3RpY2VkIHRoYXQgd2UgZ2V0IGEgdG9uIG9mIFRUTSBCTyBtb3ZlcyBk
-dWUgdG8KPiB2aXNpYmxlIFZSQU0gdGhyYXNoaW5nIGFuZCBNaWNoZWwncyBwYXRjaCBkb2Vzbid0
-IGhlbHAuIEhpcyBrZXJuZWwgaXMKPiB1cCB0byBkYXRlIHdpdGggYW1kLXN0YWdpbmcuIEl0IGxv
-b2tzIGxpa2UgdGhlIG9ubHkgb3B0aW9uIGxlZnQgaXMgbXkKPiBvcmlnaW5hbCBwbGFuOiBCTyBt
-b3ZlIHRocm90dGxpbmcgZm9yIHZpc2libGUgVlJBTSBieSByZWRpcmVjdGluZwo+IG1hcHBlZCBi
-dWZmZXJzIHRvIEdUVCBhbmQgbm90IGFsbG93aW5nIHRoZW0gdG8gZ28gYmFjayB0byBWUkFNIGlm
-IHNvbWUKPiBjb3VudGVyIGlzIHRvbyBoaWdoLgpJIGFncmVlIG9uIHRoaXMgb3BpbmlvbiwgZnJv
-bSBvdXIgcGVyZm9ybWFuY2UgdHVuaW5nIGV4cGVyaW1lbnQsIHRoaXMgCmNhc2UgaW5kZWVkIG9m
-dGVuIGhhcHBlbiBlc3BlY2lhbGx5IHVuZGVyIHZyYW0gbWVtb3J5IHByZXNzdXJlLiAKcmVkaXJl
-Y3RpbmcgdG8gR1RUIGlzIGJldHRlciB0aGFuIGhlYXZ5IGV2aWN0aW9uIGJldHdlZW4gVlJBTSBh
-bmQgR1RULgpCdXQgd2Ugc2hvdWxkIGdldCBhIGNvbmRpdGlvbiBmb3IgcmVkaXJlY3RpbmcgKGV2
-aWN0aW9uIGNvdW50ZXI/KSwgCm90aGVyd2lzZSwgQk8gaGF2ZSBubyBjaGFuZ2UgYmFjayB0byBw
-cmVmZXIgZG9tYWluLgoKUmVnYXJkcywKRGF2aWQgWmhvdQo+Cj4gT3BpbmlvbnM/Cj4KPiBNYXJl
-awo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1k
-LWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAoKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+This is a multi-part message in MIME format.
+--===============0066027022==
+Content-Type: multipart/alternative;
+ boundary="------------7EF1886BC3041FE93AC2CF2C"
+
+This is a multi-part message in MIME format.
+--------------7EF1886BC3041FE93AC2CF2C
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Michel you need more coffee :)
+
+And yes, there are two header files. amdgpu_drm.h is the one synced from 
+the kernel, amdgpu.h is the one local to libdrm.
+
+Regards,
+Christian.
+
+Am 15.05.2017 um 04:39 schrieb Xie, AlexBin:
+>
+> Hi Michel,
+>
+>
+> This patch was from Nicolai.
+>
+>
+> Though there are two amdgpu.h, one header is in kernel and the other 
+> header is in libdrm. But their content are irrelevant. They are not 
+> synchronized.
+>
+>
+> I think include/drm/README is not applicable to this case.
+>
+>
+> Thanks,
+>
+> Alex Bin Xie
+>
+>
+> ------------------------------------------------------------------------
+> *From:* Michel Dänzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+> *Sent:* Sunday, May 14, 2017 10:09 PM
+> *To:* Xie, AlexBin; Haehnle, Nicolai
+> *Cc:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> *Subject:* Re: [PATCH libdrm] amdgpu: add missing extern "C" headers
+> On 15/05/17 10:10 AM, Xie, AlexBin wrote:
+> >  amdgpu/amdgpu.h | 8 ++++++++
+> >  1 file changed, 8 insertions(+)
+>
+> This header is synchronized with the kernel, see include/drm/README.
+>
+>
+> BTW, don't send patches for review as HTML. Ideally use git send-email.
+>
+>
+> -- 
+> Earthling Michel Dänzer               | http://www.amd.com 
+> <http://www.amd.com>
+> Libre software enthusiast             |             Mesa and X developer
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+
+--------------7EF1886BC3041FE93AC2CF2C
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Michel you need more coffee :)<br>
+      <br>
+      And yes, there are two header files. amdgpu_drm.h is the one
+      synced from the kernel, amdgpu.h is the one local to libdrm.<br>
+      <br>
+      Regards,<br>
+      Christian.<br>
+      <br>
+      Am 15.05.2017 um 04:39 schrieb Xie, AlexBin:<br>
+    </div>
+    <blockquote
+cite="mid:MWHPR1201MB00458FBE22404D8AF12A043EF2E10-3iK1xFAIwjq45V35fqe+hGrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org"
+      type="cite">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
+      <div id="divtagdefaultwrapper"
+style="font-size:12pt;color:#000000;font-family:Calibri,Arial,Helvetica,sans-serif;"
+        dir="ltr">
+        <p>Hi Michel,</p>
+        <p><br>
+        </p>
+        <p>This patch was from Nicolai.</p>
+        <p><br>
+        </p>
+        <p>Though there are two amdgpu.h, one header is in kernel and
+          the other header is in libdrm. But their content are
+          irrelevant. They are not synchronized.
+          <br>
+        </p>
+        <p><br>
+        </p>
+        <p>I think include/drm/README is not applicable to this case.<br>
+        </p>
+        <br>
+        <p>Thanks,</p>
+        <p>Alex Bin Xie<br>
+        </p>
+        <br>
+        <div style="color: rgb(0, 0, 0);">
+          <div>
+            <hr tabindex="-1" style="display:inline-block; width:98%">
+            <div id="x_divRplyFwdMsg" dir="ltr"><font
+                style="font-size:11pt" color="#000000" face="Calibri,
+                sans-serif"><b>From:</b> Michel Dänzer
+                <a class="moz-txt-link-rfc2396E" href="mailto:michel-otUistvHUpPR7s880joybQ@public.gmane.org">&lt;michel-otUistvHUpPR7s880joybQ@public.gmane.org&gt;</a><br>
+                <b>Sent:</b> Sunday, May 14, 2017 10:09 PM<br>
+                <b>To:</b> Xie, AlexBin; Haehnle, Nicolai<br>
+                <b>Cc:</b> <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                <b>Subject:</b> Re: [PATCH libdrm] amdgpu: add missing
+                extern "C" headers</font>
+              <div> </div>
+            </div>
+          </div>
+          <font size="2"><span style="font-size:10pt;">
+              <div class="PlainText">On 15/05/17 10:10 AM, Xie, AlexBin
+                wrote:<br>
+                &gt;  amdgpu/amdgpu.h | 8 ++++++++<br>
+                &gt;  1 file changed, 8 insertions(+)<br>
+                <br>
+                This header is synchronized with the kernel, see
+                include/drm/README.<br>
+                <br>
+                <br>
+                BTW, don't send patches for review as HTML. Ideally use
+                git send-email.<br>
+                <br>
+                <br>
+                -- <br>
+                Earthling Michel Dänzer               |               <a
+                  moz-do-not-send="true" href="http://www.amd.com"
+                  id="LPlnk7787" previewremoved="true">
+                  http://www.amd.com</a><br>
+                Libre software enthusiast             |             Mesa
+                and X developer<br>
+              </div>
+            </span></font></div>
+      </div>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------7EF1886BC3041FE93AC2CF2C--
+
+--===============0066027022==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0066027022==--
