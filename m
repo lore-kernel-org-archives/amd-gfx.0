@@ -1,7 +1,7 @@
 From: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 1/3] drm/amdgpu: cleanup adjust_mc_addr handling v2
-Date: Tue, 16 May 2017 10:37:48 +0800
-Message-ID: <591A65FC.5030102@amd.com>
+Date: Tue, 16 May 2017 10:37:55 +0800
+Message-ID: <591A6603.2020807@amd.com>
 References: <1494849459-3221-1-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"; Format="flowed"
