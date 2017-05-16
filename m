@@ -1,11 +1,14 @@
 From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Subject: Various minor Display DCE120 cleanups
-Date: Tue, 16 May 2017 10:21:59 -0400
-Message-ID: <20170516142205.468-1-tom.stdenis@amd.com>
+Subject: [PATCH 4/6] drm/amd/display: Clean up indentation in
+ dce120_tg_set_blank()
+Date: Tue, 16 May 2017 10:22:03 -0400
+Message-ID: <20170516142205.468-5-tom.stdenis@amd.com>
+References: <20170516142205.468-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20170516142205.468-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,9 +20,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 
-VmFyaW91cyBzbWFsbCB0aWR5IHVwIHBhdGNoZXMgZm9yIHRoZSBkY2UxMjAgZGlzcGxheSBkcml2
-ZXIuICBTaG91bGQgYmUKbm8gZnVuY3Rpb25hbCBjaGFuZ2VzLgoKCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+U2lnbmVkLW9mZi1ieTogVG9tIFN0IERlbmlzIDx0b20uc3RkZW5pc0BhbWQuY29tPgotLS0KIC4u
+Li9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlMTIwL2RjZTEyMF90aW1pbmdfZ2VuZXJhdG9yLmMgIHwg
+MTYgKysrKystLS0tLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKSwgMTEg
+ZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Rj
+L2RjZTEyMC9kY2UxMjBfdGltaW5nX2dlbmVyYXRvci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9k
+aXNwbGF5L2RjL2RjZTEyMC9kY2UxMjBfdGltaW5nX2dlbmVyYXRvci5jCmluZGV4IDAxN2EwMjVi
+NTI3Yi4uYjY2ZGNmYzNlY2ZiIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
+YXkvZGMvZGNlMTIwL2RjZTEyMF90aW1pbmdfZ2VuZXJhdG9yLmMKKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTEyMC9kY2UxMjBfdGltaW5nX2dlbmVyYXRvci5jCkBAIC03
+NjgsMTcgKzc2OCwxMSBAQCB2b2lkIGRjZTEyMF90Z19zZXRfYmxhbmsoc3RydWN0IHRpbWluZ19n
+ZW5lcmF0b3IgKnRnLAogCQlDUlRDMF9DUlRDX0RPVUJMRV9CVUZGRVJfQ09OVFJPTCwKIAkJQ1JU
+Q19CTEFOS19EQVRBX0RPVUJMRV9CVUZGRVJfRU4sIDApOwogCi0JaWYgKGVuYWJsZV9ibGFua2lu
+ZykgewotCQlDUlRDX1JFR19TRVQoCi0JCQlDUlRDMF9DUlRDX0JMQU5LX0NPTlRST0wsCi0JCQlD
+UlRDX0JMQU5LX0RBVEFfRU4sIDEpOwotCi0JfSBlbHNlCi0JCWRtX3dyaXRlX3JlZ19zb2MxNSgK
+LQkJCXRnLT5jdHgsCi0JCQltbUNSVEMwX0NSVENfQkxBTktfQ09OVFJPTCwKLQkJCXRnMTEwLT5v
+ZmZzZXRzLmNydGMsCi0JCQkwKTsKKwlpZiAoZW5hYmxlX2JsYW5raW5nKQorCQlDUlRDX1JFR19T
+RVQoQ1JUQzBfQ1JUQ19CTEFOS19DT05UUk9MLCBDUlRDX0JMQU5LX0RBVEFfRU4sIDEpOworCWVs
+c2UKKwkJZG1fd3JpdGVfcmVnX3NvYzE1KHRnLT5jdHgsIG1tQ1JUQzBfQ1JUQ19CTEFOS19DT05U
+Uk9MLAorCQkJdGcxMTAtPm9mZnNldHMuY3J0YywgMCk7CiB9CiAKIGJvb2wgZGNlMTIwX3RnX3Zh
+bGlkYXRlX3RpbWluZyhzdHJ1Y3QgdGltaW5nX2dlbmVyYXRvciAqdGcsCi0tIAoyLjEyLjAKCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
+bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
