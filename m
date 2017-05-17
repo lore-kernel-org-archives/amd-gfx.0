@@ -1,16 +1,18 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH 4/5] drm/amdgpu: Support page directory update via CPU
-Date: Wed, 17 May 2017 10:48:13 +0200
-Message-ID: <bec8a5a3-7d62-2ff5-96b9-2c03afec1483@vodafone.de>
-References: <1494883923-25876-1-git-send-email-Harish.Kasiviswanathan@amd.com>
- <1494883923-25876-4-git-send-email-Harish.Kasiviswanathan@amd.com>
- <591A68D7.80009@amd.com>
- <CY1PR1201MB1034A467A20010323B44EAEC8CE60@CY1PR1201MB1034.namprd12.prod.outlook.com>
- <591BAD6C.2070605@amd.com>
+From: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 4/4] drm/amdgpu: reset fpriv vram_lost_counter
+Date: Wed, 17 May 2017 16:46:51 +0800
+Message-ID: <591C0DFB.8030604@amd.com>
+References: <1494926750-1081-1-git-send-email-David1.Zhou@amd.com>
+ <1494926750-1081-4-git-send-email-David1.Zhou@amd.com>
+ <58988726-543a-535a-3011-860d29b9f2da@daenzer.net> <591BBDA2.1070900@amd.com>
+ <29fe2142-7fd1-e23a-49d9-c38dc685db92@daenzer.net> <591BD17C.8050903@amd.com>
+ <7d87bc8e-9c09-ad25-de6e-dfbd8116bf6e@daenzer.net> <591BF825.6090505@amd.com>
+ <31db7a30-dd98-5cb2-4125-187d3d0e2a49@daenzer.net>
+ <7a302ebe-1de1-734f-fb21-aadcc7904d37@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1800315943=="
+Content-Type: multipart/mixed; boundary="===============1237623221=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <591BAD6C.2070605-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <7a302ebe-1de1-734f-fb21-aadcc7904d37-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,341 +23,149 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>, "Kasiviswanathan, Harish" <Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, =?UTF-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This is a multi-part message in MIME format.
---===============1800315943==
+--===============1237623221==
 Content-Type: multipart/alternative;
- boundary="------------7D01C8969A96AFADCEFF4FBD"
+	boundary="------------070709000107040806030906"
 
-This is a multi-part message in MIME format.
---------------7D01C8969A96AFADCEFF4FBD
-Content-Type: text/plain; charset=utf-8; format=flowed
+--------------070709000107040806030906
+Content-Type: text/plain; charset="utf-8"; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Am 17.05.2017 um 03:54 schrieb zhoucm1:
+
+
+On 2017年05月17日 16:40, Christian König wrote:
+> Am 17.05.2017 um 10:01 schrieb Michel Dänzer:
+>> On 17/05/17 04:13 PM, zhoucm1 wrote:
+>>> On 2017年05月17日 14:57, Michel Dänzer wrote:
+>>>> On 17/05/17 01:28 PM, zhoucm1 wrote:
+>>>>> On 2017年05月17日 11:15, Michel Dänzer wrote:
+>>>>>> On 17/05/17 12:04 PM, zhoucm1 wrote:
+>>>>>>> On 2017年05月17日 09:18, Michel Dänzer wrote:
+>>>>>>>> On 16/05/17 06:25 PM, Chunming Zhou wrote:
+>>>>>>>>> Change-Id: I8eb6d7f558da05510e429d3bf1d48c8cec6c1977
+>>>>>>>>> Signed-off-by: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+>>>>>>>>>
+>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>>>>>>> index bca1fb5..f3e7525 100644
+>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>>>>>>>> @@ -2547,6 +2547,9 @@ int amdgpu_vm_ioctl(struct drm_device *dev,
+>>>>>>>>> void *data, struct drm_file *filp)
+>>>>>>>>>          case AMDGPU_VM_OP_UNRESERVE_VMID:
+>>>>>>>>>              amdgpu_vm_free_reserved_vmid(adev, &fpriv->vm,
+>>>>>>>>> AMDGPU_GFXHUB);
+>>>>>>>>>              break;
+>>>>>>>>> +    case AMDGPU_VM_OP_RESET:
+>>>>>>>>> +        fpriv->vram_lost_counter =
+>>>>>>>>> atomic_read(&adev->vram_lost_counter);
+>>>>>>>>> +        break;
+>>>>>>>> How do you envision the UMDs using this? I can mostly think of 
+>>>>>>>> them
+>>>>>>>> calling this ioctl when a context is created or destroyed. But 
+>>>>>>>> that
+>>>>>>>> would also allow any other remaining contexts using the same 
+>>>>>>>> DRM file
+>>>>>>>> descriptor to use all ioctls again. So, I think there needs to 
+>>>>>>>> be a
+>>>>>>>> vram_lost_counter in struct amdgpu_ctx instead of in struct
+>>>>>>>> amdgpu_fpriv.
+>>>>>>> struct amdgpu_fpriv for vram_lost_counter is proper place, 
+>>>>>>> especially
+>>>>>>> for ioctl return value.
+>>>>>>> if you need to reset ctx one by one, we can mark all contexts of 
+>>>>>>> that
+>>>>>>> vm, and then reset by userspace.
+>>>>>> I'm not following. With vram_lost_counter in amdgpu_fpriv, if any
+>>>>>> context calls this ioctl, all other contexts using the same file
+>>>>>> descriptor will also be considered safe again, right?
+>>>>> Yes, but it really depends on userspace requirement, if you need to
+>>>>> reset ctx one by one, we can mark all contexts of that vm to 
+>>>>> guilty, and
+>>>>> then reset one context by userspace.
+>>>> Still not sure what you mean by that.
+>>>>
+>>>> E.g. what do you mean by "guilty"? I thought that refers to the 
+>>>> context
+>>>> which caused a hang. But it seems like you're using it to refer to any
+>>>> context which hasn't reacted yet to VRAM contents being lost.
+>>> When vram is lost, we treat all contexts need to reset.
+>> Essentially, your patches only track VRAM contents being lost per file
+>> descriptor, not per context. I'm not sure (rather skeptical) that this
+>> is suitable for OpenGL UMDs, since state is usually tracked per context.
+>> Marek / Nicolai?
 >
+> Oh, yeah that's a good point.
 >
-> On 2017年05月17日 05:02, Kasiviswanathan, Harish wrote:
->>
->>
->> -----Original Message-----
->> From: Zhou, David(ChunMing)
->> Sent: Monday, May 15, 2017 10:50 PM
->> To: Kasiviswanathan, Harish <Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>; 
->> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->> Subject: Re: [PATCH 4/5] drm/amdgpu: Support page directory update 
->> via CPU
->>
->>
->>
->> On 2017年05月16日 05:32, Harish Kasiviswanathan wrote:
->> > If amdgpu.vm_update_context param is set to use CPU, then Page
->> > Directories will be updated by CPU instead of SDMA
->> >
->> > Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>
->> > ---
->> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 151 
->> ++++++++++++++++++++++++---------
->> >   1 file changed, 109 insertions(+), 42 deletions(-)
->> >
->> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> > index 9c89cb2..d72a624 100644
->> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> > @@ -271,6 +271,7 @@ static int amdgpu_vm_alloc_levels(struct 
->> amdgpu_device *adev,
->> >                                  uint64_t saddr, uint64_t eaddr,
->> >                                  unsigned level)
->> >   {
->> > +     u64 flags;
->> >        unsigned shift = (adev->vm_manager.num_level - level) *
->> >                adev->vm_manager.block_size;
->> >        unsigned pt_idx, from, to;
->> > @@ -299,6 +300,14 @@ static int amdgpu_vm_alloc_levels(struct 
->> amdgpu_device *adev,
->> >        saddr = saddr & ((1 << shift) - 1);
->> >        eaddr = eaddr & ((1 << shift) - 1);
->> >
->> > +     flags = AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS |
->> > +                     AMDGPU_GEM_CREATE_VRAM_CLEARED;
->> > +     if (vm->use_cpu_for_update)
->> > +             flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
->> I think shadow flag is need for CPU case as well, which is used to
->> backup VM bo and meaningful when gpu reset.
->> same comment for pd bo.
->>
->> [HK]: Yes support for shadow BOs are desirable and it could be 
->> implemented as a separate commit. For supporting shadow BOs the 
->> caller should explicitly add shadow BOs into 
->> ttm_eu_reserve_buffer(..) to remove the BO from TTM swap list or 
->> ttm_bo_kmap has to be modified. This implementation for CPU update of 
->> VM page tables is mainly for KFD usage. Graphics will use for 
->> experimental and testing purpose. From KFD's view point shadow BO are 
->> not useful because if GPU is reset then all queue information is lost 
->> (since submissions are done by user space) and it is not possible to 
->> recover.
-> Either way is fine to me.
-
-Actually I'm thinking about if we shouldn't completely drop the shadow 
-handling.
-
-When VRAM is lost we now completely drop all jobs, so for new jobs we 
-can recreate the page table content from the VM structures as well.
-
-When VRAM is not lost we don't need to restore the page tables.
-
-What do you think?
-
-Regards,
-Christian.
-
+> The problem with tracking it per context is that Vulkan also wants the 
+> ENODEV on the amdgpu_gem_va_ioct() and amdgpu_info_ioctl() which are 
+> context less.
 >
-> David Zhou
->>
->> Regards,
->> David Zhou
->> > +     else
->> > +             flags |= (AMDGPU_GEM_CREATE_NO_CPU_ACCESS |
->> > + AMDGPU_GEM_CREATE_SHADOW);
->> > +
->> >        /* walk over the address space and allocate the page tables */
->> >        for (pt_idx = from; pt_idx <= to; ++pt_idx) {
->> >                struct reservation_object *resv = vm->root.bo->tbo.resv;
->> > @@ -310,10 +319,7 @@ static int amdgpu_vm_alloc_levels(struct 
->> amdgpu_device *adev,
->> > amdgpu_vm_bo_size(adev, level),
->> > AMDGPU_GPU_PAGE_SIZE, true,
->> > AMDGPU_GEM_DOMAIN_VRAM,
->> > - AMDGPU_GEM_CREATE_NO_CPU_ACCESS |
->> > - AMDGPU_GEM_CREATE_SHADOW |
->> > - AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS |
->> > - AMDGPU_GEM_CREATE_VRAM_CLEARED,
->> > +                                          flags,
->> >                                             NULL, resv, &pt);
->> >                        if (r)
->> >                                return r;
->> > @@ -952,6 +958,43 @@ static uint64_t amdgpu_vm_map_gart(const 
->> dma_addr_t *pages_addr, uint64_t addr)
->> >        return result;
->> >   }
->> >
->> > +/**
->> > + * amdgpu_vm_cpu_set_ptes - helper to update page tables via CPU
->> > + *
->> > + * @params: see amdgpu_pte_update_params definition
->> > + * @pe: kmap addr of the page entry
->> > + * @addr: dst addr to write into pe
->> > + * @count: number of page entries to update
->> > + * @incr: increase next addr by incr bytes
->> > + * @flags: hw access flags
->> > + */
->> > +static void amdgpu_vm_cpu_set_ptes(struct amdgpu_pte_update_params 
->> *params,
->> > +                                uint64_t pe, uint64_t addr,
->> > +                                unsigned count, uint32_t incr,
->> > +                                uint64_t flags)
->> > +{
->> > +     unsigned int i;
->> > +
->> > +     for (i = 0; i < count; i++) {
->> > + amdgpu_gart_set_pte_pde(params->adev, (void *)pe,
->> > +                                     i, addr, flags);
->> > +             addr += incr;
->> > +     }
->> > +
->> > +     mb();
->> > +     amdgpu_gart_flush_gpu_tlb(params->adev, 0);
->> > +}
->> > +
->> > +static void amdgpu_vm_bo_wait(struct amdgpu_device *adev, struct 
->> amdgpu_bo *bo)
->> > +{
->> > +     struct amdgpu_sync sync;
->> > +
->> > +     amdgpu_sync_create(&sync);
->> > +     amdgpu_sync_resv(adev, &sync, bo->tbo.resv, 
->> AMDGPU_FENCE_OWNER_VM);
->> > +     amdgpu_sync_wait(&sync);
->> > +     amdgpu_sync_free(&sync);
->> > +}
->> > +
->> >   /*
->> >    * amdgpu_vm_update_level - update a single level in the hierarchy
->> >    *
->> > @@ -981,34 +1024,50 @@ static int amdgpu_vm_update_level(struct 
->> amdgpu_device *adev,
->> >
->> >        if (!parent->entries)
->> >                return 0;
->> > -     ring = container_of(vm->entity.sched, struct amdgpu_ring, sched);
->> >
->> > -     /* padding, etc. */
->> > -     ndw = 64;
->> > +     memset(&params, 0, sizeof(params));
->> > +     params.adev = adev;
->> > +     shadow = parent->bo->shadow;
->> >
->> > -     /* assume the worst case */
->> > -     ndw += parent->last_entry_used * 6;
->> > +     WARN_ON(vm->use_cpu_for_update && shadow);
->> > +     if (vm->use_cpu_for_update && !shadow) {
->> > +             r = amdgpu_bo_kmap(parent->bo, (void **)&pd_addr);
->> > +             if (r)
->> > +                     return r;
->> > +             amdgpu_vm_bo_wait(adev, parent->bo);
->> > +             params.func = amdgpu_vm_cpu_set_ptes;
->> > +     } else {
->> > +             if (shadow) {
->> > +                     r = amdgpu_ttm_bind(&shadow->tbo, 
->> &shadow->tbo.mem);
->> > +                     if (r)
->> > +                             return r;
->> > +             }
->> > +             ring = container_of(vm->entity.sched, struct amdgpu_ring,
->> > +                                 sched);
->> >
->> > -     pd_addr = amdgpu_bo_gpu_offset(parent->bo);
->> > +             /* padding, etc. */
->> > +             ndw = 64;
->> >
->> > -     shadow = parent->bo->shadow;
->> > -     if (shadow) {
->> > -             r = amdgpu_ttm_bind(&shadow->tbo, &shadow->tbo.mem);
->> > +             /* assume the worst case */
->> > +             ndw += parent->last_entry_used * 6;
->> > +
->> > +             pd_addr = amdgpu_bo_gpu_offset(parent->bo);
->> > +
->> > +             if (shadow) {
->> > +                     shadow_addr = amdgpu_bo_gpu_offset(shadow);
->> > +                     ndw *= 2;
->> > +             } else {
->> > +                     shadow_addr = 0;
->> > +             }
->> > +
->> > +             r = amdgpu_job_alloc_with_ib(adev, ndw * 4, &job);
->> >                if (r)
->> >                        return r;
->> > -             shadow_addr = amdgpu_bo_gpu_offset(shadow);
->> > -             ndw *= 2;
->> > -     } else {
->> > -             shadow_addr = 0;
->> > -     }
->> >
->> > -     r = amdgpu_job_alloc_with_ib(adev, ndw * 4, &job);
->> > -     if (r)
->> > -             return r;
->> > +             params.ib = &job->ibs[0];
->> > +             params.func = amdgpu_vm_do_set_ptes;
->> > +     }
->> >
->> > -     memset(&params, 0, sizeof(params));
->> > -     params.adev = adev;
->> > -     params.ib = &job->ibs[0];
->> >
->> >        /* walk over the address space and update the directory */
->> >        for (pt_idx = 0; pt_idx <= parent->last_entry_used; ++pt_idx) {
->> > @@ -1043,15 +1102,15 @@ static int amdgpu_vm_update_level(struct 
->> amdgpu_device *adev,
->> > amdgpu_vm_adjust_mc_addr(adev, last_pt);
->> >
->> >                                if (shadow)
->> > - amdgpu_vm_do_set_ptes(&params,
->> > - last_shadow,
->> > - pt_addr, count,
->> > - incr,
->> > - AMDGPU_PTE_VALID);
->> > -
->> > - amdgpu_vm_do_set_ptes(&params, last_pde,
->> > - pt_addr, count, incr,
->> > - AMDGPU_PTE_VALID);
->> > + params.func(&params,
->> > + last_shadow,
->> > + pt_addr, count,
->> > + incr,
->> > + AMDGPU_PTE_VALID);
->> > +
->> > + params.func(&params, last_pde,
->> > +                                         pt_addr, count, incr,
->> > + AMDGPU_PTE_VALID);
->> >                        }
->> >
->> >                        count = 1;
->> > @@ -1067,14 +1126,16 @@ static int amdgpu_vm_update_level(struct 
->> amdgpu_device *adev,
->> >                uint64_t pt_addr = amdgpu_vm_adjust_mc_addr(adev, 
->> last_pt);
->> >
->> >                if (vm->root.bo->shadow)
->> > - amdgpu_vm_do_set_ptes(&params, last_shadow, pt_addr,
->> > -                                           count, incr, 
->> AMDGPU_PTE_VALID);
->> > +                     params.func(&params, last_shadow, pt_addr,
->> > +                                 count, incr, AMDGPU_PTE_VALID);
->> >
->> > -             amdgpu_vm_do_set_ptes(&params, last_pde, pt_addr,
->> > -                                   count, incr, AMDGPU_PTE_VALID);
->> > +             params.func(&params, last_pde, pt_addr,
->> > +                         count, incr, AMDGPU_PTE_VALID);
->> >        }
->> >
->> > -     if (params.ib->length_dw == 0) {
->> > +     if (params.func == amdgpu_vm_cpu_set_ptes)
->> > +             amdgpu_bo_kunmap(parent->bo);
->> > +     else if (params.ib->length_dw == 0) {
->> >                amdgpu_job_free(job);
->> >        } else {
->> >                amdgpu_ring_pad_ib(ring, params.ib);
->> > @@ -2309,6 +2370,7 @@ int amdgpu_vm_init(struct amdgpu_device 
->> *adev, struct amdgpu_vm *vm,
->> >        struct amdgpu_ring *ring;
->> >        struct amd_sched_rq *rq;
->> >        int r, i;
->> > +     u64 flags;
->> >
->> >        vm->va = RB_ROOT;
->> >        vm->client_id = 
->> atomic64_inc_return(&adev->vm_manager.client_counter);
->> > @@ -2342,12 +2404,17 @@ int amdgpu_vm_init(struct amdgpu_device 
->> *adev, struct amdgpu_vm *vm,
->> >                  "CPU update of VM recommended only for large BAR 
->> system\n");
->> >        vm->last_dir_update = NULL;
->> >
->> > +     flags = AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS |
->> > +                     AMDGPU_GEM_CREATE_VRAM_CLEARED;
->> > +     if (vm->use_cpu_for_update)
->> > +             flags |= AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
->> > +     else
->> > +             flags |= (AMDGPU_GEM_CREATE_NO_CPU_ACCESS |
->> > + AMDGPU_GEM_CREATE_SHADOW);
->> > +
->> >        r = amdgpu_bo_create(adev, amdgpu_vm_bo_size(adev, 0), 
->> align, true,
->> >                             AMDGPU_GEM_DOMAIN_VRAM,
->> > - AMDGPU_GEM_CREATE_NO_CPU_ACCESS |
->> > -                          AMDGPU_GEM_CREATE_SHADOW |
->> > - AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS |
->> > - AMDGPU_GEM_CREATE_VRAM_CLEARED,
->> > +                          flags,
->> >                             NULL, NULL, &vm->root.bo);
->> >        if (r)
->> >                goto error_free_sched_entity;
->>
+> But thinking more about this blocking those two doesn't make much 
+> sense. The VM content can be restored and why should be disallow 
+> reading GPU info?
+I can re-paste the Vulkan APIs requiring ENODEV:
+"
+
+The Vulkan APIs listed below could return VK_ERROR_DEVICE_LOST according 
+to the spec.
+
+I tries to provide a list of u/k interfaces that could be called for 
+each vk API.
+
+vkCreateDevice
+
+-amdgpu_device_initialize.
+
+-amdgpu_query_gpu_info
+
+vkQueueSubmit
+
+-amdgpu_cs_submit
+
+vkWaitForFences
+
+                 amdgpu_cs_wait_fences
+
+vkGetEventStatus
+
+vkQueueWaitIdle
+
+vkDeviceWaitIdle
+
+vkGetQueryPoolResults**
+
+                 amdgpu_cs_query_Fence_status
+
+vkQueueBindSparse**
+
+                 amdgpu_bo_va_op
+
+                 amdgpu_bo_va_op_raw
+
+vkCreateSwapchainKHR**
+
+vkAcquireNextImageKHR**
+
+vkQueuePresentKHR
+
+                 Not related with u/k interface.**
+
+**
+
+Besides those listed above, I think 
+amdgpu_cs_signal_Sem/amdgpu_cs_wait_sem should respond to gpu reset as 
+well."
 >
+> Christian.
 >
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
 
-
---------------7D01C8969A96AFADCEFF4FBD
-Content-Type: text/html; charset=utf-8
+--------------070709000107040806030906
+Content-Type: text/html; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 <html>
@@ -363,441 +173,223 @@ Content-Transfer-Encoding: 8bit
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
   </head>
   <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Am 17.05.2017 um 03:54 schrieb zhoucm1:<br>
+    <br>
+    <br>
+    <div class="moz-cite-prefix">On 2017年05月17日 16:40, Christian König
+      wrote:<br>
     </div>
-    <blockquote cite="mid:591BAD6C.2070605-5C7GfCeVMHo@public.gmane.org" type="cite">
-      <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <blockquote
+      cite="mid:7a302ebe-1de1-734f-fb21-aadcc7904d37-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org"
+      type="cite">Am 17.05.2017 um 10:01 schrieb Michel Dänzer:
+      <br>
+      <blockquote type="cite">On 17/05/17 04:13 PM, zhoucm1 wrote:
+        <br>
+        <blockquote type="cite">On 2017年05月17日 14:57, Michel Dänzer
+          wrote:
+          <br>
+          <blockquote type="cite">On 17/05/17 01:28 PM, zhoucm1 wrote:
+            <br>
+            <blockquote type="cite">On 2017年05月17日 11:15, Michel Dänzer
+              wrote:
+              <br>
+              <blockquote type="cite">On 17/05/17 12:04 PM, zhoucm1
+                wrote:
+                <br>
+                <blockquote type="cite">On 2017年05月17日 09:18, Michel
+                  Dänzer wrote:
+                  <br>
+                  <blockquote type="cite">On 16/05/17 06:25 PM, Chunming
+                    Zhou wrote:
+                    <br>
+                    <blockquote type="cite">Change-Id:
+                      I8eb6d7f558da05510e429d3bf1d48c8cec6c1977
+                      <br>
+                      Signed-off-by: Chunming Zhou
+                      <a class="moz-txt-link-rfc2396E" href="mailto:David1.Zhou-5C7GfCeVMHo@public.gmane.org">&lt;David1.Zhou-5C7GfCeVMHo@public.gmane.org&gt;</a>
+                      <br>
+                      <br>
+                      diff --git
+                      a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+                      <br>
+                      b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+                      <br>
+                      index bca1fb5..f3e7525 100644
+                      <br>
+                      --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+                      <br>
+                      +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+                      <br>
+                      @@ -2547,6 +2547,9 @@ int amdgpu_vm_ioctl(struct
+                      drm_device *dev,
+                      <br>
+                      void *data, struct drm_file *filp)
+                      <br>
+                               case AMDGPU_VM_OP_UNRESERVE_VMID:
+                      <br>
+                                   amdgpu_vm_free_reserved_vmid(adev,
+                      &amp;fpriv-&gt;vm,
+                      <br>
+                      AMDGPU_GFXHUB);
+                      <br>
+                                   break;
+                      <br>
+                      +    case AMDGPU_VM_OP_RESET:
+                      <br>
+                      +        fpriv-&gt;vram_lost_counter =
+                      <br>
+                      atomic_read(&amp;adev-&gt;vram_lost_counter);
+                      <br>
+                      +        break;
+                      <br>
+                    </blockquote>
+                    How do you envision the UMDs using this? I can
+                    mostly think of them
+                    <br>
+                    calling this ioctl when a context is created or
+                    destroyed. But that
+                    <br>
+                    would also allow any other remaining contexts using
+                    the same DRM file
+                    <br>
+                    descriptor to use all ioctls again. So, I think
+                    there needs to be a
+                    <br>
+                    vram_lost_counter in struct amdgpu_ctx instead of in
+                    struct
+                    <br>
+                    amdgpu_fpriv.
+                    <br>
+                  </blockquote>
+                  struct amdgpu_fpriv for vram_lost_counter is proper
+                  place, especially
+                  <br>
+                  for ioctl return value.
+                  <br>
+                  if you need to reset ctx one by one, we can mark all
+                  contexts of that
+                  <br>
+                  vm, and then reset by userspace.
+                  <br>
+                </blockquote>
+                I'm not following. With vram_lost_counter in
+                amdgpu_fpriv, if any
+                <br>
+                context calls this ioctl, all other contexts using the
+                same file
+                <br>
+                descriptor will also be considered safe again, right?
+                <br>
+              </blockquote>
+              Yes, but it really depends on userspace requirement, if
+              you need to
+              <br>
+              reset ctx one by one, we can mark all contexts of that vm
+              to guilty, and
+              <br>
+              then reset one context by userspace.
+              <br>
+            </blockquote>
+            Still not sure what you mean by that.
+            <br>
+            <br>
+            E.g. what do you mean by "guilty"? I thought that refers to
+            the context
+            <br>
+            which caused a hang. But it seems like you're using it to
+            refer to any
+            <br>
+            context which hasn't reacted yet to VRAM contents being
+            lost.
+            <br>
+          </blockquote>
+          When vram is lost, we treat all contexts need to reset.
+          <br>
+        </blockquote>
+        Essentially, your patches only track VRAM contents being lost
+        per file
+        <br>
+        descriptor, not per context. I'm not sure (rather skeptical)
+        that this
+        <br>
+        is suitable for OpenGL UMDs, since state is usually tracked per
+        context.
+        <br>
+        Marek / Nicolai?
+        <br>
+      </blockquote>
+      <br>
+      Oh, yeah that's a good point.
       <br>
       <br>
-      <div class="moz-cite-prefix">On 2017年05月17日 05:02,
-        Kasiviswanathan, Harish wrote:<br>
-      </div>
-      <blockquote
-cite="mid:CY1PR1201MB1034A467A20010323B44EAEC8CE60-JBJ/M6OpXY+irIVeHNVyQ2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org"
-        type="cite">
-        <meta http-equiv="Content-Type" content="text/html;
-          charset=utf-8">
-        <meta name="Generator" content="Microsoft Exchange Server">
-        <!-- converted from text -->
-        <style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left: #800000 2px solid; } --></style>
-        <font size="2"><span style="font-size:10pt;">
-            <div class="PlainText"><br>
-              <br>
-              -----Original Message-----<br>
-              From: Zhou, David(ChunMing) <br>
-              Sent: Monday, May 15, 2017 10:50 PM<br>
-              To: Kasiviswanathan, Harish <a moz-do-not-send="true"
-                class="moz-txt-link-rfc2396E"
-                href="mailto:Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org">&lt;Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org&gt;</a>;
-              <a moz-do-not-send="true" class="moz-txt-link-abbreviated"
-                href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-              Subject: Re: [PATCH 4/5] drm/amdgpu: Support page
-              directory update via CPU<br>
-              <br>
-              <br>
-              <br>
-              On 2017年05月16日 05:32, Harish Kasiviswanathan wrote:<br>
-              &gt; If amdgpu.vm_update_context param is set to use CPU,
-              then Page<br>
-              &gt; Directories will be updated by CPU instead of SDMA<br>
-              &gt;<br>
-              &gt; Signed-off-by: Harish Kasiviswanathan <a
-                moz-do-not-send="true" class="moz-txt-link-rfc2396E"
-                href="mailto:Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org">&lt;Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-              &gt; ---<br>
-              &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 151
-              ++++++++++++++++++++++++---------<br>
-              &gt;   1 file changed, 109 insertions(+), 42 deletions(-)<br>
-              &gt;<br>
-              &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-              b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-              &gt; index 9c89cb2..d72a624 100644<br>
-              &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-              &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-              &gt; @@ -271,6 +271,7 @@ static int
-              amdgpu_vm_alloc_levels(struct amdgpu_device *adev,<br>
-              &gt;                                  uint64_t saddr,
-              uint64_t eaddr,<br>
-              &gt;                                  unsigned level)<br>
-              &gt;   {<br>
-              &gt; +     u64 flags;<br>
-              &gt;        unsigned shift =
-              (adev-&gt;vm_manager.num_level - level) *<br>
-              &gt;                adev-&gt;vm_manager.block_size;<br>
-              &gt;        unsigned pt_idx, from, to;<br>
-              &gt; @@ -299,6 +300,14 @@ static int
-              amdgpu_vm_alloc_levels(struct amdgpu_device *adev,<br>
-              &gt;        saddr = saddr &amp; ((1 &lt;&lt; shift) - 1);<br>
-              &gt;        eaddr = eaddr &amp; ((1 &lt;&lt; shift) - 1);<br>
-              &gt;   <br>
-              &gt; +     flags = AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS |<br>
-              &gt; +                     AMDGPU_GEM_CREATE_VRAM_CLEARED;<br>
-              &gt; +     if (vm-&gt;use_cpu_for_update)<br>
-              &gt; +             flags |=
-              AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;<br>
-              I think shadow flag is need for CPU case as well, which is
-              used to <br>
-              backup VM bo and meaningful when gpu reset.<br>
-              same comment for pd bo.<br>
-              <br>
-              [HK]: Yes support for shadow BOs are desirable and it
-              could be implemented as a separate commit. For supporting
-              shadow BOs the caller should explicitly add shadow BOs
-              into ttm_eu_reserve_buffer(..) to remove the BO from TTM
-              swap list or ttm_bo_kmap has to be modified. This
-              implementation for CPU update of VM page tables is mainly
-              for KFD usage. Graphics will use for experimental and
-              testing purpose. From KFD's view point shadow BO are not
-              useful because if GPU is reset then all queue information
-              is lost (since submissions are done by user space) and it
-              is not possible to recover.<br>
-            </div>
-          </span></font></blockquote>
-      <font size="2">Either way is fine to me.<br>
-      </font></blockquote>
-    <br>
-    Actually I'm thinking about if we shouldn't completely drop the
-    shadow handling.<br>
-    <br>
-    When VRAM is lost we now completely drop all jobs, so for new jobs
-    we can recreate the page table content from the VM structures as
-    well.<br>
-    <br>
-    When VRAM is not lost we don't need to restore the page tables.<br>
-    <br>
-    What do you think?<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <blockquote cite="mid:591BAD6C.2070605-5C7GfCeVMHo@public.gmane.org" type="cite"><font
-        size="2"> <br>
-        David Zhou<br>
-      </font>
-      <blockquote
-cite="mid:CY1PR1201MB1034A467A20010323B44EAEC8CE60-JBJ/M6OpXY+irIVeHNVyQ2rFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org"
-        type="cite"><font size="2"><span style="font-size:10pt;">
-            <div class="PlainText"> <br>
-              Regards,<br>
-              David Zhou<br>
-              &gt; +     else<br>
-              &gt; +             flags |=
-              (AMDGPU_GEM_CREATE_NO_CPU_ACCESS |<br>
-              &gt; +                            
-              AMDGPU_GEM_CREATE_SHADOW);<br>
-              &gt; +<br>
-              &gt;        /* walk over the address space and allocate
-              the page tables */<br>
-              &gt;        for (pt_idx = from; pt_idx &lt;= to; ++pt_idx)
-              {<br>
-              &gt;                struct reservation_object *resv =
-              vm-&gt;root.bo-&gt;tbo.resv;<br>
-              &gt; @@ -310,10 +319,7 @@ static int
-              amdgpu_vm_alloc_levels(struct amdgpu_device *adev,<br>
-              &gt;                                            
-              amdgpu_vm_bo_size(adev, level),<br>
-              &gt;                                            
-              AMDGPU_GPU_PAGE_SIZE, true,<br>
-              &gt;                                            
-              AMDGPU_GEM_DOMAIN_VRAM,<br>
-              &gt; -                                         
-              AMDGPU_GEM_CREATE_NO_CPU_ACCESS |<br>
-              &gt; -                                         
-              AMDGPU_GEM_CREATE_SHADOW |<br>
-              &gt; -                                         
-              AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS |<br>
-              &gt; -                                         
-              AMDGPU_GEM_CREATE_VRAM_CLEARED,<br>
-              &gt; +                                          flags,<br>
-              &gt;                                             NULL,
-              resv, &amp;pt);<br>
-              &gt;                        if (r)<br>
-              &gt;                                return r;<br>
-              &gt; @@ -952,6 +958,43 @@ static uint64_t
-              amdgpu_vm_map_gart(const dma_addr_t *pages_addr, uint64_t
-              addr)<br>
-              &gt;        return result;<br>
-              &gt;   }<br>
-              &gt;   <br>
-              &gt; +/**<br>
-              &gt; + * amdgpu_vm_cpu_set_ptes - helper to update page
-              tables via CPU<br>
-              &gt; + *<br>
-              &gt; + * @params: see amdgpu_pte_update_params definition<br>
-              &gt; + * @pe: kmap addr of the page entry<br>
-              &gt; + * @addr: dst addr to write into pe<br>
-              &gt; + * @count: number of page entries to update<br>
-              &gt; + * @incr: increase next addr by incr bytes<br>
-              &gt; + * @flags: hw access flags<br>
-              &gt; + */<br>
-              &gt; +static void amdgpu_vm_cpu_set_ptes(struct
-              amdgpu_pte_update_params *params,<br>
-              &gt; +                                uint64_t pe,
-              uint64_t addr,<br>
-              &gt; +                                unsigned count,
-              uint32_t incr,<br>
-              &gt; +                                uint64_t flags)<br>
-              &gt; +{<br>
-              &gt; +     unsigned int i;<br>
-              &gt; +<br>
-              &gt; +     for (i = 0; i &lt; count; i++) {<br>
-              &gt; +            
-              amdgpu_gart_set_pte_pde(params-&gt;adev, (void *)pe,<br>
-              &gt; +                                     i, addr,
-              flags);<br>
-              &gt; +             addr += incr;<br>
-              &gt; +     }<br>
-              &gt; +<br>
-              &gt; +     mb();<br>
-              &gt; +     amdgpu_gart_flush_gpu_tlb(params-&gt;adev, 0);<br>
-              &gt; +}<br>
-              &gt; +<br>
-              &gt; +static void amdgpu_vm_bo_wait(struct amdgpu_device
-              *adev, struct amdgpu_bo *bo)<br>
-              &gt; +{<br>
-              &gt; +     struct amdgpu_sync sync;<br>
-              &gt; +<br>
-              &gt; +     amdgpu_sync_create(&amp;sync);<br>
-              &gt; +     amdgpu_sync_resv(adev, &amp;sync,
-              bo-&gt;tbo.resv, AMDGPU_FENCE_OWNER_VM);<br>
-              &gt; +     amdgpu_sync_wait(&amp;sync);<br>
-              &gt; +     amdgpu_sync_free(&amp;sync);<br>
-              &gt; +}<br>
-              &gt; +<br>
-              &gt;   /*<br>
-              &gt;    * amdgpu_vm_update_level - update a single level
-              in the hierarchy<br>
-              &gt;    *<br>
-              &gt; @@ -981,34 +1024,50 @@ static int
-              amdgpu_vm_update_level(struct amdgpu_device *adev,<br>
-              &gt;   <br>
-              &gt;        if (!parent-&gt;entries)<br>
-              &gt;                return 0;<br>
-              &gt; -     ring = container_of(vm-&gt;entity.sched, struct
-              amdgpu_ring, sched);<br>
-              &gt;   <br>
-              &gt; -     /* padding, etc. */<br>
-              &gt; -     ndw = 64;<br>
-              &gt; +     memset(&amp;params, 0, sizeof(params));<br>
-              &gt; +     params.adev = adev;<br>
-              &gt; +     shadow = parent-&gt;bo-&gt;shadow;<br>
-              &gt;   <br>
-              &gt; -     /* assume the worst case */<br>
-              &gt; -     ndw += parent-&gt;last_entry_used * 6;<br>
-              &gt; +     WARN_ON(vm-&gt;use_cpu_for_update &amp;&amp;
-              shadow);<br>
-              &gt; +     if (vm-&gt;use_cpu_for_update &amp;&amp;
-              !shadow) {<br>
-              &gt; +             r = amdgpu_bo_kmap(parent-&gt;bo, (void
-              **)&amp;pd_addr);<br>
-              &gt; +             if (r)<br>
-              &gt; +                     return r;<br>
-              &gt; +             amdgpu_vm_bo_wait(adev, parent-&gt;bo);<br>
-              &gt; +             params.func = amdgpu_vm_cpu_set_ptes;<br>
-              &gt; +     } else {<br>
-              &gt; +             if (shadow) {<br>
-              &gt; +                     r =
-              amdgpu_ttm_bind(&amp;shadow-&gt;tbo,
-              &amp;shadow-&gt;tbo.mem);<br>
-              &gt; +                     if (r)<br>
-              &gt; +                             return r;<br>
-              &gt; +             }<br>
-              &gt; +             ring =
-              container_of(vm-&gt;entity.sched, struct amdgpu_ring,<br>
-              &gt; +                                 sched);<br>
-              &gt;   <br>
-              &gt; -     pd_addr = amdgpu_bo_gpu_offset(parent-&gt;bo);<br>
-              &gt; +             /* padding, etc. */<br>
-              &gt; +             ndw = 64;<br>
-              &gt;   <br>
-              &gt; -     shadow = parent-&gt;bo-&gt;shadow;<br>
-              &gt; -     if (shadow) {<br>
-              &gt; -             r =
-              amdgpu_ttm_bind(&amp;shadow-&gt;tbo,
-              &amp;shadow-&gt;tbo.mem);<br>
-              &gt; +             /* assume the worst case */<br>
-              &gt; +             ndw += parent-&gt;last_entry_used * 6;<br>
-              &gt; +<br>
-              &gt; +             pd_addr =
-              amdgpu_bo_gpu_offset(parent-&gt;bo);<br>
-              &gt; +<br>
-              &gt; +             if (shadow) {<br>
-              &gt; +                     shadow_addr =
-              amdgpu_bo_gpu_offset(shadow);<br>
-              &gt; +                     ndw *= 2;<br>
-              &gt; +             } else {<br>
-              &gt; +                     shadow_addr = 0;<br>
-              &gt; +             }<br>
-              &gt; +<br>
-              &gt; +             r = amdgpu_job_alloc_with_ib(adev, ndw
-              * 4, &amp;job);<br>
-              &gt;                if (r)<br>
-              &gt;                        return r;<br>
-              &gt; -             shadow_addr =
-              amdgpu_bo_gpu_offset(shadow);<br>
-              &gt; -             ndw *= 2;<br>
-              &gt; -     } else {<br>
-              &gt; -             shadow_addr = 0;<br>
-              &gt; -     }<br>
-              &gt;   <br>
-              &gt; -     r = amdgpu_job_alloc_with_ib(adev, ndw * 4,
-              &amp;job);<br>
-              &gt; -     if (r)<br>
-              &gt; -             return r;<br>
-              &gt; +             params.ib = &amp;job-&gt;ibs[0];<br>
-              &gt; +             params.func = amdgpu_vm_do_set_ptes;<br>
-              &gt; +     }<br>
-              &gt;   <br>
-              &gt; -     memset(&amp;params, 0, sizeof(params));<br>
-              &gt; -     params.adev = adev;<br>
-              &gt; -     params.ib = &amp;job-&gt;ibs[0];<br>
-              &gt;   <br>
-              &gt;        /* walk over the address space and update the
-              directory */<br>
-              &gt;        for (pt_idx = 0; pt_idx &lt;=
-              parent-&gt;last_entry_used; ++pt_idx) {<br>
-              &gt; @@ -1043,15 +1102,15 @@ static int
-              amdgpu_vm_update_level(struct amdgpu_device *adev,<br>
-              &gt;                                       
-              amdgpu_vm_adjust_mc_addr(adev, last_pt);<br>
-              &gt;   <br>
-              &gt;                                if (shadow)<br>
-              &gt; -                                    
-              amdgpu_vm_do_set_ptes(&amp;params,<br>
-              &gt;
-              -                                                          
-              last_shadow,<br>
-              &gt;
-              -                                                          
-              pt_addr, count,<br>
-              &gt;
-              -                                                          
-              incr,<br>
-              &gt;
-              -                                                          
-              AMDGPU_PTE_VALID);<br>
-              &gt; -<br>
-              &gt; -                            
-              amdgpu_vm_do_set_ptes(&amp;params, last_pde,<br>
-              &gt; -                                                  
-              pt_addr, count, incr,<br>
-              &gt; -                                                  
-              AMDGPU_PTE_VALID);<br>
-              &gt; +                                    
-              params.func(&amp;params,<br>
-              &gt; +                                                
-              last_shadow,<br>
-              &gt; +                                                
-              pt_addr, count,<br>
-              &gt; +                                                
-              incr,<br>
-              &gt; +                                                
-              AMDGPU_PTE_VALID);<br>
-              &gt; +<br>
-              &gt; +                            
-              params.func(&amp;params, last_pde,<br>
-              &gt; +                                         pt_addr,
-              count, incr,<br>
-              &gt; +                                        
-              AMDGPU_PTE_VALID);<br>
-              &gt;                        }<br>
-              &gt;   <br>
-              &gt;                        count = 1;<br>
-              &gt; @@ -1067,14 +1126,16 @@ static int
-              amdgpu_vm_update_level(struct amdgpu_device *adev,<br>
-              &gt;                uint64_t pt_addr =
-              amdgpu_vm_adjust_mc_addr(adev, last_pt);<br>
-              &gt;   <br>
-              &gt;                if (vm-&gt;root.bo-&gt;shadow)<br>
-              &gt; -                    
-              amdgpu_vm_do_set_ptes(&amp;params, last_shadow, pt_addr,<br>
-              &gt; -                                           count,
-              incr, AMDGPU_PTE_VALID);<br>
-              &gt; +                     params.func(&amp;params,
-              last_shadow, pt_addr,<br>
-              &gt; +                                 count, incr,
-              AMDGPU_PTE_VALID);<br>
-              &gt;   <br>
-              &gt; -             amdgpu_vm_do_set_ptes(&amp;params,
-              last_pde, pt_addr,<br>
-              &gt; -                                   count, incr,
-              AMDGPU_PTE_VALID);<br>
-              &gt; +             params.func(&amp;params, last_pde,
-              pt_addr,<br>
-              &gt; +                         count, incr,
-              AMDGPU_PTE_VALID);<br>
-              &gt;        }<br>
-              &gt;   <br>
-              &gt; -     if (params.ib-&gt;length_dw == 0) {<br>
-              &gt; +     if (params.func == amdgpu_vm_cpu_set_ptes)<br>
-              &gt; +             amdgpu_bo_kunmap(parent-&gt;bo);<br>
-              &gt; +     else if (params.ib-&gt;length_dw == 0) {<br>
-              &gt;                amdgpu_job_free(job);<br>
-              &gt;        } else {<br>
-              &gt;                amdgpu_ring_pad_ib(ring, params.ib);<br>
-              &gt; @@ -2309,6 +2370,7 @@ int amdgpu_vm_init(struct
-              amdgpu_device *adev, struct amdgpu_vm *vm,<br>
-              &gt;        struct amdgpu_ring *ring;<br>
-              &gt;        struct amd_sched_rq *rq;<br>
-              &gt;        int r, i;<br>
-              &gt; +     u64 flags;<br>
-              &gt;   <br>
-              &gt;        vm-&gt;va = RB_ROOT;<br>
-              &gt;        vm-&gt;client_id =
-              atomic64_inc_return(&amp;adev-&gt;vm_manager.client_counter);<br>
-              &gt; @@ -2342,12 +2404,17 @@ int amdgpu_vm_init(struct
-              amdgpu_device *adev, struct amdgpu_vm *vm,<br>
-              &gt;                  "CPU update of VM recommended only
-              for large BAR system\n");<br>
-              &gt;        vm-&gt;last_dir_update = NULL;<br>
-              &gt;   <br>
-              &gt; +     flags = AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS |<br>
-              &gt; +                     AMDGPU_GEM_CREATE_VRAM_CLEARED;<br>
-              &gt; +     if (vm-&gt;use_cpu_for_update)<br>
-              &gt; +             flags |=
-              AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;<br>
-              &gt; +     else<br>
-              &gt; +             flags |=
-              (AMDGPU_GEM_CREATE_NO_CPU_ACCESS |<br>
-              &gt; +                            
-              AMDGPU_GEM_CREATE_SHADOW);<br>
-              &gt; +<br>
-              &gt;        r = amdgpu_bo_create(adev,
-              amdgpu_vm_bo_size(adev, 0), align, true,<br>
-              &gt;                             AMDGPU_GEM_DOMAIN_VRAM,<br>
-              &gt; -                         
-              AMDGPU_GEM_CREATE_NO_CPU_ACCESS |<br>
-              &gt; -                          AMDGPU_GEM_CREATE_SHADOW |<br>
-              &gt; -                         
-              AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS |<br>
-              &gt; -                         
-              AMDGPU_GEM_CREATE_VRAM_CLEARED,<br>
-              &gt; +                          flags,<br>
-              &gt;                             NULL, NULL,
-              &amp;vm-&gt;root.bo);<br>
-              &gt;        if (r)<br>
-              &gt;                goto error_free_sched_entity;<br>
-              <br>
-            </div>
-          </span></font> </blockquote>
+      The problem with tracking it per context is that Vulkan also wants
+      the ENODEV on the amdgpu_gem_va_ioct() and amdgpu_info_ioctl()
+      which are context less.
       <br>
       <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
+      But thinking more about this blocking those two doesn't make much
+      sense. The VM content can be restored and why should be disallow
+      reading GPU info?
       <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
     </blockquote>
-    <p><br>
-    </p>
+    I can re-paste the Vulkan APIs requiring ENODEV:<br>
+    "
+    <p class="MsoNormal">The Vulkan APIs listed below could return
+      VK_ERROR_DEVICE_LOST according to the spec. <o:p></o:p></p>
+    <p class="MsoNormal">I tries to provide a list of u/k interfaces
+      that could be called for each vk API.<o:p></o:p></p>
+    <p class="MsoNormal"><o:p> </o:p></p>
+    <p class="MsoNormal">vkCreateDevice<o:p></o:p></p>
+    <p class="MsoListParagraph" style="text-indent:-.25in;mso-list:l1
+      level1 lfo2"><span style="mso-list:Ignore">-<span
+          style="font:7.0pt &quot;Times New Roman&quot;">          </span></span><span
+        style="color:#1F497D">amdgpu_device_initialize.<o:p></o:p></span></p>
+    <p class="MsoListParagraph" style="text-indent:-.25in;mso-list:l1
+      level1 lfo2"><span style="mso-list:Ignore">-<span
+          style="font:7.0pt &quot;Times New Roman&quot;">          </span></span><span
+        style="color:#1F497D">amdgpu_query_gpu_info<o:p></o:p></span></p>
+    <p class="MsoNormal"><o:p> </o:p></p>
+    <p class="MsoNormal">vkQueueSubmit<o:p></o:p></p>
+    <p class="MsoListParagraph" style="text-indent:-.25in;mso-list:l1
+      level1 lfo2"><span style="mso-list:Ignore">-<span
+          style="font:7.0pt &quot;Times New Roman&quot;">          </span></span>amdgpu_cs_submit<o:p></o:p></p>
+    <p class="MsoNormal"><o:p> </o:p></p>
+    <p class="MsoNormal">vkWaitForFences<o:p></o:p></p>
+    <p class="MsoNormal">                amdgpu_cs_wait_fences<span
+        style="color:#1F497D"><o:p></o:p></span></p>
+    <p class="MsoNormal"><o:p> </o:p></p>
+    <p class="MsoNormal">vkGetEventStatus<o:p></o:p></p>
+    <p class="MsoNormal">vkQueueWaitIdle<o:p></o:p></p>
+    <p class="MsoNormal">vkDeviceWaitIdle<o:p></o:p></p>
+    <p class="MsoNormal">vkGetQueryPoolResults<b><o:p></o:p></b></p>
+    <p class="MsoNormal">                amdgpu_cs_query_Fence_status<o:p></o:p></p>
+    <p class="MsoNormal"><o:p> </o:p></p>
+    <p class="MsoNormal">vkQueueBindSparse<b><o:p></o:p></b></p>
+    <p class="MsoNormal">                amdgpu_bo_va_op<o:p></o:p></p>
+    <p class="MsoNormal">                amdgpu_bo_va_op_raw<o:p></o:p></p>
+    <p class="MsoNormal"><o:p> </o:p></p>
+    <p class="MsoNormal">vkCreateSwapchainKHR<b><o:p></o:p></b></p>
+    <p class="MsoNormal">vkAcquireNextImageKHR<b><o:p></o:p></b></p>
+    <p class="MsoNormal">vkQueuePresentKHR<o:p></o:p></p>
+    <p class="MsoNormal">                Not related with u/k interface.<b><o:p></o:p></b></p>
+    <p class="MsoNormal"><b><o:p> </o:p></b></p>
+    Besides those listed above, I think
+    amdgpu_cs_signal_Sem/amdgpu_cs_wait_sem should respond to gpu reset
+    as well."<br>
+    <blockquote
+      cite="mid:7a302ebe-1de1-734f-fb21-aadcc7904d37-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org"
+      type="cite">
+      <br>
+      Christian.
+      <br>
+      <br>
+    </blockquote>
+    <br>
   </body>
 </html>
 
---------------7D01C8969A96AFADCEFF4FBD--
+--------------070709000107040806030906--
 
---===============1800315943==
+--===============1237623221==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -807,4 +399,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1800315943==--
+--===============1237623221==--
