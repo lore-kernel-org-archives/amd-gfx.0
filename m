@@ -1,63 +1,87 @@
-From: Bjorn Helgaas <helgaas@kernel.org>
-Subject: Re: [PATCH 3/4] x86/PCI: Enable a 64bit BAR on AMD Family 15h
- (Models 30h-3fh) Processors
-Date: Wed, 17 May 2017 16:36:45 -0500
-Message-ID: <20170517213645.GA21886@bhelgaas-glaptop.roam.corp.google.com>
-References: <1489408896-25039-1-git-send-email-deathsimple@vodafone.de>
- <1489408896-25039-4-git-send-email-deathsimple@vodafone.de>
- <20170324154744.GE25380@bhelgaas-glaptop.roam.corp.google.com>
- <a1ac66f3-3c3f-e9c6-82c9-6e9ca5715b67@vodafone.de>
- <20170412165530.GE25197@bhelgaas-glaptop.roam.corp.google.com>
- <de846814-5884-69a5-3eb6-fec5c5c6896d@vodafone.de>
+From: Nicolai Stange <nicstange@gmail.com>
+Subject: [REGRESSION] drm/radeon: Don't register Thunderbolt eGPU with
+ vga_switcheroo
+Date: Wed, 17 May 2017 23:08:23 +0200
+Message-ID: <87h90jkx88.fsf@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Return-path: <platform-driver-x86-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <de846814-5884-69a5-3eb6-fec5c5c6896d@vodafone.de>
-Sender: platform-driver-x86-owner@vger.kernel.org
-To: Christian =?iso-8859-1?Q?K=F6nig?= <deathsimple@vodafone.de>
-Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Lukas Wunner <lukas@wunner.de>
+Cc: Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org, =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Tue, Apr 25, 2017 at 03:01:35PM +0200, Christian König wrote:
-> Am 12.04.2017 um 18:55 schrieb Bjorn Helgaas:
-> >[SNIP]
-> >>>I think the specs would envision this being done via an ACPI _SRS
-> >>>method on the PNP0A03 host bridge device.  That would be a more
-> >>>generic path that would work on any host bridge.  Did you explore that
-> >>>possibility?  I would prefer to avoid adding device-specific code if
-> >>>that's possible.
-> >>I've checked quite a few boards, but none of them actually
-> >>implements it this way.
-> >>
-> >>M$ is working on a new ACPI table to enable this vendor neutral, but
-> >>I guess that will still take a while.
-> >>
-> >>I want to support this for all AMD CPU released in the past 5 years
-> >>or so, so we are going to deal with a bunch of older boards as well.
-> >I've never seen _SRS for host bridges either.  I'm curious about what
-> >sort of new table will be proposed.  It seems like the existing ACPI
-> >resource framework could manage it, but I certainly don't know all the
-> >issues.
-> 
-> No idea either since I'm not involved into that. My job is to get it
-> working on the existing hw generations and that alone is enough work
-> :)
-> 
-> My best guess is that MS is going to either make _SRS on the host
-> bridge or a pre-configured 64bit window mandatory for the BIOS.
-
-While researching something else, I noticed that the PCI Firmware Spec, rev
-3.2, does indeed call out _PRS and _SRS as the mechanism for the OS to
-configure host bridge windows.  See sections 4.1.3, 4.3.2.1, and 4.6.5.
-
-Sec 4.6.5 also includes an implementation note that might be a clue about
-the "compatibility issues" that prevent the BIOS from enabling the window
-in the first place.
-
-I'd like to incorporate some of this info into these changes, probably in a
-code comment and changelog, so we can encourage a more generic approach in
-the future, even if we can't use it in all existing cases.
-
-Bjorn
+SGksCgpJJ20gZXhwZXJpZW5jaW5nIGEgYm9vdCBmYWlsdXJlIG9uIG5leHQtMjAxNzA1MTU6Cgog
+IEJVRzogdW5hYmxlIHRvIGhhbmRsZSBrZXJuZWwgTlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlIGF0
+IDAwMDAwMDAwMDAwMDA3Y2IKICBJUDogcmFkZW9uX2RyaXZlcl9sb2FkX2ttcysweGViLzB4MjMw
+IFtyYWRlb25dCiAgUEdEIDAgCiAgUDREIDAgCiAgCiAgT29wczogMDAwMCBbIzFdIFNNUAogIE1v
+ZHVsZXMgbGlua2VkIGluOiBhbWRrZmQgYW1kX2lvbW11X3YyIGk5MTUoKykgcmFkZW9uKCspIGky
+Y19hbGdvX2JpdCBkcm1fa21zX2hlbHBlciB0dG0gZTEwMDBlIGRybSBzZGhjaV9wY2kgc2RoY2lf
+YWNwaSBwdHAgc2RoY2kgY3JjMzJjX2ludGVsIHNlcmlvX3JhdyBtbWNfY29yZSBwcHNfY29yZSB2
+aWRlbyBpMmNfaGlkIGhpZF9wbGFudHJvbmljcwogIENQVTogNCBQSUQ6IDM4OSBDb21tOiBzeXN0
+ZW1kLXVkZXZkIE5vdCB0YWludGVkIDQuMTIuMC1yYzEtbmV4dC0yMDE3MDUxNSsgIzEKICBIYXJk
+d2FyZSBuYW1lOiBEZWxsIEluYy4gTGF0aXR1ZGUgRTY1NDAvMDcyNUZQLCBCSU9TIEExMCAwNi8y
+Ni8yMDE0CiAgdGFzazogZmZmZjk3ZDYyYzhmMDAwMCB0YXNrLnN0YWNrOiBmZmZmYjk2ZjAxNDc4
+MDAwCiAgUklQOiAwMDEwOnJhZGVvbl9kcml2ZXJfbG9hZF9rbXMrMHhlYi8weDIzMCBbcmFkZW9u
+XQogIFJTUDogMDAxODpmZmZmYjk2ZjAxNDdiOWQwIEVGTEFHUzogMDAwMTAyNDYKICBSQVg6IDAw
+MDAwMDAwMDAwMDAwMDAgUkJYOiBmZmZmOTdkNjIwMDg1MDAwIFJDWDogMDAwMDAwMDAwMDYxMDAz
+NwogIFJEWDogMDAwMDAwMDAwMDAwMDAwMCBSU0k6IDAwMDAwMDAwMDAwMDAwMmIgUkRJOiAwMDAw
+MDAwMDAwMDAwMDAwCiAgUkJQOiBmZmZmYjk2ZjAxNDdiOWU4IFIwODogMDAwMDAwMDAwMDAwMDAw
+MiBSMDk6IGZmZmZiOTZmMDE0N2I5MjQKICBSMTA6IDAwMDAwMDAwMDAwMDAwMDAgUjExOiBmZmZm
+OTdkNjJlZGQyZWMwIFIxMjogZmZmZjk3ZDYyOGQ1YzAwMAogIFIxMzogMDAwMDAwMDAwMDYxMDAz
+NyBSMTQ6IGZmZmZmZmZmYzA2OTgyODAgUjE1OiAwMDAwMDAwMDAwMDAwMDAwCiAgRlM6ICAwMDAw
+N2Y0OTYzNjNkOGMwKDAwMDApIEdTOmZmZmY5N2Q2MmViMDAwMDAoMDAwMCkga25sR1M6MDAwMDAw
+MDAwMDAwMDAwMAogIENTOiAgMDAxMCBEUzogMDAwMCBFUzogMDAwMCBDUjA6IDAwMDAwMDAwODAw
+NTAwMzMKICBDUjI6IDAwMDAwMDAwMDAwMDA3Y2IgQ1IzOiAwMDAwMDAwMjJjMTRjMDAwIENSNDog
+MDAwMDAwMDAwMDE0MDZlMAogIENhbGwgVHJhY2U6CiAgIGRybV9kZXZfcmVnaXN0ZXIrMHgxNDYv
+MHgxZDAgW2RybV0KICAgZHJtX2dldF9wY2lfZGV2KzB4OWEvMHgxODAgW2RybV0KICAgcmFkZW9u
+X3BjaV9wcm9iZSsweGI4LzB4ZTAgW3JhZGVvbl0KICAgbG9jYWxfcGNpX3Byb2JlKzB4NDUvMHhh
+MAogICBwY2lfZGV2aWNlX3Byb2JlKzB4MTRmLzB4MWEwCiAgIGRyaXZlcl9wcm9iZV9kZXZpY2Ur
+MHgyOWMvMHg0NTAKICAgX19kcml2ZXJfYXR0YWNoKzB4ZGYvMHhmMAogICA/IGRyaXZlcl9wcm9i
+ZV9kZXZpY2UrMHg0NTAvMHg0NTAKICAgYnVzX2Zvcl9lYWNoX2RldisweDZjLzB4YzAKICAgZHJp
+dmVyX2F0dGFjaCsweDFlLzB4MjAKICAgYnVzX2FkZF9kcml2ZXIrMHgxNzAvMHgyNzAKICAgZHJp
+dmVyX3JlZ2lzdGVyKzB4NjAvMHhlMAogICA/IDB4ZmZmZmZmZmZjMDUwODAwMAogICBfX3BjaV9y
+ZWdpc3Rlcl9kcml2ZXIrMHg0Yy8weDUwCiAgIGRybV9wY2lfaW5pdCsweGViLzB4MTAwIFtkcm1d
+CiAgID8gdmdhX3N3aXRjaGVyb29fcmVnaXN0ZXJfaGFuZGxlcisweDZhLzB4OTAKICAgPyAweGZm
+ZmZmZmZmYzA1MDgwMDAKICAgcmFkZW9uX2luaXQrMHg5OC8weGI2IFtyYWRlb25dCiAgIGRvX29u
+ZV9pbml0Y2FsbCsweDUyLzB4MWEwCiAgID8gX192dW5tYXArMHg4MS8weGIwCiAgID8ga21lbV9j
+YWNoZV9hbGxvY190cmFjZSsweDE1OS8weDFiMAogICA/IGRvX2luaXRfbW9kdWxlKzB4MjcvMHgx
+ZjgKICAgZG9faW5pdF9tb2R1bGUrMHg1Zi8weDFmOAogICBsb2FkX21vZHVsZSsweDI3Y2UvMHgy
+YmUwCiAgIFNZU0NfZmluaXRfbW9kdWxlKzB4ZGYvMHgxMTAKICAgPyBTWVNDX2Zpbml0X21vZHVs
+ZSsweGRmLzB4MTEwCiAgIFN5U19maW5pdF9tb2R1bGUrMHhlLzB4MTAKICAgZG9fc3lzY2FsbF82
+NCsweDY3LzB4MTUwCiAgIGVudHJ5X1NZU0NBTEw2NF9zbG93X3BhdGgrMHgyNS8weDI1CiAgUklQ
+OiAwMDMzOjB4N2Y0OTYyMjk1Njc5CiAgUlNQOiAwMDJiOjAwMDA3ZmZkZDhjNGY4NzggRUZMQUdT
+OiAwMDAwMDI0NiBPUklHX1JBWDogMDAwMDAwMDAwMDAwMDEzOQogIFJBWDogZmZmZmZmZmZmZmZm
+ZmZkYSBSQlg6IDAwMDA1NWMwMTRlZDgyMDAgUkNYOiAwMDAwN2Y0OTYyMjk1Njc5CiAgUkRYOiAw
+MDAwMDAwMDAwMDAwMDAwIFJTSTogMDAwMDdmNDk2MmRkMTljNSBSREk6IDAwMDAwMDAwMDAwMDAw
+MTAKICBSQlA6IDAwMDA3ZjQ5NjJkZDE5YzUgUjA4OiAwMDAwMDAwMDAwMDAwMDAwIFIwOTogMDAw
+MDdmZmRkOGM0Zjk5MAogIFIxMDogMDAwMDAwMDAwMDAwMDAxMCBSMTE6IDAwMDAwMDAwMDAwMDAy
+NDYgUjEyOiAwMDAwMDAwMDAwMDAwMDAwCiAgUjEzOiAwMDAwNTVjMDE0ZWQ4MWEwIFIxNDogMDAw
+MDAwMDAwMDAyMDAwMCBSMTU6IDAwMDA1NWMwMTQ5ZDFmY2EKICBDb2RlOiA1ZCA1ZCBjMyA4YiAw
+NSBhNyAwNSAxNCAwMCA0OSA4MSBjZCAwMCAwMCAwOCAwMCA4NSBjMCA3NCBhMyBlOCBlNyBjMCAw
+ZSAwMCA4NCBjMCA3NCA5YSA0MSBmNyBjNSAwMCAwMCAwMiAwMCA3NSA5MSA0OSA4YiA0NCAyNCAx
+MCA8MGY+IGI2IDkwIGNiIDA3IDAwIDAwIGY2IGMyIDIwIDc0IDFlIGU5IDdiIGZmIGZmIGZmIDQ4
+IDhiIDQwIDM4IAogIFJJUDogcmFkZW9uX2RyaXZlcl9sb2FkX2ttcysweGViLzB4MjMwIFtyYWRl
+b25dIFJTUDogZmZmZmI5NmYwMTQ3YjlkMAogIENSMjogMDAwMDAwMDAwMDAwMDdjYgogIC0tLVsg
+ZW5kIHRyYWNlIDg5Y2M0YmE3ZTU2OWM2NWMgXS0tLQoKCkJpc2VjdGlvbiBsZWFkIHRvIGNvbW1p
+dCA3ZmZiMGNlMzFjZjkgKCJkcm0vcmFkZW9uOiBEb24ndCByZWdpc3RlcgpUaHVuZGVyYm9sdCBl
+R1BVIHdpdGggdmdhX3N3aXRjaGVyb28iKS4gUmV2ZXJ0aW5nIHRoaXMgY29tbWl0IG9uIHRvcCBv
+ZgpuZXh0LTIwMTcwNTE1IGZpeGVzIHRoZSBpc3N1ZSBmb3IgbWUuCgpNeSBib3ggaXMgYSBEZWxs
+IGxhcHRvcCB3aGljaCBtb3N0IGNlcnRhaW5seSBoYXNuJ3QgZ290IGFueSBUaHVuZGVyYm9sdApj
+aXJjdWl0cnkuCgpsc3BjaSBzYXlzIHRoYXQgbXkgcmFkZW9uIGNhcmQgaXMgYQogIDAxOjAwLjAg
+VkdBIGNvbXBhdGlibGUgY29udHJvbGxlcjogQWR2YW5jZWQgTWljcm8gRGV2aWNlcywgSW5jLiBb
+QU1EL0FUSV0gTWFycyBYVFggW1JhZGVvbiBIRCA4NzkwTV0gKHJldiBmZikgKHByb2ctaWYgZmYp
+CgpvciBpbiByYXcgZm9ybToKCiAgMDE6MDAuMCAwMzAwOiAxMDAyOjY2MDYgKHJldiBmZikKCgpU
+aGFua3MsCgpOaWNvbGFpCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1k
+ZXZlbAo=
