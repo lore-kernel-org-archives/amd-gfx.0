@@ -1,15 +1,13 @@
-From: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: fix re-program vm invalidate eng address
- range for gfxhub on resume
-Date: Wed, 17 May 2017 16:19:40 +0800
-Message-ID: <591C079C.4070902@amd.com>
-References: <1495006729-17310-1-git-send-email-ray.huang@amd.com>
- <591BFF33.2010303@amd.com> <20170517075557.GA31947@hr-amur2>
- <591C05B5.4090902@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] gpu: drm: radeon: refactor code
+Date: Wed, 17 May 2017 10:22:59 +0200
+Message-ID: <6b1a4f85-bf6e-2b0f-7b7d-2eef9756113b@amd.com>
+References: <20170517022012.GA11913@embeddedgus>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0096630680=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <591C05B5.4090902-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20170517022012.GA11913@embeddedgus>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,314 +18,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Huan,
- Alvin" <Alvin.Huan-5C7GfCeVMHo@public.gmane.org>, "Wang, Ken" <Ken.Wang-5C7GfCeVMHo@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Gustavo A. R. Silva" <garsilva-L1vi/lXTdts+Va1GwOuvDg@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>
+Cc: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
 
---===============0096630680==
-Content-Type: multipart/alternative;
-	boundary="------------010307060204030805040603"
-
---------------010307060204030805040603
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-
-see here, I already find dis-advance:
-enum amd_ip_block_type {
-         AMD_IP_BLOCK_TYPE_COMMON,
-         AMD_IP_BLOCK_TYPE_GMC,
-         AMD_IP_BLOCK_TYPE_IH,
-         AMD_IP_BLOCK_TYPE_SMC,
-         AMD_IP_BLOCK_TYPE_PSP,
-         AMD_IP_BLOCK_TYPE_DCE,
-         AMD_IP_BLOCK_TYPE_GFX,
-         AMD_IP_BLOCK_TYPE_SDMA,
-         AMD_IP_BLOCK_TYPE_UVD,
-         AMD_IP_BLOCK_TYPE_VCE,
-         AMD_IP_BLOCK_TYPE_ACP,
-         AMD_IP_BLOCK_TYPE_GFXHUB,
-         AMD_IP_BLOCK_TYPE_MMHUB
-};
-resume will follow this sequence.
-but initial sequence is :
-               amdgpu_ip_block_add(adev, &vega10_common_ip_block);
-                 amdgpu_ip_block_add(adev, &gfxhub_v1_0_ip_block);
-                 amdgpu_ip_block_add(adev, &mmhub_v1_0_ip_block);
-                 amdgpu_ip_block_add(adev, &gmc_v9_0_ip_block);
-                 amdgpu_ip_block_add(adev, &vega10_ih_ip_block);
-                 if (amdgpu_fw_load_type == 2 || amdgpu_fw_load_type == -1)
-                         amdgpu_ip_block_add(adev, &psp_v3_1_ip_block);
-                 if (!amdgpu_sriov_vf(adev))
-                         amdgpu_ip_block_add(adev, &amdgpu_pp_ip_block);
-                 if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
-                         amdgpu_ip_block_add(adev, &dce_virtual_ip_block);
-#if defined(CONFIG_DRM_AMD_DC)
-                 else if (amdgpu_device_has_dc_support(adev))
-                         amdgpu_ip_block_add(adev, &dm_ip_block);
-#else
-#       warning "Enable CONFIG_DRM_AMD_DC for display support on SOC15."
-#endif
-                 amdgpu_ip_block_add(adev, &gfx_v9_0_ip_block);
-                 amdgpu_ip_block_add(adev, &sdma_v4_0_ip_block);
-                 amdgpu_ip_block_add(adev, &uvd_v7_0_ip_block);
-                 amdgpu_ip_block_add(adev, &vce_v4_0_ip_block);
-
-
-They are different. I remember I asked you if they are same, don't know 
-why you answer 'yes'.
-
-With s3 problem still in there, please do this improvement asap.
-
-Regards,
-David Zhou
-
-On 2017年05月17日 16:11, zhoucm1 wrote:
->
->
-> On 2017年05月17日 15:55, Huang Rui wrote:
->> On Wed, May 17, 2017 at 03:43:47PM +0800, Zhou, David(ChunMing) wrote:
->>> By this change, I suggest to remove mmhub/gfxhub_v1_0_ip_funcs and 
->>> their
->>> IP block, unify them to gmc ip block, this way we cannot lost setting
->>> when resume back.
->>>
->>  From hw side, wo won't have real gmc since this chip, mmhub and 
->> gfxhub(gc)
->> instead of it. Maybe we would better to align with hw desgin.
-> I don't see any advance, as you said, we still have gmc block in 
-> soc15, why not unify mmhub/gfxhub calls to gmc block?
-> We can keep mmhub/gfxhub_xxx.c file, but ip_funciton isn't necessary.
->
-> Regards,
-> David Zhou
->>
->> Thanks,
->> Rui
->>
->>> Regards,
->>> David Zhou
->>>
->>> On 2017年05月17日 15:38, Huang Rui wrote:
->>>> Signed-off-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
->>>> ---
->>>>    drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c | 2 +-
->>>>    1 file changed, 1 insertion(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c 
->>>> b/drivers/gpu/drm/amd/
->>> amdgpu/gfxhub_v1_0.c
->>>> index 005075f..41313514 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
->>>> @@ -368,7 +368,7 @@ static int gfxhub_v1_0_suspend(void *handle)
->>>>      static int gfxhub_v1_0_resume(void *handle)
->>>>    {
->>>> -     return 0;
->>>> +     return gfxhub_v1_0_hw_init(handle);
->>>>    }
->>>>      static bool gfxhub_v1_0_is_idle(void *handle)
->> _______________________________________________
->> amd-gfx mailing list
->> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------010307060204030805040603
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    see here, I already find dis-advance:<br>
-    enum amd_ip_block_type {<br>
-    <font color="#cc0000">        AMD_IP_BLOCK_TYPE_COMMON,<br>
-              AMD_IP_BLOCK_TYPE_GMC,</font><br>
-            AMD_IP_BLOCK_TYPE_IH,<br>
-            AMD_IP_BLOCK_TYPE_SMC,<br>
-            AMD_IP_BLOCK_TYPE_PSP,            <br>
-            AMD_IP_BLOCK_TYPE_DCE,<br>
-            AMD_IP_BLOCK_TYPE_GFX,<br>
-            AMD_IP_BLOCK_TYPE_SDMA,<br>
-            AMD_IP_BLOCK_TYPE_UVD,<br>
-            AMD_IP_BLOCK_TYPE_VCE,<br>
-            AMD_IP_BLOCK_TYPE_ACP,<br>
-    <font color="#cc0000">        AMD_IP_BLOCK_TYPE_GFXHUB,<br>
-              AMD_IP_BLOCK_TYPE_MMHUB</font><br>
-    };<br>
-    resume will follow this sequence.<br>
-    but initial sequence is :<br>
-                  amdgpu_ip_block_add(adev,
-    &amp;vega10_common_ip_block);<br>
-    <font color="#cc0000">                amdgpu_ip_block_add(adev,
-      &amp;gfxhub_v1_0_ip_block);<br>
-                      amdgpu_ip_block_add(adev,
-      &amp;mmhub_v1_0_ip_block);<br>
-                      amdgpu_ip_block_add(adev, &amp;gmc_v9_0_ip_block);</font><br>
-                    amdgpu_ip_block_add(adev, &amp;vega10_ih_ip_block);<br>
-                    if (amdgpu_fw_load_type == 2 || amdgpu_fw_load_type
-    == -1)<br>
-                            amdgpu_ip_block_add(adev,
-    &amp;psp_v3_1_ip_block);<br>
-                    if (!amdgpu_sriov_vf(adev))<br>
-                            amdgpu_ip_block_add(adev,
-    &amp;amdgpu_pp_ip_block);<br>
-                    if (adev-&gt;enable_virtual_display ||
-    amdgpu_sriov_vf(adev))<br>
-                            amdgpu_ip_block_add(adev,
-    &amp;dce_virtual_ip_block);<br>
-    #if defined(CONFIG_DRM_AMD_DC)<br>
-                    else if (amdgpu_device_has_dc_support(adev))<br>
-                            amdgpu_ip_block_add(adev, &amp;dm_ip_block);<br>
-    #else<br>
-    #       warning "Enable CONFIG_DRM_AMD_DC for display support on
-    SOC15."<br>
-    #endif<br>
-                    amdgpu_ip_block_add(adev, &amp;gfx_v9_0_ip_block);<br>
-                    amdgpu_ip_block_add(adev, &amp;sdma_v4_0_ip_block);<br>
-                    amdgpu_ip_block_add(adev, &amp;uvd_v7_0_ip_block);<br>
-                    amdgpu_ip_block_add(adev, &amp;vce_v4_0_ip_block);<br>
-    <br>
-    <br>
-    They are different. I remember I asked you if they are same, don't
-    know why you answer 'yes'.<br>
-    <br>
-    With s3 problem still in there, please do this improvement asap.<br>
-    <br>
-    Regards,<br>
-    David Zhou<br>
-    <br>
-    <div class="moz-cite-prefix">On 2017年05月17日 16:11, zhoucm1 wrote:<br>
-    </div>
-    <blockquote cite="mid:591C05B5.4090902-5C7GfCeVMHo@public.gmane.org" type="cite">
-      <br>
-      <br>
-      On 2017年05月17日 15:55, Huang Rui wrote:
-      <br>
-      <blockquote type="cite">On Wed, May 17, 2017 at 03:43:47PM +0800,
-        Zhou, David(ChunMing) wrote:
-        <br>
-        <blockquote type="cite">By this change, I suggest to remove
-          mmhub/gfxhub_v1_0_ip_funcs and their
-          <br>
-          IP block, unify them to gmc ip block, this way we cannot lost
-          setting
-          <br>
-          when resume back.
-          <br>
-          <br>
-        </blockquote>
-         From hw side, wo won't have real gmc since this chip, mmhub and
-        gfxhub(gc)
-        <br>
-        instead of it. Maybe we would better to align with hw desgin.
-        <br>
-      </blockquote>
-      I don't see any advance, as you said, we still have gmc block in
-      soc15, why not unify mmhub/gfxhub calls to gmc block?
-      <br>
-      We can keep mmhub/gfxhub_xxx.c file, but ip_funciton isn't
-      necessary.
-      <br>
-      <br>
-      Regards,
-      <br>
-      David Zhou
-      <br>
-      <blockquote type="cite">
-        <br>
-        Thanks,
-        <br>
-        Rui
-        <br>
-        <br>
-        <blockquote type="cite">Regards,
-          <br>
-          David Zhou
-          <br>
-          <br>
-          On 2017年05月17日 15:38, Huang Rui wrote:
-          <br>
-          <blockquote type="cite">Signed-off-by: Huang Rui
-            <a class="moz-txt-link-rfc2396E" href="mailto:ray.huang-5C7GfCeVMHo@public.gmane.org">&lt;ray.huang-5C7GfCeVMHo@public.gmane.org&gt;</a>
-            <br>
-            ---
-            <br>
-               drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c | 2 +-
-            <br>
-               1 file changed, 1 insertion(+), 1 deletion(-)
-            <br>
-            <br>
-            diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-            b/drivers/gpu/drm/amd/
-            <br>
-          </blockquote>
-          amdgpu/gfxhub_v1_0.c
-          <br>
-          <blockquote type="cite">index 005075f..41313514 100644
-            <br>
-            --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-            <br>
-            +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-            <br>
-            @@ -368,7 +368,7 @@ static int gfxhub_v1_0_suspend(void
-            *handle)
-            <br>
-                 static int gfxhub_v1_0_resume(void *handle)
-            <br>
-               {
-            <br>
-            -     return 0;
-            <br>
-            +     return gfxhub_v1_0_hw_init(handle);
-            <br>
-               }
-            <br>
-                 static bool gfxhub_v1_0_is_idle(void *handle)
-            <br>
-          </blockquote>
-        </blockquote>
-        _______________________________________________
-        <br>
-        amd-gfx mailing list
-        <br>
-        <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-        <br>
-        <a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-        <br>
-      </blockquote>
-      <br>
-      _______________________________________________
-      <br>
-      amd-gfx mailing list
-      <br>
-      <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-      <br>
-      <a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-      <br>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------010307060204030805040603--
-
---===============0096630680==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0096630680==--
+QW0gMTcuMDUuMjAxNyB1bSAwNDoyMCBzY2hyaWViIEd1c3Rhdm8gQS4gUi4gU2lsdmE6Cj4gTG9j
+YWwgdmFyaWFibGUgX2NvbG9yXyBpcyBhc3NpZ25lZCB0byBhIGNvbnN0YW50IHZhbHVlIGFuZCBp
+dCBpcwo+IG5ldmVyIHVwZGF0ZWQgYWdhaW4uIFJlbW92ZSB0aGlzIHZhcmlhYmxlIGFuZCByZWZh
+Y3RvciB0aGUgY29kZSBpdAo+IGFmZmVjdHMuCj4KPiBBZGRyZXNzZXMtQ292ZXJpdHktSUQ6IDEy
+MjY3NDUKPiBTaWduZWQtb2ZmLWJ5OiBHdXN0YXZvIEEuIFIuIFNpbHZhIDxnYXJzaWx2YUBlbWJl
+ZGRlZG9yLmNvbT4KCk1obSwgb24gdGhlIG9uZSBoYW5kIGl0IGxvb2tzIGxpa2UgYSB2YWxpZCBj
+bGVhbnVwLiBPbiB0aGUgb3RoZXIgdGhhdCBpcyAKbGVnYWN5IGNvZGUgd2UgaGF2ZW4ndCB0b3Vj
+aGVkIGluIGEgd2hpbGUuCgpGZWVsIGZyZWUgdG8gcHV0IG15IFJldmlld2VkLWJ5OiBDaHJpc3Rp
+YW4gS8O2bmlnIAo8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPiBvbiBpdCwgYnV0IEknbSBub3Qg
+c3VyZSBpZiBBbGV4IHdpbGwgcGljayBpdCB1cC4KClJlZ2FyZHMsCkNocmlzdGlhbi4KCj4gLS0t
+Cj4gICBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9sZWdhY3lfZW5jb2RlcnMuYyB8IDgg
+Ky0tLS0tLS0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgNyBkZWxldGlvbnMo
+LSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9sZWdhY3lf
+ZW5jb2RlcnMuYyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2xlZ2FjeV9lbmNvZGVy
+cy5jCj4gaW5kZXggMjIyYTFmYS4uNzIzNWQwYyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vcmFkZW9uL3JhZGVvbl9sZWdhY3lfZW5jb2RlcnMuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9yYWRlb24vcmFkZW9uX2xlZ2FjeV9lbmNvZGVycy5jCj4gQEAgLTY0MCw3ICs2NDAsNiBAQCBz
+dGF0aWMgZW51bSBkcm1fY29ubmVjdG9yX3N0YXR1cyByYWRlb25fbGVnYWN5X3ByaW1hcnlfZGFj
+X2RldGVjdChzdHJ1Y3QgZHJtX2VuYwo+ICAgCXVpbnQzMl90IHZjbGtfZWNwX2NudGwsIGNydGNf
+ZXh0X2NudGw7Cj4gICAJdWludDMyX3QgZGFjX2V4dF9jbnRsLCBkYWNfY250bCwgZGFjX21hY3Jv
+X2NudGwsIHRtcDsKPiAgIAllbnVtIGRybV9jb25uZWN0b3Jfc3RhdHVzIGZvdW5kID0gY29ubmVj
+dG9yX3N0YXR1c19kaXNjb25uZWN0ZWQ7Cj4gLQlib29sIGNvbG9yID0gdHJ1ZTsKPiAgIAo+ICAg
+CS8qIGp1c3QgZG9uJ3QgYm90aGVyIG9uIFJONTAgdGhvc2UgY2hpcCBhcmUgb2Z0ZW4gY29ubmVj
+dGVkIHRvIHJlbW90aW5nCj4gICAJICogY29uc29sZSBodyBhbmQgb2Z0ZW4gd2UgZ2V0IGZhaWx1
+cmUgdG8gbG9hZCBkZXRlY3QgdGhvc2UuIFNvIHRvIG1ha2UKPiBAQCAtNjY1LDEyICs2NjQsNyBA
+QCBzdGF0aWMgZW51bSBkcm1fY29ubmVjdG9yX3N0YXR1cyByYWRlb25fbGVnYWN5X3ByaW1hcnlf
+ZGFjX2RldGVjdChzdHJ1Y3QgZHJtX2VuYwo+ICAgCVdSRUczMihSQURFT05fQ1JUQ19FWFRfQ05U
+TCwgdG1wKTsKPiAgIAo+ICAgCXRtcCA9IFJBREVPTl9EQUNfRk9SQ0VfQkxBTktfT0ZGX0VOIHwK
+PiAtCQlSQURFT05fREFDX0ZPUkNFX0RBVEFfRU47Cj4gLQo+IC0JaWYgKGNvbG9yKQo+IC0JCXRt
+cCB8PSBSQURFT05fREFDX0ZPUkNFX0RBVEFfU0VMX1JHQjsKPiAtCWVsc2UKPiAtCQl0bXAgfD0g
+UkFERU9OX0RBQ19GT1JDRV9EQVRBX1NFTF9HOwo+ICsJCVJBREVPTl9EQUNfRk9SQ0VfREFUQV9F
+TiB8IFJBREVPTl9EQUNfRk9SQ0VfREFUQV9TRUxfUkdCOwo+ICAgCj4gICAJaWYgKEFTSUNfSVNf
+UjMwMChyZGV2KSkKPiAgIAkJdG1wIHw9ICgweDFiNiA8PCBSQURFT05fREFDX0ZPUkNFX0RBVEFf
+U0hJRlQpOwoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
