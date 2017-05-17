@@ -1,51 +1,67 @@
-From: "Gustavo A. R. Silva" <garsilva@embeddedor.com>
-Subject: [PATCH] gpu: drm: radeon: refactor code
-Date: Tue, 16 May 2017 21:20:12 -0500
-Message-ID: <20170517022012.GA11913@embeddedgus>
+From: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 4/4] drm/amdgpu: reset fpriv vram_lost_counter
+Date: Wed, 17 May 2017 11:04:02 +0800
+Message-ID: <591BBDA2.1070900@amd.com>
+References: <1494926750-1081-1-git-send-email-David1.Zhou@amd.com>
+ <1494926750-1081-4-git-send-email-David1.Zhou@amd.com>
+ <58988726-543a-535a-3011-860d29b9f2da@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <garsilva@embeddedor.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <58988726-543a-535a-3011-860d29b9f2da-otUistvHUpPR7s880joybQ@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-Local variable _color_ is assigned to a constant value and it is
-never updated again. Remove this variable and refactor the code it
-affects.
-
-Addresses-Coverity-ID: 1226745
-Signed-off-by: Gustavo A. R. Silva <garsilva@embeddedor.com>
----
- drivers/gpu/drm/radeon/radeon_legacy_encoders.c | 8 +-------
- 1 file changed, 1 insertion(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/radeon/radeon_legacy_encoders.c b/drivers/gpu/drm/radeon/radeon_legacy_encoders.c
-index 222a1fa..7235d0c 100644
---- a/drivers/gpu/drm/radeon/radeon_legacy_encoders.c
-+++ b/drivers/gpu/drm/radeon/radeon_legacy_encoders.c
-@@ -640,7 +640,6 @@ static enum drm_connector_status radeon_legacy_primary_dac_detect(struct drm_enc
- 	uint32_t vclk_ecp_cntl, crtc_ext_cntl;
- 	uint32_t dac_ext_cntl, dac_cntl, dac_macro_cntl, tmp;
- 	enum drm_connector_status found = connector_status_disconnected;
--	bool color = true;
- 
- 	/* just don't bother on RN50 those chip are often connected to remoting
- 	 * console hw and often we get failure to load detect those. So to make
-@@ -665,12 +664,7 @@ static enum drm_connector_status radeon_legacy_primary_dac_detect(struct drm_enc
- 	WREG32(RADEON_CRTC_EXT_CNTL, tmp);
- 
- 	tmp = RADEON_DAC_FORCE_BLANK_OFF_EN |
--		RADEON_DAC_FORCE_DATA_EN;
--
--	if (color)
--		tmp |= RADEON_DAC_FORCE_DATA_SEL_RGB;
--	else
--		tmp |= RADEON_DAC_FORCE_DATA_SEL_G;
-+		RADEON_DAC_FORCE_DATA_EN | RADEON_DAC_FORCE_DATA_SEL_RGB;
- 
- 	if (ASIC_IS_R300(rdev))
- 		tmp |= (0x1b6 << RADEON_DAC_FORCE_DATA_SHIFT);
--- 
-2.5.0
+CgpPbiAyMDE35bm0MDXmnIgxN+aXpSAwOToxOCwgTWljaGVsIETDpG56ZXIgd3JvdGU6Cj4gT24g
+MTYvMDUvMTcgMDY6MjUgUE0sIENodW5taW5nIFpob3Ugd3JvdGU6Cj4+IENoYW5nZS1JZDogSThl
+YjZkN2Y1NThkYTA1NTEwZTQyOWQzYmYxZDQ4YzhjZWM2YzE5NzcKPj4gU2lnbmVkLW9mZi1ieTog
+Q2h1bm1pbmcgWmhvdSA8RGF2aWQxLlpob3VAYW1kLmNvbT4KPj4gLS0tCj4+ICAgZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgfCAzICsrKwo+PiAgIGluY2x1ZGUvdWFwaS9k
+cm0vYW1kZ3B1X2RybS5oICAgICAgICAgIHwgMSArCj4+ICAgMiBmaWxlcyBjaGFuZ2VkLCA0IGlu
+c2VydGlvbnMoKykKPj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV92bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4g
+aW5kZXggYmNhMWZiNS4uZjNlNzUyNSAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X3ZtLmMKPj4gQEAgLTI1NDcsNiArMjU0Nyw5IEBAIGludCBhbWRncHVfdm1faW9jdGwo
+c3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwgc3RydWN0IGRybV9maWxlICpmaWxw
+KQo+PiAgIAljYXNlIEFNREdQVV9WTV9PUF9VTlJFU0VSVkVfVk1JRDoKPj4gICAJCWFtZGdwdV92
+bV9mcmVlX3Jlc2VydmVkX3ZtaWQoYWRldiwgJmZwcml2LT52bSwgQU1ER1BVX0dGWEhVQik7Cj4+
+ICAgCQlicmVhazsKPj4gKwljYXNlIEFNREdQVV9WTV9PUF9SRVNFVDoKPj4gKwkJZnByaXYtPnZy
+YW1fbG9zdF9jb3VudGVyID0gYXRvbWljX3JlYWQoJmFkZXYtPnZyYW1fbG9zdF9jb3VudGVyKTsK
+Pj4gKwkJYnJlYWs7Cj4gSG93IGRvIHlvdSBlbnZpc2lvbiB0aGUgVU1EcyB1c2luZyB0aGlzPyBJ
+IGNhbiBtb3N0bHkgdGhpbmsgb2YgdGhlbQo+IGNhbGxpbmcgdGhpcyBpb2N0bCB3aGVuIGEgY29u
+dGV4dCBpcyBjcmVhdGVkIG9yIGRlc3Ryb3llZC4gQnV0IHRoYXQKPiB3b3VsZCBhbHNvIGFsbG93
+IGFueSBvdGhlciByZW1haW5pbmcgY29udGV4dHMgdXNpbmcgdGhlIHNhbWUgRFJNIGZpbGUKPiBk
+ZXNjcmlwdG9yIHRvIHVzZSBhbGwgaW9jdGxzIGFnYWluLiBTbywgSSB0aGluayB0aGVyZSBuZWVk
+cyB0byBiZSBhCj4gdnJhbV9sb3N0X2NvdW50ZXIgaW4gc3RydWN0IGFtZGdwdV9jdHggaW5zdGVh
+ZCBvZiBpbiBzdHJ1Y3QgYW1kZ3B1X2Zwcml2LgpzdHJ1Y3QgYW1kZ3B1X2Zwcml2IGZvciB2cmFt
+X2xvc3RfY291bnRlciBpcyBwcm9wZXIgcGxhY2UsIGVzcGVjaWFsbHkgCmZvciBpb2N0bCByZXR1
+cm4gdmFsdWUuCmlmIHlvdSBuZWVkIHRvIHJlc2V0IGN0eCBvbmUgYnkgb25lLCB3ZSBjYW4gbWFy
+ayBhbGwgY29udGV4dHMgb2YgdGhhdCAKdm0sIGFuZCB0aGVuIHJlc2V0IGJ5IHVzZXJzcGFjZS4K
+Pgo+IEJ1dCB0aGVuIEknbSBub3Qgc3VyZSB0aGlzIGlvY3RsIHdpbGwgYmUgdXNlZnVsLi4uIEkg
+Z3Vlc3MgdGhlIFVNRCBjb3VsZAo+IHRyeSByZS11cGxvYWRpbmcgdGhlIGNvbnRlbnRzIG9mIGNy
+dWNpYWwgQk9zIChzaGFkZXIgY29kZSwgcmVzb3VyY2UKPiBkZXNjcmlwdG9ycyBldGMuKSBmb3Ig
+YW4gZXhpc3RpbmcgY29udGV4dCBhbmQgdGhlbiBjYWxsIHRoaXMgaW9jdGwuIEhvdwo+IGFib3V0
+IHRoZSBHUFVWTSBwYWdlIHRhYmxlcz8gV2lsbCB0aGUga2VybmVsIGRyaXZlciBhdXRvbWF0aWNh
+bGx5Cj4gcmUtZ2VuZXJhdGUgdGhvc2UgYXMgbmVlZGVkLCBvciB3aWxsIHRoZSBVTUQgYWxzbyBu
+ZWVkIHRvIGUuZy4gZGVzdHJveQo+IGFuZCByZS1jcmVhdGUgdGhlIFZNIG1hcHBpbmdzIGZvciBh
+bGwgQk9zIGJlZm9yZSBjYWxsaW5nIHRoaXMgaW9jdGw/ClZNIHBhZ2UgdGFibGUgd2lsbCByZWNv
+dmVyIGJ5IHZtIHNoYWRvdyBCT3MuCgo+Cj4gSXQncyBoYXJkIHRvIGJlIHN1cmUgd2hldGhlciB0
+aGF0J3Mgd29ya2FibGUgZm9yIHRoZSBVTUQgd2l0aG91dCBhdAo+IGxlYXN0IGEgd29ya2luZyBw
+cm90b3R5cGUuLi4KVG90YWxseSBhZ3JlZSwgaWYgeW91IGNhbiBoZWxwIHRvIGRvIHRoaXMgaW4g
+dXNlcnNwYWNlLCBJJ2QgbGlrZSB0byAKc3VwcG9ydCB5b3UgZnJvbSBrZXJuZWwgc2lkZSwgb3Ig
+Q2hyaXN0aWFuLgoKVGhhbmtzLApEYXZpZCBaaG91Cj4KPgoKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9hbWQtZ2Z4Cg==
