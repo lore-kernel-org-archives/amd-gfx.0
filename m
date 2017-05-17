@@ -1,22 +1,12 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: Plan: BO move throttling for visible VRAM evictions
-Date: Wed, 17 May 2017 14:35:58 +0200
-Message-ID: <CAAxE2A7mh7pmbbszk1qnChPxZtVMzRBWY2GkB1DEcrEZ0t5m3w@mail.gmail.com>
-References: <CAAxE2A4ap8BoOEg1tOF+Ec1vBfZRSANOebikYBaHUfXokY7EwA@mail.gmail.com>
- <9220eda1-5176-36cd-e6b3-801c3e4f759a@daenzer.net>
- <78989271-9812-f891-3a00-0d5b39a06b7c@daenzer.net>
- <CAAxE2A60hubc8jbZkO101sxqVZKR8iub=GsfRovj17+P2zKDKQ@mail.gmail.com>
- <aee1e2b7-dd00-e24b-bcfc-e2299e31908b@daenzer.net>
- <CAAxE2A5g7tJG+94XxPr-mdGXkeL1GPMNMaYgc7ATEk7pxsiXfA@mail.gmail.com>
- <c343b89c-318f-d3af-d02e-4e6843c422f6@daenzer.net>
- <CAAxE2A5_tiOEvLVegNvkuvYrFcsU52H6EfCff3faKBZwPfbuYQ@mail.gmail.com>
- <a5a8428e-444a-34b9-7fa9-60e77582819a@daenzer.net>
- <CAAxE2A4ex4e-5ShqesZ8oXJj1CnmH6Enhvu4fXs9kDKu9NHeiQ@mail.gmail.com>
- <78fe31b2-2a0a-a1af-6af8-954d892e34ba@daenzer.net>
+From: =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: add an INFO query for monitoring VRAM CPU page
+ faults
+Date: Wed, 17 May 2017 20:05:57 +0200
+Message-ID: <1495044357-11656-1-git-send-email-maraeo@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0749648418=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <78fe31b2-2a0a-a1af-6af8-954d892e34ba-otUistvHUpPR7s880joybQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -27,128 +17,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============0749648418==
-Content-Type: multipart/alternative; boundary="001a11404faecaa6cc054fb78745"
-
---001a11404faecaa6cc054fb78745
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On May 16, 2017 3:57 AM, "Michel D=C3=A4nzer" <michel-otUistvHUpPR7s880joybQ@public.gmane.org> wrote:
-
-On 15/05/17 07:11 PM, Marek Ol=C5=A1=C3=A1k wrote:
-> On May 15, 2017 4:29 AM, "Michel D=C3=A4nzer" <michel-otUistvHUpPR7s880joybQ@public.gmane.org
-> <mailto:michel-otUistvHUpPR7s880joybQ@public.gmane.org>> wrote:
->
->     I think the next step should be to make radeonsi keep track of how
-much
->     VRAM it's trying to use that's expected to be accessed by the CPU, an=
-d
->     to use GTT instead when that exceeds a threshold (probably derived
-from
->     vram_vis_size).
->
-> That's difficult to estimate. There are apps with 600MB of mapped VRAM
-> and don't experience any performance issues. And some apps with 300MB of
-> mapped VRAM do. It only depends on the CPU access pattern, not what
-> radeonsi sees.
-
-What I mean is keeping track of the total size of resources which have
-RADEON_DOMAIN_VRAM and RADEON_FLAG_CPU_ACCESS set, and if it exceeds a
-threshold, create new ones having those flags in GTT instead. Even
-though this might not be strictly necessary with amdgpu in the long run,
-it probably is for radeon anyway, and in the short term it might help
-even with amdgpu.
-
-
-That might hurt us more than it can help. All mappable buffers have the CPU
-access flag set, but many of them are immutable.
-
-The only place where this can be handled=E2=80=8B is the kernel. Even if it=
-'s as
-simple as: if (bo->numcpufaults > 10) domain =3D GTT_WC;
-
-Marek
-
-
-
---
-Earthling Michel D=C3=A4nzer               |               http://www.amd.c=
-om
-Libre software enthusiast             |             Mesa and X developer
-
---001a11404faecaa6cc054fb78745
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div><br><div class=3D"gmail_extra"><br><div class=3D"gma=
-il_quote">On May 16, 2017 3:57 AM, &quot;Michel D=C3=A4nzer&quot; &lt;<a hr=
-ef=3D"mailto:michel-otUistvHUpPR7s880joybQ@public.gmane.org">michel-otUistvHUpPR7s880joybQ@public.gmane.org</a>&gt; wrote:<br type=
-=3D"attribution"><blockquote class=3D"quote" style=3D"margin:0 0 0 .8ex;bor=
-der-left:1px #ccc solid;padding-left:1ex"><div class=3D"quoted-text">On 15/=
-05/17 07:11 PM, Marek Ol=C5=A1=C3=A1k wrote:<br>
-&gt; On May 15, 2017 4:29 AM, &quot;Michel D=C3=A4nzer&quot; &lt;<a href=3D=
-"mailto:michel-otUistvHUpPR7s880joybQ@public.gmane.org">michel-otUistvHUpPR7s880joybQ@public.gmane.org</a><br>
-</div><div class=3D"quoted-text">&gt; &lt;mailto:<a href=3D"mailto:michel@d=
-aenzer.net">michel-otUistvHUpPR7s880joybQ@public.gmane.org</a>&gt;&gt; wrote:<br>
-&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0I think the next step should be to make radeonsi ke=
-ep track of how much<br>
-&gt;=C2=A0 =C2=A0 =C2=A0VRAM it&#39;s trying to use that&#39;s expected to =
-be accessed by the CPU, and<br>
-&gt;=C2=A0 =C2=A0 =C2=A0to use GTT instead when that exceeds a threshold (p=
-robably derived from<br>
-&gt;=C2=A0 =C2=A0 =C2=A0vram_vis_size).<br>
-&gt;<br>
-&gt; That&#39;s difficult to estimate. There are apps with 600MB of mapped =
-VRAM<br>
-&gt; and don&#39;t experience any performance issues. And some apps with 30=
-0MB of<br>
-&gt; mapped VRAM do. It only depends on the CPU access pattern, not what<br=
->
-&gt; radeonsi sees.<br>
-<br>
-</div>What I mean is keeping track of the total size of resources which hav=
-e<br>
-RADEON_DOMAIN_VRAM and RADEON_FLAG_CPU_ACCESS set, and if it exceeds a<br>
-threshold, create new ones having those flags in GTT instead. Even<br>
-though this might not be strictly necessary with amdgpu in the long run,<br=
->
-it probably is for radeon anyway, and in the short term it might help<br>
-even with amdgpu.<br></blockquote></div></div></div><div dir=3D"auto"><br><=
-/div><div dir=3D"auto">That might hurt us more than it can help. All mappab=
-le buffers have the CPU access flag set, but many of them are immutable.</d=
-iv><div dir=3D"auto"><br></div><div dir=3D"auto">The only place where this =
-can be handled=E2=80=8B is the kernel. Even if it&#39;s as simple as: if (b=
-o-&gt;numcpufaults &gt; 10) domain =3D GTT_WC;</div><div dir=3D"auto"><br><=
-/div><div dir=3D"auto">Marek</div><div dir=3D"auto"><br></div><div dir=3D"a=
-uto"><div class=3D"gmail_extra"><div class=3D"gmail_quote"><blockquote clas=
-s=3D"quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-l=
-eft:1ex">
-<div class=3D"elided-text"><br>
-<br>
---<br>
-Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=
-=3D"http://www.amd.com" rel=3D"noreferrer" target=3D"_blank">http://www.amd=
-.com</a><br>
-Libre software enthusiast=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Mesa and X developer<br>
-</div></blockquote></div><br></div></div></div>
-
---001a11404faecaa6cc054fb78745--
-
---===============0749648418==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0749648418==--
+RnJvbTogTWFyZWsgT2zFocOhayA8bWFyZWsub2xzYWtAYW1kLmNvbT4KClNpZ25lZC1vZmYtYnk6
+IE1hcmVrIE9sxaHDoWsgPG1hcmVrLm9sc2FrQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1LmggICAgICAgIHwgMSArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfa21zLmMgICAgfCAzICsrKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X29iamVjdC5jIHwgMSArCiBpbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaCAgICAg
+ICAgICAgICAgfCAyICsrCiA0IGZpbGVzIGNoYW5nZWQsIDcgaW5zZXJ0aW9ucygrKQoKZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKaW5kZXggZmFkZWI1NS4uMjUxZTVkZSAxMDA2NDQKLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKQEAgLTE1MjUsMjAgKzE1MjUsMjEgQEAgc3RydWN0IGFt
+ZGdwdV9kZXZpY2UgewogCiAJLyogbWVtb3J5IG1hbmFnZW1lbnQgKi8KIAlzdHJ1Y3QgYW1kZ3B1
+X21tYW4JCW1tYW47CiAJc3RydWN0IGFtZGdwdV92cmFtX3NjcmF0Y2gJdnJhbV9zY3JhdGNoOwog
+CXN0cnVjdCBhbWRncHVfd2IJCXdiOwogCWF0b21pYzY0X3QJCQl2cmFtX3VzYWdlOwogCWF0b21p
+YzY0X3QJCQl2cmFtX3Zpc191c2FnZTsKIAlhdG9taWM2NF90CQkJZ3R0X3VzYWdlOwogCWF0b21p
+YzY0X3QJCQludW1fYnl0ZXNfbW92ZWQ7CiAJYXRvbWljNjRfdAkJCW51bV9ldmljdGlvbnM7CisJ
+YXRvbWljNjRfdAkJCW51bV92cmFtX2NwdV9wYWdlX2ZhdWx0czsKIAlhdG9taWNfdAkJCWdwdV9y
+ZXNldF9jb3VudGVyOwogCiAJLyogZGF0YSBmb3IgYnVmZmVyIG1pZ3JhdGlvbiB0aHJvdHRsaW5n
+ICovCiAJc3RydWN0IHsKIAkJc3BpbmxvY2tfdAkJbG9jazsKIAkJczY0CQkJbGFzdF91cGRhdGVf
+dXM7CiAJCXM2NAkJCWFjY3VtX3VzOyAvKiBhY2N1bXVsYXRlZCBtaWNyb3NlY29uZHMgKi8KIAkJ
+dTMyCQkJbG9nMl9tYXhfTUJwczsKIAl9IG1tX3N0YXRzOwogCmRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfa21zLmMKaW5kZXggZDE2Nzk0OS4uODEyOTFkOCAxMDA2NDQKLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYwpAQCAtNDA3LDIwICs0MDcsMjMgQEAgc3RhdGljIGlu
+dCBhbWRncHVfaW5mb19pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLCBz
+dHJ1Y3QgZHJtX2ZpbGUKIAogCQlyZXR1cm4gY29weV90b191c2VyKG91dCwgJmZ3X2luZm8sCiAJ
+CQkJICAgIG1pbigoc2l6ZV90KXNpemUsIHNpemVvZihmd19pbmZvKSkpID8gLUVGQVVMVCA6IDA7
+CiAJfQogCWNhc2UgQU1ER1BVX0lORk9fTlVNX0JZVEVTX01PVkVEOgogCQl1aTY0ID0gYXRvbWlj
+NjRfcmVhZCgmYWRldi0+bnVtX2J5dGVzX21vdmVkKTsKIAkJcmV0dXJuIGNvcHlfdG9fdXNlcihv
+dXQsICZ1aTY0LCBtaW4oc2l6ZSwgOHUpKSA/IC1FRkFVTFQgOiAwOwogCWNhc2UgQU1ER1BVX0lO
+Rk9fTlVNX0VWSUNUSU9OUzoKIAkJdWk2NCA9IGF0b21pYzY0X3JlYWQoJmFkZXYtPm51bV9ldmlj
+dGlvbnMpOwogCQlyZXR1cm4gY29weV90b191c2VyKG91dCwgJnVpNjQsIG1pbihzaXplLCA4dSkp
+ID8gLUVGQVVMVCA6IDA7CisJY2FzZSBBTURHUFVfSU5GT19OVU1fVlJBTV9DUFVfUEFHRV9GQVVM
+VFM6CisJCXVpNjQgPSBhdG9taWM2NF9yZWFkKCZhZGV2LT5udW1fdnJhbV9jcHVfcGFnZV9mYXVs
+dHMpOworCQlyZXR1cm4gY29weV90b191c2VyKG91dCwgJnVpNjQsIG1pbihzaXplLCA4dSkpID8g
+LUVGQVVMVCA6IDA7CiAJY2FzZSBBTURHUFVfSU5GT19WUkFNX1VTQUdFOgogCQl1aTY0ID0gYXRv
+bWljNjRfcmVhZCgmYWRldi0+dnJhbV91c2FnZSk7CiAJCXJldHVybiBjb3B5X3RvX3VzZXIob3V0
+LCAmdWk2NCwgbWluKHNpemUsIDh1KSkgPyAtRUZBVUxUIDogMDsKIAljYXNlIEFNREdQVV9JTkZP
+X1ZJU19WUkFNX1VTQUdFOgogCQl1aTY0ID0gYXRvbWljNjRfcmVhZCgmYWRldi0+dnJhbV92aXNf
+dXNhZ2UpOwogCQlyZXR1cm4gY29weV90b191c2VyKG91dCwgJnVpNjQsIG1pbihzaXplLCA4dSkp
+ID8gLUVGQVVMVCA6IDA7CiAJY2FzZSBBTURHUFVfSU5GT19HVFRfVVNBR0U6CiAJCXVpNjQgPSBh
+dG9taWM2NF9yZWFkKCZhZGV2LT5ndHRfdXNhZ2UpOwogCQlyZXR1cm4gY29weV90b191c2VyKG91
+dCwgJnVpNjQsIG1pbihzaXplLCA4dSkpID8gLUVGQVVMVCA6IDA7CiAJY2FzZSBBTURHUFVfSU5G
+T19HRFNfQ09ORklHOiB7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfb2JqZWN0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0
+LmMKaW5kZXggNmJjNTJjYy4uYjZkYTg2ZSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9vYmplY3QuYwpAQCAtOTUzLDIwICs5NTMsMjEgQEAgaW50IGFtZGdwdV9ib19mYXVs
+dF9yZXNlcnZlX25vdGlmeShzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvKQogCW9mZnNldCA9
+IGJvLT5tZW0uc3RhcnQgPDwgUEFHRV9TSElGVDsKIAkvKiBUT0RPOiBmaWd1cmUgb3V0IGhvdyB0
+byBtYXAgc2NhdHRlcmVkIFZSQU0gdG8gdGhlIENQVSAqLwogCWlmICgob2Zmc2V0ICsgc2l6ZSkg
+PD0gYWRldi0+bWMudmlzaWJsZV92cmFtX3NpemUpCiAJCXJldHVybiAwOwogCiAJLyogQ2FuJ3Qg
+bW92ZSBhIHBpbm5lZCBCTyB0byB2aXNpYmxlIFZSQU0gKi8KIAlpZiAoYWJvLT5waW5fY291bnQg
+PiAwKQogCQlyZXR1cm4gLUVJTlZBTDsKIAogCS8qIGh1cnJhaCB0aGUgbWVtb3J5IGlzIG5vdCB2
+aXNpYmxlICEgKi8KKwlhdG9taWM2NF9pbmMoJmFkZXYtPm51bV92cmFtX2NwdV9wYWdlX2ZhdWx0
+cyk7CiAJYW1kZ3B1X3R0bV9wbGFjZW1lbnRfZnJvbV9kb21haW4oYWJvLCBBTURHUFVfR0VNX0RP
+TUFJTl9WUkFNKTsKIAlscGZuID0JYWRldi0+bWMudmlzaWJsZV92cmFtX3NpemUgPj4gUEFHRV9T
+SElGVDsKIAlmb3IgKGkgPSAwOyBpIDwgYWJvLT5wbGFjZW1lbnQubnVtX3BsYWNlbWVudDsgaSsr
+KSB7CiAJCS8qIEZvcmNlIGludG8gdmlzaWJsZSBWUkFNICovCiAJCWlmICgoYWJvLT5wbGFjZW1l
+bnRzW2ldLmZsYWdzICYgVFRNX1BMX0ZMQUdfVlJBTSkgJiYKIAkJICAgICghYWJvLT5wbGFjZW1l
+bnRzW2ldLmxwZm4gfHwKIAkJICAgICBhYm8tPnBsYWNlbWVudHNbaV0ubHBmbiA+IGxwZm4pKQog
+CQkJYWJvLT5wbGFjZW1lbnRzW2ldLmxwZm4gPSBscGZuOwogCX0KIAlyID0gdHRtX2JvX3ZhbGlk
+YXRlKGJvLCAmYWJvLT5wbGFjZW1lbnQsIGZhbHNlLCBmYWxzZSk7CmRpZmYgLS1naXQgYS9pbmNs
+dWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaCBiL2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5o
+CmluZGV4IGM5OWZlNjMuLjRmMzQzOTQgMTAwNjQ0Ci0tLSBhL2luY2x1ZGUvdWFwaS9kcm0vYW1k
+Z3B1X2RybS5oCisrKyBiL2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oCkBAIC01OTgsMjAg
+KzU5OCwyMiBAQCBzdHJ1Y3QgZHJtX2FtZGdwdV9jc19jaHVua19kYXRhIHsKIAkvKiBTdWJxdWVy
+eSBpZDogUXVlcnkgR1BVIHRlbXBlcmF0dXJlICovCiAJI2RlZmluZSBBTURHUFVfSU5GT19TRU5T
+T1JfR1BVX1RFTVAJCTB4MwogCS8qIFN1YnF1ZXJ5IGlkOiBRdWVyeSBHUFUgbG9hZCAqLwogCSNk
+ZWZpbmUgQU1ER1BVX0lORk9fU0VOU09SX0dQVV9MT0FECQkweDQKIAkvKiBTdWJxdWVyeSBpZDog
+UXVlcnkgYXZlcmFnZSBHUFUgcG93ZXIJKi8KIAkjZGVmaW5lIEFNREdQVV9JTkZPX1NFTlNPUl9H
+UFVfQVZHX1BPV0VSCTB4NQogCS8qIFN1YnF1ZXJ5IGlkOiBRdWVyeSBub3J0aGJyaWRnZSB2b2x0
+YWdlICovCiAJI2RlZmluZSBBTURHUFVfSU5GT19TRU5TT1JfVkRETkIJCTB4NgogCS8qIFN1YnF1
+ZXJ5IGlkOiBRdWVyeSBncmFwaGljcyB2b2x0YWdlICovCiAJI2RlZmluZSBBTURHUFVfSU5GT19T
+RU5TT1JfVkRER0ZYCQkweDcKKy8qIE51bWJlciBvZiBWUkFNIHBhZ2UgZmF1bHRzIG9uIENQVSBh
+Y2Nlc3MuICovCisjZGVmaW5lIEFNREdQVV9JTkZPX05VTV9WUkFNX0NQVV9QQUdFX0ZBVUxUUwkw
+eDFFCiAKICNkZWZpbmUgQU1ER1BVX0lORk9fTU1SX1NFX0lOREVYX1NISUZUCTAKICNkZWZpbmUg
+QU1ER1BVX0lORk9fTU1SX1NFX0lOREVYX01BU0sJMHhmZgogI2RlZmluZSBBTURHUFVfSU5GT19N
+TVJfU0hfSU5ERVhfU0hJRlQJOAogI2RlZmluZSBBTURHUFVfSU5GT19NTVJfU0hfSU5ERVhfTUFT
+SwkweGZmCiAKIHN0cnVjdCBkcm1fYW1kZ3B1X3F1ZXJ5X2Z3IHsKIAkvKiogQU1ER1BVX0lORk9f
+RldfKiAqLwogCV9fdTMyIGZ3X3R5cGU7CiAJLyoqCi0tIAoyLjcuNAoKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
