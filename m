@@ -1,18 +1,19 @@
-From: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
 Subject: Re: [PATCH 4/4] drm/amdgpu: reset fpriv vram_lost_counter
-Date: Wed, 17 May 2017 16:46:51 +0800
-Message-ID: <591C0DFB.8030604@amd.com>
+Date: Wed, 17 May 2017 17:55:01 +0900
+Message-ID: <f8b856c0-e519-0bd0-1269-19c3f29055d3@daenzer.net>
 References: <1494926750-1081-1-git-send-email-David1.Zhou@amd.com>
  <1494926750-1081-4-git-send-email-David1.Zhou@amd.com>
  <58988726-543a-535a-3011-860d29b9f2da@daenzer.net> <591BBDA2.1070900@amd.com>
  <29fe2142-7fd1-e23a-49d9-c38dc685db92@daenzer.net> <591BD17C.8050903@amd.com>
  <7d87bc8e-9c09-ad25-de6e-dfbd8116bf6e@daenzer.net> <591BF825.6090505@amd.com>
  <31db7a30-dd98-5cb2-4125-187d3d0e2a49@daenzer.net>
- <7a302ebe-1de1-734f-fb21-aadcc7904d37@vodafone.de>
+ <7a302ebe-1de1-734f-fb21-aadcc7904d37@vodafone.de> <591C0DFB.8030604@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1237623221=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <7a302ebe-1de1-734f-fb21-aadcc7904d37-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <591C0DFB.8030604-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,380 +24,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, =?UTF-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+To: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============1237623221==
-Content-Type: multipart/alternative;
-	boundary="------------070709000107040806030906"
-
---------------070709000107040806030906
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-
-On 2017年05月17日 16:40, Christian König wrote:
-> Am 17.05.2017 um 10:01 schrieb Michel Dänzer:
->> On 17/05/17 04:13 PM, zhoucm1 wrote:
->>> On 2017年05月17日 14:57, Michel Dänzer wrote:
->>>> On 17/05/17 01:28 PM, zhoucm1 wrote:
->>>>> On 2017年05月17日 11:15, Michel Dänzer wrote:
->>>>>> On 17/05/17 12:04 PM, zhoucm1 wrote:
->>>>>>> On 2017年05月17日 09:18, Michel Dänzer wrote:
->>>>>>>> On 16/05/17 06:25 PM, Chunming Zhou wrote:
->>>>>>>>> Change-Id: I8eb6d7f558da05510e429d3bf1d48c8cec6c1977
->>>>>>>>> Signed-off-by: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
->>>>>>>>>
->>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>>>>>> index bca1fb5..f3e7525 100644
->>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>>>>>> @@ -2547,6 +2547,9 @@ int amdgpu_vm_ioctl(struct drm_device *dev,
->>>>>>>>> void *data, struct drm_file *filp)
->>>>>>>>>          case AMDGPU_VM_OP_UNRESERVE_VMID:
->>>>>>>>>              amdgpu_vm_free_reserved_vmid(adev, &fpriv->vm,
->>>>>>>>> AMDGPU_GFXHUB);
->>>>>>>>>              break;
->>>>>>>>> +    case AMDGPU_VM_OP_RESET:
->>>>>>>>> +        fpriv->vram_lost_counter =
->>>>>>>>> atomic_read(&adev->vram_lost_counter);
->>>>>>>>> +        break;
->>>>>>>> How do you envision the UMDs using this? I can mostly think of 
->>>>>>>> them
->>>>>>>> calling this ioctl when a context is created or destroyed. But 
->>>>>>>> that
->>>>>>>> would also allow any other remaining contexts using the same 
->>>>>>>> DRM file
->>>>>>>> descriptor to use all ioctls again. So, I think there needs to 
->>>>>>>> be a
->>>>>>>> vram_lost_counter in struct amdgpu_ctx instead of in struct
->>>>>>>> amdgpu_fpriv.
->>>>>>> struct amdgpu_fpriv for vram_lost_counter is proper place, 
->>>>>>> especially
->>>>>>> for ioctl return value.
->>>>>>> if you need to reset ctx one by one, we can mark all contexts of 
->>>>>>> that
->>>>>>> vm, and then reset by userspace.
->>>>>> I'm not following. With vram_lost_counter in amdgpu_fpriv, if any
->>>>>> context calls this ioctl, all other contexts using the same file
->>>>>> descriptor will also be considered safe again, right?
->>>>> Yes, but it really depends on userspace requirement, if you need to
->>>>> reset ctx one by one, we can mark all contexts of that vm to 
->>>>> guilty, and
->>>>> then reset one context by userspace.
->>>> Still not sure what you mean by that.
->>>>
->>>> E.g. what do you mean by "guilty"? I thought that refers to the 
->>>> context
->>>> which caused a hang. But it seems like you're using it to refer to any
->>>> context which hasn't reacted yet to VRAM contents being lost.
->>> When vram is lost, we treat all contexts need to reset.
->> Essentially, your patches only track VRAM contents being lost per file
->> descriptor, not per context. I'm not sure (rather skeptical) that this
->> is suitable for OpenGL UMDs, since state is usually tracked per context.
->> Marek / Nicolai?
->
-> Oh, yeah that's a good point.
->
-> The problem with tracking it per context is that Vulkan also wants the 
-> ENODEV on the amdgpu_gem_va_ioct() and amdgpu_info_ioctl() which are 
-> context less.
->
-> But thinking more about this blocking those two doesn't make much 
-> sense. The VM content can be restored and why should be disallow 
-> reading GPU info?
-I can re-paste the Vulkan APIs requiring ENODEV:
-"
-
-The Vulkan APIs listed below could return VK_ERROR_DEVICE_LOST according 
-to the spec.
-
-I tries to provide a list of u/k interfaces that could be called for 
-each vk API.
-
-vkCreateDevice
-
--amdgpu_device_initialize.
-
--amdgpu_query_gpu_info
-
-vkQueueSubmit
-
--amdgpu_cs_submit
-
-vkWaitForFences
-
-                 amdgpu_cs_wait_fences
-
-vkGetEventStatus
-
-vkQueueWaitIdle
-
-vkDeviceWaitIdle
-
-vkGetQueryPoolResults**
-
-                 amdgpu_cs_query_Fence_status
-
-vkQueueBindSparse**
-
-                 amdgpu_bo_va_op
-
-                 amdgpu_bo_va_op_raw
-
-vkCreateSwapchainKHR**
-
-vkAcquireNextImageKHR**
-
-vkQueuePresentKHR
-
-                 Not related with u/k interface.**
-
-**
-
-Besides those listed above, I think 
-amdgpu_cs_signal_Sem/amdgpu_cs_wait_sem should respond to gpu reset as 
-well."
->
-> Christian.
->
-
-
---------------070709000107040806030906
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <br>
-    <br>
-    <div class="moz-cite-prefix">On 2017年05月17日 16:40, Christian König
-      wrote:<br>
-    </div>
-    <blockquote
-      cite="mid:7a302ebe-1de1-734f-fb21-aadcc7904d37-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org"
-      type="cite">Am 17.05.2017 um 10:01 schrieb Michel Dänzer:
-      <br>
-      <blockquote type="cite">On 17/05/17 04:13 PM, zhoucm1 wrote:
-        <br>
-        <blockquote type="cite">On 2017年05月17日 14:57, Michel Dänzer
-          wrote:
-          <br>
-          <blockquote type="cite">On 17/05/17 01:28 PM, zhoucm1 wrote:
-            <br>
-            <blockquote type="cite">On 2017年05月17日 11:15, Michel Dänzer
-              wrote:
-              <br>
-              <blockquote type="cite">On 17/05/17 12:04 PM, zhoucm1
-                wrote:
-                <br>
-                <blockquote type="cite">On 2017年05月17日 09:18, Michel
-                  Dänzer wrote:
-                  <br>
-                  <blockquote type="cite">On 16/05/17 06:25 PM, Chunming
-                    Zhou wrote:
-                    <br>
-                    <blockquote type="cite">Change-Id:
-                      I8eb6d7f558da05510e429d3bf1d48c8cec6c1977
-                      <br>
-                      Signed-off-by: Chunming Zhou
-                      <a class="moz-txt-link-rfc2396E" href="mailto:David1.Zhou-5C7GfCeVMHo@public.gmane.org">&lt;David1.Zhou-5C7GfCeVMHo@public.gmane.org&gt;</a>
-                      <br>
-                      <br>
-                      diff --git
-                      a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-                      <br>
-                      b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-                      <br>
-                      index bca1fb5..f3e7525 100644
-                      <br>
-                      --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-                      <br>
-                      +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-                      <br>
-                      @@ -2547,6 +2547,9 @@ int amdgpu_vm_ioctl(struct
-                      drm_device *dev,
-                      <br>
-                      void *data, struct drm_file *filp)
-                      <br>
-                               case AMDGPU_VM_OP_UNRESERVE_VMID:
-                      <br>
-                                   amdgpu_vm_free_reserved_vmid(adev,
-                      &amp;fpriv-&gt;vm,
-                      <br>
-                      AMDGPU_GFXHUB);
-                      <br>
-                                   break;
-                      <br>
-                      +    case AMDGPU_VM_OP_RESET:
-                      <br>
-                      +        fpriv-&gt;vram_lost_counter =
-                      <br>
-                      atomic_read(&amp;adev-&gt;vram_lost_counter);
-                      <br>
-                      +        break;
-                      <br>
-                    </blockquote>
-                    How do you envision the UMDs using this? I can
-                    mostly think of them
-                    <br>
-                    calling this ioctl when a context is created or
-                    destroyed. But that
-                    <br>
-                    would also allow any other remaining contexts using
-                    the same DRM file
-                    <br>
-                    descriptor to use all ioctls again. So, I think
-                    there needs to be a
-                    <br>
-                    vram_lost_counter in struct amdgpu_ctx instead of in
-                    struct
-                    <br>
-                    amdgpu_fpriv.
-                    <br>
-                  </blockquote>
-                  struct amdgpu_fpriv for vram_lost_counter is proper
-                  place, especially
-                  <br>
-                  for ioctl return value.
-                  <br>
-                  if you need to reset ctx one by one, we can mark all
-                  contexts of that
-                  <br>
-                  vm, and then reset by userspace.
-                  <br>
-                </blockquote>
-                I'm not following. With vram_lost_counter in
-                amdgpu_fpriv, if any
-                <br>
-                context calls this ioctl, all other contexts using the
-                same file
-                <br>
-                descriptor will also be considered safe again, right?
-                <br>
-              </blockquote>
-              Yes, but it really depends on userspace requirement, if
-              you need to
-              <br>
-              reset ctx one by one, we can mark all contexts of that vm
-              to guilty, and
-              <br>
-              then reset one context by userspace.
-              <br>
-            </blockquote>
-            Still not sure what you mean by that.
-            <br>
-            <br>
-            E.g. what do you mean by "guilty"? I thought that refers to
-            the context
-            <br>
-            which caused a hang. But it seems like you're using it to
-            refer to any
-            <br>
-            context which hasn't reacted yet to VRAM contents being
-            lost.
-            <br>
-          </blockquote>
-          When vram is lost, we treat all contexts need to reset.
-          <br>
-        </blockquote>
-        Essentially, your patches only track VRAM contents being lost
-        per file
-        <br>
-        descriptor, not per context. I'm not sure (rather skeptical)
-        that this
-        <br>
-        is suitable for OpenGL UMDs, since state is usually tracked per
-        context.
-        <br>
-        Marek / Nicolai?
-        <br>
-      </blockquote>
-      <br>
-      Oh, yeah that's a good point.
-      <br>
-      <br>
-      The problem with tracking it per context is that Vulkan also wants
-      the ENODEV on the amdgpu_gem_va_ioct() and amdgpu_info_ioctl()
-      which are context less.
-      <br>
-      <br>
-      But thinking more about this blocking those two doesn't make much
-      sense. The VM content can be restored and why should be disallow
-      reading GPU info?
-      <br>
-    </blockquote>
-    I can re-paste the Vulkan APIs requiring ENODEV:<br>
-    "
-    <p class="MsoNormal">The Vulkan APIs listed below could return
-      VK_ERROR_DEVICE_LOST according to the spec. <o:p></o:p></p>
-    <p class="MsoNormal">I tries to provide a list of u/k interfaces
-      that could be called for each vk API.<o:p></o:p></p>
-    <p class="MsoNormal"><o:p> </o:p></p>
-    <p class="MsoNormal">vkCreateDevice<o:p></o:p></p>
-    <p class="MsoListParagraph" style="text-indent:-.25in;mso-list:l1
-      level1 lfo2"><span style="mso-list:Ignore">-<span
-          style="font:7.0pt &quot;Times New Roman&quot;">          </span></span><span
-        style="color:#1F497D">amdgpu_device_initialize.<o:p></o:p></span></p>
-    <p class="MsoListParagraph" style="text-indent:-.25in;mso-list:l1
-      level1 lfo2"><span style="mso-list:Ignore">-<span
-          style="font:7.0pt &quot;Times New Roman&quot;">          </span></span><span
-        style="color:#1F497D">amdgpu_query_gpu_info<o:p></o:p></span></p>
-    <p class="MsoNormal"><o:p> </o:p></p>
-    <p class="MsoNormal">vkQueueSubmit<o:p></o:p></p>
-    <p class="MsoListParagraph" style="text-indent:-.25in;mso-list:l1
-      level1 lfo2"><span style="mso-list:Ignore">-<span
-          style="font:7.0pt &quot;Times New Roman&quot;">          </span></span>amdgpu_cs_submit<o:p></o:p></p>
-    <p class="MsoNormal"><o:p> </o:p></p>
-    <p class="MsoNormal">vkWaitForFences<o:p></o:p></p>
-    <p class="MsoNormal">                amdgpu_cs_wait_fences<span
-        style="color:#1F497D"><o:p></o:p></span></p>
-    <p class="MsoNormal"><o:p> </o:p></p>
-    <p class="MsoNormal">vkGetEventStatus<o:p></o:p></p>
-    <p class="MsoNormal">vkQueueWaitIdle<o:p></o:p></p>
-    <p class="MsoNormal">vkDeviceWaitIdle<o:p></o:p></p>
-    <p class="MsoNormal">vkGetQueryPoolResults<b><o:p></o:p></b></p>
-    <p class="MsoNormal">                amdgpu_cs_query_Fence_status<o:p></o:p></p>
-    <p class="MsoNormal"><o:p> </o:p></p>
-    <p class="MsoNormal">vkQueueBindSparse<b><o:p></o:p></b></p>
-    <p class="MsoNormal">                amdgpu_bo_va_op<o:p></o:p></p>
-    <p class="MsoNormal">                amdgpu_bo_va_op_raw<o:p></o:p></p>
-    <p class="MsoNormal"><o:p> </o:p></p>
-    <p class="MsoNormal">vkCreateSwapchainKHR<b><o:p></o:p></b></p>
-    <p class="MsoNormal">vkAcquireNextImageKHR<b><o:p></o:p></b></p>
-    <p class="MsoNormal">vkQueuePresentKHR<o:p></o:p></p>
-    <p class="MsoNormal">                Not related with u/k interface.<b><o:p></o:p></b></p>
-    <p class="MsoNormal"><b><o:p> </o:p></b></p>
-    Besides those listed above, I think
-    amdgpu_cs_signal_Sem/amdgpu_cs_wait_sem should respond to gpu reset
-    as well."<br>
-    <blockquote
-      cite="mid:7a302ebe-1de1-734f-fb21-aadcc7904d37-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org"
-      type="cite">
-      <br>
-      Christian.
-      <br>
-      <br>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------070709000107040806030906--
-
---===============1237623221==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1237623221==--
+T24gMTcvMDUvMTcgMDU6NDYgUE0sIHpob3VjbTEgd3JvdGU6Cj4gCj4gCj4gT24gMjAxN+W5tDA1
+5pyIMTfml6UgMTY6NDAsIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+IEFtIDE3LjA1LjIwMTcg
+dW0gMTA6MDEgc2NocmllYiBNaWNoZWwgRMOkbnplcjoKPj4+IE9uIDE3LzA1LzE3IDA0OjEzIFBN
+LCB6aG91Y20xIHdyb3RlOgo+Pj4+IE9uIDIwMTflubQwNeaciDE35pelIDE0OjU3LCBNaWNoZWwg
+RMOkbnplciB3cm90ZToKPj4+Pj4gT24gMTcvMDUvMTcgMDE6MjggUE0sIHpob3VjbTEgd3JvdGU6
+Cj4+Pj4+PiBPbiAyMDE35bm0MDXmnIgxN+aXpSAxMToxNSwgTWljaGVsIETDpG56ZXIgd3JvdGU6
+Cj4+Pj4+Pj4gT24gMTcvMDUvMTcgMTI6MDQgUE0sIHpob3VjbTEgd3JvdGU6Cj4+Pj4+Pj4+IE9u
+IDIwMTflubQwNeaciDE35pelIDA5OjE4LCBNaWNoZWwgRMOkbnplciB3cm90ZToKPj4+Pj4+Pj4+
+IE9uIDE2LzA1LzE3IDA2OjI1IFBNLCBDaHVubWluZyBaaG91IHdyb3RlOgo+Pj4+Pj4+Pj4+IENo
+YW5nZS1JZDogSThlYjZkN2Y1NThkYTA1NTEwZTQyOWQzYmYxZDQ4YzhjZWM2YzE5NzcKPj4+Pj4+
+Pj4+PiBTaWduZWQtb2ZmLWJ5OiBDaHVubWluZyBaaG91IDxEYXZpZDEuWmhvdUBhbWQuY29tPgo+
+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV92bS5jCj4+Pj4+Pj4+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfdm0uYwo+Pj4+Pj4+Pj4+IGluZGV4IGJjYTFmYjUuLmYzZTc1MjUgMTAwNjQ0Cj4+Pj4+
+Pj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4+Pj4+
+Pj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwo+Pj4+Pj4+
+Pj4+IEBAIC0yNTQ3LDYgKzI1NDcsOSBAQCBpbnQgYW1kZ3B1X3ZtX2lvY3RsKHN0cnVjdCBkcm1f
+ZGV2aWNlICpkZXYsCj4+Pj4+Pj4+Pj4gdm9pZCAqZGF0YSwgc3RydWN0IGRybV9maWxlICpmaWxw
+KQo+Pj4+Pj4+Pj4+ICAgICAgICAgIGNhc2UgQU1ER1BVX1ZNX09QX1VOUkVTRVJWRV9WTUlEOgo+
+Pj4+Pj4+Pj4+ICAgICAgICAgICAgICBhbWRncHVfdm1fZnJlZV9yZXNlcnZlZF92bWlkKGFkZXYs
+ICZmcHJpdi0+dm0sCj4+Pj4+Pj4+Pj4gQU1ER1BVX0dGWEhVQik7Cj4+Pj4+Pj4+Pj4gICAgICAg
+ICAgICAgIGJyZWFrOwo+Pj4+Pj4+Pj4+ICsgICAgY2FzZSBBTURHUFVfVk1fT1BfUkVTRVQ6Cj4+
+Pj4+Pj4+Pj4gKyAgICAgICAgZnByaXYtPnZyYW1fbG9zdF9jb3VudGVyID0KPj4+Pj4+Pj4+PiBh
+dG9taWNfcmVhZCgmYWRldi0+dnJhbV9sb3N0X2NvdW50ZXIpOwo+Pj4+Pj4+Pj4+ICsgICAgICAg
+IGJyZWFrOwo+Pj4+Pj4+Pj4gSG93IGRvIHlvdSBlbnZpc2lvbiB0aGUgVU1EcyB1c2luZyB0aGlz
+PyBJIGNhbiBtb3N0bHkgdGhpbmsgb2YKPj4+Pj4+Pj4+IHRoZW0KPj4+Pj4+Pj4+IGNhbGxpbmcg
+dGhpcyBpb2N0bCB3aGVuIGEgY29udGV4dCBpcyBjcmVhdGVkIG9yIGRlc3Ryb3llZC4gQnV0Cj4+
+Pj4+Pj4+PiB0aGF0Cj4+Pj4+Pj4+PiB3b3VsZCBhbHNvIGFsbG93IGFueSBvdGhlciByZW1haW5p
+bmcgY29udGV4dHMgdXNpbmcgdGhlIHNhbWUKPj4+Pj4+Pj4+IERSTSBmaWxlCj4+Pj4+Pj4+PiBk
+ZXNjcmlwdG9yIHRvIHVzZSBhbGwgaW9jdGxzIGFnYWluLiBTbywgSSB0aGluayB0aGVyZSBuZWVk
+cyB0bwo+Pj4+Pj4+Pj4gYmUgYQo+Pj4+Pj4+Pj4gdnJhbV9sb3N0X2NvdW50ZXIgaW4gc3RydWN0
+IGFtZGdwdV9jdHggaW5zdGVhZCBvZiBpbiBzdHJ1Y3QKPj4+Pj4+Pj4+IGFtZGdwdV9mcHJpdi4K
+Pj4+Pj4+Pj4gc3RydWN0IGFtZGdwdV9mcHJpdiBmb3IgdnJhbV9sb3N0X2NvdW50ZXIgaXMgcHJv
+cGVyIHBsYWNlLAo+Pj4+Pj4+PiBlc3BlY2lhbGx5Cj4+Pj4+Pj4+IGZvciBpb2N0bCByZXR1cm4g
+dmFsdWUuCj4+Pj4+Pj4+IGlmIHlvdSBuZWVkIHRvIHJlc2V0IGN0eCBvbmUgYnkgb25lLCB3ZSBj
+YW4gbWFyayBhbGwgY29udGV4dHMgb2YKPj4+Pj4+Pj4gdGhhdAo+Pj4+Pj4+PiB2bSwgYW5kIHRo
+ZW4gcmVzZXQgYnkgdXNlcnNwYWNlLgo+Pj4+Pj4+IEknbSBub3QgZm9sbG93aW5nLiBXaXRoIHZy
+YW1fbG9zdF9jb3VudGVyIGluIGFtZGdwdV9mcHJpdiwgaWYgYW55Cj4+Pj4+Pj4gY29udGV4dCBj
+YWxscyB0aGlzIGlvY3RsLCBhbGwgb3RoZXIgY29udGV4dHMgdXNpbmcgdGhlIHNhbWUgZmlsZQo+
+Pj4+Pj4+IGRlc2NyaXB0b3Igd2lsbCBhbHNvIGJlIGNvbnNpZGVyZWQgc2FmZSBhZ2Fpbiwgcmln
+aHQ/Cj4+Pj4+PiBZZXMsIGJ1dCBpdCByZWFsbHkgZGVwZW5kcyBvbiB1c2Vyc3BhY2UgcmVxdWly
+ZW1lbnQsIGlmIHlvdSBuZWVkIHRvCj4+Pj4+PiByZXNldCBjdHggb25lIGJ5IG9uZSwgd2UgY2Fu
+IG1hcmsgYWxsIGNvbnRleHRzIG9mIHRoYXQgdm0gdG8KPj4+Pj4+IGd1aWx0eSwgYW5kCj4+Pj4+
+PiB0aGVuIHJlc2V0IG9uZSBjb250ZXh0IGJ5IHVzZXJzcGFjZS4KPj4+Pj4gU3RpbGwgbm90IHN1
+cmUgd2hhdCB5b3UgbWVhbiBieSB0aGF0Lgo+Pj4+Pgo+Pj4+PiBFLmcuIHdoYXQgZG8geW91IG1l
+YW4gYnkgImd1aWx0eSI/IEkgdGhvdWdodCB0aGF0IHJlZmVycyB0byB0aGUKPj4+Pj4gY29udGV4
+dAo+Pj4+PiB3aGljaCBjYXVzZWQgYSBoYW5nLiBCdXQgaXQgc2VlbXMgbGlrZSB5b3UncmUgdXNp
+bmcgaXQgdG8gcmVmZXIgdG8gYW55Cj4+Pj4+IGNvbnRleHQgd2hpY2ggaGFzbid0IHJlYWN0ZWQg
+eWV0IHRvIFZSQU0gY29udGVudHMgYmVpbmcgbG9zdC4KPj4+PiBXaGVuIHZyYW0gaXMgbG9zdCwg
+d2UgdHJlYXQgYWxsIGNvbnRleHRzIG5lZWQgdG8gcmVzZXQuCj4+PiBFc3NlbnRpYWxseSwgeW91
+ciBwYXRjaGVzIG9ubHkgdHJhY2sgVlJBTSBjb250ZW50cyBiZWluZyBsb3N0IHBlciBmaWxlCj4+
+PiBkZXNjcmlwdG9yLCBub3QgcGVyIGNvbnRleHQuIEknbSBub3Qgc3VyZSAocmF0aGVyIHNrZXB0
+aWNhbCkgdGhhdCB0aGlzCj4+PiBpcyBzdWl0YWJsZSBmb3IgT3BlbkdMIFVNRHMsIHNpbmNlIHN0
+YXRlIGlzIHVzdWFsbHkgdHJhY2tlZCBwZXIgY29udGV4dC4KPj4+IE1hcmVrIC8gTmljb2xhaT8K
+Pj4KPj4gT2gsIHllYWggdGhhdCdzIGEgZ29vZCBwb2ludC4KPj4KPj4gVGhlIHByb2JsZW0gd2l0
+aCB0cmFja2luZyBpdCBwZXIgY29udGV4dCBpcyB0aGF0IFZ1bGthbiBhbHNvIHdhbnRzIHRoZQo+
+PiBFTk9ERVYgb24gdGhlIGFtZGdwdV9nZW1fdmFfaW9jdCgpIGFuZCBhbWRncHVfaW5mb19pb2N0
+bCgpIHdoaWNoIGFyZQo+PiBjb250ZXh0IGxlc3MuCj4+Cj4+IEJ1dCB0aGlua2luZyBtb3JlIGFi
+b3V0IHRoaXMgYmxvY2tpbmcgdGhvc2UgdHdvIGRvZXNuJ3QgbWFrZSBtdWNoCj4+IHNlbnNlLiBU
+aGUgVk0gY29udGVudCBjYW4gYmUgcmVzdG9yZWQgYW5kIHdoeSBzaG91bGQgYmUgZGlzYWxsb3cK
+Pj4gcmVhZGluZyBHUFUgaW5mbz8KPiBJIGNhbiByZS1wYXN0ZSB0aGUgVnVsa2FuIEFQSXMgcmVx
+dWlyaW5nIEVOT0RFVjoKPiAiCj4gCj4gVGhlIFZ1bGthbiBBUElzIGxpc3RlZCBiZWxvdyBjb3Vs
+ZCByZXR1cm4gVktfRVJST1JfREVWSUNFX0xPU1QgYWNjb3JkaW5nCj4gdG8gdGhlIHNwZWMuCj4g
+Cj4gSSB0cmllcyB0byBwcm92aWRlIGEgbGlzdCBvZiB1L2sgaW50ZXJmYWNlcyB0aGF0IGNvdWxk
+IGJlIGNhbGxlZCBmb3IKPiBlYWNoIHZrIEFQSS4KPiAKPiAgCj4gCj4gdmtDcmVhdGVEZXZpY2UK
+PiAKPiAtICAgICAgICAgIGFtZGdwdV9kZXZpY2VfaW5pdGlhbGl6ZS4KPiAtICAgICAgICAgIGFt
+ZGdwdV9xdWVyeV9ncHVfaW5mbwoKWy4uLl0KCj4gdmtRdWV1ZUJpbmRTcGFyc2UqKgo+IAo+ICAg
+ICAgICAgICAgICAgICBhbWRncHVfYm9fdmFfb3AKPiAgICAgICAgICAgICAgICAgYW1kZ3B1X2Jv
+X3ZhX29wX3JhdwoKU28gdGhlc2UgKmNhbiogcmV0dXJuIFZLX0VSUk9SX0RFVklDRV9MT1NULCBi
+dXQgZG8gdGhleSAqaGF2ZSB0byogZG8KdGhhdCBhZnRlciBhIHJlc2V0PyA6KQoKCi0tIApFYXJ0
+aGxpbmcgTWljaGVsIETDpG56ZXIgICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAgaHR0cDov
+L3d3dy5hbWQuY29tCkxpYnJlIHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAgICAgICAgfCAgICAg
+ICAgICAgICBNZXNhIGFuZCBYIGRldmVsb3BlcgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
+bmZvL2FtZC1nZngK
