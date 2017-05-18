@@ -1,105 +1,54 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Subject: Re: [PATCH] drm/amd: include <linux/delay.h> instead of
- "linux/delay.h"
-Date: Thu, 18 May 2017 08:47:34 +0200
-Message-ID: <c8127402-cb4c-e725-cdee-5932ab97bd36@amd.com>
-References: <1495082612-10385-1-git-send-email-yamada.masahiro@socionext.com>
+From: walter harms <wharms@bfs.de>
+Subject: Re: [PATCH] drm/amd/powerplay: ensure loop does not wraparound on
+ decrement
+Date: Thu, 18 May 2017 09:15:51 +0200
+Message-ID: <591D4A27.7020402@bfs.de>
+References: <20170517181346.11715-1-colin.king@canonical.com>
+Reply-To: wharms@bfs.de
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <1495082612-10385-1-git-send-email-yamada.masahiro@socionext.com>
-Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Masahiro Yamada <yamada.masahiro@socionext.com>, dri-devel@lists.freedesktop.org, Daniel Vetter <daniel.vetter@intel.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@amd.com>, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20170517181346.11715-1-colin.king@canonical.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Colin King <colin.king@canonical.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?B?Q2hyaXN0aWFuIEvDtg==?= =?UTF-8?B?bmln?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Rex Zhu <Rex.Zhu@amd.com>, Eric Huang <JinHuiEric.Huang@amd.com>, Huang Rui <ray.huang@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMTguMDUuMjAxNyB1bSAwNjo0MyBzY2hyaWViIE1hc2FoaXJvIFlhbWFkYToKPiBVc2UgPC4u
-Lj4gbm90YXRpb24gdG8gaW5jbHVkZSBoZWFkZXJzIGxvY2F0ZWQgaW4gaW5jbHVkZS9saW51eC4K
-PiBXaGlsZSB3ZSBhcmUgaGVyZSwgdHdlYWsgdGhlIGluY2x1ZGVzIG9yZGVyIGEgYml0IHRvIHNv
-cnQgdGhlbQo+IGFscGhhYmV0aWNhbGx5Lgo+Cj4gU2lnbmVkLW9mZi1ieTogTWFzYWhpcm8gWWFt
-YWRhIDx5YW1hZGEubWFzYWhpcm9Ac29jaW9uZXh0LmNvbT4KClJldmlld2VkLWJ5OiBDaHJpc3Rp
-YW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cgo+IC0tLQo+Cj4gICBkcml2ZXJz
-L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9od21nci5jICAgICAgICB8IDQgKystLQo+ICAg
-ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvcHBfYWNwaS5jICAgICAgfCAyICst
-Cj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmMgICB8
-IDQgKystLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3
-bWdyLmMgfCA1ICsrKy0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3Iv
-Y3pfc211bWdyLmMgICB8IDggKysrKystLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJw
-bGF5L3NtdW1nci9zbXVtZ3IuYyAgICAgIHwgNSArKystLQo+ICAgNiBmaWxlcyBjaGFuZ2VkLCAx
-NiBpbnNlcnRpb25zKCspLCAxMiBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9od21nci5jIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9wb3dlcnBsYXkvaHdtZ3IvaHdtZ3IuYwo+IGluZGV4IGZmNGFlM2QuLjk2M2E5ZTAgMTAwNjQ0
-Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvaHdtZ3IuYwo+ICsr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2h3bWdyLmMKPiBAQCAtMjIs
-MTAgKzIyLDEwIEBACj4gICAgKi8KPiAgIAo+ICAgI2luY2x1ZGUgInBwX2RlYnVnLmgiCj4gLSNp
-bmNsdWRlICJsaW51eC9kZWxheS5oIgo+IC0jaW5jbHVkZSA8bGludXgvdHlwZXMuaD4KPiArI2lu
-Y2x1ZGUgPGxpbnV4L2RlbGF5Lmg+Cj4gICAjaW5jbHVkZSA8bGludXgva2VybmVsLmg+Cj4gICAj
-aW5jbHVkZSA8bGludXgvc2xhYi5oPgo+ICsjaW5jbHVkZSA8bGludXgvdHlwZXMuaD4KPiAgICNp
-bmNsdWRlIDxkcm0vYW1kZ3B1X2RybS5oPgo+ICAgI2luY2x1ZGUgImNnc19jb21tb24uaCIKPiAg
-ICNpbmNsdWRlICJwb3dlcl9zdGF0ZS5oIgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9od21nci9wcF9hY3BpLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
-cGxheS9od21nci9wcF9hY3BpLmMKPiBpbmRleCBmNWU4ZmRhLi5mNmI0ZGQ5IDEwMDY0NAo+IC0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3BwX2FjcGkuYwo+ICsrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3BwX2FjcGkuYwo+IEBAIC0yMSw4
-ICsyMSw4IEBACj4gICAgKgo+ICAgICovCj4gICAKPiArI2luY2x1ZGUgPGxpbnV4L2RlbGF5Lmg+
-Cj4gICAjaW5jbHVkZSA8bGludXgvZXJybm8uaD4KPiAtI2luY2x1ZGUgImxpbnV4L2RlbGF5Lmgi
-Cj4gICAjaW5jbHVkZSAiaHdtZ3IuaCIKPiAgICNpbmNsdWRlICJhbWRfYWNwaS5oIgo+ICAgI2lu
-Y2x1ZGUgInBwX2FjcGkuaCIKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
-cnBsYXkvaHdtZ3Ivc211N19od21nci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
-aHdtZ3Ivc211N19od21nci5jCj4gaW5kZXggOGY2NjNhYi4uNTgxMzc0ZCAxMDA2NDQKPiAtLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmMKPiArKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmMKPiBAQCAt
-MjEsMTEgKzIxLDExIEBACj4gICAgKgo+ICAgICovCj4gICAjaW5jbHVkZSAicHBfZGVidWcuaCIK
-PiArI2luY2x1ZGUgPGxpbnV4L2RlbGF5Lmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9mYi5oPgo+ICAg
-I2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+ICAgI2luY2x1ZGUgPGxpbnV4L3NsYWIuaD4KPiAt
-I2luY2x1ZGUgPGxpbnV4L2ZiLmg+Cj4gICAjaW5jbHVkZSA8YXNtL2RpdjY0Lmg+Cj4gLSNpbmNs
-dWRlICJsaW51eC9kZWxheS5oIgo+ICAgI2luY2x1ZGUgInBwX2FjcGkuaCIKPiAgICNpbmNsdWRl
-ICJwcGF0b21jdHJsLmgiCj4gICAjaW5jbHVkZSAiYXRvbWJpb3MuaCIKPiBkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdyLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfaHdtZ3IuYwo+IGluZGV4IDgz
-OTQ5NTUuLmY0YWI4MWIgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
-YXkvaHdtZ3IvdmVnYTEwX2h3bWdyLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
-cGxheS9od21nci92ZWdhMTBfaHdtZ3IuYwo+IEBAIC0yMCwxMCArMjAsMTEgQEAKPiAgICAqIE9U
-SEVSIERFQUxJTkdTIElOIFRIRSBTT0ZUV0FSRS4KPiAgICAqCj4gICAgKi8KPiArCj4gKyNpbmNs
-dWRlIDxsaW51eC9kZWxheS5oPgo+ICsjaW5jbHVkZSA8bGludXgvZmIuaD4KPiAgICNpbmNsdWRl
-IDxsaW51eC9tb2R1bGUuaD4KPiAgICNpbmNsdWRlIDxsaW51eC9zbGFiLmg+Cj4gLSNpbmNsdWRl
-IDxsaW51eC9mYi5oPgo+IC0jaW5jbHVkZSAibGludXgvZGVsYXkuaCIKPiAgIAo+ICAgI2luY2x1
-ZGUgImh3bWdyLmgiCj4gICAjaW5jbHVkZSAiYW1kX3Bvd2VycGxheS5oIgo+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvY3pfc211bWdyLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvY3pfc211bWdyLmMKPiBpbmRleCAxZjY3
-NDRhLi4zOWM3MDkxIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
-L3NtdW1nci9jel9zbXVtZ3IuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
-L3NtdW1nci9jel9zbXVtZ3IuYwo+IEBAIC0yMCwxMSArMjAsMTMgQEAKPiAgICAqIE9USEVSIERF
-QUxJTkdTIElOIFRIRSBTT0ZUV0FSRS4KPiAgICAqCj4gICAgKi8KPiAtI2luY2x1ZGUgPGxpbnV4
-L3R5cGVzLmg+Cj4gKwo+ICsjaW5jbHVkZSA8bGludXgvZGVsYXkuaD4KPiArI2luY2x1ZGUgPGxp
-bnV4L2dmcC5oPgo+ICAgI2luY2x1ZGUgPGxpbnV4L2tlcm5lbC5oPgo+ICAgI2luY2x1ZGUgPGxp
-bnV4L3NsYWIuaD4KPiAtI2luY2x1ZGUgPGxpbnV4L2dmcC5oPgo+IC0jaW5jbHVkZSAibGludXgv
-ZGVsYXkuaCIKPiArI2luY2x1ZGUgPGxpbnV4L3R5cGVzLmg+Cj4gKwo+ICAgI2luY2x1ZGUgImNn
-c19jb21tb24uaCIKPiAgICNpbmNsdWRlICJzbXUvc211XzhfMF9kLmgiCj4gICAjaW5jbHVkZSAi
-c211L3NtdV84XzBfc2hfbWFzay5oIgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L3Bvd2VycGxheS9zbXVtZ3Ivc211bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxh
-eS9zbXVtZ3Ivc211bWdyLmMKPiBpbmRleCBjMGQ3NTc2Li4yZTk1NGE0IDEwMDY0NAo+IC0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9zbXVtZ3IuYwo+ICsrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9zbXVtZ3IuYwo+IEBAIC0yMCwxNSAr
-MjAsMTYgQEAKPiAgICAqIE9USEVSIERFQUxJTkdTIElOIFRIRSBTT0ZUV0FSRS4KPiAgICAqCj4g
-ICAgKi8KPiAtI2luY2x1ZGUgPGxpbnV4L3R5cGVzLmg+Cj4gKwo+ICsjaW5jbHVkZSA8bGludXgv
-ZGVsYXkuaD4KPiAgICNpbmNsdWRlIDxsaW51eC9rZXJuZWwuaD4KPiAgICNpbmNsdWRlIDxsaW51
-eC9tb2R1bGUuaD4KPiAgICNpbmNsdWRlIDxsaW51eC9zbGFiLmg+Cj4gKyNpbmNsdWRlIDxsaW51
-eC90eXBlcy5oPgo+ICAgI2luY2x1ZGUgPGRybS9hbWRncHVfZHJtLmg+Cj4gICAjaW5jbHVkZSAi
-cHBfaW5zdGFuY2UuaCIKPiAgICNpbmNsdWRlICJzbXVtZ3IuaCIKPiAgICNpbmNsdWRlICJjZ3Nf
-Y29tbW9uLmgiCj4gLSNpbmNsdWRlICJsaW51eC9kZWxheS5oIgo+ICAgCj4gICBNT0RVTEVfRklS
-TVdBUkUoImFtZGdwdS90b3Bhel9zbWMuYmluIik7Cj4gICBNT0RVTEVfRklSTVdBUkUoImFtZGdw
-dS90b3Bhel9rX3NtYy5iaW4iKTsKCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9kcmktZGV2ZWwK
+
+
+Am 17.05.2017 20:13, schrieb Colin King:
+> From: Colin Ian King <colin.king@canonical.com>
+> 
+> The current for loop decrements i when it is zero and this causes
+> a wrap-around back to ~0 because i is unsigned. In the unlikely event
+> that mask is 0, the loop will run forever. Fix this so we can't loop
+> forever.
+> 
+> Detected by CoverityScan, CID#1435469 ("Unsigned compared against 0")
+> 
+> Signed-off-by: Colin Ian King <colin.king@canonical.com>
+> ---
+>  drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+> index ad30f5d3a10d..d92c9b9b15be 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+> @@ -4199,7 +4199,7 @@ static int vega10_force_clock_level(struct pp_hwmgr *hwmgr,
+>  		}
+>  		data->smc_state_table.gfx_boot_level = i;
+>  
+> -		for (i = 31; i >= 0; i--) {
+> +		for (i = 32; --i; ) {
+>  			if (mask & (1 << i))
+>  				break;
+>  		}
+
+nitpicking:
+we notices at several points that programmers are bad at counting backwards.
+Is there a reason not to start with i=0 ?
+
+re,
+ wh
