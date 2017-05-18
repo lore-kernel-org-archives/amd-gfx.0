@@ -1,99 +1,41 @@
-From: John Brooks <john-xq/Ko7C6e2Bl57MIdRCFDg@public.gmane.org>
-Subject: Re: [PATCH 3/3] drm/amdgpu: Try evicting from CPU visible to
- invisible VRAM first
-Date: Thu, 18 May 2017 15:43:46 +0000
-Message-ID: <20170518154346.GA5730@kitsune.fastquake.com>
-References: <20170518090809.15916-1-michel@daenzer.net>
- <20170518090809.15916-4-michel@daenzer.net>
+From: Eric Huang <jinhuieric.huang@amd.com>
+Subject: Re: [PATCH] drm/amd/powerplay: fix a signedness bugs
+Date: Thu, 18 May 2017 12:28:09 -0400
+Message-ID: <ef4ba551-a52b-d2e0-5ba4-7271ee6f4e85@amd.com>
+References: <20170516144253.vvu3i6mbx3rv5uki@mwanda>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <20170518090809.15916-4-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Michel =?iso-8859-1?Q?D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset="windows-1252"; format=flowed
+Content-Transfer-Encoding: 7bit
+Return-path: <kernel-janitors-owner@vger.kernel.org>
+In-Reply-To: <20170516144253.vvu3i6mbx3rv5uki@mwanda>
+Sender: kernel-janitors-owner@vger.kernel.org
+To: Dan Carpenter <dan.carpenter@oracle.com>, Alex Deucher <alexander.deucher@amd.com>, Rex Zhu <Rex.Zhu@amd.com>
+Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Ken Wang <Qingqing.wang@amd.com>, Huang Rui <ray.huang@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVGh1LCBNYXkgMTgsIDIwMTcgYXQgMDY6MDg6MDlQTSArMDkwMCwgTWljaGVsIETDpG56ZXIg
-d3JvdGU6Cj4gRnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+Cj4g
-Cj4gSW4gZXhjaGFuZ2UsIG1vdmUgQk9zIHdpdGggdGhlIEFNREdQVV9HRU1fQ1JFQVRFX0NQVV9B
-Q0NFU1NfUkVRVUlSRUQKPiBmbGFnIHNldCB0byBDUFUgdmlzaWJsZSBWUkFNIHdpdGggbW9yZSBm
-b3JjZS4KPiAKPiBGb3Igb3RoZXIgQk9zLCB0aGlzIGdpdmVzIGFub3RoZXIgY2hhbmNlIHRvIHN0
-YXkgaW4gVlJBTSBpZiB0aGV5Cj4gaGFwcGVuZWQgdG8gbGllIGluIHRoZSBDUFUgdmlzaWJsZSBw
-YXJ0IGFuZCBhbm90aGVyIEJPIG5lZWRzIHRvIGdvCj4gdGhlcmUuCj4gCj4gVGhpcyBzaG91bGQg
-YWxsb3cgQk9zIHRvIHN0YXkgaW4gVlJBTSBsb25nZXIgaW4gc29tZSBjYXNlcy4KPiAKPiBTaWdu
-ZWQtb2ZmLWJ5OiBNaWNoZWwgRMOkbnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4KPiAtLS0K
-PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jIHwgMTkgKysrKysr
-KysrKysrKystLS0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMg
-ICAgfCAyNyArKysrKysrKysrKysrKysrKysrKysrKysrKysKPiAgMiBmaWxlcyBjaGFuZ2VkLCA0
-MSBpbnNlcnRpb25zKCspLCA1IGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfb2JqZWN0LmMKPiBpbmRleCA0MWVlMzUzYjIyYzguLmQ0NWMyMzI1YzYx
-YSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0
-LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMKPiBA
-QCAtOTYzLDExICs5NjMsMjAgQEAgaW50IGFtZGdwdV9ib19mYXVsdF9yZXNlcnZlX25vdGlmeShz
-dHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvKQo+ICAJCQkJCSBBTURHUFVfR0VNX0RPTUFJTl9H
-VFQpOwo+ICAJYWJvLT5wbGFjZW1lbnRzWzBdLmxwZm4gPSBhZGV2LT5tYy52aXNpYmxlX3ZyYW1f
-c2l6ZSA+PiBQQUdFX1NISUZUOwo+ICAKPiAtCS8qIE9ubHkgc2V0IEdUVCBhcyBidXN5IHBsYWNl
-bWVudDsgaWYgdGhlcmUgaXMgbm8gc3BhY2UgaW4gQ1BVIHZpc2libGUKPiAtCSAqIFZSQU0sIG1v
-dmUgdGhpcyBCTyB0byBHVFQgaW5zdGVhZCBvZiBldmljdGluZyBvdGhlciBCT3MKPiAtCSAqLwo+
-IC0JYWJvLT5wbGFjZW1lbnQuYnVzeV9wbGFjZW1lbnQgPSAmYWJvLT5wbGFjZW1lbnRzWzFdOwo+
-IC0JYWJvLT5wbGFjZW1lbnQubnVtX2J1c3lfcGxhY2VtZW50ID0gMTsKPiArCWlmIChhYm8tPmZs
-YWdzICYgQU1ER1BVX0dFTV9DUkVBVEVfQ1BVX0FDQ0VTU19SRVFVSVJFRCkgewo+ICsJCS8qIE9u
-bHkgc2V0IFZSQU0gYXMgbm9ybWFsIHBsYWNlbWVudDsgaWYgdGhlcmUgaXMgbm8gc3BhY2UgaW4K
-PiArCQkgKiBDUFUgdmlzaWJsZSBWUkFNLCBldmljdCBvdGhlciBCT3MsIG9ubHkgZmFsbCBiYWNr
-IHRvIEdUVCBhcwo+ICsJCSAqIGxhc3QgcmVzb3J0Cj4gKwkJICovCj4gKwkJYWJvLT5wbGFjZW1l
-bnQubnVtX3BsYWNlbWVudCA9IDE7Cj4gKwl9IGVsc2Ugewo+ICsJCS8qIE9ubHkgc2V0IEdUVCBh
-cyBidXN5IHBsYWNlbWVudDsgaWYgdGhlcmUgaXMgbm8gc3BhY2UgaW4gQ1BVCj4gKwkJICogdmlz
-aWJsZSBWUkFNLCBtb3ZlIHRoaXMgQk8gdG8gR1RUIGluc3RlYWQgb2YgZXZpY3Rpbmcgb3RoZXIK
-PiArCQkgKiBCT3MKPiArCQkgKi8KPiArCQlhYm8tPnBsYWNlbWVudC5idXN5X3BsYWNlbWVudCA9
-ICZhYm8tPnBsYWNlbWVudHNbMV07Cj4gKwkJYWJvLT5wbGFjZW1lbnQubnVtX2J1c3lfcGxhY2Vt
-ZW50ID0gMTsKPiArCX0KPiAgCj4gIAlyZXR1cm4gdHRtX2JvX3ZhbGlkYXRlKGJvLCAmYWJvLT5w
-bGFjZW1lbnQsIGZhbHNlLCBmYWxzZSk7Cj4gIH0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3R0bS5jCj4gaW5kZXggNTc3ODliODYwNzY4Li5kNWVkODUwMjY1NDIgMTAwNjQ0Cj4g
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jCj4gKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jCj4gQEAgLTIwNiw3ICsyMDYsMzQg
-QEAgc3RhdGljIHZvaWQgYW1kZ3B1X2V2aWN0X2ZsYWdzKHN0cnVjdCB0dG1fYnVmZmVyX29iamVj
-dCAqYm8sCj4gIAkJICAgIGFkZXYtPm1tYW4uYnVmZmVyX2Z1bmNzX3JpbmcgJiYKPiAgCQkgICAg
-YWRldi0+bW1hbi5idWZmZXJfZnVuY3NfcmluZy0+cmVhZHkgPT0gZmFsc2UpIHsKPiAgCQkJYW1k
-Z3B1X3R0bV9wbGFjZW1lbnRfZnJvbV9kb21haW4oYWJvLCBBTURHUFVfR0VNX0RPTUFJTl9DUFUp
-Owo+ICsJCX0gZWxzZSBpZiAoYWRldi0+bWMudmlzaWJsZV92cmFtX3NpemUgPCBhZGV2LT5tYy5y
-ZWFsX3ZyYW1fc2l6ZSkgewo+ICsJCQl1bnNpZ25lZCBmcGZuID0gYWRldi0+bWMudmlzaWJsZV92
-cmFtX3NpemUgPj4gUEFHRV9TSElGVDsKPiArCQkJc3RydWN0IGRybV9tbV9ub2RlICpub2RlID0g
-Ym8tPm1lbS5tbV9ub2RlOwo+ICsJCQl1bnNpZ25lZCBsb25nIHBhZ2VzX2xlZnQ7Cj4gKwo+ICsJ
-CQlmb3IgKHBhZ2VzX2xlZnQgPSBiby0+bWVtLm51bV9wYWdlczsKPiArCQkJICAgICBwYWdlc19s
-ZWZ0Owo+ICsJCQkgICAgIHBhZ2VzX2xlZnQgLT0gbm9kZS0+c2l6ZSwgbm9kZSsrKSB7Cj4gKwkJ
-CQlpZiAobm9kZS0+c3RhcnQgPCBmcGZuKQo+ICsJCQkJCWJyZWFrOwo+ICsJCQl9Cj4gKwo+ICsJ
-CQlpZiAoIXBhZ2VzX2xlZnQpCj4gKwkJCQlnb3RvIGd0dDsKPiArCj4gKwkJCS8qIFRyeSBldmlj
-dGluZyB0byB0aGUgQ1BVIGluYWNjZXNzaWJsZSBwYXJ0IG9mIFZSQU0KPiArCQkJICogZmlyc3Qs
-IGJ1dCBvbmx5IHNldCBHVFQgYXMgYnVzeSBwbGFjZW1lbnQsIHNvIHRoaXMKPiArCQkJICogQk8g
-d2lsbCBiZSBldmljdGVkIHRvIEdUVCByYXRoZXIgdGhhbiBjYXVzaW5nIG90aGVyCj4gKwkJCSAq
-IEJPcyB0byBiZSBldmljdGVkIGZyb20gVlJBTQo+ICsJCQkgKi8KPiArCQkJYW1kZ3B1X3R0bV9w
-bGFjZW1lbnRfZnJvbV9kb21haW4oYWJvLCBBTURHUFVfR0VNX0RPTUFJTl9WUkFNIHwKPiArCQkJ
-CQkJCSBBTURHUFVfR0VNX0RPTUFJTl9HVFQpOwo+ICsJCQlhYm8tPnBsYWNlbWVudHNbMF0uZnBm
-biA9IGZwZm47Cj4gKwkJCWFiby0+cGxhY2VtZW50c1swXS5scGZuID0gMDsKPiArCQkJYWJvLT5w
-bGFjZW1lbnQuYnVzeV9wbGFjZW1lbnQgPSAmYWJvLT5wbGFjZW1lbnRzWzFdOwoKQXJlIHlvdSBz
-dXJlIHlvdSB3YW50IHRvIGhhcmRjb2RlIHRoZSBwbGFjZW1lbnRzIGluZGV4PyBJdCdsbCBiZSBk
-ZXBlbmRlbnQgb24KdGhlIG9yZGVyIHNldCB1cCBpbiBhbWRncHVfdHRtX3BsYWNlbWVudF9pbml0
-LgoKPiArCQkJYWJvLT5wbGFjZW1lbnQubnVtX2J1c3lfcGxhY2VtZW50ID0gMTsKPiAgCQl9IGVs
-c2Ugewo+ICtndHQ6Cj4gIAkJCWFtZGdwdV90dG1fcGxhY2VtZW50X2Zyb21fZG9tYWluKGFibywg
-QU1ER1BVX0dFTV9ET01BSU5fR1RUKTsKPiAgCQkJLyogU2V0IGFuIHVwcGVyIGxpbWl0IHRvIGZv
-cmNlIGRpcmVjdGx5IGFsbG9jYXRpbmcKPiAgCQkJICogYWRkcmVzcyBzcGFjZSBmb3IgdGhlIEJP
-Lgo+IC0tIAo+IDIuMTEuMAo+IAo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYW1kLWdmeAoKLS0KSm9obiBCcm9va3MKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4Cg==
+Reviewed-by: Eric Huang <JinHuiEric.Huang@amd.com>
+
+
+On 2017-05-16 10:42 AM, Dan Carpenter wrote:
+> Smatch complains about a signedness bug here:
+>
+> 	vega10_hwmgr.c:4202 vega10_force_clock_level()
+> 	warn: always true condition '(i >= 0) => (0-u32max >= 0)'
+>
+> Fixes: 7b52db39a4c2 ("drm/amd/powerplay: fix bug sclk/mclk level can't be set on vega10.")
+> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+> index ad30f5d3a10d..2614af2f553f 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+> @@ -4186,7 +4186,7 @@ static int vega10_force_clock_level(struct pp_hwmgr *hwmgr,
+>   		enum pp_clock_type type, uint32_t mask)
+>   {
+>   	struct vega10_hwmgr *data = (struct vega10_hwmgr *)(hwmgr->backend);
+> -	uint32_t i;
+> +	int i;
+>   
+>   	if (hwmgr->dpm_level != AMD_DPM_FORCED_LEVEL_MANUAL)
+>   		return -EINVAL;
+
