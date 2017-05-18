@@ -1,54 +1,60 @@
-From: walter harms <wharms@bfs.de>
-Subject: Re: [PATCH] drm/amd/powerplay: ensure loop does not wraparound on
- decrement
-Date: Thu, 18 May 2017 09:15:51 +0200
-Message-ID: <591D4A27.7020402@bfs.de>
-References: <20170517181346.11715-1-colin.king@canonical.com>
-Reply-To: wharms@bfs.de
+From: Lukas Wunner <lukas-JFq808J9C/izQB+pC5nmwQ@public.gmane.org>
+Subject: Re: [REGRESSION] drm/radeon: Don't register Thunderbolt eGPU with
+ vga_switcheroo
+Date: Thu, 18 May 2017 10:05:01 +0200
+Message-ID: <20170518080501.GA31002@wunner.de>
+References: <87h90jkx88.fsf@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20170517181346.11715-1-colin.king@canonical.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Colin King <colin.king@canonical.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?B?Q2hyaXN0aWFuIEvDtg==?= =?UTF-8?B?bmln?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Rex Zhu <Rex.Zhu@amd.com>, Eric Huang <JinHuiEric.Huang@amd.com>, Huang Rui <ray.huang@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Disposition: inline
+In-Reply-To: <87h90jkx88.fsf-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Nicolai Stange <nicstange-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-
-
-Am 17.05.2017 20:13, schrieb Colin King:
-> From: Colin Ian King <colin.king@canonical.com>
-> 
-> The current for loop decrements i when it is zero and this causes
-> a wrap-around back to ~0 because i is unsigned. In the unlikely event
-> that mask is 0, the loop will run forever. Fix this so we can't loop
-> forever.
-> 
-> Detected by CoverityScan, CID#1435469 ("Unsigned compared against 0")
-> 
-> Signed-off-by: Colin Ian King <colin.king@canonical.com>
-> ---
->  drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-> index ad30f5d3a10d..d92c9b9b15be 100644
-> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-> @@ -4199,7 +4199,7 @@ static int vega10_force_clock_level(struct pp_hwmgr *hwmgr,
->  		}
->  		data->smc_state_table.gfx_boot_level = i;
->  
-> -		for (i = 31; i >= 0; i--) {
-> +		for (i = 32; --i; ) {
->  			if (mask & (1 << i))
->  				break;
->  		}
-
-nitpicking:
-we notices at several points that programmers are bad at counting backwards.
-Is there a reason not to start with i=0 ?
-
-re,
- wh
+T24gV2VkLCBNYXkgMTcsIDIwMTcgYXQgMTE6MDg6MjNQTSArMDIwMCwgTmljb2xhaSBTdGFuZ2Ug
+d3JvdGU6Cj4gSSdtIGV4cGVyaWVuY2luZyBhIGJvb3QgZmFpbHVyZSBvbiBuZXh0LTIwMTcwNTE1
+Ogo+IAo+ICAgQlVHOiB1bmFibGUgdG8gaGFuZGxlIGtlcm5lbCBOVUxMIHBvaW50ZXIgZGVyZWZl
+cmVuY2UgYXQgMDAwMDAwMDAwMDAwMDdjYgo+ICAgSVA6IHJhZGVvbl9kcml2ZXJfbG9hZF9rbXMr
+MHhlYi8weDIzMCBbcmFkZW9uXQpbc25pcF0KPiBCaXNlY3Rpb24gbGVhZCB0byBjb21taXQgN2Zm
+YjBjZTMxY2Y5ICgiZHJtL3JhZGVvbjogRG9uJ3QgcmVnaXN0ZXIKPiBUaHVuZGVyYm9sdCBlR1BV
+IHdpdGggdmdhX3N3aXRjaGVyb28iKS4gUmV2ZXJ0aW5nIHRoaXMgY29tbWl0IG9uIHRvcCBvZgo+
+IG5leHQtMjAxNzA1MTUgZml4ZXMgdGhlIGlzc3VlIGZvciBtZS4KPiAKPiBNeSBib3ggaXMgYSBE
+ZWxsIGxhcHRvcCB3aGljaCBtb3N0IGNlcnRhaW5seSBoYXNuJ3QgZ290IGFueSBUaHVuZGVyYm9s
+dAo+IGNpcmN1aXRyeS4KClRoYW5rcyBhIGxvdCBOaWNvbGFpIGZvciByZXBvcnRpbmcgdGhpcywg
+bXkgYXBvbG9naWVzIGZvciB0aGUgYnJlYWthZ2UKd2hpY2ggdHVybnMgb3V0IHRvIGJlIGEgZGVy
+ZWZlcmVuY2Ugb2YgcmRldi0+cGRldiBiZWZvcmUgaXQncyBzZXQuIDotKAoKMTQ6ICAgZTggZTcg
+YzAgMGUgMDAgICAgICAgICAgY2FsbHEgIDB4ZWMxMDAJICAgICAgCSA7IHJhZGVvbl9oYXNfYXRw
+eCgpCjE5OiAgIDg0IGMwICAgICAgICAgICAgICAgICAgIHRlc3QgICAlYWwsJWFsCjFiOiAgIDc0
+IDlhICAgICAgICAgICAgICAgICAgIGplICAgICAweGZmZmZmZmZmZmZmZmZmYjcKMWQ6ICAgNDEg
+ZjcgYzUgMDAgMDAgMDIgMDAgICAgdGVzdCAgICQweDIwMDAwLCVyMTNkCSA7IGZsYWdzICYgUkFE
+RU9OX0lTX0lHUAoyNDogICA3NSA5MSAgICAgICAgICAgICAgICAgICBqbmUgICAgMHhmZmZmZmZm
+ZmZmZmZmZmI3CjI2OiAgIDQ5IDhiIDQ0IDI0IDEwICAgICAgICAgIG1vdiAgICAweDEwKCVyMTIp
+LCVyYXgJIDsgcmF4ID0gcmRldgoyYjoqICAwZiBiNiA5MCBjYiAwNyAwMCAwMCAgICBtb3Z6Ymwg
+MHg3Y2IoJXJheCksJWVkeCAgICAgICAgIDwtLSB0cmFwcGluZyBpbnN0cnVjdGlvbgoKQ291bGQg
+eW91IHZlcmlmeSBpZiB0aGUgcGF0Y2ggYmVsb3cgZml4ZXMgdGhlIGlzc3VlIGZvciB5b3U/CgpU
+aGFua3MhCgpMdWthcwoKLS0gPjggLS0KCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcmFk
+ZW9uL3JhZGVvbl9rbXMuYyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2ttcy5jCmlu
+ZGV4IGUzZTdjYjEuLjQ3NjFmMjcgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24v
+cmFkZW9uX2ttcy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2ttcy5jCkBA
+IC0xMTYsNyArMTE2LDcgQEAgaW50IHJhZGVvbl9kcml2ZXJfbG9hZF9rbXMoc3RydWN0IGRybV9k
+ZXZpY2UgKmRldiwgdW5zaWduZWQgbG9uZyBmbGFncykKIAlpZiAoKHJhZGVvbl9ydW50aW1lX3Bt
+ICE9IDApICYmCiAJICAgIHJhZGVvbl9oYXNfYXRweCgpICYmCiAJICAgICgoZmxhZ3MgJiBSQURF
+T05fSVNfSUdQKSA9PSAwKSAmJgotCSAgICAhcGNpX2lzX3RodW5kZXJib2x0X2F0dGFjaGVkKHJk
+ZXYtPnBkZXYpKQorCSAgICAhcGNpX2lzX3RodW5kZXJib2x0X2F0dGFjaGVkKGRldi0+cGRldikp
+CiAJCWZsYWdzIHw9IFJBREVPTl9JU19QWDsKIAogCS8qIHJhZGVvbl9kZXZpY2VfaW5pdCBzaG91
+bGQgcmVwb3J0IG9ubHkgZmF0YWwgZXJyb3IKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cg==
