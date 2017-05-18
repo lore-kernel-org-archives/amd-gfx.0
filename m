@@ -1,71 +1,138 @@
-From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: [PATCH xf86-video-ati] Update URLs
-Date: Thu, 18 May 2017 11:16:59 +0900
-Message-ID: <20170518021659.5937-1-michel@daenzer.net>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+From: Masahiro Yamada <yamada.masahiro@socionext.com>
+Subject: [PATCH] drm/amd: include <linux/delay.h> instead of "linux/delay.h"
+Date: Thu, 18 May 2017 13:43:32 +0900
+Message-ID: <1495082612-10385-1-git-send-email-yamada.masahiro@socionext.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: dri-devel@lists.freedesktop.org, Daniel Vetter <daniel.vetter@intel.com>
+Cc: linux-kernel@vger.kernel.org, Oded Gabbay <oded.gabbay@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org, =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@amd.com>, Masahiro Yamada <yamada.masahiro@socionext.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+CgoqIFBvaW50IHRv
-IHRoZSBhbWQtZ2Z4IG1haWxpbmcgbGlzdAoqIFNwZWNpZnkgdGhlIGNvbXBvbmVudCBpbiBhbGwg
-YnVnemlsbGEgVVJMcwoqIFVzZSBodHRwczovLyBmb3IgYWxsIEhUTUwgVVJMcwoKU2lnbmVkLW9m
-Zi1ieTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+Ci0tLQogUkVBRE1F
-ICAgICAgICAgfCAxNCArKysrKysrLS0tLS0tLQogY29uZmlndXJlLmFjICAgfCAgMiArLQogbWFu
-L3JhZGVvbi5tYW4gfCAgNiArKystLS0KIDMgZmlsZXMgY2hhbmdlZCwgMTEgaW5zZXJ0aW9ucygr
-KSwgMTEgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvUkVBRE1FIGIvUkVBRE1FCmluZGV4IDRi
-OTJhMTg1OC4uZGI5ODJmYmVkIDEwMDY0NAotLS0gYS9SRUFETUUKKysrIGIvUkVBRE1FCkBAIC0x
-LDI1ICsxLDI1IEBACi14Zjg2LXZpZGVvLWF0aSAtIEFUSSBSYWRlb24gdmlkZW8gZHJpdmVyIGZv
-ciB0aGUgWG9yZyBYIHNlcnZlcgoreGY4Ni12aWRlby1hdGkgLSBBVEkvQU1EIFJhZGVvbiB2aWRl
-byBkcml2ZXIgZm9yIHRoZSBYb3JnIFggc2VydmVyCiAKIEFsbCBxdWVzdGlvbnMgcmVnYXJkaW5n
-IHRoaXMgc29mdHdhcmUgc2hvdWxkIGJlIGRpcmVjdGVkIGF0IHRoZQotWG9yZyBtYWlsaW5nIGxp
-c3Q6CithbWQtZ2Z4IG1haWxpbmcgbGlzdDoKIAotICAgICAgICBodHRwOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8veG9yZworICAgICAgICBodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKIAogUGxlYXNlIHN1Ym1pdCBi
-dWcgcmVwb3J0cyB0byB0aGUgWG9yZyBidWd6aWxsYToKIAotICAgICAgICBodHRwczovL2J1Z3Mu
-ZnJlZWRlc2t0b3Aub3JnL2VudGVyX2J1Zy5jZ2k/cHJvZHVjdD14b3JnCisgICAgICAgIGh0dHBz
-Oi8vYnVncy5mcmVlZGVza3RvcC5vcmcvZW50ZXJfYnVnLmNnaT9wcm9kdWN0PXhvcmcmY29tcG9u
-ZW50PURyaXZlci9SYWRlb24KIAogVGhlIG1hc3RlciBkZXZlbG9wbWVudCBjb2RlIHJlcG9zaXRv
-cnkgY2FuIGJlIGZvdW5kIGF0OgogCiAgICAgICAgIGdpdDovL2Fub25naXQuZnJlZWRlc2t0b3Au
-b3JnL2dpdC94b3JnL2RyaXZlci94Zjg2LXZpZGVvLWF0aQogCi0gICAgICAgIGh0dHA6Ly9jZ2l0
-LmZyZWVkZXNrdG9wLm9yZy94b3JnL2RyaXZlci94Zjg2LXZpZGVvLWF0aQorICAgICAgICBodHRw
-czovL2NnaXQuZnJlZWRlc2t0b3Aub3JnL3hvcmcvZHJpdmVyL3hmODYtdmlkZW8tYXRpCiAKIEZv
-ciBwYXRjaCBzdWJtaXNzaW9uIGluc3RydWN0aW9ucywgc2VlOgogCi0JaHR0cDovL3d3dy54Lm9y
-Zy93aWtpL0RldmVsb3BtZW50L0RvY3VtZW50YXRpb24vU3VibWl0dGluZ1BhdGNoZXMKKwlodHRw
-czovL3d3dy54Lm9yZy93aWtpL0RldmVsb3BtZW50L0RvY3VtZW50YXRpb24vU3VibWl0dGluZ1Bh
-dGNoZXMKIAogRm9yIG1vcmUgaW5mb3JtYXRpb24gb24gdGhlIGdpdCBjb2RlIG1hbmFnZXIsIHNl
-ZToKIAotICAgICAgICBodHRwOi8vd2lraS54Lm9yZy93aWtpL0dpdFBhZ2UKKyAgICAgICAgaHR0
-cHM6Ly93aWtpLngub3JnL3dpa2kvR2l0UGFnZQogCmRpZmYgLS1naXQgYS9jb25maWd1cmUuYWMg
-Yi9jb25maWd1cmUuYWMKaW5kZXggYzljY2ZiM2RjLi43MDBlMDFhNWEgMTAwNjQ0Ci0tLSBhL2Nv
-bmZpZ3VyZS5hYworKysgYi9jb25maWd1cmUuYWMKQEAgLTI0LDcgKzI0LDcgQEAKIEFDX1BSRVJF
-UShbMi42MF0pCiBBQ19JTklUKFt4Zjg2LXZpZGVvLWF0aV0sCiAgICAgICAgIFs3LjkuOTldLAot
-ICAgICAgICBbaHR0cHM6Ly9idWdzLmZyZWVkZXNrdG9wLm9yZy9lbnRlcl9idWcuY2dpP3Byb2R1
-Y3Q9eG9yZ10sCisgICAgICAgIFtodHRwczovL2J1Z3MuZnJlZWRlc2t0b3Aub3JnL2VudGVyX2J1
-Zy5jZ2k/cHJvZHVjdD14b3JnJmNvbXBvbmVudD1Ecml2ZXIvUmFkZW9uXSwKICAgICAgICAgW3hm
-ODYtdmlkZW8tYXRpXSkKIAogQUNfQ09ORklHX1NSQ0RJUihbTWFrZWZpbGUuYW1dKQpkaWZmIC0t
-Z2l0IGEvbWFuL3JhZGVvbi5tYW4gYi9tYW4vcmFkZW9uLm1hbgppbmRleCA5MzM0ZDllODYuLjNl
-MTcyM2YyMSAxMDA2NDQKLS0tIGEvbWFuL3JhZGVvbi5tYW4KKysrIGIvbWFuL3JhZGVvbi5tYW4K
-QEAgLTM5MiwxNyArMzkyLDE3IEBAIF9feHNlcnZlcm5hbWVfXyhfX2FwcG1hbnN1ZmZpeF9fKSwg
-X194Y29uZmlnZmlsZV9fKF9fZmlsZW1hbnN1ZmZpeF9fKSwgWHNlcnZlcihfCiAuSVAgIiAxLiIg
-NAogV2lraSBwYWdlOgogLlJTIDQKLWh0dHA6Ly93d3cueC5vcmcvd2lraS9yYWRlb24KK2h0dHBz
-Oi8vd3d3Lngub3JnL3dpa2kvcmFkZW9uCiAuUkUKIC5JUCAiIDIuIiA0CiBPdmVydmlldyBhYm91
-dCByYWRlb24gZGV2ZWxvcG1lbnQgY29kZToKIC5SUyA0Ci1odHRwOi8vY2dpdC5mcmVlZGVza3Rv
-cC5vcmcveG9yZy9kcml2ZXIveGY4Ni12aWRlby1hdGkvCitodHRwczovL2NnaXQuZnJlZWRlc2t0
-b3Aub3JnL3hvcmcvZHJpdmVyL3hmODYtdmlkZW8tYXRpLwogLlJFCiAuSVAgIiAzLiIgNAogTWFp
-bGluZyBsaXN0OgogLlJTIDQKLWh0dHA6Ly9saXN0cy54Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hv
-cmctZHJpdmVyLWF0aQoraHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4CiAuUkUKIC5JUCAiIDQuIiA0CiBJUkMgY2hhbm5lbDoKLS0gCjIuMTEuMAoK
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Use <...> notation to include headers located in include/linux.
+While we are here, tweak the includes order a bit to sort them
+alphabetically.
+
+Signed-off-by: Masahiro Yamada <yamada.masahiro@socionext.com>
+---
+
+ drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c        | 4 ++--
+ drivers/gpu/drm/amd/powerplay/hwmgr/pp_acpi.c      | 2 +-
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c   | 4 ++--
+ drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 5 +++--
+ drivers/gpu/drm/amd/powerplay/smumgr/cz_smumgr.c   | 8 +++++---
+ drivers/gpu/drm/amd/powerplay/smumgr/smumgr.c      | 5 +++--
+ 6 files changed, 16 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
+index ff4ae3d..963a9e0 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
+@@ -22,10 +22,10 @@
+  */
+ 
+ #include "pp_debug.h"
+-#include "linux/delay.h"
+-#include <linux/types.h>
++#include <linux/delay.h>
+ #include <linux/kernel.h>
+ #include <linux/slab.h>
++#include <linux/types.h>
+ #include <drm/amdgpu_drm.h>
+ #include "cgs_common.h"
+ #include "power_state.h"
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/pp_acpi.c b/drivers/gpu/drm/amd/powerplay/hwmgr/pp_acpi.c
+index f5e8fda..f6b4dd9 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/pp_acpi.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/pp_acpi.c
+@@ -21,8 +21,8 @@
+  *
+  */
+ 
++#include <linux/delay.h>
+ #include <linux/errno.h>
+-#include "linux/delay.h"
+ #include "hwmgr.h"
+ #include "amd_acpi.h"
+ #include "pp_acpi.h"
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+index 8f663ab..581374d 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+@@ -21,11 +21,11 @@
+  *
+  */
+ #include "pp_debug.h"
++#include <linux/delay.h>
++#include <linux/fb.h>
+ #include <linux/module.h>
+ #include <linux/slab.h>
+-#include <linux/fb.h>
+ #include <asm/div64.h>
+-#include "linux/delay.h"
+ #include "pp_acpi.h"
+ #include "ppatomctrl.h"
+ #include "atombios.h"
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+index 8394955..f4ab81b 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+@@ -20,10 +20,11 @@
+  * OTHER DEALINGS IN THE SOFTWARE.
+  *
+  */
++
++#include <linux/delay.h>
++#include <linux/fb.h>
+ #include <linux/module.h>
+ #include <linux/slab.h>
+-#include <linux/fb.h>
+-#include "linux/delay.h"
+ 
+ #include "hwmgr.h"
+ #include "amd_powerplay.h"
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/cz_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/cz_smumgr.c
+index 1f6744a..39c7091 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/cz_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/cz_smumgr.c
+@@ -20,11 +20,13 @@
+  * OTHER DEALINGS IN THE SOFTWARE.
+  *
+  */
+-#include <linux/types.h>
++
++#include <linux/delay.h>
++#include <linux/gfp.h>
+ #include <linux/kernel.h>
+ #include <linux/slab.h>
+-#include <linux/gfp.h>
+-#include "linux/delay.h"
++#include <linux/types.h>
++
+ #include "cgs_common.h"
+ #include "smu/smu_8_0_d.h"
+ #include "smu/smu_8_0_sh_mask.h"
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/smumgr.c
+index c0d7576..2e954a4 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/smumgr.c
+@@ -20,15 +20,16 @@
+  * OTHER DEALINGS IN THE SOFTWARE.
+  *
+  */
+-#include <linux/types.h>
++
++#include <linux/delay.h>
+ #include <linux/kernel.h>
+ #include <linux/module.h>
+ #include <linux/slab.h>
++#include <linux/types.h>
+ #include <drm/amdgpu_drm.h>
+ #include "pp_instance.h"
+ #include "smumgr.h"
+ #include "cgs_common.h"
+-#include "linux/delay.h"
+ 
+ MODULE_FIRMWARE("amdgpu/topaz_smc.bin");
+ MODULE_FIRMWARE("amdgpu/topaz_k_smc.bin");
+-- 
+2.7.4
