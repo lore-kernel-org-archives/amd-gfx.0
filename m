@@ -1,35 +1,16 @@
-From: Subrat Meher <smeher02.aoe3-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Topics for beginners
-Date: Fri, 19 May 2017 11:24:53 +0800
-Message-ID: <CAMw8iYqswbvJs9bGobef81CR0rqx0jxLM=JFpMyFC9TNpFDhZQ@mail.gmail.com>
-References: <CAMw8iYqLAd=JK693F-bL_1MTaznX4VXzhA0t56h508SZdgo9BQ@mail.gmail.com>
- <CAMw8iYpsFp=QrziJLA25XkOAi4gxbCnP+FDXnOUVy81ApPOJgA@mail.gmail.com>
- <CAMw8iYraK8z=NRgA_eo9XNoY5N+NZGGQBHXqLFW6M81ByM1RVQ@mail.gmail.com>
- <CAMw8iYoSDGmSsAkbJE39ZFeqOYEofNSUZ1b8o+STrU0-gxvecw@mail.gmail.com>
- <CAMw8iYrKMang7O483i1eebBOfp_2wBV9dbJUdpRnheH6+xngvQ@mail.gmail.com>
- <CAMw8iYpdNxS1_9WoER-3HxB04AP4VM-yJg3_-m04CnSmDSwJVw@mail.gmail.com>
- <CAMw8iYqftEq0haXpcjA1WcB=5XCA7TrMbb48=c8u5Zzvy0gkJw@mail.gmail.com>
- <CAMw8iYrx2ypMzYTbYS7S=D9Ed+i8YJpcNY+poLt0MWvMej27Bg@mail.gmail.com>
- <CAMw8iYoVb4rOQKifMF-OC8k_bfrrjSj+0bNdRoaGB5Eygbfwrg@mail.gmail.com>
- <CAMw8iYr6wAYUzjMg9nR-hm4yabaJ84KurkPhRO30C2-38z2wrw@mail.gmail.com>
- <CAMw8iYrA6ZDarHqNmMGstx=8EnKNbd0KUY8WniCTiAG_Kyc0CQ@mail.gmail.com>
- <CAMw8iYqv7Y0wuVe9ftU=h4fBgr37n-cgq_CtHK=UfAaixF8__A@mail.gmail.com>
- <CAMw8iYpZqKi+LN5Lo8NT-Rqg42z9ewBw4X+n3Jj6qbCkceUd5g@mail.gmail.com>
- <CAMw8iYroM5kBRYzLJdqNR8asOv3Bt5w2EtaneP1QAGDdcJ03=g@mail.gmail.com>
- <CAMw8iYq7F-fc8QKD-A+iqUajj7nL4p62YdpP29dxhKaRRRDecQ@mail.gmail.com>
- <CAMw8iYpQ83xw5U6LyAoZ+efuqM-b-7uwUVTwbrPz4FtFi2bHUg@mail.gmail.com>
- <CAMw8iYrmqjxKxcBJgfyzjT2JBzChYkRBKW=pBy4gHBsZgRRX4g@mail.gmail.com>
- <CAMw8iYov6gfOqaJ9Hymc81TPbHJU9YC4Me9_6YArb8vyEjjGZw@mail.gmail.com>
- <CAMw8iYoH96pdaGWR=xr1j5sk7zMJOdwUZ7gE6AoBcPTsme=Gwg@mail.gmail.com>
- <CAMw8iYroyTGtkSZDt0ro+aO-A-22q805gEE8fJsaV+vmJ0wvNg@mail.gmail.com>
- <CAMw8iYrahVpJ3MiiGCgw4Ev6SCypeixrWBeoTDhrqpG+VGD00Q@mail.gmail.com>
- <CAMw8iYrxV2L+cXaSXwtvwgpX8cia+at4Q5eNSkWEYf7Dtt-uQg@mail.gmail.com>
- <CAMw8iYqQ+fhdOorVEnHA6S=PXSH58V+PGNZ2BPSEssEY4qaNaQ@mail.gmail.com>
- <CAMw8iYqhkCgmduqpVJY3gj_=g5_CKUrSMxVygJvsZT+u-cyKuA@mail.gmail.com>
+From: Flora Cui <flora.cui-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: fix ocl test performance drop
+Date: Fri, 19 May 2017 11:36:58 +0800
+Message-ID: <20170519033657.GB24957@flora>
+References: <1495093501-13313-1-git-send-email-Flora.Cui@amd.com>
+ <4b2d410d-544f-4e72-11ae-8db4a1d797d3@vodafone.de>
+ <20170519022518.GA24957@flora>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0809727260=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAMw8iYqhkCgmduqpVJY3gj_=g5_CKUrSMxVygJvsZT+u-cyKuA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Disposition: inline
+In-Reply-To: <20170519022518.GA24957@flora>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -40,52 +21,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Christian =?utf-8?B?S++/vW5pZw==?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============0809727260==
-Content-Type: multipart/alternative; boundary="001a113dc636989e61054fd81087"
-
---001a113dc636989e61054fd81087
-Content-Type: text/plain; charset="UTF-8"
-
-Hi,
-
-I am interested in working on radeon's Linux graphics stack. Are there any
-areas that are more approachable to someone  unfamiliar with the stack?
-
-As for existing knowledge, I have worked with OpenGL, OpenCL and embedded
-applications.
-
-Apologies if this is not the right place for this discussion.
-
-Thanks,
-Subrat
-
---001a113dc636989e61054fd81087
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto">Hi,<div dir=3D"auto"><br></div><div dir=3D"auto">I am int=
-erested in working on radeon&#39;s Linux graphics stack. Are there any area=
-s that are more approachable to someone =C2=A0unfamiliar with the stack?</d=
-iv><div dir=3D"auto"><br></div><div dir=3D"auto">As for existing knowledge,=
- I have worked with OpenGL, OpenCL and embedded applications.</div><div dir=
-=3D"auto"><span style=3D"font-family:sans-serif"><br></span></div><div dir=
-=3D"auto"><span style=3D"font-family:sans-serif">Apologies if this is not t=
-he right place for this discussion.=C2=A0</span><br></div><div dir=3D"auto"=
-><br></div><div dir=3D"auto">Thanks,</div><div dir=3D"auto">Subrat</div></d=
-iv>
-
---001a113dc636989e61054fd81087--
-
---===============0809727260==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0809727260==--
+YnR3LCB3aGF0J3MgYWJvdXQgZ2Z4OSBmb3IgYW1kZ3B1X3ZtX3JpbmdfaGFzX2NvbXB1dGVfdm1f
+YnVnKCk/IElzIHRoZQp3b3JrYXJvdW5kIHN0aWxsIG5lZWRlZD8KCk9uIEZyaSwgTWF5IDE5LCAy
+MDE3IGF0IDEwOjI1OjE5QU0gKzA4MDAsIEZsb3JhIEN1aSB3cm90ZToKPiBPbiBUaHUsIE1heSAx
+OCwgMjAxNyBhdCAwMTozODoxNVBNICswMjAwLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+ID4g
+QW0gMTguMDUuMjAxNyB1bSAwOTo0NSBzY2hyaWViIEZsb3JhIEN1aToKPiA+ID5wYXJ0aWFsIHJl
+dmVydCBjb21taXQgPDY5NzFkM2Q+IC0gZHJtL2FtZGdwdTogY2xlYW51cCBsb2dpYyBpbgo+ID4g
+PmFtZGdwdV92bV9mbHVzaAo+ID4gPgo+ID4gPkNoYW5nZS1JZDogSWFkY2U5ZDYxM2RmZTlhNzM5
+NjQzYTc0MDUwY2VhNTU4NTQ4MzJhZGIKPiA+ID5TaWduZWQtb2ZmLWJ5OiBGbG9yYSBDdWkgPEZs
+b3JhLkN1aUBhbWQuY29tPgo+ID4gCj4gPiBJIGRvbid0IHNlZSBob3cgdGhlIHJldmVydCBzaG91
+bGQgYmUgZmFzdGVyIHRoYW4gdGhlIG9yaWdpbmFsLgo+ID4gCj4gPiBFc3BlY2lhbGx5IHRoYXQg
+YW1kZ3B1X3ZtX2hhZF9ncHVfcmVzZXQoKSBpcyBub3cgY2FsbGVkIHR3aWNlIHNvdW5kcyBsaWtl
+Cj4gPiBtb3JlIG92ZXJoZWFkIHRoYW4gbmVjZXNzYXJ5Lgo+ID4gCj4gPiBQbGVhc2UgZXhwbGFp
+biBmdXJ0aGVyLgo+ID4gCj4gPiBDaHJpc3RpYW4uCj4gPiAKPiA+ID4tLS0KPiA+ID4gIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIHwgMTQgKysrKystLS0tLS0tLS0KPiA+
+ID4gIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDkgZGVsZXRpb25zKC0pCj4gPiA+
+Cj4gPiA+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5j
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPiA+ID5pbmRleCA4ODQy
+MGRjLi5hOTZiYWQ2IDEwMDY0NAo+ID4gPi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV92bS5jCj4gPiA+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3ZtLmMKPiA+ID5AQCAtNzQzLDIzICs3NDMsMTkgQEAgaW50IGFtZGdwdV92bV9mbHVzaChzdHJ1
+Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHN0cnVjdCBhbWRncHVfam9iICpqb2IpCj4gPiA+ICAJCWlk
+LT5nd3Nfc2l6ZSAhPSBqb2ItPmd3c19zaXplIHx8Cj4gPiA+ICAJCWlkLT5vYV9iYXNlICE9IGpv
+Yi0+b2FfYmFzZSB8fAo+ID4gPiAgCQlpZC0+b2Ffc2l6ZSAhPSBqb2ItPm9hX3NpemUpOwo+ID4g
+Pi0JYm9vbCB2bV9mbHVzaF9uZWVkZWQgPSBqb2ItPnZtX25lZWRzX2ZsdXNoIHx8Cj4gPiA+LQkJ
+YW1kZ3B1X3ZtX3JpbmdfaGFzX2NvbXB1dGVfdm1fYnVnKHJpbmcpOwo+ID4gPiAgCXVuc2lnbmVk
+IHBhdGNoX29mZnNldCA9IDA7Cj4gPiA+ICAJaW50IHI7Cj4gPiA+LQlpZiAoYW1kZ3B1X3ZtX2hh
+ZF9ncHVfcmVzZXQoYWRldiwgaWQpKSB7Cj4gPiA+LQkJZ2RzX3N3aXRjaF9uZWVkZWQgPSB0cnVl
+Owo+ID4gPi0JCXZtX2ZsdXNoX25lZWRlZCA9IHRydWU7Cj4gPiA+LQl9Cj4gPiA+LQo+ID4gPi0J
+aWYgKCF2bV9mbHVzaF9uZWVkZWQgJiYgIWdkc19zd2l0Y2hfbmVlZGVkKQo+ID4gPisJaWYgKCFq
+b2ItPnZtX25lZWRzX2ZsdXNoICYmICFnZHNfc3dpdGNoX25lZWRlZCAmJgo+ID4gPisJICAgICFh
+bWRncHVfdm1faGFkX2dwdV9yZXNldChhZGV2LCBpZCkgJiYKPiA+ID4rCSAgICAhYW1kZ3B1X3Zt
+X3JpbmdfaGFzX2NvbXB1dGVfdm1fYnVnKHJpbmcpKQo+ID4gPiAgCQlyZXR1cm4gMDsKPiA+ID4g
+IAlpZiAocmluZy0+ZnVuY3MtPmluaXRfY29uZF9leGVjKQo+ID4gPiAgCQlwYXRjaF9vZmZzZXQg
+PSBhbWRncHVfcmluZ19pbml0X2NvbmRfZXhlYyhyaW5nKTsKPiA+ID4tCWlmIChyaW5nLT5mdW5j
+cy0+ZW1pdF92bV9mbHVzaCAmJiB2bV9mbHVzaF9uZWVkZWQpIHsKPiBbZmxvcmFdOiBmb3IgY29t
+cHV0ZSByaW5nICYgYW1kZ3B1X3ZtX3JpbmdfaGFzX2NvbXB1dGVfdm1fYnVnKCksIGEgdm1fZmx1
+c2ggaXMKPiBpbnNlcnRlZC4gVGhpcyBtaWdodCBjYXVzZSBwZXJmb3JtYW5jZSBkcm9wLgo+ID4g
+PisJaWYgKHJpbmctPmZ1bmNzLT5lbWl0X3ZtX2ZsdXNoICYmCj4gPiA+KwkgICAgKGpvYi0+dm1f
+bmVlZHNfZmx1c2ggfHwgYW1kZ3B1X3ZtX2hhZF9ncHVfcmVzZXQoYWRldiwgaWQpKSkgewo+ID4g
+PiAgCQlzdHJ1Y3QgZmVuY2UgKmZlbmNlOwo+ID4gPiAgCQl0cmFjZV9hbWRncHVfdm1fZmx1c2go
+cmluZywgam9iLT52bV9pZCwgam9iLT52bV9wZF9hZGRyKTsKPiA+IAo+ID4gCj4gX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcg
+bGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vYW1kLWdmeAo=
