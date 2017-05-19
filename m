@@ -1,14 +1,35 @@
-From: John Brooks <john-xq/Ko7C6e2Bl57MIdRCFDg@public.gmane.org>
-Subject: Re: [PATCH 0/3] drm/amdgpu: Tweaks for high pressure on CPU visible
- VRAM
-Date: Thu, 18 May 2017 23:04:45 -0400
-Message-ID: <1495163086-4747-1-git-send-email-john@fastquake.com>
-References: <20170518090809.15916-1-michel@daenzer.net>
+From: Subrat Meher <smeher02.aoe3-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Topics for beginners
+Date: Fri, 19 May 2017 11:24:53 +0800
+Message-ID: <CAMw8iYqswbvJs9bGobef81CR0rqx0jxLM=JFpMyFC9TNpFDhZQ@mail.gmail.com>
+References: <CAMw8iYqLAd=JK693F-bL_1MTaznX4VXzhA0t56h508SZdgo9BQ@mail.gmail.com>
+ <CAMw8iYpsFp=QrziJLA25XkOAi4gxbCnP+FDXnOUVy81ApPOJgA@mail.gmail.com>
+ <CAMw8iYraK8z=NRgA_eo9XNoY5N+NZGGQBHXqLFW6M81ByM1RVQ@mail.gmail.com>
+ <CAMw8iYoSDGmSsAkbJE39ZFeqOYEofNSUZ1b8o+STrU0-gxvecw@mail.gmail.com>
+ <CAMw8iYrKMang7O483i1eebBOfp_2wBV9dbJUdpRnheH6+xngvQ@mail.gmail.com>
+ <CAMw8iYpdNxS1_9WoER-3HxB04AP4VM-yJg3_-m04CnSmDSwJVw@mail.gmail.com>
+ <CAMw8iYqftEq0haXpcjA1WcB=5XCA7TrMbb48=c8u5Zzvy0gkJw@mail.gmail.com>
+ <CAMw8iYrx2ypMzYTbYS7S=D9Ed+i8YJpcNY+poLt0MWvMej27Bg@mail.gmail.com>
+ <CAMw8iYoVb4rOQKifMF-OC8k_bfrrjSj+0bNdRoaGB5Eygbfwrg@mail.gmail.com>
+ <CAMw8iYr6wAYUzjMg9nR-hm4yabaJ84KurkPhRO30C2-38z2wrw@mail.gmail.com>
+ <CAMw8iYrA6ZDarHqNmMGstx=8EnKNbd0KUY8WniCTiAG_Kyc0CQ@mail.gmail.com>
+ <CAMw8iYqv7Y0wuVe9ftU=h4fBgr37n-cgq_CtHK=UfAaixF8__A@mail.gmail.com>
+ <CAMw8iYpZqKi+LN5Lo8NT-Rqg42z9ewBw4X+n3Jj6qbCkceUd5g@mail.gmail.com>
+ <CAMw8iYroM5kBRYzLJdqNR8asOv3Bt5w2EtaneP1QAGDdcJ03=g@mail.gmail.com>
+ <CAMw8iYq7F-fc8QKD-A+iqUajj7nL4p62YdpP29dxhKaRRRDecQ@mail.gmail.com>
+ <CAMw8iYpQ83xw5U6LyAoZ+efuqM-b-7uwUVTwbrPz4FtFi2bHUg@mail.gmail.com>
+ <CAMw8iYrmqjxKxcBJgfyzjT2JBzChYkRBKW=pBy4gHBsZgRRX4g@mail.gmail.com>
+ <CAMw8iYov6gfOqaJ9Hymc81TPbHJU9YC4Me9_6YArb8vyEjjGZw@mail.gmail.com>
+ <CAMw8iYoH96pdaGWR=xr1j5sk7zMJOdwUZ7gE6AoBcPTsme=Gwg@mail.gmail.com>
+ <CAMw8iYroyTGtkSZDt0ro+aO-A-22q805gEE8fJsaV+vmJ0wvNg@mail.gmail.com>
+ <CAMw8iYrahVpJ3MiiGCgw4Ev6SCypeixrWBeoTDhrqpG+VGD00Q@mail.gmail.com>
+ <CAMw8iYrxV2L+cXaSXwtvwgpX8cia+at4Q5eNSkWEYf7Dtt-uQg@mail.gmail.com>
+ <CAMw8iYqQ+fhdOorVEnHA6S=PXSH58V+PGNZ2BPSEssEY4qaNaQ@mail.gmail.com>
+ <CAMw8iYqhkCgmduqpVJY3gj_=g5_CKUrSMxVygJvsZT+u-cyKuA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0809727260=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170518090809.15916-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+In-Reply-To: <CAMw8iYqhkCgmduqpVJY3gj_=g5_CKUrSMxVygJvsZT+u-cyKuA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,42 +40,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-SSdtIGdsYWQgdGhpcyBpcyBiZWluZyB3b3JrZWQgb24uIEhvd2V2ZXIsIHNvbWV3aGF0IHRvIG15
-IHN1cnByaXNlLCB0aGlzIHBhdGNoCnNlcmllcyBkaWRuJ3QgaGVscCBEeWluZyBMaWdodCdzIEJP
-IGV2aWN0aW9uIHByb2JsZW0uIEZvciB0aG9zZSB3aG8gZG9uJ3Qga25vdywKdGhhdCBnYW1lIHBl
-cmZvcm1zIHZlcnkgYmFkbHkgaW4gY2VydGFpbiBhcmVhcywgYW5kIGl0IGlzIGNvcnJlbGF0ZWQg
-d2l0aAppbmNyZWFzZWQgVFRNIGV2aWN0aW9uIHJhdGVzLiBSZWxldmFudCBzY3JlZW5zaG90cyBv
-ZiBnYWxsaXVtIEhVRCBhbmQgc3lzcHJvZjoKCmh0dHA6Ly93d3cuZmFzdHF1YWtlLmNvbS9pbWFn
-ZXMvc2NyZWVuLWRsZ2FsbGl1bWh1ZDEtMjAxNzA1MTMtMTcxMjQxLnBuZwpodHRwOi8vd3d3LmZh
-c3RxdWFrZS5jb20vaW1hZ2VzL3NjcmVlbi1kbHN5c3Byb2YtMjAxNzA1MTUtMjI1OTE5LnBuZwoK
-SSBub3RpY2VkIGxhc3Qgd2VlayB0aGF0IGFkZGluZyBSQURFT05fRE9NQUlOX0dUVCB0byB0aGUg
-ZG9tYWlucyBpbiByYWRlb25zaQoocGF0Y2g6IGh0dHA6Ly93d3cuZmFzdHF1YWtlLmNvbS9maWxl
-cy90ZXh0L3JhZGVvbi1ndHQudHh0ICkgZ3JlYXRseSBpbXByb3ZlZApwZXJmb3JtYW5jZSBpbiB0
-aGVzZSBhcmVhcywgdG8gdGhlIHR1bmUgb2YgYWJvdXQgYSAzMGZwcyBpbmNyZWFzZS4gT2J2aW91
-c2x5LApwdXR0aW5nIEdUVCBpbiBldmVyeSBidWZmZXIncyBkb21haW4gaXMgbm90IGEgcHJvcGVy
-IHNvbHV0aW9uLiBCdXQgaXQgbGVhZCBtZQp0byBiZWxpZXZlIHRoYXQgcGVyaGFwcyB0aGUgcHJv
-YmxlbSB3YXNuJ3QganVzdCB0aGUgc3dhcHBpbmcgb2YgcmVzaWRlbnQgQk9zLApidXQgdGhlIGNy
-ZWF0aW9uIG9mIG5ldyBvbmVzIHRoYXQgb25seSBoYXZlIFZSQU0gaW4gdGhlaXIgZG9tYWluLCBh
-bmQgdGhleQpjYXVzZSBleGlzdGluZyBCT3MgdG8gYmUgZXZpY3RlZCBmcm9tIHZpc2libGUgVlJB
-TSB1bmNvbmRpdGlvbmFsbHkuCgpUaGUgYXR0YWNoZWQgcGF0Y2ggYXNzaWducyBHVFQgYXMgdGhl
-IGJ1c3kgcGxhY2VtZW50IGZvciBuZXdseSBjcmVhdGVkIEJPcyB0aGF0CmhhdmUgdGhlIEFNREdQ
-VV9HRU1fQ1JFQVRFX0NQVV9BQ0NFU1NfUkVRVUlSRUQgZmxhZywgc28gdGhhdCB0aGV5IHdpbGwg
-Z28gdG8KR1RUIGlmIHZpc2libGUgVlJBTSBpcyBmdWxsLCBpbnN0ZWFkIG9mIGV2aWN0aW5nIGVz
-dGFibGlzaGVkIEJPcy4gU2luY2UgdGhlcmUKaXMgbm8gd2F5IHRvIGtub3cgd2hhdCB0aGUgdXNh
-Z2UgcGF0dGVybnMgb2YgYSBuZXcgQk8gd2lsbCBiZSwgd2Ugc2hvdWxkbid0CmV2aWN0IGVzdGFi
-bGlzaGVkIEJPcyAoZm9yIHdoaWNoIHdlIGhhdmUgaHlwb3RoZXRpY2FsbHkgaGFkIHRoZSBvcHBv
-cnR1bml0eSB0bwpnYXRoZXIgdXNhZ2UgZGF0YSkgZnJvbSB2aXNpYmxlIFZSQU0gZm9yIG5ldywg
-dW5rbm93biBCT3MuCgpXaXRoIHRoaXMgcGF0Y2ggSSBnZXQgaHVnZWx5IGltcHJvdmVkIHBlcmZv
-cm1hbmNlIGluIER5aW5nIExpZ2h0IGp1c3QgbGlrZSB3aXRoCnRoZSBNZXNhIHBhdGNoOiBJIG9i
-c2VydmVkIDMwLTQwZnBzIHdoZXJlIEkgZ290IDE0IGJlZm9yZSwgYW5kIDYwZnBzIHdoZXJlIEkK
-Z290IDQwIGJlZm9yZS4gVFRNIGV2aWN0aW9ucyBhbmQgYnl0ZXMgbW92ZWQgaGF2ZSBkcm9wcGVk
-IHRvIHplcm8gd2hlcmUgdGhleQp3ZXJlIGV4Y2VlZGluZ2x5IGhpZ2ggYmVmb3JlLiBCdWZmZXIg
-ZXZpY3Rpb25zIG5vIGxvbmdlciBkb21pbmF0ZSB0aGUgcHJvZgp0cmFjZS4gU2NyZWVuc2hvdHM6
-CgpodHRwOi8vd3d3LmZhc3RxdWFrZS5jb20vaW1hZ2VzL3NjcmVlbi1kbC1ndHRfYnVzeV9vbmx5
-LTIwMTcwNTE4LTE5MjYwMi5wbmcKaHR0cDovL3d3dy5mYXN0cXVha2UuY29tL2ltYWdlcy9zY3Jl
-ZW4tZGxzeXNwcm9mLWd0dHBhdGNoLTIwMTcwNTE4LTIyMzIwMC5wbmcKCi0tCkpvaG4gQnJvb2tz
-IChGcm9nZ2luZzEwMSkKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============0809727260==
+Content-Type: multipart/alternative; boundary="001a113dc636989e61054fd81087"
+
+--001a113dc636989e61054fd81087
+Content-Type: text/plain; charset="UTF-8"
+
+Hi,
+
+I am interested in working on radeon's Linux graphics stack. Are there any
+areas that are more approachable to someone  unfamiliar with the stack?
+
+As for existing knowledge, I have worked with OpenGL, OpenCL and embedded
+applications.
+
+Apologies if this is not the right place for this discussion.
+
+Thanks,
+Subrat
+
+--001a113dc636989e61054fd81087
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto">Hi,<div dir=3D"auto"><br></div><div dir=3D"auto">I am int=
+erested in working on radeon&#39;s Linux graphics stack. Are there any area=
+s that are more approachable to someone =C2=A0unfamiliar with the stack?</d=
+iv><div dir=3D"auto"><br></div><div dir=3D"auto">As for existing knowledge,=
+ I have worked with OpenGL, OpenCL and embedded applications.</div><div dir=
+=3D"auto"><span style=3D"font-family:sans-serif"><br></span></div><div dir=
+=3D"auto"><span style=3D"font-family:sans-serif">Apologies if this is not t=
+he right place for this discussion.=C2=A0</span><br></div><div dir=3D"auto"=
+><br></div><div dir=3D"auto">Thanks,</div><div dir=3D"auto">Subrat</div></d=
+iv>
+
+--001a113dc636989e61054fd81087--
+
+--===============0809727260==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0809727260==--
