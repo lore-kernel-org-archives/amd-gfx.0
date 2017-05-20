@@ -1,18 +1,17 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: Limit DCN to x86 arch
-Date: Sat, 20 May 2017 10:13:33 +0200
-Message-ID: <013f44e3-1734-43f8-4cd7-e950ffb014f0@vodafone.de>
-References: <20170519140121.14296-1-harry.wentland@amd.com>
- <f84c51b6-06f1-b4d2-c472-89265ebb26cb@vodafone.de>
- <7a8b84af-38f7-33d2-5bbb-473f2ea35bb2@amd.com>
- <CAPM=9tzcA8t-ji6qNQhycB0cezz2vH6HMixCgvKQ78cY1Y8fsA@mail.gmail.com>
- <4e0c342b-d18e-5f7a-bd30-9becd0e97e3c@amd.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 0/3] drm/amdgpu: Tweaks for high pressure on CPU visible
+ VRAM
+Date: Sat, 20 May 2017 11:26:57 +0200
+Message-ID: <CAAxE2A67T3Mhw68thNewFtcdua3ufSP-FDX_RN153x-aLKUh1Q@mail.gmail.com>
+References: <20170518090809.15916-1-michel@daenzer.net>
+ <CAAxE2A65deE+hue7oPMQ+=K5s8TEGZE+bJMNVOdp=LQuq_RnMQ@mail.gmail.com>
+ <a574c18a-0c21-bf85-963f-5df06a0b192e@daenzer.net>
+ <CAAxE2A6ZiNSswhArstqHpYnm30ieoDZj=j_-aFvZz1_ByXLOGA@mail.gmail.com>
+ <CAAxE2A4zdgFRh-GDqyDRrXmEWqjSrkfCo=Z41hfo-UNY0E5FhA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1510632329=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <4e0c342b-d18e-5f7a-bd30-9becd0e97e3c-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <CAAxE2A4zdgFRh-GDqyDRrXmEWqjSrkfCo=Z41hfo-UNY0E5FhA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,57 +22,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Dmytro Laktyushkin <Dmytro.Laktyushkin-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Tony Cheng <Tony.Cheng-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QW0gMTkuMDUuMjAxNyB1bSAyMjoyOCBzY2hyaWViIEhhcnJ5IFdlbnRsYW5kOgo+Cj4KPiBPbiAy
-MDE3LTA1LTE5IDA0OjE4IFBNLCBEYXZlIEFpcmxpZSB3cm90ZToKPj4gT24gMjAgTWF5IDIwMTcg
-YXQgMDU6MzYsIEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPiB3cm90ZToK
-Pj4+IE9uIDIwMTctMDUtMTkgMTE6MDIgQU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+Pj4K
-Pj4+PiBBbSAxOS4wNS4yMDE3IHVtIDE2OjAxIHNjaHJpZWIgSGFycnkgV2VudGxhbmQ6Cj4+Pj4+
-Cj4+Pj4+IERDTiBidyBjYWxjcyBjdXJyZW50bHkgcmVseSBvbiB0aGUgZm9sbG93aW5nIGdjYyBv
-cHRpb25zOgo+Pj4+PiAgICAgLW1oYXJkLWZsb2F0IC1tc3NlIC1tcHJlZmVycmVkLXN0YWNrLWJv
-dW5kYXJ5PTQKPj4+Pgo+Pj4+Cj4+Pj4gTWhtLCBwcmljZSBxdWVzdGlvbjogV2h5IGRvZXMgRENO
-IHJlbHkgb24gdGhlIGdjYyBvcHRpb25zPwo+Pj4+Cj4+Pgo+Pj4gVG9ueSBhbmQgRG15dHJvIGNh
-biBwcm9iYWJseSBwcm92aWRlIG1vcmUgaW5mbyBoZXJlIGJ1dCBteSAKPj4+IHVuZGVyc3RhbmRp
-bmcgaXMKPj4+IHRoYXQgRENOIGJhbmR3aWR0aCBjYWxjcyByZXF1aXJlcyBmbG9hdGluZyBwb2lu
-dCBzdXBwb3J0LiBUaGlzIGNvZGUgCj4+PiBjb21lcwo+Pj4gcHJldHR5IG11Y2ggc3RyYWlnaHQg
-ZnJvbSBoYXJkd2FyZSB0ZWFtcyB3aXRoIGEgZ3VhcmFudGVlIHRoYXQgdGhlIAo+Pj4gb3V0cHV0
-IGlzCj4+PiBnb29kLgo+Pj4KPj4+IElmIHdlIHdlcmUgdG8gcmV3cml0ZSBiYW5kd2lkdGggY2Fs
-Y3VsYXRpb25zIHRoYXQgZ3VhcmFudGVlIHdvdWxkIAo+Pj4gYmFzaWNhbGx5Cj4+PiBmbHkgb3V0
-IHRoZSB3aW5kb3csIHdoaWNoIG1lYW5zIHdoZW4gdGhlcmUncyBhIGJhbmR3aWR0aCBidWcgd2Ug
-Y2Fubm90Cj4+PiBlYXNpbHkgZ2V0IEhXIHN1cHBvcnQgdW5sZXNzIHdlIGNhbiBwcm92ZSB0aGF0
-IG91ciBjYWxjdWxhdGlvbnMgCj4+PiB5aWVsZCB0aGUKPj4+IGV4YWN0IHNhbWUgcmVzdWx0cyBp
-biBhbGwgY2FzZXMgYXMgSFdzIGZvcm11bGEuIENvdmVyaW5nIGFsbCAKPj4+IHNjZW5hcmlvcyB0
-aGF0Cj4+PiBiYW5kd2lkdGggY2FsY3MgY292ZXJzIHdvdWxkIGJlIHF1aXRlIGFuIGV4dGVuc2l2
-ZSB1bmRlcnRha2luZyBhbmQgCj4+PiBJJ20gc3VyZQo+Pj4gd2UnZCBtaXNzIGltcG9ydGFudCBj
-YXNlcy4KPj4KPj4gSXMgdGhpcyBvbmx5IGdvaW5nIHRvIGhhcHBlbiBmb3IgWDg2IEFQVXM/IFVz
-aW5nIGZsb2F0aW5nIHBvaW50IGluIHRoZQo+PiBrZXJuZWwgcmVxdWlyZXMKPj4gYSBsb3Qgb2Yg
-Y2FyZSB0byBiZSB0YWtlbiwgYXJlIHdlIGRvaW5nIGl0IHByb3Blcmx5Pwo+Pgo+Cj4gVGhpcyBj
-YXNlIHdvdWxkIGJlIG9ubHkgZm9yIEFNRCBYODYgQVBVcywgYWx0aG91Z2ggSSB3b3VsZG4ndCBi
-ZSAKPiBzdXJwcmlzZWQgaWYgd2UnZCBzZWUgc29tZXRoaW5nIHNpbWlsYXIgZm9yIGRpc2NyZXRl
-IEFTSUNzIGluIHRoZSBmdXR1cmUuCj4KCk9rLCB0aGF0IG1ha2VzIGF0IGxlYXN0IGEgYml0IG1v
-cmUgc2Vuc2UuIE9uIEFQVXMgd2Ugb2J2aW91c2x5IGtub3cgCmV4YWN0bHkgd2hhdCBDUFUgd2Ug
-aGF2ZS4KCj4gQXJlIHlvdSBhd2FyZSBvZiBhbnlvbmUgdXNpbmcgb3VyIEdQVXMgb24gbm9uLVg4
-NiBhcmNoaXRlY3R1cmVzPyBJZiAKPiBzbywgSSBuZXZlciBoZWFyZCBvZiBpdC4KClllYWgsIHRo
-ZXJlIGFyZSBhY3R1YWxseSBxdWl0ZSBhIG51bWJlciBvZiBwZW9wbGUuIFRoYXQncyBvbmUgb2Yg
-dGhlIApyZWFzb25zIHdoeSB3ZSBzdGlsbCBoYXZlIGEgYnVuY2ggb2YgIiNpZmRlZiBfX0JJR19F
-TkRJQU4iIGluIHRoZSBhbWRncHUgCnNvdXJjZS4KCj4gSSByZWFsaXplIHRoaXMgaXMgcmFpc2lu
-ZyBhIGxvdCBvZiBjb25jZXJuLiBJIHdhcyBjb25jZXJuZWQgbXlzZWxmIAo+IHdoZW4gSSBmaXJz
-dCBzYXcgdGhpcy4gQmVzaWRlIGNhbGxpbmcga2VybmVsX2ZwdV9iZWdpbigpIGFuZCAKPiBrZXJu
-ZWxfZnB1X2VuZCgpIGFyZSB0aGVyZSBvdGhlciB0aGluZ3MgdG8gd2F0Y2ggb3V0IGZvcj8KClll
-YWgsIGVzcGVjaWFsbHkgc2V0dGluZyAiLW1zc2UiIGlzIHJhdGhlciBxdWVzdGlvbmFibGUuIEFz
-IGZhciBhcyBJIAprbm93IG9uIDY0Yml0IHN5c3RlbXMgaXQgaXMgdGhlIGRlZmF1bHQsIGJ1dCBv
-biAzMmJpdCBzeXN0ZW1zIHRoYXQgY291bGQgCnNpbGVudGx5IGJyZWFrIHNvbWUgYXNzdW1wdGlv
-bnMuCgpBZGRpdGlvbmFsIHRvIHRoYXQgYXMgZmFyIGFzIEkga25vdyAiLW1zc2UiIGlzIGp1c3Qg
-Zm9yIG9wdGltaXphdGlvbiBhbmQgCnRoYXQgaXNuJ3QgcGVyZm9ybWFuY2UgY3JpdGljYWwgY29k
-ZSwgc28gd2h5IGV4YWN0bHkgZG8gd2UgbmVlZCBpdD8KCkNocmlzdGlhbi4KCj4KPiBIYXJyeQo+
-Cj4+IFJlYWxseSByZXdyaXRpbmcgdGhlIGNhbGNzIGluIGZpeGVkIHBvaW50IGlzIHRoZSBiZXN0
-IG9wdGlvbiwgbWF5YmUgCj4+IHB1c2ggYmFjayBvbgo+PiB0aGUgaGFyZHdhcmUgdGVhbSB0byBo
-YXZlIGEgZml4ZWQgcG9pbnQgdmVyc2lvbiBjcmVhdGVkLgo+Pgo+PiBEYXZlLgo+Pgo+IF9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWls
-aW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAoKCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============1510632329==
+Content-Type: multipart/alternative; boundary="001a1143f9a25b0e39054ff13d87"
+
+--001a1143f9a25b0e39054ff13d87
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On May 20, 2017 3:26 AM, "Michel D=C3=A4nzer" <michel-otUistvHUpPR7s880joybQ@public.gmane.org> wrote:
+
+On 20/05/17 01:14 AM, Marek Ol=C5=A1=C3=A1k wrote:
+> Hi Michel,
+>
+> I've applied your series
+
+Thanks for testing it.
+
+> and it doesn't help with low Dirt Rally performance on Fiji. I see TTM
+> buffer moves at 800MB/s and many VRAM page faults.
+
+Did you see this:
+
+>> Note that there's only little if any improvement of the average framerat=
+e
+>> reported, but the minimum framerate as seen on the HUD goes from ~10 fps
+>> to ~17.
+
+I.e. it mostly affects the minimum framerate and smoothness for me as well.
+
+
+Without the series, I get 70 average fps. With the series, I get 30 average
+fps. That might just be random bad luck. I don't know. In any case, 30 fps
+is really bad, so I don't think the series does what you think it does.
+
+Marek
+
+
+
+--
+Earthling Michel D=C3=A4nzer               |               http://www.amd.c=
+om
+Libre software enthusiast             |             Mesa and X developer
+
+--001a1143f9a25b0e39054ff13d87
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><br><div class=3D"gmail_extra"><br><div class=3D"gma=
+il_quote">On May 20, 2017 3:26 AM, &quot;Michel D=C3=A4nzer&quot; &lt;<a hr=
+ef=3D"mailto:michel-otUistvHUpPR7s880joybQ@public.gmane.org">michel-otUistvHUpPR7s880joybQ@public.gmane.org</a>&gt; wrote:<br type=
+=3D"attribution"><blockquote class=3D"quote" style=3D"margin:0 0 0 .8ex;bor=
+der-left:1px #ccc solid;padding-left:1ex"><div class=3D"quoted-text">On 20/=
+05/17 01:14 AM, Marek Ol=C5=A1=C3=A1k wrote:<br>
+&gt; Hi Michel,<br>
+&gt;<br>
+&gt; I&#39;ve applied your series<br>
+<br>
+</div>Thanks for testing it.<br>
+<div class=3D"quoted-text"><br>
+&gt; and it doesn&#39;t help with low Dirt Rally performance on Fiji. I see=
+ TTM<br>
+&gt; buffer moves at 800MB/s and many VRAM page faults.<br>
+<br>
+</div>Did you see this:<br>
+<div class=3D"quoted-text"><br>
+&gt;&gt; Note that there&#39;s only little if any improvement of the averag=
+e framerate<br>
+&gt;&gt; reported, but the minimum framerate as seen on the HUD goes from ~=
+10 fps<br>
+&gt;&gt; to ~17.<br>
+<br>
+</div>I.e. it mostly affects the minimum framerate and smoothness for me as=
+ well.<br></blockquote></div></div></div><div dir=3D"auto"><br></div><div d=
+ir=3D"auto">Without the series, I get 70 average fps. With the series, I ge=
+t 30 average fps. That might just be random bad luck. I don&#39;t know. In =
+any case, 30 fps is really bad, so I don&#39;t think the series does what y=
+ou think it does.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Marek<=
+/div><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_extr=
+a"><div class=3D"gmail_quote"><blockquote class=3D"quote" style=3D"margin:0=
+ 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+<font color=3D"#888888"><br>
+<br>
+--<br>
+Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=
+=3D"http://www.amd.com" rel=3D"noreferrer" target=3D"_blank">http://www.amd=
+.com</a><br>
+Libre software enthusiast=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Mesa and X developer<br>
+</font></blockquote></div><br></div></div></div>
+
+--001a1143f9a25b0e39054ff13d87--
+
+--===============1510632329==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1510632329==--
