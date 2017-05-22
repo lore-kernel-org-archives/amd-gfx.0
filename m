@@ -1,63 +1,64 @@
-From: Lyude Paul <lyude@redhat.com>
-Subject: Re: [PATCH v2 0/3] Cleanup evergreen/si IRQ handling code
-Date: Mon, 22 May 2017 09:52:23 -0400
-Message-ID: <1495461143.2944.1.camel@redhat.com>
-References: <20170516211202.20325-1-lyude@redhat.com>
-         <20170519234840.5644-1-lyude@redhat.com>
-         <51a14f4e-8771-3bca-b05f-25732da50b34@vodafone.de>
+From: Lukas Wunner <lukas@wunner.de>
+Subject: Re: [PATCH] drm/radeon: Fix oops upon driver load on PowerXpress
+ laptops
+Date: Mon, 22 May 2017 16:04:07 +0200
+Message-ID: <20170522140407.GA7973@wunner.de>
+References: <20170518080501.GA31002@wunner.de>
+ <cfb91ba052af06117137eec0637543a2626a7979.1495135190.git.lukas@wunner.de>
+ <871srifyyq.fsf@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <51a14f4e-8771-3bca-b05f-25732da50b34@vodafone.de>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <deathsimple@vodafone.de>, amd-gfx@lists.freedesktop.org
-Cc: David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+Content-Disposition: inline
+In-Reply-To: <871srifyyq.fsf@gmail.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Nicolai Stange <nicstange@gmail.com>, Sean Paul <seanpaul@chromium.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Christian Koenig <christian.koenig@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Sat, 2017-05-20 at 13:39 +0200, Christian König wrote:
-> Am 20.05.2017 um 01:48 schrieb Lyude:
-> > This is the first part of me going through and cleaning up the IRQ
-> > handling
-> > code for radeon, since after taking a look at it the other day
-> > while trying to
-> > debug something I realized basically all of the code was copy
-> > pasted
-> > everywhere, and quite difficult to actually read through.
-> > 
-> > Will come up with something for r600 and cik once I've got the
-> > chipsets on hand
-> > to test with.
-> > 
-> > Lyude (3):
-> >    drm/radeon: Cleanup display interrupt handling for evergreen, si
-> >    drm/radeon: Cleanup HDMI audio interrupt handling for evergreen
-> >    drm/radeon: Cleanup pageflipping IRQ handling for evergreen, si
-> 
-> I don't have time to do a line by line review, but what I saw looked 
-> very good to me.
-> 
-> So the whole seres is Acked-by: Christian König <christian.koenig@amd
-> .com>.
-> 
-> BTW: You don't want to take a look at the other hw generations as
-> well?
-Oh don't worry, I'm already planning on that! The next chance I have
-available I'll be going my coworker's GPUs so I can get the hardware I
-need to test refactors I write of the rest of the hw gen's IRQ handling
-code. :)
-> 
-> Regards,
-> Christian.
-> 
-> > 
-> >   drivers/gpu/drm/radeon/evergreen.c      | 943 ++++++-------------
-> > -------------
-> >   drivers/gpu/drm/radeon/radeon.h         |  27 +-
-> >   drivers/gpu/drm/radeon/radeon_irq_kms.c |  35 ++
-> >   drivers/gpu/drm/radeon/si.c             | 655 +++++------------
-> > -----
-> >   4 files changed, 344 insertions(+), 1316 deletions(-)
-> > 
-> 
-> 
+T24gU3VuLCBNYXkgMjEsIDIwMTcgYXQgMDk6MzE6MDlBTSArMDIwMCwgTmljb2xhaSBTdGFuZ2Ug
+d3JvdGU6Cj4gT24gVGh1LCBNYXkgMTggMjAxNywgTHVrYXMgV3VubmVyIHdyb3RlOgpbc25pcF0K
+PiA+IFJlcG9ydGVkLWJ5OiBOaWNvbGFpIFN0YW5nZSA8bmljc3RhbmdlQGdtYWlsLmNvbT4KPiA+
+IEZpeGVzOiA3ZmZiMGNlMzFjZjkgKCJkcm0vcmFkZW9uOiBEb24ndCByZWdpc3RlciBUaHVuZGVy
+Ym9sdCBlR1BVIHdpdGggdmdhX3N3aXRjaGVyb28iKQo+ID4gU2lnbmVkLW9mZi1ieTogTHVrYXMg
+V3VubmVyIDxsdWthc0B3dW5uZXIuZGU+Cj4gPiAtLS0KPiA+Cj4gPiBBd2FpdGluZyBhIFRlc3Rl
+ZC1ieTogZnJvbSBOaWNvbGFpLCBidXQgaXQncyBjbGVhciB0aGlzIGlzIGEgYnVnIGFuZAo+ID4g
+bmVlZHMgdG8gYmUgZml4ZWQsIHNvIHNlbmRpbmcgb3V0IHdpdGggYSBwcm9wZXIgY29tbWl0IG1l
+c3NhZ2Ugbm93Lgo+ID4gVGhlIGJ1ZyB3YXMgb25seSBpbnRyb2R1Y2VkIHRvIHJhZGVvbiwgbm90
+IGFtZGdwdS4KPiAKPiBUZXN0ZWQtYnk6IE5pY29sYWkgU3RhbmdlIDxuaWNzdGFuZ2VAZ21haWwu
+Y29tPgo+IAo+IFRoYW5rcyBmb3IgdGhlIHF1aWNrIGZpeCEKPgo+ID4gQEFsZXggRGV1Y2hlcjog
+SSBjb3VsZCBwdXNoIHRoaXMgdG8gZHJtLW1pc2MtZml4ZXMgYnV0IHRoZW4gaXQgd291bGRuJ3QK
+PiA+IGxhbmQgYmVmb3JlIC1yYzMgYmVjYXVzZSBTZWFuIFBhdWwgaGFzIGFscmVhZHkgc2VudCBv
+dXQgdGhlIC1yYzIgcHVsbC4KPiA+IEkgbm90aWNlIHlvdSBoYXZlbid0IHNlbnQgb3V0IGEgcHVs
+bCBmb3IgLXJjMiB5ZXQsIHNvIG1heWJlIHlvdSB3YW50IHRvCj4gPiB0YWtlIGl0IHlvdXJzZWxm
+PyAgV2hpY2hldmVyIHlvdSBwcmVmZXIuICBUaGFua3MgJiBzb3JyeSBmb3IgdGhlIGJyZWFrYWdl
+IQoKSSd2ZSBsZWFybmVkIHRoaXMgbW9ybmluZyB0aGF0IEFsZXggaXMgb24gdmFjYXRpb24uICBJ
+J3ZlIHB1c2hlZAp0aGUgcGF0Y2ggdG8gZHJtLW1pc2MtZml4ZXMgc28gdGhhdCB0aGUgaXNzdWUg
+aXMgZml4ZWQgaW4gNC4xMi1yYzMuCgpAU2VhbiBQYXVsOiBJJ3ZlIGZhc3QtZm9yd2FyZGVkIHRv
+IDQuMTItcmMyIGJlZm9yZSBwdXNoaW5nLCBwbGVhc2UKc2hvdXQgaWYgSSd2ZSBkb25lIGFueXRo
+aW5nIHdyb25nLiAgRmlyc3QgdGltZSBJJ20gZG9pbmcgdGhpcy4KClRoYW5rcywKCkx1a2FzCgo+
+ID4KPiA+ICBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9rbXMuYyB8IDIgKy0KPiA+ICAx
+IGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKPiA+Cj4gPiBkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fa21zLmMgYi9kcml2ZXJzL2dw
+dS9kcm0vcmFkZW9uL3JhZGVvbl9rbXMuYwo+ID4gaW5kZXggNmE2OGQ0NDBiYzQ0Li5kMGFkMDM2
+NzQyNTAgMTAwNjQ0Cj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9rbXMu
+Ywo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fa21zLmMKPiA+IEBAIC0x
+MTYsNyArMTE2LDcgQEAgaW50IHJhZGVvbl9kcml2ZXJfbG9hZF9rbXMoc3RydWN0IGRybV9kZXZp
+Y2UgKmRldiwgdW5zaWduZWQgbG9uZyBmbGFncykKPiA+ICAJaWYgKChyYWRlb25fcnVudGltZV9w
+bSAhPSAwKSAmJgo+ID4gIAkgICAgcmFkZW9uX2hhc19hdHB4KCkgJiYKPiA+ICAJICAgICgoZmxh
+Z3MgJiBSQURFT05fSVNfSUdQKSA9PSAwKSAmJgo+ID4gLQkgICAgIXBjaV9pc190aHVuZGVyYm9s
+dF9hdHRhY2hlZChyZGV2LT5wZGV2KSkKPiA+ICsJICAgICFwY2lfaXNfdGh1bmRlcmJvbHRfYXR0
+YWNoZWQoZGV2LT5wZGV2KSkKPiA+ICAJCWZsYWdzIHw9IFJBREVPTl9JU19QWDsKPiA+ICAKPiA+
+ICAJLyogcmFkZW9uX2RldmljZV9pbml0IHNob3VsZCByZXBvcnQgb25seSBmYXRhbCBlcnJvcgpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwg
+bWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
