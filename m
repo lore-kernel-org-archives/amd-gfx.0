@@ -1,17 +1,17 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: fix ocl test performance drop
-Date: Mon, 22 May 2017 08:47:33 +0200
-Message-ID: <224eb1fa-6c8d-82a7-8b2a-dc65b2c66695@vodafone.de>
-References: <1495093501-13313-1-git-send-email-Flora.Cui@amd.com>
- <4b2d410d-544f-4e72-11ae-8db4a1d797d3@vodafone.de>
- <20170519022518.GA24957@flora> <20170519033657.GB24957@flora>
- <591E7FA9.4070201@amd.com> <0246394a-ddbb-6478-b36f-8fb7e9213acb@vodafone.de>
- <20170522034224.GA27084@flora>
+From: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+Subject: Re: (radeon?) WARNING: drivers/gpu/drm/drm_irq.c:1195 drm_vblank_put
+ (v4.11-12441-g56868a4)
+Date: Mon, 22 May 2017 09:32:47 +0200
+Message-ID: <20170522073247.4pqv7wg3prwuvnib@phenom.ffwll.local>
+References: <CA+ydwtqHwuzY2_H9H2DA1AwgR7hF0cOZ2uOi_Amp1F_S9RJB9A@mail.gmail.com>
+ <b5d12021-5f79-d478-bc4b-d510493867c1@daenzer.net>
+ <CA+ydwtqxj5rT73dCB-g0=PaTq3UWyvPiLDzSZ5Cu-1wuynpKBA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1271976067=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170522034224.GA27084@flora>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <CA+ydwtqxj5rT73dCB-g0=PaTq3UWyvPiLDzSZ5Cu-1wuynpKBA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,333 +22,218 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Flora Cui <flora.cui-5C7GfCeVMHo@public.gmane.org>
-Cc: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Tommi Rantala <tt.rantala-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Michel =?iso-8859-1?Q?D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, DRI Development <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Daniel Vetter <daniel.vetter-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============1271976067==
-Content-Type: multipart/alternative;
- boundary="------------B68C359815AA6B3B6BF00A48"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------B68C359815AA6B3B6BF00A48
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-See my other comment about simplifying the patch in the other mail:
-> [flora]: for compute ring & amdgpu_vm_ring_has_compute_vm_bug(), a 
-> vm_flush is
-> inserted. This might cause performance drop.
->
-> Ah, I see. We only need the pipeline sync, but not the vm flush.
->
-> In this case I suggest to just change the following line in 
-> amdgpu_vm_flush():
->> -    bool vm_flush_needed = job->vm_needs_flush ||
->> -        amdgpu_vm_ring_has_compute_vm_bug(ring);
->
-> We can keep it in amdgpu_vm_need_pipeline_sync().
-With that done we can easily push it.
-
-Christian.
-
-Am 22.05.2017 um 05:42 schrieb Flora Cui:
-> Could anyone give me a RB?
->
-> On Fri, May 19, 2017 at 01:59:16PM +0200, Christian König wrote:
->> I'm pretty sure that bug is fixed in GFX9. So we don't need the check there
->> any more.
->>
->> Regards,
->> Christian.
->>
->> Am 19.05.2017 um 07:16 schrieb zhoucm1:
->>> I also realized this problem when I did fix for sched fence, I thought if
->>> no issue, just left it as current code, it's more safe.
->>> As Flora point it out, it results in performance drop, then we need to
->>> correct it back.
->>> pipeline_sync in vm flush should be inserted only when
->>> amdgpu_vm_ring_has_compute_vm_bug() is true, not all time for every vm
->>> flush for all engines. The bug has been fixed in mec firmware from version
->>> 673 in gfx8.
->>> About gfx9 for amdgpu_vm_ring_has_compute_vm_bug(), current implementation
->>> is thinking gfx9 doesn't have compute vm bug by default. Not sure it's in
->>> there. If no vm fault related to this bug, then we can think gfx9 has no
->>> compute vm bug, I believe firmware team does that based on previous
->>> generation, otherwise we need identify every generation, that's crazy.
->>>
->>> Regards,
->>> David Zhou
->>> On 2017年05月19日 11:36, Flora Cui wrote:
->>>> btw, what's about gfx9 for amdgpu_vm_ring_has_compute_vm_bug()? Is the
->>>> workaround still needed?
->>>>
->>>> On Fri, May 19, 2017 at 10:25:19AM +0800, Flora Cui wrote:
->>>>> On Thu, May 18, 2017 at 01:38:15PM +0200, Christian König wrote:
->>>>>> Am 18.05.2017 um 09:45 schrieb Flora Cui:
->>>>>>> partial revert commit <6971d3d> - drm/amdgpu: cleanup logic in
->>>>>>> amdgpu_vm_flush
->>>>>>>
->>>>>>> Change-Id: Iadce9d613dfe9a739643a74050cea55854832adb
->>>>>>> Signed-off-by: Flora Cui <Flora.Cui-5C7GfCeVMHo@public.gmane.org>
->>>>>> I don't see how the revert should be faster than the original.
->>>>>>
->>>>>> Especially that amdgpu_vm_had_gpu_reset() is now called twice sounds
->>>>>> like
->>>>>> more overhead than necessary.
->>>>>>
->>>>>> Please explain further.
->>>>>>
->>>>>> Christian.
->>>>>>
->>>>>>> ---
->>>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 14 +++++---------
->>>>>>>   1 file changed, 5 insertions(+), 9 deletions(-)
->>>>>>>
->>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>>>> index 88420dc..a96bad6 100644
->>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>>>> @@ -743,23 +743,19 @@ int amdgpu_vm_flush(struct amdgpu_ring
->>>>>>> *ring, struct amdgpu_job *job)
->>>>>>>           id->gws_size != job->gws_size ||
->>>>>>>           id->oa_base != job->oa_base ||
->>>>>>>           id->oa_size != job->oa_size);
->>>>>>> -    bool vm_flush_needed = job->vm_needs_flush ||
->>>>>>> -        amdgpu_vm_ring_has_compute_vm_bug(ring);
->>>>>>>       unsigned patch_offset = 0;
->>>>>>>       int r;
->>>>>>> -    if (amdgpu_vm_had_gpu_reset(adev, id)) {
->>>>>>> -        gds_switch_needed = true;
->>>>>>> -        vm_flush_needed = true;
->>>>>>> -    }
->>>>>>> -
->>>>>>> -    if (!vm_flush_needed && !gds_switch_needed)
->>>>>>> +    if (!job->vm_needs_flush && !gds_switch_needed &&
->>>>>>> +        !amdgpu_vm_had_gpu_reset(adev, id) &&
->>>>>>> +        !amdgpu_vm_ring_has_compute_vm_bug(ring))
->>>>>>>           return 0;
->>>>>>>       if (ring->funcs->init_cond_exec)
->>>>>>>           patch_offset = amdgpu_ring_init_cond_exec(ring);
->>>>>>> -    if (ring->funcs->emit_vm_flush && vm_flush_needed) {
->>>>> [flora]: for compute ring & amdgpu_vm_ring_has_compute_vm_bug(), a
->>>>> vm_flush is
->>>>> inserted. This might cause performance drop.
->>>>>>> +    if (ring->funcs->emit_vm_flush &&
->>>>>>> +        (job->vm_needs_flush || amdgpu_vm_had_gpu_reset(adev,
->>>>>>> id))) {
->>>>>>>           struct fence *fence;
->>>>>>>           trace_amdgpu_vm_flush(ring, job->vm_id, job->vm_pd_addr);
->>>>> _______________________________________________
->>>>> amd-gfx mailing list
->>>>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>>>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>>> _______________________________________________
->>>> amd-gfx mailing list
->>>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>> _______________________________________________
->>> amd-gfx mailing list
->>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>
-
-
---------------B68C359815AA6B3B6BF00A48
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">See my other comment about simplifying
-      the patch in the other mail:<br>
-      <blockquote type="cite">[flora]: for compute ring &amp;
-        amdgpu_vm_ring_has_compute_vm_bug(), a vm_flush is
-        <br>
-        inserted. This might cause performance drop.
-        <br>
-        <br>
-        Ah, I see. We only need the pipeline sync, but not the vm flush.
-        <br>
-        <br>
-        In this case I suggest to just change the following line in
-        amdgpu_vm_flush():
-        <br>
-        <blockquote type="cite" style="color: #000000;">-    bool
-          vm_flush_needed = job-&gt;vm_needs_flush ||
-          <br>
-          -        amdgpu_vm_ring_has_compute_vm_bug(ring);
-          <br>
-        </blockquote>
-        <br>
-        We can keep it in amdgpu_vm_need_pipeline_sync().
-        <br>
-      </blockquote>
-      With that done we can easily push it.<br>
-      <br>
-      Christian.<br>
-      <br>
-      Am 22.05.2017 um 05:42 schrieb Flora Cui:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20170522034224.GA27084@flora">
-      <pre wrap="">Could anyone give me a RB?
-
-On Fri, May 19, 2017 at 01:59:16PM +0200, Christian König wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="">I'm pretty sure that bug is fixed in GFX9. So we don't need the check there
-any more.
-
-Regards,
-Christian.
-
-Am 19.05.2017 um 07:16 schrieb zhoucm1:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="">I also realized this problem when I did fix for sched fence, I thought if
-no issue, just left it as current code, it's more safe.
-As Flora point it out, it results in performance drop, then we need to
-correct it back.
-pipeline_sync in vm flush should be inserted only when
-amdgpu_vm_ring_has_compute_vm_bug() is true, not all time for every vm
-flush for all engines. The bug has been fixed in mec firmware from version
-673 in gfx8.
-About gfx9 for amdgpu_vm_ring_has_compute_vm_bug(), current implementation
-is thinking gfx9 doesn't have compute vm bug by default. Not sure it's in
-there. If no vm fault related to this bug, then we can think gfx9 has no
-compute vm bug, I believe firmware team does that based on previous
-generation, otherwise we need identify every generation, that's crazy.
-
-Regards,
-David Zhou
-On 2017年05月19日 11:36, Flora Cui wrote:
-</pre>
-          <blockquote type="cite">
-            <pre wrap="">btw, what's about gfx9 for amdgpu_vm_ring_has_compute_vm_bug()? Is the
-workaround still needed?
-
-On Fri, May 19, 2017 at 10:25:19AM +0800, Flora Cui wrote:
-</pre>
-            <blockquote type="cite">
-              <pre wrap="">On Thu, May 18, 2017 at 01:38:15PM +0200, Christian König wrote:
-</pre>
-              <blockquote type="cite">
-                <pre wrap="">Am 18.05.2017 um 09:45 schrieb Flora Cui:
-</pre>
-                <blockquote type="cite">
-                  <pre wrap="">partial revert commit &lt;6971d3d&gt; - drm/amdgpu: cleanup logic in
-amdgpu_vm_flush
-
-Change-Id: Iadce9d613dfe9a739643a74050cea55854832adb
-Signed-off-by: Flora Cui <a class="moz-txt-link-rfc2396E" href="mailto:Flora.Cui-5C7GfCeVMHo@public.gmane.org">&lt;Flora.Cui-5C7GfCeVMHo@public.gmane.org&gt;</a>
-</pre>
-                </blockquote>
-                <pre wrap="">I don't see how the revert should be faster than the original.
-
-Especially that amdgpu_vm_had_gpu_reset() is now called twice sounds
-like
-more overhead than necessary.
-
-Please explain further.
-
-Christian.
-
-</pre>
-                <blockquote type="cite">
-                  <pre wrap="">---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 14 +++++---------
- 1 file changed, 5 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 88420dc..a96bad6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -743,23 +743,19 @@ int amdgpu_vm_flush(struct amdgpu_ring
-*ring, struct amdgpu_job *job)
-         id-&gt;gws_size != job-&gt;gws_size ||
-         id-&gt;oa_base != job-&gt;oa_base ||
-         id-&gt;oa_size != job-&gt;oa_size);
--    bool vm_flush_needed = job-&gt;vm_needs_flush ||
--        amdgpu_vm_ring_has_compute_vm_bug(ring);
-     unsigned patch_offset = 0;
-     int r;
--    if (amdgpu_vm_had_gpu_reset(adev, id)) {
--        gds_switch_needed = true;
--        vm_flush_needed = true;
--    }
--
--    if (!vm_flush_needed &amp;&amp; !gds_switch_needed)
-+    if (!job-&gt;vm_needs_flush &amp;&amp; !gds_switch_needed &amp;&amp;
-+        !amdgpu_vm_had_gpu_reset(adev, id) &amp;&amp;
-+        !amdgpu_vm_ring_has_compute_vm_bug(ring))
-         return 0;
-     if (ring-&gt;funcs-&gt;init_cond_exec)
-         patch_offset = amdgpu_ring_init_cond_exec(ring);
--    if (ring-&gt;funcs-&gt;emit_vm_flush &amp;&amp; vm_flush_needed) {
-</pre>
-                </blockquote>
-              </blockquote>
-              <pre wrap="">[flora]: for compute ring &amp; amdgpu_vm_ring_has_compute_vm_bug(), a
-vm_flush is
-inserted. This might cause performance drop.
-</pre>
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <pre wrap="">+    if (ring-&gt;funcs-&gt;emit_vm_flush &amp;&amp;
-+        (job-&gt;vm_needs_flush || amdgpu_vm_had_gpu_reset(adev,
-id))) {
-         struct fence *fence;
-         trace_amdgpu_vm_flush(ring, job-&gt;vm_id, job-&gt;vm_pd_addr);
-</pre>
-                </blockquote>
-                <pre wrap="">
-</pre>
-              </blockquote>
-              <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-            </blockquote>
-            <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-          </blockquote>
-          <pre wrap="">
-_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-        </blockquote>
-        <pre wrap="">
-
-</pre>
-      </blockquote>
-    </blockquote>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------B68C359815AA6B3B6BF00A48--
-
---===============1271976067==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1271976067==--
+T24gVGh1LCBNYXkgMTgsIDIwMTcgYXQgMDc6NDM6NTFQTSArMDMwMCwgVG9tbWkgUmFudGFsYSB3
+cm90ZToKPiAyMDE3LTA1LTExIDU6NTEgR01UKzAzOjAwIE1pY2hlbCBEw6RuemVyIDxtaWNoZWxA
+ZGFlbnplci5uZXQ+Ogo+ID4gT24gMTEvMDUvMTcgMDQ6MzMgQU0sIFRvbW1pIFJhbnRhbGEgd3Jv
+dGU6Cj4gPj4gQ29tcGxldGUga2VybmVsIGxvZzoKPiA+PiBodHRwOi8vdGVybWJpbi5jb20vZHp5
+NQo+ID4+Cj4gPj4gWyAgMjQ5Ljk1MjU0Nl0gLS0tLS0tLS0tLS0tWyBjdXQgaGVyZSBdLS0tLS0t
+LS0tLS0tCj4gPj4gWyAgMjQ5Ljk1MjU5M10gV0FSTklORzogQ1BVOiA1IFBJRDogMCBhdAo+ID4+
+IC9ob21lL3R0cmFudGFsL2dpdC9saW51eC9kcml2ZXJzL2dwdS9kcm0vZHJtX2lycS5jOjExOTUK
+PiA+PiBkcm1fdmJsYW5rX3B1dCsweGM0LzB4MTIwIFtkcm1dCj4gPj4gWyAgMjQ5Ljk1MjU5Nl0g
+TW9kdWxlcyBsaW5rZWQgaW46IGZ1c2UgdHVuIGJyaWRnZSBzdHAgbGxjIGFmX3BhY2tldAo+ID4+
+IHBsMjMwMyB1c2JzZXJpYWwgc2hwY2hwIGFjcGlfY3B1ZnJlcSBiaW5mbXRfbWlzYyBhbWRncHUg
+aGlkX2dlbmVyaWMKPiA+PiB1aGNpX2hjZCByYWRlb24gM2M1OXggbWlpIHRnMyBlaGNpX3BjaSBl
+aGNpX2hjZCBpMmNfYWxnb19iaXQKPiA+PiBkcm1fa21zX2hlbHBlciBzeXNjb3B5YXJlYSBzeXNm
+aWxscmVjdCBzeXNpbWdibHQgZmJfc3lzX2ZvcHMgdHRtIGRybQo+ID4+IGFncGdhcnQgdW5peCBh
+dXRvZnM0Cj4gPj4gWyAgMjQ5Ljk1MjY3NV0gQ1BVOiA1IFBJRDogMCBDb21tOiBzd2FwcGVyLzUg
+VGFpbnRlZDogRyAgICAgICAgVwo+ID4+IDQuMTEuMCsgIzQKPiA+PiBbICAyNDkuOTUyNjc4XSBI
+YXJkd2FyZSBuYW1lOiBIZXdsZXR0LVBhY2thcmQgSFAgeHc2NjAwCj4gPj4gV29ya3N0YXRpb24v
+MEE5Q2gsIEJJT1MgNzg2RjQgdjAxLjQ2IDA5LzIwLzIwMTIKPiA+PiBbICAyNDkuOTUyNjgxXSB0
+YXNrOiBmZmZmODgwODBhZWEwMDAwIHRhc2suc3RhY2s6IGZmZmZjOTAwMDMxYjAwMDAKPiA+PiBb
+ICAyNDkuOTUyNjk1XSBSSVA6IDAwMTA6ZHJtX3ZibGFua19wdXQrMHhjNC8weDEyMCBbZHJtXQo+
+ID4+IFsgIDI0OS45NTI2OThdIFJTUDogMDAxODpmZmZmODgwODBmMDAzZDcwIEVGTEFHUzogMDAw
+MTAwNDYKPiA+PiBbICAyNDkuOTUyNzAzXSBSQVg6IDAwMDAwMDAwMDAwMDAwMDAgUkJYOiBmZmZm
+ODgwODAxZDUzMDAwIFJDWDogMDAwMDAwMDAwMDAwMDAwMAo+ID4+IFsgIDI0OS45NTI3MDZdIFJE
+WDogMDAwMDAwMDAwMDAwMDAwMCBSU0k6IDAwMDAwMDAwMDAwMDAwMDAgUkRJOiBmZmZmODgwODBh
+NGFjMDAwCj4gPj4gWyAgMjQ5Ljk1MjcwOV0gUkJQOiBmZmZmODgwODBmMDAzZDg4IFIwODogMDAw
+MDAwMDAwMDAwMDAwMSBSMDk6IDAwMDAwMDAwMDAwMDAwMDMKPiA+PiBbICAyNDkuOTUyNzExXSBS
+MTA6IGZmZmY4ODA4MGYwMDNkMDggUjExOiAwMDAwMDAwMDAwMWRhNTQwIFIxMjogZmZmZjg4MDgw
+YTRhYzAwMAo+ID4+IFsgIDI0OS45NTI3MTRdIFIxMzogMDAwMDAwMDAwMDAwMDAwMCBSMTQ6IDAw
+MDAwMDAwMDAwMDAwODYgUjE1OiBmZmZmODgwODAxOWEwMDAwCj4gPj4gWyAgMjQ5Ljk1MjcxN10g
+RlM6ICAwMDAwMDAwMDAwMDAwMDAwKDAwMDApIEdTOmZmZmY4ODA4MGYwMDAwMDAoMDAwMCkKPiA+
+PiBrbmxHUzowMDAwMDAwMDAwMDAwMDAwCj4gPj4gWyAgMjQ5Ljk1MjcyMF0gQ1M6ICAwMDEwIERT
+OiAwMDAwIEVTOiAwMDAwIENSMDogMDAwMDAwMDA4MDA1MDAzMwo+ID4+IFsgIDI0OS45NTI3MjNd
+IENSMjogMDAwMDdmOGJjYzNhNTgxMCBDUjM6IDAwMDAwMDA4MDg3ODkwMDAgQ1I0OiAwMDAwMDAw
+MDAwMDAwNmUwCj4gPj4gWyAgMjQ5Ljk1MjcyNl0gQ2FsbCBUcmFjZToKPiA+PiBbICAyNDkuOTUy
+NzMxXSAgPElSUT4KPiA+PiBbICAyNDkuOTUyNzQ2XSAgZHJtX2NydGNfdmJsYW5rX3B1dCsweDFi
+LzB4MzAgW2RybV0KPiA+PiBbICAyNDkuOTUyODEzXSAgcmFkZW9uX2NydGNfaGFuZGxlX2ZsaXAr
+MHhkYy8weDE0MCBbcmFkZW9uXQo+ID4+IFsgIDI0OS45NTI4NDNdICBzaV9pcnFfcHJvY2Vzcysw
+eDYxMC8weDFlOTAgW3JhZGVvbl0KPiA+PiBbICAyNDkuOTUyODcyXSAgcmFkZW9uX2RyaXZlcl9p
+cnFfaGFuZGxlcl9rbXMrMHgzOS8weGMwIFtyYWRlb25dCj4gPj4gWyAgMjQ5Ljk1Mjg4MV0gIF9f
+aGFuZGxlX2lycV9ldmVudF9wZXJjcHUrMHg2MC8weDU4MAo+ID4+IFsgIDI0OS45NTI4ODddICBo
+YW5kbGVfaXJxX2V2ZW50X3BlcmNwdSsweDIwLzB4OTAKPiA+PiBbICAyNDkuOTUyODkyXSAgaGFu
+ZGxlX2lycV9ldmVudCsweDQ2LzB4YjAKPiA+PiBbICAyNDkuOTUyODk3XSAgaGFuZGxlX2VkZ2Vf
+aXJxKzB4MTNkLzB4MzcwCj4gPj4gWyAgMjQ5Ljk1MjkwM10gIGhhbmRsZV9pcnErMHg2Ni8weDIx
+MAo+ID4+IFsgIDI0OS45NTI5MDhdICA/IF9fbG9jYWxfYmhfZW5hYmxlKzB4MzQvMHg1MAo+ID4+
+IFsgIDI0OS45NTI5MTRdICBkb19JUlErMHg3ZS8weDFiMAo+ID4+IFsgIDI0OS45NTI5MjBdICBj
+b21tb25faW50ZXJydXB0KzB4OTUvMHg5NQo+ID4KPiA+IFdlaXJkLCBub3Qgc3VyZSBob3cgdGhp
+cyBjb3VsZCBoYXBwZW4uIENhbiB5b3UgYmlzZWN0Pwo+IAo+IEhpLAo+IAo+IEJpc2VjdGlvbiBw
+b2ludHMgdG8gdGhpcyAoYWxzbyBtYW51YWxseSBhcHBsaWVkIGNvbW1pdCA5NzM5ZTc0NjQ2Cj4g
+d2hpbGUgdGVzdGluZywgZ290IGtlcm5lbCBvb3BzIG90aGVyd2lzZSk6Cj4gCj4gY29tbWl0IDI5
+ZGMwZDFkZTE4MjM5Y2YzZWY4YmFiNTc4YjgzMjFlZDM0MGQ4MWMKPiBBdXRob3I6IERhbmllbCBW
+ZXR0ZXIgPGRhbmllbC52ZXR0ZXJAZmZ3bGwuY2g+Cj4gRGF0ZTogICBXZWQgTWFyIDIyIDIyOjUw
+OjQ5IDIwMTcgKzAxMDAKPiAKPiAgICAgZHJtOiBSb2xsIG91dCBhY3F1aXJlIGNvbnRleHQgZm9y
+IHRoZSBwYWdlX2ZsaXAgaW9jdGwKPiAKPiAgICAgQWdhaW4ganVzdCBwcmVwIHdvcmsuCj4gCj4g
+ICAgIFJldmlld2VkLWJ5OiBIYXJyeSBXZW50bGFuZCA8aGFycnkud2VudGxhbmRAYW1kLmNvbT4K
+PiAgICAgU2lnbmVkLW9mZi1ieTogRGFuaWVsIFZldHRlciA8ZGFuaWVsLnZldHRlckBpbnRlbC5j
+b20+Cj4gICAgIExpbms6IGh0dHA6Ly9wYXRjaHdvcmsuZnJlZWRlc2t0b3Aub3JnL3BhdGNoL21z
+Z2lkLzIwMTcwMzIyMjE1MDU4Ljg2NzEtMTEtZGFuaWVsLnZldHRlckBmZndsbC5jaAo+IAo+IAo+
+IEknbSBhbHNvIHNlZWluZyBzb21lIG1vcmUgd2FybmluZ3MgaW4gdGhpcyB2ZXJzaW9uOgoKWWVh
+aCBJIHRoaW5rIHRoZSBsb2NraW5nIHN0dWZmIHdlJ3ZlIGZpeGVkLCBhdCBsZWFzdCBpZiB5b3Ug
+ZG9uJ3Qgc2VlIGl0CmluIDQuMTIgaXQgc2hvdWxkIGJlIGFsbCBnb29kLiBBbmQgSSB0aGluayBJ
+IHNwb3R0ZWQgdGhlIGJ1ZyB5b3UndmUKYmlzZWN0ZWQgdG8sIHBhdGNoIGlzIG9uIGRyaS1kZXZl
+bCwgcGxzIHRlc3QuCgpUaGFua3MgZm9yIHRoZSBidWcgcmVwb3J0LgotRGFuaWVsCgo+IAo+IAo+
+IE1heSAxOCAxOToyMTo1NSB4dzY2MDAga2VybmVsOiBJUHY2OiBBRERSQ09ORihORVRERVZfQ0hB
+TkdFKTogZW5wMTRzMDoKPiBsaW5rIGJlY29tZXMgcmVhZHkKPiBNYXkgMTggMTk6MjE6NTcgeHc2
+NjAwIGtlcm5lbDogLS0tLS0tLS0tLS0tWyBjdXQgaGVyZSBdLS0tLS0tLS0tLS0tCj4gTWF5IDE4
+IDE5OjIxOjU3IHh3NjYwMCBrZXJuZWw6IFdBUk5JTkc6IENQVTogNSBQSUQ6IDQ2MDcgYXQKPiAv
+aG9tZS90dHJhbnRhbC9naXQvbGludXgvZHJpdmVycy9ncHUvZHJtL2RybV9tb2Rlc2V0X2xvY2su
+YzoxOTMKPiBkcm1fbW9kZXNldF9sb2NrX2NydGMrMHhlNS8weDEwMCBbZHJtXQo+IE1heSAxOCAx
+OToyMTo1NyB4dzY2MDAga2VybmVsOiBNb2R1bGVzIGxpbmtlZCBpbjogdHVuIGJyaWRnZSBzdHAg
+bGxjCj4gYWZfcGFja2V0IHBsMjMwMyB1c2JzZXJpYWwgc2hwY2hwIGFjcGlfY3B1ZnJlcSBiaW5m
+bXRfbWlzYyBhbWRncHUKPiBoaWRfZ2VuZXJpYyB1aGNpX2hjZCByYWRlb24gM2M1OXggbWlpIGky
+Y19hbGdvX2JpdCBkcm1fa21zX2hlbHBlciB0ZzMKPiBzeXNjb3B5YXJlYSBzeXNmaWxscmVjdCBz
+eXNpbWdibHQKPiBNYXkgMTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogQ1BVOiA1IFBJRDogNDYw
+NyBDb21tOiBnbm9tZS1zaGVsbCBOb3QKPiB0YWludGVkIDQuMTEuMC1yYzMtMDA5NDQtZzI5ZGMw
+ZDEtZGlydHkgIzMwCj4gTWF5IDE4IDE5OjIxOjU3IHh3NjYwMCBrZXJuZWw6IEhhcmR3YXJlIG5h
+bWU6IEhld2xldHQtUGFja2FyZCBIUAo+IHh3NjYwMCBXb3Jrc3RhdGlvbi8wQTlDaCwgQklPUyA3
+ODZGNCB2MDEuNDYgMDkvMjAvMjAxMgo+IE1heSAxOCAxOToyMTo1NyB4dzY2MDAga2VybmVsOiBD
+YWxsIFRyYWNlOgo+IE1heSAxOCAxOToyMTo1NyB4dzY2MDAga2VybmVsOiAgZHVtcF9zdGFjaysw
+eDY5LzB4OWIKPiBNYXkgMTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogIF9fd2FybisweGZmLzB4
+MTQwCj4gTWF5IDE4IDE5OjIxOjU3IHh3NjYwMCBrZXJuZWw6ICB3YXJuX3Nsb3dwYXRoX251bGwr
+MHgxOC8weDIwCj4gTWF5IDE4IDE5OjIxOjU3IHh3NjYwMCBrZXJuZWw6ICBkcm1fbW9kZXNldF9s
+b2NrX2NydGMrMHhlNS8weDEwMCBbZHJtXQo+IE1heSAxOCAxOToyMTo1NyB4dzY2MDAga2VybmVs
+OiAgZHJtX21vZGVfY3Vyc29yX2NvbW1vbisweGJkLzB4MjAwIFtkcm1dCj4gTWF5IDE4IDE5OjIx
+OjU3IHh3NjYwMCBrZXJuZWw6ICBkcm1fbW9kZV9jdXJzb3JfaW9jdGwrMHgzYy8weDQwIFtkcm1d
+Cj4gTWF5IDE4IDE5OjIxOjU3IHh3NjYwMCBrZXJuZWw6ICBkcm1faW9jdGwrMHgzZWEvMHg4NzAg
+W2RybV0KPiBNYXkgMTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogID8gZHJtX21vZGVfc2V0cGxh
+bmUrMHgxYTAvMHgxYTAgW2RybV0KPiBNYXkgMTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogID8g
+dHJhY2VfaGFyZGlycXNfb25fY2FsbGVyKzB4MWFkLzB4MmMwCj4gTWF5IDE4IDE5OjIxOjU3IHh3
+NjYwMCBrZXJuZWw6ICA/IHRyYWNlX2hhcmRpcnFzX29uKzB4ZC8weDEwCj4gTWF5IDE4IDE5OjIx
+OjU3IHh3NjYwMCBrZXJuZWw6ICByYWRlb25fZHJtX2lvY3RsKzB4NmUvMHgxMTAgW3JhZGVvbl0K
+PiBNYXkgMTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogIGRvX3Zmc19pb2N0bCsweGFjLzB4OWQw
+Cj4gTWF5IDE4IDE5OjIxOjU3IHh3NjYwMCBrZXJuZWw6ICA/IHNlY3VyaXR5X2ZpbGVfaW9jdGwr
+MHg0Yy8weDgwCj4gTWF5IDE4IDE5OjIxOjU3IHh3NjYwMCBrZXJuZWw6ICBTeVNfaW9jdGwrMHg3
+NC8weDgwCj4gTWF5IDE4IDE5OjIxOjU3IHh3NjYwMCBrZXJuZWw6ICBlbnRyeV9TWVNDQUxMXzY0
+X2Zhc3RwYXRoKzB4MTgvMHhhZAo+IE1heSAxOCAxOToyMTo1NyB4dzY2MDAga2VybmVsOiBSSVA6
+IDAwMzM6MHg3Zjk4ZDllNTI3ODcKPiBNYXkgMTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogUlNQ
+OiAwMDJiOjAwMDA3ZmZlMTJjYTU5MzggRUZMQUdTOgo+IDAwMDAwMjQ2IE9SSUdfUkFYOiAwMDAw
+MDAwMDAwMDAwMDEwCj4gTWF5IDE4IDE5OjIxOjU3IHh3NjYwMCBrZXJuZWw6IFJBWDogZmZmZmZm
+ZmZmZmZmZmZkYSBSQlg6Cj4gMDAwMDAwMDAwMDAwMDA0NiBSQ1g6IDAwMDA3Zjk4ZDllNTI3ODcK
+PiBNYXkgMTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogUkRYOiAwMDAwN2ZmZTEyY2E1OTcwIFJT
+SToKPiAwMDAwMDAwMGMwMWM2NGEzIFJESTogMDAwMDAwMDAwMDAwMDAwOAo+IE1heSAxOCAxOToy
+MTo1NyB4dzY2MDAga2VybmVsOiBSQlA6IDAwMDAwMDAwMDAwMDAwMGIgUjA4Ogo+IDAwMDAwMDAw
+MDAwMDAwMDAgUjA5OiAwMDAwNTYwYzVhNWM5YWMwCj4gTWF5IDE4IDE5OjIxOjU3IHh3NjYwMCBr
+ZXJuZWw6IFIxMDogMDAwMDU2MGM1YTI5ODhkOCBSMTE6Cj4gMDAwMDAwMDAwMDAwMDI0NiBSMTI6
+IDAwMDAwMDAwMDAwMDAwMDgKPiBNYXkgMTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogUjEzOiAw
+MDAwMDAwMDAwMDAwMDAxIFIxNDoKPiAwMDAwNTYwYzVjMTIxZDIwIFIxNTogMDAwMDU2MGM1YTMw
+ZGVkMAo+IE1heSAxOCAxOToyMTo1NyB4dzY2MDAga2VybmVsOiAtLS1bIGVuZCB0cmFjZSBiYmNh
+ODk0YjA0Y2YwYjE2IF0tLS0KPiBNYXkgMTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogLS0tLS0t
+LS0tLS0tWyBjdXQgaGVyZSBdLS0tLS0tLS0tLS0tCj4gTWF5IDE4IDE5OjIxOjU3IHh3NjYwMCBr
+ZXJuZWw6IFdBUk5JTkc6IENQVTogNSBQSUQ6IDQ2MDcgYXQKPiAvaG9tZS90dHJhbnRhbC9naXQv
+bGludXgvZHJpdmVycy9ncHUvZHJtL2RybV9tb2Rlc2V0X2xvY2suYzoxOTMKPiBkcm1fbW9kZXNl
+dF9sb2NrX2NydGMrMHhlNS8weDEwMCBbZHJtXQo+IE1heSAxOCAxOToyMTo1NyB4dzY2MDAga2Vy
+bmVsOiBNb2R1bGVzIGxpbmtlZCBpbjogdHVuIGJyaWRnZSBzdHAgbGxjCj4gYWZfcGFja2V0IHBs
+MjMwMyB1c2JzZXJpYWwgc2hwY2hwIGFjcGlfY3B1ZnJlcSBiaW5mbXRfbWlzYyBhbWRncHUKPiBo
+aWRfZ2VuZXJpYyB1aGNpX2hjZCByYWRlb24gM2M1OXggbWlpIGkyY19hbGdvX2JpdCBkcm1fa21z
+X2hlbHBlciB0ZzMKPiBzeXNjb3B5YXJlYSBzeXNmaWxscmVjdCBzeXNpbWdibHQKPiBNYXkgMTgg
+MTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogQ1BVOiA1IFBJRDogNDYwNyBDb21tOiBnbm9tZS1zaGVs
+bAo+IFRhaW50ZWQ6IEcgICAgICAgIFcgICAgICAgNC4xMS4wLXJjMy0wMDk0NC1nMjlkYzBkMS1k
+aXJ0eSAjMzAKPiBNYXkgMTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogSGFyZHdhcmUgbmFtZTog
+SGV3bGV0dC1QYWNrYXJkIEhQCj4geHc2NjAwIFdvcmtzdGF0aW9uLzBBOUNoLCBCSU9TIDc4NkY0
+IHYwMS40NiAwOS8yMC8yMDEyCj4gTWF5IDE4IDE5OjIxOjU3IHh3NjYwMCBrZXJuZWw6IENhbGwg
+VHJhY2U6Cj4gTWF5IDE4IDE5OjIxOjU3IHh3NjYwMCBrZXJuZWw6ICBkdW1wX3N0YWNrKzB4Njkv
+MHg5Ygo+IE1heSAxOCAxOToyMTo1NyB4dzY2MDAga2VybmVsOiAgX193YXJuKzB4ZmYvMHgxNDAK
+PiBNYXkgMTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogIHdhcm5fc2xvd3BhdGhfbnVsbCsweDE4
+LzB4MjAKPiBNYXkgMTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogIGRybV9tb2Rlc2V0X2xvY2tf
+Y3J0YysweGU1LzB4MTAwIFtkcm1dCj4gTWF5IDE4IDE5OjIxOjU3IHh3NjYwMCBrZXJuZWw6ICBk
+cm1fbW9kZV9nZXRjcnRjKzB4ODIvMHgyYzAgW2RybV0KPiBNYXkgMTggMTk6MjE6NTcgeHc2NjAw
+IGtlcm5lbDogIGRybV9pb2N0bCsweDNlYS8weDg3MCBbZHJtXQo+IE1heSAxOCAxOToyMTo1NyB4
+dzY2MDAga2VybmVsOiAgPyBkcm1fY3J0Y19jcmVhdGVfZmVuY2UrMHg4MC8weDgwIFtkcm1dCj4g
+TWF5IDE4IDE5OjIxOjU3IHh3NjYwMCBrZXJuZWw6ICByYWRlb25fZHJtX2lvY3RsKzB4NmUvMHgx
+MTAgW3JhZGVvbl0KPiBNYXkgMTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogIGRvX3Zmc19pb2N0
+bCsweGFjLzB4OWQwCj4gTWF5IDE4IDE5OjIxOjU3IHh3NjYwMCBrZXJuZWw6ICA/IHNlY3VyaXR5
+X2ZpbGVfaW9jdGwrMHg0Yy8weDgwCj4gTWF5IDE4IDE5OjIxOjU3IHh3NjYwMCBrZXJuZWw6ICBT
+eVNfaW9jdGwrMHg3NC8weDgwCj4gTWF5IDE4IDE5OjIxOjU3IHh3NjYwMCBrZXJuZWw6ICBlbnRy
+eV9TWVNDQUxMXzY0X2Zhc3RwYXRoKzB4MTgvMHhhZAo+IE1heSAxOCAxOToyMTo1NyB4dzY2MDAg
+a2VybmVsOiBSSVA6IDAwMzM6MHg3Zjk4ZDllNTI3ODcKPiBNYXkgMTggMTk6MjE6NTcgeHc2NjAw
+IGtlcm5lbDogUlNQOiAwMDJiOjAwMDA3ZmZlMTJjYTUzZjggRUZMQUdTOgo+IDAwMDAwMjQ2IE9S
+SUdfUkFYOiAwMDAwMDAwMDAwMDAwMDEwCj4gTWF5IDE4IDE5OjIxOjU3IHh3NjYwMCBrZXJuZWw6
+IFJBWDogZmZmZmZmZmZmZmZmZmZkYSBSQlg6Cj4gMDAwMDAwMDAwMDAwMDA0NiBSQ1g6IDAwMDA3
+Zjk4ZDllNTI3ODcKPiBNYXkgMTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogUkRYOiAwMDAwN2Zm
+ZTEyY2E1NDMwIFJTSToKPiAwMDAwMDAwMGMwNjg2NGExIFJESTogMDAwMDAwMDAwMDAwMDAwOAo+
+IE1heSAxOCAxOToyMTo1NyB4dzY2MDAga2VybmVsOiBSQlA6IDAwMDA1NjBjNWEyYmJkYjAgUjA4
+Ogo+IDAwMDAwMDAwMDAwMDAwMDggUjA5OiAwMDAwNTYwYzVhNDhiZjIwCj4gTWF5IDE4IDE5OjIx
+OjU3IHh3NjYwMCBrZXJuZWw6IFIxMDogMDAwMDU2MGM1YTQ4NTMzMCBSMTE6Cj4gMDAwMDAwMDAw
+MDAwMDI0NiBSMTI6IDAwMDA1NjBjNWI2NmE1NDAKPiBNYXkgMTggMTk6MjE6NTcgeHc2NjAwIGtl
+cm5lbDogUjEzOiAwMDAwNTYwYzViZGRhZjkwIFIxNDoKPiAwMDAwNTYwYzVhODhlNWUwIFIxNTog
+MDAwMDdmZmUxMmM5NWM0MAo+IE1heSAxOCAxOToyMTo1NyB4dzY2MDAga2VybmVsOiAtLS1bIGVu
+ZCB0cmFjZSBiYmNhODk0YjA0Y2YwYjE3IF0tLS0KPiBNYXkgMTggMTk6MjE6NTcgeHc2NjAwIGtl
+cm5lbDogLS0tLS0tLS0tLS0tWyBjdXQgaGVyZSBdLS0tLS0tLS0tLS0tCj4gTWF5IDE4IDE5OjIx
+OjU3IHh3NjYwMCBrZXJuZWw6IFdBUk5JTkc6IENQVTogMSBQSUQ6IDAgYXQKPiAvaG9tZS90dHJh
+bnRhbC9naXQvbGludXgvZHJpdmVycy9ncHUvZHJtL2RybV9pcnEuYzoxMTg2Cj4gZHJtX3ZibGFu
+a19wdXQrMHhlYy8weDE1MCBbZHJtXQo+IE1heSAxOCAxOToyMTo1NyB4dzY2MDAga2VybmVsOiBN
+b2R1bGVzIGxpbmtlZCBpbjogdHVuIGJyaWRnZSBzdHAgbGxjCj4gYWZfcGFja2V0IHBsMjMwMyB1
+c2JzZXJpYWwgc2hwY2hwIGFjcGlfY3B1ZnJlcSBiaW5mbXRfbWlzYyBhbWRncHUKPiBoaWRfZ2Vu
+ZXJpYyB1aGNpX2hjZCByYWRlb24gM2M1OXggbWlpIGkyY19hbGdvX2JpdCBkcm1fa21zX2hlbHBl
+ciB0ZzMKPiBzeXNjb3B5YXJlYSBzeXNmaWxscmVjdCBzeXNpbWdibHQKPiBNYXkgMTggMTk6MjE6
+NTcgeHc2NjAwIGtlcm5lbDogQ1BVOiAxIFBJRDogMCBDb21tOiBzd2FwcGVyLzEgVGFpbnRlZDoK
+PiBHICAgICAgICBXICAgICAgIDQuMTEuMC1yYzMtMDA5NDQtZzI5ZGMwZDEtZGlydHkgIzMwCj4g
+TWF5IDE4IDE5OjIxOjU3IHh3NjYwMCBrZXJuZWw6IEhhcmR3YXJlIG5hbWU6IEhld2xldHQtUGFj
+a2FyZCBIUAo+IHh3NjYwMCBXb3Jrc3RhdGlvbi8wQTlDaCwgQklPUyA3ODZGNCB2MDEuNDYgMDkv
+MjAvMjAxMgo+IE1heSAxOCAxOToyMTo1NyB4dzY2MDAga2VybmVsOiBDYWxsIFRyYWNlOgo+IE1h
+eSAxOCAxOToyMTo1NyB4dzY2MDAga2VybmVsOiAgPElSUT4KPiBNYXkgMTggMTk6MjE6NTcgeHc2
+NjAwIGtlcm5lbDogIGR1bXBfc3RhY2srMHg2OS8weDliCj4gTWF5IDE4IDE5OjIxOjU3IHh3NjYw
+MCBrZXJuZWw6ICBfX3dhcm4rMHhmZi8weDE0MAo+IE1heSAxOCAxOToyMTo1NyB4dzY2MDAga2Vy
+bmVsOiAgPyBkcm1fdmJsYW5rX2NvdW50X2FuZF90aW1lKzB4OWUvMHgxYjAgW2RybV0KPiBNYXkg
+MTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogIHdhcm5fc2xvd3BhdGhfbnVsbCsweDE4LzB4MjAK
+PiBNYXkgMTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogIGRybV92YmxhbmtfcHV0KzB4ZWMvMHgx
+NTAgW2RybV0KPiBNYXkgMTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogIGRybV9jcnRjX3ZibGFu
+a19wdXQrMHgxYi8weDMwIFtkcm1dCj4gTWF5IDE4IDE5OjIxOjU3IHh3NjYwMCBrZXJuZWw6ICBy
+YWRlb25fY3J0Y19oYW5kbGVfZmxpcCsweGRjLzB4MTQwIFtyYWRlb25dCj4gTWF5IDE4IDE5OjIx
+OjU3IHh3NjYwMCBrZXJuZWw6ICBzaV9pcnFfcHJvY2VzcysweDYxMS8weDFlOTAgW3JhZGVvbl0K
+PiBNYXkgMTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogID8gc2NoZWRfY2xvY2tfY3B1KzB4MWMv
+MHgxNjAKPiBNYXkgMTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogIHJhZGVvbl9kcml2ZXJfaXJx
+X2hhbmRsZXJfa21zKzB4MzkvMHhjMCBbcmFkZW9uXQo+IE1heSAxOCAxOToyMTo1NyB4dzY2MDAg
+a2VybmVsOiAgX19oYW5kbGVfaXJxX2V2ZW50X3BlcmNwdSsweDYwLzB4NTkwCj4gTWF5IDE4IDE5
+OjIxOjU3IHh3NjYwMCBrZXJuZWw6ICBoYW5kbGVfaXJxX2V2ZW50X3BlcmNwdSsweDIwLzB4OTAK
+PiBNYXkgMTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogIGhhbmRsZV9pcnFfZXZlbnQrMHg0Ni8w
+eGIwCj4gTWF5IDE4IDE5OjIxOjU3IHh3NjYwMCBrZXJuZWw6ICBoYW5kbGVfZWRnZV9pcnErMHgx
+M2QvMHgzNzAKPiBNYXkgMTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogIGhhbmRsZV9pcnErMHg2
+Ni8weDIzMAo+IE1heSAxOCAxOToyMTo1NyB4dzY2MDAga2VybmVsOiAgPyBfX2xvY2FsX2JoX2Vu
+YWJsZSsweDM4LzB4OTAKPiBNYXkgMTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogID8gX2xvY2Fs
+X2JoX2VuYWJsZSsweDFkLzB4NjAKPiBNYXkgMTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogIGRv
+X0lSUSsweDdlLzB4MWIwCj4gTWF5IDE4IDE5OjIxOjU3IHh3NjYwMCBrZXJuZWw6ICBjb21tb25f
+aW50ZXJydXB0KzB4OTUvMHg5NQo+IE1heSAxOCAxOToyMTo1NyB4dzY2MDAga2VybmVsOiBSSVA6
+IDAwMTA6bXdhaXRfaWRsZSsweDljLzB4M2EwCj4gTWF5IDE4IDE5OjIxOjU3IHh3NjYwMCBrZXJu
+ZWw6IFJTUDogMDAxODpmZmZmYzkwMDAzMTkzZTY4IEVGTEFHUzoKPiAwMDAwMDI0NiBPUklHX1JB
+WDogZmZmZmZmZmZmZmZmZmY0ZAo+IE1heSAxOCAxOToyMTo1NyB4dzY2MDAga2VybmVsOiBSQVg6
+IDAwMDAwMDAwMDAwMDAwMDAgUkJYOgo+IGZmZmY4ODA4MGFlNzE5MDAgUkNYOiAwMDAwMDAwMDAw
+MDAwMDAwCj4gTWF5IDE4IDE5OjIxOjU3IHh3NjYwMCBrZXJuZWw6IFJEWDogMDAwMDAwMDAwMDAw
+MDAwMSBSU0k6Cj4gMDAwMDAwMDAwMDAwMDAwMSBSREk6IGZmZmY4ODA4MGFlNzE5MDAKPiBNYXkg
+MTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogUkJQOiBmZmZmYzkwMDAzMTkzZTk4IFIwODoKPiAw
+MDAwMDAwMDAwMDAwMDA2IFIwOTogMDAwMDAwMDAwMDAwMDAwMAo+IE1heSAxOCAxOToyMTo1NyB4
+dzY2MDAga2VybmVsOiBSMTA6IDAwMDAwMDAwMDAwMDAwMDAgUjExOgo+IDAwMDAwMDAwMDAwMDAw
+MDAgUjEyOiBmZmZmODgwODBhZTcxOTAwCj4gTWF5IDE4IDE5OjIxOjU3IHh3NjYwMCBrZXJuZWw6
+IFIxMzogMDAwMDAwMDAwMDAwMDAwMSBSMTQ6Cj4gZmZmZmZmZmY4MzljYmQyOCBSMTU6IDAwMDAw
+MDAwMDAwMDAwMDAKPiBNYXkgMTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogIDwvSVJRPgo+IE1h
+eSAxOCAxOToyMTo1NyB4dzY2MDAga2VybmVsOiAgPyBtd2FpdF9pZGxlKzB4OTMvMHgzYTAKPiBN
+YXkgMTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogIGFyY2hfY3B1X2lkbGUrMHhhLzB4MTAKPiBN
+YXkgMTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogIGRlZmF1bHRfaWRsZV9jYWxsKzB4MjQvMHg0
+MAo+IE1heSAxOCAxOToyMTo1NyB4dzY2MDAga2VybmVsOiAgZG9faWRsZSsweDE1NC8weDIzMAo+
+IE1heSAxOCAxOToyMTo1NyB4dzY2MDAga2VybmVsOiAgY3B1X3N0YXJ0dXBfZW50cnkrMHgxOC8w
+eDIwCj4gTWF5IDE4IDE5OjIxOjU3IHh3NjYwMCBrZXJuZWw6ICBzdGFydF9zZWNvbmRhcnkrMHgx
+NTkvMHgxZjAKPiBNYXkgMTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogIHN0YXJ0X2NwdSsweDE0
+LzB4MTQKPiBNYXkgMTggMTk6MjE6NTcgeHc2NjAwIGtlcm5lbDogLS0tWyBlbmQgdHJhY2UgYmJj
+YTg5NGIwNGNmMGIxOCBdLS0tCj4gTWF5IDE4IDE5OjIxOjU3IHh3NjYwMCBrZXJuZWw6IC0tLS0t
+LS0tLS0tLVsgY3V0IGhlcmUgXS0tLS0tLS0tLS0tLQo+IAo+IAo+IC1Ub21taQo+IF9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gZHJpLWRldmVsIG1haWxp
+bmcgbGlzdAo+IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3Rz
+LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAoKLS0gCkRhbmllbCBW
+ZXR0ZXIKU29mdHdhcmUgRW5naW5lZXIsIEludGVsIENvcnBvcmF0aW9uCmh0dHA6Ly9ibG9nLmZm
+d2xsLmNoCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
+ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
