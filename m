@@ -1,39 +1,63 @@
-From: =?UTF-8?q?Christian=20K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: fix merge of vcn_v1_0.c
-Date: Mon, 22 May 2017 13:23:17 +0200
-Message-ID: <1495452197-23206-1-git-send-email-deathsimple@vodafone.de>
+From: Lyude Paul <lyude@redhat.com>
+Subject: Re: [PATCH v2 0/3] Cleanup evergreen/si IRQ handling code
+Date: Mon, 22 May 2017 09:52:23 -0400
+Message-ID: <1495461143.2944.1.camel@redhat.com>
+References: <20170516211202.20325-1-lyude@redhat.com>
+         <20170519234840.5644-1-lyude@redhat.com>
+         <51a14f4e-8771-3bca-b05f-25732da50b34@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Hawking.Zhang-5C7GfCeVMHo@public.gmane.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <51a14f4e-8771-3bca-b05f-25732da50b34@vodafone.de>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <deathsimple@vodafone.de>, amd-gfx@lists.freedesktop.org
+Cc: David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKVGhhdCBs
-aW5lIGdvdCBtaXNzZWQgZHVyaW5nIHRoZSBtZXJnZS4KClNpZ25lZC1vZmYtYnk6IENocmlzdGlh
-biBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS92Y25fdjFfMC5jIHwgMSArCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24o
-KykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjFfMC5jIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3YxXzAuYwppbmRleCBhZDE4NjJmLi42ZmNm
-NzcwIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjFfMC5jCisr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92MV8wLmMKQEAgLTg4Miw2ICs4ODIs
-NyBAQCBzdGF0aWMgdm9pZCB2Y25fdjFfMF9kZWNfcmluZ19lbWl0X3ZtX2ZsdXNoKHN0cnVjdCBh
-bWRncHVfcmluZyAqcmluZywKIAl1aW50MzJfdCBkYXRhMCwgZGF0YTEsIG1hc2s7CiAJdW5zaWdu
-ZWQgZW5nID0gcmluZy0+dm1faW52X2VuZzsKIAorCXBkX2FkZHIgPSByaW5nLT5hZGV2LT5nYXJ0
-LmdhcnRfZnVuY3MtPmFkanVzdF9tY19hZGRyKHJpbmctPmFkZXYsIHBkX2FkZHIpOwogCXBkX2Fk
-ZHIgPSBwZF9hZGRyIHwgMHgxOyAvKiB2YWxpZCBiaXQgKi8KIAkvKiBub3cgb25seSB1c2UgcGh5
-c2ljYWwgYmFzZSBhZGRyZXNzIG9mIFBERSBhbmQgdmFsaWQgKi8KIAlCVUdfT04ocGRfYWRkciAm
-IDB4RkZGRjAwMDAwMDAwMDAzRVVMTCk7Ci0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Sat, 2017-05-20 at 13:39 +0200, Christian König wrote:
+> Am 20.05.2017 um 01:48 schrieb Lyude:
+> > This is the first part of me going through and cleaning up the IRQ
+> > handling
+> > code for radeon, since after taking a look at it the other day
+> > while trying to
+> > debug something I realized basically all of the code was copy
+> > pasted
+> > everywhere, and quite difficult to actually read through.
+> > 
+> > Will come up with something for r600 and cik once I've got the
+> > chipsets on hand
+> > to test with.
+> > 
+> > Lyude (3):
+> >    drm/radeon: Cleanup display interrupt handling for evergreen, si
+> >    drm/radeon: Cleanup HDMI audio interrupt handling for evergreen
+> >    drm/radeon: Cleanup pageflipping IRQ handling for evergreen, si
+> 
+> I don't have time to do a line by line review, but what I saw looked 
+> very good to me.
+> 
+> So the whole seres is Acked-by: Christian König <christian.koenig@amd
+> .com>.
+> 
+> BTW: You don't want to take a look at the other hw generations as
+> well?
+Oh don't worry, I'm already planning on that! The next chance I have
+available I'll be going my coworker's GPUs so I can get the hardware I
+need to test refactors I write of the rest of the hw gen's IRQ handling
+code. :)
+> 
+> Regards,
+> Christian.
+> 
+> > 
+> >   drivers/gpu/drm/radeon/evergreen.c      | 943 ++++++-------------
+> > -------------
+> >   drivers/gpu/drm/radeon/radeon.h         |  27 +-
+> >   drivers/gpu/drm/radeon/radeon_irq_kms.c |  35 ++
+> >   drivers/gpu/drm/radeon/si.c             | 655 +++++------------
+> > -----
+> >   4 files changed, 344 insertions(+), 1316 deletions(-)
+> > 
+> 
+> 
