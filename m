@@ -1,13 +1,19 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/powerplay: fix a signedness bugs
-Date: Tue, 23 May 2017 05:36:48 +0000
-Message-ID: <CY4PR12MB1687B73D93B5416B22518676FBF90@CY4PR12MB1687.namprd12.prod.outlook.com>
-References: <20170516144253.vvu3i6mbx3rv5uki@mwanda>,
- <ef4ba551-a52b-d2e0-5ba4-7271ee6f4e85@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/radeon: Fix oops upon driver load on PowerXpress
+ laptops
+Date: Tue, 23 May 2017 09:32:38 +0200
+Message-ID: <b84f80fd-0cd1-86cf-4e81-cb4547ea6fff@amd.com>
+References: <20170518080501.GA31002@wunner.de>
+ <cfb91ba052af06117137eec0637543a2626a7979.1495135190.git.lukas@wunner.de>
+ <871srifyyq.fsf@gmail.com> <20170522140407.GA7973@wunner.de>
+ <ee3f8e5b-8deb-b5a3-6d07-f43c27ebf84f@daenzer.net>
+ <20170523035053.GB3610@wunner.de>
+ <b6d95951-d28d-f709-adcd-1068aeaa0e0f@daenzer.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1477717354=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <ef4ba551-a52b-d2e0-5ba4-7271ee6f4e85-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <b6d95951-d28d-f709-adcd-1068aeaa0e0f-otUistvHUpPR7s880joybQ@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,170 +25,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Huang, JinHuiEric" <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>, Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, "kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Huang,
- Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Wang,
- Ken" <Ken.Wang-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, Lukas Wunner <lukas-JFq808J9C/izQB+pC5nmwQ@public.gmane.org>
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Nicolai Stange <nicstange-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Sean Paul <seanpaul-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============1477717354==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB1687B73D93B5416B22518676FBF90CY4PR12MB1687namp_"
-
---_000_CY4PR12MB1687B73D93B5416B22518676FBF90CY4PR12MB1687namp_
-Content-Type: text/plain; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
-
-Patches has been applied.
-
-
-Thanks.
-
-
-Best Regards
-
-Rex
-
-________________________________
-From: Huang, JinHuiEric
-Sent: Friday, May 19, 2017 12:28:09 AM
-To: Dan Carpenter; Deucher, Alexander; Zhu, Rex
-Cc: Koenig, Christian; David Airlie; Wang, Ken; Huang, Ray; amd-gfx@lists.f=
-reedesktop.org; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; kernel-janitors-u79uwXL29TZNg+MwTxZMZA@public.gmane.org=
-l.org
-Subject: Re: [PATCH] drm/amd/powerplay: fix a signedness bugs
-
-Reviewed-by: Eric Huang <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>
-
-
-On 2017-05-16 10:42 AM, Dan Carpenter wrote:
-> Smatch complains about a signedness bug here:
->
->        vega10_hwmgr.c:4202 vega10_force_clock_level()
->        warn: always true condition '(i >=3D 0) =3D> (0-u32max >=3D 0)'
->
-> Fixes: 7b52db39a4c2 ("drm/amd/powerplay: fix bug sclk/mclk level can't be=
- set on vega10.")
-> Signed-off-by: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers=
-/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-> index ad30f5d3a10d..2614af2f553f 100644
-> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-> @@ -4186,7 +4186,7 @@ static int vega10_force_clock_level(struct pp_hwmgr=
- *hwmgr,
->                enum pp_clock_type type, uint32_t mask)
->   {
->        struct vega10_hwmgr *data =3D (struct vega10_hwmgr *)(hwmgr->backe=
-nd);
-> -     uint32_t i;
-> +     int i;
->
->        if (hwmgr->dpm_level !=3D AMD_DPM_FORCED_LEVEL_MANUAL)
->                return -EINVAL;
-
-
---_000_CY4PR12MB1687B73D93B5416B22518676FBF90CY4PR12MB1687namp_
-Content-Type: text/html; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
-252">
-<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
-<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
-ding-left: 4pt; border-left: #800000 2px solid; } --></style>
-</head>
-<body>
-<meta content=3D"text/html; charset=3DUTF-8">
-<style type=3D"text/css" style=3D"">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-<div dir=3D"ltr">
-<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
-or:#000000; font-family:Calibri,Arial,Helvetica,sans-serif">
-<p>Patches has been applied.</p>
-<p><br>
-</p>
-<p>Thanks.</p>
-<p><br>
-</p>
-<p>Best Regards</p>
-<p>Rex<br>
-</p>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Huang, JinHuiEric<b=
-r>
-<b>Sent:</b> Friday, May 19, 2017 12:28:09 AM<br>
-<b>To:</b> Dan Carpenter; Deucher, Alexander; Zhu, Rex<br>
-<b>Cc:</b> Koenig, Christian; David Airlie; Wang, Ken; Huang, Ray; amd-gfx@=
-lists.freedesktop.org; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; kernel-janitors@vge=
-r.kernel.org<br>
-<b>Subject:</b> Re: [PATCH] drm/amd/powerplay: fix a signedness bugs</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">Reviewed-by: Eric Huang &lt;JinHuiEric.Huang@amd.c=
-om&gt;<br>
-<br>
-<br>
-On 2017-05-16 10:42 AM, Dan Carpenter wrote:<br>
-&gt; Smatch complains about a signedness bug here:<br>
-&gt;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vega10_hwmgr.c:4202 vega10_f=
-orce_clock_level()<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; warn: always true condition =
-'(i &gt;=3D 0) =3D&gt; (0-u32max &gt;=3D 0)'<br>
-&gt;<br>
-&gt; Fixes: 7b52db39a4c2 (&quot;drm/amd/powerplay: fix bug sclk/mclk level =
-can't be set on vega10.&quot;)<br>
-&gt; Signed-off-by: Dan Carpenter &lt;dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org&gt;<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/driv=
-ers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-&gt; index ad30f5d3a10d..2614af2f553f 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<b=
-r>
-&gt; @@ -4186,7 &#43;4186,7 @@ static int vega10_force_clock_level(struct p=
-p_hwmgr *hwmgr,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; enum pp_clock_type type, uint32_t mask)<br>
-&gt;&nbsp;&nbsp; {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct vega10_hwmgr *data =
-=3D (struct vega10_hwmgr *)(hwmgr-&gt;backend);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t i;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; int i;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;dpm_level !=3D=
- AMD_DPM_FORCED_LEVEL_MANUAL)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-<br>
-</div>
-</span></font>
-</body>
-</html>
-
---_000_CY4PR12MB1687B73D93B5416B22518676FBF90CY4PR12MB1687namp_--
-
---===============1477717354==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1477717354==--
+QW0gMjMuMDUuMjAxNyB1bSAwNTo1NSBzY2hyaWViIE1pY2hlbCBEw6RuemVyOgo+IE9uIDIzLzA1
+LzE3IDEyOjUwIFBNLCBMdWthcyBXdW5uZXIgd3JvdGU6Cj4+IE9uIFR1ZSwgTWF5IDIzLCAyMDE3
+IGF0IDEyOjA5OjQ5UE0gKzA5MDAsIE1pY2hlbCBEw6RuemVyIHdyb3RlOgo+Pj4gT24gMjIvMDUv
+MTcgMTE6MDQgUE0sIEx1a2FzIFd1bm5lciB3cm90ZToKPj4+PiBPbiBTdW4sIE1heSAyMSwgMjAx
+NyBhdCAwOTozMTowOUFNICswMjAwLCBOaWNvbGFpIFN0YW5nZSB3cm90ZToKPj4+Pj4gT24gVGh1
+LCBNYXkgMTggMjAxNywgTHVrYXMgV3VubmVyIHdyb3RlOgo+Pj4+IFtzbmlwXQo+Pj4+Pj4gUmVw
+b3J0ZWQtYnk6IE5pY29sYWkgU3RhbmdlIDxuaWNzdGFuZ2VAZ21haWwuY29tPgo+Pj4+Pj4gRml4
+ZXM6IDdmZmIwY2UzMWNmOSAoImRybS9yYWRlb246IERvbid0IHJlZ2lzdGVyIFRodW5kZXJib2x0
+IGVHUFUgd2l0aCB2Z2Ffc3dpdGNoZXJvbyIpCj4+Pj4+PiBTaWduZWQtb2ZmLWJ5OiBMdWthcyBX
+dW5uZXIgPGx1a2FzQHd1bm5lci5kZT4KPj4+Pj4+IC0tLQo+Pj4+Pj4KPj4+Pj4+IEF3YWl0aW5n
+IGEgVGVzdGVkLWJ5OiBmcm9tIE5pY29sYWksIGJ1dCBpdCdzIGNsZWFyIHRoaXMgaXMgYSBidWcg
+YW5kCj4+Pj4+PiBuZWVkcyB0byBiZSBmaXhlZCwgc28gc2VuZGluZyBvdXQgd2l0aCBhIHByb3Bl
+ciBjb21taXQgbWVzc2FnZSBub3cuCj4+Pj4+PiBUaGUgYnVnIHdhcyBvbmx5IGludHJvZHVjZWQg
+dG8gcmFkZW9uLCBub3QgYW1kZ3B1Lgo+Pj4+PiBUZXN0ZWQtYnk6IE5pY29sYWkgU3RhbmdlIDxu
+aWNzdGFuZ2VAZ21haWwuY29tPgo+Pj4+Pgo+Pj4+PiBUaGFua3MgZm9yIHRoZSBxdWljayBmaXgh
+Cj4+Pj4+Cj4+Pj4+PiBAQWxleCBEZXVjaGVyOiBJIGNvdWxkIHB1c2ggdGhpcyB0byBkcm0tbWlz
+Yy1maXhlcyBidXQgdGhlbiBpdCB3b3VsZG4ndAo+Pj4+Pj4gbGFuZCBiZWZvcmUgLXJjMyBiZWNh
+dXNlIFNlYW4gUGF1bCBoYXMgYWxyZWFkeSBzZW50IG91dCB0aGUgLXJjMiBwdWxsLgo+Pj4+Pj4g
+SSBub3RpY2UgeW91IGhhdmVuJ3Qgc2VudCBvdXQgYSBwdWxsIGZvciAtcmMyIHlldCwgc28gbWF5
+YmUgeW91IHdhbnQgdG8KPj4+Pj4+IHRha2UgaXQgeW91cnNlbGY/ICBXaGljaGV2ZXIgeW91IHBy
+ZWZlci4gIFRoYW5rcyAmIHNvcnJ5IGZvciB0aGUgYnJlYWthZ2UhCj4+Pj4gSSd2ZSBsZWFybmVk
+IHRoaXMgbW9ybmluZyB0aGF0IEFsZXggaXMgb24gdmFjYXRpb24uCj4+PiBDaHJpc3RpYW4gS8O2
+bmlnIGlzIHN0YW5kaW5nIGluIGZvciBBbGV4Lgo+PiBCeSBoaXMgb3duIGFjY291bnQsIGhlIGFs
+cmVhZHkgaGFzICJhbGwgaGFuZHMgZnVsbCByZXBsYWNpbmcgaGltIFtBbGV4XSIsCj4+IGV4cGxp
+Y2l0bHkgYXNrZWQgRGFuaWVsIHRvIG1lcmdlIGFuIGFtZGdwdSBwYXRjaCB0aHJvdWdoIGRybS1t
+aXNjLW5leHQgZm9yCj4+IHRoaXMgcmVhc29uIGFuZCBsYWNrcyBwZXJtaXNzaW9uIHRvIHVwZGF0
+ZSBicmFuY2hlcyBpbiBBbGV4JyByZXBvIG9uIGZkbzoKPj4KPj4gIk9uZSBsZXNzb24gbGVhcm5l
+ZCBmcm9tIHRoZSBwYXN0IHdlZWsgaXMgdGhhdCBBbGV4IG5lZWRzIHRvIHN0b3AgdXNpbmcKPj4g
+aGlzIHBlcnNvbmFsIHJlcG9zaXRvcnkgb24gZmRvLgo+PiBXZSB3ZXJlIGFza2VkIGEgY291cGxl
+IG9mIHRpbWVzIGlmIEkgY291bGRuJ3QgdXBkYXRlIGEgYnJhbmNoIHRoZXJlIGZyb20KPj4gZGlm
+ZmVyZW50IGRpcmVjdGlvbnMsIHdoaWNoIHdlIG9idmlvdXNseSBjYW4ndCBkby4iCj4+Cj4+IGh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL2FyY2hpdmVzL2RyaS1kZXZlbC8yMDE3LU1heS8x
+NDIzNzYuaHRtbAo+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9hcmNoaXZlcy9kcmkt
+ZGV2ZWwvMjAxNy1NYXkvMTQyMzgwLmh0bWwKPiBUaGUgaW1wb3J0YW50IHBvaW50IGJlaW5nIHRo
+YXQgQ2hyaXN0aWFuIHJldmlld2VkIHRoYXQgcGF0Y2ggYW5kCj4gZXhwbGljaXRseSBhc2tlZCBE
+YW5pZWwgdG8gcGljayBpdCB1cC4KCldvdywgd2FpdCBhIHNlY29uZC4gSSdtIGp1c3QgY2F0Y2hp
+bmcgdXAgb24gdGhpcyB0aHJlYWQuCgpMdWthcyBkaWRuJ3QgY29tbWl0dGVkIHRoZSBwYXRjaCB0
+byBkcm0tbWlzYyB3aXRob3V0IGEgcmV2aWV3LCBkaWRuJ3QgeW91PwoKSSB3YXMgaW50ZW50aW9u
+YWxseSBob2xkaW5nIGJhY2sgYSByYiBiZWNhdXNlIHRoYXQgaXNuJ3QgbXkgZmllbGQgb2YgCmV4
+cGVydGlzZSBhbmQgSSB3YXMgb25seSBicmllZmx5IGludm9sdmVkIGluIHRoZSBvcmlnaW5hbCBw
+YXRjaC4gQWxleCAKc2hvdWxkIGJlIGJhY2sgYnkgdGhlIGVuZCBvZiB0aGUgd2Vlaywgc28gbm8g
+bmVlZCBmb3IgYSBydXNoIGxpa2UgdGhhdC4KCkRhbmllbHMgcGF0Y2ggd2FzIGEgZ2xvYmFsIGNs
+ZWFudXAgb2YgaW5jbHVkZSBwYXRoIGRvbmUgYnkgc2VhcmNoIGFuZCAKcmVwbGFjZSBhIGNvbXBs
+ZXRlIGRpZmZlcmVudCBzdG9yeS4KClJlZ2FyZHMsCkNocmlzdGlhbi4KX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
