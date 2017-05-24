@@ -1,15 +1,14 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH 1/7] drm/amdgpu: cleanup adjust_mc_addr handling v2
-Date: Wed, 24 May 2017 11:18:57 +0200
-Message-ID: <b9c0c5b3-a42c-b2e8-0b84-718807d5e7cf@vodafone.de>
+From: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 7/7] drm/amdgpu: enable huge page handling in the VM
+Date: Wed, 24 May 2017 17:28:59 +0800
+Message-ID: <5925525B.4060409@amd.com>
 References: <1495012972-20698-1-git-send-email-deathsimple@vodafone.de>
- <591D323A.5000304@amd.com>
+ <1495012972-20698-7-git-send-email-deathsimple@vodafone.de>
+ <591D3164.7070105@amd.com> <5efe2316-b0bb-799b-345e-120c040237ae@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1828422463=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <591D323A.5000304-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <5efe2316-b0bb-799b-345e-120c040237ae-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,170 +19,515 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?UTF-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-QW0gMTguMDUuMjAxNyB1bSAwNzozMyBzY2hyaWViIFpoYW5nLCBKZXJyeSAoSnVud2VpKToKPiBP
-biAwNS8xNy8yMDE3IDA1OjIyIFBNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiBbU05JUF0K
-Pj4gK3N0YXRpYyB1aW50NjRfdCBnbWNfdjZfMF9nZXRfdm1fcGRlKHN0cnVjdCBhbWRncHVfZGV2
-aWNlICphZGV2LCAKPj4gdWludDY0X3QgYWRkcikKPj4gK3sKPj4gKyAgICBCVUdfT04oYWRkciAm
-IDB4RkZGRkYwMDAwMDAwRkZGVUxMKTsKPj4gKyAgICByZXR1cm4gYWRkcjsKPj4gK30KPgo+IEp1
-c3Qgd29uZGVyIHdoeSB3ZSBkaWRuJ3QgcmV0dXJuIHRoZSBhZGRyZXNzIGFzIGJlbG93Pwo+IGFk
-ZXYtPnZtX21hbmFnZXIudnJhbV9iYXNlX29mZnNldCArIGFkZHIKClRoYXQgaXMgYSByZWFsbHkg
-Z29vZCBxdWVzdGlvbiBhbmQgSSBjb3VsZG4ndCBmaWd1cmUgb3V0IGFsbCB0aGUgZGV0YWlscyAK
-ZWl0aGVyLgoKSSd2ZSB0ZXN0ZWQgaXQgb24gYW4gS2F2ZXJpIGFuZCBpdCBzdGlsbCBzZWVtcyB0
-byB3b3JrIGZpbmUsIHNvIHRoZSAKbG9naWMgaXMgaW5kZWVkIGNvcnJlY3QuCgo+IERvZXMgdGhh
-dCBjYXVzZSBnbWM2fmdtYzggaGFzIG5vIEFQVSBzdXBwb3J0IG9mZmljaWFsbHk/CgpObywgb25s
-eSB0aGUgcHJvIGRyaXZlciBkb2Vzbid0IHN1cHBvcnQgQVBVcy4gVGhlIG9wZW4gc291cmNlIGRy
-aXZlciAKd29ya3MgcGVyZmVjdGx5IGZpbmUgb24gdGhlbS4KCj4gT3IgSSBtaXNzIGFueSBpbmZv
-IGFib3V0IHRoZW0/CgpUaGUgZG9jdW1lbnRhdGlvbiBmb3IgZ2Z4Ni04IGlzIHZlcnkgdW5jbGVh
-ciBvbiB0aGlzLgoKSXQgc2F5cyB0aGF0IHRoZSByZWdpc3RlcnMgYW5kIFBERSBzaG91bGQgdXNl
-IHBoeXNpY2FsIGFkZHJlc3NlcywgYnV0IApmcm9tIG15IHRlc3RpbmcgdGhhdCBpc24ndCB0aGUg
-Y2FzZS4KCkdvaW5nIHRvIHBpbmcgdGhlIGhhcmR3YXJlIGRldiBvbiB0aGlzIG9uY2UgbW9yZSB3
-aGVuIEkgaGF2ZSB0aW1lLgoKUmVnYXJkcywKQ2hyaXN0aWFuLgoKPgo+IEplcnJ5Cj4KPj4gKwo+
-PiAgIHN0YXRpYyB2b2lkIGdtY192Nl8wX3NldF9mYXVsdF9lbmFibGVfZGVmYXVsdChzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAKPj4gKmFkZXYsCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBi
-b29sIHZhbHVlKQo+PiAgIHsKPj4gQEAgLTExMjcsNiArMTEzMyw3IEBAIHN0YXRpYyBjb25zdCBz
-dHJ1Y3QgYW1kZ3B1X2dhcnRfZnVuY3MgCj4+IGdtY192Nl8wX2dhcnRfZnVuY3MgPSB7Cj4+ICAg
-ICAgIC5mbHVzaF9ncHVfdGxiID0gZ21jX3Y2XzBfZ2FydF9mbHVzaF9ncHVfdGxiLAo+PiAgICAg
-ICAuc2V0X3B0ZV9wZGUgPSBnbWNfdjZfMF9nYXJ0X3NldF9wdGVfcGRlLAo+PiAgICAgICAuc2V0
-X3BydCA9IGdtY192Nl8wX3NldF9wcnQsCj4+ICsgICAgLmdldF92bV9wZGUgPSBnbWNfdjZfMF9n
-ZXRfdm1fcGRlLAo+PiAgICAgICAuZ2V0X3ZtX3B0ZV9mbGFncyA9IGdtY192Nl8wX2dldF92bV9w
-dGVfZmxhZ3MKPj4gICB9Owo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvZ21jX3Y3XzAuYyAKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjdf
-MC5jCj4+IGluZGV4IDk2NzUwNWIuLjRmMTQwZTggMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2dtY192N18wLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvZ21jX3Y3XzAuYwo+PiBAQCAtNDcyLDYgKzQ3MiwxMiBAQCBzdGF0aWMgdWludDY0X3Qg
-Z21jX3Y3XzBfZ2V0X3ZtX3B0ZV9mbGFncyhzdHJ1Y3QgCj4+IGFtZGdwdV9kZXZpY2UgKmFkZXYs
-Cj4+ICAgICAgIHJldHVybiBwdGVfZmxhZzsKPj4gICB9Cj4+Cj4+ICtzdGF0aWMgdWludDY0X3Qg
-Z21jX3Y3XzBfZ2V0X3ZtX3BkZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgCj4+IHVpbnQ2
-NF90IGFkZHIpCj4+ICt7Cj4+ICsgICAgQlVHX09OKGFkZHIgJiAweEZGRkZGMDAwMDAwMEZGRlVM
-TCk7Cj4+ICsgICAgcmV0dXJuIGFkZHI7Cj4+ICt9Cj4+ICsKPj4gICAvKioKPj4gICAgKiBnbWNf
-djhfMF9zZXRfZmF1bHRfZW5hYmxlX2RlZmF1bHQgLSB1cGRhdGUgVk0gZmF1bHQgaGFuZGxpbmcK
-Pj4gICAgKgo+PiBAQCAtMTI5Myw3ICsxMjk5LDggQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRn
-cHVfZ2FydF9mdW5jcyAKPj4gZ21jX3Y3XzBfZ2FydF9mdW5jcyA9IHsKPj4gICAgICAgLmZsdXNo
-X2dwdV90bGIgPSBnbWNfdjdfMF9nYXJ0X2ZsdXNoX2dwdV90bGIsCj4+ICAgICAgIC5zZXRfcHRl
-X3BkZSA9IGdtY192N18wX2dhcnRfc2V0X3B0ZV9wZGUsCj4+ICAgICAgIC5zZXRfcHJ0ID0gZ21j
-X3Y3XzBfc2V0X3BydCwKPj4gLSAgICAuZ2V0X3ZtX3B0ZV9mbGFncyA9IGdtY192N18wX2dldF92
-bV9wdGVfZmxhZ3MKPj4gKyAgICAuZ2V0X3ZtX3B0ZV9mbGFncyA9IGdtY192N18wX2dldF92bV9w
-dGVfZmxhZ3MsCj4+ICsgICAgLmdldF92bV9wZGUgPSBnbWNfdjdfMF9nZXRfdm1fcGRlCj4+ICAg
-fTsKPj4KPj4gICBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9pcnFfc3JjX2Z1bmNzIGdtY192
-N18wX2lycV9mdW5jcyA9IHsKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2dtY192OF8wLmMgCj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y4XzAu
-Ywo+PiBpbmRleCAzYjVlYTBmLi5mMDVjMDM0IDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9nbWNfdjhfMC5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2dtY192OF8wLmMKPj4gQEAgLTY1Niw2ICs2NTYsMTIgQEAgc3RhdGljIHVpbnQ2NF90IGdt
-Y192OF8wX2dldF92bV9wdGVfZmxhZ3Moc3RydWN0IAo+PiBhbWRncHVfZGV2aWNlICphZGV2LAo+
-PiAgICAgICByZXR1cm4gcHRlX2ZsYWc7Cj4+ICAgfQo+Pgo+PiArc3RhdGljIHVpbnQ2NF90IGdt
-Y192OF8wX2dldF92bV9wZGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIAo+PiB1aW50NjRf
-dCBhZGRyKQo+PiArewo+PiArICAgIEJVR19PTihhZGRyICYgMHhGRkYwMDAwMDAwMDAwRkZGVUxM
-KTsKPj4gKyAgICByZXR1cm4gYWRkcjsKPj4gK30KPj4gKwo+PiAgIC8qKgo+PiAgICAqIGdtY192
-OF8wX3NldF9mYXVsdF9lbmFibGVfZGVmYXVsdCAtIHVwZGF0ZSBWTSBmYXVsdCBoYW5kbGluZwo+
-PiAgICAqCj4+IEBAIC0xNjEyLDcgKzE2MTgsOCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdw
-dV9nYXJ0X2Z1bmNzIAo+PiBnbWNfdjhfMF9nYXJ0X2Z1bmNzID0gewo+PiAgICAgICAuZmx1c2hf
-Z3B1X3RsYiA9IGdtY192OF8wX2dhcnRfZmx1c2hfZ3B1X3RsYiwKPj4gICAgICAgLnNldF9wdGVf
-cGRlID0gZ21jX3Y4XzBfZ2FydF9zZXRfcHRlX3BkZSwKPj4gICAgICAgLnNldF9wcnQgPSBnbWNf
-djhfMF9zZXRfcHJ0LAo+PiAtICAgIC5nZXRfdm1fcHRlX2ZsYWdzID0gZ21jX3Y4XzBfZ2V0X3Zt
-X3B0ZV9mbGFncwo+PiArICAgIC5nZXRfdm1fcHRlX2ZsYWdzID0gZ21jX3Y4XzBfZ2V0X3ZtX3B0
-ZV9mbGFncywKPj4gKyAgICAuZ2V0X3ZtX3BkZSA9IGdtY192OF8wX2dldF92bV9wZGUKPj4gICB9
-Owo+Pgo+PiAgIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1X2lycV9zcmNfZnVuY3MgZ21jX3Y4
-XzBfaXJxX2Z1bmNzID0gewo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvZ21jX3Y5XzAuYyAKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5j
-Cj4+IGluZGV4IDE5ZTEwMjcuLjA0N2IxYTcgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2dtY192OV8wLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvZ21jX3Y5XzAuYwo+PiBAQCAtMzU4LDE3ICszNTgsMTkgQEAgc3RhdGljIHVpbnQ2NF90IAo+
-PiBnbWNfdjlfMF9nZXRfdm1fcHRlX2ZsYWdzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+
-PiAgICAgICByZXR1cm4gcHRlX2ZsYWc7Cj4+ICAgfQo+Pgo+PiAtc3RhdGljIHU2NCBnbWNfdjlf
-MF9hZGp1c3RfbWNfYWRkcihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdTY0IAo+PiBtY19h
-ZGRyKQo+PiArc3RhdGljIHU2NCBnbWNfdjlfMF9nZXRfdm1fcGRlKHN0cnVjdCBhbWRncHVfZGV2
-aWNlICphZGV2LCB1NjQgYWRkcikKPj4gICB7Cj4+IC0gICAgcmV0dXJuIGFkZXYtPnZtX21hbmFn
-ZXIudnJhbV9iYXNlX29mZnNldCArIG1jX2FkZHIgLSAKPj4gYWRldi0+bWMudnJhbV9zdGFydDsK
-Pj4gKyAgICBhZGRyID0gYWRldi0+dm1fbWFuYWdlci52cmFtX2Jhc2Vfb2Zmc2V0ICsgYWRkciAt
-IAo+PiBhZGV2LT5tYy52cmFtX3N0YXJ0Owo+PiArICAgIEJVR19PTihhZGRyICYgMHhGRkZGMDAw
-MDAwMDAwMDNGVUxMKTsKPj4gKyAgICByZXR1cm4gYWRkcjsKPj4gICB9Cj4+Cj4+ICAgc3RhdGlj
-IGNvbnN0IHN0cnVjdCBhbWRncHVfZ2FydF9mdW5jcyBnbWNfdjlfMF9nYXJ0X2Z1bmNzID0gewo+
-PiAgICAgICAuZmx1c2hfZ3B1X3RsYiA9IGdtY192OV8wX2dhcnRfZmx1c2hfZ3B1X3RsYiwKPj4g
-ICAgICAgLnNldF9wdGVfcGRlID0gZ21jX3Y5XzBfZ2FydF9zZXRfcHRlX3BkZSwKPj4gLSAgICAu
-Z2V0X3ZtX3B0ZV9mbGFncyA9IGdtY192OV8wX2dldF92bV9wdGVfZmxhZ3MsCj4+IC0gICAgLmFk
-anVzdF9tY19hZGRyID0gZ21jX3Y5XzBfYWRqdXN0X21jX2FkZHIsCj4+ICAgICAgIC5nZXRfaW52
-YWxpZGF0ZV9yZXEgPSBnbWNfdjlfMF9nZXRfaW52YWxpZGF0ZV9yZXEsCj4+ICsgICAgLmdldF92
-bV9wdGVfZmxhZ3MgPSBnbWNfdjlfMF9nZXRfdm1fcHRlX2ZsYWdzLAo+PiArICAgIC5nZXRfdm1f
-cGRlID0gZ21jX3Y5XzBfZ2V0X3ZtX3BkZQo+PiAgIH07Cj4+Cj4+ICAgc3RhdGljIHZvaWQgZ21j
-X3Y5XzBfc2V0X2dhcnRfZnVuY3Moc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4+IGRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y0XzAuYyAKPj4gYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y0XzAuYwo+PiBpbmRleCA5MWNmN2U2Li5mYjZm
-NGIzIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y0XzAu
-Ywo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y0XzAuYwo+PiBAQCAt
-MTE0MywxMCArMTE0Myw4IEBAIHN0YXRpYyB2b2lkIAo+PiBzZG1hX3Y0XzBfcmluZ19lbWl0X3Zt
-X2ZsdXNoKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywKPj4gICAgICAgdWludDMyX3QgcmVxID0g
-Cj4+IHJpbmctPmFkZXYtPmdhcnQuZ2FydF9mdW5jcy0+Z2V0X2ludmFsaWRhdGVfcmVxKHZtX2lk
-KTsKPj4gICAgICAgdW5zaWduZWQgZW5nID0gcmluZy0+dm1faW52X2VuZzsKPj4KPj4gLSAgICBw
-ZF9hZGRyID0gCj4+IHJpbmctPmFkZXYtPmdhcnQuZ2FydF9mdW5jcy0+YWRqdXN0X21jX2FkZHIo
-cmluZy0+YWRldiwgcGRfYWRkcik7Cj4+IC0gICAgcGRfYWRkciA9IHBkX2FkZHIgfCAweDE7IC8q
-IHZhbGlkIGJpdCAqLwo+PiAtICAgIC8qIG5vdyBvbmx5IHVzZSBwaHlzaWNhbCBiYXNlIGFkZHJl
-c3Mgb2YgUERFIGFuZCB2YWxpZCAqLwo+PiAtICAgIEJVR19PTihwZF9hZGRyICYgMHhGRkZGMDAw
-MDAwMDAwMDNFVUxMKTsKPj4gKyAgICBwZF9hZGRyID0gYW1kZ3B1X2dhcnRfZ2V0X3ZtX3BkZShy
-aW5nLT5hZGV2LCBwZF9hZGRyKTsKPj4gKyAgICBwZF9hZGRyIHw9IEFNREdQVV9QVEVfVkFMSUQ7
-Cj4+Cj4+ICAgICAgIGFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIFNETUFfUEtUX0hFQURFUl9PUChT
-RE1BX09QX1NSQk1fV1JJVEUpIHwKPj4gICAgICAgICAgICAgICAgIFNETUFfUEtUX1NSQk1fV1JJ
-VEVfSEVBREVSX0JZVEVfRU4oMHhmKSk7Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS91dmRfdjdfMC5jIAo+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3V2
-ZF92N18wLmMKPj4gaW5kZXggMjJmNDJmMy4uMTk5N2VjOCAxMDA2NDQKPj4gLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvdXZkX3Y3XzAuYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS91dmRfdjdfMC5jCj4+IEBAIC0xMzE2LDEwICsxMzE2LDggQEAgc3RhdGljIHZv
-aWQgdXZkX3Y3XzBfcmluZ19lbWl0X3ZtX2ZsdXNoKHN0cnVjdCAKPj4gYW1kZ3B1X3JpbmcgKnJp
-bmcsCj4+ICAgICAgIHVpbnQzMl90IGRhdGEwLCBkYXRhMSwgbWFzazsKPj4gICAgICAgdW5zaWdu
-ZWQgZW5nID0gcmluZy0+dm1faW52X2VuZzsKPj4KPj4gLSAgICBwZF9hZGRyID0gCj4+IHJpbmct
-PmFkZXYtPmdhcnQuZ2FydF9mdW5jcy0+YWRqdXN0X21jX2FkZHIocmluZy0+YWRldiwgcGRfYWRk
-cik7Cj4+IC0gICAgcGRfYWRkciA9IHBkX2FkZHIgfCAweDE7IC8qIHZhbGlkIGJpdCAqLwo+PiAt
-ICAgIC8qIG5vdyBvbmx5IHVzZSBwaHlzaWNhbCBiYXNlIGFkZHJlc3Mgb2YgUERFIGFuZCB2YWxp
-ZCAqLwo+PiAtICAgIEJVR19PTihwZF9hZGRyICYgMHhGRkZGMDAwMDAwMDAwMDNFVUxMKTsKPj4g
-KyAgICBwZF9hZGRyID0gYW1kZ3B1X2dhcnRfZ2V0X3ZtX3BkZShyaW5nLT5hZGV2LCBwZF9hZGRy
-KTsKPj4gKyAgICBwZF9hZGRyIHw9IEFNREdQVV9QVEVfVkFMSUQ7Cj4+Cj4+ICAgICAgIGRhdGEw
-ID0gKGh1Yi0+Y3R4MF9wdGJfYWRkcl9oaTMyICsgdm1faWQgKiAyKSA8PCAyOwo+PiAgICAgICBk
-YXRhMSA9IHVwcGVyXzMyX2JpdHMocGRfYWRkcik7Cj4+IEBAIC0xMzU4LDEwICsxMzU2LDggQEAg
-c3RhdGljIHZvaWQgCj4+IHV2ZF92N18wX2VuY19yaW5nX2VtaXRfdm1fZmx1c2goc3RydWN0IGFt
-ZGdwdV9yaW5nICpyaW5nLAo+PiAgICAgICB1aW50MzJfdCByZXEgPSAKPj4gcmluZy0+YWRldi0+
-Z2FydC5nYXJ0X2Z1bmNzLT5nZXRfaW52YWxpZGF0ZV9yZXEodm1faWQpOwo+PiAgICAgICB1bnNp
-Z25lZCBlbmcgPSByaW5nLT52bV9pbnZfZW5nOwo+Pgo+PiAtICAgIHBkX2FkZHIgPSAKPj4gcmlu
-Zy0+YWRldi0+Z2FydC5nYXJ0X2Z1bmNzLT5hZGp1c3RfbWNfYWRkcihyaW5nLT5hZGV2LCBwZF9h
-ZGRyKTsKPj4gLSAgICBwZF9hZGRyID0gcGRfYWRkciB8IDB4MTsgLyogdmFsaWQgYml0ICovCj4+
-IC0gICAgLyogbm93IG9ubHkgdXNlIHBoeXNpY2FsIGJhc2UgYWRkcmVzcyBvZiBQREUgYW5kIHZh
-bGlkICovCj4+IC0gICAgQlVHX09OKHBkX2FkZHIgJiAweEZGRkYwMDAwMDAwMDAwM0VVTEwpOwo+
-PiArICAgIHBkX2FkZHIgPSBhbWRncHVfZ2FydF9nZXRfdm1fcGRlKHJpbmctPmFkZXYsIHBkX2Fk
-ZHIpOwo+PiArICAgIHBkX2FkZHIgfD0gQU1ER1BVX1BURV9WQUxJRDsKPj4KPj4gICAgICAgYW1k
-Z3B1X3Jpbmdfd3JpdGUocmluZywgSEVWQ19FTkNfQ01EX1JFR19XUklURSk7Cj4+ICAgICAgIGFt
-ZGdwdV9yaW5nX3dyaXRlKHJpbmcsICAgIChodWItPmN0eDBfcHRiX2FkZHJfaGkzMiArIHZtX2lk
-ICogCj4+IDIpIDw8IDIpOwo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvdmNlX3Y0XzAuYyAKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y2VfdjRfMC5j
-Cj4+IGluZGV4IDA3YjJhYzcuLjhkYmQwYjcgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L3ZjZV92NF8wLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvdmNlX3Y0XzAuYwo+PiBAQCAtOTI2LDEwICs5MjYsOCBAQCBzdGF0aWMgdm9pZCB2Y2VfdjRf
-MF9lbWl0X3ZtX2ZsdXNoKHN0cnVjdCAKPj4gYW1kZ3B1X3JpbmcgKnJpbmcsCj4+ICAgICAgIHVp
-bnQzMl90IHJlcSA9IAo+PiByaW5nLT5hZGV2LT5nYXJ0LmdhcnRfZnVuY3MtPmdldF9pbnZhbGlk
-YXRlX3JlcSh2bV9pZCk7Cj4+ICAgICAgIHVuc2lnbmVkIGVuZyA9IHJpbmctPnZtX2ludl9lbmc7
-Cj4+Cj4+IC0gICAgcGRfYWRkciA9IAo+PiByaW5nLT5hZGV2LT5nYXJ0LmdhcnRfZnVuY3MtPmFk
-anVzdF9tY19hZGRyKHJpbmctPmFkZXYsIHBkX2FkZHIpOwo+PiAtICAgIHBkX2FkZHIgPSBwZF9h
-ZGRyIHwgMHgxOyAvKiB2YWxpZCBiaXQgKi8KPj4gLSAgICAvKiBub3cgb25seSB1c2UgcGh5c2lj
-YWwgYmFzZSBhZGRyZXNzIG9mIFBERSBhbmQgdmFsaWQgKi8KPj4gLSAgICBCVUdfT04ocGRfYWRk
-ciAmIDB4RkZGRjAwMDAwMDAwMDAzRVVMTCk7Cj4+ICsgICAgcGRfYWRkciA9IGFtZGdwdV9nYXJ0
-X2dldF92bV9wZGUocmluZy0+YWRldiwgcGRfYWRkcik7Cj4+ICsgICAgcGRfYWRkciB8PSBBTURH
-UFVfUFRFX1ZBTElEOwo+Pgo+PiAgICAgICBhbWRncHVfcmluZ193cml0ZShyaW5nLCBWQ0VfQ01E
-X1JFR19XUklURSk7Cj4+ICAgICAgIGFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsICAgIChodWItPmN0
-eDBfcHRiX2FkZHJfaGkzMiArIHZtX2lkICogCj4+IDIpIDw8IDIpOwo+PiBkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3YxXzAuYyAKPj4gYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS92Y25fdjFfMC5jCj4+IGluZGV4IGFkMTg2MmYuLmIyZDk5NWIgMTAwNjQ0
-Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92MV8wLmMKPj4gKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3YxXzAuYwo+PiBAQCAtODgyLDkgKzg4Miw4
-IEBAIHN0YXRpYyB2b2lkIAo+PiB2Y25fdjFfMF9kZWNfcmluZ19lbWl0X3ZtX2ZsdXNoKHN0cnVj
-dCBhbWRncHVfcmluZyAqcmluZywKPj4gICAgICAgdWludDMyX3QgZGF0YTAsIGRhdGExLCBtYXNr
-Owo+PiAgICAgICB1bnNpZ25lZCBlbmcgPSByaW5nLT52bV9pbnZfZW5nOwo+Pgo+PiAtICAgIHBk
-X2FkZHIgPSBwZF9hZGRyIHwgMHgxOyAvKiB2YWxpZCBiaXQgKi8KPj4gLSAgICAvKiBub3cgb25s
-eSB1c2UgcGh5c2ljYWwgYmFzZSBhZGRyZXNzIG9mIFBERSBhbmQgdmFsaWQgKi8KPj4gLSAgICBC
-VUdfT04ocGRfYWRkciAmIDB4RkZGRjAwMDAwMDAwMDAzRVVMTCk7Cj4+ICsgICAgcGRfYWRkciA9
-IGFtZGdwdV9nYXJ0X2dldF92bV9wZGUocmluZy0+YWRldiwgcGRfYWRkcik7Cj4+ICsgICAgcGRf
-YWRkciB8PSBBTURHUFVfUFRFX1ZBTElEOwo+Pgo+PiAgICAgICBkYXRhMCA9IChodWItPmN0eDBf
-cHRiX2FkZHJfaGkzMiArIHZtX2lkICogMikgPDwgMjsKPj4gICAgICAgZGF0YTEgPSB1cHBlcl8z
-Ml9iaXRzKHBkX2FkZHIpOwo+PgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
-Z2Z4Cg==
+--===============1828422463==
+Content-Type: multipart/alternative;
+	boundary="------------090308030909040508020109"
+
+--------------090308030909040508020109
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+
+
+
+On 2017年05月24日 17:15, Christian König wrote:
+> Am 18.05.2017 um 07:30 schrieb zhoucm1:
+>>
+>>
+>> On 2017年05月17日 17:22, Christian König wrote:
+>>> [SNIP]
+>>> +    /* In the case of a mixed PT the PDE must point to it*/
+>>> +    if (p->adev->asic_type < CHIP_VEGA10 ||
+>>> +        nptes != AMDGPU_VM_PTE_COUNT(p->adev) ||
+>>> +        p->func != amdgpu_vm_do_set_ptes ||
+>>> +        !(flags & AMDGPU_PTE_VALID)) {
+>>> +
+>>> +        pt = (*bo)->tbo.mem.start << PAGE_SHIFT;
+>>> +        pt = amdgpu_gart_get_vm_pde(p->adev, pt);
+>>> +        flags = AMDGPU_PTE_VALID;
+>> This case should be handled when updating levels, so return directly?
+>
+> The problem is that when we switch from huge page back to a normal 
+> mapping because the BO was evicted we also need to reset the PDE.
+>
+>>> +    } else {
+>>> +        pt = amdgpu_gart_get_vm_pde(p->adev, dst);
+>>> +        flags |= AMDGPU_PDE_PTE;
+>>> +    }
+>>>   -    return entry->bo;
+>>> +    if (entry->addr == pt &&
+>>> +        entry->huge_page == !!(flags & AMDGPU_PDE_PTE))
+>>> +        return 0;
+>>> +
+>>> +    entry->addr = pt;
+>>> +    entry->huge_page = !!(flags & AMDGPU_PDE_PTE);
+>>> +
+>>> +    if (parent->bo->shadow) {
+>>> +        pd_addr = amdgpu_bo_gpu_offset(parent->bo->shadow);
+>>> +        pde = pd_addr + pt_idx * 8;
+>>> +        amdgpu_vm_do_set_ptes(p, pde, pt, 1, 0, flags);
+>> From the spec "any pde in the chain can itself take on the format of 
+>> a PTE and point directly to an aligned block of logical address space 
+>> by setting the P bit.",
+>> So here should pass addr into PDE instead of pt.
+>
+> The pt variable was overwritten with the address a few lines above. 
+> The code was indeed hard to understand, so I've fixed it.
+this isn't my mean, if I understand spec correctly, it should be 
+amdgpu_vm_do_set_ptes(p, pde, addr, 1, 0, flags);
+
+>
+>>> +    }
+>>> +
+>>> +    pd_addr = amdgpu_bo_gpu_offset(parent->bo);
+>>> +    pde = pd_addr + pt_idx * 8;
+>>> +    amdgpu_vm_do_set_ptes(p, pde, pt, 1, 0, flags);
+>> Should pass addr into PDE instead of pt as well.
+>>
+>>
+>>> +    return 0;
+>>>   }
+>>>     /**
+>>> @@ -1194,14 +1237,20 @@ static int amdgpu_vm_update_ptes(struct 
+>>> amdgpu_pte_update_params *params,
+>>>       uint64_t addr, pe_start;
+>>>       struct amdgpu_bo *pt;
+>>>       unsigned nptes;
+>>> +    int r;
+>>>         /* walk over the address space and update the page tables */
+>>>       for (addr = start; addr < end; addr += nptes) {
+>>> -        pt = amdgpu_vm_get_pt(params, addr);
+>>> -        if (!pt) {
+>>> -            pr_err("PT not found, aborting update_ptes\n");
+>>> -            return -EINVAL;
+>>> -        }
+>>> +
+>>> +        if ((addr & ~mask) == (end & ~mask))
+>>> +            nptes = end - addr;
+>>> +        else
+>>> +            nptes = AMDGPU_VM_PTE_COUNT(adev) - (addr & mask);
+>>> +
+>>> +        r = amdgpu_vm_handle_huge_pages(params, addr, nptes,
+>>> +                        dst, flags, &pt);
+>> If huge page happens, its sub PTEs don't need to update more, they 
+>> cannot be indexed by page table when that PDE is PTE, right?
+>
+> Right, but I wasn't sure if we don't need them for something. So I've 
+> kept the update for now.
+>
+> Going to try dropping this today.
+>
+>> Btw: Is this BigK which people often said?
+>
+> Yes and no. I can explain more internally if you like.
+Welcome.
+
+Regards,
+David Zhou
+>
+> Regards,
+> Christian.
+>
+>>
+>> Regards,
+>> David Zhou
+>>> +        if (r)
+>>> +            return r;
+>>>             if (params->shadow) {
+>>>               if (!pt->shadow)
+>>> @@ -1209,11 +1258,6 @@ static int amdgpu_vm_update_ptes(struct 
+>>> amdgpu_pte_update_params *params,
+>>>               pt = pt->shadow;
+>>>           }
+>>>   -        if ((addr & ~mask) == (end & ~mask))
+>>> -            nptes = end - addr;
+>>> -        else
+>>> -            nptes = AMDGPU_VM_PTE_COUNT(adev) - (addr & mask);
+>>> -
+>>>           pe_start = amdgpu_bo_gpu_offset(pt);
+>>>           pe_start += (addr & mask) * 8;
+>>>   @@ -1353,6 +1397,9 @@ static int 
+>>> amdgpu_vm_bo_update_mapping(struct amdgpu_device *adev,
+>>>       /* padding, etc. */
+>>>       ndw = 64;
+>>>   +    /* one PDE write for each huge page */
+>>> +    ndw += ((nptes >> adev->vm_manager.block_size) + 1) * 7;
+>>> +
+>>>       if (src) {
+>>>           /* only copy commands needed */
+>>>           ndw += ncmds * 7;
+>>> @@ -1437,6 +1484,7 @@ static int amdgpu_vm_bo_update_mapping(struct 
+>>> amdgpu_device *adev,
+>>>     error_free:
+>>>       amdgpu_job_free(job);
+>>> +    amdgpu_vm_invalidate_level(&vm->root);
+>>>       return r;
+>>>   }
+>>>   diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>>> index afe9073..1c5e0ce 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>>> @@ -68,6 +68,9 @@ struct amdgpu_bo_list_entry;
+>>>   /* TILED for VEGA10, reserved for older ASICs  */
+>>>   #define AMDGPU_PTE_PRT        (1ULL << 51)
+>>>   +/* PDE is handled as PTE for VEGA10 */
+>>> +#define AMDGPU_PDE_PTE        (1ULL << 54)
+>>> +
+>>>   /* VEGA10 only */
+>>>   #define AMDGPU_PTE_MTYPE(a)    ((uint64_t)a << 57)
+>>>   #define AMDGPU_PTE_MTYPE_MASK    AMDGPU_PTE_MTYPE(3ULL)
+>>> @@ -90,6 +93,7 @@ struct amdgpu_bo_list_entry;
+>>>   struct amdgpu_vm_pt {
+>>>       struct amdgpu_bo    *bo;
+>>>       uint64_t        addr;
+>>> +    bool            huge_page;
+>>>         /* array of page tables, one for each directory entry */
+>>>       struct amdgpu_vm_pt    *entries;
+>>
+>
+
+
+--------------090308030909040508020109
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <br>
+    <br>
+    <div class="moz-cite-prefix">On 2017年05月24日 17:15, Christian König
+      wrote:<br>
+    </div>
+    <blockquote
+      cite="mid:5efe2316-b0bb-799b-345e-120c040237ae-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org"
+      type="cite">Am 18.05.2017 um 07:30 schrieb zhoucm1:
+      <br>
+      <blockquote type="cite">
+        <br>
+        <br>
+        On 2017年05月17日 17:22, Christian König wrote:
+        <br>
+        <blockquote type="cite">[SNIP]
+          <br>
+          +    /* In the case of a mixed PT the PDE must point to it*/
+          <br>
+          +    if (p-&gt;adev-&gt;asic_type &lt; CHIP_VEGA10 ||
+          <br>
+          +        nptes != AMDGPU_VM_PTE_COUNT(p-&gt;adev) ||
+          <br>
+          +        p-&gt;func != amdgpu_vm_do_set_ptes ||
+          <br>
+          +        !(flags &amp; AMDGPU_PTE_VALID)) {
+          <br>
+          +
+          <br>
+          +        pt = (*bo)-&gt;tbo.mem.start &lt;&lt; PAGE_SHIFT;
+          <br>
+          +        pt = amdgpu_gart_get_vm_pde(p-&gt;adev, pt);
+          <br>
+          +        flags = AMDGPU_PTE_VALID;
+          <br>
+        </blockquote>
+        This case should be handled when updating levels, so return
+        directly?
+        <br>
+      </blockquote>
+      <br>
+      The problem is that when we switch from huge page back to a normal
+      mapping because the BO was evicted we also need to reset the PDE.
+      <br>
+      <br>
+      <blockquote type="cite">
+        <blockquote type="cite">+    } else {
+          <br>
+          +        pt = amdgpu_gart_get_vm_pde(p-&gt;adev, dst);
+          <br>
+          +        flags |= AMDGPU_PDE_PTE;
+          <br>
+          +    }
+          <br>
+            -    return entry-&gt;bo;
+          <br>
+          +    if (entry-&gt;addr == pt &amp;&amp;
+          <br>
+          +        entry-&gt;huge_page == !!(flags &amp;
+          AMDGPU_PDE_PTE))
+          <br>
+          +        return 0;
+          <br>
+          +
+          <br>
+          +    entry-&gt;addr = pt;
+          <br>
+          +    entry-&gt;huge_page = !!(flags &amp; AMDGPU_PDE_PTE);
+          <br>
+          +
+          <br>
+          +    if (parent-&gt;bo-&gt;shadow) {
+          <br>
+          +        pd_addr =
+          amdgpu_bo_gpu_offset(parent-&gt;bo-&gt;shadow);
+          <br>
+          +        pde = pd_addr + pt_idx * 8;
+          <br>
+          +        amdgpu_vm_do_set_ptes(p, pde, pt, 1, 0, flags);
+          <br>
+        </blockquote>
+        From the spec "any pde in the chain can itself take on the
+        format of a PTE and point directly to <font color="#ff0000">an
+          aligned block of logical address space</font> by setting the P
+        bit.",
+        <br>
+        So here should pass addr into PDE instead of pt.
+        <br>
+      </blockquote>
+      <br>
+      The pt variable was overwritten with the address a few lines
+      above. The code was indeed hard to understand, so I've fixed it.
+      <br>
+    </blockquote>
+    this isn't my mean, if I understand spec correctly, it should be
+    amdgpu_vm_do_set_ptes(p, pde, <font color="#ff0000">addr</font>, 1,
+    0, flags);<br>
+    <br>
+    <blockquote
+      cite="mid:5efe2316-b0bb-799b-345e-120c040237ae-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org"
+      type="cite">
+      <br>
+      <blockquote type="cite">
+        <blockquote type="cite">+    }
+          <br>
+          +
+          <br>
+          +    pd_addr = amdgpu_bo_gpu_offset(parent-&gt;bo);
+          <br>
+          +    pde = pd_addr + pt_idx * 8;
+          <br>
+          +    amdgpu_vm_do_set_ptes(p, pde, pt, 1, 0, flags);
+          <br>
+        </blockquote>
+        Should pass addr into PDE instead of pt as well.
+        <br>
+        <br>
+        <br>
+        <blockquote type="cite">+    return 0;
+          <br>
+            }
+          <br>
+              /**
+          <br>
+          @@ -1194,14 +1237,20 @@ static int
+          amdgpu_vm_update_ptes(struct amdgpu_pte_update_params *params,
+          <br>
+                uint64_t addr, pe_start;
+          <br>
+                struct amdgpu_bo *pt;
+          <br>
+                unsigned nptes;
+          <br>
+          +    int r;
+          <br>
+                  /* walk over the address space and update the page
+          tables */
+          <br>
+                for (addr = start; addr &lt; end; addr += nptes) {
+          <br>
+          -        pt = amdgpu_vm_get_pt(params, addr);
+          <br>
+          -        if (!pt) {
+          <br>
+          -            pr_err("PT not found, aborting update_ptes\n");
+          <br>
+          -            return -EINVAL;
+          <br>
+          -        }
+          <br>
+          +
+          <br>
+          +        if ((addr &amp; ~mask) == (end &amp; ~mask))
+          <br>
+          +            nptes = end - addr;
+          <br>
+          +        else
+          <br>
+          +            nptes = AMDGPU_VM_PTE_COUNT(adev) - (addr &amp;
+          mask);
+          <br>
+          +
+          <br>
+          +        r = amdgpu_vm_handle_huge_pages(params, addr, nptes,
+          <br>
+          +                        dst, flags, &amp;pt);
+          <br>
+        </blockquote>
+        If huge page happens, its sub PTEs don't need to update more,
+        they cannot be indexed by page table when that PDE is PTE,
+        right?
+        <br>
+      </blockquote>
+      <br>
+      Right, but I wasn't sure if we don't need them for something. So
+      I've kept the update for now.
+      <br>
+      <br>
+      Going to try dropping this today.
+      <br>
+      <br>
+      <blockquote type="cite">Btw: Is this BigK which people often said?
+        <br>
+      </blockquote>
+      <br>
+      Yes and no. I can explain more internally if you like.
+      <br>
+    </blockquote>
+    Welcome.<br>
+    <br>
+    Regards,<br>
+    David Zhou<br>
+    <blockquote
+      cite="mid:5efe2316-b0bb-799b-345e-120c040237ae-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org"
+      type="cite">
+      <br>
+      Regards,
+      <br>
+      Christian.
+      <br>
+      <br>
+      <blockquote type="cite">
+        <br>
+        Regards,
+        <br>
+        David Zhou
+        <br>
+        <blockquote type="cite">+        if (r)
+          <br>
+          +            return r;
+          <br>
+                      if (params-&gt;shadow) {
+          <br>
+                        if (!pt-&gt;shadow)
+          <br>
+          @@ -1209,11 +1258,6 @@ static int amdgpu_vm_update_ptes(struct
+          amdgpu_pte_update_params *params,
+          <br>
+                        pt = pt-&gt;shadow;
+          <br>
+                    }
+          <br>
+            -        if ((addr &amp; ~mask) == (end &amp; ~mask))
+          <br>
+          -            nptes = end - addr;
+          <br>
+          -        else
+          <br>
+          -            nptes = AMDGPU_VM_PTE_COUNT(adev) - (addr &amp;
+          mask);
+          <br>
+          -
+          <br>
+                    pe_start = amdgpu_bo_gpu_offset(pt);
+          <br>
+                    pe_start += (addr &amp; mask) * 8;
+          <br>
+            @@ -1353,6 +1397,9 @@ static int
+          amdgpu_vm_bo_update_mapping(struct amdgpu_device *adev,
+          <br>
+                /* padding, etc. */
+          <br>
+                ndw = 64;
+          <br>
+            +    /* one PDE write for each huge page */
+          <br>
+          +    ndw += ((nptes &gt;&gt; adev-&gt;vm_manager.block_size) +
+          1) * 7;
+          <br>
+          +
+          <br>
+                if (src) {
+          <br>
+                    /* only copy commands needed */
+          <br>
+                    ndw += ncmds * 7;
+          <br>
+          @@ -1437,6 +1484,7 @@ static int
+          amdgpu_vm_bo_update_mapping(struct amdgpu_device *adev,
+          <br>
+              error_free:
+          <br>
+                amdgpu_job_free(job);
+          <br>
+          +    amdgpu_vm_invalidate_level(&amp;vm-&gt;root);
+          <br>
+                return r;
+          <br>
+            }
+          <br>
+            diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+          b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+          <br>
+          index afe9073..1c5e0ce 100644
+          <br>
+          --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+          <br>
+          +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+          <br>
+          @@ -68,6 +68,9 @@ struct amdgpu_bo_list_entry;
+          <br>
+            /* TILED for VEGA10, reserved for older ASICs  */
+          <br>
+            #define AMDGPU_PTE_PRT        (1ULL &lt;&lt; 51)
+          <br>
+            +/* PDE is handled as PTE for VEGA10 */
+          <br>
+          +#define AMDGPU_PDE_PTE        (1ULL &lt;&lt; 54)
+          <br>
+          +
+          <br>
+            /* VEGA10 only */
+          <br>
+            #define AMDGPU_PTE_MTYPE(a)    ((uint64_t)a &lt;&lt; 57)
+          <br>
+            #define AMDGPU_PTE_MTYPE_MASK    AMDGPU_PTE_MTYPE(3ULL)
+          <br>
+          @@ -90,6 +93,7 @@ struct amdgpu_bo_list_entry;
+          <br>
+            struct amdgpu_vm_pt {
+          <br>
+                struct amdgpu_bo    *bo;
+          <br>
+                uint64_t        addr;
+          <br>
+          +    bool            huge_page;
+          <br>
+                  /* array of page tables, one for each directory entry
+          */
+          <br>
+                struct amdgpu_vm_pt    *entries;
+          <br>
+        </blockquote>
+        <br>
+      </blockquote>
+      <br>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------090308030909040508020109--
+
+--===============1828422463==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1828422463==--
