@@ -1,26 +1,26 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH 0/3] drm/amdgpu: Tweaks for high pressure on CPU visible
- VRAM
-Date: Thu, 25 May 2017 12:31:34 +0900
-Message-ID: <0535f00f-9095-6209-72e9-e6bb46569a63@daenzer.net>
-References: <20170518090809.15916-1-michel@daenzer.net>
- <CAAxE2A65deE+hue7oPMQ+=K5s8TEGZE+bJMNVOdp=LQuq_RnMQ@mail.gmail.com>
- <a574c18a-0c21-bf85-963f-5df06a0b192e@daenzer.net>
- <CAAxE2A6ZiNSswhArstqHpYnm30ieoDZj=j_-aFvZz1_ByXLOGA@mail.gmail.com>
- <CAAxE2A4zdgFRh-GDqyDRrXmEWqjSrkfCo=Z41hfo-UNY0E5FhA@mail.gmail.com>
- <CAAxE2A67T3Mhw68thNewFtcdua3ufSP-FDX_RN153x-aLKUh1Q@mail.gmail.com>
- <7649341f-6407-1a12-9674-fb65076125fc@daenzer.net>
- <CAAxE2A446KFb+CiwdZusvdgRSfQS8jLgsCy4K7L0_tc00pvWKA@mail.gmail.com>
- <c3dfa73a-e0c1-c6e9-0264-3c52e444c297@daenzer.net>
- <CAAxE2A7tKvvmZ+qf8f06FJODWNLgHcv-XPiJJgLana-PcXBR_g@mail.gmail.com>
- <f04e8239-e8cb-1c6c-a0ae-581facadb3cf@daenzer.net>
- <CAAxE2A5uha-MPx4B=ZeW9kf2qQXOTNcK7sxMJDtEk54S=us47g@mail.gmail.com>
- <eafd4ca6-fbbf-2bb4-be97-16f54fe402dd@vodafone.de>
+From: Subrat Meher <smeher02.aoe3-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: Topics for beginners
+Date: Thu, 25 May 2017 11:59:45 +0800
+Message-ID: <CAMw8iYpuzY7_DZLtHOiF+ZFrh9fizOrOF6fdVZUuh04xKkvh6Q@mail.gmail.com>
+References: <CAMw8iYqLAd=JK693F-bL_1MTaznX4VXzhA0t56h508SZdgo9BQ@mail.gmail.com>
+ <CAMw8iYpZqKi+LN5Lo8NT-Rqg42z9ewBw4X+n3Jj6qbCkceUd5g@mail.gmail.com>
+ <CAMw8iYroM5kBRYzLJdqNR8asOv3Bt5w2EtaneP1QAGDdcJ03=g@mail.gmail.com>
+ <CAMw8iYq7F-fc8QKD-A+iqUajj7nL4p62YdpP29dxhKaRRRDecQ@mail.gmail.com>
+ <CAMw8iYpQ83xw5U6LyAoZ+efuqM-b-7uwUVTwbrPz4FtFi2bHUg@mail.gmail.com>
+ <CAMw8iYrmqjxKxcBJgfyzjT2JBzChYkRBKW=pBy4gHBsZgRRX4g@mail.gmail.com>
+ <CAMw8iYov6gfOqaJ9Hymc81TPbHJU9YC4Me9_6YArb8vyEjjGZw@mail.gmail.com>
+ <CAMw8iYoH96pdaGWR=xr1j5sk7zMJOdwUZ7gE6AoBcPTsme=Gwg@mail.gmail.com>
+ <CAMw8iYroyTGtkSZDt0ro+aO-A-22q805gEE8fJsaV+vmJ0wvNg@mail.gmail.com>
+ <CAMw8iYrahVpJ3MiiGCgw4Ev6SCypeixrWBeoTDhrqpG+VGD00Q@mail.gmail.com>
+ <CAMw8iYrxV2L+cXaSXwtvwgpX8cia+at4Q5eNSkWEYf7Dtt-uQg@mail.gmail.com>
+ <CAMw8iYqQ+fhdOorVEnHA6S=PXSH58V+PGNZ2BPSEssEY4qaNaQ@mail.gmail.com>
+ <CAMw8iYqhkCgmduqpVJY3gj_=g5_CKUrSMxVygJvsZT+u-cyKuA@mail.gmail.com>
+ <CAMw8iYqswbvJs9bGobef81CR0rqx0jxLM=JFpMyFC9TNpFDhZQ@mail.gmail.com>
+ <d549afe3-63af-a3d9-ce14-426ffad9e979@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0312405236=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <eafd4ca6-fbbf-2bb4-be97-16f54fe402dd-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <d549afe3-63af-a3d9-ce14-426ffad9e979-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -31,35 +31,181 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gMjQvMDUvMTcgMDg6MjcgUE0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4gQW0gMjQuMDUu
-MjAxNyB1bSAxMzowMyBzY2hyaWViIE1hcmVrIE9sxaHDoWs6Cj4+Pgo+PiBJIHRoaW5rIHRoZSBm
-aW5hbCBzb2x1dGlvbiAoZG9uZSBpbiBmYXVsdF9yZXNlcnZlX25vdGlmeSkgc2hvdWxkIGJlOgo+
-PiBpZiAoYm8tPm51bV9jcHVfcGFnZV9mYXVsdHMrKyA+IDIwKQo+PiAgICAgYm8tPnByZWZlcnJl
-ZF9kb21haW4gPSBHVFRfV0M7CgpJIGFncmVlIHNvbWV0aGluZyBsaWtlIHRoYXQgd2lsbCBwcm9i
-YWJseSBiZSBwYXJ0IG9mIHRoZSBzb2x1dGlvbiwgYnV0IEkKZG91YnQgaXQncyBxdWl0ZSB0aGF0
-IHNpbXBsZSBvciB0aGF0IGl0J3MgdGhlIG9ubHkgdGhpbmcgdGhhdCBjYW4gYmUKaW1wcm92ZWQu
-CgoKPiBJIG1vcmUgb3IgbGVzcyBhZ3JlZSBvbiB0aGF0LCBidXQgc2V0dGluZyBwcmVmZXJyZWRf
-ZG9tYWluIHBlcm1hbmVudGx5Cj4gdG8gR1RUX1dDIGlzIHdoYXQgd29ycmllcyBtZSBhIGJpdC4K
-PiAKPiBFLmcuIGltYWdpbmUgeW91IGFsdCt0YWIgZnJvbSBhIGdhbWUgdG8geW91ciBicm93c2Vy
-IGFuZCBiYWNrIGFuZCB0aGUKPiBnYW1lIHJ1bnMgd2F5IHNsb3dlciBub3cgYmVjYXVzZSBCT3Mg
-YXJlIG5ldmVyIG1vdmVkIGJhY2sgdG8gVlJBTS4KClJpZ2h0LCBwZXJtYW5lbnRseSBtb3Zpbmcg
-YSBCTyB0byBHVFQgbWlnaHQgaXRzZWxmIGNhdXNlIHBlcmZvcm1hbmNlIHRvCmRyb3AgZG93biBh
-IGNsaWZmIGluIHNvbWUgY2FzZXMuIEl0J3MgcG9zc2libGUgdGhhdCB0aGlzIGlzIGlycmVsZXZh
-bnQKY29tcGFyZWQgdG8gZXhjZXNzaXZlIGJ1ZmZlciBtaWdyYXRpb24gZm9yIENQVSBhY2Nlc3Mg
-dGhvdWdoLgoKCj4gV2hhdCB3ZSBuZWVkIGlzIGEgZ2xvYmFsIGxpbWl0IG9mIG51bWJlciBvZiBi
-eXRlcyB0cmFuc2ZlcmVkIHBlciBzZWNvbmQKPiBmb3Igc3dhcCBvcGVyYXRpb25zIG9yIHNvbWV0
-aGluZyBsaWtlIHRoYXQuCj4gCj4gT3IgbWF5YmUgYSB0aW1lb3V0IHdoaWNoIHNheXMgd2hlbiBh
-IEJPIHdhcyBtb3ZlZCAoZWl0aGVyIGJ5IHN3YXBwaW5nIGl0Cj4gb3V0IG9yIGJ5IGEgQ1BVIHBh
-Z2UgZmF1bHQpIG9ubHkgbW92ZSBpdCBiYWNrIGFmdGVyICtuIGppZmZpZXMgb3IKPiBzb21ldGhp
-bmcgbGlrZSB0aGF0LgoKSSBhbHNvIGZlZWwgbGlrZSBzb21ldGhpbmcgbGlrZSB0aGlzIHdpbGwg
-YmUgbW9yZSB1c2VmdWwgdGhhbiB0aGUgbnVtYmVyCm9mIENQVSBwYWdlIGZhdWx0cyBwZXIgc2Uu
-IEJ1dCBJJ20gY3VyaW91cyB3aGF0IE1hcmVrIGNvbWVzIHVwIHdpdGguIDopCgoKLS0gCkVhcnRo
-bGluZyBNaWNoZWwgRMOkbnplciAgICAgICAgICAgICAgIHwgICAgICAgICAgICAgICBodHRwOi8v
-d3d3LmFtZC5jb20KTGlicmUgc29mdHdhcmUgZW50aHVzaWFzdCAgICAgICAgICAgICB8ICAgICAg
-ICAgICAgIE1lc2EgYW5kIFggZGV2ZWxvcGVyCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYW1kLWdmeAo=
+--===============0312405236==
+Content-Type: multipart/alternative; boundary="001a113ce5be60078e0550514043"
+
+--001a113ce5be60078e0550514043
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Christian,
+
+I have built a stack from git sources. Is drm-next a good branch for basing
+development on?
+
+As you suspected, piglit reported a few crashes and failures with gpu and
+cl profiles. So I will start looking at those. Thanks for the pointers!
+
+Interest wise, I am the most interested in kernel topics, and improving
+driver stability. There is a system lockup issue on my 270 when running
+euro truck simulator 2 at high render resolution. I plan to get some debug
+data on this once after reading up on kernel debugging.
+
+Thanks,
+Subrat
+
+On 22-May-2017 16:01, "Christian K=C3=B6nig" <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org> wrot=
+e:
+
+> Hi Subrat,
+>
+> well finding topics for beginners on the graphics stack are usually not a=
+n
+> easy task because it is a rather complicated piece of software.
+>
+> I suggest to just start with setting up a build and test environment and
+> start to run piglit (our testing suite) on a fully self compiled stack
+> (kernel, libdrm, ddx, mesa).
+>
+> If you find any bugs while doing this (and there still are a couple I
+> guess) you can start to narrow those down.
+>
+> Additional to that is there any particular area you are interested in?
+> E.g. kernel development, video codecs or frontend stuff (OpenGL, OpenCL)?
+>
+> Regards,
+> Christian.
+>
+> Am 19.05.2017 um 05:24 schrieb Subrat Meher:
+>
+> Hi,
+>
+> I am interested in working on radeon's Linux graphics stack. Are there an=
+y
+> areas that are more approachable to someone  unfamiliar with the stack?
+>
+> As for existing knowledge, I have worked with OpenGL, OpenCL and embedded
+> applications.
+>
+> Apologies if this is not the right place for this discussion.
+>
+> Thanks,
+> Subrat
+>
+>
+> _______________________________________________
+> amd-gfx mailing listamd-gfx-PD4FTy7X32lNgt0PjOBp934avgP/u3fG0wdF1cv0I5s@public.gmane.org://lists.freedeskto=
+p.org/mailman/listinfo/amd-gfx
+>
+>
+>
+
+--001a113ce5be60078e0550514043
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div style=3D"font-family:sans-serif;font-size:13.696px" =
+dir=3D"auto">Hi Christian,</div><div dir=3D"auto" style=3D"font-family:sans=
+-serif;font-size:13.696px"><br></div><div dir=3D"auto" style=3D"font-family=
+:sans-serif;font-size:13.696px">I have built a stack from git sources. Is d=
+rm-next a good branch for basing development on?</div><div dir=3D"auto" sty=
+le=3D"font-family:sans-serif;font-size:13.696px"><br></div><div dir=3D"auto=
+" style=3D"font-family:sans-serif;font-size:13.696px">As you suspected, pig=
+lit reported a few crashes and failures with gpu and cl profiles. So I will=
+ start looking at those. Thanks for the pointers!</div><div dir=3D"auto" st=
+yle=3D"font-family:sans-serif;font-size:13.696px"><br></div><div dir=3D"aut=
+o" style=3D"font-family:sans-serif;font-size:13.696px">Interest wise, I am =
+the most interested in kernel topics, and improving driver stability. There=
+ is a system lockup issue on my 270 when running euro truck simulator 2 at =
+high render resolution. I plan to get some debug data on this once after re=
+ading up on kernel debugging.</div><div dir=3D"auto" style=3D"font-family:s=
+ans-serif;font-size:13.696px"><br></div><div dir=3D"auto" style=3D"font-fam=
+ily:sans-serif;font-size:13.696px"><div dir=3D"auto">Thanks,</div><div dir=
+=3D"auto">Subrat</div></div></div><div class=3D"gmail_extra"><br><div class=
+=3D"gmail_quote">On 22-May-2017 16:01, &quot;Christian K=C3=B6nig&quot; &lt=
+;<a href=3D"mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org</a>&gt;=
+ wrote:<br type=3D"attribution"><blockquote class=3D"gmail_quote" style=3D"=
+margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+ =20
+   =20
+ =20
+  <div text=3D"#000000" bgcolor=3D"#FFFFFF">
+    <div class=3D"m_-8986934828588369956moz-cite-prefix">Hi Subrat,<br>
+      <br>
+      well finding topics for beginners on the graphics stack are
+      usually not an easy task because it is a rather complicated piece
+      of software.<br>
+      <br>
+      I suggest to just start with setting up a build and test
+      environment and start to run piglit (our testing suite) on a fully
+      self compiled stack (kernel, libdrm, ddx, mesa).<br>
+      <br>
+      If you find any bugs while doing this (and there still are a
+      couple I guess) you can start to narrow those down.<br>
+      <br>
+      Additional to that is there any particular area you are interested
+      in? E.g. kernel development, video codecs or frontend stuff
+      (OpenGL, OpenCL)?<br>
+      <br>
+      Regards,<br>
+      Christian.<br>
+      <br>
+      Am 19.05.2017 um 05:24 schrieb Subrat Meher:<br>
+    </div>
+    <blockquote type=3D"cite">
+      <div dir=3D"auto">Hi,
+        <div dir=3D"auto"><br>
+        </div>
+        <div dir=3D"auto">I am interested in working on radeon&#39;s Linux
+          graphics stack. Are there any areas that are more approachable
+          to someone =C2=A0unfamiliar with the stack?</div>
+        <div dir=3D"auto"><br>
+        </div>
+        <div dir=3D"auto">As for existing knowledge, I have worked with
+          OpenGL, OpenCL and embedded applications.</div>
+        <div dir=3D"auto"><span style=3D"font-family:sans-serif"><br>
+          </span></div>
+        <div dir=3D"auto"><span style=3D"font-family:sans-serif">Apologies
+            if this is not the right place for this discussion.=C2=A0</span=
+><br>
+        </div>
+        <div dir=3D"auto"><br>
+        </div>
+        <div dir=3D"auto">Thanks,</div>
+        <div dir=3D"auto">Subrat</div>
+      </div>
+      <br>
+      <fieldset class=3D"m_-8986934828588369956mimeAttachmentHeader"></fiel=
+dset>
+      <br>
+      <pre>______________________________<wbr>_________________
+amd-gfx mailing list
+<a class=3D"m_-8986934828588369956moz-txt-link-abbreviated" href=3D"mailto:=
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org</a>
+<a class=3D"m_-8986934828588369956moz-txt-link-freetext" href=3D"https://li=
+sts.freedesktop.org/mailman/listinfo/amd-gfx" target=3D"_blank">https://lis=
+ts.freedesktop.org/<wbr>mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <p><br>
+    </p>
+  </div>
+
+</blockquote></div></div>
+
+--001a113ce5be60078e0550514043--
+
+--===============0312405236==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0312405236==--
