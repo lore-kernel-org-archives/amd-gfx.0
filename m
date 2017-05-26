@@ -1,13 +1,12 @@
-From: "Mao, David" <David.Mao-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [RFC] Exclusive gpu access for SteamVR usecases
-Date: Fri, 26 May 2017 09:02:32 +0000
-Message-ID: <20E73ED4-5A64-45A5-A609-77F91CAB8425@amd.com>
-References: <20170525000101.8184-1-andresx7@gmail.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: GART write flush error on SI w/ amdgpu
+Date: Fri, 26 May 2017 17:47:36 +0200
+Message-ID: <CAAxE2A7Q=qdxtm6HXF3Py9dYpARvA6+Z4ENkWTCEA572SdNEqw@mail.gmail.com>
+References: <c53a99e5-eea0-17d1-05e6-b6e66746d774@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0558390428=="
+Content-Type: multipart/mixed; boundary="===============2067653660=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170525000101.8184-1-andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <c53a99e5-eea0-17d1-05e6-b6e66746d774-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,379 +17,204 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org" <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Nicolai_H=C3=A4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0558390428==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_20E73ED45A6445A5A60977F91CAB8425amdcom_"
+--===============2067653660==
+Content-Type: multipart/alternative; boundary="001a1134f23a12f5ab05506f4423"
 
---_000_20E73ED45A6445A5A60977F91CAB8425amdcom_
-Content-Type: text/plain; charset="us-ascii"
+--001a1134f23a12f5ab05506f4423
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Andres,
-Why the fd is needed for this interface?
-Why not just using the dev->fd instead of fd?
-IIRC, if there are more than one fds opened in the process upon the same de=
-vice, they will share the same amdgpu_device_handle which is guaranteed by =
-amdgpu_device_initialize.
-In other word, we should not run into the case that user creates more conte=
-xts with newly opened fd after tuning the priority of existing context in t=
-he same process unless the previous fd is closed.
-
-Thanks.
-Best Regards,
-David
-
-On 25 May 2017, at 8:00 AM, Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:and=
-resx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>> wrote:
-
-When multiple environments are running simultaneously on a system, e.g.
-an X desktop + a SteamVR game session, it may be useful to sacrifice
-performance in one environment in order to boost it on the other.
-
-This series provides a mechanism for a DRM_MASTER to provide exclusive
-gpu access to a group of processes.
-
-Note: This series is built on the assumption that the drm lease patch serie=
-s
-will extend DRM_MASTER status to lesees.
-
-The libdrm we intend to provide is as follows:
-
-/**
-* Set the priority of all contexts in a process
-*
-* This function will change the priority of all contexts owned by
-* the process identified by fd.
-*
-* \param dev             - \c [in] device handle
-* \param fd              - \c [in] fd from target process
-* \param priority        - \c [in] target priority AMDGPU_CTX_PRIORITY_*
-*
-* \return  0 on success\n
-*         <0 - Negative POSIX error code
-*
-* \notes @fd can be *any* file descriptor from the target process.
-* \notes this function requires DRM_MASTER
-*/
-int amdgpu_sched_process_priority_set(amdgpu_device_handle dev,
-     int fd, int32_t priority);
-
-/**
-* Request to raise the minimum required priority to schedule a gpu job
-*
-* Submit a request to increase the minimum required priority to schedule
-* a gpu job. Once this function returns, the gpu scheduler will no longer
-* consider jobs from contexts with priority lower than @priority.
-*
-* The minimum priority considered by the scheduler will be the highest from
-* all currently active requests.
-*
-* Requests are refcounted, and must be balanced using
-* amdgpu_sched_min_priority_put()
-*
-* \param dev             - \c [in] device handle
-* \param priority        - \c [in] target priority AMDGPU_CTX_PRIORITY_*
-*
-* \return  0 on success\n
-*         <0 - Negative POSIX error code
-*
-* \notes this function requires DRM_MASTER
-*/
-int amdgpu_sched_min_priority_get(amdgpu_device_handle dev,
- int32_t priority);
-
-/**
-* Drop a request to raise the minimum required scheduler priority
-*
-* This call balances amdgpu_sched_min_priority_get()
-*
-* If no other active requests exists for @priority, the minimum required
-* priority will decay to a lower level until one is reached with an active
-* request or the lowest priority is reached.
-*
-* \param dev             - \c [in] device handle
-* \param priority        - \c [in] target priority AMDGPU_CTX_PRIORITY_*
-*
-* \return  0 on success\n
-*         <0 - Negative POSIX error code
-*
-* \notes this function requires DRM_MASTER
-*/
-int amdgpu_sched_min_priority_put(amdgpu_device_handle dev,
- int32_t priority);
-
-Using this app, VRComposer can raise the priority of the VRapp and itself. =
-Then
-it can restrict the minimum scheduler priority in order to become exclusive=
- gpu
-clients.
-
-One of the areas I'd like feedback is the following scenario. If a VRapp op=
-ens
-a new fd and creates a new context after a call to set_priority, this speci=
-fic
-context will be lower priority than the rest. If the minimum required prior=
-ity
-is then raised, it is possible that this new context will be starved and
-deadlock the VRapp.
-
-One solution I had in mind to address this situation, is to make set_priori=
-ty
-also raise the priority of future contexts created by the VRapp. However, t=
-hat
-would require keeping track of the requested priority on a per-process data
-structure. The current design appears to steer clean of keeping any process
-specific data, and everything instead of stored on a per-file basis. Which =
-is
-why I did not pursue this approach. But if this is something you'd like me =
-to
-implement let me know.
-
-One could also argue that preventing an application deadlock should be hand=
-led
-between the VRComposer and the VRApp. It is not the kernel's responsibility=
- to
-babysit userspace applications and prevent themselves from shooting themsel=
-ves
-in the foot. The same could be achieved by improper usage of shared fences
-between processes.
-
-Thoughts/feedback/comments on this issue, or others, are appreciated.
-
-Regards,
-Andres
-
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---_000_20E73ED45A6445A5A60977F91CAB8425amdcom_
-Content-Type: text/html; charset="us-ascii"
-Content-ID: <5DFC45447815034A8F787158B9FC6523-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+On Tue, May 9, 2017 at 2:13 PM, Nicolai H=C3=A4hnle <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wr=
+ote:
+> Hi all,
 >
-</head>
-<body style=3D"word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-lin=
-e-break: after-white-space;" class=3D"">
-<font face=3D"Calibri" style=3D"font-size: 14px;" class=3D"">Hi Andres,</fo=
-nt>
-<div class=3D""><font face=3D"Calibri" style=3D"font-size: 14px;" class=3D"=
-">Why the fd is needed for this interface?</font></div>
-<div class=3D""><font face=3D"Calibri" style=3D"font-size: 14px;" class=3D"=
-">Why not just using the dev-&gt;fd instead of fd?</font></div>
-<div class=3D""><font face=3D"Calibri" style=3D"font-size: 14px;" class=3D"=
-">IIRC, if there are more than one fds opened in the process upon the same =
-device, they will share the same amdgpu_device_handle which is guaranteed b=
-y amdgpu_device_initialize.</font></div>
-<div class=3D""><font face=3D"Calibri" style=3D"font-size: 14px;" class=3D"=
-">In other word, we should not run into the case that user creates more con=
-texts with newly opened fd after tuning the priority of existing context in=
- the same process unless the previous fd
- is closed.&nbsp;</font></div>
-<div class=3D""><font face=3D"Calibri" style=3D"font-size: 14px;" class=3D"=
-"><br class=3D"">
-</font></div>
-<div class=3D""><font face=3D"Calibri" style=3D"font-size: 14px;" class=3D"=
-">Thanks.</font></div>
-<div class=3D""><font face=3D"Calibri" style=3D"font-size: 14px;" class=3D"=
-">Best Regards,</font></div>
-<div class=3D""><font face=3D"Calibri" style=3D"font-size: 14px;" class=3D"=
-">David</font></div>
-<div class=3D""><br class=3D"">
-<div>
-<blockquote type=3D"cite" class=3D"">
-<div class=3D"">On 25 May 2017, at 8:00 AM, Andres Rodriguez &lt;<a href=3D=
-"mailto:andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" class=3D"">andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:</d=
-iv>
-<br class=3D"Apple-interchange-newline">
-<div class=3D"">
-<div class=3D"">When multiple environments are running simultaneously on a =
-system, e.g.<br class=3D"">
-an X desktop &#43; a SteamVR game session, it may be useful to sacrifice<br=
- class=3D"">
-performance in one environment in order to boost it on the other.<br class=
-=3D"">
-<br class=3D"">
-This series provides a mechanism for a DRM_MASTER to provide exclusive<br c=
-lass=3D"">
-gpu access to a group of processes.<br class=3D"">
-<br class=3D"">
-Note: This series is built on the assumption that the drm lease patch serie=
-s<br class=3D"">
-will extend DRM_MASTER status to lesees.<br class=3D"">
-<br class=3D"">
-The libdrm we intend to provide is as follows:<br class=3D"">
-<br class=3D"">
-/**<br class=3D"">
-* Set the priority of all contexts in a process<br class=3D"">
-*<br class=3D"">
-* This function will change the priority of all contexts owned by<br class=
-=3D"">
-* the process identified by fd.<br class=3D"">
-*<br class=3D"">
-* \param dev &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;- \c [in] device handle<br class=3D"">
-* \param fd &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;- \c [in] fd from target process<br class=3D"">
-* \param priority &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- \c [in] targe=
-t priority AMDGPU_CTX_PRIORITY_*<br class=3D"">
-*<br class=3D"">
-* \return &nbsp;0 on success\n<br class=3D"">
-* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;0 - Negative POSIX er=
-ror code<br class=3D"">
-*<br class=3D"">
-* \notes @fd can be *any* file descriptor from the target process.<br class=
-=3D"">
-* \notes this function requires DRM_MASTER<br class=3D"">
-*/<br class=3D"">
-int amdgpu_sched_process_priority_set(amdgpu_device_handle dev,<br class=3D=
-"">
-<span class=3D"Apple-tab-span" style=3D"white-space:pre"></span><span class=
-=3D"Apple-tab-span" style=3D"white-space:pre"></span><span class=3D"Apple-t=
-ab-span" style=3D"white-space:pre"></span><span class=3D"Apple-tab-span" st=
-yle=3D"white-space:pre"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int fd, int32_=
+> I'm seeing some very strange errors on Verde with CPU readback from GART,
+> and am pretty much out of ideas. Some help would be very much appreciated=
+.
+>
+> The error manifests with the
+> GL45-CTS.gtf32.GL3Tests.packed_pixels.packed_pixels_pbo test on amdgpu,
+but
+> *not* on radeon. Here's what the test does:
+>
+> 1. Upload a texture.
+> 2. Read the texture back via a shader that uses shader buffer writes to
+> write data to a buffer that is allocated in GART.
+> 3. The CPU then reads from the buffer -- and sometimes gets stale data.
+>
+> This sequence is repeated for many sub-tests. There are some sub-tests
+where
+> the CPU reads stale data from the buffer, i.e. the shader writes simply
+> don't make it to the CPU. The tests vary superficially, e.g. the first
+> failing test is (almost?) always one where data is written in 16-bit word=
+s
+> (but there are succeeding sub-tests with 16-bit writes as well).
+>
+> The bug is *not* a timing issue. Adding even a 1sec delay (sleep(1);)
+> between the fence wait and the return of glMapBuffer does not fix the
+> problem. The data must be stuck in a cache somewhere.
+>
+> Since the test runs okay with the radeon module, I tried some changes
+based
+> on comparing the IB submit between radeon and amdgpu, and based on
+comparing
+> register settings via scans obtained from umr. Some of the things I've
+> tried:
+>
+> - Set HDP_MISC_CNTL.FLUSH_INVALIDATE_CACHE to 1 (both radeon and
+amdgpu/gfx9
+> set this)
+> - Add SURFACE_SYNC packets preceded by setting CP_COHER_CNTL2 to the vmid
+> (radeon does this)
+> - Change gfx_v6_0_ring_emit_hdp_invalidate: select ME engine instead of
+PFP
+> (which seems more logical, and is done by gfx7+), or remove the
+> corresponding WRITE_DATA entirely
+>
+> None of these changes helped.
+>
+> What *does* help is adding an artificial wait. Specifically, I'm adding a
+> sequence of
+>
+> - WRITE_DATA
+> - CACHE_FLUSH_AND_INV_TS_EVENT (BOTTOM_OF_PIPE_TS has same behavior)
+> - WAIT_REG_MEM
+>
+> as can be seen in the attached patch. This works around the problem, but
+it
+> makes no sense:
+>
+> Adding the wait sequence *before* the SURFACE_SYNC in ring_emit_fence
+works
+> around the problem. However(!) it does not actually cause the UMD to wait
+> any longer than before. Without this change, the UMD immediately sees a
+> signaled user fence (and never uses an ioctl to wait), and with this
+change,
+> it *still* sees a signaled user fence.
+>
+> Also, note that the way I've hacked the change, the wait sequence is only
+> added for the user fence emit (and I'm using a modified UMD to ensure tha=
 t
- priority);<br class=3D"">
-<br class=3D"">
-/**<br class=3D"">
-* Request to raise the minimum required priority to schedule a gpu job<br c=
-lass=3D"">
-*<br class=3D"">
-* Submit a request to increase the minimum required priority to schedule<br=
- class=3D"">
-* a gpu job. Once this function returns, the gpu scheduler will no longer<b=
-r class=3D"">
-* consider jobs from contexts with priority lower than @priority.<br class=
-=3D"">
-*<br class=3D"">
-* The minimum priority considered by the scheduler will be the highest from=
-<br class=3D"">
-* all currently active requests.<br class=3D"">
-*<br class=3D"">
-* Requests are refcounted, and must be balanced using<br class=3D"">
-* amdgpu_sched_min_priority_put()<br class=3D"">
-*<br class=3D"">
-* \param dev &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;- \c [in] device handle<br class=3D"">
-* \param priority &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- \c [in] targe=
-t priority AMDGPU_CTX_PRIORITY_*<br class=3D"">
-*<br class=3D"">
-* \return &nbsp;0 on success\n<br class=3D"">
-* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;0 - Negative POSIX er=
-ror code<br class=3D"">
-*<br class=3D"">
-* \notes this function requires DRM_MASTER<br class=3D"">
-*/<br class=3D"">
-int amdgpu_sched_min_priority_get(amdgpu_device_handle dev,<br class=3D"">
-<span class=3D"Apple-tab-span" style=3D"white-space:pre"></span><span class=
-=3D"Apple-tab-span" style=3D"white-space:pre"></span><span class=3D"Apple-t=
-ab-span" style=3D"white-space:pre"></span><span class=3D"Apple-tab-span" st=
-yle=3D"white-space:pre"></span>&nbsp;int32_t priority);<br class=3D"">
-<br class=3D"">
-/**<br class=3D"">
-* Drop a request to raise the minimum required scheduler priority<br class=
-=3D"">
-*<br class=3D"">
-* This call balances amdgpu_sched_min_priority_get()<br class=3D"">
-*<br class=3D"">
-* If no other active requests exists for @priority, the minimum required<br=
- class=3D"">
-* priority will decay to a lower level until one is reached with an active<=
-br class=3D"">
-* request or the lowest priority is reached.<br class=3D"">
-*<br class=3D"">
-* \param dev &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;- \c [in] device handle<br class=3D"">
-* \param priority &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- \c [in] targe=
-t priority AMDGPU_CTX_PRIORITY_*<br class=3D"">
-*<br class=3D"">
-* \return &nbsp;0 on success\n<br class=3D"">
-* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;0 - Negative POSIX er=
-ror code<br class=3D"">
-*<br class=3D"">
-* \notes this function requires DRM_MASTER<br class=3D"">
-*/<br class=3D"">
-int amdgpu_sched_min_priority_put(amdgpu_device_handle dev,<br class=3D"">
-<span class=3D"Apple-tab-span" style=3D"white-space:pre"></span><span class=
-=3D"Apple-tab-span" style=3D"white-space:pre"></span><span class=3D"Apple-t=
-ab-span" style=3D"white-space:pre"></span><span class=3D"Apple-tab-span" st=
-yle=3D"white-space:pre"></span>&nbsp;int32_t priority);<br class=3D"">
-<br class=3D"">
-Using this app, VRComposer can raise the priority of the VRapp and itself. =
-Then<br class=3D"">
-it can restrict the minimum scheduler priority in order to become exclusive=
- gpu<br class=3D"">
-clients.<br class=3D"">
-<br class=3D"">
-One of the areas I'd like feedback is the following scenario. If a VRapp op=
-ens<br class=3D"">
-a new fd and creates a new context after a call to set_priority, this speci=
-fic<br class=3D"">
-context will be lower priority than the rest. If the minimum required prior=
-ity<br class=3D"">
-is then raised, it is possible that this new context will be starved and<br=
- class=3D"">
-deadlock the VRapp.<br class=3D"">
-<br class=3D"">
-One solution I had in mind to address this situation, is to make set_priori=
-ty<br class=3D"">
-also raise the priority of future contexts created by the VRapp. However, t=
-hat<br class=3D"">
-would require keeping track of the requested priority on a per-process data=
-<br class=3D"">
-structure. The current design appears to steer clean of keeping any process=
-<br class=3D"">
-specific data, and everything instead of stored on a per-file basis. Which =
-is<br class=3D"">
-why I did not pursue this approach. But if this is something you'd like me =
-to<br class=3D"">
-implement let me know.<br class=3D"">
-<br class=3D"">
-One could also argue that preventing an application deadlock should be hand=
-led<br class=3D"">
-between the VRComposer and the VRApp. It is not the kernel's responsibility=
- to<br class=3D"">
-babysit userspace applications and prevent themselves from shooting themsel=
-ves<br class=3D"">
-in the foot. The same could be achieved by improper usage of shared fences<=
-br class=3D"">
-between processes.<br class=3D"">
-<br class=3D"">
-Thoughts/feedback/comments on this issue, or others, are appreciated.<br cl=
-ass=3D"">
-<br class=3D"">
-Regards,<br class=3D"">
-Andres<br class=3D"">
-<br class=3D"">
-<br class=3D"">
-_______________________________________________<br class=3D"">
-amd-gfx mailing list<br class=3D"">
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" class=3D"">amd-gfx@lists.f=
-reedesktop.org</a><br class=3D"">
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx<br class=3D"">
-</div>
-</div>
-</blockquote>
-</div>
-<br class=3D"">
-</div>
-</body>
-</html>
+> there is enough memory to be used by the added wait sequence).
+>
+> Adding the wait sequence *after* the SURFACE_SYNC *doesn't* work around
+the
+> problem.
+>
+> So for whatever reason, the added wait sequence *before* the SURFACE_SYNC
+> encourages some part of the GPU to flush the data from wherever it's
+stuck,
+> and that's just really bizarre. There must be something really simple I'm
+> missing, and any pointers would be appreciated.
 
---_000_20E73ED45A6445A5A60977F91CAB8425amdcom_--
+Have you tried this?
 
---===============0558390428==
+diff --git a/src/gallium/drivers/radeonsi/si_hw_context.c
+b/src/gallium/drivers/radeonsi/si_hw_context.c
+index 92c09cb..e6ac0ba 100644
+--- a/src/gallium/drivers/radeonsi/si_hw_context.c
++++ b/src/gallium/drivers/radeonsi/si_hw_context.c
+@@ -133,7 +133,8 @@ void si_context_gfx_flush(void *context, unsigned flags=
+,
+                        SI_CONTEXT_PS_PARTIAL_FLUSH;
+
+        /* DRM 3.1.0 doesn't flush TC for VI correctly. */
+-       if (ctx->b.chip_class =3D=3D VI && ctx->b.screen->info.drm_minor <=
+=3D 1)
++       if ((ctx->b.chip_class =3D=3D VI && ctx->b.screen->info.drm_minor <=
+=3D 1)
+||
++           (ctx->b.chip_class =3D=3D SI && ctx->b.screen->info.drm_major =
+=3D=3D 3))
+                ctx->b.flags |=3D SI_CONTEXT_INV_GLOBAL_L2 |
+                                SI_CONTEXT_INV_VMEM_L1;
+
+One more cache flush there shouldn't hurt.
+
+Also, Mesa uses PFP_SYNC_ME. It shouldn't be necessary, but it's worth a
+try.
+
+Marek
+
+--001a1134f23a12f5ab05506f4423
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div><div>On Tue, May 9, 2017 at 2:13 PM, Nicolai H=C3=A4h=
+nle &lt;<a href=3D"mailto:nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">nhaehnle@gm=
+ail.com</a>&gt; wrote:<br>&gt; Hi all,<br>&gt;<br>&gt; I&#39;m seeing some =
+very strange errors on Verde with CPU readback from GART,<br>&gt; and am pr=
+etty much out of ideas. Some help would be very much appreciated.<br>&gt;<b=
+r>&gt; The error manifests with the<br>&gt; GL45-CTS.gtf32.GL3Tests.<wbr>pa=
+cked_pixels.packed_pixels_<wbr>pbo test on amdgpu, but<br>&gt; *not* on rad=
+eon. Here&#39;s what the test does:<br>&gt;<br>&gt; 1. Upload a texture.<br=
+>&gt; 2. Read the texture back via a shader that uses shader buffer writes =
+to<br>&gt; write data to a buffer that is allocated in GART.<br>&gt; 3. The=
+ CPU then reads from the buffer -- and sometimes gets stale data.<br>&gt;<b=
+r>&gt; This sequence is repeated for many sub-tests. There are some sub-tes=
+ts where<br>&gt; the CPU reads stale data from the buffer, i.e. the shader =
+writes simply<br>&gt; don&#39;t make it to the CPU. The tests vary superfic=
+ially, e.g. the first<br>&gt; failing test is (almost?) always one where da=
+ta is written in 16-bit words<br>&gt; (but there are succeeding sub-tests w=
+ith 16-bit writes as well).<br>&gt;<br>&gt; The bug is *not* a timing issue=
+. Adding even a 1sec delay (sleep(1);)<br>&gt; between the fence wait and t=
+he return of glMapBuffer does not fix the<br>&gt; problem. The data must be=
+ stuck in a cache somewhere.<br>&gt;<br>&gt; Since the test runs okay with =
+the radeon module, I tried some changes based<br>&gt; on comparing the IB s=
+ubmit between radeon and amdgpu, and based on comparing<br>&gt; register se=
+ttings via scans obtained from umr. Some of the things I&#39;ve<br>&gt; tri=
+ed:<br>&gt;<br>&gt; - Set HDP_MISC_CNTL.FLUSH_<wbr>INVALIDATE_CACHE to 1 (b=
+oth radeon and amdgpu/gfx9<br>&gt; set this)<br>&gt; - Add SURFACE_SYNC pac=
+kets preceded by setting CP_COHER_CNTL2 to the vmid<br>&gt; (radeon does th=
+is)<br>&gt; - Change gfx_v6_0_ring_emit_hdp_<wbr>invalidate: select ME engi=
+ne instead of PFP<br>&gt; (which seems more logical, and is done by gfx7+),=
+ or remove the<br>&gt; corresponding WRITE_DATA entirely<br>&gt;<br>&gt; No=
+ne of these changes helped.<br>&gt;<br>&gt; What *does* help is adding an a=
+rtificial wait. Specifically, I&#39;m adding a<br>&gt; sequence of<br>&gt;<=
+br>&gt; - WRITE_DATA<br>&gt; - CACHE_FLUSH_AND_INV_TS_EVENT (BOTTOM_OF_PIPE=
+_TS has same behavior)<br>&gt; - WAIT_REG_MEM<br>&gt;<br>&gt; as can be see=
+n in the attached patch. This works around the problem, but it<br>&gt; make=
+s no sense:<br>&gt;<br>&gt; Adding the wait sequence *before* the SURFACE_S=
+YNC in ring_emit_fence works<br>&gt; around the problem. However(!) it does=
+ not actually cause the UMD to wait<br>&gt; any longer than before. Without=
+ this change, the UMD immediately sees a<br>&gt; signaled user fence (and n=
+ever uses an ioctl to wait), and with this change,<br>&gt; it *still* sees =
+a signaled user fence.<br>&gt;<br>&gt; Also, note that the way I&#39;ve hac=
+ked the change, the wait sequence is only<br>&gt; added for the user fence =
+emit (and I&#39;m using a modified UMD to ensure that<br>&gt; there is enou=
+gh memory to be used by the added wait sequence).<br>&gt;<br>&gt; Adding th=
+e wait sequence *after* the SURFACE_SYNC *doesn&#39;t* work around the<br>&=
+gt; problem.<br>&gt;<br>&gt; So for whatever reason, the added wait sequenc=
+e *before* the SURFACE_SYNC<br>&gt; encourages some part of the GPU to flus=
+h the data from wherever it&#39;s stuck,<br>&gt; and that&#39;s just really=
+ bizarre. There must be something really simple I&#39;m<br>&gt; missing, an=
+d any pointers would be appreciated.<br><br>Have you tried this?<br><br>dif=
+f --git a/src/gallium/drivers/<wbr>radeonsi/si_hw_context.c b/src/gallium/d=
+rivers/<wbr>radeonsi/si_hw_context.c<br>index 92c09cb..e6ac0ba 100644<br>--=
+- a/src/gallium/drivers/<wbr>radeonsi/si_hw_context.c<br>+++ b/src/gallium/=
+drivers/<wbr>radeonsi/si_hw_context.c<br>@@ -133,7 +133,8 @@ void si_contex=
+t_gfx_flush(void *context, unsigned flags,<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 SI_CONTEXT_PS_PARTI=
+AL_FLUSH;<br>=C2=A0<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* DRM 3.1.0 doesn&#39;t=
+ flush TC for VI correctly. */<br>- =C2=A0 =C2=A0 =C2=A0 if (ctx-&gt;b.chip=
+_class =3D=3D VI &amp;&amp; ctx-&gt;b.screen-&gt;info.drm_minor &lt;=3D 1)<=
+br>+ =C2=A0 =C2=A0 =C2=A0 if ((ctx-&gt;b.chip_class =3D=3D VI &amp;&amp; ct=
+x-&gt;b.screen-&gt;info.drm_minor &lt;=3D 1) ||<br>+ =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 (ctx-&gt;b.chip_class =3D=3D SI &amp;&amp; ctx-&gt;b.screen-&=
+gt;info.drm_major =3D=3D 3))<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 ctx-&gt;b.flags |=3D SI_CONTEXT_INV_GLOBAL_L2 |<br>=C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 SI_CONTEXT_INV_VMEM_L1;<br><br></div>One more c=
+ache flush there shouldn&#39;t hurt.<br><br></div><div>Also, Mesa uses PFP_=
+SYNC_ME. It shouldn&#39;t be necessary, but it&#39;s worth a try.<br></div>=
+<div><br></div>Marek<br></div>
+
+--001a1134f23a12f5ab05506f4423--
+
+--===============2067653660==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -400,4 +224,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0558390428==--
+--===============2067653660==--
