@@ -1,14 +1,14 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [RFC] Exclusive gpu access for SteamVR usecases
-Date: Fri, 26 May 2017 21:24:13 +0200
-Message-ID: <195df57c-28ed-e97e-5201-a9d98d83b0bb@vodafone.de>
-References: <20170525000101.8184-1-andresx7@gmail.com>
- <20E73ED4-5A64-45A5-A609-77F91CAB8425@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH libdrm v3 1/1] amdgpu: move asic id table to a separate
+ file
+Date: Fri, 26 May 2017 15:27:01 -0400
+Message-ID: <CADnq5_O0Rjh+YkJUcv_iADT87ezyuSxH3reF=nx7He6-N=V_HA@mail.gmail.com>
+References: <1495826598-4545-1-git-send-email-Samuel.Li@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0457123253=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20E73ED4-5A64-45A5-A609-77F91CAB8425-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <1495826598-4545-1-git-send-email-Samuel.Li-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,424 +19,507 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Mao, David" <David.Mao-5C7GfCeVMHo@public.gmane.org>, Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Samuel Li <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Xiaojie Yuan <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============0457123253==
-Content-Type: multipart/alternative;
- boundary="------------075E90BA1B8AAEEE1EB8D1D9"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------075E90BA1B8AAEEE1EB8D1D9
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
-
-Hi David,
-
-the idea is that the compositor (which is DRM master) can change the 
-priority of it's clients.
-
-So using dev->fd is pointless because that is the fd of the DRM master 
-process.
-
-Regards,
-Christian.
-
-Am 26.05.2017 um 11:02 schrieb Mao, David:
-> Hi Andres,
-> Why the fd is needed for this interface?
-> Why not just using the dev->fd instead of fd?
-> IIRC, if there are more than one fds opened in the process upon the 
-> same device, they will share the same amdgpu_device_handle which is 
-> guaranteed by amdgpu_device_initialize.
-> In other word, we should not run into the case that user creates more 
-> contexts with newly opened fd after tuning the priority of existing 
-> context in the same process unless the previous fd is closed.
->
-> Thanks.
-> Best Regards,
-> David
->
->> On 25 May 2017, at 8:00 AM, Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org 
->> <mailto:andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>> wrote:
->>
->> When multiple environments are running simultaneously on a system, e.g.
->> an X desktop + a SteamVR game session, it may be useful to sacrifice
->> performance in one environment in order to boost it on the other.
->>
->> This series provides a mechanism for a DRM_MASTER to provide exclusive
->> gpu access to a group of processes.
->>
->> Note: This series is built on the assumption that the drm lease patch 
->> series
->> will extend DRM_MASTER status to lesees.
->>
->> The libdrm we intend to provide is as follows:
->>
->> /**
->> * Set the priority of all contexts in a process
->> *
->> * This function will change the priority of all contexts owned by
->> * the process identified by fd.
->> *
->> * \param dev             - \c [in] device handle
->> * \param fd              - \c [in] fd from target process
->> * \param priority        - \c [in] target priority AMDGPU_CTX_PRIORITY_*
->> *
->> * \return  0 on success\n
->> *         <0 - Negative POSIX error code
->> *
->> * \notes @fd can be *any* file descriptor from the target process.
->> * \notes this function requires DRM_MASTER
->> */
->> int amdgpu_sched_process_priority_set(amdgpu_device_handle dev,
->>      int fd, int32_t priority);
->>
->> /**
->> * Request to raise the minimum required priority to schedule a gpu job
->> *
->> * Submit a request to increase the minimum required priority to schedule
->> * a gpu job. Once this function returns, the gpu scheduler will no longer
->> * consider jobs from contexts with priority lower than @priority.
->> *
->> * The minimum priority considered by the scheduler will be the 
->> highest from
->> * all currently active requests.
->> *
->> * Requests are refcounted, and must be balanced using
->> * amdgpu_sched_min_priority_put()
->> *
->> * \param dev             - \c [in] device handle
->> * \param priority        - \c [in] target priority AMDGPU_CTX_PRIORITY_*
->> *
->> * \return  0 on success\n
->> *         <0 - Negative POSIX error code
->> *
->> * \notes this function requires DRM_MASTER
->> */
->> int amdgpu_sched_min_priority_get(amdgpu_device_handle dev,
->>  int32_t priority);
->>
->> /**
->> * Drop a request to raise the minimum required scheduler priority
->> *
->> * This call balances amdgpu_sched_min_priority_get()
->> *
->> * If no other active requests exists for @priority, the minimum required
->> * priority will decay to a lower level until one is reached with an 
->> active
->> * request or the lowest priority is reached.
->> *
->> * \param dev             - \c [in] device handle
->> * \param priority        - \c [in] target priority AMDGPU_CTX_PRIORITY_*
->> *
->> * \return  0 on success\n
->> *         <0 - Negative POSIX error code
->> *
->> * \notes this function requires DRM_MASTER
->> */
->> int amdgpu_sched_min_priority_put(amdgpu_device_handle dev,
->>  int32_t priority);
->>
->> Using this app, VRComposer can raise the priority of the VRapp and 
->> itself. Then
->> it can restrict the minimum scheduler priority in order to become 
->> exclusive gpu
->> clients.
->>
->> One of the areas I'd like feedback is the following scenario. If a 
->> VRapp opens
->> a new fd and creates a new context after a call to set_priority, this 
->> specific
->> context will be lower priority than the rest. If the minimum required 
->> priority
->> is then raised, it is possible that this new context will be starved and
->> deadlock the VRapp.
->>
->> One solution I had in mind to address this situation, is to make 
->> set_priority
->> also raise the priority of future contexts created by the VRapp. 
->> However, that
->> would require keeping track of the requested priority on a 
->> per-process data
->> structure. The current design appears to steer clean of keeping any 
->> process
->> specific data, and everything instead of stored on a per-file basis. 
->> Which is
->> why I did not pursue this approach. But if this is something you'd 
->> like me to
->> implement let me know.
->>
->> One could also argue that preventing an application deadlock should 
->> be handled
->> between the VRComposer and the VRApp. It is not the kernel's 
->> responsibility to
->> babysit userspace applications and prevent themselves from shooting 
->> themselves
->> in the foot. The same could be achieved by improper usage of shared 
->> fences
->> between processes.
->>
->> Thoughts/feedback/comments on this issue, or others, are appreciated.
->>
->> Regards,
->> Andres
->>
->>
->> _______________________________________________
->> amd-gfx mailing list
->> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
-
-
---------------075E90BA1B8AAEEE1EB8D1D9
-Content-Type: text/html; charset=windows-1252
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;
-      charset=windows-1252">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Hi David,<br>
-      <br>
-      the idea is that the compositor (which is DRM master) can change
-      the priority of it's clients.<br>
-      <br>
-      So using dev-&gt;fd is pointless because that is the fd of the DRM
-      master process.<br>
-      <br>
-      Regards,<br>
-      Christian.<br>
-      <br>
-      Am 26.05.2017 um 11:02 schrieb Mao, David:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:20E73ED4-5A64-45A5-A609-77F91CAB8425-5C7GfCeVMHo@public.gmane.org">
-      <meta http-equiv="Content-Type" content="text/html;
-        charset=windows-1252">
-      <font style="font-size: 14px;" class="" face="Calibri">Hi Andres,</font>
-      <div class=""><font style="font-size: 14px;" class=""
-          face="Calibri">Why the fd is needed for this interface?</font></div>
-      <div class=""><font style="font-size: 14px;" class=""
-          face="Calibri">Why not just using the dev-&gt;fd instead of
-          fd?</font></div>
-      <div class=""><font style="font-size: 14px;" class=""
-          face="Calibri">IIRC, if there are more than one fds opened in
-          the process upon the same device, they will share the same
-          amdgpu_device_handle which is guaranteed by
-          amdgpu_device_initialize.</font></div>
-      <div class=""><font style="font-size: 14px;" class=""
-          face="Calibri">In other word, we should not run into the case
-          that user creates more contexts with newly opened fd after
-          tuning the priority of existing context in the same process
-          unless the previous fd is closed. </font></div>
-      <div class=""><font style="font-size: 14px;" class=""
-          face="Calibri"><br class="">
-        </font></div>
-      <div class=""><font style="font-size: 14px;" class=""
-          face="Calibri">Thanks.</font></div>
-      <div class=""><font style="font-size: 14px;" class=""
-          face="Calibri">Best Regards,</font></div>
-      <div class=""><font style="font-size: 14px;" class=""
-          face="Calibri">David</font></div>
-      <div class=""><br class="">
-        <div>
-          <blockquote type="cite" class="">
-            <div class="">On 25 May 2017, at 8:00 AM, Andres Rodriguez
-              &lt;<a href="mailto:andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" class=""
-                moz-do-not-send="true">andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:</div>
-            <br class="Apple-interchange-newline">
-            <div class="">
-              <div class="">When multiple environments are running
-                simultaneously on a system, e.g.<br class="">
-                an X desktop + a SteamVR game session, it may be useful
-                to sacrifice<br class="">
-                performance in one environment in order to boost it on
-                the other.<br class="">
-                <br class="">
-                This series provides a mechanism for a DRM_MASTER to
-                provide exclusive<br class="">
-                gpu access to a group of processes.<br class="">
-                <br class="">
-                Note: This series is built on the assumption that the
-                drm lease patch series<br class="">
-                will extend DRM_MASTER status to lesees.<br class="">
-                <br class="">
-                The libdrm we intend to provide is as follows:<br
-                  class="">
-                <br class="">
-                /**<br class="">
-                * Set the priority of all contexts in a process<br
-                  class="">
-                *<br class="">
-                * This function will change the priority of all contexts
-                owned by<br class="">
-                * the process identified by fd.<br class="">
-                *<br class="">
-                * \param dev             - \c [in] device handle<br
-                  class="">
-                * \param fd              - \c [in] fd from target
-                process<br class="">
-                * \param priority        - \c [in] target priority
-                AMDGPU_CTX_PRIORITY_*<br class="">
-                *<br class="">
-                * \return  0 on success\n<br class="">
-                *         &lt;0 - Negative POSIX error code<br class="">
-                *<br class="">
-                * \notes @fd can be *any* file descriptor from the
-                target process.<br class="">
-                * \notes this function requires DRM_MASTER<br class="">
-                */<br class="">
-                int
-                amdgpu_sched_process_priority_set(amdgpu_device_handle
-                dev,<br class="">
-                <span class="Apple-tab-span" style="white-space:pre"></span><span class="Apple-tab-span" style="white-space:pre"></span><span class="Apple-tab-span" style="white-space:pre"></span><span class="Apple-tab-span" style="white-space:pre"></span>     int
-                fd, int32_t priority);<br class="">
-                <br class="">
-                /**<br class="">
-                * Request to raise the minimum required priority to
-                schedule a gpu job<br class="">
-                *<br class="">
-                * Submit a request to increase the minimum required
-                priority to schedule<br class="">
-                * a gpu job. Once this function returns, the gpu
-                scheduler will no longer<br class="">
-                * consider jobs from contexts with priority lower than
-                @priority.<br class="">
-                *<br class="">
-                * The minimum priority considered by the scheduler will
-                be the highest from<br class="">
-                * all currently active requests.<br class="">
-                *<br class="">
-                * Requests are refcounted, and must be balanced using<br
-                  class="">
-                * amdgpu_sched_min_priority_put()<br class="">
-                *<br class="">
-                * \param dev             - \c [in] device handle<br
-                  class="">
-                * \param priority        - \c [in] target priority
-                AMDGPU_CTX_PRIORITY_*<br class="">
-                *<br class="">
-                * \return  0 on success\n<br class="">
-                *         &lt;0 - Negative POSIX error code<br class="">
-                *<br class="">
-                * \notes this function requires DRM_MASTER<br class="">
-                */<br class="">
-                int amdgpu_sched_min_priority_get(amdgpu_device_handle
-                dev,<br class="">
-                <span class="Apple-tab-span" style="white-space:pre"></span><span class="Apple-tab-span" style="white-space:pre"></span><span class="Apple-tab-span" style="white-space:pre"></span><span class="Apple-tab-span" style="white-space:pre"></span> int32_t
-                priority);<br class="">
-                <br class="">
-                /**<br class="">
-                * Drop a request to raise the minimum required scheduler
-                priority<br class="">
-                *<br class="">
-                * This call balances amdgpu_sched_min_priority_get()<br
-                  class="">
-                *<br class="">
-                * If no other active requests exists for @priority, the
-                minimum required<br class="">
-                * priority will decay to a lower level until one is
-                reached with an active<br class="">
-                * request or the lowest priority is reached.<br class="">
-                *<br class="">
-                * \param dev             - \c [in] device handle<br
-                  class="">
-                * \param priority        - \c [in] target priority
-                AMDGPU_CTX_PRIORITY_*<br class="">
-                *<br class="">
-                * \return  0 on success\n<br class="">
-                *         &lt;0 - Negative POSIX error code<br class="">
-                *<br class="">
-                * \notes this function requires DRM_MASTER<br class="">
-                */<br class="">
-                int amdgpu_sched_min_priority_put(amdgpu_device_handle
-                dev,<br class="">
-                <span class="Apple-tab-span" style="white-space:pre"></span><span class="Apple-tab-span" style="white-space:pre"></span><span class="Apple-tab-span" style="white-space:pre"></span><span class="Apple-tab-span" style="white-space:pre"></span> int32_t
-                priority);<br class="">
-                <br class="">
-                Using this app, VRComposer can raise the priority of the
-                VRapp and itself. Then<br class="">
-                it can restrict the minimum scheduler priority in order
-                to become exclusive gpu<br class="">
-                clients.<br class="">
-                <br class="">
-                One of the areas I'd like feedback is the following
-                scenario. If a VRapp opens<br class="">
-                a new fd and creates a new context after a call to
-                set_priority, this specific<br class="">
-                context will be lower priority than the rest. If the
-                minimum required priority<br class="">
-                is then raised, it is possible that this new context
-                will be starved and<br class="">
-                deadlock the VRapp.<br class="">
-                <br class="">
-                One solution I had in mind to address this situation, is
-                to make set_priority<br class="">
-                also raise the priority of future contexts created by
-                the VRapp. However, that<br class="">
-                would require keeping track of the requested priority on
-                a per-process data<br class="">
-                structure. The current design appears to steer clean of
-                keeping any process<br class="">
-                specific data, and everything instead of stored on a
-                per-file basis. Which is<br class="">
-                why I did not pursue this approach. But if this is
-                something you'd like me to<br class="">
-                implement let me know.<br class="">
-                <br class="">
-                One could also argue that preventing an application
-                deadlock should be handled<br class="">
-                between the VRComposer and the VRApp. It is not the
-                kernel's responsibility to<br class="">
-                babysit userspace applications and prevent themselves
-                from shooting themselves<br class="">
-                in the foot. The same could be achieved by improper
-                usage of shared fences<br class="">
-                between processes.<br class="">
-                <br class="">
-                Thoughts/feedback/comments on this issue, or others, are
-                appreciated.<br class="">
-                <br class="">
-                Regards,<br class="">
-                Andres<br class="">
-                <br class="">
-                <br class="">
-                _______________________________________________<br
-                  class="">
-                amd-gfx mailing list<br class="">
-                <a href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" class=""
-                  moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br
-                  class="">
-                <a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br
-                  class="">
-              </div>
-            </div>
-          </blockquote>
-        </div>
-        <br class="">
-      </div>
-    </blockquote>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------075E90BA1B8AAEEE1EB8D1D9--
-
---===============0457123253==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0457123253==--
+T24gRnJpLCBNYXkgMjYsIDIwMTcgYXQgMzoyMyBQTSwgU2FtdWVsIExpIDxTYW11ZWwuTGlAYW1k
+LmNvbT4gd3JvdGU6Cj4gRnJvbTogWGlhb2ppZSBZdWFuIDxYaWFvamllLll1YW5AYW1kLmNvbT4K
+Pgo+IHYyOiBmaXggYW4gb2ZmIGJ5IG9uZSBlcnJvciBhbmQgbGVhZGluZyB3aGl0ZSBzcGFjZXMK
+PiB2MzogdXNlIHRocmVhZCBzYWZlIHN0cnRva19yKCk7IGluaXRpYWxpemUgbGVuIGJlZm9yZSBj
+YWxsaW5nIGdldGxpbmUoKTsKPiAgICAgY2hhbmdlIHByaW50ZigpIHRvIGRybU1zZygpOyBhZGQg
+aW5pdGlhbCBhbWRncHUuaWRzCj4KPiBDaGFuZ2UtSWQ6IEkxMjIxNmRhMTQ5MTBmNWUyYjA5NzBi
+YzFmYWZjMmEyMGIwZWYxYmE5Cj4gUmV2aWV3ZWQtYnk6IEp1bndlaSBaaGFuZyA8SmVycnkuWmhh
+bmdAYW1kLmNvbT4KPiBTaWduZWQtb2ZmLWJ5OiBTYW11ZWwgTGkgPFNhbXVlbC5MaUBhbWQuY29t
+Pgo+IC0tLQo+ICBNYWtlZmlsZS5hbSAgICAgICAgICAgICAgfCAgIDMgKwo+ICBhbWRncHUvTWFr
+ZWZpbGUuYW0gICAgICAgfCAgIDIgKwo+ICBhbWRncHUvTWFrZWZpbGUuc291cmNlcyAgfCAgIDIg
+Ky0KPiAgYW1kZ3B1L2FtZGdwdV9hc2ljX2lkLmMgIHwgMTk5ICsrKysrKysrKysrKysrKysrKysr
+KysrKysrKysrKysrKysrKysrKysrKysrKysrCj4gIGFtZGdwdS9hbWRncHVfYXNpY19pZC5oICB8
+IDE2NSAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KPiAgYW1kZ3B1L2Ft
+ZGdwdV9kZXZpY2UuYyAgIHwgIDI4ICsrKysrLS0KPiAgYW1kZ3B1L2FtZGdwdV9pbnRlcm5hbC5o
+IHwgIDEwICsrKwo+ICBpbmNsdWRlL2RybS9hbWRncHUuaWRzICAgfCAxNTQgKysrKysrKysrKysr
+KysrKysrKysrKysrKysrKysrKysrKysrCj4gIDggZmlsZXMgY2hhbmdlZCwgMzkwIGluc2VydGlv
+bnMoKyksIDE3MyBkZWxldGlvbnMoLSkKPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IGFtZGdwdS9hbWRn
+cHVfYXNpY19pZC5jCj4gIGRlbGV0ZSBtb2RlIDEwMDY0NCBhbWRncHUvYW1kZ3B1X2FzaWNfaWQu
+aAo+ICBjcmVhdGUgbW9kZSAxMDA2NDQgaW5jbHVkZS9kcm0vYW1kZ3B1Lmlkcwo+Cj4gZGlmZiAt
+LWdpdCBhL01ha2VmaWxlLmFtIGIvTWFrZWZpbGUuYW0KPiBpbmRleCBkZmI4ZmNkLi44ZGU4ZjZj
+IDEwMDY0NAo+IC0tLSBhL01ha2VmaWxlLmFtCj4gKysrIGIvTWFrZWZpbGUuYW0KPiBAQCAtNDUs
+NiArNDUsOSBAQCBBTV9ESVNUQ0hFQ0tfQ09ORklHVVJFX0ZMQUdTID0gXAo+Cj4gIHBrZ2NvbmZp
+Z2RpciA9IEBwa2djb25maWdkaXJACj4gIHBrZ2NvbmZpZ19EQVRBID0gbGliZHJtLnBjCj4gK2xp
+YmRybWRhdGFkaXIgPSAkKGRhdGFkaXIpL2xpYmRybQo+ICtkaXN0X2xpYmRybWRhdGFfREFUQSA9
+IGluY2x1ZGUvZHJtL2FtZGdwdS5pZHMKPiArZXhwb3J0IGxpYmRybWRhdGFkaXIKPgo+ICBpZiBI
+QVZFX0xJQktNUwo+ICBMSUJLTVNfU1VCRElSID0gbGlia21zCj4gZGlmZiAtLWdpdCBhL2FtZGdw
+dS9NYWtlZmlsZS5hbSBiL2FtZGdwdS9NYWtlZmlsZS5hbQo+IGluZGV4IGNmN2JjMWIuLmRhNzFj
+MWMgMTAwNjQ0Cj4gLS0tIGEvYW1kZ3B1L01ha2VmaWxlLmFtCj4gKysrIGIvYW1kZ3B1L01ha2Vm
+aWxlLmFtCj4gQEAgLTMwLDYgKzMwLDggQEAgQU1fQ0ZMQUdTID0gXAo+ICAgICAgICAgJChQVEhS
+RUFEU1RVQlNfQ0ZMQUdTKSBcCj4gICAgICAgICAtSSQodG9wX3NyY2RpcikvaW5jbHVkZS9kcm0K
+Pgo+ICtBTV9DUFBGTEFHUyA9IC1EQU1ER1BVX0FTSUNfSURfVEFCTEU9XCIke2xpYmRybWRhdGFk
+aXJ9L2FtZGdwdS5pZHNcIgo+ICsKPiAgbGliZHJtX2FtZGdwdV9sYV9MVExJQlJBUklFUyA9IGxp
+YmRybV9hbWRncHUubGEKPiAgbGliZHJtX2FtZGdwdV9sYWRpciA9ICQobGliZGlyKQo+ICBsaWJk
+cm1fYW1kZ3B1X2xhX0xERkxBR1MgPSAtdmVyc2lvbi1udW1iZXIgMTowOjAgLW5vLXVuZGVmaW5l
+ZAo+IGRpZmYgLS1naXQgYS9hbWRncHUvTWFrZWZpbGUuc291cmNlcyBiL2FtZGdwdS9NYWtlZmls
+ZS5zb3VyY2VzCj4gaW5kZXggNDg3YjllMC4uYmMzYWJhYSAxMDA2NDQKPiAtLS0gYS9hbWRncHUv
+TWFrZWZpbGUuc291cmNlcwo+ICsrKyBiL2FtZGdwdS9NYWtlZmlsZS5zb3VyY2VzCj4gQEAgLTEs
+NSArMSw1IEBACj4gIExJQkRSTV9BTURHUFVfRklMRVMgOj0gXAo+IC0gICAgICAgYW1kZ3B1X2Fz
+aWNfaWQuaCBcCj4gKyAgICAgICBhbWRncHVfYXNpY19pZC5jIFwKPiAgICAgICAgIGFtZGdwdV9i
+by5jIFwKPiAgICAgICAgIGFtZGdwdV9jcy5jIFwKPiAgICAgICAgIGFtZGdwdV9kZXZpY2UuYyBc
+Cj4gZGlmZiAtLWdpdCBhL2FtZGdwdS9hbWRncHVfYXNpY19pZC5jIGIvYW1kZ3B1L2FtZGdwdV9h
+c2ljX2lkLmMKPiBuZXcgZmlsZSBtb2RlIDEwMDY0NAo+IGluZGV4IDAwMDAwMDAuLjViNDE1ZTMK
+PiAtLS0gL2Rldi9udWxsCj4gKysrIGIvYW1kZ3B1L2FtZGdwdV9hc2ljX2lkLmMKPiBAQCAtMCww
+ICsxLDE5OSBAQAo+ICsvKgo+ICsgKiBDb3B5cmlnaHQgwqkgMjAxNyBBZHZhbmNlZCBNaWNybyBE
+ZXZpY2VzLCBJbmMuCj4gKyAqIEFsbCBSaWdodHMgUmVzZXJ2ZWQuCj4gKyAqCj4gKyAqIFBlcm1p
+c3Npb24gaXMgaGVyZWJ5IGdyYW50ZWQsIGZyZWUgb2YgY2hhcmdlLCB0byBhbnkgcGVyc29uIG9i
+dGFpbmluZyBhCj4gKyAqIGNvcHkgb2YgdGhpcyBzb2Z0d2FyZSBhbmQgYXNzb2NpYXRlZCBkb2N1
+bWVudGF0aW9uIGZpbGVzICh0aGUgIlNvZnR3YXJlIiksCj4gKyAqIHRvIGRlYWwgaW4gdGhlIFNv
+ZnR3YXJlIHdpdGhvdXQgcmVzdHJpY3Rpb24sIGluY2x1ZGluZyB3aXRob3V0IGxpbWl0YXRpb24K
+PiArICogdGhlIHJpZ2h0cyB0byB1c2UsIGNvcHksIG1vZGlmeSwgbWVyZ2UsIHB1Ymxpc2gsIGRp
+c3RyaWJ1dGUsIHN1YmxpY2Vuc2UsCj4gKyAqIGFuZC9vciBzZWxsIGNvcGllcyBvZiB0aGUgU29m
+dHdhcmUsIGFuZCB0byBwZXJtaXQgcGVyc29ucyB0byB3aG9tIHRoZQo+ICsgKiBTb2Z0d2FyZSBp
+cyBmdXJuaXNoZWQgdG8gZG8gc28sIHN1YmplY3QgdG8gdGhlIGZvbGxvd2luZyBjb25kaXRpb25z
+Ogo+ICsgKgo+ICsgKiBUaGUgYWJvdmUgY29weXJpZ2h0IG5vdGljZSBhbmQgdGhpcyBwZXJtaXNz
+aW9uIG5vdGljZSBzaGFsbCBiZSBpbmNsdWRlZCBpbgo+ICsgKiBhbGwgY29waWVzIG9yIHN1YnN0
+YW50aWFsIHBvcnRpb25zIG9mIHRoZSBTb2Z0d2FyZS4KPiArICoKPiArICogVEhFIFNPRlRXQVJF
+IElTIFBST1ZJREVEICJBUyBJUyIsIFdJVEhPVVQgV0FSUkFOVFkgT0YgQU5ZIEtJTkQsIEVYUFJF
+U1MgT1IKPiArICogSU1QTElFRCwgSU5DTFVESU5HIEJVVCBOT1QgTElNSVRFRCBUTyBUSEUgV0FS
+UkFOVElFUyBPRiBNRVJDSEFOVEFCSUxJVFksCj4gKyAqIEZJVE5FU1MgRk9SIEEgUEFSVElDVUxB
+UiBQVVJQT1NFIEFORCBOT05JTkZSSU5HRU1FTlQuICBJTiBOTyBFVkVOVCBTSEFMTAo+ICsgKiBU
+SEUgQ09QWVJJR0hUIEhPTERFUihTKSBPUiBBVVRIT1IoUykgQkUgTElBQkxFIEZPUiBBTlkgQ0xB
+SU0sIERBTUFHRVMgT1IKPiArICogT1RIRVIgTElBQklMSVRZLCBXSEVUSEVSIElOIEFOIEFDVElP
+TiBPRiBDT05UUkFDVCwgVE9SVCBPUiBPVEhFUldJU0UsCj4gKyAqIEFSSVNJTkcgRlJPTSwgT1VU
+IE9GIE9SIElOIENPTk5FQ1RJT04gV0lUSCBUSEUgU09GVFdBUkUgT1IgVEhFIFVTRSBPUgo+ICsg
+KiBPVEhFUiBERUFMSU5HUyBJTiBUSEUgU09GVFdBUkUuCj4gKyAqCj4gKyAqLwo+ICsKPiArI2lm
+ZGVmIEhBVkVfQ09ORklHX0gKPiArI2luY2x1ZGUgImNvbmZpZy5oIgo+ICsjZW5kaWYKPiArCj4g
+KyNpbmNsdWRlIDxzdGRpby5oPgo+ICsjaW5jbHVkZSA8c3RkbGliLmg+Cj4gKyNpbmNsdWRlIDxz
+dGRpbnQuaD4KPiArI2luY2x1ZGUgPHN0cmluZy5oPgo+ICsjaW5jbHVkZSA8dW5pc3RkLmg+Cj4g
+KyNpbmNsdWRlIDxlcnJuby5oPgo+ICsKPiArI2luY2x1ZGUgInhmODZkcm0uaCIKPiArI2luY2x1
+ZGUgImFtZGdwdV9kcm0uaCIKPiArI2luY2x1ZGUgImFtZGdwdV9pbnRlcm5hbC5oIgo+ICsKPiAr
+c3RhdGljIGludCBwYXJzZV9vbmVfbGluZShjb25zdCBjaGFyICpsaW5lLCBzdHJ1Y3QgYW1kZ3B1
+X2FzaWNfaWQgKmlkKQo+ICt7Cj4gKyAgICAgICBjaGFyICpidWYsICpzYXZlcHRyOwo+ICsgICAg
+ICAgY2hhciAqc19kaWQ7Cj4gKyAgICAgICBjaGFyICpzX3JpZDsKPiArICAgICAgIGNoYXIgKnNf
+bmFtZTsKPiArICAgICAgIGNoYXIgKmVuZHB0cjsKPiArICAgICAgIGludCByID0gMDsKPiArCj4g
+KyAgICAgICBidWYgPSBzdHJkdXAobGluZSk7Cj4gKyAgICAgICBpZiAoIWJ1ZikKPiArICAgICAg
+ICAgICAgICAgcmV0dXJuIC1FTk9NRU07Cj4gKwo+ICsgICAgICAgLyogaWdub3JlIGVtcHR5IGxp
+bmUgYW5kIGNvbW1lbnRlZCBsaW5lICovCj4gKyAgICAgICBpZiAoc3RybGVuKGxpbmUpID09IDAg
+fHwgbGluZVswXSA9PSAnIycpIHsKPiArICAgICAgICAgICAgICAgciA9IC1FQUdBSU47Cj4gKyAg
+ICAgICAgICAgICAgIGdvdG8gb3V0Owo+ICsgICAgICAgfQo+ICsKPiArICAgICAgIC8qIGRldmlj
+ZSBpZCAqLwo+ICsgICAgICAgc19kaWQgPSBzdHJ0b2tfcihidWYsICIsIiwgJnNhdmVwdHIpOwo+
+ICsgICAgICAgaWYgKCFzX2RpZCkgewo+ICsgICAgICAgICAgICAgICByID0gLUVJTlZBTDsKPiAr
+ICAgICAgICAgICAgICAgZ290byBvdXQ7Cj4gKyAgICAgICB9Cj4gKwo+ICsgICAgICAgaWQtPmRp
+ZCA9IHN0cnRvbChzX2RpZCwgJmVuZHB0ciwgMTYpOwo+ICsgICAgICAgaWYgKCplbmRwdHIpIHsK
+PiArICAgICAgICAgICAgICAgciA9IC1FSU5WQUw7Cj4gKyAgICAgICAgICAgICAgIGdvdG8gb3V0
+Owo+ICsgICAgICAgfQo+ICsKPiArICAgICAgIC8qIHJldmlzaW9uIGlkICovCj4gKyAgICAgICBz
+X3JpZCA9IHN0cnRva19yKE5VTEwsICIsIiwgJnNhdmVwdHIpOwo+ICsgICAgICAgaWYgKCFzX3Jp
+ZCkgewo+ICsgICAgICAgICAgICAgICByID0gLUVJTlZBTDsKPiArICAgICAgICAgICAgICAgZ290
+byBvdXQ7Cj4gKyAgICAgICB9Cj4gKwo+ICsgICAgICAgaWQtPnJpZCA9IHN0cnRvbChzX3JpZCwg
+JmVuZHB0ciwgMTYpOwo+ICsgICAgICAgaWYgKCplbmRwdHIpIHsKPiArICAgICAgICAgICAgICAg
+ciA9IC1FSU5WQUw7Cj4gKyAgICAgICAgICAgICAgIGdvdG8gb3V0Owo+ICsgICAgICAgfQo+ICsK
+PiArICAgICAgIC8qIG1hcmtldGluZyBuYW1lICovCj4gKyAgICAgICBzX25hbWUgPSBzdHJ0b2tf
+cihOVUxMLCAiLCIsICZzYXZlcHRyKTsKPiArICAgICAgIGlmICghc19uYW1lKSB7Cj4gKyAgICAg
+ICAgICAgICAgIHIgPSAtRUlOVkFMOwo+ICsgICAgICAgICAgICAgICBnb3RvIG91dDsKPiArICAg
+ICAgIH0KPiArCj4gKyAgICAgICBpZC0+bWFya2V0aW5nX25hbWUgPSBzdHJkdXAoc19uYW1lKTsK
+PiArICAgICAgIGlmIChpZC0+bWFya2V0aW5nX25hbWUgPT0gTlVMTCkgewo+ICsgICAgICAgICAg
+ICAgICByID0gLUVJTlZBTDsKPiArICAgICAgICAgICAgICAgZ290byBvdXQ7Cj4gKyAgICAgICB9
+Cj4gKwo+ICtvdXQ6Cj4gKyAgICAgICBmcmVlKGJ1Zik7Cj4gKwo+ICsgICAgICAgcmV0dXJuIHI7
+Cj4gK30KPiArCj4gK2ludCBhbWRncHVfcGFyc2VfYXNpY19pZHMoc3RydWN0IGFtZGdwdV9hc2lj
+X2lkICoqcF9hc2ljX2lkX3RhYmxlKQo+ICt7Cj4gKyAgICAgICBzdHJ1Y3QgYW1kZ3B1X2FzaWNf
+aWQgKmFzaWNfaWRfdGFibGU7Cj4gKyAgICAgICBzdHJ1Y3QgYW1kZ3B1X2FzaWNfaWQgKmlkOwo+
+ICsgICAgICAgRklMRSAqZnA7Cj4gKyAgICAgICBjaGFyICpsaW5lID0gTlVMTDsKPiArICAgICAg
+IHNpemVfdCBsZW4gPSAwOwo+ICsgICAgICAgc3NpemVfdCBuOwo+ICsgICAgICAgaW50IGxpbmVf
+bnVtID0gMTsKPiArICAgICAgIHNpemVfdCB0YWJsZV9zaXplID0gMDsKPiArICAgICAgIHNpemVf
+dCB0YWJsZV9tYXhfc2l6ZSA9IDI1NjsKPiArICAgICAgIGludCByID0gMDsKPiArCj4gKyAgICAg
+ICBmcCA9IGZvcGVuKEFNREdQVV9BU0lDX0lEX1RBQkxFLCAiciIpOwo+ICsgICAgICAgaWYgKCFm
+cCkgewo+ICsgICAgICAgICAgICAgICBmcHJpbnRmKHN0ZGVyciwgIiVzOiAlc1xuIiwgQU1ER1BV
+X0FTSUNfSURfVEFCTEUsCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzdHJlcnJv
+cihlcnJubykpOwo+ICsgICAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsKPiArICAgICAgIH0K
+PiArCj4gKyAgICAgICBhc2ljX2lkX3RhYmxlID0gY2FsbG9jKHRhYmxlX21heF9zaXplLCBzaXpl
+b2Yoc3RydWN0IGFtZGdwdV9hc2ljX2lkKSk7Cj4gKyAgICAgICBpZiAoIWFzaWNfaWRfdGFibGUp
+IHsKPiArICAgICAgICAgICAgICAgciA9IC1FTk9NRU07Cj4gKyAgICAgICAgICAgICAgIGdvdG8g
+Y2xvc2U7Cj4gKyAgICAgICB9Cj4gKwo+ICsgICAgICAgLyogMXN0IGxpbmUgaXMgZmlsZSB2ZXJz
+aW9uICovCj4gKyAgICAgICBpZiAoKG4gPSBnZXRsaW5lKCZsaW5lLCAmbGVuLCBmcCkpICE9IC0x
+KSB7Cj4gKyAgICAgICAgICAgICAgIC8qIHRyaW0gdHJhaWxpbmcgbmV3bGluZSAqLwo+ICsgICAg
+ICAgICAgICAgICBpZiAobGluZVtuIC0gMV0gPT0gJ1xuJykKPiArICAgICAgICAgICAgICAgICAg
+ICAgICBsaW5lW24gLSAxXSA9ICdcMCc7Cj4gKyAgICAgICAgICAgICAgIGRybU1zZygiJXMgdmVy
+c2lvbjogJXNcbiIsIEFNREdQVV9BU0lDX0lEX1RBQkxFLCBsaW5lKTsKPiArICAgICAgIH0gZWxz
+ZSB7Cj4gKyAgICAgICAgICAgICAgIGdvdG8gZnJlZTsKPiArICAgICAgIH0KPiArCj4gKyAgICAg
+ICB3aGlsZSAoKG4gPSBnZXRsaW5lKCZsaW5lLCAmbGVuLCBmcCkpICE9IC0xKSB7Cj4gKyAgICAg
+ICAgICAgICAgIGlkID0gYXNpY19pZF90YWJsZSArIHRhYmxlX3NpemU7Cj4gKwo+ICsgICAgICAg
+ICAgICAgICAvKiB0cmltIHRyYWlsaW5nIG5ld2xpbmUgKi8KPiArICAgICAgICAgICAgICAgaWYg
+KGxpbmVbbiAtIDFdID09ICdcbicpCj4gKyAgICAgICAgICAgICAgICAgICAgICAgbGluZVtuIC0g
+MV0gPSAnXDAnOwo+ICsKPiArICAgICAgICAgICAgICAgLyoKPiArICAgICAgICAgICAgICAgICog
+cGFyc2Ugb25lIGxpbmUsIGl0cyBmb3JtYXQgbG9va3MgbGlrZToKPiArICAgICAgICAgICAgICAg
+ICogNjYxNyxDNyxBTUQgUmFkZW9uIFI3IDI0MCBTZXJpZXMKPiArICAgICAgICAgICAgICAgICov
+Cj4gKyAgICAgICAgICAgICAgIHIgPSBwYXJzZV9vbmVfbGluZShsaW5lLCBpZCk7Cj4gKyAgICAg
+ICAgICAgICAgIGlmIChyKSB7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgaWYgKHIgPT0gLUVB
+R0FJTikgewo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbGluZV9udW0rKzsKPiAr
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbnRpbnVlOwo+ICsgICAgICAgICAgICAg
+ICAgICAgICAgIH0KPiArICAgICAgICAgICAgICAgICAgICAgICBmcHJpbnRmKHN0ZGVyciwgIklu
+dmFsaWQgZm9ybWF0OiAlczogbGluZSAlZDogJXNcbiIsCj4gKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIEFNREdQVV9BU0lDX0lEX1RBQkxFLCBsaW5lX251bSwgbGluZSk7
+Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgZ290byBmcmVlOwo+ICsgICAgICAgICAgICAgICB9
+Cj4gKwo+ICsgICAgICAgICAgICAgICBsaW5lX251bSsrOwo+ICsgICAgICAgICAgICAgICB0YWJs
+ZV9zaXplKys7Cj4gKwo+ICsgICAgICAgICAgICAgICBpZiAodGFibGVfc2l6ZSA+PSB0YWJsZV9t
+YXhfc2l6ZSkgewo+ICsgICAgICAgICAgICAgICAgICAgICAgIC8qIGRvdWJsZSB0YWJsZSBzaXpl
+ICovCj4gKyAgICAgICAgICAgICAgICAgICAgICAgdGFibGVfbWF4X3NpemUgKj0gMjsKPiArICAg
+ICAgICAgICAgICAgICAgICAgICBhc2ljX2lkX3RhYmxlID0gcmVhbGxvYyhhc2ljX2lkX3RhYmxl
+LCB0YWJsZV9tYXhfc2l6ZSAqCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHNpemVvZihzdHJ1Y3QgYW1kZ3B1X2FzaWNfaWQpKTsKPiArICAgICAgICAgICAgICAgICAg
+ICAgICBpZiAoIWFzaWNfaWRfdGFibGUpIHsKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHIgPSAtRU5PTUVNOwo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZ290byBm
+cmVlOwo+ICsgICAgICAgICAgICAgICAgICAgICAgIH0KPiArICAgICAgICAgICAgICAgfQo+ICsg
+ICAgICAgfQo+ICsKPiArICAgICAgIC8qIGVuZCBvZiB0YWJsZSAqLwo+ICsgICAgICAgaWQgPSBh
+c2ljX2lkX3RhYmxlICsgdGFibGVfc2l6ZTsKPiArICAgICAgIG1lbXNldChpZCwgMCwgc2l6ZW9m
+KHN0cnVjdCBhbWRncHVfYXNpY19pZCkpOwo+ICsKPiArZnJlZToKPiArICAgICAgIGZyZWUobGlu
+ZSk7Cj4gKwo+ICsgICAgICAgaWYgKHIgJiYgYXNpY19pZF90YWJsZSkgewo+ICsgICAgICAgICAg
+ICAgICB3aGlsZSAodGFibGVfc2l6ZS0tKSB7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgaWQg
+PSBhc2ljX2lkX3RhYmxlICsgdGFibGVfc2l6ZTsKPiArICAgICAgICAgICAgICAgICAgICAgICBp
+ZiAoaWQtPm1hcmtldGluZ19uYW1lICE9ICBOVUxMKQo+ICsgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgZnJlZShpZC0+bWFya2V0aW5nX25hbWUpOwo+ICsgICAgICAgICAgICAgICB9Cj4g
+KyAgICAgICAgICAgICAgIGZyZWUoYXNpY19pZF90YWJsZSk7Cj4gKyAgICAgICAgICAgICAgIGFz
+aWNfaWRfdGFibGUgPSBOVUxMOwo+ICsgICAgICAgfQo+ICtjbG9zZToKPiArICAgICAgIGZjbG9z
+ZShmcCk7Cj4gKwo+ICsgICAgICAgKnBfYXNpY19pZF90YWJsZSA9IGFzaWNfaWRfdGFibGU7Cj4g
+Kwo+ICsgICAgICAgcmV0dXJuIHI7Cj4gK30KPiBkaWZmIC0tZ2l0IGEvYW1kZ3B1L2FtZGdwdV9h
+c2ljX2lkLmggYi9hbWRncHUvYW1kZ3B1X2FzaWNfaWQuaAo+IGRlbGV0ZWQgZmlsZSBtb2RlIDEw
+MDY0NAo+IGluZGV4IDNlN2Q3MzYuLjAwMDAwMDAKPiAtLS0gYS9hbWRncHUvYW1kZ3B1X2FzaWNf
+aWQuaAo+ICsrKyAvZGV2L251bGwKPiBAQCAtMSwxNjUgKzAsMCBAQAo+IC0vKgo+IC0gKiBDb3B5
+cmlnaHQgwqkgMjAxNiBBZHZhbmNlZCBNaWNybyBEZXZpY2VzLCBJbmMuCj4gLSAqIEFsbCBSaWdo
+dHMgUmVzZXJ2ZWQuCj4gLSAqCj4gLSAqIFBlcm1pc3Npb24gaXMgaGVyZWJ5IGdyYW50ZWQsIGZy
+ZWUgb2YgY2hhcmdlLCB0byBhbnkgcGVyc29uIG9idGFpbmluZyBhCj4gLSAqIGNvcHkgb2YgdGhp
+cyBzb2Z0d2FyZSBhbmQgYXNzb2NpYXRlZCBkb2N1bWVudGF0aW9uIGZpbGVzICh0aGUgIlNvZnR3
+YXJlIiksCj4gLSAqIHRvIGRlYWwgaW4gdGhlIFNvZnR3YXJlIHdpdGhvdXQgcmVzdHJpY3Rpb24s
+IGluY2x1ZGluZyB3aXRob3V0IGxpbWl0YXRpb24KPiAtICogdGhlIHJpZ2h0cyB0byB1c2UsIGNv
+cHksIG1vZGlmeSwgbWVyZ2UsIHB1Ymxpc2gsIGRpc3RyaWJ1dGUsIHN1YmxpY2Vuc2UsCj4gLSAq
+IGFuZC9vciBzZWxsIGNvcGllcyBvZiB0aGUgU29mdHdhcmUsIGFuZCB0byBwZXJtaXQgcGVyc29u
+cyB0byB3aG9tIHRoZQo+IC0gKiBTb2Z0d2FyZSBpcyBmdXJuaXNoZWQgdG8gZG8gc28sIHN1Ympl
+Y3QgdG8gdGhlIGZvbGxvd2luZyBjb25kaXRpb25zOgo+IC0gKgo+IC0gKiBUaGUgYWJvdmUgY29w
+eXJpZ2h0IG5vdGljZSBhbmQgdGhpcyBwZXJtaXNzaW9uIG5vdGljZSBzaGFsbCBiZSBpbmNsdWRl
+ZCBpbgo+IC0gKiBhbGwgY29waWVzIG9yIHN1YnN0YW50aWFsIHBvcnRpb25zIG9mIHRoZSBTb2Z0
+d2FyZS4KPiAtICoKPiAtICogVEhFIFNPRlRXQVJFIElTIFBST1ZJREVEICJBUyBJUyIsIFdJVEhP
+VVQgV0FSUkFOVFkgT0YgQU5ZIEtJTkQsIEVYUFJFU1MgT1IKPiAtICogSU1QTElFRCwgSU5DTFVE
+SU5HIEJVVCBOT1QgTElNSVRFRCBUTyBUSEUgV0FSUkFOVElFUyBPRiBNRVJDSEFOVEFCSUxJVFks
+Cj4gLSAqIEZJVE5FU1MgRk9SIEEgUEFSVElDVUxBUiBQVVJQT1NFIEFORCBOT05JTkZSSU5HRU1F
+TlQuICBJTiBOTyBFVkVOVCBTSEFMTAo+IC0gKiBUSEUgQ09QWVJJR0hUIEhPTERFUihTKSBPUiBB
+VVRIT1IoUykgQkUgTElBQkxFIEZPUiBBTlkgQ0xBSU0sIERBTUFHRVMgT1IKPiAtICogT1RIRVIg
+TElBQklMSVRZLCBXSEVUSEVSIElOIEFOIEFDVElPTiBPRiBDT05UUkFDVCwgVE9SVCBPUiBPVEhF
+UldJU0UsCj4gLSAqIEFSSVNJTkcgRlJPTSwgT1VUIE9GIE9SIElOIENPTk5FQ1RJT04gV0lUSCBU
+SEUgU09GVFdBUkUgT1IgVEhFIFVTRSBPUgo+IC0gKiBPVEhFUiBERUFMSU5HUyBJTiBUSEUgU09G
+VFdBUkUuCj4gLSAqCj4gLSAqLwo+IC0KPiAtI2lmbmRlZiBfX0FNREdQVV9BU0lDX0lEX0hfXwo+
+IC0jZGVmaW5lIF9fQU1ER1BVX0FTSUNfSURfSF9fCj4gLQo+IC1zdGF0aWMgc3RydWN0IGFtZGdw
+dV9hc2ljX2lkX3RhYmxlX3Qgewo+IC0gICAgICAgdWludDMyX3QgZGlkOwo+IC0gICAgICAgdWlu
+dDMyX3QgcmlkOwo+IC0gICAgICAgY29uc3QgY2hhciAqbWFya2V0aW5nX25hbWU7Cj4gLX0gY29u
+c3QgYW1kZ3B1X2FzaWNfaWRfdGFibGUgW10gPSB7Cj4gLSAgICAgICB7MHg2NjAwLCAgICAgICAg
+MHgwLCAgICAiQU1EIFJhZGVvbiBIRCA4NjAwLzg3MDBNIn0sCj4gLSAgICAgICB7MHg2NjAwLCAg
+ICAgICAgMHg4MSwgICAiQU1EIFJhZGVvbiBSNyBNMzcwIn0sCj4gLSAgICAgICB7MHg2NjAxLCAg
+ICAgICAgMHgwLCAgICAiQU1EIFJhZGVvbiBIRCA4NTAwTS84NzAwTSJ9LAo+IC0gICAgICAgezB4
+NjYwNCwgICAgICAgIDB4MCwgICAgIkFNRCBSYWRlb24gUjcgTTI2NSBTZXJpZXMifSwKPiAtICAg
+ICAgIHsweDY2MDQsICAgICAgICAweDgxLCAgICJBTUQgUmFkZW9uIFI3IE0zNTAifSwKPiAtICAg
+ICAgIHsweDY2MDUsICAgICAgICAweDAsICAgICJBTUQgUmFkZW9uIFI3IE0yNjAgU2VyaWVzIn0s
+Cj4gLSAgICAgICB7MHg2NjA1LCAgICAgICAgMHg4MSwgICAiQU1EIFJhZGVvbiBSNyBNMzQwIn0s
+Cj4gLSAgICAgICB7MHg2NjA2LCAgICAgICAgMHgwLCAgICAiQU1EIFJhZGVvbiBIRCA4NzkwTSJ9
+LAo+IC0gICAgICAgezB4NjYwNywgICAgICAgIDB4MCwgICAgIkFNRCBSYWRlb24gSEQ4NTMwTSJ9
+LAo+IC0gICAgICAgezB4NjYwOCwgICAgICAgIDB4MCwgICAgIkFNRCBGaXJlUHJvIFcyMTAwIn0s
+Cj4gLSAgICAgICB7MHg2NjEwLCAgICAgICAgMHgwLCAgICAiQU1EIFJhZGVvbiBIRCA4NjAwIFNl
+cmllcyJ9LAo+IC0gICAgICAgezB4NjYxMCwgICAgICAgIDB4ODEsICAgIkFNRCBSYWRlb24gUjcg
+MzUwIn0sCj4gLSAgICAgICB7MHg2NjEwLCAgICAgICAgMHg4MywgICAiQU1EIFJhZGVvbiBSNSAz
+NDAifSwKPiAtICAgICAgIHsweDY2MTEsICAgICAgICAweDAsICAgICJBTUQgUmFkZW9uIEhEIDg1
+MDAgU2VyaWVzIn0sCj4gLSAgICAgICB7MHg2NjEzLCAgICAgICAgMHgwLCAgICAiQU1EIFJhZGVv
+biBIRCA4NTAwIHNlcmllcyJ9LAo+IC0gICAgICAgezB4NjYxNywgICAgICAgIDB4QzcsICAgIkFN
+RCBSYWRlb24gUjcgMjQwIFNlcmllcyJ9LAo+IC0gICAgICAgezB4NjY0MCwgICAgICAgIDB4MCwg
+ICAgIkFNRCBSYWRlb24gSEQgODk1MCJ9LAo+IC0gICAgICAgezB4NjY0MCwgICAgICAgIDB4ODAs
+ICAgIkFNRCBSYWRlb24gUjkgTTM4MCJ9LAo+IC0gICAgICAgezB4NjY0NiwgICAgICAgIDB4MCwg
+ICAgIkFNRCBSYWRlb24gUjkgTTI4MFgifSwKPiAtICAgICAgIHsweDY2NDYsICAgICAgICAweDgw
+LCAgICJBTUQgUmFkZW9uIFI5IE00NzBYIn0sCj4gLSAgICAgICB7MHg2NjQ3LCAgICAgICAgMHgw
+LCAgICAiQU1EIFJhZGVvbiBSOSBNMjcwWCJ9LAo+IC0gICAgICAgezB4NjY0NywgICAgICAgIDB4
+ODAsICAgIkFNRCBSYWRlb24gUjkgTTM4MCJ9LAo+IC0gICAgICAgezB4NjY0OSwgICAgICAgIDB4
+MCwgICAgIkFNRCBGaXJlUHJvIFc1MTAwIn0sCj4gLSAgICAgICB7MHg2NjU4LCAgICAgICAgMHgw
+LCAgICAiQU1EIFJhZGVvbiBSNyAyMDAgU2VyaWVzIn0sCj4gLSAgICAgICB7MHg2NjVDLCAgICAg
+ICAgMHgwLCAgICAiQU1EIFJhZGVvbiBIRCA3NzAwIFNlcmllcyJ9LAo+IC0gICAgICAgezB4NjY1
+RCwgICAgICAgIDB4MCwgICAgIkFNRCBSYWRlb24gUjcgMjAwIFNlcmllcyJ9LAo+IC0gICAgICAg
+ezB4NjY1RiwgICAgICAgIDB4ODEsICAgIkFNRCBSYWRlb24gUjcgMzAwIFNlcmllcyJ9LAo+IC0g
+ICAgICAgezB4NjY2MCwgICAgICAgIDB4MCwgICAgIkFNRCBSYWRlb24gSEQgODYwME0gU2VyaWVz
+In0sCj4gLSAgICAgICB7MHg2NjYwLCAgICAgICAgMHg4MSwgICAiQU1EIFJhZGVvbiBSNSBNMzM1
+In0sCj4gLSAgICAgICB7MHg2NjYwLCAgICAgICAgMHg4MywgICAiQU1EIFJhZGVvbiBSNSBNMzMw
+In0sCj4gLSAgICAgICB7MHg2NjYzLCAgICAgICAgMHgwLCAgICAiQU1EIFJhZGVvbiBIRCA4NTAw
+TSBTZXJpZXMifSwKPiAtICAgICAgIHsweDY2NjMsICAgICAgICAweDgzLCAgICJBTUQgUmFkZW9u
+IFI1IE0zMjAifSwKPiAtICAgICAgIHsweDY2NjQsICAgICAgICAweDAsICAgICJBTUQgUmFkZW9u
+IFI1IE0yMDAgU2VyaWVzIn0sCj4gLSAgICAgICB7MHg2NjY1LCAgICAgICAgMHgwLCAgICAiQU1E
+IFJhZGVvbiBSNSBNMjAwIFNlcmllcyJ9LAo+IC0gICAgICAgezB4NjY2NSwgICAgICAgIDB4ODMs
+ICAgIkFNRCBSYWRlb24gUjUgTTMyMCJ9LAo+IC0gICAgICAgezB4NjY2NywgICAgICAgIDB4MCwg
+ICAgIkFNRCBSYWRlb24gUjUgTTIwMCBTZXJpZXMifSwKPiAtICAgICAgIHsweDY2NkYsICAgICAg
+ICAweDAsICAgICJBTUQgUmFkZW9uIEhEIDg1MDBNIn0sCj4gLSAgICAgICB7MHg2NzgwLCAgICAg
+ICAgMHgwLCAgICAiQVRJIEZpcmVQcm8gViAoRmlyZUdMIFYpIEdyYXBoaWNzIEFkYXB0ZXIifSwK
+PiAtICAgICAgIHsweDY3OEEsICAgICAgICAweDAsICAgICJBVEkgRmlyZVBybyBWIChGaXJlR0wg
+VikgR3JhcGhpY3MgQWRhcHRlciJ9LAo+IC0gICAgICAgezB4Njc5OCwgICAgICAgIDB4MCwgICAg
+IkFNRCBSYWRlb24gSEQgNzkwMCBTZXJpZXMifSwKPiAtICAgICAgIHsweDY3OUEsICAgICAgICAw
+eDAsICAgICJBTUQgUmFkZW9uIEhEIDc5MDAgU2VyaWVzIn0sCj4gLSAgICAgICB7MHg2NzlCLCAg
+ICAgICAgMHgwLCAgICAiQU1EIFJhZGVvbiBIRCA3OTAwIFNlcmllcyJ9LAo+IC0gICAgICAgezB4
+Njc5RSwgICAgICAgIDB4MCwgICAgIkFNRCBSYWRlb24gSEQgNzgwMCBTZXJpZXMifSwKPiAtICAg
+ICAgIHsweDY3QTAsICAgICAgICAweDAsICAgICJIQVdBSUkgWFRHTCAoNjdBMCkifSwKPiAtICAg
+ICAgIHsweDY3QTEsICAgICAgICAweDAsICAgICJIQVdBSUkgR0w0MCAoNjdBMSkifSwKPiAtICAg
+ICAgIHsweDY3QjAsICAgICAgICAweDAsICAgICJBTUQgUmFkZW9uIFI5IDIwMCBTZXJpZXMifSwK
+PiAtICAgICAgIHsweDY3QjAsICAgICAgICAweDgwLCAgICJBTUQgUmFkZW9uIFI5IDM5MCBTZXJp
+ZXMifSwKPiAtICAgICAgIHsweDY3QjEsICAgICAgICAweDAsICAgICJBTUQgUmFkZW9uIFI5IDIw
+MCBTZXJpZXMifSwKPiAtICAgICAgIHsweDY3QjEsICAgICAgICAweDgwLCAgICJBTUQgUmFkZW9u
+IFI5IDM5MCBTZXJpZXMifSwKPiAtICAgICAgIHsweDY3QjksICAgICAgICAweDAsICAgICJBTUQg
+UmFkZW9uIFI5IDIwMCBTZXJpZXMifSwKPiAtICAgICAgIHsweDY3REYsICAgICAgICAweEM0LCAg
+ICJBTUQgUmFkZW9uIFJYIDQ4MCBHcmFwaGljcyJ9LAo+IC0gICAgICAgezB4NjdERiwgICAgICAg
+IDB4QzUsICAgIkFNRCBSYWRlb24gUlggNDcwIEdyYXBoaWNzIn0sCj4gLSAgICAgICB7MHg2N0RG
+LCAgICAgICAgMHhDNywgICAiQU1EIFJhZGVvbiBSWCA0ODAgR3JhcGhpY3MifSwKPiAtICAgICAg
+IHsweDY3REYsICAgICAgICAweENGLCAgICJBTUQgUmFkZW9uIFJYIDQ3MCBHcmFwaGljcyJ9LAo+
+IC0gICAgICAgezB4NjdDNCwgICAgICAgIDB4MDAsICAgIkFNRCBSYWRlb24gUHJvIFdYIDcxMDAg
+R3JhcGhpY3MifSwKPiAtICAgICAgIHsweDY3QzcsICAgICAgICAweDAwLCAgICJBTUQgUmFkZW9u
+IFBybyBXWCA1MTAwIEdyYXBoaWNzIn0sCj4gLSAgICAgICB7MHg2N0MwLCAgICAgICAgMHgwMCwg
+ICAiQU1EIFJhZGVvbiBQcm8gV1ggNzEwMCBHcmFwaGljcyJ9LAo+IC0gICAgICAgezB4NjdFMCwg
+ICAgICAgIDB4MDAsICAgIkFNRCBSYWRlb24gUHJvIFdYIFNlcmllcyBHcmFwaGljcyJ9LAo+IC0g
+ICAgICAgezB4NjdFMywgICAgICAgIDB4MDAsICAgIkFNRCBSYWRlb24gUHJvIFdYIDQxMDAgR3Jh
+cGhpY3MifSwKPiAtICAgICAgIHsweDY3RTgsICAgICAgICAweDAwLCAgICJBTUQgUmFkZW9uIFBy
+byBXWCBTZXJpZXMgR3JhcGhpY3MifSwKPiAtICAgICAgIHsweDY3RTgsICAgICAgICAweDAxLCAg
+ICJBTUQgUmFkZW9uIFBybyBXWCBTZXJpZXMgR3JhcGhpY3MifSwKPiAtICAgICAgIHsweDY3RTgs
+ICAgICAgICAweDgwLCAgICJBTUQgUmFkZW9uIEU5MjYwIEdyYXBoaWNzIn0sCj4gLSAgICAgICB7
+MHg2N0VCLCAgICAgICAgMHgwMCwgICAiQU1EIFJhZGVvbiBQcm8gV1ggU2VyaWVzIEdyYXBoaWNz
+In0sCj4gLSAgICAgICB7MHg2N0VGLCAgICAgICAgMHhDMCwgICAiQU1EIFJhZGVvbiBSWCBHcmFw
+aGljcyJ9LAo+IC0gICAgICAgezB4NjdFRiwgICAgICAgIDB4QzEsICAgIkFNRCBSYWRlb24gUlgg
+NDYwIEdyYXBoaWNzIn0sCj4gLSAgICAgICB7MHg2N0VGLCAgICAgICAgMHhDNSwgICAiQU1EIFJh
+ZGVvbiBSWCA0NjAgR3JhcGhpY3MifSwKPiAtICAgICAgIHsweDY3RUYsICAgICAgICAweEM3LCAg
+ICJBTUQgUmFkZW9uIFJYIEdyYXBoaWNzIn0sCj4gLSAgICAgICB7MHg2N0VGLCAgICAgICAgMHhD
+RiwgICAiQU1EIFJhZGVvbiBSWCA0NjAgR3JhcGhpY3MifSwKPiAtICAgICAgIHsweDY3RUYsICAg
+ICAgICAweEVGLCAgICJBTUQgUmFkZW9uIFJYIEdyYXBoaWNzIn0sCj4gLSAgICAgICB7MHg2N0ZG
+LCAgICAgICAgMHhDMCwgICAiQU1EIFJhZGVvbiBSWCBHcmFwaGljcyJ9LAo+IC0gICAgICAgezB4
+NjdGRiwgICAgICAgIDB4QzEsICAgIkFNRCBSYWRlb24gUlggR3JhcGhpY3MifSwKPiAtICAgICAg
+IHsweDY4MDAsICAgICAgICAweDAsICAgICJBTUQgUmFkZW9uIEhEIDc5NzBNIn0sCj4gLSAgICAg
+ICB7MHg2ODAxLCAgICAgICAgMHgwLCAgICAiQU1EIFJhZGVvbihUTSkgSEQ4OTcwTSJ9LAo+IC0g
+ICAgICAgezB4NjgwOCwgICAgICAgIDB4MCwgICAgIkFUSSBGaXJlUHJvIFYoRmlyZUdMIFYpIEdy
+YXBoaWNzIEFkYXB0ZXIifSwKPiAtICAgICAgIHsweDY4MDksICAgICAgICAweDAsICAgICJBVEkg
+RmlyZVBybyBWKEZpcmVHTCBWKSBHcmFwaGljcyBBZGFwdGVyIn0sCj4gLSAgICAgICB7MHg2ODEw
+LCAgICAgICAgMHgwLCAgICAiQU1EIFJhZGVvbihUTSkgSEQgODgwMCBTZXJpZXMifSwKPiAtICAg
+ICAgIHsweDY4MTAsICAgICAgICAweDgxLCAgICJBTUQgUmFkZW9uIFI3IDM3MCBTZXJpZXMifSwK
+PiAtICAgICAgIHsweDY4MTEsICAgICAgICAweDAsICAgICJBTUQgUmFkZW9uKFRNKSBIRDg4MDAg
+U2VyaWVzIn0sCj4gLSAgICAgICB7MHg2ODExLCAgICAgICAgMHg4MSwgICAiQU1EIFJhZGVvbiBS
+NyAzMDAgU2VyaWVzIn0sCj4gLSAgICAgICB7MHg2ODE4LCAgICAgICAgMHgwLCAgICAiQU1EIFJh
+ZGVvbiBIRCA3ODAwIFNlcmllcyJ9LAo+IC0gICAgICAgezB4NjgxOSwgICAgICAgIDB4MCwgICAg
+IkFNRCBSYWRlb24gSEQgNzgwMCBTZXJpZXMifSwKPiAtICAgICAgIHsweDY4MjAsICAgICAgICAw
+eDAsICAgICJBTUQgUmFkZW9uIEhEIDg4MDBNIFNlcmllcyJ9LAo+IC0gICAgICAgezB4NjgyMCwg
+ICAgICAgIDB4ODEsICAgIkFNRCBSYWRlb24gUjkgTTM3NSJ9LAo+IC0gICAgICAgezB4NjgyMCwg
+ICAgICAgIDB4ODMsICAgIkFNRCBSYWRlb24gUjkgTTM3NVgifSwKPiAtICAgICAgIHsweDY4MjEs
+ICAgICAgICAweDAsICAgICJBTUQgUmFkZW9uIEhEIDg4MDBNIFNlcmllcyJ9LAo+IC0gICAgICAg
+ezB4NjgyMSwgICAgICAgIDB4ODcsICAgIkFNRCBSYWRlb24gUjcgTTM4MCJ9LAo+IC0gICAgICAg
+ezB4NjgyMSwgICAgICAgIDB4ODMsICAgIkFNRCBSYWRlb24gUjkgTTM3MFgifSwKPiAtICAgICAg
+IHsweDY4MjIsICAgICAgICAweDAsICAgICJBTUQgUmFkZW9uIEU4ODYwIn0sCj4gLSAgICAgICB7
+MHg2ODIzLCAgICAgICAgMHgwLCAgICAiQU1EIFJhZGVvbiBIRCA4ODAwTSBTZXJpZXMifSwKPiAt
+ICAgICAgIHsweDY4MjUsICAgICAgICAweDAsICAgICJBTUQgUmFkZW9uIEhEIDc4MDBNIFNlcmll
+cyJ9LAo+IC0gICAgICAgezB4NjgyNywgICAgICAgIDB4MCwgICAgIkFNRCBSYWRlb24gSEQgNzgw
+ME0gU2VyaWVzIn0sCj4gLSAgICAgICB7MHg2ODI4LCAgICAgICAgMHgwLCAgICAiQVRJIEZpcmVQ
+cm8gVihGaXJlR0wgVikgR3JhcGhpY3MgQWRhcHRlciJ9LAo+IC0gICAgICAgezB4NjgyQiwgICAg
+ICAgIDB4MCwgICAgIkFNRCBSYWRlb24gSEQgODgwME0gU2VyaWVzIn0sCj4gLSAgICAgICB7MHg2
+ODJCLCAgICAgICAgMHg4NywgICAiQU1EIFJhZGVvbiBSOSBNMzYwIn0sCj4gLSAgICAgICB7MHg2
+ODJDLCAgICAgICAgMHgwLCAgICAiQU1EIEZpcmVQcm8gVzQxMDAifSwKPiAtICAgICAgIHsweDY4
+MkQsICAgICAgICAweDAsICAgICJBTUQgUmFkZW9uIEhEIDc3MDBNIFNlcmllcyJ9LAo+IC0gICAg
+ICAgezB4NjgyRiwgICAgICAgIDB4MCwgICAgIkFNRCBSYWRlb24gSEQgNzcwME0gU2VyaWVzIn0s
+Cj4gLSAgICAgICB7MHg2ODM1LCAgICAgICAgMHgwLCAgICAiQU1EIFJhZGVvbiBSNyBTZXJpZXMg
+LyBIRCA5MDAwIFNlcmllcyJ9LAo+IC0gICAgICAgezB4NjgzNywgICAgICAgIDB4MCwgICAgIkFN
+RCBSYWRlb24gSEQ3NzAwIFNlcmllcyJ9LAo+IC0gICAgICAgezB4NjgzRCwgICAgICAgIDB4MCwg
+ICAgIkFNRCBSYWRlb24gSEQgNzcwMCBTZXJpZXMifSwKPiAtICAgICAgIHsweDY4M0YsICAgICAg
+ICAweDAsICAgICJBTUQgUmFkZW9uIEhEIDc3MDAgU2VyaWVzIn0sCj4gLSAgICAgICB7MHg2OTAw
+LCAgICAgICAgMHgwLCAgICAiQU1EIFJhZGVvbiBSNyBNMjYwIn0sCj4gLSAgICAgICB7MHg2OTAw
+LCAgICAgICAgMHg4MSwgICAiQU1EIFJhZGVvbiBSNyBNMzYwIn0sCj4gLSAgICAgICB7MHg2OTAw
+LCAgICAgICAgMHg4MywgICAiQU1EIFJhZGVvbiBSNyBNMzQwIn0sCj4gLSAgICAgICB7MHg2OTAx
+LCAgICAgICAgMHgwLCAgICAiQU1EIFJhZGVvbiBSNSBNMjU1In0sCj4gLSAgICAgICB7MHg2OTA3
+LCAgICAgICAgMHgwLCAgICAiQU1EIFJhZGVvbiBSNSBNMjU1In0sCj4gLSAgICAgICB7MHg2OTA3
+LCAgICAgICAgMHg4NywgICAiQU1EIFJhZGVvbiBSNSBNMzE1In0sCj4gLSAgICAgICB7MHg2OTIw
+LCAgICAgICAgMHgwLCAgICAiQU1EIFJhZGVvbiBSOSBNMzk1WCJ9LAo+IC0gICAgICAgezB4Njky
+MCwgICAgICAgIDB4MSwgICAgIkFNRCBSYWRlb24gUjkgTTM5MFgifSwKPiAtICAgICAgIHsweDY5
+MjEsICAgICAgICAweDAsICAgICJBTUQgUmFkZW9uIFI5IE0yOTVYIn0sCj4gLSAgICAgICB7MHg2
+OTI5LCAgICAgICAgMHgwLCAgICAiQU1EIEZpcmVQcm8gUzcxNTAifSwKPiAtICAgICAgIHsweDY5
+MkIsICAgICAgICAweDAsICAgICJBTUQgRmlyZVBybyBXNzEwMCJ9LAo+IC0gICAgICAgezB4Njkz
+OCwgICAgICAgIDB4MCwgICAgIkFNRCBSYWRlb24gUjkgMjAwIFNlcmllcyJ9LAo+IC0gICAgICAg
+ezB4NjkzOCwgICAgICAgIDB4RjAsICAgIkFNRCBSYWRlb24gUjkgMjAwIFNlcmllcyJ9LAo+IC0g
+ICAgICAgezB4NjkzOCwgICAgICAgIDB4RjEsICAgIkFNRCBSYWRlb24gUjkgMzgwIFNlcmllcyJ9
+LAo+IC0gICAgICAgezB4NjkzOSwgICAgICAgIDB4RjAsICAgIkFNRCBSYWRlb24gUjkgMjAwIFNl
+cmllcyJ9LAo+IC0gICAgICAgezB4NjkzOSwgICAgICAgIDB4MCwgICAgIkFNRCBSYWRlb24gUjkg
+MjAwIFNlcmllcyJ9LAo+IC0gICAgICAgezB4NjkzOSwgICAgICAgIDB4RjEsICAgIkFNRCBSYWRl
+b24gUjkgMzgwIFNlcmllcyJ9LAo+IC0gICAgICAgezB4NzMwMCwgICAgICAgIDB4QzgsICAgIkFN
+RCBSYWRlb24gUjkgRnVyeSBTZXJpZXMifSwKPiAtICAgICAgIHsweDczMDAsICAgICAgICAweENC
+LCAgICJBTUQgUmFkZW9uIFI5IEZ1cnkgU2VyaWVzIn0sCj4gLSAgICAgICB7MHg3MzAwLCAgICAg
+ICAgMHhDQSwgICAiQU1EIFJhZGVvbiBSOSBGdXJ5IFNlcmllcyJ9LAo+IC0gICAgICAgezB4OTg3
+NCwgICAgICAgIDB4QzQsICAgIkFNRCBSYWRlb24gUjcgR3JhcGhpY3MifSwKPiAtICAgICAgIHsw
+eDk4NzQsICAgICAgICAweEM1LCAgICJBTUQgUmFkZW9uIFI2IEdyYXBoaWNzIn0sCj4gLSAgICAg
+ICB7MHg5ODc0LCAgICAgICAgMHhDNiwgICAiQU1EIFJhZGVvbiBSNiBHcmFwaGljcyJ9LAo+IC0g
+ICAgICAgezB4OTg3NCwgICAgICAgIDB4QzcsICAgIkFNRCBSYWRlb24gUjUgR3JhcGhpY3MifSwK
+PiAtICAgICAgIHsweDk4NzQsICAgICAgICAweDgxLCAgICJBTUQgUmFkZW9uIFI2IEdyYXBoaWNz
+In0sCj4gLSAgICAgICB7MHg5ODc0LCAgICAgICAgMHg4NywgICAiQU1EIFJhZGVvbiBSNSBHcmFw
+aGljcyJ9LAo+IC0gICAgICAgezB4OTg3NCwgICAgICAgIDB4ODUsICAgIkFNRCBSYWRlb24gUjYg
+R3JhcGhpY3MifSwKPiAtICAgICAgIHsweDk4NzQsICAgICAgICAweDg0LCAgICJBTUQgUmFkZW9u
+IFI3IEdyYXBoaWNzIn0sCj4gLQo+IC0gICAgICAgezB4MDAwMCwgICAgICAgIDB4MCwgICAgIlww
+In0sCj4gLX07Cj4gLSNlbmRpZgo+IGRpZmYgLS1naXQgYS9hbWRncHUvYW1kZ3B1X2RldmljZS5j
+IGIvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+IGluZGV4IGY0NzNkMmQuLjlkMDg3NDQgMTAwNjQ0
+Cj4gLS0tIGEvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+ICsrKyBiL2FtZGdwdS9hbWRncHVfZGV2
+aWNlLmMKPiBAQCAtNDQsNyArNDQsNiBAQAo+ICAjaW5jbHVkZSAiYW1kZ3B1X2ludGVybmFsLmgi
+Cj4gICNpbmNsdWRlICJ1dGlsX2hhc2hfdGFibGUuaCIKPiAgI2luY2x1ZGUgInV0aWxfbWF0aC5o
+Igo+IC0jaW5jbHVkZSAiYW1kZ3B1X2FzaWNfaWQuaCIKPgo+ICAjZGVmaW5lIFBUUl9UT19VSU5U
+KHgpICgodW5zaWduZWQpKChpbnRwdHJfdCkoeCkpKQo+ICAjZGVmaW5lIFVJTlRfVE9fUFRSKHgp
+ICgodm9pZCAqKSgoaW50cHRyX3QpKHgpKSkKPiBAQCAtMTMxLDYgKzEzMCw3IEBAIHN0YXRpYyBp
+bnQgYW1kZ3B1X2dldF9hdXRoKGludCBmZCwgaW50ICphdXRoKQo+Cj4gIHN0YXRpYyB2b2lkIGFt
+ZGdwdV9kZXZpY2VfZnJlZV9pbnRlcm5hbChhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYpCj4gIHsK
+PiArICAgICAgIGNvbnN0IHN0cnVjdCBhbWRncHVfYXNpY19pZCAqaWQ7Cj4gICAgICAgICBhbWRn
+cHVfdmFtZ3JfZGVpbml0KCZkZXYtPnZhbWdyXzMyKTsKPiAgICAgICAgIGFtZGdwdV92YW1ncl9k
+ZWluaXQoJmRldi0+dmFtZ3IpOwo+ICAgICAgICAgdXRpbF9oYXNoX3RhYmxlX2Rlc3Ryb3koZGV2
+LT5ib19mbGlua19uYW1lcyk7Cj4gQEAgLTE0MCw2ICsxNDAsMTMgQEAgc3RhdGljIHZvaWQgYW1k
+Z3B1X2RldmljZV9mcmVlX2ludGVybmFsKGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldikKPiAgICAg
+ICAgIGNsb3NlKGRldi0+ZmQpOwo+ICAgICAgICAgaWYgKChkZXYtPmZsaW5rX2ZkID49IDApICYm
+IChkZXYtPmZkICE9IGRldi0+ZmxpbmtfZmQpKQo+ICAgICAgICAgICAgICAgICBjbG9zZShkZXYt
+PmZsaW5rX2ZkKTsKPiArICAgICAgIGlmIChkZXYtPmFzaWNfaWRzKSB7Cj4gKyAgICAgICAgICAg
+ICAgIGZvciAoaWQgPSBkZXYtPmFzaWNfaWRzOyBpZC0+ZGlkOyBpZCsrKSB7Cj4gKyAgICAgICAg
+ICAgICAgICAgICAgICAgaWYgKGlkLT5tYXJrZXRpbmdfbmFtZSAhPSAgTlVMTCkKPiArICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIGZyZWUoaWQtPm1hcmtldGluZ19uYW1lKTsKPiArICAg
+ICAgICAgICAgICAgfQo+ICsgICAgICAgICAgICAgICBmcmVlKGRldi0+YXNpY19pZHMpOwo+ICsg
+ICAgICAgfQo+ICAgICAgICAgZnJlZShkZXYpOwo+ICB9Cj4KPiBAQCAtMjY3LDYgKzI3NCwxMSBA
+QCBpbnQgYW1kZ3B1X2RldmljZV9pbml0aWFsaXplKGludCBmZCwKPiAgICAgICAgIGFtZGdwdV92
+YW1ncl9pbml0KCZkZXYtPnZhbWdyXzMyLCBzdGFydCwgbWF4LAo+ICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgZGV2LT5kZXZfaW5mby52aXJ0dWFsX2FkZHJlc3NfYWxpZ25tZW50KTsKPgo+ICsg
+ICAgICAgciA9IGFtZGdwdV9wYXJzZV9hc2ljX2lkcygmZGV2LT5hc2ljX2lkcyk7Cj4gKyAgICAg
+ICBpZiAocikKPiArICAgICAgICAgICAgICAgZnByaW50ZihzdGRlcnIsICIlczogQ2FuIG5vdCBw
+YXJzZSBhc2ljIGlkcywgMHgleC4iLAo+ICsgICAgICAgICAgICAgICAgICAgICAgIF9fZnVuY19f
+LCByKTsKPiArCj4gICAgICAgICAqbWFqb3JfdmVyc2lvbiA9IGRldi0+bWFqb3JfdmVyc2lvbjsK
+PiAgICAgICAgICptaW5vcl92ZXJzaW9uID0gZGV2LT5taW5vcl92ZXJzaW9uOwo+ICAgICAgICAg
+KmRldmljZV9oYW5kbGUgPSBkZXY7Cj4gQEAgLTI5NywxMyArMzA5LDE1IEBAIGludCBhbWRncHVf
+ZGV2aWNlX2RlaW5pdGlhbGl6ZShhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYpCj4KPiAgY29uc3Qg
+Y2hhciAqYW1kZ3B1X2dldF9tYXJrZXRpbmdfbmFtZShhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYp
+Cj4gIHsKPiAtICAgICAgIGNvbnN0IHN0cnVjdCBhbWRncHVfYXNpY19pZF90YWJsZV90ICp0ID0g
+YW1kZ3B1X2FzaWNfaWRfdGFibGU7Cj4gKyAgICAgICBjb25zdCBzdHJ1Y3QgYW1kZ3B1X2FzaWNf
+aWQgKmlkOwo+ICsKPiArICAgICAgIGlmICghZGV2LT5hc2ljX2lkcykKPiArICAgICAgICAgICAg
+ICAgcmV0dXJuIE5VTEw7Cj4KPiAtICAgICAgIHdoaWxlICh0LT5kaWQpIHsKPiAtICAgICAgICAg
+ICAgICAgaWYgKCh0LT5kaWQgPT0gZGV2LT5pbmZvLmFzaWNfaWQpICYmCj4gLSAgICAgICAgICAg
+ICAgICAgICAodC0+cmlkID09IGRldi0+aW5mby5wY2lfcmV2X2lkKSkKPiAtICAgICAgICAgICAg
+ICAgICAgICAgICByZXR1cm4gdC0+bWFya2V0aW5nX25hbWU7Cj4gLSAgICAgICAgICAgICAgIHQr
+KzsKPiArICAgICAgIGZvciAoaWQgPSBkZXYtPmFzaWNfaWRzOyBpZC0+ZGlkOyBpZCsrKSB7Cj4g
+KyAgICAgICAgICAgICAgIGlmICgoaWQtPmRpZCA9PSBkZXYtPmluZm8uYXNpY19pZCkgJiYKPiAr
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIChpZC0+cmlkID09IGRldi0+aW5mby5wY2lf
+cmV2X2lkKSkKPiArICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gaWQtPm1hcmtldGluZ19u
+YW1lOwo+ICAgICAgICAgfQo+Cj4gICAgICAgICByZXR1cm4gTlVMTDsKPiBkaWZmIC0tZ2l0IGEv
+YW1kZ3B1L2FtZGdwdV9pbnRlcm5hbC5oIGIvYW1kZ3B1L2FtZGdwdV9pbnRlcm5hbC5oCj4gaW5k
+ZXggY2YxMTlhNS4uZTY4MjQ2YiAxMDA2NDQKPiAtLS0gYS9hbWRncHUvYW1kZ3B1X2ludGVybmFs
+LmgKPiArKysgYi9hbWRncHUvYW1kZ3B1X2ludGVybmFsLmgKPiBAQCAtNjksNiArNjksMTIgQEAg
+c3RydWN0IGFtZGdwdV92YSB7Cj4gICAgICAgICBzdHJ1Y3QgYW1kZ3B1X2JvX3ZhX21nciAqdmFt
+Z3I7Cj4gIH07Cj4KPiArc3RydWN0IGFtZGdwdV9hc2ljX2lkIHsKPiArICAgICAgIHVpbnQzMl90
+IGRpZDsKPiArICAgICAgIHVpbnQzMl90IHJpZDsKPiArICAgICAgIGNoYXIgKm1hcmtldGluZ19u
+YW1lOwo+ICt9Owo+ICsKPiAgc3RydWN0IGFtZGdwdV9kZXZpY2Ugewo+ICAgICAgICAgYXRvbWlj
+X3QgcmVmY291bnQ7Cj4gICAgICAgICBpbnQgZmQ7Cj4gQEAgLTc2LDYgKzgyLDggQEAgc3RydWN0
+IGFtZGdwdV9kZXZpY2Ugewo+ICAgICAgICAgdW5zaWduZWQgbWFqb3JfdmVyc2lvbjsKPiAgICAg
+ICAgIHVuc2lnbmVkIG1pbm9yX3ZlcnNpb247Cj4KPiArICAgICAgIC8qKiBMb29rdXAgdGFibGUg
+b2YgYXNpYyBkZXZpY2UgaWQsIHJldmlzaW9uIGlkIGFuZCBtYXJrZXRpbmcgbmFtZSAqLwo+ICsg
+ICAgICAgc3RydWN0IGFtZGdwdV9hc2ljX2lkICphc2ljX2lkczsKPiAgICAgICAgIC8qKiBMaXN0
+IG9mIGJ1ZmZlciBoYW5kbGVzLiBQcm90ZWN0ZWQgYnkgYm9fdGFibGVfbXV0ZXguICovCj4gICAg
+ICAgICBzdHJ1Y3QgdXRpbF9oYXNoX3RhYmxlICpib19oYW5kbGVzOwo+ICAgICAgICAgLyoqIExp
+c3Qgb2YgYnVmZmVyIEdFTSBmbGluayBuYW1lcy4gUHJvdGVjdGVkIGJ5IGJvX3RhYmxlX211dGV4
+LiAqLwo+IEBAIC0xNDksNiArMTU3LDggQEAgYW1kZ3B1X3ZhbWdyX2ZpbmRfdmEoc3RydWN0IGFt
+ZGdwdV9ib192YV9tZ3IgKm1nciwgdWludDY0X3Qgc2l6ZSwKPiAgZHJtX3ByaXZhdGUgdm9pZAo+
+ICBhbWRncHVfdmFtZ3JfZnJlZV92YShzdHJ1Y3QgYW1kZ3B1X2JvX3ZhX21nciAqbWdyLCB1aW50
+NjRfdCB2YSwgdWludDY0X3Qgc2l6ZSk7Cj4KPiArZHJtX3ByaXZhdGUgaW50IGFtZGdwdV9wYXJz
+ZV9hc2ljX2lkcyhzdHJ1Y3QgYW1kZ3B1X2FzaWNfaWQgKiphc2ljX2lkcyk7Cj4gKwo+ICBkcm1f
+cHJpdmF0ZSBpbnQgYW1kZ3B1X3F1ZXJ5X2dwdV9pbmZvX2luaXQoYW1kZ3B1X2RldmljZV9oYW5k
+bGUgZGV2KTsKPgo+ICBkcm1fcHJpdmF0ZSB1aW50NjRfdCBhbWRncHVfY3NfY2FsY3VsYXRlX3Rp
+bWVvdXQodWludDY0X3QgdGltZW91dCk7Cj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvZHJtL2FtZGdw
+dS5pZHMgYi9pbmNsdWRlL2RybS9hbWRncHUuaWRzCj4gbmV3IGZpbGUgbW9kZSAxMDA2NDQKPiBp
+bmRleCAwMDAwMDAwLi4xYjAwYjYwCj4gLS0tIC9kZXYvbnVsbAo+ICsrKyBiL2luY2x1ZGUvZHJt
+L2FtZGdwdS5pZHMKPiBAQCAtMCwwICsxLDE1NCBAQAo+ICsxLjAuMAo+ICs2NjAwLDAsQU1EIFJh
+ZGVvbiBIRCA4NjAwLzg3MDBNCj4gKzY2MDAsODEsQU1EIFJhZGVvbiAoVE0pIFI3IE0zNzAKPiAr
+NjYwMSwwLEFNRCBSYWRlb24gKFRNKSBIRCA4NTAwTS84NzAwTQo+ICs2NjA0LDAsQU1EIFJhZGVv
+biBSNyBNMjY1IFNlcmllcwo+ICs2NjA0LDgxLEFNRCBSYWRlb24gKFRNKSBSNyBNMzUwCj4gKzY2
+MDUsMCxBTUQgUmFkZW9uIFI3IE0yNjAgU2VyaWVzCj4gKzY2MDUsODEsQU1EIFJhZGVvbiAoVE0p
+IFI3IE0zNDAKPiArNjYwNiwwLEFNRCBSYWRlb24gSEQgODc5ME0KPiArNjYwNywwLEFNRCBSYWRl
+b24gKFRNKSBIRDg1MzBNCj4gKzY2MDgsMCxBTUQgRmlyZVBybyBXMjEwMAo+ICs2NjEwLDAsQU1E
+IFJhZGVvbiBIRCA4NjAwIFNlcmllcwo+ICs2NjEwLDgxLEFNRCBSYWRlb24gKFRNKSBSNyAzNTAK
+PiArNjYxMCw4MyxBTUQgUmFkZW9uIChUTSkgUjUgMzQwCj4gKzY2MTEsMCxBTUQgUmFkZW9uIEhE
+IDg1MDAgU2VyaWVzCj4gKzY2MTMsMCxBTUQgUmFkZW9uIEhEIDg1MDAgc2VyaWVzCj4gKzY2MTcs
+QzcsQU1EIFJhZGVvbiBSNyAyNDAgU2VyaWVzCj4gKzY2NDAsMCxBTUQgUmFkZW9uIEhEIDg5NTAK
+PiArNjY0MCw4MCxBTUQgUmFkZW9uIChUTSkgUjkgTTM4MAo+ICs2NjQ2LDAsQU1EIFJhZGVvbiBS
+OSBNMjgwWAo+ICs2NjQ2LDgwLEFNRCBSYWRlb24gKFRNKSBSOSBNNDcwWAo+ICs2NjQ3LDAsQU1E
+IFJhZGVvbiBSOSBNMjcwWAo+ICs2NjQ3LDgwLEFNRCBSYWRlb24gKFRNKSBSOSBNMzgwCj4gKzY2
+NDksMCxBTUQgRmlyZVBybyBXNTEwMAo+ICs2NjU4LDAsQU1EIFJhZGVvbiBSNyAyMDAgU2VyaWVz
+Cj4gKzY2NUMsMCxBTUQgUmFkZW9uIEhEIDc3MDAgU2VyaWVzCj4gKzY2NUQsMCxBTUQgUmFkZW9u
+IFI3IDIwMCBTZXJpZXMKPiArNjY1Riw4MSxBTUQgUmFkZW9uIChUTSkgUjcgMzAwIFNlcmllcwo+
+ICs2NjYwLDAsQU1EIFJhZGVvbiBIRCA4NjAwTSBTZXJpZXMKPiArNjY2MCw4MSxBTUQgUmFkZW9u
+IChUTSkgUjUgTTMzNQo+ICs2NjYwLDgzLEFNRCBSYWRlb24gKFRNKSBSNSBNMzMwCj4gKzY2NjMs
+MCxBTUQgUmFkZW9uIEhEIDg1MDBNIFNlcmllcwo+ICs2NjYzLDgzLEFNRCBSYWRlb24gKFRNKSBS
+NSBNMzIwCj4gKzY2NjQsMCxBTUQgUmFkZW9uIFI1IE0yMDAgU2VyaWVzCj4gKzY2NjUsMCxBTUQg
+UmFkZW9uIFI1IE0yMDAgU2VyaWVzCj4gKzY2NjUsODMsQU1EIFJhZGVvbiAoVE0pIFI1IE0zMjAK
+PiArNjY2NywwLEFNRCBSYWRlb24gUjUgTTIwMCBTZXJpZXMKPiArNjY2RiwwLEFNRCBSYWRlb24g
+SEQgODUwME0KPiArNjc4MCwwLEFUSSBGaXJlUHJvIFYgKEZpcmVHTCBWKSBHcmFwaGljcyBBZGFw
+dGVyCj4gKzY3OEEsMCxBVEkgRmlyZVBybyBWIChGaXJlR0wgVikgR3JhcGhpY3MgQWRhcHRlcgo+
+ICs2Nzk4LDAsQU1EIFJhZGVvbiBIRCA3OTAwIFNlcmllcwo+ICs2NzlBLDAsQU1EIFJhZGVvbiBI
+RCA3OTAwIFNlcmllcwo+ICs2NzlCLDAsQU1EIFJhZGVvbiBIRCA3OTAwIFNlcmllcwo+ICs2NzlF
+LDAsQU1EIFJhZGVvbiBIRCA3ODAwIFNlcmllcwo+ICs2N0EwLDAsQU1EIFJhZGVvbiBGaXJlUHJv
+IFc5MTAwCj4gKzY3QTEsMCxBTUQgUmFkZW9uIEZpcmVQcm8gVzgxMDAKPiArNjdCMCwwLEFNRCBS
+YWRlb24gUjkgMjAwIFNlcmllcwo+ICs2N0IwLDgwLEFNRCBSYWRlb24gKFRNKSBSOSAzOTAgU2Vy
+aWVzCj4gKzY3QjEsMCxBTUQgUmFkZW9uIFI5IDIwMCBTZXJpZXMKPiArNjdCMSw4MCxBTUQgUmFk
+ZW9uIChUTSkgUjkgMzkwIFNlcmllcwo+ICs2N0I5LDAsQU1EIFJhZGVvbiBSOSAyMDAgU2VyaWVz
+Cj4gKzY3REYsQzEsUmFkZW9uIFJYIDU4MCBTZXJpZXMKPiArNjdERixDMixSYWRlb24gUlggNTcw
+IFNlcmllcwo+ICs2N0RGLEMzLFJhZGVvbiBSWCA1ODAgU2VyaWVzCj4gKzY3REYsQzQsQU1EIFJh
+ZGVvbiAoVE0pIFJYIDQ4MCBHcmFwaGljcwo+ICs2N0RGLEM1LEFNRCBSYWRlb24gKFRNKSBSWCA0
+NzAgR3JhcGhpY3MKPiArNjdERixDNixSYWRlb24gUlggNTcwIFNlcmllcwo+ICs2N0RGLEM3LEFN
+RCBSYWRlb24gKFRNKSBSWCA0ODAgR3JhcGhpY3MKPiArNjdERixDRixBTUQgUmFkZW9uIChUTSkg
+UlggNDcwIEdyYXBoaWNzCj4gKzY3REYsRTMsUmFkZW9uIFJYIFNlcmllcwo+ICs2N0RGLEU3LFJh
+ZGVvbiBSWCA1ODAgU2VyaWVzCj4gKzY3REYsRUYsUmFkZW9uIFJYIDU3MCBTZXJpZXMKPiArNjdD
+MiwwLDY3QzI6MDAKClBsZWFzZSBkcm9wIGFueSBlbnRyaWVzIHRoYXQgZG9uJ3QgaGF2ZSBhbnkg
+c3RyaW5ncyB5ZXQuCgoKPiArNjdDMiwwMSxBTUQgUmFkZW9uIChUTSkgUHJvIFY3MzUweDIKPiAr
+NjdDMiwwMixBTUQgUmFkZW9uIChUTSkgUHJvIFY3MzAwWAo+ICs2N0M0LDAwLEFNRCBSYWRlb24g
+KFRNKSBQcm8gV1ggNzEwMCBHcmFwaGljcwo+ICs2N0M3LDAwLEFNRCBSYWRlb24gKFRNKSBQcm8g
+V1ggNTEwMCBHcmFwaGljcwo+ICs2N0MwLDAwLEFNRCBSYWRlb24gKFRNKSBQcm8gV1ggNzEwMCBH
+cmFwaGljcwo+ICs2N0QwLDAsNjdEMDowMAoKSGVyZS4KCgo+ICs2N0QwLDAxLEFNRCBSYWRlb24g
+KFRNKSBQcm8gVjczNTB4Mgo+ICs2N0QwLDAyLEFNRCBSYWRlb24gKFRNKSBQcm8gVjczMDBYCj4g
+KzY3RTAsMDAsQU1EIFJhZGVvbiAoVE0pIFBybyBXWCBTZXJpZXMKPiArNjdFMywwMCxBTUQgUmFk
+ZW9uIChUTSkgUHJvIFdYIDQxMDAKPiArNjdFOCwwMCxBTUQgUmFkZW9uIChUTSkgUHJvIFdYIFNl
+cmllcwo+ICs2N0U4LDAxLEFNRCBSYWRlb24gKFRNKSBQcm8gV1ggU2VyaWVzCj4gKzY3RTgsODAs
+QU1EIFJhZGVvbiAoVE0pIEU5MjYwIEdyYXBoaWNzCj4gKzY3RUIsMDAsQU1EIFJhZGVvbiAoVE0p
+IFBybyBWNTMwMFgKPiArNjdFRixDMCxBTUQgUmFkZW9uIChUTSkgUlggR3JhcGhpY3MKPiArNjdF
+RixDMSxBTUQgUmFkZW9uIChUTSkgUlggNDYwIEdyYXBoaWNzCj4gKzY3RUYsQzMsUmFkZW9uIFJY
+IFNlcmllcwo+ICs2N0VGLEM1LEFNRCBSYWRlb24gKFRNKSBSWCA0NjAgR3JhcGhpY3MKPiArNjdF
+RixDNyxBTUQgUmFkZW9uIChUTSkgUlggR3JhcGhpY3MKPiArNjdFRixDRixBTUQgUmFkZW9uIChU
+TSkgUlggNDYwIEdyYXBoaWNzCj4gKzY3RUYsRTAsNjdFRjpFMAoKSGVyZS4KCj4gKzY3RUYsRTEs
+UmFkZW9uIFJYIFNlcmllcwo+ICs2N0VGLEUzLFJhZGVvbiBSWCBTZXJpZXMKPiArNjdFRixFNSw2
+N0VGOkU1Cj4gKzY3RUYsRTcsUmFkZW9uIFJYIFNlcmllcwo+ICs2N0VGLEVGLEFNRCBSYWRlb24g
+KFRNKSBSWCBHcmFwaGljcwo+ICs2N0VGLEZGLFJhZGVvbiBSWCBTZXJpZXMKPiArNjdGRixDMCxB
+TUQgUmFkZW9uIChUTSkgUlggR3JhcGhpY3MKPiArNjdGRixDMSxBTUQgUmFkZW9uIChUTSkgUlgg
+R3JhcGhpY3MKPiArNjdGRixDRiw2N0ZGOkNGCj4gKzY3RkYsRUYsNjdGRjpFRgoKSGVyZS4KCj4g
+KzY3RkYsRkYsUmFkZW9uIFJYIDU1MCBTZXJpZXMKPiArNjgwMCwwLEFNRCBSYWRlb24gSEQgNzk3
+ME0KPiArNjgwMSwwLEFNRCBSYWRlb24oVE0pIEhEODk3ME0KPiArNjgwOCwwLEFUSSBGaXJlUHJv
+IFYoRmlyZUdMIFYpIEdyYXBoaWNzIEFkYXB0ZXIKPiArNjgwOSwwLEFUSSBGaXJlUHJvIFYoRmly
+ZUdMIFYpIEdyYXBoaWNzIEFkYXB0ZXIKPiArNjgxMCwwLEFNRCBSYWRlb24oVE0pIEhEIDg4MDAg
+U2VyaWVzCj4gKzY4MTAsODEsQU1EIFJhZGVvbiAoVE0pIFI3IDM3MCBTZXJpZXMKPiArNjgxMSww
+LEFNRCBSYWRlb24oVE0pIEhEODgwMCBTZXJpZXMKPiArNjgxMSw4MSxBTUQgUmFkZW9uIChUTSkg
+UjcgMzAwIFNlcmllcwo+ICs2ODE4LDAsQU1EIFJhZGVvbiBIRCA3ODAwIFNlcmllcwo+ICs2ODE5
+LDAsQU1EIFJhZGVvbiBIRCA3ODAwIFNlcmllcwo+ICs2ODIwLDAsQU1EIFJhZGVvbiBIRCA4ODAw
+TSBTZXJpZXMKPiArNjgyMCw4MSxBTUQgUmFkZW9uIChUTSkgUjkgTTM3NQo+ICs2ODIwLDgzLEFN
+RCBSYWRlb24gKFRNKSBSOSBNMzc1WAo+ICs2ODIxLDAsQU1EIFJhZGVvbiBIRCA4ODAwTSBTZXJp
+ZXMKPiArNjgyMSw4NyxBTUQgUmFkZW9uIChUTSkgUjcgTTM4MAo+ICs2ODIxLDgzLEFNRCBSYWRl
+b24gUjkgKFRNKSBNMzcwWAo+ICs2ODIyLDAsQU1EIFJhZGVvbiBFODg2MAo+ICs2ODIzLDAsQU1E
+IFJhZGVvbiBIRCA4ODAwTSBTZXJpZXMKPiArNjgyNSwwLEFNRCBSYWRlb24gSEQgNzgwME0gU2Vy
+aWVzCj4gKzY4MjcsMCxBTUQgUmFkZW9uIEhEIDc4MDBNIFNlcmllcwo+ICs2ODI4LDAsQVRJIEZp
+cmVQcm8gVihGaXJlR0wgVikgR3JhcGhpY3MgQWRhcHRlcgo+ICs2ODJCLDAsQU1EIFJhZGVvbiBI
+RCA4ODAwTSBTZXJpZXMKPiArNjgyQiw4NyxBTUQgUmFkZW9uIChUTSkgUjkgTTM2MAo+ICs2ODJD
+LDAsQU1EIEZpcmVQcm8gVzQxMDAKPiArNjgyRCwwLEFNRCBSYWRlb24gSEQgNzcwME0gU2VyaWVz
+Cj4gKzY4MkYsMCxBTUQgUmFkZW9uIEhEIDc3MDBNIFNlcmllcwo+ICs2ODM1LDAsQU1EIFJhZGVv
+biBSNyBTZXJpZXMgLyBIRCA5MDAwIFNlcmllcwo+ICs2ODM3LDAsQU1EIFJhZGVvbiBIRDc3MDAg
+U2VyaWVzCj4gKzY4M0QsMCxBTUQgUmFkZW9uIEhEIDc3MDAgU2VyaWVzCj4gKzY4M0YsMCxBTUQg
+UmFkZW9uIEhEIDc3MDAgU2VyaWVzCj4gKzY5MDAsMCxBTUQgUmFkZW9uIFI3IE0yNjAKPiArNjkw
+MCw4MSxBTUQgUmFkZW9uIChUTSkgUjcgTTM2MAo+ICs2OTAwLDgzLEFNRCBSYWRlb24gKFRNKSBS
+NyBNMzQwCj4gKzY5MDEsMCxBTUQgUmFkZW9uIFI1IE0yNTUKPiArNjkwNywwLEFNRCBSYWRlb24g
+UjUgTTI1NQo+ICs2OTA3LDg3LEFNRCBSYWRlb24gKFRNKSBSNSBNMzE1Cj4gKzY5MjAsMCxBTUQg
+UkFERU9OIFI5IE0zOTVYCj4gKzY5MjAsMSxBTUQgUkFERU9OIFI5IE0zOTBYCj4gKzY5MjEsMCxB
+TUQgUmFkZW9uIFI5IE0yOTVYCj4gKzY5MjksMCxBTUQgRmlyZVBybyBTNzE1MAo+ICs2OTJCLDAs
+QU1EIEZpcmVQcm8gVzcxMDAKPiArNjkzOCwwLEFNRCBSYWRlb24gUjkgMjAwIFNlcmllcwo+ICs2
+OTM4LEYwLEFNRCBSYWRlb24gUjkgMjAwIFNlcmllcwo+ICs2OTM4LEYxLEFNRCBSYWRlb24gKFRN
+KSBSOSAzODAgU2VyaWVzCj4gKzY5MzksRjAsQU1EIFJhZGVvbiBSOSAyMDAgU2VyaWVzCj4gKzY5
+MzksMCxBTUQgUmFkZW9uIFI5IDIwMCBTZXJpZXMKPiArNjkzOSxGMSxBTUQgUmFkZW9uIChUTSkg
+UjkgMzgwIFNlcmllcwo+ICs3MzAwLEM4LEFNRCBSYWRlb24gKFRNKSBSOSBGdXJ5IFNlcmllcwo+
+ICs3MzAwLEM5LFJhZGVvbiAoVE0pIFBybyBEdW8KPiArNzMwMCxDQixBTUQgUmFkZW9uIChUTSkg
+UjkgRnVyeSBTZXJpZXMKPiArNzMwMCxDQSxBTUQgUmFkZW9uIChUTSkgUjkgRnVyeSBTZXJpZXMK
+PiArOTg3NCxDNCxBTUQgUmFkZW9uIFI3IEdyYXBoaWNzCj4gKzk4NzQsQzUsQU1EIFJhZGVvbiBS
+NiBHcmFwaGljcwo+ICs5ODc0LEM2LEFNRCBSYWRlb24gUjYgR3JhcGhpY3MKPiArOTg3NCxDNyxB
+TUQgUmFkZW9uIFI1IEdyYXBoaWNzCj4gKzk4NzQsODEsQU1EIFJhZGVvbiBSNiBHcmFwaGljcwo+
+ICs5ODc0LDg3LEFNRCBSYWRlb24gUjUgR3JhcGhpY3MKPiArOTg3NCw4NSxBTUQgUmFkZW9uIFI2
+IEdyYXBoaWNzCj4gKzk4NzQsODQsQU1EIFJhZGVvbiBSNyBHcmFwaGljcwo+IC0tCj4gMi43LjQK
+Pgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1k
+LWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
+bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
