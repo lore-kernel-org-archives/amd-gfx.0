@@ -1,79 +1,68 @@
-From: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
-Subject: Re: [PATCH 3/3] drm/amdgpu/radeon: Use radeon by default for CIK GPUs
-Date: Mon, 29 May 2017 16:24:21 +0200
-Message-ID: <27357f85-4149-40c5-f408-6091b07fcd2b@dev.carbon-project.org>
-References: <20170529092026.5567-1-michel@daenzer.net>
- <20170529092026.5567-3-michel@daenzer.net>
+From: Joerg Roedel <joro@8bytes.org>
+Subject: Re: [PATCH] iommu/amd: flush IOTLB for specific domains only (v3)
+Date: Mon, 29 May 2017 16:38:31 +0200
+Message-ID: <20170529143831.GA30388@8bytes.org>
+References: <20170407102039.GW7266@8bytes.org>
+ <1495439281-24005-1-git-send-email-arindam.nath@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170529092026.5567-3-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <stable-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <1495439281-24005-1-git-send-email-arindam.nath@amd.com>
+Sender: stable-owner@vger.kernel.org
+To: arindam.nath@amd.com, Tom Lendacky <thomas.lendacky@amd.com>
+Cc: iommu@lists.linux-foundation.org, amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, John.Bridgman@amd.com, drake@endlessm.com, Suravee.Suthikulpanit@amd.com, linux@endlessm.com, Craig Stein <stein12c@gmail.com>, michel@daenzer.net, Felix.Kuehling@amd.com, stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGV5IE1pY2hlbCwKTWljaGVsIETDpG56ZXIgd3JvdGUgb24gMjkuMDUuMjAxNyAxMToyMDoKPiBG
-cm9tOiBNaWNoZWwgRMOkbnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4KPiAKPiBFdmVuIGlm
-IENPTkZJR19EUk1fQU1ER1BVX0NJSyBpcyBlbmFibGVkLgo+IAo+IFRoZXJlIGlzIG5vIGZlYXR1
-cmUgcGFyaXR5IHlldCBmb3IgQ0lLLCBpbiBwYXJ0aWN1bGFyIGFtZGdwdSBkb2Vzbid0Cj4gc3Vw
-cG9ydCBIRE1JL0Rpc3BsYXlQb3J0IHdpdGhvdXQgREMuCgp0aGF0IGNhbid0IGJlIGNvcnJlY3Qu
-IEknbSB1c2luZyBhbWRncHUgb24gYSBDSUsgQVNJQyAoSGF3YWlpIFBybykgYW5kIG15Cm1vbml0
-b3IgaXMgY29ubmVjdGVkIGJ5IERpc3BsYXlQb3J0LiBGcm9tIG15IFhvcmcuMC5sb2c6Cj4gWyAg
-ICAzNy44MTFdIChJSSkgQU1ER1BVKDApOiBFRElEIGZvciBvdXRwdXQgRGlzcGxheVBvcnQtMAo+
-IFsgICAgMzcuODExXSAoSUkpIEFNREdQVSgwKTogTWFudWZhY3R1cmVyOiBTQU0gIE1vZGVsOiA4
-M2QgIFNlcmlhbCM6IDAKPiBbICAgIDM3LjgxMV0gKElJKSBBTURHUFUoMCk6IFllYXI6IDIwMTEg
-IFdlZWs6IDcKPiBbICAgIDM3LjgxMV0gKElJKSBBTURHUFUoMCk6IEVESUQgVmVyc2lvbjogMS40
-Cj4gWyAgICAzNy44MTFdIChJSSkgQU1ER1BVKDApOiBEaWdpdGFsIERpc3BsYXkgSW5wdXQKPiBb
-ICAgIDM3LjgxMV0gKElJKSBBTURHUFUoMCk6IDggYml0cyBwZXIgY2hhbm5lbAo+IFsgICAgMzcu
-ODExXSAoSUkpIEFNREdQVSgwKTogRGlnaXRhbCBpbnRlcmZhY2UgaXMgRGlzcGxheVBvcnQKPiBb
-ICAgIDM3LjgxMV0gKElJKSBBTURHUFUoMCk6IE1heCBJbWFnZSBTaXplIFtjbV06IGhvcml6Ljog
-NTIgIHZlcnQuOiAzMgo+IFsgICAgMzcuODExXSAoSUkpIEFNREdQVSgwKTogR2FtbWE6IDIuMjAK
-PiBbICAgIDM3LjgxMV0gKElJKSBBTURHUFUoMCk6IERQTVMgY2FwYWJpbGl0aWVzOiBPZmYKPiBb
-ICAgIDM3LjgxMV0gKElJKSBBTURHUFUoMCk6IFN1cHBvcnRlZCBjb2xvciBlbmNvZGluZ3M6IFJH
-QiA0OjQ6NCAKPiBbICAgIDM3LjgxMV0gKElJKSBBTURHUFUoMCk6IEZpcnN0IGRldGFpbGVkIHRp
-bWluZyBpcyBwcmVmZXJyZWQgbW9kZQo+IFsgICAgMzcuODExXSAoSUkpIEFNREdQVSgwKTogUHJl
-ZmVycmVkIG1vZGUgaXMgbmF0aXZlIHBpeGVsIGZvcm1hdCBhbmQgcmVmcmVzaCByYXRlCj4gWyAg
-ICAzNy44MTFdIChJSSkgQU1ER1BVKDApOiByZWRYOiAwLjY1MCByZWRZOiAwLjMzNyAgIGdyZWVu
-WDogMC4yOTYgZ3JlZW5ZOiAwLjYwNAo+IFsgICAgMzcuODExXSAoSUkpIEFNREdQVSgwKTogYmx1
-ZVg6IDAuMTQ3IGJsdWVZOiAwLjA3NCAgIHdoaXRlWDogMC4zMTIgd2hpdGVZOiAwLjMyOQo+IFsg
-ICAgMzcuODExXSAoSUkpIEFNREdQVSgwKTogU3VwcG9ydGVkIGVzdGFibGlzaGVkIHRpbWluZ3M6
-IFsuLi5dCgpPciBkbyB5b3UgbWVhbiBzb21lIGZlYXR1cmVzIGxpa2UgYXVkaW8gb3ZlciBIRE1J
-L0RQPwoKPiBTaWduZWQtb2ZmLWJ5OiBNaWNoZWwgRMOkbnplciA8bWljaGVsLmRhZW56ZXJAYW1k
-LmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvS2NvbmZpZyAgICAgIHwg
-OCArKysrLS0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgfCA0
-ICsrLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jIHwgNyArKysr
-Ky0tCj4gIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2Rydi5jICAgICB8IDQgKystLQo+
-ICBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9rbXMuYyAgICAgfCA1ICstLS0tCj4gIDUg
-ZmlsZXMgY2hhbmdlZCwgMTQgaW5zZXJ0aW9ucygrKSwgMTQgZGVsZXRpb25zKC0pCj4gCj4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L0tjb25maWcgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9LY29uZmlnCj4gaW5kZXggOGQzNjA4N2ZjMTg2Li5lMDEyMWY4YjQz
-NmUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvS2NvbmZpZwo+ICsr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L0tjb25maWcKPiBAQCAtMTcsMTEgKzE3LDEx
-IEBAIGNvbmZpZyBEUk1fQU1ER1BVX0NJSwo+ICAJaGVscAo+ICAJICBDaG9vc2UgdGhpcyBvcHRp
-b24gaWYgeW91IHdhbnQgdG8gZW5hYmxlIHN1cHBvcnQgZm9yIENJSyBhc2ljcy4KPiAgCj4gLQkg
-IENJSyBpcyBhbHJlYWR5IHN1cHBvcnRlZCBpbiByYWRlb24uIElmIHlvdSBlbmFibGUgdGhpcyBv
-cHRpb24sCj4gLQkgIHN1cHBvcnQgZm9yIENJSyB3aWxsIGJlIHByb3ZpZGVkIGJ5IGFtZGdwdSBh
-bmQgZGlzYWJsZWQgaW4KPiAtCSAgcmFkZW9uIGJ5IGRlZmF1bHQuIFVzZSBtb2R1bGUgb3B0aW9u
-cyB0byBvdmVycmlkZSB0aGlzOgo+ICsJICBDSUsgaXMgYWxyZWFkeSBzdXBwb3J0ZWQgaW4gcmFk
-ZW9uLiBTdXBwb3J0IGZvciBTSSBpbiBhbWRncHUKPiArCSAgd2lsbCBiZSBkaXNhYmxlZCBieSBk
-ZWZhdWx0IGFuZCBpcyBzdGlsbCBwcm92aWRlZCBieSByYWRlb24uCj4gKwkgIFVzZSBtb2R1bGUg
-b3B0aW9ucyB0byBvdmVycmlkZSB0aGlzOgo+ICAKPiAtCSAgcmFkZW9uLmNpa19zdXBwb3J0PTEg
-YW1kZ3B1LmNpa19zdXBwb3J0PTAKPiArCSAgcmFkZW9uLmNpa19zdXBwb3J0PTAgYW1kZ3B1LmNp
-a19zdXBwb3J0PTEKCldoYXQgaGFwcGVucyBpZiBJIGhhdmUgcmFkZW9uIGJsYWNrbGlzdGVkPyBE
-byBJIHN0aWxsIG5lZWQgdG8gc2V0IHRoaXMKYWRkaXRpb25hbCBmbGFnPyBJZiBzbyBJJ2Qga2lu
-ZGx5IHJlcXVlc3QgdG8gYXQgbGVhc3QgZmFsbCBiYWNrIHRvIGFtZGdwdSBpZgpzb21lYm9keSBi
-bGFja2xpc3RlZCByYWRlb24gKG9yIGRpZG4ndCBjb21waWxlIGl0KS4gTWF5YmUgaXNzdWUgYSB3
-YXJuaW5nIHRoYXQKbm90IGFsbCBmZWF0dXJlcyBhcmUgc3VwcG9ydGVkIHlldC4KClRoYW5rIHlv
-dSBmb3IgeW91ciBjb25zaWRlcmF0aW9uIQoKQ2hlZXJzLApLYWkKCgpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+Hi Arindam,
+
+I met Tom Lendacky last week in Nuremberg last week and he told me he is
+working on the same area of the code that this patch is for. His reason
+for touching this code was to solve some locking problems. Maybe you two
+can work together on a joint approach to improve this?
+
+On Mon, May 22, 2017 at 01:18:01PM +0530, arindam.nath@amd.com wrote:
+> diff --git a/drivers/iommu/amd_iommu.c b/drivers/iommu/amd_iommu.c
+> index 63cacf5..1edeebec 100644
+> --- a/drivers/iommu/amd_iommu.c
+> +++ b/drivers/iommu/amd_iommu.c
+> @@ -2227,15 +2227,26 @@ static struct iommu_group *amd_iommu_device_group(struct device *dev)
+>  
+>  static void __queue_flush(struct flush_queue *queue)
+>  {
+> -	struct protection_domain *domain;
+> -	unsigned long flags;
+>  	int idx;
+>  
+> -	/* First flush TLB of all known domains */
+> -	spin_lock_irqsave(&amd_iommu_pd_lock, flags);
+> -	list_for_each_entry(domain, &amd_iommu_pd_list, list)
+> -		domain_flush_tlb(domain);
+> -	spin_unlock_irqrestore(&amd_iommu_pd_lock, flags);
+> +	/* First flush TLB of all domains which were added to flush queue */
+> +	for (idx = 0; idx < queue->next; ++idx) {
+> +		struct flush_queue_entry *entry;
+> +
+> +		entry = queue->entries + idx;
+> +
+> +		/*
+> +		 * There might be cases where multiple IOVA entries for the
+> +		 * same domain are queued in the flush queue. To avoid
+> +		 * flushing the same domain again, we check whether the
+> +		 * flag is set or not. This improves the efficiency of
+> +		 * flush operation.
+> +		 */
+> +		if (!entry->dma_dom->domain.already_flushed) {
+> +			entry->dma_dom->domain.already_flushed = true;
+> +			domain_flush_tlb(&entry->dma_dom->domain);
+> +		}
+> +	}
+
+There is also a race condition here I have to look into. It is not
+introduced by your patch, but needs fixing anyway. I'll look into this
+too.
+
+
+Regards,
+
+	Joerg
