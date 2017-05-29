@@ -1,68 +1,51 @@
-From: Joerg Roedel <joro@8bytes.org>
-Subject: Re: [PATCH] iommu/amd: flush IOTLB for specific domains only (v3)
-Date: Mon, 29 May 2017 16:38:31 +0200
-Message-ID: <20170529143831.GA30388@8bytes.org>
-References: <20170407102039.GW7266@8bytes.org>
- <1495439281-24005-1-git-send-email-arindam.nath@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH 1/3] drm/amdgpu: Really leave SI support disabled by
+ default
+Date: Mon, 29 May 2017 19:18:24 +0200
+Message-ID: <b0db57f8-ccdf-4af7-c9fd-0a5cd3545099@vodafone.de>
+References: <20170529092026.5567-1-michel@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <stable-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <1495439281-24005-1-git-send-email-arindam.nath@amd.com>
-Sender: stable-owner@vger.kernel.org
-To: arindam.nath@amd.com, Tom Lendacky <thomas.lendacky@amd.com>
-Cc: iommu@lists.linux-foundation.org, amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, John.Bridgman@amd.com, drake@endlessm.com, Suravee.Suthikulpanit@amd.com, linux@endlessm.com, Craig Stein <stein12c@gmail.com>, michel@daenzer.net, Felix.Kuehling@amd.com, stable@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20170529092026.5567-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-Hi Arindam,
-
-I met Tom Lendacky last week in Nuremberg last week and he told me he is
-working on the same area of the code that this patch is for. His reason
-for touching this code was to solve some locking problems. Maybe you two
-can work together on a joint approach to improve this?
-
-On Mon, May 22, 2017 at 01:18:01PM +0530, arindam.nath@amd.com wrote:
-> diff --git a/drivers/iommu/amd_iommu.c b/drivers/iommu/amd_iommu.c
-> index 63cacf5..1edeebec 100644
-> --- a/drivers/iommu/amd_iommu.c
-> +++ b/drivers/iommu/amd_iommu.c
-> @@ -2227,15 +2227,26 @@ static struct iommu_group *amd_iommu_device_group(struct device *dev)
->  
->  static void __queue_flush(struct flush_queue *queue)
->  {
-> -	struct protection_domain *domain;
-> -	unsigned long flags;
->  	int idx;
->  
-> -	/* First flush TLB of all known domains */
-> -	spin_lock_irqsave(&amd_iommu_pd_lock, flags);
-> -	list_for_each_entry(domain, &amd_iommu_pd_list, list)
-> -		domain_flush_tlb(domain);
-> -	spin_unlock_irqrestore(&amd_iommu_pd_lock, flags);
-> +	/* First flush TLB of all domains which were added to flush queue */
-> +	for (idx = 0; idx < queue->next; ++idx) {
-> +		struct flush_queue_entry *entry;
-> +
-> +		entry = queue->entries + idx;
-> +
-> +		/*
-> +		 * There might be cases where multiple IOVA entries for the
-> +		 * same domain are queued in the flush queue. To avoid
-> +		 * flushing the same domain again, we check whether the
-> +		 * flag is set or not. This improves the efficiency of
-> +		 * flush operation.
-> +		 */
-> +		if (!entry->dma_dom->domain.already_flushed) {
-> +			entry->dma_dom->domain.already_flushed = true;
-> +			domain_flush_tlb(&entry->dma_dom->domain);
-> +		}
-> +	}
-
-There is also a race condition here I have to look into. It is not
-introduced by your patch, but needs fixing anyway. I'll look into this
-too.
-
-
-Regards,
-
-	Joerg
+QW0gMjkuMDUuMjAxNyB1bSAxMToyMCBzY2hyaWViIE1pY2hlbCBEw6RuemVyOgo+IEZyb206IE1p
+Y2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQuY29tPgo+Cj4gVGhlIGRlZmF1bHQgb3B0
+aW9uIHZhbHVlIGRpZG4ndCBtYXRjaCB0aGUgaGVscCB0ZXh0IGFuZCBpbnRlbnRpb24uCj4KPiBT
+aWduZWQtb2ZmLWJ5OiBNaWNoZWwgRMOkbnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4KCkkn
+bSBzdGlsbCB1bnN1cmUgYWJvdXQgdGhlIGxhc3Qgb25lLiBUaGUgZmVhdHVyZSBwYXJpdHkgaXMg
+YSBnb29kIAphcmd1bWVudCBidXQgb24gdGhlIG90aGVyIGhhbmQgd2Ugd2FudCBwZW9wbGUgdG8g
+dXNlIGFtZGdwdSBmb3IgQ0lLIAp0aGVzZSBkYXlzLCBkb24ndCB3ZT8KCkFueXdheSBSZXZpZXdl
+ZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPi4KClJlZ2Fy
+ZHMsCkNocmlzdGlhbi4KCj4gLS0tCj4KPiBNYXliZSB0aGlzIGNhbiBiZSBzcXVhc2hlZCBpbnRv
+IHRoZSBjb21taXQgYWRkaW5nIHRoaXMgb3B0aW9uIHdoZW4gaXQKPiBnb2VzIHVwc3RyZWFtLgo+
+Cj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgfCAyICstCj4gICAx
+IGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKPgo+IGRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKPiBpbmRleCAxN2VjYzI1NDJhZjUuLjc2ZGVh
+NWZlNjIwYiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+ZHJ2LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKPiBA
+QCAtMjM0LDcgKzIzNCw3IEBAIE1PRFVMRV9QQVJNX0RFU0MocGFyYW1fYnVmX3Blcl9zZSwgInRo
+ZSBzaXplIG9mIE9mZi1DaGlwIFByYW1hdGVyIENhY2hlIHBlciBTaGFkCj4gICBtb2R1bGVfcGFy
+YW1fbmFtZWQocGFyYW1fYnVmX3Blcl9zZSwgYW1kZ3B1X3BhcmFtX2J1Zl9wZXJfc2UsIGludCwg
+MDQ0NCk7Cj4gICAKPiAgICNpZmRlZiBDT05GSUdfRFJNX0FNREdQVV9TSQo+IC1pbnQgYW1kZ3B1
+X3NpX3N1cHBvcnQgPSAxOwo+ICtpbnQgYW1kZ3B1X3NpX3N1cHBvcnQgPSAwOwo+ICAgTU9EVUxF
+X1BBUk1fREVTQyhzaV9zdXBwb3J0LCAiU0kgc3VwcG9ydCAoMSA9IGVuYWJsZWQsIDAgPSBkaXNh
+YmxlZCAoZGVmYXVsdCkpIik7Cj4gICBtb2R1bGVfcGFyYW1fbmFtZWQoc2lfc3VwcG9ydCwgYW1k
+Z3B1X3NpX3N1cHBvcnQsIGludCwgMDQ0NCk7Cj4gICAjZW5kaWYKCgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
