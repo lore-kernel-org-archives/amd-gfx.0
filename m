@@ -1,89 +1,47 @@
-From: "Nath, Arindam" <Arindam.Nath@amd.com>
-Subject: RE: [PATCH] iommu/amd: flush IOTLB for specific domains only (v3)
-Date: Tue, 30 May 2017 07:38:29 +0000
-Message-ID: <MWHPR12MB1518926453E8BAF205F3492D9CF00@MWHPR12MB1518.namprd12.prod.outlook.com>
-References: <20170407102039.GW7266@8bytes.org>
- <1495439281-24005-1-git-send-email-arindam.nath@amd.com>
- <20170529143831.GA30388@8bytes.org>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH 1/3] drm/amdgpu: Really leave SI support disabled by
+ default
+Date: Tue, 30 May 2017 09:57:38 +0200
+Message-ID: <ac10edba-6dad-3d8f-22ae-ce0a1280d2fa@vodafone.de>
+References: <20170529092026.5567-1-michel@daenzer.net>
+ <b0db57f8-ccdf-4af7-c9fd-0a5cd3545099@vodafone.de>
+ <3f76e24c-d27c-62af-dd81-02080d058753@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <20170529143831.GA30388@8bytes.org>
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <3f76e24c-d27c-62af-dd81-02080d058753-otUistvHUpPR7s880joybQ@public.gmane.org>
 Content-Language: en-US
-Sender: stable-owner@vger.kernel.org
-To: Joerg Roedel <joro@8bytes.org>, "Lendacky, Thomas" <Thomas.Lendacky@amd.com>
-Cc: "iommu@lists.linux-foundation.org" <iommu@lists.linux-foundation.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Bridgman, John" <John.Bridgman@amd.com>, "drake@endlessm.com" <drake@endlessm.com>, "Suthikulpanit, Suravee" <Suravee.Suthikulpanit@amd.com>, "linux@endlessm.com" <linux@endlessm.com>, Craig Stein <stein12c@gmail.com>, "michel@daenzer.net" <michel@daenzer.net>, "Kuehling, Felix" <Felix.Kuehling@amd.com>, "stable@vger.kernel.org" <stable@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
->-----Original Message-----
->From: Joerg Roedel [mailto:joro@8bytes.org]
->Sent: Monday, May 29, 2017 8:09 PM
->To: Nath, Arindam <Arindam.Nath@amd.com>; Lendacky, Thomas
-><Thomas.Lendacky@amd.com>
->Cc: iommu@lists.linux-foundation.org; amd-gfx@lists.freedesktop.org;
->Deucher, Alexander <Alexander.Deucher@amd.com>; Bridgman, John
-><John.Bridgman@amd.com>; drake@endlessm.com; Suthikulpanit, Suravee
-><Suravee.Suthikulpanit@amd.com>; linux@endlessm.com; Craig Stein
-><stein12c@gmail.com>; michel@daenzer.net; Kuehling, Felix
-><Felix.Kuehling@amd.com>; stable@vger.kernel.org
->Subject: Re: [PATCH] iommu/amd: flush IOTLB for specific domains only (v3)
->
->Hi Arindam,
->
->I met Tom Lendacky last week in Nuremberg last week and he told me he is
->working on the same area of the code that this patch is for. His reason
->for touching this code was to solve some locking problems. Maybe you two
->can work together on a joint approach to improve this?
-
-Sure Joerg, I will work with Tom.
-
-Thanks.
-
->
->On Mon, May 22, 2017 at 01:18:01PM +0530, arindam.nath@amd.com wrote:
->> diff --git a/drivers/iommu/amd_iommu.c b/drivers/iommu/amd_iommu.c
->> index 63cacf5..1edeebec 100644
->> --- a/drivers/iommu/amd_iommu.c
->> +++ b/drivers/iommu/amd_iommu.c
->> @@ -2227,15 +2227,26 @@ static struct iommu_group
->*amd_iommu_device_group(struct device *dev)
->>
->>  static void __queue_flush(struct flush_queue *queue)
->>  {
->> -	struct protection_domain *domain;
->> -	unsigned long flags;
->>  	int idx;
->>
->> -	/* First flush TLB of all known domains */
->> -	spin_lock_irqsave(&amd_iommu_pd_lock, flags);
->> -	list_for_each_entry(domain, &amd_iommu_pd_list, list)
->> -		domain_flush_tlb(domain);
->> -	spin_unlock_irqrestore(&amd_iommu_pd_lock, flags);
->> +	/* First flush TLB of all domains which were added to flush queue */
->> +	for (idx =3D 0; idx < queue->next; ++idx) {
->> +		struct flush_queue_entry *entry;
->> +
->> +		entry =3D queue->entries + idx;
->> +
->> +		/*
->> +		 * There might be cases where multiple IOVA entries for the
->> +		 * same domain are queued in the flush queue. To avoid
->> +		 * flushing the same domain again, we check whether the
->> +		 * flag is set or not. This improves the efficiency of
->> +		 * flush operation.
->> +		 */
->> +		if (!entry->dma_dom->domain.already_flushed) {
->> +			entry->dma_dom->domain.already_flushed =3D true;
->> +			domain_flush_tlb(&entry->dma_dom->domain);
->> +		}
->> +	}
->
->There is also a race condition here I have to look into. It is not
->introduced by your patch, but needs fixing anyway. I'll look into this
->too.
->
->
->Regards,
->
->	Joerg
+QW0gMzAuMDUuMjAxNyB1bSAwNToyNiBzY2hyaWViIE1pY2hlbCBEw6RuemVyOgo+IE9uIDMwLzA1
+LzE3IDAyOjE4IEFNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiBBbSAyOS4wNS4yMDE3IHVt
+IDExOjIwIHNjaHJpZWIgTWljaGVsIETDpG56ZXI6Cj4+PiBGcm9tOiBNaWNoZWwgRMOkbnplciA8
+bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4KPj4+Cj4+PiBUaGUgZGVmYXVsdCBvcHRpb24gdmFsdWUg
+ZGlkbid0IG1hdGNoIHRoZSBoZWxwIHRleHQgYW5kIGludGVudGlvbi4KPj4+Cj4+PiBTaWduZWQt
+b2ZmLWJ5OiBNaWNoZWwgRMOkbnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4KPj4gSSdtIHN0
+aWxsIHVuc3VyZSBhYm91dCB0aGUgbGFzdCBvbmUuIFRoZSBmZWF0dXJlIHBhcml0eSBpcyBhIGdv
+b2QKPj4gYXJndW1lbnQgYnV0IG9uIHRoZSBvdGhlciBoYW5kIHdlIHdhbnQgcGVvcGxlIHRvIHVz
+ZSBhbWRncHUgZm9yIENJSwo+PiB0aGVzZSBkYXlzLCBkb24ndCB3ZT8KPiBXZSB3YW50IHRvIG1h
+a2UgaXQgZWFzeSBmb3IgcGVvcGxlIHRvIHRlc3QgYW1kZ3B1IG9uIENJSywgd2hpY2ggaXMgd2hh
+dAo+IHRoZSBvcHRpb25zIGFkZGVkIGJ5IEZlbGl4IGFyZSBmb3IuIElNTyB3ZSBzaG91bGQgbm90
+IGZsaXAgdGhlIGRlZmF1bHQKPiAodXBzdHJlYW0pIGJlZm9yZSB0aGVyZSBpcyBmZWF0dXJlIHBh
+cml0eS4KPgo+Cj4+IEFueXdheSBSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0
+aWFuLmtvZW5pZ0BhbWQuY29tPi4KPiBUaGFua3MsIEkgYXNzdW1lIHRoYXQgYXBwbGllcyB0byB0
+aGUgd2hvbGUgc2VyaWVzPwoKV2l0aCB0aGUgU0kgdHlwbyBhbmQgdGhlIEhETUkvRFAgYXVkaW8g
+dGhpbmcgcG9pbnRlZCBvdXQgYnkgS2FpIGZpeGVkLCAKdGhhbiB5ZXMgdGhhdCByYiBhcHBsaWVz
+IHRvIHRoZSB3aG9sZSBzZXJpZXMuCgpDaHJpc3RpYW4uCgpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2FtZC1nZngK
