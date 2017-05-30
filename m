@@ -1,52 +1,95 @@
-From: Grazvydas Ignotas <notasas-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 3/3] drm/amdgpu/radeon: Use radeon by default for CIK GPUs
-Date: Tue, 30 May 2017 12:17:34 +0300
-Message-ID: <CANOLnOOO574oSPA_A9Yz=dRJGsXkPcjWn8OHEmpg4qtoeadVNA@mail.gmail.com>
-References: <20170529092026.5567-1-michel@daenzer.net>
- <20170529092026.5567-3-michel@daenzer.net>
- <42a9725f-58f7-d862-0a39-f8f3f6ed615a@daenzer.net>
+From: Florian Echtler <floe@butterbrot.org>
+Subject: Re: iMac 10,1 with Ubuntu 16.04: black screen after suspend
+Date: Tue, 30 May 2017 11:34:17 +0200
+Message-ID: <1e60811b-a8ac-017c-d350-8a40e4323870@butterbrot.org>
+References: <30380cb3-0f26-8aea-2689-d4886879129c@butterbrot.org>
+ <20170526210340.GA5114@wunner.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <42a9725f-58f7-d862-0a39-f8f3f6ed615a-otUistvHUpPR7s880joybQ@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: multipart/signed; micalg=pgp-sha1;
+ protocol="application/pgp-signature";
+ boundary="LgtoB1uKisubUsSlaSTAUIJhtmqToj1BC"
+Return-path: <linux-acpi-owner@vger.kernel.org>
+In-Reply-To: <20170526210340.GA5114@wunner.de>
+Sender: linux-acpi-owner@vger.kernel.org
+To: Lukas Wunner <lukas@wunner.de>
+Cc: "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVHVlLCBNYXkgMzAsIDIwMTcgYXQgNjozMCBBTSwgTWljaGVsIETDpG56ZXIgPG1pY2hlbEBk
-YWVuemVyLm5ldD4gd3JvdGU6Cj4gT24gMjkvMDUvMTcgMDY6MjAgUE0sIE1pY2hlbCBEw6RuemVy
-IHdyb3RlOgo+PiBGcm9tOiBNaWNoZWwgRMOkbnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4K
-Pj4KPj4gRXZlbiBpZiBDT05GSUdfRFJNX0FNREdQVV9DSUsgaXMgZW5hYmxlZC4KPj4KPj4gVGhl
-cmUgaXMgbm8gZmVhdHVyZSBwYXJpdHkgeWV0IGZvciBDSUssIGluIHBhcnRpY3VsYXIgYW1kZ3B1
-IGRvZXNuJ3QKPj4gc3VwcG9ydCBIRE1JL0Rpc3BsYXlQb3J0IHdpdGhvdXQgREMuCj4+Cj4+IFNp
-Z25lZC1vZmYtYnk6IE1pY2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQuY29tPgo+Cj4g
-Wy4uLl0KPgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvS2NvbmZp
-ZyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L0tjb25maWcKPj4gaW5kZXggOGQzNjA4N2Zj
-MTg2Li5lMDEyMWY4YjQzNmUgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L0tjb25maWcKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvS2NvbmZpZwo+
-PiBAQCAtMTcsMTEgKzE3LDExIEBAIGNvbmZpZyBEUk1fQU1ER1BVX0NJSwo+PiAgICAgICBoZWxw
-Cj4+ICAgICAgICAgQ2hvb3NlIHRoaXMgb3B0aW9uIGlmIHlvdSB3YW50IHRvIGVuYWJsZSBzdXBw
-b3J0IGZvciBDSUsgYXNpY3MuCj4+Cj4+IC0gICAgICAgQ0lLIGlzIGFscmVhZHkgc3VwcG9ydGVk
-IGluIHJhZGVvbi4gSWYgeW91IGVuYWJsZSB0aGlzIG9wdGlvbiwKPj4gLSAgICAgICBzdXBwb3J0
-IGZvciBDSUsgd2lsbCBiZSBwcm92aWRlZCBieSBhbWRncHUgYW5kIGRpc2FibGVkIGluCj4+IC0g
-ICAgICAgcmFkZW9uIGJ5IGRlZmF1bHQuIFVzZSBtb2R1bGUgb3B0aW9ucyB0byBvdmVycmlkZSB0
-aGlzOgo+PiArICAgICAgIENJSyBpcyBhbHJlYWR5IHN1cHBvcnRlZCBpbiByYWRlb24uIFN1cHBv
-cnQgZm9yIFNJIGluIGFtZGdwdQo+Cj4gQ29uc2lkZXIgdGhpcyAiU0kiIHR5cG8gZml4ZWQgaW4g
-djIuCgpXaGlsZSB5b3UgYXJlIGhlcmUsIHdoYXQgYWJvdXQgYWRkaW5nIHRoZSBmdWxsIGNvZGVu
-YW1lcyBoZXJlPyBZb3UKY2FuJ3QgZXhwZWN0IGV2ZXJ5IHVzZXIgY29uZmlndXJpbmcgdGhlIGtl
-cm5lbCB0byBrbm93IHdoYXQgU0kvQ0lLCm1lYW5zLCBpdCdzIG5vdCBldmVuIGRvY3VtZW50ZWQg
-aW4KaHR0cHM6Ly93d3cueC5vcmcvd2lraS9SYWRlb25GZWF0dXJlLyBvciB3aWtpcGVkaWEsIHdo
-aWxlIHRoZSBsb25nCmNvZGVuYW1lcyBhcmUuCgpHcmHFvnZ5ZGFzCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--LgtoB1uKisubUsSlaSTAUIJhtmqToj1BC
+Content-Type: multipart/mixed; boundary="qII9nGj8BN9GPGn45blROA8Jg54dbMDRP";
+ protected-headers="v1"
+From: Florian Echtler <floe@butterbrot.org>
+To: Lukas Wunner <lukas@wunner.de>
+Cc: "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Message-ID: <1e60811b-a8ac-017c-d350-8a40e4323870@butterbrot.org>
+Subject: Re: iMac 10,1 with Ubuntu 16.04: black screen after suspend
+References: <30380cb3-0f26-8aea-2689-d4886879129c@butterbrot.org>
+ <20170526210340.GA5114@wunner.de>
+In-Reply-To: <20170526210340.GA5114@wunner.de>
+
+--qII9nGj8BN9GPGn45blROA8Jg54dbMDRP
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-GB
+Content-Transfer-Encoding: quoted-printable
+
+On 26.05.2017 23:03, Lukas Wunner wrote:
+> On Fri, May 26, 2017 at 02:13:29PM +0200, Florian Echtler wrote:
+>> I'm running Ubuntu 16.04.2 on a 27" unibody iMac 10,1 from 2009. Howev=
+er, even
+>> with the most recent HWE stack (kernel 4.8), the display stays black a=
+fter
+>> suspend. I can ssh into the machine, so wakeup is OK, but the display =
+is
+>> entirely black (backlight stays off).
+>>
+> The ATI card has MXM_PNL_PWR_EN and MXM_PNL_BL_EN pins.  Those must be
+> enabled for the panel to light up.  Perhaps radeon needs to be extended=
+
+> to do that.  One theory is that this is done via ACPI, but perhaps
+> only if a certain operating system is running.  Dump the ACPI tables
+> and search DSDT and SSDT* tables for methods relating to the ATI card
+> and/or backlight.  If you find checks for OSDW there (e.g. in _PS0,
+> i.e. on resume), it means the AML code is only executed on Darwin.
+I've already had a look at the ACPI tables; there seem to be no reference=
+s to
+the "official" backlight/display control functions (no _BL? or _DO? metho=
+ds).
+
+> Conversely !OSDW means the code is only executed on Windows (Boot Camp)=
+=2E
+> Linux masquerades as Darwin, but this can be disabled with
+> acpi_osi=3D!Darwin on the command line.  It's worth trying if that chan=
+ges
+> the behaviour.  If it does, then macOS likely sets those pins on resume=
+
+> and we need to do the same in radeon.
+There are OSDW checks present, however, booting with acpi_osi=3D!Darwin d=
+oesn't
+make a difference to the backlight behaviour.
+
+I'd be grateful for other suggestions...
+
+Best regards, Florian
+--=20
+SENT FROM MY DEC VT50 TERMINAL
+
+
+
+--qII9nGj8BN9GPGn45blROA8Jg54dbMDRP--
+
+--LgtoB1uKisubUsSlaSTAUIJhtmqToj1BC
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iEYEARECAAYFAlktPJkACgkQ7CzyshGvatjGTgCg8chDnYxLyo0K8gZJgnA/UDSX
+8e0AoNmRn8/uSChY8J4chCvjGnivReS4
+=KhIs
+-----END PGP SIGNATURE-----
+
+--LgtoB1uKisubUsSlaSTAUIJhtmqToj1BC--
