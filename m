@@ -1,136 +1,188 @@
-From: Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Program ring for vce instance 1 at its own
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple@vodafone.de>
+Subject: Re: [PATCH] drm/amdgpu: Program ring for vce instance 1 at its
  register space
-Date: Tue, 30 May 2017 11:55:07 -0400
-Message-ID: <9e18f36d-982d-90e3-decf-10bfee42ed00@amd.com>
+Date: Tue, 30 May 2017 18:15:25 +0200
+Message-ID: <df87fdbc-60f9-32c0-9c38-66123473cadb@vodafone.de>
 References: <20170529182152.7451-1-leo.liu@amd.com>
- <BN6PR12MB1652D8852FBB1EDD82FF2651F7F00@BN6PR12MB1652.namprd12.prod.outlook.com>
- <d3fc8ec8-2167-126e-a9bd-cb98c6d0006c@vodafone.de>
+ <20170530155650.5775-1-leo.liu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <d3fc8ec8-2167-126e-a9bd-cb98c6d0006c-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20170530155650.5775-1-leo.liu@amd.com>
+Content-Language: en-US
+Sender: stable-owner@vger.kernel.org
+To: Leo Liu <leo.liu@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-CgpPbiAwNS8zMC8yMDE3IDExOjEzIEFNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+IEFtIDMw
-LjA1LjIwMTcgdW0gMTY6NTcgc2NocmllYiBEZXVjaGVyLCBBbGV4YW5kZXI6Cj4+PiAtLS0tLU9y
-aWdpbmFsIE1lc3NhZ2UtLS0tLQo+Pj4gRnJvbTogYW1kLWdmeCBbbWFpbHRvOmFtZC1nZngtYm91
-bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmddIE9uIEJlaGFsZgo+Pj4gT2YgTGVvIExpdQo+Pj4g
-U2VudDogTW9uZGF5LCBNYXkgMjksIDIwMTcgMjoyMiBQTQo+Pj4gVG86IGFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCj4+PiBDYzogTGl1LCBMZW8KPj4+IFN1YmplY3Q6IFtQQVRDSF0gZHJt
-L2FtZGdwdTogUHJvZ3JhbSByaW5nIGZvciB2Y2UgaW5zdGFuY2UgMSBhdCBpdHMgb3duCj4+PiBy
-ZWdpc3RlciBzcGFjZQo+Pj4KPj4+IHdoZW4gaGFydmVzdCBwYXJ0IGhhcyBvbmx5IGluc3RhbmNl
-IDEgYXZhaWxhYmxlCj4+Pgo+Pj4gU2lnbmVkLW9mZi1ieTogTGVvIExpdSA8bGVvLmxpdUBhbWQu
-Y29tPgo+Pj4gLS0tCj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92M18wLmMg
-fCA2MQo+Pj4gKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0KPj4+ICAgMSBmaWxl
-IGNoYW5nZWQsIDU1IGluc2VydGlvbnMoKyksIDYgZGVsZXRpb25zKC0pCj4+Pgo+Pj4gZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92M18wLmMKPj4+IGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvdmNlX3YzXzAuYwo+Pj4gaW5kZXggZmIwODE5My4uNzdhZjM5
-NSAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92M18wLmMK
-Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92M18wLmMKPj4+IEBAIC03
-NywxMyArNzcsMjYgQEAgc3RhdGljIGludCB2Y2VfdjNfMF9zZXRfY2xvY2tnYXRpbmdfc3RhdGUo
-dm9pZAo+Pj4gKmhhbmRsZSwKPj4+ICAgc3RhdGljIHVpbnQ2NF90IHZjZV92M18wX3JpbmdfZ2V0
-X3JwdHIoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKQo+Pj4gICB7Cj4+PiAgICAgICBzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqYWRldiA9IHJpbmctPmFkZXY7Cj4+PiArICAgIHUzMiB2Owo+Pj4gKwo+
-Pj4gKyAgICBpZiAoYWRldi0+dmNlLmhhcnZlc3RfY29uZmlnID09IEFNREdQVV9WQ0VfSEFSVkVT
-VF9WQ0UwKSB7Cj4+PiArICAgICAgICBtdXRleF9sb2NrKCZhZGV2LT5ncmJtX2lkeF9tdXRleCk7
-Cj4+PiArICAgICAgICBXUkVHMzIobW1HUkJNX0dGWF9JTkRFWCwgR0VUX1ZDRV9JTlNUQU5DRSgx
-KSk7Cj4+PiArICAgIH0KPj4+Cj4+PiAgICAgICBpZiAocmluZyA9PSAmYWRldi0+dmNlLnJpbmdb
-MF0pCj4+PiAtICAgICAgICByZXR1cm4gUlJFRzMyKG1tVkNFX1JCX1JQVFIpOwo+Pj4gKyAgICAg
-ICAgdiA9IFJSRUczMihtbVZDRV9SQl9SUFRSKTsKPj4+ICAgICAgIGVsc2UgaWYgKHJpbmcgPT0g
-JmFkZXYtPnZjZS5yaW5nWzFdKQo+Pj4gLSAgICAgICAgcmV0dXJuIFJSRUczMihtbVZDRV9SQl9S
-UFRSMik7Cj4+PiArICAgICAgICB2ID0gUlJFRzMyKG1tVkNFX1JCX1JQVFIyKTsKPj4+ICAgICAg
-IGVsc2UKPj4+IC0gICAgICAgIHJldHVybiBSUkVHMzIobW1WQ0VfUkJfUlBUUjMpOwo+Pj4gKyAg
-ICAgICAgdiA9IFJSRUczMihtbVZDRV9SQl9SUFRSMyk7Cj4+PiArCj4+PiArICAgIGlmIChhZGV2
-LT52Y2UuaGFydmVzdF9jb25maWcgPT0gQU1ER1BVX1ZDRV9IQVJWRVNUX1ZDRTApIHsKPj4+ICsg
-ICAgICAgIFdSRUczMihtbUdSQk1fR0ZYX0lOREVYLAo+Pj4gbW1HUkJNX0dGWF9JTkRFWF9ERUZB
-VUxUKTsKPj4+ICsgICAgICAgIG11dGV4X3VubG9jaygmYWRldi0+Z3JibV9pZHhfbXV0ZXgpOwo+
-Pj4gKyAgICB9Cj4+PiArCj4+PiArICAgIHJldHVybiB2Owo+Pj4gICB9Cj4+Pgo+Pj4gICAvKioK
-Pj4+IEBAIC05NiwxMyArMTA5LDI2IEBAIHN0YXRpYyB1aW50NjRfdCB2Y2VfdjNfMF9yaW5nX2dl
-dF9ycHRyKHN0cnVjdAo+Pj4gYW1kZ3B1X3JpbmcgKnJpbmcpCj4+PiAgIHN0YXRpYyB1aW50NjRf
-dCB2Y2VfdjNfMF9yaW5nX2dldF93cHRyKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZykKPj4+ICAg
-ewo+Pj4gICAgICAgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSByaW5nLT5hZGV2Owo+Pj4g
-KyAgICB1MzIgdjsKPj4+ICsKPj4+ICsgICAgaWYgKGFkZXYtPnZjZS5oYXJ2ZXN0X2NvbmZpZyA9
-PSBBTURHUFVfVkNFX0hBUlZFU1RfVkNFMCkgewo+Pj4gKyAgICAgICAgbXV0ZXhfbG9jaygmYWRl
-di0+Z3JibV9pZHhfbXV0ZXgpOwo+Pj4gKyAgICAgICAgV1JFRzMyKG1tR1JCTV9HRlhfSU5ERVgs
-IEdFVF9WQ0VfSU5TVEFOQ0UoMSkpOwo+Pj4gKyAgICB9Cj4+Pgo+Pj4gICAgICAgaWYgKHJpbmcg
-PT0gJmFkZXYtPnZjZS5yaW5nWzBdKQo+Pj4gLSAgICAgICAgcmV0dXJuIFJSRUczMihtbVZDRV9S
-Ql9XUFRSKTsKPj4+ICsgICAgICAgIHYgPSBSUkVHMzIobW1WQ0VfUkJfV1BUUik7Cj4+PiAgICAg
-ICBlbHNlIGlmIChyaW5nID09ICZhZGV2LT52Y2UucmluZ1sxXSkKPj4+IC0gICAgICAgIHJldHVy
-biBSUkVHMzIobW1WQ0VfUkJfV1BUUjIpOwo+Pj4gKyAgICAgICAgdiA9IFJSRUczMihtbVZDRV9S
-Ql9XUFRSMik7Cj4+PiAgICAgICBlbHNlCj4+PiAtICAgICAgICByZXR1cm4gUlJFRzMyKG1tVkNF
-X1JCX1dQVFIzKTsKPj4+ICsgICAgICAgIHYgPSBSUkVHMzIobW1WQ0VfUkJfV1BUUjMpOwo+Pj4g
-Kwo+Pj4gKyAgICBpZiAoYWRldi0+dmNlLmhhcnZlc3RfY29uZmlnID09IEFNREdQVV9WQ0VfSEFS
-VkVTVF9WQ0UwKSB7Cj4+PiArICAgICAgICBXUkVHMzIobW1HUkJNX0dGWF9JTkRFWCwKPj4+IG1t
-R1JCTV9HRlhfSU5ERVhfREVGQVVMVCk7Cj4+PiArICAgICAgICBtdXRleF91bmxvY2soJmFkZXYt
-PmdyYm1faWR4X211dGV4KTsKPj4+ICsgICAgfQo+Pj4gKwo+Pj4gKyAgICByZXR1cm4gdjsKPj4+
-ICAgfQo+Pj4KPj4+ICAgLyoqCj4+PiBAQCAtMTE2LDEyICsxNDIsMjIgQEAgc3RhdGljIHZvaWQg
-dmNlX3YzXzBfcmluZ19zZXRfd3B0cihzdHJ1Y3QKPj4+IGFtZGdwdV9yaW5nICpyaW5nKQo+Pj4g
-ICB7Cj4+PiAgICAgICBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IHJpbmctPmFkZXY7Cj4+
-Pgo+Pj4gKyAgICBpZiAoYWRldi0+dmNlLmhhcnZlc3RfY29uZmlnID09IEFNREdQVV9WQ0VfSEFS
-VkVTVF9WQ0UwKSB7Cj4+PiArICAgICAgICBtdXRleF9sb2NrKCZhZGV2LT5ncmJtX2lkeF9tdXRl
-eCk7Cj4+PiArICAgICAgICBXUkVHMzIobW1HUkJNX0dGWF9JTkRFWCwgR0VUX1ZDRV9JTlNUQU5D
-RSgxKSk7Cj4+PiArICAgIH0KPj4+ICsKPj4+ICAgICAgIGlmIChyaW5nID09ICZhZGV2LT52Y2Uu
-cmluZ1swXSkKPj4+ICAgICAgICAgICBXUkVHMzIobW1WQ0VfUkJfV1BUUiwgbG93ZXJfMzJfYml0
-cyhyaW5nLT53cHRyKSk7Cj4+PiAgICAgICBlbHNlIGlmIChyaW5nID09ICZhZGV2LT52Y2Uucmlu
-Z1sxXSkKPj4+ICAgICAgICAgICBXUkVHMzIobW1WQ0VfUkJfV1BUUjIsIGxvd2VyXzMyX2JpdHMo
-cmluZy0+d3B0cikpOwo+Pj4gICAgICAgZWxzZQo+Pj4gICAgICAgICAgIFdSRUczMihtbVZDRV9S
-Ql9XUFRSMywgbG93ZXJfMzJfYml0cyhyaW5nLT53cHRyKSk7Cj4+PiArCj4+PiArICAgIGlmIChh
-ZGV2LT52Y2UuaGFydmVzdF9jb25maWcgPT0gQU1ER1BVX1ZDRV9IQVJWRVNUX1ZDRTApIHsKPj4+
-ICsgICAgICAgIFdSRUczMihtbUdSQk1fR0ZYX0lOREVYLAo+Pj4gbW1HUkJNX0dGWF9JTkRFWF9E
-RUZBVUxUKTsKPj4+ICsgICAgICAgIG11dGV4X3VubG9jaygmYWRldi0+Z3JibV9pZHhfbXV0ZXgp
-Owo+Pj4gKyAgICB9Cj4+PiAgIH0KPj4+Cj4+PiAgIHN0YXRpYyB2b2lkIHZjZV92M18wX292ZXJy
-aWRlX3ZjZV9jbG9ja19nYXRpbmcoc3RydWN0IGFtZGdwdV9kZXZpY2UKPj4+ICphZGV2LCBib29s
-IG92ZXJyaWRlKQo+Pj4gQEAgLTIzMSw2ICsyNjcsMTQgQEAgc3RhdGljIGludCB2Y2VfdjNfMF9z
-dGFydChzdHJ1Y3QgYW1kZ3B1X2RldmljZQo+Pj4gKmFkZXYpCj4+PiAgICAgICBzdHJ1Y3QgYW1k
-Z3B1X3JpbmcgKnJpbmc7Cj4+PiAgICAgICBpbnQgaWR4LCByOwo+Pj4KPj4+ICsgICAgLyogd2Ug
-bmVlZCBwcm9ncmFtIHJpbmcgYnVmZmVyIG9uIGluc3RhbmNlIDEgcmVnaXN0ZXIgc3BhY2UgZG9t
-YWluCj4+PiArICAgIHdoZW4gb25seSBpZiBpbnN0YW5jZSAxIGF2YWlsYWJsZSwgd2l0aCB0d28g
-aW5zdGFuY2VzIG9yIAo+Pj4gaW5zdGFuY2UgMAo+Pj4gKyAgICB3ZSBuZWVkIG9ubHkgcHJvZ3Jh
-bSBpbnN0YW5jZSAwIHJlZ3NpdGVyIHNwYWNlIGRvbWFpbiBmb3IgcmluZyAqLwo+PiBQbGVhc2Ug
-YWRkIHRoaXMgY29tbWVudCB0byB0aGUgY29tbWl0IG1lc3NhZ2UgYXMgd2VsbC4gIFdpdGggdGhh
-dCBmaXhlZDoKPj4gUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJA
-YW1kLmNvbT4KPj4gQWxzbywgYWRkIENDOiBzdGFibGVAdmdlci5rZXJuZWwub3JnCj4+Cj4+PiAr
-ICAgIGlmIChhZGV2LT52Y2UuaGFydmVzdF9jb25maWcgPT0gQU1ER1BVX1ZDRV9IQVJWRVNUX1ZD
-RTApIHsKPj4+ICsgICAgICAgIG11dGV4X2xvY2soJmFkZXYtPmdyYm1faWR4X211dGV4KTsKPj4+
-ICsgICAgICAgIFdSRUczMihtbUdSQk1fR0ZYX0lOREVYLCBHRVRfVkNFX0lOU1RBTkNFKDEpKTsK
-Pj4+ICsgICAgfQo+Cj4gSSB3b3VsZCBwcmVmZXIgaWYgd2UgYWx3YXlzIGdyYWIgdGhlIG11dGV4
-IGFuZCBwcm9ncmFtIAo+IG1tR1JCTV9HRlhfSU5ERVggd2l0aCB0aGUgbm90IGhhcnZlc3RlZCBp
-bnN0YW5jZS4KPgo+IFRoaXMgd2F5IHdlIGRvbid0IHJ1biBpbnRvIGJhZCBzdXJwcmlzZXMgYW55
-IG1vcmUgd2hlbiB3ZSBvbmx5IHRlc3Qgb24gCj4gYm9hcmRzIHdoZXJlIHRoZSBzZWNvbmQgVkNF
-IGluc3RhbmNlIGlzIGhhcnZlc3RlZC4KCk9rYXkuIHRoZSB2MiBwYXRjaCB3aWxsIHNlbmQgc2hv
-cnRseS4KCkxlbwoKCj4KPiBDaHJpc3RpYW4uCj4KPj4+ICsKPj4+ICAgICAgIHJpbmcgPSAmYWRl
-di0+dmNlLnJpbmdbMF07Cj4+PiAgICAgICBXUkVHMzIobW1WQ0VfUkJfUlBUUiwgbG93ZXJfMzJf
-Yml0cyhyaW5nLT53cHRyKSk7Cj4+PiAgICAgICBXUkVHMzIobW1WQ0VfUkJfV1BUUiwgbG93ZXJf
-MzJfYml0cyhyaW5nLT53cHRyKSk7Cj4+PiBAQCAtMjUyLDYgKzI5NiwxMSBAQCBzdGF0aWMgaW50
-IHZjZV92M18wX3N0YXJ0KHN0cnVjdCBhbWRncHVfZGV2aWNlCj4+PiAqYWRldikKPj4+ICAgICAg
-IFdSRUczMihtbVZDRV9SQl9CQVNFX0hJMywgdXBwZXJfMzJfYml0cyhyaW5nLT5ncHVfYWRkcikp
-Owo+Pj4gICAgICAgV1JFRzMyKG1tVkNFX1JCX1NJWkUzLCByaW5nLT5yaW5nX3NpemUgLyA0KTsK
-Pj4+Cj4+PiArICAgIGlmIChhZGV2LT52Y2UuaGFydmVzdF9jb25maWcgPT0gQU1ER1BVX1ZDRV9I
-QVJWRVNUX1ZDRTApIHsKPj4+ICsgICAgICAgIFdSRUczMihtbUdSQk1fR0ZYX0lOREVYLAo+Pj4g
-bW1HUkJNX0dGWF9JTkRFWF9ERUZBVUxUKTsKPj4+ICsgICAgICAgIG11dGV4X3VubG9jaygmYWRl
-di0+Z3JibV9pZHhfbXV0ZXgpOwo+Pj4gKyAgICB9Cj4+PiArCj4+PiAgICAgICBtdXRleF9sb2Nr
-KCZhZGV2LT5ncmJtX2lkeF9tdXRleCk7Cj4+PiAgICAgICBmb3IgKGlkeCA9IDA7IGlkeCA8IDI7
-ICsraWR4KSB7Cj4+PiAgICAgICAgICAgaWYgKGFkZXYtPnZjZS5oYXJ2ZXN0X2NvbmZpZyAmICgx
-IDw8IGlkeCkpCj4+PiAtLSAKPj4+IDIuOS4zCj4+Pgo+Pj4gX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KPj4+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+PiBh
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+Pj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cj4+IF9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCj4+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+IGFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+Cj4KCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vYW1kLWdmeAo=
+Am 30.05.2017 um 17:56 schrieb Leo Liu:
+> We need program ring buffer on instance 1 register space domain,
+> when only if instance 1 available, with two instances or instance 0,
+> and we need only program instance 0 regsiter space domain for ring.
+>
+> Signed-off-by: Leo Liu <leo.liu@amd.com>
+> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+> Cc: stable@vger.kernel.org
+> ---
+>   drivers/gpu/drm/amd/amdgpu/vce_v3_0.c | 95 +++++++++++++++++++++++++----------
+>   1 file changed, 68 insertions(+), 27 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+> index fb08193..7e39e42 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+> @@ -77,13 +77,26 @@ static int vce_v3_0_set_clockgating_state(void *handle,
+>   static uint64_t vce_v3_0_ring_get_rptr(struct amdgpu_ring *ring)
+>   {
+>   	struct amdgpu_device *adev = ring->adev;
+> +	u32 v;
+> +
+> +	if (adev->vce.harvest_config == AMDGPU_VCE_HARVEST_VCE0) {
+> +		mutex_lock(&adev->grbm_idx_mutex);
+> +		WREG32(mmGRBM_GFX_INDEX, GET_VCE_INSTANCE(1));
+> +	}
+
+Did you missed my comment? I think we should always grab the mutex and 
+program mmGRBM_GFX_INDEX.
+
+Otherwise we silently rely on that it is correctly set when the function 
+is called and have different code path for different harvested configs.
+
+Apart from that the patch looks good to me.
+
+Christian.
+
+>   
+>   	if (ring == &adev->vce.ring[0])
+> -		return RREG32(mmVCE_RB_RPTR);
+> +		v = RREG32(mmVCE_RB_RPTR);
+>   	else if (ring == &adev->vce.ring[1])
+> -		return RREG32(mmVCE_RB_RPTR2);
+> +		v = RREG32(mmVCE_RB_RPTR2);
+>   	else
+> -		return RREG32(mmVCE_RB_RPTR3);
+> +		v = RREG32(mmVCE_RB_RPTR3);
+> +
+> +	if (adev->vce.harvest_config == AMDGPU_VCE_HARVEST_VCE0) {
+> +		WREG32(mmGRBM_GFX_INDEX, mmGRBM_GFX_INDEX_DEFAULT);
+> +		mutex_unlock(&adev->grbm_idx_mutex);
+> +	}
+> +
+> +	return v;
+>   }
+>   
+>   /**
+> @@ -96,13 +109,26 @@ static uint64_t vce_v3_0_ring_get_rptr(struct amdgpu_ring *ring)
+>   static uint64_t vce_v3_0_ring_get_wptr(struct amdgpu_ring *ring)
+>   {
+>   	struct amdgpu_device *adev = ring->adev;
+> +	u32 v;
+> +
+> +	if (adev->vce.harvest_config == AMDGPU_VCE_HARVEST_VCE0) {
+> +		mutex_lock(&adev->grbm_idx_mutex);
+> +		WREG32(mmGRBM_GFX_INDEX, GET_VCE_INSTANCE(1));
+> +	}
+>   
+>   	if (ring == &adev->vce.ring[0])
+> -		return RREG32(mmVCE_RB_WPTR);
+> +		v = RREG32(mmVCE_RB_WPTR);
+>   	else if (ring == &adev->vce.ring[1])
+> -		return RREG32(mmVCE_RB_WPTR2);
+> +		v = RREG32(mmVCE_RB_WPTR2);
+>   	else
+> -		return RREG32(mmVCE_RB_WPTR3);
+> +		v = RREG32(mmVCE_RB_WPTR3);
+> +
+> +	if (adev->vce.harvest_config == AMDGPU_VCE_HARVEST_VCE0) {
+> +		WREG32(mmGRBM_GFX_INDEX, mmGRBM_GFX_INDEX_DEFAULT);
+> +		mutex_unlock(&adev->grbm_idx_mutex);
+> +	}
+> +
+> +	return v;
+>   }
+>   
+>   /**
+> @@ -116,12 +142,22 @@ static void vce_v3_0_ring_set_wptr(struct amdgpu_ring *ring)
+>   {
+>   	struct amdgpu_device *adev = ring->adev;
+>   
+> +	if (adev->vce.harvest_config == AMDGPU_VCE_HARVEST_VCE0) {
+> +		mutex_lock(&adev->grbm_idx_mutex);
+> +		WREG32(mmGRBM_GFX_INDEX, GET_VCE_INSTANCE(1));
+> +	}
+> +
+>   	if (ring == &adev->vce.ring[0])
+>   		WREG32(mmVCE_RB_WPTR, lower_32_bits(ring->wptr));
+>   	else if (ring == &adev->vce.ring[1])
+>   		WREG32(mmVCE_RB_WPTR2, lower_32_bits(ring->wptr));
+>   	else
+>   		WREG32(mmVCE_RB_WPTR3, lower_32_bits(ring->wptr));
+> +
+> +	if (adev->vce.harvest_config == AMDGPU_VCE_HARVEST_VCE0) {
+> +		WREG32(mmGRBM_GFX_INDEX, mmGRBM_GFX_INDEX_DEFAULT);
+> +		mutex_unlock(&adev->grbm_idx_mutex);
+> +	}
+>   }
+>   
+>   static void vce_v3_0_override_vce_clock_gating(struct amdgpu_device *adev, bool override)
+> @@ -231,33 +267,38 @@ static int vce_v3_0_start(struct amdgpu_device *adev)
+>   	struct amdgpu_ring *ring;
+>   	int idx, r;
+>   
+> -	ring = &adev->vce.ring[0];
+> -	WREG32(mmVCE_RB_RPTR, lower_32_bits(ring->wptr));
+> -	WREG32(mmVCE_RB_WPTR, lower_32_bits(ring->wptr));
+> -	WREG32(mmVCE_RB_BASE_LO, ring->gpu_addr);
+> -	WREG32(mmVCE_RB_BASE_HI, upper_32_bits(ring->gpu_addr));
+> -	WREG32(mmVCE_RB_SIZE, ring->ring_size / 4);
+> -
+> -	ring = &adev->vce.ring[1];
+> -	WREG32(mmVCE_RB_RPTR2, lower_32_bits(ring->wptr));
+> -	WREG32(mmVCE_RB_WPTR2, lower_32_bits(ring->wptr));
+> -	WREG32(mmVCE_RB_BASE_LO2, ring->gpu_addr);
+> -	WREG32(mmVCE_RB_BASE_HI2, upper_32_bits(ring->gpu_addr));
+> -	WREG32(mmVCE_RB_SIZE2, ring->ring_size / 4);
+> -
+> -	ring = &adev->vce.ring[2];
+> -	WREG32(mmVCE_RB_RPTR3, lower_32_bits(ring->wptr));
+> -	WREG32(mmVCE_RB_WPTR3, lower_32_bits(ring->wptr));
+> -	WREG32(mmVCE_RB_BASE_LO3, ring->gpu_addr);
+> -	WREG32(mmVCE_RB_BASE_HI3, upper_32_bits(ring->gpu_addr));
+> -	WREG32(mmVCE_RB_SIZE3, ring->ring_size / 4);
+> -
+>   	mutex_lock(&adev->grbm_idx_mutex);
+>   	for (idx = 0; idx < 2; ++idx) {
+>   		if (adev->vce.harvest_config & (1 << idx))
+>   			continue;
+>   
+>   		WREG32(mmGRBM_GFX_INDEX, GET_VCE_INSTANCE(idx));
+> +
+> +		/* Program instance 0 reg space for two instances or instance 0 case
+> +		program instance 1 reg space for only instance 1 available case */
+> +		if (idx != 1 || adev->vce.harvest_config == AMDGPU_VCE_HARVEST_VCE0) {
+> +			ring = &adev->vce.ring[0];
+> +			WREG32(mmVCE_RB_RPTR, lower_32_bits(ring->wptr));
+> +			WREG32(mmVCE_RB_WPTR, lower_32_bits(ring->wptr));
+> +			WREG32(mmVCE_RB_BASE_LO, ring->gpu_addr);
+> +			WREG32(mmVCE_RB_BASE_HI, upper_32_bits(ring->gpu_addr));
+> +			WREG32(mmVCE_RB_SIZE, ring->ring_size / 4);
+> +
+> +			ring = &adev->vce.ring[1];
+> +			WREG32(mmVCE_RB_RPTR2, lower_32_bits(ring->wptr));
+> +			WREG32(mmVCE_RB_WPTR2, lower_32_bits(ring->wptr));
+> +			WREG32(mmVCE_RB_BASE_LO2, ring->gpu_addr);
+> +			WREG32(mmVCE_RB_BASE_HI2, upper_32_bits(ring->gpu_addr));
+> +			WREG32(mmVCE_RB_SIZE2, ring->ring_size / 4);
+> +
+> +			ring = &adev->vce.ring[2];
+> +			WREG32(mmVCE_RB_RPTR3, lower_32_bits(ring->wptr));
+> +			WREG32(mmVCE_RB_WPTR3, lower_32_bits(ring->wptr));
+> +			WREG32(mmVCE_RB_BASE_LO3, ring->gpu_addr);
+> +			WREG32(mmVCE_RB_BASE_HI3, upper_32_bits(ring->gpu_addr));
+> +			WREG32(mmVCE_RB_SIZE3, ring->ring_size / 4);
+> +		}
+> +
+>   		vce_v3_0_mc_resume(adev, idx);
+>   		WREG32_FIELD(VCE_STATUS, JOB_BUSY, 1);
+>   
