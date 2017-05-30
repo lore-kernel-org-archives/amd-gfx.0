@@ -1,59 +1,70 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH 3/3] drm/amdgpu/radeon: Use radeon by default for CIK GPUs
-Date: Tue, 30 May 2017 18:49:51 +0900
-Message-ID: <6e2ef33e-fe16-50a9-7338-8bdb5c117425@daenzer.net>
-References: <20170529092026.5567-1-michel@daenzer.net>
- <20170529092026.5567-3-michel@daenzer.net>
- <42a9725f-58f7-d862-0a39-f8f3f6ed615a@daenzer.net>
- <CANOLnOOO574oSPA_A9Yz=dRJGsXkPcjWn8OHEmpg4qtoeadVNA@mail.gmail.com>
+From: Lukas Wunner <lukas@wunner.de>
+Subject: Re: iMac 10,1 with Ubuntu 16.04: black screen after suspend
+Date: Tue, 30 May 2017 12:54:04 +0200
+Message-ID: <20170530105404.GA29865@wunner.de>
+References: <30380cb3-0f26-8aea-2689-d4886879129c@butterbrot.org>
+ <20170526210340.GA5114@wunner.de>
+ <1e60811b-a8ac-017c-d350-8a40e4323870@butterbrot.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CANOLnOOO574oSPA_A9Yz=dRJGsXkPcjWn8OHEmpg4qtoeadVNA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Grazvydas Ignotas <notasas-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-acpi-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <1e60811b-a8ac-017c-d350-8a40e4323870@butterbrot.org>
+Sender: linux-acpi-owner@vger.kernel.org
+To: Florian Echtler <floe@butterbrot.org>
+Cc: "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMzAvMDUvMTcgMDY6MTcgUE0sIEdyYXp2eWRhcyBJZ25vdGFzIHdyb3RlOgo+IE9uIFR1ZSwg
-TWF5IDMwLCAyMDE3IGF0IDY6MzAgQU0sIE1pY2hlbCBEw6RuemVyIDxtaWNoZWxAZGFlbnplci5u
-ZXQ+IHdyb3RlOgo+PiBPbiAyOS8wNS8xNyAwNjoyMCBQTSwgTWljaGVsIETDpG56ZXIgd3JvdGU6
-Cj4+PiBGcm9tOiBNaWNoZWwgRMOkbnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4KPj4+Cj4+
-PiBFdmVuIGlmIENPTkZJR19EUk1fQU1ER1BVX0NJSyBpcyBlbmFibGVkLgo+Pj4KPj4+IFRoZXJl
-IGlzIG5vIGZlYXR1cmUgcGFyaXR5IHlldCBmb3IgQ0lLLCBpbiBwYXJ0aWN1bGFyIGFtZGdwdSBk
-b2Vzbid0Cj4+PiBzdXBwb3J0IEhETUkvRGlzcGxheVBvcnQgd2l0aG91dCBEQy4KPj4+Cj4+PiBT
-aWduZWQtb2ZmLWJ5OiBNaWNoZWwgRMOkbnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4KPj4K
-Pj4gWy4uLl0KPj4KPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9L
-Y29uZmlnIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvS2NvbmZpZwo+Pj4gaW5kZXggOGQz
-NjA4N2ZjMTg2Li5lMDEyMWY4YjQzNmUgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9LY29uZmlnCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9L
-Y29uZmlnCj4+PiBAQCAtMTcsMTEgKzE3LDExIEBAIGNvbmZpZyBEUk1fQU1ER1BVX0NJSwo+Pj4g
-ICAgICAgaGVscAo+Pj4gICAgICAgICBDaG9vc2UgdGhpcyBvcHRpb24gaWYgeW91IHdhbnQgdG8g
-ZW5hYmxlIHN1cHBvcnQgZm9yIENJSyBhc2ljcy4KPj4+Cj4+PiAtICAgICAgIENJSyBpcyBhbHJl
-YWR5IHN1cHBvcnRlZCBpbiByYWRlb24uIElmIHlvdSBlbmFibGUgdGhpcyBvcHRpb24sCj4+PiAt
-ICAgICAgIHN1cHBvcnQgZm9yIENJSyB3aWxsIGJlIHByb3ZpZGVkIGJ5IGFtZGdwdSBhbmQgZGlz
-YWJsZWQgaW4KPj4+IC0gICAgICAgcmFkZW9uIGJ5IGRlZmF1bHQuIFVzZSBtb2R1bGUgb3B0aW9u
-cyB0byBvdmVycmlkZSB0aGlzOgo+Pj4gKyAgICAgICBDSUsgaXMgYWxyZWFkeSBzdXBwb3J0ZWQg
-aW4gcmFkZW9uLiBTdXBwb3J0IGZvciBTSSBpbiBhbWRncHUKPj4KPj4gQ29uc2lkZXIgdGhpcyAi
-U0kiIHR5cG8gZml4ZWQgaW4gdjIuCj4gCj4gV2hpbGUgeW91IGFyZSBoZXJlLCB3aGF0IGFib3V0
-IGFkZGluZyB0aGUgZnVsbCBjb2RlbmFtZXMgaGVyZT8gWW91Cj4gY2FuJ3QgZXhwZWN0IGV2ZXJ5
-IHVzZXIgY29uZmlndXJpbmcgdGhlIGtlcm5lbCB0byBrbm93IHdoYXQgU0kvQ0lLCj4gbWVhbnMs
-IGl0J3Mgbm90IGV2ZW4gZG9jdW1lbnRlZCBpbgo+IGh0dHBzOi8vd3d3Lngub3JnL3dpa2kvUmFk
-ZW9uRmVhdHVyZS8gb3Igd2lraXBlZGlhLCB3aGlsZSB0aGUgbG9uZwo+IGNvZGVuYW1lcyBhcmUu
-CgpUaGF0J3Mgb3V0IG9mIHNjb3BlIGZvciB0aGlzIHNlcmllcywgYW5kIEkgZGVmaW5pdGVseSB3
-b24ndCBnZXQgYXJvdW5kCnRvIGRvaW5nIHRoYXQgYmVmb3JlIG5leHQgd2Vlay4gQW55Ym9keSBm
-ZWVsIGZyZWUgdG8gYmVhdCBtZSB0byBpdC4KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVy
-ICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpMaWJyZSBz
-b2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBk
-ZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Tue, May 30, 2017 at 11:34:17AM +0200, Florian Echtler wrote:
+> On 26.05.2017 23:03, Lukas Wunner wrote:
+> > On Fri, May 26, 2017 at 02:13:29PM +0200, Florian Echtler wrote:
+> >> I'm running Ubuntu 16.04.2 on a 27" unibody iMac 10,1 from 2009. However, even
+> >> with the most recent HWE stack (kernel 4.8), the display stays black after
+> >> suspend. I can ssh into the machine, so wakeup is OK, but the display is
+> >> entirely black (backlight stays off).
+> >>
+> > The ATI card has MXM_PNL_PWR_EN and MXM_PNL_BL_EN pins.  Those must be
+> > enabled for the panel to light up.  Perhaps radeon needs to be extended
+> > to do that.  One theory is that this is done via ACPI, but perhaps
+> > only if a certain operating system is running.  Dump the ACPI tables
+> > and search DSDT and SSDT* tables for methods relating to the ATI card
+> > and/or backlight.  If you find checks for OSDW there (e.g. in _PS0,
+> > i.e. on resume), it means the AML code is only executed on Darwin.
+> I've already had a look at the ACPI tables; there seem to be no references to
+> the "official" backlight/display control functions (no _BL? or _DO? methods).
+> 
+> > Conversely !OSDW means the code is only executed on Windows (Boot Camp).
+> > Linux masquerades as Darwin, but this can be disabled with
+> > acpi_osi=!Darwin on the command line.  It's worth trying if that changes
+> > the behaviour.  If it does, then macOS likely sets those pins on resume
+> > and we need to do the same in radeon.
+> There are OSDW checks present, however, booting with acpi_osi=!Darwin doesn't
+> make a difference to the backlight behaviour.
+
+So, just to confirm, if you never plug in an external DP source and the iMac
+comes out of sleep, the display stays black?
+
+If you log in via ssh and look at dmesg, was radeon able to train the DP
+link again?  No error messages, nothing?
+
+Is the panel off or is it on but merely with 0% brightness?
+
+There's a block of pins on the GPU for "system management" which contains
+a bunch of GPIO, OEM and reserved pins.  Three of these are used to control
+the panel when it's switched to the radeon card:
+pin 23	   PNL_PWR_EN
+pin 25	   PNL_BL_EN
+pin 27	   PNL_BL_PWM
+
+Basically you'd need to know what these are set to before and after sleep.
+I don't know how to access them, presumably via a BAR register.  A quick
+look at the RV730-specific registers in drivers/gpu/drm/radeon/*.h did not
+yield anything useful, but someone at AMD may be able to find this out.
+
+Maybe these registers are supposed to be modified by the OS when coming
+out of sleep, or they're modified by video BIOS but the OS has to trigger
+this somehow.
+
+HTH,
+
+Lukas
