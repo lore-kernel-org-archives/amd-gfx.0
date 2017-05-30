@@ -1,114 +1,174 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [RFC] Exclusive gpu access for SteamVR usecases
-Date: Tue, 30 May 2017 17:19:53 +0200
-Message-ID: <0a469ff9-9ed5-b2c6-4261-6e587512674b@vodafone.de>
-References: <20170525000101.8184-1-andresx7@gmail.com>
+From: Leo Liu <leo.liu@amd.com>
+Subject: [PATCH] drm/amdgpu: Program ring for vce instance 1 at its register space
+Date: Tue, 30 May 2017 11:56:50 -0400
+Message-ID: <20170530155650.5775-1-leo.liu@amd.com>
+References: <20170529182152.7451-1-leo.liu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170525000101.8184-1-andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20170529182152.7451-1-leo.liu@amd.com>
+Sender: stable-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org
+Cc: Leo Liu <leo.liu@amd.com>, stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-TG9va3MgbGlrZSBhIGdvb2Qgc3RhcnQsIGJ1dCBhIGZldyBub3RlcyBpbiBnZW5lcmFsOgoKMS4g
-U3BsaXQgdGhlIHBhdGNoZXMgaW50byB0d28gc2V0cy4KCk9uZSBmb3IgaW1wbGVtZW50aW5nIGNo
-YW5naW5nIHRoZSBwcmlvcml0aWVzIGFuZCBvbmUgZm9yIGxpbWl0aW5nIHRoZSAKcHJpb3JpdGll
-cy4KCjIuIEhvdyBhcmUgdGhlIHByaW9yaXRpZXMgZnJvbSBwcm9jZXNzZXMgc3VwcG9zZWQgdG8g
-aW50ZXJhY3Qgd2l0aCB0aGUgCnBlciBjb250ZXh0IHByaW9yaXR5PwoKMy4gVGhpbmtpbmcgbW9y
-ZSBhYm91dCBpdCB3ZSBjYW4ndCBsaW1pdCB0aGUgbWluaW11bSBwcmlvcml0eSBpbiB0aGUgCnNj
-aGVkdWxlci4KCkZvciBleGFtcGxlIGEgbG93IHByaW9yaXR5IGpvYiBtaWdodCBibG9jayByZXNv
-dXJjZXMgdGhlIGhpZ2ggcHJpb3JpdHkgCmpvYiBuZWVkcyB0byBydW4uIEUuZy4gVlJBTSBtZW1v
-cnkuCgpXZSBuZWVkIHNvbWV0aGluZyBsaWtlIGJsb2NraW5nIHRoZSBzdWJtaXR0ZXIgaW5zdGVh
-ZCAoYmFkKSBvciBkZXRlY3Rpb24gCm9mIGRlcGVuZGVuY2llcyBpbiB0aGUgc2NoZWR1bGVyIChn
-b29kLCBidXQgdHJpY2t5IHRvIGltcGxlbWVudCkuCgpPdGhlcndpc2Ugd2UgY2FuIGVhc2lseSBy
-dW4gaW50byBhIGRlYWRsb2NrIHNpdHVhdGlvbiB3aXRoIHRoYXQgYXBwcm9hY2guCgpSZWdhcmRz
-LApDaHJpc3RpYW4uCgpBbSAyNS4wNS4yMDE3IHVtIDAyOjAwIHNjaHJpZWIgQW5kcmVzIFJvZHJp
-Z3VlejoKPiBXaGVuIG11bHRpcGxlIGVudmlyb25tZW50cyBhcmUgcnVubmluZyBzaW11bHRhbmVv
-dXNseSBvbiBhIHN5c3RlbSwgZS5nLgo+IGFuIFggZGVza3RvcCArIGEgU3RlYW1WUiBnYW1lIHNl
-c3Npb24sIGl0IG1heSBiZSB1c2VmdWwgdG8gc2FjcmlmaWNlCj4gcGVyZm9ybWFuY2UgaW4gb25l
-IGVudmlyb25tZW50IGluIG9yZGVyIHRvIGJvb3N0IGl0IG9uIHRoZSBvdGhlci4KPgo+IFRoaXMg
-c2VyaWVzIHByb3ZpZGVzIGEgbWVjaGFuaXNtIGZvciBhIERSTV9NQVNURVIgdG8gcHJvdmlkZSBl
-eGNsdXNpdmUKPiBncHUgYWNjZXNzIHRvIGEgZ3JvdXAgb2YgcHJvY2Vzc2VzLgo+Cj4gTm90ZTog
-VGhpcyBzZXJpZXMgaXMgYnVpbHQgb24gdGhlIGFzc3VtcHRpb24gdGhhdCB0aGUgZHJtIGxlYXNl
-IHBhdGNoIHNlcmllcwo+IHdpbGwgZXh0ZW5kIERSTV9NQVNURVIgc3RhdHVzIHRvIGxlc2Vlcy4K
-Pgo+IFRoZSBsaWJkcm0gd2UgaW50ZW5kIHRvIHByb3ZpZGUgaXMgYXMgZm9sbG93czoKPgo+IC8q
-Kgo+ICAgKiBTZXQgdGhlIHByaW9yaXR5IG9mIGFsbCBjb250ZXh0cyBpbiBhIHByb2Nlc3MKPiAg
-ICoKPiAgICogVGhpcyBmdW5jdGlvbiB3aWxsIGNoYW5nZSB0aGUgcHJpb3JpdHkgb2YgYWxsIGNv
-bnRleHRzIG93bmVkIGJ5Cj4gICAqIHRoZSBwcm9jZXNzIGlkZW50aWZpZWQgYnkgZmQuCj4gICAq
-Cj4gICAqIFxwYXJhbSBkZXYgICAgICAgICAgICAgLSBcYyBbaW5dIGRldmljZSBoYW5kbGUKPiAg
-ICogXHBhcmFtIGZkICAgICAgICAgICAgICAtIFxjIFtpbl0gZmQgZnJvbSB0YXJnZXQgcHJvY2Vz
-cwo+ICAgKiBccGFyYW0gcHJpb3JpdHkgICAgICAgIC0gXGMgW2luXSB0YXJnZXQgcHJpb3JpdHkg
-QU1ER1BVX0NUWF9QUklPUklUWV8qCj4gICAqCj4gICAqIFxyZXR1cm4gIDAgb24gc3VjY2Vzc1xu
-Cj4gICAqICAgICAgICAgPDAgLSBOZWdhdGl2ZSBQT1NJWCBlcnJvciBjb2RlCj4gICAqCj4gICAq
-IFxub3RlcyBAZmQgY2FuIGJlICphbnkqIGZpbGUgZGVzY3JpcHRvciBmcm9tIHRoZSB0YXJnZXQg
-cHJvY2Vzcy4KPiAgICogXG5vdGVzIHRoaXMgZnVuY3Rpb24gcmVxdWlyZXMgRFJNX01BU1RFUgo+
-ICAgKi8KPiBpbnQgYW1kZ3B1X3NjaGVkX3Byb2Nlc3NfcHJpb3JpdHlfc2V0KGFtZGdwdV9kZXZp
-Y2VfaGFuZGxlIGRldiwKPiAJCQkJICAgICAgaW50IGZkLCBpbnQzMl90IHByaW9yaXR5KTsKPgo+
-IC8qKgo+ICAgKiBSZXF1ZXN0IHRvIHJhaXNlIHRoZSBtaW5pbXVtIHJlcXVpcmVkIHByaW9yaXR5
-IHRvIHNjaGVkdWxlIGEgZ3B1IGpvYgo+ICAgKgo+ICAgKiBTdWJtaXQgYSByZXF1ZXN0IHRvIGlu
-Y3JlYXNlIHRoZSBtaW5pbXVtIHJlcXVpcmVkIHByaW9yaXR5IHRvIHNjaGVkdWxlCj4gICAqIGEg
-Z3B1IGpvYi4gT25jZSB0aGlzIGZ1bmN0aW9uIHJldHVybnMsIHRoZSBncHUgc2NoZWR1bGVyIHdp
-bGwgbm8gbG9uZ2VyCj4gICAqIGNvbnNpZGVyIGpvYnMgZnJvbSBjb250ZXh0cyB3aXRoIHByaW9y
-aXR5IGxvd2VyIHRoYW4gQHByaW9yaXR5Lgo+ICAgKgo+ICAgKiBUaGUgbWluaW11bSBwcmlvcml0
-eSBjb25zaWRlcmVkIGJ5IHRoZSBzY2hlZHVsZXIgd2lsbCBiZSB0aGUgaGlnaGVzdCBmcm9tCj4g
-ICAqIGFsbCBjdXJyZW50bHkgYWN0aXZlIHJlcXVlc3RzLgo+ICAgKgo+ICAgKiBSZXF1ZXN0cyBh
-cmUgcmVmY291bnRlZCwgYW5kIG11c3QgYmUgYmFsYW5jZWQgdXNpbmcKPiAgICogYW1kZ3B1X3Nj
-aGVkX21pbl9wcmlvcml0eV9wdXQoKQo+ICAgKgo+ICAgKiBccGFyYW0gZGV2ICAgICAgICAgICAg
-IC0gXGMgW2luXSBkZXZpY2UgaGFuZGxlCj4gICAqIFxwYXJhbSBwcmlvcml0eSAgICAgICAgLSBc
-YyBbaW5dIHRhcmdldCBwcmlvcml0eSBBTURHUFVfQ1RYX1BSSU9SSVRZXyoKPiAgICoKPiAgICog
-XHJldHVybiAgMCBvbiBzdWNjZXNzXG4KPiAgICogICAgICAgICA8MCAtIE5lZ2F0aXZlIFBPU0lY
-IGVycm9yIGNvZGUKPiAgICoKPiAgICogXG5vdGVzIHRoaXMgZnVuY3Rpb24gcmVxdWlyZXMgRFJN
-X01BU1RFUgo+ICAgKi8KPiBpbnQgYW1kZ3B1X3NjaGVkX21pbl9wcmlvcml0eV9nZXQoYW1kZ3B1
-X2RldmljZV9oYW5kbGUgZGV2LAo+IAkJCQkgIGludDMyX3QgcHJpb3JpdHkpOwo+Cj4gLyoqCj4g
-ICAqIERyb3AgYSByZXF1ZXN0IHRvIHJhaXNlIHRoZSBtaW5pbXVtIHJlcXVpcmVkIHNjaGVkdWxl
-ciBwcmlvcml0eQo+ICAgKgo+ICAgKiBUaGlzIGNhbGwgYmFsYW5jZXMgYW1kZ3B1X3NjaGVkX21p
-bl9wcmlvcml0eV9nZXQoKQo+ICAgKgo+ICAgKiBJZiBubyBvdGhlciBhY3RpdmUgcmVxdWVzdHMg
-ZXhpc3RzIGZvciBAcHJpb3JpdHksIHRoZSBtaW5pbXVtIHJlcXVpcmVkCj4gICAqIHByaW9yaXR5
-IHdpbGwgZGVjYXkgdG8gYSBsb3dlciBsZXZlbCB1bnRpbCBvbmUgaXMgcmVhY2hlZCB3aXRoIGFu
-IGFjdGl2ZQo+ICAgKiByZXF1ZXN0IG9yIHRoZSBsb3dlc3QgcHJpb3JpdHkgaXMgcmVhY2hlZC4K
-PiAgICoKPiAgICogXHBhcmFtIGRldiAgICAgICAgICAgICAtIFxjIFtpbl0gZGV2aWNlIGhhbmRs
-ZQo+ICAgKiBccGFyYW0gcHJpb3JpdHkgICAgICAgIC0gXGMgW2luXSB0YXJnZXQgcHJpb3JpdHkg
-QU1ER1BVX0NUWF9QUklPUklUWV8qCj4gICAqCj4gICAqIFxyZXR1cm4gIDAgb24gc3VjY2Vzc1xu
-Cj4gICAqICAgICAgICAgPDAgLSBOZWdhdGl2ZSBQT1NJWCBlcnJvciBjb2RlCj4gICAqCj4gICAq
-IFxub3RlcyB0aGlzIGZ1bmN0aW9uIHJlcXVpcmVzIERSTV9NQVNURVIKPiAgICovCj4gaW50IGFt
-ZGdwdV9zY2hlZF9taW5fcHJpb3JpdHlfcHV0KGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldiwKPiAJ
-CQkJICBpbnQzMl90IHByaW9yaXR5KTsKPgo+IFVzaW5nIHRoaXMgYXBwLCBWUkNvbXBvc2VyIGNh
-biByYWlzZSB0aGUgcHJpb3JpdHkgb2YgdGhlIFZSYXBwIGFuZCBpdHNlbGYuIFRoZW4KPiBpdCBj
-YW4gcmVzdHJpY3QgdGhlIG1pbmltdW0gc2NoZWR1bGVyIHByaW9yaXR5IGluIG9yZGVyIHRvIGJl
-Y29tZSBleGNsdXNpdmUgZ3B1Cj4gY2xpZW50cy4KPgo+IE9uZSBvZiB0aGUgYXJlYXMgSSdkIGxp
-a2UgZmVlZGJhY2sgaXMgdGhlIGZvbGxvd2luZyBzY2VuYXJpby4gSWYgYSBWUmFwcCBvcGVucwo+
-IGEgbmV3IGZkIGFuZCBjcmVhdGVzIGEgbmV3IGNvbnRleHQgYWZ0ZXIgYSBjYWxsIHRvIHNldF9w
-cmlvcml0eSwgdGhpcyBzcGVjaWZpYwo+IGNvbnRleHQgd2lsbCBiZSBsb3dlciBwcmlvcml0eSB0
-aGFuIHRoZSByZXN0LiBJZiB0aGUgbWluaW11bSByZXF1aXJlZCBwcmlvcml0eQo+IGlzIHRoZW4g
-cmFpc2VkLCBpdCBpcyBwb3NzaWJsZSB0aGF0IHRoaXMgbmV3IGNvbnRleHQgd2lsbCBiZSBzdGFy
-dmVkIGFuZAo+IGRlYWRsb2NrIHRoZSBWUmFwcC4KPgo+IE9uZSBzb2x1dGlvbiBJIGhhZCBpbiBt
-aW5kIHRvIGFkZHJlc3MgdGhpcyBzaXR1YXRpb24sIGlzIHRvIG1ha2Ugc2V0X3ByaW9yaXR5Cj4g
-YWxzbyByYWlzZSB0aGUgcHJpb3JpdHkgb2YgZnV0dXJlIGNvbnRleHRzIGNyZWF0ZWQgYnkgdGhl
-IFZSYXBwLiBIb3dldmVyLCB0aGF0Cj4gd291bGQgcmVxdWlyZSBrZWVwaW5nIHRyYWNrIG9mIHRo
-ZSByZXF1ZXN0ZWQgcHJpb3JpdHkgb24gYSBwZXItcHJvY2VzcyBkYXRhCj4gc3RydWN0dXJlLiBU
-aGUgY3VycmVudCBkZXNpZ24gYXBwZWFycyB0byBzdGVlciBjbGVhbiBvZiBrZWVwaW5nIGFueSBw
-cm9jZXNzCj4gc3BlY2lmaWMgZGF0YSwgYW5kIGV2ZXJ5dGhpbmcgaW5zdGVhZCBvZiBzdG9yZWQg
-b24gYSBwZXItZmlsZSBiYXNpcy4gV2hpY2ggaXMKPiB3aHkgSSBkaWQgbm90IHB1cnN1ZSB0aGlz
-IGFwcHJvYWNoLiBCdXQgaWYgdGhpcyBpcyBzb21ldGhpbmcgeW91J2QgbGlrZSBtZSB0bwo+IGlt
-cGxlbWVudCBsZXQgbWUga25vdy4KPgo+IE9uZSBjb3VsZCBhbHNvIGFyZ3VlIHRoYXQgcHJldmVu
-dGluZyBhbiBhcHBsaWNhdGlvbiBkZWFkbG9jayBzaG91bGQgYmUgaGFuZGxlZAo+IGJldHdlZW4g
-dGhlIFZSQ29tcG9zZXIgYW5kIHRoZSBWUkFwcC4gSXQgaXMgbm90IHRoZSBrZXJuZWwncyByZXNw
-b25zaWJpbGl0eSB0bwo+IGJhYnlzaXQgdXNlcnNwYWNlIGFwcGxpY2F0aW9ucyBhbmQgcHJldmVu
-dCB0aGVtc2VsdmVzIGZyb20gc2hvb3RpbmcgdGhlbXNlbHZlcwo+IGluIHRoZSBmb290LiBUaGUg
-c2FtZSBjb3VsZCBiZSBhY2hpZXZlZCBieSBpbXByb3BlciB1c2FnZSBvZiBzaGFyZWQgZmVuY2Vz
-Cj4gYmV0d2VlbiBwcm9jZXNzZXMuCj4KPiBUaG91Z2h0cy9mZWVkYmFjay9jb21tZW50cyBvbiB0
-aGlzIGlzc3VlLCBvciBvdGhlcnMsIGFyZSBhcHByZWNpYXRlZC4KPgo+IFJlZ2FyZHMsCj4gQW5k
-cmVzCj4gICAKPgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+We need program ring buffer on instance 1 register space domain,
+when only if instance 1 available, with two instances or instance 0,
+and we need only program instance 0 regsiter space domain for ring.
+
+Signed-off-by: Leo Liu <leo.liu@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+---
+ drivers/gpu/drm/amd/amdgpu/vce_v3_0.c | 95 +++++++++++++++++++++++++----------
+ 1 file changed, 68 insertions(+), 27 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+index fb08193..7e39e42 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+@@ -77,13 +77,26 @@ static int vce_v3_0_set_clockgating_state(void *handle,
+ static uint64_t vce_v3_0_ring_get_rptr(struct amdgpu_ring *ring)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
++	u32 v;
++
++	if (adev->vce.harvest_config == AMDGPU_VCE_HARVEST_VCE0) {
++		mutex_lock(&adev->grbm_idx_mutex);
++		WREG32(mmGRBM_GFX_INDEX, GET_VCE_INSTANCE(1));
++	}
+ 
+ 	if (ring == &adev->vce.ring[0])
+-		return RREG32(mmVCE_RB_RPTR);
++		v = RREG32(mmVCE_RB_RPTR);
+ 	else if (ring == &adev->vce.ring[1])
+-		return RREG32(mmVCE_RB_RPTR2);
++		v = RREG32(mmVCE_RB_RPTR2);
+ 	else
+-		return RREG32(mmVCE_RB_RPTR3);
++		v = RREG32(mmVCE_RB_RPTR3);
++
++	if (adev->vce.harvest_config == AMDGPU_VCE_HARVEST_VCE0) {
++		WREG32(mmGRBM_GFX_INDEX, mmGRBM_GFX_INDEX_DEFAULT);
++		mutex_unlock(&adev->grbm_idx_mutex);
++	}
++
++	return v;
+ }
+ 
+ /**
+@@ -96,13 +109,26 @@ static uint64_t vce_v3_0_ring_get_rptr(struct amdgpu_ring *ring)
+ static uint64_t vce_v3_0_ring_get_wptr(struct amdgpu_ring *ring)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
++	u32 v;
++
++	if (adev->vce.harvest_config == AMDGPU_VCE_HARVEST_VCE0) {
++		mutex_lock(&adev->grbm_idx_mutex);
++		WREG32(mmGRBM_GFX_INDEX, GET_VCE_INSTANCE(1));
++	}
+ 
+ 	if (ring == &adev->vce.ring[0])
+-		return RREG32(mmVCE_RB_WPTR);
++		v = RREG32(mmVCE_RB_WPTR);
+ 	else if (ring == &adev->vce.ring[1])
+-		return RREG32(mmVCE_RB_WPTR2);
++		v = RREG32(mmVCE_RB_WPTR2);
+ 	else
+-		return RREG32(mmVCE_RB_WPTR3);
++		v = RREG32(mmVCE_RB_WPTR3);
++
++	if (adev->vce.harvest_config == AMDGPU_VCE_HARVEST_VCE0) {
++		WREG32(mmGRBM_GFX_INDEX, mmGRBM_GFX_INDEX_DEFAULT);
++		mutex_unlock(&adev->grbm_idx_mutex);
++	}
++
++	return v;
+ }
+ 
+ /**
+@@ -116,12 +142,22 @@ static void vce_v3_0_ring_set_wptr(struct amdgpu_ring *ring)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+ 
++	if (adev->vce.harvest_config == AMDGPU_VCE_HARVEST_VCE0) {
++		mutex_lock(&adev->grbm_idx_mutex);
++		WREG32(mmGRBM_GFX_INDEX, GET_VCE_INSTANCE(1));
++	}
++
+ 	if (ring == &adev->vce.ring[0])
+ 		WREG32(mmVCE_RB_WPTR, lower_32_bits(ring->wptr));
+ 	else if (ring == &adev->vce.ring[1])
+ 		WREG32(mmVCE_RB_WPTR2, lower_32_bits(ring->wptr));
+ 	else
+ 		WREG32(mmVCE_RB_WPTR3, lower_32_bits(ring->wptr));
++
++	if (adev->vce.harvest_config == AMDGPU_VCE_HARVEST_VCE0) {
++		WREG32(mmGRBM_GFX_INDEX, mmGRBM_GFX_INDEX_DEFAULT);
++		mutex_unlock(&adev->grbm_idx_mutex);
++	}
+ }
+ 
+ static void vce_v3_0_override_vce_clock_gating(struct amdgpu_device *adev, bool override)
+@@ -231,33 +267,38 @@ static int vce_v3_0_start(struct amdgpu_device *adev)
+ 	struct amdgpu_ring *ring;
+ 	int idx, r;
+ 
+-	ring = &adev->vce.ring[0];
+-	WREG32(mmVCE_RB_RPTR, lower_32_bits(ring->wptr));
+-	WREG32(mmVCE_RB_WPTR, lower_32_bits(ring->wptr));
+-	WREG32(mmVCE_RB_BASE_LO, ring->gpu_addr);
+-	WREG32(mmVCE_RB_BASE_HI, upper_32_bits(ring->gpu_addr));
+-	WREG32(mmVCE_RB_SIZE, ring->ring_size / 4);
+-
+-	ring = &adev->vce.ring[1];
+-	WREG32(mmVCE_RB_RPTR2, lower_32_bits(ring->wptr));
+-	WREG32(mmVCE_RB_WPTR2, lower_32_bits(ring->wptr));
+-	WREG32(mmVCE_RB_BASE_LO2, ring->gpu_addr);
+-	WREG32(mmVCE_RB_BASE_HI2, upper_32_bits(ring->gpu_addr));
+-	WREG32(mmVCE_RB_SIZE2, ring->ring_size / 4);
+-
+-	ring = &adev->vce.ring[2];
+-	WREG32(mmVCE_RB_RPTR3, lower_32_bits(ring->wptr));
+-	WREG32(mmVCE_RB_WPTR3, lower_32_bits(ring->wptr));
+-	WREG32(mmVCE_RB_BASE_LO3, ring->gpu_addr);
+-	WREG32(mmVCE_RB_BASE_HI3, upper_32_bits(ring->gpu_addr));
+-	WREG32(mmVCE_RB_SIZE3, ring->ring_size / 4);
+-
+ 	mutex_lock(&adev->grbm_idx_mutex);
+ 	for (idx = 0; idx < 2; ++idx) {
+ 		if (adev->vce.harvest_config & (1 << idx))
+ 			continue;
+ 
+ 		WREG32(mmGRBM_GFX_INDEX, GET_VCE_INSTANCE(idx));
++
++		/* Program instance 0 reg space for two instances or instance 0 case
++		program instance 1 reg space for only instance 1 available case */
++		if (idx != 1 || adev->vce.harvest_config == AMDGPU_VCE_HARVEST_VCE0) {
++			ring = &adev->vce.ring[0];
++			WREG32(mmVCE_RB_RPTR, lower_32_bits(ring->wptr));
++			WREG32(mmVCE_RB_WPTR, lower_32_bits(ring->wptr));
++			WREG32(mmVCE_RB_BASE_LO, ring->gpu_addr);
++			WREG32(mmVCE_RB_BASE_HI, upper_32_bits(ring->gpu_addr));
++			WREG32(mmVCE_RB_SIZE, ring->ring_size / 4);
++
++			ring = &adev->vce.ring[1];
++			WREG32(mmVCE_RB_RPTR2, lower_32_bits(ring->wptr));
++			WREG32(mmVCE_RB_WPTR2, lower_32_bits(ring->wptr));
++			WREG32(mmVCE_RB_BASE_LO2, ring->gpu_addr);
++			WREG32(mmVCE_RB_BASE_HI2, upper_32_bits(ring->gpu_addr));
++			WREG32(mmVCE_RB_SIZE2, ring->ring_size / 4);
++
++			ring = &adev->vce.ring[2];
++			WREG32(mmVCE_RB_RPTR3, lower_32_bits(ring->wptr));
++			WREG32(mmVCE_RB_WPTR3, lower_32_bits(ring->wptr));
++			WREG32(mmVCE_RB_BASE_LO3, ring->gpu_addr);
++			WREG32(mmVCE_RB_BASE_HI3, upper_32_bits(ring->gpu_addr));
++			WREG32(mmVCE_RB_SIZE3, ring->ring_size / 4);
++		}
++
+ 		vce_v3_0_mc_resume(adev, idx);
+ 		WREG32_FIELD(VCE_STATUS, JOB_BUSY, 1);
+ 
+-- 
+1.9.1
