@@ -1,16 +1,18 @@
-From: Tom Reddish <tom.reddish-UdFiUJb0jaqhEniVeURVKkEOCMrvLtNR@public.gmane.org>
-Subject: Re: Linux Kernel 4.4.0-66 Possible DRM connector_status Bug For LG
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: Linux Kernel 4.4.0-66 Possible DRM connector_status Bug For LG
  Displays
-Date: Wed, 31 May 2017 13:47:57 -0400
-Message-ID: <342A75C6-5F89-4F5C-8A9C-ABDC3B1FD11A@mediavuesystems.com>
+Date: Wed, 31 May 2017 18:01:13 +0000
+Message-ID: <BN6PR12MB165246F8E048570009720DE7F7F10@BN6PR12MB1652.namprd12.prod.outlook.com>
 References: <4A782E6D-F40F-41F0-A3C4-A74F460CB1AE@mediavuesystems.com>
  <BN6PR12MB1652303B932BA05D0858FDEDF7F10@BN6PR12MB1652.namprd12.prod.outlook.com>
  <E004A7F8-E451-4409-A6CB-F5B7D50B81A7@mediavuesystems.com>
  <BN6PR12MB16520C5C8CCCFD664F83D04AF7F10@BN6PR12MB1652.namprd12.prod.outlook.com>
-Mime-Version: 1.0 (Mac OS X Mail 10.3 \(3273\))
-Content-Type: multipart/mixed; boundary="===============1238211001=="
+ <342A75C6-5F89-4F5C-8A9C-ABDC3B1FD11A@mediavuesystems.com>
+Mime-Version: 1.0
+Content-Type: multipart/mixed; boundary="===============0038860396=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB16520C5C8CCCFD664F83D04AF7F10-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <342A75C6-5F89-4F5C-8A9C-ABDC3B1FD11A-UdFiUJb0jaqhEniVeURVKkEOCMrvLtNR@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,1553 +23,2171 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+To: 'Tom Reddish' <tom.reddish-UdFiUJb0jaqhEniVeURVKkEOCMrvLtNR@public.gmane.org>
 Cc: Brian Kane <brian.kane-UdFiUJb0jaqhEniVeURVKkEOCMrvLtNR@public.gmane.org>, "Koenig,
  Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-
---===============1238211001==
+--===============0038860396==
+Content-Language: en-US
 Content-Type: multipart/alternative;
- boundary="Apple-Mail=_2B1BCBC6-06E5-4B16-96C2-52BC1DFF246F"
+	boundary="_000_BN6PR12MB165246F8E048570009720DE7F7F10BN6PR12MB1652namp_"
 
-
---Apple-Mail=_2B1BCBC6-06E5-4B16-96C2-52BC1DFF246F
+--_000_BN6PR12MB165246F8E048570009720DE7F7F10BN6PR12MB1652namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=us-ascii
 
-I can do that. I've looked through the changelog between the two and =
-theres a number of things related to drm and radeon but I'm not exactly =
-sure what I should be looking for. Are there any specific files that =
-jump out to you in your head that would be handling this part of =
-interaction with the displays? Basically help me narrow down the commits =
-or look for ones that touch that file.
+Nothing comes to mind.  It's presumably a change in the drm area so you cou=
+ld limit the bisection to just drivers/gpu/drm.
+
+From: Tom Reddish [mailto:tom.reddish-UdFiUJb0jaqhEniVeURVKkEOCMrvLtNR@public.gmane.org]
+Sent: Wednesday, May 31, 2017 1:48 PM
+To: Deucher, Alexander
+Cc: Koenig, Christian; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Brian Kane
+Subject: Re: Linux Kernel 4.4.0-66 Possible DRM connector_status Bug For LG=
+ Displays
+
+I can do that. I've looked through the changelog between the two and theres=
+ a number of things related to drm and radeon but I'm not exactly sure what=
+ I should be looking for. Are there any specific files that jump out to you=
+ in your head that would be handling this part of interaction with the disp=
+lays? Basically help me narrow down the commits or look for ones that touch=
+ that file.
 
 
-Tom Reddish=20
+Tom Reddish
 Software Engineer
 MediaVue Systems
 Skype: t.reddish
 Tel: +1 781.926.0676
-w =
-<applewebdata://51C3D32F-A051-4CB9-9732-9A4E0FA26323/www.mediavuesystems.c=
-om>ww.mediavuesystems.com =
-<applewebdata://51C3D32F-A051-4CB9-9732-9A4E0FA26323/www.mediavuesystems.c=
-om>
-> On May 31, 2017, at 12:48 PM, Deucher, Alexander =
-<Alexander.Deucher-5C7GfCeVMHo@public.gmane.org> wrote:
->=20
-> Use git to bisect between the current problematic kernel and the last =
-working kernel.  Bisecting is a git feature that allows you to bisect =
-the commits between two points to determine what change caused the =
-regression.  Google for "git bisect howto".
-> =20
-> Alex
-> =20
-> From: Tom Reddish [mailto:tom.reddish-UdFiUJb0jaqhEniVeURVKkEOCMrvLtNR@public.gmane.org]=20
-> Sent: Wednesday, May 31, 2017 12:44 PM
-> To: Deucher, Alexander
-> Cc: Koenig, Christian; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Brian Kane
-> Subject: Re: Linux Kernel 4.4.0-66 Possible DRM connector_status Bug =
-For LG Displays
-> =20
-> What do you mean by bisect?
-> =20
-> My gut is telling me it's something that changed in the kernel. Maybe =
-the kernel is correctly parsing the information it is being given from =
-the display now and in the older kernel it was handling that information =
-differently? With the exact same display and no settings changed on it =
-if I use the older kernel it shows up as connected
-> =20
-> Tom Reddish=20
-> Software Engineer
-> MediaVue Systems
-> Skype: t.reddish
-> Tel: +1 781.926.0676
-> w <x-msg://2/www.mediavuesystems.com>ww.mediavuesystems.com =
-<x-msg://2/www.mediavuesystems.com>
-> =20
-> On May 31, 2017, at 12:24 PM, Deucher, Alexander =
-<Alexander.Deucher-5C7GfCeVMHo@public.gmane.org <mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>> wrote:
-> =20
-> Can you bisect?  Sounds like the monitor does not keep the EDID =
-powered up when the display is off as is required by the vesa spec.
-> =20
-> Alex
-> =20
-> From: Tom Reddish [mailto:tom.reddish-UdFiUJb0jaqhEniVeURVKkEOCMrvLtNR@public.gmane.org =
-<mailto:tom.reddish-UdFiUJb0jaqhEniVeURVKkEOCMrvLtNR@public.gmane.org>]=20
-> Sent: Wednesday, May 31, 2017 12:20 PM
-> To: Deucher, Alexander; Koenig, Christian
-> Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org =
-<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Brian Kane
-> Subject: Linux Kernel 4.4.0-66 Possible DRM connector_status Bug For =
-LG Displays
-> =20
-> =20
-> LG Displays are being reported as "disconnected" when they are powered =
-off (currently connected through DVI to mini-displayport adapter)
-> =20
-> Only seeing this with LG displays (have tested NEC and Samsung =
-*limited model types for each manufacturer*). With the LG display =
-connected to the graphics card and powered off the system is reporting =
-the DisplayPort as disconnected. In any kernel <=3D 4.4.0-31 the system =
-would report the DisplayPort as connected even if the LG display was =
-off.=20
-> =20
-> Kernel tested on
-> Linux version 4.4.0-66-generic (buildd@lgw01-28) (gcc version 5.4.0 =
-20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.4) ) #87-Ubuntu
-> =20
-> Most recent kernel without the bug:=20
-> Linux version 4.4.0-31-generic (buildd@lgw01-16) (gcc version 5.3.1 =
-20160413 (Ubuntu 5.3.1-14ubuntu2.1) ) #50-Ubuntu
-> =20
-> "cat /sys/class/drm/card1-DP-1/status" will show the status as =
-disconnected if the LG display is powered off
-> =20
-> Environment
->           Ubuntu 16.04
->           Graphics Card: Cape Verde PRO [Radeon HD 7750/8740 / R7 =
-250E]
->           Radeon Graphics Drivers
->           Kernel: 4.4.0-66
-> =20
-> =20
-> Processor
-> processor       : 0-3
-> vendor_id      : AuthenticAMD
-> cpu family     : 21
-> model                        : 48
-> model name   : AMD A8-7600 Radeon R7, 10 Compute Cores 4C+6G
-> stepping         : 1
-> microcode      : 0x6003106
-> cpu MHz                   : 1400.000
-> cache size      : 2048 KB
-> physical id     : 0
-> siblings          : 4
-> core id                       : 0
-> cpu cores       : 2
-> apicid             : 16
-> initial apicid   : 0
-> fpu                 : yes
-> fpu_exception           : yes
-> cpuid level     : 13
-> wp                 : yes
-> flags               : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr =
-pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext =
-fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl nonstop_tsc =
-extd_apicid aperfmperf eagerfpu pni pclmulqdq monitor ssse3 fma cx16 =
-sse4_1 sse4_2 popcnt aes xsave avx f16c lahf_lm cmp_legacy svm extapic =
-cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs xop skinit wdt =
-lwp fma4 tce nodeid_msr tbm topoext perfctr_core perfctr_nb bpext cpb =
-hw_pstate vmmcall fsgsbase bmi1 xsaveopt arat npt lbrv svm_lock =
-nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter =
-pfthreshold
-> bugs               : fxsave_leak sysret_ss_attrs
-> bogomips       : 6188.48
-> TLB size        : 1536 4K pages
-> clflush size     : 64
-> cache_alignment        : 64
-> address sizes  : 48 bits physical, 48 bits virtual
-> power management: ts ttp tm 100mhzsteps hwpstate cpb eff_freq_ro [13]
-> =20
-> =20
-> Loaded driver and hardware information
-> cat /proc/ioports:
-> 0000-03af : PCI Bus 0000:00
->   0000-001f : dma1
->   0020-0021 : pic1
->   0040-0043 : timer0
->   0050-0053 : timer1
->   0060-0060 : keyboard
->   0061-0061 : PNP0800:00
->   0064-0064 : keyboard
->   0070-0071 : rtc0
->   0080-008f : dma page reg
->   00a0-00a1 : pic2
->   00c0-00df : dma2
->   00f0-00ff : PNP0C04:00
->     00f0-00ff : fpu
-> 03b0-03df : PCI Bus 0000:00
->   03c0-03df : vesafb
-> 03e0-0cf7 : PCI Bus 0000:00
->   03f8-03ff : serial
->   040b-040b : pnp 00:08
->   04d0-04d1 : pnp 00:07
->     04d0-04d1 : pnp 00:08
->   04d6-04d6 : pnp 00:08
->   0800-0803 : ACPI PM1a_EVT_BLK
->   0804-0805 : ACPI PM1a_CNT_BLK
->   0808-080b : ACPI PM_TMR
->   0810-0815 : ACPI CPU throttle
->   0820-0827 : ACPI GPE0_BLK
->   0900-090f : pnp 00:08
->   0910-091f : pnp 00:08
->   0a00-0a0f : pnp 00:03
->     0a00-0a07 : f71882fg
->   0a10-0a1f : pnp 00:03
->   0b00-0b07 : piix4_smbus
->   0b20-0b3f : pnp 00:08
->     0b20-0b27 : piix4_smbus
->   0c00-0c01 : pnp 00:08
->   0c14-0c14 : pnp 00:08
->   0c50-0c51 : pnp 00:08
->   0c52-0c52 : pnp 00:08
->   0c6c-0c6c : pnp 00:08
->   0c6f-0c6f : pnp 00:08
->   0cd0-0cd1 : pnp 00:08
->   0cd2-0cd3 : pnp 00:08
->   0cd4-0cd5 : pnp 00:08
->   0cd6-0cd7 : pnp 00:08
->   0cd8-0cdf : pnp 00:08
-> 0cf8-0cff : PCI conf1
-> 0d00-ffff : PCI Bus 0000:00
->   d000-dfff : PCI Bus 0000:02
->     d000-d0ff : 0000:02:00.0
->       d000-d0ff : r8169
->   e000-efff : PCI Bus 0000:01
->     e000-e0ff : 0000:01:00.0
->   f000-f0ff : 0000:00:01.0
->   f100-f10f : 0000:00:11.0
->     f100-f10f : ahci
->   f110-f113 : 0000:00:11.0
->     f110-f113 : ahci
->   f120-f127 : 0000:00:11.0
->     f120-f127 : ahci
->   f130-f133 : 0000:00:11.0
->     f130-f133 : ahci
->   f140-f147 : 0000:00:11.0
->     f140-f147 : ahci
->   fe00-fefe : pnp 00:08
-> =20
-> PCI Information
-> 01:00.0 VGA compatible controller: Advanced Micro Devices, Inc. =
-[AMD/ATI] Cape Verde PRO [Radeon HD 7750/8740 / R7 250E] (prog-if 00 =
-[VGA controller])
->           Subsystem: Hightech Information System Ltd. Cape Verde PRO =
-[Radeon HD 7750/8740 / R7 250E]
->           Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- =
-ParErr- Stepping- SERR- FastB2B- DisINTx+
->           Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=3Dfast =
->TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
->           Latency: 0, Cache Line Size: 64 bytes
->           Interrupt: pin A routed to IRQ 48
->           Region 0: Memory at c0000000 (64-bit, prefetchable) =
-[size=3D256M]
->           Region 2: Memory at fea00000 (64-bit, non-prefetchable) =
-[size=3D256K]
->           Region 4: I/O ports at e000 [size=3D256]
->           Expansion ROM at fea40000 [disabled] [size=3D128K]
->           Capabilities: [48] Vendor Specific Information: Len=3D08 <?>
->           Capabilities: [50] Power Management version 3
->                       Flags: PMEClk- DSI- D1+ D2+ AuxCurrent=3D0mA =
-PME(D0-,D1+,D2+,D3hot+,D3cold-)
->                       Status: D0 NoSoftRst- PME-Enable- DSel=3D0 =
-DScale=3D0 PME-
->           Capabilities: [58] Express (v2) Legacy Endpoint, MSI 00
->                       DevCap:          MaxPayload 256 bytes, PhantFunc =
-0, Latency L0s <4us, L1 unlimited
->                                   ExtTag+ AttnBtn- AttnInd- PwrInd- =
-RBE+ FLReset-
->                       DevCtl:           Report errors: Correctable- =
-Non-Fatal- Fatal- Unsupported-
->                                   RlxdOrd- ExtTag- PhantFunc- AuxPwr- =
-NoSnoop+
->                                   MaxPayload 256 bytes, MaxReadReq 512 =
-bytes
->                       DevSta:           CorrErr+ UncorrErr- FatalErr- =
-UnsuppReq+ AuxPwr- TransPend-
->                       LnkCap:          Port #0, Speed 8GT/s, Width =
-x16, ASPM L0s L1, Exit Latency L0s <64ns, L1 <1us
->                                   ClockPM- Surprise- LLActRep- BwNot- =
-ASPMOptComp+
->                       LnkCtl:            ASPM Disabled; RCB 64 bytes =
-Disabled- CommClk+
->                                   ExtSynch- ClockPM- AutWidDis- BWInt- =
-AutBWInt-
->                       LnkSta:           Speed 8GT/s, Width x16, TrErr- =
-Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
->                       DevCap2: Completion Timeout: Not Supported, =
-TimeoutDis-, LTR-, OBFF Not Supported
->                       DevCtl2: Completion Timeout: 50us to 50ms, =
-TimeoutDis-, LTR-, OBFF Disabled
->                       LnkCtl2: Target Link Speed: 8GT/s, =
-EnterCompliance- SpeedDis-
->                                    Transmit Margin: Normal Operating =
-Range, EnterModifiedCompliance- ComplianceSOS-
->                                    Compliance De-emphasis: -6dB
->                       LnkSta2: Current De-emphasis Level: -6dB, =
-EqualizationComplete+, EqualizationPhase1+
->                                    EqualizationPhase2+, =
-EqualizationPhase3+, LinkEqualizationRequest-
->           Capabilities: [a0] MSI: Enable+ Count=3D1/1 Maskable- 64bit+
->                       Address: 00000000fee00000  Data: 0000
->           Capabilities: [100 v1] Vendor Specific Information: ID=3D0001 =
-Rev=3D1 Len=3D010 <?>
->           Capabilities: [150 v2] Advanced Error Reporting
->                       UESta:            DLP- SDES- TLP- FCP- CmpltTO- =
-CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
->                       UEMsk:           DLP- SDES- TLP- FCP- CmpltTO- =
-CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
->                       UESvrt:           DLP+ SDES+ TLP- FCP+ CmpltTO- =
-CmpltAbrt- UnxCmplt- RxOF+ MalfTLP+ ECRC- UnsupReq- ACSViol-
->                       CESta: RxErr- BadTLP- BadDLLP- Rollover- =
-Timeout- NonFatalErr+
->                       CEMsk:           RxErr- BadTLP- BadDLLP- =
-Rollover- Timeout- NonFatalErr+
->                       AERCap:        First Error Pointer: 00, GenCap+ =
-CGenEn- ChkCap+ ChkEn-
->           Capabilities: [200 v1] #15
->           Capabilities: [270 v1] #19
->           Kernel driver in use: radeon
->           Kernel modules: radeon
-> =20
-> =20
-> =20
-> =20
-> Tom Reddish=20
-> Software Engineer
-> MediaVue Systems
-> Skype: t.reddish
-> Tel: +1 781.926.0676
-> w <x-msg://8/www.mediavuesystems.com>ww.mediavuesystems.com =
-<x-msg://8/www.mediavuesystems.com>
+w<www.mediavuesystems.com>ww.mediavuesystems.com<www.mediavuesystems.com>
 
---Apple-Mail=_2B1BCBC6-06E5-4B16-96C2-52BC1DFF246F
+On May 31, 2017, at 12:48 PM, Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org=
+<mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>> wrote:
+
+Use git to bisect between the current problematic kernel and the last worki=
+ng kernel.  Bisecting is a git feature that allows you to bisect the commit=
+s between two points to determine what change caused the regression.  Googl=
+e for "git bisect howto".
+
+Alex
+
+From: Tom Reddish [mailto:tom.reddish-UdFiUJb0jaqhEniVeURVKkEOCMrvLtNR@public.gmane.org]
+Sent: Wednesday, May 31, 2017 12:44 PM
+To: Deucher, Alexander
+Cc: Koenig, Christian; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx@lists.f=
+reedesktop.org>; Brian Kane
+Subject: Re: Linux Kernel 4.4.0-66 Possible DRM connector_status Bug For LG=
+ Displays
+
+What do you mean by bisect?
+
+My gut is telling me it's something that changed in the kernel. Maybe the k=
+ernel is correctly parsing the information it is being given from the displ=
+ay now and in the older kernel it was handling that information differently=
+? With the exact same display and no settings changed on it if I use the ol=
+der kernel it shows up as connected
+
+Tom Reddish
+Software Engineer
+MediaVue Systems
+Skype: t.reddish
+Tel: +1 781.926.0676
+w<x-msg://2/www.mediavuesystems.com>ww.mediavuesystems.com<x-msg://2/www.me=
+diavuesystems.com>
+
+On May 31, 2017, at 12:24 PM, Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org=
+<mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>> wrote:
+
+Can you bisect?  Sounds like the monitor does not keep the EDID powered up =
+when the display is off as is required by the vesa spec.
+
+Alex
+
+From: Tom Reddish [mailto:tom.reddish-UdFiUJb0jaqhEniVeURVKkEOCMrvLtNR@public.gmane.org]
+Sent: Wednesday, May 31, 2017 12:20 PM
+To: Deucher, Alexander; Koenig, Christian
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Br=
+ian Kane
+Subject: Linux Kernel 4.4.0-66 Possible DRM connector_status Bug For LG Dis=
+plays
+
+
+LG Displays are being reported as "disconnected" when they are powered off =
+(currently connected through DVI to mini-displayport adapter)
+
+Only seeing this with LG displays (have tested NEC and Samsung *limited mod=
+el types for each manufacturer*). With the LG display connected to the grap=
+hics card and powered off the system is reporting the DisplayPort as discon=
+nected. In any kernel <=3D 4.4.0-31 the system would report the DisplayPort=
+ as connected even if the LG display was off.
+
+Kernel tested on
+Linux version 4.4.0-66-generic (buildd@lgw01-28) (gcc version 5.4.0 2016060=
+9 (Ubuntu 5.4.0-6ubuntu1~16.04.4) ) #87-Ubuntu
+
+Most recent kernel without the bug:
+Linux version 4.4.0-31-generic (buildd@lgw01-16) (gcc version 5.3.1 2016041=
+3 (Ubuntu 5.3.1-14ubuntu2.1) ) #50-Ubuntu
+
+"cat /sys/class/drm/card1-DP-1/status" will show the status as disconnected=
+ if the LG display is powered off
+
+Environment
+          Ubuntu 16.04
+          Graphics Card: Cape Verde PRO [Radeon HD 7750/8740 / R7 250E]
+          Radeon Graphics Drivers
+          Kernel: 4.4.0-66
+
+
+Processor
+processor       : 0-3
+vendor_id      : AuthenticAMD
+cpu family     : 21
+model                        : 48
+model name   : AMD A8-7600 Radeon R7, 10 Compute Cores 4C+6G
+stepping         : 1
+microcode      : 0x6003106
+cpu MHz                   : 1400.000
+cache size      : 2048 KB
+physical id     : 0
+siblings          : 4
+core id                       : 0
+cpu cores       : 2
+apicid             : 16
+initial apicid   : 0
+fpu                 : yes
+fpu_exception           : yes
+cpuid level     : 13
+wp                 : yes
+flags               : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge =
+mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt =
+pdpe1gb rdtscp lm constant_tsc rep_good nopl nonstop_tsc extd_apicid aperfm=
+perf eagerfpu pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 popcnt aes=
+ xsave avx f16c lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalig=
+nsse 3dnowprefetch osvw ibs xop skinit wdt lwp fma4 tce nodeid_msr tbm topo=
+ext perfctr_core perfctr_nb bpext cpb hw_pstate vmmcall fsgsbase bmi1 xsave=
+opt arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decod=
+eassists pausefilter pfthreshold
+bugs               : fxsave_leak sysret_ss_attrs
+bogomips       : 6188.48
+TLB size        : 1536 4K pages
+clflush size     : 64
+cache_alignment        : 64
+address sizes  : 48 bits physical, 48 bits virtual
+power management: ts ttp tm 100mhzsteps hwpstate cpb eff_freq_ro [13]
+
+
+Loaded driver and hardware information
+cat /proc/ioports:
+0000-03af : PCI Bus 0000:00
+  0000-001f : dma1
+  0020-0021 : pic1
+  0040-0043 : timer0
+  0050-0053 : timer1
+  0060-0060 : keyboard
+  0061-0061 : PNP0800:00
+  0064-0064 : keyboard
+  0070-0071 : rtc0
+  0080-008f : dma page reg
+  00a0-00a1 : pic2
+  00c0-00df : dma2
+  00f0-00ff : PNP0C04:00
+    00f0-00ff : fpu
+03b0-03df : PCI Bus 0000:00
+  03c0-03df : vesafb
+03e0-0cf7 : PCI Bus 0000:00
+  03f8-03ff : serial
+  040b-040b : pnp 00:08
+  04d0-04d1 : pnp 00:07
+    04d0-04d1 : pnp 00:08
+  04d6-04d6 : pnp 00:08
+  0800-0803 : ACPI PM1a_EVT_BLK
+  0804-0805 : ACPI PM1a_CNT_BLK
+  0808-080b : ACPI PM_TMR
+  0810-0815 : ACPI CPU throttle
+  0820-0827 : ACPI GPE0_BLK
+  0900-090f : pnp 00:08
+  0910-091f : pnp 00:08
+  0a00-0a0f : pnp 00:03
+    0a00-0a07 : f71882fg
+  0a10-0a1f : pnp 00:03
+  0b00-0b07 : piix4_smbus
+  0b20-0b3f : pnp 00:08
+    0b20-0b27 : piix4_smbus
+  0c00-0c01 : pnp 00:08
+  0c14-0c14 : pnp 00:08
+  0c50-0c51 : pnp 00:08
+  0c52-0c52 : pnp 00:08
+  0c6c-0c6c : pnp 00:08
+  0c6f-0c6f : pnp 00:08
+  0cd0-0cd1 : pnp 00:08
+  0cd2-0cd3 : pnp 00:08
+  0cd4-0cd5 : pnp 00:08
+  0cd6-0cd7 : pnp 00:08
+  0cd8-0cdf : pnp 00:08
+0cf8-0cff : PCI conf1
+0d00-ffff : PCI Bus 0000:00
+  d000-dfff : PCI Bus 0000:02
+    d000-d0ff : 0000:02:00.0
+      d000-d0ff : r8169
+  e000-efff : PCI Bus 0000:01
+    e000-e0ff : 0000:01:00.0
+  f000-f0ff : 0000:00:01.0
+  f100-f10f : 0000:00:11.0
+    f100-f10f : ahci
+  f110-f113 : 0000:00:11.0
+    f110-f113 : ahci
+  f120-f127 : 0000:00:11.0
+    f120-f127 : ahci
+  f130-f133 : 0000:00:11.0
+    f130-f133 : ahci
+  f140-f147 : 0000:00:11.0
+    f140-f147 : ahci
+  fe00-fefe : pnp 00:08
+
+PCI Information
+01:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] C=
+ape Verde PRO [Radeon HD 7750/8740 / R7 250E] (prog-if 00 [VGA controller])
+          Subsystem: Hightech Information System Ltd. Cape Verde PRO [Radeo=
+n HD 7750/8740 / R7 250E]
+          Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParEr=
+r- Stepping- SERR- FastB2B- DisINTx+
+          Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=3Dfast >TAbort- =
+<TAbort- <MAbort- >SERR- <PERR- INTx-
+          Latency: 0, Cache Line Size: 64 bytes
+          Interrupt: pin A routed to IRQ 48
+          Region 0: Memory at c0000000 (64-bit, prefetchable) [size=3D256M]
+          Region 2: Memory at fea00000 (64-bit, non-prefetchable) [size=3D2=
+56K]
+          Region 4: I/O ports at e000 [size=3D256]
+          Expansion ROM at fea40000 [disabled] [size=3D128K]
+          Capabilities: [48] Vendor Specific Information: Len=3D08 <?>
+          Capabilities: [50] Power Management version 3
+                      Flags: PMEClk- DSI- D1+ D2+ AuxCurrent=3D0mA PME(D0-,=
+D1+,D2+,D3hot+,D3cold-)
+                      Status: D0 NoSoftRst- PME-Enable- DSel=3D0 DScale=3D0=
+ PME-
+          Capabilities: [58] Express (v2) Legacy Endpoint, MSI 00
+                      DevCap:          MaxPayload 256 bytes, PhantFunc 0, L=
+atency L0s <4us, L1 unlimited
+                                  ExtTag+ AttnBtn- AttnInd- PwrInd- RBE+ FL=
+Reset-
+                      DevCtl:           Report errors: Correctable- Non-Fat=
+al- Fatal- Unsupported-
+                                  RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSno=
+op+
+                                  MaxPayload 256 bytes, MaxReadReq 512 byte=
+s
+                      DevSta:           CorrErr+ UncorrErr- FatalErr- Unsup=
+pReq+ AuxPwr- TransPend-
+                      LnkCap:          Port #0, Speed 8GT/s, Width x16, ASP=
+M L0s L1, Exit Latency L0s <64ns, L1 <1us
+                                  ClockPM- Surprise- LLActRep- BwNot- ASPMO=
+ptComp+
+                      LnkCtl:            ASPM Disabled; RCB 64 bytes Disabl=
+ed- CommClk+
+                                  ExtSynch- ClockPM- AutWidDis- BWInt- AutB=
+WInt-
+                      LnkSta:           Speed 8GT/s, Width x16, TrErr- Trai=
+n- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+                      DevCap2: Completion Timeout: Not Supported, TimeoutDi=
+s-, LTR-, OBFF Not Supported
+                      DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis=
+-, LTR-, OBFF Disabled
+                      LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance- S=
+peedDis-
+                                   Transmit Margin: Normal Operating Range,=
+ EnterModifiedCompliance- ComplianceSOS-
+                                   Compliance De-emphasis: -6dB
+                      LnkSta2: Current De-emphasis Level: -6dB, Equalizatio=
+nComplete+, EqualizationPhase1+
+                                   EqualizationPhase2+, EqualizationPhase3+=
+, LinkEqualizationRequest-
+          Capabilities: [a0] MSI: Enable+ Count=3D1/1 Maskable- 64bit+
+                      Address: 00000000fee00000  Data: 0000
+          Capabilities: [100 v1] Vendor Specific Information: ID=3D0001 Rev=
+=3D1 Len=3D010 <?>
+          Capabilities: [150 v2] Advanced Error Reporting
+                      UESta:            DLP- SDES- TLP- FCP- CmpltTO- Cmplt=
+Abrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                      UEMsk:           DLP- SDES- TLP- FCP- CmpltTO- CmpltA=
+brt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                      UESvrt:           DLP+ SDES+ TLP- FCP+ CmpltTO- Cmplt=
+Abrt- UnxCmplt- RxOF+ MalfTLP+ ECRC- UnsupReq- ACSViol-
+                      CESta: RxErr- BadTLP- BadDLLP- Rollover- Timeout- Non=
+FatalErr+
+                      CEMsk:           RxErr- BadTLP- BadDLLP- Rollover- Ti=
+meout- NonFatalErr+
+                      AERCap:        First Error Pointer: 00, GenCap+ CGenE=
+n- ChkCap+ ChkEn-
+          Capabilities: [200 v1] #15
+          Capabilities: [270 v1] #19
+          Kernel driver in use: radeon
+          Kernel modules: radeon
+
+
+
+
+Tom Reddish
+Software Engineer
+MediaVue Systems
+Skype: t.reddish
+Tel: +1 781.926.0676
+w<x-msg://8/www.mediavuesystems.com>ww.mediavuesystems.com<x-msg://8/www.me=
+diavuesystems.com>
+
+
+--_000_BN6PR12MB165246F8E048570009720DE7F7F10BN6PR12MB1652namp_
+Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html;
-	charset=us-ascii
 
-<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html =
-charset=3Dus-ascii"></head><body style=3D"word-wrap: break-word; =
--webkit-nbsp-mode: space; -webkit-line-break: after-white-space;" =
-class=3D"">I can do that. I've looked through the changelog between the =
-two and theres a number of things related to drm and radeon but I'm not =
-exactly sure what I should be looking for. Are there any specific files =
-that jump out to you in your head that would be handling this part of =
-interaction with the displays? Basically help me narrow down the commits =
-or look for ones that touch that file.<br class=3D""><div class=3D""><br =
-class=3D""></div><div class=3D""><br class=3D""><div class=3D"">
-<div style=3D"letter-spacing: normal; orphans: auto; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; widows: =
-auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; word-wrap: =
-break-word; -webkit-nbsp-mode: space; -webkit-line-break: =
-after-white-space;" class=3D""><div style=3D"color: rgb(0, 0, 0); =
-font-family: Arial, sans-serif; margin: 0in 0in 0.0001pt; line-height: =
-normal; widows: 1; background-color: rgb(255, 255, 255);" class=3D""><span=
- style=3D"color: rgb(94, 94, 94); font-family: Arial; font-size: small;" =
-class=3D"">Tom Reddish&nbsp;</span></div><div style=3D"color: rgb(0, 0, =
-0); font-family: Arial, sans-serif; font-size: 11px; margin: 0in 0in =
-0.0001pt; line-height: normal; widows: 1;" class=3D""><font face=3D"Arial"=
- size=3D"2" color=3D"#5e5e5e" class=3D""><span class=3D"" =
-style=3D"line-height: normal;"><span style=3D"background-color: rgb(255, =
-254, 254);" class=3D"">Software Engineer</span><br class=3D""></span><span=
- class=3D"" style=3D"background-color: rgb(255, 255, 255); line-height: =
-normal;">MediaVue Systems</span><br class=3D""></font></div><div =
-style=3D"color: rgb(0, 0, 0); font-family: Arial, sans-serif; font-size: =
-11px; margin: 0in 0in 0.0001pt; line-height: normal; widows: 1; =
-background-color: rgb(255, 255, 255);" class=3D""><span class=3D"" =
-style=3D"color: rgb(94, 94, 94); font-family: Arial; line-height: =
-normal;"><span style=3D"font-size: small;" class=3D"">Skype: =
-t.reddish</span></span></div><div style=3D"color: rgb(0, 0, 0); =
-font-family: Arial, sans-serif; font-size: 11px; margin: 0in 0in =
-0.0001pt; line-height: normal; widows: 1; background-color: rgb(255, =
-255, 255);" class=3D""><span class=3D"" style=3D"color: rgb(94, 94, 94); =
-font-family: Arial; line-height: normal;"><span style=3D"font-size: =
-small;" class=3D"">Tel: +1 781.926.0676</span></span></div><div =
-style=3D"color: rgb(0, 0, 0); font-family: Arial, sans-serif; font-size: =
-11px; margin: 0in 0in 0.0001pt; line-height: normal; widows: 1; =
-background-color: rgb(255, 255, 255);" class=3D""><font face=3D"Arial" =
-size=3D"2" color=3D"#5e5e5e" class=3D""><a =
-href=3D"www.mediavuesystems.com" class=3D"">w</a><span class=3D"" =
-style=3D"line-height: normal;"><a href=3D"www.mediavuesystems.com" =
-class=3D"">ww.mediavuesystems.com</a></span></font></div></div>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 14 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:ArialMT;
+	panose-1:0 0 0 0 0 0 0 0 0 0;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-priority:99;
+	mso-style-link:"Balloon Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:"Tahoma","sans-serif";}
+span.apple-converted-space
+	{mso-style-name:apple-converted-space;}
+span.apple-tab-span
+	{mso-style-name:apple-tab-span;}
+span.EmailStyle19
+	{mso-style-type:personal-reply;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+span.BalloonTextChar
+	{mso-style-name:"Balloon Text Char";
+	mso-style-priority:99;
+	mso-style-link:"Balloon Text";
+	font-family:"Tahoma","sans-serif";}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Nothing comes to mind.&nb=
+sp; It's presumably a change in the drm area so you could limit the bisecti=
+on to just drivers/gpu/drm.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
+/p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
+;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span style=3D"font-s=
+ize:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> Tom Redd=
+ish [mailto:tom.reddish-UdFiUJb0jaqhEniVeURVKkEOCMrvLtNR@public.gmane.org]
+<br>
+<b>Sent:</b> Wednesday, May 31, 2017 1:48 PM<br>
+<b>To:</b> Deucher, Alexander<br>
+<b>Cc:</b> Koenig, Christian; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Brian Kane<br>
+<b>Subject:</b> Re: Linux Kernel 4.4.0-66 Possible DRM connector_status Bug=
+ For LG Displays<o:p></o:p></span></p>
 </div>
-<br class=3D""><div><blockquote type=3D"cite" class=3D""><div =
-class=3D"">On May 31, 2017, at 12:48 PM, Deucher, Alexander &lt;<a =
-href=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org" =
-class=3D"">Alexander.Deucher-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:</div><br =
-class=3D"Apple-interchange-newline"><div class=3D""><div =
-class=3D"WordSection1" style=3D"page: WordSection1; font-family: =
-ArialMT; font-size: 13px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px;"><div style=3D"margin: =
-0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', =
-serif;" class=3D""><span style=3D"font-size: 11pt; font-family: Calibri, =
-sans-serif; color: rgb(31, 73, 125);" class=3D"">Use git to bisect =
-between the current problematic kernel and the last working =
-kernel.&nbsp; Bisecting is a git feature that allows you to bisect the =
-commits between two points to determine what change caused the =
-regression.&nbsp; Google for "git bisect howto".<o:p =
-class=3D""></o:p></span></div><div style=3D"margin: 0in 0in 0.0001pt; =
-font-size: 12pt; font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-size: 11pt; font-family: Calibri, sans-serif; color: =
-rgb(31, 73, 125);" class=3D""><o:p =
-class=3D"">&nbsp;</o:p></span></div><div style=3D"margin: 0in 0in =
-0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-size: 11pt; font-family: Calibri, =
-sans-serif; color: rgb(31, 73, 125);" class=3D"">Alex<o:p =
-class=3D""></o:p></span></div><div style=3D"margin: 0in 0in 0.0001pt; =
-font-size: 12pt; font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-size: 11pt; font-family: Calibri, sans-serif; color: =
-rgb(31, 73, 125);" class=3D""><o:p =
-class=3D"">&nbsp;</o:p></span></div><div style=3D"border-style: none =
-none none solid; border-left-width: 1.5pt; border-left-color: blue; =
-padding: 0in 0in 0in 4pt;" class=3D""><div class=3D""><div =
-style=3D"border-style: solid none none; border-top-width: 1pt; =
-border-top-color: rgb(181, 196, 223); padding: 3pt 0in 0in;" =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><b class=3D""><span =
-style=3D"font-size: 10pt; font-family: Tahoma, sans-serif;" =
-class=3D"">From:</span></b><span style=3D"font-size: 10pt; font-family: =
-Tahoma, sans-serif;" class=3D""><span =
-class=3D"Apple-converted-space">&nbsp;</span>Tom Reddish [<a =
-href=3D"mailto:tom.reddish-UdFiUJb0jaqhEniVeURVKkEOCMrvLtNR@public.gmane.org" =
-class=3D"">mailto:tom.reddish-UdFiUJb0jaqhEniVeURVKkEOCMrvLtNR@public.gmane.org</a>]<span =
-class=3D"Apple-converted-space">&nbsp;</span><br class=3D""><b =
-class=3D"">Sent:</b><span =
-class=3D"Apple-converted-space">&nbsp;</span>Wednesday, May 31, 2017 =
-12:44 PM<br class=3D""><b class=3D"">To:</b><span =
-class=3D"Apple-converted-space">&nbsp;</span>Deucher, Alexander<br =
-class=3D""><b class=3D"">Cc:</b><span =
-class=3D"Apple-converted-space">&nbsp;</span>Koenig, Christian; <a =
-href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" =
-class=3D"">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>; Brian Kane<br class=3D""><b =
-class=3D"">Subject:</b><span =
-class=3D"Apple-converted-space">&nbsp;</span>Re: Linux Kernel 4.4.0-66 =
-Possible DRM connector_status Bug For LG Displays<o:p =
-class=3D""></o:p></span></div></div></div><div style=3D"margin: 0in 0in =
-0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><o:p class=3D"">&nbsp;</o:p></div><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D"">What do you mean by bisect?<o:p class=3D""></o:p></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><o:p =
-class=3D"">&nbsp;</o:p></div></div><div class=3D""><div style=3D"margin: =
-0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', =
-serif;" class=3D"">My gut is telling me it's something that changed in =
-the kernel. Maybe the kernel is correctly parsing the information it is =
-being given from the display now and in the older kernel it was handling =
-that information differently? With the exact same display and no =
-settings changed on it if I use the older kernel it shows up as =
-connected<o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><o:p =
-class=3D"">&nbsp;</o:p></div></div><div class=3D""><div class=3D""><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif; background-color: white;" =
-class=3D""><span style=3D"font-family: Arial, sans-serif; color: rgb(94, =
-94, 94);" class=3D"">Tom Reddish&nbsp;</span><span style=3D"font-family: =
-Arial, sans-serif;" class=3D""><o:p =
-class=3D""></o:p></span></div></div><div class=3D""><div style=3D"margin: =
-0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', =
-serif;" class=3D""><span style=3D"font-size: 10pt; font-family: Arial, =
-sans-serif; color: rgb(94, 94, 94); background-color: rgb(255, 254, =
-254); background-position: initial initial; background-repeat: initial =
-initial;" class=3D"">Software Engineer</span><span style=3D"font-size: =
-10pt; font-family: Arial, sans-serif; color: rgb(94, 94, 94);" =
-class=3D""><br class=3D""><span style=3D"background-color: white; =
-background-position: initial initial; background-repeat: initial =
-initial;" class=3D"">MediaVue Systems</span></span><span =
-style=3D"font-size: 8.5pt; font-family: Arial, sans-serif;" =
-class=3D""><o:p class=3D""></o:p></span></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif; background-color: white;" class=3D""><span =
-style=3D"font-family: Arial, sans-serif; color: rgb(94, 94, 94);" =
-class=3D"">Skype: t.reddish</span><span style=3D"font-size: 8.5pt; =
-font-family: Arial, sans-serif;" class=3D""><o:p =
-class=3D""></o:p></span></div></div><div class=3D""><div style=3D"margin: =
-0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', =
-serif; background-color: white;" class=3D""><span style=3D"font-family: =
-Arial, sans-serif; color: rgb(94, 94, 94);" class=3D"">Tel: +1 =
-781.926.0676</span><span style=3D"font-size: 8.5pt; font-family: Arial, =
-sans-serif;" class=3D""><o:p class=3D""></o:p></span></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif; background-color: white;" =
-class=3D""><span style=3D"font-size: 10pt; font-family: Arial, =
-sans-serif; color: rgb(94, 94, 94);" class=3D""><a =
-href=3D"x-msg://2/www.mediavuesystems.com" style=3D"color: purple; =
-text-decoration: underline;" class=3D"">w</a><a =
-href=3D"x-msg://2/www.mediavuesystems.com" style=3D"color: purple; =
-text-decoration: underline;" =
-class=3D"">ww.mediavuesystems.com</a></span><span style=3D"font-size: =
-8.5pt; font-family: Arial, sans-serif;" class=3D""><o:p =
-class=3D""></o:p></span></div></div></div></div><div style=3D"margin: =
-0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', =
-serif;" class=3D""><o:p class=3D"">&nbsp;</o:p></div><div =
-class=3D""><blockquote style=3D"margin-top: 5pt; margin-bottom: 5pt;" =
-class=3D""><div class=3D""><div style=3D"margin: 0in 0in 0.0001pt; =
-font-size: 12pt; font-family: 'Times New Roman', serif;" class=3D"">On =
-May 31, 2017, at 12:24 PM, Deucher, Alexander &lt;<a =
-href=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org" style=3D"color: purple; =
-text-decoration: underline;" class=3D"">Alexander.Deucher-5C7GfCeVMHo@public.gmane.org</a>&gt; =
-wrote:<o:p class=3D""></o:p></div></div><div style=3D"margin: 0in 0in =
-0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><o:p class=3D"">&nbsp;</o:p></div><div class=3D""><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-size: 11pt; font-family: Calibri, sans-serif; color: =
-rgb(31, 73, 125);" class=3D"">Can you bisect?&nbsp; Sounds like the =
-monitor does not keep the EDID powered up when the display is off as is =
-required by the vesa spec.</span><o:p class=3D""></o:p></div><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-size: 11pt; =
-font-family: Calibri, sans-serif; color: rgb(31, 73, 125);" =
-class=3D"">&nbsp;</span><o:p class=3D""></o:p></div><div style=3D"margin: =
-0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', =
-serif;" class=3D""><span style=3D"font-size: 11pt; font-family: Calibri, =
-sans-serif; color: rgb(31, 73, 125);" class=3D"">Alex</span><o:p =
-class=3D""></o:p></div><div style=3D"margin: 0in 0in 0.0001pt; =
-font-size: 12pt; font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-size: 11pt; font-family: Calibri, sans-serif; color: =
-rgb(31, 73, 125);" class=3D"">&nbsp;</span><o:p =
-class=3D""></o:p></div><div style=3D"border-style: none none none solid; =
-border-left-width: 1.5pt; border-left-color: blue; padding: 0in 0in 0in =
-4pt;" class=3D""><div class=3D""><div style=3D"border-style: solid none =
-none; border-top-width: 1pt; border-top-color: rgb(181, 196, 223); =
-padding: 3pt 0in 0in;" class=3D""><div style=3D"margin: 0in 0in =
-0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><b class=3D""><span style=3D"font-size: 10pt; font-family: =
-Tahoma, sans-serif;" class=3D"">From:</span></b><span style=3D"font-size: =
-10pt; font-family: Tahoma, sans-serif;" class=3D""><span =
-class=3D"Apple-converted-space">&nbsp;</span>Tom Reddish [<a =
-href=3D"mailto:tom.reddish-UdFiUJb0jaqhEniVeURVKkEOCMrvLtNR@public.gmane.org" style=3D"color: purple; =
-text-decoration: underline;" =
-class=3D"">mailto:tom.reddish-UdFiUJb0jaqhEniVeURVKkEOCMrvLtNR@public.gmane.org</a>]<span =
-class=3D"Apple-converted-space">&nbsp;</span><br class=3D""><b =
-class=3D"">Sent:</b><span =
-class=3D"Apple-converted-space">&nbsp;</span>Wednesday, May 31, 2017 =
-12:20 PM<br class=3D""><b class=3D"">To:</b><span =
-class=3D"Apple-converted-space">&nbsp;</span>Deucher, Alexander; Koenig, =
-Christian<br class=3D""><b class=3D"">Cc:</b><span =
-class=3D"Apple-converted-space">&nbsp;</span><a =
-href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" style=3D"color: purple; =
-text-decoration: underline;" class=3D"">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>;=
- Brian Kane<br class=3D""><b class=3D"">Subject:</b><span =
-class=3D"Apple-converted-space">&nbsp;</span>Linux Kernel 4.4.0-66 =
-Possible DRM connector_status Bug For LG Displays</span><o:p =
-class=3D""></o:p></div></div></div><div style=3D"margin: 0in 0in =
-0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D"">&nbsp;<o:p class=3D""></o:p></div><div class=3D""><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp;</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" class=3D"">LG =
-Displays are being reported as "disconnected" when they are powered off =
-(currently connected through DVI to mini-displayport adapter)</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">Only seeing this with =
-LG displays (have tested NEC and Samsung *limited model types for each =
-manufacturer*). With the LG display connected to the graphics card and =
-powered off the system is reporting the DisplayPort as disconnected. In =
-any kernel &lt;=3D 4.4.0-31 the system would report the DisplayPort as =
-connected even if the LG display was off.&nbsp;</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><b class=3D""><span =
-style=3D"font-size: 13.5pt; font-family: ArialMT, serif;" =
-class=3D"">Kernel tested on</span></b><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" class=3D"">Linux =
-version 4.4.0-66-generic (buildd@lgw01-28) (gcc version 5.4.0 20160609 =
-(Ubuntu 5.4.0-6ubuntu1~16.04.4) ) #87-Ubuntu</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><b class=3D""><span =
-style=3D"font-size: 13.5pt; font-family: ArialMT, serif;" class=3D"">Most =
-recent kernel without the bug:&nbsp;</span></b><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" class=3D"">Linux =
-version 4.4.0-31-generic (buildd@lgw01-16) (gcc version 5.3.1 20160413 =
-(Ubuntu 5.3.1-14ubuntu2.1) ) #50-Ubuntu</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">"cat =
-/sys/class/drm/card1-DP-1/status" will show the status as disconnected =
-if the LG display is powered off</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><b class=3D""><span =
-style=3D"font-size: 13.5pt; font-family: ArialMT, serif;" =
-class=3D"">Environment</span></b><o:p class=3D""></o:p></div></div><div =
-class=3D""><div class=3D""><div style=3D"margin: 0in 0in 0.0001pt; =
-font-size: 12pt; font-family: 'Times New Roman', serif;" class=3D""><span =
-class=3D"apple-tab-span"><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">Ubuntu =
-16.04</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span class=3D"apple-tab-span"><span =
-style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><b =
-class=3D""><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">Graphics Card:</span></b><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">&nbsp;Cape Verde PRO [Radeon HD 7750/8740 / R7 =
-250E]</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span class=3D"apple-tab-span"><span =
-style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">Radeon Graphics =
-Drivers</span><o:p class=3D""></o:p></div></div></div><div class=3D""><div=
- style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span class=3D"apple-tab-span"><span =
-style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><b =
-class=3D""><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">Kernel:&nbsp;</span></b><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">4.4.0-66</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp;</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><b class=3D""><span =
-style=3D"font-size: 13.5pt; font-family: ArialMT, serif;" =
-class=3D"">Processor</span></b><o:p class=3D""></o:p></div></div><div =
-class=3D""><div class=3D""><div style=3D"margin: 0in 0in 0.0001pt; =
-font-size: 12pt; font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">processor<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span>: 0-3</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">vendor_id<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span>: =
-AuthenticAMD</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">cpu family<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span>: 21</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">model<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;<span class=3D"Apple-converted-space">&nbsp;</span></span>:=
- 48</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">model name<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span>: AMD A8-7600 Radeon =
-R7, 10 Compute Cores 4C+6G</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">stepping<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<=
-span class=3D"Apple-converted-space">&nbsp;</span></span>: 1</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">microcode<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span>: =
-0x6003106</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">cpu MHz<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span>: =
-1400.000</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">cache size<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span>: 2048 KB</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">physical id<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span>: 0</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">siblings<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;<span class=3D"Apple-converted-space">&nbsp;</span></span>: =
-4</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">core id<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;<span class=3D"Apple-converted-space">&nbsp;</span></span>: =
-0</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">cpu cores<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span>: 2</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">apicid<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span>: 16</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" class=3D"">initial=
- apicid<span class=3D"apple-tab-span">&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span>: 0</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">fpu<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span>: yes</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">fpu_exception<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;<span class=3D"Apple-converted-space">&nbsp;</span></span>: =
-yes</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">cpuid level<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span>: 13</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" class=3D"">wp<span=
- =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span>: yes</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">flags<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span>: fpu vme de pse tsc =
-msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr =
-sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc =
-rep_good nopl nonstop_tsc extd_apicid aperfmperf eagerfpu pni pclmulqdq =
-monitor ssse3 fma cx16 sse4_1 sse4_2 popcnt aes xsave avx f16c lahf_lm =
-cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch =
-osvw ibs xop skinit wdt lwp fma4 tce nodeid_msr tbm topoext perfctr_core =
-perfctr_nb bpext cpb hw_pstate vmmcall fsgsbase bmi1 xsaveopt arat npt =
-lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists =
-pausefilter pfthreshold</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">bugs<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span>: fxsave_leak =
-sysret_ss_attrs</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">bogomips<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span>: 6188.48</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" class=3D"">TLB =
-size<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span>: 1536 4K =
-pages</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">clflush size<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span>: 64</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">cache_alignment<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span>: 64</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" class=3D"">address=
- sizes<span class=3D"apple-tab-span">&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span>: 48 bits physical, =
-48 bits virtual</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">power management: ts =
-ttp tm 100mhzsteps hwpstate cpb eff_freq_ro [13]</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><b class=3D""><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;</span></b><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><b class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp;</span></b><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><b class=3D""><span style=3D"font-size: 13.5pt; font-family: =
-ArialMT, serif;" class=3D"">Loaded driver and hardware =
-information</span></b><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><b class=3D""><span =
-style=3D"font-size: 10.5pt; font-family: ArialMT, serif;" class=3D"">cat =
-/proc/ioports:</span></b><o:p class=3D""></o:p></div></div><div =
-class=3D""><div class=3D""><div style=3D"margin: 0in 0in 0.0001pt; =
-font-size: 12pt; font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">0000-03af : PCI Bus =
-0000:00</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">&nbsp; 0000-001f : dma1</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; =
-0020-0021 : pic1</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; 0040-0043 : =
-timer0</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">&nbsp; 0050-0053 : timer1</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; =
-0060-0060 : keyboard</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; 0061-0061 : =
-PNP0800:00</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">&nbsp; 0064-0064 : keyboard</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; =
-0070-0071 : rtc0</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; 0080-008f : dma =
-page reg</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">&nbsp; 00a0-00a1 : pic2</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; =
-00c0-00df : dma2</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; 00f0-00ff : =
-PNP0C04:00</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">&nbsp; &nbsp; 00f0-00ff : fpu</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">03b0-03df : PCI Bus 0000:00</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; =
-03c0-03df : vesafb</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">03e0-0cf7 : PCI Bus =
-0000:00</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">&nbsp; 03f8-03ff : serial</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; =
-040b-040b : pnp 00:08</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; 04d0-04d1 : pnp =
-00:07</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">&nbsp; &nbsp; 04d0-04d1 : pnp 00:08</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; =
-04d6-04d6 : pnp 00:08</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; 0800-0803 : =
-ACPI PM1a_EVT_BLK</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; 0804-0805 : =
-ACPI PM1a_CNT_BLK</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; 0808-080b : =
-ACPI PM_TMR</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">&nbsp; 0810-0815 : ACPI CPU throttle</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; =
-0820-0827 : ACPI GPE0_BLK</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; 0900-090f : pnp =
-00:08</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">&nbsp; 0910-091f : pnp 00:08</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; =
-0a00-0a0f : pnp 00:03</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; &nbsp; =
-0a00-0a07 : f71882fg</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; 0a10-0a1f : pnp =
-00:03</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">&nbsp; 0b00-0b07 : piix4_smbus</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; =
-0b20-0b3f : pnp 00:08</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; &nbsp; =
-0b20-0b27 : piix4_smbus</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; 0c00-0c01 : pnp =
-00:08</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">&nbsp; 0c14-0c14 : pnp 00:08</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; =
-0c50-0c51 : pnp 00:08</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; 0c52-0c52 : pnp =
-00:08</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">&nbsp; 0c6c-0c6c : pnp 00:08</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; =
-0c6f-0c6f : pnp 00:08</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; 0cd0-0cd1 : pnp =
-00:08</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">&nbsp; 0cd2-0cd3 : pnp 00:08</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; =
-0cd4-0cd5 : pnp 00:08</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; 0cd6-0cd7 : pnp =
-00:08</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">&nbsp; 0cd8-0cdf : pnp 00:08</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">0cf8-0cff : PCI conf1</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">0d00-ffff : PCI Bus 0000:00</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; =
-d000-dfff : PCI Bus 0000:02</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; &nbsp; =
-d000-d0ff : 0000:02:00.0</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; &nbsp; &nbsp; =
-d000-d0ff : r8169</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; e000-efff : PCI =
-Bus 0000:01</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">&nbsp; &nbsp; e000-e0ff : 0000:01:00.0</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; =
-f000-f0ff : 0000:00:01.0</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; f100-f10f : =
-0000:00:11.0</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">&nbsp; &nbsp; f100-f10f : ahci</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; =
-f110-f113 : 0000:00:11.0</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; &nbsp; =
-f110-f113 : ahci</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; f120-f127 : =
-0000:00:11.0</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">&nbsp; &nbsp; f120-f127 : ahci</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; =
-f130-f133 : 0000:00:11.0</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; &nbsp; =
-f130-f133 : ahci</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; f140-f147 : =
-0000:00:11.0</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">&nbsp; &nbsp; f140-f147 : ahci</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp; =
-fe00-fefe : pnp 00:08</span><o:p =
-class=3D""></o:p></div></div></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">&nbsp;</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><b class=3D""><span =
-style=3D"font-size: 13.5pt; font-family: ArialMT, serif;" class=3D"">PCI =
-Information</span></b><o:p class=3D""></o:p></div></div><div =
-class=3D""><div class=3D""><div style=3D"margin: 0in 0in 0.0001pt; =
-font-size: 12pt; font-family: 'Times New Roman', serif;" class=3D""><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">01:00.0 VGA compatible =
-controller: Advanced Micro Devices, Inc. [AMD/ATI] Cape Verde PRO =
-[Radeon HD 7750/8740 / R7 250E] (prog-if 00 [VGA controller])</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span class=3D"apple-tab-span"><span style=3D"font-family: =
-ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">Subsystem: Hightech =
-Information System Ltd. Cape Verde PRO [Radeon HD 7750/8740 / R7 =
-250E]</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span class=3D"apple-tab-span"><span =
-style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">Control: I/O+ Mem+ =
-BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- =
-FastB2B- DisINTx+</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-class=3D"apple-tab-span"><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">Status: Cap+ 66MHz- =
-UDF- FastB2B- ParErr- DEVSEL=3Dfast &gt;TAbort- &lt;TAbort- &lt;MAbort- =
-&gt;SERR- &lt;PERR- INTx-</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-class=3D"apple-tab-span"><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">Latency: 0, Cache Line =
-Size: 64 bytes</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-class=3D"apple-tab-span"><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">Interrupt: pin A =
-routed to IRQ 48</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-class=3D"apple-tab-span"><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">Region 0: Memory at =
-c0000000 (64-bit, prefetchable) [size=3D256M]</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span class=3D"apple-tab-span"><span style=3D"font-family: =
-ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">Region 2: Memory at =
-fea00000 (64-bit, non-prefetchable) [size=3D256K]</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span class=3D"apple-tab-span"><span style=3D"font-family: =
-ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">Region 4: I/O ports at =
-e000 [size=3D256]</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-class=3D"apple-tab-span"><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">Expansion ROM at =
-fea40000 [disabled] [size=3D128K]</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span class=3D"apple-tab-span"><span style=3D"font-family: =
-ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">Capabilities: [48] =
-Vendor Specific Information: Len=3D08 &lt;?&gt;</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span class=3D"apple-tab-span"><span style=3D"font-family: =
-ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">Capabilities: [50] =
-Power Management version 3</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-class=3D"apple-tab-span"><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">Flags: PMEClk- DSI- =
-D1+ D2+ AuxCurrent=3D0mA PME(D0-,D1+,D2+,D3hot+,D3cold-)</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span class=3D"apple-tab-span"><span style=3D"font-family: =
-ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">Status: D0 NoSoftRst- =
-PME-Enable- DSel=3D0 DScale=3D0 PME-</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span class=3D"apple-tab-span"><span style=3D"font-family: =
-ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">Capabilities: [58] =
-Express (v2) Legacy Endpoint, MSI 00</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span class=3D"apple-tab-span"><span style=3D"font-family: =
-ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">DevCap:<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;<span class=3D"Apple-converted-space">&nbsp;</span></span>MaxPayload =
-256 bytes, PhantFunc 0, Latency L0s &lt;4us, L1 unlimited</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span class=3D"apple-tab-span"><span style=3D"font-family: =
-ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">ExtTag+ AttnBtn- =
-AttnInd- PwrInd- RBE+ FLReset-</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span class=3D"apple-tab-span"><span style=3D"font-family: =
-ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">DevCtl:<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span>Report errors: =
-Correctable- Non-Fatal- Fatal- Unsupported-</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span class=3D"apple-tab-span"><span style=3D"font-family: =
-ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">RlxdOrd- ExtTag- =
-PhantFunc- AuxPwr- NoSnoop+</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-class=3D"apple-tab-span"><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">MaxPayload 256 bytes, =
-MaxReadReq 512 bytes</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-class=3D"apple-tab-span"><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">DevSta:<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span>CorrErr+ UncorrErr- =
-FatalErr- UnsuppReq+ AuxPwr- TransPend-</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span class=3D"apple-tab-span"><span style=3D"font-family: =
-ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">LnkCap:<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;<span class=3D"Apple-converted-space">&nbsp;</span></span>Port #0, =
-Speed 8GT/s, Width x16, ASPM L0s L1, Exit Latency L0s &lt;64ns, L1 =
-&lt;1us</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span class=3D"apple-tab-span"><span =
-style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">ClockPM- Surprise- =
-LLActRep- BwNot- ASPMOptComp+</span><o:p class=3D""></o:p></div></div><div=
- class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-class=3D"apple-tab-span"><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">LnkCtl:<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span>ASPM Disabled; RCB =
-64 bytes Disabled- CommClk+</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-class=3D"apple-tab-span"><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">ExtSynch- ClockPM- =
-AutWidDis- BWInt- AutBWInt-</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-class=3D"apple-tab-span"><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">LnkSta:<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;<span class=3D"Apple-converted-space">&nbsp;</span></span>Speed=
- 8GT/s, Width x16, TrErr- Train- SlotClk+ DLActive- BWMgmt- =
-ABWMgmt-</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span class=3D"apple-tab-span"><span =
-style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">DevCap2: Completion =
-Timeout: Not Supported, TimeoutDis-, LTR-, OBFF Not Supported</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span class=3D"apple-tab-span"><span style=3D"font-family: =
-ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">DevCtl2: Completion =
-Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span class=3D"apple-tab-span"><span style=3D"font-family: =
-ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">LnkCtl2: Target Link =
-Speed: 8GT/s, EnterCompliance- SpeedDis-</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span class=3D"apple-tab-span"><span style=3D"font-family: =
-ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp;Transmit Margin: =
-Normal Operating Range, EnterModifiedCompliance- =
-ComplianceSOS-</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-class=3D"apple-tab-span"><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">&nbsp;Compliance =
-De-emphasis: -6dB</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-class=3D"apple-tab-span"><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">LnkSta2: Current =
-De-emphasis Level: -6dB, EqualizationComplete+, =
-EqualizationPhase1+</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-class=3D"apple-tab-span"><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;EqualizationPhase2+, EqualizationPhase3+, =
-LinkEqualizationRequest-</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-class=3D"apple-tab-span"><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">Capabilities: [a0] =
-MSI: Enable+ Count=3D1/1 Maskable- 64bit+</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span class=3D"apple-tab-span"><span style=3D"font-family: =
-ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">Address: =
-00000000fee00000 &nbsp;Data: 0000</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span class=3D"apple-tab-span"><span style=3D"font-family: =
-ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">Capabilities: [100 v1] =
-Vendor Specific Information: ID=3D0001 Rev=3D1 Len=3D010 =
-&lt;?&gt;</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span class=3D"apple-tab-span"><span =
-style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">Capabilities: [150 v2] =
-Advanced Error Reporting</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-class=3D"apple-tab-span"><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">UESta:<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span>DLP- SDES- TLP- FCP- =
-CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- =
-ACSViol-</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span class=3D"apple-tab-span"><span =
-style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">UEMsk:<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;<span class=3D"Apple-converted-space">&nbsp;</span></span>DLP- =
-SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- =
-UnsupReq- ACSViol-</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-class=3D"apple-tab-span"><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">UESvrt:<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;<span class=3D"Apple-converted-space">&nbsp;</span></span>DLP+ =
-SDES+ TLP- FCP+ CmpltTO- CmpltAbrt- UnxCmplt- RxOF+ MalfTLP+ ECRC- =
-UnsupReq- ACSViol-</span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif;" class=3D""><span =
-class=3D"apple-tab-span"><span style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">CESta:<span =
-class=3D"apple-tab-span"><span =
-class=3D"Apple-converted-space">&nbsp;</span></span>RxErr- BadTLP- =
-BadDLLP- Rollover- Timeout- NonFatalErr+</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span class=3D"apple-tab-span"><span style=3D"font-family: =
-ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">CEMsk:<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span>RxErr- BadTLP- =
-BadDLLP- Rollover- Timeout- NonFatalErr+</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span class=3D"apple-tab-span"><span style=3D"font-family: =
-ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">AERCap:<span =
-class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span>First Error Pointer: =
-00, GenCap+ CGenEn- ChkCap+ ChkEn-</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D""><span class=3D"apple-tab-span"><span style=3D"font-family: =
-ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">Capabilities: [200 v1] =
-#15</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span class=3D"apple-tab-span"><span =
-style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">Capabilities: [270 v1] =
-#19</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span class=3D"apple-tab-span"><span =
-style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">Kernel driver in use: =
-radeon</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span class=3D"apple-tab-span"><span =
-style=3D"font-family: ArialMT, serif;" =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span =
-class=3D"Apple-converted-space">&nbsp;</span></span></span><span =
-style=3D"font-family: ArialMT, serif;" class=3D"">Kernel modules: =
-radeon</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-family: ArialMT, =
-serif;" class=3D"">&nbsp;</span><o:p =
-class=3D""></o:p></div></div></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D"">&nbsp;<o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif;" =
-class=3D"">&nbsp;<o:p class=3D""></o:p></div></div><div style=3D"margin: =
-0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', =
-serif;" class=3D"">&nbsp;<o:p class=3D""></o:p></div><div class=3D""><div =
-class=3D""><div class=3D""><div style=3D"margin: 0in 0in 0.0001pt; =
-font-size: 12pt; font-family: 'Times New Roman', serif; =
-background-color: white;" class=3D""><span style=3D"font-family: Arial, =
-sans-serif; color: rgb(94, 94, 94);" class=3D"">Tom =
-Reddish&nbsp;</span><o:p class=3D""></o:p></div></div><div class=3D""><div=
- style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif;" class=3D""><span style=3D"font-size: 10pt; =
-font-family: Arial, sans-serif; color: rgb(94, 94, 94); =
-background-color: rgb(255, 254, 254); background-position: initial =
-initial; background-repeat: initial initial;" class=3D"">Software =
-Engineer</span><span style=3D"font-size: 10pt; font-family: Arial, =
-sans-serif; color: rgb(94, 94, 94);" class=3D""><br class=3D""><span =
-style=3D"background-color: white; background-position: initial initial; =
-background-repeat: initial initial;" class=3D"">MediaVue =
-Systems</span></span><o:p class=3D""></o:p></div></div><div =
-class=3D""><div style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; =
-font-family: 'Times New Roman', serif; background-color: white;" =
-class=3D""><span style=3D"font-family: Arial, sans-serif; color: rgb(94, =
-94, 94);" class=3D"">Skype: t.reddish</span><o:p =
-class=3D""></o:p></div></div><div class=3D""><div style=3D"margin: 0in =
-0in 0.0001pt; font-size: 12pt; font-family: 'Times New Roman', serif; =
-background-color: white;" class=3D""><span style=3D"font-family: Arial, =
-sans-serif; color: rgb(94, 94, 94);" class=3D"">Tel: +1 =
-781.926.0676</span><o:p class=3D""></o:p></div></div><div class=3D""><div =
-style=3D"margin: 0in 0in 0.0001pt; font-size: 12pt; font-family: 'Times =
-New Roman', serif; background-color: white;" class=3D""><span =
-style=3D"font-size: 10pt; font-family: Arial, sans-serif; color: rgb(94, =
-94, 94);" class=3D""><a href=3D"x-msg://8/www.mediavuesystems.com" =
-style=3D"color: purple; text-decoration: underline;" class=3D"">w</a><a =
-href=3D"x-msg://8/www.mediavuesystems.com" style=3D"color: purple; =
-text-decoration: underline;" =
-class=3D"">ww.mediavuesystems.com</a></span></div></div></div></div></div>=
-</div></div></blockquote></div></div></div></div></blockquote></div><br =
-class=3D""></div></body></html>=
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I can do that. I've looked through the changelog bet=
+ween the two and theres a number of things related to drm and radeon but I'=
+m not exactly sure what I should be looking for. Are there any specific fil=
+es that jump out to you in your head
+ that would be handling this part of interaction with the displays? Basical=
+ly help me narrow down the commits or look for ones that touch that file.<o=
+:p></o:p></p>
+<div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-famil=
+y:&quot;Arial&quot;,&quot;sans-serif&quot;;color:#5E5E5E">Tom Reddish&nbsp;=
+</span><span style=3D"font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;=
+color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ar=
+ial&quot;,&quot;sans-serif&quot;;color:#5E5E5E;background:#FFFEFE">Software=
+ Engineer</span><span style=3D"font-size:10.0pt;font-family:&quot;Arial&quo=
+t;,&quot;sans-serif&quot;;color:#5E5E5E"><br>
+<span style=3D"background:white">MediaVue Systems</span></span><span style=
+=3D"font-size:8.5pt;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;co=
+lor:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-famil=
+y:&quot;Arial&quot;,&quot;sans-serif&quot;;color:#5E5E5E">Skype: t.reddish<=
+/span><span style=3D"font-size:8.5pt;font-family:&quot;Arial&quot;,&quot;sa=
+ns-serif&quot;;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-famil=
+y:&quot;Arial&quot;,&quot;sans-serif&quot;;color:#5E5E5E">Tel: &#43;1 781.9=
+26.0676</span><span style=3D"font-size:8.5pt;font-family:&quot;Arial&quot;,=
+&quot;sans-serif&quot;;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-size:=
+10.0pt;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;color:#5E5E5E">=
+<a href=3D"www.mediavuesystems.com">w</a><a href=3D"www.mediavuesystems.com=
+">ww.mediavuesystems.com</a></span><span style=3D"font-size:8.5pt;font-fami=
+ly:&quot;Arial&quot;,&quot;sans-serif&quot;;color:black"><o:p></o:p></span>=
+</p>
+</div>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<div>
+<p class=3D"MsoNormal">On May 31, 2017, at 12:48 PM, Deucher, Alexander &lt=
+;<a href=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org">Alexander.Deucher-5C7GfCeVMHo@public.gmane.org</a>=
+&gt; wrote:<o:p></o:p></p>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Use git to bisect between=
+ the current problematic kernel and the last working kernel.&nbsp; Bisectin=
+g is a git feature that allows you to bisect the commits between
+ two points to determine what change caused the regression.&nbsp; Google fo=
+r &quot;git bisect howto&quot;.</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">&nbsp;</span><o:p></o:p><=
+/p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Alex</span><o:p></o:p></p=
+>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">&nbsp;</span><o:p></o:p><=
+/p>
+</div>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<div>
+<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
+;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span class=3D"apple-=
+converted-space"><span style=3D"font-size:10.0pt;font-family:&quot;Tahoma&q=
+uot;,&quot;sans-serif&quot;">&nbsp;</span></span><span style=3D"font-size:1=
+0.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;">Tom
+ Reddish [<a href=3D"mailto:tom.reddish-UdFiUJb0jaqhEniVeURVKkEOCMrvLtNR@public.gmane.org">mailto:tom.red=
+dish-UdFiUJb0jaqhEniVeURVKkEOCMrvLtNR@public.gmane.org</a>]<span class=3D"apple-converted-space">&nbsp;</=
+span><br>
+<b>Sent:</b><span class=3D"apple-converted-space">&nbsp;</span>Wednesday, M=
+ay 31, 2017 12:44 PM<br>
+<b>To:</b><span class=3D"apple-converted-space">&nbsp;</span>Deucher, Alexa=
+nder<br>
+<b>Cc:</b><span class=3D"apple-converted-space">&nbsp;</span>Koenig, Christ=
+ian; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>; Brian Kane<br>
+<b>Subject:</b><span class=3D"apple-converted-space">&nbsp;</span>Re: Linux=
+ Kernel 4.4.0-66 Possible DRM connector_status Bug For LG Displays</span><o=
+:p></o:p></p>
+</div>
+</div>
+</div>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">What do you mean by bisect?<o:p></o:p></p>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal">My gut is telling me it's something that changed in =
+the kernel. Maybe the kernel is correctly parsing the information it is bei=
+ng given from the display now and in the older kernel it was handling that =
+information differently? With the
+ exact same display and no settings changed on it if I use the older kernel=
+ it shows up as connected<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-famil=
+y:&quot;Arial&quot;,&quot;sans-serif&quot;;color:#5E5E5E">Tom Reddish&nbsp;=
+</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ar=
+ial&quot;,&quot;sans-serif&quot;;color:#5E5E5E;background:#FFFEFE">Software=
+ Engineer</span><span style=3D"font-size:10.0pt;font-family:&quot;Arial&quo=
+t;,&quot;sans-serif&quot;;color:#5E5E5E"><br>
+<span style=3D"background:white">MediaVue Systems</span></span><o:p></o:p><=
+/p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-famil=
+y:&quot;Arial&quot;,&quot;sans-serif&quot;;color:#5E5E5E">Skype: t.reddish<=
+/span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-famil=
+y:&quot;Arial&quot;,&quot;sans-serif&quot;;color:#5E5E5E">Tel: &#43;1 781.9=
+26.0676</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-size:=
+10.0pt;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;color:#5E5E5E">=
+<a href=3D"x-msg://2/www.mediavuesystems.com"><span style=3D"color:purple">=
+w</span></a><a href=3D"x-msg://2/www.mediavuesystems.com"><span style=3D"co=
+lor:purple">ww.mediavuesystems.com</span></a></span><o:p></o:p></p>
+</div>
+</div>
+</div>
+</div>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+<div>
+<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<div>
+<div>
+<p class=3D"MsoNormal">On May 31, 2017, at 12:24 PM, Deucher, Alexander &lt=
+;<a href=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org"><span style=3D"color:purple">=
+Alexander.Deucher-5C7GfCeVMHo@public.gmane.org</span></a>&gt; wrote:<o:p></o:p></p>
+</div>
+</div>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+<div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Can you bisect?&nbsp; Sou=
+nds like the monitor does not keep the EDID powered up when the display is =
+off as is required by the vesa spec.</span><o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">&nbsp;</span><o:p></o:p><=
+/p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Alex</span><o:p></o:p></p=
+>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">&nbsp;</span><o:p></o:p><=
+/p>
+</div>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<div>
+<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
+;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span class=3D"apple-=
+converted-space"><span style=3D"font-size:10.0pt;font-family:&quot;Tahoma&q=
+uot;,&quot;sans-serif&quot;">&nbsp;</span></span><span style=3D"font-size:1=
+0.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;">Tom
+ Reddish [<a href=3D"mailto:tom.reddish-UdFiUJb0jaqhEniVeURVKkEOCMrvLtNR@public.gmane.org"><span style=3D=
+"color:purple">mailto:tom.reddish-UdFiUJb0jaqhEniVeURVKkEOCMrvLtNR@public.gmane.org</span></a>]<span clas=
+s=3D"apple-converted-space">&nbsp;</span><br>
+<b>Sent:</b><span class=3D"apple-converted-space">&nbsp;</span>Wednesday, M=
+ay 31, 2017 12:20 PM<br>
+<b>To:</b><span class=3D"apple-converted-space">&nbsp;</span>Deucher, Alexa=
+nder; Koenig, Christian<br>
+<b>Cc:</b><span class=3D"apple-converted-space">&nbsp;</span><a href=3D"mai=
+lto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"><span style=3D"color:purple">amd-gfx@lis=
+ts.freedesktop.org</span></a>; Brian Kane<br>
+<b>Subject:</b><span class=3D"apple-converted-space">&nbsp;</span>Linux Ker=
+nel 4.4.0-66 Possible DRM connector_status Bug For LG Displays</span><o:p><=
+/o:p></p>
+</div>
+</div>
+</div>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+<div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp;</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">LG Displays are being reported as &quot;disconnected&quot; wh=
+en they are powered off (currently connected through DVI to mini-displaypor=
+t adapter)</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp;</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">Only seeing this with LG displays (have tested NEC and Samsun=
+g *limited model types for each manufacturer*). With the LG display connect=
+ed to the graphics card and powered off the system is reporting
+ the DisplayPort as disconnected. In any kernel &lt;=3D 4.4.0-31 the system=
+ would report the DisplayPort as connected even if the LG display was off.&=
+nbsp;</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp;</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><b><span style=3D"font-size:13.5pt;font-family:&quot=
+;ArialMT&quot;,&quot;serif&quot;">Kernel tested on</span></b><o:p></o:p></p=
+>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">Linux version 4.4.0-66-generic (buildd@lgw01-28) (gcc version=
+ 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.4) ) #87-Ubuntu</span><o:p></o=
+:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp;</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><b><span style=3D"font-size:13.5pt;font-family:&quot=
+;ArialMT&quot;,&quot;serif&quot;">Most recent kernel without the bug:&nbsp;=
+</span></b><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">Linux version 4.4.0-31-generic (buildd@lgw01-16) (gcc version=
+ 5.3.1 20160413 (Ubuntu 5.3.1-14ubuntu2.1) ) #50-Ubuntu</span><o:p></o:p></=
+p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp;</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&quot;cat /sys/class/drm/card1-DP-1/status&quot; will show th=
+e status as disconnected if the LG display is powered off</span><o:p></o:p>=
+</p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp;</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><b><span style=3D"font-size:13.5pt;font-family:&quot=
+;ArialMT&quot;,&quot;serif&quot;">Environment</span></b><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"=
+><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</=
+span></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot=
+;">Ubuntu
+ 16.04</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"=
+><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</=
+span></span><b><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&q=
+uot;">Graphics
+ Card:</span></b><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif=
+&quot;">&nbsp;Cape Verde PRO [Radeon HD 7750/8740 / R7 250E]</span><o:p></o=
+:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"=
+><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</=
+span></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot=
+;">Radeon
+ Graphics Drivers</span><o:p></o:p></p>
+</div>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"=
+><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</=
+span></span><b><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&q=
+uot;">Kernel:&nbsp;</span></b><span style=3D"font-family:&quot;ArialMT&quot=
+;,&quot;serif&quot;">4.4.0-66</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp;</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp;</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><b><span style=3D"font-size:13.5pt;font-family:&quot=
+;ArialMT&quot;,&quot;serif&quot;">Processor</span></b><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">processor<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;</span><span class=3D"apple-converted-space">&nbsp;</span>: =
+0-3</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">vendor_id<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;</span><span class=3D"apple-converted-space">&nbsp;</span>: Authen=
+ticAMD</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">cpu family<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&n=
+bsp;</span><span class=3D"apple-converted-space">&nbsp;</span>: 21</span><o=
+:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">model<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class=3D"apple-converted=
+-space">&nbsp;</span>: 48</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">model name<span class=3D"apple-tab-span">&nbsp;&nbsp;</span><=
+span class=3D"apple-converted-space">&nbsp;</span>: AMD A8-7600 Radeon R7, =
+10 Compute Cores 4C&#43;6G</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">stepping<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class=3D"apple-converted-space">&nbs=
+p;</span>: 1</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">microcode<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;</span><span class=3D"apple-converted-space">&nbsp;</span>: 0x6003=
+106</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">cpu MHz<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;</span><span class=3D"apple-converted-space">&nbsp;</span>: 1400.=
+000</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">cache size<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;</span><span class=3D"apple-converted-space">&nbsp;</span>: 2048 =
+KB</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">physical id<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&=
+nbsp;</span><span class=3D"apple-converted-space">&nbsp;</span>: 0</span><o=
+:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">siblings<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class=3D"apple-converted-space=
+">&nbsp;</span>: 4</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">core id<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class=3D"apple-converted-spa=
+ce">&nbsp;</span>: 0</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">cpu cores<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;</span><span class=3D"apple-converted-space">&nbsp;</span>: =
+2</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">apicid<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class=3D"apple=
+-converted-space">&nbsp;</span>: 16</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">initial apicid<span class=3D"apple-tab-span">&nbsp;&nbsp;</sp=
+an><span class=3D"apple-converted-space">&nbsp;</span>: 0</span><o:p></o:p>=
+</p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">fpu<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span=
+><span class=3D"apple-converted-space">&nbsp;</span>: yes</span><o:p></o:p>=
+</p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">fpu_exception<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class=3D"apple-conv=
+erted-space">&nbsp;</span>: yes</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">cpuid level<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&=
+nbsp;</span><span class=3D"apple-converted-space">&nbsp;</span>: 13</span><=
+o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">wp<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>=
+<span class=3D"apple-converted-space">&nbsp;</span>: yes</span><o:p></o:p><=
+/p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">flags<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span cla=
+ss=3D"apple-converted-space">&nbsp;</span>: fpu vme de pse tsc msr pae mce =
+cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse
+ sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good=
+ nopl nonstop_tsc extd_apicid aperfmperf eagerfpu pni pclmulqdq monitor sss=
+e3 fma cx16 sse4_1 sse4_2 popcnt aes xsave avx f16c lahf_lm cmp_legacy svm =
+extapic cr8_legacy abm sse4a misalignsse
+ 3dnowprefetch osvw ibs xop skinit wdt lwp fma4 tce nodeid_msr tbm topoext =
+perfctr_core perfctr_nb bpext cpb hw_pstate vmmcall fsgsbase bmi1 xsaveopt =
+arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeass=
+ists pausefilter pfthreshold</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">bugs<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span clas=
+s=3D"apple-converted-space">&nbsp;</span>: fxsave_leak sysret_ss_attrs</spa=
+n><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">bogomips<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;</span><span class=3D"apple-converted-space">&nbsp;</span>: 6=
+188.48</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">TLB size<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;</span><span class=3D"apple-converted-space">&nbsp;</sp=
+an>: 1536 4K pages</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">clflush size<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;=
+&nbsp;</span><span class=3D"apple-converted-space">&nbsp;</span>: 64</span>=
+<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">cache_alignment<span class=3D"apple-tab-span">&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class=3D"apple-converted-space">&nb=
+sp;</span>: 64</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">address sizes<span class=3D"apple-tab-span">&nbsp;</span><spa=
+n class=3D"apple-converted-space">&nbsp;</span>: 48 bits physical, 48 bits =
+virtual</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">power management: ts ttp tm 100mhzsteps hwpstate cpb eff_freq=
+_ro [13]</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><b><span style=3D"font-family:&quot;ArialMT&quot;,&q=
+uot;serif&quot;">&nbsp;</span></b><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><b><span style=3D"font-family:&quot;ArialMT&quot;,&q=
+uot;serif&quot;">&nbsp;</span></b><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><b><span style=3D"font-size:13.5pt;font-family:&quot=
+;ArialMT&quot;,&quot;serif&quot;">Loaded driver and hardware information</s=
+pan></b><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><b><span style=3D"font-size:10.5pt;font-family:&quot=
+;ArialMT&quot;,&quot;serif&quot;">cat /proc/ioports:</span></b><o:p></o:p><=
+/p>
+</div>
+</div>
+<div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">0000-03af : PCI Bus 0000:00</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0000-001f : dma1</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0020-0021 : pic1</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0040-0043 : timer0</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0050-0053 : timer1</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0060-0060 : keyboard</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0061-0061 : PNP0800:00</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0064-0064 : keyboard</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0070-0071 : rtc0</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0080-008f : dma page reg</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 00a0-00a1 : pic2</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 00c0-00df : dma2</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 00f0-00ff : PNP0C04:00</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; &nbsp; 00f0-00ff : fpu</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">03b0-03df : PCI Bus 0000:00</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 03c0-03df : vesafb</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">03e0-0cf7 : PCI Bus 0000:00</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 03f8-03ff : serial</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 040b-040b : pnp 00:08</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 04d0-04d1 : pnp 00:07</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; &nbsp; 04d0-04d1 : pnp 00:08</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 04d6-04d6 : pnp 00:08</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0800-0803 : ACPI PM1a_EVT_BLK</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0804-0805 : ACPI PM1a_CNT_BLK</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0808-080b : ACPI PM_TMR</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0810-0815 : ACPI CPU throttle</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0820-0827 : ACPI GPE0_BLK</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0900-090f : pnp 00:08</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0910-091f : pnp 00:08</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0a00-0a0f : pnp 00:03</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; &nbsp; 0a00-0a07 : f71882fg</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0a10-0a1f : pnp 00:03</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0b00-0b07 : piix4_smbus</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0b20-0b3f : pnp 00:08</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; &nbsp; 0b20-0b27 : piix4_smbus</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0c00-0c01 : pnp 00:08</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0c14-0c14 : pnp 00:08</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0c50-0c51 : pnp 00:08</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0c52-0c52 : pnp 00:08</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0c6c-0c6c : pnp 00:08</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0c6f-0c6f : pnp 00:08</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0cd0-0cd1 : pnp 00:08</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0cd2-0cd3 : pnp 00:08</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0cd4-0cd5 : pnp 00:08</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0cd6-0cd7 : pnp 00:08</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; 0cd8-0cdf : pnp 00:08</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">0cf8-0cff : PCI conf1</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">0d00-ffff : PCI Bus 0000:00</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; d000-dfff : PCI Bus 0000:02</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; &nbsp; d000-d0ff : 0000:02:00.0</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; &nbsp; &nbsp; d000-d0ff : r8169</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; e000-efff : PCI Bus 0000:01</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; &nbsp; e000-e0ff : 0000:01:00.0</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; f000-f0ff : 0000:00:01.0</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; f100-f10f : 0000:00:11.0</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; &nbsp; f100-f10f : ahci</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; f110-f113 : 0000:00:11.0</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; &nbsp; f110-f113 : ahci</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; f120-f127 : 0000:00:11.0</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; &nbsp; f120-f127 : ahci</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; f130-f133 : 0000:00:11.0</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; &nbsp; f130-f133 : ahci</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; f140-f147 : 0000:00:11.0</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; &nbsp; f140-f147 : ahci</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp; fe00-fefe : pnp 00:08</span><o:p></o:p></p>
+</div>
+</div>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp;</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><b><span style=3D"font-size:13.5pt;font-family:&quot=
+;ArialMT&quot;,&quot;serif&quot;">PCI Information</span></b><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">01:00.0 VGA compatible controller: Advanced Micro Devices, In=
+c. [AMD/ATI] Cape Verde PRO [Radeon HD 7750/8740 / R7 250E] (prog-if 00 [VG=
+A controller])</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"=
+><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</=
+span></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot=
+;">Subsystem:
+ Hightech Information System Ltd. Cape Verde PRO [Radeon HD 7750/8740 / R7 =
+250E]</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"=
+><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</=
+span></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot=
+;">Control:
+ I/O&#43; Mem&#43; BusMaster&#43; SpecCycle- MemWINV- VGASnoop- ParErr- Ste=
+pping- SERR- FastB2B- DisINTx&#43;</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"=
+><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</=
+span></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot=
+;">Status:
+ Cap&#43; 66MHz- UDF- FastB2B- ParErr- DEVSEL=3Dfast &gt;TAbort- &lt;TAbort=
+- &lt;MAbort- &gt;SERR- &lt;PERR- INTx-</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"=
+><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</=
+span></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot=
+;">Latency:
+ 0, Cache Line Size: 64 bytes</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"=
+><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</=
+span></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot=
+;">Interrupt:
+ pin A routed to IRQ 48</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"=
+><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</=
+span></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot=
+;">Region
+ 0: Memory at c0000000 (64-bit, prefetchable) [size=3D256M]</span><o:p></o:=
+p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"=
+><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</=
+span></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot=
+;">Region
+ 2: Memory at fea00000 (64-bit, non-prefetchable) [size=3D256K]</span><o:p>=
+</o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"=
+><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</=
+span></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot=
+;">Region
+ 4: I/O ports at e000 [size=3D256]</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"=
+><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</=
+span></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot=
+;">Expansion
+ ROM at fea40000 [disabled] [size=3D128K]</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"=
+><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</=
+span></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot=
+;">Capabilities:
+ [48] Vendor Specific Information: Len=3D08 &lt;?&gt;</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"=
+><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</=
+span></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot=
+;">Capabilities:
+ [50] Power Management version 3</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"><s=
+pan style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</spa=
+n></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">=
+Flags:
+ PMEClk- DSI- D1&#43; D2&#43; AuxCurrent=3D0mA PME(D0-,D1&#43;,D2&#43;,D3ho=
+t&#43;,D3cold-)</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"><s=
+pan style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</spa=
+n></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">=
+Status:
+ D0 NoSoftRst- PME-Enable- DSel=3D0 DScale=3D0 PME-</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"=
+><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</=
+span></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot=
+;">Capabilities:
+ [58] Express (v2) Legacy Endpoint, MSI 00</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"><s=
+pan style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</spa=
+n></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">=
+DevCap:<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;</span><span class=3D"apple-converted-space">&nbsp;</span>=
+MaxPayload
+ 256 bytes, PhantFunc 0, Latency L0s &lt;4us, L1 unlimited</span><o:p></o:p=
+></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"><span=
+ style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</span><=
+/span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">Ext=
+Tag&#43;
+ AttnBtn- AttnInd- PwrInd- RBE&#43; FLReset-</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"><s=
+pan style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</spa=
+n></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">=
+DevCtl:<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;</span><span class=3D"apple-converted-space">&nbsp;<=
+/span>Report
+ errors: Correctable- Non-Fatal- Fatal- Unsupported-</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"><span=
+ style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</span><=
+/span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">Rlx=
+dOrd-
+ ExtTag- PhantFunc- AuxPwr- NoSnoop&#43;</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"><span=
+ style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</span><=
+/span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">Max=
+Payload
+ 256 bytes, MaxReadReq 512 bytes</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"><s=
+pan style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</spa=
+n></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">=
+DevSta:<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;</span><span class=3D"apple-converted-space">&nbsp;<=
+/span>CorrErr&#43;
+ UncorrErr- FatalErr- UnsuppReq&#43; AuxPwr- TransPend-</span><o:p></o:p></=
+p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"><s=
+pan style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</spa=
+n></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">=
+LnkCap:<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;</span><span class=3D"apple-converted-space">&nbsp;</span>=
+Port
+ #0, Speed 8GT/s, Width x16, ASPM L0s L1, Exit Latency L0s &lt;64ns, L1 &lt=
+;1us</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"><span=
+ style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</span><=
+/span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">Clo=
+ckPM-
+ Surprise- LLActRep- BwNot- ASPMOptComp&#43;</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"><s=
+pan style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</spa=
+n></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">=
+LnkCtl:<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class=3D"apple-converted-space">&=
+nbsp;</span>ASPM
+ Disabled; RCB 64 bytes Disabled- CommClk&#43;</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"><span=
+ style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</span><=
+/span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">Ext=
+Synch-
+ ClockPM- AutWidDis- BWInt- AutBWInt-</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"><s=
+pan style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</spa=
+n></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">=
+LnkSta:<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;</span><span class=3D"apple-converted-space">&nbsp;<=
+/span>Speed
+ 8GT/s, Width x16, TrErr- Train- SlotClk&#43; DLActive- BWMgmt- ABWMgmt-</s=
+pan><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"><s=
+pan style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</spa=
+n></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">=
+DevCap2:
+ Completion Timeout: Not Supported, TimeoutDis-, LTR-, OBFF Not Supported</=
+span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"><s=
+pan style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</spa=
+n></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">=
+DevCtl2:
+ Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled</span><=
+o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"><s=
+pan style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</spa=
+n></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">=
+LnkCtl2:
+ Target Link Speed: 8GT/s, EnterCompliance- SpeedDis-</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"><span=
+ style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</span><=
+/span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nb=
+sp;Transmit
+ Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-</s=
+pan><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"><span=
+ style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</span><=
+/span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nb=
+sp;Compliance
+ De-emphasis: -6dB</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"><s=
+pan style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</spa=
+n></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">=
+LnkSta2:
+ Current De-emphasis Level: -6dB, EqualizationComplete&#43;, EqualizationPh=
+ase1&#43;</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"><span=
+ style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</span><=
+/span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nb=
+sp;EqualizationPhase2&#43;,
+ EqualizationPhase3&#43;, LinkEqualizationRequest-</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"=
+><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</=
+span></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot=
+;">Capabilities:
+ [a0] MSI: Enable&#43; Count=3D1/1 Maskable- 64bit&#43;</span><o:p></o:p></=
+p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"><s=
+pan style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</spa=
+n></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">=
+Address:
+ 00000000fee00000 &nbsp;Data: 0000</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"=
+><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</=
+span></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot=
+;">Capabilities:
+ [100 v1] Vendor Specific Information: ID=3D0001 Rev=3D1 Len=3D010 &lt;?&gt=
+;</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"=
+><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</=
+span></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot=
+;">Capabilities:
+ [150 v2] Advanced Error Reporting</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"><s=
+pan style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</spa=
+n></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">=
+UESta:<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class=3D"apple-converted-space">&n=
+bsp;</span>DLP-
+ SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupRe=
+q- ACSViol-</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"><s=
+pan style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</spa=
+n></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">=
+UEMsk:<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;</span><span class=3D"apple-converted-space">&nbsp;</=
+span>DLP-
+ SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupRe=
+q- ACSViol-</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"><s=
+pan style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</spa=
+n></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">=
+UESvrt:<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;</span><span class=3D"apple-converted-space">&nbsp;<=
+/span>DLP&#43;
+ SDES&#43; TLP- FCP&#43; CmpltTO- CmpltAbrt- UnxCmplt- RxOF&#43; MalfTLP&#4=
+3; ECRC- UnsupReq- ACSViol-</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"><s=
+pan style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</spa=
+n></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">=
+CESta:<span class=3D"apple-converted-space">&nbsp;</span>RxErr-
+ BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr&#43;</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"><s=
+pan style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</spa=
+n></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">=
+CEMsk:<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;</span><span class=3D"apple-converted-space">&nbsp;</=
+span>RxErr-
+ BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr&#43;</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"><s=
+pan style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</spa=
+n></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">=
+AERCap:<span class=3D"apple-tab-span">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;</span><span class=3D"apple-converted-space">&nbsp;</span>First
+ Error Pointer: 00, GenCap&#43; CGenEn- ChkCap&#43; ChkEn-</span><o:p></o:p=
+></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"=
+><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</=
+span></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot=
+;">Capabilities:
+ [200 v1] #15</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"=
+><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</=
+span></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot=
+;">Capabilities:
+ [270 v1] #19</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"=
+><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</=
+span></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot=
+;">Kernel
+ driver in use: radeon</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span class=3D"apple-tab-span"><span style=3D"font-f=
+amily:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class=3D"apple-converted-space"=
+><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot;">&nbsp;</=
+span></span><span style=3D"font-family:&quot;ArialMT&quot;,&quot;serif&quot=
+;">Kernel
+ modules: radeon</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;ArialMT&quot;,&quot=
+;serif&quot;">&nbsp;</span><o:p></o:p></p>
+</div>
+</div>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+<div>
+<div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-famil=
+y:&quot;Arial&quot;,&quot;sans-serif&quot;;color:#5E5E5E">Tom Reddish&nbsp;=
+</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ar=
+ial&quot;,&quot;sans-serif&quot;;color:#5E5E5E;background:#FFFEFE">Software=
+ Engineer</span><span style=3D"font-size:10.0pt;font-family:&quot;Arial&quo=
+t;,&quot;sans-serif&quot;;color:#5E5E5E"><br>
+<span style=3D"background:white">MediaVue Systems</span></span><o:p></o:p><=
+/p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-famil=
+y:&quot;Arial&quot;,&quot;sans-serif&quot;;color:#5E5E5E">Skype: t.reddish<=
+/span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-famil=
+y:&quot;Arial&quot;,&quot;sans-serif&quot;;color:#5E5E5E">Tel: &#43;1 781.9=
+26.0676</span><o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-size:=
+10.0pt;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;color:#5E5E5E">=
+<a href=3D"x-msg://8/www.mediavuesystems.com"><span style=3D"color:purple">=
+w</span></a><a href=3D"x-msg://8/www.mediavuesystems.com"><span style=3D"co=
+lor:purple">ww.mediavuesystems.com</span></a></span><o:p></o:p></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+</blockquote>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</div>
+</div>
+</body>
+</html>
 
---Apple-Mail=_2B1BCBC6-06E5-4B16-96C2-52BC1DFF246F--
+--_000_BN6PR12MB165246F8E048570009720DE7F7F10BN6PR12MB1652namp_--
 
---===============1238211001==
+--===============0038860396==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -1577,4 +2197,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1238211001==--
+--===============0038860396==--
