@@ -1,13 +1,13 @@
-From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 04/18] drm/amdgpu: abstract TLB initialization for gfxhub/mmhub
-Date: Thu, 1 Jun 2017 00:14:39 +0800
-Message-ID: <1496247293-16429-5-git-send-email-ray.huang@amd.com>
-References: <1496247293-16429-1-git-send-email-ray.huang@amd.com>
+From: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+Subject: Re: [PATCH 12/19] drm/amd/display: Don't guard x86 in Makefile
+Date: Wed, 31 May 2017 18:30:07 +0200
+Message-ID: <be6d2090-7961-032b-c74d-e60f6abeafa1@dev.carbon-project.org>
+References: <20170531155218.29934-1-harry.wentland@amd.com>
+ <20170531155218.29934-13-harry.wentland@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0258537850=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1496247293-16429-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20170531155218.29934-13-harry.wentland-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,83 +18,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: Ken Wang <Qingqing.Wang-5C7GfCeVMHo@public.gmane.org>, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, Alvin Huan <Alvin.Huan-5C7GfCeVMHo@public.gmane.org>
+To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-U2lnbmVkLW9mZi1ieTogSHVhbmcgUnVpIDxyYXkuaHVhbmdAYW1kLmNvbT4KLS0tCiBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhodWJfdjFfMC5jIHwgNTEgKysrKysrKysrKysrKystLS0t
-LS0tLS0tLS0tLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L21taHViX3YxXzAuYyAg
-fCAyMiArKysrKysrKysrKysrKwogMiBmaWxlcyBjaGFuZ2VkLCA0NCBpbnNlcnRpb25zKCspLCAy
-OSBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
-ZnhodWJfdjFfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4aHViX3YxXzAuYwpp
-bmRleCA1MjNhNzY5Li5iOTJmYTYzIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9nZnhodWJfdjFfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeGh1
-Yl92MV8wLmMKQEAgLTEwNiw2ICsxMDYsMjcgQEAgc3RhdGljIHZvaWQgZ2Z4aHViX3YxXzBfaW5p
-dF9zeXN0ZW1fYXBlcnR1cmVfcmVncyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAlXUkVH
-MzIoU09DMTVfUkVHX09GRlNFVChHQywgMCwgbW1WTV9MMl9QUk9URUNUSU9OX0ZBVUxUX0NOVEwy
-KSwgdG1wKTsKIH0KIAorc3RhdGljIHZvaWQgZ2Z4aHViX3YxXzBfaW5pdF90bGJfcmVncyhzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKK3sKKwl1aW50MzJfdCB0bXA7CisKKwkvKiBTZXR1cCBU
-TEIgY29udHJvbCAqLworCXRtcCA9IFJSRUczMihTT0MxNV9SRUdfT0ZGU0VUKEdDLCAwLCBtbU1D
-X1ZNX01YX0wxX1RMQl9DTlRMKSk7CisKKwl0bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwgTUNfVk1f
-TVhfTDFfVExCX0NOVEwsIEVOQUJMRV9MMV9UTEIsIDEpOworCXRtcCA9IFJFR19TRVRfRklFTEQo
-dG1wLCBNQ19WTV9NWF9MMV9UTEJfQ05UTCwgU1lTVEVNX0FDQ0VTU19NT0RFLCAzKTsKKwl0bXAg
-PSBSRUdfU0VUX0ZJRUxEKHRtcCwgTUNfVk1fTVhfTDFfVExCX0NOVEwsCisJCQkgICAgRU5BQkxF
-X0FEVkFOQ0VEX0RSSVZFUl9NT0RFTCwgMSk7CisJdG1wID0gUkVHX1NFVF9GSUVMRCh0bXAsIE1D
-X1ZNX01YX0wxX1RMQl9DTlRMLAorCQkJICAgIFNZU1RFTV9BUEVSVFVSRV9VTk1BUFBFRF9BQ0NF
-U1MsIDApOworCXRtcCA9IFJFR19TRVRfRklFTEQodG1wLCBNQ19WTV9NWF9MMV9UTEJfQ05UTCwg
-RUNPX0JJVFMsIDApOworCXRtcCA9IFJFR19TRVRfRklFTEQodG1wLCBNQ19WTV9NWF9MMV9UTEJf
-Q05UTCwKKwkJCSAgICBNVFlQRSwgTVRZUEVfVUMpOy8qIFhYWCBmb3IgZW11bGF0aW9uLiAqLwor
-CXRtcCA9IFJFR19TRVRfRklFTEQodG1wLCBNQ19WTV9NWF9MMV9UTEJfQ05UTCwgQVRDX0VOLCAx
-KTsKKworCVdSRUczMihTT0MxNV9SRUdfT0ZGU0VUKEdDLCAwLCBtbU1DX1ZNX01YX0wxX1RMQl9D
-TlRMKSwgdG1wKTsKK30KKwogaW50IGdmeGh1Yl92MV8wX2dhcnRfZW5hYmxlKHN0cnVjdCBhbWRn
-cHVfZGV2aWNlICphZGV2KQogewogCXUzMiB0bXA7CkBAIC0xMjUsMzUgKzE0Niw3IEBAIGludCBn
-ZnhodWJfdjFfMF9nYXJ0X2VuYWJsZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAlnZnho
-dWJfdjFfMF9pbml0X3B0X3JlZ3MoYWRldik7CiAJZ2Z4aHViX3YxXzBfaW5pdF9nYXJ0X2FwZXJ0
-dXJlX3JlZ3MoYWRldik7CiAJZ2Z4aHViX3YxXzBfaW5pdF9zeXN0ZW1fYXBlcnR1cmVfcmVncyhh
-ZGV2KTsKLQotCS8qIFNldHVwIFRMQiBjb250cm9sICovCi0JdG1wID0gUlJFRzMyKFNPQzE1X1JF
-R19PRkZTRVQoR0MsIDAsIG1tTUNfVk1fTVhfTDFfVExCX0NOVEwpKTsKLQl0bXAgPSBSRUdfU0VU
-X0ZJRUxEKHRtcCwgTUNfVk1fTVhfTDFfVExCX0NOVEwsIEVOQUJMRV9MMV9UTEIsIDEpOwotCXRt
-cCA9IFJFR19TRVRfRklFTEQodG1wLAotCQkJCU1DX1ZNX01YX0wxX1RMQl9DTlRMLAotCQkJCVNZ
-U1RFTV9BQ0NFU1NfTU9ERSwKLQkJCQkzKTsKLQl0bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwKLQkJ
-CQlNQ19WTV9NWF9MMV9UTEJfQ05UTCwKLQkJCQlFTkFCTEVfQURWQU5DRURfRFJJVkVSX01PREVM
-LAotCQkJCTEpOwotCXRtcCA9IFJFR19TRVRfRklFTEQodG1wLAotCQkJCU1DX1ZNX01YX0wxX1RM
-Ql9DTlRMLAotCQkJCVNZU1RFTV9BUEVSVFVSRV9VTk1BUFBFRF9BQ0NFU1MsCi0JCQkJMCk7Ci0J
-dG1wID0gUkVHX1NFVF9GSUVMRCh0bXAsCi0JCQkJTUNfVk1fTVhfTDFfVExCX0NOVEwsCi0JCQkJ
-RUNPX0JJVFMsCi0JCQkJMCk7Ci0JdG1wID0gUkVHX1NFVF9GSUVMRCh0bXAsCi0JCQkJTUNfVk1f
-TVhfTDFfVExCX0NOVEwsCi0JCQkJTVRZUEUsCi0JCQkJTVRZUEVfVUMpOy8qIFhYWCBmb3IgZW11
-bGF0aW9uLiAqLwotCXRtcCA9IFJFR19TRVRfRklFTEQodG1wLAotCQkJCU1DX1ZNX01YX0wxX1RM
-Ql9DTlRMLAotCQkJCUFUQ19FTiwKLQkJCQkxKTsKLQlXUkVHMzIoU09DMTVfUkVHX09GRlNFVChH
-QywgMCwgbW1NQ19WTV9NWF9MMV9UTEJfQ05UTCksIHRtcCk7CisJZ2Z4aHViX3YxXzBfaW5pdF90
-bGJfcmVncyhhZGV2KTsKIAogCS8qIFNldHVwIEwyIGNhY2hlICovCiAJdG1wID0gUlJFRzMyKFNP
-QzE1X1JFR19PRkZTRVQoR0MsIDAsIG1tVk1fTDJfQ05UTCkpOwpkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvbW1odWJfdjFfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvbW1odWJfdjFfMC5jCmluZGV4IGRmNDlmMzIuLmExNDhkNmUgMTAwNjQ0Ci0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L21taHViX3YxXzAuYworKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9tbWh1Yl92MV8wLmMKQEAgLTExOSw2ICsxMTksMjcgQEAgc3RhdGljIHZv
-aWQgbW1odWJfdjFfMF9pbml0X3N5c3RlbV9hcGVydHVyZV9yZWdzKHN0cnVjdCBhbWRncHVfZGV2
-aWNlICphZGV2KQogCVdSRUczMihTT0MxNV9SRUdfT0ZGU0VUKE1NSFVCLCAwLCBtbVZNX0wyX1BS
-T1RFQ1RJT05fRkFVTFRfQ05UTDIpLCB0bXApOwogfQogCitzdGF0aWMgdm9pZCBtbWh1Yl92MV8w
-X2luaXRfdGxiX3JlZ3Moc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCit7CisJdWludDMyX3Qg
-dG1wOworCisJLyogU2V0dXAgVExCIGNvbnRyb2wgKi8KKwl0bXAgPSBSUkVHMzIoU09DMTVfUkVH
-X09GRlNFVChNTUhVQiwgMCwgbW1NQ19WTV9NWF9MMV9UTEJfQ05UTCkpOworCisJdG1wID0gUkVH
-X1NFVF9GSUVMRCh0bXAsIE1DX1ZNX01YX0wxX1RMQl9DTlRMLCBFTkFCTEVfTDFfVExCLCAxKTsK
-Kwl0bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwgTUNfVk1fTVhfTDFfVExCX0NOVEwsIFNZU1RFTV9B
-Q0NFU1NfTU9ERSwgMyk7CisJdG1wID0gUkVHX1NFVF9GSUVMRCh0bXAsIE1DX1ZNX01YX0wxX1RM
-Ql9DTlRMLAorCQkJICAgIEVOQUJMRV9BRFZBTkNFRF9EUklWRVJfTU9ERUwsIDEpOworCXRtcCA9
-IFJFR19TRVRfRklFTEQodG1wLCBNQ19WTV9NWF9MMV9UTEJfQ05UTCwKKwkJCSAgICBTWVNURU1f
-QVBFUlRVUkVfVU5NQVBQRURfQUNDRVNTLCAwKTsKKwl0bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwg
-TUNfVk1fTVhfTDFfVExCX0NOVEwsIEVDT19CSVRTLCAwKTsKKwl0bXAgPSBSRUdfU0VUX0ZJRUxE
-KHRtcCwgTUNfVk1fTVhfTDFfVExCX0NOVEwsCisJCQkgICAgTVRZUEUsIE1UWVBFX1VDKTsvKiBY
-WFggZm9yIGVtdWxhdGlvbi4gKi8KKwl0bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwgTUNfVk1fTVhf
-TDFfVExCX0NOVEwsIEFUQ19FTiwgMSk7CisKKwlXUkVHMzIoU09DMTVfUkVHX09GRlNFVChNTUhV
-QiwgMCwgbW1NQ19WTV9NWF9MMV9UTEJfQ05UTCksIHRtcCk7Cit9CisKIGludCBtbWh1Yl92MV8w
-X2dhcnRfZW5hYmxlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogewogCXUzMiB0bXA7CkBA
-IC0xMzksNiArMTYwLDcgQEAgaW50IG1taHViX3YxXzBfZ2FydF9lbmFibGUoc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmFkZXYpCiAJbW1odWJfdjFfMF9pbml0X3B0X3JlZ3MoYWRldik7CiAJbW1odWJf
-djFfMF9pbml0X2dhcnRfYXBlcnR1cmVfcmVncyhhZGV2KTsKIAltbWh1Yl92MV8wX2luaXRfc3lz
-dGVtX2FwZXJ0dXJlX3JlZ3MoYWRldik7CisJbW1odWJfdjFfMF9pbml0X3RsYl9yZWdzKGFkZXYp
-OwogCiAJLyogU2V0dXAgVExCIGNvbnRyb2wgKi8KIAl0bXAgPSBSUkVHMzIoU09DMTVfUkVHX09G
-RlNFVChNTUhVQiwgMCwgbW1NQ19WTV9NWF9MMV9UTEJfQ05UTCkpOwotLSAKMi43LjQKCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
-ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0258537850==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature";
+ boundary="3RaHqOOsOXSok7eRGHt0KHBeUOiGKX0fv"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--3RaHqOOsOXSok7eRGHt0KHBeUOiGKX0fv
+Content-Type: multipart/mixed; boundary="x3jo8mn2pehhftf42cg2mF17FHfW3rLKw";
+ protected-headers="v1"
+From: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>,
+ amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Message-ID: <be6d2090-7961-032b-c74d-e60f6abeafa1-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+Subject: Re: [PATCH 12/19] drm/amd/display: Don't guard x86 in Makefile
+References: <20170531155218.29934-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
+ <20170531155218.29934-13-harry.wentland-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20170531155218.29934-13-harry.wentland-5C7GfCeVMHo@public.gmane.org>
+
+--x3jo8mn2pehhftf42cg2mF17FHfW3rLKw
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Hey Harry,
+you should drop this patch and remove the addition from patch 3 AFAICT.
+
+
+Cheers,
+Kai
+
+P.S.: IIRC the conclusion of the last discussion was, that this code is n=
+eeded
+on non-x86 hardware as well. Shouldn't there at least be some TODO added
+somewhere in the DCN code or maybe now in the Kconfig option, stating tha=
+t this
+needs to be fixed for other arches?
+
+
+Harry Wentland wrote on 31.05.2017 17:52:
+> make-kpkg doesn't seem to like it
+>=20
+> Change-Id: Ia589318e8632de57286c4a3d63a0a92a6cb96af3
+> Signed-off-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+> Reviewed-by: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+> Acked-by: Harry Wentland <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/display/dc/calcs/Makefile | 2 --
+>  1 file changed, 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/display/dc/calcs/Makefile b/drivers/gp=
+u/drm/amd/display/dc/calcs/Makefile
+> index 2e4ce0918c02..a095472bf4b5 100644
+> --- a/drivers/gpu/drm/amd/display/dc/calcs/Makefile
+> +++ b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
+> @@ -3,11 +3,9 @@
+>  # It calculates Bandwidth and Watermarks values for HW programming
+>  #
+> =20
+> -ifeq ($(ARCH),x86)
+>  CFLAGS_dcn_calcs.o :=3D -mhard-float -msse -mpreferred-stack-boundary=3D=
+4
+>  CFLAGS_dcn_calc_auto.o :=3D -mhard-float -msse -mpreferred-stack-bound=
+ary=3D4
+>  CFLAGS_dcn_calc_math.o :=3D -mhard-float -msse -mpreferred-stack-bound=
+ary=3D4
+> -endif
+> =20
+>  BW_CALCS =3D dce_calcs.o bw_fixed.o custom_float.o
+
+
+--x3jo8mn2pehhftf42cg2mF17FHfW3rLKw--
+
+--3RaHqOOsOXSok7eRGHt0KHBeUOiGKX0fv
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQGzBAEBCgAdFiEEBgCWzvPI5zPlthWHownXbOHeWdIFAlku748ACgkQownXbOHe
+WdLnBAv+LysJCEvs6mDg2h7S5sgGSSZwzFPtc6N5HNnGzLxAKI6wca2mfbrHJuwP
+oEA/ukU+3aeiQaDLoU/lB2nq/yqlkbNPmtVJXqOh+4CuYCScqsiH+MISKORYMG3E
+iRlNUh5c3j7opZdcoKwrJX/04BUT55F8H58XCcI+5qTPFyyFM4/VEx5DS5fjOxT8
+OdwUWi3xuqxz2QLPBjexDLrIj2iPRDEp1yLtaZj6KheCicuHowMCHk1rkGHOxUXA
+QGEeuUPlh+GtdLtZhl8TKI+vhH6Ui2xzCmbJ7FyPtFLuDJmRp6ecJQoB0l/T/zDX
+RPl49qUDTQ/cfitZDHWGh87PzzF2HkLQw6gvyS9L+/OoDWVqdhOZUJOwhz1U2wJI
+DcuDkJ9iDI8KRtK6i8NZaBuW3xYe0+qxnUHIbwVwxjRrD0sp/WU4wmlLXaA1uuZ+
+iUuOHTX6aO1G/vSptABgIV03FDkD1MOki9+FZOXzCCvT+LbBaKSBZ1Z55nrAvkNv
+6zydgbGA
+=FDwN
+-----END PGP SIGNATURE-----
+
+--3RaHqOOsOXSok7eRGHt0KHBeUOiGKX0fv--
+
+--===============0258537850==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0258537850==--
