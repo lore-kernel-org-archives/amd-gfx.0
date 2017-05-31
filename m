@@ -1,44 +1,145 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH 2/3] drm/amdgpu: Remove two ! operations in an if condition
-Date: Wed, 31 May 2017 08:59:53 +0200
-Message-ID: <8c52220e-5c3e-d83d-1843-ab22604d88fc@vodafone.de>
-References: <1496180868-2617-1-git-send-email-AlexBin.Xie@amd.com>
- <1496180868-2617-2-git-send-email-AlexBin.Xie@amd.com>
+From: Florian Echtler <floe@butterbrot.org>
+Subject: Re: iMac 10,1 with Ubuntu 16.04: black screen after suspend
+Date: Wed, 31 May 2017 10:48:37 +0200
+Message-ID: <64a4829c-3141-6ff6-9369-6ca9ed0facf4@butterbrot.org>
+References: <30380cb3-0f26-8aea-2689-d4886879129c@butterbrot.org>
+ <20170526210340.GA5114@wunner.de>
+ <1e60811b-a8ac-017c-d350-8a40e4323870@butterbrot.org>
+ <20170530105404.GA29865@wunner.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1496180868-2617-2-git-send-email-AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: multipart/signed; micalg=pgp-sha1;
+ protocol="application/pgp-signature";
+ boundary="DEk3OnxIxhROUmUIe23JTPq06d8MfX57Q"
+Return-path: <linux-acpi-owner@vger.kernel.org>
+In-Reply-To: <20170530105404.GA29865@wunner.de>
+Sender: linux-acpi-owner@vger.kernel.org
+To: Lukas Wunner <lukas@wunner.de>
+Cc: "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMzAuMDUuMjAxNyB1bSAyMzo0NyBzY2hyaWViIEFsZXggWGllOgo+ICAgTWFrZSB0aGUgY29k
-ZSBlYXNpZXIgdG8gdW5kZXJzdGFuZC4KPgo+IFNpZ25lZC1vZmYtYnk6IEFsZXggWGllIDxBbGV4
-QmluLlhpZUBhbWQuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3ZtLmMgfCA2ICsrKystLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwg
-MiBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfdm0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4g
-aW5kZXggN2EzMjNmOS4uOWZkZWI4MiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfdm0uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV92bS5jCj4gQEAgLTY4MCw5ICs2ODAsMTEgQEAgYm9vbCBhbWRncHVfdm1fbmVlZF9waXBl
-bGluZV9zeW5jKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywKPiAgIAo+ICAgCWlmIChhbWRncHVf
-dm1faGFkX2dwdV9yZXNldChhZGV2LCBpZCkpCj4gICAJCXJldHVybiB0cnVlOwo+IC0JaWYgKCF2
-bV9mbHVzaF9uZWVkZWQgJiYgIWdkc19zd2l0Y2hfbmVlZGVkKQo+ICsKPiArCWlmICh2bV9mbHVz
-aF9uZWVkZWQgfHwgZ2RzX3N3aXRjaF9uZWVkZWQpCj4gKwkJcmV0dXJuIHRydWU7Cj4gKwllbHNl
-Cj4gICAJCXJldHVybiBmYWxzZTsKPiAtCXJldHVybiB0cnVlOwoKQWN0dWFsbHkgdGhhdCBzaG91
-bGQgZXZlbiB1c2UgdGhlIGNhbm9uaWNhbCBmb3JtLCBlLmcuIHNvbWV0aGluZyBsaWtlIAoicmV0
-dXJuIHZtX2ZsdXNoX25lZWRlZCB8fCBnZHNfc3dpdGNoX25lZWRlZDsiLgoKQXBhcnQgZnJvbSB0
-aGF0IGxvb2tzIGdvb2QgdG8gbWUsCkNocmlzdGlhbi4KCj4gICB9Cj4gICAKPiAgIC8qKgoKCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
-bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--DEk3OnxIxhROUmUIe23JTPq06d8MfX57Q
+Content-Type: multipart/mixed; boundary="WVwu0j8hOdktEiMDk9GvGoF4A3Jib953h";
+ protected-headers="v1"
+From: Florian Echtler <floe@butterbrot.org>
+To: Lukas Wunner <lukas@wunner.de>
+Cc: "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Message-ID: <64a4829c-3141-6ff6-9369-6ca9ed0facf4@butterbrot.org>
+Subject: Re: iMac 10,1 with Ubuntu 16.04: black screen after suspend
+References: <30380cb3-0f26-8aea-2689-d4886879129c@butterbrot.org>
+ <20170526210340.GA5114@wunner.de>
+ <1e60811b-a8ac-017c-d350-8a40e4323870@butterbrot.org>
+ <20170530105404.GA29865@wunner.de>
+In-Reply-To: <20170530105404.GA29865@wunner.de>
+
+--WVwu0j8hOdktEiMDk9GvGoF4A3Jib953h
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-GB
+Content-Transfer-Encoding: quoted-printable
+
+On 30.05.2017 12:54, Lukas Wunner wrote:
+> On Tue, May 30, 2017 at 11:34:17AM +0200, Florian Echtler wrote:
+>> On 26.05.2017 23:03, Lukas Wunner wrote:
+>>> On Fri, May 26, 2017 at 02:13:29PM +0200, Florian Echtler wrote:
+>>>> I'm running Ubuntu 16.04.2 on a 27" unibody iMac 10,1 from 2009. How=
+ever, even
+>>>> with the most recent HWE stack (kernel 4.8), the display stays black=
+ after
+>>>> suspend. I can ssh into the machine, so wakeup is OK, but the displa=
+y is
+>>>> entirely black (backlight stays off).
+>=20
+> So, just to confirm, if you never plug in an external DP source and the=
+ iMac
+> comes out of sleep, the display stays black?
+
+Correct, verified this just now.
+
+> If you log in via ssh and look at dmesg, was radeon able to train the D=
+P
+> link again?  No error messages, nothing?
+
+Here are the relevant dmesg lines after wakeup:
+
+[  157.622950] [drm] enabling PCIE gen 2 link speeds, disable with
+radeon.pcie_gen2=3D0
+[  157.626077] [drm] PCIE GART of 1024M enabled (table at 0x000000000014C=
+000).
+[  157.626094] radeon 0000:02:00.0: WB enabled
+[  157.626097] radeon 0000:02:00.0: fence driver on ring 0 use gpu addr
+0x0000000010000c00 and cpu addr 0xffffa1242dfd6c00
+[  157.626098] radeon 0000:02:00.0: fence driver on ring 3 use gpu addr
+0x0000000010000c0c and cpu addr 0xffffa1242dfd6c0c
+[  157.626315] radeon 0000:02:00.0: fence driver on ring 5 use gpu addr
+0x000000000005c598 and cpu addr 0xffffbc3081c1c598
+[  157.672183] [drm] ring test on 0 succeeded in 1 usecs
+[  157.672187] [drm] ring test on 3 succeeded in 2 usecs
+[  157.847098] [drm] ring test on 5 succeeded in 1 usecs
+[  157.847102] [drm] UVD initialized successfully.
+[  157.847121] [drm] ib test on ring 0 succeeded in 0 usecs
+[  157.847136] [drm] ib test on ring 3 succeeded in 0 usecs
+[  158.524061] [drm] ib test on ring 5 succeeded
+
+And this is logged in Xorg.0.log after wakeup:
+
+[   229.956] (II) RADEON(0): Allocate new frame buffer 320x200 stride 384=
+
+[   229.956] (II) RADEON(0): VRAM usage limit set to 219596K
+
+xrandr still shows the eDP output as connected and active with 2560x1440 =
+resolution.
+
+> Is the panel off or is it on but merely with 0% brightness?
+
+The backlight is definitely off. I've tried to shine a torch onto the pan=
+el and
+see if any content is visible, but it looks like the panel itself is off,=
+ too.
+
+> There's a block of pins on the GPU for "system management" which contai=
+ns
+> a bunch of GPIO, OEM and reserved pins.  Three of these are used to con=
+trol
+> the panel when it's switched to the radeon card:
+> pin 23	   PNL_PWR_EN
+> pin 25	   PNL_BL_EN
+> pin 27	   PNL_BL_PWM
+>=20
+> Basically you'd need to know what these are set to before and after sle=
+ep.
+> I don't know how to access them, presumably via a BAR register.  A quic=
+k
+> look at the RV730-specific registers in drivers/gpu/drm/radeon/*.h did =
+not
+> yield anything useful, but someone at AMD may be able to find this out.=
+
+
+Can I perhaps use radeontool for this? I.e. dump registers before and aft=
+er
+sleep and see if there's a difference? Or is radeontool too old to know a=
+bout
+the correct registers?
+
+Best, Florian
+--=20
+SENT FROM MY DEC VT50 TERMINAL
+
+
+
+--WVwu0j8hOdktEiMDk9GvGoF4A3Jib953h--
+
+--DEk3OnxIxhROUmUIe23JTPq06d8MfX57Q
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iEYEARECAAYFAlkug2UACgkQ7CzyshGvatibOgCglUrMFcfl5lvGW22qouqh/AkH
+/AcAn3SmrAHOupctnXDFserE4/vo0GnK
+=bqay
+-----END PGP SIGNATURE-----
+
+--DEk3OnxIxhROUmUIe23JTPq06d8MfX57Q--
