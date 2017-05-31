@@ -1,129 +1,108 @@
-From: =?UTF-8?q?Christian=20K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: [PATCH 1/4] drm/amdgpu: further cleanup amdgpu_vm_need_pipeline_sync
-Date: Wed, 31 May 2017 14:38:43 +0200
-Message-ID: <1496234326-2581-1-git-send-email-deathsimple@vodafone.de>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: iMac 10,1 with Ubuntu 16.04: black screen after suspend
+Date: Wed, 31 May 2017 08:57:57 -0400
+Message-ID: <CADnq5_MGWOX47tcvkfjHRxRv_eTbo_kvpVKyTpo8WGNw+xBvPA@mail.gmail.com>
+References: <30380cb3-0f26-8aea-2689-d4886879129c@butterbrot.org>
+ <20170526210340.GA5114@wunner.de> <1e60811b-a8ac-017c-d350-8a40e4323870@butterbrot.org>
+ <20170530105404.GA29865@wunner.de> <64a4829c-3141-6ff6-9369-6ca9ed0facf4@butterbrot.org>
+ <20170531092145.ytc2d6shpukxziie@wunner.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-acpi-owner@vger.kernel.org>
+In-Reply-To: <20170531092145.ytc2d6shpukxziie@wunner.de>
+Sender: linux-acpi-owner@vger.kernel.org
+To: Lukas Wunner <lukas@wunner.de>
+Cc: Florian Echtler <floe@butterbrot.org>, "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKUmVtb3Zl
-IGEgYnVuY2ggb2YgbWlzbGVhZGluZyB2YXJpYWJsZXMgYW5kIG1vdmUgdGhlIGNvbXB1dGUKVk0g
-YnVnIGNoZWNraW5nIGludG8gdGhlIFZNIGNvZGUgYWdhaW4uCgpBbHNvIGZpeCB0aGUgY29kaW5n
-IHN0eWxlIG9mIHRoZSAiaWYicy4KClNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNo
-cmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfcmluZy5jIHwgMzIgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCiBkcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5oIHwgIDYgLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV92bS5jICAgfCA0MiArKysrKysrKysrKysrKysrKysrKysrKy0tLS0t
-LS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmggICB8ICAzICsrKwog
-NCBmaWxlcyBjaGFuZ2VkLCAzNCBpbnNlcnRpb25zKCspLCA0OSBkZWxldGlvbnMoLSkKCmRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5jIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3JpbmcuYwppbmRleCA3ZDk1NDM1Li4zMWFhNTFk
-IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5jCisr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yaW5nLmMKQEAgLTE1MywzNiAr
-MTUzLDYgQEAgdm9pZCBhbWRncHVfcmluZ191bmRvKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZykK
-IH0KIAogLyoqCi0gKiBhbWRncHVfcmluZ19jaGVja19jb21wdXRlX3ZtX2J1ZyAtIGNoZWNrIHdo
-ZXRoZXIgdGhpcyByaW5nIGhhcyBjb21wdXRlIHZtIGJ1ZwotICoKLSAqIEBhZGV2OiBhbWRncHVf
-ZGV2aWNlIHBvaW50ZXIKLSAqIEByaW5nOiBhbWRncHVfcmluZyBzdHJ1Y3R1cmUgaG9sZGluZyBy
-aW5nIGluZm9ybWF0aW9uCi0gKi8KLXN0YXRpYyB2b2lkIGFtZGdwdV9yaW5nX2NoZWNrX2NvbXB1
-dGVfdm1fYnVnKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAotCQkJCQlzdHJ1Y3QgYW1kZ3B1
-X3JpbmcgKnJpbmcpCi17Ci0JY29uc3Qgc3RydWN0IGFtZGdwdV9pcF9ibG9jayAqaXBfYmxvY2s7
-Ci0KLQlyaW5nLT5oYXNfY29tcHV0ZV92bV9idWcgPSBmYWxzZTsKLQotCWlmIChyaW5nLT5mdW5j
-cy0+dHlwZSAhPSBBTURHUFVfUklOR19UWVBFX0NPTVBVVEUpCi0JCS8qIG9ubHkgY29tcHV0ZSBy
-aW5ncyAqLwotCQlyZXR1cm47Ci0KLQlpcF9ibG9jayA9IGFtZGdwdV9nZXRfaXBfYmxvY2soYWRl
-diwgQU1EX0lQX0JMT0NLX1RZUEVfR0ZYKTsKLQlpZiAoIWlwX2Jsb2NrKQotCQlyZXR1cm47Ci0K
-LQkvKiBDb21wdXRlIHJpbmcgaGFzIGEgVk0gYnVnIGZvciBHRlggdmVyc2lvbiA8IDcuCi0gICAg
-ICAgICAgIEFuZCBjb21wdXRlIHJpbmcgaGFzIGEgVk0gYnVnIGZvciBHRlggOCBNRUMgZmlybXdh
-cmUgdmVyc2lvbiA8IDY3My4qLwotCWlmIChpcF9ibG9jay0+dmVyc2lvbi0+bWFqb3IgPD0gNykg
-ewotCQlyaW5nLT5oYXNfY29tcHV0ZV92bV9idWcgPSB0cnVlOwotCX0gZWxzZSBpZiAoaXBfYmxv
-Y2stPnZlcnNpb24tPm1ham9yID09IDgpCi0JCWlmIChhZGV2LT5nZngubWVjX2Z3X3ZlcnNpb24g
-PCA2NzMpCi0JCQlyaW5nLT5oYXNfY29tcHV0ZV92bV9idWcgPSB0cnVlOwotfQotCi0vKioKICAq
-IGFtZGdwdV9yaW5nX2luaXQgLSBpbml0IGRyaXZlciByaW5nIHN0cnVjdC4KICAqCiAgKiBAYWRl
-djogYW1kZ3B1X2RldmljZSBwb2ludGVyCkBAIC0yODgsOCArMjU4LDYgQEAgaW50IGFtZGdwdV9y
-aW5nX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHN0cnVjdCBhbWRncHVfcmluZyAq
-cmluZywKIAkJRFJNX0VSUk9SKCJGYWlsZWQgdG8gcmVnaXN0ZXIgZGVidWdmcyBmaWxlIGZvciBy
-aW5ncyAhXG4iKTsKIAl9CiAKLQlhbWRncHVfcmluZ19jaGVja19jb21wdXRlX3ZtX2J1ZyhhZGV2
-LCByaW5nKTsKLQogCXJldHVybiAwOwogfQogCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfcmluZy5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3JpbmcuaAppbmRleCAzMzQzMDdlLi5hOTIyM2E4IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9yaW5nLmgKQEAgLTE4NSw3ICsxODUsNiBAQCBzdHJ1Y3QgYW1kZ3B1X3Jp
-bmcgewogCXU2NAkJCWNvbmRfZXhlX2dwdV9hZGRyOwogCXZvbGF0aWxlIHUzMgkJKmNvbmRfZXhl
-X2NwdV9hZGRyOwogCXVuc2lnbmVkCQl2bV9pbnZfZW5nOwotCWJvb2wJCQloYXNfY29tcHV0ZV92
-bV9idWc7CiAjaWYgZGVmaW5lZChDT05GSUdfREVCVUdfRlMpCiAJc3RydWN0IGRlbnRyeSAqZW50
-OwogI2VuZGlmCkBAIC0yMDgsOSArMjA3LDQgQEAgc3RhdGljIGlubGluZSB2b2lkIGFtZGdwdV9y
-aW5nX2NsZWFyX3Jpbmcoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKQogCiB9CiAKLXN0YXRpYyBp
-bmxpbmUgYm9vbCBhbWRncHVfcmluZ19oYXNfY29tcHV0ZV92bV9idWcoc3RydWN0IGFtZGdwdV9y
-aW5nICpyaW5nKQotewotCXJldHVybiByaW5nLT5oYXNfY29tcHV0ZV92bV9idWc7Ci19Ci0KICNl
-bmRpZgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwppbmRleCBkNGQwNWE4Li5i
-NWU2MmJkIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0u
-YworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwpAQCAtNjYzLDI1
-ICs2NjMsMzEgQEAgYm9vbCBhbWRncHVfdm1fbmVlZF9waXBlbGluZV9zeW5jKHN0cnVjdCBhbWRn
-cHVfcmluZyAqcmluZywKIAl1bnNpZ25lZCB2bWh1YiA9IHJpbmctPmZ1bmNzLT52bWh1YjsKIAlz
-dHJ1Y3QgYW1kZ3B1X3ZtX2lkX21hbmFnZXIgKmlkX21nciA9ICZhZGV2LT52bV9tYW5hZ2VyLmlk
-X21nclt2bWh1Yl07CiAJc3RydWN0IGFtZGdwdV92bV9pZCAqaWQ7Ci0JYm9vbCBnZHNfc3dpdGNo
-X25lZWRlZDsKLQlib29sIHZtX2ZsdXNoX25lZWRlZCA9IGpvYi0+dm1fbmVlZHNfZmx1c2ggfHwK
-LQkJYW1kZ3B1X3JpbmdfaGFzX2NvbXB1dGVfdm1fYnVnKHJpbmcpOwogCiAJaWYgKGpvYi0+dm1f
-aWQgPT0gMCkKIAkJcmV0dXJuIGZhbHNlOworCisJaWYgKGpvYi0+dm1fbmVlZHNfZmx1c2gpCisJ
-CXJldHVybiB0cnVlOworCiAJaWQgPSAmaWRfbWdyLT5pZHNbam9iLT52bV9pZF07Ci0JZ2RzX3N3
-aXRjaF9uZWVkZWQgPSByaW5nLT5mdW5jcy0+ZW1pdF9nZHNfc3dpdGNoICYmICgKLQkJaWQtPmdk
-c19iYXNlICE9IGpvYi0+Z2RzX2Jhc2UgfHwKLQkJaWQtPmdkc19zaXplICE9IGpvYi0+Z2RzX3Np
-emUgfHwKLQkJaWQtPmd3c19iYXNlICE9IGpvYi0+Z3dzX2Jhc2UgfHwKLQkJaWQtPmd3c19zaXpl
-ICE9IGpvYi0+Z3dzX3NpemUgfHwKLQkJaWQtPm9hX2Jhc2UgIT0gam9iLT5vYV9iYXNlIHx8Ci0J
-CWlkLT5vYV9zaXplICE9IGpvYi0+b2Ffc2l6ZSk7CisJaWYgKHJpbmctPmZ1bmNzLT5lbWl0X2dk
-c19zd2l0Y2ggJiYKKwkgICAgKGlkLT5nZHNfYmFzZSAhPSBqb2ItPmdkc19iYXNlIHx8CisJICAg
-ICBpZC0+Z2RzX3NpemUgIT0gam9iLT5nZHNfc2l6ZSB8fAorCSAgICAgaWQtPmd3c19iYXNlICE9
-IGpvYi0+Z3dzX2Jhc2UgfHwKKwkgICAgIGlkLT5nd3Nfc2l6ZSAhPSBqb2ItPmd3c19zaXplIHx8
-CisJICAgICBpZC0+b2FfYmFzZSAhPSBqb2ItPm9hX2Jhc2UgfHwKKwkgICAgIGlkLT5vYV9zaXpl
-ICE9IGpvYi0+b2Ffc2l6ZSkpCisJCXJldHVybiB0cnVlOwogCiAJaWYgKGFtZGdwdV92bV9oYWRf
-Z3B1X3Jlc2V0KGFkZXYsIGlkKSkKIAkJcmV0dXJuIHRydWU7CiAKLQlyZXR1cm4gdm1fZmx1c2hf
-bmVlZGVkIHx8IGdkc19zd2l0Y2hfbmVlZGVkOworCWlmIChhZGV2LT52bV9tYW5hZ2VyLmhhc19j
-b21wdXRlX3ZtX2J1ZyAmJgorCSAgICByaW5nLT5mdW5jcy0+dHlwZSA9PSBBTURHUFVfUklOR19U
-WVBFX0NPTVBVVEUpCisJCXJldHVybiB0cnVlOworCisJcmV0dXJuIGZhbHNlOwogfQogCiAvKioK
-QEAgLTIzNzEsNiArMjM3Nyw3IEBAIHZvaWQgYW1kZ3B1X3ZtX2Zpbmkoc3RydWN0IGFtZGdwdV9k
-ZXZpY2UgKmFkZXYsIHN0cnVjdCBhbWRncHVfdm0gKnZtKQogICovCiB2b2lkIGFtZGdwdV92bV9t
-YW5hZ2VyX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiB7CisJY29uc3Qgc3RydWN0
-IGFtZGdwdV9pcF9ibG9jayAqaXBfYmxvY2s7CiAJdW5zaWduZWQgaSwgajsKIAogCWZvciAoaSA9
-IDA7IGkgPCBBTURHUFVfTUFYX1ZNSFVCUzsgKytpKSB7CkBAIC0yMzk4LDYgKzI0MDUsMTkgQEAg
-dm9pZCBhbWRncHVfdm1fbWFuYWdlcl9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQog
-CWF0b21pYzY0X3NldCgmYWRldi0+dm1fbWFuYWdlci5jbGllbnRfY291bnRlciwgMCk7CiAJc3Bp
-bl9sb2NrX2luaXQoJmFkZXYtPnZtX21hbmFnZXIucHJ0X2xvY2spOwogCWF0b21pY19zZXQoJmFk
-ZXYtPnZtX21hbmFnZXIubnVtX3BydF91c2VycywgMCk7CisKKworCS8qIENvbXB1dGUgcmluZyBo
-YXMgYSBWTSBidWcgZm9yIEdGWCB2ZXJzaW9uIDwgNy4KKwkgKiBBbmQgY29tcHV0ZSByaW5nIGhh
-cyBhIFZNIGJ1ZyBmb3IgR0ZYIDggTUVDIGZpcm13YXJlIHZlcnNpb24gPCA2NzMuCisJICovCisJ
-YWRldi0+dm1fbWFuYWdlci5oYXNfY29tcHV0ZV92bV9idWcgPSBmYWxzZTsKKwlpcF9ibG9jayA9
-IGFtZGdwdV9nZXRfaXBfYmxvY2soYWRldiwgQU1EX0lQX0JMT0NLX1RZUEVfR0ZYKTsKKwlpZiAo
-aXBfYmxvY2spIHsKKwkJaWYgKGlwX2Jsb2NrLT52ZXJzaW9uLT5tYWpvciA8PSA3IHx8CisJCSAg
-ICAoKGlwX2Jsb2NrLT52ZXJzaW9uLT5tYWpvciA9PSA4KSAmJgorCQkgICAgIChhZGV2LT5nZngu
-bWVjX2Z3X3ZlcnNpb24gPCA2NzMpKSkKKwkJCWFkZXYtPnZtX21hbmFnZXIuaGFzX2NvbXB1dGVf
-dm1fYnVnID0gdHJ1ZTsKKwl9CiB9CiAKIC8qKgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfdm0uaAppbmRleCA4MzA5YmM3Li5hNDljNjA4IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfdm0uaApAQCAtMTg0LDYgKzE4NCw4IEBAIHN0cnVjdCBhbWRncHVfdm1fbWFuYWdl
-ciB7CiAJLyogcGFydGlhbCByZXNpZGVudCB0ZXh0dXJlIGhhbmRsaW5nICovCiAJc3BpbmxvY2tf
-dAkJCQlwcnRfbG9jazsKIAlhdG9taWNfdAkJCQludW1fcHJ0X3VzZXJzOworCisJYm9vbAkJCQkJ
-aGFzX2NvbXB1dGVfdm1fYnVnOwogfTsKIAogdm9pZCBhbWRncHVfdm1fbWFuYWdlcl9pbml0KHN0
-cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKQEAgLTI0Myw2ICsyNDUsNyBAQCB2b2lkIGFtZGdw
-dV92bV9ib19ybXYoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJCSAgICAgIHN0cnVjdCBh
-bWRncHVfYm9fdmEgKmJvX3ZhKTsKIHZvaWQgYW1kZ3B1X3ZtX2FkanVzdF9zaXplKHN0cnVjdCBh
-bWRncHVfZGV2aWNlICphZGV2LCB1aW50NjRfdCB2bV9zaXplKTsKIGludCBhbWRncHVfdm1faW9j
-dGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwgc3RydWN0IGRybV9maWxlICpm
-aWxwKTsKK2Jvb2wgYW1kZ3B1X3ZtX3JpbmdfaGFzX2NvbXB1dGVfdm1fYnVnKHN0cnVjdCBhbWRn
-cHVfcmluZyAqcmluZyk7CiBib29sIGFtZGdwdV92bV9uZWVkX3BpcGVsaW5lX3N5bmMoc3RydWN0
-IGFtZGdwdV9yaW5nICpyaW5nLAogCQkJCSAgc3RydWN0IGFtZGdwdV9qb2IgKmpvYik7CiAKLS0g
-CjIuNy40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
-bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Wed, May 31, 2017 at 5:21 AM, Lukas Wunner <lukas@wunner.de> wrote:
+> On Wed, May 31, 2017 at 10:48:37AM +0200, Florian Echtler wrote:
+>> On 30.05.2017 12:54, Lukas Wunner wrote:
+>> > On Tue, May 30, 2017 at 11:34:17AM +0200, Florian Echtler wrote:
+>> >> On 26.05.2017 23:03, Lukas Wunner wrote:
+>> >>> On Fri, May 26, 2017 at 02:13:29PM +0200, Florian Echtler wrote:
+>> >>>> I'm running Ubuntu 16.04.2 on a 27" unibody iMac 10,1 from 2009. However, even
+>> >>>> with the most recent HWE stack (kernel 4.8), the display stays black after
+>> >>>> suspend. I can ssh into the machine, so wakeup is OK, but the display is
+>> >>>> entirely black (backlight stays off).
+>> >
+>> > So, just to confirm, if you never plug in an external DP source and the iMac
+>> > comes out of sleep, the display stays black?
+>>
+>> Correct, verified this just now.
+>>
+>> > If you log in via ssh and look at dmesg, was radeon able to train the DP
+>> > link again?  No error messages, nothing?
+>>
+>> Here are the relevant dmesg lines after wakeup:
+>>
+>> [  157.622950] [drm] enabling PCIE gen 2 link speeds, disable with
+>> radeon.pcie_gen2=0
+>> [  157.626077] [drm] PCIE GART of 1024M enabled (table at 0x000000000014C000).
+>> [  157.626094] radeon 0000:02:00.0: WB enabled
+>> [  157.626097] radeon 0000:02:00.0: fence driver on ring 0 use gpu addr
+>> 0x0000000010000c00 and cpu addr 0xffffa1242dfd6c00
+>> [  157.626098] radeon 0000:02:00.0: fence driver on ring 3 use gpu addr
+>> 0x0000000010000c0c and cpu addr 0xffffa1242dfd6c0c
+>> [  157.626315] radeon 0000:02:00.0: fence driver on ring 5 use gpu addr
+>> 0x000000000005c598 and cpu addr 0xffffbc3081c1c598
+>> [  157.672183] [drm] ring test on 0 succeeded in 1 usecs
+>> [  157.672187] [drm] ring test on 3 succeeded in 2 usecs
+>> [  157.847098] [drm] ring test on 5 succeeded in 1 usecs
+>> [  157.847102] [drm] UVD initialized successfully.
+>> [  157.847121] [drm] ib test on ring 0 succeeded in 0 usecs
+>> [  157.847136] [drm] ib test on ring 3 succeeded in 0 usecs
+>> [  158.524061] [drm] ib test on ring 5 succeeded
+>
+> Hm, try booting with drm.debug=0xf to see if link training for the
+> eDP connector succeeds.  If the link cannot be trained, it would
+> explain that the screen stays black.  Should this indeed be the
+> case, one possible explanation would be that the panel is muxed
+> to the external port on resume and an appropriate command needs to
+> be sent to the SMC to switch the mux to the radeon card.  This could
+> be done in the ->resume_early hook of your APP000C platform driver.
+> The apple-gmux driver contains something similar to power the discrete
+> GPU down if it was off before suspend (because the BIOS always powers
+> it up on resume).
+>
+> Another possible explanation would be that panel power needs to be
+> enabled by writing to the registers which control the pins mentioned
+> below.
+>
+>
+>> And this is logged in Xorg.0.log after wakeup:
+>>
+>> [   229.956] (II) RADEON(0): Allocate new frame buffer 320x200 stride 384
+>> [   229.956] (II) RADEON(0): VRAM usage limit set to 219596K
+>>
+>> xrandr still shows the eDP output as connected and active with 2560x1440 resolution.
+>>
+>> > Is the panel off or is it on but merely with 0% brightness?
+>>
+>> The backlight is definitely off. I've tried to shine a torch onto the panel and
+>> see if any content is visible, but it looks like the panel itself is off, too.
+>>
+>> > There's a block of pins on the GPU for "system management" which contains
+>> > a bunch of GPIO, OEM and reserved pins.  Three of these are used to control
+>> > the panel when it's switched to the radeon card:
+>> > pin 23         PNL_PWR_EN
+>> > pin 25         PNL_BL_EN
+>> > pin 27         PNL_BL_PWM
+>> >
+>> > Basically you'd need to know what these are set to before and after sleep.
+>> > I don't know how to access them, presumably via a BAR register.  A quick
+>> > look at the RV730-specific registers in drivers/gpu/drm/radeon/*.h did not
+>> > yield anything useful, but someone at AMD may be able to find this out.
+>>
+>> Can I perhaps use radeontool for this? I.e. dump registers before and after
+>> sleep and see if there's a difference? Or is radeontool too old to know about
+>> the correct registers?
+>
+> *shrug*  Unfortunately I'm not familiar at all with radeontool. :-(
+
+You can use the radeonreg tool to dump the display registers:
+https://cgit.freedesktop.org/~agd5f/radeontool/
+radeonreg regs dce3
+replace dce3 with whatever dce version your card has.
+
+Alex
