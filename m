@@ -1,16 +1,16 @@
-From: "Xie, AlexBin" <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/3] drm/amdgpu: Optimize a function called by every IB
- sheduling
-Date: Wed, 31 May 2017 18:28:31 +0000
-Message-ID: <MWHPR1201MB0045BA269CD8C76D59C0E463F2F10@MWHPR1201MB0045.namprd12.prod.outlook.com>
-References: <1496180868-2617-1-git-send-email-AlexBin.Xie@amd.com>
- <966bbfa3-488d-2a12-7ebd-cf59812928d6@vodafone.de>
- <MWHPR1201MB0045FC6C00CA6008273C385BF2F10@MWHPR1201MB0045.namprd12.prod.outlook.com>,
- <c856088d-e779-4f5f-6252-d7f547124861@vodafone.de>
+From: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [RFC] Exclusive gpu access for SteamVR usecases
+Date: Wed, 31 May 2017 14:46:34 -0400
+Message-ID: <73dbd4a3-140e-d244-10ae-8cd91f0d0089@gmail.com>
+References: <20170525000101.8184-1-andresx7@gmail.com>
+ <0a469ff9-9ed5-b2c6-4261-6e587512674b@vodafone.de>
+ <91a672c5-c3be-7be8-a7a5-96176da2844c@gmail.com>
+ <71ecb201-a095-04ef-a428-44b06a1b2d43@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0515582000=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <c856088d-e779-4f5f-6252-d7f547124861-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <71ecb201-a095-04ef-a428-44b06a1b2d43-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,607 +22,231 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?iso-8859-1?Q?Christian_K=F6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============0515582000==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MWHPR1201MB0045BA269CD8C76D59C0E463F2F10MWHPR1201MB0045_"
-
---_000_MWHPR1201MB0045BA269CD8C76D59C0E463F2F10MWHPR1201MB0045_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Christian,
-
-
-I have asked for code review of a new patch.
-
-
-It turns out that the index operation is not needed. But there is one extra=
- if statement in every IB submission, which will be a slight performance hi=
-t.
-
-
-Function amdgpu_vm_check_compute_bug is called in amdgpu_device_init.
-
-Function amdgpu_vm_check_compute_bug cannot be called in amdgpu_vm_manager_=
-init, in which GFX is not initialized yet. MEC firmware version information=
- is not available yet.
-
-
-Thanks,
-
-Alex Bin Xie
-
-________________________________
-From: Christian K=F6nig <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Sent: Wednesday, May 31, 2017 9:07 AM
-To: Xie, AlexBin; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH 1/3] drm/amdgpu: Optimize a function called by every IB=
- sheduling
-
-
-I don't have strong opinion about where the code should be. But if we put t=
-his code in VM, there will be one extra array index operation because the V=
-M bug is ring related. VM manager need to maintain an array to manage this =
-information.
-
-Yeah, but array index suck when you access cache cold stuff as well.
-
-My concern is not so much where to put the field, but rather where to put t=
-he code to detect this condition. That is a bug very deeply related to how =
-the CP manages VMs and VMIDs and actually not specific to the ring.
-
-Just send out a patch which uses the ring type again to check if that worka=
-round applies or not. The heavy stuff was calling amdgpu_get_ip_block() on =
-every command submission, one additional if shouldn't hurt us here.
-
-Regards,
-Christian.
-
-Am 31.05.2017 um 14:53 schrieb Xie, AlexBin:
-
-HI Christian,
-
-
-Too late. The code has been committed.
-
-
-I don't have strong opinion about where the code should be. But if we put t=
-his code in VM, there will be one extra array index operation because the V=
-M bug is ring related. VM manager need to maintain an array to manage this =
-information.
-
-
-In the amdgpu_ring structure, there is already information like vm_inv_eng =
-and vmhub. Those are VM related information too. So this one extra informat=
-ion is not new.
-
-
-Thanks,
-
-Alex Bin
-
-________________________________
-From: Christian K=F6nig <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org><mailto:deathsimple@vodafo=
-ne.de>
-Sent: Wednesday, May 31, 2017 2:57 AM
-To: Xie, AlexBin; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lMiVNPc3mojA@public.gmane.org=
-sktop.org>
-Subject: Re: [PATCH 1/3] drm/amdgpu: Optimize a function called by every IB=
- sheduling
-
-Am 30.05.2017 um 23:47 schrieb Alex Xie:
->    Move several if statements and a loop statment from
->    run time to initialization time.
-
-Yeah, that's exactly what I've suggested before as well.
-
-Just keep the code inside amdgpu_vm.c (and the variable inside
-amdgpu_vm_manager), since this isn't related to ring management at all.
-
-Regards,
-Christian.
-
->
-> Signed-off-by: Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org><mailto:AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 33 +++++++++++++++++++++++++=
-+++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  6 ++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c   | 28 +------------------------=
---
->   3 files changed, 40 insertions(+), 27 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_ring.c
-> index 6a85db0..7d95435 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> @@ -153,6 +153,36 @@ void amdgpu_ring_undo(struct amdgpu_ring *ring)
->   }
->
->   /**
-> + * amdgpu_ring_check_compute_vm_bug - check whether this ring has comput=
-e vm bug
-> + *
-> + * @adev: amdgpu_device pointer
-> + * @ring: amdgpu_ring structure holding ring information
-> + */
-> +static void amdgpu_ring_check_compute_vm_bug(struct amdgpu_device *adev,
-> +                                     struct amdgpu_ring *ring)
-> +{
-> +     const struct amdgpu_ip_block *ip_block;
-> +
-> +     ring->has_compute_vm_bug =3D false;
-> +
-> +     if (ring->funcs->type !=3D AMDGPU_RING_TYPE_COMPUTE)
-> +             /* only compute rings */
-> +             return;
-> +
-> +     ip_block =3D amdgpu_get_ip_block(adev, AMD_IP_BLOCK_TYPE_GFX);
-> +     if (!ip_block)
-> +             return;
-> +
-> +     /* Compute ring has a VM bug for GFX version < 7.
-> +           And compute ring has a VM bug for GFX 8 MEC firmware version =
-< 673.*/
-> +     if (ip_block->version->major <=3D 7) {
-> +             ring->has_compute_vm_bug =3D true;
-> +     } else if (ip_block->version->major =3D=3D 8)
-> +             if (adev->gfx.mec_fw_version < 673)
-> +                     ring->has_compute_vm_bug =3D true;
-> +}
-> +
-> +/**
->    * amdgpu_ring_init - init driver ring struct.
->    *
->    * @adev: amdgpu_device pointer
-> @@ -257,6 +287,9 @@ int amdgpu_ring_init(struct amdgpu_device *adev, stru=
-ct amdgpu_ring *ring,
->        if (amdgpu_debugfs_ring_init(adev, ring)) {
->                DRM_ERROR("Failed to register debugfs file for rings !\n")=
-;
->        }
-> +
-> +     amdgpu_ring_check_compute_vm_bug(adev, ring);
-> +
->        return 0;
->   }
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_ring.h
-> index a9223a8..334307e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> @@ -185,6 +185,7 @@ struct amdgpu_ring {
->        u64                     cond_exe_gpu_addr;
->        volatile u32            *cond_exe_cpu_addr;
->        unsigned                vm_inv_eng;
-> +     bool                    has_compute_vm_bug;
->   #if defined(CONFIG_DEBUG_FS)
->        struct dentry *ent;
->   #endif
-> @@ -207,4 +208,9 @@ static inline void amdgpu_ring_clear_ring(struct amdg=
-pu_ring *ring)
->
->   }
->
-> +static inline bool amdgpu_ring_has_compute_vm_bug(struct amdgpu_ring *ri=
-ng)
-> +{
-> +     return ring->has_compute_vm_bug;
-> +}
-> +
->   #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_vm.c
-> index b2384b8..7a323f9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -656,32 +656,6 @@ static int amdgpu_vm_alloc_reserved_vmid(struct amdg=
-pu_device *adev,
->        return r;
->   }
->
-> -static bool amdgpu_vm_ring_has_compute_vm_bug(struct amdgpu_ring *ring)
-> -{
-> -     struct amdgpu_device *adev =3D ring->adev;
-> -     const struct amdgpu_ip_block *ip_block;
-> -
-> -     if (ring->funcs->type !=3D AMDGPU_RING_TYPE_COMPUTE)
-> -             /* only compute rings */
-> -             return false;
-> -
-> -     ip_block =3D amdgpu_get_ip_block(adev, AMD_IP_BLOCK_TYPE_GFX);
-> -     if (!ip_block)
-> -             return false;
-> -
-> -     if (ip_block->version->major <=3D 7) {
-> -             /* gfx7 has no workaround */
-> -             return true;
-> -     } else if (ip_block->version->major =3D=3D 8) {
-> -             if (adev->gfx.mec_fw_version >=3D 673)
-> -                     /* gfx8 is fixed in MEC firmware 673 */
-> -                     return false;
-> -             else
-> -                     return true;
-> -     }
-> -     return false;
-> -}
-> -
->   bool amdgpu_vm_need_pipeline_sync(struct amdgpu_ring *ring,
->                                  struct amdgpu_job *job)
->   {
-> @@ -691,7 +665,7 @@ bool amdgpu_vm_need_pipeline_sync(struct amdgpu_ring =
-*ring,
->        struct amdgpu_vm_id *id;
->        bool gds_switch_needed;
->        bool vm_flush_needed =3D job->vm_needs_flush ||
-> -             amdgpu_vm_ring_has_compute_vm_bug(ring);
-> +             amdgpu_ring_has_compute_vm_bug(ring);
->
->        if (job->vm_id =3D=3D 0)
->                return false;
-
-
-
-
---_000_MWHPR1201MB0045BA269CD8C76D59C0E463F2F10MWHPR1201MB0045_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
- 0); font-family: Calibri,Arial,Helvetica,sans-serif,&quot;EmojiFont&quot;,=
-&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,NotoColorEmoji,&qu=
-ot;Segoe UI Symbol&quot;,&quot;Android Emoji&quot;,EmojiSymbols;" dir=3D"lt=
-r">
-<p>Hi Christian,</p>
-<p><br>
-</p>
-<p>I have asked for code review of a new patch.</p>
-<p><br>
-</p>
-<p>It turns out that the index operation is not needed. But there is one ex=
-tra if statement in every IB submission, which will be a slight performance=
- hit.</p>
-<p><br>
-</p>
-<p>Function <span>amdgpu_vm_check_compute_bug</span> is called in <span>amd=
-gpu_device_init</span>.</p>
-<p>Function <span>amdgpu_vm_check_compute_bug</span> cannot be called in&nb=
-sp;<span>amdgpu_vm_manager_init</span>, in which GFX is not initialized yet=
-. MEC firmware version information is not available yet.</p>
-<br>
-<p>Thanks,</p>
-<p>Alex Bin Xie<br>
-</p>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" color=
-=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> Christian K=F6nig &l=
-t;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;<br>
-<b>Sent:</b> Wednesday, May 31, 2017 9:07 AM<br>
-<b>To:</b> Xie, AlexBin; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: [PATCH 1/3] drm/amdgpu: Optimize a function called by e=
-very IB sheduling</font>
-<div>&nbsp;</div>
-</div>
-<div>
-<div class=3D"moz-cite-prefix">
-<blockquote type=3D"cite">
-<p>I don't have strong opinion about where the code should be. But if we pu=
-t this code in VM, there will be one extra array index operation because th=
-e VM bug is ring related. VM manager need to maintain an array to manage th=
-is information.</p>
-</blockquote>
-Yeah, but array index suck when you access cache cold stuff as well.<br>
-<br>
-My concern is not so much where to put the field, but rather where to put t=
-he code to detect this condition. That is a bug very deeply related to how =
-the CP manages VMs and VMIDs and actually not specific to the ring.<br>
-<br>
-Just send out a patch which uses the ring type again to check if that worka=
-round applies or not. The heavy stuff was calling amdgpu_get_ip_block() on =
-every command submission, one additional if shouldn't hurt us here.<br>
-<br>
-Regards,<br>
-Christian.<br>
-<br>
-Am 31.05.2017 um 14:53 schrieb Xie, AlexBin:<br>
-</div>
-<blockquote type=3D"cite">
-<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size: 12pt; colo=
-r: rgb(0, 0, 0); font-family: Calibri,Arial,Helvetica,sans-serif,&quot;Emoj=
-iFont&quot;,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,NotoCo=
-lorEmoji,&quot;Segoe UI Symbol&quot;,&quot;Android Emoji&quot;,EmojiSymbols=
-;">
-<p>HI Christian,</p>
-<p><br>
-</p>
-<p>Too late. The code has been committed.</p>
-<p><br>
-</p>
-<p>I don't have strong opinion about where the code should be. But if we pu=
-t this code in VM, there will be one extra array index operation because th=
-e VM bug is ring related. VM manager need to maintain an array to manage th=
-is information.</p>
-<p><br>
-</p>
-<p>In the <span>amdgpu_ring</span> structure, there is already information =
-like <span>
-vm_inv_eng</span> and <span>vmhub</span>. Those are VM related information =
-too. So this one extra information is not new.
-<br>
-</p>
-<p><br>
-</p>
-Thanks,
-<p>Alex Bin<br>
-</p>
-<div style=3D"color:rgb(0,0,0)">
-<div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" colo=
-r=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> Christian K=F6nig
-<a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">=
-&lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;</a><br>
-<b>Sent:</b> Wednesday, May 31, 2017 2:57 AM<br>
-<b>To:</b> Xie, AlexBin; <a class=3D"moz-txt-link-abbreviated" href=3D"mail=
-to:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-<b>Subject:</b> Re: [PATCH 1/3] drm/amdgpu: Optimize a function called by e=
-very IB sheduling</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt">
-<div class=3D"PlainText">Am 30.05.2017 um 23:47 schrieb Alex Xie:<br>
-&gt;&nbsp;&nbsp;&nbsp; Move several if statements and a loop statment from<=
-br>
-&gt;&nbsp;&nbsp;&nbsp; run time to initialization time.<br>
-<br>
-Yeah, that's exactly what I've suggested before as well.<br>
-<br>
-Just keep the code inside amdgpu_vm.c (and the variable inside <br>
-amdgpu_vm_manager), since this isn't related to ring management at all.<br>
-<br>
-Regards,<br>
-Christian.<br>
-<br>
-&gt;<br>
-&gt; Signed-off-by: Alex Xie <a class=3D"moz-txt-link-rfc2396E" href=3D"mai=
-lto:AlexBin.Xie-5C7GfCeVMHo@public.gmane.org">
-&lt;AlexBin.Xie-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-&gt; ---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 33 &#43;&#43;&#=
-43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#=
-43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<b=
-r>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |&nbsp; 6 &#43;&#=
-43;&#43;&#43;&#43;&#43;<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c&nbsp;&nbsp; | 28 &#=
-43;--------------------------<br>
-&gt;&nbsp;&nbsp; 3 files changed, 40 insertions(&#43;), 27 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_ring.c<br>
-&gt; index 6a85db0..7d95435 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c<br>
-&gt; @@ -153,6 &#43;153,36 @@ void amdgpu_ring_undo(struct amdgpu_ring *rin=
-g)<br>
-&gt;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; /**<br>
-&gt; &#43; * amdgpu_ring_check_compute_vm_bug - check whether this ring has=
- compute vm bug<br>
-&gt; &#43; *<br>
-&gt; &#43; * @adev: amdgpu_device pointer<br>
-&gt; &#43; * @ring: amdgpu_ring structure holding ring information<br>
-&gt; &#43; */<br>
-&gt; &#43;static void amdgpu_ring_check_compute_vm_bug(struct amdgpu_device=
- *adev,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; struct amdgpu_ring *ring)<br>
-&gt; &#43;{<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; const struct amdgpu_ip_block *ip_block;<=
-br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; ring-&gt;has_compute_vm_bug =3D false;<b=
-r>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (ring-&gt;funcs-&gt;type !=3D AMDGPU_=
-RING_TYPE_COMPUTE)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; /* only compute rings */<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; return;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; ip_block =3D amdgpu_get_ip_block(adev, A=
-MD_IP_BLOCK_TYPE_GFX);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (!ip_block)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; return;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; /* Compute ring has a VM bug for GFX ver=
-sion &lt; 7.<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; And =
-compute ring has a VM bug for GFX 8 MEC firmware version &lt; 673.*/<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (ip_block-&gt;version-&gt;major &lt;=
-=3D 7) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; ring-&gt;has_compute_vm_bug =3D true;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; } else if (ip_block-&gt;version-&gt;majo=
-r =3D=3D 8)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; if (adev-&gt;gfx.mec_fw_version &lt; 673)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ring-&gt;has_comput=
-e_vm_bug =3D true;<br>
-&gt; &#43;}<br>
-&gt; &#43;<br>
-&gt; &#43;/**<br>
-&gt;&nbsp;&nbsp;&nbsp; * amdgpu_ring_init - init driver ring struct.<br>
-&gt;&nbsp;&nbsp;&nbsp; *<br>
-&gt;&nbsp;&nbsp;&nbsp; * @adev: amdgpu_device pointer<br>
-&gt; @@ -257,6 &#43;287,9 @@ int amdgpu_ring_init(struct amdgpu_device *ade=
-v, struct amdgpu_ring *ring,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_debugfs_ring_init=
-(adev, ring)) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;Failed to register debugfs file for rin=
-gs !\n&quot;);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_check_compute_vm_bug(adev, r=
-ing);<br>
-&gt; &#43;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_ring.h<br>
-&gt; index a9223a8..334307e 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h<br>
-&gt; @@ -185,6 &#43;185,7 @@ struct amdgpu_ring {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; cond_exe_gpu_addr;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; volatile u32&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *cond_exe_cpu_addr;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vm_i=
-nv_eng;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; has_compute_vm_bug;<br>
-&gt;&nbsp;&nbsp; #if defined(CONFIG_DEBUG_FS)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dentry *ent;<br>
-&gt;&nbsp;&nbsp; #endif<br>
-&gt; @@ -207,4 &#43;208,9 @@ static inline void amdgpu_ring_clear_ring(stru=
-ct amdgpu_ring *ring)<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; &#43;static inline bool amdgpu_ring_has_compute_vm_bug(struct amdgpu_r=
-ing *ring)<br>
-&gt; &#43;{<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; return ring-&gt;has_compute_vm_bug;<br>
-&gt; &#43;}<br>
-&gt; &#43;<br>
-&gt;&nbsp;&nbsp; #endif<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_vm.c<br>
-&gt; index b2384b8..7a323f9 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-&gt; @@ -656,32 &#43;656,6 @@ static int amdgpu_vm_alloc_reserved_vmid(stru=
-ct amdgpu_device *adev,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&gt;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; -static bool amdgpu_vm_ring_has_compute_vm_bug(struct amdgpu_ring *rin=
-g)<br>
-&gt; -{<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D ring-&gt;adev=
-;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; const struct amdgpu_ip_block *ip_block;<br>
-&gt; -<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (ring-&gt;funcs-&gt;type !=3D AMDGPU_RING=
-_TYPE_COMPUTE)<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; /* only compute rings */<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; return false;<br>
-&gt; -<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; ip_block =3D amdgpu_get_ip_block(adev, AMD_I=
-P_BLOCK_TYPE_GFX);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (!ip_block)<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; return false;<br>
-&gt; -<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (ip_block-&gt;version-&gt;major &lt;=3D 7=
-) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; /* gfx7 has no workaround */<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; return true;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; } else if (ip_block-&gt;version-&gt;major =
-=3D=3D 8) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; if (adev-&gt;gfx.mec_fw_version &gt;=3D 673)<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* gfx8 is fixed in MEC=
- firmware 673 */<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return false;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; else<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return true;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; return false;<br>
-&gt; -}<br>
-&gt; -<br>
-&gt;&nbsp;&nbsp; bool amdgpu_vm_need_pipeline_sync(struct amdgpu_ring *ring=
-,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_job *job=
-)<br>
-&gt;&nbsp;&nbsp; {<br>
-&gt; @@ -691,7 &#43;665,7 @@ bool amdgpu_vm_need_pipeline_sync(struct amdgp=
-u_ring *ring,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_vm_id *id;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool gds_switch_needed;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool vm_flush_needed =3D job=
--&gt;vm_needs_flush ||<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; amdgpu_vm_ring_has_compute_vm_bug(ring);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; amdgpu_ring_has_compute_vm_bug(ring);<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (job-&gt;vm_id =3D=3D 0)<=
-br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; return false;<br>
-<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</blockquote>
-<p><br>
-</p>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_MWHPR1201MB0045BA269CD8C76D59C0E463F2F10MWHPR1201MB0045_--
-
---===============0515582000==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0515582000==--
+CgpPbiAyMDE3LTA1LTMxIDAyOjUzIEFNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+Pgo+Pj4g
+Mi4gSG93IGFyZSB0aGUgcHJpb3JpdGllcyBmcm9tIHByb2Nlc3NlcyBzdXBwb3NlZCB0byBpbnRl
+cmFjdCB3aXRoIAo+Pj4gdGhlIHBlciBjb250ZXh0IHByaW9yaXR5Pwo+Pgo+PiBEbyB5b3UgbWVh
+biBwcm9jZXNzIG5pY2VuZXNzPwo+Pgo+PiBUaGVyZSBpc24ndCBhbnkgcmVsYXRpb25zaGlwIGJl
+dHdlZW4gbmljZW5lc3MgYW5kIGdwdSBwcmlvcml0eS4KPj4KPj4gTGV0IG1lIGtub3cgaWYgeW91
+IG1lYW50IHNvbWV0aGluZyBkaWZmZXJlbnQgaGVyZS4gCj4gSSBtZWFudCBzb21ldGhpbmcgZGlm
+ZmVyZW50Lgo+IAo+IFRoZSBhcHBsaWNhdGlvbiBjb250cm9scyB0aGUgcGVyIGNvbnRleHQgcHJp
+b3JpdHkgd2hlbiBjcmVhdGluZyB0aGUgCj4gY29udGV4dCBhbmQgdGhlIGNvbXBvc2l0b3Igc2hv
+dWxkIGNvbnRyb2wgdGhlIHBlciBwcm9jZXNzIHByaW9yaXR5Lgo+IAo+IFRob3NlIHR3byBuZWVk
+cyB0byBiZSBoYW5kbGVkIHNlcGFyYXRlbHksIG90aGVyd2lzZSB3ZSB3b3VsZCBjb3VsZCAKPiBv
+dmVycmlkZSB0aGUgY29udGV4dCBwcmlvcml0eSBmcm9tIHRoZSBjb21wb3NpdG9yIGFuZCBzbyBj
+b25mdXNlIHRoZSAKPiBhcHBsaWNhdGlvbi4KPiAKPiBJIHN1Z2dlc3QgdG8gY2xlYW5seSBzZXBh
+cmF0ZSB0aGUgdHdvLgo+IAoKV291bGQgeW91IHRoZW4gYiBiZSBva2F5IHdpdGggaGF2aW5nIGEg
+bGlzdCBvZiBhbWRncHVfcHJvY2VzcyBkYXRhIApzdHJ1Y3R1cmVzIHN0b3JlZCBpbiBhZGV2PyBU
+aGUgbGlzdCB3b3VsZCBiZSBzZWFyY2hhYmxlIGJ5IHN0cnVjdCBwaWQuCgpIb3dldmVyLCBJJ20g
+bm90IDEwMCUgY29udmluY2VkIG9uIGhhdmluZyB0d28gc2VwYXJhdGUgcHJpb3JpdGllcy4gSXQg
+CmR1cGxpY2F0ZXMgdGhlIGNvbmNlcHQgYW5kIHdlIG5lZWQgdG8gaW50cm9kdWNlIHJlbGF0aW9u
+c2hpcCBzZW1hbnRpY3MgCmJldHdlZW4gdGhlIHR3by4KCkFsdGVybmF0aXZlbHksIHNpbmNlIHRo
+ZSBwcmlvcml0eSBwYXRjaGVzIHN0aWxsIGFyZW4ndCBwYXJ0IG9mIGRybS1uZXh0IAp3ZSBzdGls
+bCBoYXZlIGEgY2hhbmNlIG1ha2Ugc29tZSBjaGFuZ2VzIHRoZXJlLiBJZiB3ZSBtYWtlIHRoZSBw
+cmlvcml0eSAKcmVxdWVzdHMgcmVmZXJlbmNlIGNvdW50ZWQgd2Ugc2hvdWxkIGJlIGFibGUgdG8g
+cmVtZW1iZXIgYW55IG9sZCByZXF1ZXN0cy4KCj4+IChpaSkgSm9iIGRlcGVuZGVuY2llcyBiZXR3
+ZWVuIHR3byBwcm9jZXNzZXMuCj4+Cj4+IFRoaXMgY2FzZSBpcyBtZW50aW9uZWQgc2VwYXJhdGVs
+eSBhcyBpdCBpcyBwcm9iYWJseSB0aGUgbW9zdCBjb21tb24gCj4+IHVzZSBjYXNlIHdlIHdpbGwg
+ZW5jb3VudGVyIGZvciB0aGlzIGZlYXR1cmUuIE1vc3QgZ3JhcGhpY3MgCj4+IGFwcGxpY2F0aW9u
+cyBlbnRlciBwcm9kdWNlci9jb25zdW1lciByZWxhdGlvbnNoaXAgd2l0aCB0aGUgY29tcG9zaXRv
+ciAKPj4gcHJvY2VzcyAod2luZG93IHN3YXBjaGFpbikuCj4+Cj4+IEluIHRoaXMgY2FzZSB0aGUg
+Y29tcG9zaXRvciBzaG91bGQgYWxyZWFkeSBoYXZlIGFsbCB0aGUgaW5mb3JtYXRpb24gCj4+IHJl
+cXVpcmVkIHRvIGF2b2lkIGEgZGVhZGxvY2suCj4gCj4gVGhhdCBpcyBub25zZW5zZS4gVGhlIGtl
+cm5lbCBpcyB0aGUgc3VwZXJ2aXNvciBvZiByZXNvdXJjZSBtYW5hZ2VtZW50LCAKPiBzbyBvbmx5
+IHRoZSBrZXJuZWwga25vd3MgaG93IHRvIGF2b2lkIGEgZGVhZGxvY2suCgo+IExldCdzIGltYWdp
+bmUgdGhlIGZvbGxvd2luZyBleGFtcGxlOgo+IFByb2Nlc3MgQSBpcyBhIGxvdyBwcmlvcml0eSB0
+YXNrIChmb3IgZXhhbXBsZSB1cGRhdGluZyB0aGUgY2xvY2sgYml0bWFwKSAKPiB3aGljaCBuZWVk
+cyBhIHJlc291cmNlIGZvciBpdCdzIGNvbW1hbmQgc3VibWlzc2lvbi4KPiBQcm9jZXNzIEIgaXMg
+YSBoaWdoIHByaW9yaXR5IHRhc2sgKHJlbmRlcmluZyBvZiB0aGUgVlIpIHdoaWNoIG5lZWRzIGEg
+Cj4gYnVuY2ggb2YgbWVtb3J5IGZvciBpdCdzIGNvbW1hbmQgc3VibWlzc2lvbi4KPiAKPiBOb3cg
+dGhlIGtlcm5lbCBtZW1vcnkgbWFuYWdlbWVudCBkZWNpZGVzIHRoYXQgaXQgbmVlZHMgdG8gZXZp
+Y3QgcHJvY2VzcyAKPiBBIGZyb20gVlJBTSB0byBtYWtlIHJvb20gZm9yIHRoZSBjb21tYW5kIHN1
+Ym1pc3Npb24gb2YgcHJvY2VzcyBCLiBUbyBkbyAKPiB0aGlzIGFsbCBjb21tYW5kIHN1Ym1pc3Np
+b25zIG9mIHByb2Nlc3MgQSBuZWVkIHRvIGZpbmlzaC4KPiAKPiBJbiB0aGlzIG1vbWVudCB0aGUg
+Y29tcG9zaXRvciBoYW5kcyBvdmVyIGV4Y2x1c2l2ZSBhY2Nlc3MgdG8gcHJvY2VzcyBCIAo+IGFu
+ZCBuZXZlciBnaXZlcyBwcm9jZXNzIEEgYSBjaGFuY2UgdG8gcnVuLgo+IAo+IE5vdyBCIGRlcGVu
+ZHMgb24gQSwgYnV0IEEgY2FuIG5ldmVyIHJ1biBiZWNhdXNlIEIgaGFzIGV4Y2x1c2l2ZSBhY2Nl
+c3MgCj4gLT4gZGVhZGxvY2suCj4gCj4gV2Ugc29tZWhvdyBuZWVkIHRvIGhhbmRsZSB0aGlzIGlu
+c2lkZSB0aGUga2VybmVsIG9yIHRoaXMgd2hvbGUgYXBwcm9hY2ggCj4gd29uJ3Qgd29yay4KPiAK
+ClRoYW5rcyBmb3IgcG9pbnRpbmcgdGhhdCBvdXQuIEkgdGhvdWdodCBjYXNlcyBsaWtlIHRoZXNl
+IHdvdWxkIHdvcmsgb2theSAKc2luY2Ugd2UgYWx3YXlzIGFsbG93IFBSSU9SSVRZX0tFUk5FTCB3
+b3JrIHRvIGV4ZWN1dGUuIEJ1dCBhcyB5b3UgCnBvaW50ZWQgb3V0LCBJIG92ZXJsb29rZWQgdGhl
+IGRlcGVuZGVuY3kgdGhhdCBpcyBjcmVhdGVkIG9uY2UgdGhlIApjb21tYW5kIGJ1ZmZlcnMgaGF2
+ZSB0aGVpciBmaW5hbCBtZW1vcnkgYWRkcmVzc2VzIGF0dGFjaGVkLgoKTGV0IG1lIHJlYWQgYW5k
+IHRoaW5rIGFib3V0IHRoaXMgYSBiaXQgbW9yZS4KClJlZ2FyZHMsCkFuZHJlcwoKPiBSZWdhcmRz
+LAo+IENocmlzdGlhbi4KPiAKPiBBbSAzMC4wNS4yMDE3IHVtIDIzOjM4IHNjaHJpZWIgQW5kcmVz
+IFJvZHJpZ3VlejoKPj4KPj4KPj4gT24gMjAxNy0wNS0zMCAxMToxOSBBTSwgQ2hyaXN0aWFuIEvD
+tm5pZyB3cm90ZToKPj4+IExvb2tzIGxpa2UgYSBnb29kIHN0YXJ0LCBidXQgYSBmZXcgbm90ZXMg
+aW4gZ2VuZXJhbDoKPj4+Cj4+PiAxLiBTcGxpdCB0aGUgcGF0Y2hlcyBpbnRvIHR3byBzZXRzLgo+
+Pj4KPj4+IE9uZSBmb3IgaW1wbGVtZW50aW5nIGNoYW5naW5nIHRoZSBwcmlvcml0aWVzIGFuZCBv
+bmUgZm9yIGxpbWl0aW5nIHRoZSAKPj4+IHByaW9yaXRpZXMuCj4+Pgo+Pgo+PiBObyBwcm9ibGVt
+Lgo+Pgo+Pj4gMi4gSG93IGFyZSB0aGUgcHJpb3JpdGllcyBmcm9tIHByb2Nlc3NlcyBzdXBwb3Nl
+ZCB0byBpbnRlcmFjdCB3aXRoIAo+Pj4gdGhlIHBlciBjb250ZXh0IHByaW9yaXR5Pwo+Pgo+PiBE
+byB5b3UgbWVhbiBwcm9jZXNzIG5pY2VuZXNzPwo+Pgo+PiBUaGVyZSBpc24ndCBhbnkgcmVsYXRp
+b25zaGlwIGJldHdlZW4gbmljZW5lc3MgYW5kIGdwdSBwcmlvcml0eS4KPj4KPj4gTGV0IG1lIGtu
+b3cgaWYgeW91IG1lYW50IHNvbWV0aGluZyBkaWZmZXJlbnQgaGVyZS4KPj4KPj4+Cj4+PiAzLiBU
+aGlua2luZyBtb3JlIGFib3V0IGl0IHdlIGNhbid0IGxpbWl0IHRoZSBtaW5pbXVtIHByaW9yaXR5
+IGluIHRoZSAKPj4+IHNjaGVkdWxlci4KPj4+Cj4+PiBGb3IgZXhhbXBsZSBhIGxvdyBwcmlvcml0
+eSBqb2IgbWlnaHQgYmxvY2sgcmVzb3VyY2VzIHRoZSBoaWdoIAo+Pj4gcHJpb3JpdHkgam9iIG5l
+ZWRzIHRvIHJ1bi4gRS5nLiBWUkFNIG1lbW9yeS4KPj4+Cj4+Cj4+IFdlIGF2b2lkIGRlYWRsb2Nr
+cyBieSBtYWtpbmcgc3VyZSB0aGF0IGFsbCBkZXBlbmRlbmNpZXMgb2YgYW4gCj4+IGV4Y2x1c2l2
+ZSB0YXNrIGFyZSBhbHNvIGVsZXZhdGVkIHRvIHRoZSBzYW1lIHByaW9yaXR5IGFzIHNhaWQgdGFz
+ay4gCj4+IFVzZXJtb2RlICh0aGUgRFJNX01BU1RFUikgaXMgcmVzcG9uc2libGUgdG8gbWFpbnRh
+aW4gdGhpcyBndWFyYW50ZWUuIAo+PiBUaGUga2VybmVsIGRvZXMgcHJvdmlkZSBhbiBpb2N0bCB0
+aGF0IG1ha2VzIHRoaXMgdGFzayBzaW1wbGUsIAo+PiBhbWRncHVfc2NoZWRfcHJvY2Vzc19wcmlv
+cml0eV9zZXQoKS4KPj4KPj4gTGV0cyB0YWtlIGEgbG9vayBhdCB0aGlzIGlzc3VlIHRocm91Z2gg
+dGhyZWUgZGlmZmVyZW50IHNjZW5hcmlvcy4KPj4KPj4gKGkpIEpvYiBkZXBlbmRlbmNpZXMgYXJl
+IGFsbCBwcm9jZXNzIGludGVybmFsLCBpLmUuIG11bHRpcGxlIGNvbnRleHRzIAo+PiBpbiBvbmUg
+cHJvY2Vzcy4KPj4KPj4gVGhpcyBpcyB0aGUgdHJpdmlhbCBjYXNlLiBBIGNhbGwgdG8gCj4+IGFt
+ZGdwdV9zY2hlZF9wcm9jZXNzX3ByaW9yaXR5X3NldCgpIHdpbGwgY2hhbmdlIHRoZSBwcmlvcml0
+eSBvZiBhbGwgCj4+IGNvbnRleHRzIGJlbG9uZ2luZyB0byBhIHByb2Nlc3MgaW4gbG9ja3N0ZXAu
+Cj4+Cj4+IE9uY2UgYW1kZ3B1X3NjaGVkX3Byb2Nlc3NfcHJpb3JpdHlfc2V0KCkgcmV0dXJucywg
+aXQgaXMgc2FmZSB0byByYWlzZSAKPj4gdGhlIG1pbmltdW0gcHJpb3JpdHkgdXNpbmcgYW1kZ3B1
+X3NjaGVkX21pbl9wcmlvcml0eV9nZXQoKS4gQXQgdGhpcyAKPj4gcG9pbnQgd2UgaGF2ZSBhIGd1
+YXJhbnRlZSB0aGF0IGFsbCBjb250ZXh0cyBiZWxvbmdpbmcgdG8gdGhlIHByb2Nlc3MgCj4+IHdp
+bGwgYmUgaW4gYSBydW5uYWJsZSBzdGF0ZSwgb3IgYWxsIHRoZSBjb250ZXh0cyB3aWxsIGJlIGlu
+IGEgCj4+IG5vdC1ydW5uYWJsZSBzdGF0ZS4gVGhlcmUgd29uJ3QgYmUgYSBtaXggb2YgcnVubmFi
+bGUgYW5kIG5vbi1ydW5uYWJsZSAKPj4gcHJvY2Vzc2VzLgo+Pgo+PiBHZXR0aW5nIGludG8gdGhh
+dCBtaXhlZCBzdGF0ZSBpcyB3aGF0IGNvdWxkIGNhdXNlIGEgZGVhZGxvY2ssIGEgCj4+IHJ1bm5h
+YmxlIGNvbnRleHQgZGVwZW5kcyBvbiBhIG5vbi1ydW5uYWJsZSBvbmUuCj4+Cj4+IE5vdGU6IHRo
+ZSBjdXJyZW50IHBhdGNoc2V0IG5lZWRzIGEgZml4IHRvIHByb3ZpZGUgdGhpcyBndWFyYW50ZWUg
+aW4gCj4+IG11bHRpLWdwdSBzeXN0ZW1zLgo+Pgo+PiAoaWkpIEpvYiBkZXBlbmRlbmNpZXMgYmV0
+d2VlbiB0d28gcHJvY2Vzc2VzLgo+Pgo+PiBUaGlzIGNhc2UgaXMgbWVudGlvbmVkIHNlcGFyYXRl
+bHkgYXMgaXQgaXMgcHJvYmFibHkgdGhlIG1vc3QgY29tbW9uIAo+PiB1c2UgY2FzZSB3ZSB3aWxs
+IGVuY291bnRlciBmb3IgdGhpcyBmZWF0dXJlLiBNb3N0IGdyYXBoaWNzIAo+PiBhcHBsaWNhdGlv
+bnMgZW50ZXIgcHJvZHVjZXIvY29uc3VtZXIgcmVsYXRpb25zaGlwIHdpdGggdGhlIGNvbXBvc2l0
+b3IgCj4+IHByb2Nlc3MgKHdpbmRvdyBzd2FwY2hhaW4pLgo+Pgo+PiBJbiB0aGlzIGNhc2UgdGhl
+IGNvbXBvc2l0b3Igc2hvdWxkIGFscmVhZHkgaGF2ZSBhbGwgdGhlIGluZm9ybWF0aW9uIAo+PiBy
+ZXF1aXJlZCB0byBhdm9pZCBhIGRlYWRsb2NrLiBJdCBrbm93czoKPj4gICAtIEl0c2VsZiAoYXMg
+YSBwcm9jZXNzKQo+PiAgIC0gVGhlIGFwcGxpY2F0aW9uIHByb2Nlc3MKPj4gICAtIFRoZSBkZXBl
+bmRlbmNpZXMgYmV0d2VlbiBib3RoIHByb2Nlc3Nlcwo+Pgo+PiBBdCB0aGlzIHN0YWdlIGl0IGlz
+IHNpbXBsZSBmb3IgdGhlIGNvbXBvc2l0b3IgdG8gdW5kZXJzdGFuZCB0aGF0IGlmIGl0IAo+PiB3
+aXNoZXMgdG8gcGVyZm9ybSBhbiBleGNsdXNpdmUgbW9kZSB0cmFuc2l0aW9uLCBhbGwgZGVwZW5k
+ZW5jaWVzIAo+PiAod2hpY2ggYXJlIGtub3duKSBzaG91bGQgYWxzbyBiZSBwYXJ0IG9mIHRoZSBl
+eGNsdXNpdmUgZ3JvdXAuCj4+Cj4+IFdlIHNob3VsZCBiZSBhYmxlIHRvIGltcGxlbWVudCB0aGlz
+IGZlYXR1cmUgd2l0aG91dCBtb2RpZnlpbmcgYSAKPj4gZ2FtZS9hcHBsaWNhdGlvbi4KPj4KPj4g
+KGlpaSkgSm9iIGRlcGVuZGVuY2llcyBiZXR3ZWVuIG11bHRpcGxlICgzKykgcHJvY2Vzc2VzLgo+
+Pgo+PiBUaGlzIHNjZW5hcmlvIGlzIHZlcnkgdW5jb21tb24gZm9yIGdhbWVzLiBGb3IgZXhhbXBs
+ZSwgaWYgYSBnYW1lIG9yIAo+PiBhcHBsaWNhdGlvbiBpcyBzcGxpdCBpbnRvIG11bHRpcGxlIHBy
+b2Nlc3Nlcy4gUHJvY2VzcyBBIGludGVyYWN0cyB3aXRoIAo+PiB0aGUgY29tcG9zaXRvci4gUHJv
+Y2VzcyBCIGRvZXMgc29tZSBwaHlzaWNzL2NvbXB1dGUgY2FsY3VsYXRpb25zIGFuZCAKPj4gc2Vu
+ZCB0aGUgcmVzdWx0cyB0byBQcm9jZXNzIEEuCj4+Cj4+IFRvIHN1cHBvcnQgdGhpcyB1c2UgY2Fz
+ZSwgd2Ugd291bGQgcmVxdWlyZSBhbiBpbnRlcmZhY2UgZm9yIHRoZSAKPj4gYXBwbGljYXRpb24g
+dG8gY29tbXVuaWNhdGUgdG8gdGhlIGNvbXBvc2l0b3IgaXRzIGRlcGVuZGVuY2llcy4gSS5lLiAK
+Pj4gUHJvY2VzcyBBIHdvdWxkIHNheSwgIkFsc28ga2VlcCBQcm9jZXNzIEIncyBwcmlvcml0eSBp
+biBzeW5jIHdpdGggCj4+IG1pbmUiLiBUaGlzIHNob3VsZCBiZSBhIHNpbXBsZSBiaXQgb2YgcGx1
+bWJpbmcgdG8gYWxsb3cgUHJvY2VzcyBBIHRvIAo+PiBzaGFyZSBhbiBmZCBmcm9tIFByb2Nlc3Mg
+QiB3aXRoIHRoZSBjb21wb3NpdG9yLgo+Pgo+PiBCIC0tW3BpcGVfc2VuZChmZEIpXS0tPiBBIAo+
+PiAtLVtjb21wb3NpdG9yX2V4dF9wcmlvcml0eV9ncm91cF9hZGQoZmRCKV0tLT4gQ29tcG9zaXRv
+cgo+Pgo+PiBPbmNlIHRoZSBjb21wb3NpdG9yIGlzIGF3YXJlIG9mIGFsbCBvZiBBJ3MgZGVwZW5k
+ZW5jaWVzLCB0aGlzIGNhbiBiZSAKPj4gaGFuZGxlZCBpbiB0aGUgc2FtZSBmYXNoaW9uIGFzIChp
+aSkuCj4+Cj4+IEEgc3BlY2lhbCBleHRlbnNpb24gd291bGQgYmUgcmVxdWlyZWQgZm9yIGNvbXBv
+c2l0b3IgcHJvdG9jb2xzIHRvIAo+PiBjb21tdW5pY2F0ZSB0aGUgZGVwZW5kZW5jaWVzIGZkLiBB
+cHBsaWNhdGlvbnMgd291bGQgYWxzbyBuZWVkIHRvIGJlIAo+PiB1cGRhdGVkIHRvIHVzZSB0aGlz
+IGV4dGVuc2lvbi4KPj4KPj4gSSB0aGluayB0aGlzIGNhc2Ugd291bGQgYmUgdmVyeSB1bmNvbW1v
+bi4gQnV0IGl0IGlzIHNvbWV0aGluZyB0aGF0IHdlIAo+PiB3b3VsZCBiZSBhYmxlIHRvIGhhbmRs
+ZSBpZiB0aGUgbmVlZCB3b3VsZCBhcmlzZS4KPj4KPj4gPiBXZSBuZWVkIHNvbWV0aGluZyBsaWtl
+IGJsb2NraW5nIHRoZSBzdWJtaXR0ZXIgaW5zdGVhZCAoYmFkKSBvciAKPj4gZGV0ZWN0aW9uCj4+
+ID4gb2YgZGVwZW5kZW5jaWVzIGluIHRoZSBzY2hlZHVsZXIgKGdvb2QsIGJ1dCB0cmlja3kgdG8g
+aW1wbGVtZW50KS4KPj4gPgo+Pgo+PiBJIGRlZmluaXRlbHkgYWdyZWUgdGhhdCBkZXRlY3Rpbmcg
+ZGVwZW5kZW5jaWVzIGlzIHRyaWNreS4gV2hpY2ggaXMgd2h5IAo+PiBJIHByZWZlciBhbiBhcHBy
+b2FjaCB3aGVyZSB1c2VybW9kZSBkZWZpbmVzIHRoZSBkZXBlbmRlbmNpZXMuIEl0IGlzIAo+PiBz
+aW1wbGUgZm9yIGJvdGggdGhlIGtlcm5lbCBhbmQgdXNlcm1vZGUgdG8gaW1wbGVtZW50Lgo+Pgo+
+PiA+IE90aGVyd2lzZSB3ZSBjYW4gZWFzaWx5IHJ1biBpbnRvIGEgZGVhZGxvY2sgc2l0dWF0aW9u
+IHdpdGggdGhhdCAKPj4gYXBwcm9hY2guCj4+ID4KPj4KPj4gVGhlIGN1cnJlbnQgQVBJIGRvZXMg
+YWxsb3cgeW91IHRvIGRlYWRsb2NrIHlvdXJzZWxmIHByZXR0eSBlYXNpbHkgaWYgCj4+IG1pc3Vz
+ZWQuIEJ1dCBzbyBkbyBtYW55IG90aGVyIEFQSXMsIGxpa2UgaGF2aW5nIGEgdGhyZWFkIHRyeWlu
+ZyB0byAKPj4gZ3JhYiB0aGUgc2FtZSBsb2NrIHR3aWNlIDopCj4+Cj4+IFRoYW5rcyBmb3IgdGhl
+IGNvbW1lbnRzLAo+PiBBbmRyZXMKPj4KPj4+IFJlZ2FyZHMsCj4+PiBDaHJpc3RpYW4uCj4+Pgo+
+Pj4gQW0gMjUuMDUuMjAxNyB1bSAwMjowMCBzY2hyaWViIEFuZHJlcyBSb2RyaWd1ZXo6Cj4+Pj4g
+V2hlbiBtdWx0aXBsZSBlbnZpcm9ubWVudHMgYXJlIHJ1bm5pbmcgc2ltdWx0YW5lb3VzbHkgb24g
+YSBzeXN0ZW0sIGUuZy4KPj4+PiBhbiBYIGRlc2t0b3AgKyBhIFN0ZWFtVlIgZ2FtZSBzZXNzaW9u
+LCBpdCBtYXkgYmUgdXNlZnVsIHRvIHNhY3JpZmljZQo+Pj4+IHBlcmZvcm1hbmNlIGluIG9uZSBl
+bnZpcm9ubWVudCBpbiBvcmRlciB0byBib29zdCBpdCBvbiB0aGUgb3RoZXIuCj4+Pj4KPj4+PiBU
+aGlzIHNlcmllcyBwcm92aWRlcyBhIG1lY2hhbmlzbSBmb3IgYSBEUk1fTUFTVEVSIHRvIHByb3Zp
+ZGUgZXhjbHVzaXZlCj4+Pj4gZ3B1IGFjY2VzcyB0byBhIGdyb3VwIG9mIHByb2Nlc3Nlcy4KPj4+
+Pgo+Pj4+IE5vdGU6IFRoaXMgc2VyaWVzIGlzIGJ1aWx0IG9uIHRoZSBhc3N1bXB0aW9uIHRoYXQg
+dGhlIGRybSBsZWFzZSAKPj4+PiBwYXRjaCBzZXJpZXMKPj4+PiB3aWxsIGV4dGVuZCBEUk1fTUFT
+VEVSIHN0YXR1cyB0byBsZXNlZXMuCj4+Pj4KPj4+PiBUaGUgbGliZHJtIHdlIGludGVuZCB0byBw
+cm92aWRlIGlzIGFzIGZvbGxvd3M6Cj4+Pj4KPj4+PiAvKioKPj4+PiAgICogU2V0IHRoZSBwcmlv
+cml0eSBvZiBhbGwgY29udGV4dHMgaW4gYSBwcm9jZXNzCj4+Pj4gICAqCj4+Pj4gICAqIFRoaXMg
+ZnVuY3Rpb24gd2lsbCBjaGFuZ2UgdGhlIHByaW9yaXR5IG9mIGFsbCBjb250ZXh0cyBvd25lZCBi
+eQo+Pj4+ICAgKiB0aGUgcHJvY2VzcyBpZGVudGlmaWVkIGJ5IGZkLgo+Pj4+ICAgKgo+Pj4+ICAg
+KiBccGFyYW0gZGV2ICAgICAgICAgICAgIC0gXGMgW2luXSBkZXZpY2UgaGFuZGxlCj4+Pj4gICAq
+IFxwYXJhbSBmZCAgICAgICAgICAgICAgLSBcYyBbaW5dIGZkIGZyb20gdGFyZ2V0IHByb2Nlc3MK
+Pj4+PiAgICogXHBhcmFtIHByaW9yaXR5ICAgICAgICAtIFxjIFtpbl0gdGFyZ2V0IHByaW9yaXR5
+IAo+Pj4+IEFNREdQVV9DVFhfUFJJT1JJVFlfKgo+Pj4+ICAgKgo+Pj4+ICAgKiBccmV0dXJuICAw
+IG9uIHN1Y2Nlc3Ncbgo+Pj4+ICAgKiAgICAgICAgIDwwIC0gTmVnYXRpdmUgUE9TSVggZXJyb3Ig
+Y29kZQo+Pj4+ICAgKgo+Pj4+ICAgKiBcbm90ZXMgQGZkIGNhbiBiZSAqYW55KiBmaWxlIGRlc2Ny
+aXB0b3IgZnJvbSB0aGUgdGFyZ2V0IHByb2Nlc3MuCj4+Pj4gICAqIFxub3RlcyB0aGlzIGZ1bmN0
+aW9uIHJlcXVpcmVzIERSTV9NQVNURVIKPj4+PiAgICovCj4+Pj4gaW50IGFtZGdwdV9zY2hlZF9w
+cm9jZXNzX3ByaW9yaXR5X3NldChhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYsCj4+Pj4gICAgICAg
+ICAgICAgICAgICAgICAgIGludCBmZCwgaW50MzJfdCBwcmlvcml0eSk7Cj4+Pj4KPj4+PiAvKioK
+Pj4+PiAgICogUmVxdWVzdCB0byByYWlzZSB0aGUgbWluaW11bSByZXF1aXJlZCBwcmlvcml0eSB0
+byBzY2hlZHVsZSBhIGdwdSAKPj4+PiBqb2IKPj4+PiAgICoKPj4+PiAgICogU3VibWl0IGEgcmVx
+dWVzdCB0byBpbmNyZWFzZSB0aGUgbWluaW11bSByZXF1aXJlZCBwcmlvcml0eSB0byAKPj4+PiBz
+Y2hlZHVsZQo+Pj4+ICAgKiBhIGdwdSBqb2IuIE9uY2UgdGhpcyBmdW5jdGlvbiByZXR1cm5zLCB0
+aGUgZ3B1IHNjaGVkdWxlciB3aWxsIG5vIAo+Pj4+IGxvbmdlcgo+Pj4+ICAgKiBjb25zaWRlciBq
+b2JzIGZyb20gY29udGV4dHMgd2l0aCBwcmlvcml0eSBsb3dlciB0aGFuIEBwcmlvcml0eS4KPj4+
+PiAgICoKPj4+PiAgICogVGhlIG1pbmltdW0gcHJpb3JpdHkgY29uc2lkZXJlZCBieSB0aGUgc2No
+ZWR1bGVyIHdpbGwgYmUgdGhlIAo+Pj4+IGhpZ2hlc3QgZnJvbQo+Pj4+ICAgKiBhbGwgY3VycmVu
+dGx5IGFjdGl2ZSByZXF1ZXN0cy4KPj4+PiAgICoKPj4+PiAgICogUmVxdWVzdHMgYXJlIHJlZmNv
+dW50ZWQsIGFuZCBtdXN0IGJlIGJhbGFuY2VkIHVzaW5nCj4+Pj4gICAqIGFtZGdwdV9zY2hlZF9t
+aW5fcHJpb3JpdHlfcHV0KCkKPj4+PiAgICoKPj4+PiAgICogXHBhcmFtIGRldiAgICAgICAgICAg
+ICAtIFxjIFtpbl0gZGV2aWNlIGhhbmRsZQo+Pj4+ICAgKiBccGFyYW0gcHJpb3JpdHkgICAgICAg
+IC0gXGMgW2luXSB0YXJnZXQgcHJpb3JpdHkgCj4+Pj4gQU1ER1BVX0NUWF9QUklPUklUWV8qCj4+
+Pj4gICAqCj4+Pj4gICAqIFxyZXR1cm4gIDAgb24gc3VjY2Vzc1xuCj4+Pj4gICAqICAgICAgICAg
+PDAgLSBOZWdhdGl2ZSBQT1NJWCBlcnJvciBjb2RlCj4+Pj4gICAqCj4+Pj4gICAqIFxub3RlcyB0
+aGlzIGZ1bmN0aW9uIHJlcXVpcmVzIERSTV9NQVNURVIKPj4+PiAgICovCj4+Pj4gaW50IGFtZGdw
+dV9zY2hlZF9taW5fcHJpb3JpdHlfZ2V0KGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldiwKPj4+PiAg
+ICAgICAgICAgICAgICAgICBpbnQzMl90IHByaW9yaXR5KTsKPj4+Pgo+Pj4+IC8qKgo+Pj4+ICAg
+KiBEcm9wIGEgcmVxdWVzdCB0byByYWlzZSB0aGUgbWluaW11bSByZXF1aXJlZCBzY2hlZHVsZXIg
+cHJpb3JpdHkKPj4+PiAgICoKPj4+PiAgICogVGhpcyBjYWxsIGJhbGFuY2VzIGFtZGdwdV9zY2hl
+ZF9taW5fcHJpb3JpdHlfZ2V0KCkKPj4+PiAgICoKPj4+PiAgICogSWYgbm8gb3RoZXIgYWN0aXZl
+IHJlcXVlc3RzIGV4aXN0cyBmb3IgQHByaW9yaXR5LCB0aGUgbWluaW11bSAKPj4+PiByZXF1aXJl
+ZAo+Pj4+ICAgKiBwcmlvcml0eSB3aWxsIGRlY2F5IHRvIGEgbG93ZXIgbGV2ZWwgdW50aWwgb25l
+IGlzIHJlYWNoZWQgd2l0aCAKPj4+PiBhbiBhY3RpdmUKPj4+PiAgICogcmVxdWVzdCBvciB0aGUg
+bG93ZXN0IHByaW9yaXR5IGlzIHJlYWNoZWQuCj4+Pj4gICAqCj4+Pj4gICAqIFxwYXJhbSBkZXYg
+ICAgICAgICAgICAgLSBcYyBbaW5dIGRldmljZSBoYW5kbGUKPj4+PiAgICogXHBhcmFtIHByaW9y
+aXR5ICAgICAgICAtIFxjIFtpbl0gdGFyZ2V0IHByaW9yaXR5IAo+Pj4+IEFNREdQVV9DVFhfUFJJ
+T1JJVFlfKgo+Pj4+ICAgKgo+Pj4+ICAgKiBccmV0dXJuICAwIG9uIHN1Y2Nlc3Ncbgo+Pj4+ICAg
+KiAgICAgICAgIDwwIC0gTmVnYXRpdmUgUE9TSVggZXJyb3IgY29kZQo+Pj4+ICAgKgo+Pj4+ICAg
+KiBcbm90ZXMgdGhpcyBmdW5jdGlvbiByZXF1aXJlcyBEUk1fTUFTVEVSCj4+Pj4gICAqLwo+Pj4+
+IGludCBhbWRncHVfc2NoZWRfbWluX3ByaW9yaXR5X3B1dChhbWRncHVfZGV2aWNlX2hhbmRsZSBk
+ZXYsCj4+Pj4gICAgICAgICAgICAgICAgICAgaW50MzJfdCBwcmlvcml0eSk7Cj4+Pj4KPj4+PiBV
+c2luZyB0aGlzIGFwcCwgVlJDb21wb3NlciBjYW4gcmFpc2UgdGhlIHByaW9yaXR5IG9mIHRoZSBW
+UmFwcCBhbmQgCj4+Pj4gaXRzZWxmLiBUaGVuCj4+Pj4gaXQgY2FuIHJlc3RyaWN0IHRoZSBtaW5p
+bXVtIHNjaGVkdWxlciBwcmlvcml0eSBpbiBvcmRlciB0byBiZWNvbWUgCj4+Pj4gZXhjbHVzaXZl
+IGdwdQo+Pj4+IGNsaWVudHMuCj4+Pj4KPj4+PiBPbmUgb2YgdGhlIGFyZWFzIEknZCBsaWtlIGZl
+ZWRiYWNrIGlzIHRoZSBmb2xsb3dpbmcgc2NlbmFyaW8uIElmIGEgCj4+Pj4gVlJhcHAgb3BlbnMK
+Pj4+PiBhIG5ldyBmZCBhbmQgY3JlYXRlcyBhIG5ldyBjb250ZXh0IGFmdGVyIGEgY2FsbCB0byBz
+ZXRfcHJpb3JpdHksIAo+Pj4+IHRoaXMgc3BlY2lmaWMKPj4+PiBjb250ZXh0IHdpbGwgYmUgbG93
+ZXIgcHJpb3JpdHkgdGhhbiB0aGUgcmVzdC4gSWYgdGhlIG1pbmltdW0gCj4+Pj4gcmVxdWlyZWQg
+cHJpb3JpdHkKPj4+PiBpcyB0aGVuIHJhaXNlZCwgaXQgaXMgcG9zc2libGUgdGhhdCB0aGlzIG5l
+dyBjb250ZXh0IHdpbGwgYmUgc3RhcnZlZCAKPj4+PiBhbmQKPj4+PiBkZWFkbG9jayB0aGUgVlJh
+cHAuCj4+Pj4KPj4+PiBPbmUgc29sdXRpb24gSSBoYWQgaW4gbWluZCB0byBhZGRyZXNzIHRoaXMg
+c2l0dWF0aW9uLCBpcyB0byBtYWtlIAo+Pj4+IHNldF9wcmlvcml0eQo+Pj4+IGFsc28gcmFpc2Ug
+dGhlIHByaW9yaXR5IG9mIGZ1dHVyZSBjb250ZXh0cyBjcmVhdGVkIGJ5IHRoZSBWUmFwcC4gCj4+
+Pj4gSG93ZXZlciwgdGhhdAo+Pj4+IHdvdWxkIHJlcXVpcmUga2VlcGluZyB0cmFjayBvZiB0aGUg
+cmVxdWVzdGVkIHByaW9yaXR5IG9uIGEgCj4+Pj4gcGVyLXByb2Nlc3MgZGF0YQo+Pj4+IHN0cnVj
+dHVyZS4gVGhlIGN1cnJlbnQgZGVzaWduIGFwcGVhcnMgdG8gc3RlZXIgY2xlYW4gb2Yga2VlcGlu
+ZyBhbnkgCj4+Pj4gcHJvY2Vzcwo+Pj4+IHNwZWNpZmljIGRhdGEsIGFuZCBldmVyeXRoaW5nIGlu
+c3RlYWQgb2Ygc3RvcmVkIG9uIGEgcGVyLWZpbGUgYmFzaXMuIAo+Pj4+IFdoaWNoIGlzCj4+Pj4g
+d2h5IEkgZGlkIG5vdCBwdXJzdWUgdGhpcyBhcHByb2FjaC4gQnV0IGlmIHRoaXMgaXMgc29tZXRo
+aW5nIHlvdSdkIAo+Pj4+IGxpa2UgbWUgdG8KPj4+PiBpbXBsZW1lbnQgbGV0IG1lIGtub3cuCj4+
+Pj4KPj4+PiBPbmUgY291bGQgYWxzbyBhcmd1ZSB0aGF0IHByZXZlbnRpbmcgYW4gYXBwbGljYXRp
+b24gZGVhZGxvY2sgc2hvdWxkIAo+Pj4+IGJlIGhhbmRsZWQKPj4+PiBiZXR3ZWVuIHRoZSBWUkNv
+bXBvc2VyIGFuZCB0aGUgVlJBcHAuIEl0IGlzIG5vdCB0aGUga2VybmVsJ3MgCj4+Pj4gcmVzcG9u
+c2liaWxpdHkgdG8KPj4+PiBiYWJ5c2l0IHVzZXJzcGFjZSBhcHBsaWNhdGlvbnMgYW5kIHByZXZl
+bnQgdGhlbXNlbHZlcyBmcm9tIHNob290aW5nIAo+Pj4+IHRoZW1zZWx2ZXMKPj4+PiBpbiB0aGUg
+Zm9vdC4gVGhlIHNhbWUgY291bGQgYmUgYWNoaWV2ZWQgYnkgaW1wcm9wZXIgdXNhZ2Ugb2Ygc2hh
+cmVkIAo+Pj4+IGZlbmNlcwo+Pj4+IGJldHdlZW4gcHJvY2Vzc2VzLgo+Pj4+Cj4+Pj4gVGhvdWdo
+dHMvZmVlZGJhY2svY29tbWVudHMgb24gdGhpcyBpc3N1ZSwgb3Igb3RoZXJzLCBhcmUgYXBwcmVj
+aWF0ZWQuCj4+Pj4KPj4+PiBSZWdhcmRzLAo+Pj4+IEFuZHJlcwo+Pj4+Cj4+Pgo+PiBfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+PiBhbWQtZ2Z4IG1haWxp
+bmcgbGlzdAo+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiBodHRwczovL2xpc3Rz
+LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKPiAKPiAKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
