@@ -1,10 +1,11 @@
-From: "Xie, AlexBin" <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 Subject: Re: [PATCH] drm/amdgpu: Move compute vm bug logic to amdgpu_vm.c
-Date: Thu, 1 Jun 2017 13:17:40 +0000
-Message-ID: <MWHPR1201MB00450087F85C0B784DEE4BA2F2F60@MWHPR1201MB0045.namprd12.prod.outlook.com>
+Date: Thu, 1 Jun 2017 15:26:54 +0200
+Message-ID: <183887cb-17a0-e457-0c92-c04cc4b7fb53@vodafone.de>
 References: <1496272081-21584-1-git-send-email-AlexBin.Xie@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0865017748=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <1496272081-21584-1-git-send-email-AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
@@ -18,519 +19,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+To: Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============0865017748==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MWHPR1201MB00450087F85C0B784DEE4BA2F2F60MWHPR1201MB0045_"
-
---_000_MWHPR1201MB00450087F85C0B784DEE4BA2F2F60MWHPR1201MB0045_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Christian,
-
-
-Please review this v2 patch. It is slightly faster.
-
-
-Thanks,
-
-Alex Bin
-
-________________________________
-From: Xie, AlexBin
-Sent: Wednesday, May 31, 2017 7:08 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Xie, AlexBin
-Subject: [PATCH] drm/amdgpu: Move compute vm bug logic to amdgpu_vm.c
-
-  In review, Christian would like to keep the logic
-  inside amdgpu_vm.c with a cost of slightly slower.
-  The loop is still optimized out with this patch.
-
-v2: remove the if statement. Now it is not slower.
-
-Signed-off-by: Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c   | 32 -------------------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h   |  5 ----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c     | 38 ++++++++++++++++++++++++++=
-++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h     |  1 +
- 5 files changed, 39 insertions(+), 39 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
-index 89bc34a..2f1a4e9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2227,6 +2227,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
-
-         adev->accel_working =3D true;
-
-+       amdgpu_vm_check_compute_bug(adev);
-+
-         /* Initialize the buffer migration limit. */
-         if (amdgpu_moverate >=3D 0)
-                 max_MBps =3D amdgpu_moverate;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_ring.c
-index 7d95435..31aa51d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-@@ -153,36 +153,6 @@ void amdgpu_ring_undo(struct amdgpu_ring *ring)
- }
-
- /**
-- * amdgpu_ring_check_compute_vm_bug - check whether this ring has compute =
-vm bug
-- *
-- * @adev: amdgpu_device pointer
-- * @ring: amdgpu_ring structure holding ring information
-- */
--static void amdgpu_ring_check_compute_vm_bug(struct amdgpu_device *adev,
--                                       struct amdgpu_ring *ring)
--{
--       const struct amdgpu_ip_block *ip_block;
--
--       ring->has_compute_vm_bug =3D false;
--
--       if (ring->funcs->type !=3D AMDGPU_RING_TYPE_COMPUTE)
--               /* only compute rings */
--               return;
--
--       ip_block =3D amdgpu_get_ip_block(adev, AMD_IP_BLOCK_TYPE_GFX);
--       if (!ip_block)
--               return;
--
--       /* Compute ring has a VM bug for GFX version < 7.
--           And compute ring has a VM bug for GFX 8 MEC firmware version < =
-673.*/
--       if (ip_block->version->major <=3D 7) {
--               ring->has_compute_vm_bug =3D true;
--       } else if (ip_block->version->major =3D=3D 8)
--               if (adev->gfx.mec_fw_version < 673)
--                       ring->has_compute_vm_bug =3D true;
--}
--
--/**
-  * amdgpu_ring_init - init driver ring struct.
-  *
-  * @adev: amdgpu_device pointer
-@@ -288,8 +258,6 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct=
- amdgpu_ring *ring,
-                 DRM_ERROR("Failed to register debugfs file for rings !\n")=
-;
-         }
-
--       amdgpu_ring_check_compute_vm_bug(adev, ring);
--
-         return 0;
- }
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_ring.h
-index 334307e..ad399c8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-@@ -208,9 +208,4 @@ static inline void amdgpu_ring_clear_ring(struct amdgpu=
-_ring *ring)
-
- }
-
--static inline bool amdgpu_ring_has_compute_vm_bug(struct amdgpu_ring *ring=
-)
--{
--       return ring->has_compute_vm_bug;
--}
--
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_vm.c
-index d4d05a8..6e32748 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -656,6 +656,41 @@ static int amdgpu_vm_alloc_reserved_vmid(struct amdgpu=
-_device *adev,
-         return r;
- }
-
-+/**
-+ * amdgpu_vm_check_compute_bug - check whether asic has compute vm bug
-+ *
-+ * @adev: amdgpu_device pointer
-+ */
-+void amdgpu_vm_check_compute_bug(struct amdgpu_device *adev)
-+{
-+       const struct amdgpu_ip_block *ip_block;
-+       bool has_compute_vm_bug;
-+       struct amdgpu_ring *ring;
-+       int i;
-+
-+       has_compute_vm_bug =3D false;
-+
-+       ip_block =3D amdgpu_get_ip_block(adev, AMD_IP_BLOCK_TYPE_GFX);
-+       if (ip_block) {
-+               /* Compute has a VM bug for GFX version < 7.
-+                  Compute has a VM bug for GFX 8 MEC firmware version < 67=
-3.*/
-+               if (ip_block->version->major <=3D 7)
-+                       has_compute_vm_bug =3D true;
-+               else if (ip_block->version->major =3D=3D 8)
-+                       if (adev->gfx.mec_fw_version < 673)
-+                               has_compute_vm_bug =3D true;
-+       }
-+
-+       for (i =3D 0; i < adev->num_rings; i++) {
-+               ring =3D adev->rings[i];
-+               if (ring->funcs->type =3D=3D AMDGPU_RING_TYPE_COMPUTE)
-+                       /* only compute rings */
-+                       ring->has_compute_vm_bug =3D has_compute_vm_bug;
-+               else
-+                       ring->has_compute_vm_bug =3D false;
-+       }
-+}
-+
- bool amdgpu_vm_need_pipeline_sync(struct amdgpu_ring *ring,
-                                   struct amdgpu_job *job)
- {
-@@ -664,8 +699,7 @@ bool amdgpu_vm_need_pipeline_sync(struct amdgpu_ring *r=
-ing,
-         struct amdgpu_vm_id_manager *id_mgr =3D &adev->vm_manager.id_mgr[v=
-mhub];
-         struct amdgpu_vm_id *id;
-         bool gds_switch_needed;
--       bool vm_flush_needed =3D job->vm_needs_flush ||
--               amdgpu_ring_has_compute_vm_bug(ring);
-+       bool vm_flush_needed =3D job->vm_needs_flush || ring->has_compute_v=
-m_bug;
-
-         if (job->vm_id =3D=3D 0)
-                 return false;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_vm.h
-index 8309bc7..f5dba9c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-@@ -245,5 +245,6 @@ void amdgpu_vm_adjust_size(struct amdgpu_device *adev, =
-uint64_t vm_size);
- int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_file *f=
-ilp);
- bool amdgpu_vm_need_pipeline_sync(struct amdgpu_ring *ring,
-                                   struct amdgpu_job *job);
-+void amdgpu_vm_check_compute_bug(struct amdgpu_device *adev);
-
- #endif
---
-2.7.4
-
-
---_000_MWHPR1201MB00450087F85C0B784DEE4BA2F2F60MWHPR1201MB0045_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Arial,Helvetica,sans-serif;" dir=3D"ltr">
-<p>Hi Christian,</p>
-<p><br>
-</p>
-<p>Please review this v2 patch. It is slightly faster.</p>
-<br>
-<p>Thanks,</p>
-<p>Alex Bin<br>
-</p>
-<div style=3D"color: rgb(0, 0, 0);">
-<div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" colo=
-r=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> Xie, AlexBin<br>
-<b>Sent:</b> Wednesday, May 31, 2017 7:08 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Xie, AlexBin<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Move compute vm bug logic to amdgpu_vm.=
-c</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">&nbsp; In review, Christian would like to keep the=
- logic<br>
-&nbsp; inside amdgpu_vm.c with a cost of slightly slower.<br>
-&nbsp; The loop is still optimized out with this patch.<br>
-<br>
-v2: remove the if statement. Now it is not slower.<br>
-<br>
-Signed-off-by: Alex Xie &lt;AlexBin.Xie-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |&nbsp; 2 &#43;&#43;<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c&nbsp;&nbsp; | 32 -----------=
---------------<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h&nbsp;&nbsp; |&nbsp; 5 ----<b=
-r>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c&nbsp;&nbsp;&nbsp;&nbsp; | 38 &=
-#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
-#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;--<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp=
-; 1 &#43;<br>
-&nbsp;5 files changed, 39 insertions(&#43;), 39 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c<br>
-index 89bc34a..2f1a4e9 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-@@ -2227,6 &#43;2227,8 @@ int amdgpu_device_init(struct amdgpu_device *adev=
-,<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;accel_working =3D=
- true;<br>
-&nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_vm_check_compute_bug(adev)=
-;<br>
-&#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Initialize the buffer m=
-igration limit. */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_moverate &gt;=
-=3D 0)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; max_MBps =3D amdgpu_moverate;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_ring.c<br>
-index 7d95435..31aa51d 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c<br>
-@@ -153,36 &#43;153,6 @@ void amdgpu_ring_undo(struct amdgpu_ring *ring)<br=
->
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;/**<br>
-- * amdgpu_ring_check_compute_vm_bug - check whether this ring has compute =
-vm bug<br>
-- *<br>
-- * @adev: amdgpu_device pointer<br>
-- * @ring: amdgpu_ring structure holding ring information<br>
-- */<br>
--static void amdgpu_ring_check_compute_vm_bug(struct amdgpu_device *adev,<b=
-r>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; struct amdgpu_ring *ring)<br>
--{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct amdgpu_ip_block *ip_bloc=
-k;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ring-&gt;has_compute_vm_bug =3D false=
-;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ring-&gt;funcs-&gt;type !=3D AMDG=
-PU_RING_TYPE_COMPUTE)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; /* only compute rings */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ip_block =3D amdgpu_get_ip_block(adev=
-, AMD_IP_BLOCK_TYPE_GFX);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!ip_block)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Compute ring has a VM bug for GFX =
-version &lt; 7.<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; And compute r=
-ing has a VM bug for GFX 8 MEC firmware version &lt; 673.*/<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ip_block-&gt;version-&gt;major &l=
-t;=3D 7) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ring-&gt;has_compute_vm_bug =3D true;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (ip_block-&gt;version-&gt;m=
-ajor =3D=3D 8)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (adev-&gt;gfx.mec_fw_version &lt; 673)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ring-&gt;has_com=
-pute_vm_bug =3D true;<br>
--}<br>
--<br>
--/**<br>
-&nbsp; * amdgpu_ring_init - init driver ring struct.<br>
-&nbsp; *<br>
-&nbsp; * @adev: amdgpu_device pointer<br>
-@@ -288,8 &#43;258,6 @@ int amdgpu_ring_init(struct amdgpu_device *adev, st=
-ruct amdgpu_ring *ring,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;Failed to register debugfs file for r=
-ings !\n&quot;);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_check_compute_vm_bug(adev=
-, ring);<br>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_ring.h<br>
-index 334307e..ad399c8 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h<br>
-@@ -208,9 &#43;208,4 @@ static inline void amdgpu_ring_clear_ring(struct am=
-dgpu_ring *ring)<br>
-&nbsp;<br>
-&nbsp;}<br>
-&nbsp;<br>
--static inline bool amdgpu_ring_has_compute_vm_bug(struct amdgpu_ring *ring=
-)<br>
--{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ring-&gt;has_compute_vm_bug;<b=
-r>
--}<br>
--<br>
-&nbsp;#endif<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_vm.c<br>
-index d4d05a8..6e32748 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-@@ -656,6 &#43;656,41 @@ static int amdgpu_vm_alloc_reserved_vmid(struct am=
-dgpu_device *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&nbsp;}<br>
-&nbsp;<br>
-&#43;/**<br>
-&#43; * amdgpu_vm_check_compute_bug - check whether asic has compute vm bug=
-<br>
-&#43; *<br>
-&#43; * @adev: amdgpu_device pointer<br>
-&#43; */<br>
-&#43;void amdgpu_vm_check_compute_bug(struct amdgpu_device *adev)<br>
-&#43;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct amdgpu_ip_block *ip_=
-block;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool has_compute_vm_bug;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ring *ring;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; has_compute_vm_bug =3D false;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ip_block =3D amdgpu_get_ip_block(=
-adev, AMD_IP_BLOCK_TYPE_GFX);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ip_block) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; /* Compute has a VM bug for GFX version &lt; 7.<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Compute has a VM bug for GFX 8 MEC firmwar=
-e version &lt; 673.*/<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (ip_block-&gt;version-&gt;major &lt;=3D 7)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; has_compute_=
-vm_bug =3D true;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; else if (ip_block-&gt;version-&gt;major =3D=3D 8)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt=
-;gfx.mec_fw_version &lt; 673)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; has_compute_vm_bug =3D true;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; adev-&gt;num=
-_rings; i&#43;&#43;) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; ring =3D adev-&gt;rings[i];<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (ring-&gt;funcs-&gt;type =3D=3D AMDGPU_RING_TYPE_COMPUTE)=
-<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* only comp=
-ute rings */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ring-&gt;has=
-_compute_vm_bug =3D has_compute_vm_bug;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; else<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ring-&gt;has=
-_compute_vm_bug =3D false;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;}<br>
-&#43;<br>
-&nbsp;bool amdgpu_vm_need_pipeline_sync(struct amdgpu_ring *ring,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_job *j=
-ob)<br>
-&nbsp;{<br>
-@@ -664,8 &#43;699,7 @@ bool amdgpu_vm_need_pipeline_sync(struct amdgpu_rin=
-g *ring,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_vm_id_manage=
-r *id_mgr =3D &amp;adev-&gt;vm_manager.id_mgr[vmhub];<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_vm_id *id;<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool gds_switch_needed;<br=
->
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool vm_flush_needed =3D job-&gt;vm_n=
-eeds_flush ||<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_ring_has_compute_vm_bug(ring);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool vm_flush_needed =3D job-&gt;=
-vm_needs_flush || ring-&gt;has_compute_vm_bug;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (job-&gt;vm_id =3D=3D 0=
-)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return false;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_vm.h<br>
-index 8309bc7..f5dba9c 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
-@@ -245,5 &#43;245,6 @@ void amdgpu_vm_adjust_size(struct amdgpu_device *ad=
-ev, uint64_t vm_size);<br>
-&nbsp;int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct drm_fi=
-le *filp);<br>
-&nbsp;bool amdgpu_vm_need_pipeline_sync(struct amdgpu_ring *ring,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_job *j=
-ob);<br>
-&#43;void amdgpu_vm_check_compute_bug(struct amdgpu_device *adev);<br>
-&nbsp;<br>
-&nbsp;#endif<br>
--- <br>
-2.7.4<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_MWHPR1201MB00450087F85C0B784DEE4BA2F2F60MWHPR1201MB0045_--
-
---===============0865017748==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0865017748==--
+QW0gMDEuMDYuMjAxNyB1bSAwMTowOCBzY2hyaWViIEFsZXggWGllOgo+ICAgIEluIHJldmlldywg
+Q2hyaXN0aWFuIHdvdWxkIGxpa2UgdG8ga2VlcCB0aGUgbG9naWMKPiAgICBpbnNpZGUgYW1kZ3B1
+X3ZtLmMgd2l0aCBhIGNvc3Qgb2Ygc2xpZ2h0bHkgc2xvd2VyLgo+ICAgIFRoZSBsb29wIGlzIHN0
+aWxsIG9wdGltaXplZCBvdXQgd2l0aCB0aGlzIHBhdGNoLgo+Cj4gdjI6IHJlbW92ZSB0aGUgaWYg
+c3RhdGVtZW50LiBOb3cgaXQgaXMgbm90IHNsb3dlci4KPgo+IFNpZ25lZC1vZmYtYnk6IEFsZXgg
+WGllIDxBbGV4QmluLlhpZUBhbWQuY29tPgoKV2hlbiB5b3UgY3JlYXRlIGEgdjIgb2YgYSBwYXRj
+aCBwbGVhc2Ugbm90ZSB0aGF0IGluIHRoZSBzdWJqZWN0IGxpbmUgYXMgCndlbGwuCgpFaXRoZXIg
+YnkgdXNpbmcgdGhlICItdjIiIG9wdGlvbiB3aXRoICJnaXQgc2VuZC1lbWFpbCIgb3IgYnkgYWRk
+aW5nIHRoZSAKdjIgbWFudWFsbHkgb24gdGhlIHN1YmplY3QgbGluZS4KCkkgc29tZXRpbWVzIGdl
+dCBtYWlscyB0d2ljZSBiZWNhdXNlIHRoZXkgYXJlIHNlbmQgdG8gbXVsdGlwbGUgbGlzdHMgSSdt
+IApyZWdpc3RlcmVkIG9uIGFuZCB0aGF0IGhlbHBzIGFsbG90IHNlZWluZyB0aGF0IGEgcGF0Y2gg
+Y2hhbmdlZCBhbmQgaXMgCm5vdCBqdXN0IGEgZHVwbGljYXRlZCBtYWlsLgoKQW55d2F5IHRoaXMg
+dmVyc2lvbiBpcyBSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyAKPGNocmlzdGlhbi5rb2Vu
+Z0BhbWQuY29tPiBhcyB3ZWxsLgoKUmVnYXJkcywKQ2hyaXN0aWFuLgoKPiAtLS0KPiAgIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8ICAyICsrCj4gICBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5jICAgfCAzMiAtLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5oICAg
+fCAgNSAtLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyAgICAg
+fCAzOCArKysrKysrKysrKysrKysrKysrKysrKysrKysrLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV92bS5oICAgICB8ICAxICsKPiAgIDUgZmlsZXMgY2hhbmdlZCwgMzkg
+aW5zZXJ0aW9ucygrKSwgMzkgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2RldmljZS5jCj4gaW5kZXggODliYzM0YS4uMmYxYTRlOSAxMDA2NDQKPiAt
+LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPiArKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPiBAQCAtMjIyNyw2ICsy
+MjI3LDggQEAgaW50IGFtZGdwdV9kZXZpY2VfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
+diwKPiAgIAo+ICAgCWFkZXYtPmFjY2VsX3dvcmtpbmcgPSB0cnVlOwo+ICAgCj4gKwlhbWRncHVf
+dm1fY2hlY2tfY29tcHV0ZV9idWcoYWRldik7Cj4gKwo+ICAgCS8qIEluaXRpYWxpemUgdGhlIGJ1
+ZmZlciBtaWdyYXRpb24gbGltaXQuICovCj4gICAJaWYgKGFtZGdwdV9tb3ZlcmF0ZSA+PSAwKQo+
+ICAgCQltYXhfTUJwcyA9IGFtZGdwdV9tb3ZlcmF0ZTsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3JpbmcuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9yaW5nLmMKPiBpbmRleCA3ZDk1NDM1Li4zMWFhNTFkIDEwMDY0NAo+IC0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yaW5nLmMKPiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5jCj4gQEAgLTE1MywzNiArMTUzLDYgQEAg
+dm9pZCBhbWRncHVfcmluZ191bmRvKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZykKPiAgIH0KPiAg
+IAo+ICAgLyoqCj4gLSAqIGFtZGdwdV9yaW5nX2NoZWNrX2NvbXB1dGVfdm1fYnVnIC0gY2hlY2sg
+d2hldGhlciB0aGlzIHJpbmcgaGFzIGNvbXB1dGUgdm0gYnVnCj4gLSAqCj4gLSAqIEBhZGV2OiBh
+bWRncHVfZGV2aWNlIHBvaW50ZXIKPiAtICogQHJpbmc6IGFtZGdwdV9yaW5nIHN0cnVjdHVyZSBo
+b2xkaW5nIHJpbmcgaW5mb3JtYXRpb24KPiAtICovCj4gLXN0YXRpYyB2b2lkIGFtZGdwdV9yaW5n
+X2NoZWNrX2NvbXB1dGVfdm1fYnVnKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+IC0JCQkJ
+CXN0cnVjdCBhbWRncHVfcmluZyAqcmluZykKPiAtewo+IC0JY29uc3Qgc3RydWN0IGFtZGdwdV9p
+cF9ibG9jayAqaXBfYmxvY2s7Cj4gLQo+IC0JcmluZy0+aGFzX2NvbXB1dGVfdm1fYnVnID0gZmFs
+c2U7Cj4gLQo+IC0JaWYgKHJpbmctPmZ1bmNzLT50eXBlICE9IEFNREdQVV9SSU5HX1RZUEVfQ09N
+UFVURSkKPiAtCQkvKiBvbmx5IGNvbXB1dGUgcmluZ3MgKi8KPiAtCQlyZXR1cm47Cj4gLQo+IC0J
+aXBfYmxvY2sgPSBhbWRncHVfZ2V0X2lwX2Jsb2NrKGFkZXYsIEFNRF9JUF9CTE9DS19UWVBFX0dG
+WCk7Cj4gLQlpZiAoIWlwX2Jsb2NrKQo+IC0JCXJldHVybjsKPiAtCj4gLQkvKiBDb21wdXRlIHJp
+bmcgaGFzIGEgVk0gYnVnIGZvciBHRlggdmVyc2lvbiA8IDcuCj4gLSAgICAgICAgICAgQW5kIGNv
+bXB1dGUgcmluZyBoYXMgYSBWTSBidWcgZm9yIEdGWCA4IE1FQyBmaXJtd2FyZSB2ZXJzaW9uIDwg
+NjczLiovCj4gLQlpZiAoaXBfYmxvY2stPnZlcnNpb24tPm1ham9yIDw9IDcpIHsKPiAtCQlyaW5n
+LT5oYXNfY29tcHV0ZV92bV9idWcgPSB0cnVlOwo+IC0JfSBlbHNlIGlmIChpcF9ibG9jay0+dmVy
+c2lvbi0+bWFqb3IgPT0gOCkKPiAtCQlpZiAoYWRldi0+Z2Z4Lm1lY19md192ZXJzaW9uIDwgNjcz
+KQo+IC0JCQlyaW5nLT5oYXNfY29tcHV0ZV92bV9idWcgPSB0cnVlOwo+IC19Cj4gLQo+IC0vKioK
+PiAgICAqIGFtZGdwdV9yaW5nX2luaXQgLSBpbml0IGRyaXZlciByaW5nIHN0cnVjdC4KPiAgICAq
+Cj4gICAgKiBAYWRldjogYW1kZ3B1X2RldmljZSBwb2ludGVyCj4gQEAgLTI4OCw4ICsyNTgsNiBA
+QCBpbnQgYW1kZ3B1X3JpbmdfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgc3RydWN0
+IGFtZGdwdV9yaW5nICpyaW5nLAo+ICAgCQlEUk1fRVJST1IoIkZhaWxlZCB0byByZWdpc3RlciBk
+ZWJ1Z2ZzIGZpbGUgZm9yIHJpbmdzICFcbiIpOwo+ICAgCX0KPiAgIAo+IC0JYW1kZ3B1X3Jpbmdf
+Y2hlY2tfY29tcHV0ZV92bV9idWcoYWRldiwgcmluZyk7Cj4gLQo+ICAgCXJldHVybiAwOwo+ICAg
+fQo+ICAgCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9y
+aW5nLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5oCj4gaW5kZXgg
+MzM0MzA3ZS4uYWQzOTljOCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfcmluZy5oCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3JpbmcuaAo+IEBAIC0yMDgsOSArMjA4LDQgQEAgc3RhdGljIGlubGluZSB2b2lkIGFtZGdwdV9y
+aW5nX2NsZWFyX3Jpbmcoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKQo+ICAgCj4gICB9Cj4gICAK
+PiAtc3RhdGljIGlubGluZSBib29sIGFtZGdwdV9yaW5nX2hhc19jb21wdXRlX3ZtX2J1ZyhzdHJ1
+Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpCj4gLXsKPiAtCXJldHVybiByaW5nLT5oYXNfY29tcHV0ZV92
+bV9idWc7Cj4gLX0KPiAtCj4gICAjZW5kaWYKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfdm0uYwo+IGluZGV4IGQ0ZDA1YTguLjZlMzI3NDggMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfdm0uYwo+IEBAIC02NTYsNiArNjU2LDQxIEBAIHN0YXRpYyBpbnQgYW1k
+Z3B1X3ZtX2FsbG9jX3Jlc2VydmVkX3ZtaWQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4g
+ICAJcmV0dXJuIHI7Cj4gICB9Cj4gICAKPiArLyoqCj4gKyAqIGFtZGdwdV92bV9jaGVja19jb21w
+dXRlX2J1ZyAtIGNoZWNrIHdoZXRoZXIgYXNpYyBoYXMgY29tcHV0ZSB2bSBidWcKPiArICoKPiAr
+ICogQGFkZXY6IGFtZGdwdV9kZXZpY2UgcG9pbnRlcgo+ICsgKi8KPiArdm9pZCBhbWRncHVfdm1f
+Y2hlY2tfY29tcHV0ZV9idWcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gK3sKPiArCWNv
+bnN0IHN0cnVjdCBhbWRncHVfaXBfYmxvY2sgKmlwX2Jsb2NrOwo+ICsJYm9vbCBoYXNfY29tcHV0
+ZV92bV9idWc7Cj4gKwlzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmc7Cj4gKwlpbnQgaTsKPiArCj4g
+KwloYXNfY29tcHV0ZV92bV9idWcgPSBmYWxzZTsKPiArCj4gKwlpcF9ibG9jayA9IGFtZGdwdV9n
+ZXRfaXBfYmxvY2soYWRldiwgQU1EX0lQX0JMT0NLX1RZUEVfR0ZYKTsKPiArCWlmIChpcF9ibG9j
+aykgewo+ICsJCS8qIENvbXB1dGUgaGFzIGEgVk0gYnVnIGZvciBHRlggdmVyc2lvbiA8IDcuCj4g
+KwkJICAgQ29tcHV0ZSBoYXMgYSBWTSBidWcgZm9yIEdGWCA4IE1FQyBmaXJtd2FyZSB2ZXJzaW9u
+IDwgNjczLiovCj4gKwkJaWYgKGlwX2Jsb2NrLT52ZXJzaW9uLT5tYWpvciA8PSA3KQo+ICsJCQlo
+YXNfY29tcHV0ZV92bV9idWcgPSB0cnVlOwo+ICsJCWVsc2UgaWYgKGlwX2Jsb2NrLT52ZXJzaW9u
+LT5tYWpvciA9PSA4KQo+ICsJCQlpZiAoYWRldi0+Z2Z4Lm1lY19md192ZXJzaW9uIDwgNjczKQo+
+ICsJCQkJaGFzX2NvbXB1dGVfdm1fYnVnID0gdHJ1ZTsKPiArCX0KPiArCj4gKwlmb3IgKGkgPSAw
+OyBpIDwgYWRldi0+bnVtX3JpbmdzOyBpKyspIHsKPiArCQlyaW5nID0gYWRldi0+cmluZ3NbaV07
+Cj4gKwkJaWYgKHJpbmctPmZ1bmNzLT50eXBlID09IEFNREdQVV9SSU5HX1RZUEVfQ09NUFVURSkK
+PiArCQkJLyogb25seSBjb21wdXRlIHJpbmdzICovCj4gKwkJCXJpbmctPmhhc19jb21wdXRlX3Zt
+X2J1ZyA9IGhhc19jb21wdXRlX3ZtX2J1ZzsKPiArCQllbHNlCj4gKwkJCXJpbmctPmhhc19jb21w
+dXRlX3ZtX2J1ZyA9IGZhbHNlOwo+ICsJfQo+ICt9Cj4gKwo+ICAgYm9vbCBhbWRncHVfdm1fbmVl
+ZF9waXBlbGluZV9zeW5jKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywKPiAgIAkJCQkgIHN0cnVj
+dCBhbWRncHVfam9iICpqb2IpCj4gICB7Cj4gQEAgLTY2NCw4ICs2OTksNyBAQCBib29sIGFtZGdw
+dV92bV9uZWVkX3BpcGVsaW5lX3N5bmMoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLAo+ICAgCXN0
+cnVjdCBhbWRncHVfdm1faWRfbWFuYWdlciAqaWRfbWdyID0gJmFkZXYtPnZtX21hbmFnZXIuaWRf
+bWdyW3ZtaHViXTsKPiAgIAlzdHJ1Y3QgYW1kZ3B1X3ZtX2lkICppZDsKPiAgIAlib29sIGdkc19z
+d2l0Y2hfbmVlZGVkOwo+IC0JYm9vbCB2bV9mbHVzaF9uZWVkZWQgPSBqb2ItPnZtX25lZWRzX2Zs
+dXNoIHx8Cj4gLQkJYW1kZ3B1X3JpbmdfaGFzX2NvbXB1dGVfdm1fYnVnKHJpbmcpOwo+ICsJYm9v
+bCB2bV9mbHVzaF9uZWVkZWQgPSBqb2ItPnZtX25lZWRzX2ZsdXNoIHx8IHJpbmctPmhhc19jb21w
+dXRlX3ZtX2J1ZzsKPiAgIAo+ICAgCWlmIChqb2ItPnZtX2lkID09IDApCj4gICAJCXJldHVybiBm
+YWxzZTsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zt
+LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uaAo+IGluZGV4IDgzMDli
+YzcuLmY1ZGJhOWMgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X3ZtLmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uaAo+
+IEBAIC0yNDUsNSArMjQ1LDYgQEAgdm9pZCBhbWRncHVfdm1fYWRqdXN0X3NpemUoc3RydWN0IGFt
+ZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQ2NF90IHZtX3NpemUpOwo+ICAgaW50IGFtZGdwdV92bV9p
+b2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLCBzdHJ1Y3QgZHJtX2ZpbGUg
+KmZpbHApOwo+ICAgYm9vbCBhbWRncHVfdm1fbmVlZF9waXBlbGluZV9zeW5jKHN0cnVjdCBhbWRn
+cHVfcmluZyAqcmluZywKPiAgIAkJCQkgIHN0cnVjdCBhbWRncHVfam9iICpqb2IpOwo+ICt2b2lk
+IGFtZGdwdV92bV9jaGVja19jb21wdXRlX2J1ZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7
+Cj4gICAKPiAgICNlbmRpZgoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eAo=
