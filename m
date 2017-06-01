@@ -1,105 +1,70 @@
-From: Florian Echtler <floe@butterbrot.org>
-Subject: Re: iMac 10,1 with Ubuntu 16.04: black screen after suspend
-Date: Thu, 1 Jun 2017 10:27:34 +0200
-Message-ID: <65c88b03-45d7-d67b-2a2c-6c7047a73c80@butterbrot.org>
-References: <30380cb3-0f26-8aea-2689-d4886879129c@butterbrot.org>
- <20170526210340.GA5114@wunner.de>
- <1e60811b-a8ac-017c-d350-8a40e4323870@butterbrot.org>
- <20170530105404.GA29865@wunner.de>
- <64a4829c-3141-6ff6-9369-6ca9ed0facf4@butterbrot.org>
- <20170531092145.ytc2d6shpukxziie@wunner.de>
- <CADnq5_MGWOX47tcvkfjHRxRv_eTbo_kvpVKyTpo8WGNw+xBvPA@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 03/19] drm/amd/display: Limit DCN to x86 arch
+Date: Thu, 1 Jun 2017 10:50:08 +0200
+Message-ID: <fc9f8053-ac43-0774-ca52-c2c988685a45@amd.com>
+References: <20170531155218.29934-1-harry.wentland@amd.com>
+ <20170531155218.29934-4-harry.wentland@amd.com> <592F94C8.9060808@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
- protocol="application/pgp-signature";
- boundary="9pnLC9VgkIp0WwGu3GaU0tvCeiGsTfELC"
-Return-path: <linux-acpi-owner@vger.kernel.org>
-In-Reply-To: <CADnq5_MGWOX47tcvkfjHRxRv_eTbo_kvpVKyTpo8WGNw+xBvPA@mail.gmail.com>
-Sender: linux-acpi-owner@vger.kernel.org
-To: Alex Deucher <alexdeucher@gmail.com>, Lukas Wunner <lukas@wunner.de>
-Cc: "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <592F94C8.9060808-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Tony Cheng <Tony.Cheng-5C7GfCeVMHo@public.gmane.org>, Dmytro Laktyushkin <Dmytro.Laktyushkin-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---9pnLC9VgkIp0WwGu3GaU0tvCeiGsTfELC
-Content-Type: multipart/mixed; boundary="4nJbW0qup87U1xWeOIvtDm2hD8FEfddVX";
- protected-headers="v1"
-From: Florian Echtler <floe@butterbrot.org>
-To: Alex Deucher <alexdeucher@gmail.com>, Lukas Wunner <lukas@wunner.de>
-Cc: "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>
-Message-ID: <65c88b03-45d7-d67b-2a2c-6c7047a73c80@butterbrot.org>
-Subject: Re: iMac 10,1 with Ubuntu 16.04: black screen after suspend
-References: <30380cb3-0f26-8aea-2689-d4886879129c@butterbrot.org>
- <20170526210340.GA5114@wunner.de>
- <1e60811b-a8ac-017c-d350-8a40e4323870@butterbrot.org>
- <20170530105404.GA29865@wunner.de>
- <64a4829c-3141-6ff6-9369-6ca9ed0facf4@butterbrot.org>
- <20170531092145.ytc2d6shpukxziie@wunner.de>
- <CADnq5_MGWOX47tcvkfjHRxRv_eTbo_kvpVKyTpo8WGNw+xBvPA@mail.gmail.com>
-In-Reply-To: <CADnq5_MGWOX47tcvkfjHRxRv_eTbo_kvpVKyTpo8WGNw+xBvPA@mail.gmail.com>
-
---4nJbW0qup87U1xWeOIvtDm2hD8FEfddVX
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
-Content-Transfer-Encoding: quoted-printable
-
-On 31.05.2017 14:57, Alex Deucher wrote:
-> On Wed, May 31, 2017 at 5:21 AM, Lukas Wunner <lukas@wunner.de> wrote:
->> On Wed, May 31, 2017 at 10:48:37AM +0200, Florian Echtler wrote:
->>
->> Hm, try booting with drm.debug=3D0xf to see if link training for the
->> eDP connector succeeds.  If the link cannot be trained, it would
->> explain that the screen stays black.  Should this indeed be the
->> case, one possible explanation would be that the panel is muxed
->> to the external port on resume and an appropriate command needs to
->> be sent to the SMC to switch the mux to the radeon card.  This could
->> be done in the ->resume_early hook of your APP000C platform driver.
->> The apple-gmux driver contains something similar to power the discrete=
-
->> GPU down if it was off before suspend (because the BIOS always powers
->> it up on resume).
-
-Here's the (substantial) dmesg output, with drm.debug=3D0xf:
-http://floe.butterbrot.org/external/radeon/dmesg_after_suspend
-
-I haven't been able to find any references to link training, though.
-
->> *shrug*  Unfortunately I'm not familiar at all with radeontool. :-(
->=20
-> You can use the radeonreg tool to dump the display registers:
-> https://cgit.freedesktop.org/~agd5f/radeontool/
-> radeonreg regs dce3
-> replace dce3 with whatever dce version your card has.
-
-AFAICT the RV730 indeed has dce3, so I created a register dump before and=
- after
-suspend:
-http://floe.butterbrot.org/external/radeon/regs_before_suspend.txt
-http://floe.butterbrot.org/external/radeon/regs_after_suspend.txt
-
-The diff, however, is quite large, I have no idea which registers to look=
- for.
-
-Best, Florian
---=20
-SENT FROM MY DEC VT50 TERMINAL
-
-
---4nJbW0qup87U1xWeOIvtDm2hD8FEfddVX--
-
---9pnLC9VgkIp0WwGu3GaU0tvCeiGsTfELC
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iEYEARECAAYFAlkvz/wACgkQ7CzyshGvathbcwCfV3ks+AlPLSNxBN4cxobGzcmR
-rxgAoO/gaEgBYT5rdom/RAVnlG3uDJnN
-=MDK9
------END PGP SIGNATURE-----
-
---9pnLC9VgkIp0WwGu3GaU0tvCeiGsTfELC--
+QW0gMDEuMDYuMjAxNyB1bSAwNjoxNSBzY2hyaWViIHpob3VjbTE6Cj4KPgo+IE9uIDIwMTflubQw
+NeaciDMx5pelIDIzOjUyLCBIYXJyeSBXZW50bGFuZCB3cm90ZToKPj4gRENOIGJ3IGNhbGNzIGN1
+cnJlbnRseSByZWx5IG9uIHRoZSBmb2xsb3dpbmcgZ2NjIG9wdGlvbnM6Cj4+ICAgIC1taGFyZC1m
+bG9hdCAtbXNzZSAtbXByZWZlcnJlZC1zdGFjay1ib3VuZGFyeT00Cj4+Cj4+IFdlIHByb2JhYmx5
+IHNob3VsZG4ndCByZWFsbHkgdHJ5IGJ1aWxkaW5nIHRoaXMgb24gYXJjaGl0ZWN0dXJlcwo+PiBv
+dGhlciB0aGFuIHg4Ni4KPiBEb2VzIGl0IG1lYW4gb3VyIGNhcmQgaW5jbHVkaW5nIERDTiBjYW5u
+b3QgcnVuIG9uIG90aGVyIHBsYXRmb3JtIGxpa2UgCj4gQVJNPwoKWWVhaCwgd2hpY2ggaXMgYSBi
+aXQgcHJvYmxlbWF0aWMgY2F1c2Ugd2UgbmVlZCB0byBzdXBwb3J0IGJvdGggQVJNIGFuZCAKUG93
+ZXJQQyB3aXRoIHRoZSBkcml2ZXIgYXMgd2VsbC4KClJlZ2FyZHMsCkNocmlzdGlhbi4KCj4KPiBS
+ZWdhcmRzLAo+IERhdmlkIFpob3UKPj4KPj4gQ2hhbmdlLUlkOiBJNjNkMjE0YjJmNmZlOWIzZmMw
+ZDU5YmQwMDU2M2UwNTQzZjBiYWE4Ywo+PiBDQzogQWxleCBEZXVjaGVyIDxBbGV4YW5kZXIuRGV1
+Y2hlckBhbWQuY29tPgo+PiBDQzogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0Bh
+bWQuY29tPgo+PiBDQzogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+Cj4+
+IENDOiBUb255IENoZW5nIDxUb255LkNoZW5nQGFtZC5jb20+Cj4+IENDOiBEbXl0cm8gTGFrdHl1
+c2hraW4gPERteXRyby5MYWt0eXVzaGtpbkBhbWQuY29tPgo+PiBTaWduZWQtb2ZmLWJ5OiBIYXJy
+eSBXZW50bGFuZCA8aGFycnkud2VudGxhbmRAYW1kLmNvbT4KPj4gUmV2aWV3ZWQtYnk6IFRvbnkg
+Q2hlbmcgPFRvbnkuQ2hlbmdAYW1kLmNvbT4KPj4gQWNrZWQtYnk6IEhhcnJ5IFdlbnRsYW5kIDxI
+YXJyeS5XZW50bGFuZEBhbWQuY29tPgo+PiAtLS0KPj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
+c3BsYXkvS2NvbmZpZyAgICAgICAgICAgfCAyICstCj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9k
+aXNwbGF5L2RjL2NhbGNzL01ha2VmaWxlIHwgMiArKwo+PiAgIDIgZmlsZXMgY2hhbmdlZCwgMyBp
+bnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4+Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2Rpc3BsYXkvS2NvbmZpZyAKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
+YXkvS2NvbmZpZwo+PiBpbmRleCAyYjhkNzdjZWJlMDMuLjYyZWE5ZjYwMDM3NCAxMDA2NDQKPj4g
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L0tjb25maWcKPj4gKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9kaXNwbGF5L0tjb25maWcKPj4gQEAgLTExLDcgKzExLDcgQEAgY29uZmln
+IERSTV9BTURfREMKPj4gICAgIGNvbmZpZyBEUk1fQU1EX0RDX0RDTjFfMAo+PiAgICAgICAgICAg
+Ym9vbCAiRENOIDEuMCBSYXZlbiBmYW1pbHkiCj4+IC0gICAgICAgIGRlcGVuZHMgb24gRFJNX0FN
+RF9EQwo+PiArICAgICAgICBkZXBlbmRzIG9uIERSTV9BTURfREMgJiYgWDg2Cj4+ICAgICAgICAg
+ICBoZWxwCj4+ICAgICAgICAgICAgICAgQ2hvb3NlIHRoaXMgb3B0aW9uIGlmIHlvdSB3YW50IHRv
+IGhhdmUKPj4gICAgICAgICAgICAgICBSViBmYW1pbHkgZm9yIGRpc3BsYXkgZW5naW5lCj4+IGRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY2FsY3MvTWFrZWZpbGUg
+Cj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NhbGNzL01ha2VmaWxlCj4+IGlu
+ZGV4IGEwOTU0NzJiZjRiNS4uMmU0Y2UwOTE4YzAyIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2Rpc3BsYXkvZGMvY2FsY3MvTWFrZWZpbGUKPj4gKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9kaXNwbGF5L2RjL2NhbGNzL01ha2VmaWxlCj4+IEBAIC0zLDkgKzMsMTEgQEAKPj4g
+ICAjIEl0IGNhbGN1bGF0ZXMgQmFuZHdpZHRoIGFuZCBXYXRlcm1hcmtzIHZhbHVlcyBmb3IgSFcg
+cHJvZ3JhbW1pbmcKPj4gICAjCj4+ICAgK2lmZXEgKCQoQVJDSCkseDg2KQo+PiAgIENGTEFHU19k
+Y25fY2FsY3MubyA6PSAtbWhhcmQtZmxvYXQgLW1zc2UgLW1wcmVmZXJyZWQtc3RhY2stYm91bmRh
+cnk9NAo+PiAgIENGTEFHU19kY25fY2FsY19hdXRvLm8gOj0gLW1oYXJkLWZsb2F0IC1tc3NlIAo+
+PiAtbXByZWZlcnJlZC1zdGFjay1ib3VuZGFyeT00Cj4+ICAgQ0ZMQUdTX2Rjbl9jYWxjX21hdGgu
+byA6PSAtbWhhcmQtZmxvYXQgLW1zc2UgCj4+IC1tcHJlZmVycmVkLXN0YWNrLWJvdW5kYXJ5PTQK
+Pj4gK2VuZGlmCj4+ICAgICBCV19DQUxDUyA9IGRjZV9jYWxjcy5vIGJ3X2ZpeGVkLm8gY3VzdG9t
+X2Zsb2F0Lm8KPgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
