@@ -1,135 +1,105 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Move compute vm bug logic to amdgpu_vm.c
-Date: Thu, 1 Jun 2017 10:07:03 +0200
-Message-ID: <ea2e66d9-dba9-db20-9794-6cb590d92fd8@vodafone.de>
-References: <1496254153-12583-1-git-send-email-AlexBin.Xie@amd.com>
+From: Florian Echtler <floe@butterbrot.org>
+Subject: Re: iMac 10,1 with Ubuntu 16.04: black screen after suspend
+Date: Thu, 1 Jun 2017 10:27:34 +0200
+Message-ID: <65c88b03-45d7-d67b-2a2c-6c7047a73c80@butterbrot.org>
+References: <30380cb3-0f26-8aea-2689-d4886879129c@butterbrot.org>
+ <20170526210340.GA5114@wunner.de>
+ <1e60811b-a8ac-017c-d350-8a40e4323870@butterbrot.org>
+ <20170530105404.GA29865@wunner.de>
+ <64a4829c-3141-6ff6-9369-6ca9ed0facf4@butterbrot.org>
+ <20170531092145.ytc2d6shpukxziie@wunner.de>
+ <CADnq5_MGWOX47tcvkfjHRxRv_eTbo_kvpVKyTpo8WGNw+xBvPA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1496254153-12583-1-git-send-email-AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: multipart/signed; micalg=pgp-sha1;
+ protocol="application/pgp-signature";
+ boundary="9pnLC9VgkIp0WwGu3GaU0tvCeiGsTfELC"
+Return-path: <linux-acpi-owner@vger.kernel.org>
+In-Reply-To: <CADnq5_MGWOX47tcvkfjHRxRv_eTbo_kvpVKyTpo8WGNw+xBvPA@mail.gmail.com>
+Sender: linux-acpi-owner@vger.kernel.org
+To: Alex Deucher <alexdeucher@gmail.com>, Lukas Wunner <lukas@wunner.de>
+Cc: "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMzEuMDUuMjAxNyB1bSAyMDowOSBzY2hyaWViIEFsZXggWGllOgo+ICAgIEluIHJldmlldywg
-Q2hyaXN0aWFuIHdvdWxkIGxpa2UgdG8ga2VlcCB0aGUgbG9naWMKPiAgICBpbnNpZGUgYW1kZ3B1
-X3ZtLmMgd2l0aCBhIGNvc3Qgb2Ygc2xpZ2h0bHkgc2xvd2VyLgo+ICAgIFRoZSBsb29wIGlzIHN0
-aWxsIG9wdGltaXplZCBvdXQgd2l0aCB0aGlzIHBhdGNoLgo+Cj4gU2lnbmVkLW9mZi1ieTogQWxl
-eCBYaWUgPEFsZXhCaW4uWGllQGFtZC5jb20+CgpSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5p
-ZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8ICAyICsrCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfcmluZy5jICAgfCAzMiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0K
-PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yaW5nLmggICB8ICA2IC0tLS0t
-Cj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyAgICAgfCAzNSArKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKy0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV92bS5oICAgICB8ICAzICsrKwo+ICAgNSBmaWxlcyBjaGFuZ2VkLCAzOSBpbnNlcnRp
-b25zKCspLCAzOSBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfZGV2aWNlLmMKPiBpbmRleCA4OWJjMzRhLi4yZjFhNGU5IDEwMDY0NAo+IC0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+ICsrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+IEBAIC0yMjI3LDYgKzIyMjcsOCBA
-QCBpbnQgYW1kZ3B1X2RldmljZV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+ICAg
-Cj4gICAJYWRldi0+YWNjZWxfd29ya2luZyA9IHRydWU7Cj4gICAKPiArCWFtZGdwdV92bV9jaGVj
-a19jb21wdXRlX2J1ZyhhZGV2KTsKPiArCj4gICAJLyogSW5pdGlhbGl6ZSB0aGUgYnVmZmVyIG1p
-Z3JhdGlvbiBsaW1pdC4gKi8KPiAgIAlpZiAoYW1kZ3B1X21vdmVyYXRlID49IDApCj4gICAJCW1h
-eF9NQnBzID0gYW1kZ3B1X21vdmVyYXRlOwo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfcmluZy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3JpbmcuYwo+IGluZGV4IDdkOTU0MzUuLjMxYWE1MWQgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3JpbmcuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9yaW5nLmMKPiBAQCAtMTUzLDM2ICsxNTMsNiBAQCB2b2lkIGFt
-ZGdwdV9yaW5nX3VuZG8oc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKQo+ICAgfQo+ICAgCj4gICAv
-KioKPiAtICogYW1kZ3B1X3JpbmdfY2hlY2tfY29tcHV0ZV92bV9idWcgLSBjaGVjayB3aGV0aGVy
-IHRoaXMgcmluZyBoYXMgY29tcHV0ZSB2bSBidWcKPiAtICoKPiAtICogQGFkZXY6IGFtZGdwdV9k
-ZXZpY2UgcG9pbnRlcgo+IC0gKiBAcmluZzogYW1kZ3B1X3Jpbmcgc3RydWN0dXJlIGhvbGRpbmcg
-cmluZyBpbmZvcm1hdGlvbgo+IC0gKi8KPiAtc3RhdGljIHZvaWQgYW1kZ3B1X3JpbmdfY2hlY2tf
-Y29tcHV0ZV92bV9idWcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gLQkJCQkJc3RydWN0
-IGFtZGdwdV9yaW5nICpyaW5nKQo+IC17Cj4gLQljb25zdCBzdHJ1Y3QgYW1kZ3B1X2lwX2Jsb2Nr
-ICppcF9ibG9jazsKPiAtCj4gLQlyaW5nLT5oYXNfY29tcHV0ZV92bV9idWcgPSBmYWxzZTsKPiAt
-Cj4gLQlpZiAocmluZy0+ZnVuY3MtPnR5cGUgIT0gQU1ER1BVX1JJTkdfVFlQRV9DT01QVVRFKQo+
-IC0JCS8qIG9ubHkgY29tcHV0ZSByaW5ncyAqLwo+IC0JCXJldHVybjsKPiAtCj4gLQlpcF9ibG9j
-ayA9IGFtZGdwdV9nZXRfaXBfYmxvY2soYWRldiwgQU1EX0lQX0JMT0NLX1RZUEVfR0ZYKTsKPiAt
-CWlmICghaXBfYmxvY2spCj4gLQkJcmV0dXJuOwo+IC0KPiAtCS8qIENvbXB1dGUgcmluZyBoYXMg
-YSBWTSBidWcgZm9yIEdGWCB2ZXJzaW9uIDwgNy4KPiAtICAgICAgICAgICBBbmQgY29tcHV0ZSBy
-aW5nIGhhcyBhIFZNIGJ1ZyBmb3IgR0ZYIDggTUVDIGZpcm13YXJlIHZlcnNpb24gPCA2NzMuKi8K
-PiAtCWlmIChpcF9ibG9jay0+dmVyc2lvbi0+bWFqb3IgPD0gNykgewo+IC0JCXJpbmctPmhhc19j
-b21wdXRlX3ZtX2J1ZyA9IHRydWU7Cj4gLQl9IGVsc2UgaWYgKGlwX2Jsb2NrLT52ZXJzaW9uLT5t
-YWpvciA9PSA4KQo+IC0JCWlmIChhZGV2LT5nZngubWVjX2Z3X3ZlcnNpb24gPCA2NzMpCj4gLQkJ
-CXJpbmctPmhhc19jb21wdXRlX3ZtX2J1ZyA9IHRydWU7Cj4gLX0KPiAtCj4gLS8qKgo+ICAgICog
-YW1kZ3B1X3JpbmdfaW5pdCAtIGluaXQgZHJpdmVyIHJpbmcgc3RydWN0Lgo+ICAgICoKPiAgICAq
-IEBhZGV2OiBhbWRncHVfZGV2aWNlIHBvaW50ZXIKPiBAQCAtMjg4LDggKzI1OCw2IEBAIGludCBh
-bWRncHVfcmluZ19pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1
-X3JpbmcgKnJpbmcsCj4gICAJCURSTV9FUlJPUigiRmFpbGVkIHRvIHJlZ2lzdGVyIGRlYnVnZnMg
-ZmlsZSBmb3IgcmluZ3MgIVxuIik7Cj4gICAJfQo+ICAgCj4gLQlhbWRncHVfcmluZ19jaGVja19j
-b21wdXRlX3ZtX2J1ZyhhZGV2LCByaW5nKTsKPiAtCj4gICAJcmV0dXJuIDA7Cj4gICB9Cj4gICAK
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3JpbmcuaCBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yaW5nLmgKPiBpbmRleCAzMzQzMDdl
-Li5hOTIyM2E4IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9yaW5nLmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5o
-Cj4gQEAgLTE4NSw3ICsxODUsNiBAQCBzdHJ1Y3QgYW1kZ3B1X3Jpbmcgewo+ICAgCXU2NAkJCWNv
-bmRfZXhlX2dwdV9hZGRyOwo+ICAgCXZvbGF0aWxlIHUzMgkJKmNvbmRfZXhlX2NwdV9hZGRyOwo+
-ICAgCXVuc2lnbmVkCQl2bV9pbnZfZW5nOwo+IC0JYm9vbAkJCWhhc19jb21wdXRlX3ZtX2J1ZzsK
-PiAgICNpZiBkZWZpbmVkKENPTkZJR19ERUJVR19GUykKPiAgIAlzdHJ1Y3QgZGVudHJ5ICplbnQ7
-Cj4gICAjZW5kaWYKPiBAQCAtMjA4LDkgKzIwNyw0IEBAIHN0YXRpYyBpbmxpbmUgdm9pZCBhbWRn
-cHVfcmluZ19jbGVhcl9yaW5nKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZykKPiAgIAo+ICAgfQo+
-ICAgCj4gLXN0YXRpYyBpbmxpbmUgYm9vbCBhbWRncHVfcmluZ19oYXNfY29tcHV0ZV92bV9idWco
-c3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKQo+IC17Cj4gLQlyZXR1cm4gcmluZy0+aGFzX2NvbXB1
-dGVfdm1fYnVnOwo+IC19Cj4gLQo+ICAgI2VuZGlmCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3ZtLmMKPiBpbmRleCA5MDM5MmExLi5mOGFmNjk1IDEwMDY0NAo+IC0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPiBAQCAtNjU2LDYgKzY1NiwzOSBAQCBzdGF0aWMgaW50
-IGFtZGdwdV92bV9hbGxvY19yZXNlcnZlZF92bWlkKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-LAo+ICAgCXJldHVybiByOwo+ICAgfQo+ICAgCj4gK3N0YXRpYyBib29sIGFtZGdwdV92bV9yaW5n
-X2hhc19jb21wdXRlX3ZtX2J1ZyhzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpCj4gK3sKPiArCWlm
-IChyaW5nLT5mdW5jcy0+dHlwZSA9PSBBTURHUFVfUklOR19UWVBFX0NPTVBVVEUpCj4gKwkJLyog
-b25seSBjb21wdXRlIHJpbmdzICovCj4gKwkJcmV0dXJuIHJpbmctPmFkZXYtPnZtX21hbmFnZXIu
-aGFzX2NvbXB1dGVfdm1fYnVnOwo+ICsJZWxzZQo+ICsJCXJldHVybiBmYWxzZTsKPiArfQo+ICsK
-PiArLyoqCj4gKyAqIGFtZGdwdV92bV9jaGVja19jb21wdXRlX2J1ZyAtIGNoZWNrIHdoZXRoZXIg
-YXNpYyBoYXMgY29tcHV0ZSB2bSBidWcKPiArICoKPiArICogQGFkZXY6IGFtZGdwdV9kZXZpY2Ug
-cG9pbnRlcgo+ICsgKi8KPiArdm9pZCBhbWRncHVfdm1fY2hlY2tfY29tcHV0ZV9idWcoc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gK3sKPiArCWNvbnN0IHN0cnVjdCBhbWRncHVfaXBfYmxv
-Y2sgKmlwX2Jsb2NrOwo+ICsKPiArCWFkZXYtPnZtX21hbmFnZXIuaGFzX2NvbXB1dGVfdm1fYnVn
-ID0gZmFsc2U7Cj4gKwo+ICsJaXBfYmxvY2sgPSBhbWRncHVfZ2V0X2lwX2Jsb2NrKGFkZXYsIEFN
-RF9JUF9CTE9DS19UWVBFX0dGWCk7Cj4gKwlpZiAoIWlwX2Jsb2NrKQo+ICsJCXJldHVybjsKPiAr
-Cj4gKwkvKiBDb21wdXRlIHJpbmcgaGFzIGEgVk0gYnVnIGZvciBHRlggdmVyc2lvbiA8IDcuCj4g
-KyAgICAgICAgICAgQW5kIGNvbXB1dGUgcmluZyBoYXMgYSBWTSBidWcgZm9yIEdGWCA4IE1FQyBm
-aXJtd2FyZSB2ZXJzaW9uIDwgNjczLiovCj4gKwlpZiAoaXBfYmxvY2stPnZlcnNpb24tPm1ham9y
-IDw9IDcpIHsKPiArCQlhZGV2LT52bV9tYW5hZ2VyLmhhc19jb21wdXRlX3ZtX2J1ZyA9IHRydWU7
-Cj4gKwl9IGVsc2UgaWYgKGlwX2Jsb2NrLT52ZXJzaW9uLT5tYWpvciA9PSA4KQo+ICsJCWlmIChh
-ZGV2LT5nZngubWVjX2Z3X3ZlcnNpb24gPCA2NzMpCj4gKwkJCWFkZXYtPnZtX21hbmFnZXIuaGFz
-X2NvbXB1dGVfdm1fYnVnID0gdHJ1ZTsKPiArfQo+ICsKPiAgIGJvb2wgYW1kZ3B1X3ZtX25lZWRf
-cGlwZWxpbmVfc3luYyhzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsCj4gICAJCQkJICBzdHJ1Y3Qg
-YW1kZ3B1X2pvYiAqam9iKQo+ICAgewo+IEBAIC02NjUsNyArNjk4LDcgQEAgYm9vbCBhbWRncHVf
-dm1fbmVlZF9waXBlbGluZV9zeW5jKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywKPiAgIAlzdHJ1
-Y3QgYW1kZ3B1X3ZtX2lkICppZDsKPiAgIAlib29sIGdkc19zd2l0Y2hfbmVlZGVkOwo+ICAgCWJv
-b2wgdm1fZmx1c2hfbmVlZGVkID0gam9iLT52bV9uZWVkc19mbHVzaCB8fAo+IC0JCWFtZGdwdV9y
-aW5nX2hhc19jb21wdXRlX3ZtX2J1ZyhyaW5nKTsKPiArCQlhbWRncHVfdm1fcmluZ19oYXNfY29t
-cHV0ZV92bV9idWcocmluZyk7Cj4gICAKPiAgIAlpZiAoam9iLT52bV9pZCA9PSAwKQo+ICAgCQly
-ZXR1cm4gZmFsc2U7Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV92bS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmgKPiBpbmRl
-eCA4MzA5YmM3Li4xMGY1Njc1IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV92bS5oCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X3ZtLmgKPiBAQCAtMTg0LDYgKzE4NCw4IEBAIHN0cnVjdCBhbWRncHVfdm1fbWFuYWdlciB7Cj4g
-ICAJLyogcGFydGlhbCByZXNpZGVudCB0ZXh0dXJlIGhhbmRsaW5nICovCj4gICAJc3BpbmxvY2tf
-dAkJCQlwcnRfbG9jazsKPiAgIAlhdG9taWNfdAkJCQludW1fcHJ0X3VzZXJzOwo+ICsKPiArCWJv
-b2wJCQkJCWhhc19jb21wdXRlX3ZtX2J1ZzsKPiAgIH07Cj4gICAKPiAgIHZvaWQgYW1kZ3B1X3Zt
-X21hbmFnZXJfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7Cj4gQEAgLTI0NSw1ICsy
-NDcsNiBAQCB2b2lkIGFtZGdwdV92bV9hZGp1c3Rfc2l6ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
-YWRldiwgdWludDY0X3Qgdm1fc2l6ZSk7Cj4gICBpbnQgYW1kZ3B1X3ZtX2lvY3RsKHN0cnVjdCBk
-cm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsIHN0cnVjdCBkcm1fZmlsZSAqZmlscCk7Cj4gICBi
-b29sIGFtZGdwdV92bV9uZWVkX3BpcGVsaW5lX3N5bmMoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5n
-LAo+ICAgCQkJCSAgc3RydWN0IGFtZGdwdV9qb2IgKmpvYik7Cj4gK3ZvaWQgYW1kZ3B1X3ZtX2No
-ZWNrX2NvbXB1dGVfYnVnKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKPiAgIAo+ICAgI2Vu
-ZGlmCgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
-LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
-aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--9pnLC9VgkIp0WwGu3GaU0tvCeiGsTfELC
+Content-Type: multipart/mixed; boundary="4nJbW0qup87U1xWeOIvtDm2hD8FEfddVX";
+ protected-headers="v1"
+From: Florian Echtler <floe@butterbrot.org>
+To: Alex Deucher <alexdeucher@gmail.com>, Lukas Wunner <lukas@wunner.de>
+Cc: "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+Message-ID: <65c88b03-45d7-d67b-2a2c-6c7047a73c80@butterbrot.org>
+Subject: Re: iMac 10,1 with Ubuntu 16.04: black screen after suspend
+References: <30380cb3-0f26-8aea-2689-d4886879129c@butterbrot.org>
+ <20170526210340.GA5114@wunner.de>
+ <1e60811b-a8ac-017c-d350-8a40e4323870@butterbrot.org>
+ <20170530105404.GA29865@wunner.de>
+ <64a4829c-3141-6ff6-9369-6ca9ed0facf4@butterbrot.org>
+ <20170531092145.ytc2d6shpukxziie@wunner.de>
+ <CADnq5_MGWOX47tcvkfjHRxRv_eTbo_kvpVKyTpo8WGNw+xBvPA@mail.gmail.com>
+In-Reply-To: <CADnq5_MGWOX47tcvkfjHRxRv_eTbo_kvpVKyTpo8WGNw+xBvPA@mail.gmail.com>
+
+--4nJbW0qup87U1xWeOIvtDm2hD8FEfddVX
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-GB
+Content-Transfer-Encoding: quoted-printable
+
+On 31.05.2017 14:57, Alex Deucher wrote:
+> On Wed, May 31, 2017 at 5:21 AM, Lukas Wunner <lukas@wunner.de> wrote:
+>> On Wed, May 31, 2017 at 10:48:37AM +0200, Florian Echtler wrote:
+>>
+>> Hm, try booting with drm.debug=3D0xf to see if link training for the
+>> eDP connector succeeds.  If the link cannot be trained, it would
+>> explain that the screen stays black.  Should this indeed be the
+>> case, one possible explanation would be that the panel is muxed
+>> to the external port on resume and an appropriate command needs to
+>> be sent to the SMC to switch the mux to the radeon card.  This could
+>> be done in the ->resume_early hook of your APP000C platform driver.
+>> The apple-gmux driver contains something similar to power the discrete=
+
+>> GPU down if it was off before suspend (because the BIOS always powers
+>> it up on resume).
+
+Here's the (substantial) dmesg output, with drm.debug=3D0xf:
+http://floe.butterbrot.org/external/radeon/dmesg_after_suspend
+
+I haven't been able to find any references to link training, though.
+
+>> *shrug*  Unfortunately I'm not familiar at all with radeontool. :-(
+>=20
+> You can use the radeonreg tool to dump the display registers:
+> https://cgit.freedesktop.org/~agd5f/radeontool/
+> radeonreg regs dce3
+> replace dce3 with whatever dce version your card has.
+
+AFAICT the RV730 indeed has dce3, so I created a register dump before and=
+ after
+suspend:
+http://floe.butterbrot.org/external/radeon/regs_before_suspend.txt
+http://floe.butterbrot.org/external/radeon/regs_after_suspend.txt
+
+The diff, however, is quite large, I have no idea which registers to look=
+ for.
+
+Best, Florian
+--=20
+SENT FROM MY DEC VT50 TERMINAL
+
+
+--4nJbW0qup87U1xWeOIvtDm2hD8FEfddVX--
+
+--9pnLC9VgkIp0WwGu3GaU0tvCeiGsTfELC
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iEYEARECAAYFAlkvz/wACgkQ7CzyshGvathbcwCfV3ks+AlPLSNxBN4cxobGzcmR
+rxgAoO/gaEgBYT5rdom/RAVnlG3uDJnN
+=MDK9
+-----END PGP SIGNATURE-----
+
+--9pnLC9VgkIp0WwGu3GaU0tvCeiGsTfELC--
