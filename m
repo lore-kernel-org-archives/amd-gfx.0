@@ -1,127 +1,64 @@
-From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [Intel-gfx] [PATCH i-g-t] tests/kms_setmode: increase MAX_CRTCS
- to 6
-Date: Thu, 1 Jun 2017 11:41:26 -0400
-Message-ID: <7a01a675-0871-8cc6-2a80-e0a0e4148af6@amd.com>
-References: <20170530200140.25763-1-harry.wentland@amd.com>
- <20170531093737.xovr4mn24uvxuvdq@phenom.ffwll.local>
- <bdc724a4-d2cc-661a-5c82-699167de16d3@amd.com>
- <030650e0-7a22-8811-e4eb-fea07ff44210@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: iMac 10,1 with Ubuntu 16.04: black screen after suspend
+Date: Thu, 1 Jun 2017 13:53:49 -0400
+Message-ID: <CADnq5_Mvyz1KUw26Emt8_d_XNeQ=MUqx8WF=iCxa6jagCXNCQQ@mail.gmail.com>
+References: <30380cb3-0f26-8aea-2689-d4886879129c@butterbrot.org>
+ <20170526210340.GA5114@wunner.de> <1e60811b-a8ac-017c-d350-8a40e4323870@butterbrot.org>
+ <20170530105404.GA29865@wunner.de> <64a4829c-3141-6ff6-9369-6ca9ed0facf4@butterbrot.org>
+ <20170531092145.ytc2d6shpukxziie@wunner.de> <CADnq5_MGWOX47tcvkfjHRxRv_eTbo_kvpVKyTpo8WGNw+xBvPA@mail.gmail.com>
+ <65c88b03-45d7-d67b-2a2c-6c7047a73c80@butterbrot.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <030650e0-7a22-8811-e4eb-fea07ff44210-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
-Cc: "Li, Sun peng" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-acpi-owner@vger.kernel.org>
+In-Reply-To: <65c88b03-45d7-d67b-2a2c-6c7047a73c80@butterbrot.org>
+Sender: linux-acpi-owner@vger.kernel.org
+To: Florian Echtler <floe@butterbrot.org>
+Cc: Lukas Wunner <lukas@wunner.de>, "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-UGxlYXNlIGlnbm9yZSB3aGF0IEkgd3JvdGUuIExvb2tzIGxpa2UgSSB3YXMgYSBiaXQgaGFzdHkg
-aW4gbXkgCmp1ZGdlbWVudC4gVGhlIGNvZGUganVzdCBkb2Vzbid0IHJlYWQgZWFzaWx5IGJ1dCBz
-ZWVtcyBjb3JyZWN0LCBvdGhlciAKdGhhbiB0aGUgYXJyYXkgc2l6ZS4KCkhhcnJ5CgpPbiAyMDE3
-LTA1LTMxIDA0OjE3IFBNLCBIYXJyeSBXZW50bGFuZCB3cm90ZToKPiBPbiAyMDE3LTA1LTMxIDA5
-OjMyIEFNLCBIYXJyeSBXZW50bGFuZCB3cm90ZToKPj4gT24gMjAxNy0wNS0zMSAwNTozNyBBTSwg
-RGFuaWVsIFZldHRlciB3cm90ZToKPj4+IE9uIFR1ZSwgTWF5IDMwLCAyMDE3IGF0IDA0OjAxOjQw
-UE0gLTA0MDAsIEhhcnJ5IFdlbnRsYW5kIHdyb3RlOgo+Pj4+IEFNRCBHUFVzIGNhbiBoYXZlIDYg
-Q1JUQ3MuCj4+Pj4KPj4+PiBUaGlzIHJlcXVpcmVzIHVzIHRvIGFsbG9jYXRlIHRoZSBjb21iaW5h
-dGlvbnMgb24gdGhlIGhlYXAuCj4+Pj4KPj4+PiBTaWduZWQtb2ZmLWJ5OiBIYXJyeSBXZW50bGFu
-ZCA8aGFycnkud2VudGxhbmRAYW1kLmNvbT4KPj4+Cj4+PiBJIHRoaW5rIGp1c3QgZHluYW1pY2Fs
-bHkgYWxsb2NhdGluZyBzdHVmZiBkaXJlY3RseSBhbmQgZHJvcHBpbmcgdGhlCj4+PiAjZGVmaW5l
-IHdvdWxkIGJlIGV2ZW4gbmVhdGVyIC4uLiBHZXRSZXNvdXJjZXMgY2FuIHRlbGwgdXMgaG93IG11
-Y2ggb2YgCj4+PiBlYWNoCj4+PiBleGlzdHMuCj4+PiAtRGFuaWVsCj4+Pgo+Pgo+PiBBZ3JlZWQu
-IEknbGwgc2VuZCBvdXQgYSB2MyBsYXRlci4KPj4KPiAKPiBBYm91dCB0byBzZW5kIHYzIGJ1dCB0
-aGlzIGNvZGUgaXMgcXVpdGUgbWFqb3JseSB3cm9uZyBhcy1pcy4gSW4gCj4gcGFydGljdWxhciBJ
-IHNlZSB0aGVzZSB0d28gaXNzdWVzOgo+IAo+IDEpIEluIGl0ZXJhdGVfY29tYmluYXRpb25zIHdl
-IGFzc2lnbiBhIHN0YWNrIG9iamVjdCB0byBvdXIgbGlzdCBvZgo+ICAgICBjb21iaW5hdGlvbnMg
-d2hpY2ggaXMgdGhlbiBwb3BwZWQgb2ZmIHRoZSBzdGFjayBhcyBzb29uIGFzCj4gICAgIGdldF9j
-b21iaW5hdGlvbnMgcmV0dXJucy4gTGF0ZXIgb24gaW4gdGVzdF9jb21iaW5hdGlvbnMgd2UgdGhl
-biB0cnkKPiAgICAgdG8gYWNjZXNzIGl0IHdpdGgKPiAgICAgIGNvbm5lY3Rvcl9pZHhzID0gJmNv
-bm5lY3Rvcl9jb21icy5pdGVtc1tpXS5lbGVtc1swXTsKPiAgICAgIC4uLgo+ICAgICAgaW50ICpj
-cnRjX2lkeHMgPSAmY3J0Y19jb21icy5pdGVtc1tqXS5lbGVtc1swXTsKPiAKPiAyKSBUaGlzIGZv
-ciBsb29wIGluIGl0ZXJhdGVfY29tYmluYXRpb25zIHdpbGwgc2ltcGx5IG92ZXJyaWRlCj4gICAg
-IGNvbWItPmVsZW1zW2RlcHRoXSB3aXRoIG5ldyB2YWx1ZXM6Cj4gCj4gICAgICBmb3IgKHYgPSBi
-YXNlOyB2IDwgbjsgdisrKSB7Cj4gICAgICAgICAgY29tYi0+ZWxlbXNbZGVwdGhdID0gdjsKPiAg
-ICAgICAgICBbLi4uXQo+ICAgICAgfQo+IAo+IEl0IGxvb2tzIGxpa2Ugd2hvZXZlciB3cm90ZSB0
-aGUgY29kZSB0cmllZCB0byBkbyBzb21lIGsgY2hvb3NlIG4gCj4gYWxnb3JpdGhtIHRvIGZpbmQg
-YWxsIHBvc3NpYmxlIHNldHMgb2YgY3J0Y3MgYW5kIGNvbm5lY3RvcnMgYnV0IHRoZW4gCj4gb25s
-eSBlbmRlZCB1cCBwaWNraW5nIG9uZSBjcnRjIGFuZCBjb25uZWN0b3Igb3V0IG9mIGVhY2ggbGlz
-dCBhbnl3YXlzIAo+IChhZnRlciB0aGUgaXRlbSBwb3BwZWQgZnJvbSB0aGUgc3RhY2spLgo+IAo+
-IElmIEkgZmluZCB0aW1lIEkgbWlnaHQgcmV3cml0ZSB0aGUgdGVzdF9jb21iaW5hdGlvbnMgZnVu
-Y3Rpb24gd2l0aCBhIAo+IHNpbXBsZSBuZXN0ZWQgZm9yIGxvb3AgdGhhdCB0cmllcyBhbGwgY3J0
-Y3Mgd2l0aCBhbGwgY29ubmVjdG9ycyAKPiBvbmUtdG8tb25lIGFzIHRoaXMgc2VlbXMgdG8gYmUg
-Y3VycmVudGx5IHRoZSBpbnRlbnRpb24gb2YgdGhpcyBmdW5jdGlvbi4KPiAKPiBIYXJyeQo+IAo+
-PiBIYXJyeQo+Pgo+Pj4+IC0tLQo+Pj4+ICAgdGVzdHMva21zX3NldG1vZGUuYyB8IDI1ICsrKysr
-KysrKysrKysrKy0tLS0tLS0tLS0KPj4+PiAgIDEgZmlsZSBjaGFuZ2VkLCAxNSBpbnNlcnRpb25z
-KCspLCAxMCBkZWxldGlvbnMoLSkKPj4+Pgo+Pj4+IGRpZmYgLS1naXQgYS90ZXN0cy9rbXNfc2V0
-bW9kZS5jIGIvdGVzdHMva21zX3NldG1vZGUuYwo+Pj4+IGluZGV4IDQzMDU2OGExYzI0ZS4uODQ3
-YWQ2NTBkMjdmIDEwMDY0NAo+Pj4+IC0tLSBhL3Rlc3RzL2ttc19zZXRtb2RlLmMKPj4+PiArKysg
-Yi90ZXN0cy9rbXNfc2V0bW9kZS5jCj4+Pj4gQEAgLTM1LDExICszNSwxMyBAQAo+Pj4+ICAgI2lu
-Y2x1ZGUgImludGVsX2J1Zm1nci5oIgo+Pj4+ICAgI2RlZmluZSBNQVhfQ09OTkVDVE9SUyAgMTAK
-Pj4+PiAtI2RlZmluZSBNQVhfQ1JUQ1MgICAgICAgMwo+Pj4+ICsjZGVmaW5lIE1BWF9DUlRDUyAg
-ICAgICA2Cj4+Pj4gICAvKiBtYXggY29tYmluYXRpb25zIHdpdGggcmVwZXRpdGlvbnMgKi8KPj4+
-PiArLyogTUFYX0NPTk5FQ1RPUlMgXiBNQVhfQ1JUQ1MgKi8KPj4+PiArLyogVE9ETyBzaG91bGQg
-cmVhbGx5IGJlIE1BWF9DT05ORUNUT1JTIF4gTUFYX0NPTk5FQ1RPUlMgPz8/ICovCj4+Pj4gICAj
-ZGVmaW5lIE1BWF9DT01CSU5BVElPTl9DT1VOVCAgIFwKPj4+PiAtICAgIChNQVhfQ09OTkVDVE9S
-UyAqIE1BWF9DT05ORUNUT1JTICogTUFYX0NPTk5FQ1RPUlMpCj4+Pj4gKyAgICAoTUFYX0NPTk5F
-Q1RPUlMgKiBNQVhfQ09OTkVDVE9SUyAqIE1BWF9DT05ORUNUT1JTICogCj4+Pj4gTUFYX0NPTk5F
-Q1RPUlMgKiBNQVhfQ09OTkVDVE9SUyAqIE1BWF9DT05ORUNUT1JTKQo+Pj4+ICAgI2RlZmluZSBN
-QVhfQ09NQklOQVRJT05fRUxFTVMgICBNQVhfQ1JUQ1MKPj4+PiAgIHN0YXRpYyBpbnQgZHJtX2Zk
-Owo+Pj4+IEBAIC03NDMsMjIgKzc0NSwyNSBAQCBzdGF0aWMgdm9pZCBnZXRfY29tYmluYXRpb25z
-KGludCBuLCBpbnQgaywgCj4+Pj4gYm9vbCBhbGxvd19yZXBldGl0aW9ucywKPj4+PiAgIHN0YXRp
-YyB2b2lkIHRlc3RfY29tYmluYXRpb25zKGNvbnN0IHN0cnVjdCB0ZXN0X2NvbmZpZyAqdGNvbmYs
-Cj4+Pj4gICAgICAgICAgICAgICAgICAgICBpbnQgY29ubmVjdG9yX2NvdW50KQo+Pj4+ICAgewo+
-Pj4+IC0gICAgc3RydWN0IGNvbWJpbmF0aW9uX3NldCBjb25uZWN0b3JfY29tYnM7Cj4+Pj4gLSAg
-ICBzdHJ1Y3QgY29tYmluYXRpb25fc2V0IGNydGNfY29tYnM7Cj4+Pj4gKyAgICBzdHJ1Y3QgY29t
-YmluYXRpb25fc2V0ICpjb25uZWN0b3JfY29tYnM7Cj4+Pj4gKyAgICBzdHJ1Y3QgY29tYmluYXRp
-b25fc2V0ICpjcnRjX2NvbWJzOwo+Pj4+ICAgICAgIHN0cnVjdCBjb25uZWN0b3JfY29uZmlnICpj
-Y29uZnM7Cj4+Pj4gICAgICAgaW50IGk7Cj4+Pj4gICAgICAgaWYgKGNvbm5lY3Rvcl9jb3VudCA+
-IDIgJiYgKHRjb25mLT5mbGFncyAmIFRFU1RfU1RFQUxJTkcpKQo+Pj4+ICAgICAgICAgICByZXR1
-cm47Cj4+Pj4gKyAgICBjb25uZWN0b3JfY29tYnMgPSBtYWxsb2Moc2l6ZW9mKCpjb25uZWN0b3Jf
-Y29tYnMpKTsKPj4+PiArICAgIGNydGNfY29tYnMgPSBtYWxsb2Moc2l6ZW9mKCpjcnRjX2NvbWJz
-KSk7Cj4+Pj4gKwo+Pj4+ICAgICAgIGdldF9jb21iaW5hdGlvbnModGNvbmYtPnJlc291cmNlcy0+
-Y291bnRfY29ubmVjdG9ycywgCj4+Pj4gY29ubmVjdG9yX2NvdW50LAo+Pj4+IC0gICAgICAgICAg
-ICAgZmFsc2UsICZjb25uZWN0b3JfY29tYnMpOwo+Pj4+ICsgICAgICAgICAgICAgZmFsc2UsIGNv
-bm5lY3Rvcl9jb21icyk7Cj4+Pj4gICAgICAgZ2V0X2NvbWJpbmF0aW9ucyh0Y29uZi0+cmVzb3Vy
-Y2VzLT5jb3VudF9jcnRjcywgY29ubmVjdG9yX2NvdW50LAo+Pj4+IC0gICAgICAgICAgICAgdHJ1
-ZSwgJmNydGNfY29tYnMpOwo+Pj4+ICsgICAgICAgICAgICAgdHJ1ZSwgY3J0Y19jb21icyk7Cj4+
-Pj4gICAgICAgaWd0X2luZm8oIlRlc3Rpbmc6ICVzICVkIGNvbm5lY3RvciBjb21iaW5hdGlvbnNc
-biIsIHRjb25mLT5uYW1lLAo+Pj4+ICAgICAgICAgICAgY29ubmVjdG9yX2NvdW50KTsKPj4+PiAt
-ICAgIGZvciAoaSA9IDA7IGkgPCBjb25uZWN0b3JfY29tYnMuY291bnQ7IGkrKykgewo+Pj4+ICsg
-ICAgZm9yIChpID0gMDsgaSA8IGNvbm5lY3Rvcl9jb21icy0+Y291bnQ7IGkrKykgewo+Pj4+ICAg
-ICAgICAgICBpbnQgKmNvbm5lY3Rvcl9pZHhzOwo+Pj4+ICAgICAgICAgICBpbnQgcmV0Owo+Pj4+
-ICAgICAgICAgICBpbnQgajsKPj4+PiBAQCAtNzY2LDE0ICs3NzEsMTQgQEAgc3RhdGljIHZvaWQg
-dGVzdF9jb21iaW5hdGlvbnMoY29uc3Qgc3RydWN0IAo+Pj4+IHRlc3RfY29uZmlnICp0Y29uZiwK
-Pj4+PiAgICAgICAgICAgY2NvbmZzID0gbWFsbG9jKHNpemVvZigqY2NvbmZzKSAqIGNvbm5lY3Rv
-cl9jb3VudCk7Cj4+Pj4gICAgICAgICAgIGlndF9hc3NlcnQoY2NvbmZzKTsKPj4+PiAtICAgICAg
-ICBjb25uZWN0b3JfaWR4cyA9ICZjb25uZWN0b3JfY29tYnMuaXRlbXNbaV0uZWxlbXNbMF07Cj4+
-Pj4gKyAgICAgICAgY29ubmVjdG9yX2lkeHMgPSAmY29ubmVjdG9yX2NvbWJzLT5pdGVtc1tpXS5l
-bGVtc1swXTsKPj4+PiAgICAgICAgICAgcmV0ID0gZ2V0X2Nvbm5lY3RvcnModGNvbmYtPnJlc291
-cmNlcywgY29ubmVjdG9yX2lkeHMsCj4+Pj4gICAgICAgICAgICAgICAgICAgICAgICBjb25uZWN0
-b3JfY291bnQsIGNjb25mcyk7Cj4+Pj4gICAgICAgICAgIGlmIChyZXQgPCAwKQo+Pj4+ICAgICAg
-ICAgICAgICAgZ290byBmcmVlX2Njb25mczsKPj4+PiAtICAgICAgICBmb3IgKGogPSAwOyBqIDwg
-Y3J0Y19jb21icy5jb3VudDsgaisrKSB7Cj4+Pj4gLSAgICAgICAgICAgIGludCAqY3J0Y19pZHhz
-ID0gJmNydGNfY29tYnMuaXRlbXNbal0uZWxlbXNbMF07Cj4+Pj4gKyAgICAgICAgZm9yIChqID0g
-MDsgaiA8IGNydGNfY29tYnMtPmNvdW50OyBqKyspIHsKPj4+PiArICAgICAgICAgICAgaW50ICpj
-cnRjX2lkeHMgPSAmY3J0Y19jb21icy0+aXRlbXNbal0uZWxlbXNbMF07Cj4+Pj4gICAgICAgICAg
-ICAgICByZXQgPSBhc3NpZ25fY3J0Y190b19jb25uZWN0b3JzKHRjb25mLCBjcnRjX2lkeHMsCj4+
-Pj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29ubmVjdG9yX2NvdW50LAo+Pj4+ICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjY29uZnMpOwo+Pj4+IC0tIAo+Pj4+IDIu
-MTEuMAo+Pj4+Cj4+Pj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KPj4+PiBJbnRlbC1nZnggbWFpbGluZyBsaXN0Cj4+Pj4gSW50ZWwtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwo+Pj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vaW50ZWwtZ2Z4Cj4+Pgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Thu, Jun 1, 2017 at 4:27 AM, Florian Echtler <floe@butterbrot.org> wrote:
+> On 31.05.2017 14:57, Alex Deucher wrote:
+>> On Wed, May 31, 2017 at 5:21 AM, Lukas Wunner <lukas@wunner.de> wrote:
+>>> On Wed, May 31, 2017 at 10:48:37AM +0200, Florian Echtler wrote:
+>>>
+>>> Hm, try booting with drm.debug=0xf to see if link training for the
+>>> eDP connector succeeds.  If the link cannot be trained, it would
+>>> explain that the screen stays black.  Should this indeed be the
+>>> case, one possible explanation would be that the panel is muxed
+>>> to the external port on resume and an appropriate command needs to
+>>> be sent to the SMC to switch the mux to the radeon card.  This could
+>>> be done in the ->resume_early hook of your APP000C platform driver.
+>>> The apple-gmux driver contains something similar to power the discrete
+>>> GPU down if it was off before suspend (because the BIOS always powers
+>>> it up on resume).
+>
+> Here's the (substantial) dmesg output, with drm.debug=0xf:
+> http://floe.butterbrot.org/external/radeon/dmesg_after_suspend
+>
+> I haven't been able to find any references to link training, though.
+
+I need your dmesg from boot to confirm the display topology, but eDP
+with r7xx asics was pretty rare.  I suspect your system just uses
+LVDS; as such there is no link training involved.
+
+Alex
+
+>
+>>> *shrug*  Unfortunately I'm not familiar at all with radeontool. :-(
+>>
+>> You can use the radeonreg tool to dump the display registers:
+>> https://cgit.freedesktop.org/~agd5f/radeontool/
+>> radeonreg regs dce3
+>> replace dce3 with whatever dce version your card has.
+>
+> AFAICT the RV730 indeed has dce3, so I created a register dump before and after
+> suspend:
+> http://floe.butterbrot.org/external/radeon/regs_before_suspend.txt
+> http://floe.butterbrot.org/external/radeon/regs_after_suspend.txt
+>
+> The diff, however, is quite large, I have no idea which registers to look for.
+>
+> Best, Florian
+> --
+> SENT FROM MY DEC VT50 TERMINAL
+>
