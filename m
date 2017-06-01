@@ -1,48 +1,35 @@
-From: Chris Wilson <chris-Y6uKTt2uX1cEflXRtASbqLVCufUGDwFn@public.gmane.org>
-Subject: Re: [PATCH 1/5] drm: introduce sync objects (v4)
-Date: Thu, 1 Jun 2017 11:25:29 +0100
-Message-ID: <20170601102529.GG11742@nuc-i3427.alporthouse.com>
-References: <20170601010643.28616-1-airlied@gmail.com>
- <20170601010643.28616-2-airlied@gmail.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <20170601010643.28616-2-airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+From: Geert Uytterhoeven <geert+renesas@glider.be>
+Subject: [PATCH trivial] drm/amdkfd: Spelling s/apreture/aperture/
+Date: Thu,  1 Jun 2017 12:28:38 +0200
+Message-ID: <1496312918-27352-1-git-send-email-geert+renesas@glider.be>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: David Airlie <airlied@linux.ie>, Jiri Kosina <trivial@kernel.org>
+Cc: Oded Gabbay <oded.gabbay@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVGh1LCBKdW4gMDEsIDIwMTcgYXQgMTE6MDY6MzlBTSArMTAwMCwgRGF2ZSBBaXJsaWUgd3Jv
-dGU6Cj4gRnJvbTogRGF2ZSBBaXJsaWUgPGFpcmxpZWRAcmVkaGF0LmNvbT4KPiAKPiBTeW5jIG9i
-amVjdHMgYXJlIG5ldyB0b3BsZXZlbCBkcm0gb2JqZWN0LCB0aGF0IGNvbnRhaW4gYQo+IHBvaW50
-ZXIgdG8gYSBmZW5jZS4gVGhpcyBmZW5jZSBjYW4gYmUgdXBkYXRlZCB2aWEgY29tbWFuZAo+IHN1
-Ym1pc3Npb24gaW9jdGxzIHZpYSBkcml2ZXJzLgo+IAo+IFRoZXJlIGlzIGFsc28gYSBnZW5lcmlj
-IHdhaXQgb2JqIEFQSSBtb2RlbGxlZCBvbiB0aGUgdnVsa2FuCj4gd2FpdCBBUEkgKHdpdGggY29k
-ZSBtb2RlbGxlZCBvbiBzb21lIGFtZGdwdSBjb2RlKS4KPiAKPiBUaGVzZSBvYmplY3RzIGNhbiBi
-ZSBjb252ZXJ0ZWQgdG8gYW4gb3BhcXVlIGZkIHRoYXQgY2FuIGJlCj4gcGFzc2VzIGJldHdlZW4g
-cHJvY2Vzc2VzLgo+IAo+IHYyOiByZW5hbWUgcmVmZXJlbmNlL3VucmVmZXJlbmNlIHRvIHB1dC9n
-ZXQgKENocmlzKQo+IGZpeCBsZWFrZWQgcmVmZXJlbmNlIChEYXZpZCBaaG91KQo+IGRyb3AgbXV0
-ZXggaW4gZmF2b3VyIG9mIGNtcHhjaGcgKENocmlzKQo+IHYzOiBjbGVhbnVwcyBmcm9tIGRhbnZl
-dCwgcmViYXNlIG9uIGRybV9mb3BzIHJlbmFtZQo+IGNoZWNrIGZkX2ZsYWdzIGlzIDAgaW4gaW9j
-dGxzLgo+IHY0OiBleHBvcnQgZmluZC9mcmVlLCBjaGFuZ2UgcmVwbGFjZSBmZW5jZSB0byB0YWtl
-IGEKPiBzeW5jb2JqLiBJbiBvcmRlciB0byBzdXBwb3J0IGxvb2t1cCBmaXJzdCwgcmVwbGFjZQo+
-IGxhdGVyIHNlbWFudGljcyB3aGljaCBzZWVtIGluIHRoZSBlbmQgdG8gYmUgY2xlYW5lci4KPiAK
-PiBSZXZpZXdlZC1ieTogU2VhbiBQYXVsIDxzZWFucGF1bEBjaHJvbWl1bS5vcmc+Cj4gU2lnbmVk
-LW9mZi1ieTogRGF2ZSBBaXJsaWUgPGFpcmxpZWRAcmVkaGF0LmNvbT4KClRoYW5rcyBmb3IgZmlu
-ZC9yZXBsYWNlLCBzYXZlcyBtZSBoYXZpbmcgdG8gZXhwb3J0IHRoZW0gbGF0ZXIgOikKClJldmll
-d2VkLWJ5OiBDaHJpcyBXaWxzb24gPGNocmlzQGNocmlzLXdpbHNvbi5jby51az4KLUNocmlzCgot
-LSAKQ2hyaXMgV2lsc29uLCBJbnRlbCBPcGVuIFNvdXJjZSBUZWNobm9sb2d5IENlbnRyZQpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
-bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 84d1ffd1eef95048..a7d273d472107821 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -319,11 +319,11 @@ static struct kfd_process *create_process(const struct task_struct *thread)
+ 	/* init process apertures*/
+ 	process->is_32bit_user_mode = in_compat_syscall();
+ 	if (kfd_init_apertures(process) != 0)
+-		goto err_init_apretures;
++		goto err_init_apertures;
+ 
+ 	return process;
+ 
+-err_init_apretures:
++err_init_apertures:
+ 	pqm_uninit(&process->pqm);
+ err_process_pqm_init:
+ 	hash_del_rcu(&process->kfd_processes);
+-- 
+2.7.4
