@@ -1,7 +1,7 @@
 From: Ken Wang <Qingqing.Wang-5C7GfCeVMHo@public.gmane.org>
 Subject: [PATCH] drm/amdgpu: enable gfx 9.0 cp interrupts
-Date: Thu, 1 Jun 2017 12:26:40 +0800
-Message-ID: <1496291200-15226-1-git-send-email-Qingqing.Wang@amd.com>
+Date: Thu, 1 Jun 2017 12:26:48 +0800
+Message-ID: <1496291208-15273-1-git-send-email-Qingqing.Wang@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
