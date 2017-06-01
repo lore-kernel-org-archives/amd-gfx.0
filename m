@@ -1,64 +1,234 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: iMac 10,1 with Ubuntu 16.04: black screen after suspend
-Date: Thu, 1 Jun 2017 13:53:49 -0400
-Message-ID: <CADnq5_Mvyz1KUw26Emt8_d_XNeQ=MUqx8WF=iCxa6jagCXNCQQ@mail.gmail.com>
-References: <30380cb3-0f26-8aea-2689-d4886879129c@butterbrot.org>
- <20170526210340.GA5114@wunner.de> <1e60811b-a8ac-017c-d350-8a40e4323870@butterbrot.org>
- <20170530105404.GA29865@wunner.de> <64a4829c-3141-6ff6-9369-6ca9ed0facf4@butterbrot.org>
- <20170531092145.ytc2d6shpukxziie@wunner.de> <CADnq5_MGWOX47tcvkfjHRxRv_eTbo_kvpVKyTpo8WGNw+xBvPA@mail.gmail.com>
- <65c88b03-45d7-d67b-2a2c-6c7047a73c80@butterbrot.org>
+From: Bjorn Helgaas <helgaas@kernel.org>
+Subject: Re: [PATCH v6 5/5] drm/amdgpu: resize VRAM BAR for CPU access v2
+Date: Thu, 1 Jun 2017 15:14:30 -0500
+Message-ID: <20170601201430.GC12257@bhelgaas-glaptop.roam.corp.google.com>
+References: <1494348547-1465-1-git-send-email-deathsimple@vodafone.de>
+ <1494348547-1465-6-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-acpi-owner@vger.kernel.org>
-In-Reply-To: <65c88b03-45d7-d67b-2a2c-6c7047a73c80@butterbrot.org>
-Sender: linux-acpi-owner@vger.kernel.org
-To: Florian Echtler <floe@butterbrot.org>
-Cc: Lukas Wunner <lukas@wunner.de>, "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Return-path: <platform-driver-x86-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <1494348547-1465-6-git-send-email-deathsimple@vodafone.de>
+Sender: platform-driver-x86-owner@vger.kernel.org
+To: Christian =?iso-8859-1?Q?K=F6nig?= <deathsimple@vodafone.de>
+Cc: linux-pci@vger.kernel.org, platform-driver-x86@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Thu, Jun 1, 2017 at 4:27 AM, Florian Echtler <floe@butterbrot.org> wrote:
-> On 31.05.2017 14:57, Alex Deucher wrote:
->> On Wed, May 31, 2017 at 5:21 AM, Lukas Wunner <lukas@wunner.de> wrote:
->>> On Wed, May 31, 2017 at 10:48:37AM +0200, Florian Echtler wrote:
->>>
->>> Hm, try booting with drm.debug=0xf to see if link training for the
->>> eDP connector succeeds.  If the link cannot be trained, it would
->>> explain that the screen stays black.  Should this indeed be the
->>> case, one possible explanation would be that the panel is muxed
->>> to the external port on resume and an appropriate command needs to
->>> be sent to the SMC to switch the mux to the radeon card.  This could
->>> be done in the ->resume_early hook of your APP000C platform driver.
->>> The apple-gmux driver contains something similar to power the discrete
->>> GPU down if it was off before suspend (because the BIOS always powers
->>> it up on resume).
->
-> Here's the (substantial) dmesg output, with drm.debug=0xf:
-> http://floe.butterbrot.org/external/radeon/dmesg_after_suspend
->
-> I haven't been able to find any references to link training, though.
+[+cc ADMGPU, DRM folks]
 
-I need your dmesg from boot to confirm the display topology, but eDP
-with r7xx asics was pretty rare.  I suspect your system just uses
-LVDS; as such there is no link training involved.
+On Tue, May 09, 2017 at 06:49:07PM +0200, Christian König wrote:
+> From: Christian König <christian.koenig@amd.com>
+> 
+> Try to resize BAR0 to let CPU access all of VRAM.
+> 
+> v2: rebased, style cleanups, disable mem decode before resize,
+>     handle gmc_v9 as well, round size up to power of two.
+> 
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 37 ++++++++++++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c      |  8 ++++---
+>  drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c      |  8 ++++---
+>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c      | 10 ++++----
+>  5 files changed, 54 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 5310781..d6f5286 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1884,6 +1884,7 @@ uint64_t amdgpu_ttm_tt_pte_flags(struct amdgpu_device *adev, struct ttm_tt *ttm,
+>  				 struct ttm_mem_reg *mem);
+>  void amdgpu_vram_location(struct amdgpu_device *adev, struct amdgpu_mc *mc, u64 base);
+>  void amdgpu_gtt_location(struct amdgpu_device *adev, struct amdgpu_mc *mc);
+> +void amdgpu_resize_bar0(struct amdgpu_device *adev);
+>  void amdgpu_ttm_set_active_vram_size(struct amdgpu_device *adev, u64 size);
+>  int amdgpu_ttm_init(struct amdgpu_device *adev);
+>  void amdgpu_ttm_fini(struct amdgpu_device *adev);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 2719c02..4e83a56 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -694,6 +694,43 @@ void amdgpu_gtt_location(struct amdgpu_device *adev, struct amdgpu_mc *mc)
+>  			mc->gtt_size >> 20, mc->gtt_start, mc->gtt_end);
+>  }
+>  
+> +/**
+> + * amdgpu_resize_bar0 - try to resize BAR0
+> + *
+> + * @adev: amdgpu_device pointer
+> + *
+> + * Try to resize BAR0 to make all VRAM CPU accessible.
+> + */
+> +void amdgpu_resize_bar0(struct amdgpu_device *adev)
+> +{
+> +	u64 space_needed = roundup_pow_of_two(adev->mc.real_vram_size);
+> +	u32 rbar_size = order_base_2(((space_needed >> 20) | 1)) -1;
+> +	u16 cmd;
+> +	int r;
+> +
+> +	/* Free the doorbell mapping, it most likely needs to move as well */
+> +	amdgpu_doorbell_fini(adev);
+> +	pci_release_resource(adev->pdev, 2);
+> +
+> +	/* Disable memory decoding while we change the BAR addresses and size */
+> +	pci_read_config_word(adev->pdev, PCI_COMMAND, &cmd);
+> +	pci_write_config_word(adev->pdev, PCI_COMMAND,
+> +			      cmd & ~PCI_COMMAND_MEMORY);
+> +
+> +	r = pci_resize_resource(adev->pdev, 0, rbar_size);
+> +	if (r == -ENOSPC)
+> +		DRM_INFO("Not enough PCI address space for a large BAR.");
+> +	else if (r && r != -ENOTSUPP)
+> +		DRM_ERROR("Problem resizing BAR0 (%d).", r);
+> +
+> +	pci_write_config_word(adev->pdev, PCI_COMMAND, cmd);
+> +
+> +	/* When the doorbell BAR isn't available we have no chance of
+> +	 * using the device.
+> +	 */
+> +	BUG_ON(amdgpu_doorbell_init(adev));
 
-Alex
+This amdgpu_doorbell_fini()/amdgpu_doorbell_init() thing doesn't look
+right.  amdgpu_device_init() only calls amdgpu_doorbell_init() for
+"adev->asic_type >= CHIP_BONAIRE", but we call it unconditionally
+here.
 
->
->>> *shrug*  Unfortunately I'm not familiar at all with radeontool. :-(
->>
->> You can use the radeonreg tool to dump the display registers:
->> https://cgit.freedesktop.org/~agd5f/radeontool/
->> radeonreg regs dce3
->> replace dce3 with whatever dce version your card has.
->
-> AFAICT the RV730 indeed has dce3, so I created a register dump before and after
-> suspend:
-> http://floe.butterbrot.org/external/radeon/regs_before_suspend.txt
-> http://floe.butterbrot.org/external/radeon/regs_after_suspend.txt
->
-> The diff, however, is quite large, I have no idea which registers to look for.
->
-> Best, Florian
-> --
-> SENT FROM MY DEC VT50 TERMINAL
->
+This is the call graph:
+
+  amdgpu_device_init
+    adev->rmmio_base = pci_resource_start(adev->pdev, 5)   # 2 for < BONAIRE
+    adev->rmmio = ioremap(adev->rmmio_base, ...)
+    DRM_INFO("register mmio base: 0x%08X\n", (uint32_t)adev->rmmio_base)
+    if (adev->asic_type >= CHIP_BONAIRE) {
+      amdgpu_doorbell_init
+	adev->doorbell.base = pci_resource_start(adev->pdev, 2)
+	adev->doorbell.ptr = ioremap(adev->doorbell.base, ...)
+    }
+    amdgpu_init
+      gmc_v7_0_sw_init              # gmc_v7_0_ip_funcs.sw_init
+	gmc_v7_0_mc_init
+  +         amdgpu_resize_bar0
+  +           amdgpu_doorbell_fini
+  +           pci_release_resource(adev->pdev, 2)
+  +           pci_resize_resource(adev->pdev, 0, size)
+  +           amdgpu_doorbell_init
+	  adev->mc.aper_base = pci_resource_start(adev->pdev, 0)
+
+If "asic_type < CHIP_BONAIRE", we ioremapped BAR 2 in
+amdgpu_device_init(), then we released the resource here and never
+updated the ioremap.
+
+>From the PCI core perspective, it would be much cleaner to do the BAR
+resize before the driver calls pci_enable_device().  If that could be
+done, there would be no need for this sort of shutdown/reinit stuff
+and we wouldn't have to worry about issues like these.  The amdgpu
+init path is pretty complicated, so I don't know whether this is
+possible.
+
+I would also like to simplify the driver usage model and get the
+PCI_COMMAND_MEMORY twiddling into the PCI core instead of the driver.
+Ideally, the driver would do something like this:
+
+  pci_resize_resource(adev->pdev, 0, rbar_size);
+  pci_enable_device(adev->pdev);
+
+And the PCI core would be something along these lines:
+
+  int pci_resize_resource(dev, bar, size)
+  {
+    if (pci_is_enabled(dev))
+      return -EBUSY;
+
+    pci_disable_decoding(dev);          # turn off MEM, IO decoding
+    pci_release_resources(dev);         # (all of them)
+    err = pci_resize_bar(dev, bar, size);     # change BAR size (only)
+    if (err)
+      return err;
+
+    pci_assign_resources(dev);          # reassign all "dev" resources
+    return 0;
+  }
+
+> +}
+> +
+>  /*
+>   * GPU helpers function.
+>   */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> index a9083a1..ae71524 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> @@ -372,13 +372,15 @@ static int gmc_v7_0_mc_init(struct amdgpu_device *adev)
+>  		}
+>  		adev->mc.vram_width = numchan * chansize;
+>  	}
+> -	/* Could aper size report 0 ? */
+> -	adev->mc.aper_base = pci_resource_start(adev->pdev, 0);
+> -	adev->mc.aper_size = pci_resource_len(adev->pdev, 0);
+>  	/* size in MB on si */
+>  	adev->mc.mc_vram_size = RREG32(mmCONFIG_MEMSIZE) * 1024ULL * 1024ULL;
+>  	adev->mc.real_vram_size = RREG32(mmCONFIG_MEMSIZE) * 1024ULL * 1024ULL;
+>  
+> +	if (!(adev->flags & AMD_IS_APU))
+> +		amdgpu_resize_bar0(adev);
+> +	adev->mc.aper_base = pci_resource_start(adev->pdev, 0);
+> +	adev->mc.aper_size = pci_resource_len(adev->pdev, 0);
+> +
+>  #ifdef CONFIG_X86_64
+>  	if (adev->flags & AMD_IS_APU) {
+>  		adev->mc.aper_base = ((u64)RREG32(mmMC_VM_FB_OFFSET)) << 22;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> index 4ac9978..1655de2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> @@ -534,13 +534,15 @@ static int gmc_v8_0_mc_init(struct amdgpu_device *adev)
+>  		}
+>  		adev->mc.vram_width = numchan * chansize;
+>  	}
+> -	/* Could aper size report 0 ? */
+> -	adev->mc.aper_base = pci_resource_start(adev->pdev, 0);
+> -	adev->mc.aper_size = pci_resource_len(adev->pdev, 0);
+>  	/* size in MB on si */
+>  	adev->mc.mc_vram_size = RREG32(mmCONFIG_MEMSIZE) * 1024ULL * 1024ULL;
+>  	adev->mc.real_vram_size = RREG32(mmCONFIG_MEMSIZE) * 1024ULL * 1024ULL;
+>  
+> +	if (!(adev->flags & AMD_IS_APU))
+> +		amdgpu_resize_bar0(adev);
+> +	adev->mc.aper_base = pci_resource_start(adev->pdev, 0);
+> +	adev->mc.aper_size = pci_resource_len(adev->pdev, 0);
+> +
+>  #ifdef CONFIG_X86_64
+>  	if (adev->flags & AMD_IS_APU) {
+>  		adev->mc.aper_base = ((u64)RREG32(mmMC_VM_FB_OFFSET)) << 22;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> index b9f11fa..d65728a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -469,16 +469,18 @@ static int gmc_v9_0_mc_init(struct amdgpu_device *adev)
+>  	}
+>  	adev->mc.vram_width = numchan * chansize;
+>  
+> -	/* Could aper size report 0 ? */
+> -	adev->mc.aper_base = pci_resource_start(adev->pdev, 0);
+> -	adev->mc.aper_size = pci_resource_len(adev->pdev, 0);
+>  	/* size in MB on si */
+>  	adev->mc.mc_vram_size =
+>  		nbio_v6_1_get_memsize(adev) * 1024ULL * 1024ULL;
+>  	adev->mc.real_vram_size = adev->mc.mc_vram_size;
+> -	adev->mc.visible_vram_size = adev->mc.aper_size;
+> +
+> +	if (!(adev->flags & AMD_IS_APU))
+> +		amdgpu_resize_bar0(adev);
+> +	adev->mc.aper_base = pci_resource_start(adev->pdev, 0);
+> +	adev->mc.aper_size = pci_resource_len(adev->pdev, 0);
+>  
+>  	/* In case the PCI BAR is larger than the actual amount of vram */
+> +	adev->mc.visible_vram_size = adev->mc.aper_size;
+>  	if (adev->mc.visible_vram_size > adev->mc.real_vram_size)
+>  		adev->mc.visible_vram_size = adev->mc.real_vram_size;
+>  
+> -- 
+> 2.7.4
+> 
