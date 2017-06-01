@@ -1,14 +1,14 @@
-From: Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Move compute vm bug logic to amdgpu_vm.c
-Date: Thu, 1 Jun 2017 09:50:59 -0400
-Message-ID: <532a53b4-e443-e4d1-14ce-77b0fae9c11e@amd.com>
-References: <1496272081-21584-1-git-send-email-AlexBin.Xie@amd.com>
- <183887cb-17a0-e457-0c92-c04cc4b7fb53@vodafone.de>
- <MWHPR1201MB0045729996FF89B47DCD29A3F2F60@MWHPR1201MB0045.namprd12.prod.outlook.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH v2 00/21] S3 following up
+Date: Thu, 1 Jun 2017 14:04:13 +0000
+Message-ID: <CY4PR12MB16538B95A8F01A5913B73A5DF7F60@CY4PR12MB1653.namprd12.prod.outlook.com>
+References: <1496315865-5140-1-git-send-email-ray.huang@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0502309801=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MWHPR1201MB0045729996FF89B47DCD29A3F2F60-3iK1xFAIwjq45V35fqe+hGrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
+In-Reply-To: <1496315865-5140-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,571 +19,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Xie, AlexBin" <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: "Huan, Alvin" <Alvin.Huan-5C7GfCeVMHo@public.gmane.org>, "Wang, Ken" <Ken.Wang-5C7GfCeVMHo@public.gmane.org>, "Huang,
+ Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
 
---===============0502309801==
-Content-Type: multipart/alternative;
-	boundary="------------123B8C3BEEF80B4F46C10748"
-
---------------123B8C3BEEF80B4F46C10748
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-
-When you git email-send first time, there is a message-id, when you 
-would send follow up patches, using --in-reply-to="message-id" in your 
-comment line, then that will be in the same thread.
-
-
-Cheers,
-
-Leo
-
-
-
-On 06/01/2017 09:40 AM, Xie, AlexBin wrote:
->
-> Ok. I will add the v2 next time. I did not add the v2 in case this 
-> email list does not put the two patches under same thread...
->
->
-> -Alex Bin
->
-> ------------------------------------------------------------------------
-> *From:* Christian König <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-> *Sent:* Thursday, June 1, 2017 9:26 AM
-> *To:* Xie, AlexBin; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> *Subject:* Re: [PATCH] drm/amdgpu: Move compute vm bug logic to 
-> amdgpu_vm.c
-> Am 01.06.2017 um 01:08 schrieb Alex Xie:
-> >    In review, Christian would like to keep the logic
-> >    inside amdgpu_vm.c with a cost of slightly slower.
-> >    The loop is still optimized out with this patch.
-> >
-> > v2: remove the if statement. Now it is not slower.
-> >
-> > Signed-off-by: Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
->
-> When you create a v2 of a patch please note that in the subject line as
-> well.
->
-> Either by using the "-v2" option with "git send-email" or by adding the
-> v2 manually on the subject line.
->
-> I sometimes get mails twice because they are send to multiple lists I'm
-> registered on and that helps allot seeing that a patch changed and is
-> not just a duplicated mail.
->
-> Anyway this version is Reviewed-by: Christian König
-> <christian.koeng-5C7GfCeVMHo@public.gmane.org> as well.
->
-> Regards,
-> Christian.
->
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 ++
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c   | 32 
-> -------------------------
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h   |  5 ----
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c     | 38 
-> ++++++++++++++++++++++++++++--
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h     |  1 +
-> >   5 files changed, 39 insertions(+), 39 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > index 89bc34a..2f1a4e9 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > @@ -2227,6 +2227,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
-> >
-> >        adev->accel_working = true;
-> >
-> > +     amdgpu_vm_check_compute_bug(adev);
-> > +
-> >        /* Initialize the buffer migration limit. */
-> >        if (amdgpu_moverate >= 0)
-> >                max_MBps = amdgpu_moverate;
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> > index 7d95435..31aa51d 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> > @@ -153,36 +153,6 @@ void amdgpu_ring_undo(struct amdgpu_ring *ring)
-> >   }
-> >
-> >   /**
-> > - * amdgpu_ring_check_compute_vm_bug - check whether this ring has 
-> compute vm bug
-> > - *
-> > - * @adev: amdgpu_device pointer
-> > - * @ring: amdgpu_ring structure holding ring information
-> > - */
-> > -static void amdgpu_ring_check_compute_vm_bug(struct amdgpu_device 
-> *adev,
-> > -                                     struct amdgpu_ring *ring)
-> > -{
-> > -     const struct amdgpu_ip_block *ip_block;
-> > -
-> > -     ring->has_compute_vm_bug = false;
-> > -
-> > -     if (ring->funcs->type != AMDGPU_RING_TYPE_COMPUTE)
-> > -             /* only compute rings */
-> > -             return;
-> > -
-> > -     ip_block = amdgpu_get_ip_block(adev, AMD_IP_BLOCK_TYPE_GFX);
-> > -     if (!ip_block)
-> > -             return;
-> > -
-> > -     /* Compute ring has a VM bug for GFX version < 7.
-> > -           And compute ring has a VM bug for GFX 8 MEC firmware 
-> version < 673.*/
-> > -     if (ip_block->version->major <= 7) {
-> > -             ring->has_compute_vm_bug = true;
-> > -     } else if (ip_block->version->major == 8)
-> > -             if (adev->gfx.mec_fw_version < 673)
-> > -                     ring->has_compute_vm_bug = true;
-> > -}
-> > -
-> > -/**
-> >    * amdgpu_ring_init - init driver ring struct.
-> >    *
-> >    * @adev: amdgpu_device pointer
-> > @@ -288,8 +258,6 @@ int amdgpu_ring_init(struct amdgpu_device *adev, 
-> struct amdgpu_ring *ring,
-> >                DRM_ERROR("Failed to register debugfs file for rings 
-> !\n");
-> >        }
-> >
-> > -     amdgpu_ring_check_compute_vm_bug(adev, ring);
-> > -
-> >        return 0;
-> >   }
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> > index 334307e..ad399c8 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> > @@ -208,9 +208,4 @@ static inline void amdgpu_ring_clear_ring(struct 
-> amdgpu_ring *ring)
-> >
-> >   }
-> >
-> > -static inline bool amdgpu_ring_has_compute_vm_bug(struct 
-> amdgpu_ring *ring)
-> > -{
-> > -     return ring->has_compute_vm_bug;
-> > -}
-> > -
-> >   #endif
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > index d4d05a8..6e32748 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> > @@ -656,6 +656,41 @@ static int amdgpu_vm_alloc_reserved_vmid(struct 
-> amdgpu_device *adev,
-> >        return r;
-> >   }
-> >
-> > +/**
-> > + * amdgpu_vm_check_compute_bug - check whether asic has compute vm bug
-> > + *
-> > + * @adev: amdgpu_device pointer
-> > + */
-> > +void amdgpu_vm_check_compute_bug(struct amdgpu_device *adev)
-> > +{
-> > +     const struct amdgpu_ip_block *ip_block;
-> > +     bool has_compute_vm_bug;
-> > +     struct amdgpu_ring *ring;
-> > +     int i;
-> > +
-> > +     has_compute_vm_bug = false;
-> > +
-> > +     ip_block = amdgpu_get_ip_block(adev, AMD_IP_BLOCK_TYPE_GFX);
-> > +     if (ip_block) {
-> > +             /* Compute has a VM bug for GFX version < 7.
-> > +                Compute has a VM bug for GFX 8 MEC firmware version 
-> < 673.*/
-> > +             if (ip_block->version->major <= 7)
-> > +                     has_compute_vm_bug = true;
-> > +             else if (ip_block->version->major == 8)
-> > +                     if (adev->gfx.mec_fw_version < 673)
-> > +                             has_compute_vm_bug = true;
-> > +     }
-> > +
-> > +     for (i = 0; i < adev->num_rings; i++) {
-> > +             ring = adev->rings[i];
-> > +             if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE)
-> > +                     /* only compute rings */
-> > +                     ring->has_compute_vm_bug = has_compute_vm_bug;
-> > +             else
-> > +                     ring->has_compute_vm_bug = false;
-> > +     }
-> > +}
-> > +
-> >   bool amdgpu_vm_need_pipeline_sync(struct amdgpu_ring *ring,
-> >                                  struct amdgpu_job *job)
-> >   {
-> > @@ -664,8 +699,7 @@ bool amdgpu_vm_need_pipeline_sync(struct 
-> amdgpu_ring *ring,
-> >        struct amdgpu_vm_id_manager *id_mgr = 
-> &adev->vm_manager.id_mgr[vmhub];
-> >        struct amdgpu_vm_id *id;
-> >        bool gds_switch_needed;
-> > -     bool vm_flush_needed = job->vm_needs_flush ||
-> > -             amdgpu_ring_has_compute_vm_bug(ring);
-> > +     bool vm_flush_needed = job->vm_needs_flush || 
-> ring->has_compute_vm_bug;
-> >
-> >        if (job->vm_id == 0)
-> >                return false;
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> > index 8309bc7..f5dba9c 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> > @@ -245,5 +245,6 @@ void amdgpu_vm_adjust_size(struct amdgpu_device 
-> *adev, uint64_t vm_size);
-> >   int amdgpu_vm_ioctl(struct drm_device *dev, void *data, struct 
-> drm_file *filp);
-> >   bool amdgpu_vm_need_pipeline_sync(struct amdgpu_ring *ring,
-> >                                  struct amdgpu_job *job);
-> > +void amdgpu_vm_check_compute_bug(struct amdgpu_device *adev);
-> >
-> >   #endif
->
->
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------123B8C3BEEF80B4F46C10748
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body bgcolor="#FFFFFF" text="#000000">
-    <p>When you git email-send first time, there is a message-id, when
-      you would send follow up patches, using --in-reply-to="message-id"
-      in your comment line, then that will be in the same thread.</p>
-    <p><br>
-    </p>
-    <p>Cheers,<br>
-    </p>
-    <p>Leo</p>
-    <p><br>
-    </p>
-    <br>
-    <div class="moz-cite-prefix">On 06/01/2017 09:40 AM, Xie, AlexBin
-      wrote:<br>
-    </div>
-    <blockquote
-cite="mid:MWHPR1201MB0045729996FF89B47DCD29A3F2F60-3iK1xFAIwjq45V35fqe+hGrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org"
-      type="cite">
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
-      <div id="divtagdefaultwrapper"
-style="font-size:12pt;color:#000000;font-family:Calibri,Arial,Helvetica,sans-serif;"
-        dir="ltr">
-        <p>Ok. I will add the v2 next time. I did not add the v2 in case
-          this email list does not put the two patches under same
-          thread...<br>
-        </p>
-        <br>
-        <p>-Alex Bin<br>
-        </p>
-        <div style="color: rgb(0, 0, 0);">
-          <div>
-            <hr tabindex="-1" style="display:inline-block; width:98%">
-            <div id="x_divRplyFwdMsg" dir="ltr"><font
-                style="font-size:11pt" color="#000000" face="Calibri,
-                sans-serif"><b>From:</b> Christian König
-                <a class="moz-txt-link-rfc2396E" href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">&lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;</a><br>
-                <b>Sent:</b> Thursday, June 1, 2017 9:26 AM<br>
-                <b>To:</b> Xie, AlexBin; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                <b>Subject:</b> Re: [PATCH] drm/amdgpu: Move compute vm
-                bug logic to amdgpu_vm.c</font>
-              <div> </div>
-            </div>
-          </div>
-          <font size="2"><span style="font-size:10pt;">
-              <div class="PlainText">Am 01.06.2017 um 01:08 schrieb Alex
-                Xie:<br>
-                &gt;    In review, Christian would like to keep the
-                logic<br>
-                &gt;    inside amdgpu_vm.c with a cost of slightly
-                slower.<br>
-                &gt;    The loop is still optimized out with this patch.<br>
-                &gt;<br>
-                &gt; v2: remove the if statement. Now it is not slower.<br>
-                &gt;<br>
-                &gt; Signed-off-by: Alex Xie <a class="moz-txt-link-rfc2396E" href="mailto:AlexBin.Xie-5C7GfCeVMHo@public.gmane.org">&lt;AlexBin.Xie-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-                <br>
-                When you create a v2 of a patch please note that in the
-                subject line as <br>
-                well.<br>
-                <br>
-                Either by using the "-v2" option with "git send-email"
-                or by adding the <br>
-                v2 manually on the subject line.<br>
-                <br>
-                I sometimes get mails twice because they are send to
-                multiple lists I'm <br>
-                registered on and that helps allot seeing that a patch
-                changed and is <br>
-                not just a duplicated mail.<br>
-                <br>
-                Anyway this version is Reviewed-by: Christian König <br>
-                <a class="moz-txt-link-rfc2396E" href="mailto:christian.koeng-5C7GfCeVMHo@public.gmane.org">&lt;christian.koeng-5C7GfCeVMHo@public.gmane.org&gt;</a> as well.<br>
-                <br>
-                Regards,<br>
-                Christian.<br>
-                <br>
-                &gt; ---<br>
-                &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2
-                ++<br>
-                &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c   | 32
-                -------------------------<br>
-                &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h   |  5
-                ----<br>
-                &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c     | 38
-                ++++++++++++++++++++++++++++--<br>
-                &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h     |  1 +<br>
-                &gt;   5 files changed, 39 insertions(+), 39
-                deletions(-)<br>
-                &gt;<br>
-                &gt; diff --git
-                a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-                b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-                &gt; index 89bc34a..2f1a4e9 100644<br>
-                &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-                &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-                &gt; @@ -2227,6 +2227,8 @@ int amdgpu_device_init(struct
-                amdgpu_device *adev,<br>
-                &gt;   <br>
-                &gt;        adev-&gt;accel_working = true;<br>
-                &gt;   <br>
-                &gt; +     amdgpu_vm_check_compute_bug(adev);<br>
-                &gt; +<br>
-                &gt;        /* Initialize the buffer migration limit. */<br>
-                &gt;        if (amdgpu_moverate &gt;= 0)<br>
-                &gt;                max_MBps = amdgpu_moverate;<br>
-                &gt; diff --git
-                a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-                b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c<br>
-                &gt; index 7d95435..31aa51d 100644<br>
-                &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c<br>
-                &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c<br>
-                &gt; @@ -153,36 +153,6 @@ void amdgpu_ring_undo(struct
-                amdgpu_ring *ring)<br>
-                &gt;   }<br>
-                &gt;   <br>
-                &gt;   /**<br>
-                &gt; - * amdgpu_ring_check_compute_vm_bug - check
-                whether this ring has compute vm bug<br>
-                &gt; - *<br>
-                &gt; - * @adev: amdgpu_device pointer<br>
-                &gt; - * @ring: amdgpu_ring structure holding ring
-                information<br>
-                &gt; - */<br>
-                &gt; -static void
-                amdgpu_ring_check_compute_vm_bug(struct amdgpu_device
-                *adev,<br>
-                &gt; -                                     struct
-                amdgpu_ring *ring)<br>
-                &gt; -{<br>
-                &gt; -     const struct amdgpu_ip_block *ip_block;<br>
-                &gt; -<br>
-                &gt; -     ring-&gt;has_compute_vm_bug = false;<br>
-                &gt; -<br>
-                &gt; -     if (ring-&gt;funcs-&gt;type !=
-                AMDGPU_RING_TYPE_COMPUTE)<br>
-                &gt; -             /* only compute rings */<br>
-                &gt; -             return;<br>
-                &gt; -<br>
-                &gt; -     ip_block = amdgpu_get_ip_block(adev,
-                AMD_IP_BLOCK_TYPE_GFX);<br>
-                &gt; -     if (!ip_block)<br>
-                &gt; -             return;<br>
-                &gt; -<br>
-                &gt; -     /* Compute ring has a VM bug for GFX version
-                &lt; 7.<br>
-                &gt; -           And compute ring has a VM bug for GFX 8
-                MEC firmware version &lt; 673.*/<br>
-                &gt; -     if (ip_block-&gt;version-&gt;major &lt;= 7) {<br>
-                &gt; -             ring-&gt;has_compute_vm_bug = true;<br>
-                &gt; -     } else if (ip_block-&gt;version-&gt;major ==
-                8)<br>
-                &gt; -             if (adev-&gt;gfx.mec_fw_version &lt;
-                673)<br>
-                &gt; -                     ring-&gt;has_compute_vm_bug =
-                true;<br>
-                &gt; -}<br>
-                &gt; -<br>
-                &gt; -/**<br>
-                &gt;    * amdgpu_ring_init - init driver ring struct.<br>
-                &gt;    *<br>
-                &gt;    * @adev: amdgpu_device pointer<br>
-                &gt; @@ -288,8 +258,6 @@ int amdgpu_ring_init(struct
-                amdgpu_device *adev, struct amdgpu_ring *ring,<br>
-                &gt;                DRM_ERROR("Failed to register
-                debugfs file for rings !\n");<br>
-                &gt;        }<br>
-                &gt;   <br>
-                &gt; -     amdgpu_ring_check_compute_vm_bug(adev, ring);<br>
-                &gt; -<br>
-                &gt;        return 0;<br>
-                &gt;   }<br>
-                &gt;   <br>
-                &gt; diff --git
-                a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-                b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h<br>
-                &gt; index 334307e..ad399c8 100644<br>
-                &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h<br>
-                &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h<br>
-                &gt; @@ -208,9 +208,4 @@ static inline void
-                amdgpu_ring_clear_ring(struct amdgpu_ring *ring)<br>
-                &gt;   <br>
-                &gt;   }<br>
-                &gt;   <br>
-                &gt; -static inline bool
-                amdgpu_ring_has_compute_vm_bug(struct amdgpu_ring *ring)<br>
-                &gt; -{<br>
-                &gt; -     return ring-&gt;has_compute_vm_bug;<br>
-                &gt; -}<br>
-                &gt; -<br>
-                &gt;   #endif<br>
-                &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-                b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-                &gt; index d4d05a8..6e32748 100644<br>
-                &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-                &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-                &gt; @@ -656,6 +656,41 @@ static int
-                amdgpu_vm_alloc_reserved_vmid(struct amdgpu_device
-                *adev,<br>
-                &gt;        return r;<br>
-                &gt;   }<br>
-                &gt;   <br>
-                &gt; +/**<br>
-                &gt; + * amdgpu_vm_check_compute_bug - check whether
-                asic has compute vm bug<br>
-                &gt; + *<br>
-                &gt; + * @adev: amdgpu_device pointer<br>
-                &gt; + */<br>
-                &gt; +void amdgpu_vm_check_compute_bug(struct
-                amdgpu_device *adev)<br>
-                &gt; +{<br>
-                &gt; +     const struct amdgpu_ip_block *ip_block;<br>
-                &gt; +     bool has_compute_vm_bug;<br>
-                &gt; +     struct amdgpu_ring *ring;<br>
-                &gt; +     int i;<br>
-                &gt; +<br>
-                &gt; +     has_compute_vm_bug = false;<br>
-                &gt; +<br>
-                &gt; +     ip_block = amdgpu_get_ip_block(adev,
-                AMD_IP_BLOCK_TYPE_GFX);<br>
-                &gt; +     if (ip_block) {<br>
-                &gt; +             /* Compute has a VM bug for GFX
-                version &lt; 7.<br>
-                &gt; +                Compute has a VM bug for GFX 8 MEC
-                firmware version &lt; 673.*/<br>
-                &gt; +             if (ip_block-&gt;version-&gt;major
-                &lt;= 7)<br>
-                &gt; +                     has_compute_vm_bug = true;<br>
-                &gt; +             else if
-                (ip_block-&gt;version-&gt;major == 8)<br>
-                &gt; +                     if
-                (adev-&gt;gfx.mec_fw_version &lt; 673)<br>
-                &gt; +                             has_compute_vm_bug =
-                true;<br>
-                &gt; +     }<br>
-                &gt; +<br>
-                &gt; +     for (i = 0; i &lt; adev-&gt;num_rings; i++) {<br>
-                &gt; +             ring = adev-&gt;rings[i];<br>
-                &gt; +             if (ring-&gt;funcs-&gt;type ==
-                AMDGPU_RING_TYPE_COMPUTE)<br>
-                &gt; +                     /* only compute rings */<br>
-                &gt; +                     ring-&gt;has_compute_vm_bug =
-                has_compute_vm_bug;<br>
-                &gt; +             else<br>
-                &gt; +                     ring-&gt;has_compute_vm_bug =
-                false;<br>
-                &gt; +     }<br>
-                &gt; +}<br>
-                &gt; +<br>
-                &gt;   bool amdgpu_vm_need_pipeline_sync(struct
-                amdgpu_ring *ring,<br>
-                &gt;                                  struct amdgpu_job
-                *job)<br>
-                &gt;   {<br>
-                &gt; @@ -664,8 +699,7 @@ bool
-                amdgpu_vm_need_pipeline_sync(struct amdgpu_ring *ring,<br>
-                &gt;        struct amdgpu_vm_id_manager *id_mgr =
-                &amp;adev-&gt;vm_manager.id_mgr[vmhub];<br>
-                &gt;        struct amdgpu_vm_id *id;<br>
-                &gt;        bool gds_switch_needed;<br>
-                &gt; -     bool vm_flush_needed = job-&gt;vm_needs_flush
-                ||<br>
-                &gt; -             amdgpu_ring_has_compute_vm_bug(ring);<br>
-                &gt; +     bool vm_flush_needed = job-&gt;vm_needs_flush
-                || ring-&gt;has_compute_vm_bug;<br>
-                &gt;   <br>
-                &gt;        if (job-&gt;vm_id == 0)<br>
-                &gt;                return false;<br>
-                &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-                b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
-                &gt; index 8309bc7..f5dba9c 100644<br>
-                &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
-                &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
-                &gt; @@ -245,5 +245,6 @@ void
-                amdgpu_vm_adjust_size(struct amdgpu_device *adev,
-                uint64_t vm_size);<br>
-                &gt;   int amdgpu_vm_ioctl(struct drm_device *dev, void
-                *data, struct drm_file *filp);<br>
-                &gt;   bool amdgpu_vm_need_pipeline_sync(struct
-                amdgpu_ring *ring,<br>
-                &gt;                                  struct amdgpu_job
-                *job);<br>
-                &gt; +void amdgpu_vm_check_compute_bug(struct
-                amdgpu_device *adev);<br>
-                &gt;   <br>
-                &gt;   #endif<br>
-                <br>
-                <br>
-              </div>
-            </span></font></div>
-      </div>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------123B8C3BEEF80B4F46C10748--
-
---===============0502309801==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0502309801==--
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+IEZyb206IEh1YW5nIFJ1aSBbbWFpbHRvOnJh
+eS5odWFuZ0BhbWQuY29tXQo+IFNlbnQ6IFRodXJzZGF5LCBKdW5lIDAxLCAyMDE3IDc6MTggQU0K
+PiBUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IERldWNoZXIsIEFsZXhhbmRlcjsg
+S29lbmlnLCBDaHJpc3RpYW4KPiBDYzogV2FuZywgS2VuOyBIdWFuLCBBbHZpbjsgSHVhbmcsIFJh
+eQo+IFN1YmplY3Q6IFtQQVRDSCB2MiAwMC8yMV0gUzMgZm9sbG93aW5nIHVwCj4gCj4gSGkgYWxs
+LAo+IAo+IENoYW5nZXMgZnJvbSBWMSAtPiBWMjoKPiAtIFJlbmFtZSBwdF9yZWdzIHRvIGdhcnRf
+cHRfcmVncywgZGlzX2lkZW50aXR5X2FwZXJ0dXJlIHRvCj4gICBkaXNhYmxlX2lkZW50aXR5X2Fw
+ZXJ0dXJlLgo+IC0gVXNlIHVwcGVyXzMyX2JpdHMvbG93ZXJfMzJfYml0cyBtYWNyb3MuCj4gLSBB
+ZGQgY29tbWVudHMgYW5kIGZpeCAidWludDY0X3QiIGZvciBzdG9sZW4gc2l6ZS4KPiAtIE1lcmdl
+IHBhZ2UgdGFibGUgcmVncyBmdW5jdGlvbiBpbnRvIHBhZ2UgdGFibGUgYXBlcnR1cmUuCj4gLSBB
+ZGQgdGhyZWUgcGF0Y2hlcyB0byB1c2UgUlJFRzMyX1NPQzE1L1dSRUczMl9TT0MxNSBpbnN0ZWFk
+Lgo+IAo+IEkganVzdCBzZW50IHRoZSBtb2RpZmllZCBwYXRjaGVzICgxLCAyLCA3LCAxOCwgMTks
+IDIwLCAyMSkgd2hpY2ggY29tcGFyZWQgd2l0aAo+IHYxLiBPdGhlcnMsIHBsZWFzZSBjaGVjayB2
+MSBzZXQuCgpTZXJpZXMgaXM6ClJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5k
+ZXVjaGVyQGFtZC5jb20+Cgo+IAo+IAo+IFRoZXNlIHBhdGNoZXMgcmVmaW5lcyBnZnhodWIvbW1o
+dWIgcHJvZ3JhbW1pbmcgc2VxdWVuY2UgdG8gbWFrZQo+IHRoZW0gY2xlYXIgYW5kCj4gcmVhZGFi
+bGUuIEFuZCBhY3R1YWxseSwgZ2Z4aHViICsgbW1odWIgPSBHTUN2OSBmb3IgdmVnYTEwLCB3ZSBk
+b24ndCBuZWVkCj4gc3BlY2lmaWMgZ2Z4aHViIGFuZCBtbWh1YiBpcCBibG9ja3MsIGFuZCBtZWFu
+d2hpbGUsIHRoZXkgaGF2ZSBkaWZmZXJlbnQKPiByZXN1bWUKPiBzZXF1ZW5jZSBkdXJpbmcgZ2Z4
+aHViLCBtbWh1YiwgYW5kIGdtYy4gVGhhdCB3aWxsIG1ha2UgdGhpbmcgY29uZnVzZWQKPiBhbmQg
+ZWFzaWx5Cj4gbWlzcyBzb21lIHJlZ2lzdGVyIGNvbmZpZ3JhdGlvbnMuIFNvIHJlbW92ZSBnZnho
+dWIgYW5kIG1taHViIGlwIGJsb2NrCj4gaGVyZSwgYW5kCj4gbWVyZ2UgdGhlbSBpbnRvIEdNQyB2
+OS4KPiAKPiBQYXRjaCAxIC0+IDg6IHJlZmluZSBnZnhodWIvbW1odWIgcHJvZ3JhbW1pbmcgc2Vx
+dWVuY2UKPiBQYXRjaCA5OiBmaXggbWlzc2VkIGludmFsaWRhdGlvbiBhdCByZXN1bWUKPiBQYXRj
+aCAxMCAtPiAxNTogcmVtb3ZlIGdmeGh1Yi9tbWh1YiBpcCBibG9ja3MKPiBQYXRjaCAxNiAtPiAx
+NzogYWRkIHByaW50cyB0byBtYWtlIGlwX2Jsb2NrIG1hc2sgY2xlYXIuCj4gUGF0Y2ggMTg6IGZp
+eCBnYXJ0IHRhYmxlIGNsZWFyZWQgYW5kIG90aGVyIEJPcyBjbGVhcmVkIGlzc3VlIHdoaWNoIGJs
+b2NrZWQgUzMuCj4gCShFeHRlbmQgc3RvbGxlbiBtZW1vcnkgZm9yIFZCSU9TKQo+IFBhdGNoIDE5
+IC0+IDIxOiB1cGRhdGUgZ21jL21taHViL2dmeGh1YiB0byB1c2UKPiBSUkVHMzJfU09DMTUvV1JF
+RzMyX1NPQzE1IG1hY3JvLgo+IAo+IFRoYW5rcywKPiBSYXkKPiAKPiBIdWFuZyBSdWkgKDIxKToK
+PiAgIGRybS9hbWRncHU6IGFic3RyYWN0IGdhcnQgdGFibGUgaW5pdGlhbGl6YXRpb24gZm9yIGdm
+eGh1Yi9tbWh1Ygo+ICAgZHJtL2FtZGdwdTogYWJzdHJhY3QgZ2FydCBhcGVydHVyZSBpbml0aWFs
+aXphdGlvbiBmb3IgZ2Z4aHViL21taHViCj4gICBkcm0vYW1kZ3B1OiBhYnN0cmFjdCBzeXN0ZW0g
+YXBlcnR1cmUgaW5pdGlhbGl6YXRpb24gZm9yIGdmeGh1Yi9tbWh1Ygo+ICAgZHJtL2FtZGdwdTog
+YWJzdHJhY3QgVExCIGluaXRpYWxpemF0aW9uIGZvciBnZnhodWIvbW1odWIKPiAgIGRybS9hbWRn
+cHU6IGFic3RyYWN0IGNhY2hlIGluaXRpYWxpemF0aW9uIGZvciBnZnhodWIvbW1odWIKPiAgIGRy
+bS9hbWRncHU6IGFic3RyYWN0IHN5c3RlbSBkb21haW4gZW5hYmxlbWVudCBmb3IgZ2Z4aHViL21t
+aHViCj4gICBkcm0vYW1kZ3B1OiBhYnN0cmFjdCBkaXNhYmxlIGlkZW50aXR5IGFwZXJ0dXJlIGZv
+ciBnZnhodWIvbW1odWIKPiAgIGRybS9hbWRncHU6IGFic3RyYWN0IHNldHVwIHZtaWQgY29uZmln
+IGZvciBnZnhodWIvbW1odWIKPiAgIGRybS9hbWRncHU6IGZpeCB0byBtaXNzIHByb2dyYW0gaW52
+YWxpZGF0aW9uIGF0IHJlc3VtZQo+ICAgZHJtL2FtZGdwdTogZXhwb3J0IGdmeGh1YiBzd19pbml0
+IGludG8gZ21jCj4gICBkcm0vYW1kZ3B1OiBleHBvcnQgbW1odWIgc3dfaW5pdCBpbnRvIGdtYwo+
+ICAgZHJtL2FtZGdwdTogZXhwb3J0IG1taHViIHNldCBjbG9ja2dhdGluZyBpbnRvIGdtYwo+ICAg
+ZHJtL2FtZGdwdTogZXhwb3J0IG1taHViIGdldCBjbG9ja2dhdGluZyBpbnRvIGdtYwo+ICAgZHJt
+L2FtZGdwdTogcmVtb3ZlIGdmeGh1YiBpcAo+ICAgZHJtL2FtZGdwdTogcmVtb3ZlIG1taHViIGlw
+Cj4gICBkcm0vYW1kZ3B1OiBhZGQgaXAgbmFtZSBwcmludCBmb3Igc2VsZWN0aW5nIGlwcyB3aXRo
+IGlwX2Jsb2NrX21hc2sKPiAgIGRybS9hbWRncHU6IGFkZCBpcCBibG9jayBudW1iZXIgcHJpbnRz
+Cj4gICBkcm0vYW1kZ3B1OiBmaXggdGhlIGdhcnQgdGFibGUgY2xlYXJlZCBpc3N1ZSBmb3IgUzMK
+PiAgIGRybS9hbWRncHU6IHVwZGF0ZSB0byB1c2UgUlJFRzMyX1NPQzE1L1dSRUczMl9TT0MxNSBm
+b3IgZ2Z4aHViCj4gICBkcm0vYW1kZ3B1OiB1cGRhdGUgdG8gdXNlIFJSRUczMl9TT0MxNS9XUkVH
+MzJfU09DMTUgZm9yIG1taHViCj4gICBkcm0vYW1kZ3B1OiB1cGRhdGUgdG8gdXNlIFJSRUczMl9T
+T0MxNS9XUkVHMzJfU09DMTUgZm9yIGdtYzkKPiAKPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1LmggICAgICAgIHwgICAxICsKPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2RldmljZS5jIHwgICA4ICstCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV90dG0uYyAgICB8ICAgMiArLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnho
+dWJfdjFfMC5jICAgfCA0MjQgKysrKysrKysrKystLS0tLS0tLS0KPiAtLS0tLS0KPiAgZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4aHViX3YxXzAuaCAgIHwgICAxICsKPiAgZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y2XzAuYyAgICAgIHwgICAyICsKPiAgZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvZ21jX3Y3XzAuYyAgICAgIHwgICAyICsKPiAgZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvZ21jX3Y4XzAuYyAgICAgIHwgICAyICsKPiAgZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvZ21jX3Y5XzAuYyAgICAgIHwgIDMxICstCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L21taHViX3YxXzAuYyAgICB8IDQ2NiArKysrKysrKysrKystLS0tLS0KPiAtLS0tLS0t
+LS0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9tbWh1Yl92MV8wLmggICAgfCAgIDQg
+Kwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jICAgICAgICAgfCAgIDIgLQo+
+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvYW1kX3NoYXJlZC5oICAgfCAgIDIgLQo+ICAx
+MyBmaWxlcyBjaGFuZ2VkLCA0MDYgaW5zZXJ0aW9ucygrKSwgNTQxIGRlbGV0aW9ucygtKQo+IAo+
+IC0tCj4gMi43LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
