@@ -1,15 +1,14 @@
-From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 00/18] Vega10 S3 following up
-Date: Thu, 1 Jun 2017 10:01:09 +0800
-Message-ID: <20170601020108.GD2951@hr-amur2>
-References: <1496247293-16429-1-git-send-email-ray.huang@amd.com>
- <CY1PR12MB053461B71BE32E7234ECF668FCF10@CY1PR12MB0534.namprd12.prod.outlook.com>
+From: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/4] drm/amdgpu: simplify VM shadow handling
+Date: Thu, 1 Jun 2017 10:19:41 +0800
+Message-ID: <592F79BD.8020801@amd.com>
+References: <1496234326-2581-1-git-send-email-deathsimple@vodafone.de>
+ <1496234326-2581-2-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <CY1PR12MB053461B71BE32E7234ECF668FCF10-1s8aH8ViOEf7axfsnaG19wdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <1496234326-2581-2-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,14 +19,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
-Cc: "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Huan, Alvin" <Alvin.Huan-5C7GfCeVMHo@public.gmane.org>, "Wang, Ken" <Ken.Wang-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gVGh1LCBKdW4gMDEsIDIwMTcgYXQgMDE6MDA6MTZBTSArMDgwMCwgWmhhbmcsIEhhd2tpbmcg
-d3JvdGU6Cj4gSSB3b3VsZCBzdWdnZXN0IHRvIHVzZSBSUkVHMzJfU09DMTUvIFdSRUczMl9TT0Mx
-NSB0byBhdm9pZCBjb2RlIHJlZmFjdG9yCj4gYWdhaW4uLi4KPiAKClJpZ2h0LiBUaGFua3MgdG8g
-cmVtaW5kZXIuIFdpbGwgdXBkYXRlIGl0IGluIG5leHQgdmVyc2lvbi4KClRoYW5rcywKUmF5Cl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
-bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+CgpPbiAyMDE35bm0MDXmnIgzMeaXpSAyMDozOCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBG
+cm9tOiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4KPiBOb3cg
+dGhhdCB3ZSBkb24ndCBqb2luIFBURSB1cGRhdGVzIGFueSBtb3JlIHdlIGRvbid0IG5lZWQgdG8g
+Y2FsbAo+IHRoZSB1cGRhdGUgZnVuY3Rpb24gdHdpY2UgZm9yIHRoaXMuCj4KPiBTaWduZWQtb2Zm
+LWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+ClJldmlld2Vk
+LWJ5OiBDaHVubWluZyBaaG91IDxkYXZpZDEuemhvdUBhbWQuY29tPgoKPiAtLS0KPiAgIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIHwgMjEgKysrKysrKy0tLS0tLS0tLS0t
+LS0tCj4gICAxIGZpbGUgY2hhbmdlZCwgNyBpbnNlcnRpb25zKCspLCAxNCBkZWxldGlvbnMoLSkK
+Pgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4gaW5kZXggYjVlNjJiZC4u
+YjU2ZTI0YSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+dm0uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4gQEAg
+LTc3LDggKzc3LDYgQEAgc3RydWN0IGFtZGdwdV9wdGVfdXBkYXRlX3BhcmFtcyB7Cj4gICAJdm9p
+ZCAoKmZ1bmMpKHN0cnVjdCBhbWRncHVfcHRlX3VwZGF0ZV9wYXJhbXMgKnBhcmFtcywgdWludDY0
+X3QgcGUsCj4gICAJCSAgICAgdWludDY0X3QgYWRkciwgdW5zaWduZWQgY291bnQsIHVpbnQzMl90
+IGluY3IsCj4gICAJCSAgICAgdWludDY0X3QgZmxhZ3MpOwo+IC0JLyogaW5kaWNhdGUgdXBkYXRl
+IHB0IG9yIGl0cyBzaGFkb3cgKi8KPiAtCWJvb2wgc2hhZG93Owo+ICAgfTsKPiAgIAo+ICAgLyog
+SGVscGVyIHRvIGRpc2FibGUgcGFydGlhbCByZXNpZGVudCB0ZXh0dXJlIGZlYXR1cmUgZnJvbSBh
+IGZlbmNlIGNhbGxiYWNrICovCj4gQEAgLTExODEsMjAgKzExNzksMjAgQEAgc3RhdGljIGludCBh
+bWRncHVfdm1fdXBkYXRlX3B0ZXMoc3RydWN0IGFtZGdwdV9wdGVfdXBkYXRlX3BhcmFtcyAqcGFy
+YW1zLAo+ICAgCQkJcmV0dXJuIC1FSU5WQUw7Cj4gICAJCX0KPiAgIAo+IC0JCWlmIChwYXJhbXMt
+PnNoYWRvdykgewo+IC0JCQlpZiAoIXB0LT5zaGFkb3cpCj4gLQkJCQlyZXR1cm4gMDsKPiAtCQkJ
+cHQgPSBwdC0+c2hhZG93Owo+IC0JCX0KPiAtCj4gICAJCWlmICgoYWRkciAmIH5tYXNrKSA9PSAo
+ZW5kICYgfm1hc2spKQo+ICAgCQkJbnB0ZXMgPSBlbmQgLSBhZGRyOwo+ICAgCQllbHNlCj4gICAJ
+CQlucHRlcyA9IEFNREdQVV9WTV9QVEVfQ09VTlQoYWRldikgLSAoYWRkciAmIG1hc2spOwo+ICAg
+Cj4gKwkJaWYgKHB0LT5zaGFkb3cpIHsKPiArCQkJcGVfc3RhcnQgPSBhbWRncHVfYm9fZ3B1X29m
+ZnNldChwdC0+c2hhZG93KTsKPiArCQkJcGVfc3RhcnQgKz0gKGFkZHIgJiBtYXNrKSAqIDg7Cj4g
+KwkJCXBhcmFtcy0+ZnVuYyhwYXJhbXMsIHBlX3N0YXJ0LCBkc3QsIG5wdGVzLAo+ICsJCQkJICAg
+ICBBTURHUFVfR1BVX1BBR0VfU0laRSwgZmxhZ3MpOwo+ICsJCX0KPiArCj4gICAJCXBlX3N0YXJ0
+ID0gYW1kZ3B1X2JvX2dwdV9vZmZzZXQocHQpOwo+ICAgCQlwZV9zdGFydCArPSAoYWRkciAmIG1h
+c2spICogODsKPiAtCj4gICAJCXBhcmFtcy0+ZnVuYyhwYXJhbXMsIHBlX3N0YXJ0LCBkc3QsIG5w
+dGVzLAo+ICAgCQkJICAgICBBTURHUFVfR1BVX1BBR0VfU0laRSwgZmxhZ3MpOwo+ICAgCj4gQEAg
+LTEzOTIsMTEgKzEzOTAsNiBAQCBzdGF0aWMgaW50IGFtZGdwdV92bV9ib191cGRhdGVfbWFwcGlu
+ZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAgIAlpZiAocikKPiAgIAkJZ290byBlcnJv
+cl9mcmVlOwo+ICAgCj4gLQlwYXJhbXMuc2hhZG93ID0gdHJ1ZTsKPiAtCXIgPSBhbWRncHVfdm1f
+ZnJhZ19wdGVzKCZwYXJhbXMsIHN0YXJ0LCBsYXN0ICsgMSwgYWRkciwgZmxhZ3MpOwo+IC0JaWYg
+KHIpCj4gLQkJZ290byBlcnJvcl9mcmVlOwo+IC0JcGFyYW1zLnNoYWRvdyA9IGZhbHNlOwo+ICAg
+CXIgPSBhbWRncHVfdm1fZnJhZ19wdGVzKCZwYXJhbXMsIHN0YXJ0LCBsYXN0ICsgMSwgYWRkciwg
+ZmxhZ3MpOwo+ICAgCWlmIChyKQo+ICAgCQlnb3RvIGVycm9yX2ZyZWU7CgpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
