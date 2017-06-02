@@ -1,58 +1,155 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH libdrm v4 1/1] amdgpu: move asic id table to a separate
- file
-Date: Fri, 2 Jun 2017 12:05:39 +0900
-Message-ID: <b13d7f5c-85ea-aba2-bf1d-66d74f0a6e1b@daenzer.net>
-References: <1496092589-10642-1-git-send-email-Samuel.Li@amd.com>
- <79a6b0a4-edb4-0368-1902-90458b577c1f@daenzer.net>
- <CY1PR1201MB1033195A941CEB02E9E93DB2F5F00@CY1PR1201MB1033.namprd12.prod.outlook.com>
- <d4f0edae-8adf-50b1-e0b0-520b9e368e9c@daenzer.net>
- <CY1PR1201MB10336D98A57C23B8C3DF18A9F5F10@CY1PR1201MB1033.namprd12.prod.outlook.com>
- <4cad0af4-94d0-0a74-7bfc-ef2e63227800@daenzer.net>
- <CY1PR1201MB10333653ACF093A7C38341EEF5F60@CY1PR1201MB1033.namprd12.prod.outlook.com>
+From: Florian Echtler <floe@butterbrot.org>
+Subject: Re: iMac 10,1 with Ubuntu 16.04: black screen after suspend
+Date: Fri, 2 Jun 2017 09:35:38 +0200
+Message-ID: <171a9895-b020-7630-b90c-d166f45e44e3@butterbrot.org>
+References: <30380cb3-0f26-8aea-2689-d4886879129c@butterbrot.org>
+ <20170526210340.GA5114@wunner.de>
+ <1e60811b-a8ac-017c-d350-8a40e4323870@butterbrot.org>
+ <20170530105404.GA29865@wunner.de>
+ <64a4829c-3141-6ff6-9369-6ca9ed0facf4@butterbrot.org>
+ <20170531092145.ytc2d6shpukxziie@wunner.de>
+ <CADnq5_MGWOX47tcvkfjHRxRv_eTbo_kvpVKyTpo8WGNw+xBvPA@mail.gmail.com>
+ <65c88b03-45d7-d67b-2a2c-6c7047a73c80@butterbrot.org>
+ <CADnq5_Mvyz1KUw26Emt8_d_XNeQ=MUqx8WF=iCxa6jagCXNCQQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CY1PR1201MB10333653ACF093A7C38341EEF5F60-JBJ/M6OpXY+2VhmsawAdvGrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Li, Samuel" <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Yuan,
- Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+Content-Type: multipart/signed; micalg=pgp-sha1;
+ protocol="application/pgp-signature";
+ boundary="WumoKffSbhTiakL6BJdFBuJELq6kt8U8o"
+Return-path: <linux-acpi-owner@vger.kernel.org>
+In-Reply-To: <CADnq5_Mvyz1KUw26Emt8_d_XNeQ=MUqx8WF=iCxa6jagCXNCQQ@mail.gmail.com>
+Sender: linux-acpi-owner@vger.kernel.org
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Lukas Wunner <lukas@wunner.de>, "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMDEvMDYvMTcgMTE6MjcgUE0sIExpLCBTYW11ZWwgd3JvdGU6Cj4+IElmIGFtZGdwdS5pZHMg
-bGl2aW5nIGluIHRoZSBhbWRncHUgZGlyZWN0b3J5IHByZXZlbnRzIGl0IGZyb20gYmVpbmcgdXNl
-ZCBieSBsaWJkcm1fcmFkZW9uICh3aHk/KSwgbGV0J3MgcHV0IGl0IGluIGEgbmV3IHRvcGxldmVs
-IGRpcmVjdG9yeSwgZS5nLgo+PiAiZGF0YSIuCj4+PiBSRUFETUUgaXMgYWxzbyBsb2NhdGVkIGlu
-IHRoaXMgZGlyZWN0b3J5Lgo+PiBOb3QgdGhlIHNhbWUgdGhpbmcuIEl0IGRvY3VtZW50cyB0aGlu
-Z3MgYWJvdXQgdGhlIGhlYWRlciBmaWxlcywgYW5kIGRvZXNuJ3QgZ2V0IGluc3RhbGxlZCBhbnl3
-aGVyZS4KPiBJIHRoaW5rIHRoYXQgaXMgYSBwZXJzb25hbCBwcmVmZXJlbmNlLgoKSWYgeW91J3Jl
-IHJlZmVycmluZyB0byBuYW1pbmcgdGhlIG5ldyBkaXJlY3RvcnkgImRhdGEiLCB0aGF0J3MganVz
-dCBhCnN1Z2dlc3Rpb24uIEFub3RoZXIgcG9zc2liaWxpdHkgaXMgdG8gc2ltcGx5IHB1dCBpdCBp
-biB0aGUgdG9wbGV2ZWwKZGlyZWN0b3J5LgoKV2hhdCBJIHdyb3RlIGFib3V0IGluY2x1ZGUvZHJt
-L1JFQURNRSBpcyBlYXNpbHkgdmVyaWZpYWJsZSBmYWN0LgoKCj4+PiBNeSBwcmVmZXJlbmNlIGlz
-IHRvIHBhc3MgdGhlIG5hbWVzIG9ubHksIG5vdCB0byBhdWRpdCBmcm9tIGEgY29kZXIncyAKPj4+
-IHZpZXcgLi4uCj4+IFRoYXQncyBub3QgaG93IHdlIGRvIHRoaW5ncy4KPiBJdCBpcyBhIGRhdGEg
-ZmlsZSwgbm90IHJlYWxseSBhIHBhcnQgb2YgY29kZS4KClRoZXJlIGlzIG5vdGhpbmcgbWFnaWMg
-YWJvdXQgaXQuIEl0J3Mgc3ViamVjdCB0byB0aGUgcmV2aWV3IHByb2Nlc3MganVzdApsaWtlIGFu
-eSBvdGhlciBmaWxlIGluIHRoZSByZXBvc2l0b3J5LgoKQlRXLCBpZiB5b3UgcHV0IHRoZSBmaWxl
-IG91dHNpZGUgb2YgdGhlIGFtZGdwdSBkaXJlY3RvcnksIHlvdSBzaG91bGQKc2VuZCB0aGUgcGF0
-Y2ggdG8gdGhlIGRyaS1kZXZlbCBtYWlsaW5nIGxpc3QgZm9yIHJldmlldyBhcyB3ZWxsLgoKCj4g
-SXQgc2hhbGwgYmUgeW91ciBwcmVmZXJlbmNlIHRvIGRlY2lkZSBob3cgbXVjaCB0aW1lIHlvdSB3
-b3VsZCBsaWtlIHRvCj4gc3BlbmQgaW4gYXVkaXRpbmcgdGhlIG5hbWVzIDopCgpJdCBzaG91bGRu
-J3QgdGFrZSBhcyBtdWNoIHRpbWUgYXMgd2UndmUgc3BlbnQgdGFsa2luZyBhYm91dCBpdCBpbiB0
-aGlzCnRocmVhZC4gOn0KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAgICAg
-ICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRo
-dXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
-aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
-ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--WumoKffSbhTiakL6BJdFBuJELq6kt8U8o
+Content-Type: multipart/mixed; boundary="AvD5qcvMQP9xBDqBARk3PsMqxxT6A0Wbv";
+ protected-headers="v1"
+From: Florian Echtler <floe@butterbrot.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Lukas Wunner <lukas@wunner.de>,
+ "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+Message-ID: <171a9895-b020-7630-b90c-d166f45e44e3@butterbrot.org>
+Subject: Re: iMac 10,1 with Ubuntu 16.04: black screen after suspend
+References: <30380cb3-0f26-8aea-2689-d4886879129c@butterbrot.org>
+ <20170526210340.GA5114@wunner.de>
+ <1e60811b-a8ac-017c-d350-8a40e4323870@butterbrot.org>
+ <20170530105404.GA29865@wunner.de>
+ <64a4829c-3141-6ff6-9369-6ca9ed0facf4@butterbrot.org>
+ <20170531092145.ytc2d6shpukxziie@wunner.de>
+ <CADnq5_MGWOX47tcvkfjHRxRv_eTbo_kvpVKyTpo8WGNw+xBvPA@mail.gmail.com>
+ <65c88b03-45d7-d67b-2a2c-6c7047a73c80@butterbrot.org>
+ <CADnq5_Mvyz1KUw26Emt8_d_XNeQ=MUqx8WF=iCxa6jagCXNCQQ@mail.gmail.com>
+In-Reply-To: <CADnq5_Mvyz1KUw26Emt8_d_XNeQ=MUqx8WF=iCxa6jagCXNCQQ@mail.gmail.com>
+
+--AvD5qcvMQP9xBDqBARk3PsMqxxT6A0Wbv
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-GB
+Content-Transfer-Encoding: quoted-printable
+
+On 01.06.2017 19:53, Alex Deucher wrote:
+> On Thu, Jun 1, 2017 at 4:27 AM, Florian Echtler <floe@butterbrot.org> w=
+rote:
+>> On 31.05.2017 14:57, Alex Deucher wrote:
+>>> On Wed, May 31, 2017 at 5:21 AM, Lukas Wunner <lukas@wunner.de> wrote=
+:
+>>
+>> Here's the (substantial) dmesg output, with drm.debug=3D0xf:
+>> http://floe.butterbrot.org/external/radeon/dmesg_after_suspend
+>>
+>> I haven't been able to find any references to link training, though.
+>=20
+> I need your dmesg from boot to confirm the display topology, but eDP
+> with r7xx asics was pretty rare.  I suspect your system just uses
+> LVDS; as such there is no link training involved.
+
+I've updated the trace with increased log_buf_len so nothing is truncated=
+:
+
+http://floe.butterbrot.org/external/radeon/dmesg_after_suspend.txt
+
+(trace now contains a full boot including suspend and wakeup)
+
+However, what I'm seeing now does sound like the internal connection is i=
+ndeed eDP:
+
+[  166.816162] [drm:drm_mode_setcrtc] [CRTC:34:crtc-0]
+[  166.816166] [drm:drm_mode_setcrtc] [CONNECTOR:40:eDP-1]
+[  166.816167] [drm:drm_crtc_helper_set_config]
+[  166.816169] [drm:drm_crtc_helper_set_config] [CRTC:34:crtc-0] [FB:54]
+#connectors=3D1 (x y) (0 0)
+[  166.816170] [drm:drm_crtc_helper_set_config] crtc has no fb, full mode=
+ set
+[  166.816172] [drm:drm_mode_object_reference] OBJ ID: 40 (4)
+[  166.816173] [drm:drm_crtc_helper_set_config] encoder changed, full mod=
+e switch
+[  166.816174] [drm:drm_crtc_helper_set_config] crtc changed, full mode s=
+witch
+[  166.816174] [drm:drm_crtc_helper_set_config] [CONNECTOR:40:eDP-1] to
+[CRTC:34:crtc-0]
+[  166.816175] [drm:drm_crtc_helper_set_config] attempting to set mode fr=
+om
+userspace
+[  166.816177] [drm:drm_mode_debug_printmodeline] Modeline 65:"" 0 241500=
+ 2560
+2608 2640 2720 1440 1443 1448 1481 0x0 0x9
+[  166.816180] [drm:radeon_encoder_set_active_device] setting active devi=
+ce to
+00000002 from 00000002 00000002 for encoder 3
+[  166.816183] [drm:radeon_get_monitor_bpc] eDP-1: Display bpc=3D8, retur=
+ned bpc=3D8
+[  166.816185] [drm:drm_detect_monitor_audio] Monitor has basic audio sup=
+port
+[  166.816186] [drm:radeon_get_monitor_bpc] eDP-1: Display bpc=3D8, retur=
+ned bpc=3D8
+[  166.816188] [drm:drm_detect_monitor_audio] Monitor has basic audio sup=
+port
+[  166.816192] [drm:drm_crtc_helper_set_mode] [CRTC:34:crtc-0]
+[  166.816208] [drm:radeon_get_monitor_bpc] eDP-1: Display bpc=3D8, retur=
+ned bpc=3D8
+[  166.816210] [drm:radeon_atom_encoder_dpms] encoder dpms 30 to mode 3, =
+devices
+00000008, active_devices 00000000
+[  166.816213] [drm:radeon_atom_encoder_dpms] encoder dpms 22 to mode 3, =
+devices
+00000010, active_devices 00000000
+[  166.816235] [drm:drm_detect_monitor_audio] Monitor has basic audio sup=
+port
+[  166.816237] [drm:radeon_compute_pll_avivo] 360000 - 360000, pll divide=
+rs -
+fb: 80.0 ref: 2, post 3
+[  166.824475] done.
+
+=2E.. and a bit later:
+
+[  166.853787] [drm:radeon_dp_link_train_cr] clock recovery at voltage 0
+pre-emphasis 0
+[  166.853788] [drm:drm_detect_monitor_audio] Monitor has basic audio sup=
+port
+[  166.855953] [drm:radeon_dp_link_train_ce] channel eq at voltage 0 pre-=
+emphasis 0
+
+Best, Florian
+--=20
+SENT FROM MY DEC VT50 TERMINAL
+
+
+--AvD5qcvMQP9xBDqBARk3PsMqxxT6A0Wbv--
+
+--WumoKffSbhTiakL6BJdFBuJELq6kt8U8o
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iEYEARECAAYFAlkxFUoACgkQ7CzyshGvatj1LgCdGn/WK7BwWirIWk+Zkw7ayKl7
+37EAoJveAn8CP/bQi2kUTJY3tiRfZPt7
+=MOjT
+-----END PGP SIGNATURE-----
+
+--WumoKffSbhTiakL6BJdFBuJELq6kt8U8o--
