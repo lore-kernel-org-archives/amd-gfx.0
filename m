@@ -1,72 +1,117 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/powerplay: fix populate dpm level failed when s3
- on vega10.
-Date: Fri, 2 Jun 2017 14:51:39 +0000
-Message-ID: <BN6PR12MB16520129630A7E9BB310515BF7F70@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <1496405959-5046-1-git-send-email-Rex.Zhu@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: iMac 10,1 with Ubuntu 16.04: black screen after suspend
+Date: Fri, 2 Jun 2017 11:12:50 -0400
+Message-ID: <CADnq5_P_H8ZZXnXOoUcxNOFece3BRyzhZh2Z3mkw53eA20KiMQ@mail.gmail.com>
+References: <30380cb3-0f26-8aea-2689-d4886879129c@butterbrot.org>
+ <20170526210340.GA5114@wunner.de> <1e60811b-a8ac-017c-d350-8a40e4323870@butterbrot.org>
+ <20170530105404.GA29865@wunner.de> <64a4829c-3141-6ff6-9369-6ca9ed0facf4@butterbrot.org>
+ <20170531092145.ytc2d6shpukxziie@wunner.de> <CADnq5_MGWOX47tcvkfjHRxRv_eTbo_kvpVKyTpo8WGNw+xBvPA@mail.gmail.com>
+ <65c88b03-45d7-d67b-2a2c-6c7047a73c80@butterbrot.org> <CADnq5_Mvyz1KUw26Emt8_d_XNeQ=MUqx8WF=iCxa6jagCXNCQQ@mail.gmail.com>
+ <171a9895-b020-7630-b90c-d166f45e44e3@butterbrot.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1496405959-5046-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-acpi-owner@vger.kernel.org>
+In-Reply-To: <171a9895-b020-7630-b90c-d166f45e44e3@butterbrot.org>
+Sender: linux-acpi-owner@vger.kernel.org
+To: Florian Echtler <floe@butterbrot.org>
+Cc: Lukas Wunner <lukas@wunner.de>, "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
-LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIFJleCBa
-aHUNCj4gU2VudDogRnJpZGF5LCBKdW5lIDAyLCAyMDE3IDg6MTkgQU0NCj4gVG86IGFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IENjOiBaaHUsIFJleA0KPiBTdWJqZWN0OiBbUEFUQ0hd
-IGRybS9hbWQvcG93ZXJwbGF5OiBmaXggcG9wdWxhdGUgZHBtIGxldmVsIGZhaWxlZCB3aGVuIHMz
-DQo+IG9uIHZlZ2ExMC4NCj4gDQo+IEFzIHRoZSBtaW4gY2xrIG1heSBiZSAgbGFyZ2UgdGhhbiBi
-b290IGxldmVsIGNhbiBzdXBwb3J0Lg0KPiBpbiB0aGlzIGNhc2UsIGp1c3QgaWdub3JlIHRoZSBt
-aW4gY2xrLg0KPiANCj4gQ2hhbmdlLUlkOiBJNGZiNmM3YjI2OWRjNTE3ZWY0ZmU3N2E3Mjg4ZTk2
-NDBiZDBiZDYzYQ0KPiBTaWduZWQtb2ZmLWJ5OiBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+DQoN
-ClJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQoN
-Cj4gLS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfaHdt
-Z3IuYyB8IDEzICsrKysrKy0tLS0NCj4gLS0tDQo+ICAxIGZpbGUgY2hhbmdlZCwgNiBpbnNlcnRp
-b25zKCspLCA3IGRlbGV0aW9ucygtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9od21nci5jDQo+IGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdyLmMNCj4gaW5kZXggYTE4ZDI0YTcuLjY5
-MWIzOTkgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdy
-L3ZlZ2ExMF9od21nci5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3
-bWdyL3ZlZ2ExMF9od21nci5jDQo+IEBAIC0zMTE5LDExICszMTE5LDEwIEBAIHN0YXRpYyBpbnQg
-dmVnYTEwX2FwcGx5X3N0YXRlX2FkanVzdF9ydWxlcyhzdHJ1Y3QNCj4gcHBfaHdtZ3IgKmh3bWdy
-LA0KPiAgCXZlZ2ExMF9wcy0+cGVyZm9ybWFuY2VfbGV2ZWxzWzBdLmdmeF9jbG9jayA9IHNjbGs7
-DQo+ICAJdmVnYTEwX3BzLT5wZXJmb3JtYW5jZV9sZXZlbHNbMF0ubWVtX2Nsb2NrID0gbWNsazsN
-Cj4gDQo+IC0JdmVnYTEwX3BzLT5wZXJmb3JtYW5jZV9sZXZlbHNbMV0uZ2Z4X2Nsb2NrID0NCj4g
-LQkJKHZlZ2ExMF9wcy0+cGVyZm9ybWFuY2VfbGV2ZWxzWzFdLmdmeF9jbG9jayA+PQ0KPiAtCQkJ
-CXZlZ2ExMF9wcy0NCj4gPnBlcmZvcm1hbmNlX2xldmVsc1swXS5nZnhfY2xvY2spID8NCj4gLQkJ
-CQkJCXZlZ2ExMF9wcy0NCj4gPnBlcmZvcm1hbmNlX2xldmVsc1sxXS5nZnhfY2xvY2sgOg0KPiAt
-CQkJCQkJdmVnYTEwX3BzLQ0KPiA+cGVyZm9ybWFuY2VfbGV2ZWxzWzBdLmdmeF9jbG9jazsNCj4g
-KwlpZiAodmVnYTEwX3BzLT5wZXJmb3JtYW5jZV9sZXZlbHNbMV0uZ2Z4X2Nsb2NrIDwNCj4gKwkJ
-CXZlZ2ExMF9wcy0+cGVyZm9ybWFuY2VfbGV2ZWxzWzBdLmdmeF9jbG9jaykNCj4gKwkJdmVnYTEw
-X3BzLT5wZXJmb3JtYW5jZV9sZXZlbHNbMF0uZ2Z4X2Nsb2NrID0NCj4gKwkJCQl2ZWdhMTBfcHMt
-DQo+ID5wZXJmb3JtYW5jZV9sZXZlbHNbMV0uZ2Z4X2Nsb2NrOw0KPiANCj4gIAlpZiAoZGlzYWJs
-ZV9tY2xrX3N3aXRjaGluZykgew0KPiAgCQkvKiBTZXQgTWNsayB0aGUgbWF4IG9mIGxldmVsIDAg
-YW5kIGxldmVsIDEgKi8NCj4gQEAgLTMxNDYsOCArMzE0NSw4IEBAIHN0YXRpYyBpbnQgdmVnYTEw
-X2FwcGx5X3N0YXRlX2FkanVzdF9ydWxlcyhzdHJ1Y3QNCj4gcHBfaHdtZ3IgKmh3bWdyLA0KPiAg
-CX0gZWxzZSB7DQo+ICAJCWlmICh2ZWdhMTBfcHMtPnBlcmZvcm1hbmNlX2xldmVsc1sxXS5tZW1f
-Y2xvY2sgPA0KPiAgCQkJCXZlZ2ExMF9wcy0NCj4gPnBlcmZvcm1hbmNlX2xldmVsc1swXS5tZW1f
-Y2xvY2spDQo+IC0JCQl2ZWdhMTBfcHMtPnBlcmZvcm1hbmNlX2xldmVsc1sxXS5tZW1fY2xvY2sg
-PQ0KPiAtCQkJCQl2ZWdhMTBfcHMtDQo+ID5wZXJmb3JtYW5jZV9sZXZlbHNbMF0ubWVtX2Nsb2Nr
-Ow0KPiArCQkJdmVnYTEwX3BzLT5wZXJmb3JtYW5jZV9sZXZlbHNbMF0ubWVtX2Nsb2NrID0NCj4g
-KwkJCQkJdmVnYTEwX3BzLQ0KPiA+cGVyZm9ybWFuY2VfbGV2ZWxzWzFdLm1lbV9jbG9jazsNCj4g
-IAl9DQo+IA0KPiAgCWlmIChwaG1fY2FwX2VuYWJsZWQoaHdtZ3ItPnBsYXRmb3JtX2Rlc2NyaXB0
-b3IucGxhdGZvcm1DYXBzLA0KPiAtLQ0KPiAxLjkuMQ0KPiANCj4gX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4g
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2FtZC1nZngK
+On Fri, Jun 2, 2017 at 3:35 AM, Florian Echtler <floe@butterbrot.org> wrote:
+> On 01.06.2017 19:53, Alex Deucher wrote:
+>> On Thu, Jun 1, 2017 at 4:27 AM, Florian Echtler <floe@butterbrot.org> wrote:
+>>> On 31.05.2017 14:57, Alex Deucher wrote:
+>>>> On Wed, May 31, 2017 at 5:21 AM, Lukas Wunner <lukas@wunner.de> wrote:
+>>>
+>>> Here's the (substantial) dmesg output, with drm.debug=0xf:
+>>> http://floe.butterbrot.org/external/radeon/dmesg_after_suspend
+>>>
+>>> I haven't been able to find any references to link training, though.
+>>
+>> I need your dmesg from boot to confirm the display topology, but eDP
+>> with r7xx asics was pretty rare.  I suspect your system just uses
+>> LVDS; as such there is no link training involved.
+>
+> I've updated the trace with increased log_buf_len so nothing is truncated:
+>
+> http://floe.butterbrot.org/external/radeon/dmesg_after_suspend.txt
+>
+> (trace now contains a full boot including suspend and wakeup)
+>
+> However, what I'm seeing now does sound like the internal connection is indeed eDP:
+>
+> [  166.816162] [drm:drm_mode_setcrtc] [CRTC:34:crtc-0]
+> [  166.816166] [drm:drm_mode_setcrtc] [CONNECTOR:40:eDP-1]
+> [  166.816167] [drm:drm_crtc_helper_set_config]
+> [  166.816169] [drm:drm_crtc_helper_set_config] [CRTC:34:crtc-0] [FB:54]
+> #connectors=1 (x y) (0 0)
+> [  166.816170] [drm:drm_crtc_helper_set_config] crtc has no fb, full mode set
+> [  166.816172] [drm:drm_mode_object_reference] OBJ ID: 40 (4)
+> [  166.816173] [drm:drm_crtc_helper_set_config] encoder changed, full mode switch
+> [  166.816174] [drm:drm_crtc_helper_set_config] crtc changed, full mode switch
+> [  166.816174] [drm:drm_crtc_helper_set_config] [CONNECTOR:40:eDP-1] to
+> [CRTC:34:crtc-0]
+> [  166.816175] [drm:drm_crtc_helper_set_config] attempting to set mode from
+> userspace
+> [  166.816177] [drm:drm_mode_debug_printmodeline] Modeline 65:"" 0 241500 2560
+> 2608 2640 2720 1440 1443 1448 1481 0x0 0x9
+> [  166.816180] [drm:radeon_encoder_set_active_device] setting active device to
+> 00000002 from 00000002 00000002 for encoder 3
+> [  166.816183] [drm:radeon_get_monitor_bpc] eDP-1: Display bpc=8, returned bpc=8
+> [  166.816185] [drm:drm_detect_monitor_audio] Monitor has basic audio support
+> [  166.816186] [drm:radeon_get_monitor_bpc] eDP-1: Display bpc=8, returned bpc=8
+> [  166.816188] [drm:drm_detect_monitor_audio] Monitor has basic audio support
+> [  166.816192] [drm:drm_crtc_helper_set_mode] [CRTC:34:crtc-0]
+> [  166.816208] [drm:radeon_get_monitor_bpc] eDP-1: Display bpc=8, returned bpc=8
+> [  166.816210] [drm:radeon_atom_encoder_dpms] encoder dpms 30 to mode 3, devices
+> 00000008, active_devices 00000000
+> [  166.816213] [drm:radeon_atom_encoder_dpms] encoder dpms 22 to mode 3, devices
+> 00000010, active_devices 00000000
+> [  166.816235] [drm:drm_detect_monitor_audio] Monitor has basic audio support
+> [  166.816237] [drm:radeon_compute_pll_avivo] 360000 - 360000, pll dividers -
+> fb: 80.0 ref: 2, post 3
+> [  166.824475] done.
+
+Yes it is eDP:
+
+[    3.197364] [drm] Radeon Display Connectors
+[    3.197365] [drm] Connector 0:
+[    3.197365] [drm]   DP-1
+[    3.197366] [drm]   HPD1
+[    3.197367] [drm]   DDC: 0x7e40 0x7e40 0x7e44 0x7e44 0x7e48 0x7e48
+0x7e4c 0x7e4c
+[    3.197367] [drm]   Encoders:
+[    3.197368] [drm]     DFP1: INTERNAL_UNIPHY
+[    3.197369] [drm] Connector 1:
+[    3.197369] [drm]   eDP-1
+[    3.197370] [drm]   HPD2
+[    3.197371] [drm]   DDC: 0x7e50 0x7e50 0x7e54 0x7e54 0x7e58 0x7e58
+0x7e5c 0x7e5c
+[    3.197371] [drm]   Encoders:
+[    3.197372] [drm]     LCD1: INTERNAL_UNIPHY
+[    3.197372] [drm] Connector 2:
+[    3.197372] [drm]   VGA-1
+[    3.197373] [drm]   DDC: 0x7f10 0x7f10 0x7f14 0x7f14 0x7f18 0x7f18
+0x7f1c 0x7f1c
+[    3.197374] [drm]   Encoders:
+[    3.197374] [drm]     CRT2: INTERNAL_KLDSCP_DAC2
+
+
+>
+> ... and a bit later:
+>
+> [  166.853787] [drm:radeon_dp_link_train_cr] clock recovery at voltage 0
+> pre-emphasis 0
+> [  166.853788] [drm:drm_detect_monitor_audio] Monitor has basic audio support
+> [  166.855953] [drm:radeon_dp_link_train_ce] channel eq at voltage 0 pre-emphasis 0
+>
+
+Yes, the link training appears to complete fine.  I guess it's
+something to do with the proprietary mux or backlight controls.
+
+Alex
+
+> Best, Florian
+> --
+> SENT FROM MY DEC VT50 TERMINAL
+>
