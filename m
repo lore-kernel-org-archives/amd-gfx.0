@@ -1,169 +1,57 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple@vodafone.de>
-Subject: Re: [PATCH v6 5/5] drm/amdgpu: resize VRAM BAR for CPU access v2
-Date: Fri, 2 Jun 2017 11:32:21 +0200
-Message-ID: <72e061a5-9684-06e2-3021-80de8ca97bd7@vodafone.de>
-References: <1494348547-1465-1-git-send-email-deathsimple@vodafone.de>
- <1494348547-1465-6-git-send-email-deathsimple@vodafone.de>
- <20170601201430.GC12257@bhelgaas-glaptop.roam.corp.google.com>
+From: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/powerplay: fix populate dpm level failed when s3 on
+ vega10.
+Date: Fri, 2 Jun 2017 20:19:19 +0800
+Message-ID: <1496405959-5046-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-pci-owner@vger.kernel.org>
-In-Reply-To: <20170601201430.GC12257@bhelgaas-glaptop.roam.corp.google.com>
-Content-Language: en-US
-Sender: linux-pci-owner@vger.kernel.org
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: linux-pci@vger.kernel.org, platform-driver-x86@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
-Hi Bjorn,
-
-sorry for not responding earlier and thanks for picking this thread up 
-again.
-
-Am 01.06.2017 um 22:14 schrieb Bjorn Helgaas:
-> [+cc ADMGPU, DRM folks]
->
-> On Tue, May 09, 2017 at 06:49:07PM +0200, Christian König wrote:
->> [SNIP]
->> +/**
->> + * amdgpu_resize_bar0 - try to resize BAR0
->> + *
->> + * @adev: amdgpu_device pointer
->> + *
->> + * Try to resize BAR0 to make all VRAM CPU accessible.
->> + */
->> +void amdgpu_resize_bar0(struct amdgpu_device *adev)
->> +{
->> +	u64 space_needed = roundup_pow_of_two(adev->mc.real_vram_size);
->> +	u32 rbar_size = order_base_2(((space_needed >> 20) | 1)) -1;
->> +	u16 cmd;
->> +	int r;
->> +
->> +	/* Free the doorbell mapping, it most likely needs to move as well */
->> +	amdgpu_doorbell_fini(adev);
->> +	pci_release_resource(adev->pdev, 2);
->> +
->> +	/* Disable memory decoding while we change the BAR addresses and size */
->> +	pci_read_config_word(adev->pdev, PCI_COMMAND, &cmd);
->> +	pci_write_config_word(adev->pdev, PCI_COMMAND,
->> +			      cmd & ~PCI_COMMAND_MEMORY);
->> +
->> +	r = pci_resize_resource(adev->pdev, 0, rbar_size);
->> +	if (r == -ENOSPC)
->> +		DRM_INFO("Not enough PCI address space for a large BAR.");
->> +	else if (r && r != -ENOTSUPP)
->> +		DRM_ERROR("Problem resizing BAR0 (%d).", r);
->> +
->> +	pci_write_config_word(adev->pdev, PCI_COMMAND, cmd);
->> +
->> +	/* When the doorbell BAR isn't available we have no chance of
->> +	 * using the device.
->> +	 */
->> +	BUG_ON(amdgpu_doorbell_init(adev));
-> This amdgpu_doorbell_fini()/amdgpu_doorbell_init() thing doesn't look
-> right.  amdgpu_device_init() only calls amdgpu_doorbell_init() for
-> "adev->asic_type >= CHIP_BONAIRE", but we call it unconditionally
-> here.
->
-> This is the call graph:
->
->    amdgpu_device_init
->      adev->rmmio_base = pci_resource_start(adev->pdev, 5)   # 2 for < BONAIRE
->      adev->rmmio = ioremap(adev->rmmio_base, ...)
->      DRM_INFO("register mmio base: 0x%08X\n", (uint32_t)adev->rmmio_base)
->      if (adev->asic_type >= CHIP_BONAIRE) {
->        amdgpu_doorbell_init
-> 	adev->doorbell.base = pci_resource_start(adev->pdev, 2)
-> 	adev->doorbell.ptr = ioremap(adev->doorbell.base, ...)
->      }
->      amdgpu_init
->        gmc_v7_0_sw_init              # gmc_v7_0_ip_funcs.sw_init
-> 	gmc_v7_0_mc_init
->    +         amdgpu_resize_bar0
->    +           amdgpu_doorbell_fini
->    +           pci_release_resource(adev->pdev, 2)
->    +           pci_resize_resource(adev->pdev, 0, size)
->    +           amdgpu_doorbell_init
-> 	  adev->mc.aper_base = pci_resource_start(adev->pdev, 0)
->
-> If "asic_type < CHIP_BONAIRE", we ioremapped BAR 2 in
-> amdgpu_device_init(), then we released the resource here and never
-> updated the ioremap.
-
-The first hardware with a resizeable BAR I could find is a Tonga, and 
-that is even a generation later than Bonaire.
-
-So we are never going to call this code on earlier hardware generations.
-
-But I think I will just move the asic_type check into the function to be 
-absolute sure.
-
->  From the PCI core perspective, it would be much cleaner to do the BAR
-> resize before the driver calls pci_enable_device().  If that could be
-> done, there would be no need for this sort of shutdown/reinit stuff
-> and we wouldn't have to worry about issues like these.  The amdgpu
-> init path is pretty complicated, so I don't know whether this is
-> possible.
-
-I completely agree on this and it is actually the approach I tried first.
-
-There are just two problems with this approach:
-1. When the amdgpu driver is loaded there can already be the VGA 
-console, Vesa or EFI driver active for the device and displaying the 
-splash screen.
-
-When we resize and most likely relocate the BAR while those drivers are 
-active it will certainly cause problems.
-
-What amdgpu does before trying to resize the BAR is kicking out other 
-driver and making sure it has exclusive access to the hardware.
-
-2. Without taking a look at the registers you don't know how much memory 
-there actually is on the board.
-
-We could always resize it to the maximum supported, but that would mean 
-we could easily waste 128GB of address space while the hardware only has 
-8GB of VRAM.
-
-That would not necessarily hurt us when we have enough address space, 
-but at least kind of sucks.
-
-> I would also like to simplify the driver usage model and get the
-> PCI_COMMAND_MEMORY twiddling into the PCI core instead of the driver.
-> Ideally, the driver would do something like this:
->
->    pci_resize_resource(adev->pdev, 0, rbar_size);
->    pci_enable_device(adev->pdev);
->
-> And the PCI core would be something along these lines:
->
->    int pci_resize_resource(dev, bar, size)
->    {
->      if (pci_is_enabled(dev))
->        return -EBUSY;
->
->      pci_disable_decoding(dev);          # turn off MEM, IO decoding
->      pci_release_resources(dev);         # (all of them)
->      err = pci_resize_bar(dev, bar, size);     # change BAR size (only)
->      if (err)
->        return err;
->
->      pci_assign_resources(dev);          # reassign all "dev" resources
->      return 0;
->    }
-
-I already tried the approach with releasing all resources, but it didn't 
-worked so well.
-
-When resizing fails because we don't have enough address space then we 
-at least want to get back to a working config.
-
-Releasing everything makes that rather tricky, since I would then need 
-to keep a backup of the old config and try to restore it.
-
-Additional to that I'm not sure if releasing the register BAR and 
-relocating it works with amdgpu.
-
-Regards,
-Christian.
+QXMgdGhlIG1pbiBjbGsgbWF5IGJlICBsYXJnZSB0aGFuIGJvb3QgbGV2ZWwgY2FuIHN1cHBvcnQu
+CmluIHRoaXMgY2FzZSwganVzdCBpZ25vcmUgdGhlIG1pbiBjbGsuCgpDaGFuZ2UtSWQ6IEk0ZmI2
+YzdiMjY5ZGM1MTdlZjRmZTc3YTcyODhlOTY0MGJkMGJkNjNhClNpZ25lZC1vZmYtYnk6IFJleCBa
+aHUgPFJleC5aaHVAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9o
+d21nci92ZWdhMTBfaHdtZ3IuYyB8IDEzICsrKysrKy0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCA2
+IGluc2VydGlvbnMoKyksIDcgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfaHdtZ3IuYwppbmRleCBhMThkMjRhNy4uNjkxYjM5
+OSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEw
+X2h3bWdyLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEw
+X2h3bWdyLmMKQEAgLTMxMTksMTEgKzMxMTksMTAgQEAgc3RhdGljIGludCB2ZWdhMTBfYXBwbHlf
+c3RhdGVfYWRqdXN0X3J1bGVzKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsCiAJdmVnYTEwX3BzLT5w
+ZXJmb3JtYW5jZV9sZXZlbHNbMF0uZ2Z4X2Nsb2NrID0gc2NsazsKIAl2ZWdhMTBfcHMtPnBlcmZv
+cm1hbmNlX2xldmVsc1swXS5tZW1fY2xvY2sgPSBtY2xrOwogCi0JdmVnYTEwX3BzLT5wZXJmb3Jt
+YW5jZV9sZXZlbHNbMV0uZ2Z4X2Nsb2NrID0KLQkJKHZlZ2ExMF9wcy0+cGVyZm9ybWFuY2VfbGV2
+ZWxzWzFdLmdmeF9jbG9jayA+PQotCQkJCXZlZ2ExMF9wcy0+cGVyZm9ybWFuY2VfbGV2ZWxzWzBd
+LmdmeF9jbG9jaykgPwotCQkJCQkJdmVnYTEwX3BzLT5wZXJmb3JtYW5jZV9sZXZlbHNbMV0uZ2Z4
+X2Nsb2NrIDoKLQkJCQkJCXZlZ2ExMF9wcy0+cGVyZm9ybWFuY2VfbGV2ZWxzWzBdLmdmeF9jbG9j
+azsKKwlpZiAodmVnYTEwX3BzLT5wZXJmb3JtYW5jZV9sZXZlbHNbMV0uZ2Z4X2Nsb2NrIDwKKwkJ
+CXZlZ2ExMF9wcy0+cGVyZm9ybWFuY2VfbGV2ZWxzWzBdLmdmeF9jbG9jaykKKwkJdmVnYTEwX3Bz
+LT5wZXJmb3JtYW5jZV9sZXZlbHNbMF0uZ2Z4X2Nsb2NrID0KKwkJCQl2ZWdhMTBfcHMtPnBlcmZv
+cm1hbmNlX2xldmVsc1sxXS5nZnhfY2xvY2s7CiAKIAlpZiAoZGlzYWJsZV9tY2xrX3N3aXRjaGlu
+ZykgewogCQkvKiBTZXQgTWNsayB0aGUgbWF4IG9mIGxldmVsIDAgYW5kIGxldmVsIDEgKi8KQEAg
+LTMxNDYsOCArMzE0NSw4IEBAIHN0YXRpYyBpbnQgdmVnYTEwX2FwcGx5X3N0YXRlX2FkanVzdF9y
+dWxlcyhzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLAogCX0gZWxzZSB7CiAJCWlmICh2ZWdhMTBfcHMt
+PnBlcmZvcm1hbmNlX2xldmVsc1sxXS5tZW1fY2xvY2sgPAogCQkJCXZlZ2ExMF9wcy0+cGVyZm9y
+bWFuY2VfbGV2ZWxzWzBdLm1lbV9jbG9jaykKLQkJCXZlZ2ExMF9wcy0+cGVyZm9ybWFuY2VfbGV2
+ZWxzWzFdLm1lbV9jbG9jayA9Ci0JCQkJCXZlZ2ExMF9wcy0+cGVyZm9ybWFuY2VfbGV2ZWxzWzBd
+Lm1lbV9jbG9jazsKKwkJCXZlZ2ExMF9wcy0+cGVyZm9ybWFuY2VfbGV2ZWxzWzBdLm1lbV9jbG9j
+ayA9CisJCQkJCXZlZ2ExMF9wcy0+cGVyZm9ybWFuY2VfbGV2ZWxzWzFdLm1lbV9jbG9jazsKIAl9
+CiAKIAlpZiAocGhtX2NhcF9lbmFibGVkKGh3bWdyLT5wbGF0Zm9ybV9kZXNjcmlwdG9yLnBsYXRm
+b3JtQ2FwcywKLS0gCjEuOS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
+ZngK
