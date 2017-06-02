@@ -1,117 +1,130 @@
-From: Alex Deucher <alexdeucher@gmail.com>
+From: Florian Echtler <floe@butterbrot.org>
 Subject: Re: iMac 10,1 with Ubuntu 16.04: black screen after suspend
-Date: Fri, 2 Jun 2017 11:12:50 -0400
-Message-ID: <CADnq5_P_H8ZZXnXOoUcxNOFece3BRyzhZh2Z3mkw53eA20KiMQ@mail.gmail.com>
+Date: Fri, 2 Jun 2017 18:47:07 +0200
+Message-ID: <c1ed89a5-e6a1-1903-05ee-a9dfcdb2ef61@butterbrot.org>
 References: <30380cb3-0f26-8aea-2689-d4886879129c@butterbrot.org>
- <20170526210340.GA5114@wunner.de> <1e60811b-a8ac-017c-d350-8a40e4323870@butterbrot.org>
- <20170530105404.GA29865@wunner.de> <64a4829c-3141-6ff6-9369-6ca9ed0facf4@butterbrot.org>
- <20170531092145.ytc2d6shpukxziie@wunner.de> <CADnq5_MGWOX47tcvkfjHRxRv_eTbo_kvpVKyTpo8WGNw+xBvPA@mail.gmail.com>
- <65c88b03-45d7-d67b-2a2c-6c7047a73c80@butterbrot.org> <CADnq5_Mvyz1KUw26Emt8_d_XNeQ=MUqx8WF=iCxa6jagCXNCQQ@mail.gmail.com>
+ <20170526210340.GA5114@wunner.de>
+ <1e60811b-a8ac-017c-d350-8a40e4323870@butterbrot.org>
+ <20170530105404.GA29865@wunner.de>
+ <64a4829c-3141-6ff6-9369-6ca9ed0facf4@butterbrot.org>
+ <20170531092145.ytc2d6shpukxziie@wunner.de>
+ <CADnq5_MGWOX47tcvkfjHRxRv_eTbo_kvpVKyTpo8WGNw+xBvPA@mail.gmail.com>
+ <65c88b03-45d7-d67b-2a2c-6c7047a73c80@butterbrot.org>
+ <CADnq5_Mvyz1KUw26Emt8_d_XNeQ=MUqx8WF=iCxa6jagCXNCQQ@mail.gmail.com>
  <171a9895-b020-7630-b90c-d166f45e44e3@butterbrot.org>
+ <CADnq5_P_H8ZZXnXOoUcxNOFece3BRyzhZh2Z3mkw53eA20KiMQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha1;
+ protocol="application/pgp-signature";
+ boundary="n10VEnUCq5mxSC13NlOB65eVkWNcGXNgF"
 Return-path: <linux-acpi-owner@vger.kernel.org>
-In-Reply-To: <171a9895-b020-7630-b90c-d166f45e44e3@butterbrot.org>
+In-Reply-To: <CADnq5_P_H8ZZXnXOoUcxNOFece3BRyzhZh2Z3mkw53eA20KiMQ@mail.gmail.com>
 Sender: linux-acpi-owner@vger.kernel.org
-To: Florian Echtler <floe@butterbrot.org>
+To: Alex Deucher <alexdeucher@gmail.com>
 Cc: Lukas Wunner <lukas@wunner.de>, "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Fri, Jun 2, 2017 at 3:35 AM, Florian Echtler <floe@butterbrot.org> wrote:
-> On 01.06.2017 19:53, Alex Deucher wrote:
->> On Thu, Jun 1, 2017 at 4:27 AM, Florian Echtler <floe@butterbrot.org> wrote:
->>> On 31.05.2017 14:57, Alex Deucher wrote:
->>>> On Wed, May 31, 2017 at 5:21 AM, Lukas Wunner <lukas@wunner.de> wrote:
->>>
->>> Here's the (substantial) dmesg output, with drm.debug=0xf:
->>> http://floe.butterbrot.org/external/radeon/dmesg_after_suspend
->>>
->>> I haven't been able to find any references to link training, though.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--n10VEnUCq5mxSC13NlOB65eVkWNcGXNgF
+Content-Type: multipart/mixed; boundary="4liRsGNuAwckBChcKsnE5tbJCeHnqQpIF";
+ protected-headers="v1"
+From: Florian Echtler <floe@butterbrot.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Lukas Wunner <lukas@wunner.de>,
+ "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+Message-ID: <c1ed89a5-e6a1-1903-05ee-a9dfcdb2ef61@butterbrot.org>
+Subject: Re: iMac 10,1 with Ubuntu 16.04: black screen after suspend
+References: <30380cb3-0f26-8aea-2689-d4886879129c@butterbrot.org>
+ <20170526210340.GA5114@wunner.de>
+ <1e60811b-a8ac-017c-d350-8a40e4323870@butterbrot.org>
+ <20170530105404.GA29865@wunner.de>
+ <64a4829c-3141-6ff6-9369-6ca9ed0facf4@butterbrot.org>
+ <20170531092145.ytc2d6shpukxziie@wunner.de>
+ <CADnq5_MGWOX47tcvkfjHRxRv_eTbo_kvpVKyTpo8WGNw+xBvPA@mail.gmail.com>
+ <65c88b03-45d7-d67b-2a2c-6c7047a73c80@butterbrot.org>
+ <CADnq5_Mvyz1KUw26Emt8_d_XNeQ=MUqx8WF=iCxa6jagCXNCQQ@mail.gmail.com>
+ <171a9895-b020-7630-b90c-d166f45e44e3@butterbrot.org>
+ <CADnq5_P_H8ZZXnXOoUcxNOFece3BRyzhZh2Z3mkw53eA20KiMQ@mail.gmail.com>
+In-Reply-To: <CADnq5_P_H8ZZXnXOoUcxNOFece3BRyzhZh2Z3mkw53eA20KiMQ@mail.gmail.com>
+
+--4liRsGNuAwckBChcKsnE5tbJCeHnqQpIF
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-GB
+Content-Transfer-Encoding: quoted-printable
+
+On 02.06.2017 17:12, Alex Deucher wrote:
+> On Fri, Jun 2, 2017 at 3:35 AM, Florian Echtler <floe@butterbrot.org> w=
+rote:
 >>
->> I need your dmesg from boot to confirm the display topology, but eDP
->> with r7xx asics was pretty rare.  I suspect your system just uses
->> LVDS; as such there is no link training involved.
->
-> I've updated the trace with increased log_buf_len so nothing is truncated:
->
-> http://floe.butterbrot.org/external/radeon/dmesg_after_suspend.txt
->
-> (trace now contains a full boot including suspend and wakeup)
->
-> However, what I'm seeing now does sound like the internal connection is indeed eDP:
->
-> [  166.816162] [drm:drm_mode_setcrtc] [CRTC:34:crtc-0]
-> [  166.816166] [drm:drm_mode_setcrtc] [CONNECTOR:40:eDP-1]
-> [  166.816167] [drm:drm_crtc_helper_set_config]
-> [  166.816169] [drm:drm_crtc_helper_set_config] [CRTC:34:crtc-0] [FB:54]
-> #connectors=1 (x y) (0 0)
-> [  166.816170] [drm:drm_crtc_helper_set_config] crtc has no fb, full mode set
-> [  166.816172] [drm:drm_mode_object_reference] OBJ ID: 40 (4)
-> [  166.816173] [drm:drm_crtc_helper_set_config] encoder changed, full mode switch
-> [  166.816174] [drm:drm_crtc_helper_set_config] crtc changed, full mode switch
-> [  166.816174] [drm:drm_crtc_helper_set_config] [CONNECTOR:40:eDP-1] to
-> [CRTC:34:crtc-0]
-> [  166.816175] [drm:drm_crtc_helper_set_config] attempting to set mode from
-> userspace
-> [  166.816177] [drm:drm_mode_debug_printmodeline] Modeline 65:"" 0 241500 2560
-> 2608 2640 2720 1440 1443 1448 1481 0x0 0x9
-> [  166.816180] [drm:radeon_encoder_set_active_device] setting active device to
-> 00000002 from 00000002 00000002 for encoder 3
-> [  166.816183] [drm:radeon_get_monitor_bpc] eDP-1: Display bpc=8, returned bpc=8
-> [  166.816185] [drm:drm_detect_monitor_audio] Monitor has basic audio support
-> [  166.816186] [drm:radeon_get_monitor_bpc] eDP-1: Display bpc=8, returned bpc=8
-> [  166.816188] [drm:drm_detect_monitor_audio] Monitor has basic audio support
-> [  166.816192] [drm:drm_crtc_helper_set_mode] [CRTC:34:crtc-0]
-> [  166.816208] [drm:radeon_get_monitor_bpc] eDP-1: Display bpc=8, returned bpc=8
-> [  166.816210] [drm:radeon_atom_encoder_dpms] encoder dpms 30 to mode 3, devices
-> 00000008, active_devices 00000000
-> [  166.816213] [drm:radeon_atom_encoder_dpms] encoder dpms 22 to mode 3, devices
-> 00000010, active_devices 00000000
-> [  166.816235] [drm:drm_detect_monitor_audio] Monitor has basic audio support
-> [  166.816237] [drm:radeon_compute_pll_avivo] 360000 - 360000, pll dividers -
-> fb: 80.0 ref: 2, post 3
-> [  166.824475] done.
+>> [  166.853787] [drm:radeon_dp_link_train_cr] clock recovery at voltage=
+ 0
+>> pre-emphasis 0
+>> [  166.853788] [drm:drm_detect_monitor_audio] Monitor has basic audio =
+support
+>> [  166.855953] [drm:radeon_dp_link_train_ce] channel eq at voltage 0 p=
+re-emphasis 0
+>=20
+> Yes, the link training appears to complete fine.  I guess it's
+> something to do with the proprietary mux or backlight controls.
 
-Yes it is eDP:
+OK, so back to square... well, not one, but definitely back to the regist=
+ers
+(SMC and GPU).
 
-[    3.197364] [drm] Radeon Display Connectors
-[    3.197365] [drm] Connector 0:
-[    3.197365] [drm]   DP-1
-[    3.197366] [drm]   HPD1
-[    3.197367] [drm]   DDC: 0x7e40 0x7e40 0x7e44 0x7e44 0x7e48 0x7e48
-0x7e4c 0x7e4c
-[    3.197367] [drm]   Encoders:
-[    3.197368] [drm]     DFP1: INTERNAL_UNIPHY
-[    3.197369] [drm] Connector 1:
-[    3.197369] [drm]   eDP-1
-[    3.197370] [drm]   HPD2
-[    3.197371] [drm]   DDC: 0x7e50 0x7e50 0x7e54 0x7e54 0x7e58 0x7e58
-0x7e5c 0x7e5c
-[    3.197371] [drm]   Encoders:
-[    3.197372] [drm]     LCD1: INTERNAL_UNIPHY
-[    3.197372] [drm] Connector 2:
-[    3.197372] [drm]   VGA-1
-[    3.197373] [drm]   DDC: 0x7f10 0x7f10 0x7f14 0x7f14 0x7f18 0x7f18
-0x7f1c 0x7f1c
-[    3.197374] [drm]   Encoders:
-[    3.197374] [drm]     CRT2: INTERNAL_KLDSCP_DAC2
+As mentioned, the diff for the GPU registers before/after suspend is huge=
+,
+there's 117 register values that have changed. I assume that most of them=
+ are
+actually internal frame pointers, but which ones? I tried to find some of=
+ that
+information in drivers/gpu/drm/radeon/, but quickly got lost :-/
+
+Regarding the SMC, there's actually only one key that consistently seems =
+to have
+a different value whether the display is on or off:
+
+--- blank	2017-05-05 08:40:53.694565045 +0200
++++ non_blank	2017-05-05 08:40:53.702565066 +0200
+@@ -143,7 +143,7 @@
+   MSWR  [ui8 ]  0 (bytes 00)
+   MVBO  [hex_]  (bytes ff ff)
+   MVDC  [bin_]  (bytes 00)
+-  MVDS  [bin_]  (bytes 08)
++  MVDS  [bin_]  (bytes 0a)
+   MVE1  [si8 ]  (bytes 0d)
+   MVE5  [si8 ]  (bytes 0b)
+   MVHR  [flag]  (bytes 01)
+
+However, even with my modified SmcDumpKeys.c which I can use to enable TD=
+M, I
+cannot write to that key. Since other MV__ keys control the display, too,=
+ it
+would make sense that that is related to the display state, but it seems =
+to be a
+read-only key :-/
+
+Running out of ideas again... any suggestions?
+
+Best, Florian
+--=20
+SENT FROM MY DEC VT50 TERMINAL
 
 
->
-> ... and a bit later:
->
-> [  166.853787] [drm:radeon_dp_link_train_cr] clock recovery at voltage 0
-> pre-emphasis 0
-> [  166.853788] [drm:drm_detect_monitor_audio] Monitor has basic audio support
-> [  166.855953] [drm:radeon_dp_link_train_ce] channel eq at voltage 0 pre-emphasis 0
->
+--4liRsGNuAwckBChcKsnE5tbJCeHnqQpIF--
 
-Yes, the link training appears to complete fine.  I guess it's
-something to do with the proprietary mux or backlight controls.
+--n10VEnUCq5mxSC13NlOB65eVkWNcGXNgF
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
 
-Alex
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
 
-> Best, Florian
-> --
-> SENT FROM MY DEC VT50 TERMINAL
->
+iEYEARECAAYFAlkxlosACgkQ7CzyshGvatiU6QCfePg9aoDyVvIvBJHY+B/hgow2
+HbIAn23PdslQ5a8Y6wH5HoeiqwfKzgsq
+=fkdX
+-----END PGP SIGNATURE-----
+
+--n10VEnUCq5mxSC13NlOB65eVkWNcGXNgF--
