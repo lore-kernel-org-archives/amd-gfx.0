@@ -1,10 +1,14 @@
-From: Luke Miller <dodgyville-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Bug reports for beginners.
-Date: Sat, 3 Jun 2017 08:46:57 +1000
-Message-ID: <CAFs5HV1kA4OxDh5Kqe4r1CxBYcVNec6Ch_Wmc+dv79rsQ_QT7w@mail.gmail.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: [PATCH libdrm v6 1/1] amdgpu: move asic id table to a separate
+ file
+Date: Mon, 5 Jun 2017 11:09:58 +0900
+Message-ID: <416b1697-6e97-9289-f837-dbd504452ec5@daenzer.net>
+References: <1496262170-4222-1-git-send-email-Samuel.Li@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0258565901=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1496262170-4222-1-git-send-email-Samuel.Li-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -15,63 +19,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Samuel Li <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Xiaojie Yuan <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
 
---===============0258565901==
-Content-Type: multipart/alternative; boundary="001a1144373473f3bf055101ef70"
-
---001a1144373473f3bf055101ef70
-Content-Type: text/plain; charset="UTF-8"
-
-Greetings, thanks for the awesome drivers.
-
-I have a recurring problem with one 3D program (UE4editor) crashing my
-computer during a particular operation.
-
-I believe the problem is at the DRM layer.
-
-Brief details:
-Radeon 7850HD
-It crashes using radeon and amdgpu (on ubuntu 17.04, linux 4.12, padoka
-ppa).
-It does not crash using the fglrx driver (on ubuntu 14.04).
-The entire machine hangs and requires a reset.
-
-My question:
-How can I go about collecting more information to fix/report the problem?
-Is there a tutorial on which logs to look at? I may even be able to fix it
-myself if I could get a stack trace.
-
-Part of the fun is that it is an older card.
-
---001a1144373473f3bf055101ef70
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div><div><div><div><div><div><div>Greetings, thanks for t=
-he awesome drivers.<br><br></div>I have a recurring problem with one 3D pro=
-gram (UE4editor) crashing my computer during a particular operation. <br><b=
-r></div>I believe the problem is at the DRM layer. <br><br></div><div>Brief=
- details:<br></div><div>Radeon 7850HD<br></div>It crashes using radeon and =
-amdgpu (on ubuntu 17.04, linux 4.12, padoka ppa).<br></div>It does not cras=
-h using the fglrx driver (on ubuntu 14.04).<br></div><div>The entire machin=
-e hangs and requires a reset.<br></div><div><br></div>My question:<br></div=
->How can I go about collecting more information to fix/report the problem? =
-Is there a tutorial on which logs to look at? I may even be able to fix it =
-myself if I could get a stack trace.<br><br></div><div>Part of the fun is t=
-hat it is an older card.<br></div><div><br></div><div><br></div><div><br><b=
-r></div></div>
-
---001a1144373473f3bf055101ef70--
-
---===============0258565901==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0258565901==--
+T24gMDEvMDYvMTcgMDU6MjIgQU0sIFNhbXVlbCBMaSB3cm90ZToKPiBGcm9tOiBYaWFvamllIFl1
+YW4gPFhpYW9qaWUuWXVhbkBhbWQuY29tPgo+IAo+IHYyOiBmaXggYW4gb2ZmIGJ5IG9uZSBlcnJv
+ciBhbmQgbGVhZGluZyB3aGl0ZSBzcGFjZXMKPiB2MzogdXNlIHRocmVhZCBzYWZlIHN0cnRva19y
+KCk7IGluaXRpYWxpemUgbGVuIGJlZm9yZSBjYWxsaW5nIGdldGxpbmUoKTsKPiAgICAgY2hhbmdl
+IHByaW50ZigpIHRvIGRybU1zZygpOyBhZGQgaW5pdGlhbCBhbWRncHUuaWRzCj4gdjQ6IGludGVn
+cmF0ZSBzb21lIHJlY2VudCBpbnRlcm5hbCBjaGFuZ2VzLCBpbmNsdWRpbmcgZm9ybWF0IGNoYW5n
+ZXMKPiB2NTogZml4IGxpbmUgbnVtYmVyIGZvciBlbXB0eS9jb21tZW50ZWQgbGluZXM7IHJlYWxs
+b2MgdG8gc2F2ZSBtZW1vcnk7IGluZGVudGF0aW9uIGNoYW5nZXMKPiB2NjogcmVtb3ZlIGEgbGlu
+ZSBlcnJvcgo+IAo+IENoYW5nZS1JZDogSTEyMjE2ZGExNDkxMGY1ZTJiMDk3MGJjMWZhZmMyYTIw
+YjBlZjFiYTkKPiBSZXZpZXdlZC1ieTogSnVud2VpIFpoYW5nIDxKZXJyeS5aaGFuZ0BhbWQuY29t
+Pgo+IFNpZ25lZC1vZmYtYnk6IFNhbXVlbCBMaSA8U2FtdWVsLkxpQGFtZC5jb20+CgpbLi4uXQoK
+PiArCS8qIDFzdCB2YWxpZCBsaW5lIGlzIGZpbGUgdmVyc2lvbiAqLwo+ICsJd2hpbGUgKChuID0g
+Z2V0bGluZSgmbGluZSwgJmxlbiwgZnApKSAhPSAtMSkgewo+ICsJCS8qIHRyaW0gdHJhaWxpbmcg
+bmV3bGluZSAqLwo+ICsJCWlmIChsaW5lW24gLSAxXSA9PSAnXG4nKQo+ICsJCQlsaW5lW24gLSAx
+XSA9ICdcMCc7Cj4gKwo+ICsJCS8qIGlnbm9yZSBlbXB0eSBsaW5lIGFuZCBjb21tZW50ZWQgbGlu
+ZSAqLwo+ICsJCWlmIChzdHJsZW4obGluZSkgPT0gMCB8fCBsaW5lWzBdID09ICcjJykgewo+ICsJ
+CQlsaW5lX251bSsrOwo+ICsJCQljb250aW51ZTsKPiArCQl9Cj4gKwo+ICsJCWRybU1zZygiJXMg
+dmVyc2lvbjogJXNcbiIsIEFNREdQVV9BU0lDX0lEX1RBQkxFLCBsaW5lKTsKPiArCQlicmVhazsK
+PiArCX0KCkJUVywgd2hhdCBpcyB0aGUgcHVycG9zZSBvZiB0aGUgZmlsZSB2ZXJzaW9uPyBJZiBp
+dCdzIGFib3V0IHRoZSBmb3JtYXQKb2YgdGhlIGZpbGUsIHdlIG5lZWQgdG8gY2hlY2sgaGVyZSB0
+aGF0IHRoZSBmaWxlIGhhcyBhIGZvcm1hdCB3ZSBjYW4KcGFyc2UsIHNvbWV0aGluZyBsaWtlCgoJ
+aWYgKDxtYWpvciB2ZXJzaW9uPiAhPSAxKQoJCXJldHVybiAtRUlOVkFMOwoKCk5vdGUgdGhhdCBt
+YWtpbmcgYmFja3dhcmRzIGluY29tcGF0aWJsZSBjaGFuZ2VzIHRvIHRoZSBmaWxlIGZvcm1hdCB3
+b3VsZApwcmV0dHkgbXVjaCBraWxsIHRoZSBpZGVhIG9mIHVwZGF0aW5nIHRoZSBmaWxlIHdpdGgg
+YSBzY3JpcHQgbGlrZQp1cGRhdGUtcGNpaWRzLgoKCi0tIApFYXJ0aGxpbmcgTWljaGVsIETDpG56
+ZXIgICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAgaHR0cDovL3d3dy5hbWQuY29tCkxpYnJl
+IHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAgICAgICAgfCAgICAgICAgICAgICBNZXNhIGFuZCBY
+IGRldmVsb3BlcgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
