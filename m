@@ -1,461 +1,163 @@
-From: axie <axie-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/gfx: create a common bitmask function (v2)
-Date: Tue, 6 Jun 2017 18:36:28 -0400
-Message-ID: <2e78fcdb-42d8-625b-f1cb-ac92eff8bec9@amd.com>
-References: <1496787583-2883-1-git-send-email-alexander.deucher@amd.com>
+From: Bjorn Helgaas <helgaas@kernel.org>
+Subject: Re: [PATCH v6 5/5] drm/amdgpu: resize VRAM BAR for CPU access v2
+Date: Tue, 6 Jun 2017 18:10:19 -0500
+Message-ID: <20170606231019.GC12672@bhelgaas-glaptop.roam.corp.google.com>
+References: <1494348547-1465-1-git-send-email-deathsimple@vodafone.de>
+ <1494348547-1465-6-git-send-email-deathsimple@vodafone.de>
+ <20170601201430.GC12257@bhelgaas-glaptop.roam.corp.google.com>
+ <72e061a5-9684-06e2-3021-80de8ca97bd7@vodafone.de>
+ <20170602202631.GA1452@bhelgaas-glaptop.roam.corp.google.com>
+ <779a883a-265a-ae04-b0cd-8cb3599f0dc0@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2050608852=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1496787583-2883-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-This is a multi-part message in MIME format.
---===============2050608852==
-Content-Type: multipart/alternative;
- boundary="------------F8878E15017122B49B373DAE"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------F8878E15017122B49B373DAE
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-Thanks for the change. "static inline" may improve speed, though this 
-patch is not a critical code path. Perhaps it will be true in future...
-
-Reviewed-by: Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
-
-
-On 2017-06-06 06:19 PM, Alex Deucher wrote:
-> The same function was duplicated in all the gfx IPs. Use
-> a single implementation for all.
->
-> v2: use static inline (Alex Xie)
->
-> Suggested-by: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-> Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 13 +++++++++++++
->   drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c   | 11 +++--------
->   drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c   | 19 +++----------------
->   drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c   | 11 +++--------
->   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 11 +++--------
->   5 files changed, 25 insertions(+), 40 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> index e0204408..2d846ef 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> @@ -30,4 +30,17 @@ void amdgpu_gfx_scratch_free(struct amdgpu_device *adev, uint32_t reg);
->   void amdgpu_gfx_parse_disable_cu(unsigned *mask, unsigned max_se,
->   		unsigned max_sh);
->   
-> +/**
-> + * amdgpu_gfx_create_bitmask - create a bitmask
-> + *
-> + * @bit_width: length of the mask
-> + *
-> + * create a variable length bit mask.
-> + * Returns the bitmask.
-> + */
-> +static inline u32 amdgpu_gfx_create_bitmask(u32 bit_width)
-> +{
-> +	return (u32)((1ULL << bit_width) - 1);
-> +}
-> +
->   #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-> index f3e0edd..cfd3df6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-> @@ -1116,11 +1116,6 @@ static void gfx_v6_0_select_se_sh(struct amdgpu_device *adev, u32 se_num,
->   	WREG32(mmGRBM_GFX_INDEX, data);
->   }
->   
-> -static u32 gfx_v6_0_create_bitmask(u32 bit_width)
-> -{
-> -	return (u32)(((u64)1 << bit_width) - 1);
-> -}
-> -
->   static u32 gfx_v6_0_get_rb_active_bitmap(struct amdgpu_device *adev)
->   {
->   	u32 data, mask;
-> @@ -1130,8 +1125,8 @@ static u32 gfx_v6_0_get_rb_active_bitmap(struct amdgpu_device *adev)
->   
->   	data = REG_GET_FIELD(data, GC_USER_RB_BACKEND_DISABLE, BACKEND_DISABLE);
->   
-> -	mask = gfx_v6_0_create_bitmask(adev->gfx.config.max_backends_per_se/
-> -					adev->gfx.config.max_sh_per_se);
-> +	mask = amdgpu_gfx_create_bitmask(adev->gfx.config.max_backends_per_se/
-> +					 adev->gfx.config.max_sh_per_se);
->   
->   	return ~data & mask;
->   }
-> @@ -1333,7 +1328,7 @@ static u32 gfx_v6_0_get_cu_enabled(struct amdgpu_device *adev)
->   	data = RREG32(mmCC_GC_SHADER_ARRAY_CONFIG) |
->   		RREG32(mmGC_USER_SHADER_ARRAY_CONFIG);
->   
-> -	mask = gfx_v6_0_create_bitmask(adev->gfx.config.max_cu_per_sh);
-> +	mask = amdgpu_gfx_create_bitmask(adev->gfx.config.max_cu_per_sh);
->   	return ~REG_GET_FIELD(data, CC_GC_SHADER_ARRAY_CONFIG, INACTIVE_CUS) & mask;
->   }
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> index ae98611..4c04e9d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> @@ -1608,19 +1608,6 @@ static void gfx_v7_0_select_se_sh(struct amdgpu_device *adev,
->   }
->   
->   /**
-> - * gfx_v7_0_create_bitmask - create a bitmask
-> - *
-> - * @bit_width: length of the mask
-> - *
-> - * create a variable length bit mask (CIK).
-> - * Returns the bitmask.
-> - */
-> -static u32 gfx_v7_0_create_bitmask(u32 bit_width)
-> -{
-> -	return (u32)((1ULL << bit_width) - 1);
-> -}
-> -
-> -/**
->    * gfx_v7_0_get_rb_active_bitmap - computes the mask of enabled RBs
->    *
->    * @adev: amdgpu_device pointer
-> @@ -1638,8 +1625,8 @@ static u32 gfx_v7_0_get_rb_active_bitmap(struct amdgpu_device *adev)
->   	data &= CC_RB_BACKEND_DISABLE__BACKEND_DISABLE_MASK;
->   	data >>= GC_USER_RB_BACKEND_DISABLE__BACKEND_DISABLE__SHIFT;
->   
-> -	mask = gfx_v7_0_create_bitmask(adev->gfx.config.max_backends_per_se /
-> -				       adev->gfx.config.max_sh_per_se);
-> +	mask = amdgpu_gfx_create_bitmask(adev->gfx.config.max_backends_per_se /
-> +					 adev->gfx.config.max_sh_per_se);
->   
->   	return (~data) & mask;
->   }
-> @@ -4157,7 +4144,7 @@ static u32 gfx_v7_0_get_cu_active_bitmap(struct amdgpu_device *adev)
->   	data &= CC_GC_SHADER_ARRAY_CONFIG__INACTIVE_CUS_MASK;
->   	data >>= CC_GC_SHADER_ARRAY_CONFIG__INACTIVE_CUS__SHIFT;
->   
-> -	mask = gfx_v7_0_create_bitmask(adev->gfx.config.max_cu_per_sh);
-> +	mask = amdgpu_gfx_create_bitmask(adev->gfx.config.max_cu_per_sh);
->   
->   	return (~data) & mask;
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> index afd7d65..ad2e0bb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> @@ -3635,11 +3635,6 @@ static void gfx_v8_0_select_se_sh(struct amdgpu_device *adev,
->   	WREG32(mmGRBM_GFX_INDEX, data);
->   }
->   
-> -static u32 gfx_v8_0_create_bitmask(u32 bit_width)
-> -{
-> -	return (u32)((1ULL << bit_width) - 1);
-> -}
-> -
->   static u32 gfx_v8_0_get_rb_active_bitmap(struct amdgpu_device *adev)
->   {
->   	u32 data, mask;
-> @@ -3649,8 +3644,8 @@ static u32 gfx_v8_0_get_rb_active_bitmap(struct amdgpu_device *adev)
->   
->   	data = REG_GET_FIELD(data, GC_USER_RB_BACKEND_DISABLE, BACKEND_DISABLE);
->   
-> -	mask = gfx_v8_0_create_bitmask(adev->gfx.config.max_backends_per_se /
-> -				       adev->gfx.config.max_sh_per_se);
-> +	mask = amdgpu_gfx_create_bitmask(adev->gfx.config.max_backends_per_se /
-> +					 adev->gfx.config.max_sh_per_se);
->   
->   	return (~data) & mask;
->   }
-> @@ -7150,7 +7145,7 @@ static u32 gfx_v8_0_get_cu_active_bitmap(struct amdgpu_device *adev)
->   	data =  RREG32(mmCC_GC_SHADER_ARRAY_CONFIG) |
->   		RREG32(mmGC_USER_SHADER_ARRAY_CONFIG);
->   
-> -	mask = gfx_v8_0_create_bitmask(adev->gfx.config.max_cu_per_sh);
-> +	mask = amdgpu_gfx_create_bitmask(adev->gfx.config.max_cu_per_sh);
->   
->   	return ~REG_GET_FIELD(data, CC_GC_SHADER_ARRAY_CONFIG, INACTIVE_CUS) & mask;
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> index 276dc06..cf15a350 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -1698,11 +1698,6 @@ static void gfx_v9_0_select_se_sh(struct amdgpu_device *adev, u32 se_num, u32 sh
->   	WREG32_SOC15(GC, 0, mmGRBM_GFX_INDEX, data);
->   }
->   
-> -static u32 gfx_v9_0_create_bitmask(u32 bit_width)
-> -{
-> -	return (u32)((1ULL << bit_width) - 1);
-> -}
-> -
->   static u32 gfx_v9_0_get_rb_active_bitmap(struct amdgpu_device *adev)
->   {
->   	u32 data, mask;
-> @@ -1713,8 +1708,8 @@ static u32 gfx_v9_0_get_rb_active_bitmap(struct amdgpu_device *adev)
->   	data &= CC_RB_BACKEND_DISABLE__BACKEND_DISABLE_MASK;
->   	data >>= GC_USER_RB_BACKEND_DISABLE__BACKEND_DISABLE__SHIFT;
->   
-> -	mask = gfx_v9_0_create_bitmask(adev->gfx.config.max_backends_per_se /
-> -				       adev->gfx.config.max_sh_per_se);
-> +	mask = amdgpu_gfx_create_bitmask(adev->gfx.config.max_backends_per_se /
-> +					 adev->gfx.config.max_sh_per_se);
->   
->   	return (~data) & mask;
->   }
-> @@ -4609,7 +4604,7 @@ static u32 gfx_v9_0_get_cu_active_bitmap(struct amdgpu_device *adev)
->   	data &= CC_GC_SHADER_ARRAY_CONFIG__INACTIVE_CUS_MASK;
->   	data >>= CC_GC_SHADER_ARRAY_CONFIG__INACTIVE_CUS__SHIFT;
->   
-> -	mask = gfx_v9_0_create_bitmask(adev->gfx.config.max_cu_per_sh);
-> +	mask = amdgpu_gfx_create_bitmask(adev->gfx.config.max_cu_per_sh);
->   
->   	return (~data) & mask;
->   }
-
-
---------------F8878E15017122B49B373DAE
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 7bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <p>Thanks for the change. "static inline" may improve speed, though
-      this patch is not a critical code path. Perhaps it will be true in
-      future...<br>
-    </p>
-    <p>Reviewed-by: Alex Xie <a class="moz-txt-link-rfc2396E"
-        href="mailto:AlexBin.Xie-5C7GfCeVMHo@public.gmane.org">&lt;AlexBin.Xie-5C7GfCeVMHo@public.gmane.org&gt;</a></p>
-    <br>
-    <div class="moz-cite-prefix">On 2017-06-06 06:19 PM, Alex Deucher
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:1496787583-2883-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org">
-      <pre wrap="">The same function was duplicated in all the gfx IPs. Use
-a single implementation for all.
-
-v2: use static inline (Alex Xie)
-
-Suggested-by: Andres Rodriguez <a class="moz-txt-link-rfc2396E" href="mailto:andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">&lt;andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a>
-Signed-off-by: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">&lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;</a>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 13 +++++++++++++
- drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c   | 11 +++--------
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c   | 19 +++----------------
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c   | 11 +++--------
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 11 +++--------
- 5 files changed, 25 insertions(+), 40 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index e0204408..2d846ef 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -30,4 +30,17 @@ void amdgpu_gfx_scratch_free(struct amdgpu_device *adev, uint32_t reg);
- void amdgpu_gfx_parse_disable_cu(unsigned *mask, unsigned max_se,
- 		unsigned max_sh);
- 
-+/**
-+ * amdgpu_gfx_create_bitmask - create a bitmask
-+ *
-+ * @bit_width: length of the mask
-+ *
-+ * create a variable length bit mask.
-+ * Returns the bitmask.
-+ */
-+static inline u32 amdgpu_gfx_create_bitmask(u32 bit_width)
-+{
-+	return (u32)((1ULL &lt;&lt; bit_width) - 1);
-+}
-+
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-index f3e0edd..cfd3df6 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-@@ -1116,11 +1116,6 @@ static void gfx_v6_0_select_se_sh(struct amdgpu_device *adev, u32 se_num,
- 	WREG32(mmGRBM_GFX_INDEX, data);
- }
- 
--static u32 gfx_v6_0_create_bitmask(u32 bit_width)
--{
--	return (u32)(((u64)1 &lt;&lt; bit_width) - 1);
--}
--
- static u32 gfx_v6_0_get_rb_active_bitmap(struct amdgpu_device *adev)
- {
- 	u32 data, mask;
-@@ -1130,8 +1125,8 @@ static u32 gfx_v6_0_get_rb_active_bitmap(struct amdgpu_device *adev)
- 
- 	data = REG_GET_FIELD(data, GC_USER_RB_BACKEND_DISABLE, BACKEND_DISABLE);
- 
--	mask = gfx_v6_0_create_bitmask(adev-&gt;gfx.config.max_backends_per_se/
--					adev-&gt;gfx.config.max_sh_per_se);
-+	mask = amdgpu_gfx_create_bitmask(adev-&gt;gfx.config.max_backends_per_se/
-+					 adev-&gt;gfx.config.max_sh_per_se);
- 
- 	return ~data &amp; mask;
- }
-@@ -1333,7 +1328,7 @@ static u32 gfx_v6_0_get_cu_enabled(struct amdgpu_device *adev)
- 	data = RREG32(mmCC_GC_SHADER_ARRAY_CONFIG) |
- 		RREG32(mmGC_USER_SHADER_ARRAY_CONFIG);
- 
--	mask = gfx_v6_0_create_bitmask(adev-&gt;gfx.config.max_cu_per_sh);
-+	mask = amdgpu_gfx_create_bitmask(adev-&gt;gfx.config.max_cu_per_sh);
- 	return ~REG_GET_FIELD(data, CC_GC_SHADER_ARRAY_CONFIG, INACTIVE_CUS) &amp; mask;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-index ae98611..4c04e9d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-@@ -1608,19 +1608,6 @@ static void gfx_v7_0_select_se_sh(struct amdgpu_device *adev,
- }
- 
- /**
-- * gfx_v7_0_create_bitmask - create a bitmask
-- *
-- * @bit_width: length of the mask
-- *
-- * create a variable length bit mask (CIK).
-- * Returns the bitmask.
-- */
--static u32 gfx_v7_0_create_bitmask(u32 bit_width)
--{
--	return (u32)((1ULL &lt;&lt; bit_width) - 1);
--}
--
--/**
-  * gfx_v7_0_get_rb_active_bitmap - computes the mask of enabled RBs
-  *
-  * @adev: amdgpu_device pointer
-@@ -1638,8 +1625,8 @@ static u32 gfx_v7_0_get_rb_active_bitmap(struct amdgpu_device *adev)
- 	data &amp;= CC_RB_BACKEND_DISABLE__BACKEND_DISABLE_MASK;
- 	data &gt;&gt;= GC_USER_RB_BACKEND_DISABLE__BACKEND_DISABLE__SHIFT;
- 
--	mask = gfx_v7_0_create_bitmask(adev-&gt;gfx.config.max_backends_per_se /
--				       adev-&gt;gfx.config.max_sh_per_se);
-+	mask = amdgpu_gfx_create_bitmask(adev-&gt;gfx.config.max_backends_per_se /
-+					 adev-&gt;gfx.config.max_sh_per_se);
- 
- 	return (~data) &amp; mask;
- }
-@@ -4157,7 +4144,7 @@ static u32 gfx_v7_0_get_cu_active_bitmap(struct amdgpu_device *adev)
- 	data &amp;= CC_GC_SHADER_ARRAY_CONFIG__INACTIVE_CUS_MASK;
- 	data &gt;&gt;= CC_GC_SHADER_ARRAY_CONFIG__INACTIVE_CUS__SHIFT;
- 
--	mask = gfx_v7_0_create_bitmask(adev-&gt;gfx.config.max_cu_per_sh);
-+	mask = amdgpu_gfx_create_bitmask(adev-&gt;gfx.config.max_cu_per_sh);
- 
- 	return (~data) &amp; mask;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-index afd7d65..ad2e0bb 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -3635,11 +3635,6 @@ static void gfx_v8_0_select_se_sh(struct amdgpu_device *adev,
- 	WREG32(mmGRBM_GFX_INDEX, data);
- }
- 
--static u32 gfx_v8_0_create_bitmask(u32 bit_width)
--{
--	return (u32)((1ULL &lt;&lt; bit_width) - 1);
--}
--
- static u32 gfx_v8_0_get_rb_active_bitmap(struct amdgpu_device *adev)
- {
- 	u32 data, mask;
-@@ -3649,8 +3644,8 @@ static u32 gfx_v8_0_get_rb_active_bitmap(struct amdgpu_device *adev)
- 
- 	data = REG_GET_FIELD(data, GC_USER_RB_BACKEND_DISABLE, BACKEND_DISABLE);
- 
--	mask = gfx_v8_0_create_bitmask(adev-&gt;gfx.config.max_backends_per_se /
--				       adev-&gt;gfx.config.max_sh_per_se);
-+	mask = amdgpu_gfx_create_bitmask(adev-&gt;gfx.config.max_backends_per_se /
-+					 adev-&gt;gfx.config.max_sh_per_se);
- 
- 	return (~data) &amp; mask;
- }
-@@ -7150,7 +7145,7 @@ static u32 gfx_v8_0_get_cu_active_bitmap(struct amdgpu_device *adev)
- 	data =  RREG32(mmCC_GC_SHADER_ARRAY_CONFIG) |
- 		RREG32(mmGC_USER_SHADER_ARRAY_CONFIG);
- 
--	mask = gfx_v8_0_create_bitmask(adev-&gt;gfx.config.max_cu_per_sh);
-+	mask = amdgpu_gfx_create_bitmask(adev-&gt;gfx.config.max_cu_per_sh);
- 
- 	return ~REG_GET_FIELD(data, CC_GC_SHADER_ARRAY_CONFIG, INACTIVE_CUS) &amp; mask;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 276dc06..cf15a350 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -1698,11 +1698,6 @@ static void gfx_v9_0_select_se_sh(struct amdgpu_device *adev, u32 se_num, u32 sh
- 	WREG32_SOC15(GC, 0, mmGRBM_GFX_INDEX, data);
- }
- 
--static u32 gfx_v9_0_create_bitmask(u32 bit_width)
--{
--	return (u32)((1ULL &lt;&lt; bit_width) - 1);
--}
--
- static u32 gfx_v9_0_get_rb_active_bitmap(struct amdgpu_device *adev)
- {
- 	u32 data, mask;
-@@ -1713,8 +1708,8 @@ static u32 gfx_v9_0_get_rb_active_bitmap(struct amdgpu_device *adev)
- 	data &amp;= CC_RB_BACKEND_DISABLE__BACKEND_DISABLE_MASK;
- 	data &gt;&gt;= GC_USER_RB_BACKEND_DISABLE__BACKEND_DISABLE__SHIFT;
- 
--	mask = gfx_v9_0_create_bitmask(adev-&gt;gfx.config.max_backends_per_se /
--				       adev-&gt;gfx.config.max_sh_per_se);
-+	mask = amdgpu_gfx_create_bitmask(adev-&gt;gfx.config.max_backends_per_se /
-+					 adev-&gt;gfx.config.max_sh_per_se);
- 
- 	return (~data) &amp; mask;
- }
-@@ -4609,7 +4604,7 @@ static u32 gfx_v9_0_get_cu_active_bitmap(struct amdgpu_device *adev)
- 	data &amp;= CC_GC_SHADER_ARRAY_CONFIG__INACTIVE_CUS_MASK;
- 	data &gt;&gt;= CC_GC_SHADER_ARRAY_CONFIG__INACTIVE_CUS__SHIFT;
- 
--	mask = gfx_v9_0_create_bitmask(adev-&gt;gfx.config.max_cu_per_sh);
-+	mask = amdgpu_gfx_create_bitmask(adev-&gt;gfx.config.max_cu_per_sh);
- 
- 	return (~data) &amp; mask;
- }
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------F8878E15017122B49B373DAE--
-
---===============2050608852==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Return-path: <platform-driver-x86-owner@vger.kernel.org>
 Content-Disposition: inline
+In-Reply-To: <779a883a-265a-ae04-b0cd-8cb3599f0dc0@vodafone.de>
+Sender: platform-driver-x86-owner@vger.kernel.org
+To: Christian =?iso-8859-1?Q?K=F6nig?= <deathsimple@vodafone.de>
+Cc: linux-pci@vger.kernel.org, platform-driver-x86@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Tue, Jun 06, 2017 at 01:51:11PM +0200, Christian König wrote:
+> Am 02.06.2017 um 22:26 schrieb Bjorn Helgaas:
+> >On Fri, Jun 02, 2017 at 11:32:21AM +0200, Christian König wrote:
+> >>Hi Bjorn,
+> >>
+> >>sorry for not responding earlier and thanks for picking this thread
+> >>up again.
+> >>
+> >>Am 01.06.2017 um 22:14 schrieb Bjorn Helgaas:
+> >>>[+cc ADMGPU, DRM folks]
+> >>>
+> >>>On Tue, May 09, 2017 at 06:49:07PM +0200, Christian König wrote:
+> >>>>[SNIP]
+> >>>>+/**
+> >>>>+ * amdgpu_resize_bar0 - try to resize BAR0
+> >>>>+ *
+> >>>>+ * @adev: amdgpu_device pointer
+> >>>>+ *
+> >>>>+ * Try to resize BAR0 to make all VRAM CPU accessible.
+> >>>>+ */
+> >>>>+void amdgpu_resize_bar0(struct amdgpu_device *adev)
+> >>>>+{
+> >>>>+	u64 space_needed = roundup_pow_of_two(adev->mc.real_vram_size);
+> >>>>+	u32 rbar_size = order_base_2(((space_needed >> 20) | 1)) -1;
+> >>>>+	u16 cmd;
+> >>>>+	int r;
+> >>>>+
+> >>>>+	/* Free the doorbell mapping, it most likely needs to move as well */
+> >>>>+	amdgpu_doorbell_fini(adev);
+> >>>>+	pci_release_resource(adev->pdev, 2);
+> >>>>+
+> >>>>+	/* Disable memory decoding while we change the BAR addresses and size */
+> >>>>+	pci_read_config_word(adev->pdev, PCI_COMMAND, &cmd);
+> >>>>+	pci_write_config_word(adev->pdev, PCI_COMMAND,
+> >>>>+			      cmd & ~PCI_COMMAND_MEMORY);
+> >>>>+
+> >>>>+	r = pci_resize_resource(adev->pdev, 0, rbar_size);
+> >>>>+	if (r == -ENOSPC)
+> >>>>+		DRM_INFO("Not enough PCI address space for a large BAR.");
+> >>>>+	else if (r && r != -ENOTSUPP)
+> >>>>+		DRM_ERROR("Problem resizing BAR0 (%d).", r);
+> >>>>+
+> >>>>+	pci_write_config_word(adev->pdev, PCI_COMMAND, cmd);
+> >>>>+
+> >>>>+	/* When the doorbell BAR isn't available we have no chance of
+> >>>>+	 * using the device.
+> >>>>+	 */
+> >>>>+	BUG_ON(amdgpu_doorbell_init(adev));
 
---===============2050608852==--
+> >>> From the PCI core perspective, it would be much cleaner to do the BAR
+> >>>resize before the driver calls pci_enable_device().  If that could be
+> >>>done, there would be no need for this sort of shutdown/reinit stuff
+> >>>and we wouldn't have to worry about issues like these.  The amdgpu
+> >>>init path is pretty complicated, so I don't know whether this is
+> >>>possible.
+> >>I completely agree on this and it is actually the approach I tried first.
+> >>
+> >>There are just two problems with this approach:
+> >>1. When the amdgpu driver is loaded there can already be the VGA
+> >>console, Vesa or EFI driver active for the device and displaying the
+> >>splash screen.
+> >>
+> >>When we resize and most likely relocate the BAR while those drivers
+> >>are active it will certainly cause problems.
+> >>
+> >>What amdgpu does before trying to resize the BAR is kicking out
+> >>other driver and making sure it has exclusive access to the
+> >>hardware.
+> >I don't understand the problem here yet.  If you need to enable the
+> >device, then disable it, resize, and re-enable it, that's fine.
+> 
+> The issue is we never enable the device ourself in amdgpu, except
+> for some rare cases during resume.
+> 
+> In most of the cases we have to handle this is the primary display
+> device which is enabled by either the BIOS, VGA console, VesaFB or
+> EFIFB. Amdgpu just kicks out whatever driver was responsible for the
+> device previously and takes over.
+> 
+> I could of course do the disable/resize/reenable dance, but I would
+> rather want to avoid that.
+> 
+> The hardware is most likely already displaying a boot splash and we
+> want to transit to the desktop without any flickering (at least
+> that's the long term goal). Completely disabling the device to do
+> this doesn't sounds like a good idea if we want that.
+> 
+> >The important thing I'm looking for is that the resize happens before
+> >a pci_enable_device(), because pci_enable_device() is the sync point
+> >where the PCI core enables resources and makes them available to the
+> >driver.  Drivers know that they can't look at the resources before
+> >that point.  There's a little bit of text about this in [1].
+> 
+> Yeah, I understand that. But wouldn't it be sufficient to just
+> disable memory decoding during the resize?
+> 
+> I can easily guarantee that the CPU isn't accessing the BAR during
+> the time (we need to do this for changing the memory clocks as
+> well), but I have a bad gut feeling completely turning of the device
+> while we are still displaying stuff.
+
+pci_disable_device() doesn't turn off the device; it only disables bus
+mastering (and some of the arch-specific pcibios_disable_device()
+implementations do a little more).  But it's certainly the wrong
+direction -- it disables DMA, which has nothing to do with the BAR
+decoding we're interested in.
+
+What if the driver did something like this:
+
+  pci_disable_decoding(dev, IORESOURCE_MEM);
+  pci_release_resource(dev, 2);
+  pci_resize_bar(dev, bar, size);
+  pci_assign_resources(dev);
+  pci_enable_decoding(dev, IORESOURCE_MEM);
+
+That would require adding pci_enable/disable_decoding() to the driver
+API, along with the requirement that the driver discard and remap
+some resources after pci_enable_decoding().  I think
+pci_enable_decoding() would look much like the existing
+pci_enable_resources() except taking a resource type instead of a
+bitmask.
+
+I would *prefer* if we released and reassigned all resources, because
+then the core has complete flexibility to move things around, and it's
+easy to document that pci_assign_resources() means you have to
+reread/remap everything.
+
+If the driver only releases specified BARs, the pci_assign_resources()
+interface becomes "you need to reread/remap the BAR you resized, plus
+any other BARs you released".  It's a little more complicated to
+describe and more dependent on previous driver actions.
+
+But releasing only the specified BAR will make your life easier and
+help with the fact that multiple drivers might be using the same BAR
+(I have to raise my eyebrows at that), so I think I'm OK with it.  And
+it would also side-step the "can't restore previous state" problem.
+
+It's an "interesting" asymmetry that pci_enable_device() turns on BAR
+decoding but doesn't touch bus mastering, while pci_disable_device()
+turns off bus mastering but doesn't touch BAR decoding.
+
+Bjorn
