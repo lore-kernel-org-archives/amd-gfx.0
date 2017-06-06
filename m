@@ -1,58 +1,122 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 2/2] drm/amd/powerplay: fix memory leak in cz_hwmgr backend
-Date: Tue, 6 Jun 2017 15:17:13 +0000
-Message-ID: <CY4PR12MB1653195BA6E19507E5A11C63F7CB0@CY4PR12MB1653.namprd12.prod.outlook.com>
-References: <1496738170-2743-1-git-send-email-Hawking.Zhang@amd.com>
- <1496738170-2743-2-git-send-email-Hawking.Zhang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/gfx8: drop per-APU CU limits
+Date: Tue, 6 Jun 2017 16:55:28 -0400
+Message-ID: <CADnq5_NH9T=qzZCXW2kEwdGwGYzaPb9v4Gg9P7HszMBQ02sxqw@mail.gmail.com>
+References: <1496240180-24862-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1496738170-2743-2-git-send-email-Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <1496240180-24862-1-git-send-email-alexander.deucher@amd.com>
+Sender: stable-owner@vger.kernel.org
+To: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>, "for 3.8" <stable@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
-LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIEhhd2tp
-bmcgWmhhbmcNCj4gU2VudDogVHVlc2RheSwgSnVuZSAwNiwgMjAxNyA0OjM2IEFNDQo+IFRvOiBh
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBDYzogWmhhbmcsIEhhd2tpbmcNCj4gU3Vi
-amVjdDogW1BBVENIIDIvMl0gZHJtL2FtZC9wb3dlcnBsYXk6IGZpeCBtZW1vcnkgbGVhayBpbiBj
-el9od21ncg0KPiBiYWNrZW5kDQo+IA0KPiB2ZGRjX2RlcF9vbl9kYWxfcHdybCBpcyBhbGxvY2F0
-ZWQgYW5kIGluaXRpYWxpemVkIGluIGN6X2h3bWdyX2JhY2tlbmRfaW5pdA0KPiBUaHVzIGZyZWUg
-dGhlIG1lbW9yeSBpbiBjel9od21ncl9iYWNrZW5kX2ZpbmkNCj4gDQo+IENoYW5nZS1JZDogSWRk
-NmRkNGI3Njg5NDU3OTY3NGJmMzM0MzM5YjcxZGY4NTU5NjM3ZmQNCj4gU2lnbmVkLW9mZi1ieTog
-SGF3a2luZyBaaGFuZyA8SGF3a2luZy5aaGFuZ0BhbWQuY29tPg0KDQpTZXJpZXMgaXM6DQpSZXZp
-ZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0KDQo+IC0t
-LQ0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvY3pfaHdtZ3IuYyB8IDYg
-KysrKysrDQo+ICAxIGZpbGUgY2hhbmdlZCwgNiBpbnNlcnRpb25zKCspDQo+IA0KPiBkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvY3pfaHdtZ3IuYw0KPiBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2N6X2h3bWdyLmMNCj4gaW5kZXgg
-N2FhNWNhOC4uMGI3NGRhMyAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
-cnBsYXkvaHdtZ3IvY3pfaHdtZ3IuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
-cGxheS9od21nci9jel9od21nci5jDQo+IEBAIC0xMjI0LDYgKzEyMjQsMTIgQEAgc3RhdGljIGlu
-dCBjel9od21ncl9iYWNrZW5kX2Zpbmkoc3RydWN0DQo+IHBwX2h3bWdyICpod21ncikNCj4gIAkJ
-cGhtX2Rlc3Ryb3lfdGFibGUoaHdtZ3IsICYoaHdtZ3ItDQo+ID5kaXNhYmxlX2R5bmFtaWNfc3Rh
-dGVfbWFuYWdlbWVudCkpOw0KPiAgCQlwaG1fZGVzdHJveV90YWJsZShod21nciwgJihod21nci0N
-Cj4gPnBvd2VyX2Rvd25fYXNpYykpOw0KPiAgCQlwaG1fZGVzdHJveV90YWJsZShod21nciwgJiho
-d21nci0+c2V0dXBfYXNpYykpOw0KPiArDQo+ICsJCWlmIChOVUxMICE9IGh3bWdyLT5keW5fc3Rh
-dGUudmRkY19kZXBfb25fZGFsX3B3cmwpIHsNCj4gKwkJCWtmcmVlKGh3bWdyLT5keW5fc3RhdGUu
-dmRkY19kZXBfb25fZGFsX3B3cmwpOw0KPiArCQkJaHdtZ3ItPmR5bl9zdGF0ZS52ZGRjX2RlcF9v
-bl9kYWxfcHdybCA9IE5VTEw7DQo+ICsJCX0NCj4gKw0KPiAgCQlrZnJlZShod21nci0+YmFja2Vu
-ZCk7DQo+ICAJCWh3bWdyLT5iYWNrZW5kID0gTlVMTDsNCj4gIAl9DQo+IC0tDQo+IDIuNy40DQo+
-IA0KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBh
-bWQtZ2Z4IG1haWxpbmcgbGlzdA0KPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
-bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+On Wed, May 31, 2017 at 10:16 AM, Alex Deucher <alexdeucher@gmail.com> wrote:
+> Always use the max for the family rather than the per sku limits.
+> This makes sure the mask is always the max size to avoid reporting
+> the wrong number of CUs.
+>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+
+Ping?
+
+Alex
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 71 +----------------------------------
+>  1 file changed, 2 insertions(+), 69 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> index 58cc585..b596486 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> @@ -1915,46 +1915,7 @@ static int gfx_v8_0_gpu_early_init(struct amdgpu_device *adev)
+>                 adev->gfx.config.max_tile_pipes = 2;
+>                 adev->gfx.config.max_sh_per_se = 1;
+>                 adev->gfx.config.max_backends_per_se = 2;
+> -
+> -               switch (adev->pdev->revision) {
+> -               case 0xc4:
+> -               case 0x84:
+> -               case 0xc8:
+> -               case 0xcc:
+> -               case 0xe1:
+> -               case 0xe3:
+> -                       /* B10 */
+> -                       adev->gfx.config.max_cu_per_sh = 8;
+> -                       break;
+> -               case 0xc5:
+> -               case 0x81:
+> -               case 0x85:
+> -               case 0xc9:
+> -               case 0xcd:
+> -               case 0xe2:
+> -               case 0xe4:
+> -                       /* B8 */
+> -                       adev->gfx.config.max_cu_per_sh = 6;
+> -                       break;
+> -               case 0xc6:
+> -               case 0xca:
+> -               case 0xce:
+> -               case 0x88:
+> -               case 0xe6:
+> -                       /* B6 */
+> -                       adev->gfx.config.max_cu_per_sh = 6;
+> -                       break;
+> -               case 0xc7:
+> -               case 0x87:
+> -               case 0xcb:
+> -               case 0xe5:
+> -               case 0x89:
+> -               default:
+> -                       /* B4 */
+> -                       adev->gfx.config.max_cu_per_sh = 4;
+> -                       break;
+> -               }
+> -
+> +               adev->gfx.config.max_cu_per_sh = 8;
+>                 adev->gfx.config.max_texture_channel_caches = 2;
+>                 adev->gfx.config.max_gprs = 256;
+>                 adev->gfx.config.max_gs_threads = 32;
+> @@ -1971,35 +1932,7 @@ static int gfx_v8_0_gpu_early_init(struct amdgpu_device *adev)
+>                 adev->gfx.config.max_tile_pipes = 2;
+>                 adev->gfx.config.max_sh_per_se = 1;
+>                 adev->gfx.config.max_backends_per_se = 1;
+> -
+> -               switch (adev->pdev->revision) {
+> -               case 0x80:
+> -               case 0x81:
+> -               case 0xc0:
+> -               case 0xc1:
+> -               case 0xc2:
+> -               case 0xc4:
+> -               case 0xc8:
+> -               case 0xc9:
+> -               case 0xd6:
+> -               case 0xda:
+> -               case 0xe9:
+> -               case 0xea:
+> -                       adev->gfx.config.max_cu_per_sh = 3;
+> -                       break;
+> -               case 0x83:
+> -               case 0xd0:
+> -               case 0xd1:
+> -               case 0xd2:
+> -               case 0xd4:
+> -               case 0xdb:
+> -               case 0xe1:
+> -               case 0xe2:
+> -               default:
+> -                       adev->gfx.config.max_cu_per_sh = 2;
+> -                       break;
+> -               }
+> -
+> +               adev->gfx.config.max_cu_per_sh = 3;
+>                 adev->gfx.config.max_texture_channel_caches = 2;
+>                 adev->gfx.config.max_gprs = 256;
+>                 adev->gfx.config.max_gs_threads = 16;
+> --
+> 2.5.5
+>
