@@ -1,11 +1,13 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: add virtual display support for raven
-Date: Wed,  7 Jun 2017 17:53:23 -0400
-Message-ID: <1496872403-26671-1-git-send-email-alexander.deucher@amd.com>
+From: axie <axie-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/6] drm/amdgpu/gfx8: whitespace change
+Date: Wed, 7 Jun 2017 17:58:02 -0400
+Message-ID: <d99a4f5c-221c-d4e2-f9e9-4d1c871943d7@amd.com>
+References: <1496864097-4322-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1587032162=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1496864097-4322-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,24 +19,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-U2FtZSBhcyBvdGhlciBhc2ljcy4gIElmIGVuYWJsZWQsIGV4cG9zZXMgYSB1c2VyIHNlbGVjdGFi
-bGUKbnVtYmVyIG9mIHZpcnR1YWwgZGlzcGxheXMuCgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNo
-ZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvc29jMTUuYyB8IDIgKysKIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKykKCmRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYwppbmRleCAyMmIyMjJiLi5lMzQzODQ0IDEwMDY0NAot
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jCisrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMKQEAgLTUwMyw2ICs1MDMsOCBAQCBpbnQgc29jMTVfc2V0
-X2lwX2Jsb2NrcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAkJYW1kZ3B1X2lwX2Jsb2Nr
-X2FkZChhZGV2LCAmdmVnYTEwX2loX2lwX2Jsb2NrKTsKIAkJYW1kZ3B1X2lwX2Jsb2NrX2FkZChh
-ZGV2LCAmcHNwX3YxMF8wX2lwX2Jsb2NrKTsKIAkJYW1kZ3B1X2lwX2Jsb2NrX2FkZChhZGV2LCAm
-YW1kZ3B1X3BwX2lwX2Jsb2NrKTsKKwkJaWYgKGFkZXYtPmVuYWJsZV92aXJ0dWFsX2Rpc3BsYXkg
-fHwgYW1kZ3B1X3NyaW92X3ZmKGFkZXYpKQorCQkJYW1kZ3B1X2lwX2Jsb2NrX2FkZChhZGV2LCAm
-ZGNlX3ZpcnR1YWxfaXBfYmxvY2spOwogCQlhbWRncHVfaXBfYmxvY2tfYWRkKGFkZXYsICZnZnhf
-djlfMF9pcF9ibG9jayk7CiAJCWFtZGdwdV9pcF9ibG9ja19hZGQoYWRldiwgJnNkbWFfdjRfMF9p
-cF9ibG9jayk7CiAJCWFtZGdwdV9pcF9ibG9ja19hZGQoYWRldiwgJnZjbl92MV8wX2lwX2Jsb2Nr
-KTsKLS0gCjIuNS41CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is a multi-part message in MIME format.
+--===============1587032162==
+Content-Type: multipart/alternative;
+ boundary="------------9D5FA30417123D91549805A8"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------9D5FA30417123D91549805A8
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Reviewed-by: Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
+
+
+On 2017-06-07 03:34 PM, Alex Deucher wrote:
+> Make it consistent.
+>
+> Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> index cfa37f1..8d39e7d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> @@ -859,7 +859,8 @@ static int gfx_v8_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+>   }
+>   
+>   
+> -static void gfx_v8_0_free_microcode(struct amdgpu_device *adev) {
+> +static void gfx_v8_0_free_microcode(struct amdgpu_device *adev)
+> +{
+>   	release_firmware(adev->gfx.pfp_fw);
+>   	adev->gfx.pfp_fw = NULL;
+>   	release_firmware(adev->gfx.me_fw);
+
+
+--------------9D5FA30417123D91549805A8
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p>Reviewed-by: Alex Xie <a class="moz-txt-link-rfc2396E"
+        href="mailto:AlexBin.Xie-5C7GfCeVMHo@public.gmane.org">&lt;AlexBin.Xie-5C7GfCeVMHo@public.gmane.org&gt;</a></p>
+    <br>
+    <div class="moz-cite-prefix">On 2017-06-07 03:34 PM, Alex Deucher
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:1496864097-4322-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org">
+      <pre wrap="">Make it consistent.
+
+Signed-off-by: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">&lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;</a>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+index cfa37f1..8d39e7d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -859,7 +859,8 @@ static int gfx_v8_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ }
+ 
+ 
+-static void gfx_v8_0_free_microcode(struct amdgpu_device *adev) {
++static void gfx_v8_0_free_microcode(struct amdgpu_device *adev)
++{
+ 	release_firmware(adev-&gt;gfx.pfp_fw);
+ 	adev-&gt;gfx.pfp_fw = NULL;
+ 	release_firmware(adev-&gt;gfx.me_fw);
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------9D5FA30417123D91549805A8--
+
+--===============1587032162==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1587032162==--
