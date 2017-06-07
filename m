@@ -1,12 +1,13 @@
 From: axie <axie-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/6] drm/amdgpu/gfx8: whitespace change
-Date: Wed, 7 Jun 2017 17:58:02 -0400
-Message-ID: <d99a4f5c-221c-d4e2-f9e9-4d1c871943d7@amd.com>
+Subject: Re: [PATCH 2/6] drm/amdgpu/gfx9: remove spurious line in kiq setup
+Date: Wed, 7 Jun 2017 17:58:19 -0400
+Message-ID: <a661785e-c159-a471-a664-55d35e1f7f2b@amd.com>
 References: <1496864097-4322-1-git-send-email-alexander.deucher@amd.com>
+ <1496864097-4322-2-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1587032162=="
+Content-Type: multipart/mixed; boundary="===============0083492165=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1496864097-4322-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1496864097-4322-2-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,13 +22,13 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
 This is a multi-part message in MIME format.
---===============1587032162==
+--===============0083492165==
 Content-Type: multipart/alternative;
- boundary="------------9D5FA30417123D91549805A8"
+ boundary="------------41989C20A1F57C6A09CE515D"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------9D5FA30417123D91549805A8
+--------------41989C20A1F57C6A09CE515D
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
@@ -35,30 +36,28 @@ Reviewed-by: Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
 
 
 On 2017-06-07 03:34 PM, Alex Deucher wrote:
-> Make it consistent.
+> This overrode what queue was actually assigned for kiq.
 >
 > Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 > ---
->   drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
+>   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 1 -
+>   1 file changed, 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> index cfa37f1..8d39e7d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> @@ -859,7 +859,8 @@ static int gfx_v8_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
->   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> index e0193e4..4c47754f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -1054,7 +1054,6 @@ static int gfx_v9_0_kiq_init_ring(struct amdgpu_device *adev,
+>   	if (r)
+>   		return r;
 >   
->   
-> -static void gfx_v8_0_free_microcode(struct amdgpu_device *adev) {
-> +static void gfx_v8_0_free_microcode(struct amdgpu_device *adev)
-> +{
->   	release_firmware(adev->gfx.pfp_fw);
->   	adev->gfx.pfp_fw = NULL;
->   	release_firmware(adev->gfx.me_fw);
+> -	ring->queue = 0;
+>   	ring->eop_gpu_addr = kiq->eop_gpu_addr;
+>   	sprintf(ring->name, "kiq %d.%d.%d", ring->me, ring->pipe, ring->queue);
+>   	r = amdgpu_ring_init(adev, ring, 1024,
 
 
---------------9D5FA30417123D91549805A8
+--------------41989C20A1F57C6A09CE515D
 Content-Type: text/html; charset=utf-8
 Content-Transfer-Encoding: 7bit
 
@@ -74,37 +73,35 @@ Content-Transfer-Encoding: 7bit
       wrote:<br>
     </div>
     <blockquote type="cite"
-      cite="mid:1496864097-4322-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org">
-      <pre wrap="">Make it consistent.
+      cite="mid:1496864097-4322-2-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org">
+      <pre wrap="">This overrode what queue was actually assigned for kiq.
 
 Signed-off-by: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">&lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;</a>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-index cfa37f1..8d39e7d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -859,7 +859,8 @@ static int gfx_v8_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index e0193e4..4c47754f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -1054,7 +1054,6 @@ static int gfx_v9_0_kiq_init_ring(struct amdgpu_device *adev,
+ 	if (r)
+ 		return r;
  
- 
--static void gfx_v8_0_free_microcode(struct amdgpu_device *adev) {
-+static void gfx_v8_0_free_microcode(struct amdgpu_device *adev)
-+{
- 	release_firmware(adev-&gt;gfx.pfp_fw);
- 	adev-&gt;gfx.pfp_fw = NULL;
- 	release_firmware(adev-&gt;gfx.me_fw);
+-	ring-&gt;queue = 0;
+ 	ring-&gt;eop_gpu_addr = kiq-&gt;eop_gpu_addr;
+ 	sprintf(ring-&gt;name, "kiq %d.%d.%d", ring-&gt;me, ring-&gt;pipe, ring-&gt;queue);
+ 	r = amdgpu_ring_init(adev, ring, 1024,
 </pre>
     </blockquote>
     <br>
   </body>
 </html>
 
---------------9D5FA30417123D91549805A8--
+--------------41989C20A1F57C6A09CE515D--
 
---===============1587032162==
+--===============0083492165==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -114,4 +111,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1587032162==--
+--===============0083492165==--
