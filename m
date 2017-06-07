@@ -1,14 +1,14 @@
-From: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu:fix world switch hang
-Date: Wed, 7 Jun 2017 09:52:25 +0800
-Message-ID: <59375C59.90400@amd.com>
-References: <1496741253-24964-1-git-send-email-Monk.Liu@amd.com>
- <f4d58615-318c-a093-e31a-2fa8995a6a85@vodafone.de>
+From: Luke Miller <dodgyville-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: Bug reports for beginners.
+Date: Wed, 7 Jun 2017 11:25:45 +1000
+Message-ID: <CAFs5HV33E3Bq3pHFCzUidWXcpjkbNX2MUENa7JnX_83TGq7YRQ@mail.gmail.com>
+References: <CAFs5HV1kA4OxDh5Kqe4r1CxBYcVNec6Ch_Wmc+dv79rsQ_QT7w@mail.gmail.com>
+ <0910432c-a8d9-c66a-ae6e-7530f353d872@daenzer.net>
+ <CADnq5_PTExrHF6WWOxpbOeLHptahYJtOoWqz98DpVZQ5t7MJPg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0968759225=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <f4d58615-318c-a093-e31a-2fa8995a6a85-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <CADnq5_PTExrHF6WWOxpbOeLHptahYJtOoWqz98DpVZQ5t7MJPg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,87 +19,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-CgpPbiAyMDE35bm0MDbmnIgwNuaXpSAyMDowMSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBB
-bSAwNi4wNi4yMDE3IHVtIDExOjI3IHNjaHJpZWIgTW9uayBMaXU6Cj4+IGZvciBTUi1JT1YsIHdl
-IG11c3Qga2VlcCB0aGUgcGlwZWxpbmUtc3luYyBpbiB0aGUgcHJvdGVjdGlvbgo+PiBvZiBDT05E
-X0VYRUMsIG90aGVyd2lzZSB0aGUgY29tbWFuZCBjb25zdW1lZCBieSBDUEcgaXMgbm90Cj4+IGNv
-bnNpc3RlbnQgd2hlbiB3b3JsZCBzd2l0Y2ggdHJpZ2dlcmQsIGUuZy46Cj4+Cj4+IHdvcmxkIHN3
-aXRjaCBoaXQgYW5kIHRoZSBJQiBmcmFtZSBpcyBza2lwcGVkIHNvIHRoZSBmZW5jZQo+PiB3b24n
-dCBzaWduYWwsIHRodXMgQ1Agd2lsbCBqdW1wIHRvIHRoZSBuZXh0IERNQWZyYW1lJ3MgcGlwZWxp
-bmUtc3luYwo+PiBjb21tYW5kLCBhbmQgaXQgd2lsbCBtYWtlIENQIGhhbmcgZm9ldmVyLgo+Pgo+
-PiBhZnRlciBwaXBlbGluLXN5bmMgbW92ZWQgaW50byBDT05EX0VYRUMgdGhlIGNvbnNpc3RlbmN5
-IGNhbiBiZQo+PiBndWFyYW50ZWVkCj4+Cj4+IENoYW5nZS1JZDogSTMwNTk1MzU3NDVlMmUxMjE1
-MzQzMjk5YjE3ZjI3ZmUwODFmYzAxYmMKPj4gU2lnbmVkLW9mZi1ieTogTW9uayBMaXUgPE1vbmsu
-TGl1QGFtZC5jb20+Cj4KPiBSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFu
-LmtvZW5pZ0BhbWQuY29tPgo+Cj4+IC0tLQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9pYi5jIHwgNSArKystLQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV92bS5jIHwgNyArKysrKy0tCj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3ZtLmggfCAyICstCj4+ICAgMyBmaWxlcyBjaGFuZ2VkLCA5IGluc2VydGlvbnMoKyksIDUg
-ZGVsZXRpb25zKC0pCj4+Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfaWIuYyAKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaWIu
-Ywo+PiBpbmRleCAwMjVlMDNiLi45NDdiZDM0IDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfaWIuYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfaWIuYwo+PiBAQCAtMTMwLDYgKzEzMCw3IEBAIGludCBhbWRncHVfaWJfc2No
-ZWR1bGUoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCAKPj4gdW5zaWduZWQgbnVtX2licywKPj4g
-ICAgICAgICB1bnNpZ25lZCBpOwo+PiAgICAgICBpbnQgciA9IDA7Cj4+ICsgICAgYm9vbCBuZWVk
-X3BpcGVfc3luYyA9IGZhbHNlOwo+PiAgICAgICAgIGlmIChudW1faWJzID09IDApCj4+ICAgICAg
-ICAgICByZXR1cm4gLUVJTlZBTDsKPj4gQEAgLTE2NSw3ICsxNjYsNyBAQCBpbnQgYW1kZ3B1X2li
-X3NjaGVkdWxlKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgCj4+IHVuc2lnbmVkIG51bV9pYnMs
-Cj4+ICAgICAgIGlmIChyaW5nLT5mdW5jcy0+ZW1pdF9waXBlbGluZV9zeW5jICYmIGpvYiAmJgo+
-PiAgICAgICAgICAgKCh0bXAgPSBhbWRncHVfc3luY19nZXRfZmVuY2UoJmpvYi0+c2NoZWRfc3lu
-YykpIHx8Cj4+ICAgICAgICAgICAgYW1kZ3B1X3ZtX25lZWRfcGlwZWxpbmVfc3luYyhyaW5nLCBq
-b2IpKSkgewo+PiAtICAgICAgICBhbWRncHVfcmluZ19lbWl0X3BpcGVsaW5lX3N5bmMocmluZyk7
-Cj4+ICsgICAgICAgIG5lZWRfcGlwZV9zeW5jID0gdHJ1ZTsKPj4gICAgICAgICAgIGZlbmNlX3B1
-dCh0bXApOwo+PiAgICAgICB9Cj4+ICAgQEAgLTE3Myw3ICsxNzQsNyBAQCBpbnQgYW1kZ3B1X2li
-X3NjaGVkdWxlKHN0cnVjdCBhbWRncHVfcmluZyAKPj4gKnJpbmcsIHVuc2lnbmVkIG51bV9pYnMs
-Cj4+ICAgICAgICAgICByaW5nLT5mdW5jcy0+aW5zZXJ0X3N0YXJ0KHJpbmcpOwo+PiAgICAgICAg
-IGlmICh2bSkgewo+PiAtICAgICAgICByID0gYW1kZ3B1X3ZtX2ZsdXNoKHJpbmcsIGpvYik7Cj4+
-ICsgICAgICAgIHIgPSBhbWRncHVfdm1fZmx1c2gocmluZywgam9iLCBuZWVkX3BpcGVfc3luYyk7
-ClRoZXJlIGlzIGEgcG90ZW50aWFsIGNhc2UgbG9zdCwgaWYgbm8tdm0gam9iIG5lZWRzIHBpcGVs
-aW5lX3N5bmMsIHRoZW4gCndoaWNoIHdpbGwgYmUgbG9zdC4KClJlZ2FyZHMsCkRhdmlkIFpob3UK
-Pj4gICAgICAgICAgIGlmIChyKSB7Cj4+ICAgICAgICAgICAgICAgYW1kZ3B1X3JpbmdfdW5kbyhy
-aW5nKTsKPj4gICAgICAgICAgICAgICByZXR1cm4gcjsKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIAo+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV92bS5jCj4+IGluZGV4IGIwNjVmOGIuLjZkNjJlMzQgMTAwNjQ0Cj4+IC0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4+ICsrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4+IEBAIC03NDcsNyArNzQ3LDcgQEAg
-c3RhdGljIGJvb2wgYW1kZ3B1X3ZtX2lzX2xhcmdlX2JhcihzdHJ1Y3QgCj4+IGFtZGdwdV9kZXZp
-Y2UgKmFkZXYpCj4+ICAgICoKPj4gICAgKiBFbWl0IGEgVk0gZmx1c2ggd2hlbiBpdCBpcyBuZWNl
-c3NhcnkuCj4+ICAgICovCj4+IC1pbnQgYW1kZ3B1X3ZtX2ZsdXNoKHN0cnVjdCBhbWRncHVfcmlu
-ZyAqcmluZywgc3RydWN0IGFtZGdwdV9qb2IgKmpvYikKPj4gK2ludCBhbWRncHVfdm1fZmx1c2go
-c3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCBzdHJ1Y3QgYW1kZ3B1X2pvYiAKPj4gKmpvYiwgYm9v
-bCBuZWVkX3BpcGVfc3luYykKPj4gICB7Cj4+ICAgICAgIHN0cnVjdCBhbWRncHVfZGV2aWNlICph
-ZGV2ID0gcmluZy0+YWRldjsKPj4gICAgICAgdW5zaWduZWQgdm1odWIgPSByaW5nLT5mdW5jcy0+
-dm1odWI7Cj4+IEBAIC03NzAsMTIgKzc3MCwxNSBAQCBpbnQgYW1kZ3B1X3ZtX2ZsdXNoKHN0cnVj
-dCBhbWRncHVfcmluZyAqcmluZywgCj4+IHN0cnVjdCBhbWRncHVfam9iICpqb2IpCj4+ICAgICAg
-ICAgICB2bV9mbHVzaF9uZWVkZWQgPSB0cnVlOwo+PiAgICAgICB9Cj4+ICAgLSAgICBpZiAoIXZt
-X2ZsdXNoX25lZWRlZCAmJiAhZ2RzX3N3aXRjaF9uZWVkZWQpCj4+ICsgICAgaWYgKCF2bV9mbHVz
-aF9uZWVkZWQgJiYgIWdkc19zd2l0Y2hfbmVlZGVkICYmICFuZWVkX3BpcGVfc3luYykKPj4gICAg
-ICAgICAgIHJldHVybiAwOwo+PiAgICAgICAgIGlmIChyaW5nLT5mdW5jcy0+aW5pdF9jb25kX2V4
-ZWMpCj4+ICAgICAgICAgICBwYXRjaF9vZmZzZXQgPSBhbWRncHVfcmluZ19pbml0X2NvbmRfZXhl
-YyhyaW5nKTsKPj4gICArICAgIGlmIChuZWVkX3BpcGVfc3luYykKPj4gKyAgICAgICAgYW1kZ3B1
-X3JpbmdfZW1pdF9waXBlbGluZV9zeW5jKHJpbmcpOwo+PiArCj4+ICAgICAgIGlmIChyaW5nLT5m
-dW5jcy0+ZW1pdF92bV9mbHVzaCAmJiB2bV9mbHVzaF9uZWVkZWQpIHsKPj4gICAgICAgICAgIHN0
-cnVjdCBmZW5jZSAqZmVuY2U7Cj4+ICAgZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV92bS5oIAo+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV92bS5oCj4+IGluZGV4IDlhYTAwZDkuLmNjMDAwOWYgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV92bS5oCj4+IEBAIC0yMjIsNyArMjIyLDcgQEAgaW50IGFtZGdwdV92
-bV9hbGxvY19wdHMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4+ICAgaW50IGFtZGdwdV92
-bV9ncmFiX2lkKHN0cnVjdCBhbWRncHVfdm0gKnZtLCBzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcs
-Cj4+ICAgICAgICAgICAgICAgICBzdHJ1Y3QgYW1kZ3B1X3N5bmMgKnN5bmMsIHN0cnVjdCBmZW5j
-ZSAqZmVuY2UsCj4+ICAgICAgICAgICAgICAgICBzdHJ1Y3QgYW1kZ3B1X2pvYiAqam9iKTsKPj4g
-LWludCBhbWRncHVfdm1fZmx1c2goc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCBzdHJ1Y3QgYW1k
-Z3B1X2pvYiAqam9iKTsKPj4gK2ludCBhbWRncHVfdm1fZmx1c2goc3RydWN0IGFtZGdwdV9yaW5n
-ICpyaW5nLCBzdHJ1Y3QgYW1kZ3B1X2pvYiAKPj4gKmpvYiwgYm9vbCBuZWVkX3BpcGVfc3luYyk7
-Cj4+ICAgdm9pZCBhbWRncHVfdm1fcmVzZXRfaWQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYs
-IHVuc2lnbmVkIHZtaHViLAo+PiAgICAgICAgICAgICAgIHVuc2lnbmVkIHZtaWQpOwo+PiAgIHZv
-aWQgYW1kZ3B1X3ZtX3Jlc2V0X2FsbF9pZHMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOwo+
-Cj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFt
-ZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
-ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============0968759225==
+Content-Type: multipart/alternative; boundary="f40304389034c9e3010551549e7b"
+
+--f40304389034c9e3010551549e7b
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Done!
+
+https://bugs.freedesktop.org/show_bug.cgi?id=3D101325
+
+Also, running ue4editor with R600_DEBUG=3Dcheck_vm GALLIUM_DDEBUG=3D"pipeli=
+ned
+10000" set made a difference -- program crashed but didn't take out the
+whole system. I take that as a good sign.
+
+Luke
+
+On 7 June 2017 at 00:09, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+
+> On Mon, Jun 5, 2017 at 10:05 PM, Michel D=C3=A4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org> =
+wrote:
+> > On 03/06/17 07:46 AM, Luke Miller wrote:
+> >>
+> >> I have a recurring problem with one 3D program (UE4editor) crashing my
+> >> computer during a particular operation.
+> >>
+> >> I believe the problem is at the DRM layer.
+> >
+> > It's actually more likely in Mesa. If you set either or both of the
+> > following environment variables for running ue4editor:
+> >
+> > R600_DEBUG=3Dcheck_vm GALLIUM_DDEBUG=3D"pipelined 10000"
+> >
+> > it should create a file in ~/ddebug_dumps/ with more information about
+> > the GPU hang.
+> >
+>
+> Please also open a bug (https://bugs.freedesktop.org Product: Mesa,
+> Component: radeonsi) and attach your dmesg and xorg log along with all
+> of the relevent info from this thread.  That way we have a central
+> location to discuss the issue and store all of the relevant
+> information.
+>
+> Thanks,
+>
+> Alex
+>
+
+--f40304389034c9e3010551549e7b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div><div>Done!<br><br><a href=3D"https://bugs.freedesktop=
+.org/show_bug.cgi?id=3D101325">https://bugs.freedesktop.org/show_bug.cgi?id=
+=3D101325</a><br><br></div>Also, running ue4editor with=20
+R600_DEBUG=3Dcheck_vm GALLIUM_DDEBUG=3D&quot;pipelined 10000&quot; set made=
+ a difference -- program crashed but didn&#39;t take out the whole system. =
+I take that as a good sign.<br><br></div>Luke<br></div><div class=3D"gmail_=
+extra"><br><div class=3D"gmail_quote">On 7 June 2017 at 00:09, Alex Deucher=
+ <span dir=3D"ltr">&lt;<a href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_=
+blank">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;</span> wrote:<br><blockquote class=3D"=
+gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-=
+left:1ex"><span class=3D"">On Mon, Jun 5, 2017 at 10:05 PM, Michel D=C3=A4n=
+zer &lt;<a href=3D"mailto:michel-otUistvHUpPR7s880joybQ@public.gmane.org">michel-otUistvHUpPR7s880joybQ@public.gmane.org</a>&gt; wr=
+ote:<br>
+&gt; On 03/06/17 07:46 AM, Luke Miller wrote:<br>
+&gt;&gt;<br>
+&gt;&gt; I have a recurring problem with one 3D program (UE4editor) crashin=
+g my<br>
+&gt;&gt; computer during a particular operation.<br>
+&gt;&gt;<br>
+&gt;&gt; I believe the problem is at the DRM layer.<br>
+&gt;<br>
+&gt; It&#39;s actually more likely in Mesa. If you set either or both of th=
+e<br>
+&gt; following environment variables for running ue4editor:<br>
+&gt;<br>
+&gt; R600_DEBUG=3Dcheck_vm GALLIUM_DDEBUG=3D&quot;pipelined 10000&quot;<br>
+&gt;<br>
+&gt; it should create a file in ~/ddebug_dumps/ with more information about=
+<br>
+&gt; the GPU hang.<br>
+&gt;<br>
+<br>
+</span>Please also open a bug (<a href=3D"https://bugs.freedesktop.org" rel=
+=3D"noreferrer" target=3D"_blank">https://bugs.freedesktop.org</a> Product:=
+ Mesa,<br>
+Component: radeonsi) and attach your dmesg and xorg log along with all<br>
+of the relevent info from this thread.=C2=A0 That way we have a central<br>
+location to discuss the issue and store all of the relevant<br>
+information.<br>
+<br>
+Thanks,<br>
+<br>
+Alex<br>
+</blockquote></div><br></div>
+
+--f40304389034c9e3010551549e7b--
+
+--===============0968759225==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0968759225==--
