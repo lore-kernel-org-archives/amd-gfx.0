@@ -1,11 +1,15 @@
-From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH umr] Tidy up memory reads.
-Date: Thu,  8 Jun 2017 09:49:52 -0400
-Message-ID: <20170608134952.4388-1-tom.stdenis@amd.com>
+From: axie <axie-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu/gfx: create a common bitmask function (v2)
+Date: Thu, 8 Jun 2017 10:42:27 -0400
+Message-ID: <a12e2a24-5b59-1214-0411-eb487630afcc@amd.com>
+References: <1496787583-2883-1-git-send-email-alexander.deucher@amd.com>
+ <2e78fcdb-42d8-625b-f1cb-ac92eff8bec9@amd.com>
+ <ff35985a-bfb4-768d-5c26-b5bbb23e2249@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1384558359=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <ff35985a-bfb4-768d-5c26-b5bbb23e2249-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,201 +20,528 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-V2FzIG1hc2tpbmcgdG9vIG1hbnkgYml0cyBvbiBBSSsgcGx1cyBzdGFydGVkIGFkZGl0aW9uIG9m
-IEFQVSBvZmZzZXRzL2V0Yy4gIEFsc28KYWRkZWQgbW9yZSBzZW5zaWJsZSBkZWJ1ZyBvdXRwdXQg
-dG8gbWF0Y2ggdGhlIHJlZ2lzdGVyIG5hbWVzIGJldHRlci4KCkFsc28gZGlzY292ZXJlZCB0aGF0
-IHJlYWRpbmcgc3lzIHJhbSB3aGVuIElPTU1VIGlzIGVuYWJsZWQgZG9lc24ndCB3b3JrIHJpZ2h0
-IG5vdwpzbyB5b3UnbGwgZWl0aGVyIGhhdmUgdG8gZGlhYmxlIElPTU1VIG9yIHJlc3RyaWN0IHRo
-aXMgdG8gcmVhZGluZyB2cmFtIG9ubHkuCgpUT0RPOgoKMS4gIERldGVjdCBJT01NVSBlbmFibGVk
-IGFuZCBpc3N1ZSB3YXJuaW5nIChpZiBzeXN0ZW0gYml0IGlzIHNldCBpbiBQREUvUFRFKQoyLiAg
-RXZlbnR1YWxseSBmaWx0ZXIgc3JhbSByZWFkcyB0aHJvdWdoIGlvbW11IHJlYWRlciAoc3lzZnMg
-ZW50cnkgb3Igc29tZXRoaW5nKQoKU2lnbmVkLW9mZi1ieTogVG9tIFN0IERlbmlzIDx0b20uc3Rk
-ZW5pc0BhbWQuY29tPgotLS0KIHNyYy9saWIvcmVhZF92cmFtLmMgfCA3OCArKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQs
-IDU3IGluc2VydGlvbnMoKyksIDIxIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL3NyYy9saWIv
-cmVhZF92cmFtLmMgYi9zcmMvbGliL3JlYWRfdnJhbS5jCmluZGV4IDgwZWY0YTU2NjRkZS4uNTAy
-MTUzZGNlYWE1IDEwMDY0NAotLS0gYS9zcmMvbGliL3JlYWRfdnJhbS5jCisrKyBiL3NyYy9saWIv
-cmVhZF92cmFtLmMKQEAgLTYxLDYgKzYxLDggQEAgc3RhdGljIGludCB1bXJfcmVhZF9zcmFtKHVp
-bnQ2NF90IGFkZHJlc3MsIHVpbnQzMl90IHNpemUsIHZvaWQgKmRzdCkKIHsKIAlpbnQgZmQ7CiAK
-KwlERUJVRygiUmVhZGluZyBwaHlzaWNhbCBzeXMgYWRkcjogMHglbGx4XG4iLCAodW5zaWduZWQg
-bG9uZyBsb25nKWFkZHJlc3MpOworCiAJZmQgPSBvcGVuKCIvZGV2L2ZtZW0iLCBPX1JEV1IpOwog
-CWlmIChmZCA8IDApCiAJCWZkID0gb3BlbigiL2Rldi9tZW0iLCBPX1JEV1IgfCBPX0RTWU5DKTsK
-QEAgLTgwLDcgKzgyLDggQEAgc3RhdGljIGludCB1bXJfcmVhZF9zcmFtKHVpbnQ2NF90IGFkZHJl
-c3MsIHVpbnQzMl90IHNpemUsIHZvaWQgKmRzdCkKIHN0YXRpYyBpbnQgdW1yX3JlYWRfdnJhbV92
-aShzdHJ1Y3QgdW1yX2FzaWMgKmFzaWMsIHVpbnQzMl90IHZtaWQsIHVpbnQ2NF90IGFkZHJlc3Ms
-IHVpbnQzMl90IHNpemUsIHZvaWQgKmRzdCkKIHsKIAl1aW50NjRfdCBzdGFydF9hZGRyLCBwYWdl
-X3RhYmxlX3N0YXJ0X2FkZHIsIHBhZ2VfdGFibGVfYmFzZV9hZGRyLAotCQkgcGFnZV90YWJsZV9z
-aXplLCBwdGVfaWR4LCBwZGVfaWR4LCBwdGVfZW50cnksIHBkZV9lbnRyeTsKKwkJIHBhZ2VfdGFi
-bGVfc2l6ZSwgcHRlX2lkeCwgcGRlX2lkeCwgcHRlX2VudHJ5LCBwZGVfZW50cnksCisJCSB2bV9m
-Yl9iYXNlOwogCXVpbnQzMl90IGNodW5rX3NpemUsIHRtcDsKIAlpbnQgcGFnZV90YWJsZV9kZXB0
-aDsKIAlzdHJ1Y3QgewpAQCAtMTMyLDEwICsxMzUsMTMgQEAgc3RhdGljIGludCB1bXJfcmVhZF92
-cmFtX3ZpKHN0cnVjdCB1bXJfYXNpYyAqYXNpYywgdWludDMyX3Qgdm1pZCwgdWludDY0X3QgYWRk
-cmUKIAlzcHJpbnRmKGJ1ZiwgIm1tVk1fQ09OVEVYVCVkX1BBR0VfVEFCTEVfQkFTRV9BRERSIiwg
-KGludCl2bWlkKTsKIAkJcGFnZV90YWJsZV9iYXNlX2FkZHIgID0gKHVpbnQ2NF90KXVtcl9yZWFk
-X3JlZ19ieV9uYW1lKGFzaWMsIGJ1ZikgPDwgMTI7CiAKLQlERUJVRygiUEFHRV9TVEFSVF9BRERS
-ID0gJTA4bGx4XG4iLCAodW5zaWduZWQgbG9uZyBsb25nKXBhZ2VfdGFibGVfc3RhcnRfYWRkcik7
-Ci0JREVCVUcoIkJBU0VfQUREUiA9IDB4JTA4bGx4XG4iLCAodW5zaWduZWQgbG9uZyBsb25nKXBh
-Z2VfdGFibGVfYmFzZV9hZGRyKTsKLQlERUJVRygiQkFTRV9TSVpFID0gJWx1XG4iLCBwYWdlX3Rh
-YmxlX3NpemUpOwotCURFQlVHKCJQQUdFX1RBQkxFX0RFUFRIID0gJWRcbiIsIHBhZ2VfdGFibGVf
-ZGVwdGgpOworCXZtX2ZiX2Jhc2UgID0gKCh1aW50NjRfdCl1bXJfcmVhZF9yZWdfYnlfbmFtZShh
-c2ljLCAibW1NQ19WTV9GQl9MT0NBVElPTiIpID4+IDE2KSA8PCAyNDsKKworCURFQlVHKCJtbVZN
-X0NPTlRFWFR4X1BBR0VfVEFCTEVfU1RBUlRfQUREUiA9ICUwOGxseFxuIiwgKHVuc2lnbmVkIGxv
-bmcgbG9uZylwYWdlX3RhYmxlX3N0YXJ0X2FkZHIpOworCURFQlVHKCJtbVZNX0NPTlRFWFR4X1BB
-R0VfVEFCTEVfQkFTRV9BRERSID0gMHglMDhsbHhcbiIsICh1bnNpZ25lZCBsb25nIGxvbmcpcGFn
-ZV90YWJsZV9iYXNlX2FkZHIpOworCURFQlVHKCJtbVZNX0NPTlRFWFR4X0NOVEwuUEFHRV9UQUJM
-RV9CTE9DS19TSVpFID0gJWx1XG4iLCBwYWdlX3RhYmxlX3NpemUpOworCURFQlVHKCJtbVZNX0NP
-TlRFWFR4X0NOVEwuUEFHRV9UQUJMRV9ERVBUSCA9ICVkXG4iLCBwYWdlX3RhYmxlX2RlcHRoKTsK
-KwlERUJVRygibW1NQ19WTV9GQl9MT0NBVElPTiA9PSAlbGx4XG4iLCAodW5zaWduZWQgbG9uZyBs
-b25nKXZtX2ZiX2Jhc2UpOwogCiAJYWRkcmVzcyAtPSBwYWdlX3RhYmxlX3N0YXJ0X2FkZHI7CiAK
-QEAgLTE1Miw3ICsxNTgsOCBAQCBzdGF0aWMgaW50IHVtcl9yZWFkX3ZyYW1fdmkoc3RydWN0IHVt
-cl9hc2ljICphc2ljLCB1aW50MzJfdCB2bWlkLCB1aW50NjRfdCBhZGRyZQogCQkJcGRlX2ZpZWxk
-cy5mcmFnX3NpemUgICAgID0gKHBkZV9lbnRyeSA+PiA1OSkgJiAweDFGOwogCQkJcGRlX2ZpZWxk
-cy5wdGVfYmFzZV9hZGRyID0gcGRlX2VudHJ5ICYgMHhGRkZGRkZGMDAwVUxMOwogCQkJcGRlX2Zp
-ZWxkcy52YWxpZCAgICAgICAgID0gcGRlX2VudHJ5ICYgMTsKLQkJCURFQlVHKCJwZGVfaWR4PSVs
-bHgsIGZyYWdfc2l6ZT0ldSwgcHRlX2Jhc2VfYWRkcj0weCVsbHgsIHZhbGlkPSVkXG4iLCAodW5z
-aWduZWQgbG9uZyBsb25nKXBkZV9pZHgsICh1bnNpZ25lZClwZGVfZmllbGRzLmZyYWdfc2l6ZSwg
-KHVuc2lnbmVkIGxvbmcgbG9uZylwZGVfZmllbGRzLnB0ZV9iYXNlX2FkZHIsIChpbnQpcGRlX2Zp
-ZWxkcy52YWxpZCk7CisJCQlERUJVRygiUERFPT0lbGx4LCBwZGVfaWR4PSVsbHgsIGZyYWdfc2l6
-ZT0ldSwgcHRlX2Jhc2VfYWRkcj0weCVsbHgsIHZhbGlkPSVkXG4iLAorCQkJCSh1bnNpZ25lZCBs
-b25nIGxvbmcpcGRlX2VudHJ5LCAodW5zaWduZWQgbG9uZyBsb25nKXBkZV9pZHgsICh1bnNpZ25l
-ZClwZGVfZmllbGRzLmZyYWdfc2l6ZSwgKHVuc2lnbmVkIGxvbmcgbG9uZylwZGVfZmllbGRzLnB0
-ZV9iYXNlX2FkZHIsIChpbnQpcGRlX2ZpZWxkcy52YWxpZCk7CiAKIAkJCS8vIG5vdyByZWFkIFBU
-RSBlbnRyeSBmb3IgdGhpcyBwYWdlCiAJCQlpZiAodW1yX3JlYWRfdnJhbShhc2ljLCAweEZGRkYs
-IHBkZV9maWVsZHMucHRlX2Jhc2VfYWRkciArIHB0ZV9pZHgqOCwgOCwgJnB0ZV9lbnRyeSkgPCAw
-KQpAQCAtMTYzLDcgKzE3MCw4IEBAIHN0YXRpYyBpbnQgdW1yX3JlYWRfdnJhbV92aShzdHJ1Y3Qg
-dW1yX2FzaWMgKmFzaWMsIHVpbnQzMl90IHZtaWQsIHVpbnQ2NF90IGFkZHJlCiAJCQlwdGVfZmll
-bGRzLmZyYWdtZW50ICAgICAgID0gKHB0ZV9lbnRyeSA+PiA3KSAgJiAweDFGOwogCQkJcHRlX2Zp
-ZWxkcy5zeXN0ZW0gICAgICAgICA9IChwdGVfZW50cnkgPj4gMSkgJiAxOwogCQkJcHRlX2ZpZWxk
-cy52YWxpZCAgICAgICAgICA9IHB0ZV9lbnRyeSAmIDE7Ci0JCQlERUJVRygicHRlX2lkeD0lbGx4
-LCBwYWdlX2Jhc2VfYWRkcj0weCVsbHgsIGZyYWdtZW50PSV1LCBzeXN0ZW09JWQsIHZhbGlkPSVk
-XG4iLCAodW5zaWduZWQgbG9uZyBsb25nKXB0ZV9pZHgsICh1bnNpZ25lZCBsb25nIGxvbmcpcHRl
-X2ZpZWxkcy5wYWdlX2Jhc2VfYWRkciwgKHVuc2lnbmVkKXB0ZV9maWVsZHMuZnJhZ21lbnQsIChp
-bnQpcHRlX2ZpZWxkcy5zeXN0ZW0sIChpbnQpcHRlX2ZpZWxkcy52YWxpZCk7CisJCQlERUJVRygi
-UFRFPSVsbHgsIHB0ZV9pZHg9JWxseCwgcGFnZV9iYXNlX2FkZHI9MHglbGx4LCBmcmFnbWVudD0l
-dSwgc3lzdGVtPSVkLCB2YWxpZD0lZFxuIiwKKwkJCQkodW5zaWduZWQgbG9uZyBsb25nKXB0ZV9l
-bnRyeSwgKHVuc2lnbmVkIGxvbmcgbG9uZylwdGVfaWR4LCAodW5zaWduZWQgbG9uZyBsb25nKXB0
-ZV9maWVsZHMucGFnZV9iYXNlX2FkZHIsICh1bnNpZ25lZClwdGVfZmllbGRzLmZyYWdtZW50LCAo
-aW50KXB0ZV9maWVsZHMuc3lzdGVtLCAoaW50KXB0ZV9maWVsZHMudmFsaWQpOwogCiAJCQkvLyBj
-b21wdXRlIHN0YXJ0aW5nIGFkZHJlc3MKIAkJCXN0YXJ0X2FkZHIgPSBwdGVfZmllbGRzLnBhZ2Vf
-YmFzZV9hZGRyICsgKGFkZHJlc3MgJiAweEZGRik7CkBAIC0yMTUsNyArMjIzLDcgQEAgc3RhdGlj
-IGludCB1bXJfcmVhZF92cmFtX2FpKHN0cnVjdCB1bXJfYXNpYyAqYXNpYywgdWludDMyX3Qgdm1p
-ZCwgdWludDY0X3QgYWRkcmUKIHsKIAl1aW50NjRfdCBzdGFydF9hZGRyLCBwYWdlX3RhYmxlX3N0
-YXJ0X2FkZHIsIHBhZ2VfdGFibGVfYmFzZV9hZGRyLAogCQkgcGFnZV90YWJsZV9zaXplLCBwdGVf
-aWR4LCBwZGVfaWR4LCBwdGVfZW50cnksIHBkZV9lbnRyeSwKLQkJIHBkZV9hZGRyZXNzOworCQkg
-cGRlX2FkZHJlc3MsIHZnYV9iYXNlX2FkZHJlc3MsIHZtX2ZiX29mZnNldCwgdm1fZmJfYmFzZTsK
-IAl1aW50MzJfdCBjaHVua19zaXplLCB0bXA7CiAJaW50IHBhZ2VfdGFibGVfZGVwdGgsIGZpcnN0
-OwogCXN0cnVjdCB7CkBAIC0yNzUsMTMgKzI4MywzMyBAQCBzdGF0aWMgaW50IHVtcl9yZWFkX3Zy
-YW1fYWkoc3RydWN0IHVtcl9hc2ljICphc2ljLCB1aW50MzJfdCB2bWlkLCB1aW50NjRfdCBhZGRy
-ZQogCQlwYWdlX3RhYmxlX2Jhc2VfYWRkciAgfD0gKHVpbnQ2NF90KXVtcl9yZWFkX3JlZ19ieV9u
-YW1lKGFzaWMsIGJ1ZikgPDwgMzI7CiAKIAlERUJVRygiVklSVF9BRERSID0gJTA4bGx4XG4iLCAo
-dW5zaWduZWQgbG9uZyBsb25nKWFkZHJlc3MpOwotCURFQlVHKCJQQUdFX1NUQVJUX0FERFIgPSAl
-MDhsbHhcbiIsICh1bnNpZ25lZCBsb25nIGxvbmcpcGFnZV90YWJsZV9zdGFydF9hZGRyKTsKLQlE
-RUJVRygiQkFTRV9BRERSID0gMHglMDhsbHhcbiIsICh1bnNpZ25lZCBsb25nIGxvbmcpcGFnZV90
-YWJsZV9iYXNlX2FkZHIpOwotCURFQlVHKCJUQUJMRV9TSVpFID0gJWx1XG4iLCBwYWdlX3RhYmxl
-X3NpemUpOwotCURFQlVHKCJQQUdFX1RBQkxFX0RFUFRIID0gJWRcbiIsIHBhZ2VfdGFibGVfZGVw
-dGgpOworCURFQlVHKCJtbVZNX0NPTlRFWFR4X1BBR0VfVEFCTEVfU1RBUlRfQUREUiA9ICUwOGxs
-eFxuIiwgKHVuc2lnbmVkIGxvbmcgbG9uZylwYWdlX3RhYmxlX3N0YXJ0X2FkZHIpOworCURFQlVH
-KCJtbVZNX0NPTlRFWFR4X1BBR0VfVEFCTEVfQkFTRV9BRERSID0gMHglMDhsbHhcbiIsICh1bnNp
-Z25lZCBsb25nIGxvbmcpcGFnZV90YWJsZV9iYXNlX2FkZHIpOworCURFQlVHKCJtbVZNX0NPTlRF
-WFR4X0NOVEwuUEFHRV9UQUJMRV9CTE9DS19TSVpFID0gJWx1XG4iLCBwYWdlX3RhYmxlX3NpemUp
-OworCURFQlVHKCJtbVZNX0NPTlRFWFR4X0NOVEwuUEFHRV9UQUJMRV9ERVBUSCA9ICVkXG4iLCBw
-YWdlX3RhYmxlX2RlcHRoKTsKIAogCWFkZHJlc3MgLT0gcGFnZV90YWJsZV9zdGFydF9hZGRyOwog
-CisJLy8gdXBkYXRlIGFkZHJlc3NlcyBmb3IgQVBVcworCWlmIChhc2ljLT5jb25maWcuZ2Z4LmZh
-bWlseSA9PSAxNDIpIHsKKwkJREVCVUcoIlJlYWRpbmcgdnJhbSBjb25maWcuLi5cbiIpOworCQl2
-Z2FfYmFzZV9hZGRyZXNzICA9ICh1aW50NjRfdCl1bXJfcmVhZF9yZWdfYnlfbmFtZShhc2ljLCAi
-bW1WR0FfTUVNT1JZX0JBU0VfQUREUkVTUyIpIDw8IDA7CisJCXZnYV9iYXNlX2FkZHJlc3MgfD0g
-KHVpbnQ2NF90KXVtcl9yZWFkX3JlZ19ieV9uYW1lKGFzaWMsICJtbVZHQV9NRU1PUllfQkFTRV9B
-RERSRVNTX0hJR0giKSA8PCAzMjsKKwkJdm1fZmJfb2Zmc2V0ICAgICAgPSAodWludDY0X3QpdW1y
-X3JlYWRfcmVnX2J5X25hbWUoYXNpYywgIm1tTUNfVk1fRkJfT0ZGU0VUIikgPDwgMjQ7CisJfSBl
-bHNlIHsKKwkJdmdhX2Jhc2VfYWRkcmVzcyA9IDA7CisJCXZtX2ZiX29mZnNldCA9IDA7CisJfQor
-CXZtX2ZiX2Jhc2UgPSAodWludDY0X3QpdW1yX3JlYWRfcmVnX2J5X25hbWUoYXNpYywgIm1tTUNf
-Vk1fRkJfTE9DQVRJT05fQkFTRSIpIDw8IDI0OworCisJREVCVUcoIm1tTUNfVk1fRkJfTE9DQVRJ
-T05fQkFTRSA9PSAlbGx4XG4iLCAodW5zaWduZWQgbG9uZyBsb25nKXZtX2ZiX2Jhc2UpOworCURF
-QlVHKCJtbU1DX1ZNX0ZCX09GRlNFVCA9IDB4JTA4bGx4XG4iLCAodW5zaWduZWQgbG9uZyBsb25n
-KXZtX2ZiX29mZnNldCk7CisJREVCVUcoIm1tVkdBX01FTU9SWV9CQVNFX0FERFJFU1MgPSAweCUw
-OGxseFxuIiwgKHVuc2lnbmVkIGxvbmcgbG9uZyl2Z2FfYmFzZV9hZGRyZXNzKTsKKwlERUJVRygi
-XG4iKTsKKworCS8vIHRyYW5zZm9ybSBwYWdlX3RhYmxlX2Jhc2UKKwlwYWdlX3RhYmxlX2Jhc2Vf
-YWRkciAtPSB2bV9mYl9vZmZzZXQ7CisKIAl3aGlsZSAoc2l6ZSkgewogCQlmaXJzdCA9IDE7CiAJ
-CWlmIChwYWdlX3RhYmxlX2RlcHRoID49IDEpIHsKQEAgLTMxMywxNSArMzQxLDE4IEBAIHN0YXRp
-YyBpbnQgdW1yX3JlYWRfdnJhbV9haShzdHJ1Y3QgdW1yX2FzaWMgKmFzaWMsIHVpbnQzMl90IHZt
-aWQsIHVpbnQ2NF90IGFkZHJlCiAKIAkJCQkvLyBkZWNvZGUgUERFIHZhbHVlcwogCQkJCXBkZV9m
-aWVsZHMuZnJhZ19zaXplICAgICA9IChwZGVfZW50cnkgPj4gNTkpICYgMHgxRjsKLQkJCQlwZGVf
-ZmllbGRzLnB0ZV9iYXNlX2FkZHIgPSBwZGVfZW50cnkgJiAweEZGRkZGRkZGRjAwMFVMTDsKKwkJ
-CQlwZGVfZmllbGRzLnB0ZV9iYXNlX2FkZHIgPSBwZGVfZW50cnkgJiAweEZGRkZGRkZGRkYwMDBV
-TEw7CiAJCQkJcGRlX2ZpZWxkcy52YWxpZCAgICAgICAgID0gcGRlX2VudHJ5ICYgMTsKIAkJCQlw
-ZGVfZmllbGRzLnN5c3RlbSAgICAgICAgPSAocGRlX2VudHJ5ID4+IDEpICYgMTsKIAkJCQlwZGVf
-ZmllbGRzLmNhY2hlICAgICAgICAgPSAocGRlX2VudHJ5ID4+IDIpICYgMTsKIAkJCQlwZGVfZmll
-bGRzLnB0ZSAgICAgICAgICAgPSAocGRlX2VudHJ5ID4+IDU0KSAmIDE7Ci0JCQkJREVCVUcoInBk
-ZV9pZHg9JWxseCwgZnJhZ19zaXplPSV1LCBwdGVfYmFzZV9hZGRyPTB4JWxseCwgdmFsaWQ9JWQs
-IHN5c3RlbT0lZCwgY2FjaGU9JWQsIHB0ZT0lZFxuIiwKLQkJCQkJKHVuc2lnbmVkIGxvbmcgbG9u
-ZylwZGVfaWR4LCAodW5zaWduZWQpcGRlX2ZpZWxkcy5mcmFnX3NpemUsICh1bnNpZ25lZCBsb25n
-IGxvbmcpcGRlX2ZpZWxkcy5wdGVfYmFzZV9hZGRyLAorCQkJCURFQlVHKCJQREU9PSVsbHgsIGZy
-YWdfc2l6ZT0ldSwgcHRlX2Jhc2VfYWRkcj0weCVsbHgsIHZhbGlkPSVkLCBzeXN0ZW09JWQsIGNh
-Y2hlPSVkLCBwdGU9JWRcbiIsCisJCQkJCSh1bnNpZ25lZCBsb25nIGxvbmcpcGRlX2VudHJ5LCAo
-dW5zaWduZWQpcGRlX2ZpZWxkcy5mcmFnX3NpemUsICh1bnNpZ25lZCBsb25nIGxvbmcpcGRlX2Zp
-ZWxkcy5wdGVfYmFzZV9hZGRyLAogCQkJCQkoaW50KXBkZV9maWVsZHMudmFsaWQsIChpbnQpcGRl
-X2ZpZWxkcy5zeXN0ZW0sIChpbnQpcGRlX2ZpZWxkcy5jYWNoZSwgKGludClwZGVfZmllbGRzLnB0
-ZSk7CiAKKwkJCQlpZiAoIXBkZV9maWVsZHMuc3lzdGVtKQorCQkJCQlwZGVfZmllbGRzLnB0ZV9i
-YXNlX2FkZHIgLT0gdm1fZmJfb2Zmc2V0OworCiAJCQkJLy8gZm9yIHRoZSBuZXh0IHJvdW5kIHRo
-ZSBhZGRyZXNzIHdlJ3JlIGRlY29kaW5nIGlzIHRoZSBwaHlzIGFkZHJlc3MgaW4gdGhlIGN1cnJl
-bnRseSBkZWNvZGVkIFBERQogCQkJCS0tcGFnZV90YWJsZV9kZXB0aDsKIAkJCQlwZGVfYWRkcmVz
-cyA9IHBkZV9maWVsZHMucHRlX2Jhc2VfYWRkcjsKQEAgLTMzMywyMyArMzY0LDI3IEBAIHN0YXRp
-YyBpbnQgdW1yX3JlYWRfdnJhbV9haShzdHJ1Y3QgdW1yX2FzaWMgKmFzaWMsIHVpbnQzMl90IHZt
-aWQsIHVpbnQ2NF90IGFkZHJlCiAJCQkJcmV0dXJuIC0xOwogCiAJCQkvLyBkZWNvZGUgUFRFIHZh
-bHVlcwotCQkJcHRlX2ZpZWxkcy5wYWdlX2Jhc2VfYWRkciA9IHB0ZV9lbnRyeSAmIDB4RkZGRkZG
-RkZGMDAwVUxMOworCQkJcHRlX2ZpZWxkcy5wYWdlX2Jhc2VfYWRkciA9IHB0ZV9lbnRyeSAmIDB4
-RkZGRkZGRkZGRjAwMFVMTDsKIAkJCXB0ZV9maWVsZHMuZnJhZ21lbnQgICAgICAgPSAocHRlX2Vu
-dHJ5ID4+IDcpICAmIDB4MUY7CiAJCQlwdGVfZmllbGRzLnN5c3RlbSAgICAgICAgID0gKHB0ZV9l
-bnRyeSA+PiAxKSAmIDE7CiAJCQlwdGVfZmllbGRzLnZhbGlkICAgICAgICAgID0gcHRlX2VudHJ5
-ICYgMTsKLQkJCURFQlVHKCJwdGVfaWR4PSVsbHgsIHBhZ2VfYmFzZV9hZGRyPTB4JWxseCwgZnJh
-Z21lbnQ9JXUsIHN5c3RlbT0lZCwgdmFsaWQ9JWRcbiIsCi0JCQkJKHVuc2lnbmVkIGxvbmcgbG9u
-ZylwdGVfaWR4LCAodW5zaWduZWQgbG9uZyBsb25nKXB0ZV9maWVsZHMucGFnZV9iYXNlX2FkZHIs
-ICh1bnNpZ25lZClwdGVfZmllbGRzLmZyYWdtZW50LAorCQkJREVCVUcoIlBURT0lbGx4LCBwdGVf
-aWR4PSVsbHgsIHBhZ2VfYmFzZV9hZGRyPTB4JWxseCwgZnJhZ21lbnQ9JXUsIHN5c3RlbT0lZCwg
-dmFsaWQ9JWRcbiIsCisJCQkJKHVuc2lnbmVkIGxvbmcgbG9uZylwdGVfZW50cnksICh1bnNpZ25l
-ZCBsb25nIGxvbmcpcHRlX2lkeCwgKHVuc2lnbmVkIGxvbmcgbG9uZylwdGVfZmllbGRzLnBhZ2Vf
-YmFzZV9hZGRyLCAodW5zaWduZWQpcHRlX2ZpZWxkcy5mcmFnbWVudCwKIAkJCQkoaW50KXB0ZV9m
-aWVsZHMuc3lzdGVtLCAoaW50KXB0ZV9maWVsZHMudmFsaWQpOwogCisJCQlpZiAoIXB0ZV9maWVs
-ZHMuc3lzdGVtKQorCQkJCXB0ZV9maWVsZHMucGFnZV9iYXNlX2FkZHIgLT0gdm1fZmJfb2Zmc2V0
-OworCiAJCQkvLyBjb21wdXRlIHN0YXJ0aW5nIGFkZHJlc3MKIAkJCXN0YXJ0X2FkZHIgPSBwdGVf
-ZmllbGRzLnBhZ2VfYmFzZV9hZGRyICsgKGFkZHJlc3MgJiAweEZGRik7CiAJCQlERUJVRygicGh5
-cyBhZGRyZXNzIHRvIHJlYWQgZnJvbTogJWxseFxuXG5cbiIsICh1bnNpZ25lZCBsb25nIGxvbmcp
-c3RhcnRfYWRkcik7CiAJCX0gZWxzZSB7CiAJCQkvLyBpbiBBSSsgdGhlIEJBU0VfQUREUiBpcyB0
-cmVhdGVkIGxpa2UgYSBQREUgZW50cnkuLi4KIAkJCS8vIGRlY29kZSBQREUgdmFsdWVzCisJCQlE
-RUJVRygiRGVjb2RpbmcgZGVwdGggJXUuLi4oMHglbGx4KVxuIiwgKHVuc2lnbmVkKXBhZ2VfdGFi
-bGVfZGVwdGgsICh1bnNpZ25lZCBsb25nIGxvbmcpYWRkcmVzcyk7CiAJCQlwZGVfaWR4ID0gMDsg
-Ly8gdW51c2VkCiAJCQlwZGVfZmllbGRzLmZyYWdfc2l6ZSAgICAgPSAocGFnZV90YWJsZV9iYXNl
-X2FkZHIgPj4gNTkpICYgMHgxRjsKLQkJCXBkZV9maWVsZHMucHRlX2Jhc2VfYWRkciA9IHBhZ2Vf
-dGFibGVfYmFzZV9hZGRyICYgMHhGRkZGRkZGRkYwMDBVTEw7CisJCQlwZGVfZmllbGRzLnB0ZV9i
-YXNlX2FkZHIgPSBwYWdlX3RhYmxlX2Jhc2VfYWRkciAmIDB4RkZGRkZGRkZGRjAwMFVMTDsKIAkJ
-CXBkZV9maWVsZHMuc3lzdGVtICAgICAgICA9IChwYWdlX3RhYmxlX2Jhc2VfYWRkciA+PiAxKSAm
-IDE7CiAJCQlwZGVfZmllbGRzLnZhbGlkICAgICAgICAgPSBwYWdlX3RhYmxlX2Jhc2VfYWRkciAm
-IDE7CiAJCQlERUJVRygicGRlX2lkeD0lbGx4LCBmcmFnX3NpemU9JXUsIHB0ZV9iYXNlX2FkZHI9
-MHglbGx4LCBzeXN0ZW09JWQsIHZhbGlkPSVkXG4iLApAQCAtMzYzLDcgKzM5OCw3IEBAIHN0YXRp
-YyBpbnQgdW1yX3JlYWRfdnJhbV9haShzdHJ1Y3QgdW1yX2FzaWMgKmFzaWMsIHVpbnQzMl90IHZt
-aWQsIHVpbnQ2NF90IGFkZHJlCiAJCQkJcmV0dXJuIC0xOwogCiAJCQkvLyBkZWNvZGUgUFRFIHZh
-bHVlcwotCQkJcHRlX2ZpZWxkcy5wYWdlX2Jhc2VfYWRkciA9IHB0ZV9lbnRyeSAmIDB4RkZGRkZG
-RkYwMDBVTEw7CisJCQlwdGVfZmllbGRzLnBhZ2VfYmFzZV9hZGRyID0gcHRlX2VudHJ5ICYgMHhG
-RkZGRkZGRkZGMDAwVUxMOwogCQkJcHRlX2ZpZWxkcy5mcmFnbWVudCAgICAgICA9IChwdGVfZW50
-cnkgPj4gNykgICYgMHgxRjsKIAkJCXB0ZV9maWVsZHMuc3lzdGVtICAgICAgICAgPSAocHRlX2Vu
-dHJ5ID4+IDEpICYgMTsKIAkJCXB0ZV9maWVsZHMudmFsaWQgICAgICAgICAgPSBwdGVfZW50cnkg
-JiAxOwpAQCAtMzcxLDYgKzQwNiw3IEBAIHN0YXRpYyBpbnQgdW1yX3JlYWRfdnJhbV9haShzdHJ1
-Y3QgdW1yX2FzaWMgKmFzaWMsIHVpbnQzMl90IHZtaWQsIHVpbnQ2NF90IGFkZHJlCiAJCQkJKHVu
-c2lnbmVkIGxvbmcgbG9uZylwdGVfaWR4LCAodW5zaWduZWQgbG9uZyBsb25nKXB0ZV9maWVsZHMu
-cGFnZV9iYXNlX2FkZHIsICh1bnNpZ25lZClwdGVfZmllbGRzLmZyYWdtZW50LAogCQkJCShpbnQp
-cHRlX2ZpZWxkcy5zeXN0ZW0sIChpbnQpcHRlX2ZpZWxkcy52YWxpZCk7CiAKKwogCQkJLy8gY29t
-cHV0ZSBzdGFydGluZyBhZGRyZXNzCiAJCQlzdGFydF9hZGRyID0gcHRlX2ZpZWxkcy5wYWdlX2Jh
-c2VfYWRkciArIChhZGRyZXNzICYgMHhGRkYpOwogCQl9CkBAIC00MTYsNyArNDUyLDcgQEAgaW50
-IHVtcl9yZWFkX3ZyYW0oc3RydWN0IHVtcl9hc2ljICphc2ljLCB1aW50MzJfdCB2bWlkLCB1aW50
-NjRfdCBhZGRyZXNzLCB1aW50MzIKIAl9CiAKIAlpZiAodm1pZCA9PSAweEZGRkYpIHsKLQkJREVC
-VUcoIlJlYWRpbmcgcGh5c2ljYWwgYWRkcjogMHglbGx4XG4iLCAodW5zaWduZWQgbG9uZyBsb25n
-KWFkZHJlc3MpOworCQlERUJVRygiUmVhZGluZyBwaHlzaWNhbCBWUkFNIGFkZHI6IDB4JWxseFxu
-IiwgKHVuc2lnbmVkIGxvbmcgbG9uZylhZGRyZXNzKTsKIAkJLy8gYWRkcmVzc2luZyBpcyBwaHlz
-aWNhbAogCQlpZiAoYXNpYy0+b3B0aW9ucy51c2VfcGNpID09IDApIHsKIAkJCWxzZWVrKGFzaWMt
-PmZkLnZyYW0sIGFkZHJlc3MsIFNFRUtfU0VUKTsKLS0gCjIuMTIuMAoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+This is a multi-part message in MIME format.
+--===============1384558359==
+Content-Type: multipart/alternative;
+ boundary="------------6578C31F79806F4091A646CA"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------6578C31F79806F4091A646CA
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Hi Christian,
+
+
+Which macro do you want to use to replace this function?
+
+
+The function is small so that we use a "static inline". I agree that 
+large function should not use "static inline". Thanks for point that out.
+
+
+Alex Bin Xie
+
+
+On 2017-06-08 03:20 AM, Christian König wrote:
+> Actually we should only use static inline if we have to, see "15) The 
+> inline disease" in the coding style document, but for this case it 
+> actually looks valid to me as well.
+>
+> But wasn't there a macro for this in the Linux kernel headers we 
+> should use?
+>
+> Regards,
+> Christian.
+>
+> Am 07.06.2017 um 00:36 schrieb axie:
+>>
+>> Thanks for the change. "static inline" may improve speed, though this 
+>> patch is not a critical code path. Perhaps it will be true in future...
+>>
+>> Reviewed-by: Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
+>>
+>>
+>> On 2017-06-06 06:19 PM, Alex Deucher wrote:
+>>> The same function was duplicated in all the gfx IPs. Use
+>>> a single implementation for all.
+>>>
+>>> v2: use static inline (Alex Xie)
+>>>
+>>> Suggested-by: Andres Rodriguez<andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+>>> Signed-off-by: Alex Deucher<alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 13 +++++++++++++
+>>>   drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c   | 11 +++--------
+>>>   drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c   | 19 +++----------------
+>>>   drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c   | 11 +++--------
+>>>   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 11 +++--------
+>>>   5 files changed, 25 insertions(+), 40 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+>>> index e0204408..2d846ef 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+>>> @@ -30,4 +30,17 @@ void amdgpu_gfx_scratch_free(struct amdgpu_device *adev, uint32_t reg);
+>>>   void amdgpu_gfx_parse_disable_cu(unsigned *mask, unsigned max_se,
+>>>   		unsigned max_sh);
+>>>   
+>>> +/**
+>>> + * amdgpu_gfx_create_bitmask - create a bitmask
+>>> + *
+>>> + * @bit_width: length of the mask
+>>> + *
+>>> + * create a variable length bit mask.
+>>> + * Returns the bitmask.
+>>> + */
+>>> +static inline u32 amdgpu_gfx_create_bitmask(u32 bit_width)
+>>> +{
+>>> +	return (u32)((1ULL << bit_width) - 1);
+>>> +}
+>>> +
+>>>   #endif
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+>>> index f3e0edd..cfd3df6 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+>>> @@ -1116,11 +1116,6 @@ static void gfx_v6_0_select_se_sh(struct amdgpu_device *adev, u32 se_num,
+>>>   	WREG32(mmGRBM_GFX_INDEX, data);
+>>>   }
+>>>   
+>>> -static u32 gfx_v6_0_create_bitmask(u32 bit_width)
+>>> -{
+>>> -	return (u32)(((u64)1 << bit_width) - 1);
+>>> -}
+>>> -
+>>>   static u32 gfx_v6_0_get_rb_active_bitmap(struct amdgpu_device *adev)
+>>>   {
+>>>   	u32 data, mask;
+>>> @@ -1130,8 +1125,8 @@ static u32 gfx_v6_0_get_rb_active_bitmap(struct amdgpu_device *adev)
+>>>   
+>>>   	data = REG_GET_FIELD(data, GC_USER_RB_BACKEND_DISABLE, BACKEND_DISABLE);
+>>>   
+>>> -	mask = gfx_v6_0_create_bitmask(adev->gfx.config.max_backends_per_se/
+>>> -					adev->gfx.config.max_sh_per_se);
+>>> +	mask = amdgpu_gfx_create_bitmask(adev->gfx.config.max_backends_per_se/
+>>> +					 adev->gfx.config.max_sh_per_se);
+>>>   
+>>>   	return ~data & mask;
+>>>   }
+>>> @@ -1333,7 +1328,7 @@ static u32 gfx_v6_0_get_cu_enabled(struct amdgpu_device *adev)
+>>>   	data = RREG32(mmCC_GC_SHADER_ARRAY_CONFIG) |
+>>>   		RREG32(mmGC_USER_SHADER_ARRAY_CONFIG);
+>>>   
+>>> -	mask = gfx_v6_0_create_bitmask(adev->gfx.config.max_cu_per_sh);
+>>> +	mask = amdgpu_gfx_create_bitmask(adev->gfx.config.max_cu_per_sh);
+>>>   	return ~REG_GET_FIELD(data, CC_GC_SHADER_ARRAY_CONFIG, INACTIVE_CUS) & mask;
+>>>   }
+>>>   
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+>>> index ae98611..4c04e9d 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+>>> @@ -1608,19 +1608,6 @@ static void gfx_v7_0_select_se_sh(struct amdgpu_device *adev,
+>>>   }
+>>>   
+>>>   /**
+>>> - * gfx_v7_0_create_bitmask - create a bitmask
+>>> - *
+>>> - * @bit_width: length of the mask
+>>> - *
+>>> - * create a variable length bit mask (CIK).
+>>> - * Returns the bitmask.
+>>> - */
+>>> -static u32 gfx_v7_0_create_bitmask(u32 bit_width)
+>>> -{
+>>> -	return (u32)((1ULL << bit_width) - 1);
+>>> -}
+>>> -
+>>> -/**
+>>>    * gfx_v7_0_get_rb_active_bitmap - computes the mask of enabled RBs
+>>>    *
+>>>    * @adev: amdgpu_device pointer
+>>> @@ -1638,8 +1625,8 @@ static u32 gfx_v7_0_get_rb_active_bitmap(struct amdgpu_device *adev)
+>>>   	data &= CC_RB_BACKEND_DISABLE__BACKEND_DISABLE_MASK;
+>>>   	data >>= GC_USER_RB_BACKEND_DISABLE__BACKEND_DISABLE__SHIFT;
+>>>   
+>>> -	mask = gfx_v7_0_create_bitmask(adev->gfx.config.max_backends_per_se /
+>>> -				       adev->gfx.config.max_sh_per_se);
+>>> +	mask = amdgpu_gfx_create_bitmask(adev->gfx.config.max_backends_per_se /
+>>> +					 adev->gfx.config.max_sh_per_se);
+>>>   
+>>>   	return (~data) & mask;
+>>>   }
+>>> @@ -4157,7 +4144,7 @@ static u32 gfx_v7_0_get_cu_active_bitmap(struct amdgpu_device *adev)
+>>>   	data &= CC_GC_SHADER_ARRAY_CONFIG__INACTIVE_CUS_MASK;
+>>>   	data >>= CC_GC_SHADER_ARRAY_CONFIG__INACTIVE_CUS__SHIFT;
+>>>   
+>>> -	mask = gfx_v7_0_create_bitmask(adev->gfx.config.max_cu_per_sh);
+>>> +	mask = amdgpu_gfx_create_bitmask(adev->gfx.config.max_cu_per_sh);
+>>>   
+>>>   	return (~data) & mask;
+>>>   }
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+>>> index afd7d65..ad2e0bb 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+>>> @@ -3635,11 +3635,6 @@ static void gfx_v8_0_select_se_sh(struct amdgpu_device *adev,
+>>>   	WREG32(mmGRBM_GFX_INDEX, data);
+>>>   }
+>>>   
+>>> -static u32 gfx_v8_0_create_bitmask(u32 bit_width)
+>>> -{
+>>> -	return (u32)((1ULL << bit_width) - 1);
+>>> -}
+>>> -
+>>>   static u32 gfx_v8_0_get_rb_active_bitmap(struct amdgpu_device *adev)
+>>>   {
+>>>   	u32 data, mask;
+>>> @@ -3649,8 +3644,8 @@ static u32 gfx_v8_0_get_rb_active_bitmap(struct amdgpu_device *adev)
+>>>   
+>>>   	data = REG_GET_FIELD(data, GC_USER_RB_BACKEND_DISABLE, BACKEND_DISABLE);
+>>>   
+>>> -	mask = gfx_v8_0_create_bitmask(adev->gfx.config.max_backends_per_se /
+>>> -				       adev->gfx.config.max_sh_per_se);
+>>> +	mask = amdgpu_gfx_create_bitmask(adev->gfx.config.max_backends_per_se /
+>>> +					 adev->gfx.config.max_sh_per_se);
+>>>   
+>>>   	return (~data) & mask;
+>>>   }
+>>> @@ -7150,7 +7145,7 @@ static u32 gfx_v8_0_get_cu_active_bitmap(struct amdgpu_device *adev)
+>>>   	data =  RREG32(mmCC_GC_SHADER_ARRAY_CONFIG) |
+>>>   		RREG32(mmGC_USER_SHADER_ARRAY_CONFIG);
+>>>   
+>>> -	mask = gfx_v8_0_create_bitmask(adev->gfx.config.max_cu_per_sh);
+>>> +	mask = amdgpu_gfx_create_bitmask(adev->gfx.config.max_cu_per_sh);
+>>>   
+>>>   	return ~REG_GET_FIELD(data, CC_GC_SHADER_ARRAY_CONFIG, INACTIVE_CUS) & mask;
+>>>   }
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+>>> index 276dc06..cf15a350 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+>>> @@ -1698,11 +1698,6 @@ static void gfx_v9_0_select_se_sh(struct amdgpu_device *adev, u32 se_num, u32 sh
+>>>   	WREG32_SOC15(GC, 0, mmGRBM_GFX_INDEX, data);
+>>>   }
+>>>   
+>>> -static u32 gfx_v9_0_create_bitmask(u32 bit_width)
+>>> -{
+>>> -	return (u32)((1ULL << bit_width) - 1);
+>>> -}
+>>> -
+>>>   static u32 gfx_v9_0_get_rb_active_bitmap(struct amdgpu_device *adev)
+>>>   {
+>>>   	u32 data, mask;
+>>> @@ -1713,8 +1708,8 @@ static u32 gfx_v9_0_get_rb_active_bitmap(struct amdgpu_device *adev)
+>>>   	data &= CC_RB_BACKEND_DISABLE__BACKEND_DISABLE_MASK;
+>>>   	data >>= GC_USER_RB_BACKEND_DISABLE__BACKEND_DISABLE__SHIFT;
+>>>   
+>>> -	mask = gfx_v9_0_create_bitmask(adev->gfx.config.max_backends_per_se /
+>>> -				       adev->gfx.config.max_sh_per_se);
+>>> +	mask = amdgpu_gfx_create_bitmask(adev->gfx.config.max_backends_per_se /
+>>> +					 adev->gfx.config.max_sh_per_se);
+>>>   
+>>>   	return (~data) & mask;
+>>>   }
+>>> @@ -4609,7 +4604,7 @@ static u32 gfx_v9_0_get_cu_active_bitmap(struct amdgpu_device *adev)
+>>>   	data &= CC_GC_SHADER_ARRAY_CONFIG__INACTIVE_CUS_MASK;
+>>>   	data >>= CC_GC_SHADER_ARRAY_CONFIG__INACTIVE_CUS__SHIFT;
+>>>   
+>>> -	mask = gfx_v9_0_create_bitmask(adev->gfx.config.max_cu_per_sh);
+>>> +	mask = amdgpu_gfx_create_bitmask(adev->gfx.config.max_cu_per_sh);
+>>>   
+>>>   	return (~data) & mask;
+>>>   }
+>>
+>>
+>>
+>> _______________________________________________
+>> amd-gfx mailing list
+>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+>
+
+
+--------------6578C31F79806F4091A646CA
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p>Hi Christian,</p>
+    <p><br>
+    </p>
+    <p>Which macro do you want to use to replace this function?</p>
+    <p><br>
+    </p>
+    <p>The function is small so that we use a "static inline". I agree
+      that large function should not use "static inline". Thanks for
+      point that out.<br>
+    </p>
+    <p><br>
+    </p>
+    <p>Alex Bin Xie<br>
+    </p>
+    <br>
+    <div class="moz-cite-prefix">On 2017-06-08 03:20 AM, Christian König
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:ff35985a-bfb4-768d-5c26-b5bbb23e2249-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <div class="moz-cite-prefix">Actually we should only use static
+        inline if we have to, see "15) The inline disease" in the coding
+        style document, but for this case it actually looks valid to me
+        as well.<br>
+        <br>
+        But wasn't there a macro for this in the Linux kernel headers we
+        should use?<br>
+        <br>
+        Regards,<br>
+        Christian.<br>
+        <br>
+        Am 07.06.2017 um 00:36 schrieb axie:<br>
+      </div>
+      <blockquote type="cite"
+        cite="mid:2e78fcdb-42d8-625b-f1cb-ac92eff8bec9-5C7GfCeVMHo@public.gmane.org">
+        <p>Thanks for the change. "static inline" may improve speed,
+          though this patch is not a critical code path. Perhaps it will
+          be true in future...<br>
+        </p>
+        <p>Reviewed-by: Alex Xie <a class="moz-txt-link-rfc2396E"
+            href="mailto:AlexBin.Xie-5C7GfCeVMHo@public.gmane.org" moz-do-not-send="true">&lt;AlexBin.Xie-5C7GfCeVMHo@public.gmane.org&gt;</a></p>
+        <br>
+        <div class="moz-cite-prefix">On 2017-06-06 06:19 PM, Alex
+          Deucher wrote:<br>
+        </div>
+        <blockquote type="cite"
+          cite="mid:1496787583-2883-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org">
+          <pre wrap="">The same function was duplicated in all the gfx IPs. Use
+a single implementation for all.
+
+v2: use static inline (Alex Xie)
+
+Suggested-by: Andres Rodriguez <a class="moz-txt-link-rfc2396E" href="mailto:andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" moz-do-not-send="true">&lt;andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a>
+Signed-off-by: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org" moz-do-not-send="true">&lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;</a>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h | 13 +++++++++++++
+ drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c   | 11 +++--------
+ drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c   | 19 +++----------------
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c   | 11 +++--------
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 11 +++--------
+ 5 files changed, 25 insertions(+), 40 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index e0204408..2d846ef 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -30,4 +30,17 @@ void amdgpu_gfx_scratch_free(struct amdgpu_device *adev, uint32_t reg);
+ void amdgpu_gfx_parse_disable_cu(unsigned *mask, unsigned max_se,
+ 		unsigned max_sh);
+ 
++/**
++ * amdgpu_gfx_create_bitmask - create a bitmask
++ *
++ * @bit_width: length of the mask
++ *
++ * create a variable length bit mask.
++ * Returns the bitmask.
++ */
++static inline u32 amdgpu_gfx_create_bitmask(u32 bit_width)
++{
++	return (u32)((1ULL &lt;&lt; bit_width) - 1);
++}
++
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+index f3e0edd..cfd3df6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+@@ -1116,11 +1116,6 @@ static void gfx_v6_0_select_se_sh(struct amdgpu_device *adev, u32 se_num,
+ 	WREG32(mmGRBM_GFX_INDEX, data);
+ }
+ 
+-static u32 gfx_v6_0_create_bitmask(u32 bit_width)
+-{
+-	return (u32)(((u64)1 &lt;&lt; bit_width) - 1);
+-}
+-
+ static u32 gfx_v6_0_get_rb_active_bitmap(struct amdgpu_device *adev)
+ {
+ 	u32 data, mask;
+@@ -1130,8 +1125,8 @@ static u32 gfx_v6_0_get_rb_active_bitmap(struct amdgpu_device *adev)
+ 
+ 	data = REG_GET_FIELD(data, GC_USER_RB_BACKEND_DISABLE, BACKEND_DISABLE);
+ 
+-	mask = gfx_v6_0_create_bitmask(adev-&gt;gfx.config.max_backends_per_se/
+-					adev-&gt;gfx.config.max_sh_per_se);
++	mask = amdgpu_gfx_create_bitmask(adev-&gt;gfx.config.max_backends_per_se/
++					 adev-&gt;gfx.config.max_sh_per_se);
+ 
+ 	return ~data &amp; mask;
+ }
+@@ -1333,7 +1328,7 @@ static u32 gfx_v6_0_get_cu_enabled(struct amdgpu_device *adev)
+ 	data = RREG32(mmCC_GC_SHADER_ARRAY_CONFIG) |
+ 		RREG32(mmGC_USER_SHADER_ARRAY_CONFIG);
+ 
+-	mask = gfx_v6_0_create_bitmask(adev-&gt;gfx.config.max_cu_per_sh);
++	mask = amdgpu_gfx_create_bitmask(adev-&gt;gfx.config.max_cu_per_sh);
+ 	return ~REG_GET_FIELD(data, CC_GC_SHADER_ARRAY_CONFIG, INACTIVE_CUS) &amp; mask;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+index ae98611..4c04e9d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+@@ -1608,19 +1608,6 @@ static void gfx_v7_0_select_se_sh(struct amdgpu_device *adev,
+ }
+ 
+ /**
+- * gfx_v7_0_create_bitmask - create a bitmask
+- *
+- * @bit_width: length of the mask
+- *
+- * create a variable length bit mask (CIK).
+- * Returns the bitmask.
+- */
+-static u32 gfx_v7_0_create_bitmask(u32 bit_width)
+-{
+-	return (u32)((1ULL &lt;&lt; bit_width) - 1);
+-}
+-
+-/**
+  * gfx_v7_0_get_rb_active_bitmap - computes the mask of enabled RBs
+  *
+  * @adev: amdgpu_device pointer
+@@ -1638,8 +1625,8 @@ static u32 gfx_v7_0_get_rb_active_bitmap(struct amdgpu_device *adev)
+ 	data &amp;= CC_RB_BACKEND_DISABLE__BACKEND_DISABLE_MASK;
+ 	data &gt;&gt;= GC_USER_RB_BACKEND_DISABLE__BACKEND_DISABLE__SHIFT;
+ 
+-	mask = gfx_v7_0_create_bitmask(adev-&gt;gfx.config.max_backends_per_se /
+-				       adev-&gt;gfx.config.max_sh_per_se);
++	mask = amdgpu_gfx_create_bitmask(adev-&gt;gfx.config.max_backends_per_se /
++					 adev-&gt;gfx.config.max_sh_per_se);
+ 
+ 	return (~data) &amp; mask;
+ }
+@@ -4157,7 +4144,7 @@ static u32 gfx_v7_0_get_cu_active_bitmap(struct amdgpu_device *adev)
+ 	data &amp;= CC_GC_SHADER_ARRAY_CONFIG__INACTIVE_CUS_MASK;
+ 	data &gt;&gt;= CC_GC_SHADER_ARRAY_CONFIG__INACTIVE_CUS__SHIFT;
+ 
+-	mask = gfx_v7_0_create_bitmask(adev-&gt;gfx.config.max_cu_per_sh);
++	mask = amdgpu_gfx_create_bitmask(adev-&gt;gfx.config.max_cu_per_sh);
+ 
+ 	return (~data) &amp; mask;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+index afd7d65..ad2e0bb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -3635,11 +3635,6 @@ static void gfx_v8_0_select_se_sh(struct amdgpu_device *adev,
+ 	WREG32(mmGRBM_GFX_INDEX, data);
+ }
+ 
+-static u32 gfx_v8_0_create_bitmask(u32 bit_width)
+-{
+-	return (u32)((1ULL &lt;&lt; bit_width) - 1);
+-}
+-
+ static u32 gfx_v8_0_get_rb_active_bitmap(struct amdgpu_device *adev)
+ {
+ 	u32 data, mask;
+@@ -3649,8 +3644,8 @@ static u32 gfx_v8_0_get_rb_active_bitmap(struct amdgpu_device *adev)
+ 
+ 	data = REG_GET_FIELD(data, GC_USER_RB_BACKEND_DISABLE, BACKEND_DISABLE);
+ 
+-	mask = gfx_v8_0_create_bitmask(adev-&gt;gfx.config.max_backends_per_se /
+-				       adev-&gt;gfx.config.max_sh_per_se);
++	mask = amdgpu_gfx_create_bitmask(adev-&gt;gfx.config.max_backends_per_se /
++					 adev-&gt;gfx.config.max_sh_per_se);
+ 
+ 	return (~data) &amp; mask;
+ }
+@@ -7150,7 +7145,7 @@ static u32 gfx_v8_0_get_cu_active_bitmap(struct amdgpu_device *adev)
+ 	data =  RREG32(mmCC_GC_SHADER_ARRAY_CONFIG) |
+ 		RREG32(mmGC_USER_SHADER_ARRAY_CONFIG);
+ 
+-	mask = gfx_v8_0_create_bitmask(adev-&gt;gfx.config.max_cu_per_sh);
++	mask = amdgpu_gfx_create_bitmask(adev-&gt;gfx.config.max_cu_per_sh);
+ 
+ 	return ~REG_GET_FIELD(data, CC_GC_SHADER_ARRAY_CONFIG, INACTIVE_CUS) &amp; mask;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index 276dc06..cf15a350 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -1698,11 +1698,6 @@ static void gfx_v9_0_select_se_sh(struct amdgpu_device *adev, u32 se_num, u32 sh
+ 	WREG32_SOC15(GC, 0, mmGRBM_GFX_INDEX, data);
+ }
+ 
+-static u32 gfx_v9_0_create_bitmask(u32 bit_width)
+-{
+-	return (u32)((1ULL &lt;&lt; bit_width) - 1);
+-}
+-
+ static u32 gfx_v9_0_get_rb_active_bitmap(struct amdgpu_device *adev)
+ {
+ 	u32 data, mask;
+@@ -1713,8 +1708,8 @@ static u32 gfx_v9_0_get_rb_active_bitmap(struct amdgpu_device *adev)
+ 	data &amp;= CC_RB_BACKEND_DISABLE__BACKEND_DISABLE_MASK;
+ 	data &gt;&gt;= GC_USER_RB_BACKEND_DISABLE__BACKEND_DISABLE__SHIFT;
+ 
+-	mask = gfx_v9_0_create_bitmask(adev-&gt;gfx.config.max_backends_per_se /
+-				       adev-&gt;gfx.config.max_sh_per_se);
++	mask = amdgpu_gfx_create_bitmask(adev-&gt;gfx.config.max_backends_per_se /
++					 adev-&gt;gfx.config.max_sh_per_se);
+ 
+ 	return (~data) &amp; mask;
+ }
+@@ -4609,7 +4604,7 @@ static u32 gfx_v9_0_get_cu_active_bitmap(struct amdgpu_device *adev)
+ 	data &amp;= CC_GC_SHADER_ARRAY_CONFIG__INACTIVE_CUS_MASK;
+ 	data &gt;&gt;= CC_GC_SHADER_ARRAY_CONFIG__INACTIVE_CUS__SHIFT;
+ 
+-	mask = gfx_v9_0_create_bitmask(adev-&gt;gfx.config.max_cu_per_sh);
++	mask = amdgpu_gfx_create_bitmask(adev-&gt;gfx.config.max_cu_per_sh);
+ 
+ 	return (~data) &amp; mask;
+ }
+</pre>
+        </blockquote>
+        <br>
+        <br>
+        <fieldset class="mimeAttachmentHeader"></fieldset>
+        <br>
+        <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+      </blockquote>
+      <p><br>
+      </p>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------6578C31F79806F4091A646CA--
+
+--===============1384558359==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1384558359==--
