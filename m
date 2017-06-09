@@ -1,15 +1,14 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 2/2] drm/amdgpu/gfx: spread queues across pipes again for
- 1 MEC parts
-Date: Fri, 9 Jun 2017 12:53:12 +0000
-Message-ID: <CY4PR12MB1653373171BC28933F881561F7CE0@CY4PR12MB1653.namprd12.prod.outlook.com>
-References: <1497012570-24173-1-git-send-email-alexander.deucher@amd.com>,
- <1497012570-24173-2-git-send-email-alexander.deucher@amd.com>
- <BN6PR12MB18266449B47EF151EF8A6C6AF2CE0@BN6PR12MB1826.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu/gfx: fix MEC interrupt enablement for
+ pipes != 0
+Date: Fri, 9 Jun 2017 14:55:21 +0200
+Message-ID: <9dffb332-84c9-4083-583d-d4e082963088@vodafone.de>
+References: <1497012570-24173-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0602777679=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB18266449B47EF151EF8A6C6AF2CE0-/b2+HYfkarSCndJ3FSsNdQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <1497012570-24173-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,318 +20,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
---===============0602777679==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB1653373171BC28933F881561F7CE0CY4PR12MB1653namp_"
-
---_000_CY4PR12MB1653373171BC28933F881561F7CE0CY4PR12MB1653namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Please include patch 1 of this series as well.
-
-From: S, Shirish
-Sent: Friday, June 09, 2017 8:53 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Alex Deucher
-Cc: Deucher, Alexander
-Subject: Re: [PATCH 2/2] drm/amdgpu/gfx: spread queues across pipes again f=
-or 1 MEC parts
-
-Sure Alex.
-I shall update the result on stoney soon.
-Regards,
-Shirish S
-________________________________
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>
-Sent: Friday, June 9, 2017 6:19:30 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Deucher, Alexander; S, Shirish
-Subject: [PATCH 2/2] drm/amdgpu/gfx: spread queues across pipes again for 1=
- MEC parts
-
-Now that interrupts are properly enabled for all pipes, this
-should be function properly.
-
-Cc: Shirish S <shirish.s-5C7GfCeVMHo@public.gmane.org<mailto:shirish.s-5C7GfCeVMHo@public.gmane.org>>
-Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org<mailto:alexander.deu=
-cher-5C7GfCeVMHo@public.gmane.org>>
----
-
-Shirish,
-
-Can you test this change on your Stoney setup?
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 12 +++---------
- 1 file changed, 3 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gfx.c
-index dfbf027..03c23e3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -125,15 +125,9 @@ void amdgpu_gfx_compute_queue_acquire(struct amdgpu_de=
-vice *adev)
-                 if (mec >=3D adev->gfx.mec.num_mec)
-                         break;
-
--               if (adev->gfx.mec.num_mec > 1) {
--                       /* policy: amdgpu owns the first two queues of the =
-first MEC */
--                       if (mec =3D=3D 0 && queue < 2)
--                               set_bit(i, adev->gfx.mec.queue_bitmap);
--               } else {
--                       /* policy: amdgpu owns all queues in the first pipe=
- */
--                       if (mec =3D=3D 0 && pipe =3D=3D 0)
--                               set_bit(i, adev->gfx.mec.queue_bitmap);
--               }
-+               /* policy: amdgpu owns the first two queues of the first ME=
-C */
-+               if (mec =3D=3D 0 && queue < 2)
-+                       set_bit(i, adev->gfx.mec.queue_bitmap);
-         }
-
-         /* update the number of active compute rings */
---
-2.5.5
-
---_000_CY4PR12MB1653373171BC28933F881561F7CE0CY4PR12MB1653namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 14 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:Tahoma;
-	panose-1:2 11 6 4 3 5 4 4 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
-	{mso-style-priority:99;
-	mso-style-link:"Balloon Text Char";
-	margin:0in;
-	margin-bottom:.0001pt;
-	font-size:8.0pt;
-	font-family:"Tahoma","sans-serif";}
-p.emailquote, li.emailquote, div.emailquote
-	{mso-style-name:emailquote;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:1.0pt;
-	border:none;
-	padding:0in;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-span.EmailStyle18
-	{mso-style-type:personal-reply;
-	font-family:"Calibri","sans-serif";
-	color:#1F497D;}
-span.BalloonTextChar
-	{mso-style-name:"Balloon Text Char";
-	mso-style-priority:99;
-	mso-style-link:"Balloon Text";
-	font-family:"Tahoma","sans-serif";}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Please include patch 1 of=
- this series as well.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
-/p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
-4.0pt">
-<div>
-<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
-;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span style=3D"font-s=
-ize:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> S, Shiri=
-sh
-<br>
-<b>Sent:</b> Friday, June 09, 2017 8:53 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Alex Deucher<br>
-<b>Cc:</b> Deucher, Alexander<br>
-<b>Subject:</b> Re: [PATCH 2/2] drm/amdgpu/gfx: spread queues across pipes =
-again for 1 MEC parts<o:p></o:p></span></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<div>
-<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-size:=
-11.0pt;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;color:black">Su=
-re Alex.<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-size:=
-11.0pt;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;color:black">I =
-shall update the result on stoney soon.<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-size:=
-11.0pt;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;color:black">Re=
-gards,<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal" style=3D"background:white"><span style=3D"font-size:=
-11.0pt;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;color:black">Sh=
-irish S<o:p></o:p></span></p>
-</div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"x_divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
-;Calibri&quot;,&quot;sans-serif&quot;;color:black">From:</span></b><span st=
-yle=3D"font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&qu=
-ot;;color:black"> Alex Deucher &lt;<a href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"=
->alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
-<b>Sent:</b> Friday, June 9, 2017 6:19:30 PM<br>
-<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
-reedesktop.org</a><br>
-<b>Cc:</b> Deucher, Alexander; S, Shirish<br>
-<b>Subject:</b> [PATCH 2/2] drm/amdgpu/gfx: spread queues across pipes agai=
-n for 1 MEC parts</span><o:p></o:p></p>
-<div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-</div>
-</div>
-</div>
-<div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span style=3D"font-s=
-ize:10.0pt">Now that interrupts are properly enabled for all pipes, this<br=
->
-should be function properly.<br>
-<br>
-Cc: Shirish S &lt;<a href=3D"mailto:shirish.s-5C7GfCeVMHo@public.gmane.org">shirish.s-5C7GfCeVMHo@public.gmane.org</a=
->&gt;<br>
-Signed-off-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org=
-">alexander.deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
----<br>
-<br>
-Shirish,<br>
-<br>
-Can you test this change on your Stoney setup?<br>
-<br>
-drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 12 &#43;&#43;&#43;---------<br>
-&nbsp;1 file changed, 3 insertions(&#43;), 9 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gfx.c<br>
-index dfbf027..03c23e3 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c<br>
-@@ -125,15 &#43;125,9 @@ void amdgpu_gfx_compute_queue_acquire(struct amdgp=
-u_device *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (mec &gt;=3D adev-&gt;gfx.mec.num_mec)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break=
-;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (adev-&gt;gfx.mec.num_mec &gt; 1) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* policy: amdgp=
-u owns the first two queues of the first MEC */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (mec =3D=3D 0=
- &amp;&amp; queue &lt; 2)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set_bit(i, adev-&gt;gfx.mec.queue_bitmap);<=
-br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; } else {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* policy: amdgp=
-u owns all queues in the first pipe */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (mec =3D=3D 0=
- &amp;&amp; pipe =3D=3D 0)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set_bit(i, adev-&gt;gfx.mec.queue_bitmap);<=
-br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; }<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; /* policy: amdgpu owns the first two queues of the first MEC=
- */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (mec =3D=3D 0 &amp;&amp; queue &lt; 2)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set_bit(i, a=
-dev-&gt;gfx.mec.queue_bitmap);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* update the number of ac=
-tive compute rings */<br>
--- <br>
-2.5.5<o:p></o:p></span></p>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_CY4PR12MB1653373171BC28933F881561F7CE0CY4PR12MB1653namp_--
-
---===============0602777679==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0602777679==--
+QW0gMDkuMDYuMjAxNyB1bSAxNDo0OSBzY2hyaWViIEFsZXggRGV1Y2hlcjoKPiBUaGUgaW50ZXJy
+dXB0IHJlZ2lzdGVycyBhcmUgbm90IGluZGV4ZWQuCj4KPiBGaXhlczogNzYzYTQ3YjhlIChkcm0v
+YW1kZ3B1OiB0ZWFjaCBhbWRncHUgaG93IHRvIGVuYWJsZSBpbnRlcnJ1cHRzIGZvciBhbnkgcGlw
+ZSB2MykKPiBTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFt
+ZC5jb20+LgoKQWNrZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1k
+LmNvbT4uCgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y3XzAuYyB8
+IDU3ICsrKysrKysrKysrKysrKysrKysrKysrLS0tLS0tLS0tLQo+ICAgZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYyB8IDU3ICsrKysrKysrKysrKysrKysrKysrKysrLS0tLS0t
+LS0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyB8IDU5ICsrKysr
+KysrKysrKysrKysrKysrKysrKystLS0tLS0tLS0tCj4gICAzIGZpbGVzIGNoYW5nZWQsIDEyNCBp
+bnNlcnRpb25zKCspLCA0OSBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9nZnhfdjdfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+Z2Z4X3Y3XzAuYwo+IGluZGV4IGUzMGM3ZDAuLmZiMGE5NGMgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y3XzAuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2dmeF92N18wLmMKPiBAQCAtNTAxNSwyOCArNTAxNSw1MSBAQCBzdGF0aWMgdm9p
+ZCBnZnhfdjdfMF9zZXRfY29tcHV0ZV9lb3BfaW50ZXJydXB0X3N0YXRlKHN0cnVjdCBhbWRncHVf
+ZGV2aWNlICphZGV2LAo+ICAgCQkJCQkJICAgICBpbnQgbWUsIGludCBwaXBlLAo+ICAgCQkJCQkJ
+ICAgICBlbnVtIGFtZGdwdV9pbnRlcnJ1cHRfc3RhdGUgc3RhdGUpCj4gICB7Cj4gLQkvKiBNZSAw
+IGlzIGZvciBncmFwaGljcyBhbmQgTWUgMiBpcyByZXNlcnZlZCBmb3IgSFcgc2NoZWR1bGluZwo+
+IC0JICogU28gd2Ugc2hvdWxkIG9ubHkgcmVhbGx5IGJlIGNvbmZpZ3VyaW5nIE1FIDEgaS5lLiBN
+RUMwCj4gKwl1MzIgbWVjX2ludF9jbnRsLCBtZWNfaW50X2NudGxfcmVnOwo+ICsKPiArCS8qCj4g
+KwkgKiBhbWRncHUgY29udHJvbHMgb25seSB0aGUgZmlyc3QgTUVDLiBUaGF0J3Mgd2h5IHRoaXMg
+ZnVuY3Rpb24gb25seQo+ICsJICogaGFuZGxlcyB0aGUgc2V0dGluZyBvZiBpbnRlcnJ1cHRzIGZv
+ciB0aGlzIHNwZWNpZmljIE1FQy4gQWxsIG90aGVyCj4gKwkgKiBwaXBlcycgaW50ZXJydXB0cyBh
+cmUgc2V0IGJ5IGFtZGtmZC4KPiAgIAkgKi8KPiAtCWlmIChtZSAhPSAxKSB7Cj4gLQkJRFJNX0VS
+Uk9SKCJJZ25vcmluZyByZXF1ZXN0IHRvIGVuYWJsZSBpbnRlcnJ1cHRzIGZvciBpbnZhbGlkIG1l
+OiVkXG4iLCBtZSk7Cj4gLQkJcmV0dXJuOwo+IC0JfQo+ICAgCj4gLQlpZiAocGlwZSA+PSBhZGV2
+LT5nZngubWVjLm51bV9waXBlX3Blcl9tZWMpIHsKPiAtCQlEUk1fRVJST1IoIklnbm9yaW5nIHJl
+cXVlc3QgdG8gZW5hYmxlIGludGVycnVwdHMgZm9yIGludmFsaWQgIgo+IC0JCQkJIm1lOiVkIHBp
+cGU6JWRcbiIsIHBpcGUsIG1lKTsKPiArCWlmIChtZSA9PSAxKSB7Cj4gKwkJc3dpdGNoIChwaXBl
+KSB7Cj4gKwkJY2FzZSAwOgo+ICsJCQltZWNfaW50X2NudGxfcmVnID0gbW1DUF9NRTFfUElQRTBf
+SU5UX0NOVEw7Cj4gKwkJCWJyZWFrOwo+ICsJCWNhc2UgMToKPiArCQkJbWVjX2ludF9jbnRsX3Jl
+ZyA9IG1tQ1BfTUUxX1BJUEUxX0lOVF9DTlRMOwo+ICsJCQlicmVhazsKPiArCQljYXNlIDI6Cj4g
+KwkJCW1lY19pbnRfY250bF9yZWcgPSBtbUNQX01FMV9QSVBFMl9JTlRfQ05UTDsKPiArCQkJYnJl
+YWs7Cj4gKwkJY2FzZSAzOgo+ICsJCQltZWNfaW50X2NudGxfcmVnID0gbW1DUF9NRTFfUElQRTNf
+SU5UX0NOVEw7Cj4gKwkJCWJyZWFrOwo+ICsJCWRlZmF1bHQ6Cj4gKwkJCURSTV9ERUJVRygiaW52
+YWxpZCBwaXBlICVkXG4iLCBwaXBlKTsKPiArCQkJcmV0dXJuOwo+ICsJCX0KPiArCX0gZWxzZSB7
+Cj4gKwkJRFJNX0RFQlVHKCJpbnZhbGlkIG1lICVkXG4iLCBtZSk7Cj4gICAJCXJldHVybjsKPiAg
+IAl9Cj4gICAKPiAtCW11dGV4X2xvY2soJmFkZXYtPnNyYm1fbXV0ZXgpOwo+IC0JY2lrX3NyYm1f
+c2VsZWN0KGFkZXYsIG1lLCBwaXBlLCAwLCAwKTsKPiAtCj4gLQlXUkVHMzJfRklFTEQoQ1BDX0lO
+VF9DTlRMLCBUSU1FX1NUQU1QX0lOVF9FTkFCTEUsCj4gLQkJCXN0YXRlID09IEFNREdQVV9JUlFf
+U1RBVEVfRElTQUJMRSA/IDAgOiAxKTsKPiAtCj4gLQljaWtfc3JibV9zZWxlY3QoYWRldiwgMCwg
+MCwgMCwgMCk7Cj4gLQltdXRleF91bmxvY2soJmFkZXYtPnNyYm1fbXV0ZXgpOwo+ICsJc3dpdGNo
+IChzdGF0ZSkgewo+ICsJY2FzZSBBTURHUFVfSVJRX1NUQVRFX0RJU0FCTEU6Cj4gKwkJbWVjX2lu
+dF9jbnRsID0gUlJFRzMyKG1lY19pbnRfY250bF9yZWcpOwo+ICsJCW1lY19pbnRfY250bCAmPSB+
+Q1BfSU5UX0NOVExfUklORzBfX1RJTUVfU1RBTVBfSU5UX0VOQUJMRV9NQVNLOwo+ICsJCVdSRUcz
+MihtZWNfaW50X2NudGxfcmVnLCBtZWNfaW50X2NudGwpOwo+ICsJCWJyZWFrOwo+ICsJY2FzZSBB
+TURHUFVfSVJRX1NUQVRFX0VOQUJMRToKPiArCQltZWNfaW50X2NudGwgPSBSUkVHMzIobWVjX2lu
+dF9jbnRsX3JlZyk7Cj4gKwkJbWVjX2ludF9jbnRsIHw9IENQX0lOVF9DTlRMX1JJTkcwX19USU1F
+X1NUQU1QX0lOVF9FTkFCTEVfTUFTSzsKPiArCQlXUkVHMzIobWVjX2ludF9jbnRsX3JlZywgbWVj
+X2ludF9jbnRsKTsKPiArCQlicmVhazsKPiArCWRlZmF1bHQ6Cj4gKwkJYnJlYWs7Cj4gKwl9Cj4g
+ICB9Cj4gICAKPiAgIHN0YXRpYyBpbnQgZ2Z4X3Y3XzBfc2V0X3ByaXZfcmVnX2ZhdWx0X3N0YXRl
+KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4
+X3Y4XzAuYwo+IGluZGV4IDZlNTQxYWYuLjFhNzVhYjEgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2dmeF92OF8wLmMKPiBAQCAtNjYxMCwyNiArNjYxMCw1MSBAQCBzdGF0aWMgdm9pZCBn
+ZnhfdjhfMF9zZXRfY29tcHV0ZV9lb3BfaW50ZXJydXB0X3N0YXRlKHN0cnVjdCBhbWRncHVfZGV2
+aWNlICphZGV2LAo+ICAgCQkJCQkJICAgICBpbnQgbWUsIGludCBwaXBlLAo+ICAgCQkJCQkJICAg
+ICBlbnVtIGFtZGdwdV9pbnRlcnJ1cHRfc3RhdGUgc3RhdGUpCj4gICB7Cj4gLQkvKiBNZSAwIGlz
+IHJlc2VydmVkIGZvciBncmFwaGljcyAqLwo+IC0JaWYgKG1lIDwgMSB8fCBtZSA+IGFkZXYtPmdm
+eC5tZWMubnVtX21lYykgewo+IC0JCURSTV9FUlJPUigiSWdub3JpbmcgcmVxdWVzdCB0byBlbmFi
+bGUgaW50ZXJydXB0cyBmb3IgaW52YWxpZCBtZTolZFxuIiwgbWUpOwo+IC0JCXJldHVybjsKPiAt
+CX0KPiArCXUzMiBtZWNfaW50X2NudGwsIG1lY19pbnRfY250bF9yZWc7Cj4gICAKPiAtCWlmIChw
+aXBlID49IGFkZXYtPmdmeC5tZWMubnVtX3BpcGVfcGVyX21lYykgewo+IC0JCURSTV9FUlJPUigi
+SWdub3JpbmcgcmVxdWVzdCB0byBlbmFibGUgaW50ZXJydXB0cyBmb3IgaW52YWxpZCAiCj4gLQkJ
+CQkibWU6JWQgcGlwZTolZFxuIiwgcGlwZSwgbWUpOwo+ICsJLyoKPiArCSAqIGFtZGdwdSBjb250
+cm9scyBvbmx5IHRoZSBmaXJzdCBNRUMuIFRoYXQncyB3aHkgdGhpcyBmdW5jdGlvbiBvbmx5Cj4g
+KwkgKiBoYW5kbGVzIHRoZSBzZXR0aW5nIG9mIGludGVycnVwdHMgZm9yIHRoaXMgc3BlY2lmaWMg
+TUVDLiBBbGwgb3RoZXIKPiArCSAqIHBpcGVzJyBpbnRlcnJ1cHRzIGFyZSBzZXQgYnkgYW1ka2Zk
+Lgo+ICsJICovCj4gKwo+ICsJaWYgKG1lID09IDEpIHsKPiArCQlzd2l0Y2ggKHBpcGUpIHsKPiAr
+CQljYXNlIDA6Cj4gKwkJCW1lY19pbnRfY250bF9yZWcgPSBtbUNQX01FMV9QSVBFMF9JTlRfQ05U
+TDsKPiArCQkJYnJlYWs7Cj4gKwkJY2FzZSAxOgo+ICsJCQltZWNfaW50X2NudGxfcmVnID0gbW1D
+UF9NRTFfUElQRTFfSU5UX0NOVEw7Cj4gKwkJCWJyZWFrOwo+ICsJCWNhc2UgMjoKPiArCQkJbWVj
+X2ludF9jbnRsX3JlZyA9IG1tQ1BfTUUxX1BJUEUyX0lOVF9DTlRMOwo+ICsJCQlicmVhazsKPiAr
+CQljYXNlIDM6Cj4gKwkJCW1lY19pbnRfY250bF9yZWcgPSBtbUNQX01FMV9QSVBFM19JTlRfQ05U
+TDsKPiArCQkJYnJlYWs7Cj4gKwkJZGVmYXVsdDoKPiArCQkJRFJNX0RFQlVHKCJpbnZhbGlkIHBp
+cGUgJWRcbiIsIHBpcGUpOwo+ICsJCQlyZXR1cm47Cj4gKwkJfQo+ICsJfSBlbHNlIHsKPiArCQlE
+Uk1fREVCVUcoImludmFsaWQgbWUgJWRcbiIsIG1lKTsKPiAgIAkJcmV0dXJuOwo+ICAgCX0KPiAg
+IAo+IC0JbXV0ZXhfbG9jaygmYWRldi0+c3JibV9tdXRleCk7Cj4gLQl2aV9zcmJtX3NlbGVjdChh
+ZGV2LCBtZSwgcGlwZSwgMCwgMCk7Cj4gLQo+IC0JV1JFRzMyX0ZJRUxEKENQQ19JTlRfQ05UTCwg
+VElNRV9TVEFNUF9JTlRfRU5BQkxFLAo+IC0JCQlzdGF0ZSA9PSBBTURHUFVfSVJRX1NUQVRFX0RJ
+U0FCTEUgPyAwIDogMSk7Cj4gLQo+IC0Jdmlfc3JibV9zZWxlY3QoYWRldiwgMCwgMCwgMCwgMCk7
+Cj4gLQltdXRleF91bmxvY2soJmFkZXYtPnNyYm1fbXV0ZXgpOwo+ICsJc3dpdGNoIChzdGF0ZSkg
+ewo+ICsJY2FzZSBBTURHUFVfSVJRX1NUQVRFX0RJU0FCTEU6Cj4gKwkJbWVjX2ludF9jbnRsID0g
+UlJFRzMyKG1lY19pbnRfY250bF9yZWcpOwo+ICsJCW1lY19pbnRfY250bCAmPSB+Q1BfSU5UX0NO
+VExfUklORzBfX1RJTUVfU1RBTVBfSU5UX0VOQUJMRV9NQVNLOwo+ICsJCVdSRUczMihtZWNfaW50
+X2NudGxfcmVnLCBtZWNfaW50X2NudGwpOwo+ICsJCWJyZWFrOwo+ICsJY2FzZSBBTURHUFVfSVJR
+X1NUQVRFX0VOQUJMRToKPiArCQltZWNfaW50X2NudGwgPSBSUkVHMzIobWVjX2ludF9jbnRsX3Jl
+Zyk7Cj4gKwkJbWVjX2ludF9jbnRsIHw9IENQX0lOVF9DTlRMX1JJTkcwX19USU1FX1NUQU1QX0lO
+VF9FTkFCTEVfTUFTSzsKPiArCQlXUkVHMzIobWVjX2ludF9jbnRsX3JlZywgbWVjX2ludF9jbnRs
+KTsKPiArCQlicmVhazsKPiArCWRlZmF1bHQ6Cj4gKwkJYnJlYWs7Cj4gKwl9Cj4gICB9Cj4gICAK
+PiAgIHN0YXRpYyBpbnQgZ2Z4X3Y4XzBfc2V0X3ByaXZfcmVnX2ZhdWx0X3N0YXRlKHN0cnVjdCBh
+bWRncHVfZGV2aWNlICphZGV2LAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9nZnhfdjlfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwo+
+IGluZGV4IDM3NTYyMGEuLmU5ZGQyYzEgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvZ2Z4X3Y5XzAuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dm
+eF92OV8wLmMKPiBAQCAtMzk4MiwyNiArMzk4Miw1MyBAQCBzdGF0aWMgdm9pZCBnZnhfdjlfMF9z
+ZXRfY29tcHV0ZV9lb3BfaW50ZXJydXB0X3N0YXRlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
+LAo+ICAgCQkJCQkJICAgICBpbnQgbWUsIGludCBwaXBlLAo+ICAgCQkJCQkJICAgICBlbnVtIGFt
+ZGdwdV9pbnRlcnJ1cHRfc3RhdGUgc3RhdGUpCj4gICB7Cj4gLQkvKiBNZSAwIGlzIHJlc2VydmVk
+IGZvciBncmFwaGljcyAqLwo+IC0JaWYgKG1lIDwgMSB8fCBtZSA+IGFkZXYtPmdmeC5tZWMubnVt
+X21lYykgewo+IC0JCURSTV9FUlJPUigiSWdub3JpbmcgcmVxdWVzdCB0byBlbmFibGUgaW50ZXJy
+dXB0cyBmb3IgaW52YWxpZCBtZTolZFxuIiwgbWUpOwo+IC0JCXJldHVybjsKPiAtCX0KPiArCXUz
+MiBtZWNfaW50X2NudGwsIG1lY19pbnRfY250bF9yZWc7Cj4gICAKPiAtCWlmIChwaXBlID49IGFk
+ZXYtPmdmeC5tZWMubnVtX3BpcGVfcGVyX21lYykgewo+IC0JCURSTV9FUlJPUigiSWdub3Jpbmcg
+cmVxdWVzdCB0byBlbmFibGUgaW50ZXJydXB0cyBmb3IgaW52YWxpZCAiCj4gLQkJCQkibWU6JWQg
+cGlwZTolZFxuIiwgcGlwZSwgbWUpOwo+ICsJLyoKPiArCSAqIGFtZGdwdSBjb250cm9scyBvbmx5
+IHRoZSBmaXJzdCBNRUMuIFRoYXQncyB3aHkgdGhpcyBmdW5jdGlvbiBvbmx5Cj4gKwkgKiBoYW5k
+bGVzIHRoZSBzZXR0aW5nIG9mIGludGVycnVwdHMgZm9yIHRoaXMgc3BlY2lmaWMgTUVDLiBBbGwg
+b3RoZXIKPiArCSAqIHBpcGVzJyBpbnRlcnJ1cHRzIGFyZSBzZXQgYnkgYW1ka2ZkLgo+ICsJICov
+Cj4gKwo+ICsJaWYgKG1lID09IDEpIHsKPiArCQlzd2l0Y2ggKHBpcGUpIHsKPiArCQljYXNlIDA6
+Cj4gKwkJCW1lY19pbnRfY250bF9yZWcgPSBTT0MxNV9SRUdfT0ZGU0VUKEdDLCAwLCBtbUNQX01F
+MV9QSVBFMF9JTlRfQ05UTCk7Cj4gKwkJCWJyZWFrOwo+ICsJCWNhc2UgMToKPiArCQkJbWVjX2lu
+dF9jbnRsX3JlZyA9IFNPQzE1X1JFR19PRkZTRVQoR0MsIDAsIG1tQ1BfTUUxX1BJUEUxX0lOVF9D
+TlRMKTsKPiArCQkJYnJlYWs7Cj4gKwkJY2FzZSAyOgo+ICsJCQltZWNfaW50X2NudGxfcmVnID0g
+U09DMTVfUkVHX09GRlNFVChHQywgMCwgbW1DUF9NRTFfUElQRTJfSU5UX0NOVEwpOwo+ICsJCQli
+cmVhazsKPiArCQljYXNlIDM6Cj4gKwkJCW1lY19pbnRfY250bF9yZWcgPSBTT0MxNV9SRUdfT0ZG
+U0VUKEdDLCAwLCBtbUNQX01FMV9QSVBFM19JTlRfQ05UTCk7Cj4gKwkJCWJyZWFrOwo+ICsJCWRl
+ZmF1bHQ6Cj4gKwkJCURSTV9ERUJVRygiaW52YWxpZCBwaXBlICVkXG4iLCBwaXBlKTsKPiArCQkJ
+cmV0dXJuOwo+ICsJCX0KPiArCX0gZWxzZSB7Cj4gKwkJRFJNX0RFQlVHKCJpbnZhbGlkIG1lICVk
+XG4iLCBtZSk7Cj4gICAJCXJldHVybjsKPiAgIAl9Cj4gICAKPiAtCW11dGV4X2xvY2soJmFkZXYt
+PnNyYm1fbXV0ZXgpOwo+IC0Jc29jMTVfZ3JibV9zZWxlY3QoYWRldiwgbWUsIHBpcGUsIDAsIDAp
+Owo+IC0KPiAtCVdSRUczMl9GSUVMRChDUENfSU5UX0NOVEwsIFRJTUVfU1RBTVBfSU5UX0VOQUJM
+RSwKPiAtCQkJc3RhdGUgPT0gQU1ER1BVX0lSUV9TVEFURV9ESVNBQkxFID8gMCA6IDEpOwo+IC0K
+PiAtCXNvYzE1X2dyYm1fc2VsZWN0KGFkZXYsIDAsIDAsIDAsIDApOwo+IC0JbXV0ZXhfdW5sb2Nr
+KCZhZGV2LT5zcmJtX211dGV4KTsKPiArCXN3aXRjaCAoc3RhdGUpIHsKPiArCWNhc2UgQU1ER1BV
+X0lSUV9TVEFURV9ESVNBQkxFOgo+ICsJCW1lY19pbnRfY250bCA9IFJSRUczMihtZWNfaW50X2Nu
+dGxfcmVnKTsKPiArCQltZWNfaW50X2NudGwgPSBSRUdfU0VUX0ZJRUxEKG1lY19pbnRfY250bCwg
+Q1BfTUUxX1BJUEUwX0lOVF9DTlRMLAo+ICsJCQkJCSAgICAgVElNRV9TVEFNUF9JTlRfRU5BQkxF
+LCAwKTsKPiArCQlXUkVHMzIobWVjX2ludF9jbnRsX3JlZywgbWVjX2ludF9jbnRsKTsKPiArCQli
+cmVhazsKPiArCWNhc2UgQU1ER1BVX0lSUV9TVEFURV9FTkFCTEU6Cj4gKwkJbWVjX2ludF9jbnRs
+ID0gUlJFRzMyKG1lY19pbnRfY250bF9yZWcpOwo+ICsJCW1lY19pbnRfY250bCA9IFJFR19TRVRf
+RklFTEQobWVjX2ludF9jbnRsLCBDUF9NRTFfUElQRTBfSU5UX0NOVEwsCj4gKwkJCQkJICAgICBU
+SU1FX1NUQU1QX0lOVF9FTkFCTEUsIDEpOwo+ICsJCVdSRUczMihtZWNfaW50X2NudGxfcmVnLCBt
+ZWNfaW50X2NudGwpOwo+ICsJCWJyZWFrOwo+ICsJZGVmYXVsdDoKPiArCQlicmVhazsKPiArCX0K
+PiAgIH0KPiAgIAo+ICAgc3RhdGljIGludCBnZnhfdjlfMF9zZXRfcHJpdl9yZWdfZmF1bHRfc3Rh
+dGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCgoKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9hbWQtZ2Z4Cg==
