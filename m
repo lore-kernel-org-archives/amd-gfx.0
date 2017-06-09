@@ -1,14 +1,12 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/powerplay: fix copy error in powerplay.
-Date: Fri, 9 Jun 2017 03:26:22 +0000
-Message-ID: <CY4PR12MB1687375F92DE73DAB39BEAA0FBCE0@CY4PR12MB1687.namprd12.prod.outlook.com>
-References: <1496908250-25003-1-git-send-email-Rex.Zhu@amd.com>,
- <CY4PR17MB14001A40EC08FFA206779E5BC8C90@CY4PR17MB1400.namprd17.prod.outlook.com>
+From: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/2] drm/amd/powerplay: implement gpu voltage display for
+ smu7_hwmgr.
+Date: Fri, 9 Jun 2017 16:18:38 +0800
+Message-ID: <1496996319-25143-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1277770770=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CY4PR17MB14001A40EC08FFA206779E5BC8C90-wNFeZrXzOlam8K7ZFAZNYX+GY4YGzQ7gvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,207 +17,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: William Lewis <minutemaidpark-PkbjNfxxIARBDgjK7y7TUQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
---===============1277770770==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB1687375F92DE73DAB39BEAA0FBCE0CY4PR12MB1687namp_"
-
---_000_CY4PR12MB1687375F92DE73DAB39BEAA0FBCE0CY4PR12MB1687namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
->>s/diable/disable/
-
->>Also, why not make "Failed" lower-case at the same time?
-
-
-Of course. thanks.
-
-
-Best Regards
-
-Rex
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of William =
-Lewis <minutemaidpark-PkbjNfxxIARBDgjK7y7TUQ@public.gmane.org>
-Sent: Thursday, June 8, 2017 8:47:58 PM
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH] drm/amd/powerplay: fix copy error in powerplay.
+Cc: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
-
-
-On 06/08/2017 02:50 AM, Rex Zhu wrote:
-> should disable led dpm feature when stop dpm.
->
-> Change-Id: I9d78459ff2467d2eba0b26d9696138f7eba484a0
-> Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-> ---
->   drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers=
-/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-> index 9338aca..b6df00c 100644
-> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-> @@ -2702,9 +2702,9 @@ static int vega10_stop_dpm(struct pp_hwmgr *hwmgr, =
-uint32_t bitmap)
->
->        if(data->smu_features[GNLD_LED_DISPLAY].supported =3D=3D true){
->                PP_ASSERT_WITH_CODE(!vega10_enable_smc_features(hwmgr->smu=
-mgr,
-> -                             true, data->smu_features[GNLD_LED_DISPLAY].=
-smu_feature_bitmap),
-> -             "Attempt to Enable LED DPM feature Failed!", return -EINVAL=
-);
-> -             data->smu_features[GNLD_LED_DISPLAY].enabled =3D true;
-> +                             false, data->smu_features[GNLD_LED_DISPLAY]=
-.smu_feature_bitmap),
-> +             "Attempt to diable LED DPM feature Failed!", return -EINVAL=
-);
-
-s/diable/disable/
-
-Also, why not make "Failed" lower-case at the same time?
-
-> +             data->smu_features[GNLD_LED_DISPLAY].enabled =3D false;
->        }
->
->        for (i =3D 0; i < GNLD_DPM_MAX; i++) {
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_CY4PR12MB1687375F92DE73DAB39BEAA0FBCE0CY4PR12MB1687namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
-<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
-ding-left: 4pt; border-left: #800000 2px solid; } --></style>
-</head>
-<body>
-<meta content=3D"text/html; charset=3DUTF-8">
-<style type=3D"text/css" style=3D"">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-<div dir=3D"ltr">
-<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
-or:#000000; font-family:Calibri,Arial,Helvetica,sans-serif">
-<p><font size=3D"2"><span style=3D"font-size:10pt">&gt;&gt;s/diable/disable=
-/<br>
-<br>
-&gt;&gt;Also, why not make &quot;Failed&quot; lower-case at the same time?<=
-/span></font></p>
-<p><br>
-</p>
-<p>Of course. thanks.</p>
-<p><br>
-</p>
-<p>Best Regards</p>
-<p>Rex<br>
-</p>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of William Lewis &lt;minutemai=
-dpark-PkbjNfxxIARBDgjK7y7TUQ@public.gmane.org&gt;<br>
-<b>Sent:</b> Thursday, June 8, 2017 8:47:58 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: [PATCH] drm/amd/powerplay: fix copy error in powerplay.=
-</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText"><br>
-<br>
-On 06/08/2017 02:50 AM, Rex Zhu wrote:<br>
-&gt; should disable led dpm feature when stop dpm.<br>
-&gt;<br>
-&gt; Change-Id: I9d78459ff2467d2eba0b26d9696138f7eba484a0<br>
-&gt; Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; ---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 6 &#4=
-3;&#43;&#43;---<br>
-&gt;&nbsp;&nbsp; 1 file changed, 3 insertions(&#43;), 3 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/driv=
-ers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-&gt; index 9338aca..b6df00c 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<b=
-r>
-&gt; @@ -2702,9 &#43;2702,9 @@ static int vega10_stop_dpm(struct pp_hwmgr *=
-hwmgr, uint32_t bitmap)<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(data-&gt;smu_features[GNL=
-D_LED_DISPLAY].supported =3D=3D true){<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; PP_ASSERT_WITH_CODE(!vega10_enable_smc_features(hwmgr-&=
-gt;smumgr,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; true, data-&gt;smu_features[GNLD_LED_DISPLAY].smu_=
-feature_bitmap),<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; &quot;Attempt to Enable LED DPM feature Failed!&quot;, return -EINVAL);=
-<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; data-&gt;smu_features[GNLD_LED_DISPLAY].enabled =3D true;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; false, data-&gt;smu_features[GNLD_LED_DISPLAY]=
-.smu_feature_bitmap),<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; &quot;Attempt to diable LED DPM feature Failed!&quot;, return -EINV=
-AL);<br>
-<br>
-s/diable/disable/<br>
-<br>
-Also, why not make &quot;Failed&quot; lower-case at the same time?<br>
-<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; data-&gt;smu_features[GNLD_LED_DISPLAY].enabled =3D false;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; GNLD_DP=
-M_MAX; i&#43;&#43;) {<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font>
-</body>
-</html>
-
---_000_CY4PR12MB1687375F92DE73DAB39BEAA0FBCE0CY4PR12MB1687namp_--
-
---===============1277770770==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1277770770==--
+Q2hhbmdlLUlkOiBJNGZjYTA0ZDI0ZTZiMTFhYjBiMDM2NDUxZGE2MWQ1ODExNDUzNGU2YwpTaWdu
+ZWQtb2ZmLWJ5OiBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJt
+L2FtZC9wb3dlcnBsYXkvYW1kX3Bvd2VycGxheS5jICAgICB8IDI0ICsrKysrKysrKysrKysrKysr
+KwogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jICB8IDMx
+ICsrKysrKysrKysrKysrKysrKysrKysrCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9p
+bmMvYW1kX3Bvd2VycGxheS5oIHwgIDcgKysrKysKIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJw
+bGF5L2luYy9od21nci5oICAgICAgICAgfCAgMiArKwogNCBmaWxlcyBjaGFuZ2VkLCA2NCBpbnNl
+cnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1k
+X3Bvd2VycGxheS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kX3Bvd2VycGxh
+eS5jCmluZGV4IGY3M2U4MGMuLmJkNTBlNjQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvcG93ZXJwbGF5L2FtZF9wb3dlcnBsYXkuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bv
+d2VycGxheS9hbWRfcG93ZXJwbGF5LmMKQEAgLTEwNDksNiArMTA0OSwyOSBAQCBzdGF0aWMgaW50
+IHBwX2RwbV9nZXRfcG93ZXJfcHJvZmlsZV9zdGF0ZSh2b2lkICpoYW5kbGUsCiAJcmV0dXJuIDA7
+CiB9CiAKK3N0YXRpYyBpbnQgcHBfZHBtX2dldF9ncHVfdm9sdGFnZSh2b2lkICpoYW5kbGUsCisJ
+CWVudW0gUFBfVk9MX1RZUEUgdHlwZSwgdWludDMyX3QgKnZvbCkKK3sKKwlzdHJ1Y3QgcHBfaHdt
+Z3IgKmh3bWdyOworCXN0cnVjdCBwcF9pbnN0YW5jZSAqcHBfaGFuZGxlID0gKHN0cnVjdCBwcF9p
+bnN0YW5jZSAqKWhhbmRsZTsKKworCWlmICghdm9sIHx8IHBwX2NoZWNrKHBwX2hhbmRsZSkpCisJ
+CXJldHVybiAtRUlOVkFMOworCisJaHdtZ3IgPSBwcF9oYW5kbGUtPmh3bWdyOworCisJaWYgKGh3
+bWdyLT5od21ncl9mdW5jLT5nZXRfZ3B1X3ZvbHRhZ2UgPT0gTlVMTCkgeworCQlwcl9pbmZvKCIl
+cyB3YXMgbm90IGltcGxlbWVudGVkLlxuIiwgX19mdW5jX18pOworCQlyZXR1cm4gMDsKKwl9CisK
+KwltdXRleF9sb2NrKCZwcF9oYW5kbGUtPnBwX2xvY2spOworCWh3bWdyLT5od21ncl9mdW5jLT5n
+ZXRfZ3B1X3ZvbHRhZ2UoaHdtZ3IsIHR5cGUsIHZvbCk7CisJbXV0ZXhfdW5sb2NrKCZwcF9oYW5k
+bGUtPnBwX2xvY2spOworCisJcmV0dXJuIDA7Cit9CisKIHN0YXRpYyBpbnQgcHBfZHBtX3NldF9w
+b3dlcl9wcm9maWxlX3N0YXRlKHZvaWQgKmhhbmRsZSwKIAkJc3RydWN0IGFtZF9wcF9wcm9maWxl
+ICpyZXF1ZXN0KQogewpAQCAtMTE2MCw2ICsxMTgzLDcgQEAgc3RhdGljIGludCBwcF9kcG1fc3dp
+dGNoX3Bvd2VyX3Byb2ZpbGUodm9pZCAqaGFuZGxlLAogCS5nZXRfcG93ZXJfcHJvZmlsZV9zdGF0
+ZSA9IHBwX2RwbV9nZXRfcG93ZXJfcHJvZmlsZV9zdGF0ZSwKIAkuc2V0X3Bvd2VyX3Byb2ZpbGVf
+c3RhdGUgPSBwcF9kcG1fc2V0X3Bvd2VyX3Byb2ZpbGVfc3RhdGUsCiAJLnN3aXRjaF9wb3dlcl9w
+cm9maWxlID0gcHBfZHBtX3N3aXRjaF9wb3dlcl9wcm9maWxlLAorCS5nZXRfZ3B1X3ZvbHRhZ2Ug
+PSBwcF9kcG1fZ2V0X2dwdV92b2x0YWdlLAogfTsKIAogaW50IGFtZF9wb3dlcnBsYXlfY3JlYXRl
+KHN0cnVjdCBhbWRfcHBfaW5pdCAqcHBfaW5pdCwKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+cG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYwppbmRleCAxMDJlYjZkLi5lN2VjYmQxIDEwMDY0
+NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmMK
+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jCkBA
+IC0zMzEyLDYgKzMzMTIsMzYgQEAgc3RhdGljIGludCBzbXU3X2dldF9wcF90YWJsZV9lbnRyeShz
+dHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLAogCXJldHVybiAwOwogfQogCitzdGF0aWMgaW50IHNtdTdf
+Z2V0X2dwdV92b2x0YWdlKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsCisJCWVudW0gUFBfVk9MX1RZ
+UEUgdHlwZSwgdWludDMyX3QgKnZvbCkKK3sKKwlQUF9BU1NFUlRfV0lUSF9DT0RFKCFzbXVtX3Nl
+bmRfbXNnX3RvX3NtYyhod21nci0+c211bWdyLAorCQkJUFBTTUNfTVNHX1BtU3RhdHVzTG9nU3Rh
+cnQpLAorCQkJIkZhaWxlZCB0byBzdGFydCBwbSBzdGF0dXMgbG9nISIsCisJCQlyZXR1cm4gLUVJ
+TlZBTCk7CisKKwltc2xlZXBfaW50ZXJydXB0aWJsZSgyMCk7CisKKwlQUF9BU1NFUlRfV0lUSF9D
+T0RFKCFzbXVtX3NlbmRfbXNnX3RvX3NtYyhod21nci0+c211bWdyLAorCQkJUFBTTUNfTVNHX1Bt
+U3RhdHVzTG9nU2FtcGxlKSwKKwkJCSJGYWlsZWQgdG8gc2FtcGxlIHBtIHN0YXR1cyBsb2chIiwK
+KwkJCXJldHVybiAtRUlOVkFMKTsKKworCWlmICh0eXBlID09IFBQX1ZEREMpCisJCSp2b2wgPSBj
+Z3NfcmVhZF9pbmRfcmVnaXN0ZXIoaHdtZ3ItPmRldmljZSwKKwkJCUNHU19JTkRfUkVHX19TTUMs
+CisJCQlpeFNNVV9QTV9TVEFUVVNfNDIpOworCWVsc2UgaWYgKHR5cGUgPT0gUFBfVkREQ0kpCisJ
+CSp2b2wgPSBjZ3NfcmVhZF9pbmRfcmVnaXN0ZXIoaHdtZ3ItPmRldmljZSwKKwkJCUNHU19JTkRf
+UkVHX19TTUMsCisJCQlpeFNNVV9QTV9TVEFUVVNfNTEpOworCWVsc2UKKwkJKnZvbCA9IDA7CisK
+KwlyZXR1cm4gMDsKK30KKworCiBzdGF0aWMgaW50IHNtdTdfZ2V0X2dwdV9wb3dlcihzdHJ1Y3Qg
+cHBfaHdtZ3IgKmh3bWdyLAogCQlzdHJ1Y3QgcHBfZ3B1X3Bvd2VyICpxdWVyeSkKIHsKQEAgLTQ2
+OTcsNiArNDcyNyw3IEBAIHN0YXRpYyBpbnQgc211N19hdmZzX2NvbnRyb2woc3RydWN0IHBwX2h3
+bWdyICpod21nciwgYm9vbCBlbmFibGUpCiAJLnNldF9wb3dlcl9wcm9maWxlX3N0YXRlID0gc211
+N19zZXRfcG93ZXJfcHJvZmlsZV9zdGF0ZSwKIAkuYXZmc19jb250cm9sID0gc211N19hdmZzX2Nv
+bnRyb2wsCiAJLmRpc2FibGVfc21jX2Zpcm13YXJlX2N0ZiA9IHNtdTdfdGhlcm1hbF9kaXNhYmxl
+X2FsZXJ0LAorCS5nZXRfZ3B1X3ZvbHRhZ2UgPSBzbXU3X2dldF9ncHVfdm9sdGFnZSwKIH07CiAK
+IHVpbnQ4X3Qgc211N19nZXRfc2xlZXBfZGl2aWRlcl9pZF9mcm9tX2Nsb2NrKHVpbnQzMl90IGNs
+b2NrLApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2FtZF9w
+b3dlcnBsYXkuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9hbWRfcG93ZXJw
+bGF5LmgKaW5kZXggMDdlOWMwYi4uNjZiMzRmNiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9wb3dlcnBsYXkvaW5jL2FtZF9wb3dlcnBsYXkuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL3Bvd2VycGxheS9pbmMvYW1kX3Bvd2VycGxheS5oCkBAIC0zMDYsNiArMzA2LDExIEBAIHN0
+cnVjdCBwcF9zdGF0ZXNfaW5mbyB7CiAJdWludDMyX3Qgc3RhdGVzWzE2XTsKIH07CiAKK2VudW0g
+UFBfVk9MX1RZUEUgeworCVBQX1ZEREMsCisJUFBfVkREQ0ksCit9OworCiBzdHJ1Y3QgcHBfZ3B1
+X3Bvd2VyIHsKIAl1aW50MzJfdCB2ZGRjX3Bvd2VyOwogCXVpbnQzMl90IHZkZGNpX3Bvd2VyOwpA
+QCAtMzkyLDYgKzM5Nyw4IEBAIHN0cnVjdCBhbWRfcG93ZXJwbGF5X2Z1bmNzIHsKIAkJCXN0cnVj
+dCBhbWRfcHBfcHJvZmlsZSAqcmVxdWVzdCk7CiAJaW50ICgqc3dpdGNoX3Bvd2VyX3Byb2ZpbGUp
+KHZvaWQgKmhhbmRsZSwKIAkJCWVudW0gYW1kX3BwX3Byb2ZpbGVfdHlwZSB0eXBlKTsKKwlpbnQg
+KCpnZXRfZ3B1X3ZvbHRhZ2UpKHZvaWQgKmhhbmRsZSwKKwkJCWVudW0gUFBfVk9MX1RZUEUgdHlw
+ZSwgdTMyICp2b2wpOwogfTsKIAogc3RydWN0IGFtZF9wb3dlcnBsYXkgewpkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2h3bWdyLmggYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL3Bvd2VycGxheS9pbmMvaHdtZ3IuaAppbmRleCA0N2U1N2JkLi5mODQ0YzMzIDEwMDY0
+NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvaHdtZ3IuaAorKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvaHdtZ3IuaApAQCAtMzc2LDYgKzM3Niw4
+IEBAIHN0cnVjdCBwcF9od21ncl9mdW5jIHsKIAkJCXN0cnVjdCBhbWRfcHBfcHJvZmlsZSAqcmVx
+dWVzdCk7CiAJaW50ICgqYXZmc19jb250cm9sKShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLCBib29s
+IGVuYWJsZSk7CiAJaW50ICgqZGlzYWJsZV9zbWNfZmlybXdhcmVfY3RmKShzdHJ1Y3QgcHBfaHdt
+Z3IgKmh3bWdyKTsKKwlpbnQgKCpnZXRfZ3B1X3ZvbHRhZ2UpKHN0cnVjdCBwcF9od21nciAqaHdt
+Z3IsCisJCQllbnVtIFBQX1ZPTF9UWVBFIHR5cGUsIHUzMiAqdm9sKTsKIH07CiAKIHN0cnVjdCBw
+cF90YWJsZV9mdW5jIHsKLS0gCjEuOS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZngK
