@@ -1,75 +1,49 @@
-From: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Subject: [PATCH] drm/core: Fail atomic IOCTL with no CRTC state but with signaling.
-Date: Fri, 9 Jun 2017 17:30:19 -0400
-Message-ID: <1497043819-28591-1-git-send-email-Andrey.Grodzovsky@amd.com>
+From: Harish Kasiviswanathan <Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 2/2] drm/amdgpu: Fix compiler warnings
+Date: Fri,  9 Jun 2017 17:47:28 -0400
+Message-ID: <1497044848-26192-2-git-send-email-Harish.Kasiviswanathan@amd.com>
+References: <1497044848-26192-1-git-send-email-Harish.Kasiviswanathan@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, maarten.lankhorst@linux.intel.com
-Cc: amd-gfx@lists.freedesktop.org, harry.wentland@amd.com, Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1497044848-26192-1-git-send-email-Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Harish Kasiviswanathan <Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>
 
-Problem:
-While running IGT kms_atomic_transition test suite i encountered
-a hang in drmHandleEvent immidietly follwoing an atomic_commit.
-After dumping the atomic state I relized that in this case there was
-not even one CRTC attached to the state and only disabled
-planes. This probably due to a commit which hadn't changed any property
-which would require attaching crtc state. This means drmHandleEvent
-will never wake up from read since without CRTC in atomic state
-the event fd will not be singnaled.
-This point to a bug in IGT but also DRM should gracefully
-fail  such scenario so no hang on user side will happen.
-
-Fix:
-Explicitly fail by failing atomic_commit early in
-drm_mode_atomic_commit where such problem can be identified.
-
-Signed-off-by: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
----
- drivers/gpu/drm/drm_atomic.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index a567310..32eae1c 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1933,7 +1933,7 @@ static int prepare_crtc_signaling(struct drm_device *dev,
- {
- 	struct drm_crtc *crtc;
- 	struct drm_crtc_state *crtc_state;
--	int i, ret;
-+	int i, c = 0, ret;
- 
- 	if (arg->flags & DRM_MODE_ATOMIC_TEST_ONLY)
- 		return 0;
-@@ -1994,8 +1994,17 @@ static int prepare_crtc_signaling(struct drm_device *dev,
- 
- 			crtc_state->event->base.fence = fence;
- 		}
-+
-+		c++;
- 	}
- 
-+	/*
-+	 * Having this flag means user mode pends on event which will never
-+	 * reach due to lack of at least one CRTC for signaling
-+	 */
-+	if (c == 0 && (arg->flags & DRM_MODE_PAGE_FLIP_EVENT))
-+		return -EINVAL;
-+
- 	return 0;
- }
- 
-@@ -2179,6 +2188,8 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
- 		drm_mode_object_unreference(obj);
- 	}
- 
-+
-+
- 	ret = prepare_crtc_signaling(dev, state, arg, file_priv, &fence_state,
- 				     &num_fences);
- 	if (ret)
--- 
-2.7.4
+U2lnbmVkLW9mZi1ieTogSGFyaXNoIEthc2l2aXN3YW5hdGhhbiA8SGFyaXNoLkthc2l2aXN3YW5h
+dGhhbkBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5j
+IHwgOCArKysrLS0tLQogMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlv
+bnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0u
+YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCmluZGV4IGMzMDgwNDcu
+Ljk3NDNkYjUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92
+bS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCkBAIC05ODQs
+NyArOTg0LDcgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X3ZtX2NwdV9zZXRfcHRlcyhzdHJ1Y3QgYW1k
+Z3B1X3B0ZV91cGRhdGVfcGFyYW1zICpwYXJhbXMsCiAJCXZhbHVlID0gcGFyYW1zLT5wYWdlc19h
+ZGRyID8KIAkJCWFtZGdwdV92bV9tYXBfZ2FydChwYXJhbXMtPnBhZ2VzX2FkZHIsIGFkZHIpIDoK
+IAkJCWFkZHI7Ci0JCWFtZGdwdV9nYXJ0X3NldF9wdGVfcGRlKHBhcmFtcy0+YWRldiwgKHZvaWQg
+KilwZSwKKwkJYW1kZ3B1X2dhcnRfc2V0X3B0ZV9wZGUocGFyYW1zLT5hZGV2LCAodm9pZCAqKSh1
+aW50cHRyX3QpcGUsCiAJCQkJCWksIHZhbHVlLCBmbGFncyk7CiAJCWFkZHIgKz0gaW5jcjsKIAl9
+CkBAIC0xMDIzLDExICsxMDIzLDExIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZtX3VwZGF0ZV9sZXZl
+bChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAkJCQkgIHVuc2lnbmVkIGxldmVsKQogewog
+CXN0cnVjdCBhbWRncHVfYm8gKnNoYWRvdzsKLQlzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmc7Ci0J
+dWludDY0X3QgcGRfYWRkciwgc2hhZG93X2FkZHI7CisJc3RydWN0IGFtZGdwdV9yaW5nICpyaW5n
+ID0gTlVMTDsKKwl1aW50NjRfdCBwZF9hZGRyLCBzaGFkb3dfYWRkciA9IDA7CiAJdWludDMyX3Qg
+aW5jciA9IGFtZGdwdV92bV9ib19zaXplKGFkZXYsIGxldmVsICsgMSk7CiAJdWludDY0X3QgbGFz
+dF9wZGUgPSB+MCwgbGFzdF9wdCA9IH4wLCBsYXN0X3NoYWRvdyA9IH4wOwotCXVuc2lnbmVkIGNv
+dW50ID0gMCwgcHRfaWR4LCBuZHc7CisJdW5zaWduZWQgY291bnQgPSAwLCBwdF9pZHgsIG5kdyA9
+IDA7CiAJc3RydWN0IGFtZGdwdV9qb2IgKmpvYjsKIAlzdHJ1Y3QgYW1kZ3B1X3B0ZV91cGRhdGVf
+cGFyYW1zIHBhcmFtczsKIAlzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZSA9IE5VTEw7Ci0tIAoxLjku
+MQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
