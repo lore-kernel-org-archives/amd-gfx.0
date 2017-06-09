@@ -1,13 +1,12 @@
-From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH i-g-t v2] tests: Increase value of I915_MAX_PIPES to 6
-Date: Fri, 9 Jun 2017 16:52:23 -0400
-Message-ID: <dcb7064c-5957-ea1c-4a47-1ef1f0561689@amd.com>
-References: <1497039476-20447-1-git-send-email-sunpeng.li@amd.com>
+From: axie <axie-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu/vm: fix warnings
+Date: Fri, 9 Jun 2017 17:02:46 -0400
+Message-ID: <4f587ff7-58bf-aaff-5ca1-a02ad29e2d3a@amd.com>
+References: <1497024341-10401-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1971107589=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1497039476-20447-1-git-send-email-sunpeng.li-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1497024341-10401-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,91 +18,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: sunpeng.li-5C7GfCeVMHo@public.gmane.org, intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gMjAxNy0wNi0wOSAwNDoxNyBQTSwgc3VucGVuZy5saUBhbWQuY29tIHdyb3RlOgo+IEZyb206
-ICJMZW8gKFN1bnBlbmcpIExpIiA8c3VucGVuZy5saUBhbWQuY29tPgo+IAo+IEluY3JlYXNpbmcg
-bWF4IHBpcGUgY291bnQgdG8gNiB0byBzdXBwb3J0IEFNRCBHUFUncy4KPiAKPiBTaW5jZSBzb21l
-IHRlc3RzJyBiZWhhdmlvciBkZXBlbmRzIG9uIHRoaXMgdmFsdWUsIHNtYWxsIGNoYW5nZXMgYXJl
-IG1hZGUKPiB0byByZW1vdmUgdGhpcyBkZXBlbmRlbmN5Ogo+IAo+ICoga21zX2NjczogRWFybHkg
-YWJvcnQgaWYgd2FudGVkX3BpcGUgaXMgb3V0LW9mLWJvdW5kcy4KPiAqIGttc19jb25jdXJyZW50
-OiBDaGVjayBpZiBwaXBlIGlzIHdpdGhpbiBib3VuZHMgZmlyc3QuCj4gKiBrbXNfcGlwZV9jb2xv
-cjogUHJldmVudCBza2lwcGluZyBvZiBzdWJzZXF1ZW50IHRlc3RzIGJ5IHBsYWNpbmcKPiAgICAg
-Z2VuZXJhdGVkIHRlc3RzIGluIGEgJ2lndF9zdWJ0ZXN0X2dyb3VwJy4KPiAqIGttc19wbGFuZTog
-TW92ZSBwaXBlIGFuZCBwbGFuZSBpbmRleCBjaGVja2luZyB0byBzdWJ0ZXN0IGdyb3VwIGxldmVs
-Lgo+IAo+IHYyOiBDaGFuZ2UgaW52YWxpZCBwaXBlIGNoZWNrIG9uIGttc3Rlc3RfcGlwZV9uYW1l
-KCkgdG8gdXNlCj4gSTkxNV9NQVhfUElQRQo+IAo+IFNpZ25lZC1vZmYtYnk6IExlbyAoU3VucGVu
-ZykgTGkgPHN1bnBlbmcubGlAYW1kLmNvbT4KPiAtLS0KPiAgbGliL2lndF9rbXMuYyAgICAgICAg
-ICB8IDEwICsrKysrKysrLS0KPiAgbGliL2lndF9rbXMuaCAgICAgICAgICB8ICAzICsrKwo+ICB0
-ZXN0cy9rbXNfY2NzLmMgICAgICAgIHwgIDIgKysKPiAgdGVzdHMva21zX2NvbmN1cnJlbnQuYyB8
-ICAyICstCj4gIHRlc3RzL2ttc19waXBlX2NvbG9yLmMgfCAgMyArKy0KPiAgdGVzdHMva21zX3Bs
-YW5lLmMgICAgICB8ICA4ICsrKysrLS0tCj4gIDYgZmlsZXMgY2hhbmdlZCwgMjEgaW5zZXJ0aW9u
-cygrKSwgNyBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvbGliL2lndF9rbXMuYyBiL2xp
-Yi9pZ3Rfa21zLmMKPiBpbmRleCBjNzc3MTZiLi40NzMwOTRkIDEwMDY0NAo+IC0tLSBhL2xpYi9p
-Z3Rfa21zLmMKPiArKysgYi9saWIvaWd0X2ttcy5jCj4gQEAgLTMxOSwxMiArMzE5LDEyIEBAIGNv
-bnN0IHVuc2lnbmVkIGNoYXIqIGlndF9rbXNfZ2V0X2FsdF9lZGlkKHZvaWQpCj4gICAqLwo+ICBj
-b25zdCBjaGFyICprbXN0ZXN0X3BpcGVfbmFtZShlbnVtIHBpcGUgcGlwZSkKPiAgewo+IC0JY29u
-c3QgY2hhciAqc3RyW10gPSB7ICJBIiwgIkIiLCAiQyIgfTsKPiArCWNvbnN0IGNoYXIgKnN0cltd
-ID0geyAiQSIsICJCIiwgIkMiLCAiRCIsICJFIiwgIkYifTsKPiAgCj4gIAlpZiAocGlwZSA9PSBQ
-SVBFX05PTkUpCj4gIAkJcmV0dXJuICJOb25lIjsKPiAgCj4gLQlpZiAocGlwZSA+IDIpCj4gKwlp
-ZiAocGlwZSA+PSBJOTE1X01BWF9QSVBFUykKPiAgCQlyZXR1cm4gImludmFsaWQiOwo+ICAKPiAg
-CXJldHVybiBzdHJbcGlwZV07Cj4gQEAgLTM0NCw2ICszNDQsMTIgQEAgaW50IGttc3Rlc3RfcGlw
-ZV90b19pbmRleChjaGFyIHBpcGUpCj4gIAkJcmV0dXJuIDE7Cj4gIAllbHNlIGlmIChwaXBlID09
-ICdDJykKPiAgCQlyZXR1cm4gMjsKPiArCWVsc2UgaWYgKHBpcGUgPT0gJ0QnKQo+ICsJCXJldHVy
-biAzOwo+ICsJZWxzZSBpZiAocGlwZSA9PSAnRScpCj4gKwkJcmV0dXJuIDQ7Cj4gKwllbHNlIGlm
-IChwaXBlID09ICdGJykKPiArCQlyZXR1cm4gNTsKPiAgCWVsc2UKPiAgCQlyZXR1cm4gLUVJTlZB
-TDsKPiAgfQo+IGRpZmYgLS1naXQgYS9saWIvaWd0X2ttcy5oIGIvbGliL2lndF9rbXMuaAo+IGlu
-ZGV4IDk1NjdhMjYuLjhmN2MyYmIgMTAwNjQ0Cj4gLS0tIGEvbGliL2lndF9rbXMuaAo+ICsrKyBi
-L2xpYi9pZ3Rfa21zLmgKPiBAQCAtNTQsNiArNTQsOSBAQCBlbnVtIHBpcGUgewo+ICAgICAgICAg
-IFBJUEVfQSA9IDAsCj4gICAgICAgICAgUElQRV9CLAo+ICAgICAgICAgIFBJUEVfQywKPiArCVBJ
-UEVfRCwKPiArCVBJUEVfRSwKPiArCVBJUEVfRiwKCk9yaWdpbmFsIGNvZGUgaGFzIHNwYWNlcyBi
-dXQgeW91IHVzZSB0YWJzIGhlcmUuIENhbiB5b3UgY2hhbmdlIHRoaXMgdG8Kc3BhY2VzIHRvIHN0
-YXkgY29uc2lzdGVudD8KCldpdGggdGhhdCB0aGlzIHBhdGNoIGlzClJldmlld2VkLWJ5OiBIYXJy
-eSBXZW50bGFuZCA8aGFycnkud2VudGxhbmRAYW1kLmNvbT4KCkhhcnJ5Cgo+ICAgICAgICAgIEk5
-MTVfTUFYX1BJUEVTCj4gIH07Cj4gIGNvbnN0IGNoYXIgKmttc3Rlc3RfcGlwZV9uYW1lKGVudW0g
-cGlwZSBwaXBlKTsKPiBkaWZmIC0tZ2l0IGEvdGVzdHMva21zX2Njcy5jIGIvdGVzdHMva21zX2Nj
-cy5jCj4gaW5kZXggZDgyOTE1Mi4uMDc5NWUzYSAxMDA2NDQKPiAtLS0gYS90ZXN0cy9rbXNfY2Nz
-LmMKPiArKysgYi90ZXN0cy9rbXNfY2NzLmMKPiBAQCAtMjUwLDYgKzI1MCw4IEBAIHN0YXRpYyB2
-b2lkIHRlc3QoZGF0YV90ICpkYXRhKQo+ICAJaW50IHZhbGlkX3Rlc3RzID0gMDsKPiAgCWVudW0g
-cGlwZSB3YW50ZWRfcGlwZSA9IGRhdGEtPnBpcGU7Cj4gIAo+ICsJaWd0X3NraXBfb24od2FudGVk
-X3BpcGUgPj0gZGlzcGxheS0+bl9waXBlcyk7Cj4gKwo+ICAJZm9yX2VhY2hfcGlwZV93aXRoX3Zh
-bGlkX291dHB1dChkaXNwbGF5LCBkYXRhLT5waXBlLCBkYXRhLT5vdXRwdXQpIHsKPiAgCQlpZiAo
-d2FudGVkX3BpcGUgIT0gUElQRV9OT05FICYmIGRhdGEtPnBpcGUgIT0gd2FudGVkX3BpcGUpCj4g
-IAkJCWNvbnRpbnVlOwo+IGRpZmYgLS1naXQgYS90ZXN0cy9rbXNfY29uY3VycmVudC5jIGIvdGVz
-dHMva21zX2NvbmN1cnJlbnQuYwo+IGluZGV4IGIzNDU0MGIuLmRiMDZhMzcgMTAwNjQ0Cj4gLS0t
-IGEvdGVzdHMva21zX2NvbmN1cnJlbnQuYwo+ICsrKyBiL3Rlc3RzL2ttc19jb25jdXJyZW50LmMK
-PiBAQCAtMzUxLDggKzM1MSw4IEBAIHJ1bl90ZXN0c19mb3JfcGlwZShkYXRhX3QgKmRhdGEsIGVu
-dW0gcGlwZSBwaXBlKQo+ICAJaWd0X2ZpeHR1cmUgewo+ICAJCWludCB2YWxpZF90ZXN0cyA9IDA7
-Cj4gIAo+IC0JCWlndF9yZXF1aXJlKGRhdGEtPmRpc3BsYXkucGlwZXNbcGlwZV0ubl9wbGFuZXMg
-PiAwKTsKPiAgCQlpZ3Rfc2tpcF9vbihwaXBlID49IGRhdGEtPmRpc3BsYXkubl9waXBlcyk7Cj4g
-KwkJaWd0X3JlcXVpcmUoZGF0YS0+ZGlzcGxheS5waXBlc1twaXBlXS5uX3BsYW5lcyA+IDApOwo+
-ICAKPiAgCQlmb3JfZWFjaF92YWxpZF9vdXRwdXRfb25fcGlwZSgmZGF0YS0+ZGlzcGxheSwgcGlw
-ZSwgb3V0cHV0KQo+ICAJCQl2YWxpZF90ZXN0cysrOwo+IGRpZmYgLS1naXQgYS90ZXN0cy9rbXNf
-cGlwZV9jb2xvci5jIGIvdGVzdHMva21zX3BpcGVfY29sb3IuYwo+IGluZGV4IGZkNThhYzguLmRh
-NDllYjEgMTAwNjQ0Cj4gLS0tIGEvdGVzdHMva21zX3BpcGVfY29sb3IuYwo+ICsrKyBiL3Rlc3Rz
-L2ttc19waXBlX2NvbG9yLmMKPiBAQCAtMTE4MCw3ICsxMTgwLDggQEAgaWd0X21haW4KPiAgCX0K
-PiAgCj4gIAlmb3IgKGludCBwaXBlID0gMDsgcGlwZSA8IEk5MTVfTUFYX1BJUEVTOyBwaXBlKysp
-Cj4gLQkJcnVuX3Rlc3RzX2Zvcl9waXBlKCZkYXRhLCBwaXBlKTsKPiArCQlpZ3Rfc3VidGVzdF9n
-cm91cAo+ICsJCQlydW5fdGVzdHNfZm9yX3BpcGUoJmRhdGEsIHBpcGUpOwo+ICAKPiAgCWlndF9z
-dWJ0ZXN0X2YoImludmFsaWQtbHV0LXNpemVzIikKPiAgCQlpbnZhbGlkX2x1dF9zaXplcygmZGF0
-YSk7Cj4gZGlmZiAtLWdpdCBhL3Rlc3RzL2ttc19wbGFuZS5jIGIvdGVzdHMva21zX3BsYW5lLmMK
-PiBpbmRleCBlMWJkNDY3Li4zNDQxOGNhIDEwMDY0NAo+IC0tLSBhL3Rlc3RzL2ttc19wbGFuZS5j
-Cj4gKysrIGIvdGVzdHMva21zX3BsYW5lLmMKPiBAQCAtMzU0LDkgKzM1NCw2IEBAIHRlc3RfcGxh
-bmVfcGFubmluZyhkYXRhX3QgKmRhdGEsIGVudW0gcGlwZSBwaXBlLCBpbnQgcGxhbmUsCj4gIAlp
-Z3Rfb3V0cHV0X3QgKm91dHB1dDsKPiAgCWludCBjb25uZWN0ZWRfb3V0cyA9IDA7Cj4gIAo+IC0J
-aWd0X3NraXBfb24ocGlwZSA+PSBkYXRhLT5kaXNwbGF5Lm5fcGlwZXMpOwo+IC0JaWd0X3NraXBf
-b24ocGxhbmUgPj0gZGF0YS0+ZGlzcGxheS5waXBlc1twaXBlXS5uX3BsYW5lcyk7Cj4gLQo+ICAJ
-Zm9yX2VhY2hfdmFsaWRfb3V0cHV0X29uX3BpcGUoJmRhdGEtPmRpc3BsYXksIHBpcGUsIG91dHB1
-dCkgewo+ICAJCXRlc3RfcGxhbmVfcGFubmluZ193aXRoX291dHB1dChkYXRhLCBwaXBlLCBwbGFu
-ZSwgb3V0cHV0LAo+ICAJCQkJCQlmbGFncyk7Cj4gQEAgLTM2OSw2ICszNjYsMTEgQEAgdGVzdF9w
-bGFuZV9wYW5uaW5nKGRhdGFfdCAqZGF0YSwgZW51bSBwaXBlIHBpcGUsIGludCBwbGFuZSwKPiAg
-c3RhdGljIHZvaWQKPiAgcnVuX3Rlc3RzX2Zvcl9waXBlX3BsYW5lKGRhdGFfdCAqZGF0YSwgZW51
-bSBwaXBlIHBpcGUpCj4gIHsKPiArCWlndF9maXh0dXJlIHsKPiArCQlpZ3Rfc2tpcF9vbihwaXBl
-ID49IGRhdGEtPmRpc3BsYXkubl9waXBlcyk7Cj4gKwkJaWd0X3JlcXVpcmUoZGF0YS0+ZGlzcGxh
-eS5waXBlc1twaXBlXS5uX3BsYW5lcyA+IDApOwo+ICsJfQo+ICsKPiAgCWlndF9zdWJ0ZXN0X2Yo
-InBsYW5lLXBvc2l0aW9uLWNvdmVyZWQtcGlwZS0lcy1wbGFuZXMiLAo+ICAJCSAgICAgIGttc3Rl
-c3RfcGlwZV9uYW1lKHBpcGUpKSB7Cj4gIAkJaW50IG5fcGxhbmVzID0gZGF0YS0+ZGlzcGxheS5w
-aXBlc1twaXBlXS5uX3BsYW5lczsKPiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4Cg==
+This is a multi-part message in MIME format.
+--===============1971107589==
+Content-Type: multipart/alternative;
+ boundary="------------B0E9CB22609397B7192E0BA2"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------B0E9CB22609397B7192E0BA2
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Reviewed-by: Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
+
+
+On 2017-06-09 12:05 PM, Alex Deucher wrote:
+> silence uninitialized variable warnings.
+>
+> Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index c4f1a30..28f35db 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -1023,11 +1023,11 @@ static int amdgpu_vm_update_level(struct amdgpu_device *adev,
+>   				  unsigned level)
+>   {
+>   	struct amdgpu_bo *shadow;
+> -	struct amdgpu_ring *ring;
+> -	uint64_t pd_addr, shadow_addr;
+> +	struct amdgpu_ring *ring = NULL;
+> +	uint64_t pd_addr, shadow_addr = 0;
+>   	uint32_t incr = amdgpu_vm_bo_size(adev, level + 1);
+>   	uint64_t last_pde = ~0, last_pt = ~0, last_shadow = ~0;
+> -	unsigned count = 0, pt_idx, ndw;
+> +	unsigned count = 0, pt_idx, ndw = 0;
+>   	struct amdgpu_job *job;
+>   	struct amdgpu_pte_update_params params;
+>   	struct dma_fence *fence = NULL;
+
+
+--------------B0E9CB22609397B7192E0BA2
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p>Reviewed-by: Alex Xie <a class="moz-txt-link-rfc2396E"
+        href="mailto:AlexBin.Xie-5C7GfCeVMHo@public.gmane.org">&lt;AlexBin.Xie-5C7GfCeVMHo@public.gmane.org&gt;</a></p>
+    <br>
+    <div class="moz-cite-prefix">On 2017-06-09 12:05 PM, Alex Deucher
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:1497024341-10401-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org">
+      <pre wrap="">silence uninitialized variable warnings.
+
+Signed-off-by: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">&lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;</a>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index c4f1a30..28f35db 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -1023,11 +1023,11 @@ static int amdgpu_vm_update_level(struct amdgpu_device *adev,
+ 				  unsigned level)
+ {
+ 	struct amdgpu_bo *shadow;
+-	struct amdgpu_ring *ring;
+-	uint64_t pd_addr, shadow_addr;
++	struct amdgpu_ring *ring = NULL;
++	uint64_t pd_addr, shadow_addr = 0;
+ 	uint32_t incr = amdgpu_vm_bo_size(adev, level + 1);
+ 	uint64_t last_pde = ~0, last_pt = ~0, last_shadow = ~0;
+-	unsigned count = 0, pt_idx, ndw;
++	unsigned count = 0, pt_idx, ndw = 0;
+ 	struct amdgpu_job *job;
+ 	struct amdgpu_pte_update_params params;
+ 	struct dma_fence *fence = NULL;
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------B0E9CB22609397B7192E0BA2--
+
+--===============1971107589==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1971107589==--
