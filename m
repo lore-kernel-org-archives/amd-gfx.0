@@ -1,14 +1,16 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: add contiguous flag in ucode bo create
-Date: Fri, 9 Jun 2017 16:51:17 +0200
-Message-ID: <e4a9c390-5b0b-0d6e-33fa-4427aa7c6ee0@vodafone.de>
-References: <1497009541-2635-1-git-send-email-horace.chen@amd.com>
- <4c9e08c4-0d9e-17b4-e3df-30e447c34ea0@vodafone.de>
- <MWHPR12MB1629B8FDE5C086109492DCB1E1CE0@MWHPR12MB1629.namprd12.prod.outlook.com>
+From: Leo <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [Intel-gfx] [PATCH i-g-t] tests: Increase value of I915_MAX_PIPES
+ to 6
+Date: Fri, 9 Jun 2017 11:48:35 -0400
+Message-ID: <e443861f-2818-58c7-7626-a80c8e2d8122@amd.com>
+References: <1496949033-8843-1-git-send-email-sunpeng.li@amd.com>
+ <CY4PR12MB16536F46BCE57F37819F3B6CF7C90@CY4PR12MB1653.namprd12.prod.outlook.com>
+ <20170609094916.GH25282@ahiler-desk1.ger.corp.intel.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1138457789=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MWHPR12MB1629B8FDE5C086109492DCB1E1CE0-Gy0DoCVfaSVXJjvGLpYL8gdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <20170609094916.GH25282-vmkuTAUGE3v8HXaCWoL7+7KMmGWinSIL2HeeBUIffwg@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,188 +22,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Chen, Horace" <Horace.Chen-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
+To: Arkadiusz Hiler <arkadiusz.hiler-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: "intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============1138457789==
-Content-Type: multipart/alternative;
- boundary="------------151869F3377C4E29288C87FC"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------151869F3377C4E29288C87FC
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Hi Horace,
-
-yeah that looks good to me, feel free to add my reviewed-by line and 
-push it.
-
-Regards,
-Christian.
-
-Am 09.06.2017 um 15:45 schrieb Chen, Horace:
-> Hi Christian,
->
-> Sorry, it's my first time to submit code to the staging. I have done the fix.  Attached the fixed review.
-> Thank you for the review.
->
-> Regards,
-> Horace.
->
-> -----Original Message-----
-> From: Christian König [mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org]
-> Sent: Friday, June 09, 2017 8:25 PM
-> To: Chen, Horace; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> Cc: Huang, Ray
-> Subject: Re: [PATCH] drm/amdgpu: add contiguous flag in ucode bo create
->
-> Am 09.06.2017 um 13:59 schrieb horchen:
->> Under VF environment, the ucode would be settled to the visible VRAM,
->> As it would be pinned to the visible VRAM, it's better to add
->> contiguous flag,otherwise it need to move gpu address during the pin
->> process. This movement is not necessary.
->>
->> Signed-off-by: horchen <horace.chen-5C7GfCeVMHo@public.gmane.org>
->> ---
->>    drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 3 ++-
->>    1 file changed, 2 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
->> index cd6d3d0..3b1ee05 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
->> @@ -379,7 +379,8 @@ int amdgpu_ucode_init_bo(struct amdgpu_device
->> *adev)
->>    
->>    	err = amdgpu_bo_create(adev, adev->firmware.fw_size, PAGE_SIZE, true,
->>    				amdgpu_sriov_vf(adev) ? AMDGPU_GEM_DOMAIN_VRAM : AMDGPU_GEM_DOMAIN_GTT,
->> -				0, NULL, NULL, bo);
->> +				amdgpu_sriov_vf(adev) ? AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS : 0,
->> +				NULL, NULL, bo);
-> Mhm, did you missed my comment? You can add the AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS unconditionally here, e.g. without checking amdgpu_sriov_vf(adev).
->
-> With that fixed the patch is Reviewed-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>.
->
->>    	if (err) {
->>    		dev_err(adev->dev, "(%d) Firmware buffer allocate failed\n", err);
->>    		goto failed;
->
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
-
---------------151869F3377C4E29288C87FC
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Hi Horace,<br>
-      <br>
-      yeah that looks good to me, feel free to add my reviewed-by line
-      and push it.<br>
-      <br>
-      Regards,<br>
-      Christian.<br>
-      <br>
-      Am 09.06.2017 um 15:45 schrieb Chen, Horace:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:MWHPR12MB1629B8FDE5C086109492DCB1E1CE0-Gy0DoCVfaSVXJjvGLpYL8gdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
-      <pre wrap="">Hi Christian,
-
-Sorry, it's my first time to submit code to the staging. I have done the fix.  Attached the fixed review.
-Thank you for the review.
-
-Regards,
-Horace. 
-
------Original Message-----
-From: Christian König [<a class="moz-txt-link-freetext" href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org</a>] 
-Sent: Friday, June 09, 2017 8:25 PM
-To: Chen, Horace; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-Cc: Huang, Ray
-Subject: Re: [PATCH] drm/amdgpu: add contiguous flag in ucode bo create
-
-Am 09.06.2017 um 13:59 schrieb horchen:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="">Under VF environment, the ucode would be settled to the visible VRAM, 
-As it would be pinned to the visible VRAM, it's better to add 
-contiguous flag,otherwise it need to move gpu address during the pin 
-process. This movement is not necessary.
-
-Signed-off-by: horchen <a class="moz-txt-link-rfc2396E" href="mailto:horace.chen-5C7GfCeVMHo@public.gmane.org">&lt;horace.chen-5C7GfCeVMHo@public.gmane.org&gt;</a>
----
-  drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 3 ++-
-  1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c 
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-index cd6d3d0..3b1ee05 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-@@ -379,7 +379,8 @@ int amdgpu_ucode_init_bo(struct amdgpu_device 
-*adev)
-  
-  	err = amdgpu_bo_create(adev, adev-&gt;firmware.fw_size, PAGE_SIZE, true,
-  				amdgpu_sriov_vf(adev) ? AMDGPU_GEM_DOMAIN_VRAM : AMDGPU_GEM_DOMAIN_GTT,
--				0, NULL, NULL, bo);
-+				amdgpu_sriov_vf(adev) ? AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS : 0,
-+				NULL, NULL, bo);
-</pre>
-      </blockquote>
-      <pre wrap="">
-Mhm, did you missed my comment? You can add the AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS unconditionally here, e.g. without checking amdgpu_sriov_vf(adev).
-
-With that fixed the patch is Reviewed-by: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>.
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="">  	if (err) {
-  		dev_err(adev-&gt;dev, "(%d) Firmware buffer allocate failed\n", err);
-  		goto failed;
-</pre>
-      </blockquote>
-      <pre wrap="">
-
-</pre>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------151869F3377C4E29288C87FC--
-
---===============1138457789==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1138457789==--
+CgpPbiAyMDE3LTA2LTA5IDA1OjQ5IEFNLCBBcmthZGl1c3ogSGlsZXIgd3JvdGU6Cj4gT24gVGh1
+LCBKdW4gMDgsIDIwMTcgYXQgMDk6NDg6NThQTSArMDAwMCwgRGV1Y2hlciwgQWxleGFuZGVyIHdy
+b3RlOgo+Pj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPj4+IEZyb206IGFtZC1nZnggW21h
+aWx0bzphbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnXSBPbiBCZWhhbGYKPj4+
+IE9mIHN1bnBlbmcubGlAYW1kLmNvbQo+Pj4gU2VudDogVGh1cnNkYXksIEp1bmUgMDgsIDIwMTcg
+MzoxMSBQTQo+Pj4gVG86IGludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IGFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnOwo+Pj4gV2VudGxhbmQsIEhhcnJ5Cj4+PiBDYzogTGksIFN1
+biBwZW5nCj4+PiBTdWJqZWN0OiBbUEFUQ0ggaS1nLXRdIHRlc3RzOiBJbmNyZWFzZSB2YWx1ZSBv
+ZiBJOTE1X01BWF9QSVBFUyB0byA2Cj4+Pgo+Pj4gRnJvbTogIkxlbyAoU3VucGVuZykgTGkiIDxz
+dW5wZW5nLmxpQGFtZC5jb20+Cj4+Pgo+Pj4gSW5jcmVhc2luZyBtYXggcGlwZSBjb3VudCB0byA2
+IHRvIHN1cHBvcnQgQU1EIEdQVSdzLgo+Pj4KPj4+IFNpbmNlIHNvbWUgdGVzdHMnIGJlaGF2aW9y
+IGRlcGVuZHMgb24gdGhpcyB2YWx1ZSwgc21hbGwgY2hhbmdlcyBhcmUgbWFkZQo+Pj4gdG8gcmVt
+b3ZlIHRoaXMgZGVwZW5kZW5jeToKPj4+Cj4+PiAqIGttc19jY3M6IEVhcmx5IGFib3J0IGlmIHdh
+bnRlZF9waXBlIGlzIG91dC1vZi1ib3VuZHMuCj4+PiAqIGttc19jb25jdXJyZW50OiBDaGVjayBp
+ZiBwaXBlIGlzIHdpdGhpbiBib3VuZHMgZmlyc3QuCj4+PiAqIGttc19waXBlX2NvbG9yOiBQcmV2
+ZW50IHNraXBwaW5nIG9mIHN1YnNlcXVlbnQgdGVzdHMgYnkgcGxhY2luZwo+Pj4gICAgICBnZW5l
+cmF0ZWQgdGVzdHMgaW4gYSAnaWd0X3N1YnRlc3RfZ3JvdXAnLgo+Pj4gKiBrbXNfcGxhbmU6IE1v
+dmUgcGlwZSBhbmQgcGxhbmUgaW5kZXggY2hlY2tpbmcgdG8gc3VidGVzdCBncm91cCBsZXZlbC4K
+Pj4+Cj4+PiBTaWduZWQtb2ZmLWJ5OiBMZW8gKFN1bnBlbmcpIExpIDxzdW5wZW5nLmxpQGFtZC5j
+b20+Cj4+PiAtLS0KPj4+ICAgbGliL2lndF9rbXMuYyAgICAgICAgICB8IDEwICsrKysrKysrLS0K
+Pj4+ICAgbGliL2lndF9rbXMuaCAgICAgICAgICB8ICAzICsrKwo+Pj4gICB0ZXN0cy9rbXNfY2Nz
+LmMgICAgICAgIHwgIDIgKysKPj4+ICAgdGVzdHMva21zX2NvbmN1cnJlbnQuYyB8ICAyICstCj4+
+PiAgIHRlc3RzL2ttc19waXBlX2NvbG9yLmMgfCAgMyArKy0KPj4+ICAgdGVzdHMva21zX3BsYW5l
+LmMgICAgICB8ICA4ICsrKysrLS0tCj4+PiAgIDYgZmlsZXMgY2hhbmdlZCwgMjEgaW5zZXJ0aW9u
+cygrKSwgNyBkZWxldGlvbnMoLSkKPj4+Cj4+PiBkaWZmIC0tZ2l0IGEvbGliL2lndF9rbXMuYyBi
+L2xpYi9pZ3Rfa21zLmMKPj4+IGluZGV4IGM3NzcxNmIuLjFiYjYyZjAgMTAwNjQ0Cj4+PiAtLS0g
+YS9saWIvaWd0X2ttcy5jCj4+PiArKysgYi9saWIvaWd0X2ttcy5jCj4+PiBAQCAtMzE5LDEyICsz
+MTksMTIgQEAgY29uc3QgdW5zaWduZWQgY2hhciogaWd0X2ttc19nZXRfYWx0X2VkaWQodm9pZCkK
+Pj4+ICAgICovCj4+PiAgIGNvbnN0IGNoYXIgKmttc3Rlc3RfcGlwZV9uYW1lKGVudW0gcGlwZSBw
+aXBlKQo+Pj4gICB7Cj4+PiAtCWNvbnN0IGNoYXIgKnN0cltdID0geyAiQSIsICJCIiwgIkMiIH07
+Cj4+PiArCWNvbnN0IGNoYXIgKnN0cltdID0geyAiQSIsICJCIiwgIkMiLCAiRCIsICJFIiwgIkYi
+fTsKPj4+Cj4+PiAgIAlpZiAocGlwZSA9PSBQSVBFX05PTkUpCj4+PiAgIAkJcmV0dXJuICJOb25l
+IjsKPj4+Cj4+PiAtCWlmIChwaXBlID4gMikKPj4+ICsJaWYgKHBpcGUgPiA1KQo+Pgo+PiBVc2Ug
+STkxNV9NQVhfUElQRVMgaGVyZSByYXRoZXIgdGhhbiBoYXJkY29kaW5nIDUuICBXaXRoIHRoYXQg
+Zml4ZWQgdGhlIHBhdGNoIGlzOgo+PiBBY2tlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIu
+ZGV1Y2hlckBhbWQuY29tPgo+IAo+IFRoZSBuYW1lIGNhbiBiZSBjaGFuZ2VkIHRvIElHVF9NQVhf
+UElQRVMsIGFzIHVzaW5nIEk5MTUgaGVyZSBpcwo+IG1pc3NsZWFkaW5nLgo+IAoKUmVuYW1pbmcg
+STkxNV9NQVhfUElQRVMgd2lsbCBjYXVzZSB3aWRlciBjaGFuZ2VzLCBJJ2xsIHN1Ym1pdCBhIG5l
+dyAKcGF0Y2ggZm9yIHRoYXQuIFdpbGwgc3VibWl0IGEgdjIgZm9yIEFsZXgncyBjb21tZW50LgoK
+TGVvCgo+Pj4gICAJCXJldHVybiAiaW52YWxpZCI7Cj4+Pgo+Pj4gICAJcmV0dXJuIHN0cltwaXBl
+XTsKPj4+IEBAIC0zNDQsNiArMzQ0LDEyIEBAIGludCBrbXN0ZXN0X3BpcGVfdG9faW5kZXgoY2hh
+ciBwaXBlKQo+Pj4gICAJCXJldHVybiAxOwo+Pj4gICAJZWxzZSBpZiAocGlwZSA9PSAnQycpCj4+
+PiAgIAkJcmV0dXJuIDI7Cj4+PiArCWVsc2UgaWYgKHBpcGUgPT0gJ0QnKQo+Pj4gKwkJcmV0dXJu
+IDM7Cj4+PiArCWVsc2UgaWYgKHBpcGUgPT0gJ0UnKQo+Pj4gKwkJcmV0dXJuIDQ7Cj4+PiArCWVs
+c2UgaWYgKHBpcGUgPT0gJ0YnKQo+Pj4gKwkJcmV0dXJuIDU7Cj4+PiAgIAllbHNlCj4+PiAgIAkJ
+cmV0dXJuIC1FSU5WQUw7Cj4+PiAgIH0KPj4+IGRpZmYgLS1naXQgYS9saWIvaWd0X2ttcy5oIGIv
+bGliL2lndF9rbXMuaAo+Pj4gaW5kZXggOTU2N2EyNi4uOGY3YzJiYiAxMDA2NDQKPj4+IC0tLSBh
+L2xpYi9pZ3Rfa21zLmgKPj4+ICsrKyBiL2xpYi9pZ3Rfa21zLmgKPj4+IEBAIC01NCw2ICs1NCw5
+IEBAIGVudW0gcGlwZSB7Cj4+PiAgICAgICAgICAgUElQRV9BID0gMCwKPj4+ICAgICAgICAgICBQ
+SVBFX0IsCj4+PiAgICAgICAgICAgUElQRV9DLAo+Pj4gKwlQSVBFX0QsCj4+PiArCVBJUEVfRSwK
+Pj4+ICsJUElQRV9GLAo+Pj4gICAgICAgICAgIEk5MTVfTUFYX1BJUEVTCj4+PiAgIH07Cj4+PiAg
+IGNvbnN0IGNoYXIgKmttc3Rlc3RfcGlwZV9uYW1lKGVudW0gcGlwZSBwaXBlKTsKPj4+IGRpZmYg
+LS1naXQgYS90ZXN0cy9rbXNfY2NzLmMgYi90ZXN0cy9rbXNfY2NzLmMKPj4+IGluZGV4IGQ4Mjkx
+NTIuLjA3OTVlM2EgMTAwNjQ0Cj4+PiAtLS0gYS90ZXN0cy9rbXNfY2NzLmMKPj4+ICsrKyBiL3Rl
+c3RzL2ttc19jY3MuYwo+Pj4gQEAgLTI1MCw2ICsyNTAsOCBAQCBzdGF0aWMgdm9pZCB0ZXN0KGRh
+dGFfdCAqZGF0YSkKPj4+ICAgCWludCB2YWxpZF90ZXN0cyA9IDA7Cj4+PiAgIAllbnVtIHBpcGUg
+d2FudGVkX3BpcGUgPSBkYXRhLT5waXBlOwo+Pj4KPj4+ICsJaWd0X3NraXBfb24od2FudGVkX3Bp
+cGUgPj0gZGlzcGxheS0+bl9waXBlcyk7Cj4+PiArCj4+PiAgIAlmb3JfZWFjaF9waXBlX3dpdGhf
+dmFsaWRfb3V0cHV0KGRpc3BsYXksIGRhdGEtPnBpcGUsIGRhdGEtCj4+Pj4gb3V0cHV0KSB7Cj4+
+PiAgIAkJaWYgKHdhbnRlZF9waXBlICE9IFBJUEVfTk9ORSAmJiBkYXRhLT5waXBlICE9Cj4+PiB3
+YW50ZWRfcGlwZSkKPj4+ICAgCQkJY29udGludWU7Cj4+PiBkaWZmIC0tZ2l0IGEvdGVzdHMva21z
+X2NvbmN1cnJlbnQuYyBiL3Rlc3RzL2ttc19jb25jdXJyZW50LmMKPj4+IGluZGV4IGIzNDU0MGIu
+LmRiMDZhMzcgMTAwNjQ0Cj4+PiAtLS0gYS90ZXN0cy9rbXNfY29uY3VycmVudC5jCj4+PiArKysg
+Yi90ZXN0cy9rbXNfY29uY3VycmVudC5jCj4+PiBAQCAtMzUxLDggKzM1MSw4IEBAIHJ1bl90ZXN0
+c19mb3JfcGlwZShkYXRhX3QgKmRhdGEsIGVudW0gcGlwZSBwaXBlKQo+Pj4gICAJaWd0X2ZpeHR1
+cmUgewo+Pj4gICAJCWludCB2YWxpZF90ZXN0cyA9IDA7Cj4+Pgo+Pj4gLQkJaWd0X3JlcXVpcmUo
+ZGF0YS0+ZGlzcGxheS5waXBlc1twaXBlXS5uX3BsYW5lcyA+IDApOwo+Pj4gICAJCWlndF9za2lw
+X29uKHBpcGUgPj0gZGF0YS0+ZGlzcGxheS5uX3BpcGVzKTsKPj4+ICsJCWlndF9yZXF1aXJlKGRh
+dGEtPmRpc3BsYXkucGlwZXNbcGlwZV0ubl9wbGFuZXMgPiAwKTsKPj4+Cj4+PiAgIAkJZm9yX2Vh
+Y2hfdmFsaWRfb3V0cHV0X29uX3BpcGUoJmRhdGEtPmRpc3BsYXksIHBpcGUsCj4+PiBvdXRwdXQp
+Cj4+PiAgIAkJCXZhbGlkX3Rlc3RzKys7Cj4+PiBkaWZmIC0tZ2l0IGEvdGVzdHMva21zX3BpcGVf
+Y29sb3IuYyBiL3Rlc3RzL2ttc19waXBlX2NvbG9yLmMKPj4+IGluZGV4IGZkNThhYzguLmRhNDll
+YjEgMTAwNjQ0Cj4+PiAtLS0gYS90ZXN0cy9rbXNfcGlwZV9jb2xvci5jCj4+PiArKysgYi90ZXN0
+cy9rbXNfcGlwZV9jb2xvci5jCj4+PiBAQCAtMTE4MCw3ICsxMTgwLDggQEAgaWd0X21haW4KPj4+
+ICAgCX0KPj4+Cj4+PiAgIAlmb3IgKGludCBwaXBlID0gMDsgcGlwZSA8IEk5MTVfTUFYX1BJUEVT
+OyBwaXBlKyspCj4+PiAtCQlydW5fdGVzdHNfZm9yX3BpcGUoJmRhdGEsIHBpcGUpOwo+Pj4gKwkJ
+aWd0X3N1YnRlc3RfZ3JvdXAKPj4+ICsJCQlydW5fdGVzdHNfZm9yX3BpcGUoJmRhdGEsIHBpcGUp
+Owo+Pj4KPj4+ICAgCWlndF9zdWJ0ZXN0X2YoImludmFsaWQtbHV0LXNpemVzIikKPj4+ICAgCQlp
+bnZhbGlkX2x1dF9zaXplcygmZGF0YSk7Cj4+PiBkaWZmIC0tZ2l0IGEvdGVzdHMva21zX3BsYW5l
+LmMgYi90ZXN0cy9rbXNfcGxhbmUuYwo+Pj4gaW5kZXggZTFiZDQ2Ny4uMzQ0MThjYSAxMDA2NDQK
+Pj4+IC0tLSBhL3Rlc3RzL2ttc19wbGFuZS5jCj4+PiArKysgYi90ZXN0cy9rbXNfcGxhbmUuYwo+
+Pj4gQEAgLTM1NCw5ICszNTQsNiBAQCB0ZXN0X3BsYW5lX3Bhbm5pbmcoZGF0YV90ICpkYXRhLCBl
+bnVtIHBpcGUgcGlwZSwKPj4+IGludCBwbGFuZSwKPj4+ICAgCWlndF9vdXRwdXRfdCAqb3V0cHV0
+Owo+Pj4gICAJaW50IGNvbm5lY3RlZF9vdXRzID0gMDsKPj4+Cj4+PiAtCWlndF9za2lwX29uKHBp
+cGUgPj0gZGF0YS0+ZGlzcGxheS5uX3BpcGVzKTsKPj4+IC0JaWd0X3NraXBfb24ocGxhbmUgPj0g
+ZGF0YS0+ZGlzcGxheS5waXBlc1twaXBlXS5uX3BsYW5lcyk7Cj4+PiAtCj4+PiAgIAlmb3JfZWFj
+aF92YWxpZF9vdXRwdXRfb25fcGlwZSgmZGF0YS0+ZGlzcGxheSwgcGlwZSwgb3V0cHV0KSB7Cj4+
+PiAgIAkJdGVzdF9wbGFuZV9wYW5uaW5nX3dpdGhfb3V0cHV0KGRhdGEsIHBpcGUsIHBsYW5lLCBv
+dXRwdXQsCj4+PiAgIAkJCQkJCWZsYWdzKTsKPj4+IEBAIC0zNjksNiArMzY2LDExIEBAIHRlc3Rf
+cGxhbmVfcGFubmluZyhkYXRhX3QgKmRhdGEsIGVudW0gcGlwZSBwaXBlLAo+Pj4gaW50IHBsYW5l
+LAo+Pj4gICBzdGF0aWMgdm9pZAo+Pj4gICBydW5fdGVzdHNfZm9yX3BpcGVfcGxhbmUoZGF0YV90
+ICpkYXRhLCBlbnVtIHBpcGUgcGlwZSkKPj4+ICAgewo+Pj4gKwlpZ3RfZml4dHVyZSB7Cj4+PiAr
+CQlpZ3Rfc2tpcF9vbihwaXBlID49IGRhdGEtPmRpc3BsYXkubl9waXBlcyk7Cj4+PiArCQlpZ3Rf
+cmVxdWlyZShkYXRhLT5kaXNwbGF5LnBpcGVzW3BpcGVdLm5fcGxhbmVzID4gMCk7Cj4+PiArCX0K
+Pj4+ICsKPj4+ICAgCWlndF9zdWJ0ZXN0X2YoInBsYW5lLXBvc2l0aW9uLWNvdmVyZWQtcGlwZS0l
+cy1wbGFuZXMiLAo+Pj4gICAJCSAgICAgIGttc3Rlc3RfcGlwZV9uYW1lKHBpcGUpKSB7Cj4+PiAg
+IAkJaW50IG5fcGxhbmVzID0gZGF0YS0+ZGlzcGxheS5waXBlc1twaXBlXS5uX3BsYW5lczsKPj4+
+IC0tCj4+PiAyLjcuNAo+Pj4KPj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCj4+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+Pj4gYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcKPj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeAo+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwo+PiBJbnRlbC1nZnggbWFpbGluZyBsaXN0Cj4+IEludGVsLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcKPj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9pbnRlbC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Cg==
