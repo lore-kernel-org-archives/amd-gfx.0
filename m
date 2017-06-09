@@ -1,129 +1,85 @@
-From: Arkadiusz Hiler <arkadiusz.hiler@intel.com>
-Subject: Re: [PATCH i-g-t] tests: Increase value of
- I915_MAX_PIPES to 6
-Date: Fri, 9 Jun 2017 12:49:16 +0300
-Message-ID: <20170609094916.GH25282@ahiler-desk1.ger.corp.intel.com>
-References: <1496949033-8843-1-git-send-email-sunpeng.li@amd.com>
- <CY4PR12MB16536F46BCE57F37819F3B6CF7C90@CY4PR12MB1653.namprd12.prod.outlook.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Subject: Re: [PATCH v5 5/6] drm/amdgpu: move hw generation check into amdgpu_doorbell_init
+Date: Fri, 9 Jun 2017 13:14:02 +0300
+Message-ID: <CAHp75Vfq2WwMT1tGu8VWmd5ZfWc7HCjh6PxpsXtjY8a3eoXH-g@mail.gmail.com>
+References: <1496998787-6371-1-git-send-email-deathsimple@vodafone.de> <1496998787-6371-6-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <intel-gfx-bounces@lists.freedesktop.org>
-Content-Disposition: inline
-In-Reply-To: <CY4PR12MB16536F46BCE57F37819F3B6CF7C90@CY4PR12MB1653.namprd12.prod.outlook.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/intel-gfx>,
- <mailto:intel-gfx-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/intel-gfx>
-List-Post: <mailto:intel-gfx@lists.freedesktop.org>
-List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
- <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: intel-gfx-bounces@lists.freedesktop.org
-Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, "Wentland, Harry" <Harry.Wentland@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Return-path: <platform-driver-x86-owner@vger.kernel.org>
+In-Reply-To: <1496998787-6371-6-git-send-email-deathsimple@vodafone.de>
+Sender: platform-driver-x86-owner@vger.kernel.org
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple@vodafone.de>
+Cc: Bjorn Helgaas <helgaas@kernel.org>, "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, dri-devel@lists.freedesktop.org, Platform Driver <platform-driver-x86@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVGh1LCBKdW4gMDgsIDIwMTcgYXQgMDk6NDg6NThQTSArMDAwMCwgRGV1Y2hlciwgQWxleGFu
-ZGVyIHdyb3RlOgo+ID4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPiA+IEZyb206IGFtZC1n
-ZnggW21haWx0bzphbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnXSBPbiBCZWhh
-bGYKPiA+IE9mIHN1bnBlbmcubGlAYW1kLmNvbQo+ID4gU2VudDogVGh1cnNkYXksIEp1bmUgMDgs
-IDIwMTcgMzoxMSBQTQo+ID4gVG86IGludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IGFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOwo+ID4gV2VudGxhbmQsIEhhcnJ5Cj4gPiBDYzog
-TGksIFN1biBwZW5nCj4gPiBTdWJqZWN0OiBbUEFUQ0ggaS1nLXRdIHRlc3RzOiBJbmNyZWFzZSB2
-YWx1ZSBvZiBJOTE1X01BWF9QSVBFUyB0byA2Cj4gPiAKPiA+IEZyb206ICJMZW8gKFN1bnBlbmcp
-IExpIiA8c3VucGVuZy5saUBhbWQuY29tPgo+ID4gCj4gPiBJbmNyZWFzaW5nIG1heCBwaXBlIGNv
-dW50IHRvIDYgdG8gc3VwcG9ydCBBTUQgR1BVJ3MuCj4gPiAKPiA+IFNpbmNlIHNvbWUgdGVzdHMn
-IGJlaGF2aW9yIGRlcGVuZHMgb24gdGhpcyB2YWx1ZSwgc21hbGwgY2hhbmdlcyBhcmUgbWFkZQo+
-ID4gdG8gcmVtb3ZlIHRoaXMgZGVwZW5kZW5jeToKPiA+IAo+ID4gKiBrbXNfY2NzOiBFYXJseSBh
-Ym9ydCBpZiB3YW50ZWRfcGlwZSBpcyBvdXQtb2YtYm91bmRzLgo+ID4gKiBrbXNfY29uY3VycmVu
-dDogQ2hlY2sgaWYgcGlwZSBpcyB3aXRoaW4gYm91bmRzIGZpcnN0Lgo+ID4gKiBrbXNfcGlwZV9j
-b2xvcjogUHJldmVudCBza2lwcGluZyBvZiBzdWJzZXF1ZW50IHRlc3RzIGJ5IHBsYWNpbmcKPiA+
-ICAgICBnZW5lcmF0ZWQgdGVzdHMgaW4gYSAnaWd0X3N1YnRlc3RfZ3JvdXAnLgo+ID4gKiBrbXNf
-cGxhbmU6IE1vdmUgcGlwZSBhbmQgcGxhbmUgaW5kZXggY2hlY2tpbmcgdG8gc3VidGVzdCBncm91
-cCBsZXZlbC4KPiA+IAo+ID4gU2lnbmVkLW9mZi1ieTogTGVvIChTdW5wZW5nKSBMaSA8c3VucGVu
-Zy5saUBhbWQuY29tPgo+ID4gLS0tCj4gPiAgbGliL2lndF9rbXMuYyAgICAgICAgICB8IDEwICsr
-KysrKysrLS0KPiA+ICBsaWIvaWd0X2ttcy5oICAgICAgICAgIHwgIDMgKysrCj4gPiAgdGVzdHMv
-a21zX2Njcy5jICAgICAgICB8ICAyICsrCj4gPiAgdGVzdHMva21zX2NvbmN1cnJlbnQuYyB8ICAy
-ICstCj4gPiAgdGVzdHMva21zX3BpcGVfY29sb3IuYyB8ICAzICsrLQo+ID4gIHRlc3RzL2ttc19w
-bGFuZS5jICAgICAgfCAgOCArKysrKy0tLQo+ID4gIDYgZmlsZXMgY2hhbmdlZCwgMjEgaW5zZXJ0
-aW9ucygrKSwgNyBkZWxldGlvbnMoLSkKPiA+IAo+ID4gZGlmZiAtLWdpdCBhL2xpYi9pZ3Rfa21z
-LmMgYi9saWIvaWd0X2ttcy5jCj4gPiBpbmRleCBjNzc3MTZiLi4xYmI2MmYwIDEwMDY0NAo+ID4g
-LS0tIGEvbGliL2lndF9rbXMuYwo+ID4gKysrIGIvbGliL2lndF9rbXMuYwo+ID4gQEAgLTMxOSwx
-MiArMzE5LDEyIEBAIGNvbnN0IHVuc2lnbmVkIGNoYXIqIGlndF9rbXNfZ2V0X2FsdF9lZGlkKHZv
-aWQpCj4gPiAgICovCj4gPiAgY29uc3QgY2hhciAqa21zdGVzdF9waXBlX25hbWUoZW51bSBwaXBl
-IHBpcGUpCj4gPiAgewo+ID4gLQljb25zdCBjaGFyICpzdHJbXSA9IHsgIkEiLCAiQiIsICJDIiB9
-Owo+ID4gKwljb25zdCBjaGFyICpzdHJbXSA9IHsgIkEiLCAiQiIsICJDIiwgIkQiLCAiRSIsICJG
-In07Cj4gPiAKPiA+ICAJaWYgKHBpcGUgPT0gUElQRV9OT05FKQo+ID4gIAkJcmV0dXJuICJOb25l
-IjsKPiA+IAo+ID4gLQlpZiAocGlwZSA+IDIpCj4gPiArCWlmIChwaXBlID4gNSkKPiAKPiBVc2Ug
-STkxNV9NQVhfUElQRVMgaGVyZSByYXRoZXIgdGhhbiBoYXJkY29kaW5nIDUuICBXaXRoIHRoYXQg
-Zml4ZWQgdGhlIHBhdGNoIGlzOgo+IEFja2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5k
-ZXVjaGVyQGFtZC5jb20+CgpUaGUgbmFtZSBjYW4gYmUgY2hhbmdlZCB0byBJR1RfTUFYX1BJUEVT
-LCBhcyB1c2luZyBJOTE1IGhlcmUgaXMKbWlzc2xlYWRpbmcuCgo+IAo+ID4gIAkJcmV0dXJuICJp
-bnZhbGlkIjsKPiA+IAo+ID4gIAlyZXR1cm4gc3RyW3BpcGVdOwo+ID4gQEAgLTM0NCw2ICszNDQs
-MTIgQEAgaW50IGttc3Rlc3RfcGlwZV90b19pbmRleChjaGFyIHBpcGUpCj4gPiAgCQlyZXR1cm4g
-MTsKPiA+ICAJZWxzZSBpZiAocGlwZSA9PSAnQycpCj4gPiAgCQlyZXR1cm4gMjsKPiA+ICsJZWxz
-ZSBpZiAocGlwZSA9PSAnRCcpCj4gPiArCQlyZXR1cm4gMzsKPiA+ICsJZWxzZSBpZiAocGlwZSA9
-PSAnRScpCj4gPiArCQlyZXR1cm4gNDsKPiA+ICsJZWxzZSBpZiAocGlwZSA9PSAnRicpCj4gPiAr
-CQlyZXR1cm4gNTsKPiA+ICAJZWxzZQo+ID4gIAkJcmV0dXJuIC1FSU5WQUw7Cj4gPiAgfQo+ID4g
-ZGlmZiAtLWdpdCBhL2xpYi9pZ3Rfa21zLmggYi9saWIvaWd0X2ttcy5oCj4gPiBpbmRleCA5NTY3
-YTI2Li44ZjdjMmJiIDEwMDY0NAo+ID4gLS0tIGEvbGliL2lndF9rbXMuaAo+ID4gKysrIGIvbGli
-L2lndF9rbXMuaAo+ID4gQEAgLTU0LDYgKzU0LDkgQEAgZW51bSBwaXBlIHsKPiA+ICAgICAgICAg
-IFBJUEVfQSA9IDAsCj4gPiAgICAgICAgICBQSVBFX0IsCj4gPiAgICAgICAgICBQSVBFX0MsCj4g
-PiArCVBJUEVfRCwKPiA+ICsJUElQRV9FLAo+ID4gKwlQSVBFX0YsCj4gPiAgICAgICAgICBJOTE1
-X01BWF9QSVBFUwo+ID4gIH07Cj4gPiAgY29uc3QgY2hhciAqa21zdGVzdF9waXBlX25hbWUoZW51
-bSBwaXBlIHBpcGUpOwo+ID4gZGlmZiAtLWdpdCBhL3Rlc3RzL2ttc19jY3MuYyBiL3Rlc3RzL2tt
-c19jY3MuYwo+ID4gaW5kZXggZDgyOTE1Mi4uMDc5NWUzYSAxMDA2NDQKPiA+IC0tLSBhL3Rlc3Rz
-L2ttc19jY3MuYwo+ID4gKysrIGIvdGVzdHMva21zX2Njcy5jCj4gPiBAQCAtMjUwLDYgKzI1MCw4
-IEBAIHN0YXRpYyB2b2lkIHRlc3QoZGF0YV90ICpkYXRhKQo+ID4gIAlpbnQgdmFsaWRfdGVzdHMg
-PSAwOwo+ID4gIAllbnVtIHBpcGUgd2FudGVkX3BpcGUgPSBkYXRhLT5waXBlOwo+ID4gCj4gPiAr
-CWlndF9za2lwX29uKHdhbnRlZF9waXBlID49IGRpc3BsYXktPm5fcGlwZXMpOwo+ID4gKwo+ID4g
-IAlmb3JfZWFjaF9waXBlX3dpdGhfdmFsaWRfb3V0cHV0KGRpc3BsYXksIGRhdGEtPnBpcGUsIGRh
-dGEtCj4gPiA+b3V0cHV0KSB7Cj4gPiAgCQlpZiAod2FudGVkX3BpcGUgIT0gUElQRV9OT05FICYm
-IGRhdGEtPnBpcGUgIT0KPiA+IHdhbnRlZF9waXBlKQo+ID4gIAkJCWNvbnRpbnVlOwo+ID4gZGlm
-ZiAtLWdpdCBhL3Rlc3RzL2ttc19jb25jdXJyZW50LmMgYi90ZXN0cy9rbXNfY29uY3VycmVudC5j
-Cj4gPiBpbmRleCBiMzQ1NDBiLi5kYjA2YTM3IDEwMDY0NAo+ID4gLS0tIGEvdGVzdHMva21zX2Nv
-bmN1cnJlbnQuYwo+ID4gKysrIGIvdGVzdHMva21zX2NvbmN1cnJlbnQuYwo+ID4gQEAgLTM1MSw4
-ICszNTEsOCBAQCBydW5fdGVzdHNfZm9yX3BpcGUoZGF0YV90ICpkYXRhLCBlbnVtIHBpcGUgcGlw
-ZSkKPiA+ICAJaWd0X2ZpeHR1cmUgewo+ID4gIAkJaW50IHZhbGlkX3Rlc3RzID0gMDsKPiA+IAo+
-ID4gLQkJaWd0X3JlcXVpcmUoZGF0YS0+ZGlzcGxheS5waXBlc1twaXBlXS5uX3BsYW5lcyA+IDAp
-Owo+ID4gIAkJaWd0X3NraXBfb24ocGlwZSA+PSBkYXRhLT5kaXNwbGF5Lm5fcGlwZXMpOwo+ID4g
-KwkJaWd0X3JlcXVpcmUoZGF0YS0+ZGlzcGxheS5waXBlc1twaXBlXS5uX3BsYW5lcyA+IDApOwo+
-ID4gCj4gPiAgCQlmb3JfZWFjaF92YWxpZF9vdXRwdXRfb25fcGlwZSgmZGF0YS0+ZGlzcGxheSwg
-cGlwZSwKPiA+IG91dHB1dCkKPiA+ICAJCQl2YWxpZF90ZXN0cysrOwo+ID4gZGlmZiAtLWdpdCBh
-L3Rlc3RzL2ttc19waXBlX2NvbG9yLmMgYi90ZXN0cy9rbXNfcGlwZV9jb2xvci5jCj4gPiBpbmRl
-eCBmZDU4YWM4Li5kYTQ5ZWIxIDEwMDY0NAo+ID4gLS0tIGEvdGVzdHMva21zX3BpcGVfY29sb3Iu
-Ywo+ID4gKysrIGIvdGVzdHMva21zX3BpcGVfY29sb3IuYwo+ID4gQEAgLTExODAsNyArMTE4MCw4
-IEBAIGlndF9tYWluCj4gPiAgCX0KPiA+IAo+ID4gIAlmb3IgKGludCBwaXBlID0gMDsgcGlwZSA8
-IEk5MTVfTUFYX1BJUEVTOyBwaXBlKyspCj4gPiAtCQlydW5fdGVzdHNfZm9yX3BpcGUoJmRhdGEs
-IHBpcGUpOwo+ID4gKwkJaWd0X3N1YnRlc3RfZ3JvdXAKPiA+ICsJCQlydW5fdGVzdHNfZm9yX3Bp
-cGUoJmRhdGEsIHBpcGUpOwo+ID4gCj4gPiAgCWlndF9zdWJ0ZXN0X2YoImludmFsaWQtbHV0LXNp
-emVzIikKPiA+ICAJCWludmFsaWRfbHV0X3NpemVzKCZkYXRhKTsKPiA+IGRpZmYgLS1naXQgYS90
-ZXN0cy9rbXNfcGxhbmUuYyBiL3Rlc3RzL2ttc19wbGFuZS5jCj4gPiBpbmRleCBlMWJkNDY3Li4z
-NDQxOGNhIDEwMDY0NAo+ID4gLS0tIGEvdGVzdHMva21zX3BsYW5lLmMKPiA+ICsrKyBiL3Rlc3Rz
-L2ttc19wbGFuZS5jCj4gPiBAQCAtMzU0LDkgKzM1NCw2IEBAIHRlc3RfcGxhbmVfcGFubmluZyhk
-YXRhX3QgKmRhdGEsIGVudW0gcGlwZSBwaXBlLAo+ID4gaW50IHBsYW5lLAo+ID4gIAlpZ3Rfb3V0
-cHV0X3QgKm91dHB1dDsKPiA+ICAJaW50IGNvbm5lY3RlZF9vdXRzID0gMDsKPiA+IAo+ID4gLQlp
-Z3Rfc2tpcF9vbihwaXBlID49IGRhdGEtPmRpc3BsYXkubl9waXBlcyk7Cj4gPiAtCWlndF9za2lw
-X29uKHBsYW5lID49IGRhdGEtPmRpc3BsYXkucGlwZXNbcGlwZV0ubl9wbGFuZXMpOwo+ID4gLQo+
-ID4gIAlmb3JfZWFjaF92YWxpZF9vdXRwdXRfb25fcGlwZSgmZGF0YS0+ZGlzcGxheSwgcGlwZSwg
-b3V0cHV0KSB7Cj4gPiAgCQl0ZXN0X3BsYW5lX3Bhbm5pbmdfd2l0aF9vdXRwdXQoZGF0YSwgcGlw
-ZSwgcGxhbmUsIG91dHB1dCwKPiA+ICAJCQkJCQlmbGFncyk7Cj4gPiBAQCAtMzY5LDYgKzM2Niwx
-MSBAQCB0ZXN0X3BsYW5lX3Bhbm5pbmcoZGF0YV90ICpkYXRhLCBlbnVtIHBpcGUgcGlwZSwKPiA+
-IGludCBwbGFuZSwKPiA+ICBzdGF0aWMgdm9pZAo+ID4gIHJ1bl90ZXN0c19mb3JfcGlwZV9wbGFu
-ZShkYXRhX3QgKmRhdGEsIGVudW0gcGlwZSBwaXBlKQo+ID4gIHsKPiA+ICsJaWd0X2ZpeHR1cmUg
-ewo+ID4gKwkJaWd0X3NraXBfb24ocGlwZSA+PSBkYXRhLT5kaXNwbGF5Lm5fcGlwZXMpOwo+ID4g
-KwkJaWd0X3JlcXVpcmUoZGF0YS0+ZGlzcGxheS5waXBlc1twaXBlXS5uX3BsYW5lcyA+IDApOwo+
-ID4gKwl9Cj4gPiArCj4gPiAgCWlndF9zdWJ0ZXN0X2YoInBsYW5lLXBvc2l0aW9uLWNvdmVyZWQt
-cGlwZS0lcy1wbGFuZXMiLAo+ID4gIAkJICAgICAga21zdGVzdF9waXBlX25hbWUocGlwZSkpIHsK
-PiA+ICAJCWludCBuX3BsYW5lcyA9IGRhdGEtPmRpc3BsYXkucGlwZXNbcGlwZV0ubl9wbGFuZXM7
-Cj4gPiAtLQo+ID4gMi43LjQKPiA+IAo+ID4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KPiA+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gPiBhbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwo+ID4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KPiBJbnRlbC1nZnggbWFpbGluZyBsaXN0Cj4gSW50ZWwtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vaW50ZWwtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2lu
-dGVsLWdmeAo=
+On Fri, Jun 9, 2017 at 11:59 AM, Christian K=C3=B6nig
+<deathsimple@vodafone.de> wrote:
+> From: Christian K=C3=B6nig <christian.koenig@amd.com>
+>
+> This way we can savely call it on SI as well.
+
+s/savely/safely
+
+FWIW,
+Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 17 ++++++++++++-----
+>  1 file changed, 12 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index a7d6804..99290af 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -419,6 +419,15 @@ void amdgpu_pci_config_reset(struct amdgpu_device *a=
+dev)
+>   */
+>  static int amdgpu_doorbell_init(struct amdgpu_device *adev)
+>  {
+> +       /* No doorbell on SI hardware generation */
+> +       if (adev->asic_type < CHIP_BONAIRE) {
+> +               adev->doorbell.base =3D 0;
+> +               adev->doorbell.size =3D 0;
+> +               adev->doorbell.num_doorbells =3D 0;
+> +               adev->doorbell.ptr =3D NULL;
+> +               return 0;
+> +       }
+> +
+>         /* doorbell bar mapping */
+>         adev->doorbell.base =3D pci_resource_start(adev->pdev, 2);
+>         adev->doorbell.size =3D pci_resource_len(adev->pdev, 2);
+> @@ -2136,9 +2145,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+>         DRM_INFO("register mmio base: 0x%08X\n", (uint32_t)adev->rmmio_ba=
+se);
+>         DRM_INFO("register mmio size: %u\n", (unsigned)adev->rmmio_size);
+>
+> -       if (adev->asic_type >=3D CHIP_BONAIRE)
+> -               /* doorbell bar mapping */
+> -               amdgpu_doorbell_init(adev);
+> +       /* doorbell bar mapping */
+> +       amdgpu_doorbell_init(adev);
+>
+>         /* io port mapping */
+>         for (i =3D 0; i < DEVICE_COUNT_RESOURCE; i++) {
+> @@ -2335,8 +2343,7 @@ void amdgpu_device_fini(struct amdgpu_device *adev)
+>         adev->rio_mem =3D NULL;
+>         iounmap(adev->rmmio);
+>         adev->rmmio =3D NULL;
+> -       if (adev->asic_type >=3D CHIP_BONAIRE)
+> -               amdgpu_doorbell_fini(adev);
+> +       amdgpu_doorbell_fini(adev);
+>         amdgpu_debugfs_regs_cleanup(adev);
+>  }
+>
+> --
+> 2.7.4
+>
+
+
+
+--=20
+With Best Regards,
+Andy Shevchenko
