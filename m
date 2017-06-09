@@ -1,13 +1,11 @@
-From: axie <axie-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/vm: fix warnings
-Date: Fri, 9 Jun 2017 17:02:46 -0400
-Message-ID: <4f587ff7-58bf-aaff-5ca1-a02ad29e2d3a@amd.com>
-References: <1497024341-10401-1-git-send-email-alexander.deucher@amd.com>
+From: <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH i-g-t v3] tests: Increase value of I915_MAX_PIPES to 6
+Date: Fri, 9 Jun 2017 17:08:53 -0400
+Message-ID: <1497042533-22030-1-git-send-email-sunpeng.li@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1971107589=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1497024341-10401-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,110 +16,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, harry.wentland-5C7GfCeVMHo@public.gmane.org
+Cc: "Leo (Sunpeng) Li" <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============1971107589==
-Content-Type: multipart/alternative;
- boundary="------------B0E9CB22609397B7192E0BA2"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------B0E9CB22609397B7192E0BA2
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-Reviewed-by: Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
-
-
-On 2017-06-09 12:05 PM, Alex Deucher wrote:
-> silence uninitialized variable warnings.
->
-> Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index c4f1a30..28f35db 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -1023,11 +1023,11 @@ static int amdgpu_vm_update_level(struct amdgpu_device *adev,
->   				  unsigned level)
->   {
->   	struct amdgpu_bo *shadow;
-> -	struct amdgpu_ring *ring;
-> -	uint64_t pd_addr, shadow_addr;
-> +	struct amdgpu_ring *ring = NULL;
-> +	uint64_t pd_addr, shadow_addr = 0;
->   	uint32_t incr = amdgpu_vm_bo_size(adev, level + 1);
->   	uint64_t last_pde = ~0, last_pt = ~0, last_shadow = ~0;
-> -	unsigned count = 0, pt_idx, ndw;
-> +	unsigned count = 0, pt_idx, ndw = 0;
->   	struct amdgpu_job *job;
->   	struct amdgpu_pte_update_params params;
->   	struct dma_fence *fence = NULL;
-
-
---------------B0E9CB22609397B7192E0BA2
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 7bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <p>Reviewed-by: Alex Xie <a class="moz-txt-link-rfc2396E"
-        href="mailto:AlexBin.Xie-5C7GfCeVMHo@public.gmane.org">&lt;AlexBin.Xie-5C7GfCeVMHo@public.gmane.org&gt;</a></p>
-    <br>
-    <div class="moz-cite-prefix">On 2017-06-09 12:05 PM, Alex Deucher
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:1497024341-10401-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org">
-      <pre wrap="">silence uninitialized variable warnings.
-
-Signed-off-by: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">&lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;</a>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index c4f1a30..28f35db 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -1023,11 +1023,11 @@ static int amdgpu_vm_update_level(struct amdgpu_device *adev,
- 				  unsigned level)
- {
- 	struct amdgpu_bo *shadow;
--	struct amdgpu_ring *ring;
--	uint64_t pd_addr, shadow_addr;
-+	struct amdgpu_ring *ring = NULL;
-+	uint64_t pd_addr, shadow_addr = 0;
- 	uint32_t incr = amdgpu_vm_bo_size(adev, level + 1);
- 	uint64_t last_pde = ~0, last_pt = ~0, last_shadow = ~0;
--	unsigned count = 0, pt_idx, ndw;
-+	unsigned count = 0, pt_idx, ndw = 0;
- 	struct amdgpu_job *job;
- 	struct amdgpu_pte_update_params params;
- 	struct dma_fence *fence = NULL;
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------B0E9CB22609397B7192E0BA2--
-
---===============1971107589==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1971107589==--
+RnJvbTogIkxlbyAoU3VucGVuZykgTGkiIDxzdW5wZW5nLmxpQGFtZC5jb20+CgpJbmNyZWFzaW5n
+IG1heCBwaXBlIGNvdW50IHRvIDYgdG8gc3VwcG9ydCBBTUQgR1BVJ3MuCgpTaW5jZSBzb21lIHRl
+c3RzJyBiZWhhdmlvciBkZXBlbmRzIG9uIHRoaXMgdmFsdWUsIHNtYWxsIGNoYW5nZXMgYXJlIG1h
+ZGUKdG8gcmVtb3ZlIHRoaXMgZGVwZW5kZW5jeToKCioga21zX2NjczogRWFybHkgYWJvcnQgaWYg
+d2FudGVkX3BpcGUgaXMgb3V0LW9mLWJvdW5kcy4KKiBrbXNfY29uY3VycmVudDogQ2hlY2sgaWYg
+cGlwZSBpcyB3aXRoaW4gYm91bmRzIGZpcnN0LgoqIGttc19waXBlX2NvbG9yOiBQcmV2ZW50IHNr
+aXBwaW5nIG9mIHN1YnNlcXVlbnQgdGVzdHMgYnkgcGxhY2luZwogICAgZ2VuZXJhdGVkIHRlc3Rz
+IGluIGEgJ2lndF9zdWJ0ZXN0X2dyb3VwJy4KKiBrbXNfcGxhbmU6IE1vdmUgcGlwZSBhbmQgcGxh
+bmUgaW5kZXggY2hlY2tpbmcgdG8gc3VidGVzdCBncm91cCBsZXZlbC4KCnYyOiBDaGFuZ2UgaW52
+YWxpZCBwaXBlIGNoZWNrIG9uIGttc3Rlc3RfcGlwZV9uYW1lKCkgdG8gdXNlCkk5MTVfTUFYX1BJ
+UEUKCnYzOiBDaGFuZ2UgdGFicyB0byBzcGFjZXMgaW4gJ2VudW0gcGlwZScKClNpZ25lZC1vZmYt
+Ynk6IExlbyAoU3VucGVuZykgTGkgPHN1bnBlbmcubGlAYW1kLmNvbT4KLS0tCiBsaWIvaWd0X2tt
+cy5jICAgICAgICAgIHwgMTAgKysrKysrKystLQogbGliL2lndF9rbXMuaCAgICAgICAgICB8ICAz
+ICsrKwogdGVzdHMva21zX2Njcy5jICAgICAgICB8ICAyICsrCiB0ZXN0cy9rbXNfY29uY3VycmVu
+dC5jIHwgIDIgKy0KIHRlc3RzL2ttc19waXBlX2NvbG9yLmMgfCAgMyArKy0KIHRlc3RzL2ttc19w
+bGFuZS5jICAgICAgfCAgOCArKysrKy0tLQogNiBmaWxlcyBjaGFuZ2VkLCAyMSBpbnNlcnRpb25z
+KCspLCA3IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2xpYi9pZ3Rfa21zLmMgYi9saWIvaWd0
+X2ttcy5jCmluZGV4IGM3NzcxNmIuLjQ3MzA5NGQgMTAwNjQ0Ci0tLSBhL2xpYi9pZ3Rfa21zLmMK
+KysrIGIvbGliL2lndF9rbXMuYwpAQCAtMzE5LDEyICszMTksMTIgQEAgY29uc3QgdW5zaWduZWQg
+Y2hhciogaWd0X2ttc19nZXRfYWx0X2VkaWQodm9pZCkKICAqLwogY29uc3QgY2hhciAqa21zdGVz
+dF9waXBlX25hbWUoZW51bSBwaXBlIHBpcGUpCiB7Ci0JY29uc3QgY2hhciAqc3RyW10gPSB7ICJB
+IiwgIkIiLCAiQyIgfTsKKwljb25zdCBjaGFyICpzdHJbXSA9IHsgIkEiLCAiQiIsICJDIiwgIkQi
+LCAiRSIsICJGIn07CiAKIAlpZiAocGlwZSA9PSBQSVBFX05PTkUpCiAJCXJldHVybiAiTm9uZSI7
+CiAKLQlpZiAocGlwZSA+IDIpCisJaWYgKHBpcGUgPj0gSTkxNV9NQVhfUElQRVMpCiAJCXJldHVy
+biAiaW52YWxpZCI7CiAKIAlyZXR1cm4gc3RyW3BpcGVdOwpAQCAtMzQ0LDYgKzM0NCwxMiBAQCBp
+bnQga21zdGVzdF9waXBlX3RvX2luZGV4KGNoYXIgcGlwZSkKIAkJcmV0dXJuIDE7CiAJZWxzZSBp
+ZiAocGlwZSA9PSAnQycpCiAJCXJldHVybiAyOworCWVsc2UgaWYgKHBpcGUgPT0gJ0QnKQorCQly
+ZXR1cm4gMzsKKwllbHNlIGlmIChwaXBlID09ICdFJykKKwkJcmV0dXJuIDQ7CisJZWxzZSBpZiAo
+cGlwZSA9PSAnRicpCisJCXJldHVybiA1OwogCWVsc2UKIAkJcmV0dXJuIC1FSU5WQUw7CiB9CmRp
+ZmYgLS1naXQgYS9saWIvaWd0X2ttcy5oIGIvbGliL2lndF9rbXMuaAppbmRleCA5NTY3YTI2Li4z
+MGJiNmZmIDEwMDY0NAotLS0gYS9saWIvaWd0X2ttcy5oCisrKyBiL2xpYi9pZ3Rfa21zLmgKQEAg
+LTU0LDYgKzU0LDkgQEAgZW51bSBwaXBlIHsKICAgICAgICAgUElQRV9BID0gMCwKICAgICAgICAg
+UElQRV9CLAogICAgICAgICBQSVBFX0MsCisgICAgICAgIFBJUEVfRCwKKyAgICAgICAgUElQRV9F
+LAorICAgICAgICBQSVBFX0YsCiAgICAgICAgIEk5MTVfTUFYX1BJUEVTCiB9OwogY29uc3QgY2hh
+ciAqa21zdGVzdF9waXBlX25hbWUoZW51bSBwaXBlIHBpcGUpOwpkaWZmIC0tZ2l0IGEvdGVzdHMv
+a21zX2Njcy5jIGIvdGVzdHMva21zX2Njcy5jCmluZGV4IGQ4MjkxNTIuLjA3OTVlM2EgMTAwNjQ0
+Ci0tLSBhL3Rlc3RzL2ttc19jY3MuYworKysgYi90ZXN0cy9rbXNfY2NzLmMKQEAgLTI1MCw2ICsy
+NTAsOCBAQCBzdGF0aWMgdm9pZCB0ZXN0KGRhdGFfdCAqZGF0YSkKIAlpbnQgdmFsaWRfdGVzdHMg
+PSAwOwogCWVudW0gcGlwZSB3YW50ZWRfcGlwZSA9IGRhdGEtPnBpcGU7CiAKKwlpZ3Rfc2tpcF9v
+bih3YW50ZWRfcGlwZSA+PSBkaXNwbGF5LT5uX3BpcGVzKTsKKwogCWZvcl9lYWNoX3BpcGVfd2l0
+aF92YWxpZF9vdXRwdXQoZGlzcGxheSwgZGF0YS0+cGlwZSwgZGF0YS0+b3V0cHV0KSB7CiAJCWlm
+ICh3YW50ZWRfcGlwZSAhPSBQSVBFX05PTkUgJiYgZGF0YS0+cGlwZSAhPSB3YW50ZWRfcGlwZSkK
+IAkJCWNvbnRpbnVlOwpkaWZmIC0tZ2l0IGEvdGVzdHMva21zX2NvbmN1cnJlbnQuYyBiL3Rlc3Rz
+L2ttc19jb25jdXJyZW50LmMKaW5kZXggYjM0NTQwYi4uZGIwNmEzNyAxMDA2NDQKLS0tIGEvdGVz
+dHMva21zX2NvbmN1cnJlbnQuYworKysgYi90ZXN0cy9rbXNfY29uY3VycmVudC5jCkBAIC0zNTEs
+OCArMzUxLDggQEAgcnVuX3Rlc3RzX2Zvcl9waXBlKGRhdGFfdCAqZGF0YSwgZW51bSBwaXBlIHBp
+cGUpCiAJaWd0X2ZpeHR1cmUgewogCQlpbnQgdmFsaWRfdGVzdHMgPSAwOwogCi0JCWlndF9yZXF1
+aXJlKGRhdGEtPmRpc3BsYXkucGlwZXNbcGlwZV0ubl9wbGFuZXMgPiAwKTsKIAkJaWd0X3NraXBf
+b24ocGlwZSA+PSBkYXRhLT5kaXNwbGF5Lm5fcGlwZXMpOworCQlpZ3RfcmVxdWlyZShkYXRhLT5k
+aXNwbGF5LnBpcGVzW3BpcGVdLm5fcGxhbmVzID4gMCk7CiAKIAkJZm9yX2VhY2hfdmFsaWRfb3V0
+cHV0X29uX3BpcGUoJmRhdGEtPmRpc3BsYXksIHBpcGUsIG91dHB1dCkKIAkJCXZhbGlkX3Rlc3Rz
+Kys7CmRpZmYgLS1naXQgYS90ZXN0cy9rbXNfcGlwZV9jb2xvci5jIGIvdGVzdHMva21zX3BpcGVf
+Y29sb3IuYwppbmRleCBmZDU4YWM4Li5kYTQ5ZWIxIDEwMDY0NAotLS0gYS90ZXN0cy9rbXNfcGlw
+ZV9jb2xvci5jCisrKyBiL3Rlc3RzL2ttc19waXBlX2NvbG9yLmMKQEAgLTExODAsNyArMTE4MCw4
+IEBAIGlndF9tYWluCiAJfQogCiAJZm9yIChpbnQgcGlwZSA9IDA7IHBpcGUgPCBJOTE1X01BWF9Q
+SVBFUzsgcGlwZSsrKQotCQlydW5fdGVzdHNfZm9yX3BpcGUoJmRhdGEsIHBpcGUpOworCQlpZ3Rf
+c3VidGVzdF9ncm91cAorCQkJcnVuX3Rlc3RzX2Zvcl9waXBlKCZkYXRhLCBwaXBlKTsKIAogCWln
+dF9zdWJ0ZXN0X2YoImludmFsaWQtbHV0LXNpemVzIikKIAkJaW52YWxpZF9sdXRfc2l6ZXMoJmRh
+dGEpOwpkaWZmIC0tZ2l0IGEvdGVzdHMva21zX3BsYW5lLmMgYi90ZXN0cy9rbXNfcGxhbmUuYwpp
+bmRleCBlMWJkNDY3Li4zNDQxOGNhIDEwMDY0NAotLS0gYS90ZXN0cy9rbXNfcGxhbmUuYworKysg
+Yi90ZXN0cy9rbXNfcGxhbmUuYwpAQCAtMzU0LDkgKzM1NCw2IEBAIHRlc3RfcGxhbmVfcGFubmlu
+ZyhkYXRhX3QgKmRhdGEsIGVudW0gcGlwZSBwaXBlLCBpbnQgcGxhbmUsCiAJaWd0X291dHB1dF90
+ICpvdXRwdXQ7CiAJaW50IGNvbm5lY3RlZF9vdXRzID0gMDsKIAotCWlndF9za2lwX29uKHBpcGUg
+Pj0gZGF0YS0+ZGlzcGxheS5uX3BpcGVzKTsKLQlpZ3Rfc2tpcF9vbihwbGFuZSA+PSBkYXRhLT5k
+aXNwbGF5LnBpcGVzW3BpcGVdLm5fcGxhbmVzKTsKLQogCWZvcl9lYWNoX3ZhbGlkX291dHB1dF9v
+bl9waXBlKCZkYXRhLT5kaXNwbGF5LCBwaXBlLCBvdXRwdXQpIHsKIAkJdGVzdF9wbGFuZV9wYW5u
+aW5nX3dpdGhfb3V0cHV0KGRhdGEsIHBpcGUsIHBsYW5lLCBvdXRwdXQsCiAJCQkJCQlmbGFncyk7
+CkBAIC0zNjksNiArMzY2LDExIEBAIHRlc3RfcGxhbmVfcGFubmluZyhkYXRhX3QgKmRhdGEsIGVu
+dW0gcGlwZSBwaXBlLCBpbnQgcGxhbmUsCiBzdGF0aWMgdm9pZAogcnVuX3Rlc3RzX2Zvcl9waXBl
+X3BsYW5lKGRhdGFfdCAqZGF0YSwgZW51bSBwaXBlIHBpcGUpCiB7CisJaWd0X2ZpeHR1cmUgewor
+CQlpZ3Rfc2tpcF9vbihwaXBlID49IGRhdGEtPmRpc3BsYXkubl9waXBlcyk7CisJCWlndF9yZXF1
+aXJlKGRhdGEtPmRpc3BsYXkucGlwZXNbcGlwZV0ubl9wbGFuZXMgPiAwKTsKKwl9CisKIAlpZ3Rf
+c3VidGVzdF9mKCJwbGFuZS1wb3NpdGlvbi1jb3ZlcmVkLXBpcGUtJXMtcGxhbmVzIiwKIAkJICAg
+ICAga21zdGVzdF9waXBlX25hbWUocGlwZSkpIHsKIAkJaW50IG5fcGxhbmVzID0gZGF0YS0+ZGlz
+cGxheS5waXBlc1twaXBlXS5uX3BsYW5lczsKLS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2FtZC1nZngK
