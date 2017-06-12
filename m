@@ -1,17 +1,12 @@
-From: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu/gfx: fix MEC interrupt enablement for
- pipes != 0
-Date: Sat, 10 Jun 2017 00:00:12 -0400
-Message-ID: <24e1361a-199b-a3f8-2a64-1a49b092e912@gmail.com>
-References: <1497012570-24173-1-git-send-email-alexander.deucher@amd.com>
- <47b28e3e-31f6-7ca9-edee-66ba5c6dbe9a@gmail.com>
- <BN6PR12MB1652CA505EE99A9FCEE32C42F7CF0@BN6PR12MB1652.namprd12.prod.outlook.com>
+From: Yurii Kolesnykov <yurikoles-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Fwd: [repo.or.cz] agd5f-linux clone failed
+Date: Mon, 12 Jun 2017 09:02:27 +0000
+Message-ID: <CA+ENQCEgy+-dnZt26pgWqaLbYMqBisM+i9kdzjDSFfr99cocwQ@mail.gmail.com>
+References: <20170610155730.58F90113E291@rover.ms.mff.cuni.cz>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0394109518=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB1652CA505EE99A9FCEE32C42F7CF0-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20170610155730.58F90113E291-eHVFVO6hqvCHLYNvuHwvRF+YFMdMcpeZ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,175 +17,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-CgpPbiAyMDE3LTA2LTA5IDExOjE2IFBNLCBEZXVjaGVyLCBBbGV4YW5kZXIgd3JvdGU6Cj4+IC0t
-LS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tCj4+IEZyb206IEFuZHJlcyBSb2RyaWd1ZXogW21haWx0
-bzphbmRyZXN4N0BnbWFpbC5jb21dCj4+IFNlbnQ6IEZyaWRheSwgSnVuZSAwOSwgMjAxNyA3OjQ5
-IFBNCj4+IFRvOiBBbGV4IERldWNoZXI7IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+
-IENjOiBEZXVjaGVyLCBBbGV4YW5kZXIKPj4gU3ViamVjdDogUmU6IFtQQVRDSCAxLzJdIGRybS9h
-bWRncHUvZ2Z4OiBmaXggTUVDIGludGVycnVwdCBlbmFibGVtZW50IGZvcgo+PiBwaXBlcyAhPSAw
-Cj4+Cj4+Cj4+IEknbSBhIGxpdHRsZSBjdXJpb3VzIGFib3V0IHRoZSBmYWlsdXJlcyB0ZXN0IGNh
-c2VzLiBJcyBpdCByZWxhdGVkIHRvIGEKPj4gc3BlY2lmaWMgQVNJQz8KPiAKPiBUZXJyaWJsZSBw
-ZXJmb3JtYW5jZSBvbiBhIHJhbmdlIG9mIGdmeDggcGFydHMuID4+Cj4+IFVzaW5nIENQQ19JTlRf
-Q05UTCBzZWVtZWQgdG8gYmUgd29ya2luZyB3ZWxsIGZvciBtZSBvbiBwb2xhcmlzMTAgKEkgd2Fz
-Cj4+IGdldHRpbmcgdGVycmlibGUgcGVyZiBvbiBwaXBlcyAxKyB3aXRob3V0IHRoZSBvcmlnaW5h
-bCBwYXRjaCkuCj4gCj4gV2VpcmQsICBub3Qgc3VyZS4gIE1heWJlIHRoZSBpbmRleGluZyB3b3Jr
-cyBvbiBQb2xhcmlzLgo+IAoKTWF5YmUgaXQgb25seSB3b3JrcyBvbiBzb21lIHBhcnRzIGFuZCBu
-b3Qgb3RoZXJzPwoKVGhpcyBpcyBhbHNvIGhvdyBjdXJyZW50IGtmZCBhbmQgUk9DTSBlbmFibGUg
-aW50ZXJydXB0czoKCmh0dHBzOi8vZ2l0aHViLmNvbS90b3J2YWxkcy9saW51eC9ibG9iL21hc3Rl
-ci9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9rZmQuYyNMNDQxCgpodHRwczovL2dpdGh1
-Yi5jb20vUmFkZW9uT3BlbkNvbXB1dGUvUk9DSy1LZXJuZWwtRHJpdmVyL2Jsb2IvbWFzdGVyL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ2Z4X3Y4LmMjTDMyOAoKTWln
-aHQgd2FudCB0byBrZWVwIGFuIGV5ZSBvbiB0aGF0IGlmIGtmZCBlbmRzIHVwIHN1cHBvcnRpbmcg
-dGhvc2UgQVNJQ3MuCgpSZWdhcmRzLApBbmRyZXMKCj4gQWxleAo+IAo+Pgo+PiBSZWdhcmRzLAo+
-PiBBbmRyZXMKPj4KPj4gT24gMjAxNy0wNi0wOSAwODo0OSBBTSwgQWxleCBEZXVjaGVyIHdyb3Rl
-Ogo+Pj4gVGhlIGludGVycnVwdCByZWdpc3RlcnMgYXJlIG5vdCBpbmRleGVkLgo+Pj4KPj4+IEZp
-eGVzOiA3NjNhNDdiOGUgKGRybS9hbWRncHU6IHRlYWNoIGFtZGdwdSBob3cgdG8gZW5hYmxlIGlu
-dGVycnVwdHMKPj4gZm9yIGFueSBwaXBlIHYzKQo+Pj4gU2lnbmVkLW9mZi1ieTogQWxleCBEZXVj
-aGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+Pj4gLS0tCj4+PiAgICBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9nZnhfdjdfMC5jIHwgNTcKPj4gKysrKysrKysrKysrKysrKysrKysr
-KystLS0tLS0tLS0tCj4+PiAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5j
-IHwgNTcKPj4gKysrKysrKysrKysrKysrKysrKysrKystLS0tLS0tLS0tCj4+PiAgICBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jIHwgNTkKPj4gKysrKysrKysrKysrKysrKysr
-KysrKysrKy0tLS0tLS0tLS0KPj4+ICAgIDMgZmlsZXMgY2hhbmdlZCwgMTI0IGluc2VydGlvbnMo
-KyksIDQ5IGRlbGV0aW9ucygtKQo+Pj4KPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9nZnhfdjdfMC5jCj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4
-X3Y3XzAuYwo+Pj4gaW5kZXggZTMwYzdkMC4uZmIwYTk0YyAxMDA2NDQKPj4+IC0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92N18wLmMKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2dmeF92N18wLmMKPj4+IEBAIC01MDE1LDI4ICs1MDE1LDUxIEBAIHN0YXRp
-YyB2b2lkCj4+IGdmeF92N18wX3NldF9jb21wdXRlX2VvcF9pbnRlcnJ1cHRfc3RhdGUoc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4+PiAgICAJCQkJCQkgICAgIGludCBtZSwgaW50IHBpcGUs
-Cj4+PiAgICAJCQkJCQkgICAgIGVudW0KPj4gYW1kZ3B1X2ludGVycnVwdF9zdGF0ZSBzdGF0ZSkK
-Pj4+ICAgIHsKPj4+IC0JLyogTWUgMCBpcyBmb3IgZ3JhcGhpY3MgYW5kIE1lIDIgaXMgcmVzZXJ2
-ZWQgZm9yIEhXIHNjaGVkdWxpbmcKPj4+IC0JICogU28gd2Ugc2hvdWxkIG9ubHkgcmVhbGx5IGJl
-IGNvbmZpZ3VyaW5nIE1FIDEgaS5lLiBNRUMwCj4+PiArCXUzMiBtZWNfaW50X2NudGwsIG1lY19p
-bnRfY250bF9yZWc7Cj4+PiArCj4+PiArCS8qCj4+PiArCSAqIGFtZGdwdSBjb250cm9scyBvbmx5
-IHRoZSBmaXJzdCBNRUMuIFRoYXQncyB3aHkgdGhpcyBmdW5jdGlvbiBvbmx5Cj4+PiArCSAqIGhh
-bmRsZXMgdGhlIHNldHRpbmcgb2YgaW50ZXJydXB0cyBmb3IgdGhpcyBzcGVjaWZpYyBNRUMuIEFs
-bCBvdGhlcgo+Pj4gKwkgKiBwaXBlcycgaW50ZXJydXB0cyBhcmUgc2V0IGJ5IGFtZGtmZC4KPj4+
-ICAgIAkgKi8KPj4+IC0JaWYgKG1lICE9IDEpIHsKPj4+IC0JCURSTV9FUlJPUigiSWdub3Jpbmcg
-cmVxdWVzdCB0byBlbmFibGUgaW50ZXJydXB0cyBmb3IKPj4gaW52YWxpZCBtZTolZFxuIiwgbWUp
-Owo+Pj4gLQkJcmV0dXJuOwo+Pj4gLQl9Cj4+Pgo+Pj4gLQlpZiAocGlwZSA+PSBhZGV2LT5nZngu
-bWVjLm51bV9waXBlX3Blcl9tZWMpIHsKPj4+IC0JCURSTV9FUlJPUigiSWdub3JpbmcgcmVxdWVz
-dCB0byBlbmFibGUgaW50ZXJydXB0cyBmb3IKPj4gaW52YWxpZCAiCj4+PiAtCQkJCSJtZTolZCBw
-aXBlOiVkXG4iLCBwaXBlLCBtZSk7Cj4+PiArCWlmIChtZSA9PSAxKSB7Cj4+PiArCQlzd2l0Y2gg
-KHBpcGUpIHsKPj4+ICsJCWNhc2UgMDoKPj4+ICsJCQltZWNfaW50X2NudGxfcmVnID0gbW1DUF9N
-RTFfUElQRTBfSU5UX0NOVEw7Cj4+PiArCQkJYnJlYWs7Cj4+PiArCQljYXNlIDE6Cj4+PiArCQkJ
-bWVjX2ludF9jbnRsX3JlZyA9IG1tQ1BfTUUxX1BJUEUxX0lOVF9DTlRMOwo+Pj4gKwkJCWJyZWFr
-Owo+Pj4gKwkJY2FzZSAyOgo+Pj4gKwkJCW1lY19pbnRfY250bF9yZWcgPSBtbUNQX01FMV9QSVBF
-Ml9JTlRfQ05UTDsKPj4+ICsJCQlicmVhazsKPj4+ICsJCWNhc2UgMzoKPj4+ICsJCQltZWNfaW50
-X2NudGxfcmVnID0gbW1DUF9NRTFfUElQRTNfSU5UX0NOVEw7Cj4+PiArCQkJYnJlYWs7Cj4+PiAr
-CQlkZWZhdWx0Ogo+Pj4gKwkJCURSTV9ERUJVRygiaW52YWxpZCBwaXBlICVkXG4iLCBwaXBlKTsK
-Pj4+ICsJCQlyZXR1cm47Cj4+PiArCQl9Cj4+PiArCX0gZWxzZSB7Cj4+PiArCQlEUk1fREVCVUco
-ImludmFsaWQgbWUgJWRcbiIsIG1lKTsKPj4+ICAgIAkJcmV0dXJuOwo+Pj4gICAgCX0KPj4+Cj4+
-PiAtCW11dGV4X2xvY2soJmFkZXYtPnNyYm1fbXV0ZXgpOwo+Pj4gLQljaWtfc3JibV9zZWxlY3Qo
-YWRldiwgbWUsIHBpcGUsIDAsIDApOwo+Pj4gLQo+Pj4gLQlXUkVHMzJfRklFTEQoQ1BDX0lOVF9D
-TlRMLCBUSU1FX1NUQU1QX0lOVF9FTkFCTEUsCj4+PiAtCQkJc3RhdGUgPT0gQU1ER1BVX0lSUV9T
-VEFURV9ESVNBQkxFID8gMCA6IDEpOwo+Pj4gLQo+Pj4gLQljaWtfc3JibV9zZWxlY3QoYWRldiwg
-MCwgMCwgMCwgMCk7Cj4+PiAtCW11dGV4X3VubG9jaygmYWRldi0+c3JibV9tdXRleCk7Cj4+PiAr
-CXN3aXRjaCAoc3RhdGUpIHsKPj4+ICsJY2FzZSBBTURHUFVfSVJRX1NUQVRFX0RJU0FCTEU6Cj4+
-PiArCQltZWNfaW50X2NudGwgPSBSUkVHMzIobWVjX2ludF9jbnRsX3JlZyk7Cj4+PiArCQltZWNf
-aW50X2NudGwgJj0KPj4gfkNQX0lOVF9DTlRMX1JJTkcwX19USU1FX1NUQU1QX0lOVF9FTkFCTEVf
-TUFTSzsKPj4+ICsJCVdSRUczMihtZWNfaW50X2NudGxfcmVnLCBtZWNfaW50X2NudGwpOwo+Pj4g
-KwkJYnJlYWs7Cj4+PiArCWNhc2UgQU1ER1BVX0lSUV9TVEFURV9FTkFCTEU6Cj4+PiArCQltZWNf
-aW50X2NudGwgPSBSUkVHMzIobWVjX2ludF9jbnRsX3JlZyk7Cj4+PiArCQltZWNfaW50X2NudGwg
-fD0KPj4gQ1BfSU5UX0NOVExfUklORzBfX1RJTUVfU1RBTVBfSU5UX0VOQUJMRV9NQVNLOwo+Pj4g
-KwkJV1JFRzMyKG1lY19pbnRfY250bF9yZWcsIG1lY19pbnRfY250bCk7Cj4+PiArCQlicmVhazsK
-Pj4+ICsJZGVmYXVsdDoKPj4+ICsJCWJyZWFrOwo+Pj4gKwl9Cj4+PiAgICB9Cj4+Pgo+Pj4gICAg
-c3RhdGljIGludCBnZnhfdjdfMF9zZXRfcHJpdl9yZWdfZmF1bHRfc3RhdGUoc3RydWN0IGFtZGdw
-dV9kZXZpY2UKPj4gKmFkZXYsCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvZ2Z4X3Y4XzAuYwo+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8w
-LmMKPj4+IGluZGV4IDZlNTQxYWYuLjFhNzVhYjEgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9nZnhfdjhfMC5jCj4+PiBAQCAtNjYxMCwyNiArNjYxMCw1MSBAQCBzdGF0aWMgdm9p
-ZAo+PiBnZnhfdjhfMF9zZXRfY29tcHV0ZV9lb3BfaW50ZXJydXB0X3N0YXRlKHN0cnVjdCBhbWRn
-cHVfZGV2aWNlICphZGV2LAo+Pj4gICAgCQkJCQkJICAgICBpbnQgbWUsIGludCBwaXBlLAo+Pj4g
-ICAgCQkJCQkJICAgICBlbnVtCj4+IGFtZGdwdV9pbnRlcnJ1cHRfc3RhdGUgc3RhdGUpCj4+PiAg
-ICB7Cj4+PiAtCS8qIE1lIDAgaXMgcmVzZXJ2ZWQgZm9yIGdyYXBoaWNzICovCj4+PiAtCWlmICht
-ZSA8IDEgfHwgbWUgPiBhZGV2LT5nZngubWVjLm51bV9tZWMpIHsKPj4+IC0JCURSTV9FUlJPUigi
-SWdub3JpbmcgcmVxdWVzdCB0byBlbmFibGUgaW50ZXJydXB0cyBmb3IKPj4gaW52YWxpZCBtZTol
-ZFxuIiwgbWUpOwo+Pj4gLQkJcmV0dXJuOwo+Pj4gLQl9Cj4+PiArCXUzMiBtZWNfaW50X2NudGws
-IG1lY19pbnRfY250bF9yZWc7Cj4+Pgo+Pj4gLQlpZiAocGlwZSA+PSBhZGV2LT5nZngubWVjLm51
-bV9waXBlX3Blcl9tZWMpIHsKPj4+IC0JCURSTV9FUlJPUigiSWdub3JpbmcgcmVxdWVzdCB0byBl
-bmFibGUgaW50ZXJydXB0cyBmb3IKPj4gaW52YWxpZCAiCj4+PiAtCQkJCSJtZTolZCBwaXBlOiVk
-XG4iLCBwaXBlLCBtZSk7Cj4+PiArCS8qCj4+PiArCSAqIGFtZGdwdSBjb250cm9scyBvbmx5IHRo
-ZSBmaXJzdCBNRUMuIFRoYXQncyB3aHkgdGhpcyBmdW5jdGlvbiBvbmx5Cj4+PiArCSAqIGhhbmRs
-ZXMgdGhlIHNldHRpbmcgb2YgaW50ZXJydXB0cyBmb3IgdGhpcyBzcGVjaWZpYyBNRUMuIEFsbCBv
-dGhlcgo+Pj4gKwkgKiBwaXBlcycgaW50ZXJydXB0cyBhcmUgc2V0IGJ5IGFtZGtmZC4KPj4+ICsJ
-ICovCj4+PiArCj4+PiArCWlmIChtZSA9PSAxKSB7Cj4+PiArCQlzd2l0Y2ggKHBpcGUpIHsKPj4+
-ICsJCWNhc2UgMDoKPj4+ICsJCQltZWNfaW50X2NudGxfcmVnID0gbW1DUF9NRTFfUElQRTBfSU5U
-X0NOVEw7Cj4+PiArCQkJYnJlYWs7Cj4+PiArCQljYXNlIDE6Cj4+PiArCQkJbWVjX2ludF9jbnRs
-X3JlZyA9IG1tQ1BfTUUxX1BJUEUxX0lOVF9DTlRMOwo+Pj4gKwkJCWJyZWFrOwo+Pj4gKwkJY2Fz
-ZSAyOgo+Pj4gKwkJCW1lY19pbnRfY250bF9yZWcgPSBtbUNQX01FMV9QSVBFMl9JTlRfQ05UTDsK
-Pj4+ICsJCQlicmVhazsKPj4+ICsJCWNhc2UgMzoKPj4+ICsJCQltZWNfaW50X2NudGxfcmVnID0g
-bW1DUF9NRTFfUElQRTNfSU5UX0NOVEw7Cj4+PiArCQkJYnJlYWs7Cj4+PiArCQlkZWZhdWx0Ogo+
-Pj4gKwkJCURSTV9ERUJVRygiaW52YWxpZCBwaXBlICVkXG4iLCBwaXBlKTsKPj4+ICsJCQlyZXR1
-cm47Cj4+PiArCQl9Cj4+PiArCX0gZWxzZSB7Cj4+PiArCQlEUk1fREVCVUcoImludmFsaWQgbWUg
-JWRcbiIsIG1lKTsKPj4+ICAgIAkJcmV0dXJuOwo+Pj4gICAgCX0KPj4+Cj4+PiAtCW11dGV4X2xv
-Y2soJmFkZXYtPnNyYm1fbXV0ZXgpOwo+Pj4gLQl2aV9zcmJtX3NlbGVjdChhZGV2LCBtZSwgcGlw
-ZSwgMCwgMCk7Cj4+PiAtCj4+PiAtCVdSRUczMl9GSUVMRChDUENfSU5UX0NOVEwsIFRJTUVfU1RB
-TVBfSU5UX0VOQUJMRSwKPj4+IC0JCQlzdGF0ZSA9PSBBTURHUFVfSVJRX1NUQVRFX0RJU0FCTEUg
-PyAwIDogMSk7Cj4+PiAtCj4+PiAtCXZpX3NyYm1fc2VsZWN0KGFkZXYsIDAsIDAsIDAsIDApOwo+
-Pj4gLQltdXRleF91bmxvY2soJmFkZXYtPnNyYm1fbXV0ZXgpOwo+Pj4gKwlzd2l0Y2ggKHN0YXRl
-KSB7Cj4+PiArCWNhc2UgQU1ER1BVX0lSUV9TVEFURV9ESVNBQkxFOgo+Pj4gKwkJbWVjX2ludF9j
-bnRsID0gUlJFRzMyKG1lY19pbnRfY250bF9yZWcpOwo+Pj4gKwkJbWVjX2ludF9jbnRsICY9Cj4+
-IH5DUF9JTlRfQ05UTF9SSU5HMF9fVElNRV9TVEFNUF9JTlRfRU5BQkxFX01BU0s7Cj4+PiArCQlX
-UkVHMzIobWVjX2ludF9jbnRsX3JlZywgbWVjX2ludF9jbnRsKTsKPj4+ICsJCWJyZWFrOwo+Pj4g
-KwljYXNlIEFNREdQVV9JUlFfU1RBVEVfRU5BQkxFOgo+Pj4gKwkJbWVjX2ludF9jbnRsID0gUlJF
-RzMyKG1lY19pbnRfY250bF9yZWcpOwo+Pj4gKwkJbWVjX2ludF9jbnRsIHw9Cj4+IENQX0lOVF9D
-TlRMX1JJTkcwX19USU1FX1NUQU1QX0lOVF9FTkFCTEVfTUFTSzsKPj4+ICsJCVdSRUczMihtZWNf
-aW50X2NudGxfcmVnLCBtZWNfaW50X2NudGwpOwo+Pj4gKwkJYnJlYWs7Cj4+PiArCWRlZmF1bHQ6
-Cj4+PiArCQlicmVhazsKPj4+ICsJfQo+Pj4gICAgfQo+Pj4KPj4+ICAgIHN0YXRpYyBpbnQgZ2Z4
-X3Y4XzBfc2V0X3ByaXZfcmVnX2ZhdWx0X3N0YXRlKHN0cnVjdCBhbWRncHVfZGV2aWNlCj4+ICph
-ZGV2LAo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8w
-LmMKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCj4+PiBpbmRleCAz
-NzU2MjBhLi5lOWRkMmMxIDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvZ2Z4X3Y5XzAuYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5
-XzAuYwo+Pj4gQEAgLTM5ODIsMjYgKzM5ODIsNTMgQEAgc3RhdGljIHZvaWQKPj4gZ2Z4X3Y5XzBf
-c2V0X2NvbXB1dGVfZW9wX2ludGVycnVwdF9zdGF0ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-diwKPj4+ICAgIAkJCQkJCSAgICAgaW50IG1lLCBpbnQgcGlwZSwKPj4+ICAgIAkJCQkJCSAgICAg
-ZW51bQo+PiBhbWRncHVfaW50ZXJydXB0X3N0YXRlIHN0YXRlKQo+Pj4gICAgewo+Pj4gLQkvKiBN
-ZSAwIGlzIHJlc2VydmVkIGZvciBncmFwaGljcyAqLwo+Pj4gLQlpZiAobWUgPCAxIHx8IG1lID4g
-YWRldi0+Z2Z4Lm1lYy5udW1fbWVjKSB7Cj4+PiAtCQlEUk1fRVJST1IoIklnbm9yaW5nIHJlcXVl
-c3QgdG8gZW5hYmxlIGludGVycnVwdHMgZm9yCj4+IGludmFsaWQgbWU6JWRcbiIsIG1lKTsKPj4+
-IC0JCXJldHVybjsKPj4+IC0JfQo+Pj4gKwl1MzIgbWVjX2ludF9jbnRsLCBtZWNfaW50X2NudGxf
-cmVnOwo+Pj4KPj4+IC0JaWYgKHBpcGUgPj0gYWRldi0+Z2Z4Lm1lYy5udW1fcGlwZV9wZXJfbWVj
-KSB7Cj4+PiAtCQlEUk1fRVJST1IoIklnbm9yaW5nIHJlcXVlc3QgdG8gZW5hYmxlIGludGVycnVw
-dHMgZm9yCj4+IGludmFsaWQgIgo+Pj4gLQkJCQkibWU6JWQgcGlwZTolZFxuIiwgcGlwZSwgbWUp
-Owo+Pj4gKwkvKgo+Pj4gKwkgKiBhbWRncHUgY29udHJvbHMgb25seSB0aGUgZmlyc3QgTUVDLiBU
-aGF0J3Mgd2h5IHRoaXMgZnVuY3Rpb24gb25seQo+Pj4gKwkgKiBoYW5kbGVzIHRoZSBzZXR0aW5n
-IG9mIGludGVycnVwdHMgZm9yIHRoaXMgc3BlY2lmaWMgTUVDLiBBbGwgb3RoZXIKPj4+ICsJICog
-cGlwZXMnIGludGVycnVwdHMgYXJlIHNldCBieSBhbWRrZmQuCj4+PiArCSAqLwo+Pj4gKwo+Pj4g
-KwlpZiAobWUgPT0gMSkgewo+Pj4gKwkJc3dpdGNoIChwaXBlKSB7Cj4+PiArCQljYXNlIDA6Cj4+
-PiArCQkJbWVjX2ludF9jbnRsX3JlZyA9IFNPQzE1X1JFR19PRkZTRVQoR0MsIDAsCj4+IG1tQ1Bf
-TUUxX1BJUEUwX0lOVF9DTlRMKTsKPj4+ICsJCQlicmVhazsKPj4+ICsJCWNhc2UgMToKPj4+ICsJ
-CQltZWNfaW50X2NudGxfcmVnID0gU09DMTVfUkVHX09GRlNFVChHQywgMCwKPj4gbW1DUF9NRTFf
-UElQRTFfSU5UX0NOVEwpOwo+Pj4gKwkJCWJyZWFrOwo+Pj4gKwkJY2FzZSAyOgo+Pj4gKwkJCW1l
-Y19pbnRfY250bF9yZWcgPSBTT0MxNV9SRUdfT0ZGU0VUKEdDLCAwLAo+PiBtbUNQX01FMV9QSVBF
-Ml9JTlRfQ05UTCk7Cj4+PiArCQkJYnJlYWs7Cj4+PiArCQljYXNlIDM6Cj4+PiArCQkJbWVjX2lu
-dF9jbnRsX3JlZyA9IFNPQzE1X1JFR19PRkZTRVQoR0MsIDAsCj4+IG1tQ1BfTUUxX1BJUEUzX0lO
-VF9DTlRMKTsKPj4+ICsJCQlicmVhazsKPj4+ICsJCWRlZmF1bHQ6Cj4+PiArCQkJRFJNX0RFQlVH
-KCJpbnZhbGlkIHBpcGUgJWRcbiIsIHBpcGUpOwo+Pj4gKwkJCXJldHVybjsKPj4+ICsJCX0KPj4+
-ICsJfSBlbHNlIHsKPj4+ICsJCURSTV9ERUJVRygiaW52YWxpZCBtZSAlZFxuIiwgbWUpOwo+Pj4g
-ICAgCQlyZXR1cm47Cj4+PiAgICAJfQo+Pj4KPj4+IC0JbXV0ZXhfbG9jaygmYWRldi0+c3JibV9t
-dXRleCk7Cj4+PiAtCXNvYzE1X2dyYm1fc2VsZWN0KGFkZXYsIG1lLCBwaXBlLCAwLCAwKTsKPj4+
-IC0KPj4+IC0JV1JFRzMyX0ZJRUxEKENQQ19JTlRfQ05UTCwgVElNRV9TVEFNUF9JTlRfRU5BQkxF
-LAo+Pj4gLQkJCXN0YXRlID09IEFNREdQVV9JUlFfU1RBVEVfRElTQUJMRSA/IDAgOiAxKTsKPj4+
-IC0KPj4+IC0Jc29jMTVfZ3JibV9zZWxlY3QoYWRldiwgMCwgMCwgMCwgMCk7Cj4+PiAtCW11dGV4
-X3VubG9jaygmYWRldi0+c3JibV9tdXRleCk7Cj4+PiArCXN3aXRjaCAoc3RhdGUpIHsKPj4+ICsJ
-Y2FzZSBBTURHUFVfSVJRX1NUQVRFX0RJU0FCTEU6Cj4+PiArCQltZWNfaW50X2NudGwgPSBSUkVH
-MzIobWVjX2ludF9jbnRsX3JlZyk7Cj4+PiArCQltZWNfaW50X2NudGwgPSBSRUdfU0VUX0ZJRUxE
-KG1lY19pbnRfY250bCwKPj4gQ1BfTUUxX1BJUEUwX0lOVF9DTlRMLAo+Pj4gKwkJCQkJICAgICBU
-SU1FX1NUQU1QX0lOVF9FTkFCTEUsIDApOwo+Pj4gKwkJV1JFRzMyKG1lY19pbnRfY250bF9yZWcs
-IG1lY19pbnRfY250bCk7Cj4+PiArCQlicmVhazsKPj4+ICsJY2FzZSBBTURHUFVfSVJRX1NUQVRF
-X0VOQUJMRToKPj4+ICsJCW1lY19pbnRfY250bCA9IFJSRUczMihtZWNfaW50X2NudGxfcmVnKTsK
-Pj4+ICsJCW1lY19pbnRfY250bCA9IFJFR19TRVRfRklFTEQobWVjX2ludF9jbnRsLAo+PiBDUF9N
-RTFfUElQRTBfSU5UX0NOVEwsCj4+PiArCQkJCQkgICAgIFRJTUVfU1RBTVBfSU5UX0VOQUJMRSwg
-MSk7Cj4+PiArCQlXUkVHMzIobWVjX2ludF9jbnRsX3JlZywgbWVjX2ludF9jbnRsKTsKPj4+ICsJ
-CWJyZWFrOwo+Pj4gKwlkZWZhdWx0Ogo+Pj4gKwkJYnJlYWs7Cj4+PiArCX0KPj4+ICAgIH0KPj4+
-Cj4+PiAgICBzdGF0aWMgaW50IGdmeF92OV8wX3NldF9wcml2X3JlZ19mYXVsdF9zdGF0ZShzdHJ1
-Y3QgYW1kZ3B1X2RldmljZQo+PiAqYWRldiwKPj4+Cl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vYW1kLWdmeAo=
+--===============0394109518==
+Content-Type: multipart/alternative; boundary="001a114dcd34a56a420551bf94e9"
+
+--001a114dcd34a56a420551bf94e9
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+I had tried to create a mirror for agd5f/linux Git repo with the following
+error.
+
+Can you fix it?
+
+---------- Forwarded message ---------
+From: repo.or.cz <admin-ZmqB0OF9EK7rBKCeMvbIDA@public.gmane.org>
+Date: =D1=81=D0=B1, 10 =D1=87=D0=B5=D1=80=D0=B2. 2017 =D0=BE 18:57
+Subject: [repo.or.cz] agd5f-linux clone failed
+To: <yurikoles-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+
+
+Condolences. The clone of project agd5f-linux just failed.
+
+        * Source URL: git://people.freedesktop.org/~agd5f/linux
+        * Project settings: http://repo.or.cz/editproj.cgi?name=3Dagd5f-lin=
+ux
+
+The project settings link may be used to adjust the settings
+and restart the clone in order to try the clone again.
+
+Log follows:
+
+Project: agd5f-linux
+
+Mirroring from URL "git://people.freedesktop.org/~agd5f/linux"
+
+Initiating mirroring...
+Fetching origin
+error: object 17f7e29bd0870fd0f43ba1acde3c6c1b65aee734: badTimezone:
+invalid author/committer line - bad time zone
+fatal: Error in object
+fatal: index-pack failed
+error: Could not fetch origin
+@OVER@
+
+--001a114dcd34a56a420551bf94e9
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">I had tried to create a mirror for agd5f/linux Git repo wi=
+th the following error.<div><br></div><div>Can you fix it?<br><br><div clas=
+s=3D"gmail_quote"><div dir=3D"ltr">---------- Forwarded message ---------<b=
+r>From: <a href=3D"http://repo.or.cz">repo.or.cz</a> &lt;<a href=3D"mailto:=
+admin-ZmqB0OF9EK7rBKCeMvbIDA@public.gmane.org">admin-ZmqB0OF9EK7rBKCeMvbIDA@public.gmane.org</a>&gt;<br>Date: =D1=81=D0=B1, 10 =D1=87=
+=D0=B5=D1=80=D0=B2. 2017 =D0=BE 18:57<br>Subject: [<a href=3D"http://repo.o=
+r.cz">repo.or.cz</a>] agd5f-linux clone failed<br>To:  &lt;<a href=3D"mailt=
+o:yurikoles-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">yurikoles-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br></div><br><br>Condole=
+nces. The clone of project agd5f-linux just failed.<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 * Source URL: git://<a href=3D"http://people.fr=
+eedesktop.org/~agd5f/linux" rel=3D"noreferrer" target=3D"_blank">people.fre=
+edesktop.org/~agd5f/linux</a><br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 * Project settings: <a href=3D"http://repo.or.c=
+z/editproj.cgi?name=3Dagd5f-linux" rel=3D"noreferrer" target=3D"_blank">htt=
+p://repo.or.cz/editproj.cgi?name=3Dagd5f-linux</a><br>
+<br>
+The project settings link may be used to adjust the settings<br>
+and restart the clone in order to try the clone again.<br>
+<br>
+Log follows:<br>
+<br>
+Project: agd5f-linux<br>
+<br>
+Mirroring from URL &quot;git://<a href=3D"http://people.freedesktop.org/~ag=
+d5f/linux" rel=3D"noreferrer" target=3D"_blank">people.freedesktop.org/~agd=
+5f/linux</a>&quot;<br>
+<br>
+Initiating mirroring...<br>
+Fetching origin<br>
+error: object 17f7e29bd0870fd0f43ba1acde3c6c1b65aee734: badTimezone: invali=
+d author/committer line - bad time zone<br>
+fatal: Error in object<br>
+fatal: index-pack failed<br>
+error: Could not fetch origin<br>
+@OVER@<br>
+</div></div></div>
+
+--001a114dcd34a56a420551bf94e9--
+
+--===============0394109518==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0394109518==--
