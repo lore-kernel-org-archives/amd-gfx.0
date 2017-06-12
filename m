@@ -1,16 +1,15 @@
-From: Arkadiusz Hiler <arkadiusz.hiler-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
-Subject: Re: [Intel-gfx] [PATCH i-g-t] tests: Rename I915_MAX_PIPES to
- IGT_MAX_PIPES
-Date: Mon, 12 Jun 2017 14:54:15 +0300
-Message-ID: <20170612115415.GB2999@ahiler-desk1.ger.corp.intel.com>
-References: <1497042784-22210-1-git-send-email-sunpeng.li@amd.com>
- <06254a1a-31ba-1372-a17b-280ae7fc1e21@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH libdrm] amdgpu: Add .editorconfig file for amdgpu coding
+ style
+Date: Mon, 12 Jun 2017 14:22:33 +0200
+Message-ID: <c5faf315-8409-d317-bf18-768ea10a8453@vodafone.de>
+References: <20170612100323.7550-1-michel@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <06254a1a-31ba-1372-a17b-280ae7fc1e21-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20170612100323.7550-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,15 +20,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Cc: sunpeng.li-5C7GfCeVMHo@public.gmane.org, intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gRnJpLCBKdW4gMDksIDIwMTcgYXQgMDY6MTQ6NTJQTSAtMDQwMCwgSGFycnkgV2VudGxhbmQg
-d3JvdGU6Cj4gUmV2aWV3ZWQtYnk6IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQu
-Y29tPgo+IAo+IEhhcnJ5CgpIZXksCgpXYXMgdGhlIG1haWwgc2VudCBoZXJlIGluIHRoZSBmaXJz
-dCBwbGFjZT8gSSBjYW5ub3QgZmluZCBpdC4gSSB3b3VsZApsaWtlIHRvIGFwcGx5IGl0LCBidXQg
-aGF2aW5nIG5vIGVhc2lseSBkaWdlc3RpYmxlIGZvcm0gYXZhaWxhYmxlIG1ha2VzCml0IGhhcmQu
-CgpDYW4geW91IHJlLXNlbnQgaXQgdG8gaW50ZWwtZ2Z4PwoKLS0gCkNoZWVycywKQXJlawpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
-bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+QW0gMTIuMDYuMjAxNyB1bSAxMjowMyBzY2hyaWViIE1pY2hlbCBEw6RuemVyOgo+IEZyb206IE1p
+Y2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQuY29tPgo+Cj4gVGhlIC5lZGl0b3Jjb25m
+aWcgZmlsZSBpbiB0aGUgdG9wbGV2ZWwgZGlyZWN0b3J5IGRvZXNuJ3QgbWF0Y2guCj4KPiBTaWdu
+ZWQtb2ZmLWJ5OiBNaWNoZWwgRMOkbnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4KCkFja2Vk
+LWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cgo+IC0tLQo+
+ICAgYW1kZ3B1Ly5lZGl0b3Jjb25maWcgfCA5ICsrKysrKysrKwo+ICAgMSBmaWxlIGNoYW5nZWQs
+IDkgaW5zZXJ0aW9ucygrKQo+ICAgY3JlYXRlIG1vZGUgMTAwNjQ0IGFtZGdwdS8uZWRpdG9yY29u
+ZmlnCj4KPiBkaWZmIC0tZ2l0IGEvYW1kZ3B1Ly5lZGl0b3Jjb25maWcgYi9hbWRncHUvLmVkaXRv
+cmNvbmZpZwo+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4gaW5kZXggMDAwMDAwMDAuLjI1MjhkNjc1
+Cj4gLS0tIC9kZXYvbnVsbAo+ICsrKyBiL2FtZGdwdS8uZWRpdG9yY29uZmlnCj4gQEAgLTAsMCAr
+MSw5IEBACj4gKyMgVG8gdXNlIHRoaXMgY29uZmlnIHdpdGggeW91ciBlZGl0b3IsIGZvbGxvdyB0
+aGUgaW5zdHJ1Y3Rpb25zIGF0Ogo+ICsjIGh0dHA6Ly9lZGl0b3Jjb25maWcub3JnCj4gKwo+ICtb
+Kl0KPiArY2hhcnNldCA9IHV0Zi04Cj4gK2luZGVudF9zdHlsZSA9IHRhYgo+ICtpbmRlbnRfc2l6
+ZSA9IDgKPiArdGFiX3dpZHRoID0gOAo+ICtpbnNlcnRfZmluYWxfbmV3bGluZSA9IHRydWUKCgpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
