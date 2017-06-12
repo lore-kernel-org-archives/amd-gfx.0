@@ -1,17 +1,15 @@
-From: Harry Wentland <harry.wentland@amd.com>
-Subject: Re: [PATCH i-g-t] tests: Rename I915_MAX_PIPES to
- IGT_MAX_PIPES
-Date: Mon, 12 Jun 2017 09:39:36 -0400
-Message-ID: <f8d21da3-d638-3180-10da-f05441c3d34a@amd.com>
-References: <1497042784-22210-1-git-send-email-sunpeng.li@amd.com>
- <06254a1a-31ba-1372-a17b-280ae7fc1e21@amd.com>
- <20170612115415.GB2999@ahiler-desk1.ger.corp.intel.com>
+From: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+Subject: Re: [PATCH] drm/core: Fail atomic IOCTL with no CRTC
+ state but with signaling.
+Date: Mon, 12 Jun 2017 10:12:23 -0400
+Message-ID: <92a4ac19-ce78-47bd-f678-8ea84cc29d85@amd.com>
+References: <1497043819-28591-1-git-send-email-Andrey.Grodzovsky@amd.com>
+ <7c001485-0485-5ba6-0be1-8738523d3fe5@linux.intel.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <intel-gfx-bounces@lists.freedesktop.org>
-In-Reply-To: <20170612115415.GB2999@ahiler-desk1.ger.corp.intel.com>
-Content-Language: en-US
+In-Reply-To: <7c001485-0485-5ba6-0be1-8738523d3fe5@linux.intel.com>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=unsubscribe>
 List-Archive: <https://lists.freedesktop.org/archives/intel-gfx>
@@ -21,21 +19,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-To: Arkadiusz Hiler <arkadiusz.hiler@intel.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>
-Cc: sunpeng.li@amd.com, intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org
+Cc: harry.wentland@amd.com, amd-gfx@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxNy0wNi0xMiAwNzo1NCBBTSwgQXJrYWRpdXN6IEhpbGVyIHdyb3RlOgo+IE9uIEZyaSwg
-SnVuIDA5LCAyMDE3IGF0IDA2OjE0OjUyUE0gLTA0MDAsIEhhcnJ5IFdlbnRsYW5kIHdyb3RlOgo+
-PiBSZXZpZXdlZC1ieTogSGFycnkgV2VudGxhbmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5jb20+Cj4+
-Cj4+IEhhcnJ5Cj4gCj4gSGV5LAo+IAo+IFdhcyB0aGUgbWFpbCBzZW50IGhlcmUgaW4gdGhlIGZp
-cnN0IHBsYWNlPyBJIGNhbm5vdCBmaW5kIGl0LiBJIHdvdWxkCj4gbGlrZSB0byBhcHBseSBpdCwg
-YnV0IGhhdmluZyBubyBlYXNpbHkgZGlnZXN0aWJsZSBmb3JtIGF2YWlsYWJsZSBtYWtlcwo+IGl0
-IGhhcmQuCj4gCgpUaGUgZW1haWwgd2FzIHNlbnQgYnV0IG1pZ2h0IGJlIHN0dWNrIGluIHRoZSBt
-b2RlcmF0aW9uIHF1ZXVlIHNpbmNlIExlbwooU3VuIHBlbmcpIGlzIGZhaXJseSBuZXcgb24gdGhl
-IEZETyBtYWlsaW5nIGxpc3RzLgoKSmFuaSwgRGFuaWVsLCBjYW4geW91IGNoZWNrIGlmIExlbydz
-IElHVCBlbWFpbHMgYXJlIHN0dWNrIGluIHRoZQptb2RlcmF0aW9uIHF1ZXVlPwoKVGhhbmtzLApI
-YXJyeQoKPiBDYW4geW91IHJlLXNlbnQgaXQgdG8gaW50ZWwtZ2Z4Pwo+IApfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0
-CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngK
+CgpPbiAwNi8xMi8yMDE3IDA3OjA4IEFNLCBNYWFydGVuIExhbmtob3JzdCB3cm90ZToKPiBPcCAw
+OS0wNi0xNyBvbSAyMzozMCBzY2hyZWVmIEFuZHJleSBHcm9kem92c2t5Ogo+PiBQcm9ibGVtOgo+
+PiBXaGlsZSBydW5uaW5nIElHVCBrbXNfYXRvbWljX3RyYW5zaXRpb24gdGVzdCBzdWl0ZSBpIGVu
+Y291bnRlcmVkCj4+IGEgaGFuZyBpbiBkcm1IYW5kbGVFdmVudCBpbW1pZGlldGx5IGZvbGx3b2lu
+ZyBhbiBhdG9taWNfY29tbWl0Lgo+PiBBZnRlciBkdW1waW5nIHRoZSBhdG9taWMgc3RhdGUgSSBy
+ZWxpemVkIHRoYXQgaW4gdGhpcyBjYXNlIHRoZXJlIHdhcwo+PiBub3QgZXZlbiBvbmUgQ1JUQyBh
+dHRhY2hlZCB0byB0aGUgc3RhdGUgYW5kIG9ubHkgZGlzYWJsZWQKPj4gcGxhbmVzLiBUaGlzIHBy
+b2JhYmx5IGR1ZSB0byBhIGNvbW1pdCB3aGljaCBoYWRuJ3QgY2hhbmdlZCBhbnkgcHJvcGVydHkK
+Pj4gd2hpY2ggd291bGQgcmVxdWlyZSBhdHRhY2hpbmcgY3J0YyBzdGF0ZS4gVGhpcyBtZWFucyBk
+cm1IYW5kbGVFdmVudAo+PiB3aWxsIG5ldmVyIHdha2UgdXAgZnJvbSByZWFkIHNpbmNlIHdpdGhv
+dXQgQ1JUQyBpbiBhdG9taWMgc3RhdGUKPj4gdGhlIGV2ZW50IGZkIHdpbGwgbm90IGJlIHNpbmdu
+YWxlZC4KPj4gVGhpcyBwb2ludCB0byBhIGJ1ZyBpbiBJR1QgYnV0IGFsc28gRFJNIHNob3VsZCBn
+cmFjZWZ1bGx5Cj4+IGZhaWwgIHN1Y2ggc2NlbmFyaW8gc28gbm8gaGFuZyBvbiB1c2VyIHNpZGUg
+d2lsbCBoYXBwZW4uCj4+Cj4+IEZpeDoKPj4gRXhwbGljaXRseSBmYWlsIGJ5IGZhaWxpbmcgYXRv
+bWljX2NvbW1pdCBlYXJseSBpbgo+PiBkcm1fbW9kZV9hdG9taWNfY29tbWl0IHdoZXJlIHN1Y2gg
+cHJvYmxlbSBjYW4gYmUgaWRlbnRpZmllZC4KPj4KPj4gU2lnbmVkLW9mZi1ieTogQW5kcmV5IEdy
+b2R6b3Zza3kgPEFuZHJleS5Hcm9kem92c2t5QGFtZC5jb20+Cj4+IC0tLQo+PiAgIGRyaXZlcnMv
+Z3B1L2RybS9kcm1fYXRvbWljLmMgfCAxMyArKysrKysrKysrKystCj4+ICAgMSBmaWxlIGNoYW5n
+ZWQsIDEyIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKPiBQYXRjaCBpdHNlbGYgbG9va3Mg
+c2FuZSwgYnV0IEknbSB3b3JyaWVkIGFib3V0IGZhaWxpbmcgd2l0aCAtRUlOVkFMIHdoZW4gdGhl
+IHNhbWUgY29uZmlndXJhdGlvbiB3aXRoIFRFU1RfT05MWSB3b3VsZCBvdGhlcndpc2Ugc3VjY2Vl
+ZCBvbiBpdC4KRFJNX01PREVfQVRPTUlDX1RFU1RfT05MWSBmbGFnIGlzIGNoZWNrZWQgbGF0ZXIs
+IGFmdGVyIHRoaXMsIHNvIGlmIHRoaXMgCmZhaWxzICwgdGVzdCBvbmx5IHdpbGwgcmV0dXJuIEVJ
+TlZBTCBhbHNvLgo+IE5vdCBzdXJlIHdoZXRoZXIgd2Ugc2hvdWxkIGZhaWwgb3Igbm90LCBzaW5j
+ZSBzZW5kaW5nIDAgZXZlbnRzIGNvdWxkIHN0aWxsIGJlIGNvbnNpZGVyZWQgc3VjY2Vzcy4KPgo+
+IEkgZG9uJ3QgbWluZCBlaXRoZXIgd2F5LCBidXQgZGVmaW5pdGVseSBzb21ldGhpbmcgdGhhdCBz
+aG91bGQgYmUgZGlzY3Vzc2VkIGJlZm9yZSBhcHBseWluZy4KU2VuZGluZyAwIGV2ZW50cyBpcyBu
+byBwcm9ibGVtIGF0IGFsbCBvbiBpdCdzIG93biBidXQgaWYgdXNlciBwcm92aWRlcyAKRFJNX01P
+REVfUEFHRV9GTElQX0VWRU5UIGluIGFyZ3MKdGhlbiB3aGVuIGl0IGJlY29tZXMgYSBwcm9ibGVt
+ICwgZG9lc24ndCBpdCBtZWFuIGhlIGV4cGVjdHMgdG8gcmVjZWl2ZSAKYXQgbGVhc3Qgb25lIGV2
+ZW50ID8KClRoYW5rcy4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVs
+LWdmeAo=
