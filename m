@@ -1,88 +1,135 @@
-From: Mario Kleiner <mario.kleiner.de@gmail.com>
-Subject: [PATCH 2/2] drm/radeon: Fix overflow of watermark calcs at > 4k resolutions.
-Date: Tue, 13 Jun 2017 07:17:11 +0200
-Message-ID: <20170613051711.16372-2-mario.kleiner.de@gmail.com>
-References: <20170613051711.16372-1-mario.kleiner.de@gmail.com>
-Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <20170613051711.16372-1-mario.kleiner.de@gmail.com>
-Sender: stable-owner@vger.kernel.org
-To: dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, mario.kleiner.de@gmail.com, Ben Hutchings <ben.hutchings@codethink.co.uk>, Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+From: axie <axie-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 4/4] drm/amdgpu: Optimize mutex usage
+Date: Tue, 13 Jun 2017 02:03:04 -0400
+Message-ID: <b7673a0f-bb32-183c-1ef8-49802407e231@amd.com>
+References: <1497299485-7337-1-git-send-email-AlexBin.Xie@amd.com>
+ <1497299485-7337-4-git-send-email-AlexBin.Xie@amd.com>
+ <e1a33855-cbc1-a317-90c1-0833e48fb791@vodafone.de>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <e1a33855-cbc1-a317-90c1-0833e48fb791-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-Commit e6b9a6c84b93
-("drm/radeon: Make display watermark calculations more accurate")
-made watermark calculations more accurate, but not for > 4k
-resolutions on 32-Bit architectures, as it introduced an integer
-overflow for those setups and resolutions.
-
-Fix this by proper u64 casting and division.
-
-Signed-off-by: Mario Kleiner <mario.kleiner.de@gmail.com>
-Reported-by: Ben Hutchings <ben.hutchings@codethink.co.uk>
-Fixes: e6b9a6c84b93 ("drm/radeon: Make display watermark calculations more accurate")
-Cc: Ben Hutchings <ben.hutchings@codethink.co.uk>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
----
- drivers/gpu/drm/radeon/cik.c       | 7 +++++--
- drivers/gpu/drm/radeon/evergreen.c | 7 +++++--
- drivers/gpu/drm/radeon/si.c        | 7 +++++--
- 3 files changed, 15 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/radeon/cik.c b/drivers/gpu/drm/radeon/cik.c
-index 2589121..667c21a 100644
---- a/drivers/gpu/drm/radeon/cik.c
-+++ b/drivers/gpu/drm/radeon/cik.c
-@@ -9267,8 +9267,11 @@ static void dce8_program_watermarks(struct radeon_device *rdev,
- 	u32 tmp, wm_mask;
- 
- 	if (radeon_crtc->base.enabled && num_heads && mode) {
--		active_time = 1000000UL * (u32)mode->crtc_hdisplay / (u32)mode->clock;
--		line_time = min((u32) (1000000UL * (u32)mode->crtc_htotal / (u32)mode->clock), (u32)65535);
-+		active_time = (u32) div_u64((u64)mode->crtc_hdisplay * 1000000,
-+					    (u32)mode->clock);
-+		line_time = (u32) div_u64((u64)mode->crtc_htotal * 1000000,
-+					  (u32)mode->clock);
-+		line_time = min(line_time, (u32)65535);
- 
- 		/* watermark for high clocks */
- 		if ((rdev->pm.pm_method == PM_METHOD_DPM) &&
-diff --git a/drivers/gpu/drm/radeon/evergreen.c b/drivers/gpu/drm/radeon/evergreen.c
-index 0bf1035..5346372 100644
---- a/drivers/gpu/drm/radeon/evergreen.c
-+++ b/drivers/gpu/drm/radeon/evergreen.c
-@@ -2266,8 +2266,11 @@ static void evergreen_program_watermarks(struct radeon_device *rdev,
- 	fixed20_12 a, b, c;
- 
- 	if (radeon_crtc->base.enabled && num_heads && mode) {
--		active_time = 1000000UL * (u32)mode->crtc_hdisplay / (u32)mode->clock;
--		line_time = min((u32) (1000000UL * (u32)mode->crtc_htotal / (u32)mode->clock), (u32)65535);
-+		active_time = (u32) div_u64((u64)mode->crtc_hdisplay * 1000000,
-+					    (u32)mode->clock);
-+		line_time = (u32) div_u64((u64)mode->crtc_htotal * 1000000,
-+					  (u32)mode->clock);
-+		line_time = min(line_time, (u32)65535);
- 		priority_a_cnt = 0;
- 		priority_b_cnt = 0;
- 		dram_channels = evergreen_get_number_of_dram_channels(rdev);
-diff --git a/drivers/gpu/drm/radeon/si.c b/drivers/gpu/drm/radeon/si.c
-index 76d1888..5303f25 100644
---- a/drivers/gpu/drm/radeon/si.c
-+++ b/drivers/gpu/drm/radeon/si.c
-@@ -2284,8 +2284,11 @@ static void dce6_program_watermarks(struct radeon_device *rdev,
- 	fixed20_12 a, b, c;
- 
- 	if (radeon_crtc->base.enabled && num_heads && mode) {
--		active_time = 1000000UL * (u32)mode->crtc_hdisplay / (u32)mode->clock;
--		line_time = min((u32) (1000000UL * (u32)mode->crtc_htotal / (u32)mode->clock), (u32)65535);
-+		active_time = (u32) div_u64((u64)mode->crtc_hdisplay * 1000000,
-+					    (u32)mode->clock);
-+		line_time = (u32) div_u64((u64)mode->crtc_htotal * 1000000,
-+					  (u32)mode->clock);
-+		line_time = min(line_time, (u32)65535);
- 		priority_a_cnt = 0;
- 		priority_b_cnt = 0;
- 
--- 
-2.7.4
+SGkgQ2hyaXN0aWFuLAoKUmVnYXJkaW5nIGNvbW1lbnQgMS4KClBsZWFzZSByZWFkIHRoZSBmaWxl
+IGlkci5jIGxpbmUgMjQgdG8gbGluZSAyOS4KCkxldCBtZSBxdW90ZSBoZXJlLiBJc24ndCBpdCBz
+dXJwcmlzZSB5b3U/IGlkcl9hbGxvYyBvbmx5IG5lZWQgcmVhZCBsb2NrLgoKLi4uCgogICogU2lt
+dWx0YW5lb3VzIG1vZGlmaWNhdGlvbnMgdG8gdGhlIEBpZHIgYXJlIG5vdCBhbGxvd2VkIGFuZCBz
+aG91bGQgYmUKICAqIHByZXZlbnRlZCBieSB0aGUgdXNlciwgdXN1YWxseSB3aXRoIGEgbG9jay4g
+IGlkcl9hbGxvYygpIG1heSBiZSBjYWxsZWQKICAqIGNvbmN1cnJlbnRseSB3aXRoIHJlYWQtb25s
+eSBhY2Nlc3NlcyB0byB0aGUgQGlkciwgc3VjaCBhcyBpZHJfZmluZCgpIGFuZAogICogaWRyX2Zv
+cl9lYWNoX2VudHJ5KCkuCiAgKi8KaW50IGlkcl9hbGxvYyhzdHJ1Y3QgaWRyICppZHIsIHZvaWQg
+KnB0ciwgaW50IHN0YXJ0LCBpbnQgZW5kLCBnZnBfdCBnZnApCgouLi4KClJlZ2FyZGluZyBjb21t
+ZW50IDIuCgpJIGhhdmUgY2hlY2tlZCByZWxldmFudCBpbmZvcm1hdGlvbiBvZiByd19zZW1hcGhv
+cmUuIFJlYWQgbG9jayBpcyBhcyAKZWZmaWNpZW50IGFzIG11dGV4LgoKV3JpdGUgbG9jayBpcyBs
+ZXNzIGVmZmljaWVudCB0aGFuIG11dGV4IGlmICJvcHRpbWlzdGljIHNwaW5uaW5nIG9uIGxvY2sg
+CmFjcXVpc2l0aW9uIiBpcyBub3QgY29uZmlndXJlZC4KCkJ1dCB3ZSBvbmx5IHVzZSB3cml0ZSBs
+b2NrIHdoZW4gZGVzdHJveSBibyBsaXN0LiBNb3N0IG9mIHRpbWUsIGFzIHlvdSAKc2FpZCwgY29u
+dGVudGlvbiBkb2VzIG5vdCBleGlzdC4KClNvIHRoZSB3cml0ZSBsb2NrIGRvZXMgbm90IG5lZWQg
+dG8gd2FpdC4gU28gdGhlIGxlc3MgZWZmaWNpZW5jeSBpcyBub3QgYSAKZmFjdG9yIGNvbXBhcmVk
+IHdpdGggbXV0ZXguCgoKVG8gZGVjaWRlIHdoaWNoIGxvY2sgaXMgYmV0dGVyLCBpdCBpcyBtb3Jl
+IGltcG9ydGFudCB0byBjaG9vc2UgY29ycmVjdCAKbG9jayBtZWNoYW5pc20gdGhhbgoKdGhlIGVm
+ZmljaWVuY3kgb2YgdGhlIGxvY2sgaXRzZWxmLiBGb3IgdGhlIGN1cnJlbnQgYm9fbGlzdCwgdGhl
+IG11bHRpcGxlIApyZWFkZXJzIGNhbiBibG9jayBlYWNoIG90aGVyLgoKQW5kIHdoYXQgaXMgZXZl
+biB3b3JzZSwgdGhlIGdldCBmdW5jdGlvbiBjYW4gd2FpdCBmb3Igb3RoZXIgdGhpbmcgd2hlbiAK
+aG9sZGluZyB0aGUgbXV0ZXguCgoKSWYgeW91IHNhaWQgdGhhdCB0aGUgdXNlciBtb2RlIGRyaXZl
+ciB3YXMgc2luZ2xlIHRocmVhZCwgd2UgZG9uJ3QgbmVlZCAKYW55IG11dGV4IGhlcmUgdGhlbi4u
+LgoKCi1BbGV4IEJpbiBYaWUKCgoKT24gMjAxNy0wNi0xMiAwNjo1NCBQTSwgQ2hyaXN0aWFuIEvD
+tm5pZyB3cm90ZToKPiBBbSAxMi4wNi4yMDE3IHVtIDIyOjMxIHNjaHJpZWIgQWxleCBYaWU6Cj4+
+IFVzZSByd19zZW1hcGhvcmUgaW5zdGVhZCBvZiBtdXRleCBmb3IgYm9fbGlzdHMuCj4+Cj4+IElu
+IG9yaWdpbmFsIGZ1bmN0aW9uIGFtZGdwdV9ib19saXN0X2dldCwgdGhlIHdhaXRpbmcKPj4gZm9y
+IHJlc3VsdC0+bG9jayBjYW4gYmUgcXVpdGUgbG9uZyB3aGlsZSBtdXRleAo+PiBib19saXN0X2xv
+Y2sgd2FzIGhvbGRpbmcuIEl0IGNhbiBtYWtlIG90aGVyIHRhc2tzCj4+IHdhaXRpbmcgZm9yIGJv
+X2xpc3RfbG9jayBmb3IgbG9uZyBwZXJpb2QgdG9vLgo+PiBDaGFuZ2UgYm9fbGlzdF9sb2NrIHRv
+IHJ3X3NlbWFwaG9yZSBjYW4gYXZvaWQgbW9zdCBvZgo+PiBzdWNoIGxvbmcgd2FpdGluZy4KPj4K
+Pj4gU2Vjb25kbHksIHRoaXMgcGF0Y2ggYWxsb3dzIHNldmVyYWwgdGFza3MocmVhZGVycyBvZiBp
+ZHIpCj4+IHRvIHByb2NlZWQgYXQgdGhlIHNhbWUgdGltZS4KPj4KPj4gU2lnbmVkLW9mZi1ieTog
+QWxleCBYaWUgPEFsZXhCaW4uWGllQGFtZC5jb20+Cj4+IC0tLQo+PiAgIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAgICAgICAgfCAgMyArKy0KPj4gICBkcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfYm9fbGlzdC5jIHwgMTQgKysrKysrKy0tLS0tLS0KPj4gICBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMgICAgIHwgIDMgKy0tCj4+ICAg
+MyBmaWxlcyBjaGFuZ2VkLCAxMCBpbnNlcnRpb25zKCspLCAxMCBkZWxldGlvbnMoLSkKPj4KPj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oIAo+PiBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+IGluZGV4IDA2M2ZjNzMuLmJmYzQw
+ZDcgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+
+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+IEBAIC0zNSw2ICsz
+NSw3IEBACj4+ICAgI2luY2x1ZGUgPGxpbnV4L3JidHJlZS5oPgo+PiAgICNpbmNsdWRlIDxsaW51
+eC9oYXNodGFibGUuaD4KPj4gICAjaW5jbHVkZSA8bGludXgvZG1hLWZlbmNlLmg+Cj4+ICsjaW5j
+bHVkZSA8bGludXgvcndzZW0uaD4KPj4gICAgICNpbmNsdWRlIDx0dG0vdHRtX2JvX2FwaS5oPgo+
+PiAgICNpbmNsdWRlIDx0dG0vdHRtX2JvX2RyaXZlci5oPgo+PiBAQCAtODU5LDcgKzg2MCw3IEBA
+IHZvaWQgYW1kZ3B1X2N0eF9tZ3JfZmluaShzdHJ1Y3QgYW1kZ3B1X2N0eF9tZ3IgCj4+ICptZ3Ip
+Owo+PiAgIHN0cnVjdCBhbWRncHVfZnByaXYgewo+PiAgICAgICBzdHJ1Y3QgYW1kZ3B1X3ZtICAg
+IHZtOwo+PiAgICAgICBzdHJ1Y3QgYW1kZ3B1X2JvX3ZhICAgICpwcnRfdmE7Cj4+IC0gICAgc3Ry
+dWN0IG11dGV4ICAgICAgICBib19saXN0X2xvY2s7Cj4+ICsgICAgc3RydWN0IHJ3X3NlbWFwaG9y
+ZSAgICBib19saXN0X2xvY2s7Cj4+ICAgICAgIHN0cnVjdCBpZHIgICAgICAgIGJvX2xpc3RfaGFu
+ZGxlczsKPj4gICAgICAgc3RydWN0IGFtZGdwdV9jdHhfbWdyICAgIGN0eF9tZ3I7Cj4+ICAgICAg
+IHUzMiAgICAgICAgICAgIHZyYW1fbG9zdF9jb3VudGVyOwo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2JvX2xpc3QuYyAKPj4gYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfYm9fbGlzdC5jCj4+IGluZGV4IDQzNjNmMjguLmJmZTczNmUg
+MTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9ib19saXN0
+LmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2JvX2xpc3QuYwo+
+PiBAQCAtNDUsMTAgKzQ1LDEwIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2JvX2xpc3RfY3JlYXRlKHN0
+cnVjdCAKPj4gYW1kZ3B1X2Zwcml2ICpmcHJpdiwKPj4gICAgICAgaWYgKCEqcmVzdWx0KQo+PiAg
+ICAgICAgICAgcmV0dXJuIC1FTk9NRU07Cj4+ICAgLSAgICBtdXRleF9sb2NrKCZmcHJpdi0+Ym9f
+bGlzdF9sb2NrKTsKPj4gKyAgICBkb3duX3JlYWQoJmZwcml2LT5ib19saXN0X2xvY2spOwo+PiAg
+ICAgICByID0gaWRyX2FsbG9jKCZmcHJpdi0+Ym9fbGlzdF9oYW5kbGVzLCAqcmVzdWx0LAo+PiAg
+ICAgICAgICAgICAgICAgMSwgMCwgR0ZQX0tFUk5FTCk7Cj4+IC0gICAgbXV0ZXhfdW5sb2NrKCZm
+cHJpdi0+Ym9fbGlzdF9sb2NrKTsKPj4gKyAgICB1cF9yZWFkKCZmcHJpdi0+Ym9fbGlzdF9sb2Nr
+KTsKPgo+IFRoZSBwcm90ZWN0aW9uIGhlcmUgaXMgaW5jb3JyZWN0LCB5b3UgbmVlZCB0byB0YWtl
+IHRoZSB3cml0ZSBzaWRlIGhlcmUgCj4gYXMgd2VsbC4KPgo+PiAgICAgICAgIGlmIChyIDwgMCkg
+ewo+PiAgICAgICAgICAga2ZyZWUoKnJlc3VsdCk7Cj4+IEBAIC02NywxNyArNjcsMTcgQEAgc3Rh
+dGljIHZvaWQgYW1kZ3B1X2JvX2xpc3RfZGVzdHJveShzdHJ1Y3QgCj4+IGFtZGdwdV9mcHJpdiAq
+ZnByaXYsIGludCBpZCkKPj4gICB7Cj4+ICAgICAgIHN0cnVjdCBhbWRncHVfYm9fbGlzdCAqbGlz
+dDsKPj4gICAtICAgIG11dGV4X2xvY2soJmZwcml2LT5ib19saXN0X2xvY2spOwo+PiArICAgIGRv
+d25fd3JpdGUoJmZwcml2LT5ib19saXN0X2xvY2spOwo+PiAgICAgICBsaXN0ID0gaWRyX3JlbW92
+ZSgmZnByaXYtPmJvX2xpc3RfaGFuZGxlcywgaWQpOwo+PiAgICAgICBpZiAobGlzdCkgewo+PiAg
+ICAgICAgICAgLyogQW5vdGhlciB1c2VyIG1heSBoYXZlIGEgcmVmZXJlbmNlIHRvIHRoaXMgbGlz
+dCBzdGlsbCAqLwo+PiAgICAgICAgICAgbXV0ZXhfbG9jaygmbGlzdC0+bG9jayk7Cj4+ICAgICAg
+ICAgICBtdXRleF91bmxvY2soJmxpc3QtPmxvY2spOwo+PiAtICAgICAgICBtdXRleF91bmxvY2so
+JmZwcml2LT5ib19saXN0X2xvY2spOwo+PiArICAgICAgICB1cF93cml0ZSgmZnByaXYtPmJvX2xp
+c3RfbG9jayk7Cj4+ICAgICAgICAgICBhbWRncHVfYm9fbGlzdF9mcmVlKGxpc3QpOwo+PiAgICAg
+ICB9Cj4+ICAgICAgIGVsc2Ugewo+PiAtICAgICAgICBtdXRleF91bmxvY2soJmZwcml2LT5ib19s
+aXN0X2xvY2spOwo+PiArICAgICAgICB1cF93cml0ZSgmZnByaXYtPmJvX2xpc3RfbG9jayk7Cj4+
+ICAgICAgIH0KPj4gICB9Cj4+ICAgQEAgLTE3MywxMSArMTczLDExIEBAIGFtZGdwdV9ib19saXN0
+X2dldChzdHJ1Y3QgYW1kZ3B1X2Zwcml2IAo+PiAqZnByaXYsIGludCBpZCkKPj4gICB7Cj4+ICAg
+ICAgIHN0cnVjdCBhbWRncHVfYm9fbGlzdCAqcmVzdWx0Owo+PiAgIC0gICAgbXV0ZXhfbG9jaygm
+ZnByaXYtPmJvX2xpc3RfbG9jayk7Cj4+ICsgICAgZG93bl9yZWFkKCZmcHJpdi0+Ym9fbGlzdF9s
+b2NrKTsKPj4gICAgICAgcmVzdWx0ID0gaWRyX2ZpbmQoJmZwcml2LT5ib19saXN0X2hhbmRsZXMs
+IGlkKTsKPj4gICAgICAgaWYgKHJlc3VsdCkKPj4gICAgICAgICAgIG11dGV4X2xvY2soJnJlc3Vs
+dC0+bG9jayk7Cj4+IC0gICAgbXV0ZXhfdW5sb2NrKCZmcHJpdi0+Ym9fbGlzdF9sb2NrKTsKPj4g
+KyAgICB1cF9yZWFkKCZmcHJpdi0+Ym9fbGlzdF9sb2NrKTsKPgo+IEFjdHVhbGx5IHJ3X3NlbWFw
+aG9yZXMgYXJlIGEgYml0IGxlc3MgZWZmaWNpZW50IHRoYW4gbXV0ZXhlcyBhbmQgdGhlIAo+IGNv
+bnRlbnRpb24gb24gdGhpcyBpcyBwcmFjdGljYWxseSBub3QgZXhpc3RlbnQgc2luY2UgYXQgbGVh
+c3QgdGhlIG9wZW4gCj4gc291cmNlIHN0YWNrIG1ha2VzIGFsbCBCTyBsaXN0IG9wZXJhdGlvbnMg
+ZnJvbSBhIHNpbmdsZSB0aHJlYWQuCj4KPiBTbyBJJ20gbm90IHN1cmUgaWYgdGhhdCBpcyBhY3R1
+YWxseSBtb3JlIGVmZmljaWVudC4KPgo+IENocmlzdGlhbi4KPgo+PiAgICAgICByZXR1cm4gcmVz
+dWx0Owo+PiAgIH0KPj4gICBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2ttcy5jIAo+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMu
+Ywo+PiBpbmRleCBmNjhjZWQ2Li5jNGNiYTgxIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2ttcy5jCj4+IEBAIC04NDEsNyArODQxLDcgQEAgaW50IGFtZGdwdV9kcml2
+ZXJfb3Blbl9rbXMoc3RydWN0IGRybV9kZXZpY2UgCj4+ICpkZXYsIHN0cnVjdCBkcm1fZmlsZSAq
+ZmlsZV9wcml2KQo+PiAgICAgICAgICAgICAgIGdvdG8gb3V0X3N1c3BlbmQ7Cj4+ICAgICAgIH0K
+Pj4gICAtICAgIG11dGV4X2luaXQoJmZwcml2LT5ib19saXN0X2xvY2spOwo+PiArICAgIGluaXRf
+cndzZW0oJmZwcml2LT5ib19saXN0X2xvY2spOwo+PiAgICAgICBpZHJfaW5pdCgmZnByaXYtPmJv
+X2xpc3RfaGFuZGxlcyk7Cj4+ICAgICAgICAgYW1kZ3B1X2N0eF9tZ3JfaW5pdCgmZnByaXYtPmN0
+eF9tZ3IpOwo+PiBAQCAtOTAwLDcgKzkwMCw2IEBAIHZvaWQgYW1kZ3B1X2RyaXZlcl9wb3N0Y2xv
+c2Vfa21zKHN0cnVjdCAKPj4gZHJtX2RldmljZSAqZGV2LAo+PiAgICAgICAgICAgYW1kZ3B1X2Jv
+X2xpc3RfZnJlZShsaXN0KTsKPj4gICAgICAgICBpZHJfZGVzdHJveSgmZnByaXYtPmJvX2xpc3Rf
+aGFuZGxlcyk7Cj4+IC0gICAgbXV0ZXhfZGVzdHJveSgmZnByaXYtPmJvX2xpc3RfbG9jayk7Cj4+
+ICAgICAgICAga2ZyZWUoZnByaXYpOwo+PiAgICAgICBmaWxlX3ByaXYtPmRyaXZlcl9wcml2ID0g
+TlVMTDsKPgo+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
