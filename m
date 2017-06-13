@@ -1,47 +1,105 @@
-From: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/gfx9: fix compute ring doorbell index
-Date: Tue, 13 Jun 2017 11:10:49 +0800
-Message-ID: <593F57B9.2080901@amd.com>
-References: <1497322879-19446-1-git-send-email-alexander.deucher@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1497322879-19446-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+From: Mario Kleiner <mario.kleiner.de@gmail.com>
+Subject: [PATCH 1/2] drm/amdgpu: Fix overflow of watermark calcs at > 4k resolutions.
+Date: Tue, 13 Jun 2017 07:17:10 +0200
+Message-ID: <20170613051711.16372-1-mario.kleiner.de@gmail.com>
+Return-path: <stable-owner@vger.kernel.org>
+Sender: stable-owner@vger.kernel.org
+To: dri-devel@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, mario.kleiner.de@gmail.com, Ben Hutchings <ben.hutchings@codethink.co.uk>, Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMDYvMTMvMjAxNyAxMTowMSBBTSwgQWxleCBEZXVjaGVyIHdyb3RlOgo+IFRoaXMgZ290IGxv
-c3Qgd2hlbiB0aGUgY29kZSB3YXMgcmV2YW1wZWQuICBDb3B5L3Bhc3RlIGJ1ZyBmcm9tCj4gZ2Z4
-OC4KPgo+IFJlcG9ydGVkLWJ5OiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQuY29tPgo+IEZpeGVz
-OiA3OGMxNjgzNDIgKGRybS9hbWRncHU6IGFsbG93IHNwbGl0IG9mIHF1ZXVlcyB3aXRoIGtmZCBh
-dCBxdWV1ZSBncmFudWxhcml0eSB2NCkKPiBTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFs
-ZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+ClJldmlld2VkLWJ5OiBKdW53ZWkgWmhhbmcgPEplcnJ5
-LlpoYW5nQGFtZC5jb20+Cgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4
-X3Y5XzAuYyB8IDIgKy0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxl
-dGlvbigtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92
-OV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCj4gaW5kZXggZTlk
-ZDJjMS4uNWYzYzM2OSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
-ZnhfdjlfMC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwo+
-IEBAIC0xMjkzLDcgKzEyOTMsNyBAQCBzdGF0aWMgaW50IGdmeF92OV8wX2NvbXB1dGVfcmluZ19p
-bml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBpbnQgcmluZ19pZCwKPgo+ICAgCXJpbmct
-PnJpbmdfb2JqID0gTlVMTDsKPiAgIAlyaW5nLT51c2VfZG9vcmJlbGwgPSB0cnVlOwo+IC0Jcmlu
-Zy0+ZG9vcmJlbGxfaW5kZXggPSBBTURHUFVfRE9PUkJFTExfTUVDX1JJTkcwICsgcmluZ19pZDsK
-PiArCXJpbmctPmRvb3JiZWxsX2luZGV4ID0gKEFNREdQVV9ET09SQkVMTF9NRUNfUklORzAgKyBy
-aW5nX2lkKSA8PCAxOwo+ICAgCXJpbmctPmVvcF9ncHVfYWRkciA9IGFkZXYtPmdmeC5tZWMuaHBk
-X2VvcF9ncHVfYWRkcgo+ICAgCQkJCSsgKHJpbmdfaWQgKiBHRlg5X01FQ19IUERfU0laRSk7Cj4g
-ICAJc3ByaW50ZihyaW5nLT5uYW1lLCAiY29tcF8lZC4lZC4lZCIsIHJpbmctPm1lLCByaW5nLT5w
-aXBlLCByaW5nLT5xdWV1ZSk7Cj4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
-Z2Z4Cg==
+Commit d63c277dc672e0
+("drm/amdgpu: Make display watermark calculations more accurate")
+made watermark calculations more accurate, but not for > 4k
+resolutions on 32-Bit architectures, as it introduced an integer
+overflow for those setups and resolutions.
+
+Fix this by proper u64 casting and division.
+
+Signed-off-by: Mario Kleiner <mario.kleiner.de@gmail.com>
+Reported-by: Ben Hutchings <ben.hutchings@codethink.co.uk>
+Fixes: d63c277dc672 ("drm/amdgpu: Make display watermark calculations more accurate")
+Cc: Ben Hutchings <ben.hutchings@codethink.co.uk>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+---
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c | 7 +++++--
+ drivers/gpu/drm/amd/amdgpu/dce_v11_0.c | 7 +++++--
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c  | 7 +++++--
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c  | 7 +++++--
+ 4 files changed, 20 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+index 3c62c45..9f78c03 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+@@ -1207,8 +1207,11 @@ static void dce_v10_0_program_watermarks(struct amdgpu_device *adev,
+ 	u32 tmp, wm_mask, lb_vblank_lead_lines = 0;
+ 
+ 	if (amdgpu_crtc->base.enabled && num_heads && mode) {
+-		active_time = 1000000UL * (u32)mode->crtc_hdisplay / (u32)mode->clock;
+-		line_time = min((u32) (1000000UL * (u32)mode->crtc_htotal / (u32)mode->clock), (u32)65535);
++		active_time = (u32) div_u64((u64)mode->crtc_hdisplay * 1000000,
++					    (u32)mode->clock);
++		line_time = (u32) div_u64((u64)mode->crtc_htotal * 1000000,
++					  (u32)mode->clock);
++		line_time = min(line_time, (u32)65535);
+ 
+ 		/* watermark for high clocks */
+ 		if (adev->pm.dpm_enabled) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+index c8ed0fa..4bcf01d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+@@ -1176,8 +1176,11 @@ static void dce_v11_0_program_watermarks(struct amdgpu_device *adev,
+ 	u32 tmp, wm_mask, lb_vblank_lead_lines = 0;
+ 
+ 	if (amdgpu_crtc->base.enabled && num_heads && mode) {
+-		active_time = 1000000UL * (u32)mode->crtc_hdisplay / (u32)mode->clock;
+-		line_time = min((u32) (1000000UL * (u32)mode->crtc_htotal / (u32)mode->clock), (u32)65535);
++		active_time = (u32) div_u64((u64)mode->crtc_hdisplay * 1000000,
++					    (u32)mode->clock);
++		line_time = (u32) div_u64((u64)mode->crtc_htotal * 1000000,
++					  (u32)mode->clock);
++		line_time = min(line_time, (u32)65535);
+ 
+ 		/* watermark for high clocks */
+ 		if (adev->pm.dpm_enabled) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+index 3f3a254..eaa8f90 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+@@ -983,8 +983,11 @@ static void dce_v6_0_program_watermarks(struct amdgpu_device *adev,
+ 	fixed20_12 a, b, c;
+ 
+ 	if (amdgpu_crtc->base.enabled && num_heads && mode) {
+-		active_time = 1000000UL * (u32)mode->crtc_hdisplay / (u32)mode->clock;
+-		line_time = min((u32) (1000000UL * (u32)mode->crtc_htotal / (u32)mode->clock), (u32)65535);
++		active_time = (u32) div_u64((u64)mode->crtc_hdisplay * 1000000,
++					    (u32)mode->clock);
++		line_time = (u32) div_u64((u64)mode->crtc_htotal * 1000000,
++					  (u32)mode->clock);
++		line_time = min(line_time, (u32)65535);
+ 		priority_a_cnt = 0;
+ 		priority_b_cnt = 0;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+index 3e90c19..a9e8695 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+@@ -1091,8 +1091,11 @@ static void dce_v8_0_program_watermarks(struct amdgpu_device *adev,
+ 	u32 tmp, wm_mask, lb_vblank_lead_lines = 0;
+ 
+ 	if (amdgpu_crtc->base.enabled && num_heads && mode) {
+-		active_time = 1000000UL * (u32)mode->crtc_hdisplay / (u32)mode->clock;
+-		line_time = min((u32) (1000000UL * (u32)mode->crtc_htotal / (u32)mode->clock), (u32)65535);
++		active_time = (u32) div_u64((u64)mode->crtc_hdisplay * 1000000,
++					    (u32)mode->clock);
++		line_time = (u32) div_u64((u64)mode->crtc_htotal * 1000000,
++					  (u32)mode->clock);
++		line_time = min(line_time, (u32)65535);
+ 
+ 		/* watermark for high clocks */
+ 		if (adev->pm.dpm_enabled) {
+-- 
+2.7.4
