@@ -1,13 +1,13 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: Question about porting VCE1 to amdgpu
-Date: Wed, 14 Jun 2017 19:39:22 +0200
-Message-ID: <c0453c45-9032-2451-c8c3-6e5b2d8faf21@vodafone.de>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: Question about porting VCE1 to amdgpu
+Date: Wed, 14 Jun 2017 18:22:35 +0000
+Message-ID: <BN6PR12MB1652D5D3621EA149E668979FF7C30@BN6PR12MB1652.namprd12.prod.outlook.com>
 References: <CAPEhTTGyy4jehNXhe93h=kB29ThOxctWzuaiwrfjkyDVu5wMww@mail.gmail.com>
  <c3b779e6-3a65-770d-5ba5-40cd293ded3e@vodafone.de>
  <BN6PR12MB165227C924CF7BC1E0D71D92F7C30@BN6PR12MB1652.namprd12.prod.outlook.com>
  <CAPEhTTEUBR-wXeXetU=uzA42o_2KXJfCi0s8rr_AK_7ygA3RiA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1849832021=="
+Content-Type: multipart/mixed; boundary="===============1737581803=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <CAPEhTTEUBR-wXeXetU=uzA42o_2KXJfCi0s8rr_AK_7ygA3RiA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 Content-Language: en-US
@@ -21,504 +21,363 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Freedesktop - AMD-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: 'Alexandre Demers' <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, Freedesktop
+ - AMD-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============1849832021==
-Content-Type: multipart/alternative;
- boundary="------------528E61031B8AC84B8E2AE813"
+--===============1737581803==
 Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1652D5D3621EA149E668979FF7C30BN6PR12MB1652namp_"
 
-This is a multi-part message in MIME format.
---------------528E61031B8AC84B8E2AE813
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+--_000_BN6PR12MB1652D5D3621EA149E668979FF7C30BN6PR12MB1652namp_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-> OK. Then,  is it expected to have a validation failure with the 
-> current firmware?
-Yeah, that won't work. We never released the firmware with the header 
-for SI parts.
+DQpGcm9tOiBBbGV4YW5kcmUgRGVtZXJzIFttYWlsdG86YWxleGFuZHJlLmYuZGVtZXJzQGdtYWls
+LmNvbV0NClNlbnQ6IFdlZG5lc2RheSwgSnVuZSAxNCwgMjAxNyAxOjMwIFBNDQpUbzogRGV1Y2hl
+ciwgQWxleGFuZGVyOyBDaHJpc3RpYW4gS8O2bmlnOyBGcmVlZGVza3RvcCAtIEFNRC1nZngNClN1
+YmplY3Q6IFJlOiBRdWVzdGlvbiBhYm91dCBwb3J0aW5nIFZDRTEgdG8gYW1kZ3B1DQoNCk9uIFdl
+ZCwgMTQgSnVuIDIwMTcgYXQgMTM6MDkgRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1
+Y2hlckBhbWQuY29tPG1haWx0bzpBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPj4gd3JvdGU6DQoN
+CkZyb206IGFtZC1nZnggW21haWx0bzphbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnPG1haWx0bzphbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPl0gT24gQmVo
+YWxmIE9mIENocmlzdGlhbiBLw7ZuaWcNClNlbnQ6IFdlZG5lc2RheSwgSnVuZSAxNCwgMjAxNyAx
+MjozNyBQTQ0KVG86IEFsZXhhbmRyZSBEZW1lcnM7IEZyZWVkZXNrdG9wIC0gQU1ELWdmeA0KU3Vi
+amVjdDogUmU6IFF1ZXN0aW9uIGFib3V0IHBvcnRpbmcgVkNFMSB0byBhbWRncHUNCg0KLSBXb3Vs
+ZCB3ZSBuZWVkIGEgZGlmZmVyZW50IGZpcm13YXJlIHZlcnNpb24gd2l0aCBhIGRpZmZlcmVudCAi
+aGRyIiBmb3IgdGhlIGFtZGdwdSBkcml2ZXI/DQpZZXMsIHdlIHNob3VsZCBwcm9iYWJseSByZWxl
+YXNlIHRoZSBsYXRlc3Qgb25lIGluc3RlYWQgb2YgcmV1c2luZyB0aGUgb25lIHVzZWQgd2l0aCBy
+YWRlb24uDQpBY3R1YWxseSwgd2Ugc2hvdWxkIHByb2JhYmx5IHN0aWNrIHRoZSBzYW1lIG9uZSBh
+cyByYWRlb24gZm9yIG5vdyB1bnRpbCB3ZSBjYW4gdmVyaWZ5IHRoZSBuZXcgZmlybXdhcmUgaW4g
+Z2VuZXJhbC4gIEVhc2llciB0byBzdGFydCB3aXRoIGEga25vd24gd29ya2luZyBjYXNlLg0KDQpP
+Sy4gVGhlbiwgIGlzIGl0IGV4cGVjdGVkIHRvIGhhdmUgYSB2YWxpZGF0aW9uIGZhaWx1cmUgd2l0
+aCB0aGUgY3VycmVudCBmaXJtd2FyZT8gSXMgdGhlIGhlYWRlciBjb21wYXRpYmxlIHdpdGggaG93
+IHRoZSB2YWxpZGF0aW9uIGlzIGRvbmUgdW5kZXIgVkNFMiBhbmQgb3RoZXJzIG9yIHNob3VsZCBJ
+IGtlZXAgaG93IGl0IHdhcyBkb25lIHVuZGVyIHJhZGVvbj8NClRoZXJlIGlzIG5vIGhlYWRlciBv
+biB0aGUgbXVsdGktbWVkaWEgZmlybXdhcmUgZnJvbSByYWRlb24sIHNvIHlvdSdkIG5lZWQgdG8g
+YWRkIG9uZS4gIFRoZSBoZWFkZXIgaXMgZG9jdW1lbnRlZCBpbiBhbWRncHVfdWNvZGUuaCwgIEFs
+bCB5b3UnZCBuZWVkIHRvIGRvIGlzIHByZXBlbmQgdGhlIGhlYWRlciB0byB0aGUgZXhpc3Rpbmcg
+ZmlybXdhcmUgaW1hZ2UuDQoNCkFsZXgNCg0KDQoNCkJUVzogRG9lcyBWQ0Ugd29yayBvbiBDSUs/
+IEFsZXgsIGRvbid0IHdlIHJ1biBpbnRvIHRoZSBzYW1lIGlzc3VlIHRoZXJlIGFzIHdlbGw/DQpW
+Q0Ugd29ya3Mgb24gQ0lLLiAgV2UgcG9ydGVkIFZDRSBhbmQgVVZEIHRvIENJSyBhcyBwYXJ0IG9m
+IHRoZSBpbml0aWFsIGFtZGdwdSBicmluZyB1cC4NCg0KSSd2ZSBiZWVuIHVzaW5nIFZDRTIgcG9y
+dCBhcyBteSB0ZW1wbGF0ZSBmb3IgVkNFMS4gTXkgaW5pdGlhbCBpbnRlbnRpb24gd2FzIHRvIHdv
+cmsgb24gVVZELCBidXQgSSBlbmRlZCB1cCBwbHVnZ2luZyBpbiBWQ0UgaW4gdGhlIGZpcnN0IHBs
+YWNlLiBVVkQgaXMgb24gbXkgdG9kbyBsaXN0IHJpZ2h0IG5leHQsIEkgd2FzIGV4cGVjdGluZyB0
+byB3b3JraW5nIG9uIGl0IGFmdGVyIGZpeGluZyB0aGUgVkNFIHBhcnQuDQoNCg0KQWxleA0KDQot
+IFdvdWxkbid0IGl0IGJlIGJldHRlciB0byBjb250aW51ZSBsb2FkaW5nIHRoZSBkcml2ZXIgd2hp
+bGUgaGF2aW5nIFZDRSBkaXNhYmxlZCBJRiB3ZSBmYWlsIHdoZW4gbG9hZGluZyBvciB2YWxpZGF0
+aW5nIHRoZSBGVz8gQ29tcGxldGVseSBmYWlsaW5nIHRvIGxvYWQgdGhlIGRyaXZlciBmb3IgdGhp
+cyByZWFzb24gc2VlbXMgb3ZlcmtpbGwgSU1PLCBzaW5jZSBub3RoaW5nIGhhcyBiZWVuIGxvYWRl
+ZCBpbiBtZW1vcnkgYW5kIG5vIHJlZ2lzdHJ5IGhhdmUgYmVlbiBtb2RpZmllZCB1cCB0byB0aGF0
+IHBvaW50Lg0KVVZEIGFuZCBWQ0UgYXJlIGFjdHVhbGx5IG5lZWRlZCBmb3IgY29ycmVjdCBwb3dl
+ciBtYW5hZ2VtZW50LiBXaGVuIHRoZSBibG9ja3MgZmFpbCB0byBpbml0aWFsaXplIHlvdSB1c3Vh
+bGx5IHNvb25lciBvciBsYXRlciBydW4gaW50byBwcm9ibGVtcyB3aXRoIHBvd2VyIG1hbmFnZW1l
+bnQgKGUuZy4gc3R1Y2sgaW5zaWRlIGEgY2VydGFpbiBwb3dlciBsZXZlbCkuDQoNCk9LLCBidXQg
+cmlnaHQgbm93IGl0IGlzIGRpc2FibGVkLCBzbyB0aGUgc2l0dWF0aW9uIHdvdWxkbid0IGJlIHdv
+cnN0IGlzbid0IGl0Pw0KDQoNCi0gV291bGQgaXQgYmUgYSBnb29kIGlkZWEgdG8gc2VuZCBhIHBh
+dGNoIGFzIGEgUkZDIHNvIHNvbWUgb2YgeW91IGNvdWxkIGhlbHAgbWUgZmluaXNoIHRoZSBqb2Ig
+YW5kIG1heWJlIHBpbnBvaW50IHdoZXJlIHRoZSBsYXN0IG1vZGlmaWNhdGlvbnMgbmVlZCB0byBi
+ZSBkb25lPw0KV2VsbCB5b3UgY291bGQsIGJ1dCB0byBiZSBob25lc3Qgd2l0aG91dCBBTUQgcmVs
+ZWFzaW5nIG5ldyBmaXJtd2FyZSB0aGF0IGlzIG1vc3QgbGlrZWx5IGEgZnV0aWxlIGVmZm9ydC4N
+Cg0KSSdsbCBzZW5kIGEgcGF0Y2ggdGhlbiwgYW5kIHdlJ2xsIG5hdmlnYXRlIGZyb20gdGhlcmUu
+IFRoaXMgd2lsbCBhbGxvdyBtZSB0byB3b3JrIG9uIFVWRCBpbiBwYXJhbGxlbC4NCg0KQWxleGFu
+ZHJlIERlbWVycw0KDQoNClJlZ2FyZHMsDQpDaHJpc3RpYW4uDQoNCkFtIDE0LjA2LjIwMTcgdW0g
+MTg6MjIgc2NocmllYiBBbGV4YW5kcmUgRGVtZXJzOg0KSGksDQoNCkkndmUgYmVlbiB3b3JraW5n
+IG9uIHBvcnRpbmcgVkNFMSBmcm9tIHJhZGVvbiB0byBhbWRncHUgaW4gdGhlIGxhc3QgZmV3IHdl
+ZWtzLiBJJ20gcHJldHR5IG11Y2ggZG9uZSBhbmQgSSd2ZSBlbmFibGVkIHRoZSBmdW5jdGlvbmFs
+aXR5IHRvIHNlZSBob3cgaXQgZ29lcy4gSG93ZXZlciwgSSBlbmRlZCB1cCB3aXRoIGFuIGVycm9y
+IG9uIHRoZSBmaXJtd2FyZSB2YWxpZGF0aW9uIChzaXplIGRvZXNuJ3Qgc2VlbSB0byBmaXQpLCB0
+aHVzIGZhaWxpbmcgY29tcGxldGVseSBpbiBsb2FkaW5nIHRoZSBkcml2ZXIuIEknbSB0ZXN0aW5n
+IG9uIGEgUjkgMjgwWCAoVGFoaXRpKS4NCg0KVGhyZWUgcXVlc3Rpb25zIHRoZW46DQotIFdvdWxk
+IHdlIG5lZWQgYSBkaWZmZXJlbnQgZmlybXdhcmUgdmVyc2lvbiB3aXRoIGEgZGlmZmVyZW50ICJo
+ZHIiIGZvciB0aGUgYW1kZ3B1IGRyaXZlcj8NCi0gV291bGRuJ3QgaXQgYmUgYmV0dGVyIHRvIGNv
+bnRpbnVlIGxvYWRpbmcgdGhlIGRyaXZlciB3aGlsZSBoYXZpbmcgVkNFIGRpc2FibGVkIElGIHdl
+IGZhaWwgd2hlbiBsb2FkaW5nIG9yIHZhbGlkYXRpbmcgdGhlIEZXPyBDb21wbGV0ZWx5IGZhaWxp
+bmcgdG8gbG9hZCB0aGUgZHJpdmVyIGZvciB0aGlzIHJlYXNvbiBzZWVtcyBvdmVya2lsbCBJTU8s
+IHNpbmNlIG5vdGhpbmcgaGFzIGJlZW4gbG9hZGVkIGluIG1lbW9yeSBhbmQgbm8gcmVnaXN0cnkg
+aGF2ZSBiZWVuIG1vZGlmaWVkIHVwIHRvIHRoYXQgcG9pbnQuDQotIFdvdWxkIGl0IGJlIGEgZ29v
+ZCBpZGVhIHRvIHNlbmQgYSBwYXRjaCBhcyBhIFJGQyBzbyBzb21lIG9mIHlvdSBjb3VsZCBoZWxw
+IG1lIGZpbmlzaCB0aGUgam9iIGFuZCBtYXliZSBwaW5wb2ludCB3aGVyZSB0aGUgbGFzdCBtb2Rp
+ZmljYXRpb25zIG5lZWQgdG8gYmUgZG9uZT8NCg0KVGhhbmsgeW91IQ0KQWxleGFuZHJlIERlbWVy
+cw0KDQoNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18N
+Cg0KYW1kLWdmeCBtYWlsaW5nIGxpc3QNCg0KYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc8
+bWFpbHRvOmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPg0KDQpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCg0KDQo=
 
-See for CIK we have upper and lower case firmware files, the lower case 
-are the new ones with the header.
+--_000_BN6PR12MB1652D5D3621EA149E668979FF7C30BN6PR12MB1652namp_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-> I've been using VCE2 port as my template for VCE1. My initial 
-> intention was to work on UVD, but I ended up plugging in VCE in the 
-> first place. UVD is on my todo list right next, I was expecting to 
-> working on it after fixing the VCE part.
-That stuff would be really nice to get fixed. But i fear you won't get 
-far without AMD internal help. I will see what I can do about that.
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
+bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
+YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
+cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
+Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
+ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTQgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
+PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
+Q2FsaWJyaTsNCglwYW5vc2UtMToyIDE1IDUgMiAyIDIgNCAzIDIgNDt9DQpAZm9udC1mYWNlDQoJ
+e2ZvbnQtZmFtaWx5OlRhaG9tYTsNCglwYW5vc2UtMToyIDExIDYgNCAzIDUgNCA0IDIgNDt9DQpA
+Zm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5OkNvbnNvbGFzOw0KCXBhbm9zZS0xOjIgMTEgNiA5IDIg
+MiA0IDMgMiA0O30NCi8qIFN0eWxlIERlZmluaXRpb25zICovDQpwLk1zb05vcm1hbCwgbGkuTXNv
+Tm9ybWFsLCBkaXYuTXNvTm9ybWFsDQoJe21hcmdpbjowaW47DQoJbWFyZ2luLWJvdHRvbTouMDAw
+MXB0Ow0KCWZvbnQtc2l6ZToxMi4wcHQ7DQoJZm9udC1mYW1pbHk6IlRpbWVzIE5ldyBSb21hbiIs
+InNlcmlmIjt9DQphOmxpbmssIHNwYW4uTXNvSHlwZXJsaW5rDQoJe21zby1zdHlsZS1wcmlvcml0
+eTo5OTsNCgljb2xvcjpibHVlOw0KCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0KYTp2aXNp
+dGVkLCBzcGFuLk1zb0h5cGVybGlua0ZvbGxvd2VkDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsN
+Cgljb2xvcjpwdXJwbGU7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9DQpwDQoJe21zby1z
+dHlsZS1wcmlvcml0eTo5OTsNCgltc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzsNCgltYXJnaW4tcmln
+aHQ6MGluOw0KCW1zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvOw0KCW1hcmdpbi1sZWZ0OjBpbjsN
+Cglmb250LXNpemU6MTIuMHB0Ow0KCWZvbnQtZmFtaWx5OiJUaW1lcyBOZXcgUm9tYW4iLCJzZXJp
+ZiI7fQ0KcHJlDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCgltc28tc3R5bGUtbGluazoiSFRN
+TCBQcmVmb3JtYXR0ZWQgQ2hhciI7DQoJbWFyZ2luOjBpbjsNCgltYXJnaW4tYm90dG9tOi4wMDAx
+cHQ7DQoJZm9udC1zaXplOjEwLjBwdDsNCglmb250LWZhbWlseToiQ291cmllciBOZXciO30NCnAu
+TXNvQWNldGF0ZSwgbGkuTXNvQWNldGF0ZSwgZGl2Lk1zb0FjZXRhdGUNCgl7bXNvLXN0eWxlLXBy
+aW9yaXR5Ojk5Ow0KCW1zby1zdHlsZS1saW5rOiJCYWxsb29uIFRleHQgQ2hhciI7DQoJbWFyZ2lu
+OjBpbjsNCgltYXJnaW4tYm90dG9tOi4wMDAxcHQ7DQoJZm9udC1zaXplOjguMHB0Ow0KCWZvbnQt
+ZmFtaWx5OiJUYWhvbWEiLCJzYW5zLXNlcmlmIjt9DQpzcGFuLkhUTUxQcmVmb3JtYXR0ZWRDaGFy
+DQoJe21zby1zdHlsZS1uYW1lOiJIVE1MIFByZWZvcm1hdHRlZCBDaGFyIjsNCgltc28tc3R5bGUt
+cHJpb3JpdHk6OTk7DQoJbXNvLXN0eWxlLWxpbms6IkhUTUwgUHJlZm9ybWF0dGVkIjsNCglmb250
+LWZhbWlseTpDb25zb2xhczt9DQpzcGFuLkVtYWlsU3R5bGUyMA0KCXttc28tc3R5bGUtdHlwZTpw
+ZXJzb25hbC1yZXBseTsNCglmb250LWZhbWlseToiQ2FsaWJyaSIsInNhbnMtc2VyaWYiOw0KCWNv
+bG9yOiMxRjQ5N0Q7fQ0Kc3Bhbi5CYWxsb29uVGV4dENoYXINCgl7bXNvLXN0eWxlLW5hbWU6IkJh
+bGxvb24gVGV4dCBDaGFyIjsNCgltc28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJbXNvLXN0eWxlLWxp
+bms6IkJhbGxvb24gVGV4dCI7DQoJZm9udC1mYW1pbHk6IlRhaG9tYSIsInNhbnMtc2VyaWYiO30N
+Ci5Nc29DaHBEZWZhdWx0DQoJe21zby1zdHlsZS10eXBlOmV4cG9ydC1vbmx5Ow0KCWZvbnQtZmFt
+aWx5OiJDYWxpYnJpIiwic2Fucy1zZXJpZiI7fQ0KQHBhZ2UgV29yZFNlY3Rpb24xDQoJe3NpemU6
+OC41aW4gMTEuMGluOw0KCW1hcmdpbjoxLjBpbiAxLjBpbiAxLjBpbiAxLjBpbjt9DQpkaXYuV29y
+ZFNlY3Rpb24xDQoJe3BhZ2U6V29yZFNlY3Rpb24xO30NCi0tPjwvc3R5bGU+PCEtLVtpZiBndGUg
+bXNvIDldPjx4bWw+DQo8bzpzaGFwZWRlZmF1bHRzIHY6ZXh0PSJlZGl0IiBzcGlkbWF4PSIxMDI2
+IiAvPg0KPC94bWw+PCFbZW5kaWZdLS0+PCEtLVtpZiBndGUgbXNvIDldPjx4bWw+DQo8bzpzaGFw
+ZWxheW91dCB2OmV4dD0iZWRpdCI+DQo8bzppZG1hcCB2OmV4dD0iZWRpdCIgZGF0YT0iMSIgLz4N
+CjwvbzpzaGFwZWxheW91dD48L3htbD48IVtlbmRpZl0tLT4NCjwvaGVhZD4NCjxib2R5IGxhbmc9
+IkVOLVVTIiBsaW5rPSJibHVlIiB2bGluaz0icHVycGxlIj4NCjxkaXYgY2xhc3M9IldvcmRTZWN0
+aW9uMSI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBw
+dDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7
+Y29sb3I6IzFGNDk3RCI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPGRpdiBzdHlsZT0i
+Ym9yZGVyOm5vbmU7Ym9yZGVyLWxlZnQ6c29saWQgYmx1ZSAxLjVwdDtwYWRkaW5nOjBpbiAwaW4g
+MGluIDQuMHB0Ij4NCjxkaXY+DQo8ZGl2IHN0eWxlPSJib3JkZXI6bm9uZTtib3JkZXItdG9wOnNv
+bGlkICNCNUM0REYgMS4wcHQ7cGFkZGluZzozLjBwdCAwaW4gMGluIDBpbiI+DQo8cCBjbGFzcz0i
+TXNvTm9ybWFsIj48Yj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwLjBwdDtmb250LWZhbWlseTom
+cXVvdDtUYWhvbWEmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90OyI+RnJvbTo8L3NwYW4+PC9i
+PjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTAuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O1RhaG9tYSZx
+dW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7Ij4gQWxleGFuZHJlIERlbWVycyBbbWFpbHRvOmFs
+ZXhhbmRyZS5mLmRlbWVyc0BnbWFpbC5jb21dDQo8YnI+DQo8Yj5TZW50OjwvYj4gV2VkbmVzZGF5
+LCBKdW5lIDE0LCAyMDE3IDE6MzAgUE08YnI+DQo8Yj5Ubzo8L2I+IERldWNoZXIsIEFsZXhhbmRl
+cjsgQ2hyaXN0aWFuIEvDtm5pZzsgRnJlZWRlc2t0b3AgLSBBTUQtZ2Z4PGJyPg0KPGI+U3ViamVj
+dDo8L2I+IFJlOiBRdWVzdGlvbiBhYm91dCBwb3J0aW5nIFZDRTEgdG8gYW1kZ3B1PG86cD48L286
+cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+
+Jm5ic3A7PC9vOnA+PC9wPg0KPGRpdj4NCjxkaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1h
+bCI+T24gV2VkLCAxNCBKdW4gMjAxNyBhdCAxMzowOSBEZXVjaGVyLCBBbGV4YW5kZXIgJmx0Ozxh
+IGhyZWY9Im1haWx0bzpBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tIj5BbGV4YW5kZXIuRGV1Y2hl
+ckBhbWQuY29tPC9hPiZndDsgd3JvdGU6PG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxibG9ja3F1
+b3RlIHN0eWxlPSJib3JkZXI6bm9uZTtib3JkZXItbGVmdDpzb2xpZCAjQ0NDQ0NDIDEuMHB0O3Bh
+ZGRpbmc6MGluIDBpbiAwaW4gNi4wcHQ7bWFyZ2luLWxlZnQ6NC44cHQ7bWFyZ2luLXJpZ2h0OjBp
+biI+DQo8ZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFyZ2lu
+LXRvcC1hbHQ6YXV0bzttc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0byI+PHNwYW4gc3R5bGU9ImZv
+bnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5z
+LXNlcmlmJnF1b3Q7O2NvbG9yOiMxRjQ5N0QiPiZuYnNwOzwvc3Bhbj48bzpwPjwvbzpwPjwvcD4N
+CjxkaXYgc3R5bGU9ImJvcmRlcjpub25lO2JvcmRlci1sZWZ0OnNvbGlkIGJsdWUgMS41cHQ7cGFk
+ZGluZzowaW4gMGluIDBpbiA0LjBwdCI+DQo8ZGl2Pg0KPGRpdiBzdHlsZT0iYm9yZGVyOm5vbmU7
+Ym9yZGVyLXRvcDpzb2xpZCAjQjVDNERGIDEuMHB0O3BhZGRpbmc6My4wcHQgMGluIDBpbiAwaW4i
+Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFsdDphdXRvO21z
+by1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj48Yj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwLjBw
+dDtmb250LWZhbWlseTomcXVvdDtUYWhvbWEmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90OyI+
+RnJvbTo8L3NwYW4+PC9iPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTAuMHB0O2ZvbnQtZmFtaWx5
+OiZxdW90O1RhaG9tYSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7Ij4gYW1kLWdmeCBbbWFp
+bHRvOjxhIGhyZWY9Im1haWx0bzphbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+IiB0YXJnZXQ9Il9ibGFuayI+YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZzwv
+YT5dDQo8Yj5PbiBCZWhhbGYgT2YgPC9iPkNocmlzdGlhbiBLw7ZuaWc8YnI+DQo8Yj5TZW50Ojwv
+Yj4gV2VkbmVzZGF5LCBKdW5lIDE0LCAyMDE3IDEyOjM3IFBNPGJyPg0KPGI+VG86PC9iPiBBbGV4
+YW5kcmUgRGVtZXJzOyBGcmVlZGVza3RvcCAtIEFNRC1nZng8YnI+DQo8Yj5TdWJqZWN0OjwvYj4g
+UmU6IFF1ZXN0aW9uIGFib3V0IHBvcnRpbmcgVkNFMSB0byBhbWRncHU8L3NwYW4+PG86cD48L286
+cD48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1t
+YXJnaW4tdG9wLWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj4mbmJzcDs8bzpw
+PjwvbzpwPjwvcD4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjxkaXY+DQo8ZGl2Pg0KPGRpdiBz
+dHlsZT0iYm9yZGVyOm5vbmU7Ym9yZGVyLWxlZnQ6c29saWQgYmx1ZSAxLjVwdDtwYWRkaW5nOjBp
+biAwaW4gMGluIDQuMHB0Ij4NCjxkaXY+DQo8YmxvY2txdW90ZSBzdHlsZT0ibWFyZ2luLXRvcDo1
+LjBwdDttYXJnaW4tYm90dG9tOjUuMHB0Ij4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJt
+c28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0byI+LSBXb3Vs
+ZCB3ZSBuZWVkIGEgZGlmZmVyZW50IGZpcm13YXJlIHZlcnNpb24gd2l0aCBhIGRpZmZlcmVudCAm
+cXVvdDtoZHImcXVvdDsgZm9yIHRoZSBhbWRncHUgZHJpdmVyPzxvOnA+PC9vOnA+PC9wPg0KPC9i
+bG9ja3F1b3RlPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFs
+dDphdXRvO21hcmdpbi1ib3R0b206MTIuMHB0Ij5ZZXMsIHdlIHNob3VsZCBwcm9iYWJseSByZWxl
+YXNlIHRoZSBsYXRlc3Qgb25lIGluc3RlYWQgb2YgcmV1c2luZyB0aGUgb25lIHVzZWQgd2l0aCBy
+YWRlb24uPG86cD48L286cD48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjxk
+aXY+DQo8ZGl2Pg0KPGRpdiBzdHlsZT0iYm9yZGVyOm5vbmU7Ym9yZGVyLWxlZnQ6c29saWQgYmx1
+ZSAxLjVwdDtwYWRkaW5nOjBpbiAwaW4gMGluIDQuMHB0Ij4NCjxkaXY+DQo8cCBjbGFzcz0iTXNv
+Tm9ybWFsIiBzdHlsZT0ibXNvLW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0b20t
+YWx0OmF1dG8iPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90
+O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjojMUY0OTdEIj5BY3R1
+YWxseSwgd2Ugc2hvdWxkIHByb2JhYmx5IHN0aWNrIHRoZSBzYW1lIG9uZSBhcyByYWRlb24gZm9y
+IG5vdyB1bnRpbCB3ZSBjYW4gdmVyaWZ5IHRoZSBuZXcgZmlybXdhcmUNCiBpbiBnZW5lcmFsLiZu
+YnNwOyBFYXNpZXIgdG8gc3RhcnQgd2l0aCBhIGtub3duIHdvcmtpbmcgY2FzZS48L3NwYW4+PG86
+cD48L286cD48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjwvYmxvY2txdW90
+ZT4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj4mbmJzcDs8bzpwPjwvbzpwPjwvcD4NCjwv
+ZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPk9LLiBUaGVuLCAmbmJzcDtpcyBpdCBl
+eHBlY3RlZCB0byBoYXZlIGEgdmFsaWRhdGlvbiBmYWlsdXJlIHdpdGggdGhlIGN1cnJlbnQgZmly
+bXdhcmU/IElzIHRoZSBoZWFkZXIgY29tcGF0aWJsZSB3aXRoIGhvdyB0aGUgdmFsaWRhdGlvbiBp
+cyBkb25lIHVuZGVyIFZDRTIgYW5kIG90aGVycyBvciBzaG91bGQgSSBrZWVwIGhvdyBpdCB3YXMg
+ZG9uZSB1bmRlciByYWRlb24/PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48
+c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1
+b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6IzFGNDk3RCI+VGhlcmUgaXMgbm8gaGVh
+ZGVyIG9uIHRoZSBtdWx0aS1tZWRpYSBmaXJtd2FyZSBmcm9tIHJhZGVvbiwgc28geW91J2QgbmVl
+ZCB0byBhZGQgb25lLiZuYnNwOyBUaGUgaGVhZGVyIGlzIGRvY3VtZW50ZWQgaW4gYW1kZ3B1X3Vj
+b2RlLmgsJm5ic3A7IEFsbCB5b3UnZCBuZWVkIHRvIGRvIGlzDQogcHJlcGVuZCB0aGUgaGVhZGVy
+IHRvIHRoZSBleGlzdGluZyBmaXJtd2FyZSBpbWFnZS48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8
+cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZh
+bWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6IzFG
+NDk3RCI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+
+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZx
+dW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9yOiMxRjQ5N0QiPkFsZXg8bzpwPjwvbzpw
+Pjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZu
+YnNwOzwvbzpwPjwvcD4NCjwvZGl2Pg0KPGJsb2NrcXVvdGUgc3R5bGU9ImJvcmRlcjpub25lO2Jv
+cmRlci1sZWZ0OnNvbGlkICNDQ0NDQ0MgMS4wcHQ7cGFkZGluZzowaW4gMGluIDBpbiA2LjBwdDtt
+YXJnaW4tbGVmdDo0LjhwdDttYXJnaW4tcmlnaHQ6MGluIj4NCjxkaXY+DQo8ZGl2Pg0KPGRpdiBz
+dHlsZT0iYm9yZGVyOm5vbmU7Ym9yZGVyLWxlZnQ6c29saWQgYmx1ZSAxLjVwdDtwYWRkaW5nOjBp
+biAwaW4gMGluIDQuMHB0Ij4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibXNv
+LW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG8iPjxzcGFuIHN0
+eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1
+b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjojMUY0OTdEIj4mbmJzcDs8L3NwYW4+PG86cD48L286
+cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibXNvLW1hcmdpbi10b3AtYWx0OmF1
+dG87bWFyZ2luLWJvdHRvbToxMi4wcHQiPjxicj4NCkJUVzogRG9lcyBWQ0Ugd29yayBvbiBDSUs/
+IEFsZXgsIGRvbid0IHdlIHJ1biBpbnRvIHRoZSBzYW1lIGlzc3VlIHRoZXJlIGFzIHdlbGw/PG86
+cD48L286cD48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjxkaXY+DQo8ZGl2
+Pg0KPGRpdiBzdHlsZT0iYm9yZGVyOm5vbmU7Ym9yZGVyLWxlZnQ6c29saWQgYmx1ZSAxLjVwdDtw
+YWRkaW5nOjBpbiAwaW4gMGluIDQuMHB0Ij4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBz
+dHlsZT0ibXNvLW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG8i
+PjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkm
+cXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjojMUY0OTdEIj5WQ0Ugd29ya3Mgb24g
+Q0lLLiZuYnNwOyBXZSBwb3J0ZWQgVkNFIGFuZCBVVkQgdG8gQ0lLIGFzIHBhcnQgb2YgdGhlIGlu
+aXRpYWwgYW1kZ3B1IGJyaW5nIHVwLjwvc3Bhbj48bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPC9k
+aXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9ibG9ja3F1b3RlPg0KPGRpdj4NCjxwIGNsYXNzPSJNc29O
+b3JtYWwiPiZuYnNwOzxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1z
+b05vcm1hbCI+SSd2ZSBiZWVuIHVzaW5nIFZDRTIgcG9ydCBhcyBteSB0ZW1wbGF0ZSBmb3IgVkNF
+MS4gTXkgaW5pdGlhbCBpbnRlbnRpb24gd2FzIHRvIHdvcmsgb24gVVZELCBidXQgSSBlbmRlZCB1
+cCBwbHVnZ2luZyBpbiBWQ0UgaW4gdGhlIGZpcnN0IHBsYWNlLiBVVkQgaXMgb24gbXkgdG9kbyBs
+aXN0IHJpZ2h0IG5leHQsIEkgd2FzIGV4cGVjdGluZyB0byB3b3JraW5nIG9uIGl0IGFmdGVyIGZp
+eGluZyB0aGUgVkNFIHBhcnQuPG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFz
+cz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjwvZGl2Pg0KPGJsb2NrcXVvdGUg
+c3R5bGU9ImJvcmRlcjpub25lO2JvcmRlci1sZWZ0OnNvbGlkICNDQ0NDQ0MgMS4wcHQ7cGFkZGlu
+ZzowaW4gMGluIDBpbiA2LjBwdDttYXJnaW4tbGVmdDo0LjhwdDttYXJnaW4tcmlnaHQ6MGluIj4N
+CjxkaXY+DQo8ZGl2Pg0KPGRpdiBzdHlsZT0iYm9yZGVyOm5vbmU7Ym9yZGVyLWxlZnQ6c29saWQg
+Ymx1ZSAxLjVwdDtwYWRkaW5nOjBpbiAwaW4gMGluIDQuMHB0Ij4NCjxkaXY+DQo8cCBjbGFzcz0i
+TXNvTm9ybWFsIiBzdHlsZT0ibXNvLW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0
+b20tYWx0OmF1dG8iPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZx
+dW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjojMUY0OTdEIj4m
+bmJzcDs8L3NwYW4+PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0i
+bXNvLW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG8iPjxzcGFu
+IHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDss
+JnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjojMUY0OTdEIj5BbGV4PC9zcGFuPjxvOnA+PC9v
+OnA+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8ZGl2Pg0KPGRpdj4NCjxk
+aXYgc3R5bGU9ImJvcmRlcjpub25lO2JvcmRlci1sZWZ0OnNvbGlkIGJsdWUgMS41cHQ7cGFkZGlu
+ZzowaW4gMGluIDBpbiA0LjBwdCI+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9
+Im1zby1tYXJnaW4tdG9wLWFsdDphdXRvO21hcmdpbi1ib3R0b206MTIuMHB0Ij48bzpwPiZuYnNw
+OzwvbzpwPjwvcD4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibXNvLW1hcmdp
+bi10b3AtYWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG8iPi0gV291bGRuJ3QgaXQg
+YmUgYmV0dGVyIHRvIGNvbnRpbnVlIGxvYWRpbmcgdGhlIGRyaXZlciB3aGlsZSBoYXZpbmcgVkNF
+IGRpc2FibGVkIElGIHdlIGZhaWwgd2hlbiBsb2FkaW5nIG9yIHZhbGlkYXRpbmcgdGhlIEZXPyBD
+b21wbGV0ZWx5IGZhaWxpbmcgdG8gbG9hZCB0aGUgZHJpdmVyIGZvciB0aGlzIHJlYXNvbg0KIHNl
+ZW1zIG92ZXJraWxsIElNTywgc2luY2Ugbm90aGluZyBoYXMgYmVlbiBsb2FkZWQgaW4gbWVtb3J5
+IGFuZCBubyByZWdpc3RyeSBoYXZlIGJlZW4gbW9kaWZpZWQgdXAgdG8gdGhhdCBwb2ludC48bzpw
+PjwvbzpwPjwvcD4NCjwvZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJn
+aW4tdG9wLWFsdDphdXRvO21hcmdpbi1ib3R0b206MTIuMHB0Ij5VVkQgYW5kIFZDRSBhcmUgYWN0
+dWFsbHkgbmVlZGVkIGZvciBjb3JyZWN0IHBvd2VyIG1hbmFnZW1lbnQuIFdoZW4gdGhlIGJsb2Nr
+cyBmYWlsIHRvIGluaXRpYWxpemUgeW91IHVzdWFsbHkgc29vbmVyIG9yIGxhdGVyIHJ1biBpbnRv
+IHByb2JsZW1zIHdpdGggcG93ZXIgbWFuYWdlbWVudCAoZS5nLiBzdHVjayBpbnNpZGUNCiBhIGNl
+cnRhaW4gcG93ZXIgbGV2ZWwpLjxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2
+Pg0KPC9kaXY+DQo8L2Jsb2NrcXVvdGU+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+Jm5i
+c3A7PG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5P
+SywgYnV0IHJpZ2h0IG5vdyBpdCBpcyBkaXNhYmxlZCwgc28gdGhlIHNpdHVhdGlvbiB3b3VsZG4n
+dCBiZSB3b3JzdCBpc24ndCBpdD88bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNs
+YXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPC9kaXY+DQo8YmxvY2txdW90
+ZSBzdHlsZT0iYm9yZGVyOm5vbmU7Ym9yZGVyLWxlZnQ6c29saWQgI0NDQ0NDQyAxLjBwdDtwYWRk
+aW5nOjBpbiAwaW4gMGluIDYuMHB0O21hcmdpbi1sZWZ0OjQuOHB0O21hcmdpbi1yaWdodDowaW4i
+Pg0KPGRpdj4NCjxkaXY+DQo8ZGl2IHN0eWxlPSJib3JkZXI6bm9uZTtib3JkZXItbGVmdDpzb2xp
+ZCBibHVlIDEuNXB0O3BhZGRpbmc6MGluIDBpbiAwaW4gNC4wcHQiPg0KPGRpdj4NCjxwIGNsYXNz
+PSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28tbWFyZ2luLWJv
+dHRvbS1hbHQ6YXV0byI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1z
+b05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9t
+LWFsdDphdXRvIj4tIFdvdWxkIGl0IGJlIGEgZ29vZCBpZGVhIHRvIHNlbmQgYSBwYXRjaCBhcyBh
+IFJGQyBzbyBzb21lIG9mIHlvdSBjb3VsZCBoZWxwIG1lIGZpbmlzaCB0aGUgam9iIGFuZCBtYXli
+ZSBwaW5wb2ludCB3aGVyZSB0aGUgbGFzdCBtb2RpZmljYXRpb25zIG5lZWQgdG8gYmUgZG9uZT88
+bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1t
+YXJnaW4tdG9wLWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj5XZWxsIHlvdSBj
+b3VsZCwgYnV0IHRvIGJlIGhvbmVzdCB3aXRob3V0IEFNRCByZWxlYXNpbmcgbmV3IGZpcm13YXJl
+IHRoYXQgaXMgbW9zdCBsaWtlbHkgYSBmdXRpbGUgZWZmb3J0LjxvOnA+PC9vOnA+PC9wPg0KPC9k
+aXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Jsb2NrcXVvdGU+DQo8ZGl2Pg0KPHAgY2xh
+c3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBj
+bGFzcz0iTXNvTm9ybWFsIj5JJ2xsIHNlbmQgYSBwYXRjaCB0aGVuLCBhbmQgd2UnbGwgbmF2aWdh
+dGUgZnJvbSB0aGVyZS4gVGhpcyB3aWxsIGFsbG93IG1lIHRvIHdvcmsgb24gVVZEIGluIHBhcmFs
+bGVsLjxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+
+PG86cD4mbmJzcDs8L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
+Ij5BbGV4YW5kcmUgRGVtZXJzPG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFz
+cz0iTXNvTm9ybWFsIj4mbmJzcDs8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGJsb2NrcXVvdGUg
+c3R5bGU9ImJvcmRlcjpub25lO2JvcmRlci1sZWZ0OnNvbGlkICNDQ0NDQ0MgMS4wcHQ7cGFkZGlu
+ZzowaW4gMGluIDBpbiA2LjBwdDttYXJnaW4tbGVmdDo0LjhwdDttYXJnaW4tcmlnaHQ6MGluIj4N
+CjxkaXY+DQo8ZGl2Pg0KPGRpdiBzdHlsZT0iYm9yZGVyOm5vbmU7Ym9yZGVyLWxlZnQ6c29saWQg
+Ymx1ZSAxLjVwdDtwYWRkaW5nOjBpbiAwaW4gMGluIDQuMHB0Ij4NCjxkaXY+DQo8cCBjbGFzcz0i
+TXNvTm9ybWFsIiBzdHlsZT0ibXNvLW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0
+b20tYWx0OmF1dG8iPjxicj4NClJlZ2FyZHMsPGJyPg0KQ2hyaXN0aWFuLjxicj4NCjxicj4NCkFt
+IDE0LjA2LjIwMTcgdW0gMTg6MjIgc2NocmllYiBBbGV4YW5kcmUgRGVtZXJzOjxvOnA+PC9vOnA+
+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8ZGl2Pg0KPGRpdj4NCjxkaXYg
+c3R5bGU9ImJvcmRlcjpub25lO2JvcmRlci1sZWZ0OnNvbGlkIGJsdWUgMS41cHQ7cGFkZGluZzow
+aW4gMGluIDBpbiA0LjBwdCI+DQo8YmxvY2txdW90ZSBzdHlsZT0ibWFyZ2luLXRvcDo1LjBwdDtt
+YXJnaW4tYm90dG9tOjUuMHB0Ij4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0i
+bXNvLW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG8iPkhpLA0K
+PG86cD48L286cD48L3A+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1t
+YXJnaW4tdG9wLWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj4mbmJzcDs8bzpw
+PjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJt
+c28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0byI+SSd2ZSBi
+ZWVuIHdvcmtpbmcgb24gcG9ydGluZyBWQ0UxIGZyb20gcmFkZW9uIHRvIGFtZGdwdSBpbiB0aGUg
+bGFzdCBmZXcgd2Vla3MuIEknbSBwcmV0dHkgbXVjaCBkb25lIGFuZCBJJ3ZlIGVuYWJsZWQgdGhl
+IGZ1bmN0aW9uYWxpdHkgdG8gc2VlIGhvdyBpdCBnb2VzLiBIb3dldmVyLCBJIGVuZGVkIHVwIHdp
+dGgNCiBhbiBlcnJvciBvbiB0aGUgZmlybXdhcmUgdmFsaWRhdGlvbiAoc2l6ZSBkb2Vzbid0IHNl
+ZW0gdG8gZml0KSwgdGh1cyBmYWlsaW5nIGNvbXBsZXRlbHkgaW4gbG9hZGluZyB0aGUgZHJpdmVy
+LiBJJ20gdGVzdGluZyBvbiBhIFI5IDI4MFggKFRhaGl0aSkuPG86cD48L286cD48L3A+DQo8L2Rp
+dj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibXNvLW1hcmdpbi10b3AtYWx0
+OmF1dG87bXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG8iPiZuYnNwOzxvOnA+PC9vOnA+PC9wPg0K
+PC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9w
+LWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj5UaHJlZSBxdWVzdGlvbnMgdGhl
+bjo8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0
+eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0byI+
+LSBXb3VsZCB3ZSBuZWVkIGEgZGlmZmVyZW50IGZpcm13YXJlIHZlcnNpb24gd2l0aCBhIGRpZmZl
+cmVudCAmcXVvdDtoZHImcXVvdDsgZm9yIHRoZSBhbWRncHUgZHJpdmVyPzxvOnA+PC9vOnA+PC9w
+Pg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4t
+dG9wLWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj4tIFdvdWxkbid0IGl0IGJl
+IGJldHRlciB0byBjb250aW51ZSBsb2FkaW5nIHRoZSBkcml2ZXIgd2hpbGUgaGF2aW5nIFZDRSBk
+aXNhYmxlZCBJRiB3ZSBmYWlsIHdoZW4gbG9hZGluZyBvciB2YWxpZGF0aW5nIHRoZSBGVz8gQ29t
+cGxldGVseSBmYWlsaW5nIHRvIGxvYWQgdGhlIGRyaXZlciBmb3IgdGhpcyByZWFzb24NCiBzZWVt
+cyBvdmVya2lsbCBJTU8sIHNpbmNlIG5vdGhpbmcgaGFzIGJlZW4gbG9hZGVkIGluIG1lbW9yeSBh
+bmQgbm8gcmVnaXN0cnkgaGF2ZSBiZWVuIG1vZGlmaWVkIHVwIHRvIHRoYXQgcG9pbnQuPG86cD48
+L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibXNv
+LW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG8iPi0gV291bGQg
+aXQgYmUgYSBnb29kIGlkZWEgdG8gc2VuZCBhIHBhdGNoIGFzIGEgUkZDIHNvIHNvbWUgb2YgeW91
+IGNvdWxkIGhlbHAgbWUgZmluaXNoIHRoZSBqb2IgYW5kIG1heWJlIHBpbnBvaW50IHdoZXJlIHRo
+ZSBsYXN0IG1vZGlmaWNhdGlvbnMgbmVlZCB0byBiZSBkb25lPzxvOnA+PC9vOnA+PC9wPg0KPC9k
+aXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFs
+dDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj4mbmJzcDs8bzpwPjwvbzpwPjwvcD4N
+CjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFyZ2luLXRv
+cC1hbHQ6YXV0bzttc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0byI+VGhhbmsgeW91ITxvOnA+PC9v
+OnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1t
+YXJnaW4tdG9wLWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj5BbGV4YW5kcmUg
+RGVtZXJzPG86cD48L286cD48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1h
+bCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFsdDphdXRvO21hcmdpbi1ib3R0b206MTIuMHB0Ij48
+YnI+DQo8YnI+DQo8bzpwPjwvbzpwPjwvcD4NCjxwcmU+X19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX188bzpwPjwvbzpwPjwvcHJlPg0KPHByZT5hbWQtZ2Z4IG1h
+aWxpbmcgbGlzdDxvOnA+PC9vOnA+PC9wcmU+DQo8cHJlPjxhIGhyZWY9Im1haWx0bzphbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyIgdGFyZ2V0PSJfYmxhbmsiPmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnPC9hPjxvOnA+PC9vOnA+PC9wcmU+DQo8cHJlPjxhIGhyZWY9Imh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeCIgdGFyZ2V0PSJf
+YmxhbmsiPmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
+LWdmeDwvYT48bzpwPjwvbzpwPjwvcHJlPg0KPC9ibG9ja3F1b3RlPg0KPHA+Jm5ic3A7PG86cD48
+L286cD48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Jsb2NrcXVvdGU+DQo8L2Rpdj4N
+CjwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjwvYm9keT4NCjwvaHRtbD4NCg==
 
-Thanks for the effort,
-Christian.
+--_000_BN6PR12MB1652D5D3621EA149E668979FF7C30BN6PR12MB1652namp_--
 
-Am 14.06.2017 um 19:30 schrieb Alexandre Demers:
-> On Wed, 14 Jun 2017 at 13:09 Deucher, Alexander 
-> <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org <mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>> wrote:
->
->     *From:*amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->     <mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>] *On Behalf Of
->     *Christian König
->     *Sent:* Wednesday, June 14, 2017 12:37 PM
->     *To:* Alexandre Demers; Freedesktop - AMD-gfx
->     *Subject:* Re: Question about porting VCE1 to amdgpu
->
->         - Would we need a different firmware version with a different
->         "hdr" for the amdgpu driver?
->
->     Yes, we should probably release the latest one instead of reusing
->     the one used with radeon.
->
->     Actually, we should probably stick the same one as radeon for now
->     until we can verify the new firmware in general.  Easier to start
->     with a known working case.
->
-> OK. Then,  is it expected to have a validation failure with the 
-> current firmware? Is the header compatible with how the validation is 
-> done under VCE2 and others or should I keep how it was done under radeon?
->
->
->     BTW: Does VCE work on CIK? Alex, don't we run into the same issue
->     there as well?
->
->     VCE works on CIK.  We ported VCE and UVD to CIK as part of the
->     initial amdgpu bring up.
->
-> I've been using VCE2 port as my template for VCE1. My initial 
-> intention was to work on UVD, but I ended up plugging in VCE in the 
-> first place. UVD is on my todo list right next, I was expecting to 
-> working on it after fixing the VCE part.
->
->     Alex
->
->
->
->     - Wouldn't it be better to continue loading the driver while
->     having VCE disabled IF we fail when loading or validating the FW?
->     Completely failing to load the driver for this reason seems
->     overkill IMO, since nothing has been loaded in memory and no
->     registry have been modified up to that point.
->
->     UVD and VCE are actually needed for correct power management. When
->     the blocks fail to initialize you usually sooner or later run into
->     problems with power management (e.g. stuck inside a certain power
->     level).
->
-> OK, but right now it is disabled, so the situation wouldn't be worst 
-> isn't it?
->
->
->     - Would it be a good idea to send a patch as a RFC so some of you
->     could help me finish the job and maybe pinpoint where the last
->     modifications need to be done?
->
->     Well you could, but to be honest without AMD releasing new
->     firmware that is most likely a futile effort.
->
->
-> I'll send a patch then, and we'll navigate from there. This will allow 
-> me to work on UVD in parallel.
->
-> Alexandre Demers
->
->
->     Regards,
->     Christian.
->
->     Am 14.06.2017 um 18:22 schrieb Alexandre Demers:
->
->         Hi,
->
->         I've been working on porting VCE1 from radeon to amdgpu in the
->         last few weeks. I'm pretty much done and I've enabled the
->         functionality to see how it goes. However, I ended up with an
->         error on the firmware validation (size doesn't seem to fit),
->         thus failing completely in loading the driver. I'm testing on
->         a R9 280X (Tahiti).
->
->         Three questions then:
->
->         - Would we need a different firmware version with a different
->         "hdr" for the amdgpu driver?
->
->         - Wouldn't it be better to continue loading the driver while
->         having VCE disabled IF we fail when loading or validating the
->         FW? Completely failing to load the driver for this reason
->         seems overkill IMO, since nothing has been loaded in memory
->         and no registry have been modified up to that point.
->
->         - Would it be a good idea to send a patch as a RFC so some of
->         you could help me finish the job and maybe pinpoint where the
->         last modifications need to be done?
->
->         Thank you!
->
->         Alexandre Demers
->
->
->
->
->         _______________________________________________
->
->         amd-gfx mailing list
->
->         amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->         <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->
->         https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
-
-
---------------528E61031B8AC84B8E2AE813
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">
-      <blockquote type="cite">
-        <div>OK. Then,  is it expected to have a validation failure with
-          the current firmware?</div>
-      </blockquote>
-      Yeah, that won't work. We never released the firmware with the
-      header for SI parts.<br>
-      <br>
-      See for CIK we have upper and lower case firmware files, the lower
-      case are the new ones with the header.<br>
-      <br>
-      <blockquote type="cite">
-        <div>I've been using VCE2 port as my template for VCE1. My
-          initial intention was to work on UVD, but I ended up plugging
-          in VCE in the first place. UVD is on my todo list right next,
-          I was expecting to working on it after fixing the VCE part.</div>
-      </blockquote>
-      That stuff would be really nice to get fixed. But i fear you won't
-      get far without AMD internal help. I will see what I can do about
-      that.<br>
-      <br>
-      Thanks for the effort,<br>
-      Christian.<br>
-      <br>
-      Am 14.06.2017 um 19:30 schrieb Alexandre Demers:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:CAPEhTTEUBR-wXeXetU=uzA42o_2KXJfCi0s8rr_AK_7ygA3RiA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
-      <div dir="ltr">
-        <div class="gmail_quote">
-          <div dir="ltr">On Wed, 14 Jun 2017 at 13:09 Deucher, Alexander
-            &lt;<a href="mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org"
-              moz-do-not-send="true">Alexander.Deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;
-            wrote:<br>
-          </div>
-          <blockquote class="gmail_quote" style="margin:0 0 0
-            .8ex;border-left:1px #ccc solid;padding-left:1ex">
-            <div bgcolor="white" link="blue" vlink="purple" lang="EN-US">
-              <div class="m_-2481367577652910062WordSection1">
-                <p class="MsoNormal"><span
-style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1f497d"> </span></p>
-                <div style="border:none;border-left:solid blue
-                  1.5pt;padding:0in 0in 0in 4.0pt">
-                  <div>
-                    <div style="border:none;border-top:solid #b5c4df
-                      1.0pt;padding:3.0pt 0in 0in 0in">
-                      <p class="MsoNormal"><b><span
-style="font-size:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;;color:windowtext">From:</span></b><span
-style="font-size:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;;color:windowtext">
-                          amd-gfx [mailto:<a
-                            href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                            target="_blank" moz-do-not-send="true">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>]
-                          <b>On Behalf Of </b>Christian König<br>
-                          <b>Sent:</b> Wednesday, June 14, 2017 12:37 PM<br>
-                          <b>To:</b> Alexandre Demers; Freedesktop -
-                          AMD-gfx<br>
-                          <b>Subject:</b> Re: Question about porting
-                          VCE1 to amdgpu</span></p>
-                    </div>
-                  </div>
-                  <p class="MsoNormal"> </p>
-                </div>
-              </div>
-            </div>
-            <div bgcolor="white" link="blue" vlink="purple" lang="EN-US">
-              <div class="m_-2481367577652910062WordSection1">
-                <div style="border:none;border-left:solid blue
-                  1.5pt;padding:0in 0in 0in 4.0pt">
-                  <div>
-                    <blockquote
-                      style="margin-top:5.0pt;margin-bottom:5.0pt">
-                      <p class="MsoNormal">- Would we need a different
-                        firmware version with a different "hdr" for the
-                        amdgpu driver?</p>
-                    </blockquote>
-                    <p class="MsoNormal">Yes, we should probably release
-                      the latest one instead of reusing the one used
-                      with radeon.<br>
-                      <br>
-                      <span style="color:#1f497d"></span></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div bgcolor="white" link="blue" vlink="purple" lang="EN-US">
-              <div class="m_-2481367577652910062WordSection1">
-                <div style="border:none;border-left:solid blue
-                  1.5pt;padding:0in 0in 0in 4.0pt">
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1f497d">Actually,
-                        we should probably stick the same one as radeon
-                        for now until we can verify the new firmware in
-                        general.  Easier to start with a known working
-                        case.</span></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </blockquote>
-          <div> </div>
-          <div>OK. Then,  is it expected to have a validation failure
-            with the current firmware? Is the header compatible with how
-            the validation is done under VCE2 and others or should I
-            keep how it was done under radeon?</div>
-          <div><br>
-          </div>
-          <blockquote class="gmail_quote" style="margin:0 0 0
-            .8ex;border-left:1px #ccc solid;padding-left:1ex">
-            <div bgcolor="white" link="blue" vlink="purple" lang="EN-US">
-              <div class="m_-2481367577652910062WordSection1">
-                <div style="border:none;border-left:solid blue
-                  1.5pt;padding:0in 0in 0in 4.0pt">
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1f497d"></span></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div bgcolor="white" link="blue" vlink="purple" lang="EN-US">
-              <div class="m_-2481367577652910062WordSection1">
-                <div style="border:none;border-left:solid blue
-                  1.5pt;padding:0in 0in 0in 4.0pt">
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1f497d"> </span></p>
-                    <p class="MsoNormal"><br>
-                      BTW: Does VCE work on CIK? Alex, don't we run into
-                      the same issue there as well?<br>
-                      <br>
-                      <span style="color:#1f497d"></span></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div bgcolor="white" link="blue" vlink="purple" lang="EN-US">
-              <div class="m_-2481367577652910062WordSection1">
-                <div style="border:none;border-left:solid blue
-                  1.5pt;padding:0in 0in 0in 4.0pt">
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1f497d">VCE
-                        works on CIK.  We ported VCE and UVD to CIK as
-                        part of the initial amdgpu bring up.</span></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </blockquote>
-          <div> </div>
-          <div>I've been using VCE2 port as my template for VCE1. My
-            initial intention was to work on UVD, but I ended up
-            plugging in VCE in the first place. UVD is on my todo list
-            right next, I was expecting to working on it after fixing
-            the VCE part.</div>
-          <div><br>
-          </div>
-          <blockquote class="gmail_quote" style="margin:0 0 0
-            .8ex;border-left:1px #ccc solid;padding-left:1ex">
-            <div bgcolor="white" link="blue" vlink="purple" lang="EN-US">
-              <div class="m_-2481367577652910062WordSection1">
-                <div style="border:none;border-left:solid blue
-                  1.5pt;padding:0in 0in 0in 4.0pt">
-                  <div>
-                    <p class="MsoNormal"><span
-style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1f497d"></span></p>
-                    <p class="MsoNormal"><span
-style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1f497d"> </span></p>
-                    <p class="MsoNormal"><span
-style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1f497d">Alex</span></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div bgcolor="white" link="blue" vlink="purple" lang="EN-US">
-              <div class="m_-2481367577652910062WordSection1">
-                <div style="border:none;border-left:solid blue
-                  1.5pt;padding:0in 0in 0in 4.0pt">
-                  <div>
-                    <p class="MsoNormal"><br>
-                      <br>
-                    </p>
-                    <div>
-                      <p class="MsoNormal">- Wouldn't it be better to
-                        continue loading the driver while having VCE
-                        disabled IF we fail when loading or validating
-                        the FW? Completely failing to load the driver
-                        for this reason seems overkill IMO, since
-                        nothing has been loaded in memory and no
-                        registry have been modified up to that point.</p>
-                    </div>
-                    <p class="MsoNormal">UVD and VCE are actually needed
-                      for correct power management. When the blocks fail
-                      to initialize you usually sooner or later run into
-                      problems with power management (e.g. stuck inside
-                      a certain power level).<br>
-                      <br>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </blockquote>
-          <div> </div>
-          <div>OK, but right now it is disabled, so the situation
-            wouldn't be worst isn't it?</div>
-          <div><br>
-          </div>
-          <blockquote class="gmail_quote" style="margin:0 0 0
-            .8ex;border-left:1px #ccc solid;padding-left:1ex">
-            <div bgcolor="white" link="blue" vlink="purple" lang="EN-US">
-              <div class="m_-2481367577652910062WordSection1">
-                <div style="border:none;border-left:solid blue
-                  1.5pt;padding:0in 0in 0in 4.0pt">
-                  <div>
-                    <p class="MsoNormal">
-                      <br>
-                    </p>
-                    <div>
-                      <p class="MsoNormal">- Would it be a good idea to
-                        send a patch as a RFC so some of you could help
-                        me finish the job and maybe pinpoint where the
-                        last modifications need to be done?</p>
-                    </div>
-                    <p class="MsoNormal">Well you could, but to be
-                      honest without AMD releasing new firmware that is
-                      most likely a futile effort.<br>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </blockquote>
-          <div><br>
-          </div>
-          <div>I'll send a patch then, and we'll navigate from there.
-            This will allow me to work on UVD in parallel.</div>
-          <div><br>
-          </div>
-          <div>Alexandre Demers</div>
-          <div> </div>
-          <blockquote class="gmail_quote" style="margin:0 0 0
-            .8ex;border-left:1px #ccc solid;padding-left:1ex">
-            <div bgcolor="white" link="blue" vlink="purple" lang="EN-US">
-              <div class="m_-2481367577652910062WordSection1">
-                <div style="border:none;border-left:solid blue
-                  1.5pt;padding:0in 0in 0in 4.0pt">
-                  <div>
-                    <p class="MsoNormal">
-                      <br>
-                      Regards,<br>
-                      Christian.<br>
-                      <br>
-                      Am 14.06.2017 um 18:22 schrieb Alexandre Demers:</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div bgcolor="white" link="blue" vlink="purple" lang="EN-US">
-              <div class="m_-2481367577652910062WordSection1">
-                <div style="border:none;border-left:solid blue
-                  1.5pt;padding:0in 0in 0in 4.0pt">
-                  <blockquote
-                    style="margin-top:5.0pt;margin-bottom:5.0pt">
-                    <div>
-                      <p class="MsoNormal">Hi, </p>
-                      <div>
-                        <p class="MsoNormal"> </p>
-                      </div>
-                      <div>
-                        <p class="MsoNormal">I've been working on
-                          porting VCE1 from radeon to amdgpu in the last
-                          few weeks. I'm pretty much done and I've
-                          enabled the functionality to see how it goes.
-                          However, I ended up with an error on the
-                          firmware validation (size doesn't seem to
-                          fit), thus failing completely in loading the
-                          driver. I'm testing on a R9 280X (Tahiti).</p>
-                      </div>
-                      <div>
-                        <p class="MsoNormal"> </p>
-                      </div>
-                      <div>
-                        <p class="MsoNormal">Three questions then:</p>
-                      </div>
-                      <div>
-                        <p class="MsoNormal">- Would we need a different
-                          firmware version with a different "hdr" for
-                          the amdgpu driver?</p>
-                      </div>
-                      <div>
-                        <p class="MsoNormal">- Wouldn't it be better to
-                          continue loading the driver while having VCE
-                          disabled IF we fail when loading or validating
-                          the FW? Completely failing to load the driver
-                          for this reason seems overkill IMO, since
-                          nothing has been loaded in memory and no
-                          registry have been modified up to that point.</p>
-                      </div>
-                      <div>
-                        <p class="MsoNormal">- Would it be a good idea
-                          to send a patch as a RFC so some of you could
-                          help me finish the job and maybe pinpoint
-                          where the last modifications need to be done?</p>
-                      </div>
-                      <div>
-                        <p class="MsoNormal"> </p>
-                      </div>
-                      <div>
-                        <p class="MsoNormal">Thank you!</p>
-                      </div>
-                      <div>
-                        <p class="MsoNormal">Alexandre Demers</p>
-                      </div>
-                    </div>
-                    <p class="MsoNormal"><br>
-                      <br>
-                      <br>
-                    </p>
-                    <pre>_______________________________________________</pre>
-                    <pre>amd-gfx mailing list</pre>
-                    <pre><a href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target="_blank" moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a></pre>
-                    <pre><a href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" target="_blank" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a></pre>
-                  </blockquote>
-                  <p> </p>
-                </div>
-              </div>
-            </div>
-          </blockquote>
-        </div>
-      </div>
-    </blockquote>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------528E61031B8AC84B8E2AE813--
-
---===============1849832021==
+--===============1737581803==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -528,4 +387,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1849832021==--
+--===============1737581803==--
