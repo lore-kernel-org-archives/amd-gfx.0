@@ -1,43 +1,45 @@
-From: Oded Gabbay <oded.gabbay@gmail.com>
-Subject: Re: [PATCH] drm/amdkfd: NULL dereference involving create_process()
-Date: Wed, 14 Jun 2017 23:34:57 +0300
-Message-ID: <CAFCwf11tMreKQZNaeFzVVUnhSworrV8j945M52deuC0rM4NfwQ@mail.gmail.com>
-References: <20170614105853.GP29394@elgon.mountain>
+From: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH trivial] drm/amdkfd: Spelling s/apreture/aperture/
+Date: Wed, 14 Jun 2017 23:42:15 +0300
+Message-ID: <CAFCwf12_RmHn6q-r1HqC7PpYB_PuieA=r_TT0_d+ycsMhjTQ3Q@mail.gmail.com>
+References: <1496312918-27352-1-git-send-email-geert+renesas@glider.be>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <kernel-janitors-owner@vger.kernel.org>
-In-Reply-To: <20170614105853.GP29394@elgon.mountain>
-Sender: kernel-janitors-owner@vger.kernel.org
-To: Dan Carpenter <dan.carpenter@oracle.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, kernel-janitors@vger.kernel.org, "Kuehling, Felix" <Felix.Kuehling@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1496312918-27352-1-git-send-email-geert+renesas-gXvu3+zWzMSzQB+pC5nmwQ@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Geert Uytterhoeven <geert+renesas-gXvu3+zWzMSzQB+pC5nmwQ@public.gmane.org>
+Cc: Jiri Kosina <trivial-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, "Linux-Kernel@Vger. Kernel. Org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-On Wed, Jun 14, 2017 at 1:58 PM, Dan Carpenter <dan.carpenter@oracle.com> wrote:
->
-> We accidentally return ERR_PTR(0) which is NULL.  The caller is not
-> expecting that and it leads to an Oops.
->
-> Fixes: dd59239a9862 ("amdkfd: init aperture once per process")
-> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> index 84d1ffd1eef9..1190d06884ed 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -318,7 +318,8 @@ static struct kfd_process *create_process(const struct task_struct *thread)
->
->         /* init process apertures*/
->         process->is_32bit_user_mode = in_compat_syscall();
-> -       if (kfd_init_apertures(process) != 0)
-> +       err = kfd_init_apertures(process);
-> +       if (err != 0)
->                 goto err_init_apretures;
->
->         return process;
-
-Hi Dan,
-
-Applied to amdkfd-next
-Thanks!
-
-Oded
+T24gVGh1LCBKdW4gMSwgMjAxNyBhdCAxOjI4IFBNLCBHZWVydCBVeXR0ZXJob2V2ZW4KPGdlZXJ0
+K3JlbmVzYXNAZ2xpZGVyLmJlPiB3cm90ZToKPiBTaWduZWQtb2ZmLWJ5OiBHZWVydCBVeXR0ZXJo
+b2V2ZW4gPGdlZXJ0K3JlbmVzYXNAZ2xpZGVyLmJlPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGtmZC9rZmRfcHJvY2Vzcy5jIHwgNCArKy0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAyIGlu
+c2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRrZmQva2ZkX3Byb2Nlc3MuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
+L2tmZF9wcm9jZXNzLmMKPiBpbmRleCA4NGQxZmZkMWVlZjk1MDQ4Li5hN2QyNzNkNDcyMTA3ODIx
+IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcm9jZXNzLmMK
+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzcy5jCj4gQEAgLTMx
+OSwxMSArMzE5LDExIEBAIHN0YXRpYyBzdHJ1Y3Qga2ZkX3Byb2Nlc3MgKmNyZWF0ZV9wcm9jZXNz
+KGNvbnN0IHN0cnVjdCB0YXNrX3N0cnVjdCAqdGhyZWFkKQo+ICAgICAgICAgLyogaW5pdCBwcm9j
+ZXNzIGFwZXJ0dXJlcyovCj4gICAgICAgICBwcm9jZXNzLT5pc18zMmJpdF91c2VyX21vZGUgPSBp
+bl9jb21wYXRfc3lzY2FsbCgpOwo+ICAgICAgICAgaWYgKGtmZF9pbml0X2FwZXJ0dXJlcyhwcm9j
+ZXNzKSAhPSAwKQo+IC0gICAgICAgICAgICAgICBnb3RvIGVycl9pbml0X2FwcmV0dXJlczsKPiAr
+ICAgICAgICAgICAgICAgZ290byBlcnJfaW5pdF9hcGVydHVyZXM7Cj4KPiAgICAgICAgIHJldHVy
+biBwcm9jZXNzOwo+Cj4gLWVycl9pbml0X2FwcmV0dXJlczoKPiArZXJyX2luaXRfYXBlcnR1cmVz
+Ogo+ICAgICAgICAgcHFtX3VuaW5pdCgmcHJvY2Vzcy0+cHFtKTsKPiAgZXJyX3Byb2Nlc3NfcHFt
+X2luaXQ6Cj4gICAgICAgICBoYXNoX2RlbF9yY3UoJnByb2Nlc3MtPmtmZF9wcm9jZXNzZXMpOwo+
+IC0tCj4gMi43LjQKPgoKSGkgR2VlcnQsClRoYW5rcyEKQXBwbGllZCB0byBhbWRrZmQtbmV4dAoK
+T2RlZApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
+Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
