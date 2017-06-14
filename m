@@ -1,11 +1,12 @@
-From: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/powerplay: fix avfs state machine on fiji/polais.
-Date: Wed, 14 Jun 2017 17:43:45 +0800
-Message-ID: <1497433425-7594-1-git-send-email-Rex.Zhu@amd.com>
+From: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+Subject: upsteam find bo api
+Date: Wed, 14 Jun 2017 18:16:24 +0800
+Message-ID: <59410CF8.9080409@amd.com>
+References: <20170613201205.21138-1-nhaehnle@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="------------040809040004090605030009"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20170613201205.21138-1-nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,134 +18,464 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
-Q2hhbmdlLUlkOiBJOTg3YTUzZTUxODU5MzRiZGY2OTI2ZjlkNjA2NWQyZWM2YWNhMDViYgpTaWdu
-ZWQtb2ZmLWJ5OiBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJt
-L2FtZC9wb3dlcnBsYXkvc211bWdyL2Zpamlfc211bWdyLmMgfCAxMTQgKystLS0tLS0tLS0tLS0t
-LS0tLS0tCiAuLi4vZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3BvbGFyaXMxMF9zbXVtZ3IuYyAg
-ICB8ICAgNSArLQogMiBmaWxlcyBjaGFuZ2VkLCAxMCBpbnNlcnRpb25zKCspLCAxMDkgZGVsZXRp
-b25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdy
-L2Zpamlfc211bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvZmlq
-aV9zbXVtZ3IuYwppbmRleCBhMWNiNzg1Li42NmQzZmY4IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvZmlqaV9zbXVtZ3IuYworKysgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvZmlqaV9zbXVtZ3IuYwpAQCAtMTk0LDIyICsxOTQs
-MTAgQEAgc3RhdGljIGludCBmaWppX3N0YXJ0X2F2ZnNfYnRjKHN0cnVjdCBwcF9zbXVtZ3IgKnNt
-dW1ncikKIAlpbnQgcmVzdWx0ID0gMDsKIAlzdHJ1Y3QgZmlqaV9zbXVtZ3IgKnByaXYgPSAoc3Ry
-dWN0IGZpamlfc211bWdyICopKHNtdW1nci0+YmFja2VuZCk7CiAKLQlwcml2LT5hdmZzLkF2ZnNC
-dGNTdGF0dXMgPSBBVkZTX0JUQ19TVEFSVEVEOwogCWlmIChwcml2LT5hdmZzLkF2ZnNCdGNQYXJh
-bSkgewogCQlpZiAoIXNtdW1fc2VuZF9tc2dfdG9fc21jX3dpdGhfcGFyYW1ldGVyKHNtdW1nciwK
-IAkJCQlQUFNNQ19NU0dfUGVyZm9ybUJ0YywgcHJpdi0+YXZmcy5BdmZzQnRjUGFyYW0pKSB7Ci0J
-CQlpZiAoIXNtdW1fc2VuZF9tc2dfdG9fc21jKHNtdW1nciwgUFBTTUNfTVNHX0VuYWJsZUF2ZnMp
-KSB7Ci0JCQkJcHJpdi0+YXZmcy5BdmZzQnRjU3RhdHVzID0gQVZGU19CVENfQ09NUExFVEVEX1VO
-U0FWRUQ7Ci0JCQkJcmVzdWx0ID0gMDsKLQkJCX0gZWxzZSB7Ci0JCQkJcHJfZXJyKCJbQVZGU11b
-ZmlqaV9zdGFydF9hdmZzX2J0Y10gQXR0ZW1wdCIKLQkJCQkJCSIgdG8gRW5hYmxlIEFWRlMgRmFp
-bGVkISIpOwotCQkJCXNtdW1fc2VuZF9tc2dfdG9fc21jKHNtdW1nciwgUFBTTUNfTVNHX0Rpc2Fi
-bGVBdmZzKTsKLQkJCQlyZXN1bHQgPSAtMTsKLQkJCX0KLQkJfSBlbHNlIHsKLQkJCXByX2Vycigi
-W0FWRlNdW2Zpamlfc3RhcnRfYXZmc19idGNdICIKLQkJCQkJIlBlcmZvcm1CVEMgU01VIG1zZyBm
-YWlsZWQiKTsKKwkJCXByX2VycigiUGVyZm9ybUJUQyBTTVUgbXNnIGZhaWxlZCBcbiIpOwogCQkJ
-cmVzdWx0ID0gLTE7CiAJCX0KIAl9CkBAIC0yMjQsNDIgKzIxMiw2IEBAIHN0YXRpYyBpbnQgZmlq
-aV9zdGFydF9hdmZzX2J0YyhzdHJ1Y3QgcHBfc211bWdyICpzbXVtZ3IpCiAJcmV0dXJuIHJlc3Vs
-dDsKIH0KIAotc3RhdGljIGludCBmaWppX3NldHVwX3BtX2Z1c2VfZm9yX2F2ZnMoc3RydWN0IHBw
-X3NtdW1nciAqc211bWdyKQotewotCWludCByZXN1bHQgPSAwOwotCXVpbnQzMl90IHRhYmxlX3N0
-YXJ0OwotCXVpbnQzMl90IGNoYXJ6X2ZyZXFfYWRkciwgaW52ZXJzaW9uX3ZvbHRhZ2VfYWRkciwg
-Y2hhcnpfZnJlcTsKLQl1aW50MTZfdCBpbnZlcnNpb25fdm9sdGFnZTsKLQotCWNoYXJ6X2ZyZXEg
-PSAweDMwNzUwMDAwOyAvKiBJbiAxMEtIeiB1bml0cyAweDAwMDA3NTMwIEFjdHVhbCB2YWx1ZSAq
-LwotCWludmVyc2lvbl92b2x0YWdlID0gMHgxQTA0OyAvKiBtViBRMTQuMiAweDQxQSBBY3R1YWwg
-dmFsdWUgKi8KLQotCVBQX0FTU0VSVF9XSVRIX0NPREUoMCA9PSBzbXU3X3JlYWRfc21jX3NyYW1f
-ZHdvcmQoc211bWdyLAotCQkJU01VN19GSVJNV0FSRV9IRUFERVJfTE9DQVRJT04gKyBvZmZzZXRv
-ZihTTVU3M19GaXJtd2FyZV9IZWFkZXIsCi0JCQkJCVBtRnVzZVRhYmxlKSwgJnRhYmxlX3N0YXJ0
-LCAweDQwMDAwKSwKLQkJCSJbQVZGU11bRmlqaV9TZXR1cEdmeEx2bFN0cnVjdF0gU01VIGNvdWxk
-IG5vdCBjb21tdW5pY2F0ZSAiCi0JCQkic3RhcnRpbmcgYWRkcmVzcyBvZiBQbUZ1c2Ugc3RydWN0
-dXJlIiwKLQkJCXJldHVybiAtMTspOwotCi0JY2hhcnpfZnJlcV9hZGRyID0gdGFibGVfc3RhcnQg
-KwotCQkJb2Zmc2V0b2Yoc3RydWN0IFNNVTczX0Rpc2NyZXRlX1BtRnVzZXMsIFBzbUNoYXJ6RnJl
-cSk7Ci0JaW52ZXJzaW9uX3ZvbHRhZ2VfYWRkciA9IHRhYmxlX3N0YXJ0ICsKLQkJCW9mZnNldG9m
-KHN0cnVjdCBTTVU3M19EaXNjcmV0ZV9QbUZ1c2VzLCBJbnZlcnNpb25Wb2x0YWdlKTsKLQotCXJl
-c3VsdCA9IHNtdTdfY29weV9ieXRlc190b19zbWMoc211bWdyLCBjaGFyel9mcmVxX2FkZHIsCi0J
-CQkodWludDhfdCAqKSgmY2hhcnpfZnJlcSksIHNpemVvZihjaGFyel9mcmVxKSwgMHg0MDAwMCk7
-Ci0JUFBfQVNTRVJUX1dJVEhfQ09ERSgwID09IHJlc3VsdCwKLQkJCSJbQVZGU11bZmlqaV9zZXR1
-cF9wbV9mdXNlX2Zvcl9hdmZzXSBjaGFyel9mcmVxIGNvdWxkIG5vdCAiCi0JCQkiYmUgcG9wdWxh
-dGVkLiIsIHJldHVybiAtMTspOwotCi0JcmVzdWx0ID0gc211N19jb3B5X2J5dGVzX3RvX3NtYyhz
-bXVtZ3IsIGludmVyc2lvbl92b2x0YWdlX2FkZHIsCi0JCQkodWludDhfdCAqKSgmaW52ZXJzaW9u
-X3ZvbHRhZ2UpLCBzaXplb2YoaW52ZXJzaW9uX3ZvbHRhZ2UpLCAweDQwMDAwKTsKLQlQUF9BU1NF
-UlRfV0lUSF9DT0RFKDAgPT0gcmVzdWx0LCAiW0FWRlNdW2Zpamlfc2V0dXBfcG1fZnVzZV9mb3Jf
-YXZmc10gIgotCQkJImNoYXJ6X2ZyZXEgY291bGQgbm90IGJlIHBvcHVsYXRlZC4iLCByZXR1cm4g
-LTE7KTsKLQotCXJldHVybiByZXN1bHQ7Ci19Ci0KIHN0YXRpYyBpbnQgZmlqaV9zZXR1cF9ncmFw
-aGljc19sZXZlbF9zdHJ1Y3R1cmUoc3RydWN0IHBwX3NtdW1nciAqc211bWdyKQogewogCWludDMy
-X3QgdnJfY29uZmlnOwpAQCAtMjk4LDY3ICsyNTAsMTggQEAgc3RhdGljIGludCBmaWppX3NldHVw
-X2dyYXBoaWNzX2xldmVsX3N0cnVjdHVyZShzdHJ1Y3QgcHBfc211bWdyICpzbXVtZ3IpCiAJcmV0
-dXJuIDA7CiB9CiAKLS8qIFdvcmsgaW4gUHJvZ3Jlc3MgKi8KLXN0YXRpYyBpbnQgZmlqaV9yZXN0
-b3JlX3ZmdF90YWJsZShzdHJ1Y3QgcHBfc211bWdyICpzbXVtZ3IpCi17Ci0Jc3RydWN0IGZpamlf
-c211bWdyICpwcml2ID0gKHN0cnVjdCBmaWppX3NtdW1nciAqKShzbXVtZ3ItPmJhY2tlbmQpOwot
-Ci0JaWYgKEFWRlNfQlRDX0NPTVBMRVRFRF9TQVZFRCA9PSBwcml2LT5hdmZzLkF2ZnNCdGNTdGF0
-dXMpIHsKLQkJcHJpdi0+YXZmcy5BdmZzQnRjU3RhdHVzID0gQVZGU19CVENfQ09NUExFVEVEX1JF
-U1RPUkVEOwotCQlyZXR1cm4gMDsKLQl9IGVsc2UKLQkJcmV0dXJuIC1FSU5WQUw7Ci19Ci0KLS8q
-IFdvcmsgaW4gUHJvZ3Jlc3MgKi8KLXN0YXRpYyBpbnQgZmlqaV9zYXZlX3ZmdF90YWJsZShzdHJ1
-Y3QgcHBfc211bWdyICpzbXVtZ3IpCi17Ci0Jc3RydWN0IGZpamlfc211bWdyICpwcml2ID0gKHN0
-cnVjdCBmaWppX3NtdW1nciAqKShzbXVtZ3ItPmJhY2tlbmQpOwotCi0JaWYgKEFWRlNfQlRDX0NP
-TVBMRVRFRF9TQVZFRCA9PSBwcml2LT5hdmZzLkF2ZnNCdGNTdGF0dXMpIHsKLQkJcHJpdi0+YXZm
-cy5BdmZzQnRjU3RhdHVzID0gQVZGU19CVENfQ09NUExFVEVEX1JFU1RPUkVEOwotCQlyZXR1cm4g
-MDsKLQl9IGVsc2UKLQkJcmV0dXJuIC1FSU5WQUw7Ci19Ci0KIHN0YXRpYyBpbnQgZmlqaV9hdmZz
-X2V2ZW50X21ncihzdHJ1Y3QgcHBfc211bWdyICpzbXVtZ3IsIGJvb2wgc211X3N0YXJ0ZWQpCiB7
-CiAJc3RydWN0IGZpamlfc211bWdyICpwcml2ID0gKHN0cnVjdCBmaWppX3NtdW1nciAqKShzbXVt
-Z3ItPmJhY2tlbmQpOwogCiAJc3dpdGNoIChwcml2LT5hdmZzLkF2ZnNCdGNTdGF0dXMpIHsKLQlj
-YXNlIEFWRlNfQlRDX0NPTVBMRVRFRF9TQVZFRDogLypTMyBTdGF0ZSAtIFByZSBTTVUgU3RhcnQg
-Ki8KLQkJcHJpdi0+YXZmcy5BdmZzQnRjU3RhdHVzID0gQVZGU19CVENfUkVTVE9SRVZGVF9GQUlM
-RUQ7Ci0JCVBQX0FTU0VSVF9XSVRIX0NPREUoMCA9PSBmaWppX3Jlc3RvcmVfdmZ0X3RhYmxlKHNt
-dW1nciksCi0JCQkJIltBVkZTXVtmaWppX2F2ZnNfZXZlbnRfbWdyXSBDb3VsZCBub3QgQ29weSBH
-cmFwaGljcyAiCi0JCQkJIkxldmVsIHRhYmxlIG92ZXIgdG8gU01VIiwKLQkJCQlyZXR1cm4gLTE7
-KTsKLQkJcHJpdi0+YXZmcy5BdmZzQnRjU3RhdHVzID0gQVZGU19CVENfQ09NUExFVEVEX1JFU1RP
-UkVEOwotCQlicmVhazsKLQljYXNlIEFWRlNfQlRDX0NPTVBMRVRFRF9SRVNUT1JFRDogLypTMyBT
-dGF0ZSAtIFBvc3QgU01VIFN0YXJ0Ki8KLQkJcHJpdi0+YXZmcy5BdmZzQnRjU3RhdHVzID0gQVZG
-U19CVENfU01VTVNHX0VSUk9SOwotCQlQUF9BU1NFUlRfV0lUSF9DT0RFKDAgPT0gc211bV9zZW5k
-X21zZ190b19zbWMoc211bWdyLAotCQkJCTB4NjY2KSwKLQkJCQkiW0FWRlNdW2ZpamlfYXZmc19l
-dmVudF9tZ3JdIFNNVSBkaWQgbm90IHJlc3BvbmQgIgotCQkJCSJjb3JyZWN0bHkgdG8gVmZ0VGFi
-bGVJc1ZhbGlkIE1zZyIsCi0JCQkJcmV0dXJuIC0xOyk7Ci0JCXByaXYtPmF2ZnMuQXZmc0J0Y1N0
-YXR1cyA9IEFWRlNfQlRDX1NNVU1TR19FUlJPUjsKLQkJUFBfQVNTRVJUX1dJVEhfQ09ERSgwID09
-IHNtdW1fc2VuZF9tc2dfdG9fc21jKHNtdW1nciwKLQkJCQlQUFNNQ19NU0dfRW5hYmxlQXZmcyks
-Ci0JCQkJIltBVkZTXVtmaWppX2F2ZnNfZXZlbnRfbWdyXSBTTVUgZGlkIG5vdCByZXNwb25kICIK
-LQkJCQkiY29ycmVjdGx5IHRvIEVuYWJsZUF2ZnMgTWVzc2FnZSBNc2ciLAotCQkJCXJldHVybiAt
-MTspOwotCQlwcml2LT5hdmZzLkF2ZnNCdGNTdGF0dXMgPSBBVkZTX0JUQ19DT01QTEVURURfU0FW
-RUQ7CisJY2FzZSBBVkZTX0JUQ19DT01QTEVURURfUFJFVklPVVNMWToKIAkJYnJlYWs7CisKIAlj
-YXNlIEFWRlNfQlRDX0JPT1Q6IC8qQ29sZCBCb290IFN0YXRlIC0gUG9zdCBTTVUgU3RhcnQqLwog
-CQlpZiAoIXNtdV9zdGFydGVkKQogCQkJYnJlYWs7CiAJCXByaXYtPmF2ZnMuQXZmc0J0Y1N0YXR1
-cyA9IEFWRlNfQlRDX0ZBSUxFRDsKLQkJUFBfQVNTRVJUX1dJVEhfQ09ERSgwID09IGZpamlfc2V0
-dXBfcG1fZnVzZV9mb3JfYXZmcyhzbXVtZ3IpLAotCQkJCSJbQVZGU11bZmlqaV9hdmZzX2V2ZW50
-X21ncl0gRmFpbHVyZSBhdCAiCi0JCQkJImZpamlfc2V0dXBfcG1fZnVzZV9mb3JfYXZmcyIsCi0J
-CQkJcmV0dXJuIC0xOyk7Ci0JCXByaXYtPmF2ZnMuQXZmc0J0Y1N0YXR1cyA9IEFWRlNfQlRDX0RQ
-TVRBQkxFU0VUVVBfRkFJTEVEOwogCQlQUF9BU1NFUlRfV0lUSF9DT0RFKDAgPT0gZmlqaV9zZXR1
-cF9ncmFwaGljc19sZXZlbF9zdHJ1Y3R1cmUoc211bWdyKSwKIAkJCQkiW0FWRlNdW2ZpamlfYXZm
-c19ldmVudF9tZ3JdIENvdWxkIG5vdCBDb3B5IEdyYXBoaWNzIExldmVsIgogCQkJCSIgdGFibGUg
-b3ZlciB0byBTTVUiLApAQCAtMzczLDE4ICsyNzYsMTUgQEAgc3RhdGljIGludCBmaWppX2F2ZnNf
-ZXZlbnRfbWdyKHN0cnVjdCBwcF9zbXVtZ3IgKnNtdW1nciwgYm9vbCBzbXVfc3RhcnRlZCkKIAkJ
-CQkiW0FWRlNdW2ZpamlfYXZmc19ldmVudF9tZ3JdIEZhaWx1cmUgYXQgIgogCQkJCSJmaWppX3N0
-YXJ0X2F2ZnNfYnRjLiBBVkZTIERpc2FibGVkIiwKIAkJCQlyZXR1cm4gLTE7KTsKLQkJcHJpdi0+
-YXZmcy5BdmZzQnRjU3RhdHVzID0gQVZGU19CVENfU0FWRVZGVF9GQUlMRUQ7Ci0JCVBQX0FTU0VS
-VF9XSVRIX0NPREUoMCA9PSBmaWppX3NhdmVfdmZ0X3RhYmxlKHNtdW1nciksCi0JCQkJIltBVkZT
-XVtmaWppX2F2ZnNfZXZlbnRfbWdyXSBDb3VsZCBub3Qgc2F2ZSBWRlQgVGFibGUiLAotCQkJCXJl
-dHVybiAtMTspOwotCQlwcml2LT5hdmZzLkF2ZnNCdGNTdGF0dXMgPSBBVkZTX0JUQ19DT01QTEVU
-RURfU0FWRUQ7CisKKwkJcHJpdi0+YXZmcy5BdmZzQnRjU3RhdHVzID0gIEFWRlNfQlRDX0VOQUJM
-RUFWRlM7CiAJCWJyZWFrOwogCWNhc2UgQVZGU19CVENfRElTQUJMRUQ6IC8qIERvIG5vdGhpbmcg
-Ki8KLQkJYnJlYWs7CiAJY2FzZSBBVkZTX0JUQ19OT1RTVVBQT1JURUQ6IC8qIERvIG5vdGhpbmcg
-Ki8KKwljYXNlIEFWRlNfQlRDX0VOQUJMRUFWRlM6CiAJCWJyZWFrOwogCWRlZmF1bHQ6Ci0JCXBy
-X2VycigiW0FWRlNdIFNvbWV0aGluZyBpcyBicm9rZW4uIFNlZSBsb2chIik7CisJCXByX2Vycigi
-QVZGUyBmYWlsZWQgc3RhdHVzIGlzICV4ICFcbiIsIHByaXYtPmF2ZnMuQXZmc0J0Y1N0YXR1cyk7
-CiAJCWJyZWFrOwogCX0KIAlyZXR1cm4gMDsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvcG93ZXJwbGF5L3NtdW1nci9wb2xhcmlzMTBfc211bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9zbXVtZ3IvcG9sYXJpczEwX3NtdW1nci5jCmluZGV4IDk2MTZjZWQuLjdl
-MDM0NzAgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9w
-b2xhcmlzMTBfc211bWdyLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211
-bWdyL3BvbGFyaXMxMF9zbXVtZ3IuYwpAQCAtMjAwLDE1ICsyMDAsMTYgQEAgc3RhdGljIGludCBw
-b2xhcmlzMTBfc2V0dXBfZ3JhcGhpY3NfbGV2ZWxfc3RydWN0dXJlKHN0cnVjdCBwcF9zbXVtZ3Ig
-KnNtdW1ncikKIAkJUFBfQVNTRVJUX1dJVEhfQ09ERSgwID09IHBvbGFyaXMxMF9wZXJmb3JtX2J0
-YyhzbXVtZ3IpLAogCQkJCQkiW0FWRlNdW1BvbGFyaXMxMF9BVkZTRXZlbnRNZ3JdIEZhaWx1cmUg
-YXQgU211UG9sYXJpczEwX1BlcmZvcm1CVEMuIEFWRlMgRGlzYWJsZWQiLAogCQkJCSByZXR1cm4g
-LTEpOwotCisJCXNtdV9kYXRhLT5hdmZzLmF2ZnNfYnRjX3N0YXR1cyA9IEFWRlNfQlRDX0VOQUJM
-RUFWRlM7CiAJCWJyZWFrOwogCiAJY2FzZSBBVkZTX0JUQ19ESVNBQkxFRDoKKwljYXNlIEFWRlNf
-QlRDX0VOQUJMRUFWRlM6CiAJY2FzZSBBVkZTX0JUQ19OT1RTVVBQT1JURUQ6CiAJCWJyZWFrOwog
-CiAJZGVmYXVsdDoKLQkJcHJfaW5mbygiW0FWRlNdIFNvbWV0aGluZyBpcyBicm9rZW4uIFNlZSBs
-b2chIik7CisJCXByX2VycigiQVZGUyBmYWlsZWQgc3RhdHVzIGlzICV4IVxuIiwgc211X2RhdGEt
-PmF2ZnMuYXZmc19idGNfc3RhdHVzKTsKIAkJYnJlYWs7CiAJfQogCi0tIAoxLjkuMQoKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--------------040809040004090605030009
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Hi all,
+
+Since patches are one feature, and contain kernel and libdrm, I attached 
+them not by send-mail. Hope not inconvenience.
+
+0001-drm-amdgpu-return-bo-itself-if-userptr-is-cpu-addr-o.patch is 
+kernel patch.
+Other three is libdrm patches including unit test.
+
+please review.
+
+Regards,
+David Zhou
+
+--------------040809040004090605030009
+Content-Type: text/x-patch;
+	name="0001-drm-amdgpu-return-bo-itself-if-userptr-is-cpu-addr-o.patch"
+Content-Transfer-Encoding: 8bit
+Content-Disposition: attachment;
+	filename*0="0001-drm-amdgpu-return-bo-itself-if-userptr-is-cpu-addr-o.pa";
+	filename*1="tch"
+
+>From a388eeb1b1f59db55743407989d539bc3d546b82 Mon Sep 17 00:00:00 2001
+From: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+Date: Wed, 25 Nov 2015 18:09:10 +0800
+Subject: [PATCH] drm/amdgpu: return bo itself if userptr is cpu addr of bo V2
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+V2: get original gem handle from gobj
+
+Change-Id: I705eadfe03cd85c75bff252563d69f3c8a536868
+Signed-off-by: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+Reviewed-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Reviewed-by: Jammy Zhou <Jammy.Zhou-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 59 +++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c |  3 +-
+ include/uapi/drm/amdgpu_drm.h           | 12 +++++++
+ 4 files changed, 75 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 063fc73..c393c99 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -1389,6 +1389,8 @@ int amdgpu_gem_info_ioctl(struct drm_device *dev, void *data,
+ 			  struct drm_file *filp);
+ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
+ 			struct drm_file *filp);
++int amdgpu_gem_find_bo_by_cpu_mapping_ioctl(struct drm_device *dev, void *data,
++					    struct drm_file *filp);
+ int amdgpu_gem_mmap_ioctl(struct drm_device *dev, void *data,
+ 			  struct drm_file *filp);
+ int amdgpu_gem_wait_idle_ioctl(struct drm_device *dev, void *data,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 621f739..85152f7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -284,6 +284,65 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
+ 	return 0;
+ }
+ 
++static int amdgpu_gem_get_handle_from_object(struct drm_file *filp,
++					     struct drm_gem_object *obj)
++{
++	int i;
++	struct drm_gem_object *tmp;
++	spin_lock(&filp->table_lock);
++	idr_for_each_entry(&filp->object_idr, tmp, i) {
++		if (obj == tmp) {
++			drm_gem_object_reference(obj);
++			spin_unlock(&filp->table_lock);
++			return i;
++		}
++	}
++	spin_unlock(&filp->table_lock);
++	return 0;
++}
++
++
++int amdgpu_gem_find_bo_by_cpu_mapping_ioctl(struct drm_device *dev, void *data,
++					    struct drm_file *filp)
++{
++	struct drm_amdgpu_gem_find_bo *args = data;
++	struct drm_gem_object *gobj;
++	struct amdgpu_bo *bo;
++	struct ttm_buffer_object *tbo;
++	struct vm_area_struct *vma;
++	uint32_t handle;
++	int r;
++
++	if (offset_in_page(args->addr | args->size))
++		return -EINVAL;
++
++	down_read(&current->mm->mmap_sem);
++	vma = find_vma(current->mm, args->addr);
++	if (!vma || vma->vm_file != filp->filp ||
++	    (args->size > (vma->vm_end - args->addr))) {
++		args->handle = 0;
++		up_read(&current->mm->mmap_sem);
++		return -EINVAL;
++	}
++	tbo = vma->vm_private_data;
++	bo = container_of(tbo, struct amdgpu_bo, tbo);
++	amdgpu_bo_ref(bo);
++	gobj = &bo->gem_base;
++	handle = amdgpu_gem_get_handle_from_object(filp, gobj);
++	if (handle == 0) {
++		r = drm_gem_handle_create(filp, gobj, &handle);
++		if (r) {
++			DRM_ERROR("create gem handle failed\n");
++			up_read(&current->mm->mmap_sem);
++			return r;
++		}
++	}
++	args->handle = handle;
++	args->offset = args->addr - vma->vm_start;
++	up_read(&current->mm->mmap_sem);
++	return 0;
++}
++
+ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
+ 			     struct drm_file *filp)
+ {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index f68ced6..37c60a8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -1069,7 +1069,8 @@ int amdgpu_get_vblank_timestamp_kms(struct drm_device *dev, unsigned int pipe,
+ 	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_VA, amdgpu_gem_va_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_OP, amdgpu_gem_op_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+ 	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_USERPTR, amdgpu_gem_userptr_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+-	DRM_IOCTL_DEF_DRV(AMDGPU_FREESYNC, amdgpu_freesync_ioctl, DRM_MASTER)
++	DRM_IOCTL_DEF_DRV(AMDGPU_FREESYNC, amdgpu_freesync_ioctl, DRM_MASTER),
++	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_FIND_BO, amdgpu_gem_find_bo_by_cpu_mapping_ioctl, DRM_AUTH|DRM_RENDER_ALLOW)
+ };
+ const int amdgpu_max_kms_ioctl = ARRAY_SIZE(amdgpu_ioctls_kms);
+ 
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 4f34394..0cdfe7d8 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -53,6 +53,7 @@
+ #define DRM_AMDGPU_WAIT_FENCES		0x12
+ #define DRM_AMDGPU_VM			0x13
+ #define DRM_AMDGPU_FREESYNC	        0x14
++#define DRM_AMDGPU_GEM_FIND_BO		0x15
+ 
+ #define DRM_IOCTL_AMDGPU_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
+ #define DRM_IOCTL_AMDGPU_GEM_MMAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+@@ -69,6 +70,7 @@
+ #define DRM_IOCTL_AMDGPU_WAIT_FENCES	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_WAIT_FENCES, union drm_amdgpu_wait_fences)
+ #define DRM_IOCTL_AMDGPU_VM		DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_VM, union drm_amdgpu_vm)
+ #define DRM_IOCTL_AMDGPU_FREESYNC	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_FREESYNC, struct drm_amdgpu_freesync)
++#define DRM_IOCTL_AMDGPU_GEM_FIND_BO	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_FIND_BO, struct drm_amdgpu_gem_find_bo)
+ 
+ #define AMDGPU_GEM_DOMAIN_CPU		0x1
+ #define AMDGPU_GEM_DOMAIN_GTT		0x2
+@@ -233,6 +235,16 @@ struct drm_amdgpu_gem_userptr {
+ 	__u32		handle;
+ };
+ 
++struct drm_amdgpu_gem_find_bo {
++	uint64_t		addr;
++	uint64_t		size;
++	uint32_t		flags;
++	/* Resulting GEM handle */
++	uint32_t		handle;
++	/* offset in bo */
++	uint64_t		offset;
++};
++
+ /* SI-CI-VI: */
+ /* same meaning as the GB_TILE_MODE and GL_MACRO_TILE_MODE fields */
+ #define AMDGPU_TILING_ARRAY_MODE_SHIFT			0
+-- 
+1.9.1
+
+
+--------------040809040004090605030009
+Content-Type: text/x-patch;
+	name="0001-amdgpu-add-amdgpu_find_bo_by_cpu_mapping-interface.patch"
+Content-Transfer-Encoding: 8bit
+Content-Disposition: attachment;
+	filename*0="0001-amdgpu-add-amdgpu_find_bo_by_cpu_mapping-interface.patc";
+	filename*1="h"
+
+>From 108cdd7f8685521481a01db91433a5dcc938687d Mon Sep 17 00:00:00 2001
+From: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+Date: Thu, 26 Nov 2015 17:01:07 +0800
+Subject: [PATCH] amdgpu: add amdgpu_find_bo_by_cpu_mapping interface
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+userspace needs to know if the user memory is from BO or malloc.
+
+Change-Id: Ie2dbc13f1c02bc0a996f64f9db83a21da63c1d70
+Signed-off-by: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+Reviewed-by: Jammy Zhou <Jammy.Zhou-5C7GfCeVMHo@public.gmane.org>
+Reviewed-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+---
+ amdgpu/amdgpu.h          | 24 ++++++++++++++++++++++++
+ amdgpu/amdgpu_bo.c       | 37 +++++++++++++++++++++++++++++++++++++
+ include/drm/amdgpu_drm.h | 12 ++++++++++++
+ 3 files changed, 73 insertions(+)
+
+diff --git a/amdgpu/amdgpu.h b/amdgpu/amdgpu.h
+index d4edb3e..8482032 100644
+--- a/amdgpu/amdgpu.h
++++ b/amdgpu/amdgpu.h
+@@ -672,6 +672,30 @@ int amdgpu_create_bo_from_user_mem(amdgpu_device_handle dev,
+ 				    amdgpu_bo_handle *buf_handle);
+ 
+ /**
++ * Validate if the user memory comes from BO
++ *
++ * \param dev - [in] Device handle. See #amdgpu_device_initialize()
++ * \param cpu - [in] CPU address of user allocated memory which we
++ * want to map to GPU address space (make GPU accessible)
++ * (This address must be correctly aligned).
++ * \param size - [in] Size of allocation (must be correctly aligned)
++ * \param buf_handle - [out] Buffer handle for the userptr memory
++ * if the user memory is not from BO, the buf_handle will be NULL.
++ * \param offset_in_bo - [out] offset in this BO for this user memory
++ *
++ *
++ * \return   0 on success\n
++ *          <0 - Negative POSIX Error code
++ *
++*/
++int amdgpu_find_bo_by_cpu_mapping(amdgpu_device_handle dev,
++				  void *cpu,
++				  uint64_t size,
++				  amdgpu_bo_handle *buf_handle,
++				  uint64_t *offset_in_bo);
++
++
++/**
+  * Free previosuly allocated memory
+  *
+  * \param   dev	       - \c [in] Device handle. See #amdgpu_device_initialize()
+diff --git a/amdgpu/amdgpu_bo.c b/amdgpu/amdgpu_bo.c
+index d30fd1e..ff78039 100644
+--- a/amdgpu/amdgpu_bo.c
++++ b/amdgpu/amdgpu_bo.c
+@@ -529,6 +529,43 @@ int amdgpu_bo_wait_for_idle(amdgpu_bo_handle bo,
+ 	}
+ }
+ 
++int amdgpu_find_bo_by_cpu_mapping(amdgpu_device_handle dev,
++				  void *cpu,
++				  uint64_t size,
++				  amdgpu_bo_handle *buf_handle,
++				  uint64_t *offset_in_bo)
++{
++	int r;
++	struct amdgpu_bo *bo;
++	struct drm_amdgpu_gem_find_bo args;
++
++	args.addr = (uintptr_t)cpu;
++	args.size = size;
++	r = drmCommandWriteRead(dev->fd, DRM_AMDGPU_GEM_FIND_BO,
++				&args, sizeof(args));
++	if (r)
++		return r;
++	if (args.handle == 0)
++		return -EINVAL;
++	bo = util_hash_table_get(dev->bo_handles,
++				 (void*)(uintptr_t)args.handle);
++	if (!bo) {
++		bo = calloc(1, sizeof(struct amdgpu_bo));
++		if (!bo)
++			return -ENOMEM;
++		atomic_set(&bo->refcount, 1);
++		bo->dev = dev;
++		bo->alloc_size = size;
++		bo->handle = args.handle;
++	} else
++		atomic_inc(&bo->refcount);
++
++	*buf_handle = bo;
++	*offset_in_bo = args.offset;
++	return r;
++}
++
++
+ int amdgpu_create_bo_from_user_mem(amdgpu_device_handle dev,
+ 				    void *cpu,
+ 				    uint64_t size,
+diff --git a/include/drm/amdgpu_drm.h b/include/drm/amdgpu_drm.h
+index 050e7fe..e07904c 100644
+--- a/include/drm/amdgpu_drm.h
++++ b/include/drm/amdgpu_drm.h
+@@ -47,6 +47,7 @@
+ #define DRM_AMDGPU_GEM_OP		0x10
+ #define DRM_AMDGPU_GEM_USERPTR		0x11
+ #define DRM_AMDGPU_WAIT_FENCES		0x12
++#define DRM_AMDGPU_GEM_FIND_BO          0x15
+ 
+ #define DRM_IOCTL_AMDGPU_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
+ #define DRM_IOCTL_AMDGPU_GEM_MMAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+@@ -61,6 +62,7 @@
+ #define DRM_IOCTL_AMDGPU_GEM_OP		DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_OP, struct drm_amdgpu_gem_op)
+ #define DRM_IOCTL_AMDGPU_GEM_USERPTR	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_USERPTR, struct drm_amdgpu_gem_userptr)
+ #define DRM_IOCTL_AMDGPU_WAIT_FENCES	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_WAIT_FENCES, union drm_amdgpu_wait_fences)
++#define DRM_IOCTL_AMDGPU_GEM_FIND_BO      DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_FIND_BO, struct drm_amdgpu_gem_find_bo)
+ 
+ #define AMDGPU_GEM_DOMAIN_CPU		0x1
+ #define AMDGPU_GEM_DOMAIN_GTT		0x2
+@@ -201,6 +203,16 @@ struct drm_amdgpu_gem_userptr {
+ 	uint32_t		handle;
+ };
+ 
++struct drm_amdgpu_gem_find_bo {
++       uint64_t                addr;
++       uint64_t                size;
++       uint32_t                flags;
++       /* Resulting GEM handle */
++       uint32_t                handle;
++       /* offset in bo */
++       uint64_t                offset;
++};
++
+ /* same meaning as the GB_TILE_MODE and GL_MACRO_TILE_MODE fields */
+ #define AMDGPU_TILING_ARRAY_MODE_SHIFT			0
+ #define AMDGPU_TILING_ARRAY_MODE_MASK			0xf
+-- 
+1.9.1
+
+
+--------------040809040004090605030009
+Content-Type: text/x-patch;
+	name="0001-amdgpu-add-bo-handle-to-hash-table-when-cpu-mapping.patch"
+Content-Transfer-Encoding: 8bit
+Content-Disposition: attachment;
+	filename*0="0001-amdgpu-add-bo-handle-to-hash-table-when-cpu-mapping.pat";
+	filename*1="ch"
+
+>From f953cc6627fa4928d39d3de7c0e0f6a89c1e18ec Mon Sep 17 00:00:00 2001
+From: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+Date: Thu, 3 Dec 2015 16:52:33 +0800
+Subject: [PATCH] amdgpu: add bo handle to hash table when cpu mapping
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Change-Id: Id79d98877c61510a1986d65befec6ce6713edae7
+Signed-off-by: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+Reviewed-by: Jammy Zhou <Jammy.Zhou-5C7GfCeVMHo@public.gmane.org>
+Reviewed-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+---
+ amdgpu/amdgpu_bo.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/amdgpu/amdgpu_bo.c b/amdgpu/amdgpu_bo.c
+index ff78039..aa0d001 100644
+--- a/amdgpu/amdgpu_bo.c
++++ b/amdgpu/amdgpu_bo.c
+@@ -463,7 +463,7 @@ int amdgpu_bo_cpu_map(amdgpu_bo_handle bo, void **cpu)
+ 		pthread_mutex_unlock(&bo->cpu_access_mutex);
+ 		return -errno;
+ 	}
+-
++	amdgpu_add_handle_to_table(bo);
+ 	bo->cpu_ptr = ptr;
+ 	bo->cpu_map_count = 1;
+ 	pthread_mutex_unlock(&bo->cpu_access_mutex);
+-- 
+1.9.1
+
+
+--------------040809040004090605030009
+Content-Type: text/x-patch;
+	name="0001-amdgpu-add-find-bo-api-unit-test.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="0001-amdgpu-add-find-bo-api-unit-test.patch"
+
+>From e08a265eeaf810d20c672c3e26f1c127b83debe9 Mon Sep 17 00:00:00 2001
+From: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+Date: Wed, 14 Jun 2017 18:09:23 +0800
+Subject: [PATCH] amdgpu: add find bo api unit test
+
+Change-Id: Icb67469b1c9bf6a132d1d412b551ec413dce48d9
+Signed-off-by: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+---
+ tests/amdgpu/basic_tests.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/tests/amdgpu/basic_tests.c b/tests/amdgpu/basic_tests.c
+index ec1944a..b1ba369 100644
+--- a/tests/amdgpu/basic_tests.c
++++ b/tests/amdgpu/basic_tests.c
+@@ -49,6 +49,7 @@ static void amdgpu_command_submission_compute(void);
+ static void amdgpu_command_submission_sdma(void);
+ static void amdgpu_command_submission_multi_fence(void);
+ static void amdgpu_userptr_test(void);
++static void amdgpu_find_bo_test(void);
+ static void amdgpu_semaphore_test(void);
+ static void amdgpu_svm_test(void);
+ static void amdgpu_multi_svm_test(void);
+@@ -62,6 +63,7 @@ CU_TestInfo basic_tests[] = {
+ 	{ "Query Info Test",  amdgpu_query_info_test },
+ 	{ "Memory alloc Test",  amdgpu_memory_alloc },
+ 	{ "Userptr Test",  amdgpu_userptr_test },
++	{ "Find bo Test",  amdgpu_find_bo_test },
+ 	{ "Command submission Test (GFX)",  amdgpu_command_submission_gfx },
+ 	{ "Command submission Test (Compute)", amdgpu_command_submission_compute },
+ 	{ "Command submission Test (SDMA)", amdgpu_command_submission_sdma },
+@@ -1591,6 +1593,28 @@ static void amdgpu_userptr_test(void)
+ 	CU_ASSERT_EQUAL(r, 0);
+ }
+ 
++static void amdgpu_find_bo_test(void)
++{
++	amdgpu_bo_handle bo_handle, bo_handle1;
++	void *cpu_addr;
++	uint64_t mc_address, offset_in_bo;
++	amdgpu_va_handle va_handle;
++	int r;
++
++	r = amdgpu_bo_alloc_and_map(device_handle, 4096, 4096,
++				    AMDGPU_GEM_DOMAIN_GTT, 0,
++				    &bo_handle, &cpu_addr,
++				    &mc_address, &va_handle);
++	CU_ASSERT_EQUAL(r, 0);
++
++	r = amdgpu_find_bo_by_cpu_mapping(device_handle,
++					  cpu_addr,
++					  4096,
++					  &bo_handle1, &offset_in_bo);
++	CU_ASSERT_EQUAL(r, 0);
++	CU_ASSERT_EQUAL(bo_handle, bo_handle1);
++}
++
+ static void amdgpu_svm_test(void)
+ {
+ 	int r;
+-- 
+1.9.1
+
+
+--------------040809040004090605030009
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--------------040809040004090605030009--
