@@ -1,39 +1,49 @@
-From: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
-Subject: [PATCH] drm/amdkfd: NULL dereference involving create_process()
-Date: Wed, 14 Jun 2017 13:58:53 +0300
-Message-ID: <20170614105853.GP29394@elgon.mountain>
+From: Emil Velikov <emil.l.velikov@gmail.com>
+Subject: Re: [PATCH libdrm v8] amdgpu: move asic id table to a separate file
+Date: Wed, 14 Jun 2017 12:34:03 +0100
+Message-ID: <CACvgo52rca1jcgzb-or8D48iFsF8NcPP1DemEaOrjfhK0x4Q5Q@mail.gmail.com>
+References: <20170612095021.5711-1-michel@daenzer.net>
+ <20170613094555.29998-1-michel@daenzer.net>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Alexey Skidanov <Alexey.Skidanov-5C7GfCeVMHo@public.gmane.org>
-Cc: David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20170613094555.29998-1-michel@daenzer.net>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
+Cc: ML dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-V2UgYWNjaWRlbnRhbGx5IHJldHVybiBFUlJfUFRSKDApIHdoaWNoIGlzIE5VTEwuICBUaGUgY2Fs
-bGVyIGlzIG5vdApleHBlY3RpbmcgdGhhdCBhbmQgaXQgbGVhZHMgdG8gYW4gT29wcy4KCkZpeGVz
-OiBkZDU5MjM5YTk4NjIgKCJhbWRrZmQ6IGluaXQgYXBlcnR1cmUgb25jZSBwZXIgcHJvY2VzcyIp
-ClNpZ25lZC1vZmYtYnk6IERhbiBDYXJwZW50ZXIgPGRhbi5jYXJwZW50ZXJAb3JhY2xlLmNvbT4K
-CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzcy5jIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3Byb2Nlc3MuYwppbmRleCA4NGQxZmZkMWVl
-ZjkuLjExOTBkMDY4ODRlZCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQv
-a2ZkX3Byb2Nlc3MuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vz
-cy5jCkBAIC0zMTgsNyArMzE4LDggQEAgc3RhdGljIHN0cnVjdCBrZmRfcHJvY2VzcyAqY3JlYXRl
-X3Byb2Nlc3MoY29uc3Qgc3RydWN0IHRhc2tfc3RydWN0ICp0aHJlYWQpCiAKIAkvKiBpbml0IHBy
-b2Nlc3MgYXBlcnR1cmVzKi8KIAlwcm9jZXNzLT5pc18zMmJpdF91c2VyX21vZGUgPSBpbl9jb21w
-YXRfc3lzY2FsbCgpOwotCWlmIChrZmRfaW5pdF9hcGVydHVyZXMocHJvY2VzcykgIT0gMCkKKwll
-cnIgPSBrZmRfaW5pdF9hcGVydHVyZXMocHJvY2Vzcyk7CisJaWYgKGVyciAhPSAwKQogCQlnb3Rv
-IGVycl9pbml0X2FwcmV0dXJlczsKIAogCXJldHVybiBwcm9jZXNzOwpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+T24gMTMgSnVuZSAyMDE3IGF0IDEwOjQ1LCBNaWNoZWwgRMOkbnplciA8bWljaGVsQGRhZW56ZXIu
+bmV0PiB3cm90ZToKPiBGcm9tOiBYaWFvamllIFl1YW4gPFhpYW9qaWUuWXVhbkBhbWQuY29tPgo+
+Cj4gdjI6IGZpeCBhbiBvZmYgYnkgb25lIGVycm9yIGFuZCBsZWFkaW5nIHdoaXRlIHNwYWNlcwo+
+IHYzOiB1c2UgdGhyZWFkIHNhZmUgc3RydG9rX3IoKTsgaW5pdGlhbGl6ZSBsZW4gYmVmb3JlIGNh
+bGxpbmcgZ2V0bGluZSgpOwo+ICAgICBjaGFuZ2UgcHJpbnRmKCkgdG8gZHJtTXNnKCk7IGFkZCBp
+bml0aWFsIGFtZGdwdS5pZHMKPiB2NDogaW50ZWdyYXRlIHNvbWUgcmVjZW50IGludGVybmFsIGNo
+YW5nZXMsIGluY2x1ZGluZyBmb3JtYXQgY2hhbmdlcwo+IHY1OiBmaXggbGluZSBudW1iZXIgZm9y
+IGVtcHR5L2NvbW1lbnRlZCBsaW5lczsgcmVhbGxvYyB0byBzYXZlIG1lbW9yeTsKPiAgICAgaW5k
+ZW50YXRpb24gY2hhbmdlcwo+IHY2OiByZW1vdmUgYSBsaW5lIGVycm9yCj4gdjc6IFtNaWNoZWwg
+RMOkbnplcl0KPiAqIE1vdmUgYW1kZ3B1LmlkcyB0byBuZXcgZGF0YSBkaXJlY3RvcnkKPiAqIFJl
+bW92ZSBwbGFjZWhvbGRlciBlbnRyaWVzIGZyb20gYW1kZ3B1Lmlkcwo+ICogU2V0IGxpYmRybWRh
+dGFkaXIgdmFyaWFibGUgaW4gY29uZmlndXJlLmFjIGluc3RlYWQgb2YgTWFrZWZpbGUuYW0KPiAg
+IFtFbWlsIFZlbGlrb3ZdCj4gKiBVc2UgaXNibGFuaygpIGluc3RlYWQgb2Ygb3Blbi1jb2Rpbmcg
+aXQgW0VtaWwgVmVsaWtvdl0KPiAqIERvbid0IGxlYWsgYXNpY19pZF90YWJsZSBtZW1vcnkgaWYg
+cmVhbGxvYyBmYWlscyBbRW1pbCBWZWxpa292XQo+ICogQ2hlY2sgYW5kIGJ1bXAgdGFibGVfbWF4
+X3NpemUgYXQgdGhlIGJlZ2lubmluZyBvZiB0aGUgd2hpbGUgbG9vcCBbRW1pbAo+ICAgVmVsaWtv
+dl0KPiAqIEluaXRpYWxpemUgdGFibGVfbWF4X3NpemUgdG8gdGhlIG51bWJlciBvZiBlbnRyaWVz
+IGluIGRhdGEvYW1kZ3B1LmlkcwpUaGFuayB5b3UgZm9yIGFkZHJlc3Npbmcgc29tZSBvZiBteSBz
+dWdnZXN0aW9ucy4KUmV2aWV3ZWQtYnk6IEVtaWwgVmVsaWtvdiA8ZW1pbC5sLnZlbGlrb3ZAZ21h
+aWwuY29tPgoKUGVyc29uYWxseSBJIHdvdWxkIG5vdCBoYXZlIGJvdGhlcmVkIHdpdGggdGhlIHRh
+YmxlX21heF9zaXplIHRoaW5nIG9yCnRoZSBzZXBhcmF0ZSBNYWtlZmlsZS4KQnV0IHRoYXQncyB0
+aGUgaWNpbmcgb2YgdGhlIGNha2UuCgotRW1pbApfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9kcmktZGV2ZWwK
