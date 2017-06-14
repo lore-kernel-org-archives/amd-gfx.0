@@ -1,66 +1,42 @@
-From: Felix Kuehling <felix.kuehling@amd.com>
-Subject: Re: [PATCH] drm/amdkfd: NULL dereference involving create_process()
-Date: Wed, 14 Jun 2017 14:34:44 -0400
-Message-ID: <2ccf5b7b-c4e8-c0d3-fd8e-d7438ba8681f@amd.com>
-References: <20170614105853.GP29394@elgon.mountain>
- <BN6PR12MB16526A96549054656758635FF7C30@BN6PR12MB1652.namprd12.prod.outlook.com>
+From: Bjorn Helgaas <helgaas@kernel.org>
+Subject: Re: Resizeable PCI BAR support V5
+Date: Wed, 14 Jun 2017 13:52:13 -0500
+Message-ID: <20170614185212.GC20778@bhelgaas-glaptop.roam.corp.google.com>
+References: <1496998787-6371-1-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Return-path: <kernel-janitors-owner@vger.kernel.org>
-In-Reply-To: <BN6PR12MB16526A96549054656758635FF7C30@BN6PR12MB1652.namprd12.prod.outlook.com>
-Content-Language: en-CA
-Sender: kernel-janitors-owner@vger.kernel.org
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 'Dan Carpenter' <dan.carpenter@oracle.com>, Oded Gabbay <oded.gabbay@gmail.com>, Alexey Skidanov <Alexey.Skidanov@amd.com>
-Cc: "Koenig, Christian" <Christian.Koenig@amd.com>, David Airlie <airlied@linux.ie>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "kernel-janitors@vger.kernel.org" <kernel-janitors@vger.kernel.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Return-path: <platform-driver-x86-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <1496998787-6371-1-git-send-email-deathsimple@vodafone.de>
+Sender: platform-driver-x86-owner@vger.kernel.org
+To: Christian =?iso-8859-1?Q?K=F6nig?= <deathsimple@vodafone.de>
+Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-Yeah, I saw this earlier. I'm on the amd-gfx list.
+On Fri, Jun 09, 2017 at 10:59:41AM +0200, Christian König wrote:
+> Hi everyone,
+> 
+> This is the fith incarnation of this set of patches. It enables device
+> drivers to resize and most likely also relocate the PCI BAR of devices 
+> they manage to allow the CPU to access all of the device local memory at once.
 
-The patch looks good to me. Feel free to add my R-b. Do you want to
-apply it to amd-staging-4.11 and drm-next? I can take care of
-amd-kfd-staging and the release branches.
+I think this is really v7, isn't it?  I see a v6 posted May 9.
 
-Thanks,
-  Felix
+> This is very useful for GFX device drivers where the default PCI BAR is only
+> about 256MB in size for compatibility reasons, but the device easily have
+> multiple gigabyte of local memory.
+> 
+> Some changes since V4:
+> 1. Rebased on 4.11.
 
+I apply patches to topic branches based on -rc1.  I did apply these by
+hand, but it's easier if they apply cleanly to -rc1.
 
-On 17-06-14 12:41 PM, Deucher, Alexander wrote:
-> > -----Original Message-----
-> > From: Dan Carpenter [mailto:dan.carpenter@oracle.com]
-> > Sent: Wednesday, June 14, 2017 6:59 AM
-> > To: Oded Gabbay; Alexey Skidanov
-> > Cc: Deucher, Alexander; Koenig, Christian; David Airlie; dri-
-> > devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org; kernel-
-> > janitors@vger.kernel.org
-> > Subject: [PATCH] drm/amdkfd: NULL dereference involving create_process()
-> >
-> > We accidentally return ERR_PTR(0) which is NULL.  The caller is not
-> > expecting that and it leads to an Oops.
-> >
-> > Fixes: dd59239a9862 ("amdkfd: init aperture once per process")
-> > Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
->
-> Include Felix.
->
-> Alex
->
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> > b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> > index 84d1ffd1eef9..1190d06884ed 100644
-> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> > @@ -318,7 +318,8 @@ static struct kfd_process *create_process(const
-> struct
-> > task_struct *thread)
-> >
-> >        /* init process apertures*/
-> >        process->is_32bit_user_mode = in_compat_syscall();
-> > -     if (kfd_init_apertures(process) != 0)
-> > +     err = kfd_init_apertures(process);
-> > +     if (err != 0)
-> >                goto err_init_apretures;
-> >
-> >        return process;
-
+> 2. added the rb from Andy Shevchenko to patches which look complete now.
+> 3. Move releasing the BAR and reallocating it on error to the driver side.
+> 4. Add amdgpu support for GMC V6 hardware generation as well.
+> 
+> Please review and/or comment,
+> Christian.
+> 
