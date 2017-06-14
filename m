@@ -1,14 +1,14 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: Question about porting VCE1 to amdgpu
-Date: Wed, 14 Jun 2017 17:09:12 +0000
-Message-ID: <BN6PR12MB165227C924CF7BC1E0D71D92F7C30@BN6PR12MB1652.namprd12.prod.outlook.com>
+From: Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: Question about porting VCE1 to amdgpu
+Date: Wed, 14 Jun 2017 17:30:14 +0000
+Message-ID: <CAPEhTTEUBR-wXeXetU=uzA42o_2KXJfCi0s8rr_AK_7ygA3RiA@mail.gmail.com>
 References: <CAPEhTTGyy4jehNXhe93h=kB29ThOxctWzuaiwrfjkyDVu5wMww@mail.gmail.com>
  <c3b779e6-3a65-770d-5ba5-40cd293ded3e@vodafone.de>
+ <BN6PR12MB165227C924CF7BC1E0D71D92F7C30@BN6PR12MB1652.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1635646890=="
+Content-Type: multipart/mixed; boundary="===============1066976021=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <c3b779e6-3a65-770d-5ba5-40cd293ded3e-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <BN6PR12MB165227C924CF7BC1E0D71D92F7C30-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,215 +19,366 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?J0NocmlzdGlhbiBLw7ZuaWcn?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, Alexandre
- Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Freedesktop - AMD-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, Freedesktop - AMD-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1635646890==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB165227C924CF7BC1E0D71D92F7C30BN6PR12MB1652namp_"
+--===============1066976021==
+Content-Type: multipart/alternative; boundary="001a113565c45af0860551eee834"
 
---_000_BN6PR12MB165227C924CF7BC1E0D71D92F7C30BN6PR12MB1652namp_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+--001a113565c45af0860551eee834
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-DQpGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZ10gT24gQmVoYWxmIE9mIENocmlzdGlhbiBLw7ZuaWcNClNlbnQ6IFdlZG5lc2RheSwgSnVu
-ZSAxNCwgMjAxNyAxMjozNyBQTQ0KVG86IEFsZXhhbmRyZSBEZW1lcnM7IEZyZWVkZXNrdG9wIC0g
-QU1ELWdmeA0KU3ViamVjdDogUmU6IFF1ZXN0aW9uIGFib3V0IHBvcnRpbmcgVkNFMSB0byBhbWRn
-cHUNCg0KLSBXb3VsZCB3ZSBuZWVkIGEgZGlmZmVyZW50IGZpcm13YXJlIHZlcnNpb24gd2l0aCBh
-IGRpZmZlcmVudCAiaGRyIiBmb3IgdGhlIGFtZGdwdSBkcml2ZXI/DQpZZXMsIHdlIHNob3VsZCBw
-cm9iYWJseSByZWxlYXNlIHRoZSBsYXRlc3Qgb25lIGluc3RlYWQgb2YgcmV1c2luZyB0aGUgb25l
-IHVzZWQgd2l0aCByYWRlb24uDQoNCkFjdHVhbGx5LCB3ZSBzaG91bGQgcHJvYmFibHkgc3RpY2sg
-dGhlIHNhbWUgb25lIGFzIHJhZGVvbiBmb3Igbm93IHVudGlsIHdlIGNhbiB2ZXJpZnkgdGhlIG5l
-dyBmaXJtd2FyZSBpbiBnZW5lcmFsLiAgRWFzaWVyIHRvIHN0YXJ0IHdpdGggYSBrbm93biB3b3Jr
-aW5nIGNhc2UuDQoNCg0KQlRXOiBEb2VzIFZDRSB3b3JrIG9uIENJSz8gQWxleCwgZG9uJ3Qgd2Ug
-cnVuIGludG8gdGhlIHNhbWUgaXNzdWUgdGhlcmUgYXMgd2VsbD8NCg0KVkNFIHdvcmtzIG9uIENJ
-Sy4gIFdlIHBvcnRlZCBWQ0UgYW5kIFVWRCB0byBDSUsgYXMgcGFydCBvZiB0aGUgaW5pdGlhbCBh
-bWRncHUgYnJpbmcgdXAuDQoNCkFsZXgNCg0KDQotIFdvdWxkbid0IGl0IGJlIGJldHRlciB0byBj
-b250aW51ZSBsb2FkaW5nIHRoZSBkcml2ZXIgd2hpbGUgaGF2aW5nIFZDRSBkaXNhYmxlZCBJRiB3
-ZSBmYWlsIHdoZW4gbG9hZGluZyBvciB2YWxpZGF0aW5nIHRoZSBGVz8gQ29tcGxldGVseSBmYWls
-aW5nIHRvIGxvYWQgdGhlIGRyaXZlciBmb3IgdGhpcyByZWFzb24gc2VlbXMgb3ZlcmtpbGwgSU1P
-LCBzaW5jZSBub3RoaW5nIGhhcyBiZWVuIGxvYWRlZCBpbiBtZW1vcnkgYW5kIG5vIHJlZ2lzdHJ5
-IGhhdmUgYmVlbiBtb2RpZmllZCB1cCB0byB0aGF0IHBvaW50Lg0KVVZEIGFuZCBWQ0UgYXJlIGFj
-dHVhbGx5IG5lZWRlZCBmb3IgY29ycmVjdCBwb3dlciBtYW5hZ2VtZW50LiBXaGVuIHRoZSBibG9j
-a3MgZmFpbCB0byBpbml0aWFsaXplIHlvdSB1c3VhbGx5IHNvb25lciBvciBsYXRlciBydW4gaW50
-byBwcm9ibGVtcyB3aXRoIHBvd2VyIG1hbmFnZW1lbnQgKGUuZy4gc3R1Y2sgaW5zaWRlIGEgY2Vy
-dGFpbiBwb3dlciBsZXZlbCkuDQoNCg0KLSBXb3VsZCBpdCBiZSBhIGdvb2QgaWRlYSB0byBzZW5k
-IGEgcGF0Y2ggYXMgYSBSRkMgc28gc29tZSBvZiB5b3UgY291bGQgaGVscCBtZSBmaW5pc2ggdGhl
-IGpvYiBhbmQgbWF5YmUgcGlucG9pbnQgd2hlcmUgdGhlIGxhc3QgbW9kaWZpY2F0aW9ucyBuZWVk
-IHRvIGJlIGRvbmU/DQpXZWxsIHlvdSBjb3VsZCwgYnV0IHRvIGJlIGhvbmVzdCB3aXRob3V0IEFN
-RCByZWxlYXNpbmcgbmV3IGZpcm13YXJlIHRoYXQgaXMgbW9zdCBsaWtlbHkgYSBmdXRpbGUgZWZm
-b3J0Lg0KDQpSZWdhcmRzLA0KQ2hyaXN0aWFuLg0KDQpBbSAxNC4wNi4yMDE3IHVtIDE4OjIyIHNj
-aHJpZWIgQWxleGFuZHJlIERlbWVyczoNCkhpLA0KDQpJJ3ZlIGJlZW4gd29ya2luZyBvbiBwb3J0
-aW5nIFZDRTEgZnJvbSByYWRlb24gdG8gYW1kZ3B1IGluIHRoZSBsYXN0IGZldyB3ZWVrcy4gSSdt
-IHByZXR0eSBtdWNoIGRvbmUgYW5kIEkndmUgZW5hYmxlZCB0aGUgZnVuY3Rpb25hbGl0eSB0byBz
-ZWUgaG93IGl0IGdvZXMuIEhvd2V2ZXIsIEkgZW5kZWQgdXAgd2l0aCBhbiBlcnJvciBvbiB0aGUg
-ZmlybXdhcmUgdmFsaWRhdGlvbiAoc2l6ZSBkb2Vzbid0IHNlZW0gdG8gZml0KSwgdGh1cyBmYWls
-aW5nIGNvbXBsZXRlbHkgaW4gbG9hZGluZyB0aGUgZHJpdmVyLiBJJ20gdGVzdGluZyBvbiBhIFI5
-IDI4MFggKFRhaGl0aSkuDQoNClRocmVlIHF1ZXN0aW9ucyB0aGVuOg0KLSBXb3VsZCB3ZSBuZWVk
-IGEgZGlmZmVyZW50IGZpcm13YXJlIHZlcnNpb24gd2l0aCBhIGRpZmZlcmVudCAiaGRyIiBmb3Ig
-dGhlIGFtZGdwdSBkcml2ZXI/DQotIFdvdWxkbid0IGl0IGJlIGJldHRlciB0byBjb250aW51ZSBs
-b2FkaW5nIHRoZSBkcml2ZXIgd2hpbGUgaGF2aW5nIFZDRSBkaXNhYmxlZCBJRiB3ZSBmYWlsIHdo
-ZW4gbG9hZGluZyBvciB2YWxpZGF0aW5nIHRoZSBGVz8gQ29tcGxldGVseSBmYWlsaW5nIHRvIGxv
-YWQgdGhlIGRyaXZlciBmb3IgdGhpcyByZWFzb24gc2VlbXMgb3ZlcmtpbGwgSU1PLCBzaW5jZSBu
-b3RoaW5nIGhhcyBiZWVuIGxvYWRlZCBpbiBtZW1vcnkgYW5kIG5vIHJlZ2lzdHJ5IGhhdmUgYmVl
-biBtb2RpZmllZCB1cCB0byB0aGF0IHBvaW50Lg0KLSBXb3VsZCBpdCBiZSBhIGdvb2QgaWRlYSB0
-byBzZW5kIGEgcGF0Y2ggYXMgYSBSRkMgc28gc29tZSBvZiB5b3UgY291bGQgaGVscCBtZSBmaW5p
-c2ggdGhlIGpvYiBhbmQgbWF5YmUgcGlucG9pbnQgd2hlcmUgdGhlIGxhc3QgbW9kaWZpY2F0aW9u
-cyBuZWVkIHRvIGJlIGRvbmU/DQoNClRoYW5rIHlvdSENCkFsZXhhbmRyZSBEZW1lcnMNCg0KDQoN
-Cg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCg0KYW1k
-LWdmeCBtYWlsaW5nIGxpc3QNCg0KYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc8bWFpbHRv
-OmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPg0KDQpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCg0KDQo=
+On Wed, 14 Jun 2017 at 13:09 Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+wrote:
 
---_000_BN6PR12MB165227C924CF7BC1E0D71D92F7C30BN6PR12MB1652namp_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+>
+>
+> *From:* amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] *On Behalf
+> Of *Christian K=C3=B6nig
+> *Sent:* Wednesday, June 14, 2017 12:37 PM
+> *To:* Alexandre Demers; Freedesktop - AMD-gfx
+> *Subject:* Re: Question about porting VCE1 to amdgpu
+>
+>
+>
+> - Would we need a different firmware version with a different "hdr" for
+> the amdgpu driver?
+>
+> Yes, we should probably release the latest one instead of reusing the one
+> used with radeon.
+>
+> Actually, we should probably stick the same one as radeon for now until w=
+e
+> can verify the new firmware in general.  Easier to start with a known
+> working case.
+>
 
-PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
-bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
-YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
-cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
-VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
-Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
-ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTQgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
-PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
-Q2FsaWJyaTsNCglwYW5vc2UtMToyIDE1IDUgMiAyIDIgNCAzIDIgNDt9DQpAZm9udC1mYWNlDQoJ
-e2ZvbnQtZmFtaWx5OlRhaG9tYTsNCglwYW5vc2UtMToyIDExIDYgNCAzIDUgNCA0IDIgNDt9DQpA
-Zm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5OkNvbnNvbGFzOw0KCXBhbm9zZS0xOjIgMTEgNiA5IDIg
-MiA0IDMgMiA0O30NCi8qIFN0eWxlIERlZmluaXRpb25zICovDQpwLk1zb05vcm1hbCwgbGkuTXNv
-Tm9ybWFsLCBkaXYuTXNvTm9ybWFsDQoJe21hcmdpbjowaW47DQoJbWFyZ2luLWJvdHRvbTouMDAw
-MXB0Ow0KCWZvbnQtc2l6ZToxMi4wcHQ7DQoJZm9udC1mYW1pbHk6IlRpbWVzIE5ldyBSb21hbiIs
-InNlcmlmIjsNCgljb2xvcjpibGFjazt9DQphOmxpbmssIHNwYW4uTXNvSHlwZXJsaW5rDQoJe21z
-by1zdHlsZS1wcmlvcml0eTo5OTsNCgljb2xvcjpibHVlOw0KCXRleHQtZGVjb3JhdGlvbjp1bmRl
-cmxpbmU7fQ0KYTp2aXNpdGVkLCBzcGFuLk1zb0h5cGVybGlua0ZvbGxvd2VkDQoJe21zby1zdHls
-ZS1wcmlvcml0eTo5OTsNCgljb2xvcjpwdXJwbGU7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGlu
-ZTt9DQpwDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCgltc28tbWFyZ2luLXRvcC1hbHQ6YXV0
-bzsNCgltYXJnaW4tcmlnaHQ6MGluOw0KCW1zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvOw0KCW1h
-cmdpbi1sZWZ0OjBpbjsNCglmb250LXNpemU6MTIuMHB0Ow0KCWZvbnQtZmFtaWx5OiJUaW1lcyBO
-ZXcgUm9tYW4iLCJzZXJpZiI7DQoJY29sb3I6YmxhY2s7fQ0KcHJlDQoJe21zby1zdHlsZS1wcmlv
-cml0eTo5OTsNCgltc28tc3R5bGUtbGluazoiSFRNTCBQcmVmb3JtYXR0ZWQgQ2hhciI7DQoJbWFy
-Z2luOjBpbjsNCgltYXJnaW4tYm90dG9tOi4wMDAxcHQ7DQoJZm9udC1zaXplOjEwLjBwdDsNCglm
-b250LWZhbWlseToiQ291cmllciBOZXciOw0KCWNvbG9yOmJsYWNrO30NCnNwYW4uSFRNTFByZWZv
-cm1hdHRlZENoYXINCgl7bXNvLXN0eWxlLW5hbWU6IkhUTUwgUHJlZm9ybWF0dGVkIENoYXIiOw0K
-CW1zby1zdHlsZS1wcmlvcml0eTo5OTsNCgltc28tc3R5bGUtbGluazoiSFRNTCBQcmVmb3JtYXR0
-ZWQiOw0KCWZvbnQtZmFtaWx5OkNvbnNvbGFzOw0KCWNvbG9yOmJsYWNrO30NCnNwYW4uRW1haWxT
-dHlsZTIwDQoJe21zby1zdHlsZS10eXBlOnBlcnNvbmFsLXJlcGx5Ow0KCWZvbnQtZmFtaWx5OiJD
-YWxpYnJpIiwic2Fucy1zZXJpZiI7DQoJY29sb3I6IzFGNDk3RDt9DQouTXNvQ2hwRGVmYXVsdA0K
-CXttc28tc3R5bGUtdHlwZTpleHBvcnQtb25seTsNCglmb250LXNpemU6MTAuMHB0O30NCkBwYWdl
-IFdvcmRTZWN0aW9uMQ0KCXtzaXplOjguNWluIDExLjBpbjsNCgltYXJnaW46MS4waW4gMS4waW4g
-MS4waW4gMS4waW47fQ0KZGl2LldvcmRTZWN0aW9uMQ0KCXtwYWdlOldvcmRTZWN0aW9uMTt9DQot
-LT48L3N0eWxlPjwhLS1baWYgZ3RlIG1zbyA5XT48eG1sPg0KPG86c2hhcGVkZWZhdWx0cyB2OmV4
-dD0iZWRpdCIgc3BpZG1heD0iMTAyNiIgLz4NCjwveG1sPjwhW2VuZGlmXS0tPjwhLS1baWYgZ3Rl
-IG1zbyA5XT48eG1sPg0KPG86c2hhcGVsYXlvdXQgdjpleHQ9ImVkaXQiPg0KPG86aWRtYXAgdjpl
-eHQ9ImVkaXQiIGRhdGE9IjEiIC8+DQo8L286c2hhcGVsYXlvdXQ+PC94bWw+PCFbZW5kaWZdLS0+
-DQo8L2hlYWQ+DQo8Ym9keSBiZ2NvbG9yPSJ3aGl0ZSIgbGFuZz0iRU4tVVMiIGxpbms9ImJsdWUi
-IHZsaW5rPSJwdXJwbGUiPg0KPGRpdiBjbGFzcz0iV29yZFNlY3Rpb24xIj4NCjxwIGNsYXNzPSJN
-c29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90
-O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjojMUY0OTdEIj48bzpw
-PiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8ZGl2IHN0eWxlPSJib3JkZXI6bm9uZTtib3JkZXIt
-bGVmdDpzb2xpZCBibHVlIDEuNXB0O3BhZGRpbmc6MGluIDBpbiAwaW4gNC4wcHQiPg0KPGRpdj4N
-CjxkaXYgc3R5bGU9ImJvcmRlcjpub25lO2JvcmRlci10b3A6c29saWQgI0I1QzRERiAxLjBwdDtw
-YWRkaW5nOjMuMHB0IDBpbiAwaW4gMGluIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxiPjxzcGFu
-IHN0eWxlPSJmb250LXNpemU6MTAuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O1RhaG9tYSZxdW90Oywm
-cXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9yOndpbmRvd3RleHQiPkZyb206PC9zcGFuPjwvYj48
-c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwLjBwdDtmb250LWZhbWlseTomcXVvdDtUYWhvbWEmcXVv
-dDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjp3aW5kb3d0ZXh0Ij4gYW1kLWdmeCBbbWFp
-bHRvOmFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmddDQo8Yj5PbiBCZWhhbGYg
-T2YgPC9iPkNocmlzdGlhbiBLw7ZuaWc8YnI+DQo8Yj5TZW50OjwvYj4gV2VkbmVzZGF5LCBKdW5l
-IDE0LCAyMDE3IDEyOjM3IFBNPGJyPg0KPGI+VG86PC9iPiBBbGV4YW5kcmUgRGVtZXJzOyBGcmVl
-ZGVza3RvcCAtIEFNRC1nZng8YnI+DQo8Yj5TdWJqZWN0OjwvYj4gUmU6IFF1ZXN0aW9uIGFib3V0
-IHBvcnRpbmcgVkNFMSB0byBhbWRncHU8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjwv
-ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8ZGl2Pg0K
-PGJsb2NrcXVvdGUgc3R5bGU9Im1hcmdpbi10b3A6NS4wcHQ7bWFyZ2luLWJvdHRvbTo1LjBwdCI+
-DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj4tIFdvdWxkIHdlIG5lZWQgYSBkaWZmZXJlbnQgZmlybXdh
-cmUgdmVyc2lvbiB3aXRoIGEgZGlmZmVyZW50ICZxdW90O2hkciZxdW90OyBmb3IgdGhlIGFtZGdw
-dSBkcml2ZXI/PG86cD48L286cD48L3A+DQo8L2Jsb2NrcXVvdGU+DQo8cCBjbGFzcz0iTXNvTm9y
-bWFsIj5ZZXMsIHdlIHNob3VsZCBwcm9iYWJseSByZWxlYXNlIHRoZSBsYXRlc3Qgb25lIGluc3Rl
-YWQgb2YgcmV1c2luZyB0aGUgb25lIHVzZWQgd2l0aCByYWRlb24uPGJyPg0KPGJyPg0KPHNwYW4g
-c3R5bGU9ImNvbG9yOiMxRjQ5N0QiPjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJN
-c29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90
-O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjojMUY0OTdEIj5BY3R1
-YWxseSwgd2Ugc2hvdWxkIHByb2JhYmx5IHN0aWNrIHRoZSBzYW1lIG9uZSBhcyByYWRlb24gZm9y
-IG5vdyB1bnRpbCB3ZSBjYW4gdmVyaWZ5IHRoZSBuZXcgZmlybXdhcmUgaW4gZ2VuZXJhbC4mbmJz
-cDsgRWFzaWVyIHRvIHN0YXJ0IHdpdGggYSBrbm93biB3b3JraW5nIGNhc2UuPG86cD48L286cD48
-L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZTox
-MS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1
-b3Q7O2NvbG9yOiMxRjQ5N0QiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNz
-PSJNc29Ob3JtYWwiPjxicj4NCkJUVzogRG9lcyBWQ0Ugd29yayBvbiBDSUs/IEFsZXgsIGRvbid0
-IHdlIHJ1biBpbnRvIHRoZSBzYW1lIGlzc3VlIHRoZXJlIGFzIHdlbGw/PGJyPg0KPGJyPg0KPHNw
-YW4gc3R5bGU9ImNvbG9yOiMxRjQ5N0QiPjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNz
-PSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZx
-dW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjojMUY0OTdEIj5W
-Q0Ugd29ya3Mgb24gQ0lLLiZuYnNwOyBXZSBwb3J0ZWQgVkNFIGFuZCBVVkQgdG8gQ0lLIGFzIHBh
-cnQgb2YgdGhlIGluaXRpYWwgYW1kZ3B1IGJyaW5nIHVwLjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4N
-CjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQt
-ZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjoj
-MUY0OTdEIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
-Ij48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJp
-JnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6IzFGNDk3RCI+QWxleDxvOnA+PC9v
-OnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxicj4NCjxicj4NCjxvOnA+PC9v
-OnA+PC9wPg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPi0gV291bGRuJ3QgaXQgYmUgYmV0
-dGVyIHRvIGNvbnRpbnVlIGxvYWRpbmcgdGhlIGRyaXZlciB3aGlsZSBoYXZpbmcgVkNFIGRpc2Fi
-bGVkIElGIHdlIGZhaWwgd2hlbiBsb2FkaW5nIG9yIHZhbGlkYXRpbmcgdGhlIEZXPyBDb21wbGV0
-ZWx5IGZhaWxpbmcgdG8gbG9hZCB0aGUgZHJpdmVyIGZvciB0aGlzIHJlYXNvbiBzZWVtcyBvdmVy
-a2lsbCBJTU8sIHNpbmNlIG5vdGhpbmcgaGFzIGJlZW4gbG9hZGVkIGluIG1lbW9yeQ0KIGFuZCBu
-byByZWdpc3RyeSBoYXZlIGJlZW4gbW9kaWZpZWQgdXAgdG8gdGhhdCBwb2ludC48bzpwPjwvbzpw
-PjwvcD4NCjwvZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+VVZEIGFuZCBWQ0UgYXJlIGFjdHVh
-bGx5IG5lZWRlZCBmb3IgY29ycmVjdCBwb3dlciBtYW5hZ2VtZW50LiBXaGVuIHRoZSBibG9ja3Mg
-ZmFpbCB0byBpbml0aWFsaXplIHlvdSB1c3VhbGx5IHNvb25lciBvciBsYXRlciBydW4gaW50byBw
-cm9ibGVtcyB3aXRoIHBvd2VyIG1hbmFnZW1lbnQgKGUuZy4gc3R1Y2sgaW5zaWRlIGEgY2VydGFp
-biBwb3dlciBsZXZlbCkuPGJyPg0KPGJyPg0KPGJyPg0KPG86cD48L286cD48L3A+DQo8ZGl2Pg0K
-PHAgY2xhc3M9Ik1zb05vcm1hbCI+LSBXb3VsZCBpdCBiZSBhIGdvb2QgaWRlYSB0byBzZW5kIGEg
-cGF0Y2ggYXMgYSBSRkMgc28gc29tZSBvZiB5b3UgY291bGQgaGVscCBtZSBmaW5pc2ggdGhlIGpv
-YiBhbmQgbWF5YmUgcGlucG9pbnQgd2hlcmUgdGhlIGxhc3QgbW9kaWZpY2F0aW9ucyBuZWVkIHRv
-IGJlIGRvbmU/PG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPldl
-bGwgeW91IGNvdWxkLCBidXQgdG8gYmUgaG9uZXN0IHdpdGhvdXQgQU1EIHJlbGVhc2luZyBuZXcg
-ZmlybXdhcmUgdGhhdCBpcyBtb3N0IGxpa2VseSBhIGZ1dGlsZSBlZmZvcnQuPGJyPg0KPGJyPg0K
-UmVnYXJkcyw8YnI+DQpDaHJpc3RpYW4uPGJyPg0KPGJyPg0KQW0gMTQuMDYuMjAxNyB1bSAxODoy
-MiBzY2hyaWViIEFsZXhhbmRyZSBEZW1lcnM6PG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxibG9j
-a3F1b3RlIHN0eWxlPSJtYXJnaW4tdG9wOjUuMHB0O21hcmdpbi1ib3R0b206NS4wcHQiPg0KPGRp
-dj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPkhpLCA8bzpwPjwvbzpwPjwvcD4NCjxkaXY+DQo8cCBj
-bGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxw
-IGNsYXNzPSJNc29Ob3JtYWwiPkkndmUgYmVlbiB3b3JraW5nIG9uIHBvcnRpbmcgVkNFMSBmcm9t
-IHJhZGVvbiB0byBhbWRncHUgaW4gdGhlIGxhc3QgZmV3IHdlZWtzLiBJJ20gcHJldHR5IG11Y2gg
-ZG9uZSBhbmQgSSd2ZSBlbmFibGVkIHRoZSBmdW5jdGlvbmFsaXR5IHRvIHNlZSBob3cgaXQgZ29l
-cy4gSG93ZXZlciwgSSBlbmRlZCB1cCB3aXRoIGFuIGVycm9yIG9uIHRoZSBmaXJtd2FyZSB2YWxp
-ZGF0aW9uIChzaXplIGRvZXNuJ3Qgc2VlbSB0bw0KIGZpdCksIHRodXMgZmFpbGluZyBjb21wbGV0
-ZWx5IGluIGxvYWRpbmcgdGhlIGRyaXZlci4gSSdtIHRlc3Rpbmcgb24gYSBSOSAyODBYIChUYWhp
-dGkpLjxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+
-PG86cD4mbmJzcDs8L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
-Ij5UaHJlZSBxdWVzdGlvbnMgdGhlbjo8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxw
-IGNsYXNzPSJNc29Ob3JtYWwiPi0gV291bGQgd2UgbmVlZCBhIGRpZmZlcmVudCBmaXJtd2FyZSB2
-ZXJzaW9uIHdpdGggYSBkaWZmZXJlbnQgJnF1b3Q7aGRyJnF1b3Q7IGZvciB0aGUgYW1kZ3B1IGRy
-aXZlcj88bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
-Pi0gV291bGRuJ3QgaXQgYmUgYmV0dGVyIHRvIGNvbnRpbnVlIGxvYWRpbmcgdGhlIGRyaXZlciB3
-aGlsZSBoYXZpbmcgVkNFIGRpc2FibGVkIElGIHdlIGZhaWwgd2hlbiBsb2FkaW5nIG9yIHZhbGlk
-YXRpbmcgdGhlIEZXPyBDb21wbGV0ZWx5IGZhaWxpbmcgdG8gbG9hZCB0aGUgZHJpdmVyIGZvciB0
-aGlzIHJlYXNvbiBzZWVtcyBvdmVya2lsbCBJTU8sIHNpbmNlIG5vdGhpbmcgaGFzIGJlZW4gbG9h
-ZGVkIGluIG1lbW9yeQ0KIGFuZCBubyByZWdpc3RyeSBoYXZlIGJlZW4gbW9kaWZpZWQgdXAgdG8g
-dGhhdCBwb2ludC48bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29O
-b3JtYWwiPi0gV291bGQgaXQgYmUgYSBnb29kIGlkZWEgdG8gc2VuZCBhIHBhdGNoIGFzIGEgUkZD
-IHNvIHNvbWUgb2YgeW91IGNvdWxkIGhlbHAgbWUgZmluaXNoIHRoZSBqb2IgYW5kIG1heWJlIHBp
-bnBvaW50IHdoZXJlIHRoZSBsYXN0IG1vZGlmaWNhdGlvbnMgbmVlZCB0byBiZSBkb25lPzxvOnA+
-PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJz
-cDs8L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5UaGFuayB5
-b3UhPG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5B
-bGV4YW5kcmUgRGVtZXJzPG86cD48L286cD48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPHAgY2xhc3M9
-Ik1zb05vcm1hbCI+PGJyPg0KPGJyPg0KPGJyPg0KPG86cD48L286cD48L3A+DQo8cHJlPl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fPG86cD48L286cD48L3By
-ZT4NCjxwcmU+YW1kLWdmeCBtYWlsaW5nIGxpc3Q8bzpwPjwvbzpwPjwvcHJlPg0KPHByZT48YSBo
-cmVmPSJtYWlsdG86YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmciPmFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnPC9hPjxvOnA+PC9vOnA+PC9wcmU+DQo8cHJlPjxhIGhyZWY9Imh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeCI+aHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4PC9hPjxvOnA+
-PC9vOnA+PC9wcmU+DQo8L2Jsb2NrcXVvdGU+DQo8cD48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjwv
-ZGl2Pg0KPC9kaXY+DQo8L2JvZHk+DQo8L2h0bWw+DQo=
+OK. Then,  is it expected to have a validation failure with the current
+firmware? Is the header compatible with how the validation is done under
+VCE2 and others or should I keep how it was done under radeon?
 
---_000_BN6PR12MB165227C924CF7BC1E0D71D92F7C30BN6PR12MB1652namp_--
 
---===============1635646890==
+>
+>
+> BTW: Does VCE work on CIK? Alex, don't we run into the same issue there a=
+s
+> well?
+>
+> VCE works on CIK.  We ported VCE and UVD to CIK as part of the initial
+> amdgpu bring up.
+>
+
+I've been using VCE2 port as my template for VCE1. My initial intention was
+to work on UVD, but I ended up plugging in VCE in the first place. UVD is
+on my todo list right next, I was expecting to working on it after fixing
+the VCE part.
+
+
+>
+> Alex
+>
+>
+>
+> - Wouldn't it be better to continue loading the driver while having VCE
+> disabled IF we fail when loading or validating the FW? Completely failing
+> to load the driver for this reason seems overkill IMO, since nothing has
+> been loaded in memory and no registry have been modified up to that point=
+.
+>
+> UVD and VCE are actually needed for correct power management. When the
+> blocks fail to initialize you usually sooner or later run into problems
+> with power management (e.g. stuck inside a certain power level).
+>
+>
+OK, but right now it is disabled, so the situation wouldn't be worst isn't
+it?
+
+
+> - Would it be a good idea to send a patch as a RFC so some of you could
+> help me finish the job and maybe pinpoint where the last modifications ne=
+ed
+> to be done?
+>
+> Well you could, but to be honest without AMD releasing new firmware that
+> is most likely a futile effort.
+>
+
+I'll send a patch then, and we'll navigate from there. This will allow me
+to work on UVD in parallel.
+
+Alexandre Demers
+
+
+>
+> Regards,
+> Christian.
+>
+> Am 14.06.2017 um 18:22 schrieb Alexandre Demers:
+>
+> Hi,
+>
+>
+>
+> I've been working on porting VCE1 from radeon to amdgpu in the last few
+> weeks. I'm pretty much done and I've enabled the functionality to see how
+> it goes. However, I ended up with an error on the firmware validation (si=
+ze
+> doesn't seem to fit), thus failing completely in loading the driver. I'm
+> testing on a R9 280X (Tahiti).
+>
+>
+>
+> Three questions then:
+>
+> - Would we need a different firmware version with a different "hdr" for
+> the amdgpu driver?
+>
+> - Wouldn't it be better to continue loading the driver while having VCE
+> disabled IF we fail when loading or validating the FW? Completely failing
+> to load the driver for this reason seems overkill IMO, since nothing has
+> been loaded in memory and no registry have been modified up to that point=
+.
+>
+> - Would it be a good idea to send a patch as a RFC so some of you could
+> help me finish the job and maybe pinpoint where the last modifications ne=
+ed
+> to be done?
+>
+>
+>
+> Thank you!
+>
+> Alexandre Demers
+>
+>
+>
+>
+> _______________________________________________
+>
+> amd-gfx mailing list
+>
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+>
+>
+
+--001a113565c45af0860551eee834
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr">On Wed, 14 Jun=
+ 2017 at 13:09 Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@a=
+md.com">Alexander.Deucher-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<br></div><blockquote class=
+=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padd=
+ing-left:1ex">
+
+
+
+
+
+<div bgcolor=3D"white" lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"m_-2481367577652910062WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d"><u></u>=C2=A0<u></u></spa=
+n></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #b5c4df 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
+;Tahoma&quot;,&quot;sans-serif&quot;;color:windowtext">From:</span></b><spa=
+n style=3D"font-size:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif=
+&quot;;color:windowtext"> amd-gfx [mailto:<a href=3D"mailto:amd-gfx-bounces=
+@lists.freedesktop.org" target=3D"_blank">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp93gSJqDPrsil@public.gmane.org=
+.org</a>]
+<b>On Behalf Of </b>Christian K=C3=B6nig<br>
+<b>Sent:</b> Wednesday, June 14, 2017 12:37 PM<br>
+<b>To:</b> Alexandre Demers; Freedesktop - AMD-gfx<br>
+<b>Subject:</b> Re: Question about porting VCE1 to amdgpu<u></u><u></u></sp=
+an></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<div></div></div></div></div><div bgcolor=3D"white" lang=3D"EN-US" link=3D"=
+blue" vlink=3D"purple"><div class=3D"m_-2481367577652910062WordSection1"><d=
+iv style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in 4.=
+0pt"><div>
+<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<p class=3D"MsoNormal">- Would we need a different firmware version with a =
+different &quot;hdr&quot; for the amdgpu driver?<u></u><u></u></p>
+</blockquote>
+<p class=3D"MsoNormal">Yes, we should probably release the latest one inste=
+ad of reusing the one used with radeon.<br>
+<br>
+<span style=3D"color:#1f497d"><u></u><u></u></span></p>
+</div></div></div></div><div bgcolor=3D"white" lang=3D"EN-US" link=3D"blue"=
+ vlink=3D"purple"><div class=3D"m_-2481367577652910062WordSection1"><div st=
+yle=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in 4.0pt">=
+<div><p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&qu=
+ot;Calibri&quot;,&quot;sans-serif&quot;;color:#1f497d">Actually, we should =
+probably stick the same one as radeon for now until we can verify the new f=
+irmware in general.=C2=A0 Easier to start with a known working case.</span>=
+</p></div></div></div></div></blockquote><div>=C2=A0</div><div>OK. Then, =
+=C2=A0is it expected to have a validation failure with the current firmware=
+? Is the header compatible with how the validation is done under VCE2 and o=
+thers or should I keep how it was done under radeon?</div><div><br></div><b=
+lockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px =
+#ccc solid;padding-left:1ex"><div bgcolor=3D"white" lang=3D"EN-US" link=3D"=
+blue" vlink=3D"purple"><div class=3D"m_-2481367577652910062WordSection1"><d=
+iv style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in 4.=
+0pt"><div><p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-famil=
+y:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1f497d"><u></u><u></u><=
+/span></p></div></div></div></div><div bgcolor=3D"white" lang=3D"EN-US" lin=
+k=3D"blue" vlink=3D"purple"><div class=3D"m_-2481367577652910062WordSection=
+1"><div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0=
+in 4.0pt"><div>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d"><u></u>=C2=A0<u></u></spa=
+n></p>
+<p class=3D"MsoNormal"><br>
+BTW: Does VCE work on CIK? Alex, don&#39;t we run into the same issue there=
+ as well?<br>
+<br>
+<span style=3D"color:#1f497d"><u></u><u></u></span></p>
+</div></div></div></div><div bgcolor=3D"white" lang=3D"EN-US" link=3D"blue"=
+ vlink=3D"purple"><div class=3D"m_-2481367577652910062WordSection1"><div st=
+yle=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in 4.0pt">=
+<div><p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&qu=
+ot;Calibri&quot;,&quot;sans-serif&quot;;color:#1f497d">VCE works on CIK.=C2=
+=A0 We ported VCE and UVD to CIK as part of the initial amdgpu bring up.</s=
+pan></p></div></div></div></div></blockquote><div>=C2=A0</div><div>I&#39;ve=
+ been using VCE2 port as my template for VCE1. My initial intention was to =
+work on UVD, but I ended up plugging in VCE in the first place. UVD is on m=
+y todo list right next, I was expecting to working on it after fixing the V=
+CE part.</div><div><br></div><blockquote class=3D"gmail_quote" style=3D"mar=
+gin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div bgcolor=3D=
+"white" lang=3D"EN-US" link=3D"blue" vlink=3D"purple"><div class=3D"m_-2481=
+367577652910062WordSection1"><div style=3D"border:none;border-left:solid bl=
+ue 1.5pt;padding:0in 0in 0in 4.0pt"><div><p class=3D"MsoNormal"><span style=
+=3D"font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;=
+;color:#1f497d"><u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d"><u></u>=C2=A0<u></u></spa=
+n></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d">Alex<u></u><u></u></span>=
+</p></div></div></div></div><div bgcolor=3D"white" lang=3D"EN-US" link=3D"b=
+lue" vlink=3D"purple"><div class=3D"m_-2481367577652910062WordSection1"><di=
+v style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in 4.0=
+pt"><div>
+<p class=3D"MsoNormal"><br>
+<br>
+<u></u><u></u></p>
+<div>
+<p class=3D"MsoNormal">- Wouldn&#39;t it be better to continue loading the =
+driver while having VCE disabled IF we fail when loading or validating the =
+FW? Completely failing to load the driver for this reason seems overkill IM=
+O, since nothing has been loaded in memory
+ and no registry have been modified up to that point.<u></u><u></u></p>
+</div>
+<p class=3D"MsoNormal">UVD and VCE are actually needed for correct power ma=
+nagement. When the blocks fail to initialize you usually sooner or later ru=
+n into problems with power management (e.g. stuck inside a certain power le=
+vel).<br>
+<br></p></div></div></div></div></blockquote><div>=C2=A0</div><div>OK, but =
+right now it is disabled, so the situation wouldn&#39;t be worst isn&#39;t =
+it?</div><div><br></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
+ 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div bgcolor=3D"whit=
+e" lang=3D"EN-US" link=3D"blue" vlink=3D"purple"><div class=3D"m_-248136757=
+7652910062WordSection1"><div style=3D"border:none;border-left:solid blue 1.=
+5pt;padding:0in 0in 0in 4.0pt"><div><p class=3D"MsoNormal">
+<br>
+<u></u><u></u></p>
+<div>
+<p class=3D"MsoNormal">- Would it be a good idea to send a patch as a RFC s=
+o some of you could help me finish the job and maybe pinpoint where the las=
+t modifications need to be done?<u></u><u></u></p>
+</div>
+<p class=3D"MsoNormal">Well you could, but to be honest without AMD releasi=
+ng new firmware that is most likely a futile effort.<br></p></div></div></d=
+iv></div></blockquote><div><br></div><div>I&#39;ll send a patch then, and w=
+e&#39;ll navigate from there. This will allow me to work on UVD in parallel=
+.</div><div><br></div><div>Alexandre Demers</div><div>=C2=A0</div><blockquo=
+te class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc so=
+lid;padding-left:1ex"><div bgcolor=3D"white" lang=3D"EN-US" link=3D"blue" v=
+link=3D"purple"><div class=3D"m_-2481367577652910062WordSection1"><div styl=
+e=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in 4.0pt"><d=
+iv><p class=3D"MsoNormal">
+<br>
+Regards,<br>
+Christian.<br>
+<br>
+Am 14.06.2017 um 18:22 schrieb Alexandre Demers:<u></u><u></u></p>
+</div></div></div></div><div bgcolor=3D"white" lang=3D"EN-US" link=3D"blue"=
+ vlink=3D"purple"><div class=3D"m_-2481367577652910062WordSection1"><div st=
+yle=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in 4.0pt">
+<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<div>
+<p class=3D"MsoNormal">Hi, <u></u><u></u></p>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">I&#39;ve been working on porting VCE1 from radeon to=
+ amdgpu in the last few weeks. I&#39;m pretty much done and I&#39;ve enable=
+d the functionality to see how it goes. However, I ended up with an error o=
+n the firmware validation (size doesn&#39;t seem to
+ fit), thus failing completely in loading the driver. I&#39;m testing on a =
+R9 280X (Tahiti).<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Three questions then:<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">- Would we need a different firmware version with a =
+different &quot;hdr&quot; for the amdgpu driver?<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">- Wouldn&#39;t it be better to continue loading the =
+driver while having VCE disabled IF we fail when loading or validating the =
+FW? Completely failing to load the driver for this reason seems overkill IM=
+O, since nothing has been loaded in memory
+ and no registry have been modified up to that point.<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">- Would it be a good idea to send a patch as a RFC s=
+o some of you could help me finish the job and maybe pinpoint where the las=
+t modifications need to be done?<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Thank you!<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Alexandre Demers<u></u><u></u></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><br>
+<br>
+<br>
+<u></u><u></u></p>
+<pre>_______________________________________________<u></u><u></u></pre>
+<pre>amd-gfx mailing list<u></u><u></u></pre>
+<pre><a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd=
+-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><u></u><u></u></pre>
+<pre><a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" tar=
+get=3D"_blank">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><u=
+></u><u></u></pre>
+</blockquote>
+<p><u></u>=C2=A0<u></u></p>
+</div></div></div></blockquote></div></div>
+
+--001a113565c45af0860551eee834--
+
+--===============1066976021==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -237,4 +388,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1635646890==--
+--===============1066976021==--
