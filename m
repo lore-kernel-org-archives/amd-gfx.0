@@ -1,40 +1,99 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: don't check the default value for vm size
-Date: Thu, 15 Jun 2017 18:21:24 -0400
-Message-ID: <1497565284-22459-1-git-send-email-alexander.deucher@amd.com>
+From: "Gustavo A. R. Silva" <garsilva@embeddedor.com>
+Subject: [PATCH] drm/radeon: remove unnecessary variable in si_enable_smc_cac
+Date: Thu, 15 Jun 2017 17:37:53 -0500
+Message-ID: <20170615223753.GA15833@embeddedgus>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <garsilva@embeddedor.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QXZvaWRzIHByaW50aW5nIHNwdXJpb3VzIG1lc3NhZ2VzIGxpa2UgdGhpczoKWyAgICAzLjEwMjA1
-OV0gYW1kZ3B1IDAwMDA6MDE6MDAuMDogVk0gc2l6ZSAoLTEpIG11c3QgYmUgYSBwb3dlciBvZiAy
-CgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+
-Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIHwgNCArKysr
-CiAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2RldmljZS5jCmluZGV4IDUwMDAxYmYuLmZmOTBmNzggMTAwNjQ0Ci0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYworKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKQEAgLTEwNzQsNiArMTA3NCwxMCBA
-QCBzdGF0aWMgdm9pZCBhbWRncHVfY2hlY2tfYmxvY2tfc2l6ZShzdHJ1Y3QgYW1kZ3B1X2Rldmlj
-ZSAqYWRldikKIAogc3RhdGljIHZvaWQgYW1kZ3B1X2NoZWNrX3ZtX3NpemUoc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmFkZXYpCiB7CisJLyogbm8gbmVlZCB0byBjaGVjayB0aGUgZGVmYXVsdCB2YWx1
-ZSAqLworCWlmIChhbWRncHVfdm1fc2l6ZSA9PSAtMSkKKwkJcmV0dXJuOworCiAJaWYgKCFhbWRn
-cHVfY2hlY2tfcG90X2FyZ3VtZW50KGFtZGdwdV92bV9zaXplKSkgewogCQlkZXZfd2FybihhZGV2
-LT5kZXYsICJWTSBzaXplICglZCkgbXVzdCBiZSBhIHBvd2VyIG9mIDJcbiIsCiAJCQkgYW1kZ3B1
-X3ZtX3NpemUpOwotLSAKMi41LjUKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
-LWdmeAo=
+Remove unnecessary variable smc_result and simplify the logic related.
+
+Variable smc_result is only being used to store the return value of function
+si_send_msg_to_smc() and then compare this value against constant
+PPSMC_Result_OK. In other cases this variable is not even used after
+storing a value in it (lines of code 2833 and 2838). Besides,
+by removing this variable the logic can be simplified and the number
+of nested IF statements reduced.
+
+Addresses-Coverity-ID: 1226969
+Signed-off-by: Gustavo A. R. Silva <garsilva@embeddedor.com>
+---
+ drivers/gpu/drm/radeon/si_dpm.c | 49 ++++++++++++++++++-----------------------
+ 1 file changed, 22 insertions(+), 27 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/si_dpm.c b/drivers/gpu/drm/radeon/si_dpm.c
+index ee3e742..09ef41f 100644
+--- a/drivers/gpu/drm/radeon/si_dpm.c
++++ b/drivers/gpu/drm/radeon/si_dpm.c
+@@ -2800,42 +2800,37 @@ static int si_enable_smc_cac(struct radeon_device *rdev,
+ {
+ 	struct ni_power_info *ni_pi = ni_get_pi(rdev);
+ 	struct si_power_info *si_pi = si_get_pi(rdev);
+-	PPSMC_Result smc_result;
+ 	int ret = 0;
+ 
+ 	if (ni_pi->enable_cac) {
+-		if (enable) {
+-			if (!si_should_disable_uvd_powertune(rdev, radeon_new_state)) {
+-				if (ni_pi->support_cac_long_term_average) {
+-					smc_result = si_send_msg_to_smc(rdev, PPSMC_CACLongTermAvgEnable);
+-					if (smc_result != PPSMC_Result_OK)
+-						ni_pi->support_cac_long_term_average = false;
+-				}
+-
+-				smc_result = si_send_msg_to_smc(rdev, PPSMC_MSG_EnableCac);
+-				if (smc_result != PPSMC_Result_OK) {
+-					ret = -EINVAL;
+-					ni_pi->cac_enabled = false;
+-				} else {
+-					ni_pi->cac_enabled = true;
+-				}
+-
+-				if (si_pi->enable_dte) {
+-					smc_result = si_send_msg_to_smc(rdev, PPSMC_MSG_EnableDTE);
+-					if (smc_result != PPSMC_Result_OK)
+-						ret = -EINVAL;
+-				}
++		if (enable &&
++		    !si_should_disable_uvd_powertune(rdev, radeon_new_state)) {
++			if (ni_pi->support_cac_long_term_average &&
++			    PPSMC_Result_OK !=
++			    si_send_msg_to_smc(rdev, PPSMC_CACLongTermAvgEnable))
++				ni_pi->support_cac_long_term_average = false;
++
++			if (si_send_msg_to_smc(rdev, PPSMC_MSG_EnableCac) !=
++			    PPSMC_Result_OK) {
++				ret = -EINVAL;
++				ni_pi->cac_enabled = false;
++			} else {
++				ni_pi->cac_enabled = true;
+ 			}
+-		} else if (ni_pi->cac_enabled) {
+-			if (si_pi->enable_dte)
+-				smc_result = si_send_msg_to_smc(rdev, PPSMC_MSG_DisableDTE);
+ 
+-			smc_result = si_send_msg_to_smc(rdev, PPSMC_MSG_DisableCac);
++			if (si_pi->enable_dte &&
++			    si_send_msg_to_smc(rdev, PPSMC_MSG_EnableDTE) !=
++			    PPSMC_Result_OK)
++				ret = -EINVAL;
++		} else if (!enable && ni_pi->cac_enabled) {
++			if (si_pi->enable_dte)
++				si_send_msg_to_smc(rdev, PPSMC_MSG_DisableDTE);
+ 
++			si_send_msg_to_smc(rdev, PPSMC_MSG_DisableCac);
+ 			ni_pi->cac_enabled = false;
+ 
+ 			if (ni_pi->support_cac_long_term_average)
+-				smc_result = si_send_msg_to_smc(rdev, PPSMC_CACLongTermAvgDisable);
++				si_send_msg_to_smc(rdev, PPSMC_CACLongTermAvgDisable);
+ 		}
+ 	}
+ 	return ret;
+-- 
+2.5.0
