@@ -1,130 +1,82 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: drop set_vga_render_state from display funcs
-Date: Thu, 15 Jun 2017 18:56:57 +0000
-Message-ID: <BN6PR12MB16527D119FE592C7FF47F46DF7C00@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <1497552939-8938-1-git-send-email-alexander.deucher@amd.com>
+From: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+Subject: Re: [PATCH] drm/core: Fail atomic IOCTL with no CRTC state but with
+ signaling.
+Date: Thu, 15 Jun 2017 16:46:49 -0400
+Message-ID: <41dc2978-419f-35cb-224e-8bfd345857c4@amd.com>
+References: <1497043819-28591-1-git-send-email-Andrey.Grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1497552939-8938-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: 'Alex Deucher' <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <1497043819-28591-1-git-send-email-Andrey.Grodzovsky@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, maarten.lankhorst@linux.intel.com
+Cc: amd-gfx@lists.freedesktop.org, harry.wentland@amd.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBBbGV4IERldWNoZXIgW21haWx0
-bzphbGV4ZGV1Y2hlckBnbWFpbC5jb21dDQo+IFNlbnQ6IFRodXJzZGF5LCBKdW5lIDE1LCAyMDE3
-IDI6NTYgUE0NCj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IENjOiBEZXVj
-aGVyLCBBbGV4YW5kZXINCj4gU3ViamVjdDogW1BBVENIXSBkcm0vYW1kZ3B1OiBkcm9wIHNldF92
-Z2FfcmVuZGVyX3N0YXRlIGZyb20gZGlzcGxheQ0KPiBmdW5jcw0KPiANCj4gTm90IHVzZWQuDQo+
-IA0KPiBSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQu
-Y29tPg0KPiBTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFt
-ZC5jb20+DQoNCkRpZG7igJl0IG1lYW4gdG8gc2VuZCB0aGlzIG91dC4gIElnbm9yZSBmb3Igbm93
-Lg0KDQpBbGV4DQoNCj4gLS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUu
-aCAgICAgIHwgMSAtDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfbW9kZS5o
-IHwgMiAtLQ0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3YxMF8wLmMgICB8IDEg
-LQ0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3YxMV8wLmMgICB8IDEgLQ0KPiAg
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3Y2XzAuYyAgICB8IDEgLQ0KPiAgZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3Y4XzAuYyAgICB8IDEgLQ0KPiAgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvZGNlX3ZpcnR1YWwuYyB8IDcgLS0tLS0tLQ0KPiAgNyBmaWxlcyBjaGFu
-Z2VkLCAxNCBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHUuaA0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dS5oDQo+IGluZGV4IGZjN2U4YTMuLjU5MzQ2MTUgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdS5oDQo+IEBAIC0xODkwLDcgKzE4OTAsNiBAQCBhbWRncHVfZ2V0X3NkbWFfaW5z
-dGFuY2Uoc3RydWN0IGFtZGdwdV9yaW5nDQo+ICpyaW5nKQ0KPiAgI2RlZmluZSBhbWRncHVfaWhf
-Z2V0X3dwdHIoYWRldikgKGFkZXYpLT5pcnEuaWhfZnVuY3MtDQo+ID5nZXRfd3B0cigoYWRldikp
-DQo+ICAjZGVmaW5lIGFtZGdwdV9paF9kZWNvZGVfaXYoYWRldiwgaXYpIChhZGV2KS0+aXJxLmlo
-X2Z1bmNzLQ0KPiA+ZGVjb2RlX2l2KChhZGV2KSwgKGl2KSkNCj4gICNkZWZpbmUgYW1kZ3B1X2lo
-X3NldF9ycHRyKGFkZXYpIChhZGV2KS0+aXJxLmloX2Z1bmNzLT5zZXRfcnB0cigoYWRldikpDQo+
-IC0jZGVmaW5lIGFtZGdwdV9kaXNwbGF5X3NldF92Z2FfcmVuZGVyX3N0YXRlKGFkZXYsIHIpIChh
-ZGV2KS0NCj4gPm1vZGVfaW5mby5mdW5jcy0+c2V0X3ZnYV9yZW5kZXJfc3RhdGUoKGFkZXYpLCAo
-cikpDQo+ICAjZGVmaW5lIGFtZGdwdV9kaXNwbGF5X3ZibGFua19nZXRfY291bnRlcihhZGV2LCBj
-cnRjKSAoYWRldiktDQo+ID5tb2RlX2luZm8uZnVuY3MtPnZibGFua19nZXRfY291bnRlcigoYWRl
-diksIChjcnRjKSkNCj4gICNkZWZpbmUgYW1kZ3B1X2Rpc3BsYXlfdmJsYW5rX3dhaXQoYWRldiwg
-Y3J0YykgKGFkZXYpLQ0KPiA+bW9kZV9pbmZvLmZ1bmNzLT52Ymxhbmtfd2FpdCgoYWRldiksIChj
-cnRjKSkNCj4gICNkZWZpbmUgYW1kZ3B1X2Rpc3BsYXlfYmFja2xpZ2h0X3NldF9sZXZlbChhZGV2
-LCBlLCBsKSAoYWRldiktDQo+ID5tb2RlX2luZm8uZnVuY3MtPmJhY2tsaWdodF9zZXRfbGV2ZWwo
-KGUpLCAobCkpDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfbW9kZS5oDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21vZGUuaA0K
-PiBpbmRleCA0M2E5ZDNhLi4zNWJkOTNjIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfbW9kZS5oDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9tb2RlLmgNCj4gQEAgLTI2NCw4ICsyNjQsNiBAQCBzdHJ1Y3QgYW1kZ3B1X21v
-ZGVfbWNfc2F2ZSB7DQo+ICB9Ow0KPiANCj4gIHN0cnVjdCBhbWRncHVfZGlzcGxheV9mdW5jcyB7
-DQo+IC0JLyogdmdhIHJlbmRlciAqLw0KPiAtCXZvaWQgKCpzZXRfdmdhX3JlbmRlcl9zdGF0ZSko
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIGJvb2wNCj4gcmVuZGVyKTsNCj4gIAkvKiBkaXNw
-bGF5IHdhdGVybWFya3MgKi8NCj4gIAl2b2lkICgqYmFuZHdpZHRoX3VwZGF0ZSkoc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYpOw0KPiAgCS8qIGdldCBmcmFtZSBjb3VudCAqLw0KPiBkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3YxMF8wLmMNCj4gYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjEwXzAuYw0KPiBpbmRleCAwY2RlYjZhLi4zNTkwNmY5
-IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjEwXzAuYw0K
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjEwXzAuYw0KPiBAQCAtMzcz
-NCw3ICszNzM0LDYgQEAgc3RhdGljIHZvaWQgZGNlX3YxMF8wX2VuY29kZXJfYWRkKHN0cnVjdA0K
-PiBhbWRncHVfZGV2aWNlICphZGV2LA0KPiAgfQ0KPiANCj4gIHN0YXRpYyBjb25zdCBzdHJ1Y3Qg
-YW1kZ3B1X2Rpc3BsYXlfZnVuY3MgZGNlX3YxMF8wX2Rpc3BsYXlfZnVuY3MgPSB7DQo+IC0JLnNl
-dF92Z2FfcmVuZGVyX3N0YXRlID0gJmRjZV92MTBfMF9zZXRfdmdhX3JlbmRlcl9zdGF0ZSwNCj4g
-IAkuYmFuZHdpZHRoX3VwZGF0ZSA9ICZkY2VfdjEwXzBfYmFuZHdpZHRoX3VwZGF0ZSwNCj4gIAku
-dmJsYW5rX2dldF9jb3VudGVyID0gJmRjZV92MTBfMF92YmxhbmtfZ2V0X2NvdW50ZXIsDQo+ICAJ
-LnZibGFua193YWl0ID0gJmRjZV92MTBfMF92Ymxhbmtfd2FpdCwNCj4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92MTFfMC5jDQo+IGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvZGNlX3YxMV8wLmMNCj4gaW5kZXggNzczNjU0YS4uYzMxMTNlNiAxMDA2NDQN
-Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3YxMV8wLmMNCj4gKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3YxMV8wLmMNCj4gQEAgLTM4MDMsNyArMzgw
-Myw2IEBAIHN0YXRpYyB2b2lkIGRjZV92MTFfMF9lbmNvZGVyX2FkZChzdHJ1Y3QNCj4gYW1kZ3B1
-X2RldmljZSAqYWRldiwNCj4gIH0NCj4gDQo+ICBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9k
-aXNwbGF5X2Z1bmNzIGRjZV92MTFfMF9kaXNwbGF5X2Z1bmNzID0gew0KPiAtCS5zZXRfdmdhX3Jl
-bmRlcl9zdGF0ZSA9ICZkY2VfdjExXzBfc2V0X3ZnYV9yZW5kZXJfc3RhdGUsDQo+ICAJLmJhbmR3
-aWR0aF91cGRhdGUgPSAmZGNlX3YxMV8wX2JhbmR3aWR0aF91cGRhdGUsDQo+ICAJLnZibGFua19n
-ZXRfY291bnRlciA9ICZkY2VfdjExXzBfdmJsYW5rX2dldF9jb3VudGVyLA0KPiAgCS52Ymxhbmtf
-d2FpdCA9ICZkY2VfdjExXzBfdmJsYW5rX3dhaXQsDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9kY2VfdjZfMC5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvZGNlX3Y2XzAuYw0KPiBpbmRleCBmYWU1MzViLi4zYmEyOWVhIDEwMDY0NA0KPiAtLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjZfMC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2RjZV92Nl8wLmMNCj4gQEAgLTM1MjIsNyArMzUyMiw2IEBAIHN0YXRp
-YyB2b2lkIGRjZV92Nl8wX2VuY29kZXJfYWRkKHN0cnVjdA0KPiBhbWRncHVfZGV2aWNlICphZGV2
-LA0KPiAgfQ0KPiANCj4gIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1X2Rpc3BsYXlfZnVuY3Mg
-ZGNlX3Y2XzBfZGlzcGxheV9mdW5jcyA9IHsNCj4gLQkuc2V0X3ZnYV9yZW5kZXJfc3RhdGUgPSAm
-ZGNlX3Y2XzBfc2V0X3ZnYV9yZW5kZXJfc3RhdGUsDQo+ICAJLmJhbmR3aWR0aF91cGRhdGUgPSAm
-ZGNlX3Y2XzBfYmFuZHdpZHRoX3VwZGF0ZSwNCj4gIAkudmJsYW5rX2dldF9jb3VudGVyID0gJmRj
-ZV92Nl8wX3ZibGFua19nZXRfY291bnRlciwNCj4gIAkudmJsYW5rX3dhaXQgPSAmZGNlX3Y2XzBf
-dmJsYW5rX3dhaXQsDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9k
-Y2VfdjhfMC5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3Y4XzAuYw0KPiBp
-bmRleCAzYzU1OGMxLi43MGViZDdlIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9kY2VfdjhfMC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Rj
-ZV92OF8wLmMNCj4gQEAgLTM1NzEsNyArMzU3MSw2IEBAIHN0YXRpYyB2b2lkIGRjZV92OF8wX2Vu
-Y29kZXJfYWRkKHN0cnVjdA0KPiBhbWRncHVfZGV2aWNlICphZGV2LA0KPiAgfQ0KPiANCj4gIHN0
-YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1X2Rpc3BsYXlfZnVuY3MgZGNlX3Y4XzBfZGlzcGxheV9m
-dW5jcyA9IHsNCj4gLQkuc2V0X3ZnYV9yZW5kZXJfc3RhdGUgPSAmZGNlX3Y4XzBfc2V0X3ZnYV9y
-ZW5kZXJfc3RhdGUsDQo+ICAJLmJhbmR3aWR0aF91cGRhdGUgPSAmZGNlX3Y4XzBfYmFuZHdpZHRo
-X3VwZGF0ZSwNCj4gIAkudmJsYW5rX2dldF9jb3VudGVyID0gJmRjZV92OF8wX3ZibGFua19nZXRf
-Y291bnRlciwNCj4gIAkudmJsYW5rX3dhaXQgPSAmZGNlX3Y4XzBfdmJsYW5rX3dhaXQsDQo+IGRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdmlydHVhbC5jDQo+IGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3ZpcnR1YWwuYw0KPiBpbmRleCBmMWI0Nzli
-Li45NDRkZGEwIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2Vf
-dmlydHVhbC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92aXJ0dWFs
-LmMNCj4gQEAgLTE0NSwxMiArMTQ1LDYgQEAgc3RhdGljIHZvaWQgZGNlX3ZpcnR1YWxfcmVzdW1l
-X21jX2FjY2VzcyhzdHJ1Y3QNCj4gYW1kZ3B1X2RldmljZSAqYWRldiwNCj4gIAlyZXR1cm47DQo+
-ICB9DQo+IA0KPiAtc3RhdGljIHZvaWQgZGNlX3ZpcnR1YWxfc2V0X3ZnYV9yZW5kZXJfc3RhdGUo
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+IC0JCQkJICAgIGJvb2wgcmVuZGVyKQ0KPiAt
-ew0KPiAtCXJldHVybjsNCj4gLX0NCj4gLQ0KPiAgLyoqDQo+ICAgKiBkY2VfdmlydHVhbF9iYW5k
-d2lkdGhfdXBkYXRlIC0gcHJvZ3JhbSBkaXNwbGF5IHdhdGVybWFya3MNCj4gICAqDQo+IEBAIC02
-NzcsNyArNjcxLDYgQEAgc3RhdGljIGludCBkY2VfdmlydHVhbF9jb25uZWN0b3JfZW5jb2Rlcl9p
-bml0KHN0cnVjdA0KPiBhbWRncHVfZGV2aWNlICphZGV2LA0KPiAgfQ0KPiANCj4gIHN0YXRpYyBj
-b25zdCBzdHJ1Y3QgYW1kZ3B1X2Rpc3BsYXlfZnVuY3MgZGNlX3ZpcnR1YWxfZGlzcGxheV9mdW5j
-cyA9IHsNCj4gLQkuc2V0X3ZnYV9yZW5kZXJfc3RhdGUgPSAmZGNlX3ZpcnR1YWxfc2V0X3ZnYV9y
-ZW5kZXJfc3RhdGUsDQo+ICAJLmJhbmR3aWR0aF91cGRhdGUgPSAmZGNlX3ZpcnR1YWxfYmFuZHdp
-ZHRoX3VwZGF0ZSwNCj4gIAkudmJsYW5rX2dldF9jb3VudGVyID0gJmRjZV92aXJ0dWFsX3ZibGFu
-a19nZXRfY291bnRlciwNCj4gIAkudmJsYW5rX3dhaXQgPSAmZGNlX3ZpcnR1YWxfdmJsYW5rX3dh
-aXQsDQo+IC0tDQo+IDIuNS41DQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
-LWdmeAo=
+Just a reminder.
+
+Thanks.
+
+On 06/09/2017 05:30 PM, Andrey Grodzovsky wrote:
+> Problem:
+> While running IGT kms_atomic_transition test suite i encountered
+> a hang in drmHandleEvent immidietly follwoing an atomic_commit.
+> After dumping the atomic state I relized that in this case there was
+> not even one CRTC attached to the state and only disabled
+> planes. This probably due to a commit which hadn't changed any property
+> which would require attaching crtc state. This means drmHandleEvent
+> will never wake up from read since without CRTC in atomic state
+> the event fd will not be singnaled.
+> This point to a bug in IGT but also DRM should gracefully
+> fail  such scenario so no hang on user side will happen.
+>
+> Fix:
+> Explicitly fail by failing atomic_commit early in
+> drm_mode_atomic_commit where such problem can be identified.
+>
+> Signed-off-by: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+> ---
+>   drivers/gpu/drm/drm_atomic.c | 13 ++++++++++++-
+>   1 file changed, 12 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+> index a567310..32eae1c 100644
+> --- a/drivers/gpu/drm/drm_atomic.c
+> +++ b/drivers/gpu/drm/drm_atomic.c
+> @@ -1933,7 +1933,7 @@ static int prepare_crtc_signaling(struct drm_device *dev,
+>   {
+>   	struct drm_crtc *crtc;
+>   	struct drm_crtc_state *crtc_state;
+> -	int i, ret;
+> +	int i, c = 0, ret;
+>   
+>   	if (arg->flags & DRM_MODE_ATOMIC_TEST_ONLY)
+>   		return 0;
+> @@ -1994,8 +1994,17 @@ static int prepare_crtc_signaling(struct drm_device *dev,
+>   
+>   			crtc_state->event->base.fence = fence;
+>   		}
+> +
+> +		c++;
+>   	}
+>   
+> +	/*
+> +	 * Having this flag means user mode pends on event which will never
+> +	 * reach due to lack of at least one CRTC for signaling
+> +	 */
+> +	if (c == 0 && (arg->flags & DRM_MODE_PAGE_FLIP_EVENT))
+> +		return -EINVAL;
+> +
+>   	return 0;
+>   }
+>   
+> @@ -2179,6 +2188,8 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+>   		drm_mode_object_unreference(obj);
+>   	}
+>   
+> +
+> +
+>   	ret = prepare_crtc_signaling(dev, state, arg, file_priv, &fence_state,
+>   				     &num_fences);
+>   	if (ret)
