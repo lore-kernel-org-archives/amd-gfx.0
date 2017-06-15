@@ -1,44 +1,46 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: [PATCH] drm/amdgpu/atom: fix ps allocation size for EnableDispPowerGating
-Date: Thu, 15 Jun 2017 11:17:06 -0400
-Message-ID: <1497539827-26354-1-git-send-email-alexander.deucher@amd.com>
-Return-path: <stable-owner@vger.kernel.org>
-Sender: stable-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: adjust default display clock
+Date: Thu, 15 Jun 2017 11:17:07 -0400
+Message-ID: <1497539827-26354-2-git-send-email-alexander.deucher@amd.com>
+References: <1497539827-26354-1-git-send-email-alexander.deucher@amd.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1497539827-26354-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
 
-We were using the wrong structure which lead to an overflow
-on some boards.
-
-bug: https://bugs.freedesktop.org/show_bug.cgi?id=101387
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
----
- drivers/gpu/drm/amd/amdgpu/atombios_crtc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_crtc.c b/drivers/gpu/drm/amd/amdgpu/atombios_crtc.c
-index 8c9bc75..8a0818b 100644
---- a/drivers/gpu/drm/amd/amdgpu/atombios_crtc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/atombios_crtc.c
-@@ -165,7 +165,7 @@ void amdgpu_atombios_crtc_powergate(struct drm_crtc *crtc, int state)
- 	struct drm_device *dev = crtc->dev;
- 	struct amdgpu_device *adev = dev->dev_private;
- 	int index = GetIndexIntoMasterTable(COMMAND, EnableDispPowerGating);
--	ENABLE_DISP_POWER_GATING_PARAMETERS_V2_1 args;
-+	ENABLE_DISP_POWER_GATING_PS_ALLOCATION args;
- 
- 	memset(&args, 0, sizeof(args));
- 
-@@ -178,7 +178,7 @@ void amdgpu_atombios_crtc_powergate(struct drm_crtc *crtc, int state)
- void amdgpu_atombios_crtc_powergate_init(struct amdgpu_device *adev)
- {
- 	int index = GetIndexIntoMasterTable(COMMAND, EnableDispPowerGating);
--	ENABLE_DISP_POWER_GATING_PARAMETERS_V2_1 args;
-+	ENABLE_DISP_POWER_GATING_PS_ALLOCATION args;
- 
- 	memset(&args, 0, sizeof(args));
- 
--- 
-2.5.5
+SW5jcmVhc2UgdGhlIGRlZmF1bHQgZGlzcGxheSBjbG9jayBvbiBuZXdlciBhc2ljcyB0bwphY2Nv
+bW9kYXRlIHNvbWUgaGlnaCByZXMgbW9kZXMgd2l0aCByZWFsbHkgaGlnaCByZWZyZXNoCnJhdGVz
+LgoKYnVnOiBodHRwczovL2J1Z3MuZnJlZWRlc2t0b3Aub3JnL3Nob3dfYnVnLmNnaT9pZD05Mzgy
+NgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+
+CkNjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnCi0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2F0b21iaW9zLmMgfCA0ICsrKysKIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlv
+bnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYXRv
+bWJpb3MuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hdG9tYmlvcy5jCmlu
+ZGV4IDFjZjc4ZjQuLjFlOGUxMTIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9hdG9tYmlvcy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9hdG9tYmlvcy5jCkBAIC02OTMsNiArNjkzLDEwIEBAIGludCBhbWRncHVfYXRvbWJpb3Nf
+Z2V0X2Nsb2NrX2luZm8oc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAJCQlEUk1fSU5GTygi
+Q2hhbmdpbmcgZGVmYXVsdCBkaXNwY2xrIGZyb20gJWRNaHogdG8gNjAwTWh6XG4iLAogCQkJCSBh
+ZGV2LT5jbG9jay5kZWZhdWx0X2Rpc3BjbGsgLyAxMDApOwogCQkJYWRldi0+Y2xvY2suZGVmYXVs
+dF9kaXNwY2xrID0gNjAwMDA7CisJCX0gZWxzZSBpZiAoYWRldi0+Y2xvY2suZGVmYXVsdF9kaXNw
+Y2xrIDw9IDYwMDAwKSB7CisJCQlEUk1fSU5GTygiQ2hhbmdpbmcgZGVmYXVsdCBkaXNwY2xrIGZy
+b20gJWRNaHogdG8gNjI1TWh6XG4iLAorCQkJCSBhZGV2LT5jbG9jay5kZWZhdWx0X2Rpc3BjbGsg
+LyAxMDApOworCQkJYWRldi0+Y2xvY2suZGVmYXVsdF9kaXNwY2xrID0gNjI1MDA7CiAJCX0KIAkJ
+YWRldi0+Y2xvY2suZHBfZXh0Y2xrID0KIAkJCWxlMTZfdG9fY3B1KGZpcm13YXJlX2luZm8tPmlu
+Zm9fMjEudXNVbmlwaHlEUE1vZGVFeHRDbGtGcmVxKTsKLS0gCjIuNS41CgpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
