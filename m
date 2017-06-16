@@ -1,12 +1,16 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: upsteam find bo api
-Date: Fri, 16 Jun 2017 16:35:31 -0400
-Message-ID: <CADnq5_NY8pZr6JbD8GrUQatiFGz6J1dU9ug2TiFiyN+6kxozeg@mail.gmail.com>
-References: <59410CF8.9080409@amd.com> <59439208.10100@amd.com>
+From: axie <axie-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amdgpu: Optimize mutex usage (v2)
+Date: Fri, 16 Jun 2017 18:00:21 -0400
+Message-ID: <07c69549-9ec8-572a-797d-b8fc477f4aa8@amd.com>
+References: <1497589410-17779-1-git-send-email-AlexBin.Xie@amd.com>
+ <1497589410-17779-2-git-send-email-AlexBin.Xie@amd.com>
+ <86ceaa66-955d-ada4-358b-24334193a169@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1032839617=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <59439208.10100-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <86ceaa66-955d-ada4-358b-24334193a169-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,146 +21,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============1032839617==
-Content-Type: multipart/alternative; boundary="f403045dbc2a04e2f0055219ba60"
-
---f403045dbc2a04e2f0055219ba60
-Content-Type: text/plain; charset="UTF-8"
-
-The patches look good to me.  Christian what did you have in mind?
-Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-Alex
-
-On Fri, Jun 16, 2017 at 4:08 AM, zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org> wrote:
-
-> ping...?
->
->
->
-> -------- Forwarded Message --------
-> Subject: upsteam find bo api
-> Date: Wed, 14 Jun 2017 18:16:24 +0800
-> From: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org> <david1.zhou-5C7GfCeVMHo@public.gmane.org>
-> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->
-> Hi all,
->
-> Since patches are one feature, and contain kernel and libdrm, I attached
-> them not by send-mail. Hope not inconvenience.
->
-> 0001-drm-amdgpu-return-bo-itself-if-userptr-is-cpu-addr-o.patch is
-> kernel patch.
-> Other three is libdrm patches including unit test.
->
-> please review.
->
-> Regards,
-> David Zhou
->
->
->
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
->
-
---f403045dbc2a04e2f0055219ba60
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>The patches look good to me.=C2=A0 Christian what did=
- you have in mind?<br></div><div>Acked-by: Alex Deucher &lt;<a href=3D"mail=
-to:alexander.deucher-5C7GfCeVMHo@public.gmane.org">alexander.deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<br></div><d=
-iv><br></div>Alex<br><div><div><div class=3D"gmail_extra"><br><div class=3D=
-"gmail_quote">On Fri, Jun 16, 2017 at 4:08 AM, zhoucm1 <span dir=3D"ltr">&l=
-t;<a href=3D"mailto:david1.zhou-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">david1.zhou@amd.=
-com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"mar=
-gin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
- =20
-
-   =20
- =20
-  <div text=3D"#000000" bgcolor=3D"#FFFFFF">
-    ping...?<div><div class=3D"h5"><br>
-    <div class=3D"m_-3073124277673834392moz-forward-container"><br>
-      <br>
-      -------- Forwarded Message --------
-      <table class=3D"m_-3073124277673834392moz-email-headers-table" border=
-=3D"0" cellpadding=3D"0" cellspacing=3D"0">
-        <tbody>
-          <tr>
-            <th valign=3D"BASELINE" align=3D"RIGHT" nowrap>Subject:
-            </th>
-            <td>upsteam find bo api</td>
-          </tr>
-          <tr>
-            <th valign=3D"BASELINE" align=3D"RIGHT" nowrap>Date: </th>
-            <td>Wed, 14 Jun 2017 18:16:24 +0800</td>
-          </tr>
-          <tr>
-            <th valign=3D"BASELINE" align=3D"RIGHT" nowrap>From: </th>
-            <td>zhoucm1 <a class=3D"m_-3073124277673834392moz-txt-link-rfc2=
-396E" href=3D"mailto:david1.zhou-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">&lt;david1.zhou=
-@amd.com&gt;</a></td>
-          </tr>
-          <tr>
-            <th valign=3D"BASELINE" align=3D"RIGHT" nowrap>To: </th>
-            <td><a class=3D"m_-3073124277673834392moz-txt-link-abbreviated"=
- href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@li=
-sts.freedesktop.org</a></td>
-          </tr>
-        </tbody>
-      </table>
-      <br>
-      <br>
-      <pre>Hi all,
-
-Since patches are one feature, and contain kernel and libdrm, I attached=20
-them not by send-mail. Hope not inconvenience.
-
-0001-drm-amdgpu-return-bo-<wbr>itself-if-userptr-is-cpu-addr-<wbr>o.patch i=
-s=20
-kernel patch.
-Other three is libdrm patches including unit test.
-
-please review.
-
-Regards,
-David Zhou
-
-</pre>
-      <br>
-    </div>
-    <br>
-  </div></div></div>
-
-<br>______________________________<wbr>_________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
-oreferrer" target=3D"_blank">https://lists.freedesktop.org/<wbr>mailman/lis=
-tinfo/amd-gfx</a><br>
-<br></blockquote></div><br></div></div></div></div>
-
---f403045dbc2a04e2f0055219ba60--
-
---===============1032839617==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1032839617==--
+CgpPbiAyMDE3LTA2LTE2IDAxOjQ4IFBNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+IEFtIDE2
+LjA2LjIwMTcgdW0gMDc6MDMgc2NocmllYiBBbGV4IFhpZToKPj4gVXNlIHJ3X3NlbWFwaG9yZSBp
+bnN0ZWFkIG9mIG11dGV4IGZvciBib19saXN0cy4KPj4KPj4gSW4gb3JpZ2luYWwgZnVuY3Rpb24g
+YW1kZ3B1X2JvX2xpc3RfZ2V0LCB0aGUgd2FpdGluZwo+PiBmb3IgcmVzdWx0LT5sb2NrIGNhbiBi
+ZSBxdWl0ZSBsb25nIHdoaWxlIG11dGV4Cj4+IGJvX2xpc3RfbG9jayB3YXMgaG9sZGluZy4gSXQg
+Y2FuIG1ha2Ugb3RoZXIgdGFza3MKPj4gd2FpdGluZyBmb3IgYm9fbGlzdF9sb2NrIGZvciBsb25n
+IHBlcmlvZCB0b28uCj4+IENoYW5nZSBib19saXN0X2xvY2sgdG8gcndfc2VtYXBob3JlIGNhbiBh
+dm9pZCBtb3N0IG9mCj4+IHN1Y2ggbG9uZyB3YWl0aW5nLgo+Pgo+PiBTZWNvbmRseSwgdGhpcyBw
+YXRjaCBhbGxvd3Mgc2V2ZXJhbCB0YXNrcyhyZWFkZXJzIG9mIGlkcikKPj4gdG8gcHJvY2VlZCBh
+dCB0aGUgc2FtZSB0aW1lLgo+Pgo+PiB2MjogdXNlIHJjdSBhbmQga3JlZiAoRGF2ZSBBaXJsaWUg
+YW5kIENocmlzdGlhbiBLw7ZuaWcpCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IEFsZXggWGllIDxBbGV4
+QmluLlhpZUBhbWQuY29tPgo+PiAtLS0KPj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHUuaCAgICAgICAgIHwgIDIgKysKPj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfYm9fbGlzdC5jIHwgNDAgCj4+ICsrKysrKysrKysrKysrKysrKysrLS0tLS0tLS0tCj4+
+ICAgMiBmaWxlcyBjaGFuZ2VkLCAzMCBpbnNlcnRpb25zKCspLCAxMiBkZWxldGlvbnMoLSkKPj4K
+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oIAo+PiBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+IGluZGV4IDA2M2ZjNzMuLmU5
+YjM5ODEgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5o
+Cj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+IEBAIC04NzEs
+NiArODcxLDggQEAgc3RydWN0IGFtZGdwdV9mcHJpdiB7Cj4+ICAgICBzdHJ1Y3QgYW1kZ3B1X2Jv
+X2xpc3Qgewo+PiAgICAgICBzdHJ1Y3QgbXV0ZXggbG9jazsKPj4gKyAgICBzdHJ1Y3QgcmN1X2hl
+YWQgcmhlYWQ7Cj4+ICsgICAgc3RydWN0IGtyZWYgcmVmY291bnQ7Cj4+ICAgICAgIHN0cnVjdCBh
+bWRncHVfYm8gKmdkc19vYmo7Cj4+ICAgICAgIHN0cnVjdCBhbWRncHVfYm8gKmd3c19vYmo7Cj4+
+ICAgICAgIHN0cnVjdCBhbWRncHVfYm8gKm9hX29iajsKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9ib19saXN0LmMgCj4+IGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2JvX2xpc3QuYwo+PiBpbmRleCA1YWY5NTZmLi5lZmE2OTAzIDEw
+MDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYm9fbGlzdC5j
+Cj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9ib19saXN0LmMKPj4g
+QEAgLTQxLDYgKzQxLDIwIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2JvX2xpc3Rfc2V0KHN0cnVjdCBh
+bWRncHVfZGV2aWNlIAo+PiAqYWRldiwKPj4gICAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3Qg
+ZHJtX2FtZGdwdV9ib19saXN0X2VudHJ5ICppbmZvLAo+PiAgICAgICAgICAgICAgICAgICAgICAg
+IHVuc2lnbmVkIG51bV9lbnRyaWVzKTsKPj4gICArc3RhdGljIHZvaWQgYW1kZ3B1X2JvX2xpc3Rf
+cmVsZWFzZV9yY3Uoc3RydWN0IGtyZWYgKnJlZikKPj4gK3sKPj4gKyAgICB1bnNpZ25lZCBpOwo+
+PiArICAgIHN0cnVjdCBhbWRncHVfYm9fbGlzdCAqbGlzdCA9IGNvbnRhaW5lcl9vZihyZWYsIHN0
+cnVjdCAKPj4gYW1kZ3B1X2JvX2xpc3QsCj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICBy
+ZWZjb3VudCk7Cj4+ICsKPj4gKyAgICBmb3IgKGkgPSAwOyBpIDwgbGlzdC0+bnVtX2VudHJpZXM7
+ICsraSkKPj4gKyAgICAgICAgYW1kZ3B1X2JvX3VucmVmKCZsaXN0LT5hcnJheVtpXS5yb2JqKTsK
+Pj4gKwo+PiArICAgIG11dGV4X2Rlc3Ryb3koJmxpc3QtPmxvY2spOwo+PiArICAgIGRybV9mcmVl
+X2xhcmdlKGxpc3QtPmFycmF5KTsKPj4gKyAgICBrZnJlZV9yY3UobGlzdCwgcmhlYWQpOwo+PiAr
+fQo+PiArCj4KPiBJJ20gcHJvYmFibHkgbWlzc2luZyBzb21ldGhpbmcgaGVyZTogV2h5IGEgbmV3
+IGZ1bmN0aW9uIGFuZCBub3QgY2hhbmdlIAo+IHRoZSBleGlzdGluZyBhbWRncHVfYm9fbGlzdF9m
+cmVlKCkgdG8gdXNlIGtmcmVlX3JjdSBpbnN0ZWFkPwo+Cj4gQXBhcnQgZnJvbSB0aGF0IHRoZSBw
+YXRjaCBsb29rcyBnb29kIHRvIG1lLAo+IENocmlzdGlhbi4KCmFtZGdwdV9ib19saXN0X2ZyZWUo
+KSBpcyBjYWxsZWQgYnkgYW1kZ3B1X2RyaXZlcl9wb3N0Y2xvc2Vfa21zIGluIGZpbGUgCmFtZGdw
+dV9rbXMuYyB0b28uCkZvciBhbWRncHVfZHJpdmVyX3Bvc3RjbG9zZV9rbXMsIHRoZXJlIGlzIG5v
+IG5lZWQgdG8gY2FsbCBrZnJlZV9yY3UuIEl0IAppcyBtb3JlIHN1aXRhYmxlIHRvIGNhbGwga2Zy
+ZWUuCgpTbyB3ZSBuZWVkIHR3byBkaWZmZXJlbnQgcmVsZWFzZS9mcmVlIGZ1bmN0aW9ucy4gVGhl
+biBJIGNyZWF0ZWQgYSBuZXcgCmZ1bmN0aW9uIGZvciBrcmVmX3B1dC4KCj4KPj4gICBzdGF0aWMg
+aW50IGFtZGdwdV9ib19saXN0X2NyZWF0ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4g
+ICAgICAgICAgICAgICAgICAgIHN0cnVjdCBkcm1fZmlsZSAqZmlscCwKPj4gICAgICAgICAgICAg
+ICAgICAgIHN0cnVjdCBkcm1fYW1kZ3B1X2JvX2xpc3RfZW50cnkgKmluZm8sCj4+IEBAIC01Nyw3
+ICs3MSw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2JvX2xpc3RfY3JlYXRlKHN0cnVjdCAKPj4gYW1k
+Z3B1X2RldmljZSAqYWRldiwKPj4gICAgICAgICAvKiBpbml0aWFsaXplIGJvIGxpc3QqLwo+PiAg
+ICAgICBtdXRleF9pbml0KCZsaXN0LT5sb2NrKTsKPj4gLQo+PiArICAgIGtyZWZfaW5pdCgmbGlz
+dC0+cmVmY291bnQpOwo+PiAgICAgICByID0gYW1kZ3B1X2JvX2xpc3Rfc2V0KGFkZXYsIGZpbHAs
+IGxpc3QsIGluZm8sIG51bV9lbnRyaWVzKTsKPj4gICAgICAgaWYgKHIpIHsKPj4gICAgICAgICAg
+IGtmcmVlKGxpc3QpOwo+PiBAQCAtODMsMTQgKzk3LDkgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X2Jv
+X2xpc3RfZGVzdHJveShzdHJ1Y3QgCj4+IGFtZGdwdV9mcHJpdiAqZnByaXYsIGludCBpZCkKPj4g
+ICAgICAgICBtdXRleF9sb2NrKCZmcHJpdi0+Ym9fbGlzdF9sb2NrKTsKPj4gICAgICAgbGlzdCA9
+IGlkcl9yZW1vdmUoJmZwcml2LT5ib19saXN0X2hhbmRsZXMsIGlkKTsKPj4gLSAgICBpZiAobGlz
+dCkgewo+PiAtICAgICAgICAvKiBBbm90aGVyIHVzZXIgbWF5IGhhdmUgYSByZWZlcmVuY2UgdG8g
+dGhpcyBsaXN0IHN0aWxsICovCj4+IC0gICAgICAgIG11dGV4X2xvY2soJmxpc3QtPmxvY2spOwo+
+PiAtICAgICAgICBtdXRleF91bmxvY2soJmxpc3QtPmxvY2spOwo+PiAtICAgICAgICBhbWRncHVf
+Ym9fbGlzdF9mcmVlKGxpc3QpOwo+PiAtICAgIH0KPj4gLQo+PiAgICAgICBtdXRleF91bmxvY2so
+JmZwcml2LT5ib19saXN0X2xvY2spOwo+PiArICAgIGlmIChsaXN0KQo+PiArICAgICAgICBrcmVm
+X3B1dCgmbGlzdC0+cmVmY291bnQsIGFtZGdwdV9ib19saXN0X3JlbGVhc2VfcmN1KTsKPj4gICB9
+Cj4+ICAgICBzdGF0aWMgaW50IGFtZGdwdV9ib19saXN0X3NldChzdHJ1Y3QgYW1kZ3B1X2Rldmlj
+ZSAqYWRldiwKPj4gQEAgLTE4NSwxMSArMTk0LDE3IEBAIGFtZGdwdV9ib19saXN0X2dldChzdHJ1
+Y3QgYW1kZ3B1X2Zwcml2ICpmcHJpdiwgCj4+IGludCBpZCkKPj4gICB7Cj4+ICAgICAgIHN0cnVj
+dCBhbWRncHVfYm9fbGlzdCAqcmVzdWx0Owo+PiAgIC0gICAgbXV0ZXhfbG9jaygmZnByaXYtPmJv
+X2xpc3RfbG9jayk7Cj4+ICsgICAgcmN1X3JlYWRfbG9jaygpOwo+PiAgICAgICByZXN1bHQgPSBp
+ZHJfZmluZCgmZnByaXYtPmJvX2xpc3RfaGFuZGxlcywgaWQpOwo+PiAtICAgIGlmIChyZXN1bHQp
+Cj4+IC0gICAgICAgIG11dGV4X2xvY2soJnJlc3VsdC0+bG9jayk7Cj4+IC0gICAgbXV0ZXhfdW5s
+b2NrKCZmcHJpdi0+Ym9fbGlzdF9sb2NrKTsKPj4gKwo+PiArICAgIGlmIChyZXN1bHQpIHsKPj4g
+KyAgICAgICAgaWYgKGtyZWZfZ2V0X3VubGVzc196ZXJvKCZyZXN1bHQtPnJlZmNvdW50KSkKPj4g
+KyAgICAgICAgICAgIG11dGV4X2xvY2soJnJlc3VsdC0+bG9jayk7Cj4+ICsgICAgICAgIGVsc2UK
+Pj4gKyAgICAgICAgICAgIHJlc3VsdCA9IE5VTEw7Cj4+ICsgICAgfQo+PiArICAgIHJjdV9yZWFk
+X3VubG9jaygpOwo+PiArCj4+ICAgICAgIHJldHVybiByZXN1bHQ7Cj4+ICAgfQo+PiAgIEBAIC0y
+MjcsNiArMjQyLDcgQEAgdm9pZCBhbWRncHVfYm9fbGlzdF9nZXRfbGlzdChzdHJ1Y3QgCj4+IGFt
+ZGdwdV9ib19saXN0ICpsaXN0LAo+PiAgIHZvaWQgYW1kZ3B1X2JvX2xpc3RfcHV0KHN0cnVjdCBh
+bWRncHVfYm9fbGlzdCAqbGlzdCkKPj4gICB7Cj4+ICAgICAgIG11dGV4X3VubG9jaygmbGlzdC0+
+bG9jayk7Cj4+ICsgICAga3JlZl9wdXQoJmxpc3QtPnJlZmNvdW50LCBhbWRncHVfYm9fbGlzdF9y
+ZWxlYXNlX3JjdSk7Cj4+ICAgfQo+PiAgICAgdm9pZCBhbWRncHVfYm9fbGlzdF9mcmVlKHN0cnVj
+dCBhbWRncHVfYm9fbGlzdCAqbGlzdCkKPgo+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
+bmZvL2FtZC1nZngK
