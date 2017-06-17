@@ -1,17 +1,14 @@
-From: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 5/5] amdgpu: use drm sync objects for shared semaphores
- (v5)
-Date: Sat, 17 Jun 2017 11:23:32 +1000
-Message-ID: <CAPM=9tzGUPuOB_wOBu+DKucMmXqv7XCrdc02BV_hAqrPwZm=Jg@mail.gmail.com>
-References: <20170601010643.28616-1-airlied@gmail.com>
- <20170601010643.28616-6-airlied@gmail.com>
- <CAPM=9twtavgA+D+vgZYz7UagnjxX6pGFBBUycCs2ofGjhOcBrw@mail.gmail.com>
- <e8021851-d630-3cbd-40e2-58f83a366a29@vodafone.de>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: upsteam find bo api
+Date: Sat, 17 Jun 2017 12:09:05 +0200
+Message-ID: <431202a9-c20d-fc67-9e70-26dfb67a3792@vodafone.de>
+References: <59410CF8.9080409@amd.com> <59439208.10100@amd.com>
+ <CADnq5_NY8pZr6JbD8GrUQatiFGz6J1dU9ug2TiFiyN+6kxozeg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0870452859=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <e8021851-d630-3cbd-40e2-58f83a366a29-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <CADnq5_NY8pZr6JbD8GrUQatiFGz6J1dU9ug2TiFiyN+6kxozeg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,21 +19,231 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-PiB0ZWFtIHdoaWNoIHNlZW0gdG8gbWFrZSBhIGxvdCBvZiBzZW5zZSB0byB1cHN0cmVhbSBhcyB3
-ZWxsOgo+Cj4gMS4gQW4gSU9DVEwgdG8gcmVzZXQgYSBzeW5jIG9iamVjdCB0byBpdCdzIGluaXRp
-YWwgc3RhdGUuIEUuZy4gcmVzZXQgdGhlCj4gZmVuY2UgdGhlIHN5bmMgb2JqZWN0cyB3cmFwcyBi
-YWNrIHRvIE5VTEwuCj4KPiAyLiBUaGUgYWJpbGl0eSB0byBtZXJnZSBtdWx0aXBsZSBzeW5jIG9i
-amVjdHMgaW50byBvbmUuIEVzc2VudGlhbGx5IHRoZSBzYW1lCj4gdGhpbmcgd2UgaGF2ZSBmb3Ig
-dGhlIHN5bmMgZmlsZSwgYnV0IGhhbmRsZSBiYXNlZCBpbnN0ZWFkIG9mIGZkLgo+Cj4gSSdtIGdv
-aW5nIHRvIHdvcmsgb24gdGhhdCBpbiB0aGUgbmV4dCB3ZWVrIG9yIHNvLiBTaG91bGRuJ3QgYmUg
-dG8gbXVjaCBvZiBhCj4gcHJvYmxlbSB0byBjb21lIHVwIHdpdGggc29tZSBzYW5lIGNvZGUsIGJ1
-dCBwcm9iYWJseSBmaW5kaW5nIHVzZSBjYXNlcyBmb3IKPiB0aGlzIGluIHRoZSBvcGVuIHNvdXJj
-ZSB1c2Vyc3BhY2UgbWlnaHQgYmUgY2hhbGxlbmdpbmcuCgpEbyB3ZSBoYXZlIHVzZSBjYXNlcyBm
-b3IgdGhlc2UgaW4gdGhlIGNsb3NlZCBzb3VyY2Ugc3RhY2s/IEknbSBzdXJlIGlmIHRoZXkgYXJl
-CnVzZWZ1bCBlbm91Z2gsIHJhZHYgY291bGQgdXNlIHRoZW0gZm9yIHNpbWlsaWFyIHRoaW5ncy4K
-CkRhdmUuCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
-ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This is a multi-part message in MIME format.
+--===============0870452859==
+Content-Type: multipart/alternative;
+ boundary="------------2DD42AFC97F19D804E708686"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------2DD42AFC97F19D804E708686
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+The patch should still work on amd-staging-4.11, but drm-next has seen 
+some changes on how the handles are stored for dma-buf.
+
+This can potentially break the implementation and I think we need to 
+adapt before pushing it upstream, but I'm not 100% sure.
+
+Christian.
+
+Am 16.06.2017 um 22:35 schrieb Alex Deucher:
+> The patches look good to me.  Christian what did you have in mind?
+> Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org 
+> <mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org>>
+>
+> Alex
+>
+> On Fri, Jun 16, 2017 at 4:08 AM, zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org 
+> <mailto:david1.zhou-5C7GfCeVMHo@public.gmane.org>> wrote:
+>
+>     ping...?
+>
+>
+>
+>     -------- Forwarded Message --------
+>     Subject: 	upsteam find bo api
+>     Date: 	Wed, 14 Jun 2017 18:16:24 +0800
+>     From: 	zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org> <mailto:david1.zhou-5C7GfCeVMHo@public.gmane.org>
+>     To: 	amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>     <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+>
+>
+>
+>     Hi all,
+>
+>     Since patches are one feature, and contain kernel and libdrm, I attached
+>     them not by send-mail. Hope not inconvenience.
+>
+>     0001-drm-amdgpu-return-bo-itself-if-userptr-is-cpu-addr-o.patch is
+>     kernel patch.
+>     Other three is libdrm patches including unit test.
+>
+>     please review.
+>
+>     Regards,
+>     David Zhou
+>
+>
+>
+>
+>     _______________________________________________
+>     amd-gfx mailing list
+>     amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+>     https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>     <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>
+>
+>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+
+--------------2DD42AFC97F19D804E708686
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">The patch should still work on
+      amd-staging-4.11, but drm-next has seen some changes on how the
+      handles are stored for dma-buf.<br>
+      <br>
+      This can potentially break the implementation and I think we need
+      to adapt before pushing it upstream, but I'm not 100% sure.<br>
+      <br>
+      Christian.<br>
+      <br>
+      Am 16.06.2017 um 22:35 schrieb Alex Deucher:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:CADnq5_NY8pZr6JbD8GrUQatiFGz6J1dU9ug2TiFiyN+6kxozeg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
+      <div dir="ltr">
+        <div>The patches look good to me.  Christian what did you have
+          in mind?<br>
+        </div>
+        <div>Acked-by: Alex Deucher &lt;<a
+            href="mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org"
+            moz-do-not-send="true">alexander.deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+        </div>
+        <div><br>
+        </div>
+        Alex<br>
+        <div>
+          <div>
+            <div class="gmail_extra"><br>
+              <div class="gmail_quote">On Fri, Jun 16, 2017 at 4:08 AM,
+                zhoucm1 <span dir="ltr">&lt;<a
+                    href="mailto:david1.zhou-5C7GfCeVMHo@public.gmane.org" target="_blank"
+                    moz-do-not-send="true">david1.zhou-5C7GfCeVMHo@public.gmane.org</a>&gt;</span>
+                wrote:<br>
+                <blockquote class="gmail_quote" style="margin:0 0 0
+                  .8ex;border-left:1px #ccc solid;padding-left:1ex">
+                  <div text="#000000" bgcolor="#FFFFFF"> ping...?
+                    <div>
+                      <div class="h5"><br>
+                        <div
+                          class="m_-3073124277673834392moz-forward-container"><br>
+                          <br>
+                          -------- Forwarded Message --------
+                          <table
+                            class="m_-3073124277673834392moz-email-headers-table"
+                            cellspacing="0" cellpadding="0" border="0">
+                            <tbody>
+                              <tr>
+                                <th valign="BASELINE" align="RIGHT"
+                                  nowrap="nowrap">Subject: </th>
+                                <td>upsteam find bo api</td>
+                              </tr>
+                              <tr>
+                                <th valign="BASELINE" align="RIGHT"
+                                  nowrap="nowrap">Date: </th>
+                                <td>Wed, 14 Jun 2017 18:16:24 +0800</td>
+                              </tr>
+                              <tr>
+                                <th valign="BASELINE" align="RIGHT"
+                                  nowrap="nowrap">From: </th>
+                                <td>zhoucm1 <a
+                                    class="m_-3073124277673834392moz-txt-link-rfc2396E"
+                                    href="mailto:david1.zhou-5C7GfCeVMHo@public.gmane.org"
+                                    target="_blank"
+                                    moz-do-not-send="true">&lt;david1.zhou-5C7GfCeVMHo@public.gmane.org&gt;</a></td>
+                              </tr>
+                              <tr>
+                                <th valign="BASELINE" align="RIGHT"
+                                  nowrap="nowrap">To: </th>
+                                <td><a
+                                    class="m_-3073124277673834392moz-txt-link-abbreviated"
+href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target="_blank"
+                                    moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <br>
+                          <br>
+                          <pre>Hi all,
+
+Since patches are one feature, and contain kernel and libdrm, I attached 
+them not by send-mail. Hope not inconvenience.
+
+0001-drm-amdgpu-return-bo-<wbr>itself-if-userptr-is-cpu-addr-<wbr>o.patch is 
+kernel patch.
+Other three is libdrm patches including unit test.
+
+please review.
+
+Regards,
+David Zhou
+
+</pre>
+                          <br>
+                        </div>
+                        <br>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  ______________________________<wbr>_________________<br>
+                  amd-gfx mailing list<br>
+                  <a href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
+                    moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                  <a
+                    href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
+                    rel="noreferrer" target="_blank"
+                    moz-do-not-send="true">https://lists.freedesktop.org/<wbr>mailman/listinfo/amd-gfx</a><br>
+                  <br>
+                </blockquote>
+              </div>
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------2DD42AFC97F19D804E708686--
+
+--===============0870452859==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0870452859==--
