@@ -1,337 +1,273 @@
-From: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Subject: Re: [PATCH] drm/core: Fail atomic IOCTL with no CRTC state but with
- signaling.
-Date: Mon, 19 Jun 2017 16:11:35 -0400
-Message-ID: <f9bdcba7-1549-75ce-c1bf-39525cc3fb47@amd.com>
-References: <1497043819-28591-1-git-send-email-Andrey.Grodzovsky@amd.com>
- <0d603149-3fb0-3d48-89e5-77e3f7686415@amd.com>
- <20170619192431.tbsntjjdkianx2kc@art_vandelay>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: upsteam find bo api
+Date: Mon, 19 Jun 2017 22:35:54 +0000
+Message-ID: <CY4PR12MB16532691DAB12278418412B4F7C40@CY4PR12MB1653.namprd12.prod.outlook.com>
+References: <59410CF8.9080409@amd.com> <59439208.10100@amd.com>
+ <CADnq5_NY8pZr6JbD8GrUQatiFGz6J1dU9ug2TiFiyN+6kxozeg@mail.gmail.com>
+ <431202a9-c20d-fc67-9e70-26dfb67a3792@vodafone.de> <59473586.3010206@amd.com>
+ <6ce7c117-99d8-36b5-31cf-cc8689ed8a38@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0482437771=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20170619192431.tbsntjjdkianx2kc@art_vandelay>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Sean Paul <seanpaul@chromium.org>, Harry Wentland <harry.wentland@amd.com>
-Cc: intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1783619091=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <6ce7c117-99d8-36b5-31cf-cc8689ed8a38-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?utf-8?B?J0NocmlzdGlhbiBLw7ZuaWcn?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "Zhou,
+ David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============0482437771==
+--===============1783619091==
+Content-Language: en-US
 Content-Type: multipart/alternative;
- boundary="------------CA32949480719FBED6879A48"
+	boundary="_000_CY4PR12MB16532691DAB12278418412B4F7C40CY4PR12MB1653namp_"
 
-This is a multi-part message in MIME format.
---------------CA32949480719FBED6879A48
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
+--_000_CY4PR12MB16532691DAB12278418412B4F7C40CY4PR12MB1653namp_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
+SSBhY3R1YWxseSBoYXZlIGEgYnJhbmNoIG9mIGFtZC1zdGFnaW5nIGJhc2VkIG9uIGRybS1uZXh0
+LiAgU2VlIHRoZSBhbWQtc3RhZ2luZy1kcm0tbmV4dCBicmFuY2guDQoNCkFsZXgNCg0KRnJvbTog
+YW1kLWdmeCBbbWFpbHRvOmFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmddIE9u
+IEJlaGFsZiBPZiBDaHJpc3RpYW4gS8O2bmlnDQpTZW50OiBNb25kYXksIEp1bmUgMTksIDIwMTcg
+NDo1MCBBTQ0KVG86IFpob3UsIERhdmlkKENodW5NaW5nKTsgQWxleCBEZXVjaGVyDQpDYzogYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNClN1YmplY3Q6IFJlOiB1cHN0ZWFtIGZpbmQgYm8g
+YXBpDQoNCkFtIDE5LjA2LjIwMTcgdW0gMDQ6MjMgc2NocmllYiB6aG91Y20xOg0KDQpPbiAyMDE3
+5bm0MDbmnIgxN+aXpSAxODowOSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToNClRoZSBwYXRjaCBz
+aG91bGQgc3RpbGwgd29yayBvbiBhbWQtc3RhZ2luZy00LjExLCBidXQgZHJtLW5leHQgaGFzIHNl
+ZW4gc29tZSBjaGFuZ2VzIG9uIGhvdyB0aGUgaGFuZGxlcyBhcmUgc3RvcmVkIGZvciBkbWEtYnVm
+Lg0KDQpUaGlzIGNhbiBwb3RlbnRpYWxseSBicmVhayB0aGUgaW1wbGVtZW50YXRpb24gYW5kIEkg
+dGhpbmsgd2UgbmVlZCB0byBhZGFwdCBiZWZvcmUgcHVzaGluZyBpdCB1cHN0cmVhbSwgYnV0IEkn
+bSBub3QgMTAwJSBzdXJlLg0KRG8geW91IG1lYW4gdGhlIHBhdGNoIG5lZWRzIHRvIHdhaXQgZm9y
+IG5leHQga2VybmVsIHByb21vdGlvbj8gNC4xMj8gNC4xMz8NCg0KTm8sIHdlbGwgbWF5YmUuIFRo
+ZSBwcm9ibGVtIGlzIHRoYXQgSSdtIG5vdCAxMDAlIHN1cmUgaWYgdGhlcmUgaXNuJ3QgYW55dGhp
+bmcgaW4gZHJtLW5leHQgd2hpY2ggYnJlYWtzIHRoaXMuDQoNClRoZSBlYXNpZXN0IHdheSB0byBm
+aWd1cmUgdGhhdCBvdXQgaXMgdG8gdHJ5IHRvIGFwcGx5IHRoZSBwYXRjaCB0byBEYXZlJ3MgY3Vy
+cmVudCBkcm0tbmV4dCBicmFuY2ggYW5kIHNlZSBpZiBpdCBzdGlsbCB3b3JrcyBhcyBleHBlY3Rl
+ZC4NCg0KSSB0aGluayBBbGV4IHBsYW4gd2FzIHRvIHNldHVwIGFuIGFtZC1zdGFnaW5nLW5leHQg
+YnJhbmNoIHRvIHNvbHZlIHN1Y2ggcHJvYmxlbXMsIGJ1dCB0aGF0IGhhc24ndCBnb3QgdmVyeSBm
+YXIgSSB0aGluay4NCg0KUmVnYXJkcywNCkNocmlzdGlhbi4NCg0KDQoNClJlZ2FyZHMsDQpEYXZp
+ZCBaaG91DQoNCg0KQ2hyaXN0aWFuLg0KDQpBbSAxNi4wNi4yMDE3IHVtIDIyOjM1IHNjaHJpZWIg
+QWxleCBEZXVjaGVyOg0KVGhlIHBhdGNoZXMgbG9vayBnb29kIHRvIG1lLiAgQ2hyaXN0aWFuIHdo
+YXQgZGlkIHlvdSBoYXZlIGluIG1pbmQ/DQpBY2tlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5k
+ZXIuZGV1Y2hlckBhbWQuY29tPG1haWx0bzphbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPj4NCg0K
+QWxleA0KDQpPbiBGcmksIEp1biAxNiwgMjAxNyBhdCA0OjA4IEFNLCB6aG91Y20xIDxkYXZpZDEu
+emhvdUBhbWQuY29tPG1haWx0bzpkYXZpZDEuemhvdUBhbWQuY29tPj4gd3JvdGU6DQpwaW5nLi4u
+Pw0KDQoNCg0KLS0tLS0tLS0gRm9yd2FyZGVkIE1lc3NhZ2UgLS0tLS0tLS0NClN1YmplY3Q6DQoN
+CnVwc3RlYW0gZmluZCBibyBhcGkNCg0KRGF0ZToNCg0KV2VkLCAxNCBKdW4gMjAxNyAxODoxNjoy
+NCArMDgwMA0KDQpGcm9tOg0KDQp6aG91Y20xIDxkYXZpZDEuemhvdUBhbWQuY29tPjxtYWlsdG86
+ZGF2aWQxLnpob3VAYW1kLmNvbT4NCg0KVG86DQoNCmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnPG1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4NCg0KDQoNCkhpIGFsbCwN
+Cg0KDQoNClNpbmNlIHBhdGNoZXMgYXJlIG9uZSBmZWF0dXJlLCBhbmQgY29udGFpbiBrZXJuZWwg
+YW5kIGxpYmRybSwgSSBhdHRhY2hlZA0KDQp0aGVtIG5vdCBieSBzZW5kLW1haWwuIEhvcGUgbm90
+IGluY29udmVuaWVuY2UuDQoNCg0KDQowMDAxLWRybS1hbWRncHUtcmV0dXJuLWJvLWl0c2VsZi1p
+Zi11c2VycHRyLWlzLWNwdS1hZGRyLW8ucGF0Y2ggaXMNCg0Ka2VybmVsIHBhdGNoLg0KDQpPdGhl
+ciB0aHJlZSBpcyBsaWJkcm0gcGF0Y2hlcyBpbmNsdWRpbmcgdW5pdCB0ZXN0Lg0KDQoNCg0KcGxl
+YXNlIHJldmlldy4NCg0KDQoNClJlZ2FyZHMsDQoNCkRhdmlkIFpob3UNCg0KDQoNCg0KDQpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KYW1kLWdmeCBtYWls
+aW5nIGxpc3QNCmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPG1haWx0bzphbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZz4NCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vYW1kLWdmeA0KDQoNCg0KDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fDQoNCmFtZC1nZnggbWFpbGluZyBsaXN0DQoNCmFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnPG1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+Zz4NCg0KaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
+Z2Z4DQoNCg0KDQoNCg0K
 
+--_000_CY4PR12MB16532691DAB12278418412B4F7C40CY4PR12MB1653namp_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On 06/19/2017 03:24 PM, Sean Paul wrote:
-> On Mon, Jun 19, 2017 at 11:35:28AM -0400, Harry Wentland wrote:
->> On 2017-06-09 05:30 PM, Andrey Grodzovsky wrote:
->>> Problem:
->>> While running IGT kms_atomic_transition test suite i encountered
->>> a hang in drmHandleEvent immidietly follwoing an atomic_commit.
->> s/immidietly/immediately/g
->> s/follwoing/following/g
->>
->>> After dumping the atomic state I relized that in this case there was
->>> not even one CRTC attached to the state and only disabled
->>> planes. This probably due to a commit which hadn't changed any property
->>> which would require attaching crtc state. This means drmHandleEvent
->>> will never wake up from read since without CRTC in atomic state
->>> the event fd will not be singnaled.
->> s/singnaled/signaled/g
->>
->>> This point to a bug in IGT but also DRM should gracefully
->>> fail  such scenario so no hang on user side will happen.
->>>
->> Can we create an IGT fix for this to make sure this won't happen?
->>
->>> Fix:
->>> Explicitly fail by failing atomic_commit early in
->>> drm_mode_atomic_commit where such problem can be identified.
->>>
->> The change seems reasonable to me but I would like to see some input
->> from someone who's more familiar with the usermode side of things.
-> I wonder if there's ever a case where it might be desirable to generate an event
-> from a commit without a crtc. I don't know if anyone has explicitly said that an
-> event can only be generated from state with crtc.
-For a generic event i agree, bit seems to me without active CRTC no way you
-can  expect PAGE_FLIP_EVENT to fire.
->
-> I usually don't mind letting userspace shoot itself in the foot, so keep that in
-> mind :)
->
-> Sean
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
+bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
+YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
+cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
+Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
+ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTQgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
+PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
+Ik1TIE1pbmNobyI7DQoJcGFub3NlLTE6MiAyIDYgOSA0IDIgNSA4IDMgNDt9DQpAZm9udC1mYWNl
+DQoJe2ZvbnQtZmFtaWx5OiJNUyBNaW5jaG8iOw0KCXBhbm9zZS0xOjIgMiA2IDkgNCAyIDUgOCAz
+IDQ7fQ0KQGZvbnQtZmFjZQ0KCXtmb250LWZhbWlseTpDYWxpYnJpOw0KCXBhbm9zZS0xOjIgMTUg
+NSAyIDIgMiA0IDMgMiA0O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6VGFob21hOw0KCXBh
+bm9zZS0xOjIgMTEgNiA0IDMgNSA0IDQgMiA0O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
+Q29uc29sYXM7DQoJcGFub3NlLTE6MiAxMSA2IDkgMiAyIDQgMyAyIDQ7fQ0KQGZvbnQtZmFjZQ0K
+CXtmb250LWZhbWlseToiXEBNUyBNaW5jaG8iOw0KCXBhbm9zZS0xOjIgMiA2IDkgNCAyIDUgOCAz
+IDQ7fQ0KLyogU3R5bGUgRGVmaW5pdGlvbnMgKi8NCnAuTXNvTm9ybWFsLCBsaS5Nc29Ob3JtYWws
+IGRpdi5Nc29Ob3JtYWwNCgl7bWFyZ2luOjBpbjsNCgltYXJnaW4tYm90dG9tOi4wMDAxcHQ7DQoJ
+Zm9udC1zaXplOjEyLjBwdDsNCglmb250LWZhbWlseToiVGltZXMgTmV3IFJvbWFuIiwic2VyaWYi
+Ow0KCWNvbG9yOmJsYWNrO30NCmE6bGluaywgc3Bhbi5Nc29IeXBlcmxpbmsNCgl7bXNvLXN0eWxl
+LXByaW9yaXR5Ojk5Ow0KCWNvbG9yOmJsdWU7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9
+DQphOnZpc2l0ZWQsIHNwYW4uTXNvSHlwZXJsaW5rRm9sbG93ZWQNCgl7bXNvLXN0eWxlLXByaW9y
+aXR5Ojk5Ow0KCWNvbG9yOnB1cnBsZTsNCgl0ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lO30NCnAN
+Cgl7bXNvLXN0eWxlLXByaW9yaXR5Ojk5Ow0KCW1zby1tYXJnaW4tdG9wLWFsdDphdXRvOw0KCW1h
+cmdpbi1yaWdodDowaW47DQoJbXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG87DQoJbWFyZ2luLWxl
+ZnQ6MGluOw0KCWZvbnQtc2l6ZToxMi4wcHQ7DQoJZm9udC1mYW1pbHk6IlRpbWVzIE5ldyBSb21h
+biIsInNlcmlmIjsNCgljb2xvcjpibGFjazt9DQpwcmUNCgl7bXNvLXN0eWxlLXByaW9yaXR5Ojk5
+Ow0KCW1zby1zdHlsZS1saW5rOiJIVE1MIFByZWZvcm1hdHRlZCBDaGFyIjsNCgltYXJnaW46MGlu
+Ow0KCW1hcmdpbi1ib3R0b206LjAwMDFwdDsNCglmb250LXNpemU6MTAuMHB0Ow0KCWZvbnQtZmFt
+aWx5OiJDb3VyaWVyIE5ldyI7DQoJY29sb3I6YmxhY2s7fQ0Kc3Bhbi5IVE1MUHJlZm9ybWF0dGVk
+Q2hhcg0KCXttc28tc3R5bGUtbmFtZToiSFRNTCBQcmVmb3JtYXR0ZWQgQ2hhciI7DQoJbXNvLXN0
+eWxlLXByaW9yaXR5Ojk5Ow0KCW1zby1zdHlsZS1saW5rOiJIVE1MIFByZWZvcm1hdHRlZCI7DQoJ
+Zm9udC1mYW1pbHk6Q29uc29sYXM7DQoJY29sb3I6YmxhY2s7fQ0Kc3Bhbi5FbWFpbFN0eWxlMjAN
+Cgl7bXNvLXN0eWxlLXR5cGU6cGVyc29uYWwtcmVwbHk7DQoJZm9udC1mYW1pbHk6IkNhbGlicmki
+LCJzYW5zLXNlcmlmIjsNCgljb2xvcjojMUY0OTdEO30NCi5Nc29DaHBEZWZhdWx0DQoJe21zby1z
+dHlsZS10eXBlOmV4cG9ydC1vbmx5Ow0KCWZvbnQtc2l6ZToxMC4wcHQ7fQ0KQHBhZ2UgV29yZFNl
+Y3Rpb24xDQoJe3NpemU6OC41aW4gMTEuMGluOw0KCW1hcmdpbjoxLjBpbiAxLjBpbiAxLjBpbiAx
+LjBpbjt9DQpkaXYuV29yZFNlY3Rpb24xDQoJe3BhZ2U6V29yZFNlY3Rpb24xO30NCi0tPjwvc3R5
+bGU+PCEtLVtpZiBndGUgbXNvIDldPjx4bWw+DQo8bzpzaGFwZWRlZmF1bHRzIHY6ZXh0PSJlZGl0
+IiBzcGlkbWF4PSIxMDI2IiAvPg0KPC94bWw+PCFbZW5kaWZdLS0+PCEtLVtpZiBndGUgbXNvIDld
+Pjx4bWw+DQo8bzpzaGFwZWxheW91dCB2OmV4dD0iZWRpdCI+DQo8bzppZG1hcCB2OmV4dD0iZWRp
+dCIgZGF0YT0iMSIgLz4NCjwvbzpzaGFwZWxheW91dD48L3htbD48IVtlbmRpZl0tLT4NCjwvaGVh
+ZD4NCjxib2R5IGJnY29sb3I9IndoaXRlIiBsYW5nPSJFTi1VUyIgbGluaz0iYmx1ZSIgdmxpbms9
+InB1cnBsZSI+DQo8ZGl2IGNsYXNzPSJXb3JkU2VjdGlvbjEiPg0KPHAgY2xhc3M9Ik1zb05vcm1h
+bCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJy
+aSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9yOiMxRjQ5N0QiPkkgYWN0dWFsbHkg
+aGF2ZSBhIGJyYW5jaCBvZiBhbWQtc3RhZ2luZyBiYXNlZCBvbiBkcm0tbmV4dC4mbmJzcDsgU2Vl
+IHRoZSBhbWQtc3RhZ2luZy1kcm0tbmV4dCBicmFuY2guPG86cD48L286cD48L3NwYW4+PC9wPg0K
+PHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1m
+YW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9yOiMx
+RjQ5N0QiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
+PjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkm
+cXVvdDssJnF1b3Q7c2Fucy1zZXJpZiZxdW90Oztjb2xvcjojMUY0OTdEIj5BbGV4PG86cD48L286
+cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6
+ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OywmcXVvdDtzYW5zLXNlcmlm
+JnF1b3Q7O2NvbG9yOiMxRjQ5N0QiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxkaXYg
+c3R5bGU9ImJvcmRlcjpub25lO2JvcmRlci1sZWZ0OnNvbGlkIGJsdWUgMS41cHQ7cGFkZGluZzow
+aW4gMGluIDBpbiA0LjBwdCI+DQo8ZGl2Pg0KPGRpdiBzdHlsZT0iYm9yZGVyOm5vbmU7Ym9yZGVy
+LXRvcDpzb2xpZCAjQjVDNERGIDEuMHB0O3BhZGRpbmc6My4wcHQgMGluIDBpbiAwaW4iPg0KPHAg
+Y2xhc3M9Ik1zb05vcm1hbCI+PGI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMC4wcHQ7Zm9udC1m
+YW1pbHk6JnF1b3Q7VGFob21hJnF1b3Q7LCZxdW90O3NhbnMtc2VyaWYmcXVvdDs7Y29sb3I6d2lu
+ZG93dGV4dCI+RnJvbTo8L3NwYW4+PC9iPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTAuMHB0O2Zv
+bnQtZmFtaWx5OiZxdW90O1RhaG9tYSZxdW90OywmcXVvdDtzYW5zLXNlcmlmJnF1b3Q7O2NvbG9y
+OndpbmRvd3RleHQiPiBhbWQtZ2Z4IFttYWlsdG86YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZ10NCjxiPk9uIEJlaGFsZiBPZiA8L2I+Q2hyaXN0aWFuIEvDtm5pZzxicj4NCjxi
+PlNlbnQ6PC9iPiBNb25kYXksIEp1bmUgMTksIDIwMTcgNDo1MCBBTTxicj4NCjxiPlRvOjwvYj4g
+WmhvdSwgRGF2aWQoQ2h1bk1pbmcpOyBBbGV4IERldWNoZXI8YnI+DQo8Yj5DYzo8L2I+IGFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPGJyPg0KPGI+U3ViamVjdDo8L2I+IFJlOiB1cHN0ZWFt
+IGZpbmQgYm8gYXBpPG86cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjxwIGNs
+YXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPGRpdj4NCjxwIGNsYXNzPSJN
+c29Ob3JtYWwiPkFtIDE5LjA2LjIwMTcgdW0gMDQ6MjMgc2NocmllYiB6aG91Y20xOjxvOnA+PC9v
+OnA+PC9wPg0KPC9kaXY+DQo8YmxvY2txdW90ZSBzdHlsZT0ibWFyZ2luLXRvcDo1LjBwdDttYXJn
+aW4tYm90dG9tOjUuMHB0Ij4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtYXJnaW4tYm90
+dG9tOjEyLjBwdCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05v
+cm1hbCI+T24gMjAxNzxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtNUyBNaW5jaG8mcXVv
+dDsiPuW5tDwvc3Bhbj4wNjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtNUyBNaW5jaG8m
+cXVvdDsiPuaciDwvc3Bhbj4xNzxzcGFuIHN0eWxlPSJmb250LWZhbWlseTomcXVvdDtNUyBNaW5j
+aG8mcXVvdDsiPuaXpTwvc3Bhbj4gMTg6MDksIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6PG86cD48
+L286cD48L3A+DQo8L2Rpdj4NCjxibG9ja3F1b3RlIHN0eWxlPSJtYXJnaW4tdG9wOjUuMHB0O21h
+cmdpbi1ib3R0b206NS4wcHQiPg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPlRoZSBwYXRj
+aCBzaG91bGQgc3RpbGwgd29yayBvbiBhbWQtc3RhZ2luZy00LjExLCBidXQgZHJtLW5leHQgaGFz
+IHNlZW4gc29tZSBjaGFuZ2VzIG9uIGhvdyB0aGUgaGFuZGxlcyBhcmUgc3RvcmVkIGZvciBkbWEt
+YnVmLjxicj4NCjxicj4NClRoaXMgY2FuIHBvdGVudGlhbGx5IGJyZWFrIHRoZSBpbXBsZW1lbnRh
+dGlvbiBhbmQgSSB0aGluayB3ZSBuZWVkIHRvIGFkYXB0IGJlZm9yZSBwdXNoaW5nIGl0IHVwc3Ry
+ZWFtLCBidXQgSSdtIG5vdCAxMDAlIHN1cmUuPG86cD48L286cD48L3A+DQo8L2Rpdj4NCjwvYmxv
+Y2txdW90ZT4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPkRvIHlvdSBtZWFuIHRoZSBwYXRjaCBuZWVk
+cyB0byB3YWl0IGZvciBuZXh0IGtlcm5lbCBwcm9tb3Rpb24/IDQuMTI/IDQuMTM/PG86cD48L286
+cD48L3A+DQo8L2Jsb2NrcXVvdGU+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48YnI+DQpObywgd2Vs
+bCBtYXliZS4gVGhlIHByb2JsZW0gaXMgdGhhdCBJJ20gbm90IDEwMCUgc3VyZSBpZiB0aGVyZSBp
+c24ndCBhbnl0aGluZyBpbiBkcm0tbmV4dCB3aGljaCBicmVha3MgdGhpcy48YnI+DQo8YnI+DQpU
+aGUgZWFzaWVzdCB3YXkgdG8gZmlndXJlIHRoYXQgb3V0IGlzIHRvIHRyeSB0byBhcHBseSB0aGUg
+cGF0Y2ggdG8gRGF2ZSdzIGN1cnJlbnQgZHJtLW5leHQgYnJhbmNoIGFuZCBzZWUgaWYgaXQgc3Rp
+bGwgd29ya3MgYXMgZXhwZWN0ZWQuPGJyPg0KPGJyPg0KSSB0aGluayBBbGV4IHBsYW4gd2FzIHRv
+IHNldHVwIGFuIGFtZC1zdGFnaW5nLW5leHQgYnJhbmNoIHRvIHNvbHZlIHN1Y2ggcHJvYmxlbXMs
+IGJ1dCB0aGF0IGhhc24ndCBnb3QgdmVyeSBmYXIgSSB0aGluay48YnI+DQo8YnI+DQpSZWdhcmRz
+LDxicj4NCkNocmlzdGlhbi48YnI+DQo8YnI+DQo8YnI+DQo8bzpwPjwvbzpwPjwvcD4NCjxwIGNs
+YXNzPSJNc29Ob3JtYWwiPjxicj4NClJlZ2FyZHMsPGJyPg0KRGF2aWQgWmhvdTxicj4NCjxicj4N
+CjxvOnA+PC9vOnA+PC9wPg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxicj4NCkNocmlz
+dGlhbi48YnI+DQo8YnI+DQpBbSAxNi4wNi4yMDE3IHVtIDIyOjM1IHNjaHJpZWIgQWxleCBEZXVj
+aGVyOjxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8YmxvY2txdW90ZSBzdHlsZT0ibWFyZ2luLXRv
+cDo1LjBwdDttYXJnaW4tYm90dG9tOjUuMHB0Ij4NCjxkaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1z
+b05vcm1hbCI+VGhlIHBhdGNoZXMgbG9vayBnb29kIHRvIG1lLiZuYnNwOyBDaHJpc3RpYW4gd2hh
+dCBkaWQgeW91IGhhdmUgaW4gbWluZD88bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxw
+IGNsYXNzPSJNc29Ob3JtYWwiPkFja2VkLWJ5OiBBbGV4IERldWNoZXIgJmx0OzxhIGhyZWY9Im1h
+aWx0bzphbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tIj5hbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29t
+PC9hPiZndDs8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3Jt
+YWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPC9kaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5B
+bGV4PG86cD48L286cD48L3A+DQo8ZGl2Pg0KPGRpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9y
+bWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5P
+biBGcmksIEp1biAxNiwgMjAxNyBhdCA0OjA4IEFNLCB6aG91Y20xICZsdDs8YSBocmVmPSJtYWls
+dG86ZGF2aWQxLnpob3VAYW1kLmNvbSIgdGFyZ2V0PSJfYmxhbmsiPmRhdmlkMS56aG91QGFtZC5j
+b208L2E+Jmd0OyB3cm90ZTo8bzpwPjwvbzpwPjwvcD4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9y
+bWFsIj5waW5nLi4uPyA8bzpwPjwvbzpwPjwvcD4NCjxkaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1z
+b05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1h
+bCI+PGJyPg0KPGJyPg0KLS0tLS0tLS0gRm9yd2FyZGVkIE1lc3NhZ2UgLS0tLS0tLS0gPG86cD48
+L286cD48L3A+DQo8dGFibGUgY2xhc3M9Ik1zb05vcm1hbFRhYmxlIiBib3JkZXI9IjAiIGNlbGxz
+cGFjaW5nPSIwIiBjZWxscGFkZGluZz0iMCI+DQo8dGJvZHk+DQo8dHI+DQo8dGQgbm93cmFwPSIi
+IHZhbGlnbj0idG9wIiBzdHlsZT0icGFkZGluZzowaW4gMGluIDBpbiAwaW4iPg0KPHAgY2xhc3M9
+Ik1zb05vcm1hbCIgYWxpZ249InJpZ2h0IiBzdHlsZT0idGV4dC1hbGlnbjpyaWdodCI+PGI+U3Vi
+amVjdDogPG86cD48L286cD48L2I+PC9wPg0KPC90ZD4NCjx0ZCBzdHlsZT0icGFkZGluZzowaW4g
+MGluIDBpbiAwaW4iPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+dXBzdGVhbSBmaW5kIGJvIGFwaTxv
+OnA+PC9vOnA+PC9wPg0KPC90ZD4NCjwvdHI+DQo8dHI+DQo8dGQgbm93cmFwPSIiIHZhbGlnbj0i
+dG9wIiBzdHlsZT0icGFkZGluZzowaW4gMGluIDBpbiAwaW4iPg0KPHAgY2xhc3M9Ik1zb05vcm1h
+bCIgYWxpZ249InJpZ2h0IiBzdHlsZT0idGV4dC1hbGlnbjpyaWdodCI+PGI+RGF0ZTogPG86cD48
+L286cD48L2I+PC9wPg0KPC90ZD4NCjx0ZCBzdHlsZT0icGFkZGluZzowaW4gMGluIDBpbiAwaW4i
+Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+V2VkLCAxNCBKdW4gMjAxNyAxODoxNjoyNCAmIzQzOzA4
+MDA8bzpwPjwvbzpwPjwvcD4NCjwvdGQ+DQo8L3RyPg0KPHRyPg0KPHRkIG5vd3JhcD0iIiB2YWxp
+Z249InRvcCIgc3R5bGU9InBhZGRpbmc6MGluIDBpbiAwaW4gMGluIj4NCjxwIGNsYXNzPSJNc29O
+b3JtYWwiIGFsaWduPSJyaWdodCIgc3R5bGU9InRleHQtYWxpZ246cmlnaHQiPjxiPkZyb206IDxv
+OnA+PC9vOnA+PC9iPjwvcD4NCjwvdGQ+DQo8dGQgc3R5bGU9InBhZGRpbmc6MGluIDBpbiAwaW4g
+MGluIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPnpob3VjbTEgPGEgaHJlZj0ibWFpbHRvOmRhdmlk
+MS56aG91QGFtZC5jb20iIHRhcmdldD0iX2JsYW5rIj4NCiZsdDtkYXZpZDEuemhvdUBhbWQuY29t
+Jmd0OzwvYT48bzpwPjwvbzpwPjwvcD4NCjwvdGQ+DQo8L3RyPg0KPHRyPg0KPHRkIG5vd3JhcD0i
+IiB2YWxpZ249InRvcCIgc3R5bGU9InBhZGRpbmc6MGluIDBpbiAwaW4gMGluIj4NCjxwIGNsYXNz
+PSJNc29Ob3JtYWwiIGFsaWduPSJyaWdodCIgc3R5bGU9InRleHQtYWxpZ246cmlnaHQiPjxiPlRv
+OiA8bzpwPjwvbzpwPjwvYj48L3A+DQo8L3RkPg0KPHRkIHN0eWxlPSJwYWRkaW5nOjBpbiAwaW4g
+MGluIDBpbiI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48YSBocmVmPSJtYWlsdG86YW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmciIHRhcmdldD0iX2JsYW5rIj5hbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZzwvYT48bzpwPjwvbzpwPjwvcD4NCjwvdGQ+DQo8L3RyPg0KPC90Ym9keT4NCjwv
+dGFibGU+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibWFyZ2luLWJvdHRvbToxMi4wcHQi
+PjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPHByZT5IaSBhbGwsPG86cD48L286cD48L3ByZT4NCjxw
+cmU+PG86cD4mbmJzcDs8L286cD48L3ByZT4NCjxwcmU+U2luY2UgcGF0Y2hlcyBhcmUgb25lIGZl
+YXR1cmUsIGFuZCBjb250YWluIGtlcm5lbCBhbmQgbGliZHJtLCBJIGF0dGFjaGVkIDxvOnA+PC9v
+OnA+PC9wcmU+DQo8cHJlPnRoZW0gbm90IGJ5IHNlbmQtbWFpbC4gSG9wZSBub3QgaW5jb252ZW5p
+ZW5jZS48bzpwPjwvbzpwPjwvcHJlPg0KPHByZT48bzpwPiZuYnNwOzwvbzpwPjwvcHJlPg0KPHBy
+ZT4wMDAxLWRybS1hbWRncHUtcmV0dXJuLWJvLWl0c2VsZi1pZi11c2VycHRyLWlzLWNwdS1hZGRy
+LW8ucGF0Y2ggaXMgPG86cD48L286cD48L3ByZT4NCjxwcmU+a2VybmVsIHBhdGNoLjxvOnA+PC9v
+OnA+PC9wcmU+DQo8cHJlPk90aGVyIHRocmVlIGlzIGxpYmRybSBwYXRjaGVzIGluY2x1ZGluZyB1
+bml0IHRlc3QuPG86cD48L286cD48L3ByZT4NCjxwcmU+PG86cD4mbmJzcDs8L286cD48L3ByZT4N
+CjxwcmU+cGxlYXNlIHJldmlldy48bzpwPjwvbzpwPjwvcHJlPg0KPHByZT48bzpwPiZuYnNwOzwv
+bzpwPjwvcHJlPg0KPHByZT5SZWdhcmRzLDxvOnA+PC9vOnA+PC9wcmU+DQo8cHJlPkRhdmlkIFpo
+b3U8bzpwPjwvbzpwPjwvcHJlPg0KPHByZT48bzpwPiZuYnNwOzwvbzpwPjwvcHJlPg0KPHAgY2xh
+c3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8L2Rpdj4NCjxwIGNsYXNzPSJN
+c29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0K
+PHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1hcmdpbi1ib3R0b206MTIuMHB0Ij48YnI+DQpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXzxicj4NCmFtZC1n
+ZnggbWFpbGluZyBsaXN0PGJyPg0KPGEgaHJlZj0ibWFpbHRvOmFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnIj5hbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzwvYT48YnI+DQo8YSBocmVm
+PSJodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngi
+IHRhcmdldD0iX2JsYW5rIj5odHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2FtZC1nZng8L2E+PG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxwIGNsYXNzPSJNc29O
+b3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9k
+aXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48YnI+DQo8YnI+DQo8YnI+DQo8bzpwPjwvbzpwPjwv
+cD4NCjxwcmU+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX188
+bzpwPjwvbzpwPjwvcHJlPg0KPHByZT5hbWQtZ2Z4IG1haWxpbmcgbGlzdDxvOnA+PC9vOnA+PC9w
+cmU+DQo8cHJlPjxhIGhyZWY9Im1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyI+
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc8L2E+PG86cD48L286cD48L3ByZT4NCjxwcmU+
+PGEgaHJlZj0iaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4Ij5odHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZng8L2E+PG86cD48L286cD48L3ByZT4NCjwvYmxvY2txdW90ZT4NCjxwPjxvOnA+Jm5ic3A7
+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8
+cD48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjwvZGl2Pg0KPC9kaXY+DQo8L2JvZHk+DQo8L2h0bWw+
+DQo=
 
-Seems to me you still would try to avoid a bad configuration, returning 
-error
-will help debugging for user who made a mistake. I also see something 
-similar
-in drm_mode_atomic_ioctl around line 2122 -
+--_000_CY4PR12MB16532691DAB12278418412B4F7C40CY4PR12MB1653namp_--
 
-/* can't test and expect an event at the same time. */
-if ((arg->flags & DRM_MODE_ATOMIC_TEST_ONLY) &&
-(arg->flags & DRM_MODE_PAGE_FLIP_EVENT))
-return -EINVAL;
-
-Thanks,
-Andrey
->>> Signed-off-by: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
->>> ---
->>>   drivers/gpu/drm/drm_atomic.c | 13 ++++++++++++-
->>>   1 file changed, 12 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
->>> index a567310..32eae1c 100644
->>> --- a/drivers/gpu/drm/drm_atomic.c
->>> +++ b/drivers/gpu/drm/drm_atomic.c
->>> @@ -1933,7 +1933,7 @@ static int prepare_crtc_signaling(struct drm_device *dev,
->>>   {
->>>   	struct drm_crtc *crtc;
->>>   	struct drm_crtc_state *crtc_state;
->>> -	int i, ret;
->>> +	int i, c = 0, ret;
->>>   
->>>   	if (arg->flags & DRM_MODE_ATOMIC_TEST_ONLY)
->>>   		return 0;
->>> @@ -1994,8 +1994,17 @@ static int prepare_crtc_signaling(struct drm_device *dev,
->>>   
->>>   			crtc_state->event->base.fence = fence;
->>>   		}
->>> +
->>> +		c++;
->> Not sure if intentional, but I like it.
->>
->>>   	}
->>>   
->>> +	/*
->>> +	 * Having this flag means user mode pends on event which will never
->>> +	 * reach due to lack of at least one CRTC for signaling
->>> +	 */
->>> +	if (c == 0 && (arg->flags & DRM_MODE_PAGE_FLIP_EVENT))
->>> +		return -EINVAL;
->>> +
->>>   	return 0;
->>>   }
->>>   
->>> @@ -2179,6 +2188,8 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
->>>   		drm_mode_object_unreference(obj);
->>>   	}
->>>   
->>> +
->>> +
->> Remove these extraneous newlines.
->>
->> Harry
->>
->>>   	ret = prepare_crtc_signaling(dev, state, arg, file_priv, &fence_state,
->>>   				     &num_fences);
->>>   	if (ret)
->>>
-
-
---------------CA32949480719FBED6879A48
-Content-Type: text/html; charset=windows-1252
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=windows-1252"
-      http-equiv="Content-Type">
-  </head>
-  <body bgcolor="#FFFFFF" text="#000000">
-    <p><br>
-    </p>
-    <br>
-    <div class="moz-cite-prefix">On 06/19/2017 03:24 PM, Sean Paul
-      wrote:<br>
-    </div>
-    <blockquote cite="mid:20170619192431.tbsntjjdkianx2kc@art_vandelay"
-      type="cite">
-      <pre wrap="">On Mon, Jun 19, 2017 at 11:35:28AM -0400, Harry Wentland wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="">On 2017-06-09 05:30 PM, Andrey Grodzovsky wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="">Problem:
-While running IGT kms_atomic_transition test suite i encountered
-a hang in drmHandleEvent immidietly follwoing an atomic_commit.
-</pre>
-        </blockquote>
-        <pre wrap="">
-s/immidietly/immediately/g
-s/follwoing/following/g
-
-</pre>
-        <blockquote type="cite">
-          <pre wrap="">After dumping the atomic state I relized that in this case there was
-not even one CRTC attached to the state and only disabled
-planes. This probably due to a commit which hadn't changed any property
-which would require attaching crtc state. This means drmHandleEvent
-will never wake up from read since without CRTC in atomic state
-the event fd will not be singnaled.
-</pre>
-        </blockquote>
-        <pre wrap="">
-s/singnaled/signaled/g
-
-</pre>
-        <blockquote type="cite">
-          <pre wrap="">This point to a bug in IGT but also DRM should gracefully
-fail  such scenario so no hang on user side will happen.
-
-</pre>
-        </blockquote>
-        <pre wrap="">
-Can we create an IGT fix for this to make sure this won't happen?
-
-</pre>
-        <blockquote type="cite">
-          <pre wrap="">Fix:
-Explicitly fail by failing atomic_commit early in
-drm_mode_atomic_commit where such problem can be identified.
-
-</pre>
-        </blockquote>
-        <pre wrap="">
-The change seems reasonable to me but I would like to see some input
-from someone who's more familiar with the usermode side of things.
-</pre>
-      </blockquote>
-      <pre wrap="">
-I wonder if there's ever a case where it might be desirable to generate an event
-from a commit without a crtc. I don't know if anyone has explicitly said that an
-event can only be generated from state with crtc.</pre>
-    </blockquote>
-    For a generic event i agree, bit seems to me without active CRTC no
-    way you <br>
-    can  expect PAGE_FLIP_EVENT to fire.<br>
-    <blockquote cite="mid:20170619192431.tbsntjjdkianx2kc@art_vandelay"
-      type="cite">
-      <pre wrap="">
-
-I usually don't mind letting userspace shoot itself in the foot, so keep that in
-mind :)
-
-Sean</pre>
-    </blockquote>
-    <br>
-    Seems to me you still would try to avoid a bad configuration,
-    returning error<br>
-    will help debugging for user who made a mistake. I also see
-    something similar<br>
-    in drm_mode_atomic_ioctl around line 2122 - <br>
-    <meta http-equiv="content-type" content="text/html;
-      charset=windows-1252">
-    <meta http-equiv="content-type" content="text/html;
-      charset=windows-1252">
-    <pre wrap=""><span class="cm" style="box-sizing: inherit; color: slategray; font-style: italic;">/* can't test and expect an event at the same time. */</span>
-<span class="cm" style="box-sizing: inherit; color: slategray; font-style: italic;">if ((arg-&gt;flags &amp; DRM_MODE_ATOMIC_TEST_ONLY) &amp;&amp;</span>
-<span class="cm" style="box-sizing: inherit; color: slategray; font-style: italic;">		(arg-&gt;flags &amp; DRM_MODE_PAGE_FLIP_EVENT))</span>
-<span class="cm" style="box-sizing: inherit; color: slategray; font-style: italic;">			return -EINVAL;</span><span class="p" style="box-sizing: inherit; color: rgb(102, 102, 102);"></span>
-</pre>
-    <font size="-1">Thanks,</font><font size="+1"><font size="-1"><br>
-        Andrey</font> </font><br>
-    <blockquote cite="mid:20170619192431.tbsntjjdkianx2kc@art_vandelay"
-      type="cite">
-      <blockquote type="cite">
-        <pre wrap="">
-</pre>
-        <blockquote type="cite">
-          <pre wrap="">Signed-off-by: Andrey Grodzovsky <a class="moz-txt-link-rfc2396E" href="mailto:Andrey.Grodzovsky@amd.com">&lt;Andrey.Grodzovsky@amd.com&gt;</a>
----
- drivers/gpu/drm/drm_atomic.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index a567310..32eae1c 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1933,7 +1933,7 @@ static int prepare_crtc_signaling(struct drm_device *dev,
- {
- 	struct drm_crtc *crtc;
- 	struct drm_crtc_state *crtc_state;
--	int i, ret;
-+	int i, c = 0, ret;
- 
- 	if (arg-&gt;flags &amp; DRM_MODE_ATOMIC_TEST_ONLY)
- 		return 0;
-@@ -1994,8 +1994,17 @@ static int prepare_crtc_signaling(struct drm_device *dev,
- 
- 			crtc_state-&gt;event-&gt;base.fence = fence;
- 		}
-+
-+		c++;
-</pre>
-        </blockquote>
-        <pre wrap="">
-Not sure if intentional, but I like it.
-
-</pre>
-        <blockquote type="cite">
-          <pre wrap=""> 	}
- 
-+	/*
-+	 * Having this flag means user mode pends on event which will never
-+	 * reach due to lack of at least one CRTC for signaling
-+	 */
-+	if (c == 0 &amp;&amp; (arg-&gt;flags &amp; DRM_MODE_PAGE_FLIP_EVENT))
-+		return -EINVAL;
-+
- 	return 0;
- }
- 
-@@ -2179,6 +2188,8 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
- 		drm_mode_object_unreference(obj);
- 	}
- 
-+
-+
-</pre>
-        </blockquote>
-        <pre wrap="">
-Remove these extraneous newlines.
-
-Harry
-
-</pre>
-        <blockquote type="cite">
-          <pre wrap=""> 	ret = prepare_crtc_signaling(dev, state, arg, file_priv, &amp;fence_state,
- 				     &amp;num_fences);
- 	if (ret)
-
-</pre>
-        </blockquote>
-      </blockquote>
-      <pre wrap="">
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------CA32949480719FBED6879A48--
-
---===============0482437771==
+--===============1783619091==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
 Content-Disposition: inline
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0482437771==--
+--===============1783619091==--
