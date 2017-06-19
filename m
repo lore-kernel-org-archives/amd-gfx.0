@@ -1,46 +1,66 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: adjust default display clock
-Date: Mon, 19 Jun 2017 13:36:59 -0400
-Message-ID: <CADnq5_PP=wMVi5JayAcF-0HGKAeZbhS+pyhV1OW5LeW1dVqHsQ@mail.gmail.com>
-References: <1497539827-26354-1-git-send-email-alexander.deucher@amd.com> <1497539827-26354-2-git-send-email-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [pull] amdgpu drm-next-4.13
+Date: Mon, 19 Jun 2017 15:18:52 -0400
+Message-ID: <1497899932-1057-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <1497539827-26354-2-git-send-email-alexander.deucher@amd.com>
-Sender: stable-owner@vger.kernel.org
-To: amd-gfx list <amd-gfx@lists.freedesktop.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>, "for 3.8" <stable@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-ping.
-
-On Thu, Jun 15, 2017 at 11:17 AM, Alex Deucher <alexdeucher@gmail.com> wrote:
-> Increase the default display clock on newer asics to
-> accomodate some high res modes with really high refresh
-> rates.
->
-> bug: https://bugs.freedesktop.org/show_bug.cgi?id=93826
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> Cc: stable@vger.kernel.org
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-> index 1cf78f4..1e8e112 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-> @@ -693,6 +693,10 @@ int amdgpu_atombios_get_clock_info(struct amdgpu_device *adev)
->                         DRM_INFO("Changing default dispclk from %dMhz to 600Mhz\n",
->                                  adev->clock.default_dispclk / 100);
->                         adev->clock.default_dispclk = 60000;
-> +               } else if (adev->clock.default_dispclk <= 60000) {
-> +                       DRM_INFO("Changing default dispclk from %dMhz to 625Mhz\n",
-> +                                adev->clock.default_dispclk / 100);
-> +                       adev->clock.default_dispclk = 62500;
->                 }
->                 adev->clock.dp_extclk =
->                         le16_to_cpu(firmware_info->info_21.usUniphyDPModeExtClkFreq);
-> --
-> 2.5.5
->
+SGkgRGF2ZSwKCkEgZmV3IG1vcmUgdGhpbmdzIGZvciA0LjEzOgotIFNlbWFwaG9yZSBzdXBwb3J0
+IHVzaW5nIHN5bmMgb2JqZWN0cwotIERyb3AgZmIgbG9jYXRpb24gcHJvZ3JhbW1pbmcKLSBPcHRp
+bWl6ZSBibyBsaXN0IGlvY3RsCgpUaGUgZm9sbG93aW5nIGNoYW5nZXMgc2luY2UgY29tbWl0IDky
+NTM0NGNjYzkxZDdhN2ZkODRjYWIyZGVjZTFjMzRiYmQ4NmZkOGM6CgogIEJhY2tNZXJnZSB0YWcg
+J3Y0LjEyLXJjNScgaW50byBkcm0tbmV4dCAoMjAxNy0wNi0xNiAxMzo1ODoyNyArMTAwMCkKCmFy
+ZSBhdmFpbGFibGUgaW4gdGhlIGdpdCByZXBvc2l0b3J5IGF0OgoKICBnaXQ6Ly9wZW9wbGUuZnJl
+ZWRlc2t0b3Aub3JnL35hZ2Q1Zi9saW51eCBkcm0tbmV4dC00LjEzCgpmb3IgeW91IHRvIGZldGNo
+IGNoYW5nZXMgdXAgdG8gYWEyYjU0NDM0NmIxZmNlZTY1MDRmNDcwNTJhOTI2N2Q0NGJhMjRiYzoK
+CiAgZHJtL2FtZGdwdTogT3B0aW1pemUgbXV0ZXggdXNhZ2UgKHY0KSAoMjAxNy0wNi0xOSAxNTow
+NzowNiAtMDQwMCkKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0KQWxleCBEZXVjaGVyICg5KToKICAgICAgZHJtL2FtZGdwdTog
+ZG9uJ3QgY2hlY2sgdGhlIGRlZmF1bHQgdmFsdWUgZm9yIHZtIHNpemUKICAgICAgZHJtL2FtZGdw
+dS9nbWM4OiB1c2UgdGhlIHZyYW0gbG9jYXRpb24gcHJvZ3JhbW1lZCBieSB0aGUgdmJpb3MKICAg
+ICAgZHJtL2FtZGdwdS9nbWM3OiB1c2UgdGhlIHZyYW0gbG9jYXRpb24gcHJvZ3JhbW1lZCBieSB0
+aGUgdmJpb3MKICAgICAgZHJtL2FtZGdwdS9nbWM2OiB1c2UgdGhlIHZyYW0gbG9jYXRpb24gcHJv
+Z3JhbW1lZCBieSB0aGUgdmJpb3MKICAgICAgZHJtL2FtZGdwdS9nbWM4OiBkcm9wIGZiIGxvY2F0
+aW9uIHByb2dyYW1taW5nCiAgICAgIGRybS9hbWRncHUvZ21jNzogZHJvcCBmYiBsb2NhdGlvbiBw
+cm9ncmFtbWluZwogICAgICBkcm0vYW1kZ3B1L2dtYzY6IGRyb3AgZmIgbG9jYXRpb24gcHJvZ3Jh
+bW1pbmcKICAgICAgZHJtL2FtZGdwdTogZHJvcCBzZXRfdmdhX3JlbmRlcl9zdGF0ZSBmcm9tIGRp
+c3BsYXkgZnVuY3MKICAgICAgZHJtL2FtZGdwdTogcmVtb3ZlICpfbWNfYWNjZXNzIGZyb20gZGlz
+cGxheSBmdW5jcwoKQWxleCBYaWUgKDIpOgogICAgICBkcm0vYW1kZ3B1OiBPcHRpbWl6YXRpb24g
+b2YgQU1ER1BVX0JPX0xJU1RfT1BfQ1JFQVRFICh2MikKICAgICAgZHJtL2FtZGdwdTogT3B0aW1p
+emUgbXV0ZXggdXNhZ2UgKHY0KQoKRGF2ZSBBaXJsaWUgKDIpOgogICAgICBhbWRncHUvY3M6IHNw
+bGl0IG91dCBmZW5jZSBkZXBlbmRlbmN5IGNoZWNraW5nICh2MikKICAgICAgYW1kZ3B1OiB1c2Ug
+ZHJtIHN5bmMgb2JqZWN0cyBmb3Igc2hhcmVkIHNlbWFwaG9yZXMgKHY2KQoKIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAgICAgICAgfCAgIDkgKy0KIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9ib19saXN0LmMgfCAgODkgKysrKysrKysrLS0tLS0KIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jICAgICAgfCAxODEgKysrKysrKysrKysr
+KysrKysrKysrLS0tLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rldmlj
+ZS5jICB8ICAxMCArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jICAg
+ICB8ICAgMiArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21vZGUuaCAgICB8
+ICAxMiAtLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3YxMF8wLmMgICAgICB8IDEz
+MSAtLS0tLS0tLS0tLS0tLS0tLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3Yx
+MV8wLmMgICAgICB8ICA3NiAtLS0tLS0tLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2RjZV92Nl8wLmMgICAgICAgfCAxMTQgLS0tLS0tLS0tLS0tLS0tLS0tCiBkcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9kY2VfdjhfMC5jICAgICAgIHwgIDc4IC0tLS0tLS0tLS0tLQogZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3ZpcnR1YWwuYyAgICB8ICA5OCArKysrKystLS0tLS0t
+LS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192Nl8wLmMgICAgICAgfCAgMzggKyst
+LS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjdfMC5jICAgICAgIHwgIDM1ICsr
+LS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y4XzAuYyAgICAgICB8ICAzNCAr
+Ky0tLS0KIGluY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oICAgICAgICAgICAgICAgfCAgIDYg
+KwogMTUgZmlsZXMgY2hhbmdlZCwgMjczIGluc2VydGlvbnMoKyksIDY0MCBkZWxldGlvbnMoLSkK
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
