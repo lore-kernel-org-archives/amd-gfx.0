@@ -1,68 +1,52 @@
-From: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Subject: [PATCH v2] drm/core: Fail atomic IOCTL with no CRTC state but with signaling.
-Date: Tue, 20 Jun 2017 13:57:06 -0400
-Message-ID: <1497981426-27203-1-git-send-email-Andrey.Grodzovsky@amd.com>
-References: <0d603149-3fb0-3d48-89e5-77e3f7686415@amd.com>
+From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH umr] Add --update demo
+Date: Tue, 20 Jun 2017 14:32:55 -0400
+Message-ID: <20170620183255.8210-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <0d603149-3fb0-3d48-89e5-77e3f7686415@amd.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: harry.wentland@amd.com, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, maarten.lankhorst@linux.intel.com
-Cc: amd-gfx@lists.freedesktop.org, seanpaul@chromium.org, daniel@ffwll.ch, Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 
-Problem : While running IGT kms_atomic_transition test suite i encountered
-a hang in drmHandleEvent immediately following  an atomic_commit.
-After dumping the atomic state I relized that in this case there was
-not even one CRTC attached to the state and only disabled
-planes. This probably due to a commit which hadn't changed any property
-which would require attaching crtc state. This means drmHandleEvent
-will never wake up from read since without CRTC in atomic state
-the event fd will not be signaled.
-
-Fix: Protect against this issue by failing atomic_commit early in
-drm_mode_atomic_commit where such probelm can be identified.
-
-v2:
-Fix typos and extra newlines.
-
-Change-Id: I3ee28ffae35fd1e8bfe553146c44da53da02e6f8
-Signed-off-by: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
----
- drivers/gpu/drm/drm_atomic.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index a567310..48145bf 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1933,7 +1933,7 @@ static int prepare_crtc_signaling(struct drm_device *dev,
- {
- 	struct drm_crtc *crtc;
- 	struct drm_crtc_state *crtc_state;
--	int i, ret;
-+	int i, c = 0, ret;
- 
- 	if (arg->flags & DRM_MODE_ATOMIC_TEST_ONLY)
- 		return 0;
-@@ -1994,8 +1994,17 @@ static int prepare_crtc_signaling(struct drm_device *dev,
- 
- 			crtc_state->event->base.fence = fence;
- 		}
-+
-+		c++;
- 	}
- 
-+	/*
-+	 * Having this flag means user mode pends on event which will never
-+	 * reach due to lack of at least one CRTC for signaling
-+	 */
-+	if (c == 0 && (arg->flags & DRM_MODE_PAGE_FLIP_EVENT))
-+		return -EINVAL;
-+
- 	return 0;
- }
- 
--- 
-2.7.4
+SW4gdGhpcyBjb21taXQgd2UgYWRkIGEgZGVtbyB0aGF0IHJlYWRzIHRoZSBOQiB2b2x0YWdlCnNl
+bnNvciBvbiBhIENhcnJpem8gaW4gc2hlbGwgc2NyaXB0LgoKU2lnbmVkLW9mZi1ieTogVG9tIFN0
+IERlbmlzIDx0b20uc3RkZW5pc0BhbWQuY29tPgotLS0KIGRlbW8vdXBkYXRlL2NhcnJpem8udXBk
+YXRlIHwgIDQgKysrKwogZGVtby91cGRhdGUvcmVhZF9zZW5zb3Iuc2ggfCAxNyArKysrKysrKysr
+KysrKysrKwogMiBmaWxlcyBjaGFuZ2VkLCAyMSBpbnNlcnRpb25zKCspCiBjcmVhdGUgbW9kZSAx
+MDA2NDQgZGVtby91cGRhdGUvY2Fycml6by51cGRhdGUKIGNyZWF0ZSBtb2RlIDEwMDc1NSBkZW1v
+L3VwZGF0ZS9yZWFkX3NlbnNvci5zaAoKZGlmZiAtLWdpdCBhL2RlbW8vdXBkYXRlL2NhcnJpem8u
+dXBkYXRlIGIvZGVtby91cGRhdGUvY2Fycml6by51cGRhdGUKbmV3IGZpbGUgbW9kZSAxMDA2NDQK
+aW5kZXggMDAwMDAwMDAwMDAwLi4wZWM0MGUwNzRjOWYKLS0tIC9kZXYvbnVsbAorKysgYi9kZW1v
+L3VwZGF0ZS9jYXJyaXpvLnVwZGF0ZQpAQCAtMCwwICsxLDQgQEAKK2FkZCByZWcgY2Fycml6by5z
+bXU4MC5peFNNVVNWSV9OQl9DVVJSRU5UVklEIHNtYyAweEQ4MjMwMDQ0CithZGQgYml0IGNhcnJp
+em8uc211ODAuaXhTTVVTVklfTkJfQ1VSUkVOVFZJRC5DVVJSRU5UX05CX1ZJRCAyNCAzMQorYWRk
+IHJlZyBjYXJyaXpvLnNtdTgwLml4U01VU1ZJX0dGWF9DVVJSRU5UVklEIHNtYyAweEQ4MjMwMDQ4
+CithZGQgYml0IGNhcnJpem8uc211ODAuaXhTTVVTVklfR0ZYX0NVUlJFTlRWSUQuQ1VSUkVOVF9H
+RlhfVklEIDI0IDMxCmRpZmYgLS1naXQgYS9kZW1vL3VwZGF0ZS9yZWFkX3NlbnNvci5zaCBiL2Rl
+bW8vdXBkYXRlL3JlYWRfc2Vuc29yLnNoCm5ldyBmaWxlIG1vZGUgMTAwNzU1CmluZGV4IDAwMDAw
+MDAwMDAwMC4uOTQyNjdmNDU0OTJmCi0tLSAvZGV2L251bGwKKysrIGIvZGVtby91cGRhdGUvcmVh
+ZF9zZW5zb3Iuc2gKQEAgLTAsMCArMSwxNyBAQAorIyEvYmluL2Jhc2gKKworIyBFeGFtcGxlIHNj
+cmlwdCB0aGF0IHVzZXMgdW1yICsgdXBkYXRlIHNjcmlwdHMgdG8gcmVhZCBzZW5zb3JzIHRoYXQg
+YXJlIG5vdAorIyBwYXJ0IG9mIHRoZSBrZXJuZWwgaGVhZGVycy4KKyMKKyMgSW4gdGhpcyBjYXNl
+IHdlJ3JlIHJlYWRpbmcgdGhlIE5CIHZvbHRhZ2Ugc2Vuc29yIGZyb20gQ2Fycml6bworCisjIGNh
+cHR1cmUgdmFsdWUgaW4gaGV4CitOQl9WSUQ9YHVtciAtTyByaXNreSxyaXNreSxyZWFkX3NtYyAt
+dSBjYXJyaXpvLnVwZGF0ZSAtciBjYXJyaXpvLnNtdTgwLml4U01VU1ZJX05CX0NVUlJFTlRWSUQg
+fCBjdXQgLWIxLTRgCisKKyMgY29udmVydCB0byBkZWNpbWFsCitOQl9WSURfREVDPWBwcmludGYg
+IiVkIiAke05CX1ZJRH1gCisKKyMgdm9sdGFnZSBpcyA2MjAwbVYgLSAoMjVtViAqIHNlbnNvcl9k
+YXRhKQorTkJfVklEX1Y9YGV4cHIgJHtOQl9WSURfREVDfSBcKiAyNWAKK05CX1ZJRF9WPWBleHBy
+IDYyMDAgLSAke05CX1ZJRF9WfWAKK3ByaW50ZiAiTm9ydGhicmlkZ2Ugdm9sdGFnZSBpcyAlZG1W
+XG4iICR7TkJfVklEX1Z9Ci0tIAoyLjEyLjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeAo=
