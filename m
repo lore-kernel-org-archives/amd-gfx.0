@@ -1,42 +1,47 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: [PATCH] drm/radeon: add a quirk for Toshiba Satellite L20-183
-Date: Tue, 20 Jun 2017 13:25:15 -0400
-Message-ID: <1497979515-2542-2-git-send-email-alexander.deucher@amd.com>
-References: <1497979515-2542-1-git-send-email-alexander.deucher@amd.com>
-Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <1497979515-2542-1-git-send-email-alexander.deucher@amd.com>
-Sender: stable-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [pull] radeon and amdgpu drm-fixes-4.12
+Date: Tue, 20 Jun 2017 13:25:59 -0400
+Message-ID: <1497979559-2591-1-git-send-email-alexander.deucher@amd.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-Fixes resume from suspend.
-
-bug: https://bugzilla.kernel.org/show_bug.cgi?id=196121
-Reported-by: Przemek <soprwa@gmail.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
----
- drivers/gpu/drm/radeon/radeon_combios.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/gpu/drm/radeon/radeon_combios.c b/drivers/gpu/drm/radeon/radeon_combios.c
-index 432480f..3178ba0 100644
---- a/drivers/gpu/drm/radeon/radeon_combios.c
-+++ b/drivers/gpu/drm/radeon/radeon_combios.c
-@@ -3393,6 +3393,13 @@ void radeon_combios_asic_init(struct drm_device *dev)
- 	    rdev->pdev->subsystem_vendor == 0x103c &&
- 	    rdev->pdev->subsystem_device == 0x280a)
- 		return;
-+	/* quirk for rs4xx Toshiba Sattellite L20-183 latop to make it resume
-+	 * - it hangs on resume inside the dynclk 1 table.
-+	 */
-+	if (rdev->family == CHIP_RS400 &&
-+	    rdev->pdev->subsystem_vendor == 0x1179 &&
-+	    rdev->pdev->subsystem_device == 0xff31)
-+	        return;
- 
- 	/* DYN CLK 1 */
- 	table = combios_get_table_offset(dev, COMBIOS_DYN_CLK_1_TABLE);
--- 
-2.5.5
+SGkgRGF2ZSwKCkEgZmV3IGZpeGVzIGZvciA0LjEyOgotIEFkZCBhIG5ldyBQb2xhcmlzMTIgcGNp
+IGlkCi0gQSBzdGFjayBjb3JydXB0aW9uIGZpeAotIFN1c3BlbmQvcmVzdW1lIGZpeAotIFBYIGZp
+eAotIERpc3BsYXkgZmxpY2tlcmluZyBmaXgKClRoZSBmb2xsb3dpbmcgY2hhbmdlcyBzaW5jZSBj
+b21taXQgNzExOWRiZGY3YzUyMDQyYWNiMWIwMmYxMTZmYTMyNTdlOTc2NTllYToKCiAgTWVyZ2Ug
+dGFnICdkcm0taW50ZWwtZml4ZXMtMjAxNy0wNi0xNScgb2YgZ2l0Oi8vYW5vbmdpdC5mcmVlZGVz
+a3RvcC5vcmcvZ2l0L2RybS1pbnRlbCBpbnRvIGRybS1maXhlcyAoMjAxNy0wNi0xNiAxMDowMTo1
+MiArMTAwMCkKCmFyZSBhdmFpbGFibGUgaW4gdGhlIGdpdCByZXBvc2l0b3J5IGF0OgoKICBnaXQ6
+Ly9wZW9wbGUuZnJlZWRlc2t0b3Aub3JnL35hZ2Q1Zi9saW51eCBkcm0tZml4ZXMtNC4xMgoKZm9y
+IHlvdSB0byBmZXRjaCBjaGFuZ2VzIHVwIHRvIGFjZmQ2ZWU0ZmE3ZWJlZWU3NTUxMTgyNWZlMDJi
+ZTNmN2FjMWQ2Njg6CgogIGRybS9yYWRlb246IGFkZCBhIHF1aXJrIGZvciBUb3NoaWJhIFNhdGVs
+bGl0ZSBMMjAtMTgzICgyMDE3LTA2LTIwIDEyOjA2OjUxIC0wNDAwKQoKLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpBbGV4IERl
+dWNoZXIgKDQpOgogICAgICBkcm0vYW1kZ3B1L2F0b206IGZpeCBwcyBhbGxvY2F0aW9uIHNpemUg
+Zm9yIEVuYWJsZURpc3BQb3dlckdhdGluZwogICAgICBkcm0vYW1kZ3B1OiBhZGp1c3QgZGVmYXVs
+dCBkaXNwbGF5IGNsb2NrCiAgICAgIGRybS9yYWRlb246IGFkZCBhIFBYIHF1aXJrIGZvciBhbm90
+aGVyIEs1M1RLIHZhcmlhbnQKICAgICAgZHJtL3JhZGVvbjogYWRkIGEgcXVpcmsgZm9yIFRvc2hp
+YmEgU2F0ZWxsaXRlIEwyMC0xODMKCkp1bnNoYW4gRmFuZyAoMSk6CiAgICAgIGRybS9hbWRncHU6
+IGFkZCBQb2xhcmlzMTIgRElECgogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2F0
+b21iaW9zLmMgfCA0ICsrKysKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYu
+YyAgICAgIHwgMSArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hdG9tYmlvc19jcnRjLmMg
+ICB8IDQgKystLQogZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fY29tYmlvcy5jICAgICAg
+fCA3ICsrKysrKysKIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2RldmljZS5jICAgICAg
+IHwgNCArKysrCiA1IGZpbGVzIGNoYW5nZWQsIDE4IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25z
+KC0pCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
+ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
