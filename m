@@ -1,47 +1,68 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [pull] radeon and amdgpu drm-fixes-4.12
-Date: Tue, 20 Jun 2017 13:25:59 -0400
-Message-ID: <1497979559-2591-1-git-send-email-alexander.deucher@amd.com>
+From: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+Subject: [PATCH v2] drm/core: Fail atomic IOCTL with no CRTC state but with signaling.
+Date: Tue, 20 Jun 2017 13:57:06 -0400
+Message-ID: <1497981426-27203-1-git-send-email-Andrey.Grodzovsky@amd.com>
+References: <0d603149-3fb0-3d48-89e5-77e3f7686415@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <0d603149-3fb0-3d48-89e5-77e3f7686415@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: harry.wentland@amd.com, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, maarten.lankhorst@linux.intel.com
+Cc: amd-gfx@lists.freedesktop.org, seanpaul@chromium.org, daniel@ffwll.ch, Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgRGF2ZSwKCkEgZmV3IGZpeGVzIGZvciA0LjEyOgotIEFkZCBhIG5ldyBQb2xhcmlzMTIgcGNp
-IGlkCi0gQSBzdGFjayBjb3JydXB0aW9uIGZpeAotIFN1c3BlbmQvcmVzdW1lIGZpeAotIFBYIGZp
-eAotIERpc3BsYXkgZmxpY2tlcmluZyBmaXgKClRoZSBmb2xsb3dpbmcgY2hhbmdlcyBzaW5jZSBj
-b21taXQgNzExOWRiZGY3YzUyMDQyYWNiMWIwMmYxMTZmYTMyNTdlOTc2NTllYToKCiAgTWVyZ2Ug
-dGFnICdkcm0taW50ZWwtZml4ZXMtMjAxNy0wNi0xNScgb2YgZ2l0Oi8vYW5vbmdpdC5mcmVlZGVz
-a3RvcC5vcmcvZ2l0L2RybS1pbnRlbCBpbnRvIGRybS1maXhlcyAoMjAxNy0wNi0xNiAxMDowMTo1
-MiArMTAwMCkKCmFyZSBhdmFpbGFibGUgaW4gdGhlIGdpdCByZXBvc2l0b3J5IGF0OgoKICBnaXQ6
-Ly9wZW9wbGUuZnJlZWRlc2t0b3Aub3JnL35hZ2Q1Zi9saW51eCBkcm0tZml4ZXMtNC4xMgoKZm9y
-IHlvdSB0byBmZXRjaCBjaGFuZ2VzIHVwIHRvIGFjZmQ2ZWU0ZmE3ZWJlZWU3NTUxMTgyNWZlMDJi
-ZTNmN2FjMWQ2Njg6CgogIGRybS9yYWRlb246IGFkZCBhIHF1aXJrIGZvciBUb3NoaWJhIFNhdGVs
-bGl0ZSBMMjAtMTgzICgyMDE3LTA2LTIwIDEyOjA2OjUxIC0wNDAwKQoKLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpBbGV4IERl
-dWNoZXIgKDQpOgogICAgICBkcm0vYW1kZ3B1L2F0b206IGZpeCBwcyBhbGxvY2F0aW9uIHNpemUg
-Zm9yIEVuYWJsZURpc3BQb3dlckdhdGluZwogICAgICBkcm0vYW1kZ3B1OiBhZGp1c3QgZGVmYXVs
-dCBkaXNwbGF5IGNsb2NrCiAgICAgIGRybS9yYWRlb246IGFkZCBhIFBYIHF1aXJrIGZvciBhbm90
-aGVyIEs1M1RLIHZhcmlhbnQKICAgICAgZHJtL3JhZGVvbjogYWRkIGEgcXVpcmsgZm9yIFRvc2hp
-YmEgU2F0ZWxsaXRlIEwyMC0xODMKCkp1bnNoYW4gRmFuZyAoMSk6CiAgICAgIGRybS9hbWRncHU6
-IGFkZCBQb2xhcmlzMTIgRElECgogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2F0
-b21iaW9zLmMgfCA0ICsrKysKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYu
-YyAgICAgIHwgMSArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hdG9tYmlvc19jcnRjLmMg
-ICB8IDQgKystLQogZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fY29tYmlvcy5jICAgICAg
-fCA3ICsrKysrKysKIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2RldmljZS5jICAgICAg
-IHwgNCArKysrCiA1IGZpbGVzIGNoYW5nZWQsIDE4IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25z
-KC0pCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
-ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+Problem : While running IGT kms_atomic_transition test suite i encountered
+a hang in drmHandleEvent immediately following  an atomic_commit.
+After dumping the atomic state I relized that in this case there was
+not even one CRTC attached to the state and only disabled
+planes. This probably due to a commit which hadn't changed any property
+which would require attaching crtc state. This means drmHandleEvent
+will never wake up from read since without CRTC in atomic state
+the event fd will not be signaled.
+
+Fix: Protect against this issue by failing atomic_commit early in
+drm_mode_atomic_commit where such probelm can be identified.
+
+v2:
+Fix typos and extra newlines.
+
+Change-Id: I3ee28ffae35fd1e8bfe553146c44da53da02e6f8
+Signed-off-by: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+---
+ drivers/gpu/drm/drm_atomic.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index a567310..48145bf 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -1933,7 +1933,7 @@ static int prepare_crtc_signaling(struct drm_device *dev,
+ {
+ 	struct drm_crtc *crtc;
+ 	struct drm_crtc_state *crtc_state;
+-	int i, ret;
++	int i, c = 0, ret;
+ 
+ 	if (arg->flags & DRM_MODE_ATOMIC_TEST_ONLY)
+ 		return 0;
+@@ -1994,8 +1994,17 @@ static int prepare_crtc_signaling(struct drm_device *dev,
+ 
+ 			crtc_state->event->base.fence = fence;
+ 		}
++
++		c++;
+ 	}
+ 
++	/*
++	 * Having this flag means user mode pends on event which will never
++	 * reach due to lack of at least one CRTC for signaling
++	 */
++	if (c == 0 && (arg->flags & DRM_MODE_PAGE_FLIP_EVENT))
++		return -EINVAL;
++
+ 	return 0;
+ }
+ 
+-- 
+2.7.4
