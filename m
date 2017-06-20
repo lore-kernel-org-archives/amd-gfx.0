@@ -1,72 +1,86 @@
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
-Subject: Re: [Intel-gfx] [PATCH i-g-t] test/kms_properties.c: fix
- connector-properties
-Date: Tue, 20 Jun 2017 22:03:44 +0300
-Message-ID: <20170620190344.GX12629@intel.com>
-References: <20170620182738.22255-1-Bhawanpreet.Lakha@amd.com>
+From: Peter Rosin <peda@axentia.se>
+Subject: [PATCH 00/11] improve the fb_setcmap helper
+Date: Tue, 20 Jun 2017 21:25:24 +0200
+Message-ID: <1497986735-14418-1-git-send-email-peda@axentia.se>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <20170620182738.22255-1-Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Bhawanpreet Lakha <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
-Cc: intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, harry.wentland-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: linux-kernel@vger.kernel.org
+Cc: Peter Rosin <peda@axentia.se>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, Daniel Vetter <daniel.vetter@intel.com>, Jani Nikula <jani.nikula@linux.intel.com>, Sean Paul <seanpaul@chromium.org>, Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, Ben Skeggs <bskeggs@redhat.com>, Yannick Fertre <yannick.fertre@st.com>, Philippe Cornu <philippe.cornu@st.com>, Benjamin Gaignard <benjamin.gaignard@linaro.org>, Vincent Abriou <vincent.abriou@st.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org, intel-gfx@lists.freedesktop.org, nouveau@lis
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVHVlLCBKdW4gMjAsIDIwMTcgYXQgMDI6Mjc6MzhQTSAtMDQwMCwgQmhhd2FucHJlZXQgTGFr
-aGEgd3JvdGU6Cj4gICAgIFRoZSB0ZXN0IGRvZXNuJ3QgY29uc2lkZXIgaW1tdXRhYmxlIHByb3Bl
-cnRpZXMKPiAKPiAgICAgTGVnYWN5IFRlc3Q6IFRoZSB0ZXN0IHRyeXMgdG8gc2V0IHRoZSBwcm9w
-ZXJ0eSwgYnV0IGlmIHRoZSBwcm9wZXJ0eQo+ICAgICAgICAgICAgICAgICAgaXMgaW1tdXRhYmxl
-IHRoZSB0ZXN0IGZhaWxzLgo+ICAgICAgICAgICAgICAgICAgQWRkZWQgY29uZGl0aW9ucyB0byBj
-aGVjayBpZiB0aGUgcHJvcGVydHkgaXMgaW1tdXRhYmxlLgo+IAo+ICAgICBBdG9taWMgVGVzdDog
-VGhlIGltbXV0YWJsZSBwcm9wZXJ0aWVzIGFyZSBhZGRlZCBhbmQgZmFpbHMgb24gY29tbWl0Lgo+
-ICAgICAgICAgICAgICAgICAgQWRkZWQgY29uZGl0aW9uIHRvIHNraXAgJ2FkZCBwcm9wZXJ0eScg
-aWYgdGhlIHByb3BlcnR5Cj4gICAgICAgICAgICAgICAgICBpcyBpbW11dGFibGUuIFRoaXMgaW5z
-dXJlcyB0aGF0IHRoZSBjb21taXQgd2lsbCBub3QgZmFpbC4KPiAKPiAgICAgICAgICAgICAgICAg
-IFNraXBwaW5nIHRoZSBhZGQgcHJvcGVydHkgaXMgdGhlIG9ubHkgd2F5LCBiZWNhdXNlIG90aGVy
-d2lzZQo+ICAgICAgICAgICAgICAgICAgdGhlIHRoZSBhY3R1YWwgY29tbWl0IHdpbGwgYWx3YXlz
-IGZhaWwgaWYgdGhlcmUgaXMgYXRsZWFzdAo+ICAgICAgICAgICAgICAgICAgb25lIGltbXV0YWJs
-ZSBwcm9wZXJ0eS4KCk1pZ2h0IGJlIGEgZ29vZCBpZGVhIHRvIGhhdmUgYSB0ZXN0IHRoYXQgdHJp
-ZXMgdG8gc2V0IGltbXV0YWJsZQpwcm9wZXJ0aWVzIHZpYSBhdG9taWMgYXMgd2VsbC4KCj4gCj4g
-U2lnbmVkLW9mZi1ieTogQmhhd2FucHJlZXQgTGFraGEgPEJoYXdhbnByZWV0Lkxha2hhQGFtZC5j
-b20+Cj4gLS0tCj4gIHRlc3RzL2ttc19wcm9wZXJ0aWVzLmMgfCAxNiArKysrKysrKysrKy0tLS0t
-Cj4gIDEgZmlsZSBjaGFuZ2VkLCAxMSBpbnNlcnRpb25zKCspLCA1IGRlbGV0aW9ucygtKQo+IAo+
-IGRpZmYgLS1naXQgYS90ZXN0cy9rbXNfcHJvcGVydGllcy5jIGIvdGVzdHMva21zX3Byb3BlcnRp
-ZXMuYwo+IGluZGV4IGMxNTAyNmI4Li5hYTFhZjc2NyAxMDA2NDQKPiAtLS0gYS90ZXN0cy9rbXNf
-cHJvcGVydGllcy5jCj4gKysrIGIvdGVzdHMva21zX3Byb3BlcnRpZXMuYwo+IEBAIC0xMzgsMTMg
-KzEzOCwxOSBAQCBzdGF0aWMgdm9pZCB0ZXN0X3Byb3BlcnRpZXMoaW50IGZkLCB1aW50MzJfdCB0
-eXBlLCB1aW50MzJfdCBpZCwgYm9vbCBhdG9taWMpCj4gIAkJaWYgKCFhdG9taWMpIHsKPiAgCQkJ
-cmV0ID0gZHJtTW9kZU9iamVjdFNldFByb3BlcnR5KGZkLCBpZCwgdHlwZSwgcHJvcF9pZCwgcHJv
-cF92YWx1ZSk7Cj4gIAo+IC0JCQlpZ3RfYXNzZXJ0X2VxKHJldCwgMCk7Cj4gKyAgICAgICAgICAg
-ICAgICAgICAgICAgIGlmICghKHByb3AtPmZsYWdzICYgRFJNX01PREVfUFJPUF9JTU1VVEFCTEUp
-KQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGlndF9hc3NlcnRfZXEocmV0LCAw
-KTsKPiArICAgICAgICAgICAgICAgICAgICAgICAgZWxzZQo+ICsgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIGlndF9hc3NlcnQocmV0ICE9IDApOwo+ICsKPiAgCQl9IGVsc2Ugewo+IC0J
-CQlyZXQgPSBkcm1Nb2RlQXRvbWljQWRkUHJvcGVydHkocmVxLCBpZCwgcHJvcF9pZCwgcHJvcF92
-YWx1ZSk7Cj4gLQkJCWlndF9hc3NlcnQocmV0ID49IDApOwo+ICsJCQlpZiAoIShwcm9wLT5mbGFn
-cyAmIERSTV9NT0RFX1BST1BfSU1NVVRBQkxFKSkgewo+ICsgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIHJldCA9IGRybU1vZGVBdG9taWNBZGRQcm9wZXJ0eShyZXEsIGlkLCBwcm9wX2lk
-LCBwcm9wX3ZhbHVlKTsKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpZ3RfYXNz
-ZXJ0KHJldCA+PSAwKTsKPiAgCj4gLQkJCXJldCA9IGRybU1vZGVBdG9taWNDb21taXQoZmQsIHJl
-cSwgRFJNX01PREVfQVRPTUlDX1RFU1RfT05MWSwgTlVMTCk7Cj4gLQkJCWlndF9hc3NlcnRfZXEo
-cmV0LCAwKTsKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXQgPSBkcm1Nb2Rl
-QXRvbWljQ29tbWl0KGZkLCByZXEsIERSTV9NT0RFX0FUT01JQ19URVNUX09OTFksIE5VTEwpOwo+
-ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGlndF9hc3NlcnRfZXEocmV0LCAwKTsK
-PiArICAgICAgICAgICAgICAgICAgICAgICAgfQo+ICAJCX0KPiAgCj4gIAkJZHJtTW9kZUZyZWVQ
-cm9wZXJ0eShwcm9wKTsKPiAtLSAKPiAyLjExLjAKPiAKPiBfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwo+IEludGVsLWdmeCBtYWlsaW5nIGxpc3QKPiBJbnRl
-bC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZngKCi0tIApWaWxsZSBTeXJqw6Rsw6QKSW50ZWwg
-T1RDCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
-ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+Hi!
+
+While trying to get CLUT support for the atmel_hlcdc driver, and
+specifically for the emulated fbdev interface, I received some
+push-back that my feeble in-driver attempts should be solved
+by the core. This is my attempt to do it right.
+
+Boris and Daniel, was this approximately what you had in mind?
+
+I have obviously not tested all of this with more than a compile,
+but the first patch is enough to make the atmel-hlcdc driver
+do what I need. The rest is just lots of removals and cleanup
+made possible by the improved core.
+
+Please test, I would not be surprised if I have fouled up some
+bit-manipulation somewhere in this mostly mechanical change...
+
+Cheers,
+peda
+
+Peter Rosin (11):
+  drm/fb-helper: do a generic fb_setcmap helper in terms of crtc
+    .gamma_set
+  drm: amd: remove dead code and pointless local lut storage
+  drm: ast: remove dead code and pointless local lut storage
+  drm: cirrus: remove dead code and pointless local lut storage
+  dmr: gma500: remove dead code and pointless local lut storage
+  drm: i915: remove dead code and pointless local lut storage
+  drm: mgag200: remove dead code and pointless local lut storage
+  drm: nouveau: remove dead code and pointless local lut storage
+  drm: radeon: remove dead code and pointless local lut storage
+  drm: stm: remove dead code and pointless local lut storage
+  drm: remove unused and redundant callbacks
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c      |  24 -----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h    |   1 -
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c      |  27 ++----
+ drivers/gpu/drm/amd/amdgpu/dce_v11_0.c      |  27 ++----
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c       |  27 ++----
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c       |  27 ++----
+ drivers/gpu/drm/amd/amdgpu/dce_virtual.c    |  23 -----
+ drivers/gpu/drm/ast/ast_drv.h               |   1 -
+ drivers/gpu/drm/ast/ast_fb.c                |  20 -----
+ drivers/gpu/drm/ast/ast_mode.c              |  26 ++----
+ drivers/gpu/drm/cirrus/cirrus_drv.h         |   8 --
+ drivers/gpu/drm/cirrus/cirrus_fbdev.c       |   2 -
+ drivers/gpu/drm/cirrus/cirrus_mode.c        |  71 ++++-----------
+ drivers/gpu/drm/drm_fb_helper.c             | 131 +++++++++-------------------
+ drivers/gpu/drm/gma500/framebuffer.c        |  22 -----
+ drivers/gpu/drm/gma500/gma_display.c        |  32 +++----
+ drivers/gpu/drm/gma500/psb_intel_display.c  |   7 +-
+ drivers/gpu/drm/gma500/psb_intel_drv.h      |   1 -
+ drivers/gpu/drm/i915/intel_drv.h            |   1 -
+ drivers/gpu/drm/i915/intel_fbdev.c          |  31 -------
+ drivers/gpu/drm/mgag200/mgag200_drv.h       |   5 --
+ drivers/gpu/drm/mgag200/mgag200_fb.c        |   2 -
+ drivers/gpu/drm/mgag200/mgag200_mode.c      |  62 ++++---------
+ drivers/gpu/drm/nouveau/dispnv04/crtc.c     |  26 ++----
+ drivers/gpu/drm/nouveau/nouveau_crtc.h      |   3 -
+ drivers/gpu/drm/nouveau/nouveau_fbcon.c     |  22 -----
+ drivers/gpu/drm/nouveau/nv50_display.c      |  39 +++------
+ drivers/gpu/drm/radeon/atombios_crtc.c      |   1 -
+ drivers/gpu/drm/radeon/radeon_connectors.c  |   7 +-
+ drivers/gpu/drm/radeon/radeon_display.c     |  71 ++++++---------
+ drivers/gpu/drm/radeon/radeon_fb.c          |   2 -
+ drivers/gpu/drm/radeon/radeon_legacy_crtc.c |   1 -
+ drivers/gpu/drm/stm/ltdc.c                  |  12 ---
+ drivers/gpu/drm/stm/ltdc.h                  |   1 -
+ include/drm/drm_fb_helper.h                 |  32 -------
+ include/drm/drm_modeset_helper_vtables.h    |  16 ----
+ 36 files changed, 171 insertions(+), 640 deletions(-)
+
+-- 
+2.1.4
