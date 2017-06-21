@@ -1,168 +1,261 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: export gpu always on cu bitmap
-Date: Wed, 21 Jun 2017 10:32:44 +0200
-Message-ID: <97c546dd-5218-26e8-9a44-e268c3a1b508@vodafone.de>
-References: <1497946521-21500-1-git-send-email-Flora.Cui@amd.com>
- <CADnq5_PQcrNDSHeJyWr=401vn_EKc6i7+Lk+8jUfWfC1H4_EWA@mail.gmail.com>
- <20170621074206.GA24382@flora>
+From: Peter Rosin <peda@axentia.se>
+Subject: Re: [PATCH 01/11] drm/fb-helper: do a generic fb_setcmap helper in
+ terms of crtc .gamma_set
+Date: Wed, 21 Jun 2017 11:40:52 +0200
+Message-ID: <fc8ca240-61ad-b5b6-174c-490858401237@axentia.se>
+References: <1497986735-14418-1-git-send-email-peda@axentia.se>
+ <1497986735-14418-2-git-send-email-peda@axentia.se>
+ <20170621073804.akyg4rxvoavjjt2v@phenom.ffwll.local>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170621074206.GA24382@flora>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20170621073804.akyg4rxvoavjjt2v@phenom.ffwll.local>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Flora Cui <flora.cui-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Philippe Cornu <philippe.cornu@st.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Yannick Fertre <yannick.fertre@st.com>, Gerd Hoffmann <kraxel@redhat.com>, Daniel Vetter <daniel.vetter@intel.com>, Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@redhat.com>, virtualization@lists.linux-foundation.org, Vincent Abriou <vincent.abriou@st.com>, Ben Skeggs <bskeggs@redhat.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMjEuMDYuMjAxNyB1bSAwOTo0MiBzY2hyaWViIEZsb3JhIEN1aToKPiBPbiBUdWUsIEp1biAy
-MCwgMjAxNyBhdCAxMDo0NzozOUFNIC0wNDAwLCBBbGV4IERldWNoZXIgd3JvdGU6Cj4+IE9uIFR1
-ZSwgSnVuIDIwLCAyMDE3IGF0IDQ6MTUgQU0sIEZsb3JhIEN1aSA8RmxvcmEuQ3VpQGFtZC5jb20+
-IHdyb3RlOgo+Pj4gQ2hhbmdlLUlkOiBJMDU2ZDhhZjIzMzQwZDQ2ZTUxNDBiZDEwY2MzOGRmYjg4
-N2NjNzhhYgo+Pj4gU2lnbmVkLW9mZi1ieTogRmxvcmEgQ3VpIDxGbG9yYS5DdWlAYW1kLmNvbT4K
-Pj4+IC0tLQo+Pj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCAgICAgfCA3
-ICsrKysrLS0KPj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jIHwg
-MyArKy0KPj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jIHwgMyAr
-Ky0KPj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y2XzAuYyAgIHwgNCArKyst
-Cj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92N18wLmMgICB8IDQgKysrLQo+
-Pj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jICAgfCA0ICsrKy0KPj4+
-ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyAgIHwgNCArKystCj4+PiAg
-IGluY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oICAgICAgICAgICB8IDIgKy0KPj4+ICAgOCBm
-aWxlcyBjaGFuZ2VkLCAyMiBpbnNlcnRpb25zKCspLCA5IGRlbGV0aW9ucygtKQo+Pj4KPj4+IGRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+PiBpbmRleCA2YjdkMmExLi42YjlhOTFjIDEw
-MDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPj4+ICsr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4+PiBAQCAtMTAyOSwxMiAr
-MTAyOSwxNSBAQCBzdHJ1Y3QgYW1kZ3B1X2dmeF9jb25maWcgewo+Pj4gICB9Owo+Pj4KPj4+ICAg
-c3RydWN0IGFtZGdwdV9jdV9pbmZvIHsKPj4+IC0gICAgICAgdWludDMyX3QgbnVtYmVyOyAvKiB0
-b3RhbCBhY3RpdmUgQ1UgbnVtYmVyICovCj4+PiAtICAgICAgIHVpbnQzMl90IGFvX2N1X21hc2s7
-Cj4+PiAgICAgICAgICB1aW50MzJfdCBtYXhfd2F2ZXNfcGVyX3NpbWQ7Cj4+PiAgICAgICAgICB1
-aW50MzJfdCB3YXZlX2Zyb250X3NpemU7Cj4+PiAgICAgICAgICB1aW50MzJfdCBtYXhfc2NyYXRj
-aF9zbG90c19wZXJfY3U7Cj4+PiAgICAgICAgICB1aW50MzJfdCBsZHNfc2l6ZTsKPj4+ICsKPj4+
-ICsgICAgICAgLyogdG90YWwgYWN0aXZlIENVIG51bWJlciAqLwo+Pj4gKyAgICAgICB1aW50MzJf
-dCBudW1iZXI7Cj4+PiArICAgICAgIHVpbnQzMl90IGFvX2N1X21hc2s7Cj4+PiArICAgICAgIHVp
-bnQzMl90IGFvX2N1X2JpdG1hcFs0XVs0XTsKPj4+ICAgICAgICAgIHVpbnQzMl90IGJpdG1hcFs0
-XVs0XTsKPj4+ICAgfTsKPj4+Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2Rydi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Ry
-di5jCj4+PiBpbmRleCAwNDI0NzExLi41YTFkNzk0IDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKPj4+IEBAIC02Nyw5ICs2NywxMCBAQAo+Pj4gICAgKiAt
-IDMuMTUuMCAtIEV4cG9ydCBtb3JlIGdwdSBpbmZvIGZvciBnZng5Cj4+PiAgICAqIC0gMy4xNi4w
-IC0gQWRkIHJlc2VydmVkIHZtaWQgc3VwcG9ydAo+Pj4gICAgKiAtIDMuMTcuMCAtIEFkZCBBTURH
-UFVfTlVNX1ZSQU1fQ1BVX1BBR0VfRkFVTFRTLgo+Pj4gKyAqIC0gMy4xOC4wIC0gRXhwb3J0IGdw
-dSBhbHdheXMgb24gY3UgYml0bWFwCj4+PiAgICAqLwo+Pj4gICAjZGVmaW5lIEtNU19EUklWRVJf
-TUFKT1IgICAgICAgMwo+Pj4gLSNkZWZpbmUgS01TX0RSSVZFUl9NSU5PUiAgICAgICAxNwo+Pj4g
-KyNkZWZpbmUgS01TX0RSSVZFUl9NSU5PUiAgICAgICAxOAo+Pj4gICAjZGVmaW5lIEtNU19EUklW
-RVJfUEFUQ0hMRVZFTCAgMAo+Pj4KPj4+ICAgaW50IGFtZGdwdV92cmFtX2xpbWl0ID0gMDsKPj4+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMKPj4+IGluZGV4IGY2OGNlZDYu
-LjZiYTgyMDQgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfa21zLmMKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMu
-Ywo+Pj4gQEAgLTU5MSw4ICs1OTEsOSBAQCBzdGF0aWMgaW50IGFtZGdwdV9pbmZvX2lvY3RsKHN0
-cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsIHN0cnVjdCBkcm1fZmlsZQo+Pj4gICAg
-ICAgICAgICAgICAgICBkZXZfaW5mby5nYXJ0X3BhZ2Vfc2l6ZSA9IEFNREdQVV9HUFVfUEFHRV9T
-SVpFOwo+Pj4KPj4+ICAgICAgICAgICAgICAgICAgZGV2X2luZm8uY3VfYWN0aXZlX251bWJlciA9
-IGFkZXYtPmdmeC5jdV9pbmZvLm51bWJlcjsKPj4+IC0gICAgICAgICAgICAgICBkZXZfaW5mby5j
-dV9hb19tYXNrID0gYWRldi0+Z2Z4LmN1X2luZm8uYW9fY3VfbWFzazsKPj4+ICAgICAgICAgICAg
-ICAgICAgZGV2X2luZm8uY2VfcmFtX3NpemUgPSBhZGV2LT5nZnguY2VfcmFtX3NpemU7Cj4+PiAr
-ICAgICAgICAgICAgICAgbWVtY3B5KCZkZXZfaW5mby5jdV9hb19iaXRtYXBbMF0sICZhZGV2LT5n
-ZnguY3VfaW5mby5hb19jdV9iaXRtYXBbMF0sCj4+PiArICAgICAgICAgICAgICAgICAgICAgIHNp
-emVvZihhZGV2LT5nZnguY3VfaW5mby5hb19jdV9iaXRtYXApKTsKPj4+ICAgICAgICAgICAgICAg
-ICAgbWVtY3B5KCZkZXZfaW5mby5jdV9iaXRtYXBbMF0sICZhZGV2LT5nZnguY3VfaW5mby5iaXRt
-YXBbMF0sCj4+PiAgICAgICAgICAgICAgICAgICAgICAgICBzaXplb2YoYWRldi0+Z2Z4LmN1X2lu
-Zm8uYml0bWFwKSk7Cj4+PiAgICAgICAgICAgICAgICAgIGRldl9pbmZvLnZyYW1fdHlwZSA9IGFk
-ZXYtPm1jLnZyYW1fdHlwZTsKPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9nZnhfdjZfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y2XzAuYwo+
-Pj4gaW5kZXggN2IwYjNjZi4uNTE3M2NhMSAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2dmeF92Nl8wLmMKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2dmeF92Nl8wLmMKPj4+IEBAIC0zNTM1LDcgKzM1MzUsOSBAQCBzdGF0aWMgdm9pZCBnZnhf
-djZfMF9nZXRfY3VfaW5mbyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPj4+ICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIG1hc2sgPDw9IDE7Cj4+PiAgICAgICAgICAgICAgICAg
-ICAgICAgICAgfQo+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgIGFjdGl2ZV9jdV9udW1iZXIg
-Kz0gY291bnRlcjsKPj4+IC0gICAgICAgICAgICAgICAgICAgICAgIGFvX2N1X21hc2sgfD0gKGFv
-X2JpdG1hcCA8PCAoaSAqIDE2ICsgaiAqIDgpKTsKPj4+ICsgICAgICAgICAgICAgICAgICAgICAg
-IGlmIChpIDwgMiAmJiBqIDwgMikKPj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-YW9fY3VfbWFzayB8PSAoYW9fYml0bWFwIDw8IChpICogMTYgKyBqICogOCkpOwo+Pj4gKyAgICAg
-ICAgICAgICAgICAgICAgICAgY3VfaW5mby0+YW9fY3VfYml0bWFwW2ldW2pdID0gYW9fYml0bWFw
-Owo+Pj4gICAgICAgICAgICAgICAgICB9Cj4+PiAgICAgICAgICB9Cj4+Pgo+Pj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92N18wLmMgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9nZnhfdjdfMC5jCj4+PiBpbmRleCBmYjBhOTRjLi44YzRkZDdiIDEwMDY0
-NAo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y3XzAuYwo+Pj4gKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y3XzAuYwo+Pj4gQEAgLTU0MjcsNyAr
-NTQyNyw5IEBAIHN0YXRpYyB2b2lkIGdmeF92N18wX2dldF9jdV9pbmZvKHN0cnVjdCBhbWRncHVf
-ZGV2aWNlICphZGV2KQo+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbWFzayA8
-PD0gMTsKPj4+ICAgICAgICAgICAgICAgICAgICAgICAgICB9Cj4+PiAgICAgICAgICAgICAgICAg
-ICAgICAgICAgYWN0aXZlX2N1X251bWJlciArPSBjb3VudGVyOwo+Pj4gLSAgICAgICAgICAgICAg
-ICAgICAgICAgYW9fY3VfbWFzayB8PSAoYW9fYml0bWFwIDw8IChpICogMTYgKyBqICogOCkpOwo+
-Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgaWYgKGkgPCAyICYmIGogPCAyKQo+Pj4gKyAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBhb19jdV9tYXNrIHw9IChhb19iaXRtYXAgPDwgKGkg
-KiAxNiArIGogKiA4KSk7Cj4+PiArICAgICAgICAgICAgICAgICAgICAgICBjdV9pbmZvLT5hb19j
-dV9iaXRtYXBbaV1bal0gPSBhb19iaXRtYXA7Cj4+PiAgICAgICAgICAgICAgICAgIH0KPj4+ICAg
-ICAgICAgIH0KPj4+ICAgICAgICAgIGdmeF92N18wX3NlbGVjdF9zZV9zaChhZGV2LCAweGZmZmZm
-ZmZmLCAweGZmZmZmZmZmLCAweGZmZmZmZmZmKTsKPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-Z2Z4X3Y4XzAuYwo+Pj4gaW5kZXggMWE3NWFiMS4uOWVkYjUwOSAxMDA2NDQKPj4+IC0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMKPj4+ICsrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMKPj4+IEBAIC03MDgwLDcgKzcwODAsOSBAQCBzdGF0
-aWMgdm9pZCBnZnhfdjhfMF9nZXRfY3VfaW5mbyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikK
-Pj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG1hc2sgPDw9IDE7Cj4+PiAgICAg
-ICAgICAgICAgICAgICAgICAgICAgfQo+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgIGFjdGl2
-ZV9jdV9udW1iZXIgKz0gY291bnRlcjsKPj4+IC0gICAgICAgICAgICAgICAgICAgICAgIGFvX2N1
-X21hc2sgfD0gKGFvX2JpdG1hcCA8PCAoaSAqIDE2ICsgaiAqIDgpKTsKPj4+ICsgICAgICAgICAg
-ICAgICAgICAgICAgIGlmIChpIDwgMiAmJiBqIDwgMikKPj4+ICsgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgYW9fY3VfbWFzayB8PSAoYW9fYml0bWFwIDw8IChpICogMTYgKyBqICogOCkp
-Owo+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgY3VfaW5mby0+YW9fY3VfYml0bWFwW2ldW2pd
-ID0gYW9fYml0bWFwOwo+Pj4gICAgICAgICAgICAgICAgICB9Cj4+PiAgICAgICAgICB9Cj4+PiAg
-ICAgICAgICBnZnhfdjhfMF9zZWxlY3Rfc2Vfc2goYWRldiwgMHhmZmZmZmZmZiwgMHhmZmZmZmZm
-ZiwgMHhmZmZmZmZmZik7Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvZ2Z4X3Y5XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKPj4+
-IGluZGV4IDVkNTYxMjYuLjBkNmE2ZDkgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9nZnhfdjlfMC5jCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9nZnhfdjlfMC5jCj4+PiBAQCAtNDQ1OSw3ICs0NDU5LDkgQEAgc3RhdGljIGludCBnZnhfdjlf
-MF9nZXRfY3VfaW5mbyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4+ICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIG1hc2sgPDw9IDE7Cj4+PiAgICAgICAgICAgICAgICAgICAg
-ICAgICAgfQo+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgIGFjdGl2ZV9jdV9udW1iZXIgKz0g
-Y291bnRlcjsKPj4+IC0gICAgICAgICAgICAgICAgICAgICAgIGFvX2N1X21hc2sgfD0gKGFvX2Jp
-dG1hcCA8PCAoaSAqIDE2ICsgaiAqIDgpKTsKPj4+ICsgICAgICAgICAgICAgICAgICAgICAgIGlm
-IChpIDwgMiAmJiBqIDwgMikKPj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYW9f
-Y3VfbWFzayB8PSAoYW9fYml0bWFwIDw8IChpICogMTYgKyBqICogOCkpOwo+Pj4gKyAgICAgICAg
-ICAgICAgICAgICAgICAgY3VfaW5mby0+YW9fY3VfYml0bWFwW2ldW2pdID0gYW9fYml0bWFwOwo+
-Pj4gICAgICAgICAgICAgICAgICB9Cj4+PiAgICAgICAgICB9Cj4+PiAgICAgICAgICBnZnhfdjlf
-MF9zZWxlY3Rfc2Vfc2goYWRldiwgMHhmZmZmZmZmZiwgMHhmZmZmZmZmZiwgMHhmZmZmZmZmZik7
-Cj4+PiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmggYi9pbmNsdWRl
-L3VhcGkvZHJtL2FtZGdwdV9kcm0uaAo+Pj4gaW5kZXggNGYzNDM5NC4uNDMwNDQyMiAxMDA2NDQK
-Pj4+IC0tLSBhL2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oCj4+PiArKysgYi9pbmNsdWRl
-L3VhcGkvZHJtL2FtZGdwdV9kcm0uaAo+Pj4gQEAgLTc2MCw3ICs3NjAsNyBAQCBzdHJ1Y3QgZHJt
-X2FtZGdwdV9pbmZvX2RldmljZSB7Cj4+PiAgICAgICAgICBfX3U2NCBtYXhfbWVtb3J5X2Nsb2Nr
-Owo+Pj4gICAgICAgICAgLyogY3UgaW5mb3JtYXRpb24gKi8KPj4+ICAgICAgICAgIF9fdTMyIGN1
-X2FjdGl2ZV9udW1iZXI7Cj4+PiAtICAgICAgIF9fdTMyIGN1X2FvX21hc2s7Cj4+PiArICAgICAg
-IF9fdTMyIGN1X2FvX2JpdG1hcFs0XVs0XTsKPj4+ICAgICAgICAgIF9fdTMyIGN1X2JpdG1hcFs0
-XVs0XTsKPj4+ICAgICAgICAgIC8qKiBSZW5kZXIgYmFja2VuZCBwaXBlIG1hc2suIE9uZSByZW5k
-ZXIgYmFja2VuZCBpcyBDQitEQi4gKi8KPj4+ICAgICAgICAgIF9fdTMyIGVuYWJsZWRfcmJfcGlw
-ZXNfbWFzazsKPj4gWW91IG5lZWQgdG8gYWRkIHRoZXNlIHRvIHRoZSBlbmQgb2YgdGhlIHN0cnVj
-dHVyZSBmb3IgYmFja3dhcmRzIGNvbXBhdGliaWxpdHkuCj4+Cj4gT0suIEhvdyB0byBoYW5kbGUg
-Y3VfYW9fbWFzaz8gaXQncyBpbnZhbGlkLCB5ZXQga21kIGhhcyB0byBrZWVwIGl0IGZvciBiYWNr
-d2FyZCBjb21wYXRpYmlsaXR5LgoKSSBjYW4ndCBjb21wbGV0ZWx5IGFuc3dlciB0aGF0IHF1ZXN0
-aW9uIHNpbmNlIEkgZG9uJ3Qga25vdyB0aGUgaGFyZHdhcmUgCmJhY2tncm91bmQgd2VsbCBlbm91
-Z2guCgpCdXQgdGhlIG1haW4gcXVlc3Rpb25zIGFyZSBob3cgaXQgaXMgdXNlZCB0b2RheSBhbmQg
-d2hhdCBjYW4gd2UgZG8gdG8gCmF2b2lkIGJyZWFraW5nIGV4aXN0aW5nIHVzZXJzcGFjZT8KCklm
-IHRoZSB2YWx1ZSBpcyBjb21wbGV0ZWx5IGlnbm9yZWQgYnkgdXNlciBzcGFjZSB0aGVuIHdlIGNh
-biBzaW1wbHkgc2V0IAppdCB0byB6ZXJvIGFuZCBhZGQgc29tZSBkZXByZWNhdGVkIGNvbW1lbnQg
-b24gdGhlIGZpZWxkLgoKSWYgdGhlIHRoZSBpbmNvcnJlY3QgdmFsdWUgaXMgc29tZWhvdyB1c2Vk
-IHRoZW4gd2Ugc2hvdWxkIHN0aWxsIHByb3ZpZGUgCml0IGV2ZW4gd2hlbiBpdCBpcyBjb21wbGV0
-ZWx5IHdyb25nLgoKUmVnYXJkcywKQ2hyaXN0aWFuLgoKCj4+IEFsZXgKPiBfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0
-Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKCgpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZngK
+On 2017-06-21 09:38, Daniel Vetter wrote:
+> On Tue, Jun 20, 2017 at 09:25:25PM +0200, Peter Rosin wrote:
+>> This makes the redundant fb helpers .load_lut, .gamma_set and .gamma_get
+>> totally obsolete.
+>>
+>> I think the gamma_store can end up invalid on error. But the way I read
+>> it, that can happen in drm_mode_gamma_set_ioctl as well, so why should
+>> this pesky legacy fbdev stuff be any better?
+>>
+>> drm_fb_helper_save_lut_atomic justs saves the gamma lut for later. However,
+>> it saves it to the gamma_store which should already be up to date with what
+>> .gamma_get would return and is thus a nop. So, zap it.
+> 
+> Removing drm_fb_helper_save_lut_atomic should be a separate patch I
+> think.
+
+Then 3 patches would be needed, first some hybrid thing that does it the
+old way, but also stores the lut in .gamma_store, then the split-out that
+removes drm_fb_helper_save_lut_atomic, then whatever is needed to get
+to the desired code. I can certainly do that, but do you want me to?
+
+I.e., the statement that drm_fb_helper_save_lut_atomic is a nop is only
+true when (part of) the other patch is also considered.
+
+>> Signed-off-by: Peter Rosin <peda@axentia.se>
+> 
+>> ---
+>>  drivers/gpu/drm/drm_fb_helper.c | 131 ++++++++++++----------------------------
+>>  1 file changed, 40 insertions(+), 91 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+>> index 574af01..cc2d55d 100644
+>> --- a/drivers/gpu/drm/drm_fb_helper.c
+>> +++ b/drivers/gpu/drm/drm_fb_helper.c
+>> @@ -229,22 +229,6 @@ int drm_fb_helper_remove_one_connector(struct drm_fb_helper *fb_helper,
+>>  }
+>>  EXPORT_SYMBOL(drm_fb_helper_remove_one_connector);
+>>  
+>> -static void drm_fb_helper_save_lut_atomic(struct drm_crtc *crtc, struct drm_fb_helper *helper)
+>> -{
+>> -	uint16_t *r_base, *g_base, *b_base;
+>> -	int i;
+>> -
+>> -	if (helper->funcs->gamma_get == NULL)
+>> -		return;
+>> -
+>> -	r_base = crtc->gamma_store;
+>> -	g_base = r_base + crtc->gamma_size;
+>> -	b_base = g_base + crtc->gamma_size;
+>> -
+>> -	for (i = 0; i < crtc->gamma_size; i++)
+>> -		helper->funcs->gamma_get(crtc, &r_base[i], &g_base[i], &b_base[i], i);
+>> -}
+>> -
+>>  static void drm_fb_helper_restore_lut_atomic(struct drm_crtc *crtc)
+>>  {
+>>  	uint16_t *r_base, *g_base, *b_base;
+>> @@ -285,7 +269,6 @@ int drm_fb_helper_debug_enter(struct fb_info *info)
+>>  			if (drm_drv_uses_atomic_modeset(mode_set->crtc->dev))
+>>  				continue;
+>>  
+>> -			drm_fb_helper_save_lut_atomic(mode_set->crtc, helper);
+>>  			funcs->mode_set_base_atomic(mode_set->crtc,
+>>  						    mode_set->fb,
+>>  						    mode_set->x,
+>> @@ -1167,50 +1150,6 @@ void drm_fb_helper_set_suspend_unlocked(struct drm_fb_helper *fb_helper,
+>>  }
+>>  EXPORT_SYMBOL(drm_fb_helper_set_suspend_unlocked);
+>>  
+>> -static int setcolreg(struct drm_crtc *crtc, u16 red, u16 green,
+>> -		     u16 blue, u16 regno, struct fb_info *info)
+>> -{
+>> -	struct drm_fb_helper *fb_helper = info->par;
+>> -	struct drm_framebuffer *fb = fb_helper->fb;
+>> -
+>> -	if (info->fix.visual == FB_VISUAL_TRUECOLOR) {
+> 
+> This case here seems gone, and it was also the pièce de résistance when I
+> tried tackling fbdev lut support. As far as I understand this stuff we do
+> not support FB_VISUAL_TRUECOLOR palette, and all that bitshifting here is
+> pointless. But I'm honestly not really clear.
+
+Oops, sorry, I simply missed that, I'll have a closer look...
+
+> I think removing this case should also be a separate patch, and I'd very
+> much prefer that someone with some fbdev-clue would ack it.
+> 
+>> -		u32 *palette;
+>> -		u32 value;
+>> -		/* place color in psuedopalette */
+>> -		if (regno > 16)
+>> -			return -EINVAL;
+>> -		palette = (u32 *)info->pseudo_palette;
+>> -		red >>= (16 - info->var.red.length);
+>> -		green >>= (16 - info->var.green.length);
+>> -		blue >>= (16 - info->var.blue.length);
+>> -		value = (red << info->var.red.offset) |
+>> -			(green << info->var.green.offset) |
+>> -			(blue << info->var.blue.offset);
+>> -		if (info->var.transp.length > 0) {
+>> -			u32 mask = (1 << info->var.transp.length) - 1;
+>> -
+>> -			mask <<= info->var.transp.offset;
+>> -			value |= mask;
+>> -		}
+>> -		palette[regno] = value;
+>> -		return 0;
+>> -	}
+>> -
+>> -	/*
+>> -	 * The driver really shouldn't advertise pseudo/directcolor
+>> -	 * visuals if it can't deal with the palette.
+>> -	 */
+>> -	if (WARN_ON(!fb_helper->funcs->gamma_set ||
+>> -		    !fb_helper->funcs->gamma_get))
+>> -		return -EINVAL;
+>> -
+>> -	WARN_ON(fb->format->cpp[0] != 1);
+>> -
+>> -	fb_helper->funcs->gamma_set(crtc, red, green, blue, regno);
+>> -
+>> -	return 0;
+>> -}
+>> -
+>>  /**
+>>   * drm_fb_helper_setcmap - implementation for &fb_ops.fb_setcmap
+>>   * @cmap: cmap to set
+>> @@ -1220,51 +1159,61 @@ int drm_fb_helper_setcmap(struct fb_cmap *cmap, struct fb_info *info)
+>>  {
+>>  	struct drm_fb_helper *fb_helper = info->par;
+>>  	struct drm_device *dev = fb_helper->dev;
+>> -	const struct drm_crtc_helper_funcs *crtc_funcs;
+>> -	u16 *red, *green, *blue, *transp;
+>> +	struct drm_modeset_acquire_ctx ctx;
+>>  	struct drm_crtc *crtc;
+>> -	int i, j, rc = 0;
+>> -	int start;
+>> +	u16 *r, *g, *b;
+>> +	int i, ret;
+>>  
+>>  	if (oops_in_progress)
+>>  		return -EBUSY;
+>>  
+>> -	drm_modeset_lock_all(dev);
+>> +	if (cmap->start + cmap->len < cmap->start)
+>> +		return -EINVAL;
+>> +
+>> +	drm_modeset_acquire_init(&ctx, 0);
+>> +retry:
+>> +	ret = drm_modeset_lock_all_ctx(dev, &ctx);
+>> +	if (ret)
+>> +		goto out;
+>>  	if (!drm_fb_helper_is_bound(fb_helper)) {
+>> -		drm_modeset_unlock_all(dev);
+>> -		return -EBUSY;
+>> +		ret = -EBUSY;
+>> +		goto out;
+>>  	}
+>>  
+>>  	for (i = 0; i < fb_helper->crtc_count; i++) {
+>>  		crtc = fb_helper->crtc_info[i].mode_set.crtc;
+>> -		crtc_funcs = crtc->helper_private;
+>> -
+>> -		red = cmap->red;
+>> -		green = cmap->green;
+>> -		blue = cmap->blue;
+>> -		transp = cmap->transp;
+>> -		start = cmap->start;
+>> +		if (!crtc->funcs->gamma_set || !crtc->gamma_size) {
+>> +			ret = -EINVAL;
+>> +			goto out;
+>> +		}
+>>  
+>> -		for (j = 0; j < cmap->len; j++) {
+>> -			u16 hred, hgreen, hblue, htransp = 0xffff;
+>> +		if (cmap->start + cmap->len > crtc->gamma_size) {
+>> +			ret = -EINVAL;
+>> +			goto out;
+>> +		}
+>>  
+>> -			hred = *red++;
+>> -			hgreen = *green++;
+>> -			hblue = *blue++;
+>> +		r = crtc->gamma_store;
+>> +		g = r + crtc->gamma_size;
+>> +		b = g + crtc->gamma_size;
+>>  
+>> -			if (transp)
+>> -				htransp = *transp++;
+>> +		memcpy(r + cmap->start, cmap->red, cmap->len * sizeof(u16));
+>> +		memcpy(g + cmap->start, cmap->green, cmap->len * sizeof(u16));
+>> +		memcpy(b + cmap->start, cmap->blue, cmap->len * sizeof(u16));
+>>  
+>> -			rc = setcolreg(crtc, hred, hgreen, hblue, start++, info);
+>> -			if (rc)
+>> -				goto out;
+>> -		}
+>> -		if (crtc_funcs->load_lut)
+>> -			crtc_funcs->load_lut(crtc);
+>> +		ret = crtc->funcs->gamma_set(crtc, r, g, b,
+>> +					     crtc->gamma_size, &ctx);
+>> +		if (ret)
+>> +			break;
+>>  	}
+>> - out:
+>> -	drm_modeset_unlock_all(dev);
+>> -	return rc;
+>> +out:
+>> +	if (ret == -EDEADLK) {
+>> +		drm_modeset_backoff(&ctx);
+>> +		goto retry;
+>> +	}
+>> +	drm_modeset_drop_locks(&ctx);
+>> +	drm_modeset_acquire_fini(&ctx);
+>> +
+>> +	return ret;
+> 
+> It's a pre-existing bug, but should we also try to restore the fbdev lut
+> in drm_fb_helper_restore_fbdev_mode_unlocked()? Would be yet another bug,
+> but might be relevant for your use-case. Just try to run both an fbdev
+> application and some kms-native thing, and then SIGKILL the native kms
+> app.
+> 
+> But since pre-existing not really required, and probably too much effort.
+
+Good thing too, because I don't really know my way around this code...
+
+Cheers,
+peda
+
+> Thanks, Daniel
+> 
+>>  }
+>>  EXPORT_SYMBOL(drm_fb_helper_setcmap);
+>>  
+>> -- 
+>> 2.1.4
+>>
+>> _______________________________________________
+>> dri-devel mailing list
+>> dri-devel@lists.freedesktop.org
+>> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+> 
