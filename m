@@ -1,54 +1,86 @@
-From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: [PATCH xf86-video-amdgpu] Improve drmmode_fb_reference debugging code
-Date: Thu, 22 Jun 2017 17:02:55 +0900
-Message-ID: <20170622080255.4448-1-michel@daenzer.net>
+From: Peter Rosin <peda@axentia.se>
+Subject: Re: [PATCH 01/11] drm/fb-helper: do a generic fb_setcmap helper in
+ terms of crtc .gamma_set
+Date: Thu, 22 Jun 2017 10:48:10 +0200
+Message-ID: <854a89af-d146-8414-73e7-2460c8f33598@axentia.se>
+References: <1497986735-14418-1-git-send-email-peda@axentia.se>
+ <1497986735-14418-2-git-send-email-peda@axentia.se>
+ <20170621073804.akyg4rxvoavjjt2v@phenom.ffwll.local>
+ <fc8ca240-61ad-b5b6-174c-490858401237@axentia.se>
+ <20170622063645.k5ciwdeqfafgnxtv@phenom.ffwll.local>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20170622063645.k5ciwdeqfafgnxtv@phenom.ffwll.local>
+Content-Language: en-US
+Sender: linux-kernel-owner@vger.kernel.org
+To: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Philippe Cornu <philippe.cornu@st.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Yannick Fertre <yannick.fertre@st.com>, Gerd Hoffmann <kraxel@redhat.com>, Daniel Vetter <daniel.vetter@intel.com>, Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@redhat.com>, virtualization@lists.linux-foundation.org, Vincent Abriou <vincent.abriou@st.com>, Ben Skeggs <bskeggs@redhat.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+CgpJZiBhIHJlZmVy
-ZW5jZSBjb3VudCBpcyA8PSAwLCBjYWxsIEZhdGFsRXJyb3Igd2l0aCB0aGUgY2FsbCBsb2NhdGlv
-bgooaW4gY2FzZSBpdCBkb2Vzbid0IGdldCByZXNvbHZlZCBpbiB0aGUgYmFja3RyYWNlIHByaW50
-ZWQgYnkKRmF0YWxFcnJvcikuCgpTaWduZWQtb2ZmLWJ5OiBNaWNoZWwgRMOkbnplciA8bWljaGVs
-LmRhZW56ZXJAYW1kLmNvbT4KLS0tCiBzcmMvZHJtbW9kZV9kaXNwbGF5LmggfCAyOCArKysrKysr
-KysrKysrKysrLS0tLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMTYgaW5zZXJ0aW9ucygrKSwg
-MTIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvc3JjL2RybW1vZGVfZGlzcGxheS5oIGIvc3Jj
-L2RybW1vZGVfZGlzcGxheS5oCmluZGV4IGI2NGE5MzhjZC4uZjM1MWJiMDljIDEwMDY0NAotLS0g
-YS9zcmMvZHJtbW9kZV9kaXNwbGF5LmgKKysrIGIvc3JjL2RybW1vZGVfZGlzcGxheS5oCkBAIC0x
-MzMsMzIgKzEzMywzNiBAQCBlbnVtIGRybW1vZGVfZmxpcF9zeW5jIHsKIAogCiBzdGF0aWMgaW5s
-aW5lIHZvaWQKLWRybW1vZGVfZmJfcmVmZXJlbmNlKGludCBkcm1fZmQsIHN0cnVjdCBkcm1tb2Rl
-X2ZiICoqb2xkLCBzdHJ1Y3QgZHJtbW9kZV9mYiAqbmV3KQorZHJtbW9kZV9mYl9yZWZlcmVuY2Vf
-bG9jKGludCBkcm1fZmQsIHN0cnVjdCBkcm1tb2RlX2ZiICoqb2xkLCBzdHJ1Y3QgZHJtbW9kZV9m
-YiAqbmV3LAorCQkJIGNvbnN0IGNoYXIgKmNhbGxlciwgdW5zaWduZWQgbGluZSkKIHsKIAlpZiAo
-bmV3KSB7CiAJCWlmIChuZXctPnJlZmNudCA8PSAwKSB7Ci0JCQlFcnJvckYoIk5ldyBGQidzIHJl
-ZmNudCB3YXMgJWQgaW4gJXNcbiIsIG5ldy0+cmVmY250LAotCQkJICAgICAgIF9fZnVuY19fKTsK
-LQkJfSBlbHNlIHsKLQkJCW5ldy0+cmVmY250Kys7CisJCQlGYXRhbEVycm9yKCJOZXcgRkIncyBy
-ZWZjbnQgd2FzICVkIGF0ICVzOiV1IiwKKwkJCQkgICBuZXctPnJlZmNudCwgY2FsbGVyLCBsaW5l
-KTsKIAkJfQorCisJCW5ldy0+cmVmY250Kys7CiAJfQogCiAJaWYgKCpvbGQpIHsKIAkJaWYgKCgq
-b2xkKS0+cmVmY250IDw9IDApIHsKLQkJCUVycm9yRigiT2xkIEZCJ3MgcmVmY250IHdhcyAlZCBp
-biAlc1xuIiwKLQkJCSAgICAgICAoKm9sZCktPnJlZmNudCwgX19mdW5jX18pOwotCQl9IGVsc2Ug
-ewotCQkJaWYgKC0tKCpvbGQpLT5yZWZjbnQgPT0gMCkgewotCQkJCWRybU1vZGVSbUZCKGRybV9m
-ZCwgKCpvbGQpLT5oYW5kbGUpOwotCQkJCWZyZWUoKm9sZCk7Ci0JCQl9CisJCQlGYXRhbEVycm9y
-KCJPbGQgRkIncyByZWZjbnQgd2FzICVkIGF0ICVzOiV1IiwKKwkJCQkgICAoKm9sZCktPnJlZmNu
-dCwgY2FsbGVyLCBsaW5lKTsKKwkJfQorCisJCWlmICgtLSgqb2xkKS0+cmVmY250ID09IDApIHsK
-KwkJCWRybU1vZGVSbUZCKGRybV9mZCwgKCpvbGQpLT5oYW5kbGUpOworCQkJZnJlZSgqb2xkKTsK
-IAkJfQogCX0KIAogCSpvbGQgPSBuZXc7CiB9CiAKKyNkZWZpbmUgZHJtbW9kZV9mYl9yZWZlcmVu
-Y2UoZmQsIG9sZCwgbmV3KSBcCisJZHJtbW9kZV9mYl9yZWZlcmVuY2VfbG9jKGZkLCBvbGQsIG5l
-dywgX19mdW5jX18sIF9fTElORV9fKQorCiAKIGV4dGVybiBpbnQgZHJtbW9kZV9wYWdlX2ZsaXBf
-dGFyZ2V0X2Fic29sdXRlKEFNREdQVUVudFB0ciBwQU1ER1BVRW50LAogCQkJCQkgICAgIGRybW1v
-ZGVfY3J0Y19wcml2YXRlX3B0ciBkcm1tb2RlX2NydGMsCi0tIAoyLjExLjAKCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
-CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+On 2017-06-22 08:36, Daniel Vetter wrote:
+> On Wed, Jun 21, 2017 at 11:40:52AM +0200, Peter Rosin wrote:
+>> On 2017-06-21 09:38, Daniel Vetter wrote:
+>>> On Tue, Jun 20, 2017 at 09:25:25PM +0200, Peter Rosin wrote:
+>>>> This makes the redundant fb helpers .load_lut, .gamma_set and .gamma_get
+>>>> totally obsolete.
+>>>>
+>>>> I think the gamma_store can end up invalid on error. But the way I read
+>>>> it, that can happen in drm_mode_gamma_set_ioctl as well, so why should
+>>>> this pesky legacy fbdev stuff be any better?
+>>>>
+>>>> drm_fb_helper_save_lut_atomic justs saves the gamma lut for later. However,
+>>>> it saves it to the gamma_store which should already be up to date with what
+>>>> .gamma_get would return and is thus a nop. So, zap it.
+>>>
+>>> Removing drm_fb_helper_save_lut_atomic should be a separate patch I
+>>> think.
+>>
+>> Then 3 patches would be needed, first some hybrid thing that does it the
+>> old way, but also stores the lut in .gamma_store, then the split-out that
+>> removes drm_fb_helper_save_lut_atomic, then whatever is needed to get
+>> to the desired code. I can certainly do that, but do you want me to?
+> 
+> Explain that in the commit message and it's fine.
+
+I did the split in v2, I assume that's ok too. Better in case anyone ever
+needs to run a bisect on this...
+
+>>> It's a pre-existing bug, but should we also try to restore the fbdev lut
+>>> in drm_fb_helper_restore_fbdev_mode_unlocked()? Would be yet another bug,
+>>> but might be relevant for your use-case. Just try to run both an fbdev
+>>> application and some kms-native thing, and then SIGKILL the native kms
+>>> app.
+>>>
+>>> But since pre-existing not really required, and probably too much effort.
+>>
+>> Good thing too, because I don't really know my way around this code...
+> 
+> Btw I cc'ed you on one of my patches in the fbdev locking series, we might
+> need to do the same legacy vs. atomic split for the new lut code as I did
+> for dpms. The rule with atomic is that you can't do multiple commits under
+> drm_modeset_lock_all, you either have to do one overall atomic commit
+> (preferred) or drop&reacquire locks again. This matters for LUT since
+> you're updating the LUT on all CRTCs, which when using the gamma_set
+> atomic helper would be multiple commits :-/
+
+Ahh, ok, I see the problem.
+
+> Using the dpms patch as template it shouldn't be too hard to address that
+> for your patch here too.
+
+Hmm, in that patch you handle the legacy case in a separate function, and
+doing that for the lut case looks difficult when the atomic commit happens
+inside the helper (typically drm_atomic_helper_legacy_gamma_set which
+could perhaps be handled, but a real drag to handle for drivers that have
+a custom crtc .gamma_set).
+
+So, I'm aiming for the drop&reacquire approach...
+
+However, I don't have all of that series, and I suspect that is why I do
+not have any fb_helper->lock.
+
+I'll send my best guess as a follow-up to patch 3/14 in v2.
+
+Cheers,
+peda
