@@ -1,233 +1,80 @@
-From: Peter Rosin <peda@axentia.se>
-Subject: [PATCH v2 03/14] drm/fb-helper: do a generic fb_setcmap helper in
- terms of crtc .gamma_set
-Date: Thu, 22 Jun 2017 12:22:10 +0200
-Message-ID: <fd73b01e-3327-faf1-c3eb-80663b739ff6@axentia.se>
+From: Philippe CORNU <philippe.cornu@st.com>
+Subject: Re: [PATCH v2 13/14] drm: stm: remove dead code and pointless local
+ lut storage
+Date: Thu, 22 Jun 2017 11:49:34 +0000
+Message-ID: <159dad37-7f12-0b4d-5512-d19a80670d5c@st.com>
 References: <1498111597-10714-1-git-send-email-peda@axentia.se>
- <1498111597-10714-4-git-send-email-peda@axentia.se>
+ <1498111597-10714-14-git-send-email-peda@axentia.se>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <1498111597-10714-4-git-send-email-peda@axentia.se>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <1498111597-10714-14-git-send-email-peda@axentia.se>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: linux-kernel@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Russell King <linux@armlinux.org.uk>, Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, Daniel Vetter <daniel.vetter@intel.com>, Jani Nikula <jani.nikula@linux.intel.com>, Sean Paul <seanpaul@chromium.org>, Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, Ben Skeggs <bskeggs@redhat.com>, Yannick Fertre <yannick.fertre@st.com>, Philippe Cornu <philippe.cornu@st.com>, Benjamin Gaignard <benjamin.gaignard@linaro.org>, Vincent Abriou <vincent.abriou@st.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org, intel-gfx@lists.freedesktop.org, nouvea
+Content-ID: <A84B5F024E8DD34AAD06FA4974DFFEB7@st.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Peter Rosin <peda@axentia.se>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: Boris Brezillon <boris.brezillon@free-electrons.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, Russell King <linux@armlinux.org.uk>, Yannick FERTRE <yannick.fertre@st.com>, Gerd Hoffmann <kraxel@redhat.com>, Daniel Vetter <daniel.vetter@intel.com>, Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@redhat.com>, "virtualization@lists.linux-foundation.org" <virtualization@lists.linux-foundation.org>, Vincent ABRIOU <vincent.abriou@st.com>, =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>, Ben Skeggs <bskeggs@redhat.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-This makes the redundant fb helpers .load_lut, .gamma_set and .gamma_get
-totally obsolete.
-
-Signed-off-by: Peter Rosin <peda@axentia.se>
----
- drivers/gpu/drm/drm_fb_helper.c | 151 +++++++++++++++++-----------------------
- 1 file changed, 63 insertions(+), 88 deletions(-)
-
-This is an alternative version rebased on top of Daniel's "fbdev helper
-locking rework and deferred setup" series.
-
-And as noted by Daniel, .gamma_set does an atomic commit. Thus, the locks
-needs to be dropped and reacquired for each crtc. So, that is fixed here
-too. Doing it like this with a couple of individual alternative patches
-instead of sending a whole new series since the dependency on Daniel's
-series makes life somewhat difficult...
-
-Cheers,
-peda
-
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index 4aceb59..aa025f1 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -1257,50 +1257,6 @@ void drm_fb_helper_set_suspend_unlocked(struct drm_fb_helper *fb_helper,
- }
- EXPORT_SYMBOL(drm_fb_helper_set_suspend_unlocked);
- 
--static int setcolreg(struct drm_crtc *crtc, u16 red, u16 green,
--		     u16 blue, u16 regno, struct fb_info *info)
--{
--	struct drm_fb_helper *fb_helper = info->par;
--	struct drm_framebuffer *fb = fb_helper->fb;
--
--	if (info->fix.visual == FB_VISUAL_TRUECOLOR) {
--		u32 *palette;
--		u32 value;
--		/* place color in psuedopalette */
--		if (regno > 16)
--			return -EINVAL;
--		palette = (u32 *)info->pseudo_palette;
--		red >>= (16 - info->var.red.length);
--		green >>= (16 - info->var.green.length);
--		blue >>= (16 - info->var.blue.length);
--		value = (red << info->var.red.offset) |
--			(green << info->var.green.offset) |
--			(blue << info->var.blue.offset);
--		if (info->var.transp.length > 0) {
--			u32 mask = (1 << info->var.transp.length) - 1;
--
--			mask <<= info->var.transp.offset;
--			value |= mask;
--		}
--		palette[regno] = value;
--		return 0;
--	}
--
--	/*
--	 * The driver really shouldn't advertise pseudo/directcolor
--	 * visuals if it can't deal with the palette.
--	 */
--	if (WARN_ON(!fb_helper->funcs->gamma_set ||
--		    !fb_helper->funcs->gamma_get))
--		return -EINVAL;
--
--	WARN_ON(fb->format->cpp[0] != 1);
--
--	fb_helper->funcs->gamma_set(crtc, red, green, blue, regno);
--
--	return 0;
--}
--
- /**
-  * drm_fb_helper_setcmap - implementation for &fb_ops.fb_setcmap
-  * @cmap: cmap to set
-@@ -1310,12 +1266,10 @@ int drm_fb_helper_setcmap(struct fb_cmap *cmap, struct fb_info *info)
- {
- 	struct drm_fb_helper *fb_helper = info->par;
- 	struct drm_device *dev = fb_helper->dev;
--	const struct drm_crtc_helper_funcs *crtc_funcs;
--	u16 *red, *green, *blue, *transp;
-+	struct drm_modeset_acquire_ctx ctx;
- 	struct drm_crtc *crtc;
- 	u16 *r, *g, *b;
--	int i, j, rc = 0;
--	int start;
-+	int i, ret = 0;
- 
- 	if (oops_in_progress)
- 		return -EBUSY;
-@@ -1329,61 +1283,82 @@ int drm_fb_helper_setcmap(struct fb_cmap *cmap, struct fb_info *info)
- 		return -EBUSY;
- 	}
- 
--	drm_modeset_lock_all(dev);
--	for (i = 0; i < fb_helper->crtc_count; i++) {
--		crtc = fb_helper->crtc_info[i].mode_set.crtc;
--		crtc_funcs = crtc->helper_private;
-+	drm_modeset_acquire_init(&ctx, 0);
- 
--		red = cmap->red;
--		green = cmap->green;
--		blue = cmap->blue;
--		transp = cmap->transp;
--		start = cmap->start;
-+	for (i = 0; i < fb_helper->crtc_count; i++) {
-+		if (info->fix.visual == FB_VISUAL_TRUECOLOR) {
-+			u32 *palette;
-+			int j;
- 
--		if (info->fix.visual != FB_VISUAL_TRUECOLOR) {
--			if (!crtc->gamma_size) {
--				rc = -EINVAL;
--				goto out;
-+			if (cmap->start + cmap->len > 16) {
-+				ret = -EINVAL;
-+				break;
- 			}
- 
--			if (cmap->start + cmap->len > crtc->gamma_size) {
--				rc = -EINVAL;
--				goto out;
-+			palette = (u32 *)info->pseudo_palette;
-+			for (j = 0; j < cmap->len; ++j) {
-+				u16 red = cmap->red[j];
-+				u16 green = cmap->green[j];
-+				u16 blue = cmap->blue[j];
-+				u32 value;
-+
-+				red >>= 16 - info->var.red.length;
-+				green >>= 16 - info->var.green.length;
-+				blue >>= 16 - info->var.blue.length;
-+				value = (red << info->var.red.offset) |
-+					(green << info->var.green.offset) |
-+					(blue << info->var.blue.offset);
-+				if (info->var.transp.length > 0) {
-+					u32 mask = (1 << info->var.transp.length) - 1;
-+
-+					mask <<= info->var.transp.offset;
-+					value |= mask;
-+				}
-+				palette[cmap->start + j] = value;
- 			}
-+			continue;
-+		}
- 
--			r = crtc->gamma_store;
--			g = r + crtc->gamma_size;
--			b = g + crtc->gamma_size;
-+retry:
-+		ret = drm_modeset_lock_all_ctx(dev, &ctx);
-+		if (ret)
-+			break;
- 
--			memcpy(r + cmap->start, cmap->red,
--			       cmap->len * sizeof(u16));
--			memcpy(g + cmap->start, cmap->green,
--			       cmap->len * sizeof(u16));
--			memcpy(b + cmap->start, cmap->blue,
--			       cmap->len * sizeof(u16));
-+		crtc = fb_helper->crtc_info[i].mode_set.crtc;
-+		if (!crtc->funcs->gamma_set || !crtc->gamma_size) {
-+			ret = -EINVAL;
-+			goto drop_locks;
- 		}
- 
--		for (j = 0; j < cmap->len; j++) {
--			u16 hred, hgreen, hblue, htransp = 0xffff;
-+		if (cmap->start + cmap->len > crtc->gamma_size) {
-+			ret = -EINVAL;
-+			goto drop_locks;
-+		}
- 
--			hred = *red++;
--			hgreen = *green++;
--			hblue = *blue++;
-+		r = crtc->gamma_store;
-+		g = r + crtc->gamma_size;
-+		b = g + crtc->gamma_size;
- 
--			if (transp)
--				htransp = *transp++;
-+		memcpy(r + cmap->start, cmap->red, cmap->len * sizeof(u16));
-+		memcpy(g + cmap->start, cmap->green, cmap->len * sizeof(u16));
-+		memcpy(b + cmap->start, cmap->blue, cmap->len * sizeof(u16));
- 
--			rc = setcolreg(crtc, hred, hgreen, hblue, start++, info);
--			if (rc)
--				goto out;
-+		ret = crtc->funcs->gamma_set(crtc, r, g, b,
-+					     crtc->gamma_size, &ctx);
-+		if (ret == -EDEADLK) {
-+			drm_modeset_backoff(&ctx);
-+			goto retry;
- 		}
--		if (crtc_funcs->load_lut)
--			crtc_funcs->load_lut(crtc);
-+drop_locks:
-+		drm_modeset_drop_locks(&ctx);
-+		if (ret)
-+			break;
- 	}
-- out:
--	drm_modeset_unlock_all(dev);
-+
-+	drm_modeset_acquire_fini(&ctx);
- 	mutex_unlock(&fb_helper->lock);
--	return rc;
-+
-+	return ret;
- }
- EXPORT_SYMBOL(drm_fb_helper_setcmap);
- 
--- 
-2.1.4
+DQoNCk9uIDA2LzIyLzIwMTcgMDg6MDYgQU0sIFBldGVyIFJvc2luIHdyb3RlOg0KPiBUaGUgcmVk
+dW5kYW50IGZiIGhlbHBlciAubG9hZF9sdXQgaXMgbm8gbG9uZ2VyIHVzZWQsIGFuZCBjYW4gbm90
+DQo+IHdvcmsgcmlnaHQgd2l0aG91dCBhbHNvIHByb3ZpZGluZyB0aGUgZmIgaGVscGVycyAuZ2Ft
+bWFfc2V0IGFuZA0KPiAuZ2FtbWFfZ2V0IHRodXMgcmVuZGVyaW5nIHRoZSBjb2RlIGluIHRoaXMg
+ZHJpdmVyIHN1c3BlY3QuDQo+IA0KDQpIaSBQZXRlciwNClNUTTMyIGNoaXBzZXRzIHN1cHBvcnRz
+IDgtYml0IENMVVQgbW9kZSBidXQgdGhpcyBkcml2ZXIgdmVyc2lvbiBkb2VzIG5vdCANCnN1cHBv
+cnQgaXQgInlldCIgKGZpbmFsIHBhdGNoIGhhcyBub3QgYmVlbiB1cHN0cmVhbWVkIGJlY2F1c2Ug
+aXQgd2FzIGEgDQp0b28gYmlnIGZiZGV2IHBhdGNoIGZvciBzaW1wbHkgYWRkaW5nIENMVVQuLi4p
+Lg0KDQpSZWdhcmRpbmcgeW91ciBwYXRjaCBiZWxvdywgaWYgaXQgaGVscHMgeW91IHRvIGVhc2Ug
+dGhlIGRybSBmcmFtZXdvcmsgDQp1cGRhdGUgdGhlbiBJIGFtIGFncmVlIHRvICJhY2tub3dsZWRn
+ZSBpdCIgYXNhcCwgZWxzZSBpZiB5b3UgYXJlIG5vdCBpbiANCmEgaHVycnksIEkgd291bGQgcHJl
+ZmVyIGEgYmV0dGVyIGFuZCBkZWZpbml0aXZlIHBhdGNoIGhhbmRsaW5nIDgtYml0IA0KQ0xVVCBw
+cm9wZXJseSBhbmQgSSBhbSBvayB0byBoZWxwIG9yL2FuZCB0byBkbyBpdCA6ICkNCg0KRXh0cmEg
+cXVlc3Rpb25zOg0KLSBhbnkgcGxhbiB0byB1cGRhdGUgbW9kZXRlc3Qgd2l0aCB0aGUgRFJNX0ZP
+Uk1BVF9DOCBzdXBwb3J0ICsgZ2FtbWEgDQpnZXQvc2V0Pw0KLSBkbyB5b3UgaGF2ZSBhIHNpbXBs
+ZSB3YXkgdG8gdGVzdCBjbHV0IHdpdGggZmJkZXYsIGxhc3QgeWVhciB3ZSB3aGVyZSANCnVzaW5n
+IGFuIG9sZCB2ZXJzaW9uIG9mIHRoZSBTREwgYnV0IEkgYW0gc3RpbGwgbG9va2luZyBmb3IgYSBz
+bWFsbCBwaWVjZSANCm9mIGNvZGUgdG8gZG8gaXQgKGVsc2UgSSB3aWxsIGRvIGl0IG15c2VsZiBi
+dXQgQzggb24gZmJkZXYgaXMgbm90IHJlYWxseSANCmEgcHJpb3JpdHkgOy0pDQoNCmJlc3QgcmVn
+YXJkcywNClBoaWxpcHBlDQoNCj4gSnVzdCByZW1vdmUgdGhlIGRlYWQgY29kZS4NCj4gDQo+IFNp
+Z25lZC1vZmYtYnk6IFBldGVyIFJvc2luIDxwZWRhQGF4ZW50aWEuc2U+DQo+IC0tLQ0KPiAgIGRy
+aXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5jIHwgMTIgLS0tLS0tLS0tLS0tDQo+ICAgZHJpdmVycy9n
+cHUvZHJtL3N0bS9sdGRjLmggfCAgMSAtDQo+ICAgMiBmaWxlcyBjaGFuZ2VkLCAxMyBkZWxldGlv
+bnMoLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuYyBiL2Ry
+aXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5jDQo+IGluZGV4IDFiOTQ4M2QuLjg3ODI5YjkgMTAwNjQ0
+DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9zdG0vbHRkYy5jDQo+IEBAIC0zNzUsMTcgKzM3NSw2IEBAIHN0YXRpYyBpcnFyZXR1cm5f
+dCBsdGRjX2lycShpbnQgaXJxLCB2b2lkICphcmcpDQo+ICAgICogRFJNX0NSVEMNCj4gICAgKi8N
+Cj4gICANCj4gLXN0YXRpYyB2b2lkIGx0ZGNfY3J0Y19sb2FkX2x1dChzdHJ1Y3QgZHJtX2NydGMg
+KmNydGMpDQo+IC17DQo+IC0Jc3RydWN0IGx0ZGNfZGV2aWNlICpsZGV2ID0gY3J0Y190b19sdGRj
+KGNydGMpOw0KPiAtCXVuc2lnbmVkIGludCBpLCBsYXk7DQo+IC0NCj4gLQlmb3IgKGxheSA9IDA7
+IGxheSA8IGxkZXYtPmNhcHMubmJfbGF5ZXJzOyBsYXkrKykNCj4gLQkJZm9yIChpID0gMDsgaSA8
+IDI1NjsgaSsrKQ0KPiAtCQkJcmVnX3dyaXRlKGxkZXYtPnJlZ3MsIExURENfTDFDTFVUV1IgKyBs
+YXkgKiBMQVlfT0ZTLA0KPiAtCQkJCSAgbGRldi0+Y2x1dFtpXSk7DQo+IC19DQo+IC0NCj4gICBz
+dGF0aWMgdm9pZCBsdGRjX2NydGNfZW5hYmxlKHN0cnVjdCBkcm1fY3J0YyAqY3J0YykNCj4gICB7
+DQo+ICAgCXN0cnVjdCBsdGRjX2RldmljZSAqbGRldiA9IGNydGNfdG9fbHRkYyhjcnRjKTsNCj4g
+QEAgLTUyMyw3ICs1MTIsNiBAQCBzdGF0aWMgdm9pZCBsdGRjX2NydGNfYXRvbWljX2ZsdXNoKHN0
+cnVjdCBkcm1fY3J0YyAqY3J0YywNCj4gICB9DQo+ICAgDQo+ICAgc3RhdGljIHN0cnVjdCBkcm1f
+Y3J0Y19oZWxwZXJfZnVuY3MgbHRkY19jcnRjX2hlbHBlcl9mdW5jcyA9IHsNCj4gLQkubG9hZF9s
+dXQgPSBsdGRjX2NydGNfbG9hZF9sdXQsDQo+ICAgCS5lbmFibGUgPSBsdGRjX2NydGNfZW5hYmxl
+LA0KPiAgIAkuZGlzYWJsZSA9IGx0ZGNfY3J0Y19kaXNhYmxlLA0KPiAgIAkubW9kZV9zZXRfbm9m
+YiA9IGx0ZGNfY3J0Y19tb2RlX3NldF9ub2ZiLA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL3N0bS9sdGRjLmggYi9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuaA0KPiBpbmRleCBkN2E5
+YzczLi42MjBjYTU1IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuaA0K
+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuaA0KPiBAQCAtMjcsNyArMjcsNiBAQCBz
+dHJ1Y3QgbHRkY19kZXZpY2Ugew0KPiAgIAlzdHJ1Y3QgZHJtX3BhbmVsICpwYW5lbDsNCj4gICAJ
+c3RydWN0IG11dGV4IGVycl9sb2NrOwkvKiBwcm90ZWN0aW5nIGVycm9yX3N0YXR1cyAqLw0KPiAg
+IAlzdHJ1Y3QgbHRkY19jYXBzIGNhcHM7DQo+IC0JdTMyIGNsdXRbMjU2XTsJCS8qIGNvbG9yIGxv
+b2sgdXAgdGFibGUgKi8NCj4gICAJdTMyIGVycm9yX3N0YXR1czsNCj4gICAJdTMyIGlycV9zdGF0
+dXM7DQo+ICAgfTsNCj4gCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1k
+ZXZlbAo=
