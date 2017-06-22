@@ -1,64 +1,76 @@
-From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: [PATCH xf86-video-amdgpu] Increase reference count of FB assigned to
- drmmode_crtc->flip_pending
-Date: Thu, 22 Jun 2017 12:55:32 +0900
-Message-ID: <20170622035532.3461-1-michel@daenzer.net>
+From: Peter Rosin <peda@axentia.se>
+Subject: [PATCH v2 01/14] drm/fb-helper: keep the .gamma_store updated in drm_fb_helper_setcmap
+Date: Thu, 22 Jun 2017 08:06:24 +0200
+Message-ID: <1498111597-10714-2-git-send-email-peda@axentia.se>
+References: <1498111597-10714-1-git-send-email-peda@axentia.se>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <1498111597-10714-1-git-send-email-peda@axentia.se>
+Sender: linux-kernel-owner@vger.kernel.org
+To: linux-kernel@vger.kernel.org
+Cc: Peter Rosin <peda@axentia.se>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Russell King <linux@armlinux.org.uk>, Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, Daniel Vetter <daniel.vetter@intel.com>, Jani Nikula <jani.nikula@linux.intel.com>, Sean Paul <seanpaul@chromium.org>, Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, Ben Skeggs <bskeggs@redhat.com>, Yannick Fertre <yannick.fertre@st.com>, Philippe Cornu <philippe.cornu@st.com>, Benjamin Gaignard <benjamin.gaignard@linaro.org>, Vincent Abriou <vincent.abriou@st.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+CgpPdGhlcndpc2Us
-IGl0IGNvdWxkIGhhcHBlbiB0aGF0IHdlIGRlc3Ryb3kgdGhlIEZCIGJlZm9yZSB0aGUgZmxpcApj
-b21wbGV0ZXMsIHJlc3VsdGluZyBpbiB1c2UtYWZ0ZXItZnJlZSBhbmQgbW9zdCBsaWtlbHkgYSBj
-cmFzaC4KClNpZ25lZC1vZmYtYnk6IE1pY2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQu
-Y29tPgotLS0KIHNyYy9hbWRncHVfa21zLmMgICAgICB8IDggKysrKy0tLS0KIHNyYy9kcm1tb2Rl
-X2Rpc3BsYXkuYyB8IDggKysrKysrLS0KIDIgZmlsZXMgY2hhbmdlZCwgMTAgaW5zZXJ0aW9ucygr
-KSwgNiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9zcmMvYW1kZ3B1X2ttcy5jIGIvc3JjL2Ft
-ZGdwdV9rbXMuYwppbmRleCA3ODRmNzM4OGEuLjE0MzI5NGE5ZiAxMDA2NDQKLS0tIGEvc3JjL2Ft
-ZGdwdV9rbXMuYworKysgYi9zcmMvYW1kZ3B1X2ttcy5jCkBAIC03MjIsOCArNzIyLDggQEAgYW1k
-Z3B1X3ByaW1lX3NjYW5vdXRfZmxpcChQaXhtYXBEaXJ0eVVwZGF0ZVB0ciBlbnQpCiAJCXJldHVy
-bjsKIAl9CiAKLQlkcm1tb2RlX2NydGMtPmZsaXBfcGVuZGluZyA9Ci0JCWFtZGdwdV9waXhtYXBf
-Z2V0X2ZiKGRybW1vZGVfY3J0Yy0+c2Nhbm91dFtzY2Fub3V0X2lkXS5waXhtYXApOworCWRybW1v
-ZGVfZmJfcmVmZXJlbmNlKHBBTURHUFVFbnQtPmZkLCAmZHJtbW9kZV9jcnRjLT5mbGlwX3BlbmRp
-bmcsCisJCQkgICAgIGFtZGdwdV9waXhtYXBfZ2V0X2ZiKGRybW1vZGVfY3J0Yy0+c2Nhbm91dFtz
-Y2Fub3V0X2lkXS5waXhtYXApKTsKIAlpZiAoIWRybW1vZGVfY3J0Yy0+ZmxpcF9wZW5kaW5nKSB7
-CiAJCXhmODZEcnZNc2coc2Nybi0+c2NybkluZGV4LCBYX1dBUk5JTkcsCiAJCQkgICAiRmFpbGVk
-IHRvIGdldCBGQiBmb3IgUFJJTUUgZmxpcC5cbiIpOwpAQCAtMTAxMSw4ICsxMDExLDggQEAgYW1k
-Z3B1X3NjYW5vdXRfZmxpcChTY3JlZW5QdHIgcFNjcmVlbiwgQU1ER1BVSW5mb1B0ciBpbmZvLAog
-CQlyZXR1cm47CiAJfQogCi0JZHJtbW9kZV9jcnRjLT5mbGlwX3BlbmRpbmcgPQotCQlhbWRncHVf
-cGl4bWFwX2dldF9mYihkcm1tb2RlX2NydGMtPnNjYW5vdXRbc2Nhbm91dF9pZF0ucGl4bWFwKTsK
-Kwlkcm1tb2RlX2ZiX3JlZmVyZW5jZShwQU1ER1BVRW50LT5mZCwgJmRybW1vZGVfY3J0Yy0+Zmxp
-cF9wZW5kaW5nLAorCQkJICAgICBhbWRncHVfcGl4bWFwX2dldF9mYihkcm1tb2RlX2NydGMtPnNj
-YW5vdXRbc2Nhbm91dF9pZF0ucGl4bWFwKSk7CiAJaWYgKCFkcm1tb2RlX2NydGMtPmZsaXBfcGVu
-ZGluZykgewogCQl4Zjg2RHJ2TXNnKHNjcm4tPnNjcm5JbmRleCwgWF9XQVJOSU5HLAogCQkJICAg
-IkZhaWxlZCB0byBnZXQgRkIgZm9yIHNjYW5vdXQgZmxpcC5cbiIpOwpkaWZmIC0tZ2l0IGEvc3Jj
-L2RybW1vZGVfZGlzcGxheS5jIGIvc3JjL2RybW1vZGVfZGlzcGxheS5jCmluZGV4IDBkOTAwNDE4
-YS4uY2U0NmY3YmE2IDEwMDY0NAotLS0gYS9zcmMvZHJtbW9kZV9kaXNwbGF5LmMKKysrIGIvc3Jj
-L2RybW1vZGVfZGlzcGxheS5jCkBAIC0yMTk2LDggKzIxOTYsMTEgQEAgdm9pZAogZHJtbW9kZV9j
-bGVhcl9wZW5kaW5nX2ZsaXAoeGY4NkNydGNQdHIgY3J0YykKIHsKIAlkcm1tb2RlX2NydGNfcHJp
-dmF0ZV9wdHIgZHJtbW9kZV9jcnRjID0gY3J0Yy0+ZHJpdmVyX3ByaXZhdGU7CisJU2NybkluZm9Q
-dHIgc2NybiA9IGNydGMtPnNjcm47CisJQU1ER1BVRW50UHRyIHBBTURHUFVFbnQgPSBBTURHUFVF
-bnRQcml2KHNjcm4pOwogCi0JZHJtbW9kZV9jcnRjLT5mbGlwX3BlbmRpbmcgPSBOVUxMOworCWRy
-bW1vZGVfZmJfcmVmZXJlbmNlKHBBTURHUFVFbnQtPmZkLCAmZHJtbW9kZV9jcnRjLT5mbGlwX3Bl
-bmRpbmcsCisJCQkgICAgIE5VTEwpOwogCiAJaWYgKCFjcnRjLT5lbmFibGVkIHx8CiAJICAgIChk
-cm1tb2RlX2NydGMtPnBlbmRpbmdfZHBtc19tb2RlICE9IERQTVNNb2RlT24gJiYKQEAgLTI4MzUs
-NyArMjgzOCw4IEBAIEJvb2wgYW1kZ3B1X2RvX3BhZ2VmbGlwKFNjcm5JbmZvUHRyIHNjcm4sIENs
-aWVudFB0ciBjbGllbnQsCiAJCQkJZ290byBmbGlwX2Vycm9yOwogCQl9CiAKLQkJZHJtbW9kZV9j
-cnRjLT5mbGlwX3BlbmRpbmcgPSBmYjsKKwkJZHJtbW9kZV9mYl9yZWZlcmVuY2UocEFNREdQVUVu
-dC0+ZmQsICZkcm1tb2RlX2NydGMtPmZsaXBfcGVuZGluZywKKwkJCQkgICAgIGZiKTsKIAkJZHJt
-X3F1ZXVlX3NlcSA9IDA7CiAJfQogCi0tIAoyLjExLjAKCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vYW1kLWdmeAo=
+I think the gamma_store can end up invalid on error. But the way I read
+it, that can happen in drm_mode_gamma_set_ioctl as well, so why should
+this pesky legacy fbdev stuff be any better?
+
+Signed-off-by: Peter Rosin <peda@axentia.se>
+---
+ drivers/gpu/drm/drm_fb_helper.c | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
+
+diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+index 574af01..25315fb 100644
+--- a/drivers/gpu/drm/drm_fb_helper.c
++++ b/drivers/gpu/drm/drm_fb_helper.c
+@@ -1223,12 +1223,16 @@ int drm_fb_helper_setcmap(struct fb_cmap *cmap, struct fb_info *info)
+ 	const struct drm_crtc_helper_funcs *crtc_funcs;
+ 	u16 *red, *green, *blue, *transp;
+ 	struct drm_crtc *crtc;
++	u16 *r, *g, *b;
+ 	int i, j, rc = 0;
+ 	int start;
+ 
+ 	if (oops_in_progress)
+ 		return -EBUSY;
+ 
++	if (cmap->start + cmap->len < cmap->start)
++		return -EINVAL;
++
+ 	drm_modeset_lock_all(dev);
+ 	if (!drm_fb_helper_is_bound(fb_helper)) {
+ 		drm_modeset_unlock_all(dev);
+@@ -1245,6 +1249,29 @@ int drm_fb_helper_setcmap(struct fb_cmap *cmap, struct fb_info *info)
+ 		transp = cmap->transp;
+ 		start = cmap->start;
+ 
++		if (info->fix.visual != FB_VISUAL_TRUECOLOR) {
++			if (!crtc->gamma_size) {
++				rc = -EINVAL;
++				goto out;
++			}
++
++			if (cmap->start + cmap->len > crtc->gamma_size) {
++				rc = -EINVAL;
++				goto out;
++			}
++
++			r = crtc->gamma_store;
++			g = r + crtc->gamma_size;
++			b = g + crtc->gamma_size;
++
++			memcpy(r + cmap->start, cmap->red,
++			       cmap->len * sizeof(u16));
++			memcpy(g + cmap->start, cmap->green,
++			       cmap->len * sizeof(u16));
++			memcpy(b + cmap->start, cmap->blue,
++			       cmap->len * sizeof(u16));
++		}
++
+ 		for (j = 0; j < cmap->len; j++) {
+ 			u16 hred, hgreen, hblue, htransp = 0xffff;
+ 
+-- 
+2.1.4
