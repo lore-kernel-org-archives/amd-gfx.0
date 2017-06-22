@@ -1,7 +1,7 @@
 From: Peter Rosin <peda@axentia.se>
-Subject: [PATCH v2 07/14] drm: cirrus: remove dead code and pointless local lut storage
-Date: Thu, 22 Jun 2017 08:06:30 +0200
-Message-ID: <1498111597-10714-8-git-send-email-peda@axentia.se>
+Subject: [PATCH v2 09/14] drm: i915: remove dead code and pointless local lut storage
+Date: Thu, 22 Jun 2017 08:06:32 +0200
+Message-ID: <1498111597-10714-10-git-send-email-peda@axentia.se>
 References: <1498111597-10714-1-git-send-email-peda@axentia.se>
 Mime-Version: 1.0
 Content-Type: text/plain
@@ -12,172 +12,95 @@ To: linux-kernel@vger.kernel.org
 Cc: Peter Rosin <peda@axentia.se>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Russell King <linux@armlinux.org.uk>, Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, Daniel Vetter <daniel.vetter@intel.com>, Jani Nikula <jani.nikula@linux.intel.com>, Sean Paul <seanpaul@chromium.org>, Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, Ben Skeggs <bskeggs@redhat.com>, Yannick Fertre <yannick.fertre@st.com>, Philippe Cornu <philippe.cornu@st.com>, Benjamin Gaignard <benjamin.gaignard@linaro.org>, Vincent Abriou <vincent.abriou@st.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-The redundant fb helpers .load_lut, .gamma_set and .gamma_get are
-no longer used. Remove the dead code and hook up the crtc .gamma_set
-to use the crtc gamma_store directly instead of duplicating that
-info locally.
+The driver stores lut values from the fbdev interface, and is able
+to give them back, but does not appear to do anything with these
+lut values. The generic fb helpers have replaced this function,
+and may even have made the driver work for the C8 mode from the
+fbdev interface. But that is untested.
+
+Since the fb helpers .gamma_set and .gamma_get are obsolete,
+remove the dead code.
 
 Signed-off-by: Peter Rosin <peda@axentia.se>
 ---
- drivers/gpu/drm/cirrus/cirrus_drv.h   |  8 ----
- drivers/gpu/drm/cirrus/cirrus_fbdev.c |  2 -
- drivers/gpu/drm/cirrus/cirrus_mode.c  | 71 ++++++++---------------------------
- 3 files changed, 16 insertions(+), 65 deletions(-)
+ drivers/gpu/drm/i915/intel_drv.h   |  1 -
+ drivers/gpu/drm/i915/intel_fbdev.c | 31 -------------------------------
+ 2 files changed, 32 deletions(-)
 
-diff --git a/drivers/gpu/drm/cirrus/cirrus_drv.h b/drivers/gpu/drm/cirrus/cirrus_drv.h
-index 8690352..be2d7e48 100644
---- a/drivers/gpu/drm/cirrus/cirrus_drv.h
-+++ b/drivers/gpu/drm/cirrus/cirrus_drv.h
-@@ -96,7 +96,6 @@
- 
- struct cirrus_crtc {
- 	struct drm_crtc			base;
--	u8				lut_r[256], lut_g[256], lut_b[256];
- 	int				last_dpms;
- 	bool				enabled;
- };
-@@ -180,13 +179,6 @@ cirrus_bo(struct ttm_buffer_object *bo)
- #define to_cirrus_obj(x) container_of(x, struct cirrus_gem_object, base)
- #define DRM_FILE_PAGE_OFFSET (0x100000000ULL >> PAGE_SHIFT)
- 
--				/* cirrus_mode.c */
--void cirrus_crtc_fb_gamma_set(struct drm_crtc *crtc, u16 red, u16 green,
--			     u16 blue, int regno);
--void cirrus_crtc_fb_gamma_get(struct drm_crtc *crtc, u16 *red, u16 *green,
--			     u16 *blue, int regno);
--
--
- 				/* cirrus_main.c */
- int cirrus_device_init(struct cirrus_device *cdev,
- 		      struct drm_device *ddev,
-diff --git a/drivers/gpu/drm/cirrus/cirrus_fbdev.c b/drivers/gpu/drm/cirrus/cirrus_fbdev.c
-index 7fa58ee..1fedab0 100644
---- a/drivers/gpu/drm/cirrus/cirrus_fbdev.c
-+++ b/drivers/gpu/drm/cirrus/cirrus_fbdev.c
-@@ -265,8 +265,6 @@ static int cirrus_fbdev_destroy(struct drm_device *dev,
+diff --git a/drivers/gpu/drm/i915/intel_drv.h b/drivers/gpu/drm/i915/intel_drv.h
+index d93efb4..bc7bfa0 100644
+--- a/drivers/gpu/drm/i915/intel_drv.h
++++ b/drivers/gpu/drm/i915/intel_drv.h
+@@ -786,7 +786,6 @@ struct intel_crtc {
+ 	struct drm_crtc base;
+ 	enum pipe pipe;
+ 	enum plane plane;
+-	u8 lut_r[256], lut_g[256], lut_b[256];
+ 	/*
+ 	 * Whether the crtc and the connected output pipeline is active. Implies
+ 	 * that crtc->enabled is set, i.e. the current mode configuration has
+diff --git a/drivers/gpu/drm/i915/intel_fbdev.c b/drivers/gpu/drm/i915/intel_fbdev.c
+index 03347c6..5bac953 100644
+--- a/drivers/gpu/drm/i915/intel_fbdev.c
++++ b/drivers/gpu/drm/i915/intel_fbdev.c
+@@ -281,27 +281,6 @@ static int intelfb_create(struct drm_fb_helper *helper,
+ 	return ret;
  }
  
- static const struct drm_fb_helper_funcs cirrus_fb_helper_funcs = {
--	.gamma_set = cirrus_crtc_fb_gamma_set,
--	.gamma_get = cirrus_crtc_fb_gamma_get,
- 	.fb_probe = cirrusfb_create,
- };
- 
-diff --git a/drivers/gpu/drm/cirrus/cirrus_mode.c b/drivers/gpu/drm/cirrus/cirrus_mode.c
-index 53f6f0f..a4c4a46 100644
---- a/drivers/gpu/drm/cirrus/cirrus_mode.c
-+++ b/drivers/gpu/drm/cirrus/cirrus_mode.c
-@@ -31,25 +31,6 @@
-  * This file contains setup code for the CRTC.
-  */
- 
--static void cirrus_crtc_load_lut(struct drm_crtc *crtc)
+-/** Sets the color ramps on behalf of RandR */
+-static void intel_crtc_fb_gamma_set(struct drm_crtc *crtc, u16 red, u16 green,
+-				    u16 blue, int regno)
 -{
--	struct cirrus_crtc *cirrus_crtc = to_cirrus_crtc(crtc);
--	struct drm_device *dev = crtc->dev;
--	struct cirrus_device *cdev = dev->dev_private;
--	int i;
+-	struct intel_crtc *intel_crtc = to_intel_crtc(crtc);
 -
--	if (!crtc->enabled)
--		return;
--
--	for (i = 0; i < CIRRUS_LUT_SIZE; i++) {
--		/* VGA registers */
--		WREG8(PALETTE_INDEX, i);
--		WREG8(PALETTE_DATA, cirrus_crtc->lut_r[i]);
--		WREG8(PALETTE_DATA, cirrus_crtc->lut_g[i]);
--		WREG8(PALETTE_DATA, cirrus_crtc->lut_b[i]);
--	}
+-	intel_crtc->lut_r[regno] = red >> 8;
+-	intel_crtc->lut_g[regno] = green >> 8;
+-	intel_crtc->lut_b[regno] = blue >> 8;
 -}
 -
- /*
-  * The DRM core requires DPMS functions, but they make little sense in our
-  * case and so are just stubs
-@@ -330,15 +311,25 @@ static int cirrus_crtc_gamma_set(struct drm_crtc *crtc, u16 *red, u16 *green,
- 				 u16 *blue, uint32_t size,
- 				 struct drm_modeset_acquire_ctx *ctx)
+-static void intel_crtc_fb_gamma_get(struct drm_crtc *crtc, u16 *red, u16 *green,
+-				    u16 *blue, int regno)
+-{
+-	struct intel_crtc *intel_crtc = to_intel_crtc(crtc);
+-
+-	*red = intel_crtc->lut_r[regno] << 8;
+-	*green = intel_crtc->lut_g[regno] << 8;
+-	*blue = intel_crtc->lut_b[regno] << 8;
+-}
+-
+ static struct drm_fb_helper_crtc *
+ intel_fb_helper_crtc(struct drm_fb_helper *fb_helper, struct drm_crtc *crtc)
  {
--	struct cirrus_crtc *cirrus_crtc = to_cirrus_crtc(crtc);
-+	struct drm_device *dev = crtc->dev;
-+	struct cirrus_device *cdev = dev->dev_private;
-+	u16 *r, *g, *b;
- 	int i;
+@@ -370,7 +349,6 @@ static bool intel_fb_initial_config(struct drm_fb_helper *fb_helper,
+ 		struct drm_connector *connector;
+ 		struct drm_encoder *encoder;
+ 		struct drm_fb_helper_crtc *new_crtc;
+-		struct intel_crtc *intel_crtc;
  
--	for (i = 0; i < size; i++) {
--		cirrus_crtc->lut_r[i] = red[i];
--		cirrus_crtc->lut_g[i] = green[i];
--		cirrus_crtc->lut_b[i] = blue[i];
-+	if (!crtc->enabled)
-+		return 0;
-+
-+	r = crtc->gamma_store;
-+	g = r + crtc->gamma_size;
-+	b = g + crtc->gamma_size;
-+
-+	for (i = 0; i < CIRRUS_LUT_SIZE; i++) {
-+		/* VGA registers */
-+		WREG8(PALETTE_INDEX, i);
-+		WREG8(PALETTE_DATA, *r++ >> 8);
-+		WREG8(PALETTE_DATA, *g++ >> 8);
-+		WREG8(PALETTE_DATA, *b++ >> 8);
- 	}
--	cirrus_crtc_load_lut(crtc);
+ 		fb_conn = fb_helper->connector_info[i];
+ 		connector = fb_conn->connector;
+@@ -412,13 +390,6 @@ static bool intel_fb_initial_config(struct drm_fb_helper *fb_helper,
  
- 	return 0;
- }
-@@ -365,7 +356,6 @@ static const struct drm_crtc_helper_funcs cirrus_helper_funcs = {
- 	.mode_set_base = cirrus_crtc_mode_set_base,
- 	.prepare = cirrus_crtc_prepare,
- 	.commit = cirrus_crtc_commit,
--	.load_lut = cirrus_crtc_load_lut,
+ 		num_connectors_enabled++;
+ 
+-		intel_crtc = to_intel_crtc(connector->state->crtc);
+-		for (j = 0; j < 256; j++) {
+-			intel_crtc->lut_r[j] = j;
+-			intel_crtc->lut_g[j] = j;
+-			intel_crtc->lut_b[j] = j;
+-		}
+-
+ 		new_crtc = intel_fb_helper_crtc(fb_helper,
+ 						connector->state->crtc);
+ 
+@@ -519,8 +490,6 @@ static bool intel_fb_initial_config(struct drm_fb_helper *fb_helper,
+ 
+ static const struct drm_fb_helper_funcs intel_fb_helper_funcs = {
+ 	.initial_config = intel_fb_initial_config,
+-	.gamma_set = intel_crtc_fb_gamma_set,
+-	.gamma_get = intel_crtc_fb_gamma_get,
+ 	.fb_probe = intelfb_create,
  };
  
- /* CRTC setup */
-@@ -373,7 +363,6 @@ static void cirrus_crtc_init(struct drm_device *dev)
- {
- 	struct cirrus_device *cdev = dev->dev_private;
- 	struct cirrus_crtc *cirrus_crtc;
--	int i;
- 
- 	cirrus_crtc = kzalloc(sizeof(struct cirrus_crtc) +
- 			      (CIRRUSFB_CONN_LIMIT * sizeof(struct drm_connector *)),
-@@ -387,37 +376,9 @@ static void cirrus_crtc_init(struct drm_device *dev)
- 	drm_mode_crtc_set_gamma_size(&cirrus_crtc->base, CIRRUS_LUT_SIZE);
- 	cdev->mode_info.crtc = cirrus_crtc;
- 
--	for (i = 0; i < CIRRUS_LUT_SIZE; i++) {
--		cirrus_crtc->lut_r[i] = i;
--		cirrus_crtc->lut_g[i] = i;
--		cirrus_crtc->lut_b[i] = i;
--	}
--
- 	drm_crtc_helper_add(&cirrus_crtc->base, &cirrus_helper_funcs);
- }
- 
--/** Sets the color ramps on behalf of fbcon */
--void cirrus_crtc_fb_gamma_set(struct drm_crtc *crtc, u16 red, u16 green,
--			      u16 blue, int regno)
--{
--	struct cirrus_crtc *cirrus_crtc = to_cirrus_crtc(crtc);
--
--	cirrus_crtc->lut_r[regno] = red;
--	cirrus_crtc->lut_g[regno] = green;
--	cirrus_crtc->lut_b[regno] = blue;
--}
--
--/** Gets the color ramps on behalf of fbcon */
--void cirrus_crtc_fb_gamma_get(struct drm_crtc *crtc, u16 *red, u16 *green,
--			      u16 *blue, int regno)
--{
--	struct cirrus_crtc *cirrus_crtc = to_cirrus_crtc(crtc);
--
--	*red = cirrus_crtc->lut_r[regno];
--	*green = cirrus_crtc->lut_g[regno];
--	*blue = cirrus_crtc->lut_b[regno];
--}
--
- static void cirrus_encoder_mode_set(struct drm_encoder *encoder,
- 				struct drm_display_mode *mode,
- 				struct drm_display_mode *adjusted_mode)
 -- 
 2.1.4
