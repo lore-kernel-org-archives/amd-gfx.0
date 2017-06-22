@@ -1,108 +1,59 @@
 From: Peter Rosin <peda@axentia.se>
-Subject: [PATCH v2 00/14] improve the fb_setcmap helper
-Date: Thu, 22 Jun 2017 08:06:23 +0200
-Message-ID: <1498111597-10714-1-git-send-email-peda@axentia.se>
+Subject: [PATCH v2 02/14] drm/fb-helper: remove drm_fb_helper_save_lut_atomic
+Date: Thu, 22 Jun 2017 08:06:25 +0200
+Message-ID: <1498111597-10714-3-git-send-email-peda@axentia.se>
+References: <1498111597-10714-1-git-send-email-peda@axentia.se>
 Mime-Version: 1.0
 Content-Type: text/plain
 Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <1498111597-10714-1-git-send-email-peda@axentia.se>
 Sender: linux-kernel-owner@vger.kernel.org
 To: linux-kernel@vger.kernel.org
 Cc: Peter Rosin <peda@axentia.se>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Russell King <linux@armlinux.org.uk>, Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, Daniel Vetter <daniel.vetter@intel.com>, Jani Nikula <jani.nikula@linux.intel.com>, Sean Paul <seanpaul@chromium.org>, Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, Ben Skeggs <bskeggs@redhat.com>, Yannick Fertre <yannick.fertre@st.com>, Philippe Cornu <philippe.cornu@st.com>, Benjamin Gaignard <benjamin.gaignard@linaro.org>, Vincent Abriou <vincent.abriou@st.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-Hi!
+drm_fb_helper_save_lut_atomic is redundant since the .gamma_store is
+now always kept up to date by drm_fb_helper_setcmap.
 
-While trying to get CLUT support for the atmel_hlcdc driver, and
-specifically for the emulated fbdev interface, I received some
-push-back that my feeble in-driver attempts should be solved
-by the core. This is my attempt to do it right.
+Signed-off-by: Peter Rosin <peda@axentia.se>
+---
+ drivers/gpu/drm/drm_fb_helper.c | 17 -----------------
+ 1 file changed, 17 deletions(-)
 
-I have obviously not tested all of this with more than a compile,
-but patches 1 and 3 are enough to make the atmel-hlcdc driver
-do what I need (when patched to support CLUT modes). The rest is
-just lots of removals and cleanup made possible by the improved
-core.
-
-Please test, I would not be surprised if I have fouled up some
-bit-manipulation somewhere in this mostly mechanical change...
-
-Changes since v1:
-
-- Rebased to next-20170621
-- Split 1/11 into a preparatory patch, a cleanup patch and then
-  the meat in 3/14.
-- Handle pseudo-palette for FB_VISUAL_TRUECOLOR.
-- Removed the empty .gamma_get/.gamma_set fb helpers from the
-  armada driver that I had somehow managed to ignore but which
-  0day found real quick.
-- Be less judgemental on drivers only providing .gamma_get and
-  .gamma_set, but no .load_lut. That's actually a valid thing
-  to do if you only need pseudo-palette for FB_VISUAL_TRUECOLOR.
-- Add a comment about colliding bitfields in the nouveau driver.
-- Remove gamma_set/gamma_get declarations from the radeon driver
-  (the definitions were removed in v1).
-
-Cheers,
-peda
-
-Peter Rosin (14):
-  drm/fb-helper: keep the .gamma_store updated in drm_fb_helper_setcmap
-  drm/fb-helper: remove drm_fb_helper_save_lut_atomic
-  drm/fb-helper: do a generic fb_setcmap helper in terms of crtc
-    .gamma_set
-  drm: amd: remove dead code and pointless local lut storage
-  drm: armada: remove dead empty functions
-  drm: ast: remove dead code and pointless local lut storage
-  drm: cirrus: remove dead code and pointless local lut storage
-  drm: gma500: remove dead code and pointless local lut storage
-  drm: i915: remove dead code and pointless local lut storage
-  drm: mgag200: remove dead code and pointless local lut storage
-  drm: nouveau: remove dead code and pointless local lut storage
-  drm: radeon: remove dead code and pointless local lut storage
-  drm: stm: remove dead code and pointless local lut storage
-  drm: remove unused and redundant callbacks
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c      |  24 ----
- drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h    |   1 -
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c      |  27 ++---
- drivers/gpu/drm/amd/amdgpu/dce_v11_0.c      |  27 ++---
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c       |  27 ++---
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c       |  27 ++---
- drivers/gpu/drm/amd/amdgpu/dce_virtual.c    |  23 ----
- drivers/gpu/drm/armada/armada_crtc.c        |  10 --
- drivers/gpu/drm/armada/armada_crtc.h        |   2 -
- drivers/gpu/drm/armada/armada_fbdev.c       |   2 -
- drivers/gpu/drm/ast/ast_drv.h               |   1 -
- drivers/gpu/drm/ast/ast_fb.c                |  20 ----
- drivers/gpu/drm/ast/ast_mode.c              |  26 +----
- drivers/gpu/drm/cirrus/cirrus_drv.h         |   8 --
- drivers/gpu/drm/cirrus/cirrus_fbdev.c       |   2 -
- drivers/gpu/drm/cirrus/cirrus_mode.c        |  71 +++---------
- drivers/gpu/drm/drm_fb_helper.c             | 164 +++++++++++++---------------
- drivers/gpu/drm/gma500/framebuffer.c        |  22 ----
- drivers/gpu/drm/gma500/gma_display.c        |  32 ++----
- drivers/gpu/drm/gma500/psb_intel_display.c  |   7 +-
- drivers/gpu/drm/gma500/psb_intel_drv.h      |   1 -
- drivers/gpu/drm/i915/intel_drv.h            |   1 -
- drivers/gpu/drm/i915/intel_fbdev.c          |  31 ------
- drivers/gpu/drm/mgag200/mgag200_drv.h       |   5 -
- drivers/gpu/drm/mgag200/mgag200_fb.c        |   2 -
- drivers/gpu/drm/mgag200/mgag200_mode.c      |  62 +++--------
- drivers/gpu/drm/nouveau/dispnv04/crtc.c     |  26 ++---
- drivers/gpu/drm/nouveau/nouveau_crtc.h      |   3 -
- drivers/gpu/drm/nouveau/nouveau_fbcon.c     |  22 ----
- drivers/gpu/drm/nouveau/nv50_display.c      |  40 +++----
- drivers/gpu/drm/radeon/atombios_crtc.c      |   1 -
- drivers/gpu/drm/radeon/radeon_connectors.c  |   7 +-
- drivers/gpu/drm/radeon/radeon_display.c     |  71 +++++-------
- drivers/gpu/drm/radeon/radeon_fb.c          |   2 -
- drivers/gpu/drm/radeon/radeon_legacy_crtc.c |   1 -
- drivers/gpu/drm/radeon/radeon_mode.h        |   4 -
- drivers/gpu/drm/stm/ltdc.c                  |  12 --
- drivers/gpu/drm/stm/ltdc.h                  |   1 -
- include/drm/drm_fb_helper.h                 |  32 ------
- include/drm/drm_modeset_helper_vtables.h    |  16 ---
- 40 files changed, 205 insertions(+), 658 deletions(-)
-
+diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+index 25315fb..7ade384 100644
+--- a/drivers/gpu/drm/drm_fb_helper.c
++++ b/drivers/gpu/drm/drm_fb_helper.c
+@@ -229,22 +229,6 @@ int drm_fb_helper_remove_one_connector(struct drm_fb_helper *fb_helper,
+ }
+ EXPORT_SYMBOL(drm_fb_helper_remove_one_connector);
+ 
+-static void drm_fb_helper_save_lut_atomic(struct drm_crtc *crtc, struct drm_fb_helper *helper)
+-{
+-	uint16_t *r_base, *g_base, *b_base;
+-	int i;
+-
+-	if (helper->funcs->gamma_get == NULL)
+-		return;
+-
+-	r_base = crtc->gamma_store;
+-	g_base = r_base + crtc->gamma_size;
+-	b_base = g_base + crtc->gamma_size;
+-
+-	for (i = 0; i < crtc->gamma_size; i++)
+-		helper->funcs->gamma_get(crtc, &r_base[i], &g_base[i], &b_base[i], i);
+-}
+-
+ static void drm_fb_helper_restore_lut_atomic(struct drm_crtc *crtc)
+ {
+ 	uint16_t *r_base, *g_base, *b_base;
+@@ -285,7 +269,6 @@ int drm_fb_helper_debug_enter(struct fb_info *info)
+ 			if (drm_drv_uses_atomic_modeset(mode_set->crtc->dev))
+ 				continue;
+ 
+-			drm_fb_helper_save_lut_atomic(mode_set->crtc, helper);
+ 			funcs->mode_set_base_atomic(mode_set->crtc,
+ 						    mode_set->fb,
+ 						    mode_set->x,
 -- 
 2.1.4
