@@ -1,128 +1,53 @@
-From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: vm_update_ptes remove code duplication
-Date: Fri, 23 Jun 2017 13:54:05 -0400
-Message-ID: <34a399af-3e98-10bc-c189-249c306d1dbb@amd.com>
-References: <1497044848-26192-1-git-send-email-Harish.Kasiviswanathan@amd.com>
- <CADnq5_M3BaNqHE4hXhadV8UC_Xx_7fSP9FaUVSYOrJ-2X=+g7A@mail.gmail.com>
- <cb3c33c5-5d29-5831-56a8-13eda5175bb1@vodafone.de>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 8/8] ASoC: AMD: Add machine driver for cz
+ rt5650
+Date: Fri, 23 Jun 2017 15:01:46 -0500
+Message-ID: <cb300a11-304a-2eee-6613-4d25b312b4a9@linux.intel.com>
+References: <1498235706-31111-1-git-send-email-alexander.deucher@amd.com>
+ <1498235706-31111-9-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <cb3c33c5-5d29-5831-56a8-13eda5175bb1-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Content-Language: en-CA
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Harish Kasiviswanathan <harish.kasiviswanathan-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Return-path: <alsa-devel-bounces@alsa-project.org>
+In-Reply-To: <1498235706-31111-9-git-send-email-alexander.deucher@amd.com>
+Content-Language: en-US
+List-Unsubscribe: <http://mailman.alsa-project.org/mailman/options/alsa-devel>,
+ <mailto:alsa-devel-request@alsa-project.org?subject=unsubscribe>
+List-Archive: <http://mailman.alsa-project.org/pipermail/alsa-devel/>
+List-Post: <mailto:alsa-devel@alsa-project.org>
+List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
+List-Subscribe: <http://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
+ <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Errors-To: alsa-devel-bounces@alsa-project.org
+Sender: alsa-devel-bounces@alsa-project.org
+To: Alex Deucher <alexdeucher@gmail.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, alsa-devel@alsa-project.org, airlied@gmail.com, broonie@kernel.org, Vijendar.Mukunda@amd.com, rajeevkumar.linux@gmail.com
+Cc: tiwai@suse.de, Alex Deucher <alexander.deucher@amd.com>, lgirdwood@gmail.com, Akshu Agrawal <akshu.agrawal@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-U29ycnkgZm9yIHRoZSBkZWxheS4KClRoZSBzZXJpZXMgaXMgUmV2aWV3ZWQtYnk6IEZlbGl4IEt1
-ZWhsaW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPi4KClJlZ2FyZHMsCiAgRmVsaXgKCk9uIDE3
-LTA2LTEzIDAyOjI0IFBNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+IEFtIDEzLjA2LjIwMTcg
-dW0gMTk6MDcgc2NocmllYiBBbGV4IERldWNoZXI6Cj4+IE9uIEZyaSwgSnVuIDksIDIwMTcgYXQg
-NTo0NyBQTSwgSGFyaXNoIEthc2l2aXN3YW5hdGhhbgo+PiA8SGFyaXNoLkthc2l2aXN3YW5hdGhh
-bkBhbWQuY29tPiB3cm90ZToKPj4+IFNpZ25lZC1vZmYtYnk6IEhhcmlzaCBLYXNpdmlzd2FuYXRo
-YW4gPEhhcmlzaC5LYXNpdmlzd2FuYXRoYW5AYW1kLmNvbT4KPj4gU2VyaWVzIGlzOgo+PiBBY2tl
-ZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+Cj4gQWNrZWQt
-Ynk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4uCj4KPj4KPj4K
-Pj4+IC0tLQo+Pj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyB8IDcz
-Cj4+PiArKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4+PiAgIDEgZmlsZSBjaGFu
-Z2VkLCAxNiBpbnNlcnRpb25zKCspLCA1NyBkZWxldGlvbnMoLSkKPj4+Cj4+PiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4+IGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4+IGluZGV4IGM0ZjFhMzAuLmMzMDgwNDcg
-MTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwo+
-Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4+IEBAIC0x
-MjY0LDU5ICsxMjY0LDYgQEAgc3RhdGljIHN0cnVjdCBhbWRncHVfYm8KPj4+ICphbWRncHVfdm1f
-Z2V0X3B0KHN0cnVjdCBhbWRncHVfcHRlX3VwZGF0ZV9wYXJhbXMgKnAsCj4+PiAgIH0KPj4+Cj4+
-PiAgIC8qKgo+Pj4gLSAqIGFtZGdwdV92bV91cGRhdGVfcHRlc19jcHUgLSBVcGRhdGUgdGhlIHBh
-Z2UgdGFibGVzIGluIHRoZSByYW5nZQo+Pj4gLSAqICBzdGFydCAtIEBlbmQgdXNpbmcgQ1BVLgo+
-Pj4gLSAqIFNlZSBhbWRncHVfdm1fdXBkYXRlX3B0ZXMgZm9yIHBhcmFtZXRlciBkZXNjcmlwdGlv
-bi4KPj4+IC0gKgo+Pj4gLSAqLwo+Pj4gLXN0YXRpYyBpbnQgYW1kZ3B1X3ZtX3VwZGF0ZV9wdGVz
-X2NwdShzdHJ1Y3QKPj4+IGFtZGdwdV9wdGVfdXBkYXRlX3BhcmFtcyAqcGFyYW1zLAo+Pj4gLSAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHVpbnQ2NF90IHN0YXJ0LCB1aW50NjRf
-dCBlbmQsCj4+PiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdWludDY0X3Qg
-ZHN0LCB1aW50NjRfdCBmbGFncykKPj4+IC17Cj4+PiAtICAgICAgIHN0cnVjdCBhbWRncHVfZGV2
-aWNlICphZGV2ID0gcGFyYW1zLT5hZGV2Owo+Pj4gLSAgICAgICBjb25zdCB1aW50NjRfdCBtYXNr
-ID0gQU1ER1BVX1ZNX1BURV9DT1VOVChhZGV2KSAtIDE7Cj4+PiAtICAgICAgIHZvaWQgKnBlX3B0
-cjsKPj4+IC0gICAgICAgdWludDY0X3QgYWRkcjsKPj4+IC0gICAgICAgc3RydWN0IGFtZGdwdV9i
-byAqcHQ7Cj4+PiAtICAgICAgIHVuc2lnbmVkIGludCBucHRlczsKPj4+IC0gICAgICAgaW50IHI7
-Cj4+PiAtCj4+PiAtICAgICAgIC8qIGluaXRpYWxpemUgdGhlIHZhcmlhYmxlcyAqLwo+Pj4gLSAg
-ICAgICBhZGRyID0gc3RhcnQ7Cj4+PiAtCj4+PiAtICAgICAgIC8qIHdhbGsgb3ZlciB0aGUgYWRk
-cmVzcyBzcGFjZSBhbmQgdXBkYXRlIHRoZSBwYWdlIHRhYmxlcyAqLwo+Pj4gLSAgICAgICB3aGls
-ZSAoYWRkciA8IGVuZCkgewo+Pj4gLSAgICAgICAgICAgICAgIHB0ID0gYW1kZ3B1X3ZtX2dldF9w
-dChwYXJhbXMsIGFkZHIpOwo+Pj4gLSAgICAgICAgICAgICAgIGlmICghcHQpIHsKPj4+IC0gICAg
-ICAgICAgICAgICAgICAgICAgIHByX2VycigiUFQgbm90IGZvdW5kLCBhYm9ydGluZyB1cGRhdGVf
-cHRlc1xuIik7Cj4+PiAtICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsKPj4+
-IC0gICAgICAgICAgICAgICB9Cj4+PiAtCj4+PiAtICAgICAgICAgICAgICAgV0FSTl9PTihwYXJh
-bXMtPnNoYWRvdyk7Cj4+PiAtCj4+PiAtICAgICAgICAgICAgICAgciA9IGFtZGdwdV9ib19rbWFw
-KHB0LCAmcGVfcHRyKTsKPj4+IC0gICAgICAgICAgICAgICBpZiAocikKPj4+IC0gICAgICAgICAg
-ICAgICAgICAgICAgIHJldHVybiByOwo+Pj4gLQo+Pj4gLSAgICAgICAgICAgICAgIHBlX3B0ciAr
-PSAoYWRkciAmIG1hc2spICogODsKPj4+IC0KPj4+IC0gICAgICAgICAgICAgICBpZiAoKGFkZHIg
-JiB+bWFzaykgPT0gKGVuZCAmIH5tYXNrKSkKPj4+IC0gICAgICAgICAgICAgICAgICAgICAgIG5w
-dGVzID0gZW5kIC0gYWRkcjsKPj4+IC0gICAgICAgICAgICAgICBlbHNlCj4+PiAtICAgICAgICAg
-ICAgICAgICAgICAgICBucHRlcyA9IEFNREdQVV9WTV9QVEVfQ09VTlQoYWRldikgLSAoYWRkciAm
-Cj4+PiBtYXNrKTsKPj4+IC0KPj4+IC0gICAgICAgICAgICAgICBwYXJhbXMtPmZ1bmMocGFyYW1z
-LCAodWludDY0X3QpcGVfcHRyLCBkc3QsIG5wdGVzLAo+Pj4gLSAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBBTURHUFVfR1BVX1BBR0VfU0laRSwgZmxhZ3MpOwo+Pj4gLQo+Pj4gLSAgICAgICAg
-ICAgICAgIGFtZGdwdV9ib19rdW5tYXAocHQpOwo+Pj4gLSAgICAgICAgICAgICAgIGFkZHIgKz0g
-bnB0ZXM7Cj4+PiAtICAgICAgICAgICAgICAgZHN0ICs9IG5wdGVzICogQU1ER1BVX0dQVV9QQUdF
-X1NJWkU7Cj4+PiAtICAgICAgIH0KPj4+IC0KPj4+IC0gICAgICAgcmV0dXJuIDA7Cj4+PiAtfQo+
-Pj4gLQo+Pj4gLS8qKgo+Pj4gICAgKiBhbWRncHVfdm1fdXBkYXRlX3B0ZXMgLSBtYWtlIHN1cmUg
-dGhhdCBwYWdlIHRhYmxlcyBhcmUgdmFsaWQKPj4+ICAgICoKPj4+ICAgICogQHBhcmFtczogc2Vl
-IGFtZGdwdV9wdGVfdXBkYXRlX3BhcmFtcyBkZWZpbml0aW9uCj4+PiBAQCAtMTMzOSwxMCArMTI4
-Niw5IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZtX3VwZGF0ZV9wdGVzKHN0cnVjdAo+Pj4gYW1kZ3B1
-X3B0ZV91cGRhdGVfcGFyYW1zICpwYXJhbXMsCj4+PiAgICAgICAgICB1aW50NjRfdCBhZGRyLCBw
-ZV9zdGFydDsKPj4+ICAgICAgICAgIHN0cnVjdCBhbWRncHVfYm8gKnB0Owo+Pj4gICAgICAgICAg
-dW5zaWduZWQgbnB0ZXM7Cj4+PiArICAgICAgIGludCByOwo+Pj4gKyAgICAgICBib29sIHVzZV9j
-cHVfdXBkYXRlID0gKHBhcmFtcy0+ZnVuYyA9PSBhbWRncHVfdm1fY3B1X3NldF9wdGVzKTsKPj4+
-Cj4+PiAtICAgICAgIGlmIChwYXJhbXMtPmZ1bmMgPT0gYW1kZ3B1X3ZtX2NwdV9zZXRfcHRlcykK
-Pj4+IC0gICAgICAgICAgICAgICByZXR1cm4gYW1kZ3B1X3ZtX3VwZGF0ZV9wdGVzX2NwdShwYXJh
-bXMsIHN0YXJ0LCBlbmQsCj4+PiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgZHN0LCBmbGFncyk7Cj4+Pgo+Pj4gICAgICAgICAgLyogd2FsayBvdmVyIHRo
-ZSBhZGRyZXNzIHNwYWNlIGFuZCB1cGRhdGUgdGhlIHBhZ2UgdGFibGVzICovCj4+PiAgICAgICAg
-ICBmb3IgKGFkZHIgPSBzdGFydDsgYWRkciA8IGVuZDsgYWRkciArPSBucHRlcykgewo+Pj4gQEAg
-LTEzNTMsNiArMTI5OSwxMCBAQCBzdGF0aWMgaW50IGFtZGdwdV92bV91cGRhdGVfcHRlcyhzdHJ1
-Y3QKPj4+IGFtZGdwdV9wdGVfdXBkYXRlX3BhcmFtcyAqcGFyYW1zLAo+Pj4gICAgICAgICAgICAg
-ICAgICB9Cj4+Pgo+Pj4gICAgICAgICAgICAgICAgICBpZiAocGFyYW1zLT5zaGFkb3cpIHsKPj4+
-ICsgICAgICAgICAgICAgICAgICAgICAgIGlmIChXQVJOX09OQ0UodXNlX2NwdV91cGRhdGUsCj4+
-PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJDUFUgVk0gdXBkYXRlIGRvZXNuJ3Qg
-c3V1cG9ydAo+Pj4gc2hhZG93IHBhZ2VzIikpCj4+PiArICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHJldHVybiAwOwo+Pj4gKwo+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgIGlmICgh
-cHQtPnNoYWRvdykKPj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAw
-Owo+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgIHB0ID0gcHQtPnNoYWRvdzsKPj4+IEBAIC0x
-MzYzLDEzICsxMzEzLDIyIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZtX3VwZGF0ZV9wdGVzKHN0cnVj
-dAo+Pj4gYW1kZ3B1X3B0ZV91cGRhdGVfcGFyYW1zICpwYXJhbXMsCj4+PiAgICAgICAgICAgICAg
-ICAgIGVsc2UKPj4+ICAgICAgICAgICAgICAgICAgICAgICAgICBucHRlcyA9IEFNREdQVV9WTV9Q
-VEVfQ09VTlQoYWRldikgLSAoYWRkciAmCj4+PiBtYXNrKTsKPj4+Cj4+PiAtICAgICAgICAgICAg
-ICAgcGVfc3RhcnQgPSBhbWRncHVfYm9fZ3B1X29mZnNldChwdCk7Cj4+PiArICAgICAgICAgICAg
-ICAgaWYgKHVzZV9jcHVfdXBkYXRlKSB7Cj4+PiArICAgICAgICAgICAgICAgICAgICAgICByID0g
-YW1kZ3B1X2JvX2ttYXAocHQsICh2b2lkICopJnBlX3N0YXJ0KTsKPj4+ICsgICAgICAgICAgICAg
-ICAgICAgICAgIGlmIChyKQo+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1
-cm4gcjsKPj4+ICsgICAgICAgICAgICAgICB9IGVsc2UKPj4+ICsgICAgICAgICAgICAgICAgICAg
-ICAgIHBlX3N0YXJ0ID0gYW1kZ3B1X2JvX2dwdV9vZmZzZXQocHQpOwo+Pj4gKwo+Pj4gICAgICAg
-ICAgICAgICAgICBwZV9zdGFydCArPSAoYWRkciAmIG1hc2spICogODsKPj4+Cj4+PiAgICAgICAg
-ICAgICAgICAgIHBhcmFtcy0+ZnVuYyhwYXJhbXMsIHBlX3N0YXJ0LCBkc3QsIG5wdGVzLAo+Pj4g
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQU1ER1BVX0dQVV9QQUdFX1NJWkUsIGZsYWdz
-KTsKPj4+Cj4+PiAgICAgICAgICAgICAgICAgIGRzdCArPSBucHRlcyAqIEFNREdQVV9HUFVfUEFH
-RV9TSVpFOwo+Pj4gKwo+Pj4gKyAgICAgICAgICAgICAgIGlmICh1c2VfY3B1X3VwZGF0ZSkKPj4+
-ICsgICAgICAgICAgICAgICAgICAgICAgIGFtZGdwdV9ib19rdW5tYXAocHQpOwo+Pj4gICAgICAg
-ICAgfQo+Pj4KPj4+ICAgICAgICAgIHJldHVybiAwOwo+Pj4gLS0gCj4+PiAxLjkuMQo+Pj4KPj4+
-IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+PiBhbWQt
-Z2Z4IG1haWxpbmcgbGlzdAo+Pj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4+IGh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+PiBf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+PiBhbWQtZ2Z4
-IG1haWxpbmcgbGlzdAo+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiBodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKPgo+Cj4gX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4CgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+
+> +static const struct acpi_device_id cz_audio_acpi_match[] = {
+> +	{ "I2SC1002", 0 },
+This one goes on my list of _HID that don't follow ACPI/PCI 
+vendorID/PartID conventions.
+AMD shoud use the "AMDI" ACPI ID or the 0x1002 PCI ID for the 4 first 
+characters, if everyone does what they feel like one day we'll have a 
+conflict between devices and probe the wrong driver...
+
+> +	{},
+> +};
+> +
+> +static struct platform_driver cz_pcm_driver = {
+> +	.driver = {
+> +		.name = "cz-rt5645",
+> +		.acpi_match_table = ACPI_PTR(cz_audio_acpi_match),
+> +		.pm = &snd_soc_pm_ops,
+> +	},
+> +	.probe = cz_probe,
+> +	.remove = cz_remove,
+> +};
+> +
+> +module_platform_driver(cz_pcm_driver);
+> +
+> +MODULE_AUTHOR("akshu.agrawal@amd.com");
+> +MODULE_DESCRIPTION("cz-rt5645 audio support");
+> +MODULE_LICENSE("GPL v2");
