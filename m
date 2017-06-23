@@ -1,88 +1,139 @@
-From: Peter Rosin <peda@axentia.se>
-Subject: Re: [PATCH v2 13/14] drm: stm: remove dead code and pointless local
- lut storage
-Date: Fri, 23 Jun 2017 07:29:06 +0200
-Message-ID: <c5dc7fca-a359-b6d4-fd14-2488f6b1a64e@axentia.se>
-References: <1498111597-10714-1-git-send-email-peda@axentia.se>
- <1498111597-10714-14-git-send-email-peda@axentia.se>
- <159dad37-7f12-0b4d-5512-d19a80670d5c@st.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH 1/3] drm/amdgpu: fix a typo
+Date: Fri, 23 Jun 2017 08:57:03 +0200
+Message-ID: <3436ae97-39b1-4a3f-bb73-2991adad5715@vodafone.de>
+References: <1498099356-31332-1-git-send-email-AlexBin.Xie@amd.com>
+ <5ff65f82-9d15-4606-7e25-e4f75c172aed@vodafone.de>
+ <DM5PR12MB1257B1FCC981D29A6D4045CDF2DB0@DM5PR12MB1257.namprd12.prod.outlook.com>
+ <CAAxE2A7ic2YLmnkzM0Faa3bO9-GwWRTHRc0EUVej5UU7Yhs4Qg@mail.gmail.com>
+ <efc2289a-382d-8443-8419-da2d0cadfd77@amd.com>
+ <e23f64c3-6abf-ff65-2300-5c44d242f4df@amd.com>
+ <CAAxE2A61KqM9gr=Zoo5PHFNb8gWp74RG9KOs=efWzf1dMKBwSA@mail.gmail.com>
+ <7134d81f-a60f-7093-d2a3-70edde23cdb2@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <159dad37-7f12-0b4d-5512-d19a80670d5c@st.com>
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <7134d81f-a60f-7093-d2a3-70edde23cdb2-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Philippe CORNU <philippe.cornu@st.com>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Russell King <linux@armlinux.org.uk>, Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, Daniel Vetter <daniel.vetter@intel.com>, Jani Nikula <jani.nikula@linux.intel.com>, Sean Paul <seanpaul@chromium.org>, Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, Ben Skeggs <bskeggs@redhat.com>, Yannick FERTRE <yannick.fertre@st.com>, Benjamin Gaignard <benjamin.gaignard@linaro.org>, Vincent ABRIOU <vincent.abriou@st.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "virtualization@lists.linux-foundation.org" <virtua>
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: axie <axie-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Xie,
+ AlexBin" <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
 
-On 2017-06-22 13:49, Philippe CORNU wrote:
-> On 06/22/2017 08:06 AM, Peter Rosin wrote:
->> The redundant fb helper .load_lut is no longer used, and can not
->> work right without also providing the fb helpers .gamma_set and
->> .gamma_get thus rendering the code in this driver suspect.
->>
-> 
-> Hi Peter,
-> STM32 chipsets supports 8-bit CLUT mode but this driver version does not 
-> support it "yet" (final patch has not been upstreamed because it was a 
-> too big fbdev patch for simply adding CLUT...).
-> 
-> Regarding your patch below, if it helps you to ease the drm framework 
-> update then I am agree to "acknowledge it" asap, else if you are not in 
-> a hurry, I would prefer a better and definitive patch handling 8-bit 
-> CLUT properly and I am ok to help or/and to do it : )
-
-Hi!
-
-The thing is, without my series you will have to provide four callbacks.
-The crtc .gamma_set and the three redundant fb helpers .gamma_get,
-.gamma_set and .load_lut that pretty much does exactly what the crtc
-.gamma_set is doing. Well not .gamma_get, but...
-
-With my series, you only have to provide the crtc .gamma_set, which you
-have to provide anyway. and ...the core will handle everything that
-.gamma_get was used for...
-
-I.e., your work to provide CLUT support should start with drm support,
-which means the crtc .gamma_set, and then move on to the fbdev
-emulation. And I have just eliminated the second step for you, and
-as suger on top, you no longer have to convince the core drm maintainers
-that adding a lot of fbdev emulation code is needed.
-
-So, I think you actually want to wait for my series to land before adding
-CLUT support.
-
-> Extra questions:
-> - any plan to update modetest with the DRM_FORMAT_C8 support + gamma 
-> get/set?
-
-I don't know that code base at all, but from the glimpse I got when browsing
-it, it seemed like it was pretty hardwired to non-palettized modes. I ended
-up having no need for it, see below...
-
-> - do you have a simple way to test clut with fbdev, last year we where 
-> using an old version of the SDL but I am still looking for a small piece 
-> of code to do it (else I will do it myself but C8 on fbdev is not really 
-> a priority ;-)
-
-I'm doing pretty much the same thing, I have an application that requires
-an old SDL, and I'm using the programs/demos/demo.c program from the very
-old libggi as a second test app. But that's just because libggi is what
-I'm most familiar with, and it doesn't try to be "nice" and do things
-automatically, instead you have to manually insert helpers providing
-e.g. palette emulation if the application assumes a palettized mode and
-only truecolor modes are available from the HW. SDL tends to add those
-things for you, making it less easy to test thing, but I'm not an
-"SDL-guy", so there may very well exist some knobs I don't know about.
-
-Oh, you probably didn't see this:
-http://marc.info/?l=linux-kernel&m=149786920731175&w=4
-
-It sports modeset-pal.c that sets the C8 mode, and does a 5 second
-palette animation, w/o using fbdev. I used it instead of digging
-further into modetest.
-
-Cheers,
-peda
+SGkgQWxleCwKCmFjdHVhbGx5IE1hcmVrIGlzIHJpZ2h0LCBjb21tYW5kIHN1Ym1pc3Npb24gaXMg
+YWN0dWFsbHkgbm90IG11Y2ggb2YgYSAKYm90dGxlbmVjayB0byB1cyBiZWNhdXNlIGl0IGlzIGhh
+bmRsZWQgZnJvbSBhIHNlcGFyYXRlIHVzZXJzcGFjZSB0aHJlYWQuCgpTbyB0aG9zZSBtaWNybyBv
+cHRpbWl6YXRpb25zIHlvdSBkbyBoZXJlIG9uIENQVSBjeWNsZXMgYXJlIGFjdHVhbGx5IApyYXRo
+ZXIgc3VwZXJmbHVvdXMuCgpCdXQgZ2l2aW5nIHRoZSBDUyBJT0NUTCBhbiBvcHRpb24gZm9yIGRp
+cmVjdGx5IHNwZWNpZnlpbmcgdGhlIEJPcyAKaW5zdGVhZCBvZiBhIEJPIGxpc3QgbGlrZSBNYXJl
+ayBzdWdnZXN0ZWQgd291bGQgaW5kZWVkIHNhdmUgdXMgc29tZSB0aW1lIApoZXJlLgoKUmVnYXJk
+cywKQ2hyaXN0aWFuLgoKQW0gMjMuMDYuMjAxNyB1bSAwNDoyMyBzY2hyaWViIGF4aWU6Cj4gSGkg
+TWFyZWssCj4KPgo+IFNvIGRvIHlvdSBhZ3JlZSB0aGF0IHNwaW5sb2NrIGRpc2FibGVzIENQVSBw
+cmVlbXB0aW9uLCBjb250cmFyeSB0byAKPiB5b3VyIG9yaWdpbmFsIGlkZWE/Cj4KPgo+IElmIHlv
+dSBoYXZlIG5ldyByZWFzb24gdGhhdCB0aGlzIHBhdGNoIGRvZXMgbm90IGltcHJvdmUsIHBsZWFz
+ZSBzcGVhayAKPiBvdXQuCj4KPgo+IE1hbnkgcGF0Y2hlcyBpbiBHUFUgZHJpdmVyIGFpbSBhdCBp
+bXByb3ZpbmcgcGVyZm9ybWFuY2UgYW5kIHBvd2VyIAo+IGVmZmljaWVuY3kuIERvZXMgbW9zdCBw
+YXRjaGVzIHN1Ym1pdHRlZCBpbiBBTURHUFUgcmVxdWlyZXMgYSAKPiBiZW5jaG1hcmtpbmcgZmly
+c3Q/Cj4KPiBJZiBhbGwgZGV2ZWxvcGVycyBhcmUgcmVxdWlyZWQgdG8gYWx3YXlzIGFuc3dlciB5
+b3VyIHF1ZXN0aW9ucyB3aGVuIAo+IGNvZGUgcmV2aWV3LCBJIGFtIGFmcmFpZCB0aGF0IG1vc3Qg
+b3BlbiBzb3VyY2UgY29tbXVuaXR5IGRldmVsb3BlcnMgCj4gY2Fubm90IG1lZXQgdGhhdCByZXF1
+aXJlbWVudCBhbmQgc3RvcCB3b3JraW5nIG9uIEFNREdQVS4KPgo+Cj4gVG8gaW1wcm92ZSBwZXJm
+b3JtYW5jZSwgdGhlcmUgYXJlIG1hbnkgYm90dGxlbmVja3MgdG8gY2xlYXIuIFdoZW4gdGhlIAo+
+IGxhc3Qgc2V2ZXJhbCBib3R0bGVuZWNrcyBhcmUgY2xlYXIsIHRoZSBwZXJmb3JtYW5jZSB3aWxs
+IHNob3cgZmFzdGVyIAo+IG1vcmUgc2lnbmlmaWNhbnRseS4KPgo+IE15IHBhc3MgcHJvZmlsaW5n
+IGV4cGVyaWVuY2UgdG9sZCBtZSB0aGF0IGNsZWFyaW5nIGEgbG9jayBjYW4gaW1wcm92ZSAKPiBw
+ZXJmb3JtYW5jZSBmb3Igc29tZSBkcml2ZXIgbGlrZSAwLjMlIHRvIG11Y2ggYmlnZ2VyIHBlcmNl
+bnRhZ2UuIEl0IAo+IGRlcGVuZHMgb24gbWFueSBmYWN0b3JzLCBldmVuIGRlcGVuZHMgb24gdGhl
+IGFwcGxpY2F0aW9uIGl0c2VsZi4KPgo+Cj4gVGhpcyBpcyBub3QgdGhlIGZpcnN0IGJvdHRsZW5l
+Y2sgZml4ZWQuIFRoaXMgaXMgc3VyZWx5IG5vdCB0aGUgbGFzdCBvbmUuCj4KPgo+IFRoYW5rcywK
+Pgo+IEFsZXggQmluCj4KPgo+IE9uIDIwMTctMDYtMjIgMDc6NTQgUE0sIE1hcmVrIE9sxaHDoWsg
+d3JvdGU6Cj4+IFRoYXQncyBhbGwgbmljZSwgYnV0IGRvZXMgaXQgaW1wcm92ZSBwZXJmb3JtYW5j
+ZT8gSGF2ZSB5b3UgYmVlbiBhYmxlCj4+IHRvIG1lYXN1cmUgc29tZSBwZXJmb3JtYW5jZSBkaWZm
+ZXJlbmNlIHdpdGggdGhhdCBjb2RlPyBXZXJlIHlvdQo+PiB0YXJnZXRpbmcgYSBzcGVjaWZpYyBp
+bmVmZmljaWVuY3kgeW91IGhhZCBzZWVuIGUuZy4gd2l0aCBhIENQVQo+PiBwcm9maWxlcj8KPj4K
+Pj4gTWFyZWsKPj4KPj4gT24gVGh1LCBKdW4gMjIsIDIwMTcgYXQgODoxOSBQTSwgYXhpZSA8YXhp
+ZUBhbWQuY29tPiB3cm90ZToKPj4+IFRvIGNsYXJpZnksIGxvY2FsIElSUSBpcyBkaXNhYmxlZCBi
+eSBjYWxsaW5nIHJhd19sb2NhbF9pcnFfc2F2ZShmbGFncyk7Cj4+Pgo+Pj4gRnVuY3Rpb24gX19s
+b2NrX2FjcXVpcmUgZG91YmxlIGNoZWNrcyB0aGF0IHRoZSBsb2NhbCBJUlEgaXMgcmVhbGx5IAo+
+Pj4gZGlzYWJsZWQuCj4+Pgo+Pj4KPj4+Cj4+PiBPbiAyMDE3LTA2LTIyIDAxOjM0IFBNLCBheGll
+IHdyb3RlOgo+Pj4+IEhpIE1hcmVrLAo+Pj4+Cj4+Pj4gU3BpbiBsb2NrIGFuZCBzcGluIHVubG9j
+ayBpcyBmYXN0LiBCdXQgaXQgaXMgbm90IHNvIGZhc3QgY29tcGFyZWQgd2l0aAo+Pj4+IGF0b21p
+Yywgd2hpY2ggaXMgYSBzaW5nbGUgQ1BVIGluc3RydWN0aW9uIGluIHg4Ni4KPj4+Pgo+Pj4+Cj4+
+Pj4gMS4gc3BpbmxvY2sgZG9lcyBOT1QgYWxsb3cgcHJlZW1wdGlvbiBhdCBsb2NhbCBDUFUuIExl
+dCB1cyBoYXZlIGEgCj4+Pj4gbG9vayBhdAo+Pj4+IGhvdyBzcGluIGxvY2sgd2FzIGltcGxlbWVu
+dGVkLgo+Pj4+Cj4+Pj4gc3RhdGljIGlubGluZSB2b2lkIF9fcmF3X3NwaW5fbG9jayhyYXdfc3Bp
+bmxvY2tfdCAqbG9jaykKPj4+PiB7Cj4+Pj4gICAgICBwcmVlbXB0X2Rpc2FibGUoKTsgPDw8PDw8
+PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8LS1UaGlzIGlzCj4+Pj4gbWVtb3J5IGJhcnJp
+ZXIgb3BlcmF0aW9uIHRvby4KPj4+PiAgICAgIHNwaW5fYWNxdWlyZSgmbG9jay0+ZGVwX21hcCwg
+MCwgMCwgX1JFVF9JUF8pOwo+Pj4+ICAgICAgTE9DS19DT05URU5ERUQobG9jaywgZG9fcmF3X3Nw
+aW5fdHJ5bG9jaywgZG9fcmF3X3NwaW5fbG9jayk7Cj4+Pj4gfQo+Pj4+Cj4+Pj4gMi4gIEEgZnVu
+Y3Rpb24gIF9fbG9ja19hY3F1aXJlIGNhbGxlZCBieSBzcGlubG9jay4gVGhlIGZ1bmN0aW9uIGlz
+IAo+Pj4+IHNvIGxvbmcKPj4+PiB0aGF0IEkgd291bGQgbm90IGF0dGFjaCBhbGwgb2YgaXQgaGVy
+ZS4KPj4+Pgo+Pj4+IFRoZXJlIGlzIGF0b21pYyBvcGVyYXRpb24gaW5zaWRlIGFuZCAxMiBtZXRh
+IGRhdGEgdXBkYXRlcyBhbmQgMTQgaWYKPj4+PiBzdGF0ZW1lbnRzIGFuZCBpdCBjYWxscyBxdWl0
+ZSBzb21lIG90aGVyIGZ1bmN0aW9ucy4KPj4+Pgo+Pj4+IE5vdGUgdGhhdCBpdCBkaXNhYmxlIElS
+US4uLgo+Pj4+Cj4+Pj4gc3RhdGljIGludCBfX2xvY2tfYWNxdWlyZShzdHJ1Y3QgbG9ja2RlcF9t
+YXAgKmxvY2ssIHVuc2lnbmVkIGludCAKPj4+PiBzdWJjbGFzcywKPj4+PiAgICAgICAgICAgICAg
+ICBpbnQgdHJ5bG9jaywgaW50IHJlYWQsIGludCBjaGVjaywgaW50IGhhcmRpcnFzX29mZiwKPj4+
+PiAgICAgICAgICAgICAgICBzdHJ1Y3QgbG9ja2RlcF9tYXAgKm5lc3RfbG9jaywgdW5zaWduZWQg
+bG9uZyBpcCwKPj4+PiAgICAgICAgICAgICAgICBpbnQgcmVmZXJlbmNlcywgaW50IHBpbl9jb3Vu
+dCkKPj4+PiB7Cj4+Pj4gICAgICBzdHJ1Y3QgdGFza19zdHJ1Y3QgKmN1cnIgPSBjdXJyZW50Owo+
+Pj4+ICAgICAgc3RydWN0IGxvY2tfY2xhc3MgKmNsYXNzID0gTlVMTDsKPj4+PiAgICAgIHN0cnVj
+dCBoZWxkX2xvY2sgKmhsb2NrOwo+Pj4+ICAgICAgdW5zaWduZWQgaW50IGRlcHRoOwo+Pj4+ICAg
+ICAgaW50IGNoYWluX2hlYWQgPSAwOwo+Pj4+ICAgICAgaW50IGNsYXNzX2lkeDsKPj4+PiAgICAg
+IHU2NCBjaGFpbl9rZXk7Cj4+Pj4KPj4+PiAgICAgIGlmICh1bmxpa2VseSghZGVidWdfbG9ja3Mp
+KQo+Pj4+ICAgICAgICAgIHJldHVybiAwOwo+Pj4+Cj4+Pj4gICAgICAvKgo+Pj4+ICAgICAgICog
+TG9ja2RlcCBzaG91bGQgcnVuIHdpdGggSVJRcyBkaXNhYmxlZCwgb3RoZXJ3aXNlIHdlIGNvdWxk
+Cj4+Pj4gICAgICAgKiBnZXQgYW4gaW50ZXJydXB0IHdoaWNoIHdvdWxkIHdhbnQgdG8gdGFrZSBs
+b2Nrcywgd2hpY2ggd291bGQKPj4+PiAgICAgICAqIGVuZCB1cCBpbiBsb2NrZGVwIGFuZCBoYXZl
+IHlvdSBnb3QgYSBoZWFkLWFjaGUgYWxyZWFkeT8KPj4+PiAgICAgICAqLwo+Pj4+ICAgICAgaWYg
+KERFQlVHX0xPQ0tTX1dBUk5fT04oIWlycXNfZGlzYWJsZWQoKSkpIAo+Pj4+IDw8PDw8PDw8PDw8
+PDw8PERpc2FibGUgSVJRCj4+Pj4gICAgICAgICAgcmV0dXJuIDA7Cj4+Pj4KPj4+PiAuLi4uCj4+
+Pj4KPj4+PiAzLiBBbm90aGVyIGZ1bmN0aW9uIGNhbGxlZCBieSBzcGlubG9jayBpbiBhIGhpZ2hl
+ciBsZXZlbDoKPj4+Pgo+Pj4+IHZvaWQgbG9ja19hY3F1aXJlKHN0cnVjdCBsb2NrZGVwX21hcCAq
+bG9jaywgdW5zaWduZWQgaW50IHN1YmNsYXNzLAo+Pj4+Cj4+Pj4gICAgICAgICAgICAgICAgaW50
+IHRyeWxvY2ssIGludCByZWFkLCBpbnQgY2hlY2ssCj4+Pj4gICAgICAgICAgICAgICAgc3RydWN0
+IGxvY2tkZXBfbWFwICpuZXN0X2xvY2ssIHVuc2lnbmVkIGxvbmcgaXApCj4+Pj4gewo+Pj4+ICAg
+ICAgdW5zaWduZWQgbG9uZyBmbGFnczsKPj4+Pgo+Pj4+ICAgICAgaWYgKHVubGlrZWx5KGN1cnJl
+bnQtPmxvY2tkZXBfcmVjdXJzaW9uKSkKPj4+PiAgICAgICAgICByZXR1cm47Cj4+Pj4KPj4+PiAg
+ICAgIHJhd19sb2NhbF9pcnFfc2F2ZShmbGFncyk7Cj4+Pj4gICAgICBjaGVja19mbGFncyhmbGFn
+cyk7Cj4+Pj4KPj4+PiAgICAgIGN1cnJlbnQtPmxvY2tkZXBfcmVjdXJzaW9uID0gMTsKPj4+PiAg
+ICAgIHRyYWNlX2xvY2tfYWNxdWlyZShsb2NrLCBzdWJjbGFzcywgdHJ5bG9jaywgcmVhZCwgY2hl
+Y2ssIAo+Pj4+IG5lc3RfbG9jaywKPj4+PiBpcCk7Cj4+Pj4gICAgICBfX2xvY2tfYWNxdWlyZShs
+b2NrLCBzdWJjbGFzcywgdHJ5bG9jaywgcmVhZCwgY2hlY2ssCj4+Pj4gICAgICAgICAgICAgICAg
+IGlycXNfZGlzYWJsZWRfZmxhZ3MoZmxhZ3MpLCBuZXN0X2xvY2ssIGlwLCAwLCAwKTsKPj4+PiAg
+ICAgIGN1cnJlbnQtPmxvY2tkZXBfcmVjdXJzaW9uID0gMDsKPj4+PiAgICAgIHJhd19sb2NhbF9p
+cnFfcmVzdG9yZShmbGFncyk7Cj4+Pj4gfQo+Pj4+Cj4+Pj4KPj4+PiBUaGFua3MsCj4+Pj4KPj4+
+PiBBbGV4IEJpbgo+Pj4+Cj4+Pj4KPj4+PiBPbiAyMDE3LTA2LTIyIDEyOjI3IFBNLCBNYXJlayBP
+bMWhw6FrIHdyb3RlOgo+Pj4+PiBPbiBUaHUsIEp1biAyMiwgMjAxNyBhdCA1OjMzIFBNLCBYaWUs
+IEFsZXhCaW4gPEFsZXhCaW4uWGllQGFtZC5jb20+Cj4+Pj4+IHdyb3RlOgo+Pj4+Pj4gSGkgQ2hy
+aXN0aWFuLAo+Pj4+Pj4KPj4+Pj4+Cj4+Pj4+PiBJbiBmYWN0LCB0aGUgY2hhbmdlIGZyb20gc3Bp
+bmxvY2sgdG8gYXRvbWljIGlzIHF1aXRlIHBhaW5mdWwuIFdoZW4gSQo+Pj4+Pj4gc3RhcnRlZCwg
+SSB0aG91Z2h0IGl0IHdhcyBlYXN5IGJ1dCBsYXRlciBJIGZvdW5kIHRoZXJlIG1pZ2h0IGJlIHJh
+Y2UKPj4+Pj4+IGNvbmRpdGlvbiBoZXJlIGFuZCB0aGVyZS4gTm93IEkgdGhpbmsgdGhlIGNoYW5n
+ZSBsb29rcyBtb3JlIAo+Pj4+Pj4gcm9idXN0LiBJbgo+Pj4+Pj4ga2VybmVsIHNvdXJjZSwgdGhl
+cmUgYXJlIHNldmVyYWwgb3RoZXIgZHJpdmVycyB1c2VkIHRoZSBzYW1lIHRyaWNrLgo+Pj4+Pj4K
+Pj4+Pj4+Cj4+Pj4+PiBPbiB0aGUgb3RoZXIgaGFuZCwgSSB0aGluayB0aGUgbG9naWMgaXRzZWxm
+IG1pZ2h0IGJlIG9wdGltaXplZAo+Pj4+Pj4gY29uc2lkZXJpbmcKPj4+Pj4+IHRoZSBsb2NraW5n
+LiBCdXQgSSBoYWQgc3BlbnQgcXVpdGUgc29tZSBlZmZvcnQgdG8gbWFpbnRhaW4gb3JpZ2luYWwK
+Pj4+Pj4+IGxvZ2ljLgo+Pj4+PiBJdCBzZWVtcyBxdWl0ZSBjb21wbGljYXRlZCBhbmQgSSBkb24n
+dCBrbm93IGlmIHRoZXJlIGlzIGFueQo+Pj4+PiBwZXJmb3JtYW5jZSBiZW5lZml0LiBTcGlubG9j
+a3MgYXJlIG5pY2UgYmVjYXVzZSB0aGV5IGFsbG93IAo+Pj4+PiBwcmVlbXB0aW9uLgo+Pj4+Pgo+
+Pj4+PiBJdCB3b3VsZCBiZSBtb3JlIGludGVyZXN0aW5nIHRvIG1lcmdlIHRoZSBDUyBhbmQgQk9f
+TElTVCBpb2N0bHMgCj4+Pj4+IGludG8gb25lLgo+Pj4+Pgo+Pj4+PiBNYXJlawo+Pj4+Cj4KPiBf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZngg
+bWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKCgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
+dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
