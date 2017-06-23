@@ -1,7 +1,7 @@
 From: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 1/3] drm/amdgpu: fix a typo
-Date: Fri, 23 Jun 2017 17:01:07 +0800
-Message-ID: <594CD8D3.8010607@amd.com>
+Date: Fri, 23 Jun 2017 17:01:20 +0800
+Message-ID: <594CD8E0.3080702@amd.com>
 References: <1498099356-31332-1-git-send-email-AlexBin.Xie@amd.com>
  <5ff65f82-9d15-4606-7e25-e4f75c172aed@vodafone.de>
  <DM5PR12MB1257B1FCC981D29A6D4045CDF2DB0@DM5PR12MB1257.namprd12.prod.outlook.com>
