@@ -1,155 +1,66 @@
-From: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 1/2] drm/amdgpu: vm_update_ptes remove code duplication
-Date: Mon, 26 Jun 2017 15:53:43 +0000
-Message-ID: <DM3PR1201MB10384C81BF517A455EED08118CDF0@DM3PR1201MB1038.namprd12.prod.outlook.com>
-References: <1497044848-26192-1-git-send-email-Harish.Kasiviswanathan@amd.com>
- <CADnq5_M3BaNqHE4hXhadV8UC_Xx_7fSP9FaUVSYOrJ-2X=+g7A@mail.gmail.com>
- <cb3c33c5-5d29-5831-56a8-13eda5175bb1@vodafone.de>
- <34a399af-3e98-10bc-c189-249c306d1dbb@amd.com>
- <4383de75-d74c-08f1-ccd5-eab112b57a47@vodafone.de>
+From: Peter Rosin <peda@axentia.se>
+Subject: Re: [PATCH v2 00/14] improve the fb_setcmap helper
+Date: Mon, 26 Jun 2017 21:13:19 +0200
+Message-ID: <59515CCF.8060406@axentia.se>
+References: <1498111597-10714-1-git-send-email-peda@axentia.se> <20170626093526.7dezn6d74m5ktsok@phenom.ffwll.local>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <4383de75-d74c-08f1-ccd5-eab112b57a47-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "Kuehling,
- Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20170626093526.7dezn6d74m5ktsok@phenom.ffwll.local>
+Sender: linux-kernel-owner@vger.kernel.org
+To: linux-kernel@vger.kernel.org, nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org, amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel.vetter@intel.com>, Boris Brezillon <boris.brezillon@free-electrons.com>, Russell King <linux@armlinux.org.uk>, Ben Skeggs <bskeggs@redhat.com>, Dave Airlie <airlied@redhat.com>, intel-gfx@lists.freedesktop.org, Vincent Abriou <vincent.abriou@st.com>, Philippe Cornu <philippe.cornu@st.com>, Yannick Fertre <yannick.fertre@st.com>, Alex Deucher <alexander.deucher@amd.com>, =?windows-1252?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, Gerd Hoffmann <kraxel@redhat.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-U29ycnkgZm9yIHRoZSBkZWxheS4gSSBoYXZlIHJlYmFzZWQgYW5kIHB1c2hlZCBteSBjaGFuZ2Vz
-Lg0KDQpCZXN0IFJlZ2FyZHMsDQpIYXJpc2gNCg0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0t
-LQ0KRnJvbTogYW1kLWdmeCBbbWFpbHRvOmFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3Rv
-cC5vcmddIE9uIEJlaGFsZiBPZiBDaHJpc3RpYW4gS8O2bmlnDQpTZW50OiBNb25kYXksIEp1bmUg
-MjYsIDIwMTcgNTo1NSBBTQ0KVG86IEt1ZWhsaW5nLCBGZWxpeCA8RmVsaXguS3VlaGxpbmdAYW1k
-LmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBLYXNpdmlzd2FuYXRoYW4sIEhh
-cmlzaCA8SGFyaXNoLkthc2l2aXN3YW5hdGhhbkBhbWQuY29tPg0KU3ViamVjdDogUmU6IFtQQVRD
-SCAxLzJdIGRybS9hbWRncHU6IHZtX3VwZGF0ZV9wdGVzIHJlbW92ZSBjb2RlIGR1cGxpY2F0aW9u
-DQoNCkhpIEhhcmlzaCwNCg0KaGF2ZSB5b3UgY29tbWl0dGVkIHRoYXQgdG8gYW1kLXN0YWdpbmct
-NC4xMT8gSWYgbm90IGNhbiB5b3UgZG8gc28gdG9kYXk/DQoNCkknbSBzdGlsbCBnZXR0aW5nIGNv
-bXBpbGVyIHdhcm5pbmdzIGZyb20gdGhlIFZNIGNvZGUuDQoNClJlZ2FyZHMsDQpDaHJpc3RpYW4u
-DQoNCkFtIDIzLjA2LjIwMTcgdW0gMTk6NTQgc2NocmllYiBGZWxpeCBLdWVobGluZzoNCj4gU29y
-cnkgZm9yIHRoZSBkZWxheS4NCj4NCj4gVGhlIHNlcmllcyBpcyBSZXZpZXdlZC1ieTogRmVsaXgg
-S3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+Lg0KPg0KPiBSZWdhcmRzLA0KPiAgICBG
-ZWxpeA0KPg0KPiBPbiAxNy0wNi0xMyAwMjoyNCBQTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToN
-Cj4+IEFtIDEzLjA2LjIwMTcgdW0gMTk6MDcgc2NocmllYiBBbGV4IERldWNoZXI6DQo+Pj4gT24g
-RnJpLCBKdW4gOSwgMjAxNyBhdCA1OjQ3IFBNLCBIYXJpc2ggS2FzaXZpc3dhbmF0aGFuIA0KPj4+
-IDxIYXJpc2guS2FzaXZpc3dhbmF0aGFuQGFtZC5jb20+IHdyb3RlOg0KPj4+PiBTaWduZWQtb2Zm
-LWJ5OiBIYXJpc2ggS2FzaXZpc3dhbmF0aGFuIA0KPj4+PiA8SGFyaXNoLkthc2l2aXN3YW5hdGhh
-bkBhbWQuY29tPg0KPj4+IFNlcmllcyBpczoNCj4+PiBBY2tlZC1ieTogQWxleCBEZXVjaGVyIDxh
-bGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0KPj4gQWNrZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcg
-PGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4uDQo+Pg0KPj4+DQo+Pj4+IC0tLQ0KPj4+PiAgICBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyB8IDczDQo+Pj4+ICsrKysrKysr
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0NCj4+Pj4gICAgMSBmaWxlIGNoYW5nZWQsIDE2IGlu
-c2VydGlvbnMoKyksIDU3IGRlbGV0aW9ucygtKQ0KPj4+Pg0KPj4+PiBkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMNCj4+Pj4gYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0KPj4+PiBpbmRleCBjNGYxYTMwLi5jMzA4MDQ3IDEw
-MDY0NA0KPj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0K
-Pj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0KPj4+PiBA
-QCAtMTI2NCw1OSArMTI2NCw2IEBAIHN0YXRpYyBzdHJ1Y3QgYW1kZ3B1X2JvIA0KPj4+PiAqYW1k
-Z3B1X3ZtX2dldF9wdChzdHJ1Y3QgYW1kZ3B1X3B0ZV91cGRhdGVfcGFyYW1zICpwLA0KPj4+PiAg
-ICB9DQo+Pj4+DQo+Pj4+ICAgIC8qKg0KPj4+PiAtICogYW1kZ3B1X3ZtX3VwZGF0ZV9wdGVzX2Nw
-dSAtIFVwZGF0ZSB0aGUgcGFnZSB0YWJsZXMgaW4gdGhlIHJhbmdlDQo+Pj4+IC0gKiAgc3RhcnQg
-LSBAZW5kIHVzaW5nIENQVS4NCj4+Pj4gLSAqIFNlZSBhbWRncHVfdm1fdXBkYXRlX3B0ZXMgZm9y
-IHBhcmFtZXRlciBkZXNjcmlwdGlvbi4NCj4+Pj4gLSAqDQo+Pj4+IC0gKi8NCj4+Pj4gLXN0YXRp
-YyBpbnQgYW1kZ3B1X3ZtX3VwZGF0ZV9wdGVzX2NwdShzdHJ1Y3QgDQo+Pj4+IGFtZGdwdV9wdGVf
-dXBkYXRlX3BhcmFtcyAqcGFyYW1zLA0KPj4+PiAtICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgdWludDY0X3Qgc3RhcnQsIHVpbnQ2NF90IGVuZCwNCj4+Pj4gLSAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIHVpbnQ2NF90IGRzdCwgdWludDY0X3QgZmxhZ3MpDQo+
-Pj4+IC17DQo+Pj4+IC0gICAgICAgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBwYXJhbXMt
-PmFkZXY7DQo+Pj4+IC0gICAgICAgY29uc3QgdWludDY0X3QgbWFzayA9IEFNREdQVV9WTV9QVEVf
-Q09VTlQoYWRldikgLSAxOw0KPj4+PiAtICAgICAgIHZvaWQgKnBlX3B0cjsNCj4+Pj4gLSAgICAg
-ICB1aW50NjRfdCBhZGRyOw0KPj4+PiAtICAgICAgIHN0cnVjdCBhbWRncHVfYm8gKnB0Ow0KPj4+
-PiAtICAgICAgIHVuc2lnbmVkIGludCBucHRlczsNCj4+Pj4gLSAgICAgICBpbnQgcjsNCj4+Pj4g
-LQ0KPj4+PiAtICAgICAgIC8qIGluaXRpYWxpemUgdGhlIHZhcmlhYmxlcyAqLw0KPj4+PiAtICAg
-ICAgIGFkZHIgPSBzdGFydDsNCj4+Pj4gLQ0KPj4+PiAtICAgICAgIC8qIHdhbGsgb3ZlciB0aGUg
-YWRkcmVzcyBzcGFjZSBhbmQgdXBkYXRlIHRoZSBwYWdlIHRhYmxlcyAqLw0KPj4+PiAtICAgICAg
-IHdoaWxlIChhZGRyIDwgZW5kKSB7DQo+Pj4+IC0gICAgICAgICAgICAgICBwdCA9IGFtZGdwdV92
-bV9nZXRfcHQocGFyYW1zLCBhZGRyKTsNCj4+Pj4gLSAgICAgICAgICAgICAgIGlmICghcHQpIHsN
-Cj4+Pj4gLSAgICAgICAgICAgICAgICAgICAgICAgcHJfZXJyKCJQVCBub3QgZm91bmQsIGFib3J0
-aW5nIHVwZGF0ZV9wdGVzXG4iKTsNCj4+Pj4gLSAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJu
-IC1FSU5WQUw7DQo+Pj4+IC0gICAgICAgICAgICAgICB9DQo+Pj4+IC0NCj4+Pj4gLSAgICAgICAg
-ICAgICAgIFdBUk5fT04ocGFyYW1zLT5zaGFkb3cpOw0KPj4+PiAtDQo+Pj4+IC0gICAgICAgICAg
-ICAgICByID0gYW1kZ3B1X2JvX2ttYXAocHQsICZwZV9wdHIpOw0KPj4+PiAtICAgICAgICAgICAg
-ICAgaWYgKHIpDQo+Pj4+IC0gICAgICAgICAgICAgICAgICAgICAgIHJldHVybiByOw0KPj4+PiAt
-DQo+Pj4+IC0gICAgICAgICAgICAgICBwZV9wdHIgKz0gKGFkZHIgJiBtYXNrKSAqIDg7DQo+Pj4+
-IC0NCj4+Pj4gLSAgICAgICAgICAgICAgIGlmICgoYWRkciAmIH5tYXNrKSA9PSAoZW5kICYgfm1h
-c2spKQ0KPj4+PiAtICAgICAgICAgICAgICAgICAgICAgICBucHRlcyA9IGVuZCAtIGFkZHI7DQo+
-Pj4+IC0gICAgICAgICAgICAgICBlbHNlDQo+Pj4+IC0gICAgICAgICAgICAgICAgICAgICAgIG5w
-dGVzID0gQU1ER1BVX1ZNX1BURV9DT1VOVChhZGV2KSAtIChhZGRyICYNCj4+Pj4gbWFzayk7DQo+
-Pj4+IC0NCj4+Pj4gLSAgICAgICAgICAgICAgIHBhcmFtcy0+ZnVuYyhwYXJhbXMsICh1aW50NjRf
-dClwZV9wdHIsIGRzdCwgbnB0ZXMsDQo+Pj4+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAg
-QU1ER1BVX0dQVV9QQUdFX1NJWkUsIGZsYWdzKTsNCj4+Pj4gLQ0KPj4+PiAtICAgICAgICAgICAg
-ICAgYW1kZ3B1X2JvX2t1bm1hcChwdCk7DQo+Pj4+IC0gICAgICAgICAgICAgICBhZGRyICs9IG5w
-dGVzOw0KPj4+PiAtICAgICAgICAgICAgICAgZHN0ICs9IG5wdGVzICogQU1ER1BVX0dQVV9QQUdF
-X1NJWkU7DQo+Pj4+IC0gICAgICAgfQ0KPj4+PiAtDQo+Pj4+IC0gICAgICAgcmV0dXJuIDA7DQo+
-Pj4+IC19DQo+Pj4+IC0NCj4+Pj4gLS8qKg0KPj4+PiAgICAgKiBhbWRncHVfdm1fdXBkYXRlX3B0
-ZXMgLSBtYWtlIHN1cmUgdGhhdCBwYWdlIHRhYmxlcyBhcmUgdmFsaWQNCj4+Pj4gICAgICoNCj4+
-Pj4gICAgICogQHBhcmFtczogc2VlIGFtZGdwdV9wdGVfdXBkYXRlX3BhcmFtcyBkZWZpbml0aW9u
-IEBAIC0xMzM5LDEwIA0KPj4+PiArMTI4Niw5IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZtX3VwZGF0
-ZV9wdGVzKHN0cnVjdCANCj4+Pj4gYW1kZ3B1X3B0ZV91cGRhdGVfcGFyYW1zICpwYXJhbXMsDQo+
-Pj4+ICAgICAgICAgICB1aW50NjRfdCBhZGRyLCBwZV9zdGFydDsNCj4+Pj4gICAgICAgICAgIHN0
-cnVjdCBhbWRncHVfYm8gKnB0Ow0KPj4+PiAgICAgICAgICAgdW5zaWduZWQgbnB0ZXM7DQo+Pj4+
-ICsgICAgICAgaW50IHI7DQo+Pj4+ICsgICAgICAgYm9vbCB1c2VfY3B1X3VwZGF0ZSA9IChwYXJh
-bXMtPmZ1bmMgPT0gDQo+Pj4+ICsgYW1kZ3B1X3ZtX2NwdV9zZXRfcHRlcyk7DQo+Pj4+DQo+Pj4+
-IC0gICAgICAgaWYgKHBhcmFtcy0+ZnVuYyA9PSBhbWRncHVfdm1fY3B1X3NldF9wdGVzKQ0KPj4+
-PiAtICAgICAgICAgICAgICAgcmV0dXJuIGFtZGdwdV92bV91cGRhdGVfcHRlc19jcHUocGFyYW1z
-LCBzdGFydCwgZW5kLA0KPj4+PiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgZHN0LCBmbGFncyk7DQo+Pj4+DQo+Pj4+ICAgICAgICAgICAvKiB3YWxrIG92
-ZXIgdGhlIGFkZHJlc3Mgc3BhY2UgYW5kIHVwZGF0ZSB0aGUgcGFnZSB0YWJsZXMgKi8NCj4+Pj4g
-ICAgICAgICAgIGZvciAoYWRkciA9IHN0YXJ0OyBhZGRyIDwgZW5kOyBhZGRyICs9IG5wdGVzKSB7
-IEBAIA0KPj4+PiAtMTM1Myw2ICsxMjk5LDEwIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZtX3VwZGF0
-ZV9wdGVzKHN0cnVjdCANCj4+Pj4gYW1kZ3B1X3B0ZV91cGRhdGVfcGFyYW1zICpwYXJhbXMsDQo+
-Pj4+ICAgICAgICAgICAgICAgICAgIH0NCj4+Pj4NCj4+Pj4gICAgICAgICAgICAgICAgICAgaWYg
-KHBhcmFtcy0+c2hhZG93KSB7DQo+Pj4+ICsgICAgICAgICAgICAgICAgICAgICAgIGlmIChXQVJO
-X09OQ0UodXNlX2NwdV91cGRhdGUsDQo+Pj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIkNQVSBWTSB1cGRhdGUgZG9lc24ndCBzdXVwb3J0DQo+Pj4+IHNoYWRvdyBwYWdlcyIpKQ0K
-Pj4+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAwOw0KPj4+PiArDQo+
-Pj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgaWYgKCFwdC0+c2hhZG93KQ0KPj4+PiAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIDA7DQo+Pj4+ICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgcHQgPSBwdC0+c2hhZG93OyBAQCAtMTM2MywxMyArMTMxMywyMiBAQCAN
-Cj4+Pj4gc3RhdGljIGludCBhbWRncHVfdm1fdXBkYXRlX3B0ZXMoc3RydWN0IGFtZGdwdV9wdGVf
-dXBkYXRlX3BhcmFtcyANCj4+Pj4gKnBhcmFtcywNCj4+Pj4gICAgICAgICAgICAgICAgICAgZWxz
-ZQ0KPj4+PiAgICAgICAgICAgICAgICAgICAgICAgICAgIG5wdGVzID0gQU1ER1BVX1ZNX1BURV9D
-T1VOVChhZGV2KSAtIChhZGRyIA0KPj4+PiAmIG1hc2spOw0KPj4+Pg0KPj4+PiAtICAgICAgICAg
-ICAgICAgcGVfc3RhcnQgPSBhbWRncHVfYm9fZ3B1X29mZnNldChwdCk7DQo+Pj4+ICsgICAgICAg
-ICAgICAgICBpZiAodXNlX2NwdV91cGRhdGUpIHsNCj4+Pj4gKyAgICAgICAgICAgICAgICAgICAg
-ICAgciA9IGFtZGdwdV9ib19rbWFwKHB0LCAodm9pZCAqKSZwZV9zdGFydCk7DQo+Pj4+ICsgICAg
-ICAgICAgICAgICAgICAgICAgIGlmIChyKQ0KPj4+PiArICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHJldHVybiByOw0KPj4+PiArICAgICAgICAgICAgICAgfSBlbHNlDQo+Pj4+ICsgICAg
-ICAgICAgICAgICAgICAgICAgIHBlX3N0YXJ0ID0gYW1kZ3B1X2JvX2dwdV9vZmZzZXQocHQpOw0K
-Pj4+PiArDQo+Pj4+ICAgICAgICAgICAgICAgICAgIHBlX3N0YXJ0ICs9IChhZGRyICYgbWFzaykg
-KiA4Ow0KPj4+Pg0KPj4+PiAgICAgICAgICAgICAgICAgICBwYXJhbXMtPmZ1bmMocGFyYW1zLCBw
-ZV9zdGFydCwgZHN0LCBucHRlcywNCj4+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IEFNREdQVV9HUFVfUEFHRV9TSVpFLCBmbGFncyk7DQo+Pj4+DQo+Pj4+ICAgICAgICAgICAgICAg
-ICAgIGRzdCArPSBucHRlcyAqIEFNREdQVV9HUFVfUEFHRV9TSVpFOw0KPj4+PiArDQo+Pj4+ICsg
-ICAgICAgICAgICAgICBpZiAodXNlX2NwdV91cGRhdGUpDQo+Pj4+ICsgICAgICAgICAgICAgICAg
-ICAgICAgIGFtZGdwdV9ib19rdW5tYXAocHQpOw0KPj4+PiAgICAgICAgICAgfQ0KPj4+Pg0KPj4+
-PiAgICAgICAgICAgcmV0dXJuIDA7DQo+Pj4+IC0tDQo+Pj4+IDEuOS4xDQo+Pj4+DQo+Pj4+IF9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+Pj4+IGFtZC1n
-ZnggbWFpbGluZyBsaXN0DQo+Pj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+Pj4+
-IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0K
-Pj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+Pj4g
-YW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0K
-Pj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eA0KPj4NCj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-DQo+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcNCj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
-LWdmeA0KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0K
-PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0K
-PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngN
-Cg0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KYW1k
-LWdmeCBtYWlsaW5nIGxpc3QNCmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
-aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+On 2017-06-26 11:35, Daniel Vetter wrote:
+> On Thu, Jun 22, 2017 at 08:06:23AM +0200, Peter Rosin wrote:
+>> Hi!
+>>
+>> While trying to get CLUT support for the atmel_hlcdc driver, and
+>> specifically for the emulated fbdev interface, I received some
+>> push-back that my feeble in-driver attempts should be solved
+>> by the core. This is my attempt to do it right.
+>>
+>> I have obviously not tested all of this with more than a compile,
+>> but patches 1 and 3 are enough to make the atmel-hlcdc driver
+>> do what I need (when patched to support CLUT modes). The rest is
+>> just lots of removals and cleanup made possible by the improved
+>> core.
+>>
+>> Please test, I would not be surprised if I have fouled up some
+>> bit-manipulation somewhere in this mostly mechanical change...
+>>
+>> Changes since v1:
+>>
+>> - Rebased to next-20170621
+>> - Split 1/11 into a preparatory patch, a cleanup patch and then
+>>   the meat in 3/14.
+>> - Handle pseudo-palette for FB_VISUAL_TRUECOLOR.
+>> - Removed the empty .gamma_get/.gamma_set fb helpers from the
+>>   armada driver that I had somehow managed to ignore but which
+>>   0day found real quick.
+>> - Be less judgemental on drivers only providing .gamma_get and
+>>   .gamma_set, but no .load_lut. That's actually a valid thing
+>>   to do if you only need pseudo-palette for FB_VISUAL_TRUECOLOR.
+>> - Add a comment about colliding bitfields in the nouveau driver.
+>> - Remove gamma_set/gamma_get declarations from the radeon driver
+>>   (the definitions were removed in v1).
+> 
+> Ok some nits/questions on the first three, but in principle looks all ok I
+> think. The driver patches also look good (but I didn't yet carefully
+> review all the conversion). What we might want to do is entirely remove
+> driver's reliance on ->gamma_store (mostly amounts to in-lining the
+> load_lut functions) and only update ->gamma_store after gamma_set returned
+> successfully. But that's a bit more work.
+> 
+> Save/restoring it instead might be simpler to fix that bug, but since it's
+> pre-existing also ok as follow-up.
+
+I'm traveling and cannot make progress this week. The merge window is
+also real close so this series will therefore probably miss it unless
+something unexpected happens...
+
+I'll get back to this for the next cycle, just a heads up.
+
+Cheers,
+peda
