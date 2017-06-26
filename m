@@ -1,66 +1,63 @@
-From: Peter Rosin <peda@axentia.se>
-Subject: Re: [PATCH v2 00/14] improve the fb_setcmap helper
-Date: Mon, 26 Jun 2017 21:13:19 +0200
-Message-ID: <59515CCF.8060406@axentia.se>
-References: <1498111597-10714-1-git-send-email-peda@axentia.se> <20170626093526.7dezn6d74m5ktsok@phenom.ffwll.local>
+From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v2] drm/core: Fail atomic IOCTL with no CRTC state but
+ with signaling.
+Date: Mon, 26 Jun 2017 15:44:07 -0400
+Message-ID: <26571917-afb7-fb53-c002-5869cf8ccdf9@amd.com>
+References: <0d603149-3fb0-3d48-89e5-77e3f7686415@amd.com>
+ <1497981426-27203-1-git-send-email-Andrey.Grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=windows-1252
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20170626093526.7dezn6d74m5ktsok@phenom.ffwll.local>
-Sender: linux-kernel-owner@vger.kernel.org
-To: linux-kernel@vger.kernel.org, nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org, amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel.vetter@intel.com>, Boris Brezillon <boris.brezillon@free-electrons.com>, Russell King <linux@armlinux.org.uk>, Ben Skeggs <bskeggs@redhat.com>, Dave Airlie <airlied@redhat.com>, intel-gfx@lists.freedesktop.org, Vincent Abriou <vincent.abriou@st.com>, Philippe Cornu <philippe.cornu@st.com>, Yannick Fertre <yannick.fertre@st.com>, Alex Deucher <alexander.deucher@amd.com>, =?windows-1252?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, Gerd Hoffmann <kraxel@redhat.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1497981426-27203-1-git-send-email-Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, maarten.lankhorst-VuQAYsv1563Yd54FQh9/CA@public.gmane.org
+Cc: seanpaul-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org, daniel-/w4YWyX8dFk@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-On 2017-06-26 11:35, Daniel Vetter wrote:
-> On Thu, Jun 22, 2017 at 08:06:23AM +0200, Peter Rosin wrote:
->> Hi!
->>
->> While trying to get CLUT support for the atmel_hlcdc driver, and
->> specifically for the emulated fbdev interface, I received some
->> push-back that my feeble in-driver attempts should be solved
->> by the core. This is my attempt to do it right.
->>
->> I have obviously not tested all of this with more than a compile,
->> but patches 1 and 3 are enough to make the atmel-hlcdc driver
->> do what I need (when patched to support CLUT modes). The rest is
->> just lots of removals and cleanup made possible by the improved
->> core.
->>
->> Please test, I would not be surprised if I have fouled up some
->> bit-manipulation somewhere in this mostly mechanical change...
->>
->> Changes since v1:
->>
->> - Rebased to next-20170621
->> - Split 1/11 into a preparatory patch, a cleanup patch and then
->>   the meat in 3/14.
->> - Handle pseudo-palette for FB_VISUAL_TRUECOLOR.
->> - Removed the empty .gamma_get/.gamma_set fb helpers from the
->>   armada driver that I had somehow managed to ignore but which
->>   0day found real quick.
->> - Be less judgemental on drivers only providing .gamma_get and
->>   .gamma_set, but no .load_lut. That's actually a valid thing
->>   to do if you only need pseudo-palette for FB_VISUAL_TRUECOLOR.
->> - Add a comment about colliding bitfields in the nouveau driver.
->> - Remove gamma_set/gamma_get declarations from the radeon driver
->>   (the definitions were removed in v1).
-> 
-> Ok some nits/questions on the first three, but in principle looks all ok I
-> think. The driver patches also look good (but I didn't yet carefully
-> review all the conversion). What we might want to do is entirely remove
-> driver's reliance on ->gamma_store (mostly amounts to in-lining the
-> load_lut functions) and only update ->gamma_store after gamma_set returned
-> successfully. But that's a bit more work.
-> 
-> Save/restoring it instead might be simpler to fix that bug, but since it's
-> pre-existing also ok as follow-up.
-
-I'm traveling and cannot make progress this week. The merge window is
-also real close so this series will therefore probably miss it unless
-something unexpected happens...
-
-I'll get back to this for the next cycle, just a heads up.
-
-Cheers,
-peda
+T24gMjAxNy0wNi0yMCAwMTo1NyBQTSwgQW5kcmV5IEdyb2R6b3Zza3kgd3JvdGU6Cj4gUHJvYmxl
+bSA6IFdoaWxlIHJ1bm5pbmcgSUdUIGttc19hdG9taWNfdHJhbnNpdGlvbiB0ZXN0IHN1aXRlIGkg
+ZW5jb3VudGVyZWQKPiBhIGhhbmcgaW4gZHJtSGFuZGxlRXZlbnQgaW1tZWRpYXRlbHkgZm9sbG93
+aW5nICBhbiBhdG9taWNfY29tbWl0Lgo+IEFmdGVyIGR1bXBpbmcgdGhlIGF0b21pYyBzdGF0ZSBJ
+IHJlbGl6ZWQgdGhhdCBpbiB0aGlzIGNhc2UgdGhlcmUgd2FzCj4gbm90IGV2ZW4gb25lIENSVEMg
+YXR0YWNoZWQgdG8gdGhlIHN0YXRlIGFuZCBvbmx5IGRpc2FibGVkCj4gcGxhbmVzLiBUaGlzIHBy
+b2JhYmx5IGR1ZSB0byBhIGNvbW1pdCB3aGljaCBoYWRuJ3QgY2hhbmdlZCBhbnkgcHJvcGVydHkK
+PiB3aGljaCB3b3VsZCByZXF1aXJlIGF0dGFjaGluZyBjcnRjIHN0YXRlLiBUaGlzIG1lYW5zIGRy
+bUhhbmRsZUV2ZW50Cj4gd2lsbCBuZXZlciB3YWtlIHVwIGZyb20gcmVhZCBzaW5jZSB3aXRob3V0
+IENSVEMgaW4gYXRvbWljIHN0YXRlCj4gdGhlIGV2ZW50IGZkIHdpbGwgbm90IGJlIHNpZ25hbGVk
+Lgo+IAo+IEZpeDogUHJvdGVjdCBhZ2FpbnN0IHRoaXMgaXNzdWUgYnkgZmFpbGluZyBhdG9taWNf
+Y29tbWl0IGVhcmx5IGluCj4gZHJtX21vZGVfYXRvbWljX2NvbW1pdCB3aGVyZSBzdWNoIHByb2Jl
+bG0gY2FuIGJlIGlkZW50aWZpZWQuCj4gCj4gdjI6Cj4gRml4IHR5cG9zIGFuZCBleHRyYSBuZXds
+aW5lcy4KPiAKPiBDaGFuZ2UtSWQ6IEkzZWUyOGZmYWUzNWZkMWU4YmZlNTUzMTQ2YzQ0ZGE1M2Rh
+MDJlNmY4Cj4gU2lnbmVkLW9mZi1ieTogQW5kcmV5IEdyb2R6b3Zza3kgPEFuZHJleS5Hcm9kem92
+c2t5QGFtZC5jb20+CgpSZXZpZXdlZC1ieTogSGFycnkgV2VudGxhbmQgPGhhcnJ5LndlbnRsYW5k
+QGFtZC5jb20+CgpIYXJyeQoKPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2RybV9hdG9taWMuYyB8
+IDExICsrKysrKysrKystCj4gIDEgZmlsZSBjaGFuZ2VkLCAxMCBpbnNlcnRpb25zKCspLCAxIGRl
+bGV0aW9uKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fYXRvbWljLmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vZHJtX2F0b21pYy5jCj4gaW5kZXggYTU2NzMxMC4uNDgxNDViZiAx
+MDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2F0b21pYy5jCj4gKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2RybV9hdG9taWMuYwo+IEBAIC0xOTMzLDcgKzE5MzMsNyBAQCBzdGF0aWMgaW50
+IHByZXBhcmVfY3J0Y19zaWduYWxpbmcoc3RydWN0IGRybV9kZXZpY2UgKmRldiwKPiAgewo+ICAJ
+c3RydWN0IGRybV9jcnRjICpjcnRjOwo+ICAJc3RydWN0IGRybV9jcnRjX3N0YXRlICpjcnRjX3N0
+YXRlOwo+IC0JaW50IGksIHJldDsKPiArCWludCBpLCBjID0gMCwgcmV0Owo+ICAKPiAgCWlmIChh
+cmctPmZsYWdzICYgRFJNX01PREVfQVRPTUlDX1RFU1RfT05MWSkKPiAgCQlyZXR1cm4gMDsKPiBA
+QCAtMTk5NCw4ICsxOTk0LDE3IEBAIHN0YXRpYyBpbnQgcHJlcGFyZV9jcnRjX3NpZ25hbGluZyhz
+dHJ1Y3QgZHJtX2RldmljZSAqZGV2LAo+ICAKPiAgCQkJY3J0Y19zdGF0ZS0+ZXZlbnQtPmJhc2Uu
+ZmVuY2UgPSBmZW5jZTsKPiAgCQl9Cj4gKwo+ICsJCWMrKzsKPiAgCX0KPiAgCj4gKwkvKgo+ICsJ
+ICogSGF2aW5nIHRoaXMgZmxhZyBtZWFucyB1c2VyIG1vZGUgcGVuZHMgb24gZXZlbnQgd2hpY2gg
+d2lsbCBuZXZlcgo+ICsJICogcmVhY2ggZHVlIHRvIGxhY2sgb2YgYXQgbGVhc3Qgb25lIENSVEMg
+Zm9yIHNpZ25hbGluZwo+ICsJICovCj4gKwlpZiAoYyA9PSAwICYmIChhcmctPmZsYWdzICYgRFJN
+X01PREVfUEFHRV9GTElQX0VWRU5UKSkKPiArCQlyZXR1cm4gLUVJTlZBTDsKPiArCj4gIAlyZXR1
+cm4gMDsKPiAgfQo+ICAKPiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Cg==
