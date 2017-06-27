@@ -1,110 +1,601 @@
-From: Daniel Vetter <daniel@ffwll.ch>
-Subject: Re: [PATCH v2] drm/core: Fail atomic IOCTL with no CRTC state but
- with signaling.
-Date: Tue, 27 Jun 2017 17:01:08 +0200
-Message-ID: <20170627150108.dennwzqhmgbqmsbn@phenom.ffwll.local>
-References: <0d603149-3fb0-3d48-89e5-77e3f7686415@amd.com>
- <1497981426-27203-1-git-send-email-Andrey.Grodzovsky@amd.com>
- <26571917-afb7-fb53-c002-5869cf8ccdf9@amd.com>
- <20170627073740.wz5xix2ecmvh4rbn@phenom.ffwll.local>
- <2fa47671-6a2b-5a19-3072-e7f59b92cb4d@linux.intel.com>
+From: Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: Question about porting VCE1 to amdgpu
+Date: Tue, 27 Jun 2017 17:08:34 +0000
+Message-ID: <CAPEhTTER6Y0JrTNhSoWT2bwQjoAXbXs2Ae-cdvxykiGOocX7Tg@mail.gmail.com>
+References: <CAPEhTTGyy4jehNXhe93h=kB29ThOxctWzuaiwrfjkyDVu5wMww@mail.gmail.com>
+ <c3b779e6-3a65-770d-5ba5-40cd293ded3e@vodafone.de>
+ <BN6PR12MB165227C924CF7BC1E0D71D92F7C30@BN6PR12MB1652.namprd12.prod.outlook.com>
+ <CAPEhTTEUBR-wXeXetU=uzA42o_2KXJfCi0s8rr_AK_7ygA3RiA@mail.gmail.com>
+ <BN6PR12MB1652D5D3621EA149E668979FF7C30@BN6PR12MB1652.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-Content-Disposition: inline
-In-Reply-To: <2fa47671-6a2b-5a19-3072-e7f59b92cb4d@linux.intel.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0975373297=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <BN6PR12MB1652D5D3621EA149E668979FF7C30-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, Freedesktop - AMD-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gVHVlLCBKdW4gMjcsIDIwMTcgYXQgMDQ6Mjk6NDRQTSArMDIwMCwgTWFhcnRlbiBMYW5raG9y
-c3Qgd3JvdGU6Cj4gT3AgMjctMDYtMTcgb20gMDk6Mzcgc2NocmVlZiBEYW5pZWwgVmV0dGVyOgo+
-ID4gT24gTW9uLCBKdW4gMjYsIDIwMTcgYXQgMDM6NDQ6MDdQTSAtMDQwMCwgSGFycnkgV2VudGxh
-bmQgd3JvdGU6Cj4gPj4gT24gMjAxNy0wNi0yMCAwMTo1NyBQTSwgQW5kcmV5IEdyb2R6b3Zza3kg
-d3JvdGU6Cj4gPj4+IFByb2JsZW0gOiBXaGlsZSBydW5uaW5nIElHVCBrbXNfYXRvbWljX3RyYW5z
-aXRpb24gdGVzdCBzdWl0ZSBpIGVuY291bnRlcmVkCj4gPj4+IGEgaGFuZyBpbiBkcm1IYW5kbGVF
-dmVudCBpbW1lZGlhdGVseSBmb2xsb3dpbmcgIGFuIGF0b21pY19jb21taXQuCj4gPj4+IEFmdGVy
-IGR1bXBpbmcgdGhlIGF0b21pYyBzdGF0ZSBJIHJlbGl6ZWQgdGhhdCBpbiB0aGlzIGNhc2UgdGhl
-cmUgd2FzCj4gPj4+IG5vdCBldmVuIG9uZSBDUlRDIGF0dGFjaGVkIHRvIHRoZSBzdGF0ZSBhbmQg
-b25seSBkaXNhYmxlZAo+ID4+PiBwbGFuZXMuIFRoaXMgcHJvYmFibHkgZHVlIHRvIGEgY29tbWl0
-IHdoaWNoIGhhZG4ndCBjaGFuZ2VkIGFueSBwcm9wZXJ0eQo+ID4+PiB3aGljaCB3b3VsZCByZXF1
-aXJlIGF0dGFjaGluZyBjcnRjIHN0YXRlLiBUaGlzIG1lYW5zIGRybUhhbmRsZUV2ZW50Cj4gPj4+
-IHdpbGwgbmV2ZXIgd2FrZSB1cCBmcm9tIHJlYWQgc2luY2Ugd2l0aG91dCBDUlRDIGluIGF0b21p
-YyBzdGF0ZQo+ID4+PiB0aGUgZXZlbnQgZmQgd2lsbCBub3QgYmUgc2lnbmFsZWQuCj4gPj4+Cj4g
-Pj4+IEZpeDogUHJvdGVjdCBhZ2FpbnN0IHRoaXMgaXNzdWUgYnkgZmFpbGluZyBhdG9taWNfY29t
-bWl0IGVhcmx5IGluCj4gPj4+IGRybV9tb2RlX2F0b21pY19jb21taXQgd2hlcmUgc3VjaCBwcm9i
-ZWxtIGNhbiBiZSBpZGVudGlmaWVkLgo+ID4+Pgo+ID4+PiB2MjoKPiA+Pj4gRml4IHR5cG9zIGFu
-ZCBleHRyYSBuZXdsaW5lcy4KPiA+Pj4KPiA+Pj4gQ2hhbmdlLUlkOiBJM2VlMjhmZmFlMzVmZDFl
-OGJmZTU1MzE0NmM0NGRhNTNkYTAyZTZmOAo+ID4+PiBTaWduZWQtb2ZmLWJ5OiBBbmRyZXkgR3Jv
-ZHpvdnNreSA8QW5kcmV5Lkdyb2R6b3Zza3lAYW1kLmNvbT4KPiA+PiBSZXZpZXdlZC1ieTogSGFy
-cnkgV2VudGxhbmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5jb20+Cj4gPiBTdGFsbGluZyBvbiB0aGlz
-IGhvcGluZyBmb3IgdGhlIGlndCBwYXRjaC4gRG9lcyBpdCBleGlzdCBhbHJlYWR5Pwo+ID4gLURh
-bmllbAo+ID4KPiA+PiBIYXJyeQo+ID4+Cj4gPj4+IC0tLQo+ID4+PiAgZHJpdmVycy9ncHUvZHJt
-L2RybV9hdG9taWMuYyB8IDExICsrKysrKysrKystCj4gPj4+ICAxIGZpbGUgY2hhbmdlZCwgMTAg
-aW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQo+ID4+Pgo+ID4+PiBkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2RybV9hdG9taWMuYyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fYXRvbWljLmMK
-PiA+Pj4gaW5kZXggYTU2NzMxMC4uNDgxNDViZiAxMDA2NDQKPiA+Pj4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2RybV9hdG9taWMuYwo+ID4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2F0b21p
-Yy5jCj4gPj4+IEBAIC0xOTMzLDcgKzE5MzMsNyBAQCBzdGF0aWMgaW50IHByZXBhcmVfY3J0Y19z
-aWduYWxpbmcoc3RydWN0IGRybV9kZXZpY2UgKmRldiwKPiA+Pj4gIHsKPiA+Pj4gIAlzdHJ1Y3Qg
-ZHJtX2NydGMgKmNydGM7Cj4gPj4+ICAJc3RydWN0IGRybV9jcnRjX3N0YXRlICpjcnRjX3N0YXRl
-Owo+ID4+PiAtCWludCBpLCByZXQ7Cj4gPj4+ICsJaW50IGksIGMgPSAwLCByZXQ7Cj4gPj4+ICAK
-PiA+Pj4gIAlpZiAoYXJnLT5mbGFncyAmIERSTV9NT0RFX0FUT01JQ19URVNUX09OTFkpCj4gPj4+
-ICAJCXJldHVybiAwOwo+ID4+PiBAQCAtMTk5NCw4ICsxOTk0LDE3IEBAIHN0YXRpYyBpbnQgcHJl
-cGFyZV9jcnRjX3NpZ25hbGluZyhzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LAo+ID4+PiAgCj4gPj4+
-ICAJCQljcnRjX3N0YXRlLT5ldmVudC0+YmFzZS5mZW5jZSA9IGZlbmNlOwo+ID4+PiAgCQl9Cj4g
-Pj4+ICsKPiA+Pj4gKwkJYysrOwo+ID4+PiAgCX0KPiA+Pj4gIAo+ID4+PiArCS8qCj4gPj4+ICsJ
-ICogSGF2aW5nIHRoaXMgZmxhZyBtZWFucyB1c2VyIG1vZGUgcGVuZHMgb24gZXZlbnQgd2hpY2gg
-d2lsbCBuZXZlcgo+ID4+PiArCSAqIHJlYWNoIGR1ZSB0byBsYWNrIG9mIGF0IGxlYXN0IG9uZSBD
-UlRDIGZvciBzaWduYWxpbmcKPiA+Pj4gKwkgKi8KPiA+Pj4gKwlpZiAoYyA9PSAwICYmIChhcmct
-PmZsYWdzICYgRFJNX01PREVfUEFHRV9GTElQX0VWRU5UKSkKPiA+Pj4gKwkJcmV0dXJuIC1FSU5W
-QUw7Cj4gPj4+ICsKPiA+Pj4gIAlyZXR1cm4gMDsKPiA+Pj4gIH0KPiA+Pj4gIAo+ID4+Pgo+IEp1
-c3QgZG8gaXQsIGFuZCBJJ2xsIGNvbW1pdCB0aGlzIHRvIGlndD8KCkFjayBvbiBib3RoIHRoZSBr
-ZXJuZWwgcGF0Y2ggYW5kIHRoZSBpZ3QgcGF0Y2gsIGZlZWwgZnJlZSB0byBwdXNoIHRoZW0KYm90
-aCB3aXRoOgoKQWNrZWQtYnk6IERhbmllbCBWZXR0ZXIgPGRhbmllbC52ZXR0ZXJAZmZ3bGwuY2g+
-CgpJZiB5b3UgZG8sIHBsZWFzZSBhZGQgdGhlIFRlc3RjYXNlOiBsaW5lIHRvIHRoZSBrZXJuZWwg
-cGF0Y2guCgpUaGFua3MsIERhbmllbAoKPiAKPiBkaWZmIC0tZ2l0IGEvdGVzdHMva21zX2F0b21p
-Yy5jIGIvdGVzdHMva21zX2F0b21pYy5jCj4gaW5kZXggNjM3NWZlZGU3MTc5Li43NzQyOWIzZGIz
-ODQgMTAwNjQ0Cj4gLS0tIGEvdGVzdHMva21zX2F0b21pYy5jCj4gKysrIGIvdGVzdHMva21zX2F0
-b21pYy5jCj4gQEAgLTEyMDUsNiArMTIwNSwxNSBAQCBzdGF0aWMgdm9pZCBjcnRjX2ludmFsaWRf
-cGFyYW1zKHN0cnVjdCBrbXNfYXRvbWljX2NydGNfc3RhdGUgKmNydGNfb2xkLAo+ICAJY3J0Y19j
-b21taXRfYXRvbWljKCZjcnRjLCBwbGFuZSwgcmVxLCBBVE9NSUNfUkVMQVhfTk9ORSwKPiAgCQkJ
-ICAgRFJNX01PREVfQVRPTUlDX1RFU1RfT05MWSk7Cj4gIAo+ICsJLyoKPiArCSAqIFRFU1RfT05M
-WSBjYW5ub3QgYmUgY29tYmluZWQgd2l0aCBEUk1fTU9ERV9QQUdFX0ZMSVBfRVZFTlQsCj4gKwkg
-KiBidXQgRFJNX01PREVfUEFHRV9GTElQX0VWRU5UIHdpbGwgYWx3YXlzIGdlbmVyYXRlIEVJTlZB
-TAo+ICsJICogd2l0aG91dCB2YWxpZCBjcnRjLCBzbyB0ZXN0IGl0IGhlcmUuCj4gKwkgKi8KPiAr
-CWNydGNfY29tbWl0X2F0b21pY19lcnIoJmNydGMsIHBsYW5lLCByZXEsIEFUT01JQ19SRUxBWF9O
-T05FLAo+ICsJCQkgICAgICAgRFJNX01PREVfQVRPTUlDX1RFU1RfT05MWSB8IERSTV9NT0RFX1BB
-R0VfRkxJUF9FVkVOVCwKPiArCQkJICAgICAgIEVJTlZBTCk7Cj4gKwo+ICAJLyogQ3JlYXRlIGEg
-YmxvYiB3aGljaCBpcyB0aGUgd3Jvbmcgc2l6ZSB0byBiZSBhIHZhbGlkIG1vZGUuICovCj4gIAlk
-b19vcl9kaWUoZHJtTW9kZUNyZWF0ZVByb3BlcnR5QmxvYihjcnRjLnN0YXRlLT5kZXNjLT5mZCwK
-PiAgCQkJCQkgICAgY3J0Yy5tb2RlLmRhdGEsCj4gQEAgLTEzNTYsMTIgKzEzNjUsMTIgQEAgc3Rh
-dGljIHZvaWQgYXRvbWljX2ludmFsaWRfcGFyYW1zKHN0cnVjdCBrbXNfYXRvbWljX2NydGNfc3Rh
-dGUgKmNydGMsCj4gIAkvKiBWYWxpZCBwb2ludGVycywgYnV0IHN0aWxsIHNob3VsZCBjb3B5IG5v
-dGhpbmcuICovCj4gIAlkb19pb2N0bChkZXNjLT5mZCwgRFJNX0lPQ1RMX01PREVfQVRPTUlDLCAm
-aW9jKTsKPiAgCj4gLQkvKiBOb25zZW5zZSBmbGFncy4gKi8KPiAtCWlvYy5mbGFncyA9IDB4ZGVh
-ZGJlZWY7Cj4gKwkvKiBWYWxpZCBub29wLCBidXQgd2l0aCBldmVudCBzZXQgc2hvdWxkIGZhaWwu
-ICovCj4gKwlpb2MuZmxhZ3MgPSBEUk1fTU9ERV9QQUdFX0ZMSVBfRVZFTlQ7Cj4gIAlkb19pb2N0
-bF9lcnIoZGVzYy0+ZmQsIERSTV9JT0NUTF9NT0RFX0FUT01JQywgJmlvYywgRUlOVkFMKTsKPiAg
-Cj4gLQkvKiBTcGVjaWZpY2FsbHkgZm9yYmlkZGVuIGNvbWJpbmF0aW9uLiAqLwo+IC0JaW9jLmZs
-YWdzID0gRFJNX01PREVfQVRPTUlDX1RFU1RfT05MWSB8IERSTV9NT0RFX1BBR0VfRkxJUF9FVkVO
-VDsKPiArCS8qIE5vbnNlbnNlIGZsYWdzLiAqLwo+ICsJaW9jLmZsYWdzID0gMHhkZWFkYmVlZjsK
-PiAgCWRvX2lvY3RsX2VycihkZXNjLT5mZCwgRFJNX0lPQ1RMX01PREVfQVRPTUlDLCAmaW9jLCBF
-SU5WQUwpOwo+ICAKPiAgCWlvYy5mbGFncyA9IDA7Cj4gCj4gX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KPiBkcmktZGV2ZWwgbWFpbGluZyBsaXN0Cj4gZHJp
-LWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCgotLSAKRGFuaWVsIFZldHRlcgpTb2Z0d2Fy
-ZSBFbmdpbmVlciwgSW50ZWwgQ29ycG9yYXRpb24KaHR0cDovL2Jsb2cuZmZ3bGwuY2gKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxp
-bmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+--===============0975373297==
+Content-Type: multipart/alternative; boundary="001a114876d2cf2d400552f41e28"
+
+--001a114876d2cf2d400552f41e28
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Just a quick update: things a getting into shape slowly since my paternal
+vacancy is over, but I'm still progressing. I'm debugging things as I can.
+I managed to work around the missing header with the current firmware after
+analyzing what it contains and where it is used.
+
+I'm more interested than ever to have VCE and UVD ported to amdgpu, since
+we now have cards from the 300 series at work (one based on GCN 1, the
+other on GCN 2).
+
+By the way, the R7 360 (based on GCN 2, Bonaire Pro) fails to load the
+amdgpu driver because of an error in VCE 2 implementation.
+
+I'll keep you up to date.
+
+Alexandre
+
+On Wed, 14 Jun 2017 at 14:22 Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+wrote:
+
+>
+>
+> *From:* Alexandre Demers [mailto:alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org]
+> *Sent:* Wednesday, June 14, 2017 1:30 PM
+> *To:* Deucher, Alexander; Christian K=C3=B6nig; Freedesktop - AMD-gfx
+>
+>
+> *Subject:* Re: Question about porting VCE1 to amdgpu
+>
+> On Wed, 14 Jun 2017 at 13:09 Deucher, Alexander <Alexander.Deucher-urvtwAKJhsc@public.gmane.org=
+m>
+> wrote:
+>
+>
+>
+> *From:* amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] *On Behalf
+> Of *Christian K=C3=B6nig
+> *Sent:* Wednesday, June 14, 2017 12:37 PM
+> *To:* Alexandre Demers; Freedesktop - AMD-gfx
+> *Subject:* Re: Question about porting VCE1 to amdgpu
+>
+>
+>
+> - Would we need a different firmware version with a different "hdr" for
+> the amdgpu driver?
+>
+> Yes, we should probably release the latest one instead of reusing the one
+> used with radeon.
+>
+> Actually, we should probably stick the same one as radeon for now until w=
+e
+> can verify the new firmware in general.  Easier to start with a known
+> working case.
+>
+>
+>
+> OK. Then,  is it expected to have a validation failure with the current
+> firmware? Is the header compatible with how the validation is done under
+> VCE2 and others or should I keep how it was done under radeon?
+>
+> There is no header on the multi-media firmware from radeon, so you'd need
+> to add one.  The header is documented in amdgpu_ucode.h,  All you'd need =
+to
+> do is prepend the header to the existing firmware image.
+>
+>
+>
+> Alex
+>
+>
+>
+>
+>
+>
+> BTW: Does VCE work on CIK? Alex, don't we run into the same issue there a=
+s
+> well?
+>
+> VCE works on CIK.  We ported VCE and UVD to CIK as part of the initial
+> amdgpu bring up.
+>
+>
+>
+> I've been using VCE2 port as my template for VCE1. My initial intention
+> was to work on UVD, but I ended up plugging in VCE in the first place. UV=
+D
+> is on my todo list right next, I was expecting to working on it after
+> fixing the VCE part.
+>
+>
+>
+>
+>
+> Alex
+>
+>
+>
+> - Wouldn't it be better to continue loading the driver while having VCE
+> disabled IF we fail when loading or validating the FW? Completely failing
+> to load the driver for this reason seems overkill IMO, since nothing has
+> been loaded in memory and no registry have been modified up to that point=
+.
+>
+> UVD and VCE are actually needed for correct power management. When the
+> blocks fail to initialize you usually sooner or later run into problems
+> with power management (e.g. stuck inside a certain power level).
+>
+>
+>
+> OK, but right now it is disabled, so the situation wouldn't be worst isn'=
+t
+> it?
+>
+>
+>
+>
+>
+> - Would it be a good idea to send a patch as a RFC so some of you could
+> help me finish the job and maybe pinpoint where the last modifications ne=
+ed
+> to be done?
+>
+> Well you could, but to be honest without AMD releasing new firmware that
+> is most likely a futile effort.
+>
+>
+>
+> I'll send a patch then, and we'll navigate from there. This will allow me
+> to work on UVD in parallel.
+>
+>
+>
+> Alexandre Demers
+>
+>
+>
+>
+> Regards,
+> Christian.
+>
+> Am 14.06.2017 um 18:22 schrieb Alexandre Demers:
+>
+> Hi,
+>
+>
+>
+> I've been working on porting VCE1 from radeon to amdgpu in the last few
+> weeks. I'm pretty much done and I've enabled the functionality to see how
+> it goes. However, I ended up with an error on the firmware validation (si=
+ze
+> doesn't seem to fit), thus failing completely in loading the driver. I'm
+> testing on a R9 280X (Tahiti).
+>
+>
+>
+> Three questions then:
+>
+> - Would we need a different firmware version with a different "hdr" for
+> the amdgpu driver?
+>
+> - Wouldn't it be better to continue loading the driver while having VCE
+> disabled IF we fail when loading or validating the FW? Completely failing
+> to load the driver for this reason seems overkill IMO, since nothing has
+> been loaded in memory and no registry have been modified up to that point=
+.
+>
+> - Would it be a good idea to send a patch as a RFC so some of you could
+> help me finish the job and maybe pinpoint where the last modifications ne=
+ed
+> to be done?
+>
+>
+>
+> Thank you!
+>
+> Alexandre Demers
+>
+>
+>
+> _______________________________________________
+>
+> amd-gfx mailing list
+>
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+>
+>
+>
+
+--001a114876d2cf2d400552f41e28
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Just a quick update: things a getting into shape slowly si=
+nce my paternal vacancy is over, but I&#39;m still progressing. I&#39;m deb=
+ugging things as I can. I managed to work around the missing header with th=
+e current firmware after analyzing what it contains and where it is used.<d=
+iv><br></div><div>I&#39;m more interested than ever to have VCE and UVD por=
+ted to amdgpu, since we now have cards from the 300 series at work (one bas=
+ed on GCN 1, the other on GCN 2).</div><div><br></div><div>By the way, the =
+R7 360 (based on GCN 2, Bonaire Pro) fails to load the amdgpu driver becaus=
+e of an error in VCE 2 implementation.</div><div><br></div><div>I&#39;ll ke=
+ep you up to date.</div><div><br></div><div>Alexandre</div></div><br><div c=
+lass=3D"gmail_quote"><div dir=3D"ltr">On Wed, 14 Jun 2017 at 14:22 Deucher,=
+ Alexander &lt;<a href=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org">Alexander.Deuch=
+er-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=
+=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+
+
+
+
+
+<div lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"m_4865710171043609442WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d"><u></u>=C2=A0<u></u></spa=
+n></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #b5c4df 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
+;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span style=3D"font-s=
+ize:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> Alexandr=
+e Demers [mailto:<a href=3D"mailto:alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"=
+_blank">alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>]
+<br>
+<b>Sent:</b> Wednesday, June 14, 2017 1:30 PM<br>
+<b>To:</b> Deucher, Alexander; Christian K=C3=B6nig; Freedesktop - AMD-gfx<=
+/span></p></div></div></div></div></div><div lang=3D"EN-US" link=3D"blue" v=
+link=3D"purple"><div class=3D"m_4865710171043609442WordSection1"><div style=
+=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in 4.0pt"><di=
+v><div style=3D"border:none;border-top:solid #b5c4df 1.0pt;padding:3.0pt 0i=
+n 0in 0in"><p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-fami=
+ly:&quot;Tahoma&quot;,&quot;sans-serif&quot;"><br>
+<b>Subject:</b> Re: Question about porting VCE1 to amdgpu<u></u><u></u></sp=
+an></p></div></div></div></div></div><div lang=3D"EN-US" link=3D"blue" vlin=
+k=3D"purple"><div class=3D"m_4865710171043609442WordSection1"><div style=3D=
+"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in 4.0pt"><div><=
+div>
+<div>
+<p class=3D"MsoNormal">On Wed, 14 Jun 2017 at 13:09 Deucher, Alexander &lt;=
+<a href=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">Alexander.De=
+ucher-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<u></u><u></u></p>
+</div>
+<blockquote style=3D"border:none;border-left:solid #cccccc 1.0pt;padding:0i=
+n 0in 0in 6.0pt;margin-left:4.8pt;margin-right:0in">
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d">=C2=A0</span><u></u><u></=
+u></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #b5c4df 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
+;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span style=3D"font-s=
+ize:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> amd-gfx =
+[mailto:<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"=
+_blank">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>]
+<b>On Behalf Of </b>Christian K=C3=B6nig<br>
+<b>Sent:</b> Wednesday, June 14, 2017 12:37 PM<br>
+<b>To:</b> Alexandre Demers; Freedesktop - AMD-gfx<br>
+<b>Subject:</b> Re: Question about porting VCE1 to amdgpu</span><u></u><u><=
+/u></p>
+</div>
+</div>
+<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
+</div>
+</div>
+</div>
+<div>
+<div>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<p class=3D"MsoNormal">- Would we need a different firmware version with a =
+different &quot;hdr&quot; for the amdgpu driver?<u></u><u></u></p>
+</blockquote>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">Yes, we should probab=
+ly release the latest one instead of reusing the one used with radeon.<u></=
+u><u></u></p>
+</div>
+</div>
+</div>
+</div>
+<div>
+<div>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d">Actually, we should proba=
+bly stick the same one as radeon for now until we can verify the new firmwa=
+re
+ in general.=C2=A0 Easier to start with a known working case.</span><u></u>=
+<u></u></p>
+</div>
+</div>
+</div>
+</div>
+</blockquote>
+<div>
+<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
+</div>
+</div></div></div></div></div><div lang=3D"EN-US" link=3D"blue" vlink=3D"pu=
+rple"><div class=3D"m_4865710171043609442WordSection1"><div style=3D"border=
+:none;border-left:solid blue 1.5pt;padding:0in 0in 0in 4.0pt"><div><div><di=
+v>
+<p class=3D"MsoNormal">OK. Then, =C2=A0is it expected to have a validation =
+failure with the current firmware? Is the header compatible with how the va=
+lidation is done under VCE2 and others or should I keep how it was done und=
+er radeon?<u></u><u></u></p>
+</div></div></div></div></div></div><div lang=3D"EN-US" link=3D"blue" vlink=
+=3D"purple"><div class=3D"m_4865710171043609442WordSection1"><div style=3D"=
+border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in 4.0pt"><div><d=
+iv><div><p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:=
+&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1f497d">There is no heade=
+r on the multi-media firmware from radeon, so you&#39;d need to add one.=C2=
+=A0 The header is documented in amdgpu_ucode.h,=C2=A0 All you&#39;d need to=
+ do is
+ prepend the header to the existing firmware image.<u></u><u></u></span></p=
+>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d"><u></u>=C2=A0<u></u></spa=
+n></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d">Alex<u></u><u></u></span>=
+</p>
+</div></div></div></div></div></div><div lang=3D"EN-US" link=3D"blue" vlink=
+=3D"purple"><div class=3D"m_4865710171043609442WordSection1"><div style=3D"=
+border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in 4.0pt"><div><d=
+iv>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<blockquote style=3D"border:none;border-left:solid #cccccc 1.0pt;padding:0i=
+n 0in 0in 6.0pt;margin-left:4.8pt;margin-right:0in">
+<div>
+<div>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d">=C2=A0</span><u></u><u></=
+u></p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><br>
+BTW: Does VCE work on CIK? Alex, don&#39;t we run into the same issue there=
+ as well?<u></u><u></u></p>
+</div>
+</div>
+</div>
+</div>
+<div>
+<div>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d">VCE works on CIK.=C2=A0 W=
+e ported VCE and UVD to CIK as part of the initial amdgpu bring up.</span><=
+u></u><u></u></p>
+</div>
+</div>
+</div>
+</div>
+</blockquote>
+<div>
+<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">I&#39;ve been using VCE2 port as my template for VCE=
+1. My initial intention was to work on UVD, but I ended up plugging in VCE =
+in the first place. UVD is on my todo list right next, I was expecting to w=
+orking on it after fixing the VCE part.<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<blockquote style=3D"border:none;border-left:solid #cccccc 1.0pt;padding:0i=
+n 0in 0in 6.0pt;margin-left:4.8pt;margin-right:0in">
+<div>
+<div>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d">=C2=A0</span><u></u><u></=
+u></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1f497d">Alex</span><u></u><u></u>=
+</p>
+</div>
+</div>
+</div>
+</div>
+<div>
+<div>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><u></u>=C2=A0<u></u><=
+/p>
+<div>
+<p class=3D"MsoNormal">- Wouldn&#39;t it be better to continue loading the =
+driver while having VCE disabled IF we fail when loading or validating the =
+FW? Completely failing to load the driver for this reason
+ seems overkill IMO, since nothing has been loaded in memory and no registr=
+y have been modified up to that point.<u></u><u></u></p>
+</div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">UVD and VCE are actua=
+lly needed for correct power management. When the blocks fail to initialize=
+ you usually sooner or later run into problems with power management (e.g. =
+stuck inside
+ a certain power level).<u></u><u></u></p>
+</div>
+</div>
+</div>
+</div>
+</blockquote>
+<div>
+<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">OK, but right now it is disabled, so the situation w=
+ouldn&#39;t be worst isn&#39;t it?<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<blockquote style=3D"border:none;border-left:solid #cccccc 1.0pt;padding:0i=
+n 0in 0in 6.0pt;margin-left:4.8pt;margin-right:0in">
+<div>
+<div>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<div>
+<p class=3D"MsoNormal">- Would it be a good idea to send a patch as a RFC s=
+o some of you could help me finish the job and maybe pinpoint where the las=
+t modifications need to be done?<u></u><u></u></p>
+</div>
+<p class=3D"MsoNormal">Well you could, but to be honest without AMD releasi=
+ng new firmware that is most likely a futile effort.<u></u><u></u></p>
+</div>
+</div>
+</div>
+</div>
+</blockquote>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">I&#39;ll send a patch then, and we&#39;ll navigate f=
+rom there. This will allow me to work on UVD in parallel.<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Alexandre Demers<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
+</div>
+<blockquote style=3D"border:none;border-left:solid #cccccc 1.0pt;padding:0i=
+n 0in 0in 6.0pt;margin-left:4.8pt;margin-right:0in">
+<div>
+<div>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<p class=3D"MsoNormal"><br>
+Regards,<br>
+Christian.<br>
+<br>
+Am 14.06.2017 um 18:22 schrieb Alexandre Demers:<u></u><u></u></p>
+</div>
+</div>
+</div>
+</div>
+<div>
+<div>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<div>
+<p class=3D"MsoNormal">Hi,
+<u></u><u></u></p>
+<div>
+<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">I&#39;ve been working on porting VCE1 from radeon to=
+ amdgpu in the last few weeks. I&#39;m pretty much done and I&#39;ve enable=
+d the functionality to see how it goes. However, I ended up with
+ an error on the firmware validation (size doesn&#39;t seem to fit), thus f=
+ailing completely in loading the driver. I&#39;m testing on a R9 280X (Tahi=
+ti).<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Three questions then:<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">- Would we need a different firmware version with a =
+different &quot;hdr&quot; for the amdgpu driver?<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">- Wouldn&#39;t it be better to continue loading the =
+driver while having VCE disabled IF we fail when loading or validating the =
+FW? Completely failing to load the driver for this reason
+ seems overkill IMO, since nothing has been loaded in memory and no registr=
+y have been modified up to that point.<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">- Would it be a good idea to send a patch as a RFC s=
+o some of you could help me finish the job and maybe pinpoint where the las=
+t modifications need to be done?<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Thank you!<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Alexandre Demers<u></u><u></u></p>
+</div>
+</div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><br>
+<br>
+<u></u><u></u></p>
+<pre>_______________________________________________<u></u><u></u></pre>
+<pre>amd-gfx mailing list<u></u><u></u></pre>
+<pre><a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd=
+-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><u></u><u></u></pre>
+<pre><a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" tar=
+get=3D"_blank">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><u=
+></u><u></u></pre>
+</blockquote>
+<p>=C2=A0<u></u><u></u></p>
+</div>
+</div>
+</div>
+</blockquote>
+</div></div></div></div></div></blockquote></div>
+
+--001a114876d2cf2d400552f41e28--
+
+--===============0975373297==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0975373297==--
