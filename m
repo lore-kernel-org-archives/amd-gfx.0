@@ -1,82 +1,92 @@
-From: John Brooks <john-xq/Ko7C6e2Bl57MIdRCFDg@public.gmane.org>
-Subject: Re: [PATCH 3/5] drm/amdgpu: Track time of last page fault and last
- CS move in struct amdgpu_bo
-Date: Wed, 28 Jun 2017 22:59:20 +0000
-Message-ID: <20170628225920.GA11762@kitsune.fastquake.com>
-References: <1498617201-24557-1-git-send-email-john@fastquake.com>
- <1498617201-24557-4-git-send-email-john@fastquake.com>
- <e3d7be62-e63b-f370-f159-147aaf8d7c50@vodafone.de>
+From: "Gustavo A. R. Silva" <garsilva@embeddedor.com>
+Subject: Re: [gpu-drm-radeon] question about potential dead code in
+ vce_v2_0_enable_mgcg()
+Date: Wed, 28 Jun 2017 18:08:43 -0500
+Message-ID: <20170628180843.Horde.KKnryIaN7wki5B896j1w8Sa@gator4166.hostgator.com>
+References: <20170628092229.Horde.Hsk18WJyYojTJE5OKzhVd3d@gator4166.hostgator.com>
+ <BN6PR12MB1652D3DE81BA07C8634AF5D5F7DD0@BN6PR12MB1652.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=utf-8; format=flowed; DelSp=Yes
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <BN6PR12MB1652D3DE81BA07C8634AF5D5F7DD0@BN6PR12MB1652.namprd12.prod.outlook.com>
 Content-Disposition: inline
-In-Reply-To: <e3d7be62-e63b-f370-f159-147aaf8d7c50-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Cc: David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Michel =?iso-8859-1?Q?D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Marek =?utf-8?B?T2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: linux-kernel-owner@vger.kernel.org
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Cc: "Koenig, Christian" <Christian.Koenig@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gV2VkLCBKdW4gMjgsIDIwMTcgYXQgMDM6MDY6NDdQTSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5p
-ZyB3cm90ZToKPiBBbSAyOC4wNi4yMDE3IHVtIDA0OjMzIHNjaHJpZWIgSm9obiBCcm9va3M6Cj4g
-PlNpZ25lZC1vZmYtYnk6IEpvaG4gQnJvb2tzIDxqb2huQGZhc3RxdWFrZS5jb20+Cj4gPi0tLQo+
-ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAgICAgICB8IDMgKysrCj4g
-PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMgICAgIHwgNSArKysrKwo+
-ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYyB8IDIgKysKPiA+
-ICAzIGZpbGVzIGNoYW5nZWQsIDEwIGluc2VydGlvbnMoKykKPiA+Cj4gPmRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdS5oCj4gPmluZGV4IDczNjYxMTUuLjM0YzI5M2EgMTAwNjQ0Cj4gPi0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4gPisrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4gPkBAIC00MjgsNiArNDI4LDkgQEAgc3RydWN0IGFt
-ZGdwdV9ibyB7Cj4gPiAgCXZvaWQJCQkJKm1ldGFkYXRhOwo+ID4gIAl1MzIJCQkJbWV0YWRhdGFf
-c2l6ZTsKPiA+ICAJdW5zaWduZWQJCQlwcmltZV9zaGFyZWRfY291bnQ7Cj4gPisJdW5zaWduZWQg
-bG9uZwkJCWxhc3RfcGFnZV9mYXVsdF9qaWZmaWVzOwo+ID4rCXVuc2lnbmVkIGxvbmcJCQlsYXN0
-X2NzX21vdmVfamlmZmllczsKPiAKPiBQbGVhc2UgdXNlIGppZmZpZXM2NCBoZXJlLCBhcGFydCBm
-cm9tIHRoYXQgdGhlIHBhdGNoIGxvb2tzIGdvb2QgdG8gbWUuCj4gCj4gQ2hyaXN0aWFuLgo+IAoK
-SSdtIG5vdCBzdXJlIEkgdW5kZXJzdGFuZC4gRG8geW91IG1lYW4gY2hhbmdlIHRoZXNlIHZhcmlh
-YmxlcyB0byB1NjQgYW5kIHVzZQpnZXRfamlmZmllc182NCgpIGluc3RlYWQgb2YgdGhlIHBsYWlu
-IGppZmZpZXMgdmFyaWFibGUgYmVsb3c/IEkgYmVsaWV2ZQpqaWZmaWVzXzY0IGNhbiBiZSBzbG93
-ZXIgdGhhbiBqaWZmaWVzIGFsc28uCgpKb2huCgo+ID4rCj4gPiAgCS8qIGxpc3Qgb2YgYWxsIHZp
-cnR1YWwgYWRkcmVzcyB0byB3aGljaCB0aGlzIGJvCj4gPiAgCSAqIGlzIGFzc29jaWF0ZWQgdG8K
-PiA+ICAJICovCj4gPmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfY3MuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCj4gPmluZGV4
-IDFkZmE4NDcuLjA3MWI1OTIgMTAwNjQ0Cj4gPi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9jcy5jCj4gPisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9jcy5jCj4gPkBAIC0zMzUsNiArMzM1LDcgQEAgc3RhdGljIGludCBhbWRncHVfY3NfYm9fdmFs
-aWRhdGUoc3RydWN0IGFtZGdwdV9jc19wYXJzZXIgKnAsCj4gPiAgCXN0cnVjdCBhbWRncHVfZGV2
-aWNlICphZGV2ID0gYW1kZ3B1X3R0bV9hZGV2KGJvLT50Ym8uYmRldik7Cj4gPiAgCXU2NCBpbml0
-aWFsX2J5dGVzX21vdmVkLCBieXRlc19tb3ZlZDsKPiA+ICAJdWludDMyX3QgZG9tYWluOwo+ID4r
-CXVpbnQzMl90IG9sZF9tZW07Cj4gPiAgCWludCByOwo+ID4gIAlpZiAoYm8tPnBpbl9jb3VudCkK
-PiA+QEAgLTM2NCw2ICszNjUsNyBAQCBzdGF0aWMgaW50IGFtZGdwdV9jc19ib192YWxpZGF0ZShz
-dHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcCwKPiA+ICByZXRyeToKPiA+ICAJYW1kZ3B1X3R0bV9w
-bGFjZW1lbnRfZnJvbV9kb21haW4oYm8sIGRvbWFpbik7Cj4gPiAgCWluaXRpYWxfYnl0ZXNfbW92
-ZWQgPSBhdG9taWM2NF9yZWFkKCZhZGV2LT5udW1fYnl0ZXNfbW92ZWQpOwo+ID4rCW9sZF9tZW0g
-PSBiby0+dGJvLm1lbS5tZW1fdHlwZTsKPiA+ICAJciA9IHR0bV9ib192YWxpZGF0ZSgmYm8tPnRi
-bywgJmJvLT5wbGFjZW1lbnQsIHRydWUsIGZhbHNlKTsKPiA+ICAJYnl0ZXNfbW92ZWQgPSBhdG9t
-aWM2NF9yZWFkKCZhZGV2LT5udW1fYnl0ZXNfbW92ZWQpIC0KPiA+ICAJCSAgICAgIGluaXRpYWxf
-Ynl0ZXNfbW92ZWQ7Cj4gPkBAIC0zNzcsNiArMzc5LDkgQEAgc3RhdGljIGludCBhbWRncHVfY3Nf
-Ym9fdmFsaWRhdGUoc3RydWN0IGFtZGdwdV9jc19wYXJzZXIgKnAsCj4gPiAgCQlnb3RvIHJldHJ5
-Owo+ID4gIAl9Cj4gPisJaWYgKGJvLT50Ym8ubWVtLm1lbV90eXBlICE9IG9sZF9tZW0pCj4gPisJ
-CWJvLT5sYXN0X2NzX21vdmVfamlmZmllcyA9IGppZmZpZXM7Cj4gPisKPiA+ICAJcmV0dXJuIHI7
-Cj4gPiAgfQo+ID5kaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X29iamVjdC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCj4g
-PmluZGV4IGRjZjFkZGIuLmI3MTc3NWMgMTAwNjQ0Cj4gPi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYwo+ID4rKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfb2JqZWN0LmMKPiA+QEAgLTk1Myw2ICs5NTMsOCBAQCBpbnQgYW1kZ3B1X2Jv
-X2ZhdWx0X3Jlc2VydmVfbm90aWZ5KHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAqYm8pCj4gPiAg
-CWlmIChiby0+bWVtLm1lbV90eXBlICE9IFRUTV9QTF9WUkFNKQo+ID4gIAkJcmV0dXJuIDA7Cj4g
-PisJYWJvLT5sYXN0X3BhZ2VfZmF1bHRfamlmZmllcyA9IGppZmZpZXM7Cj4gPisKPiA+ICAJc2l6
-ZSA9IGJvLT5tZW0ubnVtX3BhZ2VzIDw8IFBBR0VfU0hJRlQ7Cj4gPiAgCW9mZnNldCA9IGJvLT5t
-ZW0uc3RhcnQgPDwgUEFHRV9TSElGVDsKPiA+ICAJLyogVE9ETzogZmlndXJlIG91dCBob3cgdG8g
-bWFwIHNjYXR0ZXJlZCBWUkFNIHRvIHRoZSBDUFUgKi8KPiAKPiAKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Hi Alex,
+
+Quoting "Deucher, Alexander" <Alexander.Deucher@amd.com>:
+
+>> -----Original Message-----
+>> From: Gustavo A. R. Silva [mailto:garsilva@embeddedor.com]
+>> Sent: Wednesday, June 28, 2017 10:22 AM
+>> To: Deucher, Alexander; Koenig, Christian; David Airlie
+>> Cc: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-
+>> kernel@vger.kernel.org
+>> Subject: [gpu-drm-radeon] question about potential dead code in
+>> vce_v2_0_enable_mgcg()
+>>
+>>
+>> Hello everybody,
+>>
+>> While looking into Coverity ID 1198635 I ran into the following piece
+>> of code at drivers/gpu/drm/radeon/vce_v2_0.c:107:
+>>
+>> 107void vce_v2_0_enable_mgcg(struct radeon_device *rdev, bool enable)
+>> 108{
+>> 109        bool sw_cg = false;
+>> 110
+>> 111        if (enable && (rdev->cg_flags &
+>> RADEON_CG_SUPPORT_VCE_MGCG)) {
+>> 112                if (sw_cg)
+>> 113                        vce_v2_0_set_sw_cg(rdev, true);
+>> 114                else
+>> 115                        vce_v2_0_set_dyn_cg(rdev, true);
+>> 116        } else {
+>> 117                vce_v2_0_disable_cg(rdev);
+>> 118
+>> 119                if (sw_cg)
+>> 120                        vce_v2_0_set_sw_cg(rdev, false);
+>> 121                else
+>> 122                        vce_v2_0_set_dyn_cg(rdev, false);
+>> 123        }
+>> 124}
+>>
+>> The issue here is that local variable sw_cg is never updated again
+>> after its initialization; which cause some code to be logically dead.
+>>
+>> My question here is if such variable is there for testing purposes or
+>> if it is a sort of an old code leftover that should be removed?
+>>
+>> In any case I can send a patch to add a comment or remove the dead code.
+>>
+>> I'd really appreciate any comments on this.
+>
+> I wanted to leave the code in for debugging if we ran into problems  
+> with dynamic clockgating.
+>
+
+Do you mind if I send a patch to add such comment and make it clear  
+the purpose of that variable?
+
+--- a/drivers/gpu/drm/radeon/vce_v2_0.c
++++ b/drivers/gpu/drm/radeon/vce_v2_0.c
+@@ -104,6 +104,10 @@ static void vce_v2_0_disable_cg(struct  
+radeon_device *rdev)
+         WREG32(VCE_CGTT_CLK_OVERRIDE, 7);
+  }
+
++/*
++ * Local variable sw_cg is used for debugging purposes, in case we
++ * ran into problems with dynamic clock gating. Don't remove it.
++ */
+  void vce_v2_0_enable_mgcg(struct radeon_device *rdev, bool enable)
+  {
+         bool sw_cg = false;
+
+
+Thanks for clarifying!
+--
+Gustavo A. R. Silva
