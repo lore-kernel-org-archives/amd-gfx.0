@@ -1,18 +1,11 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH 4/5] drm/amdgpu: Set/clear CPU_ACCESS_REQUIRED flag on
- page fault and CS
-Date: Thu, 29 Jun 2017 11:35:53 +0900
-Message-ID: <00740205-3637-f2d6-7ac7-b1e8b1a8fe81@daenzer.net>
-References: <1498617201-24557-1-git-send-email-john@fastquake.com>
- <1498617201-24557-5-git-send-email-john@fastquake.com>
- <0f17b453-3863-dadb-2385-e91d92eb7f35@vodafone.de>
- <20170628232639.GB11762@kitsune.fastquake.com>
+From: Kent Russell <kent.russell-5C7GfCeVMHo@public.gmane.org>
+Subject: drm/amdgpu: Fix vram_page_split parameter description
+Date: Wed, 28 Jun 2017 15:26:18 -0400
+Message-ID: <87d2a1a1-58ce-bc93-353a-2711ca8d93f4@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="------------CAA9F6043EAA2E81B111FFAA"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170628232639.GB11762-6hIufAJW0g7Gr8qjsLp7YGXnswh1EIUO@public.gmane.org>
-Content-Language: en-CA
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,57 +16,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: John Brooks <john-xq/Ko7C6e2Bl57MIdRCFDg@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Cc: David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gMjkvMDYvMTcgMDg6MjYgQU0sIEpvaG4gQnJvb2tzIHdyb3RlOgo+IE9uIFdlZCwgSnVuIDI4
-LCAyMDE3IGF0IDAzOjA1OjMyUE0gKzAyMDAsIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+IEFt
-IDI4LjA2LjIwMTcgdW0gMDQ6MzMgc2NocmllYiBKb2huIEJyb29rczoKPj4+IFdoZW4gdGhlIEFN
-REdQVV9HRU1fQ1JFQVRFX0NQVV9BQ0NFU1NfUkVRVUlSRUQgZmxhZyBpcyBnaXZlbiBieSB1c2Vy
-c3BhY2UsCj4+PiBpdCBzaG91bGQgb25seSBiZSB0cmVhdGVkIGFzIGEgaGludCB0byBpbml0aWFs
-bHkgcGxhY2UgYSBCTyBzb21ld2hlcmUgQ1BVCj4+PiBhY2Nlc3NpYmxlLCByYXRoZXIgdGhhbiBo
-YXZpbmcgYSBwZXJtYW5lbnQgZWZmZWN0IG9uIEJPIHBsYWNlbWVudC4KPj4+Cj4+PiBJbnN0ZWFk
-IG9mIHRoZSBmbGFnIGJlaW5nIHNldCBpbiBzdG9uZSBhdCBCTyBjcmVhdGlvbiwgc2V0IHRoZSBm
-bGFnIHdoZW4gYQo+Pj4gcGFnZSBmYXVsdCBvY2N1cnMgc28gdGhhdCBpdCBnb2VzIHNvbWV3aGVy
-ZSBDUFUtdmlzaWJsZSwgYW5kIGNsZWFyIGl0IHdoZW4KPj4+IHRoZSBCTyBpcyByZXF1ZXN0ZWQg
-YnkgdGhlIEdQVS4KPj4+Cj4+PiBIb3dldmVyLCBjbGVhcmluZyB0aGUgQ1BVX0FDQ0VTU19SRVFV
-SVJFRCBmbGFnIG1heSBtb3ZlIEJPcyBpbiBHVFQgdG8KPj4+IGludmlzaWJsZSBWUkFNLCB3aGVy
-ZSB0aGV5IG1heSBwcm9tcHRseSBnZW5lcmF0ZSBhbm90aGVyIHBhZ2UgZmF1bHQuIFdoZW4KPj4+
-IEJPcyBhcmUgY29uc3RhbnRseSBtb3ZlZCBiYWNrIGFuZCBmb3J0aCBsaWtlIHRoaXMsIGl0IGlz
-IGhpZ2hseSBkZXRyaW1lbnRhbAo+Pj4gdG8gcGVyZm9ybWFuY2UuIE9ubHkgY2xlYXIgdGhlIGZs
-YWcgb24gQ1MgaWY6Cj4+Pgo+Pj4gLSBUaGUgQk8gd2Fzbid0IHBhZ2UgZmF1bHRlZCBmb3IgYSBj
-ZXJ0YWluIGFtb3VudCBvZiB0aW1lIChjdXJyZW50bHkgMTAKPj4+ICAgc2Vjb25kcyksIGFuZAo+
-Pj4gLSBpdHMgbGFzdCBwYWdlIGZhdWx0IGRpZG4ndCBvY2N1ciB0b28gc29vbiAoY3VycmVudGx5
-IDUwMG1zKSBhZnRlciBpdHMKPj4+ICAgbGFzdCBDUyByZXF1ZXN0LCBvciB2aWNlIHZlcnNhLgo+
-Pj4KPj4+IFNldHRpbmcgdGhlIGZsYWcgaW4gYW1kZ3B1X2ZhdWx0X3Jlc2VydmVfbm90aWZ5KCkg
-YWxzbyBtZWFucyB0aGF0IHdlIGNhbgo+Pj4gcmVtb3ZlIHRoZSBsb29wIHRvIHJlc3RyaWN0IGxw
-Zm4gdG8gdGhlIGVuZCBvZiB2aXNpYmxlIFZSQU0sIGJlY2F1c2UKPj4+IGFtZGdwdV90dG1fcGxh
-Y2VtZW50X2luaXQoKSB3aWxsIGRvIGl0IGZvciB1cy4KPj4KPj4gSSdtIGZpbmUgd2l0aCB0aGUg
-Z2VuZXJhbCBhcHByb2FjaCwgYnV0IEknbSBzdGlsbCBhYnNvbHV0ZWx5IG5vdCBrZWVuIGFib3V0
-Cj4+IGNsZWFyaW5nIHRoZSBmbGFnIHdoZW4gdXNlcnNwYWNlIGhhcyBvcmlnaW5hbGx5IHNwZWNp
-ZmllZCBpdC4KCklzIHRoZXJlIGFueSBzcGVjaWZpYyBjb25jZXJuIHlvdSBoYXZlIGFib3V0IHRo
-YXQ/CgoKPj4gUGxlYXNlIGFkZCBhIG5ldyBmbGFnIHNvbWV0aGluZyBsaWtlIEFNREdQVV9HRU1f
-Q1JFQVRFX0NQVV9BQ0NFU1NfSElOVCBvcgo+PiBzb21ldGhpbmcgbGlrZSB0aGlzLgo+IAo+IElz
-IGl0IHRoZSBmYWN0IHRoYXQgd2UgY2xlYXIgYSBmbGFnIHRoYXQgdXNlcnNwYWNlIGV4cGVjdHMg
-bm90IHRvIGhhdmUgY2hhbmdlZAo+IGlmIGl0IHF1ZXJpZXMgaXQgbGF0ZXI/IEkgdGhpbmsgdGhh
-dCdzIHRoZSBvbmx5IGVmZmVjdCBvZiB0aGlzIHRoYXQncyBkaXJlY3RseQo+IHZpc2libGUgdG8g
-dXNlcnNwYWNlIGNvZGUuCgpJIGRvbid0IHNlZSBhbnkgd2F5IGZvciB1c2Vyc3BhY2UgdG8gcXVl
-cnkgdGhhdC4KCgo+IEFzIGZvciBhIG5ldyAiaGludCIgZmxhZywgSSBhc3N1bWUgdGhpcyBuZXcg
-ZmxhZyB3b3VsZCBiZSBhbiBhbHRlcm5hdGl2ZSB0byB0aGUKPiBleGlzdGluZyBDUFVfQUNDRVNT
-X1JFUVVJUkVEIGZsYWcsIGFuZCB3ZSdkIGNoYW5nZSBNZXNhIGV0IGFsIHRvIHVzZSBpdCBpbgo+
-IHNpdHVhdGlvbnMgd2hlcmUgdGhlIGtlcm5lbCAqc2hvdWxkKiBwbGFjZSBhIEJPIHNvbWV3aGVy
-ZSBDUFUtYWNjZXNzaWJsZSwgYnV0Cj4gaXMgcGVybWl0dGVkIHRvIG1vdmUgaXQgZWxzZXdoZXJl
-LiBJcyB0aGF0IGNvcnJlY3Q/CgpUaGF0IHNlZW1zIHNpbGx5LiBUaGUgdXNlcnNwYWNlIGZsYWcg
-Y291bGQgbmV2ZXIgYmUgbW9yZSB0aGFuIGEgaGludC4KVW5mb3J0dW5hdGVseSB3ZSBuYW1lZCBp
-dCB0byBzdWdnZXN0IGRpZmZlcmVudGx5LCBidXQgd2UgaGF2ZSB0byBsaXZlCndpdGggdGhhdC4K
-CklmIHdlIGRvIG5lZWQgYSBuZXcgaGludCBmbGFnIGludGVybmFsbHkgaW4gdGhlIGRyaXZlciwg
-d2Ugc2hvdWxkIHNpbXBseQp0cmFuc2xhdGUgQU1ER1BVX0dFTV9DUkVBVEVfQ1BVX0FDQ0VTU19S
-RVFVSVJFRCB0byB0aGUgbmV3IGZsYWcgaW4KYW1kZ3B1X2dlbV9jcmVhdGVfaW9jdGwsIGFuZCBu
-b3QgZXhwb3NlIHRoZSBuZXcgZmxhZyB0byB1c2Vyc3BhY2UuCgoKQnV0IG90aGVyIHRoYW4gdGhl
-IHF1ZXN0aW9uIGluIG15IGZvbGxvd3VwIHRvIHRoZSBjb3ZlciBsZXR0ZXIsIHRoaXMKcGF0Y2gg
-bG9va3MgZ29vZCB0byBtZSBhcyBpcy4KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAg
-ICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpMaWJyZSBzb2Z0
-d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZl
-bG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
-LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
-aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+This is a multi-part message in MIME format.
+--------------CAA9F6043EAA2E81B111FFAA
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+The default was changed to 512 from 1024, but the default in the
+description wasn't updated.
+
+  Kent
+
+
+--------------CAA9F6043EAA2E81B111FFAA
+Content-Type: text/x-patch;
+ name="vramdesc.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename="vramdesc.patch"
+
+>From 756f38576c08dc4aa36a958cc6f3d2784b20a377 Mon Sep 17 00:00:00 2001
+From: Kent Russell <kent.russell-5C7GfCeVMHo@public.gmane.org>
+Date: Wed, 28 Jun 2017 15:16:41 -0400
+Subject: [PATCH] drm/amdgpu: Update default vram_page_split description
+
+This was updated to 512 and the description update got missed
+
+Signed-off-by: Kent Russell <kent.russell-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 347097b..b332e2a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -184,7 +184,7 @@ module_param_named(vm_debug, amdgpu_vm_debug, int, 0644);
+ MODULE_PARM_DESC(vm_update_mode, "VM update using CPU (0 = never (default except for large BAR(LB)), 1 = Graphics only, 2 = Compute only (default for LB), 3 = Both");
+ module_param_named(vm_update_mode, amdgpu_vm_update_mode, int, 0444);
+ 
+-MODULE_PARM_DESC(vram_page_split, "Number of pages after we split VRAM allocations (default 1024, -1 = disable)");
++MODULE_PARM_DESC(vram_page_split, "Number of pages after we split VRAM allocations (default 512, -1 = disable)");
+ module_param_named(vram_page_split, amdgpu_vram_page_split, int, 0444);
+ 
+ MODULE_PARM_DESC(exp_hw_support, "experimental hw support (1 = enable, 0 = disable (default))");
+-- 
+2.7.4
+
+
+--------------CAA9F6043EAA2E81B111FFAA
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--------------CAA9F6043EAA2E81B111FFAA--
