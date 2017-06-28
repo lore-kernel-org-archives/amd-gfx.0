@@ -1,59 +1,97 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [gpu-drm-radeon] question about potential dead code in
- vce_v2_0_enable_mgcg()
-Date: Wed, 28 Jun 2017 15:40:49 +0000
-Message-ID: <BN6PR12MB1652D3DE81BA07C8634AF5D5F7DD0@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <20170628092229.Horde.Hsk18WJyYojTJE5OKzhVd3d@gator4166.hostgator.com>
+From: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH 1/8] drm/amd/amdgpu: Added asic_type as ACP DMA driver
+ platform data
+Date: Wed, 28 Jun 2017 18:54:06 +0100
+Message-ID: <20170628175406.5yykiv33xdcs6qnr@sirena.org.uk>
+References: <1498235706-31111-1-git-send-email-alexander.deucher@amd.com>
+ <1498235706-31111-2-git-send-email-alexander.deucher@amd.com>
+ <fb879fdd-b241-7368-9c33-7a78dafa491d@vodafone.de>
+ <CADnq5_MT+h6nOmXfVi42tH9G917wTRguBdMC02zmgRuH2dD-iA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170628092229.Horde.Hsk18WJyYojTJE5OKzhVd3d-fU+oOHjIBR1LoJgMfuPDHBfZZeVsHd8q@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "'Gustavo A. R. Silva'" <garsilva-L1vi/lXTdts+Va1GwOuvDg@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>
-Cc: "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
+Content-Type: multipart/mixed; boundary="===============1643700902=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <CADnq5_MT+h6nOmXfVi42tH9G917wTRguBdMC02zmgRuH2dD-iA@mail.gmail.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, Liam Girdwood <lgirdwood@gmail.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, rajeev kumar <rajeevkumar.linux@gmail.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Alex Deucher <alexander.deucher@amd.com>, perex@perex.cz
+List-Id: amd-gfx.lists.freedesktop.org
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBHdXN0YXZvIEEuIFIuIFNpbHZh
-IFttYWlsdG86Z2Fyc2lsdmFAZW1iZWRkZWRvci5jb21dDQo+IFNlbnQ6IFdlZG5lc2RheSwgSnVu
-ZSAyOCwgMjAxNyAxMDoyMiBBTQ0KPiBUbzogRGV1Y2hlciwgQWxleGFuZGVyOyBLb2VuaWcsIENo
-cmlzdGlhbjsgRGF2aWQgQWlybGllDQo+IENjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZzsgZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgbGludXgtDQo+IGtlcm5lbEB2Z2Vy
-Lmtlcm5lbC5vcmcNCj4gU3ViamVjdDogW2dwdS1kcm0tcmFkZW9uXSBxdWVzdGlvbiBhYm91dCBw
-b3RlbnRpYWwgZGVhZCBjb2RlIGluDQo+IHZjZV92Ml8wX2VuYWJsZV9tZ2NnKCkNCj4gDQo+IA0K
-PiBIZWxsbyBldmVyeWJvZHksDQo+IA0KPiBXaGlsZSBsb29raW5nIGludG8gQ292ZXJpdHkgSUQg
-MTE5ODYzNSBJIHJhbiBpbnRvIHRoZSBmb2xsb3dpbmcgcGllY2UNCj4gb2YgY29kZSBhdCBkcml2
-ZXJzL2dwdS9kcm0vcmFkZW9uL3ZjZV92Ml8wLmM6MTA3Og0KPiANCj4gMTA3dm9pZCB2Y2VfdjJf
-MF9lbmFibGVfbWdjZyhzdHJ1Y3QgcmFkZW9uX2RldmljZSAqcmRldiwgYm9vbCBlbmFibGUpDQo+
-IDEwOHsNCj4gMTA5ICAgICAgICBib29sIHN3X2NnID0gZmFsc2U7DQo+IDExMA0KPiAxMTEgICAg
-ICAgIGlmIChlbmFibGUgJiYgKHJkZXYtPmNnX2ZsYWdzICYNCj4gUkFERU9OX0NHX1NVUFBPUlRf
-VkNFX01HQ0cpKSB7DQo+IDExMiAgICAgICAgICAgICAgICBpZiAoc3dfY2cpDQo+IDExMyAgICAg
-ICAgICAgICAgICAgICAgICAgIHZjZV92Ml8wX3NldF9zd19jZyhyZGV2LCB0cnVlKTsNCj4gMTE0
-ICAgICAgICAgICAgICAgIGVsc2UNCj4gMTE1ICAgICAgICAgICAgICAgICAgICAgICAgdmNlX3Yy
-XzBfc2V0X2R5bl9jZyhyZGV2LCB0cnVlKTsNCj4gMTE2ICAgICAgICB9IGVsc2Ugew0KPiAxMTcg
-ICAgICAgICAgICAgICAgdmNlX3YyXzBfZGlzYWJsZV9jZyhyZGV2KTsNCj4gMTE4DQo+IDExOSAg
-ICAgICAgICAgICAgICBpZiAoc3dfY2cpDQo+IDEyMCAgICAgICAgICAgICAgICAgICAgICAgIHZj
-ZV92Ml8wX3NldF9zd19jZyhyZGV2LCBmYWxzZSk7DQo+IDEyMSAgICAgICAgICAgICAgICBlbHNl
-DQo+IDEyMiAgICAgICAgICAgICAgICAgICAgICAgIHZjZV92Ml8wX3NldF9keW5fY2cocmRldiwg
-ZmFsc2UpOw0KPiAxMjMgICAgICAgIH0NCj4gMTI0fQ0KPiANCj4gVGhlIGlzc3VlIGhlcmUgaXMg
-dGhhdCBsb2NhbCB2YXJpYWJsZSBzd19jZyBpcyBuZXZlciB1cGRhdGVkIGFnYWluDQo+IGFmdGVy
-IGl0cyBpbml0aWFsaXphdGlvbjsgd2hpY2ggY2F1c2Ugc29tZSBjb2RlIHRvIGJlIGxvZ2ljYWxs
-eSBkZWFkLg0KPiANCj4gTXkgcXVlc3Rpb24gaGVyZSBpcyBpZiBzdWNoIHZhcmlhYmxlIGlzIHRo
-ZXJlIGZvciB0ZXN0aW5nIHB1cnBvc2VzIG9yDQo+IGlmIGl0IGlzIGEgc29ydCBvZiBhbiBvbGQg
-Y29kZSBsZWZ0b3ZlciB0aGF0IHNob3VsZCBiZSByZW1vdmVkPw0KPiANCj4gSW4gYW55IGNhc2Ug
-SSBjYW4gc2VuZCBhIHBhdGNoIHRvIGFkZCBhIGNvbW1lbnQgb3IgcmVtb3ZlIHRoZSBkZWFkIGNv
-ZGUuDQo+IA0KPiBJJ2QgcmVhbGx5IGFwcHJlY2lhdGUgYW55IGNvbW1lbnRzIG9uIHRoaXMuDQoN
-Ckkgd2FudGVkIHRvIGxlYXZlIHRoZSBjb2RlIGluIGZvciBkZWJ1Z2dpbmcgaWYgd2UgcmFuIGlu
-dG8gcHJvYmxlbXMgd2l0aCBkeW5hbWljIGNsb2NrZ2F0aW5nLg0KDQpBbGV4DQoNCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
-aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+
+--===============1643700902==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="zff5mzs6yn4po6bh"
+Content-Disposition: inline
+
+
+--zff5mzs6yn4po6bh
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, Jun 23, 2017 at 01:05:37PM -0400, Alex Deucher wrote:
+> On Fri, Jun 23, 2017 at 12:43 PM, Christian K=F6nig
+
+> > Have the painkillers jellyfied my brain or are you setting a pointer in=
+ the
+> > amdgpu device structure to some variable on the stack?
+
+> > If it's just for initialization then that's probably ok, but I would re=
+set
+> > the pointer at the end of the function.
+
+> > Otherwise somebody might have the idea to dereference it later on and t=
+hat
+> > can only lead to trouble.
+
+> I think it's ok because the hotplug of the audio device is triggered
+> from this function, so the audio device should be probed by the time
+> this variable goes out of scope.  That said, it would probably be
+
+No, that's in no way safe.  There is no guarantee that probe is going to
+happen on any particular schedule, if the other driver isn't registered
+yet it'll need to wait for that to happen for example.  You will often
+get away with it but that's at best going to be vulnerable to framework
+changes (what if someone decides to kick off the probe on a separate
+CPU in an effort to reduce boot time?).
+
+> better to use the asic_type from the GPU driver instance directly
+> rather than a stack variable.
+
+Yes.
+
+--zff5mzs6yn4po6bh
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCAAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAllT7T4ACgkQJNaLcl1U
+h9DPwwf9G1d2YqqtHdw2rJzhykueSICxMvBp7uqWIQTJFoGNJSGbSpvY80f4Xs0i
+ErPapLUi8lXBLuA/AYkU76ODEBRubMqG1+MZz+KgtVzmvBX4OfP6fNcR+I8DWV/3
+EY5M22kwDie9fkG5vsK6XnsI5dM+uuGuIWH4OQoS/1SdIz26m+Y06I2XLA5633Tr
+2LY6Th+9bkMiR6yBP+WuNk6GiG8/raR5HROU4VG9rCInNNazyWiyEeGTNhGnZ+T8
+VddiDxq0rfVuUDdrS4KuY30co3/Erf+WzpTcVk6L1OuOlg85ZqrTYRdOUYsJmV5v
+Rmlum1D1z0Jy98/Q3zjuIX3LMGEs+g==
+=63op
+-----END PGP SIGNATURE-----
+
+--zff5mzs6yn4po6bh--
+
+--===============1643700902==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--===============1643700902==--
