@@ -1,92 +1,138 @@
-From: "Gustavo A. R. Silva" <garsilva@embeddedor.com>
-Subject: Re: [gpu-drm-radeon] question about potential dead code in
- vce_v2_0_enable_mgcg()
-Date: Wed, 28 Jun 2017 18:08:43 -0500
-Message-ID: <20170628180843.Horde.KKnryIaN7wki5B896j1w8Sa@gator4166.hostgator.com>
-References: <20170628092229.Horde.Hsk18WJyYojTJE5OKzhVd3d@gator4166.hostgator.com>
- <BN6PR12MB1652D3DE81BA07C8634AF5D5F7DD0@BN6PR12MB1652.namprd12.prod.outlook.com>
+From: John Brooks <john@fastquake.com>
+Subject: Re: [PATCH 4/5] drm/amdgpu: Set/clear CPU_ACCESS_REQUIRED flag on
+ page fault and CS
+Date: Wed, 28 Jun 2017 23:26:39 +0000
+Message-ID: <20170628232639.GB11762@kitsune.fastquake.com>
+References: <1498617201-24557-1-git-send-email-john@fastquake.com>
+ <1498617201-24557-5-git-send-email-john@fastquake.com>
+ <0f17b453-3863-dadb-2385-e91d92eb7f35@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed; DelSp=Yes
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <BN6PR12MB1652D3DE81BA07C8634AF5D5F7DD0@BN6PR12MB1652.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
 Content-Disposition: inline
-Sender: linux-kernel-owner@vger.kernel.org
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Cc: "Koenig, Christian" <Christian.Koenig@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+In-Reply-To: <0f17b453-3863-dadb-2385-e91d92eb7f35@vodafone.de>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <deathsimple@vodafone.de>
+Cc: Michel =?iso-8859-1?Q?D=E4nzer?= <michel@daenzer.net>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-Hi Alex,
-
-Quoting "Deucher, Alexander" <Alexander.Deucher@amd.com>:
-
->> -----Original Message-----
->> From: Gustavo A. R. Silva [mailto:garsilva@embeddedor.com]
->> Sent: Wednesday, June 28, 2017 10:22 AM
->> To: Deucher, Alexander; Koenig, Christian; David Airlie
->> Cc: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-
->> kernel@vger.kernel.org
->> Subject: [gpu-drm-radeon] question about potential dead code in
->> vce_v2_0_enable_mgcg()
->>
->>
->> Hello everybody,
->>
->> While looking into Coverity ID 1198635 I ran into the following piece
->> of code at drivers/gpu/drm/radeon/vce_v2_0.c:107:
->>
->> 107void vce_v2_0_enable_mgcg(struct radeon_device *rdev, bool enable)
->> 108{
->> 109        bool sw_cg = false;
->> 110
->> 111        if (enable && (rdev->cg_flags &
->> RADEON_CG_SUPPORT_VCE_MGCG)) {
->> 112                if (sw_cg)
->> 113                        vce_v2_0_set_sw_cg(rdev, true);
->> 114                else
->> 115                        vce_v2_0_set_dyn_cg(rdev, true);
->> 116        } else {
->> 117                vce_v2_0_disable_cg(rdev);
->> 118
->> 119                if (sw_cg)
->> 120                        vce_v2_0_set_sw_cg(rdev, false);
->> 121                else
->> 122                        vce_v2_0_set_dyn_cg(rdev, false);
->> 123        }
->> 124}
->>
->> The issue here is that local variable sw_cg is never updated again
->> after its initialization; which cause some code to be logically dead.
->>
->> My question here is if such variable is there for testing purposes or
->> if it is a sort of an old code leftover that should be removed?
->>
->> In any case I can send a patch to add a comment or remove the dead code.
->>
->> I'd really appreciate any comments on this.
->
-> I wanted to leave the code in for debugging if we ran into problems  
-> with dynamic clockgating.
->
-
-Do you mind if I send a patch to add such comment and make it clear  
-the purpose of that variable?
-
---- a/drivers/gpu/drm/radeon/vce_v2_0.c
-+++ b/drivers/gpu/drm/radeon/vce_v2_0.c
-@@ -104,6 +104,10 @@ static void vce_v2_0_disable_cg(struct  
-radeon_device *rdev)
-         WREG32(VCE_CGTT_CLK_OVERRIDE, 7);
-  }
-
-+/*
-+ * Local variable sw_cg is used for debugging purposes, in case we
-+ * ran into problems with dynamic clock gating. Don't remove it.
-+ */
-  void vce_v2_0_enable_mgcg(struct radeon_device *rdev, bool enable)
-  {
-         bool sw_cg = false;
-
-
-Thanks for clarifying!
---
-Gustavo A. R. Silva
+T24gV2VkLCBKdW4gMjgsIDIwMTcgYXQgMDM6MDU6MzJQTSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5p
+ZyB3cm90ZToKPiBBbSAyOC4wNi4yMDE3IHVtIDA0OjMzIHNjaHJpZWIgSm9obiBCcm9va3M6Cj4g
+PldoZW4gdGhlIEFNREdQVV9HRU1fQ1JFQVRFX0NQVV9BQ0NFU1NfUkVRVUlSRUQgZmxhZyBpcyBn
+aXZlbiBieSB1c2Vyc3BhY2UsCj4gPml0IHNob3VsZCBvbmx5IGJlIHRyZWF0ZWQgYXMgYSBoaW50
+IHRvIGluaXRpYWxseSBwbGFjZSBhIEJPIHNvbWV3aGVyZSBDUFUKPiA+YWNjZXNzaWJsZSwgcmF0
+aGVyIHRoYW4gaGF2aW5nIGEgcGVybWFuZW50IGVmZmVjdCBvbiBCTyBwbGFjZW1lbnQuCj4gPgo+
+ID5JbnN0ZWFkIG9mIHRoZSBmbGFnIGJlaW5nIHNldCBpbiBzdG9uZSBhdCBCTyBjcmVhdGlvbiwg
+c2V0IHRoZSBmbGFnIHdoZW4gYQo+ID5wYWdlIGZhdWx0IG9jY3VycyBzbyB0aGF0IGl0IGdvZXMg
+c29tZXdoZXJlIENQVS12aXNpYmxlLCBhbmQgY2xlYXIgaXQgd2hlbgo+ID50aGUgQk8gaXMgcmVx
+dWVzdGVkIGJ5IHRoZSBHUFUuCj4gPgo+ID5Ib3dldmVyLCBjbGVhcmluZyB0aGUgQ1BVX0FDQ0VT
+U19SRVFVSVJFRCBmbGFnIG1heSBtb3ZlIEJPcyBpbiBHVFQgdG8KPiA+aW52aXNpYmxlIFZSQU0s
+IHdoZXJlIHRoZXkgbWF5IHByb21wdGx5IGdlbmVyYXRlIGFub3RoZXIgcGFnZSBmYXVsdC4gV2hl
+bgo+ID5CT3MgYXJlIGNvbnN0YW50bHkgbW92ZWQgYmFjayBhbmQgZm9ydGggbGlrZSB0aGlzLCBp
+dCBpcyBoaWdobHkgZGV0cmltZW50YWwKPiA+dG8gcGVyZm9ybWFuY2UuIE9ubHkgY2xlYXIgdGhl
+IGZsYWcgb24gQ1MgaWY6Cj4gPgo+ID4tIFRoZSBCTyB3YXNuJ3QgcGFnZSBmYXVsdGVkIGZvciBh
+IGNlcnRhaW4gYW1vdW50IG9mIHRpbWUgKGN1cnJlbnRseSAxMAo+ID4gICBzZWNvbmRzKSwgYW5k
+Cj4gPi0gaXRzIGxhc3QgcGFnZSBmYXVsdCBkaWRuJ3Qgb2NjdXIgdG9vIHNvb24gKGN1cnJlbnRs
+eSA1MDBtcykgYWZ0ZXIgaXRzCj4gPiAgIGxhc3QgQ1MgcmVxdWVzdCwgb3IgdmljZSB2ZXJzYS4K
+PiA+Cj4gPlNldHRpbmcgdGhlIGZsYWcgaW4gYW1kZ3B1X2ZhdWx0X3Jlc2VydmVfbm90aWZ5KCkg
+YWxzbyBtZWFucyB0aGF0IHdlIGNhbgo+ID5yZW1vdmUgdGhlIGxvb3AgdG8gcmVzdHJpY3QgbHBm
+biB0byB0aGUgZW5kIG9mIHZpc2libGUgVlJBTSwgYmVjYXVzZQo+ID5hbWRncHVfdHRtX3BsYWNl
+bWVudF9pbml0KCkgd2lsbCBkbyBpdCBmb3IgdXMuCj4gCj4gSSdtIGZpbmUgd2l0aCB0aGUgZ2Vu
+ZXJhbCBhcHByb2FjaCwgYnV0IEknbSBzdGlsbCBhYnNvbHV0ZWx5IG5vdCBrZWVuIGFib3V0Cj4g
+Y2xlYXJpbmcgdGhlIGZsYWcgd2hlbiB1c2Vyc3BhY2UgaGFzIG9yaWdpbmFsbHkgc3BlY2lmaWVk
+IGl0Lgo+IAo+IFBsZWFzZSBhZGQgYSBuZXcgZmxhZyBzb21ldGhpbmcgbGlrZSBBTURHUFVfR0VN
+X0NSRUFURV9DUFVfQUNDRVNTX0hJTlQgb3IKPiBzb21ldGhpbmcgbGlrZSB0aGlzLgo+IAo+IFJl
+Z2FyZHMsCj4gQ2hyaXN0aWFuLgoKSXMgaXQgdGhlIGZhY3QgdGhhdCB3ZSBjbGVhciBhIGZsYWcg
+dGhhdCB1c2Vyc3BhY2UgZXhwZWN0cyBub3QgdG8gaGF2ZSBjaGFuZ2VkCmlmIGl0IHF1ZXJpZXMg
+aXQgbGF0ZXI/IEkgdGhpbmsgdGhhdCdzIHRoZSBvbmx5IGVmZmVjdCBvZiB0aGlzIHRoYXQncyBk
+aXJlY3RseQp2aXNpYmxlIHRvIHVzZXJzcGFjZSBjb2RlLiBXb3VsZCBpdCBiZSBwZXJtaXNzaWJs
+ZSB0byBjaGFuZ2UgdGhlIGhhbmRsaW5nCm9mIHRoZSBmbGFnIHdpdGhvdXQgY2xlYXJpbmcgaXQ/
+CgpBcyBmb3IgYSBuZXcgImhpbnQiIGZsYWcsIEkgYXNzdW1lIHRoaXMgbmV3IGZsYWcgd291bGQg
+YmUgYW4gYWx0ZXJuYXRpdmUgdG8gdGhlCmV4aXN0aW5nIENQVV9BQ0NFU1NfUkVRVUlSRUQgZmxh
+ZywgYW5kIHdlJ2QgY2hhbmdlIE1lc2EgZXQgYWwgdG8gdXNlIGl0IGluCnNpdHVhdGlvbnMgd2hl
+cmUgdGhlIGtlcm5lbCAqc2hvdWxkKiBwbGFjZSBhIEJPIHNvbWV3aGVyZSBDUFUtYWNjZXNzaWJs
+ZSwgYnV0CmlzIHBlcm1pdHRlZCB0byBtb3ZlIGl0IGVsc2V3aGVyZS4gSXMgdGhhdCBjb3JyZWN0
+PwoKSm9obgo+IAo+ID4KPiA+U2lnbmVkLW9mZi1ieTogSm9obiBCcm9va3MgPGpvaG5AZmFzdHF1
+YWtlLmNvbT4KPiA+LS0tCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Nz
+LmMgICAgIHwgIDIgKysKPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2Jq
+ZWN0LmMgfCA0NSArKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0KPiA+ICBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmggfCAgMSArCj4gPiAgMyBmaWxlcyBjaGFu
+Z2VkLCAzOCBpbnNlcnRpb25zKCspLCAxMCBkZWxldGlvbnMoLSkKPiA+Cj4gPmRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCj4gPmluZGV4IDA3MWI1OTIuLjFhYzNjMmUgMTAwNjQ0
+Cj4gPi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCj4gPisrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCj4gPkBAIC0zNDEsNiArMzQx
+LDggQEAgc3RhdGljIGludCBhbWRncHVfY3NfYm9fdmFsaWRhdGUoc3RydWN0IGFtZGdwdV9jc19w
+YXJzZXIgKnAsCj4gPiAgCWlmIChiby0+cGluX2NvdW50KQo+ID4gIAkJcmV0dXJuIDA7Cj4gPisJ
+YW1kZ3B1X2JvX2NsZWFyX2NwdV9hY2Nlc3NfcmVxdWlyZWQoYm8pOwo+ID4rCj4gPiAgCS8qIERv
+bid0IG1vdmUgdGhpcyBidWZmZXIgaWYgd2UgaGF2ZSBkZXBsZXRlZCBvdXIgYWxsb3dhbmNlCj4g
+PiAgCSAqIHRvIG1vdmUgaXQuIERvbid0IG1vdmUgYW55dGhpbmcgaWYgdGhlIHRocmVzaG9sZCBp
+cyB6ZXJvLgo+ID4gIAkgKi8KPiA+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9vYmplY3QuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9v
+YmplY3QuYwo+ID5pbmRleCBiNzE3NzVjLi42NThkN2IxIDEwMDY0NAo+ID4tLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMKPiA+KysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCj4gPkBAIC05NDMsOCArOTQzLDggQEAgaW50
+IGFtZGdwdV9ib19mYXVsdF9yZXNlcnZlX25vdGlmeShzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3Qg
+KmJvKQo+ID4gIHsKPiA+ICAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBhbWRncHVfdHRt
+X2FkZXYoYm8tPmJkZXYpOwo+ID4gIAlzdHJ1Y3QgYW1kZ3B1X2JvICphYm87Cj4gPi0JdW5zaWdu
+ZWQgbG9uZyBvZmZzZXQsIHNpemUsIGxwZm47Cj4gPi0JaW50IGksIHI7Cj4gPisJdW5zaWduZWQg
+bG9uZyBvZmZzZXQsIHNpemU7Cj4gPisJaW50IHI7Cj4gPiAgCWlmICghYW1kZ3B1X3R0bV9ib19p
+c19hbWRncHVfYm8oYm8pKQo+ID4gIAkJcmV0dXJuIDA7Cj4gPkBAIC05NjcsMTUgKzk2Nyw5IEBA
+IGludCBhbWRncHVfYm9fZmF1bHRfcmVzZXJ2ZV9ub3RpZnkoc3RydWN0IHR0bV9idWZmZXJfb2Jq
+ZWN0ICpibykKPiA+ICAJLyogaHVycmFoIHRoZSBtZW1vcnkgaXMgbm90IHZpc2libGUgISAqLwo+
+ID4gIAlhdG9taWM2NF9pbmMoJmFkZXYtPm51bV92cmFtX2NwdV9wYWdlX2ZhdWx0cyk7Cj4gPisJ
+YWJvLT5mbGFncyB8PSBBTURHUFVfR0VNX0NSRUFURV9DUFVfQUNDRVNTX1JFUVVJUkVEOwo+ID4g
+IAlhbWRncHVfdHRtX3BsYWNlbWVudF9mcm9tX2RvbWFpbihhYm8sIEFNREdQVV9HRU1fRE9NQUlO
+X1ZSQU0pOwo+ID4tCWxwZm4gPQlhZGV2LT5tYy52aXNpYmxlX3ZyYW1fc2l6ZSA+PiBQQUdFX1NI
+SUZUOwo+ID4tCWZvciAoaSA9IDA7IGkgPCBhYm8tPnBsYWNlbWVudC5udW1fcGxhY2VtZW50OyBp
+KyspIHsKPiA+LQkJLyogRm9yY2UgaW50byB2aXNpYmxlIFZSQU0gKi8KPiA+LQkJaWYgKChhYm8t
+PnBsYWNlbWVudHNbaV0uZmxhZ3MgJiBUVE1fUExfRkxBR19WUkFNKSAmJgo+ID4tCQkgICAgKCFh
+Ym8tPnBsYWNlbWVudHNbaV0ubHBmbiB8fAo+ID4tCQkgICAgIGFiby0+cGxhY2VtZW50c1tpXS5s
+cGZuID4gbHBmbikpCj4gPi0JCQlhYm8tPnBsYWNlbWVudHNbaV0ubHBmbiA9IGxwZm47Cj4gPi0J
+fQo+ID4rCj4gPiAgCXIgPSB0dG1fYm9fdmFsaWRhdGUoYm8sICZhYm8tPnBsYWNlbWVudCwgZmFs
+c2UsIGZhbHNlKTsKPiA+ICAJaWYgKHVubGlrZWx5KHIgPT0gLUVOT01FTSkpIHsKPiA+ICAJCWFt
+ZGdwdV90dG1fcGxhY2VtZW50X2Zyb21fZG9tYWluKGFibywgQU1ER1BVX0dFTV9ET01BSU5fR1RU
+KTsKPiA+QEAgLTEwMzMsMyArMTAyNywzNCBAQCB1NjQgYW1kZ3B1X2JvX2dwdV9vZmZzZXQoc3Ry
+dWN0IGFtZGdwdV9ibyAqYm8pCj4gPiAgCXJldHVybiBiby0+dGJvLm9mZnNldDsKPiA+ICB9Cj4g
+PisKPiA+Ky8qKgo+ID4rICogYW1kZ3B1X2JvX2NsZWFyX2NwdV9hY2Nlc3NfcmVxdWlyZWQKPiA+
+KyAqIEBibzogQk8gdG8gdXBkYXRlCj4gPisgKgo+ID4rICogQ2xlYXJzIENQVV9BQ0NFU1NfUkVR
+VUlSRUQgZmxhZyBpZiB0aGUgQk8gaGFzbid0IGhhZCBhIHBhZ2UgZmF1bHQgaW4gYSB3aGlsZQo+
+ID4rICogYW5kIGl0IGRpZG4ndCBoYXZlIGEgcGFnZSBmYXVsdCB0b28gc29vbiBhZnRlciB0aGUg
+bGFzdCB0aW1lIGl0IHdhcyBtb3ZlZCB0bwo+ID4rICogVlJBTS4KPiA+KyAqCj4gPisgKiBDYWxs
+ZXIgc2hvdWxkIGhhdmUgYm8gcmVzZXJ2ZWQuCj4gPisgKgo+ID4rICovCj4gPit2b2lkIGFtZGdw
+dV9ib19jbGVhcl9jcHVfYWNjZXNzX3JlcXVpcmVkKHN0cnVjdCBhbWRncHVfYm8gKmJvKQo+ID4r
+ewo+ID4rCWNvbnN0IHVuc2lnbmVkIGludCBwYWdlX2ZhdWx0X3RpbWVvdXRfbXMgPSAxMDAwMDsK
+PiA+Kwljb25zdCB1bnNpZ25lZCBpbnQgbWluX3BlcmlvZF9tcyA9IDUwMDsKPiA+Kwl1bnNpZ25l
+ZCBpbnQgbXNfc2luY2VfcGYsIHBlcmlvZF9tczsKPiA+Kwo+ID4rCW1zX3NpbmNlX3BmID0gamlm
+Zmllc190b19tc2VjcyhqaWZmaWVzIC0gYm8tPmxhc3RfcGFnZV9mYXVsdF9qaWZmaWVzKTsKPiA+
+KwlwZXJpb2RfbXMgPSBqaWZmaWVzX3RvX21zZWNzKGFicyhiby0+bGFzdF9wYWdlX2ZhdWx0X2pp
+ZmZpZXMgLQo+ID4rCQkJCQkgYm8tPmxhc3RfY3NfbW92ZV9qaWZmaWVzKSk7Cj4gPisKPiA+Kwkv
+Kgo+ID4rCSAqIFRyeSB0byBhdm9pZCBhIHJldm9sdmluZyBkb29yIGJldHdlZW4gR1RUIGFuZCBW
+UkFNLiBDbGVhcmluZyB0aGUKPiA+KwkgKiBmbGFnIG1heSBtb3ZlIHRoaXMgQk8gYmFjayB0byBW
+UkFNLCBzbyBkb24ndCBjbGVhciBpdCBpZiBpdCdzIGxpa2VseQo+ID4rCSAqIHRvIHBhZ2UgZmF1
+bHQgYW5kIGdvIHJpZ2h0IGJhY2sgdG8gR1RULgo+ID4rCSAqLwo+ID4rCWlmICgoIWJvLT5sYXN0
+X3BhZ2VfZmF1bHRfamlmZmllcyB8fCAhYm8tPmxhc3RfY3NfbW92ZV9qaWZmaWVzKSB8fAo+ID4r
+CSAgICAobXNfc2luY2VfcGYgPiBwYWdlX2ZhdWx0X3RpbWVvdXRfbXMgJiYgcGVyaW9kX21zID4g
+bWluX3BlcmlvZF9tcykpCj4gPisJCWJvLT5mbGFncyAmPSB+QU1ER1BVX0dFTV9DUkVBVEVfQ1BV
+X0FDQ0VTU19SRVFVSVJFRDsKPiA+K30KPiA+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9vYmplY3QuaAo+ID5pbmRleCAzODI0ODUxLi5iMGNiMTM3IDEwMDY0NAo+ID4tLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmgKPiA+KysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5oCj4gPkBAIC0xODIsNiArMTgyLDcg
+QEAgaW50IGFtZGdwdV9ib19yZXN0b3JlX2Zyb21fc2hhZG93KHN0cnVjdCBhbWRncHVfZGV2aWNl
+ICphZGV2LAo+ID4gIAkJCQkgIHN0cnVjdCByZXNlcnZhdGlvbl9vYmplY3QgKnJlc3YsCj4gPiAg
+CQkJCSAgc3RydWN0IGRtYV9mZW5jZSAqKmZlbmNlLAo+ID4gIAkJCQkgIGJvb2wgZGlyZWN0KTsK
+PiA+K3ZvaWQgYW1kZ3B1X2JvX2NsZWFyX2NwdV9hY2Nlc3NfcmVxdWlyZWQoc3RydWN0IGFtZGdw
+dV9ibyAqYm8pOwo+ID4gIC8qCj4gCj4gCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
+bmZvL2RyaS1kZXZlbAo=
