@@ -1,52 +1,59 @@
-From: "Gustavo A. R. Silva" <garsilva@embeddedor.com>
-Subject: [gpu-drm-radeon] question about potential dead code in
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [gpu-drm-radeon] question about potential dead code in
  vce_v2_0_enable_mgcg()
-Date: Wed, 28 Jun 2017 09:22:29 -0500
-Message-ID: <20170628092229.Horde.Hsk18WJyYojTJE5OKzhVd3d@gator4166.hostgator.com>
+Date: Wed, 28 Jun 2017 15:40:49 +0000
+Message-ID: <BN6PR12MB1652D3DE81BA07C8634AF5D5F7DD0@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <20170628092229.Horde.Hsk18WJyYojTJE5OKzhVd3d@gator4166.hostgator.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed; DelSp=Yes
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>, Christian =?utf-8?b?S8O2bmln?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20170628092229.Horde.Hsk18WJyYojTJE5OKzhVd3d-fU+oOHjIBR1LoJgMfuPDHBfZZeVsHd8q@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "'Gustavo A. R. Silva'" <garsilva-L1vi/lXTdts+Va1GwOuvDg@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>
+Cc: "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
 
-
-Hello everybody,
-
-While looking into Coverity ID 1198635 I ran into the following piece  
-of code at drivers/gpu/drm/radeon/vce_v2_0.c:107:
-
-107void vce_v2_0_enable_mgcg(struct radeon_device *rdev, bool enable)
-108{
-109        bool sw_cg = false;
-110
-111        if (enable && (rdev->cg_flags & RADEON_CG_SUPPORT_VCE_MGCG)) {
-112                if (sw_cg)
-113                        vce_v2_0_set_sw_cg(rdev, true);
-114                else
-115                        vce_v2_0_set_dyn_cg(rdev, true);
-116        } else {
-117                vce_v2_0_disable_cg(rdev);
-118
-119                if (sw_cg)
-120                        vce_v2_0_set_sw_cg(rdev, false);
-121                else
-122                        vce_v2_0_set_dyn_cg(rdev, false);
-123        }
-124}
-
-The issue here is that local variable sw_cg is never updated again  
-after its initialization; which cause some code to be logically dead.
-
-My question here is if such variable is there for testing purposes or  
-if it is a sort of an old code leftover that should be removed?
-
-In any case I can send a patch to add a comment or remove the dead code.
-
-I'd really appreciate any comments on this.
-
-Thank you!
---
-Gustavo A. R. Silva
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBHdXN0YXZvIEEuIFIuIFNpbHZh
+IFttYWlsdG86Z2Fyc2lsdmFAZW1iZWRkZWRvci5jb21dDQo+IFNlbnQ6IFdlZG5lc2RheSwgSnVu
+ZSAyOCwgMjAxNyAxMDoyMiBBTQ0KPiBUbzogRGV1Y2hlciwgQWxleGFuZGVyOyBLb2VuaWcsIENo
+cmlzdGlhbjsgRGF2aWQgQWlybGllDQo+IENjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZzsgZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgbGludXgtDQo+IGtlcm5lbEB2Z2Vy
+Lmtlcm5lbC5vcmcNCj4gU3ViamVjdDogW2dwdS1kcm0tcmFkZW9uXSBxdWVzdGlvbiBhYm91dCBw
+b3RlbnRpYWwgZGVhZCBjb2RlIGluDQo+IHZjZV92Ml8wX2VuYWJsZV9tZ2NnKCkNCj4gDQo+IA0K
+PiBIZWxsbyBldmVyeWJvZHksDQo+IA0KPiBXaGlsZSBsb29raW5nIGludG8gQ292ZXJpdHkgSUQg
+MTE5ODYzNSBJIHJhbiBpbnRvIHRoZSBmb2xsb3dpbmcgcGllY2UNCj4gb2YgY29kZSBhdCBkcml2
+ZXJzL2dwdS9kcm0vcmFkZW9uL3ZjZV92Ml8wLmM6MTA3Og0KPiANCj4gMTA3dm9pZCB2Y2VfdjJf
+MF9lbmFibGVfbWdjZyhzdHJ1Y3QgcmFkZW9uX2RldmljZSAqcmRldiwgYm9vbCBlbmFibGUpDQo+
+IDEwOHsNCj4gMTA5ICAgICAgICBib29sIHN3X2NnID0gZmFsc2U7DQo+IDExMA0KPiAxMTEgICAg
+ICAgIGlmIChlbmFibGUgJiYgKHJkZXYtPmNnX2ZsYWdzICYNCj4gUkFERU9OX0NHX1NVUFBPUlRf
+VkNFX01HQ0cpKSB7DQo+IDExMiAgICAgICAgICAgICAgICBpZiAoc3dfY2cpDQo+IDExMyAgICAg
+ICAgICAgICAgICAgICAgICAgIHZjZV92Ml8wX3NldF9zd19jZyhyZGV2LCB0cnVlKTsNCj4gMTE0
+ICAgICAgICAgICAgICAgIGVsc2UNCj4gMTE1ICAgICAgICAgICAgICAgICAgICAgICAgdmNlX3Yy
+XzBfc2V0X2R5bl9jZyhyZGV2LCB0cnVlKTsNCj4gMTE2ICAgICAgICB9IGVsc2Ugew0KPiAxMTcg
+ICAgICAgICAgICAgICAgdmNlX3YyXzBfZGlzYWJsZV9jZyhyZGV2KTsNCj4gMTE4DQo+IDExOSAg
+ICAgICAgICAgICAgICBpZiAoc3dfY2cpDQo+IDEyMCAgICAgICAgICAgICAgICAgICAgICAgIHZj
+ZV92Ml8wX3NldF9zd19jZyhyZGV2LCBmYWxzZSk7DQo+IDEyMSAgICAgICAgICAgICAgICBlbHNl
+DQo+IDEyMiAgICAgICAgICAgICAgICAgICAgICAgIHZjZV92Ml8wX3NldF9keW5fY2cocmRldiwg
+ZmFsc2UpOw0KPiAxMjMgICAgICAgIH0NCj4gMTI0fQ0KPiANCj4gVGhlIGlzc3VlIGhlcmUgaXMg
+dGhhdCBsb2NhbCB2YXJpYWJsZSBzd19jZyBpcyBuZXZlciB1cGRhdGVkIGFnYWluDQo+IGFmdGVy
+IGl0cyBpbml0aWFsaXphdGlvbjsgd2hpY2ggY2F1c2Ugc29tZSBjb2RlIHRvIGJlIGxvZ2ljYWxs
+eSBkZWFkLg0KPiANCj4gTXkgcXVlc3Rpb24gaGVyZSBpcyBpZiBzdWNoIHZhcmlhYmxlIGlzIHRo
+ZXJlIGZvciB0ZXN0aW5nIHB1cnBvc2VzIG9yDQo+IGlmIGl0IGlzIGEgc29ydCBvZiBhbiBvbGQg
+Y29kZSBsZWZ0b3ZlciB0aGF0IHNob3VsZCBiZSByZW1vdmVkPw0KPiANCj4gSW4gYW55IGNhc2Ug
+SSBjYW4gc2VuZCBhIHBhdGNoIHRvIGFkZCBhIGNvbW1lbnQgb3IgcmVtb3ZlIHRoZSBkZWFkIGNv
+ZGUuDQo+IA0KPiBJJ2QgcmVhbGx5IGFwcHJlY2lhdGUgYW55IGNvbW1lbnRzIG9uIHRoaXMuDQoN
+Ckkgd2FudGVkIHRvIGxlYXZlIHRoZSBjb2RlIGluIGZvciBkZWJ1Z2dpbmcgaWYgd2UgcmFuIGlu
+dG8gcHJvYmxlbXMgd2l0aCBkeW5hbWljIGNsb2NrZ2F0aW5nLg0KDQpBbGV4DQoNCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
+aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
