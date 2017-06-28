@@ -1,75 +1,52 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple@vodafone.de>
-Subject: Re: [PATCH 3/5] drm/amdgpu: Track time of last page fault and last CS
- move in struct amdgpu_bo
-Date: Wed, 28 Jun 2017 15:06:47 +0200
-Message-ID: <e3d7be62-e63b-f370-f159-147aaf8d7c50@vodafone.de>
-References: <1498617201-24557-1-git-send-email-john@fastquake.com>
- <1498617201-24557-4-git-send-email-john@fastquake.com>
+From: "Gustavo A. R. Silva" <garsilva@embeddedor.com>
+Subject: [gpu-drm-radeon] question about potential dead code in
+ vce_v2_0_enable_mgcg()
+Date: Wed, 28 Jun 2017 09:22:29 -0500
+Message-ID: <20170628092229.Horde.Hsk18WJyYojTJE5OKzhVd3d@gator4166.hostgator.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <1498617201-24557-4-git-send-email-john@fastquake.com>
-Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: John Brooks <john@fastquake.com>, amd-gfx@lists.freedesktop.org, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset=utf-8; format=flowed; DelSp=Yes
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, Christian =?utf-8?b?S8O2bmln?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMjguMDYuMjAxNyB1bSAwNDozMyBzY2hyaWViIEpvaG4gQnJvb2tzOgo+IFNpZ25lZC1vZmYt
-Ynk6IEpvaG4gQnJvb2tzIDxqb2huQGZhc3RxdWFrZS5jb20+Cj4gLS0tCj4gICBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCAgICAgICAgfCAzICsrKwo+ICAgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMgICAgIHwgNSArKysrKwo+ICAgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jIHwgMiArKwo+ICAgMyBmaWxlcyBjaGFuZ2Vk
-LCAxMCBpbnNlcnRpb25zKCspCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAo+IGlu
-ZGV4IDczNjYxMTUuLjM0YzI5M2EgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1LmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUu
-aAo+IEBAIC00MjgsNiArNDI4LDkgQEAgc3RydWN0IGFtZGdwdV9ibyB7Cj4gICAJdm9pZAkJCQkq
-bWV0YWRhdGE7Cj4gICAJdTMyCQkJCW1ldGFkYXRhX3NpemU7Cj4gICAJdW5zaWduZWQJCQlwcmlt
-ZV9zaGFyZWRfY291bnQ7Cj4gKwl1bnNpZ25lZCBsb25nCQkJbGFzdF9wYWdlX2ZhdWx0X2ppZmZp
-ZXM7Cj4gKwl1bnNpZ25lZCBsb25nCQkJbGFzdF9jc19tb3ZlX2ppZmZpZXM7CgpQbGVhc2UgdXNl
-IGppZmZpZXM2NCBoZXJlLCBhcGFydCBmcm9tIHRoYXQgdGhlIHBhdGNoIGxvb2tzIGdvb2QgdG8g
-bWUuCgpDaHJpc3RpYW4uCgo+ICsKPiAgIAkvKiBsaXN0IG9mIGFsbCB2aXJ0dWFsIGFkZHJlc3Mg
-dG8gd2hpY2ggdGhpcyBibwo+ICAgCSAqIGlzIGFzc29jaWF0ZWQgdG8KPiAgIAkgKi8KPiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYwo+IGluZGV4IDFkZmE4NDcuLjA3MWI1OTIg
-MTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMKPiAr
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYwo+IEBAIC0zMzUsNiAr
-MzM1LDcgQEAgc3RhdGljIGludCBhbWRncHVfY3NfYm9fdmFsaWRhdGUoc3RydWN0IGFtZGdwdV9j
-c19wYXJzZXIgKnAsCj4gICAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBhbWRncHVfdHRt
-X2FkZXYoYm8tPnRiby5iZGV2KTsKPiAgIAl1NjQgaW5pdGlhbF9ieXRlc19tb3ZlZCwgYnl0ZXNf
-bW92ZWQ7Cj4gICAJdWludDMyX3QgZG9tYWluOwo+ICsJdWludDMyX3Qgb2xkX21lbTsKPiAgIAlp
-bnQgcjsKPiAgIAo+ICAgCWlmIChiby0+cGluX2NvdW50KQo+IEBAIC0zNjQsNiArMzY1LDcgQEAg
-c3RhdGljIGludCBhbWRncHVfY3NfYm9fdmFsaWRhdGUoc3RydWN0IGFtZGdwdV9jc19wYXJzZXIg
-KnAsCj4gICByZXRyeToKPiAgIAlhbWRncHVfdHRtX3BsYWNlbWVudF9mcm9tX2RvbWFpbihibywg
-ZG9tYWluKTsKPiAgIAlpbml0aWFsX2J5dGVzX21vdmVkID0gYXRvbWljNjRfcmVhZCgmYWRldi0+
-bnVtX2J5dGVzX21vdmVkKTsKPiArCW9sZF9tZW0gPSBiby0+dGJvLm1lbS5tZW1fdHlwZTsKPiAg
-IAlyID0gdHRtX2JvX3ZhbGlkYXRlKCZiby0+dGJvLCAmYm8tPnBsYWNlbWVudCwgdHJ1ZSwgZmFs
-c2UpOwo+ICAgCWJ5dGVzX21vdmVkID0gYXRvbWljNjRfcmVhZCgmYWRldi0+bnVtX2J5dGVzX21v
-dmVkKSAtCj4gICAJCSAgICAgIGluaXRpYWxfYnl0ZXNfbW92ZWQ7Cj4gQEAgLTM3Nyw2ICszNzks
-OSBAQCBzdGF0aWMgaW50IGFtZGdwdV9jc19ib192YWxpZGF0ZShzdHJ1Y3QgYW1kZ3B1X2NzX3Bh
-cnNlciAqcCwKPiAgIAkJZ290byByZXRyeTsKPiAgIAl9Cj4gICAKPiArCWlmIChiby0+dGJvLm1l
-bS5tZW1fdHlwZSAhPSBvbGRfbWVtKQo+ICsJCWJvLT5sYXN0X2NzX21vdmVfamlmZmllcyA9IGpp
-ZmZpZXM7Cj4gKwo+ICAgCXJldHVybiByOwo+ICAgfQo+ICAgCj4gZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYwo+IGluZGV4IGRjZjFkZGIuLmI3MTc3NWMgMTAwNjQ0
-Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCj4gKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCj4gQEAgLTk1Myw2
-ICs5NTMsOCBAQCBpbnQgYW1kZ3B1X2JvX2ZhdWx0X3Jlc2VydmVfbm90aWZ5KHN0cnVjdCB0dG1f
-YnVmZmVyX29iamVjdCAqYm8pCj4gICAJaWYgKGJvLT5tZW0ubWVtX3R5cGUgIT0gVFRNX1BMX1ZS
-QU0pCj4gICAJCXJldHVybiAwOwo+ICAgCj4gKwlhYm8tPmxhc3RfcGFnZV9mYXVsdF9qaWZmaWVz
-ID0gamlmZmllczsKPiArCj4gICAJc2l6ZSA9IGJvLT5tZW0ubnVtX3BhZ2VzIDw8IFBBR0VfU0hJ
-RlQ7Cj4gICAJb2Zmc2V0ID0gYm8tPm1lbS5zdGFydCA8PCBQQUdFX1NISUZUOwo+ICAgCS8qIFRP
-RE86IGZpZ3VyZSBvdXQgaG93IHRvIG1hcCBzY2F0dGVyZWQgVlJBTSB0byB0aGUgQ1BVICovCgoK
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+Hello everybody,
+
+While looking into Coverity ID 1198635 I ran into the following piece  
+of code at drivers/gpu/drm/radeon/vce_v2_0.c:107:
+
+107void vce_v2_0_enable_mgcg(struct radeon_device *rdev, bool enable)
+108{
+109        bool sw_cg = false;
+110
+111        if (enable && (rdev->cg_flags & RADEON_CG_SUPPORT_VCE_MGCG)) {
+112                if (sw_cg)
+113                        vce_v2_0_set_sw_cg(rdev, true);
+114                else
+115                        vce_v2_0_set_dyn_cg(rdev, true);
+116        } else {
+117                vce_v2_0_disable_cg(rdev);
+118
+119                if (sw_cg)
+120                        vce_v2_0_set_sw_cg(rdev, false);
+121                else
+122                        vce_v2_0_set_dyn_cg(rdev, false);
+123        }
+124}
+
+The issue here is that local variable sw_cg is never updated again  
+after its initialization; which cause some code to be logically dead.
+
+My question here is if such variable is there for testing purposes or  
+if it is a sort of an old code leftover that should be removed?
+
+In any case I can send a patch to add a comment or remove the dead code.
+
+I'd really appreciate any comments on this.
+
+Thank you!
+--
+Gustavo A. R. Silva
