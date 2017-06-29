@@ -1,88 +1,299 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-Subject: Re: [PATCH 4/5] drm/amdgpu: Set/clear CPU_ACCESS_REQUIRED flag on
- page fault and CS
-Date: Thu, 29 Jun 2017 18:58:05 +0900
-Message-ID: <dc9ebb68-d339-8f39-9697-48342a059471@daenzer.net>
-References: <1498617201-24557-1-git-send-email-john@fastquake.com>
- <1498617201-24557-5-git-send-email-john@fastquake.com>
- <0f17b453-3863-dadb-2385-e91d92eb7f35@vodafone.de>
- <20170628232639.GB11762@kitsune.fastquake.com>
- <00740205-3637-f2d6-7ac7-b1e8b1a8fe81@daenzer.net>
- <bea499d2-9f8a-2f04-ff90-3921acc184e5@vodafone.de>
+From: "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v2] drm/amdgpu: fix the memory corruption on S3
+Date: Thu, 29 Jun 2017 08:27:33 +0000
+Message-ID: <BY2PR1201MB0968FF9F474337CB95E039B289D20@BY2PR1201MB0968.namprd12.prod.outlook.com>
+References: <1498723761-6723-1-git-send-email-ray.huang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <bea499d2-9f8a-2f04-ff90-3921acc184e5@vodafone.de>
-Content-Language: en-CA
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple@vodafone.de>, John Brooks <john@fastquake.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0448041043=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1498723761-6723-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: "Jiang, Sonny" <Sonny.Jiang-5C7GfCeVMHo@public.gmane.org>, "Huan, Alvin" <Alvin.Huan-5C7GfCeVMHo@public.gmane.org>, "Wang, Ken" <Ken.Wang-5C7GfCeVMHo@public.gmane.org>, "Qiao, Joe(Markham)" <Joe2.Qiao-5C7GfCeVMHo@public.gmane.org>
 
-T24gMjkvMDYvMTcgMDU6MjMgUE0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4gQW0gMjkuMDYu
-MjAxNyB1bSAwNDozNSBzY2hyaWViIE1pY2hlbCBEw6RuemVyOgo+PiBPbiAyOS8wNi8xNyAwODoy
-NiBBTSwgSm9obiBCcm9va3Mgd3JvdGU6Cj4+PiBPbiBXZWQsIEp1biAyOCwgMjAxNyBhdCAwMzow
-NTozMlBNICswMjAwLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4+Pgo+Pj4+PiBJbnN0ZWFk
-IG9mIHRoZSBmbGFnIGJlaW5nIHNldCBpbiBzdG9uZSBhdCBCTyBjcmVhdGlvbiwgc2V0IHRoZSBm
-bGFnCj4+Pj4+IHdoZW4gYQo+Pj4+PiBwYWdlIGZhdWx0IG9jY3VycyBzbyB0aGF0IGl0IGdvZXMg
-c29tZXdoZXJlIENQVS12aXNpYmxlLCBhbmQgY2xlYXIKPj4+Pj4gaXQgd2hlbgo+Pj4+PiB0aGUg
-Qk8gaXMgcmVxdWVzdGVkIGJ5IHRoZSBHUFUuCj4+Pj4+Cj4+Pj4+IEhvd2V2ZXIsIGNsZWFyaW5n
-IHRoZSBDUFVfQUNDRVNTX1JFUVVJUkVEIGZsYWcgbWF5IG1vdmUgQk9zIGluIEdUVCB0bwo+Pj4+
-PiBpbnZpc2libGUgVlJBTSwgd2hlcmUgdGhleSBtYXkgcHJvbXB0bHkgZ2VuZXJhdGUgYW5vdGhl
-ciBwYWdlCj4+Pj4+IGZhdWx0LiBXaGVuCj4+Pj4+IEJPcyBhcmUgY29uc3RhbnRseSBtb3ZlZCBi
-YWNrIGFuZCBmb3J0aCBsaWtlIHRoaXMsIGl0IGlzIGhpZ2hseQo+Pj4+PiBkZXRyaW1lbnRhbAo+
-Pj4+PiB0byBwZXJmb3JtYW5jZS4gT25seSBjbGVhciB0aGUgZmxhZyBvbiBDUyBpZjoKPj4+Pj4K
-Pj4+Pj4gLSBUaGUgQk8gd2Fzbid0IHBhZ2UgZmF1bHRlZCBmb3IgYSBjZXJ0YWluIGFtb3VudCBv
-ZiB0aW1lCj4+Pj4+IChjdXJyZW50bHkgMTAKPj4+Pj4gICAgc2Vjb25kcyksIGFuZAo+Pj4+PiAt
-IGl0cyBsYXN0IHBhZ2UgZmF1bHQgZGlkbid0IG9jY3VyIHRvbyBzb29uIChjdXJyZW50bHkgNTAw
-bXMpIGFmdGVyCj4+Pj4+IGl0cwo+Pj4+PiAgICBsYXN0IENTIHJlcXVlc3QsIG9yIHZpY2UgdmVy
-c2EuCj4+Pj4+Cj4+Pj4+IFNldHRpbmcgdGhlIGZsYWcgaW4gYW1kZ3B1X2ZhdWx0X3Jlc2VydmVf
-bm90aWZ5KCkgYWxzbyBtZWFucyB0aGF0Cj4+Pj4+IHdlIGNhbgo+Pj4+PiByZW1vdmUgdGhlIGxv
-b3AgdG8gcmVzdHJpY3QgbHBmbiB0byB0aGUgZW5kIG9mIHZpc2libGUgVlJBTSwgYmVjYXVzZQo+
-Pj4+PiBhbWRncHVfdHRtX3BsYWNlbWVudF9pbml0KCkgd2lsbCBkbyBpdCBmb3IgdXMuCj4+Pj4g
-SSdtIGZpbmUgd2l0aCB0aGUgZ2VuZXJhbCBhcHByb2FjaCwgYnV0IEknbSBzdGlsbCBhYnNvbHV0
-ZWx5IG5vdAo+Pj4+IGtlZW4gYWJvdXQKPj4+PiBjbGVhcmluZyB0aGUgZmxhZyB3aGVuIHVzZXJz
-cGFjZSBoYXMgb3JpZ2luYWxseSBzcGVjaWZpZWQgaXQuCj4+IElzIHRoZXJlIGFueSBzcGVjaWZp
-YyBjb25jZXJuIHlvdSBoYXZlIGFib3V0IHRoYXQ/Cj4gCj4gWWVhaCwgcXVpdGUgYSBidW5jaCBh
-Y3R1YWxseS4gV2Ugd2FudCB0byB1c2UgdGhpcyBmbGFnIGZvciBQMlAgYnVmZmVyCj4gc2hhcmlu
-ZyBpbiB0aGUgZnV0dXJlIGFzIHdlbGwgYW5kIEkgZG9uJ3QgaW50ZW50IHRvIGFkZCBhbm90aGVy
-IG9uZSBsaWtlCj4gQ1BVX0FDQ0VTU19SRUFMTFlfUkVRVUlSRUQgb3Igc29tZXRoaW5nIGxpa2Ug
-dGhpcy4KCldvbid0IGEgQk8gbmVlZCB0byBiZSBwaW5uZWQgd2hpbGUgaXQncyBiZWluZyBzaGFy
-ZWQgd2l0aCBhbm90aGVyIGRldmljZT8KCgo+Pj4+IFBsZWFzZSBhZGQgYSBuZXcgZmxhZyBzb21l
-dGhpbmcgbGlrZQo+Pj4+IEFNREdQVV9HRU1fQ1JFQVRFX0NQVV9BQ0NFU1NfSElOVCBvcgo+Pj4+
-IHNvbWV0aGluZyBsaWtlIHRoaXMuCj4+PiBJcyBpdCB0aGUgZmFjdCB0aGF0IHdlIGNsZWFyIGEg
-ZmxhZyB0aGF0IHVzZXJzcGFjZSBleHBlY3RzIG5vdCB0bwo+Pj4gaGF2ZSBjaGFuZ2VkCj4+PiBp
-ZiBpdCBxdWVyaWVzIGl0IGxhdGVyPyBJIHRoaW5rIHRoYXQncyB0aGUgb25seSBlZmZlY3Qgb2Yg
-dGhpcyB0aGF0J3MKPj4+IGRpcmVjdGx5Cj4+PiB2aXNpYmxlIHRvIHVzZXJzcGFjZSBjb2RlLgo+
-PiBJIGRvbid0IHNlZSBhbnkgd2F5IGZvciB1c2Vyc3BhY2UgdG8gcXVlcnkgdGhhdC4KPj4KPj4K
-Pj4+IEFzIGZvciBhIG5ldyAiaGludCIgZmxhZywgSSBhc3N1bWUgdGhpcyBuZXcgZmxhZyB3b3Vs
-ZCBiZSBhbgo+Pj4gYWx0ZXJuYXRpdmUgdG8gdGhlCj4+PiBleGlzdGluZyBDUFVfQUNDRVNTX1JF
-UVVJUkVEIGZsYWcsIGFuZCB3ZSdkIGNoYW5nZSBNZXNhIGV0IGFsIHRvIHVzZQo+Pj4gaXQgaW4K
-Pj4+IHNpdHVhdGlvbnMgd2hlcmUgdGhlIGtlcm5lbCAqc2hvdWxkKiBwbGFjZSBhIEJPIHNvbWV3
-aGVyZQo+Pj4gQ1BVLWFjY2Vzc2libGUsIGJ1dAo+Pj4gaXMgcGVybWl0dGVkIHRvIG1vdmUgaXQg
-ZWxzZXdoZXJlLiBJcyB0aGF0IGNvcnJlY3Q/Cj4+IFRoYXQgc2VlbXMgc2lsbHkuIFRoZSB1c2Vy
-c3BhY2UgZmxhZyBjb3VsZCBuZXZlciBiZSBtb3JlIHRoYW4gYSBoaW50Lgo+PiBVbmZvcnR1bmF0
-ZWx5IHdlIG5hbWVkIGl0IHRvIHN1Z2dlc3QgZGlmZmVyZW50bHksIGJ1dCB3ZSBoYXZlIHRvIGxp
-dmUKPj4gd2l0aCB0aGF0Lgo+IAo+IE5vLCBqdXN0IHRoZSBvdGhlciB3YXkgYXJvdW5kLiBUaGUg
-Q1BVX0FDQ0VTU19SRVFVSVJFRCBmbGFnIHdhcwo+IGludHJvZHVjZWQgdG8gbm90ZSB0aGF0IGl0
-IGlzIE1BTkRBVE9SWSB0byBhbHdheXMgaGF2ZSBDUFUgYWNjZXNzIHRvIHRoZQo+IGJ1ZmZlci4K
-PiAKPiBJdCdzIGp1c3QgbWVzYSB3aGljaCB1c2VzIHRoZSBmbGFnIGFzIGEgaGludCB0byB3ZSBj
-b3VsZCBnZXQgQ1BVIGFjY2Vzcy4KCkNhbiB5b3UgZGVzY3JpYmUgYSBzcGVjaWZpYyBzY2VuYXJp
-byB3aGVyZSB1c2Vyc3BhY2Ugd291bGQgYWN0dWFsbHkgbmVlZAp0aGUgc3RyaWN0IHNlbWFudGlj
-cz8gT3RoZXJ3aXNlIEknbSBhZnJhaWQgd2hhdCB5b3UncmUgZGVtYW5kaW5nIGJvaWxzCmRvd24g
-dG8gdXNlcnNwYWNlIGNodXJuIGZvciBubyBiZW5lZml0LgoKCi0tIApFYXJ0aGxpbmcgTWljaGVs
-IETDpG56ZXIgICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAgaHR0cDovL3d3dy5hbWQuY29t
-CkxpYnJlIHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAgICAgICAgfCAgICAgICAgICAgICBNZXNh
-IGFuZCBYIGRldmVsb3BlcgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmkt
-ZGV2ZWwK
+--===============0448041043==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BY2PR1201MB0968FF9F474337CB95E039B289D20BY2PR1201MB0968_"
+
+--_000_BY2PR1201MB0968FF9F474337CB95E039B289D20BY2PR1201MB0968_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Tested-by: Xiaojie Yuan <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+
+
+Regards,
+
+Xiaojie
+
+________________________________
+From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Sent: Thursday, June 29, 2017 4:09:21 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Deucher, Alexander; Koenig, Christian
+Cc: Wang, Ken; Qiao, Joe(Markham); Jiang, Sonny; Huan, Alvin; Yuan, Xiaojie=
+; Huang, Ray
+Subject: [PATCH v2] drm/amdgpu: fix the memory corruption on S3
+
+psp->cmd will be used on resume phase, so we can not free it on hw_init.
+Otherwise, a memory corruption will be triggered.
+
+Signed-off-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+---
+
+V1 -> V2:
+- remove "cmd" variable.
+- fix typo of check.
+
+Alex, Christian,
+
+This is the final fix for vega10 S3. The random memory corruption issue is =
+root
+caused.
+
+Thanks,
+Ray
+
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_psp.c
+index 5bed483..711476792 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -330,14 +330,11 @@ static int psp_load_fw(struct amdgpu_device *adev)
+ {
+         int ret;
+         struct psp_context *psp =3D &adev->psp;
+-       struct psp_gfx_cmd_resp *cmd;
+
+-       cmd =3D kzalloc(sizeof(struct psp_gfx_cmd_resp), GFP_KERNEL);
+-       if (!cmd)
++       psp->cmd =3D kzalloc(sizeof(struct psp_gfx_cmd_resp), GFP_KERNEL);
++       if (!psp->cmd)
+                 return -ENOMEM;
+
+-       psp->cmd =3D cmd;
+-
+         ret =3D amdgpu_bo_create_kernel(adev, PSP_1_MEG, PSP_1_MEG,
+                                       AMDGPU_GEM_DOMAIN_GTT,
+                                       &psp->fw_pri_bo,
+@@ -376,8 +373,6 @@ static int psp_load_fw(struct amdgpu_device *adev)
+         if (ret)
+                 goto failed_mem;
+
+-       kfree(cmd);
+-
+         return 0;
+
+ failed_mem:
+@@ -387,7 +382,8 @@ static int psp_load_fw(struct amdgpu_device *adev)
+         amdgpu_bo_free_kernel(&psp->fw_pri_bo,
+                               &psp->fw_pri_mc_addr, &psp->fw_pri_buf);
+ failed:
+-       kfree(cmd);
++       kfree(psp->cmd);
++       psp->cmd =3D NULL;
+         return ret;
+ }
+
+@@ -447,6 +443,11 @@ static int psp_hw_fini(void *handle)
+                 amdgpu_bo_free_kernel(&psp->fence_buf_bo,
+                                       &psp->fence_buf_mc_addr, &psp->fence=
+_buf);
+
++       if (psp->cmd) {
++               kfree(psp->cmd);
++               psp->cmd =3D NULL;
++       }
++
+         return 0;
+ }
+
+--
+2.7.4
+
+
+--_000_BY2PR1201MB0968FF9F474337CB95E039B289D20BY2PR1201MB0968_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
+<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
+ding-left: 4pt; border-left: #800000 2px solid; } --></style>
+</head>
+<body>
+<meta content=3D"text/html; charset=3DUTF-8">
+<style type=3D"text/css" style=3D"">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div dir=3D"ltr">
+<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
+or:#000000; font-family:Calibri,Helvetica,sans-serif">
+<p><span style=3D"font-size:11pt">Tested-by: Xiaojie Yuan &lt;Xiaojie.Yuan@=
+amd.com&gt;</span></p>
+<p><br>
+</p>
+<p><span style=3D"font-size:11pt">Regards,</span></p>
+<p><span style=3D"font-size:11pt">Xiaojie</span><br>
+</p>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Huang Rui &lt;ray.h=
+uang-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Thursday, June 29, 2017 4:09:21 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Deucher, Alexander; Koenig, Chris=
+tian<br>
+<b>Cc:</b> Wang, Ken; Qiao, Joe(Markham); Jiang, Sonny; Huan, Alvin; Yuan, =
+Xiaojie; Huang, Ray<br>
+<b>Subject:</b> [PATCH v2] drm/amdgpu: fix the memory corruption on S3</fon=
+t>
+<div>&nbsp;</div>
+</div>
+</div>
+<font size=3D"2"><span style=3D"font-size:10pt;">
+<div class=3D"PlainText">psp-&gt;cmd will be used on resume phase, so we ca=
+n not free it on hw_init.<br>
+Otherwise, a memory corruption will be triggered.<br>
+<br>
+Signed-off-by: Huang Rui &lt;ray.huang-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+<br>
+V1 -&gt; V2:<br>
+- remove &quot;cmd&quot; variable.<br>
+- fix typo of check.<br>
+<br>
+Alex, Christian,<br>
+<br>
+This is the final fix for vega10 S3. The random memory corruption issue is =
+root<br>
+caused.<br>
+<br>
+Thanks,<br>
+Ray<br>
+<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 17 &#43;&#43;&#43;&#43;&#43=
+;&#43;&#43;&#43;&#43;--------<br>
+&nbsp;1 file changed, 9 insertions(&#43;), 8 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_psp.c<br>
+index 5bed483..711476792 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c<br>
+@@ -330,14 &#43;330,11 @@ static int psp_load_fw(struct amdgpu_device *adev=
+)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct psp_context *psp =
+=3D &amp;adev-&gt;psp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct psp_gfx_cmd_resp *cmd;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cmd =3D kzalloc(sizeof(struct psp_gfx=
+_cmd_resp), GFP_KERNEL);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!cmd)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; psp-&gt;cmd =3D kzalloc(sizeof(st=
+ruct psp_gfx_cmd_resp), GFP_KERNEL);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!psp-&gt;cmd)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return -ENOMEM;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; psp-&gt;cmd =3D cmd;<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_bo_create_k=
+ernel(adev, PSP_1_MEG, PSP_1_MEG,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; AMDGPU_GEM_DOMAIN_GTT,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; &amp;psp-&gt;fw_pri_bo,<br>
+@@ -376,8 &#43;373,6 @@ static int psp_load_fw(struct amdgpu_device *adev)<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; goto failed_mem;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(cmd);<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;<br>
+&nbsp;failed_mem:<br>
+@@ -387,7 &#43;382,8 @@ static int psp_load_fw(struct amdgpu_device *adev)<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_free_kernel(&amp=
+;psp-&gt;fw_pri_bo,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;psp-&gt;fw_pri_mc_addr, &amp;psp-&gt;fw=
+_pri_buf);<br>
+&nbsp;failed:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(cmd);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(psp-&gt;cmd);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; psp-&gt;cmd =3D NULL;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;}<br>
+&nbsp;<br>
+@@ -447,6 &#43;443,11 @@ static int psp_hw_fini(void *handle)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; amdgpu_bo_free_kernel(&amp;psp-&gt;fence_buf_bo,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; &amp;psp-&gt;fence_buf_mc_addr, &amp;psp-&gt;fence_buf);<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (psp-&gt;cmd) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; kfree(psp-&gt;cmd);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; psp-&gt;cmd =3D NULL;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+&nbsp;<br>
+-- <br>
+2.7.4<br>
+<br>
+</div>
+</span></font>
+</body>
+</html>
+
+--_000_BY2PR1201MB0968FF9F474337CB95E039B289D20BY2PR1201MB0968_--
+
+--===============0448041043==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0448041043==--
