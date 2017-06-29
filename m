@@ -1,11 +1,14 @@
-From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH v2] drm/amdgpu: fix the memory corruption on S3
-Date: Thu, 29 Jun 2017 16:09:21 +0800
-Message-ID: <1498723761-6723-1-git-send-email-ray.huang@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: drm/amdgpu: Fix vram_page_split parameter description
+Date: Thu, 29 Jun 2017 10:09:02 +0200
+Message-ID: <1b603ce9-dd2e-f010-67d5-d05802b9b3c6@vodafone.de>
+References: <87d2a1a1-58ce-bc93-353a-2711ca8d93f4@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <87d2a1a1-58ce-bc93-353a-2711ca8d93f4-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,41 +19,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: Alvin Huan <Alvin.Huan-5C7GfCeVMHo@public.gmane.org>, Joe Qiao <Joe2.Qiao-5C7GfCeVMHo@public.gmane.org>, Sonny Jiang <sonny.jiang-5C7GfCeVMHo@public.gmane.org>, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, Ken Wang <Qingqing.Wang-5C7GfCeVMHo@public.gmane.org>, Xiaojie Yuan <xiaojie.yuan-5C7GfCeVMHo@public.gmane.org>
+To: Kent Russell <kent.russell-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-cHNwLT5jbWQgd2lsbCBiZSB1c2VkIG9uIHJlc3VtZSBwaGFzZSwgc28gd2UgY2FuIG5vdCBmcmVl
-IGl0IG9uIGh3X2luaXQuCk90aGVyd2lzZSwgYSBtZW1vcnkgY29ycnVwdGlvbiB3aWxsIGJlIHRy
-aWdnZXJlZC4KClNpZ25lZC1vZmYtYnk6IEh1YW5nIFJ1aSA8cmF5Lmh1YW5nQGFtZC5jb20+Ci0t
-LQoKVjEgLT4gVjI6Ci0gcmVtb3ZlICJjbWQiIHZhcmlhYmxlLgotIGZpeCB0eXBvIG9mIGNoZWNr
-LgoKQWxleCwgQ2hyaXN0aWFuLAoKVGhpcyBpcyB0aGUgZmluYWwgZml4IGZvciB2ZWdhMTAgUzMu
-IFRoZSByYW5kb20gbWVtb3J5IGNvcnJ1cHRpb24gaXNzdWUgaXMgcm9vdApjYXVzZWQuCgpUaGFu
-a3MsClJheQoKLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcHNwLmMgfCAx
-NyArKysrKysrKystLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDkgaW5zZXJ0aW9ucygrKSwgOCBk
-ZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfcHNwLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcHNwLmMKaW5kZXgg
-NWJlZDQ4My4uNzExNDc2NzkyIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfcHNwLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Bz
-cC5jCkBAIC0zMzAsMTQgKzMzMCwxMSBAQCBzdGF0aWMgaW50IHBzcF9sb2FkX2Z3KHN0cnVjdCBh
-bWRncHVfZGV2aWNlICphZGV2KQogewogCWludCByZXQ7CiAJc3RydWN0IHBzcF9jb250ZXh0ICpw
-c3AgPSAmYWRldi0+cHNwOwotCXN0cnVjdCBwc3BfZ2Z4X2NtZF9yZXNwICpjbWQ7CiAKLQljbWQg
-PSBremFsbG9jKHNpemVvZihzdHJ1Y3QgcHNwX2dmeF9jbWRfcmVzcCksIEdGUF9LRVJORUwpOwot
-CWlmICghY21kKQorCXBzcC0+Y21kID0ga3phbGxvYyhzaXplb2Yoc3RydWN0IHBzcF9nZnhfY21k
-X3Jlc3ApLCBHRlBfS0VSTkVMKTsKKwlpZiAoIXBzcC0+Y21kKQogCQlyZXR1cm4gLUVOT01FTTsK
-IAotCXBzcC0+Y21kID0gY21kOwotCiAJcmV0ID0gYW1kZ3B1X2JvX2NyZWF0ZV9rZXJuZWwoYWRl
-diwgUFNQXzFfTUVHLCBQU1BfMV9NRUcsCiAJCQkJICAgICAgQU1ER1BVX0dFTV9ET01BSU5fR1RU
-LAogCQkJCSAgICAgICZwc3AtPmZ3X3ByaV9ibywKQEAgLTM3Niw4ICszNzMsNiBAQCBzdGF0aWMg
-aW50IHBzcF9sb2FkX2Z3KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCWlmIChyZXQpCiAJ
-CWdvdG8gZmFpbGVkX21lbTsKIAotCWtmcmVlKGNtZCk7Ci0KIAlyZXR1cm4gMDsKIAogZmFpbGVk
-X21lbToKQEAgLTM4Nyw3ICszODIsOCBAQCBzdGF0aWMgaW50IHBzcF9sb2FkX2Z3KHN0cnVjdCBh
-bWRncHVfZGV2aWNlICphZGV2KQogCWFtZGdwdV9ib19mcmVlX2tlcm5lbCgmcHNwLT5md19wcmlf
-Ym8sCiAJCQkgICAgICAmcHNwLT5md19wcmlfbWNfYWRkciwgJnBzcC0+ZndfcHJpX2J1Zik7CiBm
-YWlsZWQ6Ci0Ja2ZyZWUoY21kKTsKKwlrZnJlZShwc3AtPmNtZCk7CisJcHNwLT5jbWQgPSBOVUxM
-OwogCXJldHVybiByZXQ7CiB9CiAKQEAgLTQ0Nyw2ICs0NDMsMTEgQEAgc3RhdGljIGludCBwc3Bf
-aHdfZmluaSh2b2lkICpoYW5kbGUpCiAJCWFtZGdwdV9ib19mcmVlX2tlcm5lbCgmcHNwLT5mZW5j
-ZV9idWZfYm8sCiAJCQkJICAgICAgJnBzcC0+ZmVuY2VfYnVmX21jX2FkZHIsICZwc3AtPmZlbmNl
-X2J1Zik7CiAKKwlpZiAocHNwLT5jbWQpIHsKKwkJa2ZyZWUocHNwLT5jbWQpOworCQlwc3AtPmNt
-ZCA9IE5VTEw7CisJfQorCiAJcmV0dXJuIDA7CiB9CiAKLS0gCjIuNy40CgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+UmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4u
+CgpSZWdhcmRzLApDaHJpc3RpYW4uCgpBbSAyOC4wNi4yMDE3IHVtIDIxOjI2IHNjaHJpZWIgS2Vu
+dCBSdXNzZWxsOgo+IFRoZSBkZWZhdWx0IHdhcyBjaGFuZ2VkIHRvIDUxMiBmcm9tIDEwMjQsIGJ1
+dCB0aGUgZGVmYXVsdCBpbiB0aGUKPiBkZXNjcmlwdGlvbiB3YXNuJ3QgdXBkYXRlZC4KPgo+ICBL
+ZW50Cj4KPgo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+CgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
