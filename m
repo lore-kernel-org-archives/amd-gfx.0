@@ -1,11 +1,16 @@
-From: Kent Russell <kent.russell-5C7GfCeVMHo@public.gmane.org>
-Subject: drm/amdgpu: Fix vram_page_split parameter description
-Date: Wed, 28 Jun 2017 15:26:18 -0400
-Message-ID: <87d2a1a1-58ce-bc93-353a-2711ca8d93f4@amd.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: [PATCH 4/5] drm/amdgpu: Set/clear CPU_ACCESS_REQUIRED flag on
+ page fault and CS
+Date: Thu, 29 Jun 2017 12:18:26 +0900
+Message-ID: <b1f1e8a9-1f48-eb90-c607-788a73a44e4a@daenzer.net>
+References: <1498617201-24557-1-git-send-email-john@fastquake.com>
+ <1498617201-24557-5-git-send-email-john@fastquake.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="------------CAA9F6043EAA2E81B111FFAA"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <1498617201-24557-5-git-send-email-john-xq/Ko7C6e2Bl57MIdRCFDg@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,63 +21,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: John Brooks <john-xq/Ko7C6e2Bl57MIdRCFDg@public.gmane.org>, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Cc: David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This is a multi-part message in MIME format.
---------------CAA9F6043EAA2E81B111FFAA
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-The default was changed to 512 from 1024, but the default in the
-description wasn't updated.
-
-  Kent
-
-
---------------CAA9F6043EAA2E81B111FFAA
-Content-Type: text/x-patch;
- name="vramdesc.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
- filename="vramdesc.patch"
-
->From 756f38576c08dc4aa36a958cc6f3d2784b20a377 Mon Sep 17 00:00:00 2001
-From: Kent Russell <kent.russell-5C7GfCeVMHo@public.gmane.org>
-Date: Wed, 28 Jun 2017 15:16:41 -0400
-Subject: [PATCH] drm/amdgpu: Update default vram_page_split description
-
-This was updated to 512 and the description update got missed
-
-Signed-off-by: Kent Russell <kent.russell-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 347097b..b332e2a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -184,7 +184,7 @@ module_param_named(vm_debug, amdgpu_vm_debug, int, 0644);
- MODULE_PARM_DESC(vm_update_mode, "VM update using CPU (0 = never (default except for large BAR(LB)), 1 = Graphics only, 2 = Compute only (default for LB), 3 = Both");
- module_param_named(vm_update_mode, amdgpu_vm_update_mode, int, 0444);
- 
--MODULE_PARM_DESC(vram_page_split, "Number of pages after we split VRAM allocations (default 1024, -1 = disable)");
-+MODULE_PARM_DESC(vram_page_split, "Number of pages after we split VRAM allocations (default 512, -1 = disable)");
- module_param_named(vram_page_split, amdgpu_vram_page_split, int, 0444);
- 
- MODULE_PARM_DESC(exp_hw_support, "experimental hw support (1 = enable, 0 = disable (default))");
--- 
-2.7.4
-
-
---------------CAA9F6043EAA2E81B111FFAA
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---------------CAA9F6043EAA2E81B111FFAA--
+T24gMjgvMDYvMTcgMTE6MzMgQU0sIEpvaG4gQnJvb2tzIHdyb3RlOgo+IFdoZW4gdGhlIEFNREdQ
+VV9HRU1fQ1JFQVRFX0NQVV9BQ0NFU1NfUkVRVUlSRUQgZmxhZyBpcyBnaXZlbiBieSB1c2Vyc3Bh
+Y2UsCj4gaXQgc2hvdWxkIG9ubHkgYmUgdHJlYXRlZCBhcyBhIGhpbnQgdG8gaW5pdGlhbGx5IHBs
+YWNlIGEgQk8gc29tZXdoZXJlIENQVQo+IGFjY2Vzc2libGUsIHJhdGhlciB0aGFuIGhhdmluZyBh
+IHBlcm1hbmVudCBlZmZlY3Qgb24gQk8gcGxhY2VtZW50Lgo+IAo+IEluc3RlYWQgb2YgdGhlIGZs
+YWcgYmVpbmcgc2V0IGluIHN0b25lIGF0IEJPIGNyZWF0aW9uLCBzZXQgdGhlIGZsYWcgd2hlbiBh
+Cj4gcGFnZSBmYXVsdCBvY2N1cnMgc28gdGhhdCBpdCBnb2VzIHNvbWV3aGVyZSBDUFUtdmlzaWJs
+ZSwgYW5kIGNsZWFyIGl0IHdoZW4KPiB0aGUgQk8gaXMgcmVxdWVzdGVkIGJ5IHRoZSBHUFUuCj4g
+Cj4gSG93ZXZlciwgY2xlYXJpbmcgdGhlIENQVV9BQ0NFU1NfUkVRVUlSRUQgZmxhZyBtYXkgbW92
+ZSBCT3MgaW4gR1RUIHRvCj4gaW52aXNpYmxlIFZSQU0sIHdoZXJlIHRoZXkgbWF5IHByb21wdGx5
+IGdlbmVyYXRlIGFub3RoZXIgcGFnZSBmYXVsdC4gV2hlbgo+IEJPcyBhcmUgY29uc3RhbnRseSBt
+b3ZlZCBiYWNrIGFuZCBmb3J0aCBsaWtlIHRoaXMsIGl0IGlzIGhpZ2hseSBkZXRyaW1lbnRhbAo+
+IHRvIHBlcmZvcm1hbmNlLiBPbmx5IGNsZWFyIHRoZSBmbGFnIG9uIENTIGlmOgo+IAo+IC0gVGhl
+IEJPIHdhc24ndCBwYWdlIGZhdWx0ZWQgZm9yIGEgY2VydGFpbiBhbW91bnQgb2YgdGltZSAoY3Vy
+cmVudGx5IDEwCj4gICBzZWNvbmRzKSwgYW5kCj4gLSBpdHMgbGFzdCBwYWdlIGZhdWx0IGRpZG4n
+dCBvY2N1ciB0b28gc29vbiAoY3VycmVudGx5IDUwMG1zKSBhZnRlciBpdHMKPiAgIGxhc3QgQ1Mg
+cmVxdWVzdCwgb3IgdmljZSB2ZXJzYS4KPiAKPiBTZXR0aW5nIHRoZSBmbGFnIGluIGFtZGdwdV9m
+YXVsdF9yZXNlcnZlX25vdGlmeSgpIGFsc28gbWVhbnMgdGhhdCB3ZSBjYW4KPiByZW1vdmUgdGhl
+IGxvb3AgdG8gcmVzdHJpY3QgbHBmbiB0byB0aGUgZW5kIG9mIHZpc2libGUgVlJBTSwgYmVjYXVz
+ZQo+IGFtZGdwdV90dG1fcGxhY2VtZW50X2luaXQoKSB3aWxsIGRvIGl0IGZvciB1cy4KPiAKPiBT
+aWduZWQtb2ZmLWJ5OiBKb2huIEJyb29rcyA8am9obkBmYXN0cXVha2UuY29tPgoKWy4uLl0KCj4g
+QEAgLTk2NywxNSArOTY3LDkgQEAgaW50IGFtZGdwdV9ib19mYXVsdF9yZXNlcnZlX25vdGlmeShz
+dHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvKQo+ICAKPiAgCS8qIGh1cnJhaCB0aGUgbWVtb3J5
+IGlzIG5vdCB2aXNpYmxlICEgKi8KPiAgCWF0b21pYzY0X2luYygmYWRldi0+bnVtX3ZyYW1fY3B1
+X3BhZ2VfZmF1bHRzKTsKPiArCWFiby0+ZmxhZ3MgfD0gQU1ER1BVX0dFTV9DUkVBVEVfQ1BVX0FD
+Q0VTU19SRVFVSVJFRDsKClRhbGtpbmcgYWJvdXQgdGhpcyBvbiBJUkMgcmVtaW5kZWQgbWUgdGhh
+dCBJIHRoaW5rIHdlIHNob3VsZCBzZXQgdGhlCmZsYWcgaW4gdGhpcyBmdW5jdGlvbiByZWdhcmRs
+ZXNzIG9mIHdoZXJlIHRoZSBCTyBpcyBjdXJyZW50bHkgbG9jYXRlZC4KCgotLSAKRWFydGhsaW5n
+IE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cu
+YW1kLmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAg
+ICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4Cg==
