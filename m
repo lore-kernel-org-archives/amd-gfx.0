@@ -1,55 +1,43 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: Deprecation of AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED
-Date: Thu, 29 Jun 2017 17:03:06 +0200
-Message-ID: <CAAxE2A49_j6hO_G0XoWwquFzPsoHVELNhakt5NdmVb8=F0YdSA@mail.gmail.com>
-References: <CAAxE2A4x8tkA9DL78EouJqxZ9b2b_PyzN3hg8JJn7AHOpk5b0w@mail.gmail.com>
- <8f866ee1-78c0-6707-3f92-b71a2f661457@vodafone.de>
+From: "Gustavo A. R. Silva" <garsilva@embeddedor.com>
+Subject: [PATCH] drm/radeon: add header comment for clarification to
+ vce_v2_0_enable_mgcg()
+Date: Thu, 29 Jun 2017 12:38:37 -0500
+Message-ID: <20170629173837.GA3397@embeddedgus>
+References: <CADnq5_NhSDyBRSTpYEnBnSNG1AC=W_bHew-VcU1MxzaBcAURnQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <8f866ee1-78c0-6707-3f92-b71a2f661457-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <CADnq5_NhSDyBRSTpYEnBnSNG1AC=W_bHew-VcU1MxzaBcAURnQ@mail.gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexdeucher@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <garsilva@embeddedor.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-RG8geW91IGhhdmUgYW55IGNvbmNlcm4gaWYgd2UgYWxzbyBzdG9wIHVzaW5nIHRoZSBDUFVfQUND
-RVNTIGZsYWcgb24gcmFkZW9uPwoKVGhhbmtzLApNYXJlawoKT24gVGh1LCBKdW4gMjksIDIwMTcg
-YXQgNDo1MSBQTSwgQ2hyaXN0aWFuIEvDtm5pZwo8ZGVhdGhzaW1wbGVAdm9kYWZvbmUuZGU+IHdy
-b3RlOgo+IFllYWgsIEkgd2FzIHRoaW5raW5nIHNvbWV0aGluZyBzaW1pbGFyLgo+Cj4gU2VlIHRo
-ZSBpbnRlbnRpb24gYmVoaW5kIENQVV9BQ0NFU1NfUkVRVUlSRUQgaXMgdG8gYWx3YXlzIGd1YXJh
-bnRlZSB0aGF0IENQVQo+IGFjY2VzcyBpcyBpbW1lZGlhdGVseSBwb3NzaWJsZS4KPgo+IElmIHlv
-dSBhc2sgbWUgdGhhdCBpcyBub3QgcmVhbGx5IHVzZWZ1bCBmb3IgdGhlIFVNRCBhbmQgd2FzIG5l
-dmVyIG1lYW50IHRvCj4gYmUgdXNlZCBieSBNZXNhIChvbmx5IHRoZSBjbG9zZWQgc291cmNlIFVN
-RCBhbmQgc29tZSBrZXJuZWwgaW50ZXJuYWwgdXNlCj4gY2FzZXMpLgo+Cj4gSSB3b3VsZCBsaWtl
-IHRvIGtlZXAgdGhlIGJlaGF2aW9yIGluIHRoZSBrZXJuZWwgZHJpdmVyIGFzIGl0IGlzLCBidXQg
-d2UKPiBzaG91bGQgcmVhbGx5IHN0b3AgdXNpbmcgdGhpcyBhcyBhIGhpbnQgaW4gTWVzYS4KPgo+
-IFJlZ2FyZHMsCj4gQ2hyaXN0aWFuLgo+Cj4KPiBBbSAyOS4wNi4yMDE3IHVtIDE2OjQxIHNjaHJp
-ZWIgTWFyZWsgT2zFocOhazoKPj4KPj4gSGksCj4+Cj4+IEdpdmVuIGhvdyBvdXIgbWVtb3J5IG1h
-bmFnZXIgd29ya3MgYW5kIHRoZSBndWVzc3dvcmsgdGhhdCBVTURzIGhhdmUgdG8KPj4gZG8gdG8g
-ZGV0ZXJtaW5lIHdoZXRoZXIgdG8gc2V0IHRoZSBmbGFnLCBJIHRoaW5rIHRoZSBmbGFnIGlzbid0
-Cj4+IHVzZWZ1bC4KPj4KPj4gSSdtIHByb3Bvc2luZyB0aGF0IENQVV9BQ0NFU1NfUkVRVUlSRUQ6
-Cj4+IC0gd2lsbCBiZSBkZXByZWNhdGVkLgo+PiAtIEl0IHdpbGwgcmVtYWluIHRvIGJlIGFjY2Vw
-dGVkIGJ5IHRoZSBrZXJuZWwgZHJpdmVyLCBidXQgaXQgd2lsbAo+PiBlaXRoZXIgbm90IGhhdmUg
-YW55IGVmZmVjdCwgb3IgaXQgd2lsbCBzZXJ2ZSBhcyBhIGhpbnQgdGhhdCBtaWdodCBvcgo+PiBt
-aWdodCBub3QgYmUgZm9sbG93ZWQuCj4+IC0gVGhlIG9ubHkgZmxhZyB0aGF0IFVNRHMgYXJlIGV4
-cGVjdGVkIHRvIHNldCB3aXRoIHJlZ2FyZCB0byBDUFUKPj4gYWNjZXNzIGlzIE5PX0NQVV9BQ0NF
-U1MuCj4+Cj4+IFRoZSBtYWluIG1vdGl2YXRpb24gaXMgdGhlIHJlZHVjdGlvbiBvZiAidmlydHVh
-bCIgaGVhcHMgZm9yIFVNRCBidWZmZXIKPj4gc3ViYWxsb2NhdG9ycyBhbmQgcmV1c2FibGUgYnVm
-ZmVyIHBvb2xzLiBBIGhpZ2hlciBudW1iZXIgb2YgaGVhcHMKPj4gbWVhbnMgdGhhdCBtb3JlIG1l
-bW9yeSBjYW4gYmUgd2FzdGVkIGJ5IFVNRHMuCj4+Cj4+IE9waW5pb25zPwo+Pgo+PiBUaGFua3Ms
-Cj4+IE1hcmVrCj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCj4+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
-LWdmeAo+Cj4KPgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+Add function header comment to make it clear that local variable sw_cg
+is used for debugging and it should not be removed.
+
+Addresses-Coverity-ID: 1198635
+Cc: Alex Deucher <alexdeucher@gmail.com>
+Signed-off-by: Gustavo A. R. Silva <garsilva@embeddedor.com>
+---
+ drivers/gpu/drm/radeon/vce_v2_0.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/gpu/drm/radeon/vce_v2_0.c b/drivers/gpu/drm/radeon/vce_v2_0.c
+index fce2144..b0a43b6 100644
+--- a/drivers/gpu/drm/radeon/vce_v2_0.c
++++ b/drivers/gpu/drm/radeon/vce_v2_0.c
+@@ -104,6 +104,10 @@ static void vce_v2_0_disable_cg(struct radeon_device *rdev)
+ 	WREG32(VCE_CGTT_CLK_OVERRIDE, 7);
+ }
+ 
++/*
++ * Local variable sw_cg is used for debugging purposes, in case we
++ * ran into problems with dynamic clock gating. Don't remove it.
++ */
+ void vce_v2_0_enable_mgcg(struct radeon_device *rdev, bool enable)
+ {
+ 	bool sw_cg = false;
+-- 
+2.5.0
