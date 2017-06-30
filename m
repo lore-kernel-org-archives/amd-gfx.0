@@ -1,19 +1,19 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
 Subject: Re: Deprecation of AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED
-Date: Fri, 30 Jun 2017 08:59:37 +0200
-Message-ID: <8f60b400-1343-9f7f-d202-f3497fb346ae@vodafone.de>
+Date: Fri, 30 Jun 2017 16:02:50 +0900
+Message-ID: <197cbbb4-70de-2582-1150-0d60b474d9aa@daenzer.net>
 References: <CAAxE2A4x8tkA9DL78EouJqxZ9b2b_PyzN3hg8JJn7AHOpk5b0w@mail.gmail.com>
  <8f866ee1-78c0-6707-3f92-b71a2f661457@vodafone.de>
  <CAAxE2A49_j6hO_G0XoWwquFzPsoHVELNhakt5NdmVb8=F0YdSA@mail.gmail.com>
- <50b66561-3843-8b70-913e-5692db657640@daenzer.net>
- <b7717c04-604f-24c8-2fc7-a94e520845c8@vodafone.de>
- <a1c1f000-16b4-220f-70c5-01b2682a632e@daenzer.net>
+ <FE84B835-C930-424E-B380-649F4895274C@amd.com>
+ <17988a78-85c4-24c2-961a-b07f7222446f@daenzer.net>
+ <0C38ED78-D50C-4212-AA7A-0DACBFDB5680@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <a1c1f000-16b4-220f-70c5-01b2682a632e-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <0C38ED78-D50C-4212-AA7A-0DACBFDB5680-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -24,18 +24,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Mao, David" <David.Mao-5C7GfCeVMHo@public.gmane.org>
+Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QW0gMzAuMDYuMjAxNyB1bSAwODo1MSBzY2hyaWViIE1pY2hlbCBEw6RuemVyOgo+IFdlIGNhbiBk
-ZWFsIHdpdGggdGhhdCBpbnRlcm5hbGx5IGluIHRoZSBrZXJuZWwsIHdoaWxlIGZpeGluZyB0aGUK
-PiBleGlzdGluZyBmbGFnIGZvciB1c2Vyc3BhY2UuCgpBbmQgYXMgSSBzYWlkLCBOQUsgdG8gdGhh
-dCBhcHByb2FjaC4gSSdtIG5vdCBnb2luZyB0byBhZGQgYSAKQ1BVX0FDQ0VTU19SRUFMTFlfUkVR
-VUlSRUQgZmxhZyBpbiB0aGUga2VybmVsIGp1c3QgYmVjYXVzZSBtZXNhIGhhcyAKbWVzc2VkIHVw
-IGl0J3MgdXNlIGNhc2UuCgpXZSBjb3VsZCBhZ3JlZSBvbiBmaWx0ZXJpbmcgdGhhdCBmbGFnIGZy
-b20gdXNlcnNwYWNlIHdoZW4gQk9zIGFyZSAKY3JlYXRlZCBhbmQvb3IgbWFwIGl0IHRvIGEgQ1JF
-QVRFX0NQVV9BQ0NFU1NfSElOVCBmbGFnLiBCdXQgSSB3b3VsZCAKcmF0aGVyIHdhbnQgdG8gYXZv
-aWQgdGhhdCBhcyB3ZWxsLgoKQ2hyaXN0aWFuLgoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4Cg==
+T24gMzAvMDYvMTcgMDE6MDAgUE0sIE1hbywgRGF2aWQgd3JvdGU6Cj4gU291bmRzIGdvb2QhCj4g
+T25lIHRoaW5nIHRvIGNvbmZpcm0sIElmIHRoZSBvcmlnaW5hbCBsb2NhdGlvbiBpcyBhbHJlYWR5
+IGluIHRoZQo+IGludmlzaWJsZSwgd2lsbCB0aGUgbm90aWZpZXIgY2FsbGJhY2sgdG8gbW92ZSB0
+aGUgYm8gZnJvbSBpbnZpc2libGUgdG8KPiB2aXNpYmxlPwoKWWVzLgoKCj4gaWYgaXQgaXMgdHJ1
+ZSBhbmQgdGhlIGxvZ2ljIGlzIGFscmVhZHkgYXZhaWxhYmxlIGluIHRoZSBrZXJuZWwsIGNhbiB3
+ZQo+IHVzZSBOT19DUFVfQUNDRVNTIGZsYWcgYnkgZGVmYXVsdCB0byBhY2NvbXBsaXNoIHRoZSBz
+aW1pbGFyIHB1cnBvc2UgZm9yCj4gbm93PwoKWW91IG1lYW4gc2V0IHRoZSBOT19DUFVfQUNDRVNT
+IGZsYWcgZm9yIEJPcyBpbiB0aGUgIkNQVSBpbnZpc2libGUgaGVhcCI/ClllcywgdGhhdCdzIGEg
+Z29vZCBpZGVhLgoKSG93ZXZlciwgd2UgY2FuIGFsc28gaW1wcm92ZSB0aGUga2VybmVsIGRyaXZl
+cidzIGhhbmRsaW5nIG9mIHRoZQpDUFVfQUNDRVNTX1JFUVVJUkVEIGZsYWcgc28gdGhhdCB1c2Vy
+c3BhY2UgY29kZSBjYW4gY29udGludWUgdXNpbmcgaXQKdGhlIHdheSBpdCBoYXMgYmVlbi4KCgo+
+IEl0IGFsc28gcmVtaW5kcyBtZSBvZiBhbm90aGVyIHJlbGF0ZWQgdG9waWMsIGNhbiB3ZSBhbHdh
+eXMgdGFrZSB2aXNpYmxlCj4gaGVhcCBhcyBwcmlvcml0eSBhZ2FpbnN0IHRvIHRoZSByZW1vdGUg
+aW4gdGhpcyBjYXNlPwo+IFNvIGZhciwga2VybmVsIGRvbuKAmXQgaGF2ZSB0aGUgaGVhcCBwcmlv
+cml0eS4KPiBJSVJDLCBpZiB0aGUgTEZCIGJvIG1vdmVkIHRvIEdUVCwgaXQgd2lsbCBuZXZlciBi
+ZSBtb3ZlZCBiYWNrIHNpbmNlIEdUVAo+IGlzIGFsc28gaXRzIHByZWZlcnJlZCBoZWFwLgoKVGhh
+dCBjYW4gaGFwcGVuIGlmIHVzZXJzcGFjZSBzcGVjaWZpZXMgYm90aCBWUkFNIGFuZCBHVFQgYXMg
+cHJlZmVycmVkCmRvbWFpbnMuIEl0J3Mgb25lIHJlYXNvbiB3aHkgdGhhdCBpc24ndCByZWNvbW1l
+bmRlZC4KCj4gKEtlcm5lbCBzZWVtcyB0byBhZGQgdGhlIEdUVCBldmVuIGlmIHRoZSBVTUQgb25s
+eSBhc2sgZm9yIExGQikuCgpJIGNhbiBvbmx5IHNlZQoKICAgICAgICAgICAgICAgIHJvYmotPmFs
+bG93ZWRfZG9tYWlucyA9IHJvYmotPnByZWZlcmVkX2RvbWFpbnM7CiAgICAgICAgICAgICAgICBp
+ZiAocm9iai0+YWxsb3dlZF9kb21haW5zID09IEFNREdQVV9HRU1fRE9NQUlOX1ZSQU0pCiAgICAg
+ICAgICAgICAgICAgICAgICAgIHJvYmotPmFsbG93ZWRfZG9tYWlucyB8PSBBTURHUFVfR0VNX0RP
+TUFJTl9HVFQ7Cgp3aGljaCBhZGRzIEdUVCBhcyBhbiAqYWxsb3dlZCogZG9tYWluIGZvciBCT3Mg
+d2hpY2ggb25seSBoYXZlIFZSQU0gYXMKdGhlIHByZWZlcnJlZCBkb21haW4uIFNpbmNlIFZSQU0g
+aXMgdGhlIG9ubHkgcHJlZmVycmVkIGRvbWFpbiwgdGhlCmRyaXZlciB3aWxsIGF0dGVtcHQgdG8g
+bW92ZSB0aGUgQk8gZnJvbSBHVFQgdG8gVlJBTSBvbiB1c2Vyc3BhY2UgY29tbWFuZApzdHJlYW0g
+c3VibWlzc2lvbnMgKHN1YmplY3QgdG8gdGhyb3R0bGluZykuCgoKLS0gCkVhcnRobGluZyBNaWNo
+ZWwgRMOkbnplciAgICAgICAgICAgICAgIHwgICAgICAgICAgICAgICBodHRwOi8vd3d3LmFtZC5j
+b20KTGlicmUgc29mdHdhcmUgZW50aHVzaWFzdCAgICAgICAgICAgICB8ICAgICAgICAgICAgIE1l
+c2EgYW5kIFggZGV2ZWxvcGVyCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eAo=
