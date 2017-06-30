@@ -1,42 +1,50 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: [PATCH] drm/amdgpu/cgs: always set reference clock in mode_info
-Date: Fri, 30 Jun 2017 10:05:19 -0400
-Message-ID: <1498831519-15771-1-git-send-email-alexander.deucher@amd.com>
-Return-path: <stable-owner@vger.kernel.org>
-Sender: stable-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu/cgs: always set reference clock in mode_info
+Date: Fri, 30 Jun 2017 16:07:12 +0200
+Message-ID: <7ddd18ae-04c0-0552-a6f6-83c9b8324f2e@vodafone.de>
+References: <1498831519-15771-1-git-send-email-alexander.deucher@amd.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1498831519-15771-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
 
-It's relevent regardless of whether there are displays
-enabled.  Fixes garbage values for ref clock in powerplay
-leading to incorrect fan speed reporting when displays
-are disabled.
-
-bug: https://bugs.freedesktop.org/show_bug.cgi?id=101653
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
-index 8b8eda7..c0a8062 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
-@@ -838,9 +838,12 @@ static int amdgpu_cgs_get_active_displays_info(struct cgs_device *cgs_device,
- 		return -EINVAL;
- 
- 	mode_info = info->mode_info;
--	if (mode_info)
-+	if (mode_info) {
- 		/* if the displays are off, vblank time is max */
- 		mode_info->vblank_time_us = 0xffffffff;
-+		/* always set the reference clock */
-+		mode_info->ref_clock = adev->clock.spll.reference_freq;
-+	}
- 
- 	if (adev->mode_info.num_crtc && adev->mode_info.mode_config_initialized) {
- 		list_for_each_entry(crtc,
--- 
-2.5.5
+QW0gMzAuMDYuMjAxNyB1bSAxNjowNSBzY2hyaWViIEFsZXggRGV1Y2hlcjoKPiBJdCdzIHJlbGV2
+ZW50IHJlZ2FyZGxlc3Mgb2Ygd2hldGhlciB0aGVyZSBhcmUgZGlzcGxheXMKPiBlbmFibGVkLiAg
+Rml4ZXMgZ2FyYmFnZSB2YWx1ZXMgZm9yIHJlZiBjbG9jayBpbiBwb3dlcnBsYXkKPiBsZWFkaW5n
+IHRvIGluY29ycmVjdCBmYW4gc3BlZWQgcmVwb3J0aW5nIHdoZW4gZGlzcGxheXMKPiBhcmUgZGlz
+YWJsZWQuCj4KPiBidWc6IGh0dHBzOi8vYnVncy5mcmVlZGVza3RvcC5vcmcvc2hvd19idWcuY2dp
+P2lkPTEwMTY1Mwo+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNo
+ZXJAYW1kLmNvbT4KPiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZwpBY2tlZC1ieTogQ2hyaXN0
+aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKPiAtLS0KPiAgIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jZ3MuYyB8IDUgKysrKy0KPiAgIDEgZmlsZSBjaGFu
+Z2VkLCA0IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY2dzLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfY2dzLmMKPiBpbmRleCA4YjhlZGE3Li5jMGE4MDYyIDEwMDY0NAo+IC0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jZ3MuYwo+ICsrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jZ3MuYwo+IEBAIC04MzgsOSArODM4LDEyIEBA
+IHN0YXRpYyBpbnQgYW1kZ3B1X2Nnc19nZXRfYWN0aXZlX2Rpc3BsYXlzX2luZm8oc3RydWN0IGNn
+c19kZXZpY2UgKmNnc19kZXZpY2UsCj4gICAJCXJldHVybiAtRUlOVkFMOwo+ICAgCj4gICAJbW9k
+ZV9pbmZvID0gaW5mby0+bW9kZV9pbmZvOwo+IC0JaWYgKG1vZGVfaW5mbykKPiArCWlmIChtb2Rl
+X2luZm8pIHsKPiAgIAkJLyogaWYgdGhlIGRpc3BsYXlzIGFyZSBvZmYsIHZibGFuayB0aW1lIGlz
+IG1heCAqLwo+ICAgCQltb2RlX2luZm8tPnZibGFua190aW1lX3VzID0gMHhmZmZmZmZmZjsKPiAr
+CQkvKiBhbHdheXMgc2V0IHRoZSByZWZlcmVuY2UgY2xvY2sgKi8KPiArCQltb2RlX2luZm8tPnJl
+Zl9jbG9jayA9IGFkZXYtPmNsb2NrLnNwbGwucmVmZXJlbmNlX2ZyZXE7Cj4gKwl9Cj4gICAKPiAg
+IAlpZiAoYWRldi0+bW9kZV9pbmZvLm51bV9jcnRjICYmIGFkZXYtPm1vZGVfaW5mby5tb2RlX2Nv
+bmZpZ19pbml0aWFsaXplZCkgewo+ICAgCQlsaXN0X2Zvcl9lYWNoX2VudHJ5KGNydGMsCgoKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
+aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
