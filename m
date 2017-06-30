@@ -1,104 +1,124 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH 4/5] drm/amdgpu: Set/clear CPU_ACCESS_REQUIRED flag on
- page fault and CS
-Date: Fri, 30 Jun 2017 14:46:56 +0200
-Message-ID: <77c71b93-300c-a5f1-8ae6-21aaa9fadcc1@vodafone.de>
-References: <1498617201-24557-1-git-send-email-john@fastquake.com>
- <1498617201-24557-5-git-send-email-john@fastquake.com>
- <0f17b453-3863-dadb-2385-e91d92eb7f35@vodafone.de>
- <20170628232639.GB11762@kitsune.fastquake.com>
- <00740205-3637-f2d6-7ac7-b1e8b1a8fe81@daenzer.net>
- <bea499d2-9f8a-2f04-ff90-3921acc184e5@vodafone.de>
- <dc9ebb68-d339-8f39-9697-48342a059471@daenzer.net>
- <20170629100523.khsozocltct7tnfu@phenom.ffwll.local>
- <e1568d15-42da-4720-dff8-3a6e373f51d8@daenzer.net>
- <c9b732c1-4bdd-a2ce-1dc2-6abbaf89ce5a@vodafone.de>
- <20170630123904.afbsnmxkxxzuydr2@phenom.ffwll.local>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple@vodafone.de>
+Subject: Re: Resizeable PCI BAR support V5
+Date: Fri, 30 Jun 2017 14:55:41 +0200
+Message-ID: <92b1fd57-2ad0-ab7b-33e3-3f4227dcc2db@vodafone.de>
+References: <1496998787-6371-1-git-send-email-deathsimple@vodafone.de>
+ <b71010ca149411909076e83d1c22b2b8@nuetzel-hh.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170630123904.afbsnmxkxxzuydr2-dv86pmgwkMBes7Z6vYuT8azUEOm+Xw19@public.gmane.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Return-path: <platform-driver-x86-owner@vger.kernel.org>
+In-Reply-To: <b71010ca149411909076e83d1c22b2b8@nuetzel-hh.de>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
-Cc: John Brooks <john-xq/Ko7C6e2Bl57MIdRCFDg@public.gmane.org>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: platform-driver-x86-owner@vger.kernel.org
+To: =?UTF-8?Q?Dieter_N=c3=bctzel?= <Dieter@nuetzel-hh.de>
+Cc: helgaas@kernel.org, linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMzAuMDYuMjAxNyB1bSAxNDozOSBzY2hyaWViIERhbmllbCBWZXR0ZXI6Cj4gT24gRnJpLCBK
-dW4gMzAsIDIwMTcgYXQgMDg6NDc6MjdBTSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToK
-Pj4gQW0gMzAuMDYuMjAxNyB1bSAwNDoyNCBzY2hyaWViIE1pY2hlbCBEw6RuemVyOgo+Pj4gT24g
-MjkvMDYvMTcgMDc6MDUgUE0sIERhbmllbCBWZXR0ZXIgd3JvdGU6Cj4+Pj4gT24gVGh1LCBKdW4g
-MjksIDIwMTcgYXQgMDY6NTg6MDVQTSArMDkwMCwgTWljaGVsIETDpG56ZXIgd3JvdGU6Cj4+Pj4+
-IE9uIDI5LzA2LzE3IDA1OjIzIFBNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4+Pj4gQW0g
-MjkuMDYuMjAxNyB1bSAwNDozNSBzY2hyaWViIE1pY2hlbCBEw6RuemVyOgo+Pj4+Pj4+IE9uIDI5
-LzA2LzE3IDA4OjI2IEFNLCBKb2huIEJyb29rcyB3cm90ZToKPj4+Pj4+Pj4gT24gV2VkLCBKdW4g
-MjgsIDIwMTcgYXQgMDM6MDU6MzJQTSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4+
-Pj4+Pj4+PiBJbnN0ZWFkIG9mIHRoZSBmbGFnIGJlaW5nIHNldCBpbiBzdG9uZSBhdCBCTyBjcmVh
-dGlvbiwgc2V0IHRoZSBmbGFnCj4+Pj4+Pj4+Pj4gd2hlbiBhCj4+Pj4+Pj4+Pj4gcGFnZSBmYXVs
-dCBvY2N1cnMgc28gdGhhdCBpdCBnb2VzIHNvbWV3aGVyZSBDUFUtdmlzaWJsZSwgYW5kIGNsZWFy
-Cj4+Pj4+Pj4+Pj4gaXQgd2hlbgo+Pj4+Pj4+Pj4+IHRoZSBCTyBpcyByZXF1ZXN0ZWQgYnkgdGhl
-IEdQVS4KPj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+IEhvd2V2ZXIsIGNsZWFyaW5nIHRoZSBDUFVfQUND
-RVNTX1JFUVVJUkVEIGZsYWcgbWF5IG1vdmUgQk9zIGluIEdUVCB0bwo+Pj4+Pj4+Pj4+IGludmlz
-aWJsZSBWUkFNLCB3aGVyZSB0aGV5IG1heSBwcm9tcHRseSBnZW5lcmF0ZSBhbm90aGVyIHBhZ2UK
-Pj4+Pj4+Pj4+PiBmYXVsdC4gV2hlbgo+Pj4+Pj4+Pj4+IEJPcyBhcmUgY29uc3RhbnRseSBtb3Zl
-ZCBiYWNrIGFuZCBmb3J0aCBsaWtlIHRoaXMsIGl0IGlzIGhpZ2hseQo+Pj4+Pj4+Pj4+IGRldHJp
-bWVudGFsCj4+Pj4+Pj4+Pj4gdG8gcGVyZm9ybWFuY2UuIE9ubHkgY2xlYXIgdGhlIGZsYWcgb24g
-Q1MgaWY6Cj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+PiAtIFRoZSBCTyB3YXNuJ3QgcGFnZSBmYXVsdGVk
-IGZvciBhIGNlcnRhaW4gYW1vdW50IG9mIHRpbWUKPj4+Pj4+Pj4+PiAoY3VycmVudGx5IDEwCj4+
-Pj4+Pj4+Pj4gICAgICBzZWNvbmRzKSwgYW5kCj4+Pj4+Pj4+Pj4gLSBpdHMgbGFzdCBwYWdlIGZh
-dWx0IGRpZG4ndCBvY2N1ciB0b28gc29vbiAoY3VycmVudGx5IDUwMG1zKSBhZnRlcgo+Pj4+Pj4+
-Pj4+IGl0cwo+Pj4+Pj4+Pj4+ICAgICAgbGFzdCBDUyByZXF1ZXN0LCBvciB2aWNlIHZlcnNhLgo+
-Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4gU2V0dGluZyB0aGUgZmxhZyBpbiBhbWRncHVfZmF1bHRfcmVz
-ZXJ2ZV9ub3RpZnkoKSBhbHNvIG1lYW5zIHRoYXQKPj4+Pj4+Pj4+PiB3ZSBjYW4KPj4+Pj4+Pj4+
-PiByZW1vdmUgdGhlIGxvb3AgdG8gcmVzdHJpY3QgbHBmbiB0byB0aGUgZW5kIG9mIHZpc2libGUg
-VlJBTSwgYmVjYXVzZQo+Pj4+Pj4+Pj4+IGFtZGdwdV90dG1fcGxhY2VtZW50X2luaXQoKSB3aWxs
-IGRvIGl0IGZvciB1cy4KPj4+Pj4+Pj4+IEknbSBmaW5lIHdpdGggdGhlIGdlbmVyYWwgYXBwcm9h
-Y2gsIGJ1dCBJJ20gc3RpbGwgYWJzb2x1dGVseSBub3QKPj4+Pj4+Pj4+IGtlZW4gYWJvdXQKPj4+
-Pj4+Pj4+IGNsZWFyaW5nIHRoZSBmbGFnIHdoZW4gdXNlcnNwYWNlIGhhcyBvcmlnaW5hbGx5IHNw
-ZWNpZmllZCBpdC4KPj4+Pj4+PiBJcyB0aGVyZSBhbnkgc3BlY2lmaWMgY29uY2VybiB5b3UgaGF2
-ZSBhYm91dCB0aGF0Pwo+Pj4+Pj4gWWVhaCwgcXVpdGUgYSBidW5jaCBhY3R1YWxseS4gV2Ugd2Fu
-dCB0byB1c2UgdGhpcyBmbGFnIGZvciBQMlAgYnVmZmVyCj4+Pj4+PiBzaGFyaW5nIGluIHRoZSBm
-dXR1cmUgYXMgd2VsbCBhbmQgSSBkb24ndCBpbnRlbnQgdG8gYWRkIGFub3RoZXIgb25lIGxpa2UK
-Pj4+Pj4+IENQVV9BQ0NFU1NfUkVBTExZX1JFUVVJUkVEIG9yIHNvbWV0aGluZyBsaWtlIHRoaXMu
-Cj4+Pj4+IFdvbid0IGEgQk8gbmVlZCB0byBiZSBwaW5uZWQgd2hpbGUgaXQncyBiZWluZyBzaGFy
-ZWQgd2l0aCBhbm90aGVyIGRldmljZT8KPj4+PiBUaGF0J3MgYW4gYXJ0aWZhY3Qgb2YgdGhlIGN1
-cnJlbnQga2VybmVsIGltcGxlbWVudGF0aW9uLCBJIHRoaW5rIHdlIGNvdWxkCj4+Pj4gZG8gYmV0
-dGVyIChidXQgZm9yIGN1cnJlbnQgdXNlLWNhc2VzIHdoZXJlIHdlIHNoYXJlIGEgYnVuY2ggb2Yg
-c2Nhbm91dHMKPj4+PiBhbmQgbWF5YmUgYSBmZXcgcGl4bWFwcyBpdCdzIHBvaW50bGVzcykuIEkg
-d291bGRuJ3QgYmV0IHVhcGkgb24gdGhpcyBuZXZlcgo+Pj4+IGNoYW5naW5nLgo+Pj4gU3VyZWx5
-IHRoZXJlIHdpbGwgbmVlZCB0byBiZSBzb21lIGtpbmQgb2YgdHJhbnNhY3Rpb24gdGhvdWdoIHRv
-IGxldCB0aGUKPj4+IGRyaXZlciBrbm93IHdoZW4gYSBCTyBzdGFydHMvc3RvcHMgYmVpbmcgc2hh
-cmVkIHdpdGggYW5vdGhlciBkZXZpY2U/Cj4+PiBFaXRoZXIgdmlhIHRoZSBleGlzdGluZyBkbWEt
-YnVmIGNhbGxiYWNrcywgb3Igc29tZXRoaW5nIHNpbWlsYXIuIFdlCj4+PiBjYW4ndCByZWx5IG9u
-IHVzZXJzcGFjZSBzZXR0aW5nIGEgIkNQVSBhY2Nlc3MiIGZsYWcgdG8gbWFrZSBzdXJlIGEgQk8K
-Pj4+IGNhbiBiZSBzaGFyZWQgd2l0aCBvdGhlciBkZXZpY2VzPwo+IFdlbGwgSSBqdXN0IGp1bXBl
-ZCBpbnRvIHRoZSBtaWRkbGUgb2YgdGhpcyB0aGF0IGl0J3Mgbm90IGVudGlyZWx5IG91dCBvZgo+
-IHRoZSBxdWVzdGlvbiBhcyBhbiBpZGVhLCBidXQgeWVhaCB3ZSdkIG5lZWQgdG8gcmV3b3JrIHRo
-ZSBkbWEtYnVmIHN0dWZmCj4gd2l0aCBwcm9iYWJseSBhIGNhbGxiYWNrIHRvIGV2aWN0IG1hcHBp
-bmdzL3N0YWxsIGZvciBvdXRzdGFuZGluZyByZW5kZXJpbmcKPiBvciBzb21ldGhpbmcgbGlrZSB0
-aGF0Lgo+Cj4+IFdlbGwsIHRoZSBmbGFnIHdhcyBuZXZlciBpbnRlbmRlZCB0byBiZSB1c2VkIGJ5
-IHVzZXJzcGFjZS4KPj4KPj4gU2VlIHRoZSBoaXN0b3J5IHdhcyBtb3JlIGxpa2Ugd2UgbmVlZCBz
-b21ldGhpbmcgaW4gdGhlIGtlcm5lbCB0byBwbGFjZSB0aGUKPj4gQk8gaW4gQ1BVIGFjY2Vzc2li
-bGUgVlJBTS4KPj4KPj4gVGhlbiB0aGUgY2xvc2VkIHNvdXJjZSBVTUQgY2FtZSBhbG9uZyBhbmQg
-c2FpZCBoZXkgd2UgaGF2ZSB0aGUgY29uY2VwdCBvZgo+PiB0d28gZGlmZmVyZW50IGhlYXBzIGZv
-ciB2aXNpYmxlIGFuZCBpbnZpc2libGUgVlJBTSwgaG93IGRvZXMgdGhhdCBtYXBzIHRvCj4+IGFt
-ZGdwdT8KPj4KPj4gSSB1bmZvcnR1bmF0ZWx5IHdhcyB0byB0aXJlZCB0byBwdXNoIGJhY2sgaGFy
-ZCBlbm91Z2ggb24gdGhpcy4uLi4KPiBFaHJtLCBhcmUgeW91IHNheWluZyB5b3UgaGF2ZSB1YXBp
-IGZvciB0aGUgY2xvc2VkIHNvdXJjZSBzdGFjayBvbmx5PwoKTm8sIE1lc2EgaXMgdXNpbmcgdGhh
-dCBmbGFnIGFzIHdlbGwuCgpXaGF0IEknbSBzYXlpbmcgaXMgdGhhdCB3ZSBoYXZlIGEgZmxhZyB3
-aGljaCBiZWNhbWUgdWFwaSBiZWNhdXNlIEkgd2FzIAp0byBsYXp5IHRvIGRpc3RpbmN0IGJldHdl
-ZW4gdWFwaSBhbmQga2VybmVsIGludGVybmFsIGZsYWdzLgoKPiBJIGNhbiBoZWxwIHdpdGggdGhl
-IHB1c2ggYmFjayBvbiB0aGlzIHdpdGggYSByZXZlcnQsIG5vIHByb2JsZW0gOi0pCgpUaGF0IHdv
-dWxkIGJyZWFrIE1lc2EgYW5kIGlzIG5vdCBhbiBvcHRpb24gKHVuZm9ydHVuYXRlbHkgOikuCgpD
-aHJpc3RpYW4uCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+Hi Dieter,
+
+thanks a lot for testing that.
+
+> But I think my poor little FUJITSU PRIMERGY TX150 S7, Xeon X3470 
+> (Nehalem), PCIe 2.0, 24 GB is to old for this stuff... 
+Well, actually you only need to figure out how to enable a PCIe window 
+above the 4GB limit.
+
+Could be that the BIOS supports this with the ACPI tables (totally 
+unlikely) or you could try to dig up the Northbridge documentation for 
+this CPU from Intel and use my patch for the AMD CPUs as blueprint how 
+to do this on an Intel CPU as well.
+
+Fact is you GFX hardware is perfectly capable of doing this, it's just 
+that the BIOS/Motherboard didn't enabled a PCIe window per default to 
+avoid problems with 32bit OSes.
+
+Regards,
+Christian.
+
+Am 30.06.2017 um 01:51 schrieb Dieter Nützel:
+> Hello Christian,
+>
+> I've running this since you've sent it on-top of amd-staging-4.11. But 
+> I think my poor little FUJITSU PRIMERGY TX150 S7, Xeon X3470 
+> (Nehalem), PCIe 2.0, 24 GB is to old for this stuff...
+>
+> [    1.066475] pci 0000:05:00.0: VF(n) BAR0 space: [mem 
+> 0x00000000-0x0003ffff 64bit] (contains BAR0 for 16 VFs)
+> [    1.066489] pci 0000:05:00.0: VF(n) BAR2 space: [mem 
+> 0x00000000-0x003fffff 64bit] (contains BAR2 for 16 VFs)
+> [    1.121656] pci 0000:00:1c.0: BAR 15: assigned [mem 
+> 0x80000000-0x801fffff 64bit pref]
+> [    1.121659] pci 0000:00:1c.6: BAR 15: assigned [mem 
+> 0x80200000-0x803fffff 64bit pref]
+> [    1.121662] pci 0000:01:00.0: BAR 6: assigned [mem 
+> 0xb0120000-0xb013ffff pref]
+> [    1.121681] pci 0000:05:00.0: BAR 6: assigned [mem 
+> 0xb0280000-0xb02fffff pref]
+> [    1.121683] pci 0000:05:00.0: BAR 9: no space for [mem size 
+> 0x00400000 64bit]
+> [    1.121684] pci 0000:05:00.0: BAR 9: failed to assign [mem size 
+> 0x00400000 64bit]
+> [    1.121685] pci 0000:05:00.0: BAR 7: no space for [mem size 
+> 0x00040000 64bit]
+> [    1.121687] pci 0000:05:00.0: BAR 7: failed to assign [mem size 
+> 0x00040000 64bit]
+> [    3.874180] amdgpu 0000:01:00.0: BAR 0: releasing [mem 
+> 0xc0000000-0xcfffffff 64bit pref]
+> [    3.874182] amdgpu 0000:01:00.0: BAR 2: releasing [mem 
+> 0xb0400000-0xb05fffff 64bit pref]
+> [    3.874198] pcieport 0000:00:03.0: BAR 15: releasing [mem 
+> 0xb0400000-0xcfffffff 64bit pref]
+> [    3.874215] pcieport 0000:00:03.0: BAR 15: no space for [mem size 
+> 0x300000000 64bit pref]
+> [    3.874217] pcieport 0000:00:03.0: BAR 15: failed to assign [mem 
+> size 0x300000000 64bit pref]
+> [    3.874221] amdgpu 0000:01:00.0: BAR 0: no space for [mem size 
+> 0x200000000 64bit pref]
+> [    3.874223] amdgpu 0000:01:00.0: BAR 0: failed to assign [mem size 
+> 0x200000000 64bit pref]
+> [    3.874226] amdgpu 0000:01:00.0: BAR 2: no space for [mem size 
+> 0x00200000 64bit pref]
+> [    3.874227] amdgpu 0000:01:00.0: BAR 2: failed to assign [mem size 
+> 0x00200000 64bit pref]
+> [    3.874258] [drm] Not enough PCI address space for a large BAR.
+> [    3.874261] amdgpu 0000:01:00.0: BAR 0: assigned [mem 
+> 0xc0000000-0xcfffffff 64bit pref]
+> [    3.874269] amdgpu 0000:01:00.0: BAR 2: assigned [mem 
+> 0xb0400000-0xb05fffff 64bit pref]
+> [    3.874288] [drm] Detected VRAM RAM=8192M, BAR=256M
+>
+> Anyway rebase for current amd-staging-4.11 needed.
+> Find attached dmesg-amd-staging-4.11-1.g7262353-default+.log.xz
+>
+> Greetings,
+> Dieter
+>
+> Am 09.06.2017 10:59, schrieb Christian König:
+>> Hi everyone,
+>>
+>> This is the fith incarnation of this set of patches. It enables device
+>> drivers to resize and most likely also relocate the PCI BAR of devices
+>> they manage to allow the CPU to access all of the device local memory 
+>> at once.
+>>
+>> This is very useful for GFX device drivers where the default PCI BAR 
+>> is only
+>> about 256MB in size for compatibility reasons, but the device easily 
+>> have
+>> multiple gigabyte of local memory.
+>>
+>> Some changes since V4:
+>> 1. Rebased on 4.11.
+>> 2. added the rb from Andy Shevchenko to patches which look complete now.
+>> 3. Move releasing the BAR and reallocating it on error to the driver 
+>> side.
+>> 4. Add amdgpu support for GMC V6 hardware generation as well.
+>>
+>> Please review and/or comment,
+>> Christian.
+>>
+>> _______________________________________________
+>> dri-devel mailing list
+>> dri-devel@lists.freedesktop.org
+>> https://lists.freedesktop.org/mailman/listinfo/dri-devel
