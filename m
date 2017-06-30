@@ -1,102 +1,60 @@
-From: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH 4/8] ASoC: AMD: added condition checks for CZ specific code
-Date: Fri, 30 Jun 2017 11:16:36 +0100
-Message-ID: <20170630101636.olnregex24rugg27@sirena.org.uk>
-References: <1498235706-31111-1-git-send-email-alexander.deucher@amd.com>
- <1498235706-31111-5-git-send-email-alexander.deucher@amd.com>
- <20170628180539.3uns3nudnjrjsx7o@sirena.org.uk>
- <MWHPR12MB167880D4FDA44921AB2397F997D20@MWHPR12MB1678.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: Deprecation of AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED
+Date: Fri, 30 Jun 2017 12:34:39 +0200
+Message-ID: <a5afda83-1c47-a8d2-20ab-a5923603e7fb@vodafone.de>
+References: <CAAxE2A4x8tkA9DL78EouJqxZ9b2b_PyzN3hg8JJn7AHOpk5b0w@mail.gmail.com>
+ <8f866ee1-78c0-6707-3f92-b71a2f661457@vodafone.de>
+ <CAAxE2A49_j6hO_G0XoWwquFzPsoHVELNhakt5NdmVb8=F0YdSA@mail.gmail.com>
+ <50b66561-3843-8b70-913e-5692db657640@daenzer.net>
+ <b7717c04-604f-24c8-2fc7-a94e520845c8@vodafone.de>
+ <a1c1f000-16b4-220f-70c5-01b2682a632e@daenzer.net>
+ <8f60b400-1343-9f7f-d202-f3497fb346ae@vodafone.de>
+ <160855e9-2517-ae04-fd9d-c638507109cd@daenzer.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1875919131=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <MWHPR12MB167880D4FDA44921AB2397F997D20@MWHPR12MB1678.namprd12.prod.outlook.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: "Mukunda, Vijendar" <Vijendar.Mukunda@amd.com>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, "lgirdwood@gmail.com" <lgirdwood@gmail.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "rajeevkumar.linux@gmail.com" <rajeevkumar.linux@gmail.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "perex@perex.cz" <perex@perex.cz>
-List-Id: amd-gfx.lists.freedesktop.org
-
-
---===============1875919131==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="kulj4ifmnmdpipdu"
-Content-Disposition: inline
-
-
---kulj4ifmnmdpipdu
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Jun 29, 2017 at 12:58:02PM +0000, Mukunda, Vijendar wrote:
-
-> -----Original Message-----
-> From: Mark Brown [mailto:broonie@kernel.org]=20
-> Sent: Wednesday, June 28, 2017 11:36 PM
-> To: Alex Deucher
-
-Please fix your mail client to quote mails in a more normal fashion,
-this looks pretty broken...
-
-> >These defines are being added in the middle of a file but CHIP_STONEY is=
- also used in another file in the previous patch (and apparently extensivel=
-y throughout the DRM driver already).  This is obviously not good, >we shou=
-ldn't have multiple copies of the definition.
-
-=2E..especially in that it's reflowing the message it's replying to to
-cause 80 column problems and has serious problems in that regard itself.
-
-> We will modify code to use single definition for CHIP_STONEY and CHIP_CAR=
-RIZO.
-> There are only two chip sets based on ACP 2.x design(Carrizo and Stoney).
-> Our future Chip sets going to use different design based on next ACP IP v=
-ersion.
-
-Write the code well, that way we don't have bad patterns in the codebase
-and if plans change with regard to new variants you're covered.
-
-> In the current patch, Condition checks added for Carrizo for setting SRAM=
- BANK state.
-> Memory Gating is disabled in Stoney,i.e SRAM Bank's won't be turned off. =
-The default state for SRAM banks is ON.
-> As Memory Gating is disabled, there is no need to add condition checks fo=
-r Stoney to set SRAM Bank state.
-
-Some documentation of this in the code would be good.
-
---kulj4ifmnmdpipdu
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCAAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAllWJQMACgkQJNaLcl1U
-h9ABdwf/TiBzZsxqwihHL4f4e8oF1IOzOQJg8lBD7b8mPoFCwy13fIJ18oB8kbhQ
-6BG7y14kH87CMz4bNgRVEf0rVnVOILythEIMaX965gUw2nggYjJLA1+9BtzUEojQ
-ocaC8skktEcdbk6HaZNoW2yRoouT7DzRuPZyPALIilMEjAFzufdKrg7TT+4I5voE
-ZQV9VlAKkrIkarFdwLIpVOD+kGGIO8YUMyPFnXzHcSCZLZWWpTBFSB7u2dAaA4n+
-URZaYW6MmUoVUD/EbDs3+/6Cdqk5JOeWbWJLDs81kuWGHBcwVX51dF71uLvz/wuL
-8vUTyM2ZYm1D9JfqvdUL0i/aW/fJGg==
-=B2MX
------END PGP SIGNATURE-----
-
---kulj4ifmnmdpipdu--
-
---===============1875919131==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <160855e9-2517-ae04-fd9d-c638507109cd-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, John Brooks <john-xq/Ko7C6e2Bl57MIdRCFDg@public.gmane.org>
+Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
-
---===============1875919131==--
+QW0gMzAuMDYuMjAxNyB1bSAwOToxNCBzY2hyaWViIE1pY2hlbCBEw6RuemVyOgo+IE9uIDMwLzA2
+LzE3IDAzOjU5IFBNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiBBbSAzMC4wNi4yMDE3IHVt
+IDA4OjUxIHNjaHJpZWIgTWljaGVsIETDpG56ZXI6Cj4+PiBXZSBjYW4gZGVhbCB3aXRoIHRoYXQg
+aW50ZXJuYWxseSBpbiB0aGUga2VybmVsLCB3aGlsZSBmaXhpbmcgdGhlCj4+PiBleGlzdGluZyBm
+bGFnIGZvciB1c2Vyc3BhY2UuCj4+IEFuZCBhcyBJIHNhaWQsIE5BSyB0byB0aGF0IGFwcHJvYWNo
+LiBJJ20gbm90IGdvaW5nIHRvIGFkZCBhCj4+IENQVV9BQ0NFU1NfUkVBTExZX1JFUVVJUkVEIGZs
+YWcgaW4gdGhlIGtlcm5lbCBqdXN0IGJlY2F1c2UgbWVzYSBoYXMKPj4gbWVzc2VkIHVwIGl0J3Mg
+dXNlIGNhc2UuCj4+Cj4+IFdlIGNvdWxkIGFncmVlIG9uIGZpbHRlcmluZyB0aGF0IGZsYWcgZnJv
+bSB1c2Vyc3BhY2Ugd2hlbiBCT3MgYXJlCj4+IGNyZWF0ZWQgYW5kL29yIG1hcCBpdCB0byBhIENS
+RUFURV9DUFVfQUNDRVNTX0hJTlQgZmxhZy4KPiBUaGVuIEkgcHJvcG9zZSB0aGUgZm9sbG93aW5n
+Ogo+Cj4gT25lIHBhdGNoOgo+Cj4gQ29udmVydCBBTURHUFVfR0VNX0NSRUFURV9DUFVfQUNDRVNT
+X1JFUVVJUkVEIHRvIGEga2VybmVsIGludGVybmFsIGZsYWcKPiBBTURHUFVfR0VNX0NQVV9BQ0NF
+U1NfSElOVCBpbiBhbWRncHVfZ2VtX2NyZWF0ZV9pb2N0bCwgd2hpY2ggaXMKPiBpbml0aWFsbHkg
+dHJlYXRlZCB0aGUgc2FtZSB3YXkgYXMgQU1ER1BVX0dFTV9DUkVBVEVfQ1BVX0FDQ0VTU19SRVFV
+SVJFRC4KPgo+IEFub3RoZXIgcGF0Y2g6Cj4KPiBDaGFuZ2UgdGhlIHRyZWF0bWVudCBvZiBBTURH
+UFVfR0VNX0NQVV9BQ0NFU1NfSElOVCBhY2NvcmRpbmcgdG8gSm9obidzCj4gcGF0Y2ggNCBpbiB0
+aGUgbGF0ZXN0IHNlcmllcywgb3IgYSB2YXJpYXRpb24gb2YgdGhhdCBhcyBkaXNjdXNzZWQgb24g
+SVJDLgo+Cj4KPiBJZiBhbnkgcmVncmVzc2lvbnMgYXJlIHJlcG9ydGVkLCB3ZSB3aWxsIGJlIGFi
+bGUgdG8gZGlmZmVyZW50aWF0ZQo+IHdoZXRoZXIgdGhleSBhcmUgZHVlIHRvIHRoZSBhZGRpdGlv
+biBvZiB0aGUgbmV3IGZsYWcgaXRzZWxmIG9yIGR1ZSB0bwo+IHRoZSBjaGFuZ2UgaW4gaXRzIGhh
+bmRsaW5nLgoKCkl0IGp1c3Qgb2NjdXJyZWQgdG8gbWUgdGhhdCB0aGVyZSBpcyBhIHNpbXBsZXIg
+d2F5IG9mIGhhbmRsaW5nIHRoaXM6IFdlIApqdXN0IG5ldmVyIGNsZWFyIHRoZSBmbGFnIG9uIGtl
+cm5lbCBhbGxvY2F0aW9ucy4KClNlZSBteSBtYWluIGNvbmNlcm4gYXJlIHRoZSBpbiBrZXJuZWwg
+dXNlcnMgb2YgdGhlIGZsYWcgd2hpY2ggdXNlIGl0IGFzIApndWFyYW50ZWUgdGhhdCB0aGUgQk8g
+aXMgQ1BVIGFjY2Vzc2libGUuCgpJZiB3ZSBoYW5kbGUgdGhvc2Ugc3BlY2lhbGx5IHRoZXJlIHNo
+b3VsZG4ndCBiZSBhIHByb2JsZW0gY2xlYXJpbmcgdGhlIApmbGFnIGZvciB0aGUgVU1EIEJPcy4K
+CkNocmlzdGlhbi4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
