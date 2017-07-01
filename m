@@ -1,95 +1,78 @@
-From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 01/12] drm/amdgpu: move ring helpers to amdgpu_ring.h
-Date: Fri, 30 Jun 2017 18:40:39 -0400
-Message-ID: <20ab2414-7cae-0fb0-5bac-96b55af6ec42@amd.com>
-References: <1498821733-1545-1-git-send-email-deathsimple@vodafone.de>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1498821733-1545-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Content-Language: en-CA
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+From: Arvind Yadav <arvind.yadav.cs@gmail.com>
+Subject: [PATCH] drm: radeon: constify drm_prop_enum_list structures.
+Date: Sat,  1 Jul 2017 15:17:01 +0530
+Message-ID: <beb616668c94829ec6992e7f62b6eca00e481a01.1498902119.git.arvind.yadav.cs@gmail.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: daniel.vetter@intel.com, alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-VGhhbmsgeW91IENocmlzdGlhbiEgVGhlIHNlcmllcyBpcyBBY2tlZC1ieTogRmVsaXggS3VlaGxp
-bmcKPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+CgpNaW5vciBuaXQtcGljayBpbiBwYXRjaCA2OiBJ
-IHNwb3R0ZWQgNC1zcGFjZSBpbmRlbnRhdGlvbiBpbgphbWRncHVfdHRtX2JhY2tlbmRfYmluZC4K
-CkknbSBsb29raW5nIGF0IHBhdGNoZXMgNSBhbmQgOSBtb3JlIGNsb3NlbHksIGJlY2F1c2UgSSds
-bCBuZWVkIHRvIG1ha2UKc2ltaWxhciBjaGFuZ2VzIHRvIHRoZSBLRkQgSVBDIGNvcHkgY29kZS4K
-ClJlZ2FyZHMsCiAgRmVsaXgKCgpPbiAxNy0wNi0zMCAwNzoyMiBBTSwgQ2hyaXN0aWFuIEvDtm5p
-ZyB3cm90ZToKPiBGcm9tOiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5j
-b20+Cj4KPiBLZWVwIHRoZW0gd2hlcmUgdGhleSBiZWxvbmcuCj4KPiBTaWduZWQtb2ZmLWJ5OiBD
-aHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4gLS0tCj4gIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAgICAgfCA0NCAtLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmlu
-Zy5oIHwgNDIgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrCj4gIDIgZmlsZXMgY2hhbmdl
-ZCwgNDIgaW5zZXJ0aW9ucygrKSwgNDQgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHUuaAo+IGluZGV4IGFiMWRhZDIuLjgxMDc5NmEgMTAwNjQ0Cj4gLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHUuaAo+IEBAIC0xODAxLDUwICsxODAxLDYgQEAgYm9vbCBhbWRncHVf
-ZGV2aWNlX2hhc19kY19zdXBwb3J0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKPiAgI2Rl
-ZmluZSBSQklPUzE2KGkpIChSQklPUzgoaSkgfCAoUkJJT1M4KChpKSsxKSA8PCA4KSkKPiAgI2Rl
-ZmluZSBSQklPUzMyKGkpICgoUkJJT1MxNihpKSkgfCAoUkJJT1MxNigoaSkrMikgPDwgMTYpKQo+
-ICAKPiAtLyoKPiAtICogUklORyBoZWxwZXJzLgo+IC0gKi8KPiAtc3RhdGljIGlubGluZSB2b2lk
-IGFtZGdwdV9yaW5nX3dyaXRlKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgdWludDMyX3QgdikK
-PiAtewo+IC0JaWYgKHJpbmctPmNvdW50X2R3IDw9IDApCj4gLQkJRFJNX0VSUk9SKCJhbWRncHU6
-IHdyaXRpbmcgbW9yZSBkd29yZHMgdG8gdGhlIHJpbmcgdGhhbiBleHBlY3RlZCFcbiIpOwo+IC0J
-cmluZy0+cmluZ1tyaW5nLT53cHRyKysgJiByaW5nLT5idWZfbWFza10gPSB2Owo+IC0JcmluZy0+
-d3B0ciAmPSByaW5nLT5wdHJfbWFzazsKPiAtCXJpbmctPmNvdW50X2R3LS07Cj4gLX0KPiAtCj4g
-LXN0YXRpYyBpbmxpbmUgdm9pZCBhbWRncHVfcmluZ193cml0ZV9tdWx0aXBsZShzdHJ1Y3QgYW1k
-Z3B1X3JpbmcgKnJpbmcsIHZvaWQgKnNyYywgaW50IGNvdW50X2R3KQo+IC17Cj4gLQl1bnNpZ25l
-ZCBvY2N1cGllZCwgY2h1bmsxLCBjaHVuazI7Cj4gLQl2b2lkICpkc3Q7Cj4gLQo+IC0JaWYgKHVu
-bGlrZWx5KHJpbmctPmNvdW50X2R3IDwgY291bnRfZHcpKSB7Cj4gLQkJRFJNX0VSUk9SKCJhbWRn
-cHU6IHdyaXRpbmcgbW9yZSBkd29yZHMgdG8gdGhlIHJpbmcgdGhhbiBleHBlY3RlZCFcbiIpOwo+
-IC0JCXJldHVybjsKPiAtCX0KPiAtCj4gLQlvY2N1cGllZCA9IHJpbmctPndwdHIgJiByaW5nLT5i
-dWZfbWFzazsKPiAtCWRzdCA9ICh2b2lkICopJnJpbmctPnJpbmdbb2NjdXBpZWRdOwo+IC0JY2h1
-bmsxID0gcmluZy0+YnVmX21hc2sgKyAxIC0gb2NjdXBpZWQ7Cj4gLQljaHVuazEgPSAoY2h1bmsx
-ID49IGNvdW50X2R3KSA/IGNvdW50X2R3OiBjaHVuazE7Cj4gLQljaHVuazIgPSBjb3VudF9kdyAt
-IGNodW5rMTsKPiAtCWNodW5rMSA8PD0gMjsKPiAtCWNodW5rMiA8PD0gMjsKPiAtCj4gLQlpZiAo
-Y2h1bmsxKQo+IC0JCW1lbWNweShkc3QsIHNyYywgY2h1bmsxKTsKPiAtCj4gLQlpZiAoY2h1bmsy
-KSB7Cj4gLQkJc3JjICs9IGNodW5rMTsKPiAtCQlkc3QgPSAodm9pZCAqKXJpbmctPnJpbmc7Cj4g
-LQkJbWVtY3B5KGRzdCwgc3JjLCBjaHVuazIpOwo+IC0JfQo+IC0KPiAtCXJpbmctPndwdHIgKz0g
-Y291bnRfZHc7Cj4gLQlyaW5nLT53cHRyICY9IHJpbmctPnB0cl9tYXNrOwo+IC0JcmluZy0+Y291
-bnRfZHcgLT0gY291bnRfZHc7Cj4gLX0KPiAtCj4gIHN0YXRpYyBpbmxpbmUgc3RydWN0IGFtZGdw
-dV9zZG1hX2luc3RhbmNlICoKPiAgYW1kZ3B1X2dldF9zZG1hX2luc3RhbmNlKHN0cnVjdCBhbWRn
-cHVfcmluZyAqcmluZykKPiAgewo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfcmluZy5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jp
-bmcuaAo+IGluZGV4IGJjOGRlYzkuLjA0Y2JjM2EgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3JpbmcuaAo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9yaW5nLmgKPiBAQCAtMjEyLDQgKzIxMiw0NiBAQCBzdGF0aWMgaW5saW5l
-IHZvaWQgYW1kZ3B1X3JpbmdfY2xlYXJfcmluZyhzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpCj4g
-IAo+ICB9Cj4gIAo+ICtzdGF0aWMgaW5saW5lIHZvaWQgYW1kZ3B1X3Jpbmdfd3JpdGUoc3RydWN0
-IGFtZGdwdV9yaW5nICpyaW5nLCB1aW50MzJfdCB2KQo+ICt7Cj4gKwlpZiAocmluZy0+Y291bnRf
-ZHcgPD0gMCkKPiArCQlEUk1fRVJST1IoImFtZGdwdTogd3JpdGluZyBtb3JlIGR3b3JkcyB0byB0
-aGUgcmluZyB0aGFuIGV4cGVjdGVkIVxuIik7Cj4gKwlyaW5nLT5yaW5nW3JpbmctPndwdHIrKyAm
-IHJpbmctPmJ1Zl9tYXNrXSA9IHY7Cj4gKwlyaW5nLT53cHRyICY9IHJpbmctPnB0cl9tYXNrOwo+
-ICsJcmluZy0+Y291bnRfZHctLTsKPiArfQo+ICsKPiArc3RhdGljIGlubGluZSB2b2lkIGFtZGdw
-dV9yaW5nX3dyaXRlX211bHRpcGxlKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywKPiArCQkJCQkg
-ICAgICB2b2lkICpzcmMsIGludCBjb3VudF9kdykKPiArewo+ICsJdW5zaWduZWQgb2NjdXBpZWQs
-IGNodW5rMSwgY2h1bmsyOwo+ICsJdm9pZCAqZHN0Owo+ICsKPiArCWlmICh1bmxpa2VseShyaW5n
-LT5jb3VudF9kdyA8IGNvdW50X2R3KSkgewo+ICsJCURSTV9FUlJPUigiYW1kZ3B1OiB3cml0aW5n
-IG1vcmUgZHdvcmRzIHRvIHRoZSByaW5nIHRoYW4gZXhwZWN0ZWQhXG4iKTsKPiArCQlyZXR1cm47
-Cj4gKwl9Cj4gKwo+ICsJb2NjdXBpZWQgPSByaW5nLT53cHRyICYgcmluZy0+YnVmX21hc2s7Cj4g
-Kwlkc3QgPSAodm9pZCAqKSZyaW5nLT5yaW5nW29jY3VwaWVkXTsKPiArCWNodW5rMSA9IHJpbmct
-PmJ1Zl9tYXNrICsgMSAtIG9jY3VwaWVkOwo+ICsJY2h1bmsxID0gKGNodW5rMSA+PSBjb3VudF9k
-dykgPyBjb3VudF9kdzogY2h1bmsxOwo+ICsJY2h1bmsyID0gY291bnRfZHcgLSBjaHVuazE7Cj4g
-KwljaHVuazEgPDw9IDI7Cj4gKwljaHVuazIgPDw9IDI7Cj4gKwo+ICsJaWYgKGNodW5rMSkKPiAr
-CQltZW1jcHkoZHN0LCBzcmMsIGNodW5rMSk7Cj4gKwo+ICsJaWYgKGNodW5rMikgewo+ICsJCXNy
-YyArPSBjaHVuazE7Cj4gKwkJZHN0ID0gKHZvaWQgKilyaW5nLT5yaW5nOwo+ICsJCW1lbWNweShk
-c3QsIHNyYywgY2h1bmsyKTsKPiArCX0KPiArCj4gKwlyaW5nLT53cHRyICs9IGNvdW50X2R3Owo+
-ICsJcmluZy0+d3B0ciAmPSByaW5nLT5wdHJfbWFzazsKPiArCXJpbmctPmNvdW50X2R3IC09IGNv
-dW50X2R3Owo+ICt9Cj4gKwo+ICAjZW5kaWYKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYW1kLWdmeAo=
+drm_prop_enum_lists are not supposed to change at runtime. All functions
+working with drm_prop_enum_list provided by <drm/drm_property.h> work with
+const drm_prop_enum_list. So mark the non-const structs as const.
+
+File size before:
+   text	   data	    bss	    dec	    hex	filename
+  18276	    384	      0	  18660	   48e4	drivers/gpu/drm/radeon/radeon_display.o
+
+File size After adding 'const':
+   text	   data	    bss	    dec	    hex	filename
+  18660	      0	      0	  18660	   48e4	drivers/gpu/drm/radeon/radeon_display.o
+
+Signed-off-by: Arvind Yadav <arvind.yadav.cs@gmail.com>
+---
+ drivers/gpu/drm/radeon/radeon_display.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
+index 17d3daf..f339c1c 100644
+--- a/drivers/gpu/drm/radeon/radeon_display.c
++++ b/drivers/gpu/drm/radeon/radeon_display.c
+@@ -1388,12 +1388,12 @@ static const struct drm_mode_config_funcs radeon_mode_funcs = {
+ 	.output_poll_changed = radeon_output_poll_changed
+ };
+ 
+-static struct drm_prop_enum_list radeon_tmds_pll_enum_list[] =
++static const struct drm_prop_enum_list radeon_tmds_pll_enum_list[] =
+ {	{ 0, "driver" },
+ 	{ 1, "bios" },
+ };
+ 
+-static struct drm_prop_enum_list radeon_tv_std_enum_list[] =
++static const struct drm_prop_enum_list radeon_tv_std_enum_list[] =
+ {	{ TV_STD_NTSC, "ntsc" },
+ 	{ TV_STD_PAL, "pal" },
+ 	{ TV_STD_PAL_M, "pal-m" },
+@@ -1404,25 +1404,25 @@ static struct drm_prop_enum_list radeon_tv_std_enum_list[] =
+ 	{ TV_STD_SECAM, "secam" },
+ };
+ 
+-static struct drm_prop_enum_list radeon_underscan_enum_list[] =
++static const struct drm_prop_enum_list radeon_underscan_enum_list[] =
+ {	{ UNDERSCAN_OFF, "off" },
+ 	{ UNDERSCAN_ON, "on" },
+ 	{ UNDERSCAN_AUTO, "auto" },
+ };
+ 
+-static struct drm_prop_enum_list radeon_audio_enum_list[] =
++static const struct drm_prop_enum_list radeon_audio_enum_list[] =
+ {	{ RADEON_AUDIO_DISABLE, "off" },
+ 	{ RADEON_AUDIO_ENABLE, "on" },
+ 	{ RADEON_AUDIO_AUTO, "auto" },
+ };
+ 
+ /* XXX support different dither options? spatial, temporal, both, etc. */
+-static struct drm_prop_enum_list radeon_dither_enum_list[] =
++static const struct drm_prop_enum_list radeon_dither_enum_list[] =
+ {	{ RADEON_FMT_DITHER_DISABLE, "off" },
+ 	{ RADEON_FMT_DITHER_ENABLE, "on" },
+ };
+ 
+-static struct drm_prop_enum_list radeon_output_csc_enum_list[] =
++static const struct drm_prop_enum_list radeon_output_csc_enum_list[] =
+ {	{ RADEON_OUTPUT_CSC_BYPASS, "bypass" },
+ 	{ RADEON_OUTPUT_CSC_TVRGB, "tvrgb" },
+ 	{ RADEON_OUTPUT_CSC_YCBCR601, "ycbcr601" },
+-- 
+2.7.4
