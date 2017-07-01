@@ -1,13 +1,15 @@
-From: =?UTF-8?Q?Nils_Wallm=C3=A9nius?= <nils.wallmenius-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 08/12] drm/amdgpu: add amdgpu_gart_map function
-Date: Sat, 1 Jul 2017 13:37:13 +0200
-Message-ID: <CA+nq7DsTisC63Qn3oCeNHeY=BswKEe_X_Qs7TUbB3--k6WmmOw@mail.gmail.com>
-References: <1498821733-1545-1-git-send-email-deathsimple@vodafone.de>
- <1498821733-1545-8-git-send-email-deathsimple@vodafone.de>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH 1/5] drm/amdgpu/atombios: use bios_scratch_reg_offset for
+ atombios
+Date: Sat, 1 Jul 2017 16:52:55 +0200
+Message-ID: <7858c360-c714-9db5-ee95-d5ff025efa2b@vodafone.de>
+References: <1498858359-11352-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1121557794=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1498821733-1545-8-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <1498858359-11352-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,370 +20,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
---===============1121557794==
-Content-Type: multipart/alternative; boundary="94eb2c19842c865cf105533ff4a7"
-
---94eb2c19842c865cf105533ff4a7
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Christian, two comments below
-
-Den 30 juni 2017 1:22 em skrev "Christian K=C3=B6nig" <deathsimple@vodafone=
-.de>:
-
-From: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-
-This allows us to write the mapped PTEs into
-an IB instead of the table directly.
-
-Signed-off-by: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  3 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c | 64
-++++++++++++++++++++++++--------
- 2 files changed, 52 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 810796a..4a2b33d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -572,6 +572,9 @@ int amdgpu_gart_init(struct amdgpu_device *adev);
- void amdgpu_gart_fini(struct amdgpu_device *adev);
- int amdgpu_gart_unbind(struct amdgpu_device *adev, uint64_t offset,
-                        int pages);
-+int amdgpu_gart_map(struct amdgpu_device *adev, uint64_t offset,
-+                   int pages, dma_addr_t *dma_addr, uint64_t flags,
-+                   void *dst);
- int amdgpu_gart_bind(struct amdgpu_device *adev, uint64_t offset,
-                     int pages, struct page **pagelist,
-                     dma_addr_t *dma_addr, uint64_t flags);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-index 8877015..d99b2b2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c
-@@ -280,6 +280,43 @@ int amdgpu_gart_unbind(struct amdgpu_device *adev,
-uint64_t offset,
- }
-
- /**
-+ * amdgpu_gart_map - map dma_addresses into GART entries
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @offset: offset into the GPU's gart aperture
-+ * @pages: number of pages to bind
-+ * @dma_addr: DMA addresses of pages
-+ *
-+ * Map the dma_addresses into GART entries (all asics).
-+ * Returns 0 for success, -EINVAL for failure.
-+ */
-+int amdgpu_gart_map(struct amdgpu_device *adev, uint64_t offset,
-+                   int pages, dma_addr_t *dma_addr, uint64_t flags,
-+                   void *dst)
-+{
-+       uint64_t page_base;
-+       unsigned t, p;
-+       int i, j;
-+
-+       if (!adev->gart.ready) {
-+               WARN(1, "trying to bind memory to uninitialized GART !\n");
-+               return -EINVAL;
-+       }
-+
-+       t =3D offset / AMDGPU_GPU_PAGE_SIZE;
-+       p =3D t / (PAGE_SIZE / AMDGPU_GPU_PAGE_SIZE);
-+
-+       for (i =3D 0; i < pages; i++, p++) {
-+               page_base =3D dma_addr[i];
-+               for (j =3D 0; j < (PAGE_SIZE / AMDGPU_GPU_PAGE_SIZE); j++,
-t++) {
-+                       amdgpu_gart_set_pte_pde(adev, dst, t, page_base,
-flags);
-+                       page_base +=3D AMDGPU_GPU_PAGE_SIZE;
-+               }
-+       }
-+       return 0;
-+}
-
-
-The p variable seems set but not used in the above function.
-
-+
-+/**
-  * amdgpu_gart_bind - bind pages into the gart page table
-  *
-  * @adev: amdgpu_device pointer
-@@ -296,31 +333,28 @@ int amdgpu_gart_bind(struct amdgpu_device *adev,
-uint64_t offset,
-                     int pages, struct page **pagelist, dma_addr_t
-*dma_addr,
-                     uint64_t flags)
- {
--       unsigned t;
--       unsigned p;
--       uint64_t page_base;
--       int i, j;
-+#ifdef CONFIG_DRM_AMDGPU_GART_DEBUGFS
-+       unsigned i;
-+#endif
-+       int r;
-
-        if (!adev->gart.ready) {
-                WARN(1, "trying to bind memory to uninitialized GART !\n");
-                return -EINVAL;
-        }
-
--       t =3D offset / AMDGPU_GPU_PAGE_SIZE;
--       p =3D t / (PAGE_SIZE / AMDGPU_GPU_PAGE_SIZE);
--
--       for (i =3D 0; i < pages; i++, p++) {
- #ifdef CONFIG_DRM_AMDGPU_GART_DEBUGFS
-+       for (i =3D 0; i < pages; i++, p++)
-                adev->gart.pages[p] =3D pagelist[i];
- #endif
-
-
-The p variable is not declared in this function so building with
-CONFIG_DRM_AMDGPU_GART_DEBUGFS will fail.
-
-Regards,
-Nils
-
--               if (adev->gart.ptr) {
--                       page_base =3D dma_addr[i];
--                       for (j =3D 0; j < (PAGE_SIZE / AMDGPU_GPU_PAGE_SIZE=
-);
-j++, t++) {
--                               amdgpu_gart_set_pte_pde(adev,
-adev->gart.ptr, t, page_base, flags);
--                               page_base +=3D AMDGPU_GPU_PAGE_SIZE;
--                       }
--               }
-+
-+       if (adev->gart.ptr) {
-+               r =3D amdgpu_gart_map(adev, offset, pages, dma_addr, flags,
-+                           adev->gart.ptr);
-+               if (r)
-+                       return r;
-        }
-+
-        mb();
-        amdgpu_gart_flush_gpu_tlb(adev, 0);
-        return 0;
---
-2.7.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---94eb2c19842c865cf105533ff4a7
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div>Hi Christian, two comments below<br><div class=3D"gm=
-ail_extra"><br><div class=3D"gmail_quote">Den 30 juni 2017 1:22 em skrev &q=
-uot;Christian K=C3=B6nig&quot; &lt;<a href=3D"mailto:deathsimple@vodafone.d=
-e">deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org</a>&gt;:<br type=3D"attribution"><blockquote cla=
-ss=3D"quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-=
-left:1ex">From: Christian K=C3=B6nig &lt;<a href=3D"mailto:christian.koenig=
-@amd.com">christian.koenig-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-<br>
-This allows us to write the mapped PTEs into<br>
-an IB instead of the table directly.<br>
-<br>
-Signed-off-by: Christian K=C3=B6nig &lt;<a href=3D"mailto:christian.koenig@=
-amd.com">christian.koenig-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
----<br>
-=C2=A0drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu.h=C2=A0 =C2=A0 =C2=A0 |=C2=A0 =
-3 ++<br>
-=C2=A0drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_gart.c | 64 ++++++++++++++++++=
-++++++------<wbr>--<br>
-=C2=A02 files changed, 52 insertions(+), 15 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu.h b/drivers/gpu/drm/amd=
-/amdgpu/<wbr>amdgpu.h<br>
-index 810796a..4a2b33d 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu.h<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu.h<br>
-@@ -572,6 +572,9 @@ int amdgpu_gart_init(struct amdgpu_device *adev);<br>
-=C2=A0void amdgpu_gart_fini(struct amdgpu_device *adev);<br>
-=C2=A0int amdgpu_gart_unbind(struct amdgpu_device *adev, uint64_t offset,<b=
-r>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 int pages);<br>
-+int amdgpu_gart_map(struct amdgpu_device *adev, uint64_t offset,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0int p=
-ages, dma_addr_t *dma_addr, uint64_t flags,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0void =
-*dst);<br>
-=C2=A0int amdgpu_gart_bind(struct amdgpu_device *adev, uint64_t offset,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0int pages, struct page **pagelist,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0dma_addr_t *dma_addr, uint64_t flags);<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_gart.c b/drivers/gpu/dr=
-m/amd/amdgpu/<wbr>amdgpu_gart.c<br>
-index 8877015..d99b2b2 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_gart.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/<wbr>amdgpu_gart.c<br>
-@@ -280,6 +280,43 @@ int amdgpu_gart_unbind(struct amdgpu_device *adev, uin=
-t64_t offset,<br>
-=C2=A0}<br>
-<br>
-=C2=A0/**<br>
-+ * amdgpu_gart_map - map dma_addresses into GART entries<br>
-+ *<br>
-+ * @adev: amdgpu_device pointer<br>
-+ * @offset: offset into the GPU&#39;s gart aperture<br>
-+ * @pages: number of pages to bind<br>
-+ * @dma_addr: DMA addresses of pages<br>
-+ *<br>
-+ * Map the dma_addresses into GART entries (all asics).<br>
-+ * Returns 0 for success, -EINVAL for failure.<br>
-+ */<br>
-+int amdgpu_gart_map(struct amdgpu_device *adev, uint64_t offset,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0int p=
-ages, dma_addr_t *dma_addr, uint64_t flags,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0void =
-*dst)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0uint64_t page_base;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned t, p;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0int i, j;<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!adev-&gt;gart.ready) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0WARN(1, &quot;tryin=
-g to bind memory to uninitialized GART !\n&quot;);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0t =3D offset / AMDGPU_GPU_PAGE_SIZE;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0p =3D t / (PAGE_SIZE / AMDGPU_GPU_PAGE_SIZE);<b=
-r>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; pages; i++, p++) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0page_base =3D dma_a=
-ddr[i];<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0for (j =3D 0; j &lt=
-; (PAGE_SIZE / AMDGPU_GPU_PAGE_SIZE); j++, t++) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0amdgpu_gart_set_pte_pde(adev, dst, t, page_base, flags);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0page_base +=3D AMDGPU_GPU_PAGE_SIZE;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
-+}<br></blockquote></div></div></div><div dir=3D"auto"><br></div><div dir=
-=3D"auto">The p variable seems set but not used in the above function.</div=
-><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_extra"><=
-div class=3D"gmail_quote"><blockquote class=3D"quote" style=3D"margin:0 0 0=
- .8ex;border-left:1px #ccc solid;padding-left:1ex">
-+<br>
-+/**<br>
-=C2=A0 * amdgpu_gart_bind - bind pages into the gart page table<br>
-=C2=A0 *<br>
-=C2=A0 * @adev: amdgpu_device pointer<br>
-@@ -296,31 +333,28 @@ int amdgpu_gart_bind(struct amdgpu_device *adev, uint=
-64_t offset,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0int pages, struct page **pagelist, dma_addr_t *dma_addr,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0uint64_t flags)<br>
-=C2=A0{<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned t;<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned p;<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0uint64_t page_base;<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0int i, j;<br>
-+#ifdef CONFIG_DRM_AMDGPU_GART_DEBUGFS<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned i;<br>
-+#endif<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0int r;<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!adev-&gt;gart.ready) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 WARN(1, &quot;tryin=
-g to bind memory to uninitialized GART !\n&quot;);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return -EINVAL;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0t =3D offset / AMDGPU_GPU_PAGE_SIZE;<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0p =3D t / (PAGE_SIZE / AMDGPU_GPU_PAGE_SIZE);<b=
-r>
--<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; pages; i++, p++) {<br>
-=C2=A0#ifdef CONFIG_DRM_AMDGPU_GART_DEBUGFS<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; pages; i++, p++)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gart.pages=
-[p] =3D pagelist[i];<br>
-=C2=A0#endif<br></blockquote></div></div></div><div dir=3D"auto"><br></div>=
-<div dir=3D"auto">The p variable is not declared in this function so buildi=
-ng with=C2=A0</div><div dir=3D"auto"><span style=3D"font-family:sans-serif"=
->CONFIG_DRM_AMDGPU_GART_DEBUGFS will fail.</span><br></div><div dir=3D"auto=
-"><span style=3D"font-family:sans-serif"><br></span></div><div dir=3D"auto"=
-><span style=3D"font-family:sans-serif">Regards,</span></div><div dir=3D"au=
-to"><span style=3D"font-family:sans-serif">Nils</span></div><div dir=3D"aut=
-o"><span style=3D"font-family:sans-serif"><br></span></div><div dir=3D"auto=
-"><div class=3D"gmail_extra"><div class=3D"gmail_quote"><blockquote class=
-=3D"quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-le=
-ft:1ex">
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (adev-&gt;gart.p=
-tr) {<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0page_base =3D dma_addr[i];<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0for (j =3D 0; j &lt; (PAGE_SIZE / AMDGPU_GPU_PAGE_SIZE); j++, t++=
-) {<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_gart_set_pte_pde(adev, adev-&g=
-t;gart.ptr, t, page_base, flags);<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0page_base +=3D AMDGPU_GPU_PAGE_SIZE;<=
-br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0}<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (adev-&gt;gart.ptr) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D amdgpu_gart_m=
-ap(adev, offset, pages, dma_addr, flags,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gart.ptr);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (r)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0return r;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-+<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 mb();<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 amdgpu_gart_flush_gpu_tlb(<wbr>adev, 0);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 return 0;<br>
-<font color=3D"#888888">--<br>
-2.7.4<br>
-<br>
-______________________________<wbr>_________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
-oreferrer" target=3D"_blank">https://lists.freedesktop.org/<wbr>mailman/lis=
-tinfo/amd-gfx</a><br>
-</font></blockquote></div><br></div></div></div>
-
---94eb2c19842c865cf105533ff4a7--
-
---===============1121557794==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1121557794==--
+QW0gMzAuMDYuMjAxNyB1bSAyMzozMiBzY2hyaWViIEFsZXggRGV1Y2hlcjoKPiBBbGlnbiB3aXRo
+IHRoZSBhdG9tZmlybXdhcmUgY29kZS4KPgo+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8
+YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KClBhdGNoICMxIGFuZCAjMiBpbiB0aGlzIHNlcmll
+cyBhcmUgQWNrZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgCjxjaHJpc3RpYW4ua29lbmlnQGFtZC5j
+b20+LgoKUGF0Y2ggIzMtIzUgYXJlIFJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJp
+c3RpYW4ua29lbmlnQGFtZC5jb20+LgoKUmVnYXJkcywKQ2hyaXN0aWFuLgoKPiAtLS0KPiAgIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hdG9tYmlvcy5jIHwgMjIgKysrKysrKysr
+KysrLS0tLS0tLS0tLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDEyIGluc2VydGlvbnMoKyksIDEwIGRl
+bGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9hdG9tYmlvcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2F0b21i
+aW9zLmMKPiBpbmRleCAxZThlMTEyLi44ZTdhN2I5IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hdG9tYmlvcy5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2F0b21iaW9zLmMKPiBAQCAtMTY4Niw3ICsxNjg2LDcgQEAgdm9p
+ZCBhbWRncHVfYXRvbWJpb3Nfc2NyYXRjaF9yZWdzX2xvY2soc3RydWN0IGFtZGdwdV9kZXZpY2Ug
+KmFkZXYsIGJvb2wgbG9jaykKPiAgIHsKPiAgIAl1aW50MzJfdCBiaW9zXzZfc2NyYXRjaDsKPiAg
+IAo+IC0JYmlvc182X3NjcmF0Y2ggPSBSUkVHMzIobW1CSU9TX1NDUkFUQ0hfNik7Cj4gKwliaW9z
+XzZfc2NyYXRjaCA9IFJSRUczMihhZGV2LT5iaW9zX3NjcmF0Y2hfcmVnX29mZnNldCArIDYpOwo+
+ICAgCj4gICAJaWYgKGxvY2spIHsKPiAgIAkJYmlvc182X3NjcmF0Y2ggfD0gQVRPTV9TNl9DUklU
+SUNBTF9TVEFURTsKPiBAQCAtMTY5NiwxNSArMTY5NiwxNyBAQCB2b2lkIGFtZGdwdV9hdG9tYmlv
+c19zY3JhdGNoX3JlZ3NfbG9jayhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgYm9vbCBsb2Nr
+KQo+ICAgCQliaW9zXzZfc2NyYXRjaCB8PSBBVE9NX1M2X0FDQ19NT0RFOwo+ICAgCX0KPiAgIAo+
+IC0JV1JFRzMyKG1tQklPU19TQ1JBVENIXzYsIGJpb3NfNl9zY3JhdGNoKTsKPiArCVdSRUczMihh
+ZGV2LT5iaW9zX3NjcmF0Y2hfcmVnX29mZnNldCArIDYsIGJpb3NfNl9zY3JhdGNoKTsKPiAgIH0K
+PiAgIAo+ICAgdm9pZCBhbWRncHVfYXRvbWJpb3Nfc2NyYXRjaF9yZWdzX2luaXQoc3RydWN0IGFt
+ZGdwdV9kZXZpY2UgKmFkZXYpCj4gICB7Cj4gICAJdWludDMyX3QgYmlvc18yX3NjcmF0Y2gsIGJp
+b3NfNl9zY3JhdGNoOwo+ICAgCj4gLQliaW9zXzJfc2NyYXRjaCA9IFJSRUczMihtbUJJT1NfU0NS
+QVRDSF8yKTsKPiAtCWJpb3NfNl9zY3JhdGNoID0gUlJFRzMyKG1tQklPU19TQ1JBVENIXzYpOwo+
+ICsJYWRldi0+Ymlvc19zY3JhdGNoX3JlZ19vZmZzZXQgPSBtbUJJT1NfU0NSQVRDSF8wOwo+ICsK
+PiArCWJpb3NfMl9zY3JhdGNoID0gUlJFRzMyKGFkZXYtPmJpb3Nfc2NyYXRjaF9yZWdfb2Zmc2V0
+ICsgMik7Cj4gKwliaW9zXzZfc2NyYXRjaCA9IFJSRUczMihhZGV2LT5iaW9zX3NjcmF0Y2hfcmVn
+X29mZnNldCArIDYpOwo+ICAgCj4gICAJLyogbGV0IHRoZSBiaW9zIGNvbnRyb2wgdGhlIGJhY2ts
+aWdodCAqLwo+ICAgCWJpb3NfMl9zY3JhdGNoICY9IH5BVE9NX1MyX1ZSSV9CUklHSFRfRU5BQkxF
+Owo+IEBAIC0xNzE1LDggKzE3MTcsOCBAQCB2b2lkIGFtZGdwdV9hdG9tYmlvc19zY3JhdGNoX3Jl
+Z3NfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAgIAkvKiBjbGVhciB0aGUgdmJp
+b3MgZHBtcyBzdGF0ZSAqLwo+ICAgCWJpb3NfMl9zY3JhdGNoICY9IH5BVE9NX1MyX0RFVklDRV9E
+UE1TX1NUQVRFOwo+ICAgCj4gLQlXUkVHMzIobW1CSU9TX1NDUkFUQ0hfMiwgYmlvc18yX3NjcmF0
+Y2gpOwo+IC0JV1JFRzMyKG1tQklPU19TQ1JBVENIXzYsIGJpb3NfNl9zY3JhdGNoKTsKPiArCVdS
+RUczMihhZGV2LT5iaW9zX3NjcmF0Y2hfcmVnX29mZnNldCArIDIsIGJpb3NfMl9zY3JhdGNoKTsK
+PiArCVdSRUczMihhZGV2LT5iaW9zX3NjcmF0Y2hfcmVnX29mZnNldCArIDYsIGJpb3NfNl9zY3Jh
+dGNoKTsKPiAgIH0KPiAgIAo+ICAgdm9pZCBhbWRncHVfYXRvbWJpb3Nfc2NyYXRjaF9yZWdzX3Nh
+dmUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gQEAgLTE3MjQsNyArMTcyNiw3IEBAIHZv
+aWQgYW1kZ3B1X2F0b21iaW9zX3NjcmF0Y2hfcmVnc19zYXZlKHN0cnVjdCBhbWRncHVfZGV2aWNl
+ICphZGV2KQo+ICAgCWludCBpOwo+ICAgCj4gICAJZm9yIChpID0gMDsgaSA8IEFNREdQVV9CSU9T
+X05VTV9TQ1JBVENIOyBpKyspCj4gLQkJYWRldi0+Ymlvc19zY3JhdGNoW2ldID0gUlJFRzMyKG1t
+QklPU19TQ1JBVENIXzAgKyBpKTsKPiArCQlhZGV2LT5iaW9zX3NjcmF0Y2hbaV0gPSBSUkVHMzIo
+YWRldi0+Ymlvc19zY3JhdGNoX3JlZ19vZmZzZXQgKyBpKTsKPiAgIH0KPiAgIAo+ICAgdm9pZCBh
+bWRncHVfYXRvbWJpb3Nfc2NyYXRjaF9yZWdzX3Jlc3RvcmUoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
+KmFkZXYpCj4gQEAgLTE3MzgsMjAgKzE3NDAsMjAgQEAgdm9pZCBhbWRncHVfYXRvbWJpb3Nfc2Ny
+YXRjaF9yZWdzX3Jlc3RvcmUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gICAJYWRldi0+
+Ymlvc19zY3JhdGNoWzddICY9IH5BVE9NX1M3X0FTSUNfSU5JVF9DT01QTEVURV9NQVNLOwo+ICAg
+Cj4gICAJZm9yIChpID0gMDsgaSA8IEFNREdQVV9CSU9TX05VTV9TQ1JBVENIOyBpKyspCj4gLQkJ
+V1JFRzMyKG1tQklPU19TQ1JBVENIXzAgKyBpLCBhZGV2LT5iaW9zX3NjcmF0Y2hbaV0pOwo+ICsJ
+CVdSRUczMihhZGV2LT5iaW9zX3NjcmF0Y2hfcmVnX29mZnNldCArIGksIGFkZXYtPmJpb3Nfc2Ny
+YXRjaFtpXSk7Cj4gICB9Cj4gICAKPiAgIHZvaWQgYW1kZ3B1X2F0b21iaW9zX3NjcmF0Y2hfcmVn
+c19lbmdpbmVfaHVuZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAgIAkJCQkJICAgICAg
+Ym9vbCBodW5nKQo+ICAgewo+IC0JdTMyIHRtcCA9IFJSRUczMihtbUJJT1NfU0NSQVRDSF8zKTsK
+PiArCXUzMiB0bXAgPSBSUkVHMzIoYWRldi0+Ymlvc19zY3JhdGNoX3JlZ19vZmZzZXQgKyAzKTsK
+PiAgIAo+ICAgCWlmIChodW5nKQo+ICAgCQl0bXAgfD0gQVRPTV9TM19BU0lDX0dVSV9FTkdJTkVf
+SFVORzsKPiAgIAllbHNlCj4gICAJCXRtcCAmPSB+QVRPTV9TM19BU0lDX0dVSV9FTkdJTkVfSFVO
+RzsKPiAgIAo+IC0JV1JFRzMyKG1tQklPU19TQ1JBVENIXzMsIHRtcCk7Cj4gKwlXUkVHMzIoYWRl
+di0+Ymlvc19zY3JhdGNoX3JlZ19vZmZzZXQgKyAzLCB0bXApOwo+ICAgfQo+ICAgCj4gICAvKiBB
+dG9tIG5lZWRzIGRhdGEgaW4gbGl0dGxlIGVuZGlhbiBmb3JtYXQKCgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
