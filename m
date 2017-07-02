@@ -1,104 +1,41 @@
-From: John Brooks <john-xq/Ko7C6e2Bl57MIdRCFDg@public.gmane.org>
-Subject: [PATCH 2/2] drm/amdgpu: Don't call amd_powerplay_destroy() if we
- don't have powerplay
-Date: Sat,  1 Jul 2017 13:13:02 -0400
-Message-ID: <1498929182-9805-3-git-send-email-john@fastquake.com>
-References: <1498929182-9805-1-git-send-email-john@fastquake.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1498929182-9805-1-git-send-email-john-xq/Ko7C6e2Bl57MIdRCFDg@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+From: Arvind Yadav <arvind.yadav.cs@gmail.com>
+Subject: [PATCH] drm: radeon: radeon_ttm: constify ttm_place structures.
+Date: Sun,  2 Jul 2017 14:36:47 +0530
+Message-ID: <70c8aaafe1e873e84490b099e7b9e62eaf911953.1498986195.git.arvind.yadav.cs@gmail.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-YW1kX3Bvd2VycGxheV9kZXN0cm95KCkgZXhwZWN0cyBhIGhhbmRsZSBwb2ludGluZyB0byBhIHN0
-cnVjdCBwcF9pbnN0YW5jZS4KT24gY2hpcHMgd2l0aG91dCBQb3dlclBsYXksIHBwX2hhbmRsZSBw
-b2ludHMgdG8gYSBzdHJ1Y3QgYW1kZ3B1X2RldmljZS4gVGhlCnJlc3VsdGluZyBhdHRlbXB0IHRv
-IGtmcmVlKCkgZmllbGRzIG9mIHRoZSB3cm9uZyBzdHJ1Y3QgZW5kcyBpbiBmaXJlOgoKWyAgIDkx
-LjU2MDQwNV0gQlVHOiB1bmFibGUgdG8gaGFuZGxlIGtlcm5lbCBwYWdpbmcgcmVxdWVzdCBhdCBm
-ZmZmZWJlMDAwMDAwNjIwClsgICA5MS41NjA0MTRdIElQOiBrZnJlZSsweDU3LzB4MTYwClsgICA5
-MS41NjA0MTZdIFBHRCAwClsgICA5MS41NjA0MTZdIFA0RCAwCgpbICAgOTEuNTYwNDIwXSBPb3Bz
-OiAwMDAwIFsjMV0gU01QClsgICA5MS41NjA0MjJdIE1vZHVsZXMgbGlua2VkIGluOiB0dW4geDg2
-X3BrZ190ZW1wX3RoZXJtYWwgY3JjMzJfcGNsbXVsIGdoYXNoX2NsbXVsbmlfaW50ZWwgZWZpdmFy
-ZnMgYW1kZ3B1KC0pIGkyY19hbGdvX2JpdCBkcm1fa21zX2hlbHBlciBzeXNjb3B5YXJlYSBzeXNm
-aWxscmVjdCBzeXNpbWdibHQgZmJfc3lzX2ZvcHMgdHRtIGRybQpbICAgOTEuNTYwNDM4XSBDUFU6
-IDYgUElEOiAzNTk4IENvbW06IHJtbW9kIE5vdCB0YWludGVkIDQuMTIuMC1yYzUtZHJtLW5leHQt
-NC4xMy10dG1wYXRjaCsgIzEKWyAgIDkxLjU2MDQ0M10gSGFyZHdhcmUgbmFtZTogR2lnYWJ5dGUg
-VGVjaG5vbG9neSBDby4sIEx0ZC4gWjk3WC1VRDNILUJLL1o5N1gtVUQzSC1CSy1DRiwgQklPUyBG
-NiAwNi8xNy8yMDE0ClsgICA5MS41NjA0NDhdIHRhc2s6IGZmZmY4ODA1MDYzZDZhMDAgdGFzay5z
-dGFjazogZmZmZmM5MDAwMzQwMDAwMApbICAgOTEuNTYwNDUxXSBSSVA6IDAwMTA6a2ZyZWUrMHg1
-Ny8weDE2MApbICAgOTEuNTYwNDU0XSBSU1A6IDAwMTg6ZmZmZmM5MDAwMzQwM2NjMCBFRkxBR1M6
-IDAwMDEwMjg2ClsgICA5MS41NjA0NTddIFJBWDogMDAwMDc3ZmY4MDAwMDAwMCBSQlg6IDAwMDAw
-MDAwMDAwMTg2YTAgUkNYOiAwMDAwMDAwMTgwNDAwMDM1ClsgICA5MS41NjA0NjBdIFJEWDogMDAw
-MDAwMDE4MDQwMDAzNiBSU0k6IGZmZmZlYTAwMTQxOGU3NDAgUkRJOiBmZmZmZWEwMDAwMDAwMDAw
-ClsgICA5MS41NjA0NjNdIFJCUDogZmZmZmM5MDAwMzQwM2NkOCBSMDg6IDAwMDAwMDAwMDYzOWQy
-MDEgUjA5OiAwMDAwMDAwMTgwNDAwMDM1ClsgICA5MS41NjA0NjddIFIxMDogZmZmZmViZTAwMDAw
-MDYwMCBSMTE6IDAwMDAwMDAwMDAwMDAzMDAgUjEyOiBmZmZmODgwNTAwNTMwMDMwClsgICA5MS41
-NjA0NzBdIFIxMzogZmZmZmZmZmZhMDFlNzBmYyBSMTQ6IDAwMDAwMDAwZmZmZmZmZmYgUjE1OiBm
-ZmZmODgwNTAwNTMwMDAwClsgICA5MS41NjA0NzNdIEZTOiAgMDAwMDdmN2U1MDBjMzcwMCgwMDAw
-KSBHUzpmZmZmODgwNTFlZDgwMDAwKDAwMDApIGtubEdTOjAwMDAwMDAwMDAwMDAwMDAKWyAgIDkx
-LjU2MDQ3OF0gQ1M6ICAwMDEwIERTOiAwMDAwIEVTOiAwMDAwIENSMDogMDAwMDAwMDA4MDA1MDAz
-MwpbICAgOTEuNTYwNDgwXSBDUjI6IGZmZmZlYmUwMDAwMDA2MjAgQ1IzOiAwMDAwMDAwNTAzMTAz
-MDAwIENSNDogMDAwMDAwMDAwMDE0MDZlMApbICAgOTEuNTYwNDgzXSBEUjA6IDAwMDAwMDAwMDAw
-MDAwMDAgRFIxOiAwMDAwMDAwMDAwMDAwMDAwIERSMjogMDAwMDAwMDAwMDAwMDAwMApbICAgOTEu
-NTYwNDg3XSBEUjM6IDAwMDAwMDAwMDAwMDAwMDAgRFI2OiAwMDAwMDAwMGZmZmUwZmYwIERSNzog
-MDAwMDAwMDAwMDAwMDQwMApbICAgOTEuNTYwNDg5XSBDYWxsIFRyYWNlOgpbICAgOTEuNTYwNTMw
-XSAgYW1kX3Bvd2VycGxheV9kZXN0cm95KzB4MWMvMHg2MCBbYW1kZ3B1XQpbICAgOTEuNTYwNTU4
-XSAgYW1kZ3B1X3BwX2xhdGVfZmluaSsweDQ0LzB4NjAgW2FtZGdwdV0KWyAgIDkxLjU2MDU3NV0g
-IGFtZGdwdV9maW5pKzB4MjU0LzB4NDkwIFthbWRncHVdClsgICA5MS41NjA1OTNdICBhbWRncHVf
-ZGV2aWNlX2ZpbmkrMHg1OC8weDFiMCBbYW1kZ3B1XQpbICAgOTEuNTYwNjEwXSAgYW1kZ3B1X2Ry
-aXZlcl91bmxvYWRfa21zKzB4NGYvMHhhMCBbYW1kZ3B1XQpbICAgOTEuNTYwNjIyXSAgZHJtX2Rl
-dl91bnJlZ2lzdGVyKzB4M2MvMHhlMCBbZHJtXQpbICAgOTEuNTYwNjM4XSAgYW1kZ3B1X3BjaV9y
-ZW1vdmUrMHgxOS8weDMwIFthbWRncHVdClsgICA5MS41NjA2NDNdICBwY2lfZGV2aWNlX3JlbW92
-ZSsweDM5LzB4YzAKWyAgIDkxLjU2MDY0OF0gIGRldmljZV9yZWxlYXNlX2RyaXZlcl9pbnRlcm5h
-bCsweDE1NS8weDIxMApbICAgOTEuNTYwNjUxXSAgZHJpdmVyX2RldGFjaCsweDM4LzB4NzAKWyAg
-IDkxLjU2MDY1NV0gIGJ1c19yZW1vdmVfZHJpdmVyKzB4NGMvMHhhMApbICAgOTEuNTYwNjU4XSAg
-ZHJpdmVyX3VucmVnaXN0ZXIrMHgyYy8weDQwClsgICA5MS41NjA2NjJdICBwY2lfdW5yZWdpc3Rl
-cl9kcml2ZXIrMHgyMS8weDkwClsgICA5MS41NjA2ODldICBhbWRncHVfZXhpdCsweDE1LzB4NDA2
-IFthbWRncHVdClsgICA5MS41NjA2OTRdICBTeVNfZGVsZXRlX21vZHVsZSsweDFhOC8weDI3MApb
-ICAgOTEuNTYwNjk4XSAgPyBleGl0X3RvX3VzZXJtb2RlX2xvb3ArMHg5Mi8weGEwClsgICA5MS41
-NjA3MDJdICBlbnRyeV9TWVNDQUxMXzY0X2Zhc3RwYXRoKzB4MTMvMHg5NApbICAgOTEuNTYwNzA1
-XSBSSVA6IDAwMzM6MHg3ZjdlNGZjMTE4ZTcKWyAgIDkxLjU2MDcwOF0gUlNQOiAwMDJiOjAwMDA3
-ZmZmOTc4Y2ExMTggRUZMQUdTOiAwMDAwMDIwNiBPUklHX1JBWDogMDAwMDAwMDAwMDAwMDBiMApb
-ICAgOTEuNTYwNzEzXSBSQVg6IGZmZmZmZmZmZmZmZmZmZGEgUkJYOiAwMDAwNTVhZmUyMWJjMjAw
-IFJDWDogMDAwMDdmN2U0ZmMxMThlNwpbICAgOTEuNTYwNzE2XSBSRFg6IDAwMDAwMDAwMDAwMDAw
-MGEgUlNJOiAwMDAwMDAwMDAwMDAwODAwIFJESTogMDAwMDU1YWZlMjFiYzI2OApbICAgOTEuNTYw
-NzE5XSBSQlA6IDAwMDAwMDAwMDAwMDAwMDMgUjA4OiAwMDAwMDAwMDAwMDAwMDAwIFIwOTogMTk5
-OTk5OTk5OTk5OTk5OQpbICAgOTEuNTYwNzIyXSBSMTA6IDAwMDAwMDAwMDAwMDA4ODMgUjExOiAw
-MDAwMDAwMDAwMDAwMjA2IFIxMjogMDAwMDdmZmY5NzhjOTEwMApbICAgOTEuNTYwNzI1XSBSMTM6
-IDAwMDAwMDAwMDAwMDAwMDAgUjE0OiAwMDAwMDAwMDAwMDAwMDAwIFIxNTogMDAwMDU1YWZlMjFi
-YzIwMApbICAgOTEuNTYwNzI4XSBDb2RlOiAwMCAwMCAwMCA4MCBmZiA3NyAwMCAwMCA0OCBiZiAw
-MCAwMCAwMCAwMCAwMCBlYSBmZiBmZiA0OSAwMSBkYSA0OCAwZiA0MiAwNSA1NyAzMyBiZCAwMCA0
-OSAwMSBjMiA0OSBjMSBlYSAwYyA0OSBjMSBlMiAwNiA0OSAwMSBmYSA8NDk+IDhiIDQyIDIwIDQ4
-IDhkIDc4IGZmIGE4IDAxIDRjIDBmIDQ1IGQ3IDQ5IDhiIDUyIDIwIDQ4IDhkIDQyClsgICA5MS41
-NjA3NTldIFJJUDoga2ZyZWUrMHg1Ny8weDE2MCBSU1A6IGZmZmZjOTAwMDM0MDNjYzAKWyAgIDkx
-LjU2MDc2MV0gQ1IyOiBmZmZmZWJlMDAwMDAwNjIwClsgICA5MS41NjA3NjVdIC0tLVsgZW5kIHRy
-YWNlIDA4YTlmM2NkODIyMjNjMWQgXS0tLQoKRml4ZXM6IDFjODYzODAyNDg0NiAoZHJtL2FtZC9w
-b3dlcnBsYXk6IHJlZmluZSBwb3dlcnBsYXkgaW50ZXJmYWNlLikKU2lnbmVkLW9mZi1ieTogSm9o
-biBCcm9va3MgPGpvaG5AZmFzdHF1YWtlLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfcG93ZXJwbGF5LmMgfCAzICsrLQogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0
-aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9wb3dlcnBsYXkuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9wb3dlcnBsYXkuYwppbmRleCA3MmMwM2M3Li45M2ZmYjg1IDEwMDY0NAotLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG93ZXJwbGF5LmMKKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Bvd2VycGxheS5jCkBAIC0yMDksNyArMjA5LDggQEAg
-c3RhdGljIHZvaWQgYW1kZ3B1X3BwX2xhdGVfZmluaSh2b2lkICpoYW5kbGUpCiAJaWYgKGFkZXYt
-PnBwX2VuYWJsZWQgJiYgYWRldi0+cG0uZHBtX2VuYWJsZWQpCiAJCWFtZGdwdV9wbV9zeXNmc19m
-aW5pKGFkZXYpOwogCi0JYW1kX3Bvd2VycGxheV9kZXN0cm95KGFkZXYtPnBvd2VycGxheS5wcF9o
-YW5kbGUpOworCWlmIChhZGV2LT5wcF9lbmFibGVkKQorCQlhbWRfcG93ZXJwbGF5X2Rlc3Ryb3ko
-YWRldi0+cG93ZXJwbGF5LnBwX2hhbmRsZSk7CiB9CiAKIHN0YXRpYyBpbnQgYW1kZ3B1X3BwX3N1
-c3BlbmQodm9pZCAqaGFuZGxlKQotLSAKMi43LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vYW1kLWdmeAo=
+ttm_place are not supposed to change at runtime. All functions
+working with ttm_place provided by <drm/ttm/ttm_placement.h> work
+with const ttm_place. So mark the non-const structs as const.
+
+File size before:
+   text	   data	    bss	    dec	    hex	filename
+   9235	    344	    136	   9715	   25f3 drivers/gpu/drm/radeon/radeon_ttm.o
+
+File size After adding 'const':
+   text	   data	    bss	    dec	    hex	filename
+   9267	    312	    136	   9715	   25f3 drivers/gpu/drm/radeon/radeon_ttm.o
+
+Signed-off-by: Arvind Yadav <arvind.yadav.cs@gmail.com>
+---
+ drivers/gpu/drm/radeon/radeon_ttm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
+index 8b7623b..6499832 100644
+--- a/drivers/gpu/drm/radeon/radeon_ttm.c
++++ b/drivers/gpu/drm/radeon/radeon_ttm.c
+@@ -178,7 +178,7 @@ static int radeon_init_mem_type(struct ttm_bo_device *bdev, uint32_t type,
+ static void radeon_evict_flags(struct ttm_buffer_object *bo,
+ 				struct ttm_placement *placement)
+ {
+-	static struct ttm_place placements = {
++	static const struct ttm_place placements = {
+ 		.fpfn = 0,
+ 		.lpfn = 0,
+ 		.flags = TTM_PL_MASK_CACHING | TTM_PL_FLAG_SYSTEM
+-- 
+2.7.4
