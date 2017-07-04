@@ -1,133 +1,45 @@
-From: Peter Rosin <peda@axentia.se>
-Subject: [PATCH v3 00/16] improve the fb_setcmap helper
-Date: Tue,  4 Jul 2017 12:36:56 +0200
-Message-ID: <1499164632-5582-1-git-send-email-peda@axentia.se>
+From: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: set firmware loading type as direct by default
+ for raven
+Date: Tue, 4 Jul 2017 18:11:44 +0800
+Message-ID: <595B69E0.2020500@amd.com>
+References: <1499157314-28393-1-git-send-email-ray.huang@amd.com>
+ <595B6267.9040600@amd.com> <20170704095902.GA25844@hr-amur2>
 Mime-Version: 1.0
-Content-Type: text/plain
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: linux-kernel@vger.kernel.org
-Cc: Peter Rosin <peda@axentia.se>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Russell King <linux@armlinux.org.uk>, Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, Daniel Vetter <daniel.vetter@intel.com>, Jani Nikula <jani.nikula@linux.intel.com>, Sean Paul <seanpaul@chromium.org>, Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, Ben Skeggs <bskeggs@redhat.com>, Yannick Fertre <yannick.fertre@st.com>, Philippe Cornu <philippe.cornu@st.com>, Benjamin Gaignard <benjamin.gaignard@linaro.org>, Vincent Abriou <vincent.abriou@st.com>, Eric Anholt <eric@anholt.net>, VMware Graphics <linux-graphics-maintainer@vmware.com>, Sinclair Yeh <syeh>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20170704095902.GA25844@hr-amur2>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig,
+ Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhang,
+ Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
-Hi!
-
-While trying to get CLUT support for the atmel_hlcdc driver, and
-specifically for the emulated fbdev interface, I received some
-push-back that my feeble in-driver attempts should be solved
-by the core. This is my attempt to do it right.
-
-I have obviously not tested all of this with more than a compile,
-but patches 1 through 5 are enough to make the atmel-hlcdc driver
-do what I need. The rest is just lots of removals and cleanup made
-possible by the improved core.
-
-Please test, I would not be surprised if I have fouled up some
-bit-manipulation somewhere, or if I have misunderstood something
-about atomics...
-
-Changes since v2:
-- Added patch 1/16 which factors out pseudo-palette handling.
-- Removed the if (cmap->start + cmap->len < cmap->start)
-  sanity check on the assumption that the fbdev core handles it.
-- Added patch 4/16 which factors out atomic state and commit
-  handling from drm_atomic_helper_legacy_gamma_set to
-  drm_mode_gamma_set_ioctl.
-- Do one atomic commit for all affected crtc.
-- Removed a now obsolete note in include/drm/drm_crtc.h (ammended
-  the last patch).
-- Cc list is getting long, so I have redused the list for the
-  individual patches. If you would like to get the full series
-  (or nothing at all) for the next round (if that is needed) just
-  say so.
-
-Changes since v1:
-
-- Rebased to next-20170621
-- Split 1/11 into a preparatory patch, a cleanup patch and then
-  the meat in 3/14.
-- Handle pseudo-palette for FB_VISUAL_TRUECOLOR.
-- Removed the empty .gamma_get/.gamma_set fb helpers from the
-  armada driver that I had somehow managed to ignore but which
-  0day found real quick.
-- Be less judgemental on drivers only providing .gamma_get and
-  .gamma_set, but no .load_lut. That's actually a valid thing
-  to do if you only need pseudo-palette for FB_VISUAL_TRUECOLOR.
-- Add a comment about colliding bitfields in the nouveau driver.
-- Remove gamma_set/gamma_get declarations from the radeon driver
-  (the definitions were removed in v1).
-
-Cheers,
-peda
-
-Peter Rosin (16):
-  drm/fb-helper: factor out pseudo-palette
-  drm/fb-helper: keep the .gamma_store updated in drm_fb_helper_setcmap
-  drm/fb-helper: remove drm_fb_helper_save_lut_atomic
-  drm/color-mgmt: move atomic state/commit out from .gamma_set
-  drm/fb-helper: do a generic fb_setcmap helper in terms of crtc
-    .gamma_set
-  drm: amd: remove dead code and pointless local lut storage
-  drm: armada: remove dead empty functions
-  drm: ast: remove dead code and pointless local lut storage
-  drm: cirrus: remove dead code and pointless local lut storage
-  drm: gma500: remove dead code and pointless local lut storage
-  drm: i915: remove dead code and pointless local lut storage
-  drm: mgag200: remove dead code and pointless local lut storage
-  drm: nouveau: remove dead code and pointless local lut storage
-  drm: radeon: remove dead code and pointless local lut storage
-  drm: stm: remove dead code and pointless local lut storage
-  drm: remove unused and redundant callbacks
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c      |  24 ----
- drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h    |   1 -
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c      |  29 ++---
- drivers/gpu/drm/amd/amdgpu/dce_v11_0.c      |  29 ++---
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c       |  29 ++---
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c       |  29 ++---
- drivers/gpu/drm/amd/amdgpu/dce_virtual.c    |  25 +---
- drivers/gpu/drm/armada/armada_crtc.c        |  10 --
- drivers/gpu/drm/armada/armada_crtc.h        |   2 -
- drivers/gpu/drm/armada/armada_fbdev.c       |   2 -
- drivers/gpu/drm/ast/ast_drv.h               |   1 -
- drivers/gpu/drm/ast/ast_fb.c                |  20 ---
- drivers/gpu/drm/ast/ast_mode.c              |  28 +---
- drivers/gpu/drm/cirrus/cirrus_drv.h         |   8 --
- drivers/gpu/drm/cirrus/cirrus_fbdev.c       |   2 -
- drivers/gpu/drm/cirrus/cirrus_mode.c        |  73 +++--------
- drivers/gpu/drm/drm_atomic_helper.c         |  37 ++----
- drivers/gpu/drm/drm_color_mgmt.c            |  27 +++-
- drivers/gpu/drm/drm_fb_helper.c             | 195 +++++++++++++++++-----------
- drivers/gpu/drm/gma500/framebuffer.c        |  22 ----
- drivers/gpu/drm/gma500/gma_display.c        |  34 ++---
- drivers/gpu/drm/gma500/gma_display.h        |   2 +-
- drivers/gpu/drm/gma500/psb_intel_display.c  |   7 +-
- drivers/gpu/drm/gma500/psb_intel_drv.h      |   1 -
- drivers/gpu/drm/i915/intel_drv.h            |   1 -
- drivers/gpu/drm/i915/intel_fbdev.c          |  31 -----
- drivers/gpu/drm/mgag200/mgag200_drv.h       |   5 -
- drivers/gpu/drm/mgag200/mgag200_fb.c        |   2 -
- drivers/gpu/drm/mgag200/mgag200_mode.c      |  64 +++------
- drivers/gpu/drm/nouveau/dispnv04/crtc.c     |  28 ++--
- drivers/gpu/drm/nouveau/nouveau_crtc.h      |   3 -
- drivers/gpu/drm/nouveau/nouveau_fbcon.c     |  22 ----
- drivers/gpu/drm/nouveau/nv50_display.c      |  42 ++----
- drivers/gpu/drm/radeon/atombios_crtc.c      |   1 -
- drivers/gpu/drm/radeon/radeon_connectors.c  |   7 +-
- drivers/gpu/drm/radeon/radeon_display.c     |  73 +++++------
- drivers/gpu/drm/radeon/radeon_fb.c          |   2 -
- drivers/gpu/drm/radeon/radeon_legacy_crtc.c |   1 -
- drivers/gpu/drm/radeon/radeon_mode.h        |   4 -
- drivers/gpu/drm/stm/ltdc.c                  |  12 --
- drivers/gpu/drm/stm/ltdc.h                  |   1 -
- drivers/gpu/drm/vc4/vc4_crtc.c              |   2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.c         |   2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.h         |   2 +-
- include/drm/drm_atomic_helper.h             |   2 +-
- include/drm/drm_crtc.h                      |  11 +-
- include/drm/drm_fb_helper.h                 |  32 -----
- include/drm/drm_modeset_helper_vtables.h    |  16 ---
- 48 files changed, 301 insertions(+), 702 deletions(-)
-
--- 
-2.1.4
+T24gMDcvMDQvMjAxNyAwNTo1OSBQTSwgSHVhbmcgUnVpIHdyb3RlOgo+IE9uIFR1ZSwgSnVsIDA0
+LCAyMDE3IGF0IDA1OjM5OjUxUE0gKzA4MDAsIFpoYW5nLCBKZXJyeSB3cm90ZToKPj4gSGkgUmF5
+LAo+Pgo+PiBUaGFua3MgZm9yIHlvdXIgaW5pdGlhbCBwYXRjaCB0byBlbmFibGUgUFNQIG9wdGlv
+biBmb3IgUmF2ZW4uCj4+Cj4+IFRvIHNpbXBsaWZ5IGl0LCB3ZSBtYXkgbGV2ZXJhZ2UgVkVHQTEw
+IGNhc2UgZm9yIFJhdmVuIGRpcmVjdGx5Lgo+PiBBbmQgcmVtb3ZlIGFsbCBSYXZlbiBleGlzdGlu
+ZyBjb2RlIHVuZGVyICJjYXNlIENISVBfUkFWRU4iCj4+IEhvdyBkbyB5b3UgdGhpbmsgYWJvdXQg
+aXQ/Cj4+Cj4KPiBQcm9iYWJseSBub3QuIFZlZ2ExMCBlbmFibGVkIHBzcCBmdyBsb2FkaW5nIGJ5
+IGRlZmF1bHQsIGJ1dCBub3QgZm9yIHJhdmVuLgo+Cj4gTXkgbWFpbmx5IGlkZWEgaGVyZSBpcwo+
+Cj4gZGVmYXVsdDoKPiBtb2Rwcm9iZSBhbWRncHUgLT4gdXNlIGRpcmVjdCBmdyBsb2FkaW5nLgo+
+Cj4gZGVidWdnaW5nIHBzcDoKPiBtb2Rwcm9iZSBhbWRncHUgZndfbG9hZF90eXBlPTIgLT4gdXNl
+IHBzcCBmdyBsb2FkaW5nLgo+Cj4gSXQgZG9lc24ndCBpbXBhY3Qgb3RoZXIgZ3V5cyB1c2UgYW5k
+IHdlIGNhbiBkZWJ1ZyBpdCBtb3JlIHNtb290aGx5LiA6LSkKClRoYW5rcyB0byBleHBsYWluIGl0
+IGluIGRldGFpbC4KR290IGl0LgoKRmVlbCBmcmVlIHRvIGFkZCBteSBSQiBhbmQgd2UgY2FuIGlt
+cHJvdmUgaXQgd2hlbiBldmVyeXRoaW5nIGlzIHNldHRsZWQgZG93bi4KUmV2aWV3ZWQtYnk6IEp1
+bndlaSBaaGFuZyA8SmVycnkuWmhhbmdAYW1kLmNvbT4KCj4KPiBUaGFua3MsCj4gUmF5Cj4KX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
+aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
