@@ -1,7 +1,7 @@
 From: Peter Rosin <peda@axentia.se>
-Subject: [PATCH v3 06/16] drm: amd: remove dead code and pointless local lut storage
-Date: Tue,  4 Jul 2017 12:37:02 +0200
-Message-ID: <1499164632-5582-7-git-send-email-peda@axentia.se>
+Subject: [PATCH v3 14/16] drm: radeon: remove dead code and pointless local lut storage
+Date: Tue,  4 Jul 2017 12:37:10 +0200
+Message-ID: <1499164632-5582-15-git-send-email-peda@axentia.se>
 References: <1499164632-5582-1-git-send-email-peda@axentia.se>
 Mime-Version: 1.0
 Content-Type: text/plain
@@ -19,419 +19,237 @@ info locally.
 
 Signed-off-by: Peter Rosin <peda@axentia.se>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c   | 24 ------------------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h |  1 -
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c   | 27 +++++++--------------------
- drivers/gpu/drm/amd/amdgpu/dce_v11_0.c   | 27 +++++++--------------------
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c    | 27 +++++++--------------------
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c    | 27 +++++++--------------------
- drivers/gpu/drm/amd/amdgpu/dce_virtual.c | 23 -----------------------
- 7 files changed, 28 insertions(+), 128 deletions(-)
+ drivers/gpu/drm/radeon/atombios_crtc.c      |  1 -
+ drivers/gpu/drm/radeon/radeon_connectors.c  |  7 ++-
+ drivers/gpu/drm/radeon/radeon_display.c     | 71 ++++++++++++-----------------
+ drivers/gpu/drm/radeon/radeon_fb.c          |  2 -
+ drivers/gpu/drm/radeon/radeon_legacy_crtc.c |  1 -
+ drivers/gpu/drm/radeon/radeon_mode.h        |  4 --
+ 6 files changed, 33 insertions(+), 53 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-index c0d8c6f..7dc3780 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-@@ -312,31 +312,7 @@ static int amdgpu_fbdev_destroy(struct drm_device *dev, struct amdgpu_fbdev *rfb
- 	return 0;
+diff --git a/drivers/gpu/drm/radeon/atombios_crtc.c b/drivers/gpu/drm/radeon/atombios_crtc.c
+index 3c492a0..02baaaf 100644
+--- a/drivers/gpu/drm/radeon/atombios_crtc.c
++++ b/drivers/gpu/drm/radeon/atombios_crtc.c
+@@ -2217,7 +2217,6 @@ static const struct drm_crtc_helper_funcs atombios_helper_funcs = {
+ 	.mode_set_base_atomic = atombios_crtc_set_base_atomic,
+ 	.prepare = atombios_crtc_prepare,
+ 	.commit = atombios_crtc_commit,
+-	.load_lut = radeon_crtc_load_lut,
+ 	.disable = atombios_crtc_disable,
+ };
+ 
+diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm/radeon/radeon_connectors.c
+index 27affbd..2f642cb 100644
+--- a/drivers/gpu/drm/radeon/radeon_connectors.c
++++ b/drivers/gpu/drm/radeon/radeon_connectors.c
+@@ -773,12 +773,15 @@ static int radeon_connector_set_property(struct drm_connector *connector, struct
+ 
+ 		if (connector->encoder->crtc) {
+ 			struct drm_crtc *crtc  = connector->encoder->crtc;
+-			const struct drm_crtc_helper_funcs *crtc_funcs = crtc->helper_private;
+ 			struct radeon_crtc *radeon_crtc = to_radeon_crtc(crtc);
+ 
+ 			radeon_crtc->output_csc = radeon_encoder->output_csc;
+ 
+-			(*crtc_funcs->load_lut)(crtc);
++			/*
++			 * Our .gamma_set assumes the .gamma_store has been
++			 * prefilled and don't care about its arguments.
++			 */
++			crtc->funcs->gamma_set(crtc, NULL, NULL, NULL, 0, NULL);
+ 		}
+ 	}
+ 
+diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
+index 0ea575d..3d7394d4 100644
+--- a/drivers/gpu/drm/radeon/radeon_display.c
++++ b/drivers/gpu/drm/radeon/radeon_display.c
+@@ -42,6 +42,7 @@ static void avivo_crtc_load_lut(struct drm_crtc *crtc)
+ 	struct radeon_crtc *radeon_crtc = to_radeon_crtc(crtc);
+ 	struct drm_device *dev = crtc->dev;
+ 	struct radeon_device *rdev = dev->dev_private;
++	u16 *r, *g, *b;
+ 	int i;
+ 
+ 	DRM_DEBUG_KMS("%d\n", radeon_crtc->crtc_id);
+@@ -60,11 +61,14 @@ static void avivo_crtc_load_lut(struct drm_crtc *crtc)
+ 	WREG32(AVIVO_DC_LUT_WRITE_EN_MASK, 0x0000003f);
+ 
+ 	WREG8(AVIVO_DC_LUT_RW_INDEX, 0);
++	r = crtc->gamma_store;
++	g = r + crtc->gamma_size;
++	b = g + crtc->gamma_size;
+ 	for (i = 0; i < 256; i++) {
+ 		WREG32(AVIVO_DC_LUT_30_COLOR,
+-			     (radeon_crtc->lut_r[i] << 20) |
+-			     (radeon_crtc->lut_g[i] << 10) |
+-			     (radeon_crtc->lut_b[i] << 0));
++		       ((*r++ & 0xffc0) << 14) |
++		       ((*g++ & 0xffc0) << 4) |
++		       (*b++ >> 6));
+ 	}
+ 
+ 	/* Only change bit 0 of LUT_SEL, other bits are set elsewhere */
+@@ -76,6 +80,7 @@ static void dce4_crtc_load_lut(struct drm_crtc *crtc)
+ 	struct radeon_crtc *radeon_crtc = to_radeon_crtc(crtc);
+ 	struct drm_device *dev = crtc->dev;
+ 	struct radeon_device *rdev = dev->dev_private;
++	u16 *r, *g, *b;
+ 	int i;
+ 
+ 	DRM_DEBUG_KMS("%d\n", radeon_crtc->crtc_id);
+@@ -93,11 +98,14 @@ static void dce4_crtc_load_lut(struct drm_crtc *crtc)
+ 	WREG32(EVERGREEN_DC_LUT_WRITE_EN_MASK + radeon_crtc->crtc_offset, 0x00000007);
+ 
+ 	WREG32(EVERGREEN_DC_LUT_RW_INDEX + radeon_crtc->crtc_offset, 0);
++	r = crtc->gamma_store;
++	g = r + crtc->gamma_size;
++	b = g + crtc->gamma_size;
+ 	for (i = 0; i < 256; i++) {
+ 		WREG32(EVERGREEN_DC_LUT_30_COLOR + radeon_crtc->crtc_offset,
+-		       (radeon_crtc->lut_r[i] << 20) |
+-		       (radeon_crtc->lut_g[i] << 10) |
+-		       (radeon_crtc->lut_b[i] << 0));
++		       ((*r++ & 0xffc0) << 14) |
++		       ((*g++ & 0xffc0) << 4) |
++		       (*b++ >> 6));
+ 	}
+ }
+ 
+@@ -106,6 +114,7 @@ static void dce5_crtc_load_lut(struct drm_crtc *crtc)
+ 	struct radeon_crtc *radeon_crtc = to_radeon_crtc(crtc);
+ 	struct drm_device *dev = crtc->dev;
+ 	struct radeon_device *rdev = dev->dev_private;
++	u16 *r, *g, *b;
+ 	int i;
+ 
+ 	DRM_DEBUG_KMS("%d\n", radeon_crtc->crtc_id);
+@@ -135,11 +144,14 @@ static void dce5_crtc_load_lut(struct drm_crtc *crtc)
+ 	WREG32(EVERGREEN_DC_LUT_WRITE_EN_MASK + radeon_crtc->crtc_offset, 0x00000007);
+ 
+ 	WREG32(EVERGREEN_DC_LUT_RW_INDEX + radeon_crtc->crtc_offset, 0);
++	r = crtc->gamma_store;
++	g = r + crtc->gamma_size;
++	b = g + crtc->gamma_size;
+ 	for (i = 0; i < 256; i++) {
+ 		WREG32(EVERGREEN_DC_LUT_30_COLOR + radeon_crtc->crtc_offset,
+-		       (radeon_crtc->lut_r[i] << 20) |
+-		       (radeon_crtc->lut_g[i] << 10) |
+-		       (radeon_crtc->lut_b[i] << 0));
++		       ((*r++ & 0xffc0) << 14) |
++		       ((*g++ & 0xffc0) << 4) |
++		       (*b++ >> 6));
+ 	}
+ 
+ 	WREG32(NI_DEGAMMA_CONTROL + radeon_crtc->crtc_offset,
+@@ -172,6 +184,7 @@ static void legacy_crtc_load_lut(struct drm_crtc *crtc)
+ 	struct radeon_crtc *radeon_crtc = to_radeon_crtc(crtc);
+ 	struct drm_device *dev = crtc->dev;
+ 	struct radeon_device *rdev = dev->dev_private;
++	u16 *r, *g, *b;
+ 	int i;
+ 	uint32_t dac2_cntl;
+ 
+@@ -183,11 +196,14 @@ static void legacy_crtc_load_lut(struct drm_crtc *crtc)
+ 	WREG32(RADEON_DAC_CNTL2, dac2_cntl);
+ 
+ 	WREG8(RADEON_PALETTE_INDEX, 0);
++	r = crtc->gamma_store;
++	g = r + crtc->gamma_size;
++	b = g + crtc->gamma_size;
+ 	for (i = 0; i < 256; i++) {
+ 		WREG32(RADEON_PALETTE_30_DATA,
+-			     (radeon_crtc->lut_r[i] << 20) |
+-			     (radeon_crtc->lut_g[i] << 10) |
+-			     (radeon_crtc->lut_b[i] << 0));
++		       ((*r++ & 0xffc0) << 14) |
++		       ((*g++ & 0xffc0) << 4) |
++		       (*b++ >> 6));
+ 	}
+ }
+ 
+@@ -209,41 +225,10 @@ void radeon_crtc_load_lut(struct drm_crtc *crtc)
+ 		legacy_crtc_load_lut(crtc);
  }
  
 -/** Sets the color ramps on behalf of fbcon */
--static void amdgpu_crtc_fb_gamma_set(struct drm_crtc *crtc, u16 red, u16 green,
--				      u16 blue, int regno)
+-void radeon_crtc_fb_gamma_set(struct drm_crtc *crtc, u16 red, u16 green,
+-			      u16 blue, int regno)
 -{
--	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
+-	struct radeon_crtc *radeon_crtc = to_radeon_crtc(crtc);
 -
--	amdgpu_crtc->lut_r[regno] = red >> 6;
--	amdgpu_crtc->lut_g[regno] = green >> 6;
--	amdgpu_crtc->lut_b[regno] = blue >> 6;
+-	radeon_crtc->lut_r[regno] = red >> 6;
+-	radeon_crtc->lut_g[regno] = green >> 6;
+-	radeon_crtc->lut_b[regno] = blue >> 6;
 -}
 -
 -/** Gets the color ramps on behalf of fbcon */
--static void amdgpu_crtc_fb_gamma_get(struct drm_crtc *crtc, u16 *red, u16 *green,
--				      u16 *blue, int regno)
+-void radeon_crtc_fb_gamma_get(struct drm_crtc *crtc, u16 *red, u16 *green,
+-			      u16 *blue, int regno)
 -{
--	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
+-	struct radeon_crtc *radeon_crtc = to_radeon_crtc(crtc);
 -
--	*red = amdgpu_crtc->lut_r[regno] << 6;
--	*green = amdgpu_crtc->lut_g[regno] << 6;
--	*blue = amdgpu_crtc->lut_b[regno] << 6;
+-	*red = radeon_crtc->lut_r[regno] << 6;
+-	*green = radeon_crtc->lut_g[regno] << 6;
+-	*blue = radeon_crtc->lut_b[regno] << 6;
 -}
 -
- static const struct drm_fb_helper_funcs amdgpu_fb_helper_funcs = {
--	.gamma_set = amdgpu_crtc_fb_gamma_set,
--	.gamma_get = amdgpu_crtc_fb_gamma_get,
- 	.fb_probe = amdgpufb_create,
- };
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-index 43a9d3a..39f7eda 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-@@ -369,7 +369,6 @@ struct amdgpu_atom_ss {
- struct amdgpu_crtc {
- 	struct drm_crtc base;
- 	int crtc_id;
--	u16 lut_r[256], lut_g[256], lut_b[256];
- 	bool enabled;
- 	bool can_tile;
- 	uint32_t crtc_offset;
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-index 31c977b..717be5f 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-@@ -2267,6 +2267,7 @@ static void dce_v10_0_crtc_load_lut(struct drm_crtc *crtc)
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
- 	struct drm_device *dev = crtc->dev;
- 	struct amdgpu_device *adev = dev->dev_private;
-+	u16 *r, *g, *b;
- 	int i;
- 	u32 tmp;
- 
-@@ -2304,11 +2305,14 @@ static void dce_v10_0_crtc_load_lut(struct drm_crtc *crtc)
- 	WREG32(mmDC_LUT_WRITE_EN_MASK + amdgpu_crtc->crtc_offset, 0x00000007);
- 
- 	WREG32(mmDC_LUT_RW_INDEX + amdgpu_crtc->crtc_offset, 0);
-+	r = crtc->gamma_store;
-+	g = r + crtc->gamma_size;
-+	b = g + crtc->gamma_size;
- 	for (i = 0; i < 256; i++) {
- 		WREG32(mmDC_LUT_30_COLOR + amdgpu_crtc->crtc_offset,
--		       (amdgpu_crtc->lut_r[i] << 20) |
--		       (amdgpu_crtc->lut_g[i] << 10) |
--		       (amdgpu_crtc->lut_b[i] << 0));
-+		       ((*r++ & 0xffc0) << 14) |
-+		       ((*g++ & 0xffc0) << 4) |
-+		       (*b++ >> 6));
- 	}
- 
- 	tmp = RREG32(mmDEGAMMA_CONTROL + amdgpu_crtc->crtc_offset);
-@@ -2624,15 +2628,6 @@ static int dce_v10_0_crtc_gamma_set(struct drm_crtc *crtc, u16 *red, u16 *green,
- 				    u16 *blue, uint32_t size,
- 				    struct drm_crtc_state *state)
+ static int radeon_crtc_gamma_set(struct drm_crtc *crtc, u16 *red, u16 *green,
+ 				 u16 *blue, uint32_t size,
+ 				 struct drm_crtc_state *state)
  {
--	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
+-	struct radeon_crtc *radeon_crtc = to_radeon_crtc(crtc);
 -	int i;
 -
 -	/* userspace palettes are always correct as is */
 -	for (i = 0; i < size; i++) {
--		amdgpu_crtc->lut_r[i] = red[i] >> 6;
--		amdgpu_crtc->lut_g[i] = green[i] >> 6;
--		amdgpu_crtc->lut_b[i] = blue[i] >> 6;
+-		radeon_crtc->lut_r[i] = red[i] >> 6;
+-		radeon_crtc->lut_g[i] = green[i] >> 6;
+-		radeon_crtc->lut_b[i] = blue[i] >> 6;
 -	}
- 	dce_v10_0_crtc_load_lut(crtc);
+ 	radeon_crtc_load_lut(crtc);
  
  	return 0;
-@@ -2844,14 +2839,12 @@ static const struct drm_crtc_helper_funcs dce_v10_0_crtc_helper_funcs = {
- 	.mode_set_base_atomic = dce_v10_0_crtc_set_base_atomic,
- 	.prepare = dce_v10_0_crtc_prepare,
- 	.commit = dce_v10_0_crtc_commit,
--	.load_lut = dce_v10_0_crtc_load_lut,
- 	.disable = dce_v10_0_crtc_disable,
- };
- 
- static int dce_v10_0_crtc_init(struct amdgpu_device *adev, int index)
- {
- 	struct amdgpu_crtc *amdgpu_crtc;
--	int i;
- 
- 	amdgpu_crtc = kzalloc(sizeof(struct amdgpu_crtc) +
- 			      (AMDGPUFB_CONN_LIMIT * sizeof(struct drm_connector *)), GFP_KERNEL);
-@@ -2869,12 +2862,6 @@ static int dce_v10_0_crtc_init(struct amdgpu_device *adev, int index)
- 	adev->ddev->mode_config.cursor_width = amdgpu_crtc->max_cursor_width;
- 	adev->ddev->mode_config.cursor_height = amdgpu_crtc->max_cursor_height;
- 
--	for (i = 0; i < 256; i++) {
--		amdgpu_crtc->lut_r[i] = i << 2;
--		amdgpu_crtc->lut_g[i] = i << 2;
--		amdgpu_crtc->lut_b[i] = i << 2;
--	}
--
- 	switch (amdgpu_crtc->crtc_id) {
- 	case 0:
- 	default:
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-index cf42640..b554465 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-@@ -2251,6 +2251,7 @@ static void dce_v11_0_crtc_load_lut(struct drm_crtc *crtc)
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
- 	struct drm_device *dev = crtc->dev;
- 	struct amdgpu_device *adev = dev->dev_private;
-+	u16 *r, *g, *b;
- 	int i;
- 	u32 tmp;
- 
-@@ -2282,11 +2283,14 @@ static void dce_v11_0_crtc_load_lut(struct drm_crtc *crtc)
- 	WREG32(mmDC_LUT_WRITE_EN_MASK + amdgpu_crtc->crtc_offset, 0x00000007);
- 
- 	WREG32(mmDC_LUT_RW_INDEX + amdgpu_crtc->crtc_offset, 0);
-+	r = crtc->gamma_store;
-+	g = r + crtc->gamma_size;
-+	b = g + crtc->gamma_size;
- 	for (i = 0; i < 256; i++) {
- 		WREG32(mmDC_LUT_30_COLOR + amdgpu_crtc->crtc_offset,
--		       (amdgpu_crtc->lut_r[i] << 20) |
--		       (amdgpu_crtc->lut_g[i] << 10) |
--		       (amdgpu_crtc->lut_b[i] << 0));
-+		       ((*r++ & 0xffc0) << 14) |
-+		       ((*g++ & 0xffc0) << 4) |
-+		       (*b++ >> 6));
- 	}
- 
- 	tmp = RREG32(mmDEGAMMA_CONTROL + amdgpu_crtc->crtc_offset);
-@@ -2644,15 +2648,6 @@ static int dce_v11_0_crtc_gamma_set(struct drm_crtc *crtc, u16 *red, u16 *green,
- 				    u16 *blue, uint32_t size,
- 				    struct drm_crtc_state *state)
- {
--	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	int i;
--
--	/* userspace palettes are always correct as is */
--	for (i = 0; i < size; i++) {
--		amdgpu_crtc->lut_r[i] = red[i] >> 6;
--		amdgpu_crtc->lut_g[i] = green[i] >> 6;
--		amdgpu_crtc->lut_b[i] = blue[i] >> 6;
--	}
- 	dce_v11_0_crtc_load_lut(crtc);
- 
- 	return 0;
-@@ -2892,14 +2887,12 @@ static const struct drm_crtc_helper_funcs dce_v11_0_crtc_helper_funcs = {
- 	.mode_set_base_atomic = dce_v11_0_crtc_set_base_atomic,
- 	.prepare = dce_v11_0_crtc_prepare,
- 	.commit = dce_v11_0_crtc_commit,
--	.load_lut = dce_v11_0_crtc_load_lut,
- 	.disable = dce_v11_0_crtc_disable,
- };
- 
- static int dce_v11_0_crtc_init(struct amdgpu_device *adev, int index)
- {
- 	struct amdgpu_crtc *amdgpu_crtc;
--	int i;
- 
- 	amdgpu_crtc = kzalloc(sizeof(struct amdgpu_crtc) +
- 			      (AMDGPUFB_CONN_LIMIT * sizeof(struct drm_connector *)), GFP_KERNEL);
-@@ -2917,12 +2910,6 @@ static int dce_v11_0_crtc_init(struct amdgpu_device *adev, int index)
- 	adev->ddev->mode_config.cursor_width = amdgpu_crtc->max_cursor_width;
- 	adev->ddev->mode_config.cursor_height = amdgpu_crtc->max_cursor_height;
- 
--	for (i = 0; i < 256; i++) {
--		amdgpu_crtc->lut_r[i] = i << 2;
--		amdgpu_crtc->lut_g[i] = i << 2;
--		amdgpu_crtc->lut_b[i] = i << 2;
--	}
--
- 	switch (amdgpu_crtc->crtc_id) {
- 	case 0:
- 	default:
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-index 045014d..e1c9906 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-@@ -2182,6 +2182,7 @@ static void dce_v6_0_crtc_load_lut(struct drm_crtc *crtc)
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
- 	struct drm_device *dev = crtc->dev;
- 	struct amdgpu_device *adev = dev->dev_private;
-+	u16 *r, *g, *b;
- 	int i;
- 
- 	DRM_DEBUG_KMS("%d\n", amdgpu_crtc->crtc_id);
-@@ -2211,11 +2212,14 @@ static void dce_v6_0_crtc_load_lut(struct drm_crtc *crtc)
- 	WREG32(mmDC_LUT_WRITE_EN_MASK + amdgpu_crtc->crtc_offset, 0x00000007);
- 
- 	WREG32(mmDC_LUT_RW_INDEX + amdgpu_crtc->crtc_offset, 0);
-+	r = crtc->gamma_store;
-+	g = r + crtc->gamma_size;
-+	b = g + crtc->gamma_size;
- 	for (i = 0; i < 256; i++) {
- 		WREG32(mmDC_LUT_30_COLOR + amdgpu_crtc->crtc_offset,
--		       (amdgpu_crtc->lut_r[i] << 20) |
--		       (amdgpu_crtc->lut_g[i] << 10) |
--		       (amdgpu_crtc->lut_b[i] << 0));
-+		       ((*r++ & 0xffc0) << 14) |
-+		       ((*g++ & 0xffc0) << 4) |
-+		       (*b++ >> 6));
- 	}
- 
- 	WREG32(mmDEGAMMA_CONTROL + amdgpu_crtc->crtc_offset,
-@@ -2496,15 +2500,6 @@ static int dce_v6_0_crtc_gamma_set(struct drm_crtc *crtc, u16 *red, u16 *green,
- 				   u16 *blue, uint32_t size,
- 				   struct drm_crtc_state *state)
- {
--	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	int i;
--
--	/* userspace palettes are always correct as is */
--	for (i = 0; i < size; i++) {
--		amdgpu_crtc->lut_r[i] = red[i] >> 6;
--		amdgpu_crtc->lut_g[i] = green[i] >> 6;
--		amdgpu_crtc->lut_b[i] = blue[i] >> 6;
--	}
- 	dce_v6_0_crtc_load_lut(crtc);
- 
- 	return 0;
-@@ -2712,14 +2707,12 @@ static const struct drm_crtc_helper_funcs dce_v6_0_crtc_helper_funcs = {
- 	.mode_set_base_atomic = dce_v6_0_crtc_set_base_atomic,
- 	.prepare = dce_v6_0_crtc_prepare,
- 	.commit = dce_v6_0_crtc_commit,
--	.load_lut = dce_v6_0_crtc_load_lut,
- 	.disable = dce_v6_0_crtc_disable,
- };
- 
- static int dce_v6_0_crtc_init(struct amdgpu_device *adev, int index)
- {
- 	struct amdgpu_crtc *amdgpu_crtc;
--	int i;
- 
- 	amdgpu_crtc = kzalloc(sizeof(struct amdgpu_crtc) +
- 			      (AMDGPUFB_CONN_LIMIT * sizeof(struct drm_connector *)), GFP_KERNEL);
-@@ -2737,12 +2730,6 @@ static int dce_v6_0_crtc_init(struct amdgpu_device *adev, int index)
- 	adev->ddev->mode_config.cursor_width = amdgpu_crtc->max_cursor_width;
- 	adev->ddev->mode_config.cursor_height = amdgpu_crtc->max_cursor_height;
- 
--	for (i = 0; i < 256; i++) {
--		amdgpu_crtc->lut_r[i] = i << 2;
--		amdgpu_crtc->lut_g[i] = i << 2;
--		amdgpu_crtc->lut_b[i] = i << 2;
--	}
--
- 	amdgpu_crtc->crtc_offset = crtc_offsets[amdgpu_crtc->crtc_id];
- 
- 	amdgpu_crtc->pll_id = ATOM_PPLL_INVALID;
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-index ee9389f..7fedabc 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-@@ -2124,6 +2124,7 @@ static void dce_v8_0_crtc_load_lut(struct drm_crtc *crtc)
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
- 	struct drm_device *dev = crtc->dev;
- 	struct amdgpu_device *adev = dev->dev_private;
-+	u16 *r, *g, *b;
- 	int i;
- 
- 	DRM_DEBUG_KMS("%d\n", amdgpu_crtc->crtc_id);
-@@ -2153,11 +2154,14 @@ static void dce_v8_0_crtc_load_lut(struct drm_crtc *crtc)
- 	WREG32(mmDC_LUT_WRITE_EN_MASK + amdgpu_crtc->crtc_offset, 0x00000007);
- 
- 	WREG32(mmDC_LUT_RW_INDEX + amdgpu_crtc->crtc_offset, 0);
-+	r = crtc->gamma_store;
-+	g = r + crtc->gamma_size;
-+	b = g + crtc->gamma_size;
- 	for (i = 0; i < 256; i++) {
- 		WREG32(mmDC_LUT_30_COLOR + amdgpu_crtc->crtc_offset,
--		       (amdgpu_crtc->lut_r[i] << 20) |
--		       (amdgpu_crtc->lut_g[i] << 10) |
--		       (amdgpu_crtc->lut_b[i] << 0));
-+		       ((*r++ & 0xffc0) << 14) |
-+		       ((*g++ & 0xffc0) << 4) |
-+		       (*b++ >> 6));
- 	}
- 
- 	WREG32(mmDEGAMMA_CONTROL + amdgpu_crtc->crtc_offset,
-@@ -2475,15 +2479,6 @@ static int dce_v8_0_crtc_gamma_set(struct drm_crtc *crtc, u16 *red, u16 *green,
- 				   u16 *blue, uint32_t size,
- 				   struct drm_crtc_state *state)
- {
--	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	int i;
--
--	/* userspace palettes are always correct as is */
--	for (i = 0; i < size; i++) {
--		amdgpu_crtc->lut_r[i] = red[i] >> 6;
--		amdgpu_crtc->lut_g[i] = green[i] >> 6;
--		amdgpu_crtc->lut_b[i] = blue[i] >> 6;
--	}
- 	dce_v8_0_crtc_load_lut(crtc);
- 
- 	return 0;
-@@ -2702,14 +2697,12 @@ static const struct drm_crtc_helper_funcs dce_v8_0_crtc_helper_funcs = {
- 	.mode_set_base_atomic = dce_v8_0_crtc_set_base_atomic,
- 	.prepare = dce_v8_0_crtc_prepare,
- 	.commit = dce_v8_0_crtc_commit,
--	.load_lut = dce_v8_0_crtc_load_lut,
- 	.disable = dce_v8_0_crtc_disable,
- };
- 
- static int dce_v8_0_crtc_init(struct amdgpu_device *adev, int index)
- {
- 	struct amdgpu_crtc *amdgpu_crtc;
--	int i;
- 
- 	amdgpu_crtc = kzalloc(sizeof(struct amdgpu_crtc) +
- 			      (AMDGPUFB_CONN_LIMIT * sizeof(struct drm_connector *)), GFP_KERNEL);
-@@ -2727,12 +2720,6 @@ static int dce_v8_0_crtc_init(struct amdgpu_device *adev, int index)
- 	adev->ddev->mode_config.cursor_width = amdgpu_crtc->max_cursor_width;
- 	adev->ddev->mode_config.cursor_height = amdgpu_crtc->max_cursor_height;
- 
--	for (i = 0; i < 256; i++) {
--		amdgpu_crtc->lut_r[i] = i << 2;
--		amdgpu_crtc->lut_g[i] = i << 2;
--		amdgpu_crtc->lut_b[i] = i << 2;
--	}
--
- 	amdgpu_crtc->crtc_offset = crtc_offsets[amdgpu_crtc->crtc_id];
- 
- 	amdgpu_crtc->pll_id = ATOM_PPLL_INVALID;
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
-index f194dfc..db65dec 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
-@@ -168,16 +168,6 @@ static int dce_virtual_crtc_gamma_set(struct drm_crtc *crtc, u16 *red,
- 				      u16 *green, u16 *blue, uint32_t size,
- 				      struct drm_crtc_state *state)
- {
--	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	int i;
--
--	/* userspace palettes are always correct as is */
--	for (i = 0; i < size; i++) {
--		amdgpu_crtc->lut_r[i] = red[i] >> 6;
--		amdgpu_crtc->lut_g[i] = green[i] >> 6;
--		amdgpu_crtc->lut_b[i] = blue[i] >> 6;
--	}
--
- 	return 0;
+diff --git a/drivers/gpu/drm/radeon/radeon_fb.c b/drivers/gpu/drm/radeon/radeon_fb.c
+index 356ad90..638bcb55 100644
+--- a/drivers/gpu/drm/radeon/radeon_fb.c
++++ b/drivers/gpu/drm/radeon/radeon_fb.c
+@@ -332,8 +332,6 @@ static int radeon_fbdev_destroy(struct drm_device *dev, struct radeon_fbdev *rfb
  }
  
-@@ -289,11 +279,6 @@ static int dce_virtual_crtc_set_base(struct drm_crtc *crtc, int x, int y,
- 	return 0;
- }
- 
--static void dce_virtual_crtc_load_lut(struct drm_crtc *crtc)
--{
--	return;
--}
--
- static int dce_virtual_crtc_set_base_atomic(struct drm_crtc *crtc,
- 					 struct drm_framebuffer *fb,
- 					 int x, int y, enum mode_set_atomic state)
-@@ -309,14 +294,12 @@ static const struct drm_crtc_helper_funcs dce_virtual_crtc_helper_funcs = {
- 	.mode_set_base_atomic = dce_virtual_crtc_set_base_atomic,
- 	.prepare = dce_virtual_crtc_prepare,
- 	.commit = dce_virtual_crtc_commit,
--	.load_lut = dce_virtual_crtc_load_lut,
- 	.disable = dce_virtual_crtc_disable,
+ static const struct drm_fb_helper_funcs radeon_fb_helper_funcs = {
+-	.gamma_set = radeon_crtc_fb_gamma_set,
+-	.gamma_get = radeon_crtc_fb_gamma_get,
+ 	.fb_probe = radeonfb_create,
  };
  
- static int dce_virtual_crtc_init(struct amdgpu_device *adev, int index)
- {
- 	struct amdgpu_crtc *amdgpu_crtc;
--	int i;
+diff --git a/drivers/gpu/drm/radeon/radeon_legacy_crtc.c b/drivers/gpu/drm/radeon/radeon_legacy_crtc.c
+index ce6cb66..1f1856e 100644
+--- a/drivers/gpu/drm/radeon/radeon_legacy_crtc.c
++++ b/drivers/gpu/drm/radeon/radeon_legacy_crtc.c
+@@ -1116,7 +1116,6 @@ static const struct drm_crtc_helper_funcs legacy_helper_funcs = {
+ 	.mode_set_base_atomic = radeon_crtc_set_base_atomic,
+ 	.prepare = radeon_crtc_prepare,
+ 	.commit = radeon_crtc_commit,
+-	.load_lut = radeon_crtc_load_lut,
+ 	.disable = radeon_crtc_disable
+ };
  
- 	amdgpu_crtc = kzalloc(sizeof(struct amdgpu_crtc) +
- 			      (AMDGPUFB_CONN_LIMIT * sizeof(struct drm_connector *)), GFP_KERNEL);
-@@ -329,12 +312,6 @@ static int dce_virtual_crtc_init(struct amdgpu_device *adev, int index)
- 	amdgpu_crtc->crtc_id = index;
- 	adev->mode_info.crtcs[index] = amdgpu_crtc;
- 
--	for (i = 0; i < 256; i++) {
--		amdgpu_crtc->lut_r[i] = i << 2;
--		amdgpu_crtc->lut_g[i] = i << 2;
--		amdgpu_crtc->lut_b[i] = i << 2;
--	}
--
- 	amdgpu_crtc->pll_id = ATOM_PPLL_INVALID;
- 	amdgpu_crtc->encoder = NULL;
- 	amdgpu_crtc->connector = NULL;
+diff --git a/drivers/gpu/drm/radeon/radeon_mode.h b/drivers/gpu/drm/radeon/radeon_mode.h
+index 00f5ec5..da44ac2 100644
+--- a/drivers/gpu/drm/radeon/radeon_mode.h
++++ b/drivers/gpu/drm/radeon/radeon_mode.h
+@@ -935,10 +935,6 @@ extern void
+ radeon_combios_encoder_crtc_scratch_regs(struct drm_encoder *encoder, int crtc);
+ extern void
+ radeon_combios_encoder_dpms_scratch_regs(struct drm_encoder *encoder, bool on);
+-extern void radeon_crtc_fb_gamma_set(struct drm_crtc *crtc, u16 red, u16 green,
+-				     u16 blue, int regno);
+-extern void radeon_crtc_fb_gamma_get(struct drm_crtc *crtc, u16 *red, u16 *green,
+-				     u16 *blue, int regno);
+ int radeon_framebuffer_init(struct drm_device *dev,
+ 			     struct radeon_framebuffer *rfb,
+ 			     const struct drm_mode_fb_cmd2 *mode_cmd,
 -- 
 2.1.4
