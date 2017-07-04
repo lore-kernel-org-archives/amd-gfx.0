@@ -1,14 +1,14 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu/gfx8: fix driver reload with KIQ
-Date: Tue, 4 Jul 2017 15:57:53 +0900
-Message-ID: <90a12429-2a27-e1a9-64f1-cd93f7cffaad@daenzer.net>
-References: <1499148001-11497-1-git-send-email-alexander.deucher@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/3] drm/amdgpu: move check from cpu address to bo
+Date: Tue, 4 Jul 2017 09:19:17 +0200
+Message-ID: <f4402921-1085-5e4a-c6aa-582534f842eb@amd.com>
+References: <1499148650-22409-1-git-send-email-ray.huang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1499148001-11497-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-CA
+In-Reply-To: <1499148650-22409-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,18 +19,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Ken Wang <Qingqing.Wang-5C7GfCeVMHo@public.gmane.org>
 
-T24gMDQvMDcvMTcgMDM6MDAgUE0sIEFsZXggRGV1Y2hlciB3cm90ZToKPiBEcm9wIHRoZSBkZWFj
-dGl2YXRpb24gaW4gS0lRIGluaXQgYW5kIGRyb3AgdGhlIEtDUSBkaXNhYmxpbmcKPiB2aWEgS0lR
-LiAgV2UgZGlzYWJsZSB0aGUgTUVDIHNob3J0bHkgYWZ0ZXIgYW55d2F5LCBzbyB0aGVyZSBpcwo+
-IG5vIG5lZWQgdG8gd2FpdCBmb3IgYWxsIG9mIHRoaXMuICBEb2luZyBzbyBzZWVtcyB0byBsZWF2
-ZSB0aGUKPiBNRUMgaW4gYSBiYWQgd2F5Lgo+IAo+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hl
-ciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KClRlc3RlZC1ieTogTWljaGVsIETDpG56ZXIg
-PG1pY2hlbC5kYWVuemVyQGFtZC5jb20+CgoKLS0gCkVhcnRobGluZyBNaWNoZWwgRMOkbnplciAg
-ICAgICAgICAgICAgIHwgICAgICAgICAgICAgICBodHRwOi8vd3d3LmFtZC5jb20KTGlicmUgc29m
-dHdhcmUgZW50aHVzaWFzdCAgICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2
-ZWxvcGVyCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
-ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+QWN0dWFsbHkgYW1kZ3B1X2JvX2ZyZWVfa2VybmVsIGlzIE5VTEwgc2F2ZSwgc28geW91IHNob3Vs
+ZCByYXRoZXIgcmVtb3ZlIAp0aGUgImlmInMgaGVyZSBhbHRvZ2V0aGVyLgoKQ2hyaXN0aWFuLgoK
+QW0gMDQuMDcuMjAxNyB1bSAwODoxMCBzY2hyaWViIEh1YW5nIFJ1aToKPiBTaWduZWQtb2ZmLWJ5
+OiBIdWFuZyBSdWkgPHJheS5odWFuZ0BhbWQuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5jIHwgNCArKy0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9wc3BfdjNfMS5jICAgfCAyICstCj4gICAyIGZpbGVzIGNoYW5nZWQsIDMgaW5zZXJ0
+aW9ucygrKSwgMyBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfcHNwLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfcHNwLmMKPiBpbmRleCA3OWRiMjk0Li4xNDY5ZTZkIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wc3AuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9wc3AuYwo+IEBAIC00MzUsMTAgKzQzNSwxMCBAQCBzdGF0aWMgaW50
+IHBzcF9od19maW5pKHZvaWQgKmhhbmRsZSkKPiAgIAo+ICAgCXBzcF9yaW5nX2Rlc3Ryb3kocHNw
+LCBQU1BfUklOR19UWVBFX19LTSk7Cj4gICAKPiAtCWlmIChwc3AtPnRtcl9idWYpCj4gKwlpZiAo
+cHNwLT50bXJfYm8pCj4gICAJCWFtZGdwdV9ib19mcmVlX2tlcm5lbCgmcHNwLT50bXJfYm8sICZw
+c3AtPnRtcl9tY19hZGRyLCAmcHNwLT50bXJfYnVmKTsKPiAgIAo+IC0JaWYgKHBzcC0+ZndfcHJp
+X2J1ZikKPiArCWlmIChwc3AtPmZ3X3ByaV9ibykKPiAgIAkJYW1kZ3B1X2JvX2ZyZWVfa2VybmVs
+KCZwc3AtPmZ3X3ByaV9ibywKPiAgIAkJCQkgICAgICAmcHNwLT5md19wcmlfbWNfYWRkciwgJnBz
+cC0+ZndfcHJpX2J1Zik7Cj4gICAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvcHNwX3YzXzEuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92M18xLmMK
+PiBpbmRleCA5ODhlYmQ5Li4zZDA1N2Q4IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L3BzcF92M18xLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9w
+c3BfdjNfMS5jCj4gQEAgLTM0MSw3ICszNDEsNyBAQCBpbnQgcHNwX3YzXzFfcmluZ19kZXN0cm95
+KHN0cnVjdCBwc3BfY29udGV4dCAqcHNwLCBlbnVtIHBzcF9yaW5nX3R5cGUgcmluZ190eXBlKQo+
+ICAgCXJldCA9IHBzcF93YWl0X2Zvcihwc3AsIFNPQzE1X1JFR19PRkZTRVQoTVAwLCAwLCBtbU1Q
+MF9TTU5fQzJQTVNHXzY0KSwKPiAgIAkJCSAgIDB4ODAwMDAwMDAsIDB4ODAwMDAwMDAsIGZhbHNl
+KTsKPiAgIAo+IC0JaWYgKHJpbmctPnJpbmdfbWVtKQo+ICsJaWYgKGFkZXYtPmZpcm13YXJlLnJi
+dWYpCj4gICAJCWFtZGdwdV9ib19mcmVlX2tlcm5lbCgmYWRldi0+ZmlybXdhcmUucmJ1ZiwKPiAg
+IAkJCQkgICAgICAmcmluZy0+cmluZ19tZW1fbWNfYWRkciwKPiAgIAkJCQkgICAgICAodm9pZCAq
+KikmcmluZy0+cmluZ19tZW0pOwoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
+LWdmeAo=
