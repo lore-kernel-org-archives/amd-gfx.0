@@ -1,112 +1,85 @@
-From: Peter Rosin <peda@axentia.se>
-Subject: Re: [Intel-gfx] [PATCH v3 00/16] improve the fb_setcmap helper
-Date: Wed, 5 Jul 2017 10:09:21 +0200
-Message-ID: <3810fb8e-76d6-0810-26aa-1aae6bac2f9a@axentia.se>
-References: <1499164632-5582-1-git-send-email-peda@axentia.se>
- <20170705060816.nwufo2m7cmthjopn@phenom.ffwll.local>
+From: Emil Velikov <emil.l.velikov@gmail.com>
+Subject: Re: [PATCH libdrm] amdgpu: move asic id table to a separate file
+Date: Wed, 5 Jul 2017 10:35:59 +0100
+Message-ID: <CACvgo50fDYbeQey54H2Yn7X=cwnExPPgziQqF2EQu2A79wXqWA@mail.gmail.com>
+References: <1496262170-4222-1-git-send-email-Samuel.Li@amd.com>
+ <20170612095021.5711-1-michel@daenzer.net>
+ <CAKc24n3Z50eUj3DGeH9sQJZyCRAiPx_=a+bKdA+hfP=j8=oaHQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20170705060816.nwufo2m7cmthjopn@phenom.ffwll.local>
-Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: linux-kernel@vger.kernel.org, David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org, Gerd Hoffmann <kraxel@redhat.com>, Benjamin Gaignard <benjamin.gaignard@linaro.org>, Daniel Vetter <daniel.vetter@intel.com>, Boris Brezillon <boris.brezillon@free-electrons.com>, Thomas Hellstrom <thellstrom@vmware.com>, Sinclair Yeh <syeh@vmware.com>, Russell King <linux@armlinux.org.uk>, VMware Graphics <linux-graphics-maintainer@vmware.com>, Ben Skeggs <bskeggs@redhat.com>, Dave Airlie <airlied@redhat.com>, intel-gfx@lists.freedesktop.org, Vincent Abriou <vincent.abriou@st.com>, amd-gfx@lists.freedesktop.org, Philippe Cornu <philippe.cornu@st.com>, Yannick Fertre <yannick.fertre@>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <CAKc24n3Z50eUj3DGeH9sQJZyCRAiPx_=a+bKdA+hfP=j8=oaHQ@mail.gmail.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Chih-Wei Huang <cwhuang@android-x86.org>
+Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, ML dri-devel <dri-devel@lists.freedesktop.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On 2017-07-05 08:08, Daniel Vetter wrote:
-> On Tue, Jul 04, 2017 at 12:36:56PM +0200, Peter Rosin wrote:
->> Hi!
->>
->> While trying to get CLUT support for the atmel_hlcdc driver, and
->> specifically for the emulated fbdev interface, I received some
->> push-back that my feeble in-driver attempts should be solved
->> by the core. This is my attempt to do it right.
->>
->> I have obviously not tested all of this with more than a compile,
->> but patches 1 through 5 are enough to make the atmel-hlcdc driver
->> do what I need. The rest is just lots of removals and cleanup made
->> possible by the improved core.
->>
->> Please test, I would not be surprised if I have fouled up some
->> bit-manipulation somewhere, or if I have misunderstood something
->> about atomics...
->>
->> Changes since v2:
->> - Added patch 1/16 which factors out pseudo-palette handling.
->> - Removed the if (cmap->start + cmap->len < cmap->start)
->>   sanity check on the assumption that the fbdev core handles it.
->> - Added patch 4/16 which factors out atomic state and commit
->>   handling from drm_atomic_helper_legacy_gamma_set to
->>   drm_mode_gamma_set_ioctl.
->> - Do one atomic commit for all affected crtc.
->> - Removed a now obsolete note in include/drm/drm_crtc.h (ammended
->>   the last patch).
->> - Cc list is getting long, so I have redused the list for the
->>   individual patches. If you would like to get the full series
->>   (or nothing at all) for the next round (if that is needed) just
->>   say so.
-> 
-> Is this still on top of my locking rework? I tried to apply patches 1-3,
-> but there's minor conflicts ...
-> -Daniel
-
-v3 has the same base as v2. I collected your locking rework sometime
-after june 21, you have perhaps changed things since? I saw an update
-of that dpms patch you Cc me, but figured there were no significant
-changes that I needed to handle since I didn't get the full set
-this time either. A bad assumption it seems...
-
-Anyway, the base I have for v3 (and v2) is linux next-20170621 plus
-the following locking rework commits (in reverse order):
-
-Author: Thierry Reding <treding@nvidia.com>
-Date: Wed Jun 21 20:28:15 2017 +0200
-Subject: drm/hisilicon: Remove custom FB helper deferred setup
-
-Author: Thierry Reding <treding@nvidia.com>
-Date: Wed Jun 21 20:28:14 2017 +0200
-Subject: drm/exynos: Remove custom FB helper deferred setup
-
-Author: Thierry Reding <treding@nvidia.com>
-Date: Wed Jun 21 20:28:13 2017 +0200
-Subject: drm/fb-helper: Support deferred setup
-
-Author: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Wed Jun 21 20:28:12 2017 +0200
-Subject: drm/fb-helper: Split dpms handling into legacy and atomic paths
-
-Author: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Wed Jun 21 20:28:11 2017 +0200
-Subject: drm/fb-helper: Stop using mode_config.mutex for internals
-
-Author: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Wed Jun 21 20:28:10 2017 +0200
-Subject: drm/fb-helper: Push locking into restore_fbdev_mode_atomic|legacy
-
-Author: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Wed Jun 21 20:28:09 2017 +0200
-Subject: drm/fb-helper: Push locking into pan_display_atomic|legacy
-
-Author: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Wed Jun 21 20:28:08 2017 +0200
-Subject: drm/fb-helper: Drop locking from the vsync wait ioctl code
-
-Author: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Wed Jun 21 20:28:07 2017 +0200
-Subject: drm/fb-helper: Push locking in fb_is_bound
-
-Author: Thierry Reding <treding@nvidia.com>
-Date: Wed Jun 21 20:28:06 2017 +0200
-Subject: drm/fb-helper: Add top-level lock
-
-Author: Daniel Vetter <daniel.vetter@ffwll.ch>
-Date: Wed Jun 21 20:28:05 2017 +0200
-Subject: drm/i915: Drop FBDEV #ifdev in mst code
-
-Author: Thierry Reding <treding@nvidia.com>
-Date: Wed Jun 21 20:28:04 2017 +0200
-Subject: drm/fb-helper: Push down modeset lock into FB helpers
-
-Cheers,
-peda
+T24gNCBKdWx5IDIwMTcgYXQgMDc6NDAsIENoaWgtV2VpIEh1YW5nIDxjd2h1YW5nQGFuZHJvaWQt
+eDg2Lm9yZz4gd3JvdGU6Cj4gMjAxNy0wNi0xMiAxNzo1MCBHTVQrMDg6MDAgTWljaGVsIETDpG56
+ZXIgPG1pY2hlbEBkYWVuemVyLm5ldD46Cj4+IEZyb206IFhpYW9qaWUgWXVhbiA8WGlhb2ppZS5Z
+dWFuQGFtZC5jb20+Cj4+Cj4+IHYyOiBmaXggYW4gb2ZmIGJ5IG9uZSBlcnJvciBhbmQgbGVhZGlu
+ZyB3aGl0ZSBzcGFjZXMKPj4gdjM6IHVzZSB0aHJlYWQgc2FmZSBzdHJ0b2tfcigpOyBpbml0aWFs
+aXplIGxlbiBiZWZvcmUgY2FsbGluZyBnZXRsaW5lKCk7Cj4+ICAgICBjaGFuZ2UgcHJpbnRmKCkg
+dG8gZHJtTXNnKCk7IGFkZCBpbml0aWFsIGFtZGdwdS5pZHMKPj4gdjQ6IGludGVncmF0ZSBzb21l
+IHJlY2VudCBpbnRlcm5hbCBjaGFuZ2VzLCBpbmNsdWRpbmcgZm9ybWF0IGNoYW5nZXMKPj4gdjU6
+IGZpeCBsaW5lIG51bWJlciBmb3IgZW1wdHkvY29tbWVudGVkIGxpbmVzOyByZWFsbG9jIHRvIHNh
+dmUgbWVtb3J5Owo+PiAgICAgaW5kZW50YXRpb24gY2hhbmdlcwo+PiB2NjogcmVtb3ZlIGEgbGlu
+ZSBlcnJvcgo+PiB2NzogW01pY2hlbCBEw6RuemVyXQo+PiAqIE1vdmUgYW1kZ3B1LmlkcyB0byBu
+ZXcgZGF0YSBkaXJlY3RvcnkKPj4gKiBSZW1vdmUgcGxhY2Vob2xkZXIgZW50cmllcyBmcm9tIGFt
+ZGdwdS5pZHMKPj4gKiBTZXQgbGliZHJtZGF0YWRpciB2YXJpYWJsZSBpbiBjb25maWd1cmUuYWMg
+aW5zdGVhZCBvZiBNYWtlZmlsZS5hbQo+PiAgIFtFbWlsIFZlbGlrb3ZdCj4+ICogVXNlIGlzYmxh
+bmsoKSBpbnN0ZWFkIG9mIG9wZW4tY29kaW5nIGl0IFtFbWlsIFZlbGlrb3ZdCj4+ICogRG9uJ3Qg
+bGVhayBhc2ljX2lkX3RhYmxlIG1lbW9yeSBpZiByZWFsbG9jIGZhaWxzIFtFbWlsIFZlbGlrb3Zd
+Cj4+ICogQ2hlY2sgYW5kIGJ1bXAgdGFibGVfbWF4X3NpemUgYXQgdGhlIGJlZ2lubmluZyBvZiB0
+aGUgd2hpbGUgbG9vcCBbRW1pbAo+PiAgIFZlbGlrb3ZdCj4+ICogSW5pdGlhbGl6ZSB0YWJsZV9t
+YXhfc2l6ZSB0byB0aGUgbnVtYmVyIG9mIGVudHJpZXMgaW4gZGF0YS9hbWRncHUuaWRzCj4+Cj4+
+IFJldmlld2VkLWJ5OiBKdW53ZWkgWmhhbmcgPEplcnJ5LlpoYW5nQGFtZC5jb20+Cj4+IFNpZ25l
+ZC1vZmYtYnk6IFNhbXVlbCBMaSA8U2FtdWVsLkxpQGFtZC5jb20+Cj4+IFNpZ25lZC1vZmYtYnk6
+IE1pY2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQuY29tPgo+PiAtLS0KPj4gIE1ha2Vm
+aWxlLmFtICAgICAgICAgICAgICB8ICAgMSArCj4+ICBhbWRncHUvTWFrZWZpbGUuYW0gICAgICAg
+fCAgIDYgKysKPj4gIGFtZGdwdS9NYWtlZmlsZS5zb3VyY2VzICB8ICAgMiArLQo+PiAgYW1kZ3B1
+L2FtZGdwdV9hc2ljX2lkLmMgIHwgMjE5ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKysrKysrKysrCj4+ICBhbWRncHUvYW1kZ3B1X2FzaWNfaWQuaCAgfCAxNjUgLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KPj4gIGFtZGdwdS9hbWRncHVfZGV2aWNlLmMg
+ICB8ICAyOCArKysrLS0KPj4gIGFtZGdwdS9hbWRncHVfaW50ZXJuYWwuaCB8ICAxMCArKysKPj4g
+IGNvbmZpZ3VyZS5hYyAgICAgICAgICAgICB8ICAgNCArCj4+ICBkYXRhL01ha2VmaWxlLmFtICAg
+ICAgICAgfCAgMjMgKysrKysKPj4gIGRhdGEvYW1kZ3B1LmlkcyAgICAgICAgICB8IDE1OSArKysr
+KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrCj4+ICAxMCBmaWxlcyBjaGFuZ2VkLCA0NDQg
+aW5zZXJ0aW9ucygrKSwgMTczIGRlbGV0aW9ucygtKQo+PiAgY3JlYXRlIG1vZGUgMTAwNjQ0IGFt
+ZGdwdS9hbWRncHVfYXNpY19pZC5jCj4+ICBkZWxldGUgbW9kZSAxMDA2NDQgYW1kZ3B1L2FtZGdw
+dV9hc2ljX2lkLmgKPj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBkYXRhL01ha2VmaWxlLmFtCj4+ICBj
+cmVhdGUgbW9kZSAxMDA2NDQgZGF0YS9hbWRncHUuaWRzCj4+Cj4+IGRpZmYgLS1naXQgYS9NYWtl
+ZmlsZS5hbSBiL01ha2VmaWxlLmFtCj4+IGluZGV4IGRmYjhmY2RiLi43Yjg2MjE0ZSAxMDA2NDQK
+Pj4gLS0tIGEvTWFrZWZpbGUuYW0KPj4gKysrIGIvTWFrZWZpbGUuYW0KPj4gQEAgLTEwOSw2ICsx
+MDksNyBAQCBTVUJESVJTID0gXAo+PiAgICAgICAgICQoVEVHUkFfU1VCRElSKSBcCj4+ICAgICAg
+ICAgJChWQzRfU1VCRElSKSBcCj4+ICAgICAgICAgJChFVE5BVklWX1NVQkRJUikgXAo+PiArICAg
+ICAgIGRhdGEgXAo+PiAgICAgICAgIHRlc3RzIFwKPj4gICAgICAgICAkKE1BTl9TVUJESVIpCj4+
+Cj4+IGRpZmYgLS1naXQgYS9hbWRncHUvTWFrZWZpbGUuYW0gYi9hbWRncHUvTWFrZWZpbGUuYW0K
+Pj4gaW5kZXggY2Y3YmMxYmEuLjM0NDQ4ODNmIDEwMDY0NAo+PiAtLS0gYS9hbWRncHUvTWFrZWZp
+bGUuYW0KPj4gKysrIGIvYW1kZ3B1L01ha2VmaWxlLmFtCj4+IEBAIC0zMCw2ICszMCwxMiBAQCBB
+TV9DRkxBR1MgPSBcCj4+ICAgICAgICAgJChQVEhSRUFEU1RVQlNfQ0ZMQUdTKSBcCj4+ICAgICAg
+ICAgLUkkKHRvcF9zcmNkaXIpL2luY2x1ZGUvZHJtCj4+Cj4+ICtsaWJkcm1kYXRhZGlyID0gQGxp
+YmRybWRhdGFkaXJACj4+ICtBU0lDX0lEX1RBQkxFX05VTV9FTlRSSUVTIDo9ICQoc2hlbGwgZWdy
+ZXAgLWNpICdeWzAtOWEtZl17NH0sLipbMC05YS1mXSssJyBcCj4+ICsgICAgICAgJCh0b3Bfc3Jj
+ZGlyKS9kYXRhL2FtZGdwdS5pZHMpCj4+ICtBTV9DUFBGTEFHUyA9IC1EQU1ER1BVX0FTSUNfSURf
+VEFCTEU9XCIke2xpYmRybWRhdGFkaXJ9L2FtZGdwdS5pZHNcIiBcCj4+ICsgICAgICAgLURBTURH
+UFVfQVNJQ19JRF9UQUJMRV9OVU1fRU5UUklFUz0kKEFTSUNfSURfVEFCTEVfTlVNX0VOVFJJRVMp
+Cj4KPiBVbmZvcnR1bmF0ZWx5IHRoaXMgcGF0Y2ggYnJlYWtzIEFuZHJvaWQgYnVpbGQKPiBzaW5j
+ZSB0aGUgdHdvIG1hY3JvcyBhcmUgbm90IGRlZmluZWQuCj4KPiBBbnlvbmUgaXMgd29ya2luZyBv
+biBhIGZpeD8KPiBJZiBub3QsIEknbGwgdHJ5IHRvIHByb3ZpZGUgb25lLgo+ClBsZWFzZSBzZW5k
+IGEgcGF0Y2guIEkgZG91YnQgbWFueSBvZiB0aGUgQU1EIGRldnMgaGF2ZSBhbiBBbmRyb2lkIHNl
+dHVwLgpEbyBlbnN1cmUgdGhhdCB0aGUgYW1kZ3B1LmlkcyBmaWxlIGlzIGluc3RhbGxlZCBhbmQg
+YWNjZXNzaWJsZS4KCkpGWUk6IGEgc2ltaWxhciB3b3JrIGlzIGNvbWluZyBvbiB0aGUgcmFkZW9u
+IHNpZGUsIHNvIGtlZXAgYW4gZXllIG9wZW4uCgpUaGFua3MKRW1pbApfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRy
+aS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
