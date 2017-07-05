@@ -1,55 +1,112 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH 07/11] drm/amdgpu: rename GART to SYSVM
-Date: Wed, 5 Jul 2017 09:22:06 +0200
-Message-ID: <2fe3a271-71f2-9be4-d4aa-32041d26fed0@vodafone.de>
-References: <1499075076-1851-1-git-send-email-deathsimple@vodafone.de>
- <1499075076-1851-7-git-send-email-deathsimple@vodafone.de>
- <61109920-9d05-cb27-67b3-51a1b46b15bc@amd.com>
- <06b47744-60a4-f79e-e120-60d7bcff8526@daenzer.net>
+From: Peter Rosin <peda@axentia.se>
+Subject: Re: [Intel-gfx] [PATCH v3 00/16] improve the fb_setcmap helper
+Date: Wed, 5 Jul 2017 10:09:21 +0200
+Message-ID: <3810fb8e-76d6-0810-26aa-1aae6bac2f9a@axentia.se>
+References: <1499164632-5582-1-git-send-email-peda@axentia.se>
+ <20170705060816.nwufo2m7cmthjopn@phenom.ffwll.local>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <06b47744-60a4-f79e-e120-60d7bcff8526-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20170705060816.nwufo2m7cmthjopn@phenom.ffwll.local>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: linux-kernel-owner@vger.kernel.org
+To: linux-kernel@vger.kernel.org, David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org, Gerd Hoffmann <kraxel@redhat.com>, Benjamin Gaignard <benjamin.gaignard@linaro.org>, Daniel Vetter <daniel.vetter@intel.com>, Boris Brezillon <boris.brezillon@free-electrons.com>, Thomas Hellstrom <thellstrom@vmware.com>, Sinclair Yeh <syeh@vmware.com>, Russell King <linux@armlinux.org.uk>, VMware Graphics <linux-graphics-maintainer@vmware.com>, Ben Skeggs <bskeggs@redhat.com>, Dave Airlie <airlied@redhat.com>, intel-gfx@lists.freedesktop.org, Vincent Abriou <vincent.abriou@st.com>, amd-gfx@lists.freedesktop.org, Philippe Cornu <philippe.cornu@st.com>, Yannick Fertre <yannick.fertre@>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMDUuMDcuMjAxNyB1bSAwMjo1NyBzY2hyaWViIE1pY2hlbCBEw6RuemVyOgo+IE9uIDA1LzA3
-LzE3IDA2OjExIEFNLCBGZWxpeCBLdWVobGluZyB3cm90ZToKPj4gSSdtIGFmcmFpZCB0aGlzIHdp
-bGwgbGVhZCB0byBtb3JlIGNvbmZ1c2lvbiB3aGVuIHRhbGtpbmcgdG8gZGlmZmVyZW50Cj4+IHRl
-YW1zIGluIEFNRC4gQXQgbGVhc3QgdG8gbWUgIkdBUlQiIHdhcyBhbHdheXMgdW5kZXJzdG9vZCB0
-byBiZSB0aGUKPj4gc3lzdGVtLXdpZGUgYWRkcmVzcyB0cmFuc2xhdGlvbiB0YWJsZSAoVk1JRC0w
-KS4gVGhlIHJlbW5hbnQgZnJvbSB0aGUKPj4gcHJlLUdQVVZNIGRheXMuIFlvdSdyZSBub3cgY2Fs
-bGluZyB0aGF0IFNZU1ZNLCB3aGlsZSBhbGwgR1BVLWFjY2Vzc2libGUKPj4gc3lzdGVtIG1lbW9y
-eSBpcyBzdGlsbCBjYWxsZWQgR1RULgo+Pgo+PiBJIHRoaW5rIGl0IHdvdWxkIG1ha2UgbW9yZSBz
-ZW5zZSB0byBjYWxsIGdlbmVyYWwgR1BVLW1hcHBlZCBzeXN0ZW0KPj4gbWVtb3J5ICJTWVNWTSIg
-b3IgIkdQVVZNIiwgYW5kIG9ubHkgY2FsbCB0aGUgZ2xvYmFsIFZNSUQtMCBwYWdlIHRhYmxlCj4+
-ICJHQVJUIi4KPj4KPj4gQnV0IG9mIGNvdXJzZSB0aGF0IHdvdWxkIHJlcXVpcmUgY2hhbmdlcyBp
-biBUVE0gYW5kIGFsbCBUVE0gZHJpdmVycywgc28KPj4gaXQncyBub3QgYSByZWFsaXN0aWMgb3B0
-aW9uLgo+IEZXSVcsIHRoZSBzdHJpbmcgIkdBUlQiIGRvZXNuJ3QgYXBwZWFyIGFueXdoZXJlIGlu
-IFRUTSwgc28gSSB0aGluayB5b3VyCj4gaWRlYSBpcyBmZWFzaWJsZS4KWWVhaCwgVFRNIGNhbGxz
-IHRoZSBkb21haW4gVFQgKGZvciB0cmFuc2xhdGlvbiB0YWJsZSBJIHRoaW5rKS4gSSB0aGluayAK
-dGhhdCB0aGlzIGlzIGEgcmF0aGVyIGdvb2QgbmFtaW5nLCBiZWNhdXNlIGl0IGRvZXNuJ3QgbWFr
-ZSBhbnkgCmFzc3VtcHRpb24gd2hhdCBraW5kIG9mIHRyYW5zbGF0aW9uIHRhYmxlIGl0IGlzIChB
-R1AsIEdBUlQsIEdQVVZNIGV0Yy4uLikuCgpCdXQgdXNpbmcgU1lTVk0gb3IgR1BVVk0gYXMgbmFt
-ZSBmb3IgdGhlIFRUTSBkb21haW4gd291bGRuJ3Qgd29yayBmb3IgCnRoZSBzaW1wbGUgcmVhc29u
-IHRoYXQgdGhpcyBuYW1pbmcgaXMgY29tcGxldGVseSBBTUQgc3BlY2lmaWMuCgpJJ3ZlIGNvbnNp
-ZGVyZWQgdm1pZDAgYXMgd2VsbCwgYnV0IHRoYXQgZGlkbid0IGxvb2tlZCBnb29kIHRvIG1lLiAK
-InN5c3RlbSBWTSIgaXMgYXQgbGVhc3Qgd2hhdCBvdXIgaGFyZHdhcmUgZGV2ZWxvcGVycyB1c2Ug
-aW4gdGhlIFZNIApkb2N1bWVudGF0aW9uLCBidXQgSSdtIG5vdCB0b3RhbGx5IGhhcHB5IHdpdGgg
-dXNpbmcgdGhlIG5hbWUgZWl0aGVyLgoKU28gZmVlbCBmcmVlIHRvIHRocm93IGluIGlkZWFzLgoK
-UmVnYXJkcywKQ2hyaXN0aWFuLgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-ZngK
+On 2017-07-05 08:08, Daniel Vetter wrote:
+> On Tue, Jul 04, 2017 at 12:36:56PM +0200, Peter Rosin wrote:
+>> Hi!
+>>
+>> While trying to get CLUT support for the atmel_hlcdc driver, and
+>> specifically for the emulated fbdev interface, I received some
+>> push-back that my feeble in-driver attempts should be solved
+>> by the core. This is my attempt to do it right.
+>>
+>> I have obviously not tested all of this with more than a compile,
+>> but patches 1 through 5 are enough to make the atmel-hlcdc driver
+>> do what I need. The rest is just lots of removals and cleanup made
+>> possible by the improved core.
+>>
+>> Please test, I would not be surprised if I have fouled up some
+>> bit-manipulation somewhere, or if I have misunderstood something
+>> about atomics...
+>>
+>> Changes since v2:
+>> - Added patch 1/16 which factors out pseudo-palette handling.
+>> - Removed the if (cmap->start + cmap->len < cmap->start)
+>>   sanity check on the assumption that the fbdev core handles it.
+>> - Added patch 4/16 which factors out atomic state and commit
+>>   handling from drm_atomic_helper_legacy_gamma_set to
+>>   drm_mode_gamma_set_ioctl.
+>> - Do one atomic commit for all affected crtc.
+>> - Removed a now obsolete note in include/drm/drm_crtc.h (ammended
+>>   the last patch).
+>> - Cc list is getting long, so I have redused the list for the
+>>   individual patches. If you would like to get the full series
+>>   (or nothing at all) for the next round (if that is needed) just
+>>   say so.
+> 
+> Is this still on top of my locking rework? I tried to apply patches 1-3,
+> but there's minor conflicts ...
+> -Daniel
+
+v3 has the same base as v2. I collected your locking rework sometime
+after june 21, you have perhaps changed things since? I saw an update
+of that dpms patch you Cc me, but figured there were no significant
+changes that I needed to handle since I didn't get the full set
+this time either. A bad assumption it seems...
+
+Anyway, the base I have for v3 (and v2) is linux next-20170621 plus
+the following locking rework commits (in reverse order):
+
+Author: Thierry Reding <treding@nvidia.com>
+Date: Wed Jun 21 20:28:15 2017 +0200
+Subject: drm/hisilicon: Remove custom FB helper deferred setup
+
+Author: Thierry Reding <treding@nvidia.com>
+Date: Wed Jun 21 20:28:14 2017 +0200
+Subject: drm/exynos: Remove custom FB helper deferred setup
+
+Author: Thierry Reding <treding@nvidia.com>
+Date: Wed Jun 21 20:28:13 2017 +0200
+Subject: drm/fb-helper: Support deferred setup
+
+Author: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Wed Jun 21 20:28:12 2017 +0200
+Subject: drm/fb-helper: Split dpms handling into legacy and atomic paths
+
+Author: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Wed Jun 21 20:28:11 2017 +0200
+Subject: drm/fb-helper: Stop using mode_config.mutex for internals
+
+Author: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Wed Jun 21 20:28:10 2017 +0200
+Subject: drm/fb-helper: Push locking into restore_fbdev_mode_atomic|legacy
+
+Author: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Wed Jun 21 20:28:09 2017 +0200
+Subject: drm/fb-helper: Push locking into pan_display_atomic|legacy
+
+Author: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Wed Jun 21 20:28:08 2017 +0200
+Subject: drm/fb-helper: Drop locking from the vsync wait ioctl code
+
+Author: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Wed Jun 21 20:28:07 2017 +0200
+Subject: drm/fb-helper: Push locking in fb_is_bound
+
+Author: Thierry Reding <treding@nvidia.com>
+Date: Wed Jun 21 20:28:06 2017 +0200
+Subject: drm/fb-helper: Add top-level lock
+
+Author: Daniel Vetter <daniel.vetter@ffwll.ch>
+Date: Wed Jun 21 20:28:05 2017 +0200
+Subject: drm/i915: Drop FBDEV #ifdev in mst code
+
+Author: Thierry Reding <treding@nvidia.com>
+Date: Wed Jun 21 20:28:04 2017 +0200
+Subject: drm/fb-helper: Push down modeset lock into FB helpers
+
+Cheers,
+peda
