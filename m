@@ -1,18 +1,14 @@
 From: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: Make KIQ read/write register routine be atomic
-Date: Wed, 5 Jul 2017 14:52:06 +0000
-Message-ID: <DM5PR12MB1179F86F7B6720611D22997EF4D40@DM5PR12MB1179.namprd12.prod.outlook.com>
-References: <1498770496-28032-1-git-send-email-Shaoyun.Liu@amd.com>
- <14d97048-a0ba-69cd-1eac-e82c4462c51f@daenzer.net>
- <d9834700-f977-e5d5-2c79-7c2332ba44e9@vodafone.de>,
- <DM5PR12MB11795DAAD88232D2874CEF17F4D30@DM5PR12MB1179.namprd12.prod.outlook.com>
- <BLUPR12MB04498F84A6D9E542753D234C84D60@BLUPR12MB0449.namprd12.prod.outlook.com>
- <DM5PR12MB11793F1D1012089CED2530C6F4D70@DM5PR12MB1179.namprd12.prod.outlook.com>
- <BLUPR12MB04491EEAF96DF02542047DA584D40@BLUPR12MB0449.namprd12.prod.outlook.com>
+Subject: RE: [PATCH] drm/amdgpu: NO KIQ usage on nbio hdp flush routine
+Date: Wed, 5 Jul 2017 15:04:16 +0000
+Message-ID: <DM5PR12MB1179438AC5B0EA81D83224EDF4D40@DM5PR12MB1179.namprd12.prod.outlook.com>
+References: <1499193166-23187-1-git-send-email-Shaoyun.Liu@amd.com>
+ <CY4PR12MB1653A95F18F717BF6C3C8107F7D40@CY4PR12MB1653.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0156265083=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BLUPR12MB04491EEAF96DF02542047DA584D40-7LeqcoF/hwpTIQvHjXdJlwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <CY4PR12MB1653A95F18F717BF6C3C8107F7D40-rpdhrqHFk06apTa93KjAaQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -24,514 +20,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, =?iso-8859-1?Q?Christian_K=F6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, =?iso-8859-1?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0156265083==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM5PR12MB1179F86F7B6720611D22997EF4D40DM5PR12MB1179namp_"
-
---_000_DM5PR12MB1179F86F7B6720611D22997EF4D40DM5PR12MB1179namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-It's inside the   gmc_v9_0_gart_flush_gpu_tlb function where it calls the  =
-nbio_v6_0_hdp_flush . I already sent out the commit for review .you can che=
-ck for details .
-
-Regards
-Shaoyun.liu
-
-From: Liu, Monk
-Sent: Tuesday, July 04, 2017 11:26 PM
-To: Liu, Shaoyun; Christian K=F6nig; Michel D=E4nzer
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: RE: [PATCH] drm/amdgpu: Make KIQ read/write register routine be at=
-omic
-
-What do you mean HDP flush code ?
-
-Can you elaborate it ?  the only HDP flush I remember via CPU is the one in=
- GMC_V9's gpu_tlb_flush, I saw it is still using regular register access, b=
-ut I agree change it to CPU direct access
-
-BR Monk
-
-From: Liu, Shaoyun
-Sent: Tuesday, July 04, 2017 2:14 PM
-To: Liu, Monk <Monk.Liu-5C7GfCeVMHo@public.gmane.org<mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org>>; Christian K=F6ni=
-g <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org<mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>>; Michel D=E4nze=
-r <michel-otUistvHUpPR7s880joybQ@public.gmane.org<mailto:michel-otUistvHUpPR7s880joybQ@public.gmane.org>>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: Make KIQ read/write register routine be at=
-omic
-
-Hi , Monk
-The TLB flush code is not used from IRQ , but it's been called while holdin=
-g spin_lock . This is the reason why I want to change the routine be atomic=
-.  After check the  register spec again , I found that the  TLB invalidatio=
-n and  HDP coherency cntl  register are safe to use in the VFs  and  in cur=
-rent code we already try to avoid use KIQ in TLB flush function  by directl=
-y program the  TLB invalidate registers  but just missed one place on HDP f=
-lush . So  I think  it 's better to fix the HDP flush code and  leave curre=
-nt KIQ code un-touched .
-
-Regards
-Shaoyun.liu
-
-
-
-
-From: Liu, Monk
-Sent: Monday, July 03, 2017 5:45 AM
-To: Liu, Shaoyun; Christian K=F6nig; Michel D=E4nzer
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Make KIQ read/write register routine be at=
-omic
-
-
-Hi Shaoyun
-
-
-
-looks you want to make KIQ reg access be atomic & UN-interruptible,
-
-I think most user of KIQ reg access is not in atomic context, so your patch=
- only benefit for the place using KIQ from IRQ.
-
-why not implement another KIQ reg access function ? e.g. :
-
-amdgpu_virt_kiq_rreg_atomic(...);
-amdgpu_virt_kiq_wreg_atomic(...);
-
-
-
-
-that way you can satisfy your requirement and not introduce unknown issue f=
-or other places that calling original virt_kiq_r/weg() function.
-
-
-
-because busy polling have chance to hang cpu in SR-IOV (imagine 16 VF, and =
-many VF doing FLR one by one,   your busy polling may let guest kernel cpu =
-stuck in ATOMIC_CONTEXT for more than 5 seconds )
-
-
-
-BR Monk
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounces=
-@lists.freedesktop.org>> on behalf of Liu, Shaoyun <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org<mai=
-lto:Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>>
-Sent: Friday, June 30, 2017 10:55:39 PM
-To: Christian K=F6nig; Michel D=E4nzer
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: Make KIQ read/write register routine be at=
-omic
-
-Hi , Christian
-The new code actually will not use the fence function , it just need a memo=
-ry that expose both CPU and  GPU address .  Do you  really want to add the =
-wrap functions that just expose the CPU and  GPU address in this case  ?
-
-Regards
-Shaoyun.liu
-
-
------Original Message-----
-From: Christian K=F6nig [mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org]
-Sent: Friday, June 30, 2017 3:57 AM
-To: Michel D=E4nzer; Liu, Shaoyun
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Make KIQ read/write register routine be at=
-omic
-
-Am 30.06.2017 um 03:21 schrieb Michel D=E4nzer:
-> On 30/06/17 06:08 AM, Shaoyun Liu wrote:
->> 1. Use spin lock instead of mutex in KIQ 2. Directly write to KIQ
->> fence address instead of using fence_emit() 3. Disable the interrupt
->> for KIQ read/write and use CPU polling
-> This list indicates that this patch should be split up in at least
-> three patches. :)
-Yeah, apart from that is is not a good idea to mess with the fence internal=
-s directly in the KIQ code, please add a helper in the fence code for this.
-
-Regards,
-Christian.
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_DM5PR12MB1179F86F7B6720611D22997EF4D40DM5PR12MB1179namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<meta name=3D"Generator" content=3D"Microsoft Word 14 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:Tahoma;
-	panose-1:2 11 6 4 3 5 4 4 2 4;}
-@font-face
-	{font-family:"\@SimSun";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-p
-	{mso-style-priority:99;
-	margin:0in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
-	{mso-style-priority:99;
-	mso-style-link:"Balloon Text Char";
-	margin:0in;
-	margin-bottom:.0001pt;
-	font-size:8.0pt;
-	font-family:"Tahoma","sans-serif";}
-span.BalloonTextChar
-	{mso-style-name:"Balloon Text Char";
-	mso-style-priority:99;
-	mso-style-link:"Balloon Text";
-	font-family:"Tahoma","sans-serif";}
-p.emailquote, li.emailquote, div.emailquote
-	{mso-style-name:emailquote;
-	mso-style-priority:99;
-	margin-top:0in;
-	margin-right:0in;
-	margin-bottom:0in;
-	margin-left:1.0pt;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman","serif";}
-span.EmailStyle21
-	{mso-style-type:personal;
-	font-family:"Calibri","sans-serif";
-	color:#1F497D;}
-span.EmailStyle22
-	{mso-style-type:personal;
-	font-family:"Calibri","sans-serif";
-	color:#1F497D;}
-span.EmailStyle23
-	{mso-style-type:personal-reply;
-	font-family:"Calibri","sans-serif";
-	color:#1F497D;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">It&#8217;s inside the&nbs=
-p; &nbsp;gmc_v9_0_gart_flush_gpu_tlb function where it calls the&nbsp; nbio=
-_v6_0_hdp_flush . I already sent out the commit for review .you can check f=
-or
- details . <o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
-/p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Regards<o:p></o:p></span>=
-</p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Shaoyun.liu<o:p></o:p></s=
-pan></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
-/p>
-<div>
-<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
-;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span style=3D"font-s=
-ize:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> Liu, Mon=
-k
-<br>
-<b>Sent:</b> Tuesday, July 04, 2017 11:26 PM<br>
-<b>To:</b> Liu, Shaoyun; Christian K=F6nig; Michel D=E4nzer<br>
-<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> RE: [PATCH] drm/amdgpu: Make KIQ read/write register routin=
-e be atomic<o:p></o:p></span></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">What do you mean HDP flus=
-h code ?<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
-/p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Can you elaborate it ?&nb=
-sp; the only HDP flush I remember via CPU is the one in GMC_V9&#8217;s gpu_=
-tlb_flush, I saw it is still using regular register access, but I agree
- change it to CPU direct access <o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
-/p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">BR Monk
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
-/p>
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
-;Calibri&quot;,&quot;sans-serif&quot;">From:</span></b><span style=3D"font-=
-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;"> Liu, S=
-haoyun
-<br>
-<b>Sent:</b> Tuesday, July 04, 2017 2:14 PM<br>
-<b>To:</b> Liu, Monk &lt;<a href=3D"mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org">Monk.Liu@amd.c=
-om</a>&gt;; Christian K=F6nig &lt;<a href=3D"mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org=
-">deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org</a>&gt;; Michel D=E4nzer &lt;<a href=3D"mailto:mi=
-chel-otUistvHUpPR7s880joybQ@public.gmane.org">michel-otUistvHUpPR7s880joybQ@public.gmane.org</a>&gt;<br>
-<b>Cc:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
-reedesktop.org</a><br>
-<b>Subject:</b> RE: [PATCH] drm/amdgpu: Make KIQ read/write register routin=
-e be atomic<o:p></o:p></span></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Hi , Monk
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">The TLB flush code is not=
- used from IRQ , but it&#8217;s been called while holding spin_lock . This =
-is the reason why I want to change the routine be atomic.&nbsp; After
- check the &nbsp;register spec again , I found that the&nbsp; TLB invalidat=
-ion and&nbsp; HDP coherency cntl &nbsp;register are safe to use in the VFs&=
-nbsp; and&nbsp; in current code we already try to avoid use KIQ in TLB flus=
-h function &nbsp;by directly program the&nbsp; TLB invalidate registers
- &nbsp;but just missed one place on HDP flush . So &nbsp;I think &nbsp;it &=
-#8216;s better to fix the HDP flush code and&nbsp; leave current KIQ code u=
-n-touched .
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
-/p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Regards<o:p></o:p></span>=
-</p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Shaoyun.liu<o:p></o:p></s=
-pan></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
-/p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
-/p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
-/p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
-/p>
-<div>
-<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
-;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span style=3D"font-s=
-ize:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> Liu, Mon=
-k
-<br>
-<b>Sent:</b> Monday, July 03, 2017 5:45 AM<br>
-<b>To:</b> Liu, Shaoyun; Christian K=F6nig; Michel D=E4nzer<br>
-<b>Cc:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
-reedesktop.org</a><br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: Make KIQ read/write register routin=
-e be atomic<o:p></o:p></span></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<div id=3D"x_divtagdefaultwrapper">
-<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
-lor:black">Hi Shaoyun <o:p></o:p></span></p>
-<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
-lor:black"><o:p>&nbsp;</o:p></span></p>
-<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
-lor:black">looks you want to make KIQ reg access be atomic &amp; UN-interru=
-ptible,<o:p></o:p></span></p>
-<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
-lor:black">I think most user of KIQ reg access is not in atomic context, so=
- your patch only benefit for the place using KIQ from IRQ.<o:p></o:p></span=
-></p>
-<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
-lor:black">why not implement another KIQ reg access function ? e.g. :<o:p><=
-/o:p></span></p>
-<div>
-<p class=3D"MsoNormal" style=3D"line-height:14.25pt;background:#1E1E1E"><sp=
-an style=3D"font-size:10.5pt;font-family:&quot;Courier New&quot;;color:#D4D=
-4D4"><o:p>&nbsp;</o:p></span></p>
-<div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt;line-height:14.25pt;ba=
-ckground:#1E1E1E">
-<span style=3D"font-size:10.5pt;font-family:&quot;Courier New&quot;;color:#=
-DCDCAA">amdgpu_virt_kiq_rreg_atomic(...);<o:p></o:p></span></p>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt;line-height:14.25pt;ba=
-ckground:#1E1E1E">
-<span style=3D"font-size:10.5pt;font-family:&quot;Courier New&quot;;color:#=
-DCDCAA">amdgpu_virt_kiq_wreg_atomic(...);</span><span style=3D"font-size:10=
-.5pt;font-family:&quot;Courier New&quot;;color:#D4D4D4"><o:p></o:p></span><=
-/p>
-</div>
-<p class=3D"MsoNormal" style=3D"line-height:14.25pt;background:#1E1E1E"><sp=
-an style=3D"font-size:10.5pt;font-family:&quot;Courier New&quot;;color:#D4D=
-4D4"><o:p>&nbsp;</o:p></span></p>
-</div>
-<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
-lor:black"><o:p>&nbsp;</o:p></span></p>
-<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
-lor:black">that way you can satisfy your requirement and not introduce unkn=
-own issue for other places that calling original virt_kiq_r/weg() function.=
-<o:p></o:p></span></p>
-<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
-lor:black"><o:p>&nbsp;</o:p></span></p>
-<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
-lor:black">because busy polling have chance to hang cpu in SR-IOV (imagine =
-16 VF, and many VF doing FLR one by one, &nbsp; your busy polling may let g=
-uest kernel cpu stuck in ATOMIC_CONTEXT for more than 5 seconds
- )<o:p></o:p></span></p>
-<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
-lor:black"><o:p>&nbsp;</o:p></span></p>
-<p><span style=3D"font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;co=
-lor:black">BR Monk<o:p></o:p></span></p>
-</div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"x_divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
-;Calibri&quot;,&quot;sans-serif&quot;;color:black">From:</span></b><span st=
-yle=3D"font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&qu=
-ot;;color:black"> amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
-esktop.org">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt;
- on behalf of Liu, Shaoyun &lt;<a href=3D"mailto:Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org">Shaoy=
-un.Liu-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-<b>Sent:</b> Friday, June 30, 2017 10:55:39 PM<br>
-<b>To:</b> Christian K=F6nig; Michel D=E4nzer<br>
-<b>Cc:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
-reedesktop.org</a><br>
-<b>Subject:</b> RE: [PATCH] drm/amdgpu: Make KIQ read/write register routin=
-e be atomic</span>
-<o:p></o:p></p>
-<div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-</div>
-</div>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt">Hi , Christian<br>
-The new code actually will not use the fence function , it just need a memo=
-ry that expose both CPU and&nbsp; GPU address .&nbsp; Do you&nbsp; really w=
-ant to add the wrap functions that just expose the CPU and&nbsp; GPU addres=
-s in this case&nbsp; ?<br>
-<br>
-Regards<br>
-Shaoyun.liu<br>
-<br>
-&nbsp;<br>
------Original Message-----<br>
-From: Christian K=F6nig [<a href=3D"mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">mailto:=
-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org</a>]
-<br>
-Sent: Friday, June 30, 2017 3:57 AM<br>
-To: Michel D=E4nzer; Liu, Shaoyun<br>
-Cc: <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
-top.org</a><br>
-Subject: Re: [PATCH] drm/amdgpu: Make KIQ read/write register routine be at=
-omic<br>
-<br>
-Am 30.06.2017 um 03:21 schrieb Michel D=E4nzer:<br>
-&gt; On 30/06/17 06:08 AM, Shaoyun Liu wrote:<br>
-&gt;&gt; 1. Use spin lock instead of mutex in KIQ 2. Directly write to KIQ =
-<br>
-&gt;&gt; fence address instead of using fence_emit() 3. Disable the interru=
-pt <br>
-&gt;&gt; for KIQ read/write and use CPU polling<br>
-&gt; This list indicates that this patch should be split up in at least <br=
->
-&gt; three patches. :)<br>
-Yeah, apart from that is is not a good idea to mess with the fence internal=
-s directly in the KIQ code, please add a helper in the fence code for this.=
-<br>
-<br>
-Regards,<br>
-Christian.<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></span></p>
-</div>
-</div>
-</body>
-</html>
-
---_000_DM5PR12MB1179F86F7B6720611D22997EF4D40DM5PR12MB1179namp_--
-
---===============0156265083==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0156265083==--
+VGhhbmtzIC4gDQpTcGxpdCB0aGUgY2hhbmdlIGFzIHN1Z2dlc3RlZCBhbmQgcHVzaGVkIC4gDQoN
+ClJlZ2FyZHMNClNoYW95dW4ubGl1DQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9t
+OiBEZXVjaGVyLCBBbGV4YW5kZXIgDQpTZW50OiBXZWRuZXNkYXksIEp1bHkgMDUsIDIwMTcgOTox
+NyBBTQ0KVG86IExpdSwgU2hhb3l1bjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCkNj
+OiBMaXUsIFNoYW95dW4NClN1YmplY3Q6IFJFOiBbUEFUQ0hdIGRybS9hbWRncHU6IE5PIEtJUSB1
+c2FnZSBvbiBuYmlvIGhkcCBmbHVzaCByb3V0aW5lDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdl
+LS0tLS0NCj4gRnJvbTogYW1kLWdmeCBbbWFpbHRvOmFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVl
+ZGVza3RvcC5vcmddIE9uIEJlaGFsZiANCj4gT2YgU2hhb3l1biBMaXUNCj4gU2VudDogVHVlc2Rh
+eSwgSnVseSAwNCwgMjAxNyAyOjMzIFBNDQo+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZw0KPiBDYzogTGl1LCBTaGFveXVuDQo+IFN1YmplY3Q6IFtQQVRDSF0gZHJtL2FtZGdwdTog
+Tk8gS0lRIHVzYWdlIG9uIG5iaW8gaGRwIGZsdXNoIHJvdXRpbmUNCj4gDQo+IG5iaW8gaGRwIGZs
+dXNoIHJvdXRpbmUgYXJlIGNhbGxlZCB3aXRoaW4gYXRvbWljIGNvbnRleHQuDQo+IEF2b2lkIHVz
+ZSBLSVEgd2hlbiB3cml0ZSB0byB0aGUgSERQX01FTV9DT0hFUkVOQ1lfRkxVU0hfQ05UTCByZWdp
+c3RlciANCj4gc2luY2UgdGhpcyByZWdpc3RlciBoYXMgaXRzIG93biBWRiBjb3B5DQo+IA0KPiBD
+aGFuZ2UtSWQ6IElhNWUyZDQwOWYxZWE0N2M2N2Q5ZTU2ODU5YjE5MDJiZWQxYjAyMGM2DQo+IFNp
+Z25lZC1vZmYtYnk6IFNoYW95dW4gTGl1IDxTaGFveXVuLkxpdUBhbWQuY29tPg0KDQpQbGVhc2Ug
+c3BsaXQgdGhpcyBwYXRjaCBpbiB0d28sIG9uZSB0byBhZGQgdGhlIG5ldyBtYWNybywgdGhlIG5l
+eHQgdG8gY29udmVydCB0aGUgbmJpbyBjb2RlLiAgV2l0aCB0aGF0IGZpeGVkOg0KUmV2aWV3ZWQt
+Ynk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4NCg0KPiAtLS0NCj4g
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L25iaW9fdjZfMS5jICAgIHwgMiArLQ0KPiAgZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbmJpb192N18wLmMgICAgfCAyICstDQo+ICBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNV9jb21tb24uaCB8IDcgKysrKysrKw0KPiAgMyBmaWxl
+cyBjaGFuZ2VkLCA5IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbmJpb192Nl8xLmMNCj4gYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9uYmlvX3Y2XzEuYw0KPiBpbmRleCAxZTI3MmY3Li42MWMwMDI4
+IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9uYmlvX3Y2XzEuYw0K
+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9uYmlvX3Y2XzEuYw0KPiBAQCAtNjcs
+NyArNjcsNyBAQCB2b2lkIG5iaW9fdjZfMV9tY19hY2Nlc3NfZW5hYmxlKHN0cnVjdCBhbWRncHVf
+ZGV2aWNlIA0KPiAqYWRldiwgYm9vbCBlbmFibGUpDQo+IA0KPiAgdm9pZCBuYmlvX3Y2XzFfaGRw
+X2ZsdXNoKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KSAgew0KPiAtCVdSRUczMl9TT0MxNShO
+QklPLCAwLA0KPiBtbUJJRl9CWF9QRjBfSERQX01FTV9DT0hFUkVOQ1lfRkxVU0hfQ05UTCwgMCk7
+DQo+ICsJV1JFRzMyX1NPQzE1X05PX0tJUShOQklPLCAwLA0KPiBtbUJJRl9CWF9QRjBfSERQX01F
+TV9DT0hFUkVOQ1lfRkxVU0hfQ05UTCwgMCk7ICB9DQo+IA0KPiAgdTMyIG5iaW9fdjZfMV9nZXRf
+bWVtc2l6ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikgZGlmZiAtLWdpdCANCj4gYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9uYmlvX3Y3XzAuYw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L25iaW9fdjdfMC5jDQo+IGluZGV4IGFhMDQ2MzIuLjExYjcwZDYgMTAwNjQ0DQo+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L25iaW9fdjdfMC5jDQo+ICsrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L25iaW9fdjdfMC5jDQo+IEBAIC02NSw3ICs2NSw3IEBA
+IHZvaWQgbmJpb192N18wX21jX2FjY2Vzc19lbmFibGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgDQo+
+ICphZGV2LCBib29sIGVuYWJsZSkNCj4gDQo+ICB2b2lkIG5iaW9fdjdfMF9oZHBfZmx1c2goc3Ry
+dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpICB7DQo+IC0JV1JFRzMyX1NPQzE1KE5CSU8sIDAsIG1t
+SERQX01FTV9DT0hFUkVOQ1lfRkxVU0hfQ05UTCwNCj4gMCk7DQo+ICsJV1JFRzMyX1NPQzE1X05P
+X0tJUShOQklPLCAwLA0KPiBtbUhEUF9NRU1fQ09IRVJFTkNZX0ZMVVNIX0NOVEwsIDApOw0KPiAg
+fQ0KPiANCj4gIHUzMiBuYmlvX3Y3XzBfZ2V0X21lbXNpemUoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
+KmFkZXYpIGRpZmYgLS1naXQgDQo+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTVf
+Y29tbW9uLmgNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNV9jb21tb24uaA0K
+PiBpbmRleCBlMmQzMzBlLi43YThlNGUyOCAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvc29jMTVfY29tbW9uLmgNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvc29jMTVfY29tbW9uLmgNCj4gQEAgLTc3LDYgKzc3LDEzIEBAIHN0cnVjdCBuYmlvX3Bj
+aWVfaW5kZXhfZGF0YSB7DQo+ICAJCSgzID09IHJlZyMjX0JBU0VfSURYID8gaXAjI19CQVNFX19J
+TlNUIyNpbnN0IyNfU0VHMyArIHJlZyA6IFwNCj4gIAkJKGlwIyNfQkFTRV9fSU5TVCMjaW5zdCMj
+X1NFRzQgKyByZWcpKSkpKSwgdmFsdWUpDQo+IA0KPiArI2RlZmluZSBXUkVHMzJfU09DMTVfTk9f
+S0lRKGlwLCBpbnN0LCByZWcsIHZhbHVlKSBcDQo+ICsJV1JFRzMyX05PX0tJUSggKDAgPT0gcmVn
+IyNfQkFTRV9JRFggPw0KPiBpcCMjX0JBU0VfX0lOU1QjI2luc3QjI19TRUcwICsgcmVnIDogXA0K
+PiArCQkoMSA9PSByZWcjI19CQVNFX0lEWCA/IGlwIyNfQkFTRV9fSU5TVCMjaW5zdCMjX1NFRzEg
+Kw0KPiByZWcgOiBcDQo+ICsJCSgyID09IHJlZyMjX0JBU0VfSURYID8gaXAjI19CQVNFX19JTlNU
+IyNpbnN0IyNfU0VHMiArDQo+IHJlZyA6IFwNCj4gKwkJKDMgPT0gcmVnIyNfQkFTRV9JRFggPyBp
+cCMjX0JBU0VfX0lOU1QjI2luc3QjI19TRUczICsNCj4gcmVnIDogXA0KPiArCQkoaXAjI19CQVNF
+X19JTlNUIyNpbnN0IyNfU0VHNCArIHJlZykpKSkpLCB2YWx1ZSkNCj4gKw0KPiAgI2RlZmluZSBX
+UkVHMzJfU09DMTVfT0ZGU0VUKGlwLCBpbnN0LCByZWcsIG9mZnNldCwgdmFsdWUpIFwNCj4gIAlX
+UkVHMzIoICgwID09IHJlZyMjX0JBU0VfSURYID8gaXAjI19CQVNFX19JTlNUIyNpbnN0IyNfU0VH
+MA0KPiArIHJlZyA6IFwNCj4gIAkJKDEgPT0gcmVnIyNfQkFTRV9JRFggPyBpcCMjX0JBU0VfX0lO
+U1QjI2luc3QjI19TRUcxICsgcmVnIDogXA0KPiAtLQ0KPiAxLjkuMQ0KPiANCj4gX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4gYW1kLWdmeCBtYWlsaW5n
+IGxpc3QNCj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
