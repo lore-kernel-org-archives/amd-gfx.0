@@ -1,13 +1,14 @@
 From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: NO KIQ usage on nbio hdp flush routine
-Date: Wed, 5 Jul 2017 13:17:06 +0000
-Message-ID: <CY4PR12MB1653A95F18F717BF6C3C8107F7D40@CY4PR12MB1653.namprd12.prod.outlook.com>
-References: <1499193166-23187-1-git-send-email-Shaoyun.Liu@amd.com>
+Subject: RE: The amd-stagint-4.11 doen't contain the commit
+ ab51ee31dda1a37b473074e402394f879c51d591 in amd-staging-4.9
+Date: Wed, 5 Jul 2017 13:29:28 +0000
+Message-ID: <CY4PR12MB1653832B883B5257DD3F36B4F7D40@CY4PR12MB1653.namprd12.prod.outlook.com>
+References: <CY4PR12MB112513FA1BFD2E8EDCB4EF858FD40@CY4PR12MB1125.namprd12.prod.outlook.com>
+ <BLUPR12MB0449F1803799EB0FFD93EE0B84D40@BLUPR12MB0449.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1018063973=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1499193166-23187-1-git-send-email-Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <BLUPR12MB0449F1803799EB0FFD93EE0B84D40-7LeqcoF/hwpTIQvHjXdJlwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,70 +20,221 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
-LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIFNoYW95
-dW4gTGl1DQo+IFNlbnQ6IFR1ZXNkYXksIEp1bHkgMDQsIDIwMTcgMjozMyBQTQ0KPiBUbzogYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gQ2M6IExpdSwgU2hhb3l1bg0KPiBTdWJqZWN0
-OiBbUEFUQ0hdIGRybS9hbWRncHU6IE5PIEtJUSB1c2FnZSBvbiBuYmlvIGhkcCBmbHVzaCByb3V0
-aW5lDQo+IA0KPiBuYmlvIGhkcCBmbHVzaCByb3V0aW5lIGFyZSBjYWxsZWQgd2l0aGluIGF0b21p
-YyBjb250ZXh0Lg0KPiBBdm9pZCB1c2UgS0lRIHdoZW4gd3JpdGUgdG8gdGhlIEhEUF9NRU1fQ09I
-RVJFTkNZX0ZMVVNIX0NOVEwNCj4gcmVnaXN0ZXINCj4gc2luY2UgdGhpcyByZWdpc3RlciBoYXMg
-aXRzIG93biBWRiBjb3B5DQo+IA0KPiBDaGFuZ2UtSWQ6IElhNWUyZDQwOWYxZWE0N2M2N2Q5ZTU2
-ODU5YjE5MDJiZWQxYjAyMGM2DQo+IFNpZ25lZC1vZmYtYnk6IFNoYW95dW4gTGl1IDxTaGFveXVu
-LkxpdUBhbWQuY29tPg0KDQpQbGVhc2Ugc3BsaXQgdGhpcyBwYXRjaCBpbiB0d28sIG9uZSB0byBh
-ZGQgdGhlIG5ldyBtYWNybywgdGhlIG5leHQgdG8gY29udmVydCB0aGUgbmJpbyBjb2RlLiAgV2l0
-aCB0aGF0IGZpeGVkOg0KUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNo
-ZXJAYW1kLmNvbT4NCg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L25iaW9f
-djZfMS5jICAgIHwgMiArLQ0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbmJpb192N18w
-LmMgICAgfCAyICstDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNV9jb21tb24u
-aCB8IDcgKysrKysrKw0KPiAgMyBmaWxlcyBjaGFuZ2VkLCA5IGluc2VydGlvbnMoKyksIDIgZGVs
-ZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-bmJpb192Nl8xLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9uYmlvX3Y2XzEuYw0K
-PiBpbmRleCAxZTI3MmY3Li42MWMwMDI4IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9uYmlvX3Y2XzEuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9uYmlvX3Y2XzEuYw0KPiBAQCAtNjcsNyArNjcsNyBAQCB2b2lkIG5iaW9fdjZfMV9tY19hY2Nl
-c3NfZW5hYmxlKHN0cnVjdA0KPiBhbWRncHVfZGV2aWNlICphZGV2LCBib29sIGVuYWJsZSkNCj4g
-DQo+ICB2b2lkIG5iaW9fdjZfMV9oZHBfZmx1c2goc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYp
-DQo+ICB7DQo+IC0JV1JFRzMyX1NPQzE1KE5CSU8sIDAsDQo+IG1tQklGX0JYX1BGMF9IRFBfTUVN
-X0NPSEVSRU5DWV9GTFVTSF9DTlRMLCAwKTsNCj4gKwlXUkVHMzJfU09DMTVfTk9fS0lRKE5CSU8s
-IDAsDQo+IG1tQklGX0JYX1BGMF9IRFBfTUVNX0NPSEVSRU5DWV9GTFVTSF9DTlRMLCAwKTsNCj4g
-IH0NCj4gDQo+ICB1MzIgbmJpb192Nl8xX2dldF9tZW1zaXplKHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICphZGV2KQ0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbmJpb192
-N18wLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9uYmlvX3Y3XzAuYw0KPiBpbmRl
-eCBhYTA0NjMyLi4xMWI3MGQ2IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9uYmlvX3Y3XzAuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9uYmlv
-X3Y3XzAuYw0KPiBAQCAtNjUsNyArNjUsNyBAQCB2b2lkIG5iaW9fdjdfMF9tY19hY2Nlc3NfZW5h
-YmxlKHN0cnVjdA0KPiBhbWRncHVfZGV2aWNlICphZGV2LCBib29sIGVuYWJsZSkNCj4gDQo+ICB2
-b2lkIG5iaW9fdjdfMF9oZHBfZmx1c2goc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+ICB7
-DQo+IC0JV1JFRzMyX1NPQzE1KE5CSU8sIDAsIG1tSERQX01FTV9DT0hFUkVOQ1lfRkxVU0hfQ05U
-TCwNCj4gMCk7DQo+ICsJV1JFRzMyX1NPQzE1X05PX0tJUShOQklPLCAwLA0KPiBtbUhEUF9NRU1f
-Q09IRVJFTkNZX0ZMVVNIX0NOVEwsIDApOw0KPiAgfQ0KPiANCj4gIHUzMiBuYmlvX3Y3XzBfZ2V0
-X21lbXNpemUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+IGRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNV9jb21tb24uaA0KPiBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L3NvYzE1X2NvbW1vbi5oDQo+IGluZGV4IGUyZDMzMGUuLjdhOGU0ZTI4IDEw
-MDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNV9jb21tb24uaA0K
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNV9jb21tb24uaA0KPiBAQCAt
-NzcsNiArNzcsMTMgQEAgc3RydWN0IG5iaW9fcGNpZV9pbmRleF9kYXRhIHsNCj4gIAkJKDMgPT0g
-cmVnIyNfQkFTRV9JRFggPyBpcCMjX0JBU0VfX0lOU1QjI2luc3QjI19TRUczICsNCj4gcmVnIDog
-XA0KPiAgCQkoaXAjI19CQVNFX19JTlNUIyNpbnN0IyNfU0VHNCArIHJlZykpKSkpLCB2YWx1ZSkN
-Cj4gDQo+ICsjZGVmaW5lIFdSRUczMl9TT0MxNV9OT19LSVEoaXAsIGluc3QsIHJlZywgdmFsdWUp
-IFwNCj4gKwlXUkVHMzJfTk9fS0lRKCAoMCA9PSByZWcjI19CQVNFX0lEWCA/DQo+IGlwIyNfQkFT
-RV9fSU5TVCMjaW5zdCMjX1NFRzAgKyByZWcgOiBcDQo+ICsJCSgxID09IHJlZyMjX0JBU0VfSURY
-ID8gaXAjI19CQVNFX19JTlNUIyNpbnN0IyNfU0VHMSArDQo+IHJlZyA6IFwNCj4gKwkJKDIgPT0g
-cmVnIyNfQkFTRV9JRFggPyBpcCMjX0JBU0VfX0lOU1QjI2luc3QjI19TRUcyICsNCj4gcmVnIDog
-XA0KPiArCQkoMyA9PSByZWcjI19CQVNFX0lEWCA/IGlwIyNfQkFTRV9fSU5TVCMjaW5zdCMjX1NF
-RzMgKw0KPiByZWcgOiBcDQo+ICsJCShpcCMjX0JBU0VfX0lOU1QjI2luc3QjI19TRUc0ICsgcmVn
-KSkpKSksIHZhbHVlKQ0KPiArDQo+ICAjZGVmaW5lIFdSRUczMl9TT0MxNV9PRkZTRVQoaXAsIGlu
-c3QsIHJlZywgb2Zmc2V0LCB2YWx1ZSkgXA0KPiAgCVdSRUczMiggKDAgPT0gcmVnIyNfQkFTRV9J
-RFggPyBpcCMjX0JBU0VfX0lOU1QjI2luc3QjI19TRUcwDQo+ICsgcmVnIDogXA0KPiAgCQkoMSA9
-PSByZWcjI19CQVNFX0lEWCA/IGlwIyNfQkFTRV9fSU5TVCMjaW5zdCMjX1NFRzEgKw0KPiByZWcg
-OiBcDQo+IC0tDQo+IDEuOS4xDQo+IA0KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXw0KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPiBhbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZw0KPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eAo=
+--===============1018063973==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB1653832B883B5257DD3F36B4F7D40CY4PR12MB1653namp_"
+
+--_000_CY4PR12MB1653832B883B5257DD3F36B4F7D40CY4PR12MB1653namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+I guess it was just missed?  Was it committed before we switched to 4.11?  =
+Once we switched to 4.11, all teams are responsible for making sure they la=
+nd their patches in the current staging branch.
+
+Alex
+
+From: Liu, Monk
+Sent: Tuesday, July 04, 2017 11:55 PM
+To: Deng, Emily; Deucher, Alexander
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: RE: The amd-stagint-4.11 doen't contain the commit ab51ee31dda1a37=
+b473074e402394f879c51d591 in amd-staging-4.9
+
++ amd-gfx
+
+We really need to understand why this commit is not shown in 4.11 staging, =
+because we worry other patches may meet same issue, and cause regression
+
+BR Monk
+
+From: Deng, Emily
+Sent: Tuesday, July 04, 2017 11:31 PM
+To: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org<mailto:Alexander.Deucher@=
+amd.com>>; Liu, Monk <Monk.Liu-5C7GfCeVMHo@public.gmane.org<mailto:Monk.Liu-5C7GfCeVMHo@public.gmane.org>>
+Subject: The amd-stagint-4.11 doen't contain the commit ab51ee31dda1a37b473=
+074e402394f879c51d591 in amd-staging-4.9
+
+Hi Alex,
+     Monk has submitted a commit ab51ee31dda1a37b473074e402394f879c51d591 i=
+n amd-staging-4.9, but amd-staging-4.11 doesn't contain it.
+     So is there any reason to prevent the commit being port to amd-staging=
+-4.11? Or just missed this commit?
+
+Best Wishes,
+Emily Deng
+
+
+--_000_CY4PR12MB1653832B883B5257DD3F36B4F7D40CY4PR12MB1653namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 14 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:\4EFF\5B8B;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-priority:99;
+	mso-style-link:"Balloon Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:"Tahoma","sans-serif";}
+span.EmailStyle17
+	{mso-style-type:personal;
+	font-family:"Calibri","sans-serif";
+	color:windowtext;}
+span.EmailStyle18
+	{mso-style-type:personal;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+span.EmailStyle19
+	{mso-style-type:personal-reply;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+span.BalloonTextChar
+	{mso-style-name:"Balloon Text Char";
+	mso-style-priority:99;
+	mso-style-link:"Balloon Text";
+	font-family:"Tahoma","sans-serif";}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D">I guess it was just mi=
+ssed?&nbsp; Was it committed before we switched to 4.11?&nbsp; Once we swit=
+ched to 4.11, all teams are responsible for making sure they land their pat=
+ches in the current staging branch.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D"><o:p>&nbsp;</o:p></spa=
+n></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D">Alex<o:p></o:p></span>=
+</p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D"><o:p>&nbsp;</o:p></spa=
+n></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:10.0pt;font-family:&quot=
+;Tahoma&quot;,&quot;sans-serif&quot;">From:</span></b><span style=3D"font-s=
+ize:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;"> Liu, Mon=
+k
+<br>
+<b>Sent:</b> Tuesday, July 04, 2017 11:55 PM<br>
+<b>To:</b> Deng, Emily; Deucher, Alexander<br>
+<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> RE: The amd-stagint-4.11 doen't contain the commit ab51ee31=
+dda1a37b473074e402394f879c51d591 in amd-staging-4.9
+<o:p></o:p></span></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D">&#43; amd-gfx<o:p></o:=
+p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D"><o:p>&nbsp;</o:p></spa=
+n></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D">We really need to unde=
+rstand why this commit is not shown in 4.11 staging, because we worry other=
+ patches may meet same issue, and cause regression
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D"><o:p>&nbsp;</o:p></spa=
+n></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D">BR Monk<o:p></o:p></sp=
+an></p>
+<p class=3D"MsoNormal"><span style=3D"color:#1F497D"><o:p>&nbsp;</o:p></spa=
+n></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Deng, Emily <br>
+<b>Sent:</b> Tuesday, July 04, 2017 11:31 PM<br>
+<b>To:</b> Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.c=
+om">Alexander.Deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;; Liu, Monk &lt;<a href=3D"mailto:Monk=
+.Liu-5C7GfCeVMHo@public.gmane.org">Monk.Liu-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+<b>Subject:</b> The amd-stagint-4.11 doen't contain the commit ab51ee31dda1=
+a37b473074e402394f879c51d591 in amd-staging-4.9
+<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Hi Alex,<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp; Monk has submitted a commit=
+ ab51ee31dda1a37b473074e402394f879c51d591 in amd-staging-4.9, but amd-stagi=
+ng-4.11 doesn&#8217;t contain it.
+<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;So is there any reason=
+ to prevent the commit being port to amd-staging-4.11? Or just missed this =
+commit?<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><b><span style=3D"font-size:9.0pt;font-family:&quot;=
+Times New Roman&quot;,&quot;serif&quot;">Best Wishes,<o:p></o:p></span></b>=
+</p>
+<p class=3D"MsoNormal"><b><span style=3D"font-size:9.0pt;font-family:&quot;=
+Times New Roman&quot;,&quot;serif&quot;">Emily Deng</span></b><b><i><span s=
+tyle=3D"font-size:12.0pt;font-family:\4EFF\5B8B"><o:p></o:p></span></i></b>=
+</p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</div>
+</body>
+</html>
+
+--_000_CY4PR12MB1653832B883B5257DD3F36B4F7D40CY4PR12MB1653namp_--
+
+--===============1018063973==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1018063973==--
