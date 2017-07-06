@@ -1,129 +1,255 @@
 From: Peter Rosin <peda@axentia.se>
-Subject: [PATCH v4 00/14] improve the fb_setcmap helper
-Date: Thu,  6 Jul 2017 14:20:34 +0200
-Message-ID: <1499343648-29695-1-git-send-email-peda@axentia.se>
+Subject: [PATCH v4 12/14] drm: radeon: remove dead code and pointless local lut storage
+Date: Thu,  6 Jul 2017 14:20:46 +0200
+Message-ID: <1499343648-29695-13-git-send-email-peda@axentia.se>
+References: <1499343648-29695-1-git-send-email-peda@axentia.se>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <intel-gfx-bounces@lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/intel-gfx>,
- <mailto:intel-gfx-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/intel-gfx>
-List-Post: <mailto:intel-gfx@lists.freedesktop.org>
-List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
- <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: intel-gfx-bounces@lists.freedesktop.org
-Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
+Content-Type: text/plain
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <1499343648-29695-1-git-send-email-peda@axentia.se>
+Sender: linux-kernel-owner@vger.kernel.org
 To: linux-kernel@vger.kernel.org
-Cc: David Airlie <airlied@linux.ie>, nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org, amd-gfx@lists.freedesktop.org, Benjamin Gaignard <benjamin.gaignard@linaro.org>, Daniel Vetter <daniel.vetter@intel.com>, Boris Brezillon <boris.brezillon@free-electrons.com>, Russell King <linux@armlinux.org.uk>, Ben Skeggs <bskeggs@redhat.com>, Dave Airlie <airlied@redhat.com>, intel-gfx@lists.freedesktop.org, Vincent Abriou <vincent.abriou@st.com>, Philippe Cornu <philippe.cornu@st.com>, Peter Rosin <peda@axentia.se>, Yannick Fertre <yannick.fertre@st.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Gerd Hoffmann <kraxel@redhat.com>
+Cc: Peter Rosin <peda@axentia.se>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Daniel Vetter <daniel.vetter@intel.com>, Jani Nikula <jani.nikula@linux.intel.com>, Sean Paul <seanpaul@chromium.org>, Boris Brezillon <boris.brezillon@free-electrons.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-SGkhCgpXaGlsZSB0cnlpbmcgdG8gZ2V0IENMVVQgc3VwcG9ydCBmb3IgdGhlIGF0bWVsX2hsY2Rj
-IGRyaXZlciwgYW5kCnNwZWNpZmljYWxseSBmb3IgdGhlIGVtdWxhdGVkIGZiZGV2IGludGVyZmFj
-ZSwgSSByZWNlaXZlZCBzb21lCnB1c2gtYmFjayB0aGF0IG15IGZlZWJsZSBpbi1kcml2ZXIgYXR0
-ZW1wdHMgc2hvdWxkIGJlIHNvbHZlZApieSB0aGUgY29yZS4gVGhpcyBpcyBteSBhdHRlbXB0IHRv
-IGRvIGl0IHJpZ2h0LgoKSSBoYXZlIG9idmlvdXNseSBub3QgdGVzdGVkIGFsbCBvZiB0aGlzIHdp
-dGggbW9yZSB0aGFuIGEgY29tcGlsZSwKYnV0IHBhdGNoZXMgMSBhbmQgMyBhcmUgZW5vdWdoIHRv
-IG1ha2UgdGhlIGF0bWVsLWhsY2RjIGRyaXZlcgpkbyB3aGF0IEkgbmVlZC4gVGhlIHJlc3QgaXMg
-anVzdCBsb3RzIG9mIHJlbW92YWxzIGFuZCBjbGVhbnVwIG1hZGUKcG9zc2libGUgYnkgdGhlIG90
-aGVyIGltcHJvdmVtZW50cy4KClBsZWFzZSB0ZXN0LCBJIHdvdWxkIG5vdCBiZSBzdXJwcmlzZWQg
-aWYgSSBoYXZlIGZvdWxlZCB1cCBzb21lCmJpdC1tYW5pcHVsYXRpb24gc29tZXdoZXJlLCBvciBp
-ZiBJIGhhdmUgbWlzdW5kZXJzdG9vZCBzb21ldGhpbmcKYWJvdXQgYXRvbWljcy4uLgoKQ2hhbmdl
-cyBzaW5jZSB2MzoKLSBSZWJhc2VkIG9udG8gZHJtLW1pc2MtbmV4dCBhbmQgZHJvcHBlZCBwYXRj
-aGVzIDEtMyBmcm9tIHYzLCBzaW5jZQogIHRoZXkgYXJlIGFscmVhZHkgbWVyZ2VkLgotIERyb3Bw
-ZWQgdGhlIHYzIHBhdGNoIDQvMTYgKCJkcm0vY29sb3ItbWdtdDogbW92ZSBhdG9taWMgc3RhdGUv
-Y29tbWl0CiAgb3V0IGZyb20gLmdhbW1hX3NldCIpIHNpbmNlIHRoZSBhdG9taWMgc2V0Y21hcCBu
-byBsb25nZXIgdXNlcwogIHRoZSBjcnRjIC5nYW1tYV9zZXQgY2FsbGJhY2suCi0gQWRkZWQgcGF0
-Y2ggMS8xNCB3aGljaCBleHBvcnRzIGRybV9hdG9taWNfcmVwbGFjZV9wcm9wZXJ0eV9ibG9iLi4u
-Ci0gLi4uYW5kIHBhdGNoIDIvMTQgd2hpY2ggdXNlcyB0aGlzIG5ldyBleHBvcnQgdG8gc2ltcGxp
-ZnkKICBkcm1fYXRvbWljX2hlbHBlcl9sZWdhY3lfZ2FtbWFfc2V0LgotIEJpZyBjaGFuZ2VzIHRv
-IHBhdGNoIDMvMTQgKHdhcyA1LzE2IGluIHYzKS4gSXQgaGFkIHZhcmlvdXMgbG9ja2luZwogIGlz
-c3VlcyBhbmQgdGhlIGF0b21pYyBzZXRjbWFwIGlzIHJhdGhlciBkaWZmZXJlbnQuCgpDaGFuZ2Vz
-IHNpbmNlIHYyOgotIEFkZGVkIHBhdGNoIDEvMTYgd2hpY2ggZmFjdG9ycyBvdXQgcHNldWRvLXBh
-bGV0dGUgaGFuZGxpbmcuCi0gUmVtb3ZlZCB0aGUgaWYgKGNtYXAtPnN0YXJ0ICsgY21hcC0+bGVu
-IDwgY21hcC0+c3RhcnQpCiAgc2FuaXR5IGNoZWNrIG9uIHRoZSBhc3N1bXB0aW9uIHRoYXQgdGhl
-IGZiZGV2IGNvcmUgaGFuZGxlcyBpdC4KLSBBZGRlZCBwYXRjaCA0LzE2IHdoaWNoIGZhY3RvcnMg
-b3V0IGF0b21pYyBzdGF0ZSBhbmQgY29tbWl0CiAgaGFuZGxpbmcgZnJvbSBkcm1fYXRvbWljX2hl
-bHBlcl9sZWdhY3lfZ2FtbWFfc2V0IHRvCiAgZHJtX21vZGVfZ2FtbWFfc2V0X2lvY3RsLgotIERv
-IG9uZSBhdG9taWMgY29tbWl0IGZvciBhbGwgYWZmZWN0ZWQgY3J0Yy4KLSBSZW1vdmVkIGEgbm93
-IG9ic29sZXRlIG5vdGUgaW4gaW5jbHVkZS9kcm0vZHJtX2NydGMuaCAoYW1tZW5kZWQKICB0aGUg
-bGFzdCBwYXRjaCkuCi0gQ2MgbGlzdCBpcyBnZXR0aW5nIGxvbmcsIHNvIEkgaGF2ZSByZWR1c2Vk
-IHRoZSBsaXN0IGZvciB0aGUKICBpbmRpdmlkdWFsIHBhdGNoZXMuIElmIHlvdSB3b3VsZCBsaWtl
-IHRvIGdldCB0aGUgZnVsbCBzZXJpZXMKICAob3Igbm90aGluZyBhdCBhbGwpIGZvciB0aGUgbmV4
-dCByb3VuZCAoaWYgdGhhdCBpcyBuZWVkZWQpIGp1c3QKICBzYXkgc28uCgpDaGFuZ2VzIHNpbmNl
-IHYxOgoKLSBSZWJhc2VkIHRvIG5leHQtMjAxNzA2MjEKLSBTcGxpdCAxLzExIGludG8gYSBwcmVw
-YXJhdG9yeSBwYXRjaCwgYSBjbGVhbnVwIHBhdGNoIGFuZCB0aGVuCiAgdGhlIG1lYXQgaW4gMy8x
-NC4KLSBIYW5kbGUgcHNldWRvLXBhbGV0dGUgZm9yIEZCX1ZJU1VBTF9UUlVFQ09MT1IuCi0gUmVt
-b3ZlZCB0aGUgZW1wdHkgLmdhbW1hX2dldC8uZ2FtbWFfc2V0IGZiIGhlbHBlcnMgZnJvbSB0aGUK
-ICBhcm1hZGEgZHJpdmVyIHRoYXQgSSBoYWQgc29tZWhvdyBtYW5hZ2VkIHRvIGlnbm9yZSBidXQg
-d2hpY2gKICAwZGF5IGZvdW5kIHJlYWwgcXVpY2suCi0gQmUgbGVzcyBqdWRnZW1lbnRhbCBvbiBk
-cml2ZXJzIG9ubHkgcHJvdmlkaW5nIC5nYW1tYV9nZXQgYW5kCiAgLmdhbW1hX3NldCwgYnV0IG5v
-IC5sb2FkX2x1dC4gVGhhdCdzIGFjdHVhbGx5IGEgdmFsaWQgdGhpbmcKICB0byBkbyBpZiB5b3Ug
-b25seSBuZWVkIHBzZXVkby1wYWxldHRlIGZvciBGQl9WSVNVQUxfVFJVRUNPTE9SLgotIEFkZCBh
-IGNvbW1lbnQgYWJvdXQgY29sbGlkaW5nIGJpdGZpZWxkcyBpbiB0aGUgbm91dmVhdSBkcml2ZXIu
-Ci0gUmVtb3ZlIGdhbW1hX3NldC9nYW1tYV9nZXQgZGVjbGFyYXRpb25zIGZyb20gdGhlIHJhZGVv
-biBkcml2ZXIKICAodGhlIGRlZmluaXRpb25zIHdlcmUgcmVtb3ZlZCBpbiB2MSkuCgpDaGVlcnMs
-CnBlZGEKClBldGVyIFJvc2luICgxNCk6CiAgZHJtL2F0b21pYzogZXhwb3J0IGRybV9hdG9taWNf
-cmVwbGFjZV9wcm9wZXJ0eV9ibG9iCiAgZHJtL2F0b21pYy1oZWxwZXI6IHVwZGF0ZSBsdXQgcHJv
-cHMgZGlyZWN0bHkgaW4gLi4uX2xlZ2FjeV9nYW1tYV9zZXQKICBkcm0vZmItaGVscGVyOiBzZXBh
-cmF0ZSB0aGUgZmJfc2V0Y21hcCBoZWxwZXIgaW50byBhdG9taWMgYW5kIGxlZ2FjeQogICAgcGF0
-aHMKICBkcm06IGFtZDogcmVtb3ZlIGRlYWQgY29kZSBhbmQgcG9pbnRsZXNzIGxvY2FsIGx1dCBz
-dG9yYWdlCiAgZHJtOiBhcm1hZGE6IHJlbW92ZSBkZWFkIGVtcHR5IGZ1bmN0aW9ucwogIGRybTog
-YXN0OiByZW1vdmUgZGVhZCBjb2RlIGFuZCBwb2ludGxlc3MgbG9jYWwgbHV0IHN0b3JhZ2UKICBk
-cm06IGNpcnJ1czogcmVtb3ZlIGRlYWQgY29kZSBhbmQgcG9pbnRsZXNzIGxvY2FsIGx1dCBzdG9y
-YWdlCiAgZHJtOiBnbWE1MDA6IHJlbW92ZSBkZWFkIGNvZGUgYW5kIHBvaW50bGVzcyBsb2NhbCBs
-dXQgc3RvcmFnZQogIGRybTogaTkxNTogcmVtb3ZlIGRlYWQgY29kZSBhbmQgcG9pbnRsZXNzIGxv
-Y2FsIGx1dCBzdG9yYWdlCiAgZHJtOiBtZ2FnMjAwOiByZW1vdmUgZGVhZCBjb2RlIGFuZCBwb2lu
-dGxlc3MgbG9jYWwgbHV0IHN0b3JhZ2UKICBkcm06IG5vdXZlYXU6IHJlbW92ZSBkZWFkIGNvZGUg
-YW5kIHBvaW50bGVzcyBsb2NhbCBsdXQgc3RvcmFnZQogIGRybTogcmFkZW9uOiByZW1vdmUgZGVh
-ZCBjb2RlIGFuZCBwb2ludGxlc3MgbG9jYWwgbHV0IHN0b3JhZ2UKICBkcm06IHN0bTogcmVtb3Zl
-IGRlYWQgY29kZSBhbmQgcG9pbnRsZXNzIGxvY2FsIGx1dCBzdG9yYWdlCiAgZHJtOiByZW1vdmUg
-dW51c2VkIGFuZCByZWR1bmRhbnQgY2FsbGJhY2tzCgogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X2ZiLmMgICAgICB8ICAyNCAtLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9tb2RlLmggICAgfCAgIDEgLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNl
-X3YxMF8wLmMgICAgICB8ICAyNyArLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2Vf
-djExXzAuYyAgICAgIHwgIDI3ICstLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92
-Nl8wLmMgICAgICAgfCAgMjcgKy0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3Y4
-XzAuYyAgICAgICB8ICAyNyArLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2Vfdmly
-dHVhbC5jICAgIHwgIDIzIC0tLQogZHJpdmVycy9ncHUvZHJtL2FybWFkYS9hcm1hZGFfY3J0Yy5j
-ICAgICAgICB8ICAxMCAtLQogZHJpdmVycy9ncHUvZHJtL2FybWFkYS9hcm1hZGFfY3J0Yy5oICAg
-ICAgICB8ICAgMiAtCiBkcml2ZXJzL2dwdS9kcm0vYXJtYWRhL2FybWFkYV9mYmRldi5jICAgICAg
-IHwgICAyIC0KIGRyaXZlcnMvZ3B1L2RybS9hc3QvYXN0X2Rydi5oICAgICAgICAgICAgICAgfCAg
-IDEgLQogZHJpdmVycy9ncHUvZHJtL2FzdC9hc3RfZmIuYyAgICAgICAgICAgICAgICB8ICAyMCAt
-LS0KIGRyaXZlcnMvZ3B1L2RybS9hc3QvYXN0X21vZGUuYyAgICAgICAgICAgICAgfCAgMjYgKy0t
-LQogZHJpdmVycy9ncHUvZHJtL2NpcnJ1cy9jaXJydXNfZHJ2LmggICAgICAgICB8ICAgOCAtCiBk
-cml2ZXJzL2dwdS9kcm0vY2lycnVzL2NpcnJ1c19mYmRldi5jICAgICAgIHwgICAyIC0KIGRyaXZl
-cnMvZ3B1L2RybS9jaXJydXMvY2lycnVzX21vZGUuYyAgICAgICAgfCAgNzEgKystLS0tLS0tCiBk
-cml2ZXJzL2dwdS9kcm0vZHJtX2F0b21pYy5jICAgICAgICAgICAgICAgIHwgIDE3ICstCiBkcml2
-ZXJzL2dwdS9kcm0vZHJtX2F0b21pY19oZWxwZXIuYyAgICAgICAgIHwgIDIzICstLQogZHJpdmVy
-cy9ncHUvZHJtL2RybV9mYl9oZWxwZXIuYyAgICAgICAgICAgICB8IDIzMiArKysrKysrKysrKysr
-KysrKysrLS0tLS0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vZ21hNTAwL2ZyYW1lYnVmZmVyLmMgICAg
-ICAgIHwgIDIyIC0tLQogZHJpdmVycy9ncHUvZHJtL2dtYTUwMC9nbWFfZGlzcGxheS5jICAgICAg
-ICB8ICAzMiArKy0tCiBkcml2ZXJzL2dwdS9kcm0vZ21hNTAwL3BzYl9pbnRlbF9kaXNwbGF5LmMg
-IHwgICA3ICstCiBkcml2ZXJzL2dwdS9kcm0vZ21hNTAwL3BzYl9pbnRlbF9kcnYuaCAgICAgIHwg
-ICAxIC0KIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX2Rydi5oICAgICAgICAgICAgfCAgIDEg
-LQogZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfZmJkZXYuYyAgICAgICAgICB8ICAzMSAtLS0t
-CiBkcml2ZXJzL2dwdS9kcm0vbWdhZzIwMC9tZ2FnMjAwX2Rydi5oICAgICAgIHwgICA1IC0KIGRy
-aXZlcnMvZ3B1L2RybS9tZ2FnMjAwL21nYWcyMDBfZmIuYyAgICAgICAgfCAgIDIgLQogZHJpdmVy
-cy9ncHUvZHJtL21nYWcyMDAvbWdhZzIwMF9tb2RlLmMgICAgICB8ICA2MiArKy0tLS0tLQogZHJp
-dmVycy9ncHUvZHJtL25vdXZlYXUvZGlzcG52MDQvY3J0Yy5jICAgICB8ICAyNiArKy0tCiBkcml2
-ZXJzL2dwdS9kcm0vbm91dmVhdS9ub3V2ZWF1X2NydGMuaCAgICAgIHwgICAzIC0KIGRyaXZlcnMv
-Z3B1L2RybS9ub3V2ZWF1L25vdXZlYXVfZmJjb24uYyAgICAgfCAgMjIgLS0tCiBkcml2ZXJzL2dw
-dS9kcm0vbm91dmVhdS9udjUwX2Rpc3BsYXkuYyAgICAgIHwgIDQwICsrLS0tCiBkcml2ZXJzL2dw
-dS9kcm0vcmFkZW9uL2F0b21iaW9zX2NydGMuYyAgICAgIHwgICAxIC0KIGRyaXZlcnMvZ3B1L2Ry
-bS9yYWRlb24vcmFkZW9uX2Nvbm5lY3RvcnMuYyAgfCAgIDcgKy0KIGRyaXZlcnMvZ3B1L2RybS9y
-YWRlb24vcmFkZW9uX2Rpc3BsYXkuYyAgICAgfCAgNzEgKysrKy0tLS0tCiBkcml2ZXJzL2dwdS9k
-cm0vcmFkZW9uL3JhZGVvbl9mYi5jICAgICAgICAgIHwgICAyIC0KIGRyaXZlcnMvZ3B1L2RybS9y
-YWRlb24vcmFkZW9uX2xlZ2FjeV9jcnRjLmMgfCAgIDEgLQogZHJpdmVycy9ncHUvZHJtL3JhZGVv
-bi9yYWRlb25fbW9kZS5oICAgICAgICB8ICAgNCAtCiBkcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMu
-YyAgICAgICAgICAgICAgICAgIHwgIDEyIC0tCiBkcml2ZXJzL2dwdS9kcm0vc3RtL2x0ZGMuaCAg
-ICAgICAgICAgICAgICAgIHwgICAxIC0KIGluY2x1ZGUvZHJtL2RybV9hdG9taWMuaCAgICAgICAg
-ICAgICAgICAgICAgfCAgIDQgKwogaW5jbHVkZS9kcm0vZHJtX2NydGMuaCAgICAgICAgICAgICAg
-ICAgICAgICB8ICAgOCAtCiBpbmNsdWRlL2RybS9kcm1fZmJfaGVscGVyLmggICAgICAgICAgICAg
-ICAgIHwgIDMyIC0tLS0KIGluY2x1ZGUvZHJtL2RybV9tb2Rlc2V0X2hlbHBlcl92dGFibGVzLmgg
-ICAgfCAgMTYgLS0KIDQ0IGZpbGVzIGNoYW5nZWQsIDMxNCBpbnNlcnRpb25zKCspLCA2NjkgZGVs
-ZXRpb25zKC0pCgotLSAKMi4xLjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2ludGVsLWdmeAo=
+The redundant fb helpers .load_lut, .gamma_set and .gamma_get are
+no longer used. Remove the dead code and hook up the crtc .gamma_set
+to use the crtc gamma_store directly instead of duplicating that
+info locally.
+
+Signed-off-by: Peter Rosin <peda@axentia.se>
+---
+ drivers/gpu/drm/radeon/atombios_crtc.c      |  1 -
+ drivers/gpu/drm/radeon/radeon_connectors.c  |  7 ++-
+ drivers/gpu/drm/radeon/radeon_display.c     | 71 ++++++++++++-----------------
+ drivers/gpu/drm/radeon/radeon_fb.c          |  2 -
+ drivers/gpu/drm/radeon/radeon_legacy_crtc.c |  1 -
+ drivers/gpu/drm/radeon/radeon_mode.h        |  4 --
+ 6 files changed, 33 insertions(+), 53 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/atombios_crtc.c b/drivers/gpu/drm/radeon/atombios_crtc.c
+index 3c492a0..02baaaf 100644
+--- a/drivers/gpu/drm/radeon/atombios_crtc.c
++++ b/drivers/gpu/drm/radeon/atombios_crtc.c
+@@ -2217,7 +2217,6 @@ static const struct drm_crtc_helper_funcs atombios_helper_funcs = {
+ 	.mode_set_base_atomic = atombios_crtc_set_base_atomic,
+ 	.prepare = atombios_crtc_prepare,
+ 	.commit = atombios_crtc_commit,
+-	.load_lut = radeon_crtc_load_lut,
+ 	.disable = atombios_crtc_disable,
+ };
+ 
+diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm/radeon/radeon_connectors.c
+index 27affbd..2f642cb 100644
+--- a/drivers/gpu/drm/radeon/radeon_connectors.c
++++ b/drivers/gpu/drm/radeon/radeon_connectors.c
+@@ -773,12 +773,15 @@ static int radeon_connector_set_property(struct drm_connector *connector, struct
+ 
+ 		if (connector->encoder->crtc) {
+ 			struct drm_crtc *crtc  = connector->encoder->crtc;
+-			const struct drm_crtc_helper_funcs *crtc_funcs = crtc->helper_private;
+ 			struct radeon_crtc *radeon_crtc = to_radeon_crtc(crtc);
+ 
+ 			radeon_crtc->output_csc = radeon_encoder->output_csc;
+ 
+-			(*crtc_funcs->load_lut)(crtc);
++			/*
++			 * Our .gamma_set assumes the .gamma_store has been
++			 * prefilled and don't care about its arguments.
++			 */
++			crtc->funcs->gamma_set(crtc, NULL, NULL, NULL, 0, NULL);
+ 		}
+ 	}
+ 
+diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
+index 17d3daf..8b7d7a0 100644
+--- a/drivers/gpu/drm/radeon/radeon_display.c
++++ b/drivers/gpu/drm/radeon/radeon_display.c
+@@ -42,6 +42,7 @@ static void avivo_crtc_load_lut(struct drm_crtc *crtc)
+ 	struct radeon_crtc *radeon_crtc = to_radeon_crtc(crtc);
+ 	struct drm_device *dev = crtc->dev;
+ 	struct radeon_device *rdev = dev->dev_private;
++	u16 *r, *g, *b;
+ 	int i;
+ 
+ 	DRM_DEBUG_KMS("%d\n", radeon_crtc->crtc_id);
+@@ -60,11 +61,14 @@ static void avivo_crtc_load_lut(struct drm_crtc *crtc)
+ 	WREG32(AVIVO_DC_LUT_WRITE_EN_MASK, 0x0000003f);
+ 
+ 	WREG8(AVIVO_DC_LUT_RW_INDEX, 0);
++	r = crtc->gamma_store;
++	g = r + crtc->gamma_size;
++	b = g + crtc->gamma_size;
+ 	for (i = 0; i < 256; i++) {
+ 		WREG32(AVIVO_DC_LUT_30_COLOR,
+-			     (radeon_crtc->lut_r[i] << 20) |
+-			     (radeon_crtc->lut_g[i] << 10) |
+-			     (radeon_crtc->lut_b[i] << 0));
++		       ((*r++ & 0xffc0) << 14) |
++		       ((*g++ & 0xffc0) << 4) |
++		       (*b++ >> 6));
+ 	}
+ 
+ 	/* Only change bit 0 of LUT_SEL, other bits are set elsewhere */
+@@ -76,6 +80,7 @@ static void dce4_crtc_load_lut(struct drm_crtc *crtc)
+ 	struct radeon_crtc *radeon_crtc = to_radeon_crtc(crtc);
+ 	struct drm_device *dev = crtc->dev;
+ 	struct radeon_device *rdev = dev->dev_private;
++	u16 *r, *g, *b;
+ 	int i;
+ 
+ 	DRM_DEBUG_KMS("%d\n", radeon_crtc->crtc_id);
+@@ -93,11 +98,14 @@ static void dce4_crtc_load_lut(struct drm_crtc *crtc)
+ 	WREG32(EVERGREEN_DC_LUT_WRITE_EN_MASK + radeon_crtc->crtc_offset, 0x00000007);
+ 
+ 	WREG32(EVERGREEN_DC_LUT_RW_INDEX + radeon_crtc->crtc_offset, 0);
++	r = crtc->gamma_store;
++	g = r + crtc->gamma_size;
++	b = g + crtc->gamma_size;
+ 	for (i = 0; i < 256; i++) {
+ 		WREG32(EVERGREEN_DC_LUT_30_COLOR + radeon_crtc->crtc_offset,
+-		       (radeon_crtc->lut_r[i] << 20) |
+-		       (radeon_crtc->lut_g[i] << 10) |
+-		       (radeon_crtc->lut_b[i] << 0));
++		       ((*r++ & 0xffc0) << 14) |
++		       ((*g++ & 0xffc0) << 4) |
++		       (*b++ >> 6));
+ 	}
+ }
+ 
+@@ -106,6 +114,7 @@ static void dce5_crtc_load_lut(struct drm_crtc *crtc)
+ 	struct radeon_crtc *radeon_crtc = to_radeon_crtc(crtc);
+ 	struct drm_device *dev = crtc->dev;
+ 	struct radeon_device *rdev = dev->dev_private;
++	u16 *r, *g, *b;
+ 	int i;
+ 
+ 	DRM_DEBUG_KMS("%d\n", radeon_crtc->crtc_id);
+@@ -135,11 +144,14 @@ static void dce5_crtc_load_lut(struct drm_crtc *crtc)
+ 	WREG32(EVERGREEN_DC_LUT_WRITE_EN_MASK + radeon_crtc->crtc_offset, 0x00000007);
+ 
+ 	WREG32(EVERGREEN_DC_LUT_RW_INDEX + radeon_crtc->crtc_offset, 0);
++	r = crtc->gamma_store;
++	g = r + crtc->gamma_size;
++	b = g + crtc->gamma_size;
+ 	for (i = 0; i < 256; i++) {
+ 		WREG32(EVERGREEN_DC_LUT_30_COLOR + radeon_crtc->crtc_offset,
+-		       (radeon_crtc->lut_r[i] << 20) |
+-		       (radeon_crtc->lut_g[i] << 10) |
+-		       (radeon_crtc->lut_b[i] << 0));
++		       ((*r++ & 0xffc0) << 14) |
++		       ((*g++ & 0xffc0) << 4) |
++		       (*b++ >> 6));
+ 	}
+ 
+ 	WREG32(NI_DEGAMMA_CONTROL + radeon_crtc->crtc_offset,
+@@ -172,6 +184,7 @@ static void legacy_crtc_load_lut(struct drm_crtc *crtc)
+ 	struct radeon_crtc *radeon_crtc = to_radeon_crtc(crtc);
+ 	struct drm_device *dev = crtc->dev;
+ 	struct radeon_device *rdev = dev->dev_private;
++	u16 *r, *g, *b;
+ 	int i;
+ 	uint32_t dac2_cntl;
+ 
+@@ -183,11 +196,14 @@ static void legacy_crtc_load_lut(struct drm_crtc *crtc)
+ 	WREG32(RADEON_DAC_CNTL2, dac2_cntl);
+ 
+ 	WREG8(RADEON_PALETTE_INDEX, 0);
++	r = crtc->gamma_store;
++	g = r + crtc->gamma_size;
++	b = g + crtc->gamma_size;
+ 	for (i = 0; i < 256; i++) {
+ 		WREG32(RADEON_PALETTE_30_DATA,
+-			     (radeon_crtc->lut_r[i] << 20) |
+-			     (radeon_crtc->lut_g[i] << 10) |
+-			     (radeon_crtc->lut_b[i] << 0));
++		       ((*r++ & 0xffc0) << 14) |
++		       ((*g++ & 0xffc0) << 4) |
++		       (*b++ >> 6));
+ 	}
+ }
+ 
+@@ -209,41 +225,10 @@ void radeon_crtc_load_lut(struct drm_crtc *crtc)
+ 		legacy_crtc_load_lut(crtc);
+ }
+ 
+-/** Sets the color ramps on behalf of fbcon */
+-void radeon_crtc_fb_gamma_set(struct drm_crtc *crtc, u16 red, u16 green,
+-			      u16 blue, int regno)
+-{
+-	struct radeon_crtc *radeon_crtc = to_radeon_crtc(crtc);
+-
+-	radeon_crtc->lut_r[regno] = red >> 6;
+-	radeon_crtc->lut_g[regno] = green >> 6;
+-	radeon_crtc->lut_b[regno] = blue >> 6;
+-}
+-
+-/** Gets the color ramps on behalf of fbcon */
+-void radeon_crtc_fb_gamma_get(struct drm_crtc *crtc, u16 *red, u16 *green,
+-			      u16 *blue, int regno)
+-{
+-	struct radeon_crtc *radeon_crtc = to_radeon_crtc(crtc);
+-
+-	*red = radeon_crtc->lut_r[regno] << 6;
+-	*green = radeon_crtc->lut_g[regno] << 6;
+-	*blue = radeon_crtc->lut_b[regno] << 6;
+-}
+-
+ static int radeon_crtc_gamma_set(struct drm_crtc *crtc, u16 *red, u16 *green,
+ 				 u16 *blue, uint32_t size,
+ 				 struct drm_modeset_acquire_ctx *ctx)
+ {
+-	struct radeon_crtc *radeon_crtc = to_radeon_crtc(crtc);
+-	int i;
+-
+-	/* userspace palettes are always correct as is */
+-	for (i = 0; i < size; i++) {
+-		radeon_crtc->lut_r[i] = red[i] >> 6;
+-		radeon_crtc->lut_g[i] = green[i] >> 6;
+-		radeon_crtc->lut_b[i] = blue[i] >> 6;
+-	}
+ 	radeon_crtc_load_lut(crtc);
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/radeon/radeon_fb.c b/drivers/gpu/drm/radeon/radeon_fb.c
+index 356ad90..638bcb55 100644
+--- a/drivers/gpu/drm/radeon/radeon_fb.c
++++ b/drivers/gpu/drm/radeon/radeon_fb.c
+@@ -332,8 +332,6 @@ static int radeon_fbdev_destroy(struct drm_device *dev, struct radeon_fbdev *rfb
+ }
+ 
+ static const struct drm_fb_helper_funcs radeon_fb_helper_funcs = {
+-	.gamma_set = radeon_crtc_fb_gamma_set,
+-	.gamma_get = radeon_crtc_fb_gamma_get,
+ 	.fb_probe = radeonfb_create,
+ };
+ 
+diff --git a/drivers/gpu/drm/radeon/radeon_legacy_crtc.c b/drivers/gpu/drm/radeon/radeon_legacy_crtc.c
+index ce6cb66..1f1856e 100644
+--- a/drivers/gpu/drm/radeon/radeon_legacy_crtc.c
++++ b/drivers/gpu/drm/radeon/radeon_legacy_crtc.c
+@@ -1116,7 +1116,6 @@ static const struct drm_crtc_helper_funcs legacy_helper_funcs = {
+ 	.mode_set_base_atomic = radeon_crtc_set_base_atomic,
+ 	.prepare = radeon_crtc_prepare,
+ 	.commit = radeon_crtc_commit,
+-	.load_lut = radeon_crtc_load_lut,
+ 	.disable = radeon_crtc_disable
+ };
+ 
+diff --git a/drivers/gpu/drm/radeon/radeon_mode.h b/drivers/gpu/drm/radeon/radeon_mode.h
+index 00f5ec5..da44ac2 100644
+--- a/drivers/gpu/drm/radeon/radeon_mode.h
++++ b/drivers/gpu/drm/radeon/radeon_mode.h
+@@ -935,10 +935,6 @@ extern void
+ radeon_combios_encoder_crtc_scratch_regs(struct drm_encoder *encoder, int crtc);
+ extern void
+ radeon_combios_encoder_dpms_scratch_regs(struct drm_encoder *encoder, bool on);
+-extern void radeon_crtc_fb_gamma_set(struct drm_crtc *crtc, u16 red, u16 green,
+-				     u16 blue, int regno);
+-extern void radeon_crtc_fb_gamma_get(struct drm_crtc *crtc, u16 *red, u16 *green,
+-				     u16 *blue, int regno);
+ int radeon_framebuffer_init(struct drm_device *dev,
+ 			     struct radeon_framebuffer *rfb,
+ 			     const struct drm_mode_fb_cmd2 *mode_cmd,
+-- 
+2.1.4
