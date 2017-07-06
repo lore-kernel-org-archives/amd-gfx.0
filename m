@@ -1,44 +1,51 @@
-From: Emil Velikov <emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH libdrm 2/2] radeon: use asic id table to get chipset name
-Date: Thu, 6 Jul 2017 10:20:59 +0100
-Message-ID: <CACvgo514x_TAaaESizA10eUQFhUQr6DuWOB_B84i363Pqvk5Xg@mail.gmail.com>
-References: <1498850702-13331-1-git-send-email-Samuel.Li@amd.com>
- <CACvgo51CUmbNr9LoFww2Kq4kkHoVDJN-g=knKWKFCx27JoGzLA@mail.gmail.com>
- <BLUPR12MB0628623A3972B7F2BB1F69A7F5D40@BLUPR12MB0628.namprd12.prod.outlook.com>
+From: Colin King <colin.king@canonical.com>
+Subject: [PATCH][drm-next] drm/amdgpu: make arrays pctl0_data and pctl1_data static
+Date: Thu,  6 Jul 2017 10:58:04 +0100
+Message-ID: <20170706095804.16456-1-colin.king@canonical.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BLUPR12MB0628623A3972B7F2BB1F69A7F5D40-7LeqcoF/hwrL9O90+oShTwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Li, Samuel" <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
-Cc: ML dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Huang Rui <ray.huang@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, Jerry.Zhang@amd.com, Alex Xie <AlexBin.Xie@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gNSBKdWx5IDIwMTcgYXQgMjI6MzEsIExpLCBTYW11ZWwgPFNhbXVlbC5MaUBhbWQuY29tPiB3
-cm90ZToKPj4gIC0gYWJvdmUgYWxsLCBhcy1pcyBtYWtlIGNoZWNrIHdpbGwgZmFpbAo+IFJpZ2h0
-LCBJIGRpZCBub3QgY2hlY2sgdGhhdC4KPgo+PiAgLSBrZWVwaW5nIHRoZSByYWRlb24gQVBJIHN5
-bW1ldHJpY2FsIHRvIHRoZSBhbWRncHUgb25lIHdvdWxkIGEgZ29vZCBpZGVhCj4gVGhlIGlzc3Vl
-IGlzIFJhZGVvbiBkb2VzIG5vdCBoYXZlIGEgc3RydWN0IHNpbWlsYXIgdG8gYW1kZ3B1X2Rldmlj
-ZV9oYW5kbGUuCkF0dGFjaCBpdCB0byBhbmFsb2dvdXMgcHJpbWl0aXZlPwoKPiBJIHRoaW5rIHRo
-ZSBjdXJyZW50IHJhZGVvbiBBUEkgaXMgc2ltcGxlci4gTWF5YmUgYSBmb2xsb3cgdXAgY2hhbmdl
-IGNhbiBjaGFuZ2UgYW1kZ3B1J3MgQVBJIHNpbWlsYXIgdG8gcmFkZW9uLgo+CkV4cG9zaW5nIDMg
-ZW50cnkgcG9pbnRzIGluc3RlYWQgb2YgMSBpcyBfbm90X3NpbXBsZXIuIEFsc28geW91IGNhbm5v
-dApjaGFuZ2UgdGhlIGV4aXN0aW5nIEFQSSwgc2luY2UgaXQgYWxzbyBicmVha3MgdGhlIEFCSS4K
-TGVhZGluZyB0byBjcmFzaC9jYXVzZSBtZW1vcnkgY29ycnVwdGlvbiB3aGVuIHVzaW5nIGV4aXN0
-aW5nIGJpbmFyaWVzLgoKPj4gIC0gaXMgYWRkaW5nIHlldCBhbm90aGVyIGhlYWRlciByZWFsbHkg
-anVzdGlmaWVkPwo+IHJhZGVvbl9hc2ljX2lkLmg/IFRoYXQgaXMgZ29pbmcgdG8gYmUgdXNlZCBi
-eSBkZHgvbWVzYS4KPgpXaGVyZSBpdCdzIHVzZWQgaXMgb3J0aG9nb25hbC4gWW91IGRvbid0IG5l
-ZWQgYSBzZXBhcmF0ZSBfcHVibGljXwpoZWFkZXIgZm9yIG5lYXJseSBldmVyeSBlbnRyeSBwb2lu
-dCA7LSkKClRoYW5rcwpFbWlsCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eAo=
+From: Colin Ian King <colin.king@canonical.com>
+
+The arrays pctl0_data and pctl1_data do not need to be in global scope,
+so them both static.
+
+Cleans up sparse warnings:
+symbol 'pctl0_data' was not declared. Should it be static?
+symbol 'pctl1_data' was not declared. Should it be static?
+
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+---
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+index 9804318f3488..4c079207d699 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+@@ -249,7 +249,7 @@ struct pctl_data {
+     uint32_t data;
+ };
+ 
+-const struct pctl_data pctl0_data[] = {
++static const struct pctl_data pctl0_data[] = {
+     {0x0, 0x7a640},
+     {0x9, 0x2a64a},
+     {0xd, 0x2a680},
+@@ -274,7 +274,7 @@ const struct pctl_data pctl0_data[] = {
+ #define PCTL0_STCTRL_REG_SAVE_RANGE0_BASE  0xa640
+ #define PCTL0_STCTRL_REG_SAVE_RANGE0_LIMIT 0xa833
+ 
+-const struct pctl_data pctl1_data[] = {
++static const struct pctl_data pctl1_data[] = {
+     {0x0, 0x39a000},
+     {0x3b, 0x44a040},
+     {0x81, 0x2a08d},
+-- 
+2.11.0
