@@ -1,54 +1,91 @@
-From: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 1/6] drm/amd/powerplay: added index gc cac read/write apis for
- vega10
-Date: Fri, 7 Jul 2017 09:59:10 +0800
-Message-ID: <1499392755-23507-1-git-send-email-evan.quan@amd.com>
+From: Mario Kleiner <mario.kleiner.de@gmail.com>
+Subject: [PATCH] drm/radeon: Fix eDP for single-display iMac10,1 (v2)
+Date: Fri,  7 Jul 2017 04:57:04 +0200
+Message-ID: <20170707025704.1864-1-mario.kleiner.de@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: alexander.deucher-5C7GfCeVMHo@public.gmane.org, Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <stable-owner@vger.kernel.org>
+Sender: stable-owner@vger.kernel.org
+To: dri-devel@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, mario.kleiner.de@gmail.com, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@amd.com>, stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-Q2hhbmdlLUlkOiBJMWE2MmRiOGM3NjRkMzY4ZTZiYTA4NDQwYWQxNzYxYWRiNTVkODVmZApTaWdu
-ZWQtb2ZmLWJ5OiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMgfCAyNCArKysrKysrKysrKysrKysrKysrKysrKysKIDEg
-ZmlsZSBjaGFuZ2VkLCAyNCBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvc29jMTUuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1
-LmMKaW5kZXggZjU2NjlhZi4uYzBhNTI1MCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvc29jMTUuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5j
-CkBAIC0xOTYsNiArMTk2LDI4IEBAIHN0YXRpYyB2b2lkIHNvYzE1X2RpZHRfd3JlZyhzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqYWRldiwgdTMyIHJlZywgdTMyIHYpCiAJc3Bpbl91bmxvY2tfaXJxcmVz
-dG9yZSgmYWRldi0+ZGlkdF9pZHhfbG9jaywgZmxhZ3MpOwogfQogCitzdGF0aWMgdTMyIHNvYzE1
-X2djX2NhY19ycmVnKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1MzIgcmVnKQoreworCXVu
-c2lnbmVkIGxvbmcgZmxhZ3M7CisJdTMyIHI7CisKKwlzcGluX2xvY2tfaXJxc2F2ZSgmYWRldi0+
-Z2NfY2FjX2lkeF9sb2NrLCBmbGFncyk7CisJV1JFRzMyX1NPQzE1KEdDLCAwLCBtbUdDX0NBQ19J
-TkRfSU5ERVgsIChyZWcpKTsKKwlyID0gUlJFRzMyX1NPQzE1KEdDLCAwLCBtbUdDX0NBQ19JTkRf
-REFUQSk7CisJc3Bpbl91bmxvY2tfaXJxcmVzdG9yZSgmYWRldi0+Z2NfY2FjX2lkeF9sb2NrLCBm
-bGFncyk7CisJcmV0dXJuIHI7Cit9CisKK3N0YXRpYyB2b2lkIHNvYzE1X2djX2NhY193cmVnKHN0
-cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1MzIgcmVnLCB1MzIgdikKK3sKKwl1bnNpZ25lZCBs
-b25nIGZsYWdzOworCisJc3Bpbl9sb2NrX2lycXNhdmUoJmFkZXYtPmdjX2NhY19pZHhfbG9jaywg
-ZmxhZ3MpOworCVdSRUczMl9TT0MxNShHQywgMCwgbW1HQ19DQUNfSU5EX0lOREVYLCAocmVnKSk7
-CisJV1JFRzMyX1NPQzE1KEdDLCAwLCBtbUdDX0NBQ19JTkRfREFUQSwgKHYpKTsKKwlzcGluX3Vu
-bG9ja19pcnFyZXN0b3JlKCZhZGV2LT5nY19jYWNfaWR4X2xvY2ssIGZsYWdzKTsKK30KKwogc3Rh
-dGljIHUzMiBzb2MxNV9nZXRfY29uZmlnX21lbXNpemUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
-ZXYpCiB7CiAJaWYgKGFkZXYtPmZsYWdzICYgQU1EX0lTX0FQVSkKQEAgLTU2Nyw2ICs1ODksOCBA
-QCBzdGF0aWMgaW50IHNvYzE1X2NvbW1vbl9lYXJseV9pbml0KHZvaWQgKmhhbmRsZSkKIAlhZGV2
-LT51dmRfY3R4X3dyZWcgPSAmc29jMTVfdXZkX2N0eF93cmVnOwogCWFkZXYtPmRpZHRfcnJlZyA9
-ICZzb2MxNV9kaWR0X3JyZWc7CiAJYWRldi0+ZGlkdF93cmVnID0gJnNvYzE1X2RpZHRfd3JlZzsK
-KwlhZGV2LT5nY19jYWNfcnJlZyA9ICZzb2MxNV9nY19jYWNfcnJlZzsKKwlhZGV2LT5nY19jYWNf
-d3JlZyA9ICZzb2MxNV9nY19jYWNfd3JlZzsKIAogCWFkZXYtPmFzaWNfZnVuY3MgPSAmc29jMTVf
-YXNpY19mdW5jczsKIAotLSAKMi43LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeAo=
+The late 2009, 27 inch Apple iMac10,1 has an
+internal eDP display and an external Mini-
+Displayport output, driven by a DCE-3.2, RV730
+Radeon Mobility HD-4670.
+
+The machine worked fine in a dual-display setup
+with eDP panel + externally connected HDMI
+or DVI-D digital display sink, connected via
+MiniDP to DVI or HDMI adapter.
+
+However, booting the machine single-display with
+only eDP panel results in a completely black
+display - even backlight powering off, as soon as
+the radeon modesetting driver loads.
+
+This patch fixes the single dispay eDP case by
+assigning encoders based on dig->linkb, similar
+to DCE-4+. While this should not be generally
+necessary (Alex: "...atom on normal boards
+should be able to handle any mapping."), Apple
+seems to use some special routing here.
+
+One remaining problem not solved by this patch
+is that an external Minidisplayport->DP sink
+does still not work on iMac10,1, whereas external
+DVI and HDMI sinks continue to work.
+
+The problem affects at least all tested kernels
+since Linux 3.13 - didn't test earlier kernels, so
+backporting to stable probably makes sense.
+
+v2: With the original patch from 2016, Alex was worried it
+    will break other DCE3.2 systems. Use dmi_match() to
+    apply this special encoder assignment only for the
+    Apple iMac 10,1 from late 2009.
+
+Signed-off-by: Mario Kleiner <mario.kleiner.de@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Michel Dänzer <michel.daenzer@amd.com>
+Cc: <stable@vger.kernel.org>
+---
+ drivers/gpu/drm/radeon/atombios_encoders.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/drm/radeon/atombios_encoders.c
+index fa4f8f0..e67ed38 100644
+--- a/drivers/gpu/drm/radeon/atombios_encoders.c
++++ b/drivers/gpu/drm/radeon/atombios_encoders.c
+@@ -31,6 +31,7 @@
+ #include "radeon_asic.h"
+ #include "atom.h"
+ #include <linux/backlight.h>
++#include <linux/dmi.h>
+ 
+ extern int atom_debug;
+ 
+@@ -2184,9 +2185,17 @@ int radeon_atom_pick_dig_encoder(struct drm_encoder *encoder, int fe_idx)
+ 		goto assigned;
+ 	}
+ 
+-	/* on DCE32 and encoder can driver any block so just crtc id */
++	/*
++	 * On DCE32 any encoder can drive any block so usually just use crtc id,
++	 * but Apple thinks different at least on iMac10,1, so there use linkb,
++	 * otherwise the internal eDP panel will stay dark.
++	 */
+ 	if (ASIC_IS_DCE32(rdev)) {
+-		enc_idx = radeon_crtc->crtc_id;
++		if (dmi_match(DMI_PRODUCT_NAME, "iMac10,1"))
++			enc_idx = (dig->linkb) ? 1 : 0;
++		else
++			enc_idx = radeon_crtc->crtc_id;
++
+ 		goto assigned;
+ 	}
+ 
+-- 
+2.7.4
