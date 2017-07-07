@@ -1,15 +1,13 @@
-From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: Add invalidate tlb for all hub bit field
- define
-Date: Fri, 7 Jul 2017 15:37:31 -0400
-Message-ID: <921e0ecf-8d8a-a029-ddf5-e21b2bf29704@amd.com>
-References: <1499448103-12407-1-git-send-email-Shaoyun.Liu@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 0/2] Add support for context priorities
+Date: Fri, 7 Jul 2017 16:31:42 -0400
+Message-ID: <CADnq5_NDpnJbVVo+FL=9=edjpBe4NgJfXBH0zER4agFPPJ-vBA@mail.gmail.com>
+References: <20170707192839.17582-1-andresx7@gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1499448103-12407-1-git-send-email-Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-CA
+In-Reply-To: <20170707192839.17582-1-andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,23 +18,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-VGhlIHNlcmllcyBpcyBSZXZpZXdlZC1ieTogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5n
-QGFtZC5jb20+CgoKT24gMTctMDctMDcgMDE6MjEgUE0sIFNoYW95dW4gTGl1IHdyb3RlOgo+IENo
-YW5nZS1JZDogSTU2NDc1YjcyYWM5ZjlhOGUyNzAxYzU4YzViMTBlMWYyOTMwYWY3Y2QKPiBTaWdu
-ZWQtb2ZmLWJ5OiBTaGFveXVuIExpdSA8U2hhb3l1bi5MaXVAYW1kLmNvbT4KPiAtLS0KPiAgZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTVkLmggfCAxICsKPiAgMSBmaWxlIGNoYW5nZWQs
-IDEgaW5zZXJ0aW9uKCspCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvc29jMTVkLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNWQuaAo+IGluZGV4
-IDI5OGVmNGUuLjMxMzBhZjggMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvc29jMTVkLmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNWQuaAo+
-IEBAIC0yNjksNiArMjY5LDcgQEAKPiAgCj4gICNkZWZpbmUJUEFDS0VUM19JTlZBTElEQVRFX1RM
-QlMJCQkJMHg5OAo+ICAjICAgICAgICAgICAgICBkZWZpbmUgUEFDS0VUM19JTlZBTElEQVRFX1RM
-QlNfRFNUX1NFTCh4KSAgICAgKCh4KSA8PCAwKQo+ICsjICAgICAgICAgICAgICBkZWZpbmUgUEFD
-S0VUM19JTlZBTElEQVRFX1RMQlNfQUxMX0hVQih4KSAgICAgKCh4KSA8PCA0KQo+ICAjICAgICAg
-ICAgICAgICBkZWZpbmUgUEFDS0VUM19JTlZBTElEQVRFX1RMQlNfUEFTSUQoeCkgICAgICAgKCh4
-KSA8PCA1KQo+ICAjZGVmaW5lIFBBQ0tFVDNfU0VUX1JFU09VUkNFUwkJCQkweEEwCj4gIC8qIDEu
-IGhlYWRlcgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+T24gRnJpLCBKdWwgNywgMjAxNyBhdCAzOjI4IFBNLCBBbmRyZXMgUm9kcmlndWV6IDxhbmRyZXN4
+N0BnbWFpbC5jb20+IHdyb3RlOgo+IEFzIHJlcXVlc3RlZCwgZm9yIHZhbGlkYXRpb24gb2YgdGhl
+IGtlcm5lbCBzZXJpZXMuCj4KPiBBbmRyZXMgUm9kcmlndWV6ICgyKToKPiAgIGhlYWRlcnM6IHN5
+bmMgYW1kZ3B1X2RybS5oIHdpdGggdGhlIGtlcm5lbAo+ICAgYW1kZ3B1OiBpbXBsZW1lbnQgY29u
+dGV4dCBwcmlvcml0eSBmb3IgYW1kZ3B1X2NzX2N0eF9jcmVhdGUyIHYzCgoKRG8geW91IGhhdmUg
+YSB0ZXN0IGFwcCBvciBtZXNhIHBhdGNoZXMgdGhhdCBhY3R1YWxseSB1c2UgdGhpcyB0aGF0IHlv
+dQpjb3VsZCBzaGFyZT8KCkFsZXgKCj4KPiAgYW1kZ3B1L2FtZGdwdS1zeW1ib2wtY2hlY2sgfCAg
+MSArCj4gIGFtZGdwdS9hbWRncHUuaCAgICAgICAgICAgIHwgMTcgKysrKysrKysrKysrKysrLS0K
+PiAgYW1kZ3B1L2FtZGdwdV9jcy5jICAgICAgICAgfCAxNyArKysrKysrKysrKysrLS0tLQo+ICBp
+bmNsdWRlL2RybS9hbWRncHVfZHJtLmggICB8IDMxICsrKysrKysrKysrKysrKysrKysrKysrKysr
+KysrKy0KPiAgNCBmaWxlcyBjaGFuZ2VkLCA1OSBpbnNlcnRpb25zKCspLCA3IGRlbGV0aW9ucygt
+KQo+Cj4gLS0KPiAyLjkuMwo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
