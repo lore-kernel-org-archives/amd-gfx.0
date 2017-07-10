@@ -1,15 +1,14 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 1/3] drm/amdgpu/atom: fix atom_fw check
-Date: Mon, 10 Jul 2017 13:49:39 +0000
-Message-ID: <BN6PR12MB16525C20C2DD5827C30EA71BF7A90@BN6PR12MB1652.namprd12.prod.outlook.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 1/3] drm/amdgpu/atom: fix atom_fw check
+Date: Mon, 10 Jul 2017 16:07:39 +0200
+Message-ID: <CAAxE2A7Ti3CT9WMW0GTDAJpELEHp0PSdpW7+P_KwZPYoOvqFTg@mail.gmail.com>
 References: <1499284272-5182-1-git-send-email-alexander.deucher@amd.com>
  <CAAxE2A7AB8++syrYURoW7umJMej_Y=gOM=w7_y097QeCEBDSnw@mail.gmail.com>
+ <BN6PR12MB16525C20C2DD5827C30EA71BF7A90@BN6PR12MB1652.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1363449016=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAAxE2A7AB8++syrYURoW7umJMej_Y=gOM=w7_y097QeCEBDSnw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <BN6PR12MB16525C20C2DD5827C30EA71BF7A90-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,53 +19,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?J01hcmVrIE9sxaHDoWsn?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBNYXJlayBPbMWhw6FrIFttYWls
-dG86bWFyYWVvQGdtYWlsLmNvbV0NCj4gU2VudDogU2F0dXJkYXksIEp1bHkgMDgsIDIwMTcgNzow
-OCBQTQ0KPiBUbzogQWxleCBEZXVjaGVyDQo+IENjOiBhbWQtZ2Z4IG1haWxpbmcgbGlzdDsgRGV1
-Y2hlciwgQWxleGFuZGVyDQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggMS8zXSBkcm0vYW1kZ3B1L2F0
-b206IGZpeCBhdG9tX2Z3IGNoZWNrDQo+IA0KPiBIaSBBbGV4LA0KPiANCj4gVGhpcyBjb21taXQg
-Y2F1c2VzIHRoYXQgY2xvY2tfY3J5c3RhbF9mcmVxIGlzIDAgb24gUmF2ZW4sIGRlbW90aW5nDQo+
-IE9wZW5HTCBzdXBwb3J0IGZyb20gNC41IHRvIDMuMi4gQ2FuIEkgcmV2ZXJ0Pw0KDQpUaGUgcHJv
-YmxlbSBpcywgaXQncyBqdXN0IHJlYWRpbmcgZ2FyYmFnZSByaWdodCBub3cuICBJdCB3b3VsZCBi
-ZSBiZXR0ZXIgdG8ganVzdCBoYXJkY29kZSB0aGUgcmVmZXJlbmNlIGNsb2NrIHVudGlsIEkgY2Fu
-IGZpZ3VyZSBvdXQgd2hlcmUgdGhlIHJlZmVyZW5jZSBjbG9jayBpcyBpbiBhdG9tZmlybXdhcmUu
-DQoNCkFsZXgNCg0KPiANCj4gTWFyZWsNCj4gDQo+IE9uIFdlZCwgSnVsIDUsIDIwMTcgYXQgOTo1
-MSBQTSwgQWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+DQo+IHdyb3RlOg0KPiA+
-IE5vdCBhbGwgdmJpb3MgaW1hZ2VzIHNlZW0gdG8gc2V0IHRoZSB2ZXJzaW9uIGFwcHJvcHJpYXRl
-bHkuDQo+ID4gU3dpdGNoIHRoZSBjaGVjayBiYXNlZCBvbiBhc2ljIHR5cGUgaW5zdGVhZC4NCj4g
-Pg0KPiA+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1k
-LmNvbT4NCj4gPiAtLS0NCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Jp
-b3MuYyB8IDE1ICstLS0tLS0tLS0tLS0tLQ0KPiA+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRp
-b24oKyksIDE0IGRlbGV0aW9ucygtKQ0KPiA+DQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9iaW9zLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfYmlvcy5jDQo+ID4gaW5kZXggMzY1ZTczNS4uZWEzYTI1MCAxMDA2NDQNCj4g
-PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYmlvcy5jDQo+ID4gKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Jpb3MuYw0KPiA+IEBAIC04Niwx
-OSArODYsNiBAQCBzdGF0aWMgYm9vbCBjaGVja19hdG9tX2Jpb3ModWludDhfdCAqYmlvcywgc2l6
-ZV90DQo+IHNpemUpDQo+ID4gICAgICAgICByZXR1cm4gZmFsc2U7DQo+ID4gIH0NCj4gPg0KPiA+
-IC1zdGF0aWMgYm9vbCBpc19hdG9tX2Z3KHVpbnQ4X3QgKmJpb3MpDQo+ID4gLXsNCj4gPiAtICAg
-ICAgIHVpbnQxNl90IGJpb3NfaGVhZGVyX3N0YXJ0ID0gYmlvc1sweDQ4XSB8IChiaW9zWzB4NDld
-IDw8IDgpOw0KPiA+IC0gICAgICAgdWludDhfdCBmcmV2ID0gYmlvc1tiaW9zX2hlYWRlcl9zdGFy
-dCArIDJdOw0KPiA+IC0gICAgICAgdWludDhfdCBjcmV2ID0gYmlvc1tiaW9zX2hlYWRlcl9zdGFy
-dCArIDNdOw0KPiA+IC0NCj4gPiAtICAgICAgIGlmICgoZnJldiA8IDMpIHx8DQo+ID4gLSAgICAg
-ICAgICAgKChmcmV2ID09IDMpICYmIChjcmV2IDwgMykpKQ0KPiA+IC0gICAgICAgICAgICAgICBy
-ZXR1cm4gZmFsc2U7DQo+ID4gLQ0KPiA+IC0gICAgICAgcmV0dXJuIHRydWU7DQo+ID4gLX0NCj4g
-PiAtDQo+ID4gIC8qIElmIHlvdSBib290IGFuIElHUCBib2FyZCB3aXRoIGEgZGlzY3JldGUgY2Fy
-ZCBhcyB0aGUgcHJpbWFyeSwNCj4gPiAgICogdGhlIElHUCByb20gaXMgbm90IGFjY2Vzc2libGUg
-dmlhIHRoZSByb20gYmFyIGFzIHRoZSBJR1Agcm9tIGlzDQo+ID4gICAqIHBhcnQgb2YgdGhlIHN5
-c3RlbSBiaW9zLiAgT24gYm9vdCwgdGhlIHN5c3RlbSBiaW9zIHB1dHMgYQ0KPiA+IEBAIC00NTUs
-NiArNDQyLDYgQEAgYm9vbCBhbWRncHVfZ2V0X2Jpb3Moc3RydWN0IGFtZGdwdV9kZXZpY2UNCj4g
-KmFkZXYpDQo+ID4gICAgICAgICByZXR1cm4gZmFsc2U7DQo+ID4NCj4gPiAgc3VjY2VzczoNCj4g
-PiAtICAgICAgIGFkZXYtPmlzX2F0b21fZncgPSBpc19hdG9tX2Z3KGFkZXYtPmJpb3MpOw0KPiA+
-ICsgICAgICAgYWRldi0+aXNfYXRvbV9mdyA9IChhZGV2LT5hc2ljX3R5cGUgPj0gQ0hJUF9WRUdB
-MTApID8gdHJ1ZSA6DQo+IGZhbHNlOw0KPiA+ICAgICAgICAgcmV0dXJuIHRydWU7DQo+ID4gIH0N
-Cj4gPiAtLQ0KPiA+IDIuNS41DQo+ID4NCj4gPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXw0KPiA+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+ID4gYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYW1kLWdmeAo=
+--===============1363449016==
+Content-Type: multipart/alternative; boundary="001a1139442a7391d50553f71dde"
+
+--001a1139442a7391d50553f71dde
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, Jul 10, 2017 at 3:49 PM, Deucher, Alexander <
+Alexander.Deucher-5C7GfCeVMHo@public.gmane.org> wrote:
+
+> > -----Original Message-----
+> > From: Marek Ol=C5=A1=C3=A1k [mailto:maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org]
+> > Sent: Saturday, July 08, 2017 7:08 PM
+> > To: Alex Deucher
+> > Cc: amd-gfx mailing list; Deucher, Alexander
+> > Subject: Re: [PATCH 1/3] drm/amdgpu/atom: fix atom_fw check
+> >
+> > Hi Alex,
+> >
+> > This commit causes that clock_crystal_freq is 0 on Raven, demoting
+> > OpenGL support from 4.5 to 3.2. Can I revert?
+>
+> The problem is, it's just reading garbage right now.  It would be better
+> to just hardcode the reference clock until I can figure out where the
+> reference clock is in atomfirmware.
+>
+
+OK. I'll find a way to work around it in Mesa.
+
+Marek
+
+--001a1139442a7391d50553f71dde
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_extra"><div class=3D"gmail_quote">On M=
+on, Jul 10, 2017 at 3:49 PM, Deucher, Alexander <span dir=3D"ltr">&lt;<a hr=
+ef=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">Alexander.Deucher=
+@amd.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=
+=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><span cl=
+ass=3D"">&gt; -----Original Message-----<br>
+&gt; From: Marek Ol=C5=A1=C3=A1k [mailto:<a href=3D"mailto:maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org=
+">maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>]<br>
+&gt; Sent: Saturday, July 08, 2017 7:08 PM<br>
+&gt; To: Alex Deucher<br>
+&gt; Cc: amd-gfx mailing list; Deucher, Alexander<br>
+&gt; Subject: Re: [PATCH 1/3] drm/amdgpu/atom: fix atom_fw check<br>
+&gt;<br>
+&gt; Hi Alex,<br>
+&gt;<br>
+&gt; This commit causes that clock_crystal_freq is 0 on Raven, demoting<br>
+&gt; OpenGL support from 4.5 to 3.2. Can I revert?<br>
+<br>
+</span>The problem is, it&#39;s just reading garbage right now.=C2=A0 It wo=
+uld be better to just hardcode the reference clock until I can figure out w=
+here the reference clock is in atomfirmware.<br></blockquote><div><br></div=
+><div>OK. I&#39;ll find a way to work around it in Mesa.<br><br></div><div>=
+Marek<br></div></div></div></div>
+
+--001a1139442a7391d50553f71dde--
+
+--===============1363449016==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1363449016==--
