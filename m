@@ -1,14 +1,12 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 1/3] drm/amdgpu/atom: fix atom_fw check
-Date: Mon, 10 Jul 2017 16:07:39 +0200
-Message-ID: <CAAxE2A7Ti3CT9WMW0GTDAJpELEHp0PSdpW7+P_KwZPYoOvqFTg@mail.gmail.com>
-References: <1499284272-5182-1-git-send-email-alexander.deucher@amd.com>
- <CAAxE2A7AB8++syrYURoW7umJMej_Y=gOM=w7_y097QeCEBDSnw@mail.gmail.com>
- <BN6PR12MB16525C20C2DD5827C30EA71BF7A90@BN6PR12MB1652.namprd12.prod.outlook.com>
+From: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: Regression in amd-staging-4.11
+Date: Mon, 10 Jul 2017 09:55:00 -0400
+Message-ID: <68b41ca7-d86b-62b4-ca50-03feacfeb712@amd.com>
+References: <932178.77331.1499684449106@mailxchange.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1363449016=="
+Content-Type: multipart/mixed; boundary="===============2013574183=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB16525C20C2DD5827C30EA71BF7A90-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <932178.77331.1499684449106-NM1PAhYDU/Oo9dU1Uvar1Q@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,71 +17,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Martin Babutzka <martin.babutzka-BGeptl67XyCzQB+pC5nmwQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============1363449016==
-Content-Type: multipart/alternative; boundary="001a1139442a7391d50553f71dde"
+This is a multi-part message in MIME format.
+--===============2013574183==
+Content-Type: multipart/alternative;
+ boundary="------------49C956D8764AD3055FEFB695"
 
---001a1139442a7391d50553f71dde
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This is a multi-part message in MIME format.
+--------------49C956D8764AD3055FEFB695
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jul 10, 2017 at 3:49 PM, Deucher, Alexander <
-Alexander.Deucher-5C7GfCeVMHo@public.gmane.org> wrote:
+Thanks for the info, is it possible to provide dmesg log for this issue ?
 
-> > -----Original Message-----
-> > From: Marek Ol=C5=A1=C3=A1k [mailto:maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org]
-> > Sent: Saturday, July 08, 2017 7:08 PM
-> > To: Alex Deucher
-> > Cc: amd-gfx mailing list; Deucher, Alexander
-> > Subject: Re: [PATCH 1/3] drm/amdgpu/atom: fix atom_fw check
-> >
-> > Hi Alex,
-> >
-> > This commit causes that clock_crystal_freq is 0 on Raven, demoting
-> > OpenGL support from 4.5 to 3.2. Can I revert?
+
+On 07/10/2017 07:00 AM, Martin Babutzka wrote:
 >
-> The problem is, it's just reading garbage right now.  It would be better
-> to just hardcode the reference clock until I can figure out where the
-> reference clock is in atomfirmware.
+> Dear AMD graphics developers,
 >
+> I am one of the guys that regularly builds your amd-staging kernels and
+> makes them available for the lazier people. By this we get a nice
+> preview of DAL/DC and you get some free beta-testers.
+>
+> One of the users describe a regression here:
+> https://github.com/M-Bab/linux-kernel-amdgpu-binaries/issues/8
+>
+> Unfortunately the bug details are limited but I can give some
+> additional information to pin the bug down:
+> All kernels <= 4.11.3+ (merged with amd-staging-4.11 at Fri May 26
+> 18:19:03 2017 +0200) are reported to be working and the regression was
+> introduced with the kernels >= 4.11.4+ (merged with amd-staging-4.11 at
+> Thu Jun 8 19:44:44 2017 +0200). I attached a list of your commits that
+> were merged in this time range. The other attachment is an X.org log
+> with the trace when amdgpu should be loaded to run a R7 370 GPU.
+> The kernel based on amd-staging-4.9 is not affected.
+>
+> I hope this helps you to find the regression. Just tell me if I can
+> provide further details or testing.
+>
+> Kind regards,
+> Martin Babutzka
+>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
-OK. I'll find a way to work around it in Mesa.
 
-Marek
+--------------49C956D8764AD3055FEFB695
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
---001a1139442a7391d50553f71dde
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <p>Thanks for the info, is it possible to provide dmesg log for this
+      issue ?<br>
+    </p>
+    <br>
+    <div class="moz-cite-prefix">On 07/10/2017 07:00 AM, Martin Babutzka
+      wrote:<br>
+    </div>
+    <blockquote cite="mid:932178.77331.1499684449106-NM1PAhYDU/Oo9dU1Uvar1Q@public.gmane.org"
+      type="cite">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <p>Dear AMD graphics developers,</p>
+      <p>I am one of the guys that regularly builds your amd-staging
+        kernels and<br>
+        makes them available for the lazier people. By this we get a
+        nice<br>
+        preview of DAL/DC and you get some free beta-testers.</p>
+      <p>One of the users describe a regression here:<br>
+        <a moz-do-not-send="true"
+          href="https://github.com/M-Bab/linux-kernel-amdgpu-binaries/issues/8">https://github.com/M-Bab/linux-kernel-amdgpu-binaries/issues/8</a><br>
+      </p>
+      <p>Unfortunately the bug details are limited but I can give some<br>
+        additional information to pin the bug down:<br>
+        All kernels &lt;= 4.11.3+ (merged with amd-staging-4.11 at Fri
+        May 26<br>
+        18:19:03 2017 +0200) are reported to be working and the
+        regression was<br>
+        introduced with the kernels &gt;= 4.11.4+ (merged with
+        amd-staging-4.11 at<br>
+        Thu Jun 8 19:44:44 2017 +0200). I attached a list of your
+        commits that<br>
+        were merged in this time range. The other attachment is an X.org
+        log<br>
+        with the trace when amdgpu should be loaded to run a R7 370 GPU.<br>
+        The kernel based on amd-staging-4.9 is not affected.</p>
+      <p>I hope this helps you to find the regression. Just tell me if I
+        can<br>
+        provide further details or testing.</p>
+      <p>Kind regards,<br>
+        Martin Babutzka</p>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
 
-<div dir=3D"ltr"><div class=3D"gmail_extra"><div class=3D"gmail_quote">On M=
-on, Jul 10, 2017 at 3:49 PM, Deucher, Alexander <span dir=3D"ltr">&lt;<a hr=
-ef=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">Alexander.Deucher=
-@amd.com</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=
-=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><span cl=
-ass=3D"">&gt; -----Original Message-----<br>
-&gt; From: Marek Ol=C5=A1=C3=A1k [mailto:<a href=3D"mailto:maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org=
-">maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>]<br>
-&gt; Sent: Saturday, July 08, 2017 7:08 PM<br>
-&gt; To: Alex Deucher<br>
-&gt; Cc: amd-gfx mailing list; Deucher, Alexander<br>
-&gt; Subject: Re: [PATCH 1/3] drm/amdgpu/atom: fix atom_fw check<br>
-&gt;<br>
-&gt; Hi Alex,<br>
-&gt;<br>
-&gt; This commit causes that clock_crystal_freq is 0 on Raven, demoting<br>
-&gt; OpenGL support from 4.5 to 3.2. Can I revert?<br>
-<br>
-</span>The problem is, it&#39;s just reading garbage right now.=C2=A0 It wo=
-uld be better to just hardcode the reference clock until I can figure out w=
-here the reference clock is in atomfirmware.<br></blockquote><div><br></div=
-><div>OK. I&#39;ll find a way to work around it in Mesa.<br><br></div><div>=
-Marek<br></div></div></div></div>
+--------------49C956D8764AD3055FEFB695--
 
---001a1139442a7391d50553f71dde--
-
---===============1363449016==
+--===============2013574183==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -93,4 +140,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1363449016==--
+--===============2013574183==--
