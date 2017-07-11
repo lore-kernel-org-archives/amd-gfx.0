@@ -1,73 +1,44 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH libdrm] libdrm_amdgpu: add kernel semaphore support
-Date: Tue, 11 Jul 2017 19:47:18 +0200
-Message-ID: <CAAxE2A5KB7WqP7xFMOxRy=eWCRQvkkY_2dp5SENODU3YGAdz5A@mail.gmail.com>
-References: <20170706011749.4217-1-airlied@gmail.com>
- <CAPM=9tzzKNA_4GYyz1Aa0QytEJ=mZSVbvBWcGDx29pf+5292dw@mail.gmail.com>
- <8a5bb44b-c749-43e1-c58a-6c340bbf5474@vodafone.de>
- <CAPM=9twcN5y4H3yvKfUNEK+k4E3_6zoTPpWWsn+vdE2bYt7qhg@mail.gmail.com>
- <e8320749-8afb-5d64-93e4-7c64192735c5@vodafone.de>
- <CAPM=9tw2jGVmJW=VcE=t1WuOXVdj61Qj4jocZQUVGwmHe4DFGA@mail.gmail.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Subject: Re: [PATCH v8 4/6] x86/PCI: Enable a 64bit BAR on AMD Family 15h
+ (Models 30h-3fh) Processors v4
+Date: Tue, 11 Jul 2017 20:50:18 +0300
+Message-ID: <CAHp75VdaO+-AyMObfS_p3+y+6RR1Qa6_o783mjhsZBAYzC3wyg@mail.gmail.com>
+References: <1499698794-1718-5-git-send-email-deathsimple@vodafone.de> <201707112000.h3N0wEJq%fengguang.wu@intel.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAPM=9tw2jGVmJW=VcE=t1WuOXVdj61Qj4jocZQUVGwmHe4DFGA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Olsak,
- Marek" <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-pci-owner@vger.kernel.org>
+In-Reply-To: <201707112000.h3N0wEJq%fengguang.wu@intel.com>
+Sender: linux-pci-owner@vger.kernel.org
+To: kbuild test robot <lkp@intel.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple@vodafone.de>, kbuild-all@01.org, Bjorn Helgaas <helgaas@kernel.org>, "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, dri-devel@lists.freedesktop.org, Platform Driver <platform-driver-x86@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVHVlLCBKdWwgMTEsIDIwMTcgYXQgMTE6MjAgQU0sIERhdmUgQWlybGllIDxhaXJsaWVkQGdt
-YWlsLmNvbT4gd3JvdGU6Cj4gT24gMTEgSnVseSAyMDE3IGF0IDE4OjM2LCBDaHJpc3RpYW4gS8O2
-bmlnIDxkZWF0aHNpbXBsZUB2b2RhZm9uZS5kZT4gd3JvdGU6Cj4+IEFtIDExLjA3LjIwMTcgdW0g
-MDg6NDkgc2NocmllYiBEYXZlIEFpcmxpZToKPj4+Cj4+PiBPbiA3IEp1bHkgMjAxNyBhdCAxOTow
-NywgQ2hyaXN0aWFuIEvDtm5pZyA8ZGVhdGhzaW1wbGVAdm9kYWZvbmUuZGU+IHdyb3RlOgo+Pj4+
-Cj4+Pj4gSGkgRGF2ZSwKPj4+Pgo+Pj4+IG9uIGZpcnN0IGdsYW5jZSB0aGF0IGxvb2tzIHJhdGhl
-ciBnb29kIHRvIG1lLCBidXQgdGhlcmUgaXMgb25lIHRoaW5ncyBJCj4+Pj4gZG9uJ3QgcmVhbGx5
-IGxpa2UgYW5kIEkgc3Ryb25nbHkgdGhpbmsgTWFyZWsgd2lsbCBhYnNvbHV0ZWx5IGFncmVlIG9u
-Cj4+Pj4gdGhhdDoKPj4+PiBXaGVuIHdlIGFkZCBhIG5ldyBDUyBmdW5jdGlvbiB0aGVuIGxldCdz
-IGdldCByaWRlIG9mIGFsbCB0aGlzCj4+Pj4gYWJzdHJhY3Rpb24hCj4+Pj4KPj4+PiBUaGUgbmV3
-IGZ1bmN0aW9uIHNob3VsZCBnZXQgYW4gYW1kZ3B1X2RldmljZV9oYW5kbGUgYW5kIGEgbGlzdCBv
-ZiBjaHVua3MKPj4+PiB0bwo+Pj4+IHN1Ym1pdCwgbm90aGluZyBlbHNlLgo+Pj4+Cj4+Pj4gV2hl
-biB0aGVuIHByb3ZpZGUgaGVscGVyIGZ1bmN0aW9ucyB0byBnZW5lcmF0ZSB0aGUgY2h1bmtzIG91
-dCBvZiB0aGUKPj4+PiBleGlzdGluZyBhbWRncHVfY29udGV4dF9oYW5kbGUgYW5kIGFtZGdwdV9i
-b19saXN0X2hhbmRsZS4KPj4+Pgo+Pj4+IFRoYXQgc2hvdWxkIGJlIHBlcmZlY3RseSBzdWZmaWNp
-ZW50IGFuZCBleHRlbnNpYmxlIGZvciBmdXR1cmUgYWRkaXRpb25zCj4+Pj4gYXMKPj4+PiB3ZWxs
-Lgo+Pj4KPj4+IFNvdW5kcyB0ZW1wdGluZywgYnV0IGl0IGEgYml0IG1lc3NpZXIgdGhhbiBpdCBs
-b29rcyBvbmNlIEkgc3RhcnRlZAo+Pj4gZGlnZ2luZyBpbnRvIGl0Lgo+Pj4KPj4+IFRoZSBtYWlu
-IHRoaW5ncyBJIHJhbiB1cCBhZ2FpbnN0IGlzIHRoZSBjb250ZXh0IHNlcXVlbmNlIG11dGV4IHBy
-b3RlY3RpbmcKPj4+IHRoZQo+Pj4ga2VybmVsIHN1Ym1pc3Npb25zIHBlciBjb250ZXh0IHdoaWNo
-IHdvdWxkIGJlIHRyaWNreSB0byBmaWd1cmUgb3V0IHdoeQo+Pj4gdGhhdCBpcwo+Pj4gcmVxdWly
-ZWQgKHNob3VsZCB3ZSBiZSBzdWJtaXR0aW5nIGZyb20gZGlmZmVyZW50IGNvbnRleHRzIG9uIGRp
-ZmZlcmVudAo+Pj4gdGhyZWFkcz8pCj4+Cj4+Cj4+IFRoZSBzZXF1ZW5jZSBsb2NrIGlzIGp1c3Qg
-dG8ga2VlcCBsYXN0X3NlcSB1cCB0byBkYXRlIGFuZCBsYXN0X3NlcSBqdXN0Cj4+IGV4aXN0cyBi
-ZWNhdXNlIG9mIGFtZGdwdV9jc19zaWduYWxfc2VtYXBob3JlLgo+Pgo+PiBXZSB3YW50IHRvIGdl
-dCByaWRlIG9mIHRoYXQsIHNvIHlvdSBjYW4gZHJvcCBzdXBwb3J0IGZvciB0aGlzIGFsdG9nZXRo
-ZXIgaW4KPj4gdGhlIG5ldyBJT0NUTC4KPj4KPj4+IEknZCBwcmVmZXIgdG8gbGFuZCB0aGlzIHRo
-ZW4gcmVmYWN0b3IgYSBuZXcgaW50ZXJmYWNlLCBJIGRvIHdvbmRlciBpZgo+Pj4gbWF5YmUgTWFy
-ZWsKPj4+IHdvdWxkIHByZWZlciBqdXN0IGRvaW5nIHRoaXMgYWxsIGluIE1lc2EgYW5kIGF2b2lk
-aW5nIHRoZXNlIEFQSXMgYSBiaXQKPj4+IG1vcmUgOi0pCj4+Pgo+Pj4gT25jZSBJIGdldCB0aGUg
-c3luY29ianMgaW4gSSBtaWdodCBsb29rIGF0IGludGVybmFsbHkgcmVmYWN0b3JpbmcgdGhlCj4+
-PiBjb2RlIGEgYml0IG1vcmUsCj4+PiB0aGVuIGEgbmV3IEFQSS4KPj4KPj4KPj4gQWN0dWFsbHkg
-SSB3YW50ZWQgdG8gcHJvcG9zZSBqdXN0IHRvIHJlbW92ZSB0aGUgb2xkIHNlbWFwaG9yZSBBUEks
-IGl0IHdhcwo+PiBuZXZlciB1c2VkIGJ5IE1lc2Egb3IgYW55IG90aGVyIG9wZW4gc291cmNlIHVz
-ZXIuCj4KPiByYWR2IHVzZXMgaXQgcmlnaHQgbm93IHVudGlsIHdlIGhhdmUgc3luY29ianMuCj4K
-PiBTbyBpdCBzaG91bGQgaGFuZyBhcm91bmQuCgpEYXZlLCB0aGlzIG1heSBzb3VuZCBvdXRyYWdl
-b3VzLCBidXQgdGhpbmsgYWJvdXQgaXQ6IFdoYXQgd291bGQgaGFwcGVuCmlmIHdlIHJlbW92ZWQg
-dGhlIG9sZCBzZW1hcGhvcmUgQVBJPyBVc2VycyB3b3VsZCBoYXZlIHRvIGdldCBhIG5ldwpSQURW
-IGFmdGVyIGdldHRpbmcgbmV3IGxpYmRybV9hbWRncHUuIElzIHRoYXQgcmVhbGx5IHRoYXQgYmln
-IG9mIGEKZGVhbD8gSXQgaGFwcGVucyB3aXRoIExMVk0gYWxsIHRoZSB0aW1lIGFuZCB3ZSd2ZSBt
-YW5hZ2VkIHRvIGNvcGUgd2l0aAp0aGF0IGp1c3QgZmluZS4KCk1hcmVrCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+On Tue, Jul 11, 2017 at 3:07 PM, kbuild test robot <lkp@intel.com> wrote:
+
+>         make ARCH=i386
+
+Yeah, either this code shouldn't have been built on 32-bit arch at
+all, or be portable.
+
+>    arch/x86/pci/fixup.c: In function 'pci_amd_enable_64bit_bar':
+>>> arch/x86/pci/fixup.c:674:15: warning: large integer implicitly truncated to unsigned type [-Woverflow]
+>      res->start = 0x100000000ull;
+>                   ^~~~~~~~~~~~~~
+>    arch/x86/pci/fixup.c:675:13: warning: large integer implicitly truncated to unsigned type [-Woverflow]
+>      res->end = 0xfd00000000ull - 1;
+>                 ^~~~~~~~~~~~~~~
+>>> arch/x86/pci/fixup.c:686:22: warning: right shift count >= width of type [-Wshift-count-overflow]
+
+I suppose explicit casting will help.
+
+>      high = ((res->start >> 40) & AMD_141b_MMIO_HIGH_MMIOBASE_MASK) |
+>                          ^~
+>    arch/x86/pci/fixup.c:687:21: warning: right shift count >= width of type [-Wshift-count-overflow]
+>       ((((res->end + 1) >> 40) << AMD_141b_MMIO_HIGH_MMIOLIMIT_SHIFT)
+>                         ^~
+
+These can be done via upper_32_bits() + shift.
+
+-- 
+With Best Regards,
+Andy Shevchenko
