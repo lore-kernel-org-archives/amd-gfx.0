@@ -1,13 +1,18 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: add get_clock_info for atomfirmware
-Date: Tue, 11 Jul 2017 15:30:52 -0400
-Message-ID: <CADnq5_PK_wTPiL43Do+nEVPS_rEixqojeg0ZrthxRz_UT95BCw@mail.gmail.com>
-References: <1499721334-4520-1-git-send-email-alexander.deucher@amd.com>
+From: Jason Ekstrand <jason-fQELhIk9awXprZlt/sZkLg@public.gmane.org>
+Subject: Re: [PATCH] drm/syncobj: add sync obj wait interface. (v6)
+Date: Tue, 11 Jul 2017 12:44:32 -0700
+Message-ID: <CAOFGe966V=urjgObfUcofwsvSt78t4o_QGP5ix-AiPOGN1iaQA@mail.gmail.com>
+References: <20170706010409.9373-1-airlied@gmail.com>
+ <CAOFGe94mA9i7+-XTJQn65N-vK_GbQwvjru2b=6ucXejpWWmx4g@mail.gmail.com>
+ <899f9bb3-f7c7-ce86-c22b-bb8d262778bf@vodafone.de>
+ <CAOFGe96gaX2OjsXr8bNBUiqwyKAQfMSycH7PXgYAt_BBJ1UHkQ@mail.gmail.com>
+ <fe27d2f8-760b-c2d4-9474-7eaaae560086@vodafone.de>
+ <CAOFGe95oZz-O743v7J6gpVuUqvPjdeifAcuoaZe8bf1HUNXm+Q@mail.gmail.com>
+ <20170711072110.oziftm34o54plbvv@phenom.ffwll.local>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2033640899=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1499721334-4520-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20170711072110.oziftm34o54plbvv-dv86pmgwkMBes7Z6vYuT8azUEOm+Xw19@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,102 +23,271 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+To: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+Cc: gustavo-THi1TnShQwVAfugRpC6u6w@public.gmane.org, =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gTW9uLCBKdWwgMTAsIDIwMTcgYXQgNToxNSBQTSwgQWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hl
-ckBnbWFpbC5jb20+IHdyb3RlOgo+IFRoZSBpbmZvcm1hdGlvbiBoYXMgbW92ZWQgdG8gZGlmZmVy
-ZW50IHRhYmxlcywgbm90YWJseQo+IHNtdV9pbmZvIGZvciBjb3JlIHJlZmNsayBhbmQgdW1jX2lu
-Zm8gZm9yIG1lbSByZWZjbGsuCj4KPiBTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhh
-bmRlci5kZXVjaGVyQGFtZC5jb20+CgpwaW5nPyAgdGhpcyBmaXhlcyBsb29raW5nIHVwIHRoZSBy
-ZWZlcmVuY2UgY2xvY2tzIG9uIHZlZ2ExMCBhbmQgcmF2ZW4uCgpBbGV4CgoKPiAtLS0KPiAgZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2F0b21maXJtd2FyZS5jIHwgOTMgKysrKysr
-KysrKysrKysrKysrKysrKysrCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9h
-dG9tZmlybXdhcmUuaCB8ICAxICsKPiAgMiBmaWxlcyBjaGFuZ2VkLCA5NCBpbnNlcnRpb25zKCsp
-Cj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2F0b21m
-aXJtd2FyZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2F0b21maXJtd2Fy
-ZS5jCj4gaW5kZXggYTdkNjVmMC4uZjlmZmU4ZSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfYXRvbWZpcm13YXJlLmMKPiArKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfYXRvbWZpcm13YXJlLmMKPiBAQCAtMTI4LDMgKzEyOCw5NiBA
-QCBpbnQgYW1kZ3B1X2F0b21maXJtd2FyZV9nZXRfdnJhbV93aWR0aChzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSAqYWRldikKPgo+ICAgICAgICAgcmV0dXJuIDA7Cj4gIH0KPiArCj4gK3VuaW9uIGZpcm13
-YXJlX2luZm8gewo+ICsgICAgICAgc3RydWN0IGF0b21fZmlybXdhcmVfaW5mb192M18xIHYzMTsK
-PiArfTsKPiArCj4gK3VuaW9uIHNtdV9pbmZvIHsKPiArICAgICAgIHN0cnVjdCBhdG9tX3NtdV9p
-bmZvX3YzXzEgdjMxOwo+ICt9Owo+ICsKPiArdW5pb24gdW1jX2luZm8gewo+ICsgICAgICAgc3Ry
-dWN0IGF0b21fdW1jX2luZm9fdjNfMSB2MzE7Cj4gK307Cj4gKwo+ICtpbnQgYW1kZ3B1X2F0b21m
-aXJtd2FyZV9nZXRfY2xvY2tfaW5mbyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiArewo+
-ICsgICAgICAgc3RydWN0IGFtZGdwdV9tb2RlX2luZm8gKm1vZGVfaW5mbyA9ICZhZGV2LT5tb2Rl
-X2luZm87Cj4gKyAgICAgICBzdHJ1Y3QgYW1kZ3B1X3BsbCAqc3BsbCA9ICZhZGV2LT5jbG9jay5z
-cGxsOwo+ICsgICAgICAgc3RydWN0IGFtZGdwdV9wbGwgKm1wbGwgPSAmYWRldi0+Y2xvY2subXBs
-bDsKPiArICAgICAgIHVpbnQ4X3QgZnJldiwgY3JldjsKPiArICAgICAgIHVpbnQxNl90IGRhdGFf
-b2Zmc2V0Owo+ICsgICAgICAgaW50IHJldCA9IC1FSU5WQUwsIGluZGV4Owo+ICsKPiArICAgICAg
-IGluZGV4ID0gZ2V0X2luZGV4X2ludG9fbWFzdGVyX3RhYmxlKGF0b21fbWFzdGVyX2xpc3Rfb2Zf
-ZGF0YV90YWJsZXNfdjJfMSwKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIGZpcm13YXJlaW5mbyk7Cj4gKyAgICAgICBpZiAoYW1kZ3B1X2F0b21fcGFyc2VfZGF0
-YV9oZWFkZXIobW9kZV9pbmZvLT5hdG9tX2NvbnRleHQsIGluZGV4LCBOVUxMLAo+ICsgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgJmZyZXYsICZjcmV2LCAmZGF0YV9vZmZzZXQpKSB7
-Cj4gKyAgICAgICAgICAgICAgIHVuaW9uIGZpcm13YXJlX2luZm8gKmZpcm13YXJlX2luZm8gPQo+
-ICsgICAgICAgICAgICAgICAgICAgICAgICh1bmlvbiBmaXJtd2FyZV9pbmZvICopKG1vZGVfaW5m
-by0+YXRvbV9jb250ZXh0LT5iaW9zICsKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBkYXRhX29mZnNldCk7Cj4gKwo+ICsgICAgICAgICAgICAgICBhZGV2
-LT5jbG9jay5kZWZhdWx0X3NjbGsgPQo+ICsgICAgICAgICAgICAgICAgICAgICAgIGxlMzJfdG9f
-Y3B1KGZpcm13YXJlX2luZm8tPnYzMS5ib290dXBfc2Nsa19pbjEwa2h6KTsKPiArICAgICAgICAg
-ICAgICAgYWRldi0+Y2xvY2suZGVmYXVsdF9tY2xrID0KPiArICAgICAgICAgICAgICAgICAgICAg
-ICBsZTMyX3RvX2NwdShmaXJtd2FyZV9pbmZvLT52MzEuYm9vdHVwX21jbGtfaW4xMGtoeik7Cj4g
-Kwo+ICsgICAgICAgICAgICAgICBhZGV2LT5wbS5jdXJyZW50X3NjbGsgPSBhZGV2LT5jbG9jay5k
-ZWZhdWx0X3NjbGs7Cj4gKyAgICAgICAgICAgICAgIGFkZXYtPnBtLmN1cnJlbnRfbWNsayA9IGFk
-ZXYtPmNsb2NrLmRlZmF1bHRfbWNsazsKPiArCj4gKyAgICAgICAgICAgICAgIC8qIG5vdCB0ZWNo
-bmljYWxseSBhIGNsb2NrLCBidXQuLi4gKi8KPiArICAgICAgICAgICAgICAgYWRldi0+bW9kZV9p
-bmZvLmZpcm13YXJlX2ZsYWdzID0KPiArICAgICAgICAgICAgICAgICAgICAgICBsZTMyX3RvX2Nw
-dShmaXJtd2FyZV9pbmZvLT52MzEuZmlybXdhcmVfY2FwYWJpbGl0eSk7Cj4gKwo+ICsgICAgICAg
-ICAgICAgICByZXQgPSAwOwo+ICsgICAgICAgfQo+ICsKPiArICAgICAgIGluZGV4ID0gZ2V0X2lu
-ZGV4X2ludG9fbWFzdGVyX3RhYmxlKGF0b21fbWFzdGVyX2xpc3Rfb2ZfZGF0YV90YWJsZXNfdjJf
-MSwKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNtdV9pbmZv
-KTsKPiArICAgICAgIGlmIChhbWRncHVfYXRvbV9wYXJzZV9kYXRhX2hlYWRlcihtb2RlX2luZm8t
-PmF0b21fY29udGV4dCwgaW5kZXgsIE5VTEwsCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAmZnJldiwgJmNyZXYsICZkYXRhX29mZnNldCkpIHsKPiArICAgICAgICAgICAgICAg
-dW5pb24gc211X2luZm8gKnNtdV9pbmZvID0KPiArICAgICAgICAgICAgICAgICAgICAgICAodW5p
-b24gc211X2luZm8gKikobW9kZV9pbmZvLT5hdG9tX2NvbnRleHQtPmJpb3MgKwo+ICsgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkYXRhX29mZnNldCk7Cj4gKwo+ICsg
-ICAgICAgICAgICAgICAvKiBzeXN0ZW0gY2xvY2sgKi8KPiArICAgICAgICAgICAgICAgc3BsbC0+
-cmVmZXJlbmNlX2ZyZXEgPSBsZTMyX3RvX2NwdShzbXVfaW5mby0+djMxLmNvcmVfcmVmY2xrXzEw
-a2h6KTsKPiArCj4gKyAgICAgICAgICAgICAgIHNwbGwtPnJlZmVyZW5jZV9kaXYgPSAwOwo+ICsg
-ICAgICAgICAgICAgICBzcGxsLT5taW5fcG9zdF9kaXYgPSAxOwo+ICsgICAgICAgICAgICAgICBz
-cGxsLT5tYXhfcG9zdF9kaXYgPSAxOwo+ICsgICAgICAgICAgICAgICBzcGxsLT5taW5fcmVmX2Rp
-diA9IDI7Cj4gKyAgICAgICAgICAgICAgIHNwbGwtPm1heF9yZWZfZGl2ID0gMHhmZjsKPiArICAg
-ICAgICAgICAgICAgc3BsbC0+bWluX2ZlZWRiYWNrX2RpdiA9IDQ7Cj4gKyAgICAgICAgICAgICAg
-IHNwbGwtPm1heF9mZWVkYmFja19kaXYgPSAweGZmOwo+ICsgICAgICAgICAgICAgICBzcGxsLT5i
-ZXN0X3ZjbyA9IDA7Cj4gKwo+ICsgICAgICAgICAgICAgICByZXQgPSAwOwo+ICsgICAgICAgfQo+
-ICsKPiArICAgICAgIGluZGV4ID0gZ2V0X2luZGV4X2ludG9fbWFzdGVyX3RhYmxlKGF0b21fbWFz
-dGVyX2xpc3Rfb2ZfZGF0YV90YWJsZXNfdjJfMSwKPiArICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIHVtY19pbmZvKTsKPiArICAgICAgIGlmIChhbWRncHVfYXRvbV9w
-YXJzZV9kYXRhX2hlYWRlcihtb2RlX2luZm8tPmF0b21fY29udGV4dCwgaW5kZXgsIE5VTEwsCj4g
-KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAmZnJldiwgJmNyZXYsICZkYXRhX29m
-ZnNldCkpIHsKPiArICAgICAgICAgICAgICAgdW5pb24gdW1jX2luZm8gKnVtY19pbmZvID0KPiAr
-ICAgICAgICAgICAgICAgICAgICAgICAodW5pb24gdW1jX2luZm8gKikobW9kZV9pbmZvLT5hdG9t
-X2NvbnRleHQtPmJpb3MgKwo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBkYXRhX29mZnNldCk7Cj4gKwo+ICsgICAgICAgICAgICAgICAvKiBtZW1vcnkgY2xvY2sg
-Ki8KPiArICAgICAgICAgICAgICAgbXBsbC0+cmVmZXJlbmNlX2ZyZXEgPSBsZTMyX3RvX2NwdSh1
-bWNfaW5mby0+djMxLm1lbV9yZWZjbGtfMTBraHopOwo+ICsKPiArICAgICAgICAgICAgICAgbXBs
-bC0+cmVmZXJlbmNlX2RpdiA9IDA7Cj4gKyAgICAgICAgICAgICAgIG1wbGwtPm1pbl9wb3N0X2Rp
-diA9IDE7Cj4gKyAgICAgICAgICAgICAgIG1wbGwtPm1heF9wb3N0X2RpdiA9IDE7Cj4gKyAgICAg
-ICAgICAgICAgIG1wbGwtPm1pbl9yZWZfZGl2ID0gMjsKPiArICAgICAgICAgICAgICAgbXBsbC0+
-bWF4X3JlZl9kaXYgPSAweGZmOwo+ICsgICAgICAgICAgICAgICBtcGxsLT5taW5fZmVlZGJhY2tf
-ZGl2ID0gNDsKPiArICAgICAgICAgICAgICAgbXBsbC0+bWF4X2ZlZWRiYWNrX2RpdiA9IDB4ZmY7
-Cj4gKyAgICAgICAgICAgICAgIG1wbGwtPmJlc3RfdmNvID0gMDsKPiArCj4gKyAgICAgICAgICAg
-ICAgIHJldCA9IDA7Cj4gKyAgICAgICB9Cj4gKwo+ICsgICAgICAgcmV0dXJuIHJldDsKPiArfQo+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYXRvbWZpcm13
-YXJlLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYXRvbWZpcm13YXJlLmgK
-PiBpbmRleCBjZWRhZmJiLi4yODhiOTdlIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9hdG9tZmlybXdhcmUuaAo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9hdG9tZmlybXdhcmUuaAo+IEBAIC0yOCw1ICsyOCw2IEBAIGJvb2wg
-YW1kZ3B1X2F0b21maXJtd2FyZV9ncHVfc3VwcG9ydHNfdmlydHVhbGl6YXRpb24oc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYpCj4gIHZvaWQgYW1kZ3B1X2F0b21maXJtd2FyZV9zY3JhdGNoX3Jl
-Z3NfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7Cj4gIGludCBhbWRncHVfYXRvbWZp
-cm13YXJlX2FsbG9jYXRlX2ZiX3NjcmF0Y2goc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOwo+
-ICBpbnQgYW1kZ3B1X2F0b21maXJtd2FyZV9nZXRfdnJhbV93aWR0aChzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSAqYWRldik7Cj4gK2ludCBhbWRncHVfYXRvbWZpcm13YXJlX2dldF9jbG9ja19pbmZvKHN0
-cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKPgo+ICAjZW5kaWYKPiAtLQo+IDIuNS41Cj4KX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
-aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
-ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============2033640899==
+Content-Type: multipart/alternative; boundary="001a11497fe2bbc9bf05540fed2c"
+
+--001a11497fe2bbc9bf05540fed2c
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Jul 11, 2017 at 12:22 AM, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org> wrote:
+
+> On Mon, Jul 10, 2017 at 02:09:42PM -0700, Jason Ekstrand wrote:
+> > On Mon, Jul 10, 2017 at 9:15 AM, Christian K=C3=B6nig <
+> deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+> > wrote:
+> >
+> > > Am 10.07.2017 um 17:52 schrieb Jason Ekstrand:
+> > >
+> > > On Mon, Jul 10, 2017 at 8:45 AM, Christian K=C3=B6nig <
+> deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+> > > wrote:
+> > >
+> > >> Am 10.07.2017 um 17:28 schrieb Jason Ekstrand:
+> > >>
+> > >> On Wed, Jul 5, 2017 at 6:04 PM, Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+> wrote:
+> > >> [SNIP]
+> > >> So, reading some CTS tests again, and I think we have a problem here=
+.
+> > >> The Vulkan spec allows you to wait on a fence that is in the
+> unsignaled
+> > >> state.
+> > >>
+> > >>
+> > >> At least on the closed source driver that would be illegal as far as=
+ I
+> > >> know.
+> > >>
+> > >
+> > > Then they are doing workarounds in userspace.  There are definitely C=
+TS
+> > > tests for this:
+> > >
+> > > https://github.com/KhronosGroup/VK-GL-CTS/blob/
+> master/external/vulkancts/
+> > > modules/vulkan/synchronization/vktSynchronizationBasicFenceTe
+> sts.cpp#L74
+> > >
+> > >
+> > >> You can't wait on a semaphore before the signal operation is send
+> down to
+> > >> the kerel.
+> > >>
+> > >
+> > > We (Intel) deal with this today by tracking whether or not the fence
+> has
+> > > been submitted and using a condition variable in userspace to sort it
+> all
+> > > out.
+> > >
+> > >
+> > > Which sounds exactly like what AMD is doing in it's drivers as well.
+> > >
+> >
+> > Which doesn't work cross-process so...
+> >
+> > > If we ever want to share fences across processes (which we do), then
+> this
+> > > needs to be sorted in the kernel.
+> > >
+> > >
+> > > That would clearly get a NAK from my side, even Microsoft forbids wai=
+t
+> > > before signal because you can easily end up in deadlock situations.
+> > >
+> >
+> > Please don't NAK things that are required by the API specification and
+> CTS
+> > tests.  That makes it very hard for people like me to get their jobs
+> done.
+> > :-)
+> >
+> > Now, as for whether or not it's a good idea.  First off, we do have
+> > timeouts an a status querying mechanism so an application can just set =
+a
+> > timeout of 1s and do something if it times out.  Second, if the
+> application
+> > is a compositor or something else that doesn't trust its client, it
+> > shouldn't be using the OPAQUE_FD mechanism of Vulkan semaphore/fence
+> > sharing anyway.  For those scenarios, they can require the untrusted
+> client
+> > to use FENCE_FD (sync file) and they have all of the usual guarantees
+> about
+> > when the work got submitted, etc.
+> >
+> > Also, I'm more than happy to put this all behind a flag so it's not the
+> > default behavior.
+>
+> Android had a similar requirement to have a fence fd before the fence
+> existed in hwc1, before they fixed that in hwc2. But it's probably still
+> useful for deeply pipelined renderes with littel memory, aka tiled
+> renderers on phones.
+>
+> The idea we've tossed around is to create a so-called future fence. In th=
+e
+> kernel if you try to deref a future fence, the usual thing that happens i=
+s
+> you'll block (interruptibly, which we can because fence lookup might
+> fail), _until_ a real fence shows up and can be returned. That implements
+> the uapi expectations without risking deadlocks in the kernel, albeit wit=
+h
+> a bit much blocking. Still better than doing the same in userspace (since
+> in userspace you probably need to do that when importing the fence, not a=
+t
+> execbuf time).
+>
+
+Yes, I'm aware of the future fence idea.  However, that's not really all
+that related.  We're not talking about blocking GPU work here.  We're
+talking about the CPU wait API having support for "wait for submit and
+signal" behavior instead of just "wait for signal".
+
+--001a11497fe2bbc9bf05540fed2c
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_extra"><div class=3D"gmail_quote">On T=
+ue, Jul 11, 2017 at 12:22 AM, Daniel Vetter <span dir=3D"ltr">&lt;<a href=
+=3D"mailto:daniel-/w4YWyX8dFk@public.gmane.org" target=3D"_blank">daniel-/w4YWyX8dFk@public.gmane.org</a>&gt;</span=
+> wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bo=
+rder-left:1px #ccc solid;padding-left:1ex"><div class=3D"HOEnZb"><div class=
+=3D"h5">On Mon, Jul 10, 2017 at 02:09:42PM -0700, Jason Ekstrand wrote:<br>
+&gt; On Mon, Jul 10, 2017 at 9:15 AM, Christian K=C3=B6nig &lt;<a href=3D"m=
+ailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org</a>&gt;<br>
+&gt; wrote:<br>
+&gt;<br>
+&gt; &gt; Am 10.07.2017 um 17:52 schrieb Jason Ekstrand:<br>
+&gt; &gt;<br>
+&gt; &gt; On Mon, Jul 10, 2017 at 8:45 AM, Christian K=C3=B6nig &lt;<a href=
+=3D"mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org</a>&gt;<br>
+&gt; &gt; wrote:<br>
+&gt; &gt;<br>
+&gt; &gt;&gt; Am 10.07.2017 um 17:28 schrieb Jason Ekstrand:<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; On Wed, Jul 5, 2017 at 6:04 PM, Dave Airlie &lt;<a href=3D"ma=
+ilto:airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br>
+&gt; &gt;&gt; [SNIP]<br>
+&gt; &gt;&gt; So, reading some CTS tests again, and I think we have a probl=
+em here.<br>
+&gt; &gt;&gt; The Vulkan spec allows you to wait on a fence that is in the =
+unsignaled<br>
+&gt; &gt;&gt; state.<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; At least on the closed source driver that would be illegal as=
+ far as I<br>
+&gt; &gt;&gt; know.<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;<br>
+&gt; &gt; Then they are doing workarounds in userspace.=C2=A0 There are def=
+initely CTS<br>
+&gt; &gt; tests for this:<br>
+&gt; &gt;<br>
+&gt; &gt; <a href=3D"https://github.com/KhronosGroup/VK-GL-CTS/blob/master/=
+external/vulkancts/" rel=3D"noreferrer" target=3D"_blank">https://github.co=
+m/<wbr>KhronosGroup/VK-GL-CTS/blob/<wbr>master/external/vulkancts/</a><br>
+&gt; &gt; modules/vulkan/<wbr>synchronization/<wbr>vktSynchronizationBasicF=
+enceTe<wbr>sts.cpp#L74<br>
+&gt; &gt;<br>
+&gt; &gt;<br>
+&gt; &gt;&gt; You can&#39;t wait on a semaphore before the signal operation=
+ is send down to<br>
+&gt; &gt;&gt; the kerel.<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;<br>
+&gt; &gt; We (Intel) deal with this today by tracking whether or not the fe=
+nce has<br>
+&gt; &gt; been submitted and using a condition variable in userspace to sor=
+t it all<br>
+&gt; &gt; out.<br>
+&gt; &gt;<br>
+&gt; &gt;<br>
+&gt; &gt; Which sounds exactly like what AMD is doing in it&#39;s drivers a=
+s well.<br>
+&gt; &gt;<br>
+&gt;<br>
+&gt; Which doesn&#39;t work cross-process so...<br>
+&gt;<br>
+&gt; &gt; If we ever want to share fences across processes (which we do), t=
+hen this<br>
+&gt; &gt; needs to be sorted in the kernel.<br>
+&gt; &gt;<br>
+&gt; &gt;<br>
+&gt; &gt; That would clearly get a NAK from my side, even Microsoft forbids=
+ wait<br>
+&gt; &gt; before signal because you can easily end up in deadlock situation=
+s.<br>
+&gt; &gt;<br>
+&gt;<br>
+&gt; Please don&#39;t NAK things that are required by the API specification=
+ and CTS<br>
+&gt; tests.=C2=A0 That makes it very hard for people like me to get their j=
+obs done.<br>
+&gt; :-)<br>
+&gt;<br>
+&gt; Now, as for whether or not it&#39;s a good idea.=C2=A0 First off, we d=
+o have<br>
+&gt; timeouts an a status querying mechanism so an application can just set=
+ a<br>
+&gt; timeout of 1s and do something if it times out.=C2=A0 Second, if the a=
+pplication<br>
+&gt; is a compositor or something else that doesn&#39;t trust its client, i=
+t<br>
+&gt; shouldn&#39;t be using the OPAQUE_FD mechanism of Vulkan semaphore/fen=
+ce<br>
+&gt; sharing anyway.=C2=A0 For those scenarios, they can require the untrus=
+ted client<br>
+&gt; to use FENCE_FD (sync file) and they have all of the usual guarantees =
+about<br>
+&gt; when the work got submitted, etc.<br>
+&gt;<br>
+&gt; Also, I&#39;m more than happy to put this all behind a flag so it&#39;=
+s not the<br>
+&gt; default behavior.<br>
+<br>
+</div></div>Android had a similar requirement to have a fence fd before the=
+ fence<br>
+existed in hwc1, before they fixed that in hwc2. But it&#39;s probably stil=
+l<br>
+useful for deeply pipelined renderes with littel memory, aka tiled<br>
+renderers on phones.<br>
+<br>
+The idea we&#39;ve tossed around is to create a so-called future fence. In =
+the<br>
+kernel if you try to deref a future fence, the usual thing that happens is<=
+br>
+you&#39;ll block (interruptibly, which we can because fence lookup might<br=
+>
+fail), _until_ a real fence shows up and can be returned. That implements<b=
+r>
+the uapi expectations without risking deadlocks in the kernel, albeit with<=
+br>
+a bit much blocking. Still better than doing the same in userspace (since<b=
+r>
+in userspace you probably need to do that when importing the fence, not at<=
+br>
+execbuf time).<span class=3D"HOEnZb"><font color=3D"#888888"><br>
+</font></span></blockquote></div><br></div><div class=3D"gmail_extra">Yes, =
+I&#39;m aware of the future fence idea.=C2=A0 However, that&#39;s not reall=
+y all that related.=C2=A0 We&#39;re not talking about blocking GPU work her=
+e.=C2=A0 We&#39;re talking about the CPU wait API having support for &quot;=
+wait for submit and signal&quot; behavior instead of just &quot;wait for si=
+gnal&quot;.<br></div></div>
+
+--001a11497fe2bbc9bf05540fed2c--
+
+--===============2033640899==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============2033640899==--
