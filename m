@@ -1,44 +1,61 @@
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Subject: Re: [PATCH v8 4/6] x86/PCI: Enable a 64bit BAR on AMD Family 15h
- (Models 30h-3fh) Processors v4
-Date: Tue, 11 Jul 2017 20:50:18 +0300
-Message-ID: <CAHp75VdaO+-AyMObfS_p3+y+6RR1Qa6_o783mjhsZBAYzC3wyg@mail.gmail.com>
-References: <1499698794-1718-5-git-send-email-deathsimple@vodafone.de> <201707112000.h3N0wEJq%fengguang.wu@intel.com>
+From: John Brooks <john-xq/Ko7C6e2Bl57MIdRCFDg@public.gmane.org>
+Subject: Re: [PATCH 0/5] amdgpu: Visible VRAM Management Improvements, next
+ take
+Date: Tue, 11 Jul 2017 19:17:06 +0000
+Message-ID: <20170711191706.GA5560@kitsune.fastquake.com>
+References: <20170706105130.23731-1-michel@daenzer.net>
+ <20170707225013.GA15429@kitsune.fastquake.com>
+ <191db6d2-c3ad-3bae-5bad-fe7a295df450@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-pci-owner@vger.kernel.org>
-In-Reply-To: <201707112000.h3N0wEJq%fengguang.wu@intel.com>
-Sender: linux-pci-owner@vger.kernel.org
-To: kbuild test robot <lkp@intel.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple@vodafone.de>, kbuild-all@01.org, Bjorn Helgaas <helgaas@kernel.org>, "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, dri-devel@lists.freedesktop.org, Platform Driver <platform-driver-x86@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Disposition: inline
+In-Reply-To: <191db6d2-c3ad-3bae-5bad-fe7a295df450-otUistvHUpPR7s880joybQ@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Michel =?iso-8859-1?Q?D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-On Tue, Jul 11, 2017 at 3:07 PM, kbuild test robot <lkp@intel.com> wrote:
-
->         make ARCH=i386
-
-Yeah, either this code shouldn't have been built on 32-bit arch at
-all, or be portable.
-
->    arch/x86/pci/fixup.c: In function 'pci_amd_enable_64bit_bar':
->>> arch/x86/pci/fixup.c:674:15: warning: large integer implicitly truncated to unsigned type [-Woverflow]
->      res->start = 0x100000000ull;
->                   ^~~~~~~~~~~~~~
->    arch/x86/pci/fixup.c:675:13: warning: large integer implicitly truncated to unsigned type [-Woverflow]
->      res->end = 0xfd00000000ull - 1;
->                 ^~~~~~~~~~~~~~~
->>> arch/x86/pci/fixup.c:686:22: warning: right shift count >= width of type [-Wshift-count-overflow]
-
-I suppose explicit casting will help.
-
->      high = ((res->start >> 40) & AMD_141b_MMIO_HIGH_MMIOBASE_MASK) |
->                          ^~
->    arch/x86/pci/fixup.c:687:21: warning: right shift count >= width of type [-Wshift-count-overflow]
->       ((((res->end + 1) >> 40) << AMD_141b_MMIO_HIGH_MMIOLIMIT_SHIFT)
->                         ^~
-
-These can be done via upper_32_bits() + shift.
-
--- 
-With Best Regards,
-Andy Shevchenko
+T24gVHVlLCBKdWwgMTEsIDIwMTcgYXQgMDU6Mjk6MzhQTSArMDkwMCwgTWljaGVsIETDpG56ZXIg
+d3JvdGU6Cj4gT24gMDgvMDcvMTcgMDc6NTAgQU0sIEpvaG4gQnJvb2tzIHdyb3RlOgo+ID4gT24g
+VGh1LCBKdWwgMDYsIDIwMTcgYXQgMDc6NTE6MjVQTSArMDkwMCwgTWljaGVsIETDpG56ZXIgd3Jv
+dGU6Cj4gPj4gRnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+Cj4g
+Pj4KPiA+PiBUaGlzIGlzIGEgcmVhcnJhbmdlbWVudCBvZiBzb21lIHBhdGNoZXMgb2YgSm9obidz
+LCB3aXRoIHNvbWUgaW1wcm92ZW1lbnRzCj4gPj4gb2YgbWluZSwgYW5kIGEgcGF0Y2ggb2YgbWlu
+ZSwgcmViYXNlZCBvbiBjdXJyZW50IGFtZC1zdGFnaW5nLTQuMTEuCj4gPj4gRGV0YWlscyBhYm91
+dCBjaGFuZ2VzIGluIHRoZSBpbmRpdmlkdWFsIHBhdGNoZXMuCj4gPj4KPiA+PiBKb2huIEJyb29r
+cyAoNCk6Cj4gPj4gICBkcm0vYW1kZ3B1OiBBZGQgdmlzX3ZyYW1saW1pdCBtb2R1bGUgcGFyYW1l
+dGVyCj4gPj4gICBkcm0vYW1kZ3B1OiBUaHJvdHRsZSB2aXNpYmxlIFZSQU0gbW92ZXMgc2VwYXJh
+dGVseQo+ID4+ICAgZHJtL2FtZGdwdTogU2V0L2NsZWFyIENQVV9BQ0NFU1MgZmxhZyBvbiBwYWdl
+IGZhdWx0IGFuZCBtb3ZlIHRvIFZSQU0KPiA+PiAgIGRybS9hbWRncHU6IERvbid0IGZvcmNlIEJP
+cyBpbnRvIHZpc2libGUgVlJBTSBmb3IgcGFnZSBmYXVsdHMKPiA+Pgo+ID4+IE1pY2hlbCBEw6Ru
+emVyICgxKToKPiA+PiAgIGRybS9hbWRncHU6IFRyeSBldmljdGluZyBmcm9tIENQVSB2aXNpYmxl
+IHRvIGludmlzaWJsZSBWUkFNIGZpcnN0Cj4gPj4KPiA+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1LmggICAgICAgIHwgIDcgKystCj4gPj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9jcy5jICAgICB8IDkyICsrKysrKysrKysrKysrKysrKysrKysrKy0tLS0t
+LQo+ID4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgICAgfCAgNCAr
+Kwo+ID4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMgfCA0OSAr
+KysrKysrKystLS0tLS0tCj4gPj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90
+dG0uYyAgICB8IDQ1ICsrKysrKysrKysrKysrKwo+ID4+ICA1IGZpbGVzIGNoYW5nZWQsIDE1NyBp
+bnNlcnRpb25zKCspLCA0MCBkZWxldGlvbnMoLSkKPiA+IAo+ID4gSSB0ZXN0ZWQgdGhlc2UgY2hh
+bmdlcyBhZ2FpbnN0IGRybS1uZXh0LTQuMTMuIExvb2tzIGdvb2QgdG8gbWUuCj4gCj4gVGhhbmtz
+IGZvciB0ZXN0aW5nLCBwdXNoZWQgdG8gdGhlIGludGVybmFsIGFtZC1zdGFnaW5nLTQuMTEgYnJh
+bmNoLgo+IAoKQXdlc29tZSA6KQoKPiAKPiBBbHNvIHRoYW5rcyBmb3IgdGhlIFItYiB0YWcgb2Zm
+ZXJzLCBidXQgSSB0aGluayBpdCdzIGEgYml0IHdlaXJkIHRvIGFkZAo+IHRob3NlIGZyb20gdGhl
+IGF1dGhvciBvZiBhIHBhdGNoLiA6KQo+IAoKSW5kZWVkLiBJIG9ubHkgd2Fzbid0IHN1cmUgc2lu
+Y2UgY2hhbmdlcyBoYWQgYmVlbiBtYWRlIG9uIHRvcCBvZiBtaW5lLgoKVGhhbmtzIDopCkpvaG4K
+Cj4gCj4gLS0gCj4gRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAg
+ICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQo+IExpYnJlIHNvZnR3YXJlIGVudGh1c2lhc3Qg
+ICAgICAgICAgICAgfCAgICAgICAgICAgICBNZXNhIGFuZCBYIGRldmVsb3Blcgo+IApfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
+bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
