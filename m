@@ -1,23 +1,15 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH] drm/syncobj: add sync obj wait interface. (v6)
-Date: Wed, 12 Jul 2017 18:45:38 +0200
-Message-ID: <f1375dda-2997-7ed5-dcde-e2fc5e1c44c2@vodafone.de>
-References: <20170706010409.9373-1-airlied@gmail.com>
- <CAOFGe94mA9i7+-XTJQn65N-vK_GbQwvjru2b=6ucXejpWWmx4g@mail.gmail.com>
- <899f9bb3-f7c7-ce86-c22b-bb8d262778bf@vodafone.de>
- <CAOFGe96gaX2OjsXr8bNBUiqwyKAQfMSycH7PXgYAt_BBJ1UHkQ@mail.gmail.com>
- <fe27d2f8-760b-c2d4-9474-7eaaae560086@vodafone.de>
- <CAOFGe95oZz-O743v7J6gpVuUqvPjdeifAcuoaZe8bf1HUNXm+Q@mail.gmail.com>
- <0c81dd81-e84a-2381-3ce1-e08450929da8@daenzer.net>
- <c7a44542-acca-09e1-5ea5-bf9938921e54@vodafone.de>
- <CAOFGe95cnFJCEAO6k8emWFWaAZdMPrdHjQos02peuWe6Ve1wvw@mail.gmail.com>
- <2a0f44cc-b893-153c-9852-b1b4855e386e@vodafone.de>
- <CAPM=9twkH4H0Buxpb7nKAMawNxouWCombhfAh++pNpSZNMLRow@mail.gmail.com>
- <CAOFGe95mj1G_Ap0oOPFyatZWEbEk_Kwo8Wn_E+eYS16Nhz_huQ@mail.gmail.com>
+From: "Bridgman, John" <John.Bridgman-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 05/12] drm/amdgpu: Send no-retry XNACK for all fault types
+Date: Wed, 12 Jul 2017 16:13:10 +0000
+Message-ID: <BN6PR12MB1348959AE5A6A95B25005A07E8AF0@BN6PR12MB1348.namprd12.prod.outlook.com>
+References: <1499116294-12817-1-git-send-email-Felix.Kuehling@amd.com>
+ <1499116294-12817-6-git-send-email-Felix.Kuehling@amd.com>
+ <a3dd6e2c-bb73-dac0-92c9-f920aa6781f8@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1622437765=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAOFGe95mj1G_Ap0oOPFyatZWEbEk_Kwo8Wn_E+eYS16Nhz_huQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <a3dd6e2c-bb73-dac0-92c9-f920aa6781f8-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -29,100 +21,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Jason Ekstrand <jason-fQELhIk9awXprZlt/sZkLg@public.gmane.org>, Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============1622437765==
-Content-Type: multipart/alternative;
- boundary="------------969E556DC2AD0A062C5BDC99"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------969E556DC2AD0A062C5BDC99
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-Am 12.07.2017 um 17:53 schrieb Jason Ekstrand:
-> [SNIP]
->
->     Is that easier than just waiting in the kernel, I'm not sure how
->     optimised we need this path to be.
->
->
-> I don't think so.  I think it's more-or-less the same code regardless 
-> of how it's done.  The advantage of doing it in the kernel is that 
-> it's standardized (we don't have to both go write that userspace code) 
-> and it doesn't have the problems stated above.
-
-Ok, I'm convinced. The next price question is then how do we do it?
-
-I mean writing an IOCTL to wait for a fence to appear is simple, but do 
-we also need to wait for a fence to change?
-
-As long as waits don't consume fences that might be rather tricky.
-
-Christian.
-
---------------969E556DC2AD0A062C5BDC99
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Am 12.07.2017 um 17:53 schrieb Jason
-      Ekstrand:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:CAOFGe95mj1G_Ap0oOPFyatZWEbEk_Kwo8Wn_E+eYS16Nhz_huQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
-      <div dir="ltr">
-        <div class="gmail_extra">
-          <div class="gmail_quote">[SNIP]<br>
-            <div> </div>
-            <blockquote class="gmail_quote" style="margin:0 0 0
-              .8ex;border-left:1px #ccc solid;padding-left:1ex"><span
-                class="">
-              </span>Is that easier than just waiting in the kernel, I'm
-              not sure how<br>
-              optimised we need this path to be.<span class="HOEnZb"><font
-                  color="#888888"><br>
-                </font></span></blockquote>
-          </div>
-          <br>
-        </div>
-        <div class="gmail_extra">I don't think so.  I think it's
-          more-or-less the same code regardless of how it's done.  The
-          advantage of doing it in the kernel is that it's standardized
-          (we don't have to both go write that userspace code) and it
-          doesn't have the problems stated above.<br>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-    Ok, I'm convinced. The next price question is then how do we do it?<br>
-    <br>
-    I mean writing an IOCTL to wait for a fence to appear is simple, but
-    do we also need to wait for a fence to change?<br>
-    <br>
-    As long as waits don't consume fences that might be rather tricky.<br>
-    <br>
-    Christian.<br>
-  </body>
-</html>
-
---------------969E556DC2AD0A062C5BDC99--
-
---===============1622437765==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1622437765==--
+QWdyZWVkLi4uIEkgdGhvdWdodCB3ZSBoYWQgYWxyZWFkeSBtYWRlIHRoaXMgY2hhbmdlIGJ1dCBp
+ZiBub3QgdGhlbi4uLiANCg0KUmV2aWV3ZWQtYnk6IEpvaG4gQnJpZGdtYW4gPEpvaG4uQnJpZGdt
+YW5AYW1kLmNvbT4NCg0KPi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+RnJvbTogYW1kLWdm
+eCBbbWFpbHRvOmFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmddIE9uIEJlaGFs
+Zg0KPk9mIEZlbGl4IEt1ZWhsaW5nDQo+U2VudDogV2VkbmVzZGF5LCBKdWx5IDEyLCAyMDE3IDE6
+NDEgQU0NCj5UbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj5TdWJqZWN0OiBSZTog
+W1BBVENIIDA1LzEyXSBkcm0vYW1kZ3B1OiBTZW5kIG5vLXJldHJ5IFhOQUNLIGZvciBhbGwgZmF1
+bHQNCj50eXBlcw0KPg0KPkFueSBjb21tZW50cz8NCj4NCj5JIGJlbGlldmUgdGhpcyBpcyBhIG5p
+Y2Ugc3RhYmlsaXR5IGltcHJvdmVtZW50LiBJbiBjYXNlIG9mIFZNIGZhdWx0cyB0aGV5IGRvbid0
+DQo+dGFrZSBkb3duIHRoZSB3aG9sZSBHUFUgd2l0aCBhbiBpbnRlcnJ1cHQgc3Rvcm0uIFdpdGgg
+S0ZEIHdlIGNhbiByZWNvdmVyDQo+d2l0aG91dCBhIEdQVSByZXNldCBpbiBtYW55IGNhc2VzIGp1
+c3QgYnkgdW5tYXBwaW5nIHRoZSBvZmZlbmRpbmcgcHJvY2VzcycNCj5xdWV1ZXMuDQo+DQo+UmVn
+YXJkcywNCj4gIEZlbGl4DQo+DQo+DQo+T24gMTctMDctMDMgMDU6MTEgUE0sIEZlbGl4IEt1ZWhs
+aW5nIHdyb3RlOg0KPj4gRnJvbTogSmF5IENvcm53YWxsIDxKYXkuQ29ybndhbGxAYW1kLmNvbT4N
+Cj4+DQo+PiBBIHN1YnNldCBvZiBWTSBmYXVsdCB0eXBlcyBjdXJyZW50bHkgc2VuZCByZXRyeSBY
+TkFDSyB0byB0aGUgY2xpZW50Lg0KPj4gVGhpcyBjYXVzZXMgYSBzdG9ybSBvZiBpbnRlcnJ1cHRz
+IGZyb20gdGhlIFZNIHRvIHRoZSBob3N0Lg0KPj4NCj4+IFVudGlsIHRoZSBzdG9ybSBpcyB0aHJv
+dHRsZWQgYnkgb3RoZXIgbWVhbnMgc2VuZCBuby1yZXRyeSBYTkFDSyBmb3INCj4+IGFsbCBmYXVs
+dCB0eXBlcyBpbnN0ZWFkLiBObyBjaGFuZ2UgaW4gYmVoYXZpb3IgdG8gdGhlIGNsaWVudCB3aGlj
+aA0KPj4gd2lsbCBzdGFsbCBpbmRlZmluaXRlbHkgd2l0aCB0aGUgY3VycmVudCBjb25maWd1cmF0
+aW9uIGluIGFueSBjYXNlLg0KPj4gSW1wcm92ZXMgc3lzdGVtIHN0YWJpbGl0eSB1bmRlciBHQyBv
+ciBNTUhVQiBmYXVsdHMuDQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTogSmF5IENvcm53YWxsIDxKYXku
+Q29ybndhbGxAYW1kLmNvbT4NCj4+IFJldmlld2VkLWJ5OiBGZWxpeCBLdWVobGluZyA8RmVsaXgu
+S3VlaGxpbmdAYW1kLmNvbT4NCj4+IC0tLQ0KPj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2dmeGh1Yl92MV8wLmMgfCAzICsrKw0KPj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbW1o
+dWJfdjFfMC5jICB8IDMgKysrDQo+PiAgMiBmaWxlcyBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKykN
+Cj4+DQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4aHViX3Yx
+XzAuYw0KPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhodWJfdjFfMC5jDQo+PiBp
+bmRleCBhNDJmNDgzLi5mOTU3YjE4IDEwMDY0NA0KPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvZ2Z4aHViX3YxXzAuYw0KPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvZ2Z4aHViX3YxXzAuYw0KPj4gQEAgLTIwNiw2ICsyMDYsOSBAQCBzdGF0aWMgdm9pZCBnZnho
+dWJfdjFfMF9zZXR1cF92bWlkX2NvbmZpZyhzdHJ1Y3QNCj5hbWRncHVfZGV2aWNlICphZGV2KQ0K
+Pj4gIAkJdG1wID0gUkVHX1NFVF9GSUVMRCh0bXAsIFZNX0NPTlRFWFQxX0NOVEwsDQo+PiAgCQkJ
+CVBBR0VfVEFCTEVfQkxPQ0tfU0laRSwNCj4+ICAJCQkJYWRldi0+dm1fbWFuYWdlci5ibG9ja19z
+aXplIC0gOSk7DQo+PiArCQkvKiBTZW5kIG5vLXJldHJ5IFhOQUNLIG9uIGZhdWx0IHRvIHN1cHBy
+ZXNzIFZNIGZhdWx0IHN0b3JtLg0KPiovDQo+PiArCQl0bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwg
+Vk1fQ09OVEVYVDFfQ05UTCwNCj4+ICsNCj5SRVRSWV9QRVJNSVNTSU9OX09SX0lOVkFMSURfUEFH
+RV9GQVVMVCwgMCk7DQo+PiAgCQlXUkVHMzJfU09DMTVfT0ZGU0VUKEdDLCAwLCBtbVZNX0NPTlRF
+WFQxX0NOVEwsIGksDQo+dG1wKTsNCj4+ICAJCVdSRUczMl9TT0MxNV9PRkZTRVQoR0MsIDAsDQo+
+bW1WTV9DT05URVhUMV9QQUdFX1RBQkxFX1NUQVJUX0FERFJfTE8zMiwgaSoyLCAwKTsNCj4+ICAJ
+CVdSRUczMl9TT0MxNV9PRkZTRVQoR0MsIDAsDQo+PiBtbVZNX0NPTlRFWFQxX1BBR0VfVEFCTEVf
+U1RBUlRfQUREUl9ISTMyLCBpKjIsIDApOyBkaWZmIC0tZ2l0DQo+PiBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L21taHViX3YxXzAuYw0KPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9tbWh1Yl92MV8wLmMNCj4+IGluZGV4IDAxOTE4ZGMuLmI3NjAwMTggMTAwNjQ0DQo+PiAtLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9tbWh1Yl92MV8wLmMNCj4+ICsrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L21taHViX3YxXzAuYw0KPj4gQEAgLTIyMiw2ICsyMjIsOSBA
+QCBzdGF0aWMgdm9pZCBtbWh1Yl92MV8wX3NldHVwX3ZtaWRfY29uZmlnKHN0cnVjdA0KPmFtZGdw
+dV9kZXZpY2UgKmFkZXYpDQo+PiAgCQl0bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwgVk1fQ09OVEVY
+VDFfQ05UTCwNCj4+ICAJCQkJUEFHRV9UQUJMRV9CTE9DS19TSVpFLA0KPj4gIAkJCQlhZGV2LT52
+bV9tYW5hZ2VyLmJsb2NrX3NpemUgLSA5KTsNCj4+ICsJCS8qIFNlbmQgbm8tcmV0cnkgWE5BQ0sg
+b24gZmF1bHQgdG8gc3VwcHJlc3MgVk0gZmF1bHQgc3Rvcm0uDQo+Ki8NCj4+ICsJCXRtcCA9IFJF
+R19TRVRfRklFTEQodG1wLCBWTV9DT05URVhUMV9DTlRMLA0KPj4gKw0KPlJFVFJZX1BFUk1JU1NJ
+T05fT1JfSU5WQUxJRF9QQUdFX0ZBVUxULCAwKTsNCj4+ICAJCVdSRUczMl9TT0MxNV9PRkZTRVQo
+TU1IVUIsIDAsDQo+bW1WTV9DT05URVhUMV9DTlRMLCBpLCB0bXApOw0KPj4gIAkJV1JFRzMyX1NP
+QzE1X09GRlNFVChNTUhVQiwgMCwNCj5tbVZNX0NPTlRFWFQxX1BBR0VfVEFCTEVfU1RBUlRfQURE
+Ul9MTzMyLCBpKjIsIDApOw0KPj4gIAkJV1JFRzMyX1NPQzE1X09GRlNFVChNTUhVQiwgMCwNCj4+
+IG1tVk1fQ09OVEVYVDFfUEFHRV9UQUJMRV9TVEFSVF9BRERSX0hJMzIsIGkqMiwgMCk7DQo+DQo+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj5hbWQtZ2Z4
+IG1haWxpbmcgbGlzdA0KPmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+aHR0cHM6Ly9s
+aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
+dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
