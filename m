@@ -1,168 +1,70 @@
-From: Jason Ekstrand <jason@jlekstrand.net>
-Subject: Re: [PATCH] drm/syncobj: add sync obj wait interface. (v6)
-Date: Wed, 12 Jul 2017 10:02:31 -0700
-Message-ID: <CAOFGe975SqrhyeNVVdgRn7KA_baXz+GA2NgZdfpjvEm8+G_4oA@mail.gmail.com>
-References: <20170706010409.9373-1-airlied@gmail.com>
- <CAOFGe94mA9i7+-XTJQn65N-vK_GbQwvjru2b=6ucXejpWWmx4g@mail.gmail.com>
- <899f9bb3-f7c7-ce86-c22b-bb8d262778bf@vodafone.de>
- <CAOFGe96gaX2OjsXr8bNBUiqwyKAQfMSycH7PXgYAt_BBJ1UHkQ@mail.gmail.com>
- <fe27d2f8-760b-c2d4-9474-7eaaae560086@vodafone.de>
- <CAOFGe95oZz-O743v7J6gpVuUqvPjdeifAcuoaZe8bf1HUNXm+Q@mail.gmail.com>
- <0c81dd81-e84a-2381-3ce1-e08450929da8@daenzer.net>
- <c7a44542-acca-09e1-5ea5-bf9938921e54@vodafone.de>
- <CAOFGe95cnFJCEAO6k8emWFWaAZdMPrdHjQos02peuWe6Ve1wvw@mail.gmail.com>
- <2a0f44cc-b893-153c-9852-b1b4855e386e@vodafone.de>
- <CAPM=9twkH4H0Buxpb7nKAMawNxouWCombhfAh++pNpSZNMLRow@mail.gmail.com>
- <CAOFGe95mj1G_Ap0oOPFyatZWEbEk_Kwo8Wn_E+eYS16Nhz_huQ@mail.gmail.com>
- <f1375dda-2997-7ed5-dcde-e2fc5e1c44c2@vodafone.de>
+From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 01/12] drm/amdgpu: implement vm_operations_struct.access
+Date: Wed, 12 Jul 2017 13:27:27 -0400
+Message-ID: <66cd6b5d-a65c-92f0-8b04-ae5d886f21e0@amd.com>
+References: <1499116294-12817-1-git-send-email-Felix.Kuehling@amd.com>
+ <1499116294-12817-2-git-send-email-Felix.Kuehling@amd.com>
+ <1d2e44be-634b-d0da-7af4-c329ac652605@amd.com>
+ <3ca8b862-2f3b-fae9-7129-855d88819cbf@daenzer.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1253956481=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <f1375dda-2997-7ed5-dcde-e2fc5e1c44c2@vodafone.de>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple@vodafone.de>
-Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
-
---===============1253956481==
-Content-Type: multipart/alternative; boundary="001a11469ecc30e4c5055421c8c4"
-
---001a11469ecc30e4c5055421c8c4
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, Jul 12, 2017 at 9:45 AM, Christian K=C3=B6nig <deathsimple@vodafone=
-.de>
-wrote:
-
-> Am 12.07.2017 um 17:53 schrieb Jason Ekstrand:
->
-> [SNIP]
->
->
->> Is that easier than just waiting in the kernel, I'm not sure how
->> optimised we need this path to be.
->>
->
-> I don't think so.  I think it's more-or-less the same code regardless of
-> how it's done.  The advantage of doing it in the kernel is that it's
-> standardized (we don't have to both go write that userspace code) and it
-> doesn't have the problems stated above.
->
->
-> Ok, I'm convinced. The next price question is then how do we do it?
->
-> I mean writing an IOCTL to wait for a fence to appear is simple, but do w=
-e
-> also need to wait for a fence to change?
->
-
-I don't think so.  Taking a page from the Vulkan book, I think the "right"
-thing to do would be to have a reset ioctl that simply deletes the
-dma_fence and replaces it with NULL.  Then the only behavior you care about
-is "wait for a fence to appear".  The usage pattern becomes:
-
- 1) Submit work to signal the syncobj
- 2) Wait on the syncobj (this may happen before the submit)
- 3) Once everyone is done waiting, reset the syncobj
-
-If someone does a wait on a stale syncobj that has completed and not yet
-been reset, they return immediately.  Yes, there is a possible race between
-2 and 3, especially if 2 is waiting on multiple syncobjs.  Ideally, we'd
-make it so that a reset in the middle of someone else's wait wouldn't cause
-them to wait until that syncobj gets triggerd a second time.  However, I
-don't think it's a deal-breaker as any client that sets the "wait for
-submit" flag should know that it's liable to wait forever and set a timeout=
-.
-
---001a11469ecc30e4c5055421c8c4
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_extra"><div class=3D"gmail_quote">On W=
-ed, Jul 12, 2017 at 9:45 AM, Christian K=C3=B6nig <span dir=3D"ltr">&lt;<a =
-href=3D"mailto:deathsimple@vodafone.de" target=3D"_blank">deathsimple@vodaf=
-one.de</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"=
-margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
- =20
-   =20
- =20
-  <div text=3D"#000000" bgcolor=3D"#FFFFFF">
-    <div class=3D"m_9095598565780015075moz-cite-prefix">Am 12.07.2017 um 17=
-:53 schrieb Jason
-      Ekstrand:<br>
-    </div>
-    <blockquote type=3D"cite">
-      <div dir=3D"ltr">
-        <div class=3D"gmail_extra">
-          <div class=3D"gmail_quote">[SNIP]<span class=3D""><br>
-            <div>=C2=A0</div>
-            <blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bo=
-rder-left:1px #ccc solid;padding-left:1ex"><span>
-              </span>Is that easier than just waiting in the kernel, I&#39;=
-m
-              not sure how<br>
-              optimised we need this path to be.<span class=3D"m_9095598565=
-780015075HOEnZb"><font color=3D"#888888"><br>
-                </font></span></blockquote>
-          </span></div>
-          <br>
-        </div><span class=3D"">
-        <div class=3D"gmail_extra">I don&#39;t think so.=C2=A0 I think it&#=
-39;s
-          more-or-less the same code regardless of how it&#39;s done.=C2=A0=
- The
-          advantage of doing it in the kernel is that it&#39;s standardized
-          (we don&#39;t have to both go write that userspace code) and it
-          doesn&#39;t have the problems stated above.<br>
-        </div>
-      </span></div>
-    </blockquote>
-    <br>
-    Ok, I&#39;m convinced. The next price question is then how do we do it?=
-<br>
-    <br>
-    I mean writing an IOCTL to wait for a fence to appear is simple, but
-    do we also need to wait for a fence to change?<span class=3D"HOEnZb"><f=
-ont color=3D"#888888"><br>
-  </font></span></div>
-
-</blockquote></div><br></div><div class=3D"gmail_extra">I don&#39;t think s=
-o.=C2=A0 Taking a page from the Vulkan book, I think the &quot;right&quot; =
-thing to do would be to have a reset ioctl that simply deletes the dma_fenc=
-e and replaces it with NULL.=C2=A0 Then the only behavior you care about is=
- &quot;wait for a fence to appear&quot;.=C2=A0 The usage pattern becomes:<b=
-r><br></div><div class=3D"gmail_extra">=C2=A01) Submit work to signal the s=
-yncobj<br></div><div class=3D"gmail_extra">=C2=A02) Wait on the syncobj (th=
-is may happen before the submit)<br></div><div class=3D"gmail_extra">=C2=A0=
-3) Once everyone is done waiting, reset the syncobj<br><br></div><div class=
-=3D"gmail_extra">If someone does a wait on a stale syncobj that has complet=
-ed and not yet been reset, they return immediately.=C2=A0 Yes, there is a p=
-ossible race between 2 and 3, especially if 2 is waiting on multiple syncob=
-js.=C2=A0 Ideally, we&#39;d make it so that a reset in the middle of someon=
-e else&#39;s wait wouldn&#39;t cause them to wait until that syncobj gets t=
-riggerd a second time.=C2=A0 However, I don&#39;t think it&#39;s a deal-bre=
-aker as any client that sets the &quot;wait for submit&quot; flag should kn=
-ow that it&#39;s liable to wait forever and set a timeout.<br></div></div>
-
---001a11469ecc30e4c5055421c8c4--
-
---===============1253956481==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <3ca8b862-2f3b-fae9-7129-855d88819cbf-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Language: en-CA
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
-
---===============1253956481==--
+T24gMTctMDctMTIgMDQ6MDEgQU0sIE1pY2hlbCBEw6RuemVyIHdyb3RlOgo+IE9uIDEyLzA3LzE3
+IDAyOjM3IFBNLCBGZWxpeCBLdWVobGluZyB3cm90ZToKPj4gQW55IGNvbW1lbnRzIG9uIHRoaXMg
+b25lPwo+Pgo+PiBUaGlzIHdhcyByZXF1ZXN0ZWQgYnkgdGhlIEhTQSBydW50aW1lIHRlYW0gYSBs
+b25nIHRpbWUgYWdvIGFzIGEKPj4gZGVidWdnaW5nIGZlYXR1cmUuIEl0IGFsbG93cyBnZGIgdG8g
+YWNjZXNzIHRoZSBjb250ZW50IG9mIENQVS1tYXBwZWQKPj4gQk9zLiBJIGltYWdpbmUgdGhpcyBt
+YXkgYmUgdXNlZnVsIGZvciB1c2VyIG1vZGUgZHJpdmVyIGRldmVsb3BlcnMuCj4gQWRkaW5nIHRo
+ZSBkcmktZGV2ZWwgbGlzdC4KPgo+Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X3R0bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3R0bS5jCj4+PiBpbmRleCAxNTE0OGYxLi4zZjkyN2MyIDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jCj4+PiArKysgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMKPj4+IEBAIC0xMjM3LDYgKzEyMzcsMTM0IEBAIHZv
+aWQgYW1kZ3B1X3R0bV9zZXRfYWN0aXZlX3ZyYW1fc2l6ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
+YWRldiwgdTY0IHNpemUpCj4+PiAgCW1hbi0+c2l6ZSA9IHNpemUgPj4gUEFHRV9TSElGVDsKPj4+
+ICB9Cj4+PiAgCj4+PiArc3RhdGljIHN0cnVjdCB2bV9vcGVyYXRpb25zX3N0cnVjdCBhbWRncHVf
+dHRtX3ZtX29wczsKPj4+ICtzdGF0aWMgY29uc3Qgc3RydWN0IHZtX29wZXJhdGlvbnNfc3RydWN0
+ICp0dG1fdm1fb3BzIC8qID0gTlVMTDsKPj4+ICsJCQkJCQkgICAgICAqIChhcHBlYXNlIGNoZWNr
+cGF0Y2gpICovOwo+IEhvdyBkb2VzIHRoaXMgYXBwZWFzZSBjaGVja3BhdGNoPwoKQ2hlY2twYXRj
+aCBkb2Vzbid0IGxpa2UgZXhwbGljaXQgaW5pdGlhbGl6YXRpb24gb2YgZ2xvYmFsIHZhcmlhYmxl
+cyB0bwowLiBVbmluaXRpYWxpemVkIGRhdGEgaXMgYXV0b21hdGljYWxseSAwLCBzbyBubyBwb2lu
+dCB3YXN0aW5nIHNwYWNlIGluCnRoZSBpbml0aWFsaXplZCBkYXRhIHNlZ21lbnQuCgo+Cj4KPj4+
+ICtzdGF0aWMgaW50IGFtZGdwdV90dG1fYm9fYWNjZXNzX2ttYXAoc3RydWN0IGFtZGdwdV9ibyAq
+YWJvLAo+Pj4gKwkJCQkgICAgIHVuc2lnbmVkIGxvbmcgb2Zmc2V0LAo+Pj4gKwkJCQkgICAgIHZv
+aWQgKmJ1ZiwgaW50IGxlbiwgaW50IHdyaXRlKQo+Pj4gK3sKPj4+ICsJc3RydWN0IHR0bV9idWZm
+ZXJfb2JqZWN0ICpibyA9ICZhYm8tPnRibzsKPj4+ICsJc3RydWN0IHR0bV9ib19rbWFwX29iaiBt
+YXA7Cj4+PiArCXZvaWQgKnB0cjsKPj4+ICsJYm9vbCBpc19pb21lbTsKPj4+ICsJaW50IHI7Cj4+
+PiArCj4+PiArCXIgPSB0dG1fYm9fa21hcChibywgMCwgYm8tPm51bV9wYWdlcywgJm1hcCk7Cj4+
+PiArCWlmIChyKQo+Pj4gKwkJcmV0dXJuIHI7Cj4+PiArCXB0ciA9ICh1aW50OF90ICopdHRtX2tt
+YXBfb2JqX3ZpcnR1YWwoJm1hcCwgJmlzX2lvbWVtKSArIG9mZnNldDsKPj4+ICsJV0FSTl9PTihp
+c19pb21lbSk7Cj4+PiArCWlmICh3cml0ZSkKPj4+ICsJCW1lbWNweShwdHIsIGJ1ZiwgbGVuKTsK
+Pj4+ICsJZWxzZQo+Pj4gKwkJbWVtY3B5KGJ1ZiwgcHRyLCBsZW4pOwo+Pj4gKwl0dG1fYm9fa3Vu
+bWFwKCZtYXApOwo+Pj4gKwo+Pj4gKwlyZXR1cm4gbGVuOwo+Pj4gK30KPiBUaGlzIGNvdWxkIGJl
+IGluIFRUTSwgcmlnaHQ/IEFzIGEgaGVscGVyIGZ1bmN0aW9uIGFuZC9vciBhIGdlbmVyaWMKPiB2
+bV9vcGVyYXRpb25zX3N0cnVjdDo6YWNjZXNzIGhvb2sgKGF0IGxlYXN0IGZvciBHVFQvQ1BVIGRv
+bWFpbnMpLgoKSSBndWVzcy4gSWYgSSB3ZXJlIHRvIGdldCBUVE0gaW52b2x2ZWQsIEknZCBhbHNv
+IGhhdmUgVFRNIGluc3RhbGwgaXRzCm93biBhY2Nlc3MgaG9vayBpbiB0aGUgdm1fb3BzLCBzbyB0
+aGUgZHJpdmVyIGRvZXNuJ3QgbmVlZCB0byBvdmVycmlkZQppdC4gVGhlbiBJJ2QgYWRkIGRyaXZl
+ci1zcGVjaWZpYyBjYWxsYmFja3MgaW4gdHRtX2JvX2RyaXZlciBmb3IKYWNjZXNzaW5nIFZSQU0g
+YW5kIEdUVC9DUFUgbWVtb3J5LiBUVE0gY291bGQgb2ZmZXIgc29tZXRoaW5nIGxpa2UKYW1kZ3B1
+X3R0bV9ib19hY2Nlc3Nfa21hcCBhcyBhIGhlbHBlciBmb3IgdXNlIGJ5IGFsbCBkcml2ZXJzLgoK
+UmVnYXJkcywKICBGZWxpeAoKPgo+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZngK
