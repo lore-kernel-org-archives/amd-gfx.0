@@ -1,111 +1,168 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH 05/12] drm/amdgpu: Send no-retry XNACK for all fault types
-Date: Wed, 12 Jul 2017 18:49:32 +0200
-Message-ID: <165454e5-5ff1-6bae-5a09-7567b51bc9cc@vodafone.de>
-References: <1499116294-12817-1-git-send-email-Felix.Kuehling@amd.com>
- <1499116294-12817-6-git-send-email-Felix.Kuehling@amd.com>
- <a3dd6e2c-bb73-dac0-92c9-f920aa6781f8@amd.com>
- <CADnq5_MHR22VWaiSL2HVJMOJX7uTo=i7yuG2WPii-W5wHJP0pw@mail.gmail.com>
- <BN6PR12MB1348A5F0EA00AA946CFDF63CE8AF0@BN6PR12MB1348.namprd12.prod.outlook.com>
+From: Jason Ekstrand <jason@jlekstrand.net>
+Subject: Re: [PATCH] drm/syncobj: add sync obj wait interface. (v6)
+Date: Wed, 12 Jul 2017 10:02:31 -0700
+Message-ID: <CAOFGe975SqrhyeNVVdgRn7KA_baXz+GA2NgZdfpjvEm8+G_4oA@mail.gmail.com>
+References: <20170706010409.9373-1-airlied@gmail.com>
+ <CAOFGe94mA9i7+-XTJQn65N-vK_GbQwvjru2b=6ucXejpWWmx4g@mail.gmail.com>
+ <899f9bb3-f7c7-ce86-c22b-bb8d262778bf@vodafone.de>
+ <CAOFGe96gaX2OjsXr8bNBUiqwyKAQfMSycH7PXgYAt_BBJ1UHkQ@mail.gmail.com>
+ <fe27d2f8-760b-c2d4-9474-7eaaae560086@vodafone.de>
+ <CAOFGe95oZz-O743v7J6gpVuUqvPjdeifAcuoaZe8bf1HUNXm+Q@mail.gmail.com>
+ <0c81dd81-e84a-2381-3ce1-e08450929da8@daenzer.net>
+ <c7a44542-acca-09e1-5ea5-bf9938921e54@vodafone.de>
+ <CAOFGe95cnFJCEAO6k8emWFWaAZdMPrdHjQos02peuWe6Ve1wvw@mail.gmail.com>
+ <2a0f44cc-b893-153c-9852-b1b4855e386e@vodafone.de>
+ <CAPM=9twkH4H0Buxpb7nKAMawNxouWCombhfAh++pNpSZNMLRow@mail.gmail.com>
+ <CAOFGe95mj1G_Ap0oOPFyatZWEbEk_Kwo8Wn_E+eYS16Nhz_huQ@mail.gmail.com>
+ <f1375dda-2997-7ed5-dcde-e2fc5e1c44c2@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB1348A5F0EA00AA946CFDF63CE8AF0-/b2+HYfkarQX0pEhCR5T8QdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Bridgman, John" <John.Bridgman-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: multipart/mixed; boundary="===============1253956481=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <f1375dda-2997-7ed5-dcde-e2fc5e1c44c2@vodafone.de>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple@vodafone.de>
+Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMTIuMDcuMjAxNyB1bSAxODoxNSBzY2hyaWViIEJyaWRnbWFuLCBKb2huOgo+PiAtLS0tLU9y
-aWdpbmFsIE1lc3NhZ2UtLS0tLQo+PiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1kLWdmeC1ib3Vu
-Y2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmCj4+IE9mIEFsZXggRGV1Y2hlcgo+
-PiBTZW50OiBXZWRuZXNkYXksIEp1bHkgMTIsIDIwMTcgMTE6NTkgQU0KPj4gVG86IEt1ZWhsaW5n
-LCBGZWxpeAo+PiBDYzogYW1kLWdmeCBsaXN0Cj4+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggMDUvMTJd
-IGRybS9hbWRncHU6IFNlbmQgbm8tcmV0cnkgWE5BQ0sgZm9yIGFsbCBmYXVsdAo+PiB0eXBlcwo+
-Pgo+PiBPbiBXZWQsIEp1bCAxMiwgMjAxNyBhdCAxOjQwIEFNLCBGZWxpeCBLdWVobGluZyA8ZmVs
-aXgua3VlaGxpbmdAYW1kLmNvbT4KPj4gd3JvdGU6Cj4+PiBBbnkgY29tbWVudHM/Cj4+Pgo+Pj4g
-SSBiZWxpZXZlIHRoaXMgaXMgYSBuaWNlIHN0YWJpbGl0eSBpbXByb3ZlbWVudC4gSW4gY2FzZSBv
-ZiBWTSBmYXVsdHMKPj4+IHRoZXkgZG9uJ3QgdGFrZSBkb3duIHRoZSB3aG9sZSBHUFUgd2l0aCBh
-biBpbnRlcnJ1cHQgc3Rvcm0uIFdpdGggS0ZECj4+PiB3ZSBjYW4gcmVjb3ZlciB3aXRob3V0IGEg
-R1BVIHJlc2V0IGluIG1hbnkgY2FzZXMganVzdCBieSB1bm1hcHBpbmcgdGhlCj4+PiBvZmZlbmRp
-bmcgcHJvY2VzcycgcXVldWVzLgo+PiBXaWxsIHRoaXMgY2F1c2UgYW55IHByb2JsZW1zIHdpdGgg
-ZW5hYmxpbmcgcmVjb3ZlcmFibGUgcGFnZSBmYXVsdHMgbGF0ZXI/ICBJZgo+PiBub3QsCj4+IEFj
-a2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cj4gV2Ugd2ls
-bCBuZWVkIHRvIGJhY2sgdGhpcyBvdXQgaW4gb3JkZXIgdG8gZW5hYmxlIHJlY292ZXJhYmxlIHBh
-Z2UgZmF1bHRzIGxhdGVyLCBidXQgcHJvYmFibHkgc3RpbGwgd29ydGggZG9pbmcgaW4gdGhlIHNo
-b3J0IHRlcm0gSU1PLgoKWWVhaCwgYWdyZWUuIEVzcGVjaWFsbHkgYXZvaWRpbmcgdGhlIGludGVy
-cnVwdCByaW5nIG92ZXJmbG93IHNvdW5kcyBsaWtlIAphIGdvb2QgaWRlYSB0byBtZS4KClBhdGNo
-IGlzIEFja2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+
-IGFzIHdlbGwuCgpDaHJpc3RpYW4uCgo+Cj4+PiBSZWdhcmRzLAo+Pj4gICAgRmVsaXgKPj4+Cj4+
-Pgo+Pj4gT24gMTctMDctMDMgMDU6MTEgUE0sIEZlbGl4IEt1ZWhsaW5nIHdyb3RlOgo+Pj4+IEZy
-b206IEpheSBDb3Jud2FsbCA8SmF5LkNvcm53YWxsQGFtZC5jb20+Cj4+Pj4KPj4+PiBBIHN1YnNl
-dCBvZiBWTSBmYXVsdCB0eXBlcyBjdXJyZW50bHkgc2VuZCByZXRyeSBYTkFDSyB0byB0aGUgY2xp
-ZW50Lgo+Pj4+IFRoaXMgY2F1c2VzIGEgc3Rvcm0gb2YgaW50ZXJydXB0cyBmcm9tIHRoZSBWTSB0
-byB0aGUgaG9zdC4KPj4+Pgo+Pj4+IFVudGlsIHRoZSBzdG9ybSBpcyB0aHJvdHRsZWQgYnkgb3Ro
-ZXIgbWVhbnMgc2VuZCBuby1yZXRyeSBYTkFDSyBmb3IKPj4+PiBhbGwgZmF1bHQgdHlwZXMgaW5z
-dGVhZC4gTm8gY2hhbmdlIGluIGJlaGF2aW9yIHRvIHRoZSBjbGllbnQgd2hpY2gKPj4+PiB3aWxs
-IHN0YWxsIGluZGVmaW5pdGVseSB3aXRoIHRoZSBjdXJyZW50IGNvbmZpZ3VyYXRpb24gaW4gYW55
-IGNhc2UuCj4+Pj4gSW1wcm92ZXMgc3lzdGVtIHN0YWJpbGl0eSB1bmRlciBHQyBvciBNTUhVQiBm
-YXVsdHMuCj4+Pj4KPj4+PiBTaWduZWQtb2ZmLWJ5OiBKYXkgQ29ybndhbGwgPEpheS5Db3Jud2Fs
-bEBhbWQuY29tPgo+Pj4+IFJldmlld2VkLWJ5OiBGZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxp
-bmdAYW1kLmNvbT4KPj4+PiAtLS0KPj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dm
-eGh1Yl92MV8wLmMgfCAzICsrKwo+Pj4+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L21taHVi
-X3YxXzAuYyAgfCAzICsrKwo+Pj4+ICAgMiBmaWxlcyBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKykK
-Pj4+Pgo+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhodWJf
-djFfMC5jCj4+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhodWJfdjFfMC5jCj4+
-Pj4gaW5kZXggYTQyZjQ4My4uZjk1N2IxOCAxMDA2NDQKPj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9nZnhodWJfdjFfMC5jCj4+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvZ2Z4aHViX3YxXzAuYwo+Pj4+IEBAIC0yMDYsNiArMjA2LDkgQEAgc3RhdGljIHZv
-aWQgZ2Z4aHViX3YxXzBfc2V0dXBfdm1pZF9jb25maWcoc3RydWN0Cj4+IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYpCj4+Pj4gICAgICAgICAgICAgICAgdG1wID0gUkVHX1NFVF9GSUVMRCh0bXAsIFZNX0NP
-TlRFWFQxX0NOVEwsCj4+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFBBR0VfVEFC
-TEVfQkxPQ0tfU0laRSwKPj4+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYWRldi0+
-dm1fbWFuYWdlci5ibG9ja19zaXplIC0gOSk7Cj4+Pj4gKyAgICAgICAgICAgICAvKiBTZW5kIG5v
-LXJldHJ5IFhOQUNLIG9uIGZhdWx0IHRvIHN1cHByZXNzIFZNIGZhdWx0IHN0b3JtLiAqLwo+Pj4+
-ICsgICAgICAgICAgICAgdG1wID0gUkVHX1NFVF9GSUVMRCh0bXAsIFZNX0NPTlRFWFQxX0NOVEws
-Cj4+Pj4gKwo+Pj4+ICsgUkVUUllfUEVSTUlTU0lPTl9PUl9JTlZBTElEX1BBR0VfRkFVTFQsIDAp
-Owo+Pj4+ICAgICAgICAgICAgICAgIFdSRUczMl9TT0MxNV9PRkZTRVQoR0MsIDAsIG1tVk1fQ09O
-VEVYVDFfQ05UTCwgaSwgdG1wKTsKPj4+PiAgICAgICAgICAgICAgICBXUkVHMzJfU09DMTVfT0ZG
-U0VUKEdDLCAwLAo+PiBtbVZNX0NPTlRFWFQxX1BBR0VfVEFCTEVfU1RBUlRfQUREUl9MTzMyLCBp
-KjIsIDApOwo+Pj4+ICAgICAgICAgICAgICAgIFdSRUczMl9TT0MxNV9PRkZTRVQoR0MsIDAsCj4+
-Pj4gbW1WTV9DT05URVhUMV9QQUdFX1RBQkxFX1NUQVJUX0FERFJfSEkzMiwgaSoyLCAwKTsgZGlm
-ZiAtLWdpdAo+Pj4+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbW1odWJfdjFfMC5jCj4+
-Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9tbWh1Yl92MV8wLmMKPj4+PiBpbmRleCAw
-MTkxOGRjLi5iNzYwMDE4IDEwMDY0NAo+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L21taHViX3YxXzAuYwo+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L21t
-aHViX3YxXzAuYwo+Pj4+IEBAIC0yMjIsNiArMjIyLDkgQEAgc3RhdGljIHZvaWQgbW1odWJfdjFf
-MF9zZXR1cF92bWlkX2NvbmZpZyhzdHJ1Y3QKPj4gYW1kZ3B1X2RldmljZSAqYWRldikKPj4+PiAg
-ICAgICAgICAgICAgICB0bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwgVk1fQ09OVEVYVDFfQ05UTCwK
-Pj4+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUEFHRV9UQUJMRV9CTE9DS19TSVpF
-LAo+Pj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBhZGV2LT52bV9tYW5hZ2VyLmJs
-b2NrX3NpemUgLSA5KTsKPj4+PiArICAgICAgICAgICAgIC8qIFNlbmQgbm8tcmV0cnkgWE5BQ0sg
-b24gZmF1bHQgdG8gc3VwcHJlc3MgVk0gZmF1bHQgc3Rvcm0uICovCj4+Pj4gKyAgICAgICAgICAg
-ICB0bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwgVk1fQ09OVEVYVDFfQ05UTCwKPj4+PiArCj4+Pj4g
-KyBSRVRSWV9QRVJNSVNTSU9OX09SX0lOVkFMSURfUEFHRV9GQVVMVCwgMCk7Cj4+Pj4gICAgICAg
-ICAgICAgICAgV1JFRzMyX1NPQzE1X09GRlNFVChNTUhVQiwgMCwgbW1WTV9DT05URVhUMV9DTlRM
-LCBpLAo+PiB0bXApOwo+Pj4+ICAgICAgICAgICAgICAgIFdSRUczMl9TT0MxNV9PRkZTRVQoTU1I
-VUIsIDAsCj4+IG1tVk1fQ09OVEVYVDFfUEFHRV9UQUJMRV9TVEFSVF9BRERSX0xPMzIsIGkqMiwg
-MCk7Cj4+Pj4gICAgICAgICAgICAgICAgV1JFRzMyX1NPQzE1X09GRlNFVChNTUhVQiwgMCwKPj4+
-PiBtbVZNX0NPTlRFWFQxX1BBR0VfVEFCTEVfU1RBUlRfQUREUl9ISTMyLCBpKjIsIDApOwo+Pj4g
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPj4+IGFtZC1n
-ZnggbWFpbGluZyBsaXN0Cj4+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+Pj4gaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cj4+IF9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+IGFtZC1nZngg
-bWFpbGluZyBsaXN0Cj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+IGh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+IF9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAoKCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============1253956481==
+Content-Type: multipart/alternative; boundary="001a11469ecc30e4c5055421c8c4"
+
+--001a11469ecc30e4c5055421c8c4
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Jul 12, 2017 at 9:45 AM, Christian K=C3=B6nig <deathsimple@vodafone=
+.de>
+wrote:
+
+> Am 12.07.2017 um 17:53 schrieb Jason Ekstrand:
+>
+> [SNIP]
+>
+>
+>> Is that easier than just waiting in the kernel, I'm not sure how
+>> optimised we need this path to be.
+>>
+>
+> I don't think so.  I think it's more-or-less the same code regardless of
+> how it's done.  The advantage of doing it in the kernel is that it's
+> standardized (we don't have to both go write that userspace code) and it
+> doesn't have the problems stated above.
+>
+>
+> Ok, I'm convinced. The next price question is then how do we do it?
+>
+> I mean writing an IOCTL to wait for a fence to appear is simple, but do w=
+e
+> also need to wait for a fence to change?
+>
+
+I don't think so.  Taking a page from the Vulkan book, I think the "right"
+thing to do would be to have a reset ioctl that simply deletes the
+dma_fence and replaces it with NULL.  Then the only behavior you care about
+is "wait for a fence to appear".  The usage pattern becomes:
+
+ 1) Submit work to signal the syncobj
+ 2) Wait on the syncobj (this may happen before the submit)
+ 3) Once everyone is done waiting, reset the syncobj
+
+If someone does a wait on a stale syncobj that has completed and not yet
+been reset, they return immediately.  Yes, there is a possible race between
+2 and 3, especially if 2 is waiting on multiple syncobjs.  Ideally, we'd
+make it so that a reset in the middle of someone else's wait wouldn't cause
+them to wait until that syncobj gets triggerd a second time.  However, I
+don't think it's a deal-breaker as any client that sets the "wait for
+submit" flag should know that it's liable to wait forever and set a timeout=
+.
+
+--001a11469ecc30e4c5055421c8c4
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_extra"><div class=3D"gmail_quote">On W=
+ed, Jul 12, 2017 at 9:45 AM, Christian K=C3=B6nig <span dir=3D"ltr">&lt;<a =
+href=3D"mailto:deathsimple@vodafone.de" target=3D"_blank">deathsimple@vodaf=
+one.de</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_quote" style=3D"=
+margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+ =20
+   =20
+ =20
+  <div text=3D"#000000" bgcolor=3D"#FFFFFF">
+    <div class=3D"m_9095598565780015075moz-cite-prefix">Am 12.07.2017 um 17=
+:53 schrieb Jason
+      Ekstrand:<br>
+    </div>
+    <blockquote type=3D"cite">
+      <div dir=3D"ltr">
+        <div class=3D"gmail_extra">
+          <div class=3D"gmail_quote">[SNIP]<span class=3D""><br>
+            <div>=C2=A0</div>
+            <blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bo=
+rder-left:1px #ccc solid;padding-left:1ex"><span>
+              </span>Is that easier than just waiting in the kernel, I&#39;=
+m
+              not sure how<br>
+              optimised we need this path to be.<span class=3D"m_9095598565=
+780015075HOEnZb"><font color=3D"#888888"><br>
+                </font></span></blockquote>
+          </span></div>
+          <br>
+        </div><span class=3D"">
+        <div class=3D"gmail_extra">I don&#39;t think so.=C2=A0 I think it&#=
+39;s
+          more-or-less the same code regardless of how it&#39;s done.=C2=A0=
+ The
+          advantage of doing it in the kernel is that it&#39;s standardized
+          (we don&#39;t have to both go write that userspace code) and it
+          doesn&#39;t have the problems stated above.<br>
+        </div>
+      </span></div>
+    </blockquote>
+    <br>
+    Ok, I&#39;m convinced. The next price question is then how do we do it?=
+<br>
+    <br>
+    I mean writing an IOCTL to wait for a fence to appear is simple, but
+    do we also need to wait for a fence to change?<span class=3D"HOEnZb"><f=
+ont color=3D"#888888"><br>
+  </font></span></div>
+
+</blockquote></div><br></div><div class=3D"gmail_extra">I don&#39;t think s=
+o.=C2=A0 Taking a page from the Vulkan book, I think the &quot;right&quot; =
+thing to do would be to have a reset ioctl that simply deletes the dma_fenc=
+e and replaces it with NULL.=C2=A0 Then the only behavior you care about is=
+ &quot;wait for a fence to appear&quot;.=C2=A0 The usage pattern becomes:<b=
+r><br></div><div class=3D"gmail_extra">=C2=A01) Submit work to signal the s=
+yncobj<br></div><div class=3D"gmail_extra">=C2=A02) Wait on the syncobj (th=
+is may happen before the submit)<br></div><div class=3D"gmail_extra">=C2=A0=
+3) Once everyone is done waiting, reset the syncobj<br><br></div><div class=
+=3D"gmail_extra">If someone does a wait on a stale syncobj that has complet=
+ed and not yet been reset, they return immediately.=C2=A0 Yes, there is a p=
+ossible race between 2 and 3, especially if 2 is waiting on multiple syncob=
+js.=C2=A0 Ideally, we&#39;d make it so that a reset in the middle of someon=
+e else&#39;s wait wouldn&#39;t cause them to wait until that syncobj gets t=
+riggerd a second time.=C2=A0 However, I don&#39;t think it&#39;s a deal-bre=
+aker as any client that sets the &quot;wait for submit&quot; flag should kn=
+ow that it&#39;s liable to wait forever and set a timeout.<br></div></div>
+
+--001a11469ecc30e4c5055421c8c4--
+
+--===============1253956481==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--===============1253956481==--
