@@ -1,16 +1,23 @@
-From: "Bridgman, John" <John.Bridgman-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 05/12] drm/amdgpu: Send no-retry XNACK for all fault types
-Date: Wed, 12 Jul 2017 16:15:13 +0000
-Message-ID: <BN6PR12MB1348A5F0EA00AA946CFDF63CE8AF0@BN6PR12MB1348.namprd12.prod.outlook.com>
-References: <1499116294-12817-1-git-send-email-Felix.Kuehling@amd.com>
- <1499116294-12817-6-git-send-email-Felix.Kuehling@amd.com>
- <a3dd6e2c-bb73-dac0-92c9-f920aa6781f8@amd.com>
- <CADnq5_MHR22VWaiSL2HVJMOJX7uTo=i7yuG2WPii-W5wHJP0pw@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH] drm/syncobj: add sync obj wait interface. (v6)
+Date: Wed, 12 Jul 2017 18:45:38 +0200
+Message-ID: <f1375dda-2997-7ed5-dcde-e2fc5e1c44c2@vodafone.de>
+References: <20170706010409.9373-1-airlied@gmail.com>
+ <CAOFGe94mA9i7+-XTJQn65N-vK_GbQwvjru2b=6ucXejpWWmx4g@mail.gmail.com>
+ <899f9bb3-f7c7-ce86-c22b-bb8d262778bf@vodafone.de>
+ <CAOFGe96gaX2OjsXr8bNBUiqwyKAQfMSycH7PXgYAt_BBJ1UHkQ@mail.gmail.com>
+ <fe27d2f8-760b-c2d4-9474-7eaaae560086@vodafone.de>
+ <CAOFGe95oZz-O743v7J6gpVuUqvPjdeifAcuoaZe8bf1HUNXm+Q@mail.gmail.com>
+ <0c81dd81-e84a-2381-3ce1-e08450929da8@daenzer.net>
+ <c7a44542-acca-09e1-5ea5-bf9938921e54@vodafone.de>
+ <CAOFGe95cnFJCEAO6k8emWFWaAZdMPrdHjQos02peuWe6Ve1wvw@mail.gmail.com>
+ <2a0f44cc-b893-153c-9852-b1b4855e386e@vodafone.de>
+ <CAPM=9twkH4H0Buxpb7nKAMawNxouWCombhfAh++pNpSZNMLRow@mail.gmail.com>
+ <CAOFGe95mj1G_Ap0oOPFyatZWEbEk_Kwo8Wn_E+eYS16Nhz_huQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1622437765=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_MHR22VWaiSL2HVJMOJX7uTo=i7yuG2WPii-W5wHJP0pw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <CAOFGe95mj1G_Ap0oOPFyatZWEbEk_Kwo8Wn_E+eYS16Nhz_huQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,82 +29,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Jason Ekstrand <jason-fQELhIk9awXprZlt/sZkLg@public.gmane.org>, Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-DQo+LS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj5Gcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
-LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+T2YgQWxleCBE
-ZXVjaGVyDQo+U2VudDogV2VkbmVzZGF5LCBKdWx5IDEyLCAyMDE3IDExOjU5IEFNDQo+VG86IEt1
-ZWhsaW5nLCBGZWxpeA0KPkNjOiBhbWQtZ2Z4IGxpc3QNCj5TdWJqZWN0OiBSZTogW1BBVENIIDA1
-LzEyXSBkcm0vYW1kZ3B1OiBTZW5kIG5vLXJldHJ5IFhOQUNLIGZvciBhbGwgZmF1bHQNCj50eXBl
-cw0KPg0KPk9uIFdlZCwgSnVsIDEyLCAyMDE3IGF0IDE6NDAgQU0sIEZlbGl4IEt1ZWhsaW5nIDxm
-ZWxpeC5rdWVobGluZ0BhbWQuY29tPg0KPndyb3RlOg0KPj4gQW55IGNvbW1lbnRzPw0KPj4NCj4+
-IEkgYmVsaWV2ZSB0aGlzIGlzIGEgbmljZSBzdGFiaWxpdHkgaW1wcm92ZW1lbnQuIEluIGNhc2Ug
-b2YgVk0gZmF1bHRzDQo+PiB0aGV5IGRvbid0IHRha2UgZG93biB0aGUgd2hvbGUgR1BVIHdpdGgg
-YW4gaW50ZXJydXB0IHN0b3JtLiBXaXRoIEtGRA0KPj4gd2UgY2FuIHJlY292ZXIgd2l0aG91dCBh
-IEdQVSByZXNldCBpbiBtYW55IGNhc2VzIGp1c3QgYnkgdW5tYXBwaW5nIHRoZQ0KPj4gb2ZmZW5k
-aW5nIHByb2Nlc3MnIHF1ZXVlcy4NCj4NCj5XaWxsIHRoaXMgY2F1c2UgYW55IHByb2JsZW1zIHdp
-dGggZW5hYmxpbmcgcmVjb3ZlcmFibGUgcGFnZSBmYXVsdHMgbGF0ZXI/ICBJZg0KPm5vdCwNCj5B
-Y2tlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0KDQpXZSB3
-aWxsIG5lZWQgdG8gYmFjayB0aGlzIG91dCBpbiBvcmRlciB0byBlbmFibGUgcmVjb3ZlcmFibGUg
-cGFnZSBmYXVsdHMgbGF0ZXIsIGJ1dCBwcm9iYWJseSBzdGlsbCB3b3J0aCBkb2luZyBpbiB0aGUg
-c2hvcnQgdGVybSBJTU8uDQoNCj4NCj4+DQo+PiBSZWdhcmRzLA0KPj4gICBGZWxpeA0KPj4NCj4+
-DQo+PiBPbiAxNy0wNy0wMyAwNToxMSBQTSwgRmVsaXggS3VlaGxpbmcgd3JvdGU6DQo+Pj4gRnJv
-bTogSmF5IENvcm53YWxsIDxKYXkuQ29ybndhbGxAYW1kLmNvbT4NCj4+Pg0KPj4+IEEgc3Vic2V0
-IG9mIFZNIGZhdWx0IHR5cGVzIGN1cnJlbnRseSBzZW5kIHJldHJ5IFhOQUNLIHRvIHRoZSBjbGll
-bnQuDQo+Pj4gVGhpcyBjYXVzZXMgYSBzdG9ybSBvZiBpbnRlcnJ1cHRzIGZyb20gdGhlIFZNIHRv
-IHRoZSBob3N0Lg0KPj4+DQo+Pj4gVW50aWwgdGhlIHN0b3JtIGlzIHRocm90dGxlZCBieSBvdGhl
-ciBtZWFucyBzZW5kIG5vLXJldHJ5IFhOQUNLIGZvcg0KPj4+IGFsbCBmYXVsdCB0eXBlcyBpbnN0
-ZWFkLiBObyBjaGFuZ2UgaW4gYmVoYXZpb3IgdG8gdGhlIGNsaWVudCB3aGljaA0KPj4+IHdpbGwg
-c3RhbGwgaW5kZWZpbml0ZWx5IHdpdGggdGhlIGN1cnJlbnQgY29uZmlndXJhdGlvbiBpbiBhbnkg
-Y2FzZS4NCj4+PiBJbXByb3ZlcyBzeXN0ZW0gc3RhYmlsaXR5IHVuZGVyIEdDIG9yIE1NSFVCIGZh
-dWx0cy4NCj4+Pg0KPj4+IFNpZ25lZC1vZmYtYnk6IEpheSBDb3Jud2FsbCA8SmF5LkNvcm53YWxs
-QGFtZC5jb20+DQo+Pj4gUmV2aWV3ZWQtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxpeC5LdWVobGlu
-Z0BhbWQuY29tPg0KPj4+IC0tLQ0KPj4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnho
-dWJfdjFfMC5jIHwgMyArKysNCj4+PiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9tbWh1Yl92
-MV8wLmMgIHwgMyArKysNCj4+PiAgMiBmaWxlcyBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKykNCj4+
-Pg0KPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhodWJfdjFf
-MC5jDQo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhodWJfdjFfMC5jDQo+Pj4g
-aW5kZXggYTQyZjQ4My4uZjk1N2IxOCAxMDA2NDQNCj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9nZnhodWJfdjFfMC5jDQo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvZ2Z4aHViX3YxXzAuYw0KPj4+IEBAIC0yMDYsNiArMjA2LDkgQEAgc3RhdGljIHZvaWQg
-Z2Z4aHViX3YxXzBfc2V0dXBfdm1pZF9jb25maWcoc3RydWN0DQo+YW1kZ3B1X2RldmljZSAqYWRl
-dikNCj4+PiAgICAgICAgICAgICAgIHRtcCA9IFJFR19TRVRfRklFTEQodG1wLCBWTV9DT05URVhU
-MV9DTlRMLA0KPj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFBBR0VfVEFCTEVfQkxP
-Q0tfU0laRSwNCj4+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBhZGV2LT52bV9tYW5h
-Z2VyLmJsb2NrX3NpemUgLSA5KTsNCj4+PiArICAgICAgICAgICAgIC8qIFNlbmQgbm8tcmV0cnkg
-WE5BQ0sgb24gZmF1bHQgdG8gc3VwcHJlc3MgVk0gZmF1bHQgc3Rvcm0uICovDQo+Pj4gKyAgICAg
-ICAgICAgICB0bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwgVk1fQ09OVEVYVDFfQ05UTCwNCj4+PiAr
-DQo+Pj4gKyBSRVRSWV9QRVJNSVNTSU9OX09SX0lOVkFMSURfUEFHRV9GQVVMVCwgMCk7DQo+Pj4g
-ICAgICAgICAgICAgICBXUkVHMzJfU09DMTVfT0ZGU0VUKEdDLCAwLCBtbVZNX0NPTlRFWFQxX0NO
-VEwsIGksIHRtcCk7DQo+Pj4gICAgICAgICAgICAgICBXUkVHMzJfU09DMTVfT0ZGU0VUKEdDLCAw
-LA0KPm1tVk1fQ09OVEVYVDFfUEFHRV9UQUJMRV9TVEFSVF9BRERSX0xPMzIsIGkqMiwgMCk7DQo+
-Pj4gICAgICAgICAgICAgICBXUkVHMzJfU09DMTVfT0ZGU0VUKEdDLCAwLA0KPj4+IG1tVk1fQ09O
-VEVYVDFfUEFHRV9UQUJMRV9TVEFSVF9BRERSX0hJMzIsIGkqMiwgMCk7IGRpZmYgLS1naXQNCj4+
-PiBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L21taHViX3YxXzAuYw0KPj4+IGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvbW1odWJfdjFfMC5jDQo+Pj4gaW5kZXggMDE5MThkYy4uYjc2
-MDAxOCAxMDA2NDQNCj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9tbWh1Yl92
-MV8wLmMNCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9tbWh1Yl92MV8wLmMN
-Cj4+PiBAQCAtMjIyLDYgKzIyMiw5IEBAIHN0YXRpYyB2b2lkIG1taHViX3YxXzBfc2V0dXBfdm1p
-ZF9jb25maWcoc3RydWN0DQo+YW1kZ3B1X2RldmljZSAqYWRldikNCj4+PiAgICAgICAgICAgICAg
-IHRtcCA9IFJFR19TRVRfRklFTEQodG1wLCBWTV9DT05URVhUMV9DTlRMLA0KPj4+ICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIFBBR0VfVEFCTEVfQkxPQ0tfU0laRSwNCj4+PiAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBhZGV2LT52bV9tYW5hZ2VyLmJsb2NrX3NpemUgLSA5KTsN
-Cj4+PiArICAgICAgICAgICAgIC8qIFNlbmQgbm8tcmV0cnkgWE5BQ0sgb24gZmF1bHQgdG8gc3Vw
-cHJlc3MgVk0gZmF1bHQgc3Rvcm0uICovDQo+Pj4gKyAgICAgICAgICAgICB0bXAgPSBSRUdfU0VU
-X0ZJRUxEKHRtcCwgVk1fQ09OVEVYVDFfQ05UTCwNCj4+PiArDQo+Pj4gKyBSRVRSWV9QRVJNSVNT
-SU9OX09SX0lOVkFMSURfUEFHRV9GQVVMVCwgMCk7DQo+Pj4gICAgICAgICAgICAgICBXUkVHMzJf
-U09DMTVfT0ZGU0VUKE1NSFVCLCAwLCBtbVZNX0NPTlRFWFQxX0NOVEwsIGksDQo+dG1wKTsNCj4+
-PiAgICAgICAgICAgICAgIFdSRUczMl9TT0MxNV9PRkZTRVQoTU1IVUIsIDAsDQo+bW1WTV9DT05U
-RVhUMV9QQUdFX1RBQkxFX1NUQVJUX0FERFJfTE8zMiwgaSoyLCAwKTsNCj4+PiAgICAgICAgICAg
-ICAgIFdSRUczMl9TT0MxNV9PRkZTRVQoTU1IVUIsIDAsDQo+Pj4gbW1WTV9DT05URVhUMV9QQUdF
-X1RBQkxFX1NUQVJUX0FERFJfSEkzMiwgaSoyLCAwKTsNCj4+DQo+PiBfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QN
-Cj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+PiBodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCj5fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPmFtZC1nZnggbWFpbGluZyBsaXN0DQo+YW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj5odHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYW1kLWdmeAo=
+This is a multi-part message in MIME format.
+--===============1622437765==
+Content-Type: multipart/alternative;
+ boundary="------------969E556DC2AD0A062C5BDC99"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------969E556DC2AD0A062C5BDC99
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Am 12.07.2017 um 17:53 schrieb Jason Ekstrand:
+> [SNIP]
+>
+>     Is that easier than just waiting in the kernel, I'm not sure how
+>     optimised we need this path to be.
+>
+>
+> I don't think so.  I think it's more-or-less the same code regardless 
+> of how it's done.  The advantage of doing it in the kernel is that 
+> it's standardized (we don't have to both go write that userspace code) 
+> and it doesn't have the problems stated above.
+
+Ok, I'm convinced. The next price question is then how do we do it?
+
+I mean writing an IOCTL to wait for a fence to appear is simple, but do 
+we also need to wait for a fence to change?
+
+As long as waits don't consume fences that might be rather tricky.
+
+Christian.
+
+--------------969E556DC2AD0A062C5BDC99
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Am 12.07.2017 um 17:53 schrieb Jason
+      Ekstrand:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:CAOFGe95mj1G_Ap0oOPFyatZWEbEk_Kwo8Wn_E+eYS16Nhz_huQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
+      <div dir="ltr">
+        <div class="gmail_extra">
+          <div class="gmail_quote">[SNIP]<br>
+            <div> </div>
+            <blockquote class="gmail_quote" style="margin:0 0 0
+              .8ex;border-left:1px #ccc solid;padding-left:1ex"><span
+                class="">
+              </span>Is that easier than just waiting in the kernel, I'm
+              not sure how<br>
+              optimised we need this path to be.<span class="HOEnZb"><font
+                  color="#888888"><br>
+                </font></span></blockquote>
+          </div>
+          <br>
+        </div>
+        <div class="gmail_extra">I don't think so.  I think it's
+          more-or-less the same code regardless of how it's done.  The
+          advantage of doing it in the kernel is that it's standardized
+          (we don't have to both go write that userspace code) and it
+          doesn't have the problems stated above.<br>
+        </div>
+      </div>
+    </blockquote>
+    <br>
+    Ok, I'm convinced. The next price question is then how do we do it?<br>
+    <br>
+    I mean writing an IOCTL to wait for a fence to appear is simple, but
+    do we also need to wait for a fence to change?<br>
+    <br>
+    As long as waits don't consume fences that might be rather tricky.<br>
+    <br>
+    Christian.<br>
+  </body>
+</html>
+
+--------------969E556DC2AD0A062C5BDC99--
+
+--===============1622437765==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1622437765==--
