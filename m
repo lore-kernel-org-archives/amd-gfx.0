@@ -1,438 +1,245 @@
-From: Peter Rosin <peda@axentia.se>
-Subject: [PATCH v5 04/14] drm: amd: remove dead code and pointless local lut storage
-Date: Thu, 13 Jul 2017 18:25:28 +0200
-Message-ID: <20170713162538.22788-5-peda@axentia.se>
-References: <20170713162538.22788-1-peda@axentia.se>
+From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH umr] Add SR-IOV detection and VF sampling on supported
+ devices.
+Date: Thu, 13 Jul 2017 12:36:22 -0400
+Message-ID: <f79484a4-91d5-dac4-103c-b47976f7094b@amd.com>
+References: <20170713161903.88660-1-jfthibert@google.com>
 Mime-Version: 1.0
-Content-Type: text/plain
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20170713162538.22788-1-peda@axentia.se>
-Sender: linux-kernel-owner@vger.kernel.org
-To: linux-kernel@vger.kernel.org
-Cc: Peter Rosin <peda@axentia.se>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel.vetter@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Daniel Vetter <daniel.vetter@intel.com>, Jani Nikula <jani.nikula@linux.intel.com>, Sean Paul <seanpaul@chromium.org>, Lionel Landwerlin <lionel.g.landwerlin@intel.com>, Boris Brezillon <boris.brezillon@free-electrons.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20170713161903.88660-1-jfthibert-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-The redundant fb helpers .load_lut, .gamma_set and .gamma_get are
-no longer used. Remove the dead code and hook up the crtc .gamma_set
-to use the crtc gamma_store directly instead of duplicating that
-info locally.
-
-Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-Signed-off-by: Peter Rosin <peda@axentia.se>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c   | 24 ------------------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h |  1 -
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c   | 27 +++++++--------------------
- drivers/gpu/drm/amd/amdgpu/dce_v11_0.c   | 27 +++++++--------------------
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c    | 27 +++++++--------------------
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c    | 27 +++++++--------------------
- drivers/gpu/drm/amd/amdgpu/dce_virtual.c | 23 -----------------------
- 7 files changed, 28 insertions(+), 128 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-index c0d8c6ff6380..7dc378013a42 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-@@ -312,31 +312,7 @@ static int amdgpu_fbdev_destroy(struct drm_device *dev, struct amdgpu_fbdev *rfb
- 	return 0;
- }
- 
--/** Sets the color ramps on behalf of fbcon */
--static void amdgpu_crtc_fb_gamma_set(struct drm_crtc *crtc, u16 red, u16 green,
--				      u16 blue, int regno)
--{
--	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--
--	amdgpu_crtc->lut_r[regno] = red >> 6;
--	amdgpu_crtc->lut_g[regno] = green >> 6;
--	amdgpu_crtc->lut_b[regno] = blue >> 6;
--}
--
--/** Gets the color ramps on behalf of fbcon */
--static void amdgpu_crtc_fb_gamma_get(struct drm_crtc *crtc, u16 *red, u16 *green,
--				      u16 *blue, int regno)
--{
--	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--
--	*red = amdgpu_crtc->lut_r[regno] << 6;
--	*green = amdgpu_crtc->lut_g[regno] << 6;
--	*blue = amdgpu_crtc->lut_b[regno] << 6;
--}
--
- static const struct drm_fb_helper_funcs amdgpu_fb_helper_funcs = {
--	.gamma_set = amdgpu_crtc_fb_gamma_set,
--	.gamma_get = amdgpu_crtc_fb_gamma_get,
- 	.fb_probe = amdgpufb_create,
- };
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-index 43a9d3aec6c4..39f7eda6091e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-@@ -369,7 +369,6 @@ struct amdgpu_atom_ss {
- struct amdgpu_crtc {
- 	struct drm_crtc base;
- 	int crtc_id;
--	u16 lut_r[256], lut_g[256], lut_b[256];
- 	bool enabled;
- 	bool can_tile;
- 	uint32_t crtc_offset;
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-index 9f78c03a2e31..c9580235e35b 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-@@ -2267,6 +2267,7 @@ static void dce_v10_0_crtc_load_lut(struct drm_crtc *crtc)
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
- 	struct drm_device *dev = crtc->dev;
- 	struct amdgpu_device *adev = dev->dev_private;
-+	u16 *r, *g, *b;
- 	int i;
- 	u32 tmp;
- 
-@@ -2304,11 +2305,14 @@ static void dce_v10_0_crtc_load_lut(struct drm_crtc *crtc)
- 	WREG32(mmDC_LUT_WRITE_EN_MASK + amdgpu_crtc->crtc_offset, 0x00000007);
- 
- 	WREG32(mmDC_LUT_RW_INDEX + amdgpu_crtc->crtc_offset, 0);
-+	r = crtc->gamma_store;
-+	g = r + crtc->gamma_size;
-+	b = g + crtc->gamma_size;
- 	for (i = 0; i < 256; i++) {
- 		WREG32(mmDC_LUT_30_COLOR + amdgpu_crtc->crtc_offset,
--		       (amdgpu_crtc->lut_r[i] << 20) |
--		       (amdgpu_crtc->lut_g[i] << 10) |
--		       (amdgpu_crtc->lut_b[i] << 0));
-+		       ((*r++ & 0xffc0) << 14) |
-+		       ((*g++ & 0xffc0) << 4) |
-+		       (*b++ >> 6));
- 	}
- 
- 	tmp = RREG32(mmDEGAMMA_CONTROL + amdgpu_crtc->crtc_offset);
-@@ -2624,15 +2628,6 @@ static int dce_v10_0_crtc_gamma_set(struct drm_crtc *crtc, u16 *red, u16 *green,
- 				    u16 *blue, uint32_t size,
- 				    struct drm_modeset_acquire_ctx *ctx)
- {
--	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	int i;
--
--	/* userspace palettes are always correct as is */
--	for (i = 0; i < size; i++) {
--		amdgpu_crtc->lut_r[i] = red[i] >> 6;
--		amdgpu_crtc->lut_g[i] = green[i] >> 6;
--		amdgpu_crtc->lut_b[i] = blue[i] >> 6;
--	}
- 	dce_v10_0_crtc_load_lut(crtc);
- 
- 	return 0;
-@@ -2844,14 +2839,12 @@ static const struct drm_crtc_helper_funcs dce_v10_0_crtc_helper_funcs = {
- 	.mode_set_base_atomic = dce_v10_0_crtc_set_base_atomic,
- 	.prepare = dce_v10_0_crtc_prepare,
- 	.commit = dce_v10_0_crtc_commit,
--	.load_lut = dce_v10_0_crtc_load_lut,
- 	.disable = dce_v10_0_crtc_disable,
- };
- 
- static int dce_v10_0_crtc_init(struct amdgpu_device *adev, int index)
- {
- 	struct amdgpu_crtc *amdgpu_crtc;
--	int i;
- 
- 	amdgpu_crtc = kzalloc(sizeof(struct amdgpu_crtc) +
- 			      (AMDGPUFB_CONN_LIMIT * sizeof(struct drm_connector *)), GFP_KERNEL);
-@@ -2869,12 +2862,6 @@ static int dce_v10_0_crtc_init(struct amdgpu_device *adev, int index)
- 	adev->ddev->mode_config.cursor_width = amdgpu_crtc->max_cursor_width;
- 	adev->ddev->mode_config.cursor_height = amdgpu_crtc->max_cursor_height;
- 
--	for (i = 0; i < 256; i++) {
--		amdgpu_crtc->lut_r[i] = i << 2;
--		amdgpu_crtc->lut_g[i] = i << 2;
--		amdgpu_crtc->lut_b[i] = i << 2;
--	}
--
- 	switch (amdgpu_crtc->crtc_id) {
- 	case 0:
- 	default:
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-index 4bcf01dc567a..7e14f532df59 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-@@ -2251,6 +2251,7 @@ static void dce_v11_0_crtc_load_lut(struct drm_crtc *crtc)
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
- 	struct drm_device *dev = crtc->dev;
- 	struct amdgpu_device *adev = dev->dev_private;
-+	u16 *r, *g, *b;
- 	int i;
- 	u32 tmp;
- 
-@@ -2282,11 +2283,14 @@ static void dce_v11_0_crtc_load_lut(struct drm_crtc *crtc)
- 	WREG32(mmDC_LUT_WRITE_EN_MASK + amdgpu_crtc->crtc_offset, 0x00000007);
- 
- 	WREG32(mmDC_LUT_RW_INDEX + amdgpu_crtc->crtc_offset, 0);
-+	r = crtc->gamma_store;
-+	g = r + crtc->gamma_size;
-+	b = g + crtc->gamma_size;
- 	for (i = 0; i < 256; i++) {
- 		WREG32(mmDC_LUT_30_COLOR + amdgpu_crtc->crtc_offset,
--		       (amdgpu_crtc->lut_r[i] << 20) |
--		       (amdgpu_crtc->lut_g[i] << 10) |
--		       (amdgpu_crtc->lut_b[i] << 0));
-+		       ((*r++ & 0xffc0) << 14) |
-+		       ((*g++ & 0xffc0) << 4) |
-+		       (*b++ >> 6));
- 	}
- 
- 	tmp = RREG32(mmDEGAMMA_CONTROL + amdgpu_crtc->crtc_offset);
-@@ -2644,15 +2648,6 @@ static int dce_v11_0_crtc_gamma_set(struct drm_crtc *crtc, u16 *red, u16 *green,
- 				    u16 *blue, uint32_t size,
- 				    struct drm_modeset_acquire_ctx *ctx)
- {
--	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	int i;
--
--	/* userspace palettes are always correct as is */
--	for (i = 0; i < size; i++) {
--		amdgpu_crtc->lut_r[i] = red[i] >> 6;
--		amdgpu_crtc->lut_g[i] = green[i] >> 6;
--		amdgpu_crtc->lut_b[i] = blue[i] >> 6;
--	}
- 	dce_v11_0_crtc_load_lut(crtc);
- 
- 	return 0;
-@@ -2892,14 +2887,12 @@ static const struct drm_crtc_helper_funcs dce_v11_0_crtc_helper_funcs = {
- 	.mode_set_base_atomic = dce_v11_0_crtc_set_base_atomic,
- 	.prepare = dce_v11_0_crtc_prepare,
- 	.commit = dce_v11_0_crtc_commit,
--	.load_lut = dce_v11_0_crtc_load_lut,
- 	.disable = dce_v11_0_crtc_disable,
- };
- 
- static int dce_v11_0_crtc_init(struct amdgpu_device *adev, int index)
- {
- 	struct amdgpu_crtc *amdgpu_crtc;
--	int i;
- 
- 	amdgpu_crtc = kzalloc(sizeof(struct amdgpu_crtc) +
- 			      (AMDGPUFB_CONN_LIMIT * sizeof(struct drm_connector *)), GFP_KERNEL);
-@@ -2917,12 +2910,6 @@ static int dce_v11_0_crtc_init(struct amdgpu_device *adev, int index)
- 	adev->ddev->mode_config.cursor_width = amdgpu_crtc->max_cursor_width;
- 	adev->ddev->mode_config.cursor_height = amdgpu_crtc->max_cursor_height;
- 
--	for (i = 0; i < 256; i++) {
--		amdgpu_crtc->lut_r[i] = i << 2;
--		amdgpu_crtc->lut_g[i] = i << 2;
--		amdgpu_crtc->lut_b[i] = i << 2;
--	}
--
- 	switch (amdgpu_crtc->crtc_id) {
- 	case 0:
- 	default:
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-index fd134a4629d7..d773b50afa60 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-@@ -2182,6 +2182,7 @@ static void dce_v6_0_crtc_load_lut(struct drm_crtc *crtc)
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
- 	struct drm_device *dev = crtc->dev;
- 	struct amdgpu_device *adev = dev->dev_private;
-+	u16 *r, *g, *b;
- 	int i;
- 
- 	DRM_DEBUG_KMS("%d\n", amdgpu_crtc->crtc_id);
-@@ -2211,11 +2212,14 @@ static void dce_v6_0_crtc_load_lut(struct drm_crtc *crtc)
- 	WREG32(mmDC_LUT_WRITE_EN_MASK + amdgpu_crtc->crtc_offset, 0x00000007);
- 
- 	WREG32(mmDC_LUT_RW_INDEX + amdgpu_crtc->crtc_offset, 0);
-+	r = crtc->gamma_store;
-+	g = r + crtc->gamma_size;
-+	b = g + crtc->gamma_size;
- 	for (i = 0; i < 256; i++) {
- 		WREG32(mmDC_LUT_30_COLOR + amdgpu_crtc->crtc_offset,
--		       (amdgpu_crtc->lut_r[i] << 20) |
--		       (amdgpu_crtc->lut_g[i] << 10) |
--		       (amdgpu_crtc->lut_b[i] << 0));
-+		       ((*r++ & 0xffc0) << 14) |
-+		       ((*g++ & 0xffc0) << 4) |
-+		       (*b++ >> 6));
- 	}
- 
- 	WREG32(mmDEGAMMA_CONTROL + amdgpu_crtc->crtc_offset,
-@@ -2496,15 +2500,6 @@ static int dce_v6_0_crtc_gamma_set(struct drm_crtc *crtc, u16 *red, u16 *green,
- 				   u16 *blue, uint32_t size,
- 				   struct drm_modeset_acquire_ctx *ctx)
- {
--	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	int i;
--
--	/* userspace palettes are always correct as is */
--	for (i = 0; i < size; i++) {
--		amdgpu_crtc->lut_r[i] = red[i] >> 6;
--		amdgpu_crtc->lut_g[i] = green[i] >> 6;
--		amdgpu_crtc->lut_b[i] = blue[i] >> 6;
--	}
- 	dce_v6_0_crtc_load_lut(crtc);
- 
- 	return 0;
-@@ -2712,14 +2707,12 @@ static const struct drm_crtc_helper_funcs dce_v6_0_crtc_helper_funcs = {
- 	.mode_set_base_atomic = dce_v6_0_crtc_set_base_atomic,
- 	.prepare = dce_v6_0_crtc_prepare,
- 	.commit = dce_v6_0_crtc_commit,
--	.load_lut = dce_v6_0_crtc_load_lut,
- 	.disable = dce_v6_0_crtc_disable,
- };
- 
- static int dce_v6_0_crtc_init(struct amdgpu_device *adev, int index)
- {
- 	struct amdgpu_crtc *amdgpu_crtc;
--	int i;
- 
- 	amdgpu_crtc = kzalloc(sizeof(struct amdgpu_crtc) +
- 			      (AMDGPUFB_CONN_LIMIT * sizeof(struct drm_connector *)), GFP_KERNEL);
-@@ -2737,12 +2730,6 @@ static int dce_v6_0_crtc_init(struct amdgpu_device *adev, int index)
- 	adev->ddev->mode_config.cursor_width = amdgpu_crtc->max_cursor_width;
- 	adev->ddev->mode_config.cursor_height = amdgpu_crtc->max_cursor_height;
- 
--	for (i = 0; i < 256; i++) {
--		amdgpu_crtc->lut_r[i] = i << 2;
--		amdgpu_crtc->lut_g[i] = i << 2;
--		amdgpu_crtc->lut_b[i] = i << 2;
--	}
--
- 	amdgpu_crtc->crtc_offset = crtc_offsets[amdgpu_crtc->crtc_id];
- 
- 	amdgpu_crtc->pll_id = ATOM_PPLL_INVALID;
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-index a9e869554627..4eb63f6a41ab 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-@@ -2124,6 +2124,7 @@ static void dce_v8_0_crtc_load_lut(struct drm_crtc *crtc)
- 	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
- 	struct drm_device *dev = crtc->dev;
- 	struct amdgpu_device *adev = dev->dev_private;
-+	u16 *r, *g, *b;
- 	int i;
- 
- 	DRM_DEBUG_KMS("%d\n", amdgpu_crtc->crtc_id);
-@@ -2153,11 +2154,14 @@ static void dce_v8_0_crtc_load_lut(struct drm_crtc *crtc)
- 	WREG32(mmDC_LUT_WRITE_EN_MASK + amdgpu_crtc->crtc_offset, 0x00000007);
- 
- 	WREG32(mmDC_LUT_RW_INDEX + amdgpu_crtc->crtc_offset, 0);
-+	r = crtc->gamma_store;
-+	g = r + crtc->gamma_size;
-+	b = g + crtc->gamma_size;
- 	for (i = 0; i < 256; i++) {
- 		WREG32(mmDC_LUT_30_COLOR + amdgpu_crtc->crtc_offset,
--		       (amdgpu_crtc->lut_r[i] << 20) |
--		       (amdgpu_crtc->lut_g[i] << 10) |
--		       (amdgpu_crtc->lut_b[i] << 0));
-+		       ((*r++ & 0xffc0) << 14) |
-+		       ((*g++ & 0xffc0) << 4) |
-+		       (*b++ >> 6));
- 	}
- 
- 	WREG32(mmDEGAMMA_CONTROL + amdgpu_crtc->crtc_offset,
-@@ -2475,15 +2479,6 @@ static int dce_v8_0_crtc_gamma_set(struct drm_crtc *crtc, u16 *red, u16 *green,
- 				   u16 *blue, uint32_t size,
- 				   struct drm_modeset_acquire_ctx *ctx)
- {
--	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	int i;
--
--	/* userspace palettes are always correct as is */
--	for (i = 0; i < size; i++) {
--		amdgpu_crtc->lut_r[i] = red[i] >> 6;
--		amdgpu_crtc->lut_g[i] = green[i] >> 6;
--		amdgpu_crtc->lut_b[i] = blue[i] >> 6;
--	}
- 	dce_v8_0_crtc_load_lut(crtc);
- 
- 	return 0;
-@@ -2702,14 +2697,12 @@ static const struct drm_crtc_helper_funcs dce_v8_0_crtc_helper_funcs = {
- 	.mode_set_base_atomic = dce_v8_0_crtc_set_base_atomic,
- 	.prepare = dce_v8_0_crtc_prepare,
- 	.commit = dce_v8_0_crtc_commit,
--	.load_lut = dce_v8_0_crtc_load_lut,
- 	.disable = dce_v8_0_crtc_disable,
- };
- 
- static int dce_v8_0_crtc_init(struct amdgpu_device *adev, int index)
- {
- 	struct amdgpu_crtc *amdgpu_crtc;
--	int i;
- 
- 	amdgpu_crtc = kzalloc(sizeof(struct amdgpu_crtc) +
- 			      (AMDGPUFB_CONN_LIMIT * sizeof(struct drm_connector *)), GFP_KERNEL);
-@@ -2727,12 +2720,6 @@ static int dce_v8_0_crtc_init(struct amdgpu_device *adev, int index)
- 	adev->ddev->mode_config.cursor_width = amdgpu_crtc->max_cursor_width;
- 	adev->ddev->mode_config.cursor_height = amdgpu_crtc->max_cursor_height;
- 
--	for (i = 0; i < 256; i++) {
--		amdgpu_crtc->lut_r[i] = i << 2;
--		amdgpu_crtc->lut_g[i] = i << 2;
--		amdgpu_crtc->lut_b[i] = i << 2;
--	}
--
- 	amdgpu_crtc->crtc_offset = crtc_offsets[amdgpu_crtc->crtc_id];
- 
- 	amdgpu_crtc->pll_id = ATOM_PPLL_INVALID;
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
-index 90bb08309a53..ecf34bc77a63 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
-@@ -168,16 +168,6 @@ static int dce_virtual_crtc_gamma_set(struct drm_crtc *crtc, u16 *red,
- 				      u16 *green, u16 *blue, uint32_t size,
- 				      struct drm_modeset_acquire_ctx *ctx)
- {
--	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--	int i;
--
--	/* userspace palettes are always correct as is */
--	for (i = 0; i < size; i++) {
--		amdgpu_crtc->lut_r[i] = red[i] >> 6;
--		amdgpu_crtc->lut_g[i] = green[i] >> 6;
--		amdgpu_crtc->lut_b[i] = blue[i] >> 6;
--	}
--
- 	return 0;
- }
- 
-@@ -289,11 +279,6 @@ static int dce_virtual_crtc_set_base(struct drm_crtc *crtc, int x, int y,
- 	return 0;
- }
- 
--static void dce_virtual_crtc_load_lut(struct drm_crtc *crtc)
--{
--	return;
--}
--
- static int dce_virtual_crtc_set_base_atomic(struct drm_crtc *crtc,
- 					 struct drm_framebuffer *fb,
- 					 int x, int y, enum mode_set_atomic state)
-@@ -309,14 +294,12 @@ static const struct drm_crtc_helper_funcs dce_virtual_crtc_helper_funcs = {
- 	.mode_set_base_atomic = dce_virtual_crtc_set_base_atomic,
- 	.prepare = dce_virtual_crtc_prepare,
- 	.commit = dce_virtual_crtc_commit,
--	.load_lut = dce_virtual_crtc_load_lut,
- 	.disable = dce_virtual_crtc_disable,
- };
- 
- static int dce_virtual_crtc_init(struct amdgpu_device *adev, int index)
- {
- 	struct amdgpu_crtc *amdgpu_crtc;
--	int i;
- 
- 	amdgpu_crtc = kzalloc(sizeof(struct amdgpu_crtc) +
- 			      (AMDGPUFB_CONN_LIMIT * sizeof(struct drm_connector *)), GFP_KERNEL);
-@@ -329,12 +312,6 @@ static int dce_virtual_crtc_init(struct amdgpu_device *adev, int index)
- 	amdgpu_crtc->crtc_id = index;
- 	adev->mode_info.crtcs[index] = amdgpu_crtc;
- 
--	for (i = 0; i < 256; i++) {
--		amdgpu_crtc->lut_r[i] = i << 2;
--		amdgpu_crtc->lut_g[i] = i << 2;
--		amdgpu_crtc->lut_b[i] = i << 2;
--	}
--
- 	amdgpu_crtc->pll_id = ATOM_PPLL_INVALID;
- 	amdgpu_crtc->encoder = NULL;
- 	amdgpu_crtc->connector = NULL;
--- 
-2.11.0
+QXBwbGllcyBjbGVhbmx5IGJ1dCBJIGNhbid0IGdldCB0ZXN0IGl0IHNpbmNlIEkgZG9uJ3QgaGF2
+ZSBhIFZNIHNldHVwLgoKSWYgbm9ib2R5IG9iamVjdHMgdG8gaXQgaW4gYSBzaG9ydCB3aGlsZSBJ
+J2xsIHB1c2ggaXQgdGhyb3VnaC4KClRvbQoKT24gMTMvMDcvMTcgMTI6MTkgUE0sIEplYW4tRnJh
+bmNvaXMgVGhpYmVydCB3cm90ZToKPiBSdW5uaW5nIHRoZSB0b3AgY29tbWFuZCBvbiB0aGUgUEYg
+bm93IGFsbG93cyBtb25pdG9yaW5nIGFjdGl2aXR5IGZvcgo+IGEgc2luZ2xlIFZGIGJ5IHVzaW5n
+IFtdIGtleXMgYW5kIGFsc28gdG8gbW9uaXRvciByZWxhdGl2ZSBhc3NpZ25tZW50Cj4gb2YgZWFj
+aCBWRi4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBKZWFuLUZyYW5jb2lzIFRoaWJlcnQgPGpmdGhpYmVy
+dEBnb29nbGUuY29tPgo+IC0tLQo+ICAgc3JjL2FwcC90b3AuYyB8IDIxNSArKysrKysrKysrKysr
+KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrLS0tCj4gICAxIGZpbGUg
+Y2hhbmdlZCwgMjA1IGluc2VydGlvbnMoKyksIDEwIGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1n
+aXQgYS9zcmMvYXBwL3RvcC5jIGIvc3JjL2FwcC90b3AuYwo+IGluZGV4IDM1OWQyNDEuLjM2NjMw
+MmIgMTAwNjQ0Cj4gLS0tIGEvc3JjL2FwcC90b3AuYwo+ICsrKyBiL3NyYy9hcHAvdG9wLmMKPiBA
+QCAtMjMsOCArMjMsOSBAQAo+ICAgICoKPiAgICAqLwo+ICAgI2luY2x1ZGUgInVtcmFwcC5oIgo+
+IC0jaW5jbHVkZSA8dGltZS5oPgo+ICsjaW5jbHVkZSA8bGludXgvcGNpX3JlZ3MuaD4KPiAgICNp
+bmNsdWRlIDxuY3Vyc2VzLmg+Cj4gKyNpbmNsdWRlIDx0aW1lLmg+Cj4gICAKPiAgIHN0YXRpYyBz
+dHJ1Y3Qgewo+ICAgCWludCBxdWl0LAo+IEBAIC00OCw2ICs0OSwxMCBAQCBzdGF0aWMgc3RydWN0
+IHsKPiAgIAl9IHZpOwo+ICAgCWNoYXIgKmhlbHB0ZXh0Owo+ICAgCXZvaWQgKCpoYW5kbGVfa2V5
+KShpbnQgY2gpOwo+ICsJc3RydWN0IHsKPiArCQlpbnQgbnVtX3ZmLAo+ICsJCSAgICBhY3RpdmVf
+dmY7Cj4gKwl9IHNyaW92Owo+ICAgfSB0b3Bfb3B0aW9uczsKPiAgIAo+ICAgZW51bSBzZW5zb3Jf
+bWFwcyB7Cj4gQEAgLTcwLDYgKzc1LDExIEBAIGVudW0gZHJtX3ByaW50IHsKPiAgIAlEUk1fSU5G
+T19DT1VOVCwKPiAgIH07Cj4gICAKPiArZW51bSBpb3ZfcHJpbnQgewo+ICsJSU9WX1ZGID0gMCwK
+PiArCUlPVl9QRiA9IDEsCj4gK307Cj4gKwo+ICAgc3RhdGljIHN0cnVjdCB1bXJfYml0ZmllbGQg
+c3RhdF9ncmJtX2JpdHNbXSA9IHsKPiAgIAkgeyAiVEFfQlVTWSIsIDI1NSwgMjU1LCAmdW1yX2Jp
+dGZpZWxkX2RlZmF1bHQgfSwKPiAgIAkgeyAiR0RTX0JVU1kiLCAyNTUsIDI1NSwgJnVtcl9iaXRm
+aWVsZF9kZWZhdWx0IH0sCj4gQEAgLTEwMCw2ICsxMTAsMjggQEAgc3RhdGljIHN0cnVjdCB1bXJf
+Yml0ZmllbGQgc3RhdF9ncmJtMl9iaXRzW10gPSB7Cj4gICAJIHsgTlVMTCwgMCwgMCwgTlVMTCB9
+LAo+ICAgfTsKPiAgIAo+ICsvLyBUaGUgVkYgdmlydHVhbCBiaXRzIGFyZSByZW1hcHBlZCBmcm9t
+IHRoZSBhY3RpdmUgVkYgZmllbGQKPiArc3RhdGljIHN0cnVjdCB1bXJfYml0ZmllbGQgc3RhdF9y
+bGNfaW92X2JpdHNbXSA9IHsKPiArCSB7ICJWRjAwIiwgMCwgSU9WX1ZGLCAmdW1yX2JpdGZpZWxk
+X2RlZmF1bHQgfSwKPiArCSB7ICJWRjAxIiwgMSwgSU9WX1ZGLCAmdW1yX2JpdGZpZWxkX2RlZmF1
+bHQgfSwKPiArCSB7ICJWRjAyIiwgMiwgSU9WX1ZGLCAmdW1yX2JpdGZpZWxkX2RlZmF1bHQgfSwK
+PiArCSB7ICJWRjAzIiwgMywgSU9WX1ZGLCAmdW1yX2JpdGZpZWxkX2RlZmF1bHQgfSwKPiArCSB7
+ICJWRjA0IiwgNCwgSU9WX1ZGLCAmdW1yX2JpdGZpZWxkX2RlZmF1bHQgfSwKPiArCSB7ICJWRjA1
+IiwgNSwgSU9WX1ZGLCAmdW1yX2JpdGZpZWxkX2RlZmF1bHQgfSwKPiArCSB7ICJWRjA2IiwgNiwg
+SU9WX1ZGLCAmdW1yX2JpdGZpZWxkX2RlZmF1bHQgfSwKPiArCSB7ICJWRjA3IiwgNywgSU9WX1ZG
+LCAmdW1yX2JpdGZpZWxkX2RlZmF1bHQgfSwKPiArCSB7ICJWRjA4IiwgOCwgSU9WX1ZGLCAmdW1y
+X2JpdGZpZWxkX2RlZmF1bHQgfSwKPiArCSB7ICJWRjA5IiwgOSwgSU9WX1ZGLCAmdW1yX2JpdGZp
+ZWxkX2RlZmF1bHQgfSwKPiArCSB7ICJWRjBBIiwgMTAsIElPVl9WRiwgJnVtcl9iaXRmaWVsZF9k
+ZWZhdWx0IH0sCj4gKwkgeyAiVkYwQiIsIDExLCBJT1ZfVkYsICZ1bXJfYml0ZmllbGRfZGVmYXVs
+dCB9LAo+ICsJIHsgIlZGMEMiLCAxMiwgSU9WX1ZGLCAmdW1yX2JpdGZpZWxkX2RlZmF1bHQgfSwK
+PiArCSB7ICJWRjBEIiwgMTMsIElPVl9WRiwgJnVtcl9iaXRmaWVsZF9kZWZhdWx0IH0sCj4gKwkg
+eyAiVkYwRSIsIDE0LCBJT1ZfVkYsICZ1bXJfYml0ZmllbGRfZGVmYXVsdCB9LAo+ICsJIHsgIlZG
+MEYiLCAxNSwgSU9WX1ZGLCAmdW1yX2JpdGZpZWxkX2RlZmF1bHQgfSwKPiArCSB7ICJQRl9WRiIs
+IDAsIElPVl9QRiwgJnVtcl9iaXRmaWVsZF9kZWZhdWx0IH0sCj4gKwkgeyBOVUxMLCAwLCAwLCBO
+VUxMIH0sCj4gK307Cj4gKwo+ICAgc3RhdGljIHN0cnVjdCB1bXJfYml0ZmllbGQgc3RhdF91dmRj
+bGtfYml0c1tdID0gewo+ICAgCSB7ICJVREVDX1NDTEsiLCAyNTUsIDI1NSwgJnVtcl9iaXRmaWVs
+ZF9kZWZhdWx0IH0sCj4gICAJIHsgIk1QRUcyX1NDTEsiLCAyNTUsIDI1NSwgJnVtcl9iaXRmaWVs
+ZF9kZWZhdWx0IH0sCj4gQEAgLTQzOCw2ICs0NzAsMzcgQEAgb3V0Ogo+ICAgCXJldHVybiAoKmFk
+ZHIgPT0gMCkgPyAxIDogMDsKPiAgIH0KPiAgIAo+ICtzdGF0aWMgaW50IGdyYWJfYWRkcihjaGFy
+ICpuYW1lLCBzdHJ1Y3QgdW1yX2FzaWMgKmFzaWMsIHN0cnVjdCB1bXJfYml0ZmllbGQgKmJpdHMs
+IHVpbnQzMl90ICphZGRyKQo+ICt7Cj4gKwlpbnQgaSwgaiwgazsKPiArCj4gKwkvLyB0cnkgdG8g
+ZmluZCB0aGUgcmVnaXN0ZXIgc29tZXdoZXJlIGluIHRoZSBBU0lDCj4gKwkqYWRkciA9IDA7Cj4g
+Kwlmb3IgKGkgPSAwOyBpIDwgYXNpYy0+bm9fYmxvY2tzOyBpKyspIHsKPiArCQlmb3IgKGogPSAw
+OyBqIDwgYXNpYy0+YmxvY2tzW2ldLT5ub19yZWdzOyBqKyspIHsKPiArCQkJaWYgKHN0cmNtcChh
+c2ljLT5ibG9ja3NbaV0tPnJlZ3Nbal0ucmVnbmFtZSwgbmFtZSkgPT0gMCkgewo+ICsJCQkJKmFk
+ZHIgPSBhc2ljLT5ibG9ja3NbaV0tPnJlZ3Nbal0uYWRkcjw8MjsKPiArCQkJCWdvdG8gb3V0Owo+
+ICsJCQl9Cj4gKwkJfQo+ICsJfQo+ICtvdXQ6Cj4gKwo+ICsJLy8gbGV0J3MgdHJpbSBfQlVTWSBv
+dXQgb2YgdGhlIG5hbWVzIHNpbmNlIGl0J3MgcmVkdW5kYW50Cj4gKwlpZiAoKmFkZHIpIHsKPiAr
+CQlmb3IgKGsgPSAwOyBiaXRzW2tdLnJlZ25hbWU7IGsrKykgewo+ICsJCQliaXRzW2tdLnJlZ25h
+bWUgPSBzdHJjcHkoY2FsbG9jKDEsIHN0cmxlbihiaXRzW2tdLnJlZ25hbWUpICsgMSksIGJpdHNb
+a10ucmVnbmFtZSk7Cj4gKwkJCXNsaWNlKGJpdHNba10ucmVnbmFtZSwgIl9CVVNZIik7Cj4gKwkJ
+CXNsaWNlKGJpdHNba10ucmVnbmFtZSwgIl9TVEFUVVMiKTsKPiArCQkJc2xpY2UoYml0c1trXS5y
+ZWduYW1lLCAiX1ZBTFVFIik7Cj4gKwkJCXNsaWNlKGJpdHNba10ucmVnbmFtZSwgIl9BQ1RJVkUi
+KTsKPiArCQkJc2xpY2UoYml0c1trXS5yZWduYW1lLCAiT1VUU1RBTkRJTkdfIik7Cj4gKwkJCXNs
+aWNlKGJpdHNba10ucmVnbmFtZSwgIlBHRlNNX1JFQURfIik7Cj4gKwkJfQo+ICsJfQo+ICsJcmV0
+dXJuICgqYWRkciA9PSAwKSA/IDEgOiAwOwo+ICt9Cj4gKwo+ICAgc3RhdGljIGludCBwcmludF9q
+ID0gMDsKPiAgIAo+ICAgc3RhdGljIHZvaWQgcHJpbnRfY291bnRfdmFsdWUodWludDY0X3QgY291
+bnQpCj4gQEAgLTU0Niw2ICs2MDksMjEgQEAgc3RhdGljIHZvaWQgcHJpbnRfZHJtKHN0cnVjdCB1
+bXJfYml0ZmllbGQgKmJpdHMsIHVpbnQ2NF90ICpjb3VudHMpCj4gICAJfQo+ICAgfQo+ICAgCj4g
+K3N0YXRpYyB2b2lkIHByaW50X2lvdih1aW50NjRfdCAqY291bnRzKQo+ICt7Cj4gKwlpbnQgaTsK
+PiArCWZvciAoaSA9IDA7IGkgPCB0b3Bfb3B0aW9ucy5zcmlvdi5udW1fdmY7IGkrKykgewo+ICsJ
+CWNoYXIgY3VzdG9tX25hbWVmbXRbMzBdOwo+ICsJCXNucHJpbnRmKGN1c3RvbV9uYW1lZm10LCBz
+aXplb2YoY3VzdG9tX25hbWVmbXQpLTEsCj4gKwkJCSIlJSVkcyglJTAyZCkgPT4gIiwgbWF4c3Ry
+bGVuIC0gMyk7Cj4gKwkJcHJpbnR3KGN1c3RvbV9uYW1lZm10LCAiVkYiLCBpKTsKPiArCQlwcmlu
+dF9jb3VudF92YWx1ZShjb3VudHNbaV0pOwo+ICsJCWlmICgoKytwcmludF9qICYgKHRvcF9vcHRp
+b25zLndpZGUgPyAzIDogMSkpICE9IDApCj4gKwkJCXByaW50dygiIHwiKTsKPiArCQllbHNlCj4g
+KwkJCXByaW50dygiXG4iKTsKPiArCX0KPiArfQo+ICAgCj4gICBzdGF0aWMgdm9pZCBwYXJzZV9i
+aXRzKHN0cnVjdCB1bXJfYXNpYyAqYXNpYywgdWludDMyX3QgYWRkciwgc3RydWN0IHVtcl9iaXRm
+aWVsZCAqYml0cywgdWludDY0X3QgKmNvdW50cywgdWludDMyX3QgKm1hc2ssIHVpbnQzMl90ICpj
+bXAsIHVpbnQ2NF90IGFkZHJfbWFzaykKPiAgIHsKPiBAQCAtNjQwLDYgKzcxOCwzNCBAQCBzdGF0
+aWMgdm9pZCBwYXJzZV9kcm0oc3RydWN0IHVtcl9hc2ljICphc2ljLCB1aW50MzJfdCBhZGRyLCBz
+dHJ1Y3QgdW1yX2JpdGZpZWxkCj4gICAJfQo+ICAgfQo+ICAgCj4gK3N0YXRpYyB2b2lkIHBhcnNl
+X2lvdihzdHJ1Y3QgdW1yX2FzaWMgKmFzaWMsIHVpbnQzMl90IGFkZHIsIHN0cnVjdCB1bXJfYml0
+ZmllbGQgKmJpdHMsIHVpbnQ2NF90ICpjb3VudHMsIHVpbnQzMl90ICptYXNrLCB1aW50MzJfdCAq
+Y21wLCB1aW50NjRfdCBhZGRyX21hc2spCj4gK3sKPiArCWludCBqOwo+ICsJdWludDMyX3QgdmFs
+dWU7Cj4gKwo+ICsJKHZvaWQpbWFzazsKPiArCSh2b2lkKWNtcDsKPiArCj4gKwlpZiAoYWRkcikg
+ewo+ICsJCWlmIChhZGRyX21hc2sgJiYgYXNpYy0+ZmQubW1pbyA8IDApIHsKPiArCQkJdmFsdWUg
+PSAwOwo+ICsJCX0gZWxzZSBpZiAoIWFkZHJfbWFzayAmJiBhc2ljLT5wY2kubWVtKSB7Cj4gKwkJ
+CXZhbHVlID0gYXNpYy0+cGNpLm1lbVthZGRyPj4yXTsKPiArCQl9IGVsc2Ugewo+ICsJCQlsc2Vl
+ayhhc2ljLT5mZC5tbWlvLCBhZGRyIHwgYWRkcl9tYXNrLCBTRUVLX1NFVCk7Cj4gKwkJCXJlYWQo
+YXNpYy0+ZmQubW1pbywgJnZhbHVlLCA0KTsKPiArCQl9Cj4gKwkJZm9yIChqID0gMDsgYml0c1tq
+XS5yZWduYW1lOyBqKyspCj4gKwkJCWlmIChiaXRzW2pdLnN0YXJ0ICE9IDI1NSkgewo+ICsJCQkJ
+aWYgKGJpdHNbal0uc3RvcCA9PSBJT1ZfVkYpIHsKPiArCQkJCQljb3VudHNbal0gKz0gKCh2YWx1
+ZSAmIDB4RikgPT0gYml0c1tqXS5zdGFydCkgPyAxIDogMDsKPiArCQkJCX0gZWxzZSB7Cj4gKwkJ
+CQkJY291bnRzW2pdICs9ICh2YWx1ZSAmIDB4ODAwMDAwMDApID8gMSA6IDA7Cj4gKwkJCQl9Cj4g
+KwkJCX0KPiArCX0KPiArfQo+ICsKPiAgIHN0YXRpYyB2b2lkIGdyYWJfdnJhbShzdHJ1Y3QgdW1y
+X2FzaWMgKmFzaWMpCj4gICB7Cj4gICAJY2hhciBuYW1lWzI1Nl07Cj4gQEAgLTgwNCw2ICs5MTAs
+MzggQEAgc3RhdGljIHZvaWQgdmlfaGFuZGxlX2tleXMoaW50IGkpCj4gICAJfQo+ICAgfQo+ICAg
+Cj4gKyNkZWZpbmUgUENJX0VYVF9DQVBfQkFTRSAweDEwMAo+ICsjZGVmaW5lIFBDSV9FWFRfQ0FQ
+X0xJTUlUIDB4MTAwMAo+ICsKPiArc3RhdGljIGludCBzcmlvdl9zdXBwb3J0ZWRfdmYoc3RydWN0
+IHVtcl9hc2ljICphc2ljKQo+ICt7Cj4gKwlpbnQgcmV0dmFsID0gMDsKPiArCWlmICghYXNpYy0+
+cGNpLnBkZXZpY2UpCj4gKwlyZXR1cm4gMDsKPiArCS8vIFZlcmlmeSBpZiB0aGUgU1JJT1YgY2Fw
+YWJpbGl0eSBpcyBsaXN0ZWQgaW4gdGhlIHBjaSBkZXZpY2UgY29uZmlndXJhdGlvbgo+ICsJcGNp
+YWRkcl90IHBjaV9vZmZzZXQgPSBQQ0lfRVhUX0NBUF9CQVNFOwo+ICsJd2hpbGUgKHBjaV9vZmZz
+ZXQgJiYgcGNpX29mZnNldCA8IFBDSV9FWFRfQ0FQX0xJTUlUKQo+ICsJewo+ICsJCXVpbnQzMl90
+IHBjaV9jZmdfZGF0YTsKPiArCQlpZiAocGNpX2RldmljZV9jZmdfcmVhZF91MzIoYXNpYy0+cGNp
+LnBkZXZpY2UsICZwY2lfY2ZnX2RhdGEsIHBjaV9vZmZzZXQpKQo+ICsJCQlyZXR1cm4gMDsKPiAr
+CQlpZiAoUENJX0VYVF9DQVBfSUQocGNpX2NmZ19kYXRhKSA9PSBQQ0lfRVhUX0NBUF9JRF9TUklP
+Vikgewo+ICsJCQl1aW50MTZfdCBzcmlvdl9jdHJsOwo+ICsJCQlpZiAocGNpX2RldmljZV9jZmdf
+cmVhZF91MTYoYXNpYy0+cGNpLnBkZXZpY2UsICZzcmlvdl9jdHJsLAo+ICsJCQkJcGNpX29mZnNl
+dCArIFBDSV9TUklPVl9DVFJMKSkKPiArCQkJCXJldHVybiAwOwo+ICsJCQl1aW50MTZfdCBzcmlv
+dl9udW1fdmY7Cj4gKwkJCWlmIChwY2lfZGV2aWNlX2NmZ19yZWFkX3UxNihhc2ljLT5wY2kucGRl
+dmljZSwgJnNyaW92X251bV92ZiwKPiArCQkJCXBjaV9vZmZzZXQgKyBQQ0lfU1JJT1ZfTlVNX1ZG
+KSkKPiArCQkJCXJldHVybiAwOwo+ICsKPiArCQkJcmV0dXJuIChzcmlvdl9jdHJsICYgUENJX1NS
+SU9WX0NUUkxfVkZFKSA/IHNyaW92X251bV92ZiA6IDA7Cj4gKwkJfQo+ICsJCXBjaV9vZmZzZXQg
+PSBQQ0lfRVhUX0NBUF9ORVhUKHBjaV9jZmdfZGF0YSk7Cj4gKwl9Cj4gKwlyZXR1cm4gcmV0dmFs
+Owo+ICt9Cj4gKwo+ICAgc3RhdGljIHZvaWQgdG9wX2J1aWxkX3ZpX3Byb2dyYW0oc3RydWN0IHVt
+cl9hc2ljICphc2ljKQo+ICAgewo+ICAgCWludCBpLCBqLCBrOwo+IEBAIC04MjAsNiArOTU4LDE0
+IEBAIHN0YXRpYyB2b2lkIHRvcF9idWlsZF92aV9wcm9ncmFtKHN0cnVjdCB1bXJfYXNpYyAqYXNp
+YykKPiAgIAo+ICAgCWkgPSAyOwo+ICAgCj4gKwl0b3Bfb3B0aW9ucy5zcmlvdi5hY3RpdmVfdmYg
+PSAtMTsKPiArCXRvcF9vcHRpb25zLnNyaW92Lm51bV92ZiA9IHNyaW92X3N1cHBvcnRlZF92Zihh
+c2ljKTsKPiArCWlmICh0b3Bfb3B0aW9ucy5zcmlvdi5udW1fdmYgIT0gMCkgewo+ICsJCXN0YXRf
+Y291bnRlcnNbaV0uaXNfc2Vuc29yID0gMzsKPiArCQlFTlRSWShpKyssICJtbVJMQ19HUFVfSU9W
+X0FDVElWRV9GQ05fSUQiLCAmc3RhdF9ybGNfaW92X2JpdHNbMF0sCj4gKwkJCSZ0b3Bfb3B0aW9u
+cy52aS5ncmJtLCAiR1BVX0lPViIpOwo+ICsJfQo+ICsKPiAgIAlpZiAoYXNpYy0+Y29uZmlnLmdm
+eC5mYW1pbHkgPiAxMTApCj4gICAJCUVOVFJZKGkrKywgIm1tUkxDX0dQTV9TVEFUIiwgJnN0YXRf
+cmxjX2dwbV9iaXRzWzBdLCAmdG9wX29wdGlvbnMudmkuZ2Z4cHdyLCAiR0ZYIFBXUiIpOwo+ICAg
+Cj4gQEAgLTk1MSw2ICsxMDk3LDIyIEBAIHN0YXRpYyB1aW50NjRfdCBnZXRfdmlzaWJsZV92cmFt
+X3NpemUoc3RydWN0IHVtcl9hc2ljICphc2ljKQo+ICAgCXJldHVybiBpbmZvLnZyYW1fY3B1X2Fj
+Y2Vzc2libGVfc2l6ZTsKPiAgIH0KPiAgIAo+ICtpbnQgZ2V0X2FjdGl2ZV92ZihzdHJ1Y3QgdW1y
+X2FzaWMgKmFzaWMsIHVpbnQzMl90IGFkZHIpCj4gK3sKPiArCXVpbnQzMl90IHZhbHVlID0gLTE7
+Cj4gKwo+ICsJaWYgKGFkZHIpIHsKPiArCQlpZiAoYXNpYy0+cGNpLm1lbSkgewo+ICsJCQl2YWx1
+ZSA9IGFzaWMtPnBjaS5tZW1bYWRkcj4+Ml07Cj4gKwkJfSBlbHNlIHsKPiArCQkJbHNlZWsoYXNp
+Yy0+ZmQubW1pbywgYWRkciwgU0VFS19TRVQpOwo+ICsJCQlyZWFkKGFzaWMtPmZkLm1taW8sICZ2
+YWx1ZSwgNCk7Cj4gKwkJfQo+ICsJCXZhbHVlICY9IDB4RjsKPiArCX0KPiArCXJldHVybiB2YWx1
+ZTsKPiArfQo+ICsKPiAgIHZvaWQgdW1yX3RvcChzdHJ1Y3QgdW1yX2FzaWMgKmFzaWMpCj4gICB7
+Cj4gICAJaW50IGksIGosIGs7Cj4gQEAgLTk4Myw5ICsxMTQ1LDEyIEBAIHZvaWQgdW1yX3RvcChz
+dHJ1Y3QgdW1yX2FzaWMgKmFzaWMpCj4gICAJRU5UUlkoaSwgIkRSTSIsICZzdGF0X2RybV9iaXRz
+WzBdLCAmdG9wX29wdGlvbnMuZHJtLCAiRFJNIik7Cj4gICAJc3RhdF9jb3VudGVyc1tpXS5pc19z
+ZW5zb3IgPSAyOwo+ICAgCj4gLQlmb3IgKGkgPSAwOyBzdGF0X2NvdW50ZXJzW2ldLm5hbWU7IGkr
+KykKPiArCWZvciAoaSA9IDA7IHN0YXRfY291bnRlcnNbaV0ubmFtZTsgaSsrKSB7Cj4gICAJCWlm
+IChzdGF0X2NvdW50ZXJzW2ldLmlzX3NlbnNvciA9PSAwKQo+ICAgCQkJZ3JhYl9iaXRzKHN0YXRf
+Y291bnRlcnNbaV0ubmFtZSwgYXNpYywgc3RhdF9jb3VudGVyc1tpXS5iaXRzLCAmc3RhdF9jb3Vu
+dGVyc1tpXS5hZGRyKTsKPiArCQllbHNlIGlmIChzdGF0X2NvdW50ZXJzW2ldLmlzX3NlbnNvciA9
+PSAzKQo+ICsJCQlncmFiX2FkZHIoc3RhdF9jb3VudGVyc1tpXS5uYW1lLCBhc2ljLCBzdGF0X2Nv
+dW50ZXJzW2ldLmJpdHMsICZzdGF0X2NvdW50ZXJzW2ldLmFkZHIpOwo+ICsJfQo+ICAgCj4gICAJ
+c2Vuc29yX3RocmVhZF9xdWl0ID0gMDsKPiAgIAo+IEBAIC0xMDIyLDE1ICsxMTg3LDIxIEBAIHZv
+aWQgdW1yX3RvcChzdHJ1Y3QgdW1yX2FzaWMgKmFzaWMpCj4gICAJCQltZW1zZXQoc3RhdF9jb3Vu
+dGVyc1tpXS5jb3VudHMsIDAsIHNpemVvZihzdGF0X2NvdW50ZXJzW2ldLmNvdW50c1swXSkqMzIp
+Owo+ICAgCj4gICAJCWZvciAoaSA9IDA7IGkgPCAoaW50KXJlcCAvICh0b3Bfb3B0aW9ucy5oaWdo
+X2ZyZXF1ZW5jeSA/IDEwIDogMSk7IGkrKykgewo+IC0JCQlmb3IgKGogPSAwOyBzdGF0X2NvdW50
+ZXJzW2pdLm5hbWU7IGorKykKPiAtCQkJCWlmICh0b3Bfb3B0aW9ucy5hbGwgfHwgKnN0YXRfY291
+bnRlcnNbal0ub3B0KSB7Cj4gLQkJCQkJaWYgKHN0YXRfY291bnRlcnNbal0uaXNfc2Vuc29yID09
+IDApCj4gLQkJCQkJCXBhcnNlX2JpdHMoYXNpYywgc3RhdF9jb3VudGVyc1tqXS5hZGRyLCBzdGF0
+X2NvdW50ZXJzW2pdLmJpdHMsIHN0YXRfY291bnRlcnNbal0uY291bnRzLCBzdGF0X2NvdW50ZXJz
+W2pdLm1hc2ssIHN0YXRfY291bnRlcnNbal0uY21wLCBzdGF0X2NvdW50ZXJzW2pdLmFkZHJfbWFz
+ayk7Cj4gLQkJCQkJZWxzZSBpZiAoaSA9PSAwICYmIHN0YXRfY291bnRlcnNbal0uaXNfc2Vuc29y
+ID09IDEpIC8vIG9ubHkgcGFyc2Ugc2Vuc29ycyBvbiBmaXJzdCBnby1hcm91bmQgcGVyIGRpc3Bs
+YXkKPiAtCQkJCQkJcGFyc2Vfc2Vuc29ycyhhc2ljLCBzdGF0X2NvdW50ZXJzW2pdLmFkZHIsIHN0
+YXRfY291bnRlcnNbal0uYml0cywgc3RhdF9jb3VudGVyc1tqXS5jb3VudHMsIHN0YXRfY291bnRl
+cnNbal0ubWFzaywgc3RhdF9jb3VudGVyc1tqXS5jbXAsIHN0YXRfY291bnRlcnNbal0uYWRkcl9t
+YXNrKTsKPiAtCQkJCQllbHNlIGlmIChpID09IDAgJiYgc3RhdF9jb3VudGVyc1tqXS5pc19zZW5z
+b3IgPT0gMikgLy8gb25seSBwYXJzZSBkcm0gb24gZmlyc3QgZ28tYXJvdW5kIHBlciBkaXNwbGF5
+Cj4gLQkJCQkJCXBhcnNlX2RybShhc2ljLCBzdGF0X2NvdW50ZXJzW2pdLmFkZHIsIHN0YXRfY291
+bnRlcnNbal0uYml0cywgc3RhdF9jb3VudGVyc1tqXS5jb3VudHMsIHN0YXRfY291bnRlcnNbal0u
+bWFzaywgc3RhdF9jb3VudGVyc1tqXS5jbXAsIHN0YXRfY291bnRlcnNbal0uYWRkcl9tYXNrKTsK
+PiArCQkJaWYgKCF0b3Bfb3B0aW9ucy5zcmlvdi5udW1fdmYgfHwgdG9wX29wdGlvbnMuc3Jpb3Yu
+YWN0aXZlX3ZmIDwgMCB8fAo+ICsJCQkJdG9wX29wdGlvbnMuc3Jpb3YuYWN0aXZlX3ZmID09IGdl
+dF9hY3RpdmVfdmYoYXNpYywgc3RhdF9jb3VudGVyc1syXS5hZGRyKSkgewo+ICsJCQkJZm9yIChq
+ID0gMDsgc3RhdF9jb3VudGVyc1tqXS5uYW1lOyBqKyspIHsKPiArCQkJCQlpZiAodG9wX29wdGlv
+bnMuYWxsIHx8ICpzdGF0X2NvdW50ZXJzW2pdLm9wdCkgewo+ICsJCQkJCQlpZiAoc3RhdF9jb3Vu
+dGVyc1tqXS5pc19zZW5zb3IgPT0gMCkKPiArCQkJCQkJCXBhcnNlX2JpdHMoYXNpYywgc3RhdF9j
+b3VudGVyc1tqXS5hZGRyLCBzdGF0X2NvdW50ZXJzW2pdLmJpdHMsIHN0YXRfY291bnRlcnNbal0u
+Y291bnRzLCBzdGF0X2NvdW50ZXJzW2pdLm1hc2ssIHN0YXRfY291bnRlcnNbal0uY21wLCBzdGF0
+X2NvdW50ZXJzW2pdLmFkZHJfbWFzayk7Cj4gKwkJCQkJCWVsc2UgaWYgKGkgPT0gMCAmJiBzdGF0
+X2NvdW50ZXJzW2pdLmlzX3NlbnNvciA9PSAxKSAvLyBvbmx5IHBhcnNlIHNlbnNvcnMgb24gZmly
+c3QgZ28tYXJvdW5kIHBlciBkaXNwbGF5Cj4gKwkJCQkJCQlwYXJzZV9zZW5zb3JzKGFzaWMsIHN0
+YXRfY291bnRlcnNbal0uYWRkciwgc3RhdF9jb3VudGVyc1tqXS5iaXRzLCBzdGF0X2NvdW50ZXJz
+W2pdLmNvdW50cywgc3RhdF9jb3VudGVyc1tqXS5tYXNrLCBzdGF0X2NvdW50ZXJzW2pdLmNtcCwg
+c3RhdF9jb3VudGVyc1tqXS5hZGRyX21hc2spOwo+ICsJCQkJCQllbHNlIGlmIChpID09IDAgJiYg
+c3RhdF9jb3VudGVyc1tqXS5pc19zZW5zb3IgPT0gMikgLy8gb25seSBwYXJzZSBkcm0gb24gZmly
+c3QgZ28tYXJvdW5kIHBlciBkaXNwbGF5Cj4gKwkJCQkJCQlwYXJzZV9kcm0oYXNpYywgc3RhdF9j
+b3VudGVyc1tqXS5hZGRyLCBzdGF0X2NvdW50ZXJzW2pdLmJpdHMsIHN0YXRfY291bnRlcnNbal0u
+Y291bnRzLCBzdGF0X2NvdW50ZXJzW2pdLm1hc2ssIHN0YXRfY291bnRlcnNbal0uY21wLCBzdGF0
+X2NvdW50ZXJzW2pdLmFkZHJfbWFzayk7Cj4gKwkJCQkJCWVsc2UgaWYgKHN0YXRfY291bnRlcnNb
+al0uaXNfc2Vuc29yID09IDMpCj4gKwkJCQkJCQlwYXJzZV9pb3YoYXNpYywgc3RhdF9jb3VudGVy
+c1tqXS5hZGRyLCBzdGF0X2NvdW50ZXJzW2pdLmJpdHMsIHN0YXRfY291bnRlcnNbal0uY291bnRz
+LCBzdGF0X2NvdW50ZXJzW2pdLm1hc2ssIHN0YXRfY291bnRlcnNbal0uY21wLCBzdGF0X2NvdW50
+ZXJzW2pdLmFkZHJfbWFzayk7Cj4gKwkJCQkJfQo+ICAgCQkJCX0KPiArCQkJfQo+ICAgCQkJbmFu
+b3NsZWVwKCZyZXEsIE5VTEwpOwo+ICAgCQkJdHMgKz0gKHJlcS50dl9uc2VjIC8gMTAwMDAwMCk7
+Cj4gICAJCX0KPiBAQCAtMTA1OCw2ICsxMjI5LDI1IEBAIHZvaWQgdW1yX3RvcChzdHJ1Y3QgdW1y
+X2FzaWMgKmFzaWMpCj4gICAJCQljYXNlICcyJzoKPiAgIAkJCQl0b3Bfb3B0aW9ucy5oaWdoX2Zy
+ZXF1ZW5jeSBePSAxOwo+ICAgCQkJCWJyZWFrOwo+ICsJCQljYXNlICdbJzoKPiArCQkJCWlmICh0
+b3Bfb3B0aW9ucy5zcmlvdi5udW1fdmYpIHsKPiArCQkJCQl0b3Bfb3B0aW9ucy5zcmlvdi5hY3Rp
+dmVfdmYtLTsKPiArCQkJCQlpZiAodG9wX29wdGlvbnMuc3Jpb3YuYWN0aXZlX3ZmIDwgMCkKPiAr
+CQkJCQkJdG9wX29wdGlvbnMuc3Jpb3YuYWN0aXZlX3ZmID0gdG9wX29wdGlvbnMuc3Jpb3YubnVt
+X3ZmIC0gMTsKPiArCQkJCX0KPiArCQkJCWJyZWFrOwo+ICsJCQljYXNlICddJzoKPiArCQkJCWlm
+ICh0b3Bfb3B0aW9ucy5zcmlvdi5udW1fdmYpIHsKPiArCQkJCQl0b3Bfb3B0aW9ucy5zcmlvdi5h
+Y3RpdmVfdmYrKzsKPiArCQkJCQlpZiAodG9wX29wdGlvbnMuc3Jpb3YuYWN0aXZlX3ZmID49IHRv
+cF9vcHRpb25zLnNyaW92Lm51bV92ZikKPiArCQkJCQkJdG9wX29wdGlvbnMuc3Jpb3YuYWN0aXZl
+X3ZmID0gMDsKPiArCQkJCX0KPiArCQkJCWJyZWFrOwo+ICsJCQljYXNlICc9JzoKPiArCQkJCWlm
+ICh0b3Bfb3B0aW9ucy5zcmlvdi5udW1fdmYpIHsKPiArCQkJCQl0b3Bfb3B0aW9ucy5zcmlvdi5h
+Y3RpdmVfdmYgPSAtMTsKPiArCQkJCX0KPiArCQkJCWJyZWFrOwo+ICAgCQkJY2FzZSAncic6IHRv
+cF9vcHRpb25zLmRybSBePSAxOyBicmVhazsKPiAgIAkJCWRlZmF1bHQ6Cj4gICAJCQkJdG9wX29w
+dGlvbnMuaGFuZGxlX2tleShpKTsKPiBAQCAtMTEwOCw2ICsxMjk4LDggQEAgdm9pZCB1bXJfdG9w
+KHN0cnVjdCB1bXJfYXNpYyAqYXNpYykKPiAgIAkJCQkJcHJpbnRfc2Vuc29ycyhzdGF0X2NvdW50
+ZXJzW2ldLmJpdHMsIHN0YXRfY291bnRlcnNbaV0uY291bnRzKTsKPiAgIAkJCQllbHNlIGlmIChz
+dGF0X2NvdW50ZXJzW2ldLmlzX3NlbnNvciA9PSAyKQo+ICAgCQkJCQlwcmludF9kcm0oc3RhdF9j
+b3VudGVyc1tpXS5iaXRzLCBzdGF0X2NvdW50ZXJzW2ldLmNvdW50cyk7Cj4gKwkJCQllbHNlIGlm
+IChzdGF0X2NvdW50ZXJzW2ldLmlzX3NlbnNvciA9PSAzKQo+ICsJCQkJCXByaW50X2lvdihzdGF0
+X2NvdW50ZXJzW2ldLmNvdW50cyk7Cj4gICAJCQl9Cj4gICAJCX0KPiAgIAkJaWYgKGxvZ2ZpbGUg
+IT0gTlVMTCkgewo+IEBAIC0xMTIzLDYgKzEzMTUsOSBAQCB2b2lkIHVtcl90b3Aoc3RydWN0IHVt
+cl9hc2ljICphc2ljKQo+ICAgCQlpZiAocHJpbnRfaiAmICh0b3Bfb3B0aW9ucy53aWRlID8gMyA6
+IDEpKQo+ICAgCQkJcHJpbnR3KCJcbiIpOwo+ICAgCQlwcmludHcoIlxuKGEpbGwgKHcpaWRlICgx
+KWhpZ2hfcHJlY2lzaW9uICgyKWhpZ2hfZnJlcXVlbmN5IChXKXJpdGUgKGwpb2dnZXJcbih2KXJh
+bSBkKHIpbVxuJXMiLCB0b3Bfb3B0aW9ucy5oZWxwdGV4dCk7Cj4gKwkJaWYgKHRvcF9vcHRpb25z
+LnNyaW92Lm51bV92Zikgewo+ICsJCQlwcmludHcoIihbKXByZXYgVkYgKF0pbmV4dCBWRiAoPSlh
+bGwgVkZcbiIpOwo+ICsJCX0KPiAgIAkJcmVmcmVzaCgpOwo+ICAgCX0KPiAgIAllbmR3aW4oKTsK
+PiAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
+ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
