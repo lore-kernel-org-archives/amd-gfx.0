@@ -1,44 +1,77 @@
-From: Arvind Yadav <arvind.yadav.cs@gmail.com>
-Subject: [PATCH 1/5] drm: radeon: constify pci_device_id.
-Date: Sat, 15 Jul 2017 12:42:18 +0530
-Message-ID: <1500102738-23274-2-git-send-email-arvind.yadav.cs@gmail.com>
-References: <1500102738-23274-1-git-send-email-arvind.yadav.cs@gmail.com>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <1500102738-23274-1-git-send-email-arvind.yadav.cs@gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: airlied@linux.ie, amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm: Implement vm_operations_struct.access
+Date: Sat, 15 Jul 2017 15:39:46 +0200
+Message-ID: <832fe16f-d107-1e02-b129-2efc2c8f4967@vodafone.de>
+References: <1499980105-7721-1-git-send-email-Felix.Kuehling@amd.com>
+ <b377c150-e843-29ff-1be2-0e82f200abd6@daenzer.net>
+ <a6bb7cda-5090-c88d-3309-003d601f1c46@amd.com>
+ <48dc79df-f846-925c-ddf9-52852578201b@daenzer.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <48dc79df-f846-925c-ddf9-52852578201b-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-pci_device_id are not supposed to change at runtime. All functions
-working with pci_device_id provided by <linux/pci.h> work with
-const pci_device_id. So mark the non-const structs as const.
-
-File size before:
-   text	   data	    bss	    dec	    hex	filename
-   6560	  23212	     72	  29844	   7494	gpu/drm/radeon/radeon_drv.o
-
-File size After adding 'const':
-   text	   data	    bss	    dec	    hex	filename
-  28960	    812	     72	  29844	   7494	gpu/drm/radeon/radeon_drv.o
-
-Signed-off-by: Arvind Yadav <arvind.yadav.cs@gmail.com>
----
- drivers/gpu/drm/radeon/radeon_drv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-index e25cb51..b079937 100644
---- a/drivers/gpu/drm/radeon/radeon_drv.c
-+++ b/drivers/gpu/drm/radeon/radeon_drv.c
-@@ -298,7 +298,7 @@ module_param_named(uvd, radeon_uvd, int, 0444);
- MODULE_PARM_DESC(vce, "vce enable/disable vce support (1 = enable, 0 = disable)");
- module_param_named(vce, radeon_vce, int, 0444);
- 
--static struct pci_device_id pciidlist[] = {
-+static const struct pci_device_id pciidlist[] = {
- 	radeon_PCI_IDS
- };
- 
--- 
-2.7.4
+QW0gMTUuMDcuMjAxNyB1bSAwNTozMiBzY2hyaWViIE1pY2hlbCBEw6RuemVyOgo+IE9uIDE1LzA3
+LzE3IDA0OjQ3IEFNLCBGZWxpeCBLdWVobGluZyB3cm90ZToKPj4gT24gMTctMDctMTMgMTE6MjYg
+UE0sIE1pY2hlbCBEw6RuemVyIHdyb3RlOgo+Pj4gT24gMTQvMDcvMTcgMDY6MDggQU0sIEZlbGl4
+IEt1ZWhsaW5nIHdyb3RlOgo+Pj4+IEFsbG93cyBnZGIgdG8gYWNjZXNzIGNvbnRlbnRzIG9mIHVz
+ZXIgbW9kZSBtYXBwZWQgQk9zLiBWUkFNIGFjY2Vzcwo+Pj4+IHJlcXVpcmVzIHRoZSBkcml2ZXIg
+dG8gaW1wbGVtZW50IGEgbmV3IGNhbGxiYWNrIGluIHR0bV9ib19kcml2ZXIuCj4+PiBUaGFua3Mg
+Zm9yIGRvaW5nIHRoaXMuIExvb2tzIG1vc3RseSBnb29kLCBidXQgSSBzdGlsbCBoYXZlIHNvbWUg
+Y29tbWVudHMuCj4+Pgo+Pj4gVGhlIHNob3J0bG9nIHByZWZpeCBzaG91bGQgYmUgImRybS90dG06
+Ii4KPj4+Cj4+Pgo+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9ib192
+bS5jIGIvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm9fdm0uYwo+Pj4+IGluZGV4IDlmNTNkZjku
+LjBlZjJlYjkgMTAwNjQ0Cj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm9fdm0u
+Ywo+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvX3ZtLmMKPj4+PiBAQCAtMjk0
+LDEwICsyOTQsNzQgQEAgc3RhdGljIHZvaWQgdHRtX2JvX3ZtX2Nsb3NlKHN0cnVjdCB2bV9hcmVh
+X3N0cnVjdCAqdm1hKQo+Pj4+ICAgCXZtYS0+dm1fcHJpdmF0ZV9kYXRhID0gTlVMTDsKPj4+PiAg
+IH0KPj4+PiAgIAo+Pj4+ICtzdGF0aWMgaW50IHR0bV9ib192bV9hY2Nlc3Nfa21hcChzdHJ1Y3Qg
+dHRtX2J1ZmZlcl9vYmplY3QgKmJvLAo+Pj4+ICsJCQkJIHVuc2lnbmVkIGxvbmcgb2Zmc2V0LAo+
+Pj4+ICsJCQkJIHZvaWQgKmJ1ZiwgaW50IGxlbiwgaW50IHdyaXRlKQo+Pj4+ICt7Cj4+Pj4gKwl1
+bnNpZ25lZCBsb25nIGZpcnN0X3BhZ2UgPSBvZmZzZXQgPj4gUEFHRV9TSElGVDsKPj4+PiArCXVu
+c2lnbmVkIGxvbmcgbGFzdF9wYWdlID0gKG9mZnNldCArIGxlbiAtIDEpID4+IFBBR0VfU0hJRlQ7
+Cj4+Pj4gKwl1bnNpZ25lZCBsb25nIG51bV9wYWdlcyA9IGxhc3RfcGFnZSAtIGZpcnN0X3BhZ2Ug
+KyAxOwo+Pj4+ICsJc3RydWN0IHR0bV9ib19rbWFwX29iaiBtYXA7Cj4+Pj4gKwl2b2lkICpwdHI7
+Cj4+Pj4gKwlib29sIGlzX2lvbWVtOwo+Pj4+ICsJaW50IHJldDsKPj4+PiArCj4+Pj4gKwlyZXQg
+PSB0dG1fYm9fa21hcChibywgZmlyc3RfcGFnZSwgbnVtX3BhZ2VzLCAmbWFwKTsKPj4+PiArCWlm
+IChyZXQpCj4+Pj4gKwkJcmV0dXJuIHJldDsKPj4+IENvdWxkIHRoZXJlIGJlIGNhc2VzIChlLmcu
+IG9uIDMyLWJpdCkgd2hlcmUgbWFwcGluZyBhbGwgcGFnZXMgYXQgb25jZQo+Pj4gZmFpbHMsIGJ1
+dCBtYXBwaW5nIG9uZSBwYWdlIGF0IGEgdGltZSB3b3VsZCB3b3JrPwo+PiBNYXliZS4gSSdtIG5v
+dCByZWFsbHkgZmFtaWxpYXIgd2l0aCB0dG1fYm9fa21hcCBsaW1pdGF0aW9ucyBvbiAzMi1iaXQu
+IEkKPj4gZ3Vlc3MgdGhlIHRoZSBhY2Nlc3Mgd291bGQgaGF2ZSB0byBiZSByZWFsbHkgYmlnLiBJ
+IHRoaW5rIGluIHByYWN0aWNlCj4+IEdEQiBkb2Vzbid0IGRvIHZlcnkgYmlnIGFjY2Vzc2VzLiBT
+byBJJ20gbm90IHN1cmUgaXQncyB3b3J0aCB0aGUgdHJvdWJsZS4KPiBPa2F5LCBJIGd1ZXNzIGl0
+IGNhbiBhbHdheXMgYmUgY2hhbmdlZCBsYXRlciBpZiBuZWNlc3NhcnkuCgpJdCB3b3VsZCBzdGls
+bCBiZSBiZXR0ZXIgdG8gZG8gdGhpcyBwYWdlIGJ5IHBhZ2UuCgpTZWUgdGhlIGlzc3VlIGlzIHRo
+YXQgd2hlbiB5b3Ugb25seSBtYXAgb25lIHBhZ2UgdHRtX2JvX2ttYXAoKSBpcyBjbGV2ZXIgCmFu
+ZCByZXR1cm5zIGEgcG9pbnRlciB0byBvbmx5IHRoYXQgcGFnZS4KCkJ1dCB3aGVuIHlvdSBtYXAg
+YXQgbGVhc3QgdHdvIHBhZ2VzIHR0bV9ib19rbWFwKCkgbmVlZHMgdG8gYWxsb2NhdGUgCnZpcnR1
+YWwgYWRkcmVzcyBzcGFjZSwgbWFwIHRoZSBwYWdlcyBhbmQgZmx1c2ggdGhlIFRMQnMgKHdoaWNo
+IGlzIGEgdmVyeSAKaGVhdnkgb3BlcmF0aW9uKSBqdXN0IHRvIG1ha2UgdGhvc2UgdHdvIHBhZ2Vz
+IGxvb2sgY29udGludW91c2x5IHRvIHRoZSBDUFUuCgpOb3QgdGhhdCBJIGV4cGVjdCB0aGF0IHRo
+aXMgZnVuY3Rpb24gaXMgcGVyZm9ybWFuY2UgY3JpdGljYWwsIGJ1dCB0aGF0IAppcyBjb21wbGV4
+aXR5IEkgd291bGQgdHJ5IHRvIGF2b2lkLgoKPgo+Cj4+Pj4gKwlpbnQgKCphY2Nlc3NfdnJhbSko
+c3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpibywgdW5zaWduZWQgbG9uZyBvZmZzZXQsCj4+Pj4g
+KwkJCSAgIHZvaWQgKmJ1ZiwgaW50IGxlbiwgaW50IHdyaXRlKTsKPj4+PiAgIH07Cj4+PiBJIHN1
+Z2dlc3QgbWFraW5nIHRoZSB3cml0ZSBwYXJhbWV0ZXIgYSBib29sLgo+PiBJIG1hZGUgdGhpcyBh
+cyBzaW1pbGFyIGFzIHBvc3NpYmxlIHRvIHRoZSB2bV9vcHMtPmFjY2VzcyBBUEksIHdoZXJlCj4+
+IHdyaXRlIGlzIGFsc28gYW4gaW50ZWdlci4KPiBJIHNlZSwgbWFrZXMgc2Vuc2UuCgpZZWFoLCBh
+Z3JlZSBhcyB3ZWxsLiBQbGVhc2Uga2VlcCB0aGUgc3R5bGUgb2YgdGhlIHVwc3RyZWFtIGludGVy
+ZmFjZSBoZXJlLgoKQ2hyaXN0aWFuLgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4Cg==
