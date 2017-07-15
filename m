@@ -1,66 +1,30 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm: Implement vm_operations_struct.access
-Date: Sat, 15 Jul 2017 12:32:36 +0900
-Message-ID: <48dc79df-f846-925c-ddf9-52852578201b@daenzer.net>
-References: <1499980105-7721-1-git-send-email-Felix.Kuehling@amd.com>
- <b377c150-e843-29ff-1be2-0e82f200abd6@daenzer.net>
- <a6bb7cda-5090-c88d-3309-003d601f1c46@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <a6bb7cda-5090-c88d-3309-003d601f1c46-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-CA
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
-Cc: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+From: Arvind Yadav <arvind.yadav.cs@gmail.com>
+Subject: [PATCH 0/5] constify drm pci_device_id
+Date: Sat, 15 Jul 2017 12:42:17 +0530
+Message-ID: <1500102738-23274-1-git-send-email-arvind.yadav.cs@gmail.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: airlied@linux.ie, amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMTUvMDcvMTcgMDQ6NDcgQU0sIEZlbGl4IEt1ZWhsaW5nIHdyb3RlOgo+IE9uIDE3LTA3LTEz
-IDExOjI2IFBNLCBNaWNoZWwgRMOkbnplciB3cm90ZToKPj4gT24gMTQvMDcvMTcgMDY6MDggQU0s
-IEZlbGl4IEt1ZWhsaW5nIHdyb3RlOgo+Pj4gQWxsb3dzIGdkYiB0byBhY2Nlc3MgY29udGVudHMg
-b2YgdXNlciBtb2RlIG1hcHBlZCBCT3MuIFZSQU0gYWNjZXNzCj4+PiByZXF1aXJlcyB0aGUgZHJp
-dmVyIHRvIGltcGxlbWVudCBhIG5ldyBjYWxsYmFjayBpbiB0dG1fYm9fZHJpdmVyLgo+PiBUaGFu
-a3MgZm9yIGRvaW5nIHRoaXMuIExvb2tzIG1vc3RseSBnb29kLCBidXQgSSBzdGlsbCBoYXZlIHNv
-bWUgY29tbWVudHMuCj4+Cj4+IFRoZSBzaG9ydGxvZyBwcmVmaXggc2hvdWxkIGJlICJkcm0vdHRt
-OiIuCj4+Cj4+Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm9fdm0u
-YyBiL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvX3ZtLmMKPj4+IGluZGV4IDlmNTNkZjkuLjBl
-ZjJlYjkgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9ib192bS5jCj4+
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9ib192bS5jCj4+PiBAQCAtMjk0LDEwICsy
-OTQsNzQgQEAgc3RhdGljIHZvaWQgdHRtX2JvX3ZtX2Nsb3NlKHN0cnVjdCB2bV9hcmVhX3N0cnVj
-dCAqdm1hKQo+Pj4gIAl2bWEtPnZtX3ByaXZhdGVfZGF0YSA9IE5VTEw7Cj4+PiAgfQo+Pj4gIAo+
-Pj4gK3N0YXRpYyBpbnQgdHRtX2JvX3ZtX2FjY2Vzc19rbWFwKHN0cnVjdCB0dG1fYnVmZmVyX29i
-amVjdCAqYm8sCj4+PiArCQkJCSB1bnNpZ25lZCBsb25nIG9mZnNldCwKPj4+ICsJCQkJIHZvaWQg
-KmJ1ZiwgaW50IGxlbiwgaW50IHdyaXRlKQo+Pj4gK3sKPj4+ICsJdW5zaWduZWQgbG9uZyBmaXJz
-dF9wYWdlID0gb2Zmc2V0ID4+IFBBR0VfU0hJRlQ7Cj4+PiArCXVuc2lnbmVkIGxvbmcgbGFzdF9w
-YWdlID0gKG9mZnNldCArIGxlbiAtIDEpID4+IFBBR0VfU0hJRlQ7Cj4+PiArCXVuc2lnbmVkIGxv
-bmcgbnVtX3BhZ2VzID0gbGFzdF9wYWdlIC0gZmlyc3RfcGFnZSArIDE7Cj4+PiArCXN0cnVjdCB0
-dG1fYm9fa21hcF9vYmogbWFwOwo+Pj4gKwl2b2lkICpwdHI7Cj4+PiArCWJvb2wgaXNfaW9tZW07
-Cj4+PiArCWludCByZXQ7Cj4+PiArCj4+PiArCXJldCA9IHR0bV9ib19rbWFwKGJvLCBmaXJzdF9w
-YWdlLCBudW1fcGFnZXMsICZtYXApOwo+Pj4gKwlpZiAocmV0KQo+Pj4gKwkJcmV0dXJuIHJldDsK
-Pj4gQ291bGQgdGhlcmUgYmUgY2FzZXMgKGUuZy4gb24gMzItYml0KSB3aGVyZSBtYXBwaW5nIGFs
-bCBwYWdlcyBhdCBvbmNlCj4+IGZhaWxzLCBidXQgbWFwcGluZyBvbmUgcGFnZSBhdCBhIHRpbWUg
-d291bGQgd29yaz8KPiAKPiBNYXliZS4gSSdtIG5vdCByZWFsbHkgZmFtaWxpYXIgd2l0aCB0dG1f
-Ym9fa21hcCBsaW1pdGF0aW9ucyBvbiAzMi1iaXQuIEkKPiBndWVzcyB0aGUgdGhlIGFjY2VzcyB3
-b3VsZCBoYXZlIHRvIGJlIHJlYWxseSBiaWcuIEkgdGhpbmsgaW4gcHJhY3RpY2UKPiBHREIgZG9l
-c24ndCBkbyB2ZXJ5IGJpZyBhY2Nlc3Nlcy4gU28gSSdtIG5vdCBzdXJlIGl0J3Mgd29ydGggdGhl
-IHRyb3VibGUuCgpPa2F5LCBJIGd1ZXNzIGl0IGNhbiBhbHdheXMgYmUgY2hhbmdlZCBsYXRlciBp
-ZiBuZWNlc3NhcnkuCgoKPj4+ICsJaW50ICgqYWNjZXNzX3ZyYW0pKHN0cnVjdCB0dG1fYnVmZmVy
-X29iamVjdCAqYm8sIHVuc2lnbmVkIGxvbmcgb2Zmc2V0LAo+Pj4gKwkJCSAgIHZvaWQgKmJ1Ziwg
-aW50IGxlbiwgaW50IHdyaXRlKTsKPj4+ICB9Owo+PiBJIHN1Z2dlc3QgbWFraW5nIHRoZSB3cml0
-ZSBwYXJhbWV0ZXIgYSBib29sLgo+IAo+IEkgbWFkZSB0aGlzIGFzIHNpbWlsYXIgYXMgcG9zc2li
-bGUgdG8gdGhlIHZtX29wcy0+YWNjZXNzIEFQSSwgd2hlcmUKPiB3cml0ZSBpcyBhbHNvIGFuIGlu
-dGVnZXIuCgpJIHNlZSwgbWFrZXMgc2Vuc2UuCgoKLS0gCkVhcnRobGluZyBNaWNoZWwgRMOkbnpl
-ciAgICAgICAgICAgICAgIHwgICAgICAgICAgICAgICBodHRwOi8vd3d3LmFtZC5jb20KTGlicmUg
-c29mdHdhcmUgZW50aHVzaWFzdCAgICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFgg
-ZGV2ZWxvcGVyCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+pci_device_id are not supposed to change at runtime. All functions
+working with pci_device_id provided by <linux/pci.h> work with
+const pci_device_id. So mark the non-const structs as const.
+
+Arvind Yadav (5):
+  [PATCH 1/5] drm: radeon: constify pci_device_id.
+  [PATCH 2/5] drm: vmwgfx: constify pci_device_id.
+  [PATCH 3/5] drm: nouveau: constify pci_device_id.
+  [PATCH 4/5] drm: via: constify pci_device_id.
+  [PATCH 5/5] drm: hisilicon: constify pci_device_id.
+
+ drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c | 2 +-
+ drivers/gpu/drm/nouveau/nouveau_drm.c           | 2 +-
+ drivers/gpu/drm/radeon/radeon_drv.c             | 2 +-
+ drivers/gpu/drm/via/via_drv.c                   | 2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.c             | 2 +-
+ 5 files changed, 5 insertions(+), 5 deletions(-)
+
+-- 
+2.7.4
