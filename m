@@ -1,55 +1,71 @@
-From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: read reg in each iterate of psp_wait_for loop
-Date: Mon, 17 Jul 2017 15:57:55 +0800
-Message-ID: <20170717075755.GB16630@hr-amur2>
-References: <1500027617-18557-1-git-send-email-Jerry.Zhang@amd.com>
- <20170717075209.GA16630@hr-amur2>
+From: "Zhang, Jerry (Junwei)" <Jerry.Zhang@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: read reg in each iterate of psp_wait_for
+ loop
+Date: Mon, 17 Jul 2017 16:56:26 +0800
+Message-ID: <596C7BBA.2010300@amd.com>
+References: <1500027617-18557-1-git-send-email-Jerry.Zhang@amd.com> <20170717075209.GA16630@hr-amur2> <20170717075755.GB16630@hr-amur2>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <20170717075209.GA16630@hr-amur2>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, Ken Wang <Qingqing.Wang-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20170717075755.GB16630@hr-amur2>
+Sender: stable-owner@vger.kernel.org
+To: Huang Rui <ray.huang@amd.com>, Ken Wang <Qingqing.Wang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gTW9uLCBKdWwgMTcsIDIwMTcgYXQgMDM6NTI6MTBQTSArMDgwMCwgSHVhbmcgUnVpIHdyb3Rl
-Ogo+IE9uIEZyaSwgSnVsIDE0LCAyMDE3IGF0IDA2OjIwOjE3UE0gKzA4MDAsIEp1bndlaSBaaGFu
-ZyB3cm90ZToKPiA+IFNpZ25lZC1vZmYtYnk6IEp1bndlaSBaaGFuZyA8SmVycnkuWmhhbmdAYW1k
-LmNvbT4KPiA+IC0tLQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wc3Au
-YyB8IDMgKy0tCj4gPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAyIGRlbGV0aW9u
-cygtKQo+ID4gCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3BzcC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5jCj4gPiBp
-bmRleCBiYTc0M2Q0Li43MWNlM2VlIDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X3BzcC5jCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfcHNwLmMKPiA+IEBAIC05NSw5ICs5NSw4IEBAIGludCBwc3Bfd2FpdF9mb3Ioc3Ry
-dWN0IHBzcF9jb250ZXh0ICpwc3AsIHVpbnQzMl90IHJlZ19pbmRleCwKPiA+ICAJaW50IGk7Cj4g
-PiAgCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gcHNwLT5hZGV2Owo+ID4gIAo+ID4gLQl2
-YWwgPSBSUkVHMzIocmVnX2luZGV4KTsKPiA+IC0KPiA+ICAJZm9yIChpID0gMDsgaSA8IGFkZXYt
-PnVzZWNfdGltZW91dDsgaSsrKSB7Cj4gPiArCQl2YWwgPSBSUkVHMzIocmVnX2luZGV4KTsKPiA+
-ICAJCWlmIChjaGVja19jaGFuZ2VkKSB7Cj4gPiAgCQkJaWYgKHZhbCAhPSByZWdfdmFsKQo+ID4g
-IAkJCQlyZXR1cm4gMDsKPiAKPiBOaWNlIGNhdGNoLiBJIHJlbWVtYmVyZWQgS2VuIGFsc28gbWVu
-dGlvbmVkIGl0IGJlZm9yZS4gVGhpcyBzaG91bGQgZml4IHRoZQo+IGlzc3VlIEkgZW5jb3VudGVy
-ZWQgYmVmb3JlIGR1cmluZyBicmluZy11cC4gQ2FuIHlvdSBvcGVuIHRoaXMgaGFuZHNoYWtlIGlu
-Cj4gcHNwX3YzXzFfYm9vdGxvYWRlcl9sb2FkX3NvcyBhbmQgZG91YmxlIGNoZWNrIGlmIHRoaXMg
-aGFuZHNoYWtlIGlzIHdvcmthYmxlCj4gd2l0aCB0aGlzIGZpeC4gSWYgeWVzLCBwbGVhc2UgYWRk
-IGl0IGJhY2suCj4gCj4gI2lmIDAKPiAgICAgICAgIHJldCA9IHBzcF93YWl0X2Zvcihwc3AsIFNP
-QzE1X1JFR19PRkZTRVQoTVAwLCAwLCBtbU1QMF9TTU5fQzJQTVNHXzgxKSwKPiAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBSUkVHMzJfU09DMTUoTVAwLCAwLCBtbU1QMF9TTU5fQzJQTVNHXzgx
-KSwKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAwLCB0cnVlKTsKPiAjZW5kaWYKPiAKPiBB
-Y2tlZC1ieTogSHVhbmcgUnVpIDxyYXkuaHVhbmdAYW1kLmNvbT4KCkJUVzogcGxlYXNlIGFkZCBD
-YzogPHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+IGluIHlvdXIgcGF0Y2gsIGl0IG5lZWQgYmUKYmFj
-a3BvcnRlZCB0byBzdGFibGUgdHJlZS4KClRoYW5rcywKUnVpCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vYW1kLWdmeAo=
++ stable@vger.kernel.org
+
+On 07/17/2017 03:57 PM, Huang Rui wrote:
+> On Mon, Jul 17, 2017 at 03:52:10PM +0800, Huang Rui wrote:
+>> On Fri, Jul 14, 2017 at 06:20:17PM +0800, Junwei Zhang wrote:
+>>> Signed-off-by: Junwei Zhang <Jerry.Zhang@amd.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 3 +--
+>>>   1 file changed, 1 insertion(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+>>> index ba743d4..71ce3ee 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+>>> @@ -95,9 +95,8 @@ int psp_wait_for(struct psp_context *psp, uint32_t reg_index,
+>>>   	int i;
+>>>   	struct amdgpu_device *adev = psp->adev;
+>>>
+>>> -	val = RREG32(reg_index);
+>>> -
+>>>   	for (i = 0; i < adev->usec_timeout; i++) {
+>>> +		val = RREG32(reg_index);
+>>>   		if (check_changed) {
+>>>   			if (val != reg_val)
+>>>   				return 0;
+>>
+>> Nice catch. I remembered Ken also mentioned it before. This should fix the
+>> issue I encountered before during bring-up. Can you open this handshake in
+>> psp_v3_1_bootloader_load_sos and double check if this handshake is workable
+>> with this fix. If yes, please add it back.
+
+Yes, it could fix this.
+Later I will enable it.
+
+Jerry
+
+>>
+>> #if 0
+>>          ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, mmMP0_SMN_C2PMSG_81),
+>>                             RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_81),
+>>                             0, true);
+>> #endif
+>>
+>> Acked-by: Huang Rui <ray.huang@amd.com>
+>
+> BTW: please add Cc: <stable@vger.kernel.org> in your patch, it need be
+> backported to stable tree.
+>
+> Thanks,
+> Rui
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
