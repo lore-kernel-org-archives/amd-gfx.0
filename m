@@ -1,229 +1,100 @@
-From: arvind <arvind.yadav.cs@gmail.com>
-Subject: Re: [PATCH 1/5] drm: radeon: constify pci_device_id.
-Date: Sun, 16 Jul 2017 11:40:28 +0530
-Message-ID: <596B0354.6030703@gmail.com>
-References: <1500102738-23274-1-git-send-email-arvind.yadav.cs@gmail.com>
- <1500102738-23274-2-git-send-email-arvind.yadav.cs@gmail.com>
- <94559aac-60b7-d2f9-7594-89e939980dd5@vodafone.de>
+From: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 4/4] drm/amdgpu: add ring_destroy for psp v10
+Date: Mon, 17 Jul 2017 10:40:05 +0800
+Message-ID: <596C2385.6030001@amd.com>
+References: <1500028922-20171-1-git-send-email-Jerry.Zhang@amd.com>
+ <1500028922-20171-5-git-send-email-Jerry.Zhang@amd.com>
+ <BN6PR12MB1652D7270B7952D80428DCC5F7AD0@BN6PR12MB1652.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0995739061=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <94559aac-60b7-d2f9-7594-89e939980dd5@vodafone.de>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple@vodafone.de>, airlied@linux.ie, amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
-
-This is a multi-part message in MIME format.
---===============0995739061==
-Content-Type: multipart/alternative;
- boundary="------------070502030605040800010507"
-
-This is a multi-part message in MIME format.
---------------070502030605040800010507
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Hi Christian,
-
-On Saturday 15 July 2017 07:17 PM, Christian König wrote:
-> Am 15.07.2017 um 09:12 schrieb Arvind Yadav:
->> pci_device_id are not supposed to change at runtime. All functions
->> working with pci_device_id provided by <linux/pci.h> work with
->> const pci_device_id. So mark the non-const structs as const.
->>
->> File size before:
->>     text       data        bss        dec        hex    filename
->>     6560      23212         72      29844       7494 
->> gpu/drm/radeon/radeon_drv.o
->>
->> File size After adding 'const':
->>     text       data        bss        dec        hex    filename
->>    28960        812         72      29844       7494 
->> gpu/drm/radeon/radeon_drv.o
->>
->> Signed-off-by: Arvind Yadav <arvind.yadav.cs@gmail.com>
->
-> Impressive result for such a simple change.
->
-> Patch is Reviewed-by: Christian König <christian.koenig@amd.com>
->
-> Are the PCI IDs already const in amdgpu or do we need a similar patch 
-> there as well? I only see patch 1 of 5 in my inbox.
-I have send all gpu patch to David Airlie. Please check with him.
->
-> Christian.
->
->> ---
->>   drivers/gpu/drm/radeon/radeon_drv.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/radeon/radeon_drv.c 
->> b/drivers/gpu/drm/radeon/radeon_drv.c
->> index e25cb51..b079937 100644
->> --- a/drivers/gpu/drm/radeon/radeon_drv.c
->> +++ b/drivers/gpu/drm/radeon/radeon_drv.c
->> @@ -298,7 +298,7 @@ module_param_named(uvd, radeon_uvd, int, 0444);
->>   MODULE_PARM_DESC(vce, "vce enable/disable vce support (1 = enable, 
->> 0 = disable)");
->>   module_param_named(vce, radeon_vce, int, 0444);
->>   -static struct pci_device_id pciidlist[] = {
->> +static const struct pci_device_id pciidlist[] = {
->>       radeon_PCI_IDS
->>   };
->
->
->
-Regards,
-~arvind
-
---------------070502030605040800010507
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  </head>
-  <body bgcolor="#FFFFFF" text="#000000">
-    Hi Christian,<br>
-    <br>
-    <div class="moz-cite-prefix">On Saturday 15 July 2017 07:17 PM,
-      Christian König wrote:<br>
-    </div>
-    <blockquote
-      cite="mid:94559aac-60b7-d2f9-7594-89e939980dd5@vodafone.de"
-      type="cite">Am 15.07.2017 um 09:12 schrieb Arvind Yadav:
-      <br>
-      <blockquote type="cite">pci_device_id are not supposed to change
-        at runtime. All functions
-        <br>
-        working with pci_device_id provided by &lt;linux/pci.h&gt; work
-        with
-        <br>
-        const pci_device_id. So mark the non-const structs as const.
-        <br>
-        <br>
-        File size before:
-        <br>
-            text       data        bss        dec        hex    filename
-        <br>
-            6560      23212         72      29844       7494   
-        gpu/drm/radeon/radeon_drv.o
-        <br>
-        <br>
-        File size After adding 'const':
-        <br>
-            text       data        bss        dec        hex    filename
-        <br>
-           28960        812         72      29844       7494   
-        gpu/drm/radeon/radeon_drv.o
-        <br>
-        <br>
-        Signed-off-by: Arvind Yadav <a class="moz-txt-link-rfc2396E" href="mailto:arvind.yadav.cs@gmail.com">&lt;arvind.yadav.cs@gmail.com&gt;</a>
-        <br>
-      </blockquote>
-      <br>
-      Impressive result for such a simple change.
-      <br>
-      <br>
-      Patch is Reviewed-by: Christian König
-      <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a>
-      <br>
-      <br>
-      Are the PCI IDs already const in amdgpu or do we need a similar
-      patch there as well? I only see patch 1 of 5 in my inbox.
-      <br>
-    </blockquote>
-    I have send all gpu patch to
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <span style="color: rgb(51, 51, 51); font-family: &quot;normal
-      arial&quot;, sans-serif; font-size: 16px; font-style: normal;
-      font-variant-ligatures: normal; font-variant-caps: normal;
-      font-weight: normal; letter-spacing: normal; orphans: 2;
-      text-align: start; text-indent: 0px; text-transform: none;
-      white-space: normal; widows: 2; word-spacing: 0px;
-      -webkit-text-stroke-width: 0px; background-color: rgb(255, 255,
-      255); text-decoration-style: initial; text-decoration-color:
-      initial; display: inline !important; float: none;">David Airlie</span>.
-    Please check with him.<span style="color: rgb(51, 51, 51);
-      font-family: &quot;normal arial&quot;, sans-serif; font-size:
-      16px; font-style: normal; font-variant-ligatures: normal;
-      font-variant-caps: normal; font-weight: normal; letter-spacing:
-      normal; orphans: 2; text-align: start; text-indent: 0px;
-      text-transform: none; white-space: normal; widows: 2;
-      word-spacing: 0px; -webkit-text-stroke-width: 0px;
-      background-color: rgb(255, 255, 255); text-decoration-style:
-      initial; text-decoration-color: initial; display: inline
-      !important; float: none;"><br>
-    </span>
-    <blockquote
-      cite="mid:94559aac-60b7-d2f9-7594-89e939980dd5@vodafone.de"
-      type="cite">
-      <br>
-      Christian.
-      <br>
-      <br>
-      <blockquote type="cite">---
-        <br>
-          drivers/gpu/drm/radeon/radeon_drv.c | 2 +-
-        <br>
-          1 file changed, 1 insertion(+), 1 deletion(-)
-        <br>
-        <br>
-        diff --git a/drivers/gpu/drm/radeon/radeon_drv.c
-        b/drivers/gpu/drm/radeon/radeon_drv.c
-        <br>
-        index e25cb51..b079937 100644
-        <br>
-        --- a/drivers/gpu/drm/radeon/radeon_drv.c
-        <br>
-        +++ b/drivers/gpu/drm/radeon/radeon_drv.c
-        <br>
-        @@ -298,7 +298,7 @@ module_param_named(uvd, radeon_uvd, int,
-        0444);
-        <br>
-          MODULE_PARM_DESC(vce, "vce enable/disable vce support (1 =
-        enable, 0 = disable)");
-        <br>
-          module_param_named(vce, radeon_vce, int, 0444);
-        <br>
-          -static struct pci_device_id pciidlist[] = {
-        <br>
-        +static const struct pci_device_id pciidlist[] = {
-        <br>
-              radeon_PCI_IDS
-        <br>
-          };
-        <br>
-          </blockquote>
-      <br>
-      <br>
-      <br>
-    </blockquote>
-    Regards,<br>
-    ~arvind<br>
-  </body>
-</html>
-
---------------070502030605040800010507--
-
---===============0995739061==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <BN6PR12MB1652D7270B7952D80428DCC5F7AD0-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
-
---===============0995739061==--
+T24gMDcvMTQvMjAxNyAxMDo0MyBQTSwgRGV1Y2hlciwgQWxleGFuZGVyIHdyb3RlOgo+PiAtLS0t
+LU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+PiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1kLWdmeC1i
+b3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmCj4+IE9mIEp1bndlaSBaaGFu
+Zwo+PiBTZW50OiBGcmlkYXksIEp1bHkgMTQsIDIwMTcgNjo0MiBBTQo+PiBUbzogYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKPj4gQ2M6IFpoYW5nLCBKZXJyeQo+PiBTdWJqZWN0OiBbUEFU
+Q0ggNC80XSBkcm0vYW1kZ3B1OiBhZGQgcmluZ19kZXN0cm95IGZvciBwc3AgdjEwCj4+Cj4+IFNp
+Z25lZC1vZmYtYnk6IEp1bndlaSBaaGFuZyA8SmVycnkuWmhhbmdAYW1kLmNvbT4KPj4gLS0tCj4+
+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcHNwLmMgfCAgMSArCj4+ICBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfdjEwXzAuYyAgfCAyNwo+PiArKysrKysrKysrKysr
+KysrKysrKysrKysrKysKPj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92MTBfMC5o
+ICB8ICAyICsrCj4+ICAzIGZpbGVzIGNoYW5nZWQsIDMwIGluc2VydGlvbnMoKykKPj4KPj4gZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wc3AuYwo+PiBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wc3AuYwo+PiBpbmRleCA4ZjRlYWZjLi42
+NDQ5NDFkIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+cHNwLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5jCj4+
+IEBAIC02Nyw2ICs2Nyw3IEBAIHN0YXRpYyBpbnQgcHNwX3N3X2luaXQodm9pZCAqaGFuZGxlKQo+
+PiAgICAgICAgICAgICAgICBwc3AtPnByZXBfY21kX2J1ZiA9IHBzcF92MTBfMF9wcmVwX2NtZF9i
+dWY7Cj4+ICAgICAgICAgICAgICAgIHBzcC0+cmluZ19pbml0ID0gcHNwX3YxMF8wX3JpbmdfaW5p
+dDsKPj4gICAgICAgICAgICAgICAgcHNwLT5yaW5nX2NyZWF0ZSA9IHBzcF92MTBfMF9yaW5nX2Ny
+ZWF0ZTsKPj4gKyAgICAgICAgICAgICBwc3AtPnJpbmdfZGVzdHJveSA9IHBzcF92MTBfMF9yaW5n
+X2Rlc3Ryb3k7Cj4+ICAgICAgICAgICAgICAgIHBzcC0+Y21kX3N1Ym1pdCA9IHBzcF92MTBfMF9j
+bWRfc3VibWl0Owo+PiAgICAgICAgICAgICAgICBwc3AtPmNvbXBhcmVfc3JhbV9kYXRhID0KPj4g
+cHNwX3YxMF8wX2NvbXBhcmVfc3JhbV9kYXRhOwo+PiAgICAgICAgICAgICAgICBicmVhazsKPj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92MTBfMC5jCj4+IGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX3YxMF8wLmMKPj4gaW5kZXggZmIyOWNkNC4u
+YjRhZjMyYTMgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92
+MTBfMC5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92MTBfMC5jCj4+
+IEBAIC0yMTAsNiArMjEwLDMzIEBAIGludCBwc3BfdjEwXzBfcmluZ19jcmVhdGUoc3RydWN0IHBz
+cF9jb250ZXh0ICpwc3AsCj4+IGVudW0gcHNwX3JpbmdfdHlwZSByaW5nX3R5cGUpCj4+ICAgICAg
+ICByZXR1cm4gcmV0Owo+PiAgfQo+Pgo+PiAraW50IHBzcF92MTBfMF9yaW5nX2Rlc3Ryb3koc3Ry
+dWN0IHBzcF9jb250ZXh0ICpwc3AsIGVudW0gcHNwX3JpbmdfdHlwZQo+PiByaW5nX3R5cGUpCj4+
+ICt7Cj4+ICsgICAgIGludCByZXQgPSAwOwo+PiArICAgICBzdHJ1Y3QgcHNwX3JpbmcgKnJpbmc7
+Cj4+ICsgICAgIHVuc2lnbmVkIGludCBwc3BfcmluZ19yZWcgPSAwOwo+PiArICAgICBzdHJ1Y3Qg
+YW1kZ3B1X2RldmljZSAqYWRldiA9IHBzcC0+YWRldjsKPj4gKwo+PiArICAgICByaW5nID0gJnBz
+cC0+a21fcmluZzsKPj4gKwo+PiArICAgICAvKiBXcml0ZSB0aGUgcmluZyBkZXN0cm95IGNvbW1h
+bmQgdG8gQzJQTVNHXzY0ICovCj4+ICsgICAgIHBzcF9yaW5nX3JlZyA9IDMgPDwgMTY7Cj4+ICsg
+ICAgIFdSRUczMl9TT0MxNShNUDAsIDAsIG1tTVAwX1NNTl9DMlBNU0dfNjQsCj4+IHBzcF9yaW5n
+X3JlZyk7Cj4+ICsKPj4gKyAgICAgLyogVGhlcmUgbWlnaHQgYmUgaGFuZHNoYWtlIGlzc3VlIHdp
+dGggaGFyZHdhcmUgd2hpY2ggbmVlZHMgZGVsYXkKPj4gKi8KPj4gKyAgICAgbWRlbGF5KDIwKTsK
+Pj4gKwo+PiArICAgICAvKiBXYWl0IGZvciByZXNwb25zZSBmbGFnIChiaXQgMzEpIGluIEMyUE1T
+R182NCAqLwo+PiArICAgICByZXQgPSBwc3Bfd2FpdF9mb3IocHNwLCBTT0MxNV9SRUdfT0ZGU0VU
+KE1QMCwgMCwKPj4gbW1NUDBfU01OX0MyUE1TR182NCksCj4+ICsgICAgICAgICAgICAgICAgICAg
+ICAgICAweDgwMDAwMDAwLCAweDgwMDAwMDAwLCBmYWxzZSk7Cj4+ICsKPj4gKyAgICAgaWYgKHJp
+bmctPnJpbmdfbWVtKQo+Cj4gWW91IGRvbid0IGhhdmUgdG8gY2hlY2sgaWYgdGhlIHJpbmcgZXhp
+c3RzLiAgYW1kZ3B1X2JvX2ZyZWVfa2VybmVsIGhhbmRsZXMgTlVMTCBib3MuCj4gV2l0aCB0aGF0
+IGZpeGVkOgo+IFJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFt
+ZC5jb20+CgpZZWFoLCB0aGFua3MgdG8gcmVtaW5kZXIgdGhhdC4KSSB3aWxsIGZpeCBpdC4KCkpl
+cnJ5Cgo+Cj4+ICsgICAgICAgICAgICAgYW1kZ3B1X2JvX2ZyZWVfa2VybmVsKCZhZGV2LT5maXJt
+d2FyZS5yYnVmLAo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAmcmluZy0+
+cmluZ19tZW1fbWNfYWRkciwKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+KHZvaWQgKiopJnJpbmctPnJpbmdfbWVtKTsKPj4gKyAgICAgcmV0dXJuIHJldDsKPj4gK30KPj4g
+Kwo+PiAgaW50IHBzcF92MTBfMF9jbWRfc3VibWl0KHN0cnVjdCBwc3BfY29udGV4dCAqcHNwLAo+
+PiAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBhbWRncHVfZmlybXdhcmVfaW5mbyAqdWNv
+ZGUsCj4+ICAgICAgICAgICAgICAgICAgICAgICAgdWludDY0X3QgY21kX2J1Zl9tY19hZGRyLCB1
+aW50NjRfdCBmZW5jZV9tY19hZGRyLAo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvcHNwX3YxMF8wLmgKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3Bf
+djEwXzAuaAo+PiBpbmRleCA3ZTlhOGNkLi5lNzZjZGUyIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfdjEwXzAuaAo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9wc3BfdjEwXzAuaAo+PiBAQCAtMzQsNiArMzQsOCBAQCBleHRlcm4gaW50IHBz
+cF92MTBfMF9yaW5nX2luaXQoc3RydWN0IHBzcF9jb250ZXh0Cj4+ICpwc3AsCj4+ICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgZW51bSBwc3BfcmluZ190eXBlIHJpbmdfdHlwZSk7Cj4+ICBl
+eHRlcm4gaW50IHBzcF92MTBfMF9yaW5nX2NyZWF0ZShzdHJ1Y3QgcHNwX2NvbnRleHQgKnBzcCwK
+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBlbnVtIHBzcF9yaW5nX3R5cGUgcmlu
+Z190eXBlKTsKPj4gK2V4dGVybiBpbnQgcHNwX3YxMF8wX3JpbmdfZGVzdHJveShzdHJ1Y3QgcHNw
+X2NvbnRleHQgKnBzcCwKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBlbnVtIHBz
+cF9yaW5nX3R5cGUgcmluZ190eXBlKTsKPj4gIGV4dGVybiBpbnQgcHNwX3YxMF8wX2NtZF9zdWJt
+aXQoc3RydWN0IHBzcF9jb250ZXh0ICpwc3AsCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHN0cnVjdCBhbWRncHVfZmlybXdhcmVfaW5mbyAqdWNvZGUsCj4+ICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIHVpbnQ2NF90IGNtZF9idWZfbWNfYWRkciwgdWludDY0X3QKPj4gZmVu
+Y2VfbWNfYWRkciwKPj4gLS0KPj4gMS45LjEKPj4KPj4gX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KPj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4gYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj5odHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4Cg==
