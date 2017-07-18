@@ -1,12 +1,17 @@
-From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: Fw: [PATCH] drm/amdgpu:fix gfx fence allocate size
-Date: Tue, 18 Jul 2017 05:58:39 +0000
-Message-ID: <BLUPR12MB0449B0A57E814A1849676E6084A10@BLUPR12MB0449.namprd12.prod.outlook.com>
-References: <1500357409-1396-1-git-send-email-Monk.Liu@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH v3 1/4] drm/amdgpu: Fix KFD oversubscription by tracking
+ queues correctly
+Date: Tue, 18 Jul 2017 12:46:34 +0000
+Message-ID: <CY4PR12MB1653F1257FF1F5B47FC5D119F7A10@CY4PR12MB1653.namprd12.prod.outlook.com>
+References: <1499995316-4544-1-git-send-email-Jay.Cornwall@amd.com>
+ <CADnq5_MO-vbhKtEMHwZrAaqA2fhh+qnO0GCrdq+rh4SMY50KsQ@mail.gmail.com>
+ <CAFCwf11Wr+8=1+-ohU1Ud_4tjfHeMOQiwz9vTFHiQev=FF9Nzg@mail.gmail.com>
+ <0567bf23-212d-4fa4-8cb8-55e03782dce0@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0920685969=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1500357409-1396-1-git-send-email-Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <0567bf23-212d-4fa4-8cb8-55e03782dce0-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -18,422 +23,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0920685969==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BLUPR12MB0449B0A57E814A1849676E6084A10BLUPR12MB0449namp_"
-
---_000_BLUPR12MB0449B0A57E814A1849676E6084A10BLUPR12MB0449namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-
-
-
-________________________________
-From: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Sent: Tuesday, July 18, 2017 1:56 PM
-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Liu, Monk; Yu, Xiangliang
-Subject: [PATCH] drm/amdgpu:fix gfx fence allocate size
-
-1, for sriov, we need 8dw for the gfx fence due to CP
-behaviour
-2, cleanup wrong logic in wptr/rptr wb alloc and free
-
-Change-Id: Ifbfed17a4621dae57244942ffac7de1743de0294
-Signed-off-by: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Signed-off-by: Xiangliang Yu <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 32 ++++++++++++++++++++++++++=
-++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c   | 26 ++++++++++++++++--------
- 3 files changed, 52 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
-pu/amdgpu.h
-index f6345b9..fe96236 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1191,7 +1191,9 @@ struct amdgpu_wb {
- int amdgpu_wb_get(struct amdgpu_device *adev, u32 *wb);
- void amdgpu_wb_free(struct amdgpu_device *adev, u32 wb);
- int amdgpu_wb_get_64bit(struct amdgpu_device *adev, u32 *wb);
-+int amdgpu_wb_get_256Bit(struct amdgpu_device *adev, u32 *wb);
- void amdgpu_wb_free_64bit(struct amdgpu_device *adev, u32 wb);
-+void amdgpu_wb_free_256bit(struct amdgpu_device *adev, u32 wb);
-
- void amdgpu_get_pcie_info(struct amdgpu_device *adev);
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
-index 7e11190..6050804 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -603,6 +603,21 @@ int amdgpu_wb_get_64bit(struct amdgpu_device *adev, u3=
-2 *wb)
-         }
- }
-
-+int amdgpu_wb_get_256Bit(struct amdgpu_device *adev, u32 *wb)
-+{
-+       int i =3D 0;
-+       unsigned long offset =3D bitmap_find_next_zero_area_off(adev->wb.us=
-ed,
-+                               adev->wb.num_wb, 0, 8, 63, 0);
-+       if ((offset + 7) < adev->wb.num_wb) {
-+               for (i =3D 0; i < 8; i++)
-+                       __set_bit(offset + i, adev->wb.used);
-+               *wb =3D offset;
-+               return 0;
-+       } else {
-+               return -EINVAL;
-+       }
-+}
-+
- /**
-  * amdgpu_wb_free - Free a wb entry
-  *
-@@ -634,6 +649,23 @@ void amdgpu_wb_free_64bit(struct amdgpu_device *adev, =
-u32 wb)
- }
-
- /**
-+ * amdgpu_wb_free_256bit - Free a wb entry
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @wb: wb index
-+ *
-+ * Free a wb slot allocated for use by the driver (all asics)
-+ */
-+void amdgpu_wb_free_256bit(struct amdgpu_device *adev, u32 wb)
-+{
-+       int i =3D 0;
-+
-+       if ((wb + 7) < adev->wb.num_wb)
-+               for (i =3D 0; i < 8; i++)
-+                       __clear_bit(wb + i, adev->wb.used);
-+}
-+
-+/**
-  * amdgpu_vram_location - try to find VRAM location
-  * @adev: amdgpu device structure holding all necessary informations
-  * @mc: memory controller structure holding memory informations
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_ring.c
-index 75165e0..eea17ae 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-@@ -212,10 +212,19 @@ int amdgpu_ring_init(struct amdgpu_device *adev, stru=
-ct amdgpu_ring *ring,
-
-         }
-
--       r =3D amdgpu_wb_get(adev, &ring->fence_offs);
--       if (r) {
--               dev_err(adev->dev, "(%d) ring fence_offs wb alloc failed\n"=
-, r);
--               return r;
-+       if (amdgpu_sriov_vf(adev) && ring->funcs->type =3D=3D AMDGPU_RING_T=
-YPE_GFX) {
-+               r =3D amdgpu_wb_get_256Bit(adev, &ring->fence_offs);
-+               if (r) {
-+                       dev_err(adev->dev, "(%d) ring fence_offs wb alloc f=
-ailed\n", r);
-+                       return r;
-+               }
-+
-+       } else {
-+               r =3D amdgpu_wb_get(adev, &ring->fence_offs);
-+               if (r) {
-+                       dev_err(adev->dev, "(%d) ring fence_offs wb alloc f=
-ailed\n", r);
-+                       return r;
-+               }
-         }
-
-         r =3D amdgpu_wb_get(adev, &ring->cond_exe_offs);
-@@ -278,17 +287,18 @@ void amdgpu_ring_fini(struct amdgpu_ring *ring)
-         ring->ready =3D false;
-
-         if (ring->funcs->support_64bit_ptrs) {
--               amdgpu_wb_free_64bit(ring->adev, ring->cond_exe_offs);
--               amdgpu_wb_free_64bit(ring->adev, ring->fence_offs);
-                 amdgpu_wb_free_64bit(ring->adev, ring->rptr_offs);
-                 amdgpu_wb_free_64bit(ring->adev, ring->wptr_offs);
-         } else {
--               amdgpu_wb_free(ring->adev, ring->cond_exe_offs);
--               amdgpu_wb_free(ring->adev, ring->fence_offs);
-                 amdgpu_wb_free(ring->adev, ring->rptr_offs);
-                 amdgpu_wb_free(ring->adev, ring->wptr_offs);
-         }
-
-+       amdgpu_wb_free(ring->adev, ring->cond_exe_offs);
-+       if (amdgpu_sriov_vf(ring->adev) && ring->funcs->type =3D=3D AMDGPU_=
-RING_TYPE_GFX)
-+               amdgpu_wb_free_256bit(ring->adev, ring->fence_offs);
-+       else
-+               amdgpu_wb_free(ring->adev, ring->cond_exe_offs);
-
-         amdgpu_bo_free_kernel(&ring->ring_obj,
-                               &ring->gpu_addr,
---
-2.7.4
-
-
---_000_BLUPR12MB0449B0A57E814A1849676E6084A10BLUPR12MB0449namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p><br>
-</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Monk Liu &lt;Monk.L=
-iu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Tuesday, July 18, 2017 1:56 PM<br>
-<b>To:</b> amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Liu, Monk; Yu, Xiangliang<br>
-<b>Subject:</b> [PATCH] drm/amdgpu:fix gfx fence allocate size</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">1, for sriov, we need 8dw for the gfx fence due to=
- CP<br>
-behaviour<br>
-2, cleanup wrong logic in wptr/rptr wb alloc and free<br>
-<br>
-Change-Id: Ifbfed17a4621dae57244942ffac7de1743de0294<br>
-Signed-off-by: Monk Liu &lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-Signed-off-by: Xiangliang Yu &lt;Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; |&nbsp; 2 &#43;&#43;<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 32 &#43;&#43;&#43;&#43;&=
-#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
-#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c&nbsp;&nbsp; | 26 &#43;&#43;&=
-#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;------=
---<br>
-&nbsp;3 files changed, 52 insertions(&#43;), 8 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
-pu/amdgpu.h<br>
-index f6345b9..fe96236 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-@@ -1191,7 &#43;1191,9 @@ struct amdgpu_wb {<br>
-&nbsp;int amdgpu_wb_get(struct amdgpu_device *adev, u32 *wb);<br>
-&nbsp;void amdgpu_wb_free(struct amdgpu_device *adev, u32 wb);<br>
-&nbsp;int amdgpu_wb_get_64bit(struct amdgpu_device *adev, u32 *wb);<br>
-&#43;int amdgpu_wb_get_256Bit(struct amdgpu_device *adev, u32 *wb);<br>
-&nbsp;void amdgpu_wb_free_64bit(struct amdgpu_device *adev, u32 wb);<br>
-&#43;void amdgpu_wb_free_256bit(struct amdgpu_device *adev, u32 wb);<br>
-&nbsp;<br>
-&nbsp;void amdgpu_get_pcie_info(struct amdgpu_device *adev);<br>
-&nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c<br>
-index 7e11190..6050804 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-@@ -603,6 &#43;603,21 @@ int amdgpu_wb_get_64bit(struct amdgpu_device *adev=
-, u32 *wb)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;}<br>
-&nbsp;<br>
-&#43;int amdgpu_wb_get_256Bit(struct amdgpu_device *adev, u32 *wb)<br>
-&#43;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i =3D 0;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long offset =3D bitmap_f=
-ind_next_zero_area_off(adev-&gt;wb.used,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;wb.num_wb, 0, 8, 63, 0);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((offset &#43; 7) &lt; adev-&g=
-t;wb.num_wb) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; for (i =3D 0; i &lt; 8; i&#43;&#43;)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __set_bit(of=
-fset &#43; i, adev-&gt;wb.used);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; *wb =3D offset;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return 0;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return -EINVAL;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;}<br>
-&#43;<br>
-&nbsp;/**<br>
-&nbsp; * amdgpu_wb_free - Free a wb entry<br>
-&nbsp; *<br>
-@@ -634,6 &#43;649,23 @@ void amdgpu_wb_free_64bit(struct amdgpu_device *ad=
-ev, u32 wb)<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;/**<br>
-&#43; * amdgpu_wb_free_256bit - Free a wb entry<br>
-&#43; *<br>
-&#43; * @adev: amdgpu_device pointer<br>
-&#43; * @wb: wb index<br>
-&#43; *<br>
-&#43; * Free a wb slot allocated for use by the driver (all asics)<br>
-&#43; */<br>
-&#43;void amdgpu_wb_free_256bit(struct amdgpu_device *adev, u32 wb)<br>
-&#43;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i =3D 0;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((wb &#43; 7) &lt; adev-&gt;wb=
-.num_wb)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; for (i =3D 0; i &lt; 8; i&#43;&#43;)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __clear_bit(=
-wb &#43; i, adev-&gt;wb.used);<br>
-&#43;}<br>
-&#43;<br>
-&#43;/**<br>
-&nbsp; * amdgpu_vram_location - try to find VRAM location<br>
-&nbsp; * @adev: amdgpu device structure holding all necessary informations<=
-br>
-&nbsp; * @mc: memory controller structure holding memory informations<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_ring.c<br>
-index 75165e0..eea17ae 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c<br>
-@@ -212,10 &#43;212,19 @@ int amdgpu_ring_init(struct amdgpu_device *adev, =
-struct amdgpu_ring *ring,<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_wb_get(adev, &amp;ring-&=
-gt;fence_offs);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; dev_err(adev-&gt;dev, &quot;(%d) ring fence_offs wb alloc failed=
-\n&quot;, r);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return r;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev) &amp;&a=
-mp; ring-&gt;funcs-&gt;type =3D=3D AMDGPU_RING_TYPE_GFX) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; r =3D amdgpu_wb_get_256Bit(adev, &amp;ring-&gt;fence_offs);<=
-br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (r) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_err(adev=
--&gt;dev, &quot;(%d) ring fence_offs wb alloc failed\n&quot;, r);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br=
->
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; }<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; r =3D amdgpu_wb_get(adev, &amp;ring-&gt;fence_offs);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (r) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_err(adev=
--&gt;dev, &quot;(%d) ring fence_offs wb alloc failed\n&quot;, r);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br=
->
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_wb_get(adev, =
-&amp;ring-&gt;cond_exe_offs);<br>
-@@ -278,17 &#43;287,18 @@ void amdgpu_ring_fini(struct amdgpu_ring *ring)<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ring-&gt;ready =3D false;<=
-br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ring-&gt;funcs-&gt;sup=
-port_64bit_ptrs) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_wb_free_64bit(ring-&gt;adev, ring-&gt;cond_exe_offs);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_wb_free_64bit(ring-&gt;adev, ring-&gt;fence_offs);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_wb_free_64bit(ring-&gt;adev, ring-&gt;rptr_off=
-s);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_wb_free_64bit(ring-&gt;adev, ring-&gt;wptr_off=
-s);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_wb_free(ring-&gt;adev, ring-&gt;cond_exe_offs);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_wb_free(ring-&gt;adev, ring-&gt;fence_offs);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_wb_free(ring-&gt;adev, ring-&gt;rptr_offs);<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_wb_free(ring-&gt;adev, ring-&gt;wptr_offs);<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_wb_free(ring-&gt;adev, rin=
-g-&gt;cond_exe_offs);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(ring-&gt;adev=
-) &amp;&amp; ring-&gt;funcs-&gt;type =3D=3D AMDGPU_RING_TYPE_GFX)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_wb_free_256bit(ring-&gt;adev, ring-&gt;fence_offs);<b=
-r>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; amdgpu_wb_free(ring-&gt;adev, ring-&gt;cond_exe_offs);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_free_kernel(&amp=
-;ring-&gt;ring_obj,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;ring-&gt;gpu_addr,<br>
--- <br>
-2.7.4<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BLUPR12MB0449B0A57E814A1849676E6084A10BLUPR12MB0449namp_--
-
---===============0920685969==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0920685969==--
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBLdWVobGluZywgRmVsaXgNCj4g
+U2VudDogVHVlc2RheSwgSnVseSAxOCwgMjAxNyAxMjo0MSBBTQ0KPiBUbzogYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmc7IERldWNoZXIsIEFsZXhhbmRlcg0KPiBTdWJqZWN0OiBSZTogW1BB
+VENIIHYzIDEvNF0gZHJtL2FtZGdwdTogRml4IEtGRCBvdmVyc3Vic2NyaXB0aW9uIGJ5DQo+IHRy
+YWNraW5nIHF1ZXVlcyBjb3JyZWN0bHkNCj4gDQo+IEhpIEFsZXgsDQo+IA0KPiBUaGlzIHBhdGNo
+IHNlcmllcyB3ZW50IGludG8gYW1kLWtmZC1zdGFnaW5nLiBJJ2QgbGlrZSB0byBhbHNvIHB1c2gg
+aXQNCj4gaW50byBhbWQtc3RhZ2luZy00LjExIGFzIEknbSBqdXN0IHdvcmtpbmcgdG8gbWluaW1p
+emUgYW55IHVubmVjZXNzYXJ5DQo+IGRpZmZlcmVuY2VzIGJldHdlZW4gdGhlIGJyYW5jaGVzIGJl
+Zm9yZSB0aGUgYmlnIEtGRCBoaXN0b3J5IHJld29yay4NCj4gDQo+IEkgcmViYXNlZCBpdCwgcmVz
+b2x2ZWQgc29tZSBjb250bGljdHMsIGFuZCByZW1vdmVkIHRoZSBkZWNsYXJhdGlvbiBvZg0KPiBn
+ZXRfbWVjX251bSBmcm9tIGtmZF9kZXZpY2VfcXVldWVfbWFuYWdlci5oLiBEbyB5b3Ugd2FudCBt
+ZSB0bw0KPiBwdXNoIHRoYXQNCj4gcmViYXNlZCBwYXRjaCBzZXJpZXM/DQoNClN1cmUuICBTb3Vu
+ZHMgZ29vZC4NCg0KQWxleA0KDQo+IA0KPiBUaGFua3MsDQo+ICAgRmVsaXgNCj4gDQo+IA0KPiBP
+biAxNy0wNy0xNyAxMTo1MiBBTSwgT2RlZCBHYWJiYXkgd3JvdGU6DQo+ID4gT24gRnJpLCBKdWwg
+MTQsIDIwMTcgYXQgNzoyNCBQTSwgQWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+
+DQo+IHdyb3RlOg0KPiA+PiBPbiBUaHUsIEp1bCAxMywgMjAxNyBhdCA5OjIxIFBNLCBKYXkgQ29y
+bndhbGwgPEpheS5Db3Jud2FsbEBhbWQuY29tPg0KPiB3cm90ZToNCj4gPj4+IFRoZSBudW1iZXIg
+b2YgY29tcHV0ZSBxdWV1ZXMgYXZhaWxhYmxlIHRvIHRoZSBLRkQgd2FzIGVycm9uZW91c2x5DQo+
+ID4+PiBjYWxjdWxhdGVkIGFzIDY0LiBPbmx5IHRoZSBmaXJzdCBNRUMgY2FuIGV4ZWN1dGUgY29t
+cHV0ZSBxdWV1ZXMgYW5kDQo+ID4+PiBpdCBoYXMgMzIgcXVldWUgc2xvdHMuDQo+ID4+Pg0KPiA+
+Pj4gVGhpcyBjYXVzZWQgdGhlIG92ZXJzdWJzY3JpcHRpb24gbGltaXQgdG8gYmUgY2FsY3VsYXRl
+ZCBpbmNvcnJlY3RseSwNCj4gPj4+IGxlYWRpbmcgdG8gYSBtaXNzaW5nIGNoYWluZWQgcnVubGlz
+dCBjb21tYW5kIGF0IHRoZSBlbmQgb2YgYW4NCj4gPj4+IG92ZXJzdWJzY3JpYmVkIHJ1bmxpc3Qu
+DQo+ID4+Pg0KPiA+Pj4gdjI6IFJlbW92ZSB1bnVzZWQgbnVtX21lYyBmaWVsZCB0byBhdm9pZCBk
+dXBsaWNhdGUgbG9naWMNCj4gPj4+IHYzOiBTZXBhcmF0ZSBudW1fbWVjIHJlbW92YWwgaW50byBz
+ZXBhcmF0ZSBwYXRjaGVzDQo+ID4+Pg0KPiA+Pj4gQ2hhbmdlLUlkOiBJOWU3YmJhMmNjMTkyOGI2
+MjRlM2VlYjFlZGIwNmZkYjYwMmU1Mjk0Zg0KPiA+Pj4gU2lnbmVkLW9mZi1ieTogSmF5IENvcm53
+YWxsIDxKYXkuQ29ybndhbGxAYW1kLmNvbT4NCj4gPj4gU2VyaWVzIGlzOg0KPiA+PiBSZXZpZXdl
+ZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0KPiA+Pg0KPiA+
+IEhpIEpheSwNCj4gPiBUaGFua3MgZm9yIHRoZSBwYXRjaGVzLCBJIGFwcGxpZWQgdGhlbSB0byBh
+bWRrZmQtZml4ZXMgKGFmdGVyIHJlYmFzaW5nDQo+ID4gdGhlbSBvdmVyIDQuMTMtcmMxKQ0KPiA+
+DQo+ID4gT2RlZA0KPiA+DQo+ID4+PiAtLS0NCj4gPj4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfYW1ka2ZkLmMgfCAyICstDQo+ID4+PiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5z
+ZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pDQo+ID4+Pg0KPiA+Pj4gZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuYw0KPiBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuYw0KPiA+Pj4gaW5kZXggNzA2MGRhZi4uYWE0MDA2
+YSAxMDA2NDQNCj4gPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9h
+bWRrZmQuYw0KPiA+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Ft
+ZGtmZC5jDQo+ID4+PiBAQCAtMTQwLDcgKzE0MCw3IEBAIHZvaWQgYW1kZ3B1X2FtZGtmZF9kZXZp
+Y2VfaW5pdChzdHJ1Y3QNCj4gYW1kZ3B1X2RldmljZSAqYWRldikNCj4gPj4+ICAgICAgICAgICAg
+ICAgICAvKiBBY2NvcmRpbmcgdG8gbGludXgvYml0bWFwLmggd2Ugc2hvdWxkbid0IHVzZSBiaXRt
+YXBfY2xlYXIgaWYNCj4gPj4+ICAgICAgICAgICAgICAgICAgKiBuYml0cyBpcyBub3QgY29tcGls
+ZSB0aW1lIGNvbnN0YW50DQo+ID4+PiAgICAgICAgICAgICAgICAgICovDQo+ID4+PiAtICAgICAg
+ICAgICAgICAgbGFzdF92YWxpZF9iaXQgPSBhZGV2LT5nZngubWVjLm51bV9tZWMNCj4gPj4+ICsg
+ICAgICAgICAgICAgICBsYXN0X3ZhbGlkX2JpdCA9IDEgLyogb25seSBmaXJzdCBNRUMgY2FuIGhh
+dmUgY29tcHV0ZSBxdWV1ZXMgKi8NCj4gPj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgKiBhZGV2LT5nZngubWVjLm51bV9waXBlX3Blcl9tZWMNCj4gPj4+ICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgKiBhZGV2LT5nZngubWVjLm51bV9xdWV1ZV9wZXJfcGlwZTsNCj4g
+Pj4+ICAgICAgICAgICAgICAgICBmb3IgKGkgPSBsYXN0X3ZhbGlkX2JpdDsgaSA8IEtHRF9NQVhf
+UVVFVUVTOyArK2kpDQo+ID4+PiAtLQ0KPiA+Pj4gMi43LjQNCj4gPj4+DQo+ID4+PiBfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiA+Pj4gYW1kLWdmeCBt
+YWlsaW5nIGxpc3QNCj4gPj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+ID4+PiBo
+dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCj4g
+Pj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4gPj4g
+YW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4gPj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcN
+Cj4gPj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
+Z2Z4DQo+ID4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18N
+Cj4gPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPiA+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnDQo+ID4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4DQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
