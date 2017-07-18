@@ -1,52 +1,58 @@
-From: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: read reg in each iterate of psp_wait_for loop
-Date: Tue, 18 Jul 2017 10:50:27 +0800
-Message-ID: <596D7773.3010602@amd.com>
-References: <1500027617-18557-1-git-send-email-Jerry.Zhang@amd.com>
- <20170717075209.GA16630@hr-amur2> <20170717075755.GB16630@hr-amur2>
- <596C7BBA.2010300@amd.com> <20170717105741.GC32372@kroah.com>
- <20170717114511.GA18478@hr-amur2>
+From: Junwei Zhang <Jerry.Zhang@amd.com>
+Subject: [PATCH] drm/amdgpu: read reg in each iterate of psp_wait_for loop
+Date: Tue, 18 Jul 2017 10:54:24 +0800
+Message-ID: <1500346464-8132-1-git-send-email-Jerry.Zhang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170717114511.GA18478@hr-amur2>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, Greg KH <gregkh-hQyY1W1yCW8ekmWlsbkhG0B+6BGkLq7r@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Wang,
- Ken" <Ken.Wang-5C7GfCeVMHo@public.gmane.org>, "stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain
+Return-path: <stable-owner@vger.kernel.org>
+Sender: stable-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, ray.huang@amd.com, gregkh@linuxfoundation.org, "Zhang, Jerry" <Jerry.Zhang@amd.com>, stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMDcvMTcvMjAxNyAwNzo0NSBQTSwgSHVhbmcgUnVpIHdyb3RlOgo+IE9uIE1vbiwgSnVsIDE3
-LCAyMDE3IGF0IDA2OjU3OjQxUE0gKzA4MDAsIEdyZWcgS0ggd3JvdGU6Cj4+IE9uIE1vbiwgSnVs
-IDE3LCAyMDE3IGF0IDA0OjU2OjI2UE0gKzA4MDAsIFpoYW5nLCBKZXJyeSAoSnVud2VpKSB3cm90
-ZToKPj4gPiArIHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcKPj4KPj4gPGZvcm1sZXR0ZXI+Cj4+Cj4+
-IFRoaXMgaXMgbm90IHRoZSBjb3JyZWN0IHdheSB0byBzdWJtaXQgcGF0Y2hlcyBmb3IgaW5jbHVz
-aW9uIGluIHRoZQo+PiBzdGFibGUga2VybmVsIHRyZWUuICBQbGVhc2UgcmVhZDoKPj5odHRwczov
-L3d3dy5rZXJuZWwub3JnL2RvYy9odG1sL2xhdGVzdC9wcm9jZXNzL3N0YWJsZS1rZXJuZWwtcnVs
-ZXMuaHRtbAo+PiBmb3IgaG93IHRvIGRvIHRoaXMgcHJvcGVybHkuCj4+Cj4+IDwvZm9ybWxldHRl
-cj4KPgo+IFRoYW5rcywgR3JlZy4gOi0pCgpUaGFua3MgR3JlZyB0byByZW1pbmRlciB0aGF0Cgo+
-Cj4+PiBCVFc6IHBsZWFzZSBhZGQgQ2M6IDxzdGFibGVAdmdlci5rZXJuZWwub3JnPiBpbiB5b3Vy
-IHBhdGNoLCBpdCBuZWVkIGJlCj4+PiBiYWNrcG9ydGVkIHRvIHN0YWJsZSB0cmVlLgo+Cj4gSmVy
-cnksIEkgbWlnaHQgbm90IGRlc2NyaWJlIGl0IGNsZWFybHkuIFdlIG5lZWQgZm9sbG93IHRoZSBy
-dWxlIHRoYXQgR3JlZwo+IHByb3ZpZGVkLiBBY3R1YWxseSwgSSBtZWFudCB0byBhZGQgQ2MgaW4g
-eW91ciBjb21taXQgbWVzc2FnZSBsaWtlIGJlbG93LAo+IHRoZW4gc2VudCBpdCBvdXQ6CgpUaGFu
-a3MgdG8gZXhwbGFpbiBpbiBkZXRhaWwuCkkgd2lsbCBwcmVwYXJlIGl0IHRoZW0gYXMgb25lIHBh
-dGNoIGFnYWluLgoKSmVycnkKCj4KPiA4PC0tLS0tLS0tLS0KPgo+IFN1YmplY3Q6IFtQQVRDSF0g
-ZHJtL2FtZGdwdTogcmVhZCByZWcgaW4gZWFjaCBpdGVyYXRlIG9mIHBzcF93YWl0X2ZvciBsb29w
-Cj4KPiBUaGlzIGZpeGVzIHRoZSBTT1MgbG9hZGluZyBmYWlsdXJlIG9mIHBzcCB2My4xLgo+Cj4g
-U2lnbmVkLW9mZi1ieTogSnVud2VpIFpoYW5nIDxKZXJyeS5aaGFuZ0BhbWQuY29tPgo+IENjOiBz
-dGFibGVAdmdlci5rZXJuZWwub3JnCj4KPiA4PC0tLS0tLS0tLS0KPgo+IEFuZCB5b3UnZCBiZXR0
-ZXIgc3F1ZWV6ZSB0aGUgdHdvIHBhdGNoZXMgYXMgb25lIChhY3R1YWxseSBpdCdzIG9ubHkgb25l
-Cj4gZml4KSB0byBtYWtlIGJhY2twb3J0aW5nIG1vcmUgc21vb3RoLgo+Cj4gVGhhbmtzLAo+IFJ1
-aQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
-IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+From: "Zhang, Jerry" <Jerry.Zhang@amd.com>
+
+v2: fixes the SOS loading failure for PSP v3.1
+
+Signed-off-by: Junwei Zhang <Jerry.Zhang@amd.com>
+Cc: stable@vger.kernel.org
+Acked-by: Alex Deucher <alexander.deucher@amd.com> (v1)
+Acked-by: Huang Rui <ray.huang@amd.com> (v1)
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 3 +--
+ drivers/gpu/drm/amd/amdgpu/psp_v3_1.c   | 2 --
+ 2 files changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index c919579..644941d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -98,9 +98,8 @@ int psp_wait_for(struct psp_context *psp, uint32_t reg_index,
+ 	int i;
+ 	struct amdgpu_device *adev = psp->adev;
+ 
+-	val = RREG32(reg_index);
+-
+ 	for (i = 0; i < adev->usec_timeout; i++) {
++		val = RREG32(reg_index);
+ 		if (check_changed) {
+ 			if (val != reg_val)
+ 				return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
+index 2718e86..23106e3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
+@@ -237,11 +237,9 @@ int psp_v3_1_bootloader_load_sos(struct psp_context *psp)
+ 
+ 	/* there might be handshake issue with hardware which needs delay */
+ 	mdelay(20);
+-#if 0
+ 	ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, mmMP0_SMN_C2PMSG_81),
+ 			   RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_81),
+ 			   0, true);
+-#endif
+ 
+ 	return ret;
+ }
+-- 
+1.9.1
