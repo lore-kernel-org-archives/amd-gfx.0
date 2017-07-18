@@ -1,95 +1,81 @@
-From: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH libdrm] libdrm_amdgpu: add kernel semaphore support
-Date: Tue, 18 Jul 2017 13:00:49 +1000
-Message-ID: <CAPM=9tx46kYToSvirxL_TTv5dONe8UmM0MCDmAj=YQpCVhyWtA@mail.gmail.com>
-References: <20170706011749.4217-1-airlied@gmail.com>
- <CAPM=9tzzKNA_4GYyz1Aa0QytEJ=mZSVbvBWcGDx29pf+5292dw@mail.gmail.com>
- <8a5bb44b-c749-43e1-c58a-6c340bbf5474@vodafone.de>
- <CAPM=9twcN5y4H3yvKfUNEK+k4E3_6zoTPpWWsn+vdE2bYt7qhg@mail.gmail.com>
- <e8320749-8afb-5d64-93e4-7c64192735c5@vodafone.de>
- <CAPM=9tw2jGVmJW=VcE=t1WuOXVdj61Qj4jocZQUVGwmHe4DFGA@mail.gmail.com>
- <c8c18534-e831-4e48-603a-f72e0234ba6e@vodafone.de>
- <CAPM=9tzweASCX=Jf2S6-YEqbCnff94WkDN563TDN55v+F-0sQA@mail.gmail.com>
- <CAPM=9twZq965gfWHPhjF-P1W6fAV5=dutH3TRmpGK2mwG7waJg@mail.gmail.com>
- <db2890bd-36de-ab34-da99-c3dcd691a5e2@vodafone.de>
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: read reg in each iterate of psp_wait_for loop
+Date: Tue, 18 Jul 2017 03:25:45 +0000
+Message-ID: <BN6PR12MB16520B2CDC16A66FA2592028F7A10@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <1500346464-8132-1-git-send-email-Jerry.Zhang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <db2890bd-36de-ab34-da99-c3dcd691a5e2-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Cc: "Olsak, Marek" <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <1500346464-8132-1-git-send-email-Jerry.Zhang@amd.com>
+Content-Language: en-US
+Sender: stable-owner@vger.kernel.org
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>, "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "Zhang, Jerry" <Jerry.Zhang@amd.com>, "stable@vger.kernel.org" <stable@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMTggSnVseSAyMDE3IGF0IDAzOjAyLCBDaHJpc3RpYW4gS8O2bmlnIDxkZWF0aHNpbXBsZUB2
-b2RhZm9uZS5kZT4gd3JvdGU6Cj4gQW0gMTcuMDcuMjAxNyB1bSAwNTozNiBzY2hyaWViIERhdmUg
-QWlybGllOgo+Pj4KPj4+IEkgY2FuIHRha2UgYSBsb29rIGF0IGl0LCBJIGp1c3Qgd29uJ3QgaGF2
-ZSB0aW1lIHVudGlsIG5leHQgd2VlayBtb3N0Cj4+PiBsaWtlbHkuCj4+Cj4+IEkndmUgdGFrZW4g
-YSBsb29rLCBhbmQgaXQncyBzZWVtaW5nbHkgbW9yZSBjb21wbGljYXRlZCB0aGFuIEknbQo+PiBl
-eHBlY3RpbmcgSSdkIHdhbnQgdG8gbGFuZCBpbiBNZXNhIGJlZm9yZSAxNy4yIHNoaXBzLCBJJ2Qg
-cmVhbGx5Cj4+IHByZWZlciB0byBqdXN0IHB1c2ggdGhlIG5ldyBsaWJkcm1fYW1kZ3B1IGFwaSBm
-cm9tIHRoaXMgcGF0Y2guIElmIEkKPj4gaGF2ZSB0byBwb3J0IGFsbCB0aGUgY3VycmVudCByYWR2
-IGNvZGUgdG8gdGhlIG5ldyBBUEksIEknbGwgbW9zdAo+PiBkZWZpbml0ZWx5IGdldCBzb21ldGhp
-bmcgd3JvbmcuCj4+Cj4+IEFkZGluZyB0aGUgbmV3IEFQSSBzbyBmYXIgbG9va3MgbGlrZQo+PiBo
-dHRwczovL2NnaXQuZnJlZWRlc2t0b3Aub3JnL35haXJsaWVkL2RybS9sb2cvP2g9ZHJtLWFtZGdw
-dS1jcy1zdWJtaXQtcmF3Cj4+Cj4+Cj4+IGh0dHBzOi8vY2dpdC5mcmVlZGVza3RvcC5vcmcvfmFp
-cmxpZWQvZHJtL2NvbW1pdC8/aD1kcm0tYW1kZ3B1LWNzLXN1Ym1pdC1yYXcmaWQ9ZTdmODVkMGNh
-NjE3ZmE0MWU3MjYyNDc4MGM5MDM1ZGYxMzJlMjNjNAo+PiBiZWluZyB0aGUgQVBJLCBhbmQgd2hl
-dGhlciBpdCBzaG91bGQgdGFrZSBhIHVpbnQzMl90IGNvbnRleHQgaWQgb3IKPj4gY29udGV4dCBo
-YW5kbGUgbGVmdCBhcyBhbiBvcGVuIHF1ZXN0aW9uIGluIHRoZSBsYXN0IHBhdGNoIGluIHRoZQo+
-PiBzZXJpZXMuCj4KPgo+IEkgd291bGQgc3RpY2sgd2l0aCB0aGUgY29udGV4dCBoYW5kbGUsIGFz
-IGZhciBhcyBJIGNhbiBzZWUgdGhlcmUgaXNuJ3QgYW55Cj4gdmFsdWUgaW4gdXNpbmcgdGhlIHVp
-bnQzMl90IGZvciB0aGlzLgo+Cj4gV2UganVzdCB3YW50IHRvIGJlIGFibGUgdG8gc2VuZCBhcmJp
-dHJhcnkgY2h1bmtzIGRvd24gaW50byB0aGUga2VybmVsCj4gd2l0aG91dCBsaWJkcm1fYW1kZ3B1
-IGludm9sdmVtZW50IGFuZC9vciB0aGUgYXNzb2NpYXRlZCBvdmVyaGVhZCBvZiB0aGUKPiBleHRy
-YSBsb29wIGFuZCB0aGUgc2VtYXBob3JlIGhhbmRsaW5nLgo+Cj4gU28geW91ciAiYW1kZ3B1L2Nz
-OiBhZGQgbmV3IHJhdyBjcyBzdWJtaXNzaW9uIGludGVyZmFjZSBqdXN0IHRha2luZyBjaHVua3Mi
-Cj4gcGF0Y2ggbG9va3MgZmluZSB0byBtZSBhcyBmYXIgYXMgSSBjYW4gdGVsbC4KPgo+IEFzIGZh
-ciBhcyBJIGNhbiBzZWUgdGhlICJhbWRncHU6IHJlZmFjdG9yIHNlbWFwaG9yZSBoYW5kbGluZyIg
-cGF0Y2ggaXMKPiBhY3R1YWxseSBpbmNvcnJlY3QuIFdlIG11c3QgaG9sZSB0aGUgbXV0ZXggd2hp
-bGUgc2VuZGluZyB0aGUgQ1MgZG93biB0byB0aGUKPiBrZXJuZWwsIG9yIG90aGVyd2lzZSAiY29u
-dGV4dC0+bGFzdF9zZXEiIHdvbid0IGJlIGFjY3VyYXRlLgo+Cj4+IEhvd2V2ZXIgdG8gaG9vayB0
-aGlzIGludG8gcmFkdiBvciByYWRlb25zaSB3aWxsIHRha2UgYSBiaXQgb2YKPj4gcmV3cml0aW5n
-IG9mIGEgbG90IG9mIGNvZGUgdGhhdCBpcyBwcm9iYWJseSBhIGJpdCBtb3JlIGZyYWdpbGUgdGhh
-bgo+PiBJJ2QgbGlrZSBmb3IgdGhpcyBzb3J0IG9mIHN1cmdlcnkgYXQgdGhpcyBwb2ludC4KPgo+
-Cj4gQWdhaW4sIEkgY2FuIG1vdmUgb3ZlciB0aGUgZXhpc3RpbmcgTWVzYSBzdHVmZiBpZiB5b3Ug
-bGlrZS4KPgo+PiBJJ2QgYWN0dWFsbHkgc3VzcGVjdCBpZiB3ZSBkbyB3YW50IHRvIHByb2NlZWQg
-d2l0aCB0aGlzIHR5cGUgb2YKPj4gaW50ZXJmYWNlLCB3ZSBtaWdodCBiZSBiZXR0ZXIgZG9pbmcg
-aXQgYWxsIGluIGNvbW1vbiBtZXNhIGNvZGUsIGFuZAo+PiBtYXliZSBieXBhc3NpbmcgbGliZHJt
-X2FtZGdwdSBhbHRvZ2V0aGVyLCB3aGljaCBJIHN1cHBvc2UgdGhlIEFQSSBJJ3ZlCj4+IHdyaXR0
-ZW4gaGVyZSBpcyBtb3N0bHkgYWxyZWFkeSBkb2luZy4KPgo+Cj4gSSB3YW50IHRvIHN0aWNrIHdp
-dGggdGhlIG90aGVyIGludGVyZmFjZXMgZm9yIG5vdy4gTm8gbmVlZCB0byBtYWtlIGl0IG1vcmUK
-PiBjb21wbGljYXRlZCB0aGFuIGl0IGFscmVhZHkgaXMuCj4KPiBPbmx5IHRoZSBDUyBzdHVmZiBp
-cyB0aGUgbW9zdCBwZXJmb3JtYW5jZSBjcml0aWNhbCBhbmQgdGhpbmcgd2UgaGF2ZSByaWdodAo+
-IG5vdy4KCkFzIEkgc3VzcGVjdGVkIHRoaXMgcGxhbiBpcyBmdWxsIG9mIHRyYXBzLgoKU28gd2l0
-aCB0aGUgcmF3IGNzIGFwaSBJIHBvc3RlZCAodXNpbmcgYW1kZ3B1X2JvX2xpc3RfaGFuZGxlIGlu
-c3RlYWQpLCBJIHJhbgppbnRvIHR3byBwbGFjZXMgdGhlIGFic3RyYWN0aW9uIGN1dHMgbWUuCgog
-IENDICAgICAgIHdpbnN5cy9hbWRncHUvcmFkdl9hbWRncHVfY3MubG8Kd2luc3lzL2FtZGdwdS9y
-YWR2X2FtZGdwdV9jcy5jOiBJbiBmdW5jdGlvbiDigJhyYWR2X2FtZGdwdV9jc19zdWJtaXTigJk6
-CndpbnN5cy9hbWRncHUvcmFkdl9hbWRncHVfY3MuYzoxMTczOjYzOiBlcnJvcjogZGVyZWZlcmVu
-Y2luZyBwb2ludGVyCnRvIGluY29tcGxldGUgdHlwZSDigJhzdHJ1Y3QgYW1kZ3B1X2Jv4oCZCiAg
-IGNodW5rX2RhdGFbaV0uZmVuY2VfZGF0YS5oYW5kbGUgPSByZXF1ZXN0LT5mZW5jZV9pbmZvLmhh
-bmRsZS0+aGFuZGxlOwogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBefgp3aW5zeXMvYW1kZ3B1L3JhZHZfYW1kZ3B1X2NzLmM6MTE5
-MzozMTogZXJyb3I6IGRlcmVmZXJlbmNpbmcgcG9pbnRlcgp0byBpbmNvbXBsZXRlIHR5cGUg4oCY
-c3RydWN0IGFtZGdwdV9jb250ZXh04oCZCiAgICBkZXAtPmN0eF9pZCA9IGluZm8tPmNvbnRleHQt
-PmlkOwoKSW4gb3JkZXIgdG8gZG8gdXNlciBmZW5jZSBjaHVuayBJIG5lZWQgdGhlIGFjdHVhbCBi
-byBoYW5kbGUgbm90IHRoZQphbWRncHUgd3JhcHBlZCBvbmUsIHdlIGRvbid0IGhhdmUgYW4gYWNj
-ZXNzb3IgbWV0aG9kIGZvciB0aGF0LgoKSW4gb3JkZXIgdG8gZG8gdGhlIGRlcGVuZGVuY2llcyBj
-aHVua3MsIEkgbmVlZCBhIGNvbnRleHQgaWQuCgpOb3cgSSBzdXBwb3NlIEkgY2FuIGFkZCBjaHVu
-ayBjcmVhdGlvbiBoZWxwZXJzIHRvIGxpYmRybSwgYnV0IGl0IGRvZXMKc2VlbXMgbGlrZSBpdCBi
-cmVha3MgdGhlIGZ1dHVyZSBwcm9vZiBpbnRlcmZhY2UgaWYgd2UgY2FuJ3QgYWNjZXNzIHRoZQpk
-ZXRhaWxzIG9mIGEgYnVuY2ggb2Ygb2JqZWN0cyB3ZSB3YW50IHRvIHBhc3MgdGhyb3VnaCB0byB0
-aGUga2VybmVsCkFQSS4KCkRhdmUuCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
-LWdmeAo=
+> -----Original Message-----
+> From: Junwei Zhang [mailto:Jerry.Zhang@amd.com]
+> Sent: Monday, July 17, 2017 10:54 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander; Huang, Ray; gregkh@linuxfoundation.org; Zhang,
+> Jerry; stable@vger.kernel.org
+> Subject: [PATCH] drm/amdgpu: read reg in each iterate of psp_wait_for loo=
+p
+>=20
+> From: "Zhang, Jerry" <Jerry.Zhang@amd.com>
+>=20
+> v2: fixes the SOS loading failure for PSP v3.1
+>=20
+> Signed-off-by: Junwei Zhang <Jerry.Zhang@amd.com>
+> Cc: stable@vger.kernel.org
+> Acked-by: Alex Deucher <alexander.deucher@amd.com> (v1)
+> Acked-by: Huang Rui <ray.huang@amd.com> (v1)
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 3 +--
+>  drivers/gpu/drm/amd/amdgpu/psp_v3_1.c   | 2 --
+>  2 files changed, 1 insertion(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> index c919579..644941d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> @@ -98,9 +98,8 @@ int psp_wait_for(struct psp_context *psp, uint32_t
+> reg_index,
+>  	int i;
+>  	struct amdgpu_device *adev =3D psp->adev;
+>=20
+> -	val =3D RREG32(reg_index);
+> -
+>  	for (i =3D 0; i < adev->usec_timeout; i++) {
+> +		val =3D RREG32(reg_index);
+>  		if (check_changed) {
+>  			if (val !=3D reg_val)
+>  				return 0;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
+> b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
+> index 2718e86..23106e3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
+> @@ -237,11 +237,9 @@ int psp_v3_1_bootloader_load_sos(struct
+> psp_context *psp)
+>=20
+>  	/* there might be handshake issue with hardware which needs delay
+> */
+>  	mdelay(20);
+> -#if 0
+>  	ret =3D psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0,
+> mmMP0_SMN_C2PMSG_81),
+>  			   RREG32_SOC15(MP0, 0,
+> mmMP0_SMN_C2PMSG_81),
+>  			   0, true);
+> -#endif
+>=20
+>  	return ret;
+>  }
+> --
+> 1.9.1
