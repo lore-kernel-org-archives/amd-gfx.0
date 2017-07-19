@@ -1,17 +1,16 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amdgpu: enable huge page handling in the VM v4
-Date: Wed, 19 Jul 2017 17:28:13 +0200
-Message-ID: <4a404aa7-f961-190e-9b85-2b60276a4e9f@vodafone.de>
-References: <1500325342-26253-1-git-send-email-deathsimple@vodafone.de>
- <1500325342-26253-2-git-send-email-deathsimple@vodafone.de>
- <596D7150.1080203@amd.com> <d8a5081e-24cb-0751-e4fc-d4a9e09cfa9d@vodafone.de>
- <afaf4a12-a3fc-1178-03f6-7faf930874af@amd.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [Mesa-dev] [RFC PATCH] radeonsi: set a per-buffer flag that
+ disables inter-process sharing (v2)
+Date: Wed, 19 Jul 2017 11:34:41 -0400
+Message-ID: <CAAxE2A60fT46jpntj=rCXTHrs0QXdNSFEnYdHVRuccd446+_pA@mail.gmail.com>
+References: <1500408524-925-1-git-send-email-maraeo@gmail.com>
+ <596F0BD7.3070805@amd.com>
+ <CAAxE2A5ygzBpB-56BowZ+iwf-wgistwY4Xo-puKM=cQ2bbQyEw@mail.gmail.com>
+ <CAAxE2A5WYEdp7WSLB=UE82qER9aS05zfAQP+MTM6bjw+cOPJeQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1112294935=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <afaf4a12-a3fc-1178-03f6-7faf930874af-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <CAAxE2A5WYEdp7WSLB=UE82qER9aS05zfAQP+MTM6bjw+cOPJeQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,190 +21,936 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>, zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+Cc: mesa-dev-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T2ssIGluIHRoaXMgY2FzZSBsZXQncyBjb21taXQgaXQuCgpJJ3ZlIGZpeGVkIHRoZSBvbmUgbGlu
-ZXIgcmVnYXJkaW5nIENQVSBiYXNlZCB1cGRhdGVzIGFuZCBzZW5kIGl0IHRvIHRoZSAKbGlzdCBv
-bmNlIG1vcmUuCgpQbGVhc2UgZ2l2ZSBtZSBhbiByYiBvciBldmVuIHRlc3RlZC1ieSBvbiB0aGF0
-IHZlcnNpb24gYW5kIHRoZW4gSSdtIApnb2luZyB0byBjb21taXQgaXQuCgpUaGFua3MsCkNocmlz
-dGlhbi4KCkFtIDE4LjA3LjIwMTcgdW0gMjA6NTYgc2NocmllYiBGZWxpeCBLdWVobGluZzoKPiBJ
-ZiB5b3Ugc3VibWl0IHRoZSBjb2RlLCBpdCBhbGxvd3MgbW9yZSBwZW9wbGUgdG8gZXhwZXJpbWVu
-dCB3aXRoIGl0Lgo+Cj4gUmVnYXJkcywKPiAgICBGZWxpeAo+Cj4KPiBPbiAxNy0wNy0xOCAwOTo1
-NCBBTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4gWWVhaCwgSSBtZWFuIGl0IGxvb2tzIGdv
-b2QgZnJvbSB0aGUgc29mdHdhcmUgc2lkZSBidXQgd2Ugc3RpbGwgZG9uJ3QKPj4gc2VlIHRoZSBo
-YXJkd2FyZSByZWFjdCBhcyBpdCBzaG91bGQuCj4+Cj4+IEl0IGRvZXNuJ3Qgc2VlbSB0byBodXJ0
-IGFueXRoaW5nLCBzbyBJJ20gdG9ybiBhcGFydCBiZXR3ZWVuIHB1c2hpbmcgaXQKPj4gYW5kIGNv
-bXBsZXRlbHkgZml4aW5nIGl0IGxhdGVyIG9uIG9yIHdhaXQgdGlsbCB3ZSBoYXZlIGZpZ3VyZWQK
-Pj4gZXZlcnl0aGluZyBvdXQuCj4+Cj4+IEZlbGl4IHdoYXQgaXMgeW91ciBvcGluaW9uIG9uIHRo
-YXQ/Cj4+Cj4+IFJlZ2FyZHMsCj4+IENocmlzdGlhbi4KPj4KPj4gQW0gMTguMDcuMjAxNyB1bSAw
-NDoyNCBzY2hyaWViIHpob3VjbTE6Cj4+PiBTdGlsbCBob2xkaW5nIG9uPyBJIHRob3VnaHQgdGhp
-cyBwYXRjaCB3YXMgcHVzaGVkIGluIGVhcmxpZXIgd2l0aCBteSBSQi4KPj4+Cj4+PiBSZWdhcmRz
-LAo+Pj4gRGF2aWQgWmhvdQo+Pj4gT24gMjAxN+W5tDA35pyIMTjml6UgMDU6MDIsIENocmlzdGlh
-biBLw7ZuaWcgd3JvdGU6Cj4+Pj4gRnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtv
-ZW5pZ0BhbWQuY29tPgo+Pj4+Cj4+Pj4gVGhlIGhhcmR3YXJlIGNhbiB1c2UgaHVnZSBwYWdlcyB0
-byBtYXAgMk1CIG9mIGFkZHJlc3Mgc3BhY2Ugd2l0aAo+Pj4+IG9ubHkgb25lIFBERS4KPj4+Pgo+
-Pj4+IHYyOiBmZXcgY2xlYW51cHMgYW5kIHJlYmFzZWQKPj4+PiB2Mzogc2tpcCBQVCB1cGRhdGVz
-IGlmIHdlIGFyZSB1c2luZyB0aGUgUERFCj4+Pj4gdjQ6IHJlYmFzZWQsIGFkZGVkIHN1cHBvcnQg
-Zm9yIENQVSBiYXNlZCB1cGRhdGVzCj4+Pj4KPj4+PiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4g
-S8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4+Pj4gLS0tCj4+Pj4gICAgZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgfCAxMTkKPj4+PiArKysrKysrKysrKysr
-KysrKysrKysrKysrKystLS0tLS0KPj4+PiAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfdm0uaCB8ICAgNCArKwo+Pj4+ICAgIDIgZmlsZXMgY2hhbmdlZCwgMTAzIGluc2VydGlv
-bnMoKyksIDIwIGRlbGV0aW9ucygtKQo+Pj4+Cj4+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfdm0uYwo+Pj4+IGluZGV4IGEzZGJlYmUuLjYyZDk3ZjUgMTAwNjQ0Cj4+Pj4g
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4+PiArKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwo+Pj4+IEBAIC0zNTEsNiArMzUx
-LDcgQEAgc3RhdGljIGludCBhbWRncHVfdm1fYWxsb2NfbGV2ZWxzKHN0cnVjdAo+Pj4+IGFtZGdw
-dV9kZXZpY2UgKmFkZXYsCj4+Pj4gICAgICAgICAgICAgICAgICBlbnRyeS0+Ym8gPSBwdDsKPj4+
-PiAgICAgICAgICAgICAgICBlbnRyeS0+YWRkciA9IDA7Cj4+Pj4gKyAgICAgICAgICAgIGVudHJ5
-LT5odWdlX3BhZ2UgPSBmYWxzZTsKPj4+PiAgICAgICAgICAgIH0KPj4+PiAgICAgICAgICAgICAg
-aWYgKGxldmVsIDwgYWRldi0+dm1fbWFuYWdlci5udW1fbGV2ZWwpIHsKPj4+PiBAQCAtMTExNiw3
-ICsxMTE3LDggQEAgc3RhdGljIGludCBhbWRncHVfdm1fdXBkYXRlX2xldmVsKHN0cnVjdAo+Pj4+
-IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4+Pj4gICAgICAgICAgICAgIHB0ID0gYW1kZ3B1X2JvX2dw
-dV9vZmZzZXQoYm8pOwo+Pj4+ICAgICAgICAgICAgcHQgPSBhbWRncHVfZ2FydF9nZXRfdm1fcGRl
-KGFkZXYsIHB0KTsKPj4+PiAtICAgICAgICBpZiAocGFyZW50LT5lbnRyaWVzW3B0X2lkeF0uYWRk
-ciA9PSBwdCkKPj4+PiArICAgICAgICBpZiAocGFyZW50LT5lbnRyaWVzW3B0X2lkeF0uYWRkciA9
-PSBwdCB8fAo+Pj4+ICsgICAgICAgICAgICBwYXJlbnQtPmVudHJpZXNbcHRfaWR4XS5odWdlX3Bh
-Z2UpCj4+Pj4gICAgICAgICAgICAgICAgY29udGludWU7Cj4+Pj4gICAgICAgICAgICAgIHBhcmVu
-dC0+ZW50cmllc1twdF9pZHhdLmFkZHIgPSBwdDsKPj4+PiBAQCAtMTI1NywyOSArMTI1OSw5NSBA
-QCBpbnQgYW1kZ3B1X3ZtX3VwZGF0ZV9kaXJlY3RvcmllcyhzdHJ1Y3QKPj4+PiBhbWRncHVfZGV2
-aWNlICphZGV2LAo+Pj4+ICAgIH0KPj4+PiAgICAgIC8qKgo+Pj4+IC0gKiBhbWRncHVfdm1fZmlu
-ZF9wdCAtIGZpbmQgdGhlIHBhZ2UgdGFibGUgZm9yIGFuIGFkZHJlc3MKPj4+PiArICogYW1kZ3B1
-X3ZtX2ZpbmRfZW50cnkgLSBmaW5kIHRoZSBlbnRyeSBmb3IgYW4gYWRkcmVzcwo+Pj4+ICAgICAq
-Cj4+Pj4gICAgICogQHA6IHNlZSBhbWRncHVfcHRlX3VwZGF0ZV9wYXJhbXMgZGVmaW5pdGlvbgo+
-Pj4+ICAgICAqIEBhZGRyOiB2aXJ0dWFsIGFkZHJlc3MgaW4gcXVlc3Rpb24KPj4+PiArICogQGVu
-dHJ5OiByZXN1bHRpbmcgZW50cnkgb3IgTlVMTAo+Pj4+ICsgKiBAcGFyZW50OiBwYXJlbnQgZW50
-cnkKPj4+PiAgICAgKgo+Pj4+IC0gKiBGaW5kIHRoZSBwYWdlIHRhYmxlIEJPIGZvciBhIHZpcnR1
-YWwgYWRkcmVzcywgcmV0dXJuIE5VTEwgd2hlbgo+Pj4+IG5vbmUgZm91bmQuCj4+Pj4gKyAqIEZp
-bmQgdGhlIHZtX3B0IGVudHJ5IGFuZCBpdCdzIHBhcmVudCBmb3IgdGhlIGdpdmVuIGFkZHJlc3Mu
-Cj4+Pj4gICAgICovCj4+Pj4gLXN0YXRpYyBzdHJ1Y3QgYW1kZ3B1X2JvICphbWRncHVfdm1fZ2V0
-X3B0KHN0cnVjdAo+Pj4+IGFtZGdwdV9wdGVfdXBkYXRlX3BhcmFtcyAqcCwKPj4+PiAtICAgICAg
-ICAgICAgICAgICAgICAgIHVpbnQ2NF90IGFkZHIpCj4+Pj4gK3ZvaWQgYW1kZ3B1X3ZtX2dldF9l
-bnRyeShzdHJ1Y3QgYW1kZ3B1X3B0ZV91cGRhdGVfcGFyYW1zICpwLAo+Pj4+IHVpbnQ2NF90IGFk
-ZHIsCj4+Pj4gKyAgICAgICAgICAgICBzdHJ1Y3QgYW1kZ3B1X3ZtX3B0ICoqZW50cnksCj4+Pj4g
-KyAgICAgICAgICAgICBzdHJ1Y3QgYW1kZ3B1X3ZtX3B0ICoqcGFyZW50KQo+Pj4+ICAgIHsKPj4+
-PiAtICAgIHN0cnVjdCBhbWRncHVfdm1fcHQgKmVudHJ5ID0gJnAtPnZtLT5yb290Owo+Pj4+ICAg
-ICAgICB1bnNpZ25lZCBpZHgsIGxldmVsID0gcC0+YWRldi0+dm1fbWFuYWdlci5udW1fbGV2ZWw7
-Cj4+Pj4gICAgLSAgICB3aGlsZSAoZW50cnktPmVudHJpZXMpIHsKPj4+PiArICAgICpwYXJlbnQg
-PSBOVUxMOwo+Pj4+ICsgICAgKmVudHJ5ID0gJnAtPnZtLT5yb290Owo+Pj4+ICsgICAgd2hpbGUg
-KCgqZW50cnkpLT5lbnRyaWVzKSB7Cj4+Pj4gICAgICAgICAgICBpZHggPSBhZGRyID4+IChwLT5h
-ZGV2LT52bV9tYW5hZ2VyLmJsb2NrX3NpemUgKiBsZXZlbC0tKTsKPj4+PiAtICAgICAgICBpZHgg
-JT0gYW1kZ3B1X2JvX3NpemUoZW50cnktPmJvKSAvIDg7Cj4+Pj4gLSAgICAgICAgZW50cnkgPSAm
-ZW50cnktPmVudHJpZXNbaWR4XTsKPj4+PiArICAgICAgICBpZHggJT0gYW1kZ3B1X2JvX3NpemUo
-KCplbnRyeSktPmJvKSAvIDg7Cj4+Pj4gKyAgICAgICAgKnBhcmVudCA9ICplbnRyeTsKPj4+PiAr
-ICAgICAgICAqZW50cnkgPSAmKCplbnRyeSktPmVudHJpZXNbaWR4XTsKPj4+PiAgICAgICAgfQo+
-Pj4+ICAgICAgICAgIGlmIChsZXZlbCkKPj4+PiAtICAgICAgICByZXR1cm4gTlVMTDsKPj4+PiAr
-ICAgICAgICAqZW50cnkgPSBOVUxMOwo+Pj4+ICt9Cj4+Pj4gKwo+Pj4+ICsvKioKPj4+PiArICog
-YW1kZ3B1X3ZtX2hhbmRsZV9odWdlX3BhZ2VzIC0gaGFuZGxlIHVwZGF0aW5nIHRoZSBQRCB3aXRo
-IGh1Z2UKPj4+PiBwYWdlcwo+Pj4+ICsgKgo+Pj4+ICsgKiBAcDogc2VlIGFtZGdwdV9wdGVfdXBk
-YXRlX3BhcmFtcyBkZWZpbml0aW9uCj4+Pj4gKyAqIEBlbnRyeTogdm1fcHQgZW50cnkgdG8gY2hl
-Y2sKPj4+PiArICogQHBhcmVudDogcGFyZW50IGVudHJ5Cj4+Pj4gKyAqIEBucHRlczogbnVtYmVy
-IG9mIFBURXMgdXBkYXRlZCB3aXRoIHRoaXMgb3BlcmF0aW9uCj4+Pj4gKyAqIEBkc3Q6IGRlc3Rp
-bmF0aW9uIGFkZHJlc3Mgd2hlcmUgdGhlIFBURXMgc2hvdWxkIHBvaW50IHRvCj4+Pj4gKyAqIEBm
-bGFnczogYWNjZXNzIGZsYWdzIGZybyB0aGUgUFRFcwo+Pj4+ICsgKgo+Pj4+ICsgKiBDaGVjayBp
-ZiB3ZSBjYW4gdXBkYXRlIHRoZSBQRCB3aXRoIGEgaHVnZSBwYWdlLgo+Pj4+ICsgKi8KPj4+PiAr
-c3RhdGljIGludCBhbWRncHVfdm1faGFuZGxlX2h1Z2VfcGFnZXMoc3RydWN0Cj4+Pj4gYW1kZ3B1
-X3B0ZV91cGRhdGVfcGFyYW1zICpwLAo+Pj4+ICsgICAgICAgICAgICAgICAgICAgICAgIHN0cnVj
-dCBhbWRncHVfdm1fcHQgKmVudHJ5LAo+Pj4+ICsgICAgICAgICAgICAgICAgICAgICAgIHN0cnVj
-dCBhbWRncHVfdm1fcHQgKnBhcmVudCwKPj4+PiArICAgICAgICAgICAgICAgICAgICAgICB1bnNp
-Z25lZCBucHRlcywgdWludDY0X3QgZHN0LAo+Pj4+ICsgICAgICAgICAgICAgICAgICAgICAgIHVp
-bnQ2NF90IGZsYWdzKQo+Pj4+ICt7Cj4+Pj4gKyAgICBib29sIHVzZV9jcHVfdXBkYXRlID0gKHAt
-PmZ1bmMgPT0gYW1kZ3B1X3ZtX2NwdV9zZXRfcHRlcyk7Cj4+Pj4gKyAgICB1aW50NjRfdCBwZF9h
-ZGRyLCBwZGU7Cj4+Pj4gKyAgICBpbnQgcjsKPj4+PiAgICAtICAgIHJldHVybiBlbnRyeS0+Ym87
-Cj4+Pj4gKyAgICAvKiBJbiB0aGUgY2FzZSBvZiBhIG1peGVkIFBUIHRoZSBQREUgbXVzdCBwb2lu
-dCB0byBpdCovCj4+Pj4gKyAgICBpZiAocC0+YWRldi0+YXNpY190eXBlIDwgQ0hJUF9WRUdBMTAg
-fHwKPj4+PiArICAgICAgICBucHRlcyAhPSBBTURHUFVfVk1fUFRFX0NPVU5UKHAtPmFkZXYpIHx8
-Cj4+Pj4gKyAgICAgICAgcC0+ZnVuYyAhPSBhbWRncHVfdm1fZG9fc2V0X3B0ZXMgfHwKPj4+PiAr
-ICAgICAgICAhKGZsYWdzICYgQU1ER1BVX1BURV9WQUxJRCkpIHsKPj4+PiArCj4+Pj4gKyAgICAg
-ICAgZHN0ID0gYW1kZ3B1X2JvX2dwdV9vZmZzZXQoZW50cnktPmJvKTsKPj4+PiArICAgICAgICBk
-c3QgPSBhbWRncHVfZ2FydF9nZXRfdm1fcGRlKHAtPmFkZXYsIGRzdCk7Cj4+Pj4gKyAgICAgICAg
-ZmxhZ3MgPSBBTURHUFVfUFRFX1ZBTElEOwo+Pj4+ICsgICAgfSBlbHNlIHsKPj4+PiArICAgICAg
-ICBmbGFncyB8PSBBTURHUFVfUERFX1BURTsKPj4+PiArICAgIH0KPj4+PiArCj4+Pj4gKyAgICBp
-ZiAoZW50cnktPmFkZHIgPT0gZHN0ICYmCj4+Pj4gKyAgICAgICAgZW50cnktPmh1Z2VfcGFnZSA9
-PSAhIShmbGFncyAmIEFNREdQVV9QREVfUFRFKSkKPj4+PiArICAgICAgICByZXR1cm4gMDsKPj4+
-PiArCj4+Pj4gKyAgICBlbnRyeS0+YWRkciA9IGRzdDsKPj4+PiArICAgIGVudHJ5LT5odWdlX3Bh
-Z2UgPSAhIShmbGFncyAmIEFNREdQVV9QREVfUFRFKTsKPj4+PiArCj4+Pj4gKyAgICBpZiAodXNl
-X2NwdV91cGRhdGUpIHsKPj4+PiArICAgICAgICByID0gYW1kZ3B1X2JvX2ttYXAocGFyZW50LT5i
-bywgKHZvaWQgKikmcGRfYWRkcik7Cj4+Pj4gKyAgICAgICAgaWYgKHIpCj4+Pj4gKyAgICAgICAg
-ICAgIHJldHVybiByOwo+Pj4+ICsKPj4+PiArICAgICAgICBwZGUgPSBwZF9hZGRyICsgKGVudHJ5
-IC0gcGFyZW50LT5lbnRyaWVzKSAqIDg7Cj4+Pj4gKyAgICAgICAgYW1kZ3B1X3ZtX2NwdV9zZXRf
-cHRlcyhwLCBwZGUsIGRzdCwgMSwgMCwgZmxhZ3MpOwo+Pj4+ICsgICAgfSBlbHNlIHsKPj4+PiAr
-ICAgICAgICBpZiAocGFyZW50LT5iby0+c2hhZG93KSB7Cj4+Pj4gKyAgICAgICAgICAgIHBkX2Fk
-ZHIgPSBhbWRncHVfYm9fZ3B1X29mZnNldChwYXJlbnQtPmJvLT5zaGFkb3cpOwo+Pj4+ICsgICAg
-ICAgICAgICBwZGUgPSBwZF9hZGRyICsgKGVudHJ5IC0gcGFyZW50LT5lbnRyaWVzKSAqIDg7Cj4+
-Pj4gKyAgICAgICAgICAgIGFtZGdwdV92bV9kb19zZXRfcHRlcyhwLCBwZGUsIGRzdCwgMSwgMCwg
-ZmxhZ3MpOwo+Pj4+ICsgICAgICAgIH0KPj4+PiArICAgICAgICBwZF9hZGRyID0gYW1kZ3B1X2Jv
-X2dwdV9vZmZzZXQocGFyZW50LT5ibyk7Cj4+Pj4gKyAgICAgICAgcGRlID0gcGRfYWRkciArIChl
-bnRyeSAtIHBhcmVudC0+ZW50cmllcykgKiA4Owo+Pj4+ICsgICAgICAgIGFtZGdwdV92bV9kb19z
-ZXRfcHRlcyhwLCBwZGUsIGRzdCwgMSwgMCwgZmxhZ3MpOwo+Pj4+ICsgICAgfQo+Pj4+ICsKPj4+
-PiArICAgIHJldHVybiAwOwo+Pj4+ICAgIH0KPj4+PiAgICAgIC8qKgo+Pj4+IEBAIC0xMzA2LDIy
-ICsxMzc0LDMxIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZtX3VwZGF0ZV9wdGVzKHN0cnVjdAo+Pj4+
-IGFtZGdwdV9wdGVfdXBkYXRlX3BhcmFtcyAqcGFyYW1zLAo+Pj4+ICAgICAgICBzdHJ1Y3QgYW1k
-Z3B1X2JvICpwdDsKPj4+PiAgICAgICAgdW5zaWduZWQgbnB0ZXM7Cj4+Pj4gICAgICAgIGJvb2wg
-dXNlX2NwdV91cGRhdGUgPSAocGFyYW1zLT5mdW5jID09IGFtZGdwdV92bV9jcHVfc2V0X3B0ZXMp
-Owo+Pj4+IC0KPj4+PiArICAgIGludCByOwo+Pj4+ICAgICAgICAgIC8qIHdhbGsgb3ZlciB0aGUg
-YWRkcmVzcyBzcGFjZSBhbmQgdXBkYXRlIHRoZSBwYWdlIHRhYmxlcyAqLwo+Pj4+IC0gICAgZm9y
-IChhZGRyID0gc3RhcnQ7IGFkZHIgPCBlbmQ7IGFkZHIgKz0gbnB0ZXMpIHsKPj4+PiAtICAgICAg
-ICBwdCA9IGFtZGdwdV92bV9nZXRfcHQocGFyYW1zLCBhZGRyKTsKPj4+PiAtICAgICAgICBpZiAo
-IXB0KSB7Cj4+Pj4gLSAgICAgICAgICAgIHByX2VycigiUFQgbm90IGZvdW5kLCBhYm9ydGluZyB1
-cGRhdGVfcHRlc1xuIik7Cj4+Pj4gLSAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOwo+Pj4+IC0g
-ICAgICAgIH0KPj4+PiArICAgIGZvciAoYWRkciA9IHN0YXJ0OyBhZGRyIDwgZW5kOyBhZGRyICs9
-IG5wdGVzLAo+Pj4+ICsgICAgICAgICBkc3QgKz0gbnB0ZXMgKiBBTURHUFVfR1BVX1BBR0VfU0la
-RSkgewo+Pj4+ICsgICAgICAgIHN0cnVjdCBhbWRncHVfdm1fcHQgKmVudHJ5LCAqcGFyZW50Owo+
-Pj4+ICsKPj4+PiArICAgICAgICBhbWRncHVfdm1fZ2V0X2VudHJ5KHBhcmFtcywgYWRkciwgJmVu
-dHJ5LCAmcGFyZW50KTsKPj4+PiArICAgICAgICBpZiAoIWVudHJ5KQo+Pj4+ICsgICAgICAgICAg
-ICByZXR1cm4gLUVOT0VOVDsKPj4+PiAgICAgICAgICAgICAgaWYgKChhZGRyICYgfm1hc2spID09
-IChlbmQgJiB+bWFzaykpCj4+Pj4gICAgICAgICAgICAgICAgbnB0ZXMgPSBlbmQgLSBhZGRyOwo+
-Pj4+ICAgICAgICAgICAgZWxzZQo+Pj4+ICAgICAgICAgICAgICAgIG5wdGVzID0gQU1ER1BVX1ZN
-X1BURV9DT1VOVChhZGV2KSAtIChhZGRyICYgbWFzayk7Cj4+Pj4gICAgKyAgICAgICAgciA9IGFt
-ZGdwdV92bV9oYW5kbGVfaHVnZV9wYWdlcyhwYXJhbXMsIGVudHJ5LCBwYXJlbnQsCj4+Pj4gKyAg
-ICAgICAgICAgICAgICAgICAgICAgIG5wdGVzLCBkc3QsIGZsYWdzKTsKPj4+PiArICAgICAgICBp
-ZiAocikKPj4+PiArICAgICAgICAgICAgcmV0dXJuIHI7Cj4+Pj4gICAgKyAgICAgICAgaWYgKGVu
-dHJ5LT5odWdlX3BhZ2UpCj4+Pj4gKyAgICAgICAgICAgIGNvbnRpbnVlOwo+Pj4+ICsKPj4+PiAr
-ICAgICAgICBwdCA9IGVudHJ5LT5ibzsKPj4+PiAgICAgICAgICAgIGlmICh1c2VfY3B1X3VwZGF0
-ZSkgewo+Pj4+ICAgICAgICAgICAgICAgIHBlX3N0YXJ0ID0gKHVuc2lnbmVkIGxvbmcpcHQtPmtw
-dHI7Cj4+Pj4gICAgICAgICAgICB9IGVsc2Ugewo+Pj4+IEBAIC0xMzM3LDggKzE0MTQsNiBAQCBz
-dGF0aWMgaW50IGFtZGdwdV92bV91cGRhdGVfcHRlcyhzdHJ1Y3QKPj4+PiBhbWRncHVfcHRlX3Vw
-ZGF0ZV9wYXJhbXMgKnBhcmFtcywKPj4+PiAgICAgICAgICAgIHBlX3N0YXJ0ICs9IChhZGRyICYg
-bWFzaykgKiA4Owo+Pj4+ICAgICAgICAgICAgcGFyYW1zLT5mdW5jKHBhcmFtcywgcGVfc3RhcnQs
-IGRzdCwgbnB0ZXMsCj4+Pj4gICAgICAgICAgICAgICAgICAgICBBTURHUFVfR1BVX1BBR0VfU0la
-RSwgZmxhZ3MpOwo+Pj4+IC0KPj4+PiAtICAgICAgICBkc3QgKz0gbnB0ZXMgKiBBTURHUFVfR1BV
-X1BBR0VfU0laRTsKPj4+PiAgICAgICAgfQo+Pj4+ICAgICAgICAgIHJldHVybiAwOwo+Pj4+IEBA
-IC0xNDkwLDYgKzE1NjUsOSBAQCBzdGF0aWMgaW50IGFtZGdwdV92bV9ib191cGRhdGVfbWFwcGlu
-ZyhzdHJ1Y3QKPj4+PiBhbWRncHVfZGV2aWNlICphZGV2LAo+Pj4+ICAgICAgICAvKiBwYWRkaW5n
-LCBldGMuICovCj4+Pj4gICAgICAgIG5kdyA9IDY0Owo+Pj4+ICAgICsgICAgLyogb25lIFBERSB3
-cml0ZSBmb3IgZWFjaCBodWdlIHBhZ2UgKi8KPj4+PiArICAgIG5kdyArPSAoKG5wdGVzID4+IGFk
-ZXYtPnZtX21hbmFnZXIuYmxvY2tfc2l6ZSkgKyAxKSAqIDc7Cj4+Pj4gKwo+Pj4+ICAgICAgICBp
-ZiAoc3JjKSB7Cj4+Pj4gICAgICAgICAgICAvKiBvbmx5IGNvcHkgY29tbWFuZHMgbmVlZGVkICov
-Cj4+Pj4gICAgICAgICAgICBuZHcgKz0gbmNtZHMgKiA3Owo+Pj4+IEBAIC0xNTY5LDYgKzE2NDcs
-NyBAQCBzdGF0aWMgaW50IGFtZGdwdV92bV9ib191cGRhdGVfbWFwcGluZyhzdHJ1Y3QKPj4+PiBh
-bWRncHVfZGV2aWNlICphZGV2LAo+Pj4+ICAgICAgZXJyb3JfZnJlZToKPj4+PiAgICAgICAgYW1k
-Z3B1X2pvYl9mcmVlKGpvYik7Cj4+Pj4gKyAgICBhbWRncHVfdm1faW52YWxpZGF0ZV9sZXZlbCgm
-dm0tPnJvb3QpOwo+Pj4+ICAgICAgICByZXR1cm4gcjsKPj4+PiAgICB9Cj4+Pj4gICAgZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oCj4+Pj4gYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uaAo+Pj4+IGluZGV4IGM0ZjVkMWYuLjM0
-ZDkxNzQgMTAwNjQ0Cj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X3ZtLmgKPj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uaAo+
-Pj4+IEBAIC03MCw2ICs3MCw5IEBAIHN0cnVjdCBhbWRncHVfYm9fbGlzdF9lbnRyeTsKPj4+PiAg
-ICAvKiBUSUxFRCBmb3IgVkVHQTEwLCByZXNlcnZlZCBmb3Igb2xkZXIgQVNJQ3MgICovCj4+Pj4g
-ICAgI2RlZmluZSBBTURHUFVfUFRFX1BSVCAgICAgICAgKDFVTEwgPDwgNTEpCj4+Pj4gICAgKy8q
-IFBERSBpcyBoYW5kbGVkIGFzIFBURSBmb3IgVkVHQTEwICovCj4+Pj4gKyNkZWZpbmUgQU1ER1BV
-X1BERV9QVEUgICAgICAgICgxVUxMIDw8IDU0KQo+Pj4+ICsKPj4+PiAgICAvKiBWRUdBMTAgb25s
-eSAqLwo+Pj4+ICAgICNkZWZpbmUgQU1ER1BVX1BURV9NVFlQRShhKSAgICAoKHVpbnQ2NF90KWEg
-PDwgNTcpCj4+Pj4gICAgI2RlZmluZSBBTURHUFVfUFRFX01UWVBFX01BU0sgICAgQU1ER1BVX1BU
-RV9NVFlQRSgzVUxMKQo+Pj4+IEBAIC0xMDAsNiArMTAzLDcgQEAgc3RydWN0IGFtZGdwdV9ib19s
-aXN0X2VudHJ5Owo+Pj4+ICAgIHN0cnVjdCBhbWRncHVfdm1fcHQgewo+Pj4+ICAgICAgICBzdHJ1
-Y3QgYW1kZ3B1X2JvICAgICpibzsKPj4+PiAgICAgICAgdWludDY0X3QgICAgICAgIGFkZHI7Cj4+
-Pj4gKyAgICBib29sICAgICAgICAgICAgaHVnZV9wYWdlOwo+Pj4+ICAgICAgICAgIC8qIGFycmF5
-IG9mIHBhZ2UgdGFibGVzLCBvbmUgZm9yIGVhY2ggZGlyZWN0b3J5IGVudHJ5ICovCj4+Pj4gICAg
-ICAgIHN0cnVjdCBhbWRncHVfdm1fcHQgICAgKmVudHJpZXM7Cj4+PiBfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+Pj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QK
-Pj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+PiBodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKPj4KPiBfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4g
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKCgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2FtZC1nZngK
+--===============1112294935==
+Content-Type: multipart/alternative; boundary="001a11487e7afe10130554ad5ecb"
+
+--001a11487e7afe10130554ad5ecb
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Jul 19, 2017 3:36 AM, "zhoucm1" <david1.zhou-5C7GfCeVMHo@public.gmane.org> wrote:
+
+
+
+On 2017=E5=B9=B407=E6=9C=8819=E6=97=A5 04:08, Marek Ol=C5=A1=C3=A1k wrote:
+
+> From: Marek Ol=C5=A1=C3=A1k <marek.olsak-5C7GfCeVMHo@public.gmane.org>
+>
+> For lower overhead in the CS ioctl.
+> Winsys allocators are not used with interprocess-sharable resources.
+>
+Hi Marek,
+
+Could I know from how your this way reduces overhead in CS ioctl? reusing
+BO to short bo list?
+
+
+The kernel part of the work hasn't been done yet. The idea is that
+nonsharable buffers don't have to be revalidated by TTM, so it should
+remove a lot of kernel overhead and the BO list remains the same.
+
+Marek
+
+
+
+Thanks,
+David Zhou
+
+
+> v2: It shouldn't crash anymore, but the kernel will reject the new flag.
+> ---
+>   src/gallium/drivers/radeon/r600_buffer_common.c |  7 +++++
+>   src/gallium/drivers/radeon/radeon_winsys.h      | 20 +++++++++++---
+>   src/gallium/winsys/amdgpu/drm/amdgpu_bo.c       | 36
+> ++++++++++++++++---------
+>   src/gallium/winsys/radeon/drm/radeon_drm_bo.c   | 27 +++++++++++-------=
+-
+>   4 files changed, 62 insertions(+), 28 deletions(-)
+>
+> diff --git a/src/gallium/drivers/radeon/r600_buffer_common.c
+> b/src/gallium/drivers/radeon/r600_buffer_common.c
+> index dd1c209..2747ac4 100644
+> --- a/src/gallium/drivers/radeon/r600_buffer_common.c
+> +++ b/src/gallium/drivers/radeon/r600_buffer_common.c
+> @@ -160,20 +160,27 @@ void r600_init_resource_fields(struct
+> r600_common_screen *rscreen,
+>         }
+>         /* Tiled textures are unmappable. Always put them in VRAM. */
+>         if ((res->b.b.target !=3D PIPE_BUFFER && !rtex->surface.is_linear=
+) ||
+>             res->flags & R600_RESOURCE_FLAG_UNMAPPABLE) {
+>                 res->domains =3D RADEON_DOMAIN_VRAM;
+>                 res->flags |=3D RADEON_FLAG_NO_CPU_ACCESS |
+>                          RADEON_FLAG_GTT_WC;
+>         }
+>   +     /* Only displayable single-sample textures can be shared between
+> +        * processes. */
+> +       if (res->b.b.target =3D=3D PIPE_BUFFER ||
+> +           res->b.b.nr_samples >=3D 2 ||
+> +           rtex->surface.micro_tile_mode !=3D RADEON_MICRO_MODE_DISPLAY)
+> +               res->flags |=3D RADEON_FLAG_NO_INTERPROCESS_SHARING;
+> +
+>         /* If VRAM is just stolen system memory, allow both VRAM and
+>          * GTT, whichever has free space. If a buffer is evicted from
+>          * VRAM to GTT, it will stay there.
+>          *
+>          * DRM 3.6.0 has good BO move throttling, so we can allow VRAM-on=
+ly
+>          * placements even with a low amount of stolen VRAM.
+>          */
+>         if (!rscreen->info.has_dedicated_vram &&
+>             (rscreen->info.drm_major < 3 || rscreen->info.drm_minor < 6) =
+&&
+>             res->domains =3D=3D RADEON_DOMAIN_VRAM) {
+> diff --git a/src/gallium/drivers/radeon/radeon_winsys.h
+> b/src/gallium/drivers/radeon/radeon_winsys.h
+> index 351edcd..0abcb56 100644
+> --- a/src/gallium/drivers/radeon/radeon_winsys.h
+> +++ b/src/gallium/drivers/radeon/radeon_winsys.h
+> @@ -47,20 +47,21 @@ enum radeon_bo_domain { /* bitfield */
+>       RADEON_DOMAIN_GTT  =3D 2,
+>       RADEON_DOMAIN_VRAM =3D 4,
+>       RADEON_DOMAIN_VRAM_GTT =3D RADEON_DOMAIN_VRAM | RADEON_DOMAIN_GTT
+>   };
+>     enum radeon_bo_flag { /* bitfield */
+>       RADEON_FLAG_GTT_WC =3D        (1 << 0),
+>       RADEON_FLAG_NO_CPU_ACCESS =3D (1 << 1),
+>       RADEON_FLAG_NO_SUBALLOC =3D   (1 << 2),
+>       RADEON_FLAG_SPARSE =3D        (1 << 3),
+> +    RADEON_FLAG_NO_INTERPROCESS_SHARING =3D (1 << 4),
+>   };
+>     enum radeon_bo_usage { /* bitfield */
+>       RADEON_USAGE_READ =3D 2,
+>       RADEON_USAGE_WRITE =3D 4,
+>       RADEON_USAGE_READWRITE =3D RADEON_USAGE_READ | RADEON_USAGE_WRITE,
+>         /* The winsys ensures that the CS submission will be scheduled
+> after
+>        * previously flushed CSs referencing this BO in a conflicting way.
+>        */
+> @@ -685,28 +686,33 @@ static inline enum radeon_bo_domain
+> radeon_domain_from_heap(enum radeon_heap hea
+>       default:
+>           assert(0);
+>           return (enum radeon_bo_domain)0;
+>       }
+>   }
+>     static inline unsigned radeon_flags_from_heap(enum radeon_heap heap)
+>   {
+>       switch (heap) {
+>       case RADEON_HEAP_VRAM_NO_CPU_ACCESS:
+> -        return RADEON_FLAG_GTT_WC | RADEON_FLAG_NO_CPU_ACCESS;
+> +        return RADEON_FLAG_GTT_WC |
+> +               RADEON_FLAG_NO_CPU_ACCESS |
+> +               RADEON_FLAG_NO_INTERPROCESS_SHARING;
+> +
+>       case RADEON_HEAP_VRAM:
+>       case RADEON_HEAP_VRAM_GTT:
+>       case RADEON_HEAP_GTT_WC:
+> -        return RADEON_FLAG_GTT_WC;
+> +        return RADEON_FLAG_GTT_WC |
+> +               RADEON_FLAG_NO_INTERPROCESS_SHARING;
+> +
+>       case RADEON_HEAP_GTT:
+>       default:
+> -        return 0;
+> +        return RADEON_FLAG_NO_INTERPROCESS_SHARING;
+>       }
+>   }
+>     /* The pb cache bucket is chosen to minimize pb_cache misses.
+>    * It must be between 0 and 3 inclusive.
+>    */
+>   static inline unsigned radeon_get_pb_cache_bucket_index(enum
+> radeon_heap heap)
+>   {
+>       switch (heap) {
+>       case RADEON_HEAP_VRAM_NO_CPU_ACCESS:
+> @@ -724,22 +730,28 @@ static inline unsigned radeon_get_pb_cache_bucket_i=
+ndex(enum
+> radeon_heap heap)
+>     /* Return the heap index for winsys allocators, or -1 on failure. */
+>   static inline int radeon_get_heap_index(enum radeon_bo_domain domain,
+>                                           enum radeon_bo_flag flags)
+>   {
+>       /* VRAM implies WC (write combining) */
+>       assert(!(domain & RADEON_DOMAIN_VRAM) || flags & RADEON_FLAG_GTT_WC=
+);
+>       /* NO_CPU_ACCESS implies VRAM only. */
+>       assert(!(flags & RADEON_FLAG_NO_CPU_ACCESS) || domain =3D=3D
+> RADEON_DOMAIN_VRAM);
+>   +    /* Resources with interprocess sharing don't use any winsys
+> allocators. */
+> +    if (!(flags & RADEON_FLAG_NO_INTERPROCESS_SHARING))
+> +        return -1;
+> +
+>       /* Unsupported flags: NO_SUBALLOC, SPARSE. */
+> -    if (flags & ~(RADEON_FLAG_GTT_WC | RADEON_FLAG_NO_CPU_ACCESS))
+> +    if (flags & ~(RADEON_FLAG_GTT_WC |
+> +                  RADEON_FLAG_NO_CPU_ACCESS |
+> +                  RADEON_FLAG_NO_INTERPROCESS_SHARING))
+>           return -1;
+>         switch (domain) {
+>       case RADEON_DOMAIN_VRAM:
+>           if (flags & RADEON_FLAG_NO_CPU_ACCESS)
+>               return RADEON_HEAP_VRAM_NO_CPU_ACCESS;
+>           else
+>               return RADEON_HEAP_VRAM;
+>       case RADEON_DOMAIN_VRAM_GTT:
+>           return RADEON_HEAP_VRAM_GTT;
+> diff --git a/src/gallium/winsys/amdgpu/drm/amdgpu_bo.c
+> b/src/gallium/winsys/amdgpu/drm/amdgpu_bo.c
+> index 97bbe23..06b8198 100644
+> --- a/src/gallium/winsys/amdgpu/drm/amdgpu_bo.c
+> +++ b/src/gallium/winsys/amdgpu/drm/amdgpu_bo.c
+> @@ -31,20 +31,24 @@
+>     #include "amdgpu_cs.h"
+>     #include "os/os_time.h"
+>   #include "state_tracker/drm_driver.h"
+>   #include <amdgpu_drm.h>
+>   #include <xf86drm.h>
+>   #include <stdio.h>
+>   #include <inttypes.h>
+>   +#ifndef AMDGPU_GEM_CREATE_NO_INTERPROCESS_SHARING
+> +#define AMDGPU_GEM_CREATE_NO_INTERPROCESS_SHARING (1 << 6)
+> +#endif
+> +
+>   /* Set to 1 for verbose output showing committed sparse buffer ranges. =
+*/
+>   #define DEBUG_SPARSE_COMMITS 0
+>     struct amdgpu_sparse_backing_chunk {
+>      uint32_t begin, end;
+>   };
+>     static struct pb_buffer *
+>   amdgpu_bo_create(struct radeon_winsys *rws,
+>                    uint64_t size,
+> @@ -395,20 +399,22 @@ static struct amdgpu_winsys_bo
+> *amdgpu_create_bo(struct amdgpu_winsys *ws,
+>        if (initial_domain & RADEON_DOMAIN_VRAM)
+>         request.preferred_heap |=3D AMDGPU_GEM_DOMAIN_VRAM;
+>      if (initial_domain & RADEON_DOMAIN_GTT)
+>         request.preferred_heap |=3D AMDGPU_GEM_DOMAIN_GTT;
+>        if (flags & RADEON_FLAG_NO_CPU_ACCESS)
+>         request.flags |=3D AMDGPU_GEM_CREATE_NO_CPU_ACCESS;
+>      if (flags & RADEON_FLAG_GTT_WC)
+>         request.flags |=3D AMDGPU_GEM_CREATE_CPU_GTT_USWC;
+> +   if (flags & RADEON_FLAG_NO_INTERPROCESS_SHARING)
+> +      request.flags |=3D AMDGPU_GEM_CREATE_NO_INTERPROCESS_SHARING;
+>        r =3D amdgpu_bo_alloc(ws->dev, &request, &buf_handle);
+>      if (r) {
+>         fprintf(stderr, "amdgpu: Failed to allocate a buffer:\n");
+>         fprintf(stderr, "amdgpu:    size      : %"PRIu64" bytes\n", size)=
+;
+>         fprintf(stderr, "amdgpu:    alignment : %u bytes\n", alignment);
+>         fprintf(stderr, "amdgpu:    domains   : %u\n", initial_domain);
+>         goto error_bo_alloc;
+>      }
+>   @@ -1127,21 +1133,21 @@ static void amdgpu_buffer_set_metadata(struct
+> pb_buffer *_buf,
+>     static struct pb_buffer *
+>   amdgpu_bo_create(struct radeon_winsys *rws,
+>                    uint64_t size,
+>                    unsigned alignment,
+>                    enum radeon_bo_domain domain,
+>                    enum radeon_bo_flag flags)
+>   {
+>      struct amdgpu_winsys *ws =3D amdgpu_winsys(rws);
+>      struct amdgpu_winsys_bo *bo;
+> -   unsigned usage =3D 0, pb_cache_bucket;
+> +   unsigned usage =3D 0, pb_cache_bucket =3D 0;
+>        /* VRAM implies WC. This is not optional. */
+>      assert(!(domain & RADEON_DOMAIN_VRAM) || flags & RADEON_FLAG_GTT_WC)=
+;
+>        /* NO_CPU_ACCESS is valid with VRAM only. */
+>      assert(domain =3D=3D RADEON_DOMAIN_VRAM || !(flags &
+> RADEON_FLAG_NO_CPU_ACCESS));
+>        /* Sub-allocate small buffers from slabs. */
+>      if (!(flags & (RADEON_FLAG_NO_SUBALLOC | RADEON_FLAG_SPARSE)) &&
+>          size <=3D (1 << AMDGPU_SLAB_MAX_SIZE_LOG2) &&
+> @@ -1182,48 +1188,52 @@ no_slab:
+>      /* This flag is irrelevant for the cache. */
+>      flags &=3D ~RADEON_FLAG_NO_SUBALLOC;
+>        /* Align size to page size. This is the minimum alignment for norm=
+al
+>       * BOs. Aligning this here helps the cached bufmgr. Especially small
+> BOs,
+>       * like constant/uniform buffers, can benefit from better and more
+> reuse.
+>       */
+>      size =3D align64(size, ws->info.gart_page_size);
+>      alignment =3D align(alignment, ws->info.gart_page_size);
+>   -   int heap =3D radeon_get_heap_index(domain, flags);
+> -   assert(heap >=3D 0 && heap < RADEON_MAX_CACHED_HEAPS);
+> -   usage =3D 1 << heap; /* Only set one usage bit for each heap. */
+> +   bool use_reusable_pool =3D flags & RADEON_FLAG_NO_INTERPROCESS_SHARIN=
+G;
+>   -   pb_cache_bucket =3D radeon_get_pb_cache_bucket_index(heap);
+> -   assert(pb_cache_bucket < ARRAY_SIZE(ws->bo_cache.buckets));
+> +   if (use_reusable_pool) {
+> +       int heap =3D radeon_get_heap_index(domain, flags);
+> +       assert(heap >=3D 0 && heap < RADEON_MAX_CACHED_HEAPS);
+> +       usage =3D 1 << heap; /* Only set one usage bit for each heap. */
+>   -   /* Get a buffer from the cache. */
+> -   bo =3D (struct amdgpu_winsys_bo*)
+> -        pb_cache_reclaim_buffer(&ws->bo_cache, size, alignment, usage,
+> -                                pb_cache_bucket);
+> -   if (bo)
+> -      return &bo->base;
+> +       pb_cache_bucket =3D radeon_get_pb_cache_bucket_index(heap);
+> +       assert(pb_cache_bucket < ARRAY_SIZE(ws->bo_cache.buckets));
+> +
+> +       /* Get a buffer from the cache. */
+> +       bo =3D (struct amdgpu_winsys_bo*)
+> +            pb_cache_reclaim_buffer(&ws->bo_cache, size, alignment,
+> usage,
+> +                                    pb_cache_bucket);
+> +       if (bo)
+> +          return &bo->base;
+> +   }
+>        /* Create a new one. */
+>      bo =3D amdgpu_create_bo(ws, size, alignment, usage, domain, flags,
+>                            pb_cache_bucket);
+>      if (!bo) {
+>         /* Clear the cache and try again. */
+>         pb_slabs_reclaim(&ws->bo_slabs);
+>         pb_cache_release_all_buffers(&ws->bo_cache);
+>         bo =3D amdgpu_create_bo(ws, size, alignment, usage, domain, flags=
+,
+>                               pb_cache_bucket);
+>         if (!bo)
+>            return NULL;
+>      }
+>   -   bo->u.real.use_reusable_pool =3D true;
+> +   bo->u.real.use_reusable_pool =3D use_reusable_pool;
+>      return &bo->base;
+>   }
+>     static struct pb_buffer *amdgpu_bo_from_handle(struct radeon_winsys
+> *rws,
+>                                                  struct winsys_handle
+> *whandle,
+>                                                  unsigned *stride,
+>                                                  unsigned *offset)
+>   {
+>      struct amdgpu_winsys *ws =3D amdgpu_winsys(rws);
+>      struct amdgpu_winsys_bo *bo;
+> diff --git a/src/gallium/winsys/radeon/drm/radeon_drm_bo.c
+> b/src/gallium/winsys/radeon/drm/radeon_drm_bo.c
+> index 8027a5f..15e9d38 100644
+> --- a/src/gallium/winsys/radeon/drm/radeon_drm_bo.c
+> +++ b/src/gallium/winsys/radeon/drm/radeon_drm_bo.c
+> @@ -907,21 +907,21 @@ static void radeon_bo_set_metadata(struct pb_buffer
+> *_buf,
+>     static struct pb_buffer *
+>   radeon_winsys_bo_create(struct radeon_winsys *rws,
+>                           uint64_t size,
+>                           unsigned alignment,
+>                           enum radeon_bo_domain domain,
+>                           enum radeon_bo_flag flags)
+>   {
+>       struct radeon_drm_winsys *ws =3D radeon_drm_winsys(rws);
+>       struct radeon_bo *bo;
+> -    unsigned usage =3D 0, pb_cache_bucket;
+> +    unsigned usage =3D 0, pb_cache_bucket =3D 0;
+>         assert(!(flags & RADEON_FLAG_SPARSE)); /* not supported */
+>         /* Only 32-bit sizes are supported. */
+>       if (size > UINT_MAX)
+>           return NULL;
+>         /* VRAM implies WC. This is not optional. */
+>       if (domain & RADEON_DOMAIN_VRAM)
+>           flags |=3D RADEON_FLAG_GTT_WC;
+> @@ -962,46 +962,51 @@ no_slab:
+>       /* This flag is irrelevant for the cache. */
+>       flags &=3D ~RADEON_FLAG_NO_SUBALLOC;
+>         /* Align size to page size. This is the minimum alignment for
+> normal
+>        * BOs. Aligning this here helps the cached bufmgr. Especially smal=
+l
+> BOs,
+>        * like constant/uniform buffers, can benefit from better and more
+> reuse.
+>        */
+>       size =3D align(size, ws->info.gart_page_size);
+>       alignment =3D align(alignment, ws->info.gart_page_size);
+>   -    int heap =3D radeon_get_heap_index(domain, flags);
+> -    assert(heap >=3D 0 && heap < RADEON_MAX_CACHED_HEAPS);
+> -    usage =3D 1 << heap; /* Only set one usage bit for each heap. */
+> +    bool use_reusable_pool =3D flags & RADEON_FLAG_NO_INTERPROCESS_SHARI=
+NG;
+>   -    pb_cache_bucket =3D radeon_get_pb_cache_bucket_index(heap);
+> -    assert(pb_cache_bucket < ARRAY_SIZE(ws->bo_cache.buckets));
+> +    /* Shared resources don't use cached heaps. */
+> +    if (use_reusable_pool) {
+> +        int heap =3D radeon_get_heap_index(domain, flags);
+> +        assert(heap >=3D 0 && heap < RADEON_MAX_CACHED_HEAPS);
+> +        usage =3D 1 << heap; /* Only set one usage bit for each heap. */
+>   -    bo =3D radeon_bo(pb_cache_reclaim_buffer(&ws->bo_cache, size,
+> alignment,
+> -                                           usage, pb_cache_bucket));
+> -    if (bo)
+> -        return &bo->base;
+> +        pb_cache_bucket =3D radeon_get_pb_cache_bucket_index(heap);
+> +        assert(pb_cache_bucket < ARRAY_SIZE(ws->bo_cache.buckets));
+> +
+> +        bo =3D radeon_bo(pb_cache_reclaim_buffer(&ws->bo_cache, size,
+> alignment,
+> +                                               usage, pb_cache_bucket));
+> +        if (bo)
+> +            return &bo->base;
+> +    }
+>         bo =3D radeon_create_bo(ws, size, alignment, usage, domain, flags=
+,
+>                             pb_cache_bucket);
+>       if (!bo) {
+>           /* Clear the cache and try again. */
+>           if (ws->info.has_virtual_memory)
+>               pb_slabs_reclaim(&ws->bo_slabs);
+>           pb_cache_release_all_buffers(&ws->bo_cache);
+>           bo =3D radeon_create_bo(ws, size, alignment, usage, domain, fla=
+gs,
+>                                 pb_cache_bucket);
+>           if (!bo)
+>               return NULL;
+>       }
+>   -    bo->u.real.use_reusable_pool =3D true;
+> +    bo->u.real.use_reusable_pool =3D use_reusable_pool;
+>         mtx_lock(&ws->bo_handles_mutex);
+>       util_hash_table_set(ws->bo_handles, (void*)(uintptr_t)bo->handle,
+> bo);
+>       mtx_unlock(&ws->bo_handles_mutex);
+>         return &bo->base;
+>   }
+>     static struct pb_buffer *radeon_winsys_bo_from_ptr(struct
+> radeon_winsys *rws,
+>                                                      void *pointer,
+> uint64_t size)
+>
+
+--001a11487e7afe10130554ad5ecb
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><br><div class=3D"gmail_extra"><br><div class=3D"gma=
+il_quote">On Jul 19, 2017 3:36 AM, &quot;zhoucm1&quot; &lt;<a href=3D"mailt=
+o:david1.zhou-5C7GfCeVMHo@public.gmane.org">david1.zhou-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<br type=3D"attrib=
+ution"><blockquote class=3D"quote" style=3D"margin:0 0 0 .8ex;border-left:1=
+px #ccc solid;padding-left:1ex"><div class=3D"quoted-text"><br>
+<br>
+On 2017=E5=B9=B407=E6=9C=8819=E6=97=A5 04:08, Marek Ol=C5=A1=C3=A1k wrote:<=
+br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+From: Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:marek.olsak-5C7GfCeVMHo@public.gmane.org" targ=
+et=3D"_blank">marek.olsak-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+<br>
+For lower overhead in the CS ioctl.<br>
+Winsys allocators are not used with interprocess-sharable resources.<br>
+</blockquote></div>
+Hi Marek,<br>
+<br>
+Could I know from how your this way reduces overhead in CS ioctl? reusing B=
+O to short bo list?<br></blockquote></div></div></div><div dir=3D"auto"><br=
+></div><div dir=3D"auto">The kernel part of the work hasn&#39;t been done y=
+et. The idea is that nonsharable buffers don&#39;t have to be revalidated b=
+y TTM, so it should remove a lot of kernel overhead and the BO list remains=
+ the same.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Marek</div><d=
+iv dir=3D"auto"><br></div><div dir=3D"auto"><br></div><div dir=3D"auto"><di=
+v class=3D"gmail_extra"><div class=3D"gmail_quote"><blockquote class=3D"quo=
+te" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"=
+>
+<br>
+Thanks,<br>
+David Zhou<div class=3D"elided-text"><br>
+<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
+x #ccc solid;padding-left:1ex">
+<br>
+v2: It shouldn&#39;t crash anymore, but the kernel will reject the new flag=
+.<br>
+---<br>
+=C2=A0 src/gallium/drivers/radeon/r60<wbr>0_buffer_common.c |=C2=A0 7 +++++=
+<br>
+=C2=A0 src/gallium/drivers/radeon/rad<wbr>eon_winsys.h=C2=A0 =C2=A0 =C2=A0 =
+| 20 +++++++++++---<br>
+=C2=A0 src/gallium/winsys/amdgpu/drm/<wbr>amdgpu_bo.c=C2=A0 =C2=A0 =C2=A0 =
+=C2=A0| 36 ++++++++++++++++---------<br>
+=C2=A0 src/gallium/winsys/radeon/drm/<wbr>radeon_drm_bo.c=C2=A0 =C2=A0| 27 =
++++++++++++--------<br>
+=C2=A0 4 files changed, 62 insertions(+), 28 deletions(-)<br>
+<br>
+diff --git a/src/gallium/drivers/radeon/r<wbr>600_buffer_common.c b/src/gal=
+lium/drivers/radeon/r<wbr>600_buffer_common.c<br>
+index dd1c209..2747ac4 100644<br>
+--- a/src/gallium/drivers/radeon/r<wbr>600_buffer_common.c<br>
++++ b/src/gallium/drivers/radeon/r<wbr>600_buffer_common.c<br>
+@@ -160,20 +160,27 @@ void r600_init_resource_fields(stru<wbr>ct r600_commo=
+n_screen *rscreen,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Tiled textures are unmappable. Always put th=
+em in VRAM. */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if ((res-&gt;b.b.target !=3D PIPE_BUFFER &amp;&=
+amp; !rtex-&gt;surface.is_linear) ||<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 res-&gt;flags &amp; R600_RESOURCE=
+_FLAG_UNMAPPABLE) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 res-&gt;domains =3D=
+ RADEON_DOMAIN_VRAM;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 res-&gt;flags |=3D =
+RADEON_FLAG_NO_CPU_ACCESS |<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0RADEON_FLAG_GTT_WC;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+=C2=A0 +=C2=A0 =C2=A0 =C2=A0/* Only displayable single-sample textures can =
+be shared between<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * processes. */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (res-&gt;b.b.target =3D=3D PIPE_BUFFER ||<br=
+>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0res-&gt;b.b.nr_samples &gt;=3D 2 =
+||<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0rtex-&gt;surface.micro_tile_mode =
+!=3D RADEON_MICRO_MODE_DISPLAY)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0res-&gt;flags |=3D =
+RADEON_FLAG_NO_INTERPROCESS_SH<wbr>ARING;<br>
++<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* If VRAM is just stolen system memory, allow =
+both VRAM and<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* GTT, whichever has free space. If a buf=
+fer is evicted from<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* VRAM to GTT, it will stay there.<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* DRM 3.6.0 has good BO move throttling, =
+so we can allow VRAM-only<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* placements even with a low amount of st=
+olen VRAM.<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*/<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!rscreen-&gt;info.has_dedicated_<wbr>vram &=
+amp;&amp;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (rscreen-&gt;info.drm_major &lt; =
+3 || rscreen-&gt;info.drm_minor &lt; 6) &amp;&amp;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 res-&gt;domains =3D=3D RADEON_DOM=
+AIN_VRAM) {<br>
+diff --git a/src/gallium/drivers/radeon/r<wbr>adeon_winsys.h b/src/gallium/=
+drivers/radeon/r<wbr>adeon_winsys.h<br>
+index 351edcd..0abcb56 100644<br>
+--- a/src/gallium/drivers/radeon/r<wbr>adeon_winsys.h<br>
++++ b/src/gallium/drivers/radeon/r<wbr>adeon_winsys.h<br>
+@@ -47,20 +47,21 @@ enum radeon_bo_domain { /* bitfield */<br>
+=C2=A0 =C2=A0 =C2=A0 RADEON_DOMAIN_GTT=C2=A0 =3D 2,<br>
+=C2=A0 =C2=A0 =C2=A0 RADEON_DOMAIN_VRAM =3D 4,<br>
+=C2=A0 =C2=A0 =C2=A0 RADEON_DOMAIN_VRAM_GTT =3D RADEON_DOMAIN_VRAM | RADEON=
+_DOMAIN_GTT<br>
+=C2=A0 };<br>
+=C2=A0 =C2=A0 enum radeon_bo_flag { /* bitfield */<br>
+=C2=A0 =C2=A0 =C2=A0 RADEON_FLAG_GTT_WC =3D=C2=A0 =C2=A0 =C2=A0 =C2=A0 (1 &=
+lt;&lt; 0),<br>
+=C2=A0 =C2=A0 =C2=A0 RADEON_FLAG_NO_CPU_ACCESS =3D (1 &lt;&lt; 1),<br>
+=C2=A0 =C2=A0 =C2=A0 RADEON_FLAG_NO_SUBALLOC =3D=C2=A0 =C2=A0(1 &lt;&lt; 2)=
+,<br>
+=C2=A0 =C2=A0 =C2=A0 RADEON_FLAG_SPARSE =3D=C2=A0 =C2=A0 =C2=A0 =C2=A0 (1 &=
+lt;&lt; 3),<br>
++=C2=A0 =C2=A0 RADEON_FLAG_NO_INTERPROCESS_SH<wbr>ARING =3D (1 &lt;&lt; 4),=
+<br>
+=C2=A0 };<br>
+=C2=A0 =C2=A0 enum radeon_bo_usage { /* bitfield */<br>
+=C2=A0 =C2=A0 =C2=A0 RADEON_USAGE_READ =3D 2,<br>
+=C2=A0 =C2=A0 =C2=A0 RADEON_USAGE_WRITE =3D 4,<br>
+=C2=A0 =C2=A0 =C2=A0 RADEON_USAGE_READWRITE =3D RADEON_USAGE_READ | RADEON_=
+USAGE_WRITE,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* The winsys ensures that the CS submission wi=
+ll be scheduled after<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0* previously flushed CSs referencing this BO in =
+a conflicting way.<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0*/<br>
+@@ -685,28 +686,33 @@ static inline enum radeon_bo_domain radeon_domain_fro=
+m_heap(enum radeon_heap hea<br>
+=C2=A0 =C2=A0 =C2=A0 default:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 assert(0);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return (enum radeon_bo_domain)0;<br>
+=C2=A0 =C2=A0 =C2=A0 }<br>
+=C2=A0 }<br>
+=C2=A0 =C2=A0 static inline unsigned radeon_flags_from_heap(enum radeon_hea=
+p heap)<br>
+=C2=A0 {<br>
+=C2=A0 =C2=A0 =C2=A0 switch (heap) {<br>
+=C2=A0 =C2=A0 =C2=A0 case RADEON_HEAP_VRAM_NO_CPU_ACCESS<wbr>:<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 return RADEON_FLAG_GTT_WC | RADEON_FLAG_NO_CPU=
+_ACCESS;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 return RADEON_FLAG_GTT_WC |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0RADEON_FLAG_NO_CPU_=
+ACCESS |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0RADEON_FLAG_NO_INTE=
+RPROCESS_S<wbr>HARING;<br>
++<br>
+=C2=A0 =C2=A0 =C2=A0 case RADEON_HEAP_VRAM:<br>
+=C2=A0 =C2=A0 =C2=A0 case RADEON_HEAP_VRAM_GTT:<br>
+=C2=A0 =C2=A0 =C2=A0 case RADEON_HEAP_GTT_WC:<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 return RADEON_FLAG_GTT_WC;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 return RADEON_FLAG_GTT_WC |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0RADEON_FLAG_NO_INTE=
+RPROCESS_S<wbr>HARING;<br>
++<br>
+=C2=A0 =C2=A0 =C2=A0 case RADEON_HEAP_GTT:<br>
+=C2=A0 =C2=A0 =C2=A0 default:<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 return 0;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 return RADEON_FLAG_NO_INTERPROCESS_SH<wbr>ARIN=
+G;<br>
+=C2=A0 =C2=A0 =C2=A0 }<br>
+=C2=A0 }<br>
+=C2=A0 =C2=A0 /* The pb cache bucket is chosen to minimize pb_cache misses.=
+<br>
+=C2=A0 =C2=A0* It must be between 0 and 3 inclusive.<br>
+=C2=A0 =C2=A0*/<br>
+=C2=A0 static inline unsigned radeon_get_pb_cache_bucket_ind<wbr>ex(enum ra=
+deon_heap heap)<br>
+=C2=A0 {<br>
+=C2=A0 =C2=A0 =C2=A0 switch (heap) {<br>
+=C2=A0 =C2=A0 =C2=A0 case RADEON_HEAP_VRAM_NO_CPU_ACCESS<wbr>:<br>
+@@ -724,22 +730,28 @@ static inline unsigned radeon_get_pb_cache_bucket_ind=
+<wbr>ex(enum radeon_heap heap)<br>
+=C2=A0 =C2=A0 /* Return the heap index for winsys allocators, or -1 on fail=
+ure. */<br>
+=C2=A0 static inline int radeon_get_heap_index(enum radeon_bo_domain domain=
+,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 e=
+num radeon_bo_flag flags)<br>
+=C2=A0 {<br>
+=C2=A0 =C2=A0 =C2=A0 /* VRAM implies WC (write combining) */<br>
+=C2=A0 =C2=A0 =C2=A0 assert(!(domain &amp; RADEON_DOMAIN_VRAM) || flags &am=
+p; RADEON_FLAG_GTT_WC);<br>
+=C2=A0 =C2=A0 =C2=A0 /* NO_CPU_ACCESS implies VRAM only. */<br>
+=C2=A0 =C2=A0 =C2=A0 assert(!(flags &amp; RADEON_FLAG_NO_CPU_ACCESS) || dom=
+ain =3D=3D RADEON_DOMAIN_VRAM);<br>
+=C2=A0 +=C2=A0 =C2=A0 /* Resources with interprocess sharing don&#39;t use =
+any winsys allocators. */<br>
++=C2=A0 =C2=A0 if (!(flags &amp; RADEON_FLAG_NO_INTERPROCESS_SH<wbr>ARING))=
+<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 return -1;<br>
++<br>
+=C2=A0 =C2=A0 =C2=A0 /* Unsupported flags: NO_SUBALLOC, SPARSE. */<br>
+-=C2=A0 =C2=A0 if (flags &amp; ~(RADEON_FLAG_GTT_WC | RADEON_FLAG_NO_CPU_AC=
+CESS))<br>
++=C2=A0 =C2=A0 if (flags &amp; ~(RADEON_FLAG_GTT_WC |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 RADEON_FLAG=
+_NO_CPU_ACCESS |<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 RADEON_FLAG=
+_NO_INTERPROCESS_SH<wbr>ARING))<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return -1;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 switch (domain) {<br>
+=C2=A0 =C2=A0 =C2=A0 case RADEON_DOMAIN_VRAM:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (flags &amp; RADEON_FLAG_NO_CPU_ACCES=
+S)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return RADEON_HEAP_VRAM_NO=
+_CPU_ACCESS<wbr>;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 else<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return RADEON_HEAP_VRAM;<b=
+r>
+=C2=A0 =C2=A0 =C2=A0 case RADEON_DOMAIN_VRAM_GTT:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return RADEON_HEAP_VRAM_GTT;<br>
+diff --git a/src/gallium/winsys/amdgpu/dr<wbr>m/amdgpu_bo.c b/src/gallium/w=
+insys/amdgpu/dr<wbr>m/amdgpu_bo.c<br>
+index 97bbe23..06b8198 100644<br>
+--- a/src/gallium/winsys/amdgpu/dr<wbr>m/amdgpu_bo.c<br>
++++ b/src/gallium/winsys/amdgpu/dr<wbr>m/amdgpu_bo.c<br>
+@@ -31,20 +31,24 @@<br>
+=C2=A0 =C2=A0 #include &quot;amdgpu_cs.h&quot;<br>
+=C2=A0 =C2=A0 #include &quot;os/os_time.h&quot;<br>
+=C2=A0 #include &quot;state_tracker/drm_driver.h&quot;<br>
+=C2=A0 #include &lt;amdgpu_drm.h&gt;<br>
+=C2=A0 #include &lt;xf86drm.h&gt;<br>
+=C2=A0 #include &lt;stdio.h&gt;<br>
+=C2=A0 #include &lt;inttypes.h&gt;<br>
+=C2=A0 +#ifndef AMDGPU_GEM_CREATE_NO_INTERPROC<wbr>ESS_SHARING<br>
++#define AMDGPU_GEM_CREATE_NO_INTERPROC<wbr>ESS_SHARING (1 &lt;&lt; 6)<br>
++#endif<br>
++<br>
+=C2=A0 /* Set to 1 for verbose output showing committed sparse buffer range=
+s. */<br>
+=C2=A0 #define DEBUG_SPARSE_COMMITS 0<br>
+=C2=A0 =C2=A0 struct amdgpu_sparse_backing_chunk {<br>
+=C2=A0 =C2=A0 =C2=A0uint32_t begin, end;<br>
+=C2=A0 };<br>
+=C2=A0 =C2=A0 static struct pb_buffer *<br>
+=C2=A0 amdgpu_bo_create(struct radeon_winsys *rws,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0uint64=
+_t size,<br>
+@@ -395,20 +399,22 @@ static struct amdgpu_winsys_bo *amdgpu_create_bo(stru=
+ct amdgpu_winsys *ws,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (initial_domain &amp; RADEON_DOMAIN_VRAM)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 request.preferred_heap |=3D AMDGPU_GEM_DOMAIN_V=
+RAM;<br>
+=C2=A0 =C2=A0 =C2=A0if (initial_domain &amp; RADEON_DOMAIN_GTT)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 request.preferred_heap |=3D AMDGPU_GEM_DOMAIN_G=
+TT;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (flags &amp; RADEON_FLAG_NO_CPU_ACCESS)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 request.flags |=3D AMDGPU_GEM_CREATE_NO_CPU_ACC=
+ES<wbr>S;<br>
+=C2=A0 =C2=A0 =C2=A0if (flags &amp; RADEON_FLAG_GTT_WC)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 request.flags |=3D AMDGPU_GEM_CREATE_CPU_GTT_US=
+WC<wbr>;<br>
++=C2=A0 =C2=A0if (flags &amp; RADEON_FLAG_NO_INTERPROCESS_SH<wbr>ARING)<br>
++=C2=A0 =C2=A0 =C2=A0 request.flags |=3D AMDGPU_GEM_CREATE_NO_INTERPROC<wbr=
+>ESS_SHARING;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D amdgpu_bo_alloc(ws-&gt;dev, &amp;request, =
+&amp;buf_handle);<br>
+=C2=A0 =C2=A0 =C2=A0if (r) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 fprintf(stderr, &quot;amdgpu: Failed to allocat=
+e a buffer:\n&quot;);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 fprintf(stderr, &quot;amdgpu:=C2=A0 =C2=A0 size=
+=C2=A0 =C2=A0 =C2=A0 : %&quot;PRIu64&quot; bytes\n&quot;, size);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 fprintf(stderr, &quot;amdgpu:=C2=A0 =C2=A0 alig=
+nment : %u bytes\n&quot;, alignment);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 fprintf(stderr, &quot;amdgpu:=C2=A0 =C2=A0 doma=
+ins=C2=A0 =C2=A0: %u\n&quot;, initial_domain);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 goto error_bo_alloc;<br>
+=C2=A0 =C2=A0 =C2=A0}<br>
+=C2=A0 @@ -1127,21 +1133,21 @@ static void amdgpu_buffer_set_metadata(str<w=
+br>uct pb_buffer *_buf,<br>
+=C2=A0 =C2=A0 static struct pb_buffer *<br>
+=C2=A0 amdgpu_bo_create(struct radeon_winsys *rws,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0uint64=
+_t size,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsign=
+ed alignment,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0enum r=
+adeon_bo_domain domain,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0enum r=
+adeon_bo_flag flags)<br>
+=C2=A0 {<br>
+=C2=A0 =C2=A0 =C2=A0struct amdgpu_winsys *ws =3D amdgpu_winsys(rws);<br>
+=C2=A0 =C2=A0 =C2=A0struct amdgpu_winsys_bo *bo;<br>
+-=C2=A0 =C2=A0unsigned usage =3D 0, pb_cache_bucket;<br>
++=C2=A0 =C2=A0unsigned usage =3D 0, pb_cache_bucket =3D 0;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0/* VRAM implies WC. This is not optional. */<br>
+=C2=A0 =C2=A0 =C2=A0assert(!(domain &amp; RADEON_DOMAIN_VRAM) || flags &amp=
+; RADEON_FLAG_GTT_WC);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0/* NO_CPU_ACCESS is valid with VRAM only. */<br>
+=C2=A0 =C2=A0 =C2=A0assert(domain =3D=3D RADEON_DOMAIN_VRAM || !(flags &amp=
+; RADEON_FLAG_NO_CPU_ACCESS));<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Sub-allocate small buffers from slabs. */<br>
+=C2=A0 =C2=A0 =C2=A0if (!(flags &amp; (RADEON_FLAG_NO_SUBALLOC | RADEON_FLA=
+G_SPARSE)) &amp;&amp;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0size &lt;=3D (1 &lt;&lt; AMDGPU_SLAB_MAX_=
+SIZE_LOG2) &amp;&amp;<br>
+@@ -1182,48 +1188,52 @@ no_slab:<br>
+=C2=A0 =C2=A0 =C2=A0/* This flag is irrelevant for the cache. */<br>
+=C2=A0 =C2=A0 =C2=A0flags &amp;=3D ~RADEON_FLAG_NO_SUBALLOC;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Align size to page size. This is the minimum =
+alignment for normal<br>
+=C2=A0 =C2=A0 =C2=A0 * BOs. Aligning this here helps the cached bufmgr. Esp=
+ecially small BOs,<br>
+=C2=A0 =C2=A0 =C2=A0 * like constant/uniform buffers, can benefit from bett=
+er and more reuse.<br>
+=C2=A0 =C2=A0 =C2=A0 */<br>
+=C2=A0 =C2=A0 =C2=A0size =3D align64(size, ws-&gt;info.gart_page_size);<br>
+=C2=A0 =C2=A0 =C2=A0alignment =3D align(alignment, ws-&gt;info.gart_page_si=
+ze);<br>
+=C2=A0 -=C2=A0 =C2=A0int heap =3D radeon_get_heap_index(domain, flags);<br>
+-=C2=A0 =C2=A0assert(heap &gt;=3D 0 &amp;&amp; heap &lt; RADEON_MAX_CACHED_=
+HEAPS);<br>
+-=C2=A0 =C2=A0usage =3D 1 &lt;&lt; heap; /* Only set one usage bit for each=
+ heap. */<br>
++=C2=A0 =C2=A0bool use_reusable_pool =3D flags &amp; RADEON_FLAG_NO_INTERPR=
+OCESS_SH<wbr>ARING;<br>
+=C2=A0 -=C2=A0 =C2=A0pb_cache_bucket =3D radeon_get_pb_cache_bucket_ind<wbr=
+>ex(heap);<br>
+-=C2=A0 =C2=A0assert(pb_cache_bucket &lt; ARRAY_SIZE(ws-&gt;bo_cache.bucket=
+<wbr>s));<br>
++=C2=A0 =C2=A0if (use_reusable_pool) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0int heap =3D radeon_get_heap_index(domain, flag=
+s);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0assert(heap &gt;=3D 0 &amp;&amp; heap &lt; RADE=
+ON_MAX_CACHED_HEAPS);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0usage =3D 1 &lt;&lt; heap; /* Only set one usag=
+e bit for each heap. */<br>
+=C2=A0 -=C2=A0 =C2=A0/* Get a buffer from the cache. */<br>
+-=C2=A0 =C2=A0bo =3D (struct amdgpu_winsys_bo*)<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 pb_cache_reclaim_buffer(&amp;ws-&gt;b<wbr>o_ca=
+che, size, alignment, usage,<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 pb_cache_bucket);<br>
+-=C2=A0 =C2=A0if (bo)<br>
+-=C2=A0 =C2=A0 =C2=A0 return &amp;bo-&gt;base;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0pb_cache_bucket =3D radeon_get_pb_cache_bucket_=
+ind<wbr>ex(heap);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0assert(pb_cache_bucket &lt; ARRAY_SIZE(ws-&gt;b=
+o_cache.bucket<wbr>s));<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Get a buffer from the cache. */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0bo =3D (struct amdgpu_winsys_bo*)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 pb_cache_reclaim_buffer(&amp;ws-=
+&gt;b<wbr>o_cache, size, alignment, usage,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 pb_cache_bucket);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (bo)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return &amp;bo-&gt;base;<br>
++=C2=A0 =C2=A0}<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Create a new one. */<br>
+=C2=A0 =C2=A0 =C2=A0bo =3D amdgpu_create_bo(ws, size, alignment, usage, dom=
+ain, flags,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0pb_cache_bucket);<br>
+=C2=A0 =C2=A0 =C2=A0if (!bo) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Clear the cache and try again. */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 pb_slabs_reclaim(&amp;ws-&gt;bo_slabs<wbr>);<br=
+>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 pb_cache_release_all_buffers(&amp;<wbr>ws-&gt;b=
+o_cache);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 bo =3D amdgpu_create_bo(ws, size, alignment, us=
+age, domain, flags,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 pb_cache_bucket);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!bo)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return NULL;<br>
+=C2=A0 =C2=A0 =C2=A0}<br>
+=C2=A0 -=C2=A0 =C2=A0bo-&gt;u.real.use_reusable_pool =3D true;<br>
++=C2=A0 =C2=A0bo-&gt;u.real.use_reusable_pool =3D use_reusable_pool;<br>
+=C2=A0 =C2=A0 =C2=A0return &amp;bo-&gt;base;<br>
+=C2=A0 }<br>
+=C2=A0 =C2=A0 static struct pb_buffer *amdgpu_bo_from_handle(struct radeon_=
+winsys *rws,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0struct winsys_handle *whandle,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned *stride,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned *offset)<br>
+=C2=A0 {<br>
+=C2=A0 =C2=A0 =C2=A0struct amdgpu_winsys *ws =3D amdgpu_winsys(rws);<br>
+=C2=A0 =C2=A0 =C2=A0struct amdgpu_winsys_bo *bo;<br>
+diff --git a/src/gallium/winsys/radeon/dr<wbr>m/radeon_drm_bo.c b/src/galli=
+um/winsys/radeon/dr<wbr>m/radeon_drm_bo.c<br>
+index 8027a5f..15e9d38 100644<br>
+--- a/src/gallium/winsys/radeon/dr<wbr>m/radeon_drm_bo.c<br>
++++ b/src/gallium/winsys/radeon/dr<wbr>m/radeon_drm_bo.c<br>
+@@ -907,21 +907,21 @@ static void radeon_bo_set_metadata(struct pb_buffer *=
+_buf,<br>
+=C2=A0 =C2=A0 static struct pb_buffer *<br>
+=C2=A0 radeon_winsys_bo_create(struct radeon_winsys *rws,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 uint64_t size,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 unsigned alignment,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 enum radeon_bo_domain domain,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 enum radeon_bo_flag flags)<br>
+=C2=A0 {<br>
+=C2=A0 =C2=A0 =C2=A0 struct radeon_drm_winsys *ws =3D radeon_drm_winsys(rws=
+);<br>
+=C2=A0 =C2=A0 =C2=A0 struct radeon_bo *bo;<br>
+-=C2=A0 =C2=A0 unsigned usage =3D 0, pb_cache_bucket;<br>
++=C2=A0 =C2=A0 unsigned usage =3D 0, pb_cache_bucket =3D 0;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 assert(!(flags &amp; RADEON_FLAG_SPARSE)); /* n=
+ot supported */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Only 32-bit sizes are supported. */<br>
+=C2=A0 =C2=A0 =C2=A0 if (size &gt; UINT_MAX)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return NULL;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* VRAM implies WC. This is not optional. */<br=
+>
+=C2=A0 =C2=A0 =C2=A0 if (domain &amp; RADEON_DOMAIN_VRAM)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 flags |=3D RADEON_FLAG_GTT_WC;<br>
+@@ -962,46 +962,51 @@ no_slab:<br>
+=C2=A0 =C2=A0 =C2=A0 /* This flag is irrelevant for the cache. */<br>
+=C2=A0 =C2=A0 =C2=A0 flags &amp;=3D ~RADEON_FLAG_NO_SUBALLOC;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Align size to page size. This is the minimum=
+ alignment for normal<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0* BOs. Aligning this here helps the cached bufmg=
+r. Especially small BOs,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0* like constant/uniform buffers, can benefit fro=
+m better and more reuse.<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0*/<br>
+=C2=A0 =C2=A0 =C2=A0 size =3D align(size, ws-&gt;info.gart_page_size);<br>
+=C2=A0 =C2=A0 =C2=A0 alignment =3D align(alignment, ws-&gt;info.gart_page_s=
+ize);<br>
+=C2=A0 -=C2=A0 =C2=A0 int heap =3D radeon_get_heap_index(domain, flags);<br=
+>
+-=C2=A0 =C2=A0 assert(heap &gt;=3D 0 &amp;&amp; heap &lt; RADEON_MAX_CACHED=
+_HEAPS);<br>
+-=C2=A0 =C2=A0 usage =3D 1 &lt;&lt; heap; /* Only set one usage bit for eac=
+h heap. */<br>
++=C2=A0 =C2=A0 bool use_reusable_pool =3D flags &amp; RADEON_FLAG_NO_INTERP=
+ROCESS_SH<wbr>ARING;<br>
+=C2=A0 -=C2=A0 =C2=A0 pb_cache_bucket =3D radeon_get_pb_cache_bucket_ind<wb=
+r>ex(heap);<br>
+-=C2=A0 =C2=A0 assert(pb_cache_bucket &lt; ARRAY_SIZE(ws-&gt;bo_cache.bucke=
+t<wbr>s));<br>
++=C2=A0 =C2=A0 /* Shared resources don&#39;t use cached heaps. */<br>
++=C2=A0 =C2=A0 if (use_reusable_pool) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 int heap =3D radeon_get_heap_index(domain, fla=
+gs);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 assert(heap &gt;=3D 0 &amp;&amp; heap &lt; RAD=
+EON_MAX_CACHED_HEAPS);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 usage =3D 1 &lt;&lt; heap; /* Only set one usa=
+ge bit for each heap. */<br>
+=C2=A0 -=C2=A0 =C2=A0 bo =3D radeon_bo(pb_cache_reclaim_buf<wbr>fer(&amp;ws=
+-&gt;bo_cache, size, alignment,<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0usage, pb_cache_bucket));<br>
+-=C2=A0 =C2=A0 if (bo)<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 return &amp;bo-&gt;base;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 pb_cache_bucket =3D radeon_get_pb_cache_bucket=
+_ind<wbr>ex(heap);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 assert(pb_cache_bucket &lt; ARRAY_SIZE(ws-&gt;=
+bo_cache.bucket<wbr>s));<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 bo =3D radeon_bo(pb_cache_reclaim_buf<wbr>fer(=
+&amp;ws-&gt;bo_cache, size, alignment,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0usage, pb_cache_bucket));<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (bo)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return &amp;bo-&gt;base;<br>
++=C2=A0 =C2=A0 }<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 bo =3D radeon_create_bo(ws, size, alignment, us=
+age, domain, flags,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 pb_cache_bucket);<br>
+=C2=A0 =C2=A0 =C2=A0 if (!bo) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Clear the cache and try again. */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (ws-&gt;info.has_virtual_memory)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 pb_slabs_reclaim(&amp;ws-&=
+gt;bo_slabs<wbr>);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 pb_cache_release_all_buffers(&amp;<wbr>w=
+s-&gt;bo_cache);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bo =3D radeon_create_bo(ws, size, alignm=
+ent, usage, domain, flags,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 pb_cache_bucket);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!bo)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return NULL;<br>
+=C2=A0 =C2=A0 =C2=A0 }<br>
+=C2=A0 -=C2=A0 =C2=A0 bo-&gt;u.real.use_reusable_pool =3D true;<br>
++=C2=A0 =C2=A0 bo-&gt;u.real.use_reusable_pool =3D use_reusable_pool;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 mtx_lock(&amp;ws-&gt;bo_handles_mutex<wbr>);<br=
+>
+=C2=A0 =C2=A0 =C2=A0 util_hash_table_set(ws-&gt;bo_han<wbr>dles, (void*)(ui=
+ntptr_t)bo-&gt;handle, bo);<br>
+=C2=A0 =C2=A0 =C2=A0 mtx_unlock(&amp;ws-&gt;bo_handles_mut<wbr>ex);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 return &amp;bo-&gt;base;<br>
+=C2=A0 }<br>
+=C2=A0 =C2=A0 static struct pb_buffer *radeon_winsys_bo_from_ptr(str<wbr>uc=
+t radeon_winsys *rws,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0void *pointer, uint64_t size)<br>
+</blockquote>
+<br>
+</div></blockquote></div></div><div class=3D"gmail_extra" dir=3D"auto"><br>=
+</div></div></div>
+
+--001a11487e7afe10130554ad5ecb--
+
+--===============1112294935==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1112294935==--
