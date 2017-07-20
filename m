@@ -1,14 +1,19 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Fix blocking in RCU critical section(v2)
-Date: Thu, 20 Jul 2017 19:07:33 +0200
-Message-ID: <c7aa117b-77ed-00c5-d52e-3516af944107@vodafone.de>
-References: <1500518816-12399-1-git-send-email-AlexBin.Xie@amd.com>
- <59701D10.3020405@amd.com>
+Subject: Re: [Mesa-dev] [RFC PATCH] radeonsi: set a per-buffer flag that
+ disables inter-process sharing (v2)
+Date: Thu, 20 Jul 2017 19:46:48 +0200
+Message-ID: <7e92bd9e-5edc-117b-7cbb-58d7c4c4c461@vodafone.de>
+References: <1500408524-925-1-git-send-email-maraeo@gmail.com>
+ <596F0BD7.3070805@amd.com>
+ <CAAxE2A5ygzBpB-56BowZ+iwf-wgistwY4Xo-puKM=cQ2bbQyEw@mail.gmail.com>
+ <CAAxE2A5WYEdp7WSLB=UE82qER9aS05zfAQP+MTM6bjw+cOPJeQ@mail.gmail.com>
+ <CAAxE2A60fT46jpntj=rCXTHrs0QXdNSFEnYdHVRuccd446+_pA@mail.gmail.com>
+ <59701388.5080909@amd.com>
+ <CAAxE2A6uFyqhWfJBNzojyMqFmk-AGyQmScwqScMjLutBQX5usA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1377115155=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <59701D10.3020405-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CAAxE2A6uFyqhWfJBNzojyMqFmk-AGyQmScwqScMjLutBQX5usA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,72 +25,1410 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>, Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+Cc: mesa-dev-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-WWVhaCwgd2l0aCB0aGUgY29kaW5nIHN0eWxlIGZpeGVkIFJldmlld2VkLWJ5OiBDaHJpc3RpYW4g
-S8O2bmlnIAo8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPiBhcyB3ZWxsLgoKQ2hyaXN0aWFuLgoK
-QW0gMjAuMDcuMjAxNyB1bSAwNTowMSBzY2hyaWViIHpob3VjbTE6Cj4gb25lIHNtYWxsIG5pdCBw
-aWNrLCB3aXRoIHRoYXQgZml4LCBSZXZpZXdlZC1ieTogQ2h1bm1pbmcgWmhvdSAKPiA8ZGF2aWQx
-Lnpob3VAYW1kLmNvbT4KPgo+IE9uIDIwMTflubQwN+aciDIw5pelIDEwOjQ2LCBBbGV4IFhpZSB3
-cm90ZToKPj4gSW4gUkNVIHJlYWQtc2lkZSBjcml0aWNhbCBzZWN0aW9ucywgYmxvY2tpbmcgb3Ig
-c2xlZXBpbmcgaXMgcHJvaGliaXRlZC4KPj4KPj4gdjI6IFVubG9jayBSQ1UgZm9yIHRoZSBjb2Rl
-IHBhdGggd2hlcmUgcmVzdWx0PT1OVUxMLiAoRGF2aWQgWmhvdSkKPj4gICAgICBVcGRhdGUgc3Vi
-amVjdAo+Pgo+PiBUZXN0ZWQtYnkgYW5kIHJlcG9ydGVkIGJ5OiBEYXZlIEFpcmxpZSA8YWlybGll
-ZEByZWRoYXQuY29tPgo+Pgo+PiBbICAxNDEuOTY1NzIzXSA9PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PQo+PiBbICAxNDEuOTY1NzI0XSBXQVJOSU5HOiBzdXNwaWNpb3VzIFJDVSB1c2FnZQo+
-PiBbICAxNDEuOTY1NzI2XSA0LjEyLjAtcmM3ICMyMjEgTm90IHRhaW50ZWQKPj4gWyAgMTQxLjk2
-NTcyN10gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KPj4gWyAgMTQxLjk2NTcyOF0gCj4+
-IC9ob21lL2FpcmxpZWQvZGV2ZWwva2VybmVsL2xpbnV4LTIuNi9pbmNsdWRlL2xpbnV4L3JjdXBk
-YXRlLmg6NTMxCj4+IElsbGVnYWwgY29udGV4dCBzd2l0Y2ggaW4gUkNVIHJlYWQtc2lkZSBjcml0
-aWNhbCBzZWN0aW9uIQo+PiBbICAxNDEuOTY1NzMwXQo+PiAgICAgICAgICAgICAgICAgb3RoZXIg
-aW5mbyB0aGF0IG1pZ2h0IGhlbHAgdXMgZGVidWcgdGhpczoKPj4KPj4gWyAgMTQxLjk2NTczMV0K
-Pj4gICAgICAgICAgICAgICAgIHJjdV9zY2hlZHVsZXJfYWN0aXZlID0gMiwgZGVidWdfbG9ja3Mg
-PSAwCj4+IFsgIDE0MS45NjU3MzJdIDEgbG9jayBoZWxkIGJ5IGFtZGdwdV9jczowLzEzMzI6Cj4+
-IFsgIDE0MS45NjU3MzNdICAjMDogIChyY3VfcmVhZF9sb2NrKXsuLi4uLi59LCBhdDogWzxmZmZm
-ZmZmZmEwMWEwZDA3Pl0KPj4gYW1kZ3B1X2JvX2xpc3RfZ2V0KzB4MC8weDEwOSBbYW1kZ3B1XQo+
-PiBbICAxNDEuOTY1Nzc0XQo+PiAgICAgICAgICAgICAgICAgc3RhY2sgYmFja3RyYWNlOgo+PiBb
-ICAxNDEuOTY1Nzc2XSBDUFU6IDYgUElEOiAxMzMyIENvbW06IGFtZGdwdV9jczowIE5vdCB0YWlu
-dGVkIAo+PiA0LjEyLjAtcmM3ICMyMjEKPj4gWyAgMTQxLjk2NTc3N10gSGFyZHdhcmUgbmFtZTog
-VG8gYmUgZmlsbGVkIGJ5IE8uRS5NLiBUbyBiZSBmaWxsZWQgYnkKPj4gTy5FLk0uL001QTk3IFIy
-LjAsIEJJT1MgMjYwMyAwNi8yNi8yMDE1Cj4+IFsgIDE0MS45NjU3NzhdIENhbGwgVHJhY2U6Cj4+
-IFsgIDE0MS45NjU3ODJdICBkdW1wX3N0YWNrKzB4NjgvMHg5Mgo+PiBbICAxNDEuOTY1Nzg1XSAg
-bG9ja2RlcF9yY3Vfc3VzcGljaW91cysweGY3LzB4MTAwCj4+IFsgIDE0MS45NjU3ODhdICBfX19t
-aWdodF9zbGVlcCsweDU2LzB4MWZjCj4+IFsgIDE0MS45NjU3OTBdICBfX21pZ2h0X3NsZWVwKzB4
-NjgvMHg2Zgo+PiBbICAxNDEuOTY1NzkzXSAgX19tdXRleF9sb2NrKzB4NGUvMHg3YjUKPj4gWyAg
-MTQxLjk2NTgxN10gID8gYW1kZ3B1X2JvX2xpc3RfZ2V0KzB4YTQvMHgxMDkgW2FtZGdwdV0KPj4g
-WyAgMTQxLjk2NTgyMF0gID8gbG9ja19hY3F1aXJlKzB4MTI1LzB4MWI5Cj4+IFsgIDE0MS45NjU4
-NDRdICA/IGFtZGdwdV9ib19saXN0X3NldCsweDQ2NC8weDQ2NCBbYW1kZ3B1XQo+PiBbICAxNDEu
-OTY1ODQ2XSAgbXV0ZXhfbG9ja19uZXN0ZWQrMHgxNi8weDE4Cj4+IFsgIDE0MS45NjU4NDhdICA/
-IG11dGV4X2xvY2tfbmVzdGVkKzB4MTYvMHgxOAo+PiBbICAxNDEuOTY1ODcyXSAgYW1kZ3B1X2Jv
-X2xpc3RfZ2V0KzB4YTQvMHgxMDkgW2FtZGdwdV0KPj4gWyAgMTQxLjk2NTg5NV0gIGFtZGdwdV9j
-c19pb2N0bCsweDRhMC8weDE3ZGQgW2FtZGdwdV0KPj4gWyAgMTQxLjk2NTg5OF0gID8gcmFkaXhf
-dHJlZV9ub2RlX2FsbG9jLmNvbnN0cHJvcC4xMSsweDc3LzB4YWIKPj4gWyAgMTQxLjk2NTkxNl0g
-IGRybV9pb2N0bCsweDI2NC8weDM5MyBbZHJtXQo+PiBbICAxNDEuOTY1OTM5XSAgPyBhbWRncHVf
-Y3NfZmluZF9tYXBwaW5nKzB4ODMvMHg4MyBbYW1kZ3B1XQo+PiBbICAxNDEuOTY1OTQyXSAgPyB0
-cmFjZV9oYXJkaXJxc19vbl9jYWxsZXIrMHgxNmEvMHgxODYKPj4KPj4gU2lnbmVkLW9mZi1ieTog
-QWxleCBYaWUgPEFsZXhCaW4uWGllQGFtZC5jb20+Cj4+IC0tLQo+PiAgIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9ib19saXN0LmMgfCAxMiArKysrKysrKystLS0KPj4gICAxIGZp
-bGUgY2hhbmdlZCwgOSBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQo+Pgo+PiBkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2JvX2xpc3QuYyAKPj4gYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYm9fbGlzdC5jCj4+IGluZGV4IGRjODc5
-NjIuLmU1ZDYxZmUgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9ib19saXN0LmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2JvX2xpc3QuYwo+PiBAQCAtMTk4LDEyICsxOTgsMTggQEAgYW1kZ3B1X2JvX2xpc3RfZ2V0KHN0
-cnVjdCBhbWRncHVfZnByaXYgKmZwcml2LCAKPj4gaW50IGlkKQo+PiAgICAgICByZXN1bHQgPSBp
-ZHJfZmluZCgmZnByaXYtPmJvX2xpc3RfaGFuZGxlcywgaWQpOwo+PiAgICAgICAgIGlmIChyZXN1
-bHQpIHsKPj4gLSAgICAgICAgaWYgKGtyZWZfZ2V0X3VubGVzc196ZXJvKCZyZXN1bHQtPnJlZmNv
-dW50KSkKPj4gKyAgICAgICAgaWYgKGtyZWZfZ2V0X3VubGVzc196ZXJvKCZyZXN1bHQtPnJlZmNv
-dW50KSkgewo+PiArICAgICAgICAgICAgcmN1X3JlYWRfdW5sb2NrKCk7Cj4+ICAgICAgICAgICAg
-ICAgbXV0ZXhfbG9jaygmcmVzdWx0LT5sb2NrKTsKPj4gLSAgICAgICAgZWxzZQo+PiArICAgICAg
-ICB9Cj4+ICsgICAgICAgIGVsc2Ugewo+IGRvbid0IG5lZWQgYW5vdGhlciBsaW5lLCBqdXN0IGxp
-a2UgfSBlbHNlIHsKPj4gKyAgICAgICAgICAgIHJjdV9yZWFkX3VubG9jaygpOwo+PiAgICAgICAg
-ICAgICAgIHJlc3VsdCA9IE5VTEw7Cj4+ICsgICAgICAgIH0KPj4gKyAgICB9Cj4+ICsgICAgZWxz
-ZSB7Cj4gZG9uJ3QgbmVlZCBhbm90aGVyIGxpbmUsIGp1c3QgbGlrZSB9IGVsc2Ugewo+PiArICAg
-ICAgICByY3VfcmVhZF91bmxvY2soKTsKPj4gICAgICAgfQo+PiAtICAgIHJjdV9yZWFkX3VubG9j
-aygpOwo+PiAgICAgICAgIHJldHVybiByZXN1bHQ7Cj4+ICAgfQo+Cj4gX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+
-IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4CgoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4Cg==
+This is a multi-part message in MIME format.
+--===============1377115155==
+Content-Type: multipart/alternative;
+ boundary="------------CC7F465603C4A85744363466"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------CC7F465603C4A85744363466
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Am 20.07.2017 um 16:59 schrieb Marek Olšák:
+>
+>
+> On Jul 19, 2017 10:21 PM, "zhoucm1" <david1.zhou-5C7GfCeVMHo@public.gmane.org 
+> <mailto:david1.zhou-5C7GfCeVMHo@public.gmane.org>> wrote:
+>
+>
+>
+>     On 2017年07月19日 23:34, Marek Olšák wrote:
+>>
+>>
+>>     On Jul 19, 2017 3:36 AM, "zhoucm1" <david1.zhou-5C7GfCeVMHo@public.gmane.org
+>>     <mailto:david1.zhou-5C7GfCeVMHo@public.gmane.org>> wrote:
+>>
+>>
+>>
+>>         On 2017年07月19日 04:08, Marek Olšák wrote:
+>>
+>>             From: Marek Olšák <marek.olsak-5C7GfCeVMHo@public.gmane.org
+>>             <mailto:marek.olsak-5C7GfCeVMHo@public.gmane.org>>
+>>
+>>             For lower overhead in the CS ioctl.
+>>             Winsys allocators are not used with interprocess-sharable
+>>             resources.
+>>
+>>         Hi Marek,
+>>
+>>         Could I know from how your this way reduces overhead in CS
+>>         ioctl? reusing BO to short bo list?
+>>
+>>
+>>     The kernel part of the work hasn't been done yet. The idea is
+>>     that nonsharable buffers don't have to be revalidated by TTM,
+>     OK, Maybe I only can see the whole picture of this idea when you
+>     complete kernel part.
+>     Out of curious,  why/how can nonsharable buffers be revalidated by
+>     TTM without exposing like amdgpu_bo_make_resident api?
+>
+>
+> I think the idea is that all nonsharable buffers will be backed by the 
+> same reservation object, so TTM can skip buffer validation if no 
+> buffer has been moved. It's just an optimization for the current design.
+>
+>
+>     With mentioned in another thread, if we can expose make_resident
+>     api, we can remove bo_list, even we can remove reservation
+>     operation in CS ioctl.
+>
+
+Actually that is NOT a resident api. E.g. in other words BOs marked as 
+this are just swapped out like other BOs.
+
+It's just that on command submission additionally to the BOs which come 
+from the BO list we have the BOs associated to the process as well.
+
+>     And now, I think our bo list is a very bad design,
+>     first, umd must create bo list for every command submission, this
+>     is a extra cpu overhead compared with traditional way.
+>     second, kernel also have to iterate the list, when bo list is too
+>     long, like OpenCL program, they always throw several thousands BOs
+>     to bo list, reservation must keep these thousands ww_mutex safe,
+>     CPU overhead is too big.
+>
+>     So I strongly suggest we should expose make_resident api to user
+>     space. if cannot, I want to know any specific reason to see if we
+>     can solve it.
+>
+>
+> Yeah, I think the BO list idea is likely to die sooner or later. It 
+> made sense for GL before bindless was a thing. Nowadays I don't see 
+> much value in it.
+
+Completely agree. The BO list API was not a good idea in the first place.
+
+Regards,
+Christian.
+
+>
+> MesaGL will keep tracking the BO list because it's a requirement for 
+> good GL performance (it determines whether to flush IBs before BO 
+> synchronization, it allows tracking fences for each BO, which are used 
+> to determine dependencies between IBs, and that all allows async SDMA 
+> and async compute for GL, which doesn't have separate queues).
+>
+> However, we don't need any BO list at the libdrm level and lower. I 
+> think a BO_CREATE flag that causes that the buffer is added to a 
+> kernel-side per-fd BO list would be sufficient. How the kernel manages 
+> its BO list should be its own implementation detail. Initially we can 
+> just move the current BO list management into the kernel.
+>
+> Marek
+>
+>
+>
+>
+>
+>     Regards,
+>     David Zhou
+>
+>>     so it should remove a lot of kernel overhead and the BO list
+>>     remains the same.
+>>
+>>     Marek
+>>
+>>
+>>
+>>         Thanks,
+>>         David Zhou
+>>
+>>
+>>             v2: It shouldn't crash anymore, but the kernel will
+>>             reject the new flag.
+>>             ---
+>>               src/gallium/drivers/radeon/r600_buffer_common.c |  7 +++++
+>>               src/gallium/drivers/radeon/radeon_winsys.h     | 20
+>>             +++++++++++---
+>>               src/gallium/winsys/amdgpu/drm/amdgpu_bo.c      | 36
+>>             ++++++++++++++++---------
+>>               src/gallium/winsys/radeon/drm/radeon_drm_bo.c  | 27
+>>             +++++++++++--------
+>>               4 files changed, 62 insertions(+), 28 deletions(-)
+>>
+>>             diff --git
+>>             a/src/gallium/drivers/radeon/r600_buffer_common.c
+>>             b/src/gallium/drivers/radeon/r600_buffer_common.c
+>>             index dd1c209..2747ac4 100644
+>>             --- a/src/gallium/drivers/radeon/r600_buffer_common.c
+>>             +++ b/src/gallium/drivers/radeon/r600_buffer_common.c
+>>             @@ -160,20 +160,27 @@ void
+>>             r600_init_resource_fields(struct r600_common_screen *rscreen,
+>>                     }
+>>                     /* Tiled textures are unmappable. Always put them
+>>             in VRAM. */
+>>                     if ((res->b.b.target != PIPE_BUFFER &&
+>>             !rtex->surface.is_linear) ||
+>>                         res->flags & R600_RESOURCE_FLAG_UNMAPPABLE) {
+>>                             res->domains = RADEON_DOMAIN_VRAM;
+>>                             res->flags |= RADEON_FLAG_NO_CPU_ACCESS |
+>>              RADEON_FLAG_GTT_WC;
+>>                     }
+>>               +     /* Only displayable single-sample textures can be
+>>             shared between
+>>             +        * processes. */
+>>             +       if (res->b.b.target == PIPE_BUFFER ||
+>>             +           res->b.b.nr_samples >= 2 ||
+>>             +  rtex->surface.micro_tile_mode !=
+>>             RADEON_MICRO_MODE_DISPLAY)
+>>             +               res->flags |=
+>>             RADEON_FLAG_NO_INTERPROCESS_SHARING;
+>>             +
+>>                     /* If VRAM is just stolen system memory, allow
+>>             both VRAM and
+>>                      * GTT, whichever has free space. If a buffer is
+>>             evicted from
+>>                      * VRAM to GTT, it will stay there.
+>>                      *
+>>                      * DRM 3.6.0 has good BO move throttling, so we
+>>             can allow VRAM-only
+>>                      * placements even with a low amount of stolen VRAM.
+>>                      */
+>>                     if (!rscreen->info.has_dedicated_vram &&
+>>             (rscreen->info.drm_major < 3 || rscreen->info.drm_minor <
+>>             6) &&
+>>                         res->domains == RADEON_DOMAIN_VRAM) {
+>>             diff --git a/src/gallium/drivers/radeon/radeon_winsys.h
+>>             b/src/gallium/drivers/radeon/radeon_winsys.h
+>>             index 351edcd..0abcb56 100644
+>>             --- a/src/gallium/drivers/radeon/radeon_winsys.h
+>>             +++ b/src/gallium/drivers/radeon/radeon_winsys.h
+>>             @@ -47,20 +47,21 @@ enum radeon_bo_domain { /* bitfield */
+>>                   RADEON_DOMAIN_GTT  = 2,
+>>                   RADEON_DOMAIN_VRAM = 4,
+>>                   RADEON_DOMAIN_VRAM_GTT = RADEON_DOMAIN_VRAM |
+>>             RADEON_DOMAIN_GTT
+>>               };
+>>                 enum radeon_bo_flag { /* bitfield */
+>>                   RADEON_FLAG_GTT_WC =        (1 << 0),
+>>                   RADEON_FLAG_NO_CPU_ACCESS = (1 << 1),
+>>                   RADEON_FLAG_NO_SUBALLOC =   (1 << 2),
+>>                   RADEON_FLAG_SPARSE =        (1 << 3),
+>>             +    RADEON_FLAG_NO_INTERPROCESS_SHARING = (1 << 4),
+>>               };
+>>                 enum radeon_bo_usage { /* bitfield */
+>>                   RADEON_USAGE_READ = 2,
+>>                   RADEON_USAGE_WRITE = 4,
+>>                   RADEON_USAGE_READWRITE = RADEON_USAGE_READ |
+>>             RADEON_USAGE_WRITE,
+>>                     /* The winsys ensures that the CS submission will
+>>             be scheduled after
+>>                    * previously flushed CSs referencing this BO in a
+>>             conflicting way.
+>>                    */
+>>             @@ -685,28 +686,33 @@ static inline enum radeon_bo_domain
+>>             radeon_domain_from_heap(enum radeon_heap hea
+>>                   default:
+>>                       assert(0);
+>>                       return (enum radeon_bo_domain)0;
+>>                   }
+>>               }
+>>                 static inline unsigned radeon_flags_from_heap(enum
+>>             radeon_heap heap)
+>>               {
+>>                   switch (heap) {
+>>                   case RADEON_HEAP_VRAM_NO_CPU_ACCESS:
+>>             -        return RADEON_FLAG_GTT_WC |
+>>             RADEON_FLAG_NO_CPU_ACCESS;
+>>             +        return RADEON_FLAG_GTT_WC |
+>>             +  RADEON_FLAG_NO_CPU_ACCESS |
+>>             +  RADEON_FLAG_NO_INTERPROCESS_SHARING;
+>>             +
+>>                   case RADEON_HEAP_VRAM:
+>>                   case RADEON_HEAP_VRAM_GTT:
+>>                   case RADEON_HEAP_GTT_WC:
+>>             -        return RADEON_FLAG_GTT_WC;
+>>             +        return RADEON_FLAG_GTT_WC |
+>>             +  RADEON_FLAG_NO_INTERPROCESS_SHARING;
+>>             +
+>>                   case RADEON_HEAP_GTT:
+>>                   default:
+>>             -        return 0;
+>>             +        return RADEON_FLAG_NO_INTERPROCESS_SHARING;
+>>                   }
+>>               }
+>>                 /* The pb cache bucket is chosen to minimize pb_cache
+>>             misses.
+>>                * It must be between 0 and 3 inclusive.
+>>                */
+>>               static inline unsigned
+>>             radeon_get_pb_cache_bucket_index(enum radeon_heap heap)
+>>               {
+>>                   switch (heap) {
+>>                   case RADEON_HEAP_VRAM_NO_CPU_ACCESS:
+>>             @@ -724,22 +730,28 @@ static inline unsigned
+>>             radeon_get_pb_cache_bucket_index(enum radeon_heap heap)
+>>                 /* Return the heap index for winsys allocators, or -1
+>>             on failure. */
+>>               static inline int radeon_get_heap_index(enum
+>>             radeon_bo_domain domain,
+>>                   enum radeon_bo_flag flags)
+>>               {
+>>                   /* VRAM implies WC (write combining) */
+>>                   assert(!(domain & RADEON_DOMAIN_VRAM) || flags &
+>>             RADEON_FLAG_GTT_WC);
+>>                   /* NO_CPU_ACCESS implies VRAM only. */
+>>                   assert(!(flags & RADEON_FLAG_NO_CPU_ACCESS) ||
+>>             domain == RADEON_DOMAIN_VRAM);
+>>               +    /* Resources with interprocess sharing don't use
+>>             any winsys allocators. */
+>>             +    if (!(flags & RADEON_FLAG_NO_INTERPROCESS_SHARING))
+>>             +        return -1;
+>>             +
+>>                   /* Unsupported flags: NO_SUBALLOC, SPARSE. */
+>>             -    if (flags & ~(RADEON_FLAG_GTT_WC |
+>>             RADEON_FLAG_NO_CPU_ACCESS))
+>>             +    if (flags & ~(RADEON_FLAG_GTT_WC |
+>>             + RADEON_FLAG_NO_CPU_ACCESS |
+>>             + RADEON_FLAG_NO_INTERPROCESS_SHARING))
+>>                       return -1;
+>>                     switch (domain) {
+>>                   case RADEON_DOMAIN_VRAM:
+>>                       if (flags & RADEON_FLAG_NO_CPU_ACCESS)
+>>                           return RADEON_HEAP_VRAM_NO_CPU_ACCESS;
+>>                       else
+>>                           return RADEON_HEAP_VRAM;
+>>                   case RADEON_DOMAIN_VRAM_GTT:
+>>                       return RADEON_HEAP_VRAM_GTT;
+>>             diff --git a/src/gallium/winsys/amdgpu/drm/amdgpu_bo.c
+>>             b/src/gallium/winsys/amdgpu/drm/amdgpu_bo.c
+>>             index 97bbe23..06b8198 100644
+>>             --- a/src/gallium/winsys/amdgpu/drm/amdgpu_bo.c
+>>             +++ b/src/gallium/winsys/amdgpu/drm/amdgpu_bo.c
+>>             @@ -31,20 +31,24 @@
+>>                 #include "amdgpu_cs.h"
+>>                 #include "os/os_time.h"
+>>               #include "state_tracker/drm_driver.h"
+>>               #include <amdgpu_drm.h>
+>>               #include <xf86drm.h>
+>>               #include <stdio.h>
+>>               #include <inttypes.h>
+>>               +#ifndef AMDGPU_GEM_CREATE_NO_INTERPROCESS_SHARING
+>>             +#define AMDGPU_GEM_CREATE_NO_INTERPROCESS_SHARING (1 << 6)
+>>             +#endif
+>>             +
+>>               /* Set to 1 for verbose output showing committed sparse
+>>             buffer ranges. */
+>>               #define DEBUG_SPARSE_COMMITS 0
+>>                 struct amdgpu_sparse_backing_chunk {
+>>                  uint32_t begin, end;
+>>               };
+>>                 static struct pb_buffer *
+>>               amdgpu_bo_create(struct radeon_winsys *rws,
+>>                                uint64_t size,
+>>             @@ -395,20 +399,22 @@ static struct amdgpu_winsys_bo
+>>             *amdgpu_create_bo(struct amdgpu_winsys *ws,
+>>                    if (initial_domain & RADEON_DOMAIN_VRAM)
+>>                     request.preferred_heap |= AMDGPU_GEM_DOMAIN_VRAM;
+>>                  if (initial_domain & RADEON_DOMAIN_GTT)
+>>                     request.preferred_heap |= AMDGPU_GEM_DOMAIN_GTT;
+>>                    if (flags & RADEON_FLAG_NO_CPU_ACCESS)
+>>                     request.flags |= AMDGPU_GEM_CREATE_NO_CPU_ACCESS;
+>>                  if (flags & RADEON_FLAG_GTT_WC)
+>>                     request.flags |= AMDGPU_GEM_CREATE_CPU_GTT_USWC;
+>>             +   if (flags & RADEON_FLAG_NO_INTERPROCESS_SHARING)
+>>             +      request.flags |=
+>>             AMDGPU_GEM_CREATE_NO_INTERPROCESS_SHARING;
+>>                    r = amdgpu_bo_alloc(ws->dev, &request, &buf_handle);
+>>                  if (r) {
+>>                     fprintf(stderr, "amdgpu: Failed to allocate a
+>>             buffer:\n");
+>>                     fprintf(stderr, "amdgpu: size      : %"PRIu64"
+>>             bytes\n", size);
+>>                     fprintf(stderr, "amdgpu: alignment : %u bytes\n",
+>>             alignment);
+>>                     fprintf(stderr, "amdgpu: domains   : %u\n",
+>>             initial_domain);
+>>                     goto error_bo_alloc;
+>>                  }
+>>               @@ -1127,21 +1133,21 @@ static void
+>>             amdgpu_buffer_set_metadata(struct pb_buffer *_buf,
+>>                 static struct pb_buffer *
+>>               amdgpu_bo_create(struct radeon_winsys *rws,
+>>                                uint64_t size,
+>>                                unsigned alignment,
+>>                                enum radeon_bo_domain domain,
+>>                                enum radeon_bo_flag flags)
+>>               {
+>>                  struct amdgpu_winsys *ws = amdgpu_winsys(rws);
+>>                  struct amdgpu_winsys_bo *bo;
+>>             -   unsigned usage = 0, pb_cache_bucket;
+>>             +   unsigned usage = 0, pb_cache_bucket = 0;
+>>                    /* VRAM implies WC. This is not optional. */
+>>                  assert(!(domain & RADEON_DOMAIN_VRAM) || flags &
+>>             RADEON_FLAG_GTT_WC);
+>>                    /* NO_CPU_ACCESS is valid with VRAM only. */
+>>                  assert(domain == RADEON_DOMAIN_VRAM || !(flags &
+>>             RADEON_FLAG_NO_CPU_ACCESS));
+>>                    /* Sub-allocate small buffers from slabs. */
+>>                  if (!(flags & (RADEON_FLAG_NO_SUBALLOC |
+>>             RADEON_FLAG_SPARSE)) &&
+>>                      size <= (1 << AMDGPU_SLAB_MAX_SIZE_LOG2) &&
+>>             @@ -1182,48 +1188,52 @@ no_slab:
+>>                  /* This flag is irrelevant for the cache. */
+>>                  flags &= ~RADEON_FLAG_NO_SUBALLOC;
+>>                    /* Align size to page size. This is the minimum
+>>             alignment for normal
+>>                   * BOs. Aligning this here helps the cached bufmgr.
+>>             Especially small BOs,
+>>                   * like constant/uniform buffers, can benefit from
+>>             better and more reuse.
+>>                   */
+>>                  size = align64(size, ws->info.gart_page_size);
+>>                  alignment = align(alignment, ws->info.gart_page_size);
+>>               -   int heap = radeon_get_heap_index(domain, flags);
+>>             -   assert(heap >= 0 && heap < RADEON_MAX_CACHED_HEAPS);
+>>             -   usage = 1 << heap; /* Only set one usage bit for each
+>>             heap. */
+>>             +   bool use_reusable_pool = flags &
+>>             RADEON_FLAG_NO_INTERPROCESS_SHARING;
+>>               -   pb_cache_bucket =
+>>             radeon_get_pb_cache_bucket_index(heap);
+>>             -   assert(pb_cache_bucket <
+>>             ARRAY_SIZE(ws->bo_cache.buckets));
+>>             +   if (use_reusable_pool) {
+>>             +       int heap = radeon_get_heap_index(domain, flags);
+>>             +       assert(heap >= 0 && heap < RADEON_MAX_CACHED_HEAPS);
+>>             +       usage = 1 << heap; /* Only set one usage bit for
+>>             each heap. */
+>>               -   /* Get a buffer from the cache. */
+>>             -   bo = (struct amdgpu_winsys_bo*)
+>>             - pb_cache_reclaim_buffer(&ws->bo_cache, size, alignment,
+>>             usage,
+>>             - pb_cache_bucket);
+>>             -   if (bo)
+>>             -      return &bo->base;
+>>             +       pb_cache_bucket =
+>>             radeon_get_pb_cache_bucket_index(heap);
+>>             +       assert(pb_cache_bucket <
+>>             ARRAY_SIZE(ws->bo_cache.buckets));
+>>             +
+>>             +       /* Get a buffer from the cache. */
+>>             +       bo = (struct amdgpu_winsys_bo*)
+>>             + pb_cache_reclaim_buffer(&ws->bo_cache, size, alignment,
+>>             usage,
+>>             + pb_cache_bucket);
+>>             +       if (bo)
+>>             +          return &bo->base;
+>>             +   }
+>>                    /* Create a new one. */
+>>                  bo = amdgpu_create_bo(ws, size, alignment, usage,
+>>             domain, flags,
+>>              pb_cache_bucket);
+>>                  if (!bo) {
+>>                     /* Clear the cache and try again. */
+>>             pb_slabs_reclaim(&ws->bo_slabs);
+>>             pb_cache_release_all_buffers(&ws->bo_cache);
+>>                     bo = amdgpu_create_bo(ws, size, alignment, usage,
+>>             domain, flags,
+>>             pb_cache_bucket);
+>>                     if (!bo)
+>>                        return NULL;
+>>                  }
+>>               -  bo->u.real.use_reusable_pool = true;
+>>             +   bo->u.real.use_reusable_pool = use_reusable_pool;
+>>                  return &bo->base;
+>>               }
+>>                 static struct pb_buffer *amdgpu_bo_from_handle(struct
+>>             radeon_winsys *rws,
+>>                          struct winsys_handle *whandle,
+>>                          unsigned *stride,
+>>                          unsigned *offset)
+>>               {
+>>                  struct amdgpu_winsys *ws = amdgpu_winsys(rws);
+>>                  struct amdgpu_winsys_bo *bo;
+>>             diff --git
+>>             a/src/gallium/winsys/radeon/drm/radeon_drm_bo.c
+>>             b/src/gallium/winsys/radeon/drm/radeon_drm_bo.c
+>>             index 8027a5f..15e9d38 100644
+>>             --- a/src/gallium/winsys/radeon/drm/radeon_drm_bo.c
+>>             +++ b/src/gallium/winsys/radeon/drm/radeon_drm_bo.c
+>>             @@ -907,21 +907,21 @@ static void
+>>             radeon_bo_set_metadata(struct pb_buffer *_buf,
+>>                 static struct pb_buffer *
+>>               radeon_winsys_bo_create(struct radeon_winsys *rws,
+>>                                       uint64_t size,
+>>                                       unsigned alignment,
+>>                                       enum radeon_bo_domain domain,
+>>                                       enum radeon_bo_flag flags)
+>>               {
+>>                   struct radeon_drm_winsys *ws = radeon_drm_winsys(rws);
+>>                   struct radeon_bo *bo;
+>>             -    unsigned usage = 0, pb_cache_bucket;
+>>             +    unsigned usage = 0, pb_cache_bucket = 0;
+>>                     assert(!(flags & RADEON_FLAG_SPARSE)); /* not
+>>             supported */
+>>                     /* Only 32-bit sizes are supported. */
+>>                   if (size > UINT_MAX)
+>>                       return NULL;
+>>                     /* VRAM implies WC. This is not optional. */
+>>                   if (domain & RADEON_DOMAIN_VRAM)
+>>                       flags |= RADEON_FLAG_GTT_WC;
+>>             @@ -962,46 +962,51 @@ no_slab:
+>>                   /* This flag is irrelevant for the cache. */
+>>                   flags &= ~RADEON_FLAG_NO_SUBALLOC;
+>>                     /* Align size to page size. This is the minimum
+>>             alignment for normal
+>>                    * BOs. Aligning this here helps the cached bufmgr.
+>>             Especially small BOs,
+>>                    * like constant/uniform buffers, can benefit from
+>>             better and more reuse.
+>>                    */
+>>                   size = align(size, ws->info.gart_page_size);
+>>                   alignment = align(alignment, ws->info.gart_page_size);
+>>               -    int heap = radeon_get_heap_index(domain, flags);
+>>             -    assert(heap >= 0 && heap < RADEON_MAX_CACHED_HEAPS);
+>>             -    usage = 1 << heap; /* Only set one usage bit for
+>>             each heap. */
+>>             +    bool use_reusable_pool = flags &
+>>             RADEON_FLAG_NO_INTERPROCESS_SHARING;
+>>               -    pb_cache_bucket =
+>>             radeon_get_pb_cache_bucket_index(heap);
+>>             -    assert(pb_cache_bucket <
+>>             ARRAY_SIZE(ws->bo_cache.buckets));
+>>             +    /* Shared resources don't use cached heaps. */
+>>             +    if (use_reusable_pool) {
+>>             +        int heap = radeon_get_heap_index(domain, flags);
+>>             +        assert(heap >= 0 && heap < RADEON_MAX_CACHED_HEAPS);
+>>             +        usage = 1 << heap; /* Only set one usage bit for
+>>             each heap. */
+>>               -    bo =
+>>             radeon_bo(pb_cache_reclaim_buffer(&ws->bo_cache, size,
+>>             alignment,
+>>             -        usage, pb_cache_bucket));
+>>             -    if (bo)
+>>             -        return &bo->base;
+>>             +        pb_cache_bucket =
+>>             radeon_get_pb_cache_bucket_index(heap);
+>>             +        assert(pb_cache_bucket <
+>>             ARRAY_SIZE(ws->bo_cache.buckets));
+>>             +
+>>             +        bo =
+>>             radeon_bo(pb_cache_reclaim_buffer(&ws->bo_cache, size,
+>>             alignment,
+>>             +            usage, pb_cache_bucket));
+>>             +        if (bo)
+>>             +            return &bo->base;
+>>             +    }
+>>                     bo = radeon_create_bo(ws, size, alignment, usage,
+>>             domain, flags,
+>>             pb_cache_bucket);
+>>                   if (!bo) {
+>>                       /* Clear the cache and try again. */
+>>                       if (ws->info.has_virtual_memory)
+>>             pb_slabs_reclaim(&ws->bo_slabs);
+>>             pb_cache_release_all_buffers(&ws->bo_cache);
+>>                       bo = radeon_create_bo(ws, size, alignment,
+>>             usage, domain, flags,
+>>             pb_cache_bucket);
+>>                       if (!bo)
+>>                           return NULL;
+>>                   }
+>>               - bo->u.real.use_reusable_pool = true;
+>>             +    bo->u.real.use_reusable_pool = use_reusable_pool;
+>>             mtx_lock(&ws->bo_handles_mutex);
+>>             util_hash_table_set(ws->bo_handles,
+>>             (void*)(uintptr_t)bo->handle, bo);
+>>             mtx_unlock(&ws->bo_handles_mutex);
+>>                     return &bo->base;
+>>               }
+>>                 static struct pb_buffer
+>>             *radeon_winsys_bo_from_ptr(struct radeon_winsys *rws,
+>>                              void *pointer, uint64_t size)
+>>
+>>
+>>
+>
+>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+
+--------------CC7F465603C4A85744363466
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Am 20.07.2017 um 16:59 schrieb Marek
+      Olšák:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:CAAxE2A6uFyqhWfJBNzojyMqFmk-AGyQmScwqScMjLutBQX5usA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
+      <div dir="auto">
+        <div><br>
+          <div class="gmail_extra"><br>
+            <div class="gmail_quote">On Jul 19, 2017 10:21 PM, "zhoucm1"
+              &lt;<a href="mailto:david1.zhou-5C7GfCeVMHo@public.gmane.org"
+                moz-do-not-send="true">david1.zhou-5C7GfCeVMHo@public.gmane.org</a>&gt;
+              wrote:<br type="attribution">
+              <blockquote class="quote" style="margin:0 0 0
+                .8ex;border-left:1px #ccc solid;padding-left:1ex">
+                <div text="#000000" bgcolor="#FFFFFF">
+                  <div class="quoted-text"> <br>
+                    <br>
+                    <div class="m_-6147598457318751040moz-cite-prefix">On
+                      2017年07月19日 23:34, Marek Olšák wrote:<br>
+                    </div>
+                    <blockquote type="cite">
+                      <div dir="auto">
+                        <div><br>
+                          <div class="gmail_extra"><br>
+                            <div class="gmail_quote">On Jul 19, 2017
+                              3:36 AM, "zhoucm1" &lt;<a
+                                href="mailto:david1.zhou-5C7GfCeVMHo@public.gmane.org"
+                                target="_blank" moz-do-not-send="true">david1.zhou-5C7GfCeVMHo@public.gmane.org</a>&gt;
+                              wrote:<br type="attribution">
+                              <blockquote
+                                class="m_-6147598457318751040quote"
+                                style="margin:0 0 0 .8ex;border-left:1px
+                                #ccc solid;padding-left:1ex">
+                                <div
+                                  class="m_-6147598457318751040quoted-text"><br>
+                                  <br>
+                                  On 2017年07月19日 04:08, Marek Olšák
+                                  wrote:<br>
+                                  <blockquote class="gmail_quote"
+                                    style="margin:0 0 0
+                                    .8ex;border-left:1px #ccc
+                                    solid;padding-left:1ex"> From: Marek
+                                    Olšák &lt;<a
+                                      href="mailto:marek.olsak-5C7GfCeVMHo@public.gmane.org"
+                                      target="_blank"
+                                      moz-do-not-send="true">marek.olsak-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+                                    <br>
+                                    For lower overhead in the CS ioctl.<br>
+                                    Winsys allocators are not used with
+                                    interprocess-sharable resources.<br>
+                                  </blockquote>
+                                </div>
+                                Hi Marek,<br>
+                                <br>
+                                Could I know from how your this way
+                                reduces overhead in CS ioctl? reusing BO
+                                to short bo list?<br>
+                              </blockquote>
+                            </div>
+                          </div>
+                        </div>
+                        <div dir="auto"><br>
+                        </div>
+                        <div dir="auto">The kernel part of the work
+                          hasn't been done yet. The idea is that
+                          nonsharable buffers don't have to be
+                          revalidated by TTM,</div>
+                      </div>
+                    </blockquote>
+                  </div>
+                  OK, Maybe I only can see the whole picture of this
+                  idea when you complete kernel part.<br>
+                  Out of curious,  why/how can nonsharable buffers be
+                  revalidated by TTM without exposing like
+                  amdgpu_bo_make_resident api?<br>
+                </div>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+        <div dir="auto"><br>
+        </div>
+        <div dir="auto">I think the idea is that all nonsharable buffers
+          will be backed by the same reservation object, so TTM can skip
+          buffer validation if no buffer has been moved. It's just an
+          optimization for the current design.</div>
+        <div dir="auto"><br>
+        </div>
+        <div dir="auto">
+          <div class="gmail_extra">
+            <div class="gmail_quote">
+              <blockquote class="quote" style="margin:0 0 0
+                .8ex;border-left:1px #ccc solid;padding-left:1ex">
+                <div text="#000000" bgcolor="#FFFFFF"> <br>
+                  With mentioned in another thread, if we can expose
+                  make_resident api, we can remove bo_list, even we can
+                  remove reservation operation in CS ioctl.<br>
+                </div>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
+    </blockquote>
+    <br>
+    Actually that is NOT a resident api. E.g. in other words BOs marked
+    as this are just swapped out like other BOs.<br>
+    <br>
+    It's just that on command submission additionally to the BOs which
+    come from the BO list we have the BOs associated to the process as
+    well.<br>
+    <br>
+    <blockquote type="cite"
+cite="mid:CAAxE2A6uFyqhWfJBNzojyMqFmk-AGyQmScwqScMjLutBQX5usA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
+      <div dir="auto">
+        <div dir="auto">
+          <div class="gmail_extra">
+            <div class="gmail_quote">
+              <blockquote class="quote" style="margin:0 0 0
+                .8ex;border-left:1px #ccc solid;padding-left:1ex">
+                <div text="#000000" bgcolor="#FFFFFF"> And now, I think
+                  our bo list is a very bad design,<br>
+                  first, umd must create bo list for every command
+                  submission, this is a extra cpu overhead compared with
+                  traditional way.<br>
+                  second, kernel also have to iterate the list, when bo
+                  list is too long, like OpenCL program, they always
+                  throw several thousands BOs to bo list, reservation
+                  must keep these thousands ww_mutex safe, CPU overhead
+                  is too big.<br>
+                  <br>
+                  So I strongly suggest we should expose make_resident
+                  api to user space. if cannot, I want to know any
+                  specific reason to see if we can solve it.<br>
+                </div>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+        <div dir="auto"><br>
+        </div>
+        <div dir="auto">Yeah, I think the BO list idea is likely to die
+          sooner or later. It made sense for GL before bindless was a
+          thing. Nowadays I don't see much value in it.</div>
+      </div>
+    </blockquote>
+    <br>
+    Completely agree. The BO list API was not a good idea in the first
+    place.<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <blockquote type="cite"
+cite="mid:CAAxE2A6uFyqhWfJBNzojyMqFmk-AGyQmScwqScMjLutBQX5usA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
+      <div dir="auto">
+        <div dir="auto"><br>
+        </div>
+        <div dir="auto">MesaGL will keep tracking the BO list because
+          it's a requirement for good GL performance (it determines
+          whether to flush IBs before BO synchronization, it allows
+          tracking fences for each BO, which are used to determine
+          dependencies between IBs, and that all allows async SDMA and
+          async compute for GL, which doesn't have separate queues).</div>
+        <div dir="auto"><br>
+        </div>
+        <div dir="auto">However, we don't need any BO list at the libdrm
+          level and lower. I think a BO_CREATE flag that causes that the
+          buffer is added to a kernel-side per-fd BO list would be
+          sufficient. How the kernel manages its BO list should be its
+          own implementation detail. Initially we can just move the
+          current BO list management into the kernel.</div>
+        <div dir="auto"><br>
+        </div>
+        <div dir="auto">Marek</div>
+        <div dir="auto"><br>
+        </div>
+        <div dir="auto"><br>
+        </div>
+        <div dir="auto"><br>
+        </div>
+        <div dir="auto">
+          <div class="gmail_extra">
+            <div class="gmail_quote">
+              <blockquote class="quote" style="margin:0 0 0
+                .8ex;border-left:1px #ccc solid;padding-left:1ex">
+                <div text="#000000" bgcolor="#FFFFFF"> <br>
+                  <br>
+                  Regards,<br>
+                  David Zhou
+                  <div class="elided-text"><br>
+                    <blockquote type="cite">
+                      <div dir="auto">
+                        <div dir="auto"> so it should remove a lot of
+                          kernel overhead and the BO list remains the
+                          same.</div>
+                        <div dir="auto"><br>
+                        </div>
+                        <div dir="auto">Marek</div>
+                        <div dir="auto"><br>
+                        </div>
+                        <div dir="auto"><br>
+                        </div>
+                        <div dir="auto">
+                          <div class="gmail_extra">
+                            <div class="gmail_quote">
+                              <blockquote
+                                class="m_-6147598457318751040quote"
+                                style="margin:0 0 0 .8ex;border-left:1px
+                                #ccc solid;padding-left:1ex"> <br>
+                                Thanks,<br>
+                                David Zhou
+                                <div
+                                  class="m_-6147598457318751040elided-text"><br>
+                                  <blockquote class="gmail_quote"
+                                    style="margin:0 0 0
+                                    .8ex;border-left:1px #ccc
+                                    solid;padding-left:1ex"> <br>
+                                    v2: It shouldn't crash anymore, but
+                                    the kernel will reject the new flag.<br>
+                                    ---<br>
+                                      src/gallium/drivers/radeon/r60<wbr>0_buffer_common.c
+                                    |  7 +++++<br>
+                                      src/gallium/drivers/radeon/rad<wbr>eon_winsys.h 
+                                        | 20 +++++++++++---<br>
+                                      src/gallium/winsys/amdgpu/drm/<wbr>amdgpu_bo.c 
+                                         | 36 ++++++++++++++++---------<br>
+                                      src/gallium/winsys/radeon/drm/<wbr>radeon_drm_bo.c 
+                                     | 27 +++++++++++--------<br>
+                                      4 files changed, 62 insertions(+),
+                                    28 deletions(-)<br>
+                                    <br>
+                                    diff --git
+                                    a/src/gallium/drivers/radeon/r<wbr>600_buffer_common.c
+                                    b/src/gallium/drivers/radeon/r<wbr>600_buffer_common.c<br>
+                                    index dd1c209..2747ac4 100644<br>
+                                    --- a/src/gallium/drivers/radeon/r<wbr>600_buffer_common.c<br>
+                                    +++ b/src/gallium/drivers/radeon/r<wbr>600_buffer_common.c<br>
+                                    @@ -160,20 +160,27 @@ void
+                                    r600_init_resource_fields(stru<wbr>ct
+                                    r600_common_screen *rscreen,<br>
+                                            }<br>
+                                            /* Tiled textures are
+                                    unmappable. Always put them in VRAM.
+                                    */<br>
+                                            if ((res-&gt;b.b.target !=
+                                    PIPE_BUFFER &amp;&amp;
+                                    !rtex-&gt;surface.is_linear) ||<br>
+                                                res-&gt;flags &amp;
+                                    R600_RESOURCE_FLAG_UNMAPPABLE) {<br>
+                                                    res-&gt;domains =
+                                    RADEON_DOMAIN_VRAM;<br>
+                                                    res-&gt;flags |=
+                                    RADEON_FLAG_NO_CPU_ACCESS |<br>
+                                                           
+                                     RADEON_FLAG_GTT_WC;<br>
+                                            }<br>
+                                      +     /* Only displayable
+                                    single-sample textures can be shared
+                                    between<br>
+                                    +        * processes. */<br>
+                                    +       if (res-&gt;b.b.target ==
+                                    PIPE_BUFFER ||<br>
+                                    +           res-&gt;b.b.nr_samples
+                                    &gt;= 2 ||<br>
+                                    +         
+                                     rtex-&gt;surface.micro_tile_mode !=
+                                    RADEON_MICRO_MODE_DISPLAY)<br>
+                                    +               res-&gt;flags |=
+                                    RADEON_FLAG_NO_INTERPROCESS_SH<wbr>ARING;<br>
+                                    +<br>
+                                            /* If VRAM is just stolen
+                                    system memory, allow both VRAM and<br>
+                                             * GTT, whichever has free
+                                    space. If a buffer is evicted from<br>
+                                             * VRAM to GTT, it will stay
+                                    there.<br>
+                                             *<br>
+                                             * DRM 3.6.0 has good BO
+                                    move throttling, so we can allow
+                                    VRAM-only<br>
+                                             * placements even with a
+                                    low amount of stolen VRAM.<br>
+                                             */<br>
+                                            if
+                                    (!rscreen-&gt;info.has_dedicated_<wbr>vram
+                                    &amp;&amp;<br>
+                                               
+                                    (rscreen-&gt;info.drm_major &lt; 3
+                                    || rscreen-&gt;info.drm_minor &lt;
+                                    6) &amp;&amp;<br>
+                                                res-&gt;domains ==
+                                    RADEON_DOMAIN_VRAM) {<br>
+                                    diff --git
+                                    a/src/gallium/drivers/radeon/r<wbr>adeon_winsys.h
+                                    b/src/gallium/drivers/radeon/r<wbr>adeon_winsys.h<br>
+                                    index 351edcd..0abcb56 100644<br>
+                                    --- a/src/gallium/drivers/radeon/r<wbr>adeon_winsys.h<br>
+                                    +++ b/src/gallium/drivers/radeon/r<wbr>adeon_winsys.h<br>
+                                    @@ -47,20 +47,21 @@ enum
+                                    radeon_bo_domain { /* bitfield */<br>
+                                          RADEON_DOMAIN_GTT  = 2,<br>
+                                          RADEON_DOMAIN_VRAM = 4,<br>
+                                          RADEON_DOMAIN_VRAM_GTT =
+                                    RADEON_DOMAIN_VRAM |
+                                    RADEON_DOMAIN_GTT<br>
+                                      };<br>
+                                        enum radeon_bo_flag { /*
+                                    bitfield */<br>
+                                          RADEON_FLAG_GTT_WC =        (1
+                                    &lt;&lt; 0),<br>
+                                          RADEON_FLAG_NO_CPU_ACCESS = (1
+                                    &lt;&lt; 1),<br>
+                                          RADEON_FLAG_NO_SUBALLOC =   (1
+                                    &lt;&lt; 2),<br>
+                                          RADEON_FLAG_SPARSE =        (1
+                                    &lt;&lt; 3),<br>
+                                    +    RADEON_FLAG_NO_INTERPROCESS_SH<wbr>ARING
+                                    = (1 &lt;&lt; 4),<br>
+                                      };<br>
+                                        enum radeon_bo_usage { /*
+                                    bitfield */<br>
+                                          RADEON_USAGE_READ = 2,<br>
+                                          RADEON_USAGE_WRITE = 4,<br>
+                                          RADEON_USAGE_READWRITE =
+                                    RADEON_USAGE_READ |
+                                    RADEON_USAGE_WRITE,<br>
+                                            /* The winsys ensures that
+                                    the CS submission will be scheduled
+                                    after<br>
+                                           * previously flushed CSs
+                                    referencing this BO in a conflicting
+                                    way.<br>
+                                           */<br>
+                                    @@ -685,28 +686,33 @@ static inline
+                                    enum radeon_bo_domain
+                                    radeon_domain_from_heap(enum
+                                    radeon_heap hea<br>
+                                          default:<br>
+                                              assert(0);<br>
+                                              return (enum
+                                    radeon_bo_domain)0;<br>
+                                          }<br>
+                                      }<br>
+                                        static inline unsigned
+                                    radeon_flags_from_heap(enum
+                                    radeon_heap heap)<br>
+                                      {<br>
+                                          switch (heap) {<br>
+                                          case
+                                    RADEON_HEAP_VRAM_NO_CPU_ACCESS<wbr>:<br>
+                                    -        return RADEON_FLAG_GTT_WC |
+                                    RADEON_FLAG_NO_CPU_ACCESS;<br>
+                                    +        return RADEON_FLAG_GTT_WC |<br>
+                                    +             
+                                     RADEON_FLAG_NO_CPU_ACCESS |<br>
+                                    +             
+                                     RADEON_FLAG_NO_INTERPROCESS_S<wbr>HARING;<br>
+                                    +<br>
+                                          case RADEON_HEAP_VRAM:<br>
+                                          case RADEON_HEAP_VRAM_GTT:<br>
+                                          case RADEON_HEAP_GTT_WC:<br>
+                                    -        return RADEON_FLAG_GTT_WC;<br>
+                                    +        return RADEON_FLAG_GTT_WC |<br>
+                                    +             
+                                     RADEON_FLAG_NO_INTERPROCESS_S<wbr>HARING;<br>
+                                    +<br>
+                                          case RADEON_HEAP_GTT:<br>
+                                          default:<br>
+                                    -        return 0;<br>
+                                    +        return
+                                    RADEON_FLAG_NO_INTERPROCESS_SH<wbr>ARING;<br>
+                                          }<br>
+                                      }<br>
+                                        /* The pb cache bucket is chosen
+                                    to minimize pb_cache misses.<br>
+                                       * It must be between 0 and 3
+                                    inclusive.<br>
+                                       */<br>
+                                      static inline unsigned
+                                    radeon_get_pb_cache_bucket_ind<wbr>ex(enum
+                                    radeon_heap heap)<br>
+                                      {<br>
+                                          switch (heap) {<br>
+                                          case
+                                    RADEON_HEAP_VRAM_NO_CPU_ACCESS<wbr>:<br>
+                                    @@ -724,22 +730,28 @@ static inline
+                                    unsigned
+                                    radeon_get_pb_cache_bucket_ind<wbr>ex(enum
+                                    radeon_heap heap)<br>
+                                        /* Return the heap index for
+                                    winsys allocators, or -1 on failure.
+                                    */<br>
+                                      static inline int
+                                    radeon_get_heap_index(enum
+                                    radeon_bo_domain domain,<br>
+                                                                       
+                                          enum radeon_bo_flag flags)<br>
+                                      {<br>
+                                          /* VRAM implies WC (write
+                                    combining) */<br>
+                                          assert(!(domain &amp;
+                                    RADEON_DOMAIN_VRAM) || flags &amp;
+                                    RADEON_FLAG_GTT_WC);<br>
+                                          /* NO_CPU_ACCESS implies VRAM
+                                    only. */<br>
+                                          assert(!(flags &amp;
+                                    RADEON_FLAG_NO_CPU_ACCESS) || domain
+                                    == RADEON_DOMAIN_VRAM);<br>
+                                      +    /* Resources with
+                                    interprocess sharing don't use any
+                                    winsys allocators. */<br>
+                                    +    if (!(flags &amp;
+                                    RADEON_FLAG_NO_INTERPROCESS_SH<wbr>ARING))<br>
+                                    +        return -1;<br>
+                                    +<br>
+                                          /* Unsupported flags:
+                                    NO_SUBALLOC, SPARSE. */<br>
+                                    -    if (flags &amp;
+                                    ~(RADEON_FLAG_GTT_WC |
+                                    RADEON_FLAG_NO_CPU_ACCESS))<br>
+                                    +    if (flags &amp;
+                                    ~(RADEON_FLAG_GTT_WC |<br>
+                                    +                 
+                                    RADEON_FLAG_NO_CPU_ACCESS |<br>
+                                    +                 
+                                    RADEON_FLAG_NO_INTERPROCESS_SH<wbr>ARING))<br>
+                                              return -1;<br>
+                                            switch (domain) {<br>
+                                          case RADEON_DOMAIN_VRAM:<br>
+                                              if (flags &amp;
+                                    RADEON_FLAG_NO_CPU_ACCESS)<br>
+                                                  return
+                                    RADEON_HEAP_VRAM_NO_CPU_ACCESS<wbr>;<br>
+                                              else<br>
+                                                  return
+                                    RADEON_HEAP_VRAM;<br>
+                                          case RADEON_DOMAIN_VRAM_GTT:<br>
+                                              return
+                                    RADEON_HEAP_VRAM_GTT;<br>
+                                    diff --git
+                                    a/src/gallium/winsys/amdgpu/dr<wbr>m/amdgpu_bo.c
+                                    b/src/gallium/winsys/amdgpu/dr<wbr>m/amdgpu_bo.c<br>
+                                    index 97bbe23..06b8198 100644<br>
+                                    --- a/src/gallium/winsys/amdgpu/dr<wbr>m/amdgpu_bo.c<br>
+                                    +++ b/src/gallium/winsys/amdgpu/dr<wbr>m/amdgpu_bo.c<br>
+                                    @@ -31,20 +31,24 @@<br>
+                                        #include "amdgpu_cs.h"<br>
+                                        #include "os/os_time.h"<br>
+                                      #include
+                                    "state_tracker/drm_driver.h"<br>
+                                      #include &lt;amdgpu_drm.h&gt;<br>
+                                      #include &lt;xf86drm.h&gt;<br>
+                                      #include &lt;stdio.h&gt;<br>
+                                      #include &lt;inttypes.h&gt;<br>
+                                      +#ifndef
+                                    AMDGPU_GEM_CREATE_NO_INTERPROC<wbr>ESS_SHARING<br>
+                                    +#define
+                                    AMDGPU_GEM_CREATE_NO_INTERPROC<wbr>ESS_SHARING
+                                    (1 &lt;&lt; 6)<br>
+                                    +#endif<br>
+                                    +<br>
+                                      /* Set to 1 for verbose output
+                                    showing committed sparse buffer
+                                    ranges. */<br>
+                                      #define DEBUG_SPARSE_COMMITS 0<br>
+                                        struct
+                                    amdgpu_sparse_backing_chunk {<br>
+                                         uint32_t begin, end;<br>
+                                      };<br>
+                                        static struct pb_buffer *<br>
+                                      amdgpu_bo_create(struct
+                                    radeon_winsys *rws,<br>
+                                                       uint64_t size,<br>
+                                    @@ -395,20 +399,22 @@ static struct
+                                    amdgpu_winsys_bo
+                                    *amdgpu_create_bo(struct
+                                    amdgpu_winsys *ws,<br>
+                                           if (initial_domain &amp;
+                                    RADEON_DOMAIN_VRAM)<br>
+                                            request.preferred_heap |=
+                                    AMDGPU_GEM_DOMAIN_VRAM;<br>
+                                         if (initial_domain &amp;
+                                    RADEON_DOMAIN_GTT)<br>
+                                            request.preferred_heap |=
+                                    AMDGPU_GEM_DOMAIN_GTT;<br>
+                                           if (flags &amp;
+                                    RADEON_FLAG_NO_CPU_ACCESS)<br>
+                                            request.flags |=
+                                    AMDGPU_GEM_CREATE_NO_CPU_ACCES<wbr>S;<br>
+                                         if (flags &amp;
+                                    RADEON_FLAG_GTT_WC)<br>
+                                            request.flags |=
+                                    AMDGPU_GEM_CREATE_CPU_GTT_USWC<wbr>;<br>
+                                    +   if (flags &amp;
+                                    RADEON_FLAG_NO_INTERPROCESS_SH<wbr>ARING)<br>
+                                    +      request.flags |=
+                                    AMDGPU_GEM_CREATE_NO_INTERPROC<wbr>ESS_SHARING;<br>
+                                           r =
+                                    amdgpu_bo_alloc(ws-&gt;dev,
+                                    &amp;request, &amp;buf_handle);<br>
+                                         if (r) {<br>
+                                            fprintf(stderr, "amdgpu:
+                                    Failed to allocate a buffer:\n");<br>
+                                            fprintf(stderr, "amdgpu:   
+                                    size      : %"PRIu64" bytes\n",
+                                    size);<br>
+                                            fprintf(stderr, "amdgpu:   
+                                    alignment : %u bytes\n", alignment);<br>
+                                            fprintf(stderr, "amdgpu:   
+                                    domains   : %u\n", initial_domain);<br>
+                                            goto error_bo_alloc;<br>
+                                         }<br>
+                                      @@ -1127,21 +1133,21 @@ static
+                                    void amdgpu_buffer_set_metadata(str<wbr>uct
+                                    pb_buffer *_buf,<br>
+                                        static struct pb_buffer *<br>
+                                      amdgpu_bo_create(struct
+                                    radeon_winsys *rws,<br>
+                                                       uint64_t size,<br>
+                                                       unsigned
+                                    alignment,<br>
+                                                       enum
+                                    radeon_bo_domain domain,<br>
+                                                       enum
+                                    radeon_bo_flag flags)<br>
+                                      {<br>
+                                         struct amdgpu_winsys *ws =
+                                    amdgpu_winsys(rws);<br>
+                                         struct amdgpu_winsys_bo *bo;<br>
+                                    -   unsigned usage = 0,
+                                    pb_cache_bucket;<br>
+                                    +   unsigned usage = 0,
+                                    pb_cache_bucket = 0;<br>
+                                           /* VRAM implies WC. This is
+                                    not optional. */<br>
+                                         assert(!(domain &amp;
+                                    RADEON_DOMAIN_VRAM) || flags &amp;
+                                    RADEON_FLAG_GTT_WC);<br>
+                                           /* NO_CPU_ACCESS is valid
+                                    with VRAM only. */<br>
+                                         assert(domain ==
+                                    RADEON_DOMAIN_VRAM || !(flags &amp;
+                                    RADEON_FLAG_NO_CPU_ACCESS));<br>
+                                           /* Sub-allocate small buffers
+                                    from slabs. */<br>
+                                         if (!(flags &amp;
+                                    (RADEON_FLAG_NO_SUBALLOC |
+                                    RADEON_FLAG_SPARSE)) &amp;&amp;<br>
+                                             size &lt;= (1 &lt;&lt;
+                                    AMDGPU_SLAB_MAX_SIZE_LOG2)
+                                    &amp;&amp;<br>
+                                    @@ -1182,48 +1188,52 @@ no_slab:<br>
+                                         /* This flag is irrelevant for
+                                    the cache. */<br>
+                                         flags &amp;=
+                                    ~RADEON_FLAG_NO_SUBALLOC;<br>
+                                           /* Align size to page size.
+                                    This is the minimum alignment for
+                                    normal<br>
+                                          * BOs. Aligning this here
+                                    helps the cached bufmgr. Especially
+                                    small BOs,<br>
+                                          * like constant/uniform
+                                    buffers, can benefit from better and
+                                    more reuse.<br>
+                                          */<br>
+                                         size = align64(size,
+                                    ws-&gt;info.gart_page_size);<br>
+                                         alignment = align(alignment,
+                                    ws-&gt;info.gart_page_size);<br>
+                                      -   int heap =
+                                    radeon_get_heap_index(domain,
+                                    flags);<br>
+                                    -   assert(heap &gt;= 0 &amp;&amp;
+                                    heap &lt; RADEON_MAX_CACHED_HEAPS);<br>
+                                    -   usage = 1 &lt;&lt; heap; /* Only
+                                    set one usage bit for each heap. */<br>
+                                    +   bool use_reusable_pool = flags
+                                    &amp; RADEON_FLAG_NO_INTERPROCESS_SH<wbr>ARING;<br>
+                                      -   pb_cache_bucket =
+                                    radeon_get_pb_cache_bucket_ind<wbr>ex(heap);<br>
+                                    -   assert(pb_cache_bucket &lt;
+                                    ARRAY_SIZE(ws-&gt;bo_cache.bucket<wbr>s));<br>
+                                    +   if (use_reusable_pool) {<br>
+                                    +       int heap =
+                                    radeon_get_heap_index(domain,
+                                    flags);<br>
+                                    +       assert(heap &gt;= 0
+                                    &amp;&amp; heap &lt;
+                                    RADEON_MAX_CACHED_HEAPS);<br>
+                                    +       usage = 1 &lt;&lt; heap; /*
+                                    Only set one usage bit for each
+                                    heap. */<br>
+                                      -   /* Get a buffer from the
+                                    cache. */<br>
+                                    -   bo = (struct amdgpu_winsys_bo*)<br>
+                                    -       
+                                    pb_cache_reclaim_buffer(&amp;ws-&gt;b<wbr>o_cache,
+                                    size, alignment, usage,<br>
+                                    -                               
+                                    pb_cache_bucket);<br>
+                                    -   if (bo)<br>
+                                    -      return &amp;bo-&gt;base;<br>
+                                    +       pb_cache_bucket =
+                                    radeon_get_pb_cache_bucket_ind<wbr>ex(heap);<br>
+                                    +       assert(pb_cache_bucket &lt;
+                                    ARRAY_SIZE(ws-&gt;bo_cache.bucket<wbr>s));<br>
+                                    +<br>
+                                    +       /* Get a buffer from the
+                                    cache. */<br>
+                                    +       bo = (struct
+                                    amdgpu_winsys_bo*)<br>
+                                    +           
+                                    pb_cache_reclaim_buffer(&amp;ws-&gt;b<wbr>o_cache,
+                                    size, alignment, usage,<br>
+                                    +                                   
+                                    pb_cache_bucket);<br>
+                                    +       if (bo)<br>
+                                    +          return &amp;bo-&gt;base;<br>
+                                    +   }<br>
+                                           /* Create a new one. */<br>
+                                         bo = amdgpu_create_bo(ws, size,
+                                    alignment, usage, domain, flags,<br>
+                                                             
+                                     pb_cache_bucket);<br>
+                                         if (!bo) {<br>
+                                            /* Clear the cache and try
+                                    again. */<br>
+                                           
+                                    pb_slabs_reclaim(&amp;ws-&gt;bo_slabs<wbr>);<br>
+                                           
+                                    pb_cache_release_all_buffers(&amp;<wbr>ws-&gt;bo_cache);<br>
+                                            bo = amdgpu_create_bo(ws,
+                                    size, alignment, usage, domain,
+                                    flags,<br>
+                                                                 
+                                    pb_cache_bucket);<br>
+                                            if (!bo)<br>
+                                               return NULL;<br>
+                                         }<br>
+                                      - 
+                                     bo-&gt;u.real.use_reusable_pool =
+                                    true;<br>
+                                    +   bo-&gt;u.real.use_reusable_pool
+                                    = use_reusable_pool;<br>
+                                         return &amp;bo-&gt;base;<br>
+                                      }<br>
+                                        static struct pb_buffer
+                                    *amdgpu_bo_from_handle(struct
+                                    radeon_winsys *rws,<br>
+                                                                       
+                                                 struct winsys_handle
+                                    *whandle,<br>
+                                                                       
+                                                 unsigned *stride,<br>
+                                                                       
+                                                 unsigned *offset)<br>
+                                      {<br>
+                                         struct amdgpu_winsys *ws =
+                                    amdgpu_winsys(rws);<br>
+                                         struct amdgpu_winsys_bo *bo;<br>
+                                    diff --git
+                                    a/src/gallium/winsys/radeon/dr<wbr>m/radeon_drm_bo.c
+                                    b/src/gallium/winsys/radeon/dr<wbr>m/radeon_drm_bo.c<br>
+                                    index 8027a5f..15e9d38 100644<br>
+                                    --- a/src/gallium/winsys/radeon/dr<wbr>m/radeon_drm_bo.c<br>
+                                    +++ b/src/gallium/winsys/radeon/dr<wbr>m/radeon_drm_bo.c<br>
+                                    @@ -907,21 +907,21 @@ static void
+                                    radeon_bo_set_metadata(struct
+                                    pb_buffer *_buf,<br>
+                                        static struct pb_buffer *<br>
+                                      radeon_winsys_bo_create(struct
+                                    radeon_winsys *rws,<br>
+                                                              uint64_t
+                                    size,<br>
+                                                              unsigned
+                                    alignment,<br>
+                                                              enum
+                                    radeon_bo_domain domain,<br>
+                                                              enum
+                                    radeon_bo_flag flags)<br>
+                                      {<br>
+                                          struct radeon_drm_winsys *ws =
+                                    radeon_drm_winsys(rws);<br>
+                                          struct radeon_bo *bo;<br>
+                                    -    unsigned usage = 0,
+                                    pb_cache_bucket;<br>
+                                    +    unsigned usage = 0,
+                                    pb_cache_bucket = 0;<br>
+                                            assert(!(flags &amp;
+                                    RADEON_FLAG_SPARSE)); /* not
+                                    supported */<br>
+                                            /* Only 32-bit sizes are
+                                    supported. */<br>
+                                          if (size &gt; UINT_MAX)<br>
+                                              return NULL;<br>
+                                            /* VRAM implies WC. This is
+                                    not optional. */<br>
+                                          if (domain &amp;
+                                    RADEON_DOMAIN_VRAM)<br>
+                                              flags |=
+                                    RADEON_FLAG_GTT_WC;<br>
+                                    @@ -962,46 +962,51 @@ no_slab:<br>
+                                          /* This flag is irrelevant for
+                                    the cache. */<br>
+                                          flags &amp;=
+                                    ~RADEON_FLAG_NO_SUBALLOC;<br>
+                                            /* Align size to page size.
+                                    This is the minimum alignment for
+                                    normal<br>
+                                           * BOs. Aligning this here
+                                    helps the cached bufmgr. Especially
+                                    small BOs,<br>
+                                           * like constant/uniform
+                                    buffers, can benefit from better and
+                                    more reuse.<br>
+                                           */<br>
+                                          size = align(size,
+                                    ws-&gt;info.gart_page_size);<br>
+                                          alignment = align(alignment,
+                                    ws-&gt;info.gart_page_size);<br>
+                                      -    int heap =
+                                    radeon_get_heap_index(domain,
+                                    flags);<br>
+                                    -    assert(heap &gt;= 0 &amp;&amp;
+                                    heap &lt; RADEON_MAX_CACHED_HEAPS);<br>
+                                    -    usage = 1 &lt;&lt; heap; /*
+                                    Only set one usage bit for each
+                                    heap. */<br>
+                                    +    bool use_reusable_pool = flags
+                                    &amp; RADEON_FLAG_NO_INTERPROCESS_SH<wbr>ARING;<br>
+                                      -    pb_cache_bucket =
+                                    radeon_get_pb_cache_bucket_ind<wbr>ex(heap);<br>
+                                    -    assert(pb_cache_bucket &lt;
+                                    ARRAY_SIZE(ws-&gt;bo_cache.bucket<wbr>s));<br>
+                                    +    /* Shared resources don't use
+                                    cached heaps. */<br>
+                                    +    if (use_reusable_pool) {<br>
+                                    +        int heap =
+                                    radeon_get_heap_index(domain,
+                                    flags);<br>
+                                    +        assert(heap &gt;= 0
+                                    &amp;&amp; heap &lt;
+                                    RADEON_MAX_CACHED_HEAPS);<br>
+                                    +        usage = 1 &lt;&lt; heap; /*
+                                    Only set one usage bit for each
+                                    heap. */<br>
+                                      -    bo =
+                                    radeon_bo(pb_cache_reclaim_buf<wbr>fer(&amp;ws-&gt;bo_cache,
+                                    size, alignment,<br>
+                                    -                                   
+                                           usage, pb_cache_bucket));<br>
+                                    -    if (bo)<br>
+                                    -        return &amp;bo-&gt;base;<br>
+                                    +        pb_cache_bucket =
+                                    radeon_get_pb_cache_bucket_ind<wbr>ex(heap);<br>
+                                    +        assert(pb_cache_bucket &lt;
+                                    ARRAY_SIZE(ws-&gt;bo_cache.bucket<wbr>s));<br>
+                                    +<br>
+                                    +        bo =
+                                    radeon_bo(pb_cache_reclaim_buf<wbr>fer(&amp;ws-&gt;bo_cache,
+                                    size, alignment,<br>
+                                    +                                   
+                                               usage, pb_cache_bucket));<br>
+                                    +        if (bo)<br>
+                                    +            return
+                                    &amp;bo-&gt;base;<br>
+                                    +    }<br>
+                                            bo = radeon_create_bo(ws,
+                                    size, alignment, usage, domain,
+                                    flags,<br>
+                                                               
+                                    pb_cache_bucket);<br>
+                                          if (!bo) {<br>
+                                              /* Clear the cache and try
+                                    again. */<br>
+                                              if
+                                    (ws-&gt;info.has_virtual_memory)<br>
+                                                 
+                                    pb_slabs_reclaim(&amp;ws-&gt;bo_slabs<wbr>);<br>
+                                             
+                                    pb_cache_release_all_buffers(&amp;<wbr>ws-&gt;bo_cache);<br>
+                                              bo = radeon_create_bo(ws,
+                                    size, alignment, usage, domain,
+                                    flags,<br>
+                                                                   
+                                    pb_cache_bucket);<br>
+                                              if (!bo)<br>
+                                                  return NULL;<br>
+                                          }<br>
+                                      -   
+                                    bo-&gt;u.real.use_reusable_pool =
+                                    true;<br>
+                                    +    bo-&gt;u.real.use_reusable_pool
+                                    = use_reusable_pool;<br>
+                                           
+                                    mtx_lock(&amp;ws-&gt;bo_handles_mutex<wbr>);<br>
+                                         
+                                    util_hash_table_set(ws-&gt;bo_han<wbr>dles,
+                                    (void*)(uintptr_t)bo-&gt;handle,
+                                    bo);<br>
+                                         
+                                    mtx_unlock(&amp;ws-&gt;bo_handles_mut<wbr>ex);<br>
+                                            return &amp;bo-&gt;base;<br>
+                                      }<br>
+                                        static struct pb_buffer
+                                    *radeon_winsys_bo_from_ptr(str<wbr>uct
+                                    radeon_winsys *rws,<br>
+                                                                       
+                                                     void *pointer,
+                                    uint64_t size)<br>
+                                  </blockquote>
+                                  <br>
+                                </div>
+                              </blockquote>
+                            </div>
+                          </div>
+                          <div class="gmail_extra" dir="auto"><br>
+                          </div>
+                        </div>
+                      </div>
+                    </blockquote>
+                    <br>
+                  </div>
+                </div>
+              </blockquote>
+            </div>
+            <br>
+          </div>
+        </div>
+      </div>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------CC7F465603C4A85744363466--
+
+--===============1377115155==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1377115155==--
