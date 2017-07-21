@@ -1,13 +1,14 @@
-From: Stuart Longland <stuartl-3e+Fe6x+DsgJbe36r25VNhCuuivNXqWP@public.gmane.org>
-Subject: Re: Fixing Direct firmware load for amdgpu/polaris12_mc.bin failed
- with error -2
-Date: Fri, 21 Jul 2017 19:44:43 +1000
-Message-ID: <886e7938-af54-c9e0-f0a7-2a7f5f73a5ef@longlandclan.id.au>
-References: <708ff3f0-8bd8-b2f9-b993-5bfdb97fa16d@longlandclan.id.au>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: reduce the time of reading VBIOS
+Date: Fri, 21 Jul 2017 16:12:19 +0200
+Message-ID: <b5c6f410-f473-eac8-c1a6-fecd4a01093b@vodafone.de>
+References: <1500605542-5956-1-git-send-email-Xiangliang.Yu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0411859662=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <708ff3f0-8bd8-b2f9-b993-5bfdb97fa16d-3e+Fe6x+DsgJbe36r25VNhCuuivNXqWP@public.gmane.org>
+In-Reply-To: <1500605542-5956-1-git-send-email-Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,100 +19,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "Xiangliang.Yu" <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0411859662==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="SKJIgqLV030aBJvArD0R0dAjoGRjVPCDl"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---SKJIgqLV030aBJvArD0R0dAjoGRjVPCDl
-Content-Type: multipart/mixed; boundary="05EaHPCk6nvRi76ojcEmhqh9ofnGqxMru";
- protected-headers="v1"
-From: Stuart Longland <stuartl-3e+Fe6x+DsgJbe36r25VNhCuuivNXqWP@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Message-ID: <886e7938-af54-c9e0-f0a7-2a7f5f73a5ef-3e+Fe6x+DsgJbe36r25VNhCuuivNXqWP@public.gmane.org>
-Subject: Re: Fixing Direct firmware load for amdgpu/polaris12_mc.bin failed
- with error -2
-References: <708ff3f0-8bd8-b2f9-b993-5bfdb97fa16d-3e+Fe6x+DsgJbe36r25VNhCuuivNXqWP@public.gmane.org>
-In-Reply-To: <708ff3f0-8bd8-b2f9-b993-5bfdb97fa16d-3e+Fe6x+DsgJbe36r25VNhCuuivNXqWP@public.gmane.org>
-
---05EaHPCk6nvRi76ojcEmhqh9ofnGqxMru
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-On 21/07/17 19:20, Stuart Longland wrote:
-> I have also tried the drm-next branch of the kernel, commit
-> a26307ced13c6f1ad82593964e303b053586b064, with the same effect.
->=20
-> I can confirm that /lib/firmware/amdgpu/polaris12_mc.bin exists.  So I
-> have no idea why I am getting -ENOENT (aka error -2).  If the file isn'=
-t
-> to go in /lib/firmware, then where do I put it?
-
-The following .config options in the kernel have worked around the issue
-I think:
-
-> CONFIG_FW_LOADER=3Dy
-> # CONFIG_FIRMWARE_IN_KERNEL is not set
-> CONFIG_EXTRA_FIRMWARE=3D"amdgpu/polaris12_ce.bin amdgpu/polaris12_mc.bi=
-n amdgpu/polaris12_me.bin amdgpu/polaris12_mec2.bin amdgpu/polaris12_mec.=
-bin amdgpu/polaris12_pfp.bin amdgpu/polaris12_rlc.bin amdgpu/polaris12_sd=
-ma1.bin amdgpu/polaris12_sdma.bin amdgpu/polaris12_smc.bin amdgpu/polaris=
-12_uvd.bin amdgpu/polaris12_vce.bin"
-> CONFIG_EXTRA_FIRMWARE_DIR=3D"/lib/firmware"
-
-Testing with some of the OpenGL screensavers in xscreensaver seems to
-show reasonable performance (well, good enough for my needs: this is a
-work PC).
-
-I'm not sure that's the proper solution though.  It at least confirms my
-firmware binaries are good though, otherwise I'm certain it wouldn't be
-working there either.
---=20
-Stuart Longland (aka Redhatter, VK4MSL)
-
-I haven't lost my mind...
-  ...it's backed up on a tape somewhere.
-
-
---05EaHPCk6nvRi76ojcEmhqh9ofnGqxMru--
-
---SKJIgqLV030aBJvArD0R0dAjoGRjVPCDl
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEvKEYefT5O+PbDe5y+VS7u3lI1UYFAllxzQ8ACgkQ+VS7u3lI
-1UbSmhAAhpCwEy8CdSrLGemXaDy2Dj/hgBqV/GshP4SImjS8nuz2R+Cz7hiBm6FH
-2hTKp0TikSIA8yP7Y7w5UUztOeUrjq/Z3/BAQBnpDjD1hFNI8bJC1YYlWqkIy7u5
-Ooj/PzJ62O///G1SVNScriJRxGep5yjSxyxjX4oEMUDS23yTQceiXuXR6iczKYCp
-Cd0i/COC9H5HLNA/B+1Vq0OvSqt2BuPfNrDOL8eM9I6lzJVqsMiBD5M9DDddOjEB
-/MaBcEHVUwka4jzrpYHXCZi8aR7GnZ27GBXZJE+LjLchb011DABf/+0LHNd/Hpsr
-H/z3We78b4G70D7ze1rYG81xcos1PuyhKVtSIwq7BjSayugz4d0m677dcVM8TN1j
-Uo1EbyTyhHO5uRrGUR/yLed84lDUP7adriGJUbS+m/fp+wuyWbZuit3DwAvvUAUO
-ZhFVBnPi+zo/t9g1HUruu0oUnYaHKZjNS8Vm9H3BjxYxwVMlQQHHBIAI0lb/8Nv7
-JMsiVVDFYwyBpFrOMnkbuLoTWROGHL4NSFrEnz2zcJvSk2YlXPKLnKsn8bDKZxok
-tcNKK30ybEjDjkVL6Y4FyyASxmCs6Rzu+RGD4MWxtFn/8LRphX8snOLOmD+5LIXQ
-5pMDu1KBvPjSWMkz3HxA1i8ZSkgyHItAYe4RP0d7EkhGnZmUpME=
-=E2tX
------END PGP SIGNATURE-----
-
---SKJIgqLV030aBJvArD0R0dAjoGRjVPCDl--
-
---===============0411859662==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0411859662==--
+QW0gMjEuMDcuMjAxNyB1bSAwNDo1MiBzY2hyaWViIFhpYW5nbGlhbmcuWXU6Cj4gRnJvbTogWGlh
+bmdsaWFuZyBZdSA8WGlhbmdsaWFuZy5ZdUBhbWQuY29tPgo+Cj4gQ2hhbmdlIGlvcmVtYXAgbW9k
+ZSBmcm9tIG5vbmNhY2hlIHRvIHdyaXRlIGNvbWJpbmUgYW5kIGl0IHdpbGwKPiByZWR1Y2UgdGhl
+IHJlYWQgdmJpb3MgdGltZSBmcm9tIDE4OG1zIHRvIDhtcy4KCk5pY2UgaW1wcm92ZW1lbnQsIGJ1
+dCBJIHRoaW5rIHlvdSBuZWVkIHRvIGltcHJvdmUgdGhlIGNvbW1pdCBtZXNzYWdlIGEgYml0LgoK
+Q2hhbmdpbmcgdGhlIGlvcmVtYXAgbW9kZSBmcm9tIG5vbmNhY2hlIHRvIHdyaXRlIGNvbWJpbmUg
+c2hvdWxkIGFjdHVhbGx5IApub3QgaW1wcm92ZSB0aGUgcmVhZCBwZXJmb3JtYW5jZSAocmVhZHMg
+YXJlIHVuY2FjaGVkIGluIGJvdGggbW9kZXMpLgoKSSB0aGluayB0aGlzIHBhdGNoIG1ha2VzIGEg
+ZGlmZmVyZW5jZSBiZWNhdXNlIFZSQU0gaXMgdXN1YWxseSBtYXJrZWQgCndyaXRlIGNvbWJpbmVk
+IGFuZCBzbyBpb3JlbWFwIG5lZWRzIHRvIGNoYW5nZSB0aGF0IGZvciBubyBnb29kIHJlYXNvbiAK
+YW5kIHRoYXQgaW4gdHVybiB0YWtlcyBxdWl0ZSBzb21lIHRpbWUuCgpJIHRoaW5rIHlvdSBzaG91
+bGQgd3JpdGUgc29tZXRoaW5nIGxpa2UgIkF2b2lkIGNoYW5naW5nIHRoZSBtYXBwaW5nIG1vZGUg
+Cm9mIFZSQU0gd2hpbGUgcmVhZGluZyB0aGUgdmJpb3MgZnJvbSBpdCwgdGhpcyByZWR1Y2UgdGhl
+IHRpbWUgZnJvbS4uLi4iLgoKPgo+IFNpZ25lZC1vZmYtYnk6IFhpYW5nbGlhbmcgWXUgPFhpYW5n
+bGlhbmcuWXVAYW1kLmNvbT4KPiBTaWduZWQtb2ZmLWJ5OiBYaWFuZ2xpYW5nLll1IDxYaWFuZ2xp
+YW5nLll1QGFtZC5jb20+CllvdSBhZGRlZCB0aGUgc2lnbmVkLW9mZi1ieSBsaW5lIHR3aWNlLCBw
+bGVhc2UgZml4IHRoaXMuCgpXaXRoIHRoYXQgZml4ZWQgYW5kIHRoZSBjb21taXQgbWVzc2FnZSBp
+bXByb3ZlZCBhIGJpdCB0aGUgcGF0Y2ggaXMgClJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmln
+IDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+LgoKUmVnYXJkcywKQ2hyaXN0aWFuLgoKPiAtLS0K
+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9iaW9zLmMgfCAyICstCj4gICAx
+IGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKPgo+IGRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYmlvcy5jIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Jpb3MuYwo+IGluZGV4IGVhM2EyNTAuLmMyMWFkZjYg
+MTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Jpb3MuYwo+
+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9iaW9zLmMKPiBAQCAtMTA0
+LDcgKzEwNCw3IEBAIHN0YXRpYyBib29sIGlncF9yZWFkX2Jpb3NfZnJvbV92cmFtKHN0cnVjdCBh
+bWRncHVfZGV2aWNlICphZGV2KQo+ICAgCj4gICAJYWRldi0+YmlvcyA9IE5VTEw7Cj4gICAJdnJh
+bV9iYXNlID0gcGNpX3Jlc291cmNlX3N0YXJ0KGFkZXYtPnBkZXYsIDApOwo+IC0JYmlvcyA9IGlv
+cmVtYXAodnJhbV9iYXNlLCBzaXplKTsKPiArCWJpb3MgPSBpb3JlbWFwX3djKHZyYW1fYmFzZSwg
+c2l6ZSk7Cj4gICAJaWYgKCFiaW9zKSB7Cj4gICAJCXJldHVybiBmYWxzZTsKPiAgIAl9CgoKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
+aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
