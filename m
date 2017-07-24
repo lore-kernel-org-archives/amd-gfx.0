@@ -1,78 +1,37 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/radeon: Set depth on low mem to 16 bpp instead of 8
- bpp
-Date: Mon, 24 Jul 2017 16:46:41 -0400
-Message-ID: <CADnq5_Pp=fuvDukVyrK8hCMi0uGs0EURi8KFKxp1XQviVE6WPw@mail.gmail.com>
-References: <20170718152053.15050-1-tiwai@suse.de>
- <7ad0c34d-0efe-c54e-28fb-fc5ba31f1700@daenzer.net>
- <s5hk23495mu.wl-tiwai@suse.de>
+From: Colin King <colin.king@canonical.com>
+Subject: [PATCH] drm/amdgpu: fix spelling mistake: "suuport"-> "support"
+Date: Mon, 24 Jul 2017 23:45:01 +0100
+Message-ID: <20170724224501.17037-1-colin.king@canonical.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <s5hk23495mu.wl-tiwai-l3A5Bk7waGM@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Takashi Iwai <tiwai-l3A5Bk7waGM@public.gmane.org>
-Cc: David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Michel D4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Christian K6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Chunming Zhou <David1.Zhou@amd.com>, Jerry.Zhang@amd.com, Edward O'Callaghan <funfunctor@folklore1984.net>, Alex Xie <AlexBin.Xie@amd.com>, Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gV2VkLCBKdWwgMTksIDIwMTcgYXQgNDo0NSBBTSwgVGFrYXNoaSBJd2FpIDx0aXdhaUBzdXNl
-LmRlPiB3cm90ZToKPiBPbiBUdWUsIDE4IEp1bCAyMDE3IDIyOjUzOjQ4ICswMjAwLAo+IE1pY2hl
-bCBENG56ZXIgd3JvdGU6Cj4+Cj4+IE9uIDE4LzA3LzE3IDExOjIwIEFNLCBUYWthc2hpIEl3YWkg
-d3JvdGU6Cj4+ID4gRnJvbTogRWdiZXJ0IEVpY2ggPGVpY2hAc3VzZS5kZT4KPj4gPgo+PiA+IFRo
-ZSByYWRlb24gZHJpdmVyIHJlZHVjZXMgdGhlIGZyYW1lYnVmZmVyIHJlc29sdXRpb24gdG8gOGJw
-cCBpZiBhCj4+ID4gZGV2aWNlIHdpdGggbGVzcyB0aGFuIDMyTUIgVlJBTSBpcyBmb3VuZC4gIFRo
-aXMgY2F1c2VzIHRoZSBmcmFtZWJ1ZmZlcgo+PiA+IHRvIHJ1biBpbiA4IGJpdCBwYWxldHRlZCBt
-b2RlLiAgRm9yIGEgdGV4dCBjb25zb2xlIHRoaXMgaXMgbm90IGFuCj4+ID4gaXNzdWUgYXMgMjU2
-IGRpZmZlcmVudCBjb2xvcnMgaXMgbW9yZSB0aGFuIG9uZSBnZXRzIG9uIGEgVkdBIHRleHQKPj4g
-PiBjb25zb2xlLiAgSG93ZXZlciB0aGlzIGxlYWRzIHRvIGEgcG9vciA4Yml0IHBzZXVkby1jb2xv
-ciB2aXN1YWwgd2hlbgo+PiA+IHJ1bm5pbmcgWCBvbiBmYmRldiwgdG9vLCB3aGljaCBpcyBxdWl0
-ZSB1Z2x5Lgo+PiA+Cj4+ID4gSW4gdGhpcyBwYXRjaCwgd2UgdHJ5IHRvIGdpdmUgc29tZSBtb2Rl
-cmF0ZSBjb21wcm9taXNlOiBsaW1pdCB0aGUKPj4gPiBmcmFtZWJ1ZmZlciBicHAgdG8gOCBvbmx5
-IHdoZW4gVlJBTSBpcyA4TUIgb3IgbGVzcywgYW5kIHVzZSAxNiBicHAKPj4gPiBvdGhlcndpc2Ug
-Zm9yIDMyTUIgb3IgbGVzcyBWUkFNLgo+PiA+Cj4+ID4gU2lnbmVkLW9mZi1ieTogRWdiZXJ0IEVp
-Y2ggPGVpY2hAc3VzZS5kZT4KPj4gPiBTaWduZWQtb2ZmLWJ5OiBUYWthc2hpIEl3YWkgPHRpd2Fp
-QHN1c2UuZGU+Cj4+ID4gLS0tCj4+ID4KPj4gPiBUaGlzIGhhcyBiZWVuIGluY2x1ZGVkIGluIFNV
-U0Uga2VybmVsIGZvciBxdWl0ZSBzb21lIHRpbWUsIGFuZCBJJ20KPj4gPiB0cnlpbmcgdG8gdXBz
-dHJlYW0gdGhpcy4gIFRoZSAxNmJwcCBsb29rcyBtb3JlIHJlYXNvbmFibGUgbm93YWRheXMsCj4+
-ID4gYnV0IEkga25vdyB0aGlzIGlzIGEgbWF0dGVyIG9mIHRhc3RlLCB0b28uICBJdCdkIGJlIGdy
-ZWF0IGlmIHlvdSBndXlzCj4+ID4gY2FuIGNvbW1lbnQgb24gdGhpcywgYXQgbGVhc3QsIHdoZXRo
-ZXIgaXQncyB1dHRseSBub24tc2Vuc2Ugb3Igbm90Lgo+Pgo+PiBbLi4uXQo+Pgo+PiA+IGRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9mYi5jIGIvZHJpdmVycy9ncHUv
-ZHJtL3JhZGVvbi9yYWRlb25fZmIuYwo+PiA+IGluZGV4IDM1NmFkOTBhNTIzOC4uYjVmMjY0MmYx
-MjRiIDEwMDY0NAo+PiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2ZiLmMK
-Pj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9mYi5jCj4+ID4gQEAgLTM0
-Nyw5ICszNDcsMTIgQEAgaW50IHJhZGVvbl9mYmRldl9pbml0KHN0cnVjdCByYWRlb25fZGV2aWNl
-ICpyZGV2KQo+PiA+ICAgICBpZiAobGlzdF9lbXB0eSgmcmRldi0+ZGRldi0+bW9kZV9jb25maWcu
-Y29ubmVjdG9yX2xpc3QpKQo+PiA+ICAgICAgICAgICAgIHJldHVybiAwOwo+PiA+ICAgLSAvKiBz
-ZWxlY3QgOCBicHAgY29uc29sZSBvbiBSTjUwIG9yIDE2TUIgY2FyZHMgKi8KPj4gPiAtICAgaWYg
-KEFTSUNfSVNfUk41MChyZGV2KSB8fCByZGV2LT5tYy5yZWFsX3ZyYW1fc2l6ZSA8PSAoMzIqMTAy
-NCoxMDI0KSkKPj4gPiArICAgLyogc2VsZWN0IDggYnBwIGNvbnNvbGUgb24gOE1CIGNhcmRzLCBv
-ciAxNiBicHAgb24gUk41MCBvciAzMk1CICovCj4+ID4gKyAgIGlmIChyZGV2LT5tYy5yZWFsX3Zy
-YW1fc2l6ZSA8PSAoOCoxMDI0KjEwMjQpKQo+PiA+ICAgICAgICAgICAgIGJwcF9zZWwgPSA4Owo+
-PiA+ICsgICBlbHNlIGlmIChBU0lDX0lTX1JONTAocmRldikgfHwKPj4gPiArICAgICAgICAgICAg
-cmRldi0+bWMucmVhbF92cmFtX3NpemUgPD0gKDMyKjEwMjQqMTAyNCkpCj4+ID4gKyAgICAgICAg
-ICAgYnBwX3NlbCA9IDE2Owo+PiA+ICAgICAgICAgICAgIHJmYmRldiA9IGt6YWxsb2Moc2l6ZW9m
-KHN0cnVjdCByYWRlb25fZmJkZXYpLCBHRlBfS0VSTkVMKTsKPj4gPiAgICAgaWYgKCFyZmJkZXYp
-Cj4+ID4KPj4KPj4gTG9va3MgcmVhc29uYWJsZSB0byBtZSDigJQgaWYgbm90aGluZyBlbHNlLCBh
-dCBsZWFzdCB0aGUgY29tbWVudCBhbmQKPj4gY29kZSB3aWxsIG1hdGNoIGFnYWluISA6KQo+Pgo+
-PiBNeSBvbmx5IHBvdGVudGlhbCBkb3VidCBpcyB3aGV0aGVyIHRoZXJlIGNvdWxkIGJlIGFub3Ro
-ZXIgcmVhc29uIHRoYW4KPj4gVlJBTSBzaXplIHdoeSBSTjUwIHNob3VsZCB1c2UgOCBicHAuIEFz
-c3VtaW5nIG5vdCwKPgo+IFdlIGFsc28gaG9wZSB0aGVyZSBubyBzdWNoIHBvcHVsYXIgYm9hcmQg
-OikKPiBGV0lXLCBhdCBsZWFzdCB3ZSBkaWRuJ3QgZ2V0IGEgcmVsZXZhbnQgYnVnIHJlcG9ydCwg
-c28gZmFyLgo+Cj4+IFJldmlld2VkLWJ5OiBNaWNoZWwgRMOkbnplciA8bWljaGVsLmRhZW56ZXJA
-YW1kLmNvbT4KPgo+IFRoYW5rcyEKCkFwcGxpZWQuICB0aGFua3MhCgpBbGV4CgoKPgo+Cj4gVGFr
-YXNoaQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4g
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
-bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+From: Colin Ian King <colin.king@canonical.com>
+
+Trivial fix to spelling mistake in WARN_ONCE message
+
+Signed-off-by: Colin Ian King <colin.king@canoical.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 5795f81369f0..06f11e2a32af 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -1301,7 +1301,7 @@ static int amdgpu_vm_update_ptes(struct amdgpu_pte_update_params *params,
+ 
+ 		if (params->shadow) {
+ 			if (WARN_ONCE(use_cpu_update,
+-				"CPU VM update doesn't suuport shadow pages"))
++				"CPU VM update doesn't support shadow pages"))
+ 				return 0;
+ 
+ 			if (!pt->shadow)
+-- 
+2.11.0
