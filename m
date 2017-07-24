@@ -1,114 +1,68 @@
-From: Florian Echtler <floe@butterbrot.org>
-Subject: Re: iMac 10,1 with Ubuntu 16.04: black screen after suspend
-Date: Mon, 24 Jul 2017 15:45:58 +0200
-Message-ID: <29cdd744-8fac-557b-bc5f-087e84adcae7@butterbrot.org>
-References: <1e60811b-a8ac-017c-d350-8a40e4323870@butterbrot.org>
- <20170530105404.GA29865@wunner.de>
- <64a4829c-3141-6ff6-9369-6ca9ed0facf4@butterbrot.org>
- <20170531092145.ytc2d6shpukxziie@wunner.de>
- <CADnq5_MGWOX47tcvkfjHRxRv_eTbo_kvpVKyTpo8WGNw+xBvPA@mail.gmail.com>
- <65c88b03-45d7-d67b-2a2c-6c7047a73c80@butterbrot.org>
- <CADnq5_Mvyz1KUw26Emt8_d_XNeQ=MUqx8WF=iCxa6jagCXNCQQ@mail.gmail.com>
- <171a9895-b020-7630-b90c-d166f45e44e3@butterbrot.org>
- <CADnq5_P_H8ZZXnXOoUcxNOFece3BRyzhZh2Z3mkw53eA20KiMQ@mail.gmail.com>
- <c1ed89a5-e6a1-1903-05ee-a9dfcdb2ef61@butterbrot.org>
- <20170717090235.GB3993@wunner.de>
+From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 01/14] amdgpu: powerplay: Remove unused function
+Date: Mon, 24 Jul 2017 10:01:47 -0400
+Message-ID: <40ac5a58-9e02-0240-ae87-0b1c9375873b@amd.com>
+References: <20170724133540.32200-1-ricardo.ribalda@gmail.com>
+ <20170724133540.32200-2-ricardo.ribalda@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
- protocol="application/pgp-signature";
- boundary="uu9v51A6kphUv3cD9wAgIxpdJHe627Oj9"
-Return-path: <linux-acpi-owner@vger.kernel.org>
-In-Reply-To: <20170717090235.GB3993@wunner.de>
-Sender: linux-acpi-owner@vger.kernel.org
-To: Lukas Wunner <lukas@wunner.de>
-Cc: Alex Deucher <alexdeucher@gmail.com>, "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Mario Kleiner <mario.kleiner.de@gmail.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20170724133540.32200-2-ricardo.ribalda-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Ricardo Ribalda Delgado <ricardo.ribalda-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>, Eric Huang <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>, Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>, Kees Cook <keescook-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>, "Andrew F. Davis" <afd-l0cyMroinI0@public.gmane.org>, Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, Baoyou Xie <baoyou.xie-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org>, Masahiro Yamada <yamada.masahiro-uWyLwvC0a2jby3iVrkZq2A@public.gmane.org>, Colin Ian King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>, =?UTF-8?Q?Nils_Wallm=c3=a9nius?= <nils.wallmenius-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Joe Perches <joe-6d6DIl74uiNBDgjK7y7TUQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---uu9v51A6kphUv3cD9wAgIxpdJHe627Oj9
-Content-Type: multipart/mixed; boundary="QAsjn1wbDbqUNKB3gDEA3gTsKWLP5xRMG";
- protected-headers="v1"
-From: Florian Echtler <floe@butterbrot.org>
-To: Lukas Wunner <lukas@wunner.de>
-Cc: Alex Deucher <alexdeucher@gmail.com>,
- "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Mario Kleiner <mario.kleiner.de@gmail.com>
-Message-ID: <29cdd744-8fac-557b-bc5f-087e84adcae7@butterbrot.org>
-Subject: Re: iMac 10,1 with Ubuntu 16.04: black screen after suspend
-References: <1e60811b-a8ac-017c-d350-8a40e4323870@butterbrot.org>
- <20170530105404.GA29865@wunner.de>
- <64a4829c-3141-6ff6-9369-6ca9ed0facf4@butterbrot.org>
- <20170531092145.ytc2d6shpukxziie@wunner.de>
- <CADnq5_MGWOX47tcvkfjHRxRv_eTbo_kvpVKyTpo8WGNw+xBvPA@mail.gmail.com>
- <65c88b03-45d7-d67b-2a2c-6c7047a73c80@butterbrot.org>
- <CADnq5_Mvyz1KUw26Emt8_d_XNeQ=MUqx8WF=iCxa6jagCXNCQQ@mail.gmail.com>
- <171a9895-b020-7630-b90c-d166f45e44e3@butterbrot.org>
- <CADnq5_P_H8ZZXnXOoUcxNOFece3BRyzhZh2Z3mkw53eA20KiMQ@mail.gmail.com>
- <c1ed89a5-e6a1-1903-05ee-a9dfcdb2ef61@butterbrot.org>
- <20170717090235.GB3993@wunner.de>
-In-Reply-To: <20170717090235.GB3993@wunner.de>
-
---QAsjn1wbDbqUNKB3gDEA3gTsKWLP5xRMG
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
-Content-Transfer-Encoding: quoted-printable
-
-Hello Lukas,
-
-On 17.07.2017 11:02, Lukas Wunner wrote:
-> On Fri, Jun 02, 2017 at 06:47:07PM +0200, Florian Echtler wrote:
->=20
-> Sorry for the delay Florian.  Commit 564d8a2cf3ab by Mario Kleiner (+cc=
-)
-> landed in Linus' tree last week and is included in 4.13-rc1.  It is
-> supposed to fix black screen issues with the iMac10,1 that you're also
-> using, though in Mario's case they seem to occur upon boot, rather than=
-
-> on suspend, still might be worth a try:
-
-thanks for the hint. I've applied this patch to the v4.12 tree I'm curren=
-tly
-running, and it didn't seem to make any difference (i.e. display stays bl=
-ack
-after suspend).
-
-Without the patch, when I plug in an external display (via MiniDP-to-DVI)=
-, then
-the internal panel stays black when booting, only the external display wo=
-rks.
-
-Actually, the patch then makes things slightly worse in my case: with the=
- patch
-applied, not even the external sink works anymore. When I log in remotely=
- and
-run "DISPLAY=3D:0.0 xrandr", both DP connections are shown as active, but=
- neither
-does actually show an image.
-
-I'd be grateful about a bit of background information here, I'd really li=
-ke to
-help fix this.
-
-Best, Florian
---=20
-SENT FROM MY DEC VT50 TERMINAL
-
-
---QAsjn1wbDbqUNKB3gDEA3gTsKWLP5xRMG--
-
---uu9v51A6kphUv3cD9wAgIxpdJHe627Oj9
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iEYEARECAAYFAll1+hYACgkQ7CzyshGvatgSbQCghB/5TK7LAtPYFSe8lDJ1k3Vc
-kRwAn3b4iN5E1Is7Vaa3aZewhvwbmon6
-=gW/0
------END PGP SIGNATURE-----
-
---uu9v51A6kphUv3cD9wAgIxpdJHe627Oj9--
+T24gMjAxNy0wNy0yNCAwOTozNSBBTSwgUmljYXJkbyBSaWJhbGRhIERlbGdhZG8gd3JvdGU6Cj4g
+YW1kX3Bvd2VycGxheV9kaXNwbGF5X2NvbmZpZ3VyYXRpb25fY2hhbmdlIGlzIG5ldmVyIGNhbGxl
+ZC4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBSaWNhcmRvIFJpYmFsZGEgRGVsZ2FkbyA8cmljYXJkby5y
+aWJhbGRhQGdtYWlsLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
+YW1kX3Bvd2VycGxheS5jICAgICB8IDIxIC0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+ICBkcml2ZXJz
+L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvYW1kX3Bvd2VycGxheS5oIHwgIDMgLS0tCj4gIDIg
+ZmlsZXMgY2hhbmdlZCwgMjQgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZF9wb3dlcnBsYXkuYyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvcG93ZXJwbGF5L2FtZF9wb3dlcnBsYXkuYwo+IGluZGV4IGY3M2U4MGM0YmYzMy4uMWVlN2Fh
+NTU0NmJmIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZF9w
+b3dlcnBsYXkuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZF9wb3dl
+cnBsYXkuYwo+IEBAIC0xMjM3LDI3ICsxMjM3LDYgQEAgaW50IGFtZF9wb3dlcnBsYXlfcmVzZXQo
+dm9pZCAqaGFuZGxlKQo+ICAJcmV0dXJuIHBlbV9oYW5kbGVfZXZlbnQoZXZlbnRtZ3IsIEFNRF9Q
+UF9FVkVOVF9DT01QTEVURV9JTklULCAmZXZlbnRfZGF0YSk7Cj4gIH0KPiAgCj4gLS8qIGV4cG9y
+dCB0aGlzIGZ1bmN0aW9uIHRvIERBTCAqLwo+IC0KPiAtaW50IGFtZF9wb3dlcnBsYXlfZGlzcGxh
+eV9jb25maWd1cmF0aW9uX2NoYW5nZSh2b2lkICpoYW5kbGUsCj4gLQljb25zdCBzdHJ1Y3QgYW1k
+X3BwX2Rpc3BsYXlfY29uZmlndXJhdGlvbiAqZGlzcGxheV9jb25maWcpCgpUaGlzIGlzIHVzZWQg
+YW5kIG5lZWRlZCBieSB0aGUgREMgZGlzcGxheSBkcml2ZXIuIFNlZQpkaXNwbGF5L2FtZGdwdV9k
+bS9hbWRncHVfZG1fc2VydmljZXMuYzoxOTMgaW4gQWxleCdzIGFtZC1zdGFnaW5nLTQuMTEgdHJl
+ZToKCmh0dHBzOi8vY2dpdC5mcmVlZGVza3RvcC5vcmcvfmFnZDVmL2xpbnV4L3RyZWUvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fc2VydmljZXMuYz9oPWFt
+ZC1zdGFnaW5nLTQuMTEKCkhhcnJ5Cgo+IC17Cj4gLQlzdHJ1Y3QgcHBfaHdtZ3IgICpod21ncjsK
+PiAtCXN0cnVjdCBwcF9pbnN0YW5jZSAqcHBfaGFuZGxlID0gKHN0cnVjdCBwcF9pbnN0YW5jZSAq
+KWhhbmRsZTsKPiAtCWludCByZXQgPSAwOwo+IC0KPiAtCXJldCA9IHBwX2NoZWNrKHBwX2hhbmRs
+ZSk7Cj4gLQo+IC0JaWYgKHJldCAhPSAwKQo+IC0JCXJldHVybiByZXQ7Cj4gLQo+IC0JaHdtZ3Ig
+PSBwcF9oYW5kbGUtPmh3bWdyOwo+IC0JbXV0ZXhfbG9jaygmcHBfaGFuZGxlLT5wcF9sb2NrKTsK
+PiAtCXBobV9zdG9yZV9kYWxfY29uZmlndXJhdGlvbl9kYXRhKGh3bWdyLCBkaXNwbGF5X2NvbmZp
+Zyk7Cj4gLQltdXRleF91bmxvY2soJnBwX2hhbmRsZS0+cHBfbG9jayk7Cj4gLQlyZXR1cm4gMDsK
+PiAtfQo+IC0KPiAgaW50IGFtZF9wb3dlcnBsYXlfZ2V0X2Rpc3BsYXlfcG93ZXJfbGV2ZWwodm9p
+ZCAqaGFuZGxlLAo+ICAJCXN0cnVjdCBhbWRfcHBfc2ltcGxlX2Nsb2NrX2luZm8gKm91dHB1dCkK
+PiAgewo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvYW1k
+X3Bvd2VycGxheS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2FtZF9wb3dl
+cnBsYXkuaAo+IGluZGV4IDA3ZTljMGI1OTE1ZC4uYWU0OWFmNWNjNWQxIDEwMDY0NAo+IC0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9hbWRfcG93ZXJwbGF5LmgKPiArKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvYW1kX3Bvd2VycGxheS5oCj4gQEAg
+LTQwNyw5ICs0MDcsNiBAQCBpbnQgYW1kX3Bvd2VycGxheV9kZXN0cm95KHZvaWQgKmhhbmRsZSk7
+Cj4gIAo+ICBpbnQgYW1kX3Bvd2VycGxheV9yZXNldCh2b2lkICpoYW5kbGUpOwo+ICAKPiAtaW50
+IGFtZF9wb3dlcnBsYXlfZGlzcGxheV9jb25maWd1cmF0aW9uX2NoYW5nZSh2b2lkICpoYW5kbGUs
+Cj4gLQkJY29uc3Qgc3RydWN0IGFtZF9wcF9kaXNwbGF5X2NvbmZpZ3VyYXRpb24gKmlucHV0KTsK
+PiAtCj4gIGludCBhbWRfcG93ZXJwbGF5X2dldF9kaXNwbGF5X3Bvd2VyX2xldmVsKHZvaWQgKmhh
+bmRsZSwKPiAgCQlzdHJ1Y3QgYW1kX3BwX3NpbXBsZV9jbG9ja19pbmZvICpvdXRwdXQpOwo+ICAK
+PiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
