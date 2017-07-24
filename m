@@ -1,72 +1,43 @@
-From: Ricardo Ribalda Delgado <ricardo.ribalda@gmail.com>
-Subject: [PATCH 14/14] amdgpu: powerplay: Remove unused structure
-Date: Mon, 24 Jul 2017 15:35:40 +0200
-Message-ID: <20170724133540.32200-15-ricardo.ribalda@gmail.com>
+From: Ricardo Ribalda Delgado <ricardo.ribalda-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 11/14] amdgpu: ci_dpm: Assume pm_display_cfg is zero
+Date: Mon, 24 Jul 2017 15:35:37 +0200
+Message-ID: <20170724133540.32200-12-ricardo.ribalda@gmail.com>
 References: <20170724133540.32200-1-ricardo.ribalda@gmail.com>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20170724133540.32200-1-ricardo.ribalda@gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Rex Zhu <Rex.Zhu@amd.com>, Tom St Denis <tom.stdenis@amd.com>, Eric Huang <JinHuiEric.Huang@amd.com>, Huang Rui <ray.huang@amd.com>, Dan Carpenter <dan.carpenter@oracle.com>, Edward O'Callaghan <funfunctor@folklore1984.net>, Kees Cook <keescook@chromium.org>, "Andrew F. Davis" <afd@ti.com>, Hawking Zhang <Hawking.Zhang@amd.com>, Baoyou Xie <baoyou.xie@linaro.org>, Masahiro Yamada <yamada.masahiro@socionext.com>, Colin Ian King <colin.king@canonical.com>, =?UTF-8?q?Nils=20Wallm=C3=A9nius?= <nils.wallmenius@gmail.com>, Joe Perches <joe@perches.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kern
-Cc: Ricardo Ribalda Delgado <ricardo.ribalda@gmail.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20170724133540.32200-1-ricardo.ribalda-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>, Eric Huang <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>, Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>, Kees Cook <keescook-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>, "Andrew F. Davis" <afd-l0cyMroinI0@public.gmane.org>, Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, Baoyou Xie <baoyou.xie-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org>, Masahiro Yamada <yamada.masahiro-uWyLwvC0a2jby3iVrkZq2A@public.gmane.org>, Colin Ian King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>, =?UTF-8?q?Nils=20Wallm=C3=A9nius?= <nils.wallmenius-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Joe Perches <joe-6d6DIl74uiNBDgjK7y7TUQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Cc: Ricardo Ribalda Delgado <ricardo.ribalda-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 
-Remove unused structure definition amd_pp_display_configuration.
-
-Signed-off-by: Ricardo Ribalda Delgado <ricardo.ribalda@gmail.com>
----
- drivers/gpu/drm/amd/powerplay/inc/amd_powerplay.h | 40 -----------------------
- 1 file changed, 40 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/amd_powerplay.h b/drivers/gpu/drm/amd/powerplay/inc/amd_powerplay.h
-index ae49af5cc5d1..6b6f2f7c8527 100644
---- a/drivers/gpu/drm/amd/powerplay/inc/amd_powerplay.h
-+++ b/drivers/gpu/drm/amd/powerplay/inc/amd_powerplay.h
-@@ -191,46 +191,6 @@ struct single_display_configuration
- 
- #define MAX_NUM_DISPLAY 32
- 
--struct amd_pp_display_configuration {
--	bool nb_pstate_switch_disable;/* controls NB PState switch */
--	bool cpu_cc6_disable; /* controls CPU CState switch ( on or off) */
--	bool cpu_pstate_disable;
--	uint32_t cpu_pstate_separation_time;
--
--	uint32_t num_display;  /* total number of display*/
--	uint32_t num_path_including_non_display;
--	uint32_t crossfire_display_index;
--	uint32_t min_mem_set_clock;
--	uint32_t min_core_set_clock;
--	/* unit 10KHz x bit*/
--	uint32_t min_bus_bandwidth;
--	/* minimum required stutter sclk, in 10khz uint32_t ulMinCoreSetClk;*/
--	uint32_t min_core_set_clock_in_sr;
--
--	struct single_display_configuration displays[MAX_NUM_DISPLAY];
--
--	uint32_t vrefresh; /* for active display*/
--
--	uint32_t min_vblank_time; /* for active display*/
--	bool multi_monitor_in_sync;
--	/* Controller Index of primary display - used in MCLK SMC switching hang
--	 * SW Workaround*/
--	uint32_t crtc_index;
--	/* htotal*1000/pixelclk - used in MCLK SMC switching hang SW Workaround*/
--	uint32_t line_time_in_us;
--	bool invalid_vblank_time;
--
--	uint32_t display_clk;
--	/*
--	 * for given display configuration if multimonitormnsync == false then
--	 * Memory clock DPMS with this latency or below is allowed, DPMS with
--	 * higher latency not allowed.
--	 */
--	uint32_t dce_tolerable_mclk_in_active_latency;
--	uint32_t min_dcef_set_clk;
--	uint32_t min_dcef_deep_sleep_set_clk;
--};
--
- struct amd_pp_simple_clock_info {
- 	uint32_t	engine_max_clock;
- 	uint32_t	memory_max_clock;
--- 
-2.13.2
+cG1fZGlzcGxheV9jZmcgaXMgbmV2ZXIgc2V0LCBzbyB3ZSBjYW4gYXNzdW1lIHRoYXQgaXQgaXMg
+emVybwoKU2lnbmVkLW9mZi1ieTogUmljYXJkbyBSaWJhbGRhIERlbGdhZG8gPHJpY2FyZG8ucmli
+YWxkYUBnbWFpbC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvY2lfZHBtLmMg
+fCA2IC0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDYgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvY2lfZHBtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9jaV9kcG0uYwppbmRleCBjYjUwOGEyMTFiMmYuLjgzMTliY2EzZGM1MiAxMDA2NDQK
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvY2lfZHBtLmMKKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvY2lfZHBtLmMKQEAgLTk3MiwxMiArOTcyLDYgQEAgc3RhdGljIHZv
+aWQgY2lfYXBwbHlfc3RhdGVfYWRqdXN0X3J1bGVzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
+LAogCQlzY2xrID0gcHMtPnBlcmZvcm1hbmNlX2xldmVsc1swXS5zY2xrOwogCX0KIAotCWlmIChh
+ZGV2LT5wbS5wbV9kaXNwbGF5X2NmZy5taW5fY29yZV9zZXRfY2xvY2sgPiBzY2xrKQotCQlzY2xr
+ID0gYWRldi0+cG0ucG1fZGlzcGxheV9jZmcubWluX2NvcmVfc2V0X2Nsb2NrOwotCi0JaWYgKGFk
+ZXYtPnBtLnBtX2Rpc3BsYXlfY2ZnLm1pbl9tZW1fc2V0X2Nsb2NrID4gbWNsaykKLQkJbWNsayA9
+IGFkZXYtPnBtLnBtX2Rpc3BsYXlfY2ZnLm1pbl9tZW1fc2V0X2Nsb2NrOwotCiAJaWYgKHJwcy0+
+dmNlX2FjdGl2ZSkgewogCQlpZiAoc2NsayA8IGFkZXYtPnBtLmRwbS52Y2Vfc3RhdGVzW2FkZXYt
+PnBtLmRwbS52Y2VfbGV2ZWxdLnNjbGspCiAJCQlzY2xrID0gYWRldi0+cG0uZHBtLnZjZV9zdGF0
+ZXNbYWRldi0+cG0uZHBtLnZjZV9sZXZlbF0uc2NsazsKLS0gCjIuMTMuMgoKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
