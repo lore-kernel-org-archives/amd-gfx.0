@@ -1,38 +1,114 @@
-From: Ricardo Ribalda Delgado <ricardo.ribalda@gmail.com>
-Subject: [PATCH 13/14] amdgpu: amdgpu_dpm: Remove unused field
-Date: Mon, 24 Jul 2017 15:35:39 +0200
-Message-ID: <20170724133540.32200-14-ricardo.ribalda@gmail.com>
-References: <20170724133540.32200-1-ricardo.ribalda@gmail.com>
+From: Florian Echtler <floe@butterbrot.org>
+Subject: Re: iMac 10,1 with Ubuntu 16.04: black screen after suspend
+Date: Mon, 24 Jul 2017 15:45:58 +0200
+Message-ID: <29cdd744-8fac-557b-bc5f-087e84adcae7@butterbrot.org>
+References: <1e60811b-a8ac-017c-d350-8a40e4323870@butterbrot.org>
+ <20170530105404.GA29865@wunner.de>
+ <64a4829c-3141-6ff6-9369-6ca9ed0facf4@butterbrot.org>
+ <20170531092145.ytc2d6shpukxziie@wunner.de>
+ <CADnq5_MGWOX47tcvkfjHRxRv_eTbo_kvpVKyTpo8WGNw+xBvPA@mail.gmail.com>
+ <65c88b03-45d7-d67b-2a2c-6c7047a73c80@butterbrot.org>
+ <CADnq5_Mvyz1KUw26Emt8_d_XNeQ=MUqx8WF=iCxa6jagCXNCQQ@mail.gmail.com>
+ <171a9895-b020-7630-b90c-d166f45e44e3@butterbrot.org>
+ <CADnq5_P_H8ZZXnXOoUcxNOFece3BRyzhZh2Z3mkw53eA20KiMQ@mail.gmail.com>
+ <c1ed89a5-e6a1-1903-05ee-a9dfcdb2ef61@butterbrot.org>
+ <20170717090235.GB3993@wunner.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20170724133540.32200-1-ricardo.ribalda@gmail.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Rex Zhu <Rex.Zhu@amd.com>, Tom St Denis <tom.stdenis@amd.com>, Eric Huang <JinHuiEric.Huang@amd.com>, Huang Rui <ray.huang@amd.com>, Dan Carpenter <dan.carpenter@oracle.com>, Edward O'Callaghan <funfunctor@folklore1984.net>, Kees Cook <keescook@chromium.org>, "Andrew F. Davis" <afd@ti.com>, Hawking Zhang <Hawking.Zhang@amd.com>, Baoyou Xie <baoyou.xie@linaro.org>, Masahiro Yamada <yamada.masahiro@socionext.com>, Colin Ian King <colin.king@canonical.com>, =?UTF-8?q?Nils=20Wallm=C3=A9nius?= <nils.wallmenius@gmail.com>, Joe Perches <joe@perches.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: multipart/signed; micalg=pgp-sha1;
+ protocol="application/pgp-signature";
+ boundary="uu9v51A6kphUv3cD9wAgIxpdJHe627Oj9"
+Return-path: <linux-acpi-owner@vger.kernel.org>
+In-Reply-To: <20170717090235.GB3993@wunner.de>
+Sender: linux-acpi-owner@vger.kernel.org
+To: Lukas Wunner <lukas@wunner.de>
+Cc: Alex Deucher <alexdeucher@gmail.com>, "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Mario Kleiner <mario.kleiner.de@gmail.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-UmVtb3ZlIHVudXNlZCBmaWVsZCBwbV9kaXNwbGF5X2NmZwoKU2lnbmVkLW9mZi1ieTogUmljYXJk
-byBSaWJhbGRhIERlbGdhZG8gPHJpY2FyZG8ucmliYWxkYUBnbWFpbC5jb20+Ci0tLQogZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RwbS5oIHwgMSAtCiAxIGZpbGUgY2hhbmdlZCwg
-MSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9kcG0uaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcG0uaAppbmRl
-eCA4Yzk2YTRjYWE3MTUuLjVjNzQwODE0ZGJhNCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2RwbS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9kcG0uaApAQCAtNDg4LDcgKzQ4OCw2IEBAIHN0cnVjdCBhbWRncHVfcG0gewogCWNv
-bnN0IHN0cnVjdCBhbWRncHVfZHBtX2Z1bmNzICpmdW5jczsKIAl1aW50MzJfdCAgICAgICAgICAg
-ICAgICBwY2llX2dlbl9tYXNrOwogCXVpbnQzMl90ICAgICAgICAgICAgICAgIHBjaWVfbWx3X21h
-c2s7Ci0Jc3RydWN0IGFtZF9wcF9kaXNwbGF5X2NvbmZpZ3VyYXRpb24gcG1fZGlzcGxheV9jZmc7
-Lyogc2V0IGJ5IERBTCAqLwogfTsKIAogI2RlZmluZSBSNjAwX1NTVFVfREZMVCAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAwCi0tIAoyLjEzLjIKCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVs
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--uu9v51A6kphUv3cD9wAgIxpdJHe627Oj9
+Content-Type: multipart/mixed; boundary="QAsjn1wbDbqUNKB3gDEA3gTsKWLP5xRMG";
+ protected-headers="v1"
+From: Florian Echtler <floe@butterbrot.org>
+To: Lukas Wunner <lukas@wunner.de>
+Cc: Alex Deucher <alexdeucher@gmail.com>,
+ "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Mario Kleiner <mario.kleiner.de@gmail.com>
+Message-ID: <29cdd744-8fac-557b-bc5f-087e84adcae7@butterbrot.org>
+Subject: Re: iMac 10,1 with Ubuntu 16.04: black screen after suspend
+References: <1e60811b-a8ac-017c-d350-8a40e4323870@butterbrot.org>
+ <20170530105404.GA29865@wunner.de>
+ <64a4829c-3141-6ff6-9369-6ca9ed0facf4@butterbrot.org>
+ <20170531092145.ytc2d6shpukxziie@wunner.de>
+ <CADnq5_MGWOX47tcvkfjHRxRv_eTbo_kvpVKyTpo8WGNw+xBvPA@mail.gmail.com>
+ <65c88b03-45d7-d67b-2a2c-6c7047a73c80@butterbrot.org>
+ <CADnq5_Mvyz1KUw26Emt8_d_XNeQ=MUqx8WF=iCxa6jagCXNCQQ@mail.gmail.com>
+ <171a9895-b020-7630-b90c-d166f45e44e3@butterbrot.org>
+ <CADnq5_P_H8ZZXnXOoUcxNOFece3BRyzhZh2Z3mkw53eA20KiMQ@mail.gmail.com>
+ <c1ed89a5-e6a1-1903-05ee-a9dfcdb2ef61@butterbrot.org>
+ <20170717090235.GB3993@wunner.de>
+In-Reply-To: <20170717090235.GB3993@wunner.de>
+
+--QAsjn1wbDbqUNKB3gDEA3gTsKWLP5xRMG
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-GB
+Content-Transfer-Encoding: quoted-printable
+
+Hello Lukas,
+
+On 17.07.2017 11:02, Lukas Wunner wrote:
+> On Fri, Jun 02, 2017 at 06:47:07PM +0200, Florian Echtler wrote:
+>=20
+> Sorry for the delay Florian.  Commit 564d8a2cf3ab by Mario Kleiner (+cc=
+)
+> landed in Linus' tree last week and is included in 4.13-rc1.  It is
+> supposed to fix black screen issues with the iMac10,1 that you're also
+> using, though in Mario's case they seem to occur upon boot, rather than=
+
+> on suspend, still might be worth a try:
+
+thanks for the hint. I've applied this patch to the v4.12 tree I'm curren=
+tly
+running, and it didn't seem to make any difference (i.e. display stays bl=
+ack
+after suspend).
+
+Without the patch, when I plug in an external display (via MiniDP-to-DVI)=
+, then
+the internal panel stays black when booting, only the external display wo=
+rks.
+
+Actually, the patch then makes things slightly worse in my case: with the=
+ patch
+applied, not even the external sink works anymore. When I log in remotely=
+ and
+run "DISPLAY=3D:0.0 xrandr", both DP connections are shown as active, but=
+ neither
+does actually show an image.
+
+I'd be grateful about a bit of background information here, I'd really li=
+ke to
+help fix this.
+
+Best, Florian
+--=20
+SENT FROM MY DEC VT50 TERMINAL
+
+
+--QAsjn1wbDbqUNKB3gDEA3gTsKWLP5xRMG--
+
+--uu9v51A6kphUv3cD9wAgIxpdJHe627Oj9
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iEYEARECAAYFAll1+hYACgkQ7CzyshGvatgSbQCghB/5TK7LAtPYFSe8lDJ1k3Vc
+kRwAn3b4iN5E1Is7Vaa3aZewhvwbmon6
+=gW/0
+-----END PGP SIGNATURE-----
+
+--uu9v51A6kphUv3cD9wAgIxpdJHe627Oj9--
