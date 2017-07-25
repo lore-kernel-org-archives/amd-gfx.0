@@ -1,13 +1,13 @@
 From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Subject: [PATCH 2/4] drm/amdgpu/gmc7: disable legacy vga features in gmc init
-Date: Mon, 24 Jul 2017 23:19:35 -0400
-Message-ID: <1500952777-5006-2-git-send-email-alexander.deucher@amd.com>
-References: <1500952777-5006-1-git-send-email-alexander.deucher@amd.com>
+Date: Mon, 24 Jul 2017 23:30:47 -0400
+Message-ID: <1500953449-19470-2-git-send-email-alexander.deucher@amd.com>
+References: <1500953449-19470-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1500952777-5006-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1500953449-19470-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
