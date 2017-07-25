@@ -1,111 +1,68 @@
-From: Lukas Wunner <lukas@wunner.de>
-Subject: Re: iMac 10,1 with Ubuntu 16.04: black screen after suspend
-Date: Tue, 25 Jul 2017 12:37:34 +0200
-Message-ID: <20170725103734.GA5998@wunner.de>
-References: <20170531092145.ytc2d6shpukxziie@wunner.de>
- <CADnq5_MGWOX47tcvkfjHRxRv_eTbo_kvpVKyTpo8WGNw+xBvPA@mail.gmail.com>
- <65c88b03-45d7-d67b-2a2c-6c7047a73c80@butterbrot.org>
- <CADnq5_Mvyz1KUw26Emt8_d_XNeQ=MUqx8WF=iCxa6jagCXNCQQ@mail.gmail.com>
- <171a9895-b020-7630-b90c-d166f45e44e3@butterbrot.org>
- <CADnq5_P_H8ZZXnXOoUcxNOFece3BRyzhZh2Z3mkw53eA20KiMQ@mail.gmail.com>
- <c1ed89a5-e6a1-1903-05ee-a9dfcdb2ef61@butterbrot.org>
- <20170717090235.GB3993@wunner.de>
- <29cdd744-8fac-557b-bc5f-087e84adcae7@butterbrot.org>
- <fdd1f9fa-f4a5-3b3b-0a0b-8bbff0ef2e5f@gmail.com>
+From: "Qu, Jim" <Jim.Qu-5C7GfCeVMHo@public.gmane.org>
+Subject: =?utf-8?B?562U5aSNOiBbUEFUQ0ggMS80XSBkcm0vYW1kZ3B1L2dtYzY6IGRpc2FibGUg?=
+ =?utf-8?Q?legacy_vga_features_in_gmc_init_(v2)?=
+Date: Tue, 25 Jul 2017 09:26:50 +0000
+Message-ID: <DM3PR12MB0873C12EF55F95694CB4BCCB99B80@DM3PR12MB0873.namprd12.prod.outlook.com>
+References: <1500953449-19470-1-git-send-email-alexander.deucher@amd.com>,
+ <3fe89777-6e9e-69f4-1052-dca5879f242e@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-acpi-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <fdd1f9fa-f4a5-3b3b-0a0b-8bbff0ef2e5f@gmail.com>
-Sender: linux-acpi-owner@vger.kernel.org
-To: Mario Kleiner <mario.kleiner.de@gmail.com>
-Cc: Florian Echtler <floe@butterbrot.org>, Alex Deucher <alexdeucher@gmail.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, linux-acpi@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <3fe89777-6e9e-69f4-1052-dca5879f242e-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Content-Language: zh-CN
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, Alex
+ Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
-On Tue, Jul 25, 2017 at 07:14:23AM +0200, Mario Kleiner wrote:
-> On 07/24/2017 03:45 PM, Florian Echtler wrote:
-> > thanks for the hint. I've applied this patch to the v4.12 tree I'm
-> > currently running, and it didn't seem to make any difference (i.e.
-> > display stays black after suspend).
-> 
-> That's the same here with my patch applied. After a suspend -> resume, the
-> internal panel stays black, the patch doesn't help for that. Somethig i
-> didn't notice btw., apparently i never suspend->resumed it.
-[...]
-> Lukas idea that some hardware mux gets switched into the wrong position on
-> models with TDM sounds pretty appealing to me, but how to test?
-
-If all else fails, with a multimeter / oscilloscope. :-)  The board
-schematics are available by googling for the right terms, such as
-the drawing number "051-7863" and internal codename "K23".
-
-Of interest is the eDP connector on the mainboard, page 90.  Notice
-there are two power rails going into it, 3.3V (pin 31) and 12V (pins
-27 - 30).  Florian obtained dmesg output of the machine coming out
-of suspend by ssh'ing into it and it showed that the eDP link could
-be trained properly upon system resume.  Still the panel stayed black.
-
-My guess is that the panel's DisplayPort transceiver is powered via the
-3.3V rail.  This rail is powered permanently when the system is in S0,
-it cannot be switched off at runtime.  So, the Radeon card can talk to
-the DisplayPort transceiver (which has power) but the 12V rail, which
-presumably powers the LED backlight, is off.  You could test this theory
-by attaching a multimeter after coming out of suspend:  You should see
-a voltage difference of 3.3V between pins 31 and 32 (ground) and 0V
-between pins 27 - 30 and 32.
-
-The logic for the 12V rail is somewhat complicated, first there's
-pin 21 ("VIDEO_ON"), this seems to come *from* the panel and presumably
-signals that the link is trained. This should go high after resume.
-If it does not then maybe a write to a custom DPCD register is necessary
-to make it go high.  If this pin stays low then the 12V rail is not
-powered.
-
-Next there's a 74LVC157A mux (page 95 top-left).  Datasheet:
-https://assets.nexperia.com/documents/data-sheet/74LVC157A.pdf
-The mux can switch four wires, but Apple only needed three.
-I guess all outputs (pins 7, 9, 12) must be high for the backlight
-to go on.  The mux is under the control of the SMC and is presumably
-switched by issuing appropriate commands to the SMC.  It's unclear
-to me if the SMC has switched it to the Radeon or to the TDM source
-after resume.
-
-Assuming that the mux is switched to the Radeon card, follow input
-pins 5, 10 and 14 (MXM_PNL_BL_PWM, MXM_PNL_BL_EN, MXM_PNL_PWR_EN).
-They are coming from a "system management" block on the Radeon card
-(pins 25, 27, 23, page 85).  Apparently these are GPIO pins for
-OEM use and I guess they can be controlled by writing to the PCI BAR
-of the Radeon card, but I've no idea at what address their registers
-might be located.  I'll try to look at the macOS Radeon drivers with
-a disassembler but this is like looking for a needle in a haystack.
-
-
-> However this is something i got when connecting the external Displayport
-> panel:
-> 
-> Jul  7 04:16:09 kleinerm-MaxtorLinux kernel: [ 1441.344792]
-> [drm:radeon_dp_link_train [radeon]] *ERROR* displayport link status failed
-> Jul  7 04:16:09 kleinerm-MaxtorLinux kernel: [ 1441.344819]
-> [drm:radeon_dp_link_train [radeon]] *ERROR* clock recovery failed
-> Jul  7 04:18:07 kleinerm-MaxtorLinux kernel: [ 1559.770783]
-> drm_dp_i2c_do_msg: 20 callbacks suppressed
-> Jul  7 04:30:19 kleinerm-MaxtorLinux kernel: [ 2291.143406]
-> [drm:radeon_dp_link_train [radeon]] *ERROR* displayport link status failed
-> Jul  7 04:30:19 kleinerm-MaxtorLinux kernel: [ 2291.143439]
-> [drm:radeon_dp_link_train [radeon]] *ERROR* clock recovery failed
-> Jul  7 04:30:19 kleinerm-MaxtorLinux kernel: [ 2291.356173]
-> [drm:radeon_dp_link_train [radeon]] *ERROR* displayport link status failed
-> Jul  7 04:30:19 kleinerm-MaxtorLinux kernel: [ 2291.356205]
-> [drm:radeon_dp_link_train [radeon]] *ERROR* clock recovery failed
-> 
-> So link training failed, because drm_dp_dpcd_read_link_status() already
-> failed to read from the dp aux channel.
-
-The AUX channel can be terminated in either of two modes under the control
-of the SMC:  100k source termination or weak sink termination (page 94/95).
-Failure to communicate over AUX may be explained by being in the incorrect
-mode.
-
-HTH,
-
-Lukas
+SGkgQ2hyaXN0aWFuOg0KDQpDb3VsZCB5b3Ugc2hhcmUgeW91ciBtaW5kcyB3aGVuIHlvdSBhcmUg
+b24gc2Vjb25kIGdsYW5jZT8NCg0KVGhhbmtzDQpKaW1RdQ0KDQpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fDQrlj5Hku7bkuro6IGFtZC1nZnggPGFtZC1nZngtYm91bmNl
+c0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IOS7o+ihqCBDaHJpc3RpYW4gS8O2bmlnIDxkZWF0aHNp
+bXBsZUB2b2RhZm9uZS5kZT4NCuWPkemAgeaXtumXtDogMjAxN+W5tDfmnIgyNeaXpSAxNzoxNw0K
+5pS25Lu25Lq6OiBBbGV4IERldWNoZXI7IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQrm
+ioTpgIE6IERldWNoZXIsIEFsZXhhbmRlcg0K5Li76aKYOiBSZTogW1BBVENIIDEvNF0gZHJtL2Ft
+ZGdwdS9nbWM2OiBkaXNhYmxlIGxlZ2FjeSB2Z2EgZmVhdHVyZXMgaW4gZ21jIGluaXQgKHYyKQ0K
+DQpBbSAyNS4wNy4yMDE3IHVtIDA1OjMwIHNjaHJpZWIgQWxleCBEZXVjaGVyOg0KPiBOZWVkcyB0
+byBiZSBkb25lIHdoZW4gdGhlIE1DIGlzIHNldCB1cC4NCj4NCj4gdjI6IG1ha2UgY29uc2lzdGVu
+dCB3aXRoIG90aGVyIGFzaWNzDQo+DQo+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxl
+eGFuZGVyLmRldWNoZXJAYW1kLmNvbT4NCg0KT24gZmlyc3QgZ2xhbmNlIGl0IGtpbmQgb2YgbG9v
+a3MgYSBiaXQgb2RkIHRvIGhhdmUgdGhhdCBpbiB0aGUgR01DIGNvZGUsDQpidXQgb24gc2Vjb25k
+IGdsYW5jZSBpdCBhY3R1YWxseSBtYWtlcyBzZW5zZS4NCg0KQ2hyaXN0aWFuLg0KDQo+IC0tLQ0K
+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192Nl8wLmMgfCAxNCArKysrKysrKysr
+KysrLQ0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxMyBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0p
+DQo+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjZfMC5j
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y2XzAuYw0KPiBpbmRleCAxMTdjNDgz
+NS4uYWIwYTEwNCAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21j
+X3Y2XzAuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjZfMC5jDQo+
+IEBAIC0yNDksNyArMjQ5LDE5IEBAIHN0YXRpYyB2b2lkIGdtY192Nl8wX21jX3Byb2dyYW0oc3Ry
+dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+ICAgICAgICAgICAgICAgZGV2X3dhcm4oYWRldi0+
+ZGV2LCAiV2FpdCBmb3IgTUMgaWRsZSB0aW1lZG91dCAhXG4iKTsNCj4gICAgICAgfQ0KPg0KPiAt
+ICAgICBXUkVHMzIobW1WR0FfSERQX0NPTlRST0wsIFZHQV9IRFBfQ09OVFJPTF9fVkdBX01FTU9S
+WV9ESVNBQkxFX01BU0spOw0KPiArICAgICBpZiAoYWRldi0+bW9kZV9pbmZvLm51bV9jcnRjKSB7
+DQo+ICsgICAgICAgICAgICAgdTMyIHRtcDsNCj4gKw0KPiArICAgICAgICAgICAgIC8qIExvY2tv
+dXQgYWNjZXNzIHRocm91Z2ggVkdBIGFwZXJ0dXJlKi8NCj4gKyAgICAgICAgICAgICB0bXAgPSBS
+UkVHMzIobW1WR0FfSERQX0NPTlRST0wpOw0KPiArICAgICAgICAgICAgIHRtcCB8PSBWR0FfSERQ
+X0NPTlRST0xfX1ZHQV9NRU1PUllfRElTQUJMRV9NQVNLOw0KPiArICAgICAgICAgICAgIFdSRUcz
+MihtbVZHQV9IRFBfQ09OVFJPTCwgdG1wKTsNCj4gKw0KPiArICAgICAgICAgICAgIC8qIGRpc2Fi
+bGUgVkdBIHJlbmRlciAqLw0KPiArICAgICAgICAgICAgIHRtcCA9IFJSRUczMihtbVZHQV9SRU5E
+RVJfQ09OVFJPTCk7DQo+ICsgICAgICAgICAgICAgdG1wICY9IH5WR0FfVlNUQVRVU19DTlRMOw0K
+PiArICAgICAgICAgICAgIFdSRUczMihtbVZHQV9SRU5ERVJfQ09OVFJPTCwgdG1wKTsNCj4gKyAg
+ICAgfQ0KPiAgICAgICAvKiBVcGRhdGUgY29uZmlndXJhdGlvbiAqLw0KPiAgICAgICBXUkVHMzIo
+bW1NQ19WTV9TWVNURU1fQVBFUlRVUkVfTE9XX0FERFIsDQo+ICAgICAgICAgICAgICBhZGV2LT5t
+Yy52cmFtX3N0YXJ0ID4+IDEyKTsNCg0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXw0KYW1kLWdmeCBtYWlsaW5nIGxpc3QNCmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnDQpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
+bmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
