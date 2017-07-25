@@ -1,14 +1,18 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: fix spelling mistake: "suuport"-> "support"
-Date: Tue, 25 Jul 2017 10:40:41 +0200
-Message-ID: <98e76c8e-fb6e-9ee4-8188-2e290d88e653@amd.com>
-References: <20170724224501.17037-1-colin.king@canonical.com>
+From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 4/4] drm/amdgpu/gmc9: disable legacy vga features in gmc
+ init
+Date: Tue, 25 Jul 2017 17:05:48 +0800
+Message-ID: <20170725090547.GA8260@hr-amur2>
+References: <1500953449-19470-1-git-send-email-alexander.deucher@amd.com>
+ <1500953449-19470-4-git-send-email-alexander.deucher@amd.com>
+ <BN6PR12MB16521CF9048567F549713682F7B80@BN6PR12MB1652.namprd12.prod.outlook.com>
+ <20170725050642.GA5930@hr-amur2>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170724224501.17037-1-colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <20170725050642.GA5930@hr-amur2>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,26 +23,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Colin King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Jerry.Zhang-5C7GfCeVMHo@public.gmane.org, Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>, Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>, Harish Kasiviswanathan <Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: Ken Wang <Qingqing.Wang-5C7GfCeVMHo@public.gmane.org>, Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Alvin Huan <Alvin.Huan-5C7GfCeVMHo@public.gmane.org>
 
-QW0gMjUuMDcuMjAxNyB1bSAwMDo0NSBzY2hyaWViIENvbGluIEtpbmc6Cj4gRnJvbTogQ29saW4g
-SWFuIEtpbmcgPGNvbGluLmtpbmdAY2Fub25pY2FsLmNvbT4KPgo+IFRyaXZpYWwgZml4IHRvIHNw
-ZWxsaW5nIG1pc3Rha2UgaW4gV0FSTl9PTkNFIG1lc3NhZ2UKPgo+IFNpZ25lZC1vZmYtYnk6IENv
-bGluIElhbiBLaW5nIDxjb2xpbi5raW5nQGNhbm9pY2FsLmNvbT4KClJldmlld2VkLWJ5OiBDaHJp
-c3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cgo+IC0tLQo+ICAgZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgfCAyICstCj4gICAxIGZpbGUgY2hhbmdl
-ZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV92bS5jCj4gaW5kZXggNTc5NWY4MTM2OWYwLi4wNmYxMWUyYTMyYWYgMTAwNjQ0
-Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPiArKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwo+IEBAIC0xMzAxLDcgKzEzMDEs
-NyBAQCBzdGF0aWMgaW50IGFtZGdwdV92bV91cGRhdGVfcHRlcyhzdHJ1Y3QgYW1kZ3B1X3B0ZV91
-cGRhdGVfcGFyYW1zICpwYXJhbXMsCj4gICAKPiAgIAkJaWYgKHBhcmFtcy0+c2hhZG93KSB7Cj4g
-ICAJCQlpZiAoV0FSTl9PTkNFKHVzZV9jcHVfdXBkYXRlLAo+IC0JCQkJIkNQVSBWTSB1cGRhdGUg
-ZG9lc24ndCBzdXVwb3J0IHNoYWRvdyBwYWdlcyIpKQo+ICsJCQkJIkNQVSBWTSB1cGRhdGUgZG9l
-c24ndCBzdXBwb3J0IHNoYWRvdyBwYWdlcyIpKQo+ICAgCQkJCXJldHVybiAwOwo+ICAgCj4gICAJ
-CQlpZiAoIXB0LT5zaGFkb3cpCgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
-Z2Z4Cg==
+T24gVHVlLCBKdWwgMjUsIDIwMTcgYXQgMDE6MDY6NDJQTSArMDgwMCwgSHVhbmcgUnVpIHdyb3Rl
+Ogo+IE9uIFR1ZSwgSnVsIDI1LCAyMDE3IGF0IDA0OjA2OjAwQU0gKzAwMDAsIERldWNoZXIsIEFs
+ZXhhbmRlciB3cm90ZToKPiA+ID4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPiA+ID4gRnJv
+bTogQWxleCBEZXVjaGVyIFttYWlsdG86YWxleGRldWNoZXJAZ21haWwuY29tXQo+ID4gPiBTZW50
+OiBNb25kYXksIEp1bHkgMjQsIDIwMTcgMTE6MzEgUE0KPiA+ID4gVG86IGFtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCj4gPiA+IENjOiBEZXVjaGVyLCBBbGV4YW5kZXIKPiA+ID4gU3ViamVj
+dDogW1BBVENIIDQvNF0gZHJtL2FtZGdwdS9nbWM5OiBkaXNhYmxlIGxlZ2FjeSB2Z2EgZmVhdHVy
+ZXMgaW4gZ21jCj4gPiA+IGluaXQKPiA+ID4gCj4gPiA+IE5lZWRzIHRvIGJlIGRvbmUgd2hlbiB0
+aGUgTUMgaXMgc2V0IHVwLgo+ID4gPiAKPiA+ID4gU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVy
+IDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+ID4gCj4gPiBDYW4gc29tZW9uZSBzZWUgaWYg
+dGhpcyBwYXRjaCBmaXhlcyB0aGUgcHJvYmxlbSB3aXRoIHRoZSBsb3dlciA4IE1CIG9mIHZyYW0g
+b24gdmVnYTEwPyAgSSB0aGluayB0aGlzIG1heSBleHBsYWluIHdoYXQgd2FzIG1lc3Npbmcgd2l0
+aCB2cmFtIG9uIHJlc3VtZSB0aGF0IGNhdXNlZCB1cyB0byByZXNlcnZlIHRoZSBmaXJzdCA4IE1C
+IG9mIHZyYW0uCj4gPiAKPiAKPiBMZXQgbWUgaGF2ZSBhIHRyeS4gVGhlIHN0YXJ0IG9mIHZyYW0g
+b3ZlcndyaXRlIGlzIHByb2JhYmx5IHN0aWxsIGNhdXNlZCBieQo+IFZHQSBtb2RlLiBTbywgaGVy
+ZSwgeW91IGRpc2FibGUgaXQgYXQgZmlyc3QuCj4gCgpUaGlzIHBhdGNoIGRvZXNuJ3QgZml4IHRo
+ZSBzdGFydCA4IE1CIG9mIHZyYW0gY29ycnVwdGlvbi4KQnV0IEkganVzdCBmb3VuZCB0aGUgOE0g
+Y29ycnVwdGlvbiBpc3N1ZSBvbmx5IGVuY291bnRlcmVkIHdoZW4gREMgaXMgZGlzYWJsZWQuCgpU
+aGFua3MsClJheQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
