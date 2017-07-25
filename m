@@ -1,177 +1,44 @@
-From: Florian Echtler <floe@butterbrot.org>
-Subject: Re: iMac 10,1 with Ubuntu 16.04: black screen after suspend
-Date: Tue, 25 Jul 2017 09:53:57 +0200
-Message-ID: <265edc8d-007e-b720-85b9-91733943c0ae@butterbrot.org>
-References: <1e60811b-a8ac-017c-d350-8a40e4323870@butterbrot.org>
- <20170530105404.GA29865@wunner.de>
- <64a4829c-3141-6ff6-9369-6ca9ed0facf4@butterbrot.org>
- <20170531092145.ytc2d6shpukxziie@wunner.de>
- <CADnq5_MGWOX47tcvkfjHRxRv_eTbo_kvpVKyTpo8WGNw+xBvPA@mail.gmail.com>
- <65c88b03-45d7-d67b-2a2c-6c7047a73c80@butterbrot.org>
- <CADnq5_Mvyz1KUw26Emt8_d_XNeQ=MUqx8WF=iCxa6jagCXNCQQ@mail.gmail.com>
- <171a9895-b020-7630-b90c-d166f45e44e3@butterbrot.org>
- <CADnq5_P_H8ZZXnXOoUcxNOFece3BRyzhZh2Z3mkw53eA20KiMQ@mail.gmail.com>
- <c1ed89a5-e6a1-1903-05ee-a9dfcdb2ef61@butterbrot.org>
- <20170717090235.GB3993@wunner.de>
- <29cdd744-8fac-557b-bc5f-087e84adcae7@butterbrot.org>
- <fdd1f9fa-f4a5-3b3b-0a0b-8bbff0ef2e5f@gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: fix spelling mistake: "suuport"-> "support"
+Date: Tue, 25 Jul 2017 10:40:41 +0200
+Message-ID: <98e76c8e-fb6e-9ee4-8188-2e290d88e653@amd.com>
+References: <20170724224501.17037-1-colin.king@canonical.com>
 Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
- protocol="application/pgp-signature";
- boundary="LM3qtKo7At0IXfc08GnearsUSWE4R2D1l"
-Return-path: <linux-acpi-owner@vger.kernel.org>
-In-Reply-To: <fdd1f9fa-f4a5-3b3b-0a0b-8bbff0ef2e5f@gmail.com>
-Sender: linux-acpi-owner@vger.kernel.org
-To: Mario Kleiner <mario.kleiner.de@gmail.com>, Lukas Wunner <lukas@wunner.de>
-Cc: Alex Deucher <alexdeucher@gmail.com>, "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20170724224501.17037-1-colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Colin King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Jerry.Zhang-5C7GfCeVMHo@public.gmane.org, Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>, Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>, Harish Kasiviswanathan <Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---LM3qtKo7At0IXfc08GnearsUSWE4R2D1l
-Content-Type: multipart/mixed; boundary="coATDHNo8qPfcwhMJk69CBVuVlOsVgUGT";
- protected-headers="v1"
-From: Florian Echtler <floe@butterbrot.org>
-To: Mario Kleiner <mario.kleiner.de@gmail.com>, Lukas Wunner <lukas@wunner.de>
-Cc: Alex Deucher <alexdeucher@gmail.com>,
- "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>
-Message-ID: <265edc8d-007e-b720-85b9-91733943c0ae@butterbrot.org>
-Subject: Re: iMac 10,1 with Ubuntu 16.04: black screen after suspend
-References: <1e60811b-a8ac-017c-d350-8a40e4323870@butterbrot.org>
- <20170530105404.GA29865@wunner.de>
- <64a4829c-3141-6ff6-9369-6ca9ed0facf4@butterbrot.org>
- <20170531092145.ytc2d6shpukxziie@wunner.de>
- <CADnq5_MGWOX47tcvkfjHRxRv_eTbo_kvpVKyTpo8WGNw+xBvPA@mail.gmail.com>
- <65c88b03-45d7-d67b-2a2c-6c7047a73c80@butterbrot.org>
- <CADnq5_Mvyz1KUw26Emt8_d_XNeQ=MUqx8WF=iCxa6jagCXNCQQ@mail.gmail.com>
- <171a9895-b020-7630-b90c-d166f45e44e3@butterbrot.org>
- <CADnq5_P_H8ZZXnXOoUcxNOFece3BRyzhZh2Z3mkw53eA20KiMQ@mail.gmail.com>
- <c1ed89a5-e6a1-1903-05ee-a9dfcdb2ef61@butterbrot.org>
- <20170717090235.GB3993@wunner.de>
- <29cdd744-8fac-557b-bc5f-087e84adcae7@butterbrot.org>
- <fdd1f9fa-f4a5-3b3b-0a0b-8bbff0ef2e5f@gmail.com>
-In-Reply-To: <fdd1f9fa-f4a5-3b3b-0a0b-8bbff0ef2e5f@gmail.com>
-
---coATDHNo8qPfcwhMJk69CBVuVlOsVgUGT
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
-Content-Transfer-Encoding: quoted-printable
-
-On 25.07.2017 07:14, Mario Kleiner wrote:
-> On 07/24/2017 03:45 PM, Florian Echtler wrote:
->=20
-> That's the same here with my patch applied. After a suspend -> resume, =
-the
-> internal panel stays black, the patch doesn't help for that. Somethig i=
- didn't
-> notice btw., apparently i never suspend->resumed it.
-
-OK - I'm guessing if the panel/connector mess gets properly sorted out in=
-
-general, then it will probably also start working after suspend/resume...=
-
-
-> The internal panel always works during boot, until the radeon kms drive=
-r loads
-> and modesetting gets initialized, then the panel goes dark.
-
-Weirdly enough, this is now the behaviour I'm getting, too, no matter if =
-I use
-the patched driver or the original one. So there's definitely some bit of=
-
-persistent state somewhere that got flipped during experimentation, proba=
-bly
-inside that stupid SMC.
-
-> Without my patch the internal panel stays dark, but plugging in an exte=
-rnal
-> hdmi/dvi display gets both internal+external to light up.
->=20
-> Another way i was able to force the internal panel to stay on without m=
-y patch
-> and without an external display connected is to use the kernel cmdline =
-option
-> "video=3DDP-1:2560x1440D" to force the external output on, although not=
-hing is
-> connected.
-
-None of the video options, either with "DP" or "eDP", made a difference i=
-n my
-case. The one scenario where I suddenly got the internal panel to turn on=
- was
-when I plugged in a DP _source_ (my laptop). Also caused the same DP link=
- train
-error messages to appear in dmesg.
-
-> So the same machine model behaves differently with the same patch, and =
-worse in
-> your case than without it? Maybe different hardware or firmware?
->=20
-> Apples website lists two models of late 2009 iMac10,1 and Radeon HD 467=
-0, to
-> which the patch should apply. One 21.5 inch model without TDM and a 27 =
-inch
-> model with TDM. Mine is the 27 inch one. I assume yours as well due to =
-TDM?
-> Attached is the output of dmidecode on mine, not sure what to look for =
-for
-> differences?
-
-Yes, also 27 inch. I've compared the dmidecode output, only notable diffe=
-rences
-are data from RAM modules, so it's the same machine and same FW versions.=
-
-
-> Also attached a dmesg snippet for comparison wrt. SMBIOS version etc.
-
-Nearly everything identical, except my dmesg doesn't show the following l=
-ines:
-
--[    0.000000] efi: EFI v1.10 by Apple
--[    0.000000] efi:  ACPI=3D0xbfeee000  ACPI 2.0=3D0xbfeee014  SMBIOS=3D=
-0xbfec4000
-
-I'm booting Linux via rEFIt, so I would have assumed that it's a "regular=
-" EFI
-boot, but apparently not. What's your boot configuration?
-
-> Lukas idea that some hardware mux gets switched into the wrong position=
- on
-> models with TDM sounds pretty appealing to me, but how to test?
-
-I'm using TDM regularly; interestingly enough, this works completely reli=
-ably,
-even if the panel was dark before. My code is at
-https://github.com/floe/smc_util if you want to give it a try, but appare=
-ntly
-there's more to it than just the two keys (MVMR/MVHR) which I'm currently=
- using.
-
-Maybe you can run smc_dump_linux.sh on your machine (should be safe, only=
- reads
-keys) and see if there's some difference between keys depending on what s=
-tate
-the panel is in?
-
-Best, Florian
---=20
-SENT FROM MY DEC VT50 TERMINAL
-
-
---coATDHNo8qPfcwhMJk69CBVuVlOsVgUGT--
-
---LM3qtKo7At0IXfc08GnearsUSWE4R2D1l
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iEYEARECAAYFAll2+RYACgkQ7CzyshGvatiy4QCeKeuFud/wleJyteOkjK45XnIM
-eiUAn1a3ZboYMSzEkp86L91i4Q00gDaB
-=NGk+
------END PGP SIGNATURE-----
-
---LM3qtKo7At0IXfc08GnearsUSWE4R2D1l--
+QW0gMjUuMDcuMjAxNyB1bSAwMDo0NSBzY2hyaWViIENvbGluIEtpbmc6Cj4gRnJvbTogQ29saW4g
+SWFuIEtpbmcgPGNvbGluLmtpbmdAY2Fub25pY2FsLmNvbT4KPgo+IFRyaXZpYWwgZml4IHRvIHNw
+ZWxsaW5nIG1pc3Rha2UgaW4gV0FSTl9PTkNFIG1lc3NhZ2UKPgo+IFNpZ25lZC1vZmYtYnk6IENv
+bGluIElhbiBLaW5nIDxjb2xpbi5raW5nQGNhbm9pY2FsLmNvbT4KClJldmlld2VkLWJ5OiBDaHJp
+c3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cgo+IC0tLQo+ICAgZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgfCAyICstCj4gICAxIGZpbGUgY2hhbmdl
+ZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV92bS5jCj4gaW5kZXggNTc5NWY4MTM2OWYwLi4wNmYxMWUyYTMyYWYgMTAwNjQ0
+Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPiArKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwo+IEBAIC0xMzAxLDcgKzEzMDEs
+NyBAQCBzdGF0aWMgaW50IGFtZGdwdV92bV91cGRhdGVfcHRlcyhzdHJ1Y3QgYW1kZ3B1X3B0ZV91
+cGRhdGVfcGFyYW1zICpwYXJhbXMsCj4gICAKPiAgIAkJaWYgKHBhcmFtcy0+c2hhZG93KSB7Cj4g
+ICAJCQlpZiAoV0FSTl9PTkNFKHVzZV9jcHVfdXBkYXRlLAo+IC0JCQkJIkNQVSBWTSB1cGRhdGUg
+ZG9lc24ndCBzdXVwb3J0IHNoYWRvdyBwYWdlcyIpKQo+ICsJCQkJIkNQVSBWTSB1cGRhdGUgZG9l
+c24ndCBzdXBwb3J0IHNoYWRvdyBwYWdlcyIpKQo+ICAgCQkJCXJldHVybiAwOwo+ICAgCj4gICAJ
+CQlpZiAoIXB0LT5zaGFkb3cpCgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
+Z2Z4Cg==
