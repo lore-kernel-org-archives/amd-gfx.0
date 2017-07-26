@@ -1,11 +1,14 @@
-From: =?UTF-8?q?Nicolai=20H=C3=A4hnle?= <nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH umr] wave_status: enable on Raven
-Date: Wed, 26 Jul 2017 12:23:47 +0200
-Message-ID: <20170726102347.30044-1-nhaehnle@gmail.com>
+From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH umr] wave_status: enable on Raven
+Date: Wed, 26 Jul 2017 06:32:44 -0400
+Message-ID: <abf51363-7ca9-98b2-8e9c-73b56b305f27@amd.com>
+References: <20170726102347.30044-1-nhaehnle@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20170726102347.30044-1-nhaehnle-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,21 +20,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: =?UTF-8?q?Nicolai=20H=C3=A4hnle?= <nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>
 
-RnJvbTogTmljb2xhaSBIw6RobmxlIDxuaWNvbGFpLmhhZWhubGVAYW1kLmNvbT4KCkkndmUgYmVl
-biB1c2luZyB0aGlzIGZvciBhIHdoaWxlIG5vdy4KClNpZ25lZC1vZmYtYnk6IE5pY29sYWkgSMOk
-aG5sZSA8bmljb2xhaS5oYWVobmxlQGFtZC5jb20+Ci0tLQogc3JjL2xpYi93YXZlX3N0YXR1cy5j
-IHwgMiArLQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpk
-aWZmIC0tZ2l0IGEvc3JjL2xpYi93YXZlX3N0YXR1cy5jIGIvc3JjL2xpYi93YXZlX3N0YXR1cy5j
-CmluZGV4IDZiODA5OGUuLmZlMmFkZDcgMTAwNjQ0Ci0tLSBhL3NyYy9saWIvd2F2ZV9zdGF0dXMu
-YworKysgYi9zcmMvbGliL3dhdmVfc3RhdHVzLmMKQEAgLTMxMCw3ICszMTAsNyBAQCBpbnQgdW1y
-X2dldF93YXZlX3N0YXR1cyhzdHJ1Y3QgdW1yX2FzaWMgKmFzaWMsIHVuc2lnbmVkIHNlLCB1bnNp
-Z25lZCBzaCwgdW5zaWduZQogCiBpbnQgdW1yX2dldF93YXZlX3NxX2luZm8oc3RydWN0IHVtcl9h
-c2ljICphc2ljLCB1bnNpZ25lZCBzZSwgdW5zaWduZWQgc2gsIHVuc2lnbmVkIGN1LCBzdHJ1Y3Qg
-dW1yX3dhdmVfc3RhdHVzICp3cykKIHsKLQlpZiAoYXNpYy0+ZmFtaWx5IDw9IEZBTUlMWV9BSSkK
-KwlpZiAoYXNpYy0+ZmFtaWx5IDw9IEZBTUlMWV9SVikKIAkJcmV0dXJuIHVtcl9nZXRfd2F2ZV9z
-cV9pbmZvX3ZpKGFzaWMsIHNlLCBzaCwgY3UsIHdzKTsKIAlyZXR1cm4gLTE7CiB9Ci0tIAoyLjku
-MwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+UkInZWQgYW5kIHB1c2hlZC4KCk9uIDI2LzA3LzE3IDA2OjIzIEFNLCBOaWNvbGFpIEjDpGhubGUg
+d3JvdGU6Cj4gRnJvbTogTmljb2xhaSBIw6RobmxlIDxuaWNvbGFpLmhhZWhubGVAYW1kLmNvbT4K
+PiAKPiBJJ3ZlIGJlZW4gdXNpbmcgdGhpcyBmb3IgYSB3aGlsZSBub3cuCj4gCj4gU2lnbmVkLW9m
+Zi1ieTogTmljb2xhaSBIw6RobmxlIDxuaWNvbGFpLmhhZWhubGVAYW1kLmNvbT4KPiAtLS0KPiAg
+IHNyYy9saWIvd2F2ZV9zdGF0dXMuYyB8IDIgKy0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2Vy
+dGlvbigrKSwgMSBkZWxldGlvbigtKQo+IAo+IGRpZmYgLS1naXQgYS9zcmMvbGliL3dhdmVfc3Rh
+dHVzLmMgYi9zcmMvbGliL3dhdmVfc3RhdHVzLmMKPiBpbmRleCA2YjgwOThlLi5mZTJhZGQ3IDEw
+MDY0NAo+IC0tLSBhL3NyYy9saWIvd2F2ZV9zdGF0dXMuYwo+ICsrKyBiL3NyYy9saWIvd2F2ZV9z
+dGF0dXMuYwo+IEBAIC0zMTAsNyArMzEwLDcgQEAgaW50IHVtcl9nZXRfd2F2ZV9zdGF0dXMoc3Ry
+dWN0IHVtcl9hc2ljICphc2ljLCB1bnNpZ25lZCBzZSwgdW5zaWduZWQgc2gsIHVuc2lnbmUKPiAg
+IAo+ICAgaW50IHVtcl9nZXRfd2F2ZV9zcV9pbmZvKHN0cnVjdCB1bXJfYXNpYyAqYXNpYywgdW5z
+aWduZWQgc2UsIHVuc2lnbmVkIHNoLCB1bnNpZ25lZCBjdSwgc3RydWN0IHVtcl93YXZlX3N0YXR1
+cyAqd3MpCj4gICB7Cj4gLQlpZiAoYXNpYy0+ZmFtaWx5IDw9IEZBTUlMWV9BSSkKPiArCWlmIChh
+c2ljLT5mYW1pbHkgPD0gRkFNSUxZX1JWKQo+ICAgCQlyZXR1cm4gdW1yX2dldF93YXZlX3NxX2lu
+Zm9fdmkoYXNpYywgc2UsIHNoLCBjdSwgd3MpOwo+ICAgCXJldHVybiAtMTsKPiAgIH0KPiAKCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
+bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
