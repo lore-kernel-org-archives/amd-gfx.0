@@ -1,58 +1,71 @@
-From: axie <axie-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Fix blocking in RCU critical section(v2)
-Date: Wed, 26 Jul 2017 10:37:41 -0400
-Message-ID: <4a3276ec-b794-2c89-74d6-632a9f0aee7e@amd.com>
-References: <1500518816-12399-1-git-send-email-AlexBin.Xie@amd.com>
- <CACvgo53BAk8t-VxxgftA1Un2MUxSW=61=SgNfQEPBm+c9wejtQ@mail.gmail.com>
+From: Harry Wentland <harry.wentland@amd.com>
+Subject: Re: [PATCH 01/14] amdgpu: powerplay: Remove unused function
+Date: Wed, 26 Jul 2017 10:44:16 -0400
+Message-ID: <34bf4656-4a87-bedc-7e8f-74a688c78cd6@amd.com>
+References: <20170724133540.32200-1-ricardo.ribalda@gmail.com>
+ <20170724133540.32200-2-ricardo.ribalda@gmail.com>
+ <40ac5a58-9e02-0240-ae87-0b1c9375873b@amd.com>
+ <CAPybu_2eqTsFzrP=o8u-m-sCi-VDx6Bep2AqT7KGH4p6LstHcA@mail.gmail.com>
+ <a059f078-b364-e0b7-6532-99fa4d36514e@amd.com>
+ <CAPybu_3EBnHk3x1nRXTvZT1tuk5CmJidiA9BupaTbgjP6pADOg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CACvgo53BAk8t-VxxgftA1Un2MUxSW=61=SgNfQEPBm+c9wejtQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <CAPybu_3EBnHk3x1nRXTvZT1tuk5CmJidiA9BupaTbgjP6pADOg@mail.gmail.com>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Emil Velikov <emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Ricardo Ribalda Delgado <ricardo.ribalda@gmail.com>
+Cc: Tom St Denis <tom.stdenis@amd.com>, Joe Perches <joe@perches.com>, Kees Cook <keescook@chromium.org>, Masahiro Yamada <yamada.masahiro@socionext.com>, David Airlie <airlied@linux.ie>, Edward O'Callaghan <funfunctor@folklore1984.net>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, "Andrew F. Davis" <afd@ti.com>, Eric Huang <JinHuiEric.Huang@amd.com>, Huang Rui <ray.huang@amd.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, =?UTF-8?Q?Nils_Wallm=c3=a9nius?= <nils.wallmenius@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, Colin Ian King <colin.king@canonical.com>, Baoyou Xie <baoyou.xie@linaro.org>, Rex Zhu <Rex.Zhu@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Dan Carpenter <dan.carpenter@ora>
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgRW1pbCwKClNvcnJ5IGZvciBsYXRlIHJlcGx5LiBJIHdhcyBzbyBidXN5IGxhc3Qgd2VlayBh
-bmQgdGhpcyB3ZWVrLgoKWW91ciBsb2dpYyBsb29rcyBjb3JyZWN0LCBzbWFydGVyIGFuZCBzaG9y
-dGVyLiBJIGZlZWwgcmVsYXRpdmVseSBtb3JlIApkaWZmaWN1bHQgdG8gdW5kZXJzdGFuZCB0aGUg
-bG9naWMsIHdpdGggdHdvICIhIiBhbmQgb25lICJ8fCIgaW4gdGhlIHNhbWUgCmlmIHN0YXRlbWVu
-dC4KClRoYW5rcyBmb3IgdGhlIGFkdmljZSBhbHdheXMuCgpPbiAyMDE3LTA3LTIwIDAyOjI5IFBN
-LCBFbWlsIFZlbGlrb3Ygd3JvdGU6Cj4gSGkgQWxleCwKPgo+IE9uIDIwIEp1bHkgMjAxNyBhdCAw
-Mzo0NiwgQWxleCBYaWUgPEFsZXhCaW4uWGllQGFtZC5jb20+IHdyb3RlOgo+PiAtLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYm9fbGlzdC5jCj4+ICsrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9ib19saXN0LmMKPj4gQEAgLTE5OCwxMiArMTk4LDE4
-IEBAIGFtZGdwdV9ib19saXN0X2dldChzdHJ1Y3QgYW1kZ3B1X2Zwcml2ICpmcHJpdiwgaW50IGlk
-KQo+PiAgICAgICAgICByZXN1bHQgPSBpZHJfZmluZCgmZnByaXYtPmJvX2xpc3RfaGFuZGxlcywg
-aWQpOwo+Pgo+PiAgICAgICAgICBpZiAocmVzdWx0KSB7Cj4+IC0gICAgICAgICAgICAgICBpZiAo
-a3JlZl9nZXRfdW5sZXNzX3plcm8oJnJlc3VsdC0+cmVmY291bnQpKQo+PiArICAgICAgICAgICAg
-ICAgaWYgKGtyZWZfZ2V0X3VubGVzc196ZXJvKCZyZXN1bHQtPnJlZmNvdW50KSkgewo+PiArICAg
-ICAgICAgICAgICAgICAgICAgICByY3VfcmVhZF91bmxvY2soKTsKPj4gICAgICAgICAgICAgICAg
-ICAgICAgICAgIG11dGV4X2xvY2soJnJlc3VsdC0+bG9jayk7Cj4+IC0gICAgICAgICAgICAgICBl
-bHNlCj4+ICsgICAgICAgICAgICAgICB9Cj4+ICsgICAgICAgICAgICAgICBlbHNlIHsKPj4gKyAg
-ICAgICAgICAgICAgICAgICAgICAgcmN1X3JlYWRfdW5sb2NrKCk7Cj4+ICAgICAgICAgICAgICAg
-ICAgICAgICAgICByZXN1bHQgPSBOVUxMOwo+PiArICAgICAgICAgICAgICAgfQo+PiArICAgICAg
-IH0KPj4gKyAgICAgICBlbHNlIHsKPj4gKyAgICAgICAgICAgICAgIHJjdV9yZWFkX3VubG9jaygp
-Owo+PiAgICAgICAgICB9Cj4+IC0gICAgICAgcmN1X3JlYWRfdW5sb2NrKCk7Cj4+Cj4+ICAgICAg
-ICAgIHJldHVybiByZXN1bHQ7Cj4gQSBkcml2ZS1ieSBzdWdnZXN0aW9uIC0gZmVlbCBmcmVlIHRv
-IGlnbm9yZS4KPgo+IFRoZSAicmV0dXJuIGVhcmx5IiBhcHByb2FjaCBzZWVtcyBncmVhdCBJTUhP
-LiBUaGUgY29kZSB3aWxsIGJlCj4gc2hvcnRlciwgaW5kZW50YXRpb24gLSBsZXNzLCBubyB7fS9l
-bHNlIHRvIHRyYWNrIHBsdXMgb3ZlcmFsbCBpdCBzZWVtcwo+IGNsZWFyZXIuCj4gTmFtZWx5Ogo+
-Cj4gICAgIHJlc3VsdCA9IGlkcl9maW5kKCZmcHJpdi0+Ym9fbGlzdF9oYW5kbGVzLCBpZCk7Cj4K
-PiAgICAgaWYgKCFyZXN1bHQgfHwgIWtyZWZfZ2V0X3VubGVzc196ZXJvKCZyZXN1bHQtPnJlZmNv
-dW50KSkgewo+ICAgICAgICAgICByY3VfcmVhZF91bmxvY2soKTsKPiAgICAgICAgICAgcmV0dXJu
-IE5VTEw7Cj4gICAgIH0KPgo+ICAgICByY3VfcmVhZF91bmxvY2soKTsKPiAgICAgbXV0ZXhfbG9j
-aygmcmVzdWx0LT5sb2NrKTsKPiAgICAgcmV0dXJuIHJlc3VsdDsKPiB9Cj4KPiBIVEgKPiBFbWls
-CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
-IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On 2017-07-26 09:47 AM, Ricardo Ribalda Delgado wrote:
+> Hi Harry
+> 
+> On Mon, Jul 24, 2017 at 5:45 PM, Harry Wentland <harry.wentland@amd.com> wrote:
+>> On 2017-07-24 10:06 AM, Ricardo Ribalda Delgado wrote:
+>>> Hi Harry
+>>> On Mon, Jul 24, 2017 at 4:01 PM, Harry Wentland <harry.wentland@amd.com> wrote:
+>>>
+>>>>
+>>>> This is used and needed by the DC display driver. See
+>>>> display/amdgpu_dm/amdgpu_dm_services.c:193 in Alex's amd-staging-4.11 tree:
+>>>>
+>>>> https://cgit.freedesktop.org/~agd5f/linux/tree/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c?h=amd-staging-4.11
+>>>>
+>>>
+>>> I could not find any reference to the function in linux-next (>4.12)
+>>>
+>>> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/drivers/gpu/drm/amd
+>>>
+>>> Is there any plan to merge Alex's amd-stagin tree?
+>>
+>> The plan is to merge/upstream the amd/display portion of Alex's
+>> amd-staging tree. We're currently working on the community feedback we
+>> received to get it into shape.
+> 
+> Is there any timeframe for this?
+> 
+
+We're actively working on this. It depends on cleaning up our codebase a
+fair bit.
+
+Harry
+
+>  At least we should remove the   pr_info("min_core_set_clock not
+> set\n"); message.>
+> it is (very) misleading right now.
+> 
+> Regards!
+> 
+>>
+>> Harry
+>>
+>>>
+>>> Sorry, I am not very familiar with this subsystem.
+>>>
+>>> Regards!
+>>>
+> 
+> 
+> 
