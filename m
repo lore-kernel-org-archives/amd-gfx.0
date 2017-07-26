@@ -1,12 +1,13 @@
-From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: [PATCH xf86-video-ati] Only handle reflection in the driver with Xorg
- < 1.16
-Date: Wed, 26 Jul 2017 18:41:16 +0900
-Message-ID: <20170726094116.28302-1-michel@daenzer.net>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: Changes for enabling ATS support from PTE
+Date: Wed, 26 Jul 2017 11:41:53 +0200
+Message-ID: <52c19148-09d5-0d02-a8f0-6b3e93a9f288@vodafone.de>
+References: <69a3e55f-a311-5827-10a2-1cac8b0a1ee3@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0268688450=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <69a3e55f-a311-5827-10a2-1cac8b0a1ee3-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,28 +18,189 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Yong Zhao <yong.zhao-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Kasiviswanathan,
+ Harish" <Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>
 
-RnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+CgpYb3JnIGRvZXNu
-J3QgaGFuZGxlIHRoZSBoYXJkd2FyZSBjdXJzb3IgY29ycmVjdGx5IGluIHRoYXQgY2FzZSBmb3IK
-cm90YXRpb24gYW5kIGdlbmVyYWwgdHJhbnNmb3JtcywgYW5kIHdlIGNhbid0IGZvcmNlIHRoZSBT
-VyBjdXJzb3IuCgpGaXhlczogZjJiYzg4MmYxYzEwICgiSGFuZGxlIHJvdGF0aW9uIGluIHRoZSBk
-cml2ZXIgYWxzbyB3aXRoIFhvcmcKICAgICAgICAgICAgICAgICAgICAgIDEuMTItMS4xOCIpClNp
-Z25lZC1vZmYtYnk6IE1pY2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQuY29tPgotLS0K
-IHNyYy9kcm1tb2RlX2Rpc3BsYXkuYyB8IDYgKysrKysrCiAxIGZpbGUgY2hhbmdlZCwgNiBpbnNl
-cnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvc3JjL2RybW1vZGVfZGlzcGxheS5jIGIvc3JjL2RybW1v
-ZGVfZGlzcGxheS5jCmluZGV4IDg0MDA3MWZlNy4uMjQ1YTkyZmIwIDEwMDY0NAotLS0gYS9zcmMv
-ZHJtbW9kZV9kaXNwbGF5LmMKKysrIGIvc3JjL2RybW1vZGVfZGlzcGxheS5jCkBAIC02NzcsMTAg
-KzY3NywxNiBAQCBkcm1tb2RlX2hhbmRsZV90cmFuc2Zvcm0oeGY4NkNydGNQdHIgY3J0YykKIHsK
-IAlCb29sIHJldDsKIAorI2lmIFhPUkdfVkVSU0lPTl9DVVJSRU5UID49IFhPUkdfVkVSU0lPTl9O
-VU1FUklDKDEsMTUsOTksOTAzLDApCiAJaWYgKGNydGMtPnRyYW5zZm9ybVByZXNlbnQgfHwgY3J0
-Yy0+cm90YXRpb24gIT0gUlJfUm90YXRlXzApCiAJICAgIGNydGMtPmRyaXZlcklzUGVyZm9ybWlu
-Z1RyYW5zZm9ybSA9IFhGODZEcml2ZXJUcmFuc2Zvcm1PdXRwdXQ7CiAJZWxzZQogCSAgICBjcnRj
-LT5kcml2ZXJJc1BlcmZvcm1pbmdUcmFuc2Zvcm0gPSBYRjg2RHJpdmVyVHJhbnNmb3JtTm9uZTsK
-KyNlbHNlCisJY3J0Yy0+ZHJpdmVySXNQZXJmb3JtaW5nVHJhbnNmb3JtID0gIWNydGMtPnRyYW5z
-Zm9ybVByZXNlbnQgJiYKKwkJY3J0Yy0+cm90YXRpb24gIT0gUlJfUm90YXRlXzAgJiYKKwkJKGNy
-dGMtPnJvdGF0aW9uICYgMHhmKSA9PSBSUl9Sb3RhdGVfMDsKKyNlbmRpZgogCiAJcmV0ID0geGY4
-NkNydGNSb3RhdGUoY3J0Yyk7CiAKLS0gCjIuMTMuMwoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4Cg==
+This is a multi-part message in MIME format.
+--===============0268688450==
+Content-Type: multipart/alternative;
+ boundary="------------43ECB6972105DEB5BDB93793"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------43ECB6972105DEB5BDB93793
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Hi Yong,
+
+looks pretty good to me, but still quite a few comments.
+
+First of all please send the patches directly to the mailing list using 
+"git send-email" and not as attachment.
+
+Patch #1:
+> +
+> +	switch (word_size) {
+> +	case 4:
+> +		num_dw = num_loops * adev->mman.buffer_funcs->fill_num_dw;
+> +		break;
+> +	case 8: /* 10 double words for each SDMA_OP_PTEPDE cmd */
+> +		num_dw = num_loops * 10;
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+That is to complicated, we don't use the 32bit pattern during the fill 
+anyway. So just change that to a 64bit pattern and always use the 
+amdgpu_vm_set_pte_pde() function.
+
+Patch #2:
+> +/* Flag that supports ATS through PTE on GFX9 */
+> +#define AMDGPU_GEM_CLEAR_PTE_WITH_ATS_SUPPORT	(1 << 6)
+NAK to that approach, GEM flags are visible to userspace.
+
+Instead add the pattern to use for the clear to 
+amdgpu_bo_create()/amdgpu_bo_create_restricted().
+
+>   	/* Flag to indicate if VM tables are updated by CPU or GPU (SDMA) */
+>   	bool                    use_cpu_for_update;
+>   
+> -	/* Whether this is a Compute or GFX Context */
+> -	int			vm_context;
+> +	/* flags indicating the properties of VM context */
+> +	int			vm_context_flags;
+Either merge use_cpu_for_update into the flags as well or use a separate 
+boolean for this (I prefer the later).
+
+If you want to merge drop the "vm_context_" prefix in the name, just 
+flags should be sufficient.
+
+Regards,
+Christian.
+
+Am 26.07.2017 um 00:48 schrieb Yong Zhao:
+> Hi there,
+>
+> Attached are two patches made to amdgpu in order to support ATS on 
+> Raven. Please review them.
+>
+> Regards,
+>
+> Yong
+>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+
+--------------43ECB6972105DEB5BDB93793
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Hi Yong,<br>
+      <br>
+      looks pretty good to me, but still quite a few comments.<br>
+      <br>
+      First of all please send the patches directly to the mailing list
+      using "git send-email" and not as attachment.<br>
+      <br>
+      Patch #1:<br>
+      <blockquote type="cite">
+        <pre wrap="">+
++	switch (word_size) {
++	case 4:
++		num_dw = num_loops * adev-&gt;mman.buffer_funcs-&gt;fill_num_dw;
++		break;
++	case 8: /* 10 double words for each SDMA_OP_PTEPDE cmd */
++		num_dw = num_loops * 10;
++		break;
++	default:
++		return -EINVAL;
++	}</pre>
+      </blockquote>
+      That is to complicated, we don't use the 32bit pattern during the
+      fill anyway. So just change that to a 64bit pattern and always use
+      the amdgpu_vm_set_pte_pde() function.<br>
+      <br>
+      Patch #2:<br>
+      <blockquote type="cite">
+        <pre wrap="">+/* Flag that supports ATS through PTE on GFX9 */
++#define AMDGPU_GEM_CLEAR_PTE_WITH_ATS_SUPPORT	(1 &lt;&lt; 6)</pre>
+      </blockquote>
+      NAK to that approach, GEM flags are visible to userspace.<br>
+      <br>
+      Instead add the pattern to use for the clear to
+      amdgpu_bo_create()/amdgpu_bo_create_restricted().<br>
+      <br>
+      <blockquote type="cite">
+        <pre wrap=""> 	/* Flag to indicate if VM tables are updated by CPU or GPU (SDMA) */
+ 	bool                    use_cpu_for_update;
+ 
+-	/* Whether this is a Compute or GFX Context */
+-	int			vm_context;
++	/* flags indicating the properties of VM context */
++	int			vm_context_flags;</pre>
+      </blockquote>
+      Either merge use_cpu_for_update into the flags as well or use a
+      separate boolean for this (I prefer the later).<br>
+      <br>
+      If you want to merge drop the "vm_context_" prefix in the name,
+      just flags should be sufficient.<br>
+      <br>
+      Regards,<br>
+      Christian.<br>
+      <br>
+      Am 26.07.2017 um 00:48 schrieb Yong Zhao:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:69a3e55f-a311-5827-10a2-1cac8b0a1ee3-5C7GfCeVMHo@public.gmane.org">Hi there,
+      <br>
+      <br>
+      Attached are two patches made to amdgpu in order to support ATS on
+      Raven. Please review them.
+      <br>
+      <br>
+      Regards,
+      <br>
+      <br>
+      Yong
+      <br>
+      <br>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------43ECB6972105DEB5BDB93793--
+
+--===============0268688450==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0268688450==--
