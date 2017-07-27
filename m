@@ -1,13 +1,15 @@
-From: =?UTF-8?q?Christian=20K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: [PATCH 8/8] drm/amdgpu: use amdgpu_bo_free_kernel more often
-Date: Thu, 27 Jul 2017 17:44:04 +0200
-Message-ID: <1501170244-1832-8-git-send-email-deathsimple@vodafone.de>
-References: <1501170244-1832-1-git-send-email-deathsimple@vodafone.de>
+From: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu: Add support for filling a buffer with 64
+ bit value
+Date: Thu, 27 Jul 2017 15:44:59 +0000
+Message-ID: <CY1PR1201MB1097EB9BD9F52DFD48249814F0BE0@CY1PR1201MB1097.namprd12.prod.outlook.com>
+References: <1501101911-22711-1-git-send-email-Yong.Zhao@amd.com>,
+ <bab2f91a-553b-0030-a8ee-13e488810eb4@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1417960888=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1501170244-1832-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <bab2f91a-553b-0030-a8ee-13e488810eb4-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,178 +20,359 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?iso-8859-1?Q?Christian_K=F6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-RnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKU2F2ZXMg
-dXMgZXZlbiBtb3JlIGxvYy4KClNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlz
-dGlhbi5rb2VuaWdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfZGV2aWNlLmMgfCAxMyArLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92
-Nl8wLmMgICAgICB8IDM3ICsrLS0tLS0tLS0tLS0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9nZnhfdjdfMC5jICAgICAgfCA2NyArKystLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0K
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMgICAgICB8IDM3ICsrLS0tLS0t
-LS0tLS0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jICAgICAgfCAy
-NCArLS0tLS0tLS0tLQogNSBmaWxlcyBjaGFuZ2VkLCAxNSBpbnNlcnRpb25zKCspLCAxNjMgZGVs
-ZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2RldmljZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCmlu
-ZGV4IDYwZjYwZTkuLmQwMTczN2QgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9kZXZpY2UuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfZGV2aWNlLmMKQEAgLTM0NiwxOCArMzQ2LDcgQEAgc3RhdGljIGludCBhbWRncHVfdnJhbV9z
-Y3JhdGNoX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAKIHN0YXRpYyB2b2lkIGFt
-ZGdwdV92cmFtX3NjcmF0Y2hfZmluaShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIHsKLQlp
-bnQgcjsKLQotCWlmIChhZGV2LT52cmFtX3NjcmF0Y2gucm9iaiA9PSBOVUxMKSB7Ci0JCXJldHVy
-bjsKLQl9Ci0JciA9IGFtZGdwdV9ib19yZXNlcnZlKGFkZXYtPnZyYW1fc2NyYXRjaC5yb2JqLCB0
-cnVlKTsKLQlpZiAobGlrZWx5KHIgPT0gMCkpIHsKLQkJYW1kZ3B1X2JvX2t1bm1hcChhZGV2LT52
-cmFtX3NjcmF0Y2gucm9iaik7Ci0JCWFtZGdwdV9ib191bnBpbihhZGV2LT52cmFtX3NjcmF0Y2gu
-cm9iaik7Ci0JCWFtZGdwdV9ib191bnJlc2VydmUoYWRldi0+dnJhbV9zY3JhdGNoLnJvYmopOwot
-CX0KLQlhbWRncHVfYm9fdW5yZWYoJmFkZXYtPnZyYW1fc2NyYXRjaC5yb2JqKTsKKwlhbWRncHVf
-Ym9fZnJlZV9rZXJuZWwoJmFkZXYtPnZyYW1fc2NyYXRjaC5yb2JqLCBOVUxMLCBOVUxMKTsKIH0K
-IAogLyoqCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjZfMC5j
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y2XzAuYwppbmRleCBmYWY4ZDI4Li5k
-MjI4ZjVhIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjZfMC5j
-CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92Nl8wLmMKQEAgLTIyMTcsNDAg
-KzIyMTcsOSBAQCBzdGF0aWMgdm9pZCBnZnhfdjZfMF9yaW5nX2VtaXRfdm1fZmx1c2goc3RydWN0
-IGFtZGdwdV9yaW5nICpyaW5nLAogCiBzdGF0aWMgdm9pZCBnZnhfdjZfMF9ybGNfZmluaShzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIHsKLQlpbnQgcjsKLQotCWlmIChhZGV2LT5nZngucmxj
-LnNhdmVfcmVzdG9yZV9vYmopIHsKLQkJciA9IGFtZGdwdV9ib19yZXNlcnZlKGFkZXYtPmdmeC5y
-bGMuc2F2ZV9yZXN0b3JlX29iaiwgdHJ1ZSk7Ci0JCWlmICh1bmxpa2VseShyICE9IDApKQotCQkJ
-ZGV2X3dhcm4oYWRldi0+ZGV2LCAiKCVkKSByZXNlcnZlIFJMQyBzciBibyBmYWlsZWRcbiIsIHIp
-OwotCQlhbWRncHVfYm9fdW5waW4oYWRldi0+Z2Z4LnJsYy5zYXZlX3Jlc3RvcmVfb2JqKTsKLQkJ
-YW1kZ3B1X2JvX3VucmVzZXJ2ZShhZGV2LT5nZngucmxjLnNhdmVfcmVzdG9yZV9vYmopOwotCi0J
-CWFtZGdwdV9ib191bnJlZigmYWRldi0+Z2Z4LnJsYy5zYXZlX3Jlc3RvcmVfb2JqKTsKLQkJYWRl
-di0+Z2Z4LnJsYy5zYXZlX3Jlc3RvcmVfb2JqID0gTlVMTDsKLQl9Ci0KLQlpZiAoYWRldi0+Z2Z4
-LnJsYy5jbGVhcl9zdGF0ZV9vYmopIHsKLQkJciA9IGFtZGdwdV9ib19yZXNlcnZlKGFkZXYtPmdm
-eC5ybGMuY2xlYXJfc3RhdGVfb2JqLCB0cnVlKTsKLQkJaWYgKHVubGlrZWx5KHIgIT0gMCkpCi0J
-CQlkZXZfd2FybihhZGV2LT5kZXYsICIoJWQpIHJlc2VydmUgUkxDIGMgYm8gZmFpbGVkXG4iLCBy
-KTsKLQkJYW1kZ3B1X2JvX3VucGluKGFkZXYtPmdmeC5ybGMuY2xlYXJfc3RhdGVfb2JqKTsKLQkJ
-YW1kZ3B1X2JvX3VucmVzZXJ2ZShhZGV2LT5nZngucmxjLmNsZWFyX3N0YXRlX29iaik7Ci0KLQkJ
-YW1kZ3B1X2JvX3VucmVmKCZhZGV2LT5nZngucmxjLmNsZWFyX3N0YXRlX29iaik7Ci0JCWFkZXYt
-PmdmeC5ybGMuY2xlYXJfc3RhdGVfb2JqID0gTlVMTDsKLQl9Ci0KLQlpZiAoYWRldi0+Z2Z4LnJs
-Yy5jcF90YWJsZV9vYmopIHsKLQkJciA9IGFtZGdwdV9ib19yZXNlcnZlKGFkZXYtPmdmeC5ybGMu
-Y3BfdGFibGVfb2JqLCB0cnVlKTsKLQkJaWYgKHVubGlrZWx5KHIgIT0gMCkpCi0JCQlkZXZfd2Fy
-bihhZGV2LT5kZXYsICIoJWQpIHJlc2VydmUgUkxDIGNwIHRhYmxlIGJvIGZhaWxlZFxuIiwgcik7
-Ci0JCWFtZGdwdV9ib191bnBpbihhZGV2LT5nZngucmxjLmNwX3RhYmxlX29iaik7Ci0JCWFtZGdw
-dV9ib191bnJlc2VydmUoYWRldi0+Z2Z4LnJsYy5jcF90YWJsZV9vYmopOwotCi0JCWFtZGdwdV9i
-b191bnJlZigmYWRldi0+Z2Z4LnJsYy5jcF90YWJsZV9vYmopOwotCQlhZGV2LT5nZngucmxjLmNw
-X3RhYmxlX29iaiA9IE5VTEw7Ci0JfQorCWFtZGdwdV9ib19mcmVlX2tlcm5lbCgmYWRldi0+Z2Z4
-LnJsYy5zYXZlX3Jlc3RvcmVfb2JqLCBOVUxMLCBOVUxMKTsKKwlhbWRncHVfYm9fZnJlZV9rZXJu
-ZWwoJmFkZXYtPmdmeC5ybGMuY2xlYXJfc3RhdGVfb2JqLCBOVUxMLCBOVUxMKTsKKwlhbWRncHVf
-Ym9fZnJlZV9rZXJuZWwoJmFkZXYtPmdmeC5ybGMuY3BfdGFibGVfb2JqLCBOVUxMLCBOVUxMKTsK
-IH0KIAogc3RhdGljIGludCBnZnhfdjZfMF9ybGNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
-YWRldikKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92N18wLmMg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjdfMC5jCmluZGV4IDZlNmU5NTIuLmFk
-NGI1YzMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92N18wLmMK
-KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y3XzAuYwpAQCAtMjc3NCwzOSAr
-Mjc3NCwxOCBAQCBzdGF0aWMgaW50IGdmeF92N18wX2NwX2NvbXB1dGVfbG9hZF9taWNyb2NvZGUo
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAgKi8KIHN0YXRpYyB2b2lkIGdmeF92N18wX2Nw
-X2NvbXB1dGVfZmluaShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIHsKLQlpbnQgaSwgcjsK
-KwlpbnQgaTsKIAogCWZvciAoaSA9IDA7IGkgPCBhZGV2LT5nZngubnVtX2NvbXB1dGVfcmluZ3M7
-IGkrKykgewogCQlzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcgPSAmYWRldi0+Z2Z4LmNvbXB1dGVf
-cmluZ1tpXTsKIAotCQlpZiAocmluZy0+bXFkX29iaikgewotCQkJciA9IGFtZGdwdV9ib19yZXNl
-cnZlKHJpbmctPm1xZF9vYmosIHRydWUpOwotCQkJaWYgKHVubGlrZWx5KHIgIT0gMCkpCi0JCQkJ
-ZGV2X3dhcm4oYWRldi0+ZGV2LCAiKCVkKSByZXNlcnZlIE1RRCBibyBmYWlsZWRcbiIsIHIpOwot
-Ci0JCQlhbWRncHVfYm9fdW5waW4ocmluZy0+bXFkX29iaik7Ci0JCQlhbWRncHVfYm9fdW5yZXNl
-cnZlKHJpbmctPm1xZF9vYmopOwotCi0JCQlhbWRncHVfYm9fdW5yZWYoJnJpbmctPm1xZF9vYmop
-OwotCQkJcmluZy0+bXFkX29iaiA9IE5VTEw7Ci0JCX0KKwkJYW1kZ3B1X2JvX2ZyZWVfa2VybmVs
-KCZyaW5nLT5tcWRfb2JqLCBOVUxMLCBOVUxMKTsKIAl9CiB9CiAKIHN0YXRpYyB2b2lkIGdmeF92
-N18wX21lY19maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogewotCWludCByOwotCi0J
-aWYgKGFkZXYtPmdmeC5tZWMuaHBkX2VvcF9vYmopIHsKLQkJciA9IGFtZGdwdV9ib19yZXNlcnZl
-KGFkZXYtPmdmeC5tZWMuaHBkX2VvcF9vYmosIHRydWUpOwotCQlpZiAodW5saWtlbHkociAhPSAw
-KSkKLQkJCWRldl93YXJuKGFkZXYtPmRldiwgIiglZCkgcmVzZXJ2ZSBIUEQgRU9QIGJvIGZhaWxl
-ZFxuIiwgcik7Ci0JCWFtZGdwdV9ib191bnBpbihhZGV2LT5nZngubWVjLmhwZF9lb3Bfb2JqKTsK
-LQkJYW1kZ3B1X2JvX3VucmVzZXJ2ZShhZGV2LT5nZngubWVjLmhwZF9lb3Bfb2JqKTsKLQotCQlh
-bWRncHVfYm9fdW5yZWYoJmFkZXYtPmdmeC5tZWMuaHBkX2VvcF9vYmopOwotCQlhZGV2LT5nZngu
-bWVjLmhwZF9lb3Bfb2JqID0gTlVMTDsKLQl9CisJYW1kZ3B1X2JvX2ZyZWVfa2VybmVsKCZhZGV2
-LT5nZngubWVjLmhwZF9lb3Bfb2JqLCBOVUxMLCBOVUxMKTsKIH0KIAogc3RhdGljIGludCBnZnhf
-djdfMF9tZWNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKQEAgLTMzMjAsNDMgKzMy
-OTksOSBAQCBzdGF0aWMgdm9pZCBnZnhfdjdfMF9yaW5nX2VtaXRfdm1fZmx1c2goc3RydWN0IGFt
-ZGdwdV9yaW5nICpyaW5nLAogICovCiBzdGF0aWMgdm9pZCBnZnhfdjdfMF9ybGNfZmluaShzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIHsKLQlpbnQgcjsKLQotCS8qIHNhdmUgcmVzdG9yZSBi
-bG9jayAqLwotCWlmIChhZGV2LT5nZngucmxjLnNhdmVfcmVzdG9yZV9vYmopIHsKLQkJciA9IGFt
-ZGdwdV9ib19yZXNlcnZlKGFkZXYtPmdmeC5ybGMuc2F2ZV9yZXN0b3JlX29iaiwgdHJ1ZSk7Ci0J
-CWlmICh1bmxpa2VseShyICE9IDApKQotCQkJZGV2X3dhcm4oYWRldi0+ZGV2LCAiKCVkKSByZXNl
-cnZlIFJMQyBzciBibyBmYWlsZWRcbiIsIHIpOwotCQlhbWRncHVfYm9fdW5waW4oYWRldi0+Z2Z4
-LnJsYy5zYXZlX3Jlc3RvcmVfb2JqKTsKLQkJYW1kZ3B1X2JvX3VucmVzZXJ2ZShhZGV2LT5nZngu
-cmxjLnNhdmVfcmVzdG9yZV9vYmopOwotCi0JCWFtZGdwdV9ib191bnJlZigmYWRldi0+Z2Z4LnJs
-Yy5zYXZlX3Jlc3RvcmVfb2JqKTsKLQkJYWRldi0+Z2Z4LnJsYy5zYXZlX3Jlc3RvcmVfb2JqID0g
-TlVMTDsKLQl9Ci0KLQkvKiBjbGVhciBzdGF0ZSBibG9jayAqLwotCWlmIChhZGV2LT5nZngucmxj
-LmNsZWFyX3N0YXRlX29iaikgewotCQlyID0gYW1kZ3B1X2JvX3Jlc2VydmUoYWRldi0+Z2Z4LnJs
-Yy5jbGVhcl9zdGF0ZV9vYmosIHRydWUpOwotCQlpZiAodW5saWtlbHkociAhPSAwKSkKLQkJCWRl
-dl93YXJuKGFkZXYtPmRldiwgIiglZCkgcmVzZXJ2ZSBSTEMgYyBibyBmYWlsZWRcbiIsIHIpOwot
-CQlhbWRncHVfYm9fdW5waW4oYWRldi0+Z2Z4LnJsYy5jbGVhcl9zdGF0ZV9vYmopOwotCQlhbWRn
-cHVfYm9fdW5yZXNlcnZlKGFkZXYtPmdmeC5ybGMuY2xlYXJfc3RhdGVfb2JqKTsKLQotCQlhbWRn
-cHVfYm9fdW5yZWYoJmFkZXYtPmdmeC5ybGMuY2xlYXJfc3RhdGVfb2JqKTsKLQkJYWRldi0+Z2Z4
-LnJsYy5jbGVhcl9zdGF0ZV9vYmogPSBOVUxMOwotCX0KLQotCS8qIGNsZWFyIHN0YXRlIGJsb2Nr
-ICovCi0JaWYgKGFkZXYtPmdmeC5ybGMuY3BfdGFibGVfb2JqKSB7Ci0JCXIgPSBhbWRncHVfYm9f
-cmVzZXJ2ZShhZGV2LT5nZngucmxjLmNwX3RhYmxlX29iaiwgdHJ1ZSk7Ci0JCWlmICh1bmxpa2Vs
-eShyICE9IDApKQotCQkJZGV2X3dhcm4oYWRldi0+ZGV2LCAiKCVkKSByZXNlcnZlIFJMQyBjcCB0
-YWJsZSBibyBmYWlsZWRcbiIsIHIpOwotCQlhbWRncHVfYm9fdW5waW4oYWRldi0+Z2Z4LnJsYy5j
-cF90YWJsZV9vYmopOwotCQlhbWRncHVfYm9fdW5yZXNlcnZlKGFkZXYtPmdmeC5ybGMuY3BfdGFi
-bGVfb2JqKTsKLQotCQlhbWRncHVfYm9fdW5yZWYoJmFkZXYtPmdmeC5ybGMuY3BfdGFibGVfb2Jq
-KTsKLQkJYWRldi0+Z2Z4LnJsYy5jcF90YWJsZV9vYmogPSBOVUxMOwotCX0KKwlhbWRncHVfYm9f
-ZnJlZV9rZXJuZWwoJmFkZXYtPmdmeC5ybGMuc2F2ZV9yZXN0b3JlX29iaiwgTlVMTCwgTlVMTCk7
-CisJYW1kZ3B1X2JvX2ZyZWVfa2VybmVsKCZhZGV2LT5nZngucmxjLmNsZWFyX3N0YXRlX29iaiwg
-TlVMTCwgTlVMTCk7CisJYW1kZ3B1X2JvX2ZyZWVfa2VybmVsKCZhZGV2LT5nZngucmxjLmNwX3Rh
-YmxlX29iaiwgTlVMTCwgTlVMTCk7CiB9CiAKIHN0YXRpYyBpbnQgZ2Z4X3Y3XzBfcmxjX2luaXQo
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9nZnhfdjhfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4
-XzAuYwppbmRleCBiMDg2ZjRlLi4zY2Y3NDJkIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9nZnhfdjhfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dm
-eF92OF8wLmMKQEAgLTEyMzgsMjkgKzEyMzgsOCBAQCBzdGF0aWMgdm9pZCBjel9pbml0X2NwX2p1
-bXBfdGFibGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAKIHN0YXRpYyB2b2lkIGdmeF92
-OF8wX3JsY19maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogewotCWludCByOwotCi0J
-LyogY2xlYXIgc3RhdGUgYmxvY2sgKi8KLQlpZiAoYWRldi0+Z2Z4LnJsYy5jbGVhcl9zdGF0ZV9v
-YmopIHsKLQkJciA9IGFtZGdwdV9ib19yZXNlcnZlKGFkZXYtPmdmeC5ybGMuY2xlYXJfc3RhdGVf
-b2JqLCB0cnVlKTsKLQkJaWYgKHVubGlrZWx5KHIgIT0gMCkpCi0JCQlkZXZfd2FybihhZGV2LT5k
-ZXYsICIoJWQpIHJlc2VydmUgUkxDIGNicyBibyBmYWlsZWRcbiIsIHIpOwotCQlhbWRncHVfYm9f
-dW5waW4oYWRldi0+Z2Z4LnJsYy5jbGVhcl9zdGF0ZV9vYmopOwotCQlhbWRncHVfYm9fdW5yZXNl
-cnZlKGFkZXYtPmdmeC5ybGMuY2xlYXJfc3RhdGVfb2JqKTsKLQkJYW1kZ3B1X2JvX3VucmVmKCZh
-ZGV2LT5nZngucmxjLmNsZWFyX3N0YXRlX29iaik7Ci0JCWFkZXYtPmdmeC5ybGMuY2xlYXJfc3Rh
-dGVfb2JqID0gTlVMTDsKLQl9Ci0KLQkvKiBqdW1wIHRhYmxlIGJsb2NrICovCi0JaWYgKGFkZXYt
-PmdmeC5ybGMuY3BfdGFibGVfb2JqKSB7Ci0JCXIgPSBhbWRncHVfYm9fcmVzZXJ2ZShhZGV2LT5n
-ZngucmxjLmNwX3RhYmxlX29iaiwgdHJ1ZSk7Ci0JCWlmICh1bmxpa2VseShyICE9IDApKQotCQkJ
-ZGV2X3dhcm4oYWRldi0+ZGV2LCAiKCVkKSByZXNlcnZlIFJMQyBjcCB0YWJsZSBibyBmYWlsZWRc
-biIsIHIpOwotCQlhbWRncHVfYm9fdW5waW4oYWRldi0+Z2Z4LnJsYy5jcF90YWJsZV9vYmopOwot
-CQlhbWRncHVfYm9fdW5yZXNlcnZlKGFkZXYtPmdmeC5ybGMuY3BfdGFibGVfb2JqKTsKLQkJYW1k
-Z3B1X2JvX3VucmVmKCZhZGV2LT5nZngucmxjLmNwX3RhYmxlX29iaik7Ci0JCWFkZXYtPmdmeC5y
-bGMuY3BfdGFibGVfb2JqID0gTlVMTDsKLQl9CisJYW1kZ3B1X2JvX2ZyZWVfa2VybmVsKCZhZGV2
-LT5nZngucmxjLmNsZWFyX3N0YXRlX29iaiwgTlVMTCwgTlVMTCk7CisJYW1kZ3B1X2JvX2ZyZWVf
-a2VybmVsKCZhZGV2LT5nZngucmxjLmNwX3RhYmxlX29iaiwgTlVMTCwgTlVMTCk7CiB9CiAKIHN0
-YXRpYyBpbnQgZ2Z4X3Y4XzBfcmxjX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCkBA
-IC0xMzIwLDE3ICsxMjk5LDcgQEAgc3RhdGljIGludCBnZnhfdjhfMF9ybGNfaW5pdChzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqYWRldikKIAogc3RhdGljIHZvaWQgZ2Z4X3Y4XzBfbWVjX2Zpbmkoc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiB7Ci0JaW50IHI7Ci0KLQlpZiAoYWRldi0+Z2Z4Lm1l
-Yy5ocGRfZW9wX29iaikgewotCQlyID0gYW1kZ3B1X2JvX3Jlc2VydmUoYWRldi0+Z2Z4Lm1lYy5o
-cGRfZW9wX29iaiwgdHJ1ZSk7Ci0JCWlmICh1bmxpa2VseShyICE9IDApKQotCQkJZGV2X3dhcm4o
-YWRldi0+ZGV2LCAiKCVkKSByZXNlcnZlIEhQRCBFT1AgYm8gZmFpbGVkXG4iLCByKTsKLQkJYW1k
-Z3B1X2JvX3VucGluKGFkZXYtPmdmeC5tZWMuaHBkX2VvcF9vYmopOwotCQlhbWRncHVfYm9fdW5y
-ZXNlcnZlKGFkZXYtPmdmeC5tZWMuaHBkX2VvcF9vYmopOwotCQlhbWRncHVfYm9fdW5yZWYoJmFk
-ZXYtPmdmeC5tZWMuaHBkX2VvcF9vYmopOwotCQlhZGV2LT5nZngubWVjLmhwZF9lb3Bfb2JqID0g
-TlVMTDsKLQl9CisJYW1kZ3B1X2JvX2ZyZWVfa2VybmVsKCZhZGV2LT5nZngubWVjLmhwZF9lb3Bf
-b2JqLCBOVUxMLCBOVUxMKTsKIH0KIAogc3RhdGljIGludCBnZnhfdjhfMF9tZWNfaW5pdChzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2dmeF92OV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5j
-CmluZGV4IDAyNGVjY2MuLjhkNTJlZDUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2dmeF92OV8wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5
-XzAuYwpAQCAtODE3LDI4ICs4MTcsOCBAQCBzdGF0aWMgaW50IGdmeF92OV8wX3JsY19pbml0KHN0
-cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCiBzdGF0aWMgdm9pZCBnZnhfdjlfMF9tZWNfZmlu
-aShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIHsKLQlpbnQgcjsKLQotCWlmIChhZGV2LT5n
-ZngubWVjLmhwZF9lb3Bfb2JqKSB7Ci0JCXIgPSBhbWRncHVfYm9fcmVzZXJ2ZShhZGV2LT5nZngu
-bWVjLmhwZF9lb3Bfb2JqLCB0cnVlKTsKLQkJaWYgKHVubGlrZWx5KHIgIT0gMCkpCi0JCQlkZXZf
-d2FybihhZGV2LT5kZXYsICIoJWQpIHJlc2VydmUgSFBEIEVPUCBibyBmYWlsZWRcbiIsIHIpOwot
-CQlhbWRncHVfYm9fdW5waW4oYWRldi0+Z2Z4Lm1lYy5ocGRfZW9wX29iaik7Ci0JCWFtZGdwdV9i
-b191bnJlc2VydmUoYWRldi0+Z2Z4Lm1lYy5ocGRfZW9wX29iaik7Ci0KLQkJYW1kZ3B1X2JvX3Vu
-cmVmKCZhZGV2LT5nZngubWVjLmhwZF9lb3Bfb2JqKTsKLQkJYWRldi0+Z2Z4Lm1lYy5ocGRfZW9w
-X29iaiA9IE5VTEw7Ci0JfQotCWlmIChhZGV2LT5nZngubWVjLm1lY19md19vYmopIHsKLQkJciA9
-IGFtZGdwdV9ib19yZXNlcnZlKGFkZXYtPmdmeC5tZWMubWVjX2Z3X29iaiwgdHJ1ZSk7Ci0JCWlm
-ICh1bmxpa2VseShyICE9IDApKQotCQkJZGV2X3dhcm4oYWRldi0+ZGV2LCAiKCVkKSByZXNlcnZl
-IG1lYyBmaXJtd2FyZSBibyBmYWlsZWRcbiIsIHIpOwotCQlhbWRncHVfYm9fdW5waW4oYWRldi0+
-Z2Z4Lm1lYy5tZWNfZndfb2JqKTsKLQkJYW1kZ3B1X2JvX3VucmVzZXJ2ZShhZGV2LT5nZngubWVj
-Lm1lY19md19vYmopOwotCi0JCWFtZGdwdV9ib191bnJlZigmYWRldi0+Z2Z4Lm1lYy5tZWNfZndf
-b2JqKTsKLQkJYWRldi0+Z2Z4Lm1lYy5tZWNfZndfb2JqID0gTlVMTDsKLQl9CisJYW1kZ3B1X2Jv
-X2ZyZWVfa2VybmVsKCZhZGV2LT5nZngubWVjLmhwZF9lb3Bfb2JqLCBOVUxMLCBOVUxMKTsKKwlh
-bWRncHVfYm9fZnJlZV9rZXJuZWwoJmFkZXYtPmdmeC5tZWMubWVjX2Z3X29iaiwgTlVMTCwgTlVM
-TCk7CiB9CiAKIHN0YXRpYyBpbnQgZ2Z4X3Y5XzBfbWVjX2luaXQoc3RydWN0IGFtZGdwdV9kZXZp
-Y2UgKmFkZXYpCi0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
-Z2Z4Cg==
+--===============1417960888==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY1PR1201MB1097EB9BD9F52DFD48249814F0BE0CY1PR1201MB1097_"
+
+--_000_CY1PR1201MB1097EB9BD9F52DFD48249814F0BE0CY1PR1201MB1097_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Christian,
+
+
+I used eclipse. The reason why I changed the indent is that the current ind=
+ents are composed of tabs and spaces, and I will get style warning from che=
+ckpatch script when trying to submit it to gerrit, so I made the indents al=
+l tabs. In this case, should I still use the previous indents?
+
+
+Regards,
+
+Yong
+
+
+
+________________________________
+From: Christian K=F6nig <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Sent: Thursday, July 27, 2017 5:34:58 AM
+To: Zhao, Yong; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH 1/2] drm/amdgpu: Add support for filling a buffer with =
+64 bit value
+
+Am 26.07.2017 um 22:45 schrieb Yong Zhao:
+> That function will be used later to support setting a page table
+> block with 64 bit value.
+>
+> Change-Id: Ib142ebd4163d6e23670a3f0ceed536d59133b942
+> Signed-off-by: Yong Zhao <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 19 +++++++++++++------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h |  2 +-
+>   2 files changed, 14 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ttm.c
+> index 4d2a454..6ab30da 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -1509,11 +1509,12 @@ int amdgpu_copy_buffer(struct amdgpu_ring *ring, =
+uint64_t src_offset,
+>   }
+>
+>   int amdgpu_fill_buffer(struct amdgpu_bo *bo,
+> -                    uint32_t src_data,
+> -                    struct reservation_object *resv,
+> -                    struct dma_fence **fence)
+> +                     uint64_t src_data,
+> +                     struct reservation_object *resv,
+> +                     struct dma_fence **fence)
+
+Looks like you accidentally changed the indentation of the other
+function parameters here. What editor do you use?
+
+Please make sure that you only change the type, with that fixed the
+patch is Reviewed-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>.
+
+Regards,
+Christian.
+
+>   {
+>        struct amdgpu_device *adev =3D amdgpu_ttm_adev(bo->tbo.bdev);
+> +     /* max_bytes applies to SDMA_OP_PTEPDE as well as SDMA_OP_CONST_FIL=
+L*/
+>        uint32_t max_bytes =3D adev->mman.buffer_funcs->fill_max_bytes;
+>        struct amdgpu_ring *ring =3D adev->mman.buffer_funcs_ring;
+>
+> @@ -1545,7 +1546,9 @@ int amdgpu_fill_buffer(struct amdgpu_bo *bo,
+>                num_pages -=3D mm_node->size;
+>                ++mm_node;
+>        }
+> -     num_dw =3D num_loops * adev->mman.buffer_funcs->fill_num_dw;
+> +
+> +     /* 10 double words for each SDMA_OP_PTEPDE cmd */
+> +     num_dw =3D num_loops * 10;
+>
+>        /* for IB padding */
+>        num_dw +=3D 64;
+> @@ -1570,12 +1573,16 @@ int amdgpu_fill_buffer(struct amdgpu_bo *bo,
+>                uint32_t byte_count =3D mm_node->size << PAGE_SHIFT;
+>                uint64_t dst_addr;
+>
+> +             WARN_ONCE(byte_count & 0x7, "size should be a multiple of 8=
+");
+> +
+>                dst_addr =3D amdgpu_mm_node_addr(&bo->tbo, mm_node, &bo->t=
+bo.mem);
+>                while (byte_count) {
+>                        uint32_t cur_size_in_bytes =3D min(byte_count, max=
+_bytes);
+>
+> -                     amdgpu_emit_fill_buffer(adev, &job->ibs[0], src_dat=
+a,
+> -                                             dst_addr, cur_size_in_bytes=
+);
+> +                     amdgpu_vm_set_pte_pde(adev, &job->ibs[0],
+> +                                     dst_addr, 0,
+> +                                     cur_size_in_bytes >> 3, 0,
+> +                                     src_data);
+>
+>                        dst_addr +=3D cur_size_in_bytes;
+>                        byte_count -=3D cur_size_in_bytes;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ttm.h
+> index f137c24..0e2399f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+> @@ -73,7 +73,7 @@ int amdgpu_copy_buffer(struct amdgpu_ring *ring, uint64=
+_t src_offset,
+>                       struct dma_fence **fence, bool direct_submit,
+>                       bool vm_needs_flush);
+>   int amdgpu_fill_buffer(struct amdgpu_bo *bo,
+> -                     uint32_t src_data,
+> +                     uint64_t src_data,
+>                        struct reservation_object *resv,
+>                        struct dma_fence **fence);
+>
+
+
+
+--_000_CY1PR1201MB1097EB9BD9F52DFD48249814F0BE0CY1PR1201MB1097_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
+<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
+ding-left: 4pt; border-left: #800000 2px solid; } --></style>
+</head>
+<body>
+<meta content=3D"text/html; charset=3DUTF-8">
+<style type=3D"text/css" style=3D"">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div dir=3D"ltr">
+<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
+or:#000000; font-family:Calibri,Helvetica,sans-serif">
+<p>Hi Christian,</p>
+<p><br>
+</p>
+<p>I used eclipse. The reason why I changed the indent is that the current =
+indents are composed of tabs and spaces, and I will get style warning from =
+checkpatch script when trying to submit it to gerrit, so I made the indents=
+ all tabs. In this case, should
+ I still use the previous indents?</p>
+<p><br>
+</p>
+<p>Regards,</p>
+<p>Yong</p>
+<p><br>
+</p>
+<p><br>
+</p>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Christian K=F6nig &=
+lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;<br>
+<b>Sent:</b> Thursday, July 27, 2017 5:34:58 AM<br>
+<b>To:</b> Zhao, Yong; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH 1/2] drm/amdgpu: Add support for filling a buffe=
+r with 64 bit value</font>
+<div>&nbsp;</div>
+</div>
+</div>
+<font size=3D"2"><span style=3D"font-size:10pt;">
+<div class=3D"PlainText">Am 26.07.2017 um 22:45 schrieb Yong Zhao:<br>
+&gt; That function will be used later to support setting a page table<br>
+&gt; block with 64 bit value.<br>
+&gt;<br>
+&gt; Change-Id: Ib142ebd4163d6e23670a3f0ceed536d59133b942<br>
+&gt; Signed-off-by: Yong Zhao &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 19 &#43;&#43;&#4=
+3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;------<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h |&nbsp; 2 &#43;-<b=
+r>
+&gt;&nbsp;&nbsp; 2 files changed, 14 insertions(&#43;), 7 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_ttm.c<br>
+&gt; index 4d2a454..6ab30da 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
+&gt; @@ -1509,11 &#43;1509,12 @@ int amdgpu_copy_buffer(struct amdgpu_ring =
+*ring, uint64_t src_offset,<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; int amdgpu_fill_buffer(struct amdgpu_bo *bo,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t src_data,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct reservation_object *re=
+sv,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dma_fence **fence)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t src_data,<=
+br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct reservation_=
+object *resv,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dma_fence **=
+fence)<br>
+<br>
+Looks like you accidentally changed the indentation of the other <br>
+function parameters here. What editor do you use?<br>
+<br>
+Please make sure that you only change the type, with that fixed the <br>
+patch is Reviewed-by: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;.<b=
+r>
+<br>
+Regards,<br>
+Christian.<br>
+<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
+=3D amdgpu_ttm_adev(bo-&gt;tbo.bdev);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; /* max_bytes applies to SDMA_OP_PTEPDE a=
+s well as SDMA_OP_CONST_FILL*/<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t max_bytes =3D adev-=
+&gt;mman.buffer_funcs-&gt;fill_max_bytes;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ring *ring =3D=
+ adev-&gt;mman.buffer_funcs_ring;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; @@ -1545,7 &#43;1546,9 @@ int amdgpu_fill_buffer(struct amdgpu_bo *bo,=
+<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; num_pages -=3D mm_node-&gt;size;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; &#43;&#43;mm_node;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; num_dw =3D num_loops * adev-&gt;mman.buffer_=
+funcs-&gt;fill_num_dw;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; /* 10 double words for each SDMA_OP_PTEP=
+DE cmd */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; num_dw =3D num_loops * 10;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* for IB padding */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; num_dw &#43;=3D 64;<br>
+&gt; @@ -1570,12 &#43;1573,16 @@ int amdgpu_fill_buffer(struct amdgpu_bo *b=
+o,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; uint32_t byte_count =3D mm_node-&gt;size &lt;&lt; PAGE_=
+SHIFT;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; uint64_t dst_addr;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; WARN_ONCE(byte_count &amp; 0x7, &quot;size should be a multiple of =
+8&quot;);<br>
+&gt; &#43;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; dst_addr =3D amdgpu_mm_node_addr(&amp;bo-&gt;tbo, mm_no=
+de, &amp;bo-&gt;tbo.mem);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; while (byte_count) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_=
+t cur_size_in_bytes =3D min(byte_count, max_bytes);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_emit_fill_buffer=
+(adev, &amp;job-&gt;ibs[0], src_data,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dst_addr, cur_size_in_bytes);=
+<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_vm_set_pte_p=
+de(adev, &amp;job-&gt;ibs[0],<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; dst_addr, 0,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; cur_size_in_bytes &gt;&gt; 3, 0,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; src_data);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dst_add=
+r &#43;=3D cur_size_in_bytes;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; byte_co=
+unt -=3D cur_size_in_bytes;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_ttm.h<br>
+&gt; index f137c24..0e2399f 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h<br>
+&gt; @@ -73,7 &#43;73,7 @@ int amdgpu_copy_buffer(struct amdgpu_ring *ring,=
+ uint64_t src_offset,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dma_fe=
+nce **fence, bool direct_submit,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool vm_needs=
+_flush);<br>
+&gt;&nbsp;&nbsp; int amdgpu_fill_buffer(struct amdgpu_bo *bo,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t src_data,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t src_data,<=
+br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct =
+reservation_object *resv,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct =
+dma_fence **fence);<br>
+&gt;&nbsp;&nbsp; <br>
+<br>
+<br>
+</div>
+</span></font>
+</body>
+</html>
+
+--_000_CY1PR1201MB1097EB9BD9F52DFD48249814F0BE0CY1PR1201MB1097_--
+
+--===============1417960888==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1417960888==--
