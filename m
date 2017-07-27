@@ -1,18 +1,14 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: Add support for filling a buffer with 64
- bit value
-Date: Thu, 27 Jul 2017 17:51:32 +0200
-Message-ID: <71ca2886-3c8f-6d90-c8e3-d505978c6eef@vodafone.de>
-References: <1501101911-22711-1-git-send-email-Yong.Zhao@amd.com>
- <bab2f91a-553b-0030-a8ee-13e488810eb4@vodafone.de>
- <CY1PR1201MB1097EB9BD9F52DFD48249814F0BE0@CY1PR1201MB1097.namprd12.prod.outlook.com>
- <643b3543-7d55-a02c-b034-51ed9267b5ac@amd.com>
+From: Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: remove unused power control for vcn
+Date: Thu, 27 Jul 2017 11:58:54 -0400
+Message-ID: <1a151b41-e78d-e0c9-ecad-0b90130947c4@amd.com>
+References: <1501096057-10197-1-git-send-email-leo.liu@amd.com>
+ <BN6PR12MB1652D771EA8F795335E7372DF7BE0@BN6PR12MB1652.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1692673812=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <643b3543-7d55-a02c-b034-51ed9267b5ac-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <BN6PR12MB1652D771EA8F795335E7372DF7BE0-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-GB
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,100 +19,342 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QW0gMjcuMDcuMjAxNyB1bSAxNzo0OCBzY2hyaWViIEhhcnJ5IFdlbnRsYW5kOgo+IE9uIDIwMTct
-MDctMjcgMTE6NDQgQU0sIFpoYW8sIFlvbmcgd3JvdGU6Cj4+IEhpIENocmlzdGlhbiwKPj4KPj4K
-Pj4gSSB1c2VkIGVjbGlwc2UuIFRoZSByZWFzb24gd2h5IEkgY2hhbmdlZCB0aGUgaW5kZW50IGlz
-IHRoYXQgdGhlIGN1cnJlbnQKPj4gaW5kZW50cyBhcmUgY29tcG9zZWQgb2YgdGFicyBhbmQgc3Bh
-Y2VzLCBhbmQgSSB3aWxsIGdldCBzdHlsZSB3YXJuaW5nCj4+IGZyb20gY2hlY2twYXRjaCBzY3Jp
-cHQgd2hlbiB0cnlpbmcgdG8gc3VibWl0IGl0IHRvIGdlcnJpdCwgc28gSSBtYWRlIHRoZQo+PiBp
-bmRlbnRzIGFsbCB0YWJzLiBJbiB0aGlzIGNhc2UsIHNob3VsZCBJIHN0aWxsIHVzZSB0aGUgcHJl
-dmlvdXMgaW5kZW50cz8KPj4KPiBHZW5lcmFsbHkgaXQncyBub3QgYSBnb29kIGlkZWEgdG8gY29t
-YmluZSBzdHlsZSBmaXhlcyB3aXRoIGZ1bmN0aW9uYWwKPiBjaGFuZ2VzIGFzIGl0IG1ha2VzIGl0
-IGhhcmQgdG8gc3BvdCB0aGUgZnVuY3Rpb25hbCBjaGFuZ2UuIEl0J3MgYmV0dGVyCj4gdG8gaWdu
-b3JlIHdhcm5pbmdzIGluIHRoYXQgY2FzZSBpZiB0aGV5J3JlIG5vdCBpbiB0aGUgc2FtZSBsaW5l
-IHlvdSBtb2RpZnkuCgpZZXMsIGV4YWN0bHkuCgpBZGRpdGlvbmFsIHRvIHRoYXQgdGFicyBhbmQg
-c3BhY2VzIGFyZSBhY3R1YWxseSB0aGUgcmVjb21tZW5kZWQgc3R5bGUgaW4gCnRoaXMgY2FzZSAo
-YXQgbGVhc3QgYWNjb3JkaW5nIHRvIGxpbnV4c3R5LnZpbSkuCgpDaHJpc3RpYW4uCgo+Cj4gSGFy
-cnkKPgo+PiBSZWdhcmRzLAo+Pgo+PiBZb25nCj4+Cj4+Cj4+Cj4+IC0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+
-PiAqRnJvbToqIENocmlzdGlhbiBLw7ZuaWcgPGRlYXRoc2ltcGxlQHZvZGFmb25lLmRlPgo+PiAq
-U2VudDoqIFRodXJzZGF5LCBKdWx5IDI3LCAyMDE3IDU6MzQ6NTggQU0KPj4gKlRvOiogWmhhbywg
-WW9uZzsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4gKlN1YmplY3Q6KiBSZTogW1BB
-VENIIDEvMl0gZHJtL2FtZGdwdTogQWRkIHN1cHBvcnQgZm9yIGZpbGxpbmcgYSBidWZmZXIKPj4g
-d2l0aCA2NCBiaXQgdmFsdWUKPj4gICAKPj4gQW0gMjYuMDcuMjAxNyB1bSAyMjo0NSBzY2hyaWVi
-IFlvbmcgWmhhbzoKPj4+IFRoYXQgZnVuY3Rpb24gd2lsbCBiZSB1c2VkIGxhdGVyIHRvIHN1cHBv
-cnQgc2V0dGluZyBhIHBhZ2UgdGFibGUKPj4+IGJsb2NrIHdpdGggNjQgYml0IHZhbHVlLgo+Pj4K
-Pj4+IENoYW5nZS1JZDogSWIxNDJlYmQ0MTYzZDZlMjM2NzBhM2YwY2VlZDUzNmQ1OTEzM2I5NDIK
-Pj4+IFNpZ25lZC1vZmYtYnk6IFlvbmcgWmhhbyA8WW9uZy5aaGFvQGFtZC5jb20+Cj4+PiAtLS0K
-Pj4+ICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYyB8IDE5ICsrKysr
-KysrKysrKystLS0tLS0KPj4+ICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90
-dG0uaCB8ICAyICstCj4+PiAgICAyIGZpbGVzIGNoYW5nZWQsIDE0IGluc2VydGlvbnMoKyksIDcg
-ZGVsZXRpb25zKC0pCj4+Pgo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV90dG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0u
-Ywo+Pj4gaW5kZXggNGQyYTQ1NC4uNmFiMzBkYSAxMDA2NDQKPj4+IC0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X3R0bS5jCj4+PiBAQCAtMTUwOSwxMSArMTUwOSwxMiBAQCBpbnQgYW1k
-Z3B1X2NvcHlfYnVmZmVyKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgdWludDY0X3Qgc3JjX29m
-ZnNldCwKPj4+ICAgIH0KPj4+ICAgIAo+Pj4gICAgaW50IGFtZGdwdV9maWxsX2J1ZmZlcihzdHJ1
-Y3QgYW1kZ3B1X2JvICpibywKPj4+IC0gICAgICAgICAgICAgICAgICAgIHVpbnQzMl90IHNyY19k
-YXRhLAo+Pj4gLSAgICAgICAgICAgICAgICAgICAgc3RydWN0IHJlc2VydmF0aW9uX29iamVjdCAq
-cmVzdiwKPj4+IC0gICAgICAgICAgICAgICAgICAgIHN0cnVjdCBkbWFfZmVuY2UgKipmZW5jZSkK
-Pj4+ICsgICAgICAgICAgICAgICAgICAgICB1aW50NjRfdCBzcmNfZGF0YSwKPj4+ICsgICAgICAg
-ICAgICAgICAgICAgICBzdHJ1Y3QgcmVzZXJ2YXRpb25fb2JqZWN0ICpyZXN2LAo+Pj4gKyAgICAg
-ICAgICAgICAgICAgICAgIHN0cnVjdCBkbWFfZmVuY2UgKipmZW5jZSkKPj4gTG9va3MgbGlrZSB5
-b3UgYWNjaWRlbnRhbGx5IGNoYW5nZWQgdGhlIGluZGVudGF0aW9uIG9mIHRoZSBvdGhlcgo+PiBm
-dW5jdGlvbiBwYXJhbWV0ZXJzIGhlcmUuIFdoYXQgZWRpdG9yIGRvIHlvdSB1c2U/Cj4+Cj4+IFBs
-ZWFzZSBtYWtlIHN1cmUgdGhhdCB5b3Ugb25seSBjaGFuZ2UgdGhlIHR5cGUsIHdpdGggdGhhdCBm
-aXhlZCB0aGUKPj4gcGF0Y2ggaXMgUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlz
-dGlhbi5rb2VuaWdAYW1kLmNvbT4uCj4+Cj4+IFJlZ2FyZHMsCj4+IENocmlzdGlhbi4KPj4KPj4+
-ICAgIHsKPj4+ICAgICAgICAgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBhbWRncHVfdHRt
-X2FkZXYoYm8tPnRiby5iZGV2KTsKPj4+ICsgICAgIC8qIG1heF9ieXRlcyBhcHBsaWVzIHRvIFNE
-TUFfT1BfUFRFUERFIGFzIHdlbGwgYXMgU0RNQV9PUF9DT05TVF9GSUxMKi8KPj4+ICAgICAgICAg
-dWludDMyX3QgbWF4X2J5dGVzID0gYWRldi0+bW1hbi5idWZmZXJfZnVuY3MtPmZpbGxfbWF4X2J5
-dGVzOwo+Pj4gICAgICAgICBzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcgPSBhZGV2LT5tbWFuLmJ1
-ZmZlcl9mdW5jc19yaW5nOwo+Pj4gICAgCj4+PiBAQCAtMTU0NSw3ICsxNTQ2LDkgQEAgaW50IGFt
-ZGdwdV9maWxsX2J1ZmZlcihzdHJ1Y3QgYW1kZ3B1X2JvICpibywKPj4+ICAgICAgICAgICAgICAg
-ICBudW1fcGFnZXMgLT0gbW1fbm9kZS0+c2l6ZTsKPj4+ICAgICAgICAgICAgICAgICArK21tX25v
-ZGU7Cj4+PiAgICAgICAgIH0KPj4+IC0gICAgIG51bV9kdyA9IG51bV9sb29wcyAqIGFkZXYtPm1t
-YW4uYnVmZmVyX2Z1bmNzLT5maWxsX251bV9kdzsKPj4+ICsKPj4+ICsgICAgIC8qIDEwIGRvdWJs
-ZSB3b3JkcyBmb3IgZWFjaCBTRE1BX09QX1BURVBERSBjbWQgKi8KPj4+ICsgICAgIG51bV9kdyA9
-IG51bV9sb29wcyAqIDEwOwo+Pj4gICAgCj4+PiAgICAgICAgIC8qIGZvciBJQiBwYWRkaW5nICov
-Cj4+PiAgICAgICAgIG51bV9kdyArPSA2NDsKPj4+IEBAIC0xNTcwLDEyICsxNTczLDE2IEBAIGlu
-dCBhbWRncHVfZmlsbF9idWZmZXIoc3RydWN0IGFtZGdwdV9ibyAqYm8sCj4+PiAgICAgICAgICAg
-ICAgICAgdWludDMyX3QgYnl0ZV9jb3VudCA9IG1tX25vZGUtPnNpemUgPDwgUEFHRV9TSElGVDsK
-Pj4+ICAgICAgICAgICAgICAgICB1aW50NjRfdCBkc3RfYWRkcjsKPj4+ICAgIAo+Pj4gKyAgICAg
-ICAgICAgICBXQVJOX09OQ0UoYnl0ZV9jb3VudCAmIDB4NywgInNpemUgc2hvdWxkIGJlIGEgbXVs
-dGlwbGUgb2YgOCIpOwo+Pj4gKwo+Pj4gICAgICAgICAgICAgICAgIGRzdF9hZGRyID0gYW1kZ3B1
-X21tX25vZGVfYWRkcigmYm8tPnRibywgbW1fbm9kZSwgJmJvLT50Ym8ubWVtKTsKPj4+ICAgICAg
-ICAgICAgICAgICB3aGlsZSAoYnl0ZV9jb3VudCkgewo+Pj4gICAgICAgICAgICAgICAgICAgICAg
-ICAgdWludDMyX3QgY3VyX3NpemVfaW5fYnl0ZXMgPSBtaW4oYnl0ZV9jb3VudCwgbWF4X2J5dGVz
-KTsKPj4+ICAgIAo+Pj4gLSAgICAgICAgICAgICAgICAgICAgIGFtZGdwdV9lbWl0X2ZpbGxfYnVm
-ZmVyKGFkZXYsICZqb2ItPmlic1swXSwgc3JjX2RhdGEsCj4+PiAtICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgZHN0X2FkZHIsIGN1cl9zaXplX2luX2J5dGVzKTsK
-Pj4+ICsgICAgICAgICAgICAgICAgICAgICBhbWRncHVfdm1fc2V0X3B0ZV9wZGUoYWRldiwgJmpv
-Yi0+aWJzWzBdLAo+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkc3Rf
-YWRkciwgMCwKPj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY3VyX3Np
-emVfaW5fYnl0ZXMgPj4gMywgMCwKPj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgc3JjX2RhdGEpOwo+Pj4gICAgCj4+PiAgICAgICAgICAgICAgICAgICAgICAgICBkc3Rf
-YWRkciArPSBjdXJfc2l6ZV9pbl9ieXRlczsKPj4+ICAgICAgICAgICAgICAgICAgICAgICAgIGJ5
-dGVfY291bnQgLT0gY3VyX3NpemVfaW5fYnl0ZXM7Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3R0bS5oCj4+PiBpbmRleCBmMTM3YzI0Li4wZTIzOTlmIDEwMDY0NAo+Pj4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5oCj4+PiArKysgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmgKPj4+IEBAIC03Myw3ICs3Myw3IEBA
-IGludCBhbWRncHVfY29weV9idWZmZXIoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCB1aW50NjRf
-dCBzcmNfb2Zmc2V0LAo+Pj4gICAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3QgZG1hX2ZlbmNl
-ICoqZmVuY2UsIGJvb2wgZGlyZWN0X3N1Ym1pdCwKPj4+ICAgICAgICAgICAgICAgICAgICAgICAg
-Ym9vbCB2bV9uZWVkc19mbHVzaCk7Cj4+PiAgICBpbnQgYW1kZ3B1X2ZpbGxfYnVmZmVyKHN0cnVj
-dCBhbWRncHVfYm8gKmJvLAo+Pj4gLSAgICAgICAgICAgICAgICAgICAgIHVpbnQzMl90IHNyY19k
-YXRhLAo+Pj4gKyAgICAgICAgICAgICAgICAgICAgIHVpbnQ2NF90IHNyY19kYXRhLAo+Pj4gICAg
-ICAgICAgICAgICAgICAgICAgICAgc3RydWN0IHJlc2VydmF0aW9uX29iamVjdCAqcmVzdiwKPj4+
-ICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBkbWFfZmVuY2UgKipmZW5jZSk7Cj4+PiAg
-ICAKPj4KPj4KPj4KPj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KPj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKPj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4Cj4+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is a multi-part message in MIME format.
+--===============1692673812==
+Content-Type: multipart/alternative;
+ boundary="------------25D2E2E914B173C375E7A321"
+Content-Language: en-GB
+
+This is a multi-part message in MIME format.
+--------------25D2E2E914B173C375E7A321
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+
+
+On 07/26/2017 10:44 PM, Deucher, Alexander wrote:
+> > -----Original Message-----
+> > From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf
+> > Of Leo Liu
+> > Sent: Wednesday, July 26, 2017 3:08 PM
+> > To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> > Cc: Liu, Leo
+> > Subject: [PATCH] drm/amdgpu: remove unused power control for vcn
+> >
+> > The power control for vcn has been moved to firmware, kernel'll spins
+> > "amdgpu: [powerplay] pp_dpm_powergate_uvd was not implemented",
+> > each
+> > time when application runs, so let's remove it.
+> >
+> > Signed-off-by: Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>
+>
+> Does firmware cover powergating/clockgating as well or just dpm?
+No. dpm only.
+
+> I think we may still need to handle clock and powergating  manually.
+I will keep the function and comment it out till pg/cg, since it's 
+annoying to spin that error message.
+
+The new patch will follow shortly.
+
+Leo
+
+>
+> Alex
+>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 23 +----------------------
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  1 -
+> >  drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c   |  4 ++--
+> >  3 files changed, 3 insertions(+), 25 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> > index 09190fa..4186f45 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+> > @@ -207,29 +207,8 @@ static void amdgpu_vcn_idle_work_handler(struct
+> > work_struct *work)
+> >                container_of(work, struct amdgpu_device,
+> > vcn.idle_work.work);
+> >        unsigned fences = amdgpu_fence_count_emitted(&adev-
+> > >vcn.ring_dec);
+> >
+> > -     if (fences == 0) {
+> > -             if (adev->pm.dpm_enabled) {
+> > -                     amdgpu_dpm_enable_uvd(adev, false);
+> > -             } else {
+> > -                     amdgpu_asic_set_uvd_clocks(adev, 0, 0);
+> > -             }
+> > -     } else {
+> > +     if (fences != 0)
+> > schedule_delayed_work(&adev->vcn.idle_work,
+> > VCN_IDLE_TIMEOUT);
+> > -     }
+> > -}
+> > -
+> > -void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *ring)
+> > -{
+> > -     struct amdgpu_device *adev = ring->adev;
+> > -     bool set_clocks = !cancel_delayed_work_sync(&adev-
+> > >vcn.idle_work);
+> > -
+> > -     if (set_clocks) {
+> > -             if (adev->pm.dpm_enabled) {
+> > -                     amdgpu_dpm_enable_uvd(adev, true);
+> > -             } else {
+> > -                     amdgpu_asic_set_uvd_clocks(adev, 53300, 40000);
+> > -             }
+> > -     }
+> >  }
+> >
+> >  void amdgpu_vcn_ring_end_use(struct amdgpu_ring *ring)
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+> > index d50ba06..930903d 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+> > @@ -65,7 +65,6 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev);
+> >  int amdgpu_vcn_sw_fini(struct amdgpu_device *adev);
+> >  int amdgpu_vcn_suspend(struct amdgpu_device *adev);
+> >  int amdgpu_vcn_resume(struct amdgpu_device *adev);
+> > -void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *ring);
+> >  void amdgpu_vcn_ring_end_use(struct amdgpu_ring *ring);
+> >
+> >  int amdgpu_vcn_dec_ring_test_ring(struct amdgpu_ring *ring);
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> > b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> > index 21e7b88..94814f0 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+> > @@ -1122,7 +1122,7 @@ static const struct amdgpu_ring_funcs
+> > vcn_v1_0_dec_ring_vm_funcs = {
+> >        .insert_start = vcn_v1_0_dec_ring_insert_start,
+> >        .insert_end = vcn_v1_0_dec_ring_insert_end,
+> >        .pad_ib = amdgpu_ring_generic_pad_ib,
+> > -     .begin_use = amdgpu_vcn_ring_begin_use,
+> > +     .begin_use = NULL,
+> >        .end_use = amdgpu_vcn_ring_end_use,
+> >  };
+> >
+> > @@ -1148,7 +1148,7 @@ static const struct amdgpu_ring_funcs
+> > vcn_v1_0_enc_ring_vm_funcs = {
+> >        .insert_nop = amdgpu_ring_insert_nop,
+> >        .insert_end = vcn_v1_0_enc_ring_insert_end,
+> >        .pad_ib = amdgpu_ring_generic_pad_ib,
+> > -     .begin_use = amdgpu_vcn_ring_begin_use,
+> > +     .begin_use = NULL,
+> >        .end_use = amdgpu_vcn_ring_end_use,
+> >  };
+> >
+> > --
+> > 2.7.4
+> >
+> > _______________________________________________
+> > amd-gfx mailing list
+> > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--------------25D2E2E914B173C375E7A321
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p><br>
+    </p>
+    <br>
+    <div class="moz-cite-prefix">On 07/26/2017 10:44 PM, Deucher,
+      Alexander wrote:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:BN6PR12MB1652D771EA8F795335E7372DF7BE0-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="Generator" content="Microsoft Exchange Server">
+      <!-- converted from text -->
+      <style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left: #800000 2px solid; } --></style>
+      <font size="2"><span style="font-size:10pt;">
+          <div class="PlainText">&gt; -----Original Message-----<br>
+            &gt; From: amd-gfx [<a
+              href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
+              moz-do-not-send="true">mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>]
+            On Behalf<br>
+            &gt; Of Leo Liu<br>
+            &gt; Sent: Wednesday, July 26, 2017 3:08 PM<br>
+            &gt; To: <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+            &gt; Cc: Liu, Leo<br>
+            &gt; Subject: [PATCH] drm/amdgpu: remove unused power
+            control for vcn<br>
+            &gt; <br>
+            &gt; The power control for vcn has been moved to firmware,
+            kernel'll spins<br>
+            &gt; "amdgpu: [powerplay] pp_dpm_powergate_uvd was not
+            implemented",<br>
+            &gt; each<br>
+            &gt; time when application runs, so let's remove it.<br>
+            &gt; <br>
+            &gt; Signed-off-by: Leo Liu <a class="moz-txt-link-rfc2396E" href="mailto:leo.liu-5C7GfCeVMHo@public.gmane.org">&lt;leo.liu-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+            <br>
+            Does firmware cover powergating/clockgating as well or just
+            dpm? <br>
+          </div>
+        </span></font></blockquote>
+    No. dpm only.<br>
+    <br>
+    <blockquote type="cite"
+cite="mid:BN6PR12MB1652D771EA8F795335E7372DF7BE0-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org"><font
+        size="2"><span style="font-size:10pt;">
+          <div class="PlainText"> I think we may still need to handle
+            clock and powergating  manually.<br>
+          </div>
+        </span></font></blockquote>
+    I will keep the function and comment it out till pg/cg, since it's
+    annoying to spin that error message.<br>
+    <br>
+    The new patch will follow shortly.<br>
+    <br>
+    Leo<br>
+    <br>
+    <blockquote type="cite"
+cite="mid:BN6PR12MB1652D771EA8F795335E7372DF7BE0-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org"><font
+        size="2"><span style="font-size:10pt;">
+          <div class="PlainText">
+            <br>
+            Alex<br>
+            <br>
+            &gt; ---<br>
+            &gt;  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 23
+            +----------------------<br>
+            &gt;  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  1 -<br>
+            &gt;  drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c   |  4 ++--<br>
+            &gt;  3 files changed, 3 insertions(+), 25 deletions(-)<br>
+            &gt; <br>
+            &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c<br>
+            &gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c<br>
+            &gt; index 09190fa..4186f45 100644<br>
+            &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c<br>
+            &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c<br>
+            &gt; @@ -207,29 +207,8 @@ static void
+            amdgpu_vcn_idle_work_handler(struct<br>
+            &gt; work_struct *work)<br>
+            &gt;                container_of(work, struct amdgpu_device,<br>
+            &gt; vcn.idle_work.work);<br>
+            &gt;        unsigned fences =
+            amdgpu_fence_count_emitted(&amp;adev-<br>
+            &gt; &gt;vcn.ring_dec);<br>
+            &gt; <br>
+            &gt; -     if (fences == 0) {<br>
+            &gt; -             if (adev-&gt;pm.dpm_enabled) {<br>
+            &gt; -                     amdgpu_dpm_enable_uvd(adev,
+            false);<br>
+            &gt; -             } else {<br>
+            &gt; -                     amdgpu_asic_set_uvd_clocks(adev,
+            0, 0);<br>
+            &gt; -             }<br>
+            &gt; -     } else {<br>
+            &gt; +     if (fences != 0)<br>
+            &gt;               
+            schedule_delayed_work(&amp;adev-&gt;vcn.idle_work,<br>
+            &gt; VCN_IDLE_TIMEOUT);<br>
+            &gt; -     }<br>
+            &gt; -}<br>
+            &gt; -<br>
+            &gt; -void amdgpu_vcn_ring_begin_use(struct amdgpu_ring
+            *ring)<br>
+            &gt; -{<br>
+            &gt; -     struct amdgpu_device *adev = ring-&gt;adev;<br>
+            &gt; -     bool set_clocks =
+            !cancel_delayed_work_sync(&amp;adev-<br>
+            &gt; &gt;vcn.idle_work);<br>
+            &gt; -<br>
+            &gt; -     if (set_clocks) {<br>
+            &gt; -             if (adev-&gt;pm.dpm_enabled) {<br>
+            &gt; -                     amdgpu_dpm_enable_uvd(adev,
+            true);<br>
+            &gt; -             } else {<br>
+            &gt; -                     amdgpu_asic_set_uvd_clocks(adev,
+            53300, 40000);<br>
+            &gt; -             }<br>
+            &gt; -     }<br>
+            &gt;  }<br>
+            &gt; <br>
+            &gt;  void amdgpu_vcn_ring_end_use(struct amdgpu_ring *ring)<br>
+            &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h<br>
+            &gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h<br>
+            &gt; index d50ba06..930903d 100644<br>
+            &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h<br>
+            &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h<br>
+            &gt; @@ -65,7 +65,6 @@ int amdgpu_vcn_sw_init(struct
+            amdgpu_device *adev);<br>
+            &gt;  int amdgpu_vcn_sw_fini(struct amdgpu_device *adev);<br>
+            &gt;  int amdgpu_vcn_suspend(struct amdgpu_device *adev);<br>
+            &gt;  int amdgpu_vcn_resume(struct amdgpu_device *adev);<br>
+            &gt; -void amdgpu_vcn_ring_begin_use(struct amdgpu_ring
+            *ring);<br>
+            &gt;  void amdgpu_vcn_ring_end_use(struct amdgpu_ring
+            *ring);<br>
+            &gt; <br>
+            &gt;  int amdgpu_vcn_dec_ring_test_ring(struct amdgpu_ring
+            *ring);<br>
+            &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c<br>
+            &gt; b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c<br>
+            &gt; index 21e7b88..94814f0 100644<br>
+            &gt; --- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c<br>
+            &gt; +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c<br>
+            &gt; @@ -1122,7 +1122,7 @@ static const struct
+            amdgpu_ring_funcs<br>
+            &gt; vcn_v1_0_dec_ring_vm_funcs = {<br>
+            &gt;        .insert_start = vcn_v1_0_dec_ring_insert_start,<br>
+            &gt;        .insert_end = vcn_v1_0_dec_ring_insert_end,<br>
+            &gt;        .pad_ib = amdgpu_ring_generic_pad_ib,<br>
+            &gt; -     .begin_use = amdgpu_vcn_ring_begin_use,<br>
+            &gt; +     .begin_use = NULL,<br>
+            &gt;        .end_use = amdgpu_vcn_ring_end_use,<br>
+            &gt;  };<br>
+            &gt; <br>
+            &gt; @@ -1148,7 +1148,7 @@ static const struct
+            amdgpu_ring_funcs<br>
+            &gt; vcn_v1_0_enc_ring_vm_funcs = {<br>
+            &gt;        .insert_nop = amdgpu_ring_insert_nop,<br>
+            &gt;        .insert_end = vcn_v1_0_enc_ring_insert_end,<br>
+            &gt;        .pad_ib = amdgpu_ring_generic_pad_ib,<br>
+            &gt; -     .begin_use = amdgpu_vcn_ring_begin_use,<br>
+            &gt; +     .begin_use = NULL,<br>
+            &gt;        .end_use = amdgpu_vcn_ring_end_use,<br>
+            &gt;  };<br>
+            &gt; <br>
+            &gt; --<br>
+            &gt; 2.7.4<br>
+            &gt; <br>
+            &gt; _______________________________________________<br>
+            &gt; amd-gfx mailing list<br>
+            &gt; <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+            &gt; <a
+              href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
+              moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+          </div>
+        </span></font>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------25D2E2E914B173C375E7A321--
+
+--===============1692673812==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1692673812==--
