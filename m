@@ -1,47 +1,61 @@
-From: Kees Cook <keescook@chromium.org>
-Subject: Re: [PATCH] drm/amd/powerplay: rv: Use designated initializers
-Date: Fri, 28 Jul 2017 10:15:43 -0700
-Message-ID: <CAGXu5jJ8uJTDHVWv9qwULRmoF6n5tHK=a2WWoe2CMGfmD8Wc4g@mail.gmail.com>
-References: <20170725214756.GA102262@beast> <CADnq5_N=PK=k7Q9QGCqoQ0Bx5YnRRw1WjXijtxqhfKmFoh3MTg@mail.gmail.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amd/powerplay: rv: Use designated initializers
+Date: Fri, 28 Jul 2017 17:26:57 +0000
+Message-ID: <BN6PR12MB1652FB3CC2DA7D3DF9C5D809F7BF0@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <20170725214756.GA102262@beast>
+ <CADnq5_N=PK=k7Q9QGCqoQ0Bx5YnRRw1WjXijtxqhfKmFoh3MTg@mail.gmail.com>
+ <CAGXu5jJ8uJTDHVWv9qwULRmoF6n5tHK=a2WWoe2CMGfmD8Wc4g@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <CADnq5_N=PK=k7Q9QGCqoQ0Bx5YnRRw1WjXijtxqhfKmFoh3MTg@mail.gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, David Airlie <airlied@linux.ie>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, Rex Zhu <Rex.Zhu@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CAGXu5jJ8uJTDHVWv9qwULRmoF6n5tHK=a2WWoe2CMGfmD8Wc4g-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: 'Kees Cook' <keescook-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "Koenig,
+ Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
-On Thu, Jul 27, 2017 at 6:43 PM, Alex Deucher <alexdeucher@gmail.com> wrote:
-> On Tue, Jul 25, 2017 at 5:47 PM, Kees Cook <keescook@chromium.org> wrote:
->> As done for vega10 in commit 3ddd396f6b57 ("drm/amd/powerplay: Use
->> designated initializers") mark other tableFunction entries with designated
->> initializers. The randstruct plugin requires designated initializers for
->> structures that are entirely function pointers.
->>
->> Cc: Rex Zhu <Rex.Zhu@amd.com>
->> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
->> Cc: Alex Deucher <alexander.deucher@amd.com>
->> Signed-off-by: Kees Cook <keescook@chromium.org>
->> ---
->> If I can get an Ack for this, I'll carry it in the gcc-plugins tree, unless
->> you think this is worth landing for v4.13, in which case, please take it
->> now. :)
->>
->
-> Acked-by: Alex Deucher <alexander.deucher@amd.com>
->
-> I'm happy to take this through my tree if that is ok with you.
-
-Since the randstruct patch depends on this fix, it's likely best to go
-through my tree unless you can get this into v4.13. (Since then when
-the randstruct patch lands in v4.14, it'll already be there.) I'm fine
-either way.
-
-Thanks!
-
--Kees
-
--- 
-Kees Cook
-Pixel Security
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBrZWVzY29va0Bnb29nbGUuY29t
+IFttYWlsdG86a2Vlc2Nvb2tAZ29vZ2xlLmNvbV0gT24gQmVoYWxmIE9mDQo+IEtlZXMgQ29vaw0K
+PiBTZW50OiBGcmlkYXksIEp1bHkgMjgsIDIwMTcgMToxNiBQTQ0KPiBUbzogQWxleCBEZXVjaGVy
+DQo+IENjOiBMS01MOyBEYXZpZCBBaXJsaWU7IGFtZC1nZnggbGlzdDsgTWFsaW5nIGxpc3QgLSBE
+UkkgZGV2ZWxvcGVyczsgRGV1Y2hlciwNCj4gQWxleGFuZGVyOyBaaHUsIFJleDsgS29lbmlnLCBD
+aHJpc3RpYW47IFpoYW5nLCBIYXdraW5nDQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0hdIGRybS9hbWQv
+cG93ZXJwbGF5OiBydjogVXNlIGRlc2lnbmF0ZWQgaW5pdGlhbGl6ZXJzDQo+IA0KPiBPbiBUaHUs
+IEp1bCAyNywgMjAxNyBhdCA2OjQzIFBNLCBBbGV4IERldWNoZXIgPGFsZXhkZXVjaGVyQGdtYWls
+LmNvbT4NCj4gd3JvdGU6DQo+ID4gT24gVHVlLCBKdWwgMjUsIDIwMTcgYXQgNTo0NyBQTSwgS2Vl
+cyBDb29rIDxrZWVzY29va0BjaHJvbWl1bS5vcmc+DQo+IHdyb3RlOg0KPiA+PiBBcyBkb25lIGZv
+ciB2ZWdhMTAgaW4gY29tbWl0IDNkZGQzOTZmNmI1NyAoImRybS9hbWQvcG93ZXJwbGF5OiBVc2UN
+Cj4gPj4gZGVzaWduYXRlZCBpbml0aWFsaXplcnMiKSBtYXJrIG90aGVyIHRhYmxlRnVuY3Rpb24g
+ZW50cmllcyB3aXRoIGRlc2lnbmF0ZWQNCj4gPj4gaW5pdGlhbGl6ZXJzLiBUaGUgcmFuZHN0cnVj
+dCBwbHVnaW4gcmVxdWlyZXMgZGVzaWduYXRlZCBpbml0aWFsaXplcnMgZm9yDQo+ID4+IHN0cnVj
+dHVyZXMgdGhhdCBhcmUgZW50aXJlbHkgZnVuY3Rpb24gcG9pbnRlcnMuDQo+ID4+DQo+ID4+IENj
+OiBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+DQo+ID4+IENjOiBIYXdraW5nIFpoYW5nIDxIYXdr
+aW5nLlpoYW5nQGFtZC5jb20+DQo+ID4+IENjOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVj
+aGVyQGFtZC5jb20+DQo+ID4+IFNpZ25lZC1vZmYtYnk6IEtlZXMgQ29vayA8a2Vlc2Nvb2tAY2hy
+b21pdW0ub3JnPg0KPiA+PiAtLS0NCj4gPj4gSWYgSSBjYW4gZ2V0IGFuIEFjayBmb3IgdGhpcywg
+SSdsbCBjYXJyeSBpdCBpbiB0aGUgZ2NjLXBsdWdpbnMgdHJlZSwgdW5sZXNzDQo+ID4+IHlvdSB0
+aGluayB0aGlzIGlzIHdvcnRoIGxhbmRpbmcgZm9yIHY0LjEzLCBpbiB3aGljaCBjYXNlLCBwbGVh
+c2UgdGFrZSBpdA0KPiA+PiBub3cuIDopDQo+ID4+DQo+ID4NCj4gPiBBY2tlZC1ieTogQWxleCBE
+ZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0KPiA+DQo+ID4gSSdtIGhhcHB5IHRv
+IHRha2UgdGhpcyB0aHJvdWdoIG15IHRyZWUgaWYgdGhhdCBpcyBvayB3aXRoIHlvdS4NCj4gDQo+
+IFNpbmNlIHRoZSByYW5kc3RydWN0IHBhdGNoIGRlcGVuZHMgb24gdGhpcyBmaXgsIGl0J3MgbGlr
+ZWx5IGJlc3QgdG8gZ28NCj4gdGhyb3VnaCBteSB0cmVlIHVubGVzcyB5b3UgY2FuIGdldCB0aGlz
+IGludG8gdjQuMTMuIChTaW5jZSB0aGVuIHdoZW4NCj4gdGhlIHJhbmRzdHJ1Y3QgcGF0Y2ggbGFu
+ZHMgaW4gdjQuMTQsIGl0J2xsIGFscmVhZHkgYmUgdGhlcmUuKSBJJ20gZmluZQ0KPiBlaXRoZXIg
+d2F5Lg0KDQpHbyBhaGVhZCBhbmQgdGFrZSBpdCB0aHJvdWdoIHlvdXIgdHJlZS4gIFRoYW5rcyEN
+Cg0KQWxleA0KDQo+IA0KPiBUaGFua3MhDQo+IA0KPiAtS2Vlcw0KPiANCj4gLS0NCj4gS2VlcyBD
+b29rDQo+IFBpeGVsIFNlY3VyaXR5DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZngK
