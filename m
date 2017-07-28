@@ -1,92 +1,70 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 3/3] drm/amd/powerplay: update didt configs
-Date: Fri, 28 Jul 2017 12:33:42 -0400
-Message-ID: <CADnq5_PTZwocgyamoivC_oMHPVjwnwhZL0+kgA_VsLyC9JWqew@mail.gmail.com>
-References: <1501228861-21373-1-git-send-email-evan.quan@amd.com>
- <20170728095952.GA12123@hr-amur2>
+From: Kees Cook <keescook@chromium.org>
+Subject: Re: [PATCH] drm/amd/powerplay: rv: Use designated initializers
+Date: Fri, 28 Jul 2017 10:10:15 -0700
+Message-ID: <CAGXu5jJZeedsEcwtnrYd-kQEx=yVOuvp7qkBBRmtGLifLOy70Q@mail.gmail.com>
+References: <20170725214756.GA102262@beast> <CADnq5_N=PK=k7Q9QGCqoQ0Bx5YnRRw1WjXijtxqhfKmFoh3MTg@mail.gmail.com>
+ <04db0bba-bf20-27dc-06ec-b99ce2df7fc8@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170728095952.GA12123@hr-amur2>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
-Cc: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <04db0bba-bf20-27dc-06ec-b99ce2df7fc8@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexdeucher@gmail.com>, David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, Rex Zhu <Rex.Zhu@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gRnJpLCBKdWwgMjgsIDIwMTcgYXQgNTo1OSBBTSwgSHVhbmcgUnVpIDxyYXkuaHVhbmdAYW1k
-LmNvbT4gd3JvdGU6Cj4gT24gRnJpLCBKdWwgMjgsIDIwMTcgYXQgMDQ6MDE6MDFQTSArMDgwMCwg
-RXZhbiBRdWFuIHdyb3RlOgo+PiBDaGFuZ2UtSWQ6IEkxNTA2ZjRjNmU5MzIwYTFlOTBhODliZTU1
-MzY4MzI4Y2JhYWI3ODQ0Cj4+IFNpZ25lZC1vZmYtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFt
-ZC5jb20+Cj4KPiBSZXZpZXdlZC1ieTogSHVhbmcgUnVpIDxyYXkuaHVhbmdAYW1kLmNvbT4KClJl
-dmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cgo+Cj4+
-IC0tLQo+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX3Bvd2Vy
-dHVuZS5jIHwgNiArKystLS0KPj4gIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDMg
-ZGVsZXRpb25zKC0pCj4+Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
-cGxheS9od21nci92ZWdhMTBfcG93ZXJ0dW5lLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
-cGxheS9od21nci92ZWdhMTBfcG93ZXJ0dW5lLmMKPj4gaW5kZXggZmJhZmM4NC4uZTdmYTY3MCAx
-MDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEw
-X3Bvd2VydHVuZS5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdy
-L3ZlZ2ExMF9wb3dlcnR1bmUuYwo+PiBAQCAtNTQzLDcgKzU0Myw3IEBAIHN0YXRpYyBjb25zdCBz
-dHJ1Y3QgdmVnYTEwX2RpZHRfY29uZmlnX3JlZyBTRUVEQ0N0cmxGb3JjZVN0YWxsQ29uZmlnX1Zl
-Z2ExMFtdID0KPj4gICAqIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+PiAgICovCj4+ICAgICAgIC8qIFNRICovCj4+IC0gICAg
-IHsgICBpeERJRFRfU1FfRURDX0NUUkwsICAgICAgICAgICAgICAgIERJRFRfU1FfRURDX0NUUkxf
-X0VEQ19FTl9NQVNLLCAgICAgICAgICAgICAgICAgICAgICAgRElEVF9TUV9FRENfQ1RSTF9fRURD
-X0VOX19TSElGVCwgICAgICAgICAgICAgICAgICAgICAgICAweDAwMDEgfSwKPj4gKyAgICAgeyAg
-IGl4RElEVF9TUV9FRENfQ1RSTCwgICAgICAgICAgICAgICAgRElEVF9TUV9FRENfQ1RSTF9fRURD
-X0VOX01BU0ssICAgICAgICAgICAgICAgICAgICAgICBESURUX1NRX0VEQ19DVFJMX19FRENfRU5f
-X1NISUZULCAgICAgICAgICAgICAgICAgICAgICAgIDB4MDAwMCB9LAo+PiAgICAgICB7ICAgaXhE
-SURUX1NRX0VEQ19DVFJMLCAgICAgICAgICAgICAgICBESURUX1NRX0VEQ19DVFJMX19FRENfU1df
-UlNUX01BU0ssICAgICAgICAgICAgICAgICAgIERJRFRfU1FfRURDX0NUUkxfX0VEQ19TV19SU1Rf
-X1NISUZULCAgICAgICAgICAgICAgICAgICAgMHgwMDAwIH0sCj4+ICAgICAgIHsgICBpeERJRFRf
-U1FfRURDX0NUUkwsICAgICAgICAgICAgICAgIERJRFRfU1FfRURDX0NUUkxfX0VEQ19DTEtfRU5f
-T1ZFUlJJREVfTUFTSywgICAgICAgICAgRElEVF9TUV9FRENfQ1RSTF9fRURDX0NMS19FTl9PVkVS
-UklERV9fU0hJRlQsICAgICAgICAgICAweDAwMDAgfSwKPj4gICAgICAgeyAgIGl4RElEVF9TUV9F
-RENfQ1RSTCwgICAgICAgICAgICAgICAgRElEVF9TUV9FRENfQ1RSTF9fRURDX0ZPUkNFX1NUQUxM
-X01BU0ssICAgICAgICAgICAgICBESURUX1NRX0VEQ19DVFJMX19FRENfRk9SQ0VfU1RBTExfX1NI
-SUZULCAgICAgICAgICAgICAgIDB4MDAwMSB9LAo+PiBAQCAtNTU2LDcgKzU1Niw3IEBAIHN0YXRp
-YyBjb25zdCBzdHJ1Y3QgdmVnYTEwX2RpZHRfY29uZmlnX3JlZyBTRUVEQ0N0cmxGb3JjZVN0YWxs
-Q29uZmlnX1ZlZ2ExMFtdID0KPj4gICAgICAgeyAgIGl4RElEVF9TUV9FRENfQ1RSTCwgICAgICAg
-ICAgICAgICAgRElEVF9TUV9FRENfQ1RSTF9fU0VfRURDX0xFVkVMX0NPTUJfRU5fTUFTSywgICAg
-ICAgICBESURUX1NRX0VEQ19DVFJMX19TRV9FRENfTEVWRUxfQ09NQl9FTl9fU0hJRlQsICAgICAg
-ICAgIDB4MDAwMSB9LAo+Pgo+PiAgICAgICAvKiBURCAqLwo+PiAtICAgICB7ICAgaXhESURUX1RE
-X0VEQ19DVFJMLCAgICAgICAgICAgICAgICBESURUX1REX0VEQ19DVFJMX19FRENfRU5fTUFTSywg
-ICAgICAgICAgICAgICAgICAgICAgIERJRFRfVERfRURDX0NUUkxfX0VEQ19FTl9fU0hJRlQsICAg
-ICAgICAgICAgICAgICAgICAgICAgMHgwMDAxIH0sCj4+ICsgICAgIHsgICBpeERJRFRfVERfRURD
-X0NUUkwsICAgICAgICAgICAgICAgIERJRFRfVERfRURDX0NUUkxfX0VEQ19FTl9NQVNLLCAgICAg
-ICAgICAgICAgICAgICAgICAgRElEVF9URF9FRENfQ1RSTF9fRURDX0VOX19TSElGVCwgICAgICAg
-ICAgICAgICAgICAgICAgICAweDAwMDAgfSwKPj4gICAgICAgeyAgIGl4RElEVF9URF9FRENfQ1RS
-TCwgICAgICAgICAgICAgICAgRElEVF9URF9FRENfQ1RSTF9fRURDX1NXX1JTVF9NQVNLLCAgICAg
-ICAgICAgICAgICAgICBESURUX1REX0VEQ19DVFJMX19FRENfU1dfUlNUX19TSElGVCwgICAgICAg
-ICAgICAgICAgICAgIDB4MDAwMCB9LAo+PiAgICAgICB7ICAgaXhESURUX1REX0VEQ19DVFJMLCAg
-ICAgICAgICAgICAgICBESURUX1REX0VEQ19DVFJMX19FRENfQ0xLX0VOX09WRVJSSURFX01BU0ss
-ICAgICAgICAgIERJRFRfVERfRURDX0NUUkxfX0VEQ19DTEtfRU5fT1ZFUlJJREVfX1NISUZULCAg
-ICAgICAgICAgMHgwMDAwIH0sCj4+ICAgICAgIHsgICBpeERJRFRfVERfRURDX0NUUkwsICAgICAg
-ICAgICAgICAgIERJRFRfVERfRURDX0NUUkxfX0VEQ19GT1JDRV9TVEFMTF9NQVNLLCAgICAgICAg
-ICAgICAgRElEVF9URF9FRENfQ1RSTF9fRURDX0ZPUkNFX1NUQUxMX19TSElGVCwgICAgICAgICAg
-ICAgICAweDAwMDEgfSwKPj4gQEAgLTEyMDgsNyArMTIwOCw3IEBAIHN0YXRpYyBpbnQgdmVnYTEw
-X2VuYWJsZV9zZV9lZGNfZm9yY2Vfc3RhbGxfY29uZmlnKHN0cnVjdCBwcF9od21nciAqaHdtZ3Ip
-Cj4+ICAgICAgIGlmICgwICE9IHJlc3VsdCkKPj4gICAgICAgICAgICAgICByZXR1cm4gcmVzdWx0
-Owo+Pgo+PiAtICAgICB2ZWdhMTBfZGlkdF9zZXRfbWFzayhod21nciwgdHJ1ZSk7Cj4+ICsgICAg
-IHZlZ2ExMF9kaWR0X3NldF9tYXNrKGh3bWdyLCBmYWxzZSk7Cj4+Cj4+ICAgICAgIGNnc19lbnRl
-cl9zYWZlX21vZGUoaHdtZ3ItPmRldmljZSwgZmFsc2UpOwo+Pgo+PiAtLQo+PiAyLjcuNAo+Pgo+
-PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+PiBhbWQt
-Z2Z4IG1haWxpbmcgbGlzdAo+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiBodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKPiBfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFp
-bGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Fri, Jul 28, 2017 at 2:13 AM, Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+> Am 28.07.2017 um 03:43 schrieb Alex Deucher:
+>>
+>> On Tue, Jul 25, 2017 at 5:47 PM, Kees Cook <keescook@chromium.org> wrote=
+:
+>>>
+>>> As done for vega10 in commit 3ddd396f6b57 ("drm/amd/powerplay: Use
+>>> designated initializers") mark other tableFunction entries with
+>>> designated
+>>> initializers. The randstruct plugin requires designated initializers fo=
+r
+>>> structures that are entirely function pointers.
+>>>
+>>> Cc: Rex Zhu <Rex.Zhu@amd.com>
+>>> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>> Signed-off-by: Kees Cook <keescook@chromium.org>
+>>> ---
+>>> If I can get an Ack for this, I'll carry it in the gcc-plugins tree,
+>>> unless
+>>> you think this is worth landing for v4.13, in which case, please take i=
+t
+>>> now. :)
+>>>
+>> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+>>
+>> I'm happy to take this through my tree if that is ok with you.
+>
+>
+> I'm wondering a bit how the plugin detects that it can randomize a struct=
+ure
+> layout?
+>
+> We have a couple of structs where this would be fatal.
+
+Automatic randomization only happen on struct that are entirely
+function pointers.
+
+See:
+https://git.kernel.org/linus/313dd1b629219db50cad532dba6a3b3b22ffe622
+
+And:
+https://git.kernel.org/pub/scm/linux/kernel/git/kees/linux.git/commit/?id=
+=3D914e2dfc61195a95868ae5c750690a7f1c87bc66
+
+If you have any structures that are shared externally from the kernel,
+I can mark them with __no_randomize_layout.
+
+-Kees
+
+--=20
+Kees Cook
+Pixel Security
