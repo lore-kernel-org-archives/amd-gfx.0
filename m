@@ -1,13 +1,15 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Fix undue fallthroughs in golden registers
- initialization
-Date: Mon, 31 Jul 2017 03:07:29 +0200
-Message-ID: <CAAxE2A6=6p_PQqHgiKOTF+jFZt2QGQ7zJqo-nDnFVjHMdb0e1A@mail.gmail.com>
-References: <20170730101825.4c025c84@endymion>
+From: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/3] drm/amdgpu: only move VM BOs in the LRU during
+ validation v2
+Date: Mon, 31 Jul 2017 09:55:54 +0800
+Message-ID: <9c38a824-b309-085c-e988-d5c743b90ff8@amd.com>
+References: <1501327923-19559-1-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1754478462=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170730101825.4c025c84@endymion>
+In-Reply-To: <1501327923-19559-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,168 +20,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Jean Delvare <jdelvare-l3A5Bk7waGM@public.gmane.org>
-Cc: dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Ken Wang <Qingqing.Wang-5C7GfCeVMHo@public.gmane.org>, Flora Cui <Flora.Cui-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============1754478462==
-Content-Type: multipart/alternative; boundary="001a113f390210b451055592aa98"
-
---001a113f390210b451055592aa98
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Marek Ol=C5=A1=C3=A1k <marek.olsak-5C7GfCeVMHo@public.gmane.org>
-
-Marek
-
-On Sun, Jul 30, 2017 at 10:18 AM, Jean Delvare <jdelvare-l3A5Bk7waGM@public.gmane.org> wrote:
-
-> As I was staring at the si_init_golden_registers code, I noticed that
-> the Pitcairn initialization silently falls through the Cape Verde
-> initialization, and the Oland initialization falls through the Hainan
-> initialization. However there is no comment stating that this is
-> intentional, and the radeon driver doesn't have any such fallthrough,
-> so I suspect this is not supposed to happen.
->
-> Signed-off-by: Jean Delvare <jdelvare-l3A5Bk7waGM@public.gmane.org>
-> Fixes: 62a37553414a ("drm/amdgpu: add si implementation v10")
-> Cc: Ken Wang <Qingqing.Wang-5C7GfCeVMHo@public.gmane.org>
-> Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-> Cc: "Marek Ol=C5=A1=C3=A1k" <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-> Cc: "Christian K=C3=B6nig" <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-> Cc: Flora Cui <Flora.Cui-5C7GfCeVMHo@public.gmane.org>
-> ---
-> If the fallthroughs are really supposed to happen, comments should be
-> added that say so. Surprisingly it doesn't seem to make any
-> difference on my Oland card.
->
->  drivers/gpu/drm/amd/amdgpu/si.c |    2 ++
->  1 file changed, 2 insertions(+)
->
-> --- linux-4.12.orig/drivers/gpu/drm/amd/amdgpu/si.c     2017-07-30
-> 09:25:46.891083334 +0200
-> +++ linux-4.12/drivers/gpu/drm/amd/amdgpu/si.c  2017-07-30
-> 09:45:24.350188642 +0200
-> @@ -1385,6 +1385,7 @@ static void si_init_golden_registers(str
->                 amdgpu_program_register_sequence(adev,
->                                                  pitcairn_mgcg_cgcg_init,
->                                                  (const
-> u32)ARRAY_SIZE(pitcairn_mgcg_cgcg_init));
-> +               break;
->         case CHIP_VERDE:
->                 amdgpu_program_register_sequence(adev,
->                                                  verde_golden_registers,
-> @@ -1409,6 +1410,7 @@ static void si_init_golden_registers(str
->                 amdgpu_program_register_sequence(adev,
->                                                  oland_mgcg_cgcg_init,
->                                                  (const
-> u32)ARRAY_SIZE(oland_mgcg_cgcg_init));
-> +               break;
->         case CHIP_HAINAN:
->                 amdgpu_program_register_sequence(adev,
->                                                  hainan_golden_registers,
->
->
-> --
-> Jean Delvare
-> SUSE L3 Support
->
-
---001a113f390210b451055592aa98
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Reviewed-by: Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mai=
-lto:marek.olsak-5C7GfCeVMHo@public.gmane.org">marek.olsak-5C7GfCeVMHo@public.gmane.org</a>&gt;<br><br></div>Marek<br>=
-</div><div class=3D"gmail_extra"><br><div class=3D"gmail_quote">On Sun, Jul=
- 30, 2017 at 10:18 AM, Jean Delvare <span dir=3D"ltr">&lt;<a href=3D"mailto=
-:jdelvare-l3A5Bk7waGM@public.gmane.org" target=3D"_blank">jdelvare-l3A5Bk7waGM@public.gmane.org</a>&gt;</span> wrote:=
-<br><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-lef=
-t:1px #ccc solid;padding-left:1ex">As I was staring at the si_init_golden_r=
-egisters code, I noticed that<br>
-the Pitcairn initialization silently falls through the Cape Verde<br>
-initialization, and the Oland initialization falls through the Hainan<br>
-initialization. However there is no comment stating that this is<br>
-intentional, and the radeon driver doesn&#39;t have any such fallthrough,<b=
-r>
-so I suspect this is not supposed to happen.<br>
-<br>
-Signed-off-by: Jean Delvare &lt;<a href=3D"mailto:jdelvare-l3A5Bk7waGM@public.gmane.org">jdelvar=
-e@suse.de</a>&gt;<br>
-Fixes: 62a37553414a (&quot;drm/amdgpu: add si implementation v10&quot;)<br>
-Cc: Ken Wang &lt;<a href=3D"mailto:Qingqing.Wang-5C7GfCeVMHo@public.gmane.org">Qingqing.Wang@amd=
-.com</a>&gt;<br>
-Cc: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">alexander=
-.deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-Cc: &quot;Marek Ol=C5=A1=C3=A1k&quot; &lt;<a href=3D"mailto:maraeo-Re5JQEeQqe8@public.gmane.org=
-m">maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
-Cc: &quot;Christian K=C3=B6nig&quot; &lt;<a href=3D"mailto:christian.koenig=
-@amd.com">christian.koenig-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-Cc: Flora Cui &lt;<a href=3D"mailto:Flora.Cui-5C7GfCeVMHo@public.gmane.org">Flora.Cui-5C7GfCeVMHo@public.gmane.org</a=
->&gt;<br>
----<br>
-If the fallthroughs are really supposed to happen, comments should be<br>
-added that say so. Surprisingly it doesn&#39;t seem to make any<br>
-difference on my Oland card.<br>
-<br>
-=C2=A0drivers/gpu/drm/amd/amdgpu/si.<wbr>c |=C2=A0 =C2=A0 2 ++<br>
-=C2=A01 file changed, 2 insertions(+)<br>
-<br>
---- linux-4.12.orig/drivers/gpu/<wbr>drm/amd/amdgpu/si.c=C2=A0 =C2=A0 =C2=
-=A02017-07-30 09:25:46.891083334 +0200<br>
-+++ linux-4.12/drivers/gpu/drm/<wbr>amd/amdgpu/si.c=C2=A0 2017-07-30 09:45:=
-24.350188642 +0200<br>
-@@ -1385,6 +1385,7 @@ static void si_init_golden_registers(str<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 amdgpu_program_regi=
-ster_<wbr>sequence(adev,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0pitcairn_mgcg_cgcg_init,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0(const u32)ARRAY_SIZE(pitcairn_mgcg_<wbr>cgcg_in=
-it));<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 case CHIP_VERDE:<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 amdgpu_program_regi=
-ster_<wbr>sequence(adev,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0verde_golden_registers,<br>
-@@ -1409,6 +1410,7 @@ static void si_init_golden_registers(str<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 amdgpu_program_regi=
-ster_<wbr>sequence(adev,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0oland_mgcg_cgcg_init,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0(const u32)ARRAY_SIZE(oland_mgcg_<wbr>cgcg_init)=
-);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 case CHIP_HAINAN:<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 amdgpu_program_regi=
-ster_<wbr>sequence(adev,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0hainan_golden_registers,<br>
-<span class=3D"HOEnZb"><font color=3D"#888888"><br>
-<br>
---<br>
-Jean Delvare<br>
-SUSE L3 Support<br>
-</font></span></blockquote></div><br></div>
-
---001a113f390210b451055592aa98--
-
---===============1754478462==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1754478462==--
+VGhlIHNlcmllcyBpcyBBY2tlZC1ieTogQ2h1bm1pbmcgWmhvdSA8ZGF2aWQxLnpob3VAYW1kLmNv
+bT4KCgpPbiAyMDE35bm0MDfmnIgyOeaXpSAxOTozMiwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToK
+PiBGcm9tOiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4KPiBU
+aGlzIHNob3VsZCBzYXZlIHVzIGEgYnVuY2ggb2YgY29tbWFuZCBzdWJtaXNzaW9uIG92ZXJoZWFk
+Lgo+Cj4gdjI6IG1vdmUgdGhlIExSVSBtb3ZlIHRvIHRoZSByaWdodCBwbGFjZSB0byBhdm9pZCB0
+aGUgbW92ZSBmb3IgdGhlIHJvb3QgQk8KPiAgICAgIGFuZCBoYW5kbGUgdGhlIHNoYWRvdyBCT3Mg
+YXMgd2VsbC4gVGhpcyB0dXJuZWQgb3V0IHRvIGJlIGEgYnVnIGZpeCBiZWNhdXNlCj4gICAgICB0
+aGUgbW92ZSBuZWVkcyB0byBoYXBwZW4gYmVmb3JlIHRoZSBrbWFwLgo+Cj4gU2lnbmVkLW9mZi1i
+eTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+IFJldmlld2Vk
+LWJ5OiBGZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4gKHYxKQo+IC0tLQo+
+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMgfCAxNSArKystLS0tLS0K
+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIHwgNTggKysrKysrKy0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X3ZtLmggfCAgMiAtLQo+ICAgMyBmaWxlcyBjaGFuZ2VkLCAxNiBpbnNlcnRpb25zKCsp
+LCA1OSBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfY3MuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5j
+Cj4gaW5kZXggY2Q1YzA4YS4uN2ZiNGJhYSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfY3MuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9jcy5jCj4gQEAgLTY2OSwxMCArNjY5LDggQEAgc3RhdGljIGludCBhbWRncHVfY3Nf
+cGFyc2VyX2JvcyhzdHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcCwKPiAgIAl9Cj4gICAKPiAgIGVy
+cm9yX3ZhbGlkYXRlOgo+IC0JaWYgKHIpIHsKPiAtCQlhbWRncHVfdm1fbW92ZV9wdF9ib3NfaW5f
+bHJ1KHAtPmFkZXYsICZmcHJpdi0+dm0pOwo+ICsJaWYgKHIpCj4gICAJCXR0bV9ldV9iYWNrb2Zm
+X3Jlc2VydmF0aW9uKCZwLT50aWNrZXQsICZwLT52YWxpZGF0ZWQpOwo+IC0JfQo+ICAgCj4gICBl
+cnJvcl9mcmVlX3BhZ2VzOgo+ICAgCj4gQEAgLTcyMCwyMSArNzE4LDE4IEBAIHN0YXRpYyBpbnQg
+YW1kZ3B1X2NzX3N5bmNfcmluZ3Moc3RydWN0IGFtZGdwdV9jc19wYXJzZXIgKnApCj4gICAgKiBJ
+ZiBlcnJvciBpcyBzZXQgdGhhbiB1bnZhbGlkYXRlIGJ1ZmZlciwgb3RoZXJ3aXNlIGp1c3QgZnJl
+ZSBtZW1vcnkKPiAgICAqIHVzZWQgYnkgcGFyc2luZyBjb250ZXh0Lgo+ICAgICoqLwo+IC1zdGF0
+aWMgdm9pZCBhbWRncHVfY3NfcGFyc2VyX2Zpbmkoc3RydWN0IGFtZGdwdV9jc19wYXJzZXIgKnBh
+cnNlciwgaW50IGVycm9yLCBib29sIGJhY2tvZmYpCj4gK3N0YXRpYyB2b2lkIGFtZGdwdV9jc19w
+YXJzZXJfZmluaShzdHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcGFyc2VyLCBpbnQgZXJyb3IsCj4g
+KwkJCQkgIGJvb2wgYmFja29mZikKPiAgIHsKPiAtCXN0cnVjdCBhbWRncHVfZnByaXYgKmZwcml2
+ID0gcGFyc2VyLT5maWxwLT5kcml2ZXJfcHJpdjsKPiAgIAl1bnNpZ25lZCBpOwo+ICAgCj4gLQlp
+ZiAoIWVycm9yKSB7Cj4gLQkJYW1kZ3B1X3ZtX21vdmVfcHRfYm9zX2luX2xydShwYXJzZXItPmFk
+ZXYsICZmcHJpdi0+dm0pOwo+IC0KPiArCWlmICghZXJyb3IpCj4gICAJCXR0bV9ldV9mZW5jZV9i
+dWZmZXJfb2JqZWN0cygmcGFyc2VyLT50aWNrZXQsCj4gICAJCQkJCSAgICAmcGFyc2VyLT52YWxp
+ZGF0ZWQsCj4gICAJCQkJCSAgICBwYXJzZXItPmZlbmNlKTsKPiAtCX0gZWxzZSBpZiAoYmFja29m
+Zikgewo+ICsJZWxzZSBpZiAoYmFja29mZikKPiAgIAkJdHRtX2V1X2JhY2tvZmZfcmVzZXJ2YXRp
+b24oJnBhcnNlci0+dGlja2V0LAo+ICAgCQkJCQkgICAmcGFyc2VyLT52YWxpZGF0ZWQpOwo+IC0J
+fQo+ICAgCWRtYV9mZW5jZV9wdXQocGFyc2VyLT5mZW5jZSk7Cj4gICAKPiAgIAlpZiAocGFyc2Vy
+LT5jdHgpCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92
+bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPiBpbmRleCBhMWQ0
+Mjk0Li5hMzc1MTM1IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV92bS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMK
+PiBAQCAtMTU5LDcgKzE1OSw4IEBAIHZvaWQgYW1kZ3B1X3ZtX2dldF9wZF9ibyhzdHJ1Y3QgYW1k
+Z3B1X3ZtICp2bSwKPiAgICAqLwo+ICAgc3RhdGljIGludCBhbWRncHVfdm1fdmFsaWRhdGVfbGV2
+ZWwoc3RydWN0IGFtZGdwdV92bV9wdCAqcGFyZW50LAo+ICAgCQkJCSAgICBpbnQgKCp2YWxpZGF0
+ZSkodm9pZCAqLCBzdHJ1Y3QgYW1kZ3B1X2JvICopLAo+IC0JCQkJICAgIHZvaWQgKnBhcmFtLCBi
+b29sIHVzZV9jcHVfZm9yX3VwZGF0ZSkKPiArCQkJCSAgICB2b2lkICpwYXJhbSwgYm9vbCB1c2Vf
+Y3B1X2Zvcl91cGRhdGUsCj4gKwkJCQkgICAgc3RydWN0IHR0bV9ib19nbG9iYWwgKmdsb2IpCj4g
+ICB7Cj4gICAJdW5zaWduZWQgaTsKPiAgIAlpbnQgcjsKPiBAQCAtMTgzLDEyICsxODQsMTggQEAg
+c3RhdGljIGludCBhbWRncHVfdm1fdmFsaWRhdGVfbGV2ZWwoc3RydWN0IGFtZGdwdV92bV9wdCAq
+cGFyZW50LAo+ICAgCQlpZiAocikKPiAgIAkJCXJldHVybiByOwo+ICAgCj4gKwkJc3Bpbl9sb2Nr
+KCZnbG9iLT5scnVfbG9jayk7Cj4gKwkJdHRtX2JvX21vdmVfdG9fbHJ1X3RhaWwoJmVudHJ5LT5i
+by0+dGJvKTsKPiArCQlpZiAoZW50cnktPmJvLT5zaGFkb3cpCj4gKwkJCXR0bV9ib19tb3ZlX3Rv
+X2xydV90YWlsKCZlbnRyeS0+Ym8tPnNoYWRvdy0+dGJvKTsKPiArCQlzcGluX3VubG9jaygmZ2xv
+Yi0+bHJ1X2xvY2spOwo+ICsKPiAgIAkJLyoKPiAgIAkJICogUmVjdXJzZSBpbnRvIHRoZSBzdWIg
+ZGlyZWN0b3J5LiBUaGlzIGlzIGhhcm1sZXNzIGJlY2F1c2Ugd2UKPiAgIAkJICogaGF2ZSBvbmx5
+IGEgbWF4aW11bSBvZiA1IGxheWVycy4KPiAgIAkJICovCj4gICAJCXIgPSBhbWRncHVfdm1fdmFs
+aWRhdGVfbGV2ZWwoZW50cnksIHZhbGlkYXRlLCBwYXJhbSwKPiAtCQkJCQkgICAgIHVzZV9jcHVf
+Zm9yX3VwZGF0ZSk7Cj4gKwkJCQkJICAgICB1c2VfY3B1X2Zvcl91cGRhdGUsIGdsb2IpOwo+ICAg
+CQlpZiAocikKPiAgIAkJCXJldHVybiByOwo+ICAgCX0KPiBAQCAtMjIwLDU0ICsyMjcsMTEgQEAg
+aW50IGFtZGdwdV92bV92YWxpZGF0ZV9wdF9ib3Moc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYs
+IHN0cnVjdCBhbWRncHVfdm0gKnZtLAo+ICAgCQlyZXR1cm4gMDsKPiAgIAo+ICAgCXJldHVybiBh
+bWRncHVfdm1fdmFsaWRhdGVfbGV2ZWwoJnZtLT5yb290LCB2YWxpZGF0ZSwgcGFyYW0sCj4gLQkJ
+CQkJdm0tPnVzZV9jcHVfZm9yX3VwZGF0ZSk7Cj4gKwkJCQkJdm0tPnVzZV9jcHVfZm9yX3VwZGF0
+ZSwKPiArCQkJCQlhZGV2LT5tbWFuLmJkZXYuZ2xvYik7Cj4gICB9Cj4gICAKPiAgIC8qKgo+IC0g
+KiBhbWRncHVfdm1fbW92ZV9sZXZlbF9pbl9scnUgLSBtb3ZlIG9uZSBsZXZlbCBvZiBQVCBCT3Mg
+dG8gdGhlIExSVSB0YWlsCj4gLSAqCj4gLSAqIEBhZGV2OiBhbWRncHUgZGV2aWNlIGluc3RhbmNl
+Cj4gLSAqIEB2bTogdm0gcHJvdmlkaW5nIHRoZSBCT3MKPiAtICoKPiAtICogTW92ZSB0aGUgUFQg
+Qk9zIHRvIHRoZSB0YWlsIG9mIHRoZSBMUlUuCj4gLSAqLwo+IC1zdGF0aWMgdm9pZCBhbWRncHVf
+dm1fbW92ZV9sZXZlbF9pbl9scnUoc3RydWN0IGFtZGdwdV92bV9wdCAqcGFyZW50KQo+IC17Cj4g
+LQl1bnNpZ25lZCBpOwo+IC0KPiAtCWlmICghcGFyZW50LT5lbnRyaWVzKQo+IC0JCXJldHVybjsK
+PiAtCj4gLQlmb3IgKGkgPSAwOyBpIDw9IHBhcmVudC0+bGFzdF9lbnRyeV91c2VkOyArK2kpIHsK
+PiAtCQlzdHJ1Y3QgYW1kZ3B1X3ZtX3B0ICplbnRyeSA9ICZwYXJlbnQtPmVudHJpZXNbaV07Cj4g
+LQo+IC0JCWlmICghZW50cnktPmJvKQo+IC0JCQljb250aW51ZTsKPiAtCj4gLQkJdHRtX2JvX21v
+dmVfdG9fbHJ1X3RhaWwoJmVudHJ5LT5iby0+dGJvKTsKPiAtCQlhbWRncHVfdm1fbW92ZV9sZXZl
+bF9pbl9scnUoZW50cnkpOwo+IC0JfQo+IC19Cj4gLQo+IC0vKioKPiAtICogYW1kZ3B1X3ZtX21v
+dmVfcHRfYm9zX2luX2xydSAtIG1vdmUgdGhlIFBUIEJPcyB0byB0aGUgTFJVIHRhaWwKPiAtICoK
+PiAtICogQGFkZXY6IGFtZGdwdSBkZXZpY2UgaW5zdGFuY2UKPiAtICogQHZtOiB2bSBwcm92aWRp
+bmcgdGhlIEJPcwo+IC0gKgo+IC0gKiBNb3ZlIHRoZSBQVCBCT3MgdG8gdGhlIHRhaWwgb2YgdGhl
+IExSVS4KPiAtICovCj4gLXZvaWQgYW1kZ3B1X3ZtX21vdmVfcHRfYm9zX2luX2xydShzdHJ1Y3Qg
+YW1kZ3B1X2RldmljZSAqYWRldiwKPiAtCQkJCSAgc3RydWN0IGFtZGdwdV92bSAqdm0pCj4gLXsK
+PiAtCXN0cnVjdCB0dG1fYm9fZ2xvYmFsICpnbG9iID0gYWRldi0+bW1hbi5iZGV2Lmdsb2I7Cj4g
+LQo+IC0Jc3Bpbl9sb2NrKCZnbG9iLT5scnVfbG9jayk7Cj4gLQlhbWRncHVfdm1fbW92ZV9sZXZl
+bF9pbl9scnUoJnZtLT5yb290KTsKPiAtCXNwaW5fdW5sb2NrKCZnbG9iLT5scnVfbG9jayk7Cj4g
+LX0KPiAtCj4gLSAvKioKPiAgICAqIGFtZGdwdV92bV9hbGxvY19sZXZlbHMgLSBhbGxvY2F0ZSB0
+aGUgUEQvUFQgbGV2ZWxzCj4gICAgKgo+ICAgICogQGFkZXY6IGFtZGdwdV9kZXZpY2UgcG9pbnRl
+cgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uaCBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oCj4gaW5kZXggMzRkOTE3NC4u
+YmFjMDljZSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+dm0uaAo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oCj4gQEAg
+LTIyMCw4ICsyMjAsNiBAQCB2b2lkIGFtZGdwdV92bV9nZXRfcGRfYm8oc3RydWN0IGFtZGdwdV92
+bSAqdm0sCj4gICBpbnQgYW1kZ3B1X3ZtX3ZhbGlkYXRlX3B0X2JvcyhzdHJ1Y3QgYW1kZ3B1X2Rl
+dmljZSAqYWRldiwgc3RydWN0IGFtZGdwdV92bSAqdm0sCj4gICAJCQkgICAgICBpbnQgKCpjYWxs
+YmFjaykodm9pZCAqcCwgc3RydWN0IGFtZGdwdV9ibyAqYm8pLAo+ICAgCQkJICAgICAgdm9pZCAq
+cGFyYW0pOwo+IC12b2lkIGFtZGdwdV92bV9tb3ZlX3B0X2Jvc19pbl9scnUoc3RydWN0IGFtZGdw
+dV9kZXZpY2UgKmFkZXYsCj4gLQkJCQkgIHN0cnVjdCBhbWRncHVfdm0gKnZtKTsKPiAgIGludCBh
+bWRncHVfdm1fYWxsb2NfcHRzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+ICAgCQkJc3Ry
+dWN0IGFtZGdwdV92bSAqdm0sCj4gICAJCQl1aW50NjRfdCBzYWRkciwgdWludDY0X3Qgc2l6ZSk7
+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
+IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
+LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
