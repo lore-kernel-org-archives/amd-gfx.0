@@ -1,49 +1,71 @@
-From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH umr] Fix ib_addr_lo in BUFFER_CIK/BUFFER_CONST PM4 packets
-Date: Tue, 1 Aug 2017 20:48:16 +0800
-Message-ID: <20170801124815.GC21460@hr-amur2>
-References: <20170801100042.23413-1-tom.stdenis@amd.com>
+From: Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH 1/9] ASoC: dwc: Added a quirk
+ DW_I2S_QUIRK_16BIT_IDX_OVERRIDE to dwc driver
+Date: Tue, 1 Aug 2017 14:12:04 +0100
+Message-ID: <20170801131204.f5tpcnkhgkcpq7ns@sirena.org.uk>
+References: <1501270294-31153-1-git-send-email-alexander.deucher@amd.com>
+ <1501270294-31153-2-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <20170801100042.23413-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: multipart/mixed; boundary="===============1533441985=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <1501270294-31153-2-git-send-email-alexander.deucher@amd.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, amd-gfx@lists.freedesktop.org, rajeevkumar.linux@gmail.com, dri-devel@lists.freedesktop.org, Vijendar.Mukunda@amd.com, Alex Deucher <alexander.deucher@amd.com>, perex@perex.cz
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVHVlLCBBdWcgMDEsIDIwMTcgYXQgMDY6MDA6NDJBTSAtMDQwMCwgVG9tIFN0IERlbmlzIHdy
-b3RlOgo+IFdlIGNvcnJlY3RseSBncmFiYmVkIHRoZSBiaXRzIGJ1dCBkaWQgbm90IHNoaWZ0IHRo
-ZW0KPiBiYWNrIHRvIHRoZWlyIGNvcnJlY3QgcGxhY2UuCj4gCj4gU2lnbmVkLW9mZi1ieTogVG9t
-IFN0IERlbmlzIDx0b20uc3RkZW5pc0BhbWQuY29tPgoKVGVzdGVkLWJ5OiBIdWFuZyBSdWkgPHJh
-eS5odWFuZ0BhbWQuY29tPgoKPiAtLS0KPiAgc3JjL2xpYi9yaW5nX2RlY29kZS5jIHwgMiArLQo+
-ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKPiAKPiBkaWZm
-IC0tZ2l0IGEvc3JjL2xpYi9yaW5nX2RlY29kZS5jIGIvc3JjL2xpYi9yaW5nX2RlY29kZS5jCj4g
-aW5kZXggNzcyZWE0OWRkYTZmLi5jMDVmYTYzMmEyMzMgMTAwNjQ0Cj4gLS0tIGEvc3JjL2xpYi9y
-aW5nX2RlY29kZS5jCj4gKysrIGIvc3JjL2xpYi9yaW5nX2RlY29kZS5jCj4gQEAgLTQwNyw3ICs0
-MDcsNyBAQCBzdGF0aWMgdm9pZCBwcmludF9kZWNvZGVfcG00X3BrdDMoc3RydWN0IHVtcl9hc2lj
-ICphc2ljLCBzdHJ1Y3QgdW1yX3JpbmdfZGVjb2Rlcgo+ICAJCWNhc2UgMHgzMzogLy8gSU5ESVJF
-Q1RfQlVGRkVSX0NPTlNUCj4gIAkJCXN3aXRjaCAoZGVjb2Rlci0+cG00LmN1cl93b3JkKSB7Cj4g
-IAkJCQljYXNlIDA6IHByaW50ZigiSUJfQkFTRV9MTzogMHglMDhseCwgU1dBUDolbHUiLCBCSVRT
-KGliLCAyLCAzMiksIEJJVFMoaWIsIDAsIDIpKTsKPiAtCQkJCQlkZWNvZGVyLT5wbTQubmV4dF9p
-Yl9zdGF0ZS5pYl9hZGRyX2xvID0gQklUUyhpYiwgMiwgMzIpOwo+ICsJCQkJCWRlY29kZXItPnBt
-NC5uZXh0X2liX3N0YXRlLmliX2FkZHJfbG8gPSBCSVRTKGliLCAyLCAzMikgPDwgMjsKPiAgCQkJ
-CQlicmVhazsKPiAgCQkJCWNhc2UgMTogcHJpbnRmKCJJQl9CQVNFX0hJOiAweCUwOGx4IiwgQklU
-UyhpYiwgMCwgMTYpKTsKPiAgCQkJCQlkZWNvZGVyLT5wbTQubmV4dF9pYl9zdGF0ZS5pYl9hZGRy
-X2hpID0gQklUUyhpYiwgMCwgMTYpOwo+IC0tIAo+IDIuMTIuMAo+IAo+IF9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QK
-PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2FtZC1nZngK
+
+--===============1533441985==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="n6cpcqa765mrnyvo"
+Content-Disposition: inline
+
+
+--n6cpcqa765mrnyvo
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Fri, Jul 28, 2017 at 03:31:26PM -0400, Alex Deucher wrote:
+
+> This patch is already applied to the audio tree, I'm just
+> including it here for completeness since it's not yet in
+> the drm tree.
+
+It's in mainline, please don't resubmit already applied patches.
+
+--n6cpcqa765mrnyvo
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCAAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlmAfiMACgkQJNaLcl1U
+h9B8wgf+Ju27WKGJqvBv4r6f+uAeZ7/8ttMvxrlhsRPCLBw33YHStCpEQpAXCkBJ
+XQfxGmMeijvOK4BOMES7rqzKpBHGfFEOzqAQ1niqB6izi2wV2wd64x1CqC0OmnP2
+Ap3iq9ZylrJCxxmHuKcarpWBtZkxZtrwWTxs1T4Iip/VdKhlkuddNQEbdtjCAoPw
+1PoWvfX9N0AsnbIQZrRm1SAdi4E7CIYVO9bk8hCb4KfnOJoJOZT88FND8R4UIx4j
+f7onjlrXips9OvBtI9BfKZ4MQ3k3FlIXleJeycR1enHLOhSQRfJBzaw+NmI2LVge
+E1epDVJzH3vS1mbFoVqS5VxuM8cFZA==
+=d4bH
+-----END PGP SIGNATURE-----
+
+--n6cpcqa765mrnyvo--
+
+--===============1533441985==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--===============1533441985==--
