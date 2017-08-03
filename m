@@ -1,340 +1,216 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Subject: Re: [PATCH 01/29] drm/amdgpu: switch to drm_*{get,put} helpers
-Date: Thu, 3 Aug 2017 14:08:08 +0200
-Message-ID: <3e51d9d9-1e18-2b38-e860-981e1d37ad9c@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 20/29] drm/radeon: switch to drm_*{get,put} helpers
+Date: Thu, 3 Aug 2017 14:08:56 +0200
+Message-ID: <b17a0800-e3be-0841-54ae-b5289590f312@amd.com>
 References: <1501761585-11757-1-git-send-email-cakturk@gmail.com>
- <1501761585-11757-2-git-send-email-cakturk@gmail.com>
+ <1501761585-11757-21-git-send-email-cakturk@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <1501761585-11757-2-git-send-email-cakturk@gmail.com>
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1501761585-11757-21-git-send-email-cakturk-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Cihangir Akturk <cakturk@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@linux.ie>, Alex Xie <AlexBin.Xie@amd.com>, Mario Kleiner <mario.kleiner.de@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Matthew Wilcox <mawilcox@microsoft.com>, Michal Hocko <mhocko@kernel.org>, Monk Liu <Monk.Liu@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Dave Airlie <airlied@redhat.com>, Junwei Zhang <Jerry.Zhang@amd.com>, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak@amd.com>, Andres Rodriguez <andresx7@gmail.com>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel.daenzer@amd.com>, Harry Wentland <harry.wentland@amd.com>, Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>, Chris Wilson <chris@chris-wilson.co.uk>, Edward O'Callaghan <funfunctor@folklore1984.net>, Rex Zhu <Rex.Zhu@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Cihangir Akturk <cakturk-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
 
-Am 03.08.2017 um 13:58 schrieb Cihangir Akturk:
-> drm_*_reference() and drm_*_unreference() functions are just
-> compatibility alias for drm_*_get() and drm_*_put() and should not be
-> used by new code. So convert all users of compatibility functions to use
-> the new APIs.
->
-> Signed-off-by: Cihangir Akturk <cakturk@gmail.com>
-
-Reviewed-by: Christian König <christian.koenig@amd.com>
-
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c |  2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c      |  2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_display.c |  6 +++---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c      |  4 ++--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c     | 22 +++++++++++-----------
->   drivers/gpu/drm/amd/amdgpu/dce_v10_0.c      |  6 +++---
->   drivers/gpu/drm/amd/amdgpu/dce_v11_0.c      |  6 +++---
->   drivers/gpu/drm/amd/amdgpu/dce_v6_0.c       |  6 +++---
->   drivers/gpu/drm/amd/amdgpu/dce_v8_0.c       |  6 +++---
->   9 files changed, 30 insertions(+), 30 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-> index f621ee1..2cf465f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-> @@ -136,7 +136,7 @@ static int amdgpu_bo_list_set(struct amdgpu_device *adev,
->   		}
->   
->   		bo = amdgpu_bo_ref(gem_to_amdgpu_bo(gobj));
-> -		drm_gem_object_unreference_unlocked(gobj);
-> +		drm_gem_object_put_unlocked(gobj);
->   
->   		usermm = amdgpu_ttm_tt_get_usermm(bo->tbo.ttm);
->   		if (usermm) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> index 5599c01..0b8406c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -54,7 +54,7 @@ static int amdgpu_cs_user_fence_chunk(struct amdgpu_cs_parser *p,
->   
->   	*offset = data->offset;
->   
-> -	drm_gem_object_unreference_unlocked(gobj);
-> +	drm_gem_object_put_unlocked(gobj);
->   
->   	if (amdgpu_ttm_tt_get_usermm(p->uf_entry.robj->tbo.ttm)) {
->   		amdgpu_bo_unref(&p->uf_entry.robj);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> index cdf2ab2..6ad2432 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-> @@ -482,7 +482,7 @@ static void amdgpu_user_framebuffer_destroy(struct drm_framebuffer *fb)
->   {
->   	struct amdgpu_framebuffer *amdgpu_fb = to_amdgpu_framebuffer(fb);
->   
-> -	drm_gem_object_unreference_unlocked(amdgpu_fb->obj);
-> +	drm_gem_object_put_unlocked(amdgpu_fb->obj);
->   	drm_framebuffer_cleanup(fb);
->   	kfree(amdgpu_fb);
->   }
-> @@ -542,14 +542,14 @@ amdgpu_user_framebuffer_create(struct drm_device *dev,
->   
->   	amdgpu_fb = kzalloc(sizeof(*amdgpu_fb), GFP_KERNEL);
->   	if (amdgpu_fb == NULL) {
-> -		drm_gem_object_unreference_unlocked(obj);
-> +		drm_gem_object_put_unlocked(obj);
->   		return ERR_PTR(-ENOMEM);
->   	}
->   
->   	ret = amdgpu_framebuffer_init(dev, amdgpu_fb, mode_cmd, obj);
->   	if (ret) {
->   		kfree(amdgpu_fb);
-> -		drm_gem_object_unreference_unlocked(obj);
-> +		drm_gem_object_put_unlocked(obj);
->   		return ERR_PTR(ret);
->   	}
->   
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-> index c0d8c6f..f29a5fe 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-> @@ -118,7 +118,7 @@ static void amdgpufb_destroy_pinned_object(struct drm_gem_object *gobj)
->   		amdgpu_bo_unpin(abo);
->   		amdgpu_bo_unreserve(abo);
->   	}
-> -	drm_gem_object_unreference_unlocked(gobj);
-> +	drm_gem_object_put_unlocked(gobj);
->   }
->   
->   static int amdgpufb_create_pinned_object(struct amdgpu_fbdev *rfbdev,
-> @@ -281,7 +281,7 @@ static int amdgpufb_create(struct drm_fb_helper *helper,
->   
->   	}
->   	if (fb && ret) {
-> -		drm_gem_object_unreference_unlocked(gobj);
-> +		drm_gem_object_put_unlocked(gobj);
->   		drm_framebuffer_unregister_private(fb);
->   		drm_framebuffer_cleanup(fb);
->   		kfree(fb);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> index 621f739..2181cf1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -103,7 +103,7 @@ void amdgpu_gem_force_release(struct amdgpu_device *adev)
->   		spin_lock(&file->table_lock);
->   		idr_for_each_entry(&file->object_idr, gobj, handle) {
->   			WARN_ONCE(1, "And also active allocations!\n");
-> -			drm_gem_object_unreference_unlocked(gobj);
-> +			drm_gem_object_put_unlocked(gobj);
->   		}
->   		idr_destroy(&file->object_idr);
->   		spin_unlock(&file->table_lock);
-> @@ -275,7 +275,7 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
->   
->   	r = drm_gem_handle_create(filp, gobj, &handle);
->   	/* drop reference from allocate - handle holds it now */
-> -	drm_gem_object_unreference_unlocked(gobj);
-> +	drm_gem_object_put_unlocked(gobj);
->   	if (r)
->   		return r;
->   
-> @@ -353,7 +353,7 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
->   
->   	r = drm_gem_handle_create(filp, gobj, &handle);
->   	/* drop reference from allocate - handle holds it now */
-> -	drm_gem_object_unreference_unlocked(gobj);
-> +	drm_gem_object_put_unlocked(gobj);
->   	if (r)
->   		return r;
->   
-> @@ -367,7 +367,7 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
->   	up_read(&current->mm->mmap_sem);
->   
->   release_object:
-> -	drm_gem_object_unreference_unlocked(gobj);
-> +	drm_gem_object_put_unlocked(gobj);
->   
->   	return r;
->   }
-> @@ -386,11 +386,11 @@ int amdgpu_mode_dumb_mmap(struct drm_file *filp,
->   	robj = gem_to_amdgpu_bo(gobj);
->   	if (amdgpu_ttm_tt_get_usermm(robj->tbo.ttm) ||
->   	    (robj->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS)) {
-> -		drm_gem_object_unreference_unlocked(gobj);
-> +		drm_gem_object_put_unlocked(gobj);
->   		return -EPERM;
->   	}
->   	*offset_p = amdgpu_bo_mmap_offset(robj);
-> -	drm_gem_object_unreference_unlocked(gobj);
-> +	drm_gem_object_put_unlocked(gobj);
->   	return 0;
->   }
->   
-> @@ -460,7 +460,7 @@ int amdgpu_gem_wait_idle_ioctl(struct drm_device *dev, void *data,
->   	} else
->   		r = ret;
->   
-> -	drm_gem_object_unreference_unlocked(gobj);
-> +	drm_gem_object_put_unlocked(gobj);
->   	return r;
->   }
->   
-> @@ -503,7 +503,7 @@ int amdgpu_gem_metadata_ioctl(struct drm_device *dev, void *data,
->   unreserve:
->   	amdgpu_bo_unreserve(robj);
->   out:
-> -	drm_gem_object_unreference_unlocked(gobj);
-> +	drm_gem_object_put_unlocked(gobj);
->   	return r;
->   }
->   
-> @@ -676,7 +676,7 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
->   	ttm_eu_backoff_reservation(&ticket, &list);
->   
->   error_unref:
-> -	drm_gem_object_unreference_unlocked(gobj);
-> +	drm_gem_object_put_unlocked(gobj);
->   	return r;
->   }
->   
-> @@ -738,7 +738,7 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
->   	}
->   
->   out:
-> -	drm_gem_object_unreference_unlocked(gobj);
-> +	drm_gem_object_put_unlocked(gobj);
->   	return r;
->   }
->   
-> @@ -766,7 +766,7 @@ int amdgpu_mode_dumb_create(struct drm_file *file_priv,
->   
->   	r = drm_gem_handle_create(file_priv, gobj, &handle);
->   	/* drop reference from allocate - handle holds it now */
-> -	drm_gem_object_unreference_unlocked(gobj);
-> +	drm_gem_object_put_unlocked(gobj);
->   	if (r) {
->   		return r;
->   	}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> index 9f78c03..80fa72e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> @@ -2555,7 +2555,7 @@ static int dce_v10_0_crtc_cursor_set2(struct drm_crtc *crtc,
->   	aobj = gem_to_amdgpu_bo(obj);
->   	ret = amdgpu_bo_reserve(aobj, false);
->   	if (ret != 0) {
-> -		drm_gem_object_unreference_unlocked(obj);
-> +		drm_gem_object_put_unlocked(obj);
->   		return ret;
->   	}
->   
-> @@ -2563,7 +2563,7 @@ static int dce_v10_0_crtc_cursor_set2(struct drm_crtc *crtc,
->   	amdgpu_bo_unreserve(aobj);
->   	if (ret) {
->   		DRM_ERROR("Failed to pin new cursor BO (%d)\n", ret);
-> -		drm_gem_object_unreference_unlocked(obj);
-> +		drm_gem_object_put_unlocked(obj);
->   		return ret;
->   	}
->   
-> @@ -2597,7 +2597,7 @@ static int dce_v10_0_crtc_cursor_set2(struct drm_crtc *crtc,
->   			amdgpu_bo_unpin(aobj);
->   			amdgpu_bo_unreserve(aobj);
->   		}
-> -		drm_gem_object_unreference_unlocked(amdgpu_crtc->cursor_bo);
-> +		drm_gem_object_put_unlocked(amdgpu_crtc->cursor_bo);
->   	}
->   
->   	amdgpu_crtc->cursor_bo = obj;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-> index 4bcf01d..31ab74f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-> @@ -2575,7 +2575,7 @@ static int dce_v11_0_crtc_cursor_set2(struct drm_crtc *crtc,
->   	aobj = gem_to_amdgpu_bo(obj);
->   	ret = amdgpu_bo_reserve(aobj, false);
->   	if (ret != 0) {
-> -		drm_gem_object_unreference_unlocked(obj);
-> +		drm_gem_object_put_unlocked(obj);
->   		return ret;
->   	}
->   
-> @@ -2583,7 +2583,7 @@ static int dce_v11_0_crtc_cursor_set2(struct drm_crtc *crtc,
->   	amdgpu_bo_unreserve(aobj);
->   	if (ret) {
->   		DRM_ERROR("Failed to pin new cursor BO (%d)\n", ret);
-> -		drm_gem_object_unreference_unlocked(obj);
-> +		drm_gem_object_put_unlocked(obj);
->   		return ret;
->   	}
->   
-> @@ -2617,7 +2617,7 @@ static int dce_v11_0_crtc_cursor_set2(struct drm_crtc *crtc,
->   			amdgpu_bo_unpin(aobj);
->   			amdgpu_bo_unreserve(aobj);
->   		}
-> -		drm_gem_object_unreference_unlocked(amdgpu_crtc->cursor_bo);
-> +		drm_gem_object_put_unlocked(amdgpu_crtc->cursor_bo);
->   	}
->   
->   	amdgpu_crtc->cursor_bo = obj;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> index fd134a4..77c294be 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> @@ -2428,7 +2428,7 @@ static int dce_v6_0_crtc_cursor_set2(struct drm_crtc *crtc,
->   	aobj = gem_to_amdgpu_bo(obj);
->   	ret = amdgpu_bo_reserve(aobj, false);
->   	if (ret != 0) {
-> -		drm_gem_object_unreference_unlocked(obj);
-> +		drm_gem_object_put_unlocked(obj);
->   		return ret;
->   	}
->   
-> @@ -2436,7 +2436,7 @@ static int dce_v6_0_crtc_cursor_set2(struct drm_crtc *crtc,
->   	amdgpu_bo_unreserve(aobj);
->   	if (ret) {
->   		DRM_ERROR("Failed to pin new cursor BO (%d)\n", ret);
-> -		drm_gem_object_unreference_unlocked(obj);
-> +		drm_gem_object_put_unlocked(obj);
->   		return ret;
->   	}
->   
-> @@ -2470,7 +2470,7 @@ static int dce_v6_0_crtc_cursor_set2(struct drm_crtc *crtc,
->   			amdgpu_bo_unpin(aobj);
->   			amdgpu_bo_unreserve(aobj);
->   		}
-> -		drm_gem_object_unreference_unlocked(amdgpu_crtc->cursor_bo);
-> +		drm_gem_object_put_unlocked(amdgpu_crtc->cursor_bo);
->   	}
->   
->   	amdgpu_crtc->cursor_bo = obj;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> index a9e8695..89242c7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> @@ -2406,7 +2406,7 @@ static int dce_v8_0_crtc_cursor_set2(struct drm_crtc *crtc,
->   	aobj = gem_to_amdgpu_bo(obj);
->   	ret = amdgpu_bo_reserve(aobj, false);
->   	if (ret != 0) {
-> -		drm_gem_object_unreference_unlocked(obj);
-> +		drm_gem_object_put_unlocked(obj);
->   		return ret;
->   	}
->   
-> @@ -2414,7 +2414,7 @@ static int dce_v8_0_crtc_cursor_set2(struct drm_crtc *crtc,
->   	amdgpu_bo_unreserve(aobj);
->   	if (ret) {
->   		DRM_ERROR("Failed to pin new cursor BO (%d)\n", ret);
-> -		drm_gem_object_unreference_unlocked(obj);
-> +		drm_gem_object_put_unlocked(obj);
->   		return ret;
->   	}
->   
-> @@ -2448,7 +2448,7 @@ static int dce_v8_0_crtc_cursor_set2(struct drm_crtc *crtc,
->   			amdgpu_bo_unpin(aobj);
->   			amdgpu_bo_unreserve(aobj);
->   		}
-> -		drm_gem_object_unreference_unlocked(amdgpu_crtc->cursor_bo);
-> +		drm_gem_object_put_unlocked(amdgpu_crtc->cursor_bo);
->   	}
->   
->   	amdgpu_crtc->cursor_bo = obj;
+QW0gMDMuMDguMjAxNyB1bSAxMzo1OCBzY2hyaWViIENpaGFuZ2lyIEFrdHVyazoKPiBkcm1fKl9y
+ZWZlcmVuY2UoKSBhbmQgZHJtXypfdW5yZWZlcmVuY2UoKSBmdW5jdGlvbnMgYXJlIGp1c3QKPiBj
+b21wYXRpYmlsaXR5IGFsaWFzIGZvciBkcm1fKl9nZXQoKSBhbmQgZHJtXypfcHV0KCkgYWRuIHNo
+b3VsZCBub3QgYmUKPiB1c2VkIGJ5IG5ldyBjb2RlLiBTbyBjb252ZXJ0IGFsbCB1c2VycyBvZiBj
+b21wYXRpYmlsaXR5IGZ1bmN0aW9ucyB0byB1c2UKPiB0aGUgbmV3IEFQSXMuCj4KPiBTaWduZWQt
+b2ZmLWJ5OiBDaWhhbmdpciBBa3R1cmsgPGNha3R1cmtAZ21haWwuY29tPgoKUmV2aWV3ZWQtYnk6
+IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KCj4gLS0tCj4gICBk
+cml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9jcy5jICAgICAgfCAgMiArLQo+ICAgZHJpdmVy
+cy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fY3Vyc29yLmMgIHwgIDYgKysrLS0tCj4gICBkcml2ZXJz
+L2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9kaXNwbGF5LmMgfCAxMiArKysrKystLS0tLS0KPiAgIGRy
+aXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2ZiLmMgICAgICB8ICA0ICsrLS0KPiAgIGRyaXZl
+cnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2dlbS5jICAgICB8IDMwICsrKysrKysrKysrKysrKy0t
+LS0tLS0tLS0tLS0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fb2JqZWN0LmMg
+IHwgIDIgKy0KPiAgIDYgZmlsZXMgY2hhbmdlZCwgMjggaW5zZXJ0aW9ucygrKSwgMjggZGVsZXRp
+b25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fY3Mu
+YyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2NzLmMKPiBpbmRleCAwMGIyMmFmLi5l
+YTBkYjI2IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2NzLmMK
+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9jcy5jCj4gQEAgLTQzNyw3ICs0
+MzcsNyBAQCBzdGF0aWMgdm9pZCByYWRlb25fY3NfcGFyc2VyX2Zpbmkoc3RydWN0IHJhZGVvbl9j
+c19wYXJzZXIgKnBhcnNlciwgaW50IGVycm9yLCBibwo+ICAgCQkJaWYgKGJvID09IE5VTEwpCj4g
+ICAJCQkJY29udGludWU7Cj4gICAKPiAtCQkJZHJtX2dlbV9vYmplY3RfdW5yZWZlcmVuY2VfdW5s
+b2NrZWQoJmJvLT5nZW1fYmFzZSk7Cj4gKwkJCWRybV9nZW1fb2JqZWN0X3B1dF91bmxvY2tlZCgm
+Ym8tPmdlbV9iYXNlKTsKPiAgIAkJfQo+ICAgCX0KPiAgIAlrZnJlZShwYXJzZXItPnRyYWNrKTsK
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fY3Vyc29yLmMgYi9k
+cml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9jdXJzb3IuYwo+IGluZGV4IDRhNGY5NTMuLjkx
+OTUyMjcgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fY3Vyc29y
+LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9jdXJzb3IuYwo+IEBAIC0z
+MDcsNyArMzA3LDcgQEAgaW50IHJhZGVvbl9jcnRjX2N1cnNvcl9zZXQyKHN0cnVjdCBkcm1fY3J0
+YyAqY3J0YywKPiAgIAlyb2JqID0gZ2VtX3RvX3JhZGVvbl9ibyhvYmopOwo+ICAgCXJldCA9IHJh
+ZGVvbl9ib19yZXNlcnZlKHJvYmosIGZhbHNlKTsKPiAgIAlpZiAocmV0ICE9IDApIHsKPiAtCQlk
+cm1fZ2VtX29iamVjdF91bnJlZmVyZW5jZV91bmxvY2tlZChvYmopOwo+ICsJCWRybV9nZW1fb2Jq
+ZWN0X3B1dF91bmxvY2tlZChvYmopOwo+ICAgCQlyZXR1cm4gcmV0Owo+ICAgCX0KPiAgIAkvKiBP
+bmx5IDI3IGJpdCBvZmZzZXQgZm9yIGxlZ2FjeSBjdXJzb3IgKi8KPiBAQCAtMzE3LDcgKzMxNyw3
+IEBAIGludCByYWRlb25fY3J0Y19jdXJzb3Jfc2V0MihzdHJ1Y3QgZHJtX2NydGMgKmNydGMsCj4g
+ICAJcmFkZW9uX2JvX3VucmVzZXJ2ZShyb2JqKTsKPiAgIAlpZiAocmV0KSB7Cj4gICAJCURSTV9F
+UlJPUigiRmFpbGVkIHRvIHBpbiBuZXcgY3Vyc29yIEJPICglZClcbiIsIHJldCk7Cj4gLQkJZHJt
+X2dlbV9vYmplY3RfdW5yZWZlcmVuY2VfdW5sb2NrZWQob2JqKTsKPiArCQlkcm1fZ2VtX29iamVj
+dF9wdXRfdW5sb2NrZWQob2JqKTsKPiAgIAkJcmV0dXJuIHJldDsKPiAgIAl9Cj4gICAKPiBAQCAt
+MzUyLDcgKzM1Miw3IEBAIGludCByYWRlb25fY3J0Y19jdXJzb3Jfc2V0MihzdHJ1Y3QgZHJtX2Ny
+dGMgKmNydGMsCj4gICAJCQlyYWRlb25fYm9fdW5waW4ocm9iaik7Cj4gICAJCQlyYWRlb25fYm9f
+dW5yZXNlcnZlKHJvYmopOwo+ICAgCQl9Cj4gLQkJZHJtX2dlbV9vYmplY3RfdW5yZWZlcmVuY2Vf
+dW5sb2NrZWQocmFkZW9uX2NydGMtPmN1cnNvcl9ibyk7Cj4gKwkJZHJtX2dlbV9vYmplY3RfcHV0
+X3VubG9ja2VkKHJhZGVvbl9jcnRjLT5jdXJzb3JfYm8pOwo+ICAgCX0KPiAgIAo+ICAgCXJhZGVv
+bl9jcnRjLT5jdXJzb3JfYm8gPSBvYmo7Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9y
+YWRlb24vcmFkZW9uX2Rpc3BsYXkuYyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2Rp
+c3BsYXkuYwo+IGluZGV4IDE3ZDNkYWYuLmFkYmYyOGMgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL3JhZGVvbi9yYWRlb25fZGlzcGxheS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3Jh
+ZGVvbi9yYWRlb25fZGlzcGxheS5jCj4gQEAgLTI4Miw3ICsyODIsNyBAQCBzdGF0aWMgdm9pZCBy
+YWRlb25fdW5waW5fd29ya19mdW5jKHN0cnVjdCB3b3JrX3N0cnVjdCAqX193b3JrKQo+ICAgCX0g
+ZWxzZQo+ICAgCQlEUk1fRVJST1IoImZhaWxlZCB0byByZXNlcnZlIGJ1ZmZlciBhZnRlciBmbGlw
+XG4iKTsKPiAgIAo+IC0JZHJtX2dlbV9vYmplY3RfdW5yZWZlcmVuY2VfdW5sb2NrZWQoJndvcmst
+Pm9sZF9yYm8tPmdlbV9iYXNlKTsKPiArCWRybV9nZW1fb2JqZWN0X3B1dF91bmxvY2tlZCgmd29y
+ay0+b2xkX3Jiby0+Z2VtX2Jhc2UpOwo+ICAgCWtmcmVlKHdvcmspOwo+ICAgfQo+ICAgCj4gQEAg
+LTUxOSw3ICs1MTksNyBAQCBzdGF0aWMgaW50IHJhZGVvbl9jcnRjX3BhZ2VfZmxpcF90YXJnZXQo
+c3RydWN0IGRybV9jcnRjICpjcnRjLAo+ICAgCW9iaiA9IG9sZF9yYWRlb25fZmItPm9iajsKPiAg
+IAo+ICAgCS8qIHRha2UgYSByZWZlcmVuY2UgdG8gdGhlIG9sZCBvYmplY3QgKi8KPiAtCWRybV9n
+ZW1fb2JqZWN0X3JlZmVyZW5jZShvYmopOwo+ICsJZHJtX2dlbV9vYmplY3RfZ2V0KG9iaik7Cj4g
+ICAJd29yay0+b2xkX3JibyA9IGdlbV90b19yYWRlb25fYm8ob2JqKTsKPiAgIAo+ICAgCW5ld19y
+YWRlb25fZmIgPSB0b19yYWRlb25fZnJhbWVidWZmZXIoZmIpOwo+IEBAIC02MTgsNyArNjE4LDcg
+QEAgc3RhdGljIGludCByYWRlb25fY3J0Y19wYWdlX2ZsaXBfdGFyZ2V0KHN0cnVjdCBkcm1fY3J0
+YyAqY3J0YywKPiAgIAlyYWRlb25fYm9fdW5yZXNlcnZlKG5ld19yYm8pOwo+ICAgCj4gICBjbGVh
+bnVwOgo+IC0JZHJtX2dlbV9vYmplY3RfdW5yZWZlcmVuY2VfdW5sb2NrZWQoJndvcmstPm9sZF9y
+Ym8tPmdlbV9iYXNlKTsKPiArCWRybV9nZW1fb2JqZWN0X3B1dF91bmxvY2tlZCgmd29yay0+b2xk
+X3Jiby0+Z2VtX2Jhc2UpOwo+ICAgCWRtYV9mZW5jZV9wdXQod29yay0+ZmVuY2UpOwo+ICAgCWtm
+cmVlKHdvcmspOwo+ICAgCXJldHVybiByOwo+IEBAIC0xMzAzLDcgKzEzMDMsNyBAQCBzdGF0aWMg
+dm9pZCByYWRlb25fdXNlcl9mcmFtZWJ1ZmZlcl9kZXN0cm95KHN0cnVjdCBkcm1fZnJhbWVidWZm
+ZXIgKmZiKQo+ICAgewo+ICAgCXN0cnVjdCByYWRlb25fZnJhbWVidWZmZXIgKnJhZGVvbl9mYiA9
+IHRvX3JhZGVvbl9mcmFtZWJ1ZmZlcihmYik7Cj4gICAKPiAtCWRybV9nZW1fb2JqZWN0X3VucmVm
+ZXJlbmNlX3VubG9ja2VkKHJhZGVvbl9mYi0+b2JqKTsKPiArCWRybV9nZW1fb2JqZWN0X3B1dF91
+bmxvY2tlZChyYWRlb25fZmItPm9iaik7Cj4gICAJZHJtX2ZyYW1lYnVmZmVyX2NsZWFudXAoZmIp
+Owo+ICAgCWtmcmVlKHJhZGVvbl9mYik7Cj4gICB9Cj4gQEAgLTEzNjMsMTQgKzEzNjMsMTQgQEAg
+cmFkZW9uX3VzZXJfZnJhbWVidWZmZXJfY3JlYXRlKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsCj4g
+ICAKPiAgIAlyYWRlb25fZmIgPSBremFsbG9jKHNpemVvZigqcmFkZW9uX2ZiKSwgR0ZQX0tFUk5F
+TCk7Cj4gICAJaWYgKHJhZGVvbl9mYiA9PSBOVUxMKSB7Cj4gLQkJZHJtX2dlbV9vYmplY3RfdW5y
+ZWZlcmVuY2VfdW5sb2NrZWQob2JqKTsKPiArCQlkcm1fZ2VtX29iamVjdF9wdXRfdW5sb2NrZWQo
+b2JqKTsKPiAgIAkJcmV0dXJuIEVSUl9QVFIoLUVOT01FTSk7Cj4gICAJfQo+ICAgCj4gICAJcmV0
+ID0gcmFkZW9uX2ZyYW1lYnVmZmVyX2luaXQoZGV2LCByYWRlb25fZmIsIG1vZGVfY21kLCBvYmop
+Owo+ICAgCWlmIChyZXQpIHsKPiAgIAkJa2ZyZWUocmFkZW9uX2ZiKTsKPiAtCQlkcm1fZ2VtX29i
+amVjdF91bnJlZmVyZW5jZV91bmxvY2tlZChvYmopOwo+ICsJCWRybV9nZW1fb2JqZWN0X3B1dF91
+bmxvY2tlZChvYmopOwo+ICAgCQlyZXR1cm4gRVJSX1BUUihyZXQpOwo+ICAgCX0KPiAgIAo+IGRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9mYi5jIGIvZHJpdmVycy9n
+cHUvZHJtL3JhZGVvbi9yYWRlb25fZmIuYwo+IGluZGV4IDM1NmFkOTAuLjk3NmQyMjQgMTAwNjQ0
+Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZmIuYwo+ICsrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2ZiLmMKPiBAQCAtMTE4LDcgKzExOCw3IEBAIHN0YXRp
+YyB2b2lkIHJhZGVvbmZiX2Rlc3Ryb3lfcGlubmVkX29iamVjdChzdHJ1Y3QgZHJtX2dlbV9vYmpl
+Y3QgKmdvYmopCj4gICAJCXJhZGVvbl9ib191bnBpbihyYm8pOwo+ICAgCQlyYWRlb25fYm9fdW5y
+ZXNlcnZlKHJibyk7Cj4gICAJfQo+IC0JZHJtX2dlbV9vYmplY3RfdW5yZWZlcmVuY2VfdW5sb2Nr
+ZWQoZ29iaik7Cj4gKwlkcm1fZ2VtX29iamVjdF9wdXRfdW5sb2NrZWQoZ29iaik7Cj4gICB9Cj4g
+ICAKPiAgIHN0YXRpYyBpbnQgcmFkZW9uZmJfY3JlYXRlX3Bpbm5lZF9vYmplY3Qoc3RydWN0IHJh
+ZGVvbl9mYmRldiAqcmZiZGV2LAo+IEBAIC0zMDAsNyArMzAwLDcgQEAgc3RhdGljIGludCByYWRl
+b25mYl9jcmVhdGUoc3RydWN0IGRybV9mYl9oZWxwZXIgKmhlbHBlciwKPiAgIAo+ICAgCX0KPiAg
+IAlpZiAoZmIgJiYgcmV0KSB7Cj4gLQkJZHJtX2dlbV9vYmplY3RfdW5yZWZlcmVuY2VfdW5sb2Nr
+ZWQoZ29iaik7Cj4gKwkJZHJtX2dlbV9vYmplY3RfcHV0X3VubG9ja2VkKGdvYmopOwo+ICAgCQlk
+cm1fZnJhbWVidWZmZXJfdW5yZWdpc3Rlcl9wcml2YXRlKGZiKTsKPiAgIAkJZHJtX2ZyYW1lYnVm
+ZmVyX2NsZWFudXAoZmIpOwo+ICAgCQlrZnJlZShmYik7Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Z3B1L2RybS9yYWRlb24vcmFkZW9uX2dlbS5jIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRl
+b25fZ2VtLmMKPiBpbmRleCA1NzRiZjdlLi4zMzg2NDUyIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9yYWRlb24vcmFkZW9uX2dlbS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVv
+bi9yYWRlb25fZ2VtLmMKPiBAQCAtMjcxLDcgKzI3MSw3IEBAIGludCByYWRlb25fZ2VtX2NyZWF0
+ZV9pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLAo+ICAgCX0KPiAgIAly
+ID0gZHJtX2dlbV9oYW5kbGVfY3JlYXRlKGZpbHAsIGdvYmosICZoYW5kbGUpOwo+ICAgCS8qIGRy
+b3AgcmVmZXJlbmNlIGZyb20gYWxsb2NhdGUgLSBoYW5kbGUgaG9sZHMgaXQgbm93ICovCj4gLQlk
+cm1fZ2VtX29iamVjdF91bnJlZmVyZW5jZV91bmxvY2tlZChnb2JqKTsKPiArCWRybV9nZW1fb2Jq
+ZWN0X3B1dF91bmxvY2tlZChnb2JqKTsKPiAgIAlpZiAocikgewo+ICAgCQl1cF9yZWFkKCZyZGV2
+LT5leGNsdXNpdmVfbG9jayk7Cj4gICAJCXIgPSByYWRlb25fZ2VtX2hhbmRsZV9sb2NrdXAocmRl
+diwgcik7Cj4gQEAgLTM1Miw3ICszNTIsNyBAQCBpbnQgcmFkZW9uX2dlbV91c2VycHRyX2lvY3Rs
+KHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsCj4gICAKPiAgIAlyID0gZHJtX2dl
+bV9oYW5kbGVfY3JlYXRlKGZpbHAsIGdvYmosICZoYW5kbGUpOwo+ICAgCS8qIGRyb3AgcmVmZXJl
+bmNlIGZyb20gYWxsb2NhdGUgLSBoYW5kbGUgaG9sZHMgaXQgbm93ICovCj4gLQlkcm1fZ2VtX29i
+amVjdF91bnJlZmVyZW5jZV91bmxvY2tlZChnb2JqKTsKPiArCWRybV9nZW1fb2JqZWN0X3B1dF91
+bmxvY2tlZChnb2JqKTsKPiAgIAlpZiAocikKPiAgIAkJZ290byBoYW5kbGVfbG9ja3VwOwo+ICAg
+Cj4gQEAgLTM2MSw3ICszNjEsNyBAQCBpbnQgcmFkZW9uX2dlbV91c2VycHRyX2lvY3RsKHN0cnVj
+dCBkcm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsCj4gICAJcmV0dXJuIDA7Cj4gICAKPiAgIHJl
+bGVhc2Vfb2JqZWN0Ogo+IC0JZHJtX2dlbV9vYmplY3RfdW5yZWZlcmVuY2VfdW5sb2NrZWQoZ29i
+aik7Cj4gKwlkcm1fZ2VtX29iamVjdF9wdXRfdW5sb2NrZWQoZ29iaik7Cj4gICAKPiAgIGhhbmRs
+ZV9sb2NrdXA6Cj4gICAJdXBfcmVhZCgmcmRldi0+ZXhjbHVzaXZlX2xvY2spOwo+IEBAIC0zOTUs
+NyArMzk1LDcgQEAgaW50IHJhZGVvbl9nZW1fc2V0X2RvbWFpbl9pb2N0bChzdHJ1Y3QgZHJtX2Rl
+dmljZSAqZGV2LCB2b2lkICpkYXRhLAo+ICAgCj4gICAJciA9IHJhZGVvbl9nZW1fc2V0X2RvbWFp
+bihnb2JqLCBhcmdzLT5yZWFkX2RvbWFpbnMsIGFyZ3MtPndyaXRlX2RvbWFpbik7Cj4gICAKPiAt
+CWRybV9nZW1fb2JqZWN0X3VucmVmZXJlbmNlX3VubG9ja2VkKGdvYmopOwo+ICsJZHJtX2dlbV9v
+YmplY3RfcHV0X3VubG9ja2VkKGdvYmopOwo+ICAgCXVwX3JlYWQoJnJkZXYtPmV4Y2x1c2l2ZV9s
+b2NrKTsKPiAgIAlyID0gcmFkZW9uX2dlbV9oYW5kbGVfbG9ja3VwKHJvYmotPnJkZXYsIHIpOwo+
+ICAgCXJldHVybiByOwo+IEBAIC00MTQsMTEgKzQxNCwxMSBAQCBpbnQgcmFkZW9uX21vZGVfZHVt
+Yl9tbWFwKHN0cnVjdCBkcm1fZmlsZSAqZmlscCwKPiAgIAl9Cj4gICAJcm9iaiA9IGdlbV90b19y
+YWRlb25fYm8oZ29iaik7Cj4gICAJaWYgKHJhZGVvbl90dG1fdHRfaGFzX3VzZXJwdHIocm9iai0+
+dGJvLnR0bSkpIHsKPiAtCQlkcm1fZ2VtX29iamVjdF91bnJlZmVyZW5jZV91bmxvY2tlZChnb2Jq
+KTsKPiArCQlkcm1fZ2VtX29iamVjdF9wdXRfdW5sb2NrZWQoZ29iaik7Cj4gICAJCXJldHVybiAt
+RVBFUk07Cj4gICAJfQo+ICAgCSpvZmZzZXRfcCA9IHJhZGVvbl9ib19tbWFwX29mZnNldChyb2Jq
+KTsKPiAtCWRybV9nZW1fb2JqZWN0X3VucmVmZXJlbmNlX3VubG9ja2VkKGdvYmopOwo+ICsJZHJt
+X2dlbV9vYmplY3RfcHV0X3VubG9ja2VkKGdvYmopOwo+ICAgCXJldHVybiAwOwo+ICAgfQo+ICAg
+Cj4gQEAgLTQ1Myw3ICs0NTMsNyBAQCBpbnQgcmFkZW9uX2dlbV9idXN5X2lvY3RsKHN0cnVjdCBk
+cm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsCj4gICAKPiAgIAljdXJfcGxhY2VtZW50ID0gQUND
+RVNTX09OQ0Uocm9iai0+dGJvLm1lbS5tZW1fdHlwZSk7Cj4gICAJYXJncy0+ZG9tYWluID0gcmFk
+ZW9uX21lbV90eXBlX3RvX2RvbWFpbihjdXJfcGxhY2VtZW50KTsKPiAtCWRybV9nZW1fb2JqZWN0
+X3VucmVmZXJlbmNlX3VubG9ja2VkKGdvYmopOwo+ICsJZHJtX2dlbV9vYmplY3RfcHV0X3VubG9j
+a2VkKGdvYmopOwo+ICAgCXJldHVybiByOwo+ICAgfQo+ICAgCj4gQEAgLTQ4NSw3ICs0ODUsNyBA
+QCBpbnQgcmFkZW9uX2dlbV93YWl0X2lkbGVfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwg
+dm9pZCAqZGF0YSwKPiAgIAlpZiAocmRldi0+YXNpYy0+bW1pb19oZHBfZmx1c2ggJiYKPiAgIAkg
+ICAgcmFkZW9uX21lbV90eXBlX3RvX2RvbWFpbihjdXJfcGxhY2VtZW50KSA9PSBSQURFT05fR0VN
+X0RPTUFJTl9WUkFNKQo+ICAgCQlyb2JqLT5yZGV2LT5hc2ljLT5tbWlvX2hkcF9mbHVzaChyZGV2
+KTsKPiAtCWRybV9nZW1fb2JqZWN0X3VucmVmZXJlbmNlX3VubG9ja2VkKGdvYmopOwo+ICsJZHJt
+X2dlbV9vYmplY3RfcHV0X3VubG9ja2VkKGdvYmopOwo+ICAgCXIgPSByYWRlb25fZ2VtX2hhbmRs
+ZV9sb2NrdXAocmRldiwgcik7Cj4gICAJcmV0dXJuIHI7Cj4gICB9Cj4gQEAgLTUwNCw3ICs1MDQs
+NyBAQCBpbnQgcmFkZW9uX2dlbV9zZXRfdGlsaW5nX2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpk
+ZXYsIHZvaWQgKmRhdGEsCj4gICAJCXJldHVybiAtRU5PRU5UOwo+ICAgCXJvYmogPSBnZW1fdG9f
+cmFkZW9uX2JvKGdvYmopOwo+ICAgCXIgPSByYWRlb25fYm9fc2V0X3RpbGluZ19mbGFncyhyb2Jq
+LCBhcmdzLT50aWxpbmdfZmxhZ3MsIGFyZ3MtPnBpdGNoKTsKPiAtCWRybV9nZW1fb2JqZWN0X3Vu
+cmVmZXJlbmNlX3VubG9ja2VkKGdvYmopOwo+ICsJZHJtX2dlbV9vYmplY3RfcHV0X3VubG9ja2Vk
+KGdvYmopOwo+ICAgCXJldHVybiByOwo+ICAgfQo+ICAgCj4gQEAgLTUyNyw3ICs1MjcsNyBAQCBp
+bnQgcmFkZW9uX2dlbV9nZXRfdGlsaW5nX2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZv
+aWQgKmRhdGEsCj4gICAJcmFkZW9uX2JvX2dldF90aWxpbmdfZmxhZ3MocmJvLCAmYXJncy0+dGls
+aW5nX2ZsYWdzLCAmYXJncy0+cGl0Y2gpOwo+ICAgCXJhZGVvbl9ib191bnJlc2VydmUocmJvKTsK
+PiAgIG91dDoKPiAtCWRybV9nZW1fb2JqZWN0X3VucmVmZXJlbmNlX3VubG9ja2VkKGdvYmopOwo+
+ICsJZHJtX2dlbV9vYmplY3RfcHV0X3VubG9ja2VkKGdvYmopOwo+ICAgCXJldHVybiByOwo+ICAg
+fQo+ICAgCj4gQEAgLTY2MSwxNCArNjYxLDE0IEBAIGludCByYWRlb25fZ2VtX3ZhX2lvY3RsKHN0
+cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsCj4gICAJciA9IHJhZGVvbl9ib19yZXNl
+cnZlKHJibywgZmFsc2UpOwo+ICAgCWlmIChyKSB7Cj4gICAJCWFyZ3MtPm9wZXJhdGlvbiA9IFJB
+REVPTl9WQV9SRVNVTFRfRVJST1I7Cj4gLQkJZHJtX2dlbV9vYmplY3RfdW5yZWZlcmVuY2VfdW5s
+b2NrZWQoZ29iaik7Cj4gKwkJZHJtX2dlbV9vYmplY3RfcHV0X3VubG9ja2VkKGdvYmopOwo+ICAg
+CQlyZXR1cm4gcjsKPiAgIAl9Cj4gICAJYm9fdmEgPSByYWRlb25fdm1fYm9fZmluZCgmZnByaXYt
+PnZtLCByYm8pOwo+ICAgCWlmICghYm9fdmEpIHsKPiAgIAkJYXJncy0+b3BlcmF0aW9uID0gUkFE
+RU9OX1ZBX1JFU1VMVF9FUlJPUjsKPiAgIAkJcmFkZW9uX2JvX3VucmVzZXJ2ZShyYm8pOwo+IC0J
+CWRybV9nZW1fb2JqZWN0X3VucmVmZXJlbmNlX3VubG9ja2VkKGdvYmopOwo+ICsJCWRybV9nZW1f
+b2JqZWN0X3B1dF91bmxvY2tlZChnb2JqKTsKPiAgIAkJcmV0dXJuIC1FTk9FTlQ7Cj4gICAJfQo+
+ICAgCj4gQEAgLTY5NSw3ICs2OTUsNyBAQCBpbnQgcmFkZW9uX2dlbV92YV9pb2N0bChzdHJ1Y3Qg
+ZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLAo+ICAgCQlhcmdzLT5vcGVyYXRpb24gPSBSQURF
+T05fVkFfUkVTVUxUX0VSUk9SOwo+ICAgCX0KPiAgIG91dDoKPiAtCWRybV9nZW1fb2JqZWN0X3Vu
+cmVmZXJlbmNlX3VubG9ja2VkKGdvYmopOwo+ICsJZHJtX2dlbV9vYmplY3RfcHV0X3VubG9ja2Vk
+KGdvYmopOwo+ICAgCXJldHVybiByOwo+ICAgfQo+ICAgCj4gQEAgLTczNiw3ICs3MzYsNyBAQCBp
+bnQgcmFkZW9uX2dlbV9vcF9pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRh
+LAo+ICAgCj4gICAJcmFkZW9uX2JvX3VucmVzZXJ2ZShyb2JqKTsKPiAgIG91dDoKPiAtCWRybV9n
+ZW1fb2JqZWN0X3VucmVmZXJlbmNlX3VubG9ja2VkKGdvYmopOwo+ICsJZHJtX2dlbV9vYmplY3Rf
+cHV0X3VubG9ja2VkKGdvYmopOwo+ICAgCXJldHVybiByOwo+ICAgfQo+ICAgCj4gQEAgLTc2Miw3
+ICs3NjIsNyBAQCBpbnQgcmFkZW9uX21vZGVfZHVtYl9jcmVhdGUoc3RydWN0IGRybV9maWxlICpm
+aWxlX3ByaXYsCj4gICAKPiAgIAlyID0gZHJtX2dlbV9oYW5kbGVfY3JlYXRlKGZpbGVfcHJpdiwg
+Z29iaiwgJmhhbmRsZSk7Cj4gICAJLyogZHJvcCByZWZlcmVuY2UgZnJvbSBhbGxvY2F0ZSAtIGhh
+bmRsZSBob2xkcyBpdCBub3cgKi8KPiAtCWRybV9nZW1fb2JqZWN0X3VucmVmZXJlbmNlX3VubG9j
+a2VkKGdvYmopOwo+ICsJZHJtX2dlbV9vYmplY3RfcHV0X3VubG9ja2VkKGdvYmopOwo+ICAgCWlm
+IChyKSB7Cj4gICAJCXJldHVybiByOwo+ICAgCX0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL3JhZGVvbi9yYWRlb25fb2JqZWN0LmMgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVv
+bl9vYmplY3QuYwo+IGluZGV4IDhiNzIyMjkuLmFkMmEyZmQgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fb2JqZWN0LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
+cmFkZW9uL3JhZGVvbl9vYmplY3QuYwo+IEBAIC00NDUsNyArNDQ1LDcgQEAgdm9pZCByYWRlb25f
+Ym9fZm9yY2VfZGVsZXRlKHN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2KQo+ICAgCQlsaXN0X2Rl
+bF9pbml0KCZiby0+bGlzdCk7Cj4gICAJCW11dGV4X3VubG9jaygmYm8tPnJkZXYtPmdlbS5tdXRl
+eCk7Cj4gICAJCS8qIHRoaXMgc2hvdWxkIHVucmVmIHRoZSB0dG0gYm8gKi8KPiAtCQlkcm1fZ2Vt
+X29iamVjdF91bnJlZmVyZW5jZV91bmxvY2tlZCgmYm8tPmdlbV9iYXNlKTsKPiArCQlkcm1fZ2Vt
+X29iamVjdF9wdXRfdW5sb2NrZWQoJmJvLT5nZW1fYmFzZSk7Cj4gICAJfQo+ICAgfQo+ICAgCgoK
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
