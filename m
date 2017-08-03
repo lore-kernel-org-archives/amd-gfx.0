@@ -1,43 +1,332 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: [pull] amdgpu drm-fixes-4.13
-Date: Wed,  2 Aug 2017 18:08:02 -0400
-Message-ID: <1501711682-3410-1-git-send-email-alexander.deucher@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, airlied@gmail.com
-Cc: Alex Deucher <alexander.deucher@amd.com>
+From: Cihangir Akturk <cakturk@gmail.com>
+Subject: [PATCH 01/29] drm/amdgpu: switch to drm_*{get,put} helpers
+Date: Thu,  3 Aug 2017 14:58:16 +0300
+Message-ID: <1501761585-11757-2-git-send-email-cakturk@gmail.com>
+References: <1501761585-11757-1-git-send-email-cakturk@gmail.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <1501761585-11757-1-git-send-email-cakturk@gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+Cc: Cihangir Akturk <cakturk@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Alex Xie <AlexBin.Xie@amd.com>, Mario Kleiner <mario.kleiner.de@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Matthew Wilcox <mawilcox@microsoft.com>, Michal Hocko <mhocko@kernel.org>, Monk Liu <Monk.Liu@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Dave Airlie <airlied@redhat.com>, Junwei Zhang <Jerry.Zhang@amd.com>, =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <marek.olsak@amd.com>, Andres Rodriguez <andresx7@gmail.com>, =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@amd.com>, Harry Wentland <harry.wentland@amd.com>, Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>Chris
 List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgRGF2ZSwKCkp1c3QgYSBmZXcgc21hbGwgZml4ZXMgZm9yIDQuMTMuCgpUaGUgZm9sbG93aW5n
-IGNoYW5nZXMgc2luY2UgY29tbWl0IDUxNzA2OWZmNmVjMDk3MWUwNzk0YWI5N2Q0ZmNmYThiMTQz
-NzQ2ZTQ6CgogIE1lcmdlIGJyYW5jaCAnZHJtLWZpeGVzLTQuMTMnIG9mIGdpdDovL3Blb3BsZS5m
-cmVlZGVza3RvcC5vcmcvfmFnZDVmL2xpbnV4IGludG8gZHJtLWZpeGVzICgyMDE3LTA3LTI3IDA4
-OjQ5OjQ4ICsxMDAwKQoKYXJlIGF2YWlsYWJsZSBpbiB0aGUgZ2l0IHJlcG9zaXRvcnkgYXQ6Cgog
-IGdpdDovL3Blb3BsZS5mcmVlZGVza3RvcC5vcmcvfmFnZDVmL2xpbnV4IGRybS1maXhlcy00LjEz
-Cgpmb3IgeW91IHRvIGZldGNoIGNoYW5nZXMgdXAgdG8gNjhjOTc5M2Q2M2UwMmYwNjgzZmRiZjVl
-ODJkMTQ4ZDcyZWQxZGJlMDoKCiAgZHJtL2FtZGdwdTogVXNlIGxpc3RfZGVsX2luaXQgaW4gYW1k
-Z3B1X21uX3VucmVnaXN0ZXIgKDIwMTctMDgtMDIgMTQ6Mjk6NTggLTA0MDApCgotLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCkFs
-ZXggRGV1Y2hlciAoMSk6CiAgICAgIGRybS9hbWRncHU6IGZpeCBoZWFkZXIgb24gZ2Z4OSBjbGVh
-ciBzdGF0ZQoKRmVsaXggS3VlaGxpbmcgKDEpOgogICAgICBkcm0vYW1kZ3B1OiBVc2UgbGlzdF9k
-ZWxfaW5pdCBpbiBhbWRncHVfbW5fdW5yZWdpc3RlcgoKSmVhbiBEZWx2YXJlICgxKToKICAgICAg
-ZHJtL2FtZGdwdTogRml4IHVuZHVlIGZhbGx0aHJvdWdocyBpbiBnb2xkZW4gcmVnaXN0ZXJzIGlu
-aXRpYWxpemF0aW9uCgogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21uLmMgICAg
-ICAgfCAgMiArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvY2xlYXJzdGF0ZV9nZng5Lmgg
-fCA0MSArKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9zaS5jICAgICAgICAgICAgICB8ICAyICsrCiAzIGZpbGVzIGNoYW5nZWQsIDI0IGluc2Vy
-dGlvbnMoKyksIDIxIGRlbGV0aW9ucygtKQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9kcmktZGV2ZWwK
+drm_*_reference() and drm_*_unreference() functions are just
+compatibility alias for drm_*_get() and drm_*_put() and should not be
+used by new code. So convert all users of compatibility functions to use
+the new APIs.
+
+Signed-off-by: Cihangir Akturk <cakturk@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c |  6 +++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c      |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c     | 22 +++++++++++-----------
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c      |  6 +++---
+ drivers/gpu/drm/amd/amdgpu/dce_v11_0.c      |  6 +++---
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c       |  6 +++---
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c       |  6 +++---
+ 9 files changed, 30 insertions(+), 30 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+index f621ee1..2cf465f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+@@ -136,7 +136,7 @@ static int amdgpu_bo_list_set(struct amdgpu_device *adev,
+ 		}
+ 
+ 		bo = amdgpu_bo_ref(gem_to_amdgpu_bo(gobj));
+-		drm_gem_object_unreference_unlocked(gobj);
++		drm_gem_object_put_unlocked(gobj);
+ 
+ 		usermm = amdgpu_ttm_tt_get_usermm(bo->tbo.ttm);
+ 		if (usermm) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 5599c01..0b8406c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -54,7 +54,7 @@ static int amdgpu_cs_user_fence_chunk(struct amdgpu_cs_parser *p,
+ 
+ 	*offset = data->offset;
+ 
+-	drm_gem_object_unreference_unlocked(gobj);
++	drm_gem_object_put_unlocked(gobj);
+ 
+ 	if (amdgpu_ttm_tt_get_usermm(p->uf_entry.robj->tbo.ttm)) {
+ 		amdgpu_bo_unref(&p->uf_entry.robj);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+index cdf2ab2..6ad2432 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+@@ -482,7 +482,7 @@ static void amdgpu_user_framebuffer_destroy(struct drm_framebuffer *fb)
+ {
+ 	struct amdgpu_framebuffer *amdgpu_fb = to_amdgpu_framebuffer(fb);
+ 
+-	drm_gem_object_unreference_unlocked(amdgpu_fb->obj);
++	drm_gem_object_put_unlocked(amdgpu_fb->obj);
+ 	drm_framebuffer_cleanup(fb);
+ 	kfree(amdgpu_fb);
+ }
+@@ -542,14 +542,14 @@ amdgpu_user_framebuffer_create(struct drm_device *dev,
+ 
+ 	amdgpu_fb = kzalloc(sizeof(*amdgpu_fb), GFP_KERNEL);
+ 	if (amdgpu_fb == NULL) {
+-		drm_gem_object_unreference_unlocked(obj);
++		drm_gem_object_put_unlocked(obj);
+ 		return ERR_PTR(-ENOMEM);
+ 	}
+ 
+ 	ret = amdgpu_framebuffer_init(dev, amdgpu_fb, mode_cmd, obj);
+ 	if (ret) {
+ 		kfree(amdgpu_fb);
+-		drm_gem_object_unreference_unlocked(obj);
++		drm_gem_object_put_unlocked(obj);
+ 		return ERR_PTR(ret);
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
+index c0d8c6f..f29a5fe 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
+@@ -118,7 +118,7 @@ static void amdgpufb_destroy_pinned_object(struct drm_gem_object *gobj)
+ 		amdgpu_bo_unpin(abo);
+ 		amdgpu_bo_unreserve(abo);
+ 	}
+-	drm_gem_object_unreference_unlocked(gobj);
++	drm_gem_object_put_unlocked(gobj);
+ }
+ 
+ static int amdgpufb_create_pinned_object(struct amdgpu_fbdev *rfbdev,
+@@ -281,7 +281,7 @@ static int amdgpufb_create(struct drm_fb_helper *helper,
+ 
+ 	}
+ 	if (fb && ret) {
+-		drm_gem_object_unreference_unlocked(gobj);
++		drm_gem_object_put_unlocked(gobj);
+ 		drm_framebuffer_unregister_private(fb);
+ 		drm_framebuffer_cleanup(fb);
+ 		kfree(fb);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 621f739..2181cf1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -103,7 +103,7 @@ void amdgpu_gem_force_release(struct amdgpu_device *adev)
+ 		spin_lock(&file->table_lock);
+ 		idr_for_each_entry(&file->object_idr, gobj, handle) {
+ 			WARN_ONCE(1, "And also active allocations!\n");
+-			drm_gem_object_unreference_unlocked(gobj);
++			drm_gem_object_put_unlocked(gobj);
+ 		}
+ 		idr_destroy(&file->object_idr);
+ 		spin_unlock(&file->table_lock);
+@@ -275,7 +275,7 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
+ 
+ 	r = drm_gem_handle_create(filp, gobj, &handle);
+ 	/* drop reference from allocate - handle holds it now */
+-	drm_gem_object_unreference_unlocked(gobj);
++	drm_gem_object_put_unlocked(gobj);
+ 	if (r)
+ 		return r;
+ 
+@@ -353,7 +353,7 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
+ 
+ 	r = drm_gem_handle_create(filp, gobj, &handle);
+ 	/* drop reference from allocate - handle holds it now */
+-	drm_gem_object_unreference_unlocked(gobj);
++	drm_gem_object_put_unlocked(gobj);
+ 	if (r)
+ 		return r;
+ 
+@@ -367,7 +367,7 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
+ 	up_read(&current->mm->mmap_sem);
+ 
+ release_object:
+-	drm_gem_object_unreference_unlocked(gobj);
++	drm_gem_object_put_unlocked(gobj);
+ 
+ 	return r;
+ }
+@@ -386,11 +386,11 @@ int amdgpu_mode_dumb_mmap(struct drm_file *filp,
+ 	robj = gem_to_amdgpu_bo(gobj);
+ 	if (amdgpu_ttm_tt_get_usermm(robj->tbo.ttm) ||
+ 	    (robj->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS)) {
+-		drm_gem_object_unreference_unlocked(gobj);
++		drm_gem_object_put_unlocked(gobj);
+ 		return -EPERM;
+ 	}
+ 	*offset_p = amdgpu_bo_mmap_offset(robj);
+-	drm_gem_object_unreference_unlocked(gobj);
++	drm_gem_object_put_unlocked(gobj);
+ 	return 0;
+ }
+ 
+@@ -460,7 +460,7 @@ int amdgpu_gem_wait_idle_ioctl(struct drm_device *dev, void *data,
+ 	} else
+ 		r = ret;
+ 
+-	drm_gem_object_unreference_unlocked(gobj);
++	drm_gem_object_put_unlocked(gobj);
+ 	return r;
+ }
+ 
+@@ -503,7 +503,7 @@ int amdgpu_gem_metadata_ioctl(struct drm_device *dev, void *data,
+ unreserve:
+ 	amdgpu_bo_unreserve(robj);
+ out:
+-	drm_gem_object_unreference_unlocked(gobj);
++	drm_gem_object_put_unlocked(gobj);
+ 	return r;
+ }
+ 
+@@ -676,7 +676,7 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+ 	ttm_eu_backoff_reservation(&ticket, &list);
+ 
+ error_unref:
+-	drm_gem_object_unreference_unlocked(gobj);
++	drm_gem_object_put_unlocked(gobj);
+ 	return r;
+ }
+ 
+@@ -738,7 +738,7 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
+ 	}
+ 
+ out:
+-	drm_gem_object_unreference_unlocked(gobj);
++	drm_gem_object_put_unlocked(gobj);
+ 	return r;
+ }
+ 
+@@ -766,7 +766,7 @@ int amdgpu_mode_dumb_create(struct drm_file *file_priv,
+ 
+ 	r = drm_gem_handle_create(file_priv, gobj, &handle);
+ 	/* drop reference from allocate - handle holds it now */
+-	drm_gem_object_unreference_unlocked(gobj);
++	drm_gem_object_put_unlocked(gobj);
+ 	if (r) {
+ 		return r;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+index 9f78c03..80fa72e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+@@ -2555,7 +2555,7 @@ static int dce_v10_0_crtc_cursor_set2(struct drm_crtc *crtc,
+ 	aobj = gem_to_amdgpu_bo(obj);
+ 	ret = amdgpu_bo_reserve(aobj, false);
+ 	if (ret != 0) {
+-		drm_gem_object_unreference_unlocked(obj);
++		drm_gem_object_put_unlocked(obj);
+ 		return ret;
+ 	}
+ 
+@@ -2563,7 +2563,7 @@ static int dce_v10_0_crtc_cursor_set2(struct drm_crtc *crtc,
+ 	amdgpu_bo_unreserve(aobj);
+ 	if (ret) {
+ 		DRM_ERROR("Failed to pin new cursor BO (%d)\n", ret);
+-		drm_gem_object_unreference_unlocked(obj);
++		drm_gem_object_put_unlocked(obj);
+ 		return ret;
+ 	}
+ 
+@@ -2597,7 +2597,7 @@ static int dce_v10_0_crtc_cursor_set2(struct drm_crtc *crtc,
+ 			amdgpu_bo_unpin(aobj);
+ 			amdgpu_bo_unreserve(aobj);
+ 		}
+-		drm_gem_object_unreference_unlocked(amdgpu_crtc->cursor_bo);
++		drm_gem_object_put_unlocked(amdgpu_crtc->cursor_bo);
+ 	}
+ 
+ 	amdgpu_crtc->cursor_bo = obj;
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+index 4bcf01d..31ab74f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
+@@ -2575,7 +2575,7 @@ static int dce_v11_0_crtc_cursor_set2(struct drm_crtc *crtc,
+ 	aobj = gem_to_amdgpu_bo(obj);
+ 	ret = amdgpu_bo_reserve(aobj, false);
+ 	if (ret != 0) {
+-		drm_gem_object_unreference_unlocked(obj);
++		drm_gem_object_put_unlocked(obj);
+ 		return ret;
+ 	}
+ 
+@@ -2583,7 +2583,7 @@ static int dce_v11_0_crtc_cursor_set2(struct drm_crtc *crtc,
+ 	amdgpu_bo_unreserve(aobj);
+ 	if (ret) {
+ 		DRM_ERROR("Failed to pin new cursor BO (%d)\n", ret);
+-		drm_gem_object_unreference_unlocked(obj);
++		drm_gem_object_put_unlocked(obj);
+ 		return ret;
+ 	}
+ 
+@@ -2617,7 +2617,7 @@ static int dce_v11_0_crtc_cursor_set2(struct drm_crtc *crtc,
+ 			amdgpu_bo_unpin(aobj);
+ 			amdgpu_bo_unreserve(aobj);
+ 		}
+-		drm_gem_object_unreference_unlocked(amdgpu_crtc->cursor_bo);
++		drm_gem_object_put_unlocked(amdgpu_crtc->cursor_bo);
+ 	}
+ 
+ 	amdgpu_crtc->cursor_bo = obj;
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+index fd134a4..77c294be 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+@@ -2428,7 +2428,7 @@ static int dce_v6_0_crtc_cursor_set2(struct drm_crtc *crtc,
+ 	aobj = gem_to_amdgpu_bo(obj);
+ 	ret = amdgpu_bo_reserve(aobj, false);
+ 	if (ret != 0) {
+-		drm_gem_object_unreference_unlocked(obj);
++		drm_gem_object_put_unlocked(obj);
+ 		return ret;
+ 	}
+ 
+@@ -2436,7 +2436,7 @@ static int dce_v6_0_crtc_cursor_set2(struct drm_crtc *crtc,
+ 	amdgpu_bo_unreserve(aobj);
+ 	if (ret) {
+ 		DRM_ERROR("Failed to pin new cursor BO (%d)\n", ret);
+-		drm_gem_object_unreference_unlocked(obj);
++		drm_gem_object_put_unlocked(obj);
+ 		return ret;
+ 	}
+ 
+@@ -2470,7 +2470,7 @@ static int dce_v6_0_crtc_cursor_set2(struct drm_crtc *crtc,
+ 			amdgpu_bo_unpin(aobj);
+ 			amdgpu_bo_unreserve(aobj);
+ 		}
+-		drm_gem_object_unreference_unlocked(amdgpu_crtc->cursor_bo);
++		drm_gem_object_put_unlocked(amdgpu_crtc->cursor_bo);
+ 	}
+ 
+ 	amdgpu_crtc->cursor_bo = obj;
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+index a9e8695..89242c7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+@@ -2406,7 +2406,7 @@ static int dce_v8_0_crtc_cursor_set2(struct drm_crtc *crtc,
+ 	aobj = gem_to_amdgpu_bo(obj);
+ 	ret = amdgpu_bo_reserve(aobj, false);
+ 	if (ret != 0) {
+-		drm_gem_object_unreference_unlocked(obj);
++		drm_gem_object_put_unlocked(obj);
+ 		return ret;
+ 	}
+ 
+@@ -2414,7 +2414,7 @@ static int dce_v8_0_crtc_cursor_set2(struct drm_crtc *crtc,
+ 	amdgpu_bo_unreserve(aobj);
+ 	if (ret) {
+ 		DRM_ERROR("Failed to pin new cursor BO (%d)\n", ret);
+-		drm_gem_object_unreference_unlocked(obj);
++		drm_gem_object_put_unlocked(obj);
+ 		return ret;
+ 	}
+ 
+@@ -2448,7 +2448,7 @@ static int dce_v8_0_crtc_cursor_set2(struct drm_crtc *crtc,
+ 			amdgpu_bo_unpin(aobj);
+ 			amdgpu_bo_unreserve(aobj);
+ 		}
+-		drm_gem_object_unreference_unlocked(amdgpu_crtc->cursor_bo);
++		drm_gem_object_put_unlocked(amdgpu_crtc->cursor_bo);
+ 	}
+ 
+ 	amdgpu_crtc->cursor_bo = obj;
+-- 
+2.7.4
