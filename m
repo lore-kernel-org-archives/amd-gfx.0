@@ -1,332 +1,234 @@
-From: Cihangir Akturk <cakturk@gmail.com>
-Subject: [PATCH 01/29] drm/amdgpu: switch to drm_*{get,put} helpers
-Date: Thu,  3 Aug 2017 14:58:16 +0300
-Message-ID: <1501761585-11757-2-git-send-email-cakturk@gmail.com>
-References: <1501761585-11757-1-git-send-email-cakturk@gmail.com>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <1501761585-11757-1-git-send-email-cakturk@gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-Cc: Cihangir Akturk <cakturk@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Alex Xie <AlexBin.Xie@amd.com>, Mario Kleiner <mario.kleiner.de@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Matthew Wilcox <mawilcox@microsoft.com>, Michal Hocko <mhocko@kernel.org>, Monk Liu <Monk.Liu@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Dave Airlie <airlied@redhat.com>, Junwei Zhang <Jerry.Zhang@amd.com>, =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <marek.olsak@amd.com>, Andres Rodriguez <andresx7@gmail.com>, =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@amd.com>, Harry Wentland <harry.wentland@amd.com>, Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>Chris
+From: Cihangir Akturk <cakturk-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 00/29] DRM API conversions
+Date: Thu,  3 Aug 2017 14:58:15 +0300
+Message-ID: <1501761585-11757-1-git-send-email-cakturk@gmail.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-mediatek-bounces+glpam-linux-mediatek=m.gmane.org-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org>
+List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-mediatek>,
+ <mailto:linux-mediatek-request-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-mediatek/>
+List-Post: <mailto:linux-mediatek-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org>
+List-Help: <mailto:linux-mediatek-request-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org?subject=help>
+List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-mediatek>,
+ <mailto:linux-mediatek-request-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org?subject=subscribe>
+Sender: "Linux-mediatek" <linux-mediatek-bounces-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org>
+Errors-To: linux-mediatek-bounces+glpam-linux-mediatek=m.gmane.org-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org
+Cc: Xinliang Liu <xinliang.liu-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org>, Benjamin Herrenschmidt <benh-XVmvHMARGAS8U2dJNN8I7kB+6BGkLq7r@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Sumit Semwal <sumit.semwal-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org>, Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>, Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, linux-samsung-soc-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, Masahiro Yamada <yamada.masahiro-uWyLwvC0a2jby3iVrkZq2A@public.gmane.org>, etnaviv-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Sean Paul <seanpaul-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>, Dave Airlie <airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Wei Yongjun <weiyj.lk-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?UTF-8?q?Nicolai=20H=C3=A4hnle?= <Nicolai.Haehnle-5C7GfCeVMHo@public.gmane.org>, Greg Kroah-Hartman <gregkh-hQyY1W1yCW8ekmWlsbkhG0B+6BGkLq7r@public.gmane.org>, =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer-5C7GfCeVMHo@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Ken Wang <Qingqing.Wang-5C7GfCeVMHo@public.gmane.org>, Andrew Morton <akpm-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org>, freedreno-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-drm_*_reference() and drm_*_unreference() functions are just
-compatibility alias for drm_*_get() and drm_*_put() and should not be
-used by new code. So convert all users of compatibility functions to use
-the new APIs.
+This patch set replaces the occurrences of drm_*_reference() and
+drm_*_unreference() with the new drm_*_get() and drm_*_put() functions.
+All patches in the series do the same thing, converting to the new APIs.
+I created patches per DRM driver as suggested by Daniel Vetter.
 
-Signed-off-by: Cihangir Akturk <cakturk@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c      |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c |  6 +++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c      |  4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c     | 22 +++++++++++-----------
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c      |  6 +++---
- drivers/gpu/drm/amd/amdgpu/dce_v11_0.c      |  6 +++---
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c       |  6 +++---
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c       |  6 +++---
- 9 files changed, 30 insertions(+), 30 deletions(-)
+Background:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-index f621ee1..2cf465f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-@@ -136,7 +136,7 @@ static int amdgpu_bo_list_set(struct amdgpu_device *adev,
- 		}
- 
- 		bo = amdgpu_bo_ref(gem_to_amdgpu_bo(gobj));
--		drm_gem_object_unreference_unlocked(gobj);
-+		drm_gem_object_put_unlocked(gobj);
- 
- 		usermm = amdgpu_ttm_tt_get_usermm(bo->tbo.ttm);
- 		if (usermm) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 5599c01..0b8406c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -54,7 +54,7 @@ static int amdgpu_cs_user_fence_chunk(struct amdgpu_cs_parser *p,
- 
- 	*offset = data->offset;
- 
--	drm_gem_object_unreference_unlocked(gobj);
-+	drm_gem_object_put_unlocked(gobj);
- 
- 	if (amdgpu_ttm_tt_get_usermm(p->uf_entry.robj->tbo.ttm)) {
- 		amdgpu_bo_unref(&p->uf_entry.robj);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index cdf2ab2..6ad2432 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -482,7 +482,7 @@ static void amdgpu_user_framebuffer_destroy(struct drm_framebuffer *fb)
- {
- 	struct amdgpu_framebuffer *amdgpu_fb = to_amdgpu_framebuffer(fb);
- 
--	drm_gem_object_unreference_unlocked(amdgpu_fb->obj);
-+	drm_gem_object_put_unlocked(amdgpu_fb->obj);
- 	drm_framebuffer_cleanup(fb);
- 	kfree(amdgpu_fb);
- }
-@@ -542,14 +542,14 @@ amdgpu_user_framebuffer_create(struct drm_device *dev,
- 
- 	amdgpu_fb = kzalloc(sizeof(*amdgpu_fb), GFP_KERNEL);
- 	if (amdgpu_fb == NULL) {
--		drm_gem_object_unreference_unlocked(obj);
-+		drm_gem_object_put_unlocked(obj);
- 		return ERR_PTR(-ENOMEM);
- 	}
- 
- 	ret = amdgpu_framebuffer_init(dev, amdgpu_fb, mode_cmd, obj);
- 	if (ret) {
- 		kfree(amdgpu_fb);
--		drm_gem_object_unreference_unlocked(obj);
-+		drm_gem_object_put_unlocked(obj);
- 		return ERR_PTR(ret);
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-index c0d8c6f..f29a5fe 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-@@ -118,7 +118,7 @@ static void amdgpufb_destroy_pinned_object(struct drm_gem_object *gobj)
- 		amdgpu_bo_unpin(abo);
- 		amdgpu_bo_unreserve(abo);
- 	}
--	drm_gem_object_unreference_unlocked(gobj);
-+	drm_gem_object_put_unlocked(gobj);
- }
- 
- static int amdgpufb_create_pinned_object(struct amdgpu_fbdev *rfbdev,
-@@ -281,7 +281,7 @@ static int amdgpufb_create(struct drm_fb_helper *helper,
- 
- 	}
- 	if (fb && ret) {
--		drm_gem_object_unreference_unlocked(gobj);
-+		drm_gem_object_put_unlocked(gobj);
- 		drm_framebuffer_unregister_private(fb);
- 		drm_framebuffer_cleanup(fb);
- 		kfree(fb);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index 621f739..2181cf1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -103,7 +103,7 @@ void amdgpu_gem_force_release(struct amdgpu_device *adev)
- 		spin_lock(&file->table_lock);
- 		idr_for_each_entry(&file->object_idr, gobj, handle) {
- 			WARN_ONCE(1, "And also active allocations!\n");
--			drm_gem_object_unreference_unlocked(gobj);
-+			drm_gem_object_put_unlocked(gobj);
- 		}
- 		idr_destroy(&file->object_idr);
- 		spin_unlock(&file->table_lock);
-@@ -275,7 +275,7 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
- 
- 	r = drm_gem_handle_create(filp, gobj, &handle);
- 	/* drop reference from allocate - handle holds it now */
--	drm_gem_object_unreference_unlocked(gobj);
-+	drm_gem_object_put_unlocked(gobj);
- 	if (r)
- 		return r;
- 
-@@ -353,7 +353,7 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
- 
- 	r = drm_gem_handle_create(filp, gobj, &handle);
- 	/* drop reference from allocate - handle holds it now */
--	drm_gem_object_unreference_unlocked(gobj);
-+	drm_gem_object_put_unlocked(gobj);
- 	if (r)
- 		return r;
- 
-@@ -367,7 +367,7 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
- 	up_read(&current->mm->mmap_sem);
- 
- release_object:
--	drm_gem_object_unreference_unlocked(gobj);
-+	drm_gem_object_put_unlocked(gobj);
- 
- 	return r;
- }
-@@ -386,11 +386,11 @@ int amdgpu_mode_dumb_mmap(struct drm_file *filp,
- 	robj = gem_to_amdgpu_bo(gobj);
- 	if (amdgpu_ttm_tt_get_usermm(robj->tbo.ttm) ||
- 	    (robj->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS)) {
--		drm_gem_object_unreference_unlocked(gobj);
-+		drm_gem_object_put_unlocked(gobj);
- 		return -EPERM;
- 	}
- 	*offset_p = amdgpu_bo_mmap_offset(robj);
--	drm_gem_object_unreference_unlocked(gobj);
-+	drm_gem_object_put_unlocked(gobj);
- 	return 0;
- }
- 
-@@ -460,7 +460,7 @@ int amdgpu_gem_wait_idle_ioctl(struct drm_device *dev, void *data,
- 	} else
- 		r = ret;
- 
--	drm_gem_object_unreference_unlocked(gobj);
-+	drm_gem_object_put_unlocked(gobj);
- 	return r;
- }
- 
-@@ -503,7 +503,7 @@ int amdgpu_gem_metadata_ioctl(struct drm_device *dev, void *data,
- unreserve:
- 	amdgpu_bo_unreserve(robj);
- out:
--	drm_gem_object_unreference_unlocked(gobj);
-+	drm_gem_object_put_unlocked(gobj);
- 	return r;
- }
- 
-@@ -676,7 +676,7 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
- 	ttm_eu_backoff_reservation(&ticket, &list);
- 
- error_unref:
--	drm_gem_object_unreference_unlocked(gobj);
-+	drm_gem_object_put_unlocked(gobj);
- 	return r;
- }
- 
-@@ -738,7 +738,7 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
- 	}
- 
- out:
--	drm_gem_object_unreference_unlocked(gobj);
-+	drm_gem_object_put_unlocked(gobj);
- 	return r;
- }
- 
-@@ -766,7 +766,7 @@ int amdgpu_mode_dumb_create(struct drm_file *file_priv,
- 
- 	r = drm_gem_handle_create(file_priv, gobj, &handle);
- 	/* drop reference from allocate - handle holds it now */
--	drm_gem_object_unreference_unlocked(gobj);
-+	drm_gem_object_put_unlocked(gobj);
- 	if (r) {
- 		return r;
- 	}
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-index 9f78c03..80fa72e 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-@@ -2555,7 +2555,7 @@ static int dce_v10_0_crtc_cursor_set2(struct drm_crtc *crtc,
- 	aobj = gem_to_amdgpu_bo(obj);
- 	ret = amdgpu_bo_reserve(aobj, false);
- 	if (ret != 0) {
--		drm_gem_object_unreference_unlocked(obj);
-+		drm_gem_object_put_unlocked(obj);
- 		return ret;
- 	}
- 
-@@ -2563,7 +2563,7 @@ static int dce_v10_0_crtc_cursor_set2(struct drm_crtc *crtc,
- 	amdgpu_bo_unreserve(aobj);
- 	if (ret) {
- 		DRM_ERROR("Failed to pin new cursor BO (%d)\n", ret);
--		drm_gem_object_unreference_unlocked(obj);
-+		drm_gem_object_put_unlocked(obj);
- 		return ret;
- 	}
- 
-@@ -2597,7 +2597,7 @@ static int dce_v10_0_crtc_cursor_set2(struct drm_crtc *crtc,
- 			amdgpu_bo_unpin(aobj);
- 			amdgpu_bo_unreserve(aobj);
- 		}
--		drm_gem_object_unreference_unlocked(amdgpu_crtc->cursor_bo);
-+		drm_gem_object_put_unlocked(amdgpu_crtc->cursor_bo);
- 	}
- 
- 	amdgpu_crtc->cursor_bo = obj;
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-index 4bcf01d..31ab74f 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-@@ -2575,7 +2575,7 @@ static int dce_v11_0_crtc_cursor_set2(struct drm_crtc *crtc,
- 	aobj = gem_to_amdgpu_bo(obj);
- 	ret = amdgpu_bo_reserve(aobj, false);
- 	if (ret != 0) {
--		drm_gem_object_unreference_unlocked(obj);
-+		drm_gem_object_put_unlocked(obj);
- 		return ret;
- 	}
- 
-@@ -2583,7 +2583,7 @@ static int dce_v11_0_crtc_cursor_set2(struct drm_crtc *crtc,
- 	amdgpu_bo_unreserve(aobj);
- 	if (ret) {
- 		DRM_ERROR("Failed to pin new cursor BO (%d)\n", ret);
--		drm_gem_object_unreference_unlocked(obj);
-+		drm_gem_object_put_unlocked(obj);
- 		return ret;
- 	}
- 
-@@ -2617,7 +2617,7 @@ static int dce_v11_0_crtc_cursor_set2(struct drm_crtc *crtc,
- 			amdgpu_bo_unpin(aobj);
- 			amdgpu_bo_unreserve(aobj);
- 		}
--		drm_gem_object_unreference_unlocked(amdgpu_crtc->cursor_bo);
-+		drm_gem_object_put_unlocked(amdgpu_crtc->cursor_bo);
- 	}
- 
- 	amdgpu_crtc->cursor_bo = obj;
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-index fd134a4..77c294be 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-@@ -2428,7 +2428,7 @@ static int dce_v6_0_crtc_cursor_set2(struct drm_crtc *crtc,
- 	aobj = gem_to_amdgpu_bo(obj);
- 	ret = amdgpu_bo_reserve(aobj, false);
- 	if (ret != 0) {
--		drm_gem_object_unreference_unlocked(obj);
-+		drm_gem_object_put_unlocked(obj);
- 		return ret;
- 	}
- 
-@@ -2436,7 +2436,7 @@ static int dce_v6_0_crtc_cursor_set2(struct drm_crtc *crtc,
- 	amdgpu_bo_unreserve(aobj);
- 	if (ret) {
- 		DRM_ERROR("Failed to pin new cursor BO (%d)\n", ret);
--		drm_gem_object_unreference_unlocked(obj);
-+		drm_gem_object_put_unlocked(obj);
- 		return ret;
- 	}
- 
-@@ -2470,7 +2470,7 @@ static int dce_v6_0_crtc_cursor_set2(struct drm_crtc *crtc,
- 			amdgpu_bo_unpin(aobj);
- 			amdgpu_bo_unreserve(aobj);
- 		}
--		drm_gem_object_unreference_unlocked(amdgpu_crtc->cursor_bo);
-+		drm_gem_object_put_unlocked(amdgpu_crtc->cursor_bo);
- 	}
- 
- 	amdgpu_crtc->cursor_bo = obj;
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-index a9e8695..89242c7 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-@@ -2406,7 +2406,7 @@ static int dce_v8_0_crtc_cursor_set2(struct drm_crtc *crtc,
- 	aobj = gem_to_amdgpu_bo(obj);
- 	ret = amdgpu_bo_reserve(aobj, false);
- 	if (ret != 0) {
--		drm_gem_object_unreference_unlocked(obj);
-+		drm_gem_object_put_unlocked(obj);
- 		return ret;
- 	}
- 
-@@ -2414,7 +2414,7 @@ static int dce_v8_0_crtc_cursor_set2(struct drm_crtc *crtc,
- 	amdgpu_bo_unreserve(aobj);
- 	if (ret) {
- 		DRM_ERROR("Failed to pin new cursor BO (%d)\n", ret);
--		drm_gem_object_unreference_unlocked(obj);
-+		drm_gem_object_put_unlocked(obj);
- 		return ret;
- 	}
- 
-@@ -2448,7 +2448,7 @@ static int dce_v8_0_crtc_cursor_set2(struct drm_crtc *crtc,
- 			amdgpu_bo_unpin(aobj);
- 			amdgpu_bo_unreserve(aobj);
- 		}
--		drm_gem_object_unreference_unlocked(amdgpu_crtc->cursor_bo);
-+		drm_gem_object_put_unlocked(amdgpu_crtc->cursor_bo);
- 	}
- 
- 	amdgpu_crtc->cursor_bo = obj;
+In the kernel, reference counting APIs use *_get(), *_put() style naming
+to reference-count the objects. But DRM subsystem uses a different
+naming for them such as *_reference(), *_unreference() which is
+inconsistent with the other reference counting APIs in the kernel. To
+solve this consistency issue, Thierry Reding introduced a couple of
+functions and compatibility aliases in the following commits for them.
+
+commit 020a218f95bd3ceff7dd1022ff7ebc0497bc7bf9
+Author: Thierry Reding <treding-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>
+Date:   Tue Feb 28 15:46:38 2017 +0100
+
+    drm: Introduce drm_mode_object_{get,put}()
+
+commit ad09360750afa18a0a0ce0253d6ea6033abc22e7
+Author: Thierry Reding <treding-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>
+Date:   Tue Feb 28 15:46:39 2017 +0100
+
+    drm: Introduce drm_connector_{get,put}()
+
+commit a4a69da06bc11a937a6e417938b1bb698ee1fa46
+Author: Thierry Reding <treding-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>
+Date:   Tue Feb 28 15:46:40 2017 +0100
+
+    drm: Introduce drm_framebuffer_{get,put}()
+
+commit e6b62714e87c8811d5564b6a0738dcde63a51774
+Author: Thierry Reding <treding-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>
+Date:   Tue Feb 28 15:46:41 2017 +0100
+
+    drm: Introduce drm_gem_object_{get,put}()
+
+commit 6472e5090be7c78749a3c279b4faae87ab835c40
+Author: Thierry Reding <treding-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>
+Date:   Tue Feb 28 15:46:42 2017 +0100
+
+    drm: Introduce drm_property_blob_{get,put}()
+
+
+This patch set was generated using the following shell script:
+
+#!/bin/sh
+
+path=$1
+
+do_replace() {
+    local pattern=$1
+    local replacement=$2
+
+    git grep -lw "${pattern}" -- "${path}/*.[hc]" |\
+        xargs -r sed -i "s/\b$pattern\b/$replacement/g"
+}
+
+do_replace drm_mode_object_reference drm_mode_object_get
+do_replace drm_mode_object_unreference drm_mode_object_put
+do_replace drm_connector_reference drm_connector_get
+do_replace drm_connector_unreference drm_connector_put
+do_replace drm_framebuffer_reference drm_framebuffer_get
+do_replace drm_framebuffer_unreference drm_framebuffer_put
+do_replace drm_gem_object_reference drm_gem_object_get
+do_replace drm_gem_object_unreference drm_gem_object_put
+do_replace __drm_gem_object_unreference __drm_gem_object_put
+do_replace drm_gem_object_unreference_unlocked drm_gem_object_put_unlocked
+do_replace drm_property_reference_blob drm_property_blob_get
+do_replace drm_property_unreference_blob drm_property_blob_put
+
+Cihangir Akturk (29):
+  drm/amdgpu: switch to drm_*{get,put} helpers
+  drm: mali-dp: switch to drm_*{get,put} helpers
+  drm/armada: switch to drm_*{get,put} helpers
+  drm/ast: switch to drm_*{get,put} helpers
+  drm/atmel-hlcdc: switch to drm_*{get,put} helpers
+  drm/bochs: switch to drm_*{get,put} helpers
+  drm/cirrus: switch to drm_*{get,put} helpers
+  drm/etnaviv: switch to drm_*{get,put} helpers
+  drm/exynos: switch to drm_*{get,put} helpers
+  drm/gma500: switch to drm_*{get,put} helpers
+  drm/hisilicon: switch to drm_*{get,put} helpers
+  drm/i915: switch to drm_*{get,put} helpers
+  drm/imx: switch to drm_*{get,put} helpers
+  drm/mediatek: switch to drm_*{get,put} helpers
+  drm/mgag200: switch to drm_*{get,put} helpers
+  drm/msm: switch to drm_*{get,put} helpers
+  drm/nouveau: switch to drm_*{get,put} helpers
+  drm/omap: switch to drm_*{get,put} helpers
+  drm/qxl: switch to drm_*{get,put} helpers
+  drm/radeon: switch to drm_*{get,put} helpers
+  drm/rockchip: switch to drm_*{get,put} helpers
+  drm/tegra: switch to drm_*{get,put} helpers
+  drm/tilcdc: switch to drm_*{get,put} helpers
+  drm/udl: switch to drm_*{get,put} helpers
+  drm/vc4: switch to drm_*{get,put} helpers
+  drm/vgem: switch to drm_*{get,put} helpers
+  drm/virtio: switch to drm_*{get,put} helpers
+  drm/vmwgfx: switch to drm_*{get,put} helpers
+  staging: vboxvideo: switch to drm_*{get,put} helpers
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c            |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c       |  6 ++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c            |  4 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c           | 22 ++++++++---------
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c            |  6 ++---
+ drivers/gpu/drm/amd/amdgpu/dce_v11_0.c            |  6 ++---
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c             |  6 ++---
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c             |  6 ++---
+ drivers/gpu/drm/arm/malidp_planes.c               |  2 +-
+ drivers/gpu/drm/armada/armada_crtc.c              | 22 ++++++++---------
+ drivers/gpu/drm/armada/armada_drv.c               |  2 +-
+ drivers/gpu/drm/armada/armada_fb.c                |  8 +++---
+ drivers/gpu/drm/armada/armada_fbdev.c             |  6 ++---
+ drivers/gpu/drm/armada/armada_gem.c               | 14 +++++------
+ drivers/gpu/drm/armada/armada_overlay.c           |  4 +--
+ drivers/gpu/drm/ast/ast_fb.c                      |  2 +-
+ drivers/gpu/drm/ast/ast_main.c                    | 10 ++++----
+ drivers/gpu/drm/ast/ast_mode.c                    |  6 ++---
+ drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c   |  8 +++---
+ drivers/gpu/drm/bochs/bochs_fbdev.c               |  2 +-
+ drivers/gpu/drm/bochs/bochs_mm.c                  | 10 ++++----
+ drivers/gpu/drm/cirrus/cirrus_fbdev.c             |  2 +-
+ drivers/gpu/drm/cirrus/cirrus_main.c              | 10 ++++----
+ drivers/gpu/drm/etnaviv/etnaviv_drv.c             |  8 +++---
+ drivers/gpu/drm/etnaviv/etnaviv_gem.c             | 20 +++++++--------
+ drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c       |  2 +-
+ drivers/gpu/drm/etnaviv/etnaviv_gem_submit.c      |  4 +--
+ drivers/gpu/drm/exynos/exynos_drm_fb.c            |  4 +--
+ drivers/gpu/drm/exynos/exynos_drm_gem.c           | 12 ++++-----
+ drivers/gpu/drm/exynos/exynos_drm_plane.c         |  2 +-
+ drivers/gpu/drm/gma500/framebuffer.c              |  4 +--
+ drivers/gpu/drm/gma500/gem.c                      |  4 +--
+ drivers/gpu/drm/gma500/gma_display.c              |  6 ++---
+ drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_fbdev.c |  4 +--
+ drivers/gpu/drm/hisilicon/hibmc/hibmc_ttm.c       |  8 +++---
+ drivers/gpu/drm/i915/i915_gem_object.h            | 10 ++++----
+ drivers/gpu/drm/i915/intel_display.c              | 24 +++++++++---------
+ drivers/gpu/drm/i915/intel_dp_mst.c               |  2 +-
+ drivers/gpu/drm/i915/intel_fbdev.c                |  4 +--
+ drivers/gpu/drm/imx/ipuv3-crtc.c                  |  2 +-
+ drivers/gpu/drm/mediatek/mtk_drm_fb.c             |  4 +--
+ drivers/gpu/drm/mediatek/mtk_drm_gem.c            |  4 +--
+ drivers/gpu/drm/mgag200/mgag200_cursor.c          |  2 +-
+ drivers/gpu/drm/mgag200/mgag200_fb.c              |  4 +--
+ drivers/gpu/drm/mgag200/mgag200_main.c            | 10 ++++----
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c             | 10 ++++----
+ drivers/gpu/drm/msm/adreno/a5xx_power.c           |  2 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c           |  2 +-
+ drivers/gpu/drm/msm/mdp/mdp4/mdp4_crtc.c          |  6 ++---
+ drivers/gpu/drm/msm/mdp/mdp4/mdp4_kms.c           |  2 +-
+ drivers/gpu/drm/msm/mdp/mdp5/mdp5_crtc.c          |  2 +-
+ drivers/gpu/drm/msm/mdp/mdp5/mdp5_plane.c         |  4 +--
+ drivers/gpu/drm/msm/msm_drv.c                     |  8 +++---
+ drivers/gpu/drm/msm/msm_fb.c                      |  4 +--
+ drivers/gpu/drm/msm/msm_fbdev.c                   |  2 +-
+ drivers/gpu/drm/msm/msm_gem.c                     |  8 +++---
+ drivers/gpu/drm/msm/msm_gem_submit.c              |  4 +--
+ drivers/gpu/drm/msm/msm_gpu.c                     |  4 +--
+ drivers/gpu/drm/msm/msm_ringbuffer.c              |  2 +-
+ drivers/gpu/drm/nouveau/dispnv04/crtc.c           |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_abi16.c           |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_display.c         |  8 +++---
+ drivers/gpu/drm/nouveau/nouveau_fbcon.c           |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_gem.c             | 14 +++++------
+ drivers/gpu/drm/nouveau/nv50_display.c            |  2 +-
+ drivers/gpu/drm/omapdrm/omap_drv.c                |  2 +-
+ drivers/gpu/drm/omapdrm/omap_fb.c                 |  4 +--
+ drivers/gpu/drm/omapdrm/omap_fbdev.c              |  2 +-
+ drivers/gpu/drm/omapdrm/omap_gem.c                |  4 +--
+ drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c         |  2 +-
+ drivers/gpu/drm/qxl/qxl_display.c                 |  4 +--
+ drivers/gpu/drm/qxl/qxl_dumb.c                    |  2 +-
+ drivers/gpu/drm/qxl/qxl_fb.c                      |  6 ++---
+ drivers/gpu/drm/qxl/qxl_gem.c                     |  2 +-
+ drivers/gpu/drm/qxl/qxl_ioctl.c                   |  4 +--
+ drivers/gpu/drm/qxl/qxl_object.c                  |  6 ++---
+ drivers/gpu/drm/radeon/radeon_cs.c                |  2 +-
+ drivers/gpu/drm/radeon/radeon_cursor.c            |  6 ++---
+ drivers/gpu/drm/radeon/radeon_display.c           | 12 ++++-----
+ drivers/gpu/drm/radeon/radeon_fb.c                |  4 +--
+ drivers/gpu/drm/radeon/radeon_gem.c               | 30 +++++++++++------------
+ drivers/gpu/drm/radeon/radeon_object.c            |  2 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_fb.c        |  6 ++---
+ drivers/gpu/drm/rockchip/rockchip_drm_fbdev.c     |  2 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_gem.c       |  4 +--
+ drivers/gpu/drm/rockchip/rockchip_drm_vop.c       |  4 +--
+ drivers/gpu/drm/tegra/drm.c                       | 12 ++++-----
+ drivers/gpu/drm/tegra/fb.c                        |  8 +++---
+ drivers/gpu/drm/tegra/gem.c                       | 10 ++++----
+ drivers/gpu/drm/tilcdc/tilcdc_crtc.c              |  6 ++---
+ drivers/gpu/drm/udl/udl_fb.c                      |  6 ++---
+ drivers/gpu/drm/udl/udl_gem.c                     |  4 +--
+ drivers/gpu/drm/vc4/vc4_bo.c                      | 12 ++++-----
+ drivers/gpu/drm/vc4/vc4_crtc.c                    |  6 ++---
+ drivers/gpu/drm/vc4/vc4_gem.c                     | 14 +++++------
+ drivers/gpu/drm/vc4/vc4_kms.c                     |  2 +-
+ drivers/gpu/drm/vgem/vgem_drv.c                   |  4 +--
+ drivers/gpu/drm/vgem/vgem_fence.c                 |  2 +-
+ drivers/gpu/drm/virtio/virtgpu_display.c          |  4 +--
+ drivers/gpu/drm/virtio/virtgpu_gem.c              |  4 +--
+ drivers/gpu/drm/virtio/virtgpu_ioctl.c            | 14 +++++------
+ drivers/gpu/drm/vmwgfx/vmwgfx_fb.c                |  2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_ioctl.c             |  4 +--
+ drivers/staging/vboxvideo/vbox_fb.c               |  2 +-
+ drivers/staging/vboxvideo/vbox_main.c             |  8 +++---
+ drivers/staging/vboxvideo/vbox_mode.c             |  2 +-
+ 107 files changed, 319 insertions(+), 319 deletions(-)
+
 -- 
 2.7.4
