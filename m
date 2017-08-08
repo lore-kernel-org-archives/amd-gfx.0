@@ -1,62 +1,256 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple@vodafone.de>
+From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 2/7] drm/qxl: fix incorrect use of the lru_lock
-Date: Tue, 8 Aug 2017 10:14:46 +0200
-Message-ID: <cddfe54f-2234-5427-f69d-7c379b6b8264@vodafone.de>
+Date: Tue, 8 Aug 2017 08:32:45 +0000
+Message-ID: <BLUPR12MB0449BF26DF380111335974ED848A0@BLUPR12MB0449.namprd12.prod.outlook.com>
 References: <1502120903-24080-1-git-send-email-deathsimple@vodafone.de>
- <1502120903-24080-2-git-send-email-deathsimple@vodafone.de>
+ <1502120903-24080-2-git-send-email-deathsimple@vodafone.de>,
+ <cddfe54f-2234-5427-f69d-7c379b6b8264@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <1502120903-24080-2-git-send-email-deathsimple@vodafone.de>
+Content-Type: multipart/mixed; boundary="===============1620356905=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <cddfe54f-2234-5427-f69d-7c379b6b8264-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: amd-gfx@lists.freedesktop.org, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, Dave Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?iso-8859-1?Q?Christian_K=F6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Dave
+ Airlie <airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
 
-SGkgZ3V5cywKCmNhbiBJIGdldCBhbiByYiBvciBhdCBsZWFzdCBhbiBBY2tlZC1ieSBmb3IgdGhh
-dCBvbmU/CgpUaGUgY29kZSB3YXMgb2J2aW91c2x5IGNvcGllZCBvdmVyIGZyb20gcmFkZW9uIHdo
-ZXJlIGl0IHdhc24ndCBjb3JyZWN0IAppbiB0aGUgZmlyc3QgcGxhY2UuCgpUaGFua3MsCkNocmlz
-dGlhbi4KCkFtIDA3LjA4LjIwMTcgdW0gMTc6NDggc2NocmllYiBDaHJpc3RpYW4gS8O2bmlnOgo+
-IEZyb206IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPgo+IFRo
-ZSBCTyBtYW5hZ2VyIGhhcyBpdHMgb3duIGxvY2sgYW5kIGRvZXNuJ3QgdXNlIHRoZSBscnVfbG9j
-ay4KPgo+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdA
-YW1kLmNvbT4KPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9xeGwvcXhsX3R0bS5jIHwgMTMgKysr
-Ky0tLS0tLS0tLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgOSBkZWxldGlv
-bnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcXhsL3F4bF90dG0uYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9xeGwvcXhsX3R0bS5jCj4gaW5kZXggMGZkZWRlZS4uMDdkYzA4ZCAxMDA2
-NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vcXhsL3F4bF90dG0uYwo+ICsrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9xeGwvcXhsX3R0bS5jCj4gQEAgLTQ1NCwxNSArNDU0LDEwIEBAIHZvaWQgcXhsX3R0
-bV9maW5pKHN0cnVjdCBxeGxfZGV2aWNlICpxZGV2KQo+ICAgc3RhdGljIGludCBxeGxfbW1fZHVt
-cF90YWJsZShzdHJ1Y3Qgc2VxX2ZpbGUgKm0sIHZvaWQgKmRhdGEpCj4gICB7Cj4gICAJc3RydWN0
-IGRybV9pbmZvX25vZGUgKm5vZGUgPSAoc3RydWN0IGRybV9pbmZvX25vZGUgKiltLT5wcml2YXRl
-Owo+IC0Jc3RydWN0IGRybV9tbSAqbW0gPSAoc3RydWN0IGRybV9tbSAqKW5vZGUtPmluZm9fZW50
-LT5kYXRhOwo+IC0Jc3RydWN0IGRybV9kZXZpY2UgKmRldiA9IG5vZGUtPm1pbm9yLT5kZXY7Cj4g
-LQlzdHJ1Y3QgcXhsX2RldmljZSAqcmRldiA9IGRldi0+ZGV2X3ByaXZhdGU7Cj4gLQlzdHJ1Y3Qg
-dHRtX2JvX2dsb2JhbCAqZ2xvYiA9IHJkZXYtPm1tYW4uYmRldi5nbG9iOwo+ICsJc3RydWN0IHR0
-bV9tZW1fdHlwZV9tYW5hZ2VyICptYW4gPSBub2RlLT5pbmZvX2VudC0+ZGF0YTsKPiAgIAlzdHJ1
-Y3QgZHJtX3ByaW50ZXIgcCA9IGRybV9zZXFfZmlsZV9wcmludGVyKG0pOwo+ICAgCj4gLQlzcGlu
-X2xvY2soJmdsb2ItPmxydV9sb2NrKTsKPiAtCWRybV9tbV9wcmludChtbSwgJnApOwo+IC0Jc3Bp
-bl91bmxvY2soJmdsb2ItPmxydV9sb2NrKTsKPiArCW1hbi0+ZnVuYy0+ZGVidWcobWFuLCAmcCk7
-Cj4gICAJcmV0dXJuIDA7Cj4gICB9Cj4gICAjZW5kaWYKPiBAQCAtNDgzLDkgKzQ3OCw5IEBAIGlu
-dCBxeGxfdHRtX2RlYnVnZnNfaW5pdChzdHJ1Y3QgcXhsX2RldmljZSAqcWRldikKPiAgIAkJcXhs
-X21lbV90eXBlc19saXN0W2ldLnNob3cgPSAmcXhsX21tX2R1bXBfdGFibGU7Cj4gICAJCXF4bF9t
-ZW1fdHlwZXNfbGlzdFtpXS5kcml2ZXJfZmVhdHVyZXMgPSAwOwo+ICAgCQlpZiAoaSA9PSAwKQo+
-IC0JCQlxeGxfbWVtX3R5cGVzX2xpc3RbaV0uZGF0YSA9IHFkZXYtPm1tYW4uYmRldi5tYW5bVFRN
-X1BMX1ZSQU1dLnByaXY7Cj4gKwkJCXF4bF9tZW1fdHlwZXNfbGlzdFtpXS5kYXRhID0gJnFkZXYt
-Pm1tYW4uYmRldi5tYW5bVFRNX1BMX1ZSQU1dOwo+ICAgCQllbHNlCj4gLQkJCXF4bF9tZW1fdHlw
-ZXNfbGlzdFtpXS5kYXRhID0gcWRldi0+bW1hbi5iZGV2Lm1hbltUVE1fUExfUFJJVl0ucHJpdjsK
-PiArCQkJcXhsX21lbV90eXBlc19saXN0W2ldLmRhdGEgPSAmcWRldi0+bW1hbi5iZGV2Lm1hbltU
-VE1fUExfUFJJVl07Cj4gICAKPiAgIAl9Cj4gICAJcmV0dXJuIHF4bF9kZWJ1Z2ZzX2FkZF9maWxl
-cyhxZGV2LCBxeGxfbWVtX3R5cGVzX2xpc3QsIGkpOwoKCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVs
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
+--===============1620356905==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BLUPR12MB0449BF26DF380111335974ED848A0BLUPR12MB0449namp_"
+
+--_000_BLUPR12MB0449BF26DF380111335974ED848A0BLUPR12MB0449namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Ack-by: Monk.Liu <monk.liu-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Christia=
+n K=F6nig <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Sent: Tuesday, August 8, 2017 4:14:46 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Dave Ai=
+rlie; Gerd Hoffmann
+Subject: Re: [PATCH 2/7] drm/qxl: fix incorrect use of the lru_lock
+
+Hi guys,
+
+can I get an rb or at least an Acked-by for that one?
+
+The code was obviously copied over from radeon where it wasn't correct
+in the first place.
+
+Thanks,
+Christian.
+
+Am 07.08.2017 um 17:48 schrieb Christian K=F6nig:
+> From: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+>
+> The BO manager has its own lock and doesn't use the lru_lock.
+>
+> Signed-off-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+> ---
+>   drivers/gpu/drm/qxl/qxl_ttm.c | 13 ++++---------
+>   1 file changed, 4 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/qxl/qxl_ttm.c b/drivers/gpu/drm/qxl/qxl_ttm.=
+c
+> index 0fdedee..07dc08d 100644
+> --- a/drivers/gpu/drm/qxl/qxl_ttm.c
+> +++ b/drivers/gpu/drm/qxl/qxl_ttm.c
+> @@ -454,15 +454,10 @@ void qxl_ttm_fini(struct qxl_device *qdev)
+>   static int qxl_mm_dump_table(struct seq_file *m, void *data)
+>   {
+>        struct drm_info_node *node =3D (struct drm_info_node *)m->private;
+> -     struct drm_mm *mm =3D (struct drm_mm *)node->info_ent->data;
+> -     struct drm_device *dev =3D node->minor->dev;
+> -     struct qxl_device *rdev =3D dev->dev_private;
+> -     struct ttm_bo_global *glob =3D rdev->mman.bdev.glob;
+> +     struct ttm_mem_type_manager *man =3D node->info_ent->data;
+>        struct drm_printer p =3D drm_seq_file_printer(m);
+>
+> -     spin_lock(&glob->lru_lock);
+> -     drm_mm_print(mm, &p);
+> -     spin_unlock(&glob->lru_lock);
+> +     man->func->debug(man, &p);
+>        return 0;
+>   }
+>   #endif
+> @@ -483,9 +478,9 @@ int qxl_ttm_debugfs_init(struct qxl_device *qdev)
+>                qxl_mem_types_list[i].show =3D &qxl_mm_dump_table;
+>                qxl_mem_types_list[i].driver_features =3D 0;
+>                if (i =3D=3D 0)
+> -                     qxl_mem_types_list[i].data =3D qdev->mman.bdev.man[=
+TTM_PL_VRAM].priv;
+> +                     qxl_mem_types_list[i].data =3D &qdev->mman.bdev.man=
+[TTM_PL_VRAM];
+>                else
+> -                     qxl_mem_types_list[i].data =3D qdev->mman.bdev.man[=
+TTM_PL_PRIV].priv;
+> +                     qxl_mem_types_list[i].data =3D &qdev->mman.bdev.man=
+[TTM_PL_PRIV];
+>
+>        }
+>        return qxl_debugfs_add_files(qdev, qxl_mem_types_list, i);
+
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BLUPR12MB0449BF26DF380111335974ED848A0BLUPR12MB0449namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
+<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
+ding-left: 4pt; border-left: #800000 2px solid; } --></style>
+</head>
+<body>
+<meta content=3D"text/html; charset=3DUTF-8">
+<style type=3D"text/css" style=3D"">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div dir=3D"ltr">
+<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
+or:#000000; font-family:Calibri,Helvetica,sans-serif">
+<p>Ack-by: Monk.Liu &lt;monk.liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Christian K=F6nig &lt;death=
+simple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;<br>
+<b>Sent:</b> Tuesday, August 8, 2017 4:14:46 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; =
+Dave Airlie; Gerd Hoffmann<br>
+<b>Subject:</b> Re: [PATCH 2/7] drm/qxl: fix incorrect use of the lru_lock<=
+/font>
+<div>&nbsp;</div>
+</div>
+</div>
+<font size=3D"2"><span style=3D"font-size:10pt;">
+<div class=3D"PlainText">Hi guys,<br>
+<br>
+can I get an rb or at least an Acked-by for that one?<br>
+<br>
+The code was obviously copied over from radeon where it wasn't correct <br>
+in the first place.<br>
+<br>
+Thanks,<br>
+Christian.<br>
+<br>
+Am 07.08.2017 um 17:48 schrieb Christian K=F6nig:<br>
+&gt; From: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt;<br>
+&gt; The BO manager has its own lock and doesn't use the lru_lock.<br>
+&gt;<br>
+&gt; Signed-off-by: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/qxl/qxl_ttm.c | 13 &#43;&#43;&#43;&#43;---=
+------<br>
+&gt;&nbsp;&nbsp; 1 file changed, 4 insertions(&#43;), 9 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/qxl/qxl_ttm.c b/drivers/gpu/drm/qxl/qxl_t=
+tm.c<br>
+&gt; index 0fdedee..07dc08d 100644<br>
+&gt; --- a/drivers/gpu/drm/qxl/qxl_ttm.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/qxl/qxl_ttm.c<br>
+&gt; @@ -454,15 &#43;454,10 @@ void qxl_ttm_fini(struct qxl_device *qdev)<b=
+r>
+&gt;&nbsp;&nbsp; static int qxl_mm_dump_table(struct seq_file *m, void *dat=
+a)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_info_node *node =
+=3D (struct drm_info_node *)m-&gt;private;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; struct drm_mm *mm =3D (struct drm_mm *)node-=
+&gt;info_ent-&gt;data;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; struct drm_device *dev =3D node-&gt;minor-&g=
+t;dev;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; struct qxl_device *rdev =3D dev-&gt;dev_priv=
+ate;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; struct ttm_bo_global *glob =3D rdev-&gt;mman=
+.bdev.glob;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; struct ttm_mem_type_manager *man =3D nod=
+e-&gt;info_ent-&gt;data;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_printer p =3D drm=
+_seq_file_printer(m);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; spin_lock(&amp;glob-&gt;lru_lock);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; drm_mm_print(mm, &amp;p);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; spin_unlock(&amp;glob-&gt;lru_lock);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; man-&gt;func-&gt;debug(man, &amp;p);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; #endif<br>
+&gt; @@ -483,9 &#43;478,9 @@ int qxl_ttm_debugfs_init(struct qxl_device *qd=
+ev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; qxl_mem_types_list[i].show =3D &amp;qxl_mm_dump_table;<=
+br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; qxl_mem_types_list[i].driver_features =3D 0;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (i =3D=3D 0)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; qxl_mem_types_list[i].d=
+ata =3D qdev-&gt;mman.bdev.man[TTM_PL_VRAM].priv;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; qxl_mem_types_list[=
+i].data =3D &amp;qdev-&gt;mman.bdev.man[TTM_PL_VRAM];<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; else<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; qxl_mem_types_list[i].d=
+ata =3D qdev-&gt;mman.bdev.man[TTM_PL_PRIV].priv;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; qxl_mem_types_list[=
+i].data =3D &amp;qdev-&gt;mman.bdev.man[TTM_PL_PRIV];<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return qxl_debugfs_add_files=
+(qdev, qxl_mem_types_list, i);<br>
+<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font>
+</body>
+</html>
+
+--_000_BLUPR12MB0449BF26DF380111335974ED848A0BLUPR12MB0449namp_--
+
+--===============1620356905==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1620356905==--
