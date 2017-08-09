@@ -1,14 +1,17 @@
-From: Joe Kniss <djmk-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>
-Subject: Re: [Intel-gfx] [PATCH libdrm] drm: Remove create_handle()
- drm_framebuffer "virtual".
-Date: Tue, 8 Aug 2017 16:53:45 -0700
-Message-ID: <CAOvnNvbEdMA-8bGiZquYEoLGUPTc083-EbUn6UpAZvd7khGixw@mail.gmail.com>
-References: <20170808234237.62051-1-djmk@google.com>
- <CAPM=9tzQuont4B9ybMXEDpqP583V_G64ypCR4E+zGvxLGdTULw@mail.gmail.com>
+From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH libdrm 2/2] drm: merge and cleanup amdgpu_bo_free
+Date: Wed, 9 Aug 2017 02:10:13 +0000
+Message-ID: <BLUPR12MB044917CC806D591517489D71848B0@BLUPR12MB0449.namprd12.prod.outlook.com>
+References: <1502177661-1430-1-git-send-email-Monk.Liu@amd.com>
+ <1502177661-1430-2-git-send-email-Monk.Liu@amd.com>
+ <bbcaecea-f2a1-7dec-5fca-69bad4f7176d@vodafone.de>
+ <CADnq5_MgXHaccrGbq3ttv_nQ6E+51o1E2GRRBiHAmDvWGSPdTA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0183168959=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAPM=9tzQuont4B9ybMXEDpqP583V_G64ypCR4E+zGvxLGdTULw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <CADnq5_MgXHaccrGbq3ttv_nQ6E+51o1E2GRRBiHAmDvWGSPdTA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: zh-CN
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,131 +22,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko-4mtYJXux2i+zQB+pC5nmwQ@public.gmane.org>, Edward O'Callaghan <funfunctor-dczkZgxz+BNUPWh3PAxdjQ@public.gmane.org>, Dave Airlie <airlied-cv59FeDIM0c@public.gmane.org>, nouveau <nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "open list:VIRTIO CORE,
- NET..." <virtualization-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>, "linux-tegra-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-tegra-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Thierry Reding <thierry.reding-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "Vetter, Daniel" <daniel.vetter-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, baoyou.xie-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org, Alex Xie <AlexBin.Xie-5C7GfCeVMHo@public.gmane.org>, "StDenis, Tom" <tom.stdenis-5C7GfCeVMHo@public.gmane.org>, zhoucm1 <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, linux-samsung-soc <linux-samsung-soc-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Joonyoung Shim <jy0922.shim-Sze3O3UU22JBDgjK7y7TUQ@public.gmane.org>, =?UTF-8?Q?Noralf_Tr=C3=B8nnes?= <noralf-L59+Z2yzLopAfugRpC6u6w@public.gmane.org>, Russell King <linux-I+IVW8TIWO2tmTQ+vhA3Yw@public.gmane.org>, krzk-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org, jonathanh-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org, "open list:ARM/Rockchip SoC..." <linux-rockchip@list>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Christian K?nig <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0183168959==
-Content-Type: multipart/alternative; boundary="001a113cdeaa859de8055646ac90"
-
---001a113cdeaa859de8055646ac90
-Content-Type: text/plain; charset="UTF-8"
-
-I didn't mean to add libdrm, sorry, there is a separate change for that.
-I'll double check and test the drivers that don't implement the virtual.
-
-Thanks for the quick reply!
-
--j
-
-On Tue, Aug 8, 2017 at 4:50 PM, Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
-
-> On 9 August 2017 at 09:42, Joe Kniss <djmk-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org> wrote:
-> > Because all drivers currently use gem objects for framebuffer planes,
-> > the virtual create_handle() is not required.  This change adds a
-> > struct drm_gem_object *gems[4] field to drm_framebuffer and removes
-> > create_handle() function pointer from drm_framebuffer_funcs.  The
-> > corresponding *_create_handle() function is removed from each driver.
-> >
-> > In many cases this change eliminates a struct *_framebuffer object,
-> > as the only need for the derived struct is the addition of the gem
-> > object pointer.
->
-> Why the libdrm in the tag? this isn't for libdrm.
->
-> This will break drivers that don't current implement the virtual at all.
->
-> I think vwmgfx.
->
-> The current code checks if the virtual is there before callng it, this code
-> just calls the gem code always.
->
-> Dave.
->
-
-
-
--- 
-Dr. Joe Michael Kniss |  Google ChromeOS |  djmk-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org   |
-1-801-898-7977
-
---001a113cdeaa859de8055646ac90
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">I didn&#39;t mean to add libdrm, sorry, there is a separat=
-e change for that.=C2=A0 I&#39;ll double check and test the drivers that do=
-n&#39;t implement the virtual. =C2=A0<div><br></div><div>Thanks for the qui=
-ck reply!</div><div><br></div><div>-j</div></div><div class=3D"gmail_extra"=
-><br><div class=3D"gmail_quote">On Tue, Aug 8, 2017 at 4:50 PM, Dave Airlie=
- <span dir=3D"ltr">&lt;<a href=3D"mailto:airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blan=
-k">airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;</span> wrote:<br><blockquote class=3D"gmail_qu=
-ote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex=
-"><span class=3D"">On 9 August 2017 at 09:42, Joe Kniss &lt;<a href=3D"mail=
-to:djmk-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org">djmk-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org</a>&gt; wrote:<br>
-&gt; Because all drivers currently use gem objects for framebuffer planes,<=
-br>
-&gt; the virtual create_handle() is not required.=C2=A0 This change adds a<=
-br>
-&gt; struct drm_gem_object *gems[4] field to drm_framebuffer and removes<br=
->
-&gt; create_handle() function pointer from drm_framebuffer_funcs.=C2=A0 The=
-<br>
-&gt; corresponding *_create_handle() function is removed from each driver.<=
-br>
-&gt;<br>
-&gt; In many cases this change eliminates a struct *_framebuffer object,<br=
->
-&gt; as the only need for the derived struct is the addition of the gem<br>
-&gt; object pointer.<br>
-<br>
-</span>Why the libdrm in the tag? this isn&#39;t for libdrm.<br>
-<br>
-This will break drivers that don&#39;t current implement the virtual at all=
-.<br>
-<br>
-I think vwmgfx.<br>
-<br>
-The current code checks if the virtual is there before callng it, this code=
-<br>
-just calls the gem code always.<br>
-<span class=3D"HOEnZb"><font color=3D"#888888"><br>
-Dave.<br>
-</font></span></blockquote></div><br><br clear=3D"all"><div><br></div>-- <b=
-r><div class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div di=
-r=3D"ltr"><div><div dir=3D"ltr"><table cellspacing=3D"0" cellpadding=3D"0" =
-style=3D"text-align:center;color:rgb(80,0,80);font-family:&#39;Times New Ro=
-man&#39;"><tbody><tr style=3D"color:rgb(85,85,85);font-family:sans-serif;fo=
-nt-size:small"><td nowrap style=3D"border-top-style:solid;border-top-color:=
-rgb(213,15,37);border-top-width:2px"><font size=3D"1"><font face=3D"garamon=
-d, serif">Dr. Joe Michael Kniss </font>|</font></td><td nowrap style=3D"bor=
-der-top-style:solid;border-top-color:rgb(51,105,232);border-top-width:2px">=
-<font size=3D"1">=C2=A0<font face=3D"garamond, serif"><font color=3D"#0b539=
-4">G</font><font color=3D"#cc0000">o</font><font color=3D"#bf9000">o</font>=
-<font color=3D"#0b5394">g</font><font color=3D"#38761d">l</font><font color=
-=3D"#cc0000">e</font><font color=3D"#000000">=C2=A0</font><font color=3D"#4=
-44444">ChromeOS</font></font><font color=3D"#000000">=C2=A0</font>|</font><=
-/td><td nowrap style=3D"border-top-style:solid;border-top-color:rgb(0,153,5=
-7);border-top-width:2px"><font size=3D"1"><font face=3D"garamond, serif">=
-=C2=A0<a href=3D"mailto:djmk-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org" target=3D"_blank">djmk<font color=
-=3D"#1155cc">@google.com</font></a>=C2=A0</font>=C2=A0</font></td><td nowra=
-p style=3D"border-top-style:solid;border-top-color:rgb(238,178,17);border-t=
-op-width:2px"><font size=3D"1"><a value=3D"+16504298119" style=3D"color:rgb=
-(17,85,204)">| </a><font face=3D"garamond, serif"><font color=3D"#1155cc">1=
--801-898-7977</font><br></font></font></td></tr></tbody></table></div></div=
-></div></div>
-</div>
-
---001a113cdeaa859de8055646ac90--
-
---===============0183168959==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0183168959==--
+SSBwdXNoZWQgaXQgdG8gYW1kLXN0YWdpbmctdXBzdHJlYW0NCg0KV2hhdCBlbHNlIGJyYW5jaCBk
+aWQgeW91IHJlZmVyIHRvID8NCg0KQlIgTW9uaw0KDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0t
+LS0tDQpGcm9tOiBBbGV4IERldWNoZXIgW21haWx0bzphbGV4ZGV1Y2hlckBnbWFpbC5jb21dIA0K
+U2VudDogV2VkbmVzZGF5LCBBdWd1c3QgOSwgMjAxNyAxMjoxOSBBTQ0KVG86IENocmlzdGlhbiBL
+w7ZuaWcgPGRlYXRoc2ltcGxlQHZvZGFmb25lLmRlPg0KQ2M6IExpdSwgTW9uayA8TW9uay5MaXVA
+YW1kLmNvbT47IGFtZC1nZnggbGlzdCA8YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+DQpT
+dWJqZWN0OiBSZTogW1BBVENIIGxpYmRybSAyLzJdIGRybTogbWVyZ2UgYW5kIGNsZWFudXAgYW1k
+Z3B1X2JvX2ZyZWUNCg0KT24gVHVlLCBBdWcgOCwgMjAxNyBhdCAzOjU0IEFNLCBDaHJpc3RpYW4g
+S8O2bmlnIDxkZWF0aHNpbXBsZUB2b2RhZm9uZS5kZT4gd3JvdGU6DQo+IEFtIDA4LjA4LjIwMTcg
+dW0gMDk6MzQgc2NocmllYiBNb25rIExpdToNCj4+DQo+PiBGcm9tOiBNb25rIExpdSA8bW9uay5s
+aXVAYW1kLmNvbT4NCj4+DQo+PiBzaW5jZSBib19yZWZlcmVuY2UgYW5kIGJvX2ludGVybmFsX2Zy
+ZWUgYXJlIGFsbCBvbmx5IHVzZWQgYnkgYm9fZnJlZSwgDQo+PiBzbyB3ZSBqdXN0IG1lcmdlIHRo
+ZW0gdG9nZXRoZXINCj4+DQo+PiBDaGFuZ2UtSWQ6IEk3MmViYzljOGJjZmNkMjNmNGQ1MmExMzg1
+ZGI4NzFhOTVjMjM4NTllDQo+PiBTaWduZWQtb2ZmLWJ5OiBNb25rIExpdSA8bW9uay5saXVAYW1k
+LmNvbT4NCj4NCj4NCj4gUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5r
+b2VuaWdAYW1kLmNvbT4NCg0KUHVzaGVkIGJvdGggdXBzdHJlYW0uICBUaGFua3MhDQoNCkFsZXgN
+Cg0KPg0KPg0KPj4gLS0tDQo+PiAgIGFtZGdwdS9hbWRncHVfYm8uYyAgICAgICB8IDUyDQo+PiAr
+KysrKysrKysrKysrKysrKysrKysrKysrKystLS0tLS0tLS0tLS0tLS0tLS0tLS0NCj4+ICAgYW1k
+Z3B1L2FtZGdwdV9pbnRlcm5hbC5oIHwgMzMgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+DQo+PiAgIDIgZmlsZXMgY2hhbmdlZCwgMjkgaW5zZXJ0aW9ucygrKSwgNTYgZGVsZXRpb25zKC0p
+DQo+Pg0KPj4gZGlmZiAtLWdpdCBhL2FtZGdwdS9hbWRncHVfYm8uYyBiL2FtZGdwdS9hbWRncHVf
+Ym8uYyBpbmRleCANCj4+IDgyZjM4YzAuLjkwMTY3M2EgMTAwNjQ0DQo+PiAtLS0gYS9hbWRncHUv
+YW1kZ3B1X2JvLmMNCj4+ICsrKyBiL2FtZGdwdS9hbWRncHVfYm8uYw0KPj4gQEAgLTUyLDI3ICs1
+Miw2IEBAIHN0YXRpYyB2b2lkDQo+PiBhbWRncHVfY2xvc2Vfa21zX2hhbmRsZShhbWRncHVfZGV2
+aWNlX2hhbmRsZSBkZXYsDQo+PiAgICAgICAgIGRybUlvY3RsKGRldi0+ZmQsIERSTV9JT0NUTF9H
+RU1fQ0xPU0UsICZhcmdzKTsNCj4+ICAgfQ0KPj4gICAtdm9pZCBhbWRncHVfYm9fZnJlZV9pbnRl
+cm5hbChhbWRncHVfYm9faGFuZGxlIGJvKSAtew0KPj4gLSAgICAgICAvKiBSZW1vdmUgdGhlIGJ1
+ZmZlciBmcm9tIHRoZSBoYXNoIHRhYmxlcy4gKi8NCj4+IC0gICAgICAgdXRpbF9oYXNoX3RhYmxl
+X3JlbW92ZShiby0+ZGV2LT5ib19oYW5kbGVzLA0KPj4gLSAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICh2b2lkKikodWludHB0cl90KWJvLT5oYW5kbGUpOw0KPj4gLSAgICAgICBpZiAoYm8t
+PmZsaW5rX25hbWUpIHsNCj4+IC0gICAgICAgICAgICAgICB1dGlsX2hhc2hfdGFibGVfcmVtb3Zl
+KGJvLT5kZXYtPmJvX2ZsaW5rX25hbWVzLA0KPj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgKHZvaWQqKSh1aW50cHRyX3QpYm8tPmZsaW5rX25hbWUpOw0KPj4gLSAgICAg
+ICB9DQo+PiAtDQo+PiAtICAgICAgIC8qIFJlbGVhc2UgQ1BVIGFjY2Vzcy4gKi8NCj4+IC0gICAg
+ICAgaWYgKGJvLT5jcHVfbWFwX2NvdW50ID4gMCkgew0KPj4gLSAgICAgICAgICAgICAgIGJvLT5j
+cHVfbWFwX2NvdW50ID0gMTsNCj4+IC0gICAgICAgICAgICAgICBhbWRncHVfYm9fY3B1X3VubWFw
+KGJvKTsNCj4+IC0gICAgICAgfQ0KPj4gLQ0KPj4gLSAgICAgICBhbWRncHVfY2xvc2Vfa21zX2hh
+bmRsZShiby0+ZGV2LCBiby0+aGFuZGxlKTsNCj4+IC0gICAgICAgcHRocmVhZF9tdXRleF9kZXN0
+cm95KCZiby0+Y3B1X2FjY2Vzc19tdXRleCk7DQo+PiAtICAgICAgIGZyZWUoYm8pOw0KPj4gLX0N
+Cj4+IC0NCj4+ICAgaW50IGFtZGdwdV9ib19hbGxvYyhhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYs
+DQo+PiAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBhbWRncHVfYm9fYWxsb2NfcmVxdWVzdCAq
+YWxsb2NfYnVmZmVyLA0KPj4gICAgICAgICAgICAgICAgICAgICBhbWRncHVfYm9faGFuZGxlICpi
+dWZfaGFuZGxlKSBAQCAtNDE1LDggKzM5NCwzNSANCj4+IEBAIGludCBhbWRncHVfYm9faW1wb3J0
+KGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldiwNCj4+ICAgICBpbnQgYW1kZ3B1X2JvX2ZyZWUoYW1k
+Z3B1X2JvX2hhbmRsZSBidWZfaGFuZGxlKQ0KPj4gICB7DQo+PiAtICAgICAgIC8qIEp1c3QgZHJv
+cCB0aGUgcmVmZXJlbmNlLiAqLw0KPj4gLSAgICAgICBhbWRncHVfYm9fcmVmZXJlbmNlKCZidWZf
+aGFuZGxlLCBOVUxMKTsNCj4+ICsgICAgICAgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmRldjsNCj4+
+ICsgICAgICAgc3RydWN0IGFtZGdwdV9ibyAqYm8gPSBidWZfaGFuZGxlOw0KPj4gKw0KPj4gKyAg
+ICAgICBhc3NlcnQoYm8gIT0gTlVMTCk7DQo+PiArICAgICAgIGRldiA9IGJvLT5kZXY7DQo+PiAr
+ICAgICAgIHB0aHJlYWRfbXV0ZXhfbG9jaygmZGV2LT5ib190YWJsZV9tdXRleCk7DQo+PiArDQo+
+PiArICAgICAgIGlmICh1cGRhdGVfcmVmZXJlbmNlcygmYm8tPnJlZmNvdW50LCBOVUxMKSkgew0K
+Pj4gKyAgICAgICAgICAgICAgIC8qIFJlbW92ZSB0aGUgYnVmZmVyIGZyb20gdGhlIGhhc2ggdGFi
+bGVzLiAqLw0KPj4gKyAgICAgICAgICAgICAgIHV0aWxfaGFzaF90YWJsZV9yZW1vdmUoZGV2LT5i
+b19oYW5kbGVzLA0KPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIA0K
+Pj4gKyAodm9pZCopKHVpbnRwdHJfdCliby0+aGFuZGxlKTsNCj4+ICsNCj4+ICsgICAgICAgICAg
+ICAgICBpZiAoYm8tPmZsaW5rX25hbWUpIHsNCj4+ICsgICAgICAgICAgICAgICAgICAgICAgIHV0
+aWxfaGFzaF90YWJsZV9yZW1vdmUoZGV2LT5ib19mbGlua19uYW1lcywNCj4+ICsNCj4+ICh2b2lk
+KikodWludHB0cl90KWJvLT5mbGlua19uYW1lKTsNCj4+ICsgICAgICAgICAgICAgICB9DQo+PiAr
+DQo+PiArICAgICAgICAgICAgICAgLyogUmVsZWFzZSBDUFUgYWNjZXNzLiAqLw0KPj4gKyAgICAg
+ICAgICAgICAgIGlmIChiby0+Y3B1X21hcF9jb3VudCA+IDApIHsNCj4+ICsgICAgICAgICAgICAg
+ICAgICAgICAgIGJvLT5jcHVfbWFwX2NvdW50ID0gMTsNCj4+ICsgICAgICAgICAgICAgICAgICAg
+ICAgIGFtZGdwdV9ib19jcHVfdW5tYXAoYm8pOw0KPj4gKyAgICAgICAgICAgICAgIH0NCj4+ICsN
+Cj4+ICsgICAgICAgICAgICAgICBhbWRncHVfY2xvc2Vfa21zX2hhbmRsZShkZXYsIGJvLT5oYW5k
+bGUpOw0KPj4gKyAgICAgICAgICAgICAgIHB0aHJlYWRfbXV0ZXhfZGVzdHJveSgmYm8tPmNwdV9h
+Y2Nlc3NfbXV0ZXgpOw0KPj4gKyAgICAgICAgICAgICAgIGZyZWUoYm8pOw0KPj4gKyAgICAgICB9
+DQo+PiArDQo+PiArICAgICAgIHB0aHJlYWRfbXV0ZXhfdW5sb2NrKCZkZXYtPmJvX3RhYmxlX211
+dGV4KTsNCj4+ICAgICAgICAgcmV0dXJuIDA7DQo+PiAgIH0NCj4+ICAgZGlmZiAtLWdpdCBhL2Ft
+ZGdwdS9hbWRncHVfaW50ZXJuYWwuaCBiL2FtZGdwdS9hbWRncHVfaW50ZXJuYWwuaCANCj4+IGlu
+ZGV4IDc5ZGEwZTcuLmE2YmY4MzEgMTAwNjQ0DQo+PiAtLS0gYS9hbWRncHUvYW1kZ3B1X2ludGVy
+bmFsLmgNCj4+ICsrKyBiL2FtZGdwdS9hbWRncHVfaW50ZXJuYWwuaA0KPj4gQEAgLTEzMyw4ICsx
+MzMsNiBAQCBzdHJ1Y3QgYW1kZ3B1X3NlbWFwaG9yZSB7DQo+PiAgICAgdm9pZCBhbWRncHVfZGV2
+aWNlX2ZyZWVfaW50ZXJuYWwoYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2KTsNCj4+ICAgLXZvaWQg
+YW1kZ3B1X2JvX2ZyZWVfaW50ZXJuYWwoYW1kZ3B1X2JvX2hhbmRsZSBibyk7DQo+PiAtDQo+PiAg
+IHZvaWQgYW1kZ3B1X3ZhbWdyX2luaXQoc3RydWN0IGFtZGdwdV9ib192YV9tZ3IgKm1nciwgdWlu
+dDY0X3Qgc3RhcnQsDQo+PiAgICAgICAgICAgICAgICAgICAgICAgIHVpbnQ2NF90IG1heCwgdWlu
+dDY0X3QgYWxpZ25tZW50KTsNCj4+ICAgQEAgLTE3NywzNyArMTc1LDYgQEAgc3RhdGljIGlubGlu
+ZSBib29sIHVwZGF0ZV9yZWZlcmVuY2VzKGF0b21pY190IA0KPj4gKmRzdCwgYXRvbWljX3QgKnNy
+YykNCj4+ICAgfQ0KPj4gICAgIC8qKg0KPj4gLSAqIEFzc2lnbm1lbnQgYmV0d2VlbiB0d28gYW1k
+Z3B1X2JvIHBvaW50ZXJzIHdpdGggcmVmZXJlbmNlIGNvdW50aW5nLg0KPj4gLSAqDQo+PiAtICog
+VXNhZ2U6DQo+PiAtICogICAgc3RydWN0IGFtZGdwdV9ibyAqZHN0ID0gLi4uICwgKnNyYyA9IC4u
+LjsNCj4+IC0gKg0KPj4gLSAqICAgIGRzdCA9IHNyYzsNCj4+IC0gKiAgICAvLyBObyByZWZlcmVu
+Y2UgY291bnRpbmcuIE9ubHkgdXNlIHRoaXMgd2hlbiB5b3UgbmVlZCB0byBtb3ZlDQo+PiAtICog
+ICAgLy8gYSByZWZlcmVuY2UgZnJvbSBvbmUgcG9pbnRlciB0byBhbm90aGVyLg0KPj4gLSAqDQo+
+PiAtICogICAgYW1kZ3B1X2JvX3JlZmVyZW5jZSgmZHN0LCBzcmMpOw0KPj4gLSAqICAgIC8vIFJl
+ZmVyZW5jZSBjb3VudGVycyBhcmUgdXBkYXRlZC4gZHN0IGlzIGRlY3JlbWVudGVkIGFuZCBzcmMg
+aXMNCj4+IC0gKiAgICAvLyBpbmNyZW1lbnRlZC4gZHN0IGlzIGZyZWVkIGlmIGl0cyByZWZlcmVu
+Y2UgY291bnRlciBpcyAwLg0KPj4gLSAqLw0KPj4gLXN0YXRpYyBpbmxpbmUgdm9pZCBhbWRncHVf
+Ym9fcmVmZXJlbmNlKHN0cnVjdCBhbWRncHVfYm8gKipkc3QsDQo+PiAtICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IGFtZGdwdV9ibyAqc3JjKQ0KPj4gLXsNCj4+
+IC0gICAgICAgcHRocmVhZF9tdXRleF90ICptbG9jazsNCj4+IC0gICAgICAgc3RydWN0IGFtZGdw
+dV9ibyogYm8gPSAqZHN0Ow0KPj4gLQ0KPj4gLSAgICAgICBhc3NlcnQoYm8gIT0gTlVMTCk7DQo+
+PiAtICAgICAgIG1sb2NrID0gJmJvLT5kZXYtPmJvX3RhYmxlX211dGV4Ow0KPj4gLSAgICAgICBw
+dGhyZWFkX211dGV4X2xvY2sobWxvY2spOw0KPj4gLQ0KPj4gLSAgICAgICBpZiAodXBkYXRlX3Jl
+ZmVyZW5jZXMoJmJvLT5yZWZjb3VudCwgc3JjPyZzcmMtPnJlZmNvdW50Ok5VTEwpKQ0KPj4gLSAg
+ICAgICAgICAgICAgIGFtZGdwdV9ib19mcmVlX2ludGVybmFsKGJvKTsNCj4+IC0NCj4+IC0gICAg
+ICAgcHRocmVhZF9tdXRleF91bmxvY2sobWxvY2spOw0KPj4gLSAgICAgICAqZHN0ID0gc3JjOw0K
+Pj4gLX0NCj4+IC0NCj4+IC0vKioNCj4+ICAgICogQXNzaWdubWVudCBiZXR3ZWVuIHR3byBhbWRn
+cHVfZGV2aWNlIHBvaW50ZXJzIHdpdGggcmVmZXJlbmNlIA0KPj4gY291bnRpbmcuDQo+PiAgICAq
+DQo+PiAgICAqIFVzYWdlOg0KPg0KPg0KPg0KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXw0KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPiBhbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
+LWdmeAo=
