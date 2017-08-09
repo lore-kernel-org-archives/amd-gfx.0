@@ -1,256 +1,71 @@
-From: =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf-L59+Z2yzLopAfugRpC6u6w@public.gmane.org>
-Subject: Re: [PATCH libdrm] drm: Remove create_handle() drm_framebuffer
- "virtual".
-Date: Wed, 9 Aug 2017 21:14:48 +0200
-Message-ID: <8a7bf59a-0f58-21ba-8b82-78e6ba873065@tronnes.org>
-References: <20170808234237.62051-1-djmk@google.com>
+From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/display: Drop our own page_flip_helper
+Date: Wed, 9 Aug 2017 15:39:18 -0400
+Message-ID: <20170809193918.24959-1-harry.wentland@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-tegra-owner-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
-In-Reply-To: <20170808234237.62051-1-djmk-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>
-Sender: linux-tegra-owner-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
-To: Joe Kniss <djmk-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: alexander.deucher-5C7GfCeVMHo@public.gmane.org, airlied-cv59FeDIM0c@public.gmane.org, linux-I+IVW8TIWO2tmTQ+vhA3Yw@public.gmane.org, daniel.vetter-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org, jani.nikula-VuQAYsv1563Yd54FQh9/CA@public.gmane.org, seanpaul-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org, inki.dae-Sze3O3UU22JBDgjK7y7TUQ@public.gmane.org, jy0922.shim-Sze3O3UU22JBDgjK7y7TUQ@public.gmane.org, sw0312.kim-Sze3O3UU22JBDgjK7y7TUQ@public.gmane.org, kyungmin.park-Sze3O3UU22JBDgjK7y7TUQ@public.gmane.org, kgene-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org, krzk-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org, patrik.r.jakobsson-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, ck.hu-NuS5LvNUpcJWk0Htik3J/w@public.gmane.org, p.zabel-bIcnvbaLZ9MEGnE8C9+IrQ@public.gmane.org, matthias.bgg-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, robdclark-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org, tomi.valkeinen-l0cyMroinI0@public.gmane.org, airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org, kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org, mark.yao-TNX95d0MmH7DzftRWevZcw@public.gmane.org, heiko-4mtYJXux2i+zQB+pC5nmwQ@public.gmane.org, thierry.reding-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, jonathanh-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org, Monk.Liu-5C7GfCeVMHo@public.gmane.org, David1.Zhou-5C7GfCeVMHo@public.gmane.org, tom.stdenis-5C7GfCeVMHo@public.gmane.org, ray.huang-5C7GfCeVMHo@public.gmane.org, Ken.Wang-5C7GfCeVMHo@public.gmane.org, Jerry.Zhang-5C7GfCeVMHo@public.gmane.org, michel.daenzer-5C7GfCeVMHo@public.gmane.org, harry.wentland-5C7GfCeVMHo@public.gmane.org, Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org, AlexBin.Xie-5C7GfCeVMHo@public.gmane.orgf
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org
+Cc: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
 
-
-Den 09.08.2017 01.42, skrev Joe Kniss:
-> Because all drivers currently use gem objects for framebuffer planes,
-> the virtual create_handle() is not required.  This change adds a
-> struct drm_gem_object *gems[4] field to drm_framebuffer and removes
-> create_handle() function pointer from drm_framebuffer_funcs.  The
-> corresponding *_create_handle() function is removed from each driver.
->
-> In many cases this change eliminates a struct *_framebuffer object,
-> as the only need for the derived struct is the addition of the gem
-> object pointer.
->
-> TESTED: compiled: allyesconfig ARCH=x86,arm platforms:i915, rockchip
->
-> Signed-off-by: Joe Kniss <djmk-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>
-> ---
-
-Hi Joe,
-
-I'm also looking into adding gem objs to drm_framebuffer in this patch:
-[PATCH v2 01/22] drm: Add GEM backed framebuffer library
-https://lists.freedesktop.org/archives/dri-devel/2017-August/149782.html
-
-[...]
-
-> diff --git a/drivers/gpu/drm/drm_fb_cma_helper.c b/drivers/gpu/drm/drm_fb_cma_helper.c
-> index ade319d10e70..f5f011b910b1 100644
-> --- a/drivers/gpu/drm/drm_fb_cma_helper.c
-> +++ b/drivers/gpu/drm/drm_fb_cma_helper.c
-> @@ -31,14 +31,9 @@
->   
->   #define DEFAULT_FBDEFIO_DELAY_MS 50
->   
-> -struct drm_fb_cma {
-> -	struct drm_framebuffer		fb;
-> -	struct drm_gem_cma_object	*obj[4];
-> -};
-> -
->   struct drm_fbdev_cma {
->   	struct drm_fb_helper	fb_helper;
-> -	struct drm_fb_cma	*fb;
-> +	struct drm_framebuffer	*fb;
-
-This fb pointer isn't necessary, since fb_helper already has one.
-
-Noralf.
-
->   	const struct drm_framebuffer_funcs *fb_funcs;
->   };
->   
-> @@ -72,7 +67,6 @@ struct drm_fbdev_cma {
->    *
->    *     static struct drm_framebuffer_funcs driver_fb_funcs = {
->    *         .destroy       = drm_fb_cma_destroy,
-> - *         .create_handle = drm_fb_cma_create_handle,
->    *         .dirty         = driver_fb_dirty,
->    *     };
->    *
-> @@ -90,67 +84,50 @@ static inline struct drm_fbdev_cma *to_fbdev_cma(struct drm_fb_helper *helper)
->   	return container_of(helper, struct drm_fbdev_cma, fb_helper);
->   }
->   
-> -static inline struct drm_fb_cma *to_fb_cma(struct drm_framebuffer *fb)
-> -{
-> -	return container_of(fb, struct drm_fb_cma, fb);
-> -}
-> -
->   void drm_fb_cma_destroy(struct drm_framebuffer *fb)
->   {
-> -	struct drm_fb_cma *fb_cma = to_fb_cma(fb);
->   	int i;
->   
->   	for (i = 0; i < 4; i++) {
-> -		if (fb_cma->obj[i])
-> -			drm_gem_object_put_unlocked(&fb_cma->obj[i]->base);
-> +		if (fb->gem_objs[i])
-> +			drm_gem_object_put_unlocked(fb->gem_objs[i]);
->   	}
->   
->   	drm_framebuffer_cleanup(fb);
-> -	kfree(fb_cma);
-> +	kfree(fb);
->   }
->   EXPORT_SYMBOL(drm_fb_cma_destroy);
->   
-> -int drm_fb_cma_create_handle(struct drm_framebuffer *fb,
-> -	struct drm_file *file_priv, unsigned int *handle)
-> -{
-> -	struct drm_fb_cma *fb_cma = to_fb_cma(fb);
-> -
-> -	return drm_gem_handle_create(file_priv,
-> -			&fb_cma->obj[0]->base, handle);
-> -}
-> -EXPORT_SYMBOL(drm_fb_cma_create_handle);
-> -
->   static struct drm_framebuffer_funcs drm_fb_cma_funcs = {
->   	.destroy	= drm_fb_cma_destroy,
-> -	.create_handle	= drm_fb_cma_create_handle,
->   };
->   
-> -static struct drm_fb_cma *drm_fb_cma_alloc(struct drm_device *dev,
-> +static struct drm_framebuffer *drm_fb_cma_alloc(struct drm_device *dev,
->   	const struct drm_mode_fb_cmd2 *mode_cmd,
->   	struct drm_gem_cma_object **obj,
->   	unsigned int num_planes, const struct drm_framebuffer_funcs *funcs)
->   {
-> -	struct drm_fb_cma *fb_cma;
-> +	struct drm_framebuffer *fb;
->   	int ret;
->   	int i;
->   
-> -	fb_cma = kzalloc(sizeof(*fb_cma), GFP_KERNEL);
-> -	if (!fb_cma)
-> +	fb = kzalloc(sizeof(*fb), GFP_KERNEL);
-> +	if (!fb)
->   		return ERR_PTR(-ENOMEM);
->   
-> -	drm_helper_mode_fill_fb_struct(dev, &fb_cma->fb, mode_cmd);
-> +	drm_helper_mode_fill_fb_struct(dev, fb, mode_cmd);
->   
->   	for (i = 0; i < num_planes; i++)
-> -		fb_cma->obj[i] = obj[i];
-> +		fb->gem_objs[i] = &obj[i]->base;
->   
-> -	ret = drm_framebuffer_init(dev, &fb_cma->fb, funcs);
-> +	ret = drm_framebuffer_init(dev, fb, funcs);
->   	if (ret) {
->   		dev_err(dev->dev, "Failed to initialize framebuffer: %d\n", ret);
-> -		kfree(fb_cma);
-> +		kfree(fb);
->   		return ERR_PTR(ret);
->   	}
->   
-> -	return fb_cma;
-> +	return fb;
->   }
->   
->   /**
-> @@ -171,7 +148,7 @@ struct drm_framebuffer *drm_fb_cma_create_with_funcs(struct drm_device *dev,
->   	const struct drm_framebuffer_funcs *funcs)
->   {
->   	const struct drm_format_info *info;
-> -	struct drm_fb_cma *fb_cma;
-> +	struct drm_framebuffer *fb;
->   	struct drm_gem_cma_object *objs[4];
->   	struct drm_gem_object *obj;
->   	int ret;
-> @@ -205,13 +182,13 @@ struct drm_framebuffer *drm_fb_cma_create_with_funcs(struct drm_device *dev,
->   		objs[i] = to_drm_gem_cma_obj(obj);
->   	}
->   
-> -	fb_cma = drm_fb_cma_alloc(dev, mode_cmd, objs, i, funcs);
-> -	if (IS_ERR(fb_cma)) {
-> -		ret = PTR_ERR(fb_cma);
-> +	fb = drm_fb_cma_alloc(dev, mode_cmd, objs, i, funcs);
-> +	if (IS_ERR(fb)) {
-> +		ret = PTR_ERR(fb);
->   		goto err_gem_object_put;
->   	}
->   
-> -	return &fb_cma->fb;
-> +	return fb;
->   
->   err_gem_object_put:
->   	for (i--; i >= 0; i--)
-> @@ -250,12 +227,10 @@ EXPORT_SYMBOL_GPL(drm_fb_cma_create);
->   struct drm_gem_cma_object *drm_fb_cma_get_gem_obj(struct drm_framebuffer *fb,
->   						  unsigned int plane)
->   {
-> -	struct drm_fb_cma *fb_cma = to_fb_cma(fb);
-> -
->   	if (plane >= 4)
->   		return NULL;
->   
-> -	return fb_cma->obj[plane];
-> +	return to_drm_gem_cma_obj(fb->gem_objs[plane]);
->   }
->   EXPORT_SYMBOL_GPL(drm_fb_cma_get_gem_obj);
->   
-> @@ -272,13 +247,13 @@ dma_addr_t drm_fb_cma_get_gem_addr(struct drm_framebuffer *fb,
->   				   struct drm_plane_state *state,
->   				   unsigned int plane)
->   {
-> -	struct drm_fb_cma *fb_cma = to_fb_cma(fb);
-> +	struct drm_gem_cma_object *cma_bo = drm_fb_cma_get_gem_obj(fb, plane);
->   	dma_addr_t paddr;
->   
-> -	if (plane >= 4)
-> +	if (!cma_bo)
->   		return 0;
->   
-> -	paddr = fb_cma->obj[plane]->paddr + fb->offsets[plane];
-> +	paddr = cma_bo->paddr + fb->offsets[plane];
->   	paddr += fb->format->cpp[plane] * (state->src_x >> 16);
->   	paddr += fb->pitches[plane] * (state->src_y >> 16);
->   
-> @@ -321,7 +296,6 @@ EXPORT_SYMBOL_GPL(drm_fb_cma_prepare_fb);
->   #ifdef CONFIG_DEBUG_FS
->   static void drm_fb_cma_describe(struct drm_framebuffer *fb, struct seq_file *m)
->   {
-> -	struct drm_fb_cma *fb_cma = to_fb_cma(fb);
->   	int i;
->   
->   	seq_printf(m, "fb: %dx%d@%4.4s\n", fb->width, fb->height,
-> @@ -330,7 +304,7 @@ static void drm_fb_cma_describe(struct drm_framebuffer *fb, struct seq_file *m)
->   	for (i = 0; i < fb->format->num_planes; i++) {
->   		seq_printf(m, "   %d: offset=%d pitch=%d, obj: ",
->   				i, fb->offsets[i], fb->pitches[i]);
-> -		drm_gem_cma_describe(fb_cma->obj[i], m);
-> +		drm_gem_cma_describe(drm_fb_cma_get_gem_obj(fb, i), m);
->   	}
->   }
->   
-> @@ -472,7 +446,7 @@ drm_fbdev_cma_create(struct drm_fb_helper *helper,
->   		goto err_fb_info_destroy;
->   	}
->   
-> -	fb = &fbdev_cma->fb->fb;
-> +	fb = fbdev_cma->fb;
->   	helper->fb = fb;
->   
->   	fbi->par = helper;
-> @@ -500,7 +474,7 @@ drm_fbdev_cma_create(struct drm_fb_helper *helper,
->   	return 0;
->   
->   err_cma_destroy:
-> -	drm_framebuffer_remove(&fbdev_cma->fb->fb);
-> +	drm_framebuffer_remove(fbdev_cma->fb);
->   err_fb_info_destroy:
->   	drm_fb_helper_fini(helper);
->   err_gem_free_object:
-> @@ -598,7 +572,7 @@ void drm_fbdev_cma_fini(struct drm_fbdev_cma *fbdev_cma)
->   		drm_fbdev_cma_defio_fini(fbdev_cma->fb_helper.fbdev);
->   
->   	if (fbdev_cma->fb)
-> -		drm_framebuffer_remove(&fbdev_cma->fb->fb);
-> +		drm_framebuffer_remove(fbdev_cma->fb);
->   
->   	drm_fb_helper_fini(&fbdev_cma->fb_helper);
->   	kfree(fbdev_cma);
+Tm8gbG9uZ2VyIG5lZWRlZCBzaW5jZSBBbmRyZXkncyBmaXggbWFkZSBpdCB1cHN0cmVhbSBpbnRv
+CmRybV9hdG9taWNfaGVscGVyX3BhZ2VfZmxpcAoKU2lnbmVkLW9mZi1ieTogSGFycnkgV2VudGxh
+bmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
+bGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8IDYwICstLS0tLS0tLS0tLS0tLS0tLS0tLS0tCiAx
+IGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDU5IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCmluZGV4IGUz
+MzdiMThlNDU1ZC4uMzkyN2E2ZTczMDg0IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+ZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKQEAgLTIzMzgsNjQgKzIzMzgsNiBAQCB2b2lk
+IGFtZGdwdV9kbV9jcnRjX2Rlc3Ryb3koc3RydWN0IGRybV9jcnRjICpjcnRjKQogCWtmcmVlKGNy
+dGMpOwogfQogCi1zdGF0aWMgaW50IGFtZGdwdV9hdG9taWNfaGVscGVyX3BhZ2VfZmxpcChzdHJ1
+Y3QgZHJtX2NydGMgKmNydGMsCi0JCQkJc3RydWN0IGRybV9mcmFtZWJ1ZmZlciAqZmIsCi0JCQkJ
+c3RydWN0IGRybV9wZW5kaW5nX3ZibGFua19ldmVudCAqZXZlbnQsCi0JCQkJdWludDMyX3QgZmxh
+Z3MsCi0JCQkJc3RydWN0IGRybV9tb2Rlc2V0X2FjcXVpcmVfY3R4ICpjdHgpCi17Ci0Jc3RydWN0
+IGRybV9wbGFuZSAqcGxhbmUgPSBjcnRjLT5wcmltYXJ5OwotCXN0cnVjdCBhbWRncHVfY3J0YyAq
+YWNydGMgPSB0b19hbWRncHVfY3J0YyhjcnRjKTsKLQlzdHJ1Y3QgZHJtX2F0b21pY19zdGF0ZSAq
+c3RhdGU7Ci0Jc3RydWN0IGRybV9wbGFuZV9zdGF0ZSAqcGxhbmVfc3RhdGU7Ci0Jc3RydWN0IGRy
+bV9jcnRjX3N0YXRlICpjcnRjX3N0YXRlOwotCWludCByZXQgPSAwOwotCi0Jc3RhdGUgPSBkcm1f
+YXRvbWljX3N0YXRlX2FsbG9jKHBsYW5lLT5kZXYpOwotCWlmICghc3RhdGUpCi0JCXJldHVybiAt
+RU5PTUVNOwotCi0Jc3RhdGUtPmFjcXVpcmVfY3R4ID0gY3R4OwotCi0JY3J0Y19zdGF0ZSA9IGRy
+bV9hdG9taWNfZ2V0X2NydGNfc3RhdGUoc3RhdGUsIGNydGMpOwotCWlmIChJU19FUlIoY3J0Y19z
+dGF0ZSkpIHsKLQkJcmV0ID0gUFRSX0VSUihjcnRjX3N0YXRlKTsKLQkJZ290byBmYWlsOwotCX0K
+LQljcnRjX3N0YXRlLT5ldmVudCA9IGV2ZW50OwotCi0JcGxhbmVfc3RhdGUgPSBkcm1fYXRvbWlj
+X2dldF9wbGFuZV9zdGF0ZShzdGF0ZSwgcGxhbmUpOwotCWlmIChJU19FUlIocGxhbmVfc3RhdGUp
+KSB7Ci0JCXJldCA9IFBUUl9FUlIocGxhbmVfc3RhdGUpOwotCQlnb3RvIGZhaWw7Ci0JfQotCi0J
+cmV0ID0gZHJtX2F0b21pY19zZXRfY3J0Y19mb3JfcGxhbmUocGxhbmVfc3RhdGUsIGNydGMpOwot
+CWlmIChyZXQgIT0gMCkKLQkJZ290byBmYWlsOwotCWRybV9hdG9taWNfc2V0X2ZiX2Zvcl9wbGFu
+ZShwbGFuZV9zdGF0ZSwgZmIpOwotCi0JLyogTWFrZSBzdXJlIHdlIGRvbid0IGFjY2lkZW50YWxs
+eSBkbyBhIGZ1bGwgbW9kZXNldC4gKi8KLQlzdGF0ZS0+YWxsb3dfbW9kZXNldCA9IGZhbHNlOwot
+CWlmICghY3J0Y19zdGF0ZS0+YWN0aXZlKSB7Ci0JCURSTV9ERUJVR19BVE9NSUMoIltDUlRDOiVk
+XSBkaXNhYmxlZCwgcmVqZWN0aW5nIGxlZ2FjeSBmbGlwXG4iLAotCQkJCSBjcnRjLT5iYXNlLmlk
+KTsKLQkJcmV0ID0gLUVJTlZBTDsKLQkJZ290byBmYWlsOwotCX0KLQlhY3J0Yy0+ZmxpcF9mbGFn
+cyA9IGZsYWdzOwotCXJldCA9IGRybV9hdG9taWNfbm9uYmxvY2tpbmdfY29tbWl0KHN0YXRlKTsK
+LQlpZiAocmV0ICE9IDApCi0JCWdvdG8gZmFpbDsKLQotCS8qIERyaXZlciB0YWtlcyBvd25lcnNo
+aXAgb2Ygc3RhdGUgb24gc3VjY2Vzc2Z1bCBhc3luYyBjb21taXQuICovCi0JcmV0dXJuIDA7Ci1m
+YWlsOgotCWRybV9hdG9taWNfc3RhdGVfcHV0KHN0YXRlKTsKLQotCXJldHVybiByZXQ7Ci19Ci0K
+IHN0YXRpYyB2b2lkIGRtX2NydGNfZGVzdHJveV9zdGF0ZShzdHJ1Y3QgZHJtX2NydGMgKmNydGMs
+CiAJCQkJCSAgIHN0cnVjdCBkcm1fY3J0Y19zdGF0ZSAqc3RhdGUpCiB7CkBAIC0yNDU5LDcgKzI0
+MDEsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGRybV9jcnRjX2Z1bmNzIGFtZGdwdV9kbV9jcnRj
+X2Z1bmNzID0gewogCS5nYW1tYV9zZXQgPSBkcm1fYXRvbWljX2hlbHBlcl9sZWdhY3lfZ2FtbWFf
+c2V0LAogCS5zZXRfY29uZmlnID0gZHJtX2F0b21pY19oZWxwZXJfc2V0X2NvbmZpZywKIAkuc2V0
+X3Byb3BlcnR5ID0gZHJtX2F0b21pY19oZWxwZXJfY3J0Y19zZXRfcHJvcGVydHksCi0JLnBhZ2Vf
+ZmxpcCA9IGFtZGdwdV9hdG9taWNfaGVscGVyX3BhZ2VfZmxpcCwKKwkucGFnZV9mbGlwID0gZHJt
+X2F0b21pY19oZWxwZXJfcGFnZV9mbGlwLAogCS5hdG9taWNfZHVwbGljYXRlX3N0YXRlID0gZG1f
+Y3J0Y19kdXBsaWNhdGVfc3RhdGUsCiAJLmF0b21pY19kZXN0cm95X3N0YXRlID0gZG1fY3J0Y19k
+ZXN0cm95X3N0YXRlLAogfTsKLS0gCjIuMTEuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9hbWQtZ2Z4Cg==
