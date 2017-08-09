@@ -1,34 +1,63 @@
-From: Dan Carpenter <dan.carpenter@oracle.com>
-Subject: [PATCH] drm/amdgpu: Uninitialized variable in
- amdgpu_ttm_backend_bind()
-Date: Wed, 9 Aug 2017 13:30:46 +0300
-Message-ID: <20170809103046.mhj7mhe3qwy5ozvy@mwanda>
+From: Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH 0/3] dma-buf changes for ttm and amdgpu
+Date: Wed, 9 Aug 2017 19:11:07 +0530
+Message-ID: <CAO_48GHt2yjdWnLTjZnJkmiyHY4R=L=Ldu_wFzPN4R_S272kJw@mail.gmail.com>
+References: <1502141543-13455-1-git-send-email-alexander.deucher@amd.com>
+ <20170808115635.75rsu3xlady3duam@phenom.ffwll.local>
+ <BN6PR12MB1652360269D8CF51C96CD05FF78A0@BN6PR12MB1652.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <kernel-janitors-owner@vger.kernel.org>
-Content-Disposition: inline
-Sender: kernel-janitors-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: David Airlie <airlied@linux.ie>, Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Flora Cui <Flora.Cui@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <BN6PR12MB1652360269D8CF51C96CD05FF78A0@BN6PR12MB1652.namprd12.prod.outlook.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-My static checker complains that it's possible for "r" to be
-uninitialized.  It used to be set to zero so this returns it to the old
-behavior.
-
-Fixes: 98a7f88ce9a9 ("drm/amdgpu: bind BOs with GTT space allocated directly v2")
-Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index e6f9a54c959d..b5f2a08757d6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -753,7 +753,7 @@ static int amdgpu_ttm_backend_bind(struct ttm_tt *ttm,
- 				   struct ttm_mem_reg *bo_mem)
- {
- 	struct amdgpu_ttm_tt *gtt = (void*)ttm;
--	int r;
-+	int r = 0;
- 
- 	if (gtt->userptr) {
- 		r = amdgpu_ttm_tt_pin_userptr(ttm);
+SGkgQWxleCwKCk9uIDggQXVndXN0IDIwMTcgYXQgMjE6MTMsIERldWNoZXIsIEFsZXhhbmRlciA8
+QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT4gd3JvdGU6Cj4+IC0tLS0tT3JpZ2luYWwgTWVzc2Fn
+ZS0tLS0tCj4+IEZyb206IERhbmllbCBWZXR0ZXIgW21haWx0bzpkYW5pZWwudmV0dGVyQGZmd2xs
+LmNoXSBPbiBCZWhhbGYgT2YgRGFuaWVsCj4+IFZldHRlcgo+PiBTZW50OiBUdWVzZGF5LCBBdWd1
+c3QgMDgsIDIwMTcgNzo1NyBBTQo+PiBUbzogQWxleCBEZXVjaGVyCj4+IENjOiBhbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZzsgZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsKPj4g
+c3VtaXQuc2Vtd2FsQGxpbmFyby5vcmc7IEtvZW5pZywgQ2hyaXN0aWFuOyBEZXVjaGVyLCBBbGV4
+YW5kZXIKPj4gU3ViamVjdDogUmU6IFtQQVRDSCAwLzNdIGRtYS1idWYgY2hhbmdlcyBmb3IgdHRt
+IGFuZCBhbWRncHUKPj4KPj4gT24gTW9uLCBBdWcgMDcsIDIwMTcgYXQgMDU6MzI6MjBQTSAtMDQw
+MCwgQWxleCBEZXVjaGVyIHdyb3RlOgo+PiA+IFdlIGhhdmUgc29tZSBjaGFuZ2VzIGluIHR0bSBh
+bmQgYW1kZ3B1IHRoYXQgZGVwZW5kIG9uIHRoZXNlIHBhdGNoZXMuCj4+ID4gU3VtaXQsIGNhbiB5
+b3UgcHVsbCB0aGVzZSBpbiB2aWEgZG1hLWJ1ZiBvciBzaG91bGQgSSByb2xsIHRoZW0gdXAKPj4g
+PiB0aHJvdWdoIG15IGFtZGdwdSB0cmVlPwo+Pgo+PiBXZSBjb3VsZCBqdXN0IHRocm93IHRoZW0g
+YWxsIGludG8gZHJtLW1pc2MgdG9vLCB0aGF0J3Mga2luZGEgd2hhdCBpdCdzIGZvcgo+PiAoZG1h
+LWJ1ZiBkb2Vzbid0IGV4aXN0IGFueW1vcmUsIGFsbCB0aGUgZG1hLWJ1ZiBzdHVmZiBpcyBpbiBk
+cm0tbWlzYyBub3cpLgo+PiBBbmQgeW91IGhhdmUgY29tbWl0IHJpZ2h0cyBmb3IgdGhhdCBldmVu
+IDotKQo+Cj4gWWVhaCwgSSBqdXN0IGRpZG4ndCB3YW50IHRvIHN0ZXAgb24gU3VtaXQncyB0b2Vz
+IGluIGNhc2UgaGUgcHJlZmVycmVkIHRvIGhhbmRsZSBkbWEtYnVmIHBhdGNoZXMgaGltc2VsZi4K
+PgpBcG9sb2dpZXMgZm9yIG1pc3NpbmcgeW91ciBwaW5nIQoKUGxlYXNlIGZlZWwgZnJlZSB0byB0
+YWtlIHRoaXMgdmlhIGRybS1taXNjLCB3aXRoIG15CkFja2VkLWJ5OiBTdW1pdCBTZW13YWwgPHN1
+bWl0LnNlbXdhbEBsaW5hcm8ub3JnPgoKPiBBbGV4Cj4KPj4gLURhbmllbApCZXN0LApTdW1pdC4K
+Pj4KPj4gPgo+PiA+IENocmlzdGlhbiBLw7ZuaWcgKDMpOgo+PiA+ICAgZG1hLWJ1ZjogZG1hX2Zl
+bmNlX3B1dCBpcyBOVUxMIHNhZmUKPj4gPiAgIGRtYS1idWY6IGFkZCByZXNlcnZhdGlvbl9vYmpl
+Y3RfY29weV9mZW5jZXMKPj4gPiAgIGRtYS1idWY6IGZpeCByZXNlcnZhdGlvbl9vYmplY3Rfd2Fp
+dF90aW1lb3V0X3JjdSB0byB3YWl0IGNvcnJlY3RseSB2Mgo+PiA+Cj4+ID4gIGRyaXZlcnMvZG1h
+LWJ1Zi9yZXNlcnZhdGlvbi5jIHwgOTcKPj4gKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
+KysrLS0tLS0tLS0tLQo+PiA+ICBpbmNsdWRlL2xpbnV4L3Jlc2VydmF0aW9uLmggICB8ICAzICsr
+Cj4+ID4gIDIgZmlsZXMgY2hhbmdlZCwgNzggaW5zZXJ0aW9ucygrKSwgMjIgZGVsZXRpb25zKC0p
+Cj4+ID4KPj4gPiAtLQo+PiA+IDIuNS41Cj4+ID4KPj4gPiBfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwo+PiA+IGRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKPj4g
+PiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+ID4gaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwKPj4KPj4gLS0KPj4gRGFuaWVs
+IFZldHRlcgo+PiBTb2Z0d2FyZSBFbmdpbmVlciwgSW50ZWwgQ29ycG9yYXRpb24KPj4gaHR0cDov
+L2Jsb2cuZmZ3bGwuY2gKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRl
+dmVsCg==
