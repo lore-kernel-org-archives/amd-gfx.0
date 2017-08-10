@@ -1,15 +1,15 @@
-From: Joe Kniss <djmk@google.com>
-Subject: Re: [PATCH libdrm] drm: Remove create_handle() drm_framebuffer
- "virtual".
-Date: Wed, 9 Aug 2017 16:13:05 -0700
-Message-ID: <CAOvnNvbEt=Uyve3cu_+6BB0EepvO=OKC6gpV3isRef+UdVoX-g@mail.gmail.com>
-References: <20170808234237.62051-1-djmk@google.com>
- <8a7bf59a-0f58-21ba-8b82-78e6ba873065@tronnes.org>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+Subject: Re: [PATCH] drm/amdgpu: Uninitialized variable in
+ amdgpu_ttm_backend_bind()
+Date: Thu, 10 Aug 2017 11:16:48 +0900
+Message-ID: <406505cd-fd17-b87a-0d3f-9adf5376880a@daenzer.net>
+References: <20170809103046.mhj7mhe3qwy5ozvy@mwanda>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <8a7bf59a-0f58-21ba-8b82-78e6ba873065@tronnes.org>
+In-Reply-To: <20170809103046.mhj7mhe3qwy5ozvy@mwanda>
+Content-Language: en-CA
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
 List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
@@ -19,45 +19,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: =?UTF-8?Q?Noralf_Tr=C3=B8nnes?= <noralf@tronnes.org>
-Cc: Michel Daenzer <michel.daenzer@amd.com>, dri-devel <dri-devel@lists.freedesktop.org>, "open list:VIRTIO CORE,
- NET..." <virtualization@lists.linux-foundation.org>, "Zhang,
- Jerry" <Jerry.Zhang@amd.com>, Thierry Reding <thierry.reding@gmail.com>, "Vetter, Daniel" <daniel.vetter@intel.com>, baoyou.xie@linaro.org, Alex Xie <AlexBin.Xie@amd.com>, "StDenis, Tom" <tom.stdenis@amd.com>, linux-samsung-soc <linux-samsung-soc@vger.kernel.org>, joe@perches.com, linux-mediatek@lists.infradead.org, Russell King <linux@armlinux.org.uk>, krzk@kernel.org, jonathanh@nvidia.com, "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>, Tomi Valkeinen <tomi.valkeinen@ti.com>, Ben Skeggs <bskeggs@redhat.com>, nouveau <nouveau@lists.freedesktop.org>, Kyungmin Park <kyungmin.park@samsung.com>, Xiaojie.Yuan@amd.com, Alexandre Demers <alexandre.f.demers@gmail.com>, Joe Kniss <djmk@chr>
+To: Dan Carpenter <dan.carpenter@oracle.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: Felix Kuehling <Felix.Kuehling@amd.com>, kernel-janitors@vger.kernel.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Flora Cui <Flora.Cui@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gV2VkLCBBdWcgOSwgMjAxNyBhdCAxMjoxNCBQTSwgTm9yYWxmIFRyw7hubmVzIDxub3JhbGZA
-dHJvbm5lcy5vcmc+IHdyb3RlOgo+Cj4gRGVuIDA5LjA4LjIwMTcgMDEuNDIsIHNrcmV2IEpvZSBL
-bmlzczoKPj4KPj4gQmVjYXVzZSBhbGwgZHJpdmVycyBjdXJyZW50bHkgdXNlIGdlbSBvYmplY3Rz
-IGZvciBmcmFtZWJ1ZmZlciBwbGFuZXMsCj4+IHRoZSB2aXJ0dWFsIGNyZWF0ZV9oYW5kbGUoKSBp
-cyBub3QgcmVxdWlyZWQuICBUaGlzIGNoYW5nZSBhZGRzIGEKPj4gc3RydWN0IGRybV9nZW1fb2Jq
-ZWN0ICpnZW1zWzRdIGZpZWxkIHRvIGRybV9mcmFtZWJ1ZmZlciBhbmQgcmVtb3Zlcwo+PiBjcmVh
-dGVfaGFuZGxlKCkgZnVuY3Rpb24gcG9pbnRlciBmcm9tIGRybV9mcmFtZWJ1ZmZlcl9mdW5jcy4g
-IFRoZQo+PiBjb3JyZXNwb25kaW5nICpfY3JlYXRlX2hhbmRsZSgpIGZ1bmN0aW9uIGlzIHJlbW92
-ZWQgZnJvbSBlYWNoIGRyaXZlci4KPj4KPj4gSW4gbWFueSBjYXNlcyB0aGlzIGNoYW5nZSBlbGlt
-aW5hdGVzIGEgc3RydWN0ICpfZnJhbWVidWZmZXIgb2JqZWN0LAo+PiBhcyB0aGUgb25seSBuZWVk
-IGZvciB0aGUgZGVyaXZlZCBzdHJ1Y3QgaXMgdGhlIGFkZGl0aW9uIG9mIHRoZSBnZW0KPj4gb2Jq
-ZWN0IHBvaW50ZXIuCj4+Cj4+IFRFU1RFRDogY29tcGlsZWQ6IGFsbHllc2NvbmZpZyBBUkNIPXg4
-Nixhcm0gcGxhdGZvcm1zOmk5MTUsIHJvY2tjaGlwCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IEpvZSBL
-bmlzcyA8ZGpta0Bnb29nbGUuY29tPgo+PiAtLS0KPgo+Cj4gSGkgSm9lLAo+Cj4gSSdtIGFsc28g
-bG9va2luZyBpbnRvIGFkZGluZyBnZW0gb2JqcyB0byBkcm1fZnJhbWVidWZmZXIgaW4gdGhpcyBw
-YXRjaDoKPiBbUEFUQ0ggdjIgMDEvMjJdIGRybTogQWRkIEdFTSBiYWNrZWQgZnJhbWVidWZmZXIg
-bGlicmFyeQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL2FyY2hpdmVzL2RyaS1kZXZl
-bC8yMDE3LUF1Z3VzdC8xNDk3ODIuaHRtbAo+CgpHcmVhdC4gIFRoZXJlJ3Mgb25seSBtaW5pbWFs
-IG92ZXJsYXAgaGVyZS4gIEknbGwgcmViYXNlIHRoaXMgY2hhbmdlIG9uIHlvdXJzCm9uY2UgaXQn
-cyBpbi4KCj4gWy4uLl0KPgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2RybV9mYl9j
-bWFfaGVscGVyLmMKPj4gYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2ZiX2NtYV9oZWxwZXIuYwo+PiBp
-bmRleCBhZGUzMTlkMTBlNzAuLmY1ZjAxMWI5MTBiMSAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2RybV9mYl9jbWFfaGVscGVyLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9m
-Yl9jbWFfaGVscGVyLmMKPj4gQEAgLTMxLDE0ICszMSw5IEBACj4+ICAgICAjZGVmaW5lIERFRkFV
-TFRfRkJERUZJT19ERUxBWV9NUyA1MAo+PiAgIC1zdHJ1Y3QgZHJtX2ZiX2NtYSB7Cj4+IC0gICAg
-ICAgc3RydWN0IGRybV9mcmFtZWJ1ZmZlciAgICAgICAgICBmYjsKPj4gLSAgICAgICBzdHJ1Y3Qg
-ZHJtX2dlbV9jbWFfb2JqZWN0ICAgICAgICpvYmpbNF07Cj4+IC19Owo+PiAtCj4+ICAgc3RydWN0
-IGRybV9mYmRldl9jbWEgewo+PiAgICAgICAgIHN0cnVjdCBkcm1fZmJfaGVscGVyICAgIGZiX2hl
-bHBlcjsKPj4gLSAgICAgICBzdHJ1Y3QgZHJtX2ZiX2NtYSAgICAgICAqZmI7Cj4+ICsgICAgICAg
-c3RydWN0IGRybV9mcmFtZWJ1ZmZlciAgKmZiOwo+Cj4KPiBUaGlzIGZiIHBvaW50ZXIgaXNuJ3Qg
-bmVjZXNzYXJ5LCBzaW5jZSBmYl9oZWxwZXIgYWxyZWFkeSBoYXMgb25lLgo+CgpJJ2xsIHJlbW92
-ZSBpdC4uLiBidXQgSSBhbSBzdXJlIHdoZW4gSSBsb29rIGRlZXBlciB0aGVyZSB3aWxsIGJlIG1v
-cmUKb2YgdGhlc2UgaW4gdGhlIHZhcmlvdXMgZHJpdmVycyB0b28uCgo+IE5vcmFsZi4KPgo+Cgot
-am9lCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1k
-ZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
+T24gMDkvMDgvMTcgMDc6MzAgUE0sIERhbiBDYXJwZW50ZXIgd3JvdGU6Cj4gTXkgc3RhdGljIGNo
+ZWNrZXIgY29tcGxhaW5zIHRoYXQgaXQncyBwb3NzaWJsZSBmb3IgInIiIHRvIGJlCj4gdW5pbml0
+aWFsaXplZC4gIEl0IHVzZWQgdG8gYmUgc2V0IHRvIHplcm8gc28gdGhpcyByZXR1cm5zIGl0IHRv
+IHRoZSBvbGQKPiBiZWhhdmlvci4KPiAKPiBGaXhlczogOThhN2Y4OGNlOWE5ICgiZHJtL2FtZGdw
+dTogYmluZCBCT3Mgd2l0aCBHVFQgc3BhY2UgYWxsb2NhdGVkIGRpcmVjdGx5IHYyIikKPiBTaWdu
+ZWQtb2ZmLWJ5OiBEYW4gQ2FycGVudGVyIDxkYW4uY2FycGVudGVyQG9yYWNsZS5jb20+Cj4gCj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwo+IGluZGV4IGU2ZjlhNTRjOTU5
+ZC4uYjVmMmEwODc1N2Q2IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV90dG0uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90
+dG0uYwo+IEBAIC03NTMsNyArNzUzLDcgQEAgc3RhdGljIGludCBhbWRncHVfdHRtX2JhY2tlbmRf
+YmluZChzdHJ1Y3QgdHRtX3R0ICp0dG0sCj4gIAkJCQkgICBzdHJ1Y3QgdHRtX21lbV9yZWcgKmJv
+X21lbSkKPiAgewo+ICAJc3RydWN0IGFtZGdwdV90dG1fdHQgKmd0dCA9ICh2b2lkKil0dG07Cj4g
+LQlpbnQgcjsKPiArCWludCByID0gMDsKPiAgCj4gIAlpZiAoZ3R0LT51c2VycHRyKSB7Cj4gIAkJ
+ciA9IGFtZGdwdV90dG1fdHRfcGluX3VzZXJwdHIodHRtKTsKClJldmlld2VkLWJ5OiBNaWNoZWwg
+RMOkbnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBE
+w6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpM
+aWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBh
+bmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRl
+dmVsCg==
