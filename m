@@ -1,64 +1,53 @@
-From: walter harms <wharms@bfs.de>
-Subject: Re: [PATCH] drm/amdgpu: potential shift wrapping bug
-Date: Thu, 10 Aug 2017 15:17:43 +0200
-Message-ID: <598C5CF7.8080702@bfs.de>
-References: <20170810121659.7k2pqemqnd3px2qi@mwanda> <1c9843bd-8c8f-b6f7-d413-ebb508c97930@vodafone.de> <20170810125344.6g2tbgdr5xyhudly@mwanda> <b13fa138-4a14-50bc-953d-0f6ce11d8744@amd.com>
-Reply-To: wharms@bfs.de
+From: =?UTF-8?q?Christian=20K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: [PATCH] dma-buf: handle NULL src_list in
+ reservation_object_copy_fences
+Date: Thu, 10 Aug 2017 15:41:35 +0200
+Message-ID: <1502372495-1666-1-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Return-path: <kernel-janitors-owner@vger.kernel.org>
-In-Reply-To: <b13fa138-4a14-50bc-953d-0f6ce11d8744@amd.com>
-Sender: kernel-janitors-owner@vger.kernel.org
-To: =?UTF-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>
-Cc: Dan Carpenter <dan.carpenter@oracle.com>, =?UTF-8?B?Q2hyaXN0aWFuIEvDtg==?= =?UTF-8?B?bmln?= <deathsimple@vodafone.de>, Alex Deucher <alexander.deucher@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, kernel-janitors@vger.kernel.org, Felix Kuehling <Felix.Kuehling@amd.com>, Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, "Zhang, Jerry" <Jerry.Zhang@amd.com>, Alex Xie <AlexBin.Xie@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-
-
-Am 10.08.2017 15:02, schrieb Christian König:
-> Am 10.08.2017 um 14:53 schrieb Dan Carpenter:
->> On Thu, Aug 10, 2017 at 02:30:15PM +0200, Christian König wrote:
->>> Am 10.08.2017 um 14:16 schrieb Dan Carpenter:
->>>> "frag_align" is a u64, so presumably we want to use the high bits as
->>>> well instead of shift wrapping.
->>>>
->>>> Fixes: 6be7adb37d9b ("drm/amdgpu: increase fragmentation size for
->>>> Vega10 v2")
->>>> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
->>> The fragment field has only 5bits in hardware and can never be more
->>> than 31,
->>> so the correct fix would actually be using uint32_t here instead.
->>>
->> Changing it to uint32_t introduces a new static checker warning:
->>
->>      drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:1465 amdgpu_vm_frag_ptes()
->>      warn: was expecting a 64 bit value instead of '~(frag_align - 1)'
->>
->> Unfortunately, I get so many thousands of those I can't normally even
->> review that sort of bug...
->>
->> Let me resend the original patch but with a modified changelog to say
->> that the bug is a false positive.
-> 
-> Ah, yes of course that's why I made it a 64bit value in the first place.
-> 
-> Mhm, could we use something like (u32)(1 << pages_per_frag) instead to
-> silence the static checker warning?
-> 
-> It doesn't make much sense to use a 64bit shift here.
-> 
-> Christian.
-> 
-
-
-
-Why not keeping Dan 1. patch and add a comment that pages_per_frag is always >31 ?
-
-Using 32bit in a 64bit is not forbidden, and changing it causes more problems than
-it solves. But doing so should be done in a clean way.
-
-just my 2 cents,
-re,
- wh
-
+RnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKVGhlIGxp
+c3Qgb2Ygc2hhcmVkIGZlbmNlcyBjYW4gYmUgTlVMTCBhbmQgdGhhdCBuZWVkcyB0byBiZSBoYW5k
+bGVkIGFzIHdlbGwuCgpTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4u
+a29lbmlnQGFtZC5jb20+Ci0tLQogZHJpdmVycy9kbWEtYnVmL3Jlc2VydmF0aW9uLmMgfCAyOCAr
+KysrKysrKysrKysrKystLS0tLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMTUgaW5zZXJ0aW9u
+cygrKSwgMTMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9kbWEtYnVmL3Jlc2Vy
+dmF0aW9uLmMgYi9kcml2ZXJzL2RtYS1idWYvcmVzZXJ2YXRpb24uYwppbmRleCAzMDJjMTM3Li5k
+ZWMzYTgxIDEwMDY0NAotLS0gYS9kcml2ZXJzL2RtYS1idWYvcmVzZXJ2YXRpb24uYworKysgYi9k
+cml2ZXJzL2RtYS1idWYvcmVzZXJ2YXRpb24uYwpAQCAtMjc5LDIzICsyNzksMjUgQEAgaW50IHJl
+c2VydmF0aW9uX29iamVjdF9jb3B5X2ZlbmNlcyhzdHJ1Y3QgcmVzZXJ2YXRpb25fb2JqZWN0ICpk
+c3QsCiAKIAlzcmNfbGlzdCA9IHJlc2VydmF0aW9uX29iamVjdF9nZXRfbGlzdChzcmMpOwogCi0J
+LyoKLQkgKiByZXNpemUgZHN0LT5mZW5jZSBvciBhbGxvY2F0ZSBpZiBpdCBkb2Vzbid0IGV4aXN0
+LAotCSAqIG5vb3AgaWYgYWxyZWFkeSBjb3JyZWN0IHNpemUKLQkgKi8KLQlzaXplID0gb2Zmc2V0
+b2YodHlwZW9mKCpzcmNfbGlzdCksIHNoYXJlZFtzcmNfbGlzdC0+c2hhcmVkX2NvdW50XSk7Ci0J
+ZHN0X2xpc3QgPSBrbWFsbG9jKHNpemUsIEdGUF9LRVJORUwpOwotCWlmICghZHN0X2xpc3QpCi0J
+CXJldHVybiAtRU5PTUVNOworCWlmIChzcmNfbGlzdCkgeworCQlzaXplID0gb2Zmc2V0b2YodHlw
+ZW9mKCpzcmNfbGlzdCksCisJCQkJc2hhcmVkW3NyY19saXN0LT5zaGFyZWRfY291bnRdKTsKKwkJ
+ZHN0X2xpc3QgPSBrbWFsbG9jKHNpemUsIEdGUF9LRVJORUwpOworCQlpZiAoIWRzdF9saXN0KQor
+CQkJcmV0dXJuIC1FTk9NRU07CisKKwkJZHN0X2xpc3QtPnNoYXJlZF9jb3VudCA9IHNyY19saXN0
+LT5zaGFyZWRfY291bnQ7CisJCWRzdF9saXN0LT5zaGFyZWRfbWF4ID0gc3JjX2xpc3QtPnNoYXJl
+ZF9jb3VudDsKKwkJZm9yIChpID0gMDsgaSA8IHNyY19saXN0LT5zaGFyZWRfY291bnQ7ICsraSkK
+KwkJCWRzdF9saXN0LT5zaGFyZWRbaV0gPQorCQkJCWRtYV9mZW5jZV9nZXQoc3JjX2xpc3QtPnNo
+YXJlZFtpXSk7CisJfSBlbHNlIHsKKwkJZHN0X2xpc3QgPSBOVUxMOworCX0KIAogCWtmcmVlKGRz
+dC0+c3RhZ2VkKTsKIAlkc3QtPnN0YWdlZCA9IE5VTEw7CiAKLQlkc3RfbGlzdC0+c2hhcmVkX2Nv
+dW50ID0gc3JjX2xpc3QtPnNoYXJlZF9jb3VudDsKLQlkc3RfbGlzdC0+c2hhcmVkX21heCA9IHNy
+Y19saXN0LT5zaGFyZWRfY291bnQ7Ci0JZm9yIChpID0gMDsgaSA8IHNyY19saXN0LT5zaGFyZWRf
+Y291bnQ7ICsraSkKLQkJZHN0X2xpc3QtPnNoYXJlZFtpXSA9IGRtYV9mZW5jZV9nZXQoc3JjX2xp
+c3QtPnNoYXJlZFtpXSk7Ci0KIAlzcmNfbGlzdCA9IHJlc2VydmF0aW9uX29iamVjdF9nZXRfbGlz
+dChkc3QpOwogCiAJb2xkID0gcmVzZXJ2YXRpb25fb2JqZWN0X2dldF9leGNsKGRzdCk7Ci0tIAoy
+LjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
+LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
+aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
