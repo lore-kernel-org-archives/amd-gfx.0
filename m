@@ -1,17 +1,13 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH 2/2] dma-buf: fix reservation_object_wait_timeout_rcu to
- wait correctly v2
-Date: Thu, 10 Aug 2017 20:19:52 +0200
-Message-ID: <dd839052-89b5-d3ee-9347-4590ac8de0fa@vodafone.de>
-References: <1502384509-10465-1-git-send-email-alexander.deucher@amd.com>
- <1502384509-10465-3-git-send-email-alexander.deucher@amd.com>
- <150238508616.26524.9935181193137231431@mail.alporthouse.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 2/2] drm/amd/display/dc: make dce120_link_encoder_create static
+Date: Thu, 10 Aug 2017 14:22:22 -0400
+Message-ID: <1502389342-915-2-git-send-email-alexander.deucher@amd.com>
+References: <1502389342-915-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <150238508616.26524.9935181193137231431-M6iVdVfohj6unts5RBS2dVaTQe2KTcn/@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <1502389342-915-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,31 +18,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Chris Wilson <chris-Y6uKTt2uX1cEflXRtASbqLVCufUGDwFn@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, sumit.semwal-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org, christian.koenig-5C7GfCeVMHo@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, harry.wentland-5C7GfCeVMHo@public.gmane.org
 Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-QW0gMTAuMDguMjAxNyB1bSAxOToxMSBzY2hyaWViIENocmlzIFdpbHNvbjoKPiBRdW90aW5nIEFs
-ZXggRGV1Y2hlciAoMjAxNy0wOC0xMCAxODowMTo0OSkKPj4gRnJvbTogQ2hyaXN0aWFuIEvDtm5p
-ZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+Pgo+PiBXaXRoIGhhcmR3YXJlIHJlc2V0cyBp
-biBtaW5kIGl0IGlzIHBvc3NpYmxlIHRoYXQgYWxsIHNoYXJlZCBmZW5jZXMgYXJlCj4+IHNpZ25h
-bGVkLCBidXQgdGhlIGV4bHVzaXZlIGlzbid0LiBGaXggd2FpdGluZyBmb3IgZXZlcnl0aGluZyBp
-biB0aGlzIHNpdHVhdGlvbi4KPiBJJ20gc3RpbGwgcHV6emxpbmcgb3ZlciB0aGlzIG9uZS4KPgo+
-IFNldHRpbmcgYW4gZXhjbHVzaXZlIGZlbmNlIHdpbGwgY2xlYXIgYWxsIHNoYXJlZCwgc28gd2Ug
-bXVzdCBoYXZlIGFkZGVkCj4gdGhlIHNoYXJlZCBmZW5jZXMgYWZ0ZXIgdGhlIGV4Y2x1c2l2ZSBm
-ZW5jZS4gQnV0IHRob3NlIHNoYXJlZCBmZW5jZXMgbXVzdAo+IGZvbGxvdyB0aGUgZXhjbHVzaXZl
-IGZlbmNlLCB5b3Ugc2hvdWxkIG5vdCBiZSBhYmxlIHRvIHJlb3JkZXIgdGhlIHNoYXJlZAo+IGZl
-bmNlcyBhaGVhZCBvZiB0aGUgZXhjbHVzaXZlLiBJZiB5b3UgaGF2ZSBjb21wbGV0ZWQgc2hhcmVk
-IGZlbmNlcywgYnV0Cj4gaW5jb21wbGV0ZSBleGNsdXNpdmUsIGRvZXNuJ3QgdGhhdCBpbXBseSB5
-b3UgaGF2ZSBhbiBvcmRlcmluZyBpc3N1ZT8KCk5vLCB0aGF0IGlzIG5vdCBhbiBvcmRlcmluZyBp
-c3N1ZS4KClRoZSBwcm9ibGVtIGhhcHBlbnMgd2hlbiB0aGUgc2hhcmVkIGZlbmNlcyBhcmUgImFi
-b3J0ZWQiIGJlY2F1c2Ugb2YgYSAKR1BVIHJlc2V0LgoKU2VlIHRoZSBleGNsdXNpdmUgZmVuY2Ug
-aXMgb2Z0ZW4gYSBETUEgbW92aW5nIGJ5dGVzIG9uIGJlaGFsZiBvZiB0aGUgCmtlcm5lbCB3aGls
-ZSB0aGUgc2hhcmVkIGZlbmNlcyBhcmUgdGhlIGFjdHVhbCBjb21tYW5kIHN1Ym1pc3Npb24gZnJv
-bSAKdXNlciBzcGFjZS4KCldoYXQgY2FuIGhhcHBlbiBpcyB0aGF0IHRoZSB1c2Vyc3BhY2UgcHJv
-Y2VzcyBpcyBraWxsZWQgYW5kL29yIGl0J3MgCnNjaGVkdWxlZCBjb21tYW5kIHN1Ym1pc3Npb24g
-YWJvcnRlZCBmb3Igb3RoZXIgcmVhc29ucy4KCkluIHRoaXMgY2FzZSB0aGUgc2hhcmVkIGZlbmNl
-cyBnZXQgYW4gZXJyb3IgY29kZSwgYXJlIHNldCB0byB0aGUgCnNpZ25hbGVkIHN0YXRlIGFuZCB0
-aGUgam9iIHRoZXkgcmVwcmVzZW50IGlzIG5ldmVyIGV4ZWN1dGVkLgoKUmVnYXJkcywKQ2hyaXN0
-aWFuLgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
-Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+T25seSB1c2VkIGluIGRjZTEyMF9yZXNvdXJjZS5jLgoKU2lnbmVkLW9mZi1ieTogQWxleCBEZXVj
+aGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+ZGlzcGxheS9kYy9kY2UxMjAvZGNlMTIwX3Jlc291cmNlLmMgfCAyICstCiAxIGZpbGUgY2hhbmdl
+ZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlMTIwL2RjZTEyMF9yZXNvdXJjZS5jIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTEyMC9kY2UxMjBfcmVzb3VyY2UuYwppbmRleCA2NDQ4
+ZDE1Li5kNGU5NjI3IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMv
+ZGNlMTIwL2RjZTEyMF9yZXNvdXJjZS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
+eS9kYy9kY2UxMjAvZGNlMTIwX3Jlc291cmNlLmMKQEAgLTUzNSw3ICs1MzUsNyBAQCBzdGF0aWMg
+Y29uc3Qgc3RydWN0IGVuY29kZXJfZmVhdHVyZV9zdXBwb3J0IGxpbmtfZW5jX2ZlYXR1cmUgPSB7
+CiAJCS5mbGFncy5iaXRzLklTX1lDQkNSX0NBUEFCTEUgPSB0cnVlCiB9OwogCi1zdHJ1Y3QgbGlu
+a19lbmNvZGVyICpkY2UxMjBfbGlua19lbmNvZGVyX2NyZWF0ZSgKK3N0YXRpYyBzdHJ1Y3QgbGlu
+a19lbmNvZGVyICpkY2UxMjBfbGlua19lbmNvZGVyX2NyZWF0ZSgKIAljb25zdCBzdHJ1Y3QgZW5j
+b2Rlcl9pbml0X2RhdGEgKmVuY19pbml0X2RhdGEpCiB7CiAJc3RydWN0IGRjZTExMF9saW5rX2Vu
+Y29kZXIgKmVuYzExMCA9Ci0tIAoyLjUuNQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cg==
