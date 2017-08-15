@@ -1,21 +1,12 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH 2/4] drm/amdkfd: Adding new IOCTL for scratch memory
-Date: Tue, 15 Aug 2017 20:53:35 +0200
-Message-ID: <b7f04c1a-cd4d-30e0-3bfe-f88e68ba0f1d@vodafone.de>
-References: <1502513265-14281-1-git-send-email-Felix.Kuehling@amd.com>
- <1502513265-14281-3-git-send-email-Felix.Kuehling@amd.com>
- <CAFCwf11z1Uo9jd82XAGrapXA44KpY+KrV69nbXLkoX6v10_gig@mail.gmail.com>
- <22ab982e-a1b1-5d61-9eaa-f9c149cf3d5e@amd.com>
- <c310b952-116b-376c-0794-232e69f88592@vodafone.de>
- <33308ac3-bdf2-21ac-2122-b43702fdd95f@amd.com>
- <b114b316-1142-11b8-6393-5f903bb2d663@vodafone.de>
- <d9a8220d-f9f1-b16c-da11-3c21a450926d@amd.com>
+From: "Zhang, Boyuan" <Boyuan.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: drm/amdgpu update uvd 7.0 enc test
+Date: Tue, 15 Aug 2017 20:38:25 +0000
+Message-ID: <BN6PR1201MB25154454199E5F9131A08076878D0@BN6PR1201MB2515.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed;
+ boundary="_004_BN6PR1201MB25154454199E5F9131A08076878D0BN6PR1201MB2515_"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <d9a8220d-f9f1-b16c-da11-3c21a450926d-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -26,51 +17,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>, Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Liu, Leo" <Leo.Liu-5C7GfCeVMHo@public.gmane.org>
 
-QW0gMTUuMDguMjAxNyB1bSAxODowMyBzY2hyaWViIEZlbGl4IEt1ZWhsaW5nOgo+IE9uIDIwMTct
-MDgtMTUgMDQ6MjQgQU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+IEFtIDE0LjA4LjIwMTcg
-dW0gMTc6MzEgc2NocmllYiBGZWxpeCBLdWVobGluZzoKPj4+IFtTTklQXQo+Pj4gUmVwZWF0aW5n
-IHRoZSBzYW1lIGFyZ3VtZW50IEkgbWFkZSBvbiBhbm90aGVyIGVtYWlsOgo+PiBDb21tZW50ZWQg
-b24gdGhhdCBpbiB0aGUgb3RoZXIgbWFpbCwgbGV0J3Mga2VlcCB0aGUgZGlzY3Vzc2lvbiBvbiB0
-aGlzCj4+IHRvcGljIHRoZXJlLgo+Pgo+Pj4+IEJUVzogV2hhdCBleGFjdGx5IHRoaXMgdGhpcyBn
-b29kIGZvcj8KPj4+IFNjcmF0Y2ggbWVtb3J5IGlzIHByaXZhdGUgbWVtb3J5IHBlciB3b3JrLWl0
-ZW0uIEl0J3MgdXNlZCB3aGVuIGEgc2hhZGVyCj4+PiBwcm9ncmFtIGhhcyB0b28gZmV3IHJlZ2lz
-dGVycyBhdmFpbGFibGUuIFdpdGggSFNBIHdlIHVzZSBmbGF0IHNjcmF0Y2gKPj4+IGFkZHJlc3Np
-bmcsIHdoZXJlIHNoYWRlcnMgY2FuIGFjY2VzcyBwcml2YXRlIG1lbW9yeSBpbiBhIHNwZWNpYWwg
-c2NyYXRjaAo+Pj4gYXBlcnR1cmUgdXNpbmcgbm9ybWFsIG1lbW9yeSBpbnN0cnVjdGlvbnMuIFVz
-aW5nIHRoZSBzYW1lIHZpcnR1YWwKPj4+IGFkZHJlc3MsIGVhY2ggd29yayBpdGVtIGdldHMgaXRz
-IG93biBwcml2YXRlIHBpZWNlIG9mIG1lbW9yeS4gVGhlCj4+PiBoYXJkd2FyZSBkb2VzIHRoZSBh
-ZGRyZXNzIHRyYW5zbGF0aW9uIGZyb20gdGhlIFZBIGluIHRoZSBwcml2YXRlCj4+PiBhcGVydHVy
-ZSB0byBhIHNjcmF0Y2gtYmFja2luZyBWQS4gVGhlIGFwcGxpY2F0aW9uIGlzIHJlc3BvbnNpYmxl
-IGZvcgo+Pj4gYWxsb2NhdGluZyB0aGUgbWVtb3J5IHRvIGJhY2sgdGhhdCBzY3JhdGNoIGFyZWEs
-IGFuZCB0byBtYXAgaXQgc29tZXdoZXJlCj4+PiBpbiBpdHMgdmlydHVhbCBhZGRyZXNzIHNwYWNl
-Lgo+Pj4KPj4+IFRoaXMgaW9jdGwgdGVsbHMgdGhlIGhhcmR3YXJlIChvciBIV1MgZmlybXdhcmUp
-IHRoZSBWQSBvZiB0aGUgc2NyYXRjaAo+Pj4gYmFja2luZyBtZW1vcnkuCj4+IE9rLCB5b3UndmUg
-Z290IG1lIGxvc3QgaGVyZS4gTm90IHRoYXQgSSdtIGRlZXBseSBpbnRvIHRoYXQgc3R1ZmYsIGJ1
-dAo+PiBteSBsYXN0IHN0YXR1cyBpcyB0aGF0IHRob3NlIGFwZXJ0dXJlcyBhcmUgZ2xvYmFsIGFu
-ZCBub3QgcGVyL3Byb2Nlc3MKPj4gb3IgVk1JRC4KPiBUaGUgYXBlcnR1cmVzIGZvciBwcml2YXRl
-IChzY3JhdGNoKSBhbmQgTERTIGFyZSBjb25maWd1cmVkIGluCj4gU0hfTUVNX0JBU0VTLiBBcyBm
-YXIgYXMgSSBrbm93LCB0aGlzIGlzIHBlciBWTUlELiBBdCBsZWFzdCB0aGF0J3MgdGhlCj4gd2F5
-IGdmeF92OF8wX2luaXRfY29tcHV0ZV92bWlkIGluaXRpYWxpemVzIGl0LiBXaGVuIHdlIHVzZSB0
-aGUgSFdTIHdlCj4gZG9uJ3QgcHJvZ3JhbSB0aGlzIGRpcmVjdGx5LCBidXQgdGhpcyBpbmZvcm1h
-dGlvbiBpcyBpbmNsdWRlZCBpbiB0aGUKPiBtYXBfcHJvY2VzcyBwYWNrZXQgaW4gdGhlIHJ1bmxp
-c3QgYW5kIHRoZSBmaXJtd2FyZSBwcm9ncmFtcyB0aGUKPiByZWdpc3RlcnMgd2hlbiBpdCBhc3Np
-Z25zIGEgVk1JRCB0byBhIHByb2Nlc3MuCj4KPiBUaGUgc2NyYXRjaCBiYWNraW5nIFZBIGlzIGNv
-bmZpZ3VyZWQgaW4gU0hfSElEREVOX1BSSVZBVEVfQkFTRV9WTUlELAo+IHdoaWNoIGlzIHBlciBW
-TUlELiBBZ2Fpbiwgd2l0aCB0aGUgSFdTLCB0aGlzIGlzIHByb2dyYW1tZWQgYnkgdGhlCj4gZmly
-bXdhcmUgYW5kIHRoZSBkcml2ZXIganVzdCBpbmNsdWRlcyBpdCBpbiB0aGUgbWFwX3Byb2Nlc3Mg
-cGFja2V0LgoKT2ssIHRoYXQgbWFrZXMgc2Vuc2UgdG8gbWUuCgpUaGUgc2FtZSBxdWVzdGlvbiBj
-YW1lIHVwIGluIGEgZGlmZmVyZW50IGNvbnRleHQgYSBmZXcgbW9udGggYmFjayBpbiBhIAp0aHJl
-YWQgYW5kIEkgcHJvYmFibHkganVzdCBjb25mdXNlZCB0aGlzIHdpdGggc29tZSBvdGhlciBTSF8q
-IHJlZ2lzdGVycyAKd2hpY2ggdHVybmVkIG91dCB0byBiZSBnbG9iYWwgd2hpbGUgd2UgYWx3YXlz
-IHRob3VnaHQgaXQgaXMgcGVyIFZNSUQuCgpDaHJpc3RpYW4uCgo+IFJlZ2FyZHMsCj4gICAgRmVs
-aXgKPgo+PiBUaGF0IHdvdWxkIG1lYW4gdGhhdCB3aGVuIHR3byBwcm9jZXNzZXMgdHJ5IHRvIHNl
-dCB0d28gZGlmZmVyZW50Cj4+IGFkZHJlc3NlcyB3ZSBhcmUgY29tcGxldGVseSBsb3N0IGhlcmUu
-Cj4+Cj4+IENocmlzdGlhbi4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2FtZC1nZngKCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--_004_BN6PR1201MB25154454199E5F9131A08076878D0BN6PR1201MB2515_
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR1201MB25154454199E5F9131A08076878D0BN6PR1201MB2515_"
+
+--_000_BN6PR1201MB25154454199E5F9131A08076878D0BN6PR1201MB2515_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Update UVD 7.0 enc test according to firmware interface changes for session=
+ info ib.
+
+
+Please review.
+
+
+Regards,
+
+Boyuan
+
+
+--_000_BN6PR1201MB25154454199E5F9131A08076878D0BN6PR1201MB2515_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p><span>Update UVD 7.0 enc test</span> according to firmware interface cha=
+nges for session info ib.</p>
+<p><br>
+</p>
+<p>Please review.</p>
+<p><br>
+</p>
+<p>Regards,</p>
+<p>Boyuan<br>
+</p>
+<p><br>
+</p>
+</div>
+</body>
+</html>
+
+--_000_BN6PR1201MB25154454199E5F9131A08076878D0BN6PR1201MB2515_--
+
+--_004_BN6PR1201MB25154454199E5F9131A08076878D0BN6PR1201MB2515_
+Content-Type: text/x-patch;
+	name="0001-drm-amdgpu-update-uvd-enc-test-for-new-fw.patch"
+Content-Description: 0001-drm-amdgpu-update-uvd-enc-test-for-new-fw.patch
+Content-Disposition: attachment;
+	filename="0001-drm-amdgpu-update-uvd-enc-test-for-new-fw.patch"; size=1512;
+	creation-date="Tue, 15 Aug 2017 20:36:29 GMT";
+	modification-date="Tue, 15 Aug 2017 20:36:29 GMT"
+Content-Transfer-Encoding: base64
+
+RnJvbSA0MWEzMDg0MDU1YmIwNzBiMDU0MTMxNWNlZjVjZmE3MzU2NjI0YWZhIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBCb3l1YW4gWmhhbmcgPGJveXVhbi56aGFuZ0BhbWQuY29tPgpE
+YXRlOiBUdWUsIDE1IEF1ZyAyMDE3IDE2OjI5OjM3IC0wNDAwClN1YmplY3Q6IFtQQVRDSF0gZHJt
+L2FtZGdwdTogdXBkYXRlIHV2ZCBlbmMgdGVzdCBmb3IgbmV3IGZ3CgpzZXNzaW9uIGluZm8gaW50
+ZXJmYWNlIGNoYW5nZWQgZHVlIHRvIGZ3IGludGVyZmFjZSBjaGFuZ2VzLAp1cGRhdGUgdGVzdCBp
+YiBhY2NvcmRpbmdseS4KClNpZ25lZC1vZmYtYnk6IEJveXVhbiBaaGFuZyA8Ym95dWFuLnpoYW5n
+QGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdXZkX3Y3XzAuYyB8IDQg
+KystLQogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjdfMC5jIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvdXZkX3Y3XzAuYwppbmRleCAyM2E4NTc1Li40NjZhZmY5IDEw
+MDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjdfMC5jCisrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3V2ZF92N18wLmMKQEAgLTIyNSw4ICsyMjUsOCBAQCBz
+dGF0aWMgaW50IHV2ZF92N18wX2VuY19nZXRfY3JlYXRlX21zZyhzdHJ1Y3QgYW1kZ3B1X3Jpbmcg
+KnJpbmcsIHVpbnQzMl90IGhhbmRsZQogCWliLT5sZW5ndGhfZHcgPSAwOwogCWliLT5wdHJbaWIt
+Pmxlbmd0aF9kdysrXSA9IDB4MDAwMDAwMTg7CiAJaWItPnB0cltpYi0+bGVuZ3RoX2R3KytdID0g
+MHgwMDAwMDAwMTsgLyogc2Vzc2lvbiBpbmZvICovCi0JaWItPnB0cltpYi0+bGVuZ3RoX2R3Kytd
+ID0gaGFuZGxlOwogCWliLT5wdHJbaWItPmxlbmd0aF9kdysrXSA9IDB4MDAwMDAwMDA7CisJaWIt
+PnB0cltpYi0+bGVuZ3RoX2R3KytdID0gMHgwMDAxMDAwMDsKIAlpYi0+cHRyW2liLT5sZW5ndGhf
+ZHcrK10gPSB1cHBlcl8zMl9iaXRzKGR1bW15KTsKIAlpYi0+cHRyW2liLT5sZW5ndGhfZHcrK10g
+PSBkdW1teTsKIApAQCAtMjg4LDggKzI4OCw4IEBAIGludCB1dmRfdjdfMF9lbmNfZ2V0X2Rlc3Ry
+b3lfbXNnKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgdWludDMyX3QgaGFuZGxlLAogCWliLT5s
+ZW5ndGhfZHcgPSAwOwogCWliLT5wdHJbaWItPmxlbmd0aF9kdysrXSA9IDB4MDAwMDAwMTg7CiAJ
+aWItPnB0cltpYi0+bGVuZ3RoX2R3KytdID0gMHgwMDAwMDAwMTsKLQlpYi0+cHRyW2liLT5sZW5n
+dGhfZHcrK10gPSBoYW5kbGU7CiAJaWItPnB0cltpYi0+bGVuZ3RoX2R3KytdID0gMHgwMDAwMDAw
+MDsKKwlpYi0+cHRyW2liLT5sZW5ndGhfZHcrK10gPSAweDAwMDEwMDAwOwogCWliLT5wdHJbaWIt
+Pmxlbmd0aF9kdysrXSA9IHVwcGVyXzMyX2JpdHMoZHVtbXkpOwogCWliLT5wdHJbaWItPmxlbmd0
+aF9kdysrXSA9IGR1bW15OwogCi0tIAoyLjcuNAoK
+
+--_004_BN6PR1201MB25154454199E5F9131A08076878D0BN6PR1201MB2515_
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--_004_BN6PR1201MB25154454199E5F9131A08076878D0BN6PR1201MB2515_--
