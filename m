@@ -1,15 +1,12 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: add mjpeg check for uvd phycial mode msg
- buffer
-Date: Wed, 16 Aug 2017 09:30:10 +0200
-Message-ID: <429122dd-9371-e5bd-125d-1e320352c592@vodafone.de>
-References: <20170815201234.28027-1-leo.liu@amd.com>
- <a26184b0-2b42-6b4a-e0e0-7d470b127260@daenzer.net>
+Subject: Re: drm/amdgpu update uvd 7.0 enc test
+Date: Wed, 16 Aug 2017 09:32:11 +0200
+Message-ID: <9ade4dda-0483-970c-47b0-e12b82144cec@vodafone.de>
+References: <BN6PR1201MB25154454199E5F9131A08076878D0@BN6PR1201MB2515.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2075014363=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <a26184b0-2b42-6b4a-e0e0-7d470b127260-otUistvHUpPR7s880joybQ@public.gmane.org>
+In-Reply-To: <BN6PR1201MB25154454199E5F9131A08076878D0-6iU6OBHu2P+pEhPnDr3F+mrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,17 +18,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "Zhang, Boyuan" <Boyuan.Zhang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Liu, Leo" <Leo.Liu-5C7GfCeVMHo@public.gmane.org>
 
-QW0gMTYuMDguMjAxNyB1bSAwMjozNyBzY2hyaWViIE1pY2hlbCBEw6RuemVyOgo+IE9uIDE2LzA4
-LzE3IDA1OjEyIEFNLCBMZW8gTGl1IHdyb3RlOgo+PiBTaWduZWQtb2ZmLWJ5OiBMZW8gTGl1IDxs
-ZW8ubGl1QGFtZC5jb20+Cj4gVGhlcmUncyBhIHR5cG8gKCJwaHljaWFsIikgaW4gdGhlIHNob3J0
-bG9nLCBhbmQgYWNyb255bXMgc2hvdWxkIGFsd2F5cwo+IGJlIHdyaXR0ZW4gaW4gdXBwZXIgY2Fz
-ZS4gU28gaXQgc2hvdWxkIHByb2JhYmx5IGJlOgo+Cj4gZHJtL2FtZGdwdTogQWRkIE1KUEVHIGNo
-ZWNrIGZvciBVVkQgcGh5c2ljYWwgbW9kZSBtc2cgYnVmZmVyCgoKV2l0aCBNaWNoZWxzIGFuZCBB
-bGV4IGNvbW1lbnRzIGFkZHJlc3NlZCB0aGUgcGF0Y2ggaXMgUmV2aWV3ZWQtYnk6IApDaHJpc3Rp
-YW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+IGFzIHdlbGwuCgpDaHJpc3RpYW4u
-CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
-IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is a multi-part message in MIME format.
+--===============2075014363==
+Content-Type: multipart/alternative;
+ boundary="------------90C0D0A58A438D887912F20A"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------90C0D0A58A438D887912F20A
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Well is the firmware team aware that as soon as the firmware is upstream 
+we can't change the interface any more?
+
+For now the patch is Acked-by: Christian König 
+<christian.koenig-5C7GfCeVMHo@public.gmane.org>, but I think we need to talk to them once more.
+
+Christian.
+
+Am 15.08.2017 um 22:38 schrieb Zhang, Boyuan:
+>
+> Update UVD 7.0 enc test according to firmware interface changes for 
+> session info ib.
+>
+>
+> Please review.
+>
+>
+> Regards,
+>
+> Boyuan
+>
+>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+
+--------------90C0D0A58A438D887912F20A
+Content-Type: text/html; charset=windows-1252
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;
+      charset=windows-1252">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Well is the firmware team aware that as
+      soon as the firmware is upstream we can't change the interface any
+      more?<br>
+      <br>
+      For now the patch is Acked-by: Christian König
+      <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>, but I think we need to talk to
+      them once more.<br>
+      <br>
+      Christian.<br>
+      <br>
+      Am 15.08.2017 um 22:38 schrieb Zhang, Boyuan:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:BN6PR1201MB25154454199E5F9131A08076878D0-6iU6OBHu2P+pEhPnDr3F+mrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org">
+      <meta http-equiv="Content-Type" content="text/html;
+        charset=windows-1252">
+      <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
+      <div id="divtagdefaultwrapper"
+style="font-size:12pt;color:#000000;font-family:Calibri,Helvetica,sans-serif;"
+        dir="ltr">
+        <p><span>Update UVD 7.0 enc test</span> according to firmware
+          interface changes for session info ib.</p>
+        <p><br>
+        </p>
+        <p>Please review.</p>
+        <p><br>
+        </p>
+        <p>Regards,</p>
+        <p>Boyuan<br>
+        </p>
+        <p><br>
+        </p>
+      </div>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------90C0D0A58A438D887912F20A--
+
+--===============2075014363==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============2075014363==--
