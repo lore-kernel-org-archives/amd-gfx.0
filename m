@@ -1,17 +1,20 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH 1/1] drm/ttm: Fix accounting error when fail to get pages
- for pool
-Date: Wed, 16 Aug 2017 11:17:25 +0200
-Message-ID: <cfd8c68b-9d29-fce2-cd54-c5d5fe38c0f3@vodafone.de>
-References: <1502868046-32511-1-git-send-email-Xiangliang.Yu@amd.com>
- <BLUPR12MB044923B80FB13FACC4DA726E84820@BLUPR12MB0449.namprd12.prod.outlook.com>
- <8f64cef6-e7f7-e245-93b9-a0d1bbc411aa@vodafone.de>
- <140f09b5-32de-eb00-c2b1-8a660182344d@amd.com>
+From: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 4/4] drm/amdkfd: Implement image tiling mode support
+Date: Wed, 16 Aug 2017 12:24:59 +0300
+Message-ID: <CAFCwf11Rjt3smEjF6KAeUWCu=GCsSXAWbd1j4qA2tu+WL0C13g@mail.gmail.com>
+References: <1502513265-14281-1-git-send-email-Felix.Kuehling@amd.com>
+ <1502513265-14281-5-git-send-email-Felix.Kuehling@amd.com>
+ <CAFCwf10iQhAvxZdwCYBK6f0fBKdpgD=f0W886awm2fJVCB=hLQ@mail.gmail.com>
+ <fc37f1a8-9c12-f1da-cdab-f03b50643f19@amd.com>
+ <2649fca7-9617-e434-a75a-f76d7e07d0f5@amd.com>
+ <CAFCwf13bFDhL=_X-zx8AJE+0sD0Aw9z5Rku_7qDgY6VEdtS+qA@mail.gmail.com>
+ <fd9a9222-f7fa-8f72-6a23-619a17a872e3@amd.com>
+ <8ff456e3-94a8-7547-d01d-6aca5aaface8@daenzer.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0580308249=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <140f09b5-32de-eb00-c2b1-8a660182344d-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <8ff456e3-94a8-7547-d01d-6aca5aaface8-otUistvHUpPR7s880joybQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,288 +25,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============0580308249==
-Content-Type: multipart/alternative;
- boundary="------------AFE058AE049B8D8CF41FA191"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------AFE058AE049B8D8CF41FA191
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Minor TTM kernel issue, but probably present since forever.
-
-I would add a CC: stable@vger.... tag to it so that it gets pulled into 
-older kernels as well.
-
-Christian.
-
-Am 16.08.2017 um 11:10 schrieb zhoucm1:
->
-> Fix memory leak of ttm kernel issue?
->
->
-> On 2017年08月16日 15:55, Christian König wrote:
->> CC stable?
->>
->> Reviewed-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
->>
->> Am 16.08.2017 um 09:25 schrieb Liu, Monk:
->>>
->>> Reviewed-by: Monk Liu <monk.liu-5C7GfCeVMHo@public.gmane.org>
->>>
->>> ------------------------------------------------------------------------
->>> *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of 
->>> Xiangliang.Yu <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
->>> *Sent:* Wednesday, August 16, 2017 3:20:46 PM
->>> *To:* akpm-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org; labbott-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org; 
->>> dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>> *Cc:* Yu, Xiangliang
->>> *Subject:* [PATCH 1/1] drm/ttm: Fix accounting error when fail to 
->>> get pages for pool
->>> When fail to get needed page for pool, need to put allocated pages
->>> into pool. But current code has a miscalculation of allocated pages,
->>> correct it.
->>>
->>> Signed-off-by: Xiangliang.Yu <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
->>> ---
->>>  drivers/gpu/drm/ttm/ttm_page_alloc.c | 2 +-
->>>  1 file changed, 1 insertion(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/ttm/ttm_page_alloc.c 
->>> b/drivers/gpu/drm/ttm/ttm_page_alloc.c
->>> index eeddc1e..8715998 100644
->>> --- a/drivers/gpu/drm/ttm/ttm_page_alloc.c
->>> +++ b/drivers/gpu/drm/ttm/ttm_page_alloc.c
->>> @@ -615,7 +615,7 @@ static void ttm_page_pool_fill_locked(struct 
->>> ttm_page_pool *pool,
->>>                  } else {
->>>                          pr_err("Failed to fill pool (%p)\n", pool);
->>>                          /* If we have any pages left put them to 
->>> the pool. */
->>> -                       list_for_each_entry(p, &pool->list, lru) {
->>> +                       list_for_each_entry(p, &new_pages, lru) {
->>>                                  ++cpages;
->>>                          }
->>>                          list_splice(&new_pages, &pool->list);
->>> -- 
->>> 2.7.4
->>>
->>> _______________________________________________
->>> amd-gfx mailing list
->>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>>
->>>
->>> _______________________________________________
->>> amd-gfx mailing list
->>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>
->>
->>
->>
->> _______________________________________________
->> amd-gfx mailing list
->> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
-
---------------AFE058AE049B8D8CF41FA191
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Minor TTM kernel issue, but probably
-      present since forever.<br>
-      <br>
-      I would add a CC: stable@vger.... tag to it so that it gets pulled
-      into older kernels as well.<br>
-      <br>
-      Christian.<br>
-      <br>
-      Am 16.08.2017 um 11:10 schrieb zhoucm1:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:140f09b5-32de-eb00-c2b1-8a660182344d-5C7GfCeVMHo@public.gmane.org">
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <p>Fix memory leak of ttm kernel issue?<br>
-      </p>
-      <br>
-      <div class="moz-cite-prefix">On 2017年08月16日 15:55, Christian König
-        wrote:<br>
-      </div>
-      <blockquote type="cite"
-        cite="mid:8f64cef6-e7f7-e245-93b9-a0d1bbc411aa-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">
-        <meta http-equiv="Content-Type" content="text/html;
-          charset=utf-8">
-        <div class="moz-cite-prefix">CC stable?<br>
-          <br>
-          Reviewed-by: Christian König <a class="moz-txt-link-rfc2396E"
-            href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org"
-            moz-do-not-send="true">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-          <br>
-          Am 16.08.2017 um 09:25 schrieb Liu, Monk:<br>
-        </div>
-        <blockquote type="cite"
-cite="mid:BLUPR12MB044923B80FB13FACC4DA726E84820-7LeqcoF/hwpTIQvHjXdJlwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
-          <meta name="Generator" content="Microsoft Exchange Server">
-          <!-- converted from text -->
-          <style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left: #800000 2px solid; } --></style>
-          <meta content="text/html; charset=UTF-8">
-          <style type="text/css" style="">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-          <div dir="ltr">
-            <div id="x_divtagdefaultwrapper" dir="ltr"
-              style="font-size:12pt; color:#000000;
-              font-family:Calibri,Helvetica,sans-serif">
-              <p>Reviewed-by: Monk Liu <a class="moz-txt-link-rfc2396E"
-                  href="mailto:monk.liu-5C7GfCeVMHo@public.gmane.org" moz-do-not-send="true">&lt;monk.liu-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-              </p>
-            </div>
-            <hr tabindex="-1" style="display:inline-block; width:98%">
-            <div id="x_divRplyFwdMsg" dir="ltr"><font
-                style="font-size:11pt" color="#000000" face="Calibri,
-                sans-serif"><b>From:</b> amd-gfx <a
-                  class="moz-txt-link-rfc2396E"
-                  href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                  moz-do-not-send="true">&lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a>
-                on behalf of Xiangliang.Yu <a
-                  class="moz-txt-link-rfc2396E"
-                  href="mailto:Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org"
-                  moz-do-not-send="true">&lt;Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-                <b>Sent:</b> Wednesday, August 16, 2017 3:20:46 PM<br>
-                <b>To:</b> <a class="moz-txt-link-abbreviated"
-                  href="mailto:akpm-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org"
-                  moz-do-not-send="true">akpm-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org</a>;
-                <a class="moz-txt-link-abbreviated"
-                  href="mailto:labbott-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org"
-                  moz-do-not-send="true">labbott-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org</a>; <a
-                  class="moz-txt-link-abbreviated"
-                  href="mailto:dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                  moz-do-not-send="true">dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>;
-                <a class="moz-txt-link-abbreviated"
-                  href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                  moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                <b>Cc:</b> Yu, Xiangliang<br>
-                <b>Subject:</b> [PATCH 1/1] drm/ttm: Fix accounting
-                error when fail to get pages for pool</font>
-              <div> </div>
-            </div>
-          </div>
-          <font size="2"><span style="font-size:10pt;">
-              <div class="PlainText">When fail to get needed page for
-                pool, need to put allocated pages<br>
-                into pool. But current code has a miscalculation of
-                allocated pages,<br>
-                correct it.<br>
-                <br>
-                Signed-off-by: Xiangliang.Yu <a
-                  class="moz-txt-link-rfc2396E"
-                  href="mailto:Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org"
-                  moz-do-not-send="true">&lt;Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-                ---<br>
-                 drivers/gpu/drm/ttm/ttm_page_alloc.c | 2 +-<br>
-                 1 file changed, 1 insertion(+), 1 deletion(-)<br>
-                <br>
-                diff --git a/drivers/gpu/drm/ttm/ttm_page_alloc.c
-                b/drivers/gpu/drm/ttm/ttm_page_alloc.c<br>
-                index eeddc1e..8715998 100644<br>
-                --- a/drivers/gpu/drm/ttm/ttm_page_alloc.c<br>
-                +++ b/drivers/gpu/drm/ttm/ttm_page_alloc.c<br>
-                @@ -615,7 +615,7 @@ static void
-                ttm_page_pool_fill_locked(struct ttm_page_pool *pool,<br>
-                                 } else {<br>
-                                         pr_err("Failed to fill pool
-                (%p)\n", pool);<br>
-                                         /* If we have any pages left
-                put them to the pool. */<br>
-                -                       list_for_each_entry(p,
-                &amp;pool-&gt;list, lru) {<br>
-                +                       list_for_each_entry(p,
-                &amp;new_pages, lru) {<br>
-                                                 ++cpages;<br>
-                                         }<br>
-                                         list_splice(&amp;new_pages,
-                &amp;pool-&gt;list);<br>
-                -- <br>
-                2.7.4<br>
-                <br>
-                _______________________________________________<br>
-                amd-gfx mailing list<br>
-                <a class="moz-txt-link-abbreviated"
-                  href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                  moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                <a
-                  href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-                  moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-              </div>
-            </span></font> <br>
-          <fieldset class="mimeAttachmentHeader"></fieldset>
-          <br>
-          <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-        </blockquote>
-        <p><br>
-        </p>
-        <br>
-        <fieldset class="mimeAttachmentHeader"></fieldset>
-        <br>
-        <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-      </blockquote>
-      <br>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------AFE058AE049B8D8CF41FA191--
-
---===============0580308249==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0580308249==--
+T24gV2VkLCBBdWcgMTYsIDIwMTcgYXQgMzo0MCBBTSwgTWljaGVsIETDpG56ZXIgPG1pY2hlbEBk
+YWVuemVyLm5ldD4gd3JvdGU6Cj4KPiBPbiAxNi8wOC8xNyAwOTozNSBBTSwgRmVsaXggS3VlaGxp
+bmcgd3JvdGU6Cj4gPiBPbiAyMDE3LTA4LTE1IDA2OjIwIEFNLCBPZGVkIEdhYmJheSB3cm90ZToK
+PiA+PiBJIHByZWZlciB0byBkbyBpdCBpbmNyZW1lbnRhbGx5LCB0byBhdm9pZCB2ZXJ5IGxhcmdl
+IHBhdGNoLXNldHMgd2hpY2gKPiA+PiB1c3VhbGx5IGVuZCB1cCBpbiBsb25nZXIgY3ljbGVzIG9m
+IHJldmlldy1maXgsIHdoaWNoIGNhdXNlcyB5b3UgbW9yZQo+ID4+IHBhaW4gYmVjYXVzZSBpbnRl
+cm5hbCBkZXZlbG9wbWVudCBjb250aW51ZXMgZHVyaW5nIHRoaXMgdGltZSBhbmQgeW91Cj4gPj4g
+bmVlZCB0byBrZWVwIGV2ZXJ5dGhpbmcgc3luY2hyb25pemVkLiBJZiB5b3UgZG8gaXQgaW4gc21h
+bGwgcGllY2VzLAo+ID4+IHRoZXJlIGlzIG1vcmUgY2hhbmNlIGl0IHdpbGwgZ2V0IHRvIHVwc3Ry
+ZWFtIGZhc3RlciBhbmQgdGhlbiB5b3UgY2FuCj4gPj4gY3Jvc3MgaXQgb2ZmIHlvdXIgbGlzdCBw
+ZXJtYW5lbnRseSBhbmQgbm8gbG9uZ2VyIHdvcnJ5IGFib3V0IGl0IG5vdAo+ID4+IGJlaW5nIHN5
+bmNocm9uaXplZCB3aXRoIGludGVybmFsIGRldmVsb3BtZW50Lgo+ID4+Cj4gPj4gSWYgeW91IGFy
+ZSB0YWxraW5nIGFib3V0IHRoZSBjdXJyZW50IHBhdGNoLXNldCAoeW91IGFjdHVhbGx5IHNlbnQg
+Mgo+ID4+IHBhdGNoLXNldHMpLCB0aGVuIG9uY2UgeW91IHJlYmFzZSB0aGVtIG9uIHRoZSBicmFu
+Y2hlcyBJIG1lbnRpb25lZCwKPiA+PiB0aGV5IGFyZSBtb3JlIG9yIGxlc3MgZ29vZCB0byBnbyAo
+ZXhjZXB0IGZyb20gdmVyeSBzbWFsbCBmaXhlcyB3ZQo+ID4+IHRhbGtlZCBhYm91dCkuIElmIHlv
+dSBjYW4gZG8gaXQgZHVyaW5nIHRoaXMgd2VlaywgSSB0aGluayB3ZSBjYW4gbWFrZQo+ID4+IGl0
+IGZvciB0aGUgNC4xNCBtZXJnZSB3aW5kb3cuCj4gPj4KPiA+PiBEb2VzIHRoYXQgbWFrZSBzZW5z
+ZSA/Cj4gPgo+ID4gU291bmRzIGdvb2QuIEknbSBob3BpbmcgdG8gZ2V0IGEgYml0IG1vcmUgaW50
+byA0LjE0LiBXZSdsbCBzZWUgaG93IGl0Cj4gPiBnb2VzLiBJJ3ZlIHByb2JhYmx5IGJlZW4gdG9s
+ZCBiZWZvcmUgYnV0IGZvcmdvdDogV2hhdCdzIERhdmUgQWlybGllJ3MKPiA+IGRlYWRsaW5lIGZv
+ciBhY2NlcHRpbmcgcGF0Y2hlcyBpbnRvIDQuMTQ/Cj4KPiBUaGUgZGVhZGxpbmUgaXMgdXN1YWxs
+eSBhcm91bmQgLXJjNiBvZiB0aGUgcHJldmlvdXMgY3ljbGUsIHNvIGZvciA0LjE0Cj4gaXQgbWln
+aHQgYmUgdGhlIGVuZCBvZiB0aGlzIHdlZWsgKGtlZXAgaW4gbWluZCB0aGF0IERhdmUncyBpbiBB
+dXN0cmFsaWEsCj4gc28gaGlzIHdvcmsgZGF5IGlzIG92ZXIgd2hlbiB5b3VycyBzdGFydHMpLgo+
+ClllYWgsIE1pY2hlbCBpcyBjb3JyZWN0LiBJZiBpdHMgMSBvciAyIHRyaXZpYWwgcGF0Y2hlcyBJ
+IGNhbiBwcm9iYWJseQpnZXQgaXQgaW4gZXZlbiBkdXJpbmcgLXJjNyBvciBzdGFydCBvZiBtZXJn
+ZSB3aW5kb3csIGJ1dCBmb3IgdGhpcwpsYXJnZSBwYXRjaC1zZXQgLXJjNS82IGlzIHRoZSBzYWZl
+ciB3YXkgdG8gZ28uCgpPZGVkCgo+Cj4gLS0KPiBFYXJ0aGxpbmcgTWljaGVsIETDpG56ZXIgICAg
+ICAgICAgICAgICB8ICAgICAgICAgICAgICAgaHR0cDovL3d3dy5hbWQuY29tCj4gTGlicmUgc29m
+dHdhcmUgZW50aHVzaWFzdCAgICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2
+ZWxvcGVyCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
+ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
