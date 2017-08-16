@@ -1,153 +1,216 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH 00/24] KFD fixes, cleanups, features to make the runtime
- happy
-Date: Wed, 16 Aug 2017 09:51:12 +0200
-Message-ID: <5c7f2140-0467-ebdb-87ca-0cd9d642ddbf@vodafone.de>
-References: <1502852422-19620-1-git-send-email-Felix.Kuehling@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple@vodafone.de>
+Subject: Re: [PATCH 1/1] drm/ttm: Fix accounting error when fail to get pages
+ for pool
+Date: Wed, 16 Aug 2017 09:55:17 +0200
+Message-ID: <8f64cef6-e7f7-e245-93b9-a0d1bbc411aa@vodafone.de>
+References: <1502868046-32511-1-git-send-email-Xiangliang.Yu@amd.com>
+ <BLUPR12MB044923B80FB13FACC4DA726E84820@BLUPR12MB0449.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1502852422-19620-1-git-send-email-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Content-Type: multipart/mixed; boundary="===============0410514263=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <BLUPR12MB044923B80FB13FACC4DA726E84820@BLUPR12MB0449.namprd12.prod.outlook.com>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: "Liu, Monk" <Monk.Liu@amd.com>, "Yu, Xiangliang" <Xiangliang.Yu@amd.com>, "akpm@linux-foundation.org" <akpm@linux-foundation.org>, "labbott@redhat.com" <labbott@redhat.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-PiBGb3IgdGVzdGluZyBLViB3aXRoIGN1cnJlbnQgdXNlciBtb2RlIHN0YWNrLCBwbGVhc2UgdXNl
-IGFtZGdwdS4gSQo+IGRvbid0IGV4cGVjdCB0aGlzIHRvIHdvcmsgd2l0aCByYWRlb24gYW5kIEkn
-bSBub3QgcGxhbm5pbmcgdG8gc3BlbmQKPiBhbnkgZWZmb3J0IG9uIG1ha2luZyByYWRlb24gd29y
-ayB3aXRoIGEgY3VycmVudCB1c2VyIG1vZGUgc3RhY2suCkluIHRoaXMgY2FzZSBhbnkgb2JqZWN0
-aW9uIHRvIGp1c3QgcmlwIG91dCByYWRlb24gc3VwcG9ydD8KCkNocmlzdGlhbi4KCkFtIDE2LjA4
-LjIwMTcgdW0gMDQ6NTkgc2NocmllYiBGZWxpeCBLdWVobGluZzoKPiBJIG1lcmdlZCB0aGUgbGFz
-dCB0d28gcGF0Y2ggc2VyaWVzIGFuZCBtYWRlIGEgbnVtYmVyIG9mIHVwZGF0ZXMgYXMKPiBkaXNj
-dXNzZWQuIEkgYWxzbyByZWJhc2VkIGl0IG9uIEFsZXgncyBkcm0tbmV4dC00LjE0LXdpcCBicmFu
-Y2guIEFsbAo+IHBhdGNoZXMgYXBwbGllZCBjbGVhbmx5IHdpdGhvdXQgaGF2aW5nIHRvIHJlc29s
-dmUgYW55IGNvbmZsaWN0cy4KPgo+IEknbSBhbHNvIHB1Ymxpc2hpbmcgbXkgYnJhbmNoIHdpdGgg
-dGhpcyBwYXRjaCBzZXJpZXMgb24gR2l0SHViIHRvIG1ha2UKPiBpdCBlYXNpZXIgdG8gdGVzdCBh
-bmQgYXBwbHkgdGhlIGNoYW5nZXMuIFRoaXMgS0ZEIGJyYW5jaCByZXF1aXJlcyB0aGUKPiBjb3Jy
-ZXNwb25kaW5nIFRodW5rIGJyYW5jaCBmcm9tIEdpdEh1Yiwgd2hpY2ggdXNlcyBhIGRpZmZlcmVu
-dCBpb2N0bAo+IEFCSSBmcm9tIHRoZSBsYXN0IFJPQ20gcmVsZWFzZS4gVGhlIHJlc3Qgb2YgdGhl
-IHVzZXIgbW9kZSBzdGFjawo+IHNob3VsZCBiZSBPSyBvbiB0b3Agb2YgdGhhdCBUaHVuay4KPgo+
-IGh0dHBzOi8vZ2l0aHViLmNvbS9SYWRlb25PcGVuQ29tcHV0ZS9ST0NLLUtlcm5lbC1Ecml2ZXIv
-dHJlZS9ma3hhbWQvZHJtLW5leHQtd2lwCj4gaHR0cHM6Ly9naXRodWIuY29tL1JhZGVvbk9wZW5D
-b21wdXRlL1JPQ1QtVGh1bmstSW50ZXJmYWNlL3RyZWUvZnhrYW1kL2RybS1uZXh0LXdpcAo+Cj4g
-T24gQ1osIGhzYWNvbmZvcm1hbmNlIHBhc3Nlcy4gT3BlbkNMIHRlc3RzIGNhbiBiZSBydW4gd2l0
-aCB0aGUgY3VycmVudAo+IFJPQ20gT3BlbkNMIHN0YWNrLiBJIHJhbiB0aGUgU0hPQyBiZW5jaG1h
-cmsgYXMgYW4gZXhhbXBsZS4KPgo+IE9uIEtWLCB0aGUgY3VycmVudCBST0NtIE9wZW5DTCBkcml2
-ZXIgZG9lc24ndCB3b3JrLiBUaGlzIGlzIGEKPiBsaW1pdGF0aW9uIG9mIHRoZSBPcGVuQ0wgZHJp
-dmVyLiBJJ20gdHJ5aW5nIHRvIGZpbmQgb3V0IGhvdyBoYXJkIGl0Cj4gd291bGQgYmUgdG8gY2hh
-bmdlIHRoYXQuIEluIHRoZSBtZWFuIHRpbWUsIHNvbWUgaHNhY29uZm9ybWFuY2UgdGVzdHMKPiBj
-YW4gYmUgcnVuIG9uIEtWLiBJdCBwYXNzZXMgbW9zdCB0ZXN0cyB1cCB0bwo+IDE2Mjpjb2RlX3Jl
-Y3Vyc2l2ZV9rZXJuZWxfZnVuY3Rpb24sIHdoZXJlIGl0IGhhbmdzLgo+Cj4gRm9yIHRlc3Rpbmcg
-S1Ygd2l0aCBjdXJyZW50IHVzZXIgbW9kZSBzdGFjaywgcGxlYXNlIHVzZSBhbWRncHUuIEkKPiBk
-b24ndCBleHBlY3QgdGhpcyB0byB3b3JrIHdpdGggcmFkZW9uIGFuZCBJJ20gbm90IHBsYW5uaW5n
-IHRvIHNwZW5kCj4gYW55IGVmZm9ydCBvbiBtYWtpbmcgcmFkZW9uIHdvcmsgd2l0aCBhIGN1cnJl
-bnQgdXNlciBtb2RlIHN0YWNrLgo+Cj4gRHJvcHBlZCBwYXRjaGVzOgo+ICAgICogZHJtL2FtZGtm
-ZDogRml4IGRvdWJsZSBNdXRleCBsb2NrIG9yZGVyCj4KPiBBZGRlZCBwYXRjaGVzOgo+ICAgICog
-ZHJtL3JhZGVvbjogUmV0dXJuIGR3b3JkIG9mZnNldHMgb2YgYWRkcmVzcyB3YXRjaCByZWdpc3Rl
-cnMKPiAgICAqIGRybS9hbWRncHU6IFByb2dyYW0gU0hfU1RBVElDX01FTV9DT05GSUcgZ2xvYmFs
-bHksIG5vdCBwZXItVk1JRAo+Cj4gUmVvcmRlcmVkIHBhdGNoIHNlcXVlbmNlOgo+ICAgIEkgbW92
-ZWQgImRybS9hbWRncHU6IFJlbW92ZSBoYXJkLWNvZGVkIGFzc3VtcHRpb25zIGFib3V0IGNvbXB1
-dGUgcGlwZXMiCj4gICAganVzdCBhZnRlciAiZHJtL2FtZGtmZDogRml4IGFsbG9jYXRlZF9xdWV1
-ZXMgYml0bWFwIGluaXRpYWxpemF0aW9uIgo+ICAgIGJlY2F1c2UgdGhlc2UgdHdvIHBhdGNoZXMg
-Zml4IHJlbGF0ZWQgcHJvYmxlbXMgKGhvdyBxdWV1ZXMgYXJlIHNoYXJlZAo+ICAgIGJldHdlZW4g
-S0ZEIGFuZCBLR0QpLgo+Cj4gVXBkYXRlZCBwYXRjaGVzOgo+ICAgICogZHJtL2FtZGtmZDogQ2xl
-YW4gdXAgS0ZEIHN0eWxlIGVycm9ycyBhbmQgd2FybmluZ3MgdjIKPiAgICAqIGRybS9hbWRrZmQ6
-IEZpeCBnb3RvIHVzYWdlIHYyCj4gICAgKiBkcm0vYW1ka2ZkOiBIYW5kbGUgcmVtYWluaW5nIEJV
-R19PTnMgbW9yZSBncmFjZWZ1bGx5IHYyCj4gICAgKiBkcm0vYW1ka2ZkOiBBZGQgbW9yZSBlcnJv
-ciBwcmludGluZyB0byBoZWxwIGJyaW5ndXAgdjIKPiAgICAqIGRybS9hbWRncHU6IEFkZCBrZ2Qv
-a2ZkIGludGVyZmFjZSB0byBzdXBwb3J0IHNjcmF0Y2ggbWVtb3J5IHYyCj4gICAgKiBkcm0vYW1k
-a2ZkOiBBZGRpbmcgbmV3IElPQ1RMIGZvciBzY3JhdGNoIG1lbW9yeSB2Mgo+ICAgICogZHJtL2Ft
-ZGdwdTogQWRkIGtnZCBrZmQgaW50ZXJmYWNlIGdldF90aWxlX2NvbmZpZygpIHYyCj4gICAgKiBk
-cm0vYW1ka2ZkOiBJbXBsZW1lbnQgaW1hZ2UgdGlsaW5nIG1vZGUgc3VwcG9ydCB2Mgo+Cj4gUGF0
-Y2hlcyB0aGF0IHN0aWxsIG5lZWQgYSBSZXZpZXdlZC1ieSBvciBBY2tlZC1ieToKPiAgICAqIGRy
-bS9yYWRlb246IFJldHVybiBkd29yZCBvZmZzZXRzIG9mIGFkZHJlc3Mgd2F0Y2ggcmVnaXN0ZXJz
-Cj4gICAgKiBkcm0vYW1ka2ZkOiBSZW1vdmUgYm9ndXMgZGl2aWRlLWJ5LXNpemVvZih1aW50MzJf
-dCkKPiAgICAqIGRybS9hbWRrZmQ6IENsZWFuIHVwIEtGRCBzdHlsZSBlcnJvcnMgYW5kIHdhcm5p
-bmdzIHYyCj4gICAgKiBkcm0vYW1ka2ZkOiBIYW5kbGUgcmVtYWluaW5nIEJVR19PTnMgbW9yZSBn
-cmFjZWZ1bGx5IHYyCj4gICAgKiBkcm0vYW1ka2ZkOiBBZGQgbW9yZSBlcnJvciBwcmludGluZyB0
-byBoZWxwIGJyaW5ndXAgdjIKPiAgICAqIGRybS9hbWRncHU6IFByb2dyYW0gU0hfU1RBVElDX01F
-TV9DT05GSUcgZ2xvYmFsbHksIG5vdCBwZXItVk1JRAo+ICAgICogZHJtL2FtZGdwdTogQWRkIGtn
-ZC9rZmQgaW50ZXJmYWNlIHRvIHN1cHBvcnQgc2NyYXRjaCBtZW1vcnkgdjIKPiAgICAqIGRybS9h
-bWRrZmQ6IEFkZGluZyBuZXcgSU9DVEwgZm9yIHNjcmF0Y2ggbWVtb3J5IHYyCj4KPiAqKioKPgo+
-IEZlbGl4IEt1ZWhsaW5nICgxMyk6Cj4gICAgZHJtL2FtZGtmZDogRml4IHR5cG8gaW4gZGJnZGV2
-X3dhdmVfcmVzZXRfd2F2ZWZyb250cwo+ICAgIGRybS9yYWRlb246IFJldHVybiBkd29yZCBvZmZz
-ZXRzIG9mIGFkZHJlc3Mgd2F0Y2ggcmVnaXN0ZXJzCj4gICAgZHJtL2FtZGtmZDogUmVtb3ZlIGJv
-Z3VzIGRpdmlkZS1ieS1zaXplb2YodWludDMyX3QpCj4gICAgZHJtL2FtZGtmZDogRml4IGFsbG9j
-YXRlZF9xdWV1ZXMgYml0bWFwIGluaXRpYWxpemF0aW9uCj4gICAgZHJtL2FtZGdwdTogUmVtb3Zl
-IGhhcmQtY29kZWQgYXNzdW1wdGlvbnMgYWJvdXQgY29tcHV0ZSBwaXBlcwo+ICAgIGRybS9hbWRr
-ZmQ6IFJlbW92ZSBCVUdfT05zIGZvciBOVUxMIHBvaW50ZXIgYXJndW1lbnRzCj4gICAgZHJtL2Ft
-ZGtmZDogRml4IGRvb3JiZWxsIGluaXRpYWxpemF0aW9uIGFuZCBmaW5hbGl6YXRpb24KPiAgICBk
-cm0vYW1ka2ZkOiBBbGxvY2F0ZSBndHRfc2FfYml0bWFwIGluIGxvbmcgdW5pdHMKPiAgICBkcm0v
-YW1ka2ZkOiBIYW5kbGUgcmVtYWluaW5nIEJVR19PTnMgbW9yZSBncmFjZWZ1bGx5IHYyCj4gICAg
-ZHJtL2FtZGtmZDogVXBkYXRlIFBNNCBwYWNrZXQgaGVhZGVycwo+ICAgIGRybS9hbWRncHU6IERp
-c2FibGUgR0ZYIFBHIG9uIENaCj4gICAgZHJtL2FtZDogVXBkYXRlIE1FQyBIUUQgbG9hZGluZyBj
-b2RlIGZvciBLRkQKPiAgICBkcm0vYW1kZ3B1OiBQcm9ncmFtIFNIX1NUQVRJQ19NRU1fQ09ORklH
-IGdsb2JhbGx5LCBub3QgcGVyLVZNSUQKPgo+IEpheSBDb3Jud2FsbCAoMSk6Cj4gICAgZHJtL2Ft
-ZGtmZDogQ2xhbXAgRU9QIHF1ZXVlIHNpemUgY29ycmVjdGx5IG9uIEdmeDgKPgo+IEtlbnQgUnVz
-c2VsbCAoNSk6Cj4gICAgZHJtL2FtZGtmZDogQ2xlYW4gdXAgS0ZEIHN0eWxlIGVycm9ycyBhbmQg
-d2FybmluZ3MgdjIKPiAgICBkcm0vYW1ka2ZkOiBDb25zb2xpZGF0ZSBhbmQgY2xlYW4gdXAgbG9n
-IGNvbW1hbmRzCj4gICAgZHJtL2FtZGtmZDogQ2hhbmdlIHg9PU5VTEwvZmFsc2UgcmVmZXJlbmNl
-cyB0byAheAo+ICAgIGRybS9hbWRrZmQ6IEZpeCBnb3RvIHVzYWdlIHYyCj4gICAgZHJtL2FtZGtm
-ZDogUmVtb3ZlIHVzYWdlIG9mIGFsbG9jKHNpemVvZihzdHJ1Y3QuLi4KPgo+IE1vc2VzIFJldWJl
-biAoMik6Cj4gICAgZHJtL2FtZGdwdTogQWRkIGtnZC9rZmQgaW50ZXJmYWNlIHRvIHN1cHBvcnQg
-c2NyYXRjaCBtZW1vcnkgdjIKPiAgICBkcm0vYW1ka2ZkOiBBZGRpbmcgbmV3IElPQ1RMIGZvciBz
-Y3JhdGNoIG1lbW9yeSB2Mgo+Cj4gWW9uZyBaaGFvICgzKToKPiAgICBkcm0vYW1ka2ZkOiBBZGQg
-bW9yZSBlcnJvciBwcmludGluZyB0byBoZWxwIGJyaW5ndXAgdjIKPiAgICBkcm0vYW1kZ3B1OiBB
-ZGQga2dkIGtmZCBpbnRlcmZhY2UgZ2V0X3RpbGVfY29uZmlnKCkgdjIKPiAgICBkcm0vYW1ka2Zk
-OiBJbXBsZW1lbnQgaW1hZ2UgdGlsaW5nIG1vZGUgc3VwcG9ydCB2Mgo+Cj4gICBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkLmMgICAgICAgICB8ICAgNCArLQo+ICAgZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5oICAgICAgICAgfCAgMTYgKwo+
-ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9nZnhfdjcuYyAgfCAx
-ODkgKysrKysrKysrKy0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1k
-a2ZkX2dmeF92OC5jICB8IDIyNyArKysrKysrKysrKystLQo+ICAgZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvZ2Z4X3Y3XzAuYyAgICAgICAgICAgICAgfCAgIDIgKy0KPiAgIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMgICAgICAgICAgICAgIHwgICAzICstCj4gICBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92aS5jICAgICAgICAgICAgICAgICAgICB8ICAgMyArLQo+
-ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2NoYXJkZXYuYyAgICAgICAgICAgfCAx
-ODMgKysrKysrKystLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGJnZGV2
-LmMgICAgICAgICAgICB8IDEwMiArKystLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtm
-ZC9rZmRfZGJnbWdyLmMgICAgICAgICAgICB8ICAyMSArLQo+ICAgZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRrZmQva2ZkX2RiZ21nci5oICAgICAgICAgICAgfCAgMjcgKy0KPiAgIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2UuYyAgICAgICAgICAgIHwgMTIzICsrKystLS0tCj4g
-ICAuLi4vZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVfbWFuYWdlci5jICB8IDMx
-NiArKysrKysrKy0tLS0tLS0tLS0tLQo+ICAgLi4uL2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2Vf
-cXVldWVfbWFuYWdlcl9jaWsuYyAgfCAgIDggKy0KPiAgIC4uLi9kcm0vYW1kL2FtZGtmZC9rZmRf
-ZGV2aWNlX3F1ZXVlX21hbmFnZXJfdmkuYyAgIHwgICA4ICstCj4gICBkcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGtmZC9rZmRfZG9vcmJlbGwuYyAgICAgICAgICB8ICA0MCArLS0KPiAgIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9ldmVudHMuYyAgICAgICAgICAgIHwgIDMzICstLQo+ICAg
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2ZsYXRfbWVtb3J5LmMgICAgICAgfCAgIDIg
-Ky0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9pbnRlcnJ1cHQuYyAgICAgICAg
-IHwgICAyICstCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfa2VybmVsX3F1ZXVl
-LmMgICAgICB8ICA2MyArKy0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbW9k
-dWxlLmMgICAgICAgICAgICB8ICAxMCArLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQv
-a2ZkX21xZF9tYW5hZ2VyLmggICAgICAgfCAgIDMgKy0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl9jaWsuYyAgIHwgIDYyICsrLS0KPiAgIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl92aS5jICAgIHwgIDQ2ICstLQo+ICAgZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3BhY2tldF9tYW5hZ2VyLmMgICAgfCAyOTQgKysr
-KysrLS0tLS0tLS0tLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcGFzaWQu
-YyAgICAgICAgICAgICB8ICAgNyArLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2Zk
-X3BtNF9oZWFkZXJzLmggICAgICAgfCAzMzAgKysrLS0tLS0tLS0tLS0tLS0tLS0tCj4gICBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcG00X2hlYWRlcnNfdmkuaCAgICB8IDE0MCArKysr
-KysrKy0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2LmggICAgICAgICAg
-ICAgIHwgIDMyICstCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzcy5j
-ICAgICAgICAgICB8ICAyNSArLQo+ICAgLi4uL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vz
-c19xdWV1ZV9tYW5hZ2VyLmMgfCAgNzEgKystLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-a2ZkL2tmZF9xdWV1ZS5jICAgICAgICAgICAgIHwgIDEyICstCj4gICBkcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGtmZC9rZmRfdG9wb2xvZ3kuYyAgICAgICAgICB8ICA0NiArLS0KPiAgIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvaW5jbHVkZS9rZ2Rfa2ZkX2ludGVyZmFjZS5oICAgIHwgIDMwICstCj4gICBk
-cml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9rZmQuYyAgICAgICAgICAgICAgICB8ICAxNSAr
-LQo+ICAgaW5jbHVkZS91YXBpL2xpbnV4L2tmZF9pb2N0bC5oICAgICAgICAgICAgICAgICAgICAg
-fCAgMzcgKystCj4gICAzNiBmaWxlcyBjaGFuZ2VkLCAxMjgwIGluc2VydGlvbnMoKyksIDEyNTIg
-ZGVsZXRpb25zKC0pCj4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This is a multi-part message in MIME format.
+--===============0410514263==
+Content-Type: multipart/alternative;
+ boundary="------------137C0B67936EA0D6BECD34E7"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------137C0B67936EA0D6BECD34E7
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 8bit
+
+CC stable?
+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+
+Am 16.08.2017 um 09:25 schrieb Liu, Monk:
+>
+> Reviewed-by: Monk Liu <monk.liu@amd.com>
+>
+> ------------------------------------------------------------------------
+> *From:* amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of 
+> Xiangliang.Yu <Xiangliang.Yu@amd.com>
+> *Sent:* Wednesday, August 16, 2017 3:20:46 PM
+> *To:* akpm@linux-foundation.org; labbott@redhat.com; 
+> dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org
+> *Cc:* Yu, Xiangliang
+> *Subject:* [PATCH 1/1] drm/ttm: Fix accounting error when fail to get 
+> pages for pool
+> When fail to get needed page for pool, need to put allocated pages
+> into pool. But current code has a miscalculation of allocated pages,
+> correct it.
+>
+> Signed-off-by: Xiangliang.Yu <Xiangliang.Yu@amd.com>
+> ---
+>  drivers/gpu/drm/ttm/ttm_page_alloc.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/ttm/ttm_page_alloc.c 
+> b/drivers/gpu/drm/ttm/ttm_page_alloc.c
+> index eeddc1e..8715998 100644
+> --- a/drivers/gpu/drm/ttm/ttm_page_alloc.c
+> +++ b/drivers/gpu/drm/ttm/ttm_page_alloc.c
+> @@ -615,7 +615,7 @@ static void ttm_page_pool_fill_locked(struct 
+> ttm_page_pool *pool,
+>                  } else {
+>                          pr_err("Failed to fill pool (%p)\n", pool);
+>                          /* If we have any pages left put them to the 
+> pool. */
+> -                       list_for_each_entry(p, &pool->list, lru) {
+> +                       list_for_each_entry(p, &new_pages, lru) {
+>                                  ++cpages;
+>                          }
+>                          list_splice(&new_pages, &pool->list);
+> -- 
+> 2.7.4
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+
+--------------137C0B67936EA0D6BECD34E7
+Content-Type: text/html; charset=windows-1252
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;
+      charset=windows-1252">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">CC stable?<br>
+      <br>
+      Reviewed-by: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a><br>
+      <br>
+      Am 16.08.2017 um 09:25 schrieb Liu, Monk:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:BLUPR12MB044923B80FB13FACC4DA726E84820@BLUPR12MB0449.namprd12.prod.outlook.com">
+      <meta http-equiv="Content-Type" content="text/html;
+        charset=windows-1252">
+      <meta name="Generator" content="Microsoft Exchange Server">
+      <!-- converted from text -->
+      <style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left: #800000 2px solid; } --></style>
+      <meta content="text/html; charset=UTF-8">
+      <style type="text/css" style="">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+      <div dir="ltr">
+        <div id="x_divtagdefaultwrapper" dir="ltr"
+          style="font-size:12pt; color:#000000;
+          font-family:Calibri,Helvetica,sans-serif">
+          <p>Reviewed-by: Monk Liu <a class="moz-txt-link-rfc2396E" href="mailto:monk.liu@amd.com">&lt;monk.liu@amd.com&gt;</a><br>
+          </p>
+        </div>
+        <hr tabindex="-1" style="display:inline-block; width:98%">
+        <div id="x_divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
+            color="#000000" face="Calibri, sans-serif"><b>From:</b>
+            amd-gfx <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-bounces@lists.freedesktop.org">&lt;amd-gfx-bounces@lists.freedesktop.org&gt;</a> on
+            behalf of Xiangliang.Yu <a class="moz-txt-link-rfc2396E" href="mailto:Xiangliang.Yu@amd.com">&lt;Xiangliang.Yu@amd.com&gt;</a><br>
+            <b>Sent:</b> Wednesday, August 16, 2017 3:20:46 PM<br>
+            <b>To:</b> <a class="moz-txt-link-abbreviated" href="mailto:akpm@linux-foundation.org">akpm@linux-foundation.org</a>; <a class="moz-txt-link-abbreviated" href="mailto:labbott@redhat.com">labbott@redhat.com</a>;
+            <a class="moz-txt-link-abbreviated" href="mailto:dri-devel@lists.freedesktop.org">dri-devel@lists.freedesktop.org</a>;
+            <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a><br>
+            <b>Cc:</b> Yu, Xiangliang<br>
+            <b>Subject:</b> [PATCH 1/1] drm/ttm: Fix accounting error
+            when fail to get pages for pool</font>
+          <div> </div>
+        </div>
+      </div>
+      <font size="2"><span style="font-size:10pt;">
+          <div class="PlainText">When fail to get needed page for pool,
+            need to put allocated pages<br>
+            into pool. But current code has a miscalculation of
+            allocated pages,<br>
+            correct it.<br>
+            <br>
+            Signed-off-by: Xiangliang.Yu <a class="moz-txt-link-rfc2396E" href="mailto:Xiangliang.Yu@amd.com">&lt;Xiangliang.Yu@amd.com&gt;</a><br>
+            ---<br>
+             drivers/gpu/drm/ttm/ttm_page_alloc.c | 2 +-<br>
+             1 file changed, 1 insertion(+), 1 deletion(-)<br>
+            <br>
+            diff --git a/drivers/gpu/drm/ttm/ttm_page_alloc.c
+            b/drivers/gpu/drm/ttm/ttm_page_alloc.c<br>
+            index eeddc1e..8715998 100644<br>
+            --- a/drivers/gpu/drm/ttm/ttm_page_alloc.c<br>
+            +++ b/drivers/gpu/drm/ttm/ttm_page_alloc.c<br>
+            @@ -615,7 +615,7 @@ static void
+            ttm_page_pool_fill_locked(struct ttm_page_pool *pool,<br>
+                             } else {<br>
+                                     pr_err("Failed to fill pool
+            (%p)\n", pool);<br>
+                                     /* If we have any pages left put
+            them to the pool. */<br>
+            -                       list_for_each_entry(p,
+            &amp;pool-&gt;list, lru) {<br>
+            +                       list_for_each_entry(p,
+            &amp;new_pages, lru) {<br>
+                                             ++cpages;<br>
+                                     }<br>
+                                     list_splice(&amp;new_pages,
+            &amp;pool-&gt;list);<br>
+            -- <br>
+            2.7.4<br>
+            <br>
+            _______________________________________________<br>
+            amd-gfx mailing list<br>
+            <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a><br>
+            <a
+              href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
+              moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+          </div>
+        </span></font>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------137C0B67936EA0D6BECD34E7--
+
+--===============0410514263==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--===============0410514263==--
