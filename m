@@ -1,245 +1,153 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [patch net-next 0/3] net/sched: Improve getting objects by indexes
-Date: Wed, 16 Aug 2017 09:49:07 +0200
-Message-ID: <144b87a3-bbe4-a194-ed83-e54840d7c7c2@amd.com>
-References: <1502849538-14284-1-git-send-email-chrism@mellanox.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH 00/24] KFD fixes, cleanups, features to make the runtime
+ happy
+Date: Wed, 16 Aug 2017 09:51:12 +0200
+Message-ID: <5c7f2140-0467-ebdb-87ca-0cd9d642ddbf@vodafone.de>
+References: <1502852422-19620-1-git-send-email-Felix.Kuehling@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
-Content-Transfer-Encoding: 7bit
-Return-path: <iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
-In-Reply-To: <1502849538-14284-1-git-send-email-chrism-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1502852422-19620-1-git-send-email-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/iommu>,
-	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=unsubscribe>
-List-Archive: <http://lists.linuxfoundation.org/pipermail/iommu/>
-List-Post: <mailto:iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
-List-Help: <mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/iommu>,
-	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=subscribe>
-Sender: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
-Errors-To: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
-To: Chris Mi <chrism-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>, netdev-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
-Cc: lucho-OnYtXJJ0/fesTnJN9+BGXg@public.gmane.org, sergey.senozhatsky.work-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, snitzer-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org, wsa-z923LK4zBo2bacvFa/9K2g@public.gmane.org, markb-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org, tom.leiming-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, stefanr-MtYdepGKPcBMYopoZt5u/LNAH6kLmebB@public.gmane.org, zhi.a.wang-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org, nsekhar-l0cyMroinI0@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, bfields-uC3wQj2KruNg9hUCZPvPmw@public.gmane.org, linux-sctp-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, paulus-eUNUBHrolfbYtjvyW6yDsg@public.gmane.org, jinpu.wang-EIkl63zCoXaH+58JC4qpiA@public.gmane.org, pshelar-LZ6Gd1LRuIk@public.gmane.org, sumit.semwal-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org, AlexBin.Xie-5C7GfCeVMHo@public.gmane.org, david1.zhou-5C7GfCeVMHo@public.gmane.org, linux-samsung-soc-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, maximlevitsky-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, sudarsana.kalluru-h88ZbnxC6KDQT0dZR+AlfA@public.gmane.org, marek.vasut-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, linux-atm-general-5NWGOfrQmneRv+LV9MX5uipxlwaOVQ5f@public.gmane.org, dtwlin-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, michel.daenzer-5C7GfCeVMHo@public.gmane.org, dledford-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org, tpmdd-devel-5NWGOfrQmneRv+LV9MX5uipxlwaOVQ5f@public.gmane.org, stern-nwvwT67g6+6dFdvTe/nMLpVzexx5G7lz@public.gmane.org, longman-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org, niranjana.vishwanathapura-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org, philipp.reisner-63ez5xqkn6DQT0dZR+AlfA@public.gmane.org, shli-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org, linux-0h96xk9xTtrk1uMJSBkQmQ@public.gmane.org, ohad-Ix1uc/W3ht7QT0dZR+AlfA@public.gmane.org, pmladek-IBi9RG/b67k@public.gmane.org, dick.kennedy-dY08KVG/lbpWk0Htik3J/w@public.gmane.orglinu
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
 
-Am 16.08.2017 um 04:12 schrieb Chris Mi:
-> Using current TC code, it is very slow to insert a lot of rules.
->
-> In order to improve the rules update rate in TC,
-> we introduced the following two changes:
->          1) changed cls_flower to use IDR to manage the filters.
->          2) changed all act_xxx modules to use IDR instead of
->             a small hash table
->
-> But IDR has a limitation that it uses int. TC handle uses u32.
-> To make sure there is no regression, we also changed IDR to use
-> unsigned long. All clients of IDR are changed to use new IDR API.
-
-WOW, wait a second. The idr change is touching a lot of drivers and to 
-be honest doesn't looks correct at all.
-
-Just look at the first chunk of your modification:
-> @@ -998,8 +999,9 @@ int bsg_register_queue(struct request_queue *q, struct device *parent,
->   
->   	mutex_lock(&bsg_mutex);
->   
-> -	ret = idr_alloc(&bsg_minor_idr, bcd, 0, BSG_MAX_DEVS, GFP_KERNEL);
-> -	if (ret < 0) {
-> +	ret = idr_alloc(&bsg_minor_idr, bcd, &idr_index, 0, BSG_MAX_DEVS,
-> +			GFP_KERNEL);
-> +	if (ret) {
->   		if (ret == -ENOSPC) {
->   			printk(KERN_ERR "bsg: too many bsg devices\n");
->   			ret = -EINVAL;
-The condition "if (ret)" will now always be true after the first 
-allocation and so we always run into the error handling after that.
-
-I've never read the bsg code before, but that's certainly not correct. 
-And that incorrect pattern repeats over and over again in this code.
-
-Apart from that why the heck do you want to allocate more than 1<<31 
-handles?
-
-Regards,
-Christian.
-
->
-> Chris Mi (3):
->    idr: Use unsigned long instead of int
->    net/sched: Change cls_flower to use IDR
->    net/sched: Change act_api and act_xxx modules to use IDR
->
->   block/bsg.c                                     |   8 +-
->   block/genhd.c                                   |  12 +-
->   drivers/atm/nicstar.c                           |  11 +-
->   drivers/block/drbd/drbd_main.c                  |  31 +--
->   drivers/block/drbd/drbd_nl.c                    |  22 ++-
->   drivers/block/drbd/drbd_proc.c                  |   3 +-
->   drivers/block/drbd/drbd_receiver.c              |  15 +-
->   drivers/block/drbd/drbd_state.c                 |  34 ++--
->   drivers/block/drbd/drbd_worker.c                |   6 +-
->   drivers/block/loop.c                            |  17 +-
->   drivers/block/nbd.c                             |  20 +-
->   drivers/block/zram/zram_drv.c                   |   9 +-
->   drivers/char/tpm/tpm-chip.c                     |  10 +-
->   drivers/char/tpm/tpm.h                          |   2 +-
->   drivers/dca/dca-sysfs.c                         |   9 +-
->   drivers/firewire/core-cdev.c                    |  18 +-
->   drivers/firewire/core-device.c                  |  15 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c     |   8 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c         |   9 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c         |   6 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c         |   2 +-
->   drivers/gpu/drm/drm_auth.c                      |   9 +-
->   drivers/gpu/drm/drm_connector.c                 |  10 +-
->   drivers/gpu/drm/drm_context.c                   |  20 +-
->   drivers/gpu/drm/drm_dp_aux_dev.c                |  11 +-
->   drivers/gpu/drm/drm_drv.c                       |   6 +-
->   drivers/gpu/drm/drm_gem.c                       |  19 +-
->   drivers/gpu/drm/drm_info.c                      |   2 +-
->   drivers/gpu/drm/drm_mode_object.c               |  11 +-
->   drivers/gpu/drm/drm_syncobj.c                   |  18 +-
->   drivers/gpu/drm/exynos/exynos_drm_ipp.c         |  25 ++-
->   drivers/gpu/drm/i915/gvt/display.c              |   2 +-
->   drivers/gpu/drm/i915/gvt/kvmgt.c                |   2 +-
->   drivers/gpu/drm/i915/gvt/vgpu.c                 |   9 +-
->   drivers/gpu/drm/i915/i915_debugfs.c             |   6 +-
->   drivers/gpu/drm/i915/i915_gem_context.c         |   9 +-
->   drivers/gpu/drm/qxl/qxl_cmd.c                   |   8 +-
->   drivers/gpu/drm/qxl/qxl_release.c               |  14 +-
->   drivers/gpu/drm/sis/sis_mm.c                    |   8 +-
->   drivers/gpu/drm/tegra/drm.c                     |  10 +-
->   drivers/gpu/drm/tilcdc/tilcdc_slave_compat.c    |   3 +-
->   drivers/gpu/drm/vgem/vgem_fence.c               |  12 +-
->   drivers/gpu/drm/via/via_mm.c                    |   8 +-
->   drivers/gpu/drm/virtio/virtgpu_kms.c            |   5 +-
->   drivers/gpu/drm/virtio/virtgpu_vq.c             |   5 +-
->   drivers/gpu/drm/vmwgfx/vmwgfx_resource.c        |   9 +-
->   drivers/i2c/i2c-core-base.c                     |  19 +-
->   drivers/infiniband/core/cm.c                    |   8 +-
->   drivers/infiniband/core/cma.c                   |  12 +-
->   drivers/infiniband/core/rdma_core.c             |   9 +-
->   drivers/infiniband/core/sa_query.c              |  23 +--
->   drivers/infiniband/core/ucm.c                   |   7 +-
->   drivers/infiniband/core/ucma.c                  |  14 +-
->   drivers/infiniband/hw/cxgb3/iwch.c              |   4 +-
->   drivers/infiniband/hw/cxgb3/iwch.h              |   4 +-
->   drivers/infiniband/hw/cxgb4/device.c            |  18 +-
->   drivers/infiniband/hw/cxgb4/iw_cxgb4.h          |   4 +-
->   drivers/infiniband/hw/hfi1/init.c               |   9 +-
->   drivers/infiniband/hw/hfi1/vnic_main.c          |   6 +-
->   drivers/infiniband/hw/mlx4/cm.c                 |  13 +-
->   drivers/infiniband/hw/ocrdma/ocrdma_main.c      |   7 +-
->   drivers/infiniband/hw/qib/qib_init.c            |   9 +-
->   drivers/infiniband/ulp/opa_vnic/opa_vnic_vema.c |  10 +-
->   drivers/iommu/intel-svm.c                       |   9 +-
->   drivers/md/dm.c                                 |  13 +-
->   drivers/memstick/core/memstick.c                |  10 +-
->   drivers/memstick/core/ms_block.c                |   9 +-
->   drivers/memstick/core/mspro_block.c             |  12 +-
->   drivers/mfd/rtsx_pcr.c                          |   9 +-
->   drivers/misc/c2port/core.c                      |   7 +-
->   drivers/misc/cxl/context.c                      |   8 +-
->   drivers/misc/cxl/main.c                         |  15 +-
->   drivers/misc/mei/main.c                         |   8 +-
->   drivers/misc/mic/scif/scif_api.c                |  11 +-
->   drivers/misc/mic/scif/scif_ports.c              |  18 +-
->   drivers/misc/tifm_core.c                        |   9 +-
->   drivers/mtd/mtdcore.c                           |   9 +-
->   drivers/mtd/mtdcore.h                           |   2 +-
->   drivers/mtd/ubi/block.c                         |   7 +-
->   drivers/net/ppp/ppp_generic.c                   |  27 +--
->   drivers/net/tap.c                               |  10 +-
->   drivers/net/wireless/ath/ath10k/htt.h           |   3 +-
->   drivers/net/wireless/ath/ath10k/htt_tx.c        |  22 ++-
->   drivers/net/wireless/ath/ath10k/mac.c           |   2 +-
->   drivers/net/wireless/marvell/mwifiex/main.c     |  13 +-
->   drivers/net/wireless/marvell/mwifiex/wmm.c      |   2 +-
->   drivers/of/overlay.c                            |  15 +-
->   drivers/of/unittest.c                           |  25 ++-
->   drivers/power/supply/bq2415x_charger.c          |  16 +-
->   drivers/power/supply/bq27xxx_battery_i2c.c      |  15 +-
->   drivers/power/supply/ds2782_battery.c           |   9 +-
->   drivers/powercap/powercap_sys.c                 |   8 +-
->   drivers/pps/pps.c                               |  10 +-
->   drivers/rapidio/rio_cm.c                        |  17 +-
->   drivers/remoteproc/remoteproc_core.c            |   8 +-
->   drivers/rpmsg/virtio_rpmsg_bus.c                |   8 +-
->   drivers/scsi/bfa/bfad_im.c                      |   8 +-
->   drivers/scsi/ch.c                               |   8 +-
->   drivers/scsi/lpfc/lpfc_crtn.h                   |   2 +-
->   drivers/scsi/lpfc/lpfc_init.c                   |  11 +-
->   drivers/scsi/lpfc/lpfc_vport.c                  |   8 +-
->   drivers/scsi/sg.c                               |  10 +-
->   drivers/scsi/st.c                               |   8 +-
->   drivers/staging/greybus/uart.c                  |  22 +--
->   drivers/staging/unisys/visorhba/visorhba_main.c |   7 +-
->   drivers/target/iscsi/iscsi_target.c             |   7 +-
->   drivers/target/iscsi/iscsi_target_login.c       |   9 +-
->   drivers/target/target_core_device.c             |   9 +-
->   drivers/target/target_core_user.c               |  13 +-
->   drivers/tee/tee_shm.c                           |   8 +-
->   drivers/uio/uio.c                               |   9 +-
->   drivers/usb/class/cdc-acm.c                     |  24 +--
->   drivers/usb/core/devices.c                      |   2 +-
->   drivers/usb/core/hcd.c                          |   7 +-
->   drivers/usb/mon/mon_main.c                      |   3 +-
->   drivers/usb/serial/usb-serial.c                 |  11 +-
->   drivers/vfio/vfio.c                             |  15 +-
->   fs/dlm/lock.c                                   |   9 +-
->   fs/dlm/lockspace.c                              |   6 +-
->   fs/dlm/recover.c                                |  10 +-
->   fs/nfs/nfs4client.c                             |   9 +-
->   fs/nfsd/nfs4state.c                             |   8 +-
->   fs/notify/inotify/inotify_fsnotify.c            |   4 +-
->   fs/notify/inotify/inotify_user.c                |   9 +-
->   fs/ocfs2/cluster/tcp.c                          |  10 +-
->   include/linux/idr.h                             |  26 +--
->   include/linux/of.h                              |   4 +-
->   include/linux/radix-tree.h                      |   2 +-
->   include/net/9p/9p.h                             |   2 +-
->   include/net/act_api.h                           |  76 +++-----
->   ipc/msg.c                                       |   2 +-
->   ipc/sem.c                                       |   2 +-
->   ipc/shm.c                                       |   4 +-
->   ipc/util.c                                      |  17 +-
->   kernel/bpf/syscall.c                            |  20 +-
->   kernel/cgroup/cgroup.c                          |  57 +++---
->   kernel/events/core.c                            |  10 +-
->   kernel/workqueue.c                              |  15 +-
->   lib/idr.c                                       |  38 ++--
->   lib/radix-tree.c                                |   5 +-
->   mm/memcontrol.c                                 |  11 +-
->   net/9p/client.c                                 |  17 +-
->   net/9p/util.c                                   |  14 +-
->   net/core/net_namespace.c                        |  23 ++-
->   net/mac80211/cfg.c                              |  23 +--
->   net/mac80211/iface.c                            |   3 +-
->   net/mac80211/main.c                             |   2 +-
->   net/mac80211/tx.c                               |   7 +-
->   net/mac80211/util.c                             |   3 +-
->   net/netlink/genetlink.c                         |  18 +-
->   net/qrtr/qrtr.c                                 |  21 +-
->   net/rxrpc/conn_client.c                         |  15 +-
->   net/sched/act_api.c                             | 249 +++++++++++-------------
->   net/sched/act_bpf.c                             |  17 +-
->   net/sched/act_connmark.c                        |  16 +-
->   net/sched/act_csum.c                            |  16 +-
->   net/sched/act_gact.c                            |  16 +-
->   net/sched/act_ife.c                             |  20 +-
->   net/sched/act_ipt.c                             |  26 ++-
->   net/sched/act_mirred.c                          |  19 +-
->   net/sched/act_nat.c                             |  16 +-
->   net/sched/act_pedit.c                           |  18 +-
->   net/sched/act_police.c                          |  18 +-
->   net/sched/act_sample.c                          |  17 +-
->   net/sched/act_simple.c                          |  20 +-
->   net/sched/act_skbedit.c                         |  18 +-
->   net/sched/act_skbmod.c                          |  18 +-
->   net/sched/act_tunnel_key.c                      |  20 +-
->   net/sched/act_vlan.c                            |  22 +--
->   net/sched/cls_flower.c                          |  55 +++---
->   net/sctp/associola.c                            |   8 +-
->   net/tipc/server.c                               |   7 +-
->   172 files changed, 1256 insertions(+), 1113 deletions(-)
->
+PiBGb3IgdGVzdGluZyBLViB3aXRoIGN1cnJlbnQgdXNlciBtb2RlIHN0YWNrLCBwbGVhc2UgdXNl
+IGFtZGdwdS4gSQo+IGRvbid0IGV4cGVjdCB0aGlzIHRvIHdvcmsgd2l0aCByYWRlb24gYW5kIEkn
+bSBub3QgcGxhbm5pbmcgdG8gc3BlbmQKPiBhbnkgZWZmb3J0IG9uIG1ha2luZyByYWRlb24gd29y
+ayB3aXRoIGEgY3VycmVudCB1c2VyIG1vZGUgc3RhY2suCkluIHRoaXMgY2FzZSBhbnkgb2JqZWN0
+aW9uIHRvIGp1c3QgcmlwIG91dCByYWRlb24gc3VwcG9ydD8KCkNocmlzdGlhbi4KCkFtIDE2LjA4
+LjIwMTcgdW0gMDQ6NTkgc2NocmllYiBGZWxpeCBLdWVobGluZzoKPiBJIG1lcmdlZCB0aGUgbGFz
+dCB0d28gcGF0Y2ggc2VyaWVzIGFuZCBtYWRlIGEgbnVtYmVyIG9mIHVwZGF0ZXMgYXMKPiBkaXNj
+dXNzZWQuIEkgYWxzbyByZWJhc2VkIGl0IG9uIEFsZXgncyBkcm0tbmV4dC00LjE0LXdpcCBicmFu
+Y2guIEFsbAo+IHBhdGNoZXMgYXBwbGllZCBjbGVhbmx5IHdpdGhvdXQgaGF2aW5nIHRvIHJlc29s
+dmUgYW55IGNvbmZsaWN0cy4KPgo+IEknbSBhbHNvIHB1Ymxpc2hpbmcgbXkgYnJhbmNoIHdpdGgg
+dGhpcyBwYXRjaCBzZXJpZXMgb24gR2l0SHViIHRvIG1ha2UKPiBpdCBlYXNpZXIgdG8gdGVzdCBh
+bmQgYXBwbHkgdGhlIGNoYW5nZXMuIFRoaXMgS0ZEIGJyYW5jaCByZXF1aXJlcyB0aGUKPiBjb3Jy
+ZXNwb25kaW5nIFRodW5rIGJyYW5jaCBmcm9tIEdpdEh1Yiwgd2hpY2ggdXNlcyBhIGRpZmZlcmVu
+dCBpb2N0bAo+IEFCSSBmcm9tIHRoZSBsYXN0IFJPQ20gcmVsZWFzZS4gVGhlIHJlc3Qgb2YgdGhl
+IHVzZXIgbW9kZSBzdGFjawo+IHNob3VsZCBiZSBPSyBvbiB0b3Agb2YgdGhhdCBUaHVuay4KPgo+
+IGh0dHBzOi8vZ2l0aHViLmNvbS9SYWRlb25PcGVuQ29tcHV0ZS9ST0NLLUtlcm5lbC1Ecml2ZXIv
+dHJlZS9ma3hhbWQvZHJtLW5leHQtd2lwCj4gaHR0cHM6Ly9naXRodWIuY29tL1JhZGVvbk9wZW5D
+b21wdXRlL1JPQ1QtVGh1bmstSW50ZXJmYWNlL3RyZWUvZnhrYW1kL2RybS1uZXh0LXdpcAo+Cj4g
+T24gQ1osIGhzYWNvbmZvcm1hbmNlIHBhc3Nlcy4gT3BlbkNMIHRlc3RzIGNhbiBiZSBydW4gd2l0
+aCB0aGUgY3VycmVudAo+IFJPQ20gT3BlbkNMIHN0YWNrLiBJIHJhbiB0aGUgU0hPQyBiZW5jaG1h
+cmsgYXMgYW4gZXhhbXBsZS4KPgo+IE9uIEtWLCB0aGUgY3VycmVudCBST0NtIE9wZW5DTCBkcml2
+ZXIgZG9lc24ndCB3b3JrLiBUaGlzIGlzIGEKPiBsaW1pdGF0aW9uIG9mIHRoZSBPcGVuQ0wgZHJp
+dmVyLiBJJ20gdHJ5aW5nIHRvIGZpbmQgb3V0IGhvdyBoYXJkIGl0Cj4gd291bGQgYmUgdG8gY2hh
+bmdlIHRoYXQuIEluIHRoZSBtZWFuIHRpbWUsIHNvbWUgaHNhY29uZm9ybWFuY2UgdGVzdHMKPiBj
+YW4gYmUgcnVuIG9uIEtWLiBJdCBwYXNzZXMgbW9zdCB0ZXN0cyB1cCB0bwo+IDE2Mjpjb2RlX3Jl
+Y3Vyc2l2ZV9rZXJuZWxfZnVuY3Rpb24sIHdoZXJlIGl0IGhhbmdzLgo+Cj4gRm9yIHRlc3Rpbmcg
+S1Ygd2l0aCBjdXJyZW50IHVzZXIgbW9kZSBzdGFjaywgcGxlYXNlIHVzZSBhbWRncHUuIEkKPiBk
+b24ndCBleHBlY3QgdGhpcyB0byB3b3JrIHdpdGggcmFkZW9uIGFuZCBJJ20gbm90IHBsYW5uaW5n
+IHRvIHNwZW5kCj4gYW55IGVmZm9ydCBvbiBtYWtpbmcgcmFkZW9uIHdvcmsgd2l0aCBhIGN1cnJl
+bnQgdXNlciBtb2RlIHN0YWNrLgo+Cj4gRHJvcHBlZCBwYXRjaGVzOgo+ICAgICogZHJtL2FtZGtm
+ZDogRml4IGRvdWJsZSBNdXRleCBsb2NrIG9yZGVyCj4KPiBBZGRlZCBwYXRjaGVzOgo+ICAgICog
+ZHJtL3JhZGVvbjogUmV0dXJuIGR3b3JkIG9mZnNldHMgb2YgYWRkcmVzcyB3YXRjaCByZWdpc3Rl
+cnMKPiAgICAqIGRybS9hbWRncHU6IFByb2dyYW0gU0hfU1RBVElDX01FTV9DT05GSUcgZ2xvYmFs
+bHksIG5vdCBwZXItVk1JRAo+Cj4gUmVvcmRlcmVkIHBhdGNoIHNlcXVlbmNlOgo+ICAgIEkgbW92
+ZWQgImRybS9hbWRncHU6IFJlbW92ZSBoYXJkLWNvZGVkIGFzc3VtcHRpb25zIGFib3V0IGNvbXB1
+dGUgcGlwZXMiCj4gICAganVzdCBhZnRlciAiZHJtL2FtZGtmZDogRml4IGFsbG9jYXRlZF9xdWV1
+ZXMgYml0bWFwIGluaXRpYWxpemF0aW9uIgo+ICAgIGJlY2F1c2UgdGhlc2UgdHdvIHBhdGNoZXMg
+Zml4IHJlbGF0ZWQgcHJvYmxlbXMgKGhvdyBxdWV1ZXMgYXJlIHNoYXJlZAo+ICAgIGJldHdlZW4g
+S0ZEIGFuZCBLR0QpLgo+Cj4gVXBkYXRlZCBwYXRjaGVzOgo+ICAgICogZHJtL2FtZGtmZDogQ2xl
+YW4gdXAgS0ZEIHN0eWxlIGVycm9ycyBhbmQgd2FybmluZ3MgdjIKPiAgICAqIGRybS9hbWRrZmQ6
+IEZpeCBnb3RvIHVzYWdlIHYyCj4gICAgKiBkcm0vYW1ka2ZkOiBIYW5kbGUgcmVtYWluaW5nIEJV
+R19PTnMgbW9yZSBncmFjZWZ1bGx5IHYyCj4gICAgKiBkcm0vYW1ka2ZkOiBBZGQgbW9yZSBlcnJv
+ciBwcmludGluZyB0byBoZWxwIGJyaW5ndXAgdjIKPiAgICAqIGRybS9hbWRncHU6IEFkZCBrZ2Qv
+a2ZkIGludGVyZmFjZSB0byBzdXBwb3J0IHNjcmF0Y2ggbWVtb3J5IHYyCj4gICAgKiBkcm0vYW1k
+a2ZkOiBBZGRpbmcgbmV3IElPQ1RMIGZvciBzY3JhdGNoIG1lbW9yeSB2Mgo+ICAgICogZHJtL2Ft
+ZGdwdTogQWRkIGtnZCBrZmQgaW50ZXJmYWNlIGdldF90aWxlX2NvbmZpZygpIHYyCj4gICAgKiBk
+cm0vYW1ka2ZkOiBJbXBsZW1lbnQgaW1hZ2UgdGlsaW5nIG1vZGUgc3VwcG9ydCB2Mgo+Cj4gUGF0
+Y2hlcyB0aGF0IHN0aWxsIG5lZWQgYSBSZXZpZXdlZC1ieSBvciBBY2tlZC1ieToKPiAgICAqIGRy
+bS9yYWRlb246IFJldHVybiBkd29yZCBvZmZzZXRzIG9mIGFkZHJlc3Mgd2F0Y2ggcmVnaXN0ZXJz
+Cj4gICAgKiBkcm0vYW1ka2ZkOiBSZW1vdmUgYm9ndXMgZGl2aWRlLWJ5LXNpemVvZih1aW50MzJf
+dCkKPiAgICAqIGRybS9hbWRrZmQ6IENsZWFuIHVwIEtGRCBzdHlsZSBlcnJvcnMgYW5kIHdhcm5p
+bmdzIHYyCj4gICAgKiBkcm0vYW1ka2ZkOiBIYW5kbGUgcmVtYWluaW5nIEJVR19PTnMgbW9yZSBn
+cmFjZWZ1bGx5IHYyCj4gICAgKiBkcm0vYW1ka2ZkOiBBZGQgbW9yZSBlcnJvciBwcmludGluZyB0
+byBoZWxwIGJyaW5ndXAgdjIKPiAgICAqIGRybS9hbWRncHU6IFByb2dyYW0gU0hfU1RBVElDX01F
+TV9DT05GSUcgZ2xvYmFsbHksIG5vdCBwZXItVk1JRAo+ICAgICogZHJtL2FtZGdwdTogQWRkIGtn
+ZC9rZmQgaW50ZXJmYWNlIHRvIHN1cHBvcnQgc2NyYXRjaCBtZW1vcnkgdjIKPiAgICAqIGRybS9h
+bWRrZmQ6IEFkZGluZyBuZXcgSU9DVEwgZm9yIHNjcmF0Y2ggbWVtb3J5IHYyCj4KPiAqKioKPgo+
+IEZlbGl4IEt1ZWhsaW5nICgxMyk6Cj4gICAgZHJtL2FtZGtmZDogRml4IHR5cG8gaW4gZGJnZGV2
+X3dhdmVfcmVzZXRfd2F2ZWZyb250cwo+ICAgIGRybS9yYWRlb246IFJldHVybiBkd29yZCBvZmZz
+ZXRzIG9mIGFkZHJlc3Mgd2F0Y2ggcmVnaXN0ZXJzCj4gICAgZHJtL2FtZGtmZDogUmVtb3ZlIGJv
+Z3VzIGRpdmlkZS1ieS1zaXplb2YodWludDMyX3QpCj4gICAgZHJtL2FtZGtmZDogRml4IGFsbG9j
+YXRlZF9xdWV1ZXMgYml0bWFwIGluaXRpYWxpemF0aW9uCj4gICAgZHJtL2FtZGdwdTogUmVtb3Zl
+IGhhcmQtY29kZWQgYXNzdW1wdGlvbnMgYWJvdXQgY29tcHV0ZSBwaXBlcwo+ICAgIGRybS9hbWRr
+ZmQ6IFJlbW92ZSBCVUdfT05zIGZvciBOVUxMIHBvaW50ZXIgYXJndW1lbnRzCj4gICAgZHJtL2Ft
+ZGtmZDogRml4IGRvb3JiZWxsIGluaXRpYWxpemF0aW9uIGFuZCBmaW5hbGl6YXRpb24KPiAgICBk
+cm0vYW1ka2ZkOiBBbGxvY2F0ZSBndHRfc2FfYml0bWFwIGluIGxvbmcgdW5pdHMKPiAgICBkcm0v
+YW1ka2ZkOiBIYW5kbGUgcmVtYWluaW5nIEJVR19PTnMgbW9yZSBncmFjZWZ1bGx5IHYyCj4gICAg
+ZHJtL2FtZGtmZDogVXBkYXRlIFBNNCBwYWNrZXQgaGVhZGVycwo+ICAgIGRybS9hbWRncHU6IERp
+c2FibGUgR0ZYIFBHIG9uIENaCj4gICAgZHJtL2FtZDogVXBkYXRlIE1FQyBIUUQgbG9hZGluZyBj
+b2RlIGZvciBLRkQKPiAgICBkcm0vYW1kZ3B1OiBQcm9ncmFtIFNIX1NUQVRJQ19NRU1fQ09ORklH
+IGdsb2JhbGx5LCBub3QgcGVyLVZNSUQKPgo+IEpheSBDb3Jud2FsbCAoMSk6Cj4gICAgZHJtL2Ft
+ZGtmZDogQ2xhbXAgRU9QIHF1ZXVlIHNpemUgY29ycmVjdGx5IG9uIEdmeDgKPgo+IEtlbnQgUnVz
+c2VsbCAoNSk6Cj4gICAgZHJtL2FtZGtmZDogQ2xlYW4gdXAgS0ZEIHN0eWxlIGVycm9ycyBhbmQg
+d2FybmluZ3MgdjIKPiAgICBkcm0vYW1ka2ZkOiBDb25zb2xpZGF0ZSBhbmQgY2xlYW4gdXAgbG9n
+IGNvbW1hbmRzCj4gICAgZHJtL2FtZGtmZDogQ2hhbmdlIHg9PU5VTEwvZmFsc2UgcmVmZXJlbmNl
+cyB0byAheAo+ICAgIGRybS9hbWRrZmQ6IEZpeCBnb3RvIHVzYWdlIHYyCj4gICAgZHJtL2FtZGtm
+ZDogUmVtb3ZlIHVzYWdlIG9mIGFsbG9jKHNpemVvZihzdHJ1Y3QuLi4KPgo+IE1vc2VzIFJldWJl
+biAoMik6Cj4gICAgZHJtL2FtZGdwdTogQWRkIGtnZC9rZmQgaW50ZXJmYWNlIHRvIHN1cHBvcnQg
+c2NyYXRjaCBtZW1vcnkgdjIKPiAgICBkcm0vYW1ka2ZkOiBBZGRpbmcgbmV3IElPQ1RMIGZvciBz
+Y3JhdGNoIG1lbW9yeSB2Mgo+Cj4gWW9uZyBaaGFvICgzKToKPiAgICBkcm0vYW1ka2ZkOiBBZGQg
+bW9yZSBlcnJvciBwcmludGluZyB0byBoZWxwIGJyaW5ndXAgdjIKPiAgICBkcm0vYW1kZ3B1OiBB
+ZGQga2dkIGtmZCBpbnRlcmZhY2UgZ2V0X3RpbGVfY29uZmlnKCkgdjIKPiAgICBkcm0vYW1ka2Zk
+OiBJbXBsZW1lbnQgaW1hZ2UgdGlsaW5nIG1vZGUgc3VwcG9ydCB2Mgo+Cj4gICBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkLmMgICAgICAgICB8ICAgNCArLQo+ICAgZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5oICAgICAgICAgfCAgMTYgKwo+
+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9nZnhfdjcuYyAgfCAx
+ODkgKysrKysrKysrKy0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1k
+a2ZkX2dmeF92OC5jICB8IDIyNyArKysrKysrKysrKystLQo+ICAgZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvZ2Z4X3Y3XzAuYyAgICAgICAgICAgICAgfCAgIDIgKy0KPiAgIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMgICAgICAgICAgICAgIHwgICAzICstCj4gICBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92aS5jICAgICAgICAgICAgICAgICAgICB8ICAgMyArLQo+
+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2NoYXJkZXYuYyAgICAgICAgICAgfCAx
+ODMgKysrKysrKystLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGJnZGV2
+LmMgICAgICAgICAgICB8IDEwMiArKystLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtm
+ZC9rZmRfZGJnbWdyLmMgICAgICAgICAgICB8ICAyMSArLQo+ICAgZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRrZmQva2ZkX2RiZ21nci5oICAgICAgICAgICAgfCAgMjcgKy0KPiAgIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2UuYyAgICAgICAgICAgIHwgMTIzICsrKystLS0tCj4g
+ICAuLi4vZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVfbWFuYWdlci5jICB8IDMx
+NiArKysrKysrKy0tLS0tLS0tLS0tLQo+ICAgLi4uL2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2Vf
+cXVldWVfbWFuYWdlcl9jaWsuYyAgfCAgIDggKy0KPiAgIC4uLi9kcm0vYW1kL2FtZGtmZC9rZmRf
+ZGV2aWNlX3F1ZXVlX21hbmFnZXJfdmkuYyAgIHwgICA4ICstCj4gICBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGtmZC9rZmRfZG9vcmJlbGwuYyAgICAgICAgICB8ICA0MCArLS0KPiAgIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9ldmVudHMuYyAgICAgICAgICAgIHwgIDMzICstLQo+ICAg
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2ZsYXRfbWVtb3J5LmMgICAgICAgfCAgIDIg
+Ky0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9pbnRlcnJ1cHQuYyAgICAgICAg
+IHwgICAyICstCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfa2VybmVsX3F1ZXVl
+LmMgICAgICB8ICA2MyArKy0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbW9k
+dWxlLmMgICAgICAgICAgICB8ICAxMCArLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQv
+a2ZkX21xZF9tYW5hZ2VyLmggICAgICAgfCAgIDMgKy0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl9jaWsuYyAgIHwgIDYyICsrLS0KPiAgIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl92aS5jICAgIHwgIDQ2ICstLQo+ICAgZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3BhY2tldF9tYW5hZ2VyLmMgICAgfCAyOTQgKysr
+KysrLS0tLS0tLS0tLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcGFzaWQu
+YyAgICAgICAgICAgICB8ICAgNyArLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2Zk
+X3BtNF9oZWFkZXJzLmggICAgICAgfCAzMzAgKysrLS0tLS0tLS0tLS0tLS0tLS0tCj4gICBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcG00X2hlYWRlcnNfdmkuaCAgICB8IDE0MCArKysr
+KysrKy0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2LmggICAgICAgICAg
+ICAgIHwgIDMyICstCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzcy5j
+ICAgICAgICAgICB8ICAyNSArLQo+ICAgLi4uL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vz
+c19xdWV1ZV9tYW5hZ2VyLmMgfCAgNzEgKystLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+a2ZkL2tmZF9xdWV1ZS5jICAgICAgICAgICAgIHwgIDEyICstCj4gICBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGtmZC9rZmRfdG9wb2xvZ3kuYyAgICAgICAgICB8ICA0NiArLS0KPiAgIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvaW5jbHVkZS9rZ2Rfa2ZkX2ludGVyZmFjZS5oICAgIHwgIDMwICstCj4gICBk
+cml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9rZmQuYyAgICAgICAgICAgICAgICB8ICAxNSAr
+LQo+ICAgaW5jbHVkZS91YXBpL2xpbnV4L2tmZF9pb2N0bC5oICAgICAgICAgICAgICAgICAgICAg
+fCAgMzcgKystCj4gICAzNiBmaWxlcyBjaGFuZ2VkLCAxMjgwIGluc2VydGlvbnMoKyksIDEyNTIg
+ZGVsZXRpb25zKC0pCj4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
