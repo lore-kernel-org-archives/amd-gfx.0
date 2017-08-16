@@ -1,18 +1,14 @@
-From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 4/4] drm/amdkfd: Implement image tiling mode support
-Date: Tue, 15 Aug 2017 20:35:00 -0400
-Message-ID: <fd9a9222-f7fa-8f72-6a23-619a17a872e3@amd.com>
-References: <1502513265-14281-1-git-send-email-Felix.Kuehling@amd.com>
- <1502513265-14281-5-git-send-email-Felix.Kuehling@amd.com>
- <CAFCwf10iQhAvxZdwCYBK6f0fBKdpgD=f0W886awm2fJVCB=hLQ@mail.gmail.com>
- <fc37f1a8-9c12-f1da-cdab-f03b50643f19@amd.com>
- <2649fca7-9617-e434-a75a-f76d7e07d0f5@amd.com>
- <CAFCwf13bFDhL=_X-zx8AJE+0sD0Aw9z5Rku_7qDgY6VEdtS+qA@mail.gmail.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: add mjpeg check for uvd phycial mode msg
+ buffer
+Date: Wed, 16 Aug 2017 09:37:46 +0900
+Message-ID: <a26184b0-2b42-6b4a-e0e0-7d470b127260@daenzer.net>
+References: <20170815201234.28027-1-leo.liu@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAFCwf13bFDhL=_X-zx8AJE+0sD0Aw9z5Rku_7qDgY6VEdtS+qA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <20170815201234.28027-1-leo.liu-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -24,31 +20,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gMjAxNy0wOC0xNSAwNjoyMCBBTSwgT2RlZCBHYWJiYXkgd3JvdGU6Cj4gSSBwcmVmZXIgdG8g
-ZG8gaXQgaW5jcmVtZW50YWxseSwgdG8gYXZvaWQgdmVyeSBsYXJnZSBwYXRjaC1zZXRzIHdoaWNo
-Cj4gdXN1YWxseSBlbmQgdXAgaW4gbG9uZ2VyIGN5Y2xlcyBvZiByZXZpZXctZml4LCB3aGljaCBj
-YXVzZXMgeW91IG1vcmUKPiBwYWluIGJlY2F1c2UgaW50ZXJuYWwgZGV2ZWxvcG1lbnQgY29udGlu
-dWVzIGR1cmluZyB0aGlzIHRpbWUgYW5kIHlvdQo+IG5lZWQgdG8ga2VlcCBldmVyeXRoaW5nIHN5
-bmNocm9uaXplZC4gSWYgeW91IGRvIGl0IGluIHNtYWxsIHBpZWNlcywKPiB0aGVyZSBpcyBtb3Jl
-IGNoYW5jZSBpdCB3aWxsIGdldCB0byB1cHN0cmVhbSBmYXN0ZXIgYW5kIHRoZW4geW91IGNhbgo+
-IGNyb3NzIGl0IG9mZiB5b3VyIGxpc3QgcGVybWFuZW50bHkgYW5kIG5vIGxvbmdlciB3b3JyeSBh
-Ym91dCBpdCBub3QKPiBiZWluZyBzeW5jaHJvbml6ZWQgd2l0aCBpbnRlcm5hbCBkZXZlbG9wbWVu
-dC4KPgo+IElmIHlvdSBhcmUgdGFsa2luZyBhYm91dCB0aGUgY3VycmVudCBwYXRjaC1zZXQgKHlv
-dSBhY3R1YWxseSBzZW50IDIKPiBwYXRjaC1zZXRzKSwgdGhlbiBvbmNlIHlvdSByZWJhc2UgdGhl
-bSBvbiB0aGUgYnJhbmNoZXMgSSBtZW50aW9uZWQsCj4gdGhleSBhcmUgbW9yZSBvciBsZXNzIGdv
-b2QgdG8gZ28gKGV4Y2VwdCBmcm9tIHZlcnkgc21hbGwgZml4ZXMgd2UKPiB0YWxrZWQgYWJvdXQp
-LiBJZiB5b3UgY2FuIGRvIGl0IGR1cmluZyB0aGlzIHdlZWssIEkgdGhpbmsgd2UgY2FuIG1ha2UK
-PiBpdCBmb3IgdGhlIDQuMTQgbWVyZ2Ugd2luZG93Lgo+Cj4gRG9lcyB0aGF0IG1ha2Ugc2Vuc2Ug
-PwoKU291bmRzIGdvb2QuIEknbSBob3BpbmcgdG8gZ2V0IGEgYml0IG1vcmUgaW50byA0LjE0LiBX
-ZSdsbCBzZWUgaG93IGl0CmdvZXMuIEkndmUgcHJvYmFibHkgYmVlbiB0b2xkIGJlZm9yZSBidXQg
-Zm9yZ290OiBXaGF0J3MgRGF2ZSBBaXJsaWUncwpkZWFkbGluZSBmb3IgYWNjZXB0aW5nIHBhdGNo
-ZXMgaW50byA0LjE0PwoKQlRXLCB0aGFua3MgZm9yIHlvdXIgcHJvbXB0IGZlZWRiYWNrIG9uIHRo
-ZXNlIHBhdGNoZXMuIEkgaG9wZSB5b3UncmUKZ2V0dGluZyBwYWlkIGZvciB0aGlzIHdvcmssIGNh
-dXNlIHRoZXJlIGlzIGEgbG90IG1vcmUgY29taW5nLiA7KSBJCnJlYWxseSBhcHByZWNpYXRlIGl0
-LgoKUmVnYXJkcywKICBGZWxpeAoKPgo+IE9kZWQKCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vYW1kLWdmeAo=
+T24gMTYvMDgvMTcgMDU6MTIgQU0sIExlbyBMaXUgd3JvdGU6Cj4gU2lnbmVkLW9mZi1ieTogTGVv
+IExpdSA8bGVvLmxpdUBhbWQuY29tPgoKVGhlcmUncyBhIHR5cG8gKCJwaHljaWFsIikgaW4gdGhl
+IHNob3J0bG9nLCBhbmQgYWNyb255bXMgc2hvdWxkIGFsd2F5cwpiZSB3cml0dGVuIGluIHVwcGVy
+IGNhc2UuIFNvIGl0IHNob3VsZCBwcm9iYWJseSBiZToKCmRybS9hbWRncHU6IEFkZCBNSlBFRyBj
+aGVjayBmb3IgVVZEIHBoeXNpY2FsIG1vZGUgbXNnIGJ1ZmZlcgoKCi0tIApFYXJ0aGxpbmcgTWlj
+aGVsIETDpG56ZXIgICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAgaHR0cDovL3d3dy5hbWQu
+Y29tCkxpYnJlIHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAgICAgICAgfCAgICAgICAgICAgICBN
+ZXNhIGFuZCBYIGRldmVsb3BlcgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
+ZngK
