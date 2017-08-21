@@ -1,42 +1,60 @@
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Subject: [PATCH] drm/amdgpu: check memory allocation failure
-Date: Wed, 23 Aug 2017 07:52:36 +0200
-Message-ID: <20170823055236.25451-1-christophe.jaillet@wanadoo.fr>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie, Monk.Liu@amd.com, David1.Zhou@amd.com, AlexBin.Xie@amd.com, Jerry.Zhang@amd.com, airlied@redhat.com, marek.olsak@amd.com, john@fastquake.com, andresx7@gmail.com, ray.huang@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org, Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-List-Id: amd-gfx.lists.freedesktop.org
+From: William Lewis <minutemaidpark-PkbjNfxxIARBDgjK7y7TUQ@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: discard commands of killed processes
+Date: Mon, 21 Aug 2017 13:17:38 +0000
+Message-ID: <CY4PR17MB14009D90332D5297BC62DEEDC8870@CY4PR17MB1400.namprd17.prod.outlook.com>
+References: <1503320329-2142-1-git-send-email-deathsimple@vodafone.de>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1503320329-2142-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Content-Language: en-US
+Content-ID: <E725EC0AF0ED524BA64AB620AA05283E-D2/8MP7PhqWcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Check memory allocation failure and return -ENOMEM in such a case.
-
-'num_post_dep_syncobjs' still has to be set to 0 before the test in order
-to have it initialized if 'amdgpu_cs_parser_fini()' is called to free
-resources.
-
-The calling graph would be, in such a case!
-   failure in amdgpu_cs_process_syncobj_out_dep()
-      ---> error code returned by amdgpu_cs_dependencies()
-         --> amdgpu_cs_parser_fini() is called
-
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 15d4a28d73bb..baa90df90aea 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -1079,6 +1079,9 @@ static int amdgpu_cs_process_syncobj_out_dep(struct amdgpu_cs_parser *p,
- 					     GFP_KERNEL);
- 	p->num_post_dep_syncobjs = 0;
- 
-+	if (!p->post_dep_syncobjs)
-+		return -ENOMEM;
-+
- 	for (i = 0; i < num_deps; ++i) {
- 		p->post_dep_syncobjs[i] = drm_syncobj_find(p->filp, deps[i].handle);
- 		if (!p->post_dep_syncobjs[i])
--- 
-2.11.0
+DQoNCk9uIDA4LzIxLzIwMTcgMDc6NTggQU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6DQo+IEZy
+b206IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4NCj4NCj4gV2hl
+biBhIHByb2Nlc3MgaXMga2lsbGVkIHdlIHNob3VsZG4ndCBzdWJtaXQgYWxsIHdhaXRpbmcgam9i
+cywgYnV0IGluc3RlYWQNCj4gY2xlYW4gdXAgYXMgZmFzdCBhcyBwb3NzaWJsZS4NCj4NCj4gU2ln
+bmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPg0K
+PiAtLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMg
+fCAyMyArKysrKysrKysrKysrKysrKysrLS0tLQ0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxOSBpbnNl
+cnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQ0KPg0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9zY2hlZHVsZXIvZ3B1X3NjaGVkdWxlci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9z
+Y2hlZHVsZXIvZ3B1X3NjaGVkdWxlci5jDQo+IGluZGV4IDM4Y2VhNmYuLjk3Yzk0ZjkgMTAwNjQ0
+DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvc2NoZWR1bGVyL2dwdV9zY2hlZHVsZXIuYw0K
+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3NjaGVkdWxlci9ncHVfc2NoZWR1bGVyLmMNCj4g
+QEAgLTIwNSwxNyArMjA1LDMyIEBAIHZvaWQgYW1kX3NjaGVkX2VudGl0eV9maW5pKHN0cnVjdCBh
+bWRfZ3B1X3NjaGVkdWxlciAqc2NoZWQsDQo+ICAgCQkJICAgc3RydWN0IGFtZF9zY2hlZF9lbnRp
+dHkgKmVudGl0eSkNCj4gICB7DQo+ICAgCXN0cnVjdCBhbWRfc2NoZWRfcnEgKnJxID0gZW50aXR5
+LT5ycTsNCj4gKwlpbnQgcjsNCj4gICANCj4gICAJaWYgKCFhbWRfc2NoZWRfZW50aXR5X2lzX2lu
+aXRpYWxpemVkKHNjaGVkLCBlbnRpdHkpKQ0KPiAgIAkJcmV0dXJuOw0KPiAtDQo+ICAgCS8qKg0K
+PiAgIAkgKiBUaGUgY2xpZW50IHdpbGwgbm90IHF1ZXVlIG1vcmUgSUJzIGR1cmluZyB0aGlzIGZp
+bmksIGNvbnN1bWUgZXhpc3RpbmcNCj4gLQkgKiBxdWV1ZWQgSUJzDQo+ICsJICogcXVldWVkIElC
+cyBvciBkaXNjYXJkIHRoZW0gb24gU0lHS0lMTA0KPiAgIAkqLw0KPiAtCXdhaXRfZXZlbnQoc2No
+ZWQtPmpvYl9zY2hlZHVsZWQsIGFtZF9zY2hlZF9lbnRpdHlfaXNfaWRsZShlbnRpdHkpKTsNCj4g
+LQ0KPiArCWlmICgoY3VycmVudC0+ZmxhZ3MgJiBQRl9TSUdOQUxFRCkgJiYgY3VycmVudC0+ZXhp
+dF9jb2RlID09IFNJR0tJTEwpDQo+ICsJCXIgPSAtRVJFU1RBUlRTWVM7DQo+ICsJZWxzZQ0KPiAr
+CQlyID0gd2FpdF9ldmVudF9raWxsYWJsZShzY2hlZC0+am9iX3NjaGVkdWxlZCwNCj4gKwkJCQkJ
+YW1kX3NjaGVkX2VudGl0eV9pc19pZGxlKGVudGl0eSkpOw0KPiAgIAlhbWRfc2NoZWRfcnFfcmVt
+b3ZlX2VudGl0eShycSwgZW50aXR5KTsNCj4gKwlpZiAocikgew0KPiArCQlzdHJ1Y3QgYW1kX3Nj
+aGVkX2pvYiAqam9iOw0KPiArDQo+ICsJCS8qIFBhcmsgdGhlIGtlcm5lbCBmb3IgYSBtb21lbnQg
+dG8gbWFrZSBzdXJlIGl0IGlzbid0IHByb2Nlc3NpbmcNCj4gKwkJICogb3VyIGVuaXR5Lg0KDQpz
+L2VuaXR5L2VudGl0eS8NCg0KPiArCQkgKi8NCj4gKwkJa3RocmVhZF9wYXJrKHNjaGVkLT50aHJl
+YWQpOw0KPiArCQlrdGhyZWFkX3VucGFyayhzY2hlZC0+dGhyZWFkKTsNCj4gKwkJd2hpbGUgKGtm
+aWZvX291dCgmZW50aXR5LT5qb2JfcXVldWUsICZqb2IsIHNpemVvZihqb2IpKSkNCj4gKwkJCXNj
+aGVkLT5vcHMtPmZyZWVfam9iKGpvYik7DQo+ICsNCj4gKwl9DQo+ICAgCWtmaWZvX2ZyZWUoJmVu
+dGl0eS0+am9iX3F1ZXVlKTsNCj4gICB9DQo+ICAgDQoNCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeAo=
