@@ -1,65 +1,67 @@
 From: Dan Carpenter <dan.carpenter@oracle.com>
-Subject: [PATCH 1/2] drm/radeon/ci: tidy up some limit checks
-Date: Tue, 22 Aug 2017 23:30:34 +0300
-Message-ID: <20170822203033.u7ltp2xjaqmoqrl4@mwanda>
+Subject: [PATCH 2/2] drm/amdgpu/ci: tidy up some limit checks
+Date: Tue, 22 Aug 2017 23:36:52 +0300
+Message-ID: <20170822203652.oofm6lcyht7naiv5@mwanda>
+References: <20170822203033.u7ltp2xjaqmoqrl4@mwanda>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <kernel-janitors-owner@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
 Content-Disposition: inline
-Sender: kernel-janitors-owner@vger.kernel.org
+In-Reply-To: <20170822203033.u7ltp2xjaqmoqrl4@mwanda>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 To: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org, amd-gfx@lists.freedesktop.org, Eric Huang <JinHuiEric.Huang@amd.com>, Ken Wang <Qingqing.Wang@amd.com>, Rex Zhu <Rex.Zhu@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-This is partly to silence a static checker warning:
-
-    drivers/gpu/drm/amd/amdgpu/ci_dpm.c:4553 ci_set_mc_special_registers()
-    error: buffer overflow 'table->mc_reg_address' 16 <= 16
-
-The story is that it's valid to exit the loop with "j" less than or equal
-to SMU7_DISCRETE_MC_REGISTER_ARRAY_SIZE".  That value for "j" gets saved
-as table->last.  We're not allow to access "table->mc_reg_address[j]"
-when j == SMU7_DISCRETE_MC_REGISTER_ARRAY_SIZE because that's one past
-the end of the array.
-
-The tests for "if (j > SMU7_DISCRETE_MC_REGISTER_ARRAY_SIZE)" in
-ci_set_mc_special_registers() are always false because we start with
-j less than the array size and we increment it once so at most it can be
-equal.
-
-Then there is a bogus check in ci_register_patching_mc_seq() where
-it complains if "table->last >= SMU7_DISCRETE_MC_REGISTER_ARRAY_SIZE".
-The "table->last" value can't possibly be greater than the array size
-and it is allowed to be equal to it.  So let's just remove that test
-entirely.
-
-Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
----
-Not tested.  Please review this one carefully.
-
-diff --git a/drivers/gpu/drm/radeon/ci_dpm.c b/drivers/gpu/drm/radeon/ci_dpm.c
-index c97fbb2ab48b..d3136e020d5a 100644
---- a/drivers/gpu/drm/radeon/ci_dpm.c
-+++ b/drivers/gpu/drm/radeon/ci_dpm.c
-@@ -4342,10 +4342,10 @@ static int ci_set_mc_special_registers(struct radeon_device *rdev,
- 					table->mc_reg_table_entry[k].mc_data[j] |= 0x100;
- 			}
- 			j++;
--			if (j > SMU7_DISCRETE_MC_REGISTER_ARRAY_SIZE)
--				return -EINVAL;
- 
- 			if (!pi->mem_gddr5) {
-+				if (j >= SMU7_DISCRETE_MC_REGISTER_ARRAY_SIZE)
-+					return -EINVAL;
- 				table->mc_reg_address[j].s1 = MC_PMG_AUTO_CMD >> 2;
- 				table->mc_reg_address[j].s0 = MC_PMG_AUTO_CMD >> 2;
- 				for (k = 0; k < table->num_entries; k++) {
-@@ -4521,8 +4521,6 @@ static int ci_register_patching_mc_seq(struct radeon_device *rdev,
- 	    ((rdev->pdev->device == 0x67B0) ||
- 	     (rdev->pdev->device == 0x67B1))) {
- 		for (i = 0; i < table->last; i++) {
--			if (table->last >= SMU7_DISCRETE_MC_REGISTER_ARRAY_SIZE)
--				return -EINVAL;
- 			switch(table->mc_reg_address[i].s1 >> 2) {
- 			case MC_SEQ_MISC1:
- 				for (k = 0; k < table->num_entries; k++) {
+VGhpcyBpcyBwYXJ0bHkgdG8gc2lsZW5jZSBhIHN0YXRpYyBjaGVja2VyIHdhcm5pbmc6CgogICAg
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvY2lfZHBtLmM6NDU1MyBjaV9zZXRfbWNfc3BlY2lh
+bF9yZWdpc3RlcnMoKQogICAgZXJyb3I6IGJ1ZmZlciBvdmVyZmxvdyAndGFibGUtPm1jX3JlZ19h
+ZGRyZXNzJyAxNiA8PSAxNgoKVGhlIHN0b3J5IGlzIHRoYXQgaXQncyB2YWxpZCB0byBleGl0IHRo
+ZSBsb29wIHdpdGggImoiIGxlc3MgdGhhbiBvciBlcXVhbAp0byBTTVU3X0RJU0NSRVRFX01DX1JF
+R0lTVEVSX0FSUkFZX1NJWkUiLiAgVGhhdCB2YWx1ZSBmb3IgImoiIGdldHMgc2F2ZWQKYXMgdGFi
+bGUtPmxhc3QuICBXZSdyZSBub3QgYWxsb3cgdG8gYWNjZXNzICJ0YWJsZS0+bWNfcmVnX2FkZHJl
+c3Nbal0iCndoZW4gaiA9PSBTTVU3X0RJU0NSRVRFX01DX1JFR0lTVEVSX0FSUkFZX1NJWkUgYmVj
+YXVzZSB0aGF0J3Mgb25lIHBhc3QKdGhlIGVuZCBvZiB0aGUgYXJyYXkuCgpUaGUgdGVzdHMgZm9y
+ICJpZiAoaiA+IFNNVTdfRElTQ1JFVEVfTUNfUkVHSVNURVJfQVJSQVlfU0laRSkiIGluCmNpX3Nl
+dF9tY19zcGVjaWFsX3JlZ2lzdGVycygpIGFyZSBhbHdheXMgZmFsc2UgYmVjYXVzZSB3ZSBzdGFy
+dCB3aXRoCmogbGVzcyB0aGFuIHRoZSBhcnJheSBzaXplIGFuZCB3ZSBpbmNyZW1lbnQgaXQgb25j
+ZSBzbyBhdCBtb3N0IGl0IGNhbiBiZQplcXVhbC4KClRoZW4gdGhlcmUgaXMgYSBib2d1cyBjaGVj
+ayBpbiBjaV9yZWdpc3Rlcl9wYXRjaGluZ19tY19zZXEoKSB3aGVyZQppdCBjb21wbGFpbnMgaWYg
+InRhYmxlLT5sYXN0ID49IFNNVTdfRElTQ1JFVEVfTUNfUkVHSVNURVJfQVJSQVlfU0laRSIuClRo
+ZSAidGFibGUtPmxhc3QiIHZhbHVlIGNhbid0IHBvc3NpYmx5IGJlIGdyZWF0ZXIgdGhhbiB0aGUg
+YXJyYXkgc2l6ZQphbmQgaXQgaXMgYWxsb3dlZCB0byBiZSBlcXVhbCB0byBpdC4gIFNvIGxldCdz
+IGp1c3QgcmVtb3ZlIHRoYXQgdGVzdAplbnRpcmVseS4KClNpZ25lZC1vZmYtYnk6IERhbiBDYXJw
+ZW50ZXIgPGRhbi5jYXJwZW50ZXJAb3JhY2xlLmNvbT4KLS0tCk5vdCB0ZXN0ZWQuICBQbGVhc2Ug
+cmV2aWV3IHRoaXMgb25lIGNhcmVmdWxseS4KCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9jaV9kcG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2NpX2RwbS5j
+CmluZGV4IGNiNTA4YTIxMWIyZi4uYzg4NTM4OGJkYzNjIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9jaV9kcG0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9jaV9kcG0uYwpAQCAtNDU0NiwxMCArNDU0NiwxMCBAQCBzdGF0aWMgaW50IGNpX3NldF9tY19z
+cGVjaWFsX3JlZ2lzdGVycyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAkJCQkJdGFibGUt
+Pm1jX3JlZ190YWJsZV9lbnRyeVtrXS5tY19kYXRhW2pdIHw9IDB4MTAwOwogCQkJfQogCQkJaisr
+OwotCQkJaWYgKGogPiBTTVU3X0RJU0NSRVRFX01DX1JFR0lTVEVSX0FSUkFZX1NJWkUpCi0JCQkJ
+cmV0dXJuIC1FSU5WQUw7CiAKIAkJCWlmIChhZGV2LT5tYy52cmFtX3R5cGUgIT0gQU1ER1BVX1ZS
+QU1fVFlQRV9HRERSNSkgeworCQkJCWlmIChqID49IFNNVTdfRElTQ1JFVEVfTUNfUkVHSVNURVJf
+QVJSQVlfU0laRSkKKwkJCQkJcmV0dXJuIC1FSU5WQUw7CiAJCQkJdGFibGUtPm1jX3JlZ19hZGRy
+ZXNzW2pdLnMxID0gbW1NQ19QTUdfQVVUT19DTUQ7CiAJCQkJdGFibGUtPm1jX3JlZ19hZGRyZXNz
+W2pdLnMwID0gbW1NQ19QTUdfQVVUT19DTUQ7CiAJCQkJZm9yIChrID0gMDsgayA8IHRhYmxlLT5u
+dW1fZW50cmllczsgaysrKSB7CkBAIC00NzI1LDggKzQ3MjUsNiBAQCBzdGF0aWMgaW50IGNpX3Jl
+Z2lzdGVyX3BhdGNoaW5nX21jX3NlcShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAkgICAg
+KChhZGV2LT5wZGV2LT5kZXZpY2UgPT0gMHg2N0IwKSB8fAogCSAgICAgKGFkZXYtPnBkZXYtPmRl
+dmljZSA9PSAweDY3QjEpKSkgewogCQlmb3IgKGkgPSAwOyBpIDwgdGFibGUtPmxhc3Q7IGkrKykg
+ewotCQkJaWYgKHRhYmxlLT5sYXN0ID49IFNNVTdfRElTQ1JFVEVfTUNfUkVHSVNURVJfQVJSQVlf
+U0laRSkKLQkJCQlyZXR1cm4gLUVJTlZBTDsKIAkJCXN3aXRjaCAodGFibGUtPm1jX3JlZ19hZGRy
+ZXNzW2ldLnMxKSB7CiAJCQljYXNlIG1tTUNfU0VRX01JU0MxOgogCQkJCWZvciAoayA9IDA7IGsg
+PCB0YWJsZS0+bnVtX2VudHJpZXM7IGsrKykgewpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9kcmktZGV2ZWwK
