@@ -1,82 +1,42 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/powerplay: ACG frequency added in PPTable
-Date: Wed, 23 Aug 2017 02:48:19 +0000
-Message-ID: <BN6PR12MB1652978F267333EF8393C022F7850@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <1503453532-23199-1-git-send-email-evan.quan@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1503453532-23199-1-git-send-email-evan.quan-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Subject: [PATCH] drm/amdgpu: check memory allocation failure
+Date: Wed, 23 Aug 2017 07:52:36 +0200
+Message-ID: <20170823055236.25451-1-christophe.jaillet@wanadoo.fr>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie, Monk.Liu@amd.com, David1.Zhou@amd.com, AlexBin.Xie@amd.com, Jerry.Zhang@amd.com, airlied@redhat.com, marek.olsak@amd.com, john@fastquake.com, andresx7@gmail.com, ray.huang@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org, Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+List-Id: amd-gfx.lists.freedesktop.org
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+IEZyb206IEV2YW4gUXVhbiBbbWFpbHRvOmV2
-YW4ucXVhbkBhbWQuY29tXQo+IFNlbnQ6IFR1ZXNkYXksIEF1Z3VzdCAyMiwgMjAxNyA5OjU5IFBN
-Cj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gQ2M6IERldWNoZXIsIEFsZXhh
-bmRlcjsgUXVhbiwgRXZhbgo+IFN1YmplY3Q6IFtQQVRDSF0gZHJtL2FtZC9wb3dlcnBsYXk6IEFD
-RyBmcmVxdWVuY3kgYWRkZWQgaW4gUFBUYWJsZQo+IAo+IENoYW5nZS1JZDogSWYxZGY4N2NmNGE0
-NThkNTljZTI1NDVhODEzYzQ1OTQxMThmYTRjM2QKPiBTaWduZWQtb2ZmLWJ5OiBFdmFuIFF1YW4g
-PGV2YW4ucXVhbkBhbWQuY29tPgoKUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVy
-LmRldWNoZXJAYW1kLmNvbT4KCj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
-L2h3bWdyL3ZlZ2ExMF9od21nci5jIHwgMTEgKysrKysrKystCj4gLS0KPiAgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdTlfZHJpdmVyX2lmLmggfCAgNiArKysrLS0KPiAgMiBm
-aWxlcyBjaGFuZ2VkLCAxMiBpbnNlcnRpb25zKCspLCA1IGRlbGV0aW9ucygtKQo+IAo+IGRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfaHdtZ3Iu
-Ywo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdyLmMK
-PiBpbmRleCAwZTdiZTg3Li4xZTE2Zjg0IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9od21nci5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdyLmMKPiBAQCAtMTU1Nyw3ICsxNTU3LDgg
-QEAgc3RhdGljIGludCB2ZWdhMTBfcG9wdWxhdGVfc21jX2xpbmtfbGV2ZWxzKHN0cnVjdAo+IHBw
-X2h3bWdyICpod21ncikKPiAgKi8KPiAKPiAgc3RhdGljIGludCB2ZWdhMTBfcG9wdWxhdGVfc2lu
-Z2xlX2dmeF9sZXZlbChzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLAo+IC0JCXVpbnQzMl90IGdmeF9j
-bG9jaywgUGxsU2V0dGluZ190ICpjdXJyZW50X2dmeGNsa19sZXZlbCkKPiArCQl1aW50MzJfdCBn
-ZnhfY2xvY2ssIFBsbFNldHRpbmdfdCAqY3VycmVudF9nZnhjbGtfbGV2ZWwsCj4gKwkJdWludDMy
-X3QgKmFjZ19mcmVxKQo+ICB7Cj4gIAlzdHJ1Y3QgcGhtX3BwdF92Ml9pbmZvcm1hdGlvbiAqdGFi
-bGVfaW5mbyA9Cj4gIAkJCShzdHJ1Y3QgcGhtX3BwdF92Ml9pbmZvcm1hdGlvbiAqKShod21nci0K
-PiA+cHB0YWJsZSk7Cj4gQEAgLTE2MDgsNiArMTYwOSw4IEBAIHN0YXRpYyBpbnQgdmVnYTEwX3Bv
-cHVsYXRlX3NpbmdsZV9nZnhfbGV2ZWwoc3RydWN0Cj4gcHBfaHdtZ3IgKmh3bWdyLAo+ICAJCQlj
-cHVfdG9fbGUxNihkaXZpZGVycy51c1BsbF9zc19zbGV3X2ZyYWMpOwo+ICAJY3VycmVudF9nZnhj
-bGtfbGV2ZWwtPkRpZCA9ICh1aW50OF90KShkaXZpZGVycy51bERpZCk7Cj4gCj4gKwkqYWNnX2Zy
-ZXEgPSBnZnhfY2xvY2sgLyAxMDA7IC8qIDEwMCBLaHogdG8gTWh6IGNvbnZlcnNpb24gKi8KPiAr
-Cj4gIAlyZXR1cm4gMDsKPiAgfQo+IAo+IEBAIC0xNjg4LDcgKzE2OTEsOCBAQCBzdGF0aWMgaW50
-Cj4gdmVnYTEwX3BvcHVsYXRlX2FsbF9ncmFwaGljX2xldmVscyhzdHJ1Y3QgcHBfaHdtZ3IgKmh3
-bWdyKQo+ICAJZm9yIChpID0gMDsgaSA8IGRwbV90YWJsZS0+Y291bnQ7IGkrKykgewo+ICAJCXJl
-c3VsdCA9IHZlZ2ExMF9wb3B1bGF0ZV9zaW5nbGVfZ2Z4X2xldmVsKGh3bWdyLAo+ICAJCQkJZHBt
-X3RhYmxlLT5kcG1fbGV2ZWxzW2ldLnZhbHVlLAo+IC0JCQkJJihwcF90YWJsZS0+R2Z4Y2xrTGV2
-ZWxbaV0pKTsKPiArCQkJCSYocHBfdGFibGUtPkdmeGNsa0xldmVsW2ldKSwKPiArCQkJCSYocHBf
-dGFibGUtPkFjZ0ZyZXFUYWJsZVtpXSkpOwo+ICAJCWlmIChyZXN1bHQpCj4gIAkJCXJldHVybiBy
-ZXN1bHQ7Cj4gIAl9Cj4gQEAgLTE2OTcsNyArMTcwMSw4IEBAIHN0YXRpYyBpbnQKPiB2ZWdhMTBf
-cG9wdWxhdGVfYWxsX2dyYXBoaWNfbGV2ZWxzKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCj4gIAl3
-aGlsZSAoaSA8IE5VTV9HRlhDTEtfRFBNX0xFVkVMUykgewo+ICAJCXJlc3VsdCA9IHZlZ2ExMF9w
-b3B1bGF0ZV9zaW5nbGVfZ2Z4X2xldmVsKGh3bWdyLAo+ICAJCQkJZHBtX3RhYmxlLT5kcG1fbGV2
-ZWxzW2pdLnZhbHVlLAo+IC0JCQkJJihwcF90YWJsZS0+R2Z4Y2xrTGV2ZWxbaV0pKTsKPiArCQkJ
-CSYocHBfdGFibGUtPkdmeGNsa0xldmVsW2ldKSwKPiArCQkJCSYocHBfdGFibGUtPkFjZ0ZyZXFU
-YWJsZVtpXSkpOwo+ICAJCWlmIChyZXN1bHQpCj4gIAkJCXJldHVybiByZXN1bHQ7Cj4gIAkJaSsr
-Owo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvc211OV9k
-cml2ZXJfaWYuaAo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdTlfZHJp
-dmVyX2lmLmgKPiBpbmRleCBmNmQ2YzYxLi4yODE4Yzk4IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9zbXU5X2RyaXZlcl9pZi5oCj4gKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdTlfZHJpdmVyX2lmLmgKPiBAQCAtMzE1LDEw
-ICszMTUsMTIgQEAgdHlwZWRlZiBzdHJ1Y3Qgewo+ICAgIHVpbnQ4X3QgICAgICBBY2dFbmFibGVb
-TlVNX0dGWENMS19EUE1fTEVWRUxTXTsKPiAgICBHYlZkcm9vcFRhYmxlX3QgQWNnQnRjR2JWZHJv
-b3BUYWJsZTsKPiAgICBRdWFkcmF0aWNJbnRfdCAgQWNnQXZmc0diOwo+IC0gIHVpbnQzMl90ICAg
-ICBSZXNlcnZlZFs0XTsKPiArCj4gKyAgLyogQUNHIEZyZXF1ZW5jeSBUYWJsZSwgaW4gTWh6ICov
-Cj4gKyAgdWludDMyX3QgICAgIEFjZ0ZyZXFUYWJsZVtOVU1fR0ZYQ0xLX0RQTV9MRVZFTFNdOwo+
-IAo+ICAgIC8qIFBhZGRpbmcgLSBpZ25vcmUgKi8KPiAtICB1aW50MzJfdCAgICAgTW1IdWJQYWRk
-aW5nWzddOyAvKiBTTVUgaW50ZXJuYWwgdXNlICovCj4gKyAgdWludDMyX3QgICAgIE1tSHViUGFk
-ZGluZ1szXTsgLyogU01VIGludGVybmFsIHVzZSAqLwo+IAo+ICB9IFBQVGFibGVfdDsKPiAKPiAt
-LQo+IDIuNy40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+Check memory allocation failure and return -ENOMEM in such a case.
+
+'num_post_dep_syncobjs' still has to be set to 0 before the test in order
+to have it initialized if 'amdgpu_cs_parser_fini()' is called to free
+resources.
+
+The calling graph would be, in such a case!
+   failure in amdgpu_cs_process_syncobj_out_dep()
+      ---> error code returned by amdgpu_cs_dependencies()
+         --> amdgpu_cs_parser_fini() is called
+
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 15d4a28d73bb..baa90df90aea 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1079,6 +1079,9 @@ static int amdgpu_cs_process_syncobj_out_dep(struct amdgpu_cs_parser *p,
+ 					     GFP_KERNEL);
+ 	p->num_post_dep_syncobjs = 0;
+ 
++	if (!p->post_dep_syncobjs)
++		return -ENOMEM;
++
+ 	for (i = 0; i < num_deps; ++i) {
+ 		p->post_dep_syncobjs[i] = drm_syncobj_find(p->filp, deps[i].handle);
+ 		if (!p->post_dep_syncobjs[i])
+-- 
+2.11.0
