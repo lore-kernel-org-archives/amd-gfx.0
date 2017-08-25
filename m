@@ -1,9 +1,8 @@
 From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] drm/amdgpu: Add sysfs file for VBIOS
-Date: Fri, 25 Aug 2017 09:05:01 -0400
-Message-ID: <ebeb7962-c55c-9ba3-6969-6f7cf9934a5b@amd.com>
+Date: Fri, 25 Aug 2017 09:32:32 -0400
+Message-ID: <4202cafb-db5d-4487-e195-ce02a289f79f@amd.com>
 References: <1503511940-645-1-git-send-email-kent.russell@amd.com>
- <BN6PR1201MB01801A32C06AE0DA6634F440859A0@BN6PR1201MB0180.namprd12.prod.outlook.com>
  <CADnq5_PD3s8HHPtr49ZJ3DXPVXgP5xyvFZj_YTzsGCi=cnOUKA@mail.gmail.com>
  <BN6PR1201MB018010027CA78E203F629BA7859A0@BN6PR1201MB0180.namprd12.prod.outlook.com>
  <DM5PR1201MB023503F29269CEC80DC7DAD8929A0@DM5PR1201MB0235.namprd12.prod.outlook.com>
@@ -16,11 +15,12 @@ References: <1503511940-645-1-git-send-email-kent.russell@amd.com>
  <0a3d4d07-e3cd-6216-466b-30bc60c8a26a@vodafone.de>
  <22c4b9e2-67e2-bd0a-1147-6e896843783e@amd.com>
  <BN6PR1201MB01806ACF078801D91460C110859B0@BN6PR1201MB0180.namprd12.prod.outlook.com>
+ <ebeb7962-c55c-9ba3-6969-6f7cf9934a5b@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR1201MB01806ACF078801D91460C110859B0-6iU6OBHu2P/H0AMcJMwsYmrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
+In-Reply-To: <ebeb7962-c55c-9ba3-6969-6f7cf9934a5b-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -32,33 +32,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gMjUvMDgvMTcgMDg6NTkgQU0sIFJ1c3NlbGwsIEtlbnQgd3JvdGU6Cj4gVGhlcmUgaXMgR1BV
-IFBvd2VyIHVzYWdlIHJlcG9ydGVkIHRocm91Z2ggYW1kZ3B1X3BtX2luZm8sIHdoaWNoIGFsc28g
-aGFzIHNvbWUgb3RoZXIgaW5mb3JtYXRpb24gYXMgd2VsbC4gSSdkIGxpa2UgdGhhdCBpbiBzeXNm
-cywgYnV0IEkgYW0gdW5zdXJlIGlmIHdlIGFyZSAgYWxsb3dlZCB0byBkdWUgdG8gdGhlIG90aGVy
-IGluZm9ybWF0aW9uIHJlcG9ydGVkIHRoZXJlLgoKSSB0aG91Z2h0IHRoZSBzZW5zb3JzIHdlcmUg
-YWRkZWQgdG8gdGhlIERSTSBpb2N0bCBidXQgYXBwYXJlbnRseSBub3QuCgpTZWVtcyBsaWtlIHRo
-YXQgbWlnaHQgYmUgYSBiaXQgZWFzaWVyIHBsYWNlIHRvIHB1dCB0aGVtIHRoYW4gY3JlYXRpbmcg
-CnN5c2ZzIGVudHJpZXMgZm9yIGV2ZXJ5IHNpbmdsZSBzZW5zb3IgKGl0IGFsc28gbWVhbnMgYXMg
-bmV3IHNlbnNvcnMgYXJlIAphZGRlZCB5b3UgaGF2ZSB0byBjaXJjbGUgYXJvdW5kIGJhY2sgdG8g
-YWRkIHlldCBtb3JlIHN5c2ZzIGVudHJpZXMpLgoKVG9tCgoKCj4gCj4gICBLZW50Cj4gCj4gLS0t
-LS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPiBGcm9tOiBTdERlbmlzLCBUb20KPiBTZW50OiBGcmlk
-YXksIEF1Z3VzdCAyNSwgMjAxNyA4OjU4IEFNCj4gVG86IENocmlzdGlhbiBLw7ZuaWc7IFJ1c3Nl
-bGwsIEtlbnQ7IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gU3ViamVjdDogUmU6IFtQ
-QVRDSF0gZHJtL2FtZGdwdTogQWRkIHN5c2ZzIGZpbGUgZm9yIFZCSU9TCj4gCj4gT24gMjUvMDgv
-MTcgMDg6NTYgQU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+IEhpIEtlbnQsCj4+Cj4+IGFn
-cmVlIG9uIHRoZSBWQklPUyBkdW1wIGZpbGUsIHRoYXQgY2xlYXJseSBiZWxvbmdzIHRvIGRlYnVn
-c2YuCj4+Cj4+IFRoZSBwb3dlciB1c2FnZSBzdHVmZiBJIGNhbid0IHNheSBtdWNoIGFib3V0IGNh
-dXNlIEknbSBub3QgZGVlcGx5IGludG8KPj4gdGhpcywgYnV0IGtlZXAgaW4gbWluZCB0aGUgcmVz
-dHJpY3Rpb24gZm9yIHN5c2ZzOgo+PiAxLiBJdCdzIGEgc3RhYmxlIGludGVyZmFjZS4gU28gaXQg
-bXVzdCBiZSB2ZXJ5IHdlbGwgZGVzaWduZWQuCj4+IDIuIE9ubHkgb25lIHZhbHVlIHBlciBmaWxl
-LiBJIHRoaW5rIHRoZSBwb3dlciBzdHVmZiBkb2Vzbid0IGZ1bGZpbGwKPj4gdGhhdCByZXF1aXJl
-bWVudCBhdCB0aGUgbW9tZW50Lgo+IAo+IFdoYXQgInBvd2VyIiBzdHVmZiBhcmUgd2UgdGFsa2lu
-ZyBhYm91dD8gIFRoZSBzZW5zb3JzIGludGVyZmFjZSBvciB0aGUgcG1faW5mbyBvciBzb21ldGhp
-bmcgZWxzZT8KPiAKPiBLZWVwIGluIG1pbmQgdW1yIHVzZXMgdGhlIHNlbnNvcnMgZGVidWdmcyBm
-aWxlIGluIC0tdG9wIG1vZGUuCj4gCj4gVG9tCj4gCgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2FtZC1nZngK
+T24gMjUvMDgvMTcgMDk6MDUgQU0sIFRvbSBTdCBEZW5pcyB3cm90ZToKPiBPbiAyNS8wOC8xNyAw
+ODo1OSBBTSwgUnVzc2VsbCwgS2VudCB3cm90ZToKPj4gVGhlcmUgaXMgR1BVIFBvd2VyIHVzYWdl
+IHJlcG9ydGVkIHRocm91Z2ggYW1kZ3B1X3BtX2luZm8sIHdoaWNoIGFsc28gCj4+IGhhcyBzb21l
+IG90aGVyIGluZm9ybWF0aW9uIGFzIHdlbGwuIEknZCBsaWtlIHRoYXQgaW4gc3lzZnMsIGJ1dCBJ
+IGFtIAo+PiB1bnN1cmUgaWYgd2UgYXJlICBhbGxvd2VkIHRvIGR1ZSB0byB0aGUgb3RoZXIgaW5m
+b3JtYXRpb24gcmVwb3J0ZWQgdGhlcmUuCj4gCj4gSSB0aG91Z2h0IHRoZSBzZW5zb3JzIHdlcmUg
+YWRkZWQgdG8gdGhlIERSTSBpb2N0bCBidXQgYXBwYXJlbnRseSBub3QuCgpObyBpdCB3YXMsIHVu
+ZGVyIEFNREdQVV9JTkZPIHlvdSByZXF1ZXN0IGluZm8tPnF1ZXJ5ID09IApBTURHUFVfSU5GT19T
+RU5TT1IgYW5kIHRoZW4gc3BlY2lmeSB3aGljaCBzZW5zb3IgeW91IHdhbnQgaW4gCmluZm8tPnNl
+bnNvcl9pbmZvLnR5cGUgKHNlZSBhbWRncHVfa21zLmMpLgoKU28geW91IGNhbiBhbHJlYWR5IHJl
+YWQgdGhpcyBmcm9tIGEgbm9ybWFsIHVzZXIgcHJvY2VzcyB3aG8gaGFzIGFuIG9wZW4gCkRSTSBm
+aWxlIGhhbmRsZS4KClRvbQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
