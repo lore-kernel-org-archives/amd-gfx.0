@@ -1,7 +1,7 @@
-From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Add sysfs file for VBIOS
-Date: Fri, 25 Aug 2017 08:57:52 -0400
-Message-ID: <22c4b9e2-67e2-bd0a-1147-6e896843783e@amd.com>
+From: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: Add sysfs file for VBIOS
+Date: Fri, 25 Aug 2017 12:59:59 +0000
+Message-ID: <BN6PR1201MB01806ACF078801D91460C110859B0@BN6PR1201MB0180.namprd12.prod.outlook.com>
 References: <1503511940-645-1-git-send-email-kent.russell@amd.com>
  <1e64a642-411e-ea58-1639-390e4c3cd75d@vodafone.de>
  <BN6PR1201MB01801A32C06AE0DA6634F440859A0@BN6PR1201MB0180.namprd12.prod.outlook.com>
@@ -15,11 +15,12 @@ References: <1503511940-645-1-git-send-email-kent.russell@amd.com>
  <4cec0dad-502e-68f2-68c9-b5d0103d7093@amd.com>
  <BN6PR1201MB01803DD5EBD0049397F4E9F0859B0@BN6PR1201MB0180.namprd12.prod.outlook.com>
  <0a3d4d07-e3cd-6216-466b-30bc60c8a26a@vodafone.de>
+ <22c4b9e2-67e2-bd0a-1147-6e896843783e@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <0a3d4d07-e3cd-6216-466b-30bc60c8a26a-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <22c4b9e2-67e2-bd0a-1147-6e896843783e-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -31,19 +32,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gMjUvMDgvMTcgMDg6NTYgQU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4gSGkgS2VudCwK
-PiAKPiBhZ3JlZSBvbiB0aGUgVkJJT1MgZHVtcCBmaWxlLCB0aGF0IGNsZWFybHkgYmVsb25ncyB0
-byBkZWJ1Z3NmLgo+IAo+IFRoZSBwb3dlciB1c2FnZSBzdHVmZiBJIGNhbid0IHNheSBtdWNoIGFi
-b3V0IGNhdXNlIEknbSBub3QgZGVlcGx5IGludG8gCj4gdGhpcywgYnV0IGtlZXAgaW4gbWluZCB0
-aGUgcmVzdHJpY3Rpb24gZm9yIHN5c2ZzOgo+IDEuIEl0J3MgYSBzdGFibGUgaW50ZXJmYWNlLiBT
-byBpdCBtdXN0IGJlIHZlcnkgd2VsbCBkZXNpZ25lZC4KPiAyLiBPbmx5IG9uZSB2YWx1ZSBwZXIg
-ZmlsZS4gSSB0aGluayB0aGUgcG93ZXIgc3R1ZmYgZG9lc24ndCBmdWxmaWxsIHRoYXQgCj4gcmVx
-dWlyZW1lbnQgYXQgdGhlIG1vbWVudC4KCldoYXQgInBvd2VyIiBzdHVmZiBhcmUgd2UgdGFsa2lu
-ZyBhYm91dD8gIFRoZSBzZW5zb3JzIGludGVyZmFjZSBvciB0aGUgCnBtX2luZm8gb3Igc29tZXRo
-aW5nIGVsc2U/CgpLZWVwIGluIG1pbmQgdW1yIHVzZXMgdGhlIHNlbnNvcnMgZGVidWdmcyBmaWxl
-IGluIC0tdG9wIG1vZGUuCgpUb20KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+VGhlcmUgaXMgR1BVIFBvd2VyIHVzYWdlIHJlcG9ydGVkIHRocm91Z2ggYW1kZ3B1X3BtX2luZm8s
+IHdoaWNoIGFsc28gaGFzIHNvbWUgb3RoZXIgaW5mb3JtYXRpb24gYXMgd2VsbC4gSSdkIGxpa2Ug
+dGhhdCBpbiBzeXNmcywgYnV0IEkgYW0gdW5zdXJlIGlmIHdlIGFyZSAgYWxsb3dlZCB0byBkdWUg
+dG8gdGhlIG90aGVyIGluZm9ybWF0aW9uIHJlcG9ydGVkIHRoZXJlLg0KDQogS2VudA0KDQotLS0t
+LU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogU3REZW5pcywgVG9tIA0KU2VudDogRnJpZGF5
+LCBBdWd1c3QgMjUsIDIwMTcgODo1OCBBTQ0KVG86IENocmlzdGlhbiBLw7ZuaWc7IFJ1c3NlbGws
+IEtlbnQ7IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpTdWJqZWN0OiBSZTogW1BBVENI
+XSBkcm0vYW1kZ3B1OiBBZGQgc3lzZnMgZmlsZSBmb3IgVkJJT1MNCg0KT24gMjUvMDgvMTcgMDg6
+NTYgQU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6DQo+IEhpIEtlbnQsDQo+IA0KPiBhZ3JlZSBv
+biB0aGUgVkJJT1MgZHVtcCBmaWxlLCB0aGF0IGNsZWFybHkgYmVsb25ncyB0byBkZWJ1Z3NmLg0K
+PiANCj4gVGhlIHBvd2VyIHVzYWdlIHN0dWZmIEkgY2FuJ3Qgc2F5IG11Y2ggYWJvdXQgY2F1c2Ug
+SSdtIG5vdCBkZWVwbHkgaW50byANCj4gdGhpcywgYnV0IGtlZXAgaW4gbWluZCB0aGUgcmVzdHJp
+Y3Rpb24gZm9yIHN5c2ZzOg0KPiAxLiBJdCdzIGEgc3RhYmxlIGludGVyZmFjZS4gU28gaXQgbXVz
+dCBiZSB2ZXJ5IHdlbGwgZGVzaWduZWQuDQo+IDIuIE9ubHkgb25lIHZhbHVlIHBlciBmaWxlLiBJ
+IHRoaW5rIHRoZSBwb3dlciBzdHVmZiBkb2Vzbid0IGZ1bGZpbGwgDQo+IHRoYXQgcmVxdWlyZW1l
+bnQgYXQgdGhlIG1vbWVudC4NCg0KV2hhdCAicG93ZXIiIHN0dWZmIGFyZSB3ZSB0YWxraW5nIGFi
+b3V0PyAgVGhlIHNlbnNvcnMgaW50ZXJmYWNlIG9yIHRoZSBwbV9pbmZvIG9yIHNvbWV0aGluZyBl
+bHNlPw0KDQpLZWVwIGluIG1pbmQgdW1yIHVzZXMgdGhlIHNlbnNvcnMgZGVidWdmcyBmaWxlIGlu
+IC0tdG9wIG1vZGUuDQoNClRvbQ0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
 X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
 cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
 Z2Z4Cg==
