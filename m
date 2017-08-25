@@ -1,7 +1,7 @@
-From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Add sysfs file for VBIOS
-Date: Fri, 25 Aug 2017 09:34:13 -0400
-Message-ID: <cc70864c-1106-1668-d80f-49cfbb6a6325@amd.com>
+From: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: Add sysfs file for VBIOS
+Date: Fri, 25 Aug 2017 13:36:54 +0000
+Message-ID: <BN6PR1201MB0180E52E138282B11CD10E47859B0@BN6PR1201MB0180.namprd12.prod.outlook.com>
 References: <1503511940-645-1-git-send-email-kent.russell@amd.com>
  <CADnq5_PD3s8HHPtr49ZJ3DXPVXgP5xyvFZj_YTzsGCi=cnOUKA@mail.gmail.com>
  <BN6PR1201MB018010027CA78E203F629BA7859A0@BN6PR1201MB0180.namprd12.prod.outlook.com>
@@ -16,11 +16,12 @@ References: <1503511940-645-1-git-send-email-kent.russell@amd.com>
  <22c4b9e2-67e2-bd0a-1147-6e896843783e@amd.com>
  <BN6PR1201MB01806ACF078801D91460C110859B0@BN6PR1201MB0180.namprd12.prod.outlook.com>
  <ebeb7962-c55c-9ba3-6969-6f7cf9934a5b@amd.com>
+ <cc70864c-1106-1668-d80f-49cfbb6a6325@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <ebeb7962-c55c-9ba3-6969-6f7cf9934a5b-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <cc70864c-1106-1668-d80f-49cfbb6a6325-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -32,18 +33,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gMjUvMDgvMTcgMDk6MDUgQU0sIFRvbSBTdCBEZW5pcyB3cm90ZToKPiBPbiAyNS8wOC8xNyAw
-ODo1OSBBTSwgUnVzc2VsbCwgS2VudCB3cm90ZToKPj4gVGhlcmUgaXMgR1BVIFBvd2VyIHVzYWdl
-IHJlcG9ydGVkIHRocm91Z2ggYW1kZ3B1X3BtX2luZm8sIHdoaWNoIGFsc28gCj4+IGhhcyBzb21l
-IG90aGVyIGluZm9ybWF0aW9uIGFzIHdlbGwuIEknZCBsaWtlIHRoYXQgaW4gc3lzZnMsIGJ1dCBJ
-IGFtIAo+PiB1bnN1cmUgaWYgd2UgYXJlICBhbGxvd2VkIHRvIGR1ZSB0byB0aGUgb3RoZXIgaW5m
-b3JtYXRpb24gcmVwb3J0ZWQgdGhlcmUuCj4gCj4gSSB0aG91Z2h0IHRoZSBzZW5zb3JzIHdlcmUg
-YWRkZWQgdG8gdGhlIERSTSBpb2N0bCBidXQgYXBwYXJlbnRseSBub3QuCgpOb3BlLCBpdCB3YXMg
-YWN0dWFsbHkgKHNlZSBhbWRncHVfa21zLmMpLiAgVW5kZXIgYW4gQU1ER1BVX0lORk8gY29tbWFu
-ZCAKeW91IGFzayBmb3IgQU1ER1BVX0lORk9fU0VOU09SIGFuZCB0aGVuIGZpbGwgb3V0IHNlbnNv
-cl9pbmZvLnR5cGUuCgpUb20KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-Cg==
+UmlnaHQuIEFuZCBhY2NvcmRpbmcgdG8gQ2hyaXN0aWFuLCBpdCBkb2Vzbid0IGZpdCB0aGUgZm9y
+bWF0IGFueXdheXMsIHNvIHBvd2VyIHVzYWdlIGNhbiBzdGF5LiBJJ20gd29ya2luZyBvbiB0aGUg
+cGF0Y2ggdG8gbW92ZSB0aGUgdmJpb3MgdmVyc2lvbiB0byBzeXNmcyBmcm9tIGRlYnVnZnMuIFNo
+b3VsZCBiZSB1cCBzaG9ydGx5LiBNYXliZSBJIGNhbiBqdXN0IG1ha2UgYSBuZXcgc3lzZnMgZmls
+ZSBmb3IgQXZlcmFnZSBHUFUgdXNhZ2UgYnkgaXRzZWxmLiBBbm90aGVyIHRhc2sgZm9yIGFub3Ro
+ZXIgZGF5LiBCdXQgSSB3b24ndCBiZSBtb3ZpbmcgdGhlIHNlbnNvcnMgb3Zlci4gSnVzdCB2Ymlv
+cyB2ZXJzaW9uIGZvciBub3csIG1heWJlIGF2ZXJhZ2UgR1BVIHBvd2VyIHVzYWdlIGxhdGVyLg0K
+DQogS2VudA0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogYW1kLWdmeCBbbWFp
+bHRvOmFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmddIE9uIEJlaGFsZiBPZiBU
+b20gU3QgRGVuaXMNClNlbnQ6IEZyaWRheSwgQXVndXN0IDI1LCAyMDE3IDk6MzQgQU0NClRvOiBh
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KU3ViamVjdDogUmU6IFtQQVRDSF0gZHJtL2Ft
+ZGdwdTogQWRkIHN5c2ZzIGZpbGUgZm9yIFZCSU9TDQoNCk9uIDI1LzA4LzE3IDA5OjA1IEFNLCBU
+b20gU3QgRGVuaXMgd3JvdGU6DQo+IE9uIDI1LzA4LzE3IDA4OjU5IEFNLCBSdXNzZWxsLCBLZW50
+IHdyb3RlOg0KPj4gVGhlcmUgaXMgR1BVIFBvd2VyIHVzYWdlIHJlcG9ydGVkIHRocm91Z2ggYW1k
+Z3B1X3BtX2luZm8sIHdoaWNoIGFsc28gDQo+PiBoYXMgc29tZSBvdGhlciBpbmZvcm1hdGlvbiBh
+cyB3ZWxsLiBJJ2QgbGlrZSB0aGF0IGluIHN5c2ZzLCBidXQgSSBhbSANCj4+IHVuc3VyZSBpZiB3
+ZSBhcmUgIGFsbG93ZWQgdG8gZHVlIHRvIHRoZSBvdGhlciBpbmZvcm1hdGlvbiByZXBvcnRlZCB0
+aGVyZS4NCj4gDQo+IEkgdGhvdWdodCB0aGUgc2Vuc29ycyB3ZXJlIGFkZGVkIHRvIHRoZSBEUk0g
+aW9jdGwgYnV0IGFwcGFyZW50bHkgbm90Lg0KDQpOb3BlLCBpdCB3YXMgYWN0dWFsbHkgKHNlZSBh
+bWRncHVfa21zLmMpLiAgVW5kZXIgYW4gQU1ER1BVX0lORk8gY29tbWFuZCB5b3UgYXNrIGZvciBB
+TURHUFVfSU5GT19TRU5TT1IgYW5kIHRoZW4gZmlsbCBvdXQgc2Vuc29yX2luZm8udHlwZS4NCg0K
+VG9tDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KYW1k
+LWdmeCBtYWlsaW5nIGxpc3QNCmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
+aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
