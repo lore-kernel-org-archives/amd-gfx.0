@@ -1,15 +1,17 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/9] drm/amdgpu: Add PASID management
-Date: Sat, 26 Aug 2017 14:41:38 +0000
-Message-ID: <DM5PR1201MB02354BF9038004E6D687E78492980@DM5PR1201MB0235.namprd12.prod.outlook.com>
-References: <1503731949-22742-1-git-send-email-Felix.Kuehling@amd.com>
- <1503731949-22742-3-git-send-email-Felix.Kuehling@amd.com>,
- <994b23cd-67b3-4498-2c2b-d4fc2ea68be7@vodafone.de>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH 9/9] drm/amdgpu: WIP add IOCTL interface for per VM BOs
+Date: Sun, 27 Aug 2017 12:03:58 +0200
+Message-ID: <fba30bfa-aa7c-d342-b4b6-85058f5db5bf@vodafone.de>
+References: <1503653899-1781-1-git-send-email-deathsimple@vodafone.de>
+ <1503653899-1781-9-git-send-email-deathsimple@vodafone.de>
+ <19c04fac-1fdd-1436-e85c-95dd4ac02b1b@amd.com>
+ <9304342a-def2-187e-4e9c-d872c58cdc17@vodafone.de>
+ <CAAxE2A5dSR-PY+zZ3VeaT7iiCmj5jfty0hv7XZjz4HgOrApQHw@mail.gmail.com>
+ <e7d5f9d9-ed3e-2654-9acd-c7339976006f@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="------------AF6ADB70000B19CB4515BEF5"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <994b23cd-67b3-4498-2c2b-d4fc2ea68be7-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <e7d5f9d9-ed3e-2654-9acd-c7339976006f-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,248 +23,672 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?iso-8859-1?Q?Christian_K=F6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>, "Olsak, Marek" <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-PiBCdXQgSSdtIGEgYml0IGNvbmZ1c2VkLCBkb2Vzbid0IGhpcyBzdHVmZiBiZWxvbmcgaW50byB0
-aGUgSU9NTVUgY29kZT8KClBBU0lEcyB3b3JrIG9uIGRHUFVzIHdpdGhvdXQgYW4gSU9NTVUuIFRo
-ZXkncmUganVzdCBkZXZpY2Utc3BlY2lmaWMgcHJvY2VzcyBpZGVudGlmaWVycy4gT24gQVBVcyB0
-aGVyZSBpcyBhbiBleHRyYSBzdGVwIGluIEtGRCB0aGF0IHJlZ2lzdGVycyBhIHByb2Nlc3MrUEFT
-SUQgd2l0aCB0aGUgSU9NTVUgZHJpdmVyLiBUaGF0IHdheSB0aGUgSU9NTVUga25vd3Mgd2hhdCB0
-byBkbyB3aGVuIGl0IHNlZXMgYWRkcmVzcyB0cmFuc2xhdGlvbiByZXF1ZXN0cyBmb3IgYSBzcGVj
-aWZpYyBQQVNJRCBmcm9tIGEgc3BlY2lmaWMgZGV2aWNlLiBUaGlzIGlzIGRvbmUgYnkgY2FsbGlu
-ZyBhbWRfaW9tbXVfYmluZF9wYXNpZDoKCiAgICBzdHJ1Y3Qga2ZkX3Byb2Nlc3NfZGV2aWNlICpr
-ZmRfYmluZF9wcm9jZXNzX3RvX2RldmljZShzdHJ1Y3Qga2ZkX2RldiAqZGV2LAogICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBrZmRfcHJv
-Y2VzcyAqcCkKICAgIHsKICAgICAgICAgICAgLi4uCiAgICAgICAgICAgIGVyciA9IGFtZF9pb21t
-dV9iaW5kX3Bhc2lkKGRldi0+cGRldiwgcC0+cGFzaWQsIHAtPmxlYWRfdGhyZWFkKTsKICAgICAg
-ICAgICAgLi4uCiAgICB9CgpUaGUgUEFTSUQgbWFuYWdlbWVudCBpcyBkb25lIGJ5IHRoZSBkZXZp
-Y2UgZHJpdmVyLCBub3QgdGhlIElPTU1VIGRyaXZlci4gSSB0aGluayBkaWZmZXJlbnQgZGV2aWNl
-cyBjYW4gdXNlIGRpZmZlcmVudCBQQVNJRHMgZm9yIHRoZSBzYW1lIHByb2Nlc3MuCgpSZWdhcmRz
-LAogIEZlbGl4CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkZyb206
-IENocmlzdGlhbiBLw7ZuaWcgPGRlYXRoc2ltcGxlQHZvZGFmb25lLmRlPgpTZW50OiBTYXR1cmRh
-eSwgQXVndXN0IDI2LCAyMDE3IDk6MjcgQU0KVG86IEt1ZWhsaW5nLCBGZWxpeDsgYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKU3ViamVjdDogUmU6IFtQQVRDSCAyLzldIGRybS9hbWRncHU6
-IEFkZCBQQVNJRCBtYW5hZ2VtZW50CgpBbSAyNi4wOC4yMDE3IHVtIDA5OjE5IHNjaHJpZWIgRmVs
-aXggS3VlaGxpbmc6Cj4gQWxsb3dzIGFzc2lnbmluZyBhIFBBU0lEIHRvIGEgVk0gZm9yIGlkZW50
-aWZ5aW5nIFZNcyBpbnZvbHZlZCBpbiBwYWdlCj4gZmF1bHRzLiBUaGUgZ2xvYmFsIFBBU0lEIG1h
-bmFnZXIgaXMgYWxzbyBleHBvcnRlZCBpbiB0aGUgS0ZECj4gaW50ZXJmYWNlIHNvIHRoYXQgQU1E
-R1BVIGFuZCBLRkQgY2FuIHNoYXJlIHRoZSBQQVNJRCBzcGFjZS4KPgo+IFBBU0lEcyBvZiBkaWZm
-ZXJlbnQgc2l6ZXMgY2FuIGJlIHJlcXVlc3RlZC4gT24gQVBVcywgdGhlIFBBU0lEIHNpemUKPiBp
-cyBkZXRlcmluZWQgYnkgdGhlIGNhcGFiaWxpdGllcyBvZiB0aGUgSU9NTVUuIFNvIEtGRCBtdXN0
-IGJlIGFibGUKPiB0byBhbGxvY2F0ZSBQQVNJRHMgaW4gYSBzbWFsbGVyIHJhbmdlLgo+Cj4gVE9E
-TzoKPiAqIEFjdHVhbGx5IGFzc2lnbiBQQVNJRHMgdG8gVk1zCj4gKiBVcGRhdGUgdGhlIFBBU0lE
-LVZNSUQgbWFwcGluZyByZWdpc3RlcnMgZHVyaW5nIENTCj4KPiBDaGFuZ2UtSWQ6IEk4OGM5MzU3
-YTdjNTg0ZjEwZTg0YjU2MDdhYzA5ZWJhNzdjODMzMzkzCj4gU2lnbmVkLW9mZi1ieTogRmVsaXgg
-S3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+CgpUaGUgcGF0Y2ggaXRzZWxmIGlzIFJl
-dmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+LgoK
-QnV0IEknbSBhIGJpdCBjb25mdXNlZCwgZG9lc24ndCBoaXMgc3R1ZmYgYmVsb25nIGludG8gdGhl
-IElPTU1VIGNvZGU/CgpSZWdhcmRzLApDaHJpc3RpYW4uCgo+IC0tLQo+ICAgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9nZnhfdjcuYyB8ICAyICsKPiAgIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ2Z4X3Y4LmMgfCAgMiArCj4gICBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dmeF92OS5jIHwgIDIgKwo+ICAg
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jICB8ICAyICst
-Cj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMgICAgICAgICAgIHwg
-IDIgKy0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jICAgICAgICAg
-ICAgfCA3NiArKysrKysrKysrKysrKysrKysrKysrLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X3ZtLmggICAgICAgICAgICB8IDE0ICsrKystCj4gICBkcml2ZXJzL2dwdS9k
-cm0vYW1kL2luY2x1ZGUva2dkX2tmZF9pbnRlcmZhY2UuaCAgIHwgIDYgKysKPiAgIDggZmlsZXMg
-Y2hhbmdlZCwgMTAxIGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9nZnhfdjcuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ2Z4X3Y3LmMKPiBpbmRleCAz
-ZTI4ZDJiLi4wODA3ZDUyIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9hbWRrZmRfZ2Z4X3Y3LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfYW1ka2ZkX2dmeF92Ny5jCj4gQEAgLTE4OCw2ICsxODgsOCBAQCBzdGF0aWMgY29u
-c3Qgc3RydWN0IGtmZDJrZ2RfY2FsbHMga2ZkMmtnZCA9IHsKPiAgICAgICAuZ2V0X2xvY2FsX21l
-bV9pbmZvID0gZ2V0X2xvY2FsX21lbV9pbmZvLAo+ICAgICAgIC5nZXRfZ3B1X2Nsb2NrX2NvdW50
-ZXIgPSBnZXRfZ3B1X2Nsb2NrX2NvdW50ZXIsCj4gICAgICAgLmdldF9tYXhfZW5naW5lX2Nsb2Nr
-X2luX21oeiA9IGdldF9tYXhfZW5naW5lX2Nsb2NrX2luX21oeiwKPiArICAgICAuYWxsb2NfcGFz
-aWQgPSBhbWRncHVfdm1fYWxsb2NfcGFzaWQsCj4gKyAgICAgLmZyZWVfcGFzaWQgPSBhbWRncHVf
-dm1fZnJlZV9wYXNpZCwKPiAgICAgICAuY3JlYXRlX3Byb2Nlc3Nfdm0gPSBhbWRncHVfYW1ka2Zk
-X2dwdXZtX2NyZWF0ZV9wcm9jZXNzX3ZtLAo+ICAgICAgIC5kZXN0cm95X3Byb2Nlc3Nfdm0gPSBh
-bWRncHVfYW1ka2ZkX2dwdXZtX2Rlc3Ryb3lfcHJvY2Vzc192bSwKPiAgICAgICAuZ2V0X3Byb2Nl
-c3NfcGFnZV9kaXIgPSBhbWRncHVfYW1ka2ZkX2dwdXZtX2dldF9wcm9jZXNzX3BhZ2VfZGlyLAo+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dm
-eF92OC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9nZnhfdjgu
-Ywo+IGluZGV4IDNiNmI0ZDkuLmMyMGMwMDAgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9nZnhfdjguYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ2Z4X3Y4LmMKPiBAQCAtMTYyLDYgKzE2Miw4IEBA
-IHN0YXRpYyBjb25zdCBzdHJ1Y3Qga2ZkMmtnZF9jYWxscyBrZmQya2dkID0gewo+ICAgICAgIC5n
-ZXRfbG9jYWxfbWVtX2luZm8gPSBnZXRfbG9jYWxfbWVtX2luZm8sCj4gICAgICAgLmdldF9ncHVf
-Y2xvY2tfY291bnRlciA9IGdldF9ncHVfY2xvY2tfY291bnRlciwKPiAgICAgICAuZ2V0X21heF9l
-bmdpbmVfY2xvY2tfaW5fbWh6ID0gZ2V0X21heF9lbmdpbmVfY2xvY2tfaW5fbWh6LAo+ICsgICAg
-IC5hbGxvY19wYXNpZCA9IGFtZGdwdV92bV9hbGxvY19wYXNpZCwKPiArICAgICAuZnJlZV9wYXNp
-ZCA9IGFtZGdwdV92bV9mcmVlX3Bhc2lkLAo+ICAgICAgIC5jcmVhdGVfcHJvY2Vzc192bSA9IGFt
-ZGdwdV9hbWRrZmRfZ3B1dm1fY3JlYXRlX3Byb2Nlc3Nfdm0sCj4gICAgICAgLmRlc3Ryb3lfcHJv
-Y2Vzc192bSA9IGFtZGdwdV9hbWRrZmRfZ3B1dm1fZGVzdHJveV9wcm9jZXNzX3ZtLAo+ICAgICAg
-IC5jcmVhdGVfcHJvY2Vzc19ncHVtZW0gPSBjcmVhdGVfcHJvY2Vzc19ncHVtZW0sCj4gZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ2Z4X3Y5LmMg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dmeF92OS5jCj4gaW5k
-ZXggOTYxMzY5ZC4uYmI5OWM2NCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfYW1ka2ZkX2dmeF92OS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2FtZGtmZF9nZnhfdjkuYwo+IEBAIC0yMDksNiArMjA5LDggQEAgc3RhdGlj
-IGNvbnN0IHN0cnVjdCBrZmQya2dkX2NhbGxzIGtmZDJrZ2QgPSB7Cj4gICAgICAgLmdldF9sb2Nh
-bF9tZW1faW5mbyA9IGdldF9sb2NhbF9tZW1faW5mbywKPiAgICAgICAuZ2V0X2dwdV9jbG9ja19j
-b3VudGVyID0gZ2V0X2dwdV9jbG9ja19jb3VudGVyLAo+ICAgICAgIC5nZXRfbWF4X2VuZ2luZV9j
-bG9ja19pbl9taHogPSBnZXRfbWF4X2VuZ2luZV9jbG9ja19pbl9taHosCj4gKyAgICAgLmFsbG9j
-X3Bhc2lkID0gYW1kZ3B1X3ZtX2FsbG9jX3Bhc2lkLAo+ICsgICAgIC5mcmVlX3Bhc2lkID0gYW1k
-Z3B1X3ZtX2ZyZWVfcGFzaWQsCj4gICAgICAgLmNyZWF0ZV9wcm9jZXNzX3ZtID0gYW1kZ3B1X2Ft
-ZGtmZF9ncHV2bV9jcmVhdGVfcHJvY2Vzc192bSwKPiAgICAgICAuZGVzdHJveV9wcm9jZXNzX3Zt
-ID0gYW1kZ3B1X2FtZGtmZF9ncHV2bV9kZXN0cm95X3Byb2Nlc3Nfdm0sCj4gICAgICAgLmNyZWF0
-ZV9wcm9jZXNzX2dwdW1lbSA9IGNyZWF0ZV9wcm9jZXNzX2dwdW1lbSwKPiBkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jCj4gaW5kZXggMzVmN2Q3
-Ny4uNDYyMDExYyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfYW1ka2ZkX2dwdXZtLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfYW1ka2ZkX2dwdXZtLmMKPiBAQCAtMTM5Nyw3ICsxMzk3LDcgQEAgaW50IGFtZGdwdV9hbWRr
-ZmRfZ3B1dm1fY3JlYXRlX3Byb2Nlc3Nfdm0oc3RydWN0IGtnZF9kZXYgKmtnZCwgdm9pZCAqKnZt
-LAo+ICAgICAgICAgICAgICAgcmV0dXJuIC1FTk9NRU07Cj4KPiAgICAgICAvKiBJbml0aWFsaXpl
-IHRoZSBWTSBjb250ZXh0LCBhbGxvY2F0ZSB0aGUgcGFnZSBkaXJlY3RvcnkgYW5kIHplcm8gaXQg
-Ki8KPiAtICAgICByZXQgPSBhbWRncHVfdm1faW5pdChhZGV2LCAmbmV3X3ZtLT5iYXNlLCBBTURH
-UFVfVk1fQ09OVEVYVF9DT01QVVRFKTsKPiArICAgICByZXQgPSBhbWRncHVfdm1faW5pdChhZGV2
-LCAmbmV3X3ZtLT5iYXNlLCBBTURHUFVfVk1fQ09OVEVYVF9DT01QVVRFLCAwKTsKPiAgICAgICBp
-ZiAocmV0ICE9IDApIHsKPiAgICAgICAgICAgICAgIHByX2VycigiRmFpbGVkIGluaXQgdm0gcmV0
-ICVkXG4iLCByZXQpOwo+ICAgICAgICAgICAgICAgLyogVW5kbyBldmVyeXRoaW5nIHJlbGF0ZWQg
-dG8gdGhlIG5ldyBWTSBjb250ZXh0ICovCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9rbXMuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9rbXMuYwo+IGluZGV4IGUzOTBjMDEuLmJhM2RjNGQgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2ttcy5jCj4gQEAgLTgyNSw3ICs4MjUsNyBAQCBpbnQgYW1kZ3B1X2Ry
-aXZlcl9vcGVuX2ttcyhzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCBzdHJ1Y3QgZHJtX2ZpbGUgKmZp
-bGVfcHJpdikKPiAgICAgICB9Cj4KPiAgICAgICByID0gYW1kZ3B1X3ZtX2luaXQoYWRldiwgJmZw
-cml2LT52bSwKPiAtICAgICAgICAgICAgICAgICAgICAgICAgQU1ER1BVX1ZNX0NPTlRFWFRfR0ZY
-KTsKPiArICAgICAgICAgICAgICAgICAgICAgICAgQU1ER1BVX1ZNX0NPTlRFWFRfR0ZYLCAwKTsK
-PiAgICAgICBpZiAocikgewo+ICAgICAgICAgICAgICAga2ZyZWUoZnByaXYpOwo+ICAgICAgICAg
-ICAgICAgZ290byBvdXRfc3VzcGVuZDsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X3ZtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-dm0uYwo+IGluZGV4IDcwZDc2MzIuLmM2MzU2OTkgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfdm0uYwo+IEBAIC0yNywxMiArMjcsNTkgQEAKPiAgICAqLwo+ICAgI2luY2x1
-ZGUgPGxpbnV4L2RtYS1mZW5jZS1hcnJheS5oPgo+ICAgI2luY2x1ZGUgPGxpbnV4L2ludGVydmFs
-X3RyZWVfZ2VuZXJpYy5oPgo+ICsjaW5jbHVkZSA8bGludXgvaWRyLmg+Cj4gICAjaW5jbHVkZSA8
-ZHJtL2RybVAuaD4KPiAgICNpbmNsdWRlIDxkcm0vYW1kZ3B1X2RybS5oPgo+ICAgI2luY2x1ZGUg
-ImFtZGdwdS5oIgo+ICAgI2luY2x1ZGUgImFtZGdwdV90cmFjZS5oIgo+Cj4gICAvKgo+ICsgKiBQ
-QVNJRCBtYW5hZ2VyCj4gKyAqCj4gKyAqIFBBU0lEcyBhcmUgZ2xvYmFsIGFkZHJlc3Mgc3BhY2Ug
-aWRlbnRpZmllcnMgdGhhdCBjYW4gYmUgc2hhcmVkCj4gKyAqIGJldHdlZW4gdGhlIEdQVSwgYW4g
-SU9NTVUgYW5kIHRoZSBkcml2ZXIuIFZNcyBvbiBkaWZmZXJlbnQgZGV2aWNlcwo+ICsgKiBtYXkg
-dXNlIHRoZSBzYW1lIFBBU0lEIGlmIHRoZXkgc2hhcmUgdGhlIHNhbWUgYWRkcmVzcwo+ICsgKiBz
-cGFjZS4gVGhlcmVmb3JlIFBBU0lEcyBhcmUgYWxsb2NhdGVkIHVzaW5nIGEgZ2xvYmFsIElEQS4g
-Vk1zIGFyZQo+ICsgKiBsb29rZWQgdXAgZnJvbSB0aGUgUEFTSUQgcGVyIGFtZGdwdV9kZXZpY2Uu
-Cj4gKyAqLwo+ICtzdGF0aWMgREVGSU5FX0lEQShhbWRncHVfdm1fcGFzaWRfaWRhKTsKPiArCj4g
-Ky8qKgo+ICsgKiBhbWRncHVfdm1fYWxsb2NfcGFzaWQgLSBBbGxvY2F0ZSBhIFBBU0lECj4gKyAq
-IEBiaXRzOiBNYXhpbXVtIHdpZHRoIG9mIHRoZSBQQVNJRCBpbiBiaXRzLCBtdXN0IGJlIGF0IGxl
-YXN0IDEKPiArICoKPiArICogQWxsb2NhdGVzIGEgUEFTSUQgb2YgdGhlIGdpdmVuIHdpZHRoIHdo
-aWxlIGtlZXBpbmcgc21hbGxlciBQQVNJRHMKPiArICogYXZhaWxhYmxlIGlmIHBvc3NpYmxlLgo+
-ICsgKgo+ICsgKiBSZXR1cm5zIGEgcG9zaXRpdmUgaW50ZWdlciBvbiBzdWNjZXNzLiBSZXR1cm5z
-ICUtRUlOVkFMIGlmIGJpdHM9PTAuCj4gKyAqIFJldHVybnMgJS1FTk9TUEMgaWYgbm8gUEFTSUQg
-d2FzIGF2YWxpYWJsZS4gUmV0dXJucyAlLUVOT01FTSBvbgo+ICsgKiBtZW1vcnkgYWxsb2NhdGlv
-biBmYWlsdXJlLgo+ICsgKi8KPiAraW50IGFtZGdwdV92bV9hbGxvY19wYXNpZCh1bnNpZ25lZCBp
-bnQgYml0cykKPiArewo+ICsgICAgIGludCBwYXNpZCA9IC1FSU5WQUw7Cj4gKwo+ICsgICAgIGZv
-ciAoYml0cyA9IG1pbihiaXRzLCAzMVUpOyBiaXRzID4gMDsgYml0cy0tKSB7Cj4gKyAgICAgICAg
-ICAgICBwYXNpZCA9IGlkYV9zaW1wbGVfZ2V0KCZhbWRncHVfdm1fcGFzaWRfaWRhLAo+ICsgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAxVSA8PCAoYml0cyAtIDEpLCAxVSA8PCBi
-aXRzLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBHRlBfS0VSTkVMKTsK
-PiArICAgICAgICAgICAgIGlmIChwYXNpZCAhPSAtRU5PU1BDKQo+ICsgICAgICAgICAgICAgICAg
-ICAgICBicmVhazsKPiArICAgICB9Cj4gKwo+ICsgICAgIHJldHVybiBwYXNpZDsKPiArfQo+ICsK
-PiArLyoqCj4gKyAqIGFtZGdwdV92bV9mcmVlX3Bhc2lkIC0gRnJlZSBhIFBBU0lECj4gKyAqIEBw
-YXNpZDogUEFTSUQgdG8gZnJlZQo+ICsgKi8KPiArdm9pZCBhbWRncHVfdm1fZnJlZV9wYXNpZCh1
-bnNpZ25lZCBpbnQgcGFzaWQpCj4gK3sKPiArICAgICBpZGFfc2ltcGxlX3JlbW92ZSgmYW1kZ3B1
-X3ZtX3Bhc2lkX2lkYSwgcGFzaWQpOwo+ICt9Cj4gKwo+ICsvKgo+ICAgICogR1BVVk0KPiAgICAq
-IEdQVVZNIGlzIHNpbWlsYXIgdG8gdGhlIGxlZ2FjeSBnYXJ0IG9uIG9sZGVyIGFzaWNzLCBob3dl
-dmVyCj4gICAgKiByYXRoZXIgdGhhbiB0aGVyZSBiZWluZyBhIHNpbmdsZSBnbG9iYWwgZ2FydCB0
-YWJsZQo+IEBAIC0yNDgyLDcgKzI1MjksNyBAQCB2b2lkIGFtZGdwdV92bV9hZGp1c3Rfc2l6ZShz
-dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdWludDY0X3Qgdm1fc2l6ZSwgdWludDMyXwo+ICAg
-ICogSW5pdCBAdm0gZmllbGRzLgo+ICAgICovCj4gICBpbnQgYW1kZ3B1X3ZtX2luaXQoc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHN0cnVjdCBhbWRncHVfdm0gKnZtLAo+IC0gICAgICAgICAg
-ICAgICAgaW50IHZtX2NvbnRleHQpCj4gKyAgICAgICAgICAgICAgICBpbnQgdm1fY29udGV4dCwg
-dW5zaWduZWQgaW50IHBhc2lkKQo+ICAgewo+ICAgICAgIGNvbnN0IHVuc2lnbmVkIGFsaWduID0g
-bWluKEFNREdQVV9WTV9QVEJfQUxJR05fU0laRSwKPiAgICAgICAgICAgICAgIEFNREdQVV9WTV9Q
-VEVfQ09VTlQoYWRldikgKiA4KTsKPiBAQCAtMjU2Miw2ICsyNjA5LDE5IEBAIGludCBhbWRncHVf
-dm1faW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgc3RydWN0IGFtZGdwdV92bSAqdm0s
-Cj4gICAgICAgaWYgKHIpCj4gICAgICAgICAgICAgICBnb3RvIGVycm9yX2ZyZWVfcm9vdDsKPgo+
-ICsgICAgIGlmIChwYXNpZCkgewo+ICsgICAgICAgICAgICAgdW5zaWduZWQgbG9uZyBmbGFnczsK
-PiArCj4gKyAgICAgICAgICAgICBzcGluX2xvY2tfaXJxc2F2ZSgmYWRldi0+dm1fbWFuYWdlci5w
-YXNpZF9sb2NrLCBmbGFncyk7Cj4gKyAgICAgICAgICAgICByID0gaWRyX2FsbG9jKCZhZGV2LT52
-bV9tYW5hZ2VyLnBhc2lkX2lkciwgdm0sIHBhc2lkLCBwYXNpZCArIDEsCj4gKyAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIEdGUF9BVE9NSUMpOwo+ICsgICAgICAgICAgICAgc3Bpbl91bmxvY2tf
-aXJxcmVzdG9yZSgmYWRldi0+dm1fbWFuYWdlci5wYXNpZF9sb2NrLCBmbGFncyk7Cj4gKyAgICAg
-ICAgICAgICBpZiAociA8IDApCj4gKyAgICAgICAgICAgICAgICAgICAgIGdvdG8gZXJyb3JfZnJl
-ZV9yb290Owo+ICsKPiArICAgICAgICAgICAgIHZtLT5wYXNpZCA9IHBhc2lkOwo+ICsgICAgIH0K
-PiArCj4gICAgICAgdm0tPnZtX2NvbnRleHQgPSB2bV9jb250ZXh0Owo+ICAgICAgIGlmICh2bV9j
-b250ZXh0ID09IEFNREdQVV9WTV9DT05URVhUX0NPTVBVVEUpIHsKPiAgICAgICAgICAgICAgIG11
-dGV4X2xvY2soJmlkX21nci0+bG9jayk7Cj4gQEAgLTI2NTAsNiArMjcxMCwxNCBAQCB2b2lkIGFt
-ZGdwdV92bV9maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1X3Zt
-ICp2bSkKPiAgICAgICAgICAgICAgIG11dGV4X3VubG9jaygmaWRfbWdyLT5sb2NrKTsKPiAgICAg
-ICB9Cj4KPiArICAgICBpZiAodm0tPnBhc2lkKSB7Cj4gKyAgICAgICAgICAgICB1bnNpZ25lZCBs
-b25nIGZsYWdzOwo+ICsKPiArICAgICAgICAgICAgIHNwaW5fbG9ja19pcnFzYXZlKCZhZGV2LT52
-bV9tYW5hZ2VyLnBhc2lkX2xvY2ssIGZsYWdzKTsKPiArICAgICAgICAgICAgIGlkcl9yZW1vdmUo
-JmFkZXYtPnZtX21hbmFnZXIucGFzaWRfaWRyLCB2bS0+cGFzaWQpOwo+ICsgICAgICAgICAgICAg
-c3Bpbl91bmxvY2tfaXJxcmVzdG9yZSgmYWRldi0+dm1fbWFuYWdlci5wYXNpZF9sb2NrLCBmbGFn
-cyk7Cj4gKyAgICAgfQo+ICsKPiAgICAgICBhbWRfc2NoZWRfZW50aXR5X2Zpbmkodm0tPmVudGl0
-eS5zY2hlZCwgJnZtLT5lbnRpdHkpOwo+Cj4gICAgICAgaWYgKCFSQl9FTVBUWV9ST09UKCZ2bS0+
-dmEpKSB7Cj4gQEAgLTI3MjksNiArMjc5Nyw5IEBAIHZvaWQgYW1kZ3B1X3ZtX21hbmFnZXJfaW5p
-dChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAgICAgICBhZGV2LT52bV9tYW5hZ2VyLnZt
-X3VwZGF0ZV9tb2RlID0gMDsKPiAgICNlbmRpZgo+Cj4gKyAgICAgaWRyX2luaXQoJmFkZXYtPnZt
-X21hbmFnZXIucGFzaWRfaWRyKTsKPiArICAgICBzcGluX2xvY2tfaW5pdCgmYWRldi0+dm1fbWFu
-YWdlci5wYXNpZF9sb2NrKTsKPiArCj4gICAgICAgYWRldi0+dm1fbWFuYWdlci5uX2NvbXB1dGVf
-dm1zID0gMDsKPiAgIH0KPgo+IEBAIC0yNzQzLDYgKzI4MTQsOSBAQCB2b2lkIGFtZGdwdV92bV9t
-YW5hZ2VyX2Zpbmkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gICB7Cj4gICAgICAgdW5z
-aWduZWQgaSwgajsKPgo+ICsgICAgIFdBUk5fT04oIWlkcl9pc19lbXB0eSgmYWRldi0+dm1fbWFu
-YWdlci5wYXNpZF9pZHIpKTsKPiArICAgICBpZHJfZGVzdHJveSgmYWRldi0+dm1fbWFuYWdlci5w
-YXNpZF9pZHIpOwo+ICsKPiAgICAgICBmb3IgKGkgPSAwOyBpIDwgQU1ER1BVX01BWF9WTUhVQlM7
-ICsraSkgewo+ICAgICAgICAgICAgICAgc3RydWN0IGFtZGdwdV92bV9pZF9tYW5hZ2VyICppZF9t
-Z3IgPQo+ICAgICAgICAgICAgICAgICAgICAgICAmYWRldi0+dm1fbWFuYWdlci5pZF9tZ3JbaV07
-Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmgKPiBpbmRleCA0OWUxNWQ3Li42
-OTJiMDVjIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92
-bS5oCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmgKPiBAQCAt
-MjUsNiArMjUsNyBAQAo+ICAgI2RlZmluZSBfX0FNREdQVV9WTV9IX18KPgo+ICAgI2luY2x1ZGUg
-PGxpbnV4L3JidHJlZS5oPgo+ICsjaW5jbHVkZSA8bGludXgvaWRyLmg+Cj4KPiAgICNpbmNsdWRl
-ICJncHVfc2NoZWR1bGVyLmgiCj4gICAjaW5jbHVkZSAiYW1kZ3B1X3N5bmMuaCIKPiBAQCAtMTQz
-LDggKzE0NCw5IEBAIHN0cnVjdCBhbWRncHVfdm0gewo+ICAgICAgIC8qIFNjaGVkdWxlciBlbnRp
-dHkgZm9yIHBhZ2UgdGFibGUgdXBkYXRlcyAqLwo+ICAgICAgIHN0cnVjdCBhbWRfc2NoZWRfZW50
-aXR5IGVudGl0eTsKPgo+IC0gICAgIC8qIGNsaWVudCBpZCAqLwo+ICsgICAgIC8qIGNsaWVudCBp
-ZCBhbmQgUEFTSUQgKFRPRE86IHJlcGxhY2UgY2xpZW50X2lkIHdpdGggUEFTSUQpICovCj4gICAg
-ICAgdTY0ICAgICAgICAgICAgICAgICAgICAgY2xpZW50X2lkOwo+ICsgICAgIHVuc2lnbmVkIGlu
-dCAgICAgICAgICAgIHBhc2lkOwo+ICAgICAgIC8qIGRlZGljYXRlZCB0byB2bSAqLwo+ICAgICAg
-IHN0cnVjdCBhbWRncHVfdm1faWQgICAgICpyZXNlcnZlZF92bWlkW0FNREdQVV9NQVhfVk1IVUJT
-XTsKPgo+IEBAIC0yMTksMTQgKzIyMSwyMiBAQCBzdHJ1Y3QgYW1kZ3B1X3ZtX21hbmFnZXIgewo+
-ICAgICAgICAqLwo+ICAgICAgIGludCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICB2bV91cGRhdGVfbW9kZTsKPgo+ICsgICAgIC8qIFBBU0lEIHRvIFZNIG1hcHBpbmcsIHdpbGwg
-YmUgdXNlZCBpbiBpbnRlcnJ1cHQgY29udGV4dCB0bwo+ICsgICAgICAqIGxvb2sgdXAgVk0gb2Yg
-YSBwYWdlIGZhdWx0Cj4gKyAgICAgICovCj4gKyAgICAgc3RydWN0IGlkciAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHBhc2lkX2lkcjsKPiArICAgICBzcGlubG9ja190ICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgcGFzaWRfbG9jazsKPiArCj4gICAgICAgLyogTnVtYmVyIG9mIENv
-bXB1dGUgVk1zLCB1c2VkIGZvciBkZXRlY3RpbmcgQ29tcHV0ZSBhY3Rpdml0eSAqLwo+ICAgICAg
-IHVuc2lnbmVkICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBuX2NvbXB1dGVfdm1zOwo+
-ICAgfTsKPgo+ICtpbnQgYW1kZ3B1X3ZtX2FsbG9jX3Bhc2lkKHVuc2lnbmVkIGludCBiaXRzKTsK
-PiArdm9pZCBhbWRncHVfdm1fZnJlZV9wYXNpZCh1bnNpZ25lZCBpbnQgcGFzaWQpOwo+ICAgdm9p
-ZCBhbWRncHVfdm1fbWFuYWdlcl9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKPiAg
-IHZvaWQgYW1kZ3B1X3ZtX21hbmFnZXJfZmluaShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7
-Cj4gICBpbnQgYW1kZ3B1X3ZtX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHN0cnVj
-dCBhbWRncHVfdm0gKnZtLAo+IC0gICAgICAgICAgICAgICAgaW50IHZtX2NvbnRleHQpOwo+ICsg
-ICAgICAgICAgICAgICAgaW50IHZtX2NvbnRleHQsIHVuc2lnbmVkIGludCBwYXNpZCk7Cj4gICB2
-b2lkIGFtZGdwdV92bV9maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgYW1k
-Z3B1X3ZtICp2bSk7Cj4gICB2b2lkIGFtZGdwdV92bV9nZXRfcGRfYm8oc3RydWN0IGFtZGdwdV92
-bSAqdm0sCj4gICAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3QgbGlzdF9oZWFkICp2YWxpZGF0
-ZWQsCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9rZ2Rfa2ZkX2lu
-dGVyZmFjZS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2tnZF9rZmRfaW50ZXJmYWNl
-LmgKPiBpbmRleCBlODAyN2IzLi41ODMzZWY3IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvaW5jbHVkZS9rZ2Rfa2ZkX2ludGVyZmFjZS5oCj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9pbmNsdWRlL2tnZF9rZmRfaW50ZXJmYWNlLmgKPiBAQCAtMTg4LDYgKzE4OCw5IEBAIHN0
-cnVjdCB0aWxlX2NvbmZpZyB7Cj4gICAgKgo+ICAgICogQGdldF9tYXhfZW5naW5lX2Nsb2NrX2lu
-X21oejogUmV0cmlldmVzIG1heGltdW0gR1BVIGNsb2NrIGluIE1Iego+ICAgICoKPiArICogQGFs
-bG9jX3Bhc2lkOiBBbGxvY2F0ZSBhIFBBU0lECj4gKyAqIEBmcmVlX3Bhc2lkOiBGcmVlIGEgUEFT
-SUQKPiArICoKPiAgICAqIEBwcm9ncmFtX3NoX21lbV9zZXR0aW5nczogQSBmdW5jdGlvbiB0aGF0
-IHNob3VsZCBpbml0aWF0ZSB0aGUgbWVtb3J5Cj4gICAgKiBwcm9wZXJ0aWVzIHN1Y2ggYXMgbWFp
-biBhcGVydHVyZSBtZW1vcnkgdHlwZSAoY2FjaGUgLyBub24gY2FjaGVkKSBhbmQKPiAgICAqIHNl
-Y29uZGFyeSBhcGVydHVyZSBiYXNlIGFkZHJlc3MsIHNpemUgYW5kIG1lbW9yeSB0eXBlLgo+IEBA
-IC0yNjQsNiArMjY3LDkgQEAgc3RydWN0IGtmZDJrZ2RfY2FsbHMgewo+Cj4gICAgICAgdWludDMy
-X3QgKCpnZXRfbWF4X2VuZ2luZV9jbG9ja19pbl9taHopKHN0cnVjdCBrZ2RfZGV2ICprZ2QpOwo+
-Cj4gKyAgICAgaW50ICgqYWxsb2NfcGFzaWQpKHVuc2lnbmVkIGludCBiaXRzKTsKPiArICAgICB2
-b2lkICgqZnJlZV9wYXNpZCkodW5zaWduZWQgaW50IHBhc2lkKTsKPiArCj4gICAgICAgaW50ICgq
-Y3JlYXRlX3Byb2Nlc3Nfdm0pKHN0cnVjdCBrZ2RfZGV2ICprZ2QsIHZvaWQgKip2bSwKPiAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgdm9pZCAqKnByb2Nlc3NfaW5mbyk7Cj4gICAgICAg
-dm9pZCAoKmRlc3Ryb3lfcHJvY2Vzc192bSkoc3RydWN0IGtnZF9kZXYgKmtnZCwgdm9pZCAqdm0p
-OwoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
-ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This is a multi-part message in MIME format.
+--------------AF6ADB70000B19CB4515BEF5
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Am 25.08.2017 um 21:19 schrieb Christian König:
+> Am 25.08.2017 um 18:22 schrieb Marek Olšák:
+>> On Fri, Aug 25, 2017 at 3:00 PM, Christian König
+>> <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org> wrote:
+>>> Am 25.08.2017 um 12:32 schrieb zhoucm1:
+>>>>
+>>>>
+>>>> On 2017年08月25日 17:38, Christian König wrote:
+>>>>> From: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+>>>>>
+>>>>> Add the IOCTL interface so that applications can allocate per VM BOs.
+>>>>>
+>>>>> Still WIP since not all corner cases are tested yet, but this reduces
+>>>>> average
+>>>>> CS overhead for 10K BOs from 21ms down to 48us.
+>>>> Wow, cheers, eventually you get per vm bo to same reservation with 
+>>>> PD/pts,
+>>>> indeed save a lot of bo list.
+>>>
+>>> Don't cheer to loud yet, that is a completely constructed test case.
+>>>
+>>> So far I wasn't able to archive any improvements with any real game 
+>>> on this
+>>> with Mesa.
+>>>
+>>> BTW: Marek can you take a look with some CPU bound tests? I can 
+>>> provide a
+>>> kernel branch if necessary.
+>> Do you have a branch that works on Raven? This patch series doesn't,
+>> and I didn't investigate why.
+>
+> I will come up with one on Monday.
+
+Branch vm_improvements on 
+git://people.freedesktop.org/~deathsimple/linux together with the 
+attached patch should work.
+
+Only testing on Tonga, but that's based on amd-staging-4.12 and so 
+should work on Raven as well. If not I still have a bug somewhere which 
+needs to be fixed.
+
+Thanks,
+Christian.
+>
+> Have a nice weekend guys,
+> Christian.
+>
+>>
+>> Marek
+>>
+>>> Regards,
+>>> Christian.
+>>>
+>>>
+>>>> overall looks good, I will take a detailed check for this tomorrow.
+>>>>
+>>>> Regards,
+>>>> David Zhou
+>>>>>
+>>>>> Signed-off-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+>>>>> ---
+>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu.h       |  7 ++--
+>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c    |  2 +-
+>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c   | 59
+>>>>> ++++++++++++++++++++++---------
+>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c |  3 +-
+>>>>>    include/uapi/drm/amdgpu_drm.h             |  2 ++
+>>>>>    5 files changed, 51 insertions(+), 22 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>> index b1e817c..21cab36 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>>>>> @@ -457,9 +457,10 @@ struct amdgpu_sa_bo {
+>>>>>     */
+>>>>>    void amdgpu_gem_force_release(struct amdgpu_device *adev);
+>>>>>    int amdgpu_gem_object_create(struct amdgpu_device *adev, 
+>>>>> unsigned long
+>>>>> size,
+>>>>> -                int alignment, u32 initial_domain,
+>>>>> -                u64 flags, bool kernel,
+>>>>> -                struct drm_gem_object **obj);
+>>>>> +                 int alignment, u32 initial_domain,
+>>>>> +                 u64 flags, bool kernel,
+>>>>> +                 struct reservation_object *resv,
+>>>>> +                 struct drm_gem_object **obj);
+>>>>>      int amdgpu_mode_dumb_create(struct drm_file *file_priv,
+>>>>>                    struct drm_device *dev,
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
+>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
+>>>>> index 0e907ea..7256f83 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
+>>>>> @@ -144,7 +144,7 @@ static int amdgpufb_create_pinned_object(struct
+>>>>> amdgpu_fbdev *rfbdev,
+>>>>> AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED |
+>>>>> AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS |
+>>>>>                           AMDGPU_GEM_CREATE_VRAM_CLEARED,
+>>>>> -                       true, &gobj);
+>>>>> +                       true, NULL, &gobj);
+>>>>>        if (ret) {
+>>>>>            pr_err("failed to allocate framebuffer (%d)\n", 
+>>>>> aligned_size);
+>>>>>            return -ENOMEM;
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>>>>> index d028806..b8e8d67 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>>>>> @@ -44,11 +44,12 @@ void amdgpu_gem_object_free(struct drm_gem_object
+>>>>> *gobj)
+>>>>>    }
+>>>>>      int amdgpu_gem_object_create(struct amdgpu_device *adev, 
+>>>>> unsigned
+>>>>> long size,
+>>>>> -                int alignment, u32 initial_domain,
+>>>>> -                u64 flags, bool kernel,
+>>>>> -                struct drm_gem_object **obj)
+>>>>> +                 int alignment, u32 initial_domain,
+>>>>> +                 u64 flags, bool kernel,
+>>>>> +                 struct reservation_object *resv,
+>>>>> +                 struct drm_gem_object **obj)
+>>>>>    {
+>>>>> -    struct amdgpu_bo *robj;
+>>>>> +    struct amdgpu_bo *bo;
+>>>>>        int r;
+>>>>>          *obj = NULL;
+>>>>> @@ -59,7 +60,7 @@ int amdgpu_gem_object_create(struct amdgpu_device
+>>>>> *adev, unsigned long size,
+>>>>>      retry:
+>>>>>        r = amdgpu_bo_create(adev, size, alignment, kernel, 
+>>>>> initial_domain,
+>>>>> -                 flags, NULL, NULL, 0, &robj);
+>>>>> +                 flags, NULL, resv, 0, &bo);
+>>>>>        if (r) {
+>>>>>            if (r != -ERESTARTSYS) {
+>>>>>                if (initial_domain == AMDGPU_GEM_DOMAIN_VRAM) {
+>>>>> @@ -71,7 +72,7 @@ int amdgpu_gem_object_create(struct amdgpu_device
+>>>>> *adev, unsigned long size,
+>>>>>            }
+>>>>>            return r;
+>>>>>        }
+>>>>> -    *obj = &robj->gem_base;
+>>>>> +    *obj = &bo->gem_base;
+>>>>>          return 0;
+>>>>>    }
+>>>>> @@ -136,13 +137,14 @@ void amdgpu_gem_object_close(struct 
+>>>>> drm_gem_object
+>>>>> *obj,
+>>>>>        struct amdgpu_vm *vm = &fpriv->vm;
+>>>>>          struct amdgpu_bo_list_entry vm_pd;
+>>>>> -    struct list_head list;
+>>>>> +    struct list_head list, duplicates;
+>>>>>        struct ttm_validate_buffer tv;
+>>>>>        struct ww_acquire_ctx ticket;
+>>>>>        struct amdgpu_bo_va *bo_va;
+>>>>>        int r;
+>>>>>          INIT_LIST_HEAD(&list);
+>>>>> +    INIT_LIST_HEAD(&duplicates);
+>>>>>          tv.bo = &bo->tbo;
+>>>>>        tv.shared = true;
+>>>>> @@ -150,7 +152,7 @@ void amdgpu_gem_object_close(struct 
+>>>>> drm_gem_object
+>>>>> *obj,
+>>>>>          amdgpu_vm_get_pd_bo(vm, &list, &vm_pd);
+>>>>>    -    r = ttm_eu_reserve_buffers(&ticket, &list, false, NULL);
+>>>>> +    r = ttm_eu_reserve_buffers(&ticket, &list, false, &duplicates);
+>>>>>        if (r) {
+>>>>>            dev_err(adev->dev, "leaking bo va because "
+>>>>>                "we fail to reserve bo (%d)\n", r);
+>>>>> @@ -185,9 +187,12 @@ int amdgpu_gem_create_ioctl(struct drm_device 
+>>>>> *dev,
+>>>>> void *data,
+>>>>>                    struct drm_file *filp)
+>>>>>    {
+>>>>>        struct amdgpu_device *adev = dev->dev_private;
+>>>>> +    struct amdgpu_fpriv *fpriv = filp->driver_priv;
+>>>>> +    struct amdgpu_vm *vm = &fpriv->vm;
+>>>>>        union drm_amdgpu_gem_create *args = data;
+>>>>>        uint64_t flags = args->in.domain_flags;
+>>>>>        uint64_t size = args->in.bo_size;
+>>>>> +    struct reservation_object *resv = NULL;
+>>>>>        struct drm_gem_object *gobj;
+>>>>>        uint32_t handle;
+>>>>>        int r;
+>>>>> @@ -196,7 +201,8 @@ int amdgpu_gem_create_ioctl(struct drm_device 
+>>>>> *dev,
+>>>>> void *data,
+>>>>>        if (flags & ~(AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED |
+>>>>>                  AMDGPU_GEM_CREATE_NO_CPU_ACCESS |
+>>>>>                  AMDGPU_GEM_CREATE_CPU_GTT_USWC |
+>>>>> -              AMDGPU_GEM_CREATE_VRAM_CLEARED))
+>>>>> +              AMDGPU_GEM_CREATE_VRAM_CLEARED |
+>>>>> +              AMDGPU_GEM_CREATE_LOCAL))
+>>>>>            return -EINVAL;
+>>>>>          /* reject invalid gem domains */
+>>>>> @@ -223,9 +229,25 @@ int amdgpu_gem_create_ioctl(struct drm_device 
+>>>>> *dev,
+>>>>> void *data,
+>>>>>        }
+>>>>>        size = roundup(size, PAGE_SIZE);
+>>>>>    +    if (flags & AMDGPU_GEM_CREATE_LOCAL) {
+>>>>> +        r = amdgpu_bo_reserve(vm->root.base.bo, false);
+>>>>> +        if (r)
+>>>>> +            return r;
+>>>>> +
+>>>>> +        resv = vm->root.base.bo->tbo.resv;
+>>>>> +    }
+>>>>> +
+>>>>>        r = amdgpu_gem_object_create(adev, size, args->in.alignment,
+>>>>>                         (u32)(0xffffffff & args->in.domains),
+>>>>> -                     flags, false, &gobj);
+>>>>> +                     flags, false, resv, &gobj);
+>>>>> +    if (flags & AMDGPU_GEM_CREATE_LOCAL) {
+>>>>> +        if (!r) {
+>>>>> +            struct amdgpu_bo *abo = gem_to_amdgpu_bo(gobj);
+>>>>> +
+>>>>> +            abo->parent = amdgpu_bo_ref(vm->root.base.bo);
+>>>>> +        }
+>>>>> +        amdgpu_bo_unreserve(vm->root.base.bo);
+>>>>> +    }
+>>>>>        if (r)
+>>>>>            return r;
+>>>>>    @@ -267,9 +289,8 @@ int amdgpu_gem_userptr_ioctl(struct drm_device
+>>>>> *dev, void *data,
+>>>>>        }
+>>>>>          /* create a gem object to contain this object in */
+>>>>> -    r = amdgpu_gem_object_create(adev, args->size, 0,
+>>>>> -                     AMDGPU_GEM_DOMAIN_CPU, 0,
+>>>>> -                     0, &gobj);
+>>>>> +    r = amdgpu_gem_object_create(adev, args->size, 0,
+>>>>> AMDGPU_GEM_DOMAIN_CPU,
+>>>>> +                     0, 0, NULL, &gobj);
+>>>>>        if (r)
+>>>>>            return r;
+>>>>>    @@ -521,7 +542,7 @@ int amdgpu_gem_va_ioctl(struct drm_device 
+>>>>> *dev,
+>>>>> void *data,
+>>>>>        struct amdgpu_bo_list_entry vm_pd;
+>>>>>        struct ttm_validate_buffer tv;
+>>>>>        struct ww_acquire_ctx ticket;
+>>>>> -    struct list_head list;
+>>>>> +    struct list_head list, duplicates;
+>>>>>        uint64_t va_flags;
+>>>>>        int r = 0;
+>>>>>    @@ -557,6 +578,7 @@ int amdgpu_gem_va_ioctl(struct drm_device 
+>>>>> *dev,
+>>>>> void *data,
+>>>>>        }
+>>>>>          INIT_LIST_HEAD(&list);
+>>>>> +    INIT_LIST_HEAD(&duplicates);
+>>>>>        if ((args->operation != AMDGPU_VA_OP_CLEAR) &&
+>>>>>            !(args->flags & AMDGPU_VM_PAGE_PRT)) {
+>>>>>            gobj = drm_gem_object_lookup(filp, args->handle);
+>>>>> @@ -573,7 +595,7 @@ int amdgpu_gem_va_ioctl(struct drm_device 
+>>>>> *dev, void
+>>>>> *data,
+>>>>>          amdgpu_vm_get_pd_bo(&fpriv->vm, &list, &vm_pd);
+>>>>>    -    r = ttm_eu_reserve_buffers(&ticket, &list, true, NULL);
+>>>>> +    r = ttm_eu_reserve_buffers(&ticket, &list, true, &duplicates);
+>>>>>        if (r)
+>>>>>            goto error_unref;
+>>>>>    @@ -639,6 +661,7 @@ int amdgpu_gem_va_ioctl(struct drm_device 
+>>>>> *dev,
+>>>>> void *data,
+>>>>>    int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
+>>>>>                struct drm_file *filp)
+>>>>>    {
+>>>>> +    struct amdgpu_device *adev = dev->dev_private;
+>>>>>        struct drm_amdgpu_gem_op *args = data;
+>>>>>        struct drm_gem_object *gobj;
+>>>>>        struct amdgpu_bo *robj;
+>>>>> @@ -686,6 +709,9 @@ int amdgpu_gem_op_ioctl(struct drm_device 
+>>>>> *dev, void
+>>>>> *data,
+>>>>>            if (robj->allowed_domains == AMDGPU_GEM_DOMAIN_VRAM)
+>>>>>                robj->allowed_domains |= AMDGPU_GEM_DOMAIN_GTT;
+>>>>>    +        if (robj->flags & AMDGPU_GEM_CREATE_LOCAL)
+>>>>> +            amdgpu_vm_bo_invalidate(adev, robj, true);
+>>>>> +
+>>>>>            amdgpu_bo_unreserve(robj);
+>>>>>            break;
+>>>>>        default:
+>>>>> @@ -715,8 +741,7 @@ int amdgpu_mode_dumb_create(struct drm_file
+>>>>> *file_priv,
+>>>>>        r = amdgpu_gem_object_create(adev, args->size, 0,
+>>>>>                         AMDGPU_GEM_DOMAIN_VRAM,
+>>>>> AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED,
+>>>>> -                     ttm_bo_type_device,
+>>>>> -                     &gobj);
+>>>>> +                     false, NULL, &gobj);
+>>>>>        if (r)
+>>>>>            return -ENOMEM;
+>>>>>    diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
+>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
+>>>>> index 5b3f928..f407499 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
+>>>>> @@ -136,7 +136,8 @@ struct dma_buf *amdgpu_gem_prime_export(struct
+>>>>> drm_device *dev,
+>>>>>    {
+>>>>>        struct amdgpu_bo *bo = gem_to_amdgpu_bo(gobj);
+>>>>>    -    if (amdgpu_ttm_tt_get_usermm(bo->tbo.ttm))
+>>>>> +    if (amdgpu_ttm_tt_get_usermm(bo->tbo.ttm) ||
+>>>>> +        bo->flags & AMDGPU_GEM_CREATE_LOCAL)
+>>>>>            return ERR_PTR(-EPERM);
+>>>>>          return drm_gem_prime_export(dev, gobj, flags);
+>>>>> diff --git a/include/uapi/drm/amdgpu_drm.h
+>>>>> b/include/uapi/drm/amdgpu_drm.h
+>>>>> index d0ee739..05241a6 100644
+>>>>> --- a/include/uapi/drm/amdgpu_drm.h
+>>>>> +++ b/include/uapi/drm/amdgpu_drm.h
+>>>>> @@ -89,6 +89,8 @@ extern "C" {
+>>>>>    #define AMDGPU_GEM_CREATE_SHADOW        (1 << 4)
+>>>>>    /* Flag that allocating the BO should use linear VRAM */
+>>>>>    #define AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS    (1 << 5)
+>>>>> +/* Flag that BO is local in the VM */
+>>>>> +#define AMDGPU_GEM_CREATE_LOCAL            (1 << 6)
+>>>>>      struct drm_amdgpu_gem_create_in  {
+>>>>>        /** the requested memory size */
+>>>>
+>>>> _______________________________________________
+>>>> amd-gfx mailing list
+>>>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>>>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>>>
+>>>
+>>> _______________________________________________
+>>> amd-gfx mailing list
+>>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+>
+
+
+--------------AF6ADB70000B19CB4515BEF5
+Content-Type: text/x-patch;
+ name="0001-radeonsi-set-a-per-buffer-flag-that-disables-inter-p.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename*0="0001-radeonsi-set-a-per-buffer-flag-that-disables-inter-p.pa";
+ filename*1="tch"
+
+>From 6ef6fbf384808e11490ff77b3933aa27feb63f7b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <marek.olsak-5C7GfCeVMHo@public.gmane.org>
+Date: Tue, 18 Jul 2017 16:08:44 -0400
+Subject: [PATCH] radeonsi: set a per-buffer flag that disables inter-process
+ sharing (v3)
+
+For lower overhead in the CS ioctl.
+Winsys allocators are not used with interprocess-sharable resources.
+
+v2: It shouldn't crash anymore, but the kernel will reject the new flag.
+v3 (christian): Rename the flag, avoid sending those buffers in the BO list.
+---
+ src/gallium/drivers/radeon/r600_buffer_common.c |  7 +++++
+ src/gallium/drivers/radeon/radeon_winsys.h      | 20 ++++++++++---
+ src/gallium/winsys/amdgpu/drm/amdgpu_bo.c       | 37 ++++++++++++++++---------
+ src/gallium/winsys/amdgpu/drm/amdgpu_bo.h       |  2 ++
+ src/gallium/winsys/amdgpu/drm/amdgpu_cs.c       | 25 +++++++++++++----
+ src/gallium/winsys/radeon/drm/radeon_drm_bo.c   | 27 ++++++++++--------
+ 6 files changed, 84 insertions(+), 34 deletions(-)
+
+diff --git a/src/gallium/drivers/radeon/r600_buffer_common.c b/src/gallium/drivers/radeon/r600_buffer_common.c
+index dd1c209..2747ac4 100644
+--- a/src/gallium/drivers/radeon/r600_buffer_common.c
++++ b/src/gallium/drivers/radeon/r600_buffer_common.c
+@@ -167,6 +167,13 @@ void r600_init_resource_fields(struct r600_common_screen *rscreen,
+ 			 RADEON_FLAG_GTT_WC;
+ 	}
+ 
++	/* Only displayable single-sample textures can be shared between
++	 * processes. */
++	if (res->b.b.target == PIPE_BUFFER ||
++	    res->b.b.nr_samples >= 2 ||
++	    rtex->surface.micro_tile_mode != RADEON_MICRO_MODE_DISPLAY)
++		res->flags |= RADEON_FLAG_NO_INTERPROCESS_SHARING;
++
+ 	/* If VRAM is just stolen system memory, allow both VRAM and
+ 	 * GTT, whichever has free space. If a buffer is evicted from
+ 	 * VRAM to GTT, it will stay there.
+diff --git a/src/gallium/drivers/radeon/radeon_winsys.h b/src/gallium/drivers/radeon/radeon_winsys.h
+index b00b144..f0a0a92 100644
+--- a/src/gallium/drivers/radeon/radeon_winsys.h
++++ b/src/gallium/drivers/radeon/radeon_winsys.h
+@@ -54,6 +54,7 @@ enum radeon_bo_flag { /* bitfield */
+     RADEON_FLAG_NO_CPU_ACCESS = (1 << 1),
+     RADEON_FLAG_NO_SUBALLOC =   (1 << 2),
+     RADEON_FLAG_SPARSE =        (1 << 3),
++    RADEON_FLAG_NO_INTERPROCESS_SHARING = (1 << 4),
+ };
+ 
+ enum radeon_bo_usage { /* bitfield */
+@@ -661,14 +662,19 @@ static inline unsigned radeon_flags_from_heap(enum radeon_heap heap)
+ {
+     switch (heap) {
+     case RADEON_HEAP_VRAM_NO_CPU_ACCESS:
+-        return RADEON_FLAG_GTT_WC | RADEON_FLAG_NO_CPU_ACCESS;
++        return RADEON_FLAG_GTT_WC |
++               RADEON_FLAG_NO_CPU_ACCESS |
++               RADEON_FLAG_NO_INTERPROCESS_SHARING;
++
+     case RADEON_HEAP_VRAM:
+     case RADEON_HEAP_VRAM_GTT:
+     case RADEON_HEAP_GTT_WC:
+-        return RADEON_FLAG_GTT_WC;
++        return RADEON_FLAG_GTT_WC |
++               RADEON_FLAG_NO_INTERPROCESS_SHARING;
++
+     case RADEON_HEAP_GTT:
+     default:
+-        return 0;
++        return RADEON_FLAG_NO_INTERPROCESS_SHARING;
+     }
+ }
+ 
+@@ -700,8 +706,14 @@ static inline int radeon_get_heap_index(enum radeon_bo_domain domain,
+     /* NO_CPU_ACCESS implies VRAM only. */
+     assert(!(flags & RADEON_FLAG_NO_CPU_ACCESS) || domain == RADEON_DOMAIN_VRAM);
+ 
++    /* Resources with interprocess sharing don't use any winsys allocators. */
++    if (!(flags & RADEON_FLAG_NO_INTERPROCESS_SHARING))
++        return -1;
++
+     /* Unsupported flags: NO_SUBALLOC, SPARSE. */
+-    if (flags & ~(RADEON_FLAG_GTT_WC | RADEON_FLAG_NO_CPU_ACCESS))
++    if (flags & ~(RADEON_FLAG_GTT_WC |
++                  RADEON_FLAG_NO_CPU_ACCESS |
++                  RADEON_FLAG_NO_INTERPROCESS_SHARING))
+         return -1;
+ 
+     switch (domain) {
+diff --git a/src/gallium/winsys/amdgpu/drm/amdgpu_bo.c b/src/gallium/winsys/amdgpu/drm/amdgpu_bo.c
+index 97bbe23..d76d441 100644
+--- a/src/gallium/winsys/amdgpu/drm/amdgpu_bo.c
++++ b/src/gallium/winsys/amdgpu/drm/amdgpu_bo.c
+@@ -38,6 +38,10 @@
+ #include <stdio.h>
+ #include <inttypes.h>
+ 
++#ifndef AMDGPU_GEM_CREATE_LOCAL
++#define AMDGPU_GEM_CREATE_LOCAL (1 << 6)
++#endif
++
+ /* Set to 1 for verbose output showing committed sparse buffer ranges. */
+ #define DEBUG_SPARSE_COMMITS 0
+ 
+@@ -402,6 +406,8 @@ static struct amdgpu_winsys_bo *amdgpu_create_bo(struct amdgpu_winsys *ws,
+       request.flags |= AMDGPU_GEM_CREATE_NO_CPU_ACCESS;
+    if (flags & RADEON_FLAG_GTT_WC)
+       request.flags |= AMDGPU_GEM_CREATE_CPU_GTT_USWC;
++   if (flags & RADEON_FLAG_NO_INTERPROCESS_SHARING)
++      request.flags |= AMDGPU_GEM_CREATE_LOCAL;
+ 
+    r = amdgpu_bo_alloc(ws->dev, &request, &buf_handle);
+    if (r) {
+@@ -435,6 +441,7 @@ static struct amdgpu_winsys_bo *amdgpu_create_bo(struct amdgpu_winsys *ws,
+    bo->u.real.va_handle = va_handle;
+    bo->initial_domain = initial_domain;
+    bo->unique_id = __sync_fetch_and_add(&ws->next_bo_unique_id, 1);
++   bo->is_local = !!(request.flags & AMDGPU_GEM_CREATE_LOCAL);
+ 
+    if (initial_domain & RADEON_DOMAIN_VRAM)
+       ws->allocated_vram += align64(size, ws->info.gart_page_size);
+@@ -1134,7 +1141,7 @@ amdgpu_bo_create(struct radeon_winsys *rws,
+ {
+    struct amdgpu_winsys *ws = amdgpu_winsys(rws);
+    struct amdgpu_winsys_bo *bo;
+-   unsigned usage = 0, pb_cache_bucket;
++   unsigned usage = 0, pb_cache_bucket = 0;
+ 
+    /* VRAM implies WC. This is not optional. */
+    assert(!(domain & RADEON_DOMAIN_VRAM) || flags & RADEON_FLAG_GTT_WC);
+@@ -1189,19 +1196,23 @@ no_slab:
+    size = align64(size, ws->info.gart_page_size);
+    alignment = align(alignment, ws->info.gart_page_size);
+ 
+-   int heap = radeon_get_heap_index(domain, flags);
+-   assert(heap >= 0 && heap < RADEON_MAX_CACHED_HEAPS);
+-   usage = 1 << heap; /* Only set one usage bit for each heap. */
++   bool use_reusable_pool = flags & RADEON_FLAG_NO_INTERPROCESS_SHARING;
+ 
+-   pb_cache_bucket = radeon_get_pb_cache_bucket_index(heap);
+-   assert(pb_cache_bucket < ARRAY_SIZE(ws->bo_cache.buckets));
++   if (use_reusable_pool) {
++       int heap = radeon_get_heap_index(domain, flags);
++       assert(heap >= 0 && heap < RADEON_MAX_CACHED_HEAPS);
++       usage = 1 << heap; /* Only set one usage bit for each heap. */
+ 
+-   /* Get a buffer from the cache. */
+-   bo = (struct amdgpu_winsys_bo*)
+-        pb_cache_reclaim_buffer(&ws->bo_cache, size, alignment, usage,
+-                                pb_cache_bucket);
+-   if (bo)
+-      return &bo->base;
++       pb_cache_bucket = radeon_get_pb_cache_bucket_index(heap);
++       assert(pb_cache_bucket < ARRAY_SIZE(ws->bo_cache.buckets));
++
++       /* Get a buffer from the cache. */
++       bo = (struct amdgpu_winsys_bo*)
++            pb_cache_reclaim_buffer(&ws->bo_cache, size, alignment, usage,
++                                    pb_cache_bucket);
++       if (bo)
++          return &bo->base;
++   }
+ 
+    /* Create a new one. */
+    bo = amdgpu_create_bo(ws, size, alignment, usage, domain, flags,
+@@ -1216,7 +1227,7 @@ no_slab:
+          return NULL;
+    }
+ 
+-   bo->u.real.use_reusable_pool = true;
++   bo->u.real.use_reusable_pool = use_reusable_pool;
+    return &bo->base;
+ }
+ 
+diff --git a/src/gallium/winsys/amdgpu/drm/amdgpu_bo.h b/src/gallium/winsys/amdgpu/drm/amdgpu_bo.h
+index 1311344..10b095d 100644
+--- a/src/gallium/winsys/amdgpu/drm/amdgpu_bo.h
++++ b/src/gallium/winsys/amdgpu/drm/amdgpu_bo.h
+@@ -115,6 +115,8 @@ struct amdgpu_winsys_bo {
+    unsigned num_fences;
+    unsigned max_fences;
+    struct pipe_fence_handle **fences;
++
++   bool is_local;
+ };
+ 
+ struct amdgpu_slab {
+diff --git a/src/gallium/winsys/amdgpu/drm/amdgpu_cs.c b/src/gallium/winsys/amdgpu/drm/amdgpu_cs.c
+index 9cadfc4..7ec33c5 100644
+--- a/src/gallium/winsys/amdgpu/drm/amdgpu_cs.c
++++ b/src/gallium/winsys/amdgpu/drm/amdgpu_cs.c
+@@ -362,8 +362,9 @@ amdgpu_lookup_or_add_real_buffer(struct amdgpu_cs *acs, struct amdgpu_winsys_bo
+ {
+    struct amdgpu_cs_context *cs = acs->csc;
+    unsigned hash;
+-   int idx = amdgpu_lookup_buffer(cs, bo);
++   int idx;
+ 
++   idx = amdgpu_lookup_buffer(cs, bo);
+    if (idx >= 0)
+       return idx;
+ 
+@@ -1123,6 +1124,8 @@ void amdgpu_cs_submit_ib(void *job, int thread_index)
+       free(handles);
+       mtx_unlock(&ws->global_bo_list_lock);
+    } else {
++      unsigned num_handles;
++
+       if (!amdgpu_add_sparse_backing_buffers(cs)) {
+          r = -ENOMEM;
+          goto bo_list_error;
+@@ -1142,21 +1145,31 @@ void amdgpu_cs_submit_ib(void *job, int thread_index)
+          }
+       }
+ 
++      num_handles = 0;
+       for (i = 0; i < cs->num_real_buffers; ++i) {
+          struct amdgpu_cs_buffer *buffer = &cs->real_buffers[i];
+ 
++	 if (buffer->bo->is_local)
++            continue;
++
+          assert(buffer->u.real.priority_usage != 0);
+ 
+-         cs->handles[i] = buffer->bo->bo;
+-         cs->flags[i] = (util_last_bit64(buffer->u.real.priority_usage) - 1) / 4;
++         cs->handles[num_handles] = buffer->bo->bo;
++         cs->flags[num_handles] = (util_last_bit64(buffer->u.real.priority_usage) - 1) / 4;
++	 ++num_handles;
+       }
+ 
+       if (acs->ring_type == RING_GFX)
+          ws->gfx_bo_list_counter += cs->num_real_buffers;
+ 
+-      r = amdgpu_bo_list_create(ws->dev, cs->num_real_buffers,
+-                                cs->handles, cs->flags,
+-                                &cs->request.resources);
++      if (num_handles) {
++         r = amdgpu_bo_list_create(ws->dev, num_handles,
++                                   cs->handles, cs->flags,
++                                   &cs->request.resources);
++      } else {
++         r = 0;
++	 cs->request.resources = 0;
++      }
+    }
+ bo_list_error:
+ 
+diff --git a/src/gallium/winsys/radeon/drm/radeon_drm_bo.c b/src/gallium/winsys/radeon/drm/radeon_drm_bo.c
+index 8027a5f..15e9d38 100644
+--- a/src/gallium/winsys/radeon/drm/radeon_drm_bo.c
++++ b/src/gallium/winsys/radeon/drm/radeon_drm_bo.c
+@@ -914,7 +914,7 @@ radeon_winsys_bo_create(struct radeon_winsys *rws,
+ {
+     struct radeon_drm_winsys *ws = radeon_drm_winsys(rws);
+     struct radeon_bo *bo;
+-    unsigned usage = 0, pb_cache_bucket;
++    unsigned usage = 0, pb_cache_bucket = 0;
+ 
+     assert(!(flags & RADEON_FLAG_SPARSE)); /* not supported */
+ 
+@@ -969,17 +969,22 @@ no_slab:
+     size = align(size, ws->info.gart_page_size);
+     alignment = align(alignment, ws->info.gart_page_size);
+ 
+-    int heap = radeon_get_heap_index(domain, flags);
+-    assert(heap >= 0 && heap < RADEON_MAX_CACHED_HEAPS);
+-    usage = 1 << heap; /* Only set one usage bit for each heap. */
++    bool use_reusable_pool = flags & RADEON_FLAG_NO_INTERPROCESS_SHARING;
+ 
+-    pb_cache_bucket = radeon_get_pb_cache_bucket_index(heap);
+-    assert(pb_cache_bucket < ARRAY_SIZE(ws->bo_cache.buckets));
++    /* Shared resources don't use cached heaps. */
++    if (use_reusable_pool) {
++        int heap = radeon_get_heap_index(domain, flags);
++        assert(heap >= 0 && heap < RADEON_MAX_CACHED_HEAPS);
++        usage = 1 << heap; /* Only set one usage bit for each heap. */
+ 
+-    bo = radeon_bo(pb_cache_reclaim_buffer(&ws->bo_cache, size, alignment,
+-                                           usage, pb_cache_bucket));
+-    if (bo)
+-        return &bo->base;
++        pb_cache_bucket = radeon_get_pb_cache_bucket_index(heap);
++        assert(pb_cache_bucket < ARRAY_SIZE(ws->bo_cache.buckets));
++
++        bo = radeon_bo(pb_cache_reclaim_buffer(&ws->bo_cache, size, alignment,
++                                               usage, pb_cache_bucket));
++        if (bo)
++            return &bo->base;
++    }
+ 
+     bo = radeon_create_bo(ws, size, alignment, usage, domain, flags,
+                           pb_cache_bucket);
+@@ -994,7 +999,7 @@ no_slab:
+             return NULL;
+     }
+ 
+-    bo->u.real.use_reusable_pool = true;
++    bo->u.real.use_reusable_pool = use_reusable_pool;
+ 
+     mtx_lock(&ws->bo_handles_mutex);
+     util_hash_table_set(ws->bo_handles, (void*)(uintptr_t)bo->handle, bo);
+-- 
+2.7.4
+
+
+--------------AF6ADB70000B19CB4515BEF5
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--------------AF6ADB70000B19CB4515BEF5--
