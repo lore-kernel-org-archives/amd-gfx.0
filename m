@@ -1,21 +1,13 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH 9/9] drm/amdgpu: WIP add IOCTL interface for per VM BOs
-Date: Tue, 29 Aug 2017 15:59:24 +0200
-Message-ID: <8e7b93cf-033b-ac3a-4c81-446db00186f5@vodafone.de>
-References: <1503653899-1781-1-git-send-email-deathsimple@vodafone.de>
- <1503653899-1781-9-git-send-email-deathsimple@vodafone.de>
- <19c04fac-1fdd-1436-e85c-95dd4ac02b1b@amd.com>
- <9304342a-def2-187e-4e9c-d872c58cdc17@vodafone.de>
- <CAAxE2A5dSR-PY+zZ3VeaT7iiCmj5jfty0hv7XZjz4HgOrApQHw@mail.gmail.com>
- <e7d5f9d9-ed3e-2654-9acd-c7339976006f@vodafone.de>
- <fba30bfa-aa7c-d342-b4b6-85058f5db5bf@vodafone.de>
- <a897738d-ab23-8b43-9b9e-c64f7da5e065@amd.com>
- <0006623b-f042-dda0-b6a2-425dc568ff03@vodafone.de>
- <MWHPR1201MB0206D4E64E86D7AADA159A47B49E0@MWHPR1201MB0206.namprd12.prod.outlook.com>
+From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/powerplay/hwmgr: Remove null check before kfree
+Date: Tue, 29 Aug 2017 14:54:28 +0000
+Message-ID: <CY4PR12MB1687CD95DD12AFA8708D06EBFB9F0@CY4PR12MB1687.namprd12.prod.outlook.com>
+References: <1504012347-14702-1-git-send-email-himanshujha199640@gmail.com>,
+ <337d5257-2d0a-8482-f8d8-4a44234347d4@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0841725084=="
+Content-Type: multipart/mixed; boundary="===============0758316326=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MWHPR1201MB0206D4E64E86D7AADA159A47B49E0-3iK1xFAIwjrUF/YbdlDdgWrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
+In-Reply-To: <337d5257-2d0a-8482-f8d8-4a44234347d4-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -27,331 +19,757 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
-Cc: "Olsak, Marek" <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>, amd-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, =?UTF-8?B?TWFyZWsgT2w/6Yaf?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, Himanshu Jha <himanshujha199640-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "airlied-cv59FeDIM0c@public.gmane.org" <airlied-cv59FeDIM0c@public.gmane.org>, "Zhu,
+ Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Koenig,
+ Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============0841725084==
-Content-Type: multipart/alternative;
- boundary="------------D611DE905B83654816640270"
+--===============0758316326==
 Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CY4PR12MB1687CD95DD12AFA8708D06EBFB9F0CY4PR12MB1687namp_"
 
-This is a multi-part message in MIME format.
---------------D611DE905B83654816640270
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+--_000_CY4PR12MB1687CD95DD12AFA8708D06EBFB9F0CY4PR12MB1687namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-Ok, found something that works. Xonotic in lowest resolution, lowest 
-effects quality (e.g. totally CPU bound):
 
-Without per process BOs:
+Reviewed-by:  Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org<mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org>>
 
-Xonotic 0.8:
-     pts/xonotic-1.4.0 [Resolution: 800 x 600 - Effects Quality: Low]
-     Test 1 of 1
-     Estimated Trial Run Count:    3
-     Estimated Time To Completion: 3 Minutes
-         Started Run 1 @ 21:13:50
-         Started Run 2 @ 21:14:57
-         Started Run 3 @ 21:16:03  [Std. Dev: 0.94%]
 
-     Test Results:
-         187.436577
-         189.514724
-         190.9605812
+Best Regards
 
-     Average: 189.30 Frames Per Second
-     Minimum: 131
-     Maximum: 355
+Rex
 
-With per process BOs:
+________________________________
+From: Wentland, Harry
+Sent: Tuesday, August 29, 2017 9:34:01 PM
+To: Himanshu Jha; airlied-cv59FeDIM0c@public.gmane.org
+Cc: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; amd-gfx@=
+lists.freedesktop.org; Deucher, Alexander; Zhu, Rex; Koenig, Christian
+Subject: Re: [PATCH] drm/amd/powerplay/hwmgr: Remove null check before kfre=
+e
 
-Xonotic 0.8:
-     pts/xonotic-1.4.0 [Resolution: 800 x 600 - Effects Quality: Low]
-     Test 1 of 1
-     Estimated Trial Run Count:    3
-     Estimated Time To Completion: 3 Minutes
-         Started Run 1 @ 21:20:05
-         Started Run 2 @ 21:21:07
-         Started Run 3 @ 21:22:10  [Std. Dev: 1.49%]
-
-     Test Results:
-         203.0471676
-         199.6622532
-         197.0954183
-
-     Average: 199.93 Frames Per Second
-     Minimum: 132
-     Maximum: 349
-
-Well that looks like some improvement.
-
-Regards,
-Christian.
-
-Am 28.08.2017 um 14:59 schrieb Zhou, David(ChunMing):
-> I will push our vulkan guys to test it, their bo list is very long.
+On 2017-08-29 09:12 AM, Himanshu Jha wrote:
+> kfree on NULL pointer is a no-op and therefore checking is redundant.
 >
-> 发自坚果 Pro
->
-> Christian K鰊ig <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org> 于 2017年8月28日 下午7:55写道：
->
-> Am 28.08.2017 um 06:21 schrieb zhoucm1:
-> >
-> >
-> > On 2017年08月27日 18:03, Christian König wrote:
-> >> Am 25.08.2017 um 21:19 schrieb Christian König:
-> >>> Am 25.08.2017 um 18:22 schrieb Marek Olšák:
-> >>>> On Fri, Aug 25, 2017 at 3:00 PM, Christian König
-> >>>> <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org> wrote:
-> >>>>> Am 25.08.2017 um 12:32 schrieb zhoucm1:
-> >>>>>>
-> >>>>>>
-> >>>>>> On 2017年08月25日 17:38, Christian König wrote:
-> >>>>>>> From: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-> >>>>>>>
-> >>>>>>> Add the IOCTL interface so that applications can allocate per VM
-> >>>>>>> BOs.
-> >>>>>>>
-> >>>>>>> Still WIP since not all corner cases are tested yet, but this
-> >>>>>>> reduces
-> >>>>>>> average
-> >>>>>>> CS overhead for 10K BOs from 21ms down to 48us.
-> >>>>>> Wow, cheers, eventually you get per vm bo to same reservation
-> >>>>>> with PD/pts,
-> >>>>>> indeed save a lot of bo list.
-> >>>>>
-> >>>>> Don't cheer to loud yet, that is a completely constructed test case.
-> >>>>>
-> >>>>> So far I wasn't able to archive any improvements with any real
-> >>>>> game on this
-> >>>>> with Mesa.
-> > With thinking more, too many BOs share one reservation, which could
-> > result in reservation lock often is busy, if eviction or destroy also
-> > happens often in the meaning time, then which could effect VM update
-> > and CS submission as well.
->
-> That's exactly the reason why I've added code to the BO destroy path to
-> avoid at least some of the problems. But yeah, that's only the tip of
-> the iceberg of problems with that approach.
->
-> > Anyway, this is very good start and try that we reduce CS overhead,
-> > especially we've seen "reduces average CS overhead for 10K BOs from
-> > 21ms down to 48us. ".
->
-> Actually, it's not that good. See this is a completely build up test
-> case on a kernel with lockdep and KASAN enabled.
->
-> In reality we usually don't have so many BOs and so far I wasn't able to
-> find much of an improvement in any real world testing.
->
-> Regards,
-> Christian.
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> Signed-off-by: Himanshu Jha <himanshujha199640-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 
+Reviewed-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
 
+Harry
 
---------------D611DE905B83654816640270
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
+> ---
+>  drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c     |  6 +-
+>  .../gpu/drm/amd/powerplay/hwmgr/processpptables.c  | 96 ++++++++--------=
+------
+>  drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c     | 52 ++++--------
+>  drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c   | 12 +--
+>  4 files changed, 56 insertions(+), 110 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c b/drivers/gpu=
+/drm/amd/powerplay/hwmgr/cz_hwmgr.c
+> index bc839ff..9f2c037 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
+> @@ -1225,10 +1225,8 @@ static int cz_hwmgr_backend_fini(struct pp_hwmgr *=
+hwmgr)
+>                phm_destroy_table(hwmgr, &(hwmgr->power_down_asic));
+>                phm_destroy_table(hwmgr, &(hwmgr->setup_asic));
+>
+> -             if (NULL !=3D hwmgr->dyn_state.vddc_dep_on_dal_pwrl) {
+> -                     kfree(hwmgr->dyn_state.vddc_dep_on_dal_pwrl);
+> -                     hwmgr->dyn_state.vddc_dep_on_dal_pwrl =3D NULL;
+> -             }
+> +             kfree(hwmgr->dyn_state.vddc_dep_on_dal_pwrl);
+> +             hwmgr->dyn_state.vddc_dep_on_dal_pwrl =3D NULL;
+>
+>                kfree(hwmgr->backend);
+>                hwmgr->backend =3D NULL;
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c b/driv=
+ers/gpu/drm/amd/powerplay/hwmgr/processpptables.c
+> index 2716721..a6dbc55 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c
+> @@ -1615,85 +1615,53 @@ static int pp_tables_uninitialize(struct pp_hwmgr=
+ *hwmgr)
+>        if (hwmgr->chip_id =3D=3D CHIP_RAVEN)
+>                return 0;
+>
+> -     if (NULL !=3D hwmgr->dyn_state.vddc_dependency_on_sclk) {
+> -             kfree(hwmgr->dyn_state.vddc_dependency_on_sclk);
+> -             hwmgr->dyn_state.vddc_dependency_on_sclk =3D NULL;
+> -     }
+> +     kfree(hwmgr->dyn_state.vddc_dependency_on_sclk);
+> +     hwmgr->dyn_state.vddc_dependency_on_sclk =3D NULL;
+>
+> -     if (NULL !=3D hwmgr->dyn_state.vddci_dependency_on_mclk) {
+> -             kfree(hwmgr->dyn_state.vddci_dependency_on_mclk);
+> -             hwmgr->dyn_state.vddci_dependency_on_mclk =3D NULL;
+> -     }
+> +     kfree(hwmgr->dyn_state.vddci_dependency_on_mclk);
+> +     hwmgr->dyn_state.vddci_dependency_on_mclk =3D NULL;
+>
+> -     if (NULL !=3D hwmgr->dyn_state.vddc_dependency_on_mclk) {
+> -             kfree(hwmgr->dyn_state.vddc_dependency_on_mclk);
+> -             hwmgr->dyn_state.vddc_dependency_on_mclk =3D NULL;
+> -     }
+> +     kfree(hwmgr->dyn_state.vddc_dependency_on_mclk);
+> +     hwmgr->dyn_state.vddc_dependency_on_mclk =3D NULL;
+>
+> -     if (NULL !=3D hwmgr->dyn_state.mvdd_dependency_on_mclk) {
+> -             kfree(hwmgr->dyn_state.mvdd_dependency_on_mclk);
+> -             hwmgr->dyn_state.mvdd_dependency_on_mclk =3D NULL;
+> -     }
+> +     kfree(hwmgr->dyn_state.mvdd_dependency_on_mclk);
+> +     hwmgr->dyn_state.mvdd_dependency_on_mclk =3D NULL;
+>
+> -     if (NULL !=3D hwmgr->dyn_state.valid_mclk_values) {
+> -             kfree(hwmgr->dyn_state.valid_mclk_values);
+> -             hwmgr->dyn_state.valid_mclk_values =3D NULL;
+> -     }
+> +     kfree(hwmgr->dyn_state.valid_mclk_values);
+> +     hwmgr->dyn_state.valid_mclk_values =3D NULL;
+>
+> -     if (NULL !=3D hwmgr->dyn_state.valid_sclk_values) {
+> -             kfree(hwmgr->dyn_state.valid_sclk_values);
+> -             hwmgr->dyn_state.valid_sclk_values =3D NULL;
+> -     }
+> +     kfree(hwmgr->dyn_state.valid_sclk_values);
+> +     hwmgr->dyn_state.valid_sclk_values =3D NULL;
+>
+> -     if (NULL !=3D hwmgr->dyn_state.cac_leakage_table) {
+> -             kfree(hwmgr->dyn_state.cac_leakage_table);
+> -             hwmgr->dyn_state.cac_leakage_table =3D NULL;
+> -     }
+> +     kfree(hwmgr->dyn_state.cac_leakage_table);
+> +     hwmgr->dyn_state.cac_leakage_table =3D NULL;
+>
+> -     if (NULL !=3D hwmgr->dyn_state.vddc_phase_shed_limits_table) {
+> -             kfree(hwmgr->dyn_state.vddc_phase_shed_limits_table);
+> -             hwmgr->dyn_state.vddc_phase_shed_limits_table =3D NULL;
+> -     }
+> +     kfree(hwmgr->dyn_state.vddc_phase_shed_limits_table);
+> +     hwmgr->dyn_state.vddc_phase_shed_limits_table =3D NULL;
+>
+> -     if (NULL !=3D hwmgr->dyn_state.vce_clock_voltage_dependency_table) =
+{
+> -             kfree(hwmgr->dyn_state.vce_clock_voltage_dependency_table);
+> -             hwmgr->dyn_state.vce_clock_voltage_dependency_table =3D NUL=
+L;
+> -     }
+> +     kfree(hwmgr->dyn_state.vce_clock_voltage_dependency_table);
+> +     hwmgr->dyn_state.vce_clock_voltage_dependency_table =3D NULL;
+>
+> -     if (NULL !=3D hwmgr->dyn_state.uvd_clock_voltage_dependency_table) =
+{
+> -             kfree(hwmgr->dyn_state.uvd_clock_voltage_dependency_table);
+> -             hwmgr->dyn_state.uvd_clock_voltage_dependency_table =3D NUL=
+L;
+> -     }
+> +     kfree(hwmgr->dyn_state.uvd_clock_voltage_dependency_table);
+> +     hwmgr->dyn_state.uvd_clock_voltage_dependency_table =3D NULL;
+>
+> -     if (NULL !=3D hwmgr->dyn_state.samu_clock_voltage_dependency_table)=
+ {
+> -             kfree(hwmgr->dyn_state.samu_clock_voltage_dependency_table)=
+;
+> -             hwmgr->dyn_state.samu_clock_voltage_dependency_table =3D NU=
+LL;
+> -     }
+> +     kfree(hwmgr->dyn_state.samu_clock_voltage_dependency_table);
+> +     hwmgr->dyn_state.samu_clock_voltage_dependency_table =3D NULL;
+>
+> -     if (NULL !=3D hwmgr->dyn_state.acp_clock_voltage_dependency_table) =
+{
+> -             kfree(hwmgr->dyn_state.acp_clock_voltage_dependency_table);
+> -             hwmgr->dyn_state.acp_clock_voltage_dependency_table =3D NUL=
+L;
+> -     }
+> +     kfree(hwmgr->dyn_state.acp_clock_voltage_dependency_table);
+> +     hwmgr->dyn_state.acp_clock_voltage_dependency_table =3D NULL;
+>
+> -     if (NULL !=3D hwmgr->dyn_state.cac_dtp_table) {
+> -             kfree(hwmgr->dyn_state.cac_dtp_table);
+> -             hwmgr->dyn_state.cac_dtp_table =3D NULL;
+> -     }
+> +     kfree(hwmgr->dyn_state.cac_dtp_table);
+> +     hwmgr->dyn_state.cac_dtp_table =3D NULL;
+>
+> -     if (NULL !=3D hwmgr->dyn_state.ppm_parameter_table) {
+> -             kfree(hwmgr->dyn_state.ppm_parameter_table);
+> -             hwmgr->dyn_state.ppm_parameter_table =3D NULL;
+> -     }
+> +     kfree(hwmgr->dyn_state.ppm_parameter_table);
+> +     hwmgr->dyn_state.ppm_parameter_table =3D NULL;
+>
+> -     if (NULL !=3D hwmgr->dyn_state.vdd_gfx_dependency_on_sclk) {
+> -             kfree(hwmgr->dyn_state.vdd_gfx_dependency_on_sclk);
+> -             hwmgr->dyn_state.vdd_gfx_dependency_on_sclk =3D NULL;
+> -     }
+> +     kfree(hwmgr->dyn_state.vdd_gfx_dependency_on_sclk);
+> +     hwmgr->dyn_state.vdd_gfx_dependency_on_sclk =3D NULL;
+>
+> -     if (NULL !=3D hwmgr->dyn_state.vq_budgeting_table) {
+> -             kfree(hwmgr->dyn_state.vq_budgeting_table);
+> -             hwmgr->dyn_state.vq_budgeting_table =3D NULL;
+> -     }
+> +     kfree(hwmgr->dyn_state.vq_budgeting_table);
+> +     hwmgr->dyn_state.vq_budgeting_table =3D NULL;
+>
+>        return 0;
+>  }
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c b/drivers/gpu=
+/drm/amd/powerplay/hwmgr/rv_hwmgr.c
+> index 2c3e6ba..5547ed3 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c
+> @@ -640,40 +640,24 @@ static int rv_hwmgr_backend_fini(struct pp_hwmgr *h=
+wmgr)
+>        phm_destroy_table(hwmgr, &(hwmgr->power_down_asic));
+>        phm_destroy_table(hwmgr, &(hwmgr->setup_asic));
+>
+> -     if (pinfo->vdd_dep_on_dcefclk) {
+> -             kfree(pinfo->vdd_dep_on_dcefclk);
+> -             pinfo->vdd_dep_on_dcefclk =3D NULL;
+> -     }
+> -     if (pinfo->vdd_dep_on_socclk) {
+> -             kfree(pinfo->vdd_dep_on_socclk);
+> -             pinfo->vdd_dep_on_socclk =3D NULL;
+> -     }
+> -     if (pinfo->vdd_dep_on_fclk) {
+> -             kfree(pinfo->vdd_dep_on_fclk);
+> -             pinfo->vdd_dep_on_fclk =3D NULL;
+> -     }
+> -     if (pinfo->vdd_dep_on_dispclk) {
+> -             kfree(pinfo->vdd_dep_on_dispclk);
+> -             pinfo->vdd_dep_on_dispclk =3D NULL;
+> -     }
+> -     if (pinfo->vdd_dep_on_dppclk) {
+> -             kfree(pinfo->vdd_dep_on_dppclk);
+> -             pinfo->vdd_dep_on_dppclk =3D NULL;
+> -     }
+> -     if (pinfo->vdd_dep_on_phyclk) {
+> -             kfree(pinfo->vdd_dep_on_phyclk);
+> -             pinfo->vdd_dep_on_phyclk =3D NULL;
+> -     }
+> -
+> -     if (NULL !=3D hwmgr->dyn_state.vddc_dep_on_dal_pwrl) {
+> -             kfree(hwmgr->dyn_state.vddc_dep_on_dal_pwrl);
+> -             hwmgr->dyn_state.vddc_dep_on_dal_pwrl =3D NULL;
+> -     }
+> -
+> -     if (NULL !=3D hwmgr->dyn_state.vq_budgeting_table) {
+> -             kfree(hwmgr->dyn_state.vq_budgeting_table);
+> -             hwmgr->dyn_state.vq_budgeting_table =3D NULL;
+> -     }
+> +     kfree(pinfo->vdd_dep_on_dcefclk);
+> +     pinfo->vdd_dep_on_dcefclk =3D NULL;
+> +     kfree(pinfo->vdd_dep_on_socclk);
+> +     pinfo->vdd_dep_on_socclk =3D NULL;
+> +     kfree(pinfo->vdd_dep_on_fclk);
+> +     pinfo->vdd_dep_on_fclk =3D NULL;
+> +     kfree(pinfo->vdd_dep_on_dispclk);
+> +     pinfo->vdd_dep_on_dispclk =3D NULL;
+> +     kfree(pinfo->vdd_dep_on_dppclk);
+> +     pinfo->vdd_dep_on_dppclk =3D NULL;
+> +     kfree(pinfo->vdd_dep_on_phyclk);
+> +     pinfo->vdd_dep_on_phyclk =3D NULL;
+> +
+> +     kfree(hwmgr->dyn_state.vddc_dep_on_dal_pwrl);
+> +     hwmgr->dyn_state.vddc_dep_on_dal_pwrl =3D NULL;
+> +
+> +     kfree(hwmgr->dyn_state.vq_budgeting_table);
+> +     hwmgr->dyn_state.vq_budgeting_table =3D NULL;
+>
+>        kfree(hwmgr->backend);
+>        hwmgr->backend =3D NULL;
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+> index c274323..eb8a3ff 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+> @@ -2282,15 +2282,11 @@ static int smu7_set_private_data_based_on_pptable=
+_v0(struct pp_hwmgr *hwmgr)
+>
+>  static int smu7_hwmgr_backend_fini(struct pp_hwmgr *hwmgr)
+>  {
+> -     if (NULL !=3D hwmgr->dyn_state.vddc_dep_on_dal_pwrl) {
+> -             kfree(hwmgr->dyn_state.vddc_dep_on_dal_pwrl);
+> -             hwmgr->dyn_state.vddc_dep_on_dal_pwrl =3D NULL;
+> -     }
+> +     kfree(hwmgr->dyn_state.vddc_dep_on_dal_pwrl);
+> +     hwmgr->dyn_state.vddc_dep_on_dal_pwrl =3D NULL;
+>        pp_smu7_thermal_fini(hwmgr);
+> -     if (NULL !=3D hwmgr->backend) {
+> -             kfree(hwmgr->backend);
+> -             hwmgr->backend =3D NULL;
+> -     }
+> +     kfree(hwmgr->backend);
+> +     hwmgr->backend =3D NULL;
+>
+>        return 0;
+>  }
+>
+
+--_000_CY4PR12MB1687CD95DD12AFA8708D06EBFB9F0CY4PR12MB1687namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Ok, found something that works. Xonotic
-      in lowest resolution, lowest effects quality (e.g. totally CPU
-      bound):<br>
-      <br>
-      Without per process BOs:<br>
-      <br>
-      Xonotic 0.8:<br>
-          pts/xonotic-1.4.0 [Resolution: 800 x 600 - Effects Quality:
-      Low]<br>
-          Test 1 of 1<br>
-          Estimated Trial Run Count:    3<br>
-          Estimated Time To Completion: 3 Minutes<br>
-              Started Run 1 @ 21:13:50<br>
-              Started Run 2 @ 21:14:57<br>
-              Started Run 3 @ 21:16:03  [Std. Dev: 0.94%]<br>
-      <br>
-          Test Results:<br>
-              187.436577<br>
-              189.514724<br>
-              190.9605812<br>
-      <br>
-          Average: 189.30 Frames Per Second<br>
-          Minimum: 131<br>
-          Maximum: 355<br>
-      <br>
-      With per process BOs:<br>
-      <br>
-      Xonotic 0.8:<br>
-          pts/xonotic-1.4.0 [Resolution: 800 x 600 - Effects Quality:
-      Low]<br>
-          Test 1 of 1<br>
-          Estimated Trial Run Count:    3<br>
-          Estimated Time To Completion: 3 Minutes<br>
-              Started Run 1 @ 21:20:05<br>
-              Started Run 2 @ 21:21:07<br>
-              Started Run 3 @ 21:22:10  [Std. Dev: 1.49%]<br>
-      <br>
-          Test Results:<br>
-              203.0471676<br>
-              199.6622532<br>
-              197.0954183<br>
-      <br>
-          Average: 199.93 Frames Per Second<br>
-          Minimum: 132<br>
-          Maximum: 349<br>
-      <br>
-      Well that looks like some improvement.<br>
-      <br>
-      Regards,<br>
-      Christian.<br>
-      <br>
-      Am 28.08.2017 um 14:59 schrieb Zhou, David(ChunMing):<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:MWHPR1201MB0206D4E64E86D7AADA159A47B49E0-3iK1xFAIwjrUF/YbdlDdgWrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org">
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <meta name="Generator" content="Microsoft Exchange Server">
-      <!-- converted from text -->
-      <style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left: #800000 2px solid; } --></style>
-      <div>I will push our vulkan guys to test it, their bo list is very long.<br>
-        <br>
-        <p dir="ltr" style="display:inline"><span style="color:#888888"><span
-              style="font-size:0.81em">发自坚果 Pro</span></span></p>
-        <style type="text/css">
-<!--
-* body
-	{padding:0 16px 30px!important;
-	margin:0!important;
-	background-color:#ffffff;
-	line-height:1.4;
-	word-wrap:break-word;
-	word-break:normal}
-div
-	{word-wrap:break-word;
-	word-break:normal}
-p
-	{word-wrap:break-word;
-	word-break:normal;
-	text-indent:0pt!important}
-span
-	{word-wrap:break-word;
-	word-break:normal}
-a
-	{word-wrap:break-word;
-	word-break:normal}
-td
-	{word-wrap:break-word;
-	word-break:break-all}
--->
-</style>
-        <div class="x_quote">
-          <div style="margin:0 0px; font-size:105%"><font
-              style="line-height:1.4" color="#629140"><span>Christian
-                K鰊ig <a class="moz-txt-link-rfc2396E" href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">&lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;</a> 于 2017年8月28日
-                下午7:55写道：</span></font></div>
-          <br type="attribution">
-        </div>
-      </div>
-      <font size="2"><span style="font-size:10pt;">
-          <div class="PlainText">Am 28.08.2017 um 06:21 schrieb zhoucm1:<br>
-            &gt;<br>
-            &gt;<br>
-            &gt; On 2017年08月27日 18:03, Christian König wrote:<br>
-            &gt;&gt; Am 25.08.2017 um 21:19 schrieb Christian König:<br>
-            &gt;&gt;&gt; Am 25.08.2017 um 18:22 schrieb Marek Olšák:<br>
-            &gt;&gt;&gt;&gt; On Fri, Aug 25, 2017 at 3:00 PM, Christian
-            König<br>
-            &gt;&gt;&gt;&gt; <a class="moz-txt-link-rfc2396E" href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">&lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;</a> wrote:<br>
-            &gt;&gt;&gt;&gt;&gt; Am 25.08.2017 um 12:32 schrieb zhoucm1:<br>
-            &gt;&gt;&gt;&gt;&gt;&gt;<br>
-            &gt;&gt;&gt;&gt;&gt;&gt;<br>
-            &gt;&gt;&gt;&gt;&gt;&gt; On 2017年08月25日 17:38, Christian
-            König wrote:<br>
-            &gt;&gt;&gt;&gt;&gt;&gt;&gt; From: Christian König
-            <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-            &gt;&gt;&gt;&gt;&gt;&gt;&gt;<br>
-            &gt;&gt;&gt;&gt;&gt;&gt;&gt; Add the IOCTL interface so that
-            applications can allocate per VM <br>
-            &gt;&gt;&gt;&gt;&gt;&gt;&gt; BOs.<br>
-            &gt;&gt;&gt;&gt;&gt;&gt;&gt;<br>
-            &gt;&gt;&gt;&gt;&gt;&gt;&gt; Still WIP since not all corner
-            cases are tested yet, but this <br>
-            &gt;&gt;&gt;&gt;&gt;&gt;&gt; reduces<br>
-            &gt;&gt;&gt;&gt;&gt;&gt;&gt; average<br>
-            &gt;&gt;&gt;&gt;&gt;&gt;&gt; CS overhead for 10K BOs from
-            21ms down to 48us.<br>
-            &gt;&gt;&gt;&gt;&gt;&gt; Wow, cheers, eventually you get per
-            vm bo to same reservation <br>
-            &gt;&gt;&gt;&gt;&gt;&gt; with PD/pts,<br>
-            &gt;&gt;&gt;&gt;&gt;&gt; indeed save a lot of bo list.<br>
-            &gt;&gt;&gt;&gt;&gt;<br>
-            &gt;&gt;&gt;&gt;&gt; Don't cheer to loud yet, that is a
-            completely constructed test case.<br>
-            &gt;&gt;&gt;&gt;&gt;<br>
-            &gt;&gt;&gt;&gt;&gt; So far I wasn't able to archive any
-            improvements with any real <br>
-            &gt;&gt;&gt;&gt;&gt; game on this<br>
-            &gt;&gt;&gt;&gt;&gt; with Mesa.<br>
-            &gt; With thinking more, too many BOs share one reservation,
-            which could <br>
-            &gt; result in reservation lock often is busy, if eviction
-            or destroy also <br>
-            &gt; happens often in the meaning time, then which could
-            effect VM update <br>
-            &gt; and CS submission as well.<br>
-            <br>
-            That's exactly the reason why I've added code to the BO
-            destroy path to <br>
-            avoid at least some of the problems. But yeah, that's only
-            the tip of <br>
-            the iceberg of problems with that approach.<br>
-            <br>
-            &gt; Anyway, this is very good start and try that we reduce
-            CS overhead, <br>
-            &gt; especially we've seen "reduces average CS overhead for
-            10K BOs from <br>
-            &gt; 21ms down to 48us. ".<br>
-            <br>
-            Actually, it's not that good. See this is a completely build
-            up test <br>
-            case on a kernel with lockdep and KASAN enabled.<br>
-            <br>
-            In reality we usually don't have so many BOs and so far I
-            wasn't able to <br>
-            find much of an improvement in any real world testing.<br>
-            <br>
-            Regards,<br>
-            Christian.<br>
-          </div>
-        </span></font>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <p><br>
-    </p>
-  </body>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p><br>
+</p>
+<meta content=3D"text/html; charset=3DUTF-8">
+<div dir=3D"ltr">
+<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size: 12pt; co=
+lor: rgb(0, 0, 0); font-family: Calibri, Helvetica, sans-serif, EmojiFont, =
+'Apple Color Emoji', 'Segoe UI Emoji', NotoColorEmoji, 'Segoe UI Symbol', '=
+Android Emoji', EmojiSymbols;">
+<p><font size=3D"2" style=3D"color: rgb(33, 33, 33); font-family: 'Times Ne=
+w Roman', serif, serif, EmojiFont;"><span style=3D"font-size: 10pt;"><span =
+style=3D"font-family: Calibri, Helvetica, sans-serif, EmojiFont, 'Apple Col=
+or Emoji', 'Segoe UI Emoji', NotoColorEmoji, 'Segoe UI Symbol', 'Android Em=
+oji', EmojiSymbols; font-size: 13.3333px;">Reviewed-by:
+</span>&nbsp;Rex Zhu &lt;</span></font><a href=3D"mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org" t=
+arget=3D"_blank" rel=3D"noopener noreferrer" style=3D"font-family: 'Times N=
+ew Roman', serif, serif, EmojiFont; font-size: 16px;"><font size=3D"2"><spa=
+n style=3D"font-size: 10pt;">Rex.Zhu-5C7GfCeVMHo@public.gmane.org</span></font></a><font size=3D=
+"2" style=3D"color: rgb(33, 33, 33); font-family: 'Times New Roman', serif,=
+ serif, EmojiFont;"><span style=3D"font-size: 10pt;">&gt;</span></font><br>
+</p>
+<p><font size=3D"2" style=3D"color: rgb(33, 33, 33); font-family: 'Times Ne=
+w Roman', serif, serif, EmojiFont;"><span style=3D"font-size: 10pt;"><br>
+</span></font></p>
+<p><font size=3D"2" style=3D"color: rgb(33, 33, 33); font-family: 'Times Ne=
+w Roman', serif, serif, EmojiFont;"><span style=3D"font-size: 10pt;">Best R=
+egards</span></font></p>
+<p><font size=3D"2" style=3D"color: rgb(33, 33, 33); font-family: 'Times Ne=
+w Roman', serif, serif, EmojiFont;"><span style=3D"font-size: 10pt;">Rex</s=
+pan></font></p>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Wentland, Harry<br>
+<b>Sent:</b> Tuesday, August 29, 2017 9:34:01 PM<br>
+<b>To:</b> Himanshu Jha; airlied-cv59FeDIM0c@public.gmane.org<br>
+<b>Cc:</b> linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; a=
+md-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Deucher, Alexander; Zhu, Rex; Koenig, Christi=
+an<br>
+<b>Subject:</b> Re: [PATCH] drm/amd/powerplay/hwmgr: Remove null check befo=
+re kfree</font>
+<div>&nbsp;</div>
+</div>
+</div>
+<font size=3D"2"><span style=3D"font-size:10pt;">
+<div class=3D"PlainText">On 2017-08-29 09:12 AM, Himanshu Jha wrote:<br>
+&gt; kfree on NULL pointer is a no-op and therefore checking is redundant.<=
+br>
+&gt; <br>
+&gt; Signed-off-by: Himanshu Jha &lt;himanshujha199640-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<br>
+Reviewed-by: Harry Wentland &lt;harry.wentland-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+Harry<br>
+<br>
+&gt; ---<br>
+&gt;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c&nbsp;&nbsp;&nbsp;=
+&nbsp; |&nbsp; 6 &#43;-<br>
+&gt;&nbsp; .../gpu/drm/amd/powerplay/hwmgr/processpptables.c&nbsp; | 96 &#4=
+3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;--------------<br>
+&gt;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c&nbsp;&nbsp;&nbsp;=
+&nbsp; | 52 &#43;&#43;&#43;&#43;--------<br>
+&gt;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c&nbsp;&nbsp; | 1=
+2 &#43;--<br>
+&gt;&nbsp; 4 files changed, 56 insertions(&#43;), 110 deletions(-)<br>
+&gt; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c b/drivers/=
+gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c<br>
+&gt; index bc839ff..9f2c037 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c<br>
+&gt; @@ -1225,10 &#43;1225,8 @@ static int cz_hwmgr_backend_fini(struct pp_=
+hwmgr *hwmgr)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; phm_destroy_table(hwmgr, &amp;(hwmgr-&gt;power_down_asi=
+c));<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; phm_destroy_table(hwmgr, &amp;(hwmgr-&gt;setup_asic));<=
+br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; if (NULL !=3D hwmgr-&gt;dyn_state.vddc_dep_on_dal_pwrl) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(hwmgr-&gt;dyn_sta=
+te.vddc_dep_on_dal_pwrl);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;dyn_state.vdd=
+c_dep_on_dal_pwrl =3D NULL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; kfree(hwmgr-&gt;dyn_state.vddc_dep_on_dal_pwrl);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; hwmgr-&gt;dyn_state.vddc_dep_on_dal_pwrl =3D NULL;<br>
+&gt;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; kfree(hwmgr-&gt;backend);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; hwmgr-&gt;backend =3D NULL;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c b/d=
+rivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c<br>
+&gt; index 2716721..a6dbc55 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.=
+c<br>
+&gt; @@ -1615,85 &#43;1615,53 @@ static int pp_tables_uninitialize(struct p=
+p_hwmgr *hwmgr)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;chip_id =3D=3D=
+ CHIP_RAVEN)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (NULL !=3D hwmgr-&gt;dyn_state.vddc_depen=
+dency_on_sclk) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kfree(hwmgr-&gt;dyn_state.vddc_dependency_on_sclk);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; hwmgr-&gt;dyn_state.vddc_dependency_on_sclk =3D NULL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfree(hwmgr-&gt;dyn_state.vddc_dependenc=
+y_on_sclk);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;dyn_state.vddc_dependency_on_s=
+clk =3D NULL;<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (NULL !=3D hwmgr-&gt;dyn_state.vddci_depe=
+ndency_on_mclk) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kfree(hwmgr-&gt;dyn_state.vddci_dependency_on_mclk);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; hwmgr-&gt;dyn_state.vddci_dependency_on_mclk =3D NULL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfree(hwmgr-&gt;dyn_state.vddci_dependen=
+cy_on_mclk);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;dyn_state.vddci_dependency_on_=
+mclk =3D NULL;<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (NULL !=3D hwmgr-&gt;dyn_state.vddc_depen=
+dency_on_mclk) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kfree(hwmgr-&gt;dyn_state.vddc_dependency_on_mclk);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; hwmgr-&gt;dyn_state.vddc_dependency_on_mclk =3D NULL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfree(hwmgr-&gt;dyn_state.vddc_dependenc=
+y_on_mclk);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;dyn_state.vddc_dependency_on_m=
+clk =3D NULL;<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (NULL !=3D hwmgr-&gt;dyn_state.mvdd_depen=
+dency_on_mclk) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kfree(hwmgr-&gt;dyn_state.mvdd_dependency_on_mclk);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; hwmgr-&gt;dyn_state.mvdd_dependency_on_mclk =3D NULL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfree(hwmgr-&gt;dyn_state.mvdd_dependenc=
+y_on_mclk);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;dyn_state.mvdd_dependency_on_m=
+clk =3D NULL;<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (NULL !=3D hwmgr-&gt;dyn_state.valid_mclk=
+_values) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kfree(hwmgr-&gt;dyn_state.valid_mclk_values);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; hwmgr-&gt;dyn_state.valid_mclk_values =3D NULL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfree(hwmgr-&gt;dyn_state.valid_mclk_val=
+ues);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;dyn_state.valid_mclk_values =
+=3D NULL;<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (NULL !=3D hwmgr-&gt;dyn_state.valid_sclk=
+_values) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kfree(hwmgr-&gt;dyn_state.valid_sclk_values);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; hwmgr-&gt;dyn_state.valid_sclk_values =3D NULL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfree(hwmgr-&gt;dyn_state.valid_sclk_val=
+ues);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;dyn_state.valid_sclk_values =
+=3D NULL;<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (NULL !=3D hwmgr-&gt;dyn_state.cac_leakag=
+e_table) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kfree(hwmgr-&gt;dyn_state.cac_leakage_table);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; hwmgr-&gt;dyn_state.cac_leakage_table =3D NULL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfree(hwmgr-&gt;dyn_state.cac_leakage_ta=
+ble);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;dyn_state.cac_leakage_table =
+=3D NULL;<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (NULL !=3D hwmgr-&gt;dyn_state.vddc_phase=
+_shed_limits_table) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kfree(hwmgr-&gt;dyn_state.vddc_phase_shed_limits_table);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; hwmgr-&gt;dyn_state.vddc_phase_shed_limits_table =3D NULL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfree(hwmgr-&gt;dyn_state.vddc_phase_she=
+d_limits_table);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;dyn_state.vddc_phase_shed_limi=
+ts_table =3D NULL;<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (NULL !=3D hwmgr-&gt;dyn_state.vce_clock_=
+voltage_dependency_table) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kfree(hwmgr-&gt;dyn_state.vce_clock_voltage_dependency_table);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; hwmgr-&gt;dyn_state.vce_clock_voltage_dependency_table =3D NULL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfree(hwmgr-&gt;dyn_state.vce_clock_volt=
+age_dependency_table);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;dyn_state.vce_clock_voltage_de=
+pendency_table =3D NULL;<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (NULL !=3D hwmgr-&gt;dyn_state.uvd_clock_=
+voltage_dependency_table) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kfree(hwmgr-&gt;dyn_state.uvd_clock_voltage_dependency_table);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; hwmgr-&gt;dyn_state.uvd_clock_voltage_dependency_table =3D NULL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfree(hwmgr-&gt;dyn_state.uvd_clock_volt=
+age_dependency_table);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;dyn_state.uvd_clock_voltage_de=
+pendency_table =3D NULL;<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (NULL !=3D hwmgr-&gt;dyn_state.samu_clock=
+_voltage_dependency_table) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kfree(hwmgr-&gt;dyn_state.samu_clock_voltage_dependency_table);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; hwmgr-&gt;dyn_state.samu_clock_voltage_dependency_table =3D NULL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfree(hwmgr-&gt;dyn_state.samu_clock_vol=
+tage_dependency_table);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;dyn_state.samu_clock_voltage_d=
+ependency_table =3D NULL;<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (NULL !=3D hwmgr-&gt;dyn_state.acp_clock_=
+voltage_dependency_table) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kfree(hwmgr-&gt;dyn_state.acp_clock_voltage_dependency_table);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; hwmgr-&gt;dyn_state.acp_clock_voltage_dependency_table =3D NULL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfree(hwmgr-&gt;dyn_state.acp_clock_volt=
+age_dependency_table);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;dyn_state.acp_clock_voltage_de=
+pendency_table =3D NULL;<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (NULL !=3D hwmgr-&gt;dyn_state.cac_dtp_ta=
+ble) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kfree(hwmgr-&gt;dyn_state.cac_dtp_table);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; hwmgr-&gt;dyn_state.cac_dtp_table =3D NULL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfree(hwmgr-&gt;dyn_state.cac_dtp_table)=
+;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;dyn_state.cac_dtp_table =3D NU=
+LL;<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (NULL !=3D hwmgr-&gt;dyn_state.ppm_parame=
+ter_table) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kfree(hwmgr-&gt;dyn_state.ppm_parameter_table);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; hwmgr-&gt;dyn_state.ppm_parameter_table =3D NULL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfree(hwmgr-&gt;dyn_state.ppm_parameter_=
+table);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;dyn_state.ppm_parameter_table =
+=3D NULL;<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (NULL !=3D hwmgr-&gt;dyn_state.vdd_gfx_de=
+pendency_on_sclk) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kfree(hwmgr-&gt;dyn_state.vdd_gfx_dependency_on_sclk);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; hwmgr-&gt;dyn_state.vdd_gfx_dependency_on_sclk =3D NULL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfree(hwmgr-&gt;dyn_state.vdd_gfx_depend=
+ency_on_sclk);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;dyn_state.vdd_gfx_dependency_o=
+n_sclk =3D NULL;<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (NULL !=3D hwmgr-&gt;dyn_state.vq_budgeti=
+ng_table) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kfree(hwmgr-&gt;dyn_state.vq_budgeting_table);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; hwmgr-&gt;dyn_state.vq_budgeting_table =3D NULL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfree(hwmgr-&gt;dyn_state.vq_budgeting_t=
+able);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;dyn_state.vq_budgeting_table =
+=3D NULL;<br>
+&gt;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp; }<br>
+&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c b/drivers/=
+gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c<br>
+&gt; index 2c3e6ba..5547ed3 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c<br>
+&gt; @@ -640,40 &#43;640,24 @@ static int rv_hwmgr_backend_fini(struct pp_h=
+wmgr *hwmgr)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; phm_destroy_table(hwmgr, &am=
+p;(hwmgr-&gt;power_down_asic));<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; phm_destroy_table(hwmgr, &am=
+p;(hwmgr-&gt;setup_asic));<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (pinfo-&gt;vdd_dep_on_dcefclk) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kfree(pinfo-&gt;vdd_dep_on_dcefclk);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; pinfo-&gt;vdd_dep_on_dcefclk =3D NULL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (pinfo-&gt;vdd_dep_on_socclk) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kfree(pinfo-&gt;vdd_dep_on_socclk);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; pinfo-&gt;vdd_dep_on_socclk =3D NULL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (pinfo-&gt;vdd_dep_on_fclk) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kfree(pinfo-&gt;vdd_dep_on_fclk);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; pinfo-&gt;vdd_dep_on_fclk =3D NULL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (pinfo-&gt;vdd_dep_on_dispclk) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kfree(pinfo-&gt;vdd_dep_on_dispclk);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; pinfo-&gt;vdd_dep_on_dispclk =3D NULL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (pinfo-&gt;vdd_dep_on_dppclk) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kfree(pinfo-&gt;vdd_dep_on_dppclk);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; pinfo-&gt;vdd_dep_on_dppclk =3D NULL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (pinfo-&gt;vdd_dep_on_phyclk) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kfree(pinfo-&gt;vdd_dep_on_phyclk);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; pinfo-&gt;vdd_dep_on_phyclk =3D NULL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (NULL !=3D hwmgr-&gt;dyn_state.vddc_dep_o=
+n_dal_pwrl) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kfree(hwmgr-&gt;dyn_state.vddc_dep_on_dal_pwrl);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; hwmgr-&gt;dyn_state.vddc_dep_on_dal_pwrl =3D NULL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (NULL !=3D hwmgr-&gt;dyn_state.vq_budgeti=
+ng_table) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kfree(hwmgr-&gt;dyn_state.vq_budgeting_table);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; hwmgr-&gt;dyn_state.vq_budgeting_table =3D NULL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfree(pinfo-&gt;vdd_dep_on_dcefclk);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; pinfo-&gt;vdd_dep_on_dcefclk =3D NULL;<b=
+r>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfree(pinfo-&gt;vdd_dep_on_socclk);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; pinfo-&gt;vdd_dep_on_socclk =3D NULL;<br=
+>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfree(pinfo-&gt;vdd_dep_on_fclk);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; pinfo-&gt;vdd_dep_on_fclk =3D NULL;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfree(pinfo-&gt;vdd_dep_on_dispclk);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; pinfo-&gt;vdd_dep_on_dispclk =3D NULL;<b=
+r>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfree(pinfo-&gt;vdd_dep_on_dppclk);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; pinfo-&gt;vdd_dep_on_dppclk =3D NULL;<br=
+>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfree(pinfo-&gt;vdd_dep_on_phyclk);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; pinfo-&gt;vdd_dep_on_phyclk =3D NULL;<br=
+>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfree(hwmgr-&gt;dyn_state.vddc_dep_on_da=
+l_pwrl);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;dyn_state.vddc_dep_on_dal_pwrl=
+ =3D NULL;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfree(hwmgr-&gt;dyn_state.vq_budgeting_t=
+able);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;dyn_state.vq_budgeting_table =
+=3D NULL;<br>
+&gt;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(hwmgr-&gt;backend);<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;backend =3D NULL;<=
+br>
+&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/driver=
+s/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+&gt; index c274323..eb8a3ff 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+&gt; @@ -2282,15 &#43;2282,11 @@ static int smu7_set_private_data_based_on_=
+pptable_v0(struct pp_hwmgr *hwmgr)<br>
+&gt;&nbsp; <br>
+&gt;&nbsp; static int smu7_hwmgr_backend_fini(struct pp_hwmgr *hwmgr)<br>
+&gt;&nbsp; {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (NULL !=3D hwmgr-&gt;dyn_state.vddc_dep_o=
+n_dal_pwrl) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kfree(hwmgr-&gt;dyn_state.vddc_dep_on_dal_pwrl);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; hwmgr-&gt;dyn_state.vddc_dep_on_dal_pwrl =3D NULL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfree(hwmgr-&gt;dyn_state.vddc_dep_on_da=
+l_pwrl);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;dyn_state.vddc_dep_on_dal_pwrl=
+ =3D NULL;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pp_smu7_thermal_fini(hwmgr);=
+<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (NULL !=3D hwmgr-&gt;backend) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; kfree(hwmgr-&gt;backend);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; hwmgr-&gt;backend =3D NULL;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; kfree(hwmgr-&gt;backend);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;backend =3D NULL;<br>
+&gt;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp; }<br>
+&gt; <br>
+</div>
+</span></font></div>
+</body>
 </html>
 
---------------D611DE905B83654816640270--
+--_000_CY4PR12MB1687CD95DD12AFA8708D06EBFB9F0CY4PR12MB1687namp_--
 
---===============0841725084==
+--===============0758316326==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -361,4 +779,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0841725084==--
+--===============0758316326==--
