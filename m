@@ -1,61 +1,248 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/amdgpu: Add write() method to VRAM debugfs entry
- (v2)
-Date: Tue, 29 Aug 2017 14:56:35 +0200
-Message-ID: <55eb8dc7-0290-2bab-42ff-ce03a989b4af@vodafone.de>
-References: <20170829124940.23042-1-tom.stdenis@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170829124940.23042-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+From: Himanshu Jha <himanshujha199640@gmail.com>
+Subject: [PATCH] drm/amd/powerplay/hwmgr: Remove null check before kfree
+Date: Tue, 29 Aug 2017 18:42:27 +0530
+Message-ID: <1504012347-14702-1-git-send-email-himanshujha199640@gmail.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: airlied@linux.ie
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, Rex.Zhu@amd.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Himanshu Jha <himanshujha199640@gmail.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMjkuMDguMjAxNyB1bSAxNDo0OSBzY2hyaWViIFRvbSBTdCBEZW5pczoKPiBBbGxvd3Mgd3Jp
-dGluZyBkYXRhIHRvIHZyYW0gdmlhIGRlYnVnZnMuCj4KPiBTaWduZWQtb2ZmLWJ5OiBUb20gU3Qg
-RGVuaXMgPHRvbS5zdGRlbmlzQGFtZC5jb20+CgpSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5p
-ZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKPgo+ICh2Mik6ICBDYWxsIGdldF91c2VyIGJl
-Zm9yZSBob2xkaW5nIHNwaW5sb2NrLgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3R0bS5jIHwgNDIgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKystCj4g
-ICAxIGZpbGUgY2hhbmdlZCwgNDEgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQo+Cj4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwo+IGluZGV4IGM5N2E5OTQyN2VlYS4u
-ZTlhMDUxODZiODg5IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV90dG0uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0u
-Ywo+IEBAIC0xNjcxLDEwICsxNjcxLDUwIEBAIHN0YXRpYyBzc2l6ZV90IGFtZGdwdV90dG1fdnJh
-bV9yZWFkKHN0cnVjdCBmaWxlICpmLCBjaGFyIF9fdXNlciAqYnVmLAo+ICAgCXJldHVybiByZXN1
-bHQ7Cj4gICB9Cj4gICAKPiArc3RhdGljIHNzaXplX3QgYW1kZ3B1X3R0bV92cmFtX3dyaXRlKHN0
-cnVjdCBmaWxlICpmLCBjb25zdCBjaGFyIF9fdXNlciAqYnVmLAo+ICsJCQkJICAgIHNpemVfdCBz
-aXplLCBsb2ZmX3QgKnBvcykKPiArewo+ICsJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBm
-aWxlX2lub2RlKGYpLT5pX3ByaXZhdGU7Cj4gKwlzc2l6ZV90IHJlc3VsdCA9IDA7Cj4gKwlpbnQg
-cjsKPiArCj4gKwlpZiAoc2l6ZSAmIDB4MyB8fCAqcG9zICYgMHgzKQo+ICsJCXJldHVybiAtRUlO
-VkFMOwo+ICsKPiArCWlmICgqcG9zID49IGFkZXYtPm1jLm1jX3ZyYW1fc2l6ZSkKPiArCQlyZXR1
-cm4gLUVOWElPOwo+ICsKPiArCXdoaWxlIChzaXplKSB7Cj4gKwkJdW5zaWduZWQgbG9uZyBmbGFn
-czsKPiArCQl1aW50MzJfdCB2YWx1ZTsKPiArCj4gKwkJaWYgKCpwb3MgPj0gYWRldi0+bWMubWNf
-dnJhbV9zaXplKQo+ICsJCQlyZXR1cm4gcmVzdWx0Owo+ICsKPiArCQlyID0gZ2V0X3VzZXIodmFs
-dWUsICh1aW50MzJfdCAqKWJ1Zik7Cj4gKwkJaWYgKHIpCj4gKwkJCXJldHVybiByOwo+ICsKPiAr
-CQlzcGluX2xvY2tfaXJxc2F2ZSgmYWRldi0+bW1pb19pZHhfbG9jaywgZmxhZ3MpOwo+ICsJCVdS
-RUczMihtbU1NX0lOREVYLCAoKHVpbnQzMl90KSpwb3MpIHwgMHg4MDAwMDAwMCk7Cj4gKwkJV1JF
-RzMyKG1tTU1fSU5ERVhfSEksICpwb3MgPj4gMzEpOwo+ICsJCVdSRUczMihtbU1NX0RBVEEsIHZh
-bHVlKTsKPiArCQlzcGluX3VubG9ja19pcnFyZXN0b3JlKCZhZGV2LT5tbWlvX2lkeF9sb2NrLCBm
-bGFncyk7Cj4gKwo+ICsJCXJlc3VsdCArPSA0Owo+ICsJCWJ1ZiArPSA0Owo+ICsJCSpwb3MgKz0g
-NDsKPiArCQlzaXplIC09IDQ7Cj4gKwl9Cj4gKwo+ICsJcmV0dXJuIHJlc3VsdDsKPiArfQo+ICsK
-PiAgIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZmlsZV9vcGVyYXRpb25zIGFtZGdwdV90dG1fdnJhbV9m
-b3BzID0gewo+ICAgCS5vd25lciA9IFRISVNfTU9EVUxFLAo+ICAgCS5yZWFkID0gYW1kZ3B1X3R0
-bV92cmFtX3JlYWQsCj4gLQkubGxzZWVrID0gZGVmYXVsdF9sbHNlZWsKPiArCS53cml0ZSA9IGFt
-ZGdwdV90dG1fdnJhbV93cml0ZSwKPiArCS5sbHNlZWsgPSBkZWZhdWx0X2xsc2VlaywKPiAgIH07
-Cj4gICAKPiAgICNpZmRlZiBDT05GSUdfRFJNX0FNREdQVV9HQVJUX0RFQlVHRlMKCgpfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
-bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+kfree on NULL pointer is a no-op and therefore checking is redundant.
+
+Signed-off-by: Himanshu Jha <himanshujha199640@gmail.com>
+---
+ drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c     |  6 +-
+ .../gpu/drm/amd/powerplay/hwmgr/processpptables.c  | 96 ++++++++--------------
+ drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c     | 52 ++++--------
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c   | 12 +--
+ 4 files changed, 56 insertions(+), 110 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
+index bc839ff..9f2c037 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
+@@ -1225,10 +1225,8 @@ static int cz_hwmgr_backend_fini(struct pp_hwmgr *hwmgr)
+ 		phm_destroy_table(hwmgr, &(hwmgr->power_down_asic));
+ 		phm_destroy_table(hwmgr, &(hwmgr->setup_asic));
+ 
+-		if (NULL != hwmgr->dyn_state.vddc_dep_on_dal_pwrl) {
+-			kfree(hwmgr->dyn_state.vddc_dep_on_dal_pwrl);
+-			hwmgr->dyn_state.vddc_dep_on_dal_pwrl = NULL;
+-		}
++		kfree(hwmgr->dyn_state.vddc_dep_on_dal_pwrl);
++		hwmgr->dyn_state.vddc_dep_on_dal_pwrl = NULL;
+ 
+ 		kfree(hwmgr->backend);
+ 		hwmgr->backend = NULL;
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c b/drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c
+index 2716721..a6dbc55 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c
+@@ -1615,85 +1615,53 @@ static int pp_tables_uninitialize(struct pp_hwmgr *hwmgr)
+ 	if (hwmgr->chip_id == CHIP_RAVEN)
+ 		return 0;
+ 
+-	if (NULL != hwmgr->dyn_state.vddc_dependency_on_sclk) {
+-		kfree(hwmgr->dyn_state.vddc_dependency_on_sclk);
+-		hwmgr->dyn_state.vddc_dependency_on_sclk = NULL;
+-	}
++	kfree(hwmgr->dyn_state.vddc_dependency_on_sclk);
++	hwmgr->dyn_state.vddc_dependency_on_sclk = NULL;
+ 
+-	if (NULL != hwmgr->dyn_state.vddci_dependency_on_mclk) {
+-		kfree(hwmgr->dyn_state.vddci_dependency_on_mclk);
+-		hwmgr->dyn_state.vddci_dependency_on_mclk = NULL;
+-	}
++	kfree(hwmgr->dyn_state.vddci_dependency_on_mclk);
++	hwmgr->dyn_state.vddci_dependency_on_mclk = NULL;
+ 
+-	if (NULL != hwmgr->dyn_state.vddc_dependency_on_mclk) {
+-		kfree(hwmgr->dyn_state.vddc_dependency_on_mclk);
+-		hwmgr->dyn_state.vddc_dependency_on_mclk = NULL;
+-	}
++	kfree(hwmgr->dyn_state.vddc_dependency_on_mclk);
++	hwmgr->dyn_state.vddc_dependency_on_mclk = NULL;
+ 
+-	if (NULL != hwmgr->dyn_state.mvdd_dependency_on_mclk) {
+-		kfree(hwmgr->dyn_state.mvdd_dependency_on_mclk);
+-		hwmgr->dyn_state.mvdd_dependency_on_mclk = NULL;
+-	}
++	kfree(hwmgr->dyn_state.mvdd_dependency_on_mclk);
++	hwmgr->dyn_state.mvdd_dependency_on_mclk = NULL;
+ 
+-	if (NULL != hwmgr->dyn_state.valid_mclk_values) {
+-		kfree(hwmgr->dyn_state.valid_mclk_values);
+-		hwmgr->dyn_state.valid_mclk_values = NULL;
+-	}
++	kfree(hwmgr->dyn_state.valid_mclk_values);
++	hwmgr->dyn_state.valid_mclk_values = NULL;
+ 
+-	if (NULL != hwmgr->dyn_state.valid_sclk_values) {
+-		kfree(hwmgr->dyn_state.valid_sclk_values);
+-		hwmgr->dyn_state.valid_sclk_values = NULL;
+-	}
++	kfree(hwmgr->dyn_state.valid_sclk_values);
++	hwmgr->dyn_state.valid_sclk_values = NULL;
+ 
+-	if (NULL != hwmgr->dyn_state.cac_leakage_table) {
+-		kfree(hwmgr->dyn_state.cac_leakage_table);
+-		hwmgr->dyn_state.cac_leakage_table = NULL;
+-	}
++	kfree(hwmgr->dyn_state.cac_leakage_table);
++	hwmgr->dyn_state.cac_leakage_table = NULL;
+ 
+-	if (NULL != hwmgr->dyn_state.vddc_phase_shed_limits_table) {
+-		kfree(hwmgr->dyn_state.vddc_phase_shed_limits_table);
+-		hwmgr->dyn_state.vddc_phase_shed_limits_table = NULL;
+-	}
++	kfree(hwmgr->dyn_state.vddc_phase_shed_limits_table);
++	hwmgr->dyn_state.vddc_phase_shed_limits_table = NULL;
+ 
+-	if (NULL != hwmgr->dyn_state.vce_clock_voltage_dependency_table) {
+-		kfree(hwmgr->dyn_state.vce_clock_voltage_dependency_table);
+-		hwmgr->dyn_state.vce_clock_voltage_dependency_table = NULL;
+-	}
++	kfree(hwmgr->dyn_state.vce_clock_voltage_dependency_table);
++	hwmgr->dyn_state.vce_clock_voltage_dependency_table = NULL;
+ 
+-	if (NULL != hwmgr->dyn_state.uvd_clock_voltage_dependency_table) {
+-		kfree(hwmgr->dyn_state.uvd_clock_voltage_dependency_table);
+-		hwmgr->dyn_state.uvd_clock_voltage_dependency_table = NULL;
+-	}
++	kfree(hwmgr->dyn_state.uvd_clock_voltage_dependency_table);
++	hwmgr->dyn_state.uvd_clock_voltage_dependency_table = NULL;
+ 
+-	if (NULL != hwmgr->dyn_state.samu_clock_voltage_dependency_table) {
+-		kfree(hwmgr->dyn_state.samu_clock_voltage_dependency_table);
+-		hwmgr->dyn_state.samu_clock_voltage_dependency_table = NULL;
+-	}
++	kfree(hwmgr->dyn_state.samu_clock_voltage_dependency_table);
++	hwmgr->dyn_state.samu_clock_voltage_dependency_table = NULL;
+ 
+-	if (NULL != hwmgr->dyn_state.acp_clock_voltage_dependency_table) {
+-		kfree(hwmgr->dyn_state.acp_clock_voltage_dependency_table);
+-		hwmgr->dyn_state.acp_clock_voltage_dependency_table = NULL;
+-	}
++	kfree(hwmgr->dyn_state.acp_clock_voltage_dependency_table);
++	hwmgr->dyn_state.acp_clock_voltage_dependency_table = NULL;
+ 
+-	if (NULL != hwmgr->dyn_state.cac_dtp_table) {
+-		kfree(hwmgr->dyn_state.cac_dtp_table);
+-		hwmgr->dyn_state.cac_dtp_table = NULL;
+-	}
++	kfree(hwmgr->dyn_state.cac_dtp_table);
++	hwmgr->dyn_state.cac_dtp_table = NULL;
+ 
+-	if (NULL != hwmgr->dyn_state.ppm_parameter_table) {
+-		kfree(hwmgr->dyn_state.ppm_parameter_table);
+-		hwmgr->dyn_state.ppm_parameter_table = NULL;
+-	}
++	kfree(hwmgr->dyn_state.ppm_parameter_table);
++	hwmgr->dyn_state.ppm_parameter_table = NULL;
+ 
+-	if (NULL != hwmgr->dyn_state.vdd_gfx_dependency_on_sclk) {
+-		kfree(hwmgr->dyn_state.vdd_gfx_dependency_on_sclk);
+-		hwmgr->dyn_state.vdd_gfx_dependency_on_sclk = NULL;
+-	}
++	kfree(hwmgr->dyn_state.vdd_gfx_dependency_on_sclk);
++	hwmgr->dyn_state.vdd_gfx_dependency_on_sclk = NULL;
+ 
+-	if (NULL != hwmgr->dyn_state.vq_budgeting_table) {
+-		kfree(hwmgr->dyn_state.vq_budgeting_table);
+-		hwmgr->dyn_state.vq_budgeting_table = NULL;
+-	}
++	kfree(hwmgr->dyn_state.vq_budgeting_table);
++	hwmgr->dyn_state.vq_budgeting_table = NULL;
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c
+index 2c3e6ba..5547ed3 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c
+@@ -640,40 +640,24 @@ static int rv_hwmgr_backend_fini(struct pp_hwmgr *hwmgr)
+ 	phm_destroy_table(hwmgr, &(hwmgr->power_down_asic));
+ 	phm_destroy_table(hwmgr, &(hwmgr->setup_asic));
+ 
+-	if (pinfo->vdd_dep_on_dcefclk) {
+-		kfree(pinfo->vdd_dep_on_dcefclk);
+-		pinfo->vdd_dep_on_dcefclk = NULL;
+-	}
+-	if (pinfo->vdd_dep_on_socclk) {
+-		kfree(pinfo->vdd_dep_on_socclk);
+-		pinfo->vdd_dep_on_socclk = NULL;
+-	}
+-	if (pinfo->vdd_dep_on_fclk) {
+-		kfree(pinfo->vdd_dep_on_fclk);
+-		pinfo->vdd_dep_on_fclk = NULL;
+-	}
+-	if (pinfo->vdd_dep_on_dispclk) {
+-		kfree(pinfo->vdd_dep_on_dispclk);
+-		pinfo->vdd_dep_on_dispclk = NULL;
+-	}
+-	if (pinfo->vdd_dep_on_dppclk) {
+-		kfree(pinfo->vdd_dep_on_dppclk);
+-		pinfo->vdd_dep_on_dppclk = NULL;
+-	}
+-	if (pinfo->vdd_dep_on_phyclk) {
+-		kfree(pinfo->vdd_dep_on_phyclk);
+-		pinfo->vdd_dep_on_phyclk = NULL;
+-	}
+-
+-	if (NULL != hwmgr->dyn_state.vddc_dep_on_dal_pwrl) {
+-		kfree(hwmgr->dyn_state.vddc_dep_on_dal_pwrl);
+-		hwmgr->dyn_state.vddc_dep_on_dal_pwrl = NULL;
+-	}
+-
+-	if (NULL != hwmgr->dyn_state.vq_budgeting_table) {
+-		kfree(hwmgr->dyn_state.vq_budgeting_table);
+-		hwmgr->dyn_state.vq_budgeting_table = NULL;
+-	}
++	kfree(pinfo->vdd_dep_on_dcefclk);
++	pinfo->vdd_dep_on_dcefclk = NULL;
++	kfree(pinfo->vdd_dep_on_socclk);
++	pinfo->vdd_dep_on_socclk = NULL;
++	kfree(pinfo->vdd_dep_on_fclk);
++	pinfo->vdd_dep_on_fclk = NULL;
++	kfree(pinfo->vdd_dep_on_dispclk);
++	pinfo->vdd_dep_on_dispclk = NULL;
++	kfree(pinfo->vdd_dep_on_dppclk);
++	pinfo->vdd_dep_on_dppclk = NULL;
++	kfree(pinfo->vdd_dep_on_phyclk);
++	pinfo->vdd_dep_on_phyclk = NULL;
++
++	kfree(hwmgr->dyn_state.vddc_dep_on_dal_pwrl);
++	hwmgr->dyn_state.vddc_dep_on_dal_pwrl = NULL;
++
++	kfree(hwmgr->dyn_state.vq_budgeting_table);
++	hwmgr->dyn_state.vq_budgeting_table = NULL;
+ 
+ 	kfree(hwmgr->backend);
+ 	hwmgr->backend = NULL;
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+index c274323..eb8a3ff 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+@@ -2282,15 +2282,11 @@ static int smu7_set_private_data_based_on_pptable_v0(struct pp_hwmgr *hwmgr)
+ 
+ static int smu7_hwmgr_backend_fini(struct pp_hwmgr *hwmgr)
+ {
+-	if (NULL != hwmgr->dyn_state.vddc_dep_on_dal_pwrl) {
+-		kfree(hwmgr->dyn_state.vddc_dep_on_dal_pwrl);
+-		hwmgr->dyn_state.vddc_dep_on_dal_pwrl = NULL;
+-	}
++	kfree(hwmgr->dyn_state.vddc_dep_on_dal_pwrl);
++	hwmgr->dyn_state.vddc_dep_on_dal_pwrl = NULL;
+ 	pp_smu7_thermal_fini(hwmgr);
+-	if (NULL != hwmgr->backend) {
+-		kfree(hwmgr->backend);
+-		hwmgr->backend = NULL;
+-	}
++	kfree(hwmgr->backend);
++	hwmgr->backend = NULL;
+ 
+ 	return 0;
+ }
+-- 
+2.7.4
