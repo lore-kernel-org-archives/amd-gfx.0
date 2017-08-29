@@ -1,152 +1,138 @@
-From: =?UTF-8?Q?Dieter_N=C3=BCtzel?= <Dieter-0hun7QTegEsDD4udEopG9Q@public.gmane.org>
-Subject: Re: [radeon-alex:amd-staging-drm-next 68/819]
- drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_mst_types.c:154:10:
- error: 'drm_atomic_helper_connector_dpms' undeclared here (not in a function)
-Date: Wed, 30 Aug 2017 00:39:32 +0200
-Message-ID: <29147ec2804bb25fd49c3c7313c5e433@nuetzel-hh.de>
-References: <201708300643.MfM8EQJu%fengguang.wu@intel.com>
+From: =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Subject: [PATCH 00/13] mmu_notifier kill invalidate_page callback
+Date: Tue, 29 Aug 2017 19:54:34 -0400
+Message-ID: <20170829235447.10050-1-jglisse@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <201708300643.MfM8EQJu%fengguang.wu-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: kbuild test robot <fengguang.wu-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, amd-devel <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, kbuild-all-JC7UmRfGjtg@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-rdma-owner-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
+Sender: linux-rdma-owner-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+To: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org
+Cc: =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "Kirill A . Shutemov" <kirill.shutemov-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, Linus Torvalds <torvalds-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org>, Andrew Morton <akpm-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org>, Andrea Arcangeli <aarcange-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Joerg Roedel <jroedel-l3A5Bk7waGM@public.gmane.org>, Dan Williams <dan.j.williams-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Sudeep Dutt <sudeep.dutt-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Ashutosh Dixit <ashutosh.dixit-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Dimitri Sivanich <sivanich-sJ/iWh9BUns@public.gmane.org>, Jack Steiner <steiner-sJ/iWh9BUns@public.gmane.org>, Paolo Bonzini <pbonzini-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, =?UTF-8?q?Radim=20Kr=C4=8Dm=C3=A1=C5=99?= <rkrcmar-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, linuxppc-dev-uLR06cmDAlY/bJ5BZ2RsiQ@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-rdma-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org, xen-devel-GuqFBffKawtpuQazS67q72D2FQJk+8+b@public.gmane.org, kvm@vger
+List-Id: amd-gfx.lists.freedesktop.org
 
-SSd2ZSBzZW5kIGEgcmVsYXRlZCBrZXJuZWwgY3Jhc2ggbG9nIHRvIGFtZC1kZXZlbCBzb21lIGRh
-eXMgYWdvIHdpdGhvdXQgCmFueSBhbnN3ZXIsIHlldC4uLgoKV2FzOgpbYW1kLXN0YWdpbmctZHJt
-LW5leHRdIGtlcm5lbCBjcmFzaCB3aXRoIGFtZGdwdSBvbiBSWDU4MCBpbiAKJ2RybV9vYmplY3Rf
-cHJvcGVydHlfZ2V0X3ZhbHVlJwoKSSBnZXQgdGhpcyBpbiBfYWxsXyBjdXJyZW50ICdhbWQtc3Rh
-Z2luZy1kcm0tbmV4dCcgdmVyc2lvbnMuIDstKAoKWzE2MzAxLjUxNTA3OV0gLS0tLS0tLS0tLS0t
-WyBjdXQgaGVyZSBdLS0tLS0tLS0tLS0tClsxNjMwMS41MTUxMDVdIFdBUk5JTkc6IENQVTogNCBQ
-SUQ6IDExODcxIGF0IApkcml2ZXJzL2dwdS9kcm0vZHJtX21vZGVfb2JqZWN0LmM6Mjk0IApkcm1f
-b2JqZWN0X3Byb3BlcnR5X2dldF92YWx1ZSsweDIyLzB4MzAgW2RybV0KWzE2MzAxLjUxNTEwNl0g
-TW9kdWxlcyBsaW5rZWQgaW46IGZ1c2UgcmZjb21tIG5mX2xvZ19pcHY2IHh0X2NvbW1lbnQgCm5m
-X2xvZ19pcHY0IG5mX2xvZ19jb21tb24geHRfTE9HIHh0X2xpbWl0IHJwY3NlY19nc3Nfa3JiNSBh
-dXRoX3JwY2dzcyAKbmZzdjQgZG5zX3Jlc29sdmVyIG5mcyBsb2NrZCBuZm5ldGxpbmtfY3RoZWxw
-ZXIgZ3JhY2UgbmZuZXRsaW5rIHN1bnJwYyAKZnNjYWNoZSBhZl9wYWNrZXQgaXBtaV9zc2lmIGlz
-Y3NpX2liZnQgaXNjc2lfYm9vdF9zeXNmcyBpcDZ0X1JFSkVDVCAKbmZfcmVqZWN0X2lwdjYgbmZf
-Y29ubnRyYWNrX2lwdjYgbmZfZGVmcmFnX2lwdjYgaXB0X1JFSkVDVCAKbmZfcmVqZWN0X2lwdjQg
-eHRfcGt0dHlwZSB4dF90Y3B1ZHAgaXB0YWJsZV9maWx0ZXIgaXA2dGFibGVfbWFuZ2xlIApuZl9j
-b25udHJhY2tfbmV0Ymlvc19ucyBuZl9jb25udHJhY2tfYnJvYWRjYXN0IG5mX2Nvbm50cmFja19p
-cHY0IApuZl9kZWZyYWdfaXB2NCBpcF90YWJsZXMgeHRfY29ubnRyYWNrIG5mX2Nvbm50cmFjayBs
-aWJjcmMzMmMgCmlwNnRhYmxlX2ZpbHRlciBpcDZfdGFibGVzIHhfdGFibGVzIGpjNDIgYm5lcCBq
-b3lkZXYgc25kX2hkYV9jb2RlY19oZG1pIApzbmRfaGRhX2ludGVsIHNuZF9oZGFfY29kZWMgYnR1
-c2Igc25kX2h3ZGVwIGJ0cnRsIHNuZF9oZGFfY29yZSBidGJjbSAKYnRpbnRlbCBibHVldG9vdGgg
-c25kX3BjbSBlMTAwMGUgaW50ZWxfcG93ZXJjbGFtcCBpVENPX3dkdCBzbmRfdGltZXIgCmNvcmV0
-ZW1wIGlUQ09fdmVuZG9yX3N1cHBvcnQgaGlkX2dlbmVyaWMgc25kIHB0cCBrdm1faW50ZWwgcHBz
-X2NvcmUgCnJma2lsbApbMTYzMDEuNTE1MTI5XSAga3ZtIGVjZGhfZ2VuZXJpYyB0cG1faW5maW5l
-b24gc291bmRjb3JlIGlycWJ5cGFzcyAKdHBtX3RpcyB0cG1fdGlzX2NvcmUgY3JjMzJjX2ludGVs
-IHBjc3BrciBzaHBjaHAgaXBtaV9zaSB0cG0gdXNiaGlkIAppMmNfaTgwMSBpN2NvcmVfZWRhYyBs
-cGNfaWNoIGlwbWlfZGV2aW50ZiBpcG1pX21zZ2hhbmRsZXIgYWMgYnV0dG9uIAphY3BpX2NwdWZy
-ZXEgdGNwX2JiciByYWlkMSBtZF9tb2QgYW1ka2ZkIGFtZF9pb21tdV92MiBzZXJpb19yYXcgc3Jf
-bW9kIApjZHJvbSBhbWRncHUgbXB0M3NhcyBpMmNfYWxnb19iaXQgcmFpZF9jbGFzcyBzY3NpX3Ry
-YW5zcG9ydF9zYXMgCmRybV9rbXNfaGVscGVyIHN5c2NvcHlhcmVhIHN5c2ZpbGxyZWN0IGVoY2lf
-cGNpIHN5c2ltZ2JsdCBmYl9zeXNfZm9wcyAKZWhjaV9oY2QgdHRtIHVzYmNvcmUgZHJtIHNnIGRt
-X211bHRpcGF0aCBkbV9tb2Qgc2NzaV9kaF9yZGFjIHNjc2lfZGhfZW1jIApzY3NpX2RoX2FsdWEK
-WzE2MzAxLjUxNTE0N10gQ1BVOiA0IFBJRDogMTE4NzEgQ29tbTogWCBUYWludGVkOiBHICAgICAg
-ICBXICAgICAgIAo0LjEzLjAtcmM1LTEuZzcyNjIzNTMtZGVmYXVsdCsgIzEKWzE2MzAxLjUxNTE0
-OF0gSGFyZHdhcmUgbmFtZTogRlVKSVRTVSAgICAgICAgICAgICAgICAgICAgICAgICAgUFJJTUVS
-R1kgClRYMTUwIFM3ICAgICAgICAgICAgIC9EMjc1OSwgQklPUyA2LjAwIFJldi4gMS4xOS4yNzU5
-LkExICAgICAgICAgICAKMDkvMjYvMjAxMgpbMTYzMDEuNTE1MTQ5XSB0YXNrOiBmZmZmOTBjNDk1
-MjVhMTgwIHRhc2suc3RhY2s6IGZmZmZiODQ3ODZlZjQwMDAKWzE2MzAxLjUxNTE1Nl0gUklQOiAw
-MDEwOmRybV9vYmplY3RfcHJvcGVydHlfZ2V0X3ZhbHVlKzB4MjIvMHgzMCBbZHJtXQpbMTYzMDEu
-NTE1MTU3XSBSU1A6IDAwMTg6ZmZmZmI4NDc4NmVmN2JmOCBFRkxBR1M6IDAwMDEwMjgyClsxNjMw
-MS41MTUxNThdIFJBWDogZmZmZmZmZmZjMDNmMGNjMCBSQlg6IGZmZmY5MGM1MjIwMDAwMDAgUkNY
-OiAKMDAwMDAwMDAwMDAwMDAwMApbMTYzMDEuNTE1MTU4XSBSRFg6IGZmZmZiODQ3ODZlZjdjMTAg
-UlNJOiBmZmZmOTBjNTIzODM3NjAwIFJESTogCmZmZmY5MGM1MjNiMTkwMjgKWzE2MzAxLjUxNTE1
-OV0gUkJQOiBmZmZmYjg0Nzg2ZWY3YmY4IFIwODogZmZmZjkwYzQxZWUyODI4MCBSMDk6IApmZmZm
-OTBjNTE1ZGVmYzAwClsxNjMwMS41MTUxNTldIFIxMDogMDAwMDAwMDAwMDAyNGJiOCBSMTE6IDAw
-MDAwMDAwMDAwMDAwMDAgUjEyOiAKMDAwMDAwMDAwMDAwMDAwMApbMTYzMDEuNTE1MTYwXSBSMTM6
-IGZmZmY5MGM1MjNiMTkwMDAgUjE0OiAwMDAwMDAwMGZmZmZmZmVhIFIxNTogCmZmZmY5MGM1MTFl
-OGMxMDAKWzE2MzAxLjUxNTE2MV0gRlM6ICAwMDAwN2Y4NmYxNWM5YTQwKDAwMDApIEdTOmZmZmY5
-MGM1M2ZkMDAwMDAoMDAwMCkgCmtubEdTOjAwMDAwMDAwMDAwMDAwMDAKWzE2MzAxLjUxNTE2Ml0g
-Q1M6ICAwMDEwIERTOiAwMDAwIEVTOiAwMDAwIENSMDogMDAwMDAwMDA4MDA1MDAzMwpbMTYzMDEu
-NTE1MTYyXSBDUjI6IDAwMDAwMDA4NDlhOTg2ODAgQ1IzOiAwMDAwMDAwNWRjYzFhMDAwIENSNDog
-CjAwMDAwMDAwMDAwMDA2ZTAKWzE2MzAxLjUxNTE2M10gQ2FsbCBUcmFjZToKWzE2MzAxLjUxNTI1
-NV0gIGFtZGdwdV9kbV9jb25uZWN0b3JfYXRvbWljX3NldF9wcm9wZXJ0eSsweGU4LzB4MTUwIApb
-YW1kZ3B1XQpbMTYzMDEuNTE1MjkyXSAgZHJtX2F0b21pY19zZXRfcHJvcGVydHkrMHgxNjQvMHg0
-NzAgW2RybV0KWzE2MzAxLjUxNTMwMF0gIGRybV9tb2RlX29ial9zZXRfcHJvcGVydHlfaW9jdGwr
-MHgxMGIvMHgyNDAgW2RybV0KWzE2MzAxLjUxNTMxMV0gID8gZHJtX21vZGVfY29ubmVjdG9yX3Nl
-dF9vYmpfcHJvcCsweDgwLzB4ODAgW2RybV0KWzE2MzAxLjUxNTMxOF0gIGRybV9tb2RlX2Nvbm5l
-Y3Rvcl9wcm9wZXJ0eV9zZXRfaW9jdGwrMHgzMC8weDQwIFtkcm1dClsxNjMwMS41MTUzMjRdICBk
-cm1faW9jdGxfa2VybmVsKzB4NWQvMHhiMCBbZHJtXQpbMTYzMDEuNTE1MzMyXSAgZHJtX2lvY3Rs
-KzB4MzFhLzB4M2QwIFtkcm1dClsxNjMwMS41MTUzMzldICA/IGRybV9tb2RlX2Nvbm5lY3Rvcl9z
-ZXRfb2JqX3Byb3ArMHg4MC8weDgwIFtkcm1dClsxNjMwMS41MTUzNDJdICA/IGV4dDRfZmlsZV93
-cml0ZV9pdGVyKzB4YmEvMHgzOTAKWzE2MzAxLjUxNTM2Ml0gIGFtZGdwdV9kcm1faW9jdGwrMHg0
-Zi8weDkwIFthbWRncHVdClsxNjMwMS41MTUzNjVdICBkb192ZnNfaW9jdGwrMHg5Mi8weDVjMApb
-MTYzMDEuNTE1MzY3XSAgPyBfX2ZnZXQrMHg2ZS8weDkwClsxNjMwMS41MTUzNjhdICBTeVNfaW9j
-dGwrMHg3OS8weDkwClsxNjMwMS41MTUzNzJdICBlbnRyeV9TWVNDQUxMXzY0X2Zhc3RwYXRoKzB4
-MWUvMHhhOQpbMTYzMDEuNTE1MzczXSBSSVA6IDAwMzM6MHg3Zjg2ZWVmNDY1MDcKWzE2MzAxLjUx
-NTM3M10gUlNQOiAwMDJiOjAwMDA3ZmZmZTVmOWRjYTggRUZMQUdTOiAwMDAwMzI0NiBPUklHX1JB
-WDogCjAwMDAwMDAwMDAwMDAwMTAKWzE2MzAxLjUxNTM3NF0gUkFYOiBmZmZmZmZmZmZmZmZmZmRh
-IFJCWDogMDAwMDAwMDg0YWVlYTk5MCBSQ1g6IAowMDAwN2Y4NmVlZjQ2NTA3ClsxNjMwMS41MTUz
-NzVdIFJEWDogMDAwMDdmZmZlNWY5ZGNlMCBSU0k6IDAwMDAwMDAwYzAxMDY0YWIgUkRJOiAKMDAw
-MDAwMDAwMDAwMDAwZApbMTYzMDEuNTE1Mzc1XSBSQlA6IDAwMDAwMDA4NGI1MGQ4MzAgUjA4OiAw
-MDAwMDAwODRiMDdkNjkwIFIwOTogCjAwMDAwMDAwMDAwMDAwMDEKWzE2MzAxLjUxNTM3Nl0gUjEw
-OiAwMDAwMDAwMDAwMDAwMDA0IFIxMTogMDAwMDAwMDAwMDAwMzI0NiBSMTI6IAowMDAwMDAwODRh
-ZWVhOTkwClsxNjMwMS41MTUzNzZdIFIxMzogMDAwMDAwMDAwMDAwMDAwNSBSMTQ6IDAwMDAwMDA4
-NGFlZWVkZDAgUjE1OiAKMDAwMDAwMDg0YWVlZWRkMApbMTYzMDEuNTE1Mzc3XSBDb2RlOiAyZSAw
-ZiAxZiA4NCAwMCAwMCAwMCAwMCAwMCA2NiA2NiA2NiA2NiA5MCA0OCA4YiA0NiAKNjAgNTUgNDgg
-ODkgZTUgNDggOGIgODAgNzAgMDMgMDAgMDAgNDggODMgNzggMjAgMDAgNzUgMDcgZTggNjAgZmYg
-ZmYgZmYgCjVkIGMzIDwwZj4gZmYgZTggNTcgZmYgZmYgZmYgNWQgYzMgMGYgMWYgNDQgMDAgMDAg
-NjYgNjYgNjYgNjYgOTAgNTUgNDgKWzE2MzAxLjUxNTM5NF0gLS0tWyBlbmQgdHJhY2UgZjk1N2Mx
-ZDU4NDRjZTQ2ZiBdLS0tCgpUaGFua3MsCkRpZXRlcgoKQW0gMzAuMDguMjAxNyAwMDoyMiwgc2No
-cmllYiBrYnVpbGQgdGVzdCByb2JvdDoKPiB0cmVlOiAgIGdpdDovL3Blb3BsZS5mcmVlZGVza3Rv
-cC5vcmcvfmFnZDVmL2xpbnV4LmdpdCAKPiBhbWQtc3RhZ2luZy1kcm0tbmV4dAo+IGhlYWQ6ICAg
-ZmYxNGYwZGNhMWYyM2IyY2ZmNDFlNDM0NDBjNzk1Mjk2NWU1ZmMxYgo+IGNvbW1pdDogOWIzN2E5
-YjhmNjQ2NGUzY2UxY2U1OWVkYTFlYzcwNTNjOGU3N2NhMyBbNjgvODE5XSBkcm0vYW1kL2RjOgo+
-IEFkZCBkYyBkaXNwbGF5IGRyaXZlciAodjIpCj4gY29uZmlnOiBpYTY0LWFsbHllc2NvbmZpZyAo
-YXR0YWNoZWQgYXMgLmNvbmZpZykKPiBjb21waWxlcjogaWE2NC1saW51eC1nY2MgKEdDQykgNi4y
-LjAKPiByZXByb2R1Y2U6Cj4gICAgICAgICB3Z2V0Cj4gaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNv
-bnRlbnQuY29tLzAxb3JnL2xrcC10ZXN0cy9tYXN0ZXIvc2Jpbi9tYWtlLmNyb3NzCj4gLU8gfi9i
-aW4vbWFrZS5jcm9zcwo+ICAgICAgICAgY2htb2QgK3ggfi9iaW4vbWFrZS5jcm9zcwo+ICAgICAg
-ICAgZ2l0IGNoZWNrb3V0IDliMzdhOWI4ZjY0NjRlM2NlMWNlNTllZGExZWM3MDUzYzhlNzdjYTMK
-PiAgICAgICAgICMgc2F2ZSB0aGUgYXR0YWNoZWQgLmNvbmZpZyB0byBsaW51eCBidWlsZCB0cmVl
-Cj4gICAgICAgICBtYWtlLmNyb3NzIEFSQ0g9aWE2NAo+IAo+IE5vdGU6IHRoZSByYWRlb24tYWxl
-eC9hbWQtc3RhZ2luZy1kcm0tbmV4dCBIRUFECj4gZmYxNGYwZGNhMWYyM2IyY2ZmNDFlNDM0NDBj
-Nzk1Mjk2NWU1ZmMxYiBidWlsZHMgZmluZS4KPiAgICAgICBJdCBvbmx5IGh1cnRzIGJpc2VjdGli
-aWxpdHkuCj4gCj4gQWxsIGVycm9ycyAobmV3IG9uZXMgcHJlZml4ZWQgYnkgPj4pOgo+IAo+Pj4g
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2Rt
-X21zdF90eXBlcy5jOjE1NDoxMDogCj4+PiBlcnJvcjogJ2RybV9hdG9taWNfaGVscGVyX2Nvbm5l
-Y3Rvcl9kcG1zJyB1bmRlY2xhcmVkIGhlcmUgKG5vdCBpbiBhIAo+Pj4gZnVuY3Rpb24pCj4gICAg
-ICAuZHBtcyA9IGRybV9hdG9taWNfaGVscGVyX2Nvbm5lY3Rvcl9kcG1zLAo+ICAgICAgICAgICAg
-ICBefn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fgo+Pj4gZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvLi4vZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX21zdF90eXBlcy5jOjE1OTox
-ODogCj4+PiBlcnJvcjogJ2RybV9hdG9taWNfaGVscGVyX2Nvbm5lY3Rvcl9zZXRfcHJvcGVydHkn
-IHVuZGVjbGFyZWQgaGVyZSAKPj4+IChub3QgaW4gYSBmdW5jdGlvbikKPiAgICAgIC5zZXRfcHJv
-cGVydHkgPSBkcm1fYXRvbWljX2hlbHBlcl9jb25uZWN0b3Jfc2V0X3Byb3BlcnR5LAo+ICAgICAg
-ICAgICAgICAgICAgICAgIF5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn4K
-PiAKPiB2aW0gKy9kcm1fYXRvbWljX2hlbHBlcl9jb25uZWN0b3JfZHBtcyArMTU0Cj4gZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX21zdF90
-eXBlcy5jCj4gCj4gICAgMTUyCj4gICAgMTUzCXN0YXRpYyBjb25zdCBzdHJ1Y3QgZHJtX2Nvbm5l
-Y3Rvcl9mdW5jcyAKPiBkbV9kcF9tc3RfY29ubmVjdG9yX2Z1bmNzID0gewo+ICA+IDE1NAkJLmRw
-bXMgPSBkcm1fYXRvbWljX2hlbHBlcl9jb25uZWN0b3JfZHBtcywKPiAgICAxNTUJCS5kZXRlY3Qg
-PSBkbV9kcF9tc3RfZGV0ZWN0LAo+ICAgIDE1NgkJLmZpbGxfbW9kZXMgPSBkcm1faGVscGVyX3By
-b2JlX3NpbmdsZV9jb25uZWN0b3JfbW9kZXMsCj4gICAgMTU3CQkuZGVzdHJveSA9IGRtX2RwX21z
-dF9jb25uZWN0b3JfZGVzdHJveSwKPiAgICAxNTgJCS5yZXNldCA9IGFtZGdwdV9kbV9jb25uZWN0
-b3JfZnVuY3NfcmVzZXQsCj4gID4gMTU5CQkuc2V0X3Byb3BlcnR5ID0gZHJtX2F0b21pY19oZWxw
-ZXJfY29ubmVjdG9yX3NldF9wcm9wZXJ0eSwKPiAgICAxNjAJCS5hdG9taWNfZHVwbGljYXRlX3N0
-YXRlID0gCj4gYW1kZ3B1X2RtX2Nvbm5lY3Rvcl9hdG9taWNfZHVwbGljYXRlX3N0YXRlLAo+ICAg
-IDE2MQkJLmF0b21pY19kZXN0cm95X3N0YXRlID0gCj4gZHJtX2F0b21pY19oZWxwZXJfY29ubmVj
-dG9yX2Rlc3Ryb3lfc3RhdGUsCj4gICAgMTYyCQkuYXRvbWljX3NldF9wcm9wZXJ0eSA9IGFtZGdw
-dV9kbV9jb25uZWN0b3JfYXRvbWljX3NldF9wcm9wZXJ0eQo+ICAgIDE2Mwl9Owo+ICAgIDE2NAo+
-IAo+IC0tLQo+IDAtREFZIGtlcm5lbCB0ZXN0IGluZnJhc3RydWN0dXJlICAgICAgICAgICAgICAg
-IE9wZW4gU291cmNlIFRlY2hub2xvZ3kgCj4gQ2VudGVyCj4gaHR0cHM6Ly9saXN0cy4wMS5vcmcv
-cGlwZXJtYWlsL2tidWlsZC1hbGwgICAgICAgICAgICAgICAgICAgSW50ZWwgCj4gQ29ycG9yYXRp
-b24KPiAKPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+
-IGRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKPiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2
-ZWwKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+(Sorry for so many list cross-posting and big cc)
+
+Please help testing !
+
+The invalidate_page callback suffered from 2 pitfalls. First it used to
+happen after page table lock was release and thus a new page might have
+been setup for the virtual address before the call to invalidate_page().
+
+This is in a weird way fixed by c7ab0d2fdc840266b39db94538f74207ec2afbf6
+which moved the callback under the page table lock. Which also broke
+several existing user of the mmu_notifier API that assumed they could
+sleep inside this callback.
+
+The second pitfall was invalidate_page being the only callback not taking
+a range of address in respect to invalidation but was giving an address
+and a page. Lot of the callback implementer assumed this could never be
+THP and thus failed to invalidate the appropriate range for THP pages.
+
+By killing this callback we unify the mmu_notifier callback API to always
+take a virtual address range as input.
+
+There is now 2 clear API (I am not mentioning the youngess API which is
+seldomly used):
+  - invalidate_range_start()/end() callback (which allow you to sleep)
+  - invalidate_range() where you can not sleep but happen right after
+    page table update under page table lock
+
+
+Note that a lot of existing user feels broken in respect to range_start/
+range_end. Many user only have range_start() callback but there is nothing
+preventing them to undo what was invalidated in their range_start() callback
+after it returns but before any CPU page table update take place.
+
+The code pattern use in kvm or umem odp is an example on how to properly
+avoid such race. In a nutshell use some kind of sequence number and active
+range invalidation counter to block anything that might undo what the
+range_start() callback did.
+
+If you do not care about keeping fully in sync with CPU page table (ie
+you can live with CPU page table pointing to new different page for a
+given virtual address) then you can take a reference on the pages inside
+the range_start callback and drop it in range_end or when your driver
+is done with those pages.
+
+Last alternative is to use invalidate_range() if you can do invalidation
+without sleeping as invalidate_range() callback happens under the CPU
+page table spinlock right after the page table is updated.
+
+
+Note this is barely tested. I intend to do more testing of next few days
+but i do not have access to all hardware that make use of the mmu_notifier
+API.
+
+
+First 2 patches convert existing call of mmu_notifier_invalidate_page()
+to mmu_notifier_invalidate_range() and bracket those call with call to
+mmu_notifier_invalidate_range_start()/end().
+
+The next 10 patches remove existing invalidate_page() callback as it can
+no longer happen.
+
+Finaly the last page remove it completely so it can RIP.
+
+Jérôme Glisse (13):
+  dax: update to new mmu_notifier semantic
+  mm/rmap: update to new mmu_notifier semantic
+  powerpc/powernv: update to new mmu_notifier semantic
+  drm/amdgpu: update to new mmu_notifier semantic
+  IB/umem: update to new mmu_notifier semantic
+  IB/hfi1: update to new mmu_notifier semantic
+  iommu/amd: update to new mmu_notifier semantic
+  iommu/intel: update to new mmu_notifier semantic
+  misc/mic/scif: update to new mmu_notifier semantic
+  sgi-gru: update to new mmu_notifier semantic
+  xen/gntdev: update to new mmu_notifier semantic
+  KVM: update to new mmu_notifier semantic
+  mm/mmu_notifier: kill invalidate_page
+
+Cc: Kirill A. Shutemov <kirill.shutemov-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
+Cc: Linus Torvalds <torvalds-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org>
+Cc: Andrew Morton <akpm-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org>
+Cc: Andrea Arcangeli <aarcange-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Cc: Joerg Roedel <jroedel-l3A5Bk7waGM@public.gmane.org>
+Cc: Dan Williams <dan.j.williams-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
+Cc: Sudeep Dutt <sudeep.dutt-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
+Cc: Ashutosh Dixit <ashutosh.dixit-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
+Cc: Dimitri Sivanich <sivanich-sJ/iWh9BUns@public.gmane.org>
+Cc: Jack Steiner <steiner-sJ/iWh9BUns@public.gmane.org>
+Cc: Paolo Bonzini <pbonzini-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Cc: Radim Krčmář <rkrcmar-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+
+Cc: linuxppc-dev-uLR06cmDAlY/bJ5BZ2RsiQ@public.gmane.org
+Cc: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: linux-rdma-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Cc: iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
+Cc: xen-devel-GuqFBffKawtpuQazS67q72D2FQJk+8+b@public.gmane.org
+Cc: kvm-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+
+
+ arch/powerpc/platforms/powernv/npu-dma.c | 10 --------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c   | 31 ----------------------
+ drivers/infiniband/core/umem_odp.c       | 19 --------------
+ drivers/infiniband/hw/hfi1/mmu_rb.c      |  9 -------
+ drivers/iommu/amd_iommu_v2.c             |  8 ------
+ drivers/iommu/intel-svm.c                |  9 -------
+ drivers/misc/mic/scif/scif_dma.c         | 11 --------
+ drivers/misc/sgi-gru/grutlbpurge.c       | 12 ---------
+ drivers/xen/gntdev.c                     |  8 ------
+ fs/dax.c                                 | 19 ++++++++------
+ include/linux/mm.h                       |  1 +
+ include/linux/mmu_notifier.h             | 25 ------------------
+ mm/memory.c                              | 26 +++++++++++++++----
+ mm/mmu_notifier.c                        | 14 ----------
+ mm/rmap.c                                | 44 +++++++++++++++++++++++++++++---
+ virt/kvm/kvm_main.c                      | 42 ------------------------------
+ 16 files changed, 74 insertions(+), 214 deletions(-)
+
+-- 
+2.13.5
+
+--
+To unsubscribe from this list: send the line "unsubscribe linux-rdma" in
+the body of a message to majordomo-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+More majordomo info at  http://vger.kernel.org/majordomo-info.html
