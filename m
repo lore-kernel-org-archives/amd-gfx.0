@@ -1,256 +1,58 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Subject: Re: [PATCH] drm/amd/powerplay/hwmgr: Remove null check before kfree
-Date: Tue, 29 Aug 2017 15:27:13 +0200
-Message-ID: <d97dac83-4773-e1cf-4dc5-77ebd5c72886@amd.com>
-References: <1504012347-14702-1-git-send-email-himanshujha199640@gmail.com>
+Subject: Re: [PATCH] drm/amd: Remove null check before kfree
+Date: Tue, 29 Aug 2017 15:28:10 +0200
+Message-ID: <a04969d0-f2a7-7720-f77b-5f997c23a18b@amd.com>
+References: <1504012887-15147-1-git-send-email-himanshujha199640@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <1504012347-14702-1-git-send-email-himanshujha199640@gmail.com>
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <1504012887-15147-1-git-send-email-himanshujha199640@gmail.com>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 To: Himanshu Jha <himanshujha199640@gmail.com>, airlied@linux.ie
-Cc: alexander.deucher@amd.com, Rex.Zhu@amd.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: alexander.deucher@amd.com, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-Am 29.08.2017 um 15:12 schrieb Himanshu Jha:
-> kfree on NULL pointer is a no-op and therefore checking is redundant.
->
-> Signed-off-by: Himanshu Jha <himanshujha199640@gmail.com>
-
-Reviewed-by: Christian König <christian.koenig@amd.com>
-
-> ---
->   drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c     |  6 +-
->   .../gpu/drm/amd/powerplay/hwmgr/processpptables.c  | 96 ++++++++--------------
->   drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c     | 52 ++++--------
->   drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c   | 12 +--
->   4 files changed, 56 insertions(+), 110 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
-> index bc839ff..9f2c037 100644
-> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
-> @@ -1225,10 +1225,8 @@ static int cz_hwmgr_backend_fini(struct pp_hwmgr *hwmgr)
->   		phm_destroy_table(hwmgr, &(hwmgr->power_down_asic));
->   		phm_destroy_table(hwmgr, &(hwmgr->setup_asic));
->   
-> -		if (NULL != hwmgr->dyn_state.vddc_dep_on_dal_pwrl) {
-> -			kfree(hwmgr->dyn_state.vddc_dep_on_dal_pwrl);
-> -			hwmgr->dyn_state.vddc_dep_on_dal_pwrl = NULL;
-> -		}
-> +		kfree(hwmgr->dyn_state.vddc_dep_on_dal_pwrl);
-> +		hwmgr->dyn_state.vddc_dep_on_dal_pwrl = NULL;
->   
->   		kfree(hwmgr->backend);
->   		hwmgr->backend = NULL;
-> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c b/drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c
-> index 2716721..a6dbc55 100644
-> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c
-> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/processpptables.c
-> @@ -1615,85 +1615,53 @@ static int pp_tables_uninitialize(struct pp_hwmgr *hwmgr)
->   	if (hwmgr->chip_id == CHIP_RAVEN)
->   		return 0;
->   
-> -	if (NULL != hwmgr->dyn_state.vddc_dependency_on_sclk) {
-> -		kfree(hwmgr->dyn_state.vddc_dependency_on_sclk);
-> -		hwmgr->dyn_state.vddc_dependency_on_sclk = NULL;
-> -	}
-> +	kfree(hwmgr->dyn_state.vddc_dependency_on_sclk);
-> +	hwmgr->dyn_state.vddc_dependency_on_sclk = NULL;
->   
-> -	if (NULL != hwmgr->dyn_state.vddci_dependency_on_mclk) {
-> -		kfree(hwmgr->dyn_state.vddci_dependency_on_mclk);
-> -		hwmgr->dyn_state.vddci_dependency_on_mclk = NULL;
-> -	}
-> +	kfree(hwmgr->dyn_state.vddci_dependency_on_mclk);
-> +	hwmgr->dyn_state.vddci_dependency_on_mclk = NULL;
->   
-> -	if (NULL != hwmgr->dyn_state.vddc_dependency_on_mclk) {
-> -		kfree(hwmgr->dyn_state.vddc_dependency_on_mclk);
-> -		hwmgr->dyn_state.vddc_dependency_on_mclk = NULL;
-> -	}
-> +	kfree(hwmgr->dyn_state.vddc_dependency_on_mclk);
-> +	hwmgr->dyn_state.vddc_dependency_on_mclk = NULL;
->   
-> -	if (NULL != hwmgr->dyn_state.mvdd_dependency_on_mclk) {
-> -		kfree(hwmgr->dyn_state.mvdd_dependency_on_mclk);
-> -		hwmgr->dyn_state.mvdd_dependency_on_mclk = NULL;
-> -	}
-> +	kfree(hwmgr->dyn_state.mvdd_dependency_on_mclk);
-> +	hwmgr->dyn_state.mvdd_dependency_on_mclk = NULL;
->   
-> -	if (NULL != hwmgr->dyn_state.valid_mclk_values) {
-> -		kfree(hwmgr->dyn_state.valid_mclk_values);
-> -		hwmgr->dyn_state.valid_mclk_values = NULL;
-> -	}
-> +	kfree(hwmgr->dyn_state.valid_mclk_values);
-> +	hwmgr->dyn_state.valid_mclk_values = NULL;
->   
-> -	if (NULL != hwmgr->dyn_state.valid_sclk_values) {
-> -		kfree(hwmgr->dyn_state.valid_sclk_values);
-> -		hwmgr->dyn_state.valid_sclk_values = NULL;
-> -	}
-> +	kfree(hwmgr->dyn_state.valid_sclk_values);
-> +	hwmgr->dyn_state.valid_sclk_values = NULL;
->   
-> -	if (NULL != hwmgr->dyn_state.cac_leakage_table) {
-> -		kfree(hwmgr->dyn_state.cac_leakage_table);
-> -		hwmgr->dyn_state.cac_leakage_table = NULL;
-> -	}
-> +	kfree(hwmgr->dyn_state.cac_leakage_table);
-> +	hwmgr->dyn_state.cac_leakage_table = NULL;
->   
-> -	if (NULL != hwmgr->dyn_state.vddc_phase_shed_limits_table) {
-> -		kfree(hwmgr->dyn_state.vddc_phase_shed_limits_table);
-> -		hwmgr->dyn_state.vddc_phase_shed_limits_table = NULL;
-> -	}
-> +	kfree(hwmgr->dyn_state.vddc_phase_shed_limits_table);
-> +	hwmgr->dyn_state.vddc_phase_shed_limits_table = NULL;
->   
-> -	if (NULL != hwmgr->dyn_state.vce_clock_voltage_dependency_table) {
-> -		kfree(hwmgr->dyn_state.vce_clock_voltage_dependency_table);
-> -		hwmgr->dyn_state.vce_clock_voltage_dependency_table = NULL;
-> -	}
-> +	kfree(hwmgr->dyn_state.vce_clock_voltage_dependency_table);
-> +	hwmgr->dyn_state.vce_clock_voltage_dependency_table = NULL;
->   
-> -	if (NULL != hwmgr->dyn_state.uvd_clock_voltage_dependency_table) {
-> -		kfree(hwmgr->dyn_state.uvd_clock_voltage_dependency_table);
-> -		hwmgr->dyn_state.uvd_clock_voltage_dependency_table = NULL;
-> -	}
-> +	kfree(hwmgr->dyn_state.uvd_clock_voltage_dependency_table);
-> +	hwmgr->dyn_state.uvd_clock_voltage_dependency_table = NULL;
->   
-> -	if (NULL != hwmgr->dyn_state.samu_clock_voltage_dependency_table) {
-> -		kfree(hwmgr->dyn_state.samu_clock_voltage_dependency_table);
-> -		hwmgr->dyn_state.samu_clock_voltage_dependency_table = NULL;
-> -	}
-> +	kfree(hwmgr->dyn_state.samu_clock_voltage_dependency_table);
-> +	hwmgr->dyn_state.samu_clock_voltage_dependency_table = NULL;
->   
-> -	if (NULL != hwmgr->dyn_state.acp_clock_voltage_dependency_table) {
-> -		kfree(hwmgr->dyn_state.acp_clock_voltage_dependency_table);
-> -		hwmgr->dyn_state.acp_clock_voltage_dependency_table = NULL;
-> -	}
-> +	kfree(hwmgr->dyn_state.acp_clock_voltage_dependency_table);
-> +	hwmgr->dyn_state.acp_clock_voltage_dependency_table = NULL;
->   
-> -	if (NULL != hwmgr->dyn_state.cac_dtp_table) {
-> -		kfree(hwmgr->dyn_state.cac_dtp_table);
-> -		hwmgr->dyn_state.cac_dtp_table = NULL;
-> -	}
-> +	kfree(hwmgr->dyn_state.cac_dtp_table);
-> +	hwmgr->dyn_state.cac_dtp_table = NULL;
->   
-> -	if (NULL != hwmgr->dyn_state.ppm_parameter_table) {
-> -		kfree(hwmgr->dyn_state.ppm_parameter_table);
-> -		hwmgr->dyn_state.ppm_parameter_table = NULL;
-> -	}
-> +	kfree(hwmgr->dyn_state.ppm_parameter_table);
-> +	hwmgr->dyn_state.ppm_parameter_table = NULL;
->   
-> -	if (NULL != hwmgr->dyn_state.vdd_gfx_dependency_on_sclk) {
-> -		kfree(hwmgr->dyn_state.vdd_gfx_dependency_on_sclk);
-> -		hwmgr->dyn_state.vdd_gfx_dependency_on_sclk = NULL;
-> -	}
-> +	kfree(hwmgr->dyn_state.vdd_gfx_dependency_on_sclk);
-> +	hwmgr->dyn_state.vdd_gfx_dependency_on_sclk = NULL;
->   
-> -	if (NULL != hwmgr->dyn_state.vq_budgeting_table) {
-> -		kfree(hwmgr->dyn_state.vq_budgeting_table);
-> -		hwmgr->dyn_state.vq_budgeting_table = NULL;
-> -	}
-> +	kfree(hwmgr->dyn_state.vq_budgeting_table);
-> +	hwmgr->dyn_state.vq_budgeting_table = NULL;
->   
->   	return 0;
->   }
-> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c
-> index 2c3e6ba..5547ed3 100644
-> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/rv_hwmgr.c
-> @@ -640,40 +640,24 @@ static int rv_hwmgr_backend_fini(struct pp_hwmgr *hwmgr)
->   	phm_destroy_table(hwmgr, &(hwmgr->power_down_asic));
->   	phm_destroy_table(hwmgr, &(hwmgr->setup_asic));
->   
-> -	if (pinfo->vdd_dep_on_dcefclk) {
-> -		kfree(pinfo->vdd_dep_on_dcefclk);
-> -		pinfo->vdd_dep_on_dcefclk = NULL;
-> -	}
-> -	if (pinfo->vdd_dep_on_socclk) {
-> -		kfree(pinfo->vdd_dep_on_socclk);
-> -		pinfo->vdd_dep_on_socclk = NULL;
-> -	}
-> -	if (pinfo->vdd_dep_on_fclk) {
-> -		kfree(pinfo->vdd_dep_on_fclk);
-> -		pinfo->vdd_dep_on_fclk = NULL;
-> -	}
-> -	if (pinfo->vdd_dep_on_dispclk) {
-> -		kfree(pinfo->vdd_dep_on_dispclk);
-> -		pinfo->vdd_dep_on_dispclk = NULL;
-> -	}
-> -	if (pinfo->vdd_dep_on_dppclk) {
-> -		kfree(pinfo->vdd_dep_on_dppclk);
-> -		pinfo->vdd_dep_on_dppclk = NULL;
-> -	}
-> -	if (pinfo->vdd_dep_on_phyclk) {
-> -		kfree(pinfo->vdd_dep_on_phyclk);
-> -		pinfo->vdd_dep_on_phyclk = NULL;
-> -	}
-> -
-> -	if (NULL != hwmgr->dyn_state.vddc_dep_on_dal_pwrl) {
-> -		kfree(hwmgr->dyn_state.vddc_dep_on_dal_pwrl);
-> -		hwmgr->dyn_state.vddc_dep_on_dal_pwrl = NULL;
-> -	}
-> -
-> -	if (NULL != hwmgr->dyn_state.vq_budgeting_table) {
-> -		kfree(hwmgr->dyn_state.vq_budgeting_table);
-> -		hwmgr->dyn_state.vq_budgeting_table = NULL;
-> -	}
-> +	kfree(pinfo->vdd_dep_on_dcefclk);
-> +	pinfo->vdd_dep_on_dcefclk = NULL;
-> +	kfree(pinfo->vdd_dep_on_socclk);
-> +	pinfo->vdd_dep_on_socclk = NULL;
-> +	kfree(pinfo->vdd_dep_on_fclk);
-> +	pinfo->vdd_dep_on_fclk = NULL;
-> +	kfree(pinfo->vdd_dep_on_dispclk);
-> +	pinfo->vdd_dep_on_dispclk = NULL;
-> +	kfree(pinfo->vdd_dep_on_dppclk);
-> +	pinfo->vdd_dep_on_dppclk = NULL;
-> +	kfree(pinfo->vdd_dep_on_phyclk);
-> +	pinfo->vdd_dep_on_phyclk = NULL;
-> +
-> +	kfree(hwmgr->dyn_state.vddc_dep_on_dal_pwrl);
-> +	hwmgr->dyn_state.vddc_dep_on_dal_pwrl = NULL;
-> +
-> +	kfree(hwmgr->dyn_state.vq_budgeting_table);
-> +	hwmgr->dyn_state.vq_budgeting_table = NULL;
->   
->   	kfree(hwmgr->backend);
->   	hwmgr->backend = NULL;
-> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-> index c274323..eb8a3ff 100644
-> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-> @@ -2282,15 +2282,11 @@ static int smu7_set_private_data_based_on_pptable_v0(struct pp_hwmgr *hwmgr)
->   
->   static int smu7_hwmgr_backend_fini(struct pp_hwmgr *hwmgr)
->   {
-> -	if (NULL != hwmgr->dyn_state.vddc_dep_on_dal_pwrl) {
-> -		kfree(hwmgr->dyn_state.vddc_dep_on_dal_pwrl);
-> -		hwmgr->dyn_state.vddc_dep_on_dal_pwrl = NULL;
-> -	}
-> +	kfree(hwmgr->dyn_state.vddc_dep_on_dal_pwrl);
-> +	hwmgr->dyn_state.vddc_dep_on_dal_pwrl = NULL;
->   	pp_smu7_thermal_fini(hwmgr);
-> -	if (NULL != hwmgr->backend) {
-> -		kfree(hwmgr->backend);
-> -		hwmgr->backend = NULL;
-> -	}
-> +	kfree(hwmgr->backend);
-> +	hwmgr->backend = NULL;
->   
->   	return 0;
->   }
+QW0gMjkuMDguMjAxNyB1bSAxNToyMSBzY2hyaWViIEhpbWFuc2h1IEpoYToKPiBLZnJlZSBvbiBO
+VUxMIHBvaW50ZXIgaXMgYSBuby1vcCBhbmQgdGhlcmVmb3JlIGNoZWNraW5nIGlzIHJlZHVuZGFu
+dC4KPgo+IFNpZ25lZC1vZmYtYnk6IEhpbWFuc2h1IEpoYSA8aGltYW5zaHVqaGExOTk2NDBAZ21h
+aWwuY29tPgoKUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdA
+YW1kLmNvbT4KCj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY29u
+bmVjdG9ycy5jICAgICB8IDYgKystLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxh
+eS9zbXVtZ3Ivc211N19zbXVtZ3IuYyB8IDYgKystLS0tCj4gICAyIGZpbGVzIGNoYW5nZWQsIDQg
+aW5zZXJ0aW9ucygrKSwgOCBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY29ubmVjdG9ycy5jIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X2Nvbm5lY3RvcnMuYwo+IGluZGV4IDhkMWNmMmQuLmY1MWI0MWYgMTAw
+NjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Nvbm5lY3RvcnMu
+Ywo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jb25uZWN0b3JzLmMK
+PiBAQCAtMzQ2LDEwICszNDYsOCBAQCBzdGF0aWMgdm9pZCBhbWRncHVfY29ubmVjdG9yX2ZyZWVf
+ZWRpZChzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yKQo+ICAgewo+ICAgCXN0cnVjdCBh
+bWRncHVfY29ubmVjdG9yICphbWRncHVfY29ubmVjdG9yID0gdG9fYW1kZ3B1X2Nvbm5lY3Rvcihj
+b25uZWN0b3IpOwo+ICAgCj4gLQlpZiAoYW1kZ3B1X2Nvbm5lY3Rvci0+ZWRpZCkgewo+IC0JCWtm
+cmVlKGFtZGdwdV9jb25uZWN0b3ItPmVkaWQpOwo+IC0JCWFtZGdwdV9jb25uZWN0b3ItPmVkaWQg
+PSBOVUxMOwo+IC0JfQo+ICsJa2ZyZWUoYW1kZ3B1X2Nvbm5lY3Rvci0+ZWRpZCk7Cj4gKwlhbWRn
+cHVfY29ubmVjdG9yLT5lZGlkID0gTlVMTDsKPiAgIH0KPiAgIAo+ICAgc3RhdGljIGludCBhbWRn
+cHVfY29ubmVjdG9yX2RkY19nZXRfbW9kZXMoc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5lY3Rv
+cikKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3Nt
+dTdfc211bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3Ivc211N19z
+bXVtZ3IuYwo+IGluZGV4IDc2MzQ3ZmYuLjAwMDc1YzIgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3NtdTdfc211bWdyLmMKPiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3Ivc211N19zbXVtZ3IuYwo+IEBAIC02MDYsMTAg
+KzYwNiw4IEBAIGludCBzbXU3X2luaXQoc3RydWN0IHBwX3NtdW1nciAqc211bWdyKQo+ICAgCj4g
+ICBpbnQgc211N19zbXVfZmluaShzdHJ1Y3QgcHBfc211bWdyICpzbXVtZ3IpCj4gICB7Cj4gLQlp
+ZiAoc211bWdyLT5iYWNrZW5kKSB7Cj4gLQkJa2ZyZWUoc211bWdyLT5iYWNrZW5kKTsKPiAtCQlz
+bXVtZ3ItPmJhY2tlbmQgPSBOVUxMOwo+IC0JfQo+ICsJa2ZyZWUoc211bWdyLT5iYWNrZW5kKTsK
+PiArCXNtdW1nci0+YmFja2VuZCA9IE5VTEw7Cj4gICAJY2dzX3JlbF9maXJtd2FyZShzbXVtZ3It
+PmRldmljZSwgQ0dTX1VDT0RFX0lEX1NNVSk7Cj4gICAJcmV0dXJuIDA7Cj4gICB9CgoKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxp
+bmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
