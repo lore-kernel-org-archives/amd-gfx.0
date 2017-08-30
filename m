@@ -1,94 +1,49 @@
-From: =?UTF-8?q?Christian=20K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: [PATCH 2/2] drm/amdgpu: handle all fragment sizes v3
-Date: Wed, 30 Aug 2017 15:48:24 +0200
-Message-ID: <1504100904-1527-2-git-send-email-deathsimple@vodafone.de>
-References: <1504100904-1527-1-git-send-email-deathsimple@vodafone.de>
+From: Adam Borowski <kilobyte@angband.pl>
+Subject: Re: [PATCH 00/13] mmu_notifier kill invalidate_page callback
+Date: Wed, 30 Aug 2017 16:57:42 +0200
+Message-ID: <20170830145742.xird3lgsb3nemtye@angband.pl>
+References: <20170829235447.10050-1-jglisse@redhat.com>
+ <CA+55aFz6ArJ-ADXiYCu6xMUzdY=mKBtkzfJmLaBohC6Ub9t2SQ@mail.gmail.com>
+ <20170830005615.GA2386@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1504100904-1527-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <owner-linux-mm@kvack.org>
+Content-Disposition: inline
+In-Reply-To: <20170830005615.GA2386@redhat.com>
+Sender: owner-linux-mm@kvack.org
+To: Jerome Glisse <jglisse@redhat.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Bernhard Held <berny156@gmx.de>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-mm <linux-mm@kvack.org>, "Kirill A . Shutemov" <kirill.shutemov@linux.intel.com>, Andrew Morton <akpm@linux-foundation.org>, Andrea Arcangeli <aarcange@redhat.com>, Joerg Roedel <jroedel@suse.de>, Dan Williams <dan.j.williams@intel.com>, Sudeep Dutt <sudeep.dutt@intel.com>, Ashutosh Dixit <ashutosh.dixit@intel.com>, Dimitri Sivanich <sivanich@sgi.com>, Jack Steiner <steiner@sgi.com>, Paolo Bonzini <pbonzini@redhat.com>, Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@redhat.com>, ppc-dev <linuxppc-dev@lists.ozlabs.org>, DRI <dri-devel@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org, "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>, "open list:AMD IOMMU (AMD-VI)" <iommu@lists.linux-foundation.org>, xen-devel <xen-dev>
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogUm9nZXIgSGUgPEhvbmdiby5IZUBhbWQuY29tPgoKVGhpcyBjYW4gaW1wcm92ZSBwZXJm
-b3JtYW5jZSBmb3Igc29tZSBjYXNlcy4KCnYyIChjaGspOiBoYW5kbGUgYWxsIHNpemVzLCBzaW1w
-bGlmeSB0aGUgcGF0Y2ggcXVpdGUgYSBiaXQKdjMgKGNoayk6IGFkanVzdCBkdyBlc3RpbWF0aW9u
-IGFzIHdlbGwKClNpZ25lZC1vZmYtYnk6IFJvZ2VyIEhlIDxIb25nYm8uSGVAYW1kLmNvbT4KU2ln
-bmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgot
-LS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIHwgNzQgKysrKysrKysr
-KysrKysrKysrKysrKy0tLS0tLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDQ5IGluc2VydGlvbnMo
-KyksIDI1IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV92bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMK
-aW5kZXggYjA4ZjAzMS4uMTU3NTY1NyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X3ZtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X3ZtLmMKQEAgLTE0MTUsOCArMTQxNSw2IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZtX2ZyYWdfcHRl
-cyhzdHJ1Y3QgYW1kZ3B1X3B0ZV91cGRhdGVfcGFyYW1zCSpwYXJhbXMsCiAJCQkJdWludDY0X3Qg
-c3RhcnQsIHVpbnQ2NF90IGVuZCwKIAkJCQl1aW50NjRfdCBkc3QsIHVpbnQ2NF90IGZsYWdzKQog
-ewotCWludCByOwotCiAJLyoqCiAJICogVGhlIE1DIEwxIFRMQiBzdXBwb3J0cyB2YXJpYWJsZSBz
-aXplZCBwYWdlcywgYmFzZWQgb24gYSBmcmFnbWVudAogCSAqIGZpZWxkIGluIHRoZSBQVEUuIFdo
-ZW4gdGhpcyBmaWVsZCBpcyBzZXQgdG8gYSBub24temVybyB2YWx1ZSwgcGFnZQpAQCAtMTQzNSwz
-OSArMTQzMyw2NSBAQCBzdGF0aWMgaW50IGFtZGdwdV92bV9mcmFnX3B0ZXMoc3RydWN0IGFtZGdw
-dV9wdGVfdXBkYXRlX3BhcmFtcwkqcGFyYW1zLAogCSAqIFVzZXJzcGFjZSBjYW4gc3VwcG9ydCB0
-aGlzIGJ5IGFsaWduaW5nIHZpcnR1YWwgYmFzZSBhZGRyZXNzIGFuZAogCSAqIGFsbG9jYXRpb24g
-c2l6ZSB0byB0aGUgZnJhZ21lbnQgc2l6ZS4KIAkgKi8KLQl1bnNpZ25lZCBwYWdlc19wZXJfZnJh
-ZyA9IHBhcmFtcy0+YWRldi0+dm1fbWFuYWdlci5mcmFnbWVudF9zaXplOwotCXVpbnQ2NF90IGZy
-YWdfZmxhZ3MgPSBBTURHUFVfUFRFX0ZSQUcocGFnZXNfcGVyX2ZyYWcpOwotCXVpbnQ2NF90IGZy
-YWdfYWxpZ24gPSAxIDw8IHBhZ2VzX3Blcl9mcmFnOworCXVuc2lnbmVkIG1heF9mcmFnID0gcGFy
-YW1zLT5hZGV2LT52bV9tYW5hZ2VyLmZyYWdtZW50X3NpemU7CisJdWludDY0X3QgZnJhZ19mbGFn
-cywgZnJhZ19lbmQ7CisJdW5zaWduZWQgZnJhZzsKIAotCXVpbnQ2NF90IGZyYWdfc3RhcnQgPSBB
-TElHTihzdGFydCwgZnJhZ19hbGlnbik7Ci0JdWludDY0X3QgZnJhZ19lbmQgPSBlbmQgJiB+KGZy
-YWdfYWxpZ24gLSAxKTsKKwlpbnQgcjsKIAogCS8qIHN5c3RlbSBwYWdlcyBhcmUgbm9uIGNvbnRp
-bnVvdXNseSAqLwotCWlmIChwYXJhbXMtPnNyYyB8fCAhKGZsYWdzICYgQU1ER1BVX1BURV9WQUxJ
-RCkgfHwKLQkgICAgKGZyYWdfc3RhcnQgPj0gZnJhZ19lbmQpKQorCWlmIChwYXJhbXMtPnNyYyB8
-fCAhKGZsYWdzICYgQU1ER1BVX1BURV9WQUxJRCkpCiAJCXJldHVybiBhbWRncHVfdm1fdXBkYXRl
-X3B0ZXMocGFyYW1zLCBzdGFydCwgZW5kLCBkc3QsIGZsYWdzKTsKIAotCS8qIGhhbmRsZSB0aGUg
-NEsgYXJlYSBhdCB0aGUgYmVnaW5uaW5nICovCi0JaWYgKHN0YXJ0ICE9IGZyYWdfc3RhcnQpIHsK
-LQkJciA9IGFtZGdwdV92bV91cGRhdGVfcHRlcyhwYXJhbXMsIHN0YXJ0LCBmcmFnX3N0YXJ0LAot
-CQkJCQkgIGRzdCwgZmxhZ3MpOworCS8qIEhhbmRsZSB0aGUgZnJhZ21lbnRzIGF0IHRoZSBiZWdp
-bm5pbmcgKi8KKwl3aGlsZSAoc3RhcnQgIT0gZW5kKSB7CisJCS8qIFRoaXMgaW50ZW50aW9uYWxs
-eSB3cmFwcyBhcm91bmQgaWYgbm8gYml0IGlzIHNldCAqLworCQlmcmFnID0gbWluKGZmcyhzdGFy
-dCksIGZsczY0KGVuZCAtIHN0YXJ0KSkgLSAxOworCQlpZiAoZnJhZyA+PSBtYXhfZnJhZykKKwkJ
-CWJyZWFrOworCisJCWZyYWdfZmxhZ3MgPSBBTURHUFVfUFRFX0ZSQUcoZnJhZyk7CisJCWZyYWdf
-ZW5kID0gc3RhcnQgKyAoMSA8PCBmcmFnKTsKKworCQlyID0gYW1kZ3B1X3ZtX3VwZGF0ZV9wdGVz
-KHBhcmFtcywgc3RhcnQsIGZyYWdfZW5kLCBkc3QsCisJCQkJCSAgZmxhZ3MgfCBmcmFnX2ZsYWdz
-KTsKIAkJaWYgKHIpCiAJCQlyZXR1cm4gcjsKLQkJZHN0ICs9IChmcmFnX3N0YXJ0IC0gc3RhcnQp
-ICogQU1ER1BVX0dQVV9QQUdFX1NJWkU7CisKKwkJZHN0ICs9IChmcmFnX2VuZCAtIHN0YXJ0KSAq
-IEFNREdQVV9HUFVfUEFHRV9TSVpFOworCQlzdGFydCA9IGZyYWdfZW5kOwogCX0KIAogCS8qIGhh
-bmRsZSB0aGUgYXJlYSBpbiB0aGUgbWlkZGxlICovCi0JciA9IGFtZGdwdV92bV91cGRhdGVfcHRl
-cyhwYXJhbXMsIGZyYWdfc3RhcnQsIGZyYWdfZW5kLCBkc3QsCi0JCQkJICBmbGFncyB8IGZyYWdf
-ZmxhZ3MpOwotCWlmIChyKQotCQlyZXR1cm4gcjsKKwlpZiAoc3RhcnQgIT0gZW5kKSB7CisJCWZy
-YWdfZmxhZ3MgPSBBTURHUFVfUFRFX0ZSQUcobWF4X2ZyYWcpOworCQlmcmFnX2VuZCA9IGVuZCAm
-IH4oKDEgPDwgbWF4X2ZyYWcpIC0gMSk7CiAKLQkvKiBoYW5kbGUgdGhlIDRLIGFyZWEgYXQgdGhl
-IGVuZCAqLwotCWlmIChmcmFnX2VuZCAhPSBlbmQpIHsKLQkJZHN0ICs9IChmcmFnX2VuZCAtIGZy
-YWdfc3RhcnQpICogQU1ER1BVX0dQVV9QQUdFX1NJWkU7Ci0JCXIgPSBhbWRncHVfdm1fdXBkYXRl
-X3B0ZXMocGFyYW1zLCBmcmFnX2VuZCwgZW5kLCBkc3QsIGZsYWdzKTsKKwkJciA9IGFtZGdwdV92
-bV91cGRhdGVfcHRlcyhwYXJhbXMsIHN0YXJ0LCBmcmFnX2VuZCwgZHN0LAorCQkJCQkgIGZsYWdz
-IHwgZnJhZ19mbGFncyk7CisJCWlmIChyKQorCQkJcmV0dXJuIHI7CisKKwkJZHN0ICs9IChmcmFn
-X2VuZCAtIHN0YXJ0KSAqIEFNREdQVV9HUFVfUEFHRV9TSVpFOworCQlzdGFydCA9IGZyYWdfZW5k
-OwogCX0KLQlyZXR1cm4gcjsKKworCS8qIEhhbmRsZSB0aGUgZnJhZ21lbnRzIGF0IHRoZSBlbmQg
-Ki8KKwl3aGlsZSAoc3RhcnQgIT0gZW5kKSB7CisJCWZyYWcgPSBmbHM2NChlbmQgLSBzdGFydCkg
-LSAxOworCQlmcmFnX2ZsYWdzID0gQU1ER1BVX1BURV9GUkFHKGZyYWcpOworCQlmcmFnX2VuZCA9
-IHN0YXJ0ICsgKDEgPDwgZnJhZyk7CisKKwkJciA9IGFtZGdwdV92bV91cGRhdGVfcHRlcyhwYXJh
-bXMsIHN0YXJ0LCBmcmFnX2VuZCwKKwkJCQkJICBkc3QsIGZsYWdzIHwgZnJhZ19mbGFncyk7CisJ
-CWlmIChyKQorCQkJcmV0dXJuIHI7CisKKwkJZHN0ICs9IChmcmFnX2VuZCAtIHN0YXJ0KSAqIEFN
-REdQVV9HUFVfUEFHRV9TSVpFOworCQlzdGFydCA9IGZyYWdfZW5kOworCX0KKworCXJldHVybiAw
-OwogfQogCiAvKioKQEAgLTE1NTcsOCArMTU4MSw4IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZtX2Jv
-X3VwZGF0ZV9tYXBwaW5nKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCQkvKiBzZXQgcGFn
-ZSBjb21tYW5kcyBuZWVkZWQgKi8KIAkJbmR3ICs9IG5jbWRzICogMTA7CiAKLQkJLyogdHdvIGV4
-dHJhIGNvbW1hbmRzIGZvciBiZWdpbi9lbmQgb2YgZnJhZ21lbnQgKi8KLQkJbmR3ICs9IDIgKiAx
-MDsKKwkJLyogZXh0cmEgY29tbWFuZHMgZm9yIGJlZ2luL2VuZCBmcmFnbWVudHMgKi8KKwkJbmR3
-ICs9IDIgKiAxMCAqIGFkZXYtPnZtX21hbmFnZXIuZnJhZ21lbnRfc2l6ZTsKIAogCQlwYXJhbXMu
-ZnVuYyA9IGFtZGdwdV92bV9kb19zZXRfcHRlczsKIAl9Ci0tIAoyLjcuNAoKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Tue, Aug 29, 2017 at 08:56:15PM -0400, Jerome Glisse wrote:
+> I will wait for people to test and for result of my own test before
+> reposting if need be, otherwise i will post as separate patch.
+>
+> > But from a _very_ quick read-through this looks fine. But it obviously
+> > needs testing.
+> > 
+> > People - *especially* the people who saw issues under KVM - can you
+> > try out Jérôme's patch-series? I aded some people to the cc, the full
+> > series is on lkml. Jérôme - do you have a git branch for people to
+> > test that they could easily pull and try out?
+> 
+> https://cgit.freedesktop.org/~glisse/linux mmu-notifier branch
+> git://people.freedesktop.org/~glisse/linux
+
+Tested your branch as of 10f07641, on a long list of guest VMs.
+No earth-shattering kaboom.
+
+
+Meow!
+-- 
+⢀⣴⠾⠻⢶⣦⠀ 
+⣾⠁⢰⠒⠀⣿⡁ Vat kind uf sufficiently advanced technology iz dis!?
+⢿⡄⠘⠷⠚⠋⠀                                 -- Genghis Ht'rok'din
+⠈⠳⣄⠀⠀⠀⠀ 
+
+--
+To unsubscribe, send a message with 'unsubscribe linux-mm' in
+the body to majordomo@kvack.org.  For more info on Linux MM,
+see: http://www.linux-mm.org/ .
+Don't email: <a href=mailto:"dont@kvack.org"> email@kvack.org </a>
