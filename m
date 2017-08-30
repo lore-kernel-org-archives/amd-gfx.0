@@ -1,76 +1,47 @@
-From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: [PATCH xf86-video-amdgpu] Use a timer for unreferencing the all-black
- FB
-Date: Wed, 30 Aug 2017 17:24:31 +0900
-Message-ID: <20170830082431.20475-1-michel@daenzer.net>
+From: Mike Galbraith <efault@gmx.de>
+Subject: Re: [PATCH 00/13] mmu_notifier kill invalidate_page callback
+Date: Wed, 30 Aug 2017 10:40:14 +0200
+Message-ID: <1504082414.6014.39.camel@gmx.de>
+References: <20170829235447.10050-1-jglisse@redhat.com>
+	 <CA+55aFz6ArJ-ADXiYCu6xMUzdY=mKBtkzfJmLaBohC6Ub9t2SQ@mail.gmail.com>
+	 <20170830005615.GA2386@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Return-path: <owner-linux-mm@kvack.org>
+In-Reply-To: <20170830005615.GA2386@redhat.com>
+Sender: owner-linux-mm@kvack.org
+To: Jerome Glisse <jglisse@redhat.com>, Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Bernhard Held <berny156@gmx.de>, Adam Borowski <kilobyte@angband.pl>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-mm <linux-mm@kvack.org>, "Kirill A . Shutemov" <kirill.shutemov@linux.intel.com>, Andrew Morton <akpm@linux-foundation.org>, Andrea Arcangeli <aarcange@redhat.com>, Joerg Roedel <jroedel@suse.de>, Dan Williams <dan.j.williams@intel.com>, Sudeep Dutt <sudeep.dutt@intel.com>, Ashutosh Dixit <ashutosh.dixit@intel.com>, Dimitri Sivanich <sivanich@sgi.com>, Jack Steiner <steiner@sgi.com>, Paolo Bonzini <pbonzini@redhat.com>, Radim =?UTF-8?Q?Kr=C4=8Dm=C3=A1=C5=99?= <rkrcmar@redhat.com>, ppc-dev <linuxppc-dev@lists.ozlabs.org>, DRI <dri-devel@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org, "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>, "open list:AMD
+ IOMMU (AMD-VI)" <iommu@lists.linux-foundation.org>, xen-devel <xen-devel@l>
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+CgpUaGUgdGltZXIg
-ZmlyZXMgMSBzZWNvbmQgYWZ0ZXIgTGVhdmVWVC4gVGhpcyBnaXZlcyB0aGUgbmV4dCBEUk0gbWFz
-dGVyCmVub3VnaCB0aW1lIHRvIHNldCB1cCBzY2Fub3V0IG9mIGl0cyBvd24gYnVmZmVycy4KCkZp
-eGVzIHByb2xvbmdlZCBpbnRlcm1pdHRlbnQgYmxhY2sgc2NyZWVuIHdoZW4gc3dpdGNoaW5nIGZy
-b20gWG9yZyB0bwplLmcuIHRoZSBHRE0gV2F5bGFuZCBtb2RlIGxvZ2luIFZULgoKRml4ZXM6IGMx
-NmZmNDJmOTI3ZCAoIk1ha2UgYWxsIGFjdGl2ZSBDUlRDcyBzY2FuIG91dCBhbiBhbGwtYmxhY2sK
-ICAgICAgICAgICAgICAgICAgICAgIGZyYW1lYnVmZmVyIGluIExlYXZlVlQiKQooUG9ydGVkIGZy
-b20gcmFkZW9uIGNvbW1pdCA5ZDljNTY1Yzg0NjAxZjRjNmM3M2FkNzY5Zjg2NDkxMDg4NjgzZjdh
-KQoKU2lnbmVkLW9mZi1ieTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+
-Ci0tLQogc3JjL2FtZGdwdV9rbXMuYyB8IDQyICsrKysrKysrKysrKysrKysrKysrKysrKysrKy0t
-LS0tLS0tLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDI3IGluc2VydGlvbnMoKyksIDE1IGRlbGV0
-aW9ucygtKQoKZGlmZiAtLWdpdCBhL3NyYy9hbWRncHVfa21zLmMgYi9zcmMvYW1kZ3B1X2ttcy5j
-CmluZGV4IGMzNjEzZWI4ZC4uZDgyZWFkMmFjIDEwMDY0NAotLS0gYS9zcmMvYW1kZ3B1X2ttcy5j
-CisrKyBiL3NyYy9hbWRncHVfa21zLmMKQEAgLTEwNDQsNyArMTA0NCw2IEBAIHN0YXRpYyB2b2lk
-IEFNREdQVUJsb2NrSGFuZGxlcl9LTVMoQkxPQ0tIQU5ETEVSX0FSR1NfREVDTCkKIHsKIAlTQ1JF
-RU5fUFRSKGFyZyk7CiAJU2NybkluZm9QdHIgcFNjcm4gPSB4Zjg2U2NyZWVuVG9TY3JuKHBTY3Jl
-ZW4pOwotCUFNREdQVUVudFB0ciBwQU1ER1BVRW50ID0gQU1ER1BVRW50UHJpdihwU2Nybik7CiAJ
-QU1ER1BVSW5mb1B0ciBpbmZvID0gQU1ER1BVUFRSKHBTY3JuKTsKIAl4Zjg2Q3J0Y0NvbmZpZ1B0
-ciB4Zjg2X2NvbmZpZyA9IFhGODZfQ1JUQ19DT05GSUdfUFRSKHBTY3JuKTsKIAlpbnQgYzsKQEAg
-LTEwNTMsMjEgKzEwNTIsOCBAQCBzdGF0aWMgdm9pZCBBTURHUFVCbG9ja0hhbmRsZXJfS01TKEJM
-T0NLSEFORExFUl9BUkdTX0RFQ0wpCiAJKCpwU2NyZWVuLT5CbG9ja0hhbmRsZXIpIChCTE9DS0hB
-TkRMRVJfQVJHUyk7CiAJcFNjcmVlbi0+QmxvY2tIYW5kbGVyID0gQU1ER1BVQmxvY2tIYW5kbGVy
-X0tNUzsKIAotCWlmICgheGY4NlNjcmVlblRvU2NybihhbWRncHVfbWFzdGVyX3NjcmVlbihwU2Ny
-ZWVuKSktPnZ0U2VtYSkgewotCQkvKiBVbnJlZmVyZW5jZSB0aGUgYWxsLWJsYWNrIEZCIGNyZWF0
-ZWQgYnkgQU1ER1BVTGVhdmVWVF9LTVMuIEFmdGVyCi0JCSAqIHRoaXMsIHRoZXJlIHNob3VsZCBi
-ZSBubyBGQiBsZWZ0IGNyZWF0ZWQgYnkgdGhpcyBkcml2ZXIuCi0JCSAqLwotCi0JCWZvciAoYyA9
-IDA7IGMgPCB4Zjg2X2NvbmZpZy0+bnVtX2NydGM7IGMrKykgewotCQkJZHJtbW9kZV9jcnRjX3By
-aXZhdGVfcHRyIGRybW1vZGVfY3J0YyA9Ci0JCQkJeGY4Nl9jb25maWctPmNydGNbY10tPmRyaXZl
-cl9wcml2YXRlOwotCi0JCQlkcm1tb2RlX2ZiX3JlZmVyZW5jZShwQU1ER1BVRW50LT5mZCwgJmRy
-bW1vZGVfY3J0Yy0+ZmIsCi0JCQkJCSAgICAgTlVMTCk7Ci0JCX0KLQorCWlmICgheGY4NlNjcmVl
-blRvU2NybihhbWRncHVfbWFzdGVyX3NjcmVlbihwU2NyZWVuKSktPnZ0U2VtYSkKIAkJcmV0dXJu
-OwotCX0KIAogCWlmICghYW1kZ3B1X2lzX2dwdV9zY3JlZW4ocFNjcmVlbikpCiAJewpAQCAtMTYy
-OSw2ICsxNjE1LDMwIEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9kcm9wX2RybV9tYXN0ZXIoU2Nybklu
-Zm9QdHIgcFNjcm4pCiB9CiAKIAorc3RhdGljCitDQVJEMzIgY2xlYW51cF9ibGFja19mYihPc1Rp
-bWVyUHRyIHRpbWVyLCBDQVJEMzIgbm93LCBwb2ludGVyIGRhdGEpCit7CisJU2NyZWVuUHRyIHNj
-cmVlbiA9IGRhdGE7CisJU2NybkluZm9QdHIgc2NybiA9IHhmODZTY3JlZW5Ub1Njcm4oc2NyZWVu
-KTsKKwlBTURHUFVFbnRQdHIgcEFNREdQVUVudCA9IEFNREdQVUVudFByaXYoc2Nybik7CisJeGY4
-NkNydGNDb25maWdQdHIgeGY4Nl9jb25maWcgPSBYRjg2X0NSVENfQ09ORklHX1BUUihzY3JuKTsK
-KwlpbnQgYzsKKworCWlmICh4Zjg2U2NyZWVuVG9TY3JuKGFtZGdwdV9tYXN0ZXJfc2NyZWVuKHNj
-cmVlbikpLT52dFNlbWEpCisJCXJldHVybiAwOworCisJLyogVW5yZWZlcmVuY2UgdGhlIGFsbC1i
-bGFjayBGQiBjcmVhdGVkIGJ5IEFNREdQVUxlYXZlVlRfS01TLiBBZnRlcgorCSAqIHRoaXMsIHRo
-ZXJlIHNob3VsZCBiZSBubyBGQiBsZWZ0IGNyZWF0ZWQgYnkgdGhpcyBkcml2ZXIuCisJICovCisJ
-Zm9yIChjID0gMDsgYyA8IHhmODZfY29uZmlnLT5udW1fY3J0YzsgYysrKSB7CisJCWRybW1vZGVf
-Y3J0Y19wcml2YXRlX3B0ciBkcm1tb2RlX2NydGMgPQorCQkJeGY4Nl9jb25maWctPmNydGNbY10t
-PmRyaXZlcl9wcml2YXRlOworCisJCWRybW1vZGVfZmJfcmVmZXJlbmNlKHBBTURHUFVFbnQtPmZk
-LCAmZHJtbW9kZV9jcnRjLT5mYiwgTlVMTCk7CisJfQorCisJcmV0dXJuIDA7Cit9CiAKIHN0YXRp
-YyBCb29sIEFNREdQVVNhdmVTY3JlZW5fS01TKFNjcmVlblB0ciBwU2NyZWVuLCBpbnQgbW9kZSkK
-IHsKQEAgLTIwNjEsNiArMjA3MSw4IEBAIHZvaWQgQU1ER1BVTGVhdmVWVF9LTVMoVlRfRlVOQ19B
-UkdTX0RFQ0wpCiAJfQogCXBpeG1hcF91bnJlZl9mYihwU2NyZWVuLT5HZXRTY3JlZW5QaXhtYXAo
-cFNjcmVlbiksIE5vbmUsIHBBTURHUFVFbnQpOwogCisJVGltZXJTZXQoTlVMTCwgMCwgMTAwMCwg
-Y2xlYW51cF9ibGFja19mYiwgcFNjcmVlbik7CisKIAl4Zjg2X2hpZGVfY3Vyc29ycyhwU2Nybik7
-CiAKIAlhbWRncHVfZHJvcF9kcm1fbWFzdGVyKHBTY3JuKTsKLS0gCjIuMTQuMQoKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
-c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Tue, 2017-08-29 at 20:56 -0400, Jerome Glisse wrote:
+> On Tue, Aug 29, 2017 at 05:11:24PM -0700, Linus Torvalds wrote:
+>=20
+> > People - *especially* the people who saw issues under KVM - can you
+> > try out J=C3=A9r=C3=B4me's patch-series? I aded some people to the cc, =
+the full
+> > series is on lkml. J=C3=A9r=C3=B4me - do you have a git branch for peop=
+le to
+> > test that they could easily pull and try out?
+>=20
+> https://cgit.freedesktop.org/~glisse/linux mmu-notifier branch
+> git://people.freedesktop.org/~glisse/linux
+
+Looks good here.
+
+I reproduced fairly quickly with RT host and 1 RT guest by just having
+the guest do a parallel kbuild over NFS (the guest had to be restored
+afterward, was corrupted). =C2=A0I'm currently flogging 2 guests as well as
+the host, whimper free. =C2=A0I'll let the lot broil for while longer, but
+at this point, smoke/flame appearance seems comfortingly unlikely.
+
+	-Mike
+
+
+--
+To unsubscribe, send a message with 'unsubscribe linux-mm' in
+the body to majordomo@kvack.org.  For more info on Linux MM,
+see: http://www.linux-mm.org/ .
+Don't email: <a href=mailto:"dont@kvack.org"> email@kvack.org </a>
