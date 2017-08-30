@@ -1,132 +1,98 @@
-From: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/amdgpu: cover fragment size between 4 and 9 when
- not aligned
-Date: Wed, 30 Aug 2017 14:15:46 +0800
-Message-ID: <af3775f8-76a8-60ec-6922-054bdd77e535@amd.com>
-References: <1504069279-1060-1-git-send-email-Hongbo.He@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Subject: Re: [PATCH 04/13] drm/amdgpu: update to new mmu_notifier semantic
+Date: Wed, 30 Aug 2017 08:18:37 +0200
+Message-ID: <2bdbe5bd-ab1f-831b-5f0e-c2381b0cd14f@amd.com>
+References: <20170829235447.10050-1-jglisse@redhat.com>
+ <20170829235447.10050-5-jglisse@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1504069279-1060-1-git-send-email-Hongbo.He-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20170829235447.10050-5-jglisse@redhat.com>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Roger He <Hongbo.He-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Christian.Koenig-5C7GfCeVMHo@public.gmane.org
+Sender: linux-kernel-owner@vger.kernel.org
+To: =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Cc: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>, "Kirill A . Shutemov" <kirill.shutemov@linux.intel.com>, Andrew Morton <akpm@linux-foundation.org>, Linus Torvalds <torvalds@linux-foundation.org>, Andrea Arcangeli <aarcange@redhat.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgUm9nZXIsCgpJIHRoaW5rIHdoZW4geW91IGNhbiBzZWxlY3QgZnJhZ21lbnQgYXV0b21hdGlj
-YWxseSwgeW91IHNob3VsZG4ndCAKaW52b2x2ZSB0aGUgdm1fbWFuYWdlci5mcmFnbWVudF9zaXpl
-IHRvIGNhbGN1bGF0aW9uLCB0aGVuIHdlIGNhbiB1c2UgdGhlIApwcm9wZXJlc3QgIGZyYWdtZW50
-IGZvciBldmVyeSBzZWdtZW50IGFuZCBnZXQgdGhlIGJlc3QgcGVyZm9ybWFuY2UuCgpTbyB2bV9t
-YW5hZ2VyLmZyYWdtZW50X3NpemUgc2hvdWxkIGJlIGFsd2F5cyBiZSAtMSwgaWYgaXQgYmVjb21l
-cyB2YWxpZCAKZnJhZ21lbnQgdmFsdWUsIHRoZW4gd2Ugc2hvdWxkIGFsd2F5cyB1c2UgaXQgYW5k
-IGRpc2FibGUgYXV0b21hdGljIApzZWxlY3Rpb24sIHdoaWNoIHNob3VsZCBvbmx5IGZvciB2YWxp
-ZGF0aW9uIHVzYWdlLgoKClJlZ2FyZHMsCgpEYXZpZCBaaG91CgoKT24gMjAxN+W5tDA45pyIMzDm
-l6UgMTM6MDEsIFJvZ2VyIEhlIHdyb3RlOgo+IHRoaXMgY2FuIGdldCBwZXJmb3JtYW5jZSBpbXBy
-b3ZlbWVudCBmb3Igc29tZSBjYXNlcwo+Cj4gQ2hhbmdlLUlkOiBJYmI1OGJiMzA5OWY3ZThjNGI1
-ZGE5MGRhNzNhMDM1NDRjZGIyYmNiNwo+IFNpZ25lZC1vZmYtYnk6IFJvZ2VyIEhlIDxIb25nYm8u
-SGVAYW1kLmNvbT4KPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92
-bS5jIHwgOTggKysrKysrKysrKysrKysrKysrKysrKysrKysrLS0tLS0tLQo+ICAgMSBmaWxlIGNo
-YW5nZWQsIDc5IGluc2VydGlvbnMoKyksIDE5IGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPiBpbmRleCA1OTJjM2U3Li40ZTVkYTVlIDEwMDY0NAo+
-IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4gKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPiBAQCAtMTM3NSw3ICsxMzc1LDcg
-QEAgc3RhdGljIGludCBhbWRncHVfdm1fdXBkYXRlX3B0ZXMoc3RydWN0IGFtZGdwdV9wdGVfdXBk
-YXRlX3BhcmFtcyAqcGFyYW1zLAo+ICAgfQo+ICAgCj4gICAvKgo+IC0gKiBhbWRncHVfdm1fZnJh
-Z19wdGVzIC0gYWRkIGZyYWdtZW50IGluZm9ybWF0aW9uIHRvIFBURXMKPiArICogYW1kZ3B1X3Zt
-X3VwZGF0ZV9wdGVzX2hlbHBlciAtIGFkZCBmcmFnbWVudCBpbmZvcm1hdGlvbiB0byBQVEVzCj4g
-ICAgKgo+ICAgICogQHBhcmFtczogc2VlIGFtZGdwdV9wdGVfdXBkYXRlX3BhcmFtcyBkZWZpbml0
-aW9uCj4gICAgKiBAdm06IHJlcXVlc3RlZCB2bQo+IEBAIC0xMzgzLDExICsxMzgzLDEyIEBAIHN0
-YXRpYyBpbnQgYW1kZ3B1X3ZtX3VwZGF0ZV9wdGVzKHN0cnVjdCBhbWRncHVfcHRlX3VwZGF0ZV9w
-YXJhbXMgKnBhcmFtcywKPiAgICAqIEBlbmQ6IGxhc3QgUFRFIHRvIGhhbmRsZQo+ICAgICogQGRz
-dDogYWRkciB0aG9zZSBQVEVzIHNob3VsZCBwb2ludCB0bwo+ICAgICogQGZsYWdzOiBodyBtYXBw
-aW5nIGZsYWdzCj4gKyAqIEBmcmFnbWVudDogZnJhZ21lbnQgc2l6ZQo+ICAgICogUmV0dXJucyAw
-IGZvciBzdWNjZXNzLCAtRUlOVkFMIGZvciBmYWlsdXJlLgo+ICAgICovCj4gLXN0YXRpYyBpbnQg
-YW1kZ3B1X3ZtX2ZyYWdfcHRlcyhzdHJ1Y3QgYW1kZ3B1X3B0ZV91cGRhdGVfcGFyYW1zCSpwYXJh
-bXMsCj4gLQkJCQl1aW50NjRfdCBzdGFydCwgdWludDY0X3QgZW5kLAo+IC0JCQkJdWludDY0X3Qg
-ZHN0LCB1aW50NjRfdCBmbGFncykKPiArc3RhdGljIGludCBhbWRncHVfdm1fdXBkYXRlX3B0ZXNf
-aGVscGVyKHN0cnVjdCBhbWRncHVfcHRlX3VwZGF0ZV9wYXJhbXMgKnBhcmFtcywKPiArCQkJCSAg
-dWludDY0X3Qgc3RhcnQsIHVpbnQ2NF90IGVuZCwgdWludDY0X3QgZHN0LAo+ICsJCQkJICB1aW50
-NjRfdCBmbGFncywgaW50IGZyYWdtZW50KQo+ICAgewo+ICAgCWludCByOwo+ICAgCj4gQEAgLTE0
-MDksNDEgKzE0MTAsMTAwIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZtX2ZyYWdfcHRlcyhzdHJ1Y3Qg
-YW1kZ3B1X3B0ZV91cGRhdGVfcGFyYW1zCSpwYXJhbXMsCj4gICAJICogVXNlcnNwYWNlIGNhbiBz
-dXBwb3J0IHRoaXMgYnkgYWxpZ25pbmcgdmlydHVhbCBiYXNlIGFkZHJlc3MgYW5kCj4gICAJICog
-YWxsb2NhdGlvbiBzaXplIHRvIHRoZSBmcmFnbWVudCBzaXplLgo+ICAgCSAqLwo+IC0JdW5zaWdu
-ZWQgcGFnZXNfcGVyX2ZyYWcgPSBwYXJhbXMtPmFkZXYtPnZtX21hbmFnZXIuZnJhZ21lbnRfc2l6
-ZTsKPiAtCXVpbnQ2NF90IGZyYWdfZmxhZ3MgPSBBTURHUFVfUFRFX0ZSQUcocGFnZXNfcGVyX2Zy
-YWcpOwo+IC0JdWludDY0X3QgZnJhZ19hbGlnbiA9IDEgPDwgcGFnZXNfcGVyX2ZyYWc7Cj4gKwl1
-aW50NjRfdCBmcmFnX2ZsYWdzLCBmcmFnX2FsaWduLCBmcmFnX3N0YXJ0LCBmcmFnX2VuZDsKPiAg
-IAo+IC0JdWludDY0X3QgZnJhZ19zdGFydCA9IEFMSUdOKHN0YXJ0LCBmcmFnX2FsaWduKTsKPiAt
-CXVpbnQ2NF90IGZyYWdfZW5kID0gZW5kICYgfihmcmFnX2FsaWduIC0gMSk7Cj4gKwlpZiAoc3Rh
-cnQgPiBlbmQgfHwgZnJhZ21lbnQgPCAwKQo+ICsJCXJldHVybiAtRUlOVkFMOwo+ICAgCj4gLQkv
-KiBzeXN0ZW0gcGFnZXMgYXJlIG5vbiBjb250aW51b3VzbHkgKi8KPiAtCWlmIChwYXJhbXMtPnNy
-YyB8fCAhKGZsYWdzICYgQU1ER1BVX1BURV9WQUxJRCkgfHwKPiAtCSAgICAoZnJhZ19zdGFydCA+
-PSBmcmFnX2VuZCkpCj4gLQkJcmV0dXJuIGFtZGdwdV92bV91cGRhdGVfcHRlcyhwYXJhbXMsIHN0
-YXJ0LCBlbmQsIGRzdCwgZmxhZ3MpOwo+ICsJZnJhZ21lbnQgPSBtaW4oZnJhZ21lbnQsIG1heCgw
-LCBmbHM2NChlbmQgLSBzdGFydCkgLSAxKSk7Cj4gKwlmcmFnX2ZsYWdzID0gQU1ER1BVX1BURV9G
-UkFHKGZyYWdtZW50KTsKPiArCWZyYWdfYWxpZ24gPSAxIDw8IGZyYWdtZW50Owo+ICsJZnJhZ19z
-dGFydCA9IEFMSUdOKHN0YXJ0LCBmcmFnX2FsaWduKTsKPiArCWZyYWdfZW5kID0gZW5kICYgfihm
-cmFnX2FsaWduIC0gMSk7Cj4gKwo+ICsJaWYgKGZyYWdfc3RhcnQgPj0gZnJhZ19lbmQpIHsKPiAr
-CQlpZiAoZnJhZ21lbnQgPD0gNCkKPiArCQkJcmV0dXJuIGFtZGdwdV92bV91cGRhdGVfcHRlcyhw
-YXJhbXMsIHN0YXJ0LCBlbmQsCj4gKwkJCQkJCQlkc3QsIGZsYWdzKTsKPiArCQllbHNlCj4gKwkJ
-CXJldHVybiBhbWRncHVfdm1fdXBkYXRlX3B0ZXNfaGVscGVyKHBhcmFtcywgc3RhcnQsCj4gKwkJ
-CQkJZW5kLCBkc3QsIGZsYWdzLCBmcmFnbWVudCAtIDEpOwo+ICsJfQo+ICsKPiArCWlmIChmcmFn
-bWVudCA8PSA0KSB7Cj4gKwkJLyogaGFuZGxlIHRoZSA0SyBhcmVhIGF0IHRoZSBiZWdpbm5pbmcg
-Ki8KPiArCQlpZiAoc3RhcnQgIT0gZnJhZ19zdGFydCkgewo+ICsJCQlyID0gYW1kZ3B1X3ZtX3Vw
-ZGF0ZV9wdGVzKHBhcmFtcywgc3RhcnQsIGZyYWdfc3RhcnQsCj4gKwkJCQkJCSAgZHN0LCBmbGFn
-cyk7Cj4gKwkJCWlmIChyKQo+ICsJCQkJcmV0dXJuIHI7Cj4gKwkJCWRzdCArPSAoZnJhZ19zdGFy
-dCAtIHN0YXJ0KSAqIEFNREdQVV9HUFVfUEFHRV9TSVpFOwo+ICsJCX0KPiArCj4gKwkJLyogaGFu
-ZGxlIHRoZSBhcmVhIGluIHRoZSBtaWRkbGUgKi8KPiArCQlyID0gYW1kZ3B1X3ZtX3VwZGF0ZV9w
-dGVzKHBhcmFtcywgZnJhZ19zdGFydCwgZnJhZ19lbmQsIGRzdCwKPiArCQkJCQkgIGZsYWdzIHwg
-ZnJhZ19mbGFncyk7Cj4gKwkJaWYgKHIpCj4gKwkJCXJldHVybiByOwo+ICsKPiArCQkvKiBoYW5k
-bGUgdGhlIDRLIGFyZWEgYXQgdGhlIGVuZCAqLwo+ICsJCWlmIChmcmFnX2VuZCAhPSBlbmQpIHsK
-PiArCQkJZHN0ICs9IChmcmFnX2VuZCAtIGZyYWdfc3RhcnQpICogQU1ER1BVX0dQVV9QQUdFX1NJ
-WkU7Cj4gKwkJCXIgPSBhbWRncHVfdm1fdXBkYXRlX3B0ZXMocGFyYW1zLCBmcmFnX2VuZCwgZW5k
-LAo+ICsJCQkJCQkJZHN0LCBmbGFncyk7Cj4gKwkJfQo+ICsJCXJldHVybiByOwo+ICsJfQo+ICAg
-Cj4gLQkvKiBoYW5kbGUgdGhlIDRLIGFyZWEgYXQgdGhlIGJlZ2lubmluZyAqLwo+ICsJLyogaGFu
-ZGxlIHRoZSBhcmVhIGF0IHRoZSBiZWdpbm5pbmcgbm90IGFsaWduZWQgKi8KPiAgIAlpZiAoc3Rh
-cnQgIT0gZnJhZ19zdGFydCkgewo+IC0JCXIgPSBhbWRncHVfdm1fdXBkYXRlX3B0ZXMocGFyYW1z
-LCBzdGFydCwgZnJhZ19zdGFydCwKPiAtCQkJCQkgIGRzdCwgZmxhZ3MpOwo+ICsJCXIgPSBhbWRn
-cHVfdm1fdXBkYXRlX3B0ZXNfaGVscGVyKHBhcmFtcywgc3RhcnQsIGZyYWdfc3RhcnQsCj4gKwkJ
-CQkJCWRzdCwgZmxhZ3MsIGZyYWdtZW50IC0gMSk7Cj4gICAJCWlmIChyKQo+ICAgCQkJcmV0dXJu
-IHI7Cj4gICAJCWRzdCArPSAoZnJhZ19zdGFydCAtIHN0YXJ0KSAqIEFNREdQVV9HUFVfUEFHRV9T
-SVpFOwo+ICAgCX0KPiAgIAo+IC0JLyogaGFuZGxlIHRoZSBhcmVhIGluIHRoZSBtaWRkbGUgKi8K
-PiArCS8qIGhhbmRsZSB0aGUgYXJlYSBpbiB0aGUgbWlkZGxlIGFsaWduZWQqLwo+ICAgCXIgPSBh
-bWRncHVfdm1fdXBkYXRlX3B0ZXMocGFyYW1zLCBmcmFnX3N0YXJ0LCBmcmFnX2VuZCwgZHN0LAo+
-ICAgCQkJCSAgZmxhZ3MgfCBmcmFnX2ZsYWdzKTsKPiAgIAlpZiAocikKPiAgIAkJcmV0dXJuIHI7
-Cj4gICAKPiAtCS8qIGhhbmRsZSB0aGUgNEsgYXJlYSBhdCB0aGUgZW5kICovCj4gKwkvKiBoYW5k
-bGUgdGhlIGFyZWEgYXQgdGhlIGVuZCBub3QgYWxpZ25lZCAqLwo+ICAgCWlmIChmcmFnX2VuZCAh
-PSBlbmQpIHsKPiAgIAkJZHN0ICs9IChmcmFnX2VuZCAtIGZyYWdfc3RhcnQpICogQU1ER1BVX0dQ
-VV9QQUdFX1NJWkU7Cj4gLQkJciA9IGFtZGdwdV92bV91cGRhdGVfcHRlcyhwYXJhbXMsIGZyYWdf
-ZW5kLCBlbmQsIGRzdCwgZmxhZ3MpOwo+ICsJCXIgPSBhbWRncHVfdm1fdXBkYXRlX3B0ZXNfaGVs
-cGVyKHBhcmFtcywgZnJhZ19lbmQsIGVuZCwKPiArCQkJCQkJZHN0LCBmbGFncywgZnJhZ21lbnQg
-LSAxKTsKPiAgIAl9Cj4gICAJcmV0dXJuIHI7Cj4gICB9Cj4gICAKPiArLyoKPiArICogYW1kZ3B1
-X3ZtX2ZyYWdfcHRlcyAtIGFkZCBmcmFnbWVudCBpbmZvcm1hdGlvbiB0byBQVEVzCj4gKyAqCj4g
-KyAqIEBwYXJhbXM6IHNlZSBhbWRncHVfcHRlX3VwZGF0ZV9wYXJhbXMgZGVmaW5pdGlvbgo+ICsg
-KiBAdm06IHJlcXVlc3RlZCB2bQo+ICsgKiBAc3RhcnQ6IGZpcnN0IFBURSB0byBoYW5kbGUKPiAr
-ICogQGVuZDogbGFzdCBQVEUgdG8gaGFuZGxlCj4gKyAqIEBkc3Q6IGFkZHIgdGhvc2UgUFRFcyBz
-aG91bGQgcG9pbnQgdG8KPiArICogQGZsYWdzOiBodyBtYXBwaW5nIGZsYWdzCj4gKyAqIFJldHVy
-bnMgMCBmb3Igc3VjY2VzcywgLUVJTlZBTCBmb3IgZmFpbHVyZS4KPiArICovCj4gK3N0YXRpYyBp
-bnQgYW1kZ3B1X3ZtX2ZyYWdfcHRlcyhzdHJ1Y3QgYW1kZ3B1X3B0ZV91cGRhdGVfcGFyYW1zCSpw
-YXJhbXMsCj4gKwkJCQl1aW50NjRfdCBzdGFydCwgdWludDY0X3QgZW5kLAo+ICsJCQkJdWludDY0
-X3QgZHN0LCB1aW50NjRfdCBmbGFncykKPiArewo+ICsJaW50IGZyYWdtZW50ID0gcGFyYW1zLT5h
-ZGV2LT52bV9tYW5hZ2VyLmZyYWdtZW50X3NpemU7Cj4gKwkvKiBzeXN0ZW0gcGFnZXMgYXJlIG5v
-biBjb250aW51b3VzbHkgKi8KPiArCWlmIChwYXJhbXMtPnNyYyB8fCAhKGZsYWdzICYgQU1ER1BV
-X1BURV9WQUxJRCkpCj4gKwkJcmV0dXJuIGFtZGdwdV92bV91cGRhdGVfcHRlcyhwYXJhbXMsIHN0
-YXJ0LCBlbmQsIGRzdCwgZmxhZ3MpOwo+ICsKPiArCS8qIHZyYW0gKi8KPiArCXJldHVybiBhbWRn
-cHVfdm1fdXBkYXRlX3B0ZXNfaGVscGVyKHBhcmFtcywgc3RhcnQsIGVuZCwgZHN0LCBmbGFncywK
-PiArCQkJCQkJZnJhZ21lbnQpOwo+ICt9Cj4gKwo+ICAgLyoqCj4gICAgKiBhbWRncHVfdm1fYm9f
-dXBkYXRlX21hcHBpbmcgLSB1cGRhdGUgYSBtYXBwaW5nIGluIHRoZSB2bSBwYWdlIHRhYmxlCj4g
-ICAgKgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
-LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
-aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Am 30.08.2017 um 01:54 schrieb Jérôme Glisse:
+> Call to mmu_notifier_invalidate_page() are replaced by call to
+> mmu_notifier_invalidate_range() and thus call are bracketed by
+> call to mmu_notifier_invalidate_range_start()/end()
+>
+> Remove now useless invalidate_page callback.
+>
+> Signed-off-by: Jérôme Glisse <jglisse@redhat.com>
+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+
+The general approach is Acked-by: Christian König 
+<christian.koenig@amd.com>.
+
+It's something very welcome since I was one of the people (together with 
+the Intel guys) which failed to recognize what this callback really does.
+
+Regards,
+Christian.
+
+> Cc: amd-gfx@lists.freedesktop.org
+> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: Linus Torvalds <torvalds@linux-foundation.org>
+> Cc: Andrea Arcangeli <aarcange@redhat.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c | 31 -------------------------------
+>   1 file changed, 31 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
+> index 6558a3ed57a7..e1cde6b80027 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
+> @@ -147,36 +147,6 @@ static void amdgpu_mn_invalidate_node(struct amdgpu_mn_node *node,
+>   }
+>   
+>   /**
+> - * amdgpu_mn_invalidate_page - callback to notify about mm change
+> - *
+> - * @mn: our notifier
+> - * @mn: the mm this callback is about
+> - * @address: address of invalidate page
+> - *
+> - * Invalidation of a single page. Blocks for all BOs mapping it
+> - * and unmap them by move them into system domain again.
+> - */
+> -static void amdgpu_mn_invalidate_page(struct mmu_notifier *mn,
+> -				      struct mm_struct *mm,
+> -				      unsigned long address)
+> -{
+> -	struct amdgpu_mn *rmn = container_of(mn, struct amdgpu_mn, mn);
+> -	struct interval_tree_node *it;
+> -
+> -	mutex_lock(&rmn->lock);
+> -
+> -	it = interval_tree_iter_first(&rmn->objects, address, address);
+> -	if (it) {
+> -		struct amdgpu_mn_node *node;
+> -
+> -		node = container_of(it, struct amdgpu_mn_node, it);
+> -		amdgpu_mn_invalidate_node(node, address, address);
+> -	}
+> -
+> -	mutex_unlock(&rmn->lock);
+> -}
+> -
+> -/**
+>    * amdgpu_mn_invalidate_range_start - callback to notify about mm change
+>    *
+>    * @mn: our notifier
+> @@ -215,7 +185,6 @@ static void amdgpu_mn_invalidate_range_start(struct mmu_notifier *mn,
+>   
+>   static const struct mmu_notifier_ops amdgpu_mn_ops = {
+>   	.release = amdgpu_mn_release,
+> -	.invalidate_page = amdgpu_mn_invalidate_page,
+>   	.invalidate_range_start = amdgpu_mn_invalidate_range_start,
+>   };
+>   
