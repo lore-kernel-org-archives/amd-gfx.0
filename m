@@ -1,71 +1,45 @@
-From: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH 4/6 v2] ASoC: AMD: DMA driver changes for Stoney Platform
-Date: Thu, 31 Aug 2017 12:39:57 +0100
-Message-ID: <20170831113957.qfpkdgs4jr3x4mnc@sirena.org.uk>
-References: <1503079830-16072-1-git-send-email-alexander.deucher@amd.com>
- <1503079830-16072-5-git-send-email-alexander.deucher@amd.com>
+From: =?UTF-8?q?Christian=20K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: fix new PD update code for Vega10 v2
+Date: Thu, 31 Aug 2017 13:58:26 +0200
+Message-ID: <1504180706-3276-1-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0871236869=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <1503079830-16072-5-git-send-email-alexander.deucher@amd.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, dri-devel@lists.freedesktop.org, rajeevkumar.linux@gmail.com, amd-gfx@lists.freedesktop.org, Vijendar.Mukunda@amd.com, Alex Deucher <alexander.deucher@amd.com>, perex@perex.cz
-List-Id: amd-gfx.lists.freedesktop.org
-
-
---===============0871236869==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="kmpgebv23j4qbr4h"
-Content-Disposition: inline
-
-
---kmpgebv23j4qbr4h
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Aug 18, 2017 at 02:10:28PM -0400, Alex Deucher wrote:
-> From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
->=20
-> Added DMA driver changes for Stoney platform.
-> Below are the key differences between Stoney and CZ
-
-Acked-by: Mark Brown <broonie@kernel.org>
-
---kmpgebv23j4qbr4h
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCAAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlmn9YwACgkQJNaLcl1U
-h9BemQf+NckZMnXw3ERy1iwXfFircwjlrjxj52DiulpkpIk4/U3W/25VeaXmyl+0
-6xjSycsKYm9FCrP2PpRLEpfsRrI5UCMCHPuyiDG1Fo491o29pmk4C/pX1jnve7PX
-cSc5RRuVEdlX8IIX8X8XBwgSCbjZnGVOziJJVJ03iRpHeZv8Cm6YGqJVDqKDkBQb
-aeloryeYFmGqFaf9x7mTzsE+LsLX98TYeNo86xg1DdeImcfirNhDEADdz+G9RNQ1
-olJB5CNXueXPIu7VjILEH0lwZXu2wUsxvI+nafTKKbwh22+06ladkpuEhCpD2qKB
-hbjWe4AYmEY5VWB8ohiSYpefvReLwQ==
-=foqp
------END PGP SIGNATURE-----
-
---kmpgebv23j4qbr4h--
-
---===============0871236869==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
-
---===============0871236869==--
+RnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKV2UgbmVl
+ZCB0byByZWZlciB0byB0aGUgcGFyZW50IGluc3RlYWQgb2YgdGhlIHJvb3QgQk8gZm9yIG11bHRp
+CmxldmVsIHBhZ2UgdGFibGVzIG9uIFZlZ2ExMC4gQWxzbyBkb24ndCBzZXQgdGhlIFBERV9QVEUg
+Yml0LgoKdjI6IERvbid0IHNldCB0aGUgUERFX1BURSBiaXQgZWl0aGVyLgoKU2lnbmVkLW9mZi1i
+eTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgotLS0KIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIHwgNCArKy0tCiAxIGZpbGUgY2hhbmdl
+ZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X3ZtLmMKaW5kZXggYjA4ZjAzMS4uNGM2NzhjMyAxMDA2NDQKLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X3ZtLmMKQEAgLTMwOCw3ICszMDgsNyBAQCBzdGF0aWMgaW50IGFtZGdw
+dV92bV9hbGxvY19sZXZlbHMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJCQkvKiBLZWVw
+IGEgcmVmZXJlbmNlIHRvIHRoZSByb290IGRpcmVjdG9yeSB0byBhdm9pZAogCQkJKiBmcmVlaW5n
+IHRoZW0gdXAgaW4gdGhlIHdyb25nIG9yZGVyLgogCQkJKi8KLQkJCXB0LT5wYXJlbnQgPSBhbWRn
+cHVfYm9fcmVmKHZtLT5yb290LmJhc2UuYm8pOworCQkJcHQtPnBhcmVudCA9IGFtZGdwdV9ib19y
+ZWYocGFyZW50LT5iYXNlLmJvKTsKIAogCQkJZW50cnktPmJhc2Uudm0gPSB2bTsKIAkJCWVudHJ5
+LT5iYXNlLmJvID0gcHQ7CkBAIC0zMTYsNyArMzE2LDcgQEAgc3RhdGljIGludCBhbWRncHVfdm1f
+YWxsb2NfbGV2ZWxzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCQkJc3Bpbl9sb2NrKCZ2
+bS0+c3RhdHVzX2xvY2spOwogCQkJbGlzdF9hZGQoJmVudHJ5LT5iYXNlLnZtX3N0YXR1cywgJnZt
+LT5yZWxvY2F0ZWQpOwogCQkJc3Bpbl91bmxvY2soJnZtLT5zdGF0dXNfbG9jayk7Ci0JCQllbnRy
+eS0+YWRkciA9IH4wVUxMOworCQkJZW50cnktPmFkZHIgPSAwOwogCQl9CiAKIAkJaWYgKGxldmVs
+IDwgYWRldi0+dm1fbWFuYWdlci5udW1fbGV2ZWwpIHsKLS0gCjIuNy40CgpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
