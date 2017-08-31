@@ -1,12 +1,16 @@
-From: =?UTF-8?q?Christian=20K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: Revert "Fix IB allocation sizes for page table
- updates"
-Date: Thu, 31 Aug 2017 09:45:48 +0200
-Message-ID: <1504165548-2017-1-git-send-email-deathsimple@vodafone.de>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amdgpu: handle all fragment sizes v3
+Date: Thu, 31 Aug 2017 10:11:48 +0200
+Message-ID: <a5a831bc-6d38-608a-639a-d9e3917fd56c@vodafone.de>
+References: <1504100904-1527-1-git-send-email-deathsimple@vodafone.de>
+ <1504100904-1527-2-git-send-email-deathsimple@vodafone.de>
+ <8f3f60fa-6633-4076-4480-220fd3d22a5c@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <8f3f60fa-6633-4076-4480-220fd3d22a5c-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,28 +21,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-RnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKVGhlIElC
-IGFsbG9jYXRpb24gc2l6ZXMgd2hlcmUgY29ycmVjdC4KClRoaXMgcmV2ZXJ0cyBjb21taXQgZDE1
-NTFlN2M3MjExZmExMzVjNGQ3OWYwOWUyMzdmNWY5Nzc5ZTQyMS4KClNpZ25lZC1vZmYtYnk6IENo
-cmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyB8IDQgKystLQogMSBmaWxlIGNoYW5nZWQsIDIg
-aW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV92bS5jCmluZGV4IDQ3MzI3M2QuLmIwOGYwMzEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV92bS5jCkBAIC0xMDM3LDcgKzEwMzcsNyBAQCBzdGF0aWMgaW50IGFtZGdwdV92
-bV91cGRhdGVfbGV2ZWwoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJCW5kdyA9IDY0Owog
-CiAJCS8qIGFzc3VtZSB0aGUgd29yc3QgY2FzZSAqLwotCQluZHcgKz0gcGFyZW50LT5sYXN0X2Vu
-dHJ5X3VzZWQgKiAxMDsKKwkJbmR3ICs9IHBhcmVudC0+bGFzdF9lbnRyeV91c2VkICogNjsKIAog
-CQlwZF9hZGRyID0gYW1kZ3B1X2JvX2dwdV9vZmZzZXQocGFyZW50LT5iYXNlLmJvKTsKIApAQCAt
-MTU0Miw3ICsxNTQyLDcgQEAgc3RhdGljIGludCBhbWRncHVfdm1fYm9fdXBkYXRlX21hcHBpbmco
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJbmR3ID0gNjQ7CiAKIAkvKiBvbmUgUERFIHdy
-aXRlIGZvciBlYWNoIGh1Z2UgcGFnZSAqLwotCW5kdyArPSAoKG5wdGVzID4+IGFkZXYtPnZtX21h
-bmFnZXIuYmxvY2tfc2l6ZSkgKyAxKSAqIDEwOworCW5kdyArPSAoKG5wdGVzID4+IGFkZXYtPnZt
-X21hbmFnZXIuYmxvY2tfc2l6ZSkgKyAxKSAqIDY7CiAKIAlpZiAocGFnZXNfYWRkcikgewogCQkv
-KiBjb3B5IGNvbW1hbmRzIG5lZWRlZCAqLwotLSAKMi43LjQKCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vYW1kLWdmeAo=
+QW0gMzEuMDguMjAxNyB1bSAwNDowMCBzY2hyaWViIHpob3VjbTE6Cj4KPgo+IE9uIDIwMTflubQw
+OOaciDMw5pelIDIxOjQ4LCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiBbU05JUF0KPj4gKyAg
+ICB3aGlsZSAoc3RhcnQgIT0gZW5kKSB7Cj4+ICsgICAgICAgIC8qIFRoaXMgaW50ZW50aW9uYWxs
+eSB3cmFwcyBhcm91bmQgaWYgbm8gYml0IGlzIHNldCAqLwo+PiArICAgICAgICBmcmFnID0gbWlu
+KGZmcyhzdGFydCksIGZsczY0KGVuZCAtIHN0YXJ0KSkgLSAxOwo+PiArICAgICAgICBpZiAoZnJh
+ZyA+PSBtYXhfZnJhZykKPj4gKyAgICAgICAgICAgIGJyZWFrOwo+IFNlZW0gd2UgY2FuIHNpbXBs
+aWZ5IG1vcmUsIGZyYWcgPSBtaW4oZnJhZywgbWF4X2ZyYWcpIGluc3RlYWQgb2YgCj4gYnJlYWss
+IHRoaXMgd2F5LCBvbmUgd2hpbGUgd2lsbCBzb2x2ZSBhbGwgbG9vcC4KCkl0J3Mgbm90IHNvIGVh
+c3ksIGJ1dCBzdGlsbCBhbiBpbnRlcmVzdGluZyBpZGVhLgoKTmVlZCB0byBjaGFuZ2UgdGhlIGhh
+bmRsaW5nIGEgYml0LCBidXQgZ29pbmcgdG8gZ2l2ZSB0aGF0IGEgdHJ5IGluIHRoZSB2NC4KCkNo
+cmlzdGlhbi4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
+Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
