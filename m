@@ -1,15 +1,11 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 4/4] drm/amd/powerplay: set uvd/vce/nb/mclk level as UMD
- P-state required
-Date: Fri, 1 Sep 2017 18:32:27 +0000
-Message-ID: <CY4PR12MB1687C349E15EB23278EBDA11FB920@CY4PR12MB1687.namprd12.prod.outlook.com>
-References: <1504259466-27612-1-git-send-email-Rex.Zhu@amd.com>,
- <BN6PR12MB16522EA8F0FE7AC5405ED464F7920@BN6PR12MB1652.namprd12.prod.outlook.com>
+From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/display: Remove drm_modeset_lock in MST code
+Date: Fri, 1 Sep 2017 14:50:04 -0400
+Message-ID: <20170901185004.1522-1-harry.wentland@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1817478755=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB16522EA8F0FE7AC5405ED464F7920-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,298 +16,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: daniel.vetter-/w4YWyX8dFk@public.gmane.org, treding-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
 
---===============1817478755==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB1687C349E15EB23278EBDA11FB920CY4PR12MB1687namp_"
-
---_000_CY4PR12MB1687C349E15EB23278EBDA11FB920CY4PR12MB1687namp_
-Content-Type: text/plain; charset="iso-2022-jp"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Alex,
-
-=1B$B!U=1B(BBTW, can you review my stable p-state fix for CZ?
-=1B$B!U=1B(Bhttps://patchwork.freedesktop.org/patch/174102
-
-Patch is
-Reviewed-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-
-Best Regards
-Rex
-
-________________________________
-From: Deucher, Alexander
-Sent: Friday, September 1, 2017 11:03:10 PM
-To: Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Zhu, Rex
-Subject: RE: [PATCH 4/4] drm/amd/powerplay: set uvd/vce/nb/mclk level as UM=
-D P-state required
-
-> -----Original Message-----
-> From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf
-> Of Rex Zhu
-> Sent: Friday, September 01, 2017 5:51 AM
-> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> Cc: Zhu, Rex
-> Subject: [PATCH 4/4] drm/amd/powerplay: set uvd/vce/nb/mclk level as
-> UMD P-state required
->
-> Change-Id: I6e5cb169fcc22525d26cdc3f82ca011249f912ef
-> Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-
-This series is:
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-BTW, can you review my stable p-state fix for CZ?
-https://patchwork.freedesktop.org/patch/174102/
-
-Thanks,
-
-Alex
-
-> ---
->  drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c | 12 +++++++++---
->  1 file changed, 9 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
-> b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
-> index 573e4da..3a8bc74 100644
-> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c
-> @@ -1138,7 +1138,11 @@ static int cz_apply_state_adjust_rules(struct
-> pp_hwmgr *hwmgr,
->
->        cz_ps->action =3D cz_current_ps->action;
->
-> -     if (!force_high && (cz_ps->action =3D=3D FORCE_HIGH))
-> +     if (hwmgr->request_dpm_level =3D=3D
-> AMD_DPM_FORCED_LEVEL_PROFILE_PEAK)
-> +             cz_nbdpm_pstate_enable_disable(hwmgr, false, false);
-> +     else if (hwmgr->request_dpm_level =3D=3D
-> AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD)
-> +             cz_nbdpm_pstate_enable_disable(hwmgr, false, true);
-> +     else if (!force_high && (cz_ps->action =3D=3D FORCE_HIGH))
->                cz_ps->action =3D CANCEL_FORCE_HIGH;
->        else if (force_high && (cz_ps->action !=3D FORCE_HIGH))
->                cz_ps->action =3D FORCE_HIGH;
-> @@ -1416,7 +1420,8 @@ int cz_dpm_update_uvd_dpm(struct pp_hwmgr
-> *hwmgr, bool bgate)
->        if (!bgate) {
->                /* Stable Pstate is enabled and we need to set the UVD DPM
-> to highest level */
->                if (phm_cap_enabled(hwmgr-
-> >platform_descriptor.platformCaps,
-> -                                      PHM_PlatformCaps_StablePState)) {
-> +                                      PHM_PlatformCaps_StablePState)
-> +                     || hwmgr->en_umd_pstate) {
->                        cz_hwmgr->uvd_dpm.hard_min_clk =3D
->                                   ptable->entries[ptable->count - 1].vclk=
-;
->
-> @@ -1445,7 +1450,8 @@ int  cz_dpm_update_vce_dpm(struct pp_hwmgr
-> *hwmgr)
->
->        /* Stable Pstate is enabled and we need to set the VCE DPM to
-> highest level */
->        if (phm_cap_enabled(hwmgr->platform_descriptor.platformCaps,
-> -                                      PHM_PlatformCaps_StablePState)) {
-> +                                     PHM_PlatformCaps_StablePState)
-> +                                     || hwmgr->en_umd_pstate) {
->                cz_hwmgr->vce_dpm.hard_min_clk =3D
->                                  ptable->entries[ptable->count - 1].ecclk=
-;
->
-> --
-> 1.9.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_CY4PR12MB1687C349E15EB23278EBDA11FB920CY4PR12MB1687namp_
-Content-Type: text/html; charset="iso-2022-jp"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-2022-=
-jp">
-<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
-<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
-ding-left: 4pt; border-left: #800000 2px solid; } --></style>
-</head>
-<body>
-<div>Hi Alex,<br>
-<br>
-=1B$B!U=1B(BBTW, can you review my stable p-state fix for CZ?<br>
-=1B$B!U=1B(Bhttps://patchwork.freedesktop.org/patch/174102<br>
-<br>
-Patch is <br>
-Reviewed-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
-Best Regards<br>
-Rex<br>
-<br>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Deucher, Alexander<=
-br>
-<b>Sent:</b> Friday, September 1, 2017 11:03:10 PM<br>
-<b>To:</b> Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Zhu, Rex<br>
-<b>Subject:</b> RE: [PATCH 4/4] drm/amd/powerplay: set uvd/vce/nb/mclk leve=
-l as UMD P-state required</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">&gt; -----Original Message-----<br>
-&gt; From: amd-gfx [<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org=
-">mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>] On Behalf<br>
-&gt; Of Rex Zhu<br>
-&gt; Sent: Friday, September 01, 2017 5:51 AM<br>
-&gt; To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; Cc: Zhu, Rex<br>
-&gt; Subject: [PATCH 4/4] drm/amd/powerplay: set uvd/vce/nb/mclk level as<b=
-r>
-&gt; UMD P-state required<br>
-&gt; <br>
-&gt; Change-Id: I6e5cb169fcc22525d26cdc3f82ca011249f912ef<br>
-&gt; Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
-This series is:<br>
-Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
-BTW, can you review my stable p-state fix for CZ?<br>
-<a href=3D"https://patchwork.freedesktop.org/patch/174102/">https://patchwo=
-rk.freedesktop.org/patch/174102/</a><br>
-<br>
-Thanks,<br>
-<br>
-Alex<br>
-<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c | 12 &#43;&#43;&#=
-43;&#43;&#43;&#43;&#43;&#43;&#43;---<br>
-&gt;&nbsp; 1 file changed, 9 insertions(&#43;), 3 deletions(-)<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c<br>
-&gt; b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c<br>
-&gt; index 573e4da..3a8bc74 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/cz_hwmgr.c<br>
-&gt; @@ -1138,7 &#43;1138,11 @@ static int cz_apply_state_adjust_rules(stru=
-ct<br>
-&gt; pp_hwmgr *hwmgr,<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cz_ps-&gt;action =3D cz_curr=
-ent_ps-&gt;action;<br>
-&gt; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (!force_high &amp;&amp; (cz_ps-&gt;action=
- =3D=3D FORCE_HIGH))<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;request_dpm_level =3D=3D<b=
-r>
-&gt; AMD_DPM_FORCED_LEVEL_PROFILE_PEAK)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; cz_nbdpm_pstate_enable_disable(hwmgr, false, false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; else if (hwmgr-&gt;request_dpm_level =3D=
-=3D<br>
-&gt; AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; cz_nbdpm_pstate_enable_disable(hwmgr, false, true);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; else if (!force_high &amp;&amp; (cz_ps-&=
-gt;action =3D=3D FORCE_HIGH))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; cz_ps-&gt;action =3D CANCEL_FORCE_HIGH;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (force_high &amp;&am=
-p; (cz_ps-&gt;action !=3D FORCE_HIGH))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; cz_ps-&gt;action =3D FORCE_HIGH;<br>
-&gt; @@ -1416,7 &#43;1420,8 @@ int cz_dpm_update_uvd_dpm(struct pp_hwmgr<br=
->
-&gt; *hwmgr, bool bgate)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!bgate) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; /* Stable Pstate is enabled and we need to set the UVD =
-DPM<br>
-&gt; to highest level */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (phm_cap_enabled(hwmgr-<br>
-&gt; &gt;platform_descriptor.platformCaps,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; PHM_PlatformCaps_StablePState)) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; PHM_PlatformCaps_StablePState)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; || hwmgr-&gt;en_umd=
-_pstate) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cz_hwmg=
-r-&gt;uvd_dpm.hard_min_clk =3D<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ptable-&gt;entri=
-es[ptable-&gt;count - 1].vclk;<br>
-&gt; <br>
-&gt; @@ -1445,7 &#43;1450,8 @@ int&nbsp; cz_dpm_update_vce_dpm(struct pp_hw=
-mgr<br>
-&gt; *hwmgr)<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Stable Pstate is enabled =
-and we need to set the VCE DPM to<br>
-&gt; highest level */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (phm_cap_enabled(hwmgr-&g=
-t;platform_descriptor.platformCaps,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; PHM_PlatformCaps_StablePState)) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; PHM_PlatformCaps_StablePState)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; || hwmgr-&gt;en_umd_pstate) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; cz_hwmgr-&gt;vce_dpm.hard_min_clk =3D<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ptable-&gt;entries[pta=
-ble-&gt;count - 1].ecclk;<br>
-&gt; <br>
-&gt; --<br>
-&gt; 1.9.1<br>
-&gt; <br>
-&gt; _______________________________________________<br>
-&gt; amd-gfx mailing list<br>
-&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
-ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font>
-</body>
-</html>
-
---_000_CY4PR12MB1687C349E15EB23278EBDA11FB920CY4PR12MB1687namp_--
-
---===============1817478755==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1817478755==--
+VGhpcyBpcyBubyBsb25nZXIgbmVlZGVkIGluIDQuMTMKClNpZ25lZC1vZmYtYnk6IEhhcnJ5IFdl
+bnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+ZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX21zdF90eXBlcy5jIHwgMTIgKy0tLS0tLS0tLS0t
+CiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDExIGRlbGV0aW9ucygtKQoKZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX21z
+dF90eXBlcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVf
+ZG1fbXN0X3R5cGVzLmMKaW5kZXggM2NlMDg3ZjRlMGVmLi5lNDFiYjBiYjBkNjYgMTAwNjQ0Ci0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX21zdF90
+eXBlcy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1
+X2RtX21zdF90eXBlcy5jCkBAIC0yNDEsNyArMjQxLDYgQEAgc3RhdGljIHN0cnVjdCBkcm1fY29u
+bmVjdG9yICpkbV9kcF9hZGRfbXN0X2Nvbm5lY3RvcihzdHJ1Y3QgZHJtX2RwX21zdF90b3BvbG9n
+eV8KIAlzdHJ1Y3QgYW1kZ3B1X2Nvbm5lY3RvciAqYWNvbm5lY3RvcjsKIAlzdHJ1Y3QgZHJtX2Nv
+bm5lY3RvciAqY29ubmVjdG9yOwogCi0JZHJtX21vZGVzZXRfbG9jaygmZGV2LT5tb2RlX2NvbmZp
+Zy5jb25uZWN0aW9uX211dGV4LCBOVUxMKTsKIAlsaXN0X2Zvcl9lYWNoX2VudHJ5KGNvbm5lY3Rv
+ciwgJmRldi0+bW9kZV9jb25maWcuY29ubmVjdG9yX2xpc3QsIGhlYWQpIHsKIAkJYWNvbm5lY3Rv
+ciA9IHRvX2FtZGdwdV9jb25uZWN0b3IoY29ubmVjdG9yKTsKIAkJaWYgKGFjb25uZWN0b3ItPm1z
+dF9wb3J0ID09IG1hc3RlcgpAQCAtMjUyLDExICsyNTEsOSBAQCBzdGF0aWMgc3RydWN0IGRybV9j
+b25uZWN0b3IgKmRtX2RwX2FkZF9tc3RfY29ubmVjdG9yKHN0cnVjdCBkcm1fZHBfbXN0X3RvcG9s
+b2d5XwogCQkJYWNvbm5lY3Rvci0+cG9ydCA9IHBvcnQ7CiAJCQlkcm1fbW9kZV9jb25uZWN0b3Jf
+c2V0X3BhdGhfcHJvcGVydHkoY29ubmVjdG9yLCBwYXRocHJvcCk7CiAKLQkJCWRybV9tb2Rlc2V0
+X3VubG9jaygmZGV2LT5tb2RlX2NvbmZpZy5jb25uZWN0aW9uX211dGV4KTsKIAkJCXJldHVybiAm
+YWNvbm5lY3Rvci0+YmFzZTsKIAkJfQogCX0KLQlkcm1fbW9kZXNldF91bmxvY2soJmRldi0+bW9k
+ZV9jb25maWcuY29ubmVjdGlvbl9tdXRleCk7CiAKIAlhY29ubmVjdG9yID0ga3phbGxvYyhzaXpl
+b2YoKmFjb25uZWN0b3IpLCBHRlBfS0VSTkVMKTsKIAlpZiAoIWFjb25uZWN0b3IpCkBAIC0zNDks
+NyArMzQ2LDYgQEAgc3RhdGljIHZvaWQgZG1fZHBfbXN0X2hvdHBsdWcoc3RydWN0IGRybV9kcF9t
+c3RfdG9wb2xvZ3lfbWdyICptZ3IpCiAJc3RydWN0IGVkaWQgKmVkaWQ7CiAJc3RydWN0IGRjX3Np
+bmsgKmRjX3Npbms7CiAKLQlkcm1fbW9kZXNldF9sb2NrX2FsbChkZXYpOwogCWxpc3RfZm9yX2Vh
+Y2hfZW50cnkoY29ubmVjdG9yLCAmZGV2LT5tb2RlX2NvbmZpZy5jb25uZWN0b3JfbGlzdCwgaGVh
+ZCkgewogCQlhY29ubmVjdG9yID0gdG9fYW1kZ3B1X2Nvbm5lY3Rvcihjb25uZWN0b3IpOwogCQlp
+ZiAoYWNvbm5lY3Rvci0+cG9ydCAmJgpAQCAtNDAwLDcgKzM5Niw2IEBAIHN0YXRpYyB2b2lkIGRt
+X2RwX21zdF9ob3RwbHVnKHN0cnVjdCBkcm1fZHBfbXN0X3RvcG9sb2d5X21nciAqbWdyKQogCQkJ
+CWFjb25uZWN0b3ItPmVkaWQpOwogCQl9CiAJfQotCWRybV9tb2Rlc2V0X3VubG9ja19hbGwoZGV2
+KTsKIAogCXNjaGVkdWxlX3dvcmsoJmFkZXYtPmRtLm1zdF9ob3RwbHVnX3dvcmspOwogfQpAQCAt
+NDExLDE1ICs0MDYsMTIgQEAgc3RhdGljIHZvaWQgZG1fZHBfbXN0X3JlZ2lzdGVyX2Nvbm5lY3Rv
+cihzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yKQogCXN0cnVjdCBhbWRncHVfZGV2aWNl
+ICphZGV2ID0gZGV2LT5kZXZfcHJpdmF0ZTsKIAlpbnQgaTsKIAotCWRybV9tb2Rlc2V0X2xvY2tf
+YWxsKGRldik7CiAJaWYgKGFkZXYtPm1vZGVfaW5mby5yZmJkZXYpIHsKIAkJLypEbyBub3QgYWRk
+IGlmIGFscmVhZHkgcmVnaXN0ZXJlZCBpbiBwYXN0Ki8KIAkJZm9yIChpID0gMDsgaSA8IGFkZXYt
+Pm1vZGVfaW5mby5yZmJkZXYtPmhlbHBlci5jb25uZWN0b3JfY291bnQ7IGkrKykgewogCQkJaWYg
+KGFkZXYtPm1vZGVfaW5mby5yZmJkZXYtPmhlbHBlci5jb25uZWN0b3JfaW5mb1tpXS0+Y29ubmVj
+dG9yCi0JCQkJCT09IGNvbm5lY3RvcikgewotCQkJCWRybV9tb2Rlc2V0X3VubG9ja19hbGwoZGV2
+KTsKKwkJCQkJPT0gY29ubmVjdG9yKQogCQkJCXJldHVybjsKLQkJCX0KIAkJfQogCiAJCWRybV9m
+Yl9oZWxwZXJfYWRkX29uZV9jb25uZWN0b3IoJmFkZXYtPm1vZGVfaW5mby5yZmJkZXYtPmhlbHBl
+ciwgY29ubmVjdG9yKTsKQEAgLTQyNyw4ICs0MTksNiBAQCBzdGF0aWMgdm9pZCBkbV9kcF9tc3Rf
+cmVnaXN0ZXJfY29ubmVjdG9yKHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IpCiAJZWxz
+ZQogCQlEUk1fRVJST1IoImFkZXYtPm1vZGVfaW5mby5yZmJkZXYgaXMgTlVMTFxuIik7CiAKLQlk
+cm1fbW9kZXNldF91bmxvY2tfYWxsKGRldik7Ci0KIAlkcm1fY29ubmVjdG9yX3JlZ2lzdGVyKGNv
+bm5lY3Rvcik7CiAKIH0KLS0gCjIuMTEuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cg==
