@@ -1,15 +1,12 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+From: Thierry Reding <thierry.reding-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Subject: Re: [PATCH] drm/ttm: Fix trace include path (v2)
-Date: Fri, 1 Sep 2017 19:04:14 +0200
-Message-ID: <c12192bb-782e-07c6-0b8f-3270b31de508@vodafone.de>
+Date: Fri, 1 Sep 2017 19:48:00 +0200
+Message-ID: <20170901174800.GE25142@ulmo>
 References: <20170901161423.6737-1-tom.stdenis@amd.com>
- <BN6PR12MB165292D20560E8FB41F1E6B8F7920@BN6PR12MB1652.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1662061548=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB165292D20560E8FB41F1E6B8F7920-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20170901161423.6737-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,46 +17,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+Cc: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-QW0gMDEuMDkuMjAxNyB1bSAxODoxNSBzY2hyaWViIERldWNoZXIsIEFsZXhhbmRlcjoKPj4gLS0t
-LS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPj4gRnJvbTogYW1kLWdmeCBbbWFpbHRvOmFtZC1nZngt
-Ym91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmddIE9uIEJlaGFsZgo+PiBPZiBUb20gU3QgRGVu
-aXMKPj4gU2VudDogRnJpZGF5LCBTZXB0ZW1iZXIgMDEsIDIwMTcgMTI6MTQgUE0KPj4gVG86IGFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+IENjOiBTdERlbmlzLCBUb207IGRyaS1kZXZl
-bEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4gU3ViamVjdDogW1BBVENIXSBkcm0vdHRtOiBGaXgg
-dHJhY2UgaW5jbHVkZSBwYXRoICh2MikKPj4KPj4gU2lnbmVkLW9mZi1ieTogVG9tIFN0IERlbmlz
-IDx0b20uc3RkZW5pc0BhbWQuY29tPgo+Pgo+PiAodjIpOiBEcm9wIE1ha2VmaWxlIGNoYW5nZSB0
-b28uCj4gUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNv
-bT4KClJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5j
-b20+Cgo+Cj4+IC0tLQo+PiAgIGRyaXZlcnMvZ3B1L2RybS90dG0vTWFrZWZpbGUgICAgfCAyICst
-Cj4+ICAgZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fdHJhY2UuaCB8IDIgKy0KPj4gICAyIGZpbGVz
-IGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS90dG0vTWFrZWZpbGUgYi9kcml2ZXJzL2dwdS9kcm0vdHRtL01h
-a2VmaWxlCj4+IGluZGV4IGZkM2RhMDBjMGJmMi4uZjA1NDllYWI3M2U2IDEwMDY0NAo+PiAtLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vdHRtL01ha2VmaWxlCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS90
-dG0vTWFrZWZpbGUKPj4gQEAgLTEsNyArMSw3IEBACj4+ICAgIwo+PiAgICMgTWFrZWZpbGUgZm9y
-IHRoZSBkcm0gZGV2aWNlIGRyaXZlci4gIFRoaXMgZHJpdmVyIHByb3ZpZGVzIHN1cHBvcnQgZm9y
-IHRoZQo+Pgo+PiAtY2NmbGFncy15IDo9IC1JaW5jbHVkZS9kcm0gLUkkKHNyYykvLgo+PiArY2Nm
-bGFncy15IDo9IC1JaW5jbHVkZS9kcm0KPj4gICB0dG0teSA6PSB0dG1fbWVtb3J5Lm8gdHRtX3R0
-Lm8gdHRtX2JvLm8gXAo+PiAgIAl0dG1fYm9fdXRpbC5vIHR0bV9ib192bS5vIHR0bV9tb2R1bGUu
-byBcCj4+ICAgCXR0bV9vYmplY3QubyB0dG1fbG9jay5vIHR0bV9leGVjYnVmX3V0aWwubyB0dG1f
-cGFnZV9hbGxvYy5vIFwKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX3Ry
-YWNlLmgKPj4gYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV90cmFjZS5oCj4+IGluZGV4IDIzMjc5
-YjliOGU2NC4uNzE1Y2U2OGI3YjMzIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vdHRt
-L3R0bV90cmFjZS5oCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX3RyYWNlLmgKPj4g
-QEAgLTgyLDYgKzgyLDYgQEAgVFJBQ0VfRVZFTlQodHRtX2RtYV91bm1hcCwKPj4KPj4gICAvKiBU
-aGlzIHBhcnQgbXVzdCBiZSBvdXRzaWRlIHByb3RlY3Rpb24gKi8KPj4gICAjdW5kZWYgVFJBQ0Vf
-SU5DTFVERV9QQVRICj4+IC0jZGVmaW5lIFRSQUNFX0lOQ0xVREVfUEFUSCAuCj4+ICsjZGVmaW5l
-IFRSQUNFX0lOQ0xVREVfUEFUSCAuLi8uLi9kcml2ZXJzL2dwdS9kcm0vdHRtLwo+PiAgICNpbmNs
-dWRlIDx0cmFjZS9kZWZpbmVfdHJhY2UuaD4KPj4KPj4gLS0KPj4gMi4xMi4wCj4+Cj4+IF9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+IGFtZC1nZnggbWFp
-bGluZyBsaXN0Cj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+IGh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+IF9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxp
-c3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAoKCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vYW1kLWdmeAo=
+
+--===============1662061548==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="zjcmjzIkjQU2rmur"
+Content-Disposition: inline
+
+
+--zjcmjzIkjQU2rmur
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, Sep 01, 2017 at 12:14:23PM -0400, Tom St Denis wrote:
+> Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+>=20
+> (v2): Drop Makefile change too.
+> ---
+>  drivers/gpu/drm/ttm/Makefile    | 2 +-
+>  drivers/gpu/drm/ttm/ttm_trace.h | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
+
+Reviewed-by: Thierry Reding <treding-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>
+
+--zjcmjzIkjQU2rmur
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAlmpnVAACgkQ3SOs138+
+s6ERzg/+MvIV9uX+F+bSxU7HukjH7PSxgGo0f8+asc2VSfpdmAFPlgVnL+QmZuV9
+FVns0Szx14k3yoSohiL3J3uMD+xXh+sHGoJbn+ocECb2HjqyVr5NWp2lGuMmtr8n
+mALa9mblZM9+fyCJkqh0jXmhJOT22tWde51rX/F5t5IfIKXVcSB97Auaxvzorduo
+eUfIwHkE+IRf1Y447/lbC/DWkYvUeCsRgFOhGyIeesEDSJ5eY6maXRcxtfQXutJ8
+8QFReztu56+l7qLOv73fVLaRT4xJCedJCyY5rzJmD169oH7pXy7EqqlMaOfQ0twz
+PwxFJmHo0KW7DBDcDGg4WJ4qAs6LeZJKi88Py2Y5f9XlEFEpibb8gDfponkp3I0c
+7cahaIVuQgpPJhaYfRy8wV8gptkYYUwqvbHfrg/KpksnXIGIDjmvB8skOP9gKZXJ
+gZ2g/ZkSwRLw0HyLCpnvMKxOmb/KAkLKs9KkB3ebKwSsn9Q+eHJTWlztePLKB52p
+402yJ6bDPeFHZDRUu3a0m+10i4ec/3zO1bV8btIZ/WmH4ggA1WgcNrwTBpw7p0zm
+FYNVcHSUyQW2wGAOWlLKkJF569P4CyWW8B12t55Bq6dNhmyFXj+B3gPbAITXo0GK
+RAL9Sd1D3BO6gaoHW8pzi3WL2v1cyatdq+vvkBgy5FXEm1jsOP4=
+=UvSQ
+-----END PGP SIGNATURE-----
+
+--zjcmjzIkjQU2rmur--
+
+--===============1662061548==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1662061548==--
