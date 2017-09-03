@@ -1,54 +1,41 @@
-From: Thomas Meyer <thomas@m3y3r.de>
-Subject: [PATCH 2/10] drm/amdgpu: Use ARRAY_SIZE macro
-Date: Sun, 03 Sep 2017 14:19:31 +0200
-Message-ID: <1504439110050-1389363803-2-diffsplit-thomas@m3y3r.de>
-References: <1504439110050-939061377-0-diffsplit-thomas@m3y3r.de>
+From: Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 0/1] [rfc] Port UVD from radeon for SI
+Date: Sun, 3 Sep 2017 19:39:26 -0400
+Message-ID: <ff490ead-0497-3140-ce58-c23df019583a@gmail.com>
+Reply-To: alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <1504439110050-939061377-0-diffsplit-thomas@m3y3r.de>
-Sender: linux-kernel-owner@vger.kernel.org
-To: airlied@linux.ie, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-GB-large
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Trevor Davenport <trevor.davenport-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 
-Use ARRAY_SIZE macro, rather than explicitly coding some variant of it
-yourself.
-Found with: find -type f -name "*.c" -o -name "*.h" | xargs perl -p -i -e
-'s/\bsizeof\s*\(\s*(\w+)\s*\)\s*\ /\s*sizeof\s*\(\s*\1\s*\[\s*0\s*\]\s*\)
-/ARRAY_SIZE(\1)/g' and manual check/verification.
-
-Signed-off-by: Thomas Meyer <thomas@m3y3r.de>
----
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-index 9804318f3488..7ef84d884714 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-@@ -20,6 +20,8 @@
-  * OTHER DEALINGS IN THE SOFTWARE.
-  *
-  */
-+#include <linux/kernel.h>
-+
- #include "amdgpu.h"
- #include "mmhub_v1_0.h"
- 
-@@ -268,7 +270,7 @@ const struct pctl_data pctl0_data[] = {
-     {0x135, 0x12a810},
-     {0x149, 0x7a82c}
- };
--#define PCTL0_DATA_LEN (sizeof(pctl0_data)/sizeof(pctl0_data[0]))
-+#define PCTL0_DATA_LEN (ARRAY_SIZE(pctl0_data))
- 
- #define PCTL0_RENG_EXEC_END_PTR 0x151
- #define PCTL0_STCTRL_REG_SAVE_RANGE0_BASE  0xa640
-@@ -297,7 +299,7 @@ const struct pctl_data pctl1_data[] = {
-     {0x1be, 0x17a7dd},
-     {0x1d7, 0x12a810}
- };
--#define PCTL1_DATA_LEN (sizeof(pctl1_data)/sizeof(pctl1_data[0]))
-+#define PCTL1_DATA_LEN (ARRAY_SIZE(pctl1_data))
- 
- #define PCTL1_RENG_EXEC_END_PTR 0x1ea
- #define PCTL1_STCTRL_REG_SAVE_RANGE0_BASE  0xa000
+SGkgVHJldm9yLAoKSSdtIHdvcmtpbmcgb24gdGhlIFZDRSBwb3J0IHNpZGUsIHdoaWNoIGlzIHBy
+ZXR0eSBzaW1pbGFyIHRvIFVWRCBpbiBtYW55CndheXMuIEknbGwgc2VuZCBzb21lIHBhdGNoZXMg
+YWJvdXQgdGhpcyBwb3J0IHNvb24sIGJ1dCBJJ2xsIGFsc28gbmVlZApzb21lIFJGQyBpbiB0aGUg
+bG90IGFuZCBoZWxwIHRvIGdldCBvdmVyIGhhbmdzIEkgaGl0IHdpdGggVkNFIHJpbmdzLgpJdCdz
+IGp1c3Qgbm90IGdvaW5nIGFzIGZhc3QgYXMgSSdkIGxpa2UsIHdlIGhhZCBhIGJhYnkgYSBmZXcg
+bW9udGhzIGFnbwphbmQgbXkgc3BhcmUgdGltZSBpcyBub3cgbW9zdGx5IGZvciBoZXIuIDspCgpV
+VkQgd2FzIG5leHQgb24gbXkgdG8tZG8gbGlzdCwgc2kgSSdkIGxpa2UgdG8gd29yayB3aXRoIHlv
+dSBvbiB0aGlzCmJlY2F1c2UgSSB0aGluayB3ZSBjb3VsZCBib3RoIGdldCBoZWxwIGZyb20gZWFj
+aCBvdGhlcnMgd29ya3MuCgpJZiBJIG1heSBzdWdnZXN0IHR3byB0aGluZ3M6IHRyeSB0byBzZWdy
+ZWdhdGUgeW91ciB3b3JrIGluIGEgZmV3IHBhdGNoZXMKaW5zdGVhZCBvZiBhIGJpZyBvbmUuIEl0
+IGlzIGVhc2llciB0byByZXZpZXcsIGNvbW1lbnQsIHRlc3QgYW5kIGlzb2xhdGUKcHJvYmxlbXMu
+IEFsc28sIGFib3V0IHRoZSBoZWFkZXIgeW91IGFkZGVkIHRvIHRoZSBVVkQgZmlybXdhcmUsIHRo
+aXMgaXMKb25lIHdheSB0byBkbyBpdCwgb3IgeW91IGNvdWxkIGJhY2twb3J0IGhvdyBpdCBpcyBk
+b25lIHVuZGVyIHJhZGVvbi4KVGhpcyBpcyB0aGUgcGF0aCBJJ3ZlIGNob3NlbiBmb3Igbm93IHVu
+ZGVyIFZDRS4KCkknbGwgZ2l2ZSBhIGxvb2sgYXQgeW91ciBwYXRjaC4KCkNoZWVycy4KCi0tIApB
+bGV4YW5kcmUgRGVtZXJzCgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Cg==
