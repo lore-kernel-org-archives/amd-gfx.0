@@ -1,60 +1,75 @@
-From: =?UTF-8?q?Christian=20K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: [PATCH] dma-fence: fix dma_fence_get_rcu_safe
-Date: Mon,  4 Sep 2017 15:16:34 +0200
-Message-ID: <1504530994-2464-1-git-send-email-deathsimple@vodafone.de>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple@vodafone.de>
+Subject: Re: [PATCH] dma-fence: fix dma_fence_get_rcu_safe
+Date: Mon, 4 Sep 2017 17:50:08 +0200
+Message-ID: <1e4e8c81-5ad3-4042-0a77-4f8ee1b8f403@vodafone.de>
+References: <1504530994-2464-1-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-media-owner@vger.kernel.org>
+In-Reply-To: <1504530994-2464-1-git-send-email-deathsimple@vodafone.de>
+Content-Language: en-US
+Sender: linux-media-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>, Daniel Vetter <daniel.vetter@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>, "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKVGhlIGxv
-Z2ljIGlzIGJ1Z2d5IGFuZCB1bm5lY2Vzc2FyeSBjb21wbGV4LiBXaGVuIGRtYV9mZW5jZV9nZXRf
-cmN1KCkgZmFpbHMgdG8KYWNxdWlyZSBhIHJlZmVyZW5jZSBpdCBkb2Vzbid0IG5lY2Vzc2FyeSBt
-ZWFuIHRoYXQgdGhlcmUgaXMgbm8gZmVuY2UgYXQgYWxsLgoKSXQgdXN1YWxseSBtZWFuIHRoYXQg
-dGhlIGZlbmNlIHdhcyByZXBsYWNlZCBieSBhIG5ldyBvbmUgYW5kIGluIHRoaXMgc2l0dWF0aW9u
-CndlIGNlcnRhaW5seSB3YW50IHRvIGhhdmUgdGhlIG5ldyBvbmUgYXMgcmVzdWx0IGFuZCAqTk9U
-KiBOVUxMLgoKU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5p
-Z0BhbWQuY29tPgpDYzogQ2hyaXMgV2lsc29uIDxjaHJpc0BjaHJpcy13aWxzb24uY28udWs+CkNj
-OiBEYW5pZWwgVmV0dGVyIDxkYW5pZWwudmV0dGVyQGZmd2xsLmNoPgpDYzogU3VtaXQgU2Vtd2Fs
-IDxzdW1pdC5zZW13YWxAbGluYXJvLm9yZz4KQ2M6IGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9y
-ZwpDYzogZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpDYzogbGluYXJvLW1tLXNpZ0Bs
-aXN0cy5saW5hcm8ub3JnCi0tLQogaW5jbHVkZS9saW51eC9kbWEtZmVuY2UuaCB8IDIzICsrLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyMSBk
-ZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9pbmNsdWRlL2xpbnV4L2RtYS1mZW5jZS5oIGIvaW5j
-bHVkZS9saW51eC9kbWEtZmVuY2UuaAppbmRleCBhNTE5NWE3Li4zN2YzZDY3IDEwMDY0NAotLS0g
-YS9pbmNsdWRlL2xpbnV4L2RtYS1mZW5jZS5oCisrKyBiL2luY2x1ZGUvbGludXgvZG1hLWZlbmNl
-LmgKQEAgLTI0NiwyNyArMjQ2LDggQEAgZG1hX2ZlbmNlX2dldF9yY3Vfc2FmZShzdHJ1Y3QgZG1h
-X2ZlbmNlICogX19yY3UgKmZlbmNlcCkKIAkJc3RydWN0IGRtYV9mZW5jZSAqZmVuY2U7CiAKIAkJ
-ZmVuY2UgPSByY3VfZGVyZWZlcmVuY2UoKmZlbmNlcCk7Ci0JCWlmICghZmVuY2UgfHwgIWRtYV9m
-ZW5jZV9nZXRfcmN1KGZlbmNlKSkKLQkJCXJldHVybiBOVUxMOwotCi0JCS8qIFRoZSBhdG9taWNf
-aW5jX25vdF96ZXJvKCkgaW5zaWRlIGRtYV9mZW5jZV9nZXRfcmN1KCkKLQkJICogcHJvdmlkZXMg
-YSBmdWxsIG1lbW9yeSBiYXJyaWVyIHVwb24gc3VjY2VzcyAoc3VjaCBhcyBub3cpLgotCQkgKiBU
-aGlzIGlzIHBhaXJlZCB3aXRoIHRoZSB3cml0ZSBiYXJyaWVyIGZyb20gYXNzaWduaW5nCi0JCSAq
-IHRvIHRoZSBfX3JjdSBwcm90ZWN0ZWQgZmVuY2UgcG9pbnRlciBzbyB0aGF0IGlmIHRoYXQKLQkJ
-ICogcG9pbnRlciBzdGlsbCBtYXRjaGVzIHRoZSBjdXJyZW50IGZlbmNlLCB3ZSBrbm93IHdlCi0J
-CSAqIGhhdmUgc3VjY2Vzc2Z1bGx5IGFjcXVpcmUgYSByZWZlcmVuY2UgdG8gaXQuIElmIGl0IG5v
-Ci0JCSAqIGxvbmdlciBtYXRjaGVzLCB3ZSBhcmUgaG9sZGluZyBhIHJlZmVyZW5jZSB0byBzb21l
-IG90aGVyCi0JCSAqIHJlYWxsb2NhdGVkIHBvaW50ZXIuIFRoaXMgaXMgcG9zc2libGUgaWYgdGhl
-IGFsbG9jYXRvcgotCQkgKiBpcyB1c2luZyBhIGZyZWVsaXN0IGxpa2UgU0xBQl9UWVBFU0FGRV9C
-WV9SQ1Ugd2hlcmUgdGhlCi0JCSAqIGZlbmNlIHJlbWFpbnMgdmFsaWQgZm9yIHRoZSBSQ1UgZ3Jh
-Y2UgcGVyaW9kLCBidXQgaXQKLQkJICogbWF5IGJlIHJlYWxsb2NhdGVkLiBXaGVuIHVzaW5nIHN1
-Y2ggYWxsb2NhdG9ycywgd2UgYXJlCi0JCSAqIHJlc3BvbnNpYmxlIGZvciBlbnN1cmluZyB0aGUg
-cmVmZXJlbmNlIHdlIGdldCBpcyB0bwotCQkgKiB0aGUgcmlnaHQgZmVuY2UsIGFzIGJlbG93Lgot
-CQkgKi8KLQkJaWYgKGZlbmNlID09IHJjdV9hY2Nlc3NfcG9pbnRlcigqZmVuY2VwKSkKLQkJCXJl
-dHVybiByY3VfcG9pbnRlcl9oYW5kb2ZmKGZlbmNlKTsKLQotCQlkbWFfZmVuY2VfcHV0KGZlbmNl
-KTsKKwkJaWYgKCFmZW5jZSB8fCBkbWFfZmVuY2VfZ2V0X3JjdShmZW5jZSkpCisJCQlyZXR1cm4g
-ZmVuY2U7CiAJfSB3aGlsZSAoMSk7CiB9CiAKLS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2FtZC1nZngK
+I really wonder what's wrong with my mail client, but it looks like this 
+patch never made it at least to dri-devel.
+
+Forwarding manually now,
+Christian.
+
+Am 04.09.2017 um 15:16 schrieb Christian König:
+> From: Christian König <christian.koenig@amd.com>
+>
+> The logic is buggy and unnecessary complex. When dma_fence_get_rcu() fails to
+> acquire a reference it doesn't necessary mean that there is no fence at all.
+>
+> It usually mean that the fence was replaced by a new one and in this situation
+> we certainly want to have the new one as result and *NOT* NULL.
+>
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> Cc: Chris Wilson <chris@chris-wilson.co.uk>
+> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
+> Cc: Sumit Semwal <sumit.semwal@linaro.org>
+> Cc: linux-media@vger.kernel.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linaro-mm-sig@lists.linaro.org
+> ---
+>   include/linux/dma-fence.h | 23 ++---------------------
+>   1 file changed, 2 insertions(+), 21 deletions(-)
+>
+> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+> index a5195a7..37f3d67 100644
+> --- a/include/linux/dma-fence.h
+> +++ b/include/linux/dma-fence.h
+> @@ -246,27 +246,8 @@ dma_fence_get_rcu_safe(struct dma_fence * __rcu *fencep)
+>   		struct dma_fence *fence;
+>   
+>   		fence = rcu_dereference(*fencep);
+> -		if (!fence || !dma_fence_get_rcu(fence))
+> -			return NULL;
+> -
+> -		/* The atomic_inc_not_zero() inside dma_fence_get_rcu()
+> -		 * provides a full memory barrier upon success (such as now).
+> -		 * This is paired with the write barrier from assigning
+> -		 * to the __rcu protected fence pointer so that if that
+> -		 * pointer still matches the current fence, we know we
+> -		 * have successfully acquire a reference to it. If it no
+> -		 * longer matches, we are holding a reference to some other
+> -		 * reallocated pointer. This is possible if the allocator
+> -		 * is using a freelist like SLAB_TYPESAFE_BY_RCU where the
+> -		 * fence remains valid for the RCU grace period, but it
+> -		 * may be reallocated. When using such allocators, we are
+> -		 * responsible for ensuring the reference we get is to
+> -		 * the right fence, as below.
+> -		 */
+> -		if (fence == rcu_access_pointer(*fencep))
+> -			return rcu_pointer_handoff(fence);
+> -
+> -		dma_fence_put(fence);
+> +		if (!fence || dma_fence_get_rcu(fence))
+> +			return fence;
+>   	} while (1);
+>   }
+>   
