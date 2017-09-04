@@ -1,13 +1,12 @@
-From: "Zhang, Jerry (Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/gfx9: properly set the hdp flush reg for Raven
-Date: Mon, 4 Sep 2017 09:53:35 +0800
-Message-ID: <59ACB21F.6070004@amd.com>
-References: <1504333124-18129-1-git-send-email-alexander.deucher@amd.com>
+From: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: include percpu.h to fix SPARC build
+Date: Mon, 4 Sep 2017 11:54:32 +0300
+Message-ID: <20170904085429.GA1291@odedg-x260>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1504333124-18129-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Disposition: inline
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,26 +17,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+To: alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gMDkvMDIvMjAxNyAwMjoxOCBQTSwgQWxleCBEZXVjaGVyIHdyb3RlOgo+IFdhcyBvbmx5IGJl
-aW5nIGFzc2lnbmVkIGZvciB2ZWdhMTAuCj4KPiBTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIg
-PGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+ClJldmlld2VkLWJ5OiBKdW53ZWkgWmhhbmcgPEpl
-cnJ5LlpoYW5nQGFtZC5jb20+Cgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-Z2Z4X3Y5XzAuYyB8IDQgKysrLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwg
-MSBkZWxldGlvbigtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2dmeF92OV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCj4gaW5k
-ZXggNjZmOTJjOC4uN2ZmNjI0MCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9nZnhfdjlfMC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5
-XzAuYwo+IEBAIC0zNTE0LDcgKzM1MTQsOSBAQCBzdGF0aWMgdm9pZCBnZnhfdjlfMF9yaW5nX2Vt
-aXRfaGRwX2ZsdXNoKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZykKPiAgIAl1MzIgcmVmX2FuZF9t
-YXNrLCByZWdfbWVtX2VuZ2luZTsKPiAgIAlzdHJ1Y3QgbmJpb19oZHBfZmx1c2hfcmVnICpuYmlv
-X2hmX3JlZzsKPgo+IC0JaWYgKHJpbmctPmFkZXYtPmFzaWNfdHlwZSA9PSBDSElQX1ZFR0ExMCkK
-PiArCWlmIChyaW5nLT5hZGV2LT5mbGFncyAmIEFNRF9JU19BUFUpCj4gKwkJbmJpb19oZl9yZWcg
-PSAmbmJpb192N18wX2hkcF9mbHVzaF9yZWc7Cj4gKwllbHNlCj4gICAJCW5iaW9faGZfcmVnID0g
-Jm5iaW9fdjZfMV9oZHBfZmx1c2hfcmVnOwo+Cj4gICAJaWYgKHJpbmctPmZ1bmNzLT50eXBlID09
-IEFNREdQVV9SSU5HX1RZUEVfQ09NUFVURSkgewo+Cl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vYW1kLWdmeAo=
+U2lnbmVkLW9mZi1ieTogT2RlZCBHYWJiYXkgPG9kZWQuZ2FiYmF5QGdtYWlsLmNvbT4KLS0tCiBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkLmggfCAxICsKIDEgZmlsZSBj
+aGFuZ2VkLCAxIGluc2VydGlvbigrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9hbWRrZmQuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9hbWRrZmQuaAppbmRleCA4ZDY4OWFiN2U0MjkuLjIwYmY5MDU0ZTY0ZSAxMDA2NDQKLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5oCisrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuaApAQCAtMjYsNiArMjYsNyBAQAogI2Rl
+ZmluZSBBTURHUFVfQU1ES0ZEX0hfSU5DTFVERUQKIAogI2luY2x1ZGUgPGxpbnV4L3R5cGVzLmg+
+CisjaW5jbHVkZSA8bGludXgvcGVyY3B1Lmg+CiAjaW5jbHVkZSA8bGludXgvbW11X2NvbnRleHQu
+aD4KICNpbmNsdWRlIDxrZ2Rfa2ZkX2ludGVyZmFjZS5oPgogCi0tIAoyLjEzLjUKCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
+aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
