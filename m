@@ -1,75 +1,65 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple@vodafone.de>
-Subject: Re: [PATCH] dma-fence: fix dma_fence_get_rcu_safe
-Date: Mon, 4 Sep 2017 17:50:08 +0200
-Message-ID: <1e4e8c81-5ad3-4042-0a77-4f8ee1b8f403@vodafone.de>
-References: <1504530994-2464-1-git-send-email-deathsimple@vodafone.de>
+From: =?UTF-8?q?Christian=20K=C3=B6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: [PATCH 2/2] drm/ttm: fix ttm_bo_cleanup_refs_or_queue once more
+Date: Mon,  4 Sep 2017 21:02:46 +0200
+Message-ID: <1504551766-5093-2-git-send-email-deathsimple@vodafone.de>
+References: <1504551766-5093-1-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-media-owner@vger.kernel.org>
-In-Reply-To: <1504530994-2464-1-git-send-email-deathsimple@vodafone.de>
-Content-Language: en-US
-Sender: linux-media-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>, Daniel Vetter <daniel.vetter@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>, "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1504551766-5093-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-I really wonder what's wrong with my mail client, but it looks like this 
-patch never made it at least to dri-devel.
-
-Forwarding manually now,
-Christian.
-
-Am 04.09.2017 um 15:16 schrieb Christian König:
-> From: Christian König <christian.koenig@amd.com>
->
-> The logic is buggy and unnecessary complex. When dma_fence_get_rcu() fails to
-> acquire a reference it doesn't necessary mean that there is no fence at all.
->
-> It usually mean that the fence was replaced by a new one and in this situation
-> we certainly want to have the new one as result and *NOT* NULL.
->
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-> Cc: Chris Wilson <chris@chris-wilson.co.uk>
-> Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
-> Cc: Sumit Semwal <sumit.semwal@linaro.org>
-> Cc: linux-media@vger.kernel.org
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linaro-mm-sig@lists.linaro.org
-> ---
->   include/linux/dma-fence.h | 23 ++---------------------
->   1 file changed, 2 insertions(+), 21 deletions(-)
->
-> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-> index a5195a7..37f3d67 100644
-> --- a/include/linux/dma-fence.h
-> +++ b/include/linux/dma-fence.h
-> @@ -246,27 +246,8 @@ dma_fence_get_rcu_safe(struct dma_fence * __rcu *fencep)
->   		struct dma_fence *fence;
->   
->   		fence = rcu_dereference(*fencep);
-> -		if (!fence || !dma_fence_get_rcu(fence))
-> -			return NULL;
-> -
-> -		/* The atomic_inc_not_zero() inside dma_fence_get_rcu()
-> -		 * provides a full memory barrier upon success (such as now).
-> -		 * This is paired with the write barrier from assigning
-> -		 * to the __rcu protected fence pointer so that if that
-> -		 * pointer still matches the current fence, we know we
-> -		 * have successfully acquire a reference to it. If it no
-> -		 * longer matches, we are holding a reference to some other
-> -		 * reallocated pointer. This is possible if the allocator
-> -		 * is using a freelist like SLAB_TYPESAFE_BY_RCU where the
-> -		 * fence remains valid for the RCU grace period, but it
-> -		 * may be reallocated. When using such allocators, we are
-> -		 * responsible for ensuring the reference we get is to
-> -		 * the right fence, as below.
-> -		 */
-> -		if (fence == rcu_access_pointer(*fencep))
-> -			return rcu_pointer_handoff(fence);
-> -
-> -		dma_fence_put(fence);
-> +		if (!fence || dma_fence_get_rcu(fence))
-> +			return fence;
->   	} while (1);
->   }
->   
+RnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKV2l0aCBz
+aGFyZWQgcmVzZXJ2YXRpb24gb2JqZWN0cyBfX3R0bV9ib19yZXNlcnZlKCkgY2FuIGVhc2lseSBm
+YWlsIGV2ZW4gb24KZGVzdHJveWVkIEJPcy4gVGhpcyBwcmV2ZW50cyBjb3JyZWN0IGhhbmRsaW5n
+IHdoZW4gd2UgbmVlZCB0byBpbmRpdmlkdWFsaXplCnRoZSByZXNlcnZhdGlvbiBvYmplY3QuCgpG
+aXggdGhpcyBieSBpbmRpdmlkdWFsaXppbmcgdGhlIG9iamVjdCBiZWZvcmUgZXZlbiB0cnlpbmcg
+dG8gcmVzZXJ2ZSBpdC4KClNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlh
+bi5rb2VuaWdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jIHwgMzIg
+KysrKysrKysrKysrKysrKystLS0tLS0tLS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCAxNyBpbnNl
+cnRpb25zKCspLCAxNSBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+dHRtL3R0bV9iby5jIGIvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm8uYwppbmRleCAxODBjZTYy
+Li5iZWU3N2QzIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jCisrKyBi
+L2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMKQEAgLTQ0MCwyOCArNDQwLDI5IEBAIHN0YXRp
+YyB2b2lkIHR0bV9ib19jbGVhbnVwX3JlZnNfb3JfcXVldWUoc3RydWN0IHR0bV9idWZmZXJfb2Jq
+ZWN0ICpibykKIAlzdHJ1Y3QgdHRtX2JvX2dsb2JhbCAqZ2xvYiA9IGJvLT5nbG9iOwogCWludCBy
+ZXQ7CiAKKwlyZXQgPSB0dG1fYm9faW5kaXZpZHVhbGl6ZV9yZXN2KGJvKTsKKwlpZiAocmV0KSB7
+CisJCS8qIExhc3QgcmVzb3J0LCBpZiB3ZSBmYWlsIHRvIGFsbG9jYXRlIG1lbW9yeSBmb3IgdGhl
+CisJCSAqIGZlbmNlcyBibG9jayBmb3IgdGhlIEJPIHRvIGJlY29tZSBpZGxlCisJCSAqLworCQly
+ZXNlcnZhdGlvbl9vYmplY3Rfd2FpdF90aW1lb3V0X3JjdShiby0+cmVzdiwgdHJ1ZSwgZmFsc2Us
+CisJCQkJCQkgICAgMzAgKiBIWik7CisJCXNwaW5fbG9jaygmZ2xvYi0+bHJ1X2xvY2spOworCQln
+b3RvIGVycm9yOworCX0KKwogCXNwaW5fbG9jaygmZ2xvYi0+bHJ1X2xvY2spOwogCXJldCA9IF9f
+dHRtX2JvX3Jlc2VydmUoYm8sIGZhbHNlLCB0cnVlLCBOVUxMKTsKLQogCWlmICghcmV0KSB7Ci0J
+CWlmICghdHRtX2JvX3dhaXQoYm8sIGZhbHNlLCB0cnVlKSkgeworCQlpZiAocmVzZXJ2YXRpb25f
+b2JqZWN0X3Rlc3Rfc2lnbmFsZWRfcmN1KCZiby0+dHRtX3Jlc3YsIHRydWUpKSB7CiAJCQl0dG1f
+Ym9fZGVsX2Zyb21fbHJ1KGJvKTsKIAkJCXNwaW5fdW5sb2NrKCZnbG9iLT5scnVfbG9jayk7CisJ
+CQlpZiAoYm8tPnJlc3YgIT0gJmJvLT50dG1fcmVzdikKKwkJCQlyZXNlcnZhdGlvbl9vYmplY3Rf
+dW5sb2NrKCZiby0+dHRtX3Jlc3YpOwogCQkJdHRtX2JvX2NsZWFudXBfbWVtdHlwZV91c2UoYm8p
+OwotCiAJCQlyZXR1cm47CiAJCX0KIAotCQlyZXQgPSB0dG1fYm9faW5kaXZpZHVhbGl6ZV9yZXN2
+KGJvKTsKLQkJaWYgKHJldCkgewotCQkJLyogTGFzdCByZXNvcnQsIGlmIHdlIGZhaWwgdG8gYWxs
+b2NhdGUgbWVtb3J5IGZvciB0aGUKLQkJCSAqIGZlbmNlcyBibG9jayBmb3IgdGhlIEJPIHRvIGJl
+Y29tZSBpZGxlIGFuZCBmcmVlIGl0LgotCQkJICovCi0JCQlzcGluX3VubG9jaygmZ2xvYi0+bHJ1
+X2xvY2spOwotCQkJdHRtX2JvX3dhaXQoYm8sIHRydWUsIHRydWUpOwotCQkJdHRtX2JvX2NsZWFu
+dXBfbWVtdHlwZV91c2UoYm8pOwotCQkJcmV0dXJuOwotCQl9CiAJCXR0bV9ib19mbHVzaF9hbGxf
+ZmVuY2VzKGJvKTsKIAogCQkvKgpAQCAtNDc0LDExICs0NzUsMTIgQEAgc3RhdGljIHZvaWQgdHRt
+X2JvX2NsZWFudXBfcmVmc19vcl9xdWV1ZShzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvKQog
+CQkJdHRtX2JvX2FkZF90b19scnUoYm8pOwogCQl9CiAKLQkJaWYgKGJvLT5yZXN2ICE9ICZiby0+
+dHRtX3Jlc3YpCi0JCQlyZXNlcnZhdGlvbl9vYmplY3RfdW5sb2NrKCZiby0+dHRtX3Jlc3YpOwog
+CQlfX3R0bV9ib191bnJlc2VydmUoYm8pOwogCX0KKwlpZiAoYm8tPnJlc3YgIT0gJmJvLT50dG1f
+cmVzdikKKwkJcmVzZXJ2YXRpb25fb2JqZWN0X3VubG9jaygmYm8tPnR0bV9yZXN2KTsKIAorZXJy
+b3I6CiAJa3JlZl9nZXQoJmJvLT5saXN0X2tyZWYpOwogCWxpc3RfYWRkX3RhaWwoJmJvLT5kZGVz
+dHJveSwgJmJkZXYtPmRkZXN0cm95KTsKIAlzcGluX3VubG9jaygmZ2xvYi0+bHJ1X2xvY2spOwot
+LSAKMi43LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
