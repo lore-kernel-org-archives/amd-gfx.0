@@ -1,14 +1,12 @@
-From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: include percpu.h to fix SPARC build
-Date: Tue, 5 Sep 2017 11:48:42 -0400
-Message-ID: <9f2fc0d4-30bc-1639-d51e-00810fdca03b@amd.com>
-References: <20170904085429.GA1291@odedg-x260>
+From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+Subject: unclear code in vega10 pp
+Date: Tue, 5 Sep 2017 12:18:26 -0400
+Message-ID: <04aae9c8-9d67-e3d7-e2b4-a6d14b58b3ed@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170904085429.GA1291@odedg-x260>
-Content-Language: en-CA
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,25 +17,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QWNrZWQtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPgoKQnV0IGlz
-bid0IHRoYXQgYSBidWcgaW4gdGhlIFNQQVJDIGtlcm5lbCBoZWFkZXJzPyBTaG91bGRuJ3QgdGhl
-eSBoYW5kbGUKdGhhdCBkZXBlbmRlbmN5IHJhdGhlciB0aGFuIHB1dHRpbmcgdGhlIHJlc3BvbnNp
-YmlsaXR5IG9uIHVuc3VzcGVjdGluZwp1c2VycyBvZiBtbXVfY29udGV4dC5oPyBJIHNlbnQgYSBx
-dWVzdGlvbiBhYm91dCB0aGlzIHRvIFBhdmVsIFRhdGFzaGluCm9uIEF1ZyAyMiwgYnV0IGhhdmVu
-J3QgaGVhcmQgYmFjayBmcm9tIGhpbS4KClJlZ2FyZHMsCiAgRmVsaXgKCgpPbiAyMDE3LTA5LTA0
-IDA0OjU0IEFNLCBPZGVkIEdhYmJheSB3cm90ZToKPiBTaWduZWQtb2ZmLWJ5OiBPZGVkIEdhYmJh
-eSA8b2RlZC5nYWJiYXlAZ21haWwuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfYW1ka2ZkLmggfCAxICsKPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9u
-KCspCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Ft
-ZGtmZC5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5oCj4gaW5k
-ZXggOGQ2ODlhYjdlNDI5Li4yMGJmOTA1NGU2NGUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5oCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5oCj4gQEAgLTI2LDYgKzI2LDcgQEAKPiAgI2RlZmluZSBB
-TURHUFVfQU1ES0ZEX0hfSU5DTFVERUQKPiAgCj4gICNpbmNsdWRlIDxsaW51eC90eXBlcy5oPgo+
-ICsjaW5jbHVkZSA8bGludXgvcGVyY3B1Lmg+Cj4gICNpbmNsdWRlIDxsaW51eC9tbXVfY29udGV4
-dC5oPgo+ICAjaW5jbHVkZSA8a2dkX2tmZF9pbnRlcmZhY2UuaD4KPiAgCgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+SW4gdmVnYTEwX3BvcHVsYXRlX3NtY19saW5rX2xldmVscygpOiB0aGVyZSdzIHRoaXMgYml0CgoJ
+aiA9IGkgLSAxOwoJd2hpbGUgKGkgPCBOVU1fTElOS19MRVZFTFMpIHsKCQlwcF90YWJsZS0+UGNp
+ZUdlblNwZWVkW2ldID0gcGNpZV90YWJsZS0+cGNpZV9nZW5bal07CgkJcHBfdGFibGUtPlBjaWVM
+YW5lQ291bnRbaV0gPSBwY2llX3RhYmxlLT5wY2llX2xhbmVbal07CgoJCXJlc3VsdCA9IHZlZ2Ex
+MF9wb3B1bGF0ZV9zaW5nbGVfbGNsa19sZXZlbChod21nciwKCQkJCXBjaWVfdGFibGUtPmxjbGtb
+al0sICYocHBfdGFibGUtPkxjbGtEaWRbaV0pKTsKCQlpZiAocmVzdWx0KSB7CgkJCXByX2luZm8o
+IlBvcHVsYXRlIExDbG9jayBMZXZlbCAlZCBGYWlsZWQhXG4iLCBpKTsKCQkJcmV0dXJuIHJlc3Vs
+dDsKCQl9CgkJaSsrOwoJfQoKSXQgc2VlbXMgJ2onIGlzbid0IGNoYW5naW5nIHNvIGl0J3Mgc3Bh
+bW1pbmcgbXVsdGlwbGUgZW50cmllcyBpbiB0aGUgCmxjbGtkaWRbXSBhcnJheSBiYXNlZCBvbiB0
+aGUgc2FtZSBlbnRyaWVzIGZyb20gdGhlIHBjaWVfdGFibGUtPnBjaWUqW2pdLgoKSXMgdGhhdCBp
+bnRlbnRpb25hbCBvciBpcyBhICsrIG9yIC0tIHRvIGogbWlzc2luZz8KCkNoZWVycywKVG9tCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
+bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
