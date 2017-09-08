@@ -1,12 +1,15 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: [ANNOUNCE] xf86-video-amdgpu 1.4.0
-Date: Fri, 8 Sep 2017 16:54:22 +0900
-Message-ID: <0d41db3a-b303-e474-9b3f-1a216052bd7b@daenzer.net>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Subject: Re: [PATCH 6/6] drm/amdgpu: Add gem_prime_mmap support
+Date: Fri, 8 Sep 2017 10:16:19 +0200
+Message-ID: <e70fd0fe-c589-9a12-d75c-6091a3efbabe@vodafone.de>
+References: <1504735644-31225-1-git-send-email-Samuel.Li@amd.com>
+ <30852e0e-85fe-f3ee-26fb-c86ac0038f43@vodafone.de>
+ <d454ab74-2254-49c2-7dab-063e4f6cc770@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1216863400=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-CA
+In-Reply-To: <d454ab74-2254-49c2-7dab-063e4f6cc770-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,101 +20,559 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "xorg-announce-go0+a7rfsptAfugRpC6u6w@public.gmane.org" <xorg-announce-go0+a7rfsptAfugRpC6u6w@public.gmane.org>
-Cc: "xorg-go0+a7rfsptAfugRpC6u6w@public.gmane.org" <xorg-go0+a7rfsptAfugRpC6u6w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Samuel Li <samuel.li-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-CkknbSBwbGVhc2VkIHRvIGFubm91bmNlIHRoZSAxLjQuMCByZWxlYXNlIG9mIHhmODYtdmlkZW8t
-YW1kZ3B1LCB0aGUgWG9yZwpkcml2ZXIgZm9yIEFNRCBSYWRlb24gR1BVcyBzdXBwb3J0ZWQgYnkg
-dGhlIGFtZGdwdSBrZXJuZWwgZHJpdmVyLgpUaGlzIHJlbGVhc2Ugc3VwcG9ydHMgeHNlcnZlciB2
-ZXJzaW9ucyAxLjEzLTEuMTkuCgpIaWdobGlnaHRzOgoKKiBDbGllbnRzIGNhbiBub3cgdXNlIERS
-SSBwYWdlIGZsaXBwaW5nIGV2ZW4gd2hpbGUgVGVhckZyZWUgaXMgZW5hYmxlZAogIGZvciBhbnkg
-Q1JUQy4gVGhpcyBzaG91bGQgaW1wcm92ZSBwZXJmb3JtYW5jZSBvZiBzdWNoIGNsaWVudHMKICAo
-aW5jbHVkaW5nIGNvbXBvc2l0aW5nIG1hbmFnZXJzKSB3aGlsZSBUZWFyRnJlZSBpcyBlbmFibGVk
-LCBhbmQgYXZvaWQKICBvdGhlciBpc3N1ZXMgc3VjaCBhcyB0ZWFyaW5nIG9uIG90aGVyIENSVENz
-IHdoZXJlIFRlYXJGcmVlIGlzbid0CiAgZW5hYmxlZC4KKiBUaGUgZHJpdmVyIG5vdyB0YWtlcyBt
-ZWFzdXJlcyB0byBwcmV2ZW50IG90aGVyIERSTSBtYXN0ZXIgcHJvY2Vzc2VzCiAgKHBvdGVudGlh
-bGx5IGZyb20gb3RoZXIgbG9jYWwgdXNlcnMpIGZyb20gYWNjZXNzaW5nIGJ1ZmZlcnMgY3JlYXRl
-ZCBieQogIHRoaXMgZHJpdmVyIHdoaWxlIHN3aXRjaGVkIGF3YXkgdG8gYSBkaWZmZXJlbnQgVlQu
-IE90aGVyIERSTSBtYXN0ZXIKICBwcm9jZXNzZXMgc2hvdWxkIG9ubHkgYmUgYWJsZSB0byBhY2Nl
-c3MgYSBzaW5nbGUgYnVmZmVyIGFueW1vcmUsIHdoaWNoCiAgY29udGFpbnMgb25seSBhbGwtYmxh
-Y2sgcGl4ZWxzLgoqIFRoZSBnYW1tYSByYW1wIGlzIG5vdyBhcHBsaWVkIHRvIHRoZSBIVyBjdXJz
-b3IgYXMgd2VsbCwgc28gdGhlIEhXCiAgY3Vyc29yIGRvZXNuJ3QgbG9vayBvZGQgd2hlbiBlLmcu
-IHVzaW5nIFJlZHNoaWZ0IG9yIHNpbWlsYXIgdG9vbHMuCgpQbHVzIG90aGVyIGltcHJvdmVtZW50
-cyBhbmQgZml4ZXMuIFRoYW5rcyB0byBldmVyeWJvZHkgd2hvIGNvbnRyaWJ1dGVkCnRvIHRoaXMg
-cmVsZWFzZSBpbiBhbnkgd2F5IQoKCkFkYW0gSmFja3NvbiAoMSk6CiAgICAgIG1vZGVzZXR0aW5n
-OiBWYWxpZGF0ZSB0aGUgYXRvbSBmb3IgZW51bSBwcm9wZXJ0aWVzCgpEYW5pZWwgU3RvbmUgKDEp
-OgogICAgICBTZXQgY29ycmVjdCBEUk0gZXZlbnQgY29udGV4dCB2ZXJzaW9uCgpFcmljIEFuaG9s
-dCAoMSk6CiAgICAgIFVzZSBwbGFpbiBnbGFtb3JfZWdsX2NyZWF0ZV90ZXh0dXJlZF9zY3JlZW4o
-KS4KCk1hcnRpbiBQZXJlcyAoMSk6CiAgICAgIG1vZGVzZXR0aW5nOiByZS1zZXQgdGhlIGNydGMn
-cyBtb2RlIHdoZW4gbGluay1zdGF0dXMgZ29lcyBCQUQKCk1pY2hlbCBEw6RuemVyICg0NSk6CiAg
-ICAgIFBvc3QtcmVsZWFzZSB2ZXJzaW9uIGJ1bXAKICAgICAgbWFucGFnZTogRG9uJ3QgcHV0ICIn
-IiBhdCB0aGUgYmVnaW5uaW5nIG9mIGEgbGluZQogICAgICBEb24ndCBzZXQgbW9kZXMgYmVmb3Jl
-IEFNREdQVVdpbmRvd0V4cG9zdXJlc19vbmVzaG90IGlzIGNhbGxlZAogICAgICBBcHBseSBnYW1t
-YSBjb3JyZWN0aW9uIHRvIEhXIGN1cnNvcgogICAgICBSZW1vdmUgdW51c2VkIHN0cnVjdCBtZW1i
-ZXJzIGZyb20gZHJtbW9kZV9kaXNwbGF5LmgKICAgICAgRG9uJ3QgZW5hYmxlIERSSTMgd2l0aG91
-dCBnbGFtb3IKICAgICAgU2ltcGxpZnkgdHJhY2tpbmcgb2YgUFJJTUUgc2Nhbm91dCBwaXhtYXAK
-ICAgICAgVXBkYXRlIFVSTHMKICAgICAgVXNlIHJlZmVyZW5jZSBjb3VudGluZyBmb3IgdHJhY2tp
-bmcgS01TIGZyYW1lYnVmZmVyIGxpZmV0aW1lcwogICAgICBJbXByb3ZlIEFNREdQVVByZUluaXRB
-Y2NlbF9LTVMgbG9nIG1lc3NhZ2VzCiAgICAgIEluY3JlYXNlIHJlZmVyZW5jZSBjb3VudCBvZiBG
-QiBhc3NpZ25lZCB0byBkcm1tb2RlX2NydGMtPmZsaXBfcGVuZGluZwogICAgICBJbXByb3ZlIGRy
-bW1vZGVfZmJfcmVmZXJlbmNlIGRlYnVnZ2luZyBjb2RlCiAgICAgIE9ubHkgY2FsbCBkcm1tb2Rl
-X3NjYW5vdXRfZnJlZSBmb3Igbm9uLUdQVSBzY3JlZW5zIGluIExlYXZlVlQKICAgICAgVXNlIGRy
-bW1vZGVfY3J0Yy0+c2Nhbm91dF9pZCBpbnN0ZWFkIG9mIDAgdG8gY2hlY2sgZm9yIHNjYW5vdXQg
-YnVmZmVyCiAgICAgIElmIGEgVGVhckZyZWUgZmxpcCBmYWlscywgZmFsbCBiYWNrIHRvIG5vbi1U
-ZWFyRnJlZSBvcGVyYXRpb24KICAgICAgQWRkIEFDX0NPTkZJR19NQUNST19ESVJTKFttNF0pIHRv
-IGNvbmZpZ3VyZS5hYwogICAgICBNYWtlZmlsZS5hbTogU2V0IEFDTE9DQUxfQU1GTEFHUyA9IC1J
-IG00CiAgICAgIGF1dG9nZW4uc2g6IFBhc3MgLWYgdG8gYXV0b3JlY29uZgogICAgICBPbmx5IGhh
-bmRsZSByZWZsZWN0aW9uIGluIHRoZSBkcml2ZXIgd2l0aCBYb3JnIDwgMS4xNgogICAgICBVc2Ug
-cm9vdCB3aW5kb3cgKHBpeG1hcCkgaW5zdGVhZCBvZiBzY3JlZW4gcGl4bWFwIGZvciBzY2Fub3V0
-IHVwZGF0ZXMKICAgICAgQWRkIGRybW1vZGVfY3J0Y19jYW5fZmxpcCBoZWxwZXIKICAgICAgQWxs
-b3cgRFJJIHBhZ2UgZmxpcHBpbmcgd2hlbiBzb21lIENSVENzIHVzZSBzZXBhcmF0ZSBzY2Fub3V0
-IGJ1ZmZlcnMKICAgICAgQWRhcHQgdG8gUGl4bWFwRGlydHlVcGRhdGVSZWM6OnNyYyBiZWluZyBh
-IERyYXdhYmxlUHRyCiAgICAgIFJlbW92ZSBkcm1tb2RlX2NydGMtPnNjYW5vdXRfZGVzdHJveVtd
-IGFycmF5CiAgICAgIFBhc3MgcmVmZXJlbmNlIENSVEMgdG8gYW1kZ3B1X2RvX3BhZ2VmbGlwIGRp
-cmVjdGx5CiAgICAgIENyZWF0ZSBkcm1tb2RlX3dhaXRfdmJsYW5rIGhlbHBlcgogICAgICBDcmVh
-dGUgZHJtbW9kZV9jcnRjX3dhaXRfcGVuZGluZ19ldmVudCBoZWxwZXIgbWFjcm8KICAgICAgV2Fp
-dCBmb3IgcGVuZGluZyBmbGlwcyBzeW5jaHJvbm91c2x5IGJlZm9yZSB0dXJuaW5nIG9mZiBhIENS
-VEMKICAgICAgSGFuZGxlIG11bHRpcGxlICJwZW5kaW5nIiBQcmVzZW50IGZsaXBzCiAgICAgIEFk
-ZCBzb3VyY2UgZHJhd2FibGUgcGFyYW1ldGVyIHRvIGFtZGdwdV9zY2Fub3V0X2RvX3VwZGF0ZQog
-ICAgICBQYXNzIGV4dGVudHMgdG8gYW1kZ3B1X3NjYW5vdXRfZG9fdXBkYXRlCiAgICAgIEFsd2F5
-cyBhbGxvdyBQcmVzZW50IHBhZ2UgZmxpcHBpbmcgd2l0aCBUZWFyRnJlZQogICAgICBBbHdheXMg
-YWxsb3cgRFJJMiBwYWdlIGZsaXBwaW5nIHdpdGggVGVhckZyZWUKICAgICAgQ29uc29saWRhdGUg
-YW1kZ3B1X3NjYW5vdXRfZmxpcF9hYm9ydC9oYW5kbGVyIGhlbHBlcnMKICAgICAgVXNlIHhvcmdf
-bGlzdF9hcHBlbmQgZm9yIHRoZSBEUk0gZXZlbnQgbGlzdAogICAgICBNYWtlIGFtZGdwdV9zY2Fu
-b3V0X2RvX3VwZGF0ZSB0YWtlIGEgUGl4bWFwUHRyIGluc3RlYWQgb2YgYSBEcmF3YWJsZVB0cgog
-ICAgICBDcmVhdGUgYW1kZ3B1X3BpeG1hcF9jbGVhciBoZWxwZXIKICAgICAgQ3JlYXRlIGRybW1v
-ZGVfc2V0X21vZGUgaGVscGVyCiAgICAgIENyZWF0ZSBhbWRncHVfcGl4bWFwX2dldF9mYl9wdHIg
-aGVscGVyCiAgICAgIENyZWF0ZSBhbWRncHVfbWFzdGVyX3NjcmVlbiBoZWxwZXIKICAgICAgTWFr
-ZSBhbGwgYWN0aXZlIENSVENzIHNjYW4gb3V0IGFuIGFsbC1ibGFjayBmcmFtZWJ1ZmZlciBpbiBM
-ZWF2ZVZUCiAgICAgIFJlbW92ZSBkcm1tb2RlX3NjYW5vdXRfZnJlZQogICAgICBVc2UgYSB0aW1l
-ciBmb3IgdW5yZWZlcmVuY2luZyB0aGUgYWxsLWJsYWNrIEZCCiAgICAgIFJlcXVpcmUgeHNlcnZl
-ciA+PSAxLjEzCiAgICAgIEJ1bXAgdmVyc2lvbiBmb3IgMS40LjAgcmVsZWFzZQoKTmljaG9sYXMg
-TW9sbG95ICgxKToKICAgICAgRml4IGEgbWlzc3BlbGxpbmcgb2YgJ2FjY2VsZXJhdGlvbicgaW4g
-YW1kZ3B1X2ttcy5jCgpnaXQgdGFnOiB4Zjg2LXZpZGVvLWFtZGdwdS0xLjQuMAoKaHR0cHM6Ly94
-b3JnLmZyZWVkZXNrdG9wLm9yZy9hcmNoaXZlL2luZGl2aWR1YWwvZHJpdmVyL3hmODYtdmlkZW8t
-YW1kZ3B1LTEuNC4wLnRhci5iejIKTUQ1OiAgMTVhNTRmMGE3ODcwYTU3ZTNmNjExYzkxMTQ5MjQx
-MzcgIHhmODYtdmlkZW8tYW1kZ3B1LTEuNC4wLnRhci5iejIKU0hBMTogZDk5NzFjYzYxNzcwOTUy
-MTlhNjY4NzMyOGFlZjI1YTcyZGYzZGQ5ZCAgeGY4Ni12aWRlby1hbWRncHUtMS40LjAudGFyLmJ6
-MgpTSEEyNTY6IGY4Y2FjNGJmM2RkNzk1YjkzY2MzMzdlNWMwYzYyNjE4MDI2ZjU5Nzg5MGExMGQ5
-OTZmMDljNzNlYjg4YmE2N2MgIHhmODYtdmlkZW8tYW1kZ3B1LTEuNC4wLnRhci5iejIKU0hBNTEy
-OiBjYWU2NDE3YTQ1ZjZiOTgxZTAwN2UwODA0ODYwODNmMWMzOGVhY2E1OGM2ZTMzMWIwNGJiZjQ2
-Yzg2ZjIzMzk0NzQyYTcyMmFlMGQ3OThkOGRjYWQ2Njg3OWU5OWQ5MGU1N2YwNGFlOWNjYjE5OGYz
-ZWQyNmVjNzQ1ODc4Y2NjMiAgeGY4Ni12aWRlby1hbWRncHUtMS40LjAudGFyLmJ6MgpQR1A6ICBo
-dHRwczovL3hvcmcuZnJlZWRlc2t0b3Aub3JnL2FyY2hpdmUvaW5kaXZpZHVhbC9kcml2ZXIveGY4
-Ni12aWRlby1hbWRncHUtMS40LjAudGFyLmJ6Mi5zaWcKCmh0dHBzOi8veG9yZy5mcmVlZGVza3Rv
-cC5vcmcvYXJjaGl2ZS9pbmRpdmlkdWFsL2RyaXZlci94Zjg2LXZpZGVvLWFtZGdwdS0xLjQuMC50
-YXIuZ3oKTUQ1OiAgMTIxYzNjYzc1NTU4OThlMjZkMGU5NjMwNmRkMDE1NDQgIHhmODYtdmlkZW8t
-YW1kZ3B1LTEuNC4wLnRhci5negpTSEExOiA5ZjQ2NjU4NzE5MTk0ZjgyZmM0OGM2ZTlmNjY2Zjc5
-MzMyMmUxNTYzICB4Zjg2LXZpZGVvLWFtZGdwdS0xLjQuMC50YXIuZ3oKU0hBMjU2OiA2MTQ1ODk4
-ODY1OWY2NjJlNzk3M2M4Y2U2YTkxNThiYmQyYzllZGQ4MmM5MmVhZThmYTA2ODI0NWQ5ZGRjNDgy
-ICB4Zjg2LXZpZGVvLWFtZGdwdS0xLjQuMC50YXIuZ3oKU0hBNTEyOiA2YjBhMDQyNmM4M2JhNTgw
-MmM0YjYzOWI1MjQ5ODZlNzI1ZjMxNzJlZWE2Nzk1ZTA2ZjQwNGZhMWQ3NTc0ZTBkNTIzMjRiN2Uz
-MjFhZGE3N2YzYTkwZTQ2ZDlkYjE5YjA1MDMwMWEwMTVkZTEzNTMyNzlmMTc1ZTBhZmZhZDE1YyAg
-eGY4Ni12aWRlby1hbWRncHUtMS40LjAudGFyLmd6ClBHUDogIGh0dHBzOi8veG9yZy5mcmVlZGVz
-a3RvcC5vcmcvYXJjaGl2ZS9pbmRpdmlkdWFsL2RyaXZlci94Zjg2LXZpZGVvLWFtZGdwdS0xLjQu
-MC50YXIuZ3ouc2lnCgoKLS0gCkVhcnRobGluZyBNaWNoZWwgRMOkbnplciAgICAgICAgICAgICAg
-IHwgICAgICAgICAgICAgICBodHRwOi8vd3d3LmFtZC5jb20KTGlicmUgc29mdHdhcmUgZW50aHVz
-aWFzdCAgICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2ZWxvcGVyCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
-ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This is a multi-part message in MIME format.
+--===============1216863400==
+Content-Type: multipart/alternative;
+ boundary="------------8681E6402CD89B7C56D3558D"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------8681E6402CD89B7C56D3558D
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Am 08.09.2017 um 00:17 schrieb Samuel Li:
+> >>+    if (write)
+> >>+        amdgpu_asic_invalidate_hdp(adev);
+> > You can drop the HDP invalidation here. amdgpu_gem_prime_pin() will 
+> pin the BO into system memory.
+>
+> My understanding here is between CPU and GPU access, the 
+> invalidate/flush is still needed, since amdgpu_gem_prime_pin() does 
+> not do that.
+
+That understanding is incorrect. The HDP is a small read/write cache 
+between the CPU and the VRAM.
+
+So an HDP invalidate/flush is always needed when you want to access VRAM 
+(local memory), since amdgpu_gem_prime_pin() pins the memory into system 
+memory that is not necessary.
+
+> For this one, I might need to move the invalidate() before pin(). 
+> Thoughts?
+>
+> > BTW: You mixed up flush and invalidate. If we need to implement CPU 
+> access to VRAM you need to flush when the cpu access starts and 
+> invalidate when it ends.
+> As per the doc I forwarded to you (HDP coherency check), I think the 
+> code here is correct.
+
+That might be correct. Need to double check the HDP documentation once more.
+
+Anyway as long as we pin to system memory the whole HDP handling here is 
+unnecessary anyway, so please remove that.
+
+Regards,
+Christian.
+
+>
+> Regards,
+> Sam
+>
+>
+>
+>
+> On 2017-09-07 03:02 AM, Christian König wrote:
+> Am 07.09.2017 um 00:07 schrieb Samuel Li:
+>> Signed-off-by: Samuel Li <Samuel.Li-5C7GfCeVMHo@public.gmane.org>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu.h       |  3 +
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c   |  3 +-
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c | 95 
+>> ++++++++++++++++++++++++++++++-
+>>   3 files changed, 99 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>> index 6f262ce..3c43acf 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+>> @@ -395,11 +395,14 @@ amdgpu_gem_prime_import_sg_table(struct 
+>> drm_device *dev,
+>>   struct dma_buf *amdgpu_gem_prime_export(struct drm_device *dev,
+>>                       struct drm_gem_object *gobj,
+>>                       int flags);
+>> +struct drm_gem_object *amdgpu_gem_prime_import(struct drm_device *dev,
+>> +                        struct dma_buf *dma_buf);
+>>   int amdgpu_gem_prime_pin(struct drm_gem_object *obj);
+>>   void amdgpu_gem_prime_unpin(struct drm_gem_object *obj);
+>>   struct reservation_object *amdgpu_gem_prime_res_obj(struct 
+>> drm_gem_object *);
+>>   void *amdgpu_gem_prime_vmap(struct drm_gem_object *obj);
+>>   void amdgpu_gem_prime_vunmap(struct drm_gem_object *obj, void *vaddr);
+>> +int amdgpu_gem_prime_mmap(struct drm_gem_object *obj, struct 
+>> vm_area_struct *vma);
+>>   int amdgpu_gem_debugfs_init(struct amdgpu_device *adev);
+>>     /* sub-allocation manager, it has to be protected by another lock.
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>> index 2cdf844..9b63ac5 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>> @@ -835,7 +835,7 @@ static struct drm_driver kms_driver = {
+>>       .prime_handle_to_fd = drm_gem_prime_handle_to_fd,
+>>       .prime_fd_to_handle = drm_gem_prime_fd_to_handle,
+>>       .gem_prime_export = amdgpu_gem_prime_export,
+>> -    .gem_prime_import = drm_gem_prime_import,
+>> +    .gem_prime_import = amdgpu_gem_prime_import,
+>>       .gem_prime_pin = amdgpu_gem_prime_pin,
+>>       .gem_prime_unpin = amdgpu_gem_prime_unpin,
+>>       .gem_prime_res_obj = amdgpu_gem_prime_res_obj,
+>> @@ -843,6 +843,7 @@ static struct drm_driver kms_driver = {
+>>       .gem_prime_import_sg_table = amdgpu_gem_prime_import_sg_table,
+>>       .gem_prime_vmap = amdgpu_gem_prime_vmap,
+>>       .gem_prime_vunmap = amdgpu_gem_prime_vunmap,
+>> +    .gem_prime_mmap = amdgpu_gem_prime_mmap,
+>>         .name = DRIVER_NAME,
+>>       .desc = DRIVER_DESC,
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c 
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
+>> index 5b3f928..629a654 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
+>> @@ -57,6 +57,42 @@ void amdgpu_gem_prime_vunmap(struct drm_gem_object 
+>> *obj, void *vaddr)
+>>       ttm_bo_kunmap(&bo->dma_buf_vmap);
+>>   }
+>>   +int amdgpu_gem_prime_mmap(struct drm_gem_object *obj, struct 
+>> vm_area_struct *vma)
+>> +{
+>> +    struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
+>> +    struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
+>> +    unsigned asize = amdgpu_bo_size(bo);
+>> +    int ret;
+>> +
+>> +    if (!obj->filp || !vma->vm_file)
+>> +        return -ENODEV;
+>> +
+>> +    if (adev == NULL)
+>> +        return -ENODEV;
+>> +
+>> +    /* Check for valid size. */
+>> +    if (asize < vma->vm_end - vma->vm_start)
+>> +        return -EINVAL;
+>> +
+>> +    if (amdgpu_ttm_tt_get_usermm(bo->tbo.ttm) ||
+>> +        (bo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS)) {
+>> +        return -EPERM;
+>> +    }
+>> +    vma->vm_pgoff = amdgpu_bo_mmap_offset(bo) >> PAGE_SHIFT;
+>> +
+>> +    /* prime mmap does not need to check access, so allow here */
+>> +    ret = drm_vma_node_allow(&obj->vma_node, 
+>> vma->vm_file->private_data);
+>> +    if (ret)
+>> +        return ret;
+>> +
+>> +    ret = ttm_bo_mmap(vma->vm_file, vma, &adev->mman.bdev);
+>> +    drm_vma_node_revoke(&obj->vma_node, vma->vm_file->private_data);
+>> +    if (ret)
+>> +        return ret;
+>> +
+>> +    return 0;
+>> +}
+>> +
+>>   struct drm_gem_object *
+>>   amdgpu_gem_prime_import_sg_table(struct drm_device *dev,
+>>                    struct dma_buf_attachment *attach,
+>> @@ -130,14 +166,71 @@ struct reservation_object 
+>> *amdgpu_gem_prime_res_obj(struct drm_gem_object *obj)
+>>       return bo->tbo.resv;
+>>   }
+>>   +static int amdgpu_gem_begin_cpu_access(struct dma_buf *dma_buf, 
+>> enum dma_data_direction direction)
+>> +{
+>> +    struct amdgpu_bo *bo = gem_to_amdgpu_bo(dma_buf->priv);
+>> +    struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
+>> +    bool write = (direction == DMA_BIDIRECTIONAL || direction == 
+>> DMA_TO_DEVICE);
+>> +    int ret;
+>> +
+>> +    ret = amdgpu_gem_prime_pin(dma_buf->priv);
+>> +    if (ret)
+>> +        return ret;
+>> +    /* invalidate the HDP read cache */
+>> +    if (write)
+>> +        amdgpu_asic_invalidate_hdp(adev);
+>
+> You can drop the HDP invalidation here. amdgpu_gem_prime_pin() will 
+> pin the BO into system memory.
+>
+>> +
+>> +    return ret;
+>> +}
+>> +
+>> +static int amdgpu_gem_end_cpu_access(struct dma_buf *dma_buf, enum 
+>> dma_data_direction direction)
+>> +{
+>> +    struct amdgpu_bo *bo = gem_to_amdgpu_bo(dma_buf->priv);
+>> +    struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
+>> +
+>> +    /* flush hdp write queue */
+>> +    amdgpu_asic_flush_hdp(adev);
+>
+> Dito, HDP flush is completely unnecessary here.
+>
+> BTW: You mixed up flush and invalidate. If we need to implement CPU 
+> access to VRAM you need to flush when the cpu access starts and 
+> invalidate when it ends.
+>
+> Regards,
+> Christian.
+>
+>> + amdgpu_gem_prime_unpin(dma_buf->priv);
+>> +    return 0;
+>> +}
+>> +
+>> +static struct dma_buf_ops amdgpu_dmabuf_ops;
+>> +
+>>   struct dma_buf *amdgpu_gem_prime_export(struct drm_device *dev,
+>>                       struct drm_gem_object *gobj,
+>>                       int flags)
+>>   {
+>>       struct amdgpu_bo *bo = gem_to_amdgpu_bo(gobj);
+>> +    struct dma_buf *dma_buf;
+>>         if (amdgpu_ttm_tt_get_usermm(bo->tbo.ttm))
+>>           return ERR_PTR(-EPERM);
+>>   -    return drm_gem_prime_export(dev, gobj, flags);
+>> +    dma_buf = drm_gem_prime_export(dev, gobj, flags);
+>> +    amdgpu_dmabuf_ops = *(dma_buf->ops);
+>> +    amdgpu_dmabuf_ops.begin_cpu_access = amdgpu_gem_begin_cpu_access;
+>> +    amdgpu_dmabuf_ops.end_cpu_access = amdgpu_gem_end_cpu_access;
+>> +    dma_buf->ops = &amdgpu_dmabuf_ops;
+>> +
+>> +    return dma_buf;
+>> +}
+>> +
+>> +struct drm_gem_object *amdgpu_gem_prime_import(struct drm_device *dev,
+>> +                        struct dma_buf *dma_buf)
+>> +{
+>> +    struct drm_gem_object *obj;
+>> +
+>> +    if (dma_buf->ops == &amdgpu_dmabuf_ops) {
+>> +        obj = dma_buf->priv;
+>> +        if (obj->dev == dev) {
+>> +            /*
+>> +             * Importing dmabuf exported from out own gem increases
+>> +             * refcount on gem itself instead of f_count of dmabuf.
+>> +             */
+>> +            drm_gem_object_get(obj);
+>> +            return obj;
+>> +        }
+>> +    }
+>> +
+>> +    return drm_gem_prime_import(dev, dma_buf);
+>>   }
+>
+>
+>
+
+
+--------------8681E6402CD89B7C56D3558D
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Am 08.09.2017 um 00:17 schrieb Samuel
+      Li:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:d454ab74-2254-49c2-7dab-063e4f6cc770-5C7GfCeVMHo@public.gmane.org">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <div class="moz-cite-prefix">&gt;&gt;+    if (write) <br>
+        &gt;&gt;+        amdgpu_asic_invalidate_hdp(adev); <br>
+        &gt; You can drop the HDP invalidation here.
+        amdgpu_gem_prime_pin() will pin the BO into system memory. <br>
+        <br>
+        My understanding here is between CPU and GPU access, the
+        invalidate/flush is still needed, since amdgpu_gem_prime_pin()
+        does not do that.<br>
+      </div>
+    </blockquote>
+    <br>
+    That understanding is incorrect. The HDP is a small read/write cache
+    between the CPU and the VRAM.<br>
+    <br>
+    So an HDP invalidate/flush is always needed when you want to access
+    VRAM (local memory), since amdgpu_gem_prime_pin() pins the memory
+    into system memory that is not necessary.<br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:d454ab74-2254-49c2-7dab-063e4f6cc770-5C7GfCeVMHo@public.gmane.org">
+      <div class="moz-cite-prefix"> For this one, I might need to move
+        the invalidate() before pin(). Thoughts?<br>
+        <br>
+        &gt; BTW: You mixed up flush and invalidate. If we need to
+        implement CPU access to VRAM you need to flush when the cpu
+        access starts and invalidate when it ends. <br>
+        As per the doc I forwarded to you (HDP coherency check), I think
+        the code here is correct.<br>
+      </div>
+    </blockquote>
+    <br>
+    That might be correct. Need to double check the HDP documentation
+    once more.<br>
+    <br>
+    Anyway as long as we pin to system memory the whole HDP handling
+    here is unnecessary anyway, so please remove that.<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:d454ab74-2254-49c2-7dab-063e4f6cc770-5C7GfCeVMHo@public.gmane.org">
+      <div class="moz-cite-prefix"> <br>
+        Regards,<br>
+        Sam<br>
+        <br>
+        <br>
+        <br>
+        <br>
+        On 2017-09-07 03:02 AM, Christian König wrote:<br>
+      </div>
+      Am 07.09.2017 um 00:07 schrieb Samuel Li: <br>
+      <blockquote type="cite">Signed-off-by: Samuel Li <a
+          class="moz-txt-link-rfc2396E" href="mailto:Samuel.Li-5C7GfCeVMHo@public.gmane.org"
+          moz-do-not-send="true">&lt;Samuel.Li-5C7GfCeVMHo@public.gmane.org&gt;</a> <br>
+        --- <br>
+          drivers/gpu/drm/amd/amdgpu/amdgpu.h       |  3 + <br>
+          drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c   |  3 +- <br>
+          drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c | 95
+        ++++++++++++++++++++++++++++++- <br>
+          3 files changed, 99 insertions(+), 2 deletions(-) <br>
+        <br>
+        diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+        b/drivers/gpu/drm/amd/amdgpu/amdgpu.h <br>
+        index 6f262ce..3c43acf 100644 <br>
+        --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h <br>
+        +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h <br>
+        @@ -395,11 +395,14 @@ amdgpu_gem_prime_import_sg_table(struct
+        drm_device *dev, <br>
+          struct dma_buf *amdgpu_gem_prime_export(struct drm_device
+        *dev, <br>
+                              struct drm_gem_object *gobj, <br>
+                              int flags); <br>
+        +struct drm_gem_object *amdgpu_gem_prime_import(struct
+        drm_device *dev, <br>
+        +                        struct dma_buf *dma_buf); <br>
+          int amdgpu_gem_prime_pin(struct drm_gem_object *obj); <br>
+          void amdgpu_gem_prime_unpin(struct drm_gem_object *obj); <br>
+          struct reservation_object *amdgpu_gem_prime_res_obj(struct
+        drm_gem_object *); <br>
+          void *amdgpu_gem_prime_vmap(struct drm_gem_object *obj); <br>
+          void amdgpu_gem_prime_vunmap(struct drm_gem_object *obj, void
+        *vaddr); <br>
+        +int amdgpu_gem_prime_mmap(struct drm_gem_object *obj, struct
+        vm_area_struct *vma); <br>
+          int amdgpu_gem_debugfs_init(struct amdgpu_device *adev); <br>
+            /* sub-allocation manager, it has to be protected by another
+        lock. <br>
+        diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+        b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c <br>
+        index 2cdf844..9b63ac5 100644 <br>
+        --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c <br>
+        +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c <br>
+        @@ -835,7 +835,7 @@ static struct drm_driver kms_driver = { <br>
+              .prime_handle_to_fd = drm_gem_prime_handle_to_fd, <br>
+              .prime_fd_to_handle = drm_gem_prime_fd_to_handle, <br>
+              .gem_prime_export = amdgpu_gem_prime_export, <br>
+        -    .gem_prime_import = drm_gem_prime_import, <br>
+        +    .gem_prime_import = amdgpu_gem_prime_import, <br>
+              .gem_prime_pin = amdgpu_gem_prime_pin, <br>
+              .gem_prime_unpin = amdgpu_gem_prime_unpin, <br>
+              .gem_prime_res_obj = amdgpu_gem_prime_res_obj, <br>
+        @@ -843,6 +843,7 @@ static struct drm_driver kms_driver = { <br>
+              .gem_prime_import_sg_table =
+        amdgpu_gem_prime_import_sg_table, <br>
+              .gem_prime_vmap = amdgpu_gem_prime_vmap, <br>
+              .gem_prime_vunmap = amdgpu_gem_prime_vunmap, <br>
+        +    .gem_prime_mmap = amdgpu_gem_prime_mmap, <br>
+                .name = DRIVER_NAME, <br>
+              .desc = DRIVER_DESC, <br>
+        diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
+        b/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c <br>
+        index 5b3f928..629a654 100644 <br>
+        --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c <br>
+        +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c <br>
+        @@ -57,6 +57,42 @@ void amdgpu_gem_prime_vunmap(struct
+        drm_gem_object *obj, void *vaddr) <br>
+              ttm_bo_kunmap(&amp;bo-&gt;dma_buf_vmap); <br>
+          } <br>
+          +int amdgpu_gem_prime_mmap(struct drm_gem_object *obj, struct
+        vm_area_struct *vma) <br>
+        +{ <br>
+        +    struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj); <br>
+        +    struct amdgpu_device *adev =
+        amdgpu_ttm_adev(bo-&gt;tbo.bdev); <br>
+        +    unsigned asize = amdgpu_bo_size(bo); <br>
+        +    int ret; <br>
+        + <br>
+        +    if (!obj-&gt;filp || !vma-&gt;vm_file) <br>
+        +        return -ENODEV; <br>
+        + <br>
+        +    if (adev == NULL) <br>
+        +        return -ENODEV; <br>
+        + <br>
+        +    /* Check for valid size. */ <br>
+        +    if (asize &lt; vma-&gt;vm_end - vma-&gt;vm_start) <br>
+        +        return -EINVAL; <br>
+        + <br>
+        +    if (amdgpu_ttm_tt_get_usermm(bo-&gt;tbo.ttm) || <br>
+        +        (bo-&gt;flags &amp; AMDGPU_GEM_CREATE_NO_CPU_ACCESS)) {
+        <br>
+        +        return -EPERM; <br>
+        +    } <br>
+        +    vma-&gt;vm_pgoff = amdgpu_bo_mmap_offset(bo) &gt;&gt;
+        PAGE_SHIFT; <br>
+        + <br>
+        +    /* prime mmap does not need to check access, so allow here
+        */ <br>
+        +    ret = drm_vma_node_allow(&amp;obj-&gt;vma_node,
+        vma-&gt;vm_file-&gt;private_data); <br>
+        +    if (ret) <br>
+        +        return ret; <br>
+        + <br>
+        +    ret = ttm_bo_mmap(vma-&gt;vm_file, vma,
+        &amp;adev-&gt;mman.bdev); <br>
+        +    drm_vma_node_revoke(&amp;obj-&gt;vma_node,
+        vma-&gt;vm_file-&gt;private_data); <br>
+        +    if (ret) <br>
+        +        return ret; <br>
+        + <br>
+        +    return 0; <br>
+        +} <br>
+        + <br>
+          struct drm_gem_object * <br>
+          amdgpu_gem_prime_import_sg_table(struct drm_device *dev, <br>
+                           struct dma_buf_attachment *attach, <br>
+        @@ -130,14 +166,71 @@ struct reservation_object
+        *amdgpu_gem_prime_res_obj(struct drm_gem_object *obj) <br>
+              return bo-&gt;tbo.resv; <br>
+          } <br>
+          +static int amdgpu_gem_begin_cpu_access(struct dma_buf
+        *dma_buf, enum dma_data_direction direction) <br>
+        +{ <br>
+        +    struct amdgpu_bo *bo = gem_to_amdgpu_bo(dma_buf-&gt;priv);
+        <br>
+        +    struct amdgpu_device *adev =
+        amdgpu_ttm_adev(bo-&gt;tbo.bdev); <br>
+        +    bool write = (direction == DMA_BIDIRECTIONAL || direction
+        == DMA_TO_DEVICE); <br>
+        +    int ret; <br>
+        + <br>
+        +    ret = amdgpu_gem_prime_pin(dma_buf-&gt;priv); <br>
+        +    if (ret) <br>
+        +        return ret; <br>
+        +    /* invalidate the HDP read cache */ <br>
+        +    if (write) <br>
+        +        amdgpu_asic_invalidate_hdp(adev); <br>
+      </blockquote>
+      <br>
+      You can drop the HDP invalidation here. amdgpu_gem_prime_pin()
+      will pin the BO into system memory. <br>
+      <br>
+      <blockquote type="cite">+ <br>
+        +    return ret; <br>
+        +} <br>
+        + <br>
+        +static int amdgpu_gem_end_cpu_access(struct dma_buf *dma_buf,
+        enum dma_data_direction direction) <br>
+        +{ <br>
+        +    struct amdgpu_bo *bo = gem_to_amdgpu_bo(dma_buf-&gt;priv);
+        <br>
+        +    struct amdgpu_device *adev =
+        amdgpu_ttm_adev(bo-&gt;tbo.bdev); <br>
+        + <br>
+        +    /* flush hdp write queue */ <br>
+        +    amdgpu_asic_flush_hdp(adev); <br>
+      </blockquote>
+      <br>
+      Dito, HDP flush is completely unnecessary here. <br>
+      <br>
+      BTW: You mixed up flush and invalidate. If we need to implement
+      CPU access to VRAM you need to flush when the cpu access starts
+      and invalidate when it ends. <br>
+      <br>
+      Regards, <br>
+      Christian. <br>
+      <br>
+      <blockquote type="cite">+   
+        amdgpu_gem_prime_unpin(dma_buf-&gt;priv); <br>
+        +    return 0; <br>
+        +} <br>
+        + <br>
+        +static struct dma_buf_ops amdgpu_dmabuf_ops; <br>
+        + <br>
+          struct dma_buf *amdgpu_gem_prime_export(struct drm_device
+        *dev, <br>
+                              struct drm_gem_object *gobj, <br>
+                              int flags) <br>
+          { <br>
+              struct amdgpu_bo *bo = gem_to_amdgpu_bo(gobj); <br>
+        +    struct dma_buf *dma_buf; <br>
+                if (amdgpu_ttm_tt_get_usermm(bo-&gt;tbo.ttm)) <br>
+                  return ERR_PTR(-EPERM); <br>
+          -    return drm_gem_prime_export(dev, gobj, flags); <br>
+        +    dma_buf = drm_gem_prime_export(dev, gobj, flags); <br>
+        +    amdgpu_dmabuf_ops = *(dma_buf-&gt;ops); <br>
+        +    amdgpu_dmabuf_ops.begin_cpu_access =
+        amdgpu_gem_begin_cpu_access; <br>
+        +    amdgpu_dmabuf_ops.end_cpu_access =
+        amdgpu_gem_end_cpu_access; <br>
+        +    dma_buf-&gt;ops = &amp;amdgpu_dmabuf_ops; <br>
+        + <br>
+        +    return dma_buf; <br>
+        +} <br>
+        + <br>
+        +struct drm_gem_object *amdgpu_gem_prime_import(struct
+        drm_device *dev, <br>
+        +                        struct dma_buf *dma_buf) <br>
+        +{ <br>
+        +    struct drm_gem_object *obj; <br>
+        + <br>
+        +    if (dma_buf-&gt;ops == &amp;amdgpu_dmabuf_ops) { <br>
+        +        obj = dma_buf-&gt;priv; <br>
+        +        if (obj-&gt;dev == dev) { <br>
+        +            /* <br>
+        +             * Importing dmabuf exported from out own gem
+        increases <br>
+        +             * refcount on gem itself instead of f_count of
+        dmabuf. <br>
+        +             */ <br>
+        +            drm_gem_object_get(obj); <br>
+        +            return obj; <br>
+        +        } <br>
+        +    } <br>
+        + <br>
+        +    return drm_gem_prime_import(dev, dma_buf); <br>
+          } <br>
+      </blockquote>
+      <br>
+      <br>
+      <p><br>
+      </p>
+      <span class="st4cursor"></span> </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------8681E6402CD89B7C56D3558D--
+
+--===============1216863400==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1216863400==--
