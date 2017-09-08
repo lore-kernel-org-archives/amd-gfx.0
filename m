@@ -1,15 +1,15 @@
 From: Alexandre Demers <alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Subject: Re: [PATCH 0/6] Ground foundation for VCE 1 implementation
-Date: Fri, 8 Sep 2017 07:55:57 -0400
-Message-ID: <c24c47ce-6f83-18f2-6064-b07987501afb@gmail.com>
+Date: Fri, 8 Sep 2017 08:06:47 -0400
+Message-ID: <e2b23388-30a3-e927-d51a-569c762c8c99@gmail.com>
 References: <20170908024835.13638-1-alexandre.f.demers@gmail.com>
  <f43717f2-fdbf-91be-1371-38f2102bc202@amd.com>
+ <c24c47ce-6f83-18f2-6064-b07987501afb@gmail.com>
 Reply-To: alexandre.f.demers-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1512023717=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <f43717f2-fdbf-91be-1371-38f2102bc202-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <c24c47ce-6f83-18f2-6064-b07987501afb-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Content-Language: en-GB-large
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -23,64 +23,230 @@ Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-SGkgQ2hyaXN0aWFuIQoKT24gMjAxNy0wOS0wOCAwNDoyNCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90
-ZToKPiBGaXJzdCBvZiBhbGwgcGxlYXNlIHByZWZpeCBhbGwgc3ViamVjdCBsaW5lcyBmb3IgYW1k
-Z3B1IGtlcm5lbCBwYXRjaGVzCj4gd2l0aCBkcm0vYW1kZ3B1LgpZb3UncmUgcmlnaHQsIEkgZm9y
-Z290Lgo+Cj4gQWRkaXRpb25hbCB0byB0aGF0IEkgdGhpbmsgd2Ugd29uJ3QgYWNjZXB0IGxvYWRp
-bmcgZmlybXdhcmUgZmlsZXMgaW4KPiB0aGUgb2xkIGZvcm1hdC4gSW5zdGVhZCBwbGVhc2UganVz
-dCBhZGQgdGhlIGhlYWRlciB0byB0aGUgZmlsZXMuIElmCj4gdGhhdCB0dXJucyBvdXQgdG8gYmUg
-cHJvYmxlbWF0aWMgSSBjYW4gc3RhcnQgbG9va2luZyBpbnRvIHByb3ZpZGluZwo+IHRob3NlLgpO
-b3RlZCwgSSdsbCBkcm9wIHRoZSBjb2RlIGFuZCBJJ2xsIGNyZWF0ZSBhIHRlbXBvcmFyeSBmaXJt
-d2FyZSB3aXRoIHRoZQpuZWVkZWQgaGVhZGVyLiBIb3dldmVyLCBpdCB3b3VsZCBiZSBjb252ZW5p
-ZW50IHRvIHNlZSBuZXdlciBmaXJtd2FyZXMKZm9yIGJvdGggVkNFIGFuZCBVVkQgKGNoZWVycyBU
-cmV2b3IpIGNvbWluZyBmcm9tIGFuIG9mZmljaWFsIHNvdXJjZQooQU1EKS4gTGV0J3MgcmVtb3Zl
-IHRoZSBvbGQgZmlybXdhcmUgbG9hZGluZyBwYXRjaCBhbmQgcHJvcG9zZSBhIGdsdWVkCmZpcm13
-YXJlLgo+Cj4gQXBhcnQgZnJvbSB0aGF0IHRoYW5rcyBhIGxvdCBmb3IgdGhpcyB3b3JrLCB0aGlz
-IGlzIHJlYWxseSB3ZWxjb21lLgo+IEJ1dCBkb2VzIGl0IGFjdHVhbGx5IHdvcms/IEhhdmUgeW91
-IHRlc3RlZCBpdCB3aXRoIG1lc2E/ClRoaXMgd29yayBkb2Vzbid0IGFjdGl2YXRlIGFueSBWQ0Ug
-ZnVuY3Rpb25hbGl0eS4gT24gdGhlIG90aGVyIGhhbmQsIGl0CnNob3VsZG4ndCBicmVhayBhbnl0
-aGluZyBlaXRoZXIuIEl0IG5lZWRzIHRoZSBuZXh0IHNlcmllcyBvZiBwYXRjaGVzLgpXaGlsZSB0
-aGUgZmlybXdhcmUgbG9hZGluZyBhbmQgaW5pdGlhbGl6YXRpb24gc2VlbSB0byBnbyB0aHJvdWdo
-CmNvcnJlY3RseSwgSSdtIGVuY291bnRlcmluZyBoYW5ncyBhdCBib290LiBUaGF0J3Mgd2hlcmUg
-SSdsbCBuZWVkIHNvbWUgaGVscC4KCkknbGwgcG9zdCB0aGUgbmV4dCBzZXJpZXMgaW4gdGhlIG5l
-eHQgZmV3IGRheXMgYXMgYSBSRkMgc28gb3RoZXJzIGNhbgpoZWxwIG1lIGdvIHRocm91Z2guIEkg
-anVzdCBuZWVkIHRvIHNwbGl0IHRoZSBjb2RlIGluIGEgZmV3IHBhdGNoZXMuCgpDaGVlcnMsCkFs
-ZXgKPgo+IFRoYW5rcywKPiBDaHJpc3RpYW4uCj4KPiBBbSAwOC4wOS4yMDE3IHVtIDA0OjQ4IHNj
-aHJpZWIgQWxleGFuZHJlIERlbWVyczoKPj4gVGhpcyBpcyB0aGUgZm91bmRhdGlvbiBmb3IgVkNF
-IDEgaW1wbGVtZW50YXRpb24sIG1vc3RseSBwb3J0ZWQgZnJvbQo+PiByYWRlb24gdG8KPj4gYW1k
-Z3B1LiBUaGlzIHNob3VsZCBoYXZlIG5vIGltcGFjdCBmb3Igbm93IG9uIHRoZSB1c2FiaWxpdHkg
-b2YgdGhlCj4+IGRyaXZlci4gVGhpcwo+PiBpcyB0aGUgcHJldHR5IHN0cmFpZ2h0LWZvcndhcmQg
-cGFydC4gVGhlIGhlYXZpZXIgcGFydCBpcyBjb21pbmcgYXMgYQo+PiBSRkMuCj4+Cj4+IEknZCBs
-aWtlIHRvIGhhdmUgdGhpcyBmaXJzdCBwYXJ0IGF2YWlsYWJsZSB0byBhbGwsIHNpbmNlIEkgZG9u
-J3QgaGF2ZQo+PiBhcyBtdWNoCj4+IHRpbWUgYXMgSSdkIGxpa2UgdG8gd29yayBvbiBWQ0UgMSBm
-b3Igbm93LCBidXQgdGhpcyBjb3VsZCBoZWxwIG90aGVycwo+PiB0byBoZWxwIG1lCj4+IG9uIHRo
-ZSB0YXNrLgo+Pgo+PiBJZiB5b3UgYXJlIG5vdCBzYXRpc2ZpZWQgd2l0aCB0aGlzIGZpcnN0IHNl
-cmllcywgdGhpcyBjYW4gYWxzbyBiZQo+PiBjb25zaWRlcmVkIGFzCj4+IGEgUkZDLiBQbGVhc2Us
-IGNvbW1lbnQgYXMgbmVlZGVkLgo+Pgo+PiBBbGV4YW5kcmUgRGVtZXJzICg2KToKPj4gwqDCoCBB
-ZGQgaW5pdGlhbCBWQ0VfVjFfMCBmaWxlcy4KPj4gwqDCoCBSZW9yZ2FuaXplLCByZW5hbWUsIG1v
-dmUgYW5kIHNwbGl0IHNvbWUgVkNFIDEgZGVmaW5lcy4KPj4gwqDCoCBTbWFsbCBwcmVjaXNpb24g
-d2hlbiBmYWlsaW5nIHRvIGxvYWQgbGVnYWN5IGZpcm13YXJlLgo+PiDCoMKgIE1vdmluZyByZWFk
-IGFuZCB3cml0ZSBwb2ludGVyIGZ1bmN0aW9ucyBmcm9tIHJhZGVvbiB0byBhbWRncHUKPj4gwqDC
-oCBBZGQgc3VwcG9ydCBmb3IgU0kncyBWQ0UgZmlybXdhcmVzICh3aXRoIGFuZCB3aXRob3V0IGhl
-YWRlcikKPj4gwqDCoCBGaXggaW5kZW50YXRpb24uCj4+Cj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV92Y2UuY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAxMDAgKysrKy0t
-Cj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NpLmPCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgMTcgKy0KPj4gwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvc2lfZG1hLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgwqAgNSArLQo+
-PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zaV9paC5jwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgfMKgIDIxICstCj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L3NpZC5owqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCA3MCAtLS0tCj4+
-IMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92MV8wLmPCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCB8IDM5NAo+PiArKysrKysrKysrKysrKysrKysrKysKPj4gwqAgZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvdmNlX3YxXzAuaMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzC
-oCAyOSArKwo+PiDCoCAuLi4vZ3B1L2RybS9hbWQvaW5jbHVkZS9hc2ljX3JlZy92Y2UvdmNlXzFf
-MF9kLmjCoMKgIHzCoCA4MCArKystLQo+PiDCoCAuLi4vZHJtL2FtZC9pbmNsdWRlL2FzaWNfcmVn
-L3ZjZS92Y2VfMV8wX3NoX21hc2suaCB8wqAgMTMgKy0KPj4gwqAgZHJpdmVycy9ncHUvZHJtL3Jh
-ZGVvbi9yYWRlb25fdXZkLmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKgwqAgMiAr
-LQo+PiDCoCAxMCBmaWxlcyBjaGFuZ2VkLCA1ODkgaW5zZXJ0aW9ucygrKSwgMTQyIGRlbGV0aW9u
-cygtKQo+PiDCoCBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-dmNlX3YxXzAuYwo+PiDCoCBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvdmNlX3YxXzAuaAo+Pgo+CgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4Cg==
+This is a multi-part message in MIME format.
+--===============1512023717==
+Content-Type: multipart/alternative;
+ boundary="------------B75FC48DED8BFAE79D9976B5"
+Content-Language: en-GB-large
+
+This is a multi-part message in MIME format.
+--------------B75FC48DED8BFAE79D9976B5
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+Oh and patch 3 "Small precision when failing to load legacy firmware"
+should have been a standalone patch, it is related to the radeon driver.
+I'll send it as so with drm/radeon in the title.
+
+Alexandre Demers
+
+On 2017-09-08 07:55, Alexandre Demers wrote:
+> Hi Christian!
+>
+> On 2017-09-08 04:24, Christian König wrote:
+>> First of all please prefix all subject lines for amdgpu kernel patches
+>> with drm/amdgpu.
+> You're right, I forgot.
+>> Additional to that I think we won't accept loading firmware files in
+>> the old format. Instead please just add the header to the files. If
+>> that turns out to be problematic I can start looking into providing
+>> those.
+> Noted, I'll drop the code and I'll create a temporary firmware with the
+> needed header. However, it would be convenient to see newer firmwares
+> for both VCE and UVD (cheers Trevor) coming from an official source
+> (AMD). Let's remove the old firmware loading patch and propose a glued
+> firmware.
+>> Apart from that thanks a lot for this work, this is really welcome.
+>> But does it actually work? Have you tested it with mesa?
+> This work doesn't activate any VCE functionality. On the other hand, it
+> shouldn't break anything either. It needs the next series of patches.
+> While the firmware loading and initialization seem to go through
+> correctly, I'm encountering hangs at boot. That's where I'll need some help.
+>
+> I'll post the next series in the next few days as a RFC so others can
+> help me go through. I just need to split the code in a few patches.
+>
+> Cheers,
+> Alex
+>> Thanks,
+>> Christian.
+>>
+>> Am 08.09.2017 um 04:48 schrieb Alexandre Demers:
+>>> This is the foundation for VCE 1 implementation, mostly ported from
+>>> radeon to
+>>> amdgpu. This should have no impact for now on the usability of the
+>>> driver. This
+>>> is the pretty straight-forward part. The heavier part is coming as a
+>>> RFC.
+>>>
+>>> I'd like to have this first part available to all, since I don't have
+>>> as much
+>>> time as I'd like to work on VCE 1 for now, but this could help others
+>>> to help me
+>>> on the task.
+>>>
+>>> If you are not satisfied with this first series, this can also be
+>>> considered as
+>>> a RFC. Please, comment as needed.
+>>>
+>>> Alexandre Demers (6):
+>>>    Add initial VCE_V1_0 files.
+>>>    Reorganize, rename, move and split some VCE 1 defines.
+>>>    Small precision when failing to load legacy firmware.
+>>>    Moving read and write pointer functions from radeon to amdgpu
+>>>    Add support for SI's VCE firmwares (with and without header)
+>>>    Fix indentation.
+>>>
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c            | 100 ++++--
+>>>   drivers/gpu/drm/amd/amdgpu/si.c                    |  17 +-
+>>>   drivers/gpu/drm/amd/amdgpu/si_dma.c                |   5 +-
+>>>   drivers/gpu/drm/amd/amdgpu/si_ih.c                 |  21 +-
+>>>   drivers/gpu/drm/amd/amdgpu/sid.h                   |  70 ----
+>>>   drivers/gpu/drm/amd/amdgpu/vce_v1_0.c              | 394
+>>> +++++++++++++++++++++
+>>>   drivers/gpu/drm/amd/amdgpu/vce_v1_0.h              |  29 ++
+>>>   .../gpu/drm/amd/include/asic_reg/vce/vce_1_0_d.h   |  80 +++--
+>>>   .../drm/amd/include/asic_reg/vce/vce_1_0_sh_mask.h |  13 +-
+>>>   drivers/gpu/drm/radeon/radeon_uvd.c                |   2 +-
+>>>   10 files changed, 589 insertions(+), 142 deletions(-)
+>>>   create mode 100644 drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
+>>>   create mode 100644 drivers/gpu/drm/amd/amdgpu/vce_v1_0.h
+>>>
+>
+
+
+--------------B75FC48DED8BFAE79D9976B5
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p>Oh and patch 3 "Small precision when failing to load legacy firmware" should have been a standalone patch, it is related to the radeon driver. I'll send it as so with drm/radeon in the title.
+<style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></p>
+    <pre class="moz-signature" cols="72">Alexandre Demers</pre>
+    <div class="moz-cite-prefix">On 2017-09-08 07:55, Alexandre Demers
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:c24c47ce-6f83-18f2-6064-b07987501afb-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">
+      <pre wrap="">Hi Christian!
+
+On 2017-09-08 04:24, Christian König wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="">First of all please prefix all subject lines for amdgpu kernel patches
+with drm/amdgpu.
+</pre>
+      </blockquote>
+      <pre wrap="">You're right, I forgot.
+</pre>
+      <blockquote type="cite">
+        <pre wrap="">
+Additional to that I think we won't accept loading firmware files in
+the old format. Instead please just add the header to the files. If
+that turns out to be problematic I can start looking into providing
+those.
+</pre>
+      </blockquote>
+      <pre wrap="">Noted, I'll drop the code and I'll create a temporary firmware with the
+needed header. However, it would be convenient to see newer firmwares
+for both VCE and UVD (cheers Trevor) coming from an official source
+(AMD). Let's remove the old firmware loading patch and propose a glued
+firmware.
+</pre>
+      <blockquote type="cite">
+        <pre wrap="">
+Apart from that thanks a lot for this work, this is really welcome.
+But does it actually work? Have you tested it with mesa?
+</pre>
+      </blockquote>
+      <pre wrap="">This work doesn't activate any VCE functionality. On the other hand, it
+shouldn't break anything either. It needs the next series of patches.
+While the firmware loading and initialization seem to go through
+correctly, I'm encountering hangs at boot. That's where I'll need some help.
+
+I'll post the next series in the next few days as a RFC so others can
+help me go through. I just need to split the code in a few patches.
+
+Cheers,
+Alex
+</pre>
+      <blockquote type="cite">
+        <pre wrap="">
+Thanks,
+Christian.
+
+Am 08.09.2017 um 04:48 schrieb Alexandre Demers:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="">This is the foundation for VCE 1 implementation, mostly ported from
+radeon to
+amdgpu. This should have no impact for now on the usability of the
+driver. This
+is the pretty straight-forward part. The heavier part is coming as a
+RFC.
+
+I'd like to have this first part available to all, since I don't have
+as much
+time as I'd like to work on VCE 1 for now, but this could help others
+to help me
+on the task.
+
+If you are not satisfied with this first series, this can also be
+considered as
+a RFC. Please, comment as needed.
+
+Alexandre Demers (6):
+   Add initial VCE_V1_0 files.
+   Reorganize, rename, move and split some VCE 1 defines.
+   Small precision when failing to load legacy firmware.
+   Moving read and write pointer functions from radeon to amdgpu
+   Add support for SI's VCE firmwares (with and without header)
+   Fix indentation.
+
+  drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c            | 100 ++++--
+  drivers/gpu/drm/amd/amdgpu/si.c                    |  17 +-
+  drivers/gpu/drm/amd/amdgpu/si_dma.c                |   5 +-
+  drivers/gpu/drm/amd/amdgpu/si_ih.c                 |  21 +-
+  drivers/gpu/drm/amd/amdgpu/sid.h                   |  70 ----
+  drivers/gpu/drm/amd/amdgpu/vce_v1_0.c              | 394
++++++++++++++++++++++
+  drivers/gpu/drm/amd/amdgpu/vce_v1_0.h              |  29 ++
+  .../gpu/drm/amd/include/asic_reg/vce/vce_1_0_d.h   |  80 +++--
+  .../drm/amd/include/asic_reg/vce/vce_1_0_sh_mask.h |  13 +-
+  drivers/gpu/drm/radeon/radeon_uvd.c                |   2 +-
+  10 files changed, 589 insertions(+), 142 deletions(-)
+  create mode 100644 drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
+  create mode 100644 drivers/gpu/drm/amd/amdgpu/vce_v1_0.h
+
+</pre>
+        </blockquote>
+        <pre wrap="">
+</pre>
+      </blockquote>
+      <pre wrap="">
+
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------B75FC48DED8BFAE79D9976B5--
+
+--===============1512023717==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1512023717==--
