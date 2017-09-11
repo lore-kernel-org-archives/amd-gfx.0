@@ -1,15 +1,13 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 0/8] Retry page fault handling for Vega10
-Date: Mon, 11 Sep 2017 19:29:30 +0000
-Message-ID: <BN6PR12MB1652DBBD8E350972D2BC6C3AF7680@BN6PR12MB1652.namprd12.prod.outlook.com>
-References: <1504045524-23853-1-git-send-email-Felix.Kuehling@amd.com>
- <0816a963-54cc-0041-4b09-4bf41ee46fbf@amd.com>
+From: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 07/28] drm/amd/display: USB-C to HDMI dongle not light
+Date: Tue, 12 Sep 2017 06:20:01 +1000
+Message-ID: <CAPM=9tz4tiJoPmrqhuVMQvntXPhnSQ2632FVtinnxzAdFp7OLg@mail.gmail.com>
+References: <20170911180930.13561-1-harry.wentland@amd.com>
+ <20170911180930.13561-8-harry.wentland@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2082986003=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <0816a963-54cc-0041-4b09-4bf41ee46fbf-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20170911180930.13561-8-harry.wentland-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,95 +18,451 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+To: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Cc: Hersen Wu <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBLdWVobGluZywgRmVsaXgNCj4g
-U2VudDogV2VkbmVzZGF5LCBTZXB0ZW1iZXIgMDYsIDIwMTcgNTo1NCBQTQ0KPiBUbzogYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IERldWNoZXIsIEFsZXhhbmRlcjsgT2RlZCBHYWJiYXk7
-DQo+IEtvZW5pZywgQ2hyaXN0aWFuDQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggMC84XSBSZXRyeSBw
-YWdlIGZhdWx0IGhhbmRsaW5nIGZvciBWZWdhMTANCj4gDQo+IEkgcmVhbGl6ZWQgdGhhdCB0aGUg
-ZHJtLW5leHQtNC4xNS13aXAgYnJhbmNoIGlzbid0IHZlcnkgdXNlZnVsIGZvcg0KPiB0ZXN0aW5n
-IHRoaXMsIGJlY2F1c2UgaXQgaGFzIG5vIGRpc3BsYXkgc3VwcG9ydCBmb3IgVmVnYTEwIGFuZCBu
-byBLRkQNCj4gc3VwcG9ydCBmb3IgVmVnYTEwLiBTbyB5b3UgY2FuJ3QgdGVzdCBncmFwaGljcyBv
-ciBjb21wdXRlIG9uIFZlZ2ExMCB3aXRoDQo+IHRoaXMgYnJhbmNoLiBPbiB0aGUgb3RoZXIgaGFu
-ZCwgSSBuZWVkIHRvIG1ha2UgY2hhbmdlcyBpbiBib3RoIEtGRCBhbmQNCj4gQU1ER1BVLCBzbyBJ
-IHRyaWVkIHRvIGF2b2lkIGFuIGFtZC1pbnRlcm5hbCBicmFuY2guIEJ1dCBpdCBzZWVtcyB1bnRp
-bA0KPiBlaXRoZXIgREFMIG9yIEtGRCBpcyB1cHN0cmVhbSwgaXQnbGwgaGF2ZSB0byByZW1haW4g
-b24gYW4gQU1ELWludGVybmFsDQo+IGJyYW5jaCAoYW1kLXN0YWdpbmctNC4xMiBmb3Igbm93LCB0
-byBiZSBjaGFuZ2VkIHNvb24pLiBDaHJpc3RpYW4sIHdvdWxkDQo+IHRoaXMgZW5hYmxlIGFueSBv
-ZiB3b3JrIHlvdSB3ZXJlIGdvaW5nIHRvIGRvPw0KPiANCj4gQWxleCwgaXMgdGhpcyBnb2luZyB0
-byBtYWtlIHlvdXIgcmVndWxhciB1cHN0cmVhbWluZyBtb3JlIGRpZmZpY3VsdD8gT3INCj4gYXJl
-IHlvdSBPSyB3aXRoIHVwc3RyZWFtaW5nIEtGRCBjaGFuZ2VzIHRoYXQgaGF2ZSBkZXBlbmRlbmNp
-ZXMgd2l0aA0KPiBhbWRncHUgY2hhbmdlcz8gT2RlZCwgd291bGQgeW91IGJlIE9LIHdpdGggQWxl
-eCB1cHN0cmVhbWluZyBLRkQNCj4gY2hhbmdlcw0KPiBhbG9uZyB3aXRoIGFtZGdwdSBjaGFuZ2Vz
-PyBBc3N1bWluZyB0aGV5IGhhdmUgeW91ciAiUmV2aWV3ZWQtYnkiPw0KDQpJJ20gZmluZSB0byB0
-YWtlIHRoZSBjaGFuZ2VzIHRocm91Z2ggbXkgdHJlZSBpZiBPZGVkIGlzIG9rIHdpdGggaXQuDQoN
-Cj4gDQo+IEkgYWxzbyBoYXZlbid0IGdvdCBhbnkgZmVlZGJhY2sgZnJvbSBMS0xNIG9uIHRoZSBh
-ZGRpdGlvbiBvZiB0aGUgY2hhc2gNCj4gZGF0YSBzdHJ1Y3R1cmUgdG8ga2VybmVsL2xpYi4gSSdt
-IGNvbnNpZGVyaW5nIGFkZGluZyBpdCBpbg0KPiBkcml2ZXJzL2dwdS9kcm0vYW1kL2NoYXNoIGFz
-IGFuIGludGVyaW0gc3RlcC4gSXQgY2FuIGJlIG1vdmVkIHRvIGxpYg0KPiBsYXRlciwgaWYgb3Ro
-ZXIgY29tcG9uZW50cyBhcmUgaW50ZXJlc3RlZCBpbiB1c2luZyBpdC4gQW55IG9iamVjdGlvbnM/
-DQoNCldvcmtzIGZvciBtZS4NCg0KQWxleA0KDQo+IA0KPiBSZWdhcmRzLA0KPiAgIEZlbGl4DQo+
-IA0KPiANCj4gT24gMjAxNy0wOC0yOSAwNjoyNSBQTSwgRmVsaXggS3VlaGxpbmcgd3JvdGU6DQo+
-ID4gUmViYXNlZCBvbiB0aGUgcHVibGljIGRybS1uZXh0LTQuMTUtd2lwLiBQYXRjaCA4IGZyb20g
-dGhlIFdJUCBwYXRjaA0KPiA+IHNlcmllcyBkaWQgbm90IGFwcGx5IGF0IGFsbCwgYmVjYXVzZSB1
-cHN0cmVhbSBLRkQgZG9lc24ndCBzdXBwb3J0DQo+ID4gR1BVVk0geWV0Lg0KPiA+DQo+ID4gVGhl
-ICJsaWI6IENsb3NlZCBoYXNoIHRhYmxlIC4uLiIgY2hhbmdlIGlzIHVwZGF0ZWQgYW5kIHRoZSBz
-YW1lIGFzDQo+ID4gd2hhdCBJIHNlbnQgdG8gTEtNTCB5ZXN0ZXJkYXkuIENoYW5nZXMgYXJlIG1h
-aW5seSBpbiB0aGUgd2F5IHRoZSBzZWxmDQo+ID4gdGVzdCBpcyBob29rZWQgdXAsIEtjb25maWcg
-b3B0aW9ucyBhbmQgc29tZSBjaGVja3BhdGNoIGZpeGVzLiBJZiBpdA0KPiA+IHRha2VzIHRvbyBs
-b25nIHRvIGdldCBhY2NlcHRlZCB1cHN0cmVhbSwgSSBjb3VsZCBhZGQgaXQgdW5kZXINCj4gPiBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2NoYXNoIGluIHRoZSBpbnRlcmltLg0KPiA+DQo+ID4gVGhpcyBp
-cyBvbmx5IGNvbXBpbGUgdGVzdGVkIG9uIHRoaXMgYnJhbmNoLiBJIGNhbid0IGRvIG11Y2ggbW9y
-ZQ0KPiA+IGJlY2F1c2UgdGhlIHVwc3RyZWFtIEtGRCBkb2Vzbid0IHN1cHBvcnQgVmVnYTEwIGFu
-ZCBHUFVWTSB5ZXQuDQo+IFNvbWVvbmUNCj4gPiB3aWxsIGhhdmUgdG8gYWRkIFBBU0lEIHN1cHBv
-cnQgZm9yIGdyYXBoaWNzIG9uIHRvcCBvZiB0aGlzLg0KPiA+DQo+ID4gVE9ETzoNCj4gPiAqIEZp
-bmlzaCB1cHN0cmVhbWluZyBLRkQNCj4gPiAqIEFsbG9jYXRlIFBBU0lEcyBmb3IgZ3JhcGhpY3Mg
-Y29udGV4dHMNCj4gPiAqIFNldHVwIFZNSUQtUEFTSUQgbWFwcGluZyBkdXJpbmcgZ3JhcGhpY3Mg
-Y29tbWFuZCBzdWJtaXNzaW9uDQo+ID4gKiBDb25maXJtIHRoYXQgZ3JhcGhpY3MgcGFnZSBmYXVs
-dHMgaGF2ZSB0aGUgY29ycmVjdCBQQVNJRCBpbiB0aGUgSVYNCj4gPg0KPiA+IEZlbGl4IEt1ZWhs
-aW5nICg4KToNCj4gPiAgIGRybS9hbWRncHU6IEZpeCBlcnJvciBoYW5kbGluZyBpbiBhbWRncHVf
-dm1faW5pdA0KPiA+ICAgZHJtL2FtZGdwdTogQWRkIFBBU0lEIG1hbmFnZW1lbnQNCj4gPiAgIGRy
-bS9yYWRlb246IEFkZCBQQVNJRCBtYW5hZ2VyIGZvciBLRkQNCj4gPiAgIGRybS9hbWRrZmQ6IFNl
-cGFyYXRlIGRvb3JiZWxsIGFsbG9jYXRpb24gZnJvbSBQQVNJRA0KPiA+ICAgZHJtL2FtZGtmZDog
-VXNlIFBBU0lEIG1hbmFnZXIgZnJvbSBLR0QNCj4gPiAgIGRybS9hbWRncHU6IEFkZCBwcmVzY3Jl
-ZW5pbmcgc3RhZ2UgaW4gSUggcHJvY2Vzc2luZw0KPiA+ICAgbGliOiBDbG9zZWQgaGFzaCB0YWJs
-ZSB3aXRoIGxvdyBvdmVyaGVhZA0KPiA+ICAgZHJtL2FtZGdwdTogVHJhY2sgcGVuZGluZyByZXRy
-eSBmYXVsdHMgaW4gSUggYW5kIFZNICh2MikNCj4gPg0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vS2Nv
-bmZpZyAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAxICsNCj4gPiAgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggICAgICAgICAgICAgICB8ICAgMiArDQo+ID4gIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ2Z4X3Y3LmMgfCAgIDIgKw0KPiA+
-ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dmeF92OC5jIHwgICAy
-ICsNCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2loLmMgICAgICAgICAg
-ICB8ICA4MiArKysNCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2loLmgg
-ICAgICAgICAgICB8ICAxMiArDQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9rbXMuYyAgICAgICAgICAgfCAgIDIgKy0NCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3ZtLmMgICAgICAgICAgICB8ICA4NCArKy0NCj4gPiAgZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmggICAgICAgICAgICB8ICAyMSArLQ0KPiA+ICBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9jaWtfaWguYyAgICAgICAgICAgICAgIHwgIDE0ICsNCj4gPiAg
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvY3pfaWguYyAgICAgICAgICAgICAgICB8ICAxNCAr
-DQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2ljZWxhbmRfaWguYyAgICAgICAgICAg
-fCAgMTQgKw0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zaV9paC5jICAgICAgICAg
-ICAgICAgIHwgIDE0ICsNCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdG9uZ2FfaWgu
-YyAgICAgICAgICAgICB8ICAxNCArDQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zl
-Z2ExMF9paC5jICAgICAgICAgICAgfCAgOTAgKysrKw0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGtmZC9rZmRfZGV2aWNlLmMgICAgICAgICAgIHwgICA3IC0NCj4gPiAgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRrZmQva2ZkX2Rvb3JiZWxsLmMgICAgICAgICB8ICA1MCArLQ0KPiA+ICBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbW9kdWxlLmMgICAgICAgICAgIHwgICA2IC0NCj4g
-PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3Bhc2lkLmMgICAgICAgICAgICB8ICA5
-MCArKy0tDQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2LmggICAgICAg
-ICAgICAgfCAgMTAgKy0NCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3Byb2Nl
-c3MuYyAgICAgICAgICB8ICAgNiArDQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9r
-Z2Rfa2ZkX2ludGVyZmFjZS5oICAgfCAgIDYgKw0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vcmFkZW9u
-L3JhZGVvbl9rZmQuYyAgICAgICAgICAgICAgIHwgIDMxICsrDQo+ID4gIGluY2x1ZGUvbGludXgv
-Y2hhc2guaCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAzNTggKysrKysrKysrKysrKw0K
-PiA+ICBsaWIvS2NvbmZpZyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwg
-IDI0ICsNCj4gPiAgbGliL01ha2VmaWxlICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICB8ICAgMiArDQo+ID4gIGxpYi9jaGFzaC5jICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgfCA2MjIgKysrKysrKysrKysrKysrKysrKysrKw0KPiA+ICAyNyBmaWxlcyBj
-aGFuZ2VkLCAxNDg5IGluc2VydGlvbnMoKyksIDkxIGRlbGV0aW9ucygtKQ0KPiA+ICBjcmVhdGUg
-bW9kZSAxMDA2NDQgaW5jbHVkZS9saW51eC9jaGFzaC5oDQo+ID4gIGNyZWF0ZSBtb2RlIDEwMDY0
-NCBsaWIvY2hhc2guYw0KPiA+DQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
-LWdmeAo=
+--===============2082986003==
+Content-Type: multipart/alternative; boundary="f403043ee078cbf5fb0558efa681"
+
+--f403043ee078cbf5fb0558efa681
+Content-Type: text/plain; charset="UTF-8"
+
+This seems to lack a commit msg
+
+Dave.
+
+On 12 Sep. 2017 4:15 am, "Harry Wentland" <harry.wentland-5C7GfCeVMHo@public.gmane.org> wrote:
+
+> From: Hersen Wu <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>
+>
+> Signed-off-by: Hersen Wu <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>
+> Reviewed-by: Tony Cheng <Tony.Cheng-5C7GfCeVMHo@public.gmane.org>
+> Acked-by: Harry Wentland <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  9 ++++---
+>  drivers/gpu/drm/amd/display/dc/core/dc_link.c     | 32
+> +++++++++++++++--------
+>  drivers/gpu/drm/amd/display/dc/dc.h               |  8 +++++-
+>  3 files changed, 33 insertions(+), 16 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 7a408d753be8..9b5158cceece 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -639,7 +639,7 @@ int amdgpu_dm_display_resume(struct amdgpu_device
+> *adev )
+>                         continue;
+>
+>                 mutex_lock(&aconnector->hpd_lock);
+> -               dc_link_detect(aconnector->dc_link, false);
+> +               dc_link_detect(aconnector->dc_link, DETECT_REASON_HPD);
+>                 aconnector->dc_sink = NULL;
+>                 amdgpu_dm_update_connector_after_detect(aconnector);
+>                 mutex_unlock(&aconnector->hpd_lock);
+> @@ -870,7 +870,7 @@ static void handle_hpd_irq(void *param)
+>          * since (for MST case) MST does this in it's own context.
+>          */
+>         mutex_lock(&aconnector->hpd_lock);
+> -       if (dc_link_detect(aconnector->dc_link, false)) {
+> +       if (dc_link_detect(aconnector->dc_link, DETECT_REASON_HPD)) {
+>                 amdgpu_dm_update_connector_after_detect(aconnector);
+>
+>
+> @@ -980,7 +980,7 @@ static void handle_hpd_rx_irq(void *param)
+>         if (dc_link_handle_hpd_rx_irq(aconnector->dc_link, NULL) &&
+>                         !is_mst_root_connector) {
+>                 /* Downstream Port status changed. */
+> -               if (dc_link_detect(aconnector->dc_link, false)) {
+> +               if (dc_link_detect(aconnector->dc_link,
+> DETECT_REASON_HPDRX)) {
+>                         amdgpu_dm_update_connector_
+> after_detect(aconnector);
+>
+>
+> @@ -1368,7 +1368,8 @@ int amdgpu_dm_initialize_drm_device(struct
+> amdgpu_device *adev)
+>                         goto fail_free_encoder;
+>                 }
+>
+> -               if (dc_link_detect(dc_get_link_at_index(dm->dc, i), true))
+> +               if (dc_link_detect(dc_get_link_at_index(dm->dc, i),
+> +                               DETECT_REASON_BOOT))
+>                         amdgpu_dm_update_connector_
+> after_detect(aconnector);
+>         }
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> index cea8dafd2edc..845ec421d861 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> @@ -355,7 +355,9 @@ static bool is_dp_sink_present(struct dc_link *link)
+>   * @brief
+>   * Detect output sink type
+>   */
+> -static enum signal_type link_detect_sink(struct dc_link *link)
+> +static enum signal_type link_detect_sink(
+> +       struct dc_link *link,
+> +       enum dc_detect_reason reason)
+>  {
+>         enum signal_type result = get_basic_signal_type(
+>                 link->link_enc->id, link->link_id);
+> @@ -388,12 +390,17 @@ static enum signal_type link_detect_sink(struct
+> dc_link *link)
+>         }
+>         break;
+>         case CONNECTOR_ID_DISPLAY_PORT: {
+> -
+> -               /* Check whether DP signal detected: if not -
+> -                * we assume signal is DVI; it could be corrected
+> -                * to HDMI after dongle detection */
+> -               if (!is_dp_sink_present(link))
+> -                       result = SIGNAL_TYPE_DVI_SINGLE_LINK;
+> +               /* DP HPD short pulse. Passive DP dongle will not
+> +                * have short pulse
+> +                */
+> +               if (reason != DETECT_REASON_HPDRX) {
+> +                       /* Check whether DP signal detected: if not -
+> +                        * we assume signal is DVI; it could be corrected
+> +                        * to HDMI after dongle detection
+> +                        */
+> +                       if (!is_dp_sink_present(link))
+> +                               result = SIGNAL_TYPE_DVI_SINGLE_LINK;
+> +               }
+>         }
+>         break;
+>         default:
+> @@ -460,9 +467,10 @@ static void detect_dp(
+>         struct display_sink_capability *sink_caps,
+>         bool *converter_disable_audio,
+>         struct audio_support *audio_support,
+> -       bool boot)
+> +       enum dc_detect_reason reason)
+>  {
+> -       sink_caps->signal = link_detect_sink(link);
+> +       bool boot = false;
+> +       sink_caps->signal = link_detect_sink(link, reason);
+>         sink_caps->transaction_type =
+>                 get_ddc_transaction_type(sink_caps->signal);
+>
+> @@ -513,6 +521,8 @@ static void detect_dp(
+>                          * Need check ->sink usages in case ->sink = NULL
+>                          * TODO: s3 resume check
+>                          */
+> +                       if (reason == DETECT_REASON_BOOT)
+> +                               boot = true;
+>
+>                         if (dm_helpers_dp_mst_start_top_mgr(
+>                                 link->ctx,
+> @@ -531,7 +541,7 @@ static void detect_dp(
+>         }
+>  }
+>
+> -bool dc_link_detect(struct dc_link *link, bool boot)
+> +bool dc_link_detect(struct dc_link *link, enum dc_detect_reason reason)
+>  {
+>         struct dc_sink_init_data sink_init_data = { 0 };
+>         struct display_sink_capability sink_caps = { 0 };
+> @@ -596,7 +606,7 @@ bool dc_link_detect(struct dc_link *link, bool boot)
+>                                 link,
+>                                 &sink_caps,
+>                                 &converter_disable_audio,
+> -                               aud_support, boot);
+> +                               aud_support, reason);
+>
+>                         /* Active dongle downstream unplug */
+>                         if (link->type == dc_connection_active_dongle
+> diff --git a/drivers/gpu/drm/amd/display/dc/dc.h
+> b/drivers/gpu/drm/amd/display/dc/dc.h
+> index f005add1aba3..bf2d42561362 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dc.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dc.h
+> @@ -884,7 +884,13 @@ bool dc_link_setup_psr(struct dc_link *dc_link,
+>   * true otherwise. True meaning further action is required (status update
+>   * and OS notification).
+>   */
+> -bool dc_link_detect(struct dc_link *dc_link, bool boot);
+> +enum dc_detect_reason {
+> +       DETECT_REASON_BOOT,
+> +       DETECT_REASON_HPD,
+> +       DETECT_REASON_HPDRX,
+> +};
+> +
+> +bool dc_link_detect(struct dc_link *dc_link, enum dc_detect_reason
+> reason);
+>
+>  /* Notify DC about DP RX Interrupt (aka Short Pulse Interrupt).
+>   * Return:
+> --
+> 2.11.0
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+
+--f403043ee078cbf5fb0558efa681
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto">This seems to lack a commit msg<div dir=3D"auto"><br></di=
+v><div dir=3D"auto">Dave.</div></div><div class=3D"gmail_extra"><br><div cl=
+ass=3D"gmail_quote">On 12 Sep. 2017 4:15 am, &quot;Harry Wentland&quot; &lt=
+;<a href=3D"mailto:harry.wentland-5C7GfCeVMHo@public.gmane.org">harry.wentland-5C7GfCeVMHo@public.gmane.org</a>&gt; w=
+rote:<br type=3D"attribution"><blockquote class=3D"gmail_quote" style=3D"ma=
+rgin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">From: Hersen W=
+u &lt;<a href=3D"mailto:hersenxs.wu-5C7GfCeVMHo@public.gmane.org">hersenxs.wu-5C7GfCeVMHo@public.gmane.org</a>&gt;<br=
+>
+<br>
+Signed-off-by: Hersen Wu &lt;<a href=3D"mailto:hersenxs.wu-5C7GfCeVMHo@public.gmane.org">hersenx=
+s.wu-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+Reviewed-by: Tony Cheng &lt;<a href=3D"mailto:Tony.Cheng-5C7GfCeVMHo@public.gmane.org">Tony.Chen=
+g@amd.com</a>&gt;<br>
+Acked-by: Harry Wentland &lt;<a href=3D"mailto:Harry.Wentland-5C7GfCeVMHo@public.gmane.org">Harr=
+y.Wentland-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+---<br>
+=C2=A0drivers/gpu/drm/amd/display/<wbr>amdgpu_dm/amdgpu_dm.c |=C2=A0 9 ++++=
+---<br>
+=C2=A0drivers/gpu/drm/amd/display/<wbr>dc/core/dc_link.c=C2=A0 =C2=A0 =C2=
+=A0| 32 +++++++++++++++--------<br>
+=C2=A0drivers/gpu/drm/amd/display/<wbr>dc/dc.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 8 +++++-<br>
+=C2=A03 files changed, 33 insertions(+), 16 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/display/<wbr>amdgpu_dm/amdgpu_dm.c b/drive=
+rs/gpu/drm/amd/display/<wbr>amdgpu_dm/amdgpu_dm.c<br>
+index 7a408d753be8..9b5158cceece 100644<br>
+--- a/drivers/gpu/drm/amd/display/<wbr>amdgpu_dm/amdgpu_dm.c<br>
++++ b/drivers/gpu/drm/amd/display/<wbr>amdgpu_dm/amdgpu_dm.c<br>
+@@ -639,7 +639,7 @@ int amdgpu_dm_display_resume(<wbr>struct amdgpu_device =
+*adev )<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 continue;<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 mutex_lock(&amp;aco=
+nnector-&gt;hpd_<wbr>lock);<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dc_link_detect(acon=
+nector-&gt;dc_<wbr>link, false);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dc_link_detect(acon=
+nector-&gt;dc_<wbr>link, DETECT_REASON_HPD);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 aconnector-&gt;dc_s=
+ink =3D NULL;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 amdgpu_dm_update_co=
+nnector_<wbr>after_detect(aconnector);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 mutex_unlock(&amp;a=
+connector-&gt;hpd_<wbr>lock);<br>
+@@ -870,7 +870,7 @@ static void handle_hpd_irq(void *param)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* since (for MST case) MST does this in i=
+t&#39;s own context.<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*/<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 mutex_lock(&amp;aconnector-&gt;hpd_<wbr>lock);<=
+br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0if (dc_link_detect(aconnector-&gt;<wbr>dc_link,=
+ false)) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (dc_link_detect(aconnector-&gt;<wbr>dc_link,=
+ DETECT_REASON_HPD)) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 amdgpu_dm_update_co=
+nnector_<wbr>after_detect(aconnector);<br>
+<br>
+<br>
+@@ -980,7 +980,7 @@ static void handle_hpd_rx_irq(void *param)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (dc_link_handle_hpd_rx_irq(<wbr>aconnector-&=
+gt;dc_link, NULL) &amp;&amp;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 !is_mst_root_connector) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Downstream Port =
+status changed. */<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (dc_link_detect(=
+aconnector-&gt;<wbr>dc_link, false)) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (dc_link_detect(=
+aconnector-&gt;<wbr>dc_link, DETECT_REASON_HPDRX)) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 amdgpu_dm_update_connector_<wbr>after_detect(aconnector);<br>
+<br>
+<br>
+@@ -1368,7 +1368,8 @@ int amdgpu_dm_initialize_drm_<wbr>device(struct amdgp=
+u_device *adev)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 goto fail_free_encoder;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (dc_link_detect(=
+dc_get_link_<wbr>at_index(dm-&gt;dc, i), true))<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (dc_link_detect(=
+dc_get_link_<wbr>at_index(dm-&gt;dc, i),<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0DETECT_REASON_BOOT))<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 amdgpu_dm_update_connector_<wbr>after_detect(aconnector);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/display/<wbr>dc/core/dc_link.c b/drivers/g=
+pu/drm/amd/display/<wbr>dc/core/dc_link.c<br>
+index cea8dafd2edc..845ec421d861 100644<br>
+--- a/drivers/gpu/drm/amd/display/<wbr>dc/core/dc_link.c<br>
++++ b/drivers/gpu/drm/amd/display/<wbr>dc/core/dc_link.c<br>
+@@ -355,7 +355,9 @@ static bool is_dp_sink_present(struct dc_link *link)<br=
+>
+=C2=A0 * @brief<br>
+=C2=A0 * Detect output sink type<br>
+=C2=A0 */<br>
+-static enum signal_type link_detect_sink(struct dc_link *link)<br>
++static enum signal_type link_detect_sink(<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0struct dc_link *link,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0enum dc_detect_reason reason)<br>
+=C2=A0{<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 enum signal_type result =3D get_basic_signal_ty=
+pe(<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 link-&gt;link_enc-&=
+gt;id, link-&gt;link_id);<br>
+@@ -388,12 +390,17 @@ static enum signal_type link_detect_sink(struct dc_li=
+nk *link)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 break;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 case CONNECTOR_ID_DISPLAY_PORT: {<br>
+-<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* Check whether DP=
+ signal detected: if not -<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * we assume signal=
+ is DVI; it could be corrected<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * to HDMI after do=
+ngle detection */<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!is_dp_sink_pre=
+sent(link))<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0result =3D SIGNAL_TYPE_DVI_SINGLE_LINK;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* DP HPD short pul=
+se. Passive DP dongle will not<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * have short pulse=
+<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (reason !=3D DET=
+ECT_REASON_HPDRX) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0/* Check whether DP signal detected: if not -<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 * we assume signal is DVI; it could be corrected<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 * to HDMI after dongle detection<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0if (!is_dp_sink_present(link))<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0result =3D SIGNAL_TYPE_DVI_SINGLE_LIN=
+K;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 break;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 default:<br>
+@@ -460,9 +467,10 @@ static void detect_dp(<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct display_sink_capability *sink_caps,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 bool *converter_disable_audio,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct audio_support *audio_support,<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0bool boot)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0enum dc_detect_reason reason)<br>
+=C2=A0{<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0sink_caps-&gt;signal =3D link_detect_sink(link)=
+;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0bool boot =3D false;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0sink_caps-&gt;signal =3D link_detect_sink(link,=
+ reason);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 sink_caps-&gt;transaction_type =3D<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 get_ddc_transaction=
+_type(sink_<wbr>caps-&gt;signal);<br>
+<br>
+@@ -513,6 +521,8 @@ static void detect_dp(<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0* Need check -&gt;sink usages in case -&gt;sink =3D NULL<b=
+r>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0* TODO: s3 resume check<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0*/<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0if (reason =3D=3D DETECT_REASON_BOOT)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0boot =3D true;<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 if (dm_helpers_dp_mst_start_top_<wbr>mgr(<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 link-&gt;ctx,<br>
+@@ -531,7 +541,7 @@ static void detect_dp(<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+=C2=A0}<br>
+<br>
+-bool dc_link_detect(struct dc_link *link, bool boot)<br>
++bool dc_link_detect(struct dc_link *link, enum dc_detect_reason reason)<br=
+>
+=C2=A0{<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct dc_sink_init_data sink_init_data =3D { 0=
+ };<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct display_sink_capability sink_caps =3D { =
+0 };<br>
+@@ -596,7 +606,7 @@ bool dc_link_detect(struct dc_link *link, bool boot)<br=
+>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 link,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &amp;sink_caps,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &amp;converter_disable_audio,<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0aud_support, boot);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0aud_support, reason);<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 /* Active dongle downstream unplug */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 if (link-&gt;type =3D=3D dc_connection_active_dongle<br>
+diff --git a/drivers/gpu/drm/amd/display/<wbr>dc/dc.h b/drivers/gpu/drm/amd=
+/display/<wbr>dc/dc.h<br>
+index f005add1aba3..bf2d42561362 100644<br>
+--- a/drivers/gpu/drm/amd/display/<wbr>dc/dc.h<br>
++++ b/drivers/gpu/drm/amd/display/<wbr>dc/dc.h<br>
+@@ -884,7 +884,13 @@ bool dc_link_setup_psr(struct dc_link *dc_link,<br>
+=C2=A0 * true otherwise. True meaning further action is required (status up=
+date<br>
+=C2=A0 * and OS notification).<br>
+=C2=A0 */<br>
+-bool dc_link_detect(struct dc_link *dc_link, bool boot);<br>
++enum dc_detect_reason {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0DETECT_REASON_BOOT,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0DETECT_REASON_HPD,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0DETECT_REASON_HPDRX,<br>
++};<br>
++<br>
++bool dc_link_detect(struct dc_link *dc_link, enum dc_detect_reason reason)=
+;<br>
+<br>
+=C2=A0/* Notify DC about DP RX Interrupt (aka Short Pulse Interrupt).<br>
+=C2=A0 * Return:<br>
+--<br>
+2.11.0<br>
+<br>
+______________________________<wbr>_________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer" target=3D"_blank">https://lists.freedesktop.org/<wbr>mailman/lis=
+tinfo/amd-gfx</a><br>
+</blockquote></div></div>
+
+--f403043ee078cbf5fb0558efa681--
+
+--===============2082986003==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============2082986003==--
