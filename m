@@ -1,16 +1,14 @@
 From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 4/5] drm/amdgpu: cleanup amdgpu_bo_pin_restricted
-Date: Wed, 13 Sep 2017 09:26:03 +0000
-Message-ID: <BLUPR12MB044941B9DCD5972C0F2496C6846E0@BLUPR12MB0449.namprd12.prod.outlook.com>
+Date: Wed, 13 Sep 2017 09:14:39 +0000
+Message-ID: <BLUPR12MB0449555D451CD4F6061AB3FB846E0@BLUPR12MB0449.namprd12.prod.outlook.com>
 References: <1505207316-4623-1-git-send-email-deathsimple@vodafone.de>
- <1505207316-4623-4-git-send-email-deathsimple@vodafone.de>
+ <1505207316-4623-4-git-send-email-deathsimple@vodafone.de>,
  <BN6PR12MB16523DE24A33EB21926B3AD8F7690@BN6PR12MB1652.namprd12.prod.outlook.com>
- <BLUPR12MB0449555D451CD4F6061AB3FB846E0@BLUPR12MB0449.namprd12.prod.outlook.com>,
- <47181171-d6d3-9fab-5f1d-1084c24d63d8@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1144716044=="
+Content-Type: multipart/mixed; boundary="===============1123261865=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <47181171-d6d3-9fab-5f1d-1084c24d63d8-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <BN6PR12MB16523DE24A33EB21926B3AD8F7690-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,44 +20,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?Windows-1252?Q?Christian_K=F6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, =?iso-8859-1?Q?=27Christian_K=F6nig=27?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1144716044==
+--===============1123261865==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BLUPR12MB044941B9DCD5972C0F2496C6846E0BLUPR12MB0449namp_"
+	boundary="_000_BLUPR12MB0449555D451CD4F6061AB3FB846E0BLUPR12MB0449namp_"
 
---_000_BLUPR12MB044941B9DCD5972C0F2496C6846E0BLUPR12MB0449namp_
-Content-Type: text/plain; charset="Windows-1252"
+--_000_BLUPR12MB0449555D451CD4F6061AB3FB846E0BLUPR12MB0449namp_
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
-
-but we use VRAM domain in the first bo_create stage,  so this BO is allocat=
-ed directly ...
-
-
-I think our current approach is incorrect ... because the space from bo_cre=
-ate(VRAM_DOMAIN) is missed somehow
-
-________________________________
-From: Christian K=F6nig <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Sent: Wednesday, September 13, 2017 5:21:13 PM
-To: Liu, Monk; Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH 4/5] drm/amdgpu: cleanup amdgpu_bo_pin_restricted
-
-amdgpu_bo_create() doesn't necessarily allocate anything, it just creates t=
-he BO structure.
-
-The backing memory for GTT and CPU domain is only allocated on first use, o=
-nly VRAM is allocated directly.
-
-So just call amdgpu_bo_create() with AMDGPU_GEM_DOMAIN_CPU and then the pin=
- with AMDGPU_GEM_DOMAIN_VRAM and your desired offset.
-
-Regards,
-Christian.
-
-Am 13.09.2017 um 11:14 schrieb Liu, Monk:
 
 SRIOV need to reserve a memory at an offset that set by GIM/hypervisor side=
 , but I'm not sure how to do it perfectly,  currently we call bo_create to =
@@ -81,28 +51,24 @@ BR Monk
 
 
 ________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org><mailto:amd-gfx-bounce=
-s@lists.freedesktop.org> on behalf of Deucher, Alexander <Alexander.Deucher=
-@amd.com><mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Deucher,=
+ Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 Sent: Tuesday, September 12, 2017 11:59:35 PM
-To: 'Christian K=F6nig'; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx@lists=
-.freedesktop.org>
+To: 'Christian K=F6nig'; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Subject: RE: [PATCH 4/5] drm/amdgpu: cleanup amdgpu_bo_pin_restricted
 
 > -----Original Message-----
 > From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf
 > Of Christian K=F6nig
 > Sent: Tuesday, September 12, 2017 5:09 AM
-> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 > Subject: [PATCH 4/5] drm/amdgpu: cleanup amdgpu_bo_pin_restricted
 >
-> From: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org><mailto:christian.koeni=
-g@amd.com>
+> From: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 >
 > Nobody is using the min/max interface any more.
 >
-> Signed-off-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org><mailto:christ=
-ian.koenig-5C7GfCeVMHo@public.gmane.org>
+> Signed-off-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
 I'm not sure it's a good idea to get rid of this.  I can see a need to rese=
 rve memory at specific offsets in memory.  Specifically I think SR-IOV will=
@@ -227,67 +193,26 @@ Alex
 >
 > _______________________________________________
 > amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
-
---_000_BLUPR12MB044941B9DCD5972C0F2496C6846E0BLUPR12MB0449namp_
-Content-Type: text/html; charset="Windows-1252"
+--_000_BLUPR12MB0449555D451CD4F6061AB3FB846E0BLUPR12MB0449namp_
+Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
 <html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
-252">
-</head>
-<body text=3D"#000000" bgcolor=3D"#FFFFFF">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p>but we use VRAM domain in the first bo_create stage,&nbsp; so this BO is=
- allocated directly ...</p>
-<p><br>
-</p>
-<p>I think our current approach is incorrect ... because the space from bo_=
-create(VRAM_DOMAIN) is missed somehow
-<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Christian K=F6nig &lt=
-;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;<br>
-<b>Sent:</b> Wednesday, September 13, 2017 5:21:13 PM<br>
-<b>To:</b> Liu, Monk; Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: [PATCH 4/5] drm/amdgpu: cleanup amdgpu_bo_pin_restricte=
-d</font>
-<div>&nbsp;</div>
-</div>
-<div>
-<div class=3D"moz-cite-prefix">amdgpu_bo_create() doesn't necessarily alloc=
-ate anything, it just creates the BO structure.<br>
-<br>
-The backing memory for GTT and CPU domain is only allocated on first use, o=
-nly VRAM is allocated directly.<br>
-<br>
-So just call amdgpu_bo_create() with AMDGPU_GEM_DOMAIN_CPU and then the pin=
- with AMDGPU_GEM_DOMAIN_VRAM and your desired offset.<br>
-<br>
-Regards,<br>
-Christian.<br>
-<br>
-Am 13.09.2017 um 11:14 schrieb Liu, Monk:<br>
-</div>
-<blockquote type=3D"cite" cite=3D"mid:BLUPR12MB0449555D451CD4F6061AB3FB846E=
-0@BLUPR12MB0449.namprd12.prod.outlook.com">
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
 <meta name=3D"Generator" content=3D"Microsoft Exchange Server">
 <!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
 ding-left: 4pt; border-left: #800000 2px solid; } --></style>
+</head>
+<body>
 <meta content=3D"text/html; charset=3DUTF-8">
 <style type=3D"text/css" style=3D"">
 <!--
@@ -298,8 +223,7 @@ p
 </style>
 <div dir=3D"ltr">
 <div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
-or:#000000;
-          font-family:Calibri,Helvetica,sans-serif">
+or:#000000; font-family:Calibri,Helvetica,sans-serif">
 <p>SRIOV need to reserve a memory at an offset that set by GIM/hypervisor s=
 ide, but I'm not sure how to do it perfectly,&nbsp; currently we call bo_cr=
 eate to allocate a VRAM BO, and call pin_restrict with &quot;offset&quot; a=
@@ -327,18 +251,12 @@ set, new offset&#43; size&gt; ???</p>
 </p>
 </div>
 <hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx
-<a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:amd-gfx-bounces-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
-edesktop.org">
-&lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a> on behalf of Deucher, Ale=
-xander <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:Alexander.Deucher@=
-amd.com">
-&lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Deucher, Alexander &lt;Alex=
+ander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
 <b>Sent:</b> Tuesday, September 12, 2017 11:59:35 PM<br>
-<b>To:</b> 'Christian K=F6nig'; <a class=3D"moz-txt-link-abbreviated" href=
-=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+<b>To:</b> 'Christian K=F6nig'; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
 <b>Subject:</b> RE: [PATCH 4/5] drm/amdgpu: cleanup amdgpu_bo_pin_restricte=
 d</font>
 <div>&nbsp;</div>
@@ -347,24 +265,17 @@ d</font>
 <font size=3D"2"><span style=3D"font-size:10pt;">
 <div class=3D"PlainText">&gt; -----Original Message-----<br>
 &gt; From: amd-gfx [<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org=
-" moz-do-not-send=3D"true">mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>=
-] On Behalf<br>
+">mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>] On Behalf<br>
 &gt; Of Christian K=F6nig<br>
 &gt; Sent: Tuesday, September 12, 2017 5:09 AM<br>
-&gt; To: <a class=3D"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx@lists=
-.freedesktop.org">
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+&gt; To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
 &gt; Subject: [PATCH 4/5] drm/amdgpu: cleanup amdgpu_bo_pin_restricted<br>
 &gt; <br>
-&gt; From: Christian K=F6nig <a class=3D"moz-txt-link-rfc2396E" href=3D"mai=
-lto:christian.koenig-5C7GfCeVMHo@public.gmane.org">
-&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+&gt; From: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
 &gt; <br>
 &gt; Nobody is using the min/max interface any more.<br>
 &gt; <br>
-&gt; Signed-off-by: Christian K=F6nig <a class=3D"moz-txt-link-rfc2396E" hr=
-ef=3D"mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">
-&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+&gt; Signed-off-by: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
 <br>
 I'm not sure it's a good idea to get rid of this.&nbsp; I can see a need to=
  reserve memory at specific offsets in memory.&nbsp; Specifically I think S=
@@ -573,30 +484,22 @@ sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
 &gt; <br>
 &gt; _______________________________________________<br>
 &gt; amd-gfx mailing list<br>
-&gt; <a class=3D"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
-edesktop.org">
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz=
--do-not-send=3D"true">
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
+ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
 _______________________________________________<br>
 amd-gfx mailing list<br>
-<a class=3D"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
-top.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz-do-n=
-ot-send=3D"true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>=
-<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
 </div>
-</span></font></blockquote>
-<p><br>
-</p>
-</div>
+</span></font>
 </body>
 </html>
 
---_000_BLUPR12MB044941B9DCD5972C0F2496C6846E0BLUPR12MB0449namp_--
+--_000_BLUPR12MB0449555D451CD4F6061AB3FB846E0BLUPR12MB0449namp_--
 
---===============1144716044==
+--===============1123261865==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -606,4 +509,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1144716044==--
+--===============1123261865==--
