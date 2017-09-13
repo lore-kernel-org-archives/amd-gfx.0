@@ -1,18 +1,19 @@
-From: "Zhou, David(ChunMing)" <David1.Zhou@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple@vodafone.de>
 Subject: Re: [PATCH 3/3] drm/amdgpu: add FENCE_TO_HANDLE ioctl that returns
  syncobj or sync_file
-Date: Wed, 13 Sep 2017 12:25:47 +0000
-Message-ID: <MWHPR1201MB0206A14F0D2148D5036A9485B46E0@MWHPR1201MB0206.namprd12.prod.outlook.com>
+Date: Wed, 13 Sep 2017 15:04:29 +0200
+Message-ID: <8927d6b6-f87c-00d9-57af-fdf4fb6dfcb8@vodafone.de>
 References: <1505248934-1819-1-git-send-email-maraeo@gmail.com>
  <1505248934-1819-3-git-send-email-maraeo@gmail.com>
  <7413e296-b7f5-5963-b477-b04acfb4bb91@amd.com>
  <CAAxE2A7aR15Y9C2r_V_+6fTp-kEuFKwDApQRCnx_rxdsDOKtmw@mail.gmail.com>
- <MWHPR1201MB020689874960A24D32C4A39CB46E0@MWHPR1201MB0206.namprd12.prod.outlook.com>,
+ <MWHPR1201MB020689874960A24D32C4A39CB46E0@MWHPR1201MB0206.namprd12.prod.outlook.com>
  <CAAxE2A5UKZTuseX1Sqggc-XRprnfG+eQSZqbiytRyge5KJrCUg@mail.gmail.com>
+ <MWHPR1201MB0206A14F0D2148D5036A9485B46E0@MWHPR1201MB0206.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1044755507=="
+Content-Type: multipart/mixed; boundary="===============2130597380=="
 Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <CAAxE2A5UKZTuseX1Sqggc-XRprnfG+eQSZqbiytRyge5KJrCUg@mail.gmail.com>
+In-Reply-To: <MWHPR1201MB0206A14F0D2148D5036A9485B46E0@MWHPR1201MB0206.namprd12.prod.outlook.com>
 Content-Language: en-US
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
@@ -23,127 +24,256 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: =?utf-8?B?TWFyZWsgT2w/6Yaf?= <maraeo@gmail.com>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
+To: "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, =?UTF-8?B?TWFyZWsgT2w/6Yaf?= <maraeo@gmail.com>
+Cc: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
---===============1044755507==
-Content-Language: en-US
+This is a multi-part message in MIME format.
+--===============2130597380==
 Content-Type: multipart/alternative;
-	boundary="_000_MWHPR1201MB0206A14F0D2148D5036A9485B46E0MWHPR1201MB0206_"
+ boundary="------------5C1B67DA4099A763F43EBA74"
+Content-Language: en-US
 
---_000_MWHPR1201MB0206A14F0D2148D5036A9485B46E0MWHPR1201MB0206_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+This is a multi-part message in MIME format.
+--------------5C1B67DA4099A763F43EBA74
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-WWVzLCB0byBiZSBjb21wdGliaWxpdHksIEkga2VwdCBib3RoIHNlcV9ubyBhbmQgc3luY2ZpbGUg
-ZmQgaW4gdGhlIHBhdGNoIHNldCwgeW91IGNhbiB0YWtlIGEgbG9vaywgd2hpY2ggcmVhbGx5IGlz
-IHNpbXBsZXIgYW5kIGVmZmVjdGl2ZSB3YXkuDQoNCnN5bmNmaWxlIGluZGVlZCBiZSBhIGdvb2Qg
-d2F5IHRvIHBhc3MgZmVuY2UgZm9yIHVzZXIgc3BhY2UsIHdoaWNoIGFscmVhZHkgaXMgcHJvdmVk
-IGluIEFuZHJvaWQgYW5kIGlzIHVwc3RyZWFtZWQuDQoNClJlZ2FyZHMsDQpEYXZpZCBaaG91DQoN
-Cg0K5Y+R6Ieq5Z2a5p6cIFBybw0KDQpNYXJlayBPbD/php8gPG1hcmFlb0BnbWFpbC5jb20+IOS6
-jiAyMDE35bm0OeaciDEz5pelIOS4i+WNiDg6MDblhpnpgZPvvJoNCg0KT24gV2VkLCBTZXAgMTMs
-IDIwMTcgYXQgMTozMiBQTSwgWmhvdSwgRGF2aWQoQ2h1bk1pbmcpDQo8RGF2aWQxLlpob3VAYW1k
-LmNvbT4gd3JvdGU6DQo+IENvdWxkIHlvdSBkZXNjcmliZSBob3cgZGlmZmljdWx0IHRvIGRpcmVj
-dGx5IHVzZSBDUyBzeW5jZmlsZSBmZCBpbiBNZXNhDQo+IGNvbXBhcmVkIHdpdGggY29uY2VydGlu
-ZyBDUyBzZXEgdG8gc3luY2ZpbGUgZmQgdmlhIHNldmVyYWwgc3luY29iaiBpb2N0bHM/DQoNCkl0
-IGp1c3Qgc2ltcGxpZmllcyB0aGluZ3MuIE1lc2EgcHJpbWFyaWx5IHVzZXMgc2VxX25vLWJhc2Vk
-IGZlbmNlcyBhbmQNCndpbGwgY29udGludWUgdG8gdXNlIHRoZW0uIFdlIGNhbid0IHJlbW92ZSB0
-aGUgc2VxX25vIGZlbmNlIGNvZGUNCmJlY2F1c2Ugd2UgaGF2ZSB0byBrZWVwIE1lc2EgY29tcGF0
-aWJsZSB3aXRoIG9sZGVyIGtlcm5lbHMuDQoNClRoZSBvbmx5IHBvc3NpYmlsaXRpZXMgYXJlOg0K
-LSBNZXNhIGdldHMgYm90aCBzZXFfbm8gYW5kIHN5bmNfZmlsZSBmcm9tIENTLg0KLSBNZXNhIG9u
-bHkgZ2V0cyBzZXFfbm8gZnJvbSBDUy4NCg0KSSBkZWNpZGVkIHRvIHRha2UgdGhlIHNpbXBsZXIg
-b3B0aW9uLiBJIGRvbid0IGtub3cgaWYgdGhlcmUgaXMgYSBwZXJmDQpkaWZmZXJlbmNlIGJldHdl
-ZW4gQ1MgcmV0dXJuaW5nIGEgc3luY19maWxlIGFuZCB1c2luZyBhIHNlcGFyYXRlDQppb2N0bCwg
-YnV0IGl0J3MgcHJvYmFibHkgaW5zaWduaWZpY2FudCBzaW5jZSB3ZSBhbHJlYWR5IGNhbGwgMyBp
-b2N0bHMNCnBlciBJQiBzdWJtaXNzaW9uIChCTyBsaXN0IGNyZWF0ZStkZXN0cm95LCBzdWJtaXQp
-Lg0KDQpNYXJlaw0KDQo+DQo+IFJlZ2FyZHMsDQo+IERhdmlkIFpob3UNCj4NCj4g5Y+R6Ieq5Z2a
-5p6cIFBybw0KPg0KPiBNYXJlayBPbD/php8gPG1hcmFlb0BnbWFpbC5jb20+IOS6jiAyMDE35bm0
-OeaciDEz5pelIOS4i+WNiDY6MTHlhpnpgZPvvJoNCj4NCj4gT24gV2VkLCBTZXAgMTMsIDIwMTcg
-YXQgNTowMyBBTSwgemhvdWNtMSA8ZGF2aWQxLnpob3VAYW1kLmNvbT4gd3JvdGU6DQo+PiBIaSBN
-YXJlaywNCj4+DQo+PiBZb3UncmUgZG9pbmcgc2FtZSB0aGluZ3Mgd2l0aCBtZSwgc2VlIG15ICJp
-bnRyb2R1Y2Ugc3luY2ZpbGUgYXMgZmVuY2UNCj4+IHJldXR1cm4iIHBhdGNoIHNldCwgd2hpY2gg
-bWFrZXMgdGhpbmdzIG1vcmUgc2ltcGxlLCB3ZSBqdXN0IG5lZWQgdG8NCj4+IGRpcmVjdGx5DQo+
-PiByZXR1cm4gc3luY2ZpbGUgZmQgdG8gVU1EIHdoZW4gQ1MsIHRoZW4gdGhlIGZlbmNlIFVNRCBn
-ZXQgd2lsbCBiZSBhbHdheXMNCj4+IHN5bmNmaWxlIGZkLCBVTUQgZG9uJ3QgbmVlZCB0byBjb25z
-dHJ1Y3QgaXBfdHlwZS9pcF9pbnN0YW5jZS9jdHhfaWQvcmluZw0KPj4gYW55DQo+PiBtb3JlLCB3
-aGljaCBhbHNvIGNhbiBwYXNzIHRvIGRlcGVuZGVuY3kgYW5kIHN5bmNvYmogYXMgd2VsbC4NCj4N
-Cj4gRm9yIHNpbXBsZXIgTWVzYSBjb2RlLCBNZXNhIHdvbid0IGdldCBhIHN5bmMgZmlsZSBmcm9t
-IHRoZSBDUyBpb2N0bC4NCj4NCj4gTWFyZWsNCg==
+> syncfile indeed be a good way to pass fence for user space, which already is proved in Android and is upstreamed.
+Not really. syncfile needs a file descriptor for each handle it 
+generates, that's quite a show stopper if you want to use it in general.
 
---_000_MWHPR1201MB0206A14F0D2148D5036A9485B46E0MWHPR1201MB0206_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+Android syncfile are meant to be used for inter process sharing, but as 
+command submission sequence number they are not such a good fit.
 
-PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
-dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRvciIgY29udGVu
-dD0iTWljcm9zb2Z0IEV4Y2hhbmdlIFNlcnZlciI+DQo8IS0tIGNvbnZlcnRlZCBmcm9tIHRleHQg
-LS0+PHN0eWxlPjwhLS0gLkVtYWlsUXVvdGUgeyBtYXJnaW4tbGVmdDogMXB0OyBwYWRkaW5nLWxl
-ZnQ6IDRwdDsgYm9yZGVyLWxlZnQ6ICM4MDAwMDAgMnB4IHNvbGlkOyB9IC0tPjwvc3R5bGU+DQo8
-L2hlYWQ+DQo8Ym9keT4NCjxkaXY+WWVzLCZuYnNwO3RvJm5ic3A7YmUmbmJzcDtjb21wdGliaWxp
-dHksJm5ic3A7SSZuYnNwO2tlcHQmbmJzcDtib3RoJm5ic3A7c2VxX25vJm5ic3A7YW5kJm5ic3A7
-c3luY2ZpbGUmbmJzcDtmZCZuYnNwO2luJm5ic3A7dGhlJm5ic3A7cGF0Y2gmbmJzcDtzZXQsJm5i
-c3A7eW91Jm5ic3A7Y2FuJm5ic3A7dGFrZSZuYnNwO2EmbmJzcDtsb29rLCZuYnNwO3doaWNoJm5i
-c3A7cmVhbGx5Jm5ic3A7aXMmbmJzcDtzaW1wbGVyJm5ic3A7YW5kJm5ic3A7ZWZmZWN0aXZlJm5i
-c3A7d2F5Ljxicj4NCjxicj4NCnN5bmNmaWxlJm5ic3A7aW5kZWVkJm5ic3A7YmUmbmJzcDthJm5i
-c3A7Z29vZCZuYnNwO3dheSZuYnNwO3RvJm5ic3A7cGFzcyZuYnNwO2ZlbmNlJm5ic3A7Zm9yJm5i
-c3A7dXNlciZuYnNwO3NwYWNlLCZuYnNwO3doaWNoJm5ic3A7YWxyZWFkeSZuYnNwO2lzJm5ic3A7
-cHJvdmVkJm5ic3A7aW4mbmJzcDtBbmRyb2lkJm5ic3A7YW5kJm5ic3A7aXMmbmJzcDt1cHN0cmVh
-bWVkLjxicj4NCjxicj4NClJlZ2FyZHMsPGJyPg0KRGF2aWQmbmJzcDtaaG91PGJyPg0KPGJyPg0K
-PHAgZGlyPSJsdHIiIHN0eWxlPSJkaXNwbGF5OmlubGluZSI+PHNwYW4gc3R5bGU9ImNvbG9yOiM4
-ODg4ODgiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MC44MWVtIj7lj5Hoh6rlnZrmnpwgUHJvPC9z
-cGFuPjwvc3Bhbj48L3A+DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPg0KPCEtLQ0KKiBib2R5DQoJ
-e3BhZGRpbmc6MCAxNnB4IDMwcHghaW1wb3J0YW50Ow0KCW1hcmdpbjowIWltcG9ydGFudDsNCgli
-YWNrZ3JvdW5kLWNvbG9yOiNmZmZmZmY7DQoJbGluZS1oZWlnaHQ6MS40Ow0KCXdvcmQtd3JhcDpi
-cmVhay13b3JkOw0KCXdvcmQtYnJlYWs6bm9ybWFsfQ0KZGl2DQoJe3dvcmQtd3JhcDpicmVhay13
-b3JkOw0KCXdvcmQtYnJlYWs6bm9ybWFsfQ0KcA0KCXt3b3JkLXdyYXA6YnJlYWstd29yZDsNCgl3
-b3JkLWJyZWFrOm5vcm1hbDsNCgl0ZXh0LWluZGVudDowcHQhaW1wb3J0YW50fQ0Kc3Bhbg0KCXt3
-b3JkLXdyYXA6YnJlYWstd29yZDsNCgl3b3JkLWJyZWFrOm5vcm1hbH0NCmENCgl7d29yZC13cmFw
-OmJyZWFrLXdvcmQ7DQoJd29yZC1icmVhazpub3JtYWx9DQp0ZA0KCXt3b3JkLXdyYXA6YnJlYWst
-d29yZDsNCgl3b3JkLWJyZWFrOmJyZWFrLWFsbH0NCi0tPg0KPC9zdHlsZT4NCjxkaXYgY2xhc3M9
-InhfcXVvdGUiPg0KPGRpdiBzdHlsZT0ibWFyZ2luOjAgMHB4OyBmb250LXNpemU6MTA1JSI+PGZv
-bnQgY29sb3I9IiM2MjkxNDAiIHN0eWxlPSJsaW5lLWhlaWdodDoxLjQiPjxzcGFuPk1hcmVrIE9s
-P+mGnyAmbHQ7bWFyYWVvQGdtYWlsLmNvbSZndDsg5LqOIDIwMTflubQ55pyIMTPml6Ug5LiL5Y2I
-ODowNuWGmemBk++8mjwvc3Bhbj48L2ZvbnQ+PC9kaXY+DQo8YnIgdHlwZT0iYXR0cmlidXRpb24i
-Pg0KPC9kaXY+DQo8L2Rpdj4NCjxmb250IHNpemU9IjIiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6
-MTBwdDsiPg0KPGRpdiBjbGFzcz0iUGxhaW5UZXh0Ij5PbiBXZWQsIFNlcCAxMywgMjAxNyBhdCAx
-OjMyIFBNLCBaaG91LCBEYXZpZChDaHVuTWluZyk8YnI+DQombHQ7RGF2aWQxLlpob3VAYW1kLmNv
-bSZndDsgd3JvdGU6PGJyPg0KJmd0OyBDb3VsZCB5b3UgZGVzY3JpYmUgaG93IGRpZmZpY3VsdCB0
-byBkaXJlY3RseSB1c2UgQ1Mgc3luY2ZpbGUgZmQgaW4gTWVzYTxicj4NCiZndDsgY29tcGFyZWQg
-d2l0aCBjb25jZXJ0aW5nIENTIHNlcSB0byBzeW5jZmlsZSBmZCB2aWEgc2V2ZXJhbCBzeW5jb2Jq
-IGlvY3Rscz88YnI+DQo8YnI+DQpJdCBqdXN0IHNpbXBsaWZpZXMgdGhpbmdzLiBNZXNhIHByaW1h
-cmlseSB1c2VzIHNlcV9uby1iYXNlZCBmZW5jZXMgYW5kPGJyPg0Kd2lsbCBjb250aW51ZSB0byB1
-c2UgdGhlbS4gV2UgY2FuJ3QgcmVtb3ZlIHRoZSBzZXFfbm8gZmVuY2UgY29kZTxicj4NCmJlY2F1
-c2Ugd2UgaGF2ZSB0byBrZWVwIE1lc2EgY29tcGF0aWJsZSB3aXRoIG9sZGVyIGtlcm5lbHMuPGJy
-Pg0KPGJyPg0KVGhlIG9ubHkgcG9zc2liaWxpdGllcyBhcmU6PGJyPg0KLSBNZXNhIGdldHMgYm90
-aCBzZXFfbm8gYW5kIHN5bmNfZmlsZSBmcm9tIENTLjxicj4NCi0gTWVzYSBvbmx5IGdldHMgc2Vx
-X25vIGZyb20gQ1MuPGJyPg0KPGJyPg0KSSBkZWNpZGVkIHRvIHRha2UgdGhlIHNpbXBsZXIgb3B0
-aW9uLiBJIGRvbid0IGtub3cgaWYgdGhlcmUgaXMgYSBwZXJmPGJyPg0KZGlmZmVyZW5jZSBiZXR3
-ZWVuIENTIHJldHVybmluZyBhIHN5bmNfZmlsZSBhbmQgdXNpbmcgYSBzZXBhcmF0ZTxicj4NCmlv
-Y3RsLCBidXQgaXQncyBwcm9iYWJseSBpbnNpZ25pZmljYW50IHNpbmNlIHdlIGFscmVhZHkgY2Fs
-bCAzIGlvY3Rsczxicj4NCnBlciBJQiBzdWJtaXNzaW9uIChCTyBsaXN0IGNyZWF0ZSYjNDM7ZGVz
-dHJveSwgc3VibWl0KS48YnI+DQo8YnI+DQpNYXJlazxicj4NCjxicj4NCiZndDs8YnI+DQomZ3Q7
-IFJlZ2FyZHMsPGJyPg0KJmd0OyBEYXZpZCBaaG91PGJyPg0KJmd0Ozxicj4NCiZndDsg5Y+R6Ieq
-5Z2a5p6cIFBybzxicj4NCiZndDs8YnI+DQomZ3Q7IE1hcmVrIE9sP+mGnyAmbHQ7bWFyYWVvQGdt
-YWlsLmNvbSZndDsg5LqOIDIwMTflubQ55pyIMTPml6Ug5LiL5Y2INjoxMeWGmemBk++8mjxicj4N
-CiZndDs8YnI+DQomZ3Q7IE9uIFdlZCwgU2VwIDEzLCAyMDE3IGF0IDU6MDMgQU0sIHpob3VjbTEg
-Jmx0O2RhdmlkMS56aG91QGFtZC5jb20mZ3Q7IHdyb3RlOjxicj4NCiZndDsmZ3Q7IEhpIE1hcmVr
-LDxicj4NCiZndDsmZ3Q7PGJyPg0KJmd0OyZndDsgWW91J3JlIGRvaW5nIHNhbWUgdGhpbmdzIHdp
-dGggbWUsIHNlZSBteSAmcXVvdDtpbnRyb2R1Y2Ugc3luY2ZpbGUgYXMgZmVuY2U8YnI+DQomZ3Q7
-Jmd0OyByZXV0dXJuJnF1b3Q7IHBhdGNoIHNldCwgd2hpY2ggbWFrZXMgdGhpbmdzIG1vcmUgc2lt
-cGxlLCB3ZSBqdXN0IG5lZWQgdG88YnI+DQomZ3Q7Jmd0OyBkaXJlY3RseTxicj4NCiZndDsmZ3Q7
-IHJldHVybiBzeW5jZmlsZSBmZCB0byBVTUQgd2hlbiBDUywgdGhlbiB0aGUgZmVuY2UgVU1EIGdl
-dCB3aWxsIGJlIGFsd2F5czxicj4NCiZndDsmZ3Q7IHN5bmNmaWxlIGZkLCBVTUQgZG9uJ3QgbmVl
-ZCB0byBjb25zdHJ1Y3QgaXBfdHlwZS9pcF9pbnN0YW5jZS9jdHhfaWQvcmluZzxicj4NCiZndDsm
-Z3Q7IGFueTxicj4NCiZndDsmZ3Q7IG1vcmUsIHdoaWNoIGFsc28gY2FuIHBhc3MgdG8gZGVwZW5k
-ZW5jeSBhbmQgc3luY29iaiBhcyB3ZWxsLjxicj4NCiZndDs8YnI+DQomZ3Q7IEZvciBzaW1wbGVy
-IE1lc2EgY29kZSwgTWVzYSB3b24ndCBnZXQgYSBzeW5jIGZpbGUgZnJvbSB0aGUgQ1MgaW9jdGwu
-PGJyPg0KJmd0Ozxicj4NCiZndDsgTWFyZWs8YnI+DQo8L2Rpdj4NCjwvc3Bhbj48L2ZvbnQ+DQo8
-L2JvZHk+DQo8L2h0bWw+DQo=
+Mareks approach looks really good to me and we should follow that 
+direction further.
 
---_000_MWHPR1201MB0206A14F0D2148D5036A9485B46E0MWHPR1201MB0206_--
+Regards,
+Christian.
 
---===============1044755507==
+Am 13.09.2017 um 14:25 schrieb Zhou, David(ChunMing):
+> Yes, to be comptibility, I kept both seq_no and syncfile fd in the patch set, you can take a look, which really is simpler and effective way.
+>
+> syncfile indeed be a good way to pass fence for user space, which already is proved in Android and is upstreamed.
+>
+> Regards,
+> David Zhou
+>
+> 发自坚果 Pro
+>
+> Marek Ol?醟 <maraeo@gmail.com> 于 2017年9月13日 下午8:06写道：
+>
+> On Wed, Sep 13, 2017 at 1:32 PM, Zhou, David(ChunMing)
+> <David1.Zhou@amd.com> wrote:
+> > Could you describe how difficult to directly use CS syncfile fd in Mesa
+> > compared with concerting CS seq to syncfile fd via several syncobj 
+> ioctls?
+>
+> It just simplifies things. Mesa primarily uses seq_no-based fences and
+> will continue to use them. We can't remove the seq_no fence code
+> because we have to keep Mesa compatible with older kernels.
+>
+> The only possibilities are:
+> - Mesa gets both seq_no and sync_file from CS.
+> - Mesa only gets seq_no from CS.
+>
+> I decided to take the simpler option. I don't know if there is a perf
+> difference between CS returning a sync_file and using a separate
+> ioctl, but it's probably insignificant since we already call 3 ioctls
+> per IB submission (BO list create+destroy, submit).
+>
+> Marek
+>
+> >
+> > Regards,
+> > David Zhou
+> >
+> > 发自坚果 Pro
+> >
+> > Marek Ol?醟 <maraeo@gmail.com> 于 2017年9月13日 下午6:11写道：
+> >
+> > On Wed, Sep 13, 2017 at 5:03 AM, zhoucm1 <david1.zhou@amd.com> wrote:
+> >> Hi Marek,
+> >>
+> >> You're doing same things with me, see my "introduce syncfile as fence
+> >> reuturn" patch set, which makes things more simple, we just need to
+> >> directly
+> >> return syncfile fd to UMD when CS, then the fence UMD get will be 
+> always
+> >> syncfile fd, UMD don't need to construct 
+> ip_type/ip_instance/ctx_id/ring
+> >> any
+> >> more, which also can pass to dependency and syncobj as well.
+> >
+> > For simpler Mesa code, Mesa won't get a sync file from the CS ioctl.
+> >
+> > Marek
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+
+--------------5C1B67DA4099A763F43EBA74
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">
+      <blockquote type="cite">
+syncfile indeed be a good way to pass fence for user space, which already is proved in Android and is upstreamed.<br>
+      </blockquote>
+      Not really. syncfile needs a file descriptor for each handle it
+      generates, that's quite a show stopper if you want to use it in
+      general.<br>
+      <br>
+      Android syncfile are meant to be used for inter process sharing,
+      but as command submission sequence number they are not such a good
+      fit.<br>
+      <br>
+      Mareks approach looks really good to me and we should follow that
+      direction further.<br>
+      <br>
+      Regards,<br>
+      Christian.<br>
+      <br>
+      Am 13.09.2017 um 14:25 schrieb Zhou, David(ChunMing):<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:MWHPR1201MB0206A14F0D2148D5036A9485B46E0@MWHPR1201MB0206.namprd12.prod.outlook.com">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="Generator" content="Microsoft Exchange Server">
+      <!-- converted from text -->
+      <style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left: #800000 2px solid; } --></style>
+      <div>Yes, to be comptibility, I kept both seq_no and syncfile fd in the patch set, you can take a look, which really is simpler and effective way.<br>
+        <br>
+syncfile indeed be a good way to pass fence for user space, which already is proved in Android and is upstreamed.<br>
+        <br>
+        Regards,<br>
+        David Zhou<br>
+        <br>
+        <p dir="ltr" style="display:inline"><span style="color:#888888"><span
+              style="font-size:0.81em">发自坚果 Pro</span></span></p>
+        <style type="text/css">
+<!--
+* body
+	{padding:0 16px 30px!important;
+	margin:0!important;
+	background-color:#ffffff;
+	line-height:1.4;
+	word-wrap:break-word;
+	word-break:normal}
+div
+	{word-wrap:break-word;
+	word-break:normal}
+p
+	{word-wrap:break-word;
+	word-break:normal;
+	text-indent:0pt!important}
+span
+	{word-wrap:break-word;
+	word-break:normal}
+a
+	{word-wrap:break-word;
+	word-break:normal}
+td
+	{word-wrap:break-word;
+	word-break:break-all}
+-->
+</style>
+        <div class="x_quote">
+          <div style="margin:0 0px; font-size:105%"><font
+              style="line-height:1.4" color="#629140"><span>Marek Ol?醟
+                <a class="moz-txt-link-rfc2396E" href="mailto:maraeo@gmail.com">&lt;maraeo@gmail.com&gt;</a> 于 2017年9月13日 下午8:06写道：</span></font></div>
+          <br type="attribution">
+        </div>
+      </div>
+      <font size="2"><span style="font-size:10pt;">
+          <div class="PlainText">On Wed, Sep 13, 2017 at 1:32 PM, Zhou,
+            David(ChunMing)<br>
+            <a class="moz-txt-link-rfc2396E" href="mailto:David1.Zhou@amd.com">&lt;David1.Zhou@amd.com&gt;</a> wrote:<br>
+            &gt; Could you describe how difficult to directly use CS
+            syncfile fd in Mesa<br>
+            &gt; compared with concerting CS seq to syncfile fd via
+            several syncobj ioctls?<br>
+            <br>
+            It just simplifies things. Mesa primarily uses seq_no-based
+            fences and<br>
+            will continue to use them. We can't remove the seq_no fence
+            code<br>
+            because we have to keep Mesa compatible with older kernels.<br>
+            <br>
+            The only possibilities are:<br>
+            - Mesa gets both seq_no and sync_file from CS.<br>
+            - Mesa only gets seq_no from CS.<br>
+            <br>
+            I decided to take the simpler option. I don't know if there
+            is a perf<br>
+            difference between CS returning a sync_file and using a
+            separate<br>
+            ioctl, but it's probably insignificant since we already call
+            3 ioctls<br>
+            per IB submission (BO list create+destroy, submit).<br>
+            <br>
+            Marek<br>
+            <br>
+            &gt;<br>
+            &gt; Regards,<br>
+            &gt; David Zhou<br>
+            &gt;<br>
+            &gt; 发自坚果 Pro<br>
+            &gt;<br>
+            &gt; Marek Ol?醟 <a class="moz-txt-link-rfc2396E" href="mailto:maraeo@gmail.com">&lt;maraeo@gmail.com&gt;</a> 于 2017年9月13日
+            下午6:11写道：<br>
+            &gt;<br>
+            &gt; On Wed, Sep 13, 2017 at 5:03 AM, zhoucm1
+            <a class="moz-txt-link-rfc2396E" href="mailto:david1.zhou@amd.com">&lt;david1.zhou@amd.com&gt;</a> wrote:<br>
+            &gt;&gt; Hi Marek,<br>
+            &gt;&gt;<br>
+            &gt;&gt; You're doing same things with me, see my "introduce
+            syncfile as fence<br>
+            &gt;&gt; reuturn" patch set, which makes things more simple,
+            we just need to<br>
+            &gt;&gt; directly<br>
+            &gt;&gt; return syncfile fd to UMD when CS, then the fence
+            UMD get will be always<br>
+            &gt;&gt; syncfile fd, UMD don't need to construct
+            ip_type/ip_instance/ctx_id/ring<br>
+            &gt;&gt; any<br>
+            &gt;&gt; more, which also can pass to dependency and syncobj
+            as well.<br>
+            &gt;<br>
+            &gt; For simpler Mesa code, Mesa won't get a sync file from
+            the CS ioctl.<br>
+            &gt;<br>
+            &gt; Marek<br>
+          </div>
+        </span></font>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <br>
+      <pre wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------5C1B67DA4099A763F43EBA74--
+
+--===============2130597380==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -153,4 +283,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
 IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
 dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
 
---===============1044755507==--
+--===============2130597380==--
