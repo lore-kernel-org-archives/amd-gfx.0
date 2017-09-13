@@ -1,17 +1,12 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Subject: Re: [PATCH 4/5] drm/amdgpu: cleanup amdgpu_bo_pin_restricted
-Date: Wed, 13 Sep 2017 11:30:43 +0200
-Message-ID: <0304f093-3cce-91bb-6f08-2a6957505658@vodafone.de>
-References: <1505207316-4623-1-git-send-email-deathsimple@vodafone.de>
- <1505207316-4623-4-git-send-email-deathsimple@vodafone.de>
- <BN6PR12MB16523DE24A33EB21926B3AD8F7690@BN6PR12MB1652.namprd12.prod.outlook.com>
- <BLUPR12MB0449555D451CD4F6061AB3FB846E0@BLUPR12MB0449.namprd12.prod.outlook.com>
- <47181171-d6d3-9fab-5f1d-1084c24d63d8@vodafone.de>
- <BLUPR12MB044941B9DCD5972C0F2496C6846E0@BLUPR12MB0449.namprd12.prod.outlook.com>
+From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/ttm: fix memory leak while individualizing BOs
+Date: Wed, 13 Sep 2017 09:30:25 +0000
+Message-ID: <BLUPR12MB04492B7ABAB2EE820D31CAE8846E0@BLUPR12MB0449.namprd12.prod.outlook.com>
+References: <1505292454-22259-1-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1230518452=="
+Content-Type: multipart/mixed; boundary="===============1638926205=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BLUPR12MB044941B9DCD5972C0F2496C6846E0-7LeqcoF/hwpTIQvHjXdJlwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <1505292454-22259-1-git-send-email-deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -23,632 +18,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?iso-8859-1?Q?Christian_K=F6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============1230518452==
-Content-Type: multipart/alternative;
- boundary="------------4C42A5AD51273CFCC809241E"
+--===============1638926205==
 Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BLUPR12MB04492B7ABAB2EE820D31CAE8846E0BLUPR12MB0449namp_"
 
-This is a multi-part message in MIME format.
---------------4C42A5AD51273CFCC809241E
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 8bit
+--_000_BLUPR12MB04492B7ABAB2EE820D31CAE8846E0BLUPR12MB0449namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-> but we use VRAM domain in the first bo_create stage,  so this BO is 
-> allocated directly ...
->
-Yeah, but just stop doing so. amdgpu_bo_create can just be used to 
-allocate the BO structure without any backing storage.
-
-So what you do is calling amdgpu_bo_create() with AMDGPU_GEM_DOMAIN_CPU 
-(or just 0 might work as well).
-
-And then when you call amdgpu_bo_pin_restricted() you give 
-AMDGPU_GEM_DOMAIN_VRAM and your offset and size as min/max value for the 
-placement.
-
-This way you can avoid the move and allocate the BO directly where you 
-want it.
-
-Regards,
-Christian.
-
-Am 13.09.2017 um 11:26 schrieb Liu, Monk:
->
-> but we use VRAM domain in the first bo_create stage,  so this BO is 
-> allocated directly ...
->
->
-> I think our current approach is incorrect ... because the space from 
-> bo_create(VRAM_DOMAIN) is missed somehow
->
-> ------------------------------------------------------------------------
-> *From:* Christian König <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-> *Sent:* Wednesday, September 13, 2017 5:21:13 PM
-> *To:* Liu, Monk; Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> *Subject:* Re: [PATCH 4/5] drm/amdgpu: cleanup amdgpu_bo_pin_restricted
-> amdgpu_bo_create() doesn't necessarily allocate anything, it just 
-> creates the BO structure.
->
-> The backing memory for GTT and CPU domain is only allocated on first 
-> use, only VRAM is allocated directly.
->
-> So just call amdgpu_bo_create() with AMDGPU_GEM_DOMAIN_CPU and then 
-> the pin with AMDGPU_GEM_DOMAIN_VRAM and your desired offset.
->
-> Regards,
-> Christian.
->
-> Am 13.09.2017 um 11:14 schrieb Liu, Monk:
->>
->> SRIOV need to reserve a memory at an offset that set by 
->> GIM/hypervisor side, but I'm not sure how to do it perfectly,  
->> currently we call bo_create to allocate a VRAM BO, and call 
->> pin_restrict with "offset" as parameter for "min" and "offset + size" 
->> as "max",
->>
->>
->> I feel strange of above approach frankly speaking (unless the new 
->> offset equals to the original offset from bo_create),
->>
->>
->> Because the original gpu offset (from the bo_create) is different 
->> with the new "offset" provided by GIM, what will TTM/DRM do on the 
->> range of <original offset, new offset> after we pin the bo to <new 
->> offset, new offset+ size> ???
->>
->>
->> BR Monk
->>
->>
->> ------------------------------------------------------------------------
->> *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of 
->> Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
->> *Sent:* Tuesday, September 12, 2017 11:59:35 PM
->> *To:* 'Christian König'; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->> *Subject:* RE: [PATCH 4/5] drm/amdgpu: cleanup amdgpu_bo_pin_restricted
->> > -----Original Message-----
->> > From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf
->> > Of Christian König
->> > Sent: Tuesday, September 12, 2017 5:09 AM
->> > To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->> > Subject: [PATCH 4/5] drm/amdgpu: cleanup amdgpu_bo_pin_restricted
->> >
->> > From: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
->> >
->> > Nobody is using the min/max interface any more.
->> >
->> > Signed-off-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
->>
->> I'm not sure it's a good idea to get rid of this.  I can see a need 
->> to reserve memory at specific offsets in memory.  Specifically I 
->> think SR-IOV will be placing structures in memory to communicate 
->> configuration details from the host to the guest.  Also, we should be 
->> reserving the vbios scratch area, but we don't currently.
->>
->> Alex
->>
->> > ---
->> >  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 39 
->> +++++------------------
->> > -------
->> >  drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  3 ---
->> >  2 files changed, 6 insertions(+), 36 deletions(-)
->> >
->> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> > index 726a662..8a8add3 100644
->> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> > @@ -629,20 +629,15 @@ void amdgpu_bo_unref(struct amdgpu_bo **bo)
->> >                *bo = NULL;
->> >  }
->> >
->> > -int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,
->> > -                          u64 min_offset, u64 max_offset,
->> > -                          u64 *gpu_addr)
->> > +int amdgpu_bo_pin(struct amdgpu_bo *bo, u32 domain, u64 *gpu_addr)
->> >  {
->> >        struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
->> > +     unsigned lpfn;
->> >        int r, i;
->> > -     unsigned fpfn, lpfn;
->> >
->> >        if (amdgpu_ttm_tt_get_usermm(bo->tbo.ttm))
->> >                return -EPERM;
->> >
->> > -     if (WARN_ON_ONCE(min_offset > max_offset))
->> > -             return -EINVAL;
->> > -
->> >        /* A shared bo cannot be migrated to VRAM */
->> >        if (bo->prime_shared_count && (domain ==
->> > AMDGPU_GEM_DOMAIN_VRAM))
->> >                return -EINVAL;
->> > @@ -657,12 +652,6 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo
->> > *bo, u32 domain,
->> >                if (gpu_addr)
->> >                        *gpu_addr = amdgpu_bo_gpu_offset(bo);
->> >
->> > -             if (max_offset != 0) {
->> > -                     u64 domain_start = bo->tbo.bdev-
->> > >man[mem_type].gpu_offset;
->> > -                     WARN_ON_ONCE(max_offset <
->> > - (amdgpu_bo_gpu_offset(bo) -
->> > domain_start));
->> > -             }
->> > -
->> >                return 0;
->> >        }
->> >
->> > @@ -671,23 +660,12 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo
->> > *bo, u32 domain,
->> >        for (i = 0; i < bo->placement.num_placement; i++) {
->> >                /* force to pin into visible video ram */
->> >                if ((bo->placements[i].flags & TTM_PL_FLAG_VRAM) &&
->> > -                 !(bo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS)
->> > &&
->> > -                 (!max_offset || max_offset >
->> > -                  adev->mc.visible_vram_size)) {
->> > -                     if (WARN_ON_ONCE(min_offset >
->> > - adev->mc.visible_vram_size))
->> > -                             return -EINVAL;
->> > -                     fpfn = min_offset >> PAGE_SHIFT;
->> > +                 !(bo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS))
->> > {
->> >                        lpfn = adev->mc.visible_vram_size >> PAGE_SHIFT;
->> > -             } else {
->> > -                     fpfn = min_offset >> PAGE_SHIFT;
->> > -                     lpfn = max_offset >> PAGE_SHIFT;
->> > +                     if (!bo->placements[i].lpfn ||
->> > +                         (lpfn && lpfn < bo->placements[i].lpfn))
->> > + bo->placements[i].lpfn = lpfn;
->> >                }
->> > -             if (fpfn > bo->placements[i].fpfn)
->> > -                     bo->placements[i].fpfn = fpfn;
->> > -             if (!bo->placements[i].lpfn ||
->> > -                 (lpfn && lpfn < bo->placements[i].lpfn))
->> > -                     bo->placements[i].lpfn = lpfn;
->> >                bo->placements[i].flags |= TTM_PL_FLAG_NO_EVICT;
->> >        }
->> >
->> > @@ -718,11 +696,6 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo
->> > *bo, u32 domain,
->> >        return r;
->> >  }
->> >
->> > -int amdgpu_bo_pin(struct amdgpu_bo *bo, u32 domain, u64 *gpu_addr)
->> > -{
->> > -     return amdgpu_bo_pin_restricted(bo, domain, 0, 0, gpu_addr);
->> > -}
->> > -
->> >  int amdgpu_bo_unpin(struct amdgpu_bo *bo)
->> >  {
->> >        struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
->> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
->> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
->> > index 39b6bf6..4b2c042 100644
->> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
->> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
->> > @@ -211,9 +211,6 @@ void amdgpu_bo_kunmap(struct amdgpu_bo *bo);
->> >  struct amdgpu_bo *amdgpu_bo_ref(struct amdgpu_bo *bo);
->> >  void amdgpu_bo_unref(struct amdgpu_bo **bo);
->> >  int amdgpu_bo_pin(struct amdgpu_bo *bo, u32 domain, u64 *gpu_addr);
->> > -int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,
->> > -                          u64 min_offset, u64 max_offset,
->> > -                          u64 *gpu_addr);
->> >  int amdgpu_bo_unpin(struct amdgpu_bo *bo);
->> >  int amdgpu_bo_evict_vram(struct amdgpu_device *adev);
->> >  int amdgpu_bo_init(struct amdgpu_device *adev);
->> > --
->> > 2.7.4
->> >
->> > _______________________________________________
->> > amd-gfx mailing list
->> > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx 
->> <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>
->> _______________________________________________
->> amd-gfx mailing list
->> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
->
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+verified work,
 
 
+Reviewed-by: Monk Liu <monk.liu-5C7GfCeVMHo@public.gmane.org>
 
---------------4C42A5AD51273CFCC809241E
-Content-Type: text/html; charset=windows-1252
-Content-Transfer-Encoding: 8bit
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Christia=
+n K=F6nig <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+Sent: Wednesday, September 13, 2017 4:47:34 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: [PATCH] drm/ttm: fix memory leak while individualizing BOs
+
+From: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+
+We need to free the reservation object before we take the BO
+from the delayed delete list.
+
+Signed-off-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/ttm/ttm_bo.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index bee77d3..d79607a 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -557,6 +557,8 @@ static int ttm_bo_cleanup_refs_and_unlock(struct ttm_bu=
+ffer_object *bo,
+         }
+
+         ttm_bo_del_from_lru(bo);
++       if (!list_empty(&bo->ddestroy) && (bo->resv !=3D &bo->ttm_resv))
++               reservation_object_fini(&bo->ttm_resv);
+         list_del_init(&bo->ddestroy);
+         kref_put(&bo->list_kref, ttm_bo_ref_bug);
+
+--
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BLUPR12MB04492B7ABAB2EE820D31CAE8846E0BLUPR12MB0449namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;
-      charset=windows-1252">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">
-      <blockquote type="cite">
-        <p>but we use VRAM domain in the first bo_create stage,  so this
-          BO is allocated directly ...</p>
-      </blockquote>
-      Yeah, but just stop doing so. amdgpu_bo_create can just be used to
-      allocate the BO structure without any backing storage.<br>
-      <br>
-      So what you do is calling amdgpu_bo_create() with
-      AMDGPU_GEM_DOMAIN_CPU (or just 0 might work as well).<br>
-      <br>
-      And then when you call amdgpu_bo_pin_restricted() you give
-      AMDGPU_GEM_DOMAIN_VRAM and your offset and size as min/max value
-      for the placement.<br>
-      <br>
-      This way you can avoid the move and allocate the BO directly where
-      you want it.<br>
-      <br>
-      Regards,<br>
-      Christian.<br>
-      <br>
-      Am 13.09.2017 um 11:26 schrieb Liu, Monk:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:BLUPR12MB044941B9DCD5972C0F2496C6846E0-7LeqcoF/hwpTIQvHjXdJlwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
-      <meta http-equiv="Content-Type" content="text/html;
-        charset=windows-1252">
-      <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
-      <div id="divtagdefaultwrapper"
-style="font-size:12pt;color:#000000;font-family:Calibri,Helvetica,sans-serif;"
-        dir="ltr">
-        <p>but we use VRAM domain in the first bo_create stage,  so this
-          BO is allocated directly ...</p>
-        <p><br>
-        </p>
-        <p>I think our current approach is incorrect ... because the
-          space from bo_create(VRAM_DOMAIN) is missed somehow
-          <br>
-        </p>
-      </div>
-      <hr style="display:inline-block;width:98%" tabindex="-1">
-      <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
-          face="Calibri, sans-serif" color="#000000"><b>From:</b>
-          Christian König <a class="moz-txt-link-rfc2396E" href="mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">&lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;</a><br>
-          <b>Sent:</b> Wednesday, September 13, 2017 5:21:13 PM<br>
-          <b>To:</b> Liu, Monk; Deucher, Alexander;
-          <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-          <b>Subject:</b> Re: [PATCH 4/5] drm/amdgpu: cleanup
-          amdgpu_bo_pin_restricted</font>
-        <div> </div>
-      </div>
-      <div>
-        <div class="moz-cite-prefix">amdgpu_bo_create() doesn't
-          necessarily allocate anything, it just creates the BO
-          structure.<br>
-          <br>
-          The backing memory for GTT and CPU domain is only allocated on
-          first use, only VRAM is allocated directly.<br>
-          <br>
-          So just call amdgpu_bo_create() with AMDGPU_GEM_DOMAIN_CPU and
-          then the pin with AMDGPU_GEM_DOMAIN_VRAM and your desired
-          offset.<br>
-          <br>
-          Regards,<br>
-          Christian.<br>
-          <br>
-          Am 13.09.2017 um 11:14 schrieb Liu, Monk:<br>
-        </div>
-        <blockquote type="cite"
-cite="mid:BLUPR12MB0449555D451CD4F6061AB3FB846E0-7LeqcoF/hwpTIQvHjXdJlwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
-          <meta name="Generator" content="Microsoft Exchange Server">
-          <!-- converted from text -->
-          <style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left: #800000 2px solid; } --></style>
-          <meta content="text/html; charset=UTF-8">
-          <style type="text/css" style="">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
+<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
+ding-left: 4pt; border-left: #800000 2px solid; } --></style>
+</head>
+<body>
+<meta content=3D"text/html; charset=3DUTF-8">
+<style type=3D"text/css" style=3D"">
 <!--
 p
 	{margin-top:0;
 	margin-bottom:0}
 -->
 </style>
-          <div dir="ltr">
-            <div id="x_divtagdefaultwrapper" dir="ltr"
-              style="font-size:12pt; color:#000000;
-              font-family:Calibri,Helvetica,sans-serif">
-              <p>SRIOV need to reserve a memory at an offset that set by
-                GIM/hypervisor side, but I'm not sure how to do it
-                perfectly,  currently we call bo_create to allocate a
-                VRAM BO, and call pin_restrict with "offset" as
-                parameter for "min" and "offset + size" as "max", 
-                <br>
-              </p>
-              <p><br>
-              </p>
-              <p>I feel strange of above approach frankly speaking
-                (unless the new offset equals to the original offset
-                from bo_create),
-                <br>
-              </p>
-              <p><br>
-              </p>
-              <p>Because the original gpu offset (from the bo_create) is
-                different with the new "offset" provided by GIM, what
-                will TTM/DRM do on the range of &lt;original offset, new
-                offset&gt; after we pin the bo to &lt;new offset, new
-                offset+ size&gt; ???</p>
-              <p><br>
-              </p>
-              <p>BR Monk<br>
-              </p>
-              <p><br>
-              </p>
-            </div>
-            <hr tabindex="-1" style="display:inline-block; width:98%">
-            <div id="x_divRplyFwdMsg" dir="ltr"><font
-                style="font-size:11pt" face="Calibri, sans-serif"
-                color="#000000"><b>From:</b> amd-gfx
-                <a class="moz-txt-link-rfc2396E"
-                  href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                  moz-do-not-send="true">
-                  &lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a> on
-                behalf of Deucher, Alexander <a
-                  class="moz-txt-link-rfc2396E"
-                  href="mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org"
-                  moz-do-not-send="true">
-                  &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-                <b>Sent:</b> Tuesday, September 12, 2017 11:59:35 PM<br>
-                <b>To:</b> 'Christian König'; <a
-                  class="moz-txt-link-abbreviated"
-                  href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                  moz-do-not-send="true">
-                  amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                <b>Subject:</b> RE: [PATCH 4/5] drm/amdgpu: cleanup
-                amdgpu_bo_pin_restricted</font>
-              <div> </div>
-            </div>
-          </div>
-          <font size="2"><span style="font-size:10pt;">
-              <div class="PlainText">&gt; -----Original Message-----<br>
-                &gt; From: amd-gfx [<a
-                  href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                  moz-do-not-send="true">mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>]
-                On Behalf<br>
-                &gt; Of Christian König<br>
-                &gt; Sent: Tuesday, September 12, 2017 5:09 AM<br>
-                &gt; To: <a class="moz-txt-link-abbreviated"
-                  href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                  moz-do-not-send="true">
-                  amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                &gt; Subject: [PATCH 4/5] drm/amdgpu: cleanup
-                amdgpu_bo_pin_restricted<br>
-                &gt; <br>
-                &gt; From: Christian König <a
-                  class="moz-txt-link-rfc2396E"
-                  href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org"
-                  moz-do-not-send="true">
-                  &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-                &gt; <br>
-                &gt; Nobody is using the min/max interface any more.<br>
-                &gt; <br>
-                &gt; Signed-off-by: Christian König <a
-                  class="moz-txt-link-rfc2396E"
-                  href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org"
-                  moz-do-not-send="true">
-                  &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-                <br>
-                I'm not sure it's a good idea to get rid of this.  I can
-                see a need to reserve memory at specific offsets in
-                memory.  Specifically I think SR-IOV will be placing
-                structures in memory to communicate configuration
-                details from the host to the guest.  Also, we should be
-                reserving the vbios scratch area, but we don't
-                currently.<br>
-                <br>
-                Alex<br>
-                <br>
-                &gt; ---<br>
-                &gt;  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 39
-                +++++------------------<br>
-                &gt; -------<br>
-                &gt;  drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  3
-                ---<br>
-                &gt;  2 files changed, 6 insertions(+), 36 deletions(-)<br>
-                &gt; <br>
-                &gt; diff --git
-                a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-                &gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-                &gt; index 726a662..8a8add3 100644<br>
-                &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-                &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-                &gt; @@ -629,20 +629,15 @@ void amdgpu_bo_unref(struct
-                amdgpu_bo **bo)<br>
-                &gt;                *bo = NULL;<br>
-                &gt;  }<br>
-                &gt; <br>
-                &gt; -int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo,
-                u32 domain,<br>
-                &gt; -                          u64 min_offset, u64
-                max_offset,<br>
-                &gt; -                          u64 *gpu_addr)<br>
-                &gt; +int amdgpu_bo_pin(struct amdgpu_bo *bo, u32
-                domain, u64 *gpu_addr)<br>
-                &gt;  {<br>
-                &gt;        struct amdgpu_device *adev =
-                amdgpu_ttm_adev(bo-&gt;tbo.bdev);<br>
-                &gt; +     unsigned lpfn;<br>
-                &gt;        int r, i;<br>
-                &gt; -     unsigned fpfn, lpfn;<br>
-                &gt; <br>
-                &gt;        if
-                (amdgpu_ttm_tt_get_usermm(bo-&gt;tbo.ttm))<br>
-                &gt;                return -EPERM;<br>
-                &gt; <br>
-                &gt; -     if (WARN_ON_ONCE(min_offset &gt; max_offset))<br>
-                &gt; -             return -EINVAL;<br>
-                &gt; -<br>
-                &gt;        /* A shared bo cannot be migrated to VRAM */<br>
-                &gt;        if (bo-&gt;prime_shared_count &amp;&amp;
-                (domain ==<br>
-                &gt; AMDGPU_GEM_DOMAIN_VRAM))<br>
-                &gt;                return -EINVAL;<br>
-                &gt; @@ -657,12 +652,6 @@ int
-                amdgpu_bo_pin_restricted(struct amdgpu_bo<br>
-                &gt; *bo, u32 domain,<br>
-                &gt;                if (gpu_addr)<br>
-                &gt;                        *gpu_addr =
-                amdgpu_bo_gpu_offset(bo);<br>
-                &gt; <br>
-                &gt; -             if (max_offset != 0) {<br>
-                &gt; -                     u64 domain_start =
-                bo-&gt;tbo.bdev-<br>
-                &gt; &gt;man[mem_type].gpu_offset;<br>
-                &gt; -                     WARN_ON_ONCE(max_offset &lt;<br>
-                &gt; -                                 
-                (amdgpu_bo_gpu_offset(bo) -<br>
-                &gt; domain_start));<br>
-                &gt; -             }<br>
-                &gt; -<br>
-                &gt;                return 0;<br>
-                &gt;        }<br>
-                &gt; <br>
-                &gt; @@ -671,23 +660,12 @@ int
-                amdgpu_bo_pin_restricted(struct amdgpu_bo<br>
-                &gt; *bo, u32 domain,<br>
-                &gt;        for (i = 0; i &lt;
-                bo-&gt;placement.num_placement; i++) {<br>
-                &gt;                /* force to pin into visible video
-                ram */<br>
-                &gt;                if ((bo-&gt;placements[i].flags
-                &amp; TTM_PL_FLAG_VRAM) &amp;&amp;<br>
-                &gt; -                 !(bo-&gt;flags &amp;
-                AMDGPU_GEM_CREATE_NO_CPU_ACCESS)<br>
-                &gt; &amp;&amp;<br>
-                &gt; -                 (!max_offset || max_offset &gt;<br>
-                &gt; -                  adev-&gt;mc.visible_vram_size))
-                {<br>
-                &gt; -                     if (WARN_ON_ONCE(min_offset
-                &gt;<br>
-                &gt; -                                     
-                adev-&gt;mc.visible_vram_size))<br>
-                &gt; -                             return -EINVAL;<br>
-                &gt; -                     fpfn = min_offset &gt;&gt;
-                PAGE_SHIFT;<br>
-                &gt; +                 !(bo-&gt;flags &amp;
-                AMDGPU_GEM_CREATE_NO_CPU_ACCESS))<br>
-                &gt; {<br>
-                &gt;                        lpfn =
-                adev-&gt;mc.visible_vram_size &gt;&gt; PAGE_SHIFT;<br>
-                &gt; -             } else {<br>
-                &gt; -                     fpfn = min_offset &gt;&gt;
-                PAGE_SHIFT;<br>
-                &gt; -                     lpfn = max_offset &gt;&gt;
-                PAGE_SHIFT;<br>
-                &gt; +                     if
-                (!bo-&gt;placements[i].lpfn ||<br>
-                &gt; +                         (lpfn &amp;&amp; lpfn
-                &lt; bo-&gt;placements[i].lpfn))<br>
-                &gt; +                            
-                bo-&gt;placements[i].lpfn = lpfn;<br>
-                &gt;                }<br>
-                &gt; -             if (fpfn &gt;
-                bo-&gt;placements[i].fpfn)<br>
-                &gt; -                     bo-&gt;placements[i].fpfn =
-                fpfn;<br>
-                &gt; -             if (!bo-&gt;placements[i].lpfn ||<br>
-                &gt; -                 (lpfn &amp;&amp; lpfn &lt;
-                bo-&gt;placements[i].lpfn))<br>
-                &gt; -                     bo-&gt;placements[i].lpfn =
-                lpfn;<br>
-                &gt;                bo-&gt;placements[i].flags |=
-                TTM_PL_FLAG_NO_EVICT;<br>
-                &gt;        }<br>
-                &gt; <br>
-                &gt; @@ -718,11 +696,6 @@ int
-                amdgpu_bo_pin_restricted(struct amdgpu_bo<br>
-                &gt; *bo, u32 domain,<br>
-                &gt;        return r;<br>
-                &gt;  }<br>
-                &gt; <br>
-                &gt; -int amdgpu_bo_pin(struct amdgpu_bo *bo, u32
-                domain, u64 *gpu_addr)<br>
-                &gt; -{<br>
-                &gt; -     return amdgpu_bo_pin_restricted(bo, domain,
-                0, 0, gpu_addr);<br>
-                &gt; -}<br>
-                &gt; -<br>
-                &gt;  int amdgpu_bo_unpin(struct amdgpu_bo *bo)<br>
-                &gt;  {<br>
-                &gt;        struct amdgpu_device *adev =
-                amdgpu_ttm_adev(bo-&gt;tbo.bdev);<br>
-                &gt; diff --git
-                a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h<br>
-                &gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h<br>
-                &gt; index 39b6bf6..4b2c042 100644<br>
-                &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h<br>
-                &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h<br>
-                &gt; @@ -211,9 +211,6 @@ void amdgpu_bo_kunmap(struct
-                amdgpu_bo *bo);<br>
-                &gt;  struct amdgpu_bo *amdgpu_bo_ref(struct amdgpu_bo
-                *bo);<br>
-                &gt;  void amdgpu_bo_unref(struct amdgpu_bo **bo);<br>
-                &gt;  int amdgpu_bo_pin(struct amdgpu_bo *bo, u32
-                domain, u64 *gpu_addr);<br>
-                &gt; -int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo,
-                u32 domain,<br>
-                &gt; -                          u64 min_offset, u64
-                max_offset,<br>
-                &gt; -                          u64 *gpu_addr);<br>
-                &gt;  int amdgpu_bo_unpin(struct amdgpu_bo *bo);<br>
-                &gt;  int amdgpu_bo_evict_vram(struct amdgpu_device
-                *adev);<br>
-                &gt;  int amdgpu_bo_init(struct amdgpu_device *adev);<br>
-                &gt; --<br>
-                &gt; 2.7.4<br>
-                &gt; <br>
-                &gt; _______________________________________________<br>
-                &gt; amd-gfx mailing list<br>
-                &gt; <a class="moz-txt-link-abbreviated"
-                  href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                  moz-do-not-send="true">
-                  amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                &gt; <a
-                  href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-                  moz-do-not-send="true">
-                  https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-                _______________________________________________<br>
-                amd-gfx mailing list<br>
-                <a class="moz-txt-link-abbreviated"
-                  href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                  moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                <a
-                  href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-                  moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-              </div>
-            </span></font></blockquote>
-        <p><br>
-        </p>
-      </div>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <br>
-      <pre wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <p><br>
-    </p>
-  </body>
+<div dir=3D"ltr">
+<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
+or:#000000; font-family:Calibri,Helvetica,sans-serif">
+<p>verified work,</p>
+<p><br>
+</p>
+<p>Reviewed-by: Monk Liu &lt;monk.liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Christian K=F6nig &lt;death=
+simple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;<br>
+<b>Sent:</b> Wednesday, September 13, 2017 4:47:34 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<b=
+r>
+<b>Subject:</b> [PATCH] drm/ttm: fix memory leak while individualizing BOs<=
+/font>
+<div>&nbsp;</div>
+</div>
+</div>
+<font size=3D"2"><span style=3D"font-size:10pt;">
+<div class=3D"PlainText">From: Christian K=F6nig &lt;christian.koenig@amd.c=
+om&gt;<br>
+<br>
+We need to free the reservation object before we take the BO<br>
+from the delayed delete list.<br>
+<br>
+Signed-off-by: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/ttm/ttm_bo.c | 2 &#43;&#43;<br>
+&nbsp;1 file changed, 2 insertions(&#43;)<br>
+<br>
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c<br=
+>
+index bee77d3..d79607a 100644<br>
+--- a/drivers/gpu/drm/ttm/ttm_bo.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/ttm/ttm_bo.c<br>
+@@ -557,6 &#43;557,8 @@ static int ttm_bo_cleanup_refs_and_unlock(struct tt=
+m_buffer_object *bo,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ttm_bo_del_from_lru(bo);<b=
+r>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!list_empty(&amp;bo-&gt;ddest=
+roy) &amp;&amp; (bo-&gt;resv !=3D &amp;bo-&gt;ttm_resv))<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; reservation_object_fini(&amp;bo-&gt;ttm_resv);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_del_init(&amp;bo-&gt;=
+ddestroy);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kref_put(&amp;bo-&gt;list_=
+kref, ttm_bo_ref_bug);<br>
+&nbsp;<br>
+-- <br>
+2.7.4<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font>
+</body>
 </html>
 
---------------4C42A5AD51273CFCC809241E--
+--_000_BLUPR12MB04492B7ABAB2EE820D31CAE8846E0BLUPR12MB0449namp_--
 
---===============1230518452==
+--===============1638926205==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -658,4 +173,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1230518452==--
+--===============1638926205==--
