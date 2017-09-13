@@ -1,18 +1,21 @@
-From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 4/5] drm/amdgpu: cleanup amdgpu_bo_pin_restricted
-Date: Wed, 13 Sep 2017 09:32:01 +0000
-Message-ID: <BLUPR12MB04493F3392042D6C364A426B846E0@BLUPR12MB0449.namprd12.prod.outlook.com>
-References: <1505207316-4623-1-git-send-email-deathsimple@vodafone.de>
- <1505207316-4623-4-git-send-email-deathsimple@vodafone.de>
- <BN6PR12MB16523DE24A33EB21926B3AD8F7690@BN6PR12MB1652.namprd12.prod.outlook.com>
- <BLUPR12MB0449555D451CD4F6061AB3FB846E0@BLUPR12MB0449.namprd12.prod.outlook.com>
- <47181171-d6d3-9fab-5f1d-1084c24d63d8@vodafone.de>
- <BLUPR12MB044941B9DCD5972C0F2496C6846E0@BLUPR12MB0449.namprd12.prod.outlook.com>,
- <0304f093-3cce-91bb-6f08-2a6957505658@vodafone.de>
+From: zhoucm1 <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 3/3] drm/amdgpu: add FENCE_TO_HANDLE ioctl that returns
+ syncobj or sync_file
+Date: Wed, 13 Sep 2017 17:57:23 +0800
+Message-ID: <4e0d6166-811e-5017-5c4c-735d8a1ca96a@amd.com>
+References: <1505248934-1819-1-git-send-email-maraeo@gmail.com>
+ <1505248934-1819-3-git-send-email-maraeo@gmail.com>
+ <7413e296-b7f5-5963-b477-b04acfb4bb91@amd.com>
+ <10bed18c-f41b-5570-c299-2be190767a20@vodafone.de>
+ <730605e2-35d2-8fdb-bf07-bff7629b20b7@amd.com>
+ <a6c564e8-fe75-0e05-d267-e6dc7255b4af@vodafone.de>
+ <a93a3bb9-b567-dbb5-618c-ff63e9299777@amd.com>
+ <58914d9d-f140-9cf3-f91b-78db7d913d12@vodafone.de>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1630556841=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <0304f093-3cce-91bb-6f08-2a6957505658-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
+In-Reply-To: <58914d9d-f140-9cf3-f91b-78db7d913d12-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -24,701 +27,227 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?iso-8859-1?Q?Christian_K=F6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============1630556841==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BLUPR12MB04493F3392042D6C364A426B846E0BLUPR12MB0449namp_"
-
---_000_BLUPR12MB04493F3392042D6C364A426B846E0BLUPR12MB0449namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-yeah, that's right !
-
-
-Thanks
-
-BR Monk
-
-
-________________________________
-From: Christian K=F6nig <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org>
-Sent: Wednesday, September 13, 2017 5:30 PM
-To: Liu, Monk; Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH 4/5] drm/amdgpu: cleanup amdgpu_bo_pin_restricted
-
-
-but we use VRAM domain in the first bo_create stage,  so this BO is allocat=
-ed directly ...
-
-Yeah, but just stop doing so. amdgpu_bo_create can just be used to allocate=
- the BO structure without any backing storage.
-
-So what you do is calling amdgpu_bo_create() with AMDGPU_GEM_DOMAIN_CPU (or=
- just 0 might work as well).
-
-And then when you call amdgpu_bo_pin_restricted() you give AMDGPU_GEM_DOMAI=
-N_VRAM and your offset and size as min/max value for the placement.
-
-This way you can avoid the move and allocate the BO directly where you want=
- it.
-
-Regards,
-Christian.
-
-Am 13.09.2017 um 11:26 schrieb Liu, Monk:
-
-but we use VRAM domain in the first bo_create stage,  so this BO is allocat=
-ed directly ...
-
-
-I think our current approach is incorrect ... because the space from bo_cre=
-ate(VRAM_DOMAIN) is missed somehow
-
-________________________________
-From: Christian K=F6nig <deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org><mailto:deathsimple@vodafo=
-ne.de>
-Sent: Wednesday, September 13, 2017 5:21:13 PM
-To: Liu, Monk; Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd=
--gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: Re: [PATCH 4/5] drm/amdgpu: cleanup amdgpu_bo_pin_restricted
-
-amdgpu_bo_create() doesn't necessarily allocate anything, it just creates t=
-he BO structure.
-
-The backing memory for GTT and CPU domain is only allocated on first use, o=
-nly VRAM is allocated directly.
-
-So just call amdgpu_bo_create() with AMDGPU_GEM_DOMAIN_CPU and then the pin=
- with AMDGPU_GEM_DOMAIN_VRAM and your desired offset.
-
-Regards,
-Christian.
-
-Am 13.09.2017 um 11:14 schrieb Liu, Monk:
-
-SRIOV need to reserve a memory at an offset that set by GIM/hypervisor side=
-, but I'm not sure how to do it perfectly,  currently we call bo_create to =
-allocate a VRAM BO, and call pin_restrict with "offset" as parameter for "m=
-in" and "offset + size" as "max",
-
-
-I feel strange of above approach frankly speaking (unless the new offset eq=
-uals to the original offset from bo_create),
-
-
-Because the original gpu offset (from the bo_create) is different with the =
-new "offset" provided by GIM, what will TTM/DRM do on the range of <origina=
-l offset, new offset> after we pin the bo to <new offset, new offset+ size>=
- ???
-
-
-BR Monk
-
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org><mailto:amd-gfx-bounce=
-s@lists.freedesktop.org> on behalf of Deucher, Alexander <Alexander.Deucher=
-@amd.com><mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Sent: Tuesday, September 12, 2017 11:59:35 PM
-To: 'Christian K=F6nig'; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx@lists=
-.freedesktop.org>
-Subject: RE: [PATCH 4/5] drm/amdgpu: cleanup amdgpu_bo_pin_restricted
-
-> -----Original Message-----
-> From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf
-> Of Christian K=F6nig
-> Sent: Tuesday, September 12, 2017 5:09 AM
-> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-> Subject: [PATCH 4/5] drm/amdgpu: cleanup amdgpu_bo_pin_restricted
->
-> From: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org><mailto:christian.koeni=
-g@amd.com>
->
-> Nobody is using the min/max interface any more.
->
-> Signed-off-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org><mailto:christ=
-ian.koenig-5C7GfCeVMHo@public.gmane.org>
-
-I'm not sure it's a good idea to get rid of this.  I can see a need to rese=
-rve memory at specific offsets in memory.  Specifically I think SR-IOV will=
- be placing structures in memory to communicate configuration details from =
-the host to the guest.  Also, we should be reserving the vbios scratch area=
-, but we don't currently.
-
-Alex
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 39 +++++------------------
-> -------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  3 ---
->  2 files changed, 6 insertions(+), 36 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> index 726a662..8a8add3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -629,20 +629,15 @@ void amdgpu_bo_unref(struct amdgpu_bo **bo)
->                *bo =3D NULL;
->  }
->
-> -int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,
-> -                          u64 min_offset, u64 max_offset,
-> -                          u64 *gpu_addr)
-> +int amdgpu_bo_pin(struct amdgpu_bo *bo, u32 domain, u64 *gpu_addr)
->  {
->        struct amdgpu_device *adev =3D amdgpu_ttm_adev(bo->tbo.bdev);
-> +     unsigned lpfn;
->        int r, i;
-> -     unsigned fpfn, lpfn;
->
->        if (amdgpu_ttm_tt_get_usermm(bo->tbo.ttm))
->                return -EPERM;
->
-> -     if (WARN_ON_ONCE(min_offset > max_offset))
-> -             return -EINVAL;
-> -
->        /* A shared bo cannot be migrated to VRAM */
->        if (bo->prime_shared_count && (domain =3D=3D
-> AMDGPU_GEM_DOMAIN_VRAM))
->                return -EINVAL;
-> @@ -657,12 +652,6 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo
-> *bo, u32 domain,
->                if (gpu_addr)
->                        *gpu_addr =3D amdgpu_bo_gpu_offset(bo);
->
-> -             if (max_offset !=3D 0) {
-> -                     u64 domain_start =3D bo->tbo.bdev-
-> >man[mem_type].gpu_offset;
-> -                     WARN_ON_ONCE(max_offset <
-> -                                  (amdgpu_bo_gpu_offset(bo) -
-> domain_start));
-> -             }
-> -
->                return 0;
->        }
->
-> @@ -671,23 +660,12 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo
-> *bo, u32 domain,
->        for (i =3D 0; i < bo->placement.num_placement; i++) {
->                /* force to pin into visible video ram */
->                if ((bo->placements[i].flags & TTM_PL_FLAG_VRAM) &&
-> -                 !(bo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS)
-> &&
-> -                 (!max_offset || max_offset >
-> -                  adev->mc.visible_vram_size)) {
-> -                     if (WARN_ON_ONCE(min_offset >
-> -                                      adev->mc.visible_vram_size))
-> -                             return -EINVAL;
-> -                     fpfn =3D min_offset >> PAGE_SHIFT;
-> +                 !(bo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS))
-> {
->                        lpfn =3D adev->mc.visible_vram_size >> PAGE_SHIFT;
-> -             } else {
-> -                     fpfn =3D min_offset >> PAGE_SHIFT;
-> -                     lpfn =3D max_offset >> PAGE_SHIFT;
-> +                     if (!bo->placements[i].lpfn ||
-> +                         (lpfn && lpfn < bo->placements[i].lpfn))
-> +                             bo->placements[i].lpfn =3D lpfn;
->                }
-> -             if (fpfn > bo->placements[i].fpfn)
-> -                     bo->placements[i].fpfn =3D fpfn;
-> -             if (!bo->placements[i].lpfn ||
-> -                 (lpfn && lpfn < bo->placements[i].lpfn))
-> -                     bo->placements[i].lpfn =3D lpfn;
->                bo->placements[i].flags |=3D TTM_PL_FLAG_NO_EVICT;
->        }
->
-> @@ -718,11 +696,6 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo
-> *bo, u32 domain,
->        return r;
->  }
->
-> -int amdgpu_bo_pin(struct amdgpu_bo *bo, u32 domain, u64 *gpu_addr)
-> -{
-> -     return amdgpu_bo_pin_restricted(bo, domain, 0, 0, gpu_addr);
-> -}
-> -
->  int amdgpu_bo_unpin(struct amdgpu_bo *bo)
->  {
->        struct amdgpu_device *adev =3D amdgpu_ttm_adev(bo->tbo.bdev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> index 39b6bf6..4b2c042 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-> @@ -211,9 +211,6 @@ void amdgpu_bo_kunmap(struct amdgpu_bo *bo);
->  struct amdgpu_bo *amdgpu_bo_ref(struct amdgpu_bo *bo);
->  void amdgpu_bo_unref(struct amdgpu_bo **bo);
->  int amdgpu_bo_pin(struct amdgpu_bo *bo, u32 domain, u64 *gpu_addr);
-> -int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,
-> -                          u64 min_offset, u64 max_offset,
-> -                          u64 *gpu_addr);
->  int amdgpu_bo_unpin(struct amdgpu_bo *bo);
->  int amdgpu_bo_evict_vram(struct amdgpu_device *adev);
->  int amdgpu_bo_init(struct amdgpu_device *adev);
-> --
-> 2.7.4
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
-
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
-
---_000_BLUPR12MB04493F3392042D6C364A426B846E0BLUPR12MB0449namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p>yeah, that's right !<br>
-</p>
-<p><br>
-</p>
-<p>Thanks<br>
-</p>
-<p>BR Monk<br>
-</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> Christian K=F6nig &=
-lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;<br>
-<b>Sent:</b> Wednesday, September 13, 2017 5:30 PM<br>
-<b>To:</b> Liu, Monk; Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: [PATCH 4/5] drm/amdgpu: cleanup amdgpu_bo_pin_restricte=
-d</font>
-<div>&nbsp;</div>
-</div>
-<div>
-<div class=3D"moz-cite-prefix">
-<blockquote type=3D"cite">
-<p>but we use VRAM domain in the first bo_create stage,&nbsp; so this BO is=
- allocated directly ...</p>
-</blockquote>
-Yeah, but just stop doing so. amdgpu_bo_create can just be used to allocate=
- the BO structure without any backing storage.<br>
-<br>
-So what you do is calling amdgpu_bo_create() with AMDGPU_GEM_DOMAIN_CPU (or=
- just 0 might work as well).<br>
-<br>
-And then when you call amdgpu_bo_pin_restricted() you give AMDGPU_GEM_DOMAI=
-N_VRAM and your offset and size as min/max value for the placement.<br>
-<br>
-This way you can avoid the move and allocate the BO directly where you want=
- it.<br>
-<br>
-Regards,<br>
-Christian.<br>
-<br>
-Am 13.09.2017 um 11:26 schrieb Liu, Monk:<br>
-</div>
-<blockquote type=3D"cite">
-<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; color=
-:#000000; font-family:Calibri,Helvetica,sans-serif">
-<p>but we use VRAM domain in the first bo_create stage,&nbsp; so this BO is=
- allocated directly ...</p>
-<p><br>
-</p>
-<p>I think our current approach is incorrect ... because the space from bo_=
-create(VRAM_DOMAIN) is missed somehow
-<br>
-</p>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> Christian K=F6nig
-<a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org">=
-&lt;deathsimple-ANTagKRnAhcb1SvskN2V4Q@public.gmane.org&gt;</a><br>
-<b>Sent:</b> Wednesday, September 13, 2017 5:21:13 PM<br>
-<b>To:</b> Liu, Monk; Deucher, Alexander; <a class=3D"moz-txt-link-abbrevia=
-ted" href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-<b>Subject:</b> Re: [PATCH 4/5] drm/amdgpu: cleanup amdgpu_bo_pin_restricte=
-d</font>
-<div>&nbsp;</div>
-</div>
-<div>
-<div class=3D"moz-cite-prefix">amdgpu_bo_create() doesn't necessarily alloc=
-ate anything, it just creates the BO structure.<br>
-<br>
-The backing memory for GTT and CPU domain is only allocated on first use, o=
-nly VRAM is allocated directly.<br>
-<br>
-So just call amdgpu_bo_create() with AMDGPU_GEM_DOMAIN_CPU and then the pin=
- with AMDGPU_GEM_DOMAIN_VRAM and your desired offset.<br>
-<br>
-Regards,<br>
-Christian.<br>
-<br>
-Am 13.09.2017 um 11:14 schrieb Liu, Monk:<br>
-</div>
-<blockquote type=3D"cite">
-<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
-<style>=0A=
-<!--=0A=
-.EmailQuote=0A=
-	{margin-left:1pt;=0A=
-	padding-left:4pt;=0A=
-	border-left:#800000 2px solid}=0A=
--->=0A=
-</style>
-<meta content=3D"text/html; charset=3DUTF-8">
-<style type=3D"text/css" style=3D"">=0A=
-<!--=0A=
-p=0A=
-	{margin-top:0;=0A=
-	margin-bottom:0}=0A=
--->=0A=
-</style>
-<div dir=3D"ltr">
-<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
-or:#000000; font-family:Calibri,Helvetica,sans-serif">
-<p>SRIOV need to reserve a memory at an offset that set by GIM/hypervisor s=
-ide, but I'm not sure how to do it perfectly,&nbsp; currently we call bo_cr=
-eate to allocate a VRAM BO, and call pin_restrict with &quot;offset&quot; a=
-s parameter for &quot;min&quot; and &quot;offset &#43; size&quot; as &quot;=
-max&quot;,&nbsp;
-<br>
-</p>
-<p><br>
-</p>
-<p>I feel strange of above approach frankly speaking (unless the new offset=
- equals to the original offset from bo_create),
-<br>
-</p>
-<p><br>
-</p>
-<p>Because the original gpu offset (from the bo_create) is different with t=
-he new &quot;offset&quot; provided by GIM, what will TTM/DRM do on the rang=
-e of &lt;original offset, new offset&gt; after we pin the bo to &lt;new off=
-set, new offset&#43; size&gt; ???</p>
-<p><br>
-</p>
-<p>BR Monk<br>
-</p>
-<p><br>
-</p>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx
-<a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:amd-gfx-bounces-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
-edesktop.org">
-&lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a> on behalf of Deucher, Ale=
-xander <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:Alexander.Deucher@=
-amd.com">
-&lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-<b>Sent:</b> Tuesday, September 12, 2017 11:59:35 PM<br>
-<b>To:</b> 'Christian K=F6nig'; <a class=3D"moz-txt-link-abbreviated" href=
-=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-<b>Subject:</b> RE: [PATCH 4/5] drm/amdgpu: cleanup amdgpu_bo_pin_restricte=
-d</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt">
-<div class=3D"PlainText">&gt; -----Original Message-----<br>
-&gt; From: amd-gfx [<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org=
-">mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>] On Behalf<br>
-&gt; Of Christian K=F6nig<br>
-&gt; Sent: Tuesday, September 12, 2017 5:09 AM<br>
-&gt; To: <a class=3D"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx@lists=
-.freedesktop.org">
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-&gt; Subject: [PATCH 4/5] drm/amdgpu: cleanup amdgpu_bo_pin_restricted<br>
-&gt; <br>
-&gt; From: Christian K=F6nig <a class=3D"moz-txt-link-rfc2396E" href=3D"mai=
-lto:christian.koenig-5C7GfCeVMHo@public.gmane.org">
-&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-&gt; <br>
-&gt; Nobody is using the min/max interface any more.<br>
-&gt; <br>
-&gt; Signed-off-by: Christian K=F6nig <a class=3D"moz-txt-link-rfc2396E" hr=
-ef=3D"mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">
-&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-<br>
-I'm not sure it's a good idea to get rid of this.&nbsp; I can see a need to=
- reserve memory at specific offsets in memory.&nbsp; Specifically I think S=
-R-IOV will be placing structures in memory to communicate configuration det=
-ails from the host to the guest.&nbsp; Also, we
- should be reserving the vbios scratch area, but we don't currently.<br>
-<br>
-Alex<br>
-<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 39 &#43;&#43;&#43;&=
-#43;&#43;------------------<br>
-&gt; -------<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |&nbsp; 3 ---<br>
-&gt;&nbsp; 2 files changed, 6 insertions(&#43;), 36 deletions(-)<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-&gt; index 726a662..8a8add3 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-&gt; @@ -629,20 &#43;629,15 @@ void amdgpu_bo_unref(struct amdgpu_bo **bo)<=
-br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; *bo =3D NULL;<br>
-&gt;&nbsp; }<br>
-&gt; <br>
-&gt; -int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; u64 min_offset, u64 max_offset,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; u64 *gpu_addr)<br>
-&gt; &#43;int amdgpu_bo_pin(struct amdgpu_bo *bo, u32 domain, u64 *gpu_addr=
-)<br>
-&gt;&nbsp; {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
-=3D amdgpu_ttm_adev(bo-&gt;tbo.bdev);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; unsigned lpfn;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r, i;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; unsigned fpfn, lpfn;<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_ttm_tt_get_usermm=
-(bo-&gt;tbo.ttm))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; return -EPERM;<br>
-&gt; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (WARN_ON_ONCE(min_offset &gt; max_offset)=
-)<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; return -EINVAL;<br>
-&gt; -<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* A shared bo cannot be mig=
-rated to VRAM */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (bo-&gt;prime_shared_coun=
-t &amp;&amp; (domain =3D=3D<br>
-&gt; AMDGPU_GEM_DOMAIN_VRAM))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&gt; @@ -657,12 &#43;652,6 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo=
-<br>
-&gt; *bo, u32 domain,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (gpu_addr)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *gpu_ad=
-dr =3D amdgpu_bo_gpu_offset(bo);<br>
-&gt; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; if (max_offset !=3D 0) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 domain_start =3D bo=
--&gt;tbo.bdev-<br>
-&gt; &gt;man[mem_type].gpu_offset;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WARN_ON_ONCE(max_offset=
- &lt;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (amdgpu_bo_gpu_offse=
-t(bo) -<br>
-&gt; domain_start));<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; }<br>
-&gt; -<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; <br>
-&gt; @@ -671,23 &#43;660,12 @@ int amdgpu_bo_pin_restricted(struct amdgpu_b=
-o<br>
-&gt; *bo, u32 domain,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; bo-&gt;=
-placement.num_placement; i&#43;&#43;) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; /* force to pin into visible video ram */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if ((bo-&gt;placements[i].flags &amp; TTM_PL_FLAG_VRAM)=
- &amp;&amp;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; !(bo-&gt;flags &amp; AMDGPU_GEM_CREATE_NO_CPU_A=
-CCESS)<br>
-&gt; &amp;&amp;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; (!max_offset || max_offset &gt;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;mc.visible_vram_size)) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (WARN_ON_ONCE(min_of=
-fset &gt;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; adev-&gt;mc.visible_vram_size))<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fpfn =3D min_offset &gt=
-;&gt; PAGE_SHIFT;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !(bo-&gt;flags &amp; AMDGPU_GEM_CREATE_NO_C=
-PU_ACCESS))<br>
-&gt; {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lpfn =
-=3D adev-&gt;mc.visible_vram_size &gt;&gt; PAGE_SHIFT;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; } else {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fpfn =3D min_offset &gt=
-;&gt; PAGE_SHIFT;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lpfn =3D max_offset &gt=
-;&gt; PAGE_SHIFT;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!bo-&gt;placeme=
-nts[i].lpfn ||<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; (lpfn &amp;&amp; lpfn &lt; bo-&gt;placements[i].lpfn))<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; bo-&gt;placements[i].lpfn =3D lpfn;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; }<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; if (fpfn &gt; bo-&gt;placements[i].fpfn)<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bo-&gt;placements[i].fp=
-fn =3D fpfn;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; if (!bo-&gt;placements[i].lpfn ||<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; (lpfn &amp;&amp; lpfn &lt; bo-&gt;placements[i]=
-.lpfn))<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bo-&gt;placements[i].lp=
-fn =3D lpfn;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; bo-&gt;placements[i].flags |=3D TTM_PL_FLAG_NO_EVICT;<b=
-r>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; <br>
-&gt; @@ -718,11 &#43;696,6 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo=
-<br>
-&gt; *bo, u32 domain,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&gt;&nbsp; }<br>
-&gt; <br>
-&gt; -int amdgpu_bo_pin(struct amdgpu_bo *bo, u32 domain, u64 *gpu_addr)<br=
->
-&gt; -{<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; return amdgpu_bo_pin_restricted(bo, domain, =
-0, 0, gpu_addr);<br>
-&gt; -}<br>
-&gt; -<br>
-&gt;&nbsp; int amdgpu_bo_unpin(struct amdgpu_bo *bo)<br>
-&gt;&nbsp; {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
-=3D amdgpu_ttm_adev(bo-&gt;tbo.bdev);<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h<br>
-&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h<br>
-&gt; index 39b6bf6..4b2c042 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h<br>
-&gt; @@ -211,9 &#43;211,6 @@ void amdgpu_bo_kunmap(struct amdgpu_bo *bo);<b=
-r>
-&gt;&nbsp; struct amdgpu_bo *amdgpu_bo_ref(struct amdgpu_bo *bo);<br>
-&gt;&nbsp; void amdgpu_bo_unref(struct amdgpu_bo **bo);<br>
-&gt;&nbsp; int amdgpu_bo_pin(struct amdgpu_bo *bo, u32 domain, u64 *gpu_add=
-r);<br>
-&gt; -int amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; u64 min_offset, u64 max_offset,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; u64 *gpu_addr);<br>
-&gt;&nbsp; int amdgpu_bo_unpin(struct amdgpu_bo *bo);<br>
-&gt;&nbsp; int amdgpu_bo_evict_vram(struct amdgpu_device *adev);<br>
-&gt;&nbsp; int amdgpu_bo_init(struct amdgpu_device *adev);<br>
-&gt; --<br>
-&gt; 2.7.4<br>
-&gt; <br>
-&gt; _______________________________________________<br>
-&gt; amd-gfx mailing list<br>
-&gt; <a class=3D"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
-edesktop.org">
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
-ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a class=3D"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
-top.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></blockquote>
-<p><br>
-</p>
-</div>
-<br>
-<fieldset class=3D"mimeAttachmentHeader"></fieldset> <br>
-<pre>_______________________________________________=0A=
-amd-gfx mailing list=0A=
-<a class=3D"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
-top.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>=0A=
-<a class=3D"moz-txt-link-freetext" href=3D"https://lists.freedesktop.org/ma=
-ilman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-=
-gfx</a>=0A=
-</pre>
-</blockquote>
-<p><br>
-</p>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_BLUPR12MB04493F3392042D6C364A426B846E0BLUPR12MB0449namp_--
-
---===============1630556841==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1630556841==--
+CgpPbiAyMDE35bm0MDnmnIgxM+aXpSAxNjowNywgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBB
+bSAxMy4wOS4yMDE3IHVtIDA5OjM5IHNjaHJpZWIgemhvdWNtMToKPj4KPj4KPj4gT24gMjAxN+W5
+tDA55pyIMTPml6UgMTU6MDksIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+PiBzeW5jZmlsZSBp
+cyB0aGUgb2xkZXIgaW1wbGVtZW50YXRpb24sIHN5bmNfb2JqIGlzIHRoZSByZXBsYWNlbWVudCAK
+Pj4+IGZvciBpdC4KPj4KPj4gQXJlIHlvdSBzdXJlIHN5bmNfb2JqIGlzIGEgcmVwbGFjZW1lbnQg
+Zm9yIHN5bmNmaWxlPyBBbnlvbmUgY2FuIAo+PiBjbGFyaWZ5IGl0Pwo+Pgo+PiBzeW5jX29iaiBp
+cyBtYWlubHkgZm9yIHNlbWFwaG9yZSB1c2FnZSwgd2UgY2FuIHNlZSBzeW5jX29iaiBkb2NzIGZy
+b20gCj4+IERhdmUgaW4gZHJtX3N5bmNvYmouYzoKPj4gIi8qKgo+PiAgKiBET0M6IE92ZXJ2aWV3
+Cj4+ICAqCj4+ICAqIERSTSBzeW5jaHJvbmlzYXRpb24gb2JqZWN0cyAoc3luY29iaikgYXJlIGEg
+cGVyc2lzdGVudCBvYmplY3RzLAo+PiAgKiB0aGF0IGNvbnRhaW4gYW4gb3B0aW9uYWwgZmVuY2Uu
+IFRoZSBmZW5jZSBjYW4gYmUgdXBkYXRlZCB3aXRoIGEgbmV3Cj4+ICAqIGZlbmNlLCBvciBiZSBO
+VUxMLgo+PiAgKgo+PiAgKiBzeW5jb2JqJ3MgY2FuIGJlIGV4cG9ydCB0byBmZCdzIGFuZCBiYWNr
+LCB0aGVzZSBmZCdzIGFyZSBvcGFxdWUgYW5kCj4+ICAqIGhhdmUgbm8gb3RoZXIgdXNlIGNhc2Us
+IGV4Y2VwdCBwYXNzaW5nIHRoZSBzeW5jb2JqIGJldHdlZW4gcHJvY2Vzc2VzLgo+PiAgKgo+PiAg
+KiBUaGVpciBwcmltYXJ5IHVzZS1jYXNlIGlzIHRvIGltcGxlbWVudCBWdWxrYW4gZmVuY2VzIGFu
+ZCBzZW1hcGhvcmVzLgo+PiAgKgo+PiAgKiBzeW5jb2JqIGhhdmUgYSBrcmVmIHJlZmVyZW5jZSBj
+b3VudCwgYnV0IGFsc28gaGF2ZSBhbiBvcHRpb25hbCBmaWxlLgo+PiAgKiBUaGUgZmlsZSBpcyBv
+bmx5IGNyZWF0ZWQgb25jZSB0aGUgc3luY29iaiBpcyBleHBvcnRlZC4KPj4gICogVGhlIGZpbGUg
+dGFrZXMgYSByZWZlcmVuY2Ugb24gdGhlIGtyZWYuCj4+ICAqLwo+PiAiCj4+Cj4KPiBDb3JyZWN0
+LCBidXQgeW91IGNhbiBjb252ZXJ0IGZyb20gc3luY19vYmogaW50byBzeW5jZmlsZSBhbmQgYmFj
+ayAKPiB1c2luZyBhIHN0YW5kYXJkIERSTSBJT0NUTC4gU28gd2hlbiB3ZSBzdXBwb3J0IHN5bmNf
+b2JqIHdlIGFsc28gCj4gc3VwcG9ydCBzeW5jZmlsZS4KPgo+Pj4KPj4+IEkgZG9uJ3QgdGhpbmsg
+d2Ugc2hvdWxkIGltcGxlbWVudCBzeW5jZmlsZSBpbiB0aGUgQ1MgYW55IG1vcmUsIAo+Pj4gc3lu
+Y19vYmogaXMgYWxyZWFkeSBkb25lIGFuZCBjYW4gYmUgY29udmVydGVkIHRvL2Zyb20gc3luY2Zp
+bGVzLgo+Pj4KPj4+IE1hcmVrcyBJT0NUTCBzaG91bGQgY292ZXIgdGhlIGNhc2Ugd2hlbiB3ZSBu
+ZWVkIHRvIGNyZWF0ZSBhIHN5bmNmaWxlIAo+Pj4gb3Igc3luY29iaiBmcm9tIGEgZmVuY2Ugc2Vx
+dWVuY2UgbnVtYmVyLgo+Pgo+PiBJIGtub3cgaGlzIGNvbnZlcnRpb24gY2FuIGRvIHRoYXQgdGhp
+bmdzLCBidXQgcmV0dXJuaW5nIHN5bmNmaWxlIGZkIAo+PiBkaXJlY3RseSBpcyBhIHJlYWxseSBz
+aW1wbGUgbWV0aG9kLgo+Cj4gV2VsbCB3ZSBjYW4gdXNlIHN5bmNfb2JqIGZvciB0aGlzIGFzIHdl
+bGwsIGl0IGRvZXNuJ3QgbWFrZSBzbyBtdWNoIAo+IGRpZmZlcmVuY2UuCj4KPiBQb2ludCBpcyB3
+ZSBzaG91bGRuJ3QgcmV0dXJuIGEgc3luY2ZpbGUgZm9yIFZNIG9wZXJhdGlvbnMgYmVjYXVzZSB0
+aGF0IAo+IHdpbGwgYWx3YXlzIHVzZSBhbiBmZCB3aGljaCBpc24ndCB2ZXJ5IGRlc2lyYWJsZS4K
+SGF2ZSB5b3Ugc2VlbiBBbmRyb2lkIGZlbmNlIGZkPyB0aGV5IGFyZSBhbGwgc3luY2ZpbGUgZmQs
+IHdoZW4gTWFyZWsgCmVuYWJsZXMgRUdMX0FORFJPSURfbmF0aXZlX2ZlbmNlX3N5bmMsIHRoZXkg
+d2lsbCBhbHNvIGJlIHN5bmNmaWxlIGZkIAp1c2VkIGJ5IEFuZHJvaWQuCgpSZWdhcmRzLApEYXZp
+ZCBaaG91Cgo+Cj4gUmVnYXJkcywKPiBDaHJpc3RpYW4uCj4KPj4KPj4gUmVnYXJkcywKPj4gRGF2
+aWQgWmhvdQo+Pj4KPj4+IFJlZ2FyZHMsCj4+PiBDaHJpc3RpYW4uCj4+Pgo+Pj4gQW0gMTMuMDku
+MjAxNyB1bSAwOTowMyBzY2hyaWViIHpob3VjbTE6Cj4+Pj4gSSByZWFsbHkgdmVyeSBzdXJwcmlz
+ZSB0aGF0IHlvdSBwcmVmZXIgdG8gZXhwYW5kIHN5bmNfb2JqIHRvIGdldCAKPj4+PiBzeW5jZmls
+ZSBmZCEhIQo+Pj4+Cj4+Pj4gV2h5IG5vdCBkaXJlY3RseSBnZW5lcmF0ZSBzeW5jZmlsZSBmZCBh
+bmQgdXNlIGl0PyBXaGljaCBvbmUgaXMgCj4+Pj4gc2ltcGxlIGlzIHNvIG9idmlvdXMuCj4+Pj4K
+Pj4+PiBSZWdhcmRzLAo+Pj4+IERhdmlkIFpob3UKPj4+PiBPbiAyMDE35bm0MDnmnIgxM+aXpSAx
+NDo1NywgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4+Pj4gSGkgZ3V5cywKPj4+Pj4KPj4+Pj4g
+TWFyZWtzIElPQ1RMIHByb3Bvc2FsIGxvb2tzIHJlYWxseSBnb29kIHRvIG1lLgo+Pj4+Pgo+Pj4+
+PiBQbGVhc2Ugbm90ZSB0aGF0IHdlIGFscmVhZHkgaGF2ZSBzeW5jX29iaiBzdXBwb3J0IGZvciB0
+aGUgQ1MgSU9DVEwgCj4+Pj4+IGluIHRoZSA0LjEzIGJyYW5jaCBhbmQgdGhpcyB3b3JrIGlzIGJh
+c2VkIG9uIHRvcCBvZiB0aGF0Lgo+Pj4+Pgo+Pj4+Pj4gVU1EIGRvbid0IG5lZWQgdG8gY29uc3Ry
+dWN0IGlwX3R5cGUvaXBfaW5zdGFuY2UvY3R4X2lkL3JpbmcKPj4+Pj4gV2VsbCB0aGUgVU1EIGRv
+ZXMgd2FudCB0byBjb25zdHJ1Y3QgCj4+Pj4+IGlwX3R5cGUvaXBfaW5zdGFuY2UvY3R4X2lkL3Jp
+bmcgYW5kIHVzZSBmb3IgdGhlIHNpbXBsZSByZWFzb24gdGhhdCAKPj4+Pj4gaXQgYWxsb3dzIG1v
+cmUgZmxleGliaWxpdHkgdGhhbiBzeW5jX29iai9zeW5jX2ZpbGUuCj4+Pj4+Cj4+Pj4+IFRoaW5r
+aW5nIG1vcmUgYWJvdXQgdGhpcyBJJ20gcHJldHR5IHN1cmUgd2Ugd2FudCB0byBkbyBzb21ldGhp
+bmcgCj4+Pj4+IHNpbWlsYXIgZm9yIFZNIG1hcC91bm1hcCBvcGVyYXRpb25zIGFzIHdlbGwuCj4+
+Pj4+Cj4+Pj4+IFJlZ2FyZHMsCj4+Pj4+IENocmlzdGlhbi4KPj4+Pj4KPj4+Pj4gQW0gMTMuMDku
+MjAxNyB1bSAwNTowMyBzY2hyaWViIHpob3VjbTE6Cj4+Pj4+PiBIaSBNYXJlaywKPj4+Pj4+Cj4+
+Pj4+PiBZb3UncmUgZG9pbmcgc2FtZSB0aGluZ3Mgd2l0aCBtZSwgc2VlIG15ICJpbnRyb2R1Y2Ug
+c3luY2ZpbGUgYXMgCj4+Pj4+PiBmZW5jZSByZXV0dXJuIiBwYXRjaCBzZXQsIHdoaWNoIG1ha2Vz
+IHRoaW5ncyBtb3JlIHNpbXBsZSwgd2UganVzdCAKPj4+Pj4+IG5lZWQgdG8gZGlyZWN0bHkgcmV0
+dXJuIHN5bmNmaWxlIGZkIHRvIFVNRCB3aGVuIENTLCB0aGVuIHRoZSAKPj4+Pj4+IGZlbmNlIFVN
+RCBnZXQgd2lsbCBiZSBhbHdheXMgc3luY2ZpbGUgZmQsIFVNRCBkb24ndCBuZWVkIHRvIAo+Pj4+
+Pj4gY29uc3RydWN0IGlwX3R5cGUvaXBfaW5zdGFuY2UvY3R4X2lkL3JpbmcgYW55IG1vcmUsIHdo
+aWNoIGFsc28gCj4+Pj4+PiBjYW4gcGFzcyB0byBkZXBlbmRlbmN5IGFuZCBzeW5jb2JqIGFzIHdl
+bGwuCj4+Pj4+Pgo+Pj4+Pj4gUmVnYXJkcywKPj4+Pj4+IERhdmlkIFpob3UKPj4+Pj4+IE9uIDIw
+MTflubQwOeaciDEz5pelIDA0OjQyLCBNYXJlayBPbMWhw6FrIHdyb3RlOgo+Pj4+Pj4+IEZyb206
+IE1hcmVrIE9sxaHDoWsgPG1hcmVrLm9sc2FrQGFtZC5jb20+Cj4+Pj4+Pj4KPj4+Pj4+PiBmb3Ig
+YmVpbmcgYWJsZSB0byBjb252ZXJ0IGFuIGFtZGdwdSBmZW5jZSBpbnRvIG9uZSBvZiB0aGUgaGFu
+ZGxlcy4KPj4+Pj4+PiBNZXNhIHdpbGwgdXNlIHRoaXMuCj4+Pj4+Pj4KPj4+Pj4+PiBTaWduZWQt
+b2ZmLWJ5OiBNYXJlayBPbMWhw6FrIDxtYXJlay5vbHNha0BhbWQuY29tPgo+Pj4+Pj4+IC0tLQo+
+Pj4+Pj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggICAgIHwgIDIgKysK
+Pj4+Pj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jICB8IDYxIAo+
+Pj4+Pj4+ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKwo+Pj4+Pj4+ICAgZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jIHwgIDMgKy0KPj4+Pj4+PiAgIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYyB8ICAxICsKPj4+Pj4+PiAgIGluY2x1
+ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oICAgICAgICAgICB8IDE2ICsrKysrKysrKwo+Pj4+Pj4+
+ICAgNSBmaWxlcyBjaGFuZ2VkLCA4MiBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4+Pj4+
+Pj4KPj4+Pj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+LmggCj4+Pj4+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAo+Pj4+Pj4+
+IGluZGV4IGI1YzhiOTAuLmMxNWZhOTMgMTAwNjQ0Cj4+Pj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPj4+Pj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHUuaAo+Pj4+Pj4+IEBAIC0xMzA4LDYgKzEzMDgsOCBAQCBpbnQgYW1kZ3B1
+X2dlbV92YV9pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAKPj4+Pj4+PiAqZGV2LCB2b2lkICpkYXRh
+LAo+Pj4+Pj4+ICAgaW50IGFtZGdwdV9nZW1fb3BfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRl
+diwgdm9pZCAqZGF0YSwKPj4+Pj4+PiAgICAgICAgICAgICAgIHN0cnVjdCBkcm1fZmlsZSAqZmls
+cCk7Cj4+Pj4+Pj4gICBpbnQgYW1kZ3B1X2NzX2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYs
+IHZvaWQgKmRhdGEsIHN0cnVjdCAKPj4+Pj4+PiBkcm1fZmlsZSAqZmlscCk7Cj4+Pj4+Pj4gK2lu
+dCBhbWRncHVfY3NfZmVuY2VfdG9faGFuZGxlX2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYs
+IAo+Pj4+Pj4+IHZvaWQgKmRhdGEsCj4+Pj4+Pj4gKyAgICAgICAgICAgICAgICAgICAgc3RydWN0
+IGRybV9maWxlICpmaWxwKTsKPj4+Pj4+PiAgIGludCBhbWRncHVfY3Nfd2FpdF9pb2N0bChzdHJ1
+Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLCAKPj4+Pj4+PiBzdHJ1Y3QgZHJtX2ZpbGUg
+KmZpbHApOwo+Pj4+Pj4+ICAgaW50IGFtZGdwdV9jc193YWl0X2ZlbmNlc19pb2N0bChzdHJ1Y3Qg
+ZHJtX2RldmljZSAqZGV2LCB2b2lkIAo+Pj4+Pj4+ICpkYXRhLAo+Pj4+Pj4+ICAgICAgICAgICAg
+ICAgICAgIHN0cnVjdCBkcm1fZmlsZSAqZmlscCk7Cj4+Pj4+Pj4gZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jIAo+Pj4+Pj4+IGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMKPj4+Pj4+PiBpbmRleCA3Y2I4YTU5Li42ZGQ3MTlj
+IDEwMDY0NAo+Pj4+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9j
+cy5jCj4+Pj4+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMK
+Pj4+Pj4+PiBAQCAtMjUsNiArMjUsNyBAQAo+Pj4+Pj4+ICAgICogICAgSmVyb21lIEdsaXNzZSA8
+Z2xpc3NlQGZyZWVkZXNrdG9wLm9yZz4KPj4+Pj4+PiAgICAqLwo+Pj4+Pj4+ICAgI2luY2x1ZGUg
+PGxpbnV4L3BhZ2VtYXAuaD4KPj4+Pj4+PiArI2luY2x1ZGUgPGxpbnV4L3N5bmNfZmlsZS5oPgo+
+Pj4+Pj4+ICAgI2luY2x1ZGUgPGRybS9kcm1QLmg+Cj4+Pj4+Pj4gICAjaW5jbHVkZSA8ZHJtL2Ft
+ZGdwdV9kcm0uaD4KPj4+Pj4+PiAgICNpbmNsdWRlIDxkcm0vZHJtX3N5bmNvYmouaD4KPj4+Pj4+
+PiBAQCAtMTMxMSw2ICsxMzEyLDY2IEBAIHN0YXRpYyBzdHJ1Y3QgZG1hX2ZlbmNlIAo+Pj4+Pj4+
+ICphbWRncHVfY3NfZ2V0X2ZlbmNlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+Pj4+Pj4+
+ICAgICAgIHJldHVybiBmZW5jZTsKPj4+Pj4+PiAgIH0KPj4+Pj4+PiAgICtpbnQgYW1kZ3B1X2Nz
+X2ZlbmNlX3RvX2hhbmRsZV9pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCAKPj4+Pj4+PiB2
+b2lkICpkYXRhLAo+Pj4+Pj4+ICsgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBkcm1fZmlsZSAq
+ZmlscCkKPj4+Pj4+PiArewo+Pj4+Pj4+ICsgICAgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYg
+PSBkZXYtPmRldl9wcml2YXRlOwo+Pj4+Pj4+ICsgICAgc3RydWN0IGFtZGdwdV9mcHJpdiAqZnBy
+aXYgPSBmaWxwLT5kcml2ZXJfcHJpdjsKPj4+Pj4+PiArICAgIHVuaW9uIGRybV9hbWRncHVfZmVu
+Y2VfdG9faGFuZGxlICppbmZvID0gZGF0YTsKPj4+Pj4+PiArICAgIHN0cnVjdCBkbWFfZmVuY2Ug
+KmZlbmNlOwo+Pj4+Pj4+ICsgICAgc3RydWN0IGRybV9zeW5jb2JqICpzeW5jb2JqOwo+Pj4+Pj4+
+ICsgICAgc3RydWN0IHN5bmNfZmlsZSAqc3luY19maWxlOwo+Pj4+Pj4+ICsgICAgaW50IGZkLCBy
+Owo+Pj4+Pj4+ICsKPj4+Pj4+PiArICAgIGlmIChhbWRncHVfa21zX3ZyYW1fbG9zdChhZGV2LCBm
+cHJpdikpCj4+Pj4+Pj4gKyAgICAgICAgcmV0dXJuIC1FTk9ERVY7Cj4+Pj4+Pj4gKwo+Pj4+Pj4+
+ICsgICAgZmVuY2UgPSBhbWRncHVfY3NfZ2V0X2ZlbmNlKGFkZXYsIGZpbHAsICZpbmZvLT5pbi5m
+ZW5jZSk7Cj4+Pj4+Pj4gKyAgICBpZiAoSVNfRVJSKGZlbmNlKSkKPj4+Pj4+PiArICAgICAgICBy
+ZXR1cm4gUFRSX0VSUihmZW5jZSk7Cj4+Pj4+Pj4gKwo+Pj4+Pj4+ICsgICAgc3dpdGNoIChpbmZv
+LT5pbi53aGF0KSB7Cj4+Pj4+Pj4gKyAgICBjYXNlIEFNREdQVV9GRU5DRV9UT19IQU5ETEVfR0VU
+X1NZTkNPQko6Cj4+Pj4+Pj4gKyAgICAgICAgciA9IGRybV9zeW5jb2JqX2NyZWF0ZSgmc3luY29i
+aiwgMCwgZmVuY2UpOwo+Pj4+Pj4+ICsgICAgICAgIGRtYV9mZW5jZV9wdXQoZmVuY2UpOwo+Pj4+
+Pj4+ICsgICAgICAgIGlmIChyKQo+Pj4+Pj4+ICsgICAgICAgICAgICByZXR1cm4gcjsKPj4+Pj4+
+PiArICAgICAgICByID0gZHJtX3N5bmNvYmpfZ2V0X2hhbmRsZShmaWxwLCBzeW5jb2JqLCAKPj4+
+Pj4+PiAmaW5mby0+b3V0LmhhbmRsZSk7Cj4+Pj4+Pj4gKyAgICAgICAgZHJtX3N5bmNvYmpfcHV0
+KHN5bmNvYmopOwo+Pj4+Pj4+ICsgICAgICAgIHJldHVybiByOwo+Pj4+Pj4+ICsKPj4+Pj4+PiAr
+ICAgIGNhc2UgQU1ER1BVX0ZFTkNFX1RPX0hBTkRMRV9HRVRfU1lOQ09CSl9GRDoKPj4+Pj4+PiAr
+ICAgICAgICByID0gZHJtX3N5bmNvYmpfY3JlYXRlKCZzeW5jb2JqLCAwLCBmZW5jZSk7Cj4+Pj4+
+Pj4gKyAgICAgICAgZG1hX2ZlbmNlX3B1dChmZW5jZSk7Cj4+Pj4+Pj4gKyAgICAgICAgaWYgKHIp
+Cj4+Pj4+Pj4gKyAgICAgICAgICAgIHJldHVybiByOwo+Pj4+Pj4+ICsgICAgICAgIHIgPSBkcm1f
+c3luY29ial9nZXRfZmQoc3luY29iaiwgKGludCopJmluZm8tPm91dC5oYW5kbGUpOwo+Pj4+Pj4+
+ICsgICAgICAgIGRybV9zeW5jb2JqX3B1dChzeW5jb2JqKTsKPj4+Pj4+PiArICAgICAgICByZXR1
+cm4gcjsKPj4+Pj4+PiArCj4+Pj4+Pj4gKyAgICBjYXNlIEFNREdQVV9GRU5DRV9UT19IQU5ETEVf
+R0VUX1NZTkNfRklMRV9GRDoKPj4+Pj4+PiArICAgICAgICBmZCA9IGdldF91bnVzZWRfZmRfZmxh
+Z3MoT19DTE9FWEVDKTsKPj4+Pj4+PiArICAgICAgICBpZiAoZmQgPCAwKSB7Cj4+Pj4+Pj4gKyAg
+ICAgICAgICAgIGRtYV9mZW5jZV9wdXQoZmVuY2UpOwo+Pj4+Pj4+ICsgICAgICAgICAgICByZXR1
+cm4gZmQ7Cj4+Pj4+Pj4gKyAgICAgICAgfQo+Pj4+Pj4+ICsKPj4+Pj4+PiArICAgICAgICBzeW5j
+X2ZpbGUgPSBzeW5jX2ZpbGVfY3JlYXRlKGZlbmNlKTsKPj4+Pj4+PiArICAgICAgICBkbWFfZmVu
+Y2VfcHV0KGZlbmNlKTsKPj4+Pj4+PiArICAgICAgICBpZiAoIXN5bmNfZmlsZSkgewo+Pj4+Pj4+
+ICsgICAgICAgICAgICBwdXRfdW51c2VkX2ZkKGZkKTsKPj4+Pj4+PiArICAgICAgICAgICAgcmV0
+dXJuIC1FTk9NRU07Cj4+Pj4+Pj4gKyAgICAgICAgfQo+Pj4+Pj4+ICsKPj4+Pj4+PiArICAgICAg
+ICBmZF9pbnN0YWxsKGZkLCBzeW5jX2ZpbGUtPmZpbGUpOwo+Pj4+Pj4+ICsgICAgICAgIGluZm8t
+Pm91dC5oYW5kbGUgPSBmZDsKPj4+Pj4+PiArICAgICAgICByZXR1cm4gMDsKPj4+Pj4+PiArCj4+
+Pj4+Pj4gKyAgICBkZWZhdWx0Ogo+Pj4+Pj4+ICsgICAgICAgIHJldHVybiAtRUlOVkFMOwo+Pj4+
+Pj4+ICsgICAgfQo+Pj4+Pj4+ICt9Cj4+Pj4+Pj4gKwo+Pj4+Pj4+ICAgLyoqCj4+Pj4+Pj4gICAg
+KiBhbWRncHVfY3Nfd2FpdF9hbGxfZmVuY2UgLSB3YWl0IG9uIGFsbCBmZW5jZXMgdG8gc2lnbmFs
+Cj4+Pj4+Pj4gICAgKgo+Pj4+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfZHJ2LmMgCj4+Pj4+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfZHJ2LmMKPj4+Pj4+PiBpbmRleCBkMDFhY2E2Li4xZTM4NDExIDEwMDY0NAo+Pj4+Pj4+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwo+Pj4+Pj4+ICsr
+KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwo+Pj4+Pj4+IEBAIC03
+MCw5ICs3MCwxMCBAQAo+Pj4+Pj4+ICAgICogLSAzLjE4LjAgLSBFeHBvcnQgZ3B1IGFsd2F5cyBv
+biBjdSBiaXRtYXAKPj4+Pj4+PiAgICAqIC0gMy4xOS4wIC0gQWRkIHN1cHBvcnQgZm9yIFVWRCBN
+SlBFRyBkZWNvZGUKPj4+Pj4+PiAgICAqIC0gMy4yMC4wIC0gQWRkIHN1cHBvcnQgZm9yIGxvY2Fs
+IEJPcwo+Pj4+Pj4+ICsgKiAtIDMuMjEuMCAtIEFkZCBEUk1fQU1ER1BVX0ZFTkNFX1RPX0hBTkRM
+RSBpb2N0bAo+Pj4+Pj4+ICAgICovCj4+Pj4+Pj4gICAjZGVmaW5lIEtNU19EUklWRVJfTUFKT1Ig
+ICAgMwo+Pj4+Pj4+IC0jZGVmaW5lIEtNU19EUklWRVJfTUlOT1IgICAgMjAKPj4+Pj4+PiArI2Rl
+ZmluZSBLTVNfRFJJVkVSX01JTk9SICAgIDIxCj4+Pj4+Pj4gICAjZGVmaW5lIEtNU19EUklWRVJf
+UEFUQ0hMRVZFTCAgICAwCj4+Pj4+Pj4gICAgIGludCBhbWRncHVfdnJhbV9saW1pdCA9IDA7Cj4+
+Pj4+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMu
+YyAKPj4+Pj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYwo+Pj4+
+Pj4+IGluZGV4IGQzMTc3N2IuLmIwOWQzMTUgMTAwNjQ0Cj4+Pj4+Pj4gLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jCj4+Pj4+Pj4gKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jCj4+Pj4+Pj4gQEAgLTEwMjEsNiArMTAyMSw3IEBA
+IGNvbnN0IHN0cnVjdCBkcm1faW9jdGxfZGVzYyAKPj4+Pj4+PiBhbWRncHVfaW9jdGxzX2ttc1td
+ID0gewo+Pj4+Pj4+ICAgICAgIERSTV9JT0NUTF9ERUZfRFJWKEFNREdQVV9DVFgsIGFtZGdwdV9j
+dHhfaW9jdGwsIAo+Pj4+Pj4+IERSTV9BVVRIfERSTV9SRU5ERVJfQUxMT1cpLAo+Pj4+Pj4+ICAg
+ICAgIERSTV9JT0NUTF9ERUZfRFJWKEFNREdQVV9WTSwgYW1kZ3B1X3ZtX2lvY3RsLCAKPj4+Pj4+
+PiBEUk1fQVVUSHxEUk1fUkVOREVSX0FMTE9XKSwKPj4+Pj4+PiAgICAgICBEUk1fSU9DVExfREVG
+X0RSVihBTURHUFVfQk9fTElTVCwgYW1kZ3B1X2JvX2xpc3RfaW9jdGwsIAo+Pj4+Pj4+IERSTV9B
+VVRIfERSTV9SRU5ERVJfQUxMT1cpLAo+Pj4+Pj4+ICsgICAgRFJNX0lPQ1RMX0RFRl9EUlYoQU1E
+R1BVX0ZFTkNFX1RPX0hBTkRMRSwgCj4+Pj4+Pj4gYW1kZ3B1X2NzX2ZlbmNlX3RvX2hhbmRsZV9p
+b2N0bCwgRFJNX0FVVEh8RFJNX1JFTkRFUl9BTExPVyksCj4+Pj4+Pj4gICAgICAgLyogS01TICov
+Cj4+Pj4+Pj4gICAgICAgRFJNX0lPQ1RMX0RFRl9EUlYoQU1ER1BVX0dFTV9NTUFQLCBhbWRncHVf
+Z2VtX21tYXBfaW9jdGwsIAo+Pj4+Pj4+IERSTV9BVVRIfERSTV9SRU5ERVJfQUxMT1cpLAo+Pj4+
+Pj4+ICAgICAgIERSTV9JT0NUTF9ERUZfRFJWKEFNREdQVV9HRU1fV0FJVF9JRExFLCAKPj4+Pj4+
+PiBhbWRncHVfZ2VtX3dhaXRfaWRsZV9pb2N0bCwgRFJNX0FVVEh8RFJNX1JFTkRFUl9BTExPVyks
+Cj4+Pj4+Pj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oIAo+Pj4+
+Pj4+IGIvaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmgKPj4+Pj4+PiBpbmRleCA5ZjViZDk3
+Li5lYzU3Y2QwIDEwMDY0NAo+Pj4+Pj4+IC0tLSBhL2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2Ry
+bS5oCj4+Pj4+Pj4gKysrIGIvaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmgKPj4+Pj4+PiBA
+QCAtNTMsNiArNTMsNyBAQCBleHRlcm4gIkMiIHsKPj4+Pj4+PiAgICNkZWZpbmUgRFJNX0FNREdQ
+VV9XQUlUX0ZFTkNFUyAgICAgICAgMHgxMgo+Pj4+Pj4+ICAgI2RlZmluZSBEUk1fQU1ER1BVX1ZN
+ICAgICAgICAgICAgMHgxMwo+Pj4+Pj4+ICAgI2RlZmluZSBEUk1fQU1ER1BVX0ZSRUVTWU5DICAg
+ICAgICAgICAgMHgxNAo+Pj4+Pj4+ICsjZGVmaW5lIERSTV9BTURHUFVfRkVOQ0VfVE9fSEFORExF
+ICAgIDB4MTUKPj4+Pj4+PiAgICAgI2RlZmluZSBEUk1fSU9DVExfQU1ER1BVX0dFTV9DUkVBVEUg
+Cj4+Pj4+Pj4gRFJNX0lPV1IoRFJNX0NPTU1BTkRfQkFTRSArIERSTV9BTURHUFVfR0VNX0NSRUFU
+RSwgdW5pb24gCj4+Pj4+Pj4gZHJtX2FtZGdwdV9nZW1fY3JlYXRlKQo+Pj4+Pj4+ICAgI2RlZmlu
+ZSBEUk1fSU9DVExfQU1ER1BVX0dFTV9NTUFQIERSTV9JT1dSKERSTV9DT01NQU5EX0JBU0UgKyAK
+Pj4+Pj4+PiBEUk1fQU1ER1BVX0dFTV9NTUFQLCB1bmlvbiBkcm1fYW1kZ3B1X2dlbV9tbWFwKQo+
+Pj4+Pj4+IEBAIC02OSw2ICs3MCw3IEBAIGV4dGVybiAiQyIgewo+Pj4+Pj4+ICAgI2RlZmluZSBE
+Uk1fSU9DVExfQU1ER1BVX1dBSVRfRkVOQ0VTIERSTV9JT1dSKERSTV9DT01NQU5EX0JBU0UgCj4+
+Pj4+Pj4gKyBEUk1fQU1ER1BVX1dBSVRfRkVOQ0VTLCB1bmlvbiBkcm1fYW1kZ3B1X3dhaXRfZmVu
+Y2VzKQo+Pj4+Pj4+ICAgI2RlZmluZSBEUk1fSU9DVExfQU1ER1BVX1ZNIERSTV9JT1dSKERSTV9D
+T01NQU5EX0JBU0UgKyAKPj4+Pj4+PiBEUk1fQU1ER1BVX1ZNLCB1bmlvbiBkcm1fYW1kZ3B1X3Zt
+KQo+Pj4+Pj4+ICAgI2RlZmluZSBEUk1fSU9DVExfQU1ER1BVX0ZSRUVTWU5DIERSTV9JT1dSKERS
+TV9DT01NQU5EX0JBU0UgKyAKPj4+Pj4+PiBEUk1fQU1ER1BVX0ZSRUVTWU5DLCBzdHJ1Y3QgZHJt
+X2FtZGdwdV9mcmVlc3luYykKPj4+Pj4+PiArI2RlZmluZSBEUk1fSU9DVExfQU1ER1BVX0ZFTkNF
+X1RPX0hBTkRMRSAKPj4+Pj4+PiBEUk1fSU9XUihEUk1fQ09NTUFORF9CQVNFICsgRFJNX0FNREdQ
+VV9GRU5DRV9UT19IQU5ETEUsIHVuaW9uIAo+Pj4+Pj4+IGRybV9hbWRncHVfZmVuY2VfdG9faGFu
+ZGxlKQo+Pj4+Pj4+ICAgICAjZGVmaW5lIEFNREdQVV9HRU1fRE9NQUlOX0NQVSAgICAgICAgMHgx
+Cj4+Pj4+Pj4gICAjZGVmaW5lIEFNREdQVV9HRU1fRE9NQUlOX0dUVCAgICAgICAgMHgyCj4+Pj4+
+Pj4gQEAgLTUxNyw2ICs1MTksMjAgQEAgc3RydWN0IGRybV9hbWRncHVfY3NfY2h1bmtfc2VtIHsK
+Pj4+Pj4+PiAgICAgICBfX3UzMiBoYW5kbGU7Cj4+Pj4+Pj4gICB9Owo+Pj4+Pj4+ICAgKyNkZWZp
+bmUgQU1ER1BVX0ZFTkNFX1RPX0hBTkRMRV9HRVRfU1lOQ09CSiAgICAwCj4+Pj4+Pj4gKyNkZWZp
+bmUgQU1ER1BVX0ZFTkNFX1RPX0hBTkRMRV9HRVRfU1lOQ09CSl9GRCAgICAxCj4+Pj4+Pj4gKyNk
+ZWZpbmUgQU1ER1BVX0ZFTkNFX1RPX0hBTkRMRV9HRVRfU1lOQ19GSUxFX0ZEICAgIDIKPj4+Pj4+
+PiArCj4+Pj4+Pj4gK3VuaW9uIGRybV9hbWRncHVfZmVuY2VfdG9faGFuZGxlIHsKPj4+Pj4+PiAr
+ICAgIHN0cnVjdCB7Cj4+Pj4+Pj4gKyAgICAgICAgc3RydWN0IGRybV9hbWRncHVfZmVuY2UgZmVu
+Y2U7Cj4+Pj4+Pj4gKyAgICAgICAgX191MzIgd2hhdDsKPj4+Pj4+PiArICAgIH0gaW47Cj4+Pj4+
+Pj4gKyAgICBzdHJ1Y3Qgewo+Pj4+Pj4+ICsgICAgICAgIF9fdTMyIGhhbmRsZTsKPj4+Pj4+PiAr
+ICAgIH0gb3V0Owo+Pj4+Pj4+ICt9Owo+Pj4+Pj4+ICsKPj4+Pj4+PiAgIHN0cnVjdCBkcm1fYW1k
+Z3B1X2NzX2NodW5rX2RhdGEgewo+Pj4+Pj4+ICAgICAgIHVuaW9uIHsKPj4+Pj4+PiAgICAgICAg
+ICAgc3RydWN0IGRybV9hbWRncHVfY3NfY2h1bmtfaWIgaWJfZGF0YTsKPj4+Pj4+Cj4+Pj4+PiBf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+Pj4+Pj4gYW1k
+LWdmeCBtYWlsaW5nIGxpc3QKPj4+Pj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+
+Pj4+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
+ZngKPj4+Pj4KPj4+Pj4KPj4+Pgo+Pj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCj4+Pj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4+PiBhbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZwo+Pj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+Pj4KPj4+Cj4+Cj4KCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vYW1kLWdmeAo=
