@@ -1,10 +1,14 @@
-From: "maokexu-KN7UnAbNpbg@public.gmane.org" <maokexu-KN7UnAbNpbg@public.gmane.org>
-Subject: Can you tell me which driver supports AMD's sriov?
-Date: Thu, 14 Sep 2017 15:57:11 +0800
-Message-ID: <2017091415571030761212@126.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 2/2] drm/amdgpu/sdma3: set wptr shadow atomically
+Date: Thu, 14 Sep 2017 12:49:45 +0000
+Message-ID: <BN6PR12MB1652E86B4303CC9D3CE37D77F76F0@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <1505374424-6872-1-git-send-email-Xiangliang.Yu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1015049208=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1505374424-6872-1-git-send-email-Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -15,60 +19,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Yu, Xiangliang" <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
 
-This is a multi-part message in MIME format.
-
---===============1015049208==
-Content-Type: multipart/alternative;
-	boundary="----=_001_NextPart666056022774_=----"
-
-This is a multi-part message in MIME format.
-
-------=_001_NextPart666056022774_=----
-Content-Type: text/plain;
-	charset="us-ascii"
-Content-Transfer-Encoding: base64
-
-aGksYWxsOg0KICAgIFdoaWNoIHBhdGNoIGJlZ2lucyB0byBzdXBwb3J0IHNyaW92IGZvciBhbWQg
-Z3JhcGhpY3MgY2FyZHMgPyBHcmFwaGljcyBjYXJkcyBzdWNoIGFzIEFNRCBGaXJlUHJvIHM3MTUw
-Lg0KICAgIEkgdGVzdGVkIGEgbG90IG9mIHN5c3RlbXMgdGhhdCBkaWRuJ3Qgc3VwcG9ydCwgc3Vj
-aCBhcyBjZW50b3M3LjIsIGNlbnRvczcuMywgdW5idW50dTE3LjQuDQoNCg0KDQptYW9rZXh1QDEy
-Ni5jb20NCg==
-
-------=_001_NextPart666056022774_=----
-Content-Type: text/html;
-	charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charse=
-t=3Dus-ascii"><style>body { line-height: 1.5; }body { font-size: 10.5pt; f=
-ont-family: ??; color: rgb(0, 0, 0); line-height: 1.5; }</style></head><bo=
-dy>=0A<div>hi,all:<span></span></div><div><span style=3D"color: rgb(0, 0, =
-0); background-color: rgba(0, 0, 0, 0);">&nbsp; &nbsp;&nbsp;</span><span s=
-tyle=3D"background-color: rgba(0, 0, 0, 0); font-size: 10.5pt; line-height=
-: 1.5;">Which&nbsp;patch&nbsp;begins&nbsp;to&nbsp;support sriov for amd&nb=
-sp;graphics&nbsp;cards ? Graphics cards such&nbsp;as&nbsp;AMD&nbsp;FirePro=
-&nbsp;s7150.</span></div><div><span style=3D"color: rgb(0, 0, 0); backgrou=
-nd-color: rgba(0, 0, 0, 0);">&nbsp; &nbsp;&nbsp;</span><span style=3D"back=
-ground-color: rgba(0, 0, 0, 0); font-size: 10.5pt; line-height: 1.5;">I&nb=
-sp;tested&nbsp;a&nbsp;lot&nbsp;of&nbsp;systems&nbsp;that&nbsp;didn't&nbsp;=
-support,&nbsp;such&nbsp;as&nbsp;centos7.2,&nbsp;centos7.3,&nbsp;unbuntu17.=
-4.</span></div>=0A<div><br></div><hr style=3D"width: 210px; height: 1px;" =
-color=3D"#b5c4df" size=3D"1" align=3D"left">=0A<div><span><div style=3D"MA=
-RGIN: 10px; FONT-FAMILY: verdana; FONT-SIZE: 10pt"><div>maokexu-KN7UnAbNpbg@public.gmane.org</d=
-iv></div></span></div>=0A</body></html>
-------=_001_NextPart666056022774_=------
-
-
---===============1015049208==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1015049208==--
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
+LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIFhpYW5n
+bGlhbmcuWXUNCj4gU2VudDogVGh1cnNkYXksIFNlcHRlbWJlciAxNCwgMjAxNyAzOjM0IEFNDQo+
+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBDYzogWXUsIFhpYW5nbGlhbmcN
+Cj4gU3ViamVjdDogW1BBVENIIDIvMl0gZHJtL2FtZGdwdS9zZG1hMzogc2V0IHdwdHIgc2hhZG93
+IGF0b21pY2FsbHkNCj4gDQo+IFBvcnQgaXQgZnJvbSBzZG1hNCBmb3Igd3B0ciBwb2xsaW5nIHVz
+YWdlLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogWGlhbmdsaWFuZy5ZdSA8WGlhbmdsaWFuZy5ZdUBh
+bWQuY29tPg0KDQpTZXJpZXMgaXM6DQpSZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5k
+ZXIuZGV1Y2hlckBhbWQuY29tPg0KDQo+IC0tLQ0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvc2RtYV92M18wLmMgfCA0ICsrKy0NCj4gIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMo
+KyksIDEgZGVsZXRpb24oLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9zZG1hX3YzXzAuYw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFf
+djNfMC5jDQo+IGluZGV4IGI3ZDY5YWIuLjcyOGMwZDggMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjNfMC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L3NkbWFfdjNfMC5jDQo+IEBAIC0zNzksOCArMzc5LDEwIEBAIHN0YXRpYyB2b2lk
+IHNkbWFfdjNfMF9yaW5nX3NldF93cHRyKHN0cnVjdA0KPiBhbWRncHVfcmluZyAqcmluZykNCj4g
+IAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IHJpbmctPmFkZXY7DQo+IA0KPiAgCWlmIChy
+aW5nLT51c2VfZG9vcmJlbGwpIHsNCj4gKwkJdTMyICp3YiA9ICh1MzIgKikmYWRldi0+d2Iud2Jb
+cmluZy0+d3B0cl9vZmZzXTsNCj4gKw0KPiAgCQkvKiBYWFggY2hlY2sgaWYgc3dhcHBpbmcgaXMg
+bmVjZXNzYXJ5IG9uIEJFICovDQo+IC0JCWFkZXYtPndiLndiW3JpbmctPndwdHJfb2Zmc10gPSBs
+b3dlcl8zMl9iaXRzKHJpbmctPndwdHIpDQo+IDw8IDI7DQo+ICsJCVdSSVRFX09OQ0UoKndiLCAo
+bG93ZXJfMzJfYml0cyhyaW5nLT53cHRyKSA8PCAyKSk7DQo+ICAJCVdET09SQkVMTDMyKHJpbmct
+PmRvb3JiZWxsX2luZGV4LCBsb3dlcl8zMl9iaXRzKHJpbmctDQo+ID53cHRyKSA8PCAyKTsNCj4g
+IAl9IGVsc2Ugew0KPiAgCQlpbnQgbWUgPSAocmluZyA9PSAmcmluZy0+YWRldi0+c2RtYS5pbnN0
+YW5jZVswXS5yaW5nKSA/IDAgOiAxOw0KPiAtLQ0KPiAyLjcuNA0KPiANCj4gX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4gYW1kLWdmeCBtYWlsaW5nIGxp
+c3QNCj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2FtZC1nZngK
