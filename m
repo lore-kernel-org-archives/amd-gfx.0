@@ -1,39 +1,42 @@
-From: Bjorn Helgaas <helgaas@kernel.org>
-Subject: Re: Resizeable PCI BAR support V8
-Date: Thu, 14 Sep 2017 03:06:50 -0500
-Message-ID: <20170914080650.GA872@bhelgaas-glaptop.roam.corp.google.com>
-References: <1499698794-1718-1-git-send-email-deathsimple@vodafone.de>
+From: Xiangliang.Yu <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu/vce4: remove interrupt mask clearance for SRIOV
+Date: Thu, 14 Sep 2017 15:59:07 +0800
+Message-ID: <1505375947-8318-1-git-send-email-Xiangliang.Yu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
-Return-path: <platform-driver-x86-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <1499698794-1718-1-git-send-email-deathsimple@vodafone.de>
-Sender: platform-driver-x86-owner@vger.kernel.org
-To: Christian =?iso-8859-1?Q?K=F6nig?= <deathsimple@vodafone.de>
-Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: "Xiangliang.Yu" <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>, leo.liu-5C7GfCeVMHo@public.gmane.org
 
-On Mon, Jul 10, 2017 at 04:59:48PM +0200, Christian König wrote:
-> Hi everyone,
-> 
-> This is the eighth incarnation of this set of patches. It enables device
-> drivers to resize and most likely also relocate the PCI BAR of devices 
-> they manage to allow the CPU to access all of the device local memory at once.
-> 
-> This is very useful for GFX device drivers where the default PCI BAR is only
-> about 256MB in size for compatibility reasons, but the device easily have
-> multiple gigabyte of local memory.
-> 
-> Some changes since the last version:
-> 1. Rebased on Linus current master tree, going to rebase on 4.13-rc1 as soon as that is out.
-> 2. Some more documentation on how to use the new functionality in drivers.
-> 3. Only re-enable decoding when everything looks good.
-> 4. Rename the new amdgpu function to better match what it is doing.
-> 
-> Bjorn what's you'r feeling on getting this into 4.14?
-
-This seems 99.9% done, but there were some kbuild issues that need to be
-resolved.  Or did I miss the resolution of those?
-
-Bjorn
+Rm9yIFNSSU9WLCB0aGUgY2xlYXJhbmNlIGhhcyBiZWVuIG1vdmVkIHRvIGZpcm13YXJlLiBTbyBk
+b24ndCBuZWVkCml0IGFueSBtb3JlLgoKU2lnbmVkLW9mZi1ieTogWGlhbmdsaWFuZy5ZdSA8WGlh
+bmdsaWFuZy5ZdUBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92
+NF8wLmMgfCA3ICsrKystLS0KIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDMgZGVs
+ZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNlX3Y0
+XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92NF8wLmMKaW5kZXggMTExMzRk
+NS4uZDVkYzZlYyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNlX3Y0
+XzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y2VfdjRfMC5jCkBAIC0xMDEx
+LDkgKzEwMTEsMTAgQEAgc3RhdGljIGludCB2Y2VfdjRfMF9wcm9jZXNzX2ludGVycnVwdChzdHJ1
+Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIHsKIAlEUk1fREVCVUcoIklIOiBWQ0VcbiIpOwogCi0J
+V1JFRzMyX1AoU09DMTVfUkVHX09GRlNFVChWQ0UsIDAsIG1tVkNFX1NZU19JTlRfU1RBVFVTKSwK
+LQkJCVZDRV9TWVNfSU5UX1NUQVRVU19fVkNFX1NZU19JTlRfVFJBUF9JTlRFUlJVUFRfSU5UX01B
+U0ssCi0JCQl+VkNFX1NZU19JTlRfU1RBVFVTX19WQ0VfU1lTX0lOVF9UUkFQX0lOVEVSUlVQVF9J
+TlRfTUFTSyk7CisJaWYgKCFhbWRncHVfc3Jpb3ZfdmYoYWRldikpCisJCVdSRUczMl9QKFNPQzE1
+X1JFR19PRkZTRVQoVkNFLCAwLCBtbVZDRV9TWVNfSU5UX1NUQVRVUyksCisJCQkgVkNFX1NZU19J
+TlRfU1RBVFVTX19WQ0VfU1lTX0lOVF9UUkFQX0lOVEVSUlVQVF9JTlRfTUFTSywKKwkJCSB+VkNF
+X1NZU19JTlRfU1RBVFVTX19WQ0VfU1lTX0lOVF9UUkFQX0lOVEVSUlVQVF9JTlRfTUFTSyk7CiAK
+IAlzd2l0Y2ggKGVudHJ5LT5zcmNfZGF0YVswXSkgewogCWNhc2UgMDoKLS0gCjIuNy40CgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
+bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
