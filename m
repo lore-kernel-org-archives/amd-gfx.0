@@ -1,10 +1,10 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+From: "Bridgman, John" <John.Bridgman-5C7GfCeVMHo@public.gmane.org>
 Subject: RE: What is the relationship between amd-gfx and kernel?
-Date: Thu, 14 Sep 2017 13:12:34 +0000
-Message-ID: <BN6PR12MB16521F018B42AA8A86ED0341F76F0@BN6PR12MB1652.namprd12.prod.outlook.com>
+Date: Thu, 14 Sep 2017 13:12:38 +0000
+Message-ID: <BN6PR12MB134820C4122FBDCC2396B8BAE86F0@BN6PR12MB1348.namprd12.prod.outlook.com>
 References: <201709141740572474251@126.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1546954104=="
+Content-Type: multipart/mixed; boundary="===============1663410176=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <201709141740572474251-KN7UnAbNpbg@public.gmane.org>
 Content-Language: en-US
@@ -18,22 +18,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "'maokexu-KN7UnAbNpbg@public.gmane.org'" <maokexu-KN7UnAbNpbg@public.gmane.org>, amd-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "maokexu-KN7UnAbNpbg@public.gmane.org" <maokexu-KN7UnAbNpbg@public.gmane.org>, amd-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1546954104==
+--===============1663410176==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB16521F018B42AA8A86ED0341F76F0BN6PR12MB1652namp_"
+	boundary="_000_BN6PR12MB134820C4122FBDCC2396B8BAE86F0BN6PR12MB1348namp_"
 
---_000_BN6PR12MB16521F018B42AA8A86ED0341F76F0BN6PR12MB1652namp_
+--_000_BN6PR12MB134820C4122FBDCC2396B8BAE86F0BN6PR12MB1348namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-I'm not sure I understand your question.  There is an amdgpu kernel driver =
-which is part of the kernel.  New features and bug fixes get added every ke=
-rnel cycle.
+amd-gfx is the mailing list for the amdgpu kernel driver, which is part of =
+the drm subsystem in the Linux kernel.
 
-Alex
+It lives in the drivers/gpu/drm/amd/amdgpu portion of the Linux kernel tree=
+.
+
+We also release modified versions of the amdgpu driver in the AMDGPU-PRO an=
+d ROCm driver stacks.
 
 From: amd-gfx [mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org] On Behalf Of m=
 aokexu-KN7UnAbNpbg@public.gmane.org
@@ -48,7 +51,7 @@ ion connected?
 ________________________________
 maokexu-KN7UnAbNpbg@public.gmane.org<mailto:maokexu-KN7UnAbNpbg@public.gmane.org>
 
---_000_BN6PR12MB16521F018B42AA8A86ED0341F76F0BN6PR12MB1652namp_
+--_000_BN6PR12MB134820C4122FBDCC2396B8BAE86F0BN6PR12MB1348namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -76,7 +79,8 @@ w\:* {behavior:url(#default#VML);}
 	{font-family:Verdana;
 	panose-1:2 11 6 4 3 5 4 4 2 4;}
 @font-face
-	{font-family:??;}
+	{font-family:??;
+	panose-1:0 0 0 0 0 0 0 0 0 0;}
 /* Style Definitions */
 p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin:0in;
@@ -113,16 +117,22 @@ div.WordSection1
 <body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
 <div class=3D"WordSection1">
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">I'm not sure I understand=
- your question.&nbsp; There is an amdgpu kernel driver which is part of the=
- kernel.&nbsp; New features and bug fixes get added every kernel cycle.<o:p=
-></o:p></span></p>
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">amd-gfx is the mailing li=
+st for the amdgpu kernel driver, which is part of the drm subsystem in the =
+Linux kernel.<o:p></o:p></span></p>
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
 libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
 /p>
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,&quot;sans-serif&quot;;color:#1F497D">Alex<o:p></o:p></span></p=
->
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">It lives in the drivers/g=
+pu/drm/amd/amdgpu portion of the Linux kernel tree.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
+/p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,&quot;sans-serif&quot;;color:#1F497D">We also release modified =
+versions of the amdgpu driver in the AMDGPU-PRO and ROCm driver stacks.<o:p=
+></o:p></span></p>
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
 libri&quot;,&quot;sans-serif&quot;;color:#1F497D"><o:p>&nbsp;</o:p></span><=
 /p>
@@ -144,21 +154,22 @@ o:p></span></p>
 </div>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt;font-family:??;color=
-:black">hi:<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt;font-family:&quot;??=
+&quot;,&quot;serif&quot;;color:black">hi:<o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt;font-family:??;color=
-:black">&nbsp; &nbsp;&nbsp;What&nbsp;is&nbsp;the&nbsp;relationship&nbsp;bet=
-ween&nbsp;amd-gfx&nbsp;and&nbsp;kernel&nbsp;and&nbsp;how&nbsp;is&nbsp;the&n=
-bsp;version&nbsp;connected?<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt;font-family:&quot;??=
+&quot;,&quot;serif&quot;;color:black">&nbsp; &nbsp;&nbsp;What&nbsp;is&nbsp;=
+the&nbsp;relationship&nbsp;between&nbsp;amd-gfx&nbsp;and&nbsp;kernel&nbsp;a=
+nd&nbsp;how&nbsp;is&nbsp;the&nbsp;version&nbsp;connected?<o:p></o:p></span>=
+</p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt;font-family:??;color=
-:black"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt;font-family:&quot;??=
+&quot;,&quot;serif&quot;;color:black"><o:p>&nbsp;</o:p></span></p>
 </div>
-<div class=3D"MsoNormal"><span style=3D"font-size:10.5pt;font-family:??;col=
-or:black">
+<div class=3D"MsoNormal"><span style=3D"font-size:10.5pt;font-family:&quot;=
+??&quot;,&quot;serif&quot;;color:black">
 <hr size=3D"1" width=3D"210" style=3D"width:157.5pt" noshade=3D"" style=3D"=
 color:#B5C4DF" align=3D"left">
 </span></div>
@@ -177,9 +188,9 @@ rdana&quot;,&quot;sans-serif&quot;;color:black"><a href=3D"mailto:maokexu@1=
 </body>
 </html>
 
---_000_BN6PR12MB16521F018B42AA8A86ED0341F76F0BN6PR12MB1652namp_--
+--_000_BN6PR12MB134820C4122FBDCC2396B8BAE86F0BN6PR12MB1348namp_--
 
---===============1546954104==
+--===============1663410176==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -189,4 +200,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1546954104==--
+--===============1663410176==--
