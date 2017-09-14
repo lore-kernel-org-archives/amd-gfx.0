@@ -1,57 +1,39 @@
-From: Emil Velikov <emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH libdrm 1/4] amdgpu: add sync_file import and export
- functions
-Date: Thu, 14 Sep 2017 09:04:46 +0100
-Message-ID: <CACvgo52GhH+fk-3WG+z0P8oDWX9ScJngFfFyDsXzR9VMYpxmsw@mail.gmail.com>
-References: <1505248992-1898-1-git-send-email-maraeo@gmail.com>
+From: Bjorn Helgaas <helgaas@kernel.org>
+Subject: Re: Resizeable PCI BAR support V8
+Date: Thu, 14 Sep 2017 03:06:50 -0500
+Message-ID: <20170914080650.GA872@bhelgaas-glaptop.roam.corp.google.com>
+References: <1499698794-1718-1-git-send-email-deathsimple@vodafone.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1505248992-1898-1-git-send-email-maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, ML dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Return-path: <platform-driver-x86-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <1499698794-1718-1-git-send-email-deathsimple@vodafone.de>
+Sender: platform-driver-x86-owner@vger.kernel.org
+To: Christian =?iso-8859-1?Q?K=F6nig?= <deathsimple@vodafone.de>
+Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMTIgU2VwdGVtYmVyIDIwMTcgYXQgMjE6NDMsIE1hcmVrIE9sxaHDoWsgPG1hcmFlb0BnbWFp
-bC5jb20+IHdyb3RlOgo+IEZyb206IE1hcmVrIE9sxaHDoWsgPG1hcmVrLm9sc2FrQGFtZC5jb20+
-Cj4KPiAtLS0KPiAgYW1kZ3B1L2FtZGdwdS5oICAgIHwgMzAgKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrCj4gIGFtZGdwdS9hbWRncHVfY3MuYyB8IDIwICsrKysrKysrKysrKysrKysrKysr
-Cj4gIDIgZmlsZXMgY2hhbmdlZCwgNTAgaW5zZXJ0aW9ucygrKQo+Cj4gZGlmZiAtLWdpdCBhL2Ft
-ZGdwdS9hbWRncHUuaCBiL2FtZGdwdS9hbWRncHUuaAo+IGluZGV4IDIzOGIxYWEuLmI0NGI5YjYg
-MTAwNjQ0Cj4gLS0tIGEvYW1kZ3B1L2FtZGdwdS5oCj4gKysrIGIvYW1kZ3B1L2FtZGdwdS5oCj4g
-QEAgLTEzODMsNiArMTM4MywzNiBAQCBpbnQgYW1kZ3B1X2NzX2ltcG9ydF9zeW5jb2JqKGFtZGdw
-dV9kZXZpY2VfaGFuZGxlIGRldiwKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHVpbnQz
-Ml90ICpzeW5jb2JqKTsKPgo+ICAvKioKPiArICogIEV4cG9ydCBrZXJuZWwgc3luYyBvYmplY3Qg
-dG8gYSBzeW5jX2ZpbGUuCj4gKyAqCj4gKyAqIFxwYXJhbSAgIGRldiAgICAgICAgICAgICAgIC0g
-XGMgW2luXSBkZXZpY2UgaGFuZGxlCj4gKyAqIFxwYXJhbSAgIHN5bmNvYmogICAgLSBcYyBbaW5d
-IHN5bmMgb2JqZWN0IGhhbmRsZQo+ICsgKiBccGFyYW0gICBzeW5jX2ZpbGVfZmQgLSBcYyBbb3V0
-XSBzeW5jX2ZpbGUgZmlsZSBkZXNjcmlwdG9yLgo+ICsgKgo+ICsgKiBccmV0dXJuICAgMCBvbiBz
-dWNjZXNzXG4KPiArICogICAgICAgICAgPDAgLSBOZWdhdGl2ZSBQT1NJWCBFcnJvciBjb2RlCj4g
-KyAqCj4gKyAqLwo+ICtpbnQgYW1kZ3B1X2NzX3N5bmNvYmpfZXhwb3J0X3N5bmNfZmlsZShhbWRn
-cHVfZGV2aWNlX2hhbmRsZSBkZXYsCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgdWludDMyX3Qgc3luY29iaiwKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBpbnQgKnN5bmNfZmlsZV9mZCk7Cj4gKwo+ICsvKioKPiArICogIEltcG9ydCBrZXJu
-ZWwgc3luYyBvYmplY3QgZnJvbSBhIHN5bmNfZmlsZS4KPiArICoKPiArICogXHBhcmFtICAgZGV2
-ICAgICAgICAgICAgICAgLSBcYyBbaW5dIGRldmljZSBoYW5kbGUKPiArICogXHBhcmFtICAgc3lu
-Y29iaiAgICAtIFxjIFtpbl0gc3luYyBvYmplY3QgaGFuZGxlCj4gKyAqIFxwYXJhbSAgIHN5bmNf
-ZmlsZV9mZCAtIFxjIFtpbl0gc3luY19maWxlIGZpbGUgZGVzY3JpcHRvci4KPiArICoKPiArICog
-XHJldHVybiAgIDAgb24gc3VjY2Vzc1xuCj4gKyAqICAgICAgICAgIDwwIC0gTmVnYXRpdmUgUE9T
-SVggRXJyb3IgY29kZQo+ICsgKgo+ICsgKi8KPiAraW50IGFtZGdwdV9jc19zeW5jb2JqX2ltcG9y
-dF9zeW5jX2ZpbGUoYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2LAo+ICsgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIHVpbnQzMl90IHN5bmNvYmosCj4gKyAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgaW50IHN5bmNfZmlsZV9mZCk7Cj4gKwpEaWQgeW91IHJ1
-biBtYWtlIGNoZWNrPyBTZWVtcyBsaWtlIHRoZXNlIChhbmQgb3RoZXIgbmV3bHkgaW50cm9kdWNl
-ZApzeW1ib2xzKSBhcmUgbWlzc2luZyBmcm9tIGFtZGdwdS1zeW1ib2wtY2hlY2suCgpUaGFua3MK
-RW1pbApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
-Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Mon, Jul 10, 2017 at 04:59:48PM +0200, Christian König wrote:
+> Hi everyone,
+> 
+> This is the eighth incarnation of this set of patches. It enables device
+> drivers to resize and most likely also relocate the PCI BAR of devices 
+> they manage to allow the CPU to access all of the device local memory at once.
+> 
+> This is very useful for GFX device drivers where the default PCI BAR is only
+> about 256MB in size for compatibility reasons, but the device easily have
+> multiple gigabyte of local memory.
+> 
+> Some changes since the last version:
+> 1. Rebased on Linus current master tree, going to rebase on 4.13-rc1 as soon as that is out.
+> 2. Some more documentation on how to use the new functionality in drivers.
+> 3. Only re-enable decoding when everything looks good.
+> 4. Rename the new amdgpu function to better match what it is doing.
+> 
+> Bjorn what's you'r feeling on getting this into 4.14?
+
+This seems 99.9% done, but there were some kbuild issues that need to be
+resolved.  Or did I miss the resolution of those?
+
+Bjorn
