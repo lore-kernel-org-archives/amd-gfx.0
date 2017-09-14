@@ -1,18 +1,10 @@
-From: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/amdgpu: Support VM environments in
- amdgpu_ttm_access_memory()
-Date: Thu, 14 Sep 2017 09:07:45 -0400
-Message-ID: <989bab54-b4e5-c6b8-6e41-113025b05026@amd.com>
-References: <20170914125919.14646-1-tom.stdenis@amd.com>
- <BN6PR12MB16520B593DE382C1F9E1C844F76F0@BN6PR12MB1652.namprd12.prod.outlook.com>
- <991e5a4e-d46a-922b-57f0-f99628715b11@amd.com>
- <BN6PR12MB16524AE2C44004ACBC283750F76F0@BN6PR12MB1652.namprd12.prod.outlook.com>
+From: "maokexu-KN7UnAbNpbg@public.gmane.org" <maokexu-KN7UnAbNpbg@public.gmane.org>
+Subject: What is the relationship between amd-gfx and kernel?
+Date: Thu, 14 Sep 2017 17:41:00 +0800
+Message-ID: <201709141740572474251@126.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0357644371=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB16524AE2C44004ACBC283750F76F0-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,50 +15,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T2sgZG9uZS4KCkNoZWVycywKVG9tCgpPbiAxNC8wOS8xNyAwOTowNiBBTSwgRGV1Y2hlciwgQWxl
-eGFuZGVyIHdyb3RlOgo+IFBsZWFzZSBwdXNoIHRvIGFtZC1zdGFnaW5nLWRybS1uZXh0Cj4gCj4+
-IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tCj4+IEZyb206IFN0RGVuaXMsIFRvbQo+PiBTZW50
-OiBUaHVyc2RheSwgU2VwdGVtYmVyIDE0LCAyMDE3IDk6MDUgQU0KPj4gVG86IERldWNoZXIsIEFs
-ZXhhbmRlcjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4gU3ViamVjdDogUmU6IFtQ
-QVRDSF0gZHJtL2FtZC9hbWRncHU6IFN1cHBvcnQgVk0gZW52aXJvbm1lbnRzIGluCj4+IGFtZGdw
-dV90dG1fYWNjZXNzX21lbW9yeSgpCj4+Cj4+IFB1c2hlZCB0byBzdGctNC4xMy4gIFNob3VsZCBJ
-IHB1c2ggdG8gNC4xMiB0b28gZm9yIHRoZSB0aW1lIGJlaW5nPwo+Pgo+PiBUb20KPj4KPj4gT24g
-MTQvMDkvMTcgMDk6MDMgQU0sIERldWNoZXIsIEFsZXhhbmRlciB3cm90ZToKPj4+PiAtLS0tLU9y
-aWdpbmFsIE1lc3NhZ2UtLS0tLQo+Pj4+IEZyb206IGFtZC1nZnggW21haWx0bzphbWQtZ2Z4LWJv
-dW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnXSBPbgo+PiBCZWhhbGYKPj4+PiBPZiBUb20gU3Qg
-RGVuaXMKPj4+PiBTZW50OiBUaHVyc2RheSwgU2VwdGVtYmVyIDE0LCAyMDE3IDg6NTkgQU0KPj4+
-PiBUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4+PiBDYzogU3REZW5pcywgVG9t
-Cj4+Pj4gU3ViamVjdDogW1BBVENIXSBkcm0vYW1kL2FtZGdwdTogU3VwcG9ydCBWTSBlbnZpcm9u
-bWVudHMgaW4KPj4+PiBhbWRncHVfdHRtX2FjY2Vzc19tZW1vcnkoKQo+Pj4+Cj4+Pj4gU2lnbmVk
-LW9mZi1ieTogVG9tIFN0IERlbmlzIDx0b20uc3RkZW5pc0BhbWQuY29tPgo+Pj4KPj4+IFJldmll
-d2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cj4+Pgo+Pj4+
-IC0tLQo+Pj4+ICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYyB8IDgg
-KysrKy0tLS0KPj4+PiAgICAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCA0IGRlbGV0
-aW9ucygtKQo+Pj4+Cj4+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV90dG0uYwo+Pj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0
-bS5jCj4+Pj4gaW5kZXggYjJiMTFlMTc2NjY3Li44ZWUxNmRmZGI4YWYgMTAwNjQ0Cj4+Pj4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jCj4+Pj4gKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jCj4+Pj4gQEAgLTEyMDEsMTQgKzEy
-MDEsMTQgQEAgc3RhdGljIGludCBhbWRncHVfdHRtX2FjY2Vzc19tZW1vcnkoc3RydWN0Cj4+Pj4g
-dHRtX2J1ZmZlcl9vYmplY3QgKmJvLAo+Pj4+ICAgIAkJfQo+Pj4+Cj4+Pj4gICAgCQlzcGluX2xv
-Y2tfaXJxc2F2ZSgmYWRldi0+bW1pb19pZHhfbG9jaywgZmxhZ3MpOwo+Pj4+IC0JCVdSRUczMiht
-bU1NX0lOREVYLCAoKHVpbnQzMl90KWFsaWduZWRfcG9zKSB8Cj4+Pj4gMHg4MDAwMDAwMCk7Cj4+
-Pj4gLQkJV1JFRzMyKG1tTU1fSU5ERVhfSEksIGFsaWduZWRfcG9zID4+IDMxKTsKPj4+PiArCQlX
-UkVHMzJfTk9fS0lRKG1tTU1fSU5ERVgsICgodWludDMyX3QpYWxpZ25lZF9wb3MpIHwKPj4+PiAw
-eDgwMDAwMDAwKTsKPj4+PiArCQlXUkVHMzJfTk9fS0lRKG1tTU1fSU5ERVhfSEksIGFsaWduZWRf
-cG9zID4+IDMxKTsKPj4+PiAgICAJCWlmICghd3JpdGUgfHwgbWFzayAhPSAweGZmZmZmZmZmKQo+
-Pj4+IC0JCQl2YWx1ZSA9IFJSRUczMihtbU1NX0RBVEEpOwo+Pj4+ICsJCQl2YWx1ZSA9IFJSRUcz
-Ml9OT19LSVEobW1NTV9EQVRBKTsKPj4+PiAgICAJCWlmICh3cml0ZSkgewo+Pj4+ICAgIAkJCXZh
-bHVlICY9IH5tYXNrOwo+Pj4+ICAgIAkJCXZhbHVlIHw9ICgqKHVpbnQzMl90ICopYnVmIDw8IHNo
-aWZ0KSAmIG1hc2s7Cj4+Pj4gLQkJCVdSRUczMihtbU1NX0RBVEEsIHZhbHVlKTsKPj4+PiArCQkJ
-V1JFRzMyX05PX0tJUShtbU1NX0RBVEEsIHZhbHVlKTsKPj4+PiAgICAJCX0KPj4+PiAgICAJCXNw
-aW5fdW5sb2NrX2lycXJlc3RvcmUoJmFkZXYtPm1taW9faWR4X2xvY2ssIGZsYWdzKTsKPj4+PiAg
-ICAJCWlmICghd3JpdGUpIHsKPj4+PiAtLQo+Pj4+IDIuMTIuMAo+Pj4+Cj4+Pj4gX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPj4+PiBhbWQtZ2Z4IG1haWxp
-bmcgbGlzdAo+Pj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+Pj4gaHR0cHM6Ly9s
-aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cj4gCgpfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
-bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is a multi-part message in MIME format.
+
+--===============0357644371==
+Content-Type: multipart/alternative;
+	boundary="----=_001_NextPart803171212144_=----"
+
+This is a multi-part message in MIME format.
+
+------=_001_NextPart803171212144_=----
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: base64
+
+aGk6DQogICAgV2hhdCBpcyB0aGUgcmVsYXRpb25zaGlwIGJldHdlZW4gYW1kLWdmeCBhbmQga2Vy
+bmVsIGFuZCBob3cgaXMgdGhlIHZlcnNpb24gY29ubmVjdGVkPw0KDQoNCg0KbWFva2V4dUAxMjYu
+Y29tDQo=
+
+------=_001_NextPart803171212144_=----
+Content-Type: text/html;
+	charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charse=
+t=3Dus-ascii"><style>body { line-height: 1.5; }body { font-size: 10.5pt; f=
+ont-family: ??; color: rgb(0, 0, 0); line-height: 1.5; }</style></head><bo=
+dy>=0A<div><span></span>hi:</div><div><span style=3D"color: rgb(0, 0, 0); =
+background-color: rgba(0, 0, 0, 0);">&nbsp; &nbsp;&nbsp;</span><span style=
+=3D"background-color: rgba(0, 0, 0, 0); font-size: 10.5pt; line-height: 1.=
+5;">What&nbsp;is&nbsp;the&nbsp;relationship&nbsp;between&nbsp;amd-gfx&nbsp=
+;and&nbsp;kernel&nbsp;and&nbsp;how&nbsp;is&nbsp;the&nbsp;version&nbsp;conn=
+ected?</span></div>=0A<div><br></div><hr style=3D"WIDTH: 210px; HEIGHT: 1p=
+x" color=3D"#b5c4df" size=3D"1" align=3D"left">=0A<div><span><div style=3D=
+"MARGIN: 10px; FONT-FAMILY: verdana; FONT-SIZE: 10pt"><div>maokexu-KN7UnAbNpbg@public.gmane.org=
+</div></div></span></div>=0A</body></html>
+------=_001_NextPart803171212144_=------
+
+
+--===============0357644371==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0357644371==--
