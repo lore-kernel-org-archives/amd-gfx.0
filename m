@@ -1,10 +1,9 @@
-From: Xiangliang.Yu <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu/vce4: remove interrupt mask clearance for SRIOV
-Date: Thu, 14 Sep 2017 15:59:07 +0800
-Message-ID: <1505375947-8318-1-git-send-email-Xiangliang.Yu@amd.com>
+From: "maokexu-KN7UnAbNpbg@public.gmane.org" <maokexu-KN7UnAbNpbg@public.gmane.org>
+Subject: Can you tell me which driver supports AMD's sriov?
+Date: Thu, 14 Sep 2017 15:57:11 +0800
+Message-ID: <2017091415571030761212@126.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1015049208=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -16,27 +15,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: "Xiangliang.Yu" <Xiangliang.Yu-5C7GfCeVMHo@public.gmane.org>, leo.liu-5C7GfCeVMHo@public.gmane.org
+To: amd-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Rm9yIFNSSU9WLCB0aGUgY2xlYXJhbmNlIGhhcyBiZWVuIG1vdmVkIHRvIGZpcm13YXJlLiBTbyBk
-b24ndCBuZWVkCml0IGFueSBtb3JlLgoKU2lnbmVkLW9mZi1ieTogWGlhbmdsaWFuZy5ZdSA8WGlh
-bmdsaWFuZy5ZdUBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92
-NF8wLmMgfCA3ICsrKystLS0KIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDMgZGVs
-ZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNlX3Y0
-XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92NF8wLmMKaW5kZXggMTExMzRk
-NS4uZDVkYzZlYyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNlX3Y0
-XzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y2VfdjRfMC5jCkBAIC0xMDEx
-LDkgKzEwMTEsMTAgQEAgc3RhdGljIGludCB2Y2VfdjRfMF9wcm9jZXNzX2ludGVycnVwdChzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIHsKIAlEUk1fREVCVUcoIklIOiBWQ0VcbiIpOwogCi0J
-V1JFRzMyX1AoU09DMTVfUkVHX09GRlNFVChWQ0UsIDAsIG1tVkNFX1NZU19JTlRfU1RBVFVTKSwK
-LQkJCVZDRV9TWVNfSU5UX1NUQVRVU19fVkNFX1NZU19JTlRfVFJBUF9JTlRFUlJVUFRfSU5UX01B
-U0ssCi0JCQl+VkNFX1NZU19JTlRfU1RBVFVTX19WQ0VfU1lTX0lOVF9UUkFQX0lOVEVSUlVQVF9J
-TlRfTUFTSyk7CisJaWYgKCFhbWRncHVfc3Jpb3ZfdmYoYWRldikpCisJCVdSRUczMl9QKFNPQzE1
-X1JFR19PRkZTRVQoVkNFLCAwLCBtbVZDRV9TWVNfSU5UX1NUQVRVUyksCisJCQkgVkNFX1NZU19J
-TlRfU1RBVFVTX19WQ0VfU1lTX0lOVF9UUkFQX0lOVEVSUlVQVF9JTlRfTUFTSywKKwkJCSB+VkNF
-X1NZU19JTlRfU1RBVFVTX19WQ0VfU1lTX0lOVF9UUkFQX0lOVEVSUlVQVF9JTlRfTUFTSyk7CiAK
-IAlzd2l0Y2ggKGVudHJ5LT5zcmNfZGF0YVswXSkgewogCWNhc2UgMDoKLS0gCjIuNy40CgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
-bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is a multi-part message in MIME format.
+
+--===============1015049208==
+Content-Type: multipart/alternative;
+	boundary="----=_001_NextPart666056022774_=----"
+
+This is a multi-part message in MIME format.
+
+------=_001_NextPart666056022774_=----
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: base64
+
+aGksYWxsOg0KICAgIFdoaWNoIHBhdGNoIGJlZ2lucyB0byBzdXBwb3J0IHNyaW92IGZvciBhbWQg
+Z3JhcGhpY3MgY2FyZHMgPyBHcmFwaGljcyBjYXJkcyBzdWNoIGFzIEFNRCBGaXJlUHJvIHM3MTUw
+Lg0KICAgIEkgdGVzdGVkIGEgbG90IG9mIHN5c3RlbXMgdGhhdCBkaWRuJ3Qgc3VwcG9ydCwgc3Vj
+aCBhcyBjZW50b3M3LjIsIGNlbnRvczcuMywgdW5idW50dTE3LjQuDQoNCg0KDQptYW9rZXh1QDEy
+Ni5jb20NCg==
+
+------=_001_NextPart666056022774_=----
+Content-Type: text/html;
+	charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charse=
+t=3Dus-ascii"><style>body { line-height: 1.5; }body { font-size: 10.5pt; f=
+ont-family: ??; color: rgb(0, 0, 0); line-height: 1.5; }</style></head><bo=
+dy>=0A<div>hi,all:<span></span></div><div><span style=3D"color: rgb(0, 0, =
+0); background-color: rgba(0, 0, 0, 0);">&nbsp; &nbsp;&nbsp;</span><span s=
+tyle=3D"background-color: rgba(0, 0, 0, 0); font-size: 10.5pt; line-height=
+: 1.5;">Which&nbsp;patch&nbsp;begins&nbsp;to&nbsp;support sriov for amd&nb=
+sp;graphics&nbsp;cards ? Graphics cards such&nbsp;as&nbsp;AMD&nbsp;FirePro=
+&nbsp;s7150.</span></div><div><span style=3D"color: rgb(0, 0, 0); backgrou=
+nd-color: rgba(0, 0, 0, 0);">&nbsp; &nbsp;&nbsp;</span><span style=3D"back=
+ground-color: rgba(0, 0, 0, 0); font-size: 10.5pt; line-height: 1.5;">I&nb=
+sp;tested&nbsp;a&nbsp;lot&nbsp;of&nbsp;systems&nbsp;that&nbsp;didn't&nbsp;=
+support,&nbsp;such&nbsp;as&nbsp;centos7.2,&nbsp;centos7.3,&nbsp;unbuntu17.=
+4.</span></div>=0A<div><br></div><hr style=3D"width: 210px; height: 1px;" =
+color=3D"#b5c4df" size=3D"1" align=3D"left">=0A<div><span><div style=3D"MA=
+RGIN: 10px; FONT-FAMILY: verdana; FONT-SIZE: 10pt"><div>maokexu-KN7UnAbNpbg@public.gmane.org</d=
+iv></div></span></div>=0A</body></html>
+------=_001_NextPart666056022774_=------
+
+
+--===============1015049208==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1015049208==--
