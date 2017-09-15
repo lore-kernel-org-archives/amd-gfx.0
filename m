@@ -1,49 +1,34 @@
-From: Arnd Bergmann <arnd@arndb.de>
-Subject: [PATCH] drm/radeon: properly initialize r600_audio_status() data
-Date: Fri, 15 Sep 2017 22:06:58 +0200
-Message-ID: <20170915200705.1639795-1-arnd@arndb.de>
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH] lib: Closed hash table with low overhead
+Date: Fri, 15 Sep 2017 14:14:56 -0700
+Message-ID: <20170915141456.4382d7ffae7ec8a9a86c8cf9@linux-foundation.org>
+References: <1503971590-15963-1-git-send-email-Felix.Kuehling@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <1503971590-15963-1-git-send-email-Felix.Kuehling@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-VGhlIHN0cnVjdHVyZSByZXR1cm5lZCBmcm9tIHI2MDBfYXVkaW9fc3RhdHVzKCkgaXMgb25seSBw
-YXJ0aWFsbHkKaW5pdGlhbGl6ZWQsIGFuZCBvbGRlciBnY2MgdmVyc2lvbnMgKDQuMyBhbmQgNC40
-KSB3YXJuIGFib3V0IHRoaXM6Cgpkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3I2MDBfaGRtaS5jOiBJ
-biBmdW5jdGlvbiAncjYwMF9hdWRpb19zdGF0dXMnOgpkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3I2
-MDBfaGRtaS5jOjEwODogZXJyb3I6ICdzdGF0dXMuaWQnIGlzIHVzZWQgdW5pbml0aWFsaXplZCBp
-biB0aGlzIGZ1bmN0aW9uCmRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcjYwMF9oZG1pLmM6MTA4OiBl
-cnJvcjogJ3N0YXR1cy5jb25uZWN0ZWQnIGlzIHVzZWQgdW5pbml0aWFsaXplZCBpbiB0aGlzIGZ1
-bmN0aW9uCmRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcjYwMF9oZG1pLmM6MTA4OiBlcnJvcjogJ3N0
-YXR1cy5vZmZzZXQnIGlzIHVzZWQgdW5pbml0aWFsaXplZCBpbiB0aGlzIGZ1bmN0aW9uCgpUaGlz
-IGlzIGhhcm1sZXNzIGFuZCBzdXJwcmlzaW5nbHkgY29ycmVjdCBpbiBDOTksIGFzIHRoZSBjYWxs
-ZXIKb25seSBhY2Nlc3NlcyB0aGUgZmllbGRzIHRoYXQgZ290IGluaXRpYWxpemVkLCBzbyBuZXdl
-ciBjb21waWxlcnMKZG9uJ3Qgd2FybiBhYm91dCBpdCwgYnV0IGluaXRpYWxpemluZyB0aGUgZW50
-aXJlIHN0cnVjdHVyZSBmZWVscwpsaWtlIHRoZSByaWdodCB0aGluZyB0byBkbyBoZXJlIGFuZCBh
-dm9pZHMgdGhlIHdhcm5pbmcuCgpTaWduZWQtb2ZmLWJ5OiBBcm5kIEJlcmdtYW5uIDxhcm5kQGFy
-bmRiLmRlPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcjYwMF9oZG1pLmMgfCAyICstCiAx
-IGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3I2MDBfaGRtaS5jIGIvZHJpdmVycy9ncHUvZHJtL3Jh
-ZGVvbi9yNjAwX2hkbWkuYwppbmRleCBlODJhOTljYjI0NTkuLmFiMzI4MzBjNGUyMyAxMDA2NDQK
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yNjAwX2hkbWkuYworKysgYi9kcml2ZXJzL2dw
-dS9kcm0vcmFkZW9uL3I2MDBfaGRtaS5jCkBAIC01OCw3ICs1OCw3IEBAIGVudW0gcjYwMF9oZG1p
-X2llY19zdGF0dXNfYml0cyB7CiAKIHN0YXRpYyBzdHJ1Y3QgcjYwMF9hdWRpb19waW4gcjYwMF9h
-dWRpb19zdGF0dXMoc3RydWN0IHJhZGVvbl9kZXZpY2UgKnJkZXYpCiB7Ci0Jc3RydWN0IHI2MDBf
-YXVkaW9fcGluIHN0YXR1czsKKwlzdHJ1Y3QgcjYwMF9hdWRpb19waW4gc3RhdHVzID0ge307CiAJ
-dWludDMyX3QgdmFsdWU7CiAKIAl2YWx1ZSA9IFJSRUczMihSNjAwX0FVRElPX1JBVEVfQlBTX0NI
-QU5ORUwpOwotLSAKMi45LjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ry
-aS1kZXZlbAo=
+On Mon, 28 Aug 2017 21:53:10 -0400 Felix Kuehling <Felix.Kuehling@amd.com> wrote:
+
+> This adds a statically sized closed hash table implementation with
+> low memory and CPU overhead. The API is inspired by kfifo.
+> 
+> Storing, retrieving and deleting data does not involve any dynamic
+> memory management, which makes it ideal for use in interrupt context.
+> Static memory usage per entry comprises a 32 or 64 bit hash key, two
+> bits for occupancy tracking and the value size stored in the table.
+> No list heads or pointers are needed. Therefore this data structure
+> should be quite cache-friendly, too.
+> 
+> It uses linear probing and lazy deletion. During lookups free space
+> is reclaimed and entries relocated to speed up future lookups.
+
+I haven't looked at the implementation (yet), but I'm wondering if you
+have identified hash table users (or implementations) elsewhere in the
+kernel which might be migrated to use this?  If so, such conversions
+can be used to determine/demonstrate the desirability of the patch.
