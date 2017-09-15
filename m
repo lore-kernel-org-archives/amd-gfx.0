@@ -1,7 +1,7 @@
-From: <qingqing.wang-5C7GfCeVMHo@public.gmane.org>
+From: <Ken.Wang-5C7GfCeVMHo@public.gmane.org>
 Subject: [PATCH] drm/amdgpu: Add GPU reset functionality for Vega10
-Date: Fri, 15 Sep 2017 15:05:56 +0800
-Message-ID: <1505459156-28098-1-git-send-email-qingqing.wang@amd.com>
+Date: Fri, 15 Sep 2017 14:53:44 +0800
+Message-ID: <1505458424-27688-1-git-send-email-Ken.Wang@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
