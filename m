@@ -1,13 +1,11 @@
-From: "Wang, Ken" <Ken.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: Fw: [PATCH] drm/amdgpu: Add GPU reset functionality for Vega10
-Date: Fri, 15 Sep 2017 06:58:42 +0000
-Message-ID: <CY1PR12MB04747E37CAE70D12509984C98C6C0@CY1PR12MB0474.namprd12.prod.outlook.com>
-References: <1505458655-27828-1-git-send-email-Ken.Wang@amd.com>
+From: <Ken.Wang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: Add GPU reset functionality for Vega10
+Date: Fri, 15 Sep 2017 15:57:44 +0800
+Message-ID: <1505462264-672-1-git-send-email-Ken.Wang@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1893325554=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1505458655-27828-1-git-send-email-Ken.Wang-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,771 +16,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
---===============1893325554==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CY1PR12MB04747E37CAE70D12509984C98C6C0CY1PR12MB0474namp_"
-
---_000_CY1PR12MB04747E37CAE70D12509984C98C6C0CY1PR12MB0474namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-
-
-
-________________________________
-From: Ken.Wang-5C7GfCeVMHo@public.gmane.org <Ken.Wang-5C7GfCeVMHo@public.gmane.org>
-Sent: Friday, September 15, 2017 14:57
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Wang, Ken
-Subject: [PATCH] drm/amdgpu: Add GPU reset functionality for Vega10
+Cc: Ken Wang <Ken.Wang-5C7GfCeVMHo@public.gmane.org>
 
-From: Ken Wang <Ken.Wang-5C7GfCeVMHo@public.gmane.org>
-
-Signed-off-by: Ken Wang <Ken.Wang-5C7GfCeVMHo@public.gmane.org>
-Change-Id: I6fd2c216a84747313f18db25a444be5ed43b4f4b
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  7 +++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c    | 10 +++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h    |  3 +++
- drivers/gpu/drm/amd/amdgpu/psp_v10_0.c     |  7 ++++++
- drivers/gpu/drm/amd/amdgpu/psp_v10_0.h     |  2 ++
- drivers/gpu/drm/amd/amdgpu/psp_v3_1.c      | 36 ++++++++++++++++++++++++++=
--
- drivers/gpu/drm/amd/amdgpu/psp_v3_1.h      |  1 +
- drivers/gpu/drm/amd/amdgpu/soc15.c         | 39 ++++++++++++++++++++------=
-----
- 8 files changed, 89 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
-index fc1c5437..4196786 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2883,7 +2883,7 @@ int amdgpu_gpu_reset(struct amdgpu_device *adev)
-         int resched;
-         bool need_full_reset, vram_lost =3D false;
-
--       if (!amdgpu_check_soft_reset(adev)) {
-+       if (!amdgpu_check_soft_reset(adev) && (adev->asic_type !=3D CHIP_VE=
-GA10)) {
-                 DRM_INFO("No hardware hang detected. Did some blocks stall=
-?\n");
-                 return 0;
-         }
-@@ -2910,6 +2910,10 @@ int amdgpu_gpu_reset(struct amdgpu_device *adev)
-
-         need_full_reset =3D amdgpu_need_full_reset(adev);
-
-+       /* no soft reset for vega10 right now*/
-+       if (adev->asic_type =3D=3D CHIP_VEGA10)
-+               need_full_reset =3D true;
-+
-         if (!need_full_reset) {
-                 amdgpu_pre_soft_reset(adev);
-                 r =3D amdgpu_soft_reset(adev);
-@@ -2924,6 +2928,7 @@ int amdgpu_gpu_reset(struct amdgpu_device *adev)
-                 r =3D amdgpu_suspend(adev);
-
- retry:
-+
-                 amdgpu_atombios_scratch_regs_save(adev);
-                 r =3D amdgpu_asic_reset(adev);
-                 amdgpu_atombios_scratch_regs_restore(adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_psp.c
-index 8a1ee97..6942b89 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -62,6 +62,7 @@ static int psp_sw_init(void *handle)
-                 psp->cmd_submit =3D psp_v3_1_cmd_submit;
-                 psp->compare_sram_data =3D psp_v3_1_compare_sram_data;
-                 psp->smu_reload_quirk =3D psp_v3_1_smu_reload_quirk;
-+               psp->mode1_reset =3D psp_v3_1_mode1_reset;
-                 break;
-         case CHIP_RAVEN:
-                 psp->init_microcode =3D psp_v10_0_init_microcode;
-@@ -72,6 +73,7 @@ static int psp_sw_init(void *handle)
-                 psp->ring_destroy =3D psp_v10_0_ring_destroy;
-                 psp->cmd_submit =3D psp_v10_0_cmd_submit;
-                 psp->compare_sram_data =3D psp_v10_0_compare_sram_data;
-+               psp->mode1_reset =3D psp_v10_0_mode1_reset;
-                 break;
-         default:
-                 return -EINVAL;
-@@ -497,6 +499,12 @@ static int psp_resume(void *handle)
-         return ret;
- }
-
-+static int psp_reset(void* handle)
-+{
-+       struct amdgpu_device *adev =3D (struct amdgpu_device *)handle;
-+       return psp_mode1_reset(&adev->psp);
-+}
-+
- static bool psp_check_fw_loading_status(struct amdgpu_device *adev,
-                                         enum AMDGPU_UCODE_ID ucode_type)
- {
-@@ -541,7 +549,7 @@ const struct amd_ip_funcs psp_ip_funcs =3D {
-         .resume =3D psp_resume,
-         .is_idle =3D NULL,
-         .wait_for_idle =3D NULL,
--       .soft_reset =3D NULL,
-+       .soft_reset =3D psp_reset,
-         .set_clockgating_state =3D psp_set_clockgating_state,
-         .set_powergating_state =3D psp_set_powergating_state,
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_psp.h
-index 1b7d12d..ce465455 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-@@ -76,6 +76,7 @@ struct psp_context
-                                   struct amdgpu_firmware_info *ucode,
-                                   enum AMDGPU_UCODE_ID ucode_type);
-         bool (*smu_reload_quirk)(struct psp_context *psp);
-+       int (*mode1_reset)(struct psp_context *psp);
-
-         /* fence buffer */
-         struct amdgpu_bo                 *fw_pri_bo;
-@@ -139,6 +140,8 @@ struct amdgpu_psp_funcs {
-                 ((psp)->bootloader_load_sos ? (psp)->bootloader_load_sos((=
-psp)) : 0)
- #define psp_smu_reload_quirk(psp) \
-                 ((psp)->smu_reload_quirk ? (psp)->smu_reload_quirk((psp)) =
-: false)
-+#define psp_mode1_reset(psp) \
-+               ((psp)->mode1_reset ? (psp)->mode1_reset((psp)) : false)
-
- extern const struct amd_ip_funcs psp_ip_funcs;
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/psp_v10_0.c
-index 6b324da..cbc43bb 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c
-@@ -406,3 +406,10 @@ bool psp_v10_0_compare_sram_data(struct psp_context *p=
-sp,
-
-         return true;
- }
-+
-+
-+int psp_v10_0_mode1_reset(struct psp_context *psp)
-+{
-+       DRM_INFO("psp mode 1 reset not supported now! \n");
-+       return -EINVAL;
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v10_0.h b/drivers/gpu/drm/amd/a=
-mdgpu/psp_v10_0.h
-index 3af3ad1..451e830 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v10_0.h
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v10_0.h
-@@ -45,4 +45,6 @@ extern int psp_v10_0_cmd_submit(struct psp_context *psp,
- extern bool psp_v10_0_compare_sram_data(struct psp_context *psp,
-                                        struct amdgpu_firmware_info *ucode,
-                                        enum AMDGPU_UCODE_ID ucode_type);
-+
-+extern int psp_v10_0_mode1_reset(struct psp_context *psp);
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c b/drivers/gpu/drm/amd/am=
-dgpu/psp_v3_1.c
-index eb73931..01a896e 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
-@@ -517,7 +517,7 @@ bool psp_v3_1_compare_sram_data(struct psp_context *psp=
-,
-                 ucode_size -=3D 4;
-         }
-
--       return true;
-+       return true;
- }
-
- bool psp_v3_1_smu_reload_quirk(struct psp_context *psp)
-@@ -530,3 +530,37 @@ bool psp_v3_1_smu_reload_quirk(struct psp_context *psp=
-)
-         reg =3D RREG32_SOC15(NBIO, 0, mmPCIE_DATA2);
-         return (reg & MP1_FIRMWARE_FLAGS__INTERRUPTS_ENABLED_MASK) ? true =
-: false;
- }
-+
-+int psp_v3_1_mode1_reset(struct psp_context *psp)
-+{
-+       int ret;
-+       uint32_t offset;
-+       struct amdgpu_device *adev =3D psp->adev;
-+
-+       offset =3D SOC15_REG_OFFSET(MP0, 0, mmMP0_SMN_C2PMSG_64);
-+
-+       ret =3D psp_wait_for(psp, offset, 0x80000000, 0x8000FFFF, false);
-+
-+       if (ret) {
-+               DRM_INFO("psp is not working correctly before mode1 reset!\=
-n");
-+               return -EINVAL;
-+       }
-+
-+       /*send the mode 1 reset command*/
-+       WREG32(offset, 0x70000);
-+
-+       mdelay(1000);
-+
-+       offset =3D SOC15_REG_OFFSET(MP0, 0, mmMP0_SMN_C2PMSG_33);
-+
-+       ret =3D psp_wait_for(psp, offset, 0x80000000, 0x80000000, false);
-+
-+       if (ret) {
-+               DRM_INFO("psp mode 1 reset failed!\n");
-+               return -EINVAL;
-+       }
-+
-+       DRM_INFO("psp mode1 reset succeed \n");
-+
-+       return 0;
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.h b/drivers/gpu/drm/amd/am=
-dgpu/psp_v3_1.h
-index 5af2231..b05dbad 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.h
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.h
-@@ -53,4 +53,5 @@ extern bool psp_v3_1_compare_sram_data(struct psp_context=
- *psp,
-                                        struct amdgpu_firmware_info *ucode,
-                                        enum AMDGPU_UCODE_ID ucode_type);
- extern bool psp_v3_1_smu_reload_quirk(struct psp_context *psp);
-+extern int psp_v3_1_mode1_reset(struct psp_context *psp);
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
-u/soc15.c
-index a74d616..190be09 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -407,18 +407,37 @@ static int soc15_read_register(struct amdgpu_device *=
-adev, u32 se_num,
-         return -EINVAL;
- }
-
--static void soc15_gpu_pci_config_reset(struct amdgpu_device *adev)
-+static int soc15_asic_reset(struct amdgpu_device *adev)
- {
-         u32 i;
-+       u32 *pci_regs;
-+
-+       pci_regs =3D kmalloc(128 * sizeof(u32), GFP_KERNEL);
-+
-+       if (pci_regs =3D=3D NULL)
-+               return -EINVAL;
-+
-+       amdgpu_atombios_scratch_regs_engine_hung(adev, true);
-
--       dev_info(adev->dev, "GPU pci config reset\n");
-+       dev_info(adev->dev, "GPU reset\n");
-
-         /* disable BM */
-         pci_clear_master(adev->pdev);
--       /* reset */
--       amdgpu_pci_config_reset(adev);
-
--       udelay(100);
-+       for (i =3D 0; i < 128; i++) {
-+               pci_read_config_dword(adev->pdev, i*4, &pci_regs[i]);
-+       }
-+
-+       for (i =3D 0; i < AMDGPU_MAX_IP_NUM; i++) {
-+               if (adev->ip_blocks[i].version->type =3D=3D AMD_IP_BLOCK_TY=
-PE_PSP){
-+                       adev->ip_blocks[i].version->funcs->soft_reset((void=
- *)adev);
-+                       break;
-+               }
-+       }
-+
-+       for (i =3D 0; i < 128; i++) {
-+               pci_write_config_dword(adev->pdev, i*4, pci_regs[i]);
-+       }
-
-         /* wait for asic to come out of reset */
-         for (i =3D 0; i < adev->usec_timeout; i++) {
-@@ -430,16 +449,10 @@ static void soc15_gpu_pci_config_reset(struct amdgpu_=
-device *adev)
-                 udelay(1);
-         }
-
--}
--
--static int soc15_asic_reset(struct amdgpu_device *adev)
--{
--       amdgpu_atombios_scratch_regs_engine_hung(adev, true);
--
--       soc15_gpu_pci_config_reset(adev);
--
-         amdgpu_atombios_scratch_regs_engine_hung(adev, false);
-
-+       kfree(pci_regs);
-+
-         return 0;
- }
-
---
-2.7.4
-
-
---_000_CY1PR12MB04747E37CAE70D12509984C98C6C0CY1PR12MB0474namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p><br>
-</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> Ken.Wang-5C7GfCeVMHo@public.gmane.org &l=
-t;Ken.Wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Friday, September 15, 2017 14:57<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Wang, Ken<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Add GPU reset functionality for Vega10<=
-/font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:10pt;">
-<div class=3D"PlainText">From: Ken Wang &lt;Ken.Wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
-Signed-off-by: Ken Wang &lt;Ken.Wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-Change-Id: I6fd2c216a84747313f18db25a444be5ed43b4f4b<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |&nbsp; 7 &#43;&#43;&#43;&=
-#43;&#43;-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c&nbsp;&nbsp;&nbsp; | 10 &#43;&=
-#43;&#43;&#43;&#43;&#43;&#43;-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h&nbsp;&nbsp;&nbsp; |&nbsp; 3 &=
-#43;&#43;&#43;<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/psp_v10_0.c&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp=
-; 7 &#43;&#43;&#43;&#43;&#43;&#43;<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/psp_v10_0.h&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp=
-; 2 &#43;&#43;<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/psp_v3_1.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |=
- 36 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
-#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/psp_v3_1.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |=
-&nbsp; 1 &#43;<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/soc15.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; | 39 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
-#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;----------<br>
-&nbsp;8 files changed, 89 insertions(&#43;), 16 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c<br>
-index fc1c5437..4196786 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-@@ -2883,7 &#43;2883,7 @@ int amdgpu_gpu_reset(struct amdgpu_device *adev)<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int resched;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool need_full_reset, vram=
-_lost =3D false;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_check_soft_reset(adev)) {=
-<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_check_soft_reset(adev=
-) &amp;&amp; (adev-&gt;asic_type !=3D CHIP_VEGA10)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; DRM_INFO(&quot;No hardware hang detected. Did some bl=
-ocks stall?\n&quot;);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-@@ -2910,6 &#43;2910,10 @@ int amdgpu_gpu_reset(struct amdgpu_device *adev)=
-<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; need_full_reset =3D amdgpu=
-_need_full_reset(adev);<br>
-&nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* no soft reset for vega10 right=
- now*/<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;asic_type =3D=3D CHI=
-P_VEGA10)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; need_full_reset =3D true;<br>
-&#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!need_full_reset) {<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_pre_soft_reset(adev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_soft_reset(adev);<br>
-@@ -2924,6 &#43;2928,7 @@ int amdgpu_gpu_reset(struct amdgpu_device *adev)<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_suspend(adev);<br>
-&nbsp;<br>
-&nbsp;retry:<br>
-&#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_atombios_scratch_regs_save(adev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_asic_reset(adev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_atombios_scratch_regs_restore(adev);<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_psp.c<br>
-index 8a1ee97..6942b89 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c<br>
-@@ -62,6 &#43;62,7 @@ static int psp_sw_init(void *handle)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; psp-&gt;cmd_submit =3D psp_v3_1_cmd_submit;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; psp-&gt;compare_sram_data =3D psp_v3_1_compare_sram_d=
-ata;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; psp-&gt;smu_reload_quirk =3D psp_v3_1_smu_reload_quir=
-k;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; psp-&gt;mode1_reset =3D psp_v3_1_mode1_reset;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_RAVEN:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; psp-&gt;init_microcode =3D psp_v10_0_init_microcode;<=
-br>
-@@ -72,6 &#43;73,7 @@ static int psp_sw_init(void *handle)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; psp-&gt;ring_destroy =3D psp_v10_0_ring_destroy;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; psp-&gt;cmd_submit =3D psp_v10_0_cmd_submit;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; psp-&gt;compare_sram_data =3D psp_v10_0_compare_sram_=
-data;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; psp-&gt;mode1_reset =3D psp_v10_0_mode1_reset;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-@@ -497,6 &#43;499,12 @@ static int psp_resume(void *handle)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&nbsp;}<br>
-&nbsp;<br>
-&#43;static int psp_reset(void* handle)<br>
-&#43;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D (s=
-truct amdgpu_device *)handle;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return psp_mode1_reset(&amp;adev-=
-&gt;psp);<br>
-&#43;}<br>
-&#43;<br>
-&nbsp;static bool psp_check_fw_loading_status(struct amdgpu_device *adev,<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; enum AMDGPU_UCODE_ID ucode_type)<br>
-&nbsp;{<br>
-@@ -541,7 &#43;549,7 @@ const struct amd_ip_funcs psp_ip_funcs =3D {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .resume =3D psp_resume,<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .is_idle =3D NULL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .wait_for_idle =3D NULL,<b=
-r>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .soft_reset =3D NULL,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .soft_reset =3D psp_reset,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_clockgating_state =3D=
- psp_set_clockgating_state,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_powergating_state =3D=
- psp_set_powergating_state,<br>
-&nbsp;};<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_psp.h<br>
-index 1b7d12d..ce465455 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h<br>
-@@ -76,6 &#43;76,7 @@ struct psp_context<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_firmwa=
-re_info *ucode,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum AMDGPU_UCODE_ID=
- ucode_type);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool (*smu_reload_quirk)(s=
-truct psp_context *psp);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*mode1_reset)(struct psp_con=
-text *psp);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* fence buffer */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; *fw_pri_bo;<br>
-@@ -139,6 &#43;140,8 @@ struct amdgpu_psp_funcs {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ((psp)-&gt;bootloader_load_sos ? (psp)-&gt;bootloader=
-_load_sos((psp)) : 0)<br>
-&nbsp;#define psp_smu_reload_quirk(psp) \<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ((psp)-&gt;smu_reload_quirk ? (psp)-&gt;smu_reload_qu=
-irk((psp)) : false)<br>
-&#43;#define psp_mode1_reset(psp) \<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; ((psp)-&gt;mode1_reset ? (psp)-&gt;mode1_reset((psp)) : fals=
-e)<br>
-&nbsp;<br>
-&nbsp;extern const struct amd_ip_funcs psp_ip_funcs;<br>
-&nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/psp_v10_0.c<br>
-index 6b324da..cbc43bb 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c<br>
-@@ -406,3 &#43;406,10 @@ bool psp_v10_0_compare_sram_data(struct psp_contex=
-t *psp,<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return true;<br>
-&nbsp;}<br>
-&#43;<br>
-&#43;<br>
-&#43;int psp_v10_0_mode1_reset(struct psp_context *psp)<br>
-&#43;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_INFO(&quot;psp mode 1 reset n=
-ot supported now! \n&quot;);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&#43;}<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v10_0.h b/drivers/gpu/drm/amd/a=
-mdgpu/psp_v10_0.h<br>
-index 3af3ad1..451e830 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/psp_v10_0.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/psp_v10_0.h<br>
-@@ -45,4 &#43;45,6 @@ extern int psp_v10_0_cmd_submit(struct psp_context *p=
-sp,<br>
-&nbsp;extern bool psp_v10_0_compare_sram_data(struct psp_context *psp,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; struct amdgpu_firmware_info *ucode,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; enum AMDGPU_UCODE_ID ucode_type);<br>
-&#43;<br>
-&#43;extern int psp_v10_0_mode1_reset(struct psp_context *psp);<br>
-&nbsp;#endif<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c b/drivers/gpu/drm/amd/am=
-dgpu/psp_v3_1.c<br>
-index eb73931..01a896e 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c<br>
-@@ -517,7 &#43;517,7 @@ bool psp_v3_1_compare_sram_data(struct psp_context =
-*psp,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ucode_size -=3D 4;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return true;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return true; <br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;bool psp_v3_1_smu_reload_quirk(struct psp_context *psp)<br>
-@@ -530,3 &#43;530,37 @@ bool psp_v3_1_smu_reload_quirk(struct psp_context =
-*psp)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reg =3D RREG32_SOC15(NBIO,=
- 0, mmPCIE_DATA2);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (reg &amp; MP1_FIRM=
-WARE_FLAGS__INTERRUPTS_ENABLED_MASK) ? true : false;<br>
-&nbsp;}<br>
-&#43;<br>
-&#43;int psp_v3_1_mode1_reset(struct psp_context *psp)<br>
-&#43;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t offset;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D ps=
-p-&gt;adev;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; offset =3D SOC15_REG_OFFSET(MP0, =
-0, mmMP0_SMN_C2PMSG_64);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D psp_wait_for(psp, offset,=
- 0x80000000, 0x8000FFFF, false);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; DRM_INFO(&quot;psp is not working correctly before mode1 res=
-et!\n&quot;);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return -EINVAL;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*send the mode 1 reset command*/=
-<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(offset, 0x70000);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mdelay(1000);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; offset =3D SOC15_REG_OFFSET(MP0, =
-0, mmMP0_SMN_C2PMSG_33);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D psp_wait_for(psp, offset,=
- 0x80000000, 0x80000000, false);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; DRM_INFO(&quot;psp mode 1 reset failed!\n&quot;);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return -EINVAL;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_INFO(&quot;psp mode1 reset su=
-cceed \n&quot;);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&#43;}<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.h b/drivers/gpu/drm/amd/am=
-dgpu/psp_v3_1.h<br>
-index 5af2231..b05dbad 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.h<br>
-@@ -53,4 &#43;53,5 @@ extern bool psp_v3_1_compare_sram_data(struct psp_con=
-text *psp,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; struct amdgpu_firmware_info *ucode,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; enum AMDGPU_UCODE_ID ucode_type);<br>
-&nbsp;extern bool psp_v3_1_smu_reload_quirk(struct psp_context *psp);<br>
-&#43;extern int psp_v3_1_mode1_reset(struct psp_context *psp);<br>
-&nbsp;#endif<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
-u/soc15.c<br>
-index a74d616..190be09 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-@@ -407,18 &#43;407,37 @@ static int soc15_read_register(struct amdgpu_devi=
-ce *adev, u32 se_num,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&nbsp;}<br>
-&nbsp;<br>
--static void soc15_gpu_pci_config_reset(struct amdgpu_device *adev)<br>
-&#43;static int soc15_asic_reset(struct amdgpu_device *adev)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 i;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 *pci_regs;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pci_regs =3D kmalloc(128 * sizeof=
-(u32), GFP_KERNEL);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (pci_regs =3D=3D NULL)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return -EINVAL;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_atombios_scratch_regs_engi=
-ne_hung(adev, true);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_info(adev-&gt;dev, &quot;GPU pci =
-config reset\n&quot;);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_info(adev-&gt;dev, &quot;GPU =
-reset\n&quot;);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* disable BM */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pci_clear_master(adev-&gt;=
-pdev);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* reset */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_pci_config_reset(adev);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; udelay(100);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; 128; i&#43;&=
-#43;) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; pci_read_config_dword(adev-&gt;pdev, i*4, &amp;pci_regs[i]);=
-<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; AMDGPU_MAX_I=
-P_NUM; i&#43;&#43;) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (adev-&gt;ip_blocks[i].version-&gt;type =3D=3D AMD_IP_BLO=
-CK_TYPE_PSP){<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;ip_=
-blocks[i].version-&gt;funcs-&gt;soft_reset((void *)adev);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; }<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; 128; i&#43;&=
-#43;) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; pci_write_config_dword(adev-&gt;pdev, i*4, pci_regs[i]);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* wait for asic to come o=
-ut of reset */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; adev-=
-&gt;usec_timeout; i&#43;&#43;) {<br>
-@@ -430,16 &#43;449,10 @@ static void soc15_gpu_pci_config_reset(struct amd=
-gpu_device *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; udelay(1);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--}<br>
--<br>
--static int soc15_asic_reset(struct amdgpu_device *adev)<br>
--{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_atombios_scratch_regs_engine_h=
-ung(adev, true);<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; soc15_gpu_pci_config_reset(adev);<br>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_atombios_scratch_re=
-gs_engine_hung(adev, false);<br>
-&nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(pci_regs);<br>
-&#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
--- <br>
-2.7.4<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_CY1PR12MB04747E37CAE70D12509984C98C6C0CY1PR12MB0474namp_--
-
---===============1893325554==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1893325554==--
+RnJvbTogS2VuIFdhbmcgPEtlbi5XYW5nQGFtZC5jb20+CgpWMgoKU2lnbmVkLW9mZi1ieTogS2Vu
+IFdhbmcgPEtlbi5XYW5nQGFtZC5jb20+CkNoYW5nZS1JZDogSTZmZDJjMjE2YTg0NzQ3MzEzZjE4
+ZGIyNWE0NDRiZTVlZDQzYjRmNGIKLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZGV2aWNlLmMgfCAgMyArKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9w
+c3AuYyAgICB8IDIxICsrKysrKysrKysrKysrKysrLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X3BzcC5oICAgIHwgIDMgKysrCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9w
+c3BfdjEwXzAuYyAgICAgfCAgNyArKysrKysKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Bz
+cF92MTBfMC5oICAgICB8ICAyICsrCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfdjNf
+MS5jICAgICAgfCAzNCArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysKIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L3BzcF92M18xLmggICAgICB8ICAxICsKIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L3NvYzE1LmMgICAgICAgICB8IDI3ICsrKysrKysrKysrKy0tLS0tLS0tLS0tLQog
+OCBmaWxlcyBjaGFuZ2VkLCA4MyBpbnNlcnRpb25zKCspLCAxNSBkZWxldGlvbnMoLSkKCmRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKaW5kZXggZmMxYzU0MzcuLjJh
+ZDk3MzcgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZp
+Y2UuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKQEAg
+LTI2NDQsNyArMjY0NCw4IEBAIHN0YXRpYyBib29sIGFtZGdwdV9uZWVkX2Z1bGxfcmVzZXQoc3Ry
+dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAJCWlmICgoYWRldi0+aXBfYmxvY2tzW2ldLnZlcnNp
+b24tPnR5cGUgPT0gQU1EX0lQX0JMT0NLX1RZUEVfR01DKSB8fAogCQkgICAgKGFkZXYtPmlwX2Js
+b2Nrc1tpXS52ZXJzaW9uLT50eXBlID09IEFNRF9JUF9CTE9DS19UWVBFX1NNQykgfHwKIAkJICAg
+IChhZGV2LT5pcF9ibG9ja3NbaV0udmVyc2lvbi0+dHlwZSA9PSBBTURfSVBfQkxPQ0tfVFlQRV9B
+Q1ApIHx8Ci0JCSAgICAoYWRldi0+aXBfYmxvY2tzW2ldLnZlcnNpb24tPnR5cGUgPT0gQU1EX0lQ
+X0JMT0NLX1RZUEVfRENFKSkgeworCQkgICAgKGFkZXYtPmlwX2Jsb2Nrc1tpXS52ZXJzaW9uLT50
+eXBlID09IEFNRF9JUF9CTE9DS19UWVBFX0RDRSkgfHwKKwkJICAgICBhZGV2LT5pcF9ibG9ja3Nb
+aV0udmVyc2lvbi0+dHlwZSA9PSBBTURfSVBfQkxPQ0tfVFlQRV9QU1ApIHsKIAkJCWlmIChhZGV2
+LT5pcF9ibG9ja3NbaV0uc3RhdHVzLmhhbmcpIHsKIAkJCQlEUk1fSU5GTygiU29tZSBibG9jayBu
+ZWVkIGZ1bGwgcmVzZXQhXG4iKTsKIAkJCQlyZXR1cm4gdHJ1ZTsKZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wc3AuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9wc3AuYwppbmRleCA4YTFlZTk3Li44ZTUzNjUwIDEwMDY0NAotLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcHNwLmMKKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5jCkBAIC02Miw2ICs2Miw3IEBAIHN0YXRpYyBpbnQg
+cHNwX3N3X2luaXQodm9pZCAqaGFuZGxlKQogCQlwc3AtPmNtZF9zdWJtaXQgPSBwc3BfdjNfMV9j
+bWRfc3VibWl0OwogCQlwc3AtPmNvbXBhcmVfc3JhbV9kYXRhID0gcHNwX3YzXzFfY29tcGFyZV9z
+cmFtX2RhdGE7CiAJCXBzcC0+c211X3JlbG9hZF9xdWlyayA9IHBzcF92M18xX3NtdV9yZWxvYWRf
+cXVpcms7CisJCXBzcC0+bW9kZTFfcmVzZXQgPSBwc3BfdjNfMV9tb2RlMV9yZXNldDsKIAkJYnJl
+YWs7CiAJY2FzZSBDSElQX1JBVkVOOgogCQlwc3AtPmluaXRfbWljcm9jb2RlID0gcHNwX3YxMF8w
+X2luaXRfbWljcm9jb2RlOwpAQCAtNzIsNiArNzMsNyBAQCBzdGF0aWMgaW50IHBzcF9zd19pbml0
+KHZvaWQgKmhhbmRsZSkKIAkJcHNwLT5yaW5nX2Rlc3Ryb3kgPSBwc3BfdjEwXzBfcmluZ19kZXN0
+cm95OwogCQlwc3AtPmNtZF9zdWJtaXQgPSBwc3BfdjEwXzBfY21kX3N1Ym1pdDsKIAkJcHNwLT5j
+b21wYXJlX3NyYW1fZGF0YSA9IHBzcF92MTBfMF9jb21wYXJlX3NyYW1fZGF0YTsKKwkJcHNwLT5t
+b2RlMV9yZXNldCA9IHBzcF92MTBfMF9tb2RlMV9yZXNldDsKIAkJYnJlYWs7CiAJZGVmYXVsdDoK
+IAkJcmV0dXJuIC1FSU5WQUw7CkBAIC00OTcsNiArNDk5LDIyIEBAIHN0YXRpYyBpbnQgcHNwX3Jl
+c3VtZSh2b2lkICpoYW5kbGUpCiAJcmV0dXJuIHJldDsKIH0KIAorc3RhdGljIGJvb2wgcHNwX2No
+ZWNrX3Jlc2V0KHZvaWQqIGhhbmRsZSkKK3sKKwlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9
+IChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqKWhhbmRsZTsKKworCWlmIChhZGV2LT5hc2ljX3R5cGUg
+PT0gQ0hJUF9WRUdBMTApCisJCXJldHVybiB0cnVlOworCisJcmV0dXJuIGZhbHNlOworfQorCitz
+dGF0aWMgaW50IHBzcF9yZXNldCh2b2lkKiBoYW5kbGUpCit7CisJc3RydWN0IGFtZGdwdV9kZXZp
+Y2UgKmFkZXYgPSAoc3RydWN0IGFtZGdwdV9kZXZpY2UgKiloYW5kbGU7CisJcmV0dXJuIHBzcF9t
+b2RlMV9yZXNldCgmYWRldi0+cHNwKTsKK30KKwogc3RhdGljIGJvb2wgcHNwX2NoZWNrX2Z3X2xv
+YWRpbmdfc3RhdHVzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCQkJCQllbnVtIEFNREdQ
+VV9VQ09ERV9JRCB1Y29kZV90eXBlKQogewpAQCAtNTQwLDggKzU1OCw5IEBAIGNvbnN0IHN0cnVj
+dCBhbWRfaXBfZnVuY3MgcHNwX2lwX2Z1bmNzID0gewogCS5zdXNwZW5kID0gcHNwX3N1c3BlbmQs
+CiAJLnJlc3VtZSA9IHBzcF9yZXN1bWUsCiAJLmlzX2lkbGUgPSBOVUxMLAorCS5jaGVja19zb2Z0
+X3Jlc2V0ID0gcHNwX2NoZWNrX3Jlc2V0LAogCS53YWl0X2Zvcl9pZGxlID0gTlVMTCwKLQkuc29m
+dF9yZXNldCA9IE5VTEwsCisJLnNvZnRfcmVzZXQgPSBwc3BfcmVzZXQsCiAJLnNldF9jbG9ja2dh
+dGluZ19zdGF0ZSA9IHBzcF9zZXRfY2xvY2tnYXRpbmdfc3RhdGUsCiAJLnNldF9wb3dlcmdhdGlu
+Z19zdGF0ZSA9IHBzcF9zZXRfcG93ZXJnYXRpbmdfc3RhdGUsCiB9OwpkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5oIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X3BzcC5oCmluZGV4IDFiN2QxMmQuLmNlNDY1NDU1IDEwMDY0NAotLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcHNwLmgKKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5oCkBAIC03Niw2ICs3Niw3IEBAIHN0cnVjdCBw
+c3BfY29udGV4dAogCQkJCSAgc3RydWN0IGFtZGdwdV9maXJtd2FyZV9pbmZvICp1Y29kZSwKIAkJ
+CQkgIGVudW0gQU1ER1BVX1VDT0RFX0lEIHVjb2RlX3R5cGUpOwogCWJvb2wgKCpzbXVfcmVsb2Fk
+X3F1aXJrKShzdHJ1Y3QgcHNwX2NvbnRleHQgKnBzcCk7CisJaW50ICgqbW9kZTFfcmVzZXQpKHN0
+cnVjdCBwc3BfY29udGV4dCAqcHNwKTsKIAogCS8qIGZlbmNlIGJ1ZmZlciAqLwogCXN0cnVjdCBh
+bWRncHVfYm8gCQkqZndfcHJpX2JvOwpAQCAtMTM5LDYgKzE0MCw4IEBAIHN0cnVjdCBhbWRncHVf
+cHNwX2Z1bmNzIHsKIAkJKChwc3ApLT5ib290bG9hZGVyX2xvYWRfc29zID8gKHBzcCktPmJvb3Rs
+b2FkZXJfbG9hZF9zb3MoKHBzcCkpIDogMCkKICNkZWZpbmUgcHNwX3NtdV9yZWxvYWRfcXVpcmso
+cHNwKSBcCiAJCSgocHNwKS0+c211X3JlbG9hZF9xdWlyayA/IChwc3ApLT5zbXVfcmVsb2FkX3F1
+aXJrKChwc3ApKSA6IGZhbHNlKQorI2RlZmluZSBwc3BfbW9kZTFfcmVzZXQocHNwKSBcCisJCSgo
+cHNwKS0+bW9kZTFfcmVzZXQgPyAocHNwKS0+bW9kZTFfcmVzZXQoKHBzcCkpIDogZmFsc2UpCiAK
+IGV4dGVybiBjb25zdCBzdHJ1Y3QgYW1kX2lwX2Z1bmNzIHBzcF9pcF9mdW5jczsKIApkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX3YxMF8wLmMgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9wc3BfdjEwXzAuYwppbmRleCA2YjMyNGRhLi5jYmM0M2JiIDEwMDY0
+NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfdjEwXzAuYworKysgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfdjEwXzAuYwpAQCAtNDA2LDMgKzQwNiwxMCBAQCBi
+b29sIHBzcF92MTBfMF9jb21wYXJlX3NyYW1fZGF0YShzdHJ1Y3QgcHNwX2NvbnRleHQgKnBzcCwK
+IAogCXJldHVybiB0cnVlOwogfQorCisKK2ludCBwc3BfdjEwXzBfbW9kZTFfcmVzZXQoc3RydWN0
+IHBzcF9jb250ZXh0ICpwc3ApCit7CisJRFJNX0lORk8oInBzcCBtb2RlIDEgcmVzZXQgbm90IHN1
+cHBvcnRlZCBub3chIFxuIik7CisJcmV0dXJuIC1FSU5WQUw7Cit9CmRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfdjEwXzAuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L3BzcF92MTBfMC5oCmluZGV4IDNhZjNhZDEuLjQ1MWU4MzAgMTAwNjQ0Ci0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92MTBfMC5oCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L3BzcF92MTBfMC5oCkBAIC00NSw0ICs0NSw2IEBAIGV4dGVybiBpbnQgcHNw
+X3YxMF8wX2NtZF9zdWJtaXQoc3RydWN0IHBzcF9jb250ZXh0ICpwc3AsCiBleHRlcm4gYm9vbCBw
+c3BfdjEwXzBfY29tcGFyZV9zcmFtX2RhdGEoc3RydWN0IHBzcF9jb250ZXh0ICpwc3AsCiAJCQkJ
+ICAgICAgIHN0cnVjdCBhbWRncHVfZmlybXdhcmVfaW5mbyAqdWNvZGUsCiAJCQkJICAgICAgIGVu
+dW0gQU1ER1BVX1VDT0RFX0lEIHVjb2RlX3R5cGUpOworCitleHRlcm4gaW50IHBzcF92MTBfMF9t
+b2RlMV9yZXNldChzdHJ1Y3QgcHNwX2NvbnRleHQgKnBzcCk7CiAjZW5kaWYKZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92M18xLmMgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9wc3BfdjNfMS5jCmluZGV4IGViNzM5MzEuLjRlNzBiYWQgMTAwNjQ0Ci0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92M18xLmMKKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvcHNwX3YzXzEuYwpAQCAtNTMwLDMgKzUzMCwzNyBAQCBib29sIHBzcF92
+M18xX3NtdV9yZWxvYWRfcXVpcmsoc3RydWN0IHBzcF9jb250ZXh0ICpwc3ApCiAJcmVnID0gUlJF
+RzMyX1NPQzE1KE5CSU8sIDAsIG1tUENJRV9EQVRBMik7CiAJcmV0dXJuIChyZWcgJiBNUDFfRklS
+TVdBUkVfRkxBR1NfX0lOVEVSUlVQVFNfRU5BQkxFRF9NQVNLKSA/IHRydWUgOiBmYWxzZTsKIH0K
+KworaW50IHBzcF92M18xX21vZGUxX3Jlc2V0KHN0cnVjdCBwc3BfY29udGV4dCAqcHNwKQorewor
+CWludCByZXQ7CisJdWludDMyX3Qgb2Zmc2V0OworCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
+ID0gcHNwLT5hZGV2OworCisJb2Zmc2V0ID0gU09DMTVfUkVHX09GRlNFVChNUDAsIDAsIG1tTVAw
+X1NNTl9DMlBNU0dfNjQpOworCisJcmV0ID0gcHNwX3dhaXRfZm9yKHBzcCwgb2Zmc2V0LCAweDgw
+MDAwMDAwLCAweDgwMDBGRkZGLCBmYWxzZSk7CisKKwlpZiAocmV0KSB7CisJCURSTV9JTkZPKCJw
+c3AgaXMgbm90IHdvcmtpbmcgY29ycmVjdGx5IGJlZm9yZSBtb2RlMSByZXNldCFcbiIpOworCQly
+ZXR1cm4gLUVJTlZBTDsKKwl9CisKKwkvKnNlbmQgdGhlIG1vZGUgMSByZXNldCBjb21tYW5kKi8K
+KwlXUkVHMzIob2Zmc2V0LCAweDcwMDAwKTsKKworCW1kZWxheSgxMDAwKTsKKworCW9mZnNldCA9
+IFNPQzE1X1JFR19PRkZTRVQoTVAwLCAwLCBtbU1QMF9TTU5fQzJQTVNHXzMzKTsKKworCXJldCA9
+IHBzcF93YWl0X2Zvcihwc3AsIG9mZnNldCwgMHg4MDAwMDAwMCwgMHg4MDAwMDAwMCwgZmFsc2Up
+OworCisJaWYgKHJldCkgeworCQlEUk1fSU5GTygicHNwIG1vZGUgMSByZXNldCBmYWlsZWQhXG4i
+KTsKKwkJcmV0dXJuIC1FSU5WQUw7CisJfQorCisJRFJNX0lORk8oInBzcCBtb2RlMSByZXNldCBz
+dWNjZWVkIFxuIik7CisKKwlyZXR1cm4gMDsKK30KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L3BzcF92M18xLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3Bf
+djNfMS5oCmluZGV4IDVhZjIyMzEuLmIwNWRiYWQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L3BzcF92M18xLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+cHNwX3YzXzEuaApAQCAtNTMsNCArNTMsNSBAQCBleHRlcm4gYm9vbCBwc3BfdjNfMV9jb21wYXJl
+X3NyYW1fZGF0YShzdHJ1Y3QgcHNwX2NvbnRleHQgKnBzcCwKIAkJCQkgICAgICAgc3RydWN0IGFt
+ZGdwdV9maXJtd2FyZV9pbmZvICp1Y29kZSwKIAkJCQkgICAgICAgZW51bSBBTURHUFVfVUNPREVf
+SUQgdWNvZGVfdHlwZSk7CiBleHRlcm4gYm9vbCBwc3BfdjNfMV9zbXVfcmVsb2FkX3F1aXJrKHN0
+cnVjdCBwc3BfY29udGV4dCAqcHNwKTsKK2V4dGVybiBpbnQgcHNwX3YzXzFfbW9kZTFfcmVzZXQo
+c3RydWN0IHBzcF9jb250ZXh0ICpwc3ApOwogI2VuZGlmCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29j
+MTUuYwppbmRleCBhNzRkNjE2Li45Yzc1OTYxIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9zb2MxNS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1
+LmMKQEAgLTQwNywxOCArNDA3LDI3IEBAIHN0YXRpYyBpbnQgc29jMTVfcmVhZF9yZWdpc3Rlcihz
+dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdTMyIHNlX251bSwKIAlyZXR1cm4gLUVJTlZBTDsK
+IH0KIAotc3RhdGljIHZvaWQgc29jMTVfZ3B1X3BjaV9jb25maWdfcmVzZXQoc3RydWN0IGFtZGdw
+dV9kZXZpY2UgKmFkZXYpCitzdGF0aWMgaW50IHNvYzE1X2FzaWNfcmVzZXQoc3RydWN0IGFtZGdw
+dV9kZXZpY2UgKmFkZXYpCiB7CiAJdTMyIGk7CiAKLQlkZXZfaW5mbyhhZGV2LT5kZXYsICJHUFUg
+cGNpIGNvbmZpZyByZXNldFxuIik7CisJYW1kZ3B1X2F0b21iaW9zX3NjcmF0Y2hfcmVnc19lbmdp
+bmVfaHVuZyhhZGV2LCB0cnVlKTsKKworCWRldl9pbmZvKGFkZXYtPmRldiwgIkdQVSByZXNldFxu
+Iik7CiAKIAkvKiBkaXNhYmxlIEJNICovCiAJcGNpX2NsZWFyX21hc3RlcihhZGV2LT5wZGV2KTsK
+LQkvKiByZXNldCAqLwotCWFtZGdwdV9wY2lfY29uZmlnX3Jlc2V0KGFkZXYpOwogCi0JdWRlbGF5
+KDEwMCk7CisJcGNpX3NhdmVfc3RhdGUoYWRldi0+cGRldik7CisKKwlmb3IgKGkgPSAwOyBpIDwg
+QU1ER1BVX01BWF9JUF9OVU07IGkrKykgeworCQlpZiAoYWRldi0+aXBfYmxvY2tzW2ldLnZlcnNp
+b24tPnR5cGUgPT0gQU1EX0lQX0JMT0NLX1RZUEVfUFNQKXsKKwkJCWFkZXYtPmlwX2Jsb2Nrc1tp
+XS52ZXJzaW9uLT5mdW5jcy0+c29mdF9yZXNldCgodm9pZCAqKWFkZXYpOworCQkJYnJlYWs7CisJ
+CX0KKwl9CisKKwlwY2lfcmVzdG9yZV9zdGF0ZShhZGV2LT5wZGV2KTsKIAogCS8qIHdhaXQgZm9y
+IGFzaWMgdG8gY29tZSBvdXQgb2YgcmVzZXQgKi8KIAlmb3IgKGkgPSAwOyBpIDwgYWRldi0+dXNl
+Y190aW1lb3V0OyBpKyspIHsKQEAgLTQzMCwxNCArNDM5LDYgQEAgc3RhdGljIHZvaWQgc29jMTVf
+Z3B1X3BjaV9jb25maWdfcmVzZXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAJCXVkZWxh
+eSgxKTsKIAl9CiAKLX0KLQotc3RhdGljIGludCBzb2MxNV9hc2ljX3Jlc2V0KHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2KQotewotCWFtZGdwdV9hdG9tYmlvc19zY3JhdGNoX3JlZ3NfZW5naW5l
+X2h1bmcoYWRldiwgdHJ1ZSk7Ci0KLQlzb2MxNV9ncHVfcGNpX2NvbmZpZ19yZXNldChhZGV2KTsK
+LQogCWFtZGdwdV9hdG9tYmlvc19zY3JhdGNoX3JlZ3NfZW5naW5lX2h1bmcoYWRldiwgZmFsc2Up
+OwogCiAJcmV0dXJuIDA7Ci0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cg==
