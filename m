@@ -1,34 +1,36 @@
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH] lib: Closed hash table with low overhead
-Date: Fri, 15 Sep 2017 14:14:56 -0700
-Message-ID: <20170915141456.4382d7ffae7ec8a9a86c8cf9@linux-foundation.org>
-References: <1503971590-15963-1-git-send-email-Felix.Kuehling@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu/psp: declare raven psp firmware
+Date: Fri, 15 Sep 2017 17:37:10 -0400
+Message-ID: <1505511430-1618-1-git-send-email-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <1503971590-15963-1-git-send-email-Felix.Kuehling@amd.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Felix Kuehling <Felix.Kuehling@amd.com>
-Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-On Mon, 28 Aug 2017 21:53:10 -0400 Felix Kuehling <Felix.Kuehling@amd.com> wrote:
-
-> This adds a statically sized closed hash table implementation with
-> low memory and CPU overhead. The API is inspired by kfifo.
-> 
-> Storing, retrieving and deleting data does not involve any dynamic
-> memory management, which makes it ideal for use in interrupt context.
-> Static memory usage per entry comprises a 32 or 64 bit hash key, two
-> bits for occupancy tracking and the value size stored in the table.
-> No list heads or pointers are needed. Therefore this data structure
-> should be quite cache-friendly, too.
-> 
-> It uses linear probing and lazy deletion. During lookups free space
-> is reclaimed and entries relocated to speed up future lookups.
-
-I haven't looked at the implementation (yet), but I'm wondering if you
-have identified hash table users (or implementations) elsewhere in the
-kernel which might be migrated to use this?  If so, such conversions
-can be used to determine/demonstrate the desirability of the patch.
+U28gaXQgZ2V0cyBwaWNrZWQgdXAgcHJvcGVybHkgYnkgdGhlIGtlcm5lbC4KClNpZ25lZC1vZmYt
+Ynk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KLS0tCiBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfdjEwXzAuYyB8IDIgKysKIDEgZmlsZSBjaGFuZ2VkLCAy
+IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9w
+c3BfdjEwXzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92MTBfMC5jCmluZGV4
+IDZlYzVjOWYuLjc3Y2FiMWYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L3BzcF92MTBfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92MTBfMC5j
+CkBAIC0zNSw2ICszNSw4IEBACiAjaW5jbHVkZSAicmF2ZW4xL0dDL2djXzlfMV9vZmZzZXQuaCIK
+ICNpbmNsdWRlICJyYXZlbjEvU0RNQTAvc2RtYTBfNF8xX29mZnNldC5oIgogCitNT0RVTEVfRklS
+TVdBUkUoImFtZGdwdS9yYXZlbl9hc2QuYmluIik7CisKIHN0YXRpYyBpbnQKIHBzcF92MTBfMF9n
+ZXRfZndfdHlwZShzdHJ1Y3QgYW1kZ3B1X2Zpcm13YXJlX2luZm8gKnVjb2RlLCBlbnVtIHBzcF9n
+ZnhfZndfdHlwZSAqdHlwZSkKIHsKLS0gCjIuNS41CgpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2FtZC1nZngK
