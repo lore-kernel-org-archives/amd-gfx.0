@@ -1,14 +1,15 @@
-From: Jan Vesely <jan.vesely-kgbqMDwikbSVc3sceRu5cw@public.gmane.org>
-Subject: Re: [PATCH 03/11] drm/amdkfd: Rectify the jiffies calculation error
- with milliseconds
-Date: Fri, 15 Sep 2017 20:09:04 -0400
-Message-ID: <1505520544.24699.47.camel@rutgers.edu>
-References: <1505518982-29631-1-git-send-email-Felix.Kuehling@amd.com>
- <1505518982-29631-4-git-send-email-Felix.Kuehling@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/radeon: disable hard reset in hibernate for APUs
+Date: Sat, 16 Sep 2017 14:18:41 +0200
+Message-ID: <91e94ecd-4e65-abb6-99d6-19601b78ae38@gmail.com>
+References: <1505499768-602-1-git-send-email-alexander.deucher@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1088701293=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1505518982-29631-4-git-send-email-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1505499768-602-1-git-send-email-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,110 +20,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Yong Zhao <yong.zhao-5C7GfCeVMHo@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
 
-
---===============1088701293==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-XfmM2DXm3U9S4JSI6/KO"
-
-
---=-XfmM2DXm3U9S4JSI6/KO
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, 2017-09-15 at 19:42 -0400, Felix Kuehling wrote:
-> From: Yong Zhao <yong.zhao-5C7GfCeVMHo@public.gmane.org>
->=20
-> The timeout in milliseconds should not be regarded as jiffies. This
-> commit fixed that.
->=20
-> Signed-off-by: Yong Zhao <yong.zhao-5C7GfCeVMHo@public.gmane.org>
-> Signed-off-by: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 8 +++++---
->  drivers/gpu/drm/amd/amdkfd/kfd_priv.h                 | 2 +-
->  2 files changed, 6 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driv=
-ers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> index 5db82b8..3db6a31 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> @@ -835,12 +835,14 @@ static int create_queue_cpsch(struct device_queue_m=
-anager *dqm, struct queue *q,
-> =20
->  int amdkfd_fence_wait_timeout(unsigned int *fence_addr,
->  				unsigned int fence_value,
-> -				unsigned long timeout)
-> +				unsigned long timeout_ms)
->  {
-> -	timeout +=3D jiffies;
-> +	unsigned long end_jiffies;
-> +
-> +	end_jiffies =3D (timeout_ms * HZ / 1000) + jiffies;
-
-msecs_to_jiffies? (jiffies.h)
-
-Jan
-
-> =20
->  	while (*fence_addr !=3D fence_value) {
-> -		if (time_after(jiffies, timeout)) {
-> +		if (time_after(jiffies, end_jiffies)) {
->  			pr_err("qcm fence wait loop timeout expired\n");
->  			return -ETIME;
->  		}
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/=
-amdkfd/kfd_priv.h
-> index ef582cc..f8d6a8e 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -669,7 +669,7 @@ struct kernel_queue *pqm_get_kernel_queue(struct proc=
-ess_queue_manager *pqm,
-> =20
->  int amdkfd_fence_wait_timeout(unsigned int *fence_addr,
->  				unsigned int fence_value,
-> -				unsigned long timeout);
-> +				unsigned long timeout_ms);
-> =20
->  /* Packet Manager */
-> =20
-
---=-XfmM2DXm3U9S4JSI6/KO
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEjGgSoFJq63cCYGKvY+M/tz9IsiAFAlm8a6EACgkQY+M/tz9I
-siC5uw/+M9C27M8XKo5saooUAnixgtSGmmf0/LhPckwhbwmoJ2URqPK9QqaN5v5t
-I+JxrkBXmsFh84+sXY3ugXoXdXhiN6L/nD5xHFRwo1/HpBTNHGNu7Rr+7emo2vtH
-8d/3bV4JCbjYKmrU1qXNobwnfAUYYhcn7JMBqE7IABmQjxVXXo8VIDAAk83v/kV/
-GFWCTT07T7fKp95JZnynSIvT2IyB517/D/9JDsfo1KiKkxumCQ3Vu/M8Jo76FUlP
-cCu1WbgijJNvGr1ZqEbiqWX6+oT5RBK7AjozaZJXJ2eE+aWTdnPYD8bQ2rb7AhD/
-uatydYPbplbSgiGu5NPwMV7ivbJDVJEfs5ysJf6o0Xj1rH9uLM0AkCoxEkLNw1qF
-YO+jTmFkyvBDxqeMX0rIApJnAkLXk2EQqxRYEhT51bEHf1JVeLQYMdIKwmUJVDq3
-rSvXTXwe2KkSur0dMzFnGKyUmMQO9uva9eJsWGEkcLK9Eu2hKhSnMky3oTmJsslf
-7VwRbj6SeyCMTX3nouZTOlJfzIwr2xAN2SrS2oJ+9MItBJqBT+TrVtH1398SaKoM
-GR+sTfernD5v9ANgpaWXdC0dKEuAfN98Gn7tBgkMgb2NKtG7v23Z+vFPFVRAP8In
-SYuF/k79YO6E+Pj4P6RWu/U3qTyH027t5peIgwcA98/hWyuPtyM=
-=v75Z
------END PGP SIGNATURE-----
-
---=-XfmM2DXm3U9S4JSI6/KO--
-
-
---===============1088701293==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1088701293==--
+QW0gMTUuMDkuMjAxNyB1bSAyMDoyMiBzY2hyaWViIEFsZXggRGV1Y2hlcjoKPiBGaXhlcyBhIGhp
+YmVybmF0aW9uIHJlZ3Jlc3Npb24gb24gQVBVcy4KPgo+IEJ1ZzogaHR0cHM6Ly9idWd6aWxsYS5r
+ZXJuZWwub3JnL3Nob3dfYnVnLmNnaT9pZD0xOTE1NzEKPiBGaXhlczogMjc0YWQ2NWM5ZDAyYmRj
+IChkcm0vcmFkZW9uOiBoYXJkIHJlc2V0IHI2MDAgYW5kIG5ld2VyIEdQVSB3aGVuIGhpYmVybmF0
+aW5nLikKPiBTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFt
+ZC5jb20+CgpBY2tlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQu
+Y29tPgoKPiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZwo+IC0tLQo+ICAgZHJpdmVycy9ncHUv
+ZHJtL3JhZGVvbi9yYWRlb25fZGV2aWNlLmMgfCAyICstCj4gICAxIGZpbGUgY2hhbmdlZCwgMSBp
+bnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vcmFkZW9uL3JhZGVvbl9kZXZpY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9u
+X2RldmljZS5jCj4gaW5kZXggOTk3MTMxZC4uZmZjMTBjYSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9kZXZpY2UuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9y
+YWRlb24vcmFkZW9uX2RldmljZS5jCj4gQEAgLTE2NjMsNyArMTY2Myw3IEBAIGludCByYWRlb25f
+c3VzcGVuZF9rbXMoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgYm9vbCBzdXNwZW5kLAo+ICAgCXJh
+ZGVvbl9hZ3Bfc3VzcGVuZChyZGV2KTsKPiAgIAo+ICAgCXBjaV9zYXZlX3N0YXRlKGRldi0+cGRl
+dik7Cj4gLQlpZiAoZnJlZXplICYmIHJkZXYtPmZhbWlseSA+PSBDSElQX0NFREFSKSB7Cj4gKwlp
+ZiAoZnJlZXplICYmIHJkZXYtPmZhbWlseSA+PSBDSElQX0NFREFSICYmICEocmRldi0+ZmxhZ3Mg
+JiBSQURFT05fSVNfSUdQKSkgewo+ICAgCQlyZGV2LT5hc2ljLT5hc2ljX3Jlc2V0KHJkZXYsIHRy
+dWUpOwo+ICAgCQlwY2lfcmVzdG9yZV9zdGF0ZShkZXYtPnBkZXYpOwo+ICAgCX0gZWxzZSBpZiAo
+c3VzcGVuZCkgewoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
