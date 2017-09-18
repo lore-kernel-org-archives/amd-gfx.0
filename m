@@ -1,58 +1,27 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: use 2MB fragment size for GFX6,7 and 8
-Date: Mon, 18 Sep 2017 14:34:12 +0200
-Message-ID: <1505738052-1769-1-git-send-email-deathsimple@vodafone.de>
+From: Tom St Denis <tom.stdenis@amd.com>
+Subject: Remove TTM trace and use proper IOMMU api
+Date: Mon, 18 Sep 2017 08:35:24 -0400
+Message-ID: <20170918123528.26629-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKVXNlIDJN
-QiBmcmFnbWVudCBzaXplIGJ5IGRlZmF1bHQgZm9yIG9sZGVyIGhhcmR3YXJlIGdlbmVyYXRpb25z
-IGFzIHdlbGwuCgpTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29l
-bmlnQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y2XzAuYyB8
-IDIgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192N18wLmMgfCAyICstCiBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjhfMC5jIHwgMiArLQogMyBmaWxlcyBjaGFuZ2Vk
-LCAzIGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y2XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2dtY192Nl8wLmMKaW5kZXggNWJlOWM4My4uMmQxZjNmNiAxMDA2NDQKLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y2XzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9nbWNfdjZfMC5jCkBAIC04MzEsNyArODMxLDcgQEAgc3RhdGljIGludCBnbWNfdjZfMF9z
-d19pbml0KHZvaWQgKmhhbmRsZSkKIAlpZiAocikKIAkJcmV0dXJuIHI7CiAKLQlhbWRncHVfdm1f
-YWRqdXN0X3NpemUoYWRldiwgNjQsIDQpOworCWFtZGdwdV92bV9hZGp1c3Rfc2l6ZShhZGV2LCA2
-NCwgOSk7CiAJYWRldi0+dm1fbWFuYWdlci5tYXhfcGZuID0gYWRldi0+dm1fbWFuYWdlci52bV9z
-aXplIDw8IDE4OwogCiAJYWRldi0+bWMubWNfbWFzayA9IDB4ZmZmZmZmZmZmZlVMTDsKZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192N18wLmMgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9nbWNfdjdfMC5jCmluZGV4IGVhY2U5ZTcuLjIyNTYyNzcgMTAwNjQ0
-Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192N18wLmMKKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y3XzAuYwpAQCAtOTcwLDcgKzk3MCw3IEBAIHN0YXRp
-YyBpbnQgZ21jX3Y3XzBfc3dfaW5pdCh2b2lkICpoYW5kbGUpCiAJICogQ3VycmVudGx5IHNldCB0
-byA0R0IgKCgxIDw8IDIwKSA0ayBwYWdlcykuCiAJICogTWF4IEdQVVZNIHNpemUgZm9yIGNheW1h
-biBhbmQgU0kgaXMgNDAgYml0cy4KIAkgKi8KLQlhbWRncHVfdm1fYWRqdXN0X3NpemUoYWRldiwg
-NjQsIDQpOworCWFtZGdwdV92bV9hZGp1c3Rfc2l6ZShhZGV2LCA2NCwgOSk7CiAJYWRldi0+dm1f
-bWFuYWdlci5tYXhfcGZuID0gYWRldi0+dm1fbWFuYWdlci52bV9zaXplIDw8IDE4OwogCiAJLyog
-U2V0IHRoZSBpbnRlcm5hbCBNQyBhZGRyZXNzIG1hc2sKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
-bWNfdjhfMC5jCmluZGV4IDNiMzMyNmQuLjExNDY3MWIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvZ21jX3Y4XzAuYwpAQCAtMTA2Nyw3ICsxMDY3LDcgQEAgc3RhdGljIGludCBnbWNfdjhfMF9z
-d19pbml0KHZvaWQgKmhhbmRsZSkKIAkgKiBDdXJyZW50bHkgc2V0IHRvIDRHQiAoKDEgPDwgMjAp
-IDRrIHBhZ2VzKS4KIAkgKiBNYXggR1BVVk0gc2l6ZSBmb3IgY2F5bWFuIGFuZCBTSSBpcyA0MCBi
-aXRzLgogCSAqLwotCWFtZGdwdV92bV9hZGp1c3Rfc2l6ZShhZGV2LCA2NCwgNCk7CisJYW1kZ3B1
-X3ZtX2FkanVzdF9zaXplKGFkZXYsIDY0LCA5KTsKIAlhZGV2LT52bV9tYW5hZ2VyLm1heF9wZm4g
-PSBhZGV2LT52bV9tYW5hZ2VyLnZtX3NpemUgPDwgMTg7CiAKIAkvKiBTZXQgdGhlIGludGVybmFs
-IE1DIGFkZHJlc3MgbWFzawotLSAKMi43LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYW1kLWdmeAo=
+VGhlc2UgcGF0Y2hlcyB0aWR5IHVwIHRoZSBhbWRncHVfdHRtIGRlYnVnZnMgY3JlYXRpb24sIGFk
+ZAphbiBpb3ZhX3RvX3BoeXMgaW50ZXJmYWNlIGFuZCB0aGVuIHJlbW92ZSB0aGUgVFRNIHRyYWNl
+IGZyb20gYm90aAphbWRncHUgYW5kIGRybS90dG0uCgoKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vZHJpLWRldmVsCg==
