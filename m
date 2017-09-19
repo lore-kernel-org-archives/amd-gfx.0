@@ -1,86 +1,55 @@
-From: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 0/8] Retry page fault handling for Vega10
-Date: Mon, 18 Sep 2017 21:05:18 -0400
-Message-ID: <5f932a0d-7425-46ff-2800-f1b868495f06@amd.com>
-References: <1505257545-28000-1-git-send-email-Felix.Kuehling@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Subject: Re: [PATCH] lib: Closed hash table with low overhead
+Date: Mon, 18 Sep 2017 21:33:16 -0400
+Message-ID: <1183ff82-8ec0-6ea7-4613-2f0fe5e90bfb@amd.com>
+References: <1503971590-15963-1-git-send-email-Felix.Kuehling@amd.com>
+ <20170915141456.4382d7ffae7ec8a9a86c8cf9@linux-foundation.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1505257545-28000-1-git-send-email-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20170915141456.4382d7ffae7ec8a9a86c8cf9@linux-foundation.org>
 Content-Language: en-CA
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-VGhhbmtzIGZvciB0aGUgcmV2aWV3cy4gSSByZWJhc2VkIHRoaXMgb24gYW1kLXN0YWdpbmctZHJt
-LW5leHQsIHJldGVzdGVkCmFuZCBzdWJtaXR0ZWQuCgpDaHJpc3RpYW4sIGRvIHlvdSB3YW50IHRv
-IGRvIHNvbWUgZ3JhcGhpY3MgUEFTSUQgYW5kIFZNRmF1bHQgd29yayBvbiB0b3AKb2YgdGhhdD8g
-SSB0aGluayBJJ2xsIGJlIHdvcmtpbmcgb24gbW9yZSBLRkQgdXBzdHJlYW1pbmcgdGhpcyB3ZWVr
-IGFuZAptYXliZSBsb29rIGF0IHRoaXMgc3ViamVjdCBhZ2FpbiBuZXh0IHdlZWsuCgpSZWdhcmRz
-LArCoCBGZWxpeAoKCk9uIDIwMTctMDktMTIgMDc6MDUgUE0sIEZlbGl4IEt1ZWhsaW5nIHdyb3Rl
-Ogo+IFJlYmFzZWQgb24gYWRldWNoZXIvYW1kLXN0YWdpbmctNC4xMyBhbmQgdGVzdGVkIG9uIFZl
-Z2ExMCAoZ3JhcGhpY3MpCj4gYW5kIEthdmVyaSAoS0ZEKS4gTWVhbmluZ2Z1bCBncmFwaGljcyB0
-ZXN0cyB3aXRoIHJldHJ5IGZhdWx0cyBlbmFibGVkCj4gd2lsbCBvbmx5IGJlIHBvc3NpYmxlIGFm
-dGVyIFBBU0lEIHN1cHBvcnQgaXMgYWRkZWQgdG8gYW1kZ3B1X2NzLgo+Cj4gVGhlIGNoYXNoIHRh
-YmxlIHdhcyBtb3ZlZCB0byBkcml2ZXJzL2dwdS9kcm0vYW1kL2xpYiBmb3Igbm93IGJ1dCBpcwo+
-IHJlYWR5IHRvIG1vdmUgdG8gbGliIGlmIG5lZWRlZC4gSSBoYXZlIG5vdCBnb3QgYW55IGZlZWRi
-YWNrIG9uIExLTE0KPiBhbmQgSSBkb24ndCB3YW50IHRoYXQgdG8gaG9sZCB1cCB0aGUgcGF0Y2gg
-c2VyaWVzLgo+Cj4gVE9ETzoKPiAqIEZpbmlzaCB1cHN0cmVhbWluZyBLRkQKPiAqIEFsbG9jYXRl
-IFBBU0lEcyBmb3IgZ3JhcGhpY3MgY29udGV4dHMKPiAqIFNldHVwIFZNSUQtUEFTSUQgbWFwcGlu
-ZyBkdXJpbmcgZ3JhcGhpY3MgY29tbWFuZCBzdWJtaXNzaW9uCj4gKiBDb25maXJtIHRoYXQgZ3Jh
-cGhpY3MgcGFnZSBmYXVsdHMgaGF2ZSB0aGUgY29ycmVjdCBQQVNJRCBpbiB0aGUgSVYKPgo+Cj4g
-RmVsaXggS3VlaGxpbmcgKDgpOgo+ICAgZHJtL2FtZGdwdTogRml4IGVycm9yIGhhbmRsaW5nIGlu
-IGFtZGdwdV92bV9pbml0Cj4gICBkcm0vYW1kZ3B1OiBBZGQgUEFTSUQgbWFuYWdlbWVudAo+ICAg
-ZHJtL3JhZGVvbjogQWRkIFBBU0lEIG1hbmFnZXIgZm9yIEtGRAo+ICAgZHJtL2FtZGtmZDogU2Vw
-YXJhdGUgZG9vcmJlbGwgYWxsb2NhdGlvbiBmcm9tIFBBU0lECj4gICBkcm0vYW1ka2ZkOiBVc2Ug
-UEFTSUQgbWFuYWdlciBmcm9tIEtHRAo+ICAgZHJtL2FtZGdwdTogQWRkIHByZXNjcmVlbmluZyBz
-dGFnZSBpbiBJSCBwcm9jZXNzaW5nCj4gICBkcm0vYW1kOiBDbG9zZWQgaGFzaCB0YWJsZSB3aXRo
-IGxvdyBvdmVyaGVhZAo+ICAgZHJtL2FtZGdwdTogVHJhY2sgcGVuZGluZyByZXRyeSBmYXVsdHMg
-aW4gSUggYW5kIFZNICh2MikKPgo+ICBkcml2ZXJzL2dwdS9kcm0vS2NvbmZpZyAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHwgICAzICsKPiAgZHJpdmVycy9ncHUvZHJtL01ha2VmaWxlICAgICAg
-ICAgICAgICAgICAgICAgICAgICB8ICAgMSArCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdS5oICAgICAgICAgICAgICAgfCAgIDIgKwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfYW1ka2ZkX2dmeF92Ny5jIHwgICAyICsKPiAgZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9nZnhfdjguYyB8ICAgMiArCj4gIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9paC5jICAgICAgICAgICAgfCAgODIgKysrCj4gIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9paC5oICAgICAgICAgICAgfCAgMTIgKwo+ICBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMgICAgICAgICAgIHwgICAyICstCj4g
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jICAgICAgICAgICAgfCAgODQg
-KystCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oICAgICAgICAgICAg
-fCAgMjEgKy0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvY2lrX2loLmMgICAgICAgICAg
-ICAgICB8ICAxNCArCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2N6X2loLmMgICAgICAg
-ICAgICAgICAgfCAgMTQgKwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9pY2VsYW5kX2lo
-LmMgICAgICAgICAgIHwgIDE0ICsKPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2lfaWgu
-YyAgICAgICAgICAgICAgICB8ICAxNCArCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Rv
-bmdhX2loLmMgICAgICAgICAgICAgfCAgMTQgKwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS92ZWdhMTBfaWguYyAgICAgICAgICAgIHwgIDkwICsrKysKPiAgZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRrZmQva2ZkX2RldmljZS5jICAgICAgICAgICB8ICAgNyAtCj4gIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1ka2ZkL2tmZF9kb29yYmVsbC5jICAgICAgICAgfCAgNTAgKy0KPiAgZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRrZmQva2ZkX21vZHVsZS5jICAgICAgICAgICB8ICAgNiAtCj4gIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wYXNpZC5jICAgICAgICAgICAgfCAgOTAgKystLQo+
-ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJpdi5oICAgICAgICAgICAgIHwgIDEw
-ICstCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcm9jZXNzLmMgICAgICAgICAg
-fCAgIDYgKwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUva2dkX2tmZF9pbnRlcmZhY2Uu
-aCAgIHwgICA2ICsKPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2xpbnV4L2NoYXNoLmgg
-ICAgICAgICB8IDM1OCArKysrKysrKysrKysrCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvbGliL0tj
-b25maWcgICAgICAgICAgICAgICAgICAgfCAgMjcgKwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2xp
-Yi9NYWtlZmlsZSAgICAgICAgICAgICAgICAgIHwgIDExICsKPiAgZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9saWIvY2hhc2guYyAgICAgICAgICAgICAgICAgICB8IDYyMiArKysrKysrKysrKysrKysrKysr
-KysrCj4gIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2tmZC5jICAgICAgICAgICAgICAg
-fCAgMzEgKysKPiAgMjggZmlsZXMgY2hhbmdlZCwgMTUwNCBpbnNlcnRpb25zKCspLCA5MSBkZWxl
-dGlvbnMoLSkKPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVk
-ZS9saW51eC9jaGFzaC5oCj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1k
-L2xpYi9LY29uZmlnCj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2xp
-Yi9NYWtlZmlsZQo+ICBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9saWIv
-Y2hhc2guYwo+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On 2017-09-15 05:14 PM, Andrew Morton wrote:
+> On Mon, 28 Aug 2017 21:53:10 -0400 Felix Kuehling <Felix.Kuehling@amd.com> wrote:
+>
+>> This adds a statically sized closed hash table implementation with
+>> low memory and CPU overhead. The API is inspired by kfifo.
+>>
+>> Storing, retrieving and deleting data does not involve any dynamic
+>> memory management, which makes it ideal for use in interrupt context.
+>> Static memory usage per entry comprises a 32 or 64 bit hash key, two
+>> bits for occupancy tracking and the value size stored in the table.
+>> No list heads or pointers are needed. Therefore this data structure
+>> should be quite cache-friendly, too.
+>>
+>> It uses linear probing and lazy deletion. During lookups free space
+>> is reclaimed and entries relocated to speed up future lookups.
+> I haven't looked at the implementation (yet), but I'm wondering if you
+> have identified hash table users (or implementations) elsewhere in the
+> kernel which might be migrated to use this?  If so, such conversions
+> can be used to determine/demonstrate the desirability of the patch.
+
+I haven't looked into this. I did a quick search for where hash tables
+are currently used in the kernel tree. But I'm not sufficiently familiar
+with the subsystems to easily decide which ones could benefit from my work.
+
+My implementation has some constraints because the hash table is not
+resizable (by design). I think it may be useful for some applications in
+drivers, where the amount of data in the hash table is limited by HW
+constraints. Data stored in the table should also be quite small. For
+larger data structures that need to be allocated with kmalloc, you may
+as well use hashtable or rhashtable. To see a performance impact, you'd
+need very frequent lookups.
+
+For now I've settled on checking the code into the amdgpu driver so I
+can make progress. If someone finds another application for it, it can
+be moved to lib/ easily.
+
+Regards,
+  Felix
