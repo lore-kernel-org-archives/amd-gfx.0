@@ -1,14 +1,14 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: simplify trace point code
-Date: Tue, 19 Sep 2017 13:37:53 +0200
-Message-ID: <79759103-6707-9b5d-d04a-f82b0c91dae2@gmail.com>
-References: <MWHPR12MB1581C3C36B87BDEF82C3664DFB600@MWHPR12MB1581.namprd12.prod.outlook.com>
+Subject: Re: [PATCH] drm/amd/amdgpu: add support for iova_to_phys to replace
+ TTM trace (v4)
+Date: Tue, 19 Sep 2017 13:40:42 +0200
+Message-ID: <c188d18a-ee3e-9069-c50c-c3c867b52101@gmail.com>
+References: <20170919112057.24377-1-tom.stdenis@amd.com>
 Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0556977889=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MWHPR12MB1581C3C36B87BDEF82C3664DFB600-Gy0DoCVfaSULYLbPSdnD4QdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <20170919112057.24377-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,55 +20,398 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Xue, Ken" <Ken.Xue-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: "dl.SRDC_SW_GPUVirtualization" <dl.SRDC_SW_GPUVirtualization-5C7GfCeVMHo@public.gmane.org>
+To: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-TkFLLCB0aGF0IGlzIGludGVudGlvbmFsbHkgc2VwYXJhdGVkIGFuZCBnb29kIGNvZGluZyBzdHls
-ZS4KClNlZSBvdGhlciBEUk0gZHJpdmVycyBhcyB3ZWxsLgoKUmVnYXJkcywKQ2hyaXN0aWFuLgoK
-QW0gMTkuMDkuMjAxNyB1bSAwODo0NSBzY2hyaWViIFh1ZSwgS2VuOgo+IGRybS9hbWRncHU6IHNp
-bXBsaWZ5IHRyYWNlIHBvaW50IGNvZGUKPgo+IGFtZGdwdV90cmFjZV9wb2ludHMuYyBkb2VzIG5v
-dCBkZWNsYXJlIGxpY2Vuc2UgYW5kIGl0IGNhbiBiZSByZXBsYWNlZCBieSBhIHNpbXBsZXIgd2F5
-Lgo+ICAgCj4gU2lnbmVkLW9mZi1ieTogS2VuIFh1ZSA8S2VuLlh1ZUBhbWQuY29tPgo+IC0tLQo+
-ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvTWFrZWZpbGUgICAgICAgICAgICAgIHwgMiAr
-LQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jICAgICAgIHwg
-MiArKwo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNlX3BvaW50cy5j
-IHwgOSAtLS0tLS0tLS0KPiAgIDMgZmlsZXMgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAxMCBk
-ZWxldGlvbnMoLSkKPiAgIGRlbGV0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfdHJhY2VfcG9pbnRzLmMKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9NYWtlZmlsZSBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L01ha2Vm
-aWxlCj4gaW5kZXggNDU0ZTZlZi4uOWQ3ZGI2MCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9NYWtlZmlsZQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L01ha2VmaWxlCj4gQEAgLTI2LDcgKzI2LDcgQEAgYW1kZ3B1LXkgKz0gYW1kZ3B1X2RldmljZS5v
-IGFtZGdwdV9rbXMubyBcCj4gICAgICAgICAgYW1kZ3B1X2VuY29kZXJzLm8gYW1kZ3B1X2Rpc3Bs
-YXkubyBhbWRncHVfaTJjLm8gXAo+ICAgICAgICAgIGFtZGdwdV9mYi5vIGFtZGdwdV9nZW0ubyBh
-bWRncHVfcmluZy5vIFwKPiAgICAgICAgICBhbWRncHVfY3MubyBhbWRncHVfYmlvcy5vIGFtZGdw
-dV9iZW5jaG1hcmsubyBhbWRncHVfdGVzdC5vIFwKPiAtICAgICAgIGFtZGdwdV9wbS5vIGF0b21i
-aW9zX2RwLm8gYW1kZ3B1X2FmbXQubyBhbWRncHVfdHJhY2VfcG9pbnRzLm8gXAo+ICsgICAgICAg
-YW1kZ3B1X3BtLm8gYXRvbWJpb3NfZHAubyBhbWRncHVfYWZtdC5vIFwKPiAgICAgICAgICBhdG9t
-Ymlvc19lbmNvZGVycy5vIGFtZGdwdV9zYS5vIGF0b21iaW9zX2kyYy5vIFwKPiAgICAgICAgICBh
-bWRncHVfcHJpbWUubyBhbWRncHVfdm0ubyBhbWRncHVfaWIubyBhbWRncHVfcGxsLm8gXAo+ICAg
-ICAgICAgIGFtZGdwdV91Y29kZS5vIGFtZGdwdV9ib19saXN0Lm8gYW1kZ3B1X2N0eC5vIGFtZGdw
-dV9zeW5jLm8gXAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMK
-PiBpbmRleCA3ZDM2NWZhLi44ODgxYWIzIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9kZXZpY2UuYwo+IEBAIC0zNyw3ICszNyw5IEBACj4gICAjaW5jbHVkZSA8bGlu
-dXgvdmdhX3N3aXRjaGVyb28uaD4KPiAgICNpbmNsdWRlIDxsaW51eC9lZmkuaD4KPiAgICNpbmNs
-dWRlICJhbWRncHUuaCIKPiArI2RlZmluZSBDUkVBVEVfVFJBQ0VfUE9JTlRTCj4gICAjaW5jbHVk
-ZSAiYW1kZ3B1X3RyYWNlLmgiCj4gKyN1bmRlZiBDUkVBVEVfVFJBQ0VfUE9JTlRTCj4gICAjaW5j
-bHVkZSAiYW1kZ3B1X2kyYy5oIgo+ICAgI2luY2x1ZGUgImF0b20uaCIKPiAgICNpbmNsdWRlICJh
-bWRncHVfYXRvbWJpb3MuaCIKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3RyYWNlX3BvaW50cy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3RyYWNlX3BvaW50cy5jCj4gZGVsZXRlZCBmaWxlIG1vZGUgMTAwNjQ0Cj4gaW5kZXggMzg1
-YjdlMS4uMDAwMDAwMAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90
-cmFjZV9wb2ludHMuYwo+ICsrKyAvZGV2L251bGwKPiBAQCAtMSw5ICswLDAgQEAKPiAtLyogQ29w
-eXJpZ2h0IFJlZCBIYXQgSW5jIDIwMTAuCj4gLSAqIEF1dGhvciA6IERhdmUgQWlybGllIDxhaXJs
-aWVkQHJlZGhhdC5jb20+Cj4gLSAqLwo+IC0jaW5jbHVkZSA8ZHJtL2RybVAuaD4KPiAtI2luY2x1
-ZGUgPGRybS9hbWRncHVfZHJtLmg+Cj4gLSNpbmNsdWRlICJhbWRncHUuaCIKPiAtCj4gLSNkZWZp
-bmUgQ1JFQVRFX1RSQUNFX1BPSU5UUwo+IC0jaW5jbHVkZSAiYW1kZ3B1X3RyYWNlLmgiCj4gLS0K
-PiAyLjcuNAo+Cj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-ZngKCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
-Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is a multi-part message in MIME format.
+--===============0556977889==
+Content-Type: multipart/alternative;
+ boundary="------------A465AE2877E8DB87E6123E16"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------A465AE2877E8DB87E6123E16
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Am 19.09.2017 um 13:20 schrieb Tom St Denis:
+> Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+>
+> (v2): Add domain to iova debugfs
+> (v3): Add true read/write methods to access system memory of pages
+>        mapped to the device
+> (v4): Move get_domain call out of loop and return on error
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 114 ++++++++++++++++++++++++++++++++
+>   1 file changed, 114 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index 50d20903de4f..71a2fdc91a85 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -43,6 +43,7 @@
+>   #include <linux/swap.h>
+>   #include <linux/pagemap.h>
+>   #include <linux/debugfs.h>
+> +#include <linux/iommu.h>
+>   #include "amdgpu.h"
+>   #include "amdgpu_trace.h"
+>   #include "bif/bif_4_1_d.h"
+> @@ -1810,6 +1811,118 @@ static const struct file_operations amdgpu_ttm_gtt_fops = {
+>   #endif
+>   
+>   
+> +static void *transform_page(uint64_t phys)
+> +{
+> +	if (PageHighMem(pfn_to_page(PFN_DOWN(phys))))
+> +		return kmap(pfn_to_page(PFN_DOWN(phys)));
+> +	else
+> +		return __va(phys);
+> +}
+> +
+> +static void untransform_page(uint64_t phys)
+> +{
+> +	if (PageHighMem(pfn_to_page(PFN_DOWN(phys))))
+> +		return kunmap(pfn_to_page(PFN_DOWN(phys)));
+> +}
+
+I mentioned that in the previous patch as well, why not using 
+kmap()/kunmap() here directly?
+
+See kmap() for x86 for example:
+> void  *kmap <http://elixir.free-electrons.com/linux/v4.2/ident/kmap>(struct  page  *page)
+> {
+> 	might_sleep 
+> <http://elixir.free-electrons.com/linux/v4.2/ident/might_sleep>();
+> 	if  (!PageHighMem 
+> <http://elixir.free-electrons.com/linux/v4.2/ident/PageHighMem>(page))
+> 		return  page_address 
+> <http://elixir.free-electrons.com/linux/v4.2/ident/page_address>(page);
+> 	return  kmap_high 
+> <http://elixir.free-electrons.com/linux/v4.2/ident/kmap_high>(page);
+> }
+
+Both normal as well as highmem are correctly handled here.
+
+Regards,
+Christian.
+
+> +
+> +static ssize_t amdgpu_iova_to_phys_read(struct file *f, char __user *buf,
+> +				   size_t size, loff_t *pos)
+> +{
+> +	struct amdgpu_device *adev = file_inode(f)->i_private;
+> +	ssize_t result, n;
+> +	int r;
+> +	uint64_t phys;
+> +	void *ptr;
+> +	struct iommu_domain *dom;
+> +
+> +	dom = iommu_get_domain_for_dev(adev->dev);
+> +	if (!dom)
+> +		return -EFAULT;
+> +
+> +	result = 0;
+> +	while (size) {
+> +		// get physical address and map
+> +		phys = iommu_iova_to_phys(dom, *pos);
+> +
+> +		// copy upto one page
+> +		if (size > PAGE_SIZE)
+> +			n = PAGE_SIZE;
+> +		else
+> +			n = size;
+> +
+> +		// to end of the page
+> +		if (((*pos & (PAGE_SIZE - 1)) + n) >= PAGE_SIZE)
+> +			n = PAGE_SIZE - (*pos & (PAGE_SIZE - 1));
+> +
+> +		ptr = transform_page(phys);
+> +		if (!ptr)
+> +			return -EFAULT;
+> +
+> +		r = copy_to_user(buf, ptr, n);
+> +		untransform_page(phys);
+> +		if (r)
+> +			return -EFAULT;
+> +
+> +		*pos += n;
+> +		size -= n;
+> +		result += n;
+> +	}
+> +
+> +	return result;
+> +}
+> +
+> +static ssize_t amdgpu_iova_to_phys_write(struct file *f, const char __user *buf,
+> +				   size_t size, loff_t *pos)
+> +{
+> +	struct amdgpu_device *adev = file_inode(f)->i_private;
+> +	ssize_t result, n;
+> +	int r;
+> +	uint64_t phys;
+> +	void *ptr;
+> +	struct iommu_domain *dom;
+> +
+> +	dom = iommu_get_domain_for_dev(adev->dev);
+> +	if (!dom)
+> +		return -EFAULT;
+> +
+> +	result = 0;
+> +	while (size) {
+> +		// get physical address and map
+> +		phys = iommu_iova_to_phys(dom, *pos);
+> +
+> +		// copy upto one page
+> +		if (size > PAGE_SIZE)
+> +			n = PAGE_SIZE;
+> +		else
+> +			n = size;
+> +
+> +		// to end of the page
+> +		if (((*pos & (PAGE_SIZE - 1)) + n) >= PAGE_SIZE)
+> +			n = PAGE_SIZE - (*pos & (PAGE_SIZE - 1));
+> +
+> +		ptr = transform_page(phys);
+> +		if (!ptr)
+> +			return -EFAULT;
+> +
+> +		r = copy_from_user(ptr, buf, n);
+> +		untransform_page(phys);
+> +		if (r)
+> +			return -EFAULT;
+> +
+> +		*pos += n;
+> +		size -= n;
+> +		result += n;
+> +	}
+> +
+> +	return result;
+> +}
+> +
+> +static const struct file_operations amdgpu_ttm_iova_fops = {
+> +	.owner = THIS_MODULE,
+> +	.read = amdgpu_iova_to_phys_read,
+> +	.write = amdgpu_iova_to_phys_write,
+> +	.llseek = default_llseek
+> +};
+>   
+>   static const struct {
+>   	char *name;
+> @@ -1820,6 +1933,7 @@ static const struct {
+>   #ifdef CONFIG_DRM_AMDGPU_GART_DEBUGFS
+>   	{ "amdgpu_gtt", &amdgpu_ttm_gtt_fops, TTM_PL_TT },
+>   #endif
+> +	{ "amdgpu_iova", &amdgpu_ttm_iova_fops, TTM_PL_SYSTEM },
+>   };
+>   
+>   #endif
+
+
+
+--------------A465AE2877E8DB87E6123E16
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Am 19.09.2017 um 13:20 schrieb Tom St
+      Denis:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:20170919112057.24377-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org">
+      <pre wrap="">Signed-off-by: Tom St Denis <a class="moz-txt-link-rfc2396E" href="mailto:tom.stdenis-5C7GfCeVMHo@public.gmane.org">&lt;tom.stdenis-5C7GfCeVMHo@public.gmane.org&gt;</a>
+
+(v2): Add domain to iova debugfs
+(v3): Add true read/write methods to access system memory of pages
+      mapped to the device
+(v4): Move get_domain call out of loop and return on error
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 114 ++++++++++++++++++++++++++++++++
+ 1 file changed, 114 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 50d20903de4f..71a2fdc91a85 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -43,6 +43,7 @@
+ #include &lt;linux/swap.h&gt;
+ #include &lt;linux/pagemap.h&gt;
+ #include &lt;linux/debugfs.h&gt;
++#include &lt;linux/iommu.h&gt;
+ #include "amdgpu.h"
+ #include "amdgpu_trace.h"
+ #include "bif/bif_4_1_d.h"
+@@ -1810,6 +1811,118 @@ static const struct file_operations amdgpu_ttm_gtt_fops = {
+ #endif
+ 
+ 
++static void *transform_page(uint64_t phys)
++{
++	if (PageHighMem(pfn_to_page(PFN_DOWN(phys))))
++		return kmap(pfn_to_page(PFN_DOWN(phys)));
++	else
++		return __va(phys);
++}
++
++static void untransform_page(uint64_t phys)
++{
++	if (PageHighMem(pfn_to_page(PFN_DOWN(phys))))
++		return kunmap(pfn_to_page(PFN_DOWN(phys)));
++}</pre>
+    </blockquote>
+    <br>
+    I mentioned that in the previous patch as well, why not using
+    kmap()/kunmap() here directly?<br>
+    <br>
+    See kmap() for x86 for example:<br>
+    <blockquote type="cite">
+      <pre><span class="kt">void</span> <span class="o">*</span><span class="nf"><a href="http://elixir.free-electrons.com/linux/v4.2/ident/kmap">kmap</a></span><span class="p">(</span><span class="k">struct</span> <span class="n">page</span> <span class="o">*</span><span class="n">page</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="n"><a href="http://elixir.free-electrons.com/linux/v4.2/ident/might_sleep">might_sleep</a></span><span class="p">();</span>
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n"><a href="http://elixir.free-electrons.com/linux/v4.2/ident/PageHighMem">PageHighMem</a></span><span class="p">(</span><span class="n">page</span><span class="p">))</span>
+		<span class="k">return</span> <span class="n"><a href="http://elixir.free-electrons.com/linux/v4.2/ident/page_address">page_address</a></span><span class="p">(</span><span class="n">page</span><span class="p">);</span>
+	<span class="k">return</span> <span class="n"><a href="http://elixir.free-electrons.com/linux/v4.2/ident/kmap_high">kmap_high</a></span><span class="p">(</span><span class="n">page</span><span class="p">);</span>
+<span class="p">}</span></pre>
+    </blockquote>
+    <br>
+    Both normal as well as highmem are correctly handled here.<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:20170919112057.24377-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org">
+      <pre wrap="">
++
++static ssize_t amdgpu_iova_to_phys_read(struct file *f, char __user *buf,
++				   size_t size, loff_t *pos)
++{
++	struct amdgpu_device *adev = file_inode(f)-&gt;i_private;
++	ssize_t result, n;
++	int r;
++	uint64_t phys;
++	void *ptr;
++	struct iommu_domain *dom;
++
++	dom = iommu_get_domain_for_dev(adev-&gt;dev);
++	if (!dom)
++		return -EFAULT;
++
++	result = 0;
++	while (size) {
++		// get physical address and map
++		phys = iommu_iova_to_phys(dom, *pos);
++
++		// copy upto one page
++		if (size &gt; PAGE_SIZE)
++			n = PAGE_SIZE;
++		else
++			n = size;
++
++		// to end of the page
++		if (((*pos &amp; (PAGE_SIZE - 1)) + n) &gt;= PAGE_SIZE)
++			n = PAGE_SIZE - (*pos &amp; (PAGE_SIZE - 1));
++
++		ptr = transform_page(phys);
++		if (!ptr)
++			return -EFAULT;
++
++		r = copy_to_user(buf, ptr, n);
++		untransform_page(phys);
++		if (r)
++			return -EFAULT;
++
++		*pos += n;
++		size -= n;
++		result += n;
++	}
++
++	return result;
++}
++
++static ssize_t amdgpu_iova_to_phys_write(struct file *f, const char __user *buf,
++				   size_t size, loff_t *pos)
++{
++	struct amdgpu_device *adev = file_inode(f)-&gt;i_private;
++	ssize_t result, n;
++	int r;
++	uint64_t phys;
++	void *ptr;
++	struct iommu_domain *dom;
++
++	dom = iommu_get_domain_for_dev(adev-&gt;dev);
++	if (!dom)
++		return -EFAULT;
++
++	result = 0;
++	while (size) {
++		// get physical address and map
++		phys = iommu_iova_to_phys(dom, *pos);
++
++		// copy upto one page
++		if (size &gt; PAGE_SIZE)
++			n = PAGE_SIZE;
++		else
++			n = size;
++
++		// to end of the page
++		if (((*pos &amp; (PAGE_SIZE - 1)) + n) &gt;= PAGE_SIZE)
++			n = PAGE_SIZE - (*pos &amp; (PAGE_SIZE - 1));
++
++		ptr = transform_page(phys);
++		if (!ptr)
++			return -EFAULT;
++
++		r = copy_from_user(ptr, buf, n);
++		untransform_page(phys);
++		if (r)
++			return -EFAULT;
++
++		*pos += n;
++		size -= n;
++		result += n;
++	}
++
++	return result;
++}
++
++static const struct file_operations amdgpu_ttm_iova_fops = {
++	.owner = THIS_MODULE,
++	.read = amdgpu_iova_to_phys_read,
++	.write = amdgpu_iova_to_phys_write,
++	.llseek = default_llseek
++};
+ 
+ static const struct {
+ 	char *name;
+@@ -1820,6 +1933,7 @@ static const struct {
+ #ifdef CONFIG_DRM_AMDGPU_GART_DEBUGFS
+ 	{ "amdgpu_gtt", &amp;amdgpu_ttm_gtt_fops, TTM_PL_TT },
+ #endif
++	{ "amdgpu_iova", &amp;amdgpu_ttm_iova_fops, TTM_PL_SYSTEM },
+ };
+ 
+ #endif
+</pre>
+    </blockquote>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------A465AE2877E8DB87E6123E16--
+
+--===============0556977889==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0556977889==--
