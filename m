@@ -1,96 +1,59 @@
-From: Thomas Meyer <thomas@m3y3r.de>
-Subject: [PATCH 1/4] drm/amd/powerplay: Cocci spatch "alloc_cast"
-Date: Thu, 21 Sep 2017 08:33:46 +0200
-Message-ID: <1505975570447-1553434828-1-diffsplit-thomas@m3y3r.de>
-References: <1505975570447-826702259-0-diffsplit-thomas@m3y3r.de>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amd/powerplay: refine phm_register_thermal_interrupt
+ interface
+Date: Thu, 21 Sep 2017 06:47:33 +0000
+Message-ID: <BN6PR12MB16520B7128CCF4BC94D08AF0F7660@BN6PR12MB1652.namprd12.prod.outlook.com>
+References: <1505961652-11422-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <1505975570447-826702259-0-diffsplit-thomas@m3y3r.de>
-Sender: linux-kernel-owner@vger.kernel.org
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@linux.ie, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1505961652-11422-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
-Remove casting the values returned by memory allocation functions like
-kmalloc, kzalloc, kmem_cache_alloc, kmem_cache_zalloc etc."
-Found by coccinelle spatch "api/alloc/alloc_cast.cocci"
-
-Signed-off-by: Thomas Meyer <thomas@m3y3r.de>
----
-
-diff -u -p a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_processpptables.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_processpptables.c
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_processpptables.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_processpptables.c
-@@ -291,7 +291,7 @@ static int get_mm_clock_voltage_table(
- 	table_size = sizeof(uint32_t) +
- 			sizeof(phm_ppt_v1_mm_clock_voltage_dependency_record) *
- 			mm_dependency_table->ucNumEntries;
--	mm_table = (phm_ppt_v1_mm_clock_voltage_dependency_table *)
-+	mm_table =
- 			kzalloc(table_size, GFP_KERNEL);
- 
- 	if (!mm_table)
-@@ -519,7 +519,7 @@ static int get_socclk_voltage_dependency
- 			sizeof(phm_ppt_v1_clock_voltage_dependency_record) *
- 			clk_dep_table->ucNumEntries;
- 
--	clk_table = (phm_ppt_v1_clock_voltage_dependency_table *)
-+	clk_table =
- 			kzalloc(table_size, GFP_KERNEL);
- 
- 	if (!clk_table)
-@@ -554,7 +554,7 @@ static int get_mclk_voltage_dependency_t
- 			sizeof(phm_ppt_v1_clock_voltage_dependency_record) *
- 			mclk_dep_table->ucNumEntries;
- 
--	mclk_table = (phm_ppt_v1_clock_voltage_dependency_table *)
-+	mclk_table =
- 			kzalloc(table_size, GFP_KERNEL);
- 
- 	if (!mclk_table)
-@@ -596,7 +596,7 @@ static int get_gfxclk_voltage_dependency
- 			sizeof(phm_ppt_v1_clock_voltage_dependency_record) *
- 			clk_dep_table->ucNumEntries;
- 
--	clk_table = (struct phm_ppt_v1_clock_voltage_dependency_table *)
-+	clk_table =
- 			kzalloc(table_size, GFP_KERNEL);
- 
- 	if (!clk_table)
-@@ -663,7 +663,7 @@ static int get_pix_clk_voltage_dependenc
- 			sizeof(phm_ppt_v1_clock_voltage_dependency_record) *
- 			clk_dep_table->ucNumEntries;
- 
--	clk_table = (struct phm_ppt_v1_clock_voltage_dependency_table *)
-+	clk_table =
- 			kzalloc(table_size, GFP_KERNEL);
- 
- 	if (!clk_table)
-@@ -728,7 +728,7 @@ static int get_dcefclk_voltage_dependenc
- 			sizeof(phm_ppt_v1_clock_voltage_dependency_record) *
- 			num_entries;
- 
--	clk_table = (struct phm_ppt_v1_clock_voltage_dependency_table *)
-+	clk_table =
- 			kzalloc(table_size, GFP_KERNEL);
- 
- 	if (!clk_table)
-@@ -772,7 +772,7 @@ static int get_pcie_table(struct pp_hwmg
- 			sizeof(struct phm_ppt_v1_pcie_record) *
- 			atom_pcie_table->ucNumEntries;
- 
--	pcie_table = (struct phm_ppt_v1_pcie_table *)
-+	pcie_table =
- 			kzalloc(table_size, GFP_KERNEL);
- 
- 	if (!pcie_table)
-@@ -1026,7 +1026,7 @@ static int get_vddc_lookup_table(
- 	table_size = sizeof(uint32_t) +
- 			sizeof(phm_ppt_v1_voltage_lookup_record) * max_levels;
- 
--	table = (phm_ppt_v1_voltage_lookup_table *)
-+	table =
- 			kzalloc(table_size, GFP_KERNEL);
- 
- 	if (NULL == table)
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
+LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIFJleCBa
+aHUNCj4gU2VudDogV2VkbmVzZGF5LCBTZXB0ZW1iZXIgMjAsIDIwMTcgMTA6NDEgUE0NCj4gVG86
+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IENjOiBaaHUsIFJleA0KPiBTdWJqZWN0
+OiBbUEFUQ0hdIGRybS9hbWQvcG93ZXJwbGF5OiByZWZpbmUNCj4gcGhtX3JlZ2lzdGVyX3RoZXJt
+YWxfaW50ZXJydXB0IGludGVyZmFjZQ0KPiANCj4gY3VycmVudGx5LCBub3QgYWxsIGFzaWNzIGlt
+cGxlbWVudCB0aGlzIGNhbGxiYWNrIGZ1bmN0aW9uDQo+IHNvIG5vdCByZXR1cm4gZXJyb3IgdG8g
+YXZvaWQgcG93ZXJwbGF5IGluaXRpYWxpemUgZmFpbGVkDQo+IGluIHRob3NlIGFzaWNlcw0KPiAN
+Cj4gQ2hhbmdlLUlkOiBJNDkyYjdhYjU0ZWViY2MwZDg0YzE2OWVkYzBkNTg3NmM0NTI5YzYxOQ0K
+PiBTaWduZWQtb2ZmLWJ5OiBSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+DQoNClJldmlld2VkLWJ5
+OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQoNCj4gLS0tDQo+ICBk
+cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9oYXJkd2FyZW1hbmFnZXIuYyB8IDYg
+KysrLS0tDQo+ICAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygt
+KQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdy
+L2hhcmR3YXJlbWFuYWdlci5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdt
+Z3IvaGFyZHdhcmVtYW5hZ2VyLmMNCj4gaW5kZXggZjMxZDJjZi4uNjIzY2ZmOSAxMDA2NDQNCj4g
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvaGFyZHdhcmVtYW5hZ2Vy
+LmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvaGFyZHdhcmVt
+YW5hZ2VyLmMNCj4gQEAgLTIxMCwxMCArMjEwLDEwIEBAIGludCBwaG1fcmVnaXN0ZXJfdGhlcm1h
+bF9pbnRlcnJ1cHQoc3RydWN0DQo+IHBwX2h3bWdyICpod21nciwgY29uc3Qgdm9pZCAqaW5mbykN
+Cj4gIHsNCj4gIAlQSE1fRlVOQ19DSEVDSyhod21ncik7DQo+IA0KPiAtCWlmIChod21nci0+aHdt
+Z3JfZnVuYy0+cmVnaXN0ZXJfaW50ZXJuYWxfdGhlcm1hbF9pbnRlcnJ1cHQgPT0NCj4gTlVMTCkN
+Cj4gLQkJcmV0dXJuIC1FSU5WQUw7DQo+ICsJaWYgKGh3bWdyLT5od21ncl9mdW5jLT5yZWdpc3Rl
+cl9pbnRlcm5hbF90aGVybWFsX2ludGVycnVwdCAhPQ0KPiBOVUxMKQ0KPiArCQlyZXR1cm4gaHdt
+Z3ItPmh3bWdyX2Z1bmMtDQo+ID5yZWdpc3Rlcl9pbnRlcm5hbF90aGVybWFsX2ludGVycnVwdCho
+d21nciwgaW5mbyk7DQo+IA0KPiAtCXJldHVybiBod21nci0+aHdtZ3JfZnVuYy0NCj4gPnJlZ2lz
+dGVyX2ludGVybmFsX3RoZXJtYWxfaW50ZXJydXB0KGh3bWdyLCBpbmZvKTsNCj4gKwlyZXR1cm4g
+MDsNCj4gIH0NCj4gDQo+ICAvKioNCj4gLS0NCj4gMS45LjENCj4gDQo+IF9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+IGFtZC1nZnggbWFpbGluZyBsaXN0
+DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9hbWQtZ2Z4Cg==
