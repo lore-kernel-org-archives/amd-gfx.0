@@ -1,13 +1,11 @@
 From: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: amdgpu_vf_errors
-Date: Thu, 28 Sep 2017 09:17:24 +1000
-Message-ID: <CAPM=9tzaLC+zdC166wnbAogWd9UeDcUnL=pVotYW8BOuMLrDjA@mail.gmail.com>
-References: <CAPM=9txUb3N_4Da+Xs5d3h3j4ROE6pfN4JUYGjXAef5rq54y0Q@mail.gmail.com>
+Subject: [PATCH] amdgpu/dc: add static to construct function
+Date: Thu, 28 Sep 2017 09:21:33 +1000
+Message-ID: <20170927232133.24501-1-airlied@gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAPM=9txUb3N_4Da+Xs5d3h3j4ROE6pfN4JUYGjXAef5rq54y0Q-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,14 +16,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Gavin Wan <Gavin.Wan-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gMjggU2VwdGVtYmVyIDIwMTcgYXQgMDk6MTQsIERhdmUgQWlybGllIDxhaXJsaWVkQGdtYWls
-LmNvbT4gd3JvdGU6Cj4gSSd2ZSBubyBpZGVhIHdoYXQgdGhpcyBpcyB1c2VkIGZvciwgdmlydHVh
-bCBmdW5jdGlvbiBlcnJvcnM/Cj4KPiBidXQgd2h5IGRvZXMgaXQgaGF2ZSBubyBsb2NraW5nLCBh
-bmQgd2h5IGlzIHRoZXJlIGEgZ2xvYmFsIGFycmF5LCAobm90IHBlciBncHU/KQo+Cj4gQWxleCwg
-eW91IHJldmlld2VkIGl0LCBwbGVhc2UgcmV3cml0ZS9yZW1vdmUgYXMgbmVjZXNzYXJ5LgoKT2gg
-aXQgYWxzbyB0eXBvZXMgYWRtLT5hbWQgaW4gbG90cyBvZiBwbGFjZXMuCgpEYXZlLgoKPgo+IERh
-dmUuCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
-ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+RnJvbTogRGF2ZSBBaXJsaWUgPGFpcmxpZWRAcmVkaGF0LmNvbT4KClRoZXJlIHdhcyBhIGdsb2Jh
+bCBjb25zdHJ1Y3Qgc3ltYm9sIGluIHRoZSBtb2R1bGUgc3ltYm9scywga2lsbCBpdC4KClNpZ25l
+ZC1vZmYtYnk6IERhdmUgQWlybGllIDxhaXJsaWVkQHJlZGhhdC5jb20+Ci0tLQogZHJpdmVycy9n
+cHUvZHJtL2FtZC9kaXNwbGF5L2RjL2lycS9kY2UxMTAvaXJxX3NlcnZpY2VfZGNlMTEwLmMgfCAy
+ICstCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKCmRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvaXJxL2RjZTExMC9pcnFfc2Vy
+dmljZV9kY2UxMTAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9pcnEvZGNlMTEw
+L2lycV9zZXJ2aWNlX2RjZTExMC5jCmluZGV4IDdjY2UyODQuLmM2Mjc2OTQgMTAwNjQ0Ci0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9pcnEvZGNlMTEwL2lycV9zZXJ2aWNlX2Rj
+ZTExMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9pcnEvZGNlMTEwL2ly
+cV9zZXJ2aWNlX2RjZTExMC5jCkBAIC00MDYsNyArNDA2LDcgQEAgc3RhdGljIGNvbnN0IHN0cnVj
+dCBpcnFfc2VydmljZV9mdW5jcyBpcnFfc2VydmljZV9mdW5jc19kY2UxMTAgPSB7CiAJCS50b19k
+YWxfaXJxX3NvdXJjZSA9IHRvX2RhbF9pcnFfc291cmNlX2RjZTExMAogfTsKIAotYm9vbCBjb25z
+dHJ1Y3QoCitzdGF0aWMgYm9vbCBjb25zdHJ1Y3QoCiAJc3RydWN0IGlycV9zZXJ2aWNlICppcnFf
+c2VydmljZSwKIAlzdHJ1Y3QgaXJxX3NlcnZpY2VfaW5pdF9kYXRhICppbml0X2RhdGEpCiB7Ci0t
+IAoyLjkuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
+Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
