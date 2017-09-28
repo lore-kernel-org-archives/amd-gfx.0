@@ -1,79 +1,47 @@
-From: Mark Brown <broonie@kernel.org>
-Subject: Re: [alsa-devel] [PATCH 0/6 v4] Add ASoC support for AMD Stoney APUs
-Date: Thu, 28 Sep 2017 11:59:36 -0700
-Message-ID: <20170928185936.zajc466sp6ttuh7v@sirena.org.uk>
-References: <1505325475-22602-1-git-send-email-alexander.deucher@amd.com>
- <20170913181218.bb2br4zehzjoatyq@sirena.org.uk>
- <CADnq5_PdpjS448n6u6tPBqgKfEw278BENMTjVPiEQ4zQx313AA@mail.gmail.com>
- <20170914174228.esh6lvih3yjs46ur@sirena.org.uk>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 0/2] Selectively spread compute rings across pipes
+Date: Thu, 28 Sep 2017 15:03:21 -0400
+Message-ID: <CADnq5_PS3LX5Gn3Q=b3gFk25bkQuZ3Ae0_HXB-JRBDpDX=qaew@mail.gmail.com>
+References: <20170926162246.3200-1-andresx7@gmail.com>
+ <63adcb76-1a0b-e351-c70a-08761b02120e@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1217676945=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20170914174228.esh6lvih3yjs46ur@sirena.org.uk>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, Liam Girdwood <lgirdwood@gmail.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, rajeev kumar <rajeevkumar.linux@gmail.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
-
-
---===============1217676945==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rl3hrlvw3hlgygif"
-Content-Disposition: inline
-
-
---rl3hrlvw3hlgygif
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Thu, Sep 14, 2017 at 10:42:28AM -0700, Mark Brown wrote:
-> On Wed, Sep 13, 2017 at 02:49:08PM -0400, Alex Deucher wrote:
-
-> > I'm not quite sure what you mean by the cross merge.  There are no
-> > dependencies outside this patch set.  The only patches that touch drm
-> > are patches 1 and 2.  Patch 1 touches both audio and drm, patch 2 just
-> > touches drm.  Do you want me to send you a pull request for patches 1
-
-> I can't see any reason for patch 1 to be a single patch, just have a DRM
-> patch that adds the property and then a separate audio patch that uses
-> it.  Send me a pull request for that and patch 2 then I can handle the
-> audio stuff.
-
-Any updates with the pull requests?
-
---rl3hrlvw3hlgygif
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlnNRpcACgkQJNaLcl1U
-h9D1TAf9EGk3yxKTSQwT+eFkJgsN1dFMLXqwytoA2TaKjU2/l4UcX4YJ8rhNujpQ
-jAi1LUp+Rq0S8XY7c7DrRW2jz2wq/dlT/bob3KikfgoAfNBi7zZSjGDoV86omGA1
-zRIwuwuT+y7Vt8504esS8MaCr8aS0GqexMNVhWxFZqP9KuAgkGdEca0kQVXsONSB
-0RnCFcy8LPxo0sdez+pwJnl0bBCM/1iV52IHsYWuCnxeLB7lknUKbM1mRR3ThqXp
-elRZ6+E7XpJTgNHFMwZHdZBDIscewTbHxx6zDeQAlgSMzJeBZZtPnbggAt5dvDt8
-HNdqRdu5u3R7NIqfZQ3lFVb1bsfZwA==
-=fOcK
------END PGP SIGNATURE-----
-
---rl3hrlvw3hlgygif--
-
---===============1217676945==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <63adcb76-1a0b-e351-c70a-08761b02120e-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Felix Kuehling <felix.kuehling-5C7GfCeVMHo@public.gmane.org>
+Cc: Andres Rodriguez <andresx7-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
-
---===============1217676945==--
+T24gVHVlLCBTZXAgMjYsIDIwMTcgYXQgMjoxNSBQTSwgRmVsaXggS3VlaGxpbmcgPGZlbGl4Lmt1
+ZWhsaW5nQGFtZC5jb20+IHdyb3RlOgo+IFRoZSBzZXJpZXMgaXMgQWNrZWQtYnk6IEZlbGl4IEt1
+ZWhsaW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPgo+Cj4gUmVnYXJkcywKPiAgIEZlbGl4Cj4K
+Pgo+IE9uIDIwMTctMDktMjYgMTI6MjIgUE0sIEFuZHJlcyBSb2RyaWd1ZXogd3JvdGU6Cj4+IFRo
+aXMgd2FzIGRpc2FibGVkIGR1ZSB0byBhbiBPQ0wgcGVyZiByZWdyZXNzaW9uIGFzIGRpc2N1c3Nl
+ZCBvbiBhbWQtZ2Z4Lgo+Pgo+PiBUaGlzIHNlcmllcyByZS1lbmFibGVzIHRoZSBmZWF0dXJlIGZv
+ciBBU0lDcyB0aGF0IGFyZSBub3QgYWZmZWN0ZWQsIGFuZCBhbHNvCj4+IGludHJvZHVjZXMgYSBi
+b290IHBhcmFtZXRlciB0byBmb3JjZSB0aGUgcG9saWN5IG9uIG9yIG9mZi4gVGhpcyBzaG91bGQg
+aGVscAo+PiBmdXR1cmUgZWZmb3J0IG9mIGNvbXBhcmluZyBwZXJmb3JtYW5jZSB3aXRoIHRoZSBm
+ZWF0dXJlIGVuYWJsZWQvZGlzYWJsZWQuCgpBcHBsaWVkLiAgdGhhbmtzIQoKQWxleAoKPj4KPj4K
+Pj4KPj4gQW5kcmVzIFJvZHJpZ3VleiAoMik6Cj4+ICAgZHJtL2FtZGdwdTogdXNlIG11bHRpcGlw
+ZSBjb21wdXRlIHBvbGljeSBvbiBub24gUEwxMSBhc2ljcwo+PiAgIGRybS9hbWRncHU6IGFkZCBv
+cHRpb24gZm9yIGZvcmNlIGVuYWJsZSBtdWx0aXBpcGUgcG9saWN5IGZvciBjb21wdXRlCj4+Cj4+
+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCAgICAgfCAgMSArCj4+ICBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgfCAgNCArKysrCj4+ICBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2Z4LmMgfCAyMCArKysrKysrKysrKysrKysrKyst
+LQo+PiAgMyBmaWxlcyBjaGFuZ2VkLCAyMyBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQo+
+Pgo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBh
+bWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
+ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
