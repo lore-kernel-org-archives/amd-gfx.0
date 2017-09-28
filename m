@@ -1,48 +1,79 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] amdgpu/pp/vega10: mark vega10_pp_tables_initialize as
- static.
-Date: Thu, 28 Sep 2017 14:53:04 -0400
-Message-ID: <CADnq5_N23efEqpx9NF2q6M28j-1og5TpwFW1MUmbj1G2aYqwGw@mail.gmail.com>
-References: <20170928071721.24934-1-airlied@gmail.com>
+From: Mark Brown <broonie@kernel.org>
+Subject: Re: [alsa-devel] [PATCH 0/6 v4] Add ASoC support for AMD Stoney APUs
+Date: Thu, 28 Sep 2017 11:59:36 -0700
+Message-ID: <20170928185936.zajc466sp6ttuh7v@sirena.org.uk>
+References: <1505325475-22602-1-git-send-email-alexander.deucher@amd.com>
+ <20170913181218.bb2br4zehzjoatyq@sirena.org.uk>
+ <CADnq5_PdpjS448n6u6tPBqgKfEw278BENMTjVPiEQ4zQx313AA@mail.gmail.com>
+ <20170914174228.esh6lvih3yjs46ur@sirena.org.uk>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20170928071721.24934-1-airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: multipart/mixed; boundary="===============1217676945=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20170914174228.esh6lvih3yjs46ur@sirena.org.uk>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, Liam Girdwood <lgirdwood@gmail.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, rajeev kumar <rajeevkumar.linux@gmail.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVGh1LCBTZXAgMjgsIDIwMTcgYXQgMzoxNyBBTSwgRGF2ZSBBaXJsaWUgPGFpcmxpZWRAZ21h
-aWwuY29tPiB3cm90ZToKPiBGcm9tOiBEYXZlIEFpcmxpZSA8YWlybGllZEByZWRoYXQuY29tPgo+
-Cj4gVGhpcyBpc24ndCB1c2VkIG91dHNpZGUgdGhpcyBmaWxlLgo+Cj4gU2lnbmVkLW9mZi1ieTog
-RGF2ZSBBaXJsaWUgPGFpcmxpZWRAcmVkaGF0LmNvbT4KClJldmlld2VkLWJ5OiBBbGV4IERldWNo
-ZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfcHJvY2Vzc3BwdGFibGVzLmMgfCAyICstCj4gIDEg
-ZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQo+Cj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9wcm9jZXNzcHB0
-YWJsZXMuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9wcm9j
-ZXNzcHB0YWJsZXMuYwo+IGluZGV4IGUzNDNkZjEuLjIyYzRkNWIgMTAwNjQ0Cj4gLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX3Byb2Nlc3NwcHRhYmxlcy5j
-Cj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX3Byb2Nl
-c3NwcHRhYmxlcy5jCj4gQEAgLTExMzEsNyArMTEzMSw3IEBAIHN0YXRpYyBpbnQgaW5pdF9kcG1f
-Ml9wYXJhbWV0ZXJzKAo+ICAgICAgICAgcmV0dXJuIHJlc3VsdDsKPiAgfQo+Cj4gLWludCB2ZWdh
-MTBfcHBfdGFibGVzX2luaXRpYWxpemUoc3RydWN0IHBwX2h3bWdyICpod21ncikKPiArc3RhdGlj
-IGludCB2ZWdhMTBfcHBfdGFibGVzX2luaXRpYWxpemUoc3RydWN0IHBwX2h3bWdyICpod21ncikK
-PiAgewo+ICAgICAgICAgaW50IHJlc3VsdCA9IDA7Cj4gICAgICAgICBjb25zdCBBVE9NX1ZlZ2Ex
-MF9QT1dFUlBMQVlUQUJMRSAqcG93ZXJwbGF5X3RhYmxlOwo+IC0tCj4gMi45LjQKPgo+IF9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWls
-aW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+
+--===============1217676945==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rl3hrlvw3hlgygif"
+Content-Disposition: inline
+
+
+--rl3hrlvw3hlgygif
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Thu, Sep 14, 2017 at 10:42:28AM -0700, Mark Brown wrote:
+> On Wed, Sep 13, 2017 at 02:49:08PM -0400, Alex Deucher wrote:
+
+> > I'm not quite sure what you mean by the cross merge.  There are no
+> > dependencies outside this patch set.  The only patches that touch drm
+> > are patches 1 and 2.  Patch 1 touches both audio and drm, patch 2 just
+> > touches drm.  Do you want me to send you a pull request for patches 1
+
+> I can't see any reason for patch 1 to be a single patch, just have a DRM
+> patch that adds the property and then a separate audio patch that uses
+> it.  Send me a pull request for that and patch 2 then I can handle the
+> audio stuff.
+
+Any updates with the pull requests?
+
+--rl3hrlvw3hlgygif
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlnNRpcACgkQJNaLcl1U
+h9D1TAf9EGk3yxKTSQwT+eFkJgsN1dFMLXqwytoA2TaKjU2/l4UcX4YJ8rhNujpQ
+jAi1LUp+Rq0S8XY7c7DrRW2jz2wq/dlT/bob3KikfgoAfNBi7zZSjGDoV86omGA1
+zRIwuwuT+y7Vt8504esS8MaCr8aS0GqexMNVhWxFZqP9KuAgkGdEca0kQVXsONSB
+0RnCFcy8LPxo0sdez+pwJnl0bBCM/1iV52IHsYWuCnxeLB7lknUKbM1mRR3ThqXp
+elRZ6+E7XpJTgNHFMwZHdZBDIscewTbHxx6zDeQAlgSMzJeBZZtPnbggAt5dvDt8
+HNdqRdu5u3R7NIqfZQ3lFVb1bsfZwA==
+=fOcK
+-----END PGP SIGNATURE-----
+
+--rl3hrlvw3hlgygif--
+
+--===============1217676945==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--===============1217676945==--
