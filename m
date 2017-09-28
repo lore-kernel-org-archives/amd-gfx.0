@@ -1,66 +1,51 @@
 From: Colin King <colin.king@canonical.com>
-Subject: [PATCH][drm-next] drm/amd/powerplay: fix spelling mistake:
- "dividable" -> "divisible"
-Date: Thu, 28 Sep 2017 11:35:52 +0100
-Message-ID: <20170928103552.7755-1-colin.king@canonical.com>
+Subject: [PATCH][drm-next] drm/radeon: make functions alloc_pasid and free_pasid static
+Date: Thu, 28 Sep 2017 14:46:17 +0100
+Message-ID: <20170928134617.8168-1-colin.king@canonical.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, Rex Zhu <Rex.Zhu@amd.com>, Xiangliang Yu <Xiangliang.Yu@amd.com>, Monk Liu <Monk.Liu@amd.com>, Evan Quan <evan.quan@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Oded Gabbay <oded.gabbay@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogQ29saW4gSWFuIEtpbmcgPGNvbGluLmtpbmdAY2Fub25pY2FsLmNvbT4KClRyaXZpYWwg
-Zml4IHRvIHNwZWxsaW5nIG1pc3Rha2VzIGluIHByX2VyciBlcnJvciBtZXNzYWdlIGFuZCBBU1NF
-UlQKbWVzc2FnZXMuCgpTaWduZWQtb2ZmLWJ5OiBDb2xpbiBJYW4gS2luZyA8Y29saW4ua2luZ0Bj
-YW5vbmljYWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9j
-aV9zbWMuYyAgICAgICAgIHwgMiArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211
-bWdyL2ljZWxhbmRfc211bWdyLmMgfCAyICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxh
-eS9zbXVtZ3Ivc211N19zbXVtZ3IuYyAgICB8IDIgKy0KIDMgZmlsZXMgY2hhbmdlZCwgMyBpbnNl
-cnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvcG93ZXJwbGF5L3NtdW1nci9jaV9zbWMuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJw
-bGF5L3NtdW1nci9jaV9zbWMuYwppbmRleCBmY2Y4OGI4ZmM3MzguLjlkMTA4Njg5NGQyYiAxMDA2
-NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL2NpX3NtYy5jCisr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9jaV9zbWMuYwpAQCAtMjMz
-Miw3ICsyMzMyLDcgQEAgc3RhdGljIGludCBjaV9sb2FkX3NtY191Y29kZShzdHJ1Y3QgcHBfaHdt
-Z3IgKmh3bWdyKQogCVBITV9XUklURV9GSUVMRChod21nci0+ZGV2aWNlLCBTTUNfSU5EX0FDQ0VT
-U19DTlRMLCBBVVRPX0lOQ1JFTUVOVF9JTkRfMCwgMCk7CiAKIAlpZiAoMCAhPSBieXRlX2NvdW50
-KSB7Ci0JCXByX2VycigiU01DIHNpemUgbXVzdCBiZSBkaXZpZGFibGUgYnkgNFxuIik7CisJCXBy
-X2VycigiU01DIHNpemUgbXVzdCBiZSBkaXZpc2libGUgYnkgNFxuIik7CiAJCXJldHVybiAtRUlO
-VkFMOwogCX0KIApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211
-bWdyL2ljZWxhbmRfc211bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVt
-Z3IvaWNlbGFuZF9zbXVtZ3IuYwppbmRleCA3OGFhMTEyMmVhY2MuLmE3NzhlMTc0YmEwMSAxMDA2
-NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL2ljZWxhbmRfc211
-bWdyLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL2ljZWxhbmRf
-c211bWdyLmMKQEAgLTEwOCw3ICsxMDgsNyBAQCBzdGF0aWMgaW50IGljZWxhbmRfdXBsb2FkX3Nt
-Y19maXJtd2FyZV9kYXRhKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsCiAKIAlQSE1fV1JJVEVfRklF
-TEQoaHdtZ3ItPmRldmljZSwgU01DX0lORF9BQ0NFU1NfQ05UTCwgQVVUT19JTkNSRU1FTlRfSU5E
-XzAsIDApOwogCi0JUFBfQVNTRVJUX1dJVEhfQ09ERSgoMCA9PSBieXRlX2NvdW50KSwgIlNNQyBz
-aXplIG11c3QgYmUgZGl2aWRhYmxlIGJ5IDQuIiwgcmV0dXJuIC1FSU5WQUwpOworCVBQX0FTU0VS
-VF9XSVRIX0NPREUoKDAgPT0gYnl0ZV9jb3VudCksICJTTUMgc2l6ZSBtdXN0IGJlIGRpdmlzaWJs
-ZSBieSA0LiIsIHJldHVybiAtRUlOVkFMKTsKIAogCXJldHVybiAwOwogfQpkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3NtdTdfc211bWdyLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3Ivc211N19zbXVtZ3IuYwppbmRleCAyYWUw
-NWJiZGI5NzQuLmM5OTcxMTdmMjQ2MSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9w
-b3dlcnBsYXkvc211bWdyL3NtdTdfc211bWdyLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9w
-b3dlcnBsYXkvc211bWdyL3NtdTdfc211bWdyLmMKQEAgLTUxMyw3ICs1MTMsNyBAQCBzdGF0aWMg
-aW50IHNtdTdfdXBsb2FkX3NtY19maXJtd2FyZV9kYXRhKHN0cnVjdCBwcF9od21nciAqaHdtZ3Is
-IHVpbnQzMl90IGxlbmd0aAogCiAJUEhNX1dSSVRFX0ZJRUxEKGh3bWdyLT5kZXZpY2UsIFNNQ19J
-TkRfQUNDRVNTX0NOVEwsIEFVVE9fSU5DUkVNRU5UX0lORF8xMSwgMCk7CiAKLQlQUF9BU1NFUlRf
-V0lUSF9DT0RFKCgwID09IGJ5dGVfY291bnQpLCAiU01DIHNpemUgbXVzdCBiZSBkaXZpZGFibGUg
-YnkgNC4iLCByZXR1cm4gLUVJTlZBTCk7CisJUFBfQVNTRVJUX1dJVEhfQ09ERSgoMCA9PSBieXRl
-X2NvdW50KSwgIlNNQyBzaXplIG11c3QgYmUgZGl2aXNpYmxlIGJ5IDQuIiwgcmV0dXJuIC1FSU5W
-QUwpOwogCiAJcmV0dXJuIDA7CiB9Ci0tIAoyLjE0LjEKCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVs
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
+From: Colin Ian King <colin.king@canonical.com>
+
+The functions alloc_pasid  and free_pasid are local to the
+source and do not need to be in global scope, so make them static.
+
+Cleans up sparse warnings:
+warning: symbol 'alloc_pasid' was not declared. Should it be static?
+warning: symbol 'free_pasid' was not declared. Should it be static?
+
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+---
+ drivers/gpu/drm/radeon/radeon_kfd.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/radeon_kfd.c b/drivers/gpu/drm/radeon/radeon_kfd.c
+index a2ac8ac0930d..385b4d76956d 100644
+--- a/drivers/gpu/drm/radeon/radeon_kfd.c
++++ b/drivers/gpu/drm/radeon/radeon_kfd.c
+@@ -352,7 +352,7 @@ static uint32_t get_max_engine_clock_in_mhz(struct kgd_dev *kgd)
+  */
+ static DEFINE_IDA(pasid_ida);
+ 
+-int alloc_pasid(unsigned int bits)
++static int alloc_pasid(unsigned int bits)
+ {
+ 	int pasid = -EINVAL;
+ 
+@@ -367,7 +367,7 @@ int alloc_pasid(unsigned int bits)
+ 	return pasid;
+ }
+ 
+-void free_pasid(unsigned int pasid)
++static void free_pasid(unsigned int pasid)
+ {
+ 	ida_simple_remove(&pasid_ida, pasid);
+ }
+-- 
+2.14.1
