@@ -1,7 +1,7 @@
-From: <ken.wang-5C7GfCeVMHo@public.gmane.org>
+From: <Ken.Wang-5C7GfCeVMHo@public.gmane.org>
 Subject: [PATCH] drm/amdgpu: correct reference clock value on vega10
-Date: Fri, 29 Sep 2017 15:42:45 +0800
-Message-ID: <1506670965-19065-1-git-send-email-ken.wang@amd.com>
+Date: Fri, 29 Sep 2017 16:14:51 +0800
+Message-ID: <1506672891-19703-1-git-send-email-Ken.Wang@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
