@@ -1,7 +1,7 @@
 From: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: global data in display/dc/dce/dce_abm.c
-Date: Fri, 29 Sep 2017 10:18:57 +1000
-Message-ID: <CAPM=9twUB=1GLcdGaKhwXr=B_baXXaXxCchBbwF0Pv4k=Ss+GQ@mail.gmail.com>
+Subject: [PATCH] amdgpu/dc: drop dc_ver char
+Date: Fri, 29 Sep 2017 10:20:39 +1000
+Message-ID: <20170929002039.9825-1-airlied@gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
@@ -16,10 +16,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-SGkgSGFycnksCgpzdG9yZWRfYmFja2xpZ2h0X3JlZ2lzdGVycyBpcyBhIGdsb2JhbCBzdGF0aWMg
-c3RydWN0IGluIGJzcyBzZWdtZW50LAppdCBzaG91bGQgcHJvYmFibHkgYmUgcGVyIGRldmljZS4K
-CkRhdmUuCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
-ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+RnJvbTogRGF2ZSBBaXJsaWUgPGFpcmxpZWRAcmVkaGF0LmNvbT4KClRoaXMgaXNuJ3QgcmVmZXJl
+bmNlZCBhbnl3aGVyZSwgYW5kIGlmIGl0IHdhcyBpdCBzaG91bGQgYmUgY29uc3QuCgpTaWduZWQt
+b2ZmLWJ5OiBEYXZlIEFpcmxpZSA8YWlybGllZEByZWRoYXQuY29tPgotLS0KIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjLmMgfCAyIC0tCiAxIGZpbGUgY2hhbmdlZCwgMiBk
+ZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMv
+Y29yZS9kYy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGMuYwppbmRl
+eCA3ZmQ0MmZjLi4wMDhmMTM3IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
+YXkvZGMvY29yZS9kYy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3Jl
+L2RjLmMKQEAgLTQ5LDggKzQ5LDYgQEAKICNpbmNsdWRlICJtZW1faW5wdXQuaCIKIAogCi1jaGFy
+IGRjX3ZlcltdID0gRENfVkVSOwotCiAvKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKgogICogUHJpdmF0
+ZSBmdW5jdGlvbnMKICAqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKiovCi0tIAoyLjkuNAoKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
