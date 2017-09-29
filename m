@@ -1,13 +1,17 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: correct reference clock value on vega10
-Date: Fri, 29 Sep 2017 08:32:04 -0400
-Message-ID: <CADnq5_NPkb4ycaEhiX-Mr21K_diWj_Zy7b-5vi0=K5V8YMUqhQ@mail.gmail.com>
-References: <1506670965-19065-1-git-send-email-ken.wang@amd.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 3/3] drm/amdgpu: add FENCE_TO_HANDLE ioctl that returns
+ syncobj or sync_file
+Date: Fri, 29 Sep 2017 14:35:30 +0200
+Message-ID: <CAAxE2A5GVuEjQkicig0odKDU7u0w0F=FaGxyGGiMT2T+q__PSA@mail.gmail.com>
+References: <1505248934-1819-1-git-send-email-maraeo@gmail.com>
+ <1505248934-1819-3-git-send-email-maraeo@gmail.com>
+ <CAAxE2A5cKMxcfORnJPczRX=BaHm-n1h26rvCBZmd6iGsGk-RqQ@mail.gmail.com>
+ <CAPM=9ty8YhG16QSE8OQTDaAPQxT7mXE=cRn1OJXXznUtcBaRSA@mail.gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1506670965-19065-1-git-send-email-ken.wang-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CAPM=9ty8YhG16QSE8OQTDaAPQxT7mXE=cRn1OJXXznUtcBaRSA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,30 +22,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Wang, Ken" <ken.wang-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gRnJpLCBTZXAgMjksIDIwMTcgYXQgMzo0MiBBTSwgIDxrZW4ud2FuZ0BhbWQuY29tPiB3cm90
-ZToKPiBGcm9tOiBLZW4gV2FuZyA8S2VuLldhbmdAYW1kLmNvbT4KPgo+IENoYW5nZS1JZDogSTM3
-NzAyOTA3NWFmMWUyZTAwMmY3Y2ZkNzkzZGRkNThkODYxMGU0NzQKPiBTaWduZWQtb2ZmLWJ5OiBL
-ZW4gV2FuZyA8S2VuLldhbmdAYW1kLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvc29jMTUuYyB8IDIgKy0KPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAx
-IGRlbGV0aW9uKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-c29jMTUuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMKPiBpbmRleCA3ODM5
-Njc3Li42MzFiMWUzIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Nv
-YzE1LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jCj4gQEAgLTI4
-MCw3ICsyODAsNyBAQCBzdGF0aWMgdm9pZCBzb2MxNV9pbml0X2dvbGRlbl9yZWdpc3RlcnMoc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gIHN0YXRpYyB1MzIgc29jMTVfZ2V0X3hjbGsoc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gIHsKPiAgICAgICAgIGlmIChhZGV2LT5hc2ljX3R5
-cGUgPT0gQ0hJUF9WRUdBMTApCj4gLSAgICAgICAgICAgICAgIHJldHVybiBhZGV2LT5jbG9jay5z
-cGxsLnJlZmVyZW5jZV9mcmVxLzQ7Cj4gKyAgICAgICAgICAgICAgIHJldHVybiAyNzAwMDsKCldo
-eSBkbyB3ZSBuZWVkIHRvIGNoYW5nZSB0aGlzPyAgSXMgdGhlIHZiaW9zIHRhYmxlIHdyb25nPyAg
-U2VlCmFtZGdwdV9hdG9tZmlybXdhcmVfZ2V0X2Nsb2NrX2luZm8oKS4KCkFsZXgKCj4gICAgICAg
-ICBlbHNlCj4gICAgICAgICAgICAgICAgIHJldHVybiBhZGV2LT5jbG9jay5zcGxsLnJlZmVyZW5j
-ZV9mcmVxOwo+ICB9Cj4gLS0KPiAyLjcuNAo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eAo=
+T24gRnJpLCBTZXAgMjksIDIwMTcgYXQgMTo0MiBBTSwgRGF2ZSBBaXJsaWUgPGFpcmxpZWRAZ21h
+aWwuY29tPiB3cm90ZToKPiBPbiAyOSBTZXB0ZW1iZXIgMjAxNyBhdCAwNjo0MSwgTWFyZWsgT2zF
+ocOhayA8bWFyYWVvQGdtYWlsLmNvbT4gd3JvdGU6Cj4+IENhbiBJIGdldCBSYiBmb3IgdGhpcyBz
+ZXJpZXM/Cj4+Cj4KPiBGb3IgdGhlIHNlcmllcywKPgo+IFJldmlld2VkLWJ5OiBEYXZlIEFpcmxp
+ZSA8YWlybGllZEByZWRoYXQuY29tPgo+Cj4gQWxleCwgcGxlYXNlIG1lcmdlIHRoZSB0d28gZHJt
+IGNvcmUgcHJlY3Vyc29yIHdpdGggcGF0Y2ggMy4KCkFsZXgsIHRoaXMgaXMgZm9yIGRybS1uZXh0
+LCB3aGVyZSBJIGNhbid0IHB1c2guCgpUaGFua3MsCk1hcmVrCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vYW1kLWdmeAo=
