@@ -1,54 +1,35 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: some more powerplay/pwr virus size reduction patches
-Date: Sat, 30 Sep 2017 06:55:09 +0000
-Message-ID: <CY4PR12MB168708F12083A8FD08FE4A3FFB7F0@CY4PR12MB1687.namprd12.prod.outlook.com>
-References: <CAPM=9ty4emkxzfdOseHZ1H3_+bKHhqDn4+i6=+52DOTHe8w=Ew@mail.gmail.com>
- <BN6PR12MB1652D7A3A2B0276AC91E1E7DF77E0@BN6PR12MB1652.namprd12.prod.outlook.com>
+From: Dan Carpenter <dan.carpenter@oracle.com>
+Subject: [PATCH 1/2] drm/amdgpu: potential uninitialized variable in
+ amdgpu_vce_ring_parse_cs()
+Date: Sat, 30 Sep 2017 11:13:28 +0300
+Message-ID: <20170930081328.kher7yumqzi2vsrg@mwanda>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB1652D7A3A2B0276AC91E1E7DF77E0-/b2+HYfkarQqUD6E6FAiowdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, 'Dave Airlie' <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <kernel-janitors-owner@vger.kernel.org>
+Content-Disposition: inline
+Sender: kernel-janitors-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: David Airlie <airlied@linux.ie>, Xiangliang Yu <Xiangliang.Yu@amd.com>, Leo Liu <leo.liu@amd.com>, Frank Min <Frank.Min@amd.com>, Junwei Zhang <Jerry.Zhang@amd.com>, Chris Wilson <chris@chris-wilson.co.uk>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgQWxleCwNCg0KV2UgY2FuIHVzZSBQb2xhcmlzJ3MgUHdyVmlydXNUYWJsZSBvbiBGaWppLg0K
-U28gY2FuIHJlbW92ZSBmaWppX3B3cnZpcnVzLmgNCg0KDQoNCkJlc3QgUmVnYXJkcw0KUmV4DQoN
-Ci0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBEZXVjaGVyLCBBbGV4YW5kZXIgDQpT
-ZW50OiBGcmlkYXksIFNlcHRlbWJlciAyOSwgMjAxNyAxMToxMyBBTQ0KVG86ICdEYXZlIEFpcmxp
-ZSc7IGFtZC1nZnggbWFpbGluZyBsaXN0OyBBbGV4IERldWNoZXI7IFpodSwgUmV4DQpTdWJqZWN0
-OiBSRTogc29tZSBtb3JlIHBvd2VycGxheS9wd3IgdmlydXMgc2l6ZSByZWR1Y3Rpb24gcGF0Y2hl
-cw0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IGFtZC1nZnggW21haWx0
-bzphbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnXSBPbiBCZWhhbGYgDQo+IE9m
-IERhdmUgQWlybGllDQo+IFNlbnQ6IFRodXJzZGF5LCBTZXB0ZW1iZXIgMjgsIDIwMTcgMTA6NDQg
-UE0NCj4gVG86IGFtZC1nZnggbWFpbGluZyBsaXN0OyBBbGV4IERldWNoZXINCj4gU3ViamVjdDog
-c29tZSBtb3JlIHBvd2VycGxheS9wd3IgdmlydXMgc2l6ZSByZWR1Y3Rpb24gcGF0Y2hlcw0KPiAN
-Cj4gSSBkb24ndCB0aGluayB0aGVzZSBwYXRjaGVzIHdpbGwgbGFuZCBvbiB0aGUgbGlzdCBkdWUg
-dG8gc2l6ZS4NCj4gDQo+IGh0dHBzOi8vY2dpdC5mcmVlZGVza3RvcC5vcmcvfmFpcmxpZWQvbGlu
-dXgvbG9nLz9oPWFtZGdwdS1ub24tZGMtY2xlYW4NCj4gdXBzDQo+IA0KPiBUaGUgdG9wIDMgcGF0
-Y2hlcyBvbiB0aGF0IGJyYW5jaC4NCj4gDQo+IFRoZXNlIHJlZHVjZSB0aGUgc2l6ZSBvZiB0aGUg
-ZHJpdmVyIGJ5IGFib3V0IDYwaywgYnkgcmVkZXNpZ25pbmcgdGhlIA0KPiBwd3J2aXJ1cyB1cGxv
-YWQgY29kZSB0byB1c2UgbGVzcyBzcGFjZS4gSSBkaWQgbm90aWNlIHRoZSBmaWppIGFuZCANCj4g
-cG9sYXJpcyAxMCBhY3Jvc3MgdGhlIDYgZGF0YSBibG9ja3MgdXBsb2FkZWQsIHRoZXJlIGlzIG9u
-bHkgYSBzaW5nbGUgDQo+IGJpdCBkaWZmZXJlbnQuIFNvIGl0IG1pZ2h0IGJlIHBvc3NpYmxlIHRv
-IGZ1cnRoZXIgbWVyZ2UgdGhlc2UuDQo+IA0KPiBJJ2QgcmVhbGx5IGxpa2Ugc29tZW9uZSBmcm9t
-IHRoZSBwb3dlcm1hbmdlbWVudCBzaWRlIHRvIHRha2UgYSBsb29rIGlmIA0KPiBwb3NzaWJsZSwg
-aXQgbWlnaHQgYmUgdGhlIG9uZSBiaXQgZG9lc24ndCBtYXR0ZXIsIGFuZCB3ZSBjb3VsZCBtZXJn
-ZSANCj4gdGhlc2UgZm9yIGZpamkgYW5kIHBvbGFyaXMgYW5kIHNhdmUgYW5vdGhlciA0MGsuDQoN
-ClJleCwgY2FuIHlvdSB0YWtlIGEgbG9vaz8NCg0KVGhhbmtzLA0KDQpBbGV4DQoNCj4gDQo+IERh
-dmUuDQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+
-IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+
-IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0K
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+We shifted some code around in commit 9cca0b8e5df0 ("drm/amdgpu: move
+amdgpu_cs_sysvm_access_required into find_mapping") and now my static
+checker complains that "r" might not be initialized at the end of the
+function.  I've reviewed the code, and that seems possible, but it's
+also possible I may have missed something.
+
+Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+index b46280c1279f..2918de2f39ec 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+@@ -648,7 +648,7 @@ int amdgpu_vce_ring_parse_cs(struct amdgpu_cs_parser *p, uint32_t ib_idx)
+ 	uint32_t allocated = 0;
+ 	uint32_t tmp, handle = 0;
+ 	uint32_t *size = &tmp;
+-	int i, r, idx = 0;
++	int i, r = 0, idx = 0;
+ 
+ 	p->job->vm = NULL;
+ 	ib->gpu_addr = amdgpu_sa_bo_gpu_addr(ib->sa_bo);
