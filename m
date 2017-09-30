@@ -1,13 +1,11 @@
 From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: correct reference clock value on vega10
-Date: Sat, 30 Sep 2017 03:11:26 +0000
-Message-ID: <CY4PR12MB1687BF6E998070DCCEAD34C4FB7F0@CY4PR12MB1687.namprd12.prod.outlook.com>
-References: <1506674119-19979-1-git-send-email-Ken.Wang@amd.com>
+Subject: Recall: [PATCH] drm/amdgpu: correct reference clock value on vega10
+Date: Sat, 30 Sep 2017 03:12:49 +0000
+Message-ID: <CY4PR12MB1687AD8EE97E6415A1F04C8EFB7F0@CY4PR12MB1687.namprd12.prod.outlook.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1506674119-19979-1-git-send-email-Ken.Wang-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,31 +17,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "'amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org'" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Cc: "Wang, Ken" <Ken.Wang-5C7GfCeVMHo@public.gmane.org>
 
-UmV2aWV3ZWQtYnk6DQpSZXggWmh1IDxSZXguWmh1QGFtZC5jb20+DQoNCkJlc3QgUmVnYXJkcw0K
-UmV4DQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogYW1kLWdmeCBbbWFpbHRvOmFt
-ZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmddIE9uIEJlaGFsZiBPZiBLZW4uV2Fu
-Z0BhbWQuY29tDQpTZW50OiBGcmlkYXksIFNlcHRlbWJlciAyOSwgMjAxNyA0OjM1IFBNDQpUbzog
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCkNjOiBXYW5nLCBLZW4NClN1YmplY3Q6IFtQ
-QVRDSF0gZHJtL2FtZGdwdTogY29ycmVjdCByZWZlcmVuY2UgY2xvY2sgdmFsdWUgb24gdmVnYTEw
-DQoNCkZyb206IEtlbiBXYW5nIDxLZW4uV2FuZ0BhbWQuY29tPg0KDQpDaGFuZ2UtSWQ6IEkzNzcw
-MjkwNzVhZjFlMmUwMDJmN2NmZDc5M2RkZDU4ZDg2MTBlNDc0DQpTaWduZWQtb2ZmLWJ5OiBLZW4g
-V2FuZyA8S2VuLldhbmdAYW1kLmNvbT4NCi0tLQ0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L3NvYzE1LmMgfCAyICstDQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0
-aW9uKC0pDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5j
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYw0KaW5kZXggNzgzOTY3Ny4uNjMx
-YjFlMyAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMNCisr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMNCkBAIC0yODAsNyArMjgwLDcg
-QEAgc3RhdGljIHZvaWQgc29jMTVfaW5pdF9nb2xkZW5fcmVnaXN0ZXJzKHN0cnVjdCBhbWRncHVf
-ZGV2aWNlICphZGV2KSAgc3RhdGljIHUzMiBzb2MxNV9nZXRfeGNsayhzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSAqYWRldikgIHsNCiAJaWYgKGFkZXYtPmFzaWNfdHlwZSA9PSBDSElQX1ZFR0ExMCkNCi0J
-CXJldHVybiBhZGV2LT5jbG9jay5zcGxsLnJlZmVyZW5jZV9mcmVxLzQ7DQorCQlyZXR1cm4gMjcw
-MDA7DQogCWVsc2UNCiAJCXJldHVybiBhZGV2LT5jbG9jay5zcGxsLnJlZmVyZW5jZV9mcmVxOyAg
-fQ0KLS0NCjIuNy40DQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fDQphbWQtZ2Z4IG1haWxpbmcgbGlzdA0KYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcNCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Wmh1LCBSZXggd291bGQgbGlrZSB0byByZWNhbGwgdGhlIG1lc3NhZ2UsICJbUEFUQ0hdIGRybS9h
+bWRncHU6IGNvcnJlY3QgcmVmZXJlbmNlIGNsb2NrIHZhbHVlIG9uIHZlZ2ExMCIuCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
+aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
