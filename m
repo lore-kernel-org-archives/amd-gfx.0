@@ -1,13 +1,17 @@
-From: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 4/4] drm/amd/powerplay: get raven sclk and mclk levels
-Date: Sat, 30 Sep 2017 09:10:18 +0800
-Message-ID: <1506733818-4712-4-git-send-email-evan.quan@amd.com>
-References: <1506733818-4712-1-git-send-email-evan.quan@amd.com>
+From: Chunming Zhou <zhoucm1-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/3] drm/syncobj: extract two helpers from
+ drm_syncobj_create
+Date: Sat, 30 Sep 2017 09:55:21 +0800
+Message-ID: <53eb9f85-e57f-fe8b-8bfb-967db2370c28@amd.com>
+References: <1505248934-1819-1-git-send-email-maraeo@gmail.com>
+ <4ae21aee-0b51-8338-b205-25d8910e2b86@amd.com>
+ <CAAxE2A42G4-eD4x6VunDe4rW2c_GuaChn0Df+HE7wbvQYK0QFA@mail.gmail.com>
+ <CAAxE2A6ecZnArHSu8P_DuHPOGhz0+6TfXtQshKWvhU1=1V4Lyg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="------------5E4E7815664D7D694DF0C769"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1506733818-4712-1-git-send-email-evan.quan-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CAAxE2A6ecZnArHSu8P_DuHPOGhz0+6TfXtQshKWvhU1=1V4Lyg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,47 +22,203 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, Jerry.Zhang-5C7GfCeVMHo@public.gmane.org, Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Q2hhbmdlLUlkOiBJNDBmYTY5OGNkOWEyNWRmNDNhYTRiZjQ3NmM0YWEwYThiMDQzZWRmOQpTaWdu
-ZWQtb2ZmLWJ5OiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3J2X2h3bWdyLmMgfCA0OCArKysrKysrKysrKysrKysr
-KysrKysrKysrLQogMSBmaWxlIGNoYW5nZWQsIDQ3IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24o
-LSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9ydl9o
-d21nci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvcnZfaHdtZ3IuYwpp
-bmRleCBhMjBhNmZlLi41MTM1MzI4IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bv
-d2VycGxheS9od21nci9ydl9od21nci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJw
-bGF5L2h3bWdyL3J2X2h3bWdyLmMKQEAgLTYxOSw3ICs2MTksNTMgQEAgc3RhdGljIGludCBydl9m
-b3JjZV9jbG9ja19sZXZlbChzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLAogc3RhdGljIGludCBydl9w
-cmludF9jbG9ja19sZXZlbHMoc3RydWN0IHBwX2h3bWdyICpod21nciwKIAkJZW51bSBwcF9jbG9j
-a190eXBlIHR5cGUsIGNoYXIgKmJ1ZikKIHsKLQlyZXR1cm4gMDsKKwlzdHJ1Y3QgcnZfaHdtZ3Ig
-KmRhdGEgPSAoc3RydWN0IHJ2X2h3bWdyICopKGh3bWdyLT5iYWNrZW5kKTsKKwlzdHJ1Y3QgcnZf
-dm9sdGFnZV9kZXBlbmRlbmN5X3RhYmxlICptY2xrX3RhYmxlID0KKwkJCWRhdGEtPmNsb2NrX3Zv
-bF9pbmZvLnZkZF9kZXBfb25fZmNsazsKKwlpbnQgaSwgbm93LCBzaXplID0gMDsKKworCXN3aXRj
-aCAodHlwZSkgeworCWNhc2UgUFBfU0NMSzoKKwkJUFBfQVNTRVJUX1dJVEhfQ09ERSghc211bV9z
-ZW5kX21zZ190b19zbWMoaHdtZ3ItPnNtdW1nciwKKwkJCQlQUFNNQ19NU0dfR2V0R2Z4Y2xrRnJl
-cXVlbmN5KSwKKwkJCQkiQXR0ZW1wdCB0byBnZXQgY3VycmVudCBHRlhDTEsgRmFpbGVkISIsCisJ
-CQkJcmV0dXJuIC0xKTsKKwkJUFBfQVNTRVJUX1dJVEhfQ09ERSghcnZfcmVhZF9hcmdfZnJvbV9z
-bWMoaHdtZ3ItPnNtdW1nciwKKwkJCQkmbm93KSwKKwkJCQkiQXR0ZW1wdCB0byBnZXQgY3VycmVu
-dCBHRlhDTEsgRmFpbGVkISIsCisJCQkJcmV0dXJuIC0xKTsKKworCQlzaXplICs9IHNwcmludGYo
-YnVmICsgc2l6ZSwgIjA6ICV1TWh6ICVzXG4iLAorCQkJCWRhdGEtPmdmeF9taW5fZnJlcV9saW1p
-dCAvIDEwMCwKKwkJCQkoKGRhdGEtPmdmeF9taW5fZnJlcV9saW1pdCAvIDEwMCkKKwkJCQkgPT0g
-bm93KSA/ICIqIiA6ICIiKTsKKwkJc2l6ZSArPSBzcHJpbnRmKGJ1ZiArIHNpemUsICIxOiAldU1o
-eiAlc1xuIiwKKwkJCQlkYXRhLT5nZnhfbWF4X2ZyZXFfbGltaXQgLyAxMDAsCisJCQkJKChkYXRh
-LT5nZnhfbWF4X2ZyZXFfbGltaXQgLyAxMDApCisJCQkJID09IG5vdykgPyAiKiIgOiAiIik7CisJ
-CWJyZWFrOworCWNhc2UgUFBfTUNMSzoKKwkJUFBfQVNTRVJUX1dJVEhfQ09ERSghc211bV9zZW5k
-X21zZ190b19zbWMoaHdtZ3ItPnNtdW1nciwKKwkJCQlQUFNNQ19NU0dfR2V0RmNsa0ZyZXF1ZW5j
-eSksCisJCQkJIkF0dGVtcHQgdG8gZ2V0IGN1cnJlbnQgTUVNQ0xLIEZhaWxlZCEiLAorCQkJCXJl
-dHVybiAtMSk7CisJCVBQX0FTU0VSVF9XSVRIX0NPREUoIXJ2X3JlYWRfYXJnX2Zyb21fc21jKGh3
-bWdyLT5zbXVtZ3IsCisJCQkJJm5vdyksCisJCQkJIkF0dGVtcHQgdG8gZ2V0IGN1cnJlbnQgTUVN
-Q0xLIEZhaWxlZCEiLAorCQkJCXJldHVybiAtMSk7CisKKwkJZm9yIChpID0gMDsgaSA8IG1jbGtf
-dGFibGUtPmNvdW50OyBpKyspCisJCQlzaXplICs9IHNwcmludGYoYnVmICsgc2l6ZSwgIiVkOiAl
-dU1oeiAlc1xuIiwKKwkJCQkJaSwKKwkJCQkJbWNsa190YWJsZS0+ZW50cmllc1tpXS5jbGsgLyAx
-MDAsCisJCQkJCSgobWNsa190YWJsZS0+ZW50cmllc1tpXS5jbGsgLyAxMDApCisJCQkJCSA9PSBu
-b3cpID8gIioiIDogIiIpOworCQlicmVhazsKKwlkZWZhdWx0OgorCQlicmVhazsKKwl9CisKKwly
-ZXR1cm4gc2l6ZTsKIH0KIAogc3RhdGljIGludCBydl9nZXRfcGVyZm9ybWFuY2VfbGV2ZWwoc3Ry
-dWN0IHBwX2h3bWdyICpod21nciwgY29uc3Qgc3RydWN0IHBwX2h3X3Bvd2VyX3N0YXRlICpzdGF0
-ZSwKLS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--------------5E4E7815664D7D694DF0C769
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+
+My mean is like the attached, I revert part of yours.
+
+Regards,
+
+David zhou
+
+
+On 2017年09月29日 22:15, Marek Olšák wrote:
+> On Fri, Sep 29, 2017 at 4:13 PM, Marek Olšák <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+>> On Fri, Sep 29, 2017 at 4:44 AM, Chunming Zhou <zhoucm1-5C7GfCeVMHo@public.gmane.org> wrote:
+>>>
+>>> On 2017年09月13日 04:42, Marek Olšák wrote:
+>>>> From: Marek Olšák <marek.olsak-5C7GfCeVMHo@public.gmane.org>
+>>>>
+>>>> For amdgpu.
+>>>>
+>>>> drm_syncobj_create is renamed to drm_syncobj_create_as_handle, and new
+>>>> helpers drm_syncobj_create and drm_syncobj_get_handle are added.
+>>>>
+>>>> Signed-off-by: Marek Olšák <marek.olsak-5C7GfCeVMHo@public.gmane.org>
+>>>> ---
+>>>>    drivers/gpu/drm/drm_syncobj.c | 49
+>>>> +++++++++++++++++++++++++++++++++++++++----
+>>>>    include/drm/drm_syncobj.h     |  4 ++++
+>>>>    2 files changed, 49 insertions(+), 4 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+>>>> index 0422b8c..0bb1741 100644
+>>>> --- a/drivers/gpu/drm/drm_syncobj.c
+>>>> +++ b/drivers/gpu/drm/drm_syncobj.c
+>>>> @@ -262,8 +262,14 @@ void drm_syncobj_free(struct kref *kref)
+>>>>    }
+>>>>    EXPORT_SYMBOL(drm_syncobj_free);
+>>>>    -static int drm_syncobj_create(struct drm_file *file_private,
+>>>> -                             u32 *handle, uint32_t flags)
+>>> You can add a new parameter for passing dma fence, then in patch3, you can
+>>> directly use it for AMDGPU_FENCE_TO HANDLE_GET_SYNCOBJ.
+>>>
+>>> otherwise the set looks good to me.
+>> Sorry I just pushed this.
+> Actually, you commented on a deleted line. The function already has
+> dma_fence among the parameters.
+>
+> Marek
+
+
+--------------5E4E7815664D7D694DF0C769
+Content-Type: text/x-patch;
+	name="0001-drm-Don-t-split-drm_syncobj_create.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="0001-drm-Don-t-split-drm_syncobj_create.patch"
+
+>From a34c466f4a8617c18bf191d83bff3a3382166b00 Mon Sep 17 00:00:00 2001
+From: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+Date: Sat, 30 Sep 2017 09:53:53 +0800
+Subject: [PATCH] drm: Don't split drm_syncobj_create
+
+Change-Id: Icc6e4d8e94236675d6267d211e53698834d29869
+Signed-off-by: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c |  6 +----
+ drivers/gpu/drm/drm_syncobj.c          | 42 +++++-----------------------------
+ include/drm/drm_syncobj.h              |  7 +++---
+ 3 files changed, 10 insertions(+), 45 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index ab83dfc..882becc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1351,14 +1351,10 @@ int amdgpu_cs_fence_to_handle_ioctl(struct drm_device *dev, void *data,
+ 
+ 	switch (info->in.what) {
+ 	case AMDGPU_FENCE_TO_HANDLE_GET_SYNCOBJ:
+-		r = drm_syncobj_create(&syncobj, 0, fence);
++		r = drm_syncobj_create(filp, fence, &info->out.handle, 0);
+ 		dma_fence_put(fence);
+ 		if (r)
+ 			return r;
+-		r = drm_syncobj_get_handle(filp, syncobj, &info->out.handle);
+-		drm_syncobj_put(syncobj);
+-		return r;
+-
+ 	case AMDGPU_FENCE_TO_HANDLE_GET_SYNCOBJ_FD:
+ 		r = drm_syncobj_create(&syncobj, 0, fence);
+ 		dma_fence_put(fence);
+diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+index 62adc7a..28e1463 100644
+--- a/drivers/gpu/drm/drm_syncobj.c
++++ b/drivers/gpu/drm/drm_syncobj.c
+@@ -268,8 +268,9 @@ EXPORT_SYMBOL(drm_syncobj_free);
+  * @flags: DRM_SYNCOBJ_* flags
+  * @fence: if non-NULL, the syncobj will represent this fence
+  */
+-int drm_syncobj_create(struct drm_syncobj **out_syncobj, uint32_t flags,
+-		       struct dma_fence *fence)
++int drm_syncobj_create(struct drm_file *file_private,
++		       struct dma_fence *fence,
++		       u32 *handle, uint32_t flags)
+ {
+ 	int ret;
+ 	struct drm_syncobj *syncobj;
+@@ -293,22 +294,6 @@ int drm_syncobj_create(struct drm_syncobj **out_syncobj, uint32_t flags,
+ 	if (fence)
+ 		drm_syncobj_replace_fence(syncobj, fence);
+ 
+-	*out_syncobj = syncobj;
+-	return 0;
+-}
+-EXPORT_SYMBOL(drm_syncobj_create);
+-
+-/**
+- * drm_syncobj_get_handle - get a handle from a syncobj
+- */
+-int drm_syncobj_get_handle(struct drm_file *file_private,
+-			   struct drm_syncobj *syncobj, u32 *handle)
+-{
+-	int ret;
+-
+-	/* take a reference to put in the idr */
+-	drm_syncobj_get(syncobj);
+-
+ 	idr_preload(GFP_KERNEL);
+ 	spin_lock(&file_private->syncobj_table_lock);
+ 	ret = idr_alloc(&file_private->syncobj_idr, syncobj, 1, 0, GFP_NOWAIT);
+@@ -324,22 +309,7 @@ int drm_syncobj_get_handle(struct drm_file *file_private,
+ 	*handle = ret;
+ 	return 0;
+ }
+-EXPORT_SYMBOL(drm_syncobj_get_handle);
+-
+-static int drm_syncobj_create_as_handle(struct drm_file *file_private,
+-					u32 *handle, uint32_t flags)
+-{
+-	int ret;
+-	struct drm_syncobj *syncobj;
+-
+-	ret = drm_syncobj_create(&syncobj, flags, NULL);
+-	if (ret)
+-		return ret;
+-
+-	ret = drm_syncobj_get_handle(file_private, syncobj, handle);
+-	drm_syncobj_put(syncobj);
+-	return ret;
+-}
++EXPORT_SYMBOL(drm_syncobj_create);
+ 
+ static int drm_syncobj_destroy(struct drm_file *file_private,
+ 			       u32 handle)
+@@ -568,8 +538,8 @@ drm_syncobj_create_ioctl(struct drm_device *dev, void *data,
+ 	if (args->flags & ~DRM_SYNCOBJ_CREATE_SIGNALED)
+ 		return -EINVAL;
+ 
+-	return drm_syncobj_create_as_handle(file_private,
+-					    &args->handle, args->flags);
++	return drm_syncobj_create(file_private, NULL,
++				  &args->handle, args->flags);
+ }
+ 
+ int
+diff --git a/include/drm/drm_syncobj.h b/include/drm/drm_syncobj.h
+index 43e2f38..4e3025e 100644
+--- a/include/drm/drm_syncobj.h
++++ b/include/drm/drm_syncobj.h
+@@ -136,10 +136,9 @@ int drm_syncobj_find_fence(struct drm_file *file_private,
+ 			   u32 handle,
+ 			   struct dma_fence **fence);
+ void drm_syncobj_free(struct kref *kref);
+-int drm_syncobj_create(struct drm_syncobj **out_syncobj, uint32_t flags,
+-		       struct dma_fence *fence);
+-int drm_syncobj_get_handle(struct drm_file *file_private,
+-			   struct drm_syncobj *syncobj, u32 *handle);
++int drm_syncobj_create(struct drm_file *file_private,
++		       struct dma_fence *fence,
++		       u32 *handle, uint32_t flags);
+ int drm_syncobj_get_fd(struct drm_syncobj *syncobj, int *p_fd);
+ 
+ #endif
+-- 
+2.7.4
+
+
+--------------5E4E7815664D7D694DF0C769
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--------------5E4E7815664D7D694DF0C769--
