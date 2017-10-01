@@ -1,49 +1,40 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amd/powerplay: fix a logic error in pp_hw_init
-Date: Sun, 1 Oct 2017 17:24:20 -0400
-Message-ID: <CADnq5_MXVgdMY3p9Cjn6acOyJLCEYyj61MnP1nqtYE1xe+7Cvw@mail.gmail.com>
-References: <1506739820-28659-1-git-send-email-Rex.Zhu@amd.com>
+From: "Tobin C. Harding" <me@tobin.cc>
+Subject: Re: [PATCH 00/18] use ARRAY_SIZE macro
+Date: Mon, 2 Oct 2017 09:01:31 +1100
+Message-ID: <20171001220131.GA11812@eros>
+References: <20171001193101.8898-1-jeremy.lefaure@lse.epita.fr>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1506739820-28659-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Return-path: <ecryptfs-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20171001193101.8898-1-jeremy.lefaure@lse.epita.fr>
+Sender: ecryptfs-owner@vger.kernel.org
+To: =?iso-8859-1?B?Suly6W15?= Lefaure <jeremy.lefaure@lse.epita.fr>
+Cc: alsa-devel@alsa-project.org, nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, dm-devel@redhat.com, brcm80211-dev-list@cypress.com, devel@driverdev.osuosl.org, linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Jason Gunthorpe <jgunthorpe@obsidianresearch.com>, linux-acpi@vger.kernel.org, linux-video@atrey.karlin.mff.cuni.cz, intel-wired-lan@lists.osuosl.org, linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org, ecryptfs@vger.kernel.org, linux-nfs@vger.kernel.org, linux-raid@vger.kernel.org, openipmi-developer@lists.sourceforge.net, intel-gvt-dev@lists.freedesktop.org, devel@acpica.org, brcm80211-dev-list.pdl@broadcom.com, netdev@vger.kernel.org, linux-usb@vger.kernel.org, linux-wireless@vger.kernel.org, linux-kernel
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gRnJpLCBTZXAgMjksIDIwMTcgYXQgMTA6NTAgUE0sIFJleCBaaHUgPFJleC5aaHVAYW1kLmNv
-bT4gd3JvdGU6Cj4gQ2hhbmdlLUlkOiBJODYwN2U1MWEwZTQxNTNiMzYyNjhlMmJjZjRmZTU5NGMy
-YmZiZmUyMwo+IFNpZ25lZC1vZmYtYnk6IFJleCBaaHUgPFJleC5aaHVAYW1kLmNvbT4KCkFja2Vk
-LWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cgo+IC0tLQo+ICBk
-cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRfcG93ZXJwbGF5LmMgfCA5ICsrKystLS0t
-LQo+ICAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCA1IGRlbGV0aW9ucygtKQo+Cj4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZF9wb3dlcnBsYXku
-YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZF9wb3dlcnBsYXkuYwo+IGluZGV4
-IGRmNzBjYzcuLjU4NmNhYjcgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
-cnBsYXkvYW1kX3Bvd2VycGxheS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
-YXkvYW1kX3Bvd2VycGxheS5jCj4gQEAgLTE2MywxMiArMTYzLDExIEBAIHN0YXRpYyBpbnQgcHBf
-aHdfaW5pdCh2b2lkICpoYW5kbGUpCj4gICAgICAgICAgICAgICAgIH0KPiAgICAgICAgICAgICAg
-ICAgaWYgKHJldCA9PSBQUF9EUE1fRElTQUJMRUQpCj4gICAgICAgICAgICAgICAgICAgICAgICAg
-Z290byBleGl0Owo+ICsgICAgICAgICAgICAgICByZXQgPSBod21ncl9od19pbml0KHBwX2hhbmRs
-ZSk7Cj4gKyAgICAgICAgICAgICAgIGlmIChyZXQpCj4gKyAgICAgICAgICAgICAgICAgICAgICAg
-Z290byBleGl0Owo+ICAgICAgICAgfQo+IC0KPiAtICAgICAgIHJldCA9IGh3bWdyX2h3X2luaXQo
-cHBfaGFuZGxlKTsKPiAtICAgICAgIGlmIChyZXQpCj4gLSAgICAgICAgICAgICAgIGdvdG8gZXhp
-dDsKPiAtICAgICAgIHJldHVybiAwOwo+ICsgICAgICAgcmV0dXJuIHJldDsKPiAgZXhpdDoKPiAg
-ICAgICAgIHBwX2hhbmRsZS0+cG1fZW4gPSAwOwo+ICAgICAgICAgY2dzX25vdGlmeV9kcG1fZW5h
-YmxlZChod21nci0+ZGV2aWNlLCBmYWxzZSk7Cj4gLS0KPiAxLjkuMQo+Cj4gX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlz
-dAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vYW1kLWdmeAo=
+On Sun, Oct 01, 2017 at 03:30:38PM -0400, Jérémy Lefaure wrote:
+> Hi everyone,
+> Using ARRAY_SIZE improves the code readability. I used coccinelle (I
+> made a change to the array_size.cocci file [1]) to find several places
+> where ARRAY_SIZE could be used instead of other macros or sizeof
+> division.
+> 
+> I tried to divide the changes into a patch per subsystem (excepted for
+> staging). If one of the patch should be split into several patches, let
+> me know.
+> 
+> In order to reduce the size of the To: and Cc: lines, each patch of the
+> series is sent only to the maintainers and lists concerned by the patch.
+> This cover letter is sent to every list concerned by this series.
+
+Why don't you just send individual patches for each subsystem? I'm not a maintainer but I don't see
+how any one person is going to be able to apply this whole series, it is making it hard for
+maintainers if they have to pick patches out from among the series (if indeed any will bother
+doing that).
+
+I get that this will be more work for you but AFAIK we are optimizing for maintainers.
+
+Good luck,
+Tobin.
