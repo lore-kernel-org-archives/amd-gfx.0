@@ -1,69 +1,52 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 12/12] drm/amdgpu/sriov:no shadow buffer recovery
-Date: Sun, 1 Oct 2017 11:36:30 +0200
-Message-ID: <e767c6f2-4050-c697-2075-c3d744e6b379@gmail.com>
-References: <1506751432-21789-1-git-send-email-Monk.Liu@amd.com>
- <1506751432-21789-13-git-send-email-Monk.Liu@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Lefaure?=
+        <jeremy.lefaure@lse.epita.fr>
+Subject: [PATCH 00/18] use ARRAY_SIZE macro
+Date: Sun,  1 Oct 2017 15:30:38 -0400
+Message-ID: <20171001193101.8898-1-jeremy.lefaure@lse.epita.fr>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1506751432-21789-13-git-send-email-Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+Cc: alsa-devel@alsa-project.org, amd-gfx@lists.freedesktop.org, brcm80211-dev-list@cypress.com, brcm80211-dev-list.pdl@broadcom.com, devel@acpica.org, devel@driverdev.osuosl.org, dm-devel@redhat.com, dri-devel@lists.freedesktop.org, ecryptfs@vger.kernel.org, intel-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org, intel-wired-lan@lists.osuosl.org, Jason Gunthorpe <jgunthorpe@obsidianresearch.com>, linux-acpi@vger.kernel.org, linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, linux-nfs@vger.kernel.org, linux-raid@vger.kernel.org, linux-rdma@vger.kernel.org, linux-scsi@vger.kernel.org, linux-usb@vger.kernel.org, linux-video@atrey.karlin.mff.cuni.cz, linux-wireless@vger.kernel.org, netdev@vger.kernel.org, nouveau@lists.
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMzAuMDkuMjAxNyB1bSAwODowMyBzY2hyaWViIE1vbmsgTGl1Ogo+IDEsIHdlIGhhdmUgZGVh
-ZGxvY2sgdW5yZXNsb3ZlZCBiZXR3ZWVuIHNoYWRvdyBibyByZWNvdmVyeQo+IGFuZCBjdHhfZG9f
-cmVsZWFzZSwKPgo+IDIsIGZvciBsb29zZSBtb2RlIGdwdSByZXNldCB3ZSBhbHdheXMgYXNzdW1l
-IFZSQU0gbm90IGxvc3QKPiBzbyB0aGVyZSBpcyBubyBuZWVkIHRvIGRvIHRoYXQgZnJvbSBiZWdp
-bmluZwo+Cj4gQ2hhbmdlLUlkOiBJNTI1OWY5ZDk0MzIzOWJkMWZhMmU0NWViNDQ2ZWYwNTMyOTlm
-YmZiMQo+IFNpZ25lZC1vZmYtYnk6IE1vbmsgTGl1IDxNb25rLkxpdUBhbWQuY29tPgoKTkFLLCBl
-dmVuIHdoZW4gVlJBTSBpc3QgbG9zdCB3ZSBtdXN0IHJlc3RvcmUgdGhlIHBhZ2UgdGFibGVzIG9y
-IApvdGhlcndpc2Ugbm8gcHJvY2VzcyB3b3VsZCBiZSBhYmxlIHRvIHByb2NlZWQuCgpSZWdhcmRz
-LApDaHJpc3RpYW4uCgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2RldmljZS5jIHwgMjkgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KPiAgIDEgZmlsZSBj
-aGFuZ2VkLCAyOSBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfZGV2aWNlLmMKPiBpbmRleCBjM2YxMGI1Li44YWU3YTJjIDEwMDY0NAo+IC0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+ICsrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+IEBAIC0yODQwLDkgKzI4NDAsNyBA
-QCBpbnQgYW1kZ3B1X3NyaW92X2dwdV9yZXNldChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwg
-c3RydWN0IGFtZGdwdV9qb2IgKmpvYikKPiAgIHsKPiAgIAlpbnQgaSwgaiwgciA9IDA7Cj4gICAJ
-aW50IHJlc2NoZWQ7Cj4gLQlzdHJ1Y3QgYW1kZ3B1X2JvICpibywgKnRtcDsKPiAgIAlzdHJ1Y3Qg
-YW1kZ3B1X3JpbmcgKnJpbmc7Cj4gLQlzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZSA9IE5VTEwsICpu
-ZXh0ID0gTlVMTDsKPiAgIAo+ICAgCS8qIG90aGVyIHRocmVhZCBpcyBhbHJlYWR5IGludG8gdGhl
-IGdwdSByZXNldCBzbyBqdXN0IHF1aXQgYW5kIGNvbWUgbGF0ZXIgKi8KPiAgIAlpZiAoIWF0b21p
-Y19hZGRfdW5sZXNzKCZhZGV2LT5pbl9zcmlvdl9yZXNldCwgMSwgMSkpCj4gQEAgLTI5MDksMzMg
-KzI5MDcsNiBAQCBpbnQgYW1kZ3B1X3NyaW92X2dwdV9yZXNldChzdHJ1Y3QgYW1kZ3B1X2Rldmlj
-ZSAqYWRldiwgc3RydWN0IGFtZGdwdV9qb2IgKmpvYikKPiAgIAkvKiByZWxlYXNlIGZ1bGwgY29u
-dHJvbCBvZiBHUFUgYWZ0ZXIgaWIgdGVzdCAqLwo+ICAgCWFtZGdwdV92aXJ0X3JlbGVhc2VfZnVs
-bF9ncHUoYWRldiwgdHJ1ZSk7Cj4gICAKPiAtCURSTV9JTkZPKCJyZWNvdmVyIHZyYW0gYm8gZnJv
-bSBzaGFkb3dcbiIpOwo+IC0KPiAtCXJpbmcgPSBhZGV2LT5tbWFuLmJ1ZmZlcl9mdW5jc19yaW5n
-Owo+IC0JbXV0ZXhfbG9jaygmYWRldi0+c2hhZG93X2xpc3RfbG9jayk7Cj4gLQlsaXN0X2Zvcl9l
-YWNoX2VudHJ5X3NhZmUoYm8sIHRtcCwgJmFkZXYtPnNoYWRvd19saXN0LCBzaGFkb3dfbGlzdCkg
-ewo+IC0JCW5leHQgPSBOVUxMOwo+IC0JCWFtZGdwdV9yZWNvdmVyX3ZyYW1fZnJvbV9zaGFkb3co
-YWRldiwgcmluZywgYm8sICZuZXh0KTsKPiAtCQlpZiAoZmVuY2UpIHsKPiAtCQkJciA9IGRtYV9m
-ZW5jZV93YWl0KGZlbmNlLCBmYWxzZSk7Cj4gLQkJCWlmIChyKSB7Cj4gLQkJCQlXQVJOKHIsICJy
-ZWNvdmVyeSBmcm9tIHNoYWRvdyBpc24ndCBjb21wbGV0ZWRcbiIpOwo+IC0JCQkJYnJlYWs7Cj4g
-LQkJCX0KPiAtCQl9Cj4gLQo+IC0JCWRtYV9mZW5jZV9wdXQoZmVuY2UpOwo+IC0JCWZlbmNlID0g
-bmV4dDsKPiAtCX0KPiAtCW11dGV4X3VubG9jaygmYWRldi0+c2hhZG93X2xpc3RfbG9jayk7Cj4g
-LQo+IC0JaWYgKGZlbmNlKSB7Cj4gLQkJciA9IGRtYV9mZW5jZV93YWl0KGZlbmNlLCBmYWxzZSk7
-Cj4gLQkJaWYgKHIpCj4gLQkJCVdBUk4ociwgInJlY292ZXJ5IGZyb20gc2hhZG93IGlzbid0IGNv
-bXBsZXRlZFxuIik7Cj4gLQl9Cj4gLQlkbWFfZmVuY2VfcHV0KGZlbmNlKTsKPiAtCj4gICAJZm9y
-IChpID0gajsgaSA8IGogKyBBTURHUFVfTUFYX1JJTkdTOyArK2kpIHsKPiAgIAkJcmluZyA9IGFk
-ZXYtPnJpbmdzW2kgJSBBTURHUFVfTUFYX1JJTkdTXTsKPiAgIAkJaWYgKCFyaW5nIHx8ICFyaW5n
-LT5zY2hlZC50aHJlYWQpCgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-Cg==
+Hi everyone,
+Using ARRAY_SIZE improves the code readability. I used coccinelle (I
+made a change to the array_size.cocci file [1]) to find several places
+where ARRAY_SIZE could be used instead of other macros or sizeof
+division.
+
+I tried to divide the changes into a patch per subsystem (excepted for
+staging). If one of the patch should be split into several patches, let
+me know.
+
+In order to reduce the size of the To: and Cc: lines, each patch of the
+series is sent only to the maintainers and lists concerned by the patch.
+This cover letter is sent to every list concerned by this series.
+
+This series is based on linux-next next-20170929. Each patch has been
+tested by building the relevant files with W=1.
+
+This series contains the following patches:
+[PATCH 01/18] sound: use ARRAY_SIZE
+[PATCH 02/18] tracing/filter: use ARRAY_SIZE
+[PATCH 03/18] media: use ARRAY_SIZE
+[PATCH 04/18] IB/mlx5: Use ARRAY_SIZE
+[PATCH 05/18] net: use ARRAY_SIZE
+[PATCH 06/18] drm: use ARRAY_SIZE
+[PATCH 07/18] scsi: bfa: use ARRAY_SIZE
+[PATCH 08/18] ecryptfs: use ARRAY_SIZE
+[PATCH 09/18] nfsd: use ARRAY_SIZE
+[PATCH 10/18] orangefs: use ARRAY_SIZE
+[PATCH 11/18] dm space map metadata: use ARRAY_SIZE
+[PATCH 12/18] x86: use ARRAY_SIZE
+[PATCH 13/18] tpm: use ARRAY_SIZE
+[PATCH 14/18] ipmi: use ARRAY_SIZE
+[PATCH 15/18] acpi: use ARRAY_SIZE
+[PATCH 16/18] media: staging: atomisp: use ARRAY_SIZE
+[PATCH 17/18] staging: rtl8723bs: use ARRAY_SIZE
+[PATCH 18/18] staging: rtlwifi: use ARRAY_SIZE
+
+
+[1]: https://lkml.org/lkml/2017/9/13/689
