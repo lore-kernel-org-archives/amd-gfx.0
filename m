@@ -1,151 +1,60 @@
-From: Zhi Wang <zhi.wang.linux@gmail.com>
-Subject: Re: [PATCH 00/18] use ARRAY_SIZE macro
-Date: Mon, 2 Oct 2017 20:05:41 +0300
-Message-ID: <CAN=xO46tCDaaHRdaDmXgaJ+ub3nfEWvZLnMeih+3C4zcxoU-0Q@mail.gmail.com>
-References: <20171001193101.8898-1-jeremy.lefaure@lse.epita.fr>
+From: James Zhu <jamesz-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 0/9][drm-next] Add uvd6.3 HEVC encode feature in amdgpu
+Date: Mon, 2 Oct 2017 12:20:07 -0400
+Message-ID: <d89827c7-3ba3-c231-e376-aeb324c0886d@amd.com>
+References: <1506953594-26977-1-git-send-email-James.Zhu@amd.com>
+ <bc659479-f331-4a49-1023-3043b17bf09a@gmail.com>
+ <347864bb-ae8a-4e67-f560-0f110ca906c1@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0646744013=="
-Return-path: <intel-gfx-bounces@lists.freedesktop.org>
-In-Reply-To: <20171001193101.8898-1-jeremy.lefaure@lse.epita.fr>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/intel-gfx>,
- <mailto:intel-gfx-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/intel-gfx>
-List-Post: <mailto:intel-gfx@lists.freedesktop.org>
-List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
- <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: intel-gfx-bounces@lists.freedesktop.org
-Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-To: =?UTF-8?B?SsOpcsOpbXkgTGVmYXVyZQ==?= <jeremy.lefaure@lse.epita.fr>
-Cc: alsa-devel@alsa-project.org, nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, dm-devel@redhat.com, brcm80211-dev-list@cypress.com, devel@driverdev.osuosl.org, linux-scsi@vger.kernel.org, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Jason Gunthorpe <jgunthorpe@obsidianresearch.com>, linux-acpi@vger.kernel.org, linux-video@atrey.karlin.mff.cuni.cz, intel-wired-lan@lists.osuosl.org, linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org, ecryptfs@vger.kernel.org, linux-nfs@vger.kernel.org, linux-raid@vger.kernel.org, openipmi-developer@lists.sourceforge.net, intel-gvt-dev@lists.freedesktop.org, devel@acpica.org, brcm80211-dev-list.pdl@broadcom.com, netdev@vger.kernel.org, linux-usb@vger.kernel.org, linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, linux-integrity@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
-
---===============0646744013==
-Content-Type: multipart/alternative; boundary="001a11c1601e721592055a9362af"
-
---001a11c1601e721592055a9362af
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Thanks for the patch! :)
-
-2017-10-01 22:30 GMT+03:00 J=C3=A9r=C3=A9my Lefaure <jeremy.lefaure@lse.epi=
-ta.fr>:
-
-> Hi everyone,
-> Using ARRAY_SIZE improves the code readability. I used coccinelle (I
-> made a change to the array_size.cocci file [1]) to find several places
-> where ARRAY_SIZE could be used instead of other macros or sizeof
-> division.
->
-> I tried to divide the changes into a patch per subsystem (excepted for
-> staging). If one of the patch should be split into several patches, let
-> me know.
->
-> In order to reduce the size of the To: and Cc: lines, each patch of the
-> series is sent only to the maintainers and lists concerned by the patch.
-> This cover letter is sent to every list concerned by this series.
->
-> This series is based on linux-next next-20170929. Each patch has been
-> tested by building the relevant files with W=3D1.
->
-> This series contains the following patches:
-> [PATCH 01/18] sound: use ARRAY_SIZE
-> [PATCH 02/18] tracing/filter: use ARRAY_SIZE
-> [PATCH 03/18] media: use ARRAY_SIZE
-> [PATCH 04/18] IB/mlx5: Use ARRAY_SIZE
-> [PATCH 05/18] net: use ARRAY_SIZE
-> [PATCH 06/18] drm: use ARRAY_SIZE
-> [PATCH 07/18] scsi: bfa: use ARRAY_SIZE
-> [PATCH 08/18] ecryptfs: use ARRAY_SIZE
-> [PATCH 09/18] nfsd: use ARRAY_SIZE
-> [PATCH 10/18] orangefs: use ARRAY_SIZE
-> [PATCH 11/18] dm space map metadata: use ARRAY_SIZE
-> [PATCH 12/18] x86: use ARRAY_SIZE
-> [PATCH 13/18] tpm: use ARRAY_SIZE
-> [PATCH 14/18] ipmi: use ARRAY_SIZE
-> [PATCH 15/18] acpi: use ARRAY_SIZE
-> [PATCH 16/18] media: staging: atomisp: use ARRAY_SIZE
-> [PATCH 17/18] staging: rtl8723bs: use ARRAY_SIZE
-> [PATCH 18/18] staging: rtlwifi: use ARRAY_SIZE
->
->
-> [1]: https://lkml.org/lkml/2017/9/13/689
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
->
-
---001a11c1601e721592055a9362af
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Thanks for the patch! :)<div class=3D"gmail_extra"><br><di=
-v class=3D"gmail_quote">2017-10-01 22:30 GMT+03:00 J=C3=A9r=C3=A9my Lefaure=
- <span dir=3D"ltr">&lt;<a href=3D"mailto:jeremy.lefaure@lse.epita.fr" targe=
-t=3D"_blank">jeremy.lefaure@lse.epita.fr</a>&gt;</span>:<br><blockquote cla=
-ss=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;pa=
-dding-left:1ex">Hi everyone,<br>
-Using ARRAY_SIZE improves the code readability. I used coccinelle (I<br>
-made a change to the array_size.cocci file [1]) to find several places<br>
-where ARRAY_SIZE could be used instead of other macros or sizeof<br>
-division.<br>
-<br>
-I tried to divide the changes into a patch per subsystem (excepted for<br>
-staging). If one of the patch should be split into several patches, let<br>
-me know.<br>
-<br>
-In order to reduce the size of the To: and Cc: lines, each patch of the<br>
-series is sent only to the maintainers and lists concerned by the patch.<br=
->
-This cover letter is sent to every list concerned by this series.<br>
-<br>
-This series is based on linux-next next-20170929. Each patch has been<br>
-tested by building the relevant files with W=3D1.<br>
-<br>
-This series contains the following patches:<br>
-[PATCH 01/18] sound: use ARRAY_SIZE<br>
-[PATCH 02/18] tracing/filter: use ARRAY_SIZE<br>
-[PATCH 03/18] media: use ARRAY_SIZE<br>
-[PATCH 04/18] IB/mlx5: Use ARRAY_SIZE<br>
-[PATCH 05/18] net: use ARRAY_SIZE<br>
-[PATCH 06/18] drm: use ARRAY_SIZE<br>
-[PATCH 07/18] scsi: bfa: use ARRAY_SIZE<br>
-[PATCH 08/18] ecryptfs: use ARRAY_SIZE<br>
-[PATCH 09/18] nfsd: use ARRAY_SIZE<br>
-[PATCH 10/18] orangefs: use ARRAY_SIZE<br>
-[PATCH 11/18] dm space map metadata: use ARRAY_SIZE<br>
-[PATCH 12/18] x86: use ARRAY_SIZE<br>
-[PATCH 13/18] tpm: use ARRAY_SIZE<br>
-[PATCH 14/18] ipmi: use ARRAY_SIZE<br>
-[PATCH 15/18] acpi: use ARRAY_SIZE<br>
-[PATCH 16/18] media: staging: atomisp: use ARRAY_SIZE<br>
-[PATCH 17/18] staging: rtl8723bs: use ARRAY_SIZE<br>
-[PATCH 18/18] staging: rtlwifi: use ARRAY_SIZE<br>
-<br>
-<br>
-[1]: <a href=3D"https://lkml.org/lkml/2017/9/13/689" rel=3D"noreferrer" tar=
-get=3D"_blank">https://lkml.org/lkml/2017/9/<wbr>13/689</a><br>
-______________________________<wbr>_________________<br>
-Intel-gfx mailing list<br>
-<a href=3D"mailto:Intel-gfx@lists.freedesktop.org">Intel-gfx@lists.freedesk=
-top.<wbr>org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/intel-gfx" rel=3D=
-"noreferrer" target=3D"_blank">https://lists.freedesktop.org/<wbr>mailman/l=
-istinfo/intel-gfx</a><br>
-</blockquote></div><br></div></div>
-
---001a11c1601e721592055a9362af--
-
---===============0646744013==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <347864bb-ae8a-4e67-f560-0f110ca906c1-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>, christian.koenig-5C7GfCeVMHo@public.gmane.org, James Zhu <James.Zhu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4
-IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
-
---===============0646744013==--
+SGkgQ2hyaXN0aWFuLCBsZW8sCgpUaGFua3MgZm9yIGNvbW1lbnRzLiBJIHdpbGwgY29ycmVjdCB0
+aGVtIGFjY29yZGluZ2x5LgoKQmVzdCBSZWdhcmRzIQoKSmFtZXMgWmh1CgoKT24gMjAxNy0xMC0w
+MiAxMTo1OSBBTSwgTGVvIExpdSB3cm90ZToKPgo+Cj4gT24gMTAvMDIvMjAxNyAxMTo1NiBBTSwg
+Q2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4gU29tZSBtaW5vciBuaXQgcGlja3Mgb24gcGF0Y2gg
+IzQgYW5kICM5LCBidXQgYXBhcnQgZnJvbSB0aGF0IGl0IGxvb2tzIAo+PiBnb29kIHRvIG1lLgo+
+Pgo+PiBXaXRoIHRob3NlIGZpeGVkIHRoZSBzZXJpZXMgaXMgUmV2aWV3ZWQtYnk6IENocmlzdGlh
+biBLw7ZuaWcgCj4+IDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+LCBidXQgTGVvIHNob3VsZCBw
+cm9iYWJseSB0YWtlIGEgbG9vayBhcyB3ZWxsLgo+Cj4gWWVzLiBJIGRpZC4KPgo+IFdpdGggQ2hy
+aXN0aWFuJ3MgY29tbWVudHMgZml4ZWQuIFRoZSBzZXJpZXMgaXMKPgo+IFJldmlld2VkLWFuZC1U
+ZXN0ZWQtYnk6IExlbyBMaXUgPGxlby5saXVAYW1kLmNvbT4KPgo+Pgo+PiBCVFc6IFdoYXQgY29t
+bWFuZCBkaWQgeW91IHVzZSB0byBzZW5kIHRob3NlIG1haWxzPyBUaGUgc3ViamVjdCBsaW5lcyAK
+Pj4gbG9vayBhIGJpdCBvZGQuCj4+Cj4+IFJlZ2FyZHMsCj4+IENocmlzdGlhbi4KPj4KPj4gQW0g
+MDIuMTAuMjAxNyB1bSAxNjoxMyBzY2hyaWViIEphbWVzIFpodToKPj4+IFRoZXNlIHBhdGNoZXMg
+YWRkIGhlYWRlcnMvcmluZ3MvdGVzdF9jYXNlcy9JUlFzIHRvIHN1cHBvcnQgdXZkNi4zIEhFVkMK
+Pj4+IGVuY29kZSBpbiBhbWRncHUKPj4+IMKgIFNpZ25lZC1vZmYtYnk6IEphbWVzIFpodSA8SmFt
+ZXMuWmh1QGFtZC5jb20+Cj4+PiAtLS0KPj4+IEphbWVzIFpodSAoOSk6Cj4+PiDCoMKgIGRybS9h
+bWRncHU6IGFkZCB1dmQgZW5jIHJlZ2lzdGVycyBpbiBoZWFkZXIKPj4+IMKgwqAgZHJtL2FtZGdw
+dTogYWRkIHV2ZCBlbmMgY29tbWFuZCBpbiBoZWFkZXIKPj4+IMKgwqAgZHJtL2FtZGdwdTogYWRk
+IG5ldyB1dmQgZW5jIHJpbmcgbWV0aG9kcwo+Pj4gwqDCoCBkcm0vYW1kZ3B1OiBhZGQgdXZkIGVu
+YyByaW5ncwo+Pj4gwqDCoCBkcm0vYW1kZ3B1OiBhZGQgdXZkIGVuYyBpbnRvIHJ1biBxdWV1ZQo+
+Pj4gwqDCoCBkcm0vYW1kZ3B1OiBhZGQgdXZkIGVuYyB2bSBmdW5jdGlvbnMKPj4+IMKgwqAgZHJt
+L2FtZGdwdTogYWRkIHV2ZCBlbmMgcmluZyB0ZXN0Cj4+PiDCoMKgIGRybS9hbWRncHU6IGFkZCB1
+dmQgZW5jIGliIHRlc3QKPj4+IMKgwqAgZHJtL2FtZGdwdTogYWRkIHV2ZCBlbmMgaXJxCj4+Pgo+
+Pj4gwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdXZkX3Y2XzAuY8KgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIHwgNDg1IAo+Pj4gKysrKysrKysrKysrKysrKysrKystCj4+PiDCoCBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92aWQuaMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCB8wqAgMTAgKwo+Pj4gwqAgLi4uL2dwdS9kcm0vYW1kL2luY2x1ZGUvYXNpY19yZWcv
+dXZkL3V2ZF82XzBfZC5owqDCoCB8wqAgMTUgKwo+Pj4gwqAgMyBmaWxlcyBjaGFuZ2VkLCA1MDQg
+aW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMoLSkKPj4+Cj4+Cj4+IF9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+
+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+CgpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2FtZC1nZngK
